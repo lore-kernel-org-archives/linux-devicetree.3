@@ -1,225 +1,257 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011055.outbound.protection.outlook.com [40.107.208.55])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EE1A39A06A;
-	Fri, 31 Jul 2026 07:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.55
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785482498; cv=fail; b=kjux5Grg3GIIbCApEyqQ3fwCol479Qys8WbuO2PIh8rKMeozXpJ10ec+bCJo62JWggJL9qyKsftR4K60Ygmwlwbs9yoyeqnWxfAw9kt1MzmlZ93NxvLes84gfIUfpsxMFLJDYLAi9LOEzBcgTx1bwjN5Im5R8qjck49gfijmVuE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785482498; c=relaxed/simple;
-	bh=PEB0lEyD5R6YkrfH4+FRZgmJv+XVAcYUDwkQ8JwaaNY=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pFqP9pJg/6tXM2RjsrEptnmYrxW5jlIgh8Yo64grM+wrAELvUeaKUhatvUlc/D8TdvSlSexrbdtrY0HhcmiWFswlcY9ISHV7H2XnF0vDjQ6fHA/aJp5N3/R+N6L1Ks7cps0tMYt93yIAf23dKVfk5Whpep11ORUgUfHdwdkOcZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=deEtxXHU; arc=fail smtp.client-ip=40.107.208.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4511C3A1D02
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785483199; cv=none; b=t41hcrY+FUrAhMIC/O+dmQLcvkNloXsCQ0gf4uhz0rHuWt/Dlmc4Nhl3WZ16I6PB9aVK6AOz5mqiOFpRxLB+bidtA8IQP2+91RgSUcqN/D+D7Nn9rd2LaLWmfTjVBhYfW7DKtvJofOEQpEuJM3nw6yYpghu0qk29qut8UdKiVTg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785483199; c=relaxed/simple;
+	bh=YqmyT/qYu2cAbEn9E2TIrN4Qg2QW80P2POHFMYOKMz4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DZZAy+pthtAHUZkDgybHA9KAZkNj52qTiSD+6Qi3+uLDedKFMUXpv0bWaLu6n7WWXtWmtEUMFpws9LI+KZQXROi2mDXDRr8184rarubD+CLflb2wgeNxJl8E1VYkJKEcKwQTQBgF+8DPUVaqjTdpmUKCreYiHH89LvhIm2VgRdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Imaswwqq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V2SkQtug; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="deEtxXHU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zJghhJHtOLBA1ep/Fm9hNJruExssxiVCiB0nuaTvC9A78/ZNHJENQxpdNGCAUOyOM39Z046A1VtEDAfc52mzHS0M18M8vi6WVGecPBI9A5k52qOCS9lhN789NGALQgEpKhzolZcuz5a/HOpEgkHFA0nuqVTD2RYxjjoRcivN/9fxjsuV9Hpr4rpPB3Dlaxo+sDlgnBNM9rJZ/qLB8eLLOPDMGdHxCJDyyX1oMWreza4Sdb0hPVc4ZgI8znZtPtKT0BXexQrE0lzW3DrFvtMD7CG98ICSENIWt2GTHud7fliqN4vbGXYGtHbGeUzmQ+7NrMtVrkaeJivum8vZAR/fMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DQ+MPc6aVFNk+sHEhVVUZqpfFImd2lq/KbXL7m1PyoA=;
- b=Vb55WTBkFM9JBq1lo6jbWTNhzIajX9q8HFRmwX/30EPq70sm91u0tf37IAWLaVHItSUYYdgWNC4rBHBFOcCRDlgUue7V/KOwUiaE920XCFceGNgroZjrw7rFU8zHNTkdcHGoOXmGXX2VDwfUbS6z+jcWHPYmJOLrmHfxdO/2lm3KAATkIH5CuOOv0V/sQWU2KCB4QuLI+1rPopzCA63tbBMp7e11bl1msSeGT5Ax/r8vDfPjteSalLUpJMe0EaYZARdwuHFZ0Sm5qjNR+uSTPAIw+WvwCFqX62HO615YiQueXdJ7YMg8tfIQGmFmtQ+cS5PaWIpIPK7KjdAfZ33Pow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DQ+MPc6aVFNk+sHEhVVUZqpfFImd2lq/KbXL7m1PyoA=;
- b=deEtxXHUvhZVENuZS0EoWLbptrm9eH6qmO6bY0dE5lMPD2D1BgbA7uFrPr7rFG6M6KyjHjzplH+8nqQi2rsSfgJzMS1KWbEsCp7S7uvD0uTm7UudQgAmaoE669yHztErdP5f3SkEv9D82UmpYtADWRDbXUulxxYnyKXAQVuO3s8=
-Received: from DS7PR03CA0019.namprd03.prod.outlook.com (2603:10b6:5:3b8::24)
- by LV2PR12MB999073.namprd12.prod.outlook.com (2603:10b6:408:352::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 07:21:25 +0000
-Received: from DS1PEPF00017098.namprd05.prod.outlook.com
- (2603:10b6:5:3b8:cafe::75) by DS7PR03CA0019.outlook.office365.com
- (2603:10b6:5:3b8::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Fri,
- 31 Jul 2026 07:21:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF00017098.mail.protection.outlook.com (10.167.18.102) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 07:21:25 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 02:21:24 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 02:21:24 -0500
-Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 02:21:20 -0500
-From: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
-To: <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <git@amd.com>, <shubhrajyoti.datta@gmail.com>, Michael Turquette
-	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>, "Shubhrajyoti
- Datta" <shubhrajyoti.datta@amd.com>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: [PATCH v3 8/8] clk: clocking-wizard: Use separate notifier_block for each clock
-Date: Fri, 31 Jul 2026 12:50:49 +0530
-Message-ID: <20260731072049.957624-9-shubhrajyoti.datta@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Imaswwqq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V2SkQtug"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66V7MVYA3605130
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:33:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vpdokqVBnZKXEDjkp04OU7LpdQXx434D5TMJ95t5YV8=; b=Imaswwqq8gmPTlZy
+	t2dsZeH2OtJEn6rlV+uTaqGyuwvnpTkxgur6b/DFPs/2RHSXrnqVU+n4Lyv/XixS
+	EgYbaahSV4R7XWLniAyXX8ywNS6JXNaJJoWPoQEkTH50xdIyAJBcCnIjnMB8MEJO
+	LAL3MmQ6SRMG4QGZU0fjT+iOcMd3HH5dVx57aDEFNNDYwfhxCRdAwUWSY72rOyLK
+	OaPAHzqLKf9VYwvLTRW4b38XHLcDkCU5aR6JmiZQX5TkTredskpOLRv8U/uY2pHo
+	oyaU1+q1cPRuVmJFSBHelu0gQZyNf+6b+grUhPEQb1h7a3sXiBwGZOvln6fl1NEA
+	uezBjg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frq8vr1db-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:33:15 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce756aa72eso2235435ad.1
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 00:33:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785483195; x=1786087995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vpdokqVBnZKXEDjkp04OU7LpdQXx434D5TMJ95t5YV8=;
+        b=V2SkQtugNtswbFHC4RjPP/Tm+fqBrS7X1jHvonr78I1GNRhA34X6dj0vxYieaEyvnQ
+         ADWLmD+mEpWivv/kX54Xj1zj+tDsEurePeVgrkiZJ03PHiZfIs+sCEmzcOiblnlv4gXa
+         YF8xibCjD/QFbUeun3bYOITmLcLTwoTKwqev1jmA6C1bw82jSWIz9ycsF/C1PgduQEKf
+         Kf+M6p2ZK47Q4uaczuMZJEX3RIhwXXLy2ZkizPD+n/8ZKyuEH5s7CZhKd6VwBPQAx20i
+         NObALY+aDSluWYtgbOLSuSHKlFKE7uWyLm1tlQjvMU4gv01WZcj88d37FJPloqzaj52r
+         /fJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785483195; x=1786087995;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vpdokqVBnZKXEDjkp04OU7LpdQXx434D5TMJ95t5YV8=;
+        b=DXdblEdsMGzfT37Vr3YineDTVLOMT7Y4Sj3C4TBubvyIRbTlcCsZle/2SA8thfU/+1
+         esNxURjMvSEmUdQ/KOwTem8dZ7NY4bXM6v4syIAodpX6+U3anRmPDeTGFYfPb8PNMKiU
+         vs2sICSRv2pwCL/wtR18Zw033rqO4+uGpm8FXv5EK7uBcPbp3vRP3JWF8UF3p7KSdFeP
+         7ed5BvWf4mBPTLCP5GzVjHA4Cv18k0f2wpn2O7zS05hXZxJcYBrde3lJix7GXb2MbW/n
+         JqXUKahw+ILMUzfy8vY7xnXe6thQzsoZbKMoIri5dBuDDPWyfAfkR4O8VX08sgXxouMN
+         6j4w==
+X-Forwarded-Encrypted: i=1; AHgh+RrsS9Uynac2s0FxUCA1KLsMhGiIAJYSuoyLgUx+/nhxw5N+gYou8iBS4pR5vqdGhu0O6WcxrSlzhsnq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7lVPCYMz0dXWAqdAF8ksQ/sG//U39PcAsFkBhcEPHEtX2VZGE
+	/meD1lyJwqeldWusd5cMqtwMHKAHaosNfPnHanTZCqrxTxWuOWGQhq5d5YILmG9GgBGiKfynpmi
+	7r/Ot3O/eaeNIlcrXp5oOLIH3+wg6Ll8k3s7EPa/bHKP7DHfIhcXfmwM/DJfbA5oa
+X-Gm-Gg: AR+sD11SBecImAmVjvLQA/jPefMnZgLuy3rfwMSItdSuzThCCmFgpmE9Yt7uJL1vr7t
+	q8CaGOzXbJJcV+6Mp+2eUdwJCKfMRjbUCeOj9f5u6ICKZo1EB2vRzFQZDBWXOFnEIRXhUQ4uvIo
+	OPMuV6ZlBo3n44U6voaT19Flkld/Iu5RV7JMuVO3jIyXUA21mf+z1deILFZRGMcSCP1USiRMjjI
+	n7ATUZx1L1LMg7OmvaN6XyJJvQbMj4srFGSAftb/xkifiRbdEllC986IC2wg7UksVnPbb4QgVyo
+	fP7LneTNz8ljsPHTtl52t3IBpVhzmq2ao4Lo+oBFEyFUHNYtYBIIZYOPI7dsNf8lFoXQq8H9tUU
+	xvi70xaHb4QAnJ6KyM7CdjF5KBDJeHpLjocqgKGrdHIpQcr3diCo=
+X-Received: by 2002:a17:902:ce06:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2d046fa078amr17274505ad.4.1785483194657;
+        Fri, 31 Jul 2026 00:33:14 -0700 (PDT)
+X-Received: by 2002:a17:902:ce06:b0:2cf:9e90:8be with SMTP id d9443c01a7336-2d046fa078amr17274125ad.4.1785483194200;
+        Fri, 31 Jul 2026 00:33:14 -0700 (PDT)
+Received: from hu-weiden-sha.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e18e70esm4933384eec.29.2026.07.31.00.33.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 00:33:13 -0700 (PDT)
+From: Wei Deng <wei.deng@oss.qualcomm.com>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Chen-Yu Tsai <wenst@chromium.org>, quic_chezhou@quicinc.com,
+        cheng.jiang@oss.qualcomm.com, shuai.zhang@oss.qualcomm.com,
+        jinwang.li@oss.qualcomm.com, xiuzhuo.shang@oss.qualcomm.com,
+        mengshi.wu@oss.qualcomm.com
+Subject: Re: [PATCH v3 1/3] arm64: dts: qcom: hamoa: Number usb_2 HS port and add M.2 endpoint stubs
+Date: Fri, 31 Jul 2026 13:03:06 +0530
+Message-Id: <20260731073306.1895428-1-wei.deng@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260731072049.957624-1-shubhrajyoti.datta@amd.com>
-References: <20260731072049.957624-1-shubhrajyoti.datta@amd.com>
+In-Reply-To: <8dd0680a-901a-465e-898d-88a17a9a71a4@kernel.org>
+References: <20260729-hamoa-m2-dts-v2-v3-0-4d7ef9274575@oss.qualcomm.com> <20260729-hamoa-m2-dts-v2-v3-1-4d7ef9274575@oss.qualcomm.com> <8dd0680a-901a-465e-898d-88a17a9a71a4@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017098:EE_|LV2PR12MB999073:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e15d987-512c-4064-e11d-08deeed454b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|7416014|82310400026|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	OhgYwzt8g4zYw+VHuaX38xgsxVZfLuamiNznn4eOofumJ0DVZ0X38aacOZV62lkxZoh1UPylmDryaXNfMkCRDXy+9OJtAawngRQ52AuLcgfE61uQ4IQgTh69dBr5Fi7JVK1c3GcA+bz8iK1WOOFlzdMBi+VR8C8k/13+olJS7+m6MYqv5gCC/+sH2ZBARF/2ZMmck5V1C60hwDmvOS8OjPzYqG0L+M8dRv2JEjFK6CgnPAaJ7Xk6hnMfKbuK1PlD8tkSbqPY+GTTgTLj3Vanh7Ky95jUAxVsLUFpt1779Tmqc9HH8j1Hsu+YQTQQAgsyEAdCnqkZ2LCnDczjCrKkIboFpItWcDPD3mY3hAqo01SebeYmsu7U3jFVqH35SbO67VCh57UGMHJBUKGVUXL+2C7FoalhgUcs0ZIX4BeqXJBcctEYTBHXiXghI3pnSLL99UQVbHP9EzJSEzWNPHJRzMCqmAoCz0c2+v2Odb38LrHpv9/7jMTDLkg48NCR+abADZDX8SHltHNRSBLcAEIH5CSZypdNsIlw1uZe5Q0ZG3snqNIRAwtRS5CJDVh5OzRpzAEROCsB3LzW1HLokSstKSyRIeNjScaK1vha5b5mNEyAeD+QmEu3XAuf2mHBN0zDdvFbj/LBATsJBh0oqe6ocqpnghzBE/0/gQ5rcXbG6tA6rTTeR1YdNx/uWpDafX0R/NTdQRbkDW/2LuoORRtP5Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(7416014)(82310400026)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7/PjZsqM/MOteZPodX7lvfmRx0gGAA2n0W2aCnji/S4JHBdHHoT87z2NFptH8WvRDO5el+G9tpcdGiIBh9e32ObQ6oyZPowiZlDZQJmH00LC4riy5HVXQdei+S6r8zw5PJT6bMKxAsUumXnkwWvNboTl3Og7TvXFfi7D/kPYeS7I3uRwrxGkQtvaaVoJUdn0ZNqnGQbEL8lUHfSZkWY5qcK81kIcqa02aV+AEKhgZJHm+PmdPK1lhwsGhgQWlzfVwZspR8vcahMxlIbFwLz0Du8p/DirIVknhuJBaAqAWyzvhHjwNJOVep3ICe2ol2E8RWzF8Vxe2Dr+WLUmLAyf3eQmCRwwdwgCqilQZfT4Ni9UXPgxDgRtl/23mdvBxXpKN77t+yiN2Y7WfsB997YSlkwiIl5u6BK4iL2WoOriYtt+8POV12KmEATo4TA9hpbR
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 07:21:25.3873
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e15d987-512c-4064-e11d-08deeed454b1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017098.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999073
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA1MiBTYWx0ZWRfX3Gj/QOxr2V9R
+ t7HJfxlnDduFN7I1IFsBvedfydSmGFDql4pjjaV+RNq9sihpK67EmF0WjC9TmbLKhGkyWeTIr7i
+ K7DCniOwUoZCMyZJD/aOjHy6S4PixuNe/d58Ub6C7cnJtK6km0ewzHNTsPDi7IXBH2noMncagt9
+ fEBd+RJpuhFrc2+yKnkoq48FryOGtgo6gej0JY8DhTuDMautXffRq7LnIoqBoPfC5QR+L0o3m4m
+ eL0lBePDAJGPkmYrL2CLpjvrWuMFM+K1fJILCAOo9PoqdaSuPnkwh70PKJwHsKwcec+7ttVmMIf
+ dZsUCIbKIjSV5SVPRQZBzs0p2/aQI4Jp8GRzyZtUYG67lvHLrWGGpusVs8CkW70s/Vov1Ys/fYf
+ FEc+N90tZrNLviJRo5D/LWLLJilNK5Dokr9IgqwWm7L0DAmVfWIMa4v1REuNJnwQd3/NCnVAOEk
+ xVanqz9Gh0kVnwuBTWQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA1MiBTYWx0ZWRfX20S3IzP1d5Hx
+ /DLF23xdif3A6tcJCEdZU1osWso68Af2Y+AivFQCjmUj5HdlgqDNbrOlt1kV/5UyrGkH8BmWpmO
+ lHFtIXjO6RdlJ7aiTYJXzHgwLz6P4jA=
+X-Proofpoint-GUID: WYNR5mRLf37kY2J9U1jnnTktpPKEIZ3E
+X-Proofpoint-ORIG-GUID: WYNR5mRLf37kY2J9U1jnnTktpPKEIZ3E
+X-Authority-Analysis: v=2.4 cv=eq3vCIpX c=1 sm=1 tr=0 ts=6a6c4fbb cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=cm27Pg_UAAAA:8 a=EUspDBNiAAAA:8 a=GMep2Sy8T26hx5v__mYA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_02,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607310052
 
-A struct notifier_block has a single 'next' pointer, so registering the
-same instance to two different notification chains corrupts the linked
-lists. Use a dedicated nb_axi for the s_axi_aclk notifier chain.
+Hi Konrad,
 
-Signed-off-by: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>
----
+On Wed, Jul 29, 2026 at 12:46:49PM +0200, Konrad Dybcio wrote:
+> On 7/29/26 12:27 PM, Wei Deng wrote:
+>> Number the existing High-Speed data bus port of the usb_2 DWC3
+>> controller as port@0, consistent with the snps,dwc3 binding convention.
+>>
+>> Also add an empty port@1 endpoint stub (usb_2_m2_ep) for the USB 2.0
+>> interface to M.2 peripherals, and an empty UART endpoint stub
+>> (uart14_ep) in the uart14 serial controller, so that board DTS files
+>> can reference these labels directly without re-entering the port
+>> hierarchy.
+>>
+>> Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
+>> ---
+>
+> [...]
+>
+>> -			port {
+>> -				usb_2_dwc3_hs: endpoint {
+>> +			ports {
+>> +				#address-cells = <1>;
+>> +				#size-cells = <0>;
+>> +
+>> +				port@0 {
+>> +					reg = <0>;
+>> +
+>> +					usb_2_dwc3_hs: endpoint {
+>> +					};
+>> +				};
+>> +
+>> +				port@1 {
+>> +					reg = <1>;
+>> +
+>> +					usb_2_m2_ep: endpoint {
+>> +					};
+>
+> What? Why?
+>
+> 1. what's wrong with assigning the existing endpoint to the m2 graph?
+> 2. this breaks bindings - port@1 is supposed to represent the superspeed
+>    connection
+> 3. why would we have two endpoints for the same physical HS connection?
+>
+> Konrad
 
-Changes in v3:
-Split notifier into per-clock callbacks
+Thanks for the review. I tried (1) locally — repointing the existing
+usb_2_dwc3_hs endpoint at the M.2 graph and keeping the singular
+"port { endpoint { ... } }" structure — and hit a functional failure
+I'd like your and Chen-Yu's input on before v4.
 
- drivers/clk/xilinx/clk-xlnx-clock-wizard.c | 42 +++++++++++++++++-----
- 1 file changed, 33 insertions(+), 9 deletions(-)
+Test on Hamoa IoT EVK with the Chen-Yu Tsai V6 pwrseq series applied [1]:
 
-diff --git a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-index b16656a11f4b..cfad11593b2b 100644
---- a/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-+++ b/drivers/clk/xilinx/clk-xlnx-clock-wizard.c
-@@ -126,7 +126,8 @@ enum clk_wzrd_int_clks {
- /**
-  * struct clk_wzrd - Clock wizard private data structure
-  *
-- * @nb:			Notifier block
-+ * @nb:			Notifier block for clk_in1
-+ * @nb_axi:		Notifier block for s_axi_aclk
-  * @base:		Memory base
-  * @clk_in1:		Handle to input clock 'clk_in1'
-  * @axi_clk:		Handle to input clock 's_axi_aclk'
-@@ -137,6 +138,7 @@ enum clk_wzrd_int_clks {
-  */
- struct clk_wzrd {
- 	struct notifier_block nb;
-+	struct notifier_block nb_axi;
- 	void __iomem *base;
- 	struct clk *clk_in1;
- 	struct clk *axi_clk;
-@@ -184,6 +186,7 @@ struct versal_clk_data {
- };
- 
- #define to_clk_wzrd(_nb) container_of(_nb, struct clk_wzrd, nb)
-+#define to_clk_wzrd_axi(_nb) container_of(_nb, struct clk_wzrd, nb_axi)
- 
- /* maximum frequencies for input/output clocks per speed grade */
- static const unsigned long clk_wzrd_max_freq[] = {
-@@ -1024,6 +1027,30 @@ static struct clk_hw *clk_wzrd_register_divider(struct device *dev,
- 
- static int clk_wzrd_clk_notifier(struct notifier_block *nb, unsigned long event,
- 				 void *data)
-+{
-+	unsigned long max;
-+	struct clk_notifier_data *ndata = data;
-+	struct clk_wzrd *clk_wzrd = to_clk_wzrd_axi(nb);
-+
-+	if (clk_wzrd->suspended)
-+		return NOTIFY_OK;
-+
-+	max = WZRD_ACLK_MAX_FREQ;
-+
-+	switch (event) {
-+	case PRE_RATE_CHANGE:
-+		if (ndata->new_rate > max)
-+			return NOTIFY_BAD;
-+		return NOTIFY_OK;
-+	case POST_RATE_CHANGE:
-+	case ABORT_RATE_CHANGE:
-+	default:
-+		return NOTIFY_DONE;
-+	}
-+}
-+
-+static int clk_wzrd_clk_notifier_in1(struct notifier_block *nb, unsigned long event,
-+				     void *data)
- {
- 	unsigned long max;
- 	struct clk_notifier_data *ndata = data;
-@@ -1032,12 +1059,7 @@ static int clk_wzrd_clk_notifier(struct notifier_block *nb, unsigned long event,
- 	if (clk_wzrd->suspended)
- 		return NOTIFY_OK;
- 
--	if (ndata->clk == clk_wzrd->clk_in1)
--		max = clk_wzrd_max_freq[clk_wzrd->speed_grade - 1];
--	else if (ndata->clk == clk_wzrd->axi_clk)
--		max = WZRD_ACLK_MAX_FREQ;
--	else
--		return NOTIFY_DONE;	/* should never happen */
-+	max = clk_wzrd_max_freq[clk_wzrd->speed_grade - 1];
- 
- 	switch (event) {
- 	case PRE_RATE_CHANGE:
-@@ -1310,7 +1332,7 @@ static int clk_wzrd_probe(struct platform_device *pdev)
- 		}
- 
- 		if (clk_wzrd->speed_grade) {
--			clk_wzrd->nb.notifier_call = clk_wzrd_clk_notifier;
-+			clk_wzrd->nb.notifier_call = clk_wzrd_clk_notifier_in1;
- 
- 			ret = devm_clk_notifier_register(&pdev->dev, clk_wzrd->clk_in1,
- 							 &clk_wzrd->nb);
-@@ -1318,8 +1340,10 @@ static int clk_wzrd_probe(struct platform_device *pdev)
- 				dev_warn(&pdev->dev,
- 					 "unable to register clock notifier\n");
- 
-+			clk_wzrd->nb_axi.notifier_call = clk_wzrd_clk_notifier;
-+
- 			ret = devm_clk_notifier_register(&pdev->dev, clk_wzrd->axi_clk,
--							 &clk_wzrd->nb);
-+							 &clk_wzrd->nb_axi);
- 			if (ret)
- 				dev_warn(&pdev->dev,
- 					 "unable to register clock notifier\n");
+  Option A (v3 as posted: ports { port@0 { usb_2_dwc3_hs }; port@1 {
+  usb_2_m2_ep }; }):
+      BT USB device enumerates; pwrseq_m2 refcount matches expectation.
+
+  Option (1) (singular port { usb_2_dwc3_hs } with remote-endpoint
+  pointing to M.2's port@2):
+      BT USB does not enumerate; pwrseq_m2 refcount is 1 less than the
+      Option A run.
+
+Root cause, following the V6 series:
+
+  V6 patch 6 (usb: hub: Associate port@ fwnode with USB port device),
+  for each USB roothub port, calls
+
+      fwnode_graph_get_port_by_id(fwnode, port1, ...)
+
+  where port1 is the USB port number (starts at 1). usb_2 is HS-only
+  (maximum-speed = "high-speed", single usb2-phy), so this is called
+  with port1 = 1 and looks up a DT node with reg = <1>.
+
+  V6 patch 12 (pwrseq-pcie-m2: support matching on remote "port"
+  node) uses of_graph_get_remote_port(endpoint) to match the USB port
+  device's of_node against the M.2 endpoint's remote port.
+
+Under Option (1) the singular "port { }" has no reg, so
+port_by_id(1) returns NULL, port_dev->dev.of_node is left NULL, the
+pcie-m2 match falls through, pwrseq_get() is never called for the USB
+target, port->pwrseq stays NULL, and W_DISABLE2# is never deasserted
+from the USB path. That's the missing refcount and the failed
+enumeration. Under Option A, port@1's reg = <1> matches port1 = 1,
+graph walks all the way to the M.2 slot and pwrseq_get() succeeds.
+
+So on your (2) and (3): I don't disagree that "port@1 = SS" and "one
+endpoint per physical HS connection" are what the current
+snps,dwc3-common.yaml wants. The v3 shape is what works against the V6
+fwnode lookup, not what I think is semantically clean. Choice seems to
+be between:
+
+  (a) keep "port@1 = SS" — then USB port 1 on a HS-only DWC3 has
+      nowhere to advertise its downstream connector node to the V6
+      lookup, and this M.2 wiring is not expressible; or
+
+  (b) renumber snps,dwc3 ports to match USB port numbering (port@1 =
+      HS if HS-only or SS if SS-capable, port@2 = HS if SS-capable),
+      parallel to Chen-Yu's mediatek,mtk-xhci change in V6 patch 11 [2].
+
+I want to avoid redefining the binding unilaterally, so two questions:
+
+  Konrad: is there a DTS pattern I'm missing that would satisfy the
+  current binding and still let fwnode_graph_get_port_by_id(fwnode, 1,
+  ...) land on the M.2 connector for USB port 1? If not, would you be
+  open to a snps,dwc3-common.yaml renumbering patch along the lines of
+  Chen-Yu's mtk-xhci change?
+
+  Chen-Yu: given the parallel with your patch 11, does snps,dwc3 need
+  the same treatment on the QCom side, and would you rather see that
+  patch go in ahead of your V6 or as a followup?
+
+The 3/3 sort-order comment will be fixed in v4 regardless.
+
+[1] https://lore.kernel.org/all/20260721065413.2306137-1-wenst@chromium.org/
+[2] https://lore.kernel.org/all/20260721065413.2306137-12-wenst@chromium.org/
+
+Thanks,
+
 -- 
-2.34.1
-
+Best Regards,
+Wei Deng
