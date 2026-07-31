@@ -1,116 +1,87 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFF83128D7;
-	Fri, 31 Jul 2026 08:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E82B3AE6F4;
+	Fri, 31 Jul 2026 08:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785485904; cv=none; b=FZQC+TWtIlfuqJmKPX/acss+DYcd4P2lmnki2D++MkG8tFM/JCMcqdwmngtTDa7c85Zz45Phb+OyxYDufBnXhaKvXI64DCWlS+AFkKD348g/wHumciokyyTr1L+JAjfayDumjRh1fZ58qHT3WpsejdoOHJ1pgAnWyn7jjf+DLU4=
+	t=1785486093; cv=none; b=gJD35gXA2JxVKoJ8MXk+LxMo1VfB3KZxPp5nyTsOl/qu4cNgaBXQMoOBfdK4qKavjzrhipcuoWj/rKDXAp3nRwIyte0NGtxUUaPPaHsn7BtSODS79vGD7HAc6QxFU/OZ8fvjxFR9q0kQ/CF+IXaJfLVHyH8FOiOMwkgRkvQhVqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785485904; c=relaxed/simple;
-	bh=TDq/39NYkCTEKLDC0hjx3kVLjkZNdyDTk8aSX84/Fus=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=MFBggHJgLBDxphDLmAypRDdb3vcQMtBJDFuD1eh6wc0ts46OXi1RpqYXAFNzdZ4b2qbBg7qVauzAPee4JmOMxbtGRTNbyQP0RSCNufDl3xgyaq2+p5HRAUjwPK+xw19AZVOQAqi9Euwfbafurqf7k9K6jC8u8DdLqeFnxBiRYhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=O0820tfM; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1785486093; c=relaxed/simple;
+	bh=bpY4HrtlYJVfd5gfQhDR47D5hSCsQCxCy96DYkl0gJM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mVXg4EjqE5Y7LZvqpnKu7PTJH6Z3UB1SXfU98yfb/lopfU6LjTBNDxdurDagChriAjOCPhDNNqr3dPvMYWRezjlB+BCudGzMatqAUY3pt/u35eMlfGL9IXW0o8Hqv9OHJHb/zal37/3zEPL2TIA9EYuZVN9Awihvln/gFYPLmKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=evKH04v0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="O0820tfM"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 66V8HinX61760576, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1785485864; bh=TDq/39NYkCTEKLDC0hjx3kVLjkZNdyDTk8aSX84/Fus=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=O0820tfMFtLGtMVH2gspHi/gE2vBsFsDePTWWP3QC0T+90Op/yr8ivbWqxYykG4mu
-	 +NneuSni+j5gvzuIKXg243fCyBuhaPjbX9u5ghBZgzNizNYIo1ylDoBiArCmQwcdNR
-	 haRh0aU2noHbZpyNquXuWxeDg/o2KQy0NasDyPUfIrBhh5oWQk6MKjRjabSzY3OtBH
-	 tvxAt1otXtcV+D3w/sTyQx0DUwN7IjSFkPp6TNgpye6hHitmMONPnqNutx1a6RBZJK
-	 CSETjwwry9CxsOeFmJOhaE77TDszueHyanm8uWrM80i5ycbf1LTT7aJ2woNG3x5ua1
-	 GcpqsE3+u6y8Q==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 66V8HinX61760576
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Fri, 31 Jul 2026 16:17:44 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 31 Jul 2026 16:17:44 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Fri, 31 Jul 2026 16:17:44 +0800
-From: =?big5?B?WXUtQ2h1biBMaW4gW6pMr6enZ10=?= <eleanor.lin@realtek.com>
-To: Brian Masney <bmasney@redhat.com>
-CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
-	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
-	=?big5?B?RWRnYXIgTGVlIFun9anTv9ld?= <cylee12@realtek.com>,
-	=?big5?B?SnlhbiBDaG91IFupUKrppndd?= <jyanchou@realtek.com>,
-	"afaerber@suse.com" <afaerber@suse.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-clk@vger.kernel.org"
-	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-	"linux-realtek-soc@lists.infradead.org"
-	<linux-realtek-soc@lists.infradead.org>, =?big5?B?SmFtZXMgVGFpIFvAuafTrnBd?=
-	<james.tai@realtek.com>, =?big5?B?Q1lfSHVhbmdbtsDgsq7LXQ==?=
-	<cy.huang@realtek.com>, =?big5?B?U3RhbmxleSBDaGFuZ1up96h8vHdd?=
-	<stanley_chang@realtek.com>
-Subject: RE: [PATCH v11 09/11] clk: realtek: Add RTD1625-CRT clock controller
- driver
-Thread-Topic: [PATCH v11 09/11] clk: realtek: Add RTD1625-CRT clock controller
- driver
-Thread-Index: AQHdHp1PRrydlNtj20y7WRFW4A3UiraFxLQAgAGIGQA=
-Date: Fri, 31 Jul 2026 08:17:44 +0000
-Message-ID: <577a6882b25e457fa94fa199e66f3197@realtek.com>
-References: <20260728142806.1954638-1-eleanor.lin@realtek.com>
- <20260728142806.1954638-10-eleanor.lin@realtek.com>
- <amuBqi43ce9bYbir@redhat.com>
-In-Reply-To: <amuBqi43ce9bYbir@redhat.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="evKH04v0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0BB1F000E9;
+	Fri, 31 Jul 2026 08:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785486091;
+	bh=6lrDWGK6vzFU1EsDsfi0BEKtXzYS5ktvF/nIoXutWM8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=evKH04v0itTTHf6zLboapjddiSf3mEyjtIozC26ElxVlPWuNitK8WO1BglhzbmXoJ
+	 W270Dz1y8NkLWSW5nfLayMAmFb89d+yhSXSx08PMk6XzW7VXkYDN17LX2qQKXrPYeZ
+	 FRSK1AbN/3p5hICsvbbgGRG4gEhtDBbUHHLa7iH7yi/rhYgXkU9JPG3wAQHM95JCEm
+	 TAD1mZdS7g32MMQcU35J3eQfm/RQ1vqIIYFakLuROW4yLiCfc1DYBggoadoonB6L3a
+	 GG7i5fuJ4myoTupqsJo16e4M2mYABRm6R8quv0a3zFbuU5dDWX7yIMEQRCAvEbomMe
+	 LKKoEPG6D0ZWg==
+Message-ID: <a94d2102-9b24-41ea-a5cc-760b75f7251f@kernel.org>
+Date: Fri, 31 Jul 2026 09:21:28 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: nvmem: qfprom: Add compatible for Qualcomm
+ Maili
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260628-maili-qfprom-v1-1-9c097e2edfcd@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260628-maili-qfprom-v1-1-9c097e2edfcd@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-SGkgQnJpYW4sDQoNCj4gSGkgWXUtQ2h1biwNCj4gDQo+IE9uIFR1ZSwgSnVsIDI4LCAyMDI2IGF0
-IDEwOjI4OjA0UE0gKzA4MDAsIFl1LUNodW4gTGluIHdyb3RlOg0KPiA+IEZyb206IENoZW5nLVl1
-IExlZSA8Y3lsZWUxMkByZWFsdGVrLmNvbT4NCj4gPg0KDQooLi4uKQ0KDQo+ID4gKw0KPiA+ICtz
-dGF0aWMgaW50IHJ0ZDE2MjVfY3J0X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYp
-IHsNCj4gPiArICAgICBjb25zdCBzdHJ1Y3QgcnRrX2Nsa19kZXNjICpkZXNjOw0KPiA+ICsNCj4g
-PiArICAgICBkZXNjID0gb2ZfZGV2aWNlX2dldF9tYXRjaF9kYXRhKCZwZGV2LT5kZXYpOw0KPiAN
-Cj4gb2ZfZGV2aWNlX2dldF9tYXRjaF9kYXRhKCkgaXMgZGVwcmVjYXRlZC4gVXNlDQo+IGRldmlj
-ZV9nZXRfbWF0Y2hfZGF0YSgmcGRldi0+ZGV2KSBpbnN0ZWFkLiBZb3Ugc2hvdWxkIGJlIGFibGUg
-dG8gZHJvcCB0aGUNCj4gbGludXgvb2ZfZGV2aWNlLmggaW5jbHVkZSBhdCB0aGUgdG9wLg0KPiAN
-Cg0KQWNrLg0KDQo+IA0KPiA+ICsgICAgIGlmICghZGVzYykNCj4gPiArICAgICAgICAgICAgIHJl
-dHVybiAtRUlOVkFMOw0KPiA+ICsNCj4gPiArICAgICByZXR1cm4gcnRrX2Nsa19wcm9iZShwZGV2
-LCBkZXNjKTsgfQ0KPiA+ICsNCj4gPiArc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQg
-cnRkMTYyNV9jcnRfbWF0Y2hbXSA9IHsNCj4gPiArICAgICB7LmNvbXBhdGlibGUgPSAicmVhbHRl
-ayxydGQxNjI1LWNydC1jbGsiLCAuZGF0YSA9DQo+ID4gKyZydGQxNjI1X2NydF9kZXNjLH0sDQo+
-IA0KPiBBZGQgYSBzcGFjZSBhZnRlciB0aGUgeyBhbmQgYmVmb3JlIHRoZSBlbmRpbmcgfS4NCj4g
-DQoNCkFjay4NCg0KPiA+ICsgICAgIHsgLyogc2VudGluZWwgKi8gfQ0KPiA+ICt9Ow0KPiA+ICtN
-T0RVTEVfREVWSUNFX1RBQkxFKG9mLCBydGQxNjI1X2NydF9tYXRjaCk7DQo+ID4gKw0KPiA+ICtz
-dGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBydGQxNjI1X2NydF9kcml2ZXIgPSB7DQo+ID4g
-KyAgICAgLnByb2JlID0gcnRkMTYyNV9jcnRfcHJvYmUsDQo+ID4gKyAgICAgLmRyaXZlciA9IHsN
-Cj4gPiArICAgICAgICAgICAgIC5uYW1lID0gInJ0ay1ydGQxNjI1LWNydC1jbGsiLA0KPiA+ICsg
-ICAgICAgICAgICAgLm9mX21hdGNoX3RhYmxlID0gcnRkMTYyNV9jcnRfbWF0Y2gsDQo+ID4gKyAg
-ICAgICAgICAgICAuc3VwcHJlc3NfYmluZF9hdHRycyA9IHRydWUsDQo+IA0KPiBUaGlzIGRyaXZl
-ciBpcyBsaXN0ZWQgYXMgYSB0cmlzdGF0ZSBpbiB0aGUgS2NvbmZpZyBidXQgdGhlbiB5b3UgaGF2
-ZSB0aGlzLiBJcyB0aGUNCj4gaW50ZW50aW9uIG9mIHRoaXMgZHJpdmVyIHRvIGJlIGJ1aWx0IGlu
-IG9ubHk/DQo+IA0KDQpJIHdpbGwgY2hhbmdlIHRoZSBLY29uZmlnIG9wdGlvbnMgZm9yIHRoaXMg
-ZHJpdmVyLCBhcyB3ZWxsIGFzIHRoZSByZWxhdGVkDQpjb25maWcsIGZyb20gdHJpc3RhdGUgdG8g
-Ym9vbC4NCg0KPiA+ICsgICAgIH0sDQo+ID4gK307DQo+ID4gKw0KPiA+ICtzdGF0aWMgaW50IF9f
-aW5pdCBydGQxNjI1X2NydF9pbml0KHZvaWQpIHsNCj4gPiArICAgICByZXR1cm4gcGxhdGZvcm1f
-ZHJpdmVyX3JlZ2lzdGVyKCZydGQxNjI1X2NydF9kcml2ZXIpOw0KPiA+ICt9DQo+ID4gK3N1YnN5
-c19pbml0Y2FsbChydGQxNjI1X2NydF9pbml0KTsNCj4gDQo+IElzIHRoZXJlIGEgcmVhc29uIHRo
-YXQgeW91IGNhbid0IHVzZSBtb2R1bGVfcGxhdGZvcm1fZHJpdmVyKCkgdG8gaGF2ZSB0aGlzDQo+
-IHJlZ2lzdGVyZWQgYXQgdGhlIGRldmljZV9pbml0Y2FsbCBsZXZlbD8NCj4gDQo+IEJyaWFuDQoN
-Ck5vIHNwZWNpZmljIHJlYXNvbi4gSSB3aWxsIGNoYW5nZSBpdCB0byB1c2UgbW9kdWxlX3BsYXRm
-b3JtX2RyaXZlcigpIHRvDQp0YWtlIGFkdmFudGFnZSBvZiB0aGUgZGVmZXJyZWQgcHJvYmUgbWVj
-aGFuaXNtLg0KDQpUaGFuayB5b3UgZm9yIHJldmlld2luZy4NCg0KQmVzdCBSZWdhcmRzLA0KWXUt
-Q2h1bg0K
+
+
+On 6/29/26 7:48 AM, Jingyi Wang wrote:
+> Document compatible string for the QFPROM on Qualcomm Maili platform.
+> 
+> Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+> ---
+
+Applied thanks,
+
+
+--srini
+>  Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+> index 8134ddb54e13..72206c44feee 100644
+> --- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+> +++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+> @@ -29,6 +29,7 @@ properties:
+>            - qcom,ipq8074-qfprom
+>            - qcom,ipq9574-qfprom
+>            - qcom,kaanapali-qfprom
+> +          - qcom,maili-qfprom
+>            - qcom,milos-qfprom
+>            - qcom,msm8226-qfprom
+>            - qcom,msm8916-qfprom
+> 
+> ---
+> base-commit: b7bee4ca5688e30ca50fbc87b1b8f7eed7006c17
+> change-id: 20260603-maili-qfprom-bb7ff3daf8a7
+> 
+> Best regards,
+
