@@ -1,97 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02EA51917FB;
-	Fri, 31 Jul 2026 23:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F543C8C55;
+	Fri, 31 Jul 2026 23:20:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785539700; cv=none; b=C1y4gRU/cNUCXmjbUwASmsxlQcz41Houc3Oo6fmHMVxX0RGT2bHYrPEsrYlXlf9y1si5i1Mr2PVC0DOPSs6iYzG/vIAWmpRij57vWpsdDgSEVAWmHawwCcT6pMJDdXTQx0amhSx1aHOT6BOeDq3o/WzfYkCtLaDv9vw+69gqPUM=
+	t=1785540024; cv=none; b=cscDyO6BhrL1JnnSJYHkWkogY7ZU0UjnnWCX9gWIVk/lN9hy3ZYCjkxpd1lDqDvh79A2jkhaa191NfOnMU8gPLvMyrOkU7c6B7cFX3FAQkGlpNtjKHLG3Ogl/SsA6HyBCYWw5sjrNqrRPfX5+X3fOosuSTM1CZvHy0M0IBQoHF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785539700; c=relaxed/simple;
-	bh=MDfZ9qBtboCe6lN9z8woFOBItAhGdfquNHFSHAT2NIw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DV2B0sTE9LEsYkUTtTYbOg5JEL0uFuHMktA3Vmo/1ySrgSl3fdnGSQdSRq9GMCplmMSMZs2tkrIQq6UpX/1Np8PXrtndwvFQaLYdY1oMkVgAJ3u4mBOC81l9Det80pbzgPpR5XKMSp/FY31cgDoDEFqT0NpHyEaLAlJRBLw5Jys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5zXUbes; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785540024; c=relaxed/simple;
+	bh=b1jbsBN8PVKIk1W1VVQJ7Hb77/au6VADIXZdL/L1c3o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=j9vTe9eAF0XgJ20CE1I5fI/vgxrpo2BNHKs1ISGkbTfFIFm0qbY7QE3zULalr9wGEvINSKzoKiIVEhG472aeQ+WktAnqJGwKXRGAxtCrlysiftIA3ygwIyPqkIZ7lUI+lG+WmmbotAMSbiXZSnEQgzBN523E2+QZHjxkWTK8Y+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DHgVz/ti; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5zXUbes"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7EF1F00AC4;
-	Fri, 31 Jul 2026 23:14:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DHgVz/ti"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29721F00AC4;
+	Fri, 31 Jul 2026 23:20:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785539698;
-	bh=MDfZ9qBtboCe6lN9z8woFOBItAhGdfquNHFSHAT2NIw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T5zXUbes6xTSwuN3uIncauszleI25G1WCGpBrzjZxiXz3yKCdwHZNN8oDjVD3dqRG
-	 aVhYl1nvtgP7AGZT0NIcrmHkMCMzXXQXbi4k2J928Ztc13hsuIUv/4SIqbg9eb+l4B
-	 cA/GjFzl/tk5IwrDu1RhS4VxzniYfrfhnTTK2lJpawXAIG84f33Nr9uEdJ327u7xrv
-	 9lwZTLvQUql7Dibwk/ima27ZZxIBPzdsEtfDFuV6Bie3KCbC7tf/a1tG9vWCjzVgtw
-	 TDDJQaICrXIPXCZN+76BbQ0+QWAKEEUL5STHgn+zWvH33WM2bVLVvx5Oq1odLrI6U9
-	 vJExFfAsLgx9Q==
-Date: Sat, 1 Aug 2026 00:14:54 +0100
+	s=k20260515; t=1785540022;
+	bh=8mkw2ozZY1Mo7jsuI6tkydXSVhLTGH/6y9oFCam1vp8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DHgVz/tiNc6xVf5ezGNzvzmeT+JpI7/q4uW8guJR2XDc7BSs3BtWb7liSZxMFca9b
+	 wWUfKP0nMTXvV1KofHwNnG13K5hTuImnRJKl51J3hQU//ZAyMqfV9IRdLcqIAuM12b
+	 1FYwUgT1lGhZPgvAZJmRMg+zNNhf3Xi9zzdu6CeBtLdbtIL7TrD7zVznoQpoFewnG4
+	 aK5Fv4YBNYSDdrQRXuYF9Cw/ozgjg5gwJg0zCNMiTU+OcUgHh/JToMhpauEBZaodlQ
+	 go4OYqzjKNnzQR9C1ir6yZLqOqKIuqiztiyEnGz6Bd0tHuCGC+qjfkmrLSRA9NZe93
+	 J/3ijLG5qI9hw==
 From: Mark Brown <broonie@kernel.org>
-To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] Add MDSP carveout memory-region support for Q6 APM
- on Shikra
-Message-ID: <97cab297-ef92-48dd-8331-71aac0b51538@sirena.org.uk>
-References: <20260618113509.2025881-1-ajay.nandam@oss.qualcomm.com>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ cwweng@nuvoton.com
+In-Reply-To: <20260731023818.1626075-1-cwweng.linux@gmail.com>
+References: <20260731023818.1626075-1-cwweng.linux@gmail.com>
+Subject: Re: [PATCH v5 0/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI
+ controller
+Message-Id: <178552979126.353541.328189267219361170.b4-ty@b4>
+Date: Fri, 31 Jul 2026 21:29:51 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x42DWl2VUrKQeSc1"
-Content-Disposition: inline
-In-Reply-To: <20260618113509.2025881-1-ajay.nandam@oss.qualcomm.com>
-X-Cookie: No shirt, no shoes, no service.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1438; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=b1jbsBN8PVKIk1W1VVQJ7Hb77/au6VADIXZdL/L1c3o=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqbS2zeX6rISPNvKpyKp8c1RxviMtHppXNrokSt
+ /Lu6u2F/TKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCam0tswAKCRAk1otyXVSH
+ 0P3DB/4ksrqYeNau7j6Rik9hG10h9oSsTDlcGayjNIyj4T0B8peFSt6R3SPT+xPDawU29cJghuQ
+ JEBbrI4r9t/UUJ0Hx55xY2RWhal9yqvg/+fZfWn2ZVKmalVrsZTJ4bU2G/VrOZmuUsef7NGBIWQ
+ Waqnwvbb0FtBUegUh8+os1CO0/N+m9VsAAZCZf66WBbLjaR6LxuspN4vgHJOAiPC0j+BZo7vSGj
+ MJI/9oQs+m7Atu8eeESvA9F6oj3sNJ38BDOnSr7/7KZtwNvYZCi1YlJiMbeaMI32T40PPNwrpvm
+ p1W/tywBqEwINGe075qcmt14qMlDydHLpTxMCTG7Qwp9DqZ7
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Fri, 31 Jul 2026 10:38:16 +0800, Chi-Wen Weng wrote:
+> spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller
+> 
+> From: Chi-Wen Weng <cwweng@nuvoton.com>
+> 
+> Add devicetree binding and SPI controller driver support for the Quad SPI
+> controller found in Nuvoton MA35D1 SoCs.
+> 
+> [...]
 
---x42DWl2VUrKQeSc1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to
 
-On Thu, Jun 18, 2026 at 05:05:07PM +0530, Ajay Kumar Nandam wrote:
-> Unlike most Qualcomm targets where audio runs on the ADSP, the Shikra
-> target runs its audio use cases on the MDSP. The MDSP operates in an S2
-> (stage-2) protected/secured memory context, so any buffer shared with
-> it must reside in a dedicated carveout that is SCM-assigned to the
-> MDSP's VMID before use. Without this assignment the MDSP cannot access
-> the buffers and APM communication between APSS and MDSP fails.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
 
-> Depends-on: https://lore.kernel.org/all/20260609064038.492641-1-ajay.nandam@oss.qualcomm.com/
-> Depends-on: https://lore.kernel.org/all/20260618112810.2009847-1-ajay.nandam@oss.qualcomm.com/
+Thanks!
 
-Please resend when the dependencies have been applied, I'm spending far
-too much time repeatedly checking if any of these things can be applied.
+[1/2] dt-bindings: spi: nuvoton,ma35d1-qspi: Add Nuvoton MA35D1 QSPI
+      https://git.kernel.org/broonie/spi/c/d458c752cf6c
+[2/2] spi: ma35d1-qspi: Add Nuvoton MA35D1 QSPI controller support
+      https://git.kernel.org/broonie/spi/c/78b16af159ae
 
-Please include human readable descriptions of things like commits and
-issues being discussed in e-mail in your mails, this makes them much
-easier for humans to read especially when they have no internet access.
-I do frequently catch up on my mail on flights or while otherwise
-travelling so this is even more pressing for me than just being about
-making things a bit easier to read.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
---x42DWl2VUrKQeSc1
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmptLG0ACgkQJNaLcl1U
-h9A3ogf8DQXX93sqkg38MBJw6oQNaYAgMMOmOedxMSBOQec841kbNJ+wgNC/v1IS
-6r6ZSOTsD0JoKfpzB0r42dGCucGnKtY428tWtvQusQjG7nik52dzTIkZ+0/oJjbV
-SsRGAUwfSdDmUH5bBEIh0zPRjsHagPQjh4+1WjJNCqpGiNjrgHN8Xy7OIqPxXVQC
-GGpztK8xroqvUmWPmAG4si3jaao6yx3Gy4vkbYnPqxOdgRxcYEmTes6yC05ay5mk
-n6I2N9L4q6LtakpLsxE+b01QYlnv7UAz128M83LShj41UR1YPNB2A2Mst+OiKQ/o
-iSzg+ivDPZ31r+o8gicM5YENQwVE0A==
-=gT9z
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---x42DWl2VUrKQeSc1--
+Thanks,
+Mark
+
