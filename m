@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF84432E75;
-	Fri, 31 Jul 2026 14:42:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA0043305A;
+	Fri, 31 Jul 2026 14:42:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785508937; cv=none; b=etCZajNIpb7ruC0vu81wFyjAVbDzC82TKL06slh1D+QBjC25viTAOs15u7lhS83D5kuvNOyFBrFpa/ak7wB1Q86PGd9O+X+YlwvFR3d1NSTeu1yXSoJGfcp1WLwczff/nuyt0rCz7dxxoow3+Mquf0ttmgTwP/k1QvIhfTQcOVQ=
+	t=1785508938; cv=none; b=HhpwXcWLvY8vOIs1P0exhTKAfOHF0uPKLZ6wj+us3HUir1TjoVYIojJ31TGYRdXfLdz+dj9hWBk1ahmAqD34SK38XPysaiatsq7kfmZiwL2O/JJNWHNZFC+pZUzQpdyFQp3sfQqIapr4h8sSBcjzSx061Rg00s0eKg2hNpH/X9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785508937; c=relaxed/simple;
-	bh=qKOIeTSTf8d+lTXYraYHloW+e1z63oJfKmMqqagcn9M=;
+	s=arc-20240116; t=1785508938; c=relaxed/simple;
+	bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r9HcULHL787frW7bPCYtJsTS5Yl3LNWyZ1r4etoEdpRUgaiO1f7c8r12xFqbo1yoZGXd5L1oY7kx8wewKHkla//Wf4z0+wrjlzXI1iS7tT9hHqfUWl5t69OpkvwPpj1IVkqISZeFnewL+pGYFTrI1BVop5WR2nKpQ18OCQkEMtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=o6NjRxWv; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=rw1h0s3ARBt1V8O2PaxzQr3VnUAnrLQlaxFo7wGl2+dPbmkoyLp6RblbPVI/Y3xqEv+66hKgBxfsu/sh4aUXZ8qaBltKbbsokRcbgNQeUyjcMKqCanzRM5CHwseDa/u9Y6+lrbAKyfz9FXZCFjJWVMcXcb2wW2nNAx0QDbxu5f4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=BzgoTAZu; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="o6NjRxWv"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="BzgoTAZu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1785508929;
-	bh=qKOIeTSTf8d+lTXYraYHloW+e1z63oJfKmMqqagcn9M=;
+	s=mail; t=1785508930;
+	bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=o6NjRxWv46+ke9429PxNetR6kEBdRO4BMdI43VXAwKXowxjnD25CDj3iQMV3KHFkR
-	 tt1ozoGkpz/u9C9E86nW7hHbJNhQ0I/3HRRFEihEu3Ream4j+p64wtynZscKHdqCDh
-	 wWZXT7xzdCXDlUsZqnd7yvwp1feOXEyZ8k0L/lPAWFgVw0kyRmywWnq6Q1vvxbBks9
-	 Ze43fFzLSF6UCaa9ZI44k9SDXL0aYqpK7whGSbqP3+2Evi7/l+bEAVuOmTfnTm40cp
-	 JUgi7woXX2f7Peo6aMY/SjLFFN6YovSH3WDW/+lJdNTnIbro29YWn30VjiAmodxkLL
-	 Kt0/RogKy39rQ==
+	b=BzgoTAZuLpIhChG1z9LFKGCcE9eLeJYj72GNPrzr2X4PfsrqY/ijCqUgTG/2dswUH
+	 f+Y4yU0y8SAfqfyth5rN3KZo973UXA+RIGdhcxtrtRHLiw6c3UO6uOvtfS8BJ1JbxO
+	 Q3Fzg87kyQeck5OATxVnPpXFmOsczJfXUnIGTgcTRbSscVovFbgLNZBSOWvSj43SKt
+	 hXj7W25MBgaWP5s2oVO9ihZo6k8Fj2jWph0YbJ0VMSUj2r/tJQUI6HzT/wKIKqW4bL
+	 9A4QS6D+Ag5fakCfdOZKmCO+kDl1CAuJMi2wPhEDOrwPdsdyawCQc0J9TyXx42BL/u
+	 yjUUygFzcAL/g==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 98B7717E0906;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B348317E092F;
 	Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 04D6D480035; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+	id 0CA3C480048; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:11 +0200
-Subject: [PATCH v8 06/21] drm/bridge: synopsys: dw-dp: Fix AUX transfer
- timeout race condition
+Date: Fri, 31 Jul 2026 16:42:16 +0200
+Subject: [PATCH v8 11/21] drm/bridge: Add out-of-band HPD notify handler
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +46,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-6-ac1e6a75782f@collabora.com>
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-11-ac1e6a75782f@collabora.com>
 References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -71,78 +70,86 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2162;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2377;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=qKOIeTSTf8d+lTXYraYHloW+e1z63oJfKmMqqagcn9M=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEBHFUicZhlEOUlcLoXNvcbdHQ8Ia8/U3
- 26C1/s7TwXqH4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qaQo8P/Ax6UgFmWEB04GySPwCrM/CC0JyUTEr4hliFpEDpB/oGY73cNyfxv2F89YhEdImGble
- zQ7F8HvkyROWzjSG/auWIMe3TgFTakkGgIYnI+6/58gbvq5u17tTHAXckHjUI50hAOrWKpvAHDZ
- Am4n3Z0D2gQTAdOVn9yygXUZ3yaDazn62yjrs/orfOp1x3J+nf4mvkVOCIxQtsnzBPhfTUbtyu3
- 9v1QnOSLAyef9R6+Oy8g3zDMVBu4SbEXnMDDhtNNfBhMUIiXI+gtVzc9hf29RApfVGGqvQEDZFh
- 50TJZppomSZllSi8hKKG4qwNJlraCpGpo1Kyv5zvdR1fx8ZoWnNeVa7WjHj6YrErQfgf8kZSe6f
- YTAp/YtvnrpT5kzdbsSLy5hb6q9ROR0ti/mZSD1MfDaoGLdNYSloFvIYq31a+8d9u6nlbnuDb1/
- HlrtqXZJpy5EGWoHUMZQbXNckh+QF4eFHpn09KlKYkqbWGRSpS4FHhdVD7m4kK3wd8tKRJVokSg
- nQPLvmiUiBonI0sW5TUdWw6K7JPgSRhbkZbVvttzPknCuisH34y4IrUjoelakb5RA8VXaOFGb8b
- 9gJpJPAtnWe73Wcf9CfAvNCL9eOmLbog2pMD+41qIBZFp6zX+MOLnoMvo1u98osS0mKG50xtQ+G
- fgnYHDBLqDOgDqUUTSDEwIg==
+ bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEABLQDVMHJP/uS0OCzQUhxcaVi2JD9G7
+ 61Rlu6ekPGfI4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qabekP/02yh/jX7Z0sGPbbBmuCzOV7MMLqYfCl52UKQubyh23VuD82JslrDfbwbUNgzkTO61K
+ JNEmH0aPVS3ngw6uedOIA4cJkX8gZmpNi45VQoMZQVglQcbCHptbyXxy6yP0fjbMAP04WkYGdWt
+ I7xp0ywcY0mbmuKm0x7k3KJ5Eupagaj8+JyPTYynqHZfu2YKFc2FMVUCftvdIXO9DLSn4Gv2bRF
+ M0B9zTNtcU0uRXpk+gd4gKfnvifMaLuSgExTkbIc45e8Z41IM/sk3W41iUZsZxCKOYyojPgMflS
+ HQEvzNjbYZ2EX/O/XTJUIQYP0cS3EsXRSkcn2IWs/k5WRPsAsv1M+g6qz1EGdJveZVC92yVx3V3
+ Jt4ywSomCwgkUyqgJtxDCWRIYgJfOtly18utZawWreoQVtsijlyv+0o2bnCQYfP4nLUy+B1oifX
+ 7KQR0FEDmTn2WN9C9PHrj1Vu5MO1HEhO9Stc+EQcqKC7Wp4/r1JK44KkipwQIHzBF/dhX7IaQLr
+ jlmOQvgYdwUkQMWuGuWmnoFo79phQf+pX+zdouNOFhKzNAQFqEwg2n31ey/4Wf+L9a1hLVbLZ9V
+ K6K3xBsKY2gYJ2LA/wQxLKq216vNH3nQIqDxUjJ2nD8BNEpmr+HuYMjaBzcI2LUOnvvGtutZw72
+ YK7s1fNDOtTa++NvGq2o0eg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The DP AUX transfer method uses a completion triggered by an interrupt,
-which can timeout. If the function runs into the timeout and the
-interrupt fires afterwards, the following DP aux transfer completion
-would trigger immediately without waiting for the interrupt. This in
-turn means the next one would also be broken and so on.
+For DP bridges, that can be used for DP AltMode, it might be necessary
+to enforce HPD status. There is an existing ->oob_hotplug_event() on
+the DRM connector, but it currently just calls into hpd_notify().
 
-Fix this potential issue by re-initializing the completion directly
-before sending the AUX command.
+As DP bridge drivers usually also implement .detect and that also
+generates calls into hpd_notify, this is a bad place to force the
+HPD status as the follow-up detect call might force it off again
+resulting in all follow-up calls to the detection routine also
+failing.
 
-As this is racy (the interrupt might arrive between the completion
-re-init and the new command being programmed), also reset the AUX
-controller on timeouts and synchronize pending interrupts to gurantee
-that there are no pending AUX transfers when the dw_dp_aux_transfer()
-returns.
+Avoid this by having a dedicated function for OOB events.
 
-Due to lack of a sink, which generates AUX timeouts, this change is
-effectively untested.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
+ include/drm/drm_bridge.h                       | 14 ++++++++++++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index f373643a9cc1..57b6a8fc98d0 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1466,6 +1466,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	if (WARN_ON(msg->size > 16))
- 		return -E2BIG;
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 8b54069fa53a..632cc3ae3b54 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
+ 	struct drm_bridge_connector *bridge_connector =
+ 		to_drm_bridge_connector(connector);
  
-+	reinit_completion(&dp->complete);
++	/* Notify all bridges in the pipeline of hotplug events. */
++	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
++		if (bridge->funcs->oob_notify)
++			bridge->funcs->oob_notify(bridge, connector, status);
++	}
 +
- 	switch (msg->request & ~DP_AUX_I2C_MOT) {
- 	case DP_AUX_NATIVE_WRITE:
- 	case DP_AUX_I2C_WRITE:
-@@ -1492,6 +1494,12 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	status = wait_for_completion_timeout(&dp->complete, timeout);
- 	if (!status) {
- 		dev_err(dp->dev, "timeout waiting for AUX reply\n");
-+		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
-+				   AUX_RESET, FIELD_PREP(AUX_RESET, 1));
-+		usleep_range(10, 20);
-+		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
-+				   AUX_RESET, FIELD_PREP(AUX_RESET, 0));
-+		synchronize_irq(dp->irq);
- 		return -ETIMEDOUT;
- 	}
+ 	drm_bridge_connector_handle_hpd(bridge_connector, status);
+ }
  
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 58fff047f43b..713652fca033 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
+ 	 */
+ 	void (*hpd_disable)(struct drm_bridge *bridge);
+ 
++	/**
++	 * @oob_notify:
++	 *
++	 * Notify the bridge of out of band hot plug detection.
++	 *
++	 * This callback is optional, it may be implemented by bridges that
++	 * need to be notified of display connection or disconnection for
++	 * internal reasons. One use case is to force the DP controllers HPD
++	 * signal for USB-C DP AltMode.
++	 */
++	void (*oob_notify)(struct drm_bridge *bridge,
++			   struct drm_connector *connector,
++			   enum drm_connector_status status);
++
+ 	/**
+ 	 * @hdmi_tmds_char_rate_valid:
+ 	 *
 
 -- 
 2.53.0
