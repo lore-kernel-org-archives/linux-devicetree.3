@@ -1,231 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (static-84-42-129-46.bb.vodafone.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F5474534A3
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D264A449B1C;
+	Fri, 31 Jul 2026 16:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785516357; cv=none; b=h8kt8nWfDXuwcVfb9BogDhGbThUfgIi2dCMzv2ttUrweuH7XAXPVg8v+1OLBwcmDoqjHhXzA/nZhWLR4m21t4rORvYxe0cW95/vLu7POToiCMKJNuhzwXxP90JOOtH6TpnJ7573ZWyQVS6TuoEZtlfzcBggvJ/KmdvsTbNrmPlk=
+	t=1785516386; cv=none; b=lNW1vQ9vcfCj6bH9JrevHCsnANOwmEvnp0udIwB755J7UWMB+LkKV8ZhI/9S4H1uowvzBHU3EpKM4Zp2qJzOjJCgNKHtQP/dltEg0LXLNg5h4/qHo7OIAocdluBpZ126Leczr1+SYMfxZdR6P1m795NQ/bHI0oeuwE9221Y7brA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785516357; c=relaxed/simple;
-	bh=bht63iXu0HqbsF+gWaA9W/UCS8bUQGU2eIxi+lyL5Rc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jrZxpROi/IZDv1IxlfBZgTogycGquDxgtTxNjKqIvPtR8Cy9qd0RcbjiejwczU9yBh3vENGcKjTm1XEKOspvuLVsLl/eu02OCTtQu11/moJWk62hY8T4BnU1OTUskIB5BVtnqmIT844/ad4EM6DZbdbTRJ7JTIuxVCU/E1fIWcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=msFzTPES; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785516386; c=relaxed/simple;
+	bh=EgHKssWS2IHEXnxUIZmtbiWHpOQgMwWncHCs0HiDZD4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PeZ5ixec0jhKgmytkUupg5XTrDTRmYCw8gWCHiwBJPZntZdypLujSjVkBoWMUo0QUYxncVQt6k6Bhh5T6r6aAxdPW5irvQAMJTlqejiNafjb7KBTwcxpvOT3JWsbsb6KUmDM2yQgEKsHuQGg2cYqAs/BWfT9llCXSQeUNYPC3lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=js9CfTCX; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="msFzTPES"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCD21F00AC4;
-	Fri, 31 Jul 2026 16:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785516356;
-	bh=PVayJ7QJNjwfqPoRWyIgfpB7F7tL4Vh1zUCt3Sr8Qo0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=msFzTPESC0vRxYXOr/tpTIgyklZ2JGAn3KmtQ0tomzSO0zcgea/mQSkkJBEDVWsXx
-	 Qr5q/VGon/Y5eUELhr6DciY+M7HEP7eZEHoTIEFkocxEULX6EoSrxU6gz/f+KXy8tC
-	 AcvtjI7KaVW80p/PKrtTrhFHKybs8Zx0lh1PpLSl5PYTZ9V5w3udyiNxqCF8vfrsRW
-	 CfY+PHCF+HnhO1QWXO27FT2torGczasLrMrBOFP5f0ZsanSSOce2GWAKkDwz7IBL9b
-	 9ef7P/qF60PJaD6+CFLKaxzNIY978ROlUM3bDOzSP69+J+PgkroAdfFpiVZCB2gk98
-	 ArGK/FpKQN50A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] security/keys: zeroize key payloads before kdump
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731162739.158320-5-linux@jaseg.de>
-References: <20260731162739.158320-1-linux@jaseg.de>
- <20260731162739.158320-5-linux@jaseg.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 16:45:55 +0000
-Message-Id: <20260731164555.9DCD21F00AC4@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="js9CfTCX"
+Received: from [10.0.0.182] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id D2BD45340464;
+	Fri, 31 Jul 2026 18:46:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1785516378;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=yTnhZR+RH3H49Tzpp/p53oE4c6zUUfnXbDUgm/T7+84=;
+	b=js9CfTCXnQ845E+2EUMHYeYyInsISOG10dFJzpDoAiwg22i2ehcrvQoxRkzaIqjc8TpBPF
+	nbljwfQUx2wAbyOgRzn5pd/OG4SlTt1AKc857c8H/utLfECJoP2zn2+b4RzyUSeb3kPgL0
+	dI7LxaNc/w5pO5sNJ8Zhdr/oeeBA0gk=
+Message-ID: <b9afe038-dfa3-4927-adf3-5b99885fb911@ixit.cz>
+Date: Fri, 31 Jul 2026 18:46:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add
+ actuator for main rear camera
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Alexander Martinz <amartinz@shiftphones.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz>
+ <20260730-dw9714v-v2-2-d5da19e6c60b@ixit.cz>
+ <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Torn payload updates and in-place frees in `big_key_update` cause =
-Use-After-Free and Out-Of-Bounds writes in `big_key_zeroize` during panic.
-- [High] Sensitive key types (like NVMe TLS PSK and Ceph keys) are missing =
-zeroization callbacks and will leak in crash dumps.
-- [High] Keys removed from the rbtree by the garbage collector but not yet =
-destroyed are missed by the crash zeroization mechanism.
-- [High] Keys whose payloads are currently being instantiated are skipped d=
-uring panic zeroization due to a TOCTOU race with `key->state`.
-- [High] The entire crash zeroization mechanism can be reliably bypassed if=
- `key_serial_lock` is held when panic occurs.
---
 
---- Patch [4]: [PATCH 4/4] security/keys: zeroize key payloads before kdump=
- ---
-commit 6f552c7707db0ce9c5a1ed7eeec0a2afb30b26a3
-Author: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
+On 31/07/2026 17:41, Konrad Dybcio wrote:
+> On 7/30/26 12:20 AM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Main rear camera uses Dongwoon DW9714V actuator. Add regulator and
+>> actuator node.
+>>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+> 
+> [...]
+> 
+>> +	/* SGM2036-2.8YUDH4G/TR */
+>> +	cam_bus_2p8: regulator-cam-bus-2p8 {
+>> +		compatible = "regulator-fixed";
+>> +
+>> +		regulator-name = "cam_bus_2p8";
+>> +		regulator-min-microvolt = <2800000>;
+>> +		regulator-max-microvolt = <2800000>;
+>> +		regulator-enable-ramp-delay = <100>;
+>> +
+>> +		gpio = <&tlmm 8 GPIO_ACTIVE_HIGH>;
+>> +		enable-active-high;
+>> +
+>> +		pinctrl-0 = <&cam_bus_avdd_default_state>;
+>> +		pinctrl-1 = <&cam_bus_avdd_sleep_state>;
+>> +		pinctrl-names = "default", "sleep";
+>> +
+>> +		vin-supply = <&vreg_bob>;
+>> +
+>> +		/*
+>> +		 * TODO: This node represent bus supply to the cam i2c module.
+>> +		 * Others DT do in similar fashion, but should be addressed
+>> +		 * by the bus-supply in the future
+>> +		 */
+> 
+> I can't quite parse the second sentence..
 
-security/keys: zeroize key payloads before kdump
+I'll rephrase, I noticed that other device-trees where there is also i2c 
+level-shifter also introduce always-on regulator. I let clanker check impact on 
+power consumption, it's likely irrelevant, but in the future would be nice to 
+have proper bus-supply property in use instead of always-on.
 
-When CONFIG_CRASH_ZEROIZE is set, try to erase key payloads on panic before
-jumping to the kdump kernel. It implements the zeroize op for the user/logo=
-n,
-encrypted, trusted, and big_key types.
+> 
+> [...]
+> 
+>> +&cci_i2c0 {
+>> +	rear_camera_actuator: actuator@c {
+>> +		compatible = "dongwoon,dw9714v", "dongwoon,dw9714a", "dongwoon,dw9714";
+> 
+> 1 a line would be neater
+> 
+> [...]
+> 
+>> +	cam_bus_avdd_default_state: cam-bus-avdd-default-state {
+>> +		pins = "gpio8";
+>> +		function = "gpio";
+>> +		bias-disable;
+>> +		drive-strength = <2>;
+> 
+> Other nodes have drive-strength first, then bias
+> 
+>> +	};
+>> +
+>> +	cam_bus_avdd_sleep_state: cam-bus-avdd-sleep-state {
+>> +		pins = "gpio8";
+>> +		function = "gpio";
+>> +		bias-disable;
+>> +		drive-strength = <2>;
+>> +		output-low;
+> 
+> Drop output-low, the regulator driver will set that
 
-> diff --git a/security/keys/big_key.c b/security/keys/big_key.c
-> index 268f702df380e..ad8537dda70fa 100644
-> --- a/security/keys/big_key.c
-> +++ b/security/keys/big_key.c
+Sure, all noted and next version will include these changes.>
+> Konrad
 
-[ ... ]
+-- 
+David Heidelberg
 
-> @@ -279,6 +282,18 @@ long big_key_read(const struct key *key, char *buffe=
-r, size_t buflen)
->  	return ret;
->  }
-> =20
-> +static void big_key_zeroize(struct key *key)
-> +{
-> +	struct big_key_payload *payload =3D to_big_key_payload(key->payload);
-> +
-> +	if (payload->data) {
-> +		if (payload->length > BIG_KEY_FILE_THRESHOLD)
-> +			memzero_explicit(payload->data, CHACHA20POLY1305_KEY_SIZE);
-> +		else
-> +			memzero_explicit(payload->data, payload->length);
-> +	}
-> +}
-
-[Severity: High]
-Can this result in a use-after-free or out-of-bounds write if a panic occurs
-during big_key_update?
-
-In big_key_update(), the key payload is modified in-place:
-
-security/keys/big_key.c:big_key_update() {
-        ...
-        if (key_is_positive(key))
-                big_key_destroy(key);
-
-        return generic_key_instantiate(key, prep);
-}
-
-generic_key_instantiate() updates the payload union sequentially. If a panic
-occurs exactly when the payload pointer is freed, or when the new pointer is
-written but payload->length is still the old length, this zeroize function
-will read the torn state asynchronously and potentially write zeroes to fre=
-ed
-memory or beyond the bounds of the new buffer.
-
-> diff --git a/security/keys/key.c b/security/keys/key.c
-> index 091ee084bc300..4f0e8e579cebd 100644
-> --- a/security/keys/key.c
-> +++ b/security/keys/key.c
-
-[ ... ]
-
-> @@ -1268,6 +1269,44 @@ void unregister_key_type(struct key_type *ktype)
->  }
->  EXPORT_SYMBOL(unregister_key_type);
-> =20
-> +#ifdef CONFIG_CRASH_ZEROIZE
-> +/* Called far into vpanic from crash_core.c with other CPUs stopped and
-> + * preemption disabled
-> + */
-> +static int key_crash_zeroize(struct notifier_block *nb, unsigned long ac=
-tion,
-> +		void *data)
-> +{
-> +	struct rb_node *node;
-> +
-> +	/* If we can't acquire the lock, the rbtree might be in an inconsistent
-> +	 * state. That's all we can do then, as there's no point to waiting
-> +	 * at this stage.
-> +	 */
-> +	if (!spin_trylock(&key_serial_lock)) {
-> +		pr_crit("crash_zeroize: can't acquire key_serial_lock. skipping keyrin=
-gs.\n");
-> +		return NOTIFY_DONE;
-> +	}
-
-[Severity: High]
-Does this completely bypass zeroization if another CPU holds the lock when
-the panic occurs?
-
-Any legitimate action on a separate CPU that briefly acquires key_serial_lo=
-ck
-will cause the panicking CPU to fail this trylock. Could this be used to
-reliably bypass the crash zeroize protection for all keys if the panic is
-triggered during that window?
-
-> +
-> +	for (node =3D rb_first(&key_serial_tree); node; node =3D rb_next(node))=
- {
-> +		struct key *key =3D rb_entry(node, struct key, serial_node);
-
-[Severity: High]
-Are keys that are pending destruction missed by this loop?
-
-When a key is unreferenced, key_garbage_collector() removes it from the
-key_serial_tree and adds it to a local graveyard list before freeing it:
-
-security/keys/gc.c:key_garbage_collector() {
-        ...
-        rb_erase(&key->serial_node, &key_serial_tree);
-        spin_unlock(&key_serial_lock);
-
-        list_add_tail(&key->graveyard_link, &graveyard);
-        ...
-}
-
-If a panic happens between the removal from the tree and the actual
-destruction (which can involve sleeping for synchronize_rcu), the key
-material is still in memory but seems to be skipped here.
-
-> +
-> +		if (key->type =3D=3D &key_type_keyring ||
-> +		    key->state =3D=3D KEY_IS_UNINSTANTIATED)
-> +			continue;
-
-[Severity: High]
-Can this skip newly instantiated keys due to a race condition?
-
-In __key_instantiate_and_link(), the payload is populated before the state
-is updated:
-
-security/keys/key.c:__key_instantiate_and_link() {
-        ...
-        ret =3D key->type->instantiate(key, prep);
-
-        if (ret =3D=3D 0) {
-                atomic_inc(&key->user->nikeys);
-                mark_key_instantiated(key, 0);
-        ...
-}
-
-If a panic occurs in the window after the instantiate callback copies the
-secret material but before the state changes from KEY_IS_UNINSTANTIATED,
-the key material is already present but will be skipped by this check.
-
-> +
-> +		/* custom zeroize since free'ing isn't safe at this point */
-> +		if (key->type->zeroize)
-> +			key->type->zeroize(key);
-
-[Severity: High]
-Will this silently leak sensitive keys that lack a zeroize callback?
-
-Several sensitive key types appear to be missing the zeroize callback
-definition in this patch, such as nvme_tls_psk_key_type in
-drivers/nvme/common/keyring.c and key_type_ceph in net/ceph/crypto.c.
-
-Since this loop skips any type without a zeroize callback, those
-cryptographic keys will bypass the crash zeroize mechanism and remain
-in crash dumps.
-
-> +	}
-> +	/* off to kexec()! */
-> +	return NOTIFY_DONE;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731162739.1583=
-20-1-linux@jaseg.de?part=3D4
