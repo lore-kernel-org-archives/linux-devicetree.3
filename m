@@ -1,53 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED60361978;
-	Fri, 31 Jul 2026 03:24:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B87357CE6;
+	Fri, 31 Jul 2026 03:24:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785468299; cv=none; b=aL8E/AGI4OVe7lP+JyV3zTsm4ObL1lxBJ0sBenAfpYry7kYaSXciXISGDEImHZbnyESdnjZ/F4/5EvVMCAB3W4WMEj/UKqx1aN8JyS5Vo5hCqIEufPRE77V5gAH6warHdZSAGambh0PIdl7s1saA2bn3Y5Gn7wGEUUljqBtcekI=
+	t=1785468299; cv=none; b=Rq5OrClqsOeXq9ES61QGfFbOMcQMO7mWgk8ok32iDgELLFGTyvw/sjBt7s/eeOupEERJu0kl914AWmbNeUMROHsgWCAAT2tT1g0sqJD5k2+WBjBKF6NCzCe4mKav2T1Jl1VuFnFhIcJ5oeJ/4rMI8EKmIw5s1fFhsK2rWrJxaNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785468299; c=relaxed/simple;
-	bh=lNlvU6ztE6YFlJDEHlrEIuCGg79pKzfTIQ0/MMFlSYI=;
+	bh=IoE2vvGzOHZnx3pbzXb0vyFAVEMUBRlUwTyaFEAJ+CE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PZDjfYZG3w2s/rFoj2lqYJOYSCHY8/fYm87UH6isCKG0dTDlx5Q5aL1YgtuU5Hxq8IPudh4L/VZ5GRFE5bHZflfqFWBTMXjcCrMFvXCqBO2ITfbuY34ejFK77urswB/LNgx4zo468EvqIdEX/e2dEOWVGOqwmvg+Sg3p38VZiqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TNldfFsL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=HtH2pkDJbcTT5I0avCydBnNSTSH1vO67yXZ6lggOY162d/nKdjuv2qsKQvXA9bCP0A5QuYGQBEi4PnT3bvCvTTfk3PnKQyO2n9damSsC6C09o6st7SfnRSJqii6I0R3p8jYZVHFi6jXAJwV8LZh8y/m3NRiUke0IQuFiQlZIppk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nI/gDYVo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TNldfFsL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FE631F00A3F;
-	Fri, 31 Jul 2026 03:24:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nI/gDYVo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD1541F00A3D;
+	Fri, 31 Jul 2026 03:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785468297;
-	bh=ArK4s1aYAov6otqzHhwmPPSHKabKjz434s4d7zcYZUU=;
+	s=k20260515; t=1785468298;
+	bh=h87uO8THMKg2DtLfc9O93QT49+LvDGiChhTtnIwNtZs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TNldfFsL6YK36eEk8xjAguQmAdTLO+o7fprMzD7EdvbQ7DZOeE27LZpTdghNkqqUr
-	 LhnV+ThLWUsJt0WBomEEjGprge5lrhVVKOr4JN75xZ/VAjv3+KXNzj80o4bMN/rIf8
-	 nSwxh2mKlN97DbiwLGSAASjGCJvK4HZS4zQ0tZPHkkP+lUlOeWPnzMs9IDvDKvRmrd
-	 HqtAQCgRhGvF8kn8t71GYsGxwTKap/hqQ5cqm1o2eYCYfP3kRKWMuYQ714hs57x2mG
-	 +2O2elfC0u5sxgWfaA0IkHuIbvg0uFoIyWsKRCQJiJZFwswrCcfxZeH6+/pG2aN94d
-	 2reHzgIJ7Unnw==
+	b=nI/gDYVo5jUJcAVp6GQnaO5TchFwwiweojrTEO8afojhanoahjLXr1e/CS3l9u8q7
+	 G2cwnfjguKTIbp7taUrVuVtcCOYjB5PG7M5CUqQSfslhrdBoy75JPoSV5t40taQVoU
+	 qCfFynyPNUjboSKIuuworwGgE2BE0UIssPXEnC13W4xmdtcrGygEX0EirFJttkxWVf
+	 L7dCc7BxfGKLne7g9BqTINyG8OZVvzkFoh8MwKcRGJxRxKnSCjV+NpE2nXaOMO91qB
+	 iJLmUI5qVfii2zrKaGFOqBn73qNzKpZYPvGZeCxqyYeppoeybcUotHC8StSd2EVdNB
+	 Epl+RewBxIdPg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Peng <Daniel_Peng@pegatron.corp-partner.google.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
+	Rakesh Kota <rakesh.kota@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	linux-input@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 0/2] cover: arm64: dts: qcom: glymur-crd: Add touchscreen node for ft3d81
-Date: Thu, 30 Jul 2026 22:24:30 -0500
-Message-ID: <178546826815.316815.6995438849092393170.b4-ty@kernel.org>
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: Update spmi-pmic-arb interrupt trigger for shikra
+Date: Thu, 30 Jul 2026 22:24:31 -0500
+Message-ID: <178546826810.316815.15376473511404708903.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260717-add_focaltech_ft3d81_touchscreen_support-v4-0-5dd091e25801@oss.qualcomm.com>
-References: <20260717-add_focaltech_ft3d81_touchscreen_support-v4-0-5dd091e25801@oss.qualcomm.com>
+In-Reply-To: <20260722-fix_shikra_spmi_interrupt_trigger_type-v1-1-1f8a13528cd7@oss.qualcomm.com>
+References: <20260722-fix_shikra_spmi_interrupt_trigger_type-v1-1-1f8a13528cd7@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,20 +53,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 17 Jul 2026 17:28:33 +0530, Pradyot Kumar Nayak wrote:
-> The touchscreen module on Glymur/Mahua CRDs is a ft3d81 chip which, while
-> hardware-compatible with the ft8112 (same I2C-HID protocol, same
-> power-on/reset sequencing), requires the reset-gpios line to be
-> explicitly wired up in the DT. Without it the reset line remains
-> permanently asserted after a suspend/resume cycle and all subsequent
-> I2C transactions fail with -ENXIO.
+On Wed, 22 Jul 2026 16:01:55 +0530, Rakesh Kota wrote:
+> SPMI interrupts are not working after suspend/resume on Shikra.
+> Update the spmi-pmic-arb top-level interrupt trigger type from
+> IRQ_TYPE_EDGE_RISING to IRQ_TYPE_LEVEL_HIGH, as recommended by
+> the hardware design team.
 > 
-> [...]
+> 
 
 Applied, thanks!
 
-[2/2] arm64: dts: qcom: glymur-crd: Add FocalTech ft3d81 touchscreen support
-      commit: 67b5818ecadeb75e29c14add973b8cada2a73788
+[1/1] arm64: dts: qcom: Update spmi-pmic-arb interrupt trigger for shikra
+      commit: 0cd1b39cf234321fb5c2450dc788ef296cb02cb2
 
 Best regards,
 -- 
