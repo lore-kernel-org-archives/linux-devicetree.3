@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4B74119F4
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6872C40DB5E
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785494953; cv=none; b=BrM2sx8HGXSB8v0wju0RT1DsNttc3FiLMiMwM5CjcKOL+U20xSYCfhA6mnXBihbSOTM7hRvnct8Hpa/A8LRt18z/3Q5A2IXb1C2HpOkyOkoib4qOD/+tZUdDGb3U1uEISMblZvR8Qtk7QPHiFDgSTrX+SB6CsPhskm2kS5GmWak=
+	t=1785495161; cv=none; b=N5rdk8t38Q3QMzOth9Vovw1+XtQnoeg/BIYKs/pc4i7OupUdbVwZI5ttbijECggVbVKwF+CdItjDLF/VwRhiafaNpMJqXhrdHQzEEojbNpD4mrxiQLTY8AKvZxpRuKiHCcINsY4tCuj2xmtoDcOcHhouLdSV+seCw9gDD1WAt3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785494953; c=relaxed/simple;
-	bh=jIwUgujFOLxiUPExPARVN//gOzynpnYFjr1JQeEBRQg=;
+	s=arc-20240116; t=1785495161; c=relaxed/simple;
+	bh=ZPdThiDhH1A63iD9l9Qkom9Sl/tyG/cboObxZet6OF4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AeTk8arHc10Cudzf4aXMIEK4aLeuInUUtFH444SYw8mfnEPm6cVAEPuSHBCc4teMVxzRmBeprUQLYJE+2QERV7idUeInN5y0GclM9X6U5pwdl+wWC5BbxMmtWAYQ1BsfqSUzhWC48vfxyqon6b7aQaFJ6ZohvVdvqh0gwnMt2Fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAbB2ou/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CG3goVtsGNCdExtdxhVsUtF8jawmj8HBwN9s8LpCf/DfuIojQNiRDfXTCZ0ob2tj1M0ll8lHDHJRoQkgyqJ6mUlXmkG3ZaKUbquTyfZYHDvMv65oPypn9QRgI9OjN9BgKuooz8lnlr3lUOQPjxeBUO9xZjqV4wQdRsQKIQ+wXhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuWRnCp+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAbB2ou/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 098D11F000E9;
-	Fri, 31 Jul 2026 10:49:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuWRnCp+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CCCD1F000E9;
+	Fri, 31 Jul 2026 10:52:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785494943;
-	bh=yZBFbHq/UJhnvBqMciznh3+YDSK75R5gU7J7Wppfqds=;
+	s=k20260515; t=1785495155;
+	bh=XGLTtULwT4XNGu7drjbLhz541hAuZU7IU5heEpp/rOM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZAbB2ou/sf3Fz6iHdbcvCmMy7eTiZ2jQqUU0f05NYT13+bvEntNaZ1nBw/UkmGjXG
-	 d/fM0P1w2F2vbxGR+T66VLtzrdM/ATodC3Gu8FOGEm15zEGTGMfY5oK6vwEHTRQ4mr
-	 X0p8X4JFynT2g0BtY935saEn735WIsbGJNpcCsvpiKeaRknHQgrHWOjQVq/FwwJYkT
-	 Cy68DQmXW18HDKPC0jCl/nbT+Q/lLwAzW2ZZsI0/0yRgvRJt2J9bt+Qim4twNuQTvo
-	 7BzvzAOtxvGE+E4K9QWtAvVA11yq/UZgCLMy9LXTfHX1nB7lBPeGHvAlcsXEdO5GKv
-	 8YD+nUQskCH/Q==
+	b=HuWRnCp+QHWU/6e6QGSj77+Q2r20+agzd4EBlBm/1u+7YHDBYF1auzuTipCHZgjzb
+	 cjNT826nXJQyPvVdOBAd2i5AInD5A3Z8CLsNlQt1pIYPsMKC7nvIY7dsIQhK/V4q+v
+	 A0TOI8pQqWrR9yrHZuVN4Vi2YyrojPLiEPZK5aC6KwRNm2nh77v50L6LWN15lujgQt
+	 5TSOL+Kd/ODsjWS5Sa9YpQs86ehjdnbRG/HCeofITMMKRbXz+fzX+wDH+G4nuUSt4H
+	 3LsOyDdBBjmlCGjA9nZGjE82clXO5lAFRq3i6xCsxcPXPaJgXQV7G+iZgzbQNuP3EL
+	 pm7MMlckbecJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/9] remoteproc: qcom: pas: add support for TMD
- thermal cooling devices
+Subject: Re: [PATCH v7 5/9] arm64: dts: qcom: kodiak: Enable CDSP & Modem
+ cooling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260731-b4-qmi-tmd-v7-3-3befd44403d5@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260731-b4-qmi-tmd-v7-5-3befd44403d5@oss.qualcomm.com>
 References: <20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com>
- <20260731-b4-qmi-tmd-v7-3-3befd44403d5@oss.qualcomm.com>
+ <20260731-b4-qmi-tmd-v7-5-3befd44403d5@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 10:49:02 +0000
-Message-Id: <20260731104903.098D11F000E9@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 10:52:34 +0000
+Message-Id: <20260731105235.7CCCD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,91 +47,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] TOCTOU race in qmi_tmd_register and disconnected state desynchroni=
-zation.
+- [Medium] Meaningful code and commit message mismatch regarding cooling ma=
+p removals on modem boards.
 --
 
---- Patch [3]: [PATCH v7 3/9] remoteproc: qcom: pas: add support for TMD th=
-ermal cooling devices ---
-commit 89eed46353741313ceea667539ac871767ff067e
+--- Patch [5]: [PATCH v7 5/9] arm64: dts: qcom: kodiak: Enable CDSP & Modem=
+ cooling ---
+commit 8e78187a5b8612e6bf1ed1720f537ae83abca9c8
 Author: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 
-remoteproc: qcom: pas: add support for TMD thermal cooling devices
+arm64: dts: qcom: kodiak: Enable CDSP & Modem cooling
 
-This commit registers Thermal Mitigation Devices (TMDs) for PAS-managed
-remote processors to enable thermal throttling through QMI. It allows the
-thermal framework to request mitigation when remote subsystems such as modem
-and CDSP contribute to thermal pressure.
+This commit sets up cooling maps for the CDSP and Modem on kodiak, throttli=
+ng
+them at 100 degrees C and 95 degrees C respectively. It also deletes the
+inherited cooling maps on non-modem boards to prevent compilation errors
+since they lack the remoteproc_mpss node.
 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> index 25599d7282083..b9c01ce5024ed 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> diff --git a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi b/arc=
+h/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+> index ac89724ee0993..891941906a467 100644
+> --- a/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi
+
 [ ... ]
-> @@ -798,6 +817,64 @@ static void qcom_pas_unassign_memory_region(struct q=
-com_pas *pas)
->  	}
->  }
+
+> @@ -28,8 +28,18 @@ &ipa {
+>  	status =3D "okay";
+>  };
 > =20
-> +static int qcom_pas_setup_tmd(struct qcom_pas *pas, const struct qcom_pa=
-s_data *desc)
-> +{
-[ ... ]
-> +	tmd_inst =3D qmi_tmd_init(pas->dev, desc->tmd_instance_id, tmd_names,
-> +				desc->num_tmd);
-
-[Severity: High]
-Does this expose a TOCTOU race condition and state desynchronization in the
-underlying QMI TMD driver?
-
-Looking at qmi_tmd_register() in drivers/soc/qcom/qmi_tmd.c, tmd->cur_state
-is read locklessly before invoking qmi_tmd_send_state_request():
-
-drivers/soc/qcom/qmi_tmd.c:qmi_tmd_register() {
-	...
-	if (tmd->cdev)
-		return qmi_tmd_send_state_request(tmd, tmd->cur_state);
-	...
-}
-
-A concurrent call to qmi_tmd_set_cur_state() by the thermal core can execute
-between this read and the QMI request, meaning the workqueue could send the
-old state to the hardware and overwrite the thermal core's newly requested
-state.
-
-Additionally, when qmi_tmd_send_state_request() is called while the
-connection is not active (e.g., during a remote subsystem restart), it
-returns 0 without updating the state:
-
-drivers/soc/qcom/qmi_tmd.c:qmi_tmd_send_state_request() {
-	guard(mutex)(&qmi_tmd_cli->mutex);
-
-	if (!qmi_tmd_cli->connection_active)
-		return 0;
-	...
-}
-
-The thermal core assumes the update was successful, but the old state is
-retained. When the connection is restored, qmi_tmd_register() restores the
-old state, permanently dropping the thermal core's requested state.
-
-Can this cause the thermal core and the remote hardware mitigation state to
-become permanently desynchronized?
-
-> +	if (IS_ERR(tmd_inst)) {
-> +		ret =3D PTR_ERR(tmd_inst);
-> +		if (ret =3D=3D -ENODEV)
-> +			return 0;
+> +/delete-node/ &mdmss0_pa_cooling_map;
+> +/delete-node/ &mdmss0_modem_cooling_map;
+> +/delete-node/ &mdmss1_pa_cooling_map;
+> +/delete-node/ &mdmss1_modem_cooling_map;
+> +/delete-node/ &mdmss2_pa_cooling_map;
+> +/delete-node/ &mdmss2_modem_cooling_map;
+> +/delete-node/ &mdmss3_pa_cooling_map;
+> +/delete-node/ &mdmss3_modem_cooling_map;
 > +
-> +		return ret;
-> +	}
-> +
-> +	pas->tmd_inst =3D tmd_inst;
-> +
-> +	return 0;
-> +}
+>  &remoteproc_mpss {
+>  	compatible =3D "qcom,sc7280-mss-pil";
+> +	/delete-property/ #cooling-cells;
+
+[Severity: Medium]
+The commit message states that inherited mdmss cooling-map nodes are removed
+because the remoteproc_mpss node doesn't exist on non-modem boards. However,
+this code deletes the cooling maps and the #cooling-cells property from
+sc7280-herobrine-lte-sku.dtsi, which is an LTE board with a modem.
+
+Is the description in the commit message accurate?
+
+It appears the actual reason for the deletion in the LTE SKU is that it
+overrides the compatible string to qcom,sc7280-mss-pil, which does not supp=
+ort
+the #cooling-cells property.=20
+
+Could the commit message be updated to be more precise about why the nodes
+are removed from this specific modem-enabled board?
+
+>  	reg =3D <0 0x04080000 0 0x10000>, <0 0x04180000 0 0x48>;
+>  	reg-names =3D "qdsp6", "rmb";
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-b4-qmi-tmd=
--v7-0-3befd44403d5@oss.qualcomm.com?part=3D3
+-v7-0-3befd44403d5@oss.qualcomm.com?part=3D5
