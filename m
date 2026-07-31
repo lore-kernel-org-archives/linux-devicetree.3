@@ -1,168 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7E1355F42
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822113ED5C3
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 11:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785496196; cv=none; b=ffkvDA9tvnyRlGiNIT6cAqdoKIFE7z6UCJ/xMrJ10o7BnCWwS2KDCphTAFWVEt1csp+2s7yEBxspXcjsL6RQehony1s2v3w1S4wHxwyjYcW06fkHC6Lzwi/dFamJekZcJiK7QiMxW1nhugDEhsXqyM52DyTZWurB8UrwbmwdA00=
+	t=1785496856; cv=none; b=K6LuaF9EXR4l1GeSVY1NkF0ToJc1WHRHafv2y2/NlVGL23u7bk0udkhlhYlBljSFsa4RXxXZYk3w7E5bYPaV8tS8c2G5TcWfphC6zm3QFtWtb0eRgAk3yDHPqfgXeSUDLf5YHc8PNoe6Nir1IZjb8VVE/e4Ca5o48o/eEvOoVZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785496196; c=relaxed/simple;
-	bh=s9Dp3ScBGBt3a0eMRr8MOXfaIz7TYF1wma8ob1rZDqI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gdfwkKwbMo4nvZTI9GuJWsdQbAUiN5N1o5vPU/iRerdW7/MW4e/oP1thojfZMqPC91likEcjR1s7hA/31Jo2uWth2YmZ1NVa+UD1TqMQvFNjUiT8DE25kuG1em8CglIAk8t+jMlpfhvp1SyKzqf1LbZz3LPtfgAffvAhtgABxFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j0XzqYNv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785496856; c=relaxed/simple;
+	bh=bhq3MzeqOsauBzIWfBC+LweuxxY/XXQ4w63ZT64jvPM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bs+G+xY3nOLN+Js+6cFgoZEpW3cxQBYL4Tt34ildIcuB5h9wzLQHZ6WhPoiqdsdh+/0l+BwN948Jzd0hJGmVLFI9m54DxDNK/REsObBCMWa14pEIIvYloSvI7CvmRx7RTzoChCJisc7hI7RkE/nrbJk+v9QHziAs7Vw/pvin1EM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dmVncrkE; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j0XzqYNv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE6B1F000E9;
-	Fri, 31 Jul 2026 11:09:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785496195;
-	bh=s9Dp3ScBGBt3a0eMRr8MOXfaIz7TYF1wma8ob1rZDqI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j0XzqYNvpHXf70w80HN6fEeZUXZU/LTNIxu0s7qCHE3MJM17Xk3pNAIG1nDXBZRrM
-	 lsNh5hiFcVICdOLLzD6cH16lRBmEblSmmnOihaLO/9JFp3VYIJNuMVv06EvrJ7nC3m
-	 4dRCBvc7ZQcyk/HW/Qq2ooT5KMUG0TOX0ns5F+t+LcIWyQiAbam9QVPMGBkGkL9zmD
-	 Qn+/BJj0qzw6seGdYhJRxaBRdDqjk4Is7L/OVmhTdTlAs5UBnxED2dcbreZXmqU4nM
-	 BtMhWd1AzGdXFMNisl1lE4kYGSPSooDRKfy8GF12ht0YbXYwT+UFHn/qwgUZ+8GW2D
-	 1qd6xgpQhTPww==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] fbdev: ssd1307fb: add support for Sino Wealth
- SH1107 controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jakub Turek" <jakub.turek@elsta.tech>
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
-References: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
- <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 11:09:54 +0000
-Message-Id: <20260731110954.ACE6B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dmVncrkE"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c15f47e6297so89372166b.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 04:20:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785496853; x=1786101653; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bzkNS7AH3AQpIYPHQeQ9hpg4r1cVjOJtrFQ4q2xajzU=;
+        b=dmVncrkEQMeZ3LCEtrYL7CKtvI9z3zNHGLiZrU4uVjApYP+2LAbk6nesi/bE8VH9Ku
+         Pdz+s/ZWQKVRlwGNRKxLlmHqvoId39fwxRp+ju/k9w0tkNvwwKw/7k2dsvnFByGknyb5
+         6ZSHtJkGMFJsfKI2lJLXqGC/ewN7t/2+vW1qB3/JLlnXq2MUQQZLbipQGZNVs1HmSTre
+         s6GdXVTtawgh+wv3dZMEad0Q5zl5IYOmgRGOFFKo6XHOIeOApbMioQ8axdw3b+VDGGSG
+         nxVqUhpg+LqSTbjjrNFu3XUItIdvf0jz5CNbQ/h6l+UoGwQTlAZFnr9umE3F/oaF+Yhs
+         sseA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785496853; x=1786101653;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bzkNS7AH3AQpIYPHQeQ9hpg4r1cVjOJtrFQ4q2xajzU=;
+        b=hL3H0WqFYm+XdNJ+Rwnk7BzrhkVkPQpqRqPSlk1vuq+whV+InjEFenbrHp+SrVILE+
+         CxdqgbYHAejvzpHrbygdEvYEZpHJvyXICkTbxW7DS8ACaIP+Wa185kRJFBNtWX9Ei2AA
+         8mTd5KTmzSXE8wT4tUMxJWvnERZqCkaZr0eLT9mMeRbmsJM4qVqC2Ej2mDu3UXIENJwp
+         aK37k+1PDqs5VtY/FVcC1zmVzOoL0uKTyut7gyE23Z8UAxSITpsGN7EIvLf6Jxl/dbtq
+         q22U2OCzfm5poghQLb/2dIYAF/R2egk8bhgOmNU2nrLNclWuGLd8gwEoJ2WzRaQE58rF
+         VEWA==
+X-Forwarded-Encrypted: i=1; AHgh+RrkMVZ99F2zZkr3q9ltASPmKBpeyvjtf9fWy76/xR19mONchfK1MDgbyTxaelwX7aX6vhV8sfGecEPl@vger.kernel.org
+X-Gm-Message-State: AOJu0YzbW+GKaikO/IoKDijdisD+YePOwgBWq247VgQUuNRg7o7BKSHI
+	doaS+YkSNbNQg5lX8oELArxH7x2jwLUvV0sUEAq2K6+ICCgfuDFwjRxP/2jiagBR9QM=
+X-Gm-Gg: AR+sD12WT/Hv8H5aYV8lGi8SH32AZK/4FJxiW/1cJBn7HW1L84h1QCO/g4p6CWmJl1n
+	85N9B1vkR6sfFlPgAMhM/ADEuI6lIi85AiRIrPUrJcYiJzPAOYPflg6e+yVuw3FPzJC2jKQaMbx
+	DLs2fuIWpKQIE3RB3PnnQz0ihhWRv/Nl/qYq2u/cs4tIkKii6sHX1Fg8wV+S88iAHbFr7PzZscS
+	Eu6bM9zLFcBONqo4ZjYchU9nNBiXKAXdCc901ZKmI/W38H9V/PbKb1FrwXsSCTbaek/iIYGPsf9
+	L/H60z6sBYsXQzqUWb179v+f3EwGo5MW/PXAeZWjvpgCrwgsH+2D0piDF8qUOs8v0/O3/ukt+FW
+	dJnrvslgruQv8FClBzTJbxo3EEEGP9XcFi/x6s7xcT0+F3pJOOr5TI6gCv/gtCahi+JniN74taU
+	Shzb1THT0a2RCVFMFEfoHL7/R7fCxOdcLLE9HtWBJbpbLY1czt+y9kTUNQKN87R91vtwliq6Wp
+X-Received: by 2002:a17:907:1ca4:b0:c12:6dbf:4a80 with SMTP id a640c23a62f3a-c1fd295ec35mr86137366b.63.1785496852551;
+        Fri, 31 Jul 2026 04:20:52 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff24:7210:4eea:ae3f:f2e0:1952])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd3cc331fsm128489966b.28.2026.07.31.04.20.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 04:20:52 -0700 (PDT)
+Date: Fri, 31 Jul 2026 13:20:48 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-hardening@vger.kernel.org, manaf.pallikunhi@oss.qualcomm.com,
+	Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v7 9/9] arm64: dts: qcom: hamoa: Enable CDSP cooling
+Message-ID: <amyFARId5K-Izco1@linaro.org>
+References: <20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com>
+ <20260731-b4-qmi-tmd-v7-9-3befd44403d5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260731-b4-qmi-tmd-v7-9-3befd44403d5@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
+On Fri, Jul 31, 2026 at 04:03:49PM +0530, Gaurav Kohli wrote:
+> From: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+> 
+> Unlike the CPU, the CDSP does not throttle its speed automatically
+> when it reaches high temperatures in hamoa.
+> 
+> Set up CDSP cooling by throttling the cdsp, when it reaches 95°C.
+> 
+> Add polling-delay-passive so the governor periodically evaluates
+> the zone during passive cooling and steps up cooling levels when
+> temperature stabilizes below the next trip.
+> 
 
-New issues:
-- [High] Invalid initialization command sequence sent to SH1107 displays.
-- [Medium] The local variable `ret` can be returned uninitialized in `ssd13=
-07fb_update_rect` when `par->page_address_mode` is true and `pages` evaluat=
-es to 0.
-- [Low] Suboptimal and wasteful memory allocation for `array` when `page_ad=
-dress_mode` is enabled.
+Would be good to mention why you are treating hamoa-iot-evk differently.
 
-Pre-existing issues:
-- [Critical] The driver frees `fb_info` and graphical memory immediately du=
-ring device removal, leading to a Use-After-Free if userspace holds open fi=
-le descriptors.
-- [High] Kernel crash during probe if the device is matched via the legacy =
-I2C ID table.
-- [High] Short I2C writes are silently treated as successes, potentially co=
-rrupting the display.
-- [High] Missing lock around display update sequence allows concurrent I2C =
-transactions to interleave and corrupts the hardware state cache.
-- [High] The driver may sleep in atomic context when fbcon attempts to upda=
-te the display during a kernel panic or oops.
-- [High] Unvalidated `solomon,width` and `solomon,height` device tree prope=
-rties can cause integer overflows when allocating memory, leading to heap b=
-uffer overflows.
-- [High] The `refreshrate` module parameter can be set to 0, which causes a=
- division by zero when configuring the deferred I/O delay.
-- [Low] The `i2c_device_id` array terminator does not use named initializer=
-s.
---
+> Signed-off-by: Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts | 32 +++++++++++++++
+>  arch/arm64/boot/dts/qcom/hamoa.dtsi        | 63 ++++++++++++++++++++++++++++++
+>  2 files changed, 95 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> index 9fa86bb6438e..a146be1cb5fb 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> @@ -1684,4 +1684,36 @@ trip-point0 {
+>  			};
+>  		};
+>  	};
+> +
+> +	nsp0-thermal {
+> +		trips {
+> +			trip-point1 {
+> +				temperature = <105000>;
+> +			};
+> +		};
+> +	};
+> +
+> +	nsp1-thermal {
+> +		trips {
+> +			trip-point1 {
+> +				temperature = <105000>;
+> +			};
+> +		};
+> +	};
+> +
+> +	nsp2-thermal {
+> +		trips {
+> +			trip-point1 {
+> +				temperature = <105000>;
+> +			};
+> +		};
+> +	};
+> +
+> +	nsp3-thermal {
+> +		trips {
+> +			trip-point1 {
+> +				temperature = <105000>;
+> +			};
+> +		};
+> +	};
+>  };
 
---- Patch [1]: [PATCH 1/2] fbdev: ssd1307fb: add support for Sino Wealth SH=
-1107 controller ---
-Note: The format of this review has been altered to a free-form summary due
-to recitation restrictions. Original patch code is not quoted.
+Please avoid overriding node values like this... One quick rename of one
+of the involved nodes and this will be silently broken without compile
+error. Nowadays dtbs_check will *probably* catch these, but if you
+override values using the label reference you would notice it
+immediately when compiling.
 
-Commit: 1ab3e53993e2ff1e1a60665597dfc8bf1a7a4cd1
-Author: Jakub Turek <jakub.turek@elsta.tech>
-Subject: fbdev: ssd1307fb: add support for Sino Wealth SH1107 controller
+All those nodes already have a label you can use:
 
-This commit adds support for the SH1107 display controller to the ssd1307fb
-driver. It introduces a page_address_mode flag to handle the vertical page
-addressing mode utilized by the SH1107.
+&nsp0_alert0 {
+	temperature = <105000>;
+};
 
-[Severity: Medium]
-In ssd1307fb_update_rect(), if par->page_address_mode is true and the
-calculated pages evaluates to 0 (for example, if invoked with a damage
-rectangle where height is 0), both initialization blocks for ret are
-bypassed. Could this result in returning an uninitialized stack variable?
+&nsp1_alert0 {
+	temperature = <105000>;
+};
 
-[Severity: Low]
-In ssd1307fb_update_rect(), when page_address_mode is enabled, the code
-allocates width * pages bytes for the array. However, it only populates
-and writes width bytes per loop iteration, resetting the index each time.
-Is this allocation larger than necessary?
+If the same pattern is already used for other thermal overrides in
+hamoa-iot-evk.dts, it would be good to prepend a patch to fix those too.
 
-[Severity: High]
-In ssd1307fb_init(), the SSD1307FB_SET_ADDRESS_MODE (0x20) command is
-sent unconditionally. On the SH1107 controller, 0x20 is a 1-byte DC-DC
-voltage setting command rather than a 2-byte addressing mode command. Will
-the hardware incorrectly interpret the subsequent byte 0x02 as a standalone
-command instead of an addressing mode parameter?
-
-[Severity: High]
-This is a pre-existing issue, but in ssd1307fb_probe(), device_info is
-fetched using device_get_match_data(). If the driver is bound via the
-legacy I2C sysfs interface, this returns NULL because the entries in the
-ssd1307fb_i2c_id array lack a .driver_data field. Could this cause a kernel
-panic when par->device_info->default_vcomh is dereferenced?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but in ssd1307fb_write_array(),
-if i2c_master_send() returns a short write (a positive value less than len),
-this positive value is returned instead of a negative error. Since call
-sites like ssd1307fb_update_rect() only test for ret < 0, do short writes
-get incorrectly treated as successes, potentially misaligning subsequent
-hardware commands?
-
-[Severity: High]
-This is a pre-existing issue, but ssd1307fb_update_rect() performs multiple
-I2C writes and updates caching variables without holding any driver-level
-lock. Could concurrent access from fbcon, delayed work queues, and userspace
-writes to /dev/fb0 interleave I2C messages and corrupt the hardware state?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but during a system crash, fbcon
-flushes output in atomic context and invokes .fb_imageblit, which eventually
-calls ssd1307fb_update_rect(). This function calls kzalloc() with GFP_KERNEL
-and the sleepable i2c_master_send(). Does this cause a deadlock or nested
-panic preventing oops messages from printing?
-
-[Severity: Critical]
-This is a pre-existing issue, but ssd1307fb_remove() unconditionally calls
-__free_pages() and framebuffer_release() directly inline. If a userspace
-process holds an open file descriptor to /dev/fb0 during device unbind, will
-subsequent operations access freed memory since the driver doesn't wait for
-fbdev core reference counting to reach zero?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but in ssd1307fb_probe(),
-unvalidated solomon,width and solomon,height properties from the device tree
-are multiplied to calculate vmem_size. Could maliciously crafted large
-values cause an integer overflow leading to a small memory allocation and
-subsequent heap buffer overflows in ssd1307fb_update_rect()?
-
-[Severity: High]
-This is a pre-existing issue, but the refreshrate module parameter can be
-set to 0. When configuring the deferred I/O delay in ssd1307fb_probe(), does
-the expression HZ / refreshrate evaluate to a division by zero and crash the
-kernel?
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but the ssd1307fb_i2c_id array
-concludes with an empty terminator instead of using a named initializer.
-Does this violate the I2C subsystem API guidelines for struct i2c_device_id
-arrays?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-feat-sh110=
-7-v1-0-e10977f76e6b@elsta.tech?part=3D1
+Thanks,
+Stephan
