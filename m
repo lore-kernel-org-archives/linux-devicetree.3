@@ -1,46 +1,57 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4E2365A13;
-	Fri, 31 Jul 2026 03:24:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FED369D74;
+	Fri, 31 Jul 2026 03:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785468291; cv=none; b=fDqAJAWILWArHfoPpe3AT7+Bgkv8E+6mZfkmyNFXsBLXBWitUPWYqqhZQnQgAZQVxPbt8EQZrLF2qs3dKvRa6TqRPMtJdChbDJKrv49vIT6rkye/lleKWdFZA2bzQWnILrce0HTm9W4N7NMDOe/j0zZm6rLMzyhCkQIybuP79X8=
+	t=1785468294; cv=none; b=UZmBb1yWIWOkbSKcqCd9J2zlft2rlLJJgNfGI6HUZXOGvAFF3jiZqkryLm+oxMHw2/aj4xO0HK8OfLBWDSv5HmuoxFFBy9i5blWJ1RtJHYwp7xbCCxk2Y2CTJvvC4bBgmaQCP6xItVFojhRfFwarW0dQn1WG7OO07tXcCkvjj78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785468291; c=relaxed/simple;
-	bh=ekGkAg/BkUDpQB8xzU4kDFthEGBtzAVXdGqjJGCjD4U=;
+	s=arc-20240116; t=1785468294; c=relaxed/simple;
+	bh=8x4srScgOSWmBEhslmDhTAtnbR77PkH8wS0966MJVdw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V1K5pf8e2Gbto5/CI0F7iPO3uw9tKgm5f2h/vDKeWnrTfa8OPPEmTYByEeQ7IspZ6cDiWqxhqDh04KAmZN1i/Np4GuiWqY5Pc2ZyUDSEGIF6Z8SI2ddK2xKdRRk0syxKiGOQcYMUE7JTBnxY/pc99EYy66NSDjsdkcoEYXuxS9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKdSKeel; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=MO0wt5aVq4mo+DWuaYqxPyK2gc117hkWGbVm8hZX6nbPUp5a8knE4VzVj2ks4VE7zTxkT52rAbt7FPSAvD4NydkfHC8aC8iUWNy+pvpzvUmdGk0ttS5m72FRro+SZFOYDgm+yvsdjmzgPVdsh2WiPzXk+507xBTTPmbugMW7/F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b304yF3t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKdSKeel"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7736A1F00A3A;
-	Fri, 31 Jul 2026 03:24:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b304yF3t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A3F61F00A3D;
+	Fri, 31 Jul 2026 03:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785468290;
-	bh=l2mfM84xBJNiYCP4q+LBxjUCrdVqSCF//GqircTMtss=;
+	s=k20260515; t=1785468291;
+	bh=58Q92a1GNUUOMZKxtM0vBvuHkH99IPGYJd8aqMeRaus=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AKdSKeeliLp++CADUxBwmNc3feom5YD04b3XGjnIDkUOtTGaKAUKkf8DMTfe5+yQg
-	 QBKjkH7OtfSS0laNtoBptfCD1VA9OTn5LQViyFMTmkD3pj7YPQpkBxvT8OUGA9KZLn
-	 eOmy7wpihWemuU5v/6hk878aFdM/7z/TsSvz5Rhp+yAtFeBw6Byuo4bf/bzY1sHEl8
-	 c9AC+Q5T7sl1cQ4egAe5TQKRBrLH5+OPZ3xoUKqJocE2hFl5eYQOcvZFa+wFpz4227
-	 sgmZVZUAU/JxEMSw/8u+JG8J90QD/0jt8w+j/xo4XahWNz3yCQ1JwQ6j6AQbDGpsFG
-	 XeyV0WIJLrgXQ==
+	b=b304yF3tpI0U42PdqjUGNmcGxLGoWtDNC96YnDuGGnMLkD08+VoKUxT8yLx3oi+S4
+	 XeT+byYwWVpAa/brlpoVtYgfNex0XXXFFpxDXBb4L+xvP5OKtyTQT8WL/7aZ3mPqXy
+	 jJcBgpwI7uIxQE/vh/dRMoI4equTH7dwSK+ZvKSUDIP3sREnXsELcR0YC7CkNYmznm
+	 4c2VTknXoyFxctn8LWMHIUPNi/7uE5hkuga/FLKtkKVBtXbSM2WN/ZQd6HfgSQk9gC
+	 P7G354iwuipl6PENYvIHUdHvUqiYLY8E1L9NCU6JapXa7ZKwHJjoXLi8r60Q3XLkdB
+	 IjCBboJGZC1Yw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Alexander Koskovich <akoskovich@pm.me>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: qcs404: Fix DTBS Check errors in usb controller nodes
-Date: Thu, 30 Jul 2026 22:24:23 -0500
-Message-ID: <178546826827.316815.6622906219692115085.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v3 0/3] Add support for GXCLK for Milos
+Date: Thu, 30 Jul 2026 22:24:24 -0500
+Message-ID: <178546826805.316815.6397600298624001818.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723-qcs404_dtbs_fix-v1-1-c9ca0dd69f23@oss.qualcomm.com>
-References: <20260723-qcs404_dtbs_fix-v1-1-c9ca0dd69f23@oss.qualcomm.com>
+In-Reply-To: <20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com>
+References: <20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,20 +62,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 23 Jul 2026 13:47:04 +0530, Krishna Kurapati wrote:
-> The following errors pop up when DTBS check is done for qcs404 based
-> platforms:
+On Fri, 17 Apr 2026 09:07:43 +0200, Luca Weiss wrote:
+> Similar to other new SoCs, Milos also contains the GXCLKCTL block that
+> we need to control for GPU. Add support for it.
 > 
-> arch/arm64/boot/dts/qcom/qcs404-evb-4000.dtb: usb@79b8800 (qcom,qcs404-
-> dwc3): interrupt-names:1: 'qusb2_phy' was expected
-> from schema $id: http://devicetree.org/schemas/usb/qcom,dwc3.yaml
 > 
-> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: qcs404: Fix DTBS Check errors in usb controller nodes
-      commit: 9812d0a3077489f67afaca84dcc7e01a440ee106
+[3/3] arm64: dts: qcom: milos: Add GX clock controller
+      commit: 882bb27c61610f16e54caa2dc75bacf977f614c9
 
 Best regards,
 -- 
