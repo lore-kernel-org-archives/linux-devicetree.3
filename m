@@ -1,100 +1,169 @@
-Received: from mail.elsta.tech (mail.elsta.tech [194.150.96.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11C142122C;
-	Fri, 31 Jul 2026 10:52:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.150.96.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E23A416849
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:53:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785495176; cv=none; b=BEhZAA69fjXHNLfAydOQmQ77tcOWZDwrD98UHWfL8qjnso09diCFOqLUFvsb6rxhuGdVr0S39yadhyQIQN7UjeeRKjb8+/ApfhoWNJOp1UihDFvfzjWs8fMfXBDbuv1kj244IEsKFpmp/a8I1K1nP6Oe3V0ZaiwkI5U5Z6PlKTc=
+	t=1785495207; cv=none; b=RR2UIP/F7mpmaqosD4E6G1wM+8xASsNIsgOCRHHusY+oBWoh4GtS4Qx3+W7/9XDQ8nWFL9kX1+hk4CLMcBBWTTbzesAV8a2CHc+77ZJVsUKB03hZfjfiqnGKHhi7fA226FY67Shj+ej9RImmheXzN6bT8+CGzRzt0jM05N1ZU8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785495176; c=relaxed/simple;
-	bh=HmmTU0G8Zq6gkDoVpWYcFIPeZuyHk8l9dsSTIwqOyFY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FGW4T8tZAdHmncdTcOCsSqY6ULPZNSBJ7k8fadX1A+JUkkk0JDE7B+S4EDtHvfv4o6dcFyPbYAStj5WYnczyMpunRFkF2nfBz/y716ee/41k03F602ebCDnV51Jai2Ua5N3HdbD9GjpGN20qEg45wBrLf9DESDcByjqrw3P1NWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=elsta.tech; spf=pass smtp.mailfrom=elsta.tech; dkim=pass (2048-bit key) header.d=elsta.tech header.i=@elsta.tech header.b=rULPH7zn; arc=none smtp.client-ip=194.150.96.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=elsta.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=elsta.tech
+	s=arc-20240116; t=1785495207; c=relaxed/simple;
+	bh=yog6llT/wNIAzEL1W3tM9BjJE/IJPmSqgKaoFeg7/Dk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EVwTalAkL08bKfoCuXLXXMOYoidT6Zd/t4ycltR7i7xXnJSkFMH8XN2xJKcUGOb0KFuc7P0GN4NrUuNdTXH2G76hOwPEFxpZNBpPkE/ysYBA3oa0FNrm2ukcoP7gEy9zzAU8kvCNJz6kuAfJ3nvAtY+Ot+6FVwvWo1UfmncyGwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hc0jR//w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=elsta.tech header.i=@elsta.tech header.b="rULPH7zn"
-Received: from localhost (localhost [127.0.0.1])
-	by mail.elsta.tech (Postfix) with ESMTP id 6ECE28D53AD;
-	Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
-Authentication-Results: mail.elsta.tech (amavis); dkim=pass (2048-bit key)
- header.d=elsta.tech
-Received: from mail.elsta.tech ([127.0.0.1])
- by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10032) with ESMTP
- id xeUqlHFTY-a3; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.elsta.tech (Postfix) with ESMTP id 361278D53B1;
-	Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.elsta.tech 361278D53B1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elsta.tech;
-	s=0883730E-C77C-11E9-9DA4-0BE9876769AA; t=1785494793;
-	bh=ucDX/yN/bgjQ8eR0W+6x3z0eH/umeWeTO6jHUIXSMlg=;
-	h=From:Date:Message-Id:MIME-Version:To;
-	b=rULPH7znXxtYdUGCtyyXimK08iELqDDg2QzjwGCjf6sKnmGmTgmCETypxrzBSHudr
-	 EcC7Y9VNZt5DRh1sl5bZ+SBA6SNHQTOUscOFrooxdKT7Y7CjOAClYD0VXSBZugwDtU
-	 Yl5aiYGhFpLcyiWxdd8cfWTuYFbz/oA0tpTqN9ZzfT8A0dwtwy4f5GhCUyhShmacqI
-	 xe8zVd6s2mxpF48b6Ex4YEu4Jtt4yL2jmfPdpCF3bKaZWhc5pdQzREids5pd0gIEzn
-	 NP5tcN5rtejCxa+EzVoiBqf0rR+zOz7qvLb/nq1nupp4TT0FpyJsBI1HOAO06sFJ7d
-	 OSRSAzXg2YgOw==
-X-Virus-Scanned: amavis at elsta.tech
-Received: from mail.elsta.tech ([127.0.0.1])
- by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10026) with ESMTP
- id vZUgiRqc2BKT; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
-Received: from [127.0.1.1] (unknown [172.31.0.125])
-	by mail.elsta.tech (Postfix) with ESMTPSA id EAD058D53AD;
-	Fri, 31 Jul 2026 12:46:32 +0200 (CEST)
-From: Jakub Turek <jakub.turek@elsta.tech>
-Subject: [PATCH 0/2] fbdev: ssd1307fb: add SH1107 support
-Date: Fri, 31 Jul 2026 12:46:15 +0200
-Message-Id: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hc0jR//w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDBA51F000E9;
+	Fri, 31 Jul 2026 10:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785495197;
+	bh=8YZs8mHTSFB1o5bGXEc8Blvz/KTWkBxiUoYBHhW7dOc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Hc0jR//wkiGiBQOkWqgmnJusCkwOiX8UmdYL3oyW7ERHNs4yfB3GAfvM1w9Cg/y+g
+	 cBxvm8oZGnyD7TR4aumc2H97JP0C0BEJp106JAieyf3JtC+ENtNV+75K1+a2uS/dno
+	 5DisHfCgCSRMI7CoBq40DdQD+7SZsf1nUC01q24cA7mCPZohYyZ8q6McpwG+uzG+9B
+	 o9NV5nUUP6zAwbs/ERC21rl+jw7kWE3mP27fJAvyLh2kRj6PtyugYggAI5xY7Snko8
+	 Cwg8xom2LaDMIHuByZptZbivO8+SQBpUk02/OvGrZN0TFg6kb0nu/B8FG+Eap5PxM0
+	 ylNSI3bQ1ZlaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/9] soc: qcom: Add QMI TMD support for remote
+ thermal mitigation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260731-b4-qmi-tmd-v7-2-3befd44403d5@oss.qualcomm.com>
+References: <20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com>
+ <20260731-b4-qmi-tmd-v7-2-3befd44403d5@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 10:53:16 +0000
+Message-Id: <20260731105316.BDBA51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPd8bGoC/yXMQQ5AMBBA0avIrDVpCcVVxIJ2ylggnRKJuLti+
- Rb/X8DoCRma5AKPBzGtS4RKEzBTv4woyEZDJrNS6lwJh30QPCkltTC6dNpWts5tAbHYPDo6v1v
- b/eZ9mNGEdwH3/QCePyXvbwAAAA==
-X-Change-ID: 20260731-feat-sh1107-c76f7d8d93d5
-To: Helge Deller <deller@gmx.de>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Jakub Turek <jakub.turek@elsta.tech>
-X-Mailer: b4 0.15.2
 
-This series adds support for the Sino Wealth SH1107 OLED controller
-to the ssd1307fb driver.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Returning success without saving the requested mitigation state wh=
+en QMI is disconnected permanently loses thermal mitigation updates.
+- [Medium] TOCTOU race condition when reading `tmd->cur_state` during servi=
+ce reconnection causes permanent thermal state desynchronization.
+--
 
-Patch 1 implements SH1107 support in the ssd1307 driver.
-Patch 2 adds the device tree compatible string.
+--- Patch [2]: [PATCH v7 2/9] soc: qcom: Add QMI TMD support for remote the=
+rmal mitigation ---
+commit 02c2244c0a2cebd6be4e1bf4e41d51362be19b5f
+Author: Casey Connolly <casey.connolly@linaro.org>
 
-Tested on:
-- imx7d-colibri
+soc: qcom: Add QMI TMD support for remote thermal mitigation
 
-Signed-off-by: Jakub Turek <jakub.turek@elsta.tech>
----
-Jakub Turek (2):
-      fbdev: ssd1307fb: add support for Sino Wealth SH1107 controller
-      dt-bindings: display: solomon,ssd1307fb: add SH1107 compatible
+This commit adds support for Qualcomm Messaging Interface (QMI) based
+Thermal Mitigation Device (TMD) cooling devices provided by remote subsyste=
+ms.
+It allows client drivers to discover the service and forward cooling state
+updates to remote processors.
 
- .../bindings/display/solomon,ssd1307fb.yaml        |  17 ++
- drivers/video/fbdev/ssd1307fb.c                    | 234 ++++++++++++++-------
- 2 files changed, 172 insertions(+), 79 deletions(-)
----
-base-commit: 37e2f878a7a660a216cc7a60459995fefd150f25
-change-id: 20260731-feat-sh1107-c76f7d8d93d5
+diff --git a/drivers/soc/qcom/qmi_tmd.c b/drivers/soc/qcom/qmi_tmd.c
+new file mode 100644
+index 0000000000000..37e6ef19a0b34
+--- /dev/null
++++ b/drivers/soc/qcom/qmi_tmd.c
+[ ... ]
+@@ -236,25 +236,54 @@
+> +/* Notify the remote subsystem of the requested cooling state */
+> +static int qmi_tmd_send_state_request(struct qmi_tmd *tmd, int state)
+> +{
+> +	struct tmd_set_level_resp resp =3D { 0 };
+> +	struct tmd_set_level_req req =3D { 0 };
+> +	struct qmi_tmd_client *qmi_tmd_cli =3D tmd->qmi_tmd_cli;
+> +	struct qmi_txn txn;
+> +	int ret =3D 0;
+> +
+> +	guard(mutex)(&qmi_tmd_cli->mutex);
+> +
+> +	if (!qmi_tmd_cli->connection_active)
+> +		return 0;
 
-Best regards,
---  
-Jakub Turek <jakub.turek@elsta.tech>
+[Severity: High]
+Will returning 0 here without saving the new state to tmd->cur_state cause
+thermal mitigation updates to be permanently lost?
 
+If the thermal core requests a new state while the remote QMI service is
+down, this returns success but drops the state update. When the service
+reconnects, qmi_tmd_register() will re-send the old tmd->cur_state to the
+hardware.=20
+
+Could this leave the hardware running unmitigated while the thermal framewo=
+rk
+believes it is actively mitigating?
+
+[ ... ]
+@@ -298,34 +327,33 @@
+> +static int qmi_tmd_register(struct qmi_tmd_client *qmi_tmd_cli,
+> +			    const char *label, u8 max_state)
+> +{
+> +	struct device *dev =3D qmi_tmd_cli->dev;
+> +	struct qmi_tmd *tmd;
+> +	int index;
+> +
+> +	for (index =3D 0; index < qmi_tmd_cli->num_tmds; index++) {
+> +		tmd =3D &qmi_tmd_cli->tmds[index];
+> +
+> +		if (!strncasecmp(tmd->name, label,
+> +				 QMI_TMD_DEV_ID_LEN_MAX + 1))
+> +			goto found;
+> +	}
+> +
+> +	dev_dbg(qmi_tmd_cli->dev,
+> +		"TMD '%s' available in firmware but not specified in DT\n",
+> +		label);
+> +	return 0;
+> +
+> +found:
+> +	tmd->max_state =3D max_state;
+> +
+> +	/*
+> +	 * If the cooling device already exists then the QMI service went away =
+and
+> +	 * came back. So just make sure the current cooling device state is
+> +	 * reflected on the remote side and then return.
+> +	 */
+> +	if (tmd->cdev)
+> +		return qmi_tmd_send_state_request(tmd, tmd->cur_state);
+
+[Severity: Medium]
+Is there a race condition between reading tmd->cur_state here and concurren=
+t=20
+updates from the thermal core?
+
+When the QMI service reconnects, tmd->cur_state is read outside of the=20
+qmi_tmd_cli->mutex. If a thermal trip point is crossed concurrently, could
+the following sequence occur:
+
+CPU1: qmi_tmd_register()
+  reads tmd->cur_state (e.g., state A) locklessly
+ =20
+CPU2: qmi_tmd_set_cur_state()
+  acquires qmi_tmd_cli->mutex inside qmi_tmd_send_state_request()
+  sends state B to hardware
+  updates tmd->cur_state =3D B
+  releases mutex
+ =20
+CPU1: qmi_tmd_send_state_request(tmd, state A)
+  acquires qmi_tmd_cli->mutex
+  sends stale state A to hardware
+  reverts tmd->cur_state =3D A
+
+Will this overwrite the new state on the hardware and cause the thermal
+framework's view of the mitigation state to become desynchronized?
+
+> +
+> +	tmd->cdev =3D thermal_of_cooling_device_register(dev->of_node, index,
+> +						       label, tmd, &qmi_tmd_cooling_ops);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-b4-qmi-tmd=
+-v7-0-3befd44403d5@oss.qualcomm.com?part=3D2
