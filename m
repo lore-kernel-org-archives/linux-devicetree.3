@@ -1,509 +1,120 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3CB450419
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B858543802C;
+	Fri, 31 Jul 2026 17:59:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785520321; cv=none; b=nz7ywJ8p+KkWU22kEtp7dP/l4SbWfvkUIr3za8vKTOKkS4D+ilb0MscrGBoSFK6gVI7JaG/DEIINS58SO7s2AOMRdL2w9mKY+5vwWFclrOUt5gE2NJ9Kc8OCmf6pTIXDSuFknlrhdVny8u88A7zVJ+t2XrWBhbcoS3tF2fX0jco=
+	t=1785520797; cv=none; b=OiF+2EOUkXiqFnXzAJ0DDnj6dOHAbFNv43e6NXpuakcXuiH367f+CHXlrSriHc4ivtoGSjugUBy5nBpnInpc6dQOw4BnJNV4PpnZjCn+nIofpYVgVSG2RNLoaDDmmV9kSJeRF7o3AO+mPsi9LprVkanqhegdt5AesyGH5AqRiAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785520321; c=relaxed/simple;
-	bh=HW3Kmxon0yqBcSpEnNtQ9XHfCXtaiXQdbvu8OJxwZwE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uAEuQrX0GuApGchI6Yu9ptUNgNau/Nw6VYXSavbwNpENNoR3ekBcHbx8BEnFMNwwH/rbWQlNYibdwOATuvzUrq0x6Po/GiK7Xo9uvHi8LHXq7tBV3aCNBNKd9y/JfivOwS1WSo4/fk/jh3KQMvmJUcjMTf9/qWME8hZvwFD0nTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DrBgNv+L; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c3ru8v4a; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785520797; c=relaxed/simple;
+	bh=8Ejt7j94YK0/1wEsR1E+YgnB9dh/CjgfpDumLMFInRE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YTmtMTiJJMmjzgsTLqsJPveMUvM9kHDmriSypBRb/igfghOsBm2iRvsImP0EQHPjQ/7g2cZoxmxZcon2+9HYuXieIf1ARuZKBnTafRZJkdOliqSqJlx3tiHOp1N2IKBFEiCJXmWwCpItxnd8t8aylhqEiQhucVjjgwlmn9cEQVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NsNrAEcy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DrBgNv+L";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c3ru8v4a"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFONi4489212
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:51:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	iZ0R++hTVk5sIhaTyuJ0Ofa6jVpk6M/E6xz4eej3pmU=; b=DrBgNv+LLOTlWZyV
-	ShXSmsxD8mGTZja4AWm0t20ox4AGq4pvFmqZtnkj80UKOp8kl0jWmLaSu6m2hpfV
-	TDumYQt20FcC8XrCrAwYIHRbigZVZfZmdh7oR4dUjBCkYLg7cv78V8WxWh68TD9b
-	yj2urnc+uKXgExOmH8KQnhQOLWAkY65uJSjpKDmGDnx4/pgOKvcwFXoJKX7dkL5B
-	j4YnmFyGRNflq+ZG+9q/xTBoSMJjbY1U1PRGD/6T5ZVZlpoKVaghX8bIfe9UC6kh
-	pFz/nbfSnS8S3r9V9nFb9CiVPUc8HCeh+6z+ZAYV7eNEP7HnzLEwbQRbcTttbbCg
-	zOhO5w==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fruk8sm45-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:51:58 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb6cf425e86so1442342a12.1
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785520317; x=1786125117; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iZ0R++hTVk5sIhaTyuJ0Ofa6jVpk6M/E6xz4eej3pmU=;
-        b=c3ru8v4aTiAN2XOqpM1cQEzi42AgowXMGHB7HkbLQP6ArCS5O7NJ1cU5dFh7q2Ma1N
-         0rxx5URtQJEgETpPiPguJp1O7YMZMvw9VQKq+ao84Miw8+x5ljE0PDWyXvrFBy3vvyiu
-         XV4O8zq4tySeTR84IAZZ1T4mo0KZDec2gBaUaz2BCR6vVT2qTJUnMnGEACkAPmwci9ab
-         ZeJHwWQIgjFC+OBD+i63kQzK69/OoH0iARngcHpKRAEe87KrVYWjkyg+3npJD58zhFut
-         y75WqboR0pCt4M73cT172MUyT6DR7IU0r2m47WTfnyrRydFI0iPFAXnh24mI0t9MgjA4
-         YFyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785520317; x=1786125117;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iZ0R++hTVk5sIhaTyuJ0Ofa6jVpk6M/E6xz4eej3pmU=;
-        b=Iwy9YfqmCc/Mx4pyVpwmX+zPoRfAIE/ysXtwCcDENjwd0ixmyXAW1GCe0GzrzZMnKS
-         x9Vp54JZaGWyqGkj6ZhRsM2wKoXFsvWOXyut8ocgXFEAOqHD4+wYluRmITC/shjEh/1z
-         6biXNjCn07XkLIGo3XzoEEJOS0RaTtkmrA60Eq7Vx/y5bseQuQwQIbviaFHAh/TOLQGT
-         TlE7Iq/0w7SltNhTZb/YTj9tWfAkBlC7l119E8b5hPDaDhPR0oKrX0vEIoBRc8WFtreq
-         sA60VNDEmRU6bVWTjbu/khlMuBYt2Zcc6fOR4jpgG32Srxb5H9GJiR8zOngzUWKxBWqT
-         7Sag==
-X-Forwarded-Encrypted: i=1; AHgh+RoOXo61yYGZM4rC9ADuj5OkpyFcSJKLbVYDQz1r+L8FpAt+Kz6IayD7Y/bGsH/+a+KGuFkPEqzCeyZB@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxpw0kzZWpjRfISOCjbxsvb5BUkzc5Q7d5XbQa76E91p7MsPXnP
-	m51HF+lTz+KY6ink/TdHFrtruc7lXNhLbXz7k5dBPsEi+m5ULFn43xx3ne1nabpvydHWCOt5MXA
-	wLZhe54woMAk25UfVhiiM61gBrRRM6ll4ZrSdkta/OBy4TiNfKfyTYsUsGnzRsGf5gYMsSkhB
-X-Gm-Gg: AR+sD12JQia4pWe8Thg5CNKNx8uXwy4Ve5nAc4phlZQPf8qe84z7rCkdbbKvp5B2gFZ
-	0AuZVR7TjXJE+3r/Q6ZQSJ2EwfrDB+Ag7eJTRf/gvWgoODHsK7fYgcIdkmBsMKnWxA6rAbSMFF2
-	EvJqEZR+UUDEPOqOiHszeNzw5Or8Mnhl1eDuub6LFf6KkMZddjzbI+ThrsvXJ3Bv/h43iPeWHrR
-	BPcw29xr+F0uA9ZzaD5Ug3y22Qdep2+HZRuUHvmBI8pSosCReuQGh/tiPmIoK8ijL0daAxakHko
-	0tDyP0G9C+8aM9jc/E8Jquday9SQ8JdeLiqmdJjBzluLJZPDJBacb9xX4+g9s18NsReyNJCZDtA
-	efyGIIh6/KI79t28GkHAcK/A08sME7UJg
-X-Received: by 2002:a05:6a20:d487:b0:3b4:71a9:cd8f with SMTP id adf61e73a8af0-3c92a8371fcmr694627637.41.1785520317120;
-        Fri, 31 Jul 2026 10:51:57 -0700 (PDT)
-X-Received: by 2002:a05:6a20:d487:b0:3b4:71a9:cd8f with SMTP id adf61e73a8af0-3c92a8371fcmr694580637.41.1785520316592;
-        Fri, 31 Jul 2026 10:51:56 -0700 (PDT)
-Received: from [192.168.1.10] ([122.177.247.168])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4cb51asm7645350c88.9.2026.07.31.10.51.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 10:51:56 -0700 (PDT)
-Message-ID: <222a33d8-6ab8-451f-9d22-ae06fbe269b6@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 23:21:46 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NsNrAEcy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B981F00AC4;
+	Fri, 31 Jul 2026 17:59:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785520796;
+	bh=fyIUzU+fps0H82ltDMQ5q7P7fJZeouG3HRKRpQVcPw0=;
+	h=From:Subject:Date:To:Cc;
+	b=NsNrAEcyPyuZwv9lTzLRRTGz+gbjkGT/MFMOSqtLHhYOkLvfP24t5jMkelonhS94X
+	 YgHCiDh4hx792eIhOhuFzpKLwka7R3/WWDyjIXW5UhkVyJYZqSH+Y+QA9igcSUb4kO
+	 mmVl9QJrWr5yRzMExTKKA61EsKwXd9aINGCvLJyKstmzJhY4F8HuZZ20bUZgsYeCto
+	 p58+a5HEd534j4eVxqAEwIELsFoqSgRfOn6AVksbXCBlodMZArW8NR9U0HZvkx+knh
+	 j7w/ZLV2j1r6ggZkMfGk3LXhESrXt1FFbG/W3LlFYFQr6O8lYdl4NyC9BLdJwjZHV1
+	 ywaLIH8WzyJHA==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v2 0/3] X2 Elite Lenovo Yoga Slim 7x Gen11 support
+Date: Fri, 31 Jul 2026 19:59:43 +0200
+Message-Id: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] Bluetooth: qca: add QCC2072 support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        Manivannan Sadhasivam
- <mani@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bartosz Golaszewski <brgl@bgdev.pl>, linux-arm-msm@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-pm@vger.kernel.org, quic_mohamull@quicinc.com,
-        quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com,
-        Vivek Sahu <vivek.sahu@oss.qualcomm.com>,
-        Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
- <20260727-rb3-industrial-bt-uart-v2-2-2d100f30e202@oss.qualcomm.com>
- <53mokww7o5hky34fhwyje7utpqu42md5uknqn2b5km22ccsfzi@fsbf2pth6ztj>
-Content-Language: en-US
-From: Rahul Samana <rahul.samana@oss.qualcomm.com>
-In-Reply-To: <53mokww7o5hky34fhwyje7utpqu42md5uknqn2b5km22ccsfzi@fsbf2pth6ztj>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=W8sIkxWk c=1 sm=1 tr=0 ts=6a6ce0be cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=wVA5pQU3D6HtJETKl3oCcQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=MOouYykqAnKcD-W-GfoA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDEzNyBTYWx0ZWRfXyKMK52Hg5mwL
- MVTBXky/+3xIniFBnzragSO8/mC2hy/MrIzoDMqT7LarXWyjwgjtMANSvzYXpuFg9k7NtLZsJdV
- D+FqxLGon5CdnL2mAOLfpRRodVhy0Is=
-X-Proofpoint-ORIG-GUID: Fpw1A8A7X_08-iI8eFnO9rtnFp2P8bGQ
-X-Proofpoint-GUID: Fpw1A8A7X_08-iI8eFnO9rtnFp2P8bGQ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDEzNyBTYWx0ZWRfX+wYmTkrS7wsy
- Q8ghKxLVmu/bUZAY0IxRy0yXYD+n8ofZVj5oUjTYA2kEcVZO/hBCZIq6o5n2bTXNxOI0ACA/0qq
- SGQepe/Zl6+corYBKebM5UKhg0G0dxkCVK6Q75GLuctnJB8wBK50QWPrSpgjM9H8WwAAYsVkfwE
- L7F8WYnbW+ZEmbR3DDc0dpDjsx8+Ux6fLYbnEkCBTnQdCZB+0u4Y8Uk8ApFHk29oxz4py5OKeUH
- XzKUWvNbsS15aCDiQcotc2+qC3aKR4AhnfoE5sPzanb/EogL2yYLtlYP4tF4InBqnD1JozrvyBm
- pRsfvqQIH54riRHEsIPqIJy1OUM+cqN5jXZDxCGNwd2AZ6p4CosL5jnb71i+xA/pmZcs9favtZY
- oupoUHXmk5VG3RyNCwMRHfHeqWaNEyEiQlNgo6dxLgdsKodHghZ4CbK9TUkyqp22yKI+PktMiaN
- I4PNge90+TlfVV0dS4g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
- malwarescore=0 suspectscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310137
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NUQqDMBAFryL73UBIIYpXKUVMXHWFGs3GUhHv7
+ lr9HJg3bwPGSMhQZhtE/BJTGAXMIwPf12OHihphMNpYbfVTpTCRV2vo6ooX9yE+F6p1tvE6t2g
+ KB7KdIrb0+3df74vFHtCnM3YbEedFDtOt7fsBxpWqdI4AAAA=
+X-Change-ID: 20260603-topic-yoga_submission-fb6dc076e28b
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785520792; l=2345;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=8Ejt7j94YK0/1wEsR1E+YgnB9dh/CjgfpDumLMFInRE=;
+ b=DBkGslITEGTp9PHjGHVhToz3nE56X6cbgHA6y+AOyT6ltnBZar2czzEvx4ygdJhB5SslGlyUm
+ q4vJaXEHF2rDfDU84qxZOv1woMcAdPcRSkqaXTZBG1RIoZHBUxqN/bF
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
+This series brings the bits necessary to support the Lenovo Yoga Slim 7x
+Gen11 laptop, based on the Qualcomm Snapdragon X2 Elite (Glymur) SoC.
 
+The DT allows for a decent UX. Among the features working are:
+ - Audio playback and capture
+ - GPU, Display
+ - Keyboard, touchpad, touchscreen, lid switch
+ - Privacy LED
+ - Charging, Type-C
+ - Wi-Fi, Bluetooth
+ - Modem should work on the SKUs that have it, but it remains untested
+   due to lack of access to such a device (it's just a PCIe device)
 
-On 31-07-2026 20:39, Dmitry Baryshkov wrote:
-> On Mon, Jul 27, 2026 at 09:15:02PM +0530, Rahul Samana wrote:
->> From: Vivek Sahu <vivek.sahu@oss.qualcomm.com>
->>
->> QCC2072 uses the ORN firmware and NVM naming scheme. The tested RB3 Gen 2
->> Industrial BT-over-UART setup also needs the BCS calibration TLV to be
->> combined with the selected NVM before download.
->>
->> Keep the BCS/NVM combination in a helper so missing calibration data or
->> allocation failures can fall back to downloading the NVM alone without a
->> local skip label.
->>
->> Select the NVM file and BCS calibration file using the controller board ID
->> when available, with fallback to the default files. Initialize the BCS
->> calibration filename independently of the NVM filename source so custom NVM
->> firmware-name paths do not leave it unset.
->>
->> Register the QCC2072 compatible with hci_qca and route it through the same
->> UART setup, speed switching and power-control paths as recent Qualcomm
->> Bluetooth controllers.
->>
->> This continues the QCC2072 enablement work previously posted by Vivek Sahu
->> and later extended by Yepuri Siddu for the RB3 Gen 2 Industrial
->> BT-over-UART use case.
->>
->> Signed-off-by: Vivek Sahu <vivek.sahu@oss.qualcomm.com>
->> Co-developed-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
->> Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
->> Co-developed-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
->> Signed-off-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
->> ---
->>  drivers/bluetooth/btqca.c   | 72 ++++++++++++++++++++++++++++++++++++++++++++-
->>  drivers/bluetooth/btqca.h   |  2 ++
->>  drivers/bluetooth/hci_qca.c | 24 +++++++++++++++
->>  3 files changed, 97 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/bluetooth/btqca.c b/drivers/bluetooth/btqca.c
->> index 10c496eaea2c..34bc0684cf1b 100644
->> --- a/drivers/bluetooth/btqca.c
->> +++ b/drivers/bluetooth/btqca.c
->> @@ -569,6 +569,54 @@ static int qca_inject_cmd_complete_event(struct hci_dev *hdev)
->>  	return hci_recv_frame(hdev, skb);
->>  }
->>  
->> +static void qca_combine_nvm_calib(struct hci_dev *hdev, u8 **data,
->> +				  int *size, char *calib_name,
->> +				  size_t max_size)
->> +{
->> +	const struct firmware *calib_fw;
->> +	struct tlv_type_hdr *outer_hdr;
->> +	size_t inner_len, combined_size;
->> +	u8 *combined_data;
->> +	int err;
->> +
->> +	err = request_firmware(&calib_fw, calib_name, &hdev->dev);
->> +	if (err) {
->> +		if (qca_get_alt_nvm_file(calib_name, max_size))
->> +			err = request_firmware(&calib_fw, calib_name, &hdev->dev);
->> +
->> +		if (err) {
->> +			bt_dev_err(hdev, "QCA Failed to request file: %s (%d)",
->> +				   calib_name, err);
->> +			return;
->> +		}
->> +	}
->> +
->> +	bt_dev_info(hdev, "QCA Downloading %s", calib_name);
->> +
->> +	inner_len = *size + calib_fw->size;
->> +	combined_size = sizeof(*outer_hdr) + inner_len;
->> +	combined_data = vmalloc(combined_size);
->> +	if (!combined_data) {
->> +		bt_dev_warn(hdev,
->> +			    "QCA Failed to allocate memory for file: %s",
->> +			    calib_name);
->> +		release_firmware(calib_fw);
->> +		return;
->> +	}
->> +
->> +	outer_hdr = (struct tlv_type_hdr *)combined_data;
->> +	/* high 24 bits = payload length, low 8 bits = type */
->> +	outer_hdr->type_len = cpu_to_le32((inner_len << 8) | 4);
->> +	memcpy(combined_data + sizeof(*outer_hdr), *data, *size);
->> +	memcpy(combined_data + sizeof(*outer_hdr) + *size,
->> +	       calib_fw->data, calib_fw->size);
->> +	release_firmware(calib_fw);
->> +
->> +	vfree(*data);
->> +	*data = combined_data;
->> +	*size = combined_size;
->> +}
->> +
->>  static int qca_download_firmware(struct hci_dev *hdev,
->>  				 struct qca_fw_config *config,
->>  				 enum qca_btsoc_type soc_type,
->> @@ -614,6 +662,11 @@ static int qca_download_firmware(struct hci_dev *hdev,
->>  	memcpy(data, fw->data, size);
->>  	release_firmware(fw);
->>  
->> +	if (soc_type == QCA_QCC2072 && config->type == TLV_TYPE_NVM)
->> +		qca_combine_nvm_calib(hdev, &data, &size,
->> +				      config->calib_name,
->> +				      sizeof(config->calib_name));
->> +
->>  	ret = qca_tlv_check_data(hdev, config, data, size, soc_type);
->>  	if (ret)
->>  		goto out;
->> @@ -845,6 +898,10 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
->>  			snprintf(config.fwname, sizeof(config.fwname),
->>  				 "qca/hmtbtfw%02x.tlv", rom_ver);
->>  			break;
->> +		case QCA_QCC2072:
->> +			snprintf(config.fwname, sizeof(config.fwname),
->> +				 "qca/ornbtfw%02x.tlv", rom_ver);
->> +			break;
-> 
-> Please try to keep these sorted.
-> 
->>  		default:
->>  			snprintf(config.fwname, sizeof(config.fwname),
->>  				 "qca/rampatch_%08x.bin", soc_ver);
->> @@ -878,7 +935,8 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
->>  	/* Give the controller some time to get ready to receive the NVM */
->>  	msleep(10);
->>  
->> -	if (soc_type == QCA_QCA2066 || soc_type == QCA_WCN7850)
->> +	if (soc_type == QCA_QCA2066 || soc_type == QCA_WCN7850 ||
->> +	    soc_type == QCA_QCC2072)
->>  		qca_read_fw_board_id(hdev, &boardid);
->>  
->>  	/* Download NVM configuration */
->> @@ -939,12 +997,23 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
->>  			qca_get_nvm_name_by_board(config.fwname, sizeof(config.fwname),
->>  				 "hmtnv", soc_type, ver, rom_ver, boardid);
->>  			break;
->> +		case QCA_QCC2072:
->> +			qca_get_nvm_name_by_board(config.fwname, sizeof(config.fwname),
->> +						  "ornnv", soc_type, ver,
->> +						  rom_ver, boardid);
->> +			break;
-> 
-> Sorted
-> 
->>  		default:
->>  			snprintf(config.fwname, sizeof(config.fwname),
->>  				 "qca/nvm_%08x.bin", soc_ver);
->>  		}
->>  	}
->>  
->> +	if (soc_type == QCA_QCC2072)
->> +		qca_get_nvm_name_by_board(config.calib_name,
->> +					  sizeof(config.calib_name),
->> +					  "ornbcscal", soc_type, ver,
->> +					  rom_ver, boardid);
->> +
->>  	err = qca_download_firmware(hdev, &config, soc_type, rom_ver);
->>  	if (err < 0 && !firmware_name && soc_type == QCA_WCN6855) {
->>  		qca_get_nvm_name_by_board(config.fwname, sizeof(config.fwname),
->> @@ -1001,6 +1070,7 @@ int qca_uart_setup(struct hci_dev *hdev, uint8_t baudrate,
->>  	case QCA_WCN6750:
->>  	case QCA_WCN6855:
->>  	case QCA_WCN7850:
->> +	case QCA_QCC2072:
-> 
-> Sorted
-> 
->>  		/* get fw build info */
->>  		err = qca_read_fw_build_info(hdev);
->>  		if (err < 0)
->> diff --git a/drivers/bluetooth/btqca.h b/drivers/bluetooth/btqca.h
->> index 8f3c1b1c77b3..425133096eda 100644
->> --- a/drivers/bluetooth/btqca.h
->> +++ b/drivers/bluetooth/btqca.h
->> @@ -94,6 +94,7 @@ enum qca_tlv_type {
->>  struct qca_fw_config {
->>  	u8 type;
->>  	char fwname[64];
->> +	char calib_name[64];
->>  	uint8_t user_baud_rate;
->>  	enum qca_tlv_dnld_mode dnld_mode;
->>  	enum qca_tlv_dnld_mode dnld_type;
->> @@ -158,6 +159,7 @@ enum qca_btsoc_type {
->>  	QCA_WCN6750,
->>  	QCA_WCN6855,
->>  	QCA_WCN7850,
->> +	QCA_QCC2072,
-> 
-> Sorted
-> 
->>  };
->>  
->>  #if IS_ENABLED(CONFIG_BT_QCA)
->> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
->> index 1222f97800f4..449f0896bdac 100644
->> --- a/drivers/bluetooth/hci_qca.c
->> +++ b/drivers/bluetooth/hci_qca.c
->> @@ -1375,6 +1375,7 @@ static int qca_set_baudrate(struct hci_dev *hdev, uint8_t baudrate)
->>  
->>  	/* Give the controller time to process the request */
->>  	switch (qca_soc_type(hu)) {
->> +	case QCA_QCC2072:
-> 
-> Ok, here you've discovered sorting order.
-> 
->>  	case QCA_WCN3950:
->>  	case QCA_WCN3988:
->>  	case QCA_WCN3990:
->> @@ -1462,6 +1463,7 @@ static unsigned int qca_get_speed(struct hci_uart *hu,
->>  static int qca_check_speeds(struct hci_uart *hu)
->>  {
->>  	switch (qca_soc_type(hu)) {
->> +	case QCA_QCC2072:
->>  	case QCA_WCN3950:
->>  	case QCA_WCN3988:
->>  	case QCA_WCN3990:
->> @@ -1513,6 +1515,7 @@ static int qca_set_speed(struct hci_uart *hu, enum qca_speed_type speed_type)
->>  		case QCA_WCN6750:
->>  		case QCA_WCN6855:
->>  		case QCA_WCN7850:
->> +		case QCA_QCC2072:
-> 
-> And then lost it again.
-> 
->>  			hci_uart_set_flow_control(hu, true);
->>  			break;
->>  
->> @@ -1548,6 +1551,7 @@ static int qca_set_speed(struct hci_uart *hu, enum qca_speed_type speed_type)
->>  		case QCA_WCN6750:
->>  		case QCA_WCN6855:
->>  		case QCA_WCN7850:
->> +		case QCA_QCC2072:
->>  			hci_uart_set_flow_control(hu, false);
->>  			break;
->>  
->> @@ -1864,6 +1868,7 @@ static int qca_power_on(struct hci_dev *hdev)
->>  	case QCA_WCN6750:
->>  	case QCA_WCN6855:
->>  	case QCA_WCN7850:
->> +	case QCA_QCC2072:
->>  		ret = qca_regulator_init(hu);
->>  		break;
->>  
->> @@ -1963,6 +1968,10 @@ static int qca_setup(struct hci_uart *hu)
->>  		soc_name = "wcn7850";
->>  		break;
->>  
->> +	case QCA_QCC2072:
->> +		soc_name = "qcc2072";
->> +		break;
->> +
->>  	default:
->>  		soc_name = "ROME/QCA6390";
->>  	}
->> @@ -1986,6 +1995,7 @@ static int qca_setup(struct hci_uart *hu)
->>  	case QCA_WCN6750:
->>  	case QCA_WCN6855:
->>  	case QCA_WCN7850:
->> +	case QCA_QCC2072:
->>  		if (qcadev && qcadev->bdaddr_property_broken)
->>  			hci_set_quirk(hdev, HCI_QUIRK_BDADDR_PROPERTY_BROKEN);
->>  
->> @@ -2019,6 +2029,7 @@ static int qca_setup(struct hci_uart *hu)
->>  	case QCA_WCN6750:
->>  	case QCA_WCN6855:
->>  	case QCA_WCN7850:
->> +	case QCA_QCC2072:
->>  		break;
->>  
->>  	default:
->> @@ -2172,6 +2183,12 @@ static const struct qca_device_data qca_soc_data_wcn3998 __maybe_unused = {
->>  	.num_vregs = 4,
->>  };
->>  
->> +static const struct qca_device_data qca_soc_data_qcc2072 __maybe_unused = {
->> +	.soc_type = QCA_QCC2072,
->> +	.num_vregs = 0,
->> +	.capabilities = QCA_CAP_WIDEBAND_SPEECH | QCA_CAP_VALID_LE_STATES,
->> +};
->> +
->>  static const struct qca_device_data qca_soc_data_wcn6750 __maybe_unused = {
->>  	.soc_type = QCA_WCN6750,
->>  	.vregs = (struct qca_vreg []) {
->> @@ -2274,6 +2291,7 @@ static void qca_power_off(struct hci_uart *hu)
->>  
->>  	case QCA_WCN6750:
->>  	case QCA_WCN6855:
->> +	case QCA_QCC2072:
->>  		gpiod_set_value_cansleep(qcadev->bt_en, 0);
->>  		msleep(100);
->>  		qca_regulator_disable(qcadev);
->> @@ -2429,6 +2447,7 @@ static int qca_serdev_probe(struct serdev_device *serdev)
->>  	case QCA_WCN6750:
->>  	case QCA_WCN6855:
->>  	case QCA_WCN7850:
->> +	case QCA_QCC2072:
->>  		qcadev->bt_power = devm_kzalloc(&serdev->dev,
->>  						sizeof(struct qca_power),
->>  						GFP_KERNEL);
->> @@ -2448,6 +2467,7 @@ static int qca_serdev_probe(struct serdev_device *serdev)
->>  	case QCA_WCN6750:
->>  	case QCA_WCN6855:
->>  	case QCA_WCN7850:
->> +	case QCA_QCC2072:
->>  		if (!device_property_present(&serdev->dev, "enable-gpios")) {
->>  			/*
->>  			 * Backward compatibility with old DT sources. If the
->> @@ -2490,6 +2510,7 @@ static int qca_serdev_probe(struct serdev_device *serdev)
->>  		if (!qcadev->bt_en &&
->>  		    (data->soc_type == QCA_WCN6750 ||
->>  		     data->soc_type == QCA_WCN6855 ||
->> +		     data->soc_type == QCA_QCC2072 ||
-> 
-> Randomly in the middle. No
-> 
->>  		     data->soc_type == QCA_WCN7850))
->>  			power_ctrl_enabled = false;
->>  
->> @@ -2498,6 +2519,7 @@ static int qca_serdev_probe(struct serdev_device *serdev)
->>  		if (IS_ERR(qcadev->sw_ctrl) &&
->>  		    (data->soc_type == QCA_WCN6750 ||
->>  		     data->soc_type == QCA_WCN6855 ||
->> +		     data->soc_type == QCA_QCC2072 ||
->>  		     data->soc_type == QCA_WCN7850)) {
->>  			dev_err(&serdev->dev, "failed to acquire SW_CTRL gpio\n");
->>  			return PTR_ERR(qcadev->sw_ctrl);
->> @@ -2576,6 +2598,7 @@ static void qca_serdev_remove(struct serdev_device *serdev)
->>  	struct qca_power *power = qcadev->bt_power;
->>  
->>  	switch (qcadev->btsoc_type) {
->> +	case QCA_QCC2072:
->>  	case QCA_WCN3988:
->>  	case QCA_WCN3990:
->>  	case QCA_WCN3991:
->> @@ -2785,6 +2808,7 @@ static const struct of_device_id qca_bluetooth_of_match[] = {
->>  	{ .compatible = "qcom,wcn6750-bt", .data = &qca_soc_data_wcn6750},
->>  	{ .compatible = "qcom,wcn6855-bt", .data = &qca_soc_data_wcn6855},
->>  	{ .compatible = "qcom,wcn7850-bt", .data = &qca_soc_data_wcn7850},
->> +	{ .compatible = "qcom,qcc2072-bt", .data = &qca_soc_data_qcc2072 },
-> 
-> And here too. Keep those sorted.
-> 
+Most notably, the camera support is missing today and there is no EC
+driver (the one used seems to not implement the same interface as the
+"Qualcomm Hamoa CRD" driver services), making the OS unaware of e.g.
+the keyboard backlight state (although the backlight itself still
+works).
 
-Hi Dmitry,
+These patches are a result of a collaboration between a couple of
+Qualcomm engineers taking part in an internal sprint and were created
+over 3 days.
 
-Ack, I will keep the entries sorted consistently in v3.
+There's a number of dependencies (audio, GPU, SoCCP series), but those
+all seem to be in a fairly good place, so this submission can be
+reviewed in parallel. As a result of that, this v1 submission is
+almost expected to trigger some dt-bindings warnings..
 
-Thanks,
-Rahul
+Changes in v2:
+- Rebase
+- Drop volume up pins (no such button)
+- Drop unnecessary pcie3b pins
+- Drop the applied panel patch
+- Drop merged dependencies (all of them)
+- Pick up tags
+- Keep the optimistic compatible string variant
+Link to v1: https://lore.kernel.org/linux-arm-msm/20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com/
 
->>  	{ /* sentinel */ }
->>  };
->>  MODULE_DEVICE_TABLE(of, qca_bluetooth_of_match);
->>
->> -- 
->> 2.34.1
->>
-> 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Konrad Dybcio (3):
+      dt-bindings: arm: qcom: Add Lenovo Yoga Slim 7x Gen11
+      arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim 7x Gen11
+      firmware: qcom: scm: Allow QSEECOM on Yoga Slim 7x Gen11
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts    | 1208 ++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c                   |    1 +
+ 4 files changed, 1211 insertions(+)
+---
+base-commit: 415606a7be939835db9b0d6b711887586646346d
+change-id: 20260603-topic-yoga_submission-fb6dc076e28b
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
