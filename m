@@ -1,109 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C36737B3FE;
-	Fri, 31 Jul 2026 20:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4188329C60;
+	Fri, 31 Jul 2026 20:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785528649; cv=none; b=Nae4wn8Ot+xZjfHBf3cF1TifpT2Ij5I4bJEY/5wzy1CzqUSVUpGLiJYwDbEjksxR4svP1d/X+QUfCAixIx7vUpbCcUhqft5XYdEwY4OSAzM8MKedL1I6eGV+isPynMNZKRj3TvZI1bJ4aI0Z/i84dYxHcojD6hlK/XMqa9EwpWY=
+	t=1785528939; cv=none; b=M0hB16jkcrncsXXyqwjeg0tpyB8IV1SkbuIuWXRtvQIb7ecSFCJzBUqRLXaz/jwFeUm9iCsyQz/yq2f623WDxOLMrJEiHpLeKtZhZ/KXQ7AFS7/b47OFcp8SP5iurri5H3cQC5YvZcPYwdIfxZYl04fwkeZVeVXPtRxzwiPig7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785528649; c=relaxed/simple;
-	bh=MN+E8uKmNziTDPAS4WhxKrvN1P3cyNy2Cs44KWIQrpw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=i+5G1HenXBNb5zxwTCiD/tQ6bz0pL7DtPndlNSZp9OsBKfDFTb4Chj8+qbCxHAsQfH3YQ6AI8tlqjTz0sYVCSJMxwN0XGHauGqFlQBptaBHyHCQAY5PTzilEv+X7ZUVXBZSPjAc39K113ZJC9Mctrzhvl34PNKwO5c7kYWYlZp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RDLKP4qa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785528939; c=relaxed/simple;
+	bh=gnf0nbZ2qsNY/p3GjXYAAuVwlYgeUJc5Gh6n5IsuUZc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cGO+4XvBVDik+ZhHSzac3pOQ7PEEBseIx1JQmkcNsHMBFmxMKsQtm528pS1LzML8p+9E015DdIXbuV44mBXgcUHbHkUhJewqRoJT0Lq3Y+fyBz4DszUiYn+MvlWuKCPSYUvCSLs0z3qsp1YAoL2qhfvZJFlI5ynUW/ZW7B4JNWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIcoKZao; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RDLKP4qa"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4D25BC2BD00;
-	Fri, 31 Jul 2026 20:10:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785528649;
-	bh=MN+E8uKmNziTDPAS4WhxKrvN1P3cyNy2Cs44KWIQrpw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=RDLKP4qaYUWSnOPsvPDXKgqiJ/3VqOm+WLVoJ9HaD53+rrsSJeAOQH1PVgIQ8mqrS
-	 8h9A7/CBjXmYuOHpukKPCafu9cwROl6Jn7DXR+HgN9rCDTrPPPwbbRZ+Xz6MWhLL84
-	 t+ZsiK2mniuu5CnuR1No+T0dqxu6MPMf3e98R1h9iElPbHZ3trLJnnqrLPB2iHBuBI
-	 sLjpKjwgqj18R86cFoSO2q/tgmRk5FggkrXqJpUsgiF2f0NgZCSsx0JY4vLqUwyH6n
-	 JWAy5x83BJig4p+V3ZhI265xrW5ixmvnA0Jyn7OoLljqltTOT7WRPzL0xAE5dPru7h
-	 qYSXd4tmxrMcw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38D4BC5516F;
-	Fri, 31 Jul 2026 20:10:49 +0000 (UTC)
-From: =?utf-8?q?Andr=C3=A9_Apitzsch_via_B4_Relay?= <devnull+git.apitzsch.eu@kernel.org>
-Date: Fri, 31 Jul 2026 22:08:23 +0200
-Subject: [PATCH v10 4/4] arm64: dts: qcom: msm8939-asus-z00t: add Venus
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIcoKZao"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246E71F00AC4;
+	Fri, 31 Jul 2026 20:15:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785528938;
+	bh=smrkd6WlPJv3JC73FVVo5YhOrRs2gOUzXj3M5ZOEgRU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XIcoKZaojCQn4oYN/6zTVYmRPSNCzbOLVpzRyBwgwI/99K8zS7znMnfzCqUKw7+M0
+	 T1s3SJ7hHXQ/VX37y/O9+BlLsDbvSwO40LkwAtTHmPm1g+9AEFMB2MB/g5oyzL5awL
+	 YDnYHEwx/JajP+UBhSW203X3nCP15Uz1CRG73wSX1P52/Tl/k6dBl6o2SGLSI7YqMR
+	 IcG+XebgPbOb9jcGjOpTb+OW/1HE0EhAn1L6YERgoET7WD4TVio+iEMlBOXPoUl/ve
+	 Fv6ZBkllGlPIciYVR0udlv/BoBK7mWi81Ll5gofBnTM1vf4AhOpmjzwc0OqhbHU00R
+	 wd4zXcgupBIXw==
+Date: Fri, 31 Jul 2026 15:15:37 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Xing Loong <xing.xl.loong@gmail.com>
+Cc: Jens Wiklander <jenswi@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	op-tee@lists.trustedfirmware.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] dt-bindings: vendor-prefixes: add mbedtee
+Message-ID: <178552893708.1585375.2477394564041706505.robh@kernel.org>
+References: <20260720073558.799755-1-xing.xl.loong@gmail.com>
+ <20260720073558.799755-2-xing.xl.loong@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-msm8939-venus-rfc-v10-4-9ac503250fc7@apitzsch.eu>
-References: <20260731-msm8939-venus-rfc-v10-0-9ac503250fc7@apitzsch.eu>
-In-Reply-To: <20260731-msm8939-venus-rfc-v10-0-9ac503250fc7@apitzsch.eu>
-To: Bryan O'Donoghue <bod@kernel.org>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: Erikas Bitovtas <xerikasxx@gmail.com>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785528647; l=851;
- i=git@apitzsch.eu; s=20240325; h=from:subject:message-id;
- bh=vlNIGsZjjCgtqd020ljm5+oJCLR6R19lTDHEE9egzdU=;
- b=8TM5hw4wja65Zv38hod93BBrYT1cwIwhvPZToxGBMhoeUJ5BgT0Rq9m7i4djk8qOe4nmN9ka7
- hld2quFarESA51mu5OA39xdLcdqJtOXHHqlRlYplRJHTGLsnF/6C678
-X-Developer-Key: i=git@apitzsch.eu; a=ed25519;
- pk=wxovcZRfvNYBMcTw4QFFtNEP4qv39gnBfnfyImXZxiU=
-X-Endpoint-Received: by B4 Relay for git@apitzsch.eu/20240325 with
- auth_id=142
-X-Original-From: =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>
-Reply-To: git@apitzsch.eu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260720073558.799755-2-xing.xl.loong@gmail.com>
 
-From: Erikas Bitovtas <xerikasxx@gmail.com>
 
-Enable Venus video encoder/decoder for Asus ZenFone 2 Laser/Selfie.
+On Mon, 20 Jul 2026 15:35:55 +0800, Xing Loong wrote:
+> Register the "mbedtee" vendor prefix for the MbedTEE Trusted
+> Execution Environment project (https://github.com/mbedtee).
+> 
+> Signed-off-by: Xing Loong <xing.xl.loong@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-Default firmware paths work on Asus ZenFone 2 Laser/Selfie, which
-means firmware-name property can be left out.
-
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
-Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
----
- arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-index 90e966242720..231a3e9c1929 100644
---- a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-@@ -267,6 +267,14 @@ &usb_hs_phy {
- 	extcon = <&usb_id>;
- };
- 
-+&venus {
-+	status = "okay";
-+};
-+
-+&venus_mem {
-+	status = "okay";
-+};
-+
- &wcnss {
- 	status = "okay";
- };
-
--- 
-2.55.0
-
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
