@@ -1,221 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9CD0375AB5;
-	Fri, 31 Jul 2026 20:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D79377543
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 20:22:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785529199; cv=none; b=pOHWRuT69ZGbRNf+T48b5P3vjc816HNDl7UcZXaqqbXpVxJO1ylmaUs/FJa1ARTL7A+r7PRN1sFAAehXmQwAWVluthwl+0w0lI861oziJuukh3fywTWLVPnGPvpxA/S0Y+2yLS74VwiC+6VDzhxlGdvA6PiU/myH1B3sZmUNeMg=
+	t=1785529367; cv=none; b=NAb5wt5Thyfl2gSzkWHp8b9q6u4oEupmPwh9NHWSACWFfZy3R92x/viSDxya0KjIYWhoZPK4vrZUoha5YSgaOTiQFXPmZguDmELsYM9OyN72Zp+VXb/HE/6iwusNMuOMtNZ2jq0HyYcmSwX1j6u0xFbqhXMMJ6co0vWSOmWv1U0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785529199; c=relaxed/simple;
-	bh=z6ogPgFR/z+XXbOzcm5vmg73+jmN+2s6AsGK2AGXxRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IPjK2lbqzTZD2fbJrdU4Ht9TSEAGeMchUTYHcb6jsuu1N+PZSwAstpvMKPeJbHxus6p5GPtxnESwtrqIU4db1unRwenyZjxZwb8bQniWxGQ/gONMOVv8GyRre3ZytKoAa4oQtfA3qJ126e7ysNBzElAcUyGbtRPAnlGnw2v5qa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VYi+Wf0t; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VYi+Wf0t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571FE1F00AC4;
-	Fri, 31 Jul 2026 20:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785529197;
-	bh=gAqTgmb8nyHXOBE2Z+WAy2vf/nC7RaTwNiVzTEyUthM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VYi+Wf0tpE5oJ6sdlwlFvIHL5mE5R3eX1tXGXs6hQpPjdmIE6p801MKYyoGbRiAA2
-	 uwQ5Az41PsZ7MSPlmY5BU81ClM/UOi+YXpqj+FQOzLJ+m3fDSvOznH9VLFXLYYuYvM
-	 5kHkh6v5QJjsk5KeXqDWPKnVKe0XXriiin3BES5Wzhk4i7tvu+a5RgMxX6cbEgXllk
-	 ime18CmGbSA+kJmCfKOXrIpEvVejG0mCpyG4f4+4eNmQpUeYmaP9qMe5dufOTpsI1t
-	 Ba0tQ+mGnC0jtZjjnbMsfRMGFk+5Sz9GY/VIw7PZtkvyIqxKM3dJjiJxGg6gCFKHIY
-	 N691LPdgdRPJQ==
-Date: Fri, 31 Jul 2026 15:19:55 -0500
-From: Rob Herring <robh@kernel.org>
-To: Xing Loong <xing.xl.loong@gmail.com>
-Cc: Jens Wiklander <jenswi@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sumit Garg <sumit.garg@kernel.org>,
-	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: firmware: add mbedtee,tee binding
-Message-ID: <20260731201955.GA1585970-robh@kernel.org>
-References: <20260720073558.799755-1-xing.xl.loong@gmail.com>
- <20260720073558.799755-3-xing.xl.loong@gmail.com>
+	s=arc-20240116; t=1785529367; c=relaxed/simple;
+	bh=ODFxmISHVX8EchUHZB7K9XrBqrp4gzoOkBwwuVYI1Xc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gf0eCsmcotShzS0DxR8n3Ha6W5PlHx/L1xKAsaCjn8JCfcSm0M77koSZ4Pc3kLZsn+iegslfHJoNoCCNhPW+2Rk7DKKY2j9NCtsvp2GVTn/Ij71yUaBwIbzDKs8JmqTns58jCGvYNgAhmB8JJatl3wighVDPP5E5jnjKcHZFxYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4758bd3731bso1512853f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 13:22:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785529364; x=1786134164;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D3E8q6SLFA2ZLcc8B4L7d4FJiaa1UbNh29dUR+fF9fY=;
+        b=SO7OgnTNuVWP0biv0dmYdBWdAYIWISESY5bfcdjCTYITDqiRn4AZu/qe0xU6mb6FqO
+         yVKZBGJ9a2YNgYH1PA/skSAuZofuw/oETassIQchw8Hq/75mh3Q1ESTbCMjLOidlUVcs
+         wWuo3ejcfP276+ywspF3gHBEoUw7ZL11fOVz7pj0lD8Ik1R8XKX79darlj4vjHYtrB8n
+         BBtC4Gavm+S7+mCftRSD1CguIuqKigvNOhOksT6b/ITShGwb1CQIszHQa4ppxGK412LS
+         Bl9GH3NSM0CmcFykW0q0lq8MRvoo4I4CWiCyqK8pbuZa6gRAaNlpXjPxrL94hB68yK4t
+         LVeA==
+X-Forwarded-Encrypted: i=1; AHgh+RoUeLCLbACQHlyxuphkF+/Eq7RPbwcvZPaLqx/YSPg76t9HOPkC/2bWBVBmfRBX9jIVQEWBFH7538XS@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8dWmExZ0oVTR6juthE+7UNAZ8yEeULhdC+aktscAeeXBTNTwi
+	pBoV0dsGOmFzpJOKj+CCqBCgp/RXrRMGu6GNq6D9xGUwAVXT0S40wuyQ
+X-Gm-Gg: AR+sD11st6OOrCdn7u8RFH3FgF1MnrGE2uAyWxbytdM+cbNa1PrX5d4og+9yV+Yw/sa
+	y9A3lAm5ZRrC2tEQk7q1LrJr8sxZyIAW6anH3m38i5w6eWt7dSNy+ZEyx7Jux35YhLipzD8C+Fm
+	N6l7OOz3P2cm+7F+aFxs5SsTUI0hqiHCzfXjPNy69RgAPg/bAtjpg2mlXRDa8xUwC2CyT81GW1/
+	Od3NDxpa+BZG5DMmmSjppcdL/s5TXvY5eTiEfDVRBuLdgHPStnf6onoVZOeydp3g22s0j5qVUXA
+	4PWkoUqL9Z7nlWHXkGqvg6LO1YK4shyOO87gyglSGZWqYjYJHPqiXyH11wWN4WOXG9s3vwNz+g+
+	FjNvGeo3GpCJFOJRVaEm5ySqC8wVIhtndAZx3Xt8vb2wLfUfB86cGCGievTtghqPDXXvzRpaSwW
+	7AKPNut1Tnnpzn/F2AKMBsuATwOfnyXbSA//mP6HRdjRx/Tk3tqUU6+pibcosSzHFer2K07qS3X
+	JZ8CfH5ta7qp+VNOC1Z2TDGTn42yh0URbTZOGGI7h58C3S71kBTBxLIMELwHR5xo0W4
+X-Received: by 2002:a05:6000:25f3:b0:47f:90f1:68c8 with SMTP id ffacd0b85a97d-47fd32b19d0mr7598242f8f.1.1785529364463;
+        Fri, 31 Jul 2026 13:22:44 -0700 (PDT)
+Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd4562a38sm9066484f8f.21.2026.07.31.13.22.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 13:22:43 -0700 (PDT)
+Message-ID: <d6bb859e-c1e7-428e-b765-7b471e1ce005@reactivated.net>
+Date: Fri, 31 Jul 2026 21:22:42 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720073558.799755-3-xing.xl.loong@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
+To: Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy <robin.murphy@arm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com
+References: <20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net>
+ <20260727-bcm2712-iommu-submit-v2-4-0247b5c03de8@reactivated.net>
+ <3e7ba95b-51e7-48e4-aea5-f86db1739ac2@arm.com> <amlE8rEgryPqrUZd@ziepe.ca>
+Content-Language: en-US
+From: Daniel Drake <dan@reactivated.net>
+In-Reply-To: <amlE8rEgryPqrUZd@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jul 20, 2026 at 03:35:56PM +0800, Xing Loong wrote:
-> MbedTEE is a Trusted Execution Environment for embedded
-> systems (https://github.com/mbedtee). It communicates with
-> the REE via shared-memory ring buffers using a fixed RPC
-> protocol. Two platform configurations are supported:
+On 29/07/2026 01:10, Jason Gunthorpe wrote:
+> If paging is attached then it sets MMMU_CTRL_OPERATING_FLAGS and
+> places the aperture at 40G. Based on the comments about blocking I
+> wonder if the "bypass" even works when paging is on?
 > 
->   - ARM/AArch64 (TrustZone, SMC): two reserved-memory
->     regions (t2r-ring and t2r-shm) plus a GIC SPI edge
->     interrupt for TEE-to-REE notifications.
->   - RISC-V (IMSIC): three reserved-memory regions, adding
->     r2t-ring for REE-to-TEE command submissions; no
->     interrupts property (T2R notifications use IMSIC MSI
->     allocated at runtime).
+> If blocking is attached then it sets MMMU_CTRL_OPERATING_FLAGS with
+> some 0 address cap which aborts everything?
+
+The hardware lets two regions be configured:
+
+1. Bypass window
+Configured as BYPASS_START_OFFSET..BYPASS_END_OFFSET
+Any device access to addresses in this range go straight through to the 
+same addresses in physical memory. There is no PT translation.
+
+2. IOVA Aperture
+Configured as BYPASS_END_OFFSET..ADDR_CAP_OFFSET
+Any device access to addresses in this region go through page table 
+translation before reaching physical memory.
+
+The bypass must come before the aperture.
+
+Access to any address above ADDR_CAP_OFFSET will abort.
+
+So the blocking domain is implemented by setting both of those ranges to 
+0, which means ADDR_CAP_OFFSET=0 as part of that. (I'm going with the 
+interpretation that a blocking domain is like a killswitch and should 
+abort all memory accesses.)
+
+However, the blocking domain implementation should be removed (see below).
+
+The bypass works fine when paging is on - did you spot something that 
+makes you suspect otherwise?
+
+> It looks to me like some of those comments and choices don't reflect
+> what the driver actually does. Since there is only ever one
+> translation we never need to be worried about where the aperture is,
+> it could be anything so long as the HW gives it priority to bypass.
 > 
-> Signed-off-by: Xing Loong <xing.xl.loong@gmail.com>
-> ---
-> Changes in v3:
-> - Drop all phandle stub nodes from examples.
-> - Remove redundant required: - interrupts from then branch.
-> - Simplify title and description.
-> 
-> Changes in v2:
-> - Fix DT binding review comments from Krzysztof Kozlowski:
->   - Drop $nodename, "YAML devicetree binding" wording, property descriptions
->   - Rename compatible string to mbedtee,tee
->   - Rename memory regions: rpc-t2r-ring -> t2r-ring, rpc-t2r-shm -> t2r-shm,
->     rpc-r2t-ring -> r2t-ring
->   - Add memory-region / memory-region-names to required
->   - Simplify allOf constraints (drop redundant else-branch items)
->   - Rewrite description to describe hardware/firmware, not the binding or driver
->   - Drop all irrelevant platform nodes (gic, cpus, reserved-memory)
->   - Add maxItems: 1 constraint to interrupts property (Sashiko AI review)
-> 
-> ---
-> 
->  .../bindings/firmware/mbedtee,tee.yaml        | 109 ++++++++++++++++++
->  1 file changed, 109 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml b/Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml
-> new file mode 100644
-> index 0000000..a8f1201
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/firmware/mbedtee,tee.yaml
-> @@ -0,0 +1,109 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/firmware/mbedtee,tee.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: MbedTEE
-> +
-> +maintainers:
-> +  - Xing Loong <xing.xl.loong@gmail.com>
-> +
-> +description: |
-> +  MbedTEE is a Trusted Execution Environment for embedded systems.
-> +  It communicates with the REE (Linux) via shared-memory ring
-> +  buffers using a fixed RPC protocol.
-> +
-> +  We're using "mbedtee" as the vendor prefix for the open-source TEE
-> +  project at https://github.com/mbedtee.
-> +
-> +  The REE and TEE CPUs sharing the RPC memory must be in a
-> +  hardware-coherent domain.
-> +
-> +  Two or three reserved-memory regions are required:
-> +    t2r-ring: ring buffer for TEE-to-REE notifications
-> +    t2r-shm:  shared memory for TEE-to-REE RPC payloads
-> +    r2t-ring: ring buffer for REE-to-TEE command submissions (RISC-V)
+> Could the aperture be placed at 0 with the bypass fully disabled? Then
+> it would basically be a normal iommu.
+Please let me know which comments/choices you are finding unclear, I 
+tried to make this driver readable and would like to fix that.
 
-Put any details about specific properties with the property schema.
+The aperture could be placed anywhere, but the key idea in the current 
+driver structure is that we deliberately place it above physical memory, 
+so that we can have the bypass window operational for all regular 
+physical addresses, meaning that iommu-unaware devices can operate as 
+normal.
 
-> +
-> +  On ARM the transport uses SMC and a GIC SPI interrupt. On RISC-V
-> +  the transport uses shared-memory rings and IMSIC MSI; the TEE
-> +  polls r2t-ring for commands from the REE.
-> +
-> +properties:
-> +  compatible:
-> +    const: mbedtee,tee
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  msi-parent:
-> +    maxItems: 1
-> +
-> +  memory-region:
-> +    minItems: 2
-> +    maxItems: 3
-> +
-> +  memory-region-names:
-> +    minItems: 2
-> +    maxItems: 3
-> +    items:
-> +      enum:
-> +        - t2r-ring
-> +        - t2r-shm
-> +        - r2t-ring
+Each of the 3-4 IOMMUs has around 5 devices hardwired into it. When the 
+IOMMU is switched on (effectively via setting CTRL_OPERATING_FLAGS), 
+*all* of the hardwired devices are subject to the IOMMU operation, 
+uniformly. There is no gating where you can have one of the devices in 
+standard passthrough mode and the rest using the IOMMU. Also there is no 
+Stream ID in the transactions, there is no way to configure per-device 
+page tables.
 
-Needs to define the order as sashiko points out. The order doesn't 
-change, so it doesn't need to be defined in the if/then schemas.
+Among the devices hardwired to the IOMMUs we might have:
+  - Devices already set up by the firmware and relying on regular access
+    to physical memory
+  - Devices that don't require large contiguous DMA allocations and would
+    prefer not to have the translation overhead of the iommu
+  - Devices that handle scatter-gather natively and prefer not to have
+    the translation overhead of the iommu
+  - & devices that want to use the IOMMU :) so that they can work with
+    large contiguous allocations which are actually scattered in
+    underlying physical memory
 
-> +
-> +required:
-> +  - compatible
-> +  - memory-region
-> +  - memory-region-names
-> +
-> +allOf:
-> +  - if:
-> +      required:
-> +        - interrupts
-> +    then:
-> +      properties:
-> +        msi-parent: false
-> +        memory-region:
-> +          maxItems: 2
-> +        memory-region-names:
-> +          items:
-> +            - const: t2r-ring
-> +            - const: t2r-shm
+So we have multiple needs to tend to, which is why the driver currently 
+sets up the bypass in the regular address space (serving the first 3 
+above), and the IOMMU aperture in a high, unused part of the address 
+space (for the devices that do want to take advantage of the IOMMU).
 
-Just 'maxItems: 2'
+Are those good enough reasons to set up the driver in this way? Or are 
+there other approaches to consider?
 
-> +    else:
-> +      required:
-> +        - msi-parent
-> +      properties:
-> +        interrupts: false
-> +        memory-region:
-> +          minItems: 3
-> +        memory-region-names:
-> +          items:
-> +            - const: t2r-ring
-> +            - const: t2r-shm
-> +            - const: r2t-ring
+Let's take an example where the aperture gets placed at address 0 (and 
+hence there is no bypass window). Now it is operating more like a 
+"normal" IOMMU (except without per-device configurable behaviour, stream 
+IDs, etc). The system boots and the firmware sets up the display 
+controller rendering some early boot screens. Then the kernel boots and 
+takes over the framebuffer using efifb or simpledrm. Then it loads a 
+device driver for, let's say, an image processor. This turns on one of 
+the iommus and puts it in paging mode. The aperture gets placed at 
+address 0, no bypass window. But, whoops, that iommu happened to *also* 
+have the display controller hardwared into it. Now we have a big visual 
+glitch and the display output has stopped. And maybe the kernel doesn't 
+even have the vc4 display driver available to correct that later, 
+because the expectation was just to use the simple fw-configured 
+framebuffer.
 
-Just 'minItems: 3'
+This is also why I think the blocking domain implementation should be 
+removed. It causes collateral damage to all the devices which might not 
+have had any idea they were influenced by an iommu.
 
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    firmware {
-> +        mbedtee {
-> +            compatible = "mbedtee,tee";
-> +            interrupts = <GIC_SPI 72 IRQ_TYPE_EDGE_RISING>;
-> +            memory-region = <&t2r_ring>, <&t2r_shm>;
-> +            memory-region-names = "t2r-ring", "t2r-shm";
-> +        };
-> +    };
-> +
-> +  - |
-> +    firmware {
-> +        mbedtee {
-> +            compatible = "mbedtee,tee";
-> +            msi-parent = <&imsic>;
-> +            memory-region = <&t2r_ring>, <&t2r_shm>, <&r2t_ring>;
-> +            memory-region-names = "t2r-ring", "t2r-shm", "r2t-ring";
-> +        };
-> +    };
-> -- 
-> 2.43.0
-> 
+Thanks for your help!
+
+Daniel
+
