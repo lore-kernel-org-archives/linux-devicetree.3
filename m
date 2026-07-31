@@ -1,119 +1,117 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2353AFCF1;
-	Fri, 31 Jul 2026 12:47:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785502041; cv=pass; b=k3EFE3lcLsVmI1EGC4nYofp1SyHR2qCoyECZXan+r6AhcnSRYNrr2o+CdjQUNeZuODocwSlg7r/SiJg7KeBPR+995wk0GFi1t6AR30r8SdQobuHdNjHWXJDuK26lMw0qWhbGqM625e24dc0qBfDDXuyHhsC2Ql11J19CxM9iVRI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785502041; c=relaxed/simple;
-	bh=qeYDLVJO6z9LXain17/mTHxd8Oy2iz9/kyAW2nqshBE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RRk5KRmgswpFucCuSpKidpM1MagB9oJPYbXOFhbCpwCtoSIXB8vH64GqcpWIsJ5Ni5PEemIYlk7Dzuwp1+ANt5eH6ftDmb+DxRGhuMZYJTWHr2U2lqS7MUef0VsKusYPK0U1h8Uqiq4qbnR0x7hRY7FTd7axtLwahLdC15vsvPM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=cFa/Iwnb; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C6627E792
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785502096; cv=none; b=eAI9mTpyvV4IVHAv3TOrgdDjf6oBIjWTMzUHAGSHcr6hZW6J1RyfEfC1NV2Gevns6DXJp1qUvu+52862Yro7MmYfN9oYlZ4qrtmBty9+UQt5NA7JHbTcdnSI4L/GAqiAFStUxdwzR6Hf7n0j473O8fLPJHgXjqEhR/gZIByKKd4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785502096; c=relaxed/simple;
+	bh=Hwms4iOqHy2Nf4HR+vNO72wtKMQ2Eum3A0bTIG0X0mE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qNDRBf1rYCCpdVYCXsxpz8ZvnTb61b56uPTHhqLFHi25hw++4offUVgcMJDcJRSabcSr4Bj2eatyL3x6eg8GDGIM3CxQR0fj1I1yv6NegsVcTo5xDq6VbCLbDBqZCdz95o3mzjKQ29zuyhImbt5PQ1YxG0RSGJltK8d7WLTSims=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G848S7jk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="cFa/Iwnb"
-ARC-Seal: i=1; a=rsa-sha256; t=1785502007; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OeH5Dy/FYVuYCKeZD7ETFLym30115pEeQHUK8EFerm9DGeQ17QG6HLRwLQqPxqj32SPgKoZjuEemD17T+fT8YwMt4uLYGB/RFRjCt5DZdV9ZfiXxsKXoyhw6XqMkH/TBjml+F3pqDCWKbcTxYU/99tFhYOpOMwsXa/suuQPa3iQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1785502007; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qeYDLVJO6z9LXain17/mTHxd8Oy2iz9/kyAW2nqshBE=; 
-	b=Ewia+hWSrcN8nuTb2/KWmsMrseOsS8uwlr/2pd4T1kd8bKpYrGL5QVZVPWTz3pNEvtRYNlBu/fzbDDuc18v8Z6+COCd+SvtydRNkOSHUPwzOsx1gGdnzqsSAJ3yNVyIDGLK7zTJn2LbWX6Up3sHTsb0dpmx9yIoRwz1CdRG450U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785502007;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=qeYDLVJO6z9LXain17/mTHxd8Oy2iz9/kyAW2nqshBE=;
-	b=cFa/IwnbXsJs2SNpbXMcCYy/c9CCBJ5GGG7KgygXugBTT+QfT+3K3tPs/6FtIeNh
-	rJ+d15WgPKIbO11Gw7GCMP9ONxaJ6bDwYiaMN+Ulp4rwcqH/yvAGLT9Y0Vdb6t+Gy5q
-	1ZWqSl/sP13YAKfJkrrMuJLZ/3dfszRocuxjggbY=
-Received: by mx.zohomail.com with SMTPS id 178550200445654.5554775503316;
-	Fri, 31 Jul 2026 05:46:44 -0700 (PDT)
-Message-ID: <86c8b2ba77f109b77f93b74b13dc1fa995b7d4f7.camel@collabora.com>
-Subject: Re: [PATCH v10 03/26] dt-bindings: ufs: mediatek,ufs: Add mt8196
- variant
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>,
-  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>,
- Peter Wang <peter.wang@mediatek.com>,  Chaotian Jing
- <chaotian.jing@mediatek.com>, Alim Akhtar <alim.akhtar@samsung.com>, Avri
- Altman	 <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>,
- Stanley Jhu	 <chu.stanley@gmail.com>, "James E.J. Bottomley"	
- <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen"	
- <martin.petersen@oracle.com>, Philipp Zabel <p.zabel@pengutronix.de>, Liam
- Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- kernel@collabora.com, 	linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, 	linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, Nicolas Frattaroli	
- <nicolas.frattaroli@collabora.com>
-Date: Fri, 31 Jul 2026 14:46:36 +0200
-In-Reply-To: <20260731-fanatic-zealous-inchworm-ddfe0b@quoll>
-References: <20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com>
-	 <20260730-mt8196-ufs-v10-3-bc5ecef202dc@collabora.com>
-	 <20260731-fanatic-zealous-inchworm-ddfe0b@quoll>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G848S7jk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5561F000E9;
+	Fri, 31 Jul 2026 12:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785502094;
+	bh=Y1Ry1pQk+AJwfa+pe1Iv+03wUTZrEEdmF6epQ/08J0Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G848S7jkAh5VAVOyHr1oRc1nkWE6r5mbbt0xBN99gHLLEJgkfRG+VbhiZeoqNMDJx
+	 vcBYG0h+1gYLQYlSC337/JPSilC+IKW+tElH06kpkqpKx529TyZ0ZPFWjZvedVGj5O
+	 XrgwoCOUZqlt9DbTpv+lr6/UO7uEctZjVhWOjycvP2v1Uv4WuDLd7FVSzJsebnDHnf
+	 wh1b4AShH3epe61izA0e8zQbYJBz31Q4po6TOW2ex74q6nLprBOIQuTzQ1zr7rg6Js
+	 rbLWLqnqZwKFRm8KLvHmQYnngJsnQiMkjPjvSCJ6wKphRurE80jNEi5HbVT4zurPPn
+	 S6iL7cGuoOf6w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v10 02/11] net: phylink: introduce internal
+ phylink PCS handling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260730102444.1967900-3-ansuelsmth@gmail.com>
+References: <20260730102444.1967900-1-ansuelsmth@gmail.com>
+ <20260730102444.1967900-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Date: Fri, 31 Jul 2026 12:48:14 +0000
+Message-Id: <20260731124814.8E5561F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ZohoMailClient: External
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] phylink_validate_mac_and_pcs() incorrectly validates unsupported=
+ interfaces when a required PCS is missing.
+--
 
-On Fri, 2026-07-31 at 10:27 +0200, Krzysztof Kozlowski wrote:
-> On Thu, Jul 30, 2026 at 11:48:59AM +0200, Louis-Alexis Eyraud wrote:
-> > =C2=A0
-> > =C2=A0examples:
-> > =C2=A0=C2=A0 - |
-> > @@ -177,3 +192,33 @@ examples:
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mediatek,ufs-disable-m=
-cq;
-> > =C2=A0=C2=A0=C2=A0=C2=A0 };
-> > +=C2=A0 - |
-> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/reset/mediatek,mt8196-resets.=
-h>
-> > +=C2=A0=C2=A0=C2=A0 #include <dt-bindings/interrupt-controller/arm-gic.=
-h>
-> > +
-> > +=C2=A0=C2=A0=C2=A0 ufshci@16810000 {
->=20
-> You already added second example. That's enough.
->=20
-I'll drop it.
+--- Patch [2]: [PATCH net-next v10 02/11] net: phylink: introduce internal =
+phylink PCS handling ---
+commit 523b36754a7978492b9869c650925bee50a978c5
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-> Sashiko reports are valid.
->=20
-the reports are indeed right about the missing supply description for
-AVDD09_UFS_1 pin.
+net: phylink: introduce internal phylink PCS handling
 
-The MT8196 and MT88894 SoC datasheets do confirm they are different
-supplies, so I'll add its description and also its handling in the
-driver (in an additional patch) in the next revision.
+Introduce internal handling of PCS for phylink. This is an alternative
+way to .mac_select_pcs that moves the selection logic of the PCS entirely
+to phylink with the usage of the supported_interface value in the PCS
+struct.
 
-I'll fix the typo (present since v3) as well.
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index 3464e3ec56997..a5e2d342a92e1 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+[ ... ]
+> @@ -530,9 +552,24 @@ static int phylink_validate_mac_and_pcs(struct phyli=
+nk *pl,
+>  		pcs =3D pl->mac_ops->mac_select_pcs(pl->config, state->interface);
+>  		if (IS_ERR(pcs))
+>  			return PTR_ERR(pcs);
+> +
+> +		pcs_found =3D !!pcs;
+> +	/*
+> +	 * Find a PCS in available PCS list for the requested interface.
+> +	 *
+> +	 * Skip searching if the MAC doesn't require a dedicated PCS for
+> +	 * the requested interface.
+> +	 */
+> +	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
+> +		list_for_each_entry(pcs, &pl->pcs_list, list) {
+> +			if (!phylink_validate_pcs_interface(pcs, state->interface)) {
+> +				pcs_found =3D true;
+> +				break;
+> +			}
+> +		}
+>  	}
+> =20
+> -	if (pcs) {
+> +	if (pcs_found) {
 
-Best regards,
-Louis-Alexis
+[Severity: Medium]
+If the interface requires a dedicated PCS (the test_bit check is true)
+but no matching PCS is found in the list, pcs_found will remain false.
+Does this inadvertently skip PCS validation and fall through to MAC
+validation?
 
+It appears this allows phylink to incorrectly report that an interface
+mode is supported even if the mandatory PCS is missing. Any subsequent
+attempt to configure the link with this mode will then fail at runtime
+in phylink_major_config(), which correctly aborts if the required PCS
+isn't found.=20
 
-> Best regards,
-> Krzysztof
->=20
+Should phylink_validate_mac_and_pcs() return -EINVAL when a required=20
+PCS is missing?
+
+>  		/* The PCS, if present, must be setup before phylink_create()
+>  		 * has been called. If the ops is not initialised, print an
+>  		 * error and backtrace rather than oopsing the kernel.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730102444.1967=
+900-1-ansuelsmth@gmail.com?part=3D2
