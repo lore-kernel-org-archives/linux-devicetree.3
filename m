@@ -1,187 +1,162 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF233451BA
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 05:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5E03090C2;
+	Fri, 31 Jul 2026 05:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785475901; cv=none; b=exRQvGn2Ngq5pDAC11d9eOkMAwW9X6j3zqD39HGtp9cAk7jd7U4pL7zyiGt0N67wq6q0McswAVX7+dMi4VWzRzjJl+/Nrn4rm4SCLr2PPxGFC6wnim1O+tXQqKOcECZiFztdJ+IAVXOzISzwKj8NwDeUAQfGlguNTo/+VEOuqHE=
+	t=1785476371; cv=none; b=QKaQJAWsGvClniXI4kssP9K/OHTQBYbe5DLOYsXGvx5495abOT1KsX3PdfQ7ErTpl4OiHQpgRZhmoqVhjMUgvN2uCRM7TJ7F4h9dHAIekmT76xRb3GigDvm9XqJXY5sgzF9Aa3YWJnICZzlarifPbLctn8JXdeVrub9pH1JFrIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785475901; c=relaxed/simple;
-	bh=87gyxKw5vueVf2Epya5aaSKe+eAGML2SWSMjgAKpXdE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=i10Db/whAMeCa/XLtXl0MReAZOUZwVanHKuOkD9hM7V5TzvkZvBHsllPZEb4XxqIhEn39eJBeXGyO67m6n1RbdjM47c+VfsaGW0ZT7jL0Se0MJ3fzzjiUTQvNe8rVVZQAjiSEskKL0EABXZhJY5LpujEQ9fO1cFDnSrvD1UcIB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QDtnA4HC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hPa00gj1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785476371; c=relaxed/simple;
+	bh=imXFAqWPqnJGY8WW24n+T9ijDhVhtqz1JOrVbz5WW8c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uq0rYDh4qBNj6FInmgZyer3xtE/kSBmwiasIARYvO4ahy5zytNxVCjZQKlFm45hjJGi9AXHmLJXx0Gu/GbAueXFxY00wCuoo+7nl7L83yzZZspryLzh1gHetoyLdmrukJwPR3/kdj+Az3rcFVmFdLmFXkP6oLP4jO+ZDeMsStYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ij73W4jw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QDtnA4HC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hPa00gj1"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66V4v5hf3259764
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 05:31:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=+ge0zGVB2WMr0FkBsLt/Bn
-	F/YfcascqnH7BAZ+KIoMU=; b=QDtnA4HCCjMlHLFZh7gRoTQdkUUJf6P6VoZ6Ck
-	1RkmMZRvKR56/hprrAXhtga/smz/hoL+pF70ukVctX3Q9euEVNq5pjUrvtJ39nB+
-	F2O+uM+QmlwK0zuNyvRLnjnAeJ4lEV0xYixWBF5f6MxPKzEF3PdDvFpwG+xhwwgt
-	cQpvNvcPfCBCTDfswBox4OdqGcMCJ+jpzLH/EuTWCnj93WhFwbIwu/YvPdGpqc9S
-	AIpAUmwOciN0LZEdXKFl/FEsT2sNBR6IbK4hym7PRON/fjC86cuVBf848opZM0Vt
-	SUQAqNGxcV0/LbWY+Rsmb+wQoAGvOThfX+Iy7+cDJo5X6wgA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frn0b046q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 05:31:38 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca7c1e22995so920710a12.3
-        for <devicetree@vger.kernel.org>; Thu, 30 Jul 2026 22:31:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785475896; x=1786080696; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+ge0zGVB2WMr0FkBsLt/BnF/YfcascqnH7BAZ+KIoMU=;
-        b=hPa00gj1ECKhdrNAPo6Pyh+HSjrc7SsDUvfiFTAplKV7zVP0TLhDPOQbVVqTihPJMH
-         iQspTNyyaHuWgX+j6bSatuGMwqy/0dwcdmZnwPWMkaY/WkaFQP5m3V0DJN2XYQ4i1p0R
-         obDS2EBujzUsRH8NtnKXmShbzzDLZMEJa488Tw4lhKQfIvn1rSqArJs2xrYYdKC3pDkC
-         mYDtPb/FDOPwGXfJ8ehukfMImt44aUrSxHP+fPbKDX1o+2lVDOvEg/VVcVq7AUtZLbmU
-         pABeUDffFHpumRR6itzKTeGFUdO+Ev6CT0h53FJ7zOjddzyvoI3EGWBSSr728HmbNnzU
-         PNmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785475896; x=1786080696;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+ge0zGVB2WMr0FkBsLt/BnF/YfcascqnH7BAZ+KIoMU=;
-        b=Waiz8f28WttZ6OLVLz826brEYCWSQh1HJaZe0N8nelAhF79VArcR0joPIzYRpGFZye
-         50Zmd7P3GdUHEJH8p0xaoVaaleiLYJpcXgdWVgEz7pijE67LhkxKRcPdfVQGKsorGm0B
-         JUOfHqkv7ucClRXxOVJKbgYpwdlGWC8/kaDf0ruewRdIrOxGx4+JYDEtVU8H5sD89lnj
-         ciyZsm4fxpDp4Gi/ZyLUMUQukwSTnhFqFC4Sv3pK7VYxrzUGSHtaJ7scYynzgTtMDhyh
-         zcdvQUEm06gpBgxbAKu7PKwkvQMj+yHBi214njwSRc+5ZTcptCc5EFhaPWCGF3dgyKQk
-         8a3g==
-X-Forwarded-Encrypted: i=1; AHgh+RoyZL1V8BPc7Ht5h6tGlkdvn4LCzPaGO2AffZZfFBZalQSzoJG0a/mUUSSk0qcIBKq+PdS7xxI6JYAc@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy4q0vwlqg3pZcibWw9TA4nxJQ6klD9WiRMdNxnV2XFvvJ/AntD
-	OhjM5ChWb23p593DWDYSKAQCZH3C3D7T2o+nxeP8dHNAB+RJO5r+tqXMe4JcT9fGrvOO/DMbtYO
-	1nDcfkKSFBZPv1KmCeuajYNMigEBz94fuMEiRCH/VLuGhSharWdfRT5YOFhD+/Vbt
-X-Gm-Gg: AR+sD12n4SWoVvKlrpNWQhFzUDyWIg+9etwHo/U5q9l/GG9lAt0KuZzuu4kBU9lz+P1
-	cI+A/vzY7jIA7POls4vjZR0PrZBx2sXR8cNDTbKW7XVuaWXpkk9v2BGPeTIPng6+ja2zRGud0Bh
-	hN1ZOtL+zO3Tco6mwzm5laVHkINYkCYyj/E291oxdsmJ3q6DW7eeCNANU/E9WVALmA1KaUrtyr7
-	be1qytUypwUUk/rMJMJtoHKIylPUSe5hUxBlPfirTwO8nZfj4ZDcIounIw6Y8Z/B1p4T8ShbJhA
-	no3GtmYg6myIbsDtrQR/V+T1rYLWRn1IkOLkoNUjninNqdjdDX/moys78Js94TQUnb1SR98eGHK
-	tXO2PwsR12C/l1sbSkjonNZEOx90esyRiI22TQboqmUTIJ9dzpg/cJkTpyC55orVi/q+YX7qPel
-	d5eExRTvDuHKS+KeWs3p4vznSZwVf45uHFqNE=
-X-Received: by 2002:a05:6a21:918c:b0:3c3:cf9b:fb8b with SMTP id adf61e73a8af0-3c91b3ab625mr542266637.68.1785475895812;
-        Thu, 30 Jul 2026 22:31:35 -0700 (PDT)
-X-Received: by 2002:a05:6a21:918c:b0:3c3:cf9b:fb8b with SMTP id adf61e73a8af0-3c91b3ab625mr542243637.68.1785475895416;
-        Thu, 30 Jul 2026 22:31:35 -0700 (PDT)
-Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd4e666sm1983434eec.4.2026.07.30.22.31.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 22:31:34 -0700 (PDT)
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 11:01:26 +0530
-Subject: [PATCH v2] dt-bindings: arm-smmu: qcom: add compatible for IPQ9650
- SoC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ij73W4jw"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 984031F000E9;
+	Fri, 31 Jul 2026 05:39:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785476370;
+	bh=nl9RKaJgoDPBj/kQI6IVDW+vPVyPl1iFcSZlkgXadKo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ij73W4jwXtp193BFt5tTx4ziblgpB9RWjgDaUSGDUsFuwBmivMwIF6N/yYJY2BChw
+	 6OCPc1/PF1reat/oZuzkbfajvMr06/zDsmmcvnVJKafigMVrGdgHEENTM91IUA5odc
+	 1jt2wgterPuTUjaTC2VrhvFkXSpOwFbdy7x6oM1qfe4hW5zCelW/f84vsre64/bEa/
+	 40IJIMfZMkB3/VnayJQ4lGPVx1XR89qCE+6CIAd28++EANROMr4FFIQIdCc796F2G6
+	 zJR4NTC75jCPi/CgjvoJ/6GTYorduZKLD5e6Z+ktX9fHC80dn8+aMow9ZIe79kpNMY
+	 U+Di/YGCqnThg==
+Date: Fri, 31 Jul 2026 07:39:26 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chris Packham <chris.packham@alliedtelesis.co.nz>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Darrick J. Wong" <djwong@us.ibm.com>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [hwmon-next PATCH v3 1/4] dt-bindings: hwmon: adi,adt7470
+Message-ID: <amwnEYMPhWXC3QJO@monoceros>
+References: <20260728-adt7470_thermalzone-v3-0-d4586478cdba@gmail.com>
+ <20260728-adt7470_thermalzone-v3-1-d4586478cdba@gmail.com>
+ <20260728-meteoric-quixotic-sunfish-0de2cb@quoll>
+ <CAJq09z5CQgzzFahoiteh9ykjdbsYpP=QZ2AugzY4tQ79RpA-cg@mail.gmail.com>
+ <6cc03c4c-2d88-46f2-aee4-adb769d10cbd@kernel.org>
+ <05b7f116-25a9-49b3-a31c-15eb4e6ec838@roeck-us.net>
+ <CAJq09z5GL16qQ6smjEHsiYxpXn6MaBkibwsvSR66cJ4kEx1M6Q@mail.gmail.com>
+ <a447e67e-ac2c-4b8c-bb96-b469d2a2d61a@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-ipq9650_smmu_binding-v2-1-143a51c8ffce@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAC0zbGoC/4WNQQqDMBREryJZN5JEDbWr3qOIxCTqLzXRfJUW8
- e6N9gDdDDyYmbcRtAEskluykWBXQPAugrgkRPfKdZaCiUwEE5IVXFAYp1IWrMZhWOoGnAHX0Uw
- azQqTlVfJSJyOwbbwPm8f1Y9xaZ5Wz8fX0egBZx8+p3flR++PYuWUU5Yb2xqleM703SOm06Je2
- g9DGoNU+75/AVYSpJzRAAAA
-X-Change-ID: 20260512-ipq9650_smmu_binding-36dc05d39860
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-        Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDAzNCBTYWx0ZWRfXwmpZfRoYTQr/
- EVyMhkHQ+zHhBbnLMK+seKh5+BotjYpPAxIhytGd1eObUGYuWpqpd9gDj/2KJPx2stdkFoBzIjp
- 03TZwVyrX6814TaSnnzC62smCyZpyGY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDAzNCBTYWx0ZWRfX209zRd+VLX/z
- tHA0LIK6fJh1x6gFWE1K4ZLmjgY5rfKGvgtkv2NLMZGmupA8ZIFWS8E7g7eCP+r1EO44/KnysaT
- oSAP1ZRTrf6UEfr9cIlIvtqUWn5UjZUm9RPl3kbZevOjMnYkOU9k/xs1orzMwnVFhPv94ldUTfa
- H9SIKmZs/+ll4I9Ug1Qwfrvm4wusWzMiCoJMMANPpeg72m5wzEniGEL3Y6OxEBJXHjC7DQb7MOI
- 4exJkRAe6N82ZLAQ99gyT2fpufj2JrkoYkizSVtrluFupLva42RkyP1gMv/Q3Fg/aE7UpXauX5p
- ISdEOEj3Ulw5BXbZly4HAm/rmdGt7ULwFb+vw1Nhj35B2ytvNTx6sqchgjtkHOJa/gdAV30RPrj
- DhiaoW7UTAkuEOjOZIsx3gsmqOv2yPnhEueuF6YOyxnNv2rwZBIGVWwAuIUkUCjS6+YvO8V0nJt
- 9FPJWtU/2uUB+fGJWPQ==
-X-Proofpoint-GUID: BS-LOtIefjDH5zXJ0kZUEfk_MeGx1u3r
-X-Proofpoint-ORIG-GUID: BS-LOtIefjDH5zXJ0kZUEfk_MeGx1u3r
-X-Authority-Analysis: v=2.4 cv=Tv3WQjXh c=1 sm=1 tr=0 ts=6a6c333a cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8
- a=tA7aZXjiAAAA:8 a=JfrnYn6hAAAA:8 a=pIFn9JwG4DboacuzgAoA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22 a=FO4_E8m0qiDe52t0p3_H:22 a=a-qgeE7W1pNrGK8U0ZQC:22
- a=kIIFJ0VLUOy1gFZzwZHL:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_02,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 malwarescore=0 clxscore=1015 spamscore=0
- impostorscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310034
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fobe3on45uuvhdwt"
+Content-Disposition: inline
+In-Reply-To: <a447e67e-ac2c-4b8c-bb96-b469d2a2d61a@roeck-us.net>
 
-Add the compatible string for the APPS SMMU present on the Qualcomm
-IPQ9650 SoC.
 
-Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
----
-Changes in v2:
-- Add the proper constraints - no clocks needed for IPQ9650
-- Link to v1: https://patch.msgid.link/20260512-ipq9650_smmu_binding-v1-1-04defdaa140c@oss.qualcomm.com
+--fobe3on45uuvhdwt
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [hwmon-next PATCH v3 1/4] dt-bindings: hwmon: adi,adt7470
+MIME-Version: 1.0
 
-To: Will Deacon <will@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: iommu@lists.linux.dev
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+Hello Guenter,
 
-diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-index f2188942f877..ffa33b7f4a96 100644
---- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-+++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-@@ -38,6 +38,7 @@ properties:
-               - qcom,eliza-smmu-500
-               - qcom,glymur-smmu-500
-               - qcom,hawi-smmu-500
-+              - qcom,ipq9650-smmu-500
-               - qcom,kaanapali-smmu-500
-               - qcom,maili-smmu-500
-               - qcom,milos-smmu-500
-@@ -625,6 +626,7 @@ allOf:
-                 - qcom,eliza-smmu-500
-                 - qcom,glymur-smmu-500
-                 - qcom,hawi-smmu-500
-+                - qcom,ipq9650-smmu-500
-                 - qcom,kaanapali-smmu-500
-                 - qcom,maili-smmu-500
-                 - qcom,milos-smmu-500
+On Thu, Jul 30, 2026 at 02:37:01PM -0700, Guenter Roeck wrote:
+> On 7/30/26 14:11, Luiz Angelo Daros de Luca wrote:
+> the architecture, while I looked at the `emc2305` approach,
+> > delegating the actual fan management to the time-proven `pwm-fan`
+> > driver allows us to avoid reinventing the wheel (like cooling device
+> > registration and state management) inside the adt7470 driver. It also
+> > keeps the standard PWM consumer/provider relationship clear in the DT.
+> > It still feels strange that emc2305 declares #pwm-cells and its
+> > subdriver fans pwm properties and they do not work as a pwm
+> > controller. Other drivers, like aspeed-g6-pwm-tach (with similar
+>=20
+> That is your opinion. #pwm-cells and pwms exists because it is mandated
+> by DT maintainers for configuring pwm properties. That does not have to
+> reflect the implementation: DT property guidance explicitly states
+> that properties must describe the hardware, not the implementation.
+> There is no mandate how to implement a specific driver (such as a fan
+> controller driver) because a specific binding exists. It is perfectly
+> valid to describe pwm properties of a fan controller using #pwm-cells
+> and pwms without modeling it as pwm controller (which actually mandates
+> support of the pwm subsystem or no good reason other than "because").
+>=20
+> While you may consider the emc2305 approach inferior, I happen to
+> disagree. That is your personal opinion. For my part I consider it
+> inferior and overly complex having to involve another subsystem (pwm)
+> and another driver (pwm-fan) just to make the chip's pwm outputs
+> visible to the thermal subsystem as cooling devices.
 
----
-base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
-change-id: 20260512-ipq9650_smmu_binding-36dc05d39860
+Strange how opinions can differ. I'm with Luiz here. While I agree
+that mixing subsystems is slightly inconvenient, hwmon uses i2c and spi
+and clk and regmap and probably more, but pwm is a problem?
 
-Best regards,
---  
-Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+What you call "inferior and overly complex" is actually nice and elegant
+in my view. There is code that handles PWMs, and by not using it you add
+code duplication with all the downsides that comes with it (different
+behaviours, maintenance overhead, wrong expectations).
 
+So amc6821 and nct7363 only support #pwm-cells =3D <2> which is
+non-standard for PWMs and I don't see where the period (cell 1 for
+amc6821 and cell 2 for nct7363 *sigh*) is going into the driver.
+
+For emc2305 uses #pwm-cells =3D <3> but cell 2 specifies something that
+actually belongs to pinctrl and not pwm, and cell 0 is a frequency
+instead of a time. And interpretation of cell 1 should better be done
+using:
+
+diff --git a/drivers/hwmon/emc2305.c b/drivers/hwmon/emc2305.c
+index eef3b021671b..c704fcd61356 100644
+--- a/drivers/hwmon/emc2305.c
++++ b/drivers/hwmon/emc2305.c
+@@ -571,12 +571,8 @@ static int emc2305_of_parse_pwm_child(struct device *d=
+ev,
+ 	}
+=20
+ 	if (args.args_count > 1) {
+-		if (args.args[1] =3D=3D PWM_POLARITY_NORMAL || args.args[1] =3D=3D PWM_P=
+OLARITY_INVERSED)
+-			data->pwm_polarity_mask |=3D args.args[1] << ch;
+-		else
+-			dev_err(dev, "Wrong PWM polarity config provided: %d\n", args.args[0]);
+-	} else {
+-		data->pwm_polarity_mask |=3D PWM_POLARITY_NORMAL << ch;
++		if (args.args[1] & PWM_POLARITY_INVERTED)
++			data->pwm_polarity_mask |=3D 1 << ch;
+ 	}
+=20
+ 	if (args.args_count > 2) {
+
+(Yes, I agree that the difference between PWM_POLARITY_INVERSED and
+PWM_POLARITY_INVERTED is annoying.)
+
+And all of these seem to ignore the phandle.
+
+So these all only somewhat look like standard pwm bindings, but actually
+there are traps and surprises hidden for the device tree author.
+
+Best regards
+Uwe
+
+--fobe3on45uuvhdwt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpsNQwACgkQj4D7WH0S
+/k67bQf9GkgUqIbm3L9Eok5H9+WZQpFGDmrqMi2VBeJAHzcF+mG8N5/2kzf5BUXh
+L0ZeyccX6EBuHTOsI1Azgu2J5nWy/rYaDxNPbfpmR6atxaffmd8xLa454vZCPD4C
+0rrxdk8/kGM7n+C9L9XxMmpnQ0Hozb/t78L8EQX83/U8gQrPcgB/xJc2LCdJd5qK
+RzXHd0Tm+I6J+UAbuRLLpd4kh4qCTi9s1ayhFUu/jnYbJSWkUB8vcOukDwP9MsTM
+/W2bJ235ML+swt0NaSC1P64+NzLkUV1nMxwMyy6CbQOgAzcOpglzSUZA0YX2EFTy
+Zw+0voTiekDy5SvI3EVMLrzXc0umYA==
+=WUsj
+-----END PGP SIGNATURE-----
+
+--fobe3on45uuvhdwt--
