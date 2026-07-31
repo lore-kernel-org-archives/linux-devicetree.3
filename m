@@ -1,255 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BA03D564B
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 09:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497693DA7D4;
+	Fri, 31 Jul 2026 09:57:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785491815; cv=none; b=UPtiQvFAXDd3YzgIvLuPEkJW2eyTDJwtt6HFUsfEIqMA8/hGU8eLBk295LVmtTnSXIoYLASSgzIgkbNQ37t2T8vjxZHv//EflUji0xqDmEPmBuFS4fUXLcEdTLEA4Vq3eA91JNpL4gAdFBeN0aHYX+m27jv8jQZbivL6/sjG+SA=
+	t=1785491835; cv=none; b=doR9KEzc3nsaWso8kZj04DhWPYsulWwNjncEjLv+FQ5zO95xz1SLAdcIhRosbzC/5kkhhAxpYp466bsBPGVmfh/vxNBs6dxiQshP/l+2liSr0OiDgjyp8KTVAewbzJUOKbNvKjfV+I9YNDDXtSkD1ypciohyytijUfoERFJKjyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785491815; c=relaxed/simple;
-	bh=ZnGexYwuBO5gfgkJ/LKuN5EIIVheTM8MVS+mci3GmjE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=krH7QfxZDdEYp3cczLy+aA5VwRV+qi+DJFFZWV0Olmd9K8mto+BS8eYb+uSMj35QMNTmqjwzwV98Qs7fXDhWoXGBMj9r0VIEwXAwrJA8XOCDPhCxHRrBkbNqV4OOXI3MAssipIvUa0Rcx4ktsIiG/bnY3LmU83lrDbHnkzYlJbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8uehyzE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785491835; c=relaxed/simple;
+	bh=KIiTMsdQmfP+2TWdGD1PrwmpE4nvAnwGsbfzgamyYPE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PQ9IJ0BuBKrtbk1V2ePX90AdHwhJYVHqZfhjaeZteElzTeXgHMBXeUk0PmyuJvDBrgTA0GnP7Ksk3xK8yuJ555u4yd71IRS0SjOJuYo34uzZ1nCJZzr4XNCMzxaokMJK1cCqbEMU1cn/KDrkETA1qXGFLj+7N1GYoiMp9pbIIPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GuNpB39d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8uehyzE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831241F00A3D;
-	Fri, 31 Jul 2026 09:56:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GuNpB39d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2771F000E9;
+	Fri, 31 Jul 2026 09:57:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785491800;
-	bh=Y8o35K4jEjq6BIKvBwUmQ2UHUAc2wzKdIZ8+i3Wns9A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U8uehyzEYr8y620dgR/jQ6NLzBUAnGvb0ks+OnRS8BUOyvG0GeA1RN5v5MB8IkMyJ
-	 mbkZbtQbYMme/OW0HrAbWp/ns0r7nXK/f/12D/eTa85cYr2k28ERBjxzGLBtJ+W41I
-	 cGSv/EuLqAQPY+hm75YKYh/JDQmwAjRXo/cDfNIIJb6ritiyZjXYb/KUThaCEbkoQI
-	 Pxn7TP5+FkM+oq+3APEVnlx8shCNkRJ7Jr0jzavMZnF9AXNtphX5T3w7tm2mU3FbhE
-	 iw4yoVcY4SZZpaXAEPnmh9GhhKHAK1btIlwmP8cDXaFLBLDeRFv1gQ1WdcHyXUut74
-	 Uu4258i6XhYgw==
-Date: Fri, 31 Jul 2026 11:56:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Leander Kieweg <kieweg.leander@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, u.kleine-koenig@baylibre.com
-Subject: Re: [PATCH v2 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
-Message-ID: <20260731-manipulative-taipan-of-symmetry-e20afa@quoll>
-References: <20260730173643.256052-1-kieweg.leander@gmail.com>
- <20260730173643.256052-3-kieweg.leander@gmail.com>
+	s=k20260515; t=1785491821;
+	bh=WivR7iJEHJ9l/OVbLNALYgsFd9a51WZOQLpMWpX5fXc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GuNpB39dll+MEgDBc+D9wle9XbT2t7+nkMd1UEOApC669lVJ6mbkcElMN3JwAVr0h
+	 NqUiRkOF0HrA9B75J0Ldjdes/0hqn9qYPi0FnxBoj1M11DefjE/ZWYc+WMfju0Sxly
+	 XefIqWnkf4x5dGlh6M4CKa0INDO5/G27wATqekiMphrb7BZRXYjiADy79ho1g9Xwiz
+	 zYMRqTKXZiumIAAnqBfNomCrj7R7OT6trUa3q+o6IMImH+us/fffg4IOt3YeVXTSDs
+	 1TKoJN3SKx9rt+Zn0BaSLRtm4zuMcKlOXYD95NNWuw5MQUE6qxD0KJZ4fetFBEZud8
+	 Lbq+bd+IfgUjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] dt-bindings: thermal: loongson,ls2k-thermal: Add
+ compatible for Loongson-2K0300
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Binbin Zhou" <zhoubinbin@loongson.cn>
+Cc: robh@kernel.org, mfd@lists.linux.dev, lee@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <5c6f32c841d34a9f370b5a0981a71cb23bc6e62a.1785480242.git.zhoubinbin@loongson.cn>
+References: <cover.1785480242.git.zhoubinbin@loongson.cn>
+ <5c6f32c841d34a9f370b5a0981a71cb23bc6e62a.1785480242.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 09:57:00 +0000
+Message-Id: <20260731095701.1B2771F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260730173643.256052-3-kieweg.leander@gmail.com>
 
-On Thu, Jul 30, 2026 at 07:36:42PM +0200, Leander Kieweg wrote:
-> +		if (ret) {
-> +			drm_err(&gdev->drm, "Failed to request IRQ %d\n",
-> +				gdev->irq);
-> +			return ret;
-> +		}
-> +
-> +		writel(INT_DONE, gdev->mmio_base + REG_IER);
-> +		drm_info(&gdev->drm, "IRQ %d requested and enabled\n", gdev->irq);
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Please drop
+Pre-existing issues:
+- [High] Missing NULL check for `device_get_match_data()` return value in p=
+robe.
+- [High] The driver registers a thermal sensor found at an arbitrary device=
+ tree index but completely ignores this index during hardware configuration=
+, hardcoding register operations to sensor 0.
+--
 
-> +	} else {
-> +		drm_warn(&gdev->drm, "No IRQ found, falling back to polling\n");
-> +	}
-> +
-> +	ret = drm_dev_register(&gdev->drm, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	drm_info(&gdev->drm, "GlandaGPU DRM Initialized (/dev/dri/cardX created)\n");
+--- Patch [4]: [PATCH v3 4/5] dt-bindings: thermal: loongson,ls2k-thermal: =
+Add compatible for Loongson-2K0300 ---
+commit 52153439c55d2e646aae8a83ae212f55c09dcf24
+Author: Binbin Zhou <zhoubinbin@loongson.cn>
 
-Please drop all such messages.
+dt-bindings: thermal: loongson,ls2k-thermal: Add compatible for Loongson-2K=
+0300
 
-> +	return 0;
-> +}
-> +
-> +/* Shared teardown, mirrors glanda_drm_init() */
-> +static void glanda_drm_fini(struct glanda_device *gdev)
-> +{
-> +	drm_dev_unplug(&gdev->drm);
-> +	drm_atomic_helper_shutdown(&gdev->drm);
-> +
-> +	/* Disable interrupts */
-> +	writel(0, gdev->mmio_base + REG_IER);
-> +
-> +	drm_info(&gdev->drm, "GlandaGPU DRM Driver removed\n");
+This commit adds the loongson,ls2k0300-thermal compatible string to the
+device tree bindings. It mandates the loongson,chipid property for this new
+SoC variant to provide a syscon phandle for temperature calculation.
 
-Ditto
+> diff --git a/Documentation/devicetree/bindings/thermal/loongson,ls2k-ther=
+mal.yaml b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.=
+yaml
+> index 79e691b08341c..d312e27737a20 100644
+> --- a/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/loongson,ls2k-thermal.yaml
+> @@ -10,13 +10,11 @@ maintainers:
+>    - zhanghongchen <zhanghongchen@loongson.cn>
+>    - Yinbo Zhu <zhuyinbo@loongson.cn>
+> =20
+> -allOf:
+> -  - $ref: /schemas/thermal/thermal-sensor.yaml#
+> -
+>  properties:
+>    compatible:
+>      oneOf:
+>        - enum:
+> +          - loongson,ls2k0300-thermal
+>            - loongson,ls2k1000-thermal
+>            - loongson,ls2k2000-thermal
+>        - items:
 
-> +}
-> +
-> +static int glandagpu_probe(struct platform_device *pdev)
-> +{
-> +	struct resource *res;
-> +	struct glanda_device *gdev;
-> +	int irq;
-> +
-> +	dev_info(&pdev->dev, "GlandaGPU Probe started\n");
+[ ... ]
 
-Ditto, Driver should be silent on success.
+[Severity: High]
+This is a pre-existing issue, but can this code result in a null pointer
+dereference?
 
-> +
-> +	gdev = devm_drm_dev_alloc(&pdev->dev, &glanda_drm_driver, struct glanda_device, drm);
-> +	if (IS_ERR(gdev))
-> +		return PTR_ERR(gdev);
-> +
-> +	platform_set_drvdata(pdev, gdev);
-> +
-> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!res)
-> +		return -ENODEV;
-> +
-> +	gdev->vram_phys = res->start;
-> +	gdev->vram_base = devm_ioremap(&pdev->dev, res->start, GLANDA_VRAM_SIZE);
-> +	gdev->mmio_base = devm_ioremap(&pdev->dev, res->start + GLANDA_MMIO_OFFSET,
-> +				       GLANDA_MMIO_SIZE);
-> +	if (!gdev->vram_base || !gdev->mmio_base) {
-> +		drm_err(&gdev->drm, "failed to ioremap\n");
-> +		return -ENOMEM;
-> +	}
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq == -ENXIO)
-> +		irq = -1;	/* no IRQ resource, fall back to polling */
-> +	else if (irq < 0)
-> +		return irq;
-> +
-> +	return glanda_drm_init(gdev, irq);
-> +}
-> +
-> +static void glandagpu_remove(struct platform_device *pdev)
-> +{
-> +	glanda_drm_fini(platform_get_drvdata(pdev));
-> +}
-> +
-> +/* Device Tree match table. */
-> +static const struct of_device_id glanda_of_match[] = {
-> +	{ .compatible = "glanda,gpu-1.0" },
-> +	{ /* end of table */  }
+If the driver is bound to a device via the sysfs bind interface without a
+matching device tree node, device_get_match_data() returns null:
 
-Drop comment, obvious.
+drivers/thermal/loongson2_thermal.c:loongson2_thermal_probe() {
+    ...
+	data->chip_data =3D device_get_match_data(dev);
 
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, glanda_of_match);
-> +
-> +static struct platform_driver glandagpu_driver = {
-> +	.driver = {
-> +		.name = "glandagpu",
-> +	   .of_match_table = glanda_of_match,
+	data->ctrl_reg =3D devm_platform_ioremap_resource(pdev, 0);
+	if (IS_ERR(data->ctrl_reg))
+		return PTR_ERR(data->ctrl_reg);
 
-Messed indent.
+	/* The temperature output register is separate for Loongson-2K2000 */
+	if (data->chip_data->flags & LS2K2000_THSENS_OUT_FLAG) {
+    ...
+}
 
-> +	},
-> +	.probe = glandagpu_probe,
-> +	.remove = glandagpu_remove,
-> +};
-> +
-> +/* PCI probe path for the QEMU test device, real hardware uses platform_driver */
-> +static int glandagpu_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
-> +{
-> +	struct glanda_device *gdev;
-> +	int ret;
-> +
-> +	dev_info(&pdev->dev, "GlandaGPU PCI Probe started\n");
+Does this path blindly dereference data->chip_data via
+data->chip_data->flags before any validation?
 
-Drop. Driver should be silent on success.
+Could this allow a root user or privileged process writing to sysfs to crash
+the kernel?
 
-> +
-> +	ret = pcim_enable_device(pdev);
-> +	if (ret)
-> +		return ret;
-> +	pci_set_master(pdev);
-> +
-> +	ret = pcim_iomap_regions(pdev, BIT(0) | BIT(1), "glandagpu");
-> +	if (ret)
-> +		return ret;
-> +
-> +	gdev = devm_drm_dev_alloc(&pdev->dev, &glanda_drm_driver, struct glanda_device, drm);
-> +	if (IS_ERR(gdev))
-> +		return PTR_ERR(gdev);
-> +
-> +	pci_set_drvdata(pdev, gdev);
-> +
-> +	gdev->mmio_base = pcim_iomap_table(pdev)[0];
-> +	gdev->vram_base = pcim_iomap_table(pdev)[1];
-> +	gdev->vram_phys = pci_resource_start(pdev, 1);
-> +
-> +	return glanda_drm_init(gdev, pdev->irq);
-> +}
-> +
-> +static void glandagpu_pci_remove(struct pci_dev *pdev)
-> +{
-> +	glanda_drm_fini(pci_get_drvdata(pdev));
-> +}
-> +
-> +static const struct pci_device_id glanda_pci_ids[] = {
-> +	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, PCI_DEVICE_ID_GLANDA_GPU) },
-> +	{ /* end of table */ }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(pci, glanda_pci_ids);
-> +
-> +static struct pci_driver glandagpu_pci_driver = {
-> +	.name = "glandagpu-pci",
-> +	.id_table = glanda_pci_ids,
-> +	.probe = glandagpu_pci_probe,
-> +	.remove = glandagpu_pci_remove,
-> +};
-> +
-> +static int __init glandagpu_init(void)
-> +{
-> +	int ret;
-> +
-> +	ret = platform_driver_register(&glandagpu_driver);
-> +	if (ret) {
-> +		pr_err("GlandaGPU: Failed to register platform driver\n");
-> +		return ret;
-> +	}
-> +
-> +	ret = pci_register_driver(&glandagpu_pci_driver);
-> +	if (ret) {
-> +		pr_err("GlandaGPU: Failed to register PCI driver\n");
-> +		platform_driver_unregister(&glandagpu_driver);
-> +		return ret;
-> +	}
-> +
-> +	pr_info("GlandaGPU: Module loaded successfully\n");
+[Severity: High]
+This is a pre-existing issue, but does this driver ignore the dynamically
+discovered sensor index during hardware configuration?
 
-Drop. Kernel does not print such messages. It pollutes dmesg even
-without actual hardware.
+The probe loop successfully registers the first available sensor index found
+in the device tree, but doesn't store it to update the internal sensor
+selection state:
 
+drivers/thermal/loongson2_thermal.c:loongson2_thermal_probe() {
+    ...
+	for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+		tzd =3D devm_thermal_of_zone_register(dev, i, data, data->chip_data->ther=
+mal_ops);
+		if (!IS_ERR(tzd))
+			break;
+    ...
+}
 
-> +	return 0;
-> +}
-> +
-> +static void __exit glandagpu_exit(void)
-> +{
-> +	pci_unregister_driver(&glandagpu_pci_driver);
-> +	platform_driver_unregister(&glandagpu_driver);
-> +	pr_info("GlandaGPU: Module unloaded\n");
+Later, the hardware operations calculate the offset using the statically
+hardcoded thermal_sensor_sel from the constant match data:
 
-Same here.
+drivers/thermal/loongson2_thermal.c:loongson2_set_ctrl_regs() {
+    ...
+	int reg_off  =3D data->chip_data->thermal_sensor_sel * 2;
+    ...
+}
 
-> +}
-> +
-> +module_init(glandagpu_init);
-> +module_exit(glandagpu_exit);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Leander Kieweg <kieweg.leander@gmail.com>");
-> +MODULE_DESCRIPTION("DRM driver for GlandaGPU, an FPGA-based 2D GPU with VGA output");
-> -- 
-> 2.43.0
-> 
+Will this always configure temperature thresholds and read temperatures for
+sensor 0, even if a thermal zone was registered for a different sensor inde=
+x?
+
+A related patch in this series (thermal/drivers/loongson2: Correct thermal
+sensor registration loop) actively enables this buggy path to be reached by
+continuing on -ENODEV instead of aborting.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785480242.gi=
+t.zhoubinbin@loongson.cn?part=3D4
