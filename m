@@ -1,186 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59A219DF62
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785517827; cv=none; b=M4JU8pab/E80RoAOz99LPIhtczI0WJ5/0QbqPF/RR7GYikwBFIFlpGj3k0DRpEGmfATjjxMw78O+3NsDB8mqJGArQ1oXsVaNRrxiUvxEzonEEPE8uUukRkc4eco9rLm6Ldd/CUJCYpbI5CHOE+793muvLr49DgGIoPlhSg8H6rk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785517827; c=relaxed/simple;
-	bh=04sik7v5lf6gu9iKBteNn0jlvTsbyQu32AQAb//MdZo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eXob5seW8o+mLezgqc9XFmOzYK0hs563ZOkY9J4F/nWB9WeOiC01MWrwGkMskUFlc91oMZ6J1H4kTuiuzkKYhchjtOiwJk29TZmC5oNYAP8hD5x99C5Z3bQfZjPnpHduQKDaBm1DxyrwV1FAF7Coo7tDyyDcdvo6lqzfdBlLAF8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nyktFBw7; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529D042E8C2
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 17:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785517895; cv=pass; b=RhXHzTr1h1et1Lh2OtNlo4XhDLjpoFfL3HnuXAWqn19iLda4m3NW+lkAR8kOKuizqKd+g+MFuZQZPFB7kHqiYrV+qJW+w6GUBYSXJvkffCJWQ+Jks5uEPdFduCvg2lI2k6HRP6cV8IyXNk8BaXrBUXjRT3Gs3qnwQiqoaSauY0E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785517895; c=relaxed/simple;
+	bh=Uhh8q41hmOlByjiX1nPXF362Jh+d49ZbfzvIl+Q5Sug=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VjePa0P1pl+kM8lcRQfa6PAFb1a+dQ4NEInNAGFHoKRsu4gHFQyR7LX3Ql3o56vD20jS7RVHeVm5UYYcNPWLgi1Xbu3P6VmFKwjbtYoloM8RDipO7onN0uE9tI/oiX92Lh/vb5VTQ30kb6oNnzmcYa3YKlhPR2K6Elg+u1XE6Uo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Exy5EQ16; arc=pass smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nyktFBw7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 197311F00AC4;
-	Fri, 31 Jul 2026 17:10:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785517825;
-	bh=XscTIa2Mo7UvG9fCspGZE/WFMGd8xvU4l27+JUe8Bjk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nyktFBw7b+wBO092KQuHq+uia73cKHNyntNI6phyuOO8e/WqKuZcVNPv0jC5yb4fq
-	 OdRK3sppTWBhfqN4o1gG1oxIqjPI7kx4B6gd1M4SitxEon45/dk5jMftVeXMLvf994
-	 Sm5asOGiJZ42jbNThGgpO0SUEbkc+p5uRhJ5kazTdTL54UGYhgvB/BtQtL+0cK+3w+
-	 Po+ZwgkhFW5DVF0m5k06qYKkVSEMjKUimUWYTt7Ml/Kx000iMY+NhweYs5Z7aQI2TB
-	 BfwLx/Qpp1mGbRxAWDhbghIemQq3WcXGa9/0LwOX8JTTX1Hhaw/brdERWWfoJSdjwo
-	 JBByyuo/0tOQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/21] drm/rockchip: dw_dp: Implement out-of-band HPD
- handling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-13-ac1e6a75782f@collabora.com>
-References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
- <20260731-synopsys-dw-dp-improvements-v8-13-ac1e6a75782f@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 17:10:24 +0000
-Message-Id: <20260731171025.197311F00AC4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Exy5EQ16"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-69f2c67650aso2054106a12.2
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 10:11:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785517890; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N+YJaVLdG8gNg/Nk8Xd+7w/ojN//HqBcpZNN5k9AuhERWf02PFCvGleKk+Dnbtw8gi
+         N5ViNPOj4bPuX3WCmQA4pnLbLRlzgUkK7e43FAx1yqEcboH0jgI5bnB6bvf/+5LDvDJX
+         z7pjeQnzZSy544rqadb91xA8Zybna0WR1oaXVuoh+iEwxkmVos7+2nr69gGQ0aedc1Ce
+         7N3b44/loT3I0kwIuL5muXvV4Pypt806yVNDRr2/bFeybGEdDZBOhapoZmbOLHDt/4dv
+         WjwFGisnTUqQngC7EhwNm3GYe8wT+Q3cKsX2yOBFwmnQSVyHOeBd3eCZNdPge0YnoZ1J
+         XqSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tfzdRxKMzAqp/+9ZSx+vlyqKp24vqwGUERSU+Y5G+a0=;
+        fh=SzzmBkZPXAkW1VjGVgS1R0oyiN1kavicWv9xCNQYOWU=;
+        b=ejwR6rg+enJceSQrXW1fPnA9WU4GUmKbZSXl4QWHjvz56cn89MvO7NKfR3t+cY+j+K
+         dQPMiqy6SazTID1UGBZfoIlxiWQBkzk1lOHtLAHdhVAjCVUPOJeSNTEdH1RlEnyT0EJH
+         ss+TBPu72gn8sZk6ZYs5jIuwiMrGT3Oav794B5RD6yL/zS8qsOlEvJBSFEuRx9A8O5nP
+         KHw8mH3ZYfZA3WMRNqgu2+2MHsCfnRq131NQhz5Rh4GJajVH4vwQPUxrvPcoSHwe8fVi
+         LX7FuNS7QuuNaKMh1AQUFKUgTWaRExYbzzjr5824uwdMZ8dHSK3E15cw513amGRCSi7o
+         cYQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785517890; x=1786122690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tfzdRxKMzAqp/+9ZSx+vlyqKp24vqwGUERSU+Y5G+a0=;
+        b=Exy5EQ162dvgPIB46DJfZCIj898OhNHYTDXIQagaTUngdPry8jW88hSxi6aVeP31S7
+         YzgozmElj0AURbi6rlolpsPiLByD3Dd4Ii6jY6wqjM621Fqqa0b22PEBuASgo8mAw4De
+         q9L3mNgaXd9xOA1YKaScbjzyuSCFbwu3UiiXTk2ghLdVxl1k256wj9vTvGHuymhzwrX5
+         N1QWFADLLAUwVNfVysAJrQvM98upHj4eMDVgmRkgOseJP/GEExxCmGqFNrQL6nBDdWuh
+         5q9mOh7bcYV0Wbl5Q5V2ykhADYOUtuUfmzcCHvOZ5sPgDDKDntg7uK7b27OmDy1F3uAo
+         XHEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785517890; x=1786122690;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tfzdRxKMzAqp/+9ZSx+vlyqKp24vqwGUERSU+Y5G+a0=;
+        b=U7kRdZZ/Rx9Dzysr2PdIaJ0idTSuf1vRfpaLyoHusHU0X4C1L+G1PeE8nGjj0ulEBa
+         ohBfx/8BSmMAK+KLtQuyCbPqj79yNWOlnrKrJtyI1nAOxPnSIBddXrPh1XPXg1G1AXz+
+         tv/00TWGqMtzVQXaOcIJv1yv0BdmpsvNgMEenEU8hQ5WhqxdyqVDHVXmGKcw01gv1emv
+         7AdOaIctQhH/M9x6UZJSNwa6NL03GifeGJ/OjNzVMBhZDE4L9DYP4UxSRtQ5wxWiD3Gk
+         5h10og/G7rqwAVKLW3hAHZE/SeNmPbe/hDNuemGhte7zHkbF3fe5AIczgV2CyZBBo+bV
+         LNMg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpxdam1qKqtPaqnwjKLGrIeP2V1a9UeyWTUHpfZcQQX1og8Oi6Fb2isx8+GsQWWPmnLXwTwXhuHpmy+@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVcZ4T6sF+xq4i5Tb0w2s6xTyhXw6KucbVa001whVUubs6QF+l
+	vMj038s54FJOmrUl/N7hcSvcSf8vuSKQjbILvs79TLHCmTnQcrBdFgdrDadjlLcWLh3voeESOa9
+	55VZJg0YQcO0iV/lLk8uDsKcvf8qh1Mv+VGop+QPO6w==
+X-Gm-Gg: AR+sD12Dn9mot4kSqu2A54o8VbNQkeMZqzuLY+m5S0Kb4YgEAVYjt2fIeSDhjE/G4Va
+	2dqkZtmOQqdN7me+gjmqIFvKoEZp30AzH4+KoNLVB3pgUaB8ltuqyYWx6HM3GiH/EVfg5iImizO
+	QaJWbDwmLuRvQBa9keHDigJYI/V49L9Dwk3/3NB7kZFNfODyiOHEz4siMc7szRhaEQXa7NDioY+
+	a0yeL2fT8FirIMBErt7VNriV5QoBFFBWW4xE2N3Q2orbI/B4r3Eo4Kdte1NPeFzC1k7Lg7lDWy7
+	84CalKpm1fFZ7DfOX2gAtafq1nedEabFHTWhUkyBR9s7omhnDBv3uFb+2pkmRwHvi/JfrGS5Zv2
+	y3Xx+7Tg8e9bO0Q==
+X-Received: by 2002:a05:6402:449a:b0:697:de29:c802 with SMTP id
+ 4fb4d7f45d1cf-6a0a7ccb364mr275774a12.18.1785517889487; Fri, 31 Jul 2026
+ 10:11:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
+In-Reply-To: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Fri, 31 Jul 2026 11:11:17 -0600
+X-Gm-Features: AUfX_mwyptmYyOf4p0ZyWTJXkdByXi3n4edVXueGHxTjG-w_nq_PAPMefUUmQKw
+Message-ID: <CANLsYkyJ=qOz_7x8igcwkiHsJQWP8JizB4-q5QV5gv-s+e6eVA@mail.gmail.com>
+Subject: Re: [PATCH v15 0/5] Enable Remote GPIO over RPMSG on i.MX Platform
+To: Shenwei Wang <shenwei.wang@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>, 
+	linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-imx@nxp.com, 
+	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, b-padhi@ti.com, Andrew Lunn <andrew@lunn.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing runtime PM acquisition in `dw_dp_rockchip_hpd_sw_cfg` and =
-`dw_dp_rockchip_hpd_sw_sel` causes potential SErrors when accessing `vo_grf=
-`.
-- [Medium] Logical flaw in `dw_dp_rockchip_get_vo_grf` prevents probing on =
-future platforms, contrary to its comment.
---
+I won't be able to review this patchset until the week starting August 17th=
+.
 
---- Patch [13]: [PATCH v8 13/21] drm/rockchip: dw_dp: Implement out-of-band=
- HPD handling ---
-commit 1e82a4f2c1a3fedc07fd8e258e2008997986261a
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-drm/rockchip: dw_dp: Implement out-of-band HPD handling
-
-This commit implements out-of-band hotplug handling for USB-C by accessing
-the vo_grf directly.
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
-rockchip/dw_dp-rockchip.c
-> index 005938dc66c9f..d516b3910b516 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-
-[ ... ]
-
-> @@ -23,12 +26,48 @@
-> =20
->  #include "rockchip_drm_drv.h"
-> =20
-> +#define ROCKCHIP_MAX_CTRLS 2
-> +
-> +#define ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL BIT(10)
-> +#define ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG BIT(11)
-
-[ ... ]
-
-> +static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
-> +{
-> +	struct rockchip_dw_dp *dp =3D data;
-> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
-> +
-> +	regmap_write(dp->vo_grf, hpd_reg,
-> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, force_hpd_from_s=
-w));
-
-[Severity: High]
-Does this register access require a runtime PM reference?
-
-The commit message notes that this register requires the power-domain from =
-the
-DP controller, and that moving the access here prevents massive SError prob=
-lems
-once runtime PM is enabled. However, it appears this code accesses the regi=
-ster
-without acquiring a runtime PM reference (e.g., pm_runtime_get_sync()).=20
-
-If the DP controller is runtime suspended when a hotplug event occurs, won't
-this regmap_write() still cause an SError?
-
-> +}
-> +
-> +static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
-> +{
-> +	struct rockchip_dw_dp *dp =3D data;
-> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
-> +
-> +	dev_dbg(dp->dev, "Force HPD connected=3D%s\n", str_yes_no(hpd));
-> +
-> +	regmap_write(dp->vo_grf, hpd_reg,
-> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
-
-[Severity: High]
-Does this register access also require a runtime PM reference to prevent an
-SError, for the same reasons as above?
-
-> +}
-> +
->  static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
->  				      struct drm_crtc_state *crtc_state,
->  				      struct drm_connector_state *conn_state)
-
-[ ... ]
-
-> @@ -71,6 +110,35 @@ static const struct drm_encoder_helper_funcs dw_dp_en=
-coder_helper_funcs =3D {
->  	.atomic_check		=3D dw_dp_encoder_atomic_check,
->  };
-> =20
-> +static struct regmap *dw_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *d=
-p)
-> +{
-> +	struct device_node *np =3D dev_of_node(dp->dev);
-> +	struct of_phandle_args args;
-> +	struct regmap *regmap;
-> +	int ret;
-> +
-> +	ret =3D of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
-> +	if (ret)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	/*
-> +	 * Limit this workaround to RK3576 and RK3588, potential future platfor=
-ms
-> +	 * reusing the driver should just add a VO GRF phandle in the DisplayPo=
-rt
-> +	 * controller DT node.
-> +	 */
-> +	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
-> +	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
-> +		regmap =3D ERR_PTR(-ENODEV);
-> +		goto out_put_node;
-> +	}
-
-[Severity: Medium]
-Will this compatibility check prevent the driver from probing on future
-platforms?
-
-The comment suggests that future platforms should add a "rockchip,vo-grf"
-phandle in the DisplayPort controller DT node. However, if the PHY node does
-not match the legacy compatibles, this code unconditionally returns
-ERR_PTR(-ENODEV) and never attempts to parse the "rockchip,vo-grf" phandle
-from the DP controller node.
-
-Does this effectively break probe for any new platforms?
-
-> +
-> +	regmap =3D syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
-> +
-> +out_put_node:
-> +	of_node_put(args.np);
-> +	return regmap;
-> +}
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
-w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D13
+On Tue, 21 Jul 2026 at 14:48, Shenwei Wang <shenwei.wang@oss.nxp.com> wrote=
+:
+>
+> Support the remote devices on the remote processor via the RPMSG bus on
+> i.MX platform.
+>
+> Changes in v15:
+>  - Update Kconfig description per AndrewD and Julian's feedback
+>  - Enable the GPIO driver even without a DT node per AndrewD's feedback
+>  - Update gpio-rpmsg.rst per Mathieu=E2=80=99s feedback
+>  - Code cleanup according the new gpio-rpmsg.rst and sashiko-bot's review
+>    feedback
+>
+> Changes in v14:
+>  - Update gpio-rpmsg.rst per Mathieu=E2=80=99s feedback.
+>  - Align the rpmsg-gpio driver with the revised gpio-rpmsg.rst.
+>  - Modify rpmsg-core to enable prefix-based matching of RPMSG device IDs.
+>
+> Changes in v13:
+>  - drop the support for legacy NXP firmware.
+>  - remove the fixed_up hooks from the rpmsg gpio driver.
+>  - code cleanup.
+>
+> Changes in v12:
+>  - Fixed the "underline" warning reported by Randy.
+>
+> Changes in v11:
+>  - Expand RPMSG for the first time per Shuah's review comment.
+>
+> Changes in v10:
+>  - Update gpio-rpmsg.rst according to Daniel Baluta's review comments.
+>  - Add a kernel CONFIG for fixed up handlers and only enable it on
+>    i.MX products.
+>  - Fixed bugs reported by kernel test robot.
+>
+> Changes in v9:
+>  - Reuse the gpio-virtio design for command and IRQ type definitions.
+>  - Remove msg_id, version, and vendor fields from the generic protocol.
+>  - Add fixed-up handlers to support legacy firmware.
+>
+> Changes in v8:
+>  - Add "depends on REMOTEPROC" in Kconfig to fix the build error reported
+>    by the kernel test robot.
+>  - Move the .rst patch before the .yaml patch.
+>  - Handle the "ngpios" DT property based on Andrew's feedback.
+>
+> Changes in v7:
+>  - Reworked the driver to use the rpmsg_driver framework instead of
+>    platform_driver, based on feedback from Bjorn and Arnaud.
+>  - Updated gpio-rpmsg.yaml and imx_rproc.yaml according to comments from
+>    Rob and Arnaud.
+>  - Further refinements to gpio-rpmsg.yaml per Arnaud's feedback.
+>
+> Changes in v6:
+>  - make the driver more generic with the actions below:
+>      rename the driver file to gpio-rpmsg.c
+>      remove the imx related info in the function and variable names
+>      rename the imx_rpmsg.h to rpdev_info.h
+>      create a gpio-rpmsg.yaml and refer it in imx_rproc.yaml
+>  - update the gpio-rpmsg.rst according to the feedback from Andrew and
+>    move the source file to driver-api/gpio
+>  - fix the bug reported by Zhongqiu Han
+>  - remove the I2C related info
+>
+> Changes in v5:
+>  - move the gpio-rpmsg.rst from admin-guide to staging directory after
+>    discussion with Randy Dunlap.
+>  - add include files with some code improvements per Bartosz's comments.
+>
+> Changes in v4:
+>  - add a documentation to describe the transport protocol per Andrew's
+>    comments.
+>  - add a new handler to get the gpio direction.
+>
+> Changes in v3:
+>  - fix various format issue and return value check per Peng 's review
+>    comments.
+>  - add the logic to also populate the subnodes which are not in the
+>    device map per Arnaud's request. (in imx_rproc.c)
+>  - update the yaml per Frank's review comments.
+>
+> Changes in v2:
+>  - re-implemented the gpio driver per Linus Walleij's feedback by using
+>    GPIOLIB_IRQCHIP helper library.
+>  - fix various format issue per Mathieu/Peng 's review comments.
+>  - update the yaml doc per Rob's feedback
+>
+> Shenwei Wang (5):
+>   docs: driver-api: gpio: rpmsg gpio driver over rpmsg bus
+>   dt-bindings: remoteproc: imx_rproc: Add "rpmsg" subnode support
+>   rpmsg: core: match rpmsg device IDs by prefix
+>   gpio: rpmsg: add generic rpmsg GPIO driver
+>   arm64: dts: imx8ulp: Add rpmsg node under imx_rproc
+>
+>  .../devicetree/bindings/gpio/gpio-rpmsg.yaml  |  55 ++
+>  .../bindings/remoteproc/fsl,imx-rproc.yaml    |  53 ++
+>  Documentation/driver-api/gpio/gpio-rpmsg.rst  | 242 ++++++++
+>  Documentation/driver-api/gpio/index.rst       |   1 +
+>  arch/arm64/boot/dts/freescale/imx8ulp.dtsi    |  25 +
+>  drivers/gpio/Kconfig                          |  17 +
+>  drivers/gpio/Makefile                         |   1 +
+>  drivers/gpio/gpio-rpmsg.c                     | 587 ++++++++++++++++++
+>  drivers/rpmsg/rpmsg_core.c                    |   4 +-
+>  9 files changed, 984 insertions(+), 1 deletion(-)
+>  create mode 100644 Documentation/devicetree/bindings/gpio/gpio-rpmsg.yam=
+l
+>  create mode 100644 Documentation/driver-api/gpio/gpio-rpmsg.rst
+>  create mode 100644 drivers/gpio/gpio-rpmsg.c
+>
+> --
+> 2.43.0
+>
