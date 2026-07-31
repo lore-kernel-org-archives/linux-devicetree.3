@@ -1,114 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C1E413D69;
-	Fri, 31 Jul 2026 10:18:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDD3411F97;
+	Fri, 31 Jul 2026 10:18:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785493133; cv=none; b=jnxuBDJiCor8bcgI2XVW34g/WTG++BE6z4KjmWZdAVbxslxwj2OonzpOQXsfdzxJLm7eRCJ+gAb03gvrhHLJ5/l6aLTTmjfdePD7dMgXreyZMeX6KUHPp674Dd5GAX8wK4IGpIHSQtwg3xdZuDWA5NwnxVvciOUzhXZ7Byy2teE=
+	t=1785493138; cv=none; b=Uw8qy85dLlrUeZGL2iT4dcnYZtUU9pFs8u/cBAjpOOGp9Qd0ArQa6ELGDC3AzfaHgd8WrTsiJXixtKLb3I7HaQEfngVU7hg2Ih+INM/VIeVO3wMAP65JHiSZjt2cPgE7XW9A/i9Iylm0dVUI19OZ3CIBZk4VCgofKI3ZH1nmcLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785493133; c=relaxed/simple;
-	bh=yI3UxfyRBw04LrVI94NREZzPjprsRzBiADaXP+iRBYc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sB0x2xivXjdjUku1NdYHhI4Ajvqh9PhQNqCddC/O8c6i8S0ZKHp4rKUMXszSWS2C9GEFi4auOsKADCqiID5Vhu3GDljzFvXqEbv+schQKQk7YYTI2h2kzcx6r6k2RwdNzvrxi3sxCm7e5qVqD14v9znteF8FGlnPrFZQNsqeUhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X11xyi2a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785493138; c=relaxed/simple;
+	bh=X2EeniwApockyGOlFrGtDe+3zVWE2EEHZwPsdH0Cjtg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=hKbdKNlAcKGZdKctdpSBun/bkRXBdB2YV705UjmdaC5gzX7C5bjwJ5/WQuKaUj7wXbna02NfOUt2P8gse3sNOvMVZZcfTVeLCjzVSZT6X/4LRe0QuDzlpumZo7aKPAPUTgjndEEzlNAe91RGcbPgP0zG+vaEcV/tpoS7BnTdcHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXHhpqJ3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X11xyi2a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E50131F000E9;
-	Fri, 31 Jul 2026 10:18:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXHhpqJ3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21EF71F00A3D;
+	Fri, 31 Jul 2026 10:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785493107;
-	bh=f9cptf1rYLtqAG5WlIuOW+6TTzs5Moooej2jOpAkklk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X11xyi2aWcvjvvqB27G2e70sM3Y9Kj4lbbVWfIg2TrC51c7LRxJI2VZJEOvmyLN4Z
-	 YrUI3pXwLE8KMKgrbIPVncIIHLzbnZfQawYiQy51fhOfR6qc8IvrXNThMncEnOq3hs
-	 O3Hh8k0UMdGqrghso+u3Gsx7jS4b0qydVAyz+YjykYDeeIIgWy7M6kHbv2yHmNvm5m
-	 wlbGoR5jU//mMpwGXjUO4IfB2J5Q78yhW0TIFTitO7Ba+XMkgflAHMg5ydwMYQKeBQ
-	 PRHVnPbN8kchXMNq6wYxeHuRv2mKoZfP+QZ6bMo13bDIsQraIS1IbdwTns6rUSqzez
-	 ZgsPeUrjMmitA==
-Message-ID: <a59c01f3-e930-41b6-bf6a-3cce92f301e6@kernel.org>
-Date: Fri, 31 Jul 2026 12:18:21 +0200
+	s=k20260515; t=1785493127;
+	bh=6TndT5ZqPbf3/gWWwhB7gB0t2oRikWVf2rtwe4bd34Q=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=kXHhpqJ3au4m6EgOlas5iD+FQiGqt+yQ3dcBaiVyBk+d1JM0VidyGggUdiAPvpclK
+	 Ug5TSQ80hL9FNEu94fAiWSlgE+FB+8ogCBWJ7Yvb5QysZWLOywwwf3QSB2TU1F2wRt
+	 u6uIOSlCKgWMiUSOWz4PxJyFHLo3EuB7nL7TmUJkIcL7RpTOVHaD6EGpKiVKQ27Ee2
+	 PZfIYON+7PYhVWEqW6BJdN942xnijfWyUP/fOrmEwa1Xumg/lZ2zulkU+8C20mgoIX
+	 5IIMnUAo1UniqgyJI6zUKSuaPPqxuN0UoxY2TT8DWWDYrscRVi6wsntKLO2yTOPw7T
+	 ZsoNMDN7YAPVA==
+Date: Fri, 31 Jul 2026 05:18:46 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C
- controller
-To: nina_kuo@novatek.com.tw
-Cc: andi.shyti@kernel.org, ben_huang@novatek.com.tw, conor+dt@kernel.org,
- devicetree@vger.kernel.org, krzk+dt@kernel.org, linux-i2c@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, shihpei_hsu@novatek.com.tw,
- toby_chui@novatek.com.tw
-References: <20260731-caped-miraculous-quetzal-1fffb7@quoll>
- <20260731101035.599828-1-nina_kuo@novatek.com.tw>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260731101035.599828-1-nina_kuo@novatek.com.tw>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, devicetree@vger.kernel.org, 
+ linux-media@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>
+To: Alexander Shiyan <eagle.alexander923@gmail.com>
+In-Reply-To: <20260731073505.2278769-2-eagle.alexander923@gmail.com>
+References: <20260731073505.2278769-1-eagle.alexander923@gmail.com>
+ <20260731073505.2278769-2-eagle.alexander923@gmail.com>
+Message-Id: <178549312642.3460743.16636467858799088531.robh@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
+ sensor binding
 
-On 31/07/2026 12:10, nina_kuo@novatek.com.tw wrote:
-> From: Ben Huang <Ben_Huang@novatek.com.tw>
-> 
-> On Friday, July 31, 2026 5:34 PM, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>> +description: |
->>
->> Do not need '|' unless you need to preserve formatting.
-> 
-> '|' will be removed for the next iteration.
-> 
->> You miss clocks.
-> Currently, the I2C input clock rates are hard-coded in i2c-nt72676.c, which is
-> not ideal.
->  
 
-Driver is irrelevant here.
+On Fri, 31 Jul 2026 10:35:04 +0300, Alexander Shiyan wrote:
+> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+> 
+> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+> ---
+>  .../bindings/media/i2c/onnn,ar0234.yaml       | 123 ++++++++++++++++++
+>  1 file changed, 123 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> 
 
-Best regards,
-Krzysztof
+My bot found errors running 'make dt_binding_check' on your patch:
+
+yamllint warnings/errors:
+
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: ignoring, error in schema: properties: compatible: oneOf
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: properties:compatible:oneOf: {'const': 'onnn,ar0234cs', 'items': {'enum': 'onnn,ar0234cssc onnn,ar0234cssm', 'const': 'onnn,ar0234cs'}} should not be valid under {'items': {'propertyNames': {'const': 'const'}, 'required': ['const']}}
+	hint: Use 'enum' rather than 'oneOf' + 'const' entries
+	from schema $id: http://devicetree.org/meta-schemas/keywords.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: properties:compatible:oneOf: {'const': 'onnn,ar0234cs', 'items': {'enum': 'onnn,ar0234cssc onnn,ar0234cssm', 'const': 'onnn,ar0234cs'}} is not of type 'array'
+	from schema $id: http://devicetree.org/meta-schemas/string-array.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml: properties:compatible:oneOf: {'const': 'onnn,ar0234cs', 'items': {'enum': 'onnn,ar0234cssc onnn,ar0234cssm', 'const': 'onnn,ar0234cs'}} is not of type 'array'
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-doc-validate", line 8, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 66, in main
+    ret |= check_doc(f)
+           ~~~~~~~~~^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/doc_validate.py", line 37, in check_doc
+    dtsch.check_schema_refs()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 242, in check_schema_refs
+    self._check_schema_refs(resolver, self)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
+    self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            has_constraint=has_constraint)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 212, in _check_schema_refs
+    self._check_schema_refs(resolver, v, parent=k, is_common=is_common,
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                            has_constraint=has_constraint)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/schema.py", line 203, in _check_schema_refs
+    ref_sch = resolver.lookup(schema['$ref']).contents
+              ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 682, in lookup
+    retrieved = self._registry.get_or_retrieve(uri)
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 422, in get_or_retrieve
+    registry = self.crawl()
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 500, in crawl
+    id = resource.id()
+  File "/usr/local/lib/python3.13/dist-packages/referencing/_core.py", line 231, in id
+    id = self._specification.id_of(self.contents)
+  File "/usr/local/lib/python3.13/dist-packages/referencing/jsonschema.py", line 50, in _dollar_id
+    return contents.get("$id")
+           ^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'get'
+Documentation/devicetree/bindings/media/i2c/onnn,ar0234.example.dtb: /example-0/i2c/camera@18: failed to match any schema with compatible: ['onnn,ar0234cssc', 'onnn,ar0234cs']
+Documentation/devicetree/bindings/media/i2c/onnn,ar0234.example.dtb: /example-0/i2c/camera@18: failed to match any schema with compatible: ['onnn,ar0234cssc', 'onnn,ar0234cs']
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260731073505.2278769-2-eagle.alexander923@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
