@@ -1,97 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8442745A280;
-	Fri, 31 Jul 2026 18:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057A82566F7
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785521447; cv=none; b=onNYG6pzXuLCaMmJtncAz/zo3uNCAdQysMBax6Rj7CtAh7yuyxHkFHeHNB6Lb3173dJLhL076le+/FEmR6tQDspvJn6osdQBbQOVsoxlfVMUQedHUQDb5lx6A2LPv8IoRpRu/+PzTVOGnGjjCBukopHLs49Bnu22fhe1Hr8UuYI=
+	t=1785521886; cv=none; b=G2tgWFHkTHHJkze3+0IH3Z/hPLtrhuNS60KcxVu2/bQMSFV0qkOy2ZuYxM1juc06h8yLMUBGbpXKRxK/T8EDJKBc+J+RHNXykMxkY1KEAlW/n7Juq0hbSCabECid5Bk6+wSmAGZuQohQF7+82rSxrAL/f0glujA5MVilVQYdFBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785521447; c=relaxed/simple;
-	bh=kk/h9EqTHf1du7pPLLLg/wQ11+5cMf//VGDNEIKBpVA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cTl9SXAjmraYDa84uxJuHk45N1C2H83EfTB5i15WTjQ9hHj0QzePWE+t4pGiU6jWZRsUqZh90Hku34SlqfOTUaaP2QGhKE7w2KNyk8dVTB/9sqK+eXRD6350czJ9bNgd3cAA7ohUWeVDouLUIARGEuMrJrP9LOV9x0ffdqeS0Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecdIncY8; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785521886; c=relaxed/simple;
+	bh=NVs4iHwQdAmJWjSJ1IMUJ2X440y44URVPih4imKEIIY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WSOFs44dHh1eeSB66OsBoq/VJbBzi/Vfp5uZ6WakyXQxBwZfODRxKkIla4/+hHIKOJR6LogoqvCvg5pR+c/fxUG2giMP42nFoNurwLC6ZNBKB/V6yt7SzTP0fxIxNpTl2xEkwajGlFvbbHpPqWQfM1WdvGeVBo25udyw8t6cqPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MDztMzYu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecdIncY8"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BC950C2BCF5;
-	Fri, 31 Jul 2026 18:10:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785521446;
-	bh=kk/h9EqTHf1du7pPLLLg/wQ11+5cMf//VGDNEIKBpVA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ecdIncY8N8TbQqxxPeT8Rui5ZEYJWAMEiCqOK0N1qgqzIby3lGl1agOyJP8z7t08B
-	 bVXk7OF/S4CjLGET8bE6mYWnhQQDJH8GW1Yeplt3HsYE4CqICcQqjbLBjFlpEMdxee
-	 AzjcimXY322zxeMblGQt384Le57ovAAKy1eQNvb65K8NCo0p4EftghYJjBMggJvD+B
-	 rGhjiPficGDFwQUXYs6UYuSvYebjJCfmonKUv1pJydCWqmvSqvvfO9MOvmo3FlbFyD
-	 dH80XZs4n3m9XACAAGMyyDpTLgWN4UPldYjZ4WOtmaEeT++Ff6Dkl8DPTDnHdzeESS
-	 oNO6lAQKhFY+g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0566C55174;
-	Fri, 31 Jul 2026 18:10:46 +0000 (UTC)
-From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
-Date: Fri, 31 Jul 2026 14:08:24 -0400
-Subject: [PATCH 2/3] dt-bindings: pinctrl: qcom,sm8450-tlmm: Add compatible
- for SM8475
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MDztMzYu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989321F00AC4;
+	Fri, 31 Jul 2026 18:18:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785521884;
+	bh=6ze8rm1SsGva9DUcLnPvtAERQkwYA6mo3iQMkSbA+Ac=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MDztMzYuNnC88wRtF+oRjZFMo/0iIwzxiMz01QZKWW6MXVKF0bjNbQF6paZfNhi0x
+	 xM8VPY9GC0ejISMiyhlRfr4149HuQZyU/A4/N3CCFHW21QddepFaxRwQwazpPXJ+lS
+	 ejWzuI0apG2buWY4rRSkj19jhc3ci6RqLYMojetfEGplsvPkie9OsOXl9nHKoHqnwl
+	 UHSXVi+nA7VbOU5CtPlsQ7+9vyppuagtP/+ntZVyEwKHiwuqJsJRMShuhdg2r8/ScK
+	 u/X/6Mxu8cIIlfrXwPRnyzVLrcwmn+j5vxY+mlEepXud0+5WwEtUb4cDE5aJFAL56w
+	 R198knP03Z0vQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] arm64: dts: qcom: Add Glymur-based Lenovo Yoga
+ Slim 7x Gen11
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260731-topic-yoga_submission-v2-2-f1887031da4f@oss.qualcomm.com>
+References: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
+ <20260731-topic-yoga_submission-v2-2-f1887031da4f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 18:18:04 +0000
+Message-Id: <20260731181804.989321F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-sm8475-tlmm-v1-2-3007a8e4aa62@proton.me>
-References: <20260731-sm8475-tlmm-v1-0-3007a8e4aa62@proton.me>
-In-Reply-To: <20260731-sm8475-tlmm-v1-0-3007a8e4aa62@proton.me>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- phone-devel@vger.kernel.org, Esteban Urrutia <esteuwu@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785521444; l=858;
- i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
- bh=uNYE/Aw+T2Ydk8qBeptK7lz6gSl5CHQQQ2W4ELAzgXE=;
- b=0y90eIdphhoGeVeb+kEaTiqKGFbkklwSR0EMxiYy+tpB5Fcv7VYsMfApMPLXpYN/Mzr+b9Sm1
- Asg+wqf8VvjAz3KjQLmWIM04zaidau3xgdCEZS8/xZxT6drD3ytHdr6
-X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
- pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
-X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
- auth_id=835
-X-Original-From: Esteban Urrutia <esteuwu@proton.me>
-Reply-To: esteuwu@proton.me
 
-From: Esteban Urrutia <esteuwu@proton.me>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The `lpass_vamacro` sound node is missing the `vdd-micb-supply` pr=
+operty, which is required to bias the digital microphones.
+- [High] The WCN7850 PMU is incorrectly configured with a 1.8V regulator fo=
+r its 0.95V and 1.2V rails.
+- [Low] Unused pinctrl state `nvme_sec_reg_en` defined in PMIC GPIOs.
+--
 
-SM8450 and SM8475 have different pinctrl drivers, which are incompatible
-with each other.
-Add compatible string for the SM8475 pinctrl driver.
+--- Patch [2]: [PATCH v2 2/3] arm64: dts: qcom: Add Glymur-based Lenovo Yog=
+a Slim 7x Gen11 ---
+commit dd05ca8f0ca39458a10b38cd0e585f0cd4a934d3
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
----
- Documentation/devicetree/bindings/pinctrl/qcom,sm8450-tlmm.yaml | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim 7x Gen11
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,sm8450-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,sm8450-tlmm.yaml
-index 16fd2c5e2339..c790ab851bc7 100644
---- a/Documentation/devicetree/bindings/pinctrl/qcom,sm8450-tlmm.yaml
-+++ b/Documentation/devicetree/bindings/pinctrl/qcom,sm8450-tlmm.yaml
-@@ -17,7 +17,9 @@ allOf:
- 
- properties:
-   compatible:
--    const: qcom,sm8450-tlmm
-+    enum:
-+      - qcom,sm8450-tlmm
-+      - qcom,sm8475-tlmm
- 
-   reg:
-     maxItems: 1
+This commit introduces a new device tree for the Glymur-based Lenovo Yoga=20
+Slim 7x Gen11. It mentions several working features, including audio playba=
+ck
+and capture, display, keyboard, touchpad, Wi-Fi, and Bluetooth.
 
--- 
-2.55.0
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arc=
+h/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
+> new file mode 100644
+> index 0000000000000..ecc8c34fb983b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
 
+[ ... ]
 
+> +	wcn7850-pmu {
+> +		compatible =3D "qcom,wcn7850-pmu";
+> +
+> +		vdd-supply =3D <&vreg_wcn_0p95>;
+> +		vddio-supply =3D <&vreg_l15b_e0>;
+> +		vddaon-supply =3D <&vreg_l15b_e0>;
+> +		vdddig-supply =3D <&vreg_l15b_e0>;
+> +		vddrfa1p2-supply =3D <&vreg_l15b_e0>;
+> +		vddrfa1p8-supply =3D <&vreg_l15b_e0>;
+
+[Severity: High]
+Is the 1.8V regulator (vreg_l15b_e0) correctly assigned here?
+
+The PMU's Always-On (vddaon) and Digital (vdddig) rails require ~0.95V,
+and vddrfa1p2 requires 1.2V.
+
+Connecting them to a 1.8V LDO could break power management or lead to
+undefined behavior during WCN power sequencing.
+
+[ ... ]
+
+> +&lpass_vamacro {
+> +	pinctrl-0 =3D <&dmic01_default>, <&dmic23_default>;
+> +	pinctrl-names =3D "default";
+> +	qcom,dmic-sample-rate =3D <4800000>;
+> +};
+
+[Severity: High]
+Is the vdd-micb-supply property missing from the lpass_vamacro node?
+
+Without the microphone bias supply configured, the VA macro driver cannot
+enable the required regulator to power the digital microphones, which causes
+audio capture to fail.
+
+The commit message states "Audio playback and capture" is working, but it
+seems this configuration is incomplete. The 1.8V regulator vreg_l1b_e0 is
+defined in the device tree but unreferenced; was it intended for this?
+
+[ ... ]
+
+> +&pmh0110_f_e1_gpios {
+> +	nvme_sec_reg_en: nvme-reg-en-state {
+> +		pins =3D "gpio14";
+> +		function =3D "normal";
+> +		bias-disable;
+> +	};
+> +};
+
+[Severity: Low]
+Is this pinctrl state nvme_sec_reg_en used anywhere?
+
+It appears to be completely unreferenced by any regulator or device.
+The vreg_nvme regulator correctly references nvme_reg_en from
+pmh0101_gpios instead.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-topic-yoga=
+_submission-v2-0-f1887031da4f@oss.qualcomm.com?part=3D2
