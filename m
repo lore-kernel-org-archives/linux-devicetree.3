@@ -1,151 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7D14503F3
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A488C4582CB
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 16:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785516027; cv=none; b=m907lmdKd6xm4f0pAS9ljIPHPt2Ln/3Ax6zT5TaEnPkbHxYzh+CPXwfLksZMv+rYC5JczHYwj9mg2VwvyLpTMTa2JVeY9hEtnPl2rNshOctoRG+M4Eyl71CEzgePMe7Np+8fgoDc9ASlaoB4xJxSyXbHjUzbcFo5vWIdNpH5SIg=
+	t=1785516078; cv=none; b=uEil+beFNbUnzKgHgBPQvo/mvfZIBwuORHlejmLgvCVzy/g0KCtinvaV7eKU4PHqvfgTjJQh9NRpgEsBNZ/ukBcJKxG2ogsd4y/L1IQ8Ql1Qp5uMoX+gg1d/3jR2dF24BVV60JQPSgHg+nDAsSB5d8euEBwttydT52lZs0QoIwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785516027; c=relaxed/simple;
-	bh=YZ34yMNZCvEiMBqaOqvansc7ml7jJ2ZCL6lCwrJO3VM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t2ZNy+J8OawiPl47ufJTKJX+Gh8y8ABbwAv/tXOEB0pby5RAn4liC6OoD3Y4OCyLdPctBgGJPIdrnzXRhuELyrOzpSbOdDIT/59kd387/FOMrXrqq8ButZGI+Wk/RAbL1ntGs3I6ip096Ews7N2lQvrP3frCwo+UR20VjtVghjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/CORSaG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785516078; c=relaxed/simple;
+	bh=fQWT4wQ+tPH+nUwhJFZpI82T4FocCSDu4zSo4LpkarM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LsQL6N+d2OM/0nmFv0Ohxa5OxHczh0XpbJnajpq9vbGIyg1ZGDD8CQfiDYMmiQ9NU7uD/OfcMqDtqeyDGJEmHRx/sBXWUkKoix5Z0SJ8KVzonL2SzzznGWLWYOzgJa3vBDkNo28etpOisbiW3J9U7QUUIz++xe309oQS11w8g7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ZNOVTeOM; arc=none smtp.client-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/CORSaG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BA81F00ACA;
-	Fri, 31 Jul 2026 16:40:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785516025;
-	bh=mfJSmNg4cx5T1Ackm9F2twrNfdlaqavT17kEgtqpQUo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M/CORSaG0lRKSdn5YPGDWNfEOoPaWyGgdPbC6mt/cmZh7j+VeebwkyroV4ensHBH7
-	 aAES+1ppkAHpZ68gfCZ5I0HkBPK027DQnPa/qAVOEd0v6OvdYeTGtR3VybSTQzPCzs
-	 9jUk1b77YWsOLZTi/E4bTahWspp3pXZqTsI+IP+L4QglnQIPh/pyzVdSmSyJvdq7Up
-	 XGrGZU8x5EgixloLei7Jm8At4oGaA2U02OYmYID4Cx2uWIRVkhem43qfKHC4UAqFKJ
-	 07+RcvK8Wmjs33u3d9VHuFJheLJWCOPr8bMWMAv8xMzt1ZQKN0zvtpeDKFsg69wkna
-	 0RZmRGOC/so9w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] mm/secretmem: zeroize secret pages before kdump
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260731162739.158320-4-linux@jaseg.de>
-References: <20260731162739.158320-1-linux@jaseg.de>
- <20260731162739.158320-4-linux@jaseg.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 16:40:24 +0000
-Message-Id: <20260731164025.06BA81F00ACA@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ZNOVTeOM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=qih6ar3fxbernjpkjufk7ffplu.protonmail; t=1785516064; x=1785775264;
+	bh=fQWT4wQ+tPH+nUwhJFZpI82T4FocCSDu4zSo4LpkarM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=ZNOVTeOM7G/uHb/Q7+g7UQXVga22jqickek6pw2vYi4/fiMWO83w91RCCHA8Q6kRZ
+	 9uvbJrcP72c2UD9TpdzeWcnl8uJFqZvBEL85P+cxkAWJbUcZTVKptK/q3dEzPG2cS0
+	 Wwjasn2N/4swE/Ej+Ba3LfJztTVOlXG1L2qtgt8u/sKNuehxWFOBj2+6E6OpSUBiel
+	 10AvShbaOXaTkAiQBEymXghXQooMm6is6y3u6FxdCCKE1dHbi3jEwvc6XvBWs9t8MH
+	 LlMG/QPvljFpK2Vvi5hRvAjlAFRdl9rUT8INmzETbDaTyCQhNKgXcuRmwIhyvtedYN
+	 xaRQA3EQHeJaA==
+Date: Fri, 31 Jul 2026 16:40:58 +0000
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Krzysztof Kozlowski <krzk@kernel.org>
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible string for SM8475
+Message-ID: <f3324409-8e07-478b-a0e3-da5b41d31e7c@proton.me>
+In-Reply-To: <2ace2703-79cb-4046-a2b3-8fdeb9b2c99e@oss.qualcomm.com>
+References: <20260731-sm8475-pmic-glink-v2-0-28c04928ef22@proton.me> <20260731-sm8475-pmic-glink-v2-1-28c04928ef22@proton.me> <20260731-savvy-piquant-chowchow-f516f2@quoll> <9718d7b8-7303-47a2-9d75-58bbde6385e9@proton.me> <c4ceda32-d4c8-4fd9-b0d6-3f4519485bde@oss.qualcomm.com> <6fc5165c-95b5-475a-a0a6-e1d7b9721222@proton.me> <2ace2703-79cb-4046-a2b3-8fdeb9b2c99e@oss.qualcomm.com>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: e5070080d1a68ba6d5edd313b8cb2541cf38cab7
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] Deadlock risk during kdump due to taking a spinlock in a panic=
- notifier.
-- [Low] Missing unlock of the `s_inode_list_lock` after successfully acquir=
-ing it.
---
+On 7/31/26 12:28 PM, Konrad Dybcio wrote:
+> Somehow I confabulated the generic compatible being present in the
+> driver... I was trying to explain that
+>=20
+> And yes I didn't notice the 8350/8450 difference. But anyway, the
+> resolution will be one of:
+>=20
+> // 8450 is fully compatible
+> "qcom,sm8475-pmic-glink",
+> "qcom,sm8450-pmic-glink",
+> "qcom,pmic-glink"
+>=20
+> or
+>=20
+> // 8475 is special
+> "qcom,sm8475-pmic-glink",
+> "qcom,pmic-glink"
+>=20
+> depending on what you believe is more correct. I think the first
+> one fits better.
 
---- Patch [3]: [PATCH 3/4] mm/secretmem: zeroize secret pages before kdump =
----
-commit e5fefbd7f9b60fca2237ceaf3f2f3cb2aa75df03
-Author: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
+Yes, I agree the first case fits better, but I believe there is also a
+possible third case:
 
-mm/secretmem: zeroize secret pages before kdump
-   =20
-Register a CRASH_ZEROIZE notifier that wipes secretmem folios. As a
-result, when CONFIG_CRASH_ZEROIZE is set, secretmem areas will be
-cleared before the kdump kernel is kexec'ed.
+// 8550 is fully compatible
+"qcom,sm8475-pmic-glink",
+"qcom,sm8550-pmic-glink",
+"qcom,pmic-glink"
 
-> diff --git a/mm/secretmem.c b/mm/secretmem.c
-> index 5f57ac4720d32..07f3905f47cbd 100644
-> --- a/mm/secretmem.c
-> +++ b/mm/secretmem.c
+The reason why I believe this is that I've found SM8475 to include some
+elements such as eUSB or PHY sequences found in more recent SoCs such as
+SM8550.
+I guess that's the case since SM8475 is a respin, but I'm not sure.
 
-[ ... ]
+Regards,
+Esteban
 
-> @@ -187,6 +189,50 @@ static const struct inode_operations secretmem_iops =
-=3D {
-> =20
->  static struct vfsmount *secretmem_mnt;
-> =20
-> +#ifdef CONFIG_CRASH_ZEROIZE
-> +/* Called far into vpanic from crash_core.c with other CPUs stopped and
-> + * preemption disabled
-> + */
-> +static int secretmem_crash_zeroize(struct notifier_block *nb, unsigned l=
-ong
-> +		action, void *data)
-> +{
-> +	struct super_block *sb;
-> +	struct inode *inode;
-> +
-> +	if (!secretmem_mnt)
-> +		return NOTIFY_DONE;
-> +	sb =3D secretmem_mnt->mnt_sb;
-> +
-> +	/* If the list was modified in the exact moment we panic'ed, it might be
-> +	 * in an inconsistent state that would be unsafe to iterate. If we can't
-> +	 * get the lock, too bad, that's all we can do here.
-> +	 */
-> +	if (!spin_trylock(&sb->s_inode_list_lock)) {
-> +		pr_crit("crash_zeroize: can't acquire secretmem superblock lock.\n"
-> +			 "crash_zeroize: skipping zeroizing secretmem.\n");
-> +		return NOTIFY_DONE;
-> +	}
-> +
-> +	list_for_each_entry(inode, &sb->s_inodes, i_sb_list) {
-> +		XA_STATE(xas, &inode->i_mapping->i_pages, 0);
-> +		struct folio *folio;
-> +
-> +		/* no need for locks if we're burning down the house :) */
-> +		xas_for_each(&xas, folio, ULONG_MAX) {
-> +			if (xas_retry(&xas, folio) || xa_is_value(folio))
-> +				continue;
-> +			inode->i_mapping->a_ops->free_folio(folio);
-
-[Severity: Critical]
-Can this free_folio callback deadlock the panicking CPU?
-
-The free_folio operation maps to secretmem_free_folio(), which invokes
-set_direct_map_default_noflush(). On x86, this eventually calls
-__change_page_attr_set_clr(), which unconditionally acquires cpa_lock
-(when debug_pagealloc is not enabled):
-
-arch/x86/mm/pat/set_memory.c:__change_page_attr_set_clr() {
-    ...
-    if (!debug_pagealloc_enabled())
-        spin_lock(&cpa_lock);
-    ...
-}
-
-Because this crash notifier runs after other CPUs have been forcibly halted
-(e.g., via NMIs), if any of the stopped CPUs were interrupted while holding
-cpa_lock (such as during module load or vmalloc), won't the panicking CPU
-spin forever here and prevent the crash dump kernel from booting?
-
-> +		}
-> +	}
-> +	/* off to kexec()! */
-> +	return NOTIFY_DONE;
-
-[Severity: Low]
-Should we unlock sb->s_inode_list_lock before returning?
-
-While this is the panic path and the system is about to kexec into the crash
-kernel, leaving a successfully acquired spin_trylock unbalanced can trigger
-warnings in static analysis tools or confuse readers.
-
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731162739.1583=
-20-1-linux@jaseg.de?part=3D3
