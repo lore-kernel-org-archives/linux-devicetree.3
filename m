@@ -1,131 +1,148 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0291DD525
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A1D2F12AC
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 15:47:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785512708; cv=none; b=j3JIKO6BG2O+7w94byyPhN6cWQfRkd9vDrA/XQzQtQXWvB4+eNbHhUKQLctYS0P9WneREz4AtPGd0cikAmHL8oV7yyP/OfZMqzT2J0xViTjfguvzsC/hWiqDvYs0YnihudYdvPVm9DBB3p9Zar5D53OFpSuJkzyAvabXu95uryc=
+	t=1785512830; cv=none; b=WvtYsFr3e6d7+rhiLBjQqUDJEr32tdVW4Iez1aeiB+edeMUIwHfE0pBrg46E0QhFjR40J/+gNJDo8+ZlzKXRoCpLH+LLCAvN5pYOlkHp0GoKaO1ONlf9cfkXRnCTKFxIoxAeFdc8N2fEC7JNTfQWXYwcxk0+EhwOeaoZFz1dN3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785512708; c=relaxed/simple;
-	bh=TvPHrb4kWESv6ljQE15XclowJ50QMR0msenBqr0/6dU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LDX7TLqowSLu9wilgQNZQ2Ly/kxTSO0stEXy/C8Jo4/wRy9GluOoO8Ibn5b48jOyht5p5fMZZh3cbeLBJU05FrmF9+Zqqlm0Amc2dZf8mhgTQeG9SIjJXvZPknRMMBS4PzaVupRRoJVZPwrpXZxX9mbjoig7OsiVo1oNCM0jNy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ld50YzZZ; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785512830; c=relaxed/simple;
+	bh=qNvklQmQESrL4OKo6SMRxbE1gJpPrA0joNLXG7VF3WM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=P5+63k7Px/gehOehYMI7IIBDZSqWbviQuegrtNKuvJrNvsmkKn30xVks5PA7H88HW2B3iXBbXOzd55mPZCnScERlQ6Mqw8C4/MIrlyfjMDX+SnbzCBkJAboIWPyIN6J70CxCFFP4Db5eDPPlHqLAn0r6WwmsUjHsZEqMq9x14Rs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuPNaQXQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ld50YzZZ"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso598521f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 08:45:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785512704; x=1786117504; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9rJ5rXiOvpazcDVxYtI/2HpVZTk/sRYzS0zDZsRFZBU=;
-        b=ld50YzZZEm3jMVHqbGMzDEpW2YacC760X9zGlYU8eXwFz268tmJ2tiBHC3Na1i6qhB
-         8IKMwolY9lT5GbZIXA5FTHVxD9iqK8ziAb1hEH7Lr+ADd7rXI6Y6Dj1dS06UVz8PJhZp
-         DlNDb6qdFJ8AQjlYv1XJXrrzUY9p1s+tpojt1fFi3wMXQBcRKg9zp6l2KleCvARfedeG
-         eEn0NkBt4TqUviiGjQqLY7U8wFnV2tENWHscAkVDqa5xIivJcii2U2oG6XBT+xMZbXIx
-         o1nxVdkk66g+HSWr7HLxaGuMYQAPakZDcTW10ETJLkS5C3KPuYWohRLBMotnEn4EDUtW
-         m4kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785512704; x=1786117504;
-        h=content-type:mime-version:message-id:date:user-agent:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9rJ5rXiOvpazcDVxYtI/2HpVZTk/sRYzS0zDZsRFZBU=;
-        b=XtHXBH99602JLP5PCMEYVMmL/AD4NR+vS0mgKCMGgngu+BGeIZRX9e/i9xMdg2BWk/
-         SnZjaeRjSCX95Z3gWH/ie/ugVm5iFZifY+wKNf9sNpQqmVXLk1vZbGV0Y0lkefduMdxa
-         WbQep89wiJlSF3hfS4HEO0emApR74ZqzPKZWLLTo5eNrDi5awkxqLPktos7IOyku72/j
-         dH3BuWzSoUM4i3PrJu3pm/LfAwYaN5pDc6UI0AAp78hAckaTFekWotVmtXWRBDD8qaVV
-         fMjY3m7RFoUQWlsha3vC6QLyxw4IeODyFXlUxGzF9/GhFe0X0TZRPetDwePo7kRf+HlC
-         vSew==
-X-Forwarded-Encrypted: i=1; AHgh+RqHIlkT7SosAAgSeK2UZgduIjnWt+w7B0srKMqU2g5FU/EpojB8855125QOwPcAJ011AxFeo2kQvXZK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8kB6kDARxdUEu7S15fiZABUVnT2Y6JAeAyJNi4o7zxb2621FE
-	KeIQYs1ep8c1pw9RGIGiKq8Hv075ihtAD/Z7EhncDNNyRedLcIScikUP5Xx44ttdivo=
-X-Gm-Gg: AR+sD13gMknpSXM0o3+38zz5ID67u6WJ+q5rrHFXD08aCSe66St1k1A+S/1tgiktVQJ
-	vl6w/IZGFFja9YDtl3JHhVL1Fr2ZEf4FUoAn6qx5pHbx5ttvxmg/Dj0nPaw0mVvUK0UwUBV/thZ
-	2tEPRI20FeC/IQf1BR6y7IVg0N4I2z8TfirssNB+NsVHR6777BgAZTXGOFbx2T7pKDRtFGBCksz
-	TAAG3fRTTgf/sN0TIxJFuVYkdohBYAyg2osSrJqLBL0GHKUBktmpRMVt3DVRSHIIb7aQ8ih6Zmi
-	TyPwvo8KsXRtp7X65+F/nFMDtqoFf1h953y0RWZpzOwyAQ9ipna+k8NUmff/B1FeVQShp49nicY
-	f0PxwAuyC0HbGqv2/VralqK+z8d6O2GHnxteGmQ7JtL2/VUXWxdTrpIAr3KxUFReE3bWH9f46Xp
-	NpjCu8xcnep7VccvPizUFvojTZmQjT47uJcK3cnbULWz6N11SsHrqwWXKDB1NV/jz5/Zia
-X-Received: by 2002:a05:6000:2981:10b0:47f:923c:9d92 with SMTP id ffacd0b85a97d-47fd7310ad1mr217098f8f.51.1785512704512;
-        Fri, 31 Jul 2026 08:45:04 -0700 (PDT)
-Received: from localhost ([2a01:e0a:3c5:5fb1:d00b:bc94:65a:a73d])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-47fd456a6d7sm6390446f8f.19.2026.07.31.08.45.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 08:45:04 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev,  robh@kernel.org,  conor+dt@kernel.org,
-  devicetree@vger.kernel.org
-Subject: Re: [PATCH v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
-In-Reply-To: <20260731145301.A12671F00A3A@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Fri, 31 Jul 2026 14:53:01
-	+0000")
-References: <20260731-axp318-regulator-v6-0-b4e745552a35@baylibre.com>
-	<20260731-axp318-regulator-v6-4-b4e745552a35@baylibre.com>
-	<20260731145301.A12671F00A3A@smtp.kernel.org>
-User-Agent: mu4e 1.12.9; emacs 30.1
-Date: Fri, 31 Jul 2026 17:45:02 +0200
-Message-ID: <1j5x1vxiwx.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuPNaQXQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41E071F000E9;
+	Fri, 31 Jul 2026 15:47:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785512828;
+	bh=37p1aU76EjP8d0R5f4fv/3cl2yM1K7/Q1Laozpm2gIA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kuPNaQXQXtRQ/S/PO/kNgYHB43Gfn7xxWpM1pDv4gfaEivpxpffFR6oMqXvfsgWt+
+	 zFndOROdqqfv5z5ktJTlPTGQ1yfNdDQikvB6NAl3j0HR66h0t+dAYHJoTbYkxUlFmc
+	 sCntuwmvvrsJ+94dqZnrZ9O8/CaSOI7aAyHRMP8Tcl+KkEsyXTAaS99RkB6czzCSdI
+	 pti6Q36SgCrAhU6o8FaC7Tnn2CrF0DB1MdJo+NTB2yXXDg8HnexB/uVJzJFf7gizny
+	 +K+LdIvRPw0V0vJ3kluEWfK/erfKoEVC87BdIxeradbYOL6MHbbcgaZlcwT7yi4o7U
+	 zg74mK8UB14Fw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260731-mira220-v11-2-1295fe17021d@ideasonboard.com>
+References: <20260731-mira220-v11-0-1295fe17021d@ideasonboard.com>
+ <20260731-mira220-v11-2-1295fe17021d@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 15:47:07 +0000
+Message-Id: <20260731154708.41E071F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
 
-On ven. 31 juil. 2026 at 14:53, sashiko-bot@kernel.org wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect check of `pm_runtime_get_if_in_use()` return value leads=
+ to an unbalanced decrement of the runtime PM usage counter when runtime PM=
+ is disabled.
+- [Medium] Claimed dynamic frame windowing is unreachable dead code due to =
+fixed formats and a missing `.set_selection` pad operation.
+--
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The `axp318_cells` array defines the `axp20x-regulator` cell
-> with a hard-coded ID of 1 instead of using `PLATFORM_DEVID_AUTO`, violating
-> MFD subsystem guidelines.
-> --
->
-> --- Patch [4]: [PATCH v6 4/5] mfd: axp20x: Add support for AXP318W PMIC ---
-> commit a5dbdb5469c59acc76c36e5d6f37cd6f060e0f47
-> Author: Andre Przywara <andre.przywara@arm.com>
->
-> mfd: axp20x: Add support for AXP318W PMIC
->
-> This commit adds support for the AXP318W PMIC to the axp20x MFD core and
-> I2C driver. It exposes the device's regulators and interrupts.
->
->> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
->> --- a/drivers/mfd/axp20x.c
->> +++ b/drivers/mfd/axp20x.c
-> [ ... ]
->> @@ -1061,6 +1129,10 @@ static const struct mfd_cell axp313a_cells[] = {
->>  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
->>  };
->>  
->> +static const struct mfd_cell axp318_cells[] = {
->> +	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
->
-> [Severity: Medium]
-> Does this hard-coded ID of 1 risk sysfs naming collisions?
->
-> The MFD subsystem guidelines recommend using PLATFORM_DEVID_AUTO for
-> automatic cell indexing. If multiple devices share this explicit ID, it could
-> lead to duplicate device names in sysfs (e.g., axp20x-regulator.1) and
-> subsequent driver load failures.
+--- Patch [2]: [PATCH v11 2/2] media: i2c: Add driver for AMS-OSRAM Mira220=
+ ---
+commit 77f5d42d3080baefabb9e7bc7b1e2214656823e4
+Author: Philippe Baetens <philippebaetens@gmail.com>
 
-Commented multiple time on this. This is not where PLATFORM_DEVID_AUTO
-would go. The driver uses PLATFORM_DEVID_NONE for now (well before this
-change). Changing this is out of the scope of this patchset.
+media: i2c: Add driver for AMS-OSRAM Mira220
 
->
->> +};
->> +
->>  static const struct mfd_cell axp717_cells[] = {
->>  	MFD_CELL_NAME("axp20x-regulator"),
->>  	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image sensor.
+The driver implements support for mono and RGB 12, 10 and 8 bits formats.
 
--- 
-Jerome
+> diff --git a/drivers/media/i2c/mira220.c b/drivers/media/i2c/mira220.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/i2c/mira220.c
+[ ... ]
+> +static int mira220_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+[ ... ]
+> +	/* Update the format code to adjust it to the new flip state. */
+> +	if (ctrl->id =3D=3D V4L2_CID_VFLIP || ctrl->id =3D=3D V4L2_CID_HFLIP)
+> +		format->code =3D mira220_get_format_code(mira220, format->code);
+> +
+> +	if (!pm_runtime_get_if_in_use(&client->dev))
+> +		return 0;
+
+[Severity: High]
+Can this lead to an unbalanced decrement of the runtime PM usage counter?
+
+When pm_runtime_get_if_in_use() is called while the device's runtime PM is
+disabled, it returns -EINVAL. Because -EINVAL is non-zero, the check here
+evaluates to false and the function proceeds to the switch statement.
+
+This causes the function to unconditionally call pm_runtime_put_autosuspend=
+()
+at the end, decrementing the usage counter and potentially causing an
+underflow. Would it be safer to explicitly check for positive values, such =
+as
+if (pm_runtime_get_if_in_use(&client->dev) <=3D 0)?
+
+> +
+> +	switch (ctrl->id) {
+[ ... ]
+> +	}
+> +
+> +	pm_runtime_put_autosuspend(&client->dev);
+> +
+> +	return ret;
+> +}
+[ ... ]
+> +static int mira220_set_framefmt(struct mira220 *mira220,
+> +				struct v4l2_subdev_state *state)
+> +{
+[ ... ]
+> +	/*
+> +	 * Program the ROI area, centered in the sensor's pixel array.
+> +	 *
+> +	 * TODO: Use the crop rectangle sizes once the driver is ported to the
+> +	 * new RAW camera sensor model.
+> +	 */
+> +	top =3D (MIRA220_PIXEL_ARRAY_HEIGHT - format->height) / 2;
+> +	left =3D (MIRA220_PIXEL_ARRAY_WIDTH - format->width) / 2;
+> +
+> +	cci_write(mira220->regmap, MIRA220_VSTART_REG, top, &ret);
+
+[Severity: Medium]
+Is this dynamic windowing logic currently unreachable?
+
+The patch description mentions that the driver dynamically programs frame
+windowing. However, looking at mira220_update_pad_format(), the format width
+and height are hardcoded to MIRA220_PIXEL_ARRAY_WIDTH and
+MIRA220_PIXEL_ARRAY_HEIGHT.
+
+Since mira220_pad_ops below doesn't implement a .set_selection callback,
+userspace cannot configure the crop rectangle. Does this mean the top and
+left offsets calculated here will always evaluate to zero, making this
+calculation dead code for now?
+
+> +	cci_write(mira220->regmap, MIRA220_HSTART_REG,
+> +		  left & MIRA220_HSTART_MASK, &ret);
+[ ... ]
+> +static const struct v4l2_subdev_pad_ops mira220_pad_ops =3D {
+> +	.enum_mbus_code =3D mira220_enum_mbus_code,
+> +	.get_fmt =3D v4l2_subdev_get_fmt,
+> +	.set_fmt =3D mira220_set_pad_format,
+> +	.get_selection =3D mira220_get_selection,
+> +	.enum_frame_size =3D mira220_enum_frame_size,
+> +	.enable_streams =3D mira220_enable_streams,
+> +	.disable_streams =3D mira220_disable_streams,
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-mira220-v1=
+1-0-1295fe17021d@ideasonboard.com?part=3D2
