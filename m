@@ -1,261 +1,114 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5A03BD647
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:13:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C15E3FC5A4
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785499994; cv=none; b=ptTM3sOhpAe9GfR8OD2km8d3nZ1fA+49BeqDksTNDfkSXvQvapsGx1FfXVnf9Y0ZCtieOUdPk63a8UuO5D766AcOVQdIX+4y/d9Ne8jDbuYO3EnfjIPVSa5o00y7rjm6G5kqHC4QKcBzggH1DXaN4p/3lU4YcXXc4OvmgxO5Sik=
+	t=1785500029; cv=none; b=E/E92EwwAJnn0V1dZbhMD5+Ja3s4HdBGdXtlt2cUq2FOSXG+xyjSMUF3oNZ0hCSLwPFMM1SoYA+ZWN3VCv7rCjIMLZzUhvLMmFEWTFZDYypDyR00hfTAbPWfSsMjA3MYdgWK+xaWjmGgi/YWGx7jt93nKxgR5rf6Dg2R1h0JjAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785499994; c=relaxed/simple;
-	bh=2lgMSr3Kd8iqkNgBFBm9uhKQPq3np+GySL8xY0y5YxM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YpZyXwAsj+pj/i2YRo6AiKIM/HTr67fXpagHuumw3iRMFfImNI/shRdcVODDPzVmeu43MeSKcSJBsCZy+1ytHRPgPbyBkNaIwEWCRxl+tuonBpaNVygPN8FAmub3Xp5acGQQ3IrWcEt/fOP0+nxyMX/uYKFXH6s5wsw8/WKMymE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AWXzfA3f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=a0aZMLE+; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785500029; c=relaxed/simple;
+	bh=P/VRpzXwFHKf736VT6IzodE9dnhbNbhpNsxAdRhyuaY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dJcQPwngieyrSutlOpl2xkeb90Bpmh144upuNLXiq1UYhg3qxOnO6MsRYqcmCsEVyiERupc6X2vJTjjAmgcebc/uzZs5N3HVpmPv4l/RNHl+Z1wYRsvVT8g4uMUuRbtQTKCZcHClvqh9miOQw4+ylIeOR4532MWEaBJzG+l9NPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X6/wTa4/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AWXzfA3f";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="a0aZMLE+"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VBdBnX3371061
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:13:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rh54GB6Vgywir2EVvnKxHpid
-	qpzqdcjyybbV2fe6ZtM=; b=AWXzfA3f6MTCW27Jbf4vgHXWvLXSboN7ZhvbyuAP
-	UytlNAj9R5vHL+mm6H0WBww2LOz0Yxa157XjHASfAon/pWH1swU7n/ig7wkierXd
-	ewGx+7X6TQjiGG4/TQPMxzYqIcgVrqSs4IXlZgHGdko0Hm3aUPZ8UA4LDjKFZvhC
-	qm+96stgSWy4oTD9h//nR3aT4W984y8HXMk4ZbqqHfRXDPynHgPD35o8So6Gmg9J
-	Jsw6GCwRumOMMXDvnjri3co7lYKS27RQ49NUwFVc56S7g6uM61SERLFOVzRR0D19
-	8wxBR+L77DZoFsLW8woE2svsQ8Le/YAdmxi9g30tuL/Agg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru0y03nb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 12:13:10 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51ebdfceddcso9039001cf.3
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 05:13:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785499989; x=1786104789; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rh54GB6Vgywir2EVvnKxHpidqpzqdcjyybbV2fe6ZtM=;
-        b=a0aZMLE+PcTsBY3qjCD5c7GttvEbxLAxP/4DonjBfWa/9EGElGrwbGgfe/VKOtIxlC
-         riVft8P3ByQ47ZBmcBqhC7ycsCQJKm8N6Ya1Z3ui6nuaOqqBHKUE3LBXRJFtDlG5Y8p8
-         NuIeU5fl+qFSBjXbaaqG6kIycMxXPv/GPwKAzdORw0LeEJlqwoQns7suReekC3reIBcX
-         H49f4bF2nKzML6u6mdMXGgIQ2ycg1kqCO6dEW7RB8o1JsdB6Fujmh/GYiYm+sTMV6BMA
-         Ei9amFGdsbM7wJhMQe9Hu3sh+VTavkFj8IPhDVQY2UzxGL9yvPIs5+FHeVTOJ4R6tv2k
-         4x3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785499989; x=1786104789;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rh54GB6Vgywir2EVvnKxHpidqpzqdcjyybbV2fe6ZtM=;
-        b=nhyGr0AKl1zLtHf/wS+XVk0gABnUcUg8Sy2t/r67WLbPuBhBZxfcJSeMd2RKXARCHG
-         N9drcgWzw1LvGYTbanIL5biwS+1deUD0bJJDR0mVbugoQTSxyBMqV+LptSZHCNVePzsP
-         DIlZzezDnv9K1jB2MBhX4LL+bq2gKj8nssQvmKNMAjV+NtvWMprF1rA3gevZusp+0j2A
-         7FSxyCKZ+TKgg28Sp7XSxDiLApUU8xTOGX1wPDuoPFfh4oQmhllKShPDK3WMUYtmcjk0
-         QII7tkg4RLtthkBGCEL4UGOXQQVbZ9EmeI0gSHspo0nNDYiCfgVE3AcQ5HVrf68ZAvjC
-         ZpAQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrHHQeNyyNsZR6r/+QN2tUv+QNlgZtIy7MzuAPrF+kH+ousCram7KJ8AkQOtpLkHyIOBZKvq7t6YqHQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxoEny6OXzr3Wys2MP7/ucaUW0ZO1tVo9/jX+SPXvDc9t8IiFvk
-	S3IQem9Ns5bsgiSymvd8IkvVO+jrEME5m1sqE6FHv6CNAHQ7aj/au7Vj26T1WF9JT+9tEaumnJ9
-	060uaKe7pieQFa0ICuIXARbuxZdzCFd/aOLh2o2u4Vj1DuRV1xx9M5QJdYSglRqKfVgIIbFep
-X-Gm-Gg: AR+sD10k2JQE2ki0SrXb5l/cHqhpUHvqVPBzJFiWFyUl6+A6kkY+/QCMCmTm4929cvs
-	fdpU3V1IAhEmytXAwYL+3FjWAsymb7AiR/TKRGAGDNLE/DrkuGUbcek1+dDy3bgU0qSRYP0gIhu
-	dJVjyPQ8YtWi7js6QUWjOTSeZoAFSS1emJoZn5Mt3+mpPptEwcOfcpE9Qy1BdEBA7Uc+xzsPpOp
-	TDA8l26E4dJVVSaCEWVuGUxnxP6ZEyR3IeORahmgmW6AVKkncx5HDGIw5s61XwaqPeMxzBBqw9o
-	4C0jgOxBi/JaorG79aYdxTWocJdixeo7pKEMHYWAb9mIVp3HjtpXX8fo5zvCKjnGrdDQimTNpEo
-	2hcK2ZjEUOKfvuXyAnFjXHUdVo3mBsp9fOv8SPXRJjYoTzQuF9DMPBglXmo8gyifLUz8K3/rVYn
-	Ej/oLpO85hJAxk+g==
-X-Received: by 2002:a05:622a:292:b0:51c:1241:3b09 with SMTP id d75a77b69052e-52b4af4ee67mr24260471cf.39.1785499989287;
-        Fri, 31 Jul 2026 05:13:09 -0700 (PDT)
-X-Received: by 2002:a05:622a:292:b0:51c:1241:3b09 with SMTP id d75a77b69052e-52b4af4ee67mr24259511cf.39.1785499988626;
-        Fri, 31 Jul 2026 05:13:08 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2e2441deasm268672e87.38.2026.07.31.05.13.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 05:13:07 -0700 (PDT)
-Date: Fri, 31 Jul 2026 15:13:05 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org
-Subject: Re: [PATCH v10 01/14] dt-bindings: media: qcom,glymur-iris: Add
- glymur video codec
-Message-ID: <5r4rqy6vb6taad2eglxx7ihta6sk6axfheoxl7vhlzycgmpmw5@zasxwrq3hy2y>
-References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-1-de451559e88b@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X6/wTa4/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FE831F000E9;
+	Fri, 31 Jul 2026 12:13:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785500028;
+	bh=LlPcrza8rNAMF/goZx4JJpWt8ynevF/knIiTzF4U2d0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=X6/wTa4/QqSpUS11qLTGXAOPvgWTYbURb19VbpkGVFd+e1mYL2sGhLNiXDpH6vg1Y
+	 jGcFMvyTL4Gw8Cuoe0QyowRjTqB9zByDNF1xzQSfIUrCtg7Dp3L29AA2K90USfLMhT
+	 b9Ku0hTVMvUjXKntc6lrcPTRB7HPLoGf7478SuJ4CqbbMpmkWTPrvDVWh169GT1RaP
+	 f2NllTkJdVdXAxjYrhft9J2VPMI4vlzzLe5H4XXzgvglfAAgFa+juwD3WNqG6fEg+q
+	 F6ibM4Rdq4G8qcv8uBGCMsdIzwEDdgLdNLILbcCHVDCm+ed1Bv8/GjDX5G3fNr/IZO
+	 5iabwTxM0nPCA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/5] clocksource/timer-econet-en751221: fix refcount
+ leak
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260731120246.1296955-2-cjd@cjdns.fr>
+References: <20260731120246.1296955-1-cjd@cjdns.fr>
+ <20260731120246.1296955-2-cjd@cjdns.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 12:13:46 +0000
+Message-Id: <20260731121347.7FE831F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260726-glymur-v10-1-de451559e88b@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA5MyBTYWx0ZWRfX21SePBgxMMqQ
- j0z2vjJt37ihZplsGcDibLFhekpy/JpJyln3ACucEjLpFBFI64NndtS2m8b1GdE8NNI5UUSUWSq
- IshkIJs+LbQyg/5ls7gObSmKFILGZqo=
-X-Authority-Analysis: v=2.4 cv=TcamcxQh c=1 sm=1 tr=0 ts=6a6c9156 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=vQe_Sn1lod5mhkmiIsQA:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA5MyBTYWx0ZWRfX8XRWMON6Moe1
- KLOViSwosD9wS8FDDDm7xmbxBu7D6tshf+faDJ0CLK/CxUfbABk0L7okr6SPFbvsYdM2vlH3xzu
- rvU4hg6U9rHikI/usDpu2aGUVJqRQMATmo30d1trR3ZDDvGYae4DSw7u7gUoRTdz2gIAAonHchZ
- ntzysHXD+r7X64pq74xjOaydxz/OX/rvjpNjkEtUiobFkZOTkKRpoA+Hp9LmXWOzoMg63aW37TY
- qjLnbmKeRjNmAHgeXAgA/Mt7/2l0MJqFPedWWi9jHW6W52PVefUvmdhWpwQkVpp+nDovEPgSpFi
- +QYjQSfMnSVTbUlap4yEoGQC/5+vI3si5ga78SkJ8PbiX7K44n47hqUrcsvciXBgVjUAO5lcJge
- oIFuHVnvZM4L+eoMeme1pxWl8vjtLZo0Wr1CsJLd9PDwHPmfgyCao92Mq5iM9LE2HX4tTxb5BvP
- pMZ2HRp55RzTIOJvmrQ==
-X-Proofpoint-ORIG-GUID: QeOoLtsogr4qU-YE1nnUX0w4fzhoCwYS
-X-Proofpoint-GUID: QeOoLtsogr4qU-YE1nnUX0w4fzhoCwYS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_04,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- suspectscore=0 spamscore=0 adultscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310093
 
-On Sun, Jul 26, 2026 at 11:19:31AM +0530, Vishnu Reddy wrote:
-> Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
-> is a new generation of video IP that introduces a dual-core architecture.
-> The second core brings its own power domain, clocks, and reset lines,
-> requiring additional power domains and clocks in the power sequence.
-> The current maxItems constraints for clocks and power-domains in the
-> common venus schema were sized for platforms available at the time of
-> authoring. The glymur platform introduces a dual core architecture
-> that requires more clocks and power domains, exceeding these limits.
-> Raise maxItems for clocks, clock-names, power-domains and
-> power-domain-names to accommodate the glymur platform.
-> The glymur platform-specific schema have fixed constraints for these
-> properties, so the common schema only acts as an upper bound.
-> 
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  .../bindings/media/qcom,glymur-iris.yaml           | 257 +++++++++++++++++++++
->  .../bindings/media/qcom,venus-common.yaml          |   8 +-
->  2 files changed, 261 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
-> new file mode 100644
-> index 000000000000..1bb16206d859
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-iris.yaml
-> @@ -0,0 +1,257 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,glymur-iris.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Glymur SoC Iris video encoder and decoder
-> +
-> +maintainers:
-> +  - Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> +
-> +description:
-> +  The Iris video processing unit on Qualcomm Glymur SoC is a video encode and
-> +  decode accelerator.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,glymur-iris
-> +
-> +  clocks:
-> +    maxItems: 9
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core_iface
-> +      - const: core
-> +      - const: vcodec0_core
-> +      - const: vcodec0_iface
-> +      - const: core_freerun
-> +      - const: vcodec0_core_freerun
-> +      - const: vcodec1_iface
-> +      - const: vcodec1_core
-> +      - const: vcodec1_core_freerun
-> +
-> +  dma-coherent: true
-> +
-> +  interconnects:
-> +    maxItems: 2
-> +
-> +  interconnect-names:
-> +    items:
-> +      - const: cpu-cfg
-> +      - const: video-mem
-> +
-> +  '#address-cells':
-> +    const: 2
-> +
-> +  '#size-cells':
-> +    const: 2
-> +
-> +  non-pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU non-pixel buffers, including compressed and internal buffers.
-> +    properties:
-> +      iommus:
-> +        maxItems: 3
-> +      memory-region:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +      - memory-region
-> +    additionalProperties: false
-> +
-> +  pixel:
-> +    type: object
-> +    description:
-> +      Context bank for VPU pixel buffers containing uncompressed video data.
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +    additionalProperties: false
-> +
-> +  video-firmware:
-> +    type: object
-> +    description:
-> +      Context bank for the VPU firmware processing domain.
-> +    properties:
-> +      iommus:
-> +        maxItems: 1
-> +    required:
-> +      - iommus
-> +    additionalProperties: false
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] Calculating num_blocks using num_possible_cpus() may lead to a NUL=
+L pointer dereference if the cpu_possible_mask has holes.
+--
 
-All these subnodes are going to be common to _ALL_ Venus and Iris
-devices. Don't define them in the Glymur-specific schema. Please post
-the non-RFC for subnodes first and make Glymur use that schema and that
-code.
+--- Patch [1]: [PATCH v7 1/5] clocksource/timer-econet-en751221: fix refcou=
+nt leak ---
+commit 7c522e295ecdd52460f4c1098da3b6a65821ce9c
+Author: Alexander A. Klimov <grandmaster@al2klimov.de>
 
--- 
-With best wishes
-Dmitry
+clocksource/timer-econet-en751221: fix refcount leak
+
+Every value returned from of_clk_get() is supposed to be cleaned up
+via clk_put() once not needed anymore.
+
+> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
+ource/timer-econet-en751221.c
+> index 4008076b1a210..1859335345b59 100644
+> --- a/drivers/clocksource/timer-econet-en751221.c
+> +++ b/drivers/clocksource/timer-econet-en751221.c
+> @@ -181,6 +181,7 @@ static int __init timer_init(struct device_node *np)
+>  	}
+> =20
+>  	econet_timer.freq_hz =3D clk_get_rate(clk);
+> +	clk_put(clk);
+> =20
+>  	for (int i =3D 0; i < num_blocks; i++) {
+
+[Severity: High]
+This is a pre-existing issue, but can this loop under-allocate memory blocks
+and cause a NULL pointer dereference if the cpu_possible_mask has holes?
+
+In timer_init(), num_blocks is calculated based on the count of possible CP=
+Us:
+
+    int num_blocks =3D DIV_ROUND_UP(num_possible_cpus(), 2);
+
+If the CPU topology is sparse (for example, CPUs 0 and 2 are possible, but
+not 1), this under-allocates memory blocks relative to the maximum CPU ID.
+Only one block will be mapped, leaving econet_timer.membase[1] unmapped.
+
+Later, cevt_init() iterates over the possible CPUs:
+
+    for_each_possible_cpu(i) {
+        ...
+        cevt_dev_init(i);
+    }
+
+Which unconditionally accesses the unmapped memory:
+
+    static void __init cevt_dev_init(uint cpu)
+    {
+        iowrite32(0, reg_count(cpu));
+        ...
+
+The reg_count() macro dereferences econet_timer.membase[cpu >> 1]. If a blo=
+ck
+was left unmapped due to a gap in CPU IDs, membase[1] will be NULL. This ca=
+uses
+iowrite32() to dereference NULL + 0x08, resulting in a crash on boot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731120246.1296=
+955-1-cjd@cjdns.fr?part=3D1
