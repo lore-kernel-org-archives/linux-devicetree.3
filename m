@@ -1,108 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904CB42C504
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:31:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513EE3563E1
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 18:36:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785522709; cv=none; b=mFf7IrCXzvXReL9GTDXq+NrxKmfNMBJxGXAoAGr4QGdesdtjFDjXqszqcC5vGn0DRp66zufkcqVGq1teFjbEZTX96BSsLjL6uGaj+MTWbiWdp6dyYVK58aqGQOAI0bd+3zRSnQvHP8z8GfeRqaE4APWzw6ZDzwCJDUsCAR4nYqk=
+	t=1785522968; cv=none; b=JWSL17RHJ6PAP7RDXyuZ/UqWA9fM3F6kXnm2Agcf+5/uYiU1ulnC3M2A/Dt+3mXTdamy4LWGQS35B3UmobXmzy4tm4znoiU6xMH8S9FhKZu/X8wCPfd5bPnzhs9CLgBN0J8Z4NSkDQh/tUVEwZgjCp48ZBl/16/DligJMwyqPoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785522709; c=relaxed/simple;
-	bh=5ACYsM4TU19/cd5Ollxgbc2pEM8fqM34v5MmkaDn7ps=;
+	s=arc-20240116; t=1785522968; c=relaxed/simple;
+	bh=iIivjL/mrVSor4UaVj2Alp1DnnzNa1YPIUFrNWpQVMI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nkGPtR/dqFxtTwAxIxTWns2elEl7MzXrMrqddiRiEe3E4fCwhYQcn4NuCmDnpwf6OjJtyzYyj6f4fSXl9cobcT6FApk/z5tnb0i691qXYGUeQ905WeHEP/RzhDP/5/ytboSDJEHj8vkKGa5yNAW4AdDTPGB+Z5pLh7Gaklx1YK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZyn6dTp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gO0BGd7Ch/uCS4FrKJNdlPpeUoEYhMW9qIW+L15Ui8m3W4UvjSlt3seMeIvyTZVaLAs3ybt9ofU1Qyt3IgmSi7XT0voItCCK/mrqnFYeeaEBSflGwqAjcM0PwbcM+yRNjWbPjyjoW2TaB6isc1hZeK4n6XfQbqJ+b3057/RCZo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSKCu6Ed; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZyn6dTp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAE391F00AC4;
-	Fri, 31 Jul 2026 18:31:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSKCu6Ed"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936E31F00AC4;
+	Fri, 31 Jul 2026 18:36:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785522708;
-	bh=GejRzRaYmiUeaIr+2QqNWVULaUTpH7v76EimkJp15ug=;
+	s=k20260515; t=1785522966;
+	bh=u+EEKFkx1CvMwxElREtx01YCS+pviy0z1H9BaNNUGXo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UZyn6dTpoXwA4EkIQGVmVBxE3fFXVQV0b1puVSVSxm+2w9hOhBu4SAospWxlDPfJS
-	 dTyjfVh3R4C60iIiF2ohHjtFtfSelh1NR/BCcYOYl9kl1q+Id9Eds9bYeTULE5QzhB
-	 CVBbYmbpPQqgl0p5KrkzjfazD8kmADYGehQzkwhM6vDt/2yQbTfIEuxQTUwvipiKRi
-	 aFk34QSpoZ0Nnrk11WnK93hbCsV299BLj/k8hlBwd2hyQtTTHuTk8IJrK3TQxqJt8Z
-	 48IfeCFo2clXb++MR+PvpnbQcGlBuRUJvaXVqD2bsMFJIwWIPRyqAA4S5E7WQ61RgS
-	 8Cx+dd6lA8cHQ==
+	b=kSKCu6Ed0tJm/O3UIIhykF/rV0DcQfTEI1flpYnmCGmgB6p10c5jZzUqwH0SU08Te
+	 i8JggPzpK69oNwwEjy8+zHsG8QkB9tdxVZ4pYQougE31pBttXs4/+9KJErkhbxpcIs
+	 Tz5k0vieK4DqpnKzE7eyB9XBxOAaz4ImQ2d2A3bH+tSrcIAi5tApxGwHsJh2CvJ49X
+	 LxLkRxaTn0IU/POJfMqLy+XzPAUyfMRS/CZKJRlfh6MAt34N3PMd9f+DohnCp7CdWH
+	 FNIsAx5f8UeOEawH/x1drMwbA50jNkyJrEXth1C3czt9aMJqrobME34aPNdl8K5b1o
+	 Py2mQ0TrZZ2mw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add
- context bank subnodes
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context
+ bank subnodes to common schema
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
 References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 18:31:47 +0000
-Message-Id: <20260731183147.CAE391F00AC4@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 18:36:06 +0000
+Message-Id: <20260731183606.936E31F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The schema fails to require `#address-cells`, `#size-cells`, and=
- `dma-ranges` on the parent node when the `non-pixel` and `pixel` subnodes =
-are used.
+- [High] The newly defined context bank subnodes are entirely inaccessible =
+to the targeted `sm8550-iris` platform.
+- [Medium] Missing required properties in the common schema's subnode valid=
+ation block.
+- [Medium] Schema validation conflict for migrated child schemas due to unc=
+onditionally required `iommus` property.
 --
 
---- Patch [2]: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add c=
-ontext bank subnodes ---
-commit ba9132c7e393d239aeadc5fc3b8d92905c2ec775
+--- Patch [1]: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context=
+ bank subnodes to common schema ---
+commit f7ccdc698c2e9a5f1a41568fd6c456d9da607bec
 Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-dt-bindings: media: qcom,sm8550-iris: Add context bank subnodes
+dt-bindings: media: qcom,venus: Add context bank subnodes to common schema
 
-This commit updates the sm8550-iris device tree binding to support per-stre=
-am
-context bank subnodes by referencing qcom,venus-common.yaml. It drops the f=
-lat
-"iommus" property from the required list and updates the example to use the=
- new
-"non-pixel" and "pixel" subnodes along with their supporting bus properties.
+This commit describes each VPU SMMU stream as its own context bank subnode
+to associate it with its reachable IOVA range. It adds non-pixel, pixel,
+and video-firmware to the common schema, replacing the single iommus
+property approach.
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yam=
-l b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 0400ca1bff05d..3d8ff5677bd4f 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> @@ -98,10 +98,10 @@ required:
->    - interconnect-names
->    - resets
->    - reset-names
-> -  - iommus
->    - dma-coherent
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.ya=
+ml b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
+> index b21bed3148484..bfd8b1ad47312 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
+[ ... ]
+> @@ -91,21 +91,6 @@ properties:
+>      deprecated: true
+>      additionalProperties: false
 > =20
->  allOf:
-> +  - $ref: qcom,venus-common.yaml#
+> -  video-firmware:
+> -    type: object
+> -    additionalProperties: false
+> -
+> -    description: |
+> -      Firmware subnode is needed when the platform does not
+> -      have TrustZone.
+> -
+> -    properties:
+> -      iommus:
+> -        maxItems: 1
+> -
+> -    required:
+> -      - iommus
+> -
+>  required:
+>    - compatible
+>    - power-domain-names
 
 [Severity: Medium]
-When referencing qcom,venus-common.yaml to support the new non-pixel and
-pixel subnodes, is it possible for incomplete device trees to silently pass
-validation?
+Does the unconditionally required iommus property in this file break migrat=
+ions?
 
-In Documentation/devicetree/bindings/media/qcom,venus-common.yaml, the oneOf
-check requires the non-pixel and pixel subnodes:
+Since the common schema makes iommus optional when the new subnodes are
+present via a oneOf block, if a platform like sc7180 is migrated to use the
+new subnode layout (dropping the parent iommus), it will fail
+make dt_binding_check because qcom,sc7180-venus.yaml still unconditionally
+mandates iommus in its local required list.
 
-  - required:
-      - non-pixel
-      - pixel
+> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.ya=
+ml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+> index 59a3fde846d21..ccae41bed757b 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+> @@ -47,6 +47,50 @@ properties:
+>      minItems: 1
+>      maxItems: 4
+> =20
+> +  dma-ranges: true
+> +
+> +  #address-cells:
+> +    const: 2
+> +
+> +  #size-cells:
+> +    const: 2
+> +
+> +  non-pixel:
 
-However, it doesn't appear to enforce the presence of #address-cells,
-#size-cells, and dma-ranges on the parent node when those subnodes are used.
+[Severity: High]
+Are these newly defined context bank subnodes accessible to the targeted
+sm8550-iris platform?
 
-If a device tree writer implements the new subnode configuration but forgets
-to include these supporting bus properties in the parent node, could this
-defective configuration pass dt_binding_check and dtbs_check, ultimately
-leading to the DMA translation failures and SMMU page faults described in
-the commit message?
+The commit message notes this limitation applies to every VPU generation and
+specifically mentions fixing an issue on sm8550. However,
+qcom,sm8550-iris.yaml does not appear to include a $ref to
+qcom,venus-common.yaml and sets unevaluatedProperties: false.
+
+Would adding non-pixel or pixel subnodes to the sm8550 device tree result in
+an immediate validation failure because the properties are undeclared in the
+iris schema?
+
+[ ... ]
+> @@ -55,4 +99,11 @@ required:
+>    - memory-region
+>    - power-domains
+> =20
+> +oneOf:
+> +  - required:
+> +      - iommus
+> +  - required:
+> +      - non-pixel
+> +      - pixel
+
+[Severity: Medium]
+Should #address-cells, #size-cells, and dma-ranges be enforced here when the
+subnodes are used?
+
+The commit message explains that adding the subnodes requires these support=
+ing
+properties on the parent video-codec node. Without enforcing them in this
+oneOf block alongside non-pixel and pixel, device trees can omit these
+properties and still pass validation.
+
+Could this cause of_translate_dma_region() to fail or return incorrect IOVAs
+at runtime if the properties are omitted?
+
+> +
+>  additionalProperties: true
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-vpu_iommu_=
-iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com?part=3D2
+iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com?part=3D1
