@@ -1,117 +1,107 @@
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08F0412276
-	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C56C42A179
+	for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 14:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785507792; cv=none; b=ErLcNiSNNv1uIkO2bldM4c6qIUx3M7qWkuYAtE1OXJOPUzZEoCn7/9y4d/imxh+Pi+EjC4MwqzrWT+/wPNlbPmM9teTVghc7MXvcEIv9rLDTnG07WOKDHzjU5BzClVDy98aBnmzsFshDzn1SwoghFeDzPSxTwsxmNhMGoKKTb+A=
+	t=1785508091; cv=none; b=MNHy9AAztvYwO7sVWWW4alsrbTBibgnEpWrpoOR2O6mhXXC+3yyeUpN6V2uS2iNpTk6L3ZvzyklHicKZrAD6632kfYXl1nU/1O0UAb4nVRWMl9BtYiW9GABTWJ6G7D0WUTVuochrecTNcCErbnnf1OkQSQRSwJ6n/HsV5mXoBIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785507792; c=relaxed/simple;
-	bh=7wWRfOgAHNVaTxFv3Orz/thFdJ+yQdiNQGRNQ2UkQIw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=HFA8PnFac+u1Rs0f/RPhMT3xZz++Gj/tHMA67KD9A476GMMf7K4GFvQq+c18NzhxkWV8Uz9TozokXt/U+WKrwDGCvoXiP4pJ3QbIr+xOVuILaZxwQKaIvgPvYTJlLVVVrI/9CusXfsuxMLmlJP3anTT8VRANPR4Q9Bgl8p6rpso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ENvhzYLJ; arc=none smtp.client-ip=209.85.161.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1785508091; c=relaxed/simple;
+	bh=edFieJ1NngPAWgAyLJoMFk0KLwhFjP40NLOCIGfVUQA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=utPngX21yMUWJcq0czU8Ars/glRQTrL+HmC4IZRTR6R/X4HTzCd4KpB0WoZAu8Zl7ISpTL0uligUz5IRM6jHD4O4EDjuh9jYQ2RCZxsngpkeaOa+ENyS3ALh/otWTHxD3OJ5fp0SIl8ADHdWjzR0qATenuxsT1MazGXet5GLRjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M97DQ3yX; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ENvhzYLJ"
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6aa9606ddadso691976eaf.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:23:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M97DQ3yX"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d02b4c3601so11524125ad.3
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 07:28:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785507790; x=1786112590; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OT5kpLMx1NAQDxJj+okIQJAeHFw/yj3RKxDWm0fm7Ys=;
-        b=ENvhzYLJIbBAvpyvAKKDUgTilyUnExp8cLnLmFOuuX27cHm/SpZOrT2gd1/BPIHZmG
-         z3SCPNvbHqeAlER6iaOzgOhedUISpNhpTW0cK0qwAMqBmeaBYY+/3xItF1VfMwsCZnkv
-         nI9e/WNXFai1TY43TalsMNrgEHU62CVPfP6V9dciiFGZQB+X7X3HUuHpzk8QkR06yJvT
-         AN9n9xFPMQKfJwdkkvjFbfG2QL20H036GmTyf24XA67j19ayurXV4mUQ8eiazZoiASv4
-         Utmn4qc0YwtFKOOebV6SgsTiE0B6QFzF3zG6dwJPpGV737AZNvqd0cWbBYCRBbBrBGt/
-         5PyQ==
+        d=gmail.com; s=20251104; t=1785508089; x=1786112889; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jtRqUp5ioQJk376KJJx1DKpoRdIegI2ssFhD6hm1Q1s=;
+        b=M97DQ3yXJYA/V1D6uTOgi/iFoMHZVbQh7J9tFEBcTV/0TQKDwkT/w+ydMUI3dUqQuI
+         XJJuT2OGT3iT/z+/BKwxJwW3HVD7dZRBFRsI32o33w4SNaKdv9DCeIEdTJverj/Uv69v
+         hfdhYeJ7Q+Uo2wQqE0jX2JPkLoRBnXWEoZwbcCSEuXtw8yVXmEoCFmSnQhmoUE2n3vP7
+         ZTGIxpvOSPU5HOp8p85BPZQeZg84JQsElw33/5ktmz/OuOj3K1cNLk4ZsziAgnVGzXxf
+         AzeyqkhzQQtgYx2pOlHrTcAwIqo5cpKY5fTjwxbbXbOb4Ui5jTS9KWq8KZkT8oL29Z6B
+         Qwuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785507790; x=1786112590;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OT5kpLMx1NAQDxJj+okIQJAeHFw/yj3RKxDWm0fm7Ys=;
-        b=a8b1i4YSM03RuqrEQD1vSp9JukCbP6ssTX5BtcH/kITgTqp0jCLlZmRfuKwemoN8OO
-         cw9/J5sD5IzzdT9pBsNp01c30DFOUiBI56OYwPxyd0i2J4f/tjGpauPkedwX1mgD8y+L
-         2GO3NTL20zD5X6WBb0dQ8csV5m0n4uTNCV/+jpIaQOfny4AOkjJe7JyVm/16Ey7ioTNC
-         o+cGQ4xcado9Gjia6SdPPv3Ipy9CWMdcvdq6xm6Uxx6Ll931DAWxYfqUw3y78coZIK2R
-         jUpCdJB9Dzg5km8F/qKseWK3SS8w9byeK7diKUdc/SUYREd+ZTVe+eE4pg/abZxlvFCs
-         PDvQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrjO572VqC+I07yp5gqDWRVqIStxBNY8cHhcEGF65y2tPkYGICY1FbjxAVLUfh4ZsXMoRDf7x03lQZQ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9fdl+7Rein4WOOsr3BzX7OkFUS/rUBXmIxzrxy2xeCmVUxSU1
-	xda4fZoolBdE22fnf5gniS062hGUD3eMLzfVnXGayliwzOfG4ZhktATeKqCUS91Bty8=
-X-Gm-Gg: AR+sD13FeUSdif/j+gBjEaOPFceorZhaNPP/nIsIpomkdFf1U9VhNIUzVfd7E88xNxz
-	qyxTVmrfcCja4gplrDRa+PJdFV4n6+HBjkmkqYa78O4qZbHsF3gWNuqc4Wx9fDn1Ed4aAEmMOYo
-	vZuCdecNfif43wc+iTVvFCEW5uvhNZpJpQZ2TfzWovKzd8NbCima+VJJ7xWTqfOrE40nUPr0tkq
-	js3bzAD7RfKKvmfDdjoAWlj5Z0BYs7imNaLZ2YX9yn8+Jb84P9nngJiFLPtmXCQr0/i/VFPLnAK
-	kNiIXfYauYo9CByqZUCiKgS+hJpZkHjJem7+z/GHrzqveYDQBg9j8HmOaM7DOPYmPukqZZsJzt3
-	4mwbGISyExOScfIhI39eivJD5Xi/FrpDdqMW99bPYjlP5xO5PAbBUW6kVJjyhnvXZjCyM001UUy
-	n8RbjTp+L9F7ZcZNc1nU+Qx+HCJvkluZDkx7BqEAFdQ8/bIxsbWBc4cF54YOo6CTpTKd7QZg4g5
-	WQUJHXPwlB+ohpUMvcj1s2gdoRPUQNqUUFPal4=
-X-Received: by 2002:a4a:e90d:0:b0:6a1:4af2:f8e4 with SMTP id 006d021491bc7-6ae4339556cmr468939eaf.31.1785507789733;
-        Fri, 31 Jul 2026 07:23:09 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:fa40:746f:401a:3b75? ([2600:8803:e7e4:500:fa40:746f:401a:3b75])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ae3a0c5dfdsm957497eaf.10.2026.07.31.07.23.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 07:23:08 -0700 (PDT)
-Message-ID: <8860e628-69e6-40de-94fc-4dd9154e23a4@baylibre.com>
-Date: Fri, 31 Jul 2026 09:23:07 -0500
+        d=1e100.net; s=20251104; t=1785508089; x=1786112889;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jtRqUp5ioQJk376KJJx1DKpoRdIegI2ssFhD6hm1Q1s=;
+        b=GIq4E101L+9DuO15iHYp6oZxJNt2bPES+WuCci3u0eZwXN4sfc9jrEnEnjkSusvdF+
+         hA/hrUF8t84lQ6fFl/b0kbzCwvN8slxncbecxuLJwonji3DObgpMwi2W3Q691HQz+leV
+         8acRbzeeJiDJsYFTCjxupFIUhiUrY0ZXAkS6hEiomc67GqN9NVOdg7G+1ShudbEu00Tz
+         BdylfcUuYLwK1cBJdStkNmfDfYWTBBAqSu/q5p8q9WSFq2Cl3p+tASqMpsrHaAefzOBb
+         qoL7H1kpIQsZcVy07D9B1Z50HGTrHrlHGRwiTa7VxAIPoVnvbbxW4mzPOa/etjMvD15O
+         6XJw==
+X-Forwarded-Encrypted: i=1; AHgh+RrDzh0Xu504PdMxntjm01SZdZG1n6ZGjljku9Q/ePDOpPcWXB80DJ58wbPRUrjtCI4MrUVlhwFTOPXZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHG+1djg/SCB8b7RQB7FKLXoHGEUUEVAOP3Svnwskbo5If9Eak
+	4APw3vucHfvqw0Jc4t0wjxUl8H5lFCMwPykSBgG7gcLy+pvYIONMIKnN
+X-Gm-Gg: AR+sD10G8Kmuna2UE1PpV//wR3IkwZdQQ4yDqkcF43rSaC+Jrj5UQdp7GKRp1BlI3BI
+	S+qWgWxETebQvvrcvZ5UDN2DRiFrCAxD4SIYtdp0Ltg86Wya79gL4UJ69uByGw+NEfDKCu0aTSk
+	CMtnJEbe7L4oGHaCT56aHYWwGgPAdGOx+Toz8987/nU+20JV2SrblePqaXy0FjxH+r7dr5QghQH
+	82aay3UEWWwFaqLLCZZV5kTSg0P70n2DZK23qgQCsWH94oxSxOtp3pHxff09RshzbB1u5ONkPoj
+	z/083MxDXUV9kMLRO1qVLZstjpUvjH/WwaOE/SAkYTTbgYBfhBHxvcahE/EdMHBW6GoFY0/m/Qn
+	C3aJQOAAcsjBOkmAfO9USpQpuVS/Yll6ePRZ15fwaY9cm5phK/PHIJqfQjL+pqm4XC38ahzfAQv
+	koFql+i8aaP+O/zdvbiK2TA2u1XtmoSXZtf65/QkvUlY1ytrOyUOvb4Y8K7+1cp6iq9lemArxIP
+	XHomdirISYl
+X-Received: by 2002:a17:903:1110:b0:2ca:c01e:8837 with SMTP id d9443c01a7336-2d052428e6dmr1975785ad.24.1785508089234;
+        Fri, 31 Jul 2026 07:28:09 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04b11f9a9sm6027035ad.57.2026.07.31.07.28.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 07:28:08 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Fri, 31 Jul 2026 07:28:07 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Vincent Jardin <vjardin@free.fr>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Charles Hsu <ythsu0511@gmail.com>,
+	Markus Elfring <Markus.Elfring@web.de>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v7 1/4] hwmon: (pmbus/core) export
+ pmbus_check_and_notify_faults()
+Message-ID: <5e7ad6e1-7151-422f-a55b-1b116298e653@roeck-us.net>
+References: <20260730-mpq8646_v0-v7-0-e7c7ad768d5d@free.fr>
+ <20260730-mpq8646_v0-v7-1-e7c7ad768d5d@free.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads112c04: Add binding
- for ADS112C04
-From: David Lechner <dlechner@baylibre.com>
-To: Kyle Hsieh <kylehsieh1995@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com>
- <20260731-ti-ads112c04-driver-v2-1-aab0168c3c01@gmail.com>
- <b2297241-e0ae-4058-a406-348440798e38@baylibre.com>
-Content-Language: en-US
-In-Reply-To: <b2297241-e0ae-4058-a406-348440798e38@baylibre.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730-mpq8646_v0-v7-1-e7c7ad768d5d@free.fr>
 
-On 7/31/26 8:52 AM, David Lechner wrote:
-> On 7/30/26 9:58 PM, Kyle Hsieh wrote:
->> Add device tree binding documentation for Texas Instruments ADS112C04
->> I2C Analog-to-Digital Converters.
->>
-...
-
->> +
->> +      single-channel:
->> +        maximum: 3
->> +
->> +      diff-channels:
->> +        items:
->> +          maximum: 3
+On Thu, Jul 30, 2026 at 05:43:59PM +0200, Vincent Jardin wrote:
+> From: Vincent Jardin <vjardin@free.fr>
 > 
-> For this chip, we should also have excitation-channels, excitation-current-nanoamp,
-> and reference-sources.
-
-And burn-out-current-nanoamp.
-
+> Factor of pmbus_fault_handler() into an exported helper so
+> drivers can notify sequence from a polling work item on boards
+> for which the chip's SMBALERT# pin is not wired to the
+> CPU. The interrupt handler becomes a thin wrapper.
 > 
->> +
->> +    oneOf:
->> +      - required: [ single-channel ]
->> +      - required: [ diff-channels ]
->> +
+> Like the SMBALERT# path, the helper notifies and then clears the
+> latched faults unconditionally, so a polling caller inherits exactly
+> the interrupt semantics.
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 
+Applied.
+
+Thanks,
+Guenter
