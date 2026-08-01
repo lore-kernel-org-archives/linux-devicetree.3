@@ -1,47 +1,48 @@
 Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D807E27603C;
-	Sat,  1 Aug 2026 04:50:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAA827603C;
+	Sat,  1 Aug 2026 04:50:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785559841; cv=none; b=mUwGw2FHituyu+Vt7qGYXV7o6mlbBGMFzoWJIyC+fSVng1ecr6YpJ5/+DGHJXbSxbt2ajYKqybnWAH1lS6RzjIuG2eBKogrVNZyi3b2zw3Mqi9k59Z49bbjr9R7f39uDjtg1eiNbKxVSxYbawK4LSL9vOW+TI0cRM7nwwptLO5A=
+	t=1785559848; cv=none; b=qPJqJTjSiT1qUn3+DMB0b8crn5IwfriRj1ueGP7Z3RIbbVsrwp/2rcPlaHTFCmGu1HfEciOXwsgp3m3Fw3sc2NA86yuxLL+Uib1eJeGw4Kh7E6ZLodPT+uHaZ0HkDNO7dehBdzwWfWaggfCwiJc4/MPPHDwDt4WKYGQ9+HuHa5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785559841; c=relaxed/simple;
-	bh=cMno59+tZNh/qkgtLsDGypFDDFcarBvR6jbG5LEIkvs=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=LhoGDRmanRIZWfj6uIjL6YB/ZyOAIH8tquBOUs21wMe92/j97QRcYVtIMhk5S2ogcFshbPp61MZJPj3oMiYeL2KKrZ3NxML/318hCQH5rpvVcPab7qCRoG5sQxrXIriBcE1spEYtOQAxe9L6Y3uVOxeJxrvnQsq3KO2ZsnKTX0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=VLDdCeQW; arc=none smtp.client-ip=162.62.57.49
+	s=arc-20240116; t=1785559848; c=relaxed/simple;
+	bh=tEAmGKsWoHbCPvYsQuzFNyycLA0CYGj0iI49KrF7PnU=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=eYhuaZbgFIrlVCbtjVwsCkfF+yGQoNuZnURcrMMUqHYHXi2jwLJZ3lX11/8mFgJQ7DqEyttWEybRuDL4LnDAGkWrlVAZq+7tVD0X+QbnLPi0sAQrivpM8mWEyXHv6FutuXL+nn8hLqWuYZbxL88hoLlFi2lB5cj76vaFRsf5l+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=zRmLWFvQ; arc=none smtp.client-ip=162.62.57.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="VLDdCeQW"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="zRmLWFvQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1785559833; bh=+G1Afgfgm4VomeHyuZtbW2kKbV8N7tbkp7LK+TL/0q0=;
-	h=From:To:Cc:Subject:Date;
-	b=VLDdCeQWVNy70A7P4y5sWt3bGgpQR9GBKWgGBsg8vn3X3/2yUlkaInUK4bMsnZTvP
-	 eR4qxgqDG/tS+JNUZ2gkNGr3CPu6asvPx9N8b62R5e3V4BQ02QIITWTL0fOQIUY2MR
-	 xTGZRctN7bnhLW0W9hpaeJ0mBvbcCF+lxcmgOfhI=
+	t=1785559841; bh=01J08lZtsLSrVAWFDp4F6uPNfHcjLK4OohuQpvctuYQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=zRmLWFvQaKz9jVLSb1JN8Y8I8xW8vuFMiy3IVY726Djn7jCifMTbdzA+OuIlsmI+6
+	 6vKTW6dTxINiJ59PU2uDXGlbMANVDyHJilthEly09xBULGYbpSZYT6c9rC2mZyKqNM
+	 5J7PFYAdSU5dd023XwK1QTyml1ZCkxqqna0Im5/w=
 Received: from AERO17.taila7786d.ts.net ([112.43.117.189])
 	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
 	id C9E2EA5C; Sat, 01 Aug 2026 12:50:30 +0800
-X-QQ-mid: xmsmtpt1785559830tqo0hg88f
-Message-ID: <tencent_4141B315242524F71B028860294CB1315E08@qq.com>
-X-QQ-XMAILINFO: NT7uTz3cNku2VA5qCdx/+vljb5DbZnndH2i5LtgxlE30kG+zEmdKivg1PTXAy8
-	 JKQgc11w1/7Z2dhUVYCIfsnsZNBpvCFRq9v2VurKgW2qIDYY+odxFv9TW9qY7almkKgpkhP2b9sa
-	 BeGOIcRqd1TEVNqZQhr6EytbcyfyO2l+Z/SFFq/jy9QSDHsX5K9KVbItCwrJzz73Jy9NnXSL5kKr
-	 WDxmZzHC254RppXLNDqFt1l+FpqRcm/uqymxLY4qq1FULEkoSAaHK5O20ZdLB3DzWvNnH0mZ6Ob4
-	 yud3iCg6VK5f7gn0IOEj4heeYISYCdnPWn7wwtMMECNhseQN3/KBLeirtyt6WBz/vOzna98vrDjp
-	 2z45ed2Gi5lZ9r/8LTtvcHLXa9pAtCV9h6jZEgIKiR0iuyXgGByQt6MWOuq+zoSlK3q8k4Z0JkZZ
-	 ZNULeHkEaYFnGS2OTaa0WOpG3Gg+9yNwMerOFK77bjx5T9tuCQeIOYm4It6pQII2H9Owl6ves7HS
-	 IJUy26c+FrTR1boQvCnNk9ObAPOZ1pLu1tLukdGyvRZrYvYj0mOfZVghm1lo4/g9TJT1KVUYUJp0
-	 vOs1YSz9Fo5evod6GDUrccrRoKGY/WRbWRSrzTjQh57tL6pkNgPAfOY5Ina/DZF08YDB9vkPYTNw
-	 VK5a8o/t0PEaQtH9CEpT4kdVbzNv4/mw7zKbd8zJPSBk/PYu+eB2UcO5iTehqZbcEkl5jE/XROwA
-	 aKHGy2DwsFkoV9oK8EmNM5T0nUCWRhXunTq74Zu7t324veLL9R18tsvlA3/eRzUH9r04f3vMK3G7
-	 VvXdiC9uM15ZNpKEn1oDvtNfkO+Sd4Sin1AcCnDg2pC0dTBUiq5GE74Kjk6TpptMENuEcOa+7c31
-	 HAkYGrYVxOmB7S7Pw6P5mlVMPdKEaXCrT1L7z8ioJqBOGLNw/J30ORiQfmGTDkkZ/XsRI0dgmR6W
-	 lLG9siP3hH4hNjeptr5FILpCykcW7Z4UxCIamYo8QtaVgREvGxb1G/Kgj2BmmojevZUZ2z+Jrdj+
-	 tviK1psbq+awt87VaUULamWEcEb3JzP+HsTv+lAJBqM2IrrbxN+wfEd+nOwdE=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-mid: xmsmtpt1785559832tox0udywq
+Message-ID: <tencent_567D8D8018183B13498C4150634540C9C206@qq.com>
+X-QQ-XMAILINFO: NT7uTz3cNku23ItSfLE6jgMbokTqZAISMlxNh2psrK3tefVjeRIkLB8w5pkINd
+	 QU18R26sz80qamcZWtIOmnVSWRLeX3HVPkOlH56OGO8hCvgB+O5/cMaHvVfWpw8cU9wPeYJp5Vl/
+	 by6vh+X+GaW9xExk6ZfQRwL+0AowevGrb6iiTCyRw241/m1iGwNTO0ktpHR8VKwStDwQGbSI6f45
+	 y658IOvlSQeSU8iUn7ATrWDFiUTjrQMwFaGPIIYidORgEpFWkt1dGBLxkCasNijpd9snbtKBNIfD
+	 wRTgvB5fosxAGSN8YmArfvNUIdVKqhPHDOPDGNO6MhhXoNsSukkWnRIZHUf8qZ4HDvtd5fDKC/l2
+	 a1gqSThGskjdcCSimGktfvL7L+9W42SIkPpsKHlyqPPsCgRmqCyMvhx+jIXLP96ZhCX+tyoSQLP9
+	 7OpvcsW42w2+eRApfNbxjYPIwAMffcf0KOUZxFAoTPNHfiWAaYKXo/nJGakd8pcIy+PMVT94iIjL
+	 H+Ap1mvW7jg0Uje78lUEUR9h+JZ0RCIEG+ei5cJkwo1K90zKKUUKzJfUS4/l/yc11/+38mr28N4B
+	 8P5GKi2ETrwn+kcMlMRjWSclC0AzRnHdHBvKxhH2E+TZcP18/F9roCcO3TOuYbhAEB0TYnUtnIMu
+	 6qBPbHpwrsWjIuCUGr77KVzHZEsfyUMfxiycUeN7mhR4LSzz0WCqsGlj1GjV3CZWvYnpH+tYOk8o
+	 m0uXEqOr7xQBCYJ9U10z5cyX9LRY0QK4CfWQV25yBiuY8rmRDORGhQmSckXJt2Y2fsfdk/ZkJMdO
+	 tPWfJnSzMUVPEgqwvM+GehQpvZC8gBvsnuN1rEDnMlyXeU4U7T9FYHbjfx3MH7yOB5at0qMSmD2G
+	 YIjWwgOF2dHiCNtyOBwHr3IlwkuDFal92y0KV82A0lejIJLyA+xpQoyp5+2RHGdrplpmp+K9X5ci
+	 KU0bnFi8uIHFdi79Pnc4Pei4XxDSKXE70ykG43YyqaGwio1oIAe5Fwp0bcjhzifvRANRBIfa9kga
+	 zi9ub3Eq+rnkQqLQd9Kvb/ItW1/jjnMCh0FQER0iQvHuxjoY4X5gRf23HgJ7g0kyCHQ5PHOQ==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
 From: Pufan Jin <2254650260@qq.com>
 To: Heiko Stuebner <heiko@sntech.de>,
 	Rob Herring <robh@kernel.org>,
@@ -51,58 +52,60 @@ Cc: linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] arm64: dts: rockchip: Fix fan speed control on LubanCat 4
-Date: Sat,  1 Aug 2026 12:50:22 +0800
-X-OQ-MSGID: <20260801045025.67512-1-2254650260@qq.com>
+Subject: [PATCH 1/2] arm64: dts: rockchip: Fix fan PWM period on LubanCat 4
+Date: Sat,  1 Aug 2026 12:50:23 +0800
+X-OQ-MSGID: <20260801045025.67512-2-2254650260@qq.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260801045025.67512-1-2254650260@qq.com>
+References: <20260801045025.67512-1-2254650260@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The EmbedFire LubanCat 4 drives a 2-wire fan by chopping its 5V supply
-through a MOSFET with pwm0. Two problems prevent the thermal framework
-from controlling the fan speed:
+The LubanCat 4 fan header drives a 2-wire fan by chopping its supply with
+a MOSFET, so the fan sees a switched 5V rail rather than a PWM control
+input. With the 5000 ns (200 kHz) period the off-time is far shorter than
+the discharge time of the fan's internal bulk capacitance, so the rail
+never drops and the fan runs at full speed for any non-zero duty cycle.
 
-1) The PWM period of 5000 ns (200 kHz) is far too fast for the fan's
-   internal bulk capacitance to discharge during the off-time, so the
-   fan sees effectively continuous 5V and runs at full speed for any
-   non-zero duty cycle.
+Measured on a rev 20241026 board by driving pwm0 directly over the sysfs
+interface, comparing 30% against 100% duty:
 
-2) No cooling maps bind the fan to a thermal zone, so the pwm-fan
-   driver falls back to the highest cooling level at probe time.
+  period       frequency   result
+  50000 ns      20 kHz     full speed at both duties
+  100000 ns     10 kHz     slightly reduced, audible coil whine
+  1000000 ns     1 kHz     reduced, loudest coil whine
+  10000000 ns  100 Hz      all four cooling levels distinguishable
 
-Patch 1 fixes the period: measurements on hardware show that 10 ms
-(100 Hz) is the lowest frequency that gives proportional control
-without audible coil whine.  At this period the rotor inertia averages
-the switched supply into smooth speed regulation.
+At 100 Hz the fan is switched on and off outright and the rotor inertia
+averages the result, which gives proportional control without exciting
+the windings in the range the ear is most sensitive to. Cold start was
+verified down to 15% duty, well below the lowest cooling level, so no
+fan-stop-to-start-percent handling is needed.
 
-Patch 2 adds four active trips at the vendor kernel's original
-temperature thresholds (42/55/60/65 °C) and binds them to the fan's
-cooling levels.
+Fixes: 6d9430d58714 ("arm64: dts: rockchip: Add EmbedFire LubanCat 4 board")
+Signed-off-by: Pufan Jin <2254650260@qq.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested on rev 20241026 hardware:
-  - idle 36 °C → cur_state=0, fan stopped (PWM disabled)
-  - stress-ng --cpu 8 → temp reaches 48 °C within seconds,
-    cur_state jumps to 1, PWM duty = 3921569/10000000 ns (39%),
-    fan audibly slower than the previous constant full speed
-  - all four cooling levels distinguishable by ear when driven
-    manually through the sysfs interface
-
-Based on Heiko's rockchip tree (v7.3-armsoc/dts64), on top of commit
-6d9430d58714 ("arm64: dts: rockchip: Add EmbedFire LubanCat 4 board").
-
-Pufan Jin (2):
-  arm64: dts: rockchip: Fix fan PWM period on LubanCat 4
-  arm64: dts: rockchip: Add fan cooling maps for LubanCat 4
-
- .../boot/dts/rockchip/rk3588s-lubancat-4.dts  | 55 ++++++++++++++++++-
- 1 file changed, 54 insertions(+), 1 deletion(-)
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
+index 586741ae7363..bf413de979cd 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-lubancat-4.dts
+@@ -119,7 +119,7 @@ vcc5v0_usb30_host: regulator-vcc5v0-usb30-host {
+ 	fan: pwm-fan {
+ 		compatible = "pwm-fan";
+ 		cooling-levels = <0 100 150 200 255>;
+-		pwms = <&pwm0 0 5000 0>;
++		pwms = <&pwm0 0 10000000 0>;
+ 		#cooling-cells = <2>;
+ 	};
+ };
 -- 
 2.55.0
 
