@@ -1,328 +1,501 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2114.outbound.protection.partner.outlook.cn [139.219.146.114])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8D6363C60;
-	Sat,  1 Aug 2026 08:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.114
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785571294; cv=fail; b=JOsICYsgBtd7WByNuRoAnFQnMr391rEH3opwP/7OH9kt/B/wL28Ik8tYcmHf0/zzjPjPELFM+vJQHJAx9ADK5Qf8i9Y/2FmPwAXNjuGIuncuDDlbpBaGLyFhIK3+jSTJmXQ4/AFMtTR+qzYmTLm/lXyVu0uV/Fz1sJGAiiVLnWg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785571294; c=relaxed/simple;
-	bh=7miSfy3hCTtreSmjj14a8Z/0hNAqSLY7A3gtV3ZqpEA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245D71DD9AC;
+	Sat,  1 Aug 2026 08:06:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785571593; cv=none; b=Tu31jkR3y6P6KF2ZW17GLN8jcBDJ9MMLfZcKj71l8ZW29q6vbIlQ43dVCiJB2yb+rerjqJpRL126p/Up/UY9pe7Uc4YYwmTaC/UtqAVtfbn0W0uLyfmNnYhsnOGrJ2orW8AAtC8fDz2v5dTDOf4naVjUS3m4lvXTKT0VWs4kiXw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785571593; c=relaxed/simple;
+	bh=bcx7doSBbSCtcUpfuvhcoBsxgCVOJjCqzrdvMTHMCbs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AXWZVs+najpopDir8qGPDQTgqziXs7vde2GCDpCrLq8744pPHeHKxFw+p71wv+yEwzJCiPxXFWiNEUvo2oxV1rdpGUWjA+CCTtHORxMT94MY/fqebBToN0d4dcBil5uCljv6bjMalD4y0TasqNw2dW2vJ2Uvfaxq9O8swZUfwuU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QvPhCuFzw8yuk+3Xsj+mLWhux427lPQsUrDWqAhAu7p5O334OqUDW4TbNE9q2AOho9E30udzN8TWedTqPqoJZoO9saHYSQfF7mfGD5sM7uiyAObJviRmHxFCLKqR+ueK0/DK2DMWyuc1MnQYQBl0AOeXeLOxcbfKAu7TndHe+HKUKEMWrBOfS9RXBumfqjWY9r376pzk6Ls7OOVlHbhlu2c/T8QnfC8Vgj91l8IhOL4Yzt+Q17ksBKL++bQ9S6VzSqqj2WoBSOy4Eo87YKrKDBx1lHbXn6SrkTjPtbd+oFi+nPd9ipw3C/UwQvq7hVpkLYEcJLjmUyh6j2absXoxPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7zGDiw+uK4rj7ko0f3jhQI81IvTV7dlt7XK590+Zvbc=;
- b=POQCeca/wNNb3xiULv47IYWU8sRNU4PPodqBe28aELrvumk0n+gsOUBPVfiKeyfYAa/bo6jylLDCgpbV69uPIv5Iws2bvt32hp3ds7vatSS36hB7pcITlsliyB60dj/zVTRQVP6nBR7whxYMzvN8X5Yg23KQg3O9TmG6VKXJ9gnB+wL+Vjy35513OvNGVtlMPBE9sXix4VnvVyG85brKB4Udo0w6EpOHALA2bsTh5pa+tlQC26resbrxZgmBM2xTGX7U3NTC3837h2++4k7K7nmeyAnkC4/Av/AgYw/bVQFgaJx+mE46kJEs8rf6gsQngWG7/SVKwcuAgwDLLf4/uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Sat, 1 Aug
- 2026 07:27:29 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0270.015; Sat, 1 Aug 2026 07:27:29 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	 MIME-Version; b=tje0P8C41r1Pj1FZIkqTjjHmn+vDPayuNK/liBvMt23EdmBjt/Kx/XuY5McXtyinF8u0pYwI8XKKQRMWC3HWklh3/d3qcB4AOUJcb4eX5TyfsQFr8/XvGOXDBZvE30P4xuS5+rppEnhWZN6W2KT1Fzw8wmTLKjLOgpRVKNU68IY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.116])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4866afe8f;
+	Sat, 1 Aug 2026 16:01:17 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v4 07/21] dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
-Date: Sat,  1 Aug 2026 00:26:57 -0700
-Message-Id: <20260801072711.153217-8-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
-References: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0027.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 2/2] arm64: dts: rockchip: Add MangoPi M28K
+Date: Sat,  1 Aug 2026 16:00:18 +0800
+Message-Id: <20260801080018.3220034-3-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
+References: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
-X-MS-Office365-Filtering-Correlation-Id: 092fbfd5-8655-41da-3871-08deef9e57fd
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|23010399003|366016|1800799024|921020|38350700014|6133799003|56012099006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Rvv+oENPBNWvFmxTzUfs0fstzwpaBHxhCH/sEY4drtrSojc1Z+tF9i8S57fVMxYchKSTgec6n6i00L2L9JkNBfKO8W4h9xeSmeqdPUo1HpBOxmHDZMgwvKUQGuklVd42DgeOwIXWZhVLs/X3JfrX2mOqeqQYAR6Np7gyJVcCYxAAdfDsT42AOa96vnKC8akq04l1d9ZkqdzX64Bn2opopMtQ17m6usMrDkHo6XoSnm2y+ArBL7SvzxZu9IIccUi0PeRNGdKDMDMCweWPcTUZn6ZcVkvAinVdwFQoav1epQkMXM/EXvtApemVbl/uBSKAVo6T/O85gykrLUgq0e/Rk6zxOmG8DagXa/AgfAZuE3arx7yeVbl5HtDqVEkdLC280GTN7y9zyzUDA4s88Vs5qU0tzP1YqyuxPI8DPI9SUMKJVNHA/+knwAF9C4SH++Ah4VjN5+0DzkzF1eGSr6b6fmtWUvk8YILuE6jH4gCOjvBEERteq4gOh3QKNAjzelldR2HYrCnYXcQb/ChnvgCjY3xfXZH1mbTEjweC/9wMMrNQqJnVLcNP/5CF0kA4MbEABnvwPvcd6TfbCg2AhgmWBQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(23010399003)(366016)(1800799024)(921020)(38350700014)(6133799003)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uiTQXZpBV3ipczEmMnAntsenv2TY5KsFc5RXMFm891fnnqKpw754gpecfSqg?=
- =?us-ascii?Q?HOdSC5SPIhBNG8Z9UMlFNdFbYNg0au1BeMqBkwftNac2Wk0bvgR8OjzKmS3D?=
- =?us-ascii?Q?3CMyYGdY9Y3FXlzq2RRPSly8kWFHiMZHlzBfXfUJT6MyjB5ATowPlpVct9Ms?=
- =?us-ascii?Q?MyF5aGQAU8VRYOLjZw5T1xo+wgGAkGpUFWWH++uUI1xKhTO9mtlNfPCfHHjx?=
- =?us-ascii?Q?Vda9i2NsCVnieuup5CLNwLXbgHBsePJqwwjoxjcEvOKN2ODugOWIf/q4WatS?=
- =?us-ascii?Q?NKs6J/vlbRyX0mT/95XOqe9DxckoDxYsW1z63LgmiWDjbXZkdzHWacIwCzEg?=
- =?us-ascii?Q?pFIOvApUK3i/Gg4BP7Hx7qxeurzt4xMou+v/jdYTb35S+zbmUXODu+s3YUcz?=
- =?us-ascii?Q?GZGZ05dUtpoWq7+TnBWsFO/6M8xTsB8ht/4xc5RgVCwKeGcf0IZ42SVtyeQo?=
- =?us-ascii?Q?vhCZyhbzWfGMhPXZhQBfWAOmDaX+T3y+nxDYVbTMx+0peA/0NlBV0yqHLiMp?=
- =?us-ascii?Q?UXCUwvyj7UcPuvGtpWVYwmsoUTqHqMrQXZguvdrh1Ff9pHZcHGugVCbYefFD?=
- =?us-ascii?Q?5zwmWhDJduggUy8iYWS350mXtuuaBHiwUSUYLKD8Dv1dtb+FNPSFilfT61dv?=
- =?us-ascii?Q?Ztfmu34laxqhMxOVFWmwUYAqOg4vV4atxnvwDNlYaSdBAXAMxEHID5NLxCJC?=
- =?us-ascii?Q?ahWItAaUbHv/eyyg06bZS3aheHe7CFP4zMZKZKeGP6G7crB0YJSwJ5bGgfKF?=
- =?us-ascii?Q?Dgl/jh1YYeznzo236C0q5K4qXWYJpdhti3M70J6HBc0aUbAuvX6vPnPHaAbA?=
- =?us-ascii?Q?JxbHR+zi25hQOGIC2VDx80KboFsml+lw3x3/otq9ou80mdZgdjRKHIgbLyHE?=
- =?us-ascii?Q?UCI6sD0JkFvuPbZSQOjEmeJ0xwVMRBAWy1q8r41YpBolqn4Pzx4lr/Ugc+Zw?=
- =?us-ascii?Q?FQ08OG6Tbo9acDDNwGrIs/4+/q96eY1zjHrNMx0EjBX4UsCxjdie/4syOEcu?=
- =?us-ascii?Q?eVx9HFYI5TAlqSYe9MctWy0kGOQ62jqc9tJWS+tiM/bBYwSEBz176Kjm2eFu?=
- =?us-ascii?Q?mAilF9dPCFdLg6nRX6BQxLz3HQNrF56zrH5ux1/XvzWa/9xG/ewk5DiB9Z5O?=
- =?us-ascii?Q?H0rHB0c6Xby+N/UZhHJUx6Lj+iRvKZUqg4B7D7WNsEUt940PHJZoB8oW1/GG?=
- =?us-ascii?Q?HLnFJFvYR4AwVz0zX3Efj+rjrNwZtBD53m1d5rhKhX8g41bT7/pMT1a/7vAo?=
- =?us-ascii?Q?yy6IpKCT+JfSZpT0h8hnHkJ4ZOjKIYHq8Higg00Ddv2Q97dr2VYRg//r1G7M?=
- =?us-ascii?Q?eW1pwF6JtIBlbl4kXMt1uMMIdJKHT2deFY8u1sWhAjggKJ3tEl6CNLBWp5f/?=
- =?us-ascii?Q?uRzBrA9VCndVWl35760eApXXy3jYhuJsVtEEHsyTl/1aHPWW+xfALGfmNMlA?=
- =?us-ascii?Q?iL+nFxA62fcf1nHMsog1OvVKo/CdwhuL1k9fqr0tvy+ZvemmKUDkms+OKacV?=
- =?us-ascii?Q?QSRlm+RbGsqbc0PT9NPKPv3/gVz0sxjp1wIfSx1eWadl+q5BsAWDXgbtFv1h?=
- =?us-ascii?Q?ilafJNkkrQDS/L4QCPVYgbGM5b8Mv2iOtFOH0KuGPPuXlvKki6ySVyO8yhGl?=
- =?us-ascii?Q?3c0MsSez+v7nKSZ/f49p6msNrTk9eibArAhlduGAcvr13Z8XwwO2afUN+A95?=
- =?us-ascii?Q?ItFkrfHfVvAuXpTrKb8t9iVQiY6+CRvzVxcfu2e11ROEUB5DbsK1pb/xpUEJ?=
- =?us-ascii?Q?onyPrCo3ovRoundefOeJUM4R4JuG5uGKy4JsEFlSaRt3JDKpY6N0?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 092fbfd5-8655-41da-3871-08deef9e57fd
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 07:27:29.4051
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1wBH6z1q/w/pwlWzxwtVRIkh9KmndJlRgV19fC4Wz8G/CWKmcVefKNDfpXVenXUvzVSLGK9vKHNFzfN8W1dRDkgmf3eQEdyISQGVQWrf+YlcAXlVvVKA+DzSmdjdWWbI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fbc577b1203a2kunmbde8614f2070fd
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGBkYVk8YGk4fTk1ISU5MTFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpKTVlXWRYaDxIVHRRZQVlLVUtVS1VLWQ
+	Y+
 
-Add pinctrl bindings for StarFive JHB100 SoC System-1(sys1) pinctrl
-controller.
+The MangoPi M28K is a development board with the
+Rockchip RK3528 SoC. It has the following features:
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+- 2x USB 2.0
+- 1x mini-HDMI
+- 1/2/4GB LPDDR4
+- AIC8800 WiFi/BT
+- MicroSD card slot
+- Optional 16/32GB eMMC
+- 1x 1GbE RTL8111H Ethernet
+- 1x 1GbE RTL8211F Ethernet
+
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
 ---
- .../pinctrl/starfive,jhb100-sys1-pinctrl.yaml | 164 ++++++++++++++++++
- .../pinctrl/starfive,jhb100-pinctrl.h         |  10 ++
- 2 files changed, 174 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../boot/dts/rockchip/rk3528-mangopi-m28k.dts | 412 ++++++++++++++++++
+ 2 files changed, 413 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3528-mangopi-m28k.dts
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index 519bb6c431ac..926ff7a30c49 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -93,6 +93,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-sapphire-excavator.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399pro-rock-pi-n10.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-armsom-sige1.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-hinlink-h28k.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-mangopi-m28k.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-zero2.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-radxa-e20c.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-rock-2a.dtb
+diff --git a/arch/arm64/boot/dts/rockchip/rk3528-mangopi-m28k.dts b/arch/arm64/boot/dts/rockchip/rk3528-mangopi-m28k.dts
 new file mode 100644
-index 000000000000..6ef209d9ea55
+index 000000000000..3d53d9dfb20f
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-sys1-pinctrl.yaml
-@@ -0,0 +1,164 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/starfive,jhb100-sys1-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/arch/arm64/boot/dts/rockchip/rk3528-mangopi-m28k.dts
+@@ -0,0 +1,412 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +
-+title: StarFive JHB100 System-1 Pin Controller
++/dts-v1/;
 +
-+description: |
-+  Pinctrl bindings for JHB100 RISC-V SoC from StarFive Technology Ltd.
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/pwm/pwm.h>
++#include "rk3528.dtsi"
 +
-+  The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
-+  per2, per2pok, per3, adc0, adc1, emmc, and vga.
-+  This document provides an overview of the "sys1" pinctrl domain.
++/ {
++	model = "MangoPi M28K";
++	compatible = "widora,mangopi-m28k", "rockchip,rk3528";
 +
-+  The "sys1" domain has a pin controller which provides
-+  - function selection for GPIO pads.
-+  - GPIO pad configuration.
-+  - GPIO interrupt handling.
++	aliases {
++		ethernet0 = &gmac1;
++		i2c6 = &i2c6;
++		mmc0 = &sdhci;
++		mmc1 = &sdmmc;
++		mmc2 = &sdio0;
++		serial0 = &uart0;
++		serial2 = &uart2;
++		serial3 = &uart3;
++	};
 +
-+  In the SYS1 Pin Controller, there are 8 multi-function GPIO_PADs. Each of
-+  them can be multiplexed to different hardware blocks through function
-+  selection. Each iopad has a maximum of up to 4 functions - 0, 1, 2, and 3.
-+  Function 0 is the default function which is generally the GPIO function
-+  (or occasionally, it can be a peripheral signal).
-+  Function 1, 2, and 3 are the alternate functions or peripheral signals that
-+  can be routed to the iopad. The function selection can be carried out by
-+  writing the function number to the iopad function select register.
++	chosen {
++		stdout-path = "serial0:1500000n8";
++	};
 +
-+  Each iopad is configurable with parameters such as input-enable, internal
-+  pull-up/pull-down bias, drive strength, schmitt trigger, slew rate, input
-+  debounce nanoseconds.
++	ir-receiver {
++		compatible = "gpio-ir-receiver";
++		gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwm3_m0_ir_rx>;
++	};
 +
-+maintainers:
-+  - Changhuang Liang <changhuang.liang@starfivetech.com>
++	keys-0 {
++		compatible = "adc-keys";
++		io-channels = <&saradc 0>;
++		io-channel-names = "buttons";
++		keyup-threshold-microvolt = <1800000>;
++		poll-interval = <100>;
 +
-+properties:
-+  compatible:
-+    items:
-+      - const: starfive,jhb100-sys1-pinctrl
++		button-boot {
++			label = "BOOT";
++			linux,code = <KEY_SETUP>;
++			press-threshold-microvolt = <0>;
++		};
++	};
 +
-+  reg:
-+    maxItems: 1
++	keys-1 {
++		compatible = "adc-keys";
++		io-channels = <&saradc 1>;
++		io-channel-names = "buttons";
++		keyup-threshold-microvolt = <1800000>;
++		poll-interval = <100>;
 +
-+  clocks:
-+    maxItems: 1
++		button-recover {
++			label = "RECOVER";
++			linux,code = <KEY_VENDOR>;
++			press-threshold-microvolt = <0>;
++		};
++	};
 +
-+  resets:
-+    maxItems: 1
++	leds {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&lan_led>, <&wan_led>, <&work_led>;
 +
-+  interrupts:
-+    maxItems: 1
++		led-0 {
++			color = <LED_COLOR_ID_WHITE>;
++			function = LED_FUNCTION_LAN;
++			gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "netdev";
++		};
 +
-+  interrupt-controller: true
++		led-1 {
++			color = <LED_COLOR_ID_WHITE>;
++			function = LED_FUNCTION_WAN;
++			gpios = <&gpio4 RK_PC0 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "netdev";
++		};
 +
-+  '#interrupt-cells':
-+    const: 3
++		led-2 {
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_STATUS;
++			gpios = <&gpio4 RK_PB7 GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "default-on";
++		};
++	};
 +
-+  gpio-controller: true
++	vdd_0v9: regulator-0v9-vdd {
++		compatible = "regulator-fixed";
++		regulator-name = "vdd_0v9";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <900000>;
++		regulator-max-microvolt = <900000>;
++		vin-supply = <&vcc_sys>;
++	};
 +
-+  '#gpio-cells':
-+    const: 3
++	vcc_ddr: regulator-1v1-vcc-ddr {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_ddr";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1100000>;
++		vin-supply = <&vcc_sys>;
++	};
 +
-+  gpio-ranges: true
++	vcc_1v8: regulator-1v8-vcc {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_1v8";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		vin-supply = <&vcc_3v3>;
++	};
 +
-+  gpio-line-names: true
++	vcc_3v3: regulator-3v3-vcc {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_3v3";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		vin-supply = <&vcc_sys>;
++	};
 +
-+patternProperties:
-+  '-grp$':
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      '-pins$':
-+        type: object
-+        description: |
-+          A pinctrl node should contain at least one subnode representing the
-+          pinctrl groups available in the domain. Each subnode will list the
-+          pins it needs, and how they should be configured, with regard to
-+          function selection, bias, input enable/disable, input schmitt
-+          trigger enable/disable, slew-rate, input debounce nanoseconds
-+          and drive-strength.
-+        allOf:
-+          - $ref: /schemas/pinctrl/pincfg-node.yaml
-+          - $ref: /schemas/pinctrl/pinmux-node.yaml
-+        additionalProperties: false
++	vcc3v3_sd: regulator-3v3-vcc-sd {
++		compatible = "regulator-fixed";
++		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&sdmmc_pwren_l>;
++		regulator-name = "vcc3v3_sd";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		vin-supply = <&vcc_3v3>;
++	};
 +
-+        properties:
-+          pins:
-+            description:
-+              The list of IOs that properties in the pincfg node apply to.
++	vcc_sys: regulator-5v0-vcc-sys {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc_sys";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++	};
 +
-+          function:
-+            description:
-+              A string containing the name of the function to mux for these
-+              pins.
-+            enum: [ espi, espi_reset, gpio, host0_port80, host1_port80 ]
++	vccio_sd: regulator-vccio-sd {
++		compatible = "regulator-gpio";
++		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
++		regulator-name = "vccio_sd";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <3300000>;
++		states = <1800000 0x0>, <3300000 0x1>;
++		vin-supply = <&vcc_sys>;
++	};
 +
-+          bias-disable: true
++	vdd_arm: regulator-vdd-arm {
++		compatible = "pwm-regulator";
++		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
++		pwm-supply = <&vcc_sys>;
++		regulator-name = "vdd_arm";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <746000>;
++		regulator-max-microvolt = <1201000>;
++		regulator-settling-time-up-us = <250>;
++	};
 +
-+          bias-pull-down:
-+            type: boolean
++	vdd_logic: regulator-vdd-logic {
++		compatible = "pwm-regulator";
++		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
++		pwm-supply = <&vcc_sys>;
++		regulator-name = "vdd_logic";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <705000>;
++		regulator-max-microvolt = <1006000>;
++		regulator-settling-time-up-us = <250>;
++	};
 +
-+          bias-pull-up:
-+            type: boolean
++	sdio_pwrseq: sdio-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		pinctrl-names = "default";
++		pinctrl-0 = <&wifi_reg_on_h>;
++		post-power-on-delay-ms = <100>;
++		power-off-delay-us = <5000000>;
++		reset-gpios = <&gpio1 RK_PA6 GPIO_ACTIVE_LOW>;
++	};
++};
 +
-+          drive-strength:
-+            enum: [ 2, 4, 8, 12 ]
++&combphy {
++	status = "okay";
++};
 +
-+          drive-strength-microamp:
-+            enum: [ 2000, 4000, 8000, 12000 ]
++&cpu0 {
++	cpu-supply = <&vdd_arm>;
++};
 +
-+          input-debounce-ns:
-+            minimum: 0
-+            maximum: 10485680
-+            description:
-+              Debounce time in nanoseconds. The hardware counts in 80 ns
-+              stages with a 17-bit counter, so the maximum is 10485680 ns.
++&cpu1 {
++	cpu-supply = <&vdd_arm>;
++};
 +
-+          input-disable: true
++&cpu2 {
++	cpu-supply = <&vdd_arm>;
++};
 +
-+          input-enable: true
++&cpu3 {
++	cpu-supply = <&vdd_arm>;
++};
 +
-+          input-schmitt-enable: true
++&gmac1 {
++	clock_in_out = "output";
++	phy-handle = <&rgmii_phy>;
++	phy-mode = "rgmii-id";
++	phy-supply = <&vcc_3v3>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&rgmii_miim>,
++		    <&rgmii_tx_bus2>,
++		    <&rgmii_rx_bus2>,
++		    <&rgmii_rgmii_clk>,
++		    <&rgmii_rgmii_bus>;
++	status = "okay";
++};
 +
-+          input-schmitt-disable: true
++&gpu {
++	mali-supply = <&vdd_logic>;
++	status = "okay";
++};
 +
-+          slew-rate:
-+            enum: [ 0, 1 ]
-+            default: 0
-+            description: |
-+                0: slow (half frequency)
-+                1: fast
++&i2c6 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&i2c6m0_xfer>;
++	status = "okay";
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - interrupts
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+  - gpio-controller
-+  - '#gpio-cells'
-+  - gpio-ranges
++&mdio1 {
++	rgmii_phy: ethernet-phy@1 {
++		compatible = "ethernet-phy-ieee802.3-c22";
++		reg = <0x1>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&gmac1_rstn_l>;
++		reset-assert-us = <20000>;
++		reset-deassert-us = <100000>;
++		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
++	};
++};
 +
-+additionalProperties: false
++&pcie {
++	pinctrl-names = "default";
++	pinctrl-0 = <&rtl8111hs_isolateb_l>;
++	reset-gpios = <&gpio4 RK_PA3 GPIO_ACTIVE_HIGH>;
++	vpcie3v3-supply = <&vcc_3v3>;
++	status = "okay";
++};
 +
-+examples:
-+  - |
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
++&pinctrl {
++	gmac {
++		gmac1_rstn_l: gmac1-rstn-l {
++			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
 +
-+        pinctrl_sys1: pinctrl@13081000 {
-+            compatible = "starfive,jhb100-sys1-pinctrl";
-+            reg = <0x0 0x13081000 0x0 0x1000>;
-+            resets = <&sys1crg 2>;
-+            interrupts = <58>;
-+            interrupt-controller;
-+            #interrupt-cells = <3>;
-+            gpio-controller;
-+            #gpio-cells = <3>;
-+            gpio-ranges = <&pinctrl_sys1 0 0 0 8>;
-+        };
-+    };
-diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-index 38d5a94e92e3..30704a5a3418 100644
---- a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-+++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-@@ -28,4 +28,14 @@
- #define PADNUM_SYS0H_GPIO_A14				10
- #define PADNUM_SYS0H_GPIO_A15				11
- 
-+/* sys1 pad numbers */
-+#define PADNUM_SYS1_GPIO_A16				0
-+#define PADNUM_SYS1_GPIO_A17				1
-+#define PADNUM_SYS1_GPIO_A18				2
-+#define PADNUM_SYS1_GPIO_A19				3
-+#define PADNUM_SYS1_GPIO_A20				4
-+#define PADNUM_SYS1_GPIO_A21				5
-+#define PADNUM_SYS1_GPIO_A22				6
-+#define PADNUM_SYS1_GPIO_A23				7
++	ir {
++		pwm3_m0_ir_rx: pwm3-m0-ir-rx {
++			rockchip,pins = <4 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
 +
- #endif
++	leds {
++		lan_led: lan-led {
++			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		wan_led: wan-led {
++			rockchip,pins = <4 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		work_led: work-led {
++			rockchip,pins = <4 RK_PB7 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	pcie {
++		rtl8111hs_isolateb_l: rtl8111hs-isolateb-l {
++			rockchip,pins = <4 RK_PA6 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
++	sdmmc {
++		sdmmc_pwren_l: sdmmc-pwren-l {
++			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
++			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	wifi {
++		wifi_reg_on_h: wifi-reg-on-h {
++			rockchip,pins = <1 RK_PA6 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		wifi_wake_host_h: wifi-wake-host-h {
++			rockchip,pins = <1 RK_PA7 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++	};
++};
++
++&pwm1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm1m0_pins>;
++	status = "okay";
++};
++
++&pwm2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pwm2m0_pins>;
++	status = "okay";
++};
++
++&saradc {
++	vref-supply = <&vcc_1v8>;
++	status = "okay";
++};
++
++&sdhci {
++	bus-width = <8>;
++	cap-mmc-highspeed;
++	mmc-hs200-1_8v;
++	non-removable;
++	vmmc-supply = <&vcc_3v3>;
++	vqmmc-supply = <&vcc_1v8>;
++	status = "okay";
++};
++
++&sdio0 {
++	bus-width = <4>;
++	cap-sd-highspeed;
++	cap-sdio-irq;
++	keep-power-in-suspend;
++	mmc-pwrseq = <&sdio_pwrseq>;
++	non-removable;
++	sd-uhs-sdr104;
++	status = "okay";
++};
++
++&sdmmc {
++	bus-width = <4>;
++	cap-sd-highspeed;
++	disable-wp;
++	sd-uhs-sdr104;
++	vmmc-supply = <&vcc3v3_sd>;
++	vqmmc-supply = <&vccio_sd>;
++	status = "okay";
++};
++
++&uart0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart0m0_xfer>;
++	status = "okay";
++};
++
++&uart2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart2m1_ctsn>, <&uart2m1_rtsn>, <&uart2m1_xfer>;
++	uart-has-rtscts;
++	status = "okay";
++};
++
++&uart3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart3m0_xfer>;
++	status = "disabled";
++};
++
++&usb2phy {
++	status = "okay";
++};
++
++&usb2phy_host {
++	phy-supply = <&vcc_sys>;
++	status = "okay";
++};
++
++&usb2phy_otg {
++	phy-supply = <&vcc_sys>;
++	status = "okay";
++};
++
++&usb_host0_ehci {
++	status = "okay";
++};
++
++&usb_host0_ohci {
++	status = "okay";
++};
++
++&usb_host0_xhci {
++	dr_mode = "host";
++	extcon = <&usb2phy>;
++	maximum-speed = "high-speed";
++	phys = <&usb2phy_otg>;
++	phy-names = "usb2-phy";
++	status = "okay";
++};
 -- 
-2.25.1
+2.34.1
 
