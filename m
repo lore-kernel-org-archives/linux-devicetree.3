@@ -1,21 +1,22 @@
 Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8927B38B14F;
-	Sat,  1 Aug 2026 08:01:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05438353A71;
+	Sat,  1 Aug 2026 08:01:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785571286; cv=none; b=HsfyZbdZ4kjwOE03DeMiX9/f4wlL/wz+BRUNW/2VC5uDqcvsyqVqKhnd2ohtmI0zh2VOSxvBwgC95Seb0p8T2Ql84RNOXBDz2DAcLgPGDQjfWBvVVIKSyVq1Sx3+5JJlHKW/iNGbtT6F3atFZmMm7Rm15uP0ZL2VC6dUb81JlXc=
+	t=1785571288; cv=none; b=Y0/qjgniTNmMKUhLNKGTlgl25uxWw67OJOhtn0YZGk5eG63sSL6oxuOtR+otENvfz5kB/XgVuK4dcVyjjWPKk30vfQtJAWUnrZz4GuIiOLdKanwzp1ZhRNPNYERl+60j5xeLNxGRaAJRPJ87DLPus6njrJCOf0GomUCqVnFd7/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785571286; c=relaxed/simple;
-	bh=z3sGawLud+l4FA2CXrq68PbtEUCIJ7UPG+vM6A+KmCY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n12v5jlobYKq4vllHiI7jBdHruhQxA57BB6tv1sDYmhk0sVB68MQGe8vwrclBR5cu6hAo3deMU/FeKWQwuyco7QXQVPq7BHOAvrPmZuWuv554N0mljiG/zN+3f0BTuwCr+Fz/XnVBOYTkl/NRbkIdVWho6ascBZcw2rbLnCI1IU=
+	s=arc-20240116; t=1785571288; c=relaxed/simple;
+	bh=Mujh8k8Eugy8JJYS8J1j7RD3rZ6KA3fJQYtPBO4p9/U=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=frkD+CorZ9teNUsRv5qkpQfv3ZQIZHnAbvB5ykSDSwaxOZbfKoaTQLkdf6PWajoq96icfJkXaajJkHplLDHtfCennEZsKRePP9Cv+/dQ4YfKJ5rikhsbaUfiICt3rZhFXc7nt3mYdzqZZATDdPrLLvyioTBicpaEE2+toh2rCl0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
 Received: from Vostro-3710.. (unknown [14.220.232.116])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4866afe8d;
-	Sat, 1 Aug 2026 16:01:10 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4866afe8e;
+	Sat, 1 Aug 2026 16:01:15 +0800 (GMT+08:00)
 From: Chukun Pan <amadeus@jmu.edu.cn>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: Rob Herring <robh@kernel.org>,
@@ -26,10 +27,12 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH v2 0/2] arm64: dts: rockchip: Add MangoPi M28K
-Date: Sat,  1 Aug 2026 16:00:16 +0800
-Message-Id: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
+Subject: [PATCH v2 1/2] dt-bindings: arm: rockchip: Add MangoPi M28K
+Date: Sat,  1 Aug 2026 16:00:17 +0800
+Message-Id: <20260801080018.3220034-2-amadeus@jmu.edu.cn>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
+References: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,32 +40,37 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fbc575e8f03a2kunmbde8614f2070e1
+X-HM-Tid: 0a9fbc57710003a2kunmbde8614f2070e8
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQkxJVhoZSEkYHxoYTR5PHVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSB9NVk9CSh5NGRhDSRoZTVYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpKTVlXWRYaDxIVHRRZQVlLVUtVS1VLWQ
 	Y+
 
-Information about the MangoPi M28K is here: https://widora.cn/m28k
+The MangoPi M28K is a dual-gigabit SBC developed by Widora based
+on the RK3528 SoC. Add devicetree binding documentation for it.
 
-MangoPi also has a version called "M28K Pro", which replaces the
-RTL8111H with the RTL8125B.
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Changes in v2:
-- Add USB 2.0 support
-- Remove merged patch
-
-Chukun Pan (2):
-  dt-bindings: arm: rockchip: Add MangoPi M28K
-  arm64: dts: rockchip: Add MangoPi M28K
-
- .../devicetree/bindings/arm/rockchip.yaml     |   5 +
- arch/arm64/boot/dts/rockchip/Makefile         |   1 +
- .../boot/dts/rockchip/rk3528-mangopi-m28k.dts | 412 ++++++++++++++++++
- 3 files changed, 418 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3528-mangopi-m28k.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index aa66a15be233..45fee0c5076a 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -803,6 +803,11 @@ properties:
+               - lunzn,fastrhino-r68s
+           - const: rockchip,rk3568
+ 
++      - description: MangoPi M28K
++        items:
++          - const: widora,mangopi-m28k
++          - const: rockchip,rk3528
++
+       - description: mqmaker MiQi
+         items:
+           - const: mqmaker,miqi
 -- 
 2.34.1
 
