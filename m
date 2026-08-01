@@ -1,106 +1,207 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9456E1A5B9D
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 18:32:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67F31DA0E1
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 18:34:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785609140; cv=none; b=ZVTyURU1f0QMFiuSC5ybrSWqxVIUM5VT5cNOR94gtE/UOwajfjMzmyNBQFG0HSa38VTLFV5/ZSpxPlewaasQTX9ZuUW4GVIJFYSNPQrKVY+R4Wc4ID7RYxRXxE8IeB9KjT2w3QyOzlceW4Mvnv5Uv60iCGUbjkDabEvoUsVMZzk=
+	t=1785609283; cv=none; b=ZaVFZG5tREc2Vk4jzrY6GtYdkAYGWkx8tiP+Ck7+q/zlYS5T6Ss7LvJwGhCUqBOsxGvbTReimFzs2u8oZGyEps+VAnz9iOi+YLAVbGZveeC4N6+Ej+JSQSUQHMAG202p1NNr71KcEaqbgMz3teaDmMjW7jIZENch12z9DMMH3W4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785609140; c=relaxed/simple;
-	bh=0VbIcJu+eSqC3YhOFfJlKfyz967ORrz16GRcn0napig=;
+	s=arc-20240116; t=1785609283; c=relaxed/simple;
+	bh=dcAvhwTiyZgXnU4z1HvFXztgld0fMNEpUtCKg9giaI8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T6cDXWsarQVN3Zipg3p31YLN9NtfDORa2eDZSrMo720oEiORPKMbehTmvwi5ma7NlCx90Yo0W56HCUsVNl1IgOC3tXVDm3f+qj5rMurqQRUrR2JHlILF5BJP7XDl+dtE+uiq2WrbOTiTNcJMJ1Yj3zr9Kkc1kvklnYyH15sWHKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FuVHHsSg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ILIqzmKNb5Ww3P0IsHx97iRUB4+YG5kjJz1WCrr46fOqg1uvQv/ya6vWGoEJ3DAPz9iQ9ij1OBMGMQ+cBv6hP04d/TYIk0+CiBwRmikK4xLa/U62mM3Xp/vHq/vdiEVokB/XL83xkcvgQANJCiJRqOqwsIxvKeegh+aC0x1x1dU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCxPOPH5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FuVHHsSg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFE6D1F00AC4;
-	Sat,  1 Aug 2026 18:32:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCxPOPH5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427F91F00ACA;
+	Sat,  1 Aug 2026 18:34:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785609139;
-	bh=AwU/ZvZO453UTLjBFQml88J7J328sSkH1xoyb1zr9kE=;
+	s=k20260515; t=1785609281;
+	bh=VfHcvLLC7e4+Xqap3j3henGSLsRuekcspMy4GMCtge8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FuVHHsSg6qL0R18wBExlem84yaLq+ciQq8gJ+XmJQxLfWrm7YRpZBv/0kTmpBS0Yy
-	 TnRcrGxzDp1FKvON1GukJVhYnm/kmvRl3aCKwU3TDyqslndTCvZWqWLyP8vHpzymbu
-	 haiTpuPQeHWTi+LVR8WtMm5C7O19ybQZPQawbDSqDL2uwoh64xlNHAW7+cWpixC/9g
-	 mBUofHMf8CVWamDWCWhGQy5gPRHLKKHvjw8oy0FlY/s460MIG4SoqRAB05daLkqHt5
-	 NraK2CAUpL5X2Hvu8Nco11aWYN9PMT5NMc0jEixyi4h/Z61j6GLJLFg3lQahRDvGsm
-	 VFjDZel/8UgTg==
+	b=lCxPOPH5Rze055KqeZcWjiquOAloPPOGjo97S9IISzujS6n8uaKWDdlQwxHA1yryZ
+	 xqag9uVii1qXfK4P1CYd7xtlo942bpXdvb69yYrzJRkYSQD3a/qhaIQuk6cGjrAvZV
+	 sPtldm59zlDdWZzpEDjekFVut+CAfD5U44mSNYdFTk6U1T9xps2GbqyMKq5yvk7BPK
+	 RWdeGKZOMWpGEuh2DYF06vZHW6gRmKvvr/NvA1uIAnMOICq7WnhMNJcWAmj7cd46OG
+	 Jjr2nZm8YIaBjGrc+ILHjDVdK5ZcalmhU8FCzaTojKWfljqBwD83rMlKJDwTJt3ogW
+	 Y0H9Rldna60qw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: platform: introduce EC for Dell XPS
- 13 9345
+Subject: Re: [PATCH v3 2/3] platform: arm64: dell-xps-ec: new driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Aleksandrs Vinarskis" <alex@vinarskis.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260801-dell-xps-9345-ec-v3-1-9f4bdb5a5dad@vinarskis.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260801-dell-xps-9345-ec-v3-2-9f4bdb5a5dad@vinarskis.com>
 References: <20260801-dell-xps-9345-ec-v3-0-9f4bdb5a5dad@vinarskis.com>
- <20260801-dell-xps-9345-ec-v3-1-9f4bdb5a5dad@vinarskis.com>
+ <20260801-dell-xps-9345-ec-v3-2-9f4bdb5a5dad@vinarskis.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 18:32:18 +0000
-Message-Id: <20260801183218.EFE6D1F00AC4@smtp.kernel.org>
+Date: Sat, 01 Aug 2026 18:34:40 +0000
+Message-Id: <20260801183441.427F91F00ACA@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Low] The device tree binding example includes a nonexistent header and u=
-ses undefined parameterized macros, breaking schema validation.
+- [High] System suspend and resume error paths permanently disable the ther=
+mal management polling loop.
+- [High] Unacknowledged interrupt in dummy IRQ handler causes an interrupt =
+storm.
+- [Medium] Mismatch between thermistor profile initialization array and run=
+time temperature reporting commands.
+- [Low] The `i2c_device_id` array uses a positional initializer instead of =
+a named initializer.
 --
 
---- Patch [1]: [PATCH v3 1/3] dt-bindings: platform: introduce EC for Dell =
-XPS 13 9345 ---
-commit 260bc940f745039b1b740f5fca09f58549473355
+--- Patch [2]: [PATCH v3 2/3] platform: arm64: dell-xps-ec: new driver ---
+commit 552ca6978cc04ce4176db63b786af0637fffc44e
 Author: Aleksandrs Vinarskis <alex@vinarskis.com>
 
-dt-bindings: platform: introduce EC for Dell XPS 13 9345
+platform: arm64: dell-xps-ec: new driver
+   =20
+Introduce EC driver for Dell XPS 13 9345 (codename 'tributo'). The driver
+provides thermal management information to control fans and peripheral powe=
+r.
 
-Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
-codename 'tributo'). It may be partially or fully compatible with EC
-found in Snapdragon-based Dell Latitude, Inspiron ('thena').
-
-> diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,x=
-ps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/d=
-ell,xps13-9345-ec.yaml
+> diff --git a/drivers/platform/arm64/dell-xps-ec.c b/drivers/platform/arm6=
+4/dell-xps-ec.c
 > new file mode 100644
+> index 0000000000000..7758f5dd93421
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-93=
-45-ec.yaml
+> +++ b/drivers/platform/arm64/dell-xps-ec.c
 
 [ ... ]
 
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <arm64/qcom/qcom-adc5-gen3.h>
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> +static const u8 dell_xps_ec_thermistor_profile[] =3D {
+> +	0xff, 0x54,
+> +	0x01, 0x00, 0x2b,	/* sys_therm0 */
+> +	0x02, 0x44, 0x2a,	/* sys_therm1 */
+> +	0x03, 0x44, 0x2b,	/* sys_therm2 */
+> +	0x04, 0x44, 0x28,	/* sys_therm3 */
+> +	0x05, 0x55, 0x2a,	/* sys_therm4 */
+> +	0x06, 0x44, 0x26,	/* sys_therm5 */
+> +	0x07, 0x44, 0x2b,	/* sys_therm6 */
+> +};
+> +
+> +/*
+> + * Mapping from IIO channel name to EC command byte
+> + */
+> +static const struct {
+> +	const char *name;
+> +	u8 cmd;
+> +} dell_xps_ec_therms[] =3D {
+> +	/* TODO: 0x01 is sent only occasionally, likely TZ98 or TZ4 */
+> +	{ "sys_therm0", 0x02 },
+> +	{ "sys_therm1", 0x03 },
+> +	{ "sys_therm2", 0x04 },
+> +	{ "sys_therm3", 0x05 },
+> +	{ "sys_therm4", 0x06 },
+> +	{ "sys_therm5", 0x07 },
+> +	{ "sys_therm6", 0x08 },
+> +};
+
+[Severity: Medium]
+Is there a mismatch between the thermistor profile initialization array and
+the runtime commands?
+
+The profile array configures thermistor IDs 0x01 through 0x07, but the
+runtime temperature polling uses commands 0x02 through 0x08 for sys_therm0
+through sys_therm6.
+
+This leaves thermistor ID 0x08 uninitialized and seems to misalign the rest
+of the IDs. Will this break the EC's cooling logic?
+
+[ ... ]
+
+> +static irqreturn_t dell_xps_ec_irq_handler(int irq, void *data)
+> +{
+> +	struct dell_xps_ec *ec =3D data;
+> +
+> +	/*
+> +	 * TODO: IRQ is fired on lid-close. Follow Windows example to read out
+> +	 *       the thermistor thresholds and potentially fan speeds.
+> +	 */
+> +	dev_info_ratelimited(ec->dev, "IRQ triggered! (irq=3D%d)\n", irq);
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+[Severity: High]
+Could this cause an interrupt storm on level-triggered lines?
+
+The handler returns IRQ_HANDLED without touching the hardware to clear the
+interrupt source.
+
+For level-triggered interrupts, returning IRQ_HANDLED unmasks the interrupt
+line at the controller, which can cause it to immediately fire again and ha=
+ng
+the CPU in softirq/IRQ handling context.
+
+[ ... ]
+
+> +static int dell_xps_ec_suspend(struct device *dev)
+> +{
+> +	struct dell_xps_ec *ec =3D dev_get_drvdata(dev);
+> +
+> +	cancel_delayed_work_sync(&ec->temp_work);
+> +
+> +	return dell_xps_ec_suspend_cmd(ec, true);
+> +}
+
+[Severity: High]
+If dell_xps_ec_suspend_cmd() fails and aborts the system suspend, does this
+permanently disable the thermal management polling loop?
+
+The temp_work is cancelled but is not rescheduled on the error path. This
+could lead to missing temperature updates to the EC, potentially causing
+severe thermal throttling or overheating.
+
+> +
+> +/*
+> + * Notify EC of resume
+> + *
+> + * This will undo the suspend actions
+> + * Without the resume signal, device would wake up but be forced back in=
+to
+> + * suspend by EC within seconds
+> + */
+> +static int dell_xps_ec_resume(struct device *dev)
+> +{
+> +	struct dell_xps_ec *ec =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D dell_xps_ec_suspend_cmd(ec, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	schedule_delayed_work(&ec->temp_work, DELL_XPS_EC_TEMP_POLL_JIFFIES);
+> +	return 0;
+> +}
+
+[Severity: High]
+Similarly, on resume, if dell_xps_ec_suspend_cmd() returns an error, the
+function returns early and skips rescheduling the critical polling work.
+
+Can this leave the device without thermal management after a transient
+I2C error during power state transitions?
+
+[ ... ]
+
+> +static const struct i2c_device_id dell_xps_ec_i2c_id[] =3D {
+> +	{ "dell-xps-ec" },
+> +	{}
+> +};
 
 [Severity: Low]
-Does this header exist in the source tree? It appears to be missing, which
-would cause a fatal preprocessor error during schema validation when running
-make dt_binding_check.
+Should this use a named initializer?
 
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        embedded-controller@3b {
-> +            compatible =3D "dell,xps13-9345-ec";
-> +            reg =3D <0x3b>;
-> +            interrupts-extended =3D <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
-> +
-> +            io-channels =3D <&pmk8550_vadc ADC5_GEN3_AMUX3_GPIO_100K_PU(=
-1)>,
-                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Low]
-Are these macros defined anywhere? They appear to be undefined and used
-incorrectly as parameterized macros, which would further contribute to
-preprocessor and schema check errors.
+The I2C subsystem guidelines require that initialized arrays of type
+struct i2c_device_id must use named initializers rather than positional one=
+s.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801-dell-xps-9=
-345-ec-v3-0-9f4bdb5a5dad@vinarskis.com?part=3D1
+345-ec-v3-0-9f4bdb5a5dad@vinarskis.com?part=3D2
