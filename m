@@ -1,196 +1,137 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 229B421CFE0;
-	Sat,  1 Aug 2026 09:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6473321CFE0;
+	Sat,  1 Aug 2026 09:15:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785575733; cv=none; b=J7EoySrSiRqc5gGtvOlJAdWXvEL3jBWjTPUi5OsiQDHdxwOmFud7XnebWAI7AQ8sT1EyC/mdTUqTzrJMC/NdAaobXdRlCh29bpcHwMfOVJH+RFH4Crm2XMd4qL6CBCLok6NAED/B3mPUdmMLoDIEs9tgIFL5hSE7tJjYBQgrTO4=
+	t=1785575748; cv=none; b=FdjVtyjUuWTaL2EuKZooUoAy4e9lNg4Jv6Nr3Ho9jtXLPZBmK93Y4UBQhjkvLUM2qZqAcIf+RNqJY0d7cti8uZ03emwuTCNkxk+gAzldWj4C5AdvZGSE+WVtf5rI2K4+SpubymRzxK3HlzMF37b6/nlFq580uzVIi81h84kxWOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785575733; c=relaxed/simple;
-	bh=1sIj31XGIGfiwz/3YwRkey3AgWt6qmcgdCdG7Rb2KVs=;
-	h=From:Subject:To:Cc:References:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=mHwlBRj9l6XTFlSuLnU66V5OYg01s6Bdjdo1hx3qSbMbL4fX/pCnNw+qJ4CR/F3piX3PvymnwoC4Dt3+X5ZgLLF9Yzfrf64GIzE0UD5z2e18wMEIZgMwZLfr2RK+D1Sfr6lz4wsr8iExe/nAgVaHnHt0m3torlG23SmsNQkyvWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8Bxe6EwuW1qunYJAA--.8406S3;
-	Sat, 01 Aug 2026 17:15:28 +0800 (CST)
-Received: from [10.20.42.101] (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJBxWsQvuW1qSskfAA--.15497S3;
-	Sat, 01 Aug 2026 17:15:27 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-Subject: Re: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and adjust
- bus speed
-To: Xi Ruoyao <xry111@xry111.site>, Binbin Zhou <zhoubinbin@loongson.cn>,
- Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>,
- stable@vger.kernel.org
-References: <20260721122604.12717-1-wanghongliang@loongson.cn>
- <20260721122604.12717-3-wanghongliang@loongson.cn>
- <affa49c80b0762b5b9e6ae4f4fa4ae787afecbd8.camel@xry111.site>
-Message-ID: <d9e83dc2-6cd0-c22c-20ce-a1a97a414866@loongson.cn>
-Date: Sat, 1 Aug 2026 17:12:29 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1785575748; c=relaxed/simple;
+	bh=LJIVZvS3OYDMdT4pTQ80fpHLxX4s2Sc3spWBb7Iz70A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yq3ZMnyZadgU62l6Zw46LieTOXCuaRnR17dnfjRGh7rOIC1hE3z/BpAGraEI3ZeQhHOtom2dsgpFSXgkfPYJSPMkF08CBNuXgJoA9BweHRb9WkXBM7/nXEKMnuNFaRCtlfJjyQnsyM5qmM0c4c95LqsGAdZ7VXiN1/EakellDNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCjrXHF/; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCjrXHF/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CD81F00AC4;
+	Sat,  1 Aug 2026 09:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785575747;
+	bh=qL0KvT6fbFFpjOaD2pGDIh9KKgpsACQZ4AgSBffUuOk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JCjrXHF/qPdYFDron/ySP3kKVRTkPb0I18WPTxbnebb9+AVeLvaquYaldcYbmz6ip
+	 ztOOpVpcvgn8So3sj2OtiLuzD9IHRw8PPGiPO/1Rp2VpyeqYKEXLSbq0CZm6CGpdX9
+	 07wrQkPEnzIkZ9tCrH+6UlW08OnoM1hVoNpUTMpOXGNMLM3Fi4CEyCGhpx4Lkmd2RV
+	 aC0rup/Gvqn/xsSNKlvBElgYeZGa02zzFi5pAvaAhi6Tpf/B8TFUTN92AtG+G7+i0T
+	 cFJdOrUBhgqUtacr8LKwIiuU01tNCnbW+x7ZhZ8Mlg/J5yAiLp8rfEtbgQ5Q/xddBB
+	 Os0QP2Kxytjag==
+Message-ID: <e4dece11-ef3d-42e1-b179-cb710c501622@kernel.org>
+Date: Sat, 1 Aug 2026 11:15:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <affa49c80b0762b5b9e6ae4f4fa4ae787afecbd8.camel@xry111.site>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
+To: Daniel Drake <dan@reactivated.net>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com, Jason Gunthorpe <jgg@ziepe.ca>
+References: <20260727-bcm2712-iommu-submit-v2-0-0247b5c03de8@reactivated.net>
+ <20260727-bcm2712-iommu-submit-v2-4-0247b5c03de8@reactivated.net>
+ <20260730-small-solid-spoonbill-8a8bbd@quoll>
+ <6d9b28ec-0905-4cb0-9a62-980c7fa69572@reactivated.net>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-X-CM-TRANSID:qMiowJBxWsQvuW1qSskfAA--.15497S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXFykWr4DCF48CrW8KFy3Awc_yoWrtrWfpF
-	WDCFWrGr4q9rsFgrsIqa48ZFyayws5JaykCF17t3WxW3Z3Arn5X3Wftr909F48ur92gayx
-	Za4DWrZxCFyqvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Fb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67
-	AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI
-	42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMI
-	IF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2
-	KfnxnUUI43ZEXa7IU8aZX5UUUUU==
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <6d9b28ec-0905-4cb0-9a62-980c7fa69572@reactivated.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Ruoyao,
+On 31/07/2026 22:34, Daniel Drake wrote:
+> On 30/07/2026 08:00, Krzysztof Kozlowski wrote:
+>> On Mon, Jul 27, 2026 at 09:43:59PM +0100, Daniel Drake wrote:
+>>> +static int bcm2712_iommu_init_cache(struct bcm2712_iommu *mmu,
+>>> +				    struct platform_device *pdev)
+>>> +{
+>>> +	struct device *dev = &pdev->dev;
+>>> +	struct platform_device *cache_pdev;
+>>> +	struct device_node *cache_np;
+>>> +
+>>> +	cache_np = of_parse_phandle(dev->of_node, "brcm,iommu-cache", 0);
+>>> +
+>>> +	/* Fall back on 'cache' property used in old/downstream firmware */
+>>> +	if (!cache_np)
+>>> +		cache_np = of_parse_phandle(dev->of_node, "cache", 0);
+>>
+>> NAK.
+>>
+>> You cannot have undocumented ABI. I asked you to drop this at v1.
+> Is there any approach I should consider here in order to support 
+> existing shipped firmware versions that use the 'cache' property, or 
+> should I simply break compatibility?
 
-On 2026/7/29 下午4:09, Xi Ruoyao wrote:
-> On Tue, 2026-07-21 at 20:26 +0800, Hongliang Wang wrote:
->> The i2c-ls2x driver supports dts and acpi parameter passing.
->>
->> In dts, uses clock framework, by parsing clocks property to
->> get i2c bus reference clock, and define the div of reference
->> clock by device data.
->>
->> In acpi, by passing clocks property to describe i2c bus reference
->> clock and clock-div property to describe the div of reference clock.
->>
->> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
->> and div, calculate the prcescale of i2c divider register. The
->> calculation formula is
->>
->> prcescale = (clock_a*10)/(div*clock_s)-1
->>
->> Reviewed-by: Huacai Chen<chenhuacai@loongson.cn>
->> Cc:stable@vger.kernel.org
->> Signed-off-by: Hongliang Wang<wanghongliang@loongson.cn>
-> This resolves the jittery touchpad input on the EAECIS NL60R laptop.
->
-> Tested-by: Xi Ruoyao<xry111@xry111.site>
-Thank you for testing!
->> ---
->>   drivers/i2c/busses/i2c-ls2x.c | 40 ++++++++++++++++++++++++++++++++---
->>   1 file changed, 37 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
->> index b475dd27b7af..25f8301ae14f 100644
->> --- a/drivers/i2c/busses/i2c-ls2x.c
->> +++ b/drivers/i2c/busses/i2c-ls2x.c
->> @@ -12,6 +12,7 @@
->>   
->>   #include <linux/bitfield.h>
->>   #include <linux/bits.h>
->> +#include <linux/clk.h>
->>   #include <linux/completion.h>
->>   #include <linux/device.h>
->>   #include <linux/iopoll.h>
->> @@ -63,11 +64,19 @@
->>   /* The default bus frequency, which is an empirical value */
->>   #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
->>   
->> +/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
->> +#define LS2X_I2C_2K_CLOCK_DIV	40
->> +
->> +/* The div of i2c reference clock on LS7A1000/7A2000 */
->> +#define LS2X_I2C_7A_CLOCK_DIV	50
->> +
->>   struct ls2x_i2c_priv {
->>   	struct i2c_adapter	adapter;
->>   	void __iomem		*base;
->>   	struct i2c_timings	i2c_t;
->>   	struct completion	cmd_complete;
->> +	unsigned int		div;
->> +	unsigned int		pclk;
->>   };
->>   
->>   /*
->> @@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
->>   	else
->>   		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
->>   
->> +	val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
->> +
->>   	/*
->>   	 * According to the chip manual, we can only access the registers as bytes,
->>   	 * otherwise the high bits will be truncated.
->>   	 * So set the I2C frequency with a sequential writeb() instead of writew().
->>   	 */
->> -	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
->>   	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
->>   	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
->>   }
->> @@ -287,6 +297,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
->>   static int ls2x_i2c_probe(struct platform_device *pdev)
->>   {
->>   	int ret, irq;
->> +	struct clk *clk;
->>   	struct i2c_adapter *adap;
->>   	struct ls2x_i2c_priv *priv;
->>   	struct device *dev = &pdev->dev;
->> @@ -304,6 +315,29 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
->>   	if (irq < 0)
->>   		return irq;
->>   
->> +	if (dev_of_node(dev)) {
->> +		clk = devm_clk_get_optional_enabled(dev, NULL);
->> +		if (IS_ERR(clk))
->> +			return PTR_ERR(clk);
->> +		if (clk)
->> +			priv->pclk = clk_get_rate(clk);
->> +		else
->> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
->> +
->> +		priv->div = (unsigned long)device_get_match_data(dev);
->> +		if (!priv->div)
->> +			priv->div = LS2X_I2C_2K_CLOCK_DIV;
->> +	} else {
->> +		/* clocks and clock-div are only ACPI properties. */
->> +		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
->> +		if (ret)
->> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
->> +
->> +		ret = device_property_read_u32(dev, "clock-div", &priv->div);
->> +		if (ret || !priv->div)
->> +			priv->div = LS2X_I2C_7A_CLOCK_DIV;
->> +	}
->> +
->>   	/* Add the i2c adapter */
->>   	adap = &priv->adapter;
->>   	adap->retries = 5;
->> @@ -349,8 +383,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
->>   				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
->>   
->>   static const struct of_device_id ls2x_i2c_id_table[] = {
->> -	{ .compatible = "loongson,ls2k-i2c" },
->> -	{ .compatible = "loongson,ls7a-i2c" },
->> +	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
->> +	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
->>   	{ /* sentinel */ }
->>   };
->>   MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+Kernel is being shipped with DTB for Rpi, because firmware is not
+embedded into some lower fixed storage, so there is no problem of
+compatibility with some out of tree, unsupported DTB.
+
+And no, you cannot use argument of undocumented, unreviewed ABI in
+downstream forks as reason to add such ABI. This defeats the very
+purpose of having upstream.
+
+With this approach basically why even reviewing anything? Just accept
+everything anyone ever shipped downstream, right?
+
 Best regards,
-Hongliang Wang
-
+Krzysztof
