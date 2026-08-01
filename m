@@ -1,236 +1,373 @@
-Received: from mail-ed2-f11.google.com (mail-ed2-f11.google.com [74.125.228.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2FD1F12FB
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 19:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D30E33D6C0
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 19:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785611989; cv=pass; b=YRfkPCPD4JQcnMoLnS+uRgUgfx5MmBbqIEo+INOJ7SYXf06OHz/6nMdvYLTZlbXmvwQPYKB277NaKswVylr+WWcdZ3KnQN8rCrP16QHgYBP4PsZETjQAt+mcXveSWA4GsVlBbVQEeUFMi4kEa7bSJNgvlEsNE4vcXLmsrzG/hk0=
+	t=1785613718; cv=pass; b=iqadj5nvNgStZwThhuxxrpnd7WmzEIsZQJSwVz0oU3VWBgXP8/KVcNf7s5isrYBw01TFF+OS5peHxC0T3wnMfor3gYpAgKIEwhi5tPSNJpjnzphCsdXrWPEdz8/5Xp2ijBWy9S9lzBKhAcihwoz6dg8WqnJY2Y6XlFMk9SKulwY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785611989; c=relaxed/simple;
-	bh=xMvoIasJmU6rvejNbR2b8pxLU/mmd1jsnCBevW1xB+s=;
+	s=arc-20240116; t=1785613718; c=relaxed/simple;
+	bh=CtK2LPEkkpVeYvUtnix4WDcNTGo8MqVUPafXyQdwKxg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z4LT4w+X32sJdrelpFz2a8cAwTZzEwjiz4umCyC0VNtlX6yX6NEEgWinFFkGxhoNjkpnplyudd7vLZj/lFqvSCvSr1GmZLC1p447sXk0M4O6GlXFGjGMqKpXv0YaxYowQ35dbK6gGc9iU/+B2euzlFUjOXIT+7t5y7eCD1PBgvo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YDQolbSL; arc=pass smtp.client-ip=74.125.228.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=YP47Kz3++aqrZ7x78oP7o8u6tA1ryXAr6oGAZ9VoaKwkDgdI1JTFWOMKFAtzFYOjcNDhnGhsX1i8f7U8O8PMJLBtjzAeBTGSue9kbmv+mJWhWTH5N6D9dkvoTLzuulhKVuG6YthWkVkv2OdUvvcBMsdJPm9tZiwY2m3eWJWGb8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VU7/25S3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZI0wF4Jv; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YDQolbSL"
-Received: by mail-ed2-f11.google.com with SMTP id 4fb4d7f45d1cf-69e9826d38aso838610a12.1
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 12:19:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785611985; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VU7/25S3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZI0wF4Jv"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671IxVl83846591
+	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 19:48:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	opJd8ruhXEy2bVaSHYGW23oK07jIF79PnN2+eurwy9k=; b=VU7/25S3nlgxliGm
+	nufuAl0xAkAjmysuEtCdfRev7J0kauvZctMEA9BigH54oRhu8ysfb1W+r4pHNyKR
+	AV/pOC1TGleeLLOoZakV9DgoR+EMvvd1y6NkWZ+iGhrYbmhSyLxrB89V1BD0MR9n
+	T3qICQPCTcGp7H5s1Jv/+oCegbBnsRraFQB6UziaVcIvpQbQlt+Ov7SO4rFt9iR+
+	8TecEDMBAL1s0mHHAhG18XIPmhJLC7d+BBuqAjtKawsr9PaqECOXTiCuG7QvkWn9
+	/MLGOy7+cx27hI/i3NklaX3sYo+Re6ZnvOzANUurl7U+I5H75Sv/4ytcFi6fXrul
+	kY0asA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8vt9n2q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 19:48:35 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-933023a5980so346957885a.3
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 12:48:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785613715; cv=none;
         d=google.com; s=arc-20260327;
-        b=FT0C6vx5NjX1yLibAaZ1CIwVT+N078tcLAwG3ONqd9lzepWnQDG4owPzup3V+jlyYl
-         uOLpkqn1EkkqOTKz9W96Ls/8v5KtpUwPTlAhU9iCCOZ5xRZRKmupLGZEyDLzmCPon9v1
-         gPc5cPMxE2TcphwbBpeDWtCOGLdEKVNnUP4l4sJJKmXDpnavHd3d4zNkTTc6YO9BOJnL
-         7mb7mC0VP9Ve+uVCkpFjVLgpvrWPIQGwkKTapQWERKyYy4VUlXXVAkNz/nAX/BYFUDmc
-         R2eC54OnkxPoa6fvQ4xKpmvHnr/DiJsF+NqDMFF+w2KNJcFZRfUwwXpOXEaYpweN8cXt
-         i6QQ==
+        b=Sw9gMaFtlWlUcDrBIcKgMTkjuX22qYxodavgbCDgXNTbQQl5lcGX40ijL6iPydOOYA
+         sX9b2OL/c2mVBnxDAGaiRWUysxVhbNLnmdnvkTJkFmZyA/O3s31+bcuSaOmjNxgoVS1Q
+         ApZvMFYeNbpTMx9XwKHEGP5JE0wUJSKy/d2sjiCs/dfH8cw+++B8+x3y7pOLkjzzbI+q
+         fbIioc8oBR4/LHKdFCKVrn4IoDcZ0dSF8C1Wl18BWba9WLX7OJ3Lf5wzcr8dK8Izt2eh
+         pYata2Lmanpp2L7jjasoqolPhKSC6aVQb/d9vXGpvC4p1roNELdvm+TnaKgpOCLmEF2x
+         ET7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=SCQm3Q/ph03r/XdeQCWy2Yw7OKUkw0PP1SQeQ3TZ+Pw=;
-        fh=yXKHfAwHMO03hHfuhEhNW6Wi+PYJqDSvgFRPzA+vzNs=;
-        b=YZ3cEoQpjgBsHMhbFyM/FbqMHoMVDr7FN6C1SWZq/46V9CRFqjsXierlYbCMZSyzrX
-         tfRAF88p0Hth0gRk2yFLti/wX/JfepZX99+XdyOwa90DRi1j7RnNS+37IQkVfFx4HdoM
-         wmhQXLI5OtCnrH+IoraHR+S9m1WZwYF/iM+IfGsRhB96I9XxQW2dB0x0CwIz6X/7iM9u
-         p/u2u93sQUnogujpvQWHeWw45KuQ4siaTcWkWBa38b2Qtz3CIskP0O2ZL6KLRpFQ2OtC
-         cuKRQnXg1K26gGyKm6aVzUK601S+GrxFQtncwTNhvPRl23qgdU/afpIOA4vqQWGTSy41
-         SjXw==;
+        bh=opJd8ruhXEy2bVaSHYGW23oK07jIF79PnN2+eurwy9k=;
+        fh=WwK0K1NJWhKnaAboK6f1Pl2kvnP1QLzO+Tg3muobWTU=;
+        b=Eebd0Ka8TDJFQE8y4OOxjx/ix6zpHNlemjqlFAD2HcrHttk5JV6ChcT7Y5bwu3pb06
+         pjqbS2F+sNLB1hesmyJNet8V8gcLeqLpvuZG1DwFjvF8GBN0/9LDgX18SnBNRAlWrq3M
+         /NUfc7sxRiaEAFNy7xQUTFd4UW4+qkUo4amOH48N3eH3TAhDW32GWOyXqZcBLPXgqCTU
+         P8kyuyt62E7jCdCrb7MBx0mN1zRa0opMPWYWoDpi6qzXwCuO3+7VAllERXFf+UxDtd62
+         cAO5+kd3b4SXTuYzh7Wib6SIntUwWZXlJ9CdlwMQ2GwP6Dajzzaona2C+jj52HS0TPAC
+         H7Ig==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785611985; x=1786216785; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785613715; x=1786218515; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SCQm3Q/ph03r/XdeQCWy2Yw7OKUkw0PP1SQeQ3TZ+Pw=;
-        b=YDQolbSLvcKW3PmlbCdNuRM1F3fJieiCmt9/fdP9GWFwrweEpvP0/6Lqu9rabJAPmw
-         D//rGYZD3/2j0iOGQvLpgnWvF0xtqyInO/19CMs1aO3HEOLC/iIfVjDuItsvK2I4KG0n
-         bEk6jpAbqvHPnwubK1Furla9u2kaosTveIjXIxVnk9iQkgFnJ6dE6znvfPqCJbjlHYuM
-         F2miucV5axP1/24hc7ve1i4nmQb8Dhk5Ee/csj/0krHn8fiOdMNXBKdIeUBr+lHc+ccg
-         04MzJ47NedLrKsVq9oZ8gicPRtYMg273OSXYXIqDvJXJ9u7/V9mjcVMaxDmD7K/aWD/0
-         X/Jg==
+        bh=opJd8ruhXEy2bVaSHYGW23oK07jIF79PnN2+eurwy9k=;
+        b=ZI0wF4JvTLrBU+o4vPuOXphWvKowf6jTQxp7oBplx7J0UlwpKcwlIChNHZsgQ8/B61
+         dtz5jYGvu389oEzSsCftGiwTMfKfna5Je+tT83/+fjw5SN6IHzKOqKKUK4k7ZLtn8FvY
+         zP0stHDqWgs7NpNlQHglgkStfIt2fEj89PjZ0ceVKiCk7lzlfGkKQ82COJ3dpHYU7vTA
+         nBIbvk5ds+I1X6SNfvnH5iqk4o/EMFaeE3HuO4UU6k9ja2sG4oj3ANzsNAle0fADuI0p
+         HzzLMLu1I3Nq9iQLFmp07SI5clwjW6ChbCAOELfYF5BtcVCyy7U+EFQyWVbzAvdxW639
+         lUjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785611985; x=1786216785;
+        d=1e100.net; s=20251104; t=1785613715; x=1786218515;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SCQm3Q/ph03r/XdeQCWy2Yw7OKUkw0PP1SQeQ3TZ+Pw=;
-        b=kXyN4vwEU1+nOK+aFUukJBOpUUdYyurDpG1UM+SC6PsnInBqNF9a7cbR3Icg9Oi/ZB
-         BbyLG/ogYwMp6q7nLUjq0YZIFWgnGdVpVkqjeRLK3auOkxJbhup6b8n0QdNEpktKARNl
-         B2zk1B+uYwqx2yhnoSfpYesC0V8vTHHOcczBiJVLflxQDKdKh02iDnkpgVakdN5FZcIU
-         gXbMW2yauVaRX5HA4oCEdWTH4PuyfqKsDvPRbY7tvUPmS96wXVLiLc/dOzgy90Q6hwQ5
-         O/m5BE7uMoJIU6Gw6zcLXUIUsAXtFpXo30u6yBHBe2kPsgVH/1IeeHg3AzMP0xNsCmjQ
-         1fRQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp4/lSDQ0nAd1B3lOVipncv+SfQnVAMlrxke6OyOUMmcS1alXU0J3kC/AVG++SJU6iazz2v+QMOlclK@vger.kernel.org
-X-Gm-Message-State: AOJu0YwaycUzqEbzzPtsgQ7PbOtTwfYvDGBWa8hR1qN5vMbg185GoXCt
-	+ncfjiwhwqiWtoa2Goe12wqHuAhb0WCHT25XKfstwxFD5r1gzEg8o4GUefe/N0ELSdoTWPCtUg5
-	dJEQ1JEEP+cL5mf7EBocx1eSLxIYmbpo=
-X-Gm-Gg: AR+sD13ZhvDpxGEDYbeh4RhbgK0iFu/o9Z2E470fN+0J3t/nzVFXNItyrhRVuTFVjqk
-	DloPcJrlySpeL7vfn2Yxn/DXVzCgyXW7Ewtw+H+QxoXsU0lL85OpHE0/BimqLP6lcuX1Q+6WV3E
-	lHBz7D+wEhaACzbncTr6zzCAhVXaVFBcDz0qwf3FzNkCTZqT/m2NH54wjK5HUOk0kztSTKBebdA
-	otWSO6tl241gnifc/7ok+YHatOxQmJeWj5b10bNwZzjlW/8ApMu66cHoeGnKxZmQNQCPW9zUsRh
-	3HTKuPXrvkU/lpMgOAe4qHObyI5gyihFoOtuAktZV+X7O/BogHzt2NXXzaiH
-X-Received: by 2002:a05:6402:440e:b0:697:f70f:8238 with SMTP id
- 4fb4d7f45d1cf-6a0a7c6b76amr3103144a12.4.1785611984460; Sat, 01 Aug 2026
- 12:19:44 -0700 (PDT)
+        bh=opJd8ruhXEy2bVaSHYGW23oK07jIF79PnN2+eurwy9k=;
+        b=Tq33YFKjLA0/l7Mrw8lNfjPCGRkBqntQVCr6+teg/OY1bDr/3zGOZ/k8/5UgfR3+pF
+         l1fv0hE8mhO5BjLDckMhFLkL97lE+dfIJ3rV5ImhtEaeExcAQuDl1D6q6WZz6Sh1WKX6
+         8HEJeH6SiMEbE7UVcmmBrfHYkTChlmwGEbGwnXP4eC1fXcJthaf+xte80tXvK+1e8XP+
+         LeWSUtI2us2JYKSWlxuG1IAc1m8GxqGP/8IY0fWpxleG+q7G+eEgkVUY1iGvZ08ZLiYZ
+         Dh0PhotfKttlyEJgq95E1wvHqU2QP9bHYCuTjtGdKw4XM5GceaTDf/1+IstC6N/m7IY3
+         K3ow==
+X-Forwarded-Encrypted: i=1; AHgh+RpM93z4JJ9Rnji7TYKTNLjnZrBf5nlusxuTNVQrF2N8/S8IdT3hW+BZac1ciIzr5XCPsllBuIYVvo71@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLsGF79dXI+ZirqNTDhyYIG1NhVzb1lVSOTA6IWSng9ddqEQgS
+	AsfIUeoGi8XtFkc7WyKLU8+KSu5LAr6Aw2gkUft/Ic7WdIA7Bs6ppQcfIWkyKv567VKAZsisqqg
+	K+3aXa/fOfLPPDH5W1FnkDeb2vQ786oCjatk1aa/+DxWhIo8QgcIXOkMrtHNYAcFPw8vweTNO9+
+	6Z0Dj/VIOSUTMYkMTJwHs7KECK9OGPl9v/+j64mgo=
+X-Gm-Gg: AR+sD10RoQSlg3miFpg5XRqoLKHWaNusxFMis2qUKsBDPmZr2ZzWMXXohvghcqFNkq9
+	Dqm2LgSGiXbLyRof0KgBCpNPNc+izbcRXkt7EwUQRZ024q6FdS7UwNIwkEv9YkEz4mCNh0HqR9F
+	ZRZ/aYtbOMqKRPuZPgSP6eE/+hAcRw9/9rcz+QFV4PARDXIGOODvKVKsGOQUbkBm0U4Nd7R5js6
+	Zh2KxAkHAaU9A3LUfkKGU0h5In7bxQ30M1pKsNFZdMZzvn3MFBkKo2Msj1MjVL2EnPeW727lYec
+	z3bV8pvnz8vxylwVA5qTYQIBSQB1
+X-Received: by 2002:a05:620a:5627:b0:932:dd83:c58 with SMTP id af79cd13be357-934a07b750cmr710308585a.20.1785613715261;
+        Sat, 01 Aug 2026 12:48:35 -0700 (PDT)
+X-Received: by 2002:a05:620a:5627:b0:932:dd83:c58 with SMTP id
+ af79cd13be357-934a07b750cmr710305485a.20.1785613714707; Sat, 01 Aug 2026
+ 12:48:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260801142244.679437-2-coiaprant@gmail.com> <20260801142244.679437-7-coiaprant@gmail.com>
- <2847036.GUH7pLUipS@diego>
-In-Reply-To: <2847036.GUH7pLUipS@diego>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Sun, 2 Aug 2026 03:19:37 +0800
-X-Gm-Features: AUfX_mxTVYa8KO_KHMFv70Oru7_6E2Erl1Ah7ifU-aGIuPNS6S04bHqAgUqfw5o
-Message-ID: <CALj3r0gqvFZPb2SKRMPwf9chCx076rwCnXEoOMFch_V-fOKV6w@mail.gmail.com>
-Subject: Re: [PATCH v2 05/10] arm64: dts: rockchip: rk3568: add XPCS and
- fixed-clock nodes
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Romain Gantois <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, 
-	Shawn Lin <shawn.lin@rock-chips.com>, David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-renesas-soc@vger.kernel.org
+References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
+ <20260730150524.2659577-2-atanas.filipov@oss.qualcomm.com>
+ <3cbnmjmit4gsldga5nzct4odg6hpixzlwxbj72elnogyevr2tg@6esyjj2mvyom>
+ <deee4b5e-167a-4f37-b2fa-84f06ec33721@oss.qualcomm.com> <fcc464a8-3d1c-4b6e-ab2d-ef61c4b18b2e@oss.qualcomm.com>
+In-Reply-To: <fcc464a8-3d1c-4b6e-ab2d-ef61c4b18b2e@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Sat, 1 Aug 2026 21:48:23 +0200
+X-Gm-Features: AUfX_mxmbfT1Z1eR_Kf3y3rx1cnQUqbuj9deYL3i4uDZpn5ilpTTYV2FZHV-wWk
+Message-ID: <CAFEp6-3vecjDQE1DBwQXHoj5ez5ALUVq_iwS5UB4YxaW7YGckA@mail.gmail.com>
+Subject: Re: [PATCH v6 1/3] dt-bindings: media: qcom: Add JPEG encoder binding
+To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
+Cc: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org, loic.poulain@linaro.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDE1OSBTYWx0ZWRfX9RbGd/XR4SgK
+ fAEMFgMjNF13JKD1+uGGvJ4TcYCKGXRaspp4WslvJ9nVply2xjHOJFEfmqn78ogHcZ/yZa4XgaE
+ ErFiPR3g+nUkL5x5VrMq2mzBbo5TfM8=
+X-Proofpoint-ORIG-GUID: J_v1bP-v39p6t1CK7bsIkWo4EinWMk6x
+X-Proofpoint-GUID: J_v1bP-v39p6t1CK7bsIkWo4EinWMk6x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDE1OSBTYWx0ZWRfX34MjmY4f2w1t
+ 6fUxAHgQwDWBS8UNSgozioQNrX/VgGalV71A7dhjLfXR+ewhqYBTznVi8epysgJsapxismIbk8k
+ KbUkJXt/NGpsYmzZ9mvE8Neoc4oYk3Urz6vqKGjQ4juuRGDKVMgaWGjZjcbBBfrTOFKh7Scsd1Y
+ hLlTVGN0OTvEm10cAwdHk7fFq0XWzDpQl31RnTVNzQ67tyCTPVo55JEOcgo7DrY4qut2R+jX0yk
+ BDHHBZlyZcUlhF0rUgTqmQJ+sUogtK9/yf/HtkgD9XyTYaLtrGLojnbNKDGk2F1N1RivRMk3lBe
+ TVm0k/FJAh7oRK8/5VzGZ8Q1RhsBoLnFE7F/9c36hMmzni47Ar+Bqc/MmLwqhtXywhiR15FAEJH
+ wdPeq3ENyZsi7A32TLxSRId9Hh2F2d2wU5kvyb1faUB29B7jJkB11raQeHU8k7OOFfjiIfZsrEU
+ ToouY6434j6g66M13iQ==
+X-Authority-Analysis: v=2.4 cv=fKMJG5ae c=1 sm=1 tr=0 ts=6a6e4d93 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=gEfo2CItAAAA:8 a=D19gQVrFAAAA:8 a=EUspDBNiAAAA:8
+ a=Hx90ccpqwVagkuezTpMA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+ a=sptkURWiP4Gy88Gu7hUp:22 a=W4TVW4IDbPiebHqcZpNg:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-01_03,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 phishscore=0 clxscore=1015 impostorscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608010159
 
-Heiko St=C3=BCbner <heiko@sntech.de> =E4=BA=8E2026=E5=B9=B48=E6=9C=882=E6=
-=97=A5=E5=91=A8=E6=97=A5 00:28=E5=86=99=E9=81=93=EF=BC=9A
+On Fri, Jul 31, 2026 at 9:27=E2=80=AFPM Gjorgji Rosikopulos (Consultant)
+<gjorgji.rosikopulos@oss.qualcomm.com> wrote:
 >
-> Am Samstag, 1. August 2026, 16:22:29 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Coia Prant:
-> > The RK3568 SoC integrates a Synopsys DesignWare XPCS that provides
-> > the Physical Coding Sublayer for 1000BASE-X, SGMII, and QSGMII
-> > interfaces via its four MII ports.  Add the XPCS device node and
-> > its pcs-mii sub-nodes to the SoC device tree.
-> >
-> > The XPCS device is accessed via the APB3 bus at 0xfda00000 and
-> > requires the CSR clock (PCLK_XPCS) for register access and the EEE
-> > clock (CLK_XPCS_EEE) for Energy Efficient Ethernet operation.  The
-> > PD_PIPE power domain must be enabled before any register access.
-> >
-> > Also add two fixed-clock nodes (xpcs_gmac0_clk and xpcs_gmac1_clk)
-> > providing the 125 MHz reference clock for the GMACs when operating
-> > with XPCS.  These clocks are used as the assigned-clock-parents
-> > for the respective GMAC nodes in board-level device trees.
-> >
-> > The XPCS node and its pcs-mii sub-nodes are disabled by default and
-> > must be enabled at the board level when 1000BASE-X/SGMII/QSGMII is
-> > in use.  The fixed-clock nodes are always present and do not have a
-> > status property, as they are static clock sources.
-> >
-> > The XPCS node also requires a reference to the appropriate Naneng
-> > Combo PHY via the phys property at the board level.
-> >
-> > Signed-off-by: Coia Prant <coiaprant@gmail.com>
-> > ---
-> >  arch/arm64/boot/dts/rockchip/rk3568.dtsi | 45 ++++++++++++++++++++++++
-> >  1 file changed, 45 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot=
-/dts/rockchip/rk3568.dtsi
-> > index 3bc653f027f1f..989e164c0eb39 100644
-> > --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> > +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> > @@ -110,6 +110,51 @@ sata0: sata@fc000000 {
-> >               status =3D "disabled";
-> >       };
-> >
-> > +     xpcs: pcs@fda00000 {
-> > +             compatible =3D "rockchip,rk3568-xpcs";
-> > +             #address-cells =3D <1>;
-> > +             #size-cells =3D <0>;
-> > +             reg =3D <0x0 0xfda00000 0x0 0x200000>;
-> > +             clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
-> > +             clock-names =3D "csr", "eee";
-> > +             power-domains =3D <&power RK3568_PD_PIPE>;
-> > +             status =3D "disabled";
-> > +
-> > +             xpcs_mii0: pcs-mii@0 {
-> > +                     reg =3D <0>;
-> > +                     status =3D "disabled";
-> > +             };
-> > +
-> > +             xpcs_mii1: pcs-mii@1 {
-> > +                     reg =3D <1>;
-> > +                     status =3D "disabled";
-> > +             };
-> > +
-> > +             xpcs_mii2: pcs-mii@2 {
-> > +                     reg =3D <2>;
-> > +                     status =3D "disabled";
-> > +             };
-> > +
-> > +             xpcs_mii3: pcs-mii@3 {
-> > +                     reg =3D <3>;
-> > +                     status =3D "disabled";
-> > +             };
-> > +     };
-> > +
-> > +     xpcs_gmac0_clk: xpcs-gmac0-clock {
-> > +             compatible =3D "fixed-clock";
-> > +             clock-frequency =3D <125000000>;
-> > +             clock-output-names =3D "clk_gmac0_xpcs_mii";
-> > +             #clock-cells =3D <0>;
-> > +     };
-> > +
-> > +     xpcs_gmac1_clk: xpcs-gmac1-clock {
-> > +             compatible =3D "fixed-clock";
-> > +             clock-frequency =3D <125000000>;
-> > +             clock-output-names =3D "clk_gmac1_xpcs_mii";
-> > +             #clock-cells =3D <0>;
-> > +     };
+> Hi Dmitry, Atanas,
 >
-> I don't fully believe those clocks are "just there" inside the SoC.
-> Instead I _assume_ they are generated by some oscillator on the
-> individual boards?
+> On 7/30/2026 7:24 PM, Atanas Filipov wrote:
+> > On 7/30/2026 6:39 PM, Dmitry Baryshkov wrote:
+> >> On Thu, Jul 30, 2026 at 06:05:22PM +0300, Atanas Filipov wrote:
+> >>> Add device-tree binding for the Qualcomm JPEG encoder hardware block
+> >>> present in SM8250 (Kona) SoCs.
+> >>>
+> >>> The JPEG encoder is a standalone hardware IP within the camera subsys=
+tem
+> >>> that performs JPEG compression in memory-to-memory fashion.  It is
+> >>> separate from the CAMSS ISP pipeline and has its own register space,
+> >>> interrupt, clocks, power domain, IOMMU streams, and interconnect path=
+s.
+> >>>
+> >>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> >>> ---
+> >>>   .../bindings/media/qcom,sm8250-jpeg-enc.yaml  | 156 +++++++++++++++=
++++
+> >>>   1 file changed, 156 insertions(+)
+> >>>   create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8=
+250-jpeg-enc.yaml
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg=
+-enc.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.ya=
+ml
+> >>> new file mode 100644
+> >>> index 000000000000..70f573100573
+> >>> --- /dev/null
+> >>> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-jpeg-enc.ya=
+ml
+> >>> @@ -0,0 +1,156 @@
+> >>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> >>> +%YAML 1.2
+> >>> +---
+> >>> +$id: http://devicetree.org/schemas/media/qcom,sm8250-jpeg-enc.yaml#
+> >>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >>> +
+> >>> +title: Qualcomm JPEG Encoder
+> >>> +
+> >>> +maintainers:
+> >>> +  - Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+> >>> +
+> >>> +description:
+> >>> +  Qualcomm JPEG Encoder is the JPEG encode hardware present in Qualc=
+omm SoCs.
+> >>> +  The encoder is a standalone hardware IP within the camera subsyste=
+m that
+> >>> +  performs JPEG compression in memory-to-memory fashion.
+> >>> +
+> >>> +properties:
+> >>> +  compatible:
+> >>> +    enum:
+> >>> +      - qcom,sm8250-jpeg-enc
+> >>> +
+> >>> +  reg:
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  interrupts:
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  clocks:
+> >>> +    maxItems: 5
+> >>> +
+> >>> +  clock-names:
+> >>> +    items:
+> >>> +      - const: sf_axi
+> >>> +      - const: core_ahb
+> >>> +      - const: cpas_ahb
+> >>> +      - const: cnoc_axi
+> >>> +      - const: jpeg
+> >>> +
+> >>> +  power-domains:
+> >>> +    maxItems: 3
+> >>> +
+> >>> +  power-domain-names:
+> >>> +    items:
+> >>> +      - const: titan_top
+> >>> +      - const: mmcx
+> >>> +      - const: mx
+> >>> +
+> >>> +  interconnects:
+> >>> +    maxItems: 2
+> >>> +
+> >>> +  interconnect-names:
+> >>> +    items:
+> >>> +      - const: cpu-cfg
+> >>> +      - const: sf-mnoc
+> >>> +
+> >>> +  iommus:
+> >>> +    description:
+> >>> +      SMMU stream ID for the JPEG hardware. The stream ID 0x2040 is =
+used
+> >>> +      for the JPEG core engine on SM8250.
+> >>> +    maxItems: 1
+> >>> +
+> >>> +  operating-points-v2: true
+> >>> +
+> >>> +  opp-table:
+> >>> +    type: object
+> >>> +
+> >>> +required:
+> >>> +  - compatible
+> >>> +  - reg
+> >>> +  - clocks
+> >>> +  - clock-names
+> >>> +  - interrupts
+> >>> +  - power-domains
+> >>> +  - power-domain-names
+> >>> +  - interconnects
+> >>> +  - interconnect-names
+> >>> +  - iommus
+> >>> +
+> >>> +additionalProperties: false
+> >>> +
+> >>> +examples:
+> >>> +  - |
+> >>> +    #include <dt-bindings/clock/qcom,camcc-sm8250.h>
+> >>> +    #include <dt-bindings/clock/qcom,gcc-sm8250.h>
+> >>> +    #include <dt-bindings/interconnect/qcom,icc.h>
+> >>> +    #include <dt-bindings/interconnect/qcom,sm8250.h>
+> >>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> >>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> >>> +
+> >>> +    jpeg-encoder@ac53000 {
+> >>> +        compatible =3D "qcom,sm8250-jpeg-enc";
+> >>> +        reg =3D <0x0ac53000 0x1000>;
+> >>> +
+> >>> +        interrupts =3D <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
+> >>> +
+> >>> +        power-domains =3D <&camcc TITAN_TOP_GDSC>,
+> >>> +                        <&rpmhpd RPMHPD_MMCX>,
+> >>> +                        <&rpmhpd RPMHPD_MX>;
+> >>> +        power-domain-names =3D "titan_top", "mmcx", "mx";
+> >>> +
+> >>> +        clocks =3D <&gcc GCC_CAMERA_SF_AXI_CLK>,
+> >>> +                 <&camcc CAM_CC_CORE_AHB_CLK>,
+> >>> +                 <&camcc CAM_CC_CPAS_AHB_CLK>,
+> >>> +                 <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+> >>> +                 <&camcc CAM_CC_JPEG_CLK>;
+> >>> +        clock-names =3D "sf_axi",
+> >>> +                      "core_ahb",
+> >>> +                      "cpas_ahb",
+> >>> +                      "cnoc_axi",
+> >>> +                      "jpeg";
+> >>
+> >> What are the pin input names for these clocks on the JPEG side? Can we
+> >> use a better name?
 >
-> Because as described there, they would be just magically be there.
+> The name of the the clock on jpeg side(based on documentation we have) is
+> cam_cc_jpeg_clk, There was comment from Krzysztof "https://lkml.org/lkml/=
+2026/5/15/1112"
+> to drop cam and clk, so it remains cc_jpeg or only jpeg.
 >
-> So please aim for a real clock description (likely on a board-level)
+> As i can see in ope patches ope_clk is named as "core", do we have some g=
+eneral
+> guidance how to name those clocks? or if you have any preference or propo=
+sal it will
+> be included in next patchset.
+
+In ope series I named the clocks based on OPE block PoV ant its
+function, so usually the main function clock (the one you named jpeg
+above) is the 'core' clock, the AHB is usually for clocking the
+'config' bus and the axi one is usually for the actual 'data' bus.
+IMO, it's clearer like that.
+
+
+> >>
+> >
+> > In my opinion, there is no such thing as a better name; the only
+> > important thing is that it matches the HW documentation. As can be seen
+> > from the clock names in the FW shown above. So, could you be more
+> > specific about which names you would like to see used here?
+> >
+> > Regards,
+> > Atanas
+> >
+> >>> +
+> >>> +        interconnects =3D <&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACT=
+IVE_ONLY
+> >>> +                         &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_A=
+CTIVE_ONLY>,
+> >>> +                        <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALW=
+AYS
+> >>> +                         &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>=
+;
+> >>> +        interconnect-names =3D "cpu-cfg",
+> >>> +                             "sf-mnoc";
+> >>> +
+> >>> +        iommus =3D <&apps_smmu 0x2040 0x400>;
+> >>> +
+> >>> +        operating-points-v2 =3D <&jpeg_opp_table>;
+> >>> +
+> >>> +        jpeg_opp_table: opp-table {
+> >>> +            compatible =3D "operating-points-v2";
+> >>> +
+> >>> +            opp-100000000 {
+> >>> +                opp-hz =3D /bits/ 64 <400000000>,
+> >>> +                         /bits/ 64 <100000000>;
+> >>
+> >> So, you've identified the issue earlier. The shared clocks need to be
+> >> scaled, taking all users in account. Please come up with the solution
+> >> too.
+>
+> One proposal is to have camnoc icc clock provider, there is implementatio=
+n
+> available and it will be posted, What is the preference to have different
+> patchset or to have camnoc icc provider as part of this patchset new vers=
+ion?
+>
+> Regards,
+> ~Gjorgji
 >
 >
-> Heiko
-
-Hi Heiko,
-
-Thanks for the review.
-
-During my tests, I found that the 125 MHz clocks (`xpcs_gmac0_clk` /
-`xpcs_gmac1_clk`) are actually outputs of the Naneng Combo PHY
-(SerDes) when it's initialized for SGMII/QSGMII mode, rather than
-independent board-level oscillators.
-
-Since these clocks are part of the SoC's internal design and
-consistent across all RK3568 boards, I think keeping them in the SoC
-dtsi makes sense to avoid unnecessary duplication. However, I also
-understand your concern that they might appear to be "magically there"
-without any explicit dependency.
-
-To address this, I'm considering adding `status =3D "disabled"` to both
-clock nodes in the dtsi, so boards that actually use SGMII/QSGMII can
-explicitly enable them together with the XPCS node and the
-corresponding Combo PHY reference. This would make the dependency and
-activation requirements clearer.
-
-What's your thought on this? Would you prefer adding `status =3D
-"disabled"` to clarify the dependency, or do you think the nodes
-should be moved to board-level dts entirely? I'm open to either
-direction.
-
-Thanks,
-Coia
+>
+>
