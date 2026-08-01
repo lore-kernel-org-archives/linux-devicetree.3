@@ -1,120 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5704A3B42F6
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 06:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3514313E02A
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 06:46:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785564894; cv=none; b=lO5CCW54kZm1cSvw/CN9zRZDJiq2T8t5R15TyPpIvUKOH5rsIROuBZyM8y3t4BtwL28dLl3ar9J9oO4+bGusGX2Nkj0vveNtc2JdLeZ4TGbdrt5GQb7M0ieuiJEIRdn1j4O5U7mA9nes+8+P6JuTE0W1e+vyriNlPn6SnvEwaqI=
+	t=1785566793; cv=none; b=qWzKILbOFYJnEXhPTvEKeYGlaa/O1lvrSuIrpUC1ORp+Vr0cxN5hSy6z00vGM9Tjxw/E9gsnhNHozkYZVh0mNAp5zNZlogbDu0ibXpCeL69XHjw7LQdslbVRChnIZ5oazvDutXqtHU/yIFUZEG0ZDBDNc//HmhLKxDCbmiJQGCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785564894; c=relaxed/simple;
-	bh=AGIsE2q6hGSbAT8gBb+QwRr1zhYc4dypkb40WoD4Y/4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CxYwkhksbRhQ2ReNrN+5tIMqP+PksEhqC030kWo2nFwYJbNaNvI0xWIA9MhP1U3ithjjpMMu5vUYSkpqF15OSkLC9tpA8GKp1mQ/bSggB0w+xfqatBoZuMpCndpSfsXPi8HGg5sNVtU0byNAhdseCv7gD5VjwUwxyuH1lYbOwf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYZk8AeO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785566793; c=relaxed/simple;
+	bh=LErCCR4nKC4XHfd7uC4yKWkLcjq9F9iY393Fn8sX9Z4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XJ1+BsZa6CcsRZYZ2/HwHKdIaLnxmQngyZSo+CuTm3d14SMqpSQ6dLEkm7AgJD95oUmPEM370dui3MByWDFpsZLjQsd7VUt8yKHT9fnsYCiek02+yt2oFYVHo7oY0STKOdulbBf6DpmfpSYIfR0A+XyyBLYsFim7liSaO+mqlMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPCnafdK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYZk8AeO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65C971F00AC4;
-	Sat,  1 Aug 2026 06:14:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPCnafdK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48D01F0155B
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 06:46:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785564891;
-	bh=EfTDUhrtLiHeLUtGcuKiLuqzchZk+Sl4gpQqbOZfbos=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hYZk8AeO9H6YH89X0EwavDCHJdom2Cgj6IUYphygsRjyNJovgIoj8A0pcmhZHYtkz
-	 wZYz9QCJGN+lHJUvCE92Z/tu36vH8RoDNWOWnaOQwO67Nz0jm60tNAXdQi+zfvROjU
-	 YH8s5R1MQyCFeCGCwAQ8LCjyEP36ptKRhwucEQbD/lTOedT6WAwza0/AvdjO4nmtY/
-	 AEh/GLB1vowgoCvDgwOsqthngpxqE8cxVklSRj6+V5Y/7z9CQ4xiNas7nYv1fg9soq
-	 x4+aUZ0N5XDDWchRJkq4AurGJZyhkWctN+ZcT+17B+32sVcIM6WLfAzXQ81djm/uIs
-	 Gxc+ym5ust1cQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v10 05/10] net: mdio: realtek-rtl9300:
- Configure hardware polling during probing
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260731061400.78301-6-markus.stockhausen@gmx.de>
-References: <20260731061400.78301-1-markus.stockhausen@gmx.de>
- <20260731061400.78301-6-markus.stockhausen@gmx.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 06:14:50 +0000
-Message-Id: <20260801061451.65C971F00AC4@smtp.kernel.org>
+	s=k20260515; t=1785566791;
+	bh=NziBy7OG33oYiNr9JUn+R/txXnPdgHaF2LDnuUeFyYg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hPCnafdKqYHmdeMbJZS3eiyYSQEMIroHl7dg0JHm/f/ELGhGaKpAyRgsGaTd5d5GH
+	 q2xBIbT2Z1oGBXiFy2QhUOk5T5b7baOmE5iBM6UyfbNdwsKS7ft8QM003C+0t8kJmL
+	 GYH6dcAPXg6blbfGmd/40AYzGSFl4lZc2/T/xR2bmY1700gFIFeGk1lING7ksn9yf0
+	 8i6/VdQfKzUKXEmkCdlzvZtLV4WFuxPZx9u6pTeyiOuxplesbGrXzqDy7TxXEaFa3j
+	 Xt8NKn5NIbYpQg6U5TY3b1m2bNEm4wJDHM5ksVnFEc2eCJqCv7WdWSIVes9qlheM5S
+	 rNOYUEh3fHfjA==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c74c469e8so12929871fa.0
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 23:46:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq14TdmYLiVcx2hitJTQSSaBSL6poL8xVHCg+Anm0kN7nxpbCAYpA7ZXIywnFZ0qvu0pEgrVGSgc0SF@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRtxakHbgS0Yfoo9Q+yA5TN3brUGfjgU8L/QVMSXhTAPMo881Y
+	z9xq7K4E36TGsjsA7EHYUKyqYbTgRexuJW0vhPAKyFdSTzzj12I1DhhF6XeOyerRSSEiUfIwy55
+	SkiubbqlunvkEq74JMT438tRWFL/3wZc=
+X-Received: by 2002:a05:6512:3b11:b0:5ae:bfa0:54f1 with SMTP id
+ 2adb3069b0e04-5b2e4f969e1mr490370e87.59.1785566790672; Fri, 31 Jul 2026
+ 23:46:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260730104330.81367-1-longzhao@ambarella.com> <20260730104330.81367-5-longzhao@ambarella.com>
+In-Reply-To: <20260730104330.81367-5-longzhao@ambarella.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 1 Aug 2026 08:46:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=Zw0_jKj4FiVHAVC6ASjRJgOF6WswAJBZD=Y3nQCAauA@mail.gmail.com>
+X-Gm-Features: AUfX_myXQ9tmFb62wnb9uBwgjcMdvhCxVtgyWuLAaEHToUKhGjWH6cV58R5yeJI
+Message-ID: <CAD++jL=Zw0_jKj4FiVHAVC6ASjRJgOF6WswAJBZD=Y3nQCAauA@mail.gmail.com>
+Subject: Re: [PATCH 04/10] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	linux-serial@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Module unload race / Use-After-Free due to devres action attached =
-to class device
---
+Hi Long,
 
---- Patch [5]: [PATCH net-next v10 05/10] net: mdio: realtek-rtl9300: Confi=
-gure hardware polling during probing ---
-commit 46ab2c1bebbed4638cc44b5a4c270ec37988afc7
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+thanks for your patch!
 
-net: mdio: realtek-rtl9300: Configure hardware polling during probing
-   =20
-This patch allows the polling of Realtek Otto switches to be enabled or
-disabled during PHY configuration. This prevents hardware polling from
-interfering with complex configuration sequences or firmware loading. Polli=
-ng
-is kept in a consistent state by disabling it initially and toggling it
-during PHY attach and detach.
-   =20
-Link: https://github.com/openwrt/openwrt/blob/main/target/linux/realtek/fil=
-es-6.18/drivers/net/mdio/mdio-realtek-otto.c#L818
-Link: https://lore.kernel.org/netdev/680696024a8648535ce6dee771fe4de67802e0=
-e8.1769053496.git.daniel@makrotopia.org/
+On Thu, Jul 30, 2026 at 12:44=E2=80=AFPM Long Zhao <longzhao@ambarella.com>=
+ wrote:
 
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
-dio-realtek-rtl9300.c
-> index 7dcfb72ed8188..f1f15ad23dd3d 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
-
-[ ... ]
-
-> @@ -628,6 +663,9 @@ static int otto_emdio_probe_one(struct device *dev, s=
-truct otto_emdio_priv *priv
->  		bus->write =3D otto_emdio_write_c22;
->  	}
->  	bus->parent =3D dev;
-> +	bus->notify_phy_attach =3D otto_emdio_notify_phy_attach;
-> +	bus->notify_phy_detach =3D otto_emdio_notify_phy_detach;
+> +  "^[a-z0-9-]+-pins$":
+> +    type: object
+> +    allOf:
+> +      - $ref: pinmux-node.yaml#
+> +      - $ref: pincfg-node.yaml#
+> +    additionalProperties: false
 > +
->  	chan =3D bus->priv;
->  	chan->mdio_bus =3D mdio_bus;
->  	chan->priv =3D priv;
+> +    properties:
+> +      function: true
+> +
+> +      pinmux:
+> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> +        minItems: 1
+> +        maxItems: 96
+> +
+> +      bias-disable: true
+> +      bias-pull-down: true
+> +      bias-pull-up: true
+> +
+> +      drive-strength:
+> +        enum: [3, 4, 5, 6, 7, 8, 9, 12]
+> +
+> +    required:
+> +      - function
+> +      - pinmux
 
-[Severity: High]
-While reviewing these changes to otto_emdio_probe_one(), I noticed a
-potential resource management issue further down in the same function:
+Usually either (function + group) OR pinmux is used, so this looks
+slightly confusing to me.
 
-drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_probe_one() {
-    ...
-    kref_get(&priv->kref);
-    err =3D devm_add_action_or_reset(&bus->dev, otto_emdio_cleanup_bus, pri=
-v);
-    ...
-}
+> +        uart0-pins {
+> +            function =3D "uart0";
+> +            pinmux =3D <AMBA_PINMUX(44, 1)>,
+> +                     <AMBA_PINMUX(45, 1)>;
+> +            bias-disable;
+> +            drive-strength =3D <8>;
+> +        };
+> +    };
 
-Could this sequence lead to a module text use-after-free on unload?=20
+So I take it that "pinmux" is used for all the muxing while the function "u=
+art0"
+is actually only used for the pin configs, right?
 
-Because bus->dev is a class device, a local user can extend its lifetime=20
-indefinitely by keeping its sysfs file open. If an administrator unloads=20
-the module, the module unloads successfully.=20
+It would be better to encode the groups into the driver I think and then it
+would look like this:
 
-When the user later closes the sysfs file, won't the release of bus->dev=20
-trigger the devres action and attempt to execute otto_emdio_cleanup_bus()=20
-after the module code has already been unmapped?
+       uart0-pins {
+           function =3D "uart0";
+           groups =3D "uart0tx", "uart0rx";
+           bias-disable;
+           drive-strength =3D <8>;
+       };
 
-Should this cleanup action be attached to the parent platform dev instead=20
-of the class device?
+As you can see "uart0tx" is easier to read and understand than
+<AMBA_PINMUX(44, 1)>.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731061400.7830=
-1-1-markus.stockhausen@gmx.de?part=3D5
+Also it hides constants nicely in the driver. I know this is a lot of work.
+
+I know a lot of companies like "pinmux" because it's simple and
+convenient, but it really
+isn't the best for developers writing device trees and debugging.
+
+Yours,
+Linus Walleij
