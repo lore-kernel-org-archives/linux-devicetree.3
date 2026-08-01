@@ -1,152 +1,156 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEAE2EAB6F
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 05:28:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143D53B28D;
+	Sat,  1 Aug 2026 05:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785562136; cv=none; b=urqqfqxoCuYEHFBmwaFdTt32yqdajKvo540bB3+TiJyMPCWwuV5Ae8j0AuSGMQWHaKwF2mdBNg9w6PZek9rOU/EwnvRQdCcYElW+KHxsC7A3eKi0PAVSU75s5NoPyYWv520Vc/Cki1P6zYRvca4DJBilY3srdlJ+6dP1GnRNo5U=
+	t=1785563195; cv=none; b=I5jzaFTj/sH953KsydqSbEYa1u7QVII0CjgN0ER2OoAYlCVQHVT6mrPb+YBCo9uVZKcYne3SQQDiDc/E5detCw+ZCtwCi2rWE6YXtLt54pv44TKUoG6K9Kvx4PldyX2bugvWUbWfSXBAVOktwhOSwr7HirgscozHkgxadM0YMrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785562136; c=relaxed/simple;
-	bh=NKRiEWM7OmBlcThohq6rD6o3xFY86H5i1xR06buE38k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ym5cCLYysPkChS789Tp3dh9QW49yrE4NpXa0A4PZXqsDPd++9sxTiuUluae/sihUvJ75Xzmq43UNQlVbwFdt9bJzjmTnh+DlKe6vpdnOhPTGWfkTW1QG7xhelUHqMRbFB2OF8GdrnUBGe6p9HByPCDuEViL86UMS0GqMXgfYt8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CmWu6LZs; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785563195; c=relaxed/simple;
+	bh=GugT5f9b/09YY8ACVeGc7JVaMKqVdp5MPKHKqwk+/Fs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=fq8L1cuTVkkqLBpcy9ZdpeXoxWHHF0xaPp3OoAK06LlXqSwuqzxAMametDGm8h99v03Gkqf2GshivVUxIVY0hGyDWVd9JduPoc3l3/23MlKwIbJ4Huhm0Va2p9rgd2aiddZZxrKuxAqVFojKiB/1Q51qI3xq9maXBW1RmIV0uEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jqnVit13; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CmWu6LZs"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1051567f8f.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 22:28:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785562133; x=1786166933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VGWLDg96xg9X2R8tFVFYr1K1sw/dzYhsye3xehVIvdQ=;
-        b=CmWu6LZsuZhcD01Ga1R13iKDSbcxHqqtUNyxZmduhrB0cme8EH1zpfnf6yAalWZzYW
-         yZr6ocABG/0YiIWgWWcqXNQQUGE+Utlz83gxgvpU45kBntYIs537DFmvnqdMsWy+m5zd
-         HSCsGMs5Kt2x0+viYVXfOCGWf7Hui2E6X8kdg8XU5jZryW1uh0k2+HcpBWo6QGwraOtD
-         3noJDxHCM9cCtnEaC0Of8gMjnOZxcyWSRbMPPrQNDR3dc19/xFf7cqWHHe9L98MdpQB+
-         sy3wEuFrzczNUy338VcYVpUEuLoVrv14g2rp7qkKMKgewdqt9kb/ERDUFMCiPiP6gRtN
-         5cOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785562133; x=1786166933;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VGWLDg96xg9X2R8tFVFYr1K1sw/dzYhsye3xehVIvdQ=;
-        b=YwG2itlk2i3YKyMKwpe9T34d/z2cjgNpfUMWXbqiiqgA8rMu+Sx+NDbYfDaZdzabB6
-         ifditrQxZyayMHYqDlyqMQ0wuGjo+9lPCykBaYfrQvKilbr8DYtoz1+Jnn77h2POjCxk
-         JJbXvb5vQwtuDEcz0wEOtCwYVzCZ+dlAynwC762LFL7RMHvlPksvXt3W2zZ9QDVQ2PAn
-         +XHlcfg7ZUvDe7EADspt796iSzun8cAuY4c8wvqjpxz/xXsFuNOUqQgQh/GlVk55GqaI
-         nwf7E76M09+elHFguNY/GXaaISDS+llhmNskPyOe62ZjFgL4w9NKZlO7uVKW5dPfTC61
-         IBXQ==
-X-Forwarded-Encrypted: i=1; AHgh+Robv+wHUdzdWEOnFeqn56TGag3uCa/eCJUrYBwIqyl9lc3WZjVPo7Y/ntpkql/tsN/sf2AZnwoREbz6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwLV05AGtBLQshTMt97R+LwYuWrhl9TyuwFDPKbUmW7RAlhHsmm
-	WNmmSQXnw48gigFRBAvDUBMmOjheLQioutEs/bOAFLbWqlj8XlMZ9g84
-X-Gm-Gg: AR+sD109ibxarIe1OsvYTlTwhczIzsKjVJCTu2iZhj5FqghMjTDR1OnH07TvDy3f4nQ
-	Ksr7wVVuAiyuJHp7Wr3zbqSFccx7l6An6YiJiLuCkhVve8qlq8AsbZdtSiEnT6DnSZOHhqYq7v7
-	5YF+8zpmnmhjp0v4+769FmVBuheJwPhVcujqx5RgvvTGJUumC9ubzVt/nLlwMG2KO6UdLXsTLd8
-	Fxgjlgwe6qY2Xrp9cICjfrPMoKI61nsyVPeyEOI02xUdKsc1Cd5LJs8cGho9SSmNQ9OCkq1lsGZ
-	vJtmdc7munNoKGSwWcIinW3Wx9T/QxA2V+ylKYU81l6nw2wfrBo8YlTcfI0E9PHQ1Dw3xgD2rZi
-	7eIttk/6luJa9dRAFDOslx/vrKqKL3M/OqgZAZ2d6yHByg3HMSTVXHrydygAoMhTdoAPT7nT0Nt
-	bzMqqwNR4OxDMXDIKT90+co3KqKV+QpvAyVwOxOvjj/tXPBOEd4dGQLT+yq+YiuIU1SV0hmAQ5j
-	1eh7LX7Q9eBN2XJ7bzYcXNvEePGcJpzTHH3fYNKdI1QMzrgQs0LbgIFy8SRg5WIQ60h1/JxvULM
-	2ExZNtQmdAf30xg2o2TPf07/HGPdkj7wCo+xZXztHNTR/ga2JF6vsbR5C+AFkx0sgrHE+ERWTUE
-	avbvsnW/lUwA43bwKmapqJYX8RH3Pjnuix1QNjYcD3I2t7n+Ocfa+ReP/ArDmomA=
-X-Received: by 2002:a05:6000:1946:b0:47f:56f7:7a57 with SMTP id ffacd0b85a97d-47fd7309159mr3519771f8f.28.1785562132890;
-        Fri, 31 Jul 2026 22:28:52 -0700 (PDT)
-Received: from systembl0wer (109-81-110-164.rct.o2.cz. [109.81.110.164])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41e2484sm13028897f8f.11.2026.07.31.22.28.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 22:28:52 -0700 (PDT)
-Date: Sat, 1 Aug 2026 07:28:50 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
- devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com
-Subject: Re: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device
-Message-ID: <20260801072850.6f5d255e@systembl0wer>
-In-Reply-To: <20260801033013.19ef2b2f@jic23-huawei>
-References: <20260727-mcp47a1-add-support-v2-0-d4591a2ce69e@gmail.com>
-	<20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
-	<20260727184226.DFC1E1F000E9@smtp.kernel.org>
-	<20260728151559.000067ef@gmail.com>
-	<20260801033013.19ef2b2f@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jqnVit13"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6713LX872059798;
+	Sat, 1 Aug 2026 05:46:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=vACOLwrZTYF
+	c3pUkJYl4V0QW1Wv9KJg9rKTx8DTbPBM=; b=jqnVit13KKM41wBlzzncybgnOf6
+	iBanYswRxb2T7XdCPbBaI9ETEtQB0B+8tkU1P0Mb+I+HP2o9d1MlXNTkl0AR+AVp
+	NyCIYOVMo5lp9666h6hm+TheWffsPr3fZr+5cLfatWpWjius5j7+D5n3Fft1n2AF
+	sbCAQgxuj4YbimNxeHm/ooSitdy4dLJC3rY67OZJ3w8hp7hzb4eb0cJ9j5h/D1xi
+	lpFexOjjNwqhcC9xwFJYMjpXQnRvUC/det0AJvYBL+vCFAptQ6AkNb+N+P8cujno
+	Ii94bJN7JLdEceRr3NKdBUD2xGVWSrhae7ngShrKPP8GfwN2LX426A/leIA==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8tx092f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 01 Aug 2026 05:46:17 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6715kE3T016925;
+	Sat, 1 Aug 2026 05:46:14 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fs9vh0utk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 01 Aug 2026 05:46:14 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6715kEHO016899;
+	Sat, 1 Aug 2026 05:46:14 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6715kDPO016816
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 01 Aug 2026 05:46:14 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 0C879C08; Sat,  1 Aug 2026 11:16:13 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: [PATCH v5 3/7] dt-bindings: sound: qcom,q6dsp-lpass-ports: add Audio IF clocks
+Date: Sat,  1 Aug 2026 11:16:06 +0530
+Message-Id: <20260801054610.4047089-4-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260801054610.4047089-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260801054610.4047089-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDAzNyBTYWx0ZWRfX+ZZPlk3CvVtB
+ N7LiBbUj05n110yasC8f6ToUlEQi9vCWce5S+gVIu+7oFuO2xafY4+XAJMof933TBxyxhkWz2My
+ OPW8/GtJ6bnj10Msd5l99Sd/brBV7kLaQFh9GrLY9fIWO2+dyV0NMfm3rQlsvvmgwS5hNdW2wfD
+ J72TWZdugRM4qXVjGsaQzIRAr2UvN1/zw0jQKBNzOykb7EqhxPZmASnbgNATeOrZ9K6kYsFUFmt
+ aO9XoG95R8Y+fF0AZPAdqaMjM/t/SA2EpJ59Ls2Qt41g6Z0BPfBw9UiEhF0XDoahu87jYmLdFZt
+ elQlEYo8aH56q2BclAuG8tgEREDE07WMCWoBjCCj7AfzU0LaQWkPC0VeKzwvaGI4ktsVb62FoUo
+ LIWX6+0vVHqLpkkVs0TfiojfTJImyLqwNgImfSVwIzIWh2mjQTerSDclooGn+04f3rwOZUclWJS
+ ee2SysRKHyPI3n4Yt0A==
+X-Proofpoint-GUID: -AQ5plJUIK-smDk4D6ZM8ckYKO84SpeR
+X-Authority-Analysis: v=2.4 cv=T9C8ifKQ c=1 sm=1 tr=0 ts=6a6d882a cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8 a=HqMH4ZOH3FVCEH9kUM0A:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDAzNyBTYWx0ZWRfX7B34TEesElMa
+ 0KCVZKM6dxKiSQv0/4y4rhsLTyYk6/6FRxb692iDq0q9jgKiZKrZ4tdFMZmClPf8k0wcxJTnfll
+ ZUCHioi6cnBtL+AldjDOR4hD/bLTraQ=
+X-Proofpoint-ORIG-GUID: -AQ5plJUIK-smDk4D6ZM8ckYKO84SpeR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_07,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 adultscore=0 suspectscore=0 spamscore=0 malwarescore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608010037
 
-On Sat, 1 Aug 2026 03:30:13 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
+Add the LPASS Audio IF clock IDs used by newer backend interfaces.
 
-> On Tue, 28 Jul 2026 15:15:59 +0200
-> Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-> 
-> > On Mon, 27 Jul 2026 18:42:26 +0000
-> > sashiko-bot@kernel.org wrote:
-> >   
-> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > > - [Medium] Potential off-by-one in DAC scale calculation denominator.
-> > > --    
-> > 
-> > Responding to Sashiko's comment.
-> >   
-> > > --- Patch [2]: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device ---
-> > > commit 38bec2fbb020c3f749c52a26e5cc3e78e72eeaf5
-> > > Author: Joshua Crofts <joshua.crofts1@gmail.com>
-> > > 
-> > > iio: dac: mcp47a1: add support for new device
-> > > 
-> > > The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converter
-> > > which communicates via I2C.
-> > >     
-> > > > diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-> > > > new file mode 100644
-> > > > index 0000000000000..140e93ff2ba01
-> > > > --- /dev/null
-> > > > +++ b/drivers/iio/dac/mcp47a1.c      
-> > > [ ... ]    
-> > > > +static int mcp47a1_read(struct iio_dev *indio_dev,
-> > > > +			struct iio_chan_spec const *chan,
-> > > > +			int *val, int *val2, long mask)
-> > > > +{
-> > > > +	struct mcp47a1_data *data = iio_priv(indio_dev);
-> > > > +	int ret;
-> > > > +
-> > > > +	switch (mask) {      
-> > > [ ... ]    
-> > > > +	case IIO_CHAN_INFO_SCALE:
-> > > > +		*val = data->vref_mV;
-> > > > +		*val2 = MCP47A1_MAX_STEP;      
-> > > 
-> > > [Severity: Medium]
-> > > Does this code use the correct denominator for the scale calculation?
-> > > 
-> > > Since this is a 6-bit DAC, shouldn't the scale denominator be 64 (2^6)
-> > > instead of the maximum step value of 63? Using MCP47A1_MAX_STEP (63) here
-> > > introduces an off-by-one error that could cause userspace to calculate
-> > > output voltages with a ~1.5% LSB scaling error when reading the sysfs
-> > > attribute.    
-> > 
-> > Yes, the max amount of steps is 64, which should be passed here. I'll
-> > add a separate macro for this in v3.  
-> I'd just use + 1 at this location given the clear relationship between
-> the maximum value that can be taken and the number of steps.
+Platforms using Audio IF module backends request the interface bit
+clocks through q6prm. Add the Audio IF IBIT and EBIT IDs to the binding
+header so these clocks can be referenced from device trees.
 
-Good to know, for some reason I thought that this type of stuff was
-discouraged (MACRO_NAME + x would seem messy in most cases).
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ .../sound/qcom,q6dsp-lpass-ports.h            | 29 +++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
+diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+index 7b553a73bc92..fbcf1ef9ce22 100644
+--- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
++++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+@@ -233,6 +233,35 @@
+ /* Clock ID for RX CORE MCLK2 2X  MCLK */
+ #define LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK	70
+ 
++#define LPASS_CLK_ID_INTF0_IBIT		71
++#define LPASS_CLK_ID_INTF0_EBIT		72
++#define LPASS_CLK_ID_INTF1_IBIT		73
++#define LPASS_CLK_ID_INTF1_EBIT		74
++#define LPASS_CLK_ID_INTF2_IBIT		75
++#define LPASS_CLK_ID_INTF2_EBIT		76
++#define LPASS_CLK_ID_INTF3_IBIT		77
++#define LPASS_CLK_ID_INTF3_EBIT		78
++#define LPASS_CLK_ID_INTF4_IBIT		79
++#define LPASS_CLK_ID_INTF4_EBIT		80
++#define LPASS_CLK_ID_INTF5_IBIT		81
++#define LPASS_CLK_ID_INTF5_EBIT		82
++#define LPASS_CLK_ID_INTF6_IBIT		83
++#define LPASS_CLK_ID_INTF6_EBIT		84
++#define LPASS_CLK_ID_INTF7_IBIT		85
++#define LPASS_CLK_ID_INTF7_EBIT		86
++#define LPASS_CLK_ID_INTF8_IBIT		87
++#define LPASS_CLK_ID_INTF8_EBIT		88
++#define LPASS_CLK_ID_INTF9_IBIT		89
++#define LPASS_CLK_ID_INTF9_EBIT		90
++#define LPASS_CLK_ID_INTF10_IBIT	91
++#define LPASS_CLK_ID_INTF10_EBIT	92
++#define LPASS_CLK_ID_INTF11_IBIT	93
++#define LPASS_CLK_ID_INTF11_EBIT	94
++#define LPASS_CLK_ID_INTF12_IBIT	95
++#define LPASS_CLK_ID_INTF12_EBIT	96
++#define LPASS_CLK_ID_VA_INTF0_IBIT	97
++#define LPASS_CLK_ID_VA_INTF0_EBIT	98
++
+ #define LPASS_HW_AVTIMER_VOTE		101
+ #define LPASS_HW_MACRO_VOTE		102
+ #define LPASS_HW_DCODEC_VOTE		103
 -- 
-Kind regards,
-Joshua Crofts
+2.34.1
+
