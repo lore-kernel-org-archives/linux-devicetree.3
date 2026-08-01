@@ -1,396 +1,207 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2111.outbound.protection.partner.outlook.cn [139.219.17.111])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6327A3254BD;
-	Sat,  1 Aug 2026 10:00:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.111
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785578412; cv=fail; b=dXcpVr/Qzt8mCRJwXcL4+UCjk2MUdqITtGRtba7tuDq8jqYDyAQeAai9oFU00mPisY7WlACSzlEzoHhdyqS425Sawc+nWjMVh7O84VcGuNElhn0xl1TlzUfvfTXi/kzBK/FktnfTuITK9HyVXv5DACMmiG3gmOhmHAQzdsVudpc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785578412; c=relaxed/simple;
-	bh=Z+N1zPhy3tTntPm7W+80lzAqaJ0dDS0cf72HtK8p19A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H5CHTb/r/Mc8d8UX8WtHnEDqjbI+F0pkhbe6WNy72l8a8w6w97t/UheBwhVruH0gu87UbLCrEu/XMZBnlCEerTYngZdyo3IwEIqA+OTcSbzCCrnL1CE/QteoBUt5pZ835112nRVethnBK3BpUd5hQeEPKZtSsje4YhWOEV+820I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Kn0JF9wRNMCuQUMaCiLfSj2khmVYcxL/c+8Rtih2yXIYDobClnz+YheC6h5LnFjkLA0LNQv8QGbY4gU9QVqx2ds8XYJbaBtZWTzTFUbf53eH4ZEIsPfoJY9+TcR7643nn7or4QAoB/4JOG+k6vl4BQ4BmjrBkZVdeY/+oS0ZoZXojw1v2WkqxK6xq4MaTyY5yWYQYRmslrjgqdv0RO7YXtoqTofJR92NHQYEzxBZBMKVWnYkl/2DlwVoz7q9QlSK8oqU3jF8dbVZllpXiT/EUZ5N2PVv1T/GrHBsCMyXl+OqCWhoQ4wkXx9H4280adCgFgnrOcXCcS/yLo8UWW3k8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xZKWD1kCSKh2t6rbhNeXtHYBgK6X7EZ/3SAbhJ4pbhg=;
- b=mcpbB5o/eyZEKzmP8AJ8EYgf/Mkt0JH6qq3ptWgtt0FseDs0ti4mLck1TG9evQP6qSRBqHdVDTJ5mReSPcaWVA/0kP25L+iyqB23l+AmwoUnnGEkOfk369n7IXKWWKZo1GNxP2SKw9/y+qR4wMliy4T5Li9KwMX3r+mKG4QMLzN9ssvyr9jVSwH6JHzDwAMZA5APJzm1nxC8C7jU8P7X3x0EAP0TGgU4d2I2HkMg3e/CTzi0jf00ppyzcBcEqrk5w7Nf2Frgn2/bQH4ZICeO7fqMuIVutJltS2n1Y7Y5zTsyrP8iqeqxaSTwGgI2OnvRlXzc8XEfY9ONODOS1nU/pQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1138.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Sat, 1 Aug
- 2026 07:27:34 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0270.015; Sat, 1 Aug 2026 07:27:34 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v4 11/21] dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
-Date: Sat,  1 Aug 2026 00:27:01 -0700
-Message-Id: <20260801072711.153217-12-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
-References: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0027.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC2C4334B9
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 10:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785578424; cv=none; b=Q2zvA60I+Onxc68XYRQrrQpDIKcmIGQhHrdz4z3SUXPIhLmA11PoW/KauYTYnKyTODnAdbPsCnPF8DVa5N1YdL/U+d+gFHoxDWPgAJu7hxVebYQrLhHgKUcxrryaK3y1JgqtuYCCZKJtVNyDcCuYeasf+TCkTFRbpky8k4pLT4Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785578424; c=relaxed/simple;
+	bh=XHpvZd6d5AyD8McowMcSqMy5z6h+JROiB5OxZUHHvsA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fHfgrNpXf3wd5AXU/pjXYLFH4jYNLltFdtYh6JQEWezMkzXF9R3RP10ZT9QnJrFGumAKS+O/QOTe3U0JBh+Uef+UpyrX6OF5fYzTr7TMA4RJM31Rl6Glnm8VYDLzkXcnJVag8n3XwMnrJq9OPgHn73YEok0DGDH220yiuXUmDU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RGxX68O2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dMCV7Maz; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RGxX68O2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dMCV7Maz"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6714dZFh1417012
+	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 10:00:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=IRJQl2ImEHe6DksJMQhFEB
+	G//3HW2i/YdpyOi+8N7Pg=; b=RGxX68O27EsAtl7+2ZGC00Sbo5dVwqPSNyGSVz
+	IyUJuyjmD0DXmdf8oBtZVpvWU7T7pFCa7TYPP1gzg2oTpELZlAd89mW+7JPGnnQ3
+	o13FfoJ5feA+KJwyxNgRK24p9hKL3l44y4w/lDmDZmrZ5QUW28clLnzKuYd8m9Pr
+	DxGImt/VtMRAxETSuGHLut95Ok+2+i83ttdC1nKt0HGQ8avJm5000su7gO5474Yy
+	QBMySm3KzK/8C6eJwrMAXyXMPbSv5LbX+C9mVJUwKs/PIss3YBmAkYCZPS6sI0cd
+	5g+N6lLxolCuD9GD86QOwSt4q3HKiFXwpLChmEfwc3zP2oRQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs9yggg4y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 10:00:22 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb4cdf95b5aso3403308a12.1
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 03:00:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785578422; x=1786183222; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IRJQl2ImEHe6DksJMQhFEBG//3HW2i/YdpyOi+8N7Pg=;
+        b=dMCV7MazhngSktnpK/ScVfUGBbYxBAAcDb6tAiNGp9eptG4zGrGbj652uWdyIuRLb1
+         5bkcFXbsG8TbLK26QSxEVLvwSZtk2JgZfWMN1B0ZqBORJ5TrtNQc9JgvRyZUeVCtGUSC
+         tXPRPAJBEDvIqYGT97Bsy3wJtjQsadMX7NdnxcOUC8x7uzPSdwSTgaE+cWJwwuvyHHOv
+         D+9BhMGoBCnde7moqpR/UsaEqNLLPAhFL4GuNhcET4/O+zvoMH6ikJ4yG6EDSXYg1Ug5
+         ZlR/UJcAUT4NKcl53MuvRt4nCgNlkTesmYD/JHaOz5DXGZGkL0Yp4mg32/a2VN+2f5JI
+         nXIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785578422; x=1786183222;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IRJQl2ImEHe6DksJMQhFEBG//3HW2i/YdpyOi+8N7Pg=;
+        b=ZRjeEzGqLLMXxbsRpQW46y6HF637nYZI1vqlFQDk2HrWM5C00GfEqkWrjwxmKf5Qcn
+         qT3qCXyne56pPZGcsYY49prbWq6jeEl5wgpyBDxQ2pig5Hewna6vp/ZkaWU6pAu4mWjt
+         a/fV2Lj4jAUfXGgolrf1WL9yHNiec7cGk3Oc8upAOQ62XeghTCPgwogs7xEJ2iQSZEn7
+         Z0PU21dc6stHjOU86rR5r7yUWRgG5Sa3e9VBcISb7ZqBpAsYX60+q6jakz+gqqUfr7Om
+         lbz2gn/s/zfz/67bnLb3BVl314V6jg5rob0ij3YV9biNvsdsogPlrO4yXJulpoJvwmDE
+         rQtw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqrsw2jwVsW1/djNt5bRP3dnwf9Z1H+xCgPP5Jr4tbhA4czoq0HDiBpE/M9x0sI9rwSWBsPHpB/0oNh@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIOwxpSX0TXqjEAqFPH310BETJko8a6ioZw6zsumxz+uw8bWO7
+	JoycxXLRWUMxRMl4rCk0q9m2XIKBaki/8OOBVzpuZaszWJHEjEintfKCS4vMhggocd+ZafxRaSz
+	jpftRCXnXiQjJ6rKW37yG5gLQ9EGynfUMTlfGAoh1BezZZ9j6xoH3Io8NGxwubv4r
+X-Gm-Gg: AR+sD12cj7WIxQUejz8w3UZuKGfS1b+c6RYJ6U5DQZ3I1mfLVfw4KmX152/mIeq2Beh
+	bAxObQlBVYZahLZVs4CtzpHOXiPjp2PdOV0HfMkFxhflebDoeK3EqsRPW9KnBqgVEEfgL5xiyr2
+	dQ22Q1hBT8pUoz5Pn2NIRkiSokTgV2YwoYSpcdNAMCof0rj98CzJ6qLwnqGi8ku9N7q+af77bje
+	8fOJvBsuXH9T8yoCFWwkQA+4PZlEWe/0ELskfCstYQzlYyzbgKDMCSAkmrA82V1DC5eAhxv5o3M
+	UlQnfQxsrwbSMtkUVqEqQM1cJKbHHO6lfTbW3TvBrLW1xhRWuA7UdzbXDiyI8wqvXrdqHi6/+o7
+	Zr+oU44qswSxPx/zHdSiLsooN+iIUVXMxpdecG0IDjio8RXJx4U/C9t7OIibJ3j0v
+X-Received: by 2002:a05:6a21:6f15:b0:3c4:1493:6822 with SMTP id adf61e73a8af0-3c92a59aca9mr3046473637.18.1785578420904;
+        Sat, 01 Aug 2026 03:00:20 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6f15:b0:3c4:1493:6822 with SMTP id adf61e73a8af0-3c92a59aca9mr3046428637.18.1785578420473;
+        Sat, 01 Aug 2026 03:00:20 -0700 (PDT)
+Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e04506csm16290600eec.17.2026.08.01.03.00.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 03:00:19 -0700 (PDT)
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Subject: [PATCH v5 0/5] arm64: dts: qcom: Add Kalambo SoC and CRD
+Date: Sat, 01 Aug 2026 03:00:15 -0700
+Message-Id: <20260801-b4-kalambo-crd-v5-0-22160abacf3d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2130bfaa-6e46-4abe-c0dc-08deef9e5b3c
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|376014|366016|23010399003|1800799024|6133799003|56012099006|3023799007|18002099003|22082099003|10067099003|921020|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	JVRZE+73Fb0sK50wYBAAMuktZKqdof+SnYvCIMqX4icQ3A5sY5JDr63Tgao9MGhPaEIfvIL1sHu/O0NwrABA0io6ViWdqNKUv7oOpL77Hc6zwHYA14qv+Sl6/3QyhNR5wYLTaAJ5+W9OTFYOKHdptD48503phjTT+yyIBqAVQ0hIbAkuRkdgT/0J59DzWUnL2fpWRb039pjbSoSWnxAOXyX3XGgY2MED/7W07sOf7G1kFEC5uoPT2ylw5QJp+iMrFoMI4/HqhdWNiOLmKwRIXb8doyOMZgNg73ghOh5joVGSkElWUeLRlFrgcKw6c1VmyVmmBLPx+XkxRnEX/6T5GZGI60n2BV6rtSmVLRjStZ4a45RD4n+hu980BdE++g+2mkBWV8jQZoE02Ld2iWMKrdgoXbSLQn1nPwlzfWAjypMkMLVD44gtmGGYzjiDMKXcK5oKuFCcaCWKzylehjFQLBaryxryDQqZzWo/nWXypP4XEMtuV6wXed8GPBEPU0S7wWXC14bieSxRKEQaltiGAM73VcWxRHHHAet4KQqg8aHmRIA+jT7TxQKcqJ3wgmWtujQB531+y8lHQ1C77B7I4A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(366016)(23010399003)(1800799024)(6133799003)(56012099006)(3023799007)(18002099003)(22082099003)(10067099003)(921020)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ofLl+gY7ZynJFfSV+eB4SWekQZJCAqWNm+YDNAXwfsTM96zBT6uk8wD/oUMP?=
- =?us-ascii?Q?T9qph+67fh9o7TEs+Za2jtc2mliTDxQ/nmG51A88WD1JvZzdpzhrI7APiWcr?=
- =?us-ascii?Q?uQtBcoE+Y+RrIDuuCHgSx8j5TdZFNjtXt7IoOWThWx99LsqS6wLTz4FcDaLi?=
- =?us-ascii?Q?HIsw4Q6r9EK7cmkyghtBQ4Q2Ws1IMDMmPyFcay76CxCHrbriEa+wSManGDxv?=
- =?us-ascii?Q?L1QjrIUsFeYAktmhp3fCYqW22nxEckxf66b2wxQS+T6Zta+QzKVL8tV8tE05?=
- =?us-ascii?Q?RRIKD9MFyNT06LyuBlTPt7O1Ha8+og5Wmf5VOpw8kXjywGafce2Nj45XjHtZ?=
- =?us-ascii?Q?Xgn3lAONUApQypZV8WoKKrIqFhYwqIEss6dvG53b+yYQINhkLxtWrJH/vEYs?=
- =?us-ascii?Q?Y3KP95vTN7Cu+IiuecqdHple7aVHGYzzS3UtzOwrH0eEQv9W0yya45BwSDl9?=
- =?us-ascii?Q?ioyv+2A9vfukRZ3LKfRKqoRHCO7jntHl+i5aW9g4NEbzPqNOfhECVu2r27+z?=
- =?us-ascii?Q?fLQ97GlkKY1+84zkVb59trFrAAEgvp5x0QB1lFCsWMTF8avoLh+QpPV8Q5Tp?=
- =?us-ascii?Q?9myGh4MCtjiPHWF3rOTJ+ka40/zOYcMuGeGBVowRFqlE3KJkEs+riV/iq9c1?=
- =?us-ascii?Q?KIGbYq0igc6MjpuR1xX1a1PtpqCJ35/igUOX2+gJeHdXrBV6tRpxhQHBNb4w?=
- =?us-ascii?Q?5wLjyZeeq522w7I0M4EKK7cOvEZg77PxWTFQNpBZRClF/Tc9TpKFyF6K/Qj2?=
- =?us-ascii?Q?WiZzvpH5Cs2rWXJxM3xe6uenXtsVtogCBoR2CxG710JVX6ux79aZqLu7s0ai?=
- =?us-ascii?Q?+skfQqhZHCA9wwiCZOrPLSdFW6ls2Pw44F9w2ZHSzE1WpZffBcYN4p18Rbuj?=
- =?us-ascii?Q?i9lNnvBSnSDl2Xwg7A95BVmhL8hwXaZPaTmJG02XkVHIOyJlfM0WG0+grkk4?=
- =?us-ascii?Q?omcQofqJARqAfllZwQtaKnDHWWgnxmUMjZrGIZOgnJy8aHV6WkDyHqxxPSnu?=
- =?us-ascii?Q?vd81ZvdrSkud5rrIsEkVsuCJW1glq6VpWA70GdUOEBUjUqj+Ul6WQxjUVBqf?=
- =?us-ascii?Q?o0yD+XGppP1VTAwypwFs1+UywbX5GHq7WF8RKlkPnh95d319LvvEZrcegzOi?=
- =?us-ascii?Q?r2LLfKoCOFSduozgAWO2VN9oyLSjrGsIDrpM41dKBUEtKg0f3vDO3bIQPKyO?=
- =?us-ascii?Q?HpC3uIfL3nWkmoqnrWWpxDHN8vkrRxX9qarQ0vNOmHst0sRUV3cfEhBXpx6g?=
- =?us-ascii?Q?99XBccUhp4SU72chjL7bYznpZgMX1GaCw9v21ufGkPrcyXSPLGrJ+IXZP+yM?=
- =?us-ascii?Q?jFMDKtj8QLHj6PDrlN/g9c6rtOq161e6bHCn0BZ65zcwBX5RHbrn4LwVkBjM?=
- =?us-ascii?Q?Z5GtCcbEBx8IMo4DEL5QSk3u3THc8Bxkznh3+KdHGdk20BS24cxP/ckNi1Tk?=
- =?us-ascii?Q?+1Ge4aL3xUszUgvl1h1sAmHnOChMUnB+3hWhqN5p9GeYAjzmrgvRUtYV94lr?=
- =?us-ascii?Q?3DaXsRE+QRVwBhA91OaTW/duplI27EjnMGv2/EmX1DbChnc7Db+bbF0OHsvb?=
- =?us-ascii?Q?1DFFYio/EJtbhUUR+9dQwKa0dBJlzgjIe8sYYokObDV/mNFRzEZv0enD/8yv?=
- =?us-ascii?Q?l/ZtAA0WSG8BVfzcD7KfdxKHpt1B1XpX2LX7t/zYKSIkYD/hSPzT5VIui9WO?=
- =?us-ascii?Q?07N9DAKHthQoXOMB22kG2AvE3L+yHLzIlm+F8o0NXA7s/dmACYLm/BobQ0OY?=
- =?us-ascii?Q?5YCVMg3XjDzVj3vWe9rZaJEoww7RNP1XwoKEceVromUVJoQVAgsv?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2130bfaa-6e46-4abe-c0dc-08deef9e5b3c
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 07:27:34.8576
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mrPmtsO+2mAS0jX6tkTPS7RZ6zN6y8+QnDLv9wRITvJFzae29BO0Hw1Zi7WjaT0DM5MV/Anmxx5+qVtZrvPfSloNH+npZML8n0PyNYAF5h2zqn3VTju7KlckgxORSM82
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1138
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAK/DbWoC/3XMwY7CIBDG8VcxnBcDA7TU077HxsMA05WsFYXdR
+ mP67qKJSWPXyyT/Sb7flRXKkQrbrK4s0xhLTIca5mPF/A4P38RjqM1AQCNaabjT/Af3OLjEfQ7
+ cNp0EFMq5AKyOjpn6eH6AX9vau1h+U748/FHev0/KvlKj5IKjFE3nDEJr2s9Uyvr0h3ufhmFdD
+ 7uLI8wUgIUCVVEQNIbgJfrujaLmSrtQVFXAgBU9eiJPbxQ9U5RYKLoqpI3trRNWSv2PMk3TDYD
+ vkHGFAQAA
+X-Change-ID: 20260715-b4-kalambo-crd-86912a03bbd2
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785578419; l=2608;
+ i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
+ h=from:subject:message-id; bh=XHpvZd6d5AyD8McowMcSqMy5z6h+JROiB5OxZUHHvsA=;
+ b=jnqFgS33PvR8x0J8tSJJqsw6n5ylJcEfF+KN5RntbdB2q9PUquKl2SSR4MPH/t/MhJd5DkVGy
+ fUaWGgopgRZAHU2W30zIx5ulrWc9+6DQHC4Ec0z1d+nj/Pqs5du5FnS
+X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
+ pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDA3NSBTYWx0ZWRfX7zgDfDuWconA
+ gjrlcC7EEpEKm9WDe+QrUrTptZDXe2mi5Hraz2Wt4i+HKFFmeCWcJGOBQR0dkgsQ58Mq1dIcunF
+ xvknbSpu9VSdgddQ/VlQquYNIFuCnH4=
+X-Proofpoint-GUID: 2KT_b9VUrPshEomgW_bKNU_08C6ezosx
+X-Authority-Analysis: v=2.4 cv=Gu5yPE1C c=1 sm=1 tr=0 ts=6a6dc3b6 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=lMHH7xqUNCQZAqxxBscA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: 2KT_b9VUrPshEomgW_bKNU_08C6ezosx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDA3NSBTYWx0ZWRfX6IBnShQbufY5
+ +dpSkPK7DMxy7n+nDIh6xljR9FOwL+sC1oGXt0SC50L8WQIPrGKeJcXsPWEgucQ3ekhHzWXsR7C
+ iZyUD3nUNTXHEh6aZAn34g7z7RPgOYjkUnWRtoB3KHq6HEnI133VB7L1+4mVyHeDRxZJlAl0Dav
+ tQzDoT2eIcssvl0aghEwHYkuggpO94hpFOAfwTmWPTHkohIom7TCXWo2E49LjbDdWGSFBL0E/CO
+ qt/af1U9oBaooH37CORQdlqK+B89R2s9htd6iQuJ9Ln/pUScfRVL6zbXLeXVMj9H9FQeWnstYUz
+ 2Oz+T6hbjUXhN8fokBGFquH3eTef1b/+lGUK9hfyHFiLD5zqF/FRBC3BoAV8CiSHjf0jKERqrCE
+ zqq5PHU9cFtd+aFcA8LL1TYhPzTYz7DUr1d4R/FcpapkxylmXcEuzrac6TtBD5Jfcd9CH6rMb3D
+ 7yRBD1JYm3LFwxC636g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_07,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010075
 
-Add pinctrl bindings for StarFive JHB100 SoC Peripheral-0(per0) pinctrl
-controller.
+Qualcomm Kalambo SoC is derived from Mahua SoC with CPU cluster 0
+removed,leaving only cluster 1 present.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+This series documents the board compatibles and adds the SoC and
+Compute Reference Device (CRD) device trees. It also adds the Kalambo
+compatible to the UBWC configuration table and allowlists the Kalambo
+CRD for QSEECOM to enable access to efivars.
+
 ---
- .../pinctrl/starfive,jhb100-per0-pinctrl.yaml | 180 ++++++++++++++++++
- .../pinctrl/starfive,jhb100-pinctrl.h         |  62 ++++++
- 2 files changed, 242 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
+Changes in v5:
+- Split PDC ranges at 130, 147 and 171 to skip pins 134, 138, 156, 158,
+  172, 181 and 202, which carry gp_irq_hvm inputs with nothing wired to
+  them on Kalambo. Reported by Konrad.
+- Reword the commit message to describe the PDC difference.
+- Picked up R-b tags.
+- Link to v4: https://patch.msgid.link/20260730-b4-kalambo-crd-v4-0-e458f8b08114@oss.qualcomm.com
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
-new file mode 100644
-index 000000000000..ab8c070b59d1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
-@@ -0,0 +1,180 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/starfive,jhb100-per0-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: StarFive JHB100 Peripheral-0 Pin Controller
-+
-+description: |
-+  Pinctrl bindings for JHB100 RISC-V SoC from StarFive Technology Ltd.
-+
-+  The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
-+  per2, per2pok, per3, adc0, adc1, emmc, and vga.
-+  This document provides an overview of the "per0" pinctrl domain.
-+
-+  The "per0" domain has a pin controller which provides
-+  - function selection for GPIO pads.
-+  - GPIO pad configuration.
-+  - GPIO interrupt handling.
-+
-+  In the Peripheral-0  Pin Controller, there are 60 multi-function GPIO_PADs.
-+  Each of them can be multiplexed to several hardware blocks through function
-+  selection. Each iopad has a maximum of up to 3 functions - 0, 1, and 2.
-+  Function 0 is the default function which is generally the GPIO function.
-+  Function 1 and 2 are the alternate function or signal of an iopad.  The
-+  function 1 and function 2 are other optional functions or peripheral
-+  signals that can be routed to an iopad. The function selection can be carried
-+  out by writing the function number to the iopad function select register.
-+
-+  Each iopad is configurable with parameters such as input-enable, internal
-+  pull-up/pull-down bias, drive strength, schmitt trigger, slew rate, input
-+  debounce nanoseconds, power source and drive type (open-drain or push-pull).
-+
-+maintainers:
-+  - Changhuang Liang <changhuang.liang@starfivetech.com>
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: starfive,jhb100-per0-pinctrl
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 3
-+
-+  gpio-controller: true
-+
-+  '#gpio-cells':
-+    const: 3
-+
-+  gpio-ranges: true
-+
-+  gpio-line-names: true
-+
-+patternProperties:
-+  '-grp$':
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      '-pins$':
-+        type: object
-+        description: |
-+          A pinctrl node should contain at least one subnode representing the
-+          pinctrl groups available in the domain. Each subnode will list the
-+          pins it needs, and how they should be configured, with regard to
-+          function selection, bias, input enable/disable, input schmitt
-+          trigger enable/disable, slew-rate, input debounce nanoseconds,
-+          drive-open-drain, drive-push-pull, power-source and drive-strength.
-+        allOf:
-+          - $ref: /schemas/pinctrl/pincfg-node.yaml
-+          - $ref: /schemas/pinctrl/pinmux-node.yaml
-+        additionalProperties: false
-+
-+        properties:
-+          pins:
-+            description:
-+              The list of IOs that properties in the pincfg node apply to.
-+
-+          function:
-+            description:
-+              A string containing the name of the function to mux for these
-+              pins.
-+            enum: [ gmac_mdio, gpio, i2c, i3c, smbalert, wdt ]
-+
-+          bias-disable: true
-+
-+          bias-pull-down:
-+            type: boolean
-+
-+          bias-pull-up:
-+            oneOf:
-+              - type: boolean
-+              - enum: [ 600, 900, 1200, 2000 ]
-+                description: Pull up RSEL type resistance values (in ohms)
-+            description:
-+              For normal pull up type there is no need to specify a resistance
-+              value, hence this can be specified as a boolean property.
-+              For RSEL pull up type a resistance value (in ohms) can be added.
-+
-+          drive-open-drain: true
-+
-+          drive-push-pull: true
-+
-+          drive-strength:
-+            enum: [ 2, 4, 8, 12 ]
-+
-+          drive-strength-microamp:
-+            enum: [ 2000, 4000, 8000, 12000 ]
-+
-+          input-debounce-ns:
-+            minimum: 0
-+            maximum: 10485680
-+            description:
-+              Debounce time in nanoseconds. The hardware counts in 80 ns
-+              stages with a 17-bit counter, so the maximum is 10485680 ns.
-+
-+          input-disable: true
-+
-+          input-enable: true
-+
-+          input-schmitt-enable: true
-+
-+          input-schmitt-disable: true
-+
-+          power-source:
-+            enum: [ 1800, 3300 ]
-+            description: I/O voltage in millivolt.
-+
-+          slew-rate:
-+            enum: [ 0, 1 ]
-+            default: 0
-+            description: |
-+                0: slow (half frequency)
-+                1: fast
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - interrupts
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+  - gpio-controller
-+  - '#gpio-cells'
-+  - gpio-ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        pinctrl_per0: pinctrl@11a0a000 {
-+            compatible = "starfive,jhb100-per0-pinctrl";
-+            reg = <0x0 0x11a0a000 0x0 0x1000>;
-+            resets = <&per0crg 0>;
-+            interrupts = <60>;
-+            interrupt-controller;
-+            #interrupt-cells = <3>;
-+            gpio-controller;
-+            #gpio-cells = <3>;
-+            gpio-ranges = <&pinctrl_per0 0 0 0 32>,
-+                          <&pinctrl_per0 1 0 32 28>;
-+        };
-+    };
-diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-index e701c30913ce..e0ad453d6884 100644
---- a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-+++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-@@ -77,4 +77,66 @@
- #define PADNUM_SYS2_GPIO_A59				35
- #define PADNUM_SYS2_GPIO_A60				36
- 
-+/* per0 pad numbers */
-+#define PADNUM_PER0_GPIO_B0				0
-+#define PADNUM_PER0_GPIO_B1				1
-+#define PADNUM_PER0_GPIO_B2				2
-+#define PADNUM_PER0_GPIO_B3				3
-+#define PADNUM_PER0_GPIO_B4				4
-+#define PADNUM_PER0_GPIO_B5				5
-+#define PADNUM_PER0_GPIO_B6				6
-+#define PADNUM_PER0_GPIO_B7				7
-+#define PADNUM_PER0_GPIO_B8				8
-+#define PADNUM_PER0_GPIO_B9				9
-+#define PADNUM_PER0_GPIO_B10				10
-+#define PADNUM_PER0_GPIO_B11				11
-+#define PADNUM_PER0_GPIO_B12				12
-+#define PADNUM_PER0_GPIO_B13				13
-+#define PADNUM_PER0_GPIO_B14				14
-+#define PADNUM_PER0_GPIO_B15				15
-+#define PADNUM_PER0_GPIO_B16				16
-+#define PADNUM_PER0_GPIO_B17				17
-+#define PADNUM_PER0_GPIO_B18				18
-+#define PADNUM_PER0_GPIO_B19				19
-+#define PADNUM_PER0_GPIO_B20				20
-+#define PADNUM_PER0_GPIO_B21				21
-+#define PADNUM_PER0_GPIO_B22				22
-+#define PADNUM_PER0_GPIO_B23				23
-+#define PADNUM_PER0_GPIO_B24				24
-+#define PADNUM_PER0_GPIO_B25				25
-+#define PADNUM_PER0_GPIO_B26				26
-+#define PADNUM_PER0_GPIO_B27				27
-+#define PADNUM_PER0_GPIO_B28				28
-+#define PADNUM_PER0_GPIO_B29				29
-+#define PADNUM_PER0_GPIO_B30				30
-+#define PADNUM_PER0_GPIO_B31				31
-+#define PADNUM_PER0_GPIO_B32				32
-+#define PADNUM_PER0_GPIO_B33				33
-+#define PADNUM_PER0_GPIO_B34				34
-+#define PADNUM_PER0_GPIO_B35				35
-+#define PADNUM_PER0_GPIO_B36				36
-+#define PADNUM_PER0_GPIO_B37				37
-+#define PADNUM_PER0_GPIO_B38				38
-+#define PADNUM_PER0_GPIO_B39				39
-+#define PADNUM_PER0_GPIO_B40				40
-+#define PADNUM_PER0_GPIO_B41				41
-+#define PADNUM_PER0_GPIO_B42				42
-+#define PADNUM_PER0_GPIO_B43				43
-+#define PADNUM_PER0_GPIO_B44				44
-+#define PADNUM_PER0_GPIO_B45				45
-+#define PADNUM_PER0_GPIO_B46				46
-+#define PADNUM_PER0_GPIO_B47				47
-+#define PADNUM_PER0_GPIO_B48				48
-+#define PADNUM_PER0_GPIO_B49				49
-+#define PADNUM_PER0_GPIO_B50				50
-+#define PADNUM_PER0_GPIO_B51				51
-+#define PADNUM_PER0_GPIO_B52				52
-+#define PADNUM_PER0_GPIO_B53				53
-+#define PADNUM_PER0_GPIO_B54				54
-+#define PADNUM_PER0_GPIO_B55				55
-+#define PADNUM_PER0_GPIO_B56				56
-+#define PADNUM_PER0_GPIO_B57				57
-+#define PADNUM_PER0_GPIO_B58				58
-+#define PADNUM_PER0_GPIO_B59				59
-+
- #endif
--- 
-2.25.1
+Changes in v4:
+- Split PDC range <108 619 22> into <108 619 1> and <111 622 19> to skip
+  unconnected pins 109 and 110 on Kalambo. All other PDC ranges match Glymur.
+- Rebased on next-20260729.
+- Link to v3: https://patch.msgid.link/20260727-b4-kalambo-crd-v3-0-25280faceece@oss.qualcomm.com
+
+Changes in v3:
+- Delete and redefine the whole cpu-map via the /cpus label.
+- pdp0_mbox: one reg entry per line and use '0x0' instead of '0'.
+- Rebased on next-20260726.
+- Picked up R-b tags.
+- Link to v2: https://patch.msgid.link/20260722-b4-kalambo-crd-v2-0-32d4addc1ac9@oss.qualcomm.com
+
+Changes in v2:
+- Fix the cpu-map and SCMI perf domain for the single cluster.
+- Give the SCP shared-memory window its own IMEM section.
+- Rebased on next-20260721.
+- Picked up R-b tags.
+- Link to v1: https://patch.msgid.link/20260718-b4-kalambo-crd-v1-0-a1069b5a2757@oss.qualcomm.com
+
+---
+Gopikrishna Garmidi (5):
+      dt-bindings: arm: qcom: Document Kalambo SoC and board
+      arm64: dts: qcom: Add Kalambo SoC
+      arm64: dts: qcom: Add Kalambo CRD
+      firmware: qcom: scm: Allow QSEECOM on Kalambo CRD
+      soc: qcom: ubwc: Add Kalambo UBWC config
+
+ Documentation/devicetree/bindings/arm/qcom.yaml |   5 +
+ arch/arm64/boot/dts/qcom/Makefile               |   1 +
+ arch/arm64/boot/dts/qcom/glymur.dtsi            |   4 +-
+ arch/arm64/boot/dts/qcom/kalambo-crd.dts        |  21 +++++
+ arch/arm64/boot/dts/qcom/kalambo.dtsi           | 119 ++++++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c                |   1 +
+ drivers/soc/qcom/ubwc_config.c                  |   1 +
+ 7 files changed, 150 insertions(+), 2 deletions(-)
+---
+base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
+change-id: 20260715-b4-kalambo-crd-86912a03bbd2
+
+Best regards,
+--  
+Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
