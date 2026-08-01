@@ -1,144 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFDF35FF5B;
-	Sat,  1 Aug 2026 16:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A663A254AFF;
+	Sat,  1 Aug 2026 16:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785601861; cv=none; b=XXWBv6clVzul7AZ+90BMHPos118wscx20F3OMh/MxIlDJcU6U33EtXBNt8pL5023zlZNgQrFsH3rJV6MxIXoALl7oDXGIHAveElQ1ICy9vIVQWX3a+oASzzkGEzgXF/FncRvM5TjlRls2bXHX1jI6neSgjAAxZ2/9fVAGqwJtkg=
+	t=1785601902; cv=none; b=M2xdqCknP/F7OW0zM9flKDEZ6oCl8uQo0ol0uNfWPG+96VcV24aOsQko50ccbSpc0M0fPf5N6UcnBtFSJRVECSGCCfsWvmLVd37BuLR3Op8qw8r0tBvuKcpd9J8h3bMT8tNFXz3fAhTJBPdTKq9tAVPksUCqaNT/KSnc5lSgbp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785601861; c=relaxed/simple;
-	bh=MC9tQf9XR+TO5bwzTI8TGuK0J42UYLTuShmksDcL8p8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=vAKc/uZ7CUDa7rVuhrbmVKkdcWo4d907bEN7SCgoL2Rz+lTbt7wQ33sTeKK0uz/oZcN/IRbZ+fHEw5ujIlQ8qlSuVoJbISZL/4WvmW+ncFreD092IGEYHUfyy2L4e4tV+L0fsleLayMce+qa4suwGS9rFziIJGBOFTJPdNIHgZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/faIYqo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785601902; c=relaxed/simple;
+	bh=EfI+4CNn1IzNdVFSyFoDKS+KPU7V09xdwBkC6lGm4nw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ScBCEUtGRDL3WIp0rXr6qzQHUBN48C9BftvU6JMMSK0gwcKUSBy7nj9ylAD3SxgbtDvtaWhZgejkvAmNFTPdRJCkOetHLYD2ynLn8Tr58vcU2qK9rPgU7lvpe9N9GOlitX/FW38gDbi3OOU1PVYQ/O/NjynQHKRRJi1qyMQWPds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=RmkXFT2X; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AM+GAMAm; arc=none smtp.client-ip=202.12.124.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/faIYqo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639F21F00AC4;
-	Sat,  1 Aug 2026 16:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785601860;
-	bh=x9gB/O7nUQHqaCVj3NjA3ZdBPo9Tc+fJ7fnhCmLs5YQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M/faIYqoLSkz5UuMwMKpI+93ZfwesEDwGqLWGUeqFLjoCJxhvdsjHWU36BRLsXvXD
-	 YWyLv3XPSiALZSxNaMCXx9NrVmbWmQrrY1Izs2Hou46SK467mt7PP/T7GsmtyVrz/u
-	 C/M4DGBwkadbVdZ84JErlZT+hmBTSqLYWQJ/bneSVlTzQXnrcT1FX3d1lXSQvfjDUq
-	 3tTe/6NSgFJXH9+SBfUiI1BBSK+nnv2C2CBhUYC2dSdXMGu/9OjZq2Zk4D0M6Yyohu
-	 x6wH/JZbGuozlHkGbhxqFAL4dR6S+OoNrBCBHCaGCJV2DK0aUlhUwlDBUPkmwJes/t
-	 5knlUbH1ZsrjQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC/RFT 2/2] net: stmmac: Add support for Allwinner A733
- GMAC210
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260731-allwinner-a733-gmac-support-v1-2-d0a8732bfa82@baylibre.com>
-References: <20260731-allwinner-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com>
- <20260731-allwinner-a733-gmac-support-v1-2-d0a8732bfa82@baylibre.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 16:30:59 +0000
-Message-Id: <20260801163100.639F21F00AC4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="RmkXFT2X";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AM+GAMAm"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailflow.stl.internal (Postfix) with ESMTP id 2F5F113001C3;
+	Sat,  1 Aug 2026 12:31:38 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Sat, 01 Aug 2026 12:31:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1785601898;
+	 x=1785609098; bh=+GWeLMj6JRkBwIB5dZ2ML5Xr2ewkb9W4drJzAxuBpRM=; b=
+	RmkXFT2XRwFzTnZ4RUuvPxrVeMfPjFOnKrwCQsS1XptZmkGjnm0XK8zPm95SZptR
+	vblyF6P+DynXIEReP4UCqbvO3IMnP26E8gPFZVvIKxFxpj/WP+jbSL0xKwAplAJE
+	gEnbKFuaiMyMaFH5mrB8PQ+DMYdaPHXJ97/jG9UBaGIj3TQ7X1dTNdx1rF4YdDSc
+	iMHjeqzRagEJLUxPukNwHDgpBumKK9kM6tgK5VD2UiZaQwlECGu1yKPHEkzUz/AK
+	WkXrhcCp+jhjHp8Ngn+QB0Pt9guioRZlwl/hktcFcX6LZeI/fYbv/NpTjqirwpZn
+	VVHNMIE0xu4DhjWBh1KyIw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785601898; x=
+	1785609098; bh=+GWeLMj6JRkBwIB5dZ2ML5Xr2ewkb9W4drJzAxuBpRM=; b=A
+	M+GAMAm3QbbKNrAARFlEsFWy2tEQk0jncgzM/KHX319JOGnX3qe1BISPYpFfR9vm
+	+Mw8Yrb5xv6kiMCyD9tEu8u1sJgT/x9+BwsfZ0I/5bT+yZXvmV7fD1LMhb+LmGvV
+	8/4QEFQ2T1n45F2uJKEEeqD7FBWoiHWHR9Qu4WAZlxzzH52Npi94GZFVuq5dqBgs
+	r16p0vkhDOqgX6wB8Ijy/G0nlIeqX5WG3Wlr3z9CEWwxsTI044OAmxg+Lr6NWXvK
+	KUOKRdx6W+pcgXx5fMrK/FmdWe5guJFfuqbQPAsBnUKOzvrVxPucnnUVUjqaYPn1
+	Je6eQuIup7l1UHNYKtBbA==
+X-ME-Sender: <xms:aB9uauKFiZJTjA93RGjFnHFdEvt-HMy0HsgX3-hOAJlqrp1C3ZizVQ>
+    <xme:aB9uaqFUWSmz2qOoolnQJtK4wKgpBNA245buXNm6-MRNEo9R6Ua67PC9nQciMCnBx
+    wnk7tfBCvCeNvKWhGXcU30p2SuE3RCAmug5Hgz0g3Zhrot4cMOPIg>
+X-ME-Received: <xmr:aB9uanPuOshfY6CtKMSGadEowsBukwEQX-vYlocgi_Cuevm95ob8-EiONsw-uPGosUE0_r9cndeMRUDj2Ba5V_0>
+X-ME-Proxy-Cause: dmFkZTGysGsnMEekMD+PYaXQlblXcVTecPczGN+gVmqOxy4sIfPSEgEdEy9IGkXqGXAYan
+    DgHFBKPnw/bMa6UCHHMC0exlwD99XK3fcXTSJ0QkvFhwAe2MTshN1slIIxFE3BXZADEpdL
+    tUUbdbZ08888lAfzeLa8pD6z4j7mB1zFV/lVyxXX1BWN5uUA++eU/U1yOSrRvDozJBELil
+    8rJAGQd3FpKYZxHzerbf/GRb7jk5KXrrlWQSt0HC55zxuWRowmB5ffELTLLDzjdJzr54fX
+    bVWNOtgpIcH43ZWWHr4BoZH4xazltQq9pdjH9ZmzK0fC7Hj6xiEL60USKu+J8gJURge/pZ
+    gNQpgM+Fy6NfM+eMiFCVI0shBHyPX3L7aWUnI3ddWuPO/7fY1U7bleIEI2rKSRTh3ddxqV
+    y0PFC1MHUOu1nFyHSfUpyW+CPxPjQHUWXAPWjbm4posuz0kZ2WVdesFbz8wX7xOhdtoeQ4
+    NIB/ZyX+wPhghTBupZRz2Fao6YdT5OVKu5w6QFEVPgjZUTS5H4Eqkn/A6SMTGffrhS9ge4
+    OlLF8+/f+sQTWF9iebWeJwJoCqNe07ytko3fiWkDeSitzobrn/lY5IP6VGsTQmOR+EUlQ/
+    UzXA2VVLIxEnMTc5gz5NwCEakiJBTEWt62brpYUVuKzUapbciJ7ee4sqm68A
+X-ME-Proxy: <xmx:aB9uas_pMjHsEPoSSOLYfSz1vKmRwTmnO44j2Uj-tvYYFw4JuvSiWw>
+    <xmx:aB9uas7ZWYyx1bGFlgWkMgfFvbwNqE7huNTq2hV0KbcluNmuVZat8A>
+    <xmx:aB9uapXiIem4YDb63Xz4m0RJHUCh1r5m3J01ugYIx9C4daDSwLyfTA>
+    <xmx:aB9uaqJ9TByhcsx4YSr4sAoMga6UtLV_5ds_HktryZHRG1gXKovEJQ>
+    <xmx:ah9uapeWm7c0PJ_UJy7PEj8GZJ4vsUgV29GuwE-0KO-FsDt7a1mwCaDy>
+Feedback-ID: i60a14417:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 1 Aug 2026 12:31:33 -0400 (EDT)
+Message-ID: <74625f78-15ea-439f-b9f0-939d2976fa7f@jaseg.de>
+Date: Sat, 1 Aug 2026 18:31:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] CRASH_ZEROIZE: Wipe secrets before kdump
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
+ <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Coiby Xu <coxu@redhat.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ keyrings@vger.kernel.org, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org
+References: <20260731154608.153258-1-linux@jaseg.de>
+ <am38qk60mpVFuJRi@MiWiFi-R3L-srv>
+Content-Language: en-US
+From: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
+In-Reply-To: <am38qk60mpVFuJRi@MiWiFi-R3L-srv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing AHB reset deassertion before MMIO access causes bus hang.
-- [High] Missing suspend/resume callback permanently breaks network after s=
-leep.
---
+Hi there,
 
---- Patch [2]: [PATCH RFC/RFT 2/2] net: stmmac: Add support for Allwinner A=
-733 GMAC210 ---
-commit 00717a07b743c8a2cc8bc07f479795f3772f17e1
-Author: Jerome Brunet <jbrunet@baylibre.com>
+On 8/1/26 16:03, Baoquan He wrote:
+> On 07/31/26 at 05:46pm, Jan Sebastian Götte wrote:
+>> Add CONFIG_CRASH_ZEROIZE (default off), which when enabled makes various
+>> subsystems handling secret data do a quick, targeted wipe of these
+>> secrets before kdump. This behavior might also be interesting in cases
+>> where you run a normal kdump kernel but you still want to keep things
+>> like fde crypto keys out of these dumps.
+> 
+> Please check below patchset, you both seem to have the similar
+> requirement. Please go there to discuss.
+> 
+> [RFC PATCH 0/4] panic: a pre kdump notifier list for hypervisor upcalls
 
-net: stmmac: Add support for Allwinner A733 GMAC210
+Thank you for the pointer. That's indeed similar, but I think this 
+patchset here makes sense as an independent patchset.
 
-This commit adds support for the Allwinner A733 GMAC210 controller. It
-handles a dedicated MMIO region for glue configuration, specific TX clock
-delay fields, and per-DMA-channel interrupts.
+* The two notifier chains run at different points, and theirs runs 
+inside panic independent of kdump. This one here has to be run after 
+machine_crash_shutdown(), and so makes most sense inside 
+__crash_kexec(). The wipe code in this patchset must be one of the last 
+things to run before the kexec since the wiped data structures could 
+easily lead to problems if something tried using them later.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c b/drivers=
-/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-> index 862df173d963f..3d434a52fb02d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
+* I think this patch series here is a bit cleaner. I don't think this 
+needs a custom notifier implementation.
 
-[ ... ]
+* Since there's lots of places that may need wiping after crash, I think 
+it makes sense to have an explicit notifier list for that purpose, and 
+to not mix these with other things like hypercalls. I think ordering is 
+important here: The wiping should be the last thing before the kexec 
+jump. Having it on a generic notifier chain risks that later, other 
+callbacks get added that when interleaved could cause problems.
 
-> +static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *=
-pdev,
-> +						struct plat_stmmacenet_data *plat)
-> +{
+* Since a good fraction of users may not care about wiping secrets, I 
+think it should be gated behind an explicit enable setting.
 
-[ ... ]
+> Note that we usually dont' want to run a lot of work after panic and
+> before jumping into kdump kernel.
 
-> +	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
-> +		dev_err(dev, "missing required reset controls\n");
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	/*
-> +	 * The configuration registers are inside the controller
-> +	 * reset domain, so the reset must happen before any write to them
-> +	 * and should not be done again by stmmac or the configuration will
-> +	 * be lost.
-> +	 */
-> +	ret =3D reset_control_assert(plat->stmmac_rst);
-> +	if (!ret)
-> +		ret =3D reset_control_deassert(plat->stmmac_rst);
+I understand. For this reason, I think it's best to keep this 
+default-off. As-is, the notifier list call is timed and on the (slow) 
+ARM64 target I'm using, it takes about 3-5 ms to run. I took the "try 
+lock, skip if locked" approach to keep the risk of this code crashing 
+during panic minimal. In my application, the kdump payload is code that 
+then does a full wipe, taking a couple hundred milliseconds.
 
-[Severity: High]
-Will this cause a bus hang when writing to the MMIO registers?
-
-The code checks that plat->stmmac_ahb_rst is present earlier in this
-function, but only toggles the main mac reset here.=20
-
-When sun55i_gmac200_setup() later calls regmap_write(), accessing an IP
-block over the AHB bus while its AHB interface is still held in reset
-typically causes a synchronous external abort or bus hang.
-
-> +
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "device reset failed\n");
-
-[ ... ]
-
->  static int sun55i_gmac200_setup(struct platform_device *pdev,
->  				struct plat_stmmacenet_data *plat,
->  				const struct sun55i_gmac_data *data)
->  {
-
-[ ... ]
-
-> -	ret =3D regmap_write(regmap, SYSCON_REG, reg);
-> +	ret =3D regmap_write(regmap, data->offset, reg);
->  	if (ret < 0)
->  		return dev_err_probe(dev, ret, "Failed to write to syscon\n");
-> =20
-> +	plat->flags |=3D data->flags;
-> +	plat->host_dma_width =3D 32;
-> +
->  	return 0;
->  }
-
-[Severity: High]
-Are these custom hardware settings lost after a system suspend?
-
-The driver configures critical hardware properties like TX/RX delays and
-PHY interface modes in the MAC's internal glue configuration registers
-here, but does not appear to assign a plat->resume callback to the
-plat_stmmacenet_data structure.
-
-If the MAC loses power during suspend, won't these registers revert to
-their default states on resume, leaving the network broken because the
-generic stmmac_resume() has no way to invoke this glue logic?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-allwinner-=
-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com?part=3D2
+Let me know what you think.
