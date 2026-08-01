@@ -1,102 +1,108 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4955323BD1B
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 19:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068D43C9438
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 19:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785614127; cv=none; b=e0DRtmOGtXZRPbev+NoBYVANJb2E3YrrxQUVWW7xxBXI/Bvgx/yiQapqF2kHKIC8yH2gSiIeOXf1Jdd3PnOO1qyI4YR0vHghbEjsPkgKX2W1IobS4VqDG0PsOKenFG68MBpUGXlX7RT9v3d7oIpPypTBmsztDZCYjZXUP/I8OX8=
+	t=1785614139; cv=none; b=qi2Oa2/24FHJ31UgwzHfFLhxGBKqk3CcDZxzSMlZi9Cbw3jj0uVpKEKraStMTtsKjgGcw/i1Ci0vuvZ43Jc4l12uY+Uqf59uFYvdzltdq90e/DIZ8dBkMXtHmZxgZ/viUzfYZNEvDbKEw/2kirWjDrpNQSpLK8pvwd2UB5lwVyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785614127; c=relaxed/simple;
-	bh=mZHWAuSeKaFREk3s3TsCeBqYcHg010+ZFZVBB6WI64A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tRte0952/m7EfbSfItkeE+3OL84lTmldJQeglGQLdl7dec+yh7Mv3MrGJmxvUY8eWpgrkuJKbC4wQoN3HBpN35FpGw4Zmzy7LrjiHixzQfxlvAF6vHWaJrJkQAgp9XEjjEN7+HWjJNPnwbmN8PO+sWjZvwJN8db2zBRfMspy7Co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fS8+P9BR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FEVv4evp; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1785614139; c=relaxed/simple;
+	bh=f1LZFXoTJBl1/AFu1OKBHhr7hP5lW3sbCItIQAZhxeA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZboO+QornGvNENGoh8oADWkwf4OqiD43flA9y+bKFofjgBz98XZ/qwHJqUjvQ40Vk8xOhrrqgWKZBiH66IGhNkSia75pk3t0hgTu40hhcQHbRFdibMf68njySx1Otff9xGwewgvpIwZTCxrPvBzzVGnm8M0vqP6RmArBCNDekmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oUFjra4m; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RKR14Jtm; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fS8+P9BR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FEVv4evp"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671IxdYS041496
-	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 19:55:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oUFjra4m";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RKR14Jtm"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671J0FDv3564158
+	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 19:55:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=hi7qwC9Ys33lceH7czkrRMTjgxXHEZVRfXr
-	RqrzJ6fM=; b=fS8+P9BRkVoF4CeszARZydRmMHsGFpCDRysHyyvhuEqtNEaNgKk
-	Pk4MIK75koHduD6b0/9SWn5zXBY6rMEBE2tlh2+M9hCmMgY/jpFO9BXke0wpWMAz
-	D4mpk5LXuKNd1lk3BAClAjBTOFYYhZgmsLfAV6kcbCrXGAzzx/I/aezFi2t/xtSI
-	1T330uvbYvyL5N0sEgXjIuMCy/W7AA1SuSEuliO6uJ1IxCciX+RG/G+mlxTBD5dk
-	rOVzkJ6KKhZMYQlfZfeafTRA1btS1RJ0jbyTNqx9bXollh9GaNeq4ctHxSVfJjgw
-	d95zyvN6ynxZtx0pMFP5c/K9r+7lqH7tGzg==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8qpsjgx-1
+	:subject:to; s=qcppdkim1; bh=TiW8vgqtZHJtHheUC/tBnlPWJcBmJvF9od0
+	ImJYSDcg=; b=oUFjra4m/6j+FmlMLlb109kEWh/+P7bND1VOrWsvpRbmInK76fP
+	x30+1KZkIBFTVb0hyTxKPAX3SlCYJHXWDjfiF5g8mqmgogJRDMBq34BhDhU0WVoJ
+	YTNP7lsikoDc8yCcY/J/l51EncTUKxERdQ6I1znQ0IXd1rHryrzZLQA4YV68LNHF
+	fVfopdZjEglNBFJinXGuNnfZQ8KIjwNhymDLrNoZx47nzyZXHOUvU16Ck8NTv94s
+	IQ5VnMIpdtJK+ij/XLrJ4iu+FeMgPKRXRL4dl/r29oDFcS0Yn5BR95uoWPdFHoPM
+	cu0CHG9+kYjcPH44x0OdjfYWOELO1I4ItFA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs9669hmu-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 19:55:25 +0000 (GMT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8eac2620cb0so21231996d6.3
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 12:55:25 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 19:55:35 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1eb52e1fso36829091cf.0
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 12:55:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785614124; x=1786218924; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785614135; x=1786218935; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hi7qwC9Ys33lceH7czkrRMTjgxXHEZVRfXrRqrzJ6fM=;
-        b=FEVv4evp7K3vsXANZvgG2IPI9lwducrHqOcWBt6ADsKH/wdT1ypsmdNig8W9MnQcws
-         pObYQtHUxdSoutzbfihhlc2VGe5QqRTTKmLFJ6vEauuduk/XkVrgdzc/YZJhrooQ+GRJ
-         Ej6yl0rVp+o0V7SSkZj+yvKntk6eeaZ+CiQO9UnZq7k2hB9r/9jIL1ffJbeXx5YwBQvp
-         akEe8zmEQRxVhYM0WGzTrH8xfjQEX8U1burOtFlzTuUxrZxG5Y9/najMRX7B3HoXzNM5
-         6ju2kzZmnAxtmSMgfvhOVWocWk4sdGpWR3dDx4Peh2xPzqqzXbbXp28nx8At+K82eqWo
-         bbHw==
+        bh=TiW8vgqtZHJtHheUC/tBnlPWJcBmJvF9od0ImJYSDcg=;
+        b=RKR14JtmkGG2OpvGtM0o2SrFUvNedWGiGTPOVq/pGkVLtf0aUzEKd+pAg6KPu2ajJ4
+         N8lQDc8Q1hXMhbk8AijxXUKlPru67Vm2pGJBtkqiY3KF40jfsPFqKAk+qiPjTOG2KZmo
+         ZRg1zWjk7feNDhClu0Kp29/iaz7RWau7OEo+O9QTLvWODGbexJ+ytG479qu5RZiCIY0i
+         RaXRZirELgtRXzV44Q304jhX79RKd4gY1sc/PpipEFvIGc2Nl2FWKBLOCru4RFQxoF0x
+         /VRr4sIKN4X3pqMRkLm41yPDmgL8RmUS/2qZQc304k32+T2CYFYK6IrBn70epN3C9UIy
+         7UcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785614124; x=1786218924;
+        d=1e100.net; s=20251104; t=1785614135; x=1786218935;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hi7qwC9Ys33lceH7czkrRMTjgxXHEZVRfXrRqrzJ6fM=;
-        b=oj2lbMJlDJ77TX+ljCpQczJX8Tk7Feb6oA5LkhxyndCLH1dxyUtNaDOC1p61SaY7hN
-         u0r/0+ZGDGnuj4BQ29E2oAPtY/a2Th9xsJ128hwKF/jhfRCN1WU/FDQFnRFo7hKIU3pu
-         YmKpHzGjYXRQU99Khl/bjBOb4VMj96quupm7fCAiaXVURCAoFFP95qOJVJxPFDyTnHMC
-         kNxlOCHxPFphGpxMvdo5495CFFazRN3G+lqycdZQHq3V2IzTHdPckDwWBFZPJvjjSmQC
-         pT21+YjhM7yRTArxbV0NEiuHXM7uVOQmgfOIMNOfXz3jkppXM5GX2wfsDBJMPvbR1eVL
-         5i3w==
-X-Forwarded-Encrypted: i=1; AHgh+RrANqo4QxRC0gtNXkT9m4pbJXhTYgZjJMGNmkUvGg9shAa7HJKTfgtlPRo+ckctQMtMlrIkBea8MicT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz+0SQdXpXFdkGyn1tpC2ZL+sHnKdTY3crrc15r7mY4SAILiiQR
-	QfLZWN3X3dcYo4QcuDV+SBpmQZCIfIBgLzC2Nr9idDYw0bM4Z8bvQtuUeaE0AEiXWwxvbzDLLx8
-	1HNmKK11qrm8BV/g/tZSDkW6mQjzY+5U6vdY3xrxN/DPHcNAPon0pNlAf5CxB9pru
-X-Gm-Gg: AR+sD10vlu7JcybSADPJdRK1/ycI917SbKOD43HMP2kEWpa6Fa4TxWiSY0ECCtc5tKF
-	8n6aT77RtsXLfEPBpn/LFj4iPoBB+ijQZWCduJvTn04ToQUw51FWvNpU3Q8Sw4Cj63d4Gb+8nbM
-	upvhDJN+QU2NuoAo10lQrDmgLJAKKRyzF+J2CGUUYHjGE1hfsfwTPSvdAJ3f+1AkdAcnKQIWolh
-	yu1cMVQVvLpBPjS2ilU8FprsHvaN2dEbnMfpfqfzhD3P6SjG7sGYBClrZmx1+1J2e4f3rcz+Lw3
-	2RhTDs5rKBjvmNJtEnDuHJ098mVKaUuATuCI5/Psnn6UtS/p4y54xYOOnTQnCEnX49PUowQgKkk
-	A2VzLdkKj5XXcgjOC
-X-Received: by 2002:a05:622a:4d0f:b0:51a:ee21:d342 with SMTP id d75a77b69052e-52b567522acmr111615691cf.20.1785614124574;
-        Sat, 01 Aug 2026 12:55:24 -0700 (PDT)
-X-Received: by 2002:a05:622a:4d0f:b0:51a:ee21:d342 with SMTP id d75a77b69052e-52b567522acmr111615461cf.20.1785614124198;
-        Sat, 01 Aug 2026 12:55:24 -0700 (PDT)
+        bh=TiW8vgqtZHJtHheUC/tBnlPWJcBmJvF9od0ImJYSDcg=;
+        b=mhP52bSIC4e+7mwheDv+1dfGrGDa4XoXk7yRRQjyu+Bv1DKYxS+tte9EosJNr9qEbx
+         KQqYS6yvxQ4oXhcNahRHlfv4hNTL1ekbsuxDgr628SvFcEToUS6c+TBVx4BslKiRv5FF
+         g7EB9CIRqOMw+hh4AsuOwmam4ny7Gxt2iqaM05kfbdeZQRvYVvzNNCGSdaMw3KVdc7s2
+         IdqaBHCQemhfdaLZNKw87BcV8yWFhnWnNqCMJilM+q0Y8MeXy97AEE71OVBMUOo2Ecst
+         +z4GJJhJg/Lirl4AkwIqzdliu+6dr96GaE2mwEq3RRBOK56xiJFXk2/8QNN4UXaqpGPb
+         /DrQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rohr4cotfpOLm8cyKEbwNW1KEjd2ClAS+HNbBqGQaokpXvtJwGxbd30d8ywIgm/aIoXtacPszsPeLO2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9UGf+OSui+cZpvGs/0+cVN90rvP+r2xTbLvIynj6pJhYHzmS9
+	tl0MmPLbI/4tTj08UW5E79vPKdmPfMBHggWam9z2yNAtndwE+X9SmweX6DlmB0kcWsvSujcUgHL
+	2S/1EEhuTHD/S76tD4X+sVPPGAWj/s2M5pnKg/h2Q2D0ZXppG+D3izi0ahKjhEozN
+X-Gm-Gg: AR+sD13fXPg67cVl6uf7jL1rW1B+k5Q8zKcrXL/yNQDsV9LKRnX2Zb71/PHVTmQw1+x
+	bOgBjRP9vFwKrmTms0W+FxveSQ8Dj5vmeoYzv/Ft5bvWXeIIh/ZI9nQTvwDWaJhwbBmqiFawCiM
+	guUR44cAGKp5qKPfOD6NRYLcrpKNeJVngcxYEYnZ9mpKd9suXOr+HwsF3nezFJyRajyUGVBU4Py
+	cmiHxPgwo5fmcVirnCN66kcuD5uJNIN3cpd3aLjALDoKUL3+tULbZZT32iAa5KmdLPQ1shK4DRh
+	aAL+J/GafvHp/RGg3LJFOKCh22jNUSEnU2PJbeFvYFDFPpatdjXkbCBxrO7zwkb/9D7gTJlW4dU
+	QIp8UoskS32VN3nyd
+X-Received: by 2002:a05:622a:230a:b0:51c:8571:1ccc with SMTP id d75a77b69052e-52b567f2645mr104547501cf.41.1785614135267;
+        Sat, 01 Aug 2026 12:55:35 -0700 (PDT)
+X-Received: by 2002:a05:622a:230a:b0:51c:8571:1ccc with SMTP id d75a77b69052e-52b567f2645mr104547211cf.41.1785614134881;
+        Sat, 01 Aug 2026 12:55:34 -0700 (PDT)
 Received: from quoll ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49807b5f0c3sm74694415e9.5.2026.08.01.12.55.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458ea4asm17496417f8f.31.2026.08.01.12.55.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 12:55:23 -0700 (PDT)
+        Sat, 01 Aug 2026 12:55:33 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Jim Quinlan <jim2101024@gmail.com>,
+To: Keke Li <keke.li@amlogic.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Zhi Mao <zhi.mao@mediatek.com>,
+        Tiffany Lin <tiffany.lin@mediatek.com>,
+        Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+        Yunfei Dong <yunfei.dong@mediatek.com>, Bin Liu <bin.liu@mediatek.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
         Florian Fainelli <florian.fainelli@broadcom.com>,
         Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        Bjorn Helgaas <bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Marek Vasut <marek.vasut+renesas@mailbox.org>,
-        Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Kishon Vijay Abraham I <kishon@kernel.org>, linux-pci@vger.kernel.org,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Xia Jiang <xia.jiang@mediatek.com>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+        linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: PCI: Correct white-space style
-Date: Sat,  1 Aug 2026 21:55:18 +0200
-Message-ID: <20260801195517.235161-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH] media: dt-bindings: Correct white-space style
+Date: Sat,  1 Aug 2026 21:55:29 +0200
+Message-ID: <20260801195528.235230-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -104,45 +110,45 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3897; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=mZHWAuSeKaFREk3s3TsCeBqYcHg010+ZFZVBB6WI64A=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbk8lI71bPd+afSLiOOSgUBFK9QNKQ/CfX7jgg
- +ZIgESpx62JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam5PJQAKCRDBN2bmhouD
- 1+giD/9UrL5r6rohmURssJaLdBSj35eMCF6Q1TlSBx0A/k8Xyn/QQd0NRXPEJ7nd3yWpo4KvjGW
- hew4ADAPDXJ7xADCHaR9enIQy3jUBzrdlwZgSoH55vZ3C26JJjza3AiWAGJ2zF5AY1X2WHa6dcN
- aUCyT70cH3Ya1EmjSmu8Hx1KZssBfRyfBpQ9NvlxyJsv/dAk8pyxnfb9f3UCHT1PHEoTMKFLnKZ
- 4JR8wYnwuRHuokyEo1bJ/FdYdAbmm4URgjmuY1UuYSC8kYGHeBYj3dp2x6NuhGC9dKnqsL/Tuh3
- Y49QLumAhjBrIyvL7WtOSlEJ2IKpSBzC05MI3z1lZbfAvnSnmhOydMmjgaDpgRsbK/TIIMAOb8v
- LyI2/L1UH2zJ5b2OX1FgwH9TKiBuwJIGSmKIuYrre+HJKweoXXTP20LyikioNFwIFJRp0NTO6XC
- X7BG584MJOvN8rov/tkkeDv1hZmyjC0cSsaRCp1yEyYMdej5t/bPax/8CdWmOAhFt/zI47adrJQ
- htQE+Ybt4eRgpGACK2goN0+SKq/OvExKomF1z9P5yi8v4ckE/h8T8A6JSuUcBlssJXtnrd8Ktmz
- esoHVN33bXl0oLQw9Hpxz08GxnqVbyibDfRUF3tB9nVdSGreDv2hN/mkN+VPM+BxKpmETANXXOo k+2AaWGFfaR+dpg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7312; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=f1LZFXoTJBl1/AFu1OKBHhr7hP5lW3sbCItIQAZhxeA=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbk8xEuIh8uDLGNQebu/2oaczx7f6aDF7SNe4g
+ QqA/xBUaUCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam5PMQAKCRDBN2bmhouD
+ 1yFyD/40PrZJY9zLs1MqCz8QDJ/+7PJXg0TChXiqgK2wUEpoTfFVwEfXa6Kh70IyVLlgfTHBqTq
+ n/1lOjE3lio2qM4yk4gcjbvyFs15AS+uJoBincJZgodWYvjIKuJtujfHLAFvuylv1z6nVsfFLnr
+ 9drCJQldJHDmQgK2f/y7WgZMycyqujdDrLSB8GdFQEC2xdTRNZyN5X5BkJhnrLHA73leD70rInb
+ 1nGmNcvJ/NaZZ5eIUjPfqNEZVoOQpUoc274BawefQ2Lcl04AdJBahDTvrwNBD89Hszi1G9YzCV4
+ AQpJ8r0p5oZRhUAQLKW2vpFbsnKmYmRU5hxbz9M97AHlMzp6ZtyebKhMl4f4VDR6/xN71QoY5dg
+ StbaMcygfZeWdM/mE2bHea6FzS/ev22z15mnBxORJAuswxpdEnLFSwEzysSS/cgkE/26pA5pyb2
+ 0NkRHZnH/ZnL3y9mrhjFfHzh7v2hPkZ/5FpIJTiaeBnOUyiaFdy8U7M1JN/nfBVwxuRxYKwa/SG
+ KdV4VOLykfzAJ3nC3CROtKww02ZDPZIrWfq1yjMYaOroVRq/wIUw6Jqe75vzF1fTcJTvf16AcBD
+ jE3Z11La6Ch+QlD2o5IHI8wAYRbMlwDZzw07Rhjnd69kRmYfOPSckASZ/aQ478i/d2PAr5MpRri P+a2P5BeHxR0U7w==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDE2MCBTYWx0ZWRfX7YO3DUibql3s
- x4m6L6L6wnU9zVPRmen3RKB9v07byl6CgAd8/pPM2RHnHrpJNqsyXtZPE67R/E/pWSDNQ3OdmeE
- yMeJzd0n4TokdOlWxydYYYzsVDeoXUKtcU2bBFtjNWPTamQr1Ge72CYkQCncLvvl9VtPIteU47v
- JxeqkfJv1o/BeLys6Af4toYkpesaIp2gHxUFqTo/YevQnR0beUB+xbbKCe1DrzJLFMHsSPfVwrw
- uyHC1nZBlmzmWw9XAKBL/FgonLe4ptaz4kIEnsppuQz2e+3y/NwAC0T67YTAEB0qzMjePrXTZbq
- suni6fid6CVyvExgWwsyvoiRNw/19JB+hhoQCCFDf2CVypV9B/XKS2uE4Sjih592/UrzNluRjVa
- 7zPoFGT+DEUj63v9rMawESIsReVULGLkmbLiS/V5DhzAkDn7X2NKLiDpzCAFStJrX997XnYlT4w
- Yk8tLfGYUDQcCeYRzAA==
-X-Proofpoint-GUID: oucQvJZyfJwsERxGva1DnY7M1QClOO7R
-X-Authority-Analysis: v=2.4 cv=MpViLWae c=1 sm=1 tr=0 ts=6a6e4f2d cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+X-Proofpoint-ORIG-GUID: d9im-HfGi8Y8Wgjt19VuVBmsdPGAHei6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDE2MCBTYWx0ZWRfXyIOev2cyviC3
+ mPN8N7wZYnFJNP26yl590MPKhk335kRmR10CjRt8tpvfQ304XJS19IA4JsWDOgzA8zvMGGdIxJa
+ tuqF3XeVcG4OCX0tavQy2JzCZDKKVqy6Qq9SwhsInRdjvF8+1k1lwg8LvBUuGM4d2AfNKOw6JWl
+ Tc0zP7EnG0y5tNZszr0E5eue7nV2jX1iJcTE9m7pHYhP8lTb6GmxpeEVaZ8EZ//e4w4bJL4WEWE
+ 1g8/VP74jhDKJwYsTjmlwWG8ciSz96Ulnk7QR5XmNXDycxsEDanRZKeKaP8Ce2OERFuqt5hyVt9
+ YlWozUloZ5A/hGNXbVCOydvhy8KzyfjOIZG9agwB2uC4pkaP7e8xhQGLROmuZvc1LWrNXjteEAm
+ xRSgAgtr1N8M7YtBT7Vp5CvSX8EANlsP5ki9MTAouzb9wx26f0fYXh2F+/mchQ7SyRo9qSlyzmc
+ y/S6rYVOZ/bMRB+S5gw==
+X-Authority-Analysis: v=2.4 cv=TpfWQjXh c=1 sm=1 tr=0 ts=6a6e4f37 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=mxJljgaHxS3Sv8GYpwQA:9 a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-ORIG-GUID: oucQvJZyfJwsERxGva1DnY7M1QClOO7R
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDE2MCBTYWx0ZWRfX+920F+UpuAaU
- l/6FNZXYFfD3Sr37XmHxT5KfpQmrVVJ2FywwKgWg43s0XA5ztShcJZTL/kyjYQiTew5GH4p+yyS
- /fQ9zL0e2Mn87ijhS8UJ4/nTqHSd0D8=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=-OYJPjWUVwCj3UUiuegA:9 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: d9im-HfGi8Y8Wgjt19VuVBmsdPGAHei6
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDE2MCBTYWx0ZWRfX5W/1XZczEWrd
+ SCkzRihCAartJ/e9AfGgWexZpqy6x2U1yOmc1X3DknM74pXnbQkNGeMvgUVpkMDYsz+bCdzO9bi
+ 2LOUp8VHrA9x3QAgYaeMFJZiwLFXHsM=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-01_03,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 phishscore=0 malwarescore=0 spamscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010160
 
@@ -152,80 +158,148 @@ functional changes.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../devicetree/bindings/pci/brcm,stb-pcie.yaml       |  2 +-
- .../bindings/pci/renesas,pci-rcar-gen2.yaml          |  2 +-
- .../devicetree/bindings/pci/ti,am65-pci-ep.yaml      |  8 ++++----
- .../devicetree/bindings/pci/ti,am65-pci-host.yaml    | 12 ++++++------
- 4 files changed, 12 insertions(+), 12 deletions(-)
+ .../bindings/media/amlogic,c3-mipi-csi2.yaml  |  4 +-
+ .../bindings/media/i2c/galaxycore,gc05a2.yaml |  2 +-
+ .../media/mediatek,vcodec-encoder.yaml        |  2 +-
+ .../bindings/media/mediatek-jpeg-decoder.yaml |  4 +-
+ .../bindings/media/mediatek-jpeg-encoder.yaml |  2 +-
+ .../bindings/media/qcom,msm8996-venus.yaml    | 40 +++++++++----------
+ .../bindings/media/raspberrypi,pispbe.yaml    |  2 +-
+ 7 files changed, 28 insertions(+), 28 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pci/brcm,stb-pcie.yaml b/Documentation/devicetree/bindings/pci/brcm,stb-pcie.yaml
-index 812ef5957cfc..328b8156cd94 100644
---- a/Documentation/devicetree/bindings/pci/brcm,stb-pcie.yaml
-+++ b/Documentation/devicetree/bindings/pci/brcm,stb-pcie.yaml
-@@ -214,7 +214,7 @@ examples:
-             dma-ranges = <0x42000000 0x1 0x00000000 0x0 0x40000000 0x0 0x80000000>,
-                          <0x42000000 0x1 0x80000000 0x3 0x00000000 0x0 0x80000000>;
-             brcm,enable-ssc;
--            brcm,scb-sizes =  <0x0000000080000000 0x0000000080000000>;
-+            brcm,scb-sizes = <0x0000000080000000 0x0000000080000000>;
+diff --git a/Documentation/devicetree/bindings/media/amlogic,c3-mipi-csi2.yaml b/Documentation/devicetree/bindings/media/amlogic,c3-mipi-csi2.yaml
+index b0129beab0c3..2f11e5f45839 100644
+--- a/Documentation/devicetree/bindings/media/amlogic,c3-mipi-csi2.yaml
++++ b/Documentation/devicetree/bindings/media/amlogic,c3-mipi-csi2.yaml
+@@ -96,8 +96,8 @@ examples:
+                   <0x0 0xff01a000 0x0 0x100>;
+             reg-names = "aphy", "dphy", "host";
+             power-domains = <&pwrc PWRC_C3_MIPI_ISP_WRAP_ID>;
+-            clocks =  <&clkc_periphs CLKID_VAPB>,
+-                      <&clkc_periphs CLKID_CSI_PHY0>;
++            clocks = <&clkc_periphs CLKID_VAPB>,
++                     <&clkc_periphs CLKID_CSI_PHY0>;
+             clock-names = "vapb", "phy0";
+             assigned-clocks = <&clkc_periphs CLKID_VAPB>,
+                               <&clkc_periphs CLKID_CSI_PHY0>;
+diff --git a/Documentation/devicetree/bindings/media/i2c/galaxycore,gc05a2.yaml b/Documentation/devicetree/bindings/media/i2c/galaxycore,gc05a2.yaml
+index 0e7a7b5ac89f..99d728c47cfb 100644
+--- a/Documentation/devicetree/bindings/media/i2c/galaxycore,gc05a2.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/galaxycore,gc05a2.yaml
+@@ -88,7 +88,7 @@ examples:
+         #size-cells = <0>;
  
-             /* PCIe bridge, Root Port */
-             pci@0,0 {
-diff --git a/Documentation/devicetree/bindings/pci/renesas,pci-rcar-gen2.yaml b/Documentation/devicetree/bindings/pci/renesas,pci-rcar-gen2.yaml
-index 065b7508d288..1f0ab9ccd1dd 100644
---- a/Documentation/devicetree/bindings/pci/renesas,pci-rcar-gen2.yaml
-+++ b/Documentation/devicetree/bindings/pci/renesas,pci-rcar-gen2.yaml
-@@ -155,7 +155,7 @@ examples:
-     #include <dt-bindings/clock/r8a7790-cpg-mssr.h>
-     #include <dt-bindings/power/r8a7790-sysc.h>
+         sensor@37 {
+-            compatible =  "galaxycore,gc05a2";
++            compatible = "galaxycore,gc05a2";
+             reg = <0x37>;
  
--    pci@ee090000  {
-+    pci@ee090000 {
-         compatible = "renesas,pci-r8a7790", "renesas,pci-rcar-gen2";
-         device_type = "pci";
-         reg = <0xee090000 0xc00>,
-diff --git a/Documentation/devicetree/bindings/pci/ti,am65-pci-ep.yaml b/Documentation/devicetree/bindings/pci/ti,am65-pci-ep.yaml
-index 74195c1f5292..afde18c5a4fa 100644
---- a/Documentation/devicetree/bindings/pci/ti,am65-pci-ep.yaml
-+++ b/Documentation/devicetree/bindings/pci/ti,am65-pci-ep.yaml
-@@ -63,10 +63,10 @@ examples:
+             clocks = <&gc05a2_clk>;
+diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+index 4505e66876a2..551e483f3e51 100644
+--- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
+@@ -160,7 +160,7 @@ examples:
  
-     pcie0_ep: pcie-ep@5500000 {
-         compatible = "ti,am654-pcie-ep";
--        reg =  <0x5500000 0x1000>,
--               <0x5501000 0x1000>,
--               <0x10000000 0x8000000>,
--               <0x5506000 0x1000>;
-+        reg = <0x5500000 0x1000>,
-+              <0x5501000 0x1000>,
-+              <0x10000000 0x8000000>,
-+              <0x5506000 0x1000>;
-         reg-names = "app", "dbics", "addr_space", "atu";
-         power-domains = <&k3_pds 120 TI_SCI_PD_EXCLUSIVE>;
-         ti,syscon-pcie-mode = <&scm_conf 0x4060>;
-diff --git a/Documentation/devicetree/bindings/pci/ti,am65-pci-host.yaml b/Documentation/devicetree/bindings/pci/ti,am65-pci-host.yaml
-index 98f6c7f1b1a6..db92125a2f2d 100644
---- a/Documentation/devicetree/bindings/pci/ti,am65-pci-host.yaml
-+++ b/Documentation/devicetree/bindings/pci/ti,am65-pci-host.yaml
-@@ -121,12 +121,12 @@ examples:
+     vcodec_enc_vp8: vcodec@19002000 {
+       compatible = "mediatek,mt8173-vcodec-enc-vp8";
+-      reg =  <0x19002000 0x1000>; /* VENC_LT_SYS */
++      reg = <0x19002000 0x1000>; /* VENC_LT_SYS */
+       interrupts = <GIC_SPI 202 IRQ_TYPE_LEVEL_LOW>;
+       iommus = <&iommu M4U_PORT_VENC_RCPU_SET2>,
+              <&iommu M4U_PORT_VENC_REC_FRM_SET2>,
+diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+index a4aacd3eb189..76878050cfd9 100644
+--- a/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-decoder.yaml
+@@ -72,8 +72,8 @@ examples:
+       compatible = "mediatek,mt2701-jpgdec";
+       reg = <0x15004000 0x1000>;
+       interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_LOW>;
+-      clocks =  <&imgsys CLK_IMG_JPGDEC_SMI>,
+-                <&imgsys CLK_IMG_JPGDEC>;
++      clocks = <&imgsys CLK_IMG_JPGDEC_SMI>,
++               <&imgsys CLK_IMG_JPGDEC>;
+       clock-names = "jpgdec-smi",
+                     "jpgdec";
+       power-domains = <&scpsys MT2701_POWER_DOMAIN_ISP>;
+diff --git a/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
+index 5b15f8977f67..3bc1ccb25893 100644
+--- a/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek-jpeg-encoder.yaml
+@@ -67,7 +67,7 @@ examples:
+                    "mediatek,mtk-jpgenc";
+       reg = <0x1500a000 0x1000>;
+       interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_LOW>;
+-      clocks =  <&imgsys CLK_IMG_VENC>;
++      clocks = <&imgsys CLK_IMG_VENC>;
+       clock-names = "jpgenc";
+       power-domains = <&scpsys MT2701_POWER_DOMAIN_ISP>;
+       iommus = <&iommu MT2701_M4U_PORT_JPGENC_RDMA>,
+diff --git a/Documentation/devicetree/bindings/media/qcom,msm8996-venus.yaml b/Documentation/devicetree/bindings/media/qcom,msm8996-venus.yaml
+index 56c16458e3bb..389b545c9631 100644
+--- a/Documentation/devicetree/bindings/media/qcom,msm8996-venus.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,msm8996-venus.yaml
+@@ -119,26 +119,26 @@ examples:
+                  <&mmcc VIDEO_MAXI_CLK>;
+         clock-names = "core", "iface", "bus", "mbus";
+         power-domains = <&mmcc VENUS_GDSC>;
+-        iommus =  <&venus_smmu 0x00>,
+-                  <&venus_smmu 0x01>,
+-                  <&venus_smmu 0x0a>,
+-                  <&venus_smmu 0x07>,
+-                  <&venus_smmu 0x0e>,
+-                  <&venus_smmu 0x0f>,
+-                  <&venus_smmu 0x08>,
+-                  <&venus_smmu 0x09>,
+-                  <&venus_smmu 0x0b>,
+-                  <&venus_smmu 0x0c>,
+-                  <&venus_smmu 0x0d>,
+-                  <&venus_smmu 0x10>,
+-                  <&venus_smmu 0x11>,
+-                  <&venus_smmu 0x21>,
+-                  <&venus_smmu 0x28>,
+-                  <&venus_smmu 0x29>,
+-                  <&venus_smmu 0x2b>,
+-                  <&venus_smmu 0x2c>,
+-                  <&venus_smmu 0x2d>,
+-                  <&venus_smmu 0x31>;
++        iommus = <&venus_smmu 0x00>,
++                 <&venus_smmu 0x01>,
++                 <&venus_smmu 0x0a>,
++                 <&venus_smmu 0x07>,
++                 <&venus_smmu 0x0e>,
++                 <&venus_smmu 0x0f>,
++                 <&venus_smmu 0x08>,
++                 <&venus_smmu 0x09>,
++                 <&venus_smmu 0x0b>,
++                 <&venus_smmu 0x0c>,
++                 <&venus_smmu 0x0d>,
++                 <&venus_smmu 0x10>,
++                 <&venus_smmu 0x11>,
++                 <&venus_smmu 0x21>,
++                 <&venus_smmu 0x28>,
++                 <&venus_smmu 0x29>,
++                 <&venus_smmu 0x2b>,
++                 <&venus_smmu 0x2c>,
++                 <&venus_smmu 0x2d>,
++                 <&venus_smmu 0x31>;
+         memory-region = <&venus_mem>;
  
-     pcie0_rc: pcie@5500000 {
-         compatible = "ti,am654-pcie-rc";
--        reg =  <0x5500000 0x1000>,
--               <0x5501000 0x1000>,
--               <0x10000000 0x2000>,
--               <0x5506000 0x1000>,
--               <0x2900000 0x1000>,
--               <0x2908000 0x1000>;
-+        reg = <0x5500000 0x1000>,
-+              <0x5501000 0x1000>,
-+              <0x10000000 0x2000>,
-+              <0x5506000 0x1000>,
-+              <0x2900000 0x1000>,
-+              <0x2908000 0x1000>;
-         reg-names = "app", "dbics", "config", "atu", "vmap_lp", "vmap_hp";
-         power-domains = <&k3_pds 120 TI_SCI_PD_EXCLUSIVE>;
-         #address-cells = <3>;
+         video-decoder {
+diff --git a/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml b/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml
+index 1fc62a1d8eda..5c0f2f7b1d95 100644
+--- a/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml
++++ b/Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml
+@@ -53,7 +53,7 @@ examples:
+         #address-cells = <2>;
+         #size-cells = <2>;
+ 
+-        isp@880000  {
++        isp@880000 {
+              compatible = "brcm,bcm2712-pispbe", "raspberrypi,pispbe";
+              reg = <0x10 0x00880000 0x0 0x4000>;
+              interrupts = <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>;
 -- 
 2.53.0
 
