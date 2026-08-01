@@ -1,89 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816E329408;
-	Sat,  1 Aug 2026 00:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720F12F7478;
+	Sat,  1 Aug 2026 00:16:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785542852; cv=none; b=XC9iTLZCDLf4sQ8qmeppLfCowaiOGuQZdSpbBjH/t2di3xXG3u0J08gGiijrIyUBVW4MmwFrMgj5ZgyjVwc3G3xnPP+mGuEYHFVOsCjmc3tuvImlUn1rfcUeVaVzNAXrlpLglj/Us8ZCgIo6kCVOPFmybISgWOSkRVlBHOZZk5U=
+	t=1785543401; cv=none; b=DTHO2eBOKWc/vzJGsJfPsSc3VUEAQBPw8l0uvBJwz/10weTefjCzD7TiFxS2ZuT/tIjPw4dkXcGFhhnm5gstqOSAASdpxx+wjYRhlsXcxIJQj68Pyp/XK12YBpIyNcWAU28dXkaaXcXkO0q1U90DHdevPFtYErHo8ALShpy++JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785542852; c=relaxed/simple;
-	bh=dtBLcvebt7+AMSIrmX/C9+e1pmg8hKfA+BeXh0Esni4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=McSpXpL0ZQSGygib77E/azGdsYBLw6WzmZ1zkHLXwDKU/YIZP1isk6ueXYs+pYbDaSBOQgTRE0nwwwZLYWeVZsQEsAbFKqcy86Pm0TtZYZTR+Dm39enNXTGlgk0Kt2OU9nXCvrdvwTCie9Xl8I46nbdLe+j+90VD7OeOxWVsOyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NaddJwsa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785543401; c=relaxed/simple;
+	bh=5ympF4m57kediFqkdLx+xv+HBkW0kxLLtwV+MP/ZGrM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HZaVobzVZjnBur4J5KJBOKbKne8d3glofRELyCRc82dh2MgVzUeK+OfYSolc0Y0mJ3G0tC2S3Xk0CCp9gOmQM9beZUMzYfdwhv+pMTAux6sBu51q4f7iAC5t5LSKmzBnC6d+FOBs0WVOHvdedQiG+xjipSNOUGJHBl9FRh3Mkzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xle3Senn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NaddJwsa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92F221F00AC4;
-	Sat,  1 Aug 2026 00:07:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xle3Senn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B2F1F00AC4;
+	Sat,  1 Aug 2026 00:16:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785542851;
-	bh=dtBLcvebt7+AMSIrmX/C9+e1pmg8hKfA+BeXh0Esni4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NaddJwsaCaNclRKwsA5xHHSv0rJWpcI2XL+fqA+hCwfgFUPD+zrv03rDkjULv6e0x
-	 GJ3pWWcJ8RcUpOucX1MJqQhSyK5/WbWQme4PeyruF4TM7PvZkUkmsQAJxBFXr9lDEi
-	 jT0lb9d5VD3H3Hl4GjOHLOngklqN5llAF1bWlRCoZyuK4hDexdCB8w0w56Y74IVUCe
-	 /iymo465PYFgzpHycDzQ78ZS4C3ZDzCn5V7OFNibzYqaseESsbQiRLZCOYaJmhoAFD
-	 8g8wFcUN9IjxgbBx5udbggo1IRXcNH1J0wd/uMQKKSRzgl03so2DTZ4pYts/xMdHLk
-	 NeopselyNGl6w==
-Date: Sat, 1 Aug 2026 01:07:26 +0100
-From: Mark Brown <broonie@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 00/11] ASoC: renesas: fsi: Fix system hang by adding
- SPU clock
-Message-ID: <d5ebcd52-580b-40bc-81dc-0a9b403e8392@sirena.org.uk>
-References: <20260609013107.5995-1-phucduc.bui@gmail.com>
+	s=k20260515; t=1785543400;
+	bh=ggfiduJULkwHSlvhD0llWVjFB9n9+YZkRsTBXCYfNxM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Xle3SenngOCjCXMFLagXxV6Xl8GVw+jsn+SQgq5kMqq12hpEunsxSLDD37cHuLxTh
+	 K41y6Pte6CH5xFyx7jXkwuRhoA9g9q8imzNVWIEqaSoYLbUXupboJ6UIDYvJ8FW2ye
+	 /1H+f9So/VcbbuDIT4xxpwhFd1hHDCSnCmXB7NwaXnVMOgSMsVve6S2CUSISlgIOQ9
+	 dnKz2v/d8QB/sZP/dPpC4txyLz2h+atW8zGxGTLUYQo3oXclpgnly8xDKC3tPZC5Q1
+	 moJCKZluH3GI4iq0TzlnrlUUdiHqntX0HRJF7O11Ju8c8wn+II6RMiinjGsT1qWxLD
+	 TBkhdOhBFm4vg==
+Date: Fri, 31 Jul 2026 17:16:39 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jonas Jelonek <jelonek.jonas@gmail.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>, Kory Maincent
+ <kory.maincent@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S
+ . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Golle <daniel@makrotopia.org>,
+ =?UTF-8?B?QmrDuHJu?= Mork <bjorn@mork.no>
+Subject: Re: [PATCH net-next v10 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek PSE MCU
+Message-ID: <20260731171639.1baec9e5@kernel.org>
+In-Reply-To: <20260728084307.2129515-2-jelonek.jonas@gmail.com>
+References: <20260728084307.2129515-1-jelonek.jonas@gmail.com>
+	<20260728084307.2129515-2-jelonek.jonas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kun40GI+jRDZGgy7"
-Content-Disposition: inline
-In-Reply-To: <20260609013107.5995-1-phucduc.bui@gmail.com>
-X-Cookie: No shirt, no shoes, no service.
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+The second patch conflicts on MAINTAINERS so unfortunately a rebase
+will be needed.
 
---kun40GI+jRDZGgy7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, 28 Jul 2026 08:43:03 +0000 Jonas Jelonek wrote:
+> diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml 
 
-On Tue, Jun 09, 2026 at 08:30:56AM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
->=20
-> Hi all,
->=20
-> The FSI on r8a7740 requires the SPU clock to be enabled before accessing
-> its internal registers. Without it, register accesses may hang the system
-> even when the FSI functional clock is enabled.
-
-This doesn't apply against current code, please check and resend.
-
---kun40GI+jRDZGgy7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmptOL0ACgkQJNaLcl1U
-h9D9Bgf+LSzbL0bMrGV4kHVEn7DlDlKRGVm+E99HOeaOP8wfSRd1NLvgG84P+wca
-WDR7Bu5czBeeos2M1XTOOVmhOZ0J58umVudaPLH+XsdHymE7nDVlIfJ9s1GQlKxg
-RTY61Yzc1oVGKDtrbn7+wKYFhUIMcysqMk1CIdtM/pneu+mJRDDzBpgua/mAp0+5
-3jRpRiesXcWBtE9sPik6vZvFzXsHBeO93CsWs/w5G20bWDuI2n/pmlDKVBcGO7Sx
-mIgl2knudaJI6EytkurgUq2lk/9MvzYl7gSCKipoJwUHi/KRbu3O1qBXal5s0CFs
-l1bwfytVWUVxEb8x7E94/N6FcVYRxw==
-=Do9N
------END PGP SIGNATURE-----
-
---kun40GI+jRDZGgy7--
+While you rebase -- the AI points out that the binding is called
+...-gen1 but it documents gen2 as well. Should the -gen1 be dropped?
