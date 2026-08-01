@@ -1,162 +1,144 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053E4271456;
-	Sat,  1 Aug 2026 16:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFDF35FF5B;
+	Sat,  1 Aug 2026 16:31:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785601730; cv=none; b=gb8kRJ9oPNU7JJhoG56E51ueIwAt6O7vcC1JLveinx1sAjLgL+eFuQsVIQPUUJ/KS0R7FKqxMPExx3MCuyHwsCPYiMo56VzP3Ou87exQZbR5PkrX4LBEumlgOdFiNSSyOEiJMLYBE/he/SUU98TMDim47Is8l5TdKlYRMQNGsnE=
+	t=1785601861; cv=none; b=XXWBv6clVzul7AZ+90BMHPos118wscx20F3OMh/MxIlDJcU6U33EtXBNt8pL5023zlZNgQrFsH3rJV6MxIXoALl7oDXGIHAveElQ1ICy9vIVQWX3a+oASzzkGEzgXF/FncRvM5TjlRls2bXHX1jI6neSgjAAxZ2/9fVAGqwJtkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785601730; c=relaxed/simple;
-	bh=IkVjWSBBiuOLsbPEFfnehNUTyZsRPGGxxctkNh5DZAU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ttnz6mCExjYd5BE8upRGfqDNOQzAPMrMUGzVmGi+Oghk3teRC0oog+eDAAD2w3XrXNUhzKVqCxd8+RGjwgYC6oPj4q6DayyUHkOifRO2ePT/NFRhr0QFs+cdFAr1wT3S7CA5lOn4tmsBp93yDr7feHGD0hFpD6fI01mtFcCp7zU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=GkspQDxI; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1785601861; c=relaxed/simple;
+	bh=MC9tQf9XR+TO5bwzTI8TGuK0J42UYLTuShmksDcL8p8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=vAKc/uZ7CUDa7rVuhrbmVKkdcWo4d907bEN7SCgoL2Rz+lTbt7wQ33sTeKK0uz/oZcN/IRbZ+fHEw5ujIlQ8qlSuVoJbISZL/4WvmW+ncFreD092IGEYHUfyy2L4e4tV+L0fsleLayMce+qa4suwGS9rFziIJGBOFTJPdNIHgZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/faIYqo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="GkspQDxI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=V06eygovF9pqY3vHyXKEpDH3PhLpNuC5Yjsi32fVPNY=; b=GkspQDxIH8XQuNGEPi3OaHsWVb
-	MWqmQLy8kUKXVbYdQCn+ie/STVzV3V1s7aPOK5PK5RjrA5Wiyz8hXdbdIEgc6WcPFfAa21KBC40+n
-	tiyw0Mn+j6oxgkEwMCeuve4BVeBfqLtB2EPeZ7wTyUU4mSmU1sLPii9wSHsjQ5BuPbhAuQtRTEjA5
-	n8pZMtkAH/FxaT++U1I8L6londMFmfOBCEtEEp2HcNsc6P3S1esk+oUHFDqac/TtiB/qTngEgeWVx
-	vxh6+0AgQRrVMtC7TkoRzlWwcomWycXXPeveXnhe6HMtGaMMJNgHU/uwXIYS2D1qggPlKOWmYdUmd
-	HqiZeHug==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>, Coia Prant <coiaprant@gmail.com>,
- Coia Prant <coiaprant@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
- David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-Subject:
- Re: [PATCH v2 05/10] arm64: dts: rockchip: rk3568: add XPCS and fixed-clock
- nodes
-Date: Sat, 01 Aug 2026 18:28:11 +0200
-Message-ID: <2847036.GUH7pLUipS@diego>
-In-Reply-To: <20260801142244.679437-7-coiaprant@gmail.com>
-References:
- <20260801142244.679437-2-coiaprant@gmail.com>
- <20260801142244.679437-7-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/faIYqo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 639F21F00AC4;
+	Sat,  1 Aug 2026 16:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785601860;
+	bh=x9gB/O7nUQHqaCVj3NjA3ZdBPo9Tc+fJ7fnhCmLs5YQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M/faIYqoLSkz5UuMwMKpI+93ZfwesEDwGqLWGUeqFLjoCJxhvdsjHWU36BRLsXvXD
+	 YWyLv3XPSiALZSxNaMCXx9NrVmbWmQrrY1Izs2Hou46SK467mt7PP/T7GsmtyVrz/u
+	 C/M4DGBwkadbVdZ84JErlZT+hmBTSqLYWQJ/bneSVlTzQXnrcT1FX3d1lXSQvfjDUq
+	 3tTe/6NSgFJXH9+SBfUiI1BBSK+nnv2C2CBhUYC2dSdXMGu/9OjZq2Zk4D0M6Yyohu
+	 x6wH/JZbGuozlHkGbhxqFAL4dR6S+OoNrBCBHCaGCJV2DK0aUlhUwlDBUPkmwJes/t
+	 5knlUbH1ZsrjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC/RFT 2/2] net: stmmac: Add support for Allwinner A733
+ GMAC210
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260731-allwinner-a733-gmac-support-v1-2-d0a8732bfa82@baylibre.com>
+References: <20260731-allwinner-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com>
+ <20260731-allwinner-a733-gmac-support-v1-2-d0a8732bfa82@baylibre.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 01 Aug 2026 16:30:59 +0000
+Message-Id: <20260801163100.639F21F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Am Samstag, 1. August 2026, 16:22:29 Mitteleurop=C3=A4ische Sommerzeit schr=
-ieb Coia Prant:
-> The RK3568 SoC integrates a Synopsys DesignWare XPCS that provides
-> the Physical Coding Sublayer for 1000BASE-X, SGMII, and QSGMII
-> interfaces via its four MII ports.  Add the XPCS device node and
-> its pcs-mii sub-nodes to the SoC device tree.
->=20
-> The XPCS device is accessed via the APB3 bus at 0xfda00000 and
-> requires the CSR clock (PCLK_XPCS) for register access and the EEE
-> clock (CLK_XPCS_EEE) for Energy Efficient Ethernet operation.  The
-> PD_PIPE power domain must be enabled before any register access.
->=20
-> Also add two fixed-clock nodes (xpcs_gmac0_clk and xpcs_gmac1_clk)
-> providing the 125 MHz reference clock for the GMACs when operating
-> with XPCS.  These clocks are used as the assigned-clock-parents
-> for the respective GMAC nodes in board-level device trees.
->=20
-> The XPCS node and its pcs-mii sub-nodes are disabled by default and
-> must be enabled at the board level when 1000BASE-X/SGMII/QSGMII is
-> in use.  The fixed-clock nodes are always present and do not have a
-> status property, as they are static clock sources.
->=20
-> The XPCS node also requires a reference to the appropriate Naneng
-> Combo PHY via the phys property at the board level.
->=20
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3568.dtsi | 45 ++++++++++++++++++++++++
->  1 file changed, 45 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3568.dtsi
-> index 3bc653f027f1f..989e164c0eb39 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
-> @@ -110,6 +110,51 @@ sata0: sata@fc000000 {
->  		status =3D "disabled";
->  	};
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing AHB reset deassertion before MMIO access causes bus hang.
+- [High] Missing suspend/resume callback permanently breaks network after s=
+leep.
+--
+
+--- Patch [2]: [PATCH RFC/RFT 2/2] net: stmmac: Add support for Allwinner A=
+733 GMAC210 ---
+commit 00717a07b743c8a2cc8bc07f479795f3772f17e1
+Author: Jerome Brunet <jbrunet@baylibre.com>
+
+net: stmmac: Add support for Allwinner A733 GMAC210
+
+This commit adds support for the Allwinner A733 GMAC210 controller. It
+handles a dedicated MMIO region for glue configuration, specific TX clock
+delay fields, and per-DMA-channel interrupts.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c b/drivers=
+/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
+> index 862df173d963f..3d434a52fb02d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
+
+[ ... ]
+
+> +static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *=
+pdev,
+> +						struct plat_stmmacenet_data *plat)
+> +{
+
+[ ... ]
+
+> +	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
+> +		dev_err(dev, "missing required reset controls\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	/*
+> +	 * The configuration registers are inside the controller
+> +	 * reset domain, so the reset must happen before any write to them
+> +	 * and should not be done again by stmmac or the configuration will
+> +	 * be lost.
+> +	 */
+> +	ret =3D reset_control_assert(plat->stmmac_rst);
+> +	if (!ret)
+> +		ret =3D reset_control_deassert(plat->stmmac_rst);
+
+[Severity: High]
+Will this cause a bus hang when writing to the MMIO registers?
+
+The code checks that plat->stmmac_ahb_rst is present earlier in this
+function, but only toggles the main mac reset here.=20
+
+When sun55i_gmac200_setup() later calls regmap_write(), accessing an IP
+block over the AHB bus while its AHB interface is still held in reset
+typically causes a synchronous external abort or bus hang.
+
+> +
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "device reset failed\n");
+
+[ ... ]
+
+>  static int sun55i_gmac200_setup(struct platform_device *pdev,
+>  				struct plat_stmmacenet_data *plat,
+>  				const struct sun55i_gmac_data *data)
+>  {
+
+[ ... ]
+
+> -	ret =3D regmap_write(regmap, SYSCON_REG, reg);
+> +	ret =3D regmap_write(regmap, data->offset, reg);
+>  	if (ret < 0)
+>  		return dev_err_probe(dev, ret, "Failed to write to syscon\n");
 > =20
-> +	xpcs: pcs@fda00000 {
-> +		compatible =3D "rockchip,rk3568-xpcs";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		reg =3D <0x0 0xfda00000 0x0 0x200000>;
-> +		clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
-> +		clock-names =3D "csr", "eee";
-> +		power-domains =3D <&power RK3568_PD_PIPE>;
-> +		status =3D "disabled";
+> +	plat->flags |=3D data->flags;
+> +	plat->host_dma_width =3D 32;
 > +
-> +		xpcs_mii0: pcs-mii@0 {
-> +			reg =3D <0>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		xpcs_mii1: pcs-mii@1 {
-> +			reg =3D <1>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		xpcs_mii2: pcs-mii@2 {
-> +			reg =3D <2>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		xpcs_mii3: pcs-mii@3 {
-> +			reg =3D <3>;
-> +			status =3D "disabled";
-> +		};
-> +	};
-> +
-> +	xpcs_gmac0_clk: xpcs-gmac0-clock {
-> +		compatible =3D "fixed-clock";
-> +		clock-frequency =3D <125000000>;
-> +		clock-output-names =3D "clk_gmac0_xpcs_mii";
-> +		#clock-cells =3D <0>;
-> +	};
-> +
-> +	xpcs_gmac1_clk: xpcs-gmac1-clock {
-> +		compatible =3D "fixed-clock";
-> +		clock-frequency =3D <125000000>;
-> +		clock-output-names =3D "clk_gmac1_xpcs_mii";
-> +		#clock-cells =3D <0>;
-> +	};
+>  	return 0;
+>  }
 
-I don't fully believe those clocks are "just there" inside the SoC.
-Instead I _assume_ they are generated by some oscillator on the
-individual boards?
+[Severity: High]
+Are these custom hardware settings lost after a system suspend?
 
-Because as described there, they would be just magically be there.
+The driver configures critical hardware properties like TX/RX delays and
+PHY interface modes in the MAC's internal glue configuration registers
+here, but does not appear to assign a plat->resume callback to the
+plat_stmmacenet_data structure.
 
-So please aim for a real clock description (likely on a board-level)
+If the MAC loses power during suspend, won't these registers revert to
+their default states on resume, leaving the network broken because the
+generic stmmac_resume() has no way to invoke this glue logic?
 
-
-Heiko
-
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-allwinner-=
+a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com?part=3D2
