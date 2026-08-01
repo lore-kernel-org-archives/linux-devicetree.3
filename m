@@ -1,266 +1,121 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307F52F3C18
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 10:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785579607; cv=none; b=aaISOozE/goWfoJ9Bvv7Vw7Qt6qevguR0CrrGYTqE2MpnHyE84FeHfCgHoNi+crsk/xj0ILV/8TKp/AAzRnuS1P3uEOnw7T857Qsg+CFzYSu5tQByEQu6Has1ipo0FUcUDWBWve5P1CLThTnADslxVlncH7rRVGxWWVVoK9mPNY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785579607; c=relaxed/simple;
-	bh=sDXg7NFNr1VMXxa6QMTRuQYDOSB8f4c6Tbl3u7TZFLQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oZiUCjZYQhg3mkq9hmMSuYrzcQUFwVJDkHStzhPDFG1AlYwrqxQ2HPc6Wvppqsp8V0t4wJwenagByoL1vBLoWnjZNfvo9JEsWZ0yi0OeXve+BjEfPvoFVPCkpFhG+cQfae+CuwfA35koQijTg9gyKchp6gVFB7JFhWcgf2BnoYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KlQoCsEY; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AA75FDA7
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 10:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785579718; cv=pass; b=cwtlgzmn6jucRyETWMqDuMo3Q+Ku8o5PpK4veuDfkTYn8gt/7sA4rWXoCKUK/u4BeE+LapG0caUoYHIdJ/8mCo+/tyXWLdyD4IA15w5kigRdi1fehOTiZzTZa2xYdG/kTdclOIb3B/Qhwtzo1xi8HALVA4PKzaVHCAd/+OjUKhU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785579718; c=relaxed/simple;
+	bh=SRLHab5JHv6y5OVWGBkvI4XT8NjkDIUMOmG3BXMSKXc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fgFCKgaIWIVvqXreWM3C77c93ZRMSkbzPY1vLItY59tPmNRK4ahNnxjZsTd6ZIsuvwshwUq101TGOhNxD5f1sK/Yhnuavuy6CJMeNZVoYaBKp7PldNjs6wWhmWvXoYE3VTs9646sUVAs6/4gA1Dt/YmsVmCGAs4FV11T3NDo3EY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HfsJZ9EI; arc=pass smtp.client-ip=209.85.219.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KlQoCsEY"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49558ce01afso4195515e9.1
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 03:20:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HfsJZ9EI"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-9061a795d76so16152626d6.3
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 03:21:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785579716; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aDF/phuiAKW96tfEII+QxUdUW/K1L368WZfG4bb57Dq0GHGDBaW8JDjROck53yxc1X
+         /B28y7kwHlXP0fU2olIMLGs1pGFKpcGLqh/ChZpoJrocAFZ6JgZk6Inn1RhK9lBDPXTK
+         QbqJiRnsfJasRA19019U2byiZ0NYspbdq1tZgi4rjqv7bjhqLxeDUn2DtOV8xYeCEdh4
+         7uObWfSfxBQPLypQWE3eF2bBkz/F+bWdb/8jcfK/E3LqCeKqYzIq1ONjh4fKV8T7kXyl
+         wbBeNX4r+QdGcA1ZCCSGib1MCW5n+3BOWAHpY/PHzv/unDJBl6nRrI3Y7cGGuV/oMiL5
+         VBng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SRLHab5JHv6y5OVWGBkvI4XT8NjkDIUMOmG3BXMSKXc=;
+        fh=84IJxRCSsbZ/MprZ/FvfGFd89Bvz0liD9pX/myU8JGY=;
+        b=MarjVwsMpn8FXsk7T/s/jqqGbC5wx0bRu+mTCyeiXh7mC+6aPjZov8sUHZN71Gaqj4
+         tNLMrzrk+otseTDoehKGakQt5phpnx8aTfVqOV3lhVQXbLFdhVvDM/WRA7toY6i5VRQ7
+         vIEsiwrDTgbEDOds8l11MjR6uoRyVIoEj30O+cRivM+Wm0Y1aor5snmVRGxMnTZly/Hg
+         JZDcR+zXKxZu3yg43W8j/DvPZULuKWThpikLzxZvyT/8SFDlcKOGYKro/71l1RgSqlHW
+         WJ+ZZY/NjLpxpv12Ho5iTx/EujmmaT5yJdg0s8JSS6Ejiz33K6IpEbVrI8FD02lNm+co
+         XEqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785579603; x=1786184403; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oSwy52wPE+n9CbxU0Afr3cSq8DpmnySrLvPQBrinhvc=;
-        b=KlQoCsEYMKOcjmR9WuoMXi8FiqGiySiaF93ucj84RMNCC0YwKyBD87N+UAxEk5DcIL
-         H1Y99GAkTEU/xJoUTFdsqxf6N+5A82pd5jd0LbopDgJNvaqjw4KLl7qufNIP91WoOHiL
-         mD16eNTJEPGonUP49xi3T3HOGl9fAltRHQOsmXFRHfvpiw24qTFO9J6rBxGk3cRB9+K+
-         DLc1QIpnLwwIUAwioqqeZuQIsYiZwUEytaUfnnoMhqLreOiVob/g0eTtkBDwiUMMbGfp
-         xjiAX1Ad/7PQGXb0VLQgCKthKeNAvHtEQ8Ubw/tnqvXVtWEWGqXIBNUy2L158eQ9PNtO
-         21AA==
+        d=gmail.com; s=20251104; t=1785579716; x=1786184516; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SRLHab5JHv6y5OVWGBkvI4XT8NjkDIUMOmG3BXMSKXc=;
+        b=HfsJZ9EIr5gxDhSbOIxLuBD7M5x5j9fnFRsvEk/8K9BmwWhRX9XeZb74+FFLgoFr0f
+         8je+vUxGrHLniZF3SJ9IpsdOfP5yV90nMDlql5Sy5CqgAMbgcmdKwgPvbczGqlmnEGjH
+         oYIb/PoMKYdO/CRVLTlQFtA2buw8hpAkr3I9vzOEpRyooSymT6PN+JZg4ues9Y8R0G1f
+         gP5Atdmr56pgtOhAVVGV3r9YHAKfGRkzPn+Ho0/+UXxF/RZ38Lp8QYztsd2T8fJH8MlU
+         iBq9qznj+SOzF/XSrn2Doxhy79XGmhA1x2yPEgeiFPF1R9h5whoawF9fIITHHX8XvQJ6
+         /KPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785579603; x=1786184403;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oSwy52wPE+n9CbxU0Afr3cSq8DpmnySrLvPQBrinhvc=;
-        b=hOahXuERzyY/yjvYgPollX4So2l9wesNLGVUYbD5plOcpjuGRU5kAuq49qXXn9s1MW
-         O4t5lwgzEabRuA2u/9Wjo2qY+eUqe7YJXZxLdbWhwb36RzGzRrzs8Y80ez3rjgjpkmZ5
-         dTYiL+eonkzC/n7VFuQNdXwSK8de9upNQP3igBbvN4RLI6NnTEkaRRE/D9t4xqc6889q
-         lyQ/RsLgCCrinakEb+vdNLJ+N9iI7MGk8OH8czepr1iGEkhT3CoiTn7frL3bbKN19d5g
-         Cjq8CbAtKDrEze3ibyATj5RWs4m1/zbIDAmqobUi7tX28dupiu/+VG7pDY4S1aNWwZXL
-         3nWQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqv9fB9dLpjilhCn8ycvg8GrJenkjgWkXYchQbY+p0uwWGoAdEj36Gr+Vg/brYaKQnFdXOfiJ7oXHcE@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzq/VLiAquF9cqS0lc4oYompJXSLMyVzdqMxFgKdFLILm33bTT9
-	5ThcbaZD/kompyrTAHt+NhobCmuGQK842wAWExvhjrFzlf9Cgge/CYfg
-X-Gm-Gg: AR+sD10ImXtW1qAoLbUXaZqzXn5yy4M7Mzu7jhAvAKnpL3S/JxRy5Y+1wVmDupxA1pR
-	HqKaHsr1FIe6H4ezQeM7G1CppCuVOezVQdF53HaYCePkO2vxTWPzmSl/UJfLpZ8rS819FyL40E8
-	8hjECT6+TkOgvYz3qXK5b/xGgIwdvJxalod10Re76hA6U1GGOQiT4L1I6jN5fTXPciRGBNmikx+
-	2LWuTmWXpVRCwFDadSoqhWXS1FGiHH3nKlGYCOSRd2hJ56AQBReUuowOA1fGV10XLXLI6AqaGOh
-	re5Z5f2nOuB33zZjNbn2mi3S0ah4ljXTHYTg0yu447EVIdgqfmh6cXdca5+BBPNDJjiifvu1au6
-	RpEHCpJnrTBEFyxR8mPDOA0Q4jEghtVfSB/avMh9bIGJqqalbu0L47A/YzZwgdi3qXYxYYCJbYs
-	phazPglJ9ymH807EQgtC1wlT9t7jgzUMJjbiojSY4LxnEvVb0FNmX/oP4j7Krz2EVfJlNo042nw
-	wbZTxUSzFaVwnHtVo5SCqzaMqirh9ojNRhNqM8V4yBnQpjhSJhEj2O/AmGi0fFFobJv1N9Uq62X
-	RW6dxUlmUhx+yXKIL6vLdY+RCFuB2BDSuWg31IWaDdg5wEvXj3+ZVJhQlM35PdLJf5iV2wwn8ub
-	uKWG1wK95YJ5Z5Am5WqCyfd5BkG7U1i8U8NLJnUM8KyR+Cozonc4gup1sAgdg
-X-Received: by 2002:a05:600c:c490:b0:494:596e:e8c4 with SMTP id 5b1f17b1804b1-4980c67d1cbmr29142895e9.17.1785579603235;
-        Sat, 01 Aug 2026 03:20:03 -0700 (PDT)
-Received: from cypher.home.roving-it.com (1.e.2.e.9.4.4.d.0.e.6.8.9.8.8.3.0.0.0.0.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:fb11:0:3889:86e0:d449:e2e1])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47fd456a5a4sm14804509f8f.20.2026.08.01.03.20.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 03:20:02 -0700 (PDT)
-From: Peter Robinson <pbrobinson@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Phil Elwell <phil@raspberrypi.com>,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Peter Robinson <pbrobinson@gmail.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Andrea della Porta <andrea.porta@suse.com>
-Subject: [PATCH v2] arm64: dts: broadcom: bcm2712: adjust display status
-Date: Sat,  1 Aug 2026 11:19:53 +0100
-Message-ID: <20260801102000.551644-1-pbrobinson@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1785579716; x=1786184516;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SRLHab5JHv6y5OVWGBkvI4XT8NjkDIUMOmG3BXMSKXc=;
+        b=MOIpR3a+7avSvGzWJ3FaeKZkwosr4py6xI+6EHmcOPyx0nhRb7urfs84TV3HwiPVqh
+         qADmYxOHmkQAuJHLBC2rvOERQlPNe5aaY7BRUEuHfwqFktc7oggP60vwByHYuEG+EJYx
+         Aci9lEamu8b3G0O88LHymhcrrNw1GvkCRpKN7ySF5f9eSz5iT9LKrYeouFRBpcMtD8r4
+         3NXEvCOmP7isRyPLBWnp1PIPmczY4tkjq1h0JHo6ZWubboh19RHJJvCo3AWS3XX/OYVX
+         ELk77cxmV9j7PWMQILGEBJnSUsqD8EyHd48JTzwO8KTGOrumIBgEVqm/Z1JoHU97w6gL
+         IX9Q==
+X-Forwarded-Encrypted: i=1; AHgh+Ro9dQv045jQuCl/P3U8yX2d6HQO06Lk2z9/Ik/9hLw0ydm18kn8P7267es5rzVV08y90glWdY4E40pS@vger.kernel.org
+X-Gm-Message-State: AOJu0YyM3syrIjdarD8r/3aqCU0djcT65NpJdY4X5DXlAiyZYps/i5Xq
+	zrIN4YKbN3tlgk48L5ujEf3jbs1BwC7c8keXVu9pwAfgFTVRj9um7Rw1PGN0ElbGC/8JLV11IYL
+	r+i3gFlNMLymGauBqNfSZscqFt6bzMZM=
+X-Gm-Gg: AR+sD12XaAKMfow67DKBv+/ObTg0TdPgUxAj0myCriG6YAvdTBmdcR2QohceggIYPjk
+	NyVGmIDMCrz6d+6AnGXcKW106lGUFSpfyruz7SGF0S7guDs/9GgUW+BM2QVmHtaEBN0YsnxfIkJ
+	T3vwWmuJP2ylhD8Pwpif1yhvDwIHhqmnGm8Chn8+oPljmqgxrUGNNznonXeJDTEZEk+W4Lz/8Pz
+	bVK9i1dL852ENZPz3RCkvhuv1oQW1eINtBMzFLDUaTmlSSSAkGctKVoV3W+dc4daF8KL7kk0nYz
+	SDua6zH8M8tD0n7RTeda5Pd/p0+hj2eZ3veqzU5qD6o9e5ujEmWyHoa98CIqgGSLnrRNaMxuTyG
+	Dg2i80SiI4GdzVgkxvvIQA1vm5PYuCk5Z6Lz+ZtCvp6+If6+UJscdtiYHxD2OI0NI8hP5n8saEA
+	CZUYOsLfiVlLjATh0a40GeC4E7AhzaeM1GPkouMhd3rlKlA4zq4PU=
+X-Received: by 2002:a05:6214:21cc:b0:8e0:7d6a:480d with SMTP id
+ 6a1803df08f44-9084963fd1bmr61334226d6.20.1785579715978; Sat, 01 Aug 2026
+ 03:21:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250924085712.1040284-1-pbrobinson@gmail.com>
+ <37220187-7369-4b20-8e00-0846ee0ee6fd@broadcom.com> <CALeDE9MfhU+hL-d1vruhCzN5vvb9LsR8YwDPOR1XmpLcygLbLQ@mail.gmail.com>
+ <d27d0ad7-687a-46f4-b6c6-f34f3232f1c3@broadcom.com>
+In-Reply-To: <d27d0ad7-687a-46f4-b6c6-f34f3232f1c3@broadcom.com>
+From: Peter Robinson <pbrobinson@gmail.com>
+Date: Sat, 1 Aug 2026 11:21:44 +0100
+X-Gm-Features: AUfX_mzDprPWyjzafLFHPRoNUXXUuAWXNY0wf_WYB9j4gWDemmLGUrxrU_ekU6Y
+Message-ID: <CALeDE9PH5BcoqwPhEcEf21u-_Tn72A0D9BuVM0xVQFjCHNyaHA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: broadcom: bcm2712: adjust display status
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, 
+	Phil Elwell <phil@raspberrypi.com>, Andrea della Porta <andrea.porta@suse.com>, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-Typically non critical IP in a SoC are disabled by
-default in the SoC .dtsi and enabled on board specific
-configs. There are usecases, such as some CM5 carrier
-boards, where display output may not be desired or
-connected. So disable them on the SoC .dtsi and enable
-them on the RPi5 board.
+On Fri, 31 Jul 2026 at 21:44, Florian Fainelli
+<florian.fainelli@broadcom.com> wrote:
+>
+> On 7/31/26 11:51, Peter Robinson wrote:
+> > Hey Florian,
+> >
+> > Not sure what happened to this, you said it was applied almost a year
+> > ago but now I dig I don't see it upstream.
+> >
+> > Was there a problem, or did it just fall through the cracks? Should I resend it?
+>
+> Looks like it fell through the cracks during a rebase, sorry about that.
+> Would you mind resending it since it no longer applies cleanly? Thanks!
 
-Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Andrea della Porta <andrea.porta@suse.com>
-Fixes: 25d77bdd7df2 ("arm64: dts: broadcom: Add display pipeline support to BCM2712")
----
+No issues, new rev on it's way.
 
-v2: rebase to align with upstream changes
-
- .../dts/broadcom/bcm2712-rpi-5-b-base.dtsi    | 31 +++++++++++++++++++
- arch/arm64/boot/dts/broadcom/bcm2712.dtsi     | 11 +++++++
- 2 files changed, 42 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-index b7a6bc34ae1ab..51c8533f31812 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-@@ -104,6 +104,18 @@ wl_on_reg: wl-on-reg {
- 	};
- };
- 
-+&ddc0 {
-+	status = "okay";
-+};
-+
-+&ddc1 {
-+	status = "okay";
-+};
-+
-+&disp_intr {
-+	status = "okay";
-+};
-+
- &pinctrl {
- 	bt_shutdown_default: bt-shutdown-default-state {
- 		function = "gpio";
-@@ -230,16 +242,27 @@ bluetooth: bluetooth {
- &hvs {
- 	clocks = <&firmware_clocks 4>, <&firmware_clocks 16>;
- 	clock-names = "core", "disp";
-+	status = "okay";
- };
- 
- &hdmi0 {
- 	clocks = <&firmware_clocks 13>, <&firmware_clocks 14>, <&dvp 0>, <&clk_27MHz>;
- 	clock-names = "hdmi", "bvb", "audio", "cec";
-+	status = "okay";
- };
- 
- &hdmi1 {
- 	clocks = <&firmware_clocks 13>, <&firmware_clocks 14>, <&dvp 1>, <&clk_27MHz>;
- 	clock-names = "hdmi", "bvb", "audio", "cec";
-+	status = "okay";
-+};
-+
-+&mop {
-+	status = "okay";
-+};
-+
-+&moplet {
-+	status = "okay";
- };
- 
- &pcie1 {
-@@ -250,6 +273,14 @@ &pcie2 {
- 	status = "okay";
- };
- 
-+&pixelvalve0 {
-+	status = "okay";
-+};
-+
-+&pixelvalve1 {
-+	status = "okay";
-+};
-+
- &v3d {
- 	clocks = <&firmware_clocks 5>;
- };
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-index 761c59d90ffc9..9b36ecd7bba54 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-@@ -359,12 +359,14 @@ pixelvalve0: pixelvalve@7c410000 {
- 			compatible = "brcm,bcm2712-pixelvalve0";
- 			reg = <0x7c410000 0x100>;
- 			interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
- 		};
- 
- 		pixelvalve1: pixelvalve@7c411000 {
- 			compatible = "brcm,bcm2712-pixelvalve1";
- 			reg = <0x7c411000 0x100>;
- 			interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
- 		};
- 
- 		mop: mop@7c500000 {
-@@ -372,6 +374,7 @@ mop: mop@7c500000 {
- 			reg = <0x7c500000 0x28>;
- 			interrupt-parent = <&disp_intr>;
- 			interrupts = <1>;
-+			status = "disabled";
- 		};
- 
- 		moplet: moplet@7c501000 {
-@@ -379,6 +382,7 @@ moplet: moplet@7c501000 {
- 			reg = <0x7c501000 0x20>;
- 			interrupt-parent = <&disp_intr>;
- 			interrupts = <0>;
-+			status = "disabled";
- 		};
- 
- 		disp_intr: interrupt-controller@7c502000 {
-@@ -387,6 +391,7 @@ disp_intr: interrupt-controller@7c502000 {
- 			interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-controller;
- 			#interrupt-cells = <1>;
-+			status = "disabled";
- 		};
- 
- 		dvp: clock@7c700000 {
-@@ -405,6 +410,7 @@ ddc0: i2c@7d508200 {
- 			clock-frequency = <97500>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			status = "disabled";
- 		};
- 
- 		ddc1: i2c@7d508280 {
-@@ -415,6 +421,7 @@ ddc1: i2c@7d508280 {
- 			clock-frequency = <97500>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			status = "disabled";
- 		};
- 
- 		bsc_irq: interrupt-controller@7d508380 {
-@@ -460,6 +467,7 @@ hdmi0: hdmi@7c701400 {
- 			interrupt-names = "cec-tx", "cec-rx", "cec-low",
- 					  "hpd-connected", "hpd-removed";
- 			ddc = <&ddc0>;
-+			status = "disabled";
- 		};
- 
- 		hdmi1: hdmi@7c706400 {
-@@ -489,6 +497,7 @@ hdmi1: hdmi@7c706400 {
- 			interrupt-names = "cec-tx", "cec-rx", "cec-low",
- 					  "hpd-connected", "hpd-removed";
- 			ddc = <&ddc1>;
-+			status = "disabled";
- 		};
- 	};
- 
-@@ -667,6 +676,7 @@ v3d: gpu@1002000000 {
- 
- 	vc4: gpu {
- 		compatible = "brcm,bcm2712-vc6";
-+		status = "disabled";
- 	};
- 
- 	timer {
-@@ -703,5 +713,6 @@ hvs: hvs@107c580000 {
- 		interrupt-parent = <&disp_intr>;
- 		interrupts = <2>, <9>, <16>;
- 		interrupt-names = "ch0-eof", "ch1-eof", "ch2-eof";
-+		status = "disabled";
- 	};
- };
--- 
-2.55.0
-
+Thanks,
+Peter
