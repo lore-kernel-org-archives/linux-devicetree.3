@@ -1,271 +1,292 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7A0371046
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 16:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A9035B633
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 17:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785603279; cv=none; b=gGex3PCM7EkpQ7h8gpqSMqdan+jUfCp2dJD+LZVILoBIMumx3sXDb6S5UoZFcQv2Sy2w7zeDV2+k+LukOYCT3IAuCD6CVg3JJXOEGDbJzMmcfG9k+Ov2CtyuVUfI4IKLvgwLEsuSktISo+M2aH6/l4+6nTmn9n5bR+m8aCS0S2Y=
+	t=1785605449; cv=none; b=sfOvOdemH87teQ1iSgPUlJeoSMWryf4a+Er/CCFUj2TIyTkbZEWWPRhHCHdeeR6ynPs1ZiaAVnCEt5p7UcnWNS4VkpX3HldR9yBhuPBv8kmZvxeKKqRXq/zAQ8T4ezgAimd8tegA+Z97K5Nc+7eCTrQ6Aqb3D0VUB6GFHA6/stM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785603279; c=relaxed/simple;
-	bh=ebqxqrF0JZx7PUIJTc0kz5J9imImwse8e/5JUg050go=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JpHiUn/Gn07mMyHdPQYgjd3kc4sIlmNYsLVT2W/wC97518g8RzIl2h+yulQH8B58ROtPCAJtrKBuoEKjmICQW2uTWS0/6eBkxJU04Dk3sIIsqYYb8JKSWn/B3NZsMR15AekxjCLvxsKhgX6Uy8H6+7goidF4NplPV4OAAkwb9lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HTJao+4v; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785605449; c=relaxed/simple;
+	bh=PltSu/sVA6TYR6Jx3qt79OpymfJ6HHMaUviftaN88AI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b7wr3NdNug797yWk6ed/ip5Gnt0zOzT1a++QMkwIPv7ZmwM7VtLDYGe3HhHFbFOBSEEqVzwF0S0UrvATY5nQoKEJefOVENjuHVJ1J0PLZEg/XXtXi/9xwvmszq4gixl7fCcqecox8VDSnRvLmg31f3/8A8V4mmZb3umfzFNhzj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AOkjh5OS; arc=none smtp.client-ip=209.85.161.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HTJao+4v"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-495590dde14so7689895e9.0
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 09:54:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AOkjh5OS"
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6ad02448351so600930eaf.1
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 10:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785603274; x=1786208074; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OwjnT3EpR0zZcIL3ISuwV1cjbLAr+BETB7kkTqGtQmA=;
-        b=HTJao+4v17YMSPNvbaVxXamG08GAI/DE0PKboN2utLVE6GI63DC7LfZ7inLIpDlVY5
-         MNT87do9WqsaOLOeINd0DMIhmWOtBk2HaCluISuky30GJTpTq2+l8SFOJxmDW6DuN7+A
-         DcWEKVR+Q8Kwq3EDOEEfbUEPW+lKeUf5+JuL42ma0fpt3p+5QNNmhGYJQUAin8m1pJYD
-         l+Ny4bnauc10fJ9YTJPFr+TETysPSRhpTa3C97kSebFLhimxCRQ5roDyLoScCy5HL9WA
-         1RWRVGjmxZ73NflE9GRepskY6YT07bOYhs8SRjr9Xnu9mKHsnTALqmWfXCMSIJ73G7su
-         /C0w==
+        d=baylibre.com; s=google; t=1785605446; x=1786210246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yKfWZJAhPCXSe4r4r5GwzlxdXwfptY+Qsd20FWoEYvU=;
+        b=AOkjh5OSMO4fcFSNAbcntt2yaVbXEcM0TbuUFl9QD8xV11OYTVdopq8RHBVLUiAXoJ
+         ECSyxlvxfOw0ocWyzRsnijjuR/esOuinC+JeShmE0wbQhaicb98OqA3TNbH/rtgMZlj8
+         RJW/iAM/ar0XvR6X6KlJN8kom6OUYKMGONueA+HpT7mA2Cd23EUAP+TRJaKUMHs08R0M
+         yzodc4KkaXCgjQXCRyXHOn010kEE07NBA6X4IOxiNUXlLNfri2r4bGKw/b+ja/A5ZgBM
+         ifPJuvX/pALQwy4+53Pqc2QWCjQtKBU4kTG+ABR4Ih2bU2eTHycMe40SyrUypexm38Cy
+         gH0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785603274; x=1786208074;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785605446; x=1786210246;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OwjnT3EpR0zZcIL3ISuwV1cjbLAr+BETB7kkTqGtQmA=;
-        b=oKGHC8gVqvajg11I8BtI0VA0UR2gwxELlvAFh/BPrMZDNspSHh6J1ie/00A4Y004LO
-         2yjUv43ZDdhwPK/NC2zc8j3yJLbI6ekp0ROpPU+uNelkpQp55Os0b6OhfdZ/8SIaf84B
-         WEn312Yh+Ym6npkrGS92rFQzJNLtwzBGrU1H4fF62DMQmFbX4QrxN/QSYqoe6SOnYF5P
-         XhSqVrlmMBl5o/bn/HNW7IDWA3Ku9k5lBNsRxnTNvAAAxQXWmYn+5jLoYN/xDSEmfVQ7
-         uLlIfXxG3h5fWWYCnPUiAk5RzyGCngaI+kMxpGsbmcqEB6rbBdqF8pvwvMSnoI7JOs1l
-         W6Kw==
-X-Forwarded-Encrypted: i=1; AHgh+Rre2AarpDYH4LUX+/FDA9MHj5vvPU2Eii9yh9AjsdemfYhsfSd1NStzzQwFp7djjc9lC1sq74JVMPqy@vger.kernel.org
-X-Gm-Message-State: AOJu0YzsOv3daH7DFjXdygY0F8AQ4atZ2r1GrwgonkYwWjwwjggQ9rMB
-	sdpi0qO6es+iUKGRkHG0zpYtrgByOGftPyHPVPygl1FjqsIl9eQXP225
-X-Gm-Gg: AR+sD120CSizWwHXoFhAfGxbgSA+aa+517stq3kqQntNJJZOa6dHkrRjOq2jXeOMDVa
-	yGK3SLyjS8nBkPuH0pIpQlWS+zoLjXvibnmz0ST+IRemYQBPZPDUE3SvErGnAgvIbbqXAShy6/H
-	MWMIEFFQovd9EhoIecKOrlZeTcV3Zvi1SHiax6eCqEpAbVAurmzv5FVKJkz7exfHkr8NUvZ0fuZ
-	S1nPJ0gliqcPg/lcphCBA/pUZJ9nhl6AqL4rC+48nF72IdKmovzrjA5kwLI2akpS7ryK5iKltiy
-	q+acGlJN+Jh0cdIwlgu7TnODQxPml8vgsnzsadt7i94+VG0N9JiO2rNlSHQCEeN28dsgc8b+H+p
-	VKzt47r1fCC1iWOKIjm9kYcFJaGA+9bXAwatj+WExOXgxxmESjjAz1vzIM9y+C0C3OK0G+OiYC5
-	Yj3J8IuEbvSmSyzLAZdP6Rsl2Z0qb9PHPyWRlCv73xcZR/seIJbb0mWJmlR1PJiwg3qp8lyaVGz
-	6XrXkweVR66KQ5+7E5wcEnxUmmY9jHvBzlnQ5e78GVk3PGZmqTSZAmFoPNBi1xs5P+w0kGlHcKd
-	H5ya0Ae9GBOZ9gN7vhaRwi4/9BzMBPnj3mdtnCnb4M1T6wB4QKJa9JwDpqZuTQTLn5gMGveQm5z
-	40WTcaOVhXFUVWeOoK4ZdfZrMU4fudskSfLewln31d7KZDf30KS+86OqSlOGI
-X-Received: by 2002:a05:600c:4685:b0:493:e365:7630 with SMTP id 5b1f17b1804b1-4980eb66053mr51984885e9.14.1785603273675;
-        Sat, 01 Aug 2026 09:54:33 -0700 (PDT)
-Received: from cypher.home.roving-it.com (1.e.2.e.9.4.4.d.0.e.6.8.9.8.8.3.0.0.0.0.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:fb11:0:3889:86e0:d449:e2e1])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49807b9441csm63964405e9.4.2026.08.01.09.54.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 09:54:32 -0700 (PDT)
-From: Peter Robinson <pbrobinson@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Phil Elwell <phil@raspberrypi.com>,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Andrea della Porta <andrea.porta@suse.com>
-Cc: Peter Robinson <pbrobinson@gmail.com>
-Subject: [PATCH v3] arm64: dts: broadcom: bcm2712: adjust display status
-Date: Sat,  1 Aug 2026 17:54:26 +0100
-Message-ID: <20260801165430.598302-1-pbrobinson@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=yKfWZJAhPCXSe4r4r5GwzlxdXwfptY+Qsd20FWoEYvU=;
+        b=s+j/CDKt4/OCiyz9uExzlYrQeXtjaUoGTVnebzdGV1Gos/YN2CzjoObLugFIlYZZg7
+         Kt2iThMqnwhT0iKkORVxErsSE3epGGN+WndnFNahBIpkxoTcvnet6Vf9pmKgtcNYdZyQ
+         6NxEmX1pOD5mzsWDVdnDYwGphYKNKm/K8GhncwIQQNULz4nw5D+EVMd4YA6qO8Azee9o
+         dqol8AvStjSh75iTE0nGyMmZIB4oXDBIhl+SJWNhbF/k0OKreCy2/P6YKjrdS2Jp5VXy
+         6qQzjISkfO4iMQ/sBEDdF8F2Uyo+hfnc9WR4ntUy2QaErJriePz56F4H9paDa2nLtjKZ
+         zf3w==
+X-Forwarded-Encrypted: i=1; AHgh+RpUFNhVSkVfN6UDVwBCE2Bn0GofJMkkgK9mxmf3veuC+CQbuisTW53IlM97gwtz4MGH7RmfLw3tAku3@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSfkXD14JbQzNahtOXj5nUP+edZ3OFkPtu9/Gby8J0Oj3/ljrg
+	FPQLhjTRPmkQG3MpXkcZa9Toi6SmSXuj4N3EVq0Itrcrd02onivU7CO3P5j9e20EB4c=
+X-Gm-Gg: AR+sD11CfxRg6POnC6svxelzWcPn6efULqVmYN+jrNd8P58tSd9wnE69rhaIlq/vutJ
+	Ns+Y/pQfAwW7nkysuk/3yD5Lon9llI4quqRfLEw0RYznDyMShIL89Y/jXtg2iFmIxP1NV+1AY79
+	rzDF0B35pRcNwDUhS1b0BD1heXpyKmfg0BwgPegn6RZuJnw1J7mDCrqCH+g51DlYmjFwdFfUhIB
+	XVS5V1HEgfexGPs2ho3KQgop+DqVYyY1lEX0VxkSXIisdSOgn2JHfS9ge542kdUeKBE2o8Y1OrO
+	FC9ZIU5yvhXAV5LNJqQI68SLswEkkePwMxMmPqvN7zCyQjlO7iI9KMAoDZjEzJeiFTQ4D0LQNQQ
+	sBRAF35Oua7Ie2HPVGhQxgPqk3g29NFYe59wr/B+/Dh4ND7XnZrYX6zKKDN38muCxSXLV6ni2Lu
+	gLz0TsOC6tyOpYM5Vga1GBuPeen98RSserIxPZRPc7IYz9gyv7lknNfkcXoHxL5e93+QC1B5D00
+	wkXK9KhF9yQP4QTWCPJQoDfY6cXmk8FefHS9Oo=
+X-Received: by 2002:a4a:edc3:0:b0:6aa:e1f6:32c7 with SMTP id 006d021491bc7-6ae43201d81mr7470917eaf.13.1785605445905;
+        Sat, 01 Aug 2026 10:30:45 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:359b:17f1:d4f9:4949? ([2600:8803:e7e4:500:359b:17f1:d4f9:4949])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-458f60d63fasm4181757fac.5.2026.08.01.10.30.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 01 Aug 2026 10:30:45 -0700 (PDT)
+Message-ID: <a869acd6-9c77-4495-a581-232ca88ac9e2@baylibre.com>
+Date: Sat, 1 Aug 2026 12:30:43 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: add support for PAC1711
+To: Ariana Lazar <ariana.lazar@microchip.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260728-pac1711-v2-0-609bc026093c@microchip.com>
+ <20260728-pac1711-v2-1-609bc026093c@microchip.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260728-pac1711-v2-1-609bc026093c@microchip.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Typically non critical IP in a SoC are disabled by
-default in the SoC .dtsi and enabled on board specific
-configs. There are usecases, such as some CM5 carrier
-boards, where display output may not be desired or
-connected. So disable them on the SoC .dtsi and enable
-them on the RPi5 board.
+On 7/28/26 7:03 AM, Ariana Lazar wrote:
+> This is the device tree schema for Microchip PAC1711, PAC1721, PAC1811 and
+> PAC1821 single-channel power monitor with accumulator. The PAC1711 and
+> PAC1721 devices use 12-bit resolution for voltage and current measurements
+> and 24 bits for power calculations, while PAC1811 and PAC1821 have 16-bit
+> resolution and use 32 bits for power calculations. The 56-bit accumulator
+> register accumulates power (energy) or current (Coulomb counter).
+> 
+> PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+> PAC1721 and PAC1821.
+> 
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+> ---
+>  .../bindings/iio/adc/microchip,pac1711.yaml        | 209 +++++++++++++++++++++
+>  MAINTAINERS                                        |   6 +
+>  2 files changed, 215 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..846e7801a1667c312c753ab8ee4d5637e258e2e5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
+> @@ -0,0 +1,209 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/microchip,pac1711.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Microchip PAC1711 Power Monitors with Accumulator
+> +
+> +maintainers:
+> +  - Ariana Lazar <ariana.lazar@microchip.com>
+> +
+> +description: |
+> +  This device is part of the Microchip family of Power Monitors with Accumulator.
+> +  Datasheet links:
+> +  [PAC1711]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1711-Data-Sheet-DS20007058.pdf
+> +  [PAC1721]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1721-Single-Channel-Power-Monitor-with-Accumulator-DS20007088.pdf
+> +  [PAC1811]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1811-Data-Sheet-DS20007066.pdf
+> +  [PAC1821]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1821-Data-Sheet-DS20007097.pdf
+> +
+> +  PAC1711, PAC1721, PAC1811 and PAC1821 are Single Channel Power Monitors
+> +  with Accumulator, having 12-bit or 16-bit resolution. The devices PAC1711
+> +  and PAC1811 can measure up to 42V Full-Scale Range, respectively 9V
+> +  Full-Scale Range for PAC1721 and PAC1821.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - microchip,pac1711
+> +      - microchip,pac1721
+> +      - microchip,pac1811
+> +      - microchip,pac1821
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+> +  "#io-channel-cells":
+> +    const: 1
+> +
+> +  interrupts:
+> +    description:
+> +      Could be triggered by overvoltage, undervoltage, overcurrent, overpower,
+> +      undercurrent, step limit, accumulator overflow and accumulator count
+> +      overflow.
+> +    minItems: 1
+> +
+> +  interrupt-names:
+> +    items:
+> +      - enum: [alert0, alert1]
+> +
+> +  microchip,gpio0-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Defines the function of the pin. This is a multifunction gpio digital I/O
+> +      pin which can be configured as alert0 interrupt, GPIO digital input, GPIO
+> +      digital output or slow. When functioning as SLOW pin pulling the pin high
+> +      overrides the programmed sample rate and results in a sample rate of 8 sps
+> +      (Slow mode).
+> +    enum: [alert0, gpio0_input, gpio0_output, slow]
+> +    default: gpio0_input
+> +
+> +  microchip,gpio1-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Defines the function of the pin. This is a multifunction gpio digital I/O
+> +      pin which can be configured as alert1 interrupt, GPIO digital input, GPIO
+> +      digital output or slow. When functioning as SLOW pin pulling the pin high
+> +      overrides the programmed sample rate and results in a sample rate of 8 sps
+> +      (Slow mode).
+> +    enum: [alert1, gpio1_input, gpio1_output, slow]
+> +    default: gpio1_input
 
-Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Andrea della Porta <andrea.porta@suse.com>
-Fixes: 25d77bdd7df2 ("arm64: dts: broadcom: Add display pipeline support to BCM2712")
----
+Maybe I missed something in the previous discussions, but this
+seems a bit too restrictive and also a bit redundant.
 
-v2: rebase to align with upstream changes
-v3: re-add missed vc4 okay status
+interrupt-names already tells us if A0 or A1 is used for /ALERT.
 
- .../dts/broadcom/bcm2712-rpi-5-b-base.dtsi    | 35 +++++++++++++++++++
- arch/arm64/boot/dts/broadcom/bcm2712.dtsi     | 11 ++++++
- 2 files changed, 46 insertions(+)
+And why should we restrict GPIO usage to only input or output?
+(Binding should have gpio-controller and #gpio-cells properties
+for that too.)
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-index b7a6bc34ae1ab..d998bfae91acb 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-@@ -104,6 +104,18 @@ wl_on_reg: wl-on-reg {
- 	};
- };
- 
-+&ddc0 {
-+	status = "okay";
-+};
-+
-+&ddc1 {
-+	status = "okay";
-+};
-+
-+&disp_intr {
-+	status = "okay";
-+};
-+
- &pinctrl {
- 	bt_shutdown_default: bt-shutdown-default-state {
- 		function = "gpio";
-@@ -230,16 +242,27 @@ bluetooth: bluetooth {
- &hvs {
- 	clocks = <&firmware_clocks 4>, <&firmware_clocks 16>;
- 	clock-names = "core", "disp";
-+	status = "okay";
- };
- 
- &hdmi0 {
- 	clocks = <&firmware_clocks 13>, <&firmware_clocks 14>, <&dvp 0>, <&clk_27MHz>;
- 	clock-names = "hdmi", "bvb", "audio", "cec";
-+	status = "okay";
- };
- 
- &hdmi1 {
- 	clocks = <&firmware_clocks 13>, <&firmware_clocks 14>, <&dvp 1>, <&clk_27MHz>;
- 	clock-names = "hdmi", "bvb", "audio", "cec";
-+	status = "okay";
-+};
-+
-+&mop {
-+	status = "okay";
-+};
-+
-+&moplet {
-+	status = "okay";
- };
- 
- &pcie1 {
-@@ -250,6 +273,18 @@ &pcie2 {
- 	status = "okay";
- };
- 
-+&pixelvalve0 {
-+	status = "okay";
-+};
-+
-+&pixelvalve1 {
-+	status = "okay";
-+};
-+
- &v3d {
- 	clocks = <&firmware_clocks 5>;
- };
-+
-+&vc4 {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-index 761c59d90ffc9..9b36ecd7bba54 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-@@ -359,12 +359,14 @@ pixelvalve0: pixelvalve@7c410000 {
- 			compatible = "brcm,bcm2712-pixelvalve0";
- 			reg = <0x7c410000 0x100>;
- 			interrupts = <GIC_SPI 101 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
- 		};
- 
- 		pixelvalve1: pixelvalve@7c411000 {
- 			compatible = "brcm,bcm2712-pixelvalve1";
- 			reg = <0x7c411000 0x100>;
- 			interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
- 		};
- 
- 		mop: mop@7c500000 {
-@@ -372,6 +374,7 @@ mop: mop@7c500000 {
- 			reg = <0x7c500000 0x28>;
- 			interrupt-parent = <&disp_intr>;
- 			interrupts = <1>;
-+			status = "disabled";
- 		};
- 
- 		moplet: moplet@7c501000 {
-@@ -379,6 +382,7 @@ moplet: moplet@7c501000 {
- 			reg = <0x7c501000 0x20>;
- 			interrupt-parent = <&disp_intr>;
- 			interrupts = <0>;
-+			status = "disabled";
- 		};
- 
- 		disp_intr: interrupt-controller@7c502000 {
-@@ -387,6 +391,7 @@ disp_intr: interrupt-controller@7c502000 {
- 			interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-controller;
- 			#interrupt-cells = <1>;
-+			status = "disabled";
- 		};
- 
- 		dvp: clock@7c700000 {
-@@ -405,6 +410,7 @@ ddc0: i2c@7d508200 {
- 			clock-frequency = <97500>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			status = "disabled";
- 		};
- 
- 		ddc1: i2c@7d508280 {
-@@ -415,6 +421,7 @@ ddc1: i2c@7d508280 {
- 			clock-frequency = <97500>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+			status = "disabled";
- 		};
- 
- 		bsc_irq: interrupt-controller@7d508380 {
-@@ -460,6 +467,7 @@ hdmi0: hdmi@7c701400 {
- 			interrupt-names = "cec-tx", "cec-rx", "cec-low",
- 					  "hpd-connected", "hpd-removed";
- 			ddc = <&ddc0>;
-+			status = "disabled";
- 		};
- 
- 		hdmi1: hdmi@7c706400 {
-@@ -489,6 +497,7 @@ hdmi1: hdmi@7c706400 {
- 			interrupt-names = "cec-tx", "cec-rx", "cec-low",
- 					  "hpd-connected", "hpd-removed";
- 			ddc = <&ddc1>;
-+			status = "disabled";
- 		};
- 	};
- 
-@@ -667,6 +676,7 @@ v3d: gpu@1002000000 {
- 
- 	vc4: gpu {
- 		compatible = "brcm,bcm2712-vc6";
-+		status = "disabled";
- 	};
- 
- 	timer {
-@@ -703,5 +713,6 @@ hvs: hvs@107c580000 {
- 		interrupt-parent = <&disp_intr>;
- 		interrupts = <2>, <9>, <16>;
- 		interrupt-names = "ch0-eof", "ch1-eof", "ch2-eof";
-+		status = "disabled";
- 	};
- };
--- 
-2.55.0
+It also isn't clear to me how the slow pin would be useful when
+we can also program the sample mode to the same rate over I2C.
+So maybe we should defer adding a binding for that until we have
+an application that actually requires it.
 
+And this is missing the possibility that the pins can be used
+as a conversion trigger as well. Likely that would use a
+trigger-sources binding, but as that isn't common, I would defer
+adding that until we have a use case.
+
+So I would just leave these properties out.
+
+> +
+> +  powerdown-gpios:
+> +    description:
+> +      Active low puts the device in power-down state. When the PWRDN pin is
+> +      pulled high, measurement and accumulation will resume using the default
+> +      register settings.
+> +    maxItems: 1
+> +
+> +  shunt-resistor-micro-ohms:
+> +    description:
+> +      Value in micro Ohms of the shunt resistor connected between
+> +      the VSENSEP and VSENSEN inputs, across which the current is measured.
+
+It looks like all of the datasheets say VSENSE+ and VSENSE- rather than P, N.
+
+> +      Value is needed to compute the scaling of the measured current.
+> +
+> +  label:
+> +    description: Unique name to identify which device this is.
+> +
+> +  microchip,vbus-input-range-microvolt:
+> +    description: |
+> +      Specifies the voltage range in microvolts chosen for the voltage full
+> +      scale range (FSR). The range should be set as <minimum, maximum> by
+> +      hardware design and should not be changed during runtime.
+> +
+> +      The VBUS could be configured into the following full scale range:
+> +        - for PAC1711 or PAC1811:
+> +            - VBUS has unipolar 0V to 42V FSR (default)
+> +            - VBUS has bipolar -42V to 42V FSR
+> +            - VBUS has bipolar -21V to 21V FSR
+> +        - for PAC1721 or PAC1821:
+> +            - VBUS has unipolar 0V to 9V FSR (default)
+> +            - VBUS has bipolar -9V to 9V FSR
+> +            - VBUS has bipolar -4.5V to 4.5V FSR
+> +
+> +  microchip,vsense-input-range-microvolt:
+> +    description: |
+> +      Specifies the voltage range in microvolts chosen for the current full
+> +      scale range (FSR). The current is calculated by dividing the vsense
+> +      voltage by the value of the shunt resistor. The range should be set as
+> +      <minimum, maximum> by hardware design and it should not be changed during
+> +      runtime.
+> +
+> +      The VSENSE could be configured into the following full scale range:
+> +        - VSENSE has unipolar 0 mV to 100 mV FSR (default)
+> +        - VSENSE has bipolar -100 mV to 100 mV FSR
+> +        - VSENSE has bipolar -50 mV to 50 mV FSR
+> +    oneOf:
+> +      - items:
+> +          - const: 0
+> +          - const: 100000
+> +      - items:
+> +          - const: -100000
+> +          - const: 100000
+> +      - items:
+> +          - const: -50000
+> +          - const: 50000
+> +
+> +  microchip,accumulation-mode:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: |
+> +      The Hardware Accumulator may be used to accumulate VPOWER or VSENSE values
+> +      for any channel. By setting the accumulator for a channel to accumulate
+> +      the VPOWER values gives a measure of accumulated power over a time period,
+> +      which is equivalent to energy. Setting the accumulator for a channel to
+> +      accumulate VSENSE values gives a measure of accumulated current, which is
+> +      equivalent to charge.
+> +
+> +      The Hardware Accumulator could be configured as:
+> +       "vpower" - Accumulator accumulates VPOWER (energy)
+> +       "vsense" - Accumulator accumulates VSENSE (Coulomb Counter)
+> +    enum: [vpower, vsense]
+> +    default: vpower
+
+Why does this one have to be a DT property? Can it not be switched
+at runtime to accumulate one or the other at different times?
+
+Also datahseet says it can accumulate vbus measurements.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +  - shunt-resistor-micro-ohms
+> +
