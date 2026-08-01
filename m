@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53006310784;
-	Sat,  1 Aug 2026 15:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3384314D13
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 16:05:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785599406; cv=none; b=oInf6Nbk2CBW+qZ15Ao3LrpmvbRYOCDZMe7WDCNrz8dFQGT1eqc+5H3wIT+6E72TvOHNDgFPYOdME3ttKIt5GNSTg+VXPd3JqqGXE6S7V8gfY7F85JZ10sYcr6zWR5A/aNGM/DOXExyRW9SYs0kjvKI5MPCkAa0W0LxORLTEQnM=
+	t=1785600339; cv=none; b=F2e3+JllR+MRRIeVUGdlShcSZVK0rnggwjHds3CDUOxo7PRJw+zAH92fkk0u9FCbcCTwvHkbajynGgl7YwcwG1nDDtGYjcMe2nA/GeJtyQDUP5+Bvxxv8q69iIIiI0ojVn8Lz6PklmKVIOWCnBiBI+RJL8vEe6/AGW5UnI6Uex8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785599406; c=relaxed/simple;
-	bh=L7EMJGzYjZKHYUAxJLlp50Jv2JiRfXud9FY/tOd/IqQ=;
+	s=arc-20240116; t=1785600339; c=relaxed/simple;
+	bh=oxrFo/MiPYvp3bJNzDqtZEFIdJkIlxJOdjwY6TyzoIE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a5wXQUMqs15TuLKv9jEGgLv/it9IP1NsP6wQHAK47wbMbjDmNM+Q4FopKI95ENO2nGluGN51YMKBkAYrf/ZwhRY7/y3sdTZPAlUqkgQQy08ZXGvRlr3vsGp3Cvcglk735ENIO23TQW1CwuP/gdgc6I2PRe3WJUBOPpEFihzF+Eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5xBqvpS; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=P84LTj6c+DPHmJcj9N9FHUZ6PHBY1ktdE+kjzymi/76boM92LIhY3IgqVC2vHzmBA7ZhjvZh10BH3m7IE3JvCt0sDIA/jZkVWttxbQvzi3Z/0N+7yL2e0JFDoUY/Fww66ghpkrYknssUo7VeeBDv2kGwEL9u82R+t8LNbRzepDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=S8cKgHlT; arc=none smtp.client-ip=209.85.161.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5xBqvpS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095CA1F00AC4;
-	Sat,  1 Aug 2026 15:49:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785599403;
-	bh=qFTXDUyqwQlzWrZLUiFLBAKC92xl+L7/NsR/JgK7SWE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m5xBqvpSjFp/JLvSf12q1QhU9C4v/qQcHWkRXgTowlp+7pjrjYI/YJvip2oZz6NJ8
-	 PVNnauj6Y68Ha/SFStd+bS8fDypTV0rurKcaxvHmlkcxKsva1k79fTB0lJuSdSy/Aq
-	 qvLheT0GMhEHBAYs1yYPzJmDiEV5/LTBtDUr7aBsnJfMGVsatMxTEZjYZ1W62KqXQX
-	 Msq3QpROJ2T9c46LK6/kEhLdmLCSp6h53iDJRpff3taaVMbroYHfYKoe0XVT1tVUOF
-	 jZWRr5BjVhHEnRrKgDsehXj1C1uwYfdHT3B9j49nQgqeznNKjQgF7feqGZDGpPN2DS
-	 9voAOt7AC/BSQ==
-Message-ID: <6e0b9e79-ccd4-4689-9a6b-9b4fc556d5e4@kernel.org>
-Date: Sat, 1 Aug 2026 17:49:53 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="S8cKgHlT"
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6ae3faeb9c3so591888eaf.1
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 09:05:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785600335; x=1786205135; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LAlQDiH7F6PqpCAq4OPB036ThlmDlEEYgk+OcTaeZ0w=;
+        b=S8cKgHlTL6fk4vloCbWG7KB2hpSVNmj5nUy0Dh/7bv5SxyrLOvlvFKcwKElfON/4WY
+         Ab8todnX6P+kdP80bLXuqjYinyKI41X/RUFHFROvsW5Rq/qD4VtXWxPHydISe4i5bPVN
+         3GSkPO9ST4q+TxwpGd7/EW5WRpVfatCDcatrggDZqrCY5cXmkQxS0BRB0TChuH2XoS/n
+         XlS1djj2b36c0LaTS08EbK1qtFMUNvg7hztZI7p5YG6OKg8eOGHaqo4HcZ4vigS+trxt
+         MSchAZawVV6kG6PtPrqFcL9rU3fIKcUzjM4FERNA9W/62/jOzUapO8EzTNnN5j/YKgtb
+         cpvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785600335; x=1786205135;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LAlQDiH7F6PqpCAq4OPB036ThlmDlEEYgk+OcTaeZ0w=;
+        b=R22TxKsDbmsZ+LdKhnf8zqDAsOtvSNCRTXUCTuyym0PedcAst8uRUBANjEpM/gd9I2
+         3+dSmyqduBPosLvUccf7o8nfpJp9IKMmJeFUoTT1Xbi5oUQ9CmYVc6CbzJiiQV1j3WpW
+         +N81bvKNj06f7Ptvaq6mCvz0NvTLW7TG+A9a0TCuPHlBLaQ/uqmlNV7VSESmAYamIE8T
+         KTy7AmSdfROFJdu+Y7pbWKLyX1STawlEiHgSCxNxbpvV2p8v5+NM5eanA7Ous75Uv6Fp
+         wlYfsSwzXf2aw1c5cdCIJuCWohGkSyXDmaToAY29lqXpmdj3QxiKR3lrv0FJBHJD8gCk
+         qMUQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrDX0mVOtXqiOZ0zz4z6Cj7BYJbquM9Ect1XHGOReiEk9/b2cFwRqCgMDtAfaN1Rlwv3C7t2T0otI8M@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRp7ln85IhBPTOh+TeNh2UvVsJSycAIzdqdVjifWSeLOSKN3Kw
+	5BG1Twrak+y7UFqKmDtnh5vQ8Bnuussp3lO60tBZLMh9L50Ra8N0XU1DN3H+7M2VIrM=
+X-Gm-Gg: AR+sD11vq+O1Dv7dCcF11amK2hQ0EN5YSXk1SGuet8CZS3QbrXhgQ88vUE944mSYnGK
+	4yj2+snjSeiskEKkQcSf2RahknQ29y4mD73RQMvnO6EqCZJnalH/Ot6HDuVxCi6KDwIrTiZR7wP
+	KYMC70oPw5AjJs4mIQvw7YUWz1bE8SdPz5Ai3k+bOo7b/0eO/nHWribZQGHREXB9Bpg8AErhO+Y
+	Cj2SIY6RsiZmU4BjWl8ynHZHTlTdMEau42sDiu0vttUtGjvSn4vj9MpTxnM0mclAlOM1mqIBSKs
+	T3vQ1WPwjKlrOpgJWXj7X7pfdBhuMVyKGQYHNhEAMh21naAWsVl4QlgATh1OFMoqepw3M/OYg8e
+	eZagzjpep7JI2lvo0QMBjG9aRmmbkcm2R1oi7aFnw/nCYdpXiVXwo/h7HU/83whP4BhfycEZJow
+	bJE7LbJ3GZ/iMMaF4EnJJa61Blnb6gNdZwb1CeRbDqW4Lt5sc2NTDMf+zqvhbOIz606uadjL7eR
+	x82LNnSmv8pKkMiI0qX3d1Xp533xil6i558xW4=
+X-Received: by 2002:a05:6820:4df1:b0:6a3:9756:b604 with SMTP id 006d021491bc7-6ae43290aaemr7429365eaf.11.1785600334483;
+        Sat, 01 Aug 2026 09:05:34 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:359b:17f1:d4f9:4949? ([2600:8803:e7e4:500:359b:17f1:d4f9:4949])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-458f664d884sm4232455fac.12.2026.08.01.09.05.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 01 Aug 2026 09:05:33 -0700 (PDT)
+Message-ID: <3688ba60-3ff3-4e61-81a5-c220afaef66f@baylibre.com>
+Date: Sat, 1 Aug 2026 11:05:31 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,206 +70,697 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: bluetooth: qca: add QCC2072
-To: Rahul Samana <rahul.samana@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
- quic_mohamull@quicinc.com, quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
-References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
- <20260727-rb3-industrial-bt-uart-v2-1-2d100f30e202@oss.qualcomm.com>
- <20260731-first-righteous-bear-dd72ed@quoll>
- <712f8a14-d2a1-4a90-82f9-05cd694f2658@oss.qualcomm.com>
- <c1875dd6-fe3a-4a69-a6fd-b461c8fba6e4@kernel.org>
- <6d6465bb-47ac-464c-af4e-0ca72325705f@oss.qualcomm.com>
- <8a388310-d3cc-4d02-abb6-0eb98c24cfce@kernel.org>
- <4523441f-498a-4bbd-80f3-97a7a9206c00@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v6 2/2] iio: adc: add MAX40080 current-sense amplifier
+ driver
+To: Stefan Popa <stefan.popa@analog.com>, linux-iio@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jic23@kernel.org, andy@kernel.org,
+ nuno.sa@analog.com, linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, ciprian.hegbeli@analog.com, siratul.islam@linux.dev,
+ u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com
+References: <20260730131738.822405-1-stefan.popa@analog.com>
+ <20260730131738.822405-3-stefan.popa@analog.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <4523441f-498a-4bbd-80f3-97a7a9206c00@oss.qualcomm.com>
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260730131738.822405-3-stefan.popa@analog.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01/08/2026 17:31, Rahul Samana wrote:
+On 7/30/26 8:17 AM, Stefan Popa wrote:
+> The MAX40080 is a bidirectional current-sense amplifier with an
+> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
+> voltage across an external shunt resistor and the input bus voltage,
+> storing the results in an internal FIFO.
 > 
+> Add a direct-mode IIO driver exposing the current and voltage channels
+> with raw, scale and hardware-gain attributes, a configurable
+> oversampling (digital averaging) ratio, and PEC-protected register
+> access. The current scale is derived from the shunt resistor value
+> described in the device tree.
 > 
-> On 01-08-2026 20:18, Krzysztof Kozlowski wrote:
->> On 31/07/2026 17:51, Rahul Samana wrote:
->>>
->>>
->>> On 31-07-2026 20:34, Krzysztof Kozlowski wrote:
->>>> On 31/07/2026 16:45, Rahul Samana wrote:
->>>>>
->>>>>
->>>>> On 31-07-2026 15:16, Krzysztof Kozlowski wrote:
->>>>>> On Mon, Jul 27, 2026 at 09:15:01PM +0530, Rahul Samana wrote:
->>>>>>> QCC2072 can be used on M.2 E-key cards where the card power resources are
->>>>>>> described by the pcie-m2-e-connector node. In that setup, the M.2 power
->>>>>>> sequencing provider creates the Bluetooth serdev child after matching the
->>>>>>> QCC2072 PCI function.
->>>>>>>
->>>>>>> Integrated non-M.2 designs need board-specific power resources. Document
->>>>>>> only the compatible for now and leave those properties to be added with
->>>>>>> matching driver support.
->>>>>>>
->>>>>>> Document the qcom,qcc2072-bt compatible used for QCC2072 Bluetooth
->>>>>>> controllers connected over UART.
->>>>>>>
->>>>>>> Signed-off-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
->>>>>>
->>>>>> NAK, exactly same comments as before.
->>>>>>
->>>>>> Nothing got improved, although what is weird - original SoB is gone, so
->>>>>> this is legally dubious work.
->>>>>>
->>>>>> Best regards,
->>>>>> Krzysztof
->>>>>>
->>>>>
->>>>> Hi Krzysztof,
->>>>>
->>>>> Thanks for the review.
->>>>>
->>>>> For the binding contents, I tried to capture the current scope in the binding
->>>>> description itself. This series supports QCC2072 only as an M.2 E-key card,
->>>>> where the card power resources are described by the pcie-m2-e-connector node
->>>>> and the M.2 pwrseq provider creates the Bluetooth serdev child.
->>>>>
->>>>> The binding also says:
->>>>>
->>>>>   Integrated non-M.2 designs require board-specific power resources. Those
->>>>>   properties, together with a static devicetree example, should be added when
->>>>>   integrated non-M.2 support is added.
->>>>
->>>> Bindings must be complete and your driver support is irrelevant here.
->>>>
->>>> If you claim this is a PCI device thus you do not need any resources,
->>>> then the binding is not needed either. PCI devices are enumerable. And
->>>> to prove it: look at your DTS. Do you see qcom,qcc2072-bt being used? No.
->>>>
->>>>>
->>>>> We do not currently have an integrated non-M.2 QCC2072 design, so I do not
->>>>> have board-specific regulator supplies to document for that topology.
->>>>>
->>>>> Could you please suggest how you would prefer this binding to be handled for
->>>>> the current M.2-only use case? 
->>>>
->>>> Drop the binding, you do not need it.
->>>>
->>>> Anyway the problem is that more comments were ignored.
->>>>
->>>
->>> Hi Krzysztof,
->>>
->>> Just to clarify the reason for adding this binding in v2: 
->>> v1 did not add a binding because this series only targets the M.2 use case.
->>>
->>> I added the minimal binding in v2 because checkpatch reported
->>> qcom,qcc2072-bt as an undocumented compatible, and I interpreted the request
->>> to fix the checkpatch warnings as requiring this compatible to be documented.
->>> I also had the earlier feedback in mind, where the indirect
->>> qcom,qcc2072-bt compatible was pushed back because it was undocumented:
->>>
->>> https://lore.kernel.org/all/20260703-eliza_evk-v1-3-7624440bd76d@oss.qualcomm.com/
->>>
->>> Based on your clarification here, I will drop the binding patch in v3 and
->>> keep qcom,qcc2072-bt only as the pwrseq-created child compatible for this
->>> M.2 case.
->>
->> My previous statement is also valid, please read entire threads.
->>
->> You cannot have undocumented qcom,qcc2072-bt.
->>
->> I ask you to drop both, because they are not needed. But feel free to
->> prove me wrong, see my first paragraph in the previous reply.
->>
->>
-> The PCIe M.2 power sequencing driver, pwrseq-pcie-m2.c, uses
-> pwrseq_m2_pci_ids to translate the enumerated PCI function into the
-> Bluetooth compatible used for the generated serdev child.
+> The driver operates in single-measurement mode: each raw read triggers
+> an on-demand conversion via SMBus Quick Command and returns a matched
+> current/voltage pair. This avoids the latency and complexity of the
+> continuous FIFO mode while ensuring each read reflects the current
+> state. The two selectable current-sense ranges are exposed through
+> scale/scale_available.
 > 
-> For example, WCN7850 maps PCI ID 17cb:1107 to qcom,wcn7850-bt, then hci_qca
-> matches that compatible to select qca_soc_data_wcn7850.
+> Continuous FIFO buffering, threshold events and the alert interrupt are
+> intentionally left out of this initial submission and may be added
+> later.
 > 
-> For QCC2072, pwrseq-pcie-m2.c matches PCI ID 17cb:1112 and creates the
-> generated Bluetooth serdev child with compatible "qcom,qcc2072-bt". The
-> hci_qca driver then matches "qcom,qcc2072-bt" and uses qca_soc_data_qcc2072
-> as the controller-specific data.
+> Co-developed-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> Signed-off-by: Ciprian Hegbeli <ciprian.hegbeli@analog.com>
+> Signed-off-by: Stefan Popa <stefan.popa@analog.com>
+> ---
+>  MAINTAINERS                |   1 +
+>  drivers/iio/adc/Kconfig    |  11 +
+>  drivers/iio/adc/Makefile   |   1 +
+>  drivers/iio/adc/max40080.c | 574 +++++++++++++++++++++++++++++++++++++
+>  4 files changed, 587 insertions(+)
+>  create mode 100644 drivers/iio/adc/max40080.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e1170230c4bb2..467e6bbf72cde 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28901,3 +28901,4 @@ L:	linux-iio@vger.kernel.org
+>  S:	Supported
+>  W:	https://ez.analog.com/linux-software-drivers
+>  F:	Documentation/devicetree/bindings/iio/adc/adi,max40080.yaml
+> +F:	drivers/iio/adc/max40080.c
+> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> index 58da8255525e4..ebdbad81fbbd6 100644
+> --- a/drivers/iio/adc/Kconfig
+> +++ b/drivers/iio/adc/Kconfig
+> @@ -1907,3 +1907,14 @@ config XILINX_AMS
+>  	  xilinx-ams.
+>  
+>  endmenu
+> +
+> +config MAX40080
+> +	tristate "Analog Devices MAX40080 Current Sense Amplifier"
+> +	depends on I2C
+> +	help
+> +	  Say yes here to build support for the Analog Devices MAX40080
+> +	  bidirectional current-sense amplifier with a 12-bit ADC and an I2C
+> +	  interface.
+> +
+> +	  To compile this driver as a module, choose M here: the module will be
+> +	  called max40080.
+> diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> index 7cc8f9a12f763..9245a337dd935 100644
+> --- a/drivers/iio/adc/Makefile
+> +++ b/drivers/iio/adc/Makefile
+> @@ -166,3 +166,4 @@ obj-$(CONFIG_VIPERBOARD_ADC) += viperboard_adc.o
+>  obj-$(CONFIG_XILINX_AMS) += xilinx-ams.o
+>  xilinx-xadc-y := xilinx-xadc-core.o xilinx-xadc-events.o
+>  obj-$(CONFIG_XILINX_XADC) += xilinx-xadc.o
+> +obj-$(CONFIG_MAX40080) += max40080.o
+> diff --git a/drivers/iio/adc/max40080.c b/drivers/iio/adc/max40080.c
+> new file mode 100644
+> index 0000000000000..82572536b704d
+> --- /dev/null
+> +++ b/drivers/iio/adc/max40080.c
+> @@ -0,0 +1,574 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * MAX40080 Digital Current-Sense Amplifier driver
+> + *
+> + * Copyright 2026 Analog Devices, Inc.
+> + *
+> + * Datasheet: https://www.analog.com/media/en/technical-documentation/data-sheets/MAX40080.pdf
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/i2c.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/property.h>
+> +#include <linux/unaligned.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define MAX40080_REG_CFG		0x00
+> +#define  MAX40080_CFG_MODE_MSK		GENMASK(2, 0)
+> +#define  MAX40080_CFG_PEC_EN_MSK	BIT(5)
+> +#define  MAX40080_CFG_RANGE_MSK		BIT(6)
+> +#define  MAX40080_CFG_FILTER_MSK	GENMASK(14, 12)
+> +
+> +#define MAX40080_REG_FIFO_CFG		0x0A
+> +#define  MAX40080_FIFO_CFG_STORE_IV_MSK	GENMASK(1, 0)
+> +
+> +#define MAX40080_REG_IV			0x10
+> +/* Current is a 13-bit two's-complement value (magnitude + sign bit). */
+> +#define  MAX40080_IV_I_MSK		GENMASK(12, 0)
+> +#define  MAX40080_IV_I_SIGN_BIT		12
+> +#define  MAX40080_IV_V_MAG_MSK		GENMASK(27, 16)
+> +#define  MAX40080_IV_VALID_MSK		BIT(31)
+> +
+> +/* CFG.mode field values. */
+> +#define MAX40080_CFG_MODE_STDBY		0x00
+> +#define MAX40080_CFG_MODE_SINGLE	0x02
+> +
+> +/* CFG.range field values. */
+> +#define MAX40080_CFG_RANGE_50MV		0
+> +#define MAX40080_CFG_RANGE_10MV		1
+> +
+> +/* FIFO_CFG.store_iv field values. */
+> +#define MAX40080_FIFO_CFG_STORE_I_V	0x02
+> +
+> +#define MAX40080_ADC_RES_BITS		12
+> +#define MAX40080_INTER_VREF_MV		1250
+> +#define MAX40080_V_BUFF_GAIN		30
+> +#define MAX40080_CSA_50MV_GAIN		25
+> +#define MAX40080_CSA_10MV_GAIN		125
+> +
+> +/*
+> + * The RANGE field (CFG bit 6) selects one of two current-sense full-scale
+> + * ranges (the MAX40080 supports exactly two: +/-50 mV and +/-10 mV). Indexed
+> + * by the CFG.range field value.
+> + */
+> +static const int max40080_csa_gain[] = {
+> +	[MAX40080_CFG_RANGE_50MV] = MAX40080_CSA_50MV_GAIN,
+> +	[MAX40080_CFG_RANGE_10MV] = MAX40080_CSA_10MV_GAIN,
+> +};
+> +
+> +#define MAX40080_NUM_RANGES	ARRAY_SIZE(max40080_csa_gain)
+> +
+> +struct max40080_state {
+> +	struct i2c_client *client;
+> +	/* Serializes read-modify-write access to the CFG register. */
+> +	struct mutex lock;
+> +	u32 shunt_resistor_uohm;
+> +	/* Cached configuration: the selected RANGE index and oversampling ratio. */
+> +	unsigned int range;
+> +	int oversampling_ratio;
+> +	/*
+> +	 * Precomputed current scale (mA per code) for each RANGE setting, as
+> +	 * {integer, nano} pairs for IIO_VAL_INT_PLUS_NANO. The range is
+> +	 * selected by writing the corresponding scale.
+> +	 */
+> +	int current_scale[MAX40080_NUM_RANGES][2];
+> +};
+> +
+> +static const int max40080_oversampling_avail[] = { 1, 8, 16, 32, 64, 128 };
+> +
+> +static int max40080_update_bits(struct max40080_state *st, u8 reg,
+> +				u16 mask, u16 val)
+> +{
+> +	int tmp;
+> +
+> +	tmp = i2c_smbus_read_word_data(st->client, reg);
+> +	if (tmp < 0)
+> +		return tmp;
+> +
+> +	tmp = (tmp & ~mask) | (val & mask);
+> +
+> +	return i2c_smbus_write_word_data(st->client, reg, tmp);
+> +}
+> +
+> +/*
+> + * In single-measurement mode the device sits idle until it receives an SMBus
+> + * Quick Command, then performs exactly one current and one voltage conversion
+> + * and returns to idle. Triggering on demand this way (rather than running the
+> + * FIFO continuously in active mode) means each read returns a fresh, coherent
+> + * current/voltage pair instead of the oldest queued FIFO entry.
+> + */
+> +static int max40080_trigger_measurement(struct max40080_state *st)
+> +{
+> +	return i2c_smbus_xfer(st->client->adapter, st->client->addr,
+> +			      st->client->flags, I2C_SMBUS_WRITE, 0,
+> +			      I2C_SMBUS_QUICK, NULL);
+> +}
+> +
+> +/*
+> + * A single measurement holds the matched current/voltage pair in one 32-bit
+> + * word (MAX40080_REG_IV). Reading all four bytes in one transaction returns
+> + * both from the same conversion; reading the separate current (0x0C) and
+> + * voltage (0x0E) registers would decorrelate the two channels.
+> + *
+> + * Unlike the word accesses used elsewhere, this is a plain I2C block read: the
+> + * SMBus layer does not append or verify a PEC byte for it even when PEC is
+> + * otherwise enabled for the device, so this transfer is not PEC protected.
+> + */
+> +static int max40080_read_iv_once(struct max40080_state *st, u32 *iv)
+> +{
+> +	u8 buf[4];
+> +	int ret;
+> +
+> +	ret = i2c_smbus_read_i2c_block_data(st->client, MAX40080_REG_IV,
+> +					    sizeof(buf), buf);
+> +	if (ret < 0)
+> +		return ret;
+> +	if (ret != sizeof(buf))
+> +		return -EIO;
 
-The purpose of Devicetree is not to describe Linux internal driver
-matching. Do not use compatibles for that.
+This can't return anything other than negative error or sizeof(buf),
+so this is dead code.
 
+> +
+> +	*iv = get_unaligned_le32(buf);
+> +
+> +	return 0;
+> +}
+> +
+> +static int max40080_read_iv(struct max40080_state *st, u32 *iv)
+> +{
+> +	u32 tmp = 0;
 
-> 
-> That match data is needed by hci_qca to select the QCC2072 soc_type,
-> firmware/NVM naming, calibration handling, and capabilities. Without some
-> identity being passed from the PCI match to the generated serdev child,
-> hci_qca cannot distinguish QCC2072 from the other Qualcomm UART Bluetooth
-> controllers on this path.
-> 
-> Please correct me if I misunderstood the concern or if you are asking for
-> this identity to be passed from pwrseq-pcie-m2.c to hci_qca through a
-> different mechanism.
-> 
-> I can drop the binding patch, but unless there is a preferred alternative
-> mechanism, I think we still need the pwrseq-pcie-m2 QCC2072 PCI ID support
-> from patch 3 so the power sequencing driver can pass the QCC2072 identity
-> into hci_qca through the generated serdev child:
+initializing tmp is dead code.
 
-You have plenty of options, starting from what is very common already -
-driver name used by MFD or aux devices.
+> +	int ret, io_ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	ret = max40080_trigger_measurement(st);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/*
+> +	 * Wait for the conversion to complete by polling the FIFO valid bit
+> +	 * (or bail out on an I2C error). Polling the device's own status makes
+> +	 * this independent of the actual conversion time, which varies with the
+> +	 * oversampling ratio and the bus speed. The timeout is only a safety
+> +	 * ceiling: the worst case is the maximum 128x averaging on both the
+> +	 * current and voltage channels at the slowest 15 ksps base rate plus the
+> +	 * inter-channel switching time, i.e. roughly 20 ms; 50 ms leaves ample
+> +	 * margin.
+> +	 */
+> +	ret = read_poll_timeout(max40080_read_iv_once, io_ret,
+> +				io_ret || (tmp & MAX40080_IV_VALID_MSK),
+> +				500, 50000, false, st, &tmp);
+> +	/*
+> +	 * Propagate the last-read value even on timeout so the caller can
+> +	 * inspect it for debugging.
+> +	 */
+> +	*iv = tmp;
+> +	if (ret)
+> +		return ret;
+> +
+> +	return io_ret;
+> +}
+> +
+> +static int max40080_get_current(struct max40080_state *st, int *val)
+> +{
+> +	u32 iv = 0;
 
-Best regards,
-Krzysztof
+don't need to init here either.
+
+> +	int ret;
+> +
+> +	ret = max40080_read_iv(st, &iv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = sign_extend32(FIELD_GET(MAX40080_IV_I_MSK, iv),
+> +			     MAX40080_IV_I_SIGN_BIT);
+> +
+> +	return 0;
+> +}
+> +
+> +static int max40080_get_voltage(struct max40080_state *st, int *val)
+> +{
+> +	u32 iv = 0;
+> +	int ret;
+> +
+> +	ret = max40080_read_iv(st, &iv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = FIELD_GET(MAX40080_IV_V_MAG_MSK, iv);
+> +
+> +	return 0;
+> +}
+> +
+> +static int max40080_set_range(struct max40080_state *st, unsigned int range)
+> +{
+> +	int ret;
+> +
+> +	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_RANGE_MSK,
+> +				   FIELD_PREP(MAX40080_CFG_RANGE_MSK, range));
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->range = range;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Precompute the current scale (mA per code) for each RANGE setting as
+> + * {integer, nano} pairs. The shunt drop for a full-scale code is
+> + *   Vref[mV] / ((1 << ADC_RES_BITS) * gain)
+> + * and current = Vshunt / Rshunt, so with Rshunt in micro-ohms the scale in
+> + * mA/code is
+> + *   Vref[mV] * NANO * MICRO / ((1 << ADC_RES_BITS) * gain * Rshunt[uohm])
+> + * expressed as an integer part plus a nano fractional part.
+> + */
+> +static void max40080_calc_current_scale(struct max40080_state *st)
+> +{
+> +	u32 rem;
+> +	u64 tmp;
+> +
+> +	for (unsigned int i = 0; i < MAX40080_NUM_RANGES; i++) {
+> +		tmp = (u64)MAX40080_INTER_VREF_MV * NANO * MICRO;
+> +		tmp = div64_u64(tmp, (u64)(1 << MAX40080_ADC_RES_BITS) * max40080_csa_gain[i] *
+
+					   BIT(MAX40080_ADC_RES_BITS)
+
+> +				st->shunt_resistor_uohm);
+> +		st->current_scale[i][0] = div_u64_rem(tmp, NANO, &rem);
+> +		st->current_scale[i][1] = rem;
+> +	}
+> +}
+> +
+> +/*
+> + * max40080_oversampling_avail[] is ordered so that its index is the FILTER
+> + * field value (index 0 = no averaging, index 1 = 8x, ...). Return that index
+> + * for an exact match, or -EINVAL for a value that is not on the list.
+> + */
+> +static int max40080_oversampling_to_filter(int val)
+> +{
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(max40080_oversampling_avail); i++) {
+> +		if (max40080_oversampling_avail[i] == val)
+> +			return i;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int max40080_set_oversampling_ratio(struct max40080_state *st, int val)
+> +{
+> +	int filter;
+> +	int ret;
+> +
+> +	filter = max40080_oversampling_to_filter(val);
+> +	if (filter < 0)
+> +		return filter;
+> +
+> +	ret = max40080_update_bits(st, MAX40080_REG_CFG, MAX40080_CFG_FILTER_MSK,
+> +				   FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter));
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->oversampling_ratio = val;
+> +
+> +	return 0;
+> +}
+> +
+> +static int max40080_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct max40080_state *st = iio_priv(indio_dev);
+> +	unsigned int range;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (chan->type == IIO_CURRENT) {
+> +			ret = max40080_get_current(st, val);
+> +			if (ret)
+> +				return ret;
+> +		} else if (chan->type == IIO_VOLTAGE) {
+> +			ret = max40080_get_voltage(st, val);
+> +			if (ret)
+> +				return ret;
+> +		}
+
+Looks like this could be a switch statement.
+
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->type == IIO_CURRENT) {
+> +			/*
+> +			 * The selectable current-sense range is exposed through
+> +			 * scale: each RANGE setting has its own precomputed
+> +			 * mA-per-code value. Userspace picks the range by writing
+> +			 * the matching scale.
+> +			 *
+> +			 * Take a local copy of range to ensure val and val2 come
+> +			 * from the same setting even if a concurrent write changes
+> +			 * st->range between the two accesses.
+> +			 */
+> +			range = st->range;
+
+Local range variable is adding more characters than it saves.
+Not really needed IMHO.
+
+> +			*val = st->current_scale[range][0];
+> +			*val2 = st->current_scale[range][1];
+> +			return IIO_VAL_INT_PLUS_NANO;
+> +		}
+> +		/* voltage[mV] = raw * Vref[mV] * buffer_gain / (1 << ADC_RES_BITS) */
+> +		*val = MAX40080_INTER_VREF_MV * MAX40080_V_BUFF_GAIN;
+> +		*val2 = MAX40080_ADC_RES_BITS;
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		*val = st->oversampling_ratio;
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int max40080_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      int val, int val2, long mask)
+> +{
+> +	struct max40080_state *st = iio_priv(indio_dev);
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/* Only the current channel has a selectable range/scale. */
+> +		if (chan->type != IIO_CURRENT)
+> +			return -EINVAL;
+> +
+> +		for (unsigned int i = 0; i < MAX40080_NUM_RANGES; i++) {
+> +			if (val == st->current_scale[i][0] &&
+> +			    val2 == st->current_scale[i][1])
+> +				return max40080_set_range(st, i);
+> +		}
+> +
+> +		return -EINVAL;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		return max40080_set_oversampling_ratio(st, val);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int max40080_write_raw_get_fmt(struct iio_dev *indio_dev,
+> +				      struct iio_chan_spec const *chan,
+> +				      long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		return IIO_VAL_INT_PLUS_NANO;
+> +	default:
+> +		return IIO_VAL_INT;
+> +	}
+> +}
+> +
+> +static int max40080_read_avail(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       const int **vals, int *type, int *length,
+> +			       long info)
+> +{
+> +	struct max40080_state *st = iio_priv(indio_dev);
+> +
+> +	switch (info) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->type != IIO_CURRENT)
+> +			return -EINVAL;
+> +
+> +		*vals = (int *)st->current_scale;
+> +		*length = MAX40080_NUM_RANGES * 2;
+> +		*type = IIO_VAL_INT_PLUS_NANO;
+> +		return IIO_AVAIL_LIST;
+> +	case IIO_CHAN_INFO_OVERSAMPLING_RATIO:
+> +		*vals = max40080_oversampling_avail;
+> +		*length = ARRAY_SIZE(max40080_oversampling_avail);
+> +		*type = IIO_VAL_INT;
+> +		return IIO_AVAIL_LIST;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int max40080_reg_access(struct iio_dev *indio_dev, unsigned int reg,
+> +			       unsigned int write_val, unsigned int *read_val)
+> +{
+> +	struct max40080_state *st = iio_priv(indio_dev);
+> +	int val;
+> +
+
+No range checking on reg?
+
+> +	if (read_val) {
+> +		val = i2c_smbus_read_word_data(st->client, reg);
+> +		if (val < 0)
+> +			return val;
+> +
+> +		*read_val = val;
+> +
+> +		return 0;
+> +	}
+> +
+> +	return i2c_smbus_write_word_data(st->client, reg, write_val);
+> +}
+> +
+> +static const struct iio_info max40080_info = {
+> +	.read_raw = max40080_read_raw,
+> +	.write_raw = max40080_write_raw,
+> +	.write_raw_get_fmt = max40080_write_raw_get_fmt,
+> +	.read_avail = max40080_read_avail,
+> +	.debugfs_reg_access = &max40080_reg_access,
+> +};
+> +
+> +static const struct iio_chan_spec max40080_channels[] = {
+> +	{
+> +		.type = IIO_CURRENT,
+> +		.indexed = 1,
+> +		.channel = 0,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_SCALE),
+> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> +		.info_mask_shared_by_all_available =
+> +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> +	},
+> +	{
+> +		.type = IIO_VOLTAGE,
+> +		.indexed = 1,
+> +		.channel = 0,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> +		.info_mask_shared_by_all_available =
+> +			BIT(IIO_CHAN_INFO_OVERSAMPLING_RATIO),
+> +	},
+> +};
+> +
+> +/*
+> + * Configure the device from the cached state. The device powers up in standby
+> + * with PEC enabled (CFG POR = 0x0060), so PEC is kept enabled throughout.
+> + */
+> +static int max40080_init(struct max40080_state *st)
+> +{
+> +	u16 fifo_cfg, cfg;
+> +	int ret, filter;
+> +
+> +	filter = max40080_oversampling_to_filter(st->oversampling_ratio);
+> +	if (filter < 0)
+> +		return filter;
+> +
+> +	/*
+> +	 * Put the device in standby before (re)configuring the FIFO: the FIFO
+> +	 * configuration register can only be written while the device is not
+> +	 * converting.
+> +	 */
+> +	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_STDBY) |
+> +	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1);
+> +
+> +	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Store a matched current+voltage pair per conversion. */
+> +	fifo_cfg = FIELD_PREP(MAX40080_FIFO_CFG_STORE_IV_MSK, MAX40080_FIFO_CFG_STORE_I_V);
+> +
+> +	ret = i2c_smbus_write_word_data(st->client, MAX40080_REG_FIFO_CFG,
+> +					fifo_cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Use single-measurement mode: the device stays idle and converts once
+> +	 * per SMBus Quick Command (see max40080_trigger_measurement()), so each
+> +	 * read returns a fresh sample rather than a queued FIFO entry.
+> +	 */
+> +	cfg = FIELD_PREP(MAX40080_CFG_MODE_MSK, MAX40080_CFG_MODE_SINGLE) |
+> +	      FIELD_PREP(MAX40080_CFG_PEC_EN_MSK, 1) |
+> +	      FIELD_PREP(MAX40080_CFG_RANGE_MSK, st->range) |
+> +	      FIELD_PREP(MAX40080_CFG_FILTER_MSK, filter);
+> +
+> +	return i2c_smbus_write_word_data(st->client, MAX40080_REG_CFG, cfg);
+> +}
+> +
+> +static int max40080_probe(struct i2c_client *client)
+> +{
+> +	const char *propname = "shunt-resistor-micro-ohms";
+> +	struct device *dev = &client->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct max40080_state *st;
+> +	int ret;
+> +
+> +	/*
+> +	 * The device powers up with PEC enabled (CFG POR = 0x0060) and rejects
+> +	 * unprotected transactions, so PEC support is mandatory, along with word
+> +	 * access, the I2C block read used for the current/voltage pair, and the
+> +	 * Quick Command used to trigger a conversion.
+> +	 */
+> +	if (!i2c_check_functionality(client->adapter,
+> +				     I2C_FUNC_SMBUS_WORD_DATA |
+> +				     I2C_FUNC_SMBUS_I2C_BLOCK |
+> +				     I2C_FUNC_SMBUS_QUICK |
+> +				     I2C_FUNC_SMBUS_PEC))
+> +		return -EOPNOTSUPP;
+> +
+> +	client->flags |= I2C_CLIENT_PEC;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*st));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	st = iio_priv(indio_dev);
+> +	st->client = client;
+> +
+> +	ret = devm_mutex_init(dev, &st->lock);
+> +	if (ret)
+> +		return ret;
+> +
+
+Assign propname here so we don't have to scroll to see what it is.
+
+> +	ret = device_property_read_u32(dev, propname, &st->shunt_resistor_uohm);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "can't read %s\n", propname);
+> +	if (!st->shunt_resistor_uohm)
+> +		return dev_err_probe(dev, -EINVAL, "%s must be non-zero\n",
+> +				     propname);
+> +
+> +	max40080_calc_current_scale(st);
+> +
+> +	/* Defaults: 50 mV range, no averaging. */
+> +	st->range = MAX40080_CFG_RANGE_50MV;
+> +	st->oversampling_ratio = 1;
+> +
+> +	indio_dev->name = "max40080";
+> +	indio_dev->info = &max40080_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = max40080_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(max40080_channels);
+> +
+> +	ret = max40080_init(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct i2c_device_id max40080_i2c_ids[] = {
+> +	{ .name = "max40080" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, max40080_i2c_ids);
+> +
+> +static const struct of_device_id max40080_of_match[] = {
+> +	{ .compatible = "adi,max40080" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, max40080_of_match);
+> +
+> +static struct i2c_driver max40080_driver = {
+> +	.driver = {
+> +		.name = "max40080",
+> +		.of_match_table = max40080_of_match,
+> +	},
+> +	.probe = max40080_probe,
+> +	.id_table = max40080_i2c_ids,
+> +};
+> +module_i2c_driver(max40080_driver);
+> +
+> +MODULE_AUTHOR("Ciprian Hegbeli <ciprian.hegbeli@analog.com>");
+> +MODULE_AUTHOR("Stefan Popa <stefan.popa@analog.com>");
+> +MODULE_DESCRIPTION("Analog Devices MAX40080 current-sense amplifier driver");
+> +MODULE_LICENSE("GPL");
+
