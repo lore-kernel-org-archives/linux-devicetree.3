@@ -1,99 +1,58 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980A51AAE28
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 14:24:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAE7175A86;
+	Sat,  1 Aug 2026 14:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785594273; cv=none; b=UWP/QMU0wjRq++whI70zPsNZ8H/NV0qHv5oRrg/E0Phs6lfHf/r1bYt00TDXss5DAC9HRDMRy548Pl7F4GV+fU228WOO9xH0TnhocyoWPqPjmmcv1c1ZFotoNRxMfFVHxyLZjpJJOXxl5zcFF+w3GERZ6+6mTrtYNNXmIaChr2Q=
+	t=1785594711; cv=none; b=ljU9UCaZ/+UhmyBh76ZRO4g7MOJ7VSwpXKOyZ45i2taMF9ToT/lTaVAb60x+RpV8g176g1MJDJkYrWTfzaCpyvYd6fnG6CALkDiPx5h67BpcWgOF5qUeyfMZZzt6nk6EagXK6Q/XF3cp8TiwzaJ8nGbaLvRvUn4dNI+h59iLJrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785594273; c=relaxed/simple;
-	bh=ekhQayFdhTwRrW5sTrt8sRRbZApqgEdJGIrgdXRA6io=;
+	s=arc-20240116; t=1785594711; c=relaxed/simple;
+	bh=XJbxeE4P5CdrOG0V6r29IkFeA/RV47HiUzfl5xpQdwU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EZeWYjXuk3d/HQmzIXZLUysh1J3fniLX40Nfy6LUGS0KFK+NVFWW6GxMyQR+2g3tB0+xtvKe+/ZBBCvTAIdczb7sYY11SieLuF5TRpmfPe+nKmuICMv5eNpHC3BJiS0yb28thzlAxdrSf+Cz5il8i6DqHM0ys0Ea9kHB5FINVbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UlbUe3dw; arc=none smtp.client-ip=74.125.227.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=N+MTrz+ltx1N2V+K9WqQpG3JBlgizR+Bsj5fyoFPshUfTuq9fiXhlsLWF7YofCxDJLPdiL39W9+bjxtFCiw6+NhIV2N2HyuT8N/Kj9xDhaSyWQoOmz+OpAUJbEXOjIjOzny7BtgIt5KmEj+OMvGQHDPJTD+HfVdefrULgzNQhsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KMr9lFY4; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Oq29EeBo; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UlbUe3dw"
-Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2cc80544c74so5203895ad.0
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 07:24:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785594262; x=1786199062; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q83Sos7xhYVmpTWu/ghFNGUmMBURB6KpF38DP5+YZjg=;
-        b=UlbUe3dwqkpzWG1CxMDtYmOmrqjbxvyR3c20U9beftkwsHsEgVCkRf6ZwcBOZPUjLO
-         4v58Bk0ax4qQ2/EDKMc9HZWnM8CBo93mZbZ8kU8JVhb1Eg88l1aakU82+N/EDJVe3bZw
-         KZa/RiMYJSELmfgNC9lczJCth7+DcGeW+g9enYDKcKS+wZlw3+iKmTO9jd4xH/NzcQc3
-         UCw9kkMvLweDeKBjvGtP7PZWk4r4rTVjmDRWZKt2zqMG4exk6X6e6peoRavWiSz4L5Hq
-         g5gMqCKJ+i0Dzo0oSDFUaWb67sJTXDAUWL9e9NSV4pkPHsMnIwUcP0Ikf9zbgQARu0T2
-         ze2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785594262; x=1786199062;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q83Sos7xhYVmpTWu/ghFNGUmMBURB6KpF38DP5+YZjg=;
-        b=BiNEbhzbk8dLz+wFDLZMG9MFMbQKu5MzhFh+WNZiJZCWIfQ/VHOoDCR1Aidl7gxQH2
-         Patf+dRPnPgRmuUT24hRiPvRPIdTc3jH5q+dXkvKZ5+3qTb18tmJePVDZAK7ss4klJYc
-         1GT2luHW9x9jo+NACasiY8/waFrQ2sTxGf65Lj3chxewnysFKufFpq2yM0cBEkq/qHKH
-         YwcH/SLC3aAoMlJF8jB+5yOt7EakeCui+fJQJ85eKr/m7baTat9Ml3NJhZPH5/w6rZLc
-         tRN53rb4O0RkrbVH8HsgneikJu6ROwZDV+qU6KFdQxARO8KK/loAJq94Cj/1CPq1W9DO
-         i9nA==
-X-Forwarded-Encrypted: i=1; AHgh+RpdJH/CzPKG3Mv1yBbuM5tnlbfshMlHdONfZP5e9FaxUA/ZVleCk0mypI/DJjFLRj9D00/DQJUQQvns@vger.kernel.org
-X-Gm-Message-State: AOJu0YzcX9H41KOuYlq576NseCFqaK8zEJAMqXrlHc0lJy399Ns/zGk9
-	YeJyvAfION07NCKmh6eAuqZn0bjBmEoO5wqhJzlCEYEqCN/7UXyMO61E
-X-Gm-Gg: AR+sD13LsXGNgBRRbmqbuGpLni4FJ5T6QBWsH3LNlBgU4c1NtduajFZMur4rsXQXu4F
-	Ue5DrIRzJG9i52u7MKTjVP0y0cazlwLy8PHFB8KVVpwh1ZF73wnqB7lz6cWd17MHzaRF3xjeYnW
-	zTJXRsjkA2XahzGME44ieKrAxlctGyWOXtnX7jvXVm2InQ46/bcL1a9mtbp/qyiBXorVRVpjE+h
-	2qKXGYpAM0FgiNcWKJ7ZDWdDASmwSgmU0fTXJswUNIOs5+HLWORt6IKNNb20I6Q/fdnI4TuL9TL
-	rjGXHP2Y9T8QmHqJI1hs8iEJET9Rz5DZnsbUiVtdEPmchwAuZfSG/x/3rz48bMruuD9Kju6C7dS
-	ZPiIP47KZcPlSEbK5mzF3CnFQCoTHwUErYRNc9udXajVgImO7uSOeFWS/m7DL0EUFGETy1Ri/9X
-	n+LS1cEWh3fQLt+wX/yL5Gn2COYy0SlfFQmBt9y+o6MHSP2DvuloXS6Mo=
-X-Received: by 2002:a17:903:234b:b0:2c7:f12d:5d37 with SMTP id d9443c01a7336-2d0521b8488mr34096625ad.17.1785594261862;
-        Sat, 01 Aug 2026 07:24:21 -0700 (PDT)
-Received: from server.lan ([103.213.4.16])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04ae5ac3dsm18043845ad.23.2026.08.01.07.24.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 07:24:20 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KMr9lFY4";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Oq29EeBo"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1785594694; bh=kT7FjJPCpQu6X2rYwUg3eaV
+	cRYGLEPMtjJ7ctYM05ps=; b=KMr9lFY4UKyFYZQ2vuegh8OBSDBSfuMuxYDRfkNiD6G2zY/D1/
+	mswE8qzhTVIlubbTfWj3EUtQB0SI5HHrVy7N+XyKEisjC8XydPGG4nLoGmreFP/3Z7Ipb6Ye0VP
+	OnS5h7BfF3oUFBgHlk05pWKEzsmQXGV91NrVRlqcQZ6W9Ep4EBA7NFDvrbGQJrX9VcYmQDnxt4Q
+	yoW80yrSSLo7EmxXE6uaojWD2CkAQL1UR/iUmJD/VYPKn7YpDXUNtRR8UdZ2r4WQ16DCthkCfmr
+	1iQ0UkevETWCNjh2OSLuyFOu1u3vP4iNBBtKpzFRPUUP4hPHFhJV5k2oxub6Z0gL+ng==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1785594694; bh=kT7FjJPCpQu6X2rYwUg3eaV
+	cRYGLEPMtjJ7ctYM05ps=; b=Oq29EeBoAhVwGI3q3UxC408N/goaZ5Zv4WJodBLHd+gnY3kR/9
+	/LQCkcGgAFTbQHwfOi5NioqSRENMnieGx5Dg==;
+From: Danila Tikhonov <danila@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Coia Prant <coiaprant@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Eugene Lepshy <fekz115@gmail.com>,
+	Vasiliy Doylov <neko@altlinux.org>,
+	Achill Gilgenast <achill@achill.org>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v2 10/10] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Sat,  1 Aug 2026 22:22:34 +0800
-Message-ID: <20260801142244.679437-12-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260801142244.679437-2-coiaprant@gmail.com>
-References: <20260801142244.679437-2-coiaprant@gmail.com>
+	linux-media@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht,
+	Danila Tikhonov <danila@mainlining.org>
+Subject: [PATCH 1/2] drivers: media: i2c: s5kjn1: Add support for 19.2MHz MCLK
+Date: Sat,  1 Aug 2026 17:31:24 +0300
+Message-ID: <20260801143125.267054-2-danila@mainlining.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260801143125.267054-1-danila@mainlining.org>
+References: <20260801143125.267054-1-danila@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -102,37 +61,340 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+The S5KJN1 sensor supports a range of external clock frequencies (MCLK),
+while the driver currently only supports a 24MHz MCLK.
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+The 19.2MHz clock is used by the S5KJN1 camera sensor on the
+Nothing Phone (1) aka sm7325-nothing-spacewar.
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
+Add support for this frequency.
+
+While splitting the clock settings into separate register sequences,
+add definitions for the known clock-related registers and values instead
+of using raw register addresses and magic values.
+
+Signed-off-by: Danila Tikhonov <danila@mainlining.org>
 ---
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/media/i2c/s5kjn1.c | 183 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 151 insertions(+), 32 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5114e6db7307d..cd5ffae6afd34 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23468,6 +23468,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
+diff --git a/drivers/media/i2c/s5kjn1.c b/drivers/media/i2c/s5kjn1.c
+index a707cb740556..1036e629758f 100644
+--- a/drivers/media/i2c/s5kjn1.c
++++ b/drivers/media/i2c/s5kjn1.c
+@@ -15,6 +15,7 @@
+ #include <media/v4l2-fwnode.h>
  
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
+ #define S5KJN1_LINK_FREQ_700MHZ		(700ULL * HZ_PER_MHZ)
++#define S5KJN1_MCLK_FREQ_19P2MHZ	(19200 * HZ_PER_KHZ)
+ #define S5KJN1_MCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
+ #define S5KJN1_DATA_LANES		4
+ 
+@@ -25,6 +26,24 @@
+ #define S5KJN1_REG_CTRL_MODE		CCI_REG8(0x0100)
+ #define S5KJN1_MODE_STREAMING		BIT(0)
+ 
++#define S5KJN1_REG_EXTCLK_INTEGER	CCI_REG16(0x0136)
++#define S5KJN1_REG_EXTCLK_FRACTION	CCI_REG16(0x013e)
++#define S5KJN1_REG_VT_PIX_CLK_DIV	CCI_REG16(0x0300)
++#define S5KJN1_REG_VT_SYS_CLK_DIV	CCI_REG16(0x0302)
++#define S5KJN1_REG_VT_PRE_PLL_CLK_DIV	CCI_REG16(0x0304)
++#define S5KJN1_REG_VT_PLL_MULTIPLIER	CCI_REG16(0x0306)
 +
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
++#define S5KJN1_EXTCLK_19P2MHZ_INTEGER	0x1300
++#define S5KJN1_EXTCLK_19P2MHZ_FRACTION	0x00c8
++#define S5KJN1_EXTCLK_24MHZ_INTEGER	0x1800
++#define S5KJN1_EXTCLK_24MHZ_FRACTION	0x0000
++#define S5KJN1_VT_PIX_CLK_DIV		0x0006
++#define S5KJN1_VT_SYS_CLK_DIV		0x0001
++#define S5KJN1_VT_PRE_PLL_DIV_19P2MHZ	0x0003
++#define S5KJN1_VT_PRE_PLL_DIV_24MHZ	0x0004
++#define S5KJN1_VT_PLL_MUL_19P2MHZ	0x0083
++#define S5KJN1_VT_PLL_MUL_24MHZ		0x008c
++
+ #define S5KJN1_REG_ORIENTATION		CCI_REG8(0x0101)
+ #define S5KJN1_VFLIP			BIT(1)
+ #define S5KJN1_HFLIP			BIT(0)
+@@ -70,6 +89,17 @@ struct s5kjn1_reg_list {
+ 	unsigned int num_regs;
+ };
+ 
++enum s5kjn1_mclk {
++	S5KJN1_MCLK_19P2MHZ,
++	S5KJN1_MCLK_24MHZ,
++	S5KJN1_NUM_MCLKS,
++};
++
++static const unsigned long s5kjn1_mclk_freqs[S5KJN1_NUM_MCLKS] = {
++	[S5KJN1_MCLK_19P2MHZ] = S5KJN1_MCLK_FREQ_19P2MHZ,
++	[S5KJN1_MCLK_24MHZ] = S5KJN1_MCLK_FREQ_24MHZ,
++};
++
+ struct s5kjn1_mode {
+ 	u32 width;			/* Frame width in pixels */
+ 	u32 height;			/* Frame height in pixels */
+@@ -78,7 +108,10 @@ struct s5kjn1_mode {
+ 	u32 exposure;			/* Default exposure value */
+ 	u32 exposure_margin;		/* Exposure margin */
+ 
+-	const struct s5kjn1_reg_list reg_list;	/* Sensor register setting */
++	/* Sensor register setting */
++	const struct s5kjn1_reg_list mode_setup_reg_list;
++	const struct s5kjn1_reg_list clk_reg_list[S5KJN1_NUM_MCLKS];
++	const struct s5kjn1_reg_list frame_timing_reg_list;
+ };
+ 
+ static const char * const s5kjn1_test_pattern_menu[] = {
+@@ -93,6 +126,7 @@ struct s5kjn1 {
+ 	struct device *dev;
+ 	struct regmap *regmap;
+ 	struct clk *mclk;
++	unsigned int mclk_index;
+ 	struct gpio_desc *reset_gpio;
+ 	struct regulator *afvdd;	/* Autofocus actuator power */
+ 	struct regulator *vdda;		/* Analog power */
+@@ -147,7 +181,7 @@ static const struct cci_reg_sequence init_array_setting[] = {
+ 	{ CCI_REG16(0x011a), 0x0001 },
+ };
+ 
+-static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode[] = {
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode_setup[] = {
+ 	{ CCI_REG16(0x6028), 0x2400 },
+ 	{ CCI_REG16(0x602a), 0x1a28 },
+ 	{ CCI_REG16(0x6f12), 0x4c00 },
+@@ -403,21 +437,39 @@ static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode[] = {
+ 	{ CCI_REG16(0x0110), 0x1002 },
+ 	{ CCI_REG16(0x0114), 0x0301 },
+ 	{ CCI_REG16(0x0116), 0x3000 },
++};
+ 
+-	/* Clock settings */
+-	{ CCI_REG16(0x0136), 0x1800 },
+-	{ CCI_REG16(0x013e), 0x0000 },
+-	{ CCI_REG16(0x0300), 0x0006 },
+-	{ CCI_REG16(0x0302), 0x0001 },
+-	{ CCI_REG16(0x0304), 0x0004 },
+-	{ CCI_REG16(0x0306), 0x008c },
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_19p2mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_19P2MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_19P2MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_19P2MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_19P2MHZ },
++	{ CCI_REG16(0x0308), 0x0008 },
++	{ CCI_REG16(0x030a), 0x0001 },
++	{ CCI_REG16(0x030c), 0x0000 },
++	{ CCI_REG16(0x030e), 0x0003 },
++	{ CCI_REG16(0x0310), 0x0089 },
++	{ CCI_REG16(0x0312), 0x0000 },
++};
++
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_24mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_24MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_24MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_24MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_24MHZ },
+ 	{ CCI_REG16(0x0308), 0x0008 },
+ 	{ CCI_REG16(0x030a), 0x0001 },
+ 	{ CCI_REG16(0x030c), 0x0000 },
+ 	{ CCI_REG16(0x030e), 0x0004 },
+ 	{ CCI_REG16(0x0310), 0x0092 },
+ 	{ CCI_REG16(0x0312), 0x0000 },
++};
+ 
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_frame_timing[] = {
+ 	{ CCI_REG16(0x080e), 0x0000 },
+ 	{ S5KJN1_REG_VTS,    0x10c0 },
+ 	{ S5KJN1_REG_HTS,    0x1100 },
+@@ -431,7 +483,7 @@ static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode[] = {
+ 	{ CCI_REG16(0x0816), 0x1c00 },
+ };
+ 
+-static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_mode[] = {
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_mode_setup[] = {
+ 	{ CCI_REG16(0x6028), 0x2400 },
+ 	{ CCI_REG16(0x602a), 0x1a28 },
+ 	{ CCI_REG16(0x6f12), 0x4c00 },
+@@ -687,21 +739,39 @@ static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_mode[] = {
+ 	{ CCI_REG16(0x0110), 0x1002 },
+ 	{ CCI_REG16(0x0114), 0x0300 },
+ 	{ CCI_REG16(0x0116), 0x3000 },
++};
++
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_19p2mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_19P2MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_19P2MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_19P2MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_19P2MHZ },
++	{ CCI_REG16(0x0308), 0x0008 },
++	{ CCI_REG16(0x030a), 0x0001 },
++	{ CCI_REG16(0x030c), 0x0000 },
++	{ CCI_REG16(0x030e), 0x0003 },
++	{ CCI_REG16(0x0310), 0x006d },
++	{ CCI_REG16(0x0312), 0x0000 },
++};
+ 
+-	/* Clock settings */
+-	{ CCI_REG16(0x0136), 0x1800 },
+-	{ CCI_REG16(0x013e), 0x0000 },
+-	{ CCI_REG16(0x0300), 0x0006 },
+-	{ CCI_REG16(0x0302), 0x0001 },
+-	{ CCI_REG16(0x0304), 0x0004 },
+-	{ CCI_REG16(0x0306), 0x008c },
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_24mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_24MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_24MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_24MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_24MHZ },
+ 	{ CCI_REG16(0x0308), 0x0008 },
+ 	{ CCI_REG16(0x030a), 0x0001 },
+ 	{ CCI_REG16(0x030c), 0x0000 },
+ 	{ CCI_REG16(0x030e), 0x0004 },
+ 	{ CCI_REG16(0x0310), 0x0074 },
+ 	{ CCI_REG16(0x0312), 0x0000 },
++};
+ 
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_frame_timing[] = {
+ 	{ CCI_REG16(0x080e), 0x0000 },
+ 	{ S5KJN1_REG_VTS,    0x1900 },
+ 	{ S5KJN1_REG_HTS,    0x21f0 },
+@@ -722,9 +792,23 @@ static const struct s5kjn1_mode s5kjn1_supported_modes[] = {
+ 		.vts = 4288,
+ 		.exposure = 3840,
+ 		.exposure_margin = 22,
+-		.reg_list = {
+-			.regs = s5kjn1_4080x3072_30fps_mode,
+-			.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_mode),
++		.mode_setup_reg_list = {
++			.regs = s5kjn1_4080x3072_30fps_mode_setup,
++			.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_mode_setup),
++		},
++		.clk_reg_list = {
++			[S5KJN1_MCLK_19P2MHZ] = {
++				.regs = s5kjn1_4080x3072_30fps_19p2mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_19p2mhz_clk),
++			},
++			[S5KJN1_MCLK_24MHZ] = {
++				.regs = s5kjn1_4080x3072_30fps_24mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_24mhz_clk),
++			},
++		},
++		.frame_timing_reg_list = {
++			.regs = s5kjn1_4080x3072_30fps_frame_timing,
++			.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_frame_timing),
+ 		},
+ 	},
+ 	{
+@@ -734,9 +818,23 @@ static const struct s5kjn1_mode s5kjn1_supported_modes[] = {
+ 		.vts = 6400,
+ 		.exposure = 6144,
+ 		.exposure_margin = 44,
+-		.reg_list = {
+-			.regs = s5kjn1_8160x6144_10fps_mode,
+-			.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_mode),
++		.mode_setup_reg_list = {
++			.regs = s5kjn1_8160x6144_10fps_mode_setup,
++			.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_mode_setup),
++		},
++		.clk_reg_list = {
++			[S5KJN1_MCLK_19P2MHZ] = {
++				.regs = s5kjn1_8160x6144_10fps_19p2mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_19p2mhz_clk),
++			},
++			[S5KJN1_MCLK_24MHZ] = {
++				.regs = s5kjn1_8160x6144_10fps_24mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_24mhz_clk),
++			},
++		},
++		.frame_timing_reg_list = {
++			.regs = s5kjn1_8160x6144_10fps_frame_timing,
++			.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_frame_timing),
+ 		},
+ 	},
+ };
+@@ -894,9 +992,12 @@ static int s5kjn1_enable_streams(struct v4l2_subdev *sd,
+ 				 u64 streams_mask)
+ {
+ 	struct s5kjn1 *s5kjn1 = to_s5kjn1(sd);
+-	const struct s5kjn1_reg_list *reg_list = &s5kjn1->mode->reg_list;
++	const struct s5kjn1_mode *mode = s5kjn1->mode;
++	const struct s5kjn1_reg_list *clk_reg_list;
+ 	int ret;
+ 
++	clk_reg_list = &mode->clk_reg_list[s5kjn1->mclk_index];
++
+ 	ret = pm_runtime_resume_and_get(s5kjn1->dev);
+ 	if (ret)
+ 		return ret;
+@@ -924,8 +1025,12 @@ static int s5kjn1_enable_streams(struct v4l2_subdev *sd,
+ 	/* Sensor init settings */
+ 	cci_multi_reg_write(s5kjn1->regmap, init_array_setting,
+ 			    ARRAY_SIZE(init_array_setting), &ret);
+-	cci_multi_reg_write(s5kjn1->regmap, reg_list->regs,
+-			    reg_list->num_regs, &ret);
++	cci_multi_reg_write(s5kjn1->regmap, mode->mode_setup_reg_list.regs,
++			    mode->mode_setup_reg_list.num_regs, &ret);
++	cci_multi_reg_write(s5kjn1->regmap, clk_reg_list->regs,
++			    clk_reg_list->num_regs, &ret);
++	cci_multi_reg_write(s5kjn1->regmap, mode->frame_timing_reg_list.regs,
++			    mode->frame_timing_reg_list.num_regs, &ret);
+ 	if (ret)
+ 		goto error;
+ 
+@@ -1199,6 +1304,23 @@ static int s5kjn1_check_hwcfg(struct s5kjn1 *s5kjn1)
+ 	return ret;
+ }
+ 
++static int s5kjn1_get_mclk_index(struct s5kjn1 *s5kjn1)
++{
++	unsigned long freq = clk_get_rate(s5kjn1->mclk);
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(s5kjn1_mclk_freqs); i++) {
++		if (freq == s5kjn1_mclk_freqs[i]) {
++			s5kjn1->mclk_index = i;
++			return 0;
++		}
++	}
++
++	return dev_err_probe(s5kjn1->dev, -EINVAL,
++			     "MCLK clock frequency %lu is not supported\n",
++			     freq);
++}
++
+ static int s5kjn1_power_on(struct device *dev)
+ {
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+@@ -1290,7 +1412,6 @@ static int s5kjn1_power_off(struct device *dev)
+ static int s5kjn1_probe(struct i2c_client *client)
+ {
+ 	struct s5kjn1 *s5kjn1;
+-	unsigned long freq;
+ 	int ret;
+ 
+ 	s5kjn1 = devm_kzalloc(&client->dev, sizeof(*s5kjn1), GFP_KERNEL);
+@@ -1310,11 +1431,9 @@ static int s5kjn1_probe(struct i2c_client *client)
+ 		return dev_err_probe(s5kjn1->dev, PTR_ERR(s5kjn1->mclk),
+ 				     "failed to get MCLK clock\n");
+ 
+-	freq = clk_get_rate(s5kjn1->mclk);
+-	if (freq != S5KJN1_MCLK_FREQ_24MHZ)
+-		return dev_err_probe(s5kjn1->dev, -EINVAL,
+-				     "MCLK clock frequency %lu is not supported\n",
+-				     freq);
++	ret = s5kjn1_get_mclk_index(s5kjn1);
++	if (ret)
++		return ret;
+ 
+ 	ret = s5kjn1_check_hwcfg(s5kjn1);
+ 	if (ret)
 -- 
-2.47.3
+2.55.0
 
