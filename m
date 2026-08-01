@@ -1,68 +1,86 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A9035B633
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 17:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB093A255F
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 17:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785605449; cv=none; b=sfOvOdemH87teQ1iSgPUlJeoSMWryf4a+Er/CCFUj2TIyTkbZEWWPRhHCHdeeR6ynPs1ZiaAVnCEt5p7UcnWNS4VkpX3HldR9yBhuPBv8kmZvxeKKqRXq/zAQ8T4ezgAimd8tegA+Z97K5Nc+7eCTrQ6Aqb3D0VUB6GFHA6/stM=
+	t=1785606236; cv=none; b=QIjz6DcUK5jkcRv7sdh1c1GFfbbFHuIII/aab/8IzmPLSnBZdfkPev7URwJrxLjAPiO01WAJ+bl8Cz1YuBLA5EPcBhXD1d4FmWkbYLV9KAQJZF8QJShy1zZzeSU+MoClo0L/JXeA4j3kXkLoAJhBiQpiBctoV7TRrOejr5u9AXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785605449; c=relaxed/simple;
-	bh=PltSu/sVA6TYR6Jx3qt79OpymfJ6HHMaUviftaN88AI=;
+	s=arc-20240116; t=1785606236; c=relaxed/simple;
+	bh=PY8InaJHRFcc63/hbEXQx/vDtjSu+8gUmL+v1GZgJHE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b7wr3NdNug797yWk6ed/ip5Gnt0zOzT1a++QMkwIPv7ZmwM7VtLDYGe3HhHFbFOBSEEqVzwF0S0UrvATY5nQoKEJefOVENjuHVJ1J0PLZEg/XXtXi/9xwvmszq4gixl7fCcqecox8VDSnRvLmg31f3/8A8V4mmZb3umfzFNhzj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AOkjh5OS; arc=none smtp.client-ip=209.85.161.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 In-Reply-To:Content-Type; b=UxQhjiCKliLegFwr3oqRl3eLLsK6usp2WUym2f6SXvBpLY9rNJXA+sNCTg8rdWN2RdniXqLrx5f/IU4SC+VQ1vyOuuU9PnFPoIBBRNqPltYbXGqXy9EkeN3LgI0yg/Ko2SVCzkwUQH0tU4EQUPJCZn7a1b9BiOIcCC/dPtfta/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mG7zWnqd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FnaQxeYs; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AOkjh5OS"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6ad02448351so600930eaf.1
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 10:30:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mG7zWnqd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FnaQxeYs"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671FaYAk3108325
+	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 17:43:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Mde5ZJQsvXdc9zC8pk4PCiIyObIUlstkfgcsMyw9rgI=; b=mG7zWnqdeBcxklQA
+	Uw/OB8PAFimi1Xb8kr4TNLGAVZqPkyWUEGOAZCgtp4bq6+aOiB+Ygw56gNgKXGYW
+	EJcFkMSQ+IYWCxP2t1qJCGAQIwoZNtaxzgK2+UpQPsuOgVo/ROb078FUd2zhjHMy
+	CiKjKIODcuHoEA6WRZ2O/3z+6iBqGGcVnvR6OvvVJHFn2D89R5OT1TeITW2LY377
+	N8VWkRVUbf8HLvnbCa4gzTf/3n9s3dHtpkBtmOrR4MILHbQKExTu0YaXQhGRj8Bs
+	6CwBF8f5B2J21KkcBX4odkyfPa1TVXg50bWDAfvjlcYLRwi15mpJJjgsjXTdo626
+	cZA0hQ==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fsa3817y6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 17:43:53 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c21c01cf3so36417341cf.2
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 10:43:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785605446; x=1786210246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yKfWZJAhPCXSe4r4r5GwzlxdXwfptY+Qsd20FWoEYvU=;
-        b=AOkjh5OSMO4fcFSNAbcntt2yaVbXEcM0TbuUFl9QD8xV11OYTVdopq8RHBVLUiAXoJ
-         ECSyxlvxfOw0ocWyzRsnijjuR/esOuinC+JeShmE0wbQhaicb98OqA3TNbH/rtgMZlj8
-         RJW/iAM/ar0XvR6X6KlJN8kom6OUYKMGONueA+HpT7mA2Cd23EUAP+TRJaKUMHs08R0M
-         yzodc4KkaXCgjQXCRyXHOn010kEE07NBA6X4IOxiNUXlLNfri2r4bGKw/b+ja/A5ZgBM
-         ifPJuvX/pALQwy4+53Pqc2QWCjQtKBU4kTG+ABR4Ih2bU2eTHycMe40SyrUypexm38Cy
-         gH0g==
+        d=oss.qualcomm.com; s=google; t=1785606233; x=1786211033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mde5ZJQsvXdc9zC8pk4PCiIyObIUlstkfgcsMyw9rgI=;
+        b=FnaQxeYsdkuLpGvHKUuYZrnrRkDF0YsMLtRtxG3vz1110jmY89n08KSXZqqCmhufKF
+         xQfANrgpMulC4HxcNqzr17SpzYvWM4vb6XcLGvTnZRKzWNXiIyhyy5FKAQYtyucC9CR7
+         cTRPkIO10t6vQYLzMEU2y1qWex0OZH997jOIoNCFOh4oOMIsLzCKYEy8pM1vpRMsQMkA
+         x/b7gV26EijNrT3orAQzXP6Lo+M4FvUqYlL3XTZC0pIHOCuNMHR/0MD9fPFbuFdIQ6pZ
+         cCGvXVT3y1TyuOyrR42NjhPtOOSEv0etQyjW0I/WtFUzEYZrIrZJ7fUy8ypVBayKYoam
+         BVjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785605446; x=1786210246;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785606233; x=1786211033;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yKfWZJAhPCXSe4r4r5GwzlxdXwfptY+Qsd20FWoEYvU=;
-        b=s+j/CDKt4/OCiyz9uExzlYrQeXtjaUoGTVnebzdGV1Gos/YN2CzjoObLugFIlYZZg7
-         Kt2iThMqnwhT0iKkORVxErsSE3epGGN+WndnFNahBIpkxoTcvnet6Vf9pmKgtcNYdZyQ
-         6NxEmX1pOD5mzsWDVdnDYwGphYKNKm/K8GhncwIQQNULz4nw5D+EVMd4YA6qO8Azee9o
-         dqol8AvStjSh75iTE0nGyMmZIB4oXDBIhl+SJWNhbF/k0OKreCy2/P6YKjrdS2Jp5VXy
-         6qQzjISkfO4iMQ/sBEDdF8F2Uyo+hfnc9WR4ntUy2QaErJriePz56F4H9paDa2nLtjKZ
-         zf3w==
-X-Forwarded-Encrypted: i=1; AHgh+RpUFNhVSkVfN6UDVwBCE2Bn0GofJMkkgK9mxmf3veuC+CQbuisTW53IlM97gwtz4MGH7RmfLw3tAku3@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSfkXD14JbQzNahtOXj5nUP+edZ3OFkPtu9/Gby8J0Oj3/ljrg
-	FPQLhjTRPmkQG3MpXkcZa9Toi6SmSXuj4N3EVq0Itrcrd02onivU7CO3P5j9e20EB4c=
-X-Gm-Gg: AR+sD11CfxRg6POnC6svxelzWcPn6efULqVmYN+jrNd8P58tSd9wnE69rhaIlq/vutJ
-	Ns+Y/pQfAwW7nkysuk/3yD5Lon9llI4quqRfLEw0RYznDyMShIL89Y/jXtg2iFmIxP1NV+1AY79
-	rzDF0B35pRcNwDUhS1b0BD1heXpyKmfg0BwgPegn6RZuJnw1J7mDCrqCH+g51DlYmjFwdFfUhIB
-	XVS5V1HEgfexGPs2ho3KQgop+DqVYyY1lEX0VxkSXIisdSOgn2JHfS9ge542kdUeKBE2o8Y1OrO
-	FC9ZIU5yvhXAV5LNJqQI68SLswEkkePwMxMmPqvN7zCyQjlO7iI9KMAoDZjEzJeiFTQ4D0LQNQQ
-	sBRAF35Oua7Ie2HPVGhQxgPqk3g29NFYe59wr/B+/Dh4ND7XnZrYX6zKKDN38muCxSXLV6ni2Lu
-	gLz0TsOC6tyOpYM5Vga1GBuPeen98RSserIxPZRPc7IYz9gyv7lknNfkcXoHxL5e93+QC1B5D00
-	wkXK9KhF9yQP4QTWCPJQoDfY6cXmk8FefHS9Oo=
-X-Received: by 2002:a4a:edc3:0:b0:6aa:e1f6:32c7 with SMTP id 006d021491bc7-6ae43201d81mr7470917eaf.13.1785605445905;
-        Sat, 01 Aug 2026 10:30:45 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:359b:17f1:d4f9:4949? ([2600:8803:e7e4:500:359b:17f1:d4f9:4949])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-458f60d63fasm4181757fac.5.2026.08.01.10.30.43
+        bh=Mde5ZJQsvXdc9zC8pk4PCiIyObIUlstkfgcsMyw9rgI=;
+        b=b/2NpKfV0i8KhuGOEIqRRtRuuuG8EyAKEa3vMd9IhLPK9/csWdw03F6FpHfC+IbZB4
+         Y11p35kwbY0EGgNr8CSfeufhfweqCSAaDnKngvcvbgJ8qUek49FA4A9qCEsXPu3HcnFN
+         Pybfn3jBou1qRbBpGqXYrPlEXovsE6//R/yJBKEA7JsYrNu19v3UXX7KGGRDGy1Ef53f
+         io7Vcnr0mgCj+g0cWGbV12J+Bn+eAZiyX/nGna5ERgm60ZC3UcFiAqsQsnLZ6h7Oqj5p
+         NBL+b2VRMs7AzP2O6BvNwe4kC/jNkBc8AgnrNjlvTmQJi1EzTQJ0kcCXAaH/xuMV5k69
+         /TgA==
+X-Forwarded-Encrypted: i=1; AHgh+Rph4FQ2oJT3IzGj/vdOgfgZcDIgsKsu1k2ZWbPbqDQ45DpZ+jXXs4/CPYsVLP4mYinl2ZChIY0FzFTP@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzfrHTXzRmuyguR5hnqhF9W8kdeYx9bZ1/6Gaz1JUEB5TgwvEG
+	mFG+Ph8L9Leo5JXsyU1KPqITa6SQCoVER1BdKfRI/JairxyhLOFIEq5NZ4Mr3JsRqnadctky6al
+	FDJhmcRS77EO9gAf2gDNXys+mvMox3/OSPcS2Vt/yqM1FgqpRwV64r2fLETVTxrN1
+X-Gm-Gg: AR+sD11b6SnQeN2MNnEXATzXItoXyDFYAhd5D6Jo7VOvGyJBRKtZla64KYVyxgzBEqe
+	LAZUC9p3ZUG1DD3yiNfJ6DHvrAWAxsMP9/arNwg0YFE12iBAAsQRATLZQ76y9f51y46ibLo3K4X
+	dsUXuGrmEZ3dU8gjqF5KaICn4zH5Px+bW5/IdQAxZtolwxl9xeBjSIFY0xH+FyLcR2er7kglzOR
+	6TZcNCdx67NJZdXQPFvqvMsjCmXlivad6YNHnBFfGdAqNBVSW6KjoMPY8O/3N8XSeAfl6yT2p1q
+	HGt+s64b65TD5d+x33VY+S1mYeVJDQpPTX4ufwqDY1xCcNJdX6tesl64/s23BfDBJoFEamxyYyr
+	8LFVj4I1ZN1bniSQJMcK5o57N49A71w==
+X-Received: by 2002:a05:622a:44b:b0:51c:1fd1:e755 with SMTP id d75a77b69052e-52b567915e7mr73366051cf.36.1785606232973;
+        Sat, 01 Aug 2026 10:43:52 -0700 (PDT)
+X-Received: by 2002:a05:622a:44b:b0:51c:1fd1:e755 with SMTP id d75a77b69052e-52b567915e7mr73365801cf.36.1785606232535;
+        Sat, 01 Aug 2026 10:43:52 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.223.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41e2484sm18039276f8f.11.2026.08.01.10.43.51
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 01 Aug 2026 10:30:45 -0700 (PDT)
-Message-ID: <a869acd6-9c77-4495-a581-232ca88ac9e2@baylibre.com>
-Date: Sat, 1 Aug 2026 12:30:43 -0500
+        Sat, 01 Aug 2026 10:43:51 -0700 (PDT)
+Message-ID: <98d13cfe-b94e-40bf-bee7-541db92ac12b@oss.qualcomm.com>
+Date: Sat, 1 Aug 2026 19:43:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,223 +88,96 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: add support for PAC1711
-To: Ariana Lazar <ariana.lazar@microchip.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260728-pac1711-v2-0-609bc026093c@microchip.com>
- <20260728-pac1711-v2-1-609bc026093c@microchip.com>
+Subject: Re: [PATCH 3/9] dtc: dt-check-style: Handle root node in overlays
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260726-n-dts-style-checker-continued-v1-0-b05b8f897670@oss.qualcomm.com>
+ <20260726-n-dts-style-checker-continued-v1-3-b05b8f897670@oss.qualcomm.com>
+ <20260726160058.229B71F000E9@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260728-pac1711-v2-1-609bc026093c@microchip.com>
+In-Reply-To: <20260726160058.229B71F000E9@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=KezidwYD c=1 sm=1 tr=0 ts=6a6e3059 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=BdnB_ZxoBvXoPZvaknkA:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
+ a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDE0MiBTYWx0ZWRfX7srjh/nj/Ywr
+ U/pPQUalUdVhneeyZ3dFY+ugo55zupyRoGQ2/X7JA279GgBTHvn91CPR+q3/M4hvCOG6sZi9omz
+ S1DDgNiuJFHKbI4p+Wpf6vZnPjDi0ro=
+X-Proofpoint-ORIG-GUID: 4-9YkkkWhmqvMdZhYuQo8HAkrqnrqsw7
+X-Proofpoint-GUID: 4-9YkkkWhmqvMdZhYuQo8HAkrqnrqsw7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDE0MiBTYWx0ZWRfX7Dz1gDRRGNUv
+ iywaJpOVH6Ef6omw3yVPN/rpEB7hqACQLW2XJKMYCY7rW3vRydR6/hf3qw+gRjxoB73iUO7EONi
+ uexGlHhUhAgUbQGa61bO2hTEXFs03A6V0Eh+1MPgiy49V8gJ7+ej4iL0ehNeFoXv8uB6dMMOzoI
+ aopgiB55ZsFUMJLC+O7/aQ60Oj3R8bL4//2aslc9Ayw6+XiQOx5EUhczNUrMU6EOzl5Y6c+4y0w
+ bPBOtFgvFmt0JyNEIOhUNBe60ctUoyq0xoTnaCEho5rGKMciF19ydqQvzyQQB5JYxbMyCVaIPxQ
+ 2apJqTDo6PngyBySt2vGI4XjRIuTMm+78+61kjjLmlOWJM0x4E34nccgeQ6LKVmMX/GA5tv+uNS
+ QE0iuVXYVaAwS6t20+RysRzjqu3Q71WShKHbcJQGiKJYLeefL33qkzCceIJozTQAKpEeGiU0cgS
+ TIi1Sg/E3mHzpMfEaYg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-01_02,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608010142
 
-On 7/28/26 7:03 AM, Ariana Lazar wrote:
-> This is the device tree schema for Microchip PAC1711, PAC1721, PAC1811 and
-> PAC1821 single-channel power monitor with accumulator. The PAC1711 and
-> PAC1721 devices use 12-bit resolution for voltage and current measurements
-> and 24 bits for power calculations, while PAC1811 and PAC1821 have 16-bit
-> resolution and use 32 bits for power calculations. The 56-bit accumulator
-> register accumulates power (energy) or current (Coulomb counter).
+On 26/07/2026 18:00, sashiko-bot@kernel.org wrote:
+>> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+>> --- a/scripts/dtc/dt-check-style
+>> +++ b/scripts/dtc/dt-check-style
 > 
-> PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
-> PAC1721 and PAC1821.
+> [ ... ]
 > 
-> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
-> ---
->  .../bindings/iio/adc/microchip,pac1711.yaml        | 209 +++++++++++++++++++++
->  MAINTAINERS                                        |   6 +
->  2 files changed, 215 insertions(+)
+>> @@ -228,7 +229,10 @@ def classify_lines(text):
+>>              continue
+>>  
+>>          if code.endswith('{'):
+>> -            dl = DtsLine(i, raw, LineType.NODE_OPEN, depth, indent_str, code)
+>> +            is_root = False
+>> +            if code == '&{/} {' or code == '/ {':
 > 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..846e7801a1667c312c753ab8ee4d5637e258e2e5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/microchip,pac1711.yaml
-> @@ -0,0 +1,209 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/microchip,pac1711.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Microchip PAC1711 Power Monitors with Accumulator
-> +
-> +maintainers:
-> +  - Ariana Lazar <ariana.lazar@microchip.com>
-> +
-> +description: |
-> +  This device is part of the Microchip family of Power Monitors with Accumulator.
-> +  Datasheet links:
-> +  [PAC1711]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1711-Data-Sheet-DS20007058.pdf
-> +  [PAC1721]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/PAC1721-Single-Channel-Power-Monitor-with-Accumulator-DS20007088.pdf
-> +  [PAC1811]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1811-Data-Sheet-DS20007066.pdf
-> +  [PAC1821]: https://ww1.microchip.com/downloads/aemDocuments/documents/MSLD/ProductDocuments/DataSheets/PAC1821-Data-Sheet-DS20007097.pdf
-> +
-> +  PAC1711, PAC1721, PAC1811 and PAC1821 are Single Channel Power Monitors
-> +  with Accumulator, having 12-bit or 16-bit resolution. The devices PAC1711
-> +  and PAC1811 can measure up to 42V Full-Scale Range, respectively 9V
-> +  Full-Scale Range for PAC1721 and PAC1821.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - microchip,pac1711
-> +      - microchip,pac1721
-> +      - microchip,pac1811
-> +      - microchip,pac1821
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  "#io-channel-cells":
-> +    const: 1
-> +
-> +  interrupts:
-> +    description:
-> +      Could be triggered by overvoltage, undervoltage, overcurrent, overpower,
-> +      undercurrent, step limit, accumulator overflow and accumulator count
-> +      overflow.
-> +    minItems: 1
-> +
-> +  interrupt-names:
-> +    items:
-> +      - enum: [alert0, alert1]
-> +
-> +  microchip,gpio0-mode:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Defines the function of the pin. This is a multifunction gpio digital I/O
-> +      pin which can be configured as alert0 interrupt, GPIO digital input, GPIO
-> +      digital output or slow. When functioning as SLOW pin pulling the pin high
-> +      overrides the programmed sample rate and results in a sample rate of 8 sps
-> +      (Slow mode).
-> +    enum: [alert0, gpio0_input, gpio0_output, slow]
-> +    default: gpio0_input
-> +
-> +  microchip,gpio1-mode:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Defines the function of the pin. This is a multifunction gpio digital I/O
-> +      pin which can be configured as alert1 interrupt, GPIO digital input, GPIO
-> +      digital output or slow. When functioning as SLOW pin pulling the pin high
-> +      overrides the programmed sample rate and results in a sample rate of 8 sps
-> +      (Slow mode).
-> +    enum: [alert1, gpio1_input, gpio1_output, slow]
-> +    default: gpio1_input
+> [Severity: Medium]
+> Will this exact string match handle valid alternative spacings or labels?
+> For example, if the code contains a label like "label: / {" or extra
 
-Maybe I missed something in the previous discussions, but this
-seems a bit too restrictive and also a bit redundant.
+We don't label root node, but I will add a test for that.
 
-interrupt-names already tells us if A0 or A1 is used for /ALERT.
+> whitespace like "/  {", it seems this would fail to set is_root to True.
 
-And why should we restrict GPIO usage to only input or output?
-(Binding should have gpio-controller and #gpio-cells properties
-for that too.)
+I'll add a test for that.
 
-It also isn't clear to me how the slow pin would be useful when
-we can also program the sample mode to the same rate over I2C.
-So maybe we should defer adding a binding for that until we have
-an application that actually requires it.
+> 
+>> +                is_root = True
+>> +            dl = DtsLine(i, raw, LineType.NODE_OPEN, depth, indent_str, code, is_root=is_root)
+>>              parse_node_header(dl)
+>>              out.append(dl)
+>>              depth += 1
+> 
+> [ ... ]
+> 
+>> @@ -550,7 +554,9 @@ def check_child_name_order(ctx):
+>>          for c in children:
+>>              if c.node_addr is not None:
+>>                  continue
+>> -            if c.node_name in (None, '/'):
+>> +            if c.node_name is None:
+>> +                continue
+>> +            if c.is_root:
+> 
+> [Severity: Medium]
+> Since this replaces the previous check for c.node_name in (None, '/'), could
+> it cause valid root nodes that were missed by the exact string match in
+> classify_lines() to incorrectly bypass this skip logic and trigger false
+> positives?
 
-And this is missing the possibility that the pins can be used
-as a conversion trigger as well. Likely that would use a
-trigger-sources binding, but as that isn't common, I would defer
-adding that until we have a use case.
+is_root is added, so false positive.
 
-So I would just leave these properties out.
-
-> +
-> +  powerdown-gpios:
-> +    description:
-> +      Active low puts the device in power-down state. When the PWRDN pin is
-> +      pulled high, measurement and accumulation will resume using the default
-> +      register settings.
-> +    maxItems: 1
-> +
-> +  shunt-resistor-micro-ohms:
-> +    description:
-> +      Value in micro Ohms of the shunt resistor connected between
-> +      the VSENSEP and VSENSEN inputs, across which the current is measured.
-
-It looks like all of the datasheets say VSENSE+ and VSENSE- rather than P, N.
-
-> +      Value is needed to compute the scaling of the measured current.
-> +
-> +  label:
-> +    description: Unique name to identify which device this is.
-> +
-> +  microchip,vbus-input-range-microvolt:
-> +    description: |
-> +      Specifies the voltage range in microvolts chosen for the voltage full
-> +      scale range (FSR). The range should be set as <minimum, maximum> by
-> +      hardware design and should not be changed during runtime.
-> +
-> +      The VBUS could be configured into the following full scale range:
-> +        - for PAC1711 or PAC1811:
-> +            - VBUS has unipolar 0V to 42V FSR (default)
-> +            - VBUS has bipolar -42V to 42V FSR
-> +            - VBUS has bipolar -21V to 21V FSR
-> +        - for PAC1721 or PAC1821:
-> +            - VBUS has unipolar 0V to 9V FSR (default)
-> +            - VBUS has bipolar -9V to 9V FSR
-> +            - VBUS has bipolar -4.5V to 4.5V FSR
-> +
-> +  microchip,vsense-input-range-microvolt:
-> +    description: |
-> +      Specifies the voltage range in microvolts chosen for the current full
-> +      scale range (FSR). The current is calculated by dividing the vsense
-> +      voltage by the value of the shunt resistor. The range should be set as
-> +      <minimum, maximum> by hardware design and it should not be changed during
-> +      runtime.
-> +
-> +      The VSENSE could be configured into the following full scale range:
-> +        - VSENSE has unipolar 0 mV to 100 mV FSR (default)
-> +        - VSENSE has bipolar -100 mV to 100 mV FSR
-> +        - VSENSE has bipolar -50 mV to 50 mV FSR
-> +    oneOf:
-> +      - items:
-> +          - const: 0
-> +          - const: 100000
-> +      - items:
-> +          - const: -100000
-> +          - const: 100000
-> +      - items:
-> +          - const: -50000
-> +          - const: 50000
-> +
-> +  microchip,accumulation-mode:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: |
-> +      The Hardware Accumulator may be used to accumulate VPOWER or VSENSE values
-> +      for any channel. By setting the accumulator for a channel to accumulate
-> +      the VPOWER values gives a measure of accumulated power over a time period,
-> +      which is equivalent to energy. Setting the accumulator for a channel to
-> +      accumulate VSENSE values gives a measure of accumulated current, which is
-> +      equivalent to charge.
-> +
-> +      The Hardware Accumulator could be configured as:
-> +       "vpower" - Accumulator accumulates VPOWER (energy)
-> +       "vsense" - Accumulator accumulates VSENSE (Coulomb Counter)
-> +    enum: [vpower, vsense]
-> +    default: vpower
-
-Why does this one have to be a DT property? Can it not be switched
-at runtime to accumulate one or the other at different times?
-
-Also datahseet says it can accumulate vbus measurements.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +  - shunt-resistor-micro-ohms
-> +
+Best regards,
+Krzysztof
