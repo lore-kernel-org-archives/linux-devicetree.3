@@ -1,133 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3514313E02A
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 06:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B57138887B
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 06:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785566793; cv=none; b=qWzKILbOFYJnEXhPTvEKeYGlaa/O1lvrSuIrpUC1ORp+Vr0cxN5hSy6z00vGM9Tjxw/E9gsnhNHozkYZVh0mNAp5zNZlogbDu0ibXpCeL69XHjw7LQdslbVRChnIZ5oazvDutXqtHU/yIFUZEG0ZDBDNc//HmhLKxDCbmiJQGCE=
+	t=1785567088; cv=none; b=JpX6C3MXrq52JyRMMK8eSmeeVIe/TC7E9pfzBOTAI6H6g/TLb6Jm4M6qdVs8VTLQHgTkRtz87UbKiHYHLMkXKFnadbFQd3YwGu9Vfrsi8uo+h6/2oioEmJZMs6rmEgEpWY/ymim/DUbDqF7q8Grgl0qXtD0xjdr6atH4S9fxGzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785566793; c=relaxed/simple;
-	bh=LErCCR4nKC4XHfd7uC4yKWkLcjq9F9iY393Fn8sX9Z4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XJ1+BsZa6CcsRZYZ2/HwHKdIaLnxmQngyZSo+CuTm3d14SMqpSQ6dLEkm7AgJD95oUmPEM370dui3MByWDFpsZLjQsd7VUt8yKHT9fnsYCiek02+yt2oFYVHo7oY0STKOdulbBf6DpmfpSYIfR0A+XyyBLYsFim7liSaO+mqlMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPCnafdK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785567088; c=relaxed/simple;
+	bh=kqQJ8xc3vkuS40H+cWObDa0dDEUwROCwDDmchGwzADo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gXekFxkC1geK3n7Q9uluhzmd/Q92bIaYL4jTdM2fNoKWsH3j+YjGlQTS24bZW5ShY2bicTv4J+68UGk2ZjUN/DVrbYEL2kZ1L1QRSnVwigyrKz8vy7JlmL3ZVX+T/Qey3XEvgaTOuXcd28gZOAnxqwOCO8AhpmqqvmdNk1uQypA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BHGwJOjm; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPCnafdK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E48D01F0155B
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 06:46:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785566791;
-	bh=NziBy7OG33oYiNr9JUn+R/txXnPdgHaF2LDnuUeFyYg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hPCnafdKqYHmdeMbJZS3eiyYSQEMIroHl7dg0JHm/f/ELGhGaKpAyRgsGaTd5d5GH
-	 q2xBIbT2Z1oGBXiFy2QhUOk5T5b7baOmE5iBM6UyfbNdwsKS7ft8QM003C+0t8kJmL
-	 GYH6dcAPXg6blbfGmd/40AYzGSFl4lZc2/T/xR2bmY1700gFIFeGk1lING7ksn9yf0
-	 8i6/VdQfKzUKXEmkCdlzvZtLV4WFuxPZx9u6pTeyiOuxplesbGrXzqDy7TxXEaFa3j
-	 Xt8NKn5NIbYpQg6U5TY3b1m2bNEm4wJDHM5ksVnFEc2eCJqCv7WdWSIVes9qlheM5S
-	 rNOYUEh3fHfjA==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c74c469e8so12929871fa.0
-        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 23:46:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq14TdmYLiVcx2hitJTQSSaBSL6poL8xVHCg+Anm0kN7nxpbCAYpA7ZXIywnFZ0qvu0pEgrVGSgc0SF@vger.kernel.org
-X-Gm-Message-State: AOJu0YxRtxakHbgS0Yfoo9Q+yA5TN3brUGfjgU8L/QVMSXhTAPMo881Y
-	z9xq7K4E36TGsjsA7EHYUKyqYbTgRexuJW0vhPAKyFdSTzzj12I1DhhF6XeOyerRSSEiUfIwy55
-	SkiubbqlunvkEq74JMT438tRWFL/3wZc=
-X-Received: by 2002:a05:6512:3b11:b0:5ae:bfa0:54f1 with SMTP id
- 2adb3069b0e04-5b2e4f969e1mr490370e87.59.1785566790672; Fri, 31 Jul 2026
- 23:46:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BHGwJOjm"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so4363225e9.2
+        for <devicetree@vger.kernel.org>; Fri, 31 Jul 2026 23:51:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785567083; x=1786171883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ibyAvlXW4OBxswkrpuHvoKSISh5II++nXruZ8WtjRy0=;
+        b=BHGwJOjmbNUchRQnHoIM4mVOfrT15+RGJRXRuCPQKlZCx/Yi3iS2sPb1Eenm1bLyxM
+         D3zgsHKskE2xLg+W94ezxD6w99YkwWMjzCP7K5rFphGK5epMvH3koDUgBZZxCVVGg/jP
+         NXfWqocqobyzBOGsRJyiHa40MmJaHMR/GmJ78IXNjf4oNf1of7VCQ9vD/4SfuEhLvFGY
+         9VS6gwCg7eiQSvGmqrm7sytAv5AvTxSttZpDb3+O4qTrrUBP95b3S/+G1SxDGAnZRvxd
+         URDjnEbOjUukNbIt7YuF8g/XrS9u9WbeF9SHtSdkdJkn9KQreGz3P/rYJRi2ChoVq1AV
+         IqDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785567083; x=1786171883;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ibyAvlXW4OBxswkrpuHvoKSISh5II++nXruZ8WtjRy0=;
+        b=kbJT3tLV3TL9+0h0vfZqQTsn8wH3kcolJ690mkwqSwabVXZslFKUUg6j1eKgHjQMkN
+         SDxY+bf/n1ZuLCeiDeNaxNY9QHDPfPZCMvDYwFcZacewiGHZQt03A8veMn6u97iBLzla
+         icoA//PfhLclhMSPkJW7nbmxKKKBAQRaH6QMDcAO6I5w+kUMur/0QRE9oR/KILCcFGjI
+         V5ieyPxOqmMydNgZfgWb7wTSI8jIZ++7Yq3QVfHgOJUt2jZTLBe/VCAqn1FJi6bnSGIg
+         tmv8PLX9tws960fz985DNZOfbe6HPIxC/hJYi1N8bixQY2q2zLpyZMFiHYINH6i6AKqm
+         QiNw==
+X-Forwarded-Encrypted: i=1; AHgh+RrK32Ueq+/2PABN9Ry8Bpxr/YHhxi9NFEwS6e3LTjmMTRcnEkehBXUMa1PFJBy/BxHrLpoq9woRtlzj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzprO/a/H9SIM8KWe8gGAwSZSDieExKcRj6DZ0CiowOnlzgbmxU
+	ite6kaW0QxGPWOgI6jGWbck36+rgxMSCu868JzjrIuTGSZhveJRJnBxA
+X-Gm-Gg: AR+sD138BEGST3AE0UyHO+YOLyEsFHiwVoQxu0c4bTZRrVO5/CGbOus37tbk6Ur7FGB
+	N3+LNXsIRXeLcFfWjc9L61q7HqtDzQOGDFGJ6QpieNOTWlUP1ESzThD6/z4Ghvzq77E/Esa38um
+	D53YutxzMu/1SsGPDTRo9N6/HniD5Kd00+1pQZQ0aO7Z/55OeuD71RrHJIyBqYk3RKhP63BVC1H
+	CMfAOzeR18v2Mx5Evu1wjSwDohLoMsbP36Z0J5AHwyhY6ROF7IaKbDnS97psh0dpp0xB+dRHWC8
+	d5FKVM1ILYmsCReuPnUzfTSrRjXhvqRgV4h8KP8WggQYkyBpP23vVtSILiqHeHuzDI3S5l1UtbF
+	5NeUV1qYKXmBiRZ1oOWOiS9IfWAbA2MnNBhtdaB/Eqpwv2mRJLWbaqv0vfVUFDqTcG5Uan5H1se
+	m6Wi3zvSv91fOn4MkR6lyLtnuEYIbuxlobG0Bl/Tp29rmFhdJvFXA34dExs0RAvGJ9kJ9TOp5BX
+	4MvH/R3Z/pvXPUIqezmMtygHWCDjd4WxtdXsiVL3pUrz+tJq/09fFNj65IpDJw=
+X-Received: by 2002:a05:600c:608e:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-4980c64a978mr24899205e9.7.1785567082676;
+        Fri, 31 Jul 2026 23:51:22 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f112:3801:7859:cd6f:5f73:7262? ([2001:9e8:f112:3801:7859:cd6f:5f73:7262])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49807b6745csm30760375e9.7.2026.07.31.23.51.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 23:51:22 -0700 (PDT)
+Message-ID: <c55d6167-b8e4-42fb-a5b7-6b7eb5ae3a3c@gmail.com>
+Date: Sat, 1 Aug 2026 08:51:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260730104330.81367-1-longzhao@ambarella.com> <20260730104330.81367-5-longzhao@ambarella.com>
-In-Reply-To: <20260730104330.81367-5-longzhao@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sat, 1 Aug 2026 08:46:18 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=Zw0_jKj4FiVHAVC6ASjRJgOF6WswAJBZD=Y3nQCAauA@mail.gmail.com>
-X-Gm-Features: AUfX_myXQ9tmFb62wnb9uBwgjcMdvhCxVtgyWuLAaEHToUKhGjWH6cV58R5yeJI
-Message-ID: <CAD++jL=Zw0_jKj4FiVHAVC6ASjRJgOF6WswAJBZD=Y3nQCAauA@mail.gmail.com>
-Subject: Re: [PATCH 04/10] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
-To: Long Zhao <longzhao@ambarella.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	linux-serial@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v10 1/4] dt-bindings: net: pse-pd: add bindings
+ for Realtek PSE MCU
+Content-Language: en-US
+To: Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>,
+ Kory Maincent <kory.maincent@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Golle <daniel@makrotopia.org>, =?UTF-8?Q?Bj=C3=B8rn_Mork?=
+ <bjorn@mork.no>
+References: <20260728084307.2129515-1-jelonek.jonas@gmail.com>
+ <20260728084307.2129515-2-jelonek.jonas@gmail.com>
+ <20260731171639.1baec9e5@kernel.org>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260731171639.1baec9e5@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Long,
+Hi,
 
-thanks for your patch!
+On 01.08.26 02:16, Jakub Kicinski wrote:
+> The second patch conflicts on MAINTAINERS so unfortunately a rebase
+> will be needed.
 
-On Thu, Jul 30, 2026 at 12:44=E2=80=AFPM Long Zhao <longzhao@ambarella.com>=
- wrote:
+I'll do a rebase.
 
-> +  "^[a-z0-9-]+-pins$":
-> +    type: object
-> +    allOf:
-> +      - $ref: pinmux-node.yaml#
-> +      - $ref: pincfg-node.yaml#
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      function: true
-> +
-> +      pinmux:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        minItems: 1
-> +        maxItems: 96
-> +
-> +      bias-disable: true
-> +      bias-pull-down: true
-> +      bias-pull-up: true
-> +
-> +      drive-strength:
-> +        enum: [3, 4, 5, 6, 7, 8, 9, 12]
-> +
-> +    required:
-> +      - function
-> +      - pinmux
+> On Tue, 28 Jul 2026 08:43:03 +0000 Jonas Jelonek wrote:
+>> diff --git a/Documentation/devicetree/bindings/net/pse-pd/realtek,pse-mcu-gen1.yaml 
+> While you rebase -- the AI points out that the binding is called
+> ...-gen1 but it documents gen2 as well. Should the -gen1 be dropped?
 
-Usually either (function + group) OR pinmux is used, so this looks
-slightly confusing to me.
+Not sure, Conor before requested that the filename should carry
+of the compatibles [1].
 
-> +        uart0-pins {
-> +            function =3D "uart0";
-> +            pinmux =3D <AMBA_PINMUX(44, 1)>,
-> +                     <AMBA_PINMUX(45, 1)>;
-> +            bias-disable;
-> +            drive-strength =3D <8>;
-> +        };
-> +    };
+[1] https://lore.kernel.org/all/20260710-divinely-sharpie-1d415917c850@spud/
 
-So I take it that "pinmux" is used for all the muxing while the function "u=
-art0"
-is actually only used for the pin configs, right?
-
-It would be better to encode the groups into the driver I think and then it
-would look like this:
-
-       uart0-pins {
-           function =3D "uart0";
-           groups =3D "uart0tx", "uart0rx";
-           bias-disable;
-           drive-strength =3D <8>;
-       };
-
-As you can see "uart0tx" is easier to read and understand than
-<AMBA_PINMUX(44, 1)>.
-
-Also it hides constants nicely in the driver. I know this is a lot of work.
-
-I know a lot of companies like "pinmux" because it's simple and
-convenient, but it really
-isn't the best for developers writing device trees and debugging.
-
-Yours,
-Linus Walleij
+Best regards,
+Jonas
