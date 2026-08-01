@@ -1,106 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF0D3A5452;
-	Sat,  1 Aug 2026 02:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D807E27603C;
+	Sat,  1 Aug 2026 04:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785551478; cv=none; b=FA48zaRU1broqLrwGVrZGxkncE0WLGno0yCT0kEsC2zZ3ReaurnSgFnCmv/dpdm6DJ3oZj9uroTM8u5Ca9f4azyKsfmMqJ2J8r6xEZVgRc4KDlvQKuoZ05d+1Ym0wxV5wbbUJHK83qqHuiz1/t2bOH6uRHLh9STs9pI2bS2/TcU=
+	t=1785559841; cv=none; b=mUwGw2FHituyu+Vt7qGYXV7o6mlbBGMFzoWJIyC+fSVng1ecr6YpJ5/+DGHJXbSxbt2ajYKqybnWAH1lS6RzjIuG2eBKogrVNZyi3b2zw3Mqi9k59Z49bbjr9R7f39uDjtg1eiNbKxVSxYbawK4LSL9vOW+TI0cRM7nwwptLO5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785551478; c=relaxed/simple;
-	bh=6hJn9hyB2Ab/GtXT5mlDA97bIfaIE0YQnuIq+ACU+UI=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EjUTN67H608XFUV5ucp/fmIV3E37chblOxf4iH8EABOWPuYNftO5qBqGfCDGpf5gV765FoZYJT9BSr1tYFC1Qfdi/NKeATO5tM5txBe2sZlG7iGykleoVIb58pUFYsrxQwW52t6lJ/paTKm8UdxGSbMOM0qR8Lxg4z4T7mQc6RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTRM1Pwi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785559841; c=relaxed/simple;
+	bh=cMno59+tZNh/qkgtLsDGypFDDFcarBvR6jbG5LEIkvs=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version:Content-Type; b=LhoGDRmanRIZWfj6uIjL6YB/ZyOAIH8tquBOUs21wMe92/j97QRcYVtIMhk5S2ogcFshbPp61MZJPj3oMiYeL2KKrZ3NxML/318hCQH5rpvVcPab7qCRoG5sQxrXIriBcE1spEYtOQAxe9L6Y3uVOxeJxrvnQsq3KO2ZsnKTX0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=VLDdCeQW; arc=none smtp.client-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTRM1Pwi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC931F00AC4;
-	Sat,  1 Aug 2026 02:31:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785551476;
-	bh=uMiANvgoUOZB5Ic39C9vx3u15Hl4R58pnfusraQYRB4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nTRM1Pwi/+Q8tslAMfl52eTxm5iZLLbgmzM3Uyqvo9waNHnaVdcHMSF21WGtS9+OT
-	 qy47DxnoXpiGJslPQRKcrT9Jbo42jgYR1j0FtPjlgnFZoOtTBx5DLZHhnMjQ2X8jwh
-	 K9T4P+fea0vTi5VYbFfmii/ltZfgOAk3gEZ9EV0YcLLhfpJc//GivIPpyQJ5803Lcc
-	 +Zb+iVjmOe/lB/dXbtTOht2WDMpJUz0Dn+MLWu777Gk4gt7K5fjsoJEkx8C5NygzEn
-	 s07lLpFxdjyNigZ6GYzZwjr0JjRVpcRleavEnQOPsUU72r1suj0U7GMQC8idgpBnh/
-	 mu8Vju3YPR8uA==
-Date: Sat, 1 Aug 2026 03:31:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device
-Message-ID: <20260801033112.43169ed1@jic23-huawei>
-In-Reply-To: <20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
-References: <20260727-mcp47a1-add-support-v2-0-d4591a2ce69e@gmail.com>
-	<20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="VLDdCeQW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1785559833; bh=+G1Afgfgm4VomeHyuZtbW2kKbV8N7tbkp7LK+TL/0q0=;
+	h=From:To:Cc:Subject:Date;
+	b=VLDdCeQWVNy70A7P4y5sWt3bGgpQR9GBKWgGBsg8vn3X3/2yUlkaInUK4bMsnZTvP
+	 eR4qxgqDG/tS+JNUZ2gkNGr3CPu6asvPx9N8b62R5e3V4BQ02QIITWTL0fOQIUY2MR
+	 xTGZRctN7bnhLW0W9hpaeJ0mBvbcCF+lxcmgOfhI=
+Received: from AERO17.taila7786d.ts.net ([112.43.117.189])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id C9E2EA5C; Sat, 01 Aug 2026 12:50:30 +0800
+X-QQ-mid: xmsmtpt1785559830tqo0hg88f
+Message-ID: <tencent_4141B315242524F71B028860294CB1315E08@qq.com>
+X-QQ-XMAILINFO: NT7uTz3cNku2VA5qCdx/+vljb5DbZnndH2i5LtgxlE30kG+zEmdKivg1PTXAy8
+	 JKQgc11w1/7Z2dhUVYCIfsnsZNBpvCFRq9v2VurKgW2qIDYY+odxFv9TW9qY7almkKgpkhP2b9sa
+	 BeGOIcRqd1TEVNqZQhr6EytbcyfyO2l+Z/SFFq/jy9QSDHsX5K9KVbItCwrJzz73Jy9NnXSL5kKr
+	 WDxmZzHC254RppXLNDqFt1l+FpqRcm/uqymxLY4qq1FULEkoSAaHK5O20ZdLB3DzWvNnH0mZ6Ob4
+	 yud3iCg6VK5f7gn0IOEj4heeYISYCdnPWn7wwtMMECNhseQN3/KBLeirtyt6WBz/vOzna98vrDjp
+	 2z45ed2Gi5lZ9r/8LTtvcHLXa9pAtCV9h6jZEgIKiR0iuyXgGByQt6MWOuq+zoSlK3q8k4Z0JkZZ
+	 ZNULeHkEaYFnGS2OTaa0WOpG3Gg+9yNwMerOFK77bjx5T9tuCQeIOYm4It6pQII2H9Owl6ves7HS
+	 IJUy26c+FrTR1boQvCnNk9ObAPOZ1pLu1tLukdGyvRZrYvYj0mOfZVghm1lo4/g9TJT1KVUYUJp0
+	 vOs1YSz9Fo5evod6GDUrccrRoKGY/WRbWRSrzTjQh57tL6pkNgPAfOY5Ina/DZF08YDB9vkPYTNw
+	 VK5a8o/t0PEaQtH9CEpT4kdVbzNv4/mw7zKbd8zJPSBk/PYu+eB2UcO5iTehqZbcEkl5jE/XROwA
+	 aKHGy2DwsFkoV9oK8EmNM5T0nUCWRhXunTq74Zu7t324veLL9R18tsvlA3/eRzUH9r04f3vMK3G7
+	 VvXdiC9uM15ZNpKEn1oDvtNfkO+Sd4Sin1AcCnDg2pC0dTBUiq5GE74Kjk6TpptMENuEcOa+7c31
+	 HAkYGrYVxOmB7S7Pw6P5mlVMPdKEaXCrT1L7z8ioJqBOGLNw/J30ORiQfmGTDkkZ/XsRI0dgmR6W
+	 lLG9siP3hH4hNjeptr5FILpCykcW7Z4UxCIamYo8QtaVgREvGxb1G/Kgj2BmmojevZUZ2z+Jrdj+
+	 tviK1psbq+awt87VaUULamWEcEb3JzP+HsTv+lAJBqM2IrrbxN+wfEd+nOwdE=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Pufan Jin <2254650260@qq.com>
+To: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] arm64: dts: rockchip: Fix fan speed control on LubanCat 4
+Date: Sat,  1 Aug 2026 12:50:22 +0800
+X-OQ-MSGID: <20260801045025.67512-1-2254650260@qq.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+The EmbedFire LubanCat 4 drives a 2-wire fan by chopping its 5V supply
+through a MOSFET with pwm0. Two problems prevent the thermal framework
+from controlling the fan speed:
 
-> diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-> new file mode 100644
-> index 000000000000..140e93ff2ba0
-> --- /dev/null
-> +++ b/drivers/iio/dac/mcp47a1.c
-> @@ -0,0 +1,169 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Microchip MCP47A1 DAC driver
-> + *
-> + * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
-> + *
-> + * Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
-> +#include <linux/units.h>
-> +
-> +#include <linux/iio/iio.h>
-> +
-> +#define MCP47A1_REG_MAX		0x40
-> +#define MCP47A1_CMD_CODE	0x00
-> +#define MCP47A1_MAX_STEP	63
-> +
-> +struct mcp47a1_data {
-> +	struct i2c_client *client;
-> +	int vref_mV;
-> +};
-> +
-> +static const int mcp47a1_raw_avail[] = { 0, 1, MCP47A1_MAX_STEP };
-> +
-> +static const struct iio_chan_spec mcp47a1_channels[] = {
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.indexed = 1,
-> +		.output = 1,
-> +		.channel = 0,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_RAW),
-> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
-> +	},
+1) The PWM period of 5000 ns (200 kHz) is far too fast for the fan's
+   internal bulk capacitance to discharge during the off-time, so the
+   fan sees effectively continuous 5V and runs at full speed for any
+   non-zero duty cycle.
 
-Given you are doing a v3 anyway, drop the array.  A single channel
-is fine - just use &mc47a1_channel when referring to it and provide
-channel count of 1 directly (obviously correct as it is clear you
-aren't pointing to an array).
+2) No cooling maps bind the fan to a thermal zone, so the pwm-fan
+   driver falls back to the highest cooling level at probe time.
 
-> +};
+Patch 1 fixes the period: measurements on hardware show that 10 ms
+(100 Hz) is the lowest frequency that gives proportional control
+without audible coil whine.  At this period the rotor inertia averages
+the switched supply into smooth speed regulation.
+
+Patch 2 adds four active trips at the vendor kernel's original
+temperature thresholds (42/55/60/65 °C) and binds them to the fan's
+cooling levels.
+
+Tested on rev 20241026 hardware:
+  - idle 36 °C → cur_state=0, fan stopped (PWM disabled)
+  - stress-ng --cpu 8 → temp reaches 48 °C within seconds,
+    cur_state jumps to 1, PWM duty = 3921569/10000000 ns (39%),
+    fan audibly slower than the previous constant full speed
+  - all four cooling levels distinguishable by ear when driven
+    manually through the sysfs interface
+
+Based on Heiko's rockchip tree (v7.3-armsoc/dts64), on top of commit
+6d9430d58714 ("arm64: dts: rockchip: Add EmbedFire LubanCat 4 board").
+
+Pufan Jin (2):
+  arm64: dts: rockchip: Fix fan PWM period on LubanCat 4
+  arm64: dts: rockchip: Add fan cooling maps for LubanCat 4
+
+ .../boot/dts/rockchip/rk3588s-lubancat-4.dts  | 55 ++++++++++++++++++-
+ 1 file changed, 54 insertions(+), 1 deletion(-)
+
+-- 
+2.55.0
+
