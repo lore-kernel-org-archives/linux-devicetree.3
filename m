@@ -1,253 +1,396 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7C6EB357CEB;
-	Sat,  1 Aug 2026 09:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785575987; cv=none; b=SxAPc3kQALgM7M7w1LWUjES2crKgjjzWVe6c/N7nARthyBruRqXv2elAvqTWWPYR/k6/SHF/LMeGeGhPDF7cvPJ1pd9TItg59S6S1KIFevo759/8PipARVSdf/WvS7HygsSIaSxD/GjRA6yp0k7s9ShwV+u0RTCg6P3PHEq4BzI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785575987; c=relaxed/simple;
-	bh=ajaevt4YwTaopIChz2raCCOWlCysctaxK5fPuVWE6IQ=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=b8UDjyKVJKXnGrFJSV9Fmi9PVt0/QDU9nS4DmaZzAeZzP/OEhvsDyPKYOOl25gUarDSWpyTgvtCbDvvOlOOTH1/4YrsDnX4kA6eIsZEF++N29zj+bxkRjBosuhRHos71efgnQvkN7e7MRuH+da+c5pHmPtS7O/IG9VYbXiYdqo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8Dxvpsvum1q3nYJAA--.8276S3;
-	Sat, 01 Aug 2026 17:19:43 +0800 (CST)
-Received: from [10.20.42.101] (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJBxLscqum1qjcofAA--.55195S3;
-	Sat, 01 Aug 2026 17:19:40 +0800 (CST)
-Subject: Re: [PATCH v8 2/2] i2c: ls2x: Add clocks property parsing and adjust
- bus speed
-To: Andi Shyti <andi.shyti@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Wolfram Sang <wsa+renesas@sang-engineering.com>,
- linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
- loongarch@lists.linux.dev, Huacai Chen <chenhuacai@loongson.cn>,
- stable@vger.kernel.org
-References: <20260721122604.12717-1-wanghongliang@loongson.cn>
- <20260721122604.12717-3-wanghongliang@loongson.cn>
- <amPz7-dljqdfwNGc@zenone.zhora.eu>
-From: Hongliang Wang <wanghongliang@loongson.cn>
-Message-ID: <c317044c-e579-d9f0-8a37-83dbf2a96df2@loongson.cn>
-Date: Sat, 1 Aug 2026 17:17:24 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2111.outbound.protection.partner.outlook.cn [139.219.17.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6327A3254BD;
+	Sat,  1 Aug 2026 10:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.111
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785578412; cv=fail; b=dXcpVr/Qzt8mCRJwXcL4+UCjk2MUdqITtGRtba7tuDq8jqYDyAQeAai9oFU00mPisY7WlACSzlEzoHhdyqS425Sawc+nWjMVh7O84VcGuNElhn0xl1TlzUfvfTXi/kzBK/FktnfTuITK9HyVXv5DACMmiG3gmOhmHAQzdsVudpc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785578412; c=relaxed/simple;
+	bh=Z+N1zPhy3tTntPm7W+80lzAqaJ0dDS0cf72HtK8p19A=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=H5CHTb/r/Mc8d8UX8WtHnEDqjbI+F0pkhbe6WNy72l8a8w6w97t/UheBwhVruH0gu87UbLCrEu/XMZBnlCEerTYngZdyo3IwEIqA+OTcSbzCCrnL1CE/QteoBUt5pZ835112nRVethnBK3BpUd5hQeEPKZtSsje4YhWOEV+820I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Kn0JF9wRNMCuQUMaCiLfSj2khmVYcxL/c+8Rtih2yXIYDobClnz+YheC6h5LnFjkLA0LNQv8QGbY4gU9QVqx2ds8XYJbaBtZWTzTFUbf53eH4ZEIsPfoJY9+TcR7643nn7or4QAoB/4JOG+k6vl4BQ4BmjrBkZVdeY/+oS0ZoZXojw1v2WkqxK6xq4MaTyY5yWYQYRmslrjgqdv0RO7YXtoqTofJR92NHQYEzxBZBMKVWnYkl/2DlwVoz7q9QlSK8oqU3jF8dbVZllpXiT/EUZ5N2PVv1T/GrHBsCMyXl+OqCWhoQ4wkXx9H4280adCgFgnrOcXCcS/yLo8UWW3k8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xZKWD1kCSKh2t6rbhNeXtHYBgK6X7EZ/3SAbhJ4pbhg=;
+ b=mcpbB5o/eyZEKzmP8AJ8EYgf/Mkt0JH6qq3ptWgtt0FseDs0ti4mLck1TG9evQP6qSRBqHdVDTJ5mReSPcaWVA/0kP25L+iyqB23l+AmwoUnnGEkOfk369n7IXKWWKZo1GNxP2SKw9/y+qR4wMliy4T5Li9KwMX3r+mKG4QMLzN9ssvyr9jVSwH6JHzDwAMZA5APJzm1nxC8C7jU8P7X3x0EAP0TGgU4d2I2HkMg3e/CTzi0jf00ppyzcBcEqrk5w7Nf2Frgn2/bQH4ZICeO7fqMuIVutJltS2n1Y7Y5zTsyrP8iqeqxaSTwGgI2OnvRlXzc8XEfY9ONODOS1nU/pQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1138.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Sat, 1 Aug
+ 2026 07:27:34 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0270.015; Sat, 1 Aug 2026 07:27:34 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v4 11/21] dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
+Date: Sat,  1 Aug 2026 00:27:01 -0700
+Message-Id: <20260801072711.153217-12-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
+References: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0027.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <amPz7-dljqdfwNGc@zenone.zhora.eu>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-CM-TRANSID:qMiowJBxLscqum1qjcofAA--.55195S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxtFWDXry3KrW8Ww4DXr47GFX_yoW3WFy5pr
-	W8GF4UJryDJr1xKwnrtr1UZFy5Aw1DJa1UJF1UJF1UJr15Jr1jqFy2qrn0gryUJr48A3W5
-	X3WUXrnruF4UZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l
-	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU489NUUUUU
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1138:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2130bfaa-6e46-4abe-c0dc-08deef9e5b3c
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|52116014|376014|366016|23010399003|1800799024|6133799003|56012099006|3023799007|18002099003|22082099003|10067099003|921020|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	JVRZE+73Fb0sK50wYBAAMuktZKqdof+SnYvCIMqX4icQ3A5sY5JDr63Tgao9MGhPaEIfvIL1sHu/O0NwrABA0io6ViWdqNKUv7oOpL77Hc6zwHYA14qv+Sl6/3QyhNR5wYLTaAJ5+W9OTFYOKHdptD48503phjTT+yyIBqAVQ0hIbAkuRkdgT/0J59DzWUnL2fpWRb039pjbSoSWnxAOXyX3XGgY2MED/7W07sOf7G1kFEC5uoPT2ylw5QJp+iMrFoMI4/HqhdWNiOLmKwRIXb8doyOMZgNg73ghOh5joVGSkElWUeLRlFrgcKw6c1VmyVmmBLPx+XkxRnEX/6T5GZGI60n2BV6rtSmVLRjStZ4a45RD4n+hu980BdE++g+2mkBWV8jQZoE02Ld2iWMKrdgoXbSLQn1nPwlzfWAjypMkMLVD44gtmGGYzjiDMKXcK5oKuFCcaCWKzylehjFQLBaryxryDQqZzWo/nWXypP4XEMtuV6wXed8GPBEPU0S7wWXC14bieSxRKEQaltiGAM73VcWxRHHHAet4KQqg8aHmRIA+jT7TxQKcqJ3wgmWtujQB531+y8lHQ1C77B7I4A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(366016)(23010399003)(1800799024)(6133799003)(56012099006)(3023799007)(18002099003)(22082099003)(10067099003)(921020)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ofLl+gY7ZynJFfSV+eB4SWekQZJCAqWNm+YDNAXwfsTM96zBT6uk8wD/oUMP?=
+ =?us-ascii?Q?T9qph+67fh9o7TEs+Za2jtc2mliTDxQ/nmG51A88WD1JvZzdpzhrI7APiWcr?=
+ =?us-ascii?Q?uQtBcoE+Y+RrIDuuCHgSx8j5TdZFNjtXt7IoOWThWx99LsqS6wLTz4FcDaLi?=
+ =?us-ascii?Q?HIsw4Q6r9EK7cmkyghtBQ4Q2Ws1IMDMmPyFcay76CxCHrbriEa+wSManGDxv?=
+ =?us-ascii?Q?L1QjrIUsFeYAktmhp3fCYqW22nxEckxf66b2wxQS+T6Zta+QzKVL8tV8tE05?=
+ =?us-ascii?Q?RRIKD9MFyNT06LyuBlTPt7O1Ha8+og5Wmf5VOpw8kXjywGafce2Nj45XjHtZ?=
+ =?us-ascii?Q?Xgn3lAONUApQypZV8WoKKrIqFhYwqIEss6dvG53b+yYQINhkLxtWrJH/vEYs?=
+ =?us-ascii?Q?Y3KP95vTN7Cu+IiuecqdHple7aVHGYzzS3UtzOwrH0eEQv9W0yya45BwSDl9?=
+ =?us-ascii?Q?ioyv+2A9vfukRZ3LKfRKqoRHCO7jntHl+i5aW9g4NEbzPqNOfhECVu2r27+z?=
+ =?us-ascii?Q?fLQ97GlkKY1+84zkVb59trFrAAEgvp5x0QB1lFCsWMTF8avoLh+QpPV8Q5Tp?=
+ =?us-ascii?Q?9myGh4MCtjiPHWF3rOTJ+ka40/zOYcMuGeGBVowRFqlE3KJkEs+riV/iq9c1?=
+ =?us-ascii?Q?KIGbYq0igc6MjpuR1xX1a1PtpqCJ35/igUOX2+gJeHdXrBV6tRpxhQHBNb4w?=
+ =?us-ascii?Q?5wLjyZeeq522w7I0M4EKK7cOvEZg77PxWTFQNpBZRClF/Tc9TpKFyF6K/Qj2?=
+ =?us-ascii?Q?WiZzvpH5Cs2rWXJxM3xe6uenXtsVtogCBoR2CxG710JVX6ux79aZqLu7s0ai?=
+ =?us-ascii?Q?+skfQqhZHCA9wwiCZOrPLSdFW6ls2Pw44F9w2ZHSzE1WpZffBcYN4p18Rbuj?=
+ =?us-ascii?Q?i9lNnvBSnSDl2Xwg7A95BVmhL8hwXaZPaTmJG02XkVHIOyJlfM0WG0+grkk4?=
+ =?us-ascii?Q?omcQofqJARqAfllZwQtaKnDHWWgnxmUMjZrGIZOgnJy8aHV6WkDyHqxxPSnu?=
+ =?us-ascii?Q?vd81ZvdrSkud5rrIsEkVsuCJW1glq6VpWA70GdUOEBUjUqj+Ul6WQxjUVBqf?=
+ =?us-ascii?Q?o0yD+XGppP1VTAwypwFs1+UywbX5GHq7WF8RKlkPnh95d319LvvEZrcegzOi?=
+ =?us-ascii?Q?r2LLfKoCOFSduozgAWO2VN9oyLSjrGsIDrpM41dKBUEtKg0f3vDO3bIQPKyO?=
+ =?us-ascii?Q?HpC3uIfL3nWkmoqnrWWpxDHN8vkrRxX9qarQ0vNOmHst0sRUV3cfEhBXpx6g?=
+ =?us-ascii?Q?99XBccUhp4SU72chjL7bYznpZgMX1GaCw9v21ufGkPrcyXSPLGrJ+IXZP+yM?=
+ =?us-ascii?Q?jFMDKtj8QLHj6PDrlN/g9c6rtOq161e6bHCn0BZ65zcwBX5RHbrn4LwVkBjM?=
+ =?us-ascii?Q?Z5GtCcbEBx8IMo4DEL5QSk3u3THc8Bxkznh3+KdHGdk20BS24cxP/ckNi1Tk?=
+ =?us-ascii?Q?+1Ge4aL3xUszUgvl1h1sAmHnOChMUnB+3hWhqN5p9GeYAjzmrgvRUtYV94lr?=
+ =?us-ascii?Q?3DaXsRE+QRVwBhA91OaTW/duplI27EjnMGv2/EmX1DbChnc7Db+bbF0OHsvb?=
+ =?us-ascii?Q?1DFFYio/EJtbhUUR+9dQwKa0dBJlzgjIe8sYYokObDV/mNFRzEZv0enD/8yv?=
+ =?us-ascii?Q?l/ZtAA0WSG8BVfzcD7KfdxKHpt1B1XpX2LX7t/zYKSIkYD/hSPzT5VIui9WO?=
+ =?us-ascii?Q?07N9DAKHthQoXOMB22kG2AvE3L+yHLzIlm+F8o0NXA7s/dmACYLm/BobQ0OY?=
+ =?us-ascii?Q?5YCVMg3XjDzVj3vWe9rZaJEoww7RNP1XwoKEceVromUVJoQVAgsv?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2130bfaa-6e46-4abe-c0dc-08deef9e5b3c
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 07:27:34.8576
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mrPmtsO+2mAS0jX6tkTPS7RZ6zN6y8+QnDLv9wRITvJFzae29BO0Hw1Zi7WjaT0DM5MV/Anmxx5+qVtZrvPfSloNH+npZML8n0PyNYAF5h2zqn3VTju7KlckgxORSM82
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1138
 
-Hi Andi,
+Add pinctrl bindings for StarFive JHB100 SoC Peripheral-0(per0) pinctrl
+controller.
 
-On 2026/7/25 上午7:39, Andi Shyti wrote:
-> On Tue, Jul 21, 2026 at 08:26:04PM +0800, Hongliang Wang wrote:
->> The i2c-ls2x driver supports dts and acpi parameter passing.
->>
->> In dts, uses clock framework, by parsing clocks property to
->> get i2c bus reference clock, and define the div of reference
->> clock by device data.
->>
->> In acpi, by passing clocks property to describe i2c bus reference
->> clock and clock-div property to describe the div of reference clock.
->>
->> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
->> and div, calculate the prcescale of i2c divider register. The
->> calculation formula is
->>
->> prcescale = (clock_a*10)/(div*clock_s)-1
-> This commit log is not understandable, what did you actually do
-> here? Please read carefully the submitting-patches documentation
-> (under the "Describe your changes" paragraph).
-I'm sorry for the unclear commit message in this version.
-In the next revision I will rewrite the commit description properly,
-following the Describe your changes guidelines, to clearly explain
-what this patch does:
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ .../pinctrl/starfive,jhb100-per0-pinctrl.yaml | 180 ++++++++++++++++++
+ .../pinctrl/starfive,jhb100-pinctrl.h         |  62 ++++++
+ 2 files changed, 242 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
 
-The original driver uses a fixed PCLK frequency(LS2X_I2C_PCLK_FREQ) and
-fixed div(5) for I2C bus speed calculation. As PCLK frequency and div
-vary on different SoCs and ACPI platforms, this leads to inaccurate I2C
-bus speed calculation and poor adaptability across platforms.
-
-Improve the accuracy of I2C bus speed calculation across different
-platforms by parsing the real I2C bus reference clock (PCLK) and div.
-Support both DTS and ACPI.
-
-For DTS:
-- Retrieve I2C bus reference clock via the common clock framework
-- Fetch div from match data for LS2K/LS7A series
-- Fallback to default values if clock lookup fails or the obtained
-   pclk or div is zero
-
-For ACPI:
-- Parse "clocks" property to get I2C bus reference clock
-- Parse "clock-div" property to get div
-- Fallback to the default values if property parsing fails or the
-   obtained pclk or div is zero
-
-Calculate the I2C clock prescaler based on reference clock, div and
-target bus frequency with the formula:
-prescale = (pclk * 10) / (div * bus_freq_hz) - 1
-
-Dynamically acquiring PCLK and div per platform ensures accurate I2C bus
-speed calculation and reliable operation across different platforms.
->> Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-> I haven't seen Huacai's review on patch 2, as far as I've seen he
-> has reviewed only patch 1. Have I missed anything?
->
-Huacai has already confirmed on the mailing list during the v6 discussion
-that he agrees with this patch and the tag can be retained. So this 
-Reviewed-by
-is valid.
-
-Link: https://lore.kernel.org/r/ai-3ZiF7RL8J4lNP@zenone.zhora.eu/
-
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
-> Is this a Fix? I asked you this already. Please read carefully
-> the paragraph I suggested and add the necessary tag.
->
-This is a correctness improvement, not a fix for a bug introduced by
-a specific commit. Therefore no Fixes tag is applicable here.
-
-The Cc stable was added on suggestion in v4 from Huacai Chen, in order 
-to keep
-clock configuration consistent and accurate across stable kernel 
-releases for
-Loongson platforms. If this improvement is not suitable for stable, I will
-remove it in v9.
-
-Link: 
-https://lore.kernel.org/all/CAAhV-H71ZiakZaLVKYg2Qvp8ZJiT7hr9P9bAmXCrjWkHg+-vGg@mail.gmail.com/
->> ---
->>   drivers/i2c/busses/i2c-ls2x.c | 40 ++++++++++++++++++++++++++++++++---
->>   1 file changed, 37 insertions(+), 3 deletions(-)
->>
-> ...
->
->> @@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
->>   	else
->>   		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
->>   
->> +	val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
-> Sashiko pointed out that this might overflow. While your replied
-> that the expected platform values may not overflow, the code does
-> not enforce those constraints.
->
-> The clock rate comes from firmware or the clock framework, so at
-> least a zero rate should be rejected. Using 64-bit arithmetic here
-> would also avoid relying on undocumented assumptions about the
-> input range at essentially no cost.
->
-I will fix these issues in the next version:
-- Use 64-bit arithmetic to avoid integer overflow during the clock 
-calculation
-- Add checks to reject zero clock rates and ensure valid clock inputs
-
-The code is modified as follows:
-
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -116,7 +116,7 @@ static void ls2x_i2c_adjust_bus_speed(struct 
-ls2x_i2c_priv *priv)
-         else
-                 t->bus_freq_hz = LS2X_I2C_FREQ_STD;
-
--       val = (priv->pclk * 10) / (priv->div * t->bus_freq_hz) - 1;
-+       val = ((u64)priv->pclk * 10) / ((u64)priv->div * t->bus_freq_hz) 
-- 1;
-
-         /*
-          * According to the chip manual, we can only access the 
-registers as bytes,
-@@ -319,10 +319,13 @@ static int ls2x_i2c_probe(struct platform_device 
-*pdev)
-                 clk = devm_clk_get_optional_enabled(dev, NULL);
-                 if (IS_ERR(clk))
-                         return PTR_ERR(clk);
--               if (clk)
-+               if (clk) {
-                         priv->pclk = clk_get_rate(clk);
--               else
-+                       if (!priv->pclk)
-+                               priv->pclk = LS2X_I2C_PCLK_FREQ;
-+               } else {
-                         priv->pclk = LS2X_I2C_PCLK_FREQ;
-+               }
-
-                 priv->div = (unsigned long)device_get_match_data(dev);
-                 if (!priv->div)
-@@ -330,7 +333,7 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
-         } else {
-                 /* clocks and clock-div are only ACPI properties. */
-                 ret = device_property_read_u32(dev, "clocks", &priv->pclk);
--               if (ret)
-+               if (ret || !priv->pclk)
-                         priv->pclk = LS2X_I2C_PCLK_FREQ;
-
-                 ret = device_property_read_u32(dev, "clock-div", 
-&priv->div);
-
->> +
-> ...
->
->> +	if (dev_of_node(dev)) {
->> +		clk = devm_clk_get_optional_enabled(dev, NULL);
->> +		if (IS_ERR(clk))
->> +			return PTR_ERR(clk);
->> +		if (clk)
->> +			priv->pclk = clk_get_rate(clk);
->> +		else
->> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
->> +
->> +		priv->div = (unsigned long)device_get_match_data(dev);
->> +		if (!priv->div)
->> +			priv->div = LS2X_I2C_2K_CLOCK_DIV;
->> +	} else {
->> +		/* clocks and clock-div are only ACPI properties. */
-> clocks is also DT property.
-The comment is intended to indicate that the clocks and clock-div properties
-are used only in the ACPI path, as requested by Krzysztof in the v4 review.
-For DT, clocks are handled through the common clock framework instead.
-
-Link: 
-https://lore.kernel.org/all/20260526-pompous-gopher-of-serendipity-d72f1f@quoll/
-
-I will update the comment to
-"clocks and clock-div properties are used only in ACPI path" to make the
-distinction clearer in the next version.
-> Andi
->
->> +		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
->> +		if (ret)
->> +			priv->pclk = LS2X_I2C_PCLK_FREQ;
-Best regards,
-Hongliang Wang
+diff --git a/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
+new file mode 100644
+index 000000000000..ab8c070b59d1
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per0-pinctrl.yaml
+@@ -0,0 +1,180 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/starfive,jhb100-per0-pinctrl.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JHB100 Peripheral-0 Pin Controller
++
++description: |
++  Pinctrl bindings for JHB100 RISC-V SoC from StarFive Technology Ltd.
++
++  The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
++  per2, per2pok, per3, adc0, adc1, emmc, and vga.
++  This document provides an overview of the "per0" pinctrl domain.
++
++  The "per0" domain has a pin controller which provides
++  - function selection for GPIO pads.
++  - GPIO pad configuration.
++  - GPIO interrupt handling.
++
++  In the Peripheral-0  Pin Controller, there are 60 multi-function GPIO_PADs.
++  Each of them can be multiplexed to several hardware blocks through function
++  selection. Each iopad has a maximum of up to 3 functions - 0, 1, and 2.
++  Function 0 is the default function which is generally the GPIO function.
++  Function 1 and 2 are the alternate function or signal of an iopad.  The
++  function 1 and function 2 are other optional functions or peripheral
++  signals that can be routed to an iopad. The function selection can be carried
++  out by writing the function number to the iopad function select register.
++
++  Each iopad is configurable with parameters such as input-enable, internal
++  pull-up/pull-down bias, drive strength, schmitt trigger, slew rate, input
++  debounce nanoseconds, power source and drive type (open-drain or push-pull).
++
++maintainers:
++  - Changhuang Liang <changhuang.liang@starfivetech.com>
++
++properties:
++  compatible:
++    items:
++      - const: starfive,jhb100-per0-pinctrl
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-controller: true
++
++  '#interrupt-cells':
++    const: 3
++
++  gpio-controller: true
++
++  '#gpio-cells':
++    const: 3
++
++  gpio-ranges: true
++
++  gpio-line-names: true
++
++patternProperties:
++  '-grp$':
++    type: object
++    additionalProperties: false
++    patternProperties:
++      '-pins$':
++        type: object
++        description: |
++          A pinctrl node should contain at least one subnode representing the
++          pinctrl groups available in the domain. Each subnode will list the
++          pins it needs, and how they should be configured, with regard to
++          function selection, bias, input enable/disable, input schmitt
++          trigger enable/disable, slew-rate, input debounce nanoseconds,
++          drive-open-drain, drive-push-pull, power-source and drive-strength.
++        allOf:
++          - $ref: /schemas/pinctrl/pincfg-node.yaml
++          - $ref: /schemas/pinctrl/pinmux-node.yaml
++        additionalProperties: false
++
++        properties:
++          pins:
++            description:
++              The list of IOs that properties in the pincfg node apply to.
++
++          function:
++            description:
++              A string containing the name of the function to mux for these
++              pins.
++            enum: [ gmac_mdio, gpio, i2c, i3c, smbalert, wdt ]
++
++          bias-disable: true
++
++          bias-pull-down:
++            type: boolean
++
++          bias-pull-up:
++            oneOf:
++              - type: boolean
++              - enum: [ 600, 900, 1200, 2000 ]
++                description: Pull up RSEL type resistance values (in ohms)
++            description:
++              For normal pull up type there is no need to specify a resistance
++              value, hence this can be specified as a boolean property.
++              For RSEL pull up type a resistance value (in ohms) can be added.
++
++          drive-open-drain: true
++
++          drive-push-pull: true
++
++          drive-strength:
++            enum: [ 2, 4, 8, 12 ]
++
++          drive-strength-microamp:
++            enum: [ 2000, 4000, 8000, 12000 ]
++
++          input-debounce-ns:
++            minimum: 0
++            maximum: 10485680
++            description:
++              Debounce time in nanoseconds. The hardware counts in 80 ns
++              stages with a 17-bit counter, so the maximum is 10485680 ns.
++
++          input-disable: true
++
++          input-enable: true
++
++          input-schmitt-enable: true
++
++          input-schmitt-disable: true
++
++          power-source:
++            enum: [ 1800, 3300 ]
++            description: I/O voltage in millivolt.
++
++          slew-rate:
++            enum: [ 0, 1 ]
++            default: 0
++            description: |
++                0: slow (half frequency)
++                1: fast
++
++required:
++  - compatible
++  - reg
++  - resets
++  - interrupts
++  - interrupt-controller
++  - '#interrupt-cells'
++  - gpio-controller
++  - '#gpio-cells'
++  - gpio-ranges
++
++additionalProperties: false
++
++examples:
++  - |
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        pinctrl_per0: pinctrl@11a0a000 {
++            compatible = "starfive,jhb100-per0-pinctrl";
++            reg = <0x0 0x11a0a000 0x0 0x1000>;
++            resets = <&per0crg 0>;
++            interrupts = <60>;
++            interrupt-controller;
++            #interrupt-cells = <3>;
++            gpio-controller;
++            #gpio-cells = <3>;
++            gpio-ranges = <&pinctrl_per0 0 0 0 32>,
++                          <&pinctrl_per0 1 0 32 28>;
++        };
++    };
+diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+index e701c30913ce..e0ad453d6884 100644
+--- a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
++++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+@@ -77,4 +77,66 @@
+ #define PADNUM_SYS2_GPIO_A59				35
+ #define PADNUM_SYS2_GPIO_A60				36
+ 
++/* per0 pad numbers */
++#define PADNUM_PER0_GPIO_B0				0
++#define PADNUM_PER0_GPIO_B1				1
++#define PADNUM_PER0_GPIO_B2				2
++#define PADNUM_PER0_GPIO_B3				3
++#define PADNUM_PER0_GPIO_B4				4
++#define PADNUM_PER0_GPIO_B5				5
++#define PADNUM_PER0_GPIO_B6				6
++#define PADNUM_PER0_GPIO_B7				7
++#define PADNUM_PER0_GPIO_B8				8
++#define PADNUM_PER0_GPIO_B9				9
++#define PADNUM_PER0_GPIO_B10				10
++#define PADNUM_PER0_GPIO_B11				11
++#define PADNUM_PER0_GPIO_B12				12
++#define PADNUM_PER0_GPIO_B13				13
++#define PADNUM_PER0_GPIO_B14				14
++#define PADNUM_PER0_GPIO_B15				15
++#define PADNUM_PER0_GPIO_B16				16
++#define PADNUM_PER0_GPIO_B17				17
++#define PADNUM_PER0_GPIO_B18				18
++#define PADNUM_PER0_GPIO_B19				19
++#define PADNUM_PER0_GPIO_B20				20
++#define PADNUM_PER0_GPIO_B21				21
++#define PADNUM_PER0_GPIO_B22				22
++#define PADNUM_PER0_GPIO_B23				23
++#define PADNUM_PER0_GPIO_B24				24
++#define PADNUM_PER0_GPIO_B25				25
++#define PADNUM_PER0_GPIO_B26				26
++#define PADNUM_PER0_GPIO_B27				27
++#define PADNUM_PER0_GPIO_B28				28
++#define PADNUM_PER0_GPIO_B29				29
++#define PADNUM_PER0_GPIO_B30				30
++#define PADNUM_PER0_GPIO_B31				31
++#define PADNUM_PER0_GPIO_B32				32
++#define PADNUM_PER0_GPIO_B33				33
++#define PADNUM_PER0_GPIO_B34				34
++#define PADNUM_PER0_GPIO_B35				35
++#define PADNUM_PER0_GPIO_B36				36
++#define PADNUM_PER0_GPIO_B37				37
++#define PADNUM_PER0_GPIO_B38				38
++#define PADNUM_PER0_GPIO_B39				39
++#define PADNUM_PER0_GPIO_B40				40
++#define PADNUM_PER0_GPIO_B41				41
++#define PADNUM_PER0_GPIO_B42				42
++#define PADNUM_PER0_GPIO_B43				43
++#define PADNUM_PER0_GPIO_B44				44
++#define PADNUM_PER0_GPIO_B45				45
++#define PADNUM_PER0_GPIO_B46				46
++#define PADNUM_PER0_GPIO_B47				47
++#define PADNUM_PER0_GPIO_B48				48
++#define PADNUM_PER0_GPIO_B49				49
++#define PADNUM_PER0_GPIO_B50				50
++#define PADNUM_PER0_GPIO_B51				51
++#define PADNUM_PER0_GPIO_B52				52
++#define PADNUM_PER0_GPIO_B53				53
++#define PADNUM_PER0_GPIO_B54				54
++#define PADNUM_PER0_GPIO_B55				55
++#define PADNUM_PER0_GPIO_B56				56
++#define PADNUM_PER0_GPIO_B57				57
++#define PADNUM_PER0_GPIO_B58				58
++#define PADNUM_PER0_GPIO_B59				59
++
+ #endif
+-- 
+2.25.1
 
