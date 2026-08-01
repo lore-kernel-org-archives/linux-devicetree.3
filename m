@@ -1,336 +1,275 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2108.outbound.protection.partner.outlook.cn [139.219.146.108])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2229341737C;
-	Sat,  1 Aug 2026 11:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.108
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785582088; cv=fail; b=fs2UQcU9PnutpmLDTdyt2PVjjFe9MwRh9JZkdcCeR58RuXITyKbRVv8wHpn5c14eXcLAyjAWcf9LDIx4VjtR0qf6WXrhq8ZaHlF7JJA47LYxLwOb/ve9pQSx6YhBgSSrM7D4B84IB5CX5spXb2lA1AAJkRlDut28+++xO8HinQY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785582088; c=relaxed/simple;
-	bh=iIsWTF8E7NQBgWXERyrEBaTr075sES8eTIVZKwlBc3w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OxrXgqZe1SpVWtvT2xm1D8lw3qDVKWj767IYGZb4Gfj3mjvA8b1lI9jf/rPIGT7rNiR4yB3aInNNyZAHNGg69eFrKk7JJ9ISmkg+UKuOhOVO9JFfA2jfge3/PU079Grw/znMTv7BNb96Yiah2TyKYgoPUQaRZRVDj+cGFpNCJbw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gOQpg0KYxlWEor42S7EGqCQPbH7aSIL0sXd1PdHf50eJzP5wD3mCgpZJ0ASCcd8uyxxuH4ERsgQ7e4XiVFfjgRvLNPpQucU1mA1PZeEjrix2hHvwqf9SCfLSFj1CBJhvH/0lGN0cwDaUReE5ZSt6bSkzS3py+AGzm4ePIQF7ZXZIe1Eo8/GWAJNVoajwMNFZnU/aMEJMliKJn+NEDjm+gxnM3pZwVSvfLst0OzhwLxJsaOu35H7QN98PCCgeLLWnVxW/3WA6Fmba8bv03l8vu4s44q3I/P7csFSn0yugP1Su/XZyD97dQwwKcPte1TNXrxG0f0/E/YUFGEb/loJIag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h5FCc8DKCZ7AnfN2EA0Vj2Qb22x1myeyAHh5mvvqH0o=;
- b=bjVbNWKHsAPhzP3Bc/+SkZxPqUDZUL8cT3tXUNegdX9h/6TMhONWRXFNQQAfFI7xoQr84Sb12Y3J4ZSGeNiDzWLgPCSk8vcm0wk397rJhWUE+aKH/DtOm14qH+xZLhxL++bj//WSpiHLUeav7oKyw273xbY5LC5HjDvwpBNxYM8pJDOkenKsEOUePAM8ETMLabB7kZuNq/VFgH8s6XFVPuvvVEKk5IXjTE+48XJmXbe+1kmEErfq9kQj3R4WqY3Pg3OhTmFTsF6jpvL0cXFiDCqz60LeBJWu4UIlK82riIRzCwmdUyyQzl/N7PDUx/srCLX1tTG7hwqVQ7HJoEufWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1138.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Sat, 1 Aug
- 2026 07:27:43 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0270.015; Sat, 1 Aug 2026 07:27:43 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v4 17/21] dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
-Date: Sat,  1 Aug 2026 00:27:07 -0700
-Message-Id: <20260801072711.153217-18-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
-References: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0027.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561FB30D418;
+	Sat,  1 Aug 2026 11:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785583272; cv=none; b=S5uRKHj38gmtJ8q/5dDioKXewqECvHyZtXS0uF4dHxjJvDl8Bq0+vo7JFEN+ZC3y1MLm51MFIVUFZVW9OmEsl7aJxhdiCZ+uFReJdIfCnevGhZ1osWsL7rRCQcf22JuV4Q/4MvVEr1eFRw7OfxCCJGl8qIucWEGzxFhTZTmg0Ds=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785583272; c=relaxed/simple;
+	bh=7NqZ641Wi4z2iuU3US26dszHh7fyRC6NIM/JYQcPenQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CLFFo9ZiFUyW3L4rjM4Kj36Zhn+OJm1vKVZXB/hSUFon2RUqAxTWgujD2WszW1zXygBLy9pMr32ejYT5tr3j6j6s/jAK/z0PHKcGoJE8hDVcfkZdV5TLan6fTSBBDpQ3Ox1bk7FouvfzDpdUb9AzFdBI8OjnodvMbIbLm2wtTBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=V57LpmzG; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="V57LpmzG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1785583262;
+	bh=7NqZ641Wi4z2iuU3US26dszHh7fyRC6NIM/JYQcPenQ=;
+	h=From:Subject:Date:To:Cc:From;
+	b=V57LpmzG8Me7hTGxfwmjeJ6H2yPI/j2fBGawDOXcUlqgmVSAscCDB/+CtXv/hN68q
+	 kmTuZKKKu8jSkw0B8RyeFO9TTk5aDGgziN0TN2qZSjkY9Fo8+nxCm7nJPIxJKE1GQ7
+	 0rVjGUCdvKtWCEz12aHTThR8P5MvFxAg2ix7ovQ6nKNbKvCe0kao3P8LWKwVZOe+t1
+	 T+m1h6e8HCY5T+9DQFwI61hOZIPOCOsy5IlZJOGE/BnSUBTyJ7644XEePblL6L+X9v
+	 fE9U1PuZkGS8eNz8ilECWLqNHq+iHbOw5I5d9kpCLBCGt2ZdHRrVDioibS7JvVVr/c
+	 aQtVPJbO0d2fQ==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1E45517E015B;
+	Sat, 01 Aug 2026 13:21:01 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH v5 00/25] MT8189: Add support for system and base clock
+ controllers
+Date: Sat, 01 Aug 2026 13:20:46 +0200
+Message-Id: <20260801-mt8189-clocks-system-base-v5-0-ac4410697cc2@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1138:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2331889-9361-4c2e-9c16-08deef9e6017
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|52116014|376014|366016|23010399003|1800799024|6133799003|56012099006|3023799007|18002099003|22082099003|10067099003|921020|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	jK/bLm55MqLK1WVgXQ4bjm99iRtB2bBNnk6TNy0HlMJVVwkvohd/czzTiX9v7Z4iQ0X6rPbYFN1uSn7Md6XkNXdRc2bG9cOC9Nydsm0PpF+PUbBlTFDwCumw3x5JXhSgHw93ttUQ+chxaHZQaV5SXOsOPIeBxYqsHsB9efsYlX/GH8dVkpNL/bIc5jFswLn+MhCFS2uwBzZLzS4nAjZRB4OQufFcluBwib/pi9inlACVtzGfNPe5DAnQEnn3lNm0WsgiR0uzZ13G4nm+biWY+xyb8zPxmwncRQ6yPS43GwSiCKz90ZuQ/kLI8rcHbp+Pck793oeDMp8o8wLY2iii+jtfWtpEKbXwM2yJoHpK1kr1uSRLXxSxbqCt68wZxTyyA4pMZ3n/GfACgUYMoHKRfo09YvvfuDfeGzBWWNWlCyR6iQ80jpu3HcOuue+ITQk0kszkgPtoFw3moSYlhbEYHEDeP28+Sk6U8Ryyo19i7YBNe3/aG1Pax2JPdZD8Qn8u8MsS4xGSEVGFWB2zQSlkbUCu7lclV6GSwPTYo8BicLNUkZLel3f9r/PsUFSx4XR3JAZkvYcdqEPllGX6KWdFqQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(366016)(23010399003)(1800799024)(6133799003)(56012099006)(3023799007)(18002099003)(22082099003)(10067099003)(921020)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Hl6fVrPxHzjbCB87NmMsdMvQm/7lI5Kn3VjYnYxxUDjEmUlNLAQZXQ18x4FB?=
- =?us-ascii?Q?zYg2xEwhrHwtl3IUICgQyUJ0w0r2zO3OCGuoVYheNdkmOCWtVPrz4t4c5ZAB?=
- =?us-ascii?Q?MlTBeFP8zY46HDKTiNYJRRqYdb6BGLhlay8FpjjJpJQSNHpo4pOK+2wzQM5l?=
- =?us-ascii?Q?9/SztB1PLKgckWuCpAaRoX/tbExRqkuFmPtEcZbOSxSYBQvidV0KwR1V7bu1?=
- =?us-ascii?Q?VskG3ztx6CXp+5Q8d1uebGykniTrqcozcJN+niwkHBj/5gh1TGQ6EqNzThWw?=
- =?us-ascii?Q?lDVuRv/9pL4gQr1fIoY4Do8Iry/YEcJbXA6G4qfGW3WCD7rq/e8xHgRN2AI2?=
- =?us-ascii?Q?V10Vu+boOT6wohLqdG3g6qihZwc9LMsR4wDcpclEo08PlG7K6YICvnAt0fJC?=
- =?us-ascii?Q?SkEgoFO1Qz6gjBOtMECEe3pxsDYjKJAnFuq6PREItYHUmRFFmb1ZpvND+m3S?=
- =?us-ascii?Q?cHngL8DmAng7RFnkpvokiFTTF7NyU9xMJqYJGo9Y4hRhkTgRFQQ5zi2o59m8?=
- =?us-ascii?Q?W6v4+KU1eiquI01G2P10ik6rYIXjcdFCBbiB+SEWjP3haaHIzDqenv7UA6pg?=
- =?us-ascii?Q?xZC6ja9WRbUJloZxFGVQcACvax4qICJMKk0GQh93toFBELu2uQEw/McIx0pD?=
- =?us-ascii?Q?7ZyYtL/Rft/xSL2d4F9Jpdx52xFpXMgPhdRB56h/4lRUzM7h9HkP6PWlnio7?=
- =?us-ascii?Q?Q45qk2SJB2RP5SQxwq6qZWLmr/RbYNeqXmQePR7tdL98rKe0kfpgIZgvFID+?=
- =?us-ascii?Q?akWB4WLEN3pwkXllXWGmKIwWM2M7iFBFxDrfZadB8IZrNDpfcjgz2Tt4vSuZ?=
- =?us-ascii?Q?JFtYNG1bBz13xnbtyv2lsQ4WUduY4pZl/4VXcK8/qM3zq8jyi+19kRLTZ/uO?=
- =?us-ascii?Q?5tFxmA4fEYQMxHCeI7M25FNfUfhXRBDQPIHsTukD2Wxl9ATUiBVUUlIRMB0A?=
- =?us-ascii?Q?0irUOMMIPLoouqw4yiCAJ/Wf/iMxy0FaaK3VlmP/IZQrlm4QLWAirmxByhi9?=
- =?us-ascii?Q?6RWByAT9sBqQxzJimsdwa/uDLIcmbdcZRvCZTiLZR4adCI+O2sA0Wpj7QHD/?=
- =?us-ascii?Q?88kAl5w/xxLtPsW0O1DQH+1ClzgcidXbksNOchmSaJzin5/HcZKQ+d+0HW4P?=
- =?us-ascii?Q?MeFOTcvOg7M2VOsnwSw186FwLkZCRARGziLR3JB2YBwNwQ7zmuaxFmSXWAbF?=
- =?us-ascii?Q?e39WasysE/lmnRgN4ZJyYS2rgrfhHNx9/A/WKvLRCJaBlzNgcjsAVl6WDFiB?=
- =?us-ascii?Q?7chgtV5Sy31lHnyukq9agwvGKq15iaInDMhqk5cjMBvDT2LARXkMsLeQmEES?=
- =?us-ascii?Q?DlLEwXs/K88i4ScaE/MnpBx5K1D+rTuZpdNOeSgbhpCDTmDvhEJ4yII2fcYA?=
- =?us-ascii?Q?55MEL6GDeUX4gU11QZSLqE+NkbpZzmY/FNS9s1mDPEhFt6khSwxGT5X8Ef5h?=
- =?us-ascii?Q?WsrrjSYiRsUvw8GIUVyqeoHzU46VJWHwk/9r44A0jEhZBJvwnTfdA8q6SZnO?=
- =?us-ascii?Q?Ixs+/dTAcWJetZYJayVJeKdbuhYOYFEbGtHUwZPPNqe8ghpQtCaTWp+KuSTb?=
- =?us-ascii?Q?E1iU5XBnw4+DuNUeEFl+Wws8xIvFnvgETiAlHRigE7rel7Vso7o+PYXW/p/R?=
- =?us-ascii?Q?nWO7GIuUt2ThYtrGS0uRI9GXWlNh6fa9Hk84biv4OsG4HEXub7htKzjZ5jQr?=
- =?us-ascii?Q?TnBNQcRK4NC1E0CLRioOL5U273J+FMSkUBdxMzSIY3Jn0En2Hu+ymRte7NrN?=
- =?us-ascii?Q?9PLk2YvfFhfLcBIL/h9XpOX6jM5iYRutl4Pden8cLHiJtjAj/VR9?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2331889-9361-4c2e-9c16-08deef9e6017
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 07:27:43.0243
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jc/TAoFPbCISDXjCLCfDt82W7O6pzt3D6kIW7xz56zTNfLvP5cCL3qX/Nu/ySxMbqHU/+gIg0+xhSLL36R7ihfcKOgSNALPEb025GSitOL4Euw2yhGEj4Rz5rG8H4wXI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1138
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QTW6DMBAF4Ksgr+vKfxjIqveoshibobEKuLUdl
+ Cji7nXMBlURy7H1vnmaB4kYHEZyqh4k4OKi83Me6reK2AvMX0hdn2cimNBMS0an1PK2o3b09jv
+ SeI8JJ2ogIm1YwxWqYRAAJOd/Ag7uVuzP8zYH/L3mFWl7JCVm/TS5dKpmvCVa1jSSkWfg4mLy4
+ V66Lbwktn/GD2osnDIqDFPtgAg1gw/rxxGMD/CedxV5EXutO9LEU+uE7kH2RtvhlSZ3mjg60SK
+ z1qLuuw6MhF680tReO+ymsoay1qblErSy/7V1Xf8AIUAbDeEBAAA=
+X-Change-ID: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Edward-JW Yang <edward-jw.yang@mediatek.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, 
+ Irving-CH Lin <irving-ch.lin@mediatek.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785583260; l=10279;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=7NqZ641Wi4z2iuU3US26dszHh7fyRC6NIM/JYQcPenQ=;
+ b=mRJgDjGkvCi5jsc/JuU5pvkHcg7A0j6p+jyAmKy0++qdHVSUmSXEIDDKzUTfHb939kxyYUb/E
+ +AqFx0KcnQPDrbqdn+nMoDSiYbZZIvvIgu+O6G4rDgf7hRQTa+31+2s
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Add pinctrl bindings for StarFive JHB100 SoC Peripheral-2 Power OK
-(per2pok) pinctrl controller.
+This series is a continuation by AngeloGioacchino Del Regno and I of a
+previous series ([1]), that adds the clock controller support for
+the Mediatek MT8189 SoC and its variants (MT8371, MT8391).  
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+The first major changes is the split of the series in two:
+- one for all basic clock controllers including system ones (this
+series)
+- one for the multimedia and graphics related clock controllers (to be
+send in the future)
+
+We chose to separate the multimedia clock drivers from the base system
+ones, as there is currently an unsolvable inter-dependency between the
+power domains and multimedia clocks; the power domains need a
+dual-stage bring-up, where only a part of the multimedia clocks are
+accessible in the first power domain powerup stage, and the rest when
+the second stage (SRAM enablement) is done.
+The current workarounds for this issue, such as removing the is_enabled
+operation from the impacted clock controllers clk_ops table or
+let the multimedia power domain always on, were quickly discarded
+for upstream.
+
+The second major change is the dt-bindings patch ([2]) that got heavily
+reworked, not only because of the split choice. We took the opportunity
+to regroup in the MT8186 clock and system clock dt-bindings the
+description of several other Mediatek SoC (MT8188, MT8192 and MT8195)
+and add in them the MT8189 new ones.
+The rationale is to ease maintainability and have common files for
+several currently supported SoC or new future ones, that have the same
+kind of clock controller design.
+
+Finally the pending remarks from peer reviews on the v6 revision of [1]
+were also taken into account and new fixes and cleanups were also
+added.
+
+A more detailed changelog between [1] and this series:
+- Removed multimedia and graphics related clock controllers code and
+  definitions from series
+- Added new dt-bindings patches to factorise existing MT8188, MT8192
+  and MT8195 in MT8186 clock dt-bindings
+- Heavily modified the MT8189 dt-bindings to add new compatibles 
+  in MT8186 clock dt-bindings
+- Created a new dt-bindings include for the MT8189 reset controller
+  definitions (include/dt-bindings/reset/mediatek,mt8189-resets.h)
+- Removed unnecessary `syscon` compatible fallback from MT8189 base
+  clock controllers
+- Added missing 'mediatek,mt8189-fhctl' compatible declaration in
+  dt-bindings
+- Modified Kconfig to COMMON_CLK_MT8189 be tristate (and not bool) to 
+  allow all MT8189 clock controller drivers to be built as modules (it
+  was partial) 
+- Fix pll unregisters in clk_mt8189_apmixed_probe error case
+- Reparent several clocks to correct 26M references in clk-mt8189-bus.c,
+  clk-mt8189-topckgen.c and clk-mt8189-vlpckgen.c
+- Removed CLK_SET_RATE_NO_REPARENT flag from mfg_sel_mfgpll
+- Rename TOPCKGEN_fmipi_csi_up26m clock to fmipi_csi_up26m to remove caps usage
+- Implemented reset controllers in clk-mt8189-ufs.c
+- Updated all file headers to update copyrights and add all authors
+- Added all co-developed-by trailers
+
+The series is based on linux-next tree (tag: next-20260730) and has
+been tested on Mediatek Genio 520-EVK (MT8371) and 720-EVK (MT8391)
+boards, with hardware enablement patch series ([3]), and on Genio
+510-EVK (MT8370, variant of MT8188) and Genio 1200-EVK (MT8395,
+variant of MT8195).
+
+[1]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-1-irving-ch.lin@mediatek.com/
+[2]: https://lore.kernel.org/linux-mediatek/20260309120512.3624804-2-irving-ch.lin@mediatek.com/
+[3]: https://lore.kernel.org/linux-mediatek/20260701-add-mediatek-genio-520-720-evk-v2-0-19d5da4ef984@collabora.com/
+
 ---
- .../starfive,jhb100-per2pok-pinctrl.yaml      | 162 ++++++++++++++++++
- .../pinctrl/starfive,jhb100-pinctrl.h         |  20 +++
- 2 files changed, 182 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2pok-pinctrl.yaml
+Changes in v5:
+- Rebased on next-20260730 tag
+- Dropped "clk: mediatek: pll: split default prepare/unprepare callbacks"
+  patch and added  "clk: mediatek: pll: Factorise pll power on/off sequence"
+  and "clk: mediatek: pll: Add PLL stabilization delay definition"
+  patches in replacement.
+- patch 13:
+  - reworded commit message to show this new clocks ops use specific pll
+    enablement rather powering
+  - reworked mtk_pll_prepare_setclr and mtk_pll_unprepare_setclr
+    sequence to handle properly specific enable/disable sequence
+    using en_set/clr register (Sashiko)
+  - fixed timeout management in mtk_pll_prepare_setclr and
+    mtk_pll_unprepare_setclr (Sashiko)
+- Link to v4: https://lore.kernel.org/r/20260729-mt8189-clocks-system-base-v4-0-e356b813a64c@collabora.com
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2pok-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2pok-pinctrl.yaml
-new file mode 100644
-index 000000000000..5c741e23f206
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/starfive,jhb100-per2pok-pinctrl.yaml
-@@ -0,0 +1,162 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/starfive,jhb100-per2pok-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: StarFive JHB100 Peripheral-2 Power OK Pin Controller
-+
-+description: |
-+  Pinctrl bindings for JHB100 RISC-V SoC from StarFive Technology Ltd.
-+
-+  The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
-+  per2, per2pok, per3, adc0, adc1, emmc, and vga.
-+  This document provides an overview of the "bper2pok" pinctrl domain.
-+
-+  The "per2pok" domain has a pin controller which provides
-+  - function selection for GPIO pads.
-+  - GPIO interrupt handling.
-+
-+  In the Peripheral-2 Power OK Pin Controller, there are 18 multi-function
-+  GPIO_PADs. Each can be multiplexed to several peripherals through function
-+  selection. Each iopad has a maximum of up to 4 functions - 0, 1, 2, and 3.
-+  Function 0 is the default function or generally the GPIO function.
-+  Function 1, 2, and 3 are alternate functions or peripheral signals that can
-+  routed to an iopad. The function selection can be carried out by writing
-+  the function number to the iopad function select register.
-+
-+  Each iopad is configurable with parameters such as input-enable, internal
-+  pull-up/pull-down bias, drive strength, schmitt trigger, slew rate, input
-+  debounce nanoseconds.
-+
-+maintainers:
-+  - Changhuang Liang <changhuang.liang@starfivetech.com>
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: starfive,jhb100-per2pok-pinctrl
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 3
-+
-+  gpio-controller: true
-+
-+  '#gpio-cells':
-+    const: 3
-+
-+  gpio-ranges: true
-+
-+  gpio-line-names: true
-+
-+patternProperties:
-+  '-grp$':
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      '-pins$':
-+        type: object
-+        description: |
-+          A pinctrl node should contain at least one subnode representing the
-+          pinctrl groups available in the domain. Each subnode will list the
-+          pins it needs, and how they should be configured, with regard to
-+          function selection, bias, input enable/disable, input schmitt
-+          trigger enable/disable, slew-rate, input debounce nanoseconds
-+          and drive-strength.
-+        allOf:
-+          - $ref: /schemas/pinctrl/pincfg-node.yaml
-+          - $ref: /schemas/pinctrl/pinmux-node.yaml
-+        additionalProperties: false
-+
-+        properties:
-+          pins:
-+            description:
-+              The list of IOs that properties in the pincfg node apply to.
-+
-+          function:
-+            description:
-+              A string containing the name of the function to mux for these
-+              pins.
-+            enum: [ can, gpio, host0_port80, host1_port80, passthru, pwm ]
-+
-+          bias-disable: true
-+
-+          bias-pull-down:
-+            type: boolean
-+
-+          bias-pull-up:
-+            type: boolean
-+
-+          drive-strength:
-+            enum: [ 2, 4, 8, 12 ]
-+
-+          drive-strength-microamp:
-+            enum: [ 2000, 4000, 8000, 12000 ]
-+
-+          input-debounce-ns:
-+            minimum: 0
-+            maximum: 10485680
-+            description:
-+              Debounce time in nanoseconds. The hardware counts in 80 ns
-+              stages with a 17-bit counter, so the maximum is 10485680 ns.
-+
-+          input-disable: true
-+
-+          input-enable: true
-+
-+          input-schmitt-enable: true
-+
-+          input-schmitt-disable: true
-+
-+          slew-rate:
-+            enum: [ 0, 1 ]
-+            default: 0
-+            description: |
-+                0: slow (half frequency)
-+                1: fast
-+
-+required:
-+  - compatible
-+  - reg
-+  - resets
-+  - interrupts
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+  - gpio-controller
-+  - '#gpio-cells'
-+  - gpio-ranges
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        pinctrl_per2pok: pinctrl@11bc2400 {
-+            compatible = "starfive,jhb100-per2pok-pinctrl";
-+            reg = <0x0 0x11bc2400 0x0 0x400>;
-+            resets = <&per2crg 1>;
-+            interrupts = <63>;
-+            interrupt-controller;
-+            #interrupt-cells = <3>;
-+            gpio-controller;
-+            #gpio-cells = <3>;
-+            gpio-ranges = <&pinctrl_per2pok 0 0 0 18>;
-+        };
-+    };
-diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-index 2d5150e3adb7..4b7f349cd9d7 100644
---- a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-+++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-@@ -210,4 +210,24 @@
- #define PADNUM_PER2_GPIO_D29				29
- #define PADNUM_PER2_GPIO_D30				30
- 
-+/* per2pok pad numbers */
-+#define PADNUM_PER2POK_GPIO_D31				0
-+#define PADNUM_PER2POK_GPIO_D32				1
-+#define PADNUM_PER2POK_GPIO_D33				2
-+#define PADNUM_PER2POK_GPIO_D34				3
-+#define PADNUM_PER2POK_GPIO_D35				4
-+#define PADNUM_PER2POK_GPIO_D36				5
-+#define PADNUM_PER2POK_GPIO_D37				6
-+#define PADNUM_PER2POK_GPIO_D38				7
-+#define PADNUM_PER2POK_GPIO_D39				8
-+#define PADNUM_PER2POK_GPIO_D40				9
-+#define PADNUM_PER2POK_GPIO_D41				10
-+#define PADNUM_PER2POK_GPIO_D42				11
-+#define PADNUM_PER2POK_GPIO_D43				12
-+#define PADNUM_PER2POK_GPIO_D44				13
-+#define PADNUM_PER2POK_GPIO_D45				14
-+#define PADNUM_PER2POK_GPIO_D46				15
-+#define PADNUM_PER2POK_GPIO_D47				16
-+#define PADNUM_PER2POK_GPIO_D48				17
-+
- #endif
+Changes in v4:
+- Rebased on next-20260728 tag
+- Added patches 9 to 14 to add new clock ops data set for PLL and
+  PLL-FHCTL to handle a new PLL switch logic for PLL control and BAR
+  reset, supported by MT8189 SoC
+- Patch 15:
+  - Removed useless includes (B. Masney)
+  - Fixed variable declaration order in clk_mt8189_apmixed_probe (B.
+    Masney)
+  - Added missing pwr_reg setting setting in PLL_SETCLR macro (B. 
+    Masney, Sashiko)
+  - Added en_set_reg, en_clr_reg, rst_bar_reg, rst_bar_set_reg and
+    rst_bar_clr_reg fixed offsets and new mtk_pll_setclr_ops ops
+    setting in PLL_SETCLR macro
+  - Added pwr_reg offset values in apmixed_plls array
+  - Fixed rst_bar_mask for mainpll univpll, and mmpll in apmixed_plls
+    array to match rst_bar set/clr reg settings
+- Fixed factor ratio for mainpll_d4_d8, tvdpll1_d16, tvdpll2_d16 and
+  osc_d16 clocks (Sashiko)
+- Link to v3: https://lore.kernel.org/r/20260720-mt8189-clocks-system-base-v3-0-8e6d99ab3ad2@collabora.com
+
+Changes in v3:
+- Rebased on next-20260717 tag
+- Added Fixes tags to patches 1, 2 and 3
+- Reworded patch 8 subject and description messages
+- Updated Reviewed-by and Acked-by trailers
+- Link to v2: https://lore.kernel.org/r/20260709-mt8189-clocks-system-base-v2-0-2926da3db6cf@collabora.com
+
+Changes in v2:
+- Rebased on next-20260708 tag
+- Added patch 1,2 and 3 to make the #clock-cells a required property in
+  MT8186, MT8192 and MT8195 clock controller dt-bindings
+- Patch 5:
+  - Removed conditional blocks to check clock-cells property presence
+    for MT8188 clock controller compatible
+  - Reworded commit message to remove the note (no more applicable)
+  - Fixed incorrect property value in else block for #reset-cells
+    property check.
+_ Removed from patch 9 conditional blocks to check clock-cells property
+  presence for MT8189 clock controller compatible
+- Fixed missing MODULE_DEVICE_TABLE in patches 10, 11 and 12.
+- Added devicetree series link in cover letter
+- Link to v1: https://lore.kernel.org/r/20260701-mt8189-clocks-system-base-v1-0-2b048feea50a@collabora.com
+
+---
+Louis-Alexis Eyraud (25):
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8186
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8192
+      dt-bindings: clock: mediatek: Make '#clock-cells' required for MT8195
+      dt-bindings: clock: mediatek: reorder MT8186 compatibles
+      dt-bindings: clock: mediatek: regroup MT8188 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: regroup MT8195 dt-bindings into MT8186
+      dt-bindings: clock: mediatek: Add MT8189 system/base clocks and resets
+      clk: mediatek: Harmonize mtk_pll_fenc related symbol names
+      clk: mediatek: pll: Add BAR reset register offsets
+      clk: mediatek: pll: Factorise pll power on/off sequences
+      clk: mediatek: pll: Add PLL stabilization delay definition
+      clk: mediatek: pll: Add ops for PLLs using set/clr regs
+      clk: mediatek: pllfh: Add configurable clock ops to mtk_pllfh_data
+      clk: mediatek: pllfh: Add ops for PLLs using set/clr regs
+      clk: mediatek: Add MT8189 apmixedsys clock support
+      clk: mediatek: Add MT8189 topckgen clock support
+      clk: mediatek: Add MT8189 vlpckgen clock support
+      clk: mediatek: Add MT8189 vlpcfg clock support
+      clk: mediatek: Add MT8189 bus clock support
+      clk: mediatek: Add MT8189 dbgao clock support
+      clk: mediatek: Add MT8189 dvfsrc clock support
+      clk: mediatek: Add MT8189 i2c clock support
+      clk: mediatek: Add MT8189 scp clock support
+      clk: mediatek: Add MT8189 ufs clock support
+
+ .../bindings/clock/mediatek,mt8186-clock.yaml      |  128 ++-
+ .../bindings/clock/mediatek,mt8186-fhctl.yaml      |    1 +
+ .../bindings/clock/mediatek,mt8186-sys-clock.yaml  |   24 +-
+ .../bindings/clock/mediatek,mt8188-clock.yaml      |   93 --
+ .../bindings/clock/mediatek,mt8188-sys-clock.yaml  |   58 --
+ .../bindings/clock/mediatek,mt8192-clock.yaml      |  191 ----
+ .../bindings/clock/mediatek,mt8192-sys-clock.yaml  |   68 --
+ .../bindings/clock/mediatek,mt8195-clock.yaml      |  238 -----
+ .../bindings/clock/mediatek,mt8195-sys-clock.yaml  |   76 --
+ drivers/clk/mediatek/Kconfig                       |   79 ++
+ drivers/clk/mediatek/Makefile                      |    8 +
+ drivers/clk/mediatek/clk-mt8189-apmixedsys.c       |  203 ++++
+ drivers/clk/mediatek/clk-mt8189-bus.c              |  200 ++++
+ drivers/clk/mediatek/clk-mt8189-dbgao.c            |   98 ++
+ drivers/clk/mediatek/clk-mt8189-dvfsrc.c           |   58 ++
+ drivers/clk/mediatek/clk-mt8189-iic.c              |  122 +++
+ drivers/clk/mediatek/clk-mt8189-scp.c              |   77 ++
+ drivers/clk/mediatek/clk-mt8189-topckgen.c         | 1025 ++++++++++++++++++++
+ drivers/clk/mediatek/clk-mt8189-ufs.c              |  133 +++
+ drivers/clk/mediatek/clk-mt8189-vlpcfg.c           |  116 +++
+ drivers/clk/mediatek/clk-mt8189-vlpckgen.c         |  285 ++++++
+ drivers/clk/mediatek/clk-mt8196-apmixedsys.c       |    2 +-
+ drivers/clk/mediatek/clk-mt8196-vlpckgen.c         |    2 +-
+ drivers/clk/mediatek/clk-pll.c                     |  130 ++-
+ drivers/clk/mediatek/clk-pll.h                     |   13 +-
+ drivers/clk/mediatek/clk-pllfh.c                   |   15 +-
+ drivers/clk/mediatek/clk-pllfh.h                   |    3 +
+ include/dt-bindings/clock/mediatek,mt8189-clk.h    |  433 +++++++++
+ include/dt-bindings/reset/mediatek,mt8189-resets.h |   17 +
+ 29 files changed, 3136 insertions(+), 760 deletions(-)
+---
+base-commit: 958ffd63100e10949c8f39e8c4e6e9f1aff140f2
+change-id: 20260630-mt8189-clocks-system-base-70714e4ff2aa
+
+Best regards,
 -- 
-2.25.1
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
