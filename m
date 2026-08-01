@@ -1,91 +1,282 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8522571DA
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 14:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78C0356770
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 14:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785594114; cv=none; b=JcT7YjsoEjnHu69ODEFLFv3PIv8y/KmTUlsaRs4pQNDO1qZPfr/C/3gdsbcta1oNuk9JvJJj/2cTW0svJ2+GKBa01JXBORKOmICCyMsXm0SkulN0SpFDrDa096xQ/919+uol+GCQym1/2eFm3ZZQABtug0cNEZ/tneFN5EYqQTk=
+	t=1785594202; cv=none; b=ubOChIH6hiZO0P7LJSLePMG6I1pvDnAhVFVj5fisRFggNx5YiYXU+XG/wwZRZflb08nKQIzZYauWiAYdMTZgfkza0YEFeD1vChgPY6qv9PO/Br0K7hUWjgUKhghYsuWvukSht1EU5sMDFlXG8byE0Lg2ck3P200lplEKTfGrMDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785594114; c=relaxed/simple;
-	bh=exVtmdZX1PynSEBKENYO3hisdMk45s5LzWWiu21HX1Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P1+9IBsktvKjHh3q0t218JfV0UzKzVJcbcQOT8NbkYiiOmGJ3AowsAwTgnN0gL7g8B/vG9qJ1/pxbELZ3fAARcySuo0hHC7OIkF9hw2TR86NDowBRtP12mAEK6Clhq2DLeEuIBPLBiqEN9MAhfniqF6Vd9WdjikEjbYApX9zeOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqG3bm0t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785594202; c=relaxed/simple;
+	bh=yfzH03Zpfn3qqQcJ//TofgsfNJygcYN7t4VAVJQKlMY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lPdtp/ilxomdaPgFB5pUpuo73HpyR69Zk7oIN8dNwb06hKOIxupeHoJWunfMgWG7n3oJManYlaugoyFpQ2gFXo9TwgA+9fxZtP5n3Kz7sdYVOONeNgaJDgcJzaGIne186iVr1OtBMaIjmn6Gu64d0+dZcTyuwKkSaO73l7JdQYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BLXAkM3F; arc=none smtp.client-ip=74.125.227.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqG3bm0t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6021F00AC4;
-	Sat,  1 Aug 2026 14:21:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785594112;
-	bh=4ToByyrzT7Na5Wq+L9ReonOn38erB+TK6o9NUr5epjw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YqG3bm0tvCd7ViwGqnQ84HV+MhleXOeUmpTK9ITXujp8HTvmtH8qtc5mvFJZxje66
-	 s6WJsQW94o7/4JQlWEbdHdhGYTxhg1aZNfG2veBW+y8UyPCw7QbGGkW2PGXRYakfqg
-	 SgLbVZUNzkdsrHOpT7a4iB/tw84mjRMPN7CgM8kij0Ua794YbpYWC97LWgSYJJchX6
-	 9RcwjSFnbJCt4+r8McrHt/QKpMMje3uwsmw0Fi4hoJE1OUrhrNQ6yREMptTBz7kSlN
-	 74iAWw829jM8Gm/gVqA4W6SMPVyAZLbCuwAGajKtBwnNxBFGld3dk1lQUjGm9cb71L
-	 JoRulhdsumV0Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/6] dt-bindings: clock: qcom: Add video clock
- controller on Nord SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260801-nord_videocc_camcc-v2-3-674d7718e41f@oss.qualcomm.com>
-References: <20260801-nord_videocc_camcc-v2-0-674d7718e41f@oss.qualcomm.com>
- <20260801-nord_videocc_camcc-v2-3-674d7718e41f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 14:21:52 +0000
-Message-Id: <20260801142152.AD6021F00AC4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BLXAkM3F"
+Received: by mail-pj2-f0.google.com with SMTP id d9443c01a7336-2cc6bb7476dso2655335ad.0
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 07:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785594194; x=1786198994; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p2cmtp3VyguNZ1YwnWT1LsNqPKC7k3AOpkhFk6RHh98=;
+        b=BLXAkM3FkCQ2cUT+gAe2TOBcgziSYRBWtxrGKtI+Xv8282cPyqyNBNwZwCjN0Qnr/b
+         5VUIJ8eCDWegqsNS+it63zv1kD4Ym5XnRQsyKkA4fkiCrx3a6qskyfEGAQ5y6GkSMENW
+         sOO1JwXhmBlf8XGHhUn1YP7kwzGljG0CJrZeqs/vx2jaM5PQTvuLfPyvCpNtpjb+/15Z
+         M4glmO5pTWvGIsSu/HT+vIrPYBYGBRrtjOZBEP5qfPliqn9iB4Jt4IyN4KY6FlkjrySF
+         Q6NG9oV6SnmjVZ0oLUhe7XMv2GosjdAoP0Qn/jl95wvLBV5yDUQjBZ8CLvxZfTYIzi9o
+         RE3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785594194; x=1786198994;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p2cmtp3VyguNZ1YwnWT1LsNqPKC7k3AOpkhFk6RHh98=;
+        b=BKYZuVkdLab4/v5WlAY/7xqr95tOooTzjc9v4hWVERfZmg6od3TuhU37ZG6fCJ6J/Q
+         L9m/dZUw8tYyoetz1QiaTvYvKp8r2xbiW6E5YMxCBOjCA8KuxuWd4FxONLnCUGRz/RF+
+         yWTUnOH0BUeXABBKFuiZnstyIr08YVEYb1g2VeTTuEOAcFtqc5O1xB7yW7kngG2q5lcd
+         0aiddpjgK2z6K5zsho8rTGl9J8m6nAHmk30LGNeCRemKn8NK4fp1t0Prh6E2Rt/XW+m/
+         0fPogvlm5+tfBvGab47uy8LsfkUflY+Qfdt/Pj79xOHiIjdrHkTs6XWmh09BdUqgquIU
+         5BGA==
+X-Forwarded-Encrypted: i=1; AHgh+RrGpuq19lsivO/+nSMGSZQk++Q1i+ZqHo3O4QTHrDLZ00TpqYxtdNvTG7acA8HEWvSgKsekNuX0+poK@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy4fX/7U/0LzogenadlOGhOJLFMdfboa8X9YCLTUp/7uqGkCCgu
+	/HvSucBgUrZoLdYr+edQrfw5CpRJaHZCTx8NDLJykNHHCyPzgrUkEuhS
+X-Gm-Gg: AR+sD10uqU0ekxaTWGhgF2B6vrASl58WZJHSTrgCMA3xEnbEmJVvQry49wBEGrGAFeZ
+	U2bH9DYS+Sg/3TrvbpWVcFWzG4uLChOpsOvcOjrRkhP0qbq92PWBmFi6zcgX584x27yFuJc3QI0
+	zgR+4yYOAjpa7modIDM+uLR+vkufDN40piZwnZUGikg7Wo3o05TAYAemyIa+GKWEoU/urMrdzSb
+	L9SZ+MWMboTpevzHD6O2W7YUGy6RSE+syVvmvyIUQeVPEoxNcva/xv3JsrkMPiLGevOZfYD2fBm
+	3zvuabKwStNY5h8KcdwuJcvMfCpwhCsHdE6evPB/IcJ6XkOdpXpgGHILMSuvti7fbMXnAcFEb2e
+	anva4YQumrcSeJoVLVk/ApwMrFzfkAOvfjH9fJFkalILtni/YTL47W9B/IFgdOXgbRLT5gXw5lu
+	WRsep0V/z8ZW2/XxjxBhl6NzYRl+7fkTxFwQ1MzdqUMMfRF2x+8n43ymQ=
+X-Received: by 2002:a17:903:3905:b0:2cc:80d6:b72 with SMTP id d9443c01a7336-2d0536caf12mr31901555ad.20.1785594193454;
+        Sat, 01 Aug 2026 07:23:13 -0700 (PDT)
+Received: from server.lan ([103.213.4.16])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04ae5ac3dsm18043845ad.23.2026.08.01.07.23.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 07:23:11 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2 00/10] net-next: add basic support for RK3568 XPCS
+Date: Sat,  1 Aug 2026 22:22:24 +0800
+Message-ID: <20260801142244.679437-2-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The patch references a missing header file `include/dt-bindings/=
-clock/qcom,nord-videocc.h` in the device tree binding, but fails to include=
- the file in the commit or patch series.
---
+Changes since v1:
 
---- Patch [3]: [PATCH v2 3/6] dt-bindings: clock: qcom: Add video clock con=
-troller on Nord SoC ---
-commit f2d65d3dfab04afd16d30573dc1a05f462740b53
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+Patch 2 (dt-bindings: phy: naneng-combphy)
+- Changed `rockchip,sgmii-mac-sel` default from 0 to 1 to match
+  hardware reset value (GMAC1)
+- Added `if-then` conditional in `allOf` to restrict the property
+  to `rockchip,rk3568-naneng-combphy` only
+- Updated commit message to reflect hardware default
 
-dt-bindings: clock: qcom: Add video clock controller on Nord SoC
+Patch 3 (phy: rockchip: naneng-combphy)
+- Changed `priv->sgmii_mac_sel` initial value from 0 to 1 to match
+  hardware default
+- Updated commit message to align with binding changes
 
-This commit adds the compatible string and bindings for the Nord video clock
-controller.
+Patch 4 (dt-bindings: net: pcs: rockchip-dwxpcs)
+- Fixed `reg` format in example to pass `dt_binding_check`
+- Added missing `#include <dt-bindings/phy/phy.h>` in example
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.=
-yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
-> index 1e1fec1cd7ce9..65620a656600f 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-videocc.yaml
-> @@ -18,6 +18,7 @@ description: |
->      include/dt-bindings/clock/qcom,glymur-videocc.h
->      include/dt-bindings/clock/qcom,hawi-videocc.h
->      include/dt-bindings/clock/qcom,kaanapali-videocc.h
-> +    include/dt-bindings/clock/qcom,nord-videocc.h
+Patch 5 (arm64: dts: rockchip: rk3568)
+- Clarified commit message: "all nodes disabled" refers to XPCS
+  device nodes, not fixed-clock nodes
+- Noted that `assigned-clock-parents` are applied at board level
+  (Patch 9), not in SoC dtsi
 
-[Severity: Medium]
-Is this patch missing the header file it references? The newly added device
-tree binding references include/dt-bindings/clock/qcom,nord-videocc.h, but
-the file is missing from the commit.
+Patch 6 (net: pcs: xpcs: add ANRESTART support for SGMII link recovery)
+- Split the original RFC patch into two: the SGMII state reading fix was
+  sent separately to the net tree and has been merged. This patch now
+  only adds the ANRESTART functionality as a new feature for net-next.
+- Removed unintentional `BMCR_ANRESTART` change in c37_1000basex
+  (this was not tested and should not have been included)
+- Kept SGMII path changes for RK3568 only
 
-Any future device tree source or clock driver attempting to use the
-qcom,nord-videocc binding will fail to compile due to the missing macro
-definitions.
+Patch 7 (net: pcs: xpcs: add Rockchip RK3568 platform glue driver)
+- Added `.remove` callback with `pm_runtime_force_suspend()` to fix
+  potential CSR clock leak on device removal
+- Added compatible string validation in `xpcs_rk_create()` before
+  dereferencing drvdata (using `of_match_node(xpcs_rk_of_ids, pcs_np)`)
+- Removed `__maybe_unused` from PM runtime callbacks
+- Add `depends on PM` in Kconfig to ensure `CONFIG_PM` is enabled for 
+  this driver
 
->      include/dt-bindings/clock/qcom,sm8450-videocc.h
+Patch 8 (net: stmmac: dwmac-rk)
+- Moved `gmac_clk_enable()` call before SGMII check to ensure clocks are
+  enabled before register access in SGMII mode
+- Added unified error handling (`clk_disable` label) for all failure paths
+- Added error handling for default (unhandled interface) case
 
-[ ... ]
+===
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801-nord_video=
-cc_camcc-v2-0-674d7718e41f@oss.qualcomm.com?part=3D3
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
+
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
+
+This series addresses these issues by:
+- Fixing the XPCS driver's SGMII AN state handling
+- Refactoring stmmac PCS lifetime management to allow platform drivers
+  full control over PCS creation/destruction
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
+
+Series overview
+===============
+
+Generic:
+  Patch 1: move XPCS lifetime management to platform drivers
+           (introduces pcs_init/pcs_exit callbacks)
+
+PHY:
+  Patch 2: DT binding for Naneng Combo PHY SGMII MAC selection
+  Patch 3: implement the PHY SGMII MAC selection in driver
+
+RK3568 XPCS/SGMII:
+  Patch 4: DT binding for Rockchip RK3568 XPCS
+  Patch 5: add XPCS and fixed-clock nodes to rk3568.dtsi
+  Patch 6: add ANRESTART support for SGMII link recovery
+  Patch 7: implement the Rockchip XPCS platform glue driver
+  Patch 8: wire up SGMII support in dwmac-rk
+  Patch 10: update MAINTAINERS
+
+Board enablement:
+  Patch 9: enable SGMII LAN port on Photonicat board
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+
+Dependencies
+============
+None. All patches apply cleanly on top of torvalds master tree (v7.2).
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+Thanks in advance,
+Coia Prant
+---
+Coia Prant (10):
+  net: stmmac: move XPCS lifetime management to platform drivers
+  dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel
+    property
+  phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs binding
+  arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+  net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+  MAINTAINERS: add entry for Rockchip XPCS driver
+
+ .../bindings/net/pcs/rockchip-dwxpcs.yaml     | 127 +++++
+ .../phy/phy-rockchip-naneng-combphy.yaml      |  13 +
+ MAINTAINERS                                   |   9 +
+ .../boot/dts/rockchip/rk3568-photonicat.dts   |  77 ++-
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi      |  45 ++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-intel.c |  44 +-
+ .../stmicro/stmmac/dwmac-renesas-gbeth.c      |   7 +-
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 121 +++-
+ .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |   7 +-
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |   7 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c |  37 +-
+ drivers/net/pcs/Kconfig                       |  23 +
+ drivers/net/pcs/Makefile                      |   7 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 538 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  17 +-
+ .../rockchip/phy-rockchip-naneng-combphy.c    |   8 +
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 18 files changed, 1030 insertions(+), 69 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
+-- 
+2.47.3
+
