@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C0039AD55
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 15:07:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D895F39A07E
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 15:07:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785596846; cv=none; b=liB+efBSoXgOyQ/PDwzgaT0IATZ0E26hoqUymMnQCx0h27L5Cq+y6NGOPVJe+nZJxSsyusfUfVJVxV6w+Z0iBlmVRT2Rw2CCg3HmoI682RoXTl7oNwytKrrIW2KClhm7RD3b4+KNl7/LKvjeYiRxShOyvsfRhGsPF4FMY5VBrIE=
+	t=1785596848; cv=none; b=RnV7RE/RAn6BBBVJILGW4i0V8ieUF2D5S1PFgXZhYM4+aeWauqy1EGINfmOKyhWAE+TH8BDlr0b7sSQWjus6i2gNxOOXAn4MwXiouS0vhz6618Hm20TEljzfbMrQWu082iPDOuKKQgspElvJmrJLL9sl3YsM3yqpKIHbDLdWzZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785596846; c=relaxed/simple;
-	bh=eI9cigZBYo27aCYokXW3WOPKPg+d9T3KT76aMe8yYlk=;
+	s=arc-20240116; t=1785596848; c=relaxed/simple;
+	bh=tvFHESM367aZbumd1u+4624Oo3B8rwZfoF4ToBWH/7k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Z5wsIr4k68kEv4aQuUejVKzEwohF4A6TAHYPObyjDt7xeQWTqfozAHJ42FfHyOqulyZU/2UWzsi9TQ7VqJxmxLTEr99iIxnoU/osqHjH2kQ9eRhdAYieOO0PYcDv7+WIyyOw3W1ZLIHzAZeZ1RK26+0/JPUiWYCBit6XRCBmKrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OT8KkZM6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iBLsWAaw; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=DzYOwrfNjfdQxBbPNG/BCe1QKnzZBnKRCdxYV9HfHNV1n1qszav88rvjm789dAkWJYkNweMtjIjrb2cyqcXjsN7+7fPAeV3vUehR5l4IOdhy7gStkZxaDmYBw+VdWzeeMw3wKFuxW+bqR911QqpSKkc02X/gbgkJiSCCn8K/Kmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Csonw4ew; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RyEeaxFc; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OT8KkZM6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iBLsWAaw"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671CaUDW2737611
-	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 15:07:23 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Csonw4ew";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RyEeaxFc"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671CamOJ2815534
+	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 15:07:26 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mIK0VV1ffvqe4y9mElEuM/axbwDfYeRm9xMRFM2Otfc=; b=OT8KkZM6dUY9VR2S
-	HFqfsL/Nvr6y+1u7bWshgTlbB0+wOq07d4ecP1/16QC5WjgVQ8pekEcAaHy7/klh
-	1o/3gBdDGDebJ0v4HBH+63CIo+GboaR/lpGFAUvF+/hWUP79mmEmT6CY004TEFSo
-	A5rsrxGXJOdsUveZY/pP826eCwZnqOxtapA/cVRhxu0i6k3ExHHGEJ+3oJhahl4H
-	y7Tt9YPFZR3yhYwjZ4VdYGW0x922HXriIF4wBahN4w93mlqs0N7BzFFZ21Bqe71K
-	FKljIopVEFYKqjXxJsmNseAnOVgKfnBolaps/hZpqJDIJoos8ehX6TY52J0LvhUK
-	3jF2Ww==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fsa380yby-1
+	mCYheONZeVyUux6sPE93G9D6e8BL29KvG8pWZH8cW3M=; b=Csonw4ewY/uJFqWj
+	8F2diPNbi83FrFu1TestrQXTznkVKcoJzo5uWbP7NVQK22JvXM1np3eAsL1NT3Il
+	63ca5Vobut4E/2/4EM7yK6z3jpR9oZmIHwkuOyvTX2rf6d8ea31Onj0p5qxgVv08
+	DPWhSbpffdBX7k02P/XjUhBBCuRlAzDfvoQlwVuqLwXT8n04dEq7+w29HmxvPJbV
+	Z2drdPcjX4/K0YW6JGjnkM9FfTH38ttdMOSRv5kCkC2XGDi5Prbwq05rpxCsBnQQ
+	8Ftm+fEVxJ96JCeoInklO8qxmG0fe5UNNKaMsvu/PSPe3PzYJ5MXUJfw1UlTgvA/
+	w2AVoQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs9jfs0hk-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 15:07:22 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51bf321d786so19587711cf.1
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 08:07:22 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 15:07:26 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c1eb52e1fso34182751cf.0
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 08:07:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785596841; x=1786201641; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785596845; x=1786201645; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mIK0VV1ffvqe4y9mElEuM/axbwDfYeRm9xMRFM2Otfc=;
-        b=iBLsWAawqqa9wMSP9GMIKydSJWMSS7jN/ASne3bVvGsOzueCR+YSyEWVCWHQB0G1ER
-         H9HTMNVbWQ3Gpq4kwIpB05rH6c0wGf/ROPc88FZ7b16hPKST7fHcJ23XhqSqR9v3yBk5
-         gEiNVTr1rc8osMuZI4plhmpX4Sy+Gj/BSmW8uiP3pQynSZWUSkE5zPAGYZ4dyMreUyex
-         bJbNuzKZBemYHTVJk2Prid2HygbEu9iLgpwGgEoLxN3qQMcnkrk2wp9h3YsD4Q7jL6mP
-         vs7Jg4mReRwU/k3U7EAMDBr4J/VK+9/K3m6c+WWt+JW2A58GCK4Yu5Sk1kOP6CH+UOC+
-         Z8mA==
+        bh=mCYheONZeVyUux6sPE93G9D6e8BL29KvG8pWZH8cW3M=;
+        b=RyEeaxFcx6V1wnZ87uXjdI/QF2hfNNzEVW81B4u0OX6zAZj+6jjCS1TI2kov6eKiCC
+         WafL2hvBnepLIcafcD+8RJUl2wkAKyqGX+lSjtwfCq3oNVSEipucbzOp0WeGhbkgkia8
+         eHOZPaQMrG7oWTMummU2E4FRJLnlZJOi4Z6WWygvk2g6Z14/2U7GgTAEnYLNps0cihW6
+         xVT4VSEpwjZT3kg5QUgXVv+3edyMZbzHM9gandFMDBiDBQNTGfAmxnexUgOEcIHnpC0G
+         8vfXUpwxTIyE/ljA1QdRUQI5wdT0Hcm2t6cvNM2D8bx3tjOVWw0gQiqjfYcHhjL1o9kK
+         vA9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785596841; x=1786201641;
+        d=1e100.net; s=20251104; t=1785596845; x=1786201645;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mIK0VV1ffvqe4y9mElEuM/axbwDfYeRm9xMRFM2Otfc=;
-        b=S9qmRDbGWilCkuNqdEZabZQcsfuNoVBzp8eYO6pPRZti30AoLtd01IgYsWbQ/hF3sN
-         VCUJBkzJcolUjvUFhMKozMTZLAGesPD9QekH/ngq1gKwN5PhdYHk2oj5YWnDdXvgBIO8
-         KVqadbI8A1ZExTEGDMq4kdzfSlMQj6/TQqHLn5PrAltMKQ8xpGfEVv8yjSgd9CpH7hps
-         leSvqcOEZsRss3Xw0Ghk0UVSbQo5ED+WI5R/R5FFUlv8U9H73sSsDn76JG8IVipb+1eh
-         o0ybCgnFyI71BXApNH7xFkYu0dR7OWeZCZq+3PEkH/CkzbR+13oMWfhMTIHPt0+XNMZp
-         5L/w==
-X-Forwarded-Encrypted: i=1; AHgh+Rra776oYDq9dxnDskmL3xbqQavVqoVnThQRLWW3PWVCNWADJI2daQjmzuEDAq6oIHeBe7PAl5knpe/g@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyg+KwtTIqnHZzNTSDjEgibg2bq67Y7+rOGROrEfx1L5zE8AKPQ
-	8fROLjx7c3TNEP/EfCcpnPiisiLX63Pil410tAzi6qI81FRU0wUe0sg8IpPZuua+ppgggUWXHbm
-	8Ya1Z0KvG6VAbYboe5kSGfzdYxBKHM86ceq2RvhmK0+tnYlFoVHBTtNUz/Egd2AEZ
-X-Gm-Gg: AR+sD106im62ubd/M/fRT8cd8ZJZYdVE+oYIVAEt331VRcXpCrlhkg/BHE57qYsUJGq
-	mgVH+OYglr1mIn29f/fFW7Mh098IfFChFpv2SFdg9xaO5nzk7JBkhHcsBs4J6vtooBk9YMmkZUv
-	jXiypCEWM8iqmY+xpIbQn5nDx+D8X//ITmanz1lJS3JuvLisHea0x2f3r7E95f1cCe45zR8YORd
-	jr+XbPNxZHhWnkguGUyo3AznSzb8faflatfiLLkVNdZXKZ6tTecNeT37X+cbXH1ckJQma2K5sw8
-	s86kPlFAYxzv+PjQpqaF9dBlOfRwyWJfIpH2d/N5RroFpiiRXD/NrmAKdueJjWcLYv3gw1IPjLo
-	e6YigS6gqUmPSWwB6YxuLf+Gk
-X-Received: by 2002:ac8:5fd5:0:b0:528:1478:e1fc with SMTP id d75a77b69052e-52b5679523cmr68777861cf.34.1785596841026;
-        Sat, 01 Aug 2026 08:07:21 -0700 (PDT)
-X-Received: by 2002:ac8:5fd5:0:b0:528:1478:e1fc with SMTP id d75a77b69052e-52b5679523cmr68776961cf.34.1785596840534;
-        Sat, 01 Aug 2026 08:07:20 -0700 (PDT)
+        bh=mCYheONZeVyUux6sPE93G9D6e8BL29KvG8pWZH8cW3M=;
+        b=AyJjATnoWa7CoF+cv5YPAnHufwVttZ6I5o5f7km4fZIg1NlCxTfOvKpPotIfNkfiXw
+         pmbU2asUS72cgrfXjFWQilUgJvb1rgfeWSOCF3gS+v2bi/HRHzBENk9JdqLguTLJ+juK
+         lWtSGImW4kuOyg6J8iENclCFsi6sNJb9eG93MLEPBWr49qGHUJxY8+oiXAkOdL0eQ/Ts
+         SiQ3wZtzeJhpsXfqISvIe3Bysygdif60pX75jrNvh8bylj9mlrFrVCeJRGMFcG97+s8f
+         CjXbTt1d2FrDa0G1bJQPsB1XWJyoqF5MEZugjy/jUs6YpzfXGN+h6Ru+ozlU+UtXBgdO
+         4SCw==
+X-Forwarded-Encrypted: i=1; AHgh+RrJJfErIvGt0JcZdvieeiyVhfmSU9LKqY8eFZQyveOlHBrRfCuTAFiL0D0C48qXIioi6v6qNACUtRzn@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBZ6tVx15hGoJbLFg0C+aFjj03YMImqZAVjDNUBvSSK+iBy5Nz
+	DXXKR12tUK6nEZ3SR8rLcf2WGeIKM4vhO/bS7Udz0cGRsmJxpKUpXGbSNXCZGNhJ75fSKI4JbE4
+	7ZsSRvxjvpLre6m1OlOloQZH3c27mz9T3DAU8zErqTCpElV906bX9Ce3GSUX2G9rc
+X-Gm-Gg: AR+sD10HmDy86p5uAo18aGU2VDSj1xmI/4P8NL+R5CZ6Jnodg/0J5T7nGWAWMiYMysv
+	x6+KLWlkAxiKOPvYaUs+1U06NaGroukLUAyQiTYgc18hvhm5FrrZTPnI5dibMvKTegppIHjHKEX
+	bTGfmd0+kS61iJGBCkW2qYj3cdXIXLXQULgCUiTQOhan74zz0NI0AkTgWgXmFMFQEhElF0/ODNU
+	70wcu6YGYvIvG8SAa8hkW8mfGxoW11LZOXLrOiz4bm9vlz83fMGyYTflPopOVu4Y/CV1hAXUyjn
+	BWTsjqdjPDHh7XidvmyNIUP8dEgd3j2punqqf4yzqtxP7T4yMN9VLu5d0JNRPoaWLwPgk5Ld4YD
+	DEzUQcyR2P/L7Ufvn430oHy95
+X-Received: by 2002:a05:622a:5585:b0:517:58f6:29c3 with SMTP id d75a77b69052e-52b56791b19mr90549511cf.32.1785596845239;
+        Sat, 01 Aug 2026 08:07:25 -0700 (PDT)
+X-Received: by 2002:a05:622a:5585:b0:517:58f6:29c3 with SMTP id d75a77b69052e-52b56791b19mr90548671cf.32.1785596844783;
+        Sat, 01 Aug 2026 08:07:24 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd45a1abfsm16005222f8f.37.2026.08.01.08.07.18
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd45a1abfsm16005222f8f.37.2026.08.01.08.07.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 08:07:19 -0700 (PDT)
+        Sat, 01 Aug 2026 08:07:23 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Sat, 01 Aug 2026 17:06:59 +0200
-Subject: [PATCH v2 4/8] arm64: dts: exynos: Re-order clocks and align
- continued properties
+Date: Sat, 01 Aug 2026 17:07:01 +0200
+Subject: [PATCH v2 6/8] arm64: dts: google: Align continued properties and
+ add missing blank lines
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260801-b4-dts-coding-style-strict-v2-4-f09a659ab80d@oss.qualcomm.com>
+Message-Id: <20260801-b4-dts-coding-style-strict-v2-6-f09a659ab80d@oss.qualcomm.com>
 References: <20260801-b4-dts-coding-style-strict-v2-0-f09a659ab80d@oss.qualcomm.com>
 In-Reply-To: <20260801-b4-dts-coding-style-strict-v2-0-f09a659ab80d@oss.qualcomm.com>
 To: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
@@ -108,729 +108,112 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=22700;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1916;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=eI9cigZBYo27aCYokXW3WOPKPg+d9T3KT76aMe8yYlk=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbguY7PLrlnZjgSqTvADMBmCiqhhMnlmAoY164
- zvDLVhbgwKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam4LmAAKCRDBN2bmhouD
- 12ZCD/9RtHykCbTRceRlaN10BEn3e4PlsOE2Jci2lAcKiMuiPIQ1f6NQh4fqOcT5vRCmAKWy3/C
- knLnHLCVm+/Z0TYToCYKOrxESlz3Zm/g7ZU6CdHedokAiqK406FpeErWlQ+lid7OjUwLlatKpQT
- JNy9yv7Ph8yzFEdR0XxdHOYR8OMWbmzkyD+qoLNa3SF5V1JM48i67+vxtny2UfZiS7a+vsvtXOB
- TFrS352ebIxVJJ+Uf6x/djYgkucxl3qZSCb8hSWEr0TnCI6MLrCJb4xBUpBABuCBLwYLxbhBQJU
- Fy8hsiKGe5S3NaFAjB5lSGL7386XDbozIO3peYOu/F6m86RtPahCVDVGWfk5JTb7t+XMDrJ3okD
- 8pIiovOI37zzUc6rRzIz0RWNcJn7uXTxuB5pKBn+5nctrj5fJZfd6BNyDzuQ4TBczF4nl8NKOB9
- xhsm6+qomaPnyaF9uhbQnA+oRHgs1phIFdwTUKeExjE2u0TPyYDUlp9fq1k+hw3LYAY94Hc+RQ6
- GzikWB+GTvfgkl3GvuZuJldZ6aIFWbP84hTZFYDFaCzixF2TXDxCjo952qKu5g0sZ4MC5fyLu64
- WCY8cBLFi6DyEePJVArFUI58AtnRUkjK6dy3Tm/HgVwWiYNIeHFA2/tFQa3EVYpDegofBYRr+AO
- NnfUlbnaLcLKN/A==
+ bh=tvFHESM367aZbumd1u+4624Oo3B8rwZfoF4ToBWH/7k=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbguaDdezS54sRaZP1iIZJSPoM+6OvHd7DGHhj
+ 0S3Y+q8P6uJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam4LmgAKCRDBN2bmhouD
+ 11IsD/wPwLlkbos5Ms6qZ+lSZdATPFCZrjyXfx8e72rwLVy0Q8l7tmB979Q8mvzSNLu7YJNzKtI
+ 29tG5bzpYE8CL+IIDpXkUKWZrV7Rk8czYpkPTxGmQplMqhJxR77kivbWYE+Xsvtl6ETth20hb+9
+ 60GVI6yVYRjIPBosX5GZGY3oAHAND1mKZNVVVrUo0WT/a9n0zLsDRXXcL/dI7uML6cm6fP2Ek2N
+ qNVvEesJZBOV3UgxGryVtmf3+OVio7Ro67H4N6fwu8y9Zqcgan2azQIevUR10NcBVuLCChOTFGs
+ goISA080JIsiif9cJtzrNZue572TtAw0fZQA2ufPEEpf5vHyOG1uPGqfZ1njLL/PrACU8+GON0K
+ mQXrdzjpJimgnqXCBzfxUQqsDVY/wStPIx1O3TIBoeMUPUvt//iWFaXsF7LKYKhKijHfB9G+3wd
+ Of3QeheLlldOKNY5fA6ZlJdBV5wMEprAa2bw9GEJi8E0U/u2NyUA8OxToWLXpwNhdEcrQAXrLWB
+ prZvMCEQLCjWOWMTj5WlENRhIjG6lV41UxDWp+8JW3IELFfPOaRJQuB7e5eUaRGvA7YzblBlSjp
+ mpE/atyKlYOaggQuJZ7vOeX1JLLcE+PvdfbVwR2K6mRiQ/CyHXeAhVkCRRjHgxAKOoM2zHZE8xz
+ eZ9d1O3gh1+JNDQ==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=KezidwYD c=1 sm=1 tr=0 ts=6a6e0baa cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+X-Proofpoint-GUID: 7nd73_yFviPxQtpRbY2tPA46N_kqLaka
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfXyuE5oSGvsPqC
+ pk5UQFoHRw6cvomXxnVunh3C/rSRSscQZSMH2cQkO9cwKFs1lInBj6DG7+ulecfoBkXVq1FLoQJ
+ lKhc3kZ5ooXdBGSOqYSnXkNL62aIb2SqP8HGcGEPGA6JRL+ji7ga7W5qejkYeOJZ41ySdnycX45
+ Ivjh4dWtyLtwlYTnJjVA/WK6QKrvpsheRh9RBBQmFmsQr1cIgZmiYBUBPN2H/Xm7FH31ENIdL3z
+ UwNUMedNud2ZimIXuMbunmKxUc/uN19aaHjFYQv9g9oxiG3i8iLR/a9hiFQ6HQOx2VmHwVkUNpf
+ fzFHK9p3FBf3R9kjf9obqIeMUNC2KWV3Nn3GsltqjwPgo62xu/GDxfTQUkBD7lOvw468xdKILPI
+ HIeoxbP97L0Fg2ZYqnOn1HysDbculVz0uEPWlmuGoOEyqOBDh/9A59z1RYJHzAFgcv2/UxYp568
+ ABIqBYyO3SloDGYkQPw==
+X-Authority-Analysis: v=2.4 cv=TYSmcxQh c=1 sm=1 tr=0 ts=6a6e0bae cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=tfvXpbmQJ99Qm8LONJ0A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfXwfpXfUWO4YL1
- PEf5qPYLBPdqYQPnQSJQw3F6L6sAHw3AyctcOnmXJUumCAdE0OWI5qKvZS/dk06WYxVa2z/h8c9
- uLPehwF+MOK+xcey8qPWTduNJRVWupg=
-X-Proofpoint-ORIG-GUID: hCMKYEOohPPCw3xBl2SR_AZJX79zFMBB
-X-Proofpoint-GUID: hCMKYEOohPPCw3xBl2SR_AZJX79zFMBB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfX4WfjhgKa524S
- BgyS6wfUNnju/P6s/d1K9L+iq98kdNuvDQl1B6P+2JNMsr30KVw3b2uWVbFjk8D9Gwdmq8BPCNe
- cXwG8lZkexlkuChbcz/NJQnncmtl0a3eSfQEgta+YV86NQuxoGNSdmG5gM+8d8IzKcaaPhF4s7k
- CXls06MBovqUkGXMAsb8AjRTPSOaM3dAzct0MHRuHFLh9hmYuG1dRdL1MXJc00JhjIPp41Y6+ui
- PZrlG1c6vCq1tK9JrMoL8Ai4DoIvnjvZEU6gzHryUMv7DEiAaZIhsDXvtKexuyWz2GgTsQLAWkw
- Yda2Kb3UPgB+fb3sa90KFPtJI76vqgMX6RisY1KyUjNmI3X78pW9HWdqHex0U1KrHDSEXGBRDkJ
- 8i/w8dJNmWO3Wu6EC4uH8qRLsfdRNHbC3K9EgCLDBIkQIYZtvELVpyCaTSlTiVrBXHaScJ8Czf4
- KcQ7QvJ3teznguyYHKg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=JN4siRDuy4uOFAZNwAMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 7nd73_yFviPxQtpRbY2tPA46N_kqLaka
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfXx4T/kJFfBBLi
+ B9MgAg1awPhnqM7aSqSDzPYa9OW3rXSKtyC5A4Bk9n50QRKAV3Ozybh3HMkUqoWUDtOyNoYuS7H
+ acB7+U7HpzR1pX7GuECxTLR5PLI8SqU=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-01_01,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608010122
+ adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010122
 
-Trivial white-space only changes to adjust to DTS coding style
-(clocks-names should follow clocks) and fix dt-check-style strict
-warnings like:
+Trivial white-space only changes to adjust to DTS coding style and fix
+dt-check-style strict warnings like:
 
-  [property-order] property 'clocks' out of canonical order (should sort before 'clock-names')
+  [required-blank-lines] child node must be preceded by a blank line
   [continuation-alignment] continuation should align to column 39 (under < or ")
 
 Reviewed-by: André Draszik <andre.draszik@linaro.org>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/exynos/exynos5433.dtsi | 282 ++++++++++++++---------------
- 1 file changed, 141 insertions(+), 141 deletions(-)
+ arch/arm64/boot/dts/exynos/google/gs101.dtsi | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos5433.dtsi b/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-index ebd63b9e244d..d318c87effaa 100644
---- a/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos5433.dtsi
-@@ -400,14 +400,14 @@ cmu_top: clock-controller@10030000 {
- 			reg = <0x10030000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"sclk_mphy_pll",
--				"sclk_mfc_pll",
--				"sclk_bus_pll";
- 			clocks = <&xxti>,
--				<&cmu_cpif CLK_SCLK_MPHY_PLL>,
--				<&cmu_mif CLK_SCLK_MFC_PLL>,
--				<&cmu_mif CLK_SCLK_BUS_PLL>;
-+				 <&cmu_cpif CLK_SCLK_MPHY_PLL>,
-+				 <&cmu_mif CLK_SCLK_MFC_PLL>,
-+				 <&cmu_mif CLK_SCLK_BUS_PLL>;
-+			clock-names = "oscclk",
-+				      "sclk_mphy_pll",
-+				      "sclk_mfc_pll",
-+				      "sclk_bus_pll";
- 		};
- 
- 		cmu_cpif: clock-controller@10fc0000 {
-@@ -415,8 +415,8 @@ cmu_cpif: clock-controller@10fc0000 {
- 			reg = <0x10fc0000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk";
- 			clocks = <&xxti>;
-+			clock-names = "oscclk";
- 		};
- 
- 		cmu_mif: clock-controller@105b0000 {
-@@ -424,10 +424,10 @@ cmu_mif: clock-controller@105b0000 {
- 			reg = <0x105b0000 0x2000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"sclk_mphy_pll";
- 			clocks = <&xxti>,
--				<&cmu_cpif CLK_SCLK_MPHY_PLL>;
-+				 <&cmu_cpif CLK_SCLK_MPHY_PLL>;
-+			clock-names = "oscclk",
-+				      "sclk_mphy_pll";
- 		};
- 
- 		cmu_peric: clock-controller@14c80000 {
-@@ -447,26 +447,26 @@ cmu_fsys: clock-controller@156e0000 {
- 			reg = <0x156e0000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"sclk_ufs_mphy",
--				"aclk_fsys_200",
--				"sclk_pcie_100_fsys",
--				"sclk_ufsunipro_fsys",
--				"sclk_mmc2_fsys",
--				"sclk_mmc1_fsys",
--				"sclk_mmc0_fsys",
--				"sclk_usbhost30_fsys",
--				"sclk_usbdrd30_fsys";
- 			clocks = <&xxti>,
--				<&cmu_cpif CLK_SCLK_UFS_MPHY>,
--				<&cmu_top CLK_ACLK_FSYS_200>,
--				<&cmu_top CLK_SCLK_PCIE_100_FSYS>,
--				<&cmu_top CLK_SCLK_UFSUNIPRO_FSYS>,
--				<&cmu_top CLK_SCLK_MMC2_FSYS>,
--				<&cmu_top CLK_SCLK_MMC1_FSYS>,
--				<&cmu_top CLK_SCLK_MMC0_FSYS>,
--				<&cmu_top CLK_SCLK_USBHOST30_FSYS>,
--				<&cmu_top CLK_SCLK_USBDRD30_FSYS>;
-+				 <&cmu_cpif CLK_SCLK_UFS_MPHY>,
-+				 <&cmu_top CLK_ACLK_FSYS_200>,
-+				 <&cmu_top CLK_SCLK_PCIE_100_FSYS>,
-+				 <&cmu_top CLK_SCLK_UFSUNIPRO_FSYS>,
-+				 <&cmu_top CLK_SCLK_MMC2_FSYS>,
-+				 <&cmu_top CLK_SCLK_MMC1_FSYS>,
-+				 <&cmu_top CLK_SCLK_MMC0_FSYS>,
-+				 <&cmu_top CLK_SCLK_USBHOST30_FSYS>,
-+				 <&cmu_top CLK_SCLK_USBDRD30_FSYS>;
-+			clock-names = "oscclk",
-+				      "sclk_ufs_mphy",
-+				      "aclk_fsys_200",
-+				      "sclk_pcie_100_fsys",
-+				      "sclk_ufsunipro_fsys",
-+				      "sclk_mmc2_fsys",
-+				      "sclk_mmc1_fsys",
-+				      "sclk_mmc0_fsys",
-+				      "sclk_usbhost30_fsys",
-+				      "sclk_usbdrd30_fsys";
- 		};
- 
- 		cmu_g2d: clock-controller@12460000 {
-@@ -474,12 +474,12 @@ cmu_g2d: clock-controller@12460000 {
- 			reg = <0x12460000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"aclk_g2d_266",
--				"aclk_g2d_400";
- 			clocks = <&xxti>,
--				<&cmu_top CLK_ACLK_G2D_266>,
--				<&cmu_top CLK_ACLK_G2D_400>;
-+				 <&cmu_top CLK_ACLK_G2D_266>,
-+				 <&cmu_top CLK_ACLK_G2D_400>;
-+			clock-names = "oscclk",
-+				      "aclk_g2d_266",
-+				      "aclk_g2d_400";
- 			power-domains = <&pd_g2d>;
- 		};
- 
-@@ -488,24 +488,24 @@ cmu_disp: clock-controller@13b90000 {
- 			reg = <0x13b90000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"sclk_dsim1_disp",
--				"sclk_dsim0_disp",
--				"sclk_dsd_disp",
--				"sclk_decon_tv_eclk_disp",
--				"sclk_decon_vclk_disp",
--				"sclk_decon_eclk_disp",
--				"sclk_decon_tv_vclk_disp",
--				"aclk_disp_333";
- 			clocks = <&xxti>,
--				<&cmu_mif CLK_SCLK_DSIM1_DISP>,
--				<&cmu_mif CLK_SCLK_DSIM0_DISP>,
--				<&cmu_mif CLK_SCLK_DSD_DISP>,
--				<&cmu_mif CLK_SCLK_DECON_TV_ECLK_DISP>,
--				<&cmu_mif CLK_SCLK_DECON_VCLK_DISP>,
--				<&cmu_mif CLK_SCLK_DECON_ECLK_DISP>,
--				<&cmu_mif CLK_SCLK_DECON_TV_VCLK_DISP>,
--				<&cmu_mif CLK_ACLK_DISP_333>;
-+				 <&cmu_mif CLK_SCLK_DSIM1_DISP>,
-+				 <&cmu_mif CLK_SCLK_DSIM0_DISP>,
-+				 <&cmu_mif CLK_SCLK_DSD_DISP>,
-+				 <&cmu_mif CLK_SCLK_DECON_TV_ECLK_DISP>,
-+				 <&cmu_mif CLK_SCLK_DECON_VCLK_DISP>,
-+				 <&cmu_mif CLK_SCLK_DECON_ECLK_DISP>,
-+				 <&cmu_mif CLK_SCLK_DECON_TV_VCLK_DISP>,
-+				 <&cmu_mif CLK_ACLK_DISP_333>;
-+			clock-names = "oscclk",
-+				      "sclk_dsim1_disp",
-+				      "sclk_dsim0_disp",
-+				      "sclk_dsd_disp",
-+				      "sclk_decon_tv_eclk_disp",
-+				      "sclk_decon_vclk_disp",
-+				      "sclk_decon_eclk_disp",
-+				      "sclk_decon_tv_vclk_disp",
-+				      "aclk_disp_333";
- 			power-domains = <&pd_disp>;
- 		};
- 
-@@ -513,8 +513,8 @@ cmu_aud: clock-controller@114c0000 {
- 			compatible = "samsung,exynos5433-cmu-aud";
- 			reg = <0x114c0000 0x1000>;
- 			#clock-cells = <1>;
--			clock-names = "oscclk", "fout_aud_pll";
- 			clocks = <&xxti>, <&cmu_top CLK_FOUT_AUD_PLL>;
-+			clock-names = "oscclk", "fout_aud_pll";
- 			power-domains = <&pd_aud>;
- 		};
- 
-@@ -523,8 +523,8 @@ cmu_bus0: clock-controller@13600000 {
- 			reg = <0x13600000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "aclk_bus0_400";
- 			clocks = <&cmu_top CLK_ACLK_BUS0_400>;
-+			clock-names = "aclk_bus0_400";
- 		};
- 
- 		cmu_bus1: clock-controller@14800000 {
-@@ -532,8 +532,8 @@ cmu_bus1: clock-controller@14800000 {
- 			reg = <0x14800000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "aclk_bus1_400";
- 			clocks = <&cmu_top CLK_ACLK_BUS1_400>;
-+			clock-names = "aclk_bus1_400";
- 		};
- 
- 		cmu_bus2: clock-controller@13400000 {
-@@ -541,8 +541,8 @@ cmu_bus2: clock-controller@13400000 {
- 			reg = <0x13400000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk", "aclk_bus2_400";
- 			clocks = <&xxti>, <&cmu_mif CLK_ACLK_BUS2_400>;
-+			clock-names = "oscclk", "aclk_bus2_400";
- 		};
- 
- 		cmu_g3d: clock-controller@14aa0000 {
-@@ -550,8 +550,8 @@ cmu_g3d: clock-controller@14aa0000 {
- 			reg = <0x14aa0000 0x2000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk", "aclk_g3d_400";
- 			clocks = <&xxti>, <&cmu_top CLK_ACLK_G3D_400>;
-+			clock-names = "oscclk", "aclk_g3d_400";
- 			power-domains = <&pd_g3d>;
- 		};
- 
-@@ -560,12 +560,12 @@ cmu_gscl: clock-controller@13cf0000 {
- 			reg = <0x13cf0000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"aclk_gscl_111",
--				"aclk_gscl_333";
- 			clocks = <&xxti>,
--				<&cmu_top CLK_ACLK_GSCL_111>,
--				<&cmu_top CLK_ACLK_GSCL_333>;
-+				 <&cmu_top CLK_ACLK_GSCL_111>,
-+				 <&cmu_top CLK_ACLK_GSCL_333>;
-+			clock-names = "oscclk",
-+				      "aclk_gscl_111",
-+				      "aclk_gscl_333";
- 			power-domains = <&pd_gscl>;
- 		};
- 
-@@ -574,8 +574,8 @@ cmu_apollo: clock-controller@11900000 {
- 			reg = <0x11900000 0x2000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk", "sclk_bus_pll_apollo";
- 			clocks = <&xxti>, <&cmu_mif CLK_SCLK_BUS_PLL_APOLLO>;
-+			clock-names = "oscclk", "sclk_bus_pll_apollo";
- 		};
- 
- 		cmu_atlas: clock-controller@11800000 {
-@@ -583,8 +583,8 @@ cmu_atlas: clock-controller@11800000 {
- 			reg = <0x11800000 0x2000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk", "sclk_bus_pll_atlas";
- 			clocks = <&xxti>, <&cmu_mif CLK_SCLK_BUS_PLL_ATLAS>;
-+			clock-names = "oscclk", "sclk_bus_pll_atlas";
- 		};
- 
- 		cmu_mscl: clock-controller@150d0000 {
-@@ -592,12 +592,12 @@ cmu_mscl: clock-controller@150d0000 {
- 			reg = <0x150d0000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"sclk_jpeg_mscl",
--				"aclk_mscl_400";
- 			clocks = <&xxti>,
--				<&cmu_top CLK_SCLK_JPEG_MSCL>,
--				<&cmu_top CLK_ACLK_MSCL_400>;
-+				 <&cmu_top CLK_SCLK_JPEG_MSCL>,
-+				 <&cmu_top CLK_ACLK_MSCL_400>;
-+			clock-names = "oscclk",
-+				      "sclk_jpeg_mscl",
-+				      "aclk_mscl_400";
- 			power-domains = <&pd_mscl>;
- 		};
- 
-@@ -606,8 +606,8 @@ cmu_mfc: clock-controller@15280000 {
- 			reg = <0x15280000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk", "aclk_mfc_400";
- 			clocks = <&xxti>, <&cmu_top CLK_ACLK_MFC_400>;
-+			clock-names = "oscclk", "aclk_mfc_400";
- 			power-domains = <&pd_mfc>;
- 		};
- 
-@@ -616,8 +616,8 @@ cmu_hevc: clock-controller@14f80000 {
- 			reg = <0x14f80000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk", "aclk_hevc_400";
- 			clocks = <&xxti>, <&cmu_top CLK_ACLK_HEVC_400>;
-+			clock-names = "oscclk", "aclk_hevc_400";
- 			power-domains = <&pd_hevc>;
- 		};
- 
-@@ -626,12 +626,12 @@ cmu_isp: clock-controller@146d0000 {
- 			reg = <0x146d0000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"aclk_isp_dis_400",
--				"aclk_isp_400";
- 			clocks = <&xxti>,
--				<&cmu_top CLK_ACLK_ISP_DIS_400>,
--				<&cmu_top CLK_ACLK_ISP_400>;
-+				 <&cmu_top CLK_ACLK_ISP_DIS_400>,
-+				 <&cmu_top CLK_ACLK_ISP_400>;
-+			clock-names = "oscclk",
-+				      "aclk_isp_dis_400",
-+				      "aclk_isp_400";
- 			power-domains = <&pd_isp>;
- 		};
- 
-@@ -640,14 +640,14 @@ cmu_cam0: clock-controller@120d0000 {
- 			reg = <0x120d0000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"aclk_cam0_333",
--				"aclk_cam0_400",
--				"aclk_cam0_552";
- 			clocks = <&xxti>,
--				<&cmu_top CLK_ACLK_CAM0_333>,
--				<&cmu_top CLK_ACLK_CAM0_400>,
--				<&cmu_top CLK_ACLK_CAM0_552>;
-+				 <&cmu_top CLK_ACLK_CAM0_333>,
-+				 <&cmu_top CLK_ACLK_CAM0_400>,
-+				 <&cmu_top CLK_ACLK_CAM0_552>;
-+			clock-names = "oscclk",
-+				      "aclk_cam0_333",
-+				      "aclk_cam0_400",
-+				      "aclk_cam0_552";
- 			power-domains = <&pd_cam0>;
- 		};
- 
-@@ -656,20 +656,20 @@ cmu_cam1: clock-controller@145d0000 {
- 			reg = <0x145d0000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"sclk_isp_uart_cam1",
--				"sclk_isp_spi1_cam1",
--				"sclk_isp_spi0_cam1",
--				"aclk_cam1_333",
--				"aclk_cam1_400",
--				"aclk_cam1_552";
- 			clocks = <&xxti>,
--				<&cmu_top CLK_SCLK_ISP_UART_CAM1>,
--				<&cmu_top CLK_SCLK_ISP_SPI1_CAM1>,
--				<&cmu_top CLK_SCLK_ISP_SPI0_CAM1>,
--				<&cmu_top CLK_ACLK_CAM1_333>,
--				<&cmu_top CLK_ACLK_CAM1_400>,
--				<&cmu_top CLK_ACLK_CAM1_552>;
-+				 <&cmu_top CLK_SCLK_ISP_UART_CAM1>,
-+				 <&cmu_top CLK_SCLK_ISP_SPI1_CAM1>,
-+				 <&cmu_top CLK_SCLK_ISP_SPI0_CAM1>,
-+				 <&cmu_top CLK_ACLK_CAM1_333>,
-+				 <&cmu_top CLK_ACLK_CAM1_400>,
-+				 <&cmu_top CLK_ACLK_CAM1_552>;
-+			clock-names = "oscclk",
-+				      "sclk_isp_uart_cam1",
-+				      "sclk_isp_spi1_cam1",
-+				      "sclk_isp_spi0_cam1",
-+				      "aclk_cam1_333",
-+				      "aclk_cam1_400",
-+				      "aclk_cam1_552";
- 			power-domains = <&pd_cam1>;
- 		};
- 
-@@ -678,23 +678,23 @@ cmu_imem: clock-controller@11060000 {
- 			reg = <0x11060000 0x1000>;
- 			#clock-cells = <1>;
- 
--			clock-names = "oscclk",
--				"aclk_imem_sssx_266",
--				"aclk_imem_266",
--				"aclk_imem_200";
- 			clocks = <&xxti>,
--				<&cmu_top CLK_DIV_ACLK_IMEM_SSSX_266>,
--				<&cmu_top CLK_DIV_ACLK_IMEM_266>,
--				<&cmu_top CLK_DIV_ACLK_IMEM_200>;
-+				 <&cmu_top CLK_DIV_ACLK_IMEM_SSSX_266>,
-+				 <&cmu_top CLK_DIV_ACLK_IMEM_266>,
-+				 <&cmu_top CLK_DIV_ACLK_IMEM_200>;
-+			clock-names = "oscclk",
-+				      "aclk_imem_sssx_266",
-+				      "aclk_imem_266",
-+				      "aclk_imem_200";
- 		};
- 
- 		slim_sss: slim-sss@11140000 {
- 			compatible = "samsung,exynos5433-slim-sss";
- 			reg = <0x11140000 0x1000>;
- 			interrupts = <GIC_SPI 312 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk";
- 			clocks = <&cmu_imem CLK_PCLK_SLIMSSS>,
- 				 <&cmu_imem CLK_ACLK_SLIMSSS>;
-+			clock-names = "pclk", "aclk";
- 		};
- 
- 		pd_gscl: power-domain@105c4000 {
-@@ -954,8 +954,8 @@ pmu_system_controller: system-controller@105c0000 {
- 			compatible = "samsung,exynos5433-pmu", "simple-mfd", "syscon";
- 			reg = <0x105c0000 0x5008>;
- 			#clock-cells = <1>;
--			clock-names = "clkout16";
- 			clocks = <&xxti>;
-+			clock-names = "clkout16";
- 
- 			mipi_phy: mipi-phy {
- 				compatible = "samsung,exynos5433-mipi-video-phy";
-@@ -975,13 +975,13 @@ reboot: syscon-reboot {
- 
- 		gic: interrupt-controller@11001000 {
- 			compatible = "arm,gic-400";
-+			reg = <0x11001000 0x1000>,
-+			      <0x11002000 0x2000>,
-+			      <0x11004000 0x2000>,
-+			      <0x11006000 0x2000>;
- 			#address-cells = <0>;
- 			#interrupt-cells = <3>;
- 			interrupt-controller;
--			reg = <0x11001000 0x1000>,
--				<0x11002000 0x2000>,
--				<0x11004000 0x2000>,
--				<0x11006000 0x2000>;
- 			interrupts = <GIC_PPI 9 0xf04>;
- 		};
- 
-@@ -1190,13 +1190,13 @@ gsc_0: video-scaler@13c00000 {
- 			compatible = "samsung,exynos5433-gsc";
- 			reg = <0x13c00000 0x1000>;
- 			interrupts = <GIC_SPI 297 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk", "aclk_xiu",
--				      "aclk_gsclbend", "gsd";
- 			clocks = <&cmu_gscl CLK_PCLK_GSCL0>,
- 				 <&cmu_gscl CLK_ACLK_GSCL0>,
- 				 <&cmu_gscl CLK_ACLK_XIU_GSCLX>,
- 				 <&cmu_gscl CLK_ACLK_GSCLBEND_333>,
- 				 <&cmu_gscl CLK_ACLK_GSD>;
-+			clock-names = "pclk", "aclk", "aclk_xiu",
-+				      "aclk_gsclbend", "gsd";
- 			iommus = <&sysmmu_gscl0>;
- 			power-domains = <&pd_gscl>;
- 		};
-@@ -1205,13 +1205,13 @@ gsc_1: video-scaler@13c10000 {
- 			compatible = "samsung,exynos5433-gsc";
- 			reg = <0x13c10000 0x1000>;
- 			interrupts = <GIC_SPI 298 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk", "aclk_xiu",
--				      "aclk_gsclbend", "gsd";
- 			clocks = <&cmu_gscl CLK_PCLK_GSCL1>,
- 				 <&cmu_gscl CLK_ACLK_GSCL1>,
- 				 <&cmu_gscl CLK_ACLK_XIU_GSCLX>,
- 				 <&cmu_gscl CLK_ACLK_GSCLBEND_333>,
- 				 <&cmu_gscl CLK_ACLK_GSD>;
-+			clock-names = "pclk", "aclk", "aclk_xiu",
-+				      "aclk_gsclbend", "gsd";
- 			iommus = <&sysmmu_gscl1>;
- 			power-domains = <&pd_gscl>;
- 		};
-@@ -1220,13 +1220,13 @@ gsc_2: video-scaler@13c20000 {
- 			compatible = "samsung,exynos5433-gsc";
- 			reg = <0x13c20000 0x1000>;
- 			interrupts = <GIC_SPI 299 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk", "aclk_xiu",
--				      "aclk_gsclbend", "gsd";
- 			clocks = <&cmu_gscl CLK_PCLK_GSCL2>,
- 				 <&cmu_gscl CLK_ACLK_GSCL2>,
- 				 <&cmu_gscl CLK_ACLK_XIU_GSCLX>,
- 				 <&cmu_gscl CLK_ACLK_GSCLBEND_333>,
- 				 <&cmu_gscl CLK_ACLK_GSD>;
-+			clock-names = "pclk", "aclk", "aclk_xiu",
-+				      "aclk_gsclbend", "gsd";
- 			iommus = <&sysmmu_gscl2>;
- 			power-domains = <&pd_gscl>;
- 		};
-@@ -1294,10 +1294,10 @@ scaler_0: scaler@15000000 {
- 			compatible = "samsung,exynos5433-scaler";
- 			reg = <0x15000000 0x1294>;
- 			interrupts = <0 402 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk", "aclk_xiu";
- 			clocks = <&cmu_mscl CLK_PCLK_M2MSCALER0>,
- 				 <&cmu_mscl CLK_ACLK_M2MSCALER0>,
- 				 <&cmu_mscl CLK_ACLK_XIU_MSCLX>;
-+			clock-names = "pclk", "aclk", "aclk_xiu";
- 			iommus = <&sysmmu_scaler_0>;
- 			power-domains = <&pd_mscl>;
- 		};
-@@ -1306,10 +1306,10 @@ scaler_1: scaler@15010000 {
- 			compatible = "samsung,exynos5433-scaler";
- 			reg = <0x15010000 0x1294>;
- 			interrupts = <0 403 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk", "aclk_xiu";
- 			clocks = <&cmu_mscl CLK_PCLK_M2MSCALER1>,
- 				 <&cmu_mscl CLK_ACLK_M2MSCALER1>,
- 				 <&cmu_mscl CLK_ACLK_XIU_MSCLX>;
-+			clock-names = "pclk", "aclk", "aclk_xiu";
- 			iommus = <&sysmmu_scaler_1>;
- 			power-domains = <&pd_mscl>;
- 		};
-@@ -1318,11 +1318,11 @@ jpeg: codec@15020000 {
- 			compatible = "samsung,exynos5433-jpeg";
- 			reg = <0x15020000 0x10000>;
- 			interrupts = <GIC_SPI 411 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk", "aclk_xiu", "sclk";
- 			clocks = <&cmu_mscl CLK_PCLK_JPEG>,
- 				 <&cmu_mscl CLK_ACLK_JPEG>,
- 				 <&cmu_mscl CLK_ACLK_XIU_MSCLX>,
- 				 <&cmu_mscl CLK_SCLK_JPEG>;
-+			clock-names = "pclk", "aclk", "aclk_xiu", "sclk";
- 			iommus = <&sysmmu_jpeg>;
- 			power-domains = <&pd_mscl>;
- 		};
-@@ -1331,10 +1331,10 @@ mfc: codec@152e0000 {
- 			compatible = "samsung,exynos5433-mfc";
- 			reg = <0x152e0000 0x10000>;
- 			interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "pclk", "aclk", "aclk_xiu";
- 			clocks = <&cmu_mfc CLK_PCLK_MFC>,
- 				 <&cmu_mfc CLK_ACLK_MFC>,
- 				 <&cmu_mfc CLK_ACLK_XIU_MFCX>;
-+			clock-names = "pclk", "aclk", "aclk_xiu";
- 			iommus = <&sysmmu_mfc_0>, <&sysmmu_mfc_1>;
- 			iommu-names = "left", "right";
- 			power-domains = <&pd_mfc>;
-@@ -1344,9 +1344,9 @@ sysmmu_decon0x: sysmmu@13a00000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x13a00000 0x1000>;
- 			interrupts = <GIC_SPI 192 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_disp CLK_ACLK_SMMU_DECON0X>,
--				<&cmu_disp CLK_PCLK_SMMU_DECON0X>;
-+				 <&cmu_disp CLK_PCLK_SMMU_DECON0X>;
-+			clock-names = "aclk", "pclk";
- 			power-domains = <&pd_disp>;
- 			#iommu-cells = <0>;
- 		};
-@@ -1355,9 +1355,9 @@ sysmmu_decon1x: sysmmu@13a10000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x13a10000 0x1000>;
- 			interrupts = <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_disp CLK_ACLK_SMMU_DECON1X>,
--				<&cmu_disp CLK_PCLK_SMMU_DECON1X>;
-+				 <&cmu_disp CLK_PCLK_SMMU_DECON1X>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_disp>;
- 		};
-@@ -1366,9 +1366,9 @@ sysmmu_tv0x: sysmmu@13a20000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x13a20000 0x1000>;
- 			interrupts = <GIC_SPI 214 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_disp CLK_ACLK_SMMU_TV0X>,
--				<&cmu_disp CLK_PCLK_SMMU_TV0X>;
-+				 <&cmu_disp CLK_PCLK_SMMU_TV0X>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_disp>;
- 		};
-@@ -1377,9 +1377,9 @@ sysmmu_tv1x: sysmmu@13a30000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x13a30000 0x1000>;
- 			interrupts = <GIC_SPI 216 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_disp CLK_ACLK_SMMU_TV1X>,
--				<&cmu_disp CLK_PCLK_SMMU_TV1X>;
-+				 <&cmu_disp CLK_PCLK_SMMU_TV1X>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_disp>;
- 		};
-@@ -1388,9 +1388,9 @@ sysmmu_gscl0: sysmmu@13c80000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x13c80000 0x1000>;
- 			interrupts = <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_gscl CLK_ACLK_SMMU_GSCL0>,
- 				 <&cmu_gscl CLK_PCLK_SMMU_GSCL0>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_gscl>;
- 		};
-@@ -1399,9 +1399,9 @@ sysmmu_gscl1: sysmmu@13c90000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x13c90000 0x1000>;
- 			interrupts = <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_gscl CLK_ACLK_SMMU_GSCL1>,
- 				 <&cmu_gscl CLK_PCLK_SMMU_GSCL1>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_gscl>;
- 		};
-@@ -1410,9 +1410,9 @@ sysmmu_gscl2: sysmmu@13ca0000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x13ca0000 0x1000>;
- 			interrupts = <GIC_SPI 292 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_gscl CLK_ACLK_SMMU_GSCL2>,
- 				 <&cmu_gscl CLK_PCLK_SMMU_GSCL2>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_gscl>;
- 		};
-@@ -1421,9 +1421,9 @@ sysmmu_scaler_0: sysmmu@15040000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x15040000 0x1000>;
- 			interrupts = <GIC_SPI 404 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_mscl CLK_ACLK_SMMU_M2MSCALER0>,
--				<&cmu_mscl CLK_PCLK_SMMU_M2MSCALER0>;
-+				 <&cmu_mscl CLK_PCLK_SMMU_M2MSCALER0>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_mscl>;
- 		};
-@@ -1432,9 +1432,9 @@ sysmmu_scaler_1: sysmmu@15050000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x15050000 0x1000>;
- 			interrupts = <GIC_SPI 406 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_mscl CLK_ACLK_SMMU_M2MSCALER1>,
--				<&cmu_mscl CLK_PCLK_SMMU_M2MSCALER1>;
-+				 <&cmu_mscl CLK_PCLK_SMMU_M2MSCALER1>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_mscl>;
- 		};
-@@ -1443,9 +1443,9 @@ sysmmu_jpeg: sysmmu@15060000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x15060000 0x1000>;
- 			interrupts = <GIC_SPI 408 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_mscl CLK_ACLK_SMMU_JPEG>,
--				<&cmu_mscl CLK_PCLK_SMMU_JPEG>;
-+				 <&cmu_mscl CLK_PCLK_SMMU_JPEG>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_mscl>;
- 		};
-@@ -1454,9 +1454,9 @@ sysmmu_mfc_0: sysmmu@15200000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x15200000 0x1000>;
- 			interrupts = <GIC_SPI 352 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_mfc CLK_ACLK_SMMU_MFC_0>,
--				<&cmu_mfc CLK_PCLK_SMMU_MFC_0>;
-+				 <&cmu_mfc CLK_PCLK_SMMU_MFC_0>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_mfc>;
- 		};
-@@ -1465,9 +1465,9 @@ sysmmu_mfc_1: sysmmu@15210000 {
- 			compatible = "samsung,exynos-sysmmu";
- 			reg = <0x15210000 0x1000>;
- 			interrupts = <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "aclk", "pclk";
- 			clocks = <&cmu_mfc CLK_ACLK_SMMU_MFC_1>,
--				<&cmu_mfc CLK_PCLK_SMMU_MFC_1>;
-+				 <&cmu_mfc CLK_PCLK_SMMU_MFC_1>;
-+			clock-names = "aclk", "pclk";
- 			#iommu-cells = <0>;
- 			power-domains = <&pd_mfc>;
- 		};
-@@ -1620,8 +1620,8 @@ adc: adc@14d10000 {
- 			compatible = "samsung,exynos5433-adc", "samsung,exynos7-adc";
- 			reg = <0x14d10000 0x100>;
- 			interrupts = <GIC_SPI 438 IRQ_TYPE_LEVEL_HIGH>;
--			clock-names = "adc";
- 			clocks = <&cmu_peric CLK_PCLK_ADCIF>;
-+			clock-names = "adc";
- 			#io-channel-cells = <1>;
- 
- 			status = "disabled";
+diff --git a/arch/arm64/boot/dts/exynos/google/gs101.dtsi b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
+index edc38f2d1183..bfceea5486f4 100644
+--- a/arch/arm64/boot/dts/exynos/google/gs101.dtsi
++++ b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
+@@ -39,12 +39,15 @@ cluster0 {
+ 				core0 {
+ 					cpu = <&cpu0>;
+ 				};
++
+ 				core1 {
+ 					cpu = <&cpu1>;
+ 				};
++
+ 				core2 {
+ 					cpu = <&cpu2>;
+ 				};
++
+ 				core3 {
+ 					cpu = <&cpu3>;
+ 				};
+@@ -54,6 +57,7 @@ cluster1 {
+ 				core0 {
+ 					cpu = <&cpu4>;
+ 				};
++
+ 				core1 {
+ 					cpu = <&cpu5>;
+ 				};
+@@ -63,6 +67,7 @@ cluster2 {
+ 				core0 {
+ 					cpu = <&cpu6>;
+ 				};
++
+ 				core1 {
+ 					cpu = <&cpu7>;
+ 				};
+@@ -1681,9 +1686,9 @@ usbdrd31: usb@11110000 {
+ 			compatible = "google,gs101-dwusb3";
+ 			ranges = <0x0 0x11110000 0x10000>;
+ 			clocks = <&cmu_hsi0 CLK_GOUT_HSI0_USB31DRD_BUS_CLK_EARLY>,
+-				<&cmu_hsi0 CLK_GOUT_HSI0_USB31DRD_I_USB31DRD_SUSPEND_CLK_26>,
+-				<&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_ACLK>,
+-				<&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_PCLK>;
++				 <&cmu_hsi0 CLK_GOUT_HSI0_USB31DRD_I_USB31DRD_SUSPEND_CLK_26>,
++				 <&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_ACLK>,
++				 <&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_PCLK>;
+ 			clock-names = "bus_early", "susp_clk", "link_aclk", "link_pclk";
+ 			#address-cells = <1>;
+ 			#size-cells = <1>;
 
 -- 
 2.53.0
