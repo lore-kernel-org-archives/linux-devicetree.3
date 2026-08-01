@@ -1,48 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7420359A9B;
-	Sat,  1 Aug 2026 11:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B652EC0A7
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 12:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785583728; cv=none; b=ICk9nCfjoD1htbJslJmmeLYE3CC1A8eYzYme1u5NTGNBFvqkshBpo/n9UQeUZs0ADUvAVwM4vsWnuCYXyj0GNUFJzxAhxZarI522Gfu3HnLnfQiYiEs/06d02d8PyNG680cf5EE99SS1gIZpgdkO0QMe+DyCUl+kSDWIP+rf8tA=
+	t=1785588999; cv=none; b=NwTmbZl4qeuGyep87HJ7DLElKV+CVMC2gCFCm1k6H/POuw4pOXnJGFxdStyNJPAzxhIiK5XRFCjICnFjuXN6QJA5QAG2HfzMpNsENxwTvLa+tiavmhbQBpWILpe7RiqyKIs/kRan4lprXZT1etr8FgXLswx3KQmn0VzijV5Wisk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785583728; c=relaxed/simple;
-	bh=fcnZbbeqljOwmjnfwamAiamIxrC/pATHemwzBgub2TA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dj82zoJnOPd5Jn4ijZrmBtlkl4GhquGMlSVeQdYkk+TeGhh1f8GmsbSHL3n7xptfbRXVxrye2hv4n0Ep+UGUCakVx6W37gv5zWd/wGM+Pi6eKX/W6KQ+UIb+6brUTltAtplxaWcAGqyHN89pF9gCmkkBBzkQgrfiC88liV3mgVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MNDHhV1n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785588999; c=relaxed/simple;
+	bh=GWYh6PfHzXJ24Lv+kO86aOYZFR2Qz0K98fLbexCOYIA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D6nmbneiYCRKR4ZO9ehSQyI4rwfcGkT1cutICKFj0ecLP6V0vRBNu1A0ucKYk2Hwot4kTenyc07sS3aX0VukXo04dtr0eO2qFbFq2sU/4EdPkz4mdEpoK8NwaaeH9763n8g4oi8/q7ubH+bgjyS+uGHS/h3SlfKkDypBX+0JLKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9FXDQS+; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MNDHhV1n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008441F00ADE;
-	Sat,  1 Aug 2026 11:28:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785583727;
-	bh=8NltONilZ9GycYIdkxMP4OoeJI6kGzsHNsdiT8Ul84U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MNDHhV1nD1XnRgFmarxfgWSy/KNHCUgDwqfve5p6hv8yCl4YL/fP7jYgzaaVxgcZT
-	 xO53pg8GSoWVzN46pvycWvlsnDMTDnY7swqk+fVg82a+8orDWb3ge15lXu75Fg8i4s
-	 nyMHk4m2pVuijZj1U/CJeCPrcFoJiEWad4wka9/HcFx7FvFN9XPMphJ4oq/o5V4G4M
-	 NHPC5WTbcXnEazp4pwKPdwRuulnnzfGwyNyTEeq9DnkuGgnYsjnNpQEeZMKjlI2LLt
-	 nu5BNB2ilGsKzIHpXeuxaUnGTmHDt/IR3sYBdhAYbwBG1D3ARjQlMbwu6ITqRvSPSl
-	 ZK29vYmgK6YtA==
-From: Will Deacon <will@kernel.org>
-To: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Geetha sowjanya <gakula@marvell.com>
-Cc: catalin.marinas@arm.com,
-	kernel-team@android.com,
-	Will Deacon <will@kernel.org>,
-	mark.rutland@arm.com,
-	krzk+dt@kernel.org
-Subject: Re: [PATCH v8 0/3] perf: marvell: Add CN20K DDR PMU support
-Date: Sat,  1 Aug 2026 12:28:29 +0100
-Message-ID: <178551108395.325729.8003584070138244623.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260601073318.7098-1-gakula@marvell.com>
-References: <20260601073318.7098-1-gakula@marvell.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9FXDQS+"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c9eefcf9175so1616485a12.3
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 05:56:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785588998; x=1786193798; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DXt5AeyHYEk7MNJZLXJJ8wYyYWmg+frDkMSxnOOnAFk=;
+        b=f9FXDQS+ST8HA7JMD+fstAhOhZ5CACz+7Q+SpPQcV0fnDPIaJQw35fmJ8/JCs1T/99
+         06ZGp91QSOYA2LKVlc/atsXK8a1WLP9d3McIU7WC/wJtNYnRHA0EZRLGAh/PY6UzfCqP
+         8Y0PNHf1jzu/klyfPdBT/XsMO9o5DnoLWz8X4ITGjVm9uskKU/4NmT8NbbzafOABRL8O
+         fiOcn0CPblwb/2D9poBrLDbRGZppCCmW3EvzuXeO5vf5UdazxLz0gekBa8zqO6cHtYM7
+         GwwYcb4B6H/kDgyNGlFgitClUt7HNomDzkT60H/LYvsGjDVBjMjViYSpoADcquVYgxtJ
+         A8LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785588998; x=1786193798;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DXt5AeyHYEk7MNJZLXJJ8wYyYWmg+frDkMSxnOOnAFk=;
+        b=YrdPXIy3Zas6hDCBG0RDa39I0/nnMZgN7ukmaySO9FHSle4ZnPD/u7AgU9rErMuixA
+         wXypz76tIVAh7T5XC10btnmX5sn6ajbfjvsMfLFEmdurb/zmz5TxjS2tcAz+EPp32EF4
+         AD2KPTjrlI22UFfMZj7DJ3MoNBTTnSxSlY1vyKa0+TCTaiDuk81ttaCdYlPKRxoXVF9m
+         +1aLpoqUp1ryvGXTshZXqQLxn9jzSVniX4BStYYOPUjg1sQDwq//fU9wea+oTDTvPAPW
+         8Hz90WjWD0voaTJn/k1KVKGAysqJ7iAG6JElcY4VBVYDnqEnvOcaeuP71DdJ7Tr7SKCZ
+         65Fg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqste3k2FaOEJtqhMqCiqjE1Hq08w2Br0SXj9B795HKOUFVnjAsjLKiyHoW9vyFn4tqpAtsn77ziP4z@vger.kernel.org
+X-Gm-Message-State: AOJu0YzeHFaU/gRigZuZ+BHW+NMGCwXU4kc4IBXxCaAU0SRpbpmU76DH
+	++3rGc6zaLbFJqUfdeqaqkx6Mwrq7+2f6EuFiExCSKJioxySJV7UYi8i
+X-Gm-Gg: AR+sD12OSTXYKk2mw9IK9S0WD9LKrh2x6/f15vSvMiBd6PkslS7l+sqktg5cFH8l39o
+	7/OdNkfZ6hb8M9wrrffpEht3PXyuCqKJHDuAZmqpIlX+iV6wBLgBRU2igIYrenu/UGqesGnS0nR
+	dOC70L+P6CkMV1jDbm5vfZf05wPp51zDMsYX1ZUyI0GpqPdt1AbV54BP14+FWmWcl3qxU9znZQA
+	vunVYa7ts2QhWJ/f56xU3NiDx6pkJadjptTy2Fdnu2bXuOvmR70n0L9YZcxsUs1+JnhOfjSMgkp
+	2PChFWO2VDYTJNyHeNtP+prmxcFod2Z4KxFKVNzIQbtBgyWs1B0tVXiu3ypj2FaRJQLQWrf3uru
+	C595VoccYDGVr25w3l0HtcbweNaGQwEQ++Rajt97vYfToed6ubc/AinVWFAnfOXaScEszApWfW5
+	Z6dX83XpyOk6ZbT+9i6KZ4LBLrN8+7ndiyvVnSzh4iRoWO1YAZagjqfv0NLyz3zUwL
+X-Received: by 2002:a05:6a21:510:b0:3c3:724d:ae7a with SMTP id adf61e73a8af0-3c92a518b52mr3598772637.9.1785588997645;
+        Sat, 01 Aug 2026 05:56:37 -0700 (PDT)
+Received: from [127.0.1.1] ([2401:4900:8900:d10c:80ab:6bbb:b91:2804])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e06f88fsm16131724eec.20.2026.08.01.05.56.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 05:56:37 -0700 (PDT)
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Subject: [PATCH v6 0/2] media: Add Himax HM1092 mono NIR sensor driver
+Date: Sat, 01 Aug 2026 18:24:41 +0530
+Message-Id: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,33 +68,159 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QTW7DIBAF4KtErEvFvyGr3iPqYgxDTFXHFSSoV
+ eS7Fycbl0WXT5rvzWjupGBOWMjxcCcZayppubRgXg7ET3A5I02hZSKYMMxwS6eZMydoyKlipmC
+ iAAghCsZJM18ZY/p+9J3en7ncxg/0161km5hSuS7557Gw8m3u2T0w3nVXThkNfAyWo5By1G/nG
+ dLnq19msnVXsdei16JpFV2UxgUDyvZa/qtl01ZHgCFGFdH3Wu217rVqmgGX6MWggnW91nvteq2
+ bBh71CO29yP5cvq7rL6TsWE+0AQAA
+X-Change-ID: 20260618-hm1092-driver-a6f2aaddf201
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jake Steinman <j@metarealtyinc.ca>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6182; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=GWYh6PfHzXJ24Lv+kO86aOYZFR2Qz0K98fLbexCOYIA=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqbez+2Nixjwzl4g1m0eFotN0odKIoh0WyI4rIM
+ TrGviz00pmJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCam3s/gAKCRAVlYpeERwF
+ 3hT+D/4iBq4BCQkRhtHI7x+Ye9zzmgnS9UqbhoCD6KzKdmwLBwwwPyT7acHNqVZlt8E+qVghJDi
+ HlPyrdMhgwOdY4Zef11/dDgS3d8OlCJFjrGo3Bows96L8HHMRpDxkL2QlAnrFeueeX+XZR3p2Sh
+ M2lY7fhJBhtqETGJOgFTH76z9VuyYQXk5He56uBPuMBfe3x7ZKybDZQ4sKDrXYX6QMYigmiT7g7
+ LogcxPQeKcI5yKoM7JOEjsYIXOf0n+irqYYFOplKXGKSYtXGiddJYcrwRpmoWyJ/3NSFUUFN6oW
+ gzM875e+cagUoVyPtWpL8Z5e1SfPmhp65AG6+I2MNVuy9zMZfbqUfUa0BkKy3RQg16e+r/AoFDB
+ m1e2IFywfnOwE9JEj4ms+NKi6/ElWLPr0f7mvCBjpuusOme8VkyMWvJ09bL840xLHKjBOgnp6Tn
+ KRkqTgpHQIqpTeasrTgqb+hlYz/1UT1VrfK1ye25huQSW5Er6rZuSTpIjCHEpDPrv98J/4LTQg5
+ TpcS/wc3HVsoop0m2dXmVThByWjNFcXwsKCHBteJkmL9YbLaHlOOMVPFkBSbeo9TsGnlm68YzEg
+ NG9NaihKyfeLENT1M3VmGpFtodv4ZosNCa3tJz2MGscgM3qdYAqLDiL/febxCkNxY61BDWkoCnq
+ ZwJ+O2H2Fnwr7NQ==
+X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
+ fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-On Mon, 01 Jun 2026 13:03:15 +0530, Geetha sowjanya wrote:
-> This series adds support for the DDR Performance Monitoring Unit (PMU)
-> present in Marvell CN20K SoCs.
-> 
-> The DDR PMU is part of the DRAM Subsystem (DSS) and provides hardware
-> counters to monitor DDR traffic and performance events. The block
-> implements eight programmable counters and two fixed-function counters
-> tracking DDR read and write activity, and is accessed via a dedicated
-> MMIO region.
-> 
-> [...]
+This adds a V4L2 subdev driver and DT binding for the Himax HM1092, a
+1 megapixel monochrome near-infrared image sensor. On laptops it sits
+behind the IR camera used for face unlock. It speaks a single MIPI CSI-2
+data lane and outputs 10-bit RAW at 560x360.
 
-Applied to arm64 (for-next/perf), thanks!
+The driver exposes that one fixed mode, test patterns, exposure, analogue
+gain and digital gain controls, pixel-array selection targets and the
+standard fwnode properties. It has been tested on an ASUS Zenbook A14:
+the sensor probes, streams, changes brightness across the full exposure
+and analogue gain ranges, accepts digital gain endpoint updates while
+streaming, and returns to runtime suspend after capture.
 
-[1/3] dt-bindings: perf: marvell: Add CN20K DDR PMU binding
-      https://git.kernel.org/arm64/c/6e0aa591af99
-[2/3] perf: marvell: Add CN20K DDR PMU support
-      https://git.kernel.org/arm64/c/9b551a2446b2
-[3/3] perf: marvell: Cancel CN10K DDR PMU hrtimer on device remove
-      https://git.kernel.org/arm64/c/7dbcb0268d1e
+The exposure default is 500 lines, selected from unstretched illuminated
+captures on the ASUS system. The init sequence programs the same value so
+the sensor state and V4L2 control default remain consistent.
 
-Cheers,
--- 
-Will
+The register programming was extracted from
+com.qti.sensormodule.hm1092.bin in the Qualcomm camera stack shipped for
+the ASUS system. Jake Steinman independently identified the exposure,
+analogue gain, digital gain and group-hold registers from Dell's
+hm1092.sys. The available documentation does not identify the
+test-pattern modes, so their menu names are based on output observed
+during hardware testing.
 
-https://fixes.arm64.dev
-https://next.arm64.dev
-https://will.arm64.dev
+The ASUS Windows configuration supplies a 24 MHz external clock. The
+programmed PLL divide-by-12 pre-divider and multiply-by-90 multiplier
+give a 180 MHz CSI-2 DDR link frequency, a 360 Mbit/s lane rate and a
+36 MHz pixel rate. With HTS 1616 and VTS 750, the resulting frame rate is
+approximately 29.7 frames per second. The driver reports the 1296x736
+native pixel array, the 1280x720 active array and the mode's 1150x718
+crop.
+
+The sensor driver and its binding are SoC-neutral, so they are sent on
+their own through the media tree. The board-level device tree and PHY
+work that wires this camera up on the ASUS Zenbook A14 will be sent as
+its own series.
+
+Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+---
+Changes in v6:
+- dt-bindings: update the example to the PLL-derived 180 MHz link
+  frequency.
+- hm1092: replace the inconsistent 400 MHz link frequency and derived
+  80 MHz pixel rate with 180 MHz and 36 MHz. The new values are derived
+  from the ASUS Windows configuration's 24 MHz external clock and the
+  sensor PLL dividers.
+- hm1092: report the 1296x736 native array, 1280x720 active array and
+  1150x718 mode crop as distinct selection targets.
+- hm1092: add exposure, analogue gain and digital gain controls using the
+  register map supplied by Jake Steinman. Keep multi-byte controls as
+  separate writes, use group hold, derive the exposure maximum from VTS,
+  and program the hardware-tested 500-line exposure default in both the
+  init table and control. Hardware-test the controls on the 560x360 mode.
+- hm1092: do not power the sensor on in probe(). There is no I2C access
+  during probe, so leave it suspended and let runtime PM power it for
+  streaming.
+- Link to v5: https://patch.msgid.link/20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com
+
+Changes in v5:
+- dt-bindings: drop the data-lanes property entirely; the fixed
+  single-lane wiring is not configurable, so it does not belong in DT.
+- hm1092: implement the get_selection pad op (CROP, CROP_DEFAULT,
+  CROP_BOUNDS and NATIVE_SIZE) reporting the sensor's pixel-array
+  geometry, as required by libcamera.
+- Link to v4: https://patch.msgid.link/20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com
+
+Changes in v4:
+- dt-bindings: make data-lanes optional for the fixed single-lane sensor,
+  constrain explicit values to <1>, and omit it from the example.
+- hm1092: add the copyright notice.
+- hm1092: replace the private register representation and write helper
+  with CCI register sequences and direct CCI writes.
+- hm1092: use descriptive test-pattern names based on hardware captures;
+  the available documentation does not identify these modes.
+- hm1092: parse fwnode properties before creating controls and set
+  read-only flags after validating control creation.
+- hm1092: use the generic get_fmt callback for the fixed sensor mode.
+- hm1092: initialize endpoint parsing with the fixed one-lane default,
+  reject other lane configurations, and remove the redundant endpoint
+  presence check.
+- hm1092: use fsleep() and null-safe GPIO calls, and apply the requested
+  declaration, brace, return-value and error-path formatting cleanups.
+- Link to v3: https://patch.msgid.link/20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com
+
+Changes in v3:
+- dt-bindings: add the Reviewed-by tag from Conor Dooley.
+- hm1092: initialize RAW colorimetry fields in the pad format helper so
+  userspace values cannot leak into subdevice state.
+- hm1092: return -ENXIO when the required firmware graph endpoint is
+  absent instead of deferring probe indefinitely.
+- Link to v2: https://patch.msgid.link/20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com
+
+Changes in v2:
+- hm1092: use pm_ptr() instead of pm_sleep_ptr() for the dev_pm_ops
+  pointer. The ops come from DEFINE_RUNTIME_DEV_PM_OPS(), so gating them
+  on CONFIG_PM_SLEEP dropped runtime PM on a CONFIG_PM=y, PM_SLEEP=n
+  build.
+- hm1092: free the control handler on the error paths in
+  hm1092_init_controls(); the fwnode-parse and ctrl_hdlr->error returns
+  leaked the handler.
+- Link to v1: https://patch.msgid.link/20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com
+
+---
+Ramshouriesh R (2):
+      media: dt-bindings: Add Himax HM1092 NIR sensor
+      media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
+
+ .../bindings/media/i2c/himax,hm1092.yaml           | 101 +++
+ MAINTAINERS                                        |   7 +
+ drivers/media/i2c/Kconfig                          |  11 +
+ drivers/media/i2c/Makefile                         |   1 +
+ drivers/media/i2c/hm1092.c                         | 863 +++++++++++++++++++++
+ 5 files changed, 983 insertions(+)
+---
+base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
+change-id: 20260618-hm1092-driver-a6f2aaddf201
+
+Best regards,
+--  
+Ramshouriesh R <rshouriesh@gmail.com>
+
