@@ -1,75 +1,68 @@
-Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A663A254AFF;
-	Sat,  1 Aug 2026 16:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BEA340A7F
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 16:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785601902; cv=none; b=M2xdqCknP/F7OW0zM9flKDEZ6oCl8uQo0ol0uNfWPG+96VcV24aOsQko50ccbSpc0M0fPf5N6UcnBtFSJRVECSGCCfsWvmLVd37BuLR3Op8qw8r0tBvuKcpd9J8h3bMT8tNFXz3fAhTJBPdTKq9tAVPksUCqaNT/KSnc5lSgbp0=
+	t=1785602526; cv=none; b=nZeGq7dsb/HYC+Kk+QPqsG74lh24gZSFwFiNShtz3pvCNOBZVdeK7UK5E4xnLnWpwT7E10tlFMK9UXfnq66OFC1rgVwkqD0Yxrge0aFj8HTKhhkRg4GJkGlLpBrO3BppeTNaYVD1IzMTYgF4hF3aStp7pLDLmOmIzlRuviT/1xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785601902; c=relaxed/simple;
-	bh=EfI+4CNn1IzNdVFSyFoDKS+KPU7V09xdwBkC6lGm4nw=;
+	s=arc-20240116; t=1785602526; c=relaxed/simple;
+	bh=8W4ZSqDWaGXltT5HClCxZRiq8VIILVezGC4RtEa8wDk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ScBCEUtGRDL3WIp0rXr6qzQHUBN48C9BftvU6JMMSK0gwcKUSBy7nj9ylAD3SxgbtDvtaWhZgejkvAmNFTPdRJCkOetHLYD2ynLn8Tr58vcU2qK9rPgU7lvpe9N9GOlitX/FW38gDbi3OOU1PVYQ/O/NjynQHKRRJi1qyMQWPds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=RmkXFT2X; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AM+GAMAm; arc=none smtp.client-ip=202.12.124.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
+	 In-Reply-To:Content-Type; b=IuBxXXITo6VKoriyjD5dvfWJM0bG98YEiHNDVTKYn05KL5NSmE7ZDXfjJzs0awU9TJ454vg5YnXo977rVuZ0Dv1fg/eHG+w6RFDL9mA+r0348NXF1UWH52707ff9gPykLLCDRsLaNaYUqbZR9mVJXXQpcHBUOL1T0g8VtXKSMXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=T1Wcj7yP; arc=none smtp.client-ip=209.85.160.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="RmkXFT2X";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AM+GAMAm"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailflow.stl.internal (Postfix) with ESMTP id 2F5F113001C3;
-	Sat,  1 Aug 2026 12:31:38 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Sat, 01 Aug 2026 12:31:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785601898;
-	 x=1785609098; bh=+GWeLMj6JRkBwIB5dZ2ML5Xr2ewkb9W4drJzAxuBpRM=; b=
-	RmkXFT2XRwFzTnZ4RUuvPxrVeMfPjFOnKrwCQsS1XptZmkGjnm0XK8zPm95SZptR
-	vblyF6P+DynXIEReP4UCqbvO3IMnP26E8gPFZVvIKxFxpj/WP+jbSL0xKwAplAJE
-	gEnbKFuaiMyMaFH5mrB8PQ+DMYdaPHXJ97/jG9UBaGIj3TQ7X1dTNdx1rF4YdDSc
-	iMHjeqzRagEJLUxPukNwHDgpBumKK9kM6tgK5VD2UiZaQwlECGu1yKPHEkzUz/AK
-	WkXrhcCp+jhjHp8Ngn+QB0Pt9guioRZlwl/hktcFcX6LZeI/fYbv/NpTjqirwpZn
-	VVHNMIE0xu4DhjWBh1KyIw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785601898; x=
-	1785609098; bh=+GWeLMj6JRkBwIB5dZ2ML5Xr2ewkb9W4drJzAxuBpRM=; b=A
-	M+GAMAm3QbbKNrAARFlEsFWy2tEQk0jncgzM/KHX319JOGnX3qe1BISPYpFfR9vm
-	+Mw8Yrb5xv6kiMCyD9tEu8u1sJgT/x9+BwsfZ0I/5bT+yZXvmV7fD1LMhb+LmGvV
-	8/4QEFQ2T1n45F2uJKEEeqD7FBWoiHWHR9Qu4WAZlxzzH52Npi94GZFVuq5dqBgs
-	r16p0vkhDOqgX6wB8Ijy/G0nlIeqX5WG3Wlr3z9CEWwxsTI044OAmxg+Lr6NWXvK
-	KUOKRdx6W+pcgXx5fMrK/FmdWe5guJFfuqbQPAsBnUKOzvrVxPucnnUVUjqaYPn1
-	Je6eQuIup7l1UHNYKtBbA==
-X-ME-Sender: <xms:aB9uauKFiZJTjA93RGjFnHFdEvt-HMy0HsgX3-hOAJlqrp1C3ZizVQ>
-    <xme:aB9uaqFUWSmz2qOoolnQJtK4wKgpBNA245buXNm6-MRNEo9R6Ua67PC9nQciMCnBx
-    wnk7tfBCvCeNvKWhGXcU30p2SuE3RCAmug5Hgz0g3Zhrot4cMOPIg>
-X-ME-Received: <xmr:aB9uanPuOshfY6CtKMSGadEowsBukwEQX-vYlocgi_Cuevm95ob8-EiONsw-uPGosUE0_r9cndeMRUDj2Ba5V_0>
-X-ME-Proxy-Cause: dmFkZTGysGsnMEekMD+PYaXQlblXcVTecPczGN+gVmqOxy4sIfPSEgEdEy9IGkXqGXAYan
-    DgHFBKPnw/bMa6UCHHMC0exlwD99XK3fcXTSJ0QkvFhwAe2MTshN1slIIxFE3BXZADEpdL
-    tUUbdbZ08888lAfzeLa8pD6z4j7mB1zFV/lVyxXX1BWN5uUA++eU/U1yOSrRvDozJBELil
-    8rJAGQd3FpKYZxHzerbf/GRb7jk5KXrrlWQSt0HC55zxuWRowmB5ffELTLLDzjdJzr54fX
-    bVWNOtgpIcH43ZWWHr4BoZH4xazltQq9pdjH9ZmzK0fC7Hj6xiEL60USKu+J8gJURge/pZ
-    gNQpgM+Fy6NfM+eMiFCVI0shBHyPX3L7aWUnI3ddWuPO/7fY1U7bleIEI2rKSRTh3ddxqV
-    y0PFC1MHUOu1nFyHSfUpyW+CPxPjQHUWXAPWjbm4posuz0kZ2WVdesFbz8wX7xOhdtoeQ4
-    NIB/ZyX+wPhghTBupZRz2Fao6YdT5OVKu5w6QFEVPgjZUTS5H4Eqkn/A6SMTGffrhS9ge4
-    OlLF8+/f+sQTWF9iebWeJwJoCqNe07ytko3fiWkDeSitzobrn/lY5IP6VGsTQmOR+EUlQ/
-    UzXA2VVLIxEnMTc5gz5NwCEakiJBTEWt62brpYUVuKzUapbciJ7ee4sqm68A
-X-ME-Proxy: <xmx:aB9uas_pMjHsEPoSSOLYfSz1vKmRwTmnO44j2Uj-tvYYFw4JuvSiWw>
-    <xmx:aB9uas7ZWYyx1bGFlgWkMgfFvbwNqE7huNTq2hV0KbcluNmuVZat8A>
-    <xmx:aB9uapXiIem4YDb63Xz4m0RJHUCh1r5m3J01ugYIx9C4daDSwLyfTA>
-    <xmx:aB9uaqJ9TByhcsx4YSr4sAoMga6UtLV_5ds_HktryZHRG1gXKovEJQ>
-    <xmx:ah9uapeWm7c0PJ_UJy7PEj8GZJ4vsUgV29GuwE-0KO-FsDt7a1mwCaDy>
-Feedback-ID: i60a14417:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 1 Aug 2026 12:31:33 -0400 (EDT)
-Message-ID: <74625f78-15ea-439f-b9f0-939d2976fa7f@jaseg.de>
-Date: Sat, 1 Aug 2026 18:31:31 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="T1Wcj7yP"
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-448cf99c133so3542257fac.1
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 09:42:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785602519; x=1786207319; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jy42D8iEKVBLHhWyu1QP32elidL6jWwQTk9frttBMM0=;
+        b=T1Wcj7yPEN8MWyB85vs/hC+1kSdqUZ4QW0LJ9G9gFw4bYdiaM2lA4evN4rwxhiNT2x
+         wHnoqLZYGesJK7pDW/CCAbrZmiWku5SXhW+EhEGOoVmlGbOwIDP1BgnKXW/u+x5hdMF8
+         +B8rH683FQr435sTpW/i5DStQVqrOXbmqYy+hXL84viQZjGRBwu92sLYSl1uNsTI22k1
+         ZCAG22fzsMILAcmoO4+AD5WDmbmTcZYCbHpNYrL9odUtXgDnGn8qCRaetU4HKXBFopg0
+         FVapoJkbEDCwbVEM/swKxYmbDR4yX6Ay75073WHa77b6UwkVGFeIdxVOCDOtXujcUQ8t
+         /OxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785602519; x=1786207319;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jy42D8iEKVBLHhWyu1QP32elidL6jWwQTk9frttBMM0=;
+        b=GXXJUj1V1zlQkHEjJ9Byoo4vw84/kfqYy7hq4cZBh7teGzC/xAKlK2JRpuOUItECi4
+         jJ3lAQCTXPdOR/FDeym5Kan+Y3gVCkKvFIy4da6EXEg3e7rx84Ga8QWynmuX1rMXLYEj
+         KCXY6dZXIk0GtSpG3DOABR/jU1xw9Zlv9bf65OC/mrgc1RfAzRE+lO2XGnp27KtkWoz4
+         bAoI6xXKn1jMm3DPIbNJWrZ/VMUj7FgnG0cA6DxxFoeTOrQO2yVXV3P/DDLJ8G6ElRO9
+         L7F1UcxEcUDjbs1rh2OEfszgmBJKEsvqaR3P2y/lLaZgJeFQw56gbr2oKjAaU+BBWKIk
+         ypPg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4RWnEr7mKf+TKK9ZCLJS1lHjnDxEtc5h8h3Y/OIwExWEJUSd5qlY2hIK62PRhEUpKDg0Qvoo5vB1q@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOEI4X/AebvIHVpfQvKoGp8SKY8OuZtbP7hgtEwpsTmJEmobXT
+	cdqRuacQGuKdvw0bW8wPgoNHVFLFn+osFyHYfO4cW6ergXwenglkQwQXSuHLyNWduBw=
+X-Gm-Gg: AR+sD10PExX+xsr2wvxnGysApGmpvIZMVsMcts3z15Xhdc4BZry/2LBvHGiHbIMWNTf
+	MKFsFUGfe+zPBOyDW5qOr3+RvH2zb9vqt/p8+VhucTCQbpHxtgKoRd0f8W0bE6ZKRer43gVq0/g
+	3tub0S4mth1XalFC0cfa4LkE2FzmfLVD7A6nnm2r2yGXLOHeX+ntHySEs/tSAoBO5pi3hXuPiQZ
+	3YzhBAxH49muXu5iDQNoNhNxob6tbKn9L/h7kuO7fRy9+rMxTRdeGVMcOtZPB7OkMKseTzpnBDL
+	y1O5z4q1vFFqxZ7kuJIWTVkCAZEvt1r/7/DKfw+ZIzbK9o+fIxpjy86knaGjvtT+Ghw5CW/4kwY
+	kvZ5L9Bm3HWfR6BsluWz7zgqx0DY/IeLnUSys5V5cnU5YuUHUViCyui/Rv5lWpBmFXXD+V8dbZn
+	Z811KykSM3xlNhHOBVxKL/7xfEfAsg3363kTDH9Rr6SIiu8RiyCyWlEzhFmU7k1IzXT9rrm9YGG
+	wtf3WVIxPKpGip/wslU8Zw6rg9Go1YscNMGRk0=
+X-Received: by 2002:a05:6808:c1f5:b0:49a:7714:ed25 with SMTP id 5614622812f47-4ae3188b047mr11032582b6e.3.1785602518709;
+        Sat, 01 Aug 2026 09:41:58 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:359b:17f1:d4f9:4949? ([2600:8803:e7e4:500:359b:17f1:d4f9:4949])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-458f664d884sm4300209fac.12.2026.08.01.09.41.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 01 Aug 2026 09:41:57 -0700 (PDT)
+Message-ID: <380b864f-6266-40fb-87a4-027afb422885@baylibre.com>
+Date: Sat, 1 Aug 2026 11:41:56 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,74 +70,637 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] CRASH_ZEROIZE: Wipe secrets before kdump
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
- <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Dave Young <ruirui.yang@linux.dev>,
- David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- Coiby Xu <coxu@redhat.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- keyrings@vger.kernel.org, linux-mm@kvack.org,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org
-References: <20260731154608.153258-1-linux@jaseg.de>
- <am38qk60mpVFuJRi@MiWiFi-R3L-srv>
+Subject: Re: [PATCH v3 2/3] iio: proximity: add driver for Sharp GP2AP070S
+ proximity sensor
+To: Kaustabh Chakraborty <kauschluss@disroot.org>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Peter Griffin
+ <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org
+References: <20260731-gp2ap070s-v3-0-d1f5cecf9fe7@disroot.org>
+ <20260731-gp2ap070s-v3-2-d1f5cecf9fe7@disroot.org>
 Content-Language: en-US
-From: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
-In-Reply-To: <am38qk60mpVFuJRi@MiWiFi-R3L-srv>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260731-gp2ap070s-v3-2-d1f5cecf9fe7@disroot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi there,
-
-On 8/1/26 16:03, Baoquan He wrote:
-> On 07/31/26 at 05:46pm, Jan Sebastian Götte wrote:
->> Add CONFIG_CRASH_ZEROIZE (default off), which when enabled makes various
->> subsystems handling secret data do a quick, targeted wipe of these
->> secrets before kdump. This behavior might also be interesting in cases
->> where you run a normal kdump kernel but you still want to keep things
->> like fde crypto keys out of these dumps.
+On 7/30/26 3:07 PM, Kaustabh Chakraborty wrote:
+> The GP2AP070S is a proximity sensor designed and manufactured by Sharp
+> Corporation. This sensor is used in mobile devices, including, but not
+> limited to - the Samsung Galaxy J6.
 > 
-> Please check below patchset, you both seem to have the similar
-> requirement. Please go there to discuss.
+> The driver has been adopted from Samsung's downstream kernel
+> implementation [1]. Due to the lack of public documentation about the
+> schematics of this device. The downstream driver acts as the secondary
+> source of information. Driver clarity has also been improved with the
+> help of the GP2AP* drivers in iio/light.
 > 
-> [RFC PATCH 0/4] panic: a pre kdump notifier list for hypervisor upcalls
+> Link: https://github.com/Exynos7870/android_kernel_samsung_universal7870/blob/lineage-16.0/drivers/sensors/gp2ap070s.c [1]
+> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+> ---
+>  drivers/iio/proximity/Kconfig     |  11 +
+>  drivers/iio/proximity/Makefile    |   1 +
+>  drivers/iio/proximity/gp2ap070s.c | 505 ++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 517 insertions(+)
+> 
+> diff --git a/drivers/iio/proximity/Kconfig b/drivers/iio/proximity/Kconfig
+> index bb77fad2a1b3..39db19e59650 100644
+> --- a/drivers/iio/proximity/Kconfig
+> +++ b/drivers/iio/proximity/Kconfig
+> @@ -41,6 +41,17 @@ config D3323AA
+>  	  To compile this driver as a module, choose M here: the module will be
+>  	  called d3323aa.
+>  
+> +config GP2AP070S
+> +	tristate "Sharp GP2AP070S proximity sensor"
+> +	depends on I2C
+> +	select REGMAP_I2C
+> +	help
+> +	  Say Y here to build a driver for the Sharp GP2AP070S proximity
+> +	  sensor.
+> +
+> +	  To compile this driver as a module, choose M here: the module will be
+> +	  called gp2ap070s.
+> +
+>  config HX9023S
+>  	tristate "TYHX HX9023S SAR sensor"
+>  	select IIO_BUFFER
+> diff --git a/drivers/iio/proximity/Makefile b/drivers/iio/proximity/Makefile
+> index 4352833dd8a4..627ffb04acb2 100644
+> --- a/drivers/iio/proximity/Makefile
+> +++ b/drivers/iio/proximity/Makefile
+> @@ -7,6 +7,7 @@
+>  obj-$(CONFIG_AS3935)		+= as3935.o
+>  obj-$(CONFIG_CROS_EC_MKBP_PROXIMITY) += cros_ec_mkbp_proximity.o
+>  obj-$(CONFIG_D3323AA)		+= d3323aa.o
+> +obj-$(CONFIG_GP2AP070S)		+= gp2ap070s.o
+>  obj-$(CONFIG_HX9023S)		+= hx9023s.o
+>  obj-$(CONFIG_IRSD200)		+= irsd200.o
+>  obj-$(CONFIG_ISL29501)		+= isl29501.o
+> diff --git a/drivers/iio/proximity/gp2ap070s.c b/drivers/iio/proximity/gp2ap070s.c
+> new file mode 100644
+> index 000000000000..98fc12e5ccd5
+> --- /dev/null
+> +++ b/drivers/iio/proximity/gp2ap070s.c
+> @@ -0,0 +1,505 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * IIO driver for Sharp GP2AP070S proximity sensor.
+> + *
+> + * Based on Samsung G610FXXU1CRI4 kernel driver - drivers/sensors/gp2ap070s.c
+> + * Copyright (c) 2010 Samsung Electronics Co., Ltd.
+> + * Copyright (c) 2026 Kaustabh Chakraborty <kauschluss@disroot.org>
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +
+> +#include <linux/iio/events.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/types.h>
+> +
+> +#define GP2AP070S_REG_COM1		0x80
+> +#define   GP2AP070S_COM1_WKUP		BIT(7)
+> +#define   GP2AP070S_COM1_EN		BIT(5)
+> +
+> +#define GP2AP070S_REG_COM2		0x81
+> +
+> +#define GP2AP070S_REG_COM3		0x82
+> +#define   GP2AP070S_COM3_INT_PULSE	BIT(1)
+> +
+> +#define GP2AP070S_REG_COM4		0x83
+> +#define   GP2AP070S_COM4_BLINK		GENMASK(2, 0)	/* LED Blink Interval */
+> +#define     GP2AP070S_COM4_BLINK_0ms	0
+> +#define     GP2AP070S_COM4_BLINK_2ms	1
+> +#define     GP2AP070S_COM4_BLINK_8ms	2
+> +#define     GP2AP070S_COM4_BLINK_33ms	3
+> +#define     GP2AP070S_COM4_BLINK_66ms	4
+> +#define     GP2AP070S_COM4_BLINK_131ms	5
+> +#define     GP2AP070S_COM4_BLINK_262ms	6
+> +#define     GP2AP070S_COM4_BLINK_524ms	7
+> +
+> +#define GP2AP070S_REG_PS1		0x85
+> +#define   GP2AP070S_PS1_RESOL		GENMASK(5, 4)	/* Resolution */
+> +#define     GP2AP070S_PS1_RESOL_14ms	0
+> +#define     GP2AP070S_PS1_RESOL_12ms	1
+> +#define     GP2AP070S_PS1_RESOL_10ms	2
+> +#define     GP2AP070S_PS1_RESOL_8ms	3
+> +
+> +#define GP2AP070S_REG_PS2		0x86
+> +#define   GP2AP070S_PS2_IOUT		GENMASK(6, 4)	/* Current Output */
+> +#define     GP2AP070S_PS2_IOUT_0mA	0
+> +#define     GP2AP070S_PS2_IOUT_24mA	1
+> +#define     GP2AP070S_PS2_IOUT_89mA	2
+> +#define     GP2AP070S_PS2_IOUT_130mA	3
+> +#define     GP2AP070S_PS2_IOUT_190mA	4
+> +#define   GP2AP070S_PS2_SUM32		BIT(2)
+> +
+> +#define GP2AP070S_REG_PS3		0x87
+> +#define   GP2AP070S_PS3_PRST		GENMASK(6, 4)	/* Repeating Measurements */
+> +
+> +#define GP2AP070S_REG_PS_THD_LO_LE16	0x88
+> +#define GP2AP070S_REG_PS_THD_HI_LE16	0x8a
+> +#define GP2AP070S_REG_D0_LE16		0x90
+> +
+> +struct gp2ap070s_drvdata {
+> +	struct regmap *regmap;
+> +	struct mutex mutex;
+> +	u32 near_level;
+> +};
+> +
+> +static bool gp2ap070s_regmap_volatile(struct device *dev, unsigned int reg)
+> +{
+> +	return reg == GP2AP070S_REG_D0_LE16;
+> +}
+> +
+> +static const struct regmap_config gp2ap070s_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.volatile_reg = gp2ap070s_regmap_volatile,
 
-Thank you for the pointer. That's indeed similar, but I think this 
-patchset here makes sense as an independent patchset.
+Always helpful to set .max_register.
 
-* The two notifier chains run at different points, and theirs runs 
-inside panic independent of kdump. This one here has to be run after 
-machine_crash_shutdown(), and so makes most sense inside 
-__crash_kexec(). The wipe code in this patchset must be one of the last 
-things to run before the kexec since the wiped data structures could 
-easily lead to problems if something tried using them later.
 
-* I think this patch series here is a bit cleaner. I don't think this 
-needs a custom notifier implementation.
+> +};
+> +
+> +static const char *const gp2ap070s_regulator_names[] = {
+> +	"vdd",
+> +	"vled",
+> +};
+> +
+> +static ssize_t gp2ap070s_iio_read_near_level(struct iio_dev *indio_dev,
+> +					     uintptr_t priv,
+> +					     const struct iio_chan_spec *chan,
+> +					     char *buf)
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = iio_priv(indio_dev);
+> +
+> +	return sysfs_emit(buf, "%u\n", drvdata->near_level);
+> +}
+> +
+> +static const struct iio_chan_spec_ext_info gp2ap070s_iio_chan_spec_ext_info[] = {
+> +	{
+> +		.name = "nearlevel",
+> +		.shared = IIO_SEPARATE,
+> +		.read = gp2ap070s_iio_read_near_level,
+> +	},
+> +	{ }
+> +};
+> +
+> +static const struct iio_event_spec gp2ap070s_iio_event_spec[] = {
+> +	{
+> +		.type = IIO_EV_TYPE_THRESH,
+> +		.dir = IIO_EV_DIR_RISING,
+> +		.mask_separate = BIT(IIO_EV_INFO_VALUE),
+> +	},
+> +	{
+> +		.type = IIO_EV_TYPE_THRESH,
+> +		.dir = IIO_EV_DIR_FALLING,
+> +		.mask_separate = BIT(IIO_EV_INFO_VALUE),
+> +	},
+> +	{
+> +		.type = IIO_EV_TYPE_THRESH,
+> +		.dir = IIO_EV_DIR_EITHER,
+> +		.mask_separate = BIT(IIO_EV_INFO_ENABLE),
+> +	},
+> +};
+> +
+> +static const struct iio_chan_spec gp2ap070s_iio_chan_spec[] = {
+> +	{
+> +		.type = IIO_PROXIMITY,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
+> +		.ext_info = gp2ap070s_iio_chan_spec_ext_info,
+> +		.event_spec = gp2ap070s_iio_event_spec,
+> +		.num_event_specs = ARRAY_SIZE(gp2ap070s_iio_event_spec),
+> +	},
+> +};
+> +
+> +static int gp2ap070s_iio_read_raw(struct iio_dev *indio_dev,
+> +				  struct iio_chan_spec const *chan, int *val,
+> +				  int *val2, long mask)
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = iio_priv(indio_dev);
+> +	__le16 value;
+> +	int ret;
+> +
+> +	ret = regmap_bulk_read(drvdata->regmap, GP2AP070S_REG_D0_LE16, &value,
+> +			       sizeof(value));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = le16_to_cpu(value);
+> +	return IIO_VAL_INT;
+> +}
+> +
+> +static int gp2ap070s_iio_read_event_value(struct iio_dev *indio_dev,
+> +					  const struct iio_chan_spec *chan,
+> +					  enum iio_event_type type,
+> +					  enum iio_event_direction dir,
+> +					  enum iio_event_info info, int *val,
+> +					  int *val2)
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = iio_priv(indio_dev);
+> +	__le16 value;
+> +	int ret;
+> +
+> +	if (type != IIO_EV_TYPE_THRESH || info != IIO_EV_INFO_VALUE)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&drvdata->mutex);
+> +
+> +	switch (dir) {
+> +	case IIO_EV_DIR_RISING:
+> +		ret = regmap_bulk_read(drvdata->regmap,
+> +				       GP2AP070S_REG_PS_THD_HI_LE16, &value,
+> +				       sizeof(value));
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = le16_to_cpu(value);
+> +		return IIO_VAL_INT;
+> +	case IIO_EV_DIR_FALLING:
+> +		ret = regmap_bulk_read(drvdata->regmap,
+> +				       GP2AP070S_REG_PS_THD_LO_LE16, &value,
+> +				       sizeof(value));
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = le16_to_cpu(value);
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int gp2ap070s_iio_write_event_value(struct iio_dev *indio_dev,
+> +					   const struct iio_chan_spec *chan,
+> +					   enum iio_event_type type,
+> +					   enum iio_event_direction dir,
+> +					   enum iio_event_info info, int val,
+> +					   int val2)
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = iio_priv(indio_dev);
+> +	__le16 value;
+> +	u16 threshold_other;
+> +	int ret;
+> +
+> +	if (type != IIO_EV_TYPE_THRESH || info != IIO_EV_INFO_VALUE)
+> +		return -EINVAL;
+> +
+> +	/* Ensure val is a 16-bit value */
+> +	if (val < 0 || val >= (1 << 16))
 
-* Since there's lots of places that may need wiping after crash, I think 
-it makes sense to have an explicit notifier list for that purpose, and 
-to not mix these with other things like hypercalls. I think ordering is 
-important here: The wiping should be the last thing before the kexec 
-jump. Having it on a generic notifier chain risks that later, other 
-callbacks get added that when interleaved could cause problems.
+				BIT(16)
 
-* Since a good fraction of users may not care about wiping secrets, I 
-think it should be gated behind an explicit enable setting.
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&drvdata->mutex);
+> +
+> +	switch (dir) {
+> +	case IIO_EV_DIR_RISING:
+> +		ret = regmap_bulk_read(drvdata->regmap,
+> +				       GP2AP070S_REG_PS_THD_LO_LE16, &value,
+> +				       sizeof(value));
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* Ensure lo_threshold < hi_threshold */
+> +		threshold_other = le16_to_cpu(value);
+> +		if (threshold_other >= val)
+> +			return -EINVAL;
+> +
+> +		value = cpu_to_le16((u16)val);
 
-> Note that we usually dont' want to run a lot of work after panic and
-> before jumping into kdump kernel.
+Unnecessary cast.
 
-I understand. For this reason, I think it's best to keep this 
-default-off. As-is, the notifier list call is timed and on the (slow) 
-ARM64 target I'm using, it takes about 3-5 ms to run. I took the "try 
-lock, skip if locked" approach to keep the risk of this code crashing 
-during panic minimal. In my application, the kdump payload is code that 
-then does a full wipe, taking a couple hundred milliseconds.
+> +		ret = regmap_bulk_write(drvdata->regmap,
+> +					GP2AP070S_REG_PS_THD_HI_LE16, &value,
+> +					sizeof(value));
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +	case IIO_EV_DIR_FALLING:
+> +		ret = regmap_bulk_read(drvdata->regmap,
+> +				       GP2AP070S_REG_PS_THD_HI_LE16, &value,
+> +				       sizeof(value));
+> +		if (ret)
+> +			return ret;
+> +
+> +		/* Ensure hi_threshold > lo_threshold */
+> +		threshold_other = le16_to_cpu(value);
+> +		if (threshold_other <= val)
+> +			return -EINVAL;
+> +
+> +		value = cpu_to_le16((u16)val);
+> +		ret = regmap_bulk_write(drvdata->regmap,
+> +					GP2AP070S_REG_PS_THD_LO_LE16, &value,
+> +					sizeof(value));
+> +		if (ret)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int gp2ap070s_read_event_config(struct iio_dev *indio_dev,
+> +				       const struct iio_chan_spec *chan,
+> +				       enum iio_event_type type,
+> +				       enum iio_event_direction dir)
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = iio_priv(indio_dev);
+> +	unsigned int value;
+> +	int ret;
+> +
+> +	if (type != IIO_EV_TYPE_THRESH)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&drvdata->mutex);
+> +
+> +	switch (dir) {
+> +	case IIO_EV_DIR_EITHER:
+> +		ret = regmap_read(drvdata->regmap, GP2AP070S_REG_COM3, &value);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return FIELD_GET(GP2AP070S_COM3_INT_PULSE, value);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int gp2ap070s_write_event_config(struct iio_dev *indio_dev,
+> +					const struct iio_chan_spec *chan,
+> +					enum iio_event_type type,
+> +					enum iio_event_direction dir,
+> +					bool state)
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = iio_priv(indio_dev);
+> +
+> +	if (type != IIO_EV_TYPE_THRESH)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&drvdata->mutex);
+> +
+> +	switch (dir) {
+> +	case IIO_EV_DIR_EITHER:
+> +		if (state)
+> +			return regmap_set_bits(drvdata->regmap,
+> +					       GP2AP070S_REG_COM3,
+> +					       GP2AP070S_COM3_INT_PULSE);
+> +		else
+> +			return regmap_clear_bits(drvdata->regmap,
+> +						 GP2AP070S_REG_COM3,
+> +						 GP2AP070S_COM3_INT_PULSE);
 
-Let me know what you think.
+Can use regmap_assign_bits() to avoid the if statement.
+
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static const struct iio_info gp2ap070s_iio_info = {
+> +	.read_raw = gp2ap070s_iio_read_raw,
+> +	.read_event_value = gp2ap070s_iio_read_event_value,
+> +	.write_event_value = gp2ap070s_iio_write_event_value,
+> +	.read_event_config = gp2ap070s_read_event_config,
+> +	.write_event_config = gp2ap070s_write_event_config,
+> +};
+> +
+> +static irqreturn_t gp2ap070s_irq_handler(int irq, void *private)
+> +{
+> +	struct iio_dev *indio_dev = private;
+> +	s64 timestamp = iio_get_time_ns(indio_dev);
+> +
+> +	iio_push_event(indio_dev,
+> +		       IIO_UNMOD_EVENT_CODE(IIO_PROXIMITY, 0, IIO_EV_TYPE_THRESH,
+> +					    IIO_EV_DIR_EITHER),
+> +		       timestamp);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int gp2ap070s_reset(struct gp2ap070s_drvdata *drvdata)
+> +{
+> +	int ret;
+> +
+> +	ret = regmap_write(drvdata->regmap, GP2AP070S_REG_COM1, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	regcache_mark_dirty(drvdata->regmap);
+
+Doesn't this cause it to write all of the current cached values
+therefore undoing the effects of the reset?
+
+Maybe you meant regmap_reinit_cache()?
+
+Also, gp2ap070s_regmap_config doesn't enable cache, so likely
+this has no effect currently.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static void gp2ap070s_reset_action(void *private)
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = private;
+
+Usually, we don't bother with a cast/local variable in these.
+The void* can be passed directly as an arg.
+
+> +
+> +	gp2ap070s_reset(drvdata);
+> +}
+> +
+> +static int gp2ap070s_probe_hw_register(struct gp2ap070s_drvdata *drvdata)
+> +{
+> +	struct device *dev = regmap_get_device(drvdata->regmap);
+> +	int ret;
+> +
+> +	ret = gp2ap070s_reset(drvdata);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to reset sensor\n");
+> +
+> +	ret = regmap_write(drvdata->regmap, GP2AP070S_REG_COM2, 0);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable interrupts\n");
+> +
+> +	ret = regmap_set_bits(drvdata->regmap, GP2AP070S_REG_COM3,
+> +			      GP2AP070S_COM3_INT_PULSE);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to unmask interrupts\n");
+> +
+> +	ret = regmap_write_bits(drvdata->regmap, GP2AP070S_REG_COM4,
+> +				GP2AP070S_COM4_BLINK,
+> +				FIELD_PREP_CONST(GP2AP070S_COM4_BLINK,
+> +						 GP2AP070S_COM4_BLINK_33ms));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set LED blink timing\n");
+> +
+> +	ret = regmap_write_bits(drvdata->regmap, GP2AP070S_REG_PS1,
+> +				GP2AP070S_PS1_RESOL,
+> +				FIELD_PREP_CONST(GP2AP070S_PS1_RESOL,
+> +						 GP2AP070S_PS1_RESOL_10ms));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set resolution\n");
+> +
+> +	ret = regmap_write_bits(drvdata->regmap, GP2AP070S_REG_PS2,
+> +				GP2AP070S_PS2_IOUT | GP2AP070S_PS2_SUM32,
+> +				FIELD_PREP_CONST(GP2AP070S_PS2_IOUT,
+> +						 GP2AP070S_PS2_IOUT_89mA) |
+> +				GP2AP070S_PS2_SUM32);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set current output\n");
+> +
+> +	ret = regmap_write_bits(drvdata->regmap, GP2AP070S_REG_PS3,
+> +				GP2AP070S_PS3_PRST,
+> +				FIELD_PREP_CONST(GP2AP070S_PS3_PRST, 3));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set measurement repetitions\n");
+> +
+> +	ret = regmap_set_bits(drvdata->regmap, GP2AP070S_REG_COM1,
+> +			      GP2AP070S_COM1_WKUP | GP2AP070S_COM1_EN);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable sensor\n");
+> +
+> +	return 0;
+> +}
+> +
+> +static int gp2ap070s_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct gp2ap070s_drvdata *drvdata;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*drvdata));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	drvdata = iio_priv(indio_dev);
+> +	drvdata->regmap = devm_regmap_init_i2c(client, &gp2ap070s_regmap_config);
+> +	if (IS_ERR(drvdata->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(drvdata->regmap), "Failed to create regmap\n");
+> +
+> +	ret = devm_mutex_init(dev, &drvdata->mutex);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to initialize mutex\n");
+
+Don't print here, just return ret.
+
+> +
+> +	ret = devm_regulator_bulk_get_enable(dev,
+> +					     ARRAY_SIZE(gp2ap070s_regulator_names),
+> +					     gp2ap070s_regulator_names);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get and enable regulators\n");
+> +
+> +	fsleep(10000);
+
+We've been writing this like:
+
+	fsleep(10 * (MICRO / MILLI));
+
+Makes it a bit more obvious this is 10 ms.
+
+> +
+> +	indio_dev->name = "gp2ap070s";
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = gp2ap070s_iio_chan_spec;
+> +	indio_dev->num_channels = ARRAY_SIZE(gp2ap070s_iio_chan_spec);
+> +	indio_dev->info = &gp2ap070s_iio_info;
+> +
+> +	if (device_property_present(dev, "proximity-near-level")) {
+> +		ret = device_property_read_u32(dev, "proximity-near-level",
+> +					       &drvdata->near_level);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to get value for proximity-near-level\n");
+> +	}
+> +
+> +	ret = gp2ap070s_probe_hw_register(drvdata);
+> +	if (ret)
+> +		goto hw_reset;
+
+gp2ap070s_probe_hw_register() needs to clean up after itself on
+failure so we can return directly here.
+
+> +
+> +	ret = devm_add_action_or_reset(dev, gp2ap070s_reset_action, drvdata);
+> +	if (ret) {
+> +		ret = dev_err_probe(dev, ret, "Failed to schedule reset on driver removal\n");
+
+We don't print error here because only error is -ENOMEM.
+
+The reset action is also called on failure, so return error directly here.
+
+> +		goto hw_reset;
+> +	}
+> +
+> +	ret = devm_request_threaded_irq(dev, client->irq, NULL,
+> +					gp2ap070s_irq_handler, IRQF_ONESHOT,
+> +					"gp2ap070s-irq", indio_dev);
+> +	if (ret)
+> +		goto hw_reset;
+> +
+> +	ret = devm_iio_device_register(dev, indio_dev);
+> +	if (ret)
+> +		goto hw_reset;
+> +
+> +	return 0;
+> +
+> +hw_reset:
+> +	gp2ap070s_reset(drvdata);
+
+The callback registered by devm_add_action_or_reset() will
+already call this on error return.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct of_device_id gp2ap070s_of_device_id[] = {
+> +	{ .compatible = "sharp,gp2ap070s" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, gp2ap070s_of_device_id);
+> +
+> +static const struct i2c_device_id gp2ap070s_i2c_device_id[] = {
+> +	{ .name = "gp2ap070s" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, gp2ap070s_i2c_device_id);
+> +
+> +static struct i2c_driver gp2ap070s_i2c_driver = {
+> +	.driver = {
+> +		.name = "gp2ap070s",
+> +		.of_match_table = gp2ap070s_of_device_id,
+> +	},
+> +	.probe = gp2ap070s_probe,
+> +	.id_table = gp2ap070s_i2c_device_id,
+> +};
+> +module_i2c_driver(gp2ap070s_i2c_driver);
+> +
+> +MODULE_AUTHOR("Kaustabh Chakraborty <kauschluss@disroot.org>");
+> +MODULE_DESCRIPTION("Sharp GP2AP070S Proximity Sensor");
+> +MODULE_LICENSE("GPL");
+> 
+
