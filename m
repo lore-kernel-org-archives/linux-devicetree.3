@@ -1,254 +1,256 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E27E3CF05D
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 21:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE35E3D0927
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 21:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785620561; cv=none; b=YySYiGh3OzVVIrePmC8btUDiqtkgsV2FRZ7QulAroYftRo4BRf00lnQnf3UPKep0YblIbjk/Fz7+tBlukxwSIjy7wolzFbix7n0Pw8vgDZDnLQUqJCsCfK+D1KMLpavLlfc95cF73u5q+w+eh9r2ryggc4HWDiz5WWyEcfQNA5E=
+	t=1785620709; cv=none; b=SR+zvPuA83vStK/LWKGJmhDhfz2/UkeAOZetVcRFmWNpJ3xJFlAnADGhSik8DM98ygDqIiSiab+Fon0GdY5lGO/tluBuhkgSeHe3kKr8eGH7yobXQ7wbQDFFb/YosnsYlBJCDKkH06iVaVghKep59VoTvVrze93Urqze0kNPR9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785620561; c=relaxed/simple;
-	bh=6FHDoaA0EzCXiZ6n7lfPWfAkiANFO06y3iqIZxR1fNQ=;
+	s=arc-20240116; t=1785620709; c=relaxed/simple;
+	bh=dXBnhth2V+OZKzmobqb4QxzX7zHd4dlwWyRTRxG0o6E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aE9XYDr5JjH9qqCpBO9oQ6X0GC1sRaAUrNhojWKXwnojAs4cXYqU2e/BD/nBQEde5eWWGt40mBpujbUZD0MS1kAAc1GikFT8AgLv65ekZAr3K5qjuPq/wsdUS3z19v3NmQPcIs+3HZ92WhikZQ10EeWIn5XjFSWCh7lEKZFj+60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcKJXKTT; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=FlO76+RdB1bqK/s5Z0CGtUoX8QFHEL6CpTMOZY6lyllqmonc640uttmpP2UdHxOCPpO7fwpVvTAkvoIiaiFC9DGkGudEebP0NBz68xkG1UfaowFI/rXKDJUHuokGuJV2oWFchcHDt6sTVBjgw1JzLCd6/eKL1JrUdu6JmjHceBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WygT+Ctw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcKJXKTT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15E61F00ACA;
-	Sat,  1 Aug 2026 21:42:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WygT+Ctw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CBB21F00AC4;
+	Sat,  1 Aug 2026 21:45:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785620560;
-	bh=hBGLvfYjFNApjgbHUzufrErjxV9C+yzvyAvKQbp+kWE=;
+	s=k20260515; t=1785620707;
+	bh=WZ//gl3P7CnKRXwkp7KigzvHj2VVcHUNjBy6A6rqGwg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YcKJXKTTm+CQKOU/b3Te30JqpC1xX2Aw13R5oV75bagy4oLfxiucO2vSQ1mfgKWUm
-	 BRQF+nHB7ap5EY9Tj2lN5ZYfkRfJ3oOuJtDVN4mZTM/+8z5Pi5WN6uHY1BxJ0YVRb4
-	 dqC8yTd0wwi/RmAV8eKBAFfI+QJkJF9y7Ra59ikOlAauK/Cin8aGjWIMMWZbzSXuhj
-	 LfkCm/mr+8CG4lqfVHeu252MY0eLyDS1XSnDMzYiePXQ+yIsVvxqPNYbOX8C3qrf/1
-	 f8jgNhOUSbarF2RAY47MDwjWLOMQTqWuPr6ZGiQWzXBR2/oLBCSKJN11PjKc4Vl/OQ
-	 U6jWHezoBVddQ==
+	b=WygT+CtwFSkIrAjWwNebT/XZRIrAyXAEqCuKdoHw0nqx+pzLOtj/r68Xs5HbTwc7B
+	 py/D8puo2XmJY6pLR0Z7/C0FMnJK4KsbTQVIEzc4zp2hiBYNBIagZ/U0IkfbaaDkPO
+	 L2oe31kUhuQ1/+DBFbzPd+8beQy75zCkfeALYrQ+Yb/Hh7JR6vF5Z3pSd8jJW06J9a
+	 jfTEnHV2/umvth3W4HT1qRFF2hW32UbqoX4QLMWro9mNCKP4kflPgTogZXRlX6fFzP
+	 xqWY2KUY9FVvecs/dTwvqvPMWskIl5Ruo75va0mc+o0stQvCK9Ne69LdX6LDQHJT/P
+	 y1DbjTr/UFWVg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] usb: typec: tipd: Factor out i2c specifics
+Subject: Re: [PATCH v3 3/3] usb: typec: tipd: Add sn201202x support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260801-tipd-ace3-v3-2-8332f2eca4fc@chaosmail.tech>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260801-tipd-ace3-v3-3-8332f2eca4fc@chaosmail.tech>
 References: <20260801-tipd-ace3-v3-0-8332f2eca4fc@chaosmail.tech>
- <20260801-tipd-ace3-v3-2-8332f2eca4fc@chaosmail.tech>
+ <20260801-tipd-ace3-v3-3-8332f2eca4fc@chaosmail.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 21:42:39 +0000
-Message-Id: <20260801214239.E15E61F00ACA@smtp.kernel.org>
+Date: Sat, 01 Aug 2026 21:45:06 +0000
+Message-Id: <20260801214507.4CBB21F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The newly extracted `core.c` retains I2C-specific casts in `tps257=
-50_write_firmware()`, risking memory corruption for non-I2C buses.
+- [High] sn201202x_suspend fails to wake up the device if the sleep complet=
+ion times out, leaving the device in an unresponsive state during error rec=
+overy.
+- [High] Passing NULL as the devname parameter to devm_request_irq causes a=
+ kernel panic during procfs directory creation.
+- [Medium] Missing reinit_completion() before spmi_command_wakeup() in prob=
+e can cause premature timeout completion due to a spurious or pending inter=
+rupt.
+- [Medium] The busy-wait check `val =3D=3D (reg | 0x80)` incorrectly handle=
+s register addresses >=3D 0x80, leading to an infinite polling loop.
 
 Pre-existing issues:
-- [Critical] tipd_suspend() and tipd_resume() unconditionally pass an inval=
-id IRQ 0 to disable_irq() and enable_irq() if configured as a wakeup source=
- but lacking an interrupt.
-- [High] tipd_resume() attempts to communicate with the device over I2C bef=
-ore de-asserting its reset GPIO, causing a guaranteed communication failure.
-- [High] Delayed works (`wq_poll` and `cd321x->update_work`) are queued but=
- not canceled on probe error paths, leading to a Use-After-Free.
-- [High] Early returns in tipd_resume() skip enable_irq(), permanently disa=
-bling a shared interrupt line.
+- [High] If wakeup-source is present in DT but irq is missing, tipd_suspend=
+ and tipd_resume will erroneously operate on IRQ 0.
+- [High] If connect() fails and no IRQ is present, tipd_init leaks the init=
+ialized delayed work queue, leading to a Use-After-Free.
 --
 
---- Patch [2]: [PATCH v3 2/3] usb: typec: tipd: Factor out i2c specifics ---
-commit 8d801170f1c1aaccc36ed5f0477a7ac708265867
-Author: Alyssa Milburn <amilburn@zall.org>
+--- Patch [3]: [PATCH v3 3/3] usb: typec: tipd: Add sn201202x support ---
+commit a0251ef6ede2e8ce60700056a8add92aa7a36382
+Author: Sasha Finkelstein <k@chaosmail.tech>
+Subject: usb: typec: tipd: Add sn201202x support
 
-usb: typec: tipd: Factor out i2c specifics
+This patch adds support for the sn201202x (ACE3) controller, which is a tipd
+variant utilizing the SPMI bus. It provides the SPMI regmap implementation
+along with probe and PM routines.
 
-Make the core driver more bus-agnostic to prepare for SPMI variants of
-the tipd chip.
+> diff --git a/drivers/usb/typec/tipd/spmi.c b/drivers/usb/typec/tipd/spmi.c
+> new file mode 100644
+> index 0000000000000..73575a854bde1
+> --- /dev/null
+> +++ b/drivers/usb/typec/tipd/spmi.c
+[ ... ]
+> +static int regmap_sn201202x_select_reg(struct spmi_device *sdev, u8 reg)
+> +{
+[ ... ]
+> +	while (--attempts) {
+> +		err =3D spmi_register_read(sdev, 0, &val);
+> +		if (err)
+> +			return err;
+> +		if (val =3D=3D (reg | 0x80)) {
+> +			if (!warned) {
+> +				dev_warn(tps->dev,
+> +					 "Got interrupt but selection not complete?\n");
+> +				warned =3D true;
+> +			}
+> +			msleep(20);
+> +			continue;
+> +		}
+> +		if (val =3D=3D reg)
+> +			return 0;
+> +		return -EIO;
+> +	}
+> +
+> +	return -EIO;
+> +}
 
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index d5ee0af9058b9..31098bdce1096 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
-
-[Severity: High]
-Since this commit prepares core.c for non-I2C buses, will the hardcoded
-I2C casts remaining in tps25750_write_firmware() cause memory corruption
-if an SPMI variant reaches this path?
-
-For example:
-
-drivers/usb/typec/tipd/core.c:tps25750_write_firmware() {
-    struct i2c_client *client =3D to_i2c_client(tps->dev);
-    ...
-    client->adapter->timeout =3D msecs_to_jiffies(5000);
-    client->addr =3D bpms_addr;
-}
-
-Could this overwrite memory at the client->adapter->timeout and
-client->addr offsets for non-I2C devices?
+[Severity: Medium]
+Does this logic work correctly for register addresses >=3D 0x80? If reg is
+0x85, for example, then (reg | 0x80) evaluates to just reg. This would make
+the busy condition val =3D=3D (reg | 0x80) identical to the success conditi=
+on=20
+val =3D=3D reg. Since the busy condition is checked first, it will falsely =
+match,
+trigger the warning, and eventually timeout returning -EIO.
 
 [ ... ]
-
-> @@ -1842,14 +1716,14 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
->  			goto err_unregister_port;
->  		ret =3D tps->data->connect(tps, status);
->  		if (ret)
-> -			dev_err(&client->dev, "failed to register partner\n");
-> +			dev_err(tps->dev, "failed to register partner\n");
->  	}
-> =20
-> -	if (client->irq) {
-> -		ret =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> +	if (tps->irq) {
-> +		ret =3D devm_request_threaded_irq(tps->dev, tps->irq, NULL,
->  						tps->data->irq_handler,
->  						IRQF_SHARED | IRQF_ONESHOT,
-> -						dev_name(&client->dev), tps);
-> +						dev_name(tps->dev), tps);
->  	} else {
->  		dev_warn(tps->dev, "Unable to find the interrupt, switching to polling=
-\n");
->  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
-> @@ -1860,13 +1734,12 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
->  	if (ret)
->  		goto err_disconnect;
-> =20
-> -	i2c_set_clientdata(client, tps);
->  	fwnode_handle_put(fwnode);
-> =20
->  	tps->wakeup =3D device_property_read_bool(tps->dev, "wakeup-source");
-> -	if (tps->wakeup && client->irq) {
-> -		devm_device_init_wakeup(&client->dev);
-> -		enable_irq_wake(client->irq);
-> +	if (tps->wakeup && tps->irq) {
-> +		devm_device_init_wakeup(tps->dev);
-> +		enable_irq_wake(tps->irq);
->  	}
-> =20
->  	return 0;
-> @@ -1887,15 +1760,14 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
-> =20
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(tipd_init);
+> +static int sn201202x_probe(struct spmi_device *device)
+> +{
+[ ... ]
+> +	init_completion(&sn->select_completion);
+> +	init_completion(&sn->sleep_completion);
+> +	init_completion(&sn->wake_completion);
+> +
+> +	ret =3D devm_request_irq(&device->dev, irq_select, sn201202x_irq,
+> +			       0, NULL, &sn->select_completion);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D devm_request_irq(&device->dev, irq_sleep, sn201202x_irq,
+> +			       0, NULL, &sn->sleep_completion);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D devm_request_irq(&device->dev, irq_wake, sn201202x_irq,
+> +			       0, NULL, &sn->wake_completion);
 
 [Severity: High]
-This is a pre-existing issue, but does the error path in tipd_init()
-leak the delayed works?
+Can passing NULL as the devname parameter to devm_request_irq() cause a ker=
+nel
+panic during boot? The IRQ subsystem passes the devname to proc_mkdir() to=
+=20
+create an entry in /proc/irq/, and calling strlen() on a NULL name will fau=
+lt.
 
-If tps->data->connect() succeeds and queues cd321x->update_work, or if
-the polling mode queues tps->wq_poll, and a subsequent step fails, we
-take the err_disconnect path.
+> +	if (ret)
+> +		return ret;
+> +
+> +	spmi_device_set_drvdata(device, tps);
+> +	tps->regmap =3D devm_regmap_init_sn201202x(device, &tps6598x_regmap_con=
+fig);
+> +	if (IS_ERR(tps->regmap))
+> +		return PTR_ERR(tps->regmap);
+> +
+> +	ret =3D spmi_command_wakeup(device);
+> +	if (ret)
+> +		return ret;
+> +	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies=
+(100)))
+> +		return -ETIMEDOUT;
 
-Does this path exit and drop the device structure without calling
-cancel_delayed_work_sync(&tps->wq_poll) or tps->data->remove(tps) to
-cancel pending works, potentially causing a use-after-free when the tps
-struct is freed?
+[Severity: Medium]
+Should there be a call to reinit_completion(&sn->wake_completion) right=20
+before sending the wakeup command? If a pending or spurious interrupt fires=
+=20
+immediately after the IRQ is registered above, wait_for_completion_timeout()
+might consume the stale completion and return immediately without waiting f=
+or
+the actual hardware wakeup sequence to finish.
 
 [ ... ]
-
-> -static int __maybe_unused tps6598x_suspend(struct device *dev)
-> +int tipd_suspend(struct tps6598x *tps)
->  {
-> -	struct i2c_client *client =3D to_i2c_client(dev);
-> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
-> -
->  	if (tps->wakeup) {
-> -		disable_irq(client->irq);
-> -		enable_irq_wake(client->irq);
-> +		disable_irq(tps->irq);
-> +		enable_irq_wake(tps->irq);
-
-[Severity: Critical]
-This is a pre-existing issue, but can this pass an invalid IRQ 0 to
-disable_irq() and enable_irq_wake()?
-
-If the device specifies a wakeup-source in the device tree but has no
-interrupt configured, tps->wakeup will be true while tps->irq is 0.
-
-Could calling disable_irq(0) inadvertently disable critical system
-interrupts, such as the primary system timer?
-
+> +static int __maybe_unused sn201202x_suspend(struct device *dev)
+> +{
 [ ... ]
-
-> -static int __maybe_unused tps6598x_resume(struct device *dev)
-> +int tipd_resume(struct tps6598x *tps)
->  {
-> -	struct i2c_client *client =3D to_i2c_client(dev);
-> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
->  	int ret;
-> =20
->  	ret =3D tps6598x_check_mode(tps);
-
-[Severity: High]
-This is a pre-existing issue, but does tipd_resume() attempt to
-communicate with the device before it is taken out of reset?
-
-When the device lacks a wakeup source but has a reset GPIO,
-tipd_suspend() asserts the reset GPIO.
-
-During tipd_resume(), we call tps6598x_check_mode() which tries to read
-from the device. However, the reset GPIO is not de-asserted until later:
-
-drivers/usb/typec/tipd/core.c:tipd_resume() {
-    ...
-    } else if (tps->reset) {
-        gpiod_set_value_cansleep(tps->reset, 0);
-        ...
-    }
-}
-
-Will this lead to a guaranteed communication failure during resume?
+> +	err =3D spmi_command_sleep(sn->sdev);
+> +	if (err)
+> +		goto out_resume;
+> +	if (!wait_for_completion_timeout(&sn->sleep_completion, msecs_to_jiffie=
+s(100))) {
+> +		err =3D -ETIMEDOUT;
+> +		goto out_resume;
+> +	}
+> +	return 0;
+> +
+> +out_resume:
+> +	tipd_resume(tps);
+> +	return err;
+> +}
 
 [Severity: High]
-This is also a pre-existing issue, but do the early returns from
-tps6598x_check_mode() and tps->data->init() skip re-enabling the
-interrupt?
+Does this error path leave the device in an unresponsive state? If the slee=
+p=20
+command succeeds but wait_for_completion_timeout() times out (perhaps due t=
+o=20
+a lost interrupt), we jump to out_resume and call tipd_resume(). Since the
+device was commanded to sleep and no spmi_command_wakeup() is issued in this
+error path, the regmap reads inside tipd_resume() could fail or hang.
 
-If tipd_resume() encounters an error here, it returns early and skips:
 
-drivers/usb/typec/tipd/core.c:tipd_resume() {
-    ...
+I also noticed a couple of pre-existing issues in the core code that might =
+be
+worth addressing:
+
+[Severity: High]
+This is a pre-existing issue, but does tipd_suspend() correctly handle cases
+where the wakeup-source property is present in the device tree but the irq
+property is missing?
+
+drivers/usb/typec/tipd/core.c:tipd_suspend() {
     if (tps->wakeup) {
-        disable_irq_wake(tps->irq);
-        enable_irq(tps->irq);
+        disable_irq(tps->irq);
+        enable_irq_wake(tps->irq);
+    } else if (tps->reset) {
+...
+
+In tipd_init(), tps->wakeup can be set to true even if tps->irq is 0. If th=
+at
+happens, calling disable_irq() and enable_irq_wake() here will operate on
+IRQ 0, which might disable a core system interrupt like the timer.
+
+
+[Severity: High]
+This isn't a regression introduced by this patch, but could tipd_init() lea=
+k=20
+the delayed work queue if connect() fails?
+
+drivers/usb/typec/tipd/core.c:tipd_init() {
+...
+    if (status & TPS_STATUS_PLUG_PRESENT) {
+        ret =3D -EINVAL;
+        ...
+        ret =3D tps->data->connect(tps, status);
+        if (ret)
+            dev_err(tps->dev, "failed to register partner\n");
     }
-    ...
-}
 
-Could this permanently disable a shared interrupt line?
+    if (tps->irq) {
+        ...
+    } else {
+        ...
+        INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
+        queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
+                   msecs_to_jiffies(POLL_INTERVAL));
+    }
 
-> @@ -1946,25 +1815,22 @@ static int __maybe_unused tps6598x_resume(struct =
-device *dev)
->  	}
-> =20
->  	if (tps->wakeup) {
-> -		disable_irq_wake(client->irq);
-> -		enable_irq(client->irq);
-> +		disable_irq_wake(tps->irq);
-> +		enable_irq(tps->irq);
+    if (ret)
+        goto err_disconnect;
+...
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but can this pass an invalid
-IRQ 0 to disable_irq_wake() and enable_irq()?
-
-As in tipd_suspend(), if the device specifies a wakeup-source in the
-device tree but has no interrupt configured, tps->wakeup will be true
-while tps->irq is 0.
-
-Could calling enable_irq(0) corrupt the IRQ state for critical system
-interrupts?
+If tps->data->connect() fails, ret holds an error code. If the device has no
+IRQ, we queue the polling work. Since ret isn't cleared, the subsequent
+if (ret) check triggers a jump to err_disconnect, freeing the tps structure
+without cancelling the delayed work queue. This could lead to a
+use-after-free when the timer fires.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801-tipd-ace3-=
-v3-0-8332f2eca4fc@chaosmail.tech?part=3D2
+v3-0-8332f2eca4fc@chaosmail.tech?part=3D3
