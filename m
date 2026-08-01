@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27522931EA
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 15:07:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8869539AD55
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 15:07:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785596848; cv=none; b=PYmOfBKso4gZ4kDX+nsQh8G1pyr9ahyCo6dpxGQcy2T0wI5++qWfSza1N9p2ETaHo4PjX5782I9SsnZQU5/qDWmRwUPlbYpabQyc6cUUiDp/Eqpdf/zULbtXB+ANIK1Ivl/hLfauuWJE3FzYTPaOqqKU/233WXDwLeZ62R3ukRI=
+	t=1785596851; cv=none; b=T6b/r9KI10ULcPxQgcS4ZHosktbtk11SRy6Ds+uVkuYW7TArjUKY4l9nq+N4eVdgZfLQopktx4CICgkI+CuYmGFT05tGMHwWEWE9KerH6U7J+9gsZaBzUTG4rNQl1OGWSFY4uXNRmV70C3/bhtOWvQoDe2qpxy6Mw3k1igt1+PM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785596848; c=relaxed/simple;
-	bh=NB46ZyeMgDWsFKPy20XcjmxVHbFekCrtFMxH2QMZGmY=;
+	s=arc-20240116; t=1785596851; c=relaxed/simple;
+	bh=KafFn607twykEQnbRM/XOk9qfptsuPKINmLe6Loj6+M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IwNDiDD1i5GUEn1G4ltxwENrJ09syRxMVU7Wi9YyBgOaLyXsnOoJQNkWmvwpQBmuv1MjDzZkk0FwXX/q0QzNcxPP4qGKbPQAl8O6YVezWn1Mt2Fz1sYbI13j3M69XDiRTj9p2q1HIsIHIQhpjpugyNn+pZIcU2JCe1TvbsQxSY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ORDlqK2N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kTbB/K2/; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=M0+PSnG9rxqhKogs1AU6qZUyMZRsC2v+hTFK7ZrF4IYwv2OddqkIjrOlnPfkru5Ysx23PZng1GdgzfCicTOf611vBnOMF1THvoFvHdPZ7E3xjL9Hjvsc/DibqDECFtF6/Ws27nFiEVWoiTp+UqptZTVCa8Pqj+tD5CKpeoKsRGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RI7L4u08; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bpo09sak; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ORDlqK2N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kTbB/K2/"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671CadjU3441579
-	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 15:07:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RI7L4u08";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bpo09sak"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671CaYcN2815329
+	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 15:07:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yVOsjnfr6AZds1Ha+EheEVgd4WK/VoKKw/cFpNwWuzI=; b=ORDlqK2NSwQMYC/8
-	vd3yv/vKfdFmKsKb6rhgMIXvo5BOSJJ7C6f7ZHDu62OP8gu5p28Axz4hAeUjdOgB
-	zuRAF+o8HvuvfbHh/+MbuilHQgnr5OZ4u5CJ2uiPOIaiRiR3Lr8bBukIUnylNPj/
-	juGZJrQSwn7NOkwatigOw0ItK9HgKsUV5KZmqiBZ02lHpLtin0XrFkHV+pMLpFON
-	lPe4z5jPqdggSMqVkkSoUpCNPG6K0Fs8e6mAsgUQxryw0oDybycPoQNQH2GybaN0
-	h/jQCgfab0k3pJo1cufwQ+PmYXEadZIo5j0AH2odMmovg6N/x5Ouo76o1KGFvCco
-	sFN2AA==
+	JTUNuN1/8ESsUUmXgeFtwpIQ1cpP4e3GVEtxRYxw+YQ=; b=RI7L4u08Rvw7Fy7C
+	iOzqqfOlM+8TkdV6M97+/sb96Oh/NGNoPHpcyhDXnve5qUtBZgepeKd2OT94hzx7
+	83wPCqm6jKCr48WBXb7mc63FRHtMXAz83GleCODnt+zfcbhCxEMCMQTMSSAgCO2o
+	vfNTAaLsCKVkyeAvkDQ+m60fvjOLNcvO6FX0KjIUSjLRpIlji3zHSU2LzYwXBXBE
+	nvOX8Z3QB6I097s/D6KMKSHYd9ParVuWhI5yM8nodGyDXOIGHBR0N6xhojIgTDAv
+	kVigCxJV8QPbJg3rcToXqvCNAP7zlUH5e/qf2fiE+er6OYwba9HeFwo1L1llwgdL
+	1lxSSg==
 Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8qps52c-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs9jfs0hs-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 15:07:24 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5276aa86d00so20511811cf.2
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 08:07:24 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 15:07:28 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52827090cc5so20340541cf.0
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 08:07:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785596844; x=1786201644; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785596848; x=1786201648; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yVOsjnfr6AZds1Ha+EheEVgd4WK/VoKKw/cFpNwWuzI=;
-        b=kTbB/K2/vliXNeVmjOggCB750ZHaH9L85ptrmfFQF36AfhRXE6MxPtceHI6r1yVszj
-         e65gzqvTe8TvHEarCBSDaJgsLBjWPOsMsTgRfnZV+NVD3G21ewUJtWxmo/+A64rDVbg7
-         UWvtykO8E04GjhrwgUIfLyIC2VrCerYNEsH2mvRn22ghChuZ1qgob8wfNiOdOCWFxh7t
-         08yiJT6mLzD5FzS5hScZYz5nQ5KbPZayK3qkB7chHg7SAj4l9LAQBzMPXopa6HDOfCF+
-         BdEQir6ISNzTbkSosLlDogXo+sbrJ7uQ6YqtpSWgLRMLQdYVzuGAipV6jmg8F7JbB9DC
-         0a2w==
+        bh=JTUNuN1/8ESsUUmXgeFtwpIQ1cpP4e3GVEtxRYxw+YQ=;
+        b=bpo09sak1T277SXDl63GaM0RpfVS3lK32Aup2auMOefDigR/C0TrbhOo1T9PN7oAsA
+         uMR1A+UuNJYUlgBvYLp90sQomWFuqDNd7EvrrbUFSUcITi9VGPg4ChI+ainDlaRV6s54
+         w4eU6m1XwqWhhwtlukfZKLx/aWoOp5e8psmhdM/CQUawPNkG2uRKcstRhzt6Cyf1p7ia
+         ajWjlRJDNNQ25ebcmIPX1u1hJjApy//F/jGYqziE5u1qzBQiwHT5fawEtsIpOiWBFzft
+         Of4jOPqod1ZDt6SJS9LYOUbgKx9g2gTRcEvs9q1zVPOCIUdzPWKj2WwUJyLd7ns2ADcG
+         iRAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785596844; x=1786201644;
+        d=1e100.net; s=20251104; t=1785596848; x=1786201648;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yVOsjnfr6AZds1Ha+EheEVgd4WK/VoKKw/cFpNwWuzI=;
-        b=rtp4jMEznCj/l7R9YDN3XsHrL5mRKP2MR47x4qZmFy2m0259UrSZrrA2X2f7nNQhz1
-         mt01TVNeTEw/r7bZvi4NQQs/mYwfqyN+eJXn/r3XNKO6PqjOuouT+QlaI0AcTr1VMOpB
-         OyncLE09ijtLTY7kX1n0rRhuIDjtIf2YwNYu0eMiIXoOmxJw4qgdsllzDwt7zC5LUog1
-         vmPw09o392mMkkn7SBd6birNc3w+4+RiwthVLs8Hqld6OhCPZYUMhC7r7bZFpSZJnQqd
-         jkXS7F6exKcWD0ZxTC7t6eYZ9OJdfmPK1Ly80pKp3UU9hl0jbSeRZon2AACO6szpE8cc
-         4gQg==
-X-Forwarded-Encrypted: i=1; AHgh+RoV7v7aWdnSFmAN6n5//hGXingQpKH0QFHk0GsRjpE5mPOdhzCVNwpKQJ7T0pQrd+emclU+SOwTxQ3R@vger.kernel.org
-X-Gm-Message-State: AOJu0YzB2Cgde7W3qyv9mwyKyNlSbXdWEP+0aMkfZ09kSR6w51dltdBL
-	ErKRrd0L2ZN7LrQ6YrMHbws2G5prPLoz2Jlf09Sshh3h9OoDvsTGjxxHERL/zBOIWUg0AqyQNBi
-	/e474hlqrtHr+VERgwxB+BMjK2f68kfhcmPDHZbInnpLFu0Qnk3119N49egarNlVf
-X-Gm-Gg: AR+sD12PQ6DrppI4u7++jdcaIwCq6aLNHERYwkunLQHOlqfoPmgJ1jSJl70jTORj2hy
-	bUki2B+915jzo7heNC6AnTMX0Irgx7UV+aMvNYmNBmI8ng9jDUQAbKgGN0L+P0Gx3U2n/g152/f
-	oNIlIPrAwnLGWy07c8mFPEI7/uJv61zcbx2Jx84KgBI16+R4NaZlFwwyAqtD/x9h7uBNgxQY56F
-	+n3p59CIjxuyyKvbKRHWrqpxVD1XpboBs2BfcCY1AVSnWGZinHOf3Fjre/sjQ3jHIoaH6dAXN1o
-	7C2lcdwmk7lq0oAVYyIwbEPvEXbXo3Xk0sOS2udLfvTT1JzX6DRwknbrbk6Duen4HNkTfsBhDiy
-	CwVy10Gdf3Lk5fTv//ei8J3dY
-X-Received: by 2002:a05:622a:1183:b0:51c:167d:b345 with SMTP id d75a77b69052e-52b56752f6amr68929071cf.24.1785596843399;
-        Sat, 01 Aug 2026 08:07:23 -0700 (PDT)
-X-Received: by 2002:a05:622a:1183:b0:51c:167d:b345 with SMTP id d75a77b69052e-52b56752f6amr68928281cf.24.1785596842665;
-        Sat, 01 Aug 2026 08:07:22 -0700 (PDT)
+        bh=JTUNuN1/8ESsUUmXgeFtwpIQ1cpP4e3GVEtxRYxw+YQ=;
+        b=SFR8eJY7tMZnTLhSLr1uTYvCHqDraLTSyzTkHOee75TIuBDAqwiJ85BbqoyU5MAKRM
+         UCcwNOx3GTpGobyDcUtB7yTEiT5edWsbIRIT6zyL/gMx8QKm9YmRz0kKGfMVQuOLKWsT
+         rWrjkIJXkIMIG71pUHi3KCytjm69S8xV/2aP81GaQN40yKPaP64bQ0R4hvXIS3DIlkoP
+         hl9G8wuaN1aVNd6PDliYZaPltVD2Pa6b2RsqcddfVg2bMZr5C6iPnJWAPpggcoDaxN2P
+         VT1hzK3p1qhgdZOeELJAECsG9h9lvBn4ao5t4S2yYFfgM6iF4YteEfsV/cNsZa8VQI/K
+         VMMQ==
+X-Forwarded-Encrypted: i=1; AHgh+RonIB61k1XMt2xeCWd2tOmArJvT7h2YTlbiD0O/7MrhKvG5s6DPpFCT23JBXI2zbgTS2vxq2h3nWlsW@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgnrGSj2MFevr9qk4/OD9nxiEVpiiI5UNBGvozU55pXCYQdqOx
+	v2rIvlFz6ZWodQokbSmvzWZgNFe4aV+YsA1SxPQty6o0bd6Dhm4tnwpHDvihtg7eulGP1ihktvj
+	BIeiz7wZ4M2iOtBbvsxL1yHYNLtL6tqXjVWl505bLMUbOxeFVJlQVvC9WZzi4ceMe
+X-Gm-Gg: AR+sD11L8h5CPRiXVD0hPH7gcGRz0oucg8sgF0EBiKBp5BiJ6cKrCBejHj2CQKDVjjB
+	wCtO6TkcmIxNZdtU8OJmJgQwcyM5WtRofghJEBAzhGqR2DfebrEbGb0ZgUTQ2PWP1DFesywQxPx
+	4sU3ZUWxgmUVy6c7vqwdlJ3RXtl2xUggCAD6Q96LCRJ/AU6DzyRuIfSsLEWC9elaOP2rj5/GVTA
+	MogStZjnc6c9ZtIgXE5uPN0DzfHEc+FZpkGdKY5Y0DX3SV5Cyvk1NS9cKpF0LyE/ZqEIBBY+8y/
+	2+6nNdXuuboFlf3siXCv0L7xlPp9KaJSiPjRZ4t6btkjzqmhtiPtcFf491FJplkAdwW1o96wiGT
+	cLVHpaP6AihXSd8n2CKOmt9A2
+X-Received: by 2002:a05:622a:580c:b0:517:63df:91a5 with SMTP id d75a77b69052e-52b4c5dc695mr87180751cf.19.1785596847784;
+        Sat, 01 Aug 2026 08:07:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:580c:b0:517:63df:91a5 with SMTP id d75a77b69052e-52b4c5dc695mr87180021cf.19.1785596847372;
+        Sat, 01 Aug 2026 08:07:27 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd45a1abfsm16005222f8f.37.2026.08.01.08.07.20
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd45a1abfsm16005222f8f.37.2026.08.01.08.07.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 08:07:21 -0700 (PDT)
+        Sat, 01 Aug 2026 08:07:26 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Sat, 01 Aug 2026 17:07:00 +0200
-Subject: [PATCH v2 5/8] arm64: dts: google: Move 'status' to the end to
- match coding style
+Date: Sat, 01 Aug 2026 17:07:02 +0200
+Subject: [PATCH v2 7/8] arm64: dts: fsd: Move 'status' to the end to match
+ coding style
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260801-b4-dts-coding-style-strict-v2-5-f09a659ab80d@oss.qualcomm.com>
+Message-Id: <20260801-b4-dts-coding-style-strict-v2-7-f09a659ab80d@oss.qualcomm.com>
 References: <20260801-b4-dts-coding-style-strict-v2-0-f09a659ab80d@oss.qualcomm.com>
 In-Reply-To: <20260801-b4-dts-coding-style-strict-v2-0-f09a659ab80d@oss.qualcomm.com>
 To: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
@@ -108,48 +108,48 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=18995;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6130;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=NB46ZyeMgDWsFKPy20XcjmxVHbFekCrtFMxH2QMZGmY=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbguZhBwBfxzIZhsRraQ1Y11DBXzqs1wBtXLcm
- SjQml95tfyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam4LmQAKCRDBN2bmhouD
- 1xkgD/9O/KD2vKxWkhOtoHXfM11eBHNe+ukbeYKt8Rskea3zY8Vvuuo9ha0uwkiIjEqw/dcJZkR
- ZBIdv3nzEl+6nvgg1jZBu6VWEpJyhqaiENsiij2B0A7esZgOqy2U3myQcFpCG6XInLZxXXOdToo
- S3cDaLuHED2/Xmvfys/8R4bb+PoPgw94Dcw/vXCJpSZ7eWwudomDX33N+dpm7cpUVLkTc916b0E
- LNWU5yzlyFya/yIhRNxSeorxzKrB3ureiO4IEtQY9eDVO8lngSDQPyJM8U4ABDyX8SCT3zSyAHl
- 5sA6f4TmOeV3ujXkNs1q09jePFNDRRRUDOUclVtPGuQ0t6BKeVpuLvoye0zdBlK/sqJ5Qm2e3Wa
- LTbED/B17MVc/8yW+JQxWe0OT++8BEnKWNWiz/3XvasXWYC1KlbT3eg8J4Bk+gPeHiQ6db+OjDU
- sTXvrBgboFGrKYjQ8Ll9G3ruCzsyMFgounbK00DTf9GuqCuUT6OpKvQ8rkpxiYi0eW392QmC1p8
- TF3I6DaULpeedEsmnDApNXMa3UKOLTzP3eYOlSIIQ8e2gthHOutJ+n4ZT5kcNUVIC0sIRlxJM5i
- kIQoZ7OobLi3jSn76WyAOSy44fUWRZrMSdCPNHCUsxtz3VTNXhzGehPRxyvmuzbz9FtlDl/u2nx
- 3rYnbDms+O24PXw==
+ bh=KafFn607twykEQnbRM/XOk9qfptsuPKINmLe6Loj6+M=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbgub8iXXMCK+PQR9IniToLvDNRTslgMN9i6rq
+ gRNMOgmaz2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam4LmwAKCRDBN2bmhouD
+ 11IfD/9HqryBeEmp61exX7+aVNDjPT4Xk26jcy/YcgWSE0lP1nQYwvlCcGqQge8YBx3NAr59EMx
+ bEyz3iKK+5O+oT2cVRrOHQ/K7ZBl+PXIRnlkAGCbINKFW9ROjhIYPN95+MXZ1VKDJOwOn5kD9q2
+ Zg2qoKMIGtC0ShOsIZop46CVxkYocmUbguFgbDgHRmvmt/3DaLYl9gDDDCfIWWCiAnV2GSgxCr0
+ D59Ad9dKDKZZT1XXIytuiv6UFWmBHTyQ05SFgi6VWHbGBUItEcysAIS6Iq1yWBIROHdshJ9likF
+ CGJAZrbxHOnpbQFaID81+HpoXV9r22z6Wbhf6ZaCCkGMICYFfVOTTCDt72ogoJvNvTYwBrSPzCA
+ rGMHIKpk+Lbx20w12C19h11UzzdwYQ5Wh4nnGMDt02erh9a4lmYoUkfHHtAwyrUNepmHsF7q3A+
+ DmZupZDtI6a/qKD+aAxdYVClWRmU7xdqpQGMfzl4VVFXmAhnSbvrXvMYnXZTfrNBLgnx1EccZrj
+ zEfXXcGqI1AssJLY+rv+XjrfwgJnLUo+KJa2c4VWE5a7wG7XMouVtD+0H3+7uL5bIJsoWVqqQVp
+ 0V3CFd9sktayuRW4g9l73QlntzHW/rbSY+/nKymFuaHlvt0st3jcy/hKMGq3n+xuX2gHbvUq8F+
+ xhXWtIluRevWAHA==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfX5dm9DpB28X7O
- L8A+oN9WkCZkRzViGuvb+6h6eCNeiVUqAV43wEw/Oqdp19BT5wzFTvl1lGtccsg0QhpfFCeoKGz
- shZhIMc3Q7Zhbe1ON39Z4Fyaxsb1YW1PnX6CTiIe0dFxj1YRhBz95X52lifBcxQAeXyYXR89ukF
- ItZdBb5TGVyHxpTmlFfJZO2tQcgPFNLemmk8YQJhWCUOPI/lXlX6bdU3mpvDVt8gLA7ORMf5lFo
- L+p4adX+0P6YYyn/NAVfYK+uYGOC0px5i5fevglXq7DO6Ntqp14bAgpbM2IyT3L2g6Jxtvl+h+x
- nAjmdBg9BZHmV2Oqq2DvvzQZtU3zxEjeaE6Ty/3C8SHbt6gi+TU9ZSHS+qXr7dRQCsxtMy38pjV
- g2iLgFaVl7U/iRanoOfLXTq/l4UdVbwyphhrBfCA4VahROIjynKYH7z2xt8NCeAIhwh7nnE+gYM
- oBMqX4aeig77gz3iciw==
-X-Proofpoint-GUID: YwaN5I26v5ddZciNE_YFGbIUPjaQ1JGl
-X-Authority-Analysis: v=2.4 cv=MpViLWae c=1 sm=1 tr=0 ts=6a6e0bac cx=c_pps
+X-Proofpoint-GUID: v7gafyUWzI6ulYKYiYpKQskXGjAQpK2Q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfX4eP8Me2Q1rW2
+ FitDVsLPdQnXPQjPdMkGlillLyRBrC7Twq16VvAdMcpVV3mXrYMXpuqj0lfmL4He0UYfNf1HXtk
+ R4SUsH3RCEsGOcK7BnIXlUYk09XpHyGdQbcEF1AVVr+yuIV7f0s87PrOks+k0xg/fDR6oxvglvC
+ asx4f2NkV1D3MMEYouES1N8SpIGhnjlSesaIBpGnc4qvEM4nXptsdl281soApPDAvqWDiHMMNdX
+ lCoQd2GGKbNfc9yD5f7y/ekjZniQxcuBBvaCc7+3lQ5n38QrHV+Rvao2O7HHhKN+h6Z8WYVoJoW
+ P+xaiCTKQplNd3JJpI4C3dS9UAXih/p8Ny01VX93eRAFETx3ZNh2c/hOGlKGYz4RvBbQwfX6wvP
+ X428XZIkxth9cievJgrVb3iIfjOvMgbdT7omaS+X8a2uBdlZum0MN5l3ayer8vzJxYn9rNRUslX
+ YP2aBDXm3TJzkF5Gg6A==
+X-Authority-Analysis: v=2.4 cv=TYSmcxQh c=1 sm=1 tr=0 ts=6a6e0bb0 cx=c_pps
  a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=m3zw2U_XGuQn2lDZ05UA:9 a=3ZKOabzyN94A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=vEzWEtAh74nsurIt10gA:9 a=3ZKOabzyN94A:10
  a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: YwaN5I26v5ddZciNE_YFGbIUPjaQ1JGl
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfX0EmDy58hZBmv
- hp4krzImJ6098xYLDO9xACPySGuF+cl5RzqZ4pXv8XdX3QyXfazbssozSQ/w6EJEeqhRfjG6iox
- K6Zc8hzIXvPgwr3sGdJyzOo2f0Eh7eo=
+X-Proofpoint-ORIG-GUID: v7gafyUWzI6ulYKYiYpKQskXGjAQpK2Q
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDEyMiBTYWx0ZWRfXzT5oTdjDfhZn
+ qdF1+p4Eztc8etq8DtT3PsYCKez1J4pRpSmvoegb2dsJC7YKN8W3SOovNdJNUC/SFV9xUrCOg2U
+ YTx8uZfSM5v0vvuR/T9hMKoG8JifpI0=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-01_01,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 phishscore=0 malwarescore=0 spamscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010122
 
@@ -158,699 +158,239 @@ always the last property preceded with a blank line, as reported by
 dt-check-style:
 
   [required-blank-lines] "status" must be preceded by a blank line
-  [property-order] property 'vcc-supply' out of canonical order (should sort before 'status')
+  [property-order] property 'phy-mode' out of canonical order (should sort before 'status')
 
 Reviewed-by: André Draszik <andre.draszik@linaro.org>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/exynos/google/gs101-oriole.dts |  2 +
- .../boot/dts/exynos/google/gs101-pixel-common.dtsi | 12 +++-
- arch/arm64/boot/dts/exynos/google/gs101-raven.dts  |  2 +
- arch/arm64/boot/dts/exynos/google/gs101.dtsi       | 70 ++++++++++++++++++++++
- 4 files changed, 85 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/tesla/fsd-evb.dts |  6 ++++--
+ arch/arm64/boot/dts/tesla/fsd.dtsi    | 24 ++++++++++++++++++++++++
+ 2 files changed, 28 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-oriole.dts b/arch/arm64/boot/dts/exynos/google/gs101-oriole.dts
-index 36721adcaa23..c5a3958c2320 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101-oriole.dts
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-oriole.dts
-@@ -39,6 +39,7 @@ ldo31m {
- 
- &cont_splash_mem {
- 	reg = <0x0 0xfac00000 (1080 * 2400 * 4)>;
-+
- 	status = "okay";
+diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts b/arch/arm64/boot/dts/tesla/fsd-evb.dts
+index 9ff22e1c8723..73b6a25e0e4d 100644
+--- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
++++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
+@@ -65,9 +65,10 @@ codec {
  };
  
-@@ -47,5 +48,6 @@ &framebuffer0 {
- 	height = <2400>;
- 	stride = <(1080 * 4)>;
- 	format = "a8r8g8b8";
-+
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-index 5227cd4e314b..a12f2b88d72d 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-pixel-common.dtsi
-@@ -32,6 +32,7 @@ framebuffer0: framebuffer-0 {
- 			vci-supply = <&s2mpg10_ldo22m>;
- 			vddi-supply = <&s2mpg11_bucka>;
- 			/* format properties to be added by actual board */
-+
- 			status = "disabled";
- 		};
- 	};
-@@ -98,6 +99,7 @@ cont_splash_mem: splash@fac00000 {
- 			/* size to be updated by actual board */
- 			reg = <0x0 0xfac00000 0x0>;
- 			no-map;
-+
- 			status = "disabled";
- 		};
- 	};
-@@ -856,8 +858,9 @@ &serial_0 {
- };
- 
- &ufs_0 {
--	status = "okay";
- 	vcc-supply = <&ufs_0_fixed_vcc_reg>;
-+
-+	status = "okay";
- };
- 
- &ufs_0_phy {
-@@ -867,6 +870,7 @@ &ufs_0_phy {
- &usbdrd31 {
- 	vdd10-supply = <&reg_placeholder>;
- 	vdd33-supply = <&reg_placeholder>;
-+
- 	status = "okay";
- };
- 
-@@ -875,6 +879,7 @@ &usbdrd31_dwc3 {
- 	usb-role-switch;
- 	role-switch-default-mode = "peripheral";
- 	maximum-speed = "super-speed-plus";
+ &ethernet0 {
++	phy-mode = "rgmii-id";
 +
  	status = "okay";
  
- 	port {
-@@ -893,6 +898,7 @@ &usbdrd31_phy {
- 	vdd33-usb20-supply = <&reg_placeholder>;
- 	vdda-usbdp-supply = <&reg_placeholder>;
- 	vddh-usbdp-supply = <&reg_placeholder>;
-+
- 	status = "okay";
- 
- 	port {
-@@ -904,20 +910,24 @@ usbdrd31_phy_orien_switch: endpoint {
- 
- &usi_uart {
- 	samsung,clkreq-on; /* needed for UART mode */
-+
- 	status = "okay";
+-	phy-mode = "rgmii-id";
+ 	fixed-link {
+ 		speed = <1000>;
+ 		full-duplex;
+@@ -75,9 +76,10 @@ fixed-link {
  };
  
- &usi8 {
- 	samsung,mode = <USI_MODE_I2C>;
+ &ethernet1 {
++	phy-mode = "rgmii-id";
 +
  	status = "okay";
- };
  
- &usi12 {
- 	samsung,mode = <USI_MODE_I2C>;
-+
- 	status = "okay";
- };
- 
- &watchdog_cl0 {
- 	timeout-sec = <30>;
-+
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-raven.dts b/arch/arm64/boot/dts/exynos/google/gs101-raven.dts
-index a422542715f2..7c4273796a22 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101-raven.dts
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-raven.dts
-@@ -35,6 +35,7 @@ ldo14s {
- 
- &cont_splash_mem {
- 	reg = <0x0 0xfac00000 (1440 * 3120 * 4)>;
-+
- 	status = "okay";
- };
- 
-@@ -43,5 +44,6 @@ &framebuffer0 {
- 	height = <3120>;
- 	stride = <(1440 * 4)>;
- 	format = "a8r8g8b8";
-+
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101.dtsi b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-index 86933f22647b..edc38f2d1183 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-@@ -624,6 +624,7 @@ watchdog_cl0: watchdog@10060000 {
- 			interrupts = <GIC_SPI 765 IRQ_TYPE_LEVEL_HIGH 0>;
- 			samsung,syscon-phandle = <&pmu_system_controller>;
- 			samsung,cluster-index = <0>;
+-	phy-mode = "rgmii-id";
+ 	fixed-link {
+ 		speed = <1000>;
+ 		full-duplex;
+diff --git a/arch/arm64/boot/dts/tesla/fsd.dtsi b/arch/arm64/boot/dts/tesla/fsd.dtsi
+index 5b06e2667b89..214d33ca7177 100644
+--- a/arch/arm64/boot/dts/tesla/fsd.dtsi
++++ b/arch/arm64/boot/dts/tesla/fsd.dtsi
+@@ -603,6 +603,7 @@ serial_0: serial@14180000 {
+ 				 <&clock_peric PERIC_SCLK_UART0>;
+ 			clock-names = "uart", "clk_uart_baud0";
+ 			samsung,uart-fifosize = <64>;
 +
  			status = "disabled";
  		};
  
-@@ -636,6 +637,7 @@ watchdog_cl1: watchdog@10070000 {
- 			interrupts = <GIC_SPI 766 IRQ_TYPE_LEVEL_HIGH 0>;
- 			samsung,syscon-phandle = <&pmu_system_controller>;
- 			samsung,cluster-index = <1>;
+@@ -616,6 +617,7 @@ serial_1: serial@14190000 {
+ 				 <&clock_peric PERIC_SCLK_UART1>;
+ 			clock-names = "uart", "clk_uart_baud0";
+ 			samsung,uart-fifosize = <64>;
 +
  			status = "disabled";
  		};
  
-@@ -707,6 +709,7 @@ usi1: usi@109000c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_0>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1000>;
-+
- 			status = "disabled";
- 
- 			hsi2c_1: i2c@10900000 {
-@@ -721,6 +724,7 @@ hsi2c_1: i2c@10900000 {
- 				interrupts = <GIC_SPI 635 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c1_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -734,6 +738,7 @@ serial_1: serial@10900000 {
- 				pinctrl-0 = <&uart1_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -748,6 +753,7 @@ spi_1: spi@10900000 {
- 				interrupts = <GIC_SPI 635 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi1_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -762,6 +768,7 @@ usi2: usi@109100c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_1>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1004>;
-+
- 			status = "disabled";
- 
- 			hsi2c_2: i2c@10910000 {
-@@ -776,6 +783,7 @@ hsi2c_2: i2c@10910000 {
- 				interrupts = <GIC_SPI 636 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c2_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -789,6 +797,7 @@ serial_2: serial@10910000 {
- 				pinctrl-0 = <&uart2_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -803,6 +812,7 @@ spi_2: spi@10910000 {
- 				interrupts = <GIC_SPI 636 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi2_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -817,6 +827,7 @@ usi3: usi@109200c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_2>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1008>;
-+
- 			status = "disabled";
- 
- 			hsi2c_3: i2c@10920000 {
-@@ -831,6 +842,7 @@ hsi2c_3: i2c@10920000 {
- 				interrupts = <GIC_SPI 637 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c3_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -844,6 +856,7 @@ serial_3: serial@10920000 {
- 				pinctrl-0 = <&uart3_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -858,6 +871,7 @@ spi_3: spi@10920000 {
- 				interrupts = <GIC_SPI 637 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi3_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -872,6 +886,7 @@ usi4: usi@109300c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_3>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x100c>;
-+
- 			status = "disabled";
- 
- 			hsi2c_4: i2c@10930000 {
-@@ -886,6 +901,7 @@ hsi2c_4: i2c@10930000 {
- 				interrupts = <GIC_SPI 638 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c4_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -899,6 +915,7 @@ serial_4: serial@10930000 {
- 				pinctrl-0 = <&uart4_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -913,6 +930,7 @@ spi_4: spi@10930000 {
- 				interrupts = <GIC_SPI 638 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi4_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -927,6 +945,7 @@ usi5: usi@109400c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_4>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1010>;
-+
- 			status = "disabled";
- 
- 			hsi2c_5: i2c@10940000 {
-@@ -941,6 +960,7 @@ hsi2c_5: i2c@10940000 {
- 				interrupts = <GIC_SPI 639 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c5_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -954,6 +974,7 @@ serial_5: serial@10940000 {
- 				pinctrl-0 = <&uart5_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -968,6 +989,7 @@ spi_5: spi@10940000 {
- 				interrupts = <GIC_SPI 639 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi5_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -982,6 +1004,7 @@ usi6: usi@109500c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_5>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1014>;
-+
- 			status = "disabled";
- 
- 			hsi2c_6: i2c@10950000 {
-@@ -996,6 +1019,7 @@ hsi2c_6: i2c@10950000 {
- 				interrupts = <GIC_SPI 640 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c6_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1009,6 +1033,7 @@ serial_6: serial@10950000 {
- 				pinctrl-0 = <&uart6_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1023,6 +1048,7 @@ spi_6: spi@10950000 {
- 				interrupts = <GIC_SPI 640 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi6_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1037,6 +1063,7 @@ usi7: usi@109600c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_6>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1018>;
-+
- 			status = "disabled";
- 
- 			hsi2c_7: i2c@10960000 {
-@@ -1051,6 +1078,7 @@ hsi2c_7: i2c@10960000 {
- 				interrupts = <GIC_SPI 641 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c7_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1064,6 +1092,7 @@ serial_7: serial@10960000 {
- 				pinctrl-0 = <&uart7_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1078,6 +1107,7 @@ spi_7: spi@10960000 {
- 				interrupts = <GIC_SPI 641 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi7_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1092,6 +1122,7 @@ usi8: usi@109700c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP0_IPCLK_7>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x101c>;
-+
- 			status = "disabled";
- 
- 			hsi2c_8: i2c@10970000 {
-@@ -1106,6 +1137,7 @@ hsi2c_8: i2c@10970000 {
- 				interrupts = <GIC_SPI 642 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c8_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1119,6 +1151,7 @@ serial_8: serial@10970000 {
- 				pinctrl-0 = <&uart8_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1133,6 +1166,7 @@ spi_8: spi@10970000 {
- 				interrupts = <GIC_SPI 642 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi8_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1148,6 +1182,7 @@ usi_uart: usi@10a000c0 {
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1020>;
- 			samsung,mode = <USI_MODE_UART>;
-+
- 			status = "disabled";
- 
- 			serial_0: serial@10a00000 {
-@@ -1160,6 +1195,7 @@ serial_0: serial@10a00000 {
- 				pinctrl-0 = <&uart0_bus>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <256>;
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1174,6 +1210,7 @@ usi14: usi@10a200c0 {
- 				 <&cmu_peric0 CLK_GOUT_PERIC0_PERIC0_TOP1_IPCLK_2>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric0 0x1028>;
-+
- 			status = "disabled";
- 
- 			hsi2c_14: i2c@10a20000 {
-@@ -1188,6 +1225,7 @@ hsi2c_14: i2c@10a20000 {
- 				interrupts = <GIC_SPI 643 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c14_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1201,6 +1239,7 @@ serial_14: serial@10a20000 {
- 				pinctrl-0 = <&uart14_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1215,6 +1254,7 @@ spi_14: spi@10a20000 {
- 				interrupts = <GIC_SPI 643 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi14_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1254,6 +1294,7 @@ usi0: usi@10d100c0 {
- 				 <&cmu_peric1 CLK_GOUT_PERIC1_PERIC1_TOP0_IPCLK_1>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric1 0x1000>;
-+
- 			status = "disabled";
- 
- 			hsi2c_0: i2c@10d10000 {
-@@ -1268,6 +1309,7 @@ hsi2c_0: i2c@10d10000 {
- 				interrupts = <GIC_SPI 651 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c0_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1281,6 +1323,7 @@ serial_usi0: serial@10d10000 {
- 				pinctrl-0 = <&uart0_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1295,6 +1338,7 @@ spi_0: spi@10d10000 {
- 				interrupts = <GIC_SPI 651 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi0_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1309,6 +1353,7 @@ usi9: usi@10d200c0 {
- 				 <&cmu_peric1 CLK_GOUT_PERIC1_PERIC1_TOP0_IPCLK_2>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric1 0x1004>;
-+
- 			status = "disabled";
- 
- 			hsi2c_9: i2c@10d20000 {
-@@ -1323,6 +1368,7 @@ hsi2c_9: i2c@10d20000 {
- 				interrupts = <GIC_SPI 652 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c9_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1336,6 +1382,7 @@ serial_9: serial@10d20000 {
- 				pinctrl-0 = <&uart9_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1350,6 +1397,7 @@ spi_9: spi@10d20000 {
- 				interrupts = <GIC_SPI 652 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi9_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1364,6 +1412,7 @@ usi10: usi@10d300c0 {
- 				 <&cmu_peric1 CLK_GOUT_PERIC1_PERIC1_TOP0_IPCLK_3>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric1 0x1008>;
-+
- 			status = "disabled";
- 
- 			hsi2c_10: i2c@10d30000 {
-@@ -1378,6 +1427,7 @@ hsi2c_10: i2c@10d30000 {
- 				interrupts = <GIC_SPI 653 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c10_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1391,6 +1441,7 @@ serial_10: serial@10d30000 {
- 				pinctrl-0 = <&uart10_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1405,6 +1456,7 @@ spi_10: spi@10d30000 {
- 				interrupts = <GIC_SPI 653 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi10_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1419,6 +1471,7 @@ usi11: usi@10d400c0 {
- 				 <&cmu_peric1 CLK_GOUT_PERIC1_PERIC1_TOP0_IPCLK_4>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric1 0x100c>;
-+
- 			status = "disabled";
- 
- 			hsi2c_11: i2c@10d40000 {
-@@ -1433,6 +1486,7 @@ hsi2c_11: i2c@10d40000 {
- 				interrupts = <GIC_SPI 654 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c11_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1446,6 +1500,7 @@ serial_11: serial@10d40000 {
- 				pinctrl-0 = <&uart11_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1460,6 +1515,7 @@ spi_11: spi@10d40000 {
- 				interrupts = <GIC_SPI 654 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi11_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1474,6 +1530,7 @@ usi12: usi@10d500c0 {
- 				 <&cmu_peric1 CLK_GOUT_PERIC1_PERIC1_TOP0_IPCLK_5>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric1 0x1010>;
-+
- 			status = "disabled";
- 
- 			hsi2c_12: i2c@10d50000 {
-@@ -1488,6 +1545,7 @@ hsi2c_12: i2c@10d50000 {
- 				interrupts = <GIC_SPI 655 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c12_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1501,6 +1559,7 @@ serial_12: serial@10d50000 {
- 				pinctrl-0 = <&uart12_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1515,6 +1574,7 @@ spi_12: spi@10d50000 {
- 				interrupts = <GIC_SPI 655 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi12_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1529,6 +1589,7 @@ usi13: usi@10d600c0 {
- 				 <&cmu_peric1 CLK_GOUT_PERIC1_PERIC1_TOP0_IPCLK_6>;
- 			clock-names = "pclk", "ipclk";
- 			samsung,sysreg = <&sysreg_peric1 0x1014>;
-+
- 			status = "disabled";
- 
- 			hsi2c_13: i2c@10d60000 {
-@@ -1543,6 +1604,7 @@ hsi2c_13: i2c@10d60000 {
- 				interrupts = <GIC_SPI 656 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&hsi2c13_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 
-@@ -1556,6 +1618,7 @@ serial_13: serial@10d60000 {
- 				pinctrl-0 = <&uart13_bus_single>;
- 				pinctrl-names = "default";
- 				samsung,uart-fifosize = <64>;
-+
- 				status = "disabled";
- 			};
- 
-@@ -1570,6 +1633,7 @@ spi_13: spi@10d60000 {
- 				interrupts = <GIC_SPI 656 IRQ_TYPE_LEVEL_HIGH 0>;
- 				pinctrl-0 = <&spi13_bus>;
- 				pinctrl-names = "default";
-+
- 				status = "disabled";
- 			};
- 		};
-@@ -1609,6 +1673,7 @@ usbdrd31_phy: phy@11100000 {
- 			clock-names = "phy", "ref", "ctrl_aclk", "ctrl_pclk", "scl_pclk";
- 			#phy-cells = <1>;
- 			samsung,pmu-syscon = <&pmu_system_controller>;
+@@ -658,6 +660,7 @@ pwm_0: pwm@14100000 {
+ 			#pwm-cells = <3>;
+ 			clocks = <&clock_peric PERIC_PWM0_IPCLKPORT_I_PCLK_S0>;
+ 			clock-names = "timers";
 +
  			status = "disabled";
  		};
  
-@@ -1622,6 +1687,7 @@ usbdrd31: usb@11110000 {
- 			clock-names = "bus_early", "susp_clk", "link_aclk", "link_pclk";
- 			#address-cells = <1>;
- 			#size-cells = <1>;
+@@ -668,6 +671,7 @@ pwm_1: pwm@14110000 {
+ 			#pwm-cells = <3>;
+ 			clocks = <&clock_peric PERIC_PWM1_IPCLKPORT_I_PCLK_S0>;
+ 			clock-names = "timers";
 +
  			status = "disabled";
- 
- 			usbdrd31_dwc3: usb@0 {
-@@ -1635,6 +1701,7 @@ usbdrd31_dwc3: usb@0 {
- 				snps,has-lpm-erratum;
- 				snps,dis_u2_susphy_quirk;
- 				snps,dis_u3_susphy_quirk;
-+
- 				status = "disabled";
- 			};
  		};
-@@ -1698,6 +1765,7 @@ ufs_0: ufs@14700000 {
- 			phys = <&ufs_0_phy>;
+ 
+@@ -681,6 +685,7 @@ hsi2c_0: i2c@14200000 {
+ 			pinctrl-0 = <&hs_i2c0_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C0>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -694,6 +699,7 @@ hsi2c_1: i2c@14210000 {
+ 			pinctrl-0 = <&hs_i2c1_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C1>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -707,6 +713,7 @@ hsi2c_2: i2c@14220000 {
+ 			pinctrl-0 = <&hs_i2c2_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C2>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -720,6 +727,7 @@ hsi2c_3: i2c@14230000 {
+ 			pinctrl-0 = <&hs_i2c3_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C3>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -733,6 +741,7 @@ hsi2c_4: i2c@14240000 {
+ 			pinctrl-0 = <&hs_i2c4_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C4>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -746,6 +755,7 @@ hsi2c_5: i2c@14250000 {
+ 			pinctrl-0 = <&hs_i2c5_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C5>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -759,6 +769,7 @@ hsi2c_6: i2c@14260000 {
+ 			pinctrl-0 = <&hs_i2c6_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C6>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -772,6 +783,7 @@ hsi2c_7: i2c@14270000 {
+ 			pinctrl-0 = <&hs_i2c7_bus>;
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C7>;
+ 			clock-names = "hsi2c";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -789,6 +801,7 @@ i2s_0: i2s@140e0000 {
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&i2s0_bus>;
+ 			#sound-dai-cells = <1>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -806,6 +819,7 @@ i2s_1: i2s@140f0000 {
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&i2s1_bus>;
+ 			#sound-dai-cells = <1>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -840,6 +854,7 @@ m_can0: can@14088000 {
+ 				 <&clock_peric PERIC_MCAN0_IPCLKPORT_CCLK>;
+ 			clock-names = "hclk", "cclk";
+ 			bosch,mram-cfg = <0x0 128 64 64 64 64 32 32>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -857,6 +872,7 @@ m_can1: can@14098000 {
+ 				 <&clock_peric PERIC_MCAN1_IPCLKPORT_CCLK>;
+ 			clock-names = "hclk", "cclk";
+ 			bosch,mram-cfg = <0x0 128 64 64 64 64 32 32>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -874,6 +890,7 @@ m_can2: can@140a8000 {
+ 				 <&clock_peric PERIC_MCAN2_IPCLKPORT_CCLK>;
+ 			clock-names = "hclk", "cclk";
+ 			bosch,mram-cfg = <0x0 128 64 64 64 64 32 32>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -891,6 +908,7 @@ m_can3: can@140b8000 {
+ 				 <&clock_peric PERIC_MCAN3_IPCLKPORT_CCLK>;
+ 			clock-names = "hclk", "cclk";
+ 			bosch,mram-cfg = <0x0 128 64 64 64 64 32 32>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -909,6 +927,7 @@ spi_0: spi@14140000 {
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&spi0_bus>;
+ 			num-cs = <1>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -927,6 +946,7 @@ spi_1: spi@14150000 {
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&spi1_bus>;
+ 			num-cs = <1>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -945,6 +965,7 @@ spi_2: spi@14160000 {
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&spi2_bus>;
+ 			num-cs = <1>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -1007,6 +1028,7 @@ ethernet1: ethernet@14300000 {
+ 				    <&eth1_rx_ctrl>, <&eth1_mdio>;
+ 			local-mac-address = [00 00 00 00 00 00];
+ 			iommus = <&smmu_peric 0x0 0x1>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -1026,6 +1048,7 @@ ufs: ufs@15120000 {
+ 			pinctrl-0 = <&ufs_rst_n &ufs_refclk_out>;
+ 			phys = <&ufs_phy>;
  			phy-names = "ufs-phy";
- 			samsung,sysreg = <&sysreg_hsi2 0x710>;
 +
  			status = "disabled";
  		};
  
-@@ -1709,6 +1777,7 @@ ufs_0_phy: phy@14704000 {
- 			#phy-cells = <0>;
- 			clocks = <&ext_24_5m>;
- 			clock-names = "ref_clk";
+@@ -1056,6 +1079,7 @@ ethernet0: ethernet@15300000 {
+ 				    <&eth0_rx_ctrl>, <&eth0_mdio>;
+ 			local-mac-address = [00 00 00 00 00 00];
+ 			iommus = <&smmu_fsys0 0x0 0x1>;
 +
  			status = "disabled";
  		};
- 
-@@ -1812,6 +1881,7 @@ pinctrl_gsacore: pinctrl@17a80000 {
- 			/* TODO: update once support for this CMU exists */
- 			clocks = <0>;
- 			clock-names = "pclk";
-+
- 			status = "disabled";
- 		};
- 
+ 	};
 
 -- 
 2.53.0
