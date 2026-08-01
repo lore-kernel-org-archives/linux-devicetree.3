@@ -1,37 +1,68 @@
-Received: from freeshell.de (freeshell.de [116.202.128.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338E02E974D
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 15:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.202.128.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51422931EA
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 15:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785596512; cv=none; b=UJq30+ZLGvQfOpf1udD0/eNlNFFeP15JbdOsUMukF2NQhB0wPqNes1SaxIkkS+RjJieH9qw78yE1BnzEMvQzG4XhUYbS0pXmAiGdv7yg5S6L8pN2TZNnDB7yV/vPXzlHrS7VaD9PLy0oriV8GUs+soyVra5iC5Z5s3cqSum45PE=
+	t=1785596553; cv=none; b=Iy9EuH7MNpgOTVuEtaCwt9Oy75FKkkDiC1TBhNvx93Vpm1rEunHBQNauaxc/siMnl9zJ4Fsw+i3nqZVXuLgLlOLpgwXRCQpXkIRiXVSjEDUcUpghDe53DBPC8nCG7e+2J4bgRH+ruqGY3yKUcSD2U2VohzCvNchpi81/V4pTK2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785596512; c=relaxed/simple;
-	bh=63CxcD/+g9jKdzcdGWagKK1BYmG1RRRcdAG13rWcZ1g=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=e6PLztBE6ocHpnyq/y1lT6AslQFIb3TigXjIl873GtWmQzmofRhHzw1v5dZ/3qaN0SRgdC2zj8FIj6sgTEDN3u+K5A1N5pZpPJU9gkJx9itlqobpyudYc6UngmwWVYoCzwJ02SlXIuiTfjwZCxvy4x0aVI8jP4XCZGQMVmZCCXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de; spf=pass smtp.mailfrom=freeshell.de; dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b=JgqICPnp; arc=none smtp.client-ip=116.202.128.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	s=arc-20240116; t=1785596553; c=relaxed/simple;
+	bh=xRVg1yasPBB5NzmjfBOkqOl/aTRuM2I+kwlfUDeA67s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y7oDld3Vf3LrxCsYOrYHmuW4nF1W6eX4JO08N0KTZpFP7q9GlQ4uLVMTCtj50PEL1CMvkygHvrn+SAN25zmkJr9FQSlUNw1LJPgxrdCZAUjlpeoW5QlNJO/hJBcsG+V/+51YFfnKCkPURBYTKWbRqE2dV3b8FDo6LmVtkQ/FZ2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=dQ01LDNB; arc=none smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.b="JgqICPnp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1785596458;
-	bh=GlHa8qPjAynYqkFOQRk+Tdsy9wM6D184HzODq1buprc=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=JgqICPnpJ3GLgSteLnwESfbGx8Z9bA6VDfH5s1HXZclYI/xGhy8FEmBYT12jr2srg
-	 8H0m3033gpYV1SxOF4oZhO0x/vx+cku+OxgAD7A4mwBhmBj046P6uVqfFwP1iEEA53
-	 8K4B8Osa/SkWufnlq3OvWOtxt/NVlqecjG7tyEwmxCJ/yLEl4yURq89VhMo8VQgFIb
-	 jc6alSjewjKkP1JFKyGKr0K4zJfxHDtDUi117ldxaaJmerYkz1M/ILpI9iexZCErcw
-	 kXXSWuYoL0RXGPno+ptlgscXuzHTqKjpEQexqvZjjLbwCXVbaWp6pJuDvRRszgkelp
-	 uRq7nNQrXDzUg==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 849AFB221A9D;
-	Sat,  1 Aug 2026 17:00:56 +0200 (CEST)
-Message-ID: <22cf4573-e894-401a-9023-0505c283d0af@freeshell.de>
-Date: Sat, 1 Aug 2026 08:00:47 -0700
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="dQ01LDNB"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6ae45c58003so541974eaf.2
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 08:02:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785596549; x=1786201349; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U+dM9uqc02yFtNS8yxq8WdKy5Ckg/Jxy7aMC/aM+dL0=;
+        b=dQ01LDNBQHMlY7LfQRcvsp+fFidQP+84qa5IPPubm1tF4mCMMSKvQvn/JjxMoN8cv6
+         VtkxYaHOCcEum6ksnSPuX4RroxlBmXEst1lVxEzWXyea5jlNRpQ5oYsqiDIXEfhi5mtd
+         VrBNUbUpzf5JQOYy/2LxfpLK2cOdl4AWky4b2oepYC/s8oubeTm5rzGV1h2k64+WUIMF
+         Gidw5+p2TexZCypa6AAxjoYd90YKbqH1GL2SxdWK9tsZMTyBdoAVLSoKgKmcNS9ozCDf
+         wNDuUk+eZ+Sz9QUFCjUp68DKbFIa5Oym1aq8FYwaM3hwzTllT+XXQraPq2vudEy5FhUD
+         e4Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785596549; x=1786201349;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U+dM9uqc02yFtNS8yxq8WdKy5Ckg/Jxy7aMC/aM+dL0=;
+        b=R+8jZDvic9JbTA5muTahSL5+XnGzgijUvWkl3NSiVGJ2Q2FRo93vf/1wxB4DTCQ8Rp
+         TR9p0CcMZZZWVfoBpf+s/tfw0QUsLCgeuCDcsomRvOe5jVZ5635L8pSsZycx3c3F2etv
+         fYaw0J9Ramh97pdieyvYGzLXRRFfZ8dN8uYQVa4BVumX1Qll1GGHlkXzacwcMp5E4pq+
+         OHqf526Gi3UFfsHR18qkZvKIekHWE7YOGfDvoA2CW1GhKaKvdSjAzumbh0ud6m1T/JyM
+         YteoHHOugNNV80lRyHgnKMl6XC2FveqJ8W2gwRWrO1kXeoOfcKgyqWnGez3oDKYHsLQ8
+         EDiw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqw4CNQWnTYVNtK8EulHFBjEUxq7plBELyzQnFlmqo1F3lgr8V3InF+k5bQnk03A41UfAxxxStcBj5k@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxeD1rPuNvxXGrYnF/WB0m26BoCB3Zi/ws6qd2FC6AjKqVKa0H
+	m/dw/lGo3s51bEhERi6Qbw4x0MWSTp6rS1ucn03a0fBs4lwdg9h5P4NnSwylbXSwCsI=
+X-Gm-Gg: AR+sD11sZKLP9MvVbhHQeqVlVShBqjuKqGTWN/EHNGQ/ApSIKw+Q440QEz4yNm6//s2
+	oqd/FEZztLiMqaQppOS4zcARqP/E1rXclTEBBbpKdduy/ptmdTVSd1vvLzBslsbgTe87XvBIWH5
+	3QUNHCFjjNh1Ra0RajMT1+w7VyIzy6x2tcY9Tpt8lXkg0GQj+d3MbIerLkbRJIdHYg6FvK7ajdm
+	TFEprpssnnPV8t9VeYeNO7yD7rigjJSWUgKhmcN4+L+F0piO68Ez34gwRXJ+msMLjsY6NXsja36
+	UzeKOvD6u16DMA707S6j91ad2xr4YZmfwxGy/kkCmf8FpznHPT6CJejWZdyJ4ZRd9hTvTBpXGF5
+	2/lmnB7DWHtn1SvhBXDNVGhAxkLATY7OlksFP/qDvXNvdRQdJzLNyz590+SA5GHkvocalFft+xg
+	pbGgSuWh65X4UIeoFa0uwuasVGy49HsKlcB2oij0KHcTJ6Vze0rChPdt//I3IhnNiVpLrhN+DUo
+	0h1120C7eb+BxcfFM/+V65/upL0ehz2xEvKyBPBkb2ynBxrexI=
+X-Received: by 2002:a05:6820:221e:b0:6ae:4767:a503 with SMTP id 006d021491bc7-6ae4767a98fmr4756954eaf.34.1785596548637;
+        Sat, 01 Aug 2026 08:02:28 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:359b:17f1:d4f9:4949? ([2600:8803:e7e4:500:359b:17f1:d4f9:4949])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f0da951sm3168830a34.24.2026.08.01.08.02.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 01 Aug 2026 08:02:27 -0700 (PDT)
+Message-ID: <185632fa-8e1d-467a-a194-aafac05dbdea@baylibre.com>
+Date: Sat, 1 Aug 2026 10:02:27 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,279 +70,263 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: E Shattow <e@freeshell.de>
-Subject: Re: [PATCH] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot
- from SD-card.
-To: Conor Dooley <conor@kernel.org>
-Cc: devicetree@vger.kernel.org, Ilya Sorochan <k0tran@altlinux.org>,
- Conor Dooley <mail@conchuod.ie>, Emil Renner Berthing <kernel@esmil.dk>,
- linux-riscv@lists.infradead.org, heinrich.schuchardt@canonical.com,
- hal.feng@starfivetech.com
-References: <20260306171939.84568-1-k0tran@altlinux.org>
- <178526175795.1708098.11834005845749245101.b4-ty@conchuod.ie>
- <a32646aa-446a-4f95-9293-40001aeedae5@freeshell.de>
- <20260729-electable-remake-1b8c94a452b7@spud>
- <b1f10fad-e5ad-40a6-b37b-6e950736c1d2@freeshell.de>
- <20260730-rockslide-depict-5edb03f8efc1@spud>
+Subject: Re: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device
+To: Joshua Crofts <joshua.crofts1@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260727-mcp47a1-add-support-v2-0-d4591a2ce69e@gmail.com>
+ <20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20260730-rockslide-depict-5edb03f8efc1@spud>
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 7/27/26 1:31 PM, Joshua Crofts wrote:
+> The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converter
+> which communicates via I2C.
+> 
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> ---
+>  MAINTAINERS               |   1 +
+>  drivers/iio/dac/Kconfig   |  10 +++
+>  drivers/iio/dac/Makefile  |   1 +
+>  drivers/iio/dac/mcp47a1.c | 169 ++++++++++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 181 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8a0b23418a64..552ced65cf75 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17703,6 +17703,7 @@ MICROCHIP MCP47A1 DAC DRIVER
+>  M:	Joshua Crofts <joshua.crofts1@gmail.com>
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+> +F:	drivers/iio/dac/mcp47a1.c
+>  
+>  MICROCHIP MCP9982 TEMPERATURE DRIVER
+>  M:	Victor Duicu <victor.duicu@microchip.com>
+> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> index d6d560c09e25..1d00cd911826 100644
+> --- a/drivers/iio/dac/Kconfig
+> +++ b/drivers/iio/dac/Kconfig
+> @@ -565,6 +565,16 @@ config MCP4728
+>  	  To compile this driver as a module, choose M here: the module
+>  	  will be called mcp4728.
+>  
+> +config MCP47A1
+> +	tristate "MCP47A1 DAC driver"
+> +	depends on I2C
+> +	help
+> +	  Say Y here if you want to build a driver for the Microchip
+> +	  MCP47A1 digital-to-analog converter with an I2C interface.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called mcp47a1.
+> +
+>  config MCP47FEB02
+>  	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 DAC driver"
+>  	depends on I2C
+> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
+> index 5d20d37e44ce..992f8930f95c 100644
+> --- a/drivers/iio/dac/Makefile
+> +++ b/drivers/iio/dac/Makefile
+> @@ -55,6 +55,7 @@ obj-$(CONFIG_MAX5821) += max5821.o
+>  obj-$(CONFIG_MCF54415_DAC) += mcf54415_dac.o
+>  obj-$(CONFIG_MCP4725) += mcp4725.o
+>  obj-$(CONFIG_MCP4728) += mcp4728.o
+> +obj-$(CONFIG_MCP47A1) += mcp47a1.o
+>  obj-$(CONFIG_MCP47FEB02) += mcp47feb02.o
+>  obj-$(CONFIG_MCP4821) += mcp4821.o
+>  obj-$(CONFIG_MCP4922) += mcp4922.o
+> diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
+> new file mode 100644
+> index 000000000000..140e93ff2ba0
+> --- /dev/null
+> +++ b/drivers/iio/dac/mcp47a1.c
+> @@ -0,0 +1,169 @@
+> +// SPDX-License-Identifier: GPL-2.0
 
-On 7/30/26 10:31, Conor Dooley wrote:
-> On Wed, Jul 29, 2026 at 02:07:07PM -0700, E Shattow wrote:
->>
->> On 7/29/26 03:59, Conor Dooley wrote:
->>> On Wed, Jul 29, 2026 at 02:39:50AM -0700, E Shattow wrote:
->>>>
->>>>
->>>> On 7/28/26 11:02, Conor Dooley wrote:
->>>>> From: Conor Dooley <mail@conchuod.ie>
->>>>>
->>>>> On Fri, 06 Mar 2026 20:19:39 +0300, Ilya Sorochan wrote:
->>>>>> Add bootph-pre-ram to mmc1_pins clk-pins.
->>>>>>
->>>>>> U-Boot pruned their overrides recently in favor of Linux which broke booting
->>>>>> from sd-card for me and Heinrich Schuchardt [1]. Pruning commit:
->>>>>> 27f617019dd070cb61f2 ("riscv: dts: starfive: prune redundant jh7110-common overrides")
->>>>>>
->>>>>> [1]  https://lore.kernel.org/all/ffdfc550-559b-4c59-9873-3f040fc3bb0e@canonical.com/
->>>>>>
->>>>>> [...]
->>>>>
->>>>> Right, I am going to try this again. I don't think there's actually a
->>>>> valid technical argument against it, since it just affects the stage at
->>>>> which configuration is applied rather than configuration itself.
->>>>> If the configuration is wrong, and more devices don't use this configuration
->>>>> than do, people need to move the node to where they think should be. That
->>>>> shall be done separately.
->>>>>
->>>>> I don't want to hear about the politics about whether or not Starfive want
->>>>> to support it or reverse engineering of binaries etc. All that I care about
->>>>> is discussion of the hardware itself and which boards need this and which do
->>>>> not.
->>>>>
->>>>> Applied to riscv-dt-fixes, thanks!
->>>>>
->>>>> [1/1] riscv: dts: starfive: jh7110-common: fix jh7110 SoC boot from SD-card.
->>>>>       https://git.kernel.org/conor/c/42c57c049054
->>>>>
->>>>> Thanks,
->>>>> Conor.
->>>>
->>>> Second NAK to this being applied, again, do not apply as-is.
->>>>
->>>> As you're not interested in the technical discussion, then you won't
->>>> have one.
->>>
->>> I am interested in technical discussion of the hardware configuration. I'm
->>> not interested in reverse engineering of binaries, GPL compliance or
->>> whether Starfive want this to work or not because I don't see how they
->>> relate to the correctness of the hardware description.
->>
->> The commit message suggesting "...broke booting from sd-card..." is
->> missing information or should be clearer i.e. "The bootph-pre-ram
->> hint(s) allow that following the SD Boot mode of StarFive loader in
->> MaskROM the U-Boot SPL will have all necessary devicetree nodes to
->> initialize the MMC driver and continue booting U-Boot Main from SD
->> card". It has not to do with booting Linux from SD card, and is for want
->> of a more generalized description affecting any SPL that filters on the
->> patterns of bootph-* hints but U-Boot seems to be one-of-one the only
->> consumer of this that I am aware of.
->>
->> Placement of this bootph-pre-ram hint in jh7110-common is (probably?)
->> not appropriate, as SD Card is not valid on all boards or even at that
->> mmc device, namely StarFive VisionFive 2 Lite eMMC, Milk-V Mars CM, and
->> requires testing to know if it breaks existing functionality on boards
->> with swapped arrangement of mmc0 and mmc1 with respect to SDIO module
->> and eMMC (i.e. OrangePi RV ? It has been awhile I may misremember this).
-> 
-> This kinda comes back to the point I was making about it not changing the
-> configuration, just the point at which the configuration is applied. All
-> boards get this configuration eventually, it just seems to be that this
-> particular boot method needs it earlier?
-> 
-> I'm not sure that applying it earlier would break any boards (although
-> of course it could), I'd be more likely to think that having the
-> configuration at all is probably harmful in the cases where it is
-> harmful.
+Prefer more specific GPL-2.0-only or GPL-2.0-or-later (your choice).
 
-Indeed the "workaround" I've suggested off-list for JH-7110 U-Boot
-builds where deprecated StarFive loader functionality is required has
-been to one-liner patch out the U-Boot build system filtering of
-devicetree for SPL build. There is excess SRAM capacity on JH-7110 SoC
-and it is not any problem of code size. There cannot be any complaint
-about missing nodes if none are missing.
+> +/*
+> + * Microchip MCP47A1 DAC driver
+> + *
+> + * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
+> + *
+> + * Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define MCP47A1_REG_MAX		0x40
 
-> 
-> The other thing I don't really get is why the clk-pins node is needed at
-> the pre-ram stage but not the mmc-pins node. Surely both are needed? I
-> suppose it may be the case that the latter matches the default
-> configuration for the pins but not the former? If that's the case, the
-> node mmc-pins should get the property too IMO. I've added Hal into the
-> thread, maybe he can clear stuff up somewhat in that regard.
+Unused macro.
 
-More the reason to regard all StarFive loader affected configuration
-related nodes as likely that the SPL would need any of them at that
-phase. If you're expert enough to know to just hit specific clocks and
-GPIO and controller IP configuration without knowledge of the StarFive
-loader then I of course accept that determination on whether this is
-achieving the stated purpose of the patch to leverage the StarFive
-loader "SD boot" method and U-Boot SPL loading U-Boot Main payload and
-then from there Linux-as-usual. I do not have that expertise so the
-generalized approach is add filtering hints for anything StarFive loader.
+> +#define MCP47A1_CMD_CODE	0x00
+> +#define MCP47A1_MAX_STEP	63
+> +
+> +struct mcp47a1_data {
+> +	struct i2c_client *client;
+> +	int vref_mV;
+> +};
+> +
+> +static const int mcp47a1_raw_avail[] = { 0, 1, MCP47A1_MAX_STEP };
+> +
+> +static const struct iio_chan_spec mcp47a1_channels[] = {
+> +	{
+> +		.type = IIO_VOLTAGE,
+> +		.indexed = 1,
+> +		.output = 1,
+> +		.channel = 0,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
+> +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_RAW),
+> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
+> +	},
+> +};
+> +
+> +static int mcp47a1_write(struct iio_dev *indio_dev,
+> +			 struct iio_chan_spec const *chan,
+> +			 int val, int val2, long mask)
+> +{
+> +	struct mcp47a1_data *data = iio_priv(indio_dev);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		if (val < 0 || val > MCP47A1_MAX_STEP)
 
-> 
->> The functionality of adding this hint is not even possible for more than
->> half the boards, and no new boards will have it.
-> 
-> Ignoring the rest of this for now, these are the supported boards and
-> inferring sd from cd-gpios:
-> 
-> jh7110-deepcomputing-fml13v01.dts
-> 
-> Looks like sd on 1
+There is also in_range() which is nice for this sort of check.
 
-Yes, board reference photos show the multi-select DIP switch. No
-schematic available (NDA restricted).
-
+> +			return -EINVAL;
+> +
+> +		return i2c_smbus_write_byte_data(data->client, MCP47A1_CMD_CODE,
+> +						 val);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int mcp47a1_read(struct iio_dev *indio_dev,
+> +			struct iio_chan_spec const *chan,
+> +			int *val, int *val2, long mask)
+> +{
+> +	struct mcp47a1_data *data = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = i2c_smbus_read_byte_data(data->client, MCP47A1_CMD_CODE);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		*val = ret;
+> +
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = data->vref_mV;
+> +		*val2 = MCP47A1_MAX_STEP;
+> +
+> +		return IIO_VAL_FRACTIONAL;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int mcp47a1_read_avail(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan,
+> +			      const int **vals, int *type, int *length,
+> +			      long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		*vals = mcp47a1_raw_avail;
+> +		*type = IIO_VAL_INT;
+> +		return IIO_AVAIL_RANGE;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static const struct iio_info mcp47a1_info = {
+> +	.write_raw = mcp47a1_write,
+> +	.read_raw = mcp47a1_read,
+> +	.read_avail = mcp47a1_read_avail,
+> +};
+> +
+> +static int mcp47a1_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct mcp47a1_data *data;
+> +	struct iio_dev *indio_dev;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->client = client;
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
+> +
+> +	/* Delay after device exits reset state (see AC/DC characteristics) */
+> +	fsleep(20);
+> +
+> +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to read vref\n");
+> +
+> +	data->vref_mV = ret / (MICRO / MILLI);
+> +
+> +	indio_dev->name = "mcp47a1";
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->info = &mcp47a1_info;
+> +	indio_dev->channels = mcp47a1_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(mcp47a1_channels);
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct of_device_id mcp47a1_of_match[] = {
+> +	{ .compatible = "microchip,mcp47a1" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, mcp47a1_of_match);
+> +
+> +static const struct i2c_device_id mcp47a1_id[] = {
+> +	{ .name = "mcp47a1" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, mcp47a1_id);
+> +
+> +static struct i2c_driver mcp47a1_driver = {
+> +	.driver = {
+> +		.name = "mcp47a1",
+> +		.of_match_table = mcp47a1_of_match,
+> +	},
+> +	.probe = mcp47a1_probe,
+> +	.id_table = mcp47a1_id,
+> +};
+> +module_i2c_driver(mcp47a1_driver);
+> +
+> +MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
+> +MODULE_DESCRIPTION("MCP47A1 DAC");
+> +MODULE_LICENSE("GPL");
 > 
-> jh7110-milkv-marscm-emmc.dts
-> jh7110-milkv-marscm-lite.dts
-> 
-> looks like sd on 0
 
-There's transistor logic to select 0b00 or 0b11 RGPIO state from a pin
-routed through one of the board interconnects, labeled nRPI_BOOT; not
-possible to select those 0b01 and 0b10 StarFive loader mmc modes so (to
-the best of my understanding) any MMC action in U-Boot SPL will
-originate from StarFive loader non-MMC configuring modes, and there
-would be a clean slate except maybe some of the clocks? I'm not sure of
-the details from code.
-
-> 
-> jh7110-milkv-mars.dts
-> 
-> looks like sd on 1
-
-Some revisions of Milk-V Mars have the multi-select switch populated.
-Most revisions have a button with transistor logic for override of
-multi-select switch to initiate StarFive loader UART serial method. Some
-have both a button and a multi-select switch. The default in the absence
-of populated parts is StarFive loader SPI NOR method.
-
-Having MMC at SPL time seems appropriate for Milk-V Mars of any revision
-because the interfaces are wired up and U-Boot SPL i.e. could be
-compiled to load U-Boot Main from MMC when originated from e.g. StarFive
-loader UART mode, but the goal of this patch as-is specifically
-originates from StarFive loader "SD boot" selection.
-
-> 
-> jh7110-orangepi-rv.dts
-> 
-> ditto
-
-I think these are swapped for SDIO WiFi functionality? Not exactly sure,
-I never end up with this board to test myself even though I handled the
-patch submission with schematic as reference.
-
-It has a UART boot button in photos and schematic, not any multi-select
-switch.
-
-> 
-> jh7110-pine64-star64.dts
-> 
-> ditto
-
-Yes, all revisions are with an multi-select switch, and sd where
-StarFive loader expects it to be.
-
-> 
-> jh7110-starfive-visionfive-2-lite.dts
-> 
-> looks like sd on 0
-
-It has a UART boot button and a fastboot jumper position which uses the
-"user LED" RGPIO3 as an input;  StarFive loader doesn't have anything
-about fastboot or RGPIO3 so that specific feature is a vendor U-Boot
-configuration.
-
-> 
-> jh7110-starfive-visionfive-2-lite-emmc.dts
-> jh7110-starfive-visionfive-2-v1.2a.dts
-> 
-> looks like sd on 1
-> 
-> jh7110-starfive-visionfive-2-v1.3b.dts
-> 
-> ditto
-> 
-> Would you be happier if only the boards with sd on mmc1 got the
-> property?
-
-If we're focused on the "SD boot" feature yes I want that to be
-per-board, as it is unknown if the errata is a reference layout and
-component selection issue or if it is a BootROM code bug. If the former
-then that may vary between boards.
-
-I'd rather regard the StarFive loader code listing as the minimum
-baseline of adding filtering hints and we can then totally ignore
-per-board hinting and testing of StarFive loader functionality and
-external SPL behavior. It is configured in the StarFive loader? Set a
-filtering hint and get out of the way of SPL re-configuring the same.
-
-> 
-> I'd like to say I will read the decompliation, but I look after this
-> platform as a favour and I just don't have the time to dedicate to
-> understanding it. There's a reason it took me ages to even circle back
-> to this.
-> 
->>
->> Repeating myself, Hal offered a description of the boot process but I
->> find that does not exactly match the hardware based on my
->> reverse-engineering effort. More eyes should be on this to explain what
->> the hardware does in context of the patch commit message. Are we
->> correctly describing this hardware, or not?
-> 
->> The "reverse engineering of binaries" is the StarFive loader in hardware
->> MaskROM that immediately precedes the supposed consumer of this proposed
->> bootph-pre-ram hint as stated in the patch commit message. It is the
->> hardware specifically the functionality that we are purporting to
->> describe. So there it is an excerpt and if you want an explanation of
->> what that all does to save you the trouble of reading it I am sorry to
->> disappoint as I don't I don't understand a line of it. What are we
->> describing and are there more bootph-pre-ram hints needed?
-> 
-> In theory, the state of the hardware prior to the boot loader stage
-> consuming bootph-pre-ram shouldn't even matter, any node needed by the
-> stage should be marked with it even if that node matches the default
-> state of the pinctrl hardware. What the prior stage is or does shouldn't
-> matter, although of course people tend to only add pinctrl nodes or
-> annotations when software requirements/expecations don't match the state
-> it finds the hardware in.
-
-My initial approach to homogenize bootph-pre-ram hinting and nodes
-between U-Boot and Linux for JH-7110 SoC was simple trial-and-error only
-adding nodes if they result in getting further along in the boot
-process. The questions I had then about "SD boot" and "eMMC boot"
-StarFive loader mode errata have only really been clarified by digging
-into the code listing of the StarFive loader, and at that not
-satisfactorily as of yet. What is all this secureboot logic doing? What
-are the technical details of the "SD boot" errata? Where is the
-published source available for this GPL2.0+ derived code of StarFive loader?
-
-I agree it should not make any difference what StarFive loader does
-preceding the SPL phase for these filtering hints but we just don't know
-for sure what the "SD boot" errata is, if it's an electrical layout
-thing per-board or MMC initialization code incompatibility. I can see
-how we might test MMC functionality to U-Boot SPL with adding these
-filtering hints but the test methodology does not involve "SD boot" mode
-of StarFive loader as that clobbers the configuration and I wouldn't
-know if that's invalidating the testing methodology or not. If it is
-specific to "SD boot" mode but then splat over the whole range of boards
-untested that just does not inspire any confidence given the vendor
-response and what is verifiable.
-
--E
--E
+If only all drivers were this simple. :-)
