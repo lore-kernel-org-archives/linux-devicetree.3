@@ -1,80 +1,82 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF98242D89
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 21:04:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B8E3890F0
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 21:04:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785618271; cv=none; b=JjhabbbOqsOmNZe8tfWddQP19COdKPy5vulS81SgEH0CqSrtAP2t42Bc75gcMk5ogiUqfSLFLMOsZjjl4TYqha62bYNNb08OPtVieBkQGPVTN9RdmiR41ifE/0H5txQKqkNhcNXtdmGYl4YEmjLrfzWQ8eF0Fh129fZBf4HU+0A=
+	t=1785618274; cv=none; b=JsqLUGFq96obXtcGWHq2y1/gfBXDDKfp8i4AFzlcBcG2MxG0LtrNnxw0udVkkRYbpJlrsDdpA0dg5FemiSTKA/hpD6v5FUlEtF7G4CO4PwqdzDvoUx4gZy9a5w6BXY9XkylEkNficy3BQ9aC3nswiWgI8hEGtR9Gh+o7nFwywO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785618271; c=relaxed/simple;
-	bh=6vnP9bDIJW1WrcV2zoZ0rjoF5DH+2zrB1ClkTk0Ep2c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GnJxj54UfuxElMfpAvWEHXpyiVzbrKB8rf7yCMLxhgy3mbg5ppCyBdsX3Y8nz4IQkJnmFPjrV9I2yLi3UJEmCa/aOzIjk5+BcjuB2YbpwMFaBJoV8R4x4Evbd/G0dZOJTDvNpbeK51cleXZqOgp/K+gcspwcq6EQjhQHBduFgTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TOkUyhte; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CVWryCXT; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1785618274; c=relaxed/simple;
+	bh=NekE8somN7F8Y1d0sfAtfdG9F87lu6hLh2jLmtahbJg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sb7Ux+gj798hxnWizl2Iom84/BMTP/UKh/LwKNisqBOGCleBSnyfwMcQlMigILQRsZTyfGvL0wzdkAmGC1JzZNtTdQuX0tYJfcL4NnfFOGljQE/UA6nbTfQn+mhKYl1ENW4duvZ9hv1xZWI6xq4wm/ucKh1z+r2+1qnfFAJKWzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hA8UE44W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i0LvLt/W; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TOkUyhte";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CVWryCXT"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671Ixlcw3846811
-	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 21:04:29 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hA8UE44W";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i0LvLt/W"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 671Ixn7s3563122
+	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 21:04:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=DnsDFsIbpagtEOLuBC2d50Ec3A4f7vPyJNT
-	bbp9e+Ik=; b=TOkUyhteDAw4kYCNlTTDS98RaAl0hpsJ+4mCxmSPTCQ4zq+k+Ir
-	blbSyrAsyNtIKnXsL21GDqBRM5wVyhHoL4ILM3yeEspr9hIyGfv6lhx8EFM/vvdN
-	MCINNDNRFf3cqWyQweuQQDBQ/UEyLkdQDgRAlyEpnGwFTR5620wFKJssP4vUcsC5
-	mddbpaRjvACQCuHNv0B1NW7LJrzVBN/6JwsgmwNMFuxqQlhFcoVd2SR6DSENJPhG
-	Jx7I1riSqDXO1sI0kJMFwZ0Ta1NspYzYMPD8GBwtA4TTgsWpT3jozSpARKC8cqJB
-	n3iB8bsiXXWizZB/Ug2MZ9H+J2+wEd0DjCw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8vt9rr9-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=hdB1yxwmrhf
+	VusAx61Msu2KYQKvjb4TsDwRz8D7wCdA=; b=hA8UE44W2Bps746tR8u4qpoeOgN
+	jwRcmAVwGOaagD5bPcw25LLNBcreNjNzkIYrD2nRaBFraLtGJSwb9ED3LRGOAvT3
+	F1RH8KaRnDbcBjZtYPSd4OTf2gJeYJRPlq/CC7uA2TOfYBgyJ2TWFP6xwDKeC8Hc
+	uY15WEaKj8SalAKsg33M9NGEC8bxorwVXq/7+4rmFtwRW2l7YGGmPuHXroy35yP9
+	i7nGic9ZXzIKVKDvPm+ssXyjArVgO5nBUAygMIDin2MlJTNsT6aqmcKFG9uEi+E3
+	XgHBG/4K+U5Ue/TutaVNb6vJP54S5QZQ/VX8n6RlVtE+R5LzvhJCh0Vnn7Q==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs9669mvj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 21:04:28 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-522de3c645dso42096681cf.3
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 14:04:28 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 21:04:31 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52827090cc5so22106751cf.0
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 14:04:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785618268; x=1786223068; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DnsDFsIbpagtEOLuBC2d50Ec3A4f7vPyJNTbbp9e+Ik=;
-        b=CVWryCXTD4CPef88P9G0ReXcZNos4ZW5M70WfMP08U9gDtcV04MtouPbaTBfh3IM8Z
-         FS4IXVeEadV0HWk34Hzt1fs8q2XZevb/OLvYpID03x2PwNUDG98WN0souTn9T1kqC2a7
-         sGgaeWMDiE5dSPhMKSdFkEVTUwGGep5U8Dr9Sa+kSUgfpGUNjqp+FlTQphKtR63KHn3h
-         8ni5gcj0GC65drT6GiAdQE6tjf7RbVnMZWA2EIFB3RZY7MRm1vHd/7iOAZSnagnkCqVP
-         o9y+G5JFiWpqRcOaBY4jY/M/TtNLyzWpWhbrqzPUbmDPvemPoZ8mZpEa/L8FdcK+zdya
-         YEfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785618268; x=1786223068;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1785618271; x=1786223071; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DnsDFsIbpagtEOLuBC2d50Ec3A4f7vPyJNTbbp9e+Ik=;
-        b=hCKGnRliHH6p5a02AcL6y0GHzp107zeJ4g/JAy4Juzh4lUagUW2+RfhrUxuIQSoTVT
-         gYo4E+xiJSQ5muui4cA69Sqk3Ado3JHn80bHVxbYco5WRW8yO9VtqDbjPj0qaDI4ZSfA
-         8sq9jBeKmVH99CO3liHT+ZGirfaAHMGhiOckLeL9JHtd28FXjCjwVJGE5Fi4ce6aIcWF
-         gZdxaGhTngwMrlMv4pY0gNUxKcFvG4NY3LupeI8S+eAkxbHmiVfyLqaYwD/U/GyaEUg5
-         P3SVVZNex6KaQXvodsrH3YY+7pa4PGtzjSQ/dq4T+gnX6b5HB7ZoFBi1BVbiOjDhzmUZ
-         Otkw==
-X-Forwarded-Encrypted: i=1; AHgh+RpgODGx6MueW40PIfHL8iZ+391POEMnCjuGG4TG7gz2vNduY8uiv4MSgJJoCZJpItiLzNrgxccsTSFQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzHoZWkg3N8mHOjjxVVIdRqK+ebUt60uYNNYfEX8U6fWTMeoKD
-	upzyibsx+7OkBGwPvs/SsiiJySDYhODsJ3DdbNMTEzxxOLEUPWzNXv0qktmjnwFgQP/1jpRLmQ0
-	SsrVd0Qd/NNLk0PkUAd/o6iCUSgu/4W5J+2VwbPM19BwU9MNxhea4YRdElu1VQz00
-X-Gm-Gg: AR+sD11GrmtDF41lz+HEehfFLz+Fdvg+6r0NWrJznqTc8OWi/5u7CAzeNzJCVQxIj3c
-	upQns6vWuQkie+yRsdZEernP5Weai5VhpkcFfKLIjaxwGFdqfMfXApKupOgGEV2y8n9GuRXazkY
-	3LtdjciPgPNwdc0jNCbSozMmpM06YjkRK0+f+3RbvI+X4n6FFXiLuQoKmx6mTFqqfF/CtceTfre
-	RvbwcMl57+mADiOmXjR/8ofM+ZbJgQ9ABJdZphtS68jXuAKDKr2Io9OCzu9hFtuj3ay4uZeZPT+
-	p/rntQyLidKCqJR8/p4/zVpx5+KM/JjyDt0FSgPDEJx3DR6iq8UEsiwFqyjt9DpSmMSA/U1UDnf
-	0CekjMian/aaYCqU3
-X-Received: by 2002:a05:622a:1801:b0:51c:f8f:13e with SMTP id d75a77b69052e-52b567f1258mr95146111cf.40.1785618268166;
-        Sat, 01 Aug 2026 14:04:28 -0700 (PDT)
-X-Received: by 2002:a05:622a:1801:b0:51c:f8f:13e with SMTP id d75a77b69052e-52b567f1258mr95145531cf.40.1785618267661;
-        Sat, 01 Aug 2026 14:04:27 -0700 (PDT)
+        bh=hdB1yxwmrhfVusAx61Msu2KYQKvjb4TsDwRz8D7wCdA=;
+        b=i0LvLt/WuSbZQmh+tAw9qNNbDqWtCvGsQFzqyhk40oE2SlwZePqRy9wzYa93ENuyfM
+         IVYVoBZy2sZoNBYWelhxnYjw9tQ19FHrKgSAeg/NUSO2vabm//P5Lo7S7MDCFxgjmj2z
+         Z69G6NijZfdLUAKTHfVYmM6yEuJvUZsVlTm5U7lyX7InGF2c+ZISkAIueCHjGX21KV9d
+         Ye3FqFG23g7EeJWLJO6dfJE6tbvEzr/l44mcj2lcKJWSkCISdZZmkFqktIxdq5KPrS/g
+         biMpTv8Y1dUEXuXoj8IcnlhTgxgzlvWDovTld1I/8amk9+21CTYD+b615YHkEPx8YH4+
+         e+4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785618271; x=1786223071;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hdB1yxwmrhfVusAx61Msu2KYQKvjb4TsDwRz8D7wCdA=;
+        b=j2Kq04STxMI7hMQHm8dwUInSDgilF0pgu92WxDxyK8AKfu8mz02y1pU0LuNHsHu0xE
+         NfKDON50gKB1AP1c/WDCEXUlE6IhSJiUETjn8wfak9V7H/KiBZ90AzodMf9/RjxuNUiA
+         knu7TOQccyxkjQlwOMAtSIZkUIxG34d1thrDvCqbcFvQWl5Ce+HEScHcSIVUmQtngUbm
+         LjZqNk2KDZuVDyA9xvIv5CP5p50gBTpZ1hj/glpoAl7YqMyVbKZrN4dsFb2fd0c0jvBa
+         Q8NZjDXzR9uCJOkXquMIp/ltyAfjlBaDxHwEC16M3HLvsIerbmOhkuj7UJUA+9JU+2Jy
+         BYYA==
+X-Forwarded-Encrypted: i=1; AHgh+RrjQDvW16OZZrCBn9dUwTyMK58oA7LmGcuNCn1uHJfFMYSUryvmGzu7r4WZv6rlJKrmstp7pELOvgqB@vger.kernel.org
+X-Gm-Message-State: AOJu0YxC9eVanjbBdE6Vc04+4q92DOskuWFJKAX674FKojmm8wEQURa4
+	LW4gxLKwCqpQYd2ihkPLVkljJ8V8IcePHcJTHLeW5knso1jXrh+FyEUbNPffyqsus5O7su4ZJlh
+	ARTBHBRp7c2ei5iG0BCO2MTl1RiBBT7gD+aKDnH+zYPzjTWUY0QJEjbX0zCPfLi0a
+X-Gm-Gg: AR+sD11quwVofD+6SgCPZT3siOYnYI+PPmEDHl1LV75c8i4/ESnyiN5otATy8rqhpXu
+	ClK31qXd1xSUED+3x3/DNYTkuay77kQd7+kKP0dPq01yRZSYLKnOmJCy6ZdgCbCfdzktTxK4xFT
+	qyVrqLZRx86AH0VlUpZHTrcFr7kHnZEETqrco2fxvdq8e7rR0fQ/zwofnWcGgdwDS4Eeq6FmZAp
+	ogewisSi60Sl/Qm/ysDYeaHXjs97S6FkOOqWhmKQs1DLvZuGrm1gZz1OiT4ZsmMEXUY7dTYL33B
+	I1zBZIV1F49WV4Tl0/AXwjXPXL5MNy8XjqDvw0uM+OMIZ1at9fbeYPkpu1z92/lD4CrqvejWZMY
+	IoMlhHu33jA3pvLMV
+X-Received: by 2002:a05:622a:1e1b:b0:516:35fe:5524 with SMTP id d75a77b69052e-52b4c4343aamr121982141cf.5.1785618270751;
+        Sat, 01 Aug 2026 14:04:30 -0700 (PDT)
+X-Received: by 2002:a05:622a:1e1b:b0:516:35fe:5524 with SMTP id d75a77b69052e-52b4c4343aamr121981591cf.5.1785618270205;
+        Sat, 01 Aug 2026 14:04:30 -0700 (PDT)
 Received: from quoll ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41cfde0sm16911890f8f.3.2026.08.01.14.04.25
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41cfde0sm16911890f8f.3.2026.08.01.14.04.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 14:04:26 -0700 (PDT)
+        Sat, 01 Aug 2026 14:04:29 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
@@ -88,58 +90,59 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
         linux-kernel@vger.kernel.org, linux@ew.tq-group.com
 Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH 1/2] ARM: dts: nxp: Correct white-space style
-Date: Sat,  1 Aug 2026 23:04:21 +0200
-Message-ID: <20260801210420.383984-3-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 2/2] arm64: dts: freescale: Correct white-space style
+Date: Sat,  1 Aug 2026 23:04:22 +0200
+Message-ID: <20260801210420.383984-4-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260801210420.383984-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801210420.383984-3-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8663; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=6vnP9bDIJW1WrcV2zoZ0rjoF5DH+2zrB1ClkTk0Ep2c=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbl9UIsDcTUcj19PMtP6goGukFpGfayS3nNqa9
- 92eXR+YJBmJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam5fVAAKCRDBN2bmhouD
- 1xA4EACFImkcSHyyoZAhuonl9ho5GXc2jxJQ6ZuCpgjg/SR4w5iZv4a/GM7YtFD9wIDxZzpsttv
- eXY+GgZrCERYBy73KdNIxsKEtckL8tM7sWLSJSnr/tHKfEM89ZzFWYwlRBrp7upcvdAOCfFB2g4
- z8ns6ktMrCnsYBJYK06eT76HkzesLuswaDwgL/Ljv81hnbZYHNnJU9CuT0zK10UmSVeyvIZ+BIB
- mp+Tk13BEbiTcucxnBxRiKSFS7Fvi3nlQ1QILYwHvtcPYj45y/l/Q/pIqlqsBPiPolVl9yTLd88
- bOwYVmYcgvriNF5bjKSmjIgiTY8cdd+JjnzRnddAeZ9cQwrbQefJeXT+HB2b+ahI5f7nTJufpUb
- c4mfLUwTewnzjNhm2FQLgnjvQSR+K0qDXKh9gXDZodqfZGOLLqmatbQStrnoZUVUBZ9rI6vlkOk
- 7Apd6opbrhCZ+oDgdoi+q4FldbcEqyucyycsFSsju9pnewNxkZeSt7BUtiZNlkSdnyHe+/chqOD
- iZOJ8IHv884t0OiANitNbvvG3Op39/d3bUgiuNTx4BsrCNPI5/vC91486yFzQVAkq/rwBUmizbd
- pd8oEugBTx/iHKPs6UweShSx9SxfJh5RonXIv41Fq7fzNfHetarkqjt9Md++MHdcs8pQs3L4Y0S oKY1y/X8TBP0Lrg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11470; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=NekE8somN7F8Y1d0sfAtfdG9F87lu6hLh2jLmtahbJg=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbl9V9xGX9Pdi60y/MF1EnjBtYNW+A0vizWJT2
+ e8h6v4z8GyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam5fVQAKCRDBN2bmhouD
+ 1yFnD/wPTDAeGgQLKd6NpyPzyYQlR0j55HiABrPuP2ivd2e8jDy0a5pz+wb+ZMXwt+CEnVGyR49
+ PZ2UD8HYkFoGaYHWVWaMwsXi6jR2yi8Y4GldKMa7QpAT+9AKktZsaojuqCg256VJx7EAqUbxY2P
+ QD+bTp2SiQRzoYJ7DepyXbWgxVYBsPj+T0PyZ0LwinW87NLRxOuWwdQu6Y23d+4Mo02E3wcoHoQ
+ dStujUOXGoX+wBOxPY2O9EaIRcMk0eGJPpxKjckYYlDAtPGub1eviu7dqHR+z+yFg/wVGjL084s
+ iD5VVxkCnXCzISBmP+NxiUL41jYdbKddX9JLMkJbttF8sTKc7faRtjI9LEM0o3QYWYRO5HmTwsW
+ z8FVLVGsU4KIwQEFNPQjd0LFmbey3WnHykX6ko39q/hAcx85B4XFTvVe/kLbcQxspzcfMijN9tL
+ GY3s69Jq3xtTuVEYtygfgaMUHc4moo88ew0CMmFCUCjGcqi79LMCodWDs+Sphqmn0T0NOHAzv34
+ Cms2dNo+SX2kyIisX0KDPrtdP37E8uUvrAXjOlWSIOFmrSLLofwZGp6P5n9zd4dGD4krYRWBzNh
+ nPaLGR7xfSXq9kinkX9zUiz13eYZH2tGxwRaMe4tAWxMCPnYG7TloQpoWejkUwu9OVGRElZ1gaU 3Lv7mD8wm11rjTQ==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDE2OSBTYWx0ZWRfX+UhQ4NLJ/tLq
- xNX5K92NL2T5JkHgxCKiIIwILQmPqTWLThgajSGs/nFkrOMyddGZsMQJHPs2F9BzeCWilqSYTR5
- MDs5E1t2wcWmJDIYxDytDMaIng0JXyY=
-X-Proofpoint-ORIG-GUID: lS0mBOZyjrgaQz51ZzL_GG_5-8owQE8a
-X-Proofpoint-GUID: lS0mBOZyjrgaQz51ZzL_GG_5-8owQE8a
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDE2OSBTYWx0ZWRfX7oOpqxsgJpCo
- NsluO0RRnwLbS9hKkJo50Wis3lnWuU0HZofpT8qCZblJuIjKT05aqfhPjdkTkWMJMGavF8654r6
- 15428EupPLCkmdfMPljwQFRreWt31v3Jr6Q2n/0J55NnR5JvnDZFGegQwaaF74NvP6UazYhNLpz
- 7jTszY3552/epPkJivTPHBlqyKf3zJHA26kqsTZYhSo5UhTx6TsHjD1cjZc5s8UXicYfTSFR72j
- jgvcQKau/PrLm1w1D7hKro8/bNSs/G7gR4fUXlaGGQLN1IkiCRUvfkjGKOeIGz6Ytn2Deh+RfO/
- hJg0IHPzHIIuF0TFRea7vLDbOxRtajaT4+6v5sJ8zSBW+oP5iBAdDnTrOtYXnYKltnNfoi87rqF
- Cp2vx2w/MtSbom+wUhkz4MHdaMLGPb22rkSwaMgYdsMqp8HZQkbaHvsJtBbuZGlIBmh91kv6sh4
- vtmIBOtnui+xdP2IzKg==
-X-Authority-Analysis: v=2.4 cv=fKMJG5ae c=1 sm=1 tr=0 ts=6a6e5f5c cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+X-Proofpoint-ORIG-GUID: 4UOgpkzEAOLFXS3UJgDYouMgw5EEopNo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDE2OSBTYWx0ZWRfX5HjyLXjwJJuv
+ YjADV4Mo9ptLeotjf7n3TsO10URa0VSu3QZs3OWcP6IywdL838Yg6YiJLVg15rNAy0AbIDnHez0
+ GjchB9R914/CKpaIuOypqTF3gSyl8OA+UIDu/UNPgI8uRe4ZpPCOsho92CA3Yo/P2xW4sylkd+q
+ bfekv5MxFsI5d4GLfUXvUBGpcYQIA3UPs6+6nu3gnNDr0fsfd8ob8881QaYUZzI0yKhBtpTt3gN
+ 8r4nrML9sunE0DTC4Q+BwijuE1LKBsQoCmlpLJ2Ad6hkQJuxUstwzUtxybArGunrX0QPElRz3yR
+ CFlANcpIMDfHzZb6RpFNAMOxvcCecTnUyI47ix0o16MKZLzdf2gDMqTIx9snziW25qBc/rv2iJd
+ 1lRcmcP3gczi61OXpf9tSqTv7CMuMR29umoHhZITyZZuWqoxNeRdygq941UqiDwln58jIWAvz+h
+ uOY+83xQqCxu9Cj4Msw==
+X-Authority-Analysis: v=2.4 cv=TpfWQjXh c=1 sm=1 tr=0 ts=6a6e5f5f cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=AXt24ZvJ6lj9WyOqnD8A:9 a=uxP6HrT_eTzRwkO_Te1X:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=D7IV2cxBcrrAAi4nW8IA:9 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-GUID: 4UOgpkzEAOLFXS3UJgDYouMgw5EEopNo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDE2OSBTYWx0ZWRfX0tgl6nNjEROL
+ Z37eUAE0AhtqyZlfcuPxMgqCU9XjFNZr3xtc3COegF38kCrYtjfLK4hCKi5MIGAQ0POFfX1pFFh
+ ekOSeUjsYILG9rr1iOSbWrPvsyOFVaw=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-01_03,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 phishscore=0 clxscore=1015 impostorscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608010169
+ priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010169
 
 Correct a few white-space issues, like missing space before bracket '{'
 character or spurious space, which will be flagged by dt-check-style
@@ -147,278 +150,300 @@ character or spurious space, which will be flagged by dt-check-style
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- arch/arm/boot/dts/nxp/imx/e60k02.dtsi                |  8 ++++----
- arch/arm/boot/dts/nxp/imx/e70k02.dtsi                |  8 ++++----
- arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts           |  2 +-
- arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts        |  4 ++--
- arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts      |  8 ++++----
- arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts |  8 ++++----
- arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts            |  2 +-
- arch/arm/boot/dts/nxp/imx/imx7s-warp.dts             |  2 +-
- arch/arm/boot/dts/nxp/ls/ls1021a.dtsi                | 10 +++++-----
- 9 files changed, 26 insertions(+), 26 deletions(-)
+ arch/arm64/boot/dts/freescale/fsl-ls1028a.dtsi            | 2 +-
+ .../arm64/boot/dts/freescale/imx8mm-beacon-baseboard.dtsi | 2 +-
+ .../boot/dts/freescale/imx8mp-icore-mx8mp-edimm2.2.dts    | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp.dtsi     | 2 +-
+ .../imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso    | 2 +-
+ .../imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso    | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts   | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi         | 4 ++--
+ arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts         | 2 +-
+ arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts | 2 +-
+ arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi         | 6 +++---
+ arch/arm64/boot/dts/freescale/imx95.dtsi                  | 8 ++++----
+ arch/arm64/boot/dts/freescale/imx952.dtsi                 | 8 ++++----
+ arch/arm64/boot/dts/freescale/s32g2.dtsi                  | 2 +-
+ arch/arm64/boot/dts/freescale/s32g3.dtsi                  | 2 +-
+ 15 files changed, 25 insertions(+), 25 deletions(-)
 
-diff --git a/arch/arm/boot/dts/nxp/imx/e60k02.dtsi b/arch/arm/boot/dts/nxp/imx/e60k02.dtsi
-index aac7b9ef7627..ed59b27834a6 100644
---- a/arch/arm/boot/dts/nxp/imx/e60k02.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/e60k02.dtsi
-@@ -240,13 +240,13 @@ regulator-state-mem {
- 			};
- 
- 			/* IR_3V3 */
--			ldo1_reg: LDO1  {
-+			ldo1_reg: LDO1 {
- 				regulator-name = "LDO1";
- 				regulator-boot-on;
- 			};
- 
- 			/* Core1_3V3 */
--			ldo2_reg: LDO2  {
-+			ldo2_reg: LDO2 {
- 				regulator-name = "LDO2";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -259,7 +259,7 @@ regulator-state-mem {
- 			};
- 
- 			/* Core5_1V2 */
--			ldo3_reg: LDO3  {
-+			ldo3_reg: LDO3 {
- 				regulator-name = "LDO3";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -310,7 +310,7 @@ ldo10_reg: LDO10 {
- 				regulator-boot-on;
- 			};
- 
--			ldortc1_reg: LDORTC1  {
-+			ldortc1_reg: LDORTC1 {
- 				regulator-name = "LDORTC1";
- 				regulator-boot-on;
- 			};
-diff --git a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-index 3bb11c5a6353..dc7ff108aa85 100644
---- a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-@@ -243,13 +243,13 @@ regulator-state-mem {
- 				};
- 			};
- 
--			ldo1_reg: LDO1  {
-+			ldo1_reg: LDO1 {
- 				regulator-name = "LDO1";
- 				regulator-boot-on;
- 			};
- 
- 			/* Core1_3V3 */
--			ldo2_reg: LDO2  {
-+			ldo2_reg: LDO2 {
- 				regulator-name = "LDO2";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -262,7 +262,7 @@ regulator-state-mem {
- 			};
- 
- 			/* Core5_1V2 */
--			ldo3_reg: LDO3  {
-+			ldo3_reg: LDO3 {
- 				regulator-name = "LDO3";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -311,7 +311,7 @@ ldo10_reg: LDO10 {
- 				regulator-boot-on;
- 			};
- 
--			ldortc1_reg: LDORTC1  {
-+			ldortc1_reg: LDORTC1 {
- 				regulator-name = "LDORTC1";
- 				regulator-boot-on;
- 			};
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts
-index ec5a9bf40677..30275319902e 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts
-@@ -151,7 +151,7 @@ reg_usb_host: regulator-usb-vbus {
- 		enable-active-high;
+diff --git a/arch/arm64/boot/dts/freescale/fsl-ls1028a.dtsi b/arch/arm64/boot/dts/freescale/fsl-ls1028a.dtsi
+index f4ba3d16ab86..aeb5000fffdf 100644
+--- a/arch/arm64/boot/dts/freescale/fsl-ls1028a.dtsi
++++ b/arch/arm64/boot/dts/freescale/fsl-ls1028a.dtsi
+@@ -105,7 +105,7 @@ osc_27m: clock-osc-27m {
  	};
  
--	reg_wl18xx_vmmc:  regulator-wl18xx-vmcc {
-+	reg_wl18xx_vmmc: regulator-wl18xx-vmcc {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vwl1807";
- 		pinctrl-names = "default";
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts b/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts
-index 929def2bb35e..20b6cc74f622 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts
-@@ -177,7 +177,7 @@ reg_usb_h2_vbus: regulator-usb-h2-vbus {
- 		regulator-name = "usb_h2_vbus";
- 		regulator-min-microvolt = <5000000>;
- 		regulator-max-microvolt = <5000000>;
--		vin-supply = <&reg_5p0> ;
-+		vin-supply = <&reg_5p0>;
- 		regulator-always-on;
+ 	firmware {
+-		optee: optee  {
++		optee: optee {
+ 			compatible = "linaro,optee-tz";
+ 			method = "smc";
+ 			status = "disabled";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-beacon-baseboard.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-beacon-baseboard.dtsi
+index ea1d5b9c6bae..94e18357e37f 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-beacon-baseboard.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm-beacon-baseboard.dtsi
+@@ -49,7 +49,7 @@ pcie0_refclk: pcie0-refclk {
+ 		clock-frequency = <100000000>;
  	};
  
-@@ -207,7 +207,7 @@ reg_dac: regulator-dac {
- 		regulator-name = "vref_dac";
- 		regulator-min-microvolt = <20000>;
- 		regulator-max-microvolt = <20000>;
--		vin-supply = <&reg_5p0> ;
-+		vin-supply = <&reg_5p0>;
- 		regulator-boot-on;
- 	};
- 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts b/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts
-index 657d0f1b6115..47b05207574e 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts
-@@ -211,14 +211,14 @@ regulator-state-mem {
+-	pcie0_refclk_gated:  pcie0-refclk-gated {
++	pcie0_refclk_gated: pcie0-refclk-gated {
+ 		compatible = "gpio-gate-clock";
+ 		clocks = <&pcie0_refclk>;
+ 		#clock-cells = <0>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-edimm2.2.dts b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-edimm2.2.dts
+index a02b31c42db4..299d81a18c06 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-edimm2.2.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp-edimm2.2.dts
+@@ -101,7 +101,7 @@ &usb_dwc3_1 {
+ &usdhc2 {
+ 	cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
+ 	bus-width = <4>;
+-	pinctrl-names = "default" ;
++	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
+ 	vmmc-supply = <&reg_usdhc2_vmmc>;
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp.dtsi
+index 69558ffefa9a..affcc20b20c7 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-icore-mx8mp.dtsi
+@@ -49,7 +49,7 @@ buck1: BUCK1 {
+ 				regulator-ramp-delay = <3125>;
  			};
  
- 			/* IR_3V3 */
--			ldo1_reg: LDO1  {
-+			ldo1_reg: LDO1 {
- 				regulator-name = "LDO1";
+-			buck2: BUCK2  {
++			buck2: BUCK2 {
+ 				nxp,dvs-run-voltage = <950000>;
+ 				nxp,dvs-standby-voltage = <850000>;
  				regulator-always-on;
- 				regulator-boot-on;
- 			};
- 
- 			/* Core1_3V3 */
--			ldo2_reg: LDO2  {
-+			ldo2_reg: LDO2 {
- 				regulator-name = "LDO2";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -231,7 +231,7 @@ regulator-state-mem {
- 			};
- 
- 			/* Core5_1V2 */
--			ldo3_reg: LDO3  {
-+			ldo3_reg: LDO3 {
- 				regulator-name = "LDO3";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -282,7 +282,7 @@ ldo10_reg: LDO10 {
- 				regulator-boot-on;
- 			};
- 
--			ldortc1_reg: LDORTC1  {
-+			ldortc1_reg: LDORTC1 {
- 				regulator-name = "LDORTC1";
- 				regulator-always-on;
- 				regulator-boot-on;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts b/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
-index 4c655579f43e..64a74719c216 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
-@@ -276,13 +276,13 @@ regulator-state-mem {
- 			};
- 
- 			/* IR_3V3 */
--			ldo1_reg: LDO1  {
-+			ldo1_reg: LDO1 {
- 				regulator-name = "LDO1";
- 				regulator-boot-on;
- 			};
- 
- 			/* Core1_3V3 */
--			ldo2_reg: LDO2  {
-+			ldo2_reg: LDO2 {
- 				regulator-name = "LDO2";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -295,7 +295,7 @@ regulator-state-mem {
- 			};
- 
- 			/* Core5_1V2 */
--			ldo3_reg: LDO3  {
-+			ldo3_reg: LDO3 {
- 				regulator-name = "LDO3";
- 				regulator-always-on;
- 				regulator-boot-on;
-@@ -346,7 +346,7 @@ ldo10_reg: LDO10 {
- 				regulator-boot-on;
- 			};
- 
--			ldortc1_reg: LDORTC1  {
-+			ldortc1_reg: LDORTC1 {
- 				regulator-name = "LDORTC1";
- 				regulator-always-on;
- 				regulator-boot-on;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts b/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts
-index 814401486792..d20d2735cab5 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts
-@@ -633,7 +633,7 @@ MX6SLL_PAD_PWM1__PWM1_OUT   0x110b0
- 		>;
- 	};
- 
--	pinctrl_wdog1: wdog1grp	{
-+	pinctrl_wdog1: wdog1grp {
- 		fsl,pins = <
- 			MX6SLL_PAD_WDOG_B__WDOG1_B   0x170b0
- 		>;
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts b/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts
-index 25f38acc5350..b1989013c1a4 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts
-@@ -272,7 +272,7 @@ &uart1 {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso
+index 2cf1de8c05b4..9ce0744c88a8 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds0-tm070jvhg33.dtso
+@@ -12,7 +12,7 @@ &backlight_lvds0 {
  	status = "okay";
  };
  
--&uart3  {
-+&uart3 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_uart3>;
- 	assigned-clocks = <&clks IMX7D_UART3_ROOT_SRC>;
-diff --git a/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi b/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi
-index e0b9ea6dd510..af518fc08809 100644
---- a/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi
-+++ b/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi
-@@ -721,7 +721,7 @@ queue-group@2d10000 {
- 					<GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
+-&panel_lvds0{
++&panel_lvds0 {
+ 	compatible = "tianma,tm070jvhg33";
+ 	status = "okay";
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso
+index cbad0cfab292..24f5f932231f 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpqs-mb-smarc-2-lvds1-tm070jvhg33.dtso
+@@ -12,7 +12,7 @@ &backlight_lvds1 {
+ 	status = "okay";
+ };
+ 
+-&panel_lvds1{
++&panel_lvds1 {
+ 	compatible = "tianma,tm070jvhg33";
+ 	status = "okay";
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts b/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts
+index 0c3f1b20b3d7..a82af92d6085 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5-devkit.dts
+@@ -119,7 +119,7 @@ regulator-state-mem {
+ 		};
+ 	};
+ 
+-	reg_22v4_p: regulator-22v4-p  {
++	reg_22v4_p: regulator-22v4-p {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "22v4_P";
+ 		regulator-min-microvolt = <22400000>;
+@@ -507,7 +507,7 @@ &i2c3 {
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+ 	status = "okay";
+ 
+-	magnetometer@1e	{
++	magnetometer@1e {
+ 		compatible = "st,lsm9ds1-magn";
+ 		reg = <0x1e>;
+ 		pinctrl-names = "default";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+index f5d529c5baf3..ad7c0e7422ca 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+@@ -1025,7 +1025,7 @@ &i2c2 {
+ 	sda-gpios = <&gpio5 17 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+ 	status = "okay";
+ 
+-	magnetometer: magnetometer@1e	{
++	magnetometer: magnetometer@1e {
+ 		compatible = "st,lsm9ds1-magn";
+ 		reg = <0x1e>;
+ 		pinctrl-names = "default";
+@@ -1060,7 +1060,7 @@ proximity: prox@60 {
+ 		interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
+ 	};
+ 
+-	accel_gyro: accel-gyro@6a	{
++	accel_gyro: accel-gyro@6a {
+ 		compatible = "st,lsm9ds1-imu";
+ 		reg = <0x6a>;
+ 		vdd-supply = <&reg_vdd_sen>;
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts b/arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts
+index 767819cce886..b91509bfc9c0 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mq-nitrogen.dts
+@@ -230,7 +230,7 @@ i2c@0 {
+ 
+ 			hdmi-bridge@48 {
+ 				compatible = "lontium,lt8912b";
+-				reg = <0x48> ;
++				reg = <0x48>;
+ 				reset-gpios = <&max7323 0 GPIO_ACTIVE_LOW>;
+ 
+ 				ports {
+diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+index c7d3073b4041..169811b5049c 100644
+--- a/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
++++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som-symphony.dts
+@@ -296,7 +296,7 @@ usb3-signal-route-hog {
+ 	};
+ };
+ 
+-&pciea{
++&pciea {
+ 	phys = <&hsio_phy 0 PHY_TYPE_PCIE 0>;
+ 	phy-names = "pcie-phy";
+ 	status = "okay";
+diff --git a/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
+index b11da10c5ae3..a44351133428 100644
+--- a/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8qm-var-som.dtsi
+@@ -275,15 +275,15 @@ &lpuart1 {
+ 	status = "okay";
+ };
+ 
+-&mu_m0{
++&mu_m0 {
+ 	status = "okay";
+ };
+ 
+-&mu1_m0{
++&mu1_m0 {
+ 	status = "okay";
+ };
+ 
+-&mu2_m0{
++&mu2_m0 {
+ 	status = "okay";
+ };
+ 
+diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
+index 305751046d66..5f8ab994fb34 100644
+--- a/arch/arm64/boot/dts/freescale/imx95.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
+@@ -1458,7 +1458,7 @@ lpi2c1: i2c@44340000 {
+ 				clock-names = "per", "ipg";
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+-				dmas = <&edma1 12 0 0>, <&edma1 13 0 FSL_EDMA_RX> ;
++				dmas = <&edma1 12 0 0>, <&edma1 13 0 FSL_EDMA_RX>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
  			};
- 
--			queue-group@2d14000  {
-+			queue-group@2d14000 {
- 				reg = <0x0 0x2d14000 0x0 0x1000>;
- 				interrupts = <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>,
- 					<GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
-@@ -740,14 +740,14 @@ enet1: ethernet@2d50000 {
- 			ranges;
- 			dma-coherent;
- 
--			queue-group@2d50000  {
-+			queue-group@2d50000 {
- 				reg = <0x0 0x2d50000 0x0 0x1000>;
- 				interrupts = <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
- 					<GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
- 					<GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
+@@ -1472,7 +1472,7 @@ lpi2c2: i2c@44350000 {
+ 				clock-names = "per", "ipg";
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+-				dmas = <&edma1 14 0 0>, <&edma1 15 0 FSL_EDMA_RX> ;
++				dmas = <&edma1 14 0 0>, <&edma1 15 0 FSL_EDMA_RX>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
  			};
- 
--			queue-group@2d54000  {
-+			queue-group@2d54000 {
- 				reg = <0x0 0x2d54000 0x0 0x1000>;
- 				interrupts = <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
- 					<GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
-@@ -766,14 +766,14 @@ enet2: ethernet@2d90000 {
- 			ranges;
- 			dma-coherent;
- 
--			queue-group@2d90000  {
-+			queue-group@2d90000 {
- 				reg = <0x0 0x2d90000 0x0 0x1000>;
- 				interrupts = <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>,
- 					<GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
- 					<GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
+@@ -1486,7 +1486,7 @@ lpspi1: spi@44360000 {
+ 				clocks = <&scmi_clk IMX95_CLK_LPSPI1>,
+ 					 <&scmi_clk IMX95_CLK_BUSAON>;
+ 				clock-names = "per", "ipg";
+-				dmas = <&edma1 16 0 FSL_EDMA_RX>, <&edma1 17 0 0> ;
++				dmas = <&edma1 16 0 FSL_EDMA_RX>, <&edma1 17 0 0>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
  			};
+@@ -1500,7 +1500,7 @@ lpspi2: spi@44370000 {
+ 				clocks = <&scmi_clk IMX95_CLK_LPSPI2>,
+ 					 <&scmi_clk IMX95_CLK_BUSAON>;
+ 				clock-names = "per", "ipg";
+-				dmas = <&edma1 18 0 FSL_EDMA_RX>, <&edma1 19 0 0> ;
++				dmas = <&edma1 18 0 FSL_EDMA_RX>, <&edma1 19 0 0>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
+ 			};
+diff --git a/arch/arm64/boot/dts/freescale/imx952.dtsi b/arch/arm64/boot/dts/freescale/imx952.dtsi
+index 020de00e8285..887abb1c4784 100644
+--- a/arch/arm64/boot/dts/freescale/imx952.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx952.dtsi
+@@ -1164,7 +1164,7 @@ lpi2c1: i2c@44340000 {
+ 				clock-names = "per", "ipg";
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+-				dmas = <&edma1 12 0 0>, <&edma1 13 0 FSL_EDMA_RX> ;
++				dmas = <&edma1 12 0 0>, <&edma1 13 0 FSL_EDMA_RX>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
+ 			};
+@@ -1178,7 +1178,7 @@ lpi2c2: i2c@44350000 {
+ 				clock-names = "per", "ipg";
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+-				dmas = <&edma1 14 0 0>, <&edma1 15 0 FSL_EDMA_RX> ;
++				dmas = <&edma1 14 0 0>, <&edma1 15 0 FSL_EDMA_RX>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
+ 			};
+@@ -1192,7 +1192,7 @@ lpspi1: spi@44360000 {
+ 				clock-names = "per", "ipg";
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+-				dmas = <&edma1 16 0 FSL_EDMA_RX>, <&edma1 17 0 0> ;
++				dmas = <&edma1 16 0 FSL_EDMA_RX>, <&edma1 17 0 0>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
+ 			};
+@@ -1206,7 +1206,7 @@ lpspi2: spi@44370000 {
+ 				clock-names = "per", "ipg";
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+-				dmas = <&edma1 18 0 FSL_EDMA_RX>, <&edma1 19 0 0> ;
++				dmas = <&edma1 18 0 FSL_EDMA_RX>, <&edma1 19 0 0>;
+ 				dma-names = "tx", "rx";
+ 				status = "disabled";
+ 			};
+diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+index 8dc0c5d9f368..7a846c143ae8 100644
+--- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
++++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+@@ -14,7 +14,7 @@ / {
+ 	#address-cells = <2>;
+ 	#size-cells = <2>;
  
--			queue-group@2d94000  {
-+			queue-group@2d94000 {
- 				reg = <0x0 0x2d94000 0x0 0x1000>;
- 				interrupts = <GIC_SPI 160 IRQ_TYPE_LEVEL_HIGH>,
- 					<GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>,
+-	reserved-memory  {
++	reserved-memory {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+ 		ranges;
+diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+index 24fa3057e929..771c03caafe9 100644
+--- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
++++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+@@ -153,7 +153,7 @@ pmu {
+ 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH>;
+ 	};
+ 
+-	reserved-memory  {
++	reserved-memory {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+ 		ranges;
 -- 
 2.53.0
 
