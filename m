@@ -1,332 +1,309 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2111.outbound.protection.partner.outlook.cn [139.219.17.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51422931EA
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 15:02:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785596553; cv=none; b=Iy9EuH7MNpgOTVuEtaCwt9Oy75FKkkDiC1TBhNvx93Vpm1rEunHBQNauaxc/siMnl9zJ4Fsw+i3nqZVXuLgLlOLpgwXRCQpXkIRiXVSjEDUcUpghDe53DBPC8nCG7e+2J4bgRH+ruqGY3yKUcSD2U2VohzCvNchpi81/V4pTK2U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785596553; c=relaxed/simple;
-	bh=xRVg1yasPBB5NzmjfBOkqOl/aTRuM2I+kwlfUDeA67s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y7oDld3Vf3LrxCsYOrYHmuW4nF1W6eX4JO08N0KTZpFP7q9GlQ4uLVMTCtj50PEL1CMvkygHvrn+SAN25zmkJr9FQSlUNw1LJPgxrdCZAUjlpeoW5QlNJO/hJBcsG+V/+51YFfnKCkPURBYTKWbRqE2dV3b8FDo6LmVtkQ/FZ2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=dQ01LDNB; arc=none smtp.client-ip=209.85.161.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="dQ01LDNB"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6ae45c58003so541974eaf.2
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 08:02:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1785596549; x=1786201349; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U+dM9uqc02yFtNS8yxq8WdKy5Ckg/Jxy7aMC/aM+dL0=;
-        b=dQ01LDNBQHMlY7LfQRcvsp+fFidQP+84qa5IPPubm1tF4mCMMSKvQvn/JjxMoN8cv6
-         VtkxYaHOCcEum6ksnSPuX4RroxlBmXEst1lVxEzWXyea5jlNRpQ5oYsqiDIXEfhi5mtd
-         VrBNUbUpzf5JQOYy/2LxfpLK2cOdl4AWky4b2oepYC/s8oubeTm5rzGV1h2k64+WUIMF
-         Gidw5+p2TexZCypa6AAxjoYd90YKbqH1GL2SxdWK9tsZMTyBdoAVLSoKgKmcNS9ozCDf
-         wNDuUk+eZ+Sz9QUFCjUp68DKbFIa5Oym1aq8FYwaM3hwzTllT+XXQraPq2vudEy5FhUD
-         e4Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785596549; x=1786201349;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U+dM9uqc02yFtNS8yxq8WdKy5Ckg/Jxy7aMC/aM+dL0=;
-        b=R+8jZDvic9JbTA5muTahSL5+XnGzgijUvWkl3NSiVGJ2Q2FRo93vf/1wxB4DTCQ8Rp
-         TR9p0CcMZZZWVfoBpf+s/tfw0QUsLCgeuCDcsomRvOe5jVZ5635L8pSsZycx3c3F2etv
-         fYaw0J9Ramh97pdieyvYGzLXRRFfZ8dN8uYQVa4BVumX1Qll1GGHlkXzacwcMp5E4pq+
-         OHqf526Gi3UFfsHR18qkZvKIekHWE7YOGfDvoA2CW1GhKaKvdSjAzumbh0ud6m1T/JyM
-         YteoHHOugNNV80lRyHgnKMl6XC2FveqJ8W2gwRWrO1kXeoOfcKgyqWnGez3oDKYHsLQ8
-         EDiw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqw4CNQWnTYVNtK8EulHFBjEUxq7plBELyzQnFlmqo1F3lgr8V3InF+k5bQnk03A41UfAxxxStcBj5k@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxeD1rPuNvxXGrYnF/WB0m26BoCB3Zi/ws6qd2FC6AjKqVKa0H
-	m/dw/lGo3s51bEhERi6Qbw4x0MWSTp6rS1ucn03a0fBs4lwdg9h5P4NnSwylbXSwCsI=
-X-Gm-Gg: AR+sD11sZKLP9MvVbhHQeqVlVShBqjuKqGTWN/EHNGQ/ApSIKw+Q440QEz4yNm6//s2
-	oqd/FEZztLiMqaQppOS4zcARqP/E1rXclTEBBbpKdduy/ptmdTVSd1vvLzBslsbgTe87XvBIWH5
-	3QUNHCFjjNh1Ra0RajMT1+w7VyIzy6x2tcY9Tpt8lXkg0GQj+d3MbIerLkbRJIdHYg6FvK7ajdm
-	TFEprpssnnPV8t9VeYeNO7yD7rigjJSWUgKhmcN4+L+F0piO68Ez34gwRXJ+msMLjsY6NXsja36
-	UzeKOvD6u16DMA707S6j91ad2xr4YZmfwxGy/kkCmf8FpznHPT6CJejWZdyJ4ZRd9hTvTBpXGF5
-	2/lmnB7DWHtn1SvhBXDNVGhAxkLATY7OlksFP/qDvXNvdRQdJzLNyz590+SA5GHkvocalFft+xg
-	pbGgSuWh65X4UIeoFa0uwuasVGy49HsKlcB2oij0KHcTJ6Vze0rChPdt//I3IhnNiVpLrhN+DUo
-	0h1120C7eb+BxcfFM/+V65/upL0ehz2xEvKyBPBkb2ynBxrexI=
-X-Received: by 2002:a05:6820:221e:b0:6ae:4767:a503 with SMTP id 006d021491bc7-6ae4767a98fmr4756954eaf.34.1785596548637;
-        Sat, 01 Aug 2026 08:02:28 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:359b:17f1:d4f9:4949? ([2600:8803:e7e4:500:359b:17f1:d4f9:4949])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f0da951sm3168830a34.24.2026.08.01.08.02.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 01 Aug 2026 08:02:27 -0700 (PDT)
-Message-ID: <185632fa-8e1d-467a-a194-aafac05dbdea@baylibre.com>
-Date: Sat, 1 Aug 2026 10:02:27 -0500
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7953739A048;
+	Sat,  1 Aug 2026 15:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.111
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785596660; cv=fail; b=noV2+nIR7Ag4e182cMiiFI8BsbpcX0SfXy5LnqLtQBXDuLdrE7z5R3PZDGLQrv9ywv7D75yvlkYAJysdFyu3FPYHXlCrqu9iV6KctwiJH1Rn5al8KVCsbyRJ2G3C1XlZJdp0tYikWqvHq3y23UOTyDmzy453lKhfibUwZFg8MRc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785596660; c=relaxed/simple;
+	bh=/5o8pdTJDf/gXJEtAYubaBMl5EIf8FF2PUtPtmiYT3I=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MAOiaxdP9wk7PwLF/PSMaw0CKF/jPUOmKICmefWXeaWlNMXIeFbqS4lb+ODikR3rwKXZ0HB3PNSnlEtR+bGfU6yPUWDmrI/BWZzdB3eUrg1Z1WgLwwBVPaHPblAxbIJAa0vd7SyhkvtmpWmdtIz+QRJzYKe9NiyDzWwQFeOpeac=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OmDNi3kmrOS3mPerQSjxB6nPnN/omKETLVkLtyXi+39WnJ6NLVBe9i4u8rNWOK19hrbXyrtGTeAmkUuaAFsiZWx6YUw9TZmpfpMDWnKby0MlwiIXd8Eph72m2KxwM82wsg1uJm30NFKYbnhh+btU1jtDjGRQm1/nbi1ZKTzt9U4Gw6Sa7qWffkOG4b/kGRcbr7cD4eW6csQ4OUlT8dCp8hb0NrAvUrTt6pGB8JrUPTIq7RzeLYf1t2cRHjw9Qm1ZePUdJWqHWO/YbXTdQug7YnuGu2gNhHrQX5Z2g0ji7cvGZuHgZHsK4JW/d9EBk5rAy70hZrh8iQOiPQeNg/ZqVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cdPeRhmVKmrpDQv8jof8kVZMGMHqlJvYx3hd1m+rBW8=;
+ b=jYCt42ksd8BF5KlYG2T/V35Wn/WfW6iM+oWCHFWdhjF6YbPnxhb2ZUxzbmAmjsz3dmiRyDKk+RAr3CSAT4Y2zdH+kqv5Kn+7h67+5aJjcSTaCsUQAC+JeSEmQfiFQmyc6OivkyjSSEFM7tbhVZg9QAuPF9QAWvr6/tvG6pJS1WdOuWWpvmOwgV1NpElKJKk+8W5ojvO1aMkra4rVSBgvETUsC5ARCGjNMPkZCNLRrBptIq3ymmIAJuAS46x50swbBEavI/xnb7hRdq4DCqk1/4qmJfwxcWoFHP70155JZVTzKaen0H/Yy8+wI4h9R3646iFMhO8tCfIkeIODRTvyiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1138.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Sat, 1 Aug
+ 2026 07:27:33 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0270.015; Sat, 1 Aug 2026 07:27:33 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v4 10/21] pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
+Date: Sat,  1 Aug 2026 00:27:00 -0700
+Message-Id: <20260801072711.153217-11-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
+References: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0027.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iio: dac: mcp47a1: add support for new device
-To: Joshua Crofts <joshua.crofts1@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260727-mcp47a1-add-support-v2-0-d4591a2ce69e@gmail.com>
- <20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260727-mcp47a1-add-support-v2-2-d4591a2ce69e@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1138:EE_
+X-MS-Office365-Filtering-Correlation-Id: a92d669b-fba1-4bcc-e987-08deef9e5a6b
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|52116014|376014|366016|23010399003|1800799024|6133799003|5023799004|56012099006|3023799007|18002099003|22082099003|10067099003|921020|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	6VygV79A5U1+bavfMpxNTfeXBspekHzkZthFLweJtWKxGak+jwvIlgchkjavtgYUzVtXXDOFqqc3XjjHqUe0OxrPwk8IEkljwOLa1I/BtlLVsqunG3Tk/fBtJ7B5urVkz3WFLxdxUgPpBxOikNzcwmNV7gBliLBWR5Zl7hsmxMEkPlBD2YNM3EAWAZyOhFNZ+6nlVAjss6y3BL+k1FWLufD0Bz/cKAiYFgTnlpbeAwxM8jrJ1fCLtZokCwt/PjtKx49G0oYv8h14eGFFXMvOLVHjsSInb5PEYurwILCKSrTy+HADWbALvR1jPWfUhHjje9bibI/lwWFEx/Aa6e8n9rina1ApQ+dbjlr0XiobzXAfJYKb65bYhbBbAKQ24CM5JcO3q4ugSo22k3BZRdj1afNVJiprxjxMXsjw8SaE2XZx25N6nfPhfNb6o2hfJbXl29k/U4mqcseXMdbEGp+EM+yYd+j7FEBfBD+LpnOKxVAsByVFV2qIeEpWevgAD6ZqrVmybeT5vq8tVihQ4LqHzRjYoxSqYP2r+yenk6AzUI7WtDmvlV20z3ZrHJ/5+6ryK5NaDsGE4cfG90Q8U326RA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(366016)(23010399003)(1800799024)(6133799003)(5023799004)(56012099006)(3023799007)(18002099003)(22082099003)(10067099003)(921020)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Qr2RRVtIPLLLwhLDw/yrxuC6RtGExjPUvE8g3JqFHDrNDL1k7zkVO9z0nKdN?=
+ =?us-ascii?Q?OcEV2QhdnQI5QKjvtOS8+bMYoaywRAhh4ChuPU+udtvn8r2RR6PyxKd/fM2F?=
+ =?us-ascii?Q?z0N0OfFoVqzyQaHHGKreBHOzhEz6AaJV4R5YLEDCXqpU5iv7nIrjdw7VFpIq?=
+ =?us-ascii?Q?qXO5M5uD0irdOj6bO49EWurayQDO+fWoaMvWELJkjFUZb4k8iJhcpjpoYMsk?=
+ =?us-ascii?Q?9T1L3H4ir3UVa5ypxCRPXZIPEWAt/cIZC3MsjmZ4EpjieMvN6Yt+wsT/wLcW?=
+ =?us-ascii?Q?FibYmi6nQc61TMzuExlz0fzMbnrsZsc89924L0BczlHyWGqSKX2Lu/O3Bedk?=
+ =?us-ascii?Q?geKEFgqT6Ji7NTm2DdO6Idv3vzrUuIeplwYGq274rhQSq1mpLvuMy9okcV6A?=
+ =?us-ascii?Q?9mUtei6m7KP8Dw46ZI86ZEqguabgloZtgQglXNnnmXPf4MRUCdf3ghbcmLW+?=
+ =?us-ascii?Q?wWdtWV4M6CduAqhAMmJ7ipyvK/+2kdd4xQQ5ryyy+cSHYJ3DBDOouydef+VQ?=
+ =?us-ascii?Q?pgJe9iuWpsnnGbZiQyFU6qeUVY05vCr4REpSuAcU2BwXeElEfzvnkiwQKDR4?=
+ =?us-ascii?Q?lJwUf0MZLyYyQS7zNt9bgcW2Dw1ook+vkZ1oEQ6Y/LaRakzEnir+DsKEVLWT?=
+ =?us-ascii?Q?Y2TSxNN1C6WQYux/CZLHP1ZnnlVtEUwX8f2wVCWUtJjmQwH9XaG4pCiR8t5B?=
+ =?us-ascii?Q?rey4Bp4r0cpe8tmxOPRX+OJWP5FSxuI+suZVHhFxF6Ag7rv9xw5jVAer7OlN?=
+ =?us-ascii?Q?GpLTemSYZ5lRBoRMlCqJ7ZU7OzLaDxOApbxhIgLEh4+THtqhFMHqaGCmRrON?=
+ =?us-ascii?Q?ZCN/cfHT91x0REMkdTpfa6Yh1tn0D7YxbHHgS8Nelnjq6lJNSloEPs5yoeu7?=
+ =?us-ascii?Q?s4OOYHFsxss6s2iwOyISqASQxL0w99WT5cl99330n09KtS70yOPh4aP9Cmin?=
+ =?us-ascii?Q?liJY72irHj7eAf20oFYxcfHVi+tnYZeINlzl337WFlHKbj8lT+CBp8snBnrO?=
+ =?us-ascii?Q?eJlU6DSm+Ssaxsxjp8F2VZ9Tk9l/23W6XPRre11n0HyBXBb8uaBv3Tkfapgk?=
+ =?us-ascii?Q?1CYlDwmccuIKuxsyBjAsAgkClGyjL8TWzL0H776z52Ta8e+LJZGZzuPP7Ifk?=
+ =?us-ascii?Q?Q22VOtKuWMEJukREktty65krOdhh3tDI7lVcOwk0oNHmHO1bR1cj/VtNbikO?=
+ =?us-ascii?Q?vPwc2QkfN2/AcWwtTit9I7dWyVm52qeOSKUCfyn7awsKtXQQ457W3JHAodDi?=
+ =?us-ascii?Q?8omIlc2MryySe2xoAXoBmbVfZWhR0XahAEPsPV1ZkB7QTjKLv784dkVQJSUU?=
+ =?us-ascii?Q?Y6XPAYR+/oF00ASOxzcjkNN66r1ddGEUujekyoxlXOLlHqnxjDheYvDKTZkt?=
+ =?us-ascii?Q?j/n2JcVAGLL37mHfsHEQXWxNY6Cn4vlJgnLqREFGUyUHVD3EN7/IFwhRoRnB?=
+ =?us-ascii?Q?yQmVc7VI9vM907lHZEOANm+UoZEGiqspxvKICaNmXj9Lb9zzrLYhlJrxXyrF?=
+ =?us-ascii?Q?7JbAYcBX3EITIETRehqxaMBZcUkp+sDckWLlI5Bshz5zhid35VxNnTpPomn9?=
+ =?us-ascii?Q?kYlQVqkx8gcdnY8yMgkI6oVt69C12kLM1UgAoo7q2H1JPDsaX2lc4LZzDiSE?=
+ =?us-ascii?Q?UaYHfwnBdegYiJRrnQLorkWcNWe3FKm4lomtaWSi2dC4Df1nKBVCEmMbcj1i?=
+ =?us-ascii?Q?WXbAIvHiCALbiKgqSa1AzkW8SPzKY8jVjd0qu/+Zta9OMNIeevY5wLcffafm?=
+ =?us-ascii?Q?XXsWV9FSlnZhaTKU/9UymK48RNg76+t8VaPkNgcwVANkRoeW82Gw?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a92d669b-fba1-4bcc-e987-08deef9e5a6b
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 07:27:33.4882
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eHA3WwpT0UGA4C3NJt+FU5HS9ikzcUb6iQuiK4+zcXdCD5bK5132BLh92wTs4UfkrsgxJMo9tX0xhT209DEswRJLxi1e1OXDuHFdkA8P6o2OgVIj/K3o3covfvnpWVU8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1138
 
-On 7/27/26 1:31 PM, Joshua Crofts wrote:
-> The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converter
-> which communicates via I2C.
-> 
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
->  MAINTAINERS               |   1 +
->  drivers/iio/dac/Kconfig   |  10 +++
->  drivers/iio/dac/Makefile  |   1 +
->  drivers/iio/dac/mcp47a1.c | 169 ++++++++++++++++++++++++++++++++++++++++++++++
->  4 files changed, 181 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 8a0b23418a64..552ced65cf75 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17703,6 +17703,7 @@ MICROCHIP MCP47A1 DAC DRIVER
->  M:	Joshua Crofts <joshua.crofts1@gmail.com>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-> +F:	drivers/iio/dac/mcp47a1.c
->  
->  MICROCHIP MCP9982 TEMPERATURE DRIVER
->  M:	Victor Duicu <victor.duicu@microchip.com>
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index d6d560c09e25..1d00cd911826 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -565,6 +565,16 @@ config MCP4728
->  	  To compile this driver as a module, choose M here: the module
->  	  will be called mcp4728.
->  
-> +config MCP47A1
-> +	tristate "MCP47A1 DAC driver"
-> +	depends on I2C
-> +	help
-> +	  Say Y here if you want to build a driver for the Microchip
-> +	  MCP47A1 digital-to-analog converter with an I2C interface.
-> +
-> +	  To compile this driver as a module, choose M here: the module
-> +	  will be called mcp47a1.
-> +
->  config MCP47FEB02
->  	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 DAC driver"
->  	depends on I2C
-> diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
-> index 5d20d37e44ce..992f8930f95c 100644
-> --- a/drivers/iio/dac/Makefile
-> +++ b/drivers/iio/dac/Makefile
-> @@ -55,6 +55,7 @@ obj-$(CONFIG_MAX5821) += max5821.o
->  obj-$(CONFIG_MCF54415_DAC) += mcf54415_dac.o
->  obj-$(CONFIG_MCP4725) += mcp4725.o
->  obj-$(CONFIG_MCP4728) += mcp4728.o
-> +obj-$(CONFIG_MCP47A1) += mcp47a1.o
->  obj-$(CONFIG_MCP47FEB02) += mcp47feb02.o
->  obj-$(CONFIG_MCP4821) += mcp4821.o
->  obj-$(CONFIG_MCP4922) += mcp4922.o
-> diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-> new file mode 100644
-> index 000000000000..140e93ff2ba0
-> --- /dev/null
-> +++ b/drivers/iio/dac/mcp47a1.c
-> @@ -0,0 +1,169 @@
-> +// SPDX-License-Identifier: GPL-2.0
+Add pinctrl driver for StarFive JHB100 SoC System-2(sys2) pinctrl
+controller.
 
-Prefer more specific GPL-2.0-only or GPL-2.0-or-later (your choice).
+Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Signed-off-by: Alex Soo <yuklin.soo@starfivetech.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+---
+ drivers/pinctrl/starfive/Kconfig              |  11 ++
+ drivers/pinctrl/starfive/Makefile             |   1 +
+ .../starfive/pinctrl-starfive-jhb100-sys2.c   | 132 ++++++++++++++++++
+ 3 files changed, 144 insertions(+)
+ create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys2.c
 
-> +/*
-> + * Microchip MCP47A1 DAC driver
-> + *
-> + * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
-> + *
-> + * Datasheet: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/25154A.pdf
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
-> +#include <linux/units.h>
-> +
-> +#include <linux/iio/iio.h>
-> +
-> +#define MCP47A1_REG_MAX		0x40
+diff --git a/drivers/pinctrl/starfive/Kconfig b/drivers/pinctrl/starfive/Kconfig
+index 1cf43e0ae1d7..bb298419ab60 100644
+--- a/drivers/pinctrl/starfive/Kconfig
++++ b/drivers/pinctrl/starfive/Kconfig
+@@ -89,3 +89,14 @@ config PINCTRL_STARFIVE_JHB100_SYS1
+ 	  This also provides an interface to the GPIO pins not used by other
+ 	  peripherals supporting inputs, outputs, configuring pull-up/pull-down
+ 	  and interrupts on input changes.
++
++config PINCTRL_STARFIVE_JHB100_SYS2
++	tristate "StarFive JHB100 SoC System-2 pinctrl and GPIO driver"
++	depends on ARCH_STARFIVE || COMPILE_TEST
++	select PINCTRL_STARFIVE_JHB100
++	default ARCH_STARFIVE
++	help
++	  Say yes here to support System-2 pin control on the StarFive JHB100 SoC.
++	  This also provides an interface to the GPIO pins not used by other
++	  peripherals supporting inputs, outputs, configuring pull-up/pull-down
++	  and interrupts on input changes.
+diff --git a/drivers/pinctrl/starfive/Makefile b/drivers/pinctrl/starfive/Makefile
+index 8d96cf80d377..b817ad93b91d 100644
+--- a/drivers/pinctrl/starfive/Makefile
++++ b/drivers/pinctrl/starfive/Makefile
+@@ -10,3 +10,4 @@ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100)		+= pinctrl-starfive-jhb100.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_SYS0)	+= pinctrl-starfive-jhb100-sys0.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_SYS0H)	+= pinctrl-starfive-jhb100-sys0h.o
+ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_SYS1)	+= pinctrl-starfive-jhb100-sys1.o
++obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_SYS2)	+= pinctrl-starfive-jhb100-sys2.o
+diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys2.c b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys2.c
+new file mode 100644
+index 000000000000..07c470ab80b0
+--- /dev/null
++++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-sys2.c
+@@ -0,0 +1,132 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Pinctrl / GPIO driver for StarFive JHB100 SoC System-2 domain
++ *
++ * Copyright (C) 2024 StarFive Technology Co., Ltd.
++ * Author: Alex Soo <yuklin.soo@starfivetech.com>
++ *
++ */
++
++#include <dt-bindings/pinctrl/starfive,jhb100-pinctrl.h>
++#include <linux/mod_devicetable.h>
++#include <linux/platform_device.h>
++
++#include "pinctrl-starfive-jhb100.h"
++
++static const struct jhb100_pin_layout_desc jhb100_sys2_pl_desc[] = {
++	{ .pin_start = 0, .pin_cnt = 37, .name = "gpio", .gpio_func_sel = 0 },
++	{ .pin_start = 37, .pin_cnt = 1, .name = "jtag_tck", .gpio_func_sel = -1 },
++	{ .pin_start = 38, .pin_cnt = 1, .name = "jtag_tresetn", .gpio_func_sel = -1 },
++	{ .pin_start = 39, .pin_cnt = 1, .name = "jtag_tmc", .gpio_func_sel = -1 },
++	{ .pin_start = 40, .pin_cnt = 1, .name = "jtag_tdi", .gpio_func_sel = -1 },
++	{ .pin_start = 41, .pin_cnt = 1, .name = "jtag_tdo", .gpio_func_sel = -1 },
++	{ .pin_start = 42, .pin_cnt = 1, .name = "jtag_hpd", .gpio_func_sel = -1 },
++	{ 0xff },
++};
++
++static struct config_reg_layout_desc jhb100_sys2_pinctrl_rl_desc[] = {
++	{
++		.pin_start					= 0,
++		.pin_cnt					= 37,
++		.fields[PAD_CFG_DRIVE_STRENGTH_2BIT]		= { .shift = 0, .width = 2 },
++		.fields[PAD_CFG_INPUT_ENABLE]			= { .shift = 2, .width = 1 },
++		.fields[PAD_CFG_PULL_DOWN]			= { .shift = 3, .width = 1 },
++		.fields[PAD_CFG_PULL_UP]			= { .shift = 4, .width = 1 },
++		.fields[PAD_CFG_SLEW_RATE]			= { .shift = 5, .width = 1 },
++		.fields[PAD_CFG_SCHMITT_TRIGGER_SELECT]		= { .shift = 6, .width = 1 },
++		.fields[PAD_CFG_DEBOUNCE_WIDTH]			= { .shift = 15, .width = 17 },
++	},
++	{
++		.pin_start					= 37,
++		.pin_cnt					= 6,
++		.fields[PAD_CFG_DRIVE_STRENGTH_2BIT]		= { .shift = 0, .width = 2 },
++		.fields[PAD_CFG_INPUT_ENABLE]			= { .shift = 2, .width = 1 },
++		.fields[PAD_CFG_PULL_DOWN]			= { .shift = 3, .width = 1 },
++		.fields[PAD_CFG_PULL_UP]			= { .shift = 4, .width = 1 },
++		.fields[PAD_CFG_SLEW_RATE]			= { .shift = 5, .width = 1 },
++		.fields[PAD_CFG_SCHMITT_TRIGGER_SELECT]		= { .shift = 6, .width = 1 },
++	},
++	{ 0xff },
++};
++
++static const struct pinvref_desc pinvref_desc_sys2[] = {
++	{
++		/* gpiow */
++		.pin_grp = {
++			PADNUM_SYS2_GPIO_A36,
++			PADNUM_SYS2_GPIO_A37,
++			PADNUM_SYS2_GPIO_A38,
++			PADNUM_SYS2_GPIO_A39
++		},
++		.num_pins = 4,
++		.range = BIT(JHB100_PINVREF_1_8V) | BIT(JHB100_PINVREF_3_3V)
++	},
++	{
++		/* gpiow-inner */
++		.pin_grp = {
++			PADNUM_SYS2_GPIO_A40,
++			PADNUM_SYS2_GPIO_A41,
++			PADNUM_SYS2_GPIO_A42,
++			PADNUM_SYS2_GPIO_A43
++		},
++		.num_pins = 4,
++		.range = BIT(JHB100_PINVREF_1_8V) | BIT(JHB100_PINVREF_3_3V)
++	},
++};
++
++static const struct starfive_pinctrl_regs jhb100_sys2_pinctrl_regs = {
++	.vref			= { .reg = 0x000, .pv_desc = pinvref_desc_sys2,
++				    .num_pv = ARRAY_SIZE(pinvref_desc_sys2) },
++	.func_sel		= { .reg = 0x0d4, .width_per_pin = 2 },
++	.config			= 0x010,
++	.output			= 0x0bc,
++	.output_en		= 0x0c4,
++	.gpio_status		= 0x0cc,
++	.irq_en			= 0x0e0,
++	.irq_status		= 0x0e8,
++	.irq_clr		= 0x0f0,
++	.irq_trigger		= 0x0f8,
++	.irq_level		= 0x100,
++	.irq_both_edge		= 0x108,
++	.irq_edge		= 0x110,
++};
++
++static const struct jhb100_pinctrl_func_maps jhb100_func_maps_sys2[] = {
++	{ .func = "gpio",		.val = 0 },
++	{ .func = "host0_port80",	.val = 2 },
++	{ .func = "host1_port80",	.val = 3 },
++	{ .func = "jtag",		.val = 2 },
++	{ .func = "smbalert",		.val = 2 },
++	{ .func = "uart",		.val = 1 },
++};
++
++static const struct jhb100_pinctrl_domain_info jhb100_sys2_pinctrl_info = {
++	.name			= "jhb100-sys2",
++	.pl_desc		= jhb100_sys2_pl_desc,
++	.crl_desc		= jhb100_sys2_pinctrl_rl_desc,
++	.regs			= &jhb100_sys2_pinctrl_regs,
++	.fmaps			= jhb100_func_maps_sys2,
++	.num_maps		= ARRAY_SIZE(jhb100_func_maps_sys2),
++};
++
++static const struct of_device_id jhb100_sys2_pinctrl_of_match[] = {
++	{
++		.compatible = "starfive,jhb100-sys2-pinctrl",
++		.data = &jhb100_sys2_pinctrl_info,
++	},
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, jhb100_sys2_pinctrl_of_match);
++
++static struct platform_driver jhb100_sys2_pinctrl_driver = {
++	.probe = jhb100_pinctrl_probe,
++	.driver = {
++		.name = "starfive-jhb100-sys2-pinctrl",
++		.of_match_table = jhb100_sys2_pinctrl_of_match,
++	},
++};
++module_platform_driver(jhb100_sys2_pinctrl_driver);
++
++MODULE_DESCRIPTION("Pinctrl driver for StarFive JHB100 SoC System-2 domain");
++MODULE_AUTHOR("Alex Soo <yuklin.soo@starfivetech.com>");
++MODULE_LICENSE("GPL");
+-- 
+2.25.1
 
-Unused macro.
-
-> +#define MCP47A1_CMD_CODE	0x00
-> +#define MCP47A1_MAX_STEP	63
-> +
-> +struct mcp47a1_data {
-> +	struct i2c_client *client;
-> +	int vref_mV;
-> +};
-> +
-> +static const int mcp47a1_raw_avail[] = { 0, 1, MCP47A1_MAX_STEP };
-> +
-> +static const struct iio_chan_spec mcp47a1_channels[] = {
-> +	{
-> +		.type = IIO_VOLTAGE,
-> +		.indexed = 1,
-> +		.output = 1,
-> +		.channel = 0,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_RAW),
-> +		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
-> +	},
-> +};
-> +
-> +static int mcp47a1_write(struct iio_dev *indio_dev,
-> +			 struct iio_chan_spec const *chan,
-> +			 int val, int val2, long mask)
-> +{
-> +	struct mcp47a1_data *data = iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (val < 0 || val > MCP47A1_MAX_STEP)
-
-There is also in_range() which is nice for this sort of check.
-
-> +			return -EINVAL;
-> +
-> +		return i2c_smbus_write_byte_data(data->client, MCP47A1_CMD_CODE,
-> +						 val);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int mcp47a1_read(struct iio_dev *indio_dev,
-> +			struct iio_chan_spec const *chan,
-> +			int *val, int *val2, long mask)
-> +{
-> +	struct mcp47a1_data *data = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = i2c_smbus_read_byte_data(data->client, MCP47A1_CMD_CODE);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		*val = ret;
-> +
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val = data->vref_mV;
-> +		*val2 = MCP47A1_MAX_STEP;
-> +
-> +		return IIO_VAL_FRACTIONAL;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int mcp47a1_read_avail(struct iio_dev *indio_dev,
-> +			      struct iio_chan_spec const *chan,
-> +			      const int **vals, int *type, int *length,
-> +			      long mask)
-> +{
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		*vals = mcp47a1_raw_avail;
-> +		*type = IIO_VAL_INT;
-> +		return IIO_AVAIL_RANGE;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const struct iio_info mcp47a1_info = {
-> +	.write_raw = mcp47a1_write,
-> +	.read_raw = mcp47a1_read,
-> +	.read_avail = mcp47a1_read_avail,
-> +};
-> +
-> +static int mcp47a1_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct mcp47a1_data *data;
-> +	struct iio_dev *indio_dev;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->client = client;
-> +
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
-> +
-> +	/* Delay after device exits reset state (see AC/DC characteristics) */
-> +	fsleep(20);
-> +
-> +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to read vref\n");
-> +
-> +	data->vref_mV = ret / (MICRO / MILLI);
-> +
-> +	indio_dev->name = "mcp47a1";
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->info = &mcp47a1_info;
-> +	indio_dev->channels = mcp47a1_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(mcp47a1_channels);
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-> +
-> +static const struct of_device_id mcp47a1_of_match[] = {
-> +	{ .compatible = "microchip,mcp47a1" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, mcp47a1_of_match);
-> +
-> +static const struct i2c_device_id mcp47a1_id[] = {
-> +	{ .name = "mcp47a1" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, mcp47a1_id);
-> +
-> +static struct i2c_driver mcp47a1_driver = {
-> +	.driver = {
-> +		.name = "mcp47a1",
-> +		.of_match_table = mcp47a1_of_match,
-> +	},
-> +	.probe = mcp47a1_probe,
-> +	.id_table = mcp47a1_id,
-> +};
-> +module_i2c_driver(mcp47a1_driver);
-> +
-> +MODULE_AUTHOR("Joshua Crofts <joshua.crofts1@gmail.com>");
-> +MODULE_DESCRIPTION("MCP47A1 DAC");
-> +MODULE_LICENSE("GPL");
-> 
-
-If only all drivers were this simple. :-)
