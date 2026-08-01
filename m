@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E904218B1
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 10:10:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D77A434E47
+	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 10:15:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785579006; cv=none; b=iNrgPRUgx/RdoXhhVtvi9m77fTAbv+iQrlVgw0JEUunRn3e0E29LhkVlkZCN+HYt547XNJUdGpgRwt6sXPfh58fopUh5BDX/bpae6GO6ydikYhtbuhTo5aSniXiog2++xyHC9KO117geI5PjEjuFgtFvX8k6ly3YZ0Lejd/MlmE=
+	t=1785579347; cv=none; b=aZx9sVDDrTIYETgttRhYm0NuczGxGhp6bF1yTQxw4l+ofOTgy0tyf4hrzsgLoM+Q6uVleTNUVp1sdy1aJWmPzLq18UceDyfQ079oT0fmcsg2SPpZvXv/a6ltEn7ktTdhocRmSHxAlMzzY2BIoKCAxv6oqu6eXuZ1e47ndTP7Mvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785579006; c=relaxed/simple;
-	bh=hPq66orfciItHn0uztISuqbv9xxVqQU/H6C7xVPoU8M=;
+	s=arc-20240116; t=1785579347; c=relaxed/simple;
+	bh=8iLJMsViHrFC28STgYLrbh30IUWAMfrr/mwjMN73p8o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=e+D3t5xzLrGXutwupJ81Pvkb6m+0MtuSupziEJqScQjOYLnT+xZrH7z8AIW2M8MUNmCp7iQPAjt76dYpSiOe6Zo9wDjdquiVOBqEPrtPT+1er9f1+M+kvOylCp4rw87IvFEs26ePMQ/7I6Gm6VNQ909tCUsMKuKMq7hCiwj2b7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CKZ2OZ7p; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tc8NC054uRpT/T9e0jBa6p3WmPMuSa7BnHzuWx9e6yNFVHGaByc/MMwykRMj6AFdi2SrkCffgfkjRbTHubCiwO58GwoFkY5sGm0InA9bRZr8fDJa6NpbktH9KPa5a/awHQkByB/e/+iLXS/RKlmyYpdLvDy82A7i/W3gVtom0RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f6xUYVdg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CKZ2OZ7p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8DD11F00AC4;
-	Sat,  1 Aug 2026 10:10:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f6xUYVdg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662211F00AC4;
+	Sat,  1 Aug 2026 10:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785579005;
-	bh=0eJm1md6LoFuwyTEjOHGz/iBYBDIlLKJoYdNiWLKIM8=;
+	s=k20260515; t=1785579343;
+	bh=8iLJMsViHrFC28STgYLrbh30IUWAMfrr/mwjMN73p8o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CKZ2OZ7p/v+SS5cwyUw6APcC3RQxWtcsLrAMiSxTvoksCGg3VGpHo9ZvyKhUosHKK
-	 8/zr1DRsbKxZRNoznLRRYXoBJAHnZr/cjhhRoqEod3SecvGWQ5e7yPvrTpXMdaY8am
-	 +nEclAv99r9RbJ7CBMZAOn3m0yTwCotsoVe071BbKW1zJVTfJh6vRSGvI/YnxEYD6K
-	 MtNJsfzbAOZP5ZOgwVeZ6/4e1OEfm7lVpfqfN5+K3UsIT33KDQ7+wBngDOvQp9aHfx
-	 fAZDNf4e4k4ra/ljUU602g7gZt7kwcqGP7UEaWtOMRolcZcSZYXnETJEDgOdeNthWe
-	 fLSUrJbWp4tzA==
+	b=f6xUYVdgycg4ZAwU5KNrSk6rqCjBpM5UMWi87+RlaYv5I8PgPlouP9/7udv9yGDPz
+	 +GnSXU2SywP9cyAL+HcYMq28S1H9gMH24cGAY9qe4fMoVpFfVbyqxD0cyB+oWIbwoy
+	 SnkYwhUuBygENVd97olUxrV030qRX+EfYQGyg89/xQhSGutsVthq0dntVfEKiuRTg2
+	 pUf0NkxOyv+jotuga1H3XfpzR5Y6/1AiK+QBYtTaOcLfr1RHrsDDrNdZ8jfMg+0BgJ
+	 OiKoIm5MGYpEG4AYSgaSCXwc5z0dTVJZ+H+ZpmGE4ZvTtmWNLACUhRspgSULZsLKnF
+	 51rRJ0e16WnyA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/5] arm64: dts: qcom: Add Kalambo CRD
+Subject: Re: [PATCH v5 2/5] arm64: dts: qcom: Add Kalambo SoC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gopikrishna Garmidi" <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260801-b4-kalambo-crd-v5-3-22160abacf3d@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260801-b4-kalambo-crd-v5-2-22160abacf3d@oss.qualcomm.com>
 References: <20260801-b4-kalambo-crd-v5-0-22160abacf3d@oss.qualcomm.com>
- <20260801-b4-kalambo-crd-v5-3-22160abacf3d@oss.qualcomm.com>
+ <20260801-b4-kalambo-crd-v5-2-22160abacf3d@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 10:10:04 +0000
-Message-Id: <20260801101004.D8DD11F00AC4@smtp.kernel.org>
+Date: Sat, 01 Aug 2026 10:15:42 +0000
+Message-Id: <20260801101543.662211F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,50 +46,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `kalambo-crd.dts` file omits the `&tcsr` voltage supply defini=
-tions, leaving PHY reference clocks unpowered and breaking PCIe/USB.
+- [High] The bandwidth monitor PMU node for CPU cluster 0 (bwmon_cluster0) =
+is not disabled or deleted, which can cause a boot crash when probed on Kal=
+ambo hardware that physically lacks this cluster.
 --
 
---- Patch [3]: [PATCH v5 3/5] arm64: dts: qcom: Add Kalambo CRD ---
-commit aae73b91eb59e39dd9b9d1a032d9f7954d0ab45c
+--- Patch [2]: [PATCH v5 2/5] arm64: dts: qcom: Add Kalambo SoC ---
+commit 9554cda7ec4f38ae39a00604b42c25a1e924c0a8
 Author: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
-arm64: dts: qcom: Add Kalambo CRD
+arm64: dts: qcom: Add Kalambo SoC
 
-This commit introduces support for the CRD based on the Qualcomm Kalambo So=
-C.=20
-It reuses the common CRD board description from Glymur while dropping PMIC=
-=20
-nodes that are not present on this design.
+This commit introduces support for the Qualcomm Kalambo SoC, which is
+derived from Mahua. It removes CPU cluster 0 (cpu0-cpu5) and reassigns
+the remaining cluster 1 CPUs as cluster 0, alongside adjusting SCMI
+transport and PDC input mux pins.
 
-> diff --git a/arch/arm64/boot/dts/qcom/kalambo-crd.dts b/arch/arm64/boot/d=
-ts/qcom/kalambo-crd.dts
-> new file mode 100644
-> index 0000000000000..b4441807f4602
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/kalambo-crd.dts
-> @@ -0,0 +1,21 @@
 [ ... ]
-> +/ {
-> +	model =3D "Qualcomm Technologies, Inc. Kalambo CRD";
-> +	compatible =3D "qcom,kalambo-crd", "qcom,kalambo";
-> +};
+> diff --git a/arch/arm64/boot/dts/qcom/kalambo.dtsi b/arch/arm64/boot/dts/=
+qcom/kalambo.dtsi
+> new file mode 100644
+> index 0000000000000..8e2077d9d0a8a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/kalambo.dtsi
+> @@ -0,0 +1,119 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#include "mahua.dtsi"
+> +
+> +/delete-node/ &cluster0_pd;
+> +/delete-node/ &cpu_map;
+> +/delete-node/ &cpu0;
+> +/delete-node/ &cpu1;
+> +/delete-node/ &cpu2;
+> +/delete-node/ &cpu3;
+> +/delete-node/ &cpu4;
+> +/delete-node/ &cpu5;
+> +/delete-node/ &cpu_pd0;
+> +/delete-node/ &cpu_pd1;
+> +/delete-node/ &cpu_pd2;
+> +/delete-node/ &cpu_pd3;
+> +/delete-node/ &cpu_pd4;
+> +/delete-node/ &cpu_pd5;
+> +/delete-node/ &cpu_scp_lpri1;
 
 [Severity: High]
-Does this board need a &tcsr node override to provide voltage supply
-definitions for the PHY reference clocks?
+Since CPU cluster 0 is removed, does this code also need to disable the
+bwmon_cluster0 node to avoid a boot regression?
 
-Since kalambo-crd.dts omits the &tcsr node override, it fails to map the
-board's PMIC LDOs (e.g., vreg_l2f_e1_0p83) to the TCSR's vdda-* supply
-properties. The clock driver will likely fall back to dummy regulators,
-meaning the hardware voltages are never turned on.
+If the node is left with its implicit status=3D"okay", the qcom,sdm845-bwmon
+driver will unconditionally attempt to probe it during boot. Since the
+Kalambo hardware physically lacks this cluster, accessing the unclocked
+or removed registers can lead to a synchronous external abort (bus fault)
+and a kernel panic.
 
-Because this board reuses glymur-crd.dtsi (which enables multiple PCIe and
-USB nodes) but misses the &tcsr regulator block required by those PHYs
-(which is present in sibling boards like glymur-crd.dts and mahua-crd.dts),
-will core connectivity features fail to initialize or experience link
-timeouts due to unpowered reference clocks?
+Deleting the node directly with /delete-node/ might cause device tree
+compiler errors because bwmon_cluster1 typically references the
+&cpu_bwmon_opp_table nested inside bwmon_cluster0. Setting
+status =3D "disabled" for &bwmon_cluster0 here instead would safely prevent
+the probe.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801-b4-kalambo=
--crd-v5-0-22160abacf3d@oss.qualcomm.com?part=3D3
+-crd-v5-0-22160abacf3d@oss.qualcomm.com?part=3D2
