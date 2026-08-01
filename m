@@ -1,201 +1,184 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2109.outbound.protection.partner.outlook.cn [139.219.17.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C809536D50D
-	for <devicetree@vger.kernel.org>; Sat,  1 Aug 2026 07:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785569908; cv=none; b=EbF2MGCgOWGi7A0Enlkug9wpKw2KzHImySNGEvjEu/aV6JZgxCRlr/+AA/qXiSQDBFH7PRGEcKEYbEPUhU1bqR6f+wXo7gx3YAPNForPGF3ip+YEiAvxt2m0p6O4ddZzqYcF6YZT+E50nv9qZbS0N3ce/I659Ka40tnnuDFNRZY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785569908; c=relaxed/simple;
-	bh=qBcqygLGzctnWl0Ad9kRqj0ar7uVk/8H2PNp87JucGI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AYlWKgxYSP/L4WAvDi4H9bOc++kCIlQNzsCnJkU5TyXWzSbGIRXvvSVgaNRAUJXY+UxgyX6CUYraUgUJiBOFwd16F1C4eZyB7qP3HDObj5rYAA2xt5HU2mteRYzje/jVfpeaN6tRVHcFRJKWyBdb+GlbAvR7pNPyJifZc3CPEO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q86wiqAh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=M/CapaV0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q86wiqAh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="M/CapaV0"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6713DhT82065736
-	for <devicetree@vger.kernel.org>; Sat, 1 Aug 2026 07:38:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6Mp+nfA3N+p1lXQzMxJCbO+jynV1YH3G+4IyAbOESn8=; b=Q86wiqAhA9bJ5lgC
-	OfOArRrU92p2EdlV32XF/6o4sL/Cm8scNPeDkz+TrWBt1xdMeH/BlcAqlewFfGEE
-	GUaf0iU3u9CMYNjJ49VdbncUSEko2pbwkWoA/ScsURPZoxRwpZ2qM+0D+/z9w8/j
-	Z+0IpchwAEgyeHgDe65xVt4XwaEJMf40WGX6mE9Vsd2Vnh9W6LW0FK1RNPOgauuU
-	1pOigAOtyE2vwc3YmDk+wgsdwjjz1iACDl+SZcJd6CVBcmtUnyikH4mfWK4UXo27
-	r4c8QRn6MwJMxlMA6zz1ZyOqee8Gq52zN0W+EUH+1/cBv/VQWjlVtzVVm5PmsmZY
-	GBnIfQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8q50g53-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 07:38:25 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so1940796a91.1
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 00:38:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785569905; x=1786174705; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6Mp+nfA3N+p1lXQzMxJCbO+jynV1YH3G+4IyAbOESn8=;
-        b=M/CapaV0FGtDxQItITP7nONrdCaJLfwF3HHFLuNYxMMgPGl3Sp5M9F7KmKq8o/ci5B
-         SOM/9Op6DxtbfdvNkG2O7jcEp6ipzzfrX5hWHrDE9qny/2ASl8wJ8mqRoYjUBBFyTVeJ
-         MS48BmIuZT18BXxVCU2/9y47vEfTg3RQTZnp0iwYS91qIhPOTIvEzHW/cx59o83FI+mM
-         bSwRq4k/vXbECbnqDzxBui91mamdMOEx/5qf0FQyfiiziWT9jT+tIOD2xzUb/ppUnu6v
-         /79twFNxtLm/pGw4l5WgSM3QzvZj1mf8EyfEditEk0WI2lfbND1XU+vEtBKmI9z7IIeA
-         zkbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785569905; x=1786174705;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6Mp+nfA3N+p1lXQzMxJCbO+jynV1YH3G+4IyAbOESn8=;
-        b=Zlir9hzUPPfOAhXlj+yfaA8na7suGdDxETrsuZa3kFtg3N0nO1Cmuf8Y9zcuXgsoEA
-         jlnvRla5PGRwgAgD7NpnxB+cvYUwNNNa/+0fB5rm9yZniiHb5UUB66DjDHrft20TD2xL
-         3HEedIojjYzzSEz2H2xdXxM67ZoUGKqgJRy7KQkXqRRL7lr3OJmhxR7DX+LSOfl2/5jf
-         gPgXWEJ+ZHNIi2ABjMZRK3KR9Q51lo96WFTclnzzc0e+Qu/5niMwhhGD/3ZW3MX4RFAc
-         y7hfEPO1y7IkA3hDz3GZSjRsr17E+bjFwDdrP8CiOY+rd4YCV04sBPnFeJEvNm/QHTyP
-         YjyA==
-X-Forwarded-Encrypted: i=1; AHgh+RqU0nqq+Cv7bIQSkYwlywTY7SaMGYgpzQi/FGqfQWLe16ZG8K+xmTI0Y7sD9NPvCy9XD71WNS7qBtcb@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/Ky7eaF+Xycyiy3II+LXXt/FyGbWiRdPUBOcIVSLcYoFscHIV
-	fdN8BKnz1Nn+IxxNAopNwkfh3ymjldNtvnwhl2F0zU/dzhKvWk0rVBWmlcSSb3ymUdQ6MYzdOZn
-	OqPY4iXirQy0UmnkYlLX1w+mVuDH1KAvlL9MW0XHKpyWCTatD33yiY05IIQ0Ahsdsj0iLnGML
-X-Gm-Gg: AR+sD11Sk4vduwp17PAaa+WZbJ4R0VyjMZHWOLdw95iRMyIK1NEoCDD7nVHkqGQxfqx
-	c6753sWzbjoUiSq6OLaZ4MXMKynOEsahJrquEPhPwUJdaXFSRh0T0158LVRk4KSHPoUVwmz9gQ/
-	8trVsx+UONSU2kGbCtfjgZR461rO6Ia/BUhq/gfcZLW4WW/fasoLvKSHe6+/XFmrV7yGwGqQt/s
-	DUnmy8OcZuh/OnipHD0uZ2tOipJEcSgTCe5ikD98QSTwi0TySxYZnN0Z2TPIRPf6cmE0JpxkqO5
-	9lgmOHA5NPXuNwvaXdP3aT5UegR0PG/u4Bs1KJ7QRVciddC+7sy47vut6E39Sq/qt6bY/oQR7l6
-	wNaUH6AbzL0UkcQp+6UImzUQjYZ93aWxWqg==
-X-Received: by 2002:a17:90b:4b12:b0:38f:57f3:4dc7 with SMTP id 98e67ed59e1d1-38fbc4c66c4mr2472928a91.26.1785569904665;
-        Sat, 01 Aug 2026 00:38:24 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b12:b0:38f:57f3:4dc7 with SMTP id 98e67ed59e1d1-38fbc4c66c4mr2472903a91.26.1785569904117;
-        Sat, 01 Aug 2026 00:38:24 -0700 (PDT)
-Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e045016sm20729985eec.19.2026.08.01.00.38.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 00:38:23 -0700 (PDT)
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Sat, 01 Aug 2026 13:07:30 +0530
-Subject: [PATCH 4/4] media: iris: Fix frame interval enumeration for
- non-divisor framerates
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54422EEE67;
+	Sat,  1 Aug 2026 07:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.109
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785570126; cv=fail; b=uaxuQB4gVTA4am29jihzIVO4mH4fbb/AGMt2nA8u9+wWRS2KX4fsoBcCb3jpKf94x42tid2nU98nh+VS04urB/pHojnbEsX4ggRPh3uH+Wlx2Pp0ssBpg8BpzFtQp/FMEceWrVWWdZem1cyOPhx8mniGxafWPr7uvSTmtAZewW4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785570126; c=relaxed/simple;
+	bh=DrE5eE+dbobAXP0+q1BbQLbq61sM9oOA8w6L8FF6LcE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WWST+y68eT5iEDckreYjZsXBFfLO/NgMLeOM9kfN1gNu8hl3HQa27i9g1wGUbwv1mdxx3OQWpQFAG7FmeXkT5WNy+ouoG/8krVb+ezCGpohg0tv3g7WdSXPVlXFX0aUO7dzFTnBMlYTbYYs6rfQWPKHfhjp/Ws1CaMS+uE+cPEk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SsQb4ZN9YcLPzHKBUDaQRePRtwuFPqyKxz0yL4m0JmuRU+noqk04yZDtWEnrqNxQLTgdP/l2j3f+rwwgmq8/x85uHDxYDFUyuoCW01HtVtGQO/uBwCcQQyacU9ifMYwhzHHspRskKY6phTc4ZvPTgpXgFFi9IKLbdbLlY5KTu1z5qh+JlpdQzOZPT5hTjQe7Nj/pi+SM09UwO4nwqdtt82tVfnXWsaD3G7woMApiVCJDiUFPBGZCp53qAVKa4nw51TfgZoSwAoxFU+sP7ahNIbULAUZZDidfDx62A8xlwyZ55CANirIHJtuxtCme94GMOyta4Tm1eAUtKl1jCgSWSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mh6OYA8GxBZMq/6N0w3OLTCjyP1UVt+l7FUZr1HRbSk=;
+ b=F0VjzSlp3OQbGsm2vMU/cxvw01J6qf6SogB/Si0zXOp64b2+nirq0u7VA5wGKpL3J5fWPD1amv6cRvfXMoHAINqjDUuRt1scRpxffu/nBgaKBsFp6ZIyvJFMxCftuQEjdTLYRZuQXagjI/Y+KPOROF/z0YenPLinmczVdqgWDKbF9nci6hTS9+O7B/Rn4CohpRLfeWPRqqwFS/e9r8z9PHO89ppgisM8vvlXiOCwt/YOTAIQ+dRPCbg5HFqUiouGo20G57BUO3MouSw9RqbzAj2f+8Kyn14FT9wmXHqzpqVHiOuvFDIS9g6SHpO8+CaqeTwSGt7d20NGWccJdxsdXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1329.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Sat, 1 Aug
+ 2026 07:27:22 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0270.015; Sat, 1 Aug 2026 07:27:22 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v4 02/21] pinctrl: pinconf-generic: Add property 'input-debounce-ns'
+Date: Sat,  1 Aug 2026 00:26:52 -0700
+Message-Id: <20260801072711.153217-3-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
+References: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0027.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::20) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260801-iris-fixes-dma-pseq-fint-v1-4-aba0cb22f6ab@oss.qualcomm.com>
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
-In-Reply-To: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785569872; l=2222;
- i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=qBcqygLGzctnWl0Ad9kRqj0ar7uVk/8H2PNp87JucGI=;
- b=Zb792k/Ttm9QCTPbV0RFTp6LNEeiguSLfulNYbjzUaoDXYPfSPyu/FE/rWHuOS0q2tZe/Ya6Z
- 4QbnxgnmjttDbmKXo+Ky6fdgKaEt/djIbmE/8LIlw/UkVeCP8Msgts0
-X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
- pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDA1MyBTYWx0ZWRfX2AhiTdL39jr7
- OTS7HAOt6YwtTOeq+Hk+yE7zr3zFA0rXJl4z/+ihIAhQs7F4WKEJA00W0N23Yoay24dFmeRzJQm
- UdFLT/PZdssABNQgKGkZvJ6d/IHOGsY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDA1MyBTYWx0ZWRfX0QRU2M+0y2ss
- qdaBKFXRLROiS53mmT6w01+hC5MTNsZr/nI1gl+w8nONpzI+M03HXmcIFFr6l/B2LF1CkC75Yj0
- jS3Ab7ShCalMXbgZTRB8eznEA35OJtr5mkclSrhrg7SlPyDmNdqZEl/QlKGoQziQm6cEW9+8cjG
- mgBeCbVs1s4peq6xo43SmwUQXvyqqcEuUgLJx+cgDxejuNiFWlOBgJEWte8NAlGzrAU4bXDzgGp
- VvYZpL5wLLONh0obN2ePi7/kRQp6LXzLTwXafyXRRXgcYXpQF3iR9FEoxhLTd2AozVzoI+ql1K4
- +0L6QWzGmT45O4lV6H5HfFmzltHC8pfz4GtrHIxqmrcOv5AQoePaxJSYSEBOT2gf4QNZIcC6vSZ
- FUnk4xK9UJgJm4fPBedy3hsjQvtAfsPl6Co89F3wcnLovB1akxd7zXt3Q+fUiR3hsDcmZzCg+Dc
- BZDjVaT56yccCpaDveQ==
-X-Proofpoint-GUID: HcyIJxkVzr7_KY4JOG7aUjqUik8WPwA4
-X-Authority-Analysis: v=2.4 cv=IYC3n2qa c=1 sm=1 tr=0 ts=6a6da271 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=SOCO_u0IuGyKYXpwI1gA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: HcyIJxkVzr7_KY4JOG7aUjqUik8WPwA4
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_07,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010053
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1329:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b9a6432-bf3e-4ebb-afae-08deef9e5386
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|52116014|23010399003|366016|1800799024|921020|38350700014|6133799003|56012099006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	tKrQjDQkpaJe+dZkMeBkLD96axzm/2dNxP7wRcRB55w9i3eRFbOjoVIXV5zVt0bUl8SOo9QbsWYSFQve/KQGSjD0VuUReDCKrb8tHayjGWRvcixwmSCH8PcRDslxz0gU9q+bpabx7AKQYM5z2UeuCJOKlpA37YCkiwpBGEMaq8QM2dQPm6kKbq3djHQtCYMyS5kXHrXIV7WobU52VHmzew3nhDz+vBZESmkGIuyz1/V3XYuyRz0FmlE+3OJGkVFRVnG1L3vJM4ErJkCguNQeBW9khlfCNqwTD1krNIX/w9ORsukTIbkICrCjlV845Oji9H3sGI+O+3Yz2xcnTfet/vKcFYmsiM/7NWMFeZEccZnMNp4RPmO7meVCGjt6pXoZi5yrG+IqmEE/eUqvS3oOh2fp52OG4Nxh8VFICxtNgoXLpHmSqZO9GXUjZSRwPY1w5kcmU4o6eEOMrFNH2xCxr5LNo0/n98zXoeO5Jgwee5qAxTDMbjXRviyqIiqTbIMvQWDalj5uApRdM4EhBwwQLMmCqejHR2QdrqXTbINKFB1JVWr2jb95vLWNAdeV8fMS0c2E4L3wQO/czFTy9FG0Ig==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(23010399003)(366016)(1800799024)(921020)(38350700014)(6133799003)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kDNoHcLGpSpEWytCS8UzdzJtuoH2SjolZ6ZTzKt7yY25e7NROFS8VRuycNKG?=
+ =?us-ascii?Q?WB3wX9XmpboJ5lBgzJ5+5GtqywToXfQQvebusDXs0yVRQA3gn31xHvIQIR4r?=
+ =?us-ascii?Q?SpxEgtVFZQxIojuaTEYmZsKpId1PJ5tbfqwrwbNktpGmfFBdf0Ivx0xqGQlG?=
+ =?us-ascii?Q?/yvW9KKj3kuIaxVuibuJqQwhiIIeWpccEC5kx+6ZPJ00cOrW3NgfwfuNajH0?=
+ =?us-ascii?Q?KejPAvsXa65dRw6Usn7pE2ZmwskYh/98CyWFrQR64gStvkhLLkF58PNTuA/z?=
+ =?us-ascii?Q?7pq+zrHeLHqXgmcvANaba0XcVY9gg9yZNpOFgPmhrzmKvQU/prL9i0kyGRFd?=
+ =?us-ascii?Q?G9nsKjFgZ8R1M/fX83Nn/qzO0aMWgTM7kb7/Ks12pm6XzsqBd7EfuWHGUEgR?=
+ =?us-ascii?Q?CFwemoyMVcCY0LeX9dlAX1nBEhIuDU5ZzqpbmMES+qD/kr5mRWujn5zgGEr/?=
+ =?us-ascii?Q?BdOJhIlqkbf4cpcCcOmvW9GyGGRbrTCBDPO1KdhprtNARhFEGEeQMH02oSdm?=
+ =?us-ascii?Q?iKjxk2zTaEXVfFqy2jrmBpLm64Fzxy8JYf03ZCalKQEHV3N2LCKnwrmnHUnw?=
+ =?us-ascii?Q?46aMNgXZyeaXd3U8qCMzDBKkAZ8HxFRH8716MGFXWp/24YGqVARrbXWVg7ds?=
+ =?us-ascii?Q?H+ESoVBKpa/opWYofG5hTHmBgzLux/uhZkSvZcIbrNNO3YJG0HqeOlRa0N25?=
+ =?us-ascii?Q?vT+JnawTaoiSj+wwiwaK3reL3ObaO/NwHKkoo86accBnA8nBGU/eNTiVp9fT?=
+ =?us-ascii?Q?EuvZQBB3nVSPSyy/ACFSBGtOYwTvZQJUKRE2W4o1GyQC/frE3ac/pDgLzi8T?=
+ =?us-ascii?Q?7WvrWBY7dNTOv/E9FsGmEihzfdu0qiFndNCV96GzpvoGwNpiB5okdyLDXvI1?=
+ =?us-ascii?Q?6ASb4//3ZoxFEAWPRciDOCHaCkQNP/Pej6vUyfHmD9lIjvL1owjwdSASWOo1?=
+ =?us-ascii?Q?7jaVXe54/2K22gULKU+Z9wKFeKM+w0benvgaYZTLEOxBnLRnS/Z0qVGs1e0h?=
+ =?us-ascii?Q?HqEbyIQm8QoK+Eck/SIqK+yhTNKqEuIuVQPlbZvxetCbmge+eW0D4fgH7Z3X?=
+ =?us-ascii?Q?R0A8u+EjENvY1bGIzvtTq8WYnWRRjviNJCh3G2Jd4D/CqxFaKMQrvqiHBA6J?=
+ =?us-ascii?Q?A9PCi3KDk3rLby56x7JwU7tHloXhpBIl6onFxXSbyH7XumDBJHejyP8D42Bh?=
+ =?us-ascii?Q?+SuD7Szlfzp8DZ+UFaKCpUsxLggA8R8T08lE9bWzAqYJ6MvYbV1JXkackYGn?=
+ =?us-ascii?Q?4oaHPazcE7e/mdKNsW6YUZXItMVh3bdXPPirqv9/FuDkGWPltFA3CcH10QrN?=
+ =?us-ascii?Q?q4zu2leVGGNEeb20QzdbASUGxn3ehfjPgvFrdl3ckOqLobm02FZwoIdkEKrA?=
+ =?us-ascii?Q?pXEDPHx6uJLn7vmbfJCt0eivpTJPJug51knEFudYioW+5bGL4b/zODSKikHC?=
+ =?us-ascii?Q?V+S2hDNX/0HwjBK+r2QsuczBBw/24kjTFd75TnVOIRqysbaL3DCNx9PRFQq5?=
+ =?us-ascii?Q?lH9YlJDrb6Q7ylVGEM8ksNkzwL5h+xxeVX35hJC9+NaCO9PqtDen4BwRMG9h?=
+ =?us-ascii?Q?AjfVAWjAhP0t4GG3ZHttj5azxAoz3tgDZ4X5YGF0hXWJkuTV2AVysrs7pYVH?=
+ =?us-ascii?Q?dZ9iVRLgbGkGJuhFYu42jyK7t5stlHgYibBPwXXDdDbBsIq8LwUpXcK3wLng?=
+ =?us-ascii?Q?a/Sc9PqxBHRnINE472hMF690uFi29Zx1pmpNZ2gEvfCq6HzNjDpCfqcDa8CR?=
+ =?us-ascii?Q?uZDjDIReE6vln5zfkbYG2H+hCVE/78iJNlBWDUWMvBlIx+7jkga6?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b9a6432-bf3e-4ebb-afae-08deef9e5386
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 07:27:21.9477
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HjzrURvFlbEemO+XNKdT4p6YX59R1JfW+/ww4KL/kMlvqWKwOSEWvmTgfeLP8VvQfySIz7u/0zHPAKKur1pTBXFvUqhE/HngRNEDf2NmF0Tn5bTldXytx1DnEP1ddn/Y
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1329
 
-iris_enum_frameintervals() advertised frame intervals using
-V4L2_FRMIVAL_TYPE_STEPWISE with step=1/MAXIMUM_FPS where MAXIMUM_FPS
-is 480. This caused client to enumerate only framerates of the form
-MAXIMUM_FPS/n (where n is a positive integer), restricting support to
-exact divisors of MAXIMUM_FPS (e.g., 480, 240, 160, 120, 96, 80, 60,
-30, 24, 1).
+Add 'input-debounce-ns' to the generic parameters used for parsing DT
+files, along with the corresponding configuration parameter
+PIN_CONFIG_INPUT_DEBOUNCE_NS. This allows debounce time to be specified
+in nanoseconds as an alternative to the existing 'input-debounce'
+property which uses microseconds
 
-Framerates that are not exact divisors of MAXIMUM_FPS, such as 29 fps,
-25 fps, were excluded from the enumerated list. There is no hardware
-restriction to framerates that are exact divisors of MAXIMUM_FPS. This
-caused GStreamer caps negotiation to fail with an "internal data
-stream error" when encoding content at such framerates.
-
-Fix this by using V4L2_FRMIVAL_TYPE_CONTINUOUS. With CONTINUOUS type,
-GStreamer creates a continuous framerate range [1, max_fps], allowing
-any integer framerate within the range to pass caps negotiation. The
-step field is set to 1/1 as required by the V4L2 specification for
-continuous frame intervals.
-
-Fixes: a6882431a138 ("media: iris: Add support for ENUM_FRAMESIZES/FRAMEINTERVALS for encoder")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 ---
- drivers/media/platform/qcom/iris/iris_vidc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/pinctrl/pinconf-generic.c       | 2 ++
+ include/linux/pinctrl/pinconf-generic.h | 5 +++++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-index fcbc60016bee..8f20cb281a93 100644
---- a/drivers/media/platform/qcom/iris/iris_vidc.c
-+++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-@@ -438,14 +438,14 @@ static int iris_enum_frameintervals(struct file *filp, void *fh,
- 	mbpf = NUM_MBS_PER_FRAME(fival->height, fival->width);
- 	fps = DIV_ROUND_UP(core->iris_platform_data->max_core_mbps, mbpf);
- 
--	fival->type = V4L2_FRMIVAL_TYPE_STEPWISE;
-+	fival->type = V4L2_FRMIVAL_TYPE_CONTINUOUS;
- 	fival->stepwise.min.numerator = 1;
- 	fival->stepwise.min.denominator =
- 			min_t(u32, fps, MAXIMUM_FPS);
- 	fival->stepwise.max.numerator = 1;
- 	fival->stepwise.max.denominator = 1;
- 	fival->stepwise.step.numerator = 1;
--	fival->stepwise.step.denominator = MAXIMUM_FPS;
-+	fival->stepwise.step.denominator = 1;
- 
- 	return 0;
- }
-
+diff --git a/drivers/pinctrl/pinconf-generic.c b/drivers/pinctrl/pinconf-generic.c
+index 95c803c40a7d..36845517984e 100644
+--- a/drivers/pinctrl/pinconf-generic.c
++++ b/drivers/pinctrl/pinconf-generic.c
+@@ -43,6 +43,7 @@ static const struct pin_config_item conf_items[] = {
+ 	PCONFDUMP(PIN_CONFIG_DRIVE_STRENGTH, "output drive strength", "mA", true),
+ 	PCONFDUMP(PIN_CONFIG_DRIVE_STRENGTH_UA, "output drive strength", "uA", true),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_DEBOUNCE, "input debounce", "usec", true),
++	PCONFDUMP(PIN_CONFIG_INPUT_DEBOUNCE_NS, "input debounce", "nsec", true),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_ENABLE, "input enabled", NULL, false),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_SCHMITT, "input schmitt trigger", NULL, false),
+ 	PCONFDUMP(PIN_CONFIG_INPUT_SCHMITT_UV, "input schmitt threshold", "uV", true),
+@@ -185,6 +186,7 @@ static const struct pinconf_generic_params dt_params[] = {
+ 	{ "drive-strength", PIN_CONFIG_DRIVE_STRENGTH, 0 },
+ 	{ "drive-strength-microamp", PIN_CONFIG_DRIVE_STRENGTH_UA, 0 },
+ 	{ "input-debounce", PIN_CONFIG_INPUT_DEBOUNCE, 0 },
++	{ "input-debounce-ns", PIN_CONFIG_INPUT_DEBOUNCE_NS, 0 },
+ 	{ "input-disable", PIN_CONFIG_INPUT_ENABLE, 0 },
+ 	{ "input-enable", PIN_CONFIG_INPUT_ENABLE, 1 },
+ 	{ "input-schmitt", PIN_CONFIG_INPUT_SCHMITT, 0 },
+diff --git a/include/linux/pinctrl/pinconf-generic.h b/include/linux/pinctrl/pinconf-generic.h
+index a5d4b2d8633a..1df63c732b99 100644
+--- a/include/linux/pinctrl/pinconf-generic.h
++++ b/include/linux/pinctrl/pinconf-generic.h
+@@ -71,6 +71,10 @@ struct pinctrl_map;
+  *	which means it will wait for signals to settle when reading inputs. The
+  *	argument gives the debounce time in usecs. Setting the
+  *	argument to zero turns debouncing off.
++ * @PIN_CONFIG_INPUT_DEBOUNCE_NS: this will configure the pin to debounce mode,
++ *	which means it will wait for signals to settle when reading inputs. The
++ *	argument gives the debounce time in nsecs. Setting the
++ *	argument to zero turns debouncing off.
+  * @PIN_CONFIG_INPUT_ENABLE: enable the pin's input.  Note that this does not
+  *	affect the pin's ability to drive output.  1 enables input, 0 disables
+  *	input.
+@@ -143,6 +147,7 @@ enum pin_config_param {
+ 	PIN_CONFIG_DRIVE_STRENGTH,
+ 	PIN_CONFIG_DRIVE_STRENGTH_UA,
+ 	PIN_CONFIG_INPUT_DEBOUNCE,
++	PIN_CONFIG_INPUT_DEBOUNCE_NS,
+ 	PIN_CONFIG_INPUT_ENABLE,
+ 	PIN_CONFIG_INPUT_SCHMITT,
+ 	PIN_CONFIG_INPUT_SCHMITT_ENABLE,
 -- 
-2.34.1
+2.25.1
 
