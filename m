@@ -1,138 +1,203 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C97639446B;
-	Sun,  2 Aug 2026 09:03:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC10318EC1
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 09:04:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785661417; cv=none; b=mRhyvP/cSBMJGjwLmgjkwfVmaAmfsuWLUO+mXIHSmJEnudYo2NiiLyrTG4VisEDr+Las92K5VSFUkkbvGxQTc9Hn54hQwhbsBhfjJ8EVhPL2sBGVGSgvxx4UAIgG/vqv3VwrakC8tcRc3yfG6TqnXa1tG4vDH39xul8jxeGEw+I=
+	t=1785661449; cv=none; b=fJX+b7Sulcenqlvvoptc/ggym4+tg1L6ucQyViSsr8dCZZIKf3UYBFYhnGXi7tK7N9sqNnl+NnWklWVwDF5lVLEGMnqlAuGMevlOp1Mdy5g2N5NQcBHI1AM6YNFzP7ZQrZhz+6+0dxmi7XXvDoj5P5YNliDhi/VopTGZBwFmhhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785661417; c=relaxed/simple;
-	bh=tVFVxLd/XVzU836PdWgXeU6KVTWz9bou5XC4X2akdq8=;
-	h=Content-Type:MIME-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=gl+tsQkfcOq9nUMSmzwxsvKYd4DiYeyOarxvqqWpKJd+pCZMql2wGlihKqZEldqjPbKDM22DMFaeRJ0rn+6Rj0oeMgVKYBknBQ8jvgjGhpU0LovKNTGDVDTnU0o2Qm/KjIbYqlkWXspEeZ+AuL5ZESu9zFTvEQedgLAk3gyoEPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=BXWbBUiE; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1785661449; c=relaxed/simple;
+	bh=XoqwTzBTDw0ldPHh8ANmlH4Zu4YUOeLFd2ixic5ddNw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rvsk/FScLh2we8TdSnfXfJezmopIOrvdCU2EKbsExuRZxVvko3r0XgBD8qWaqkHMwAIci5H9agUOtkKTkgufWec/RryUeN5J6ch10vC1vN0Z0Q3JFYifwjcUMU23w5teAUtMycVP19LmmREB0QO9tgKZBVJYzY8d5X8DbnPjhFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lStp2W/D; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="BXWbBUiE"
-Received: by chaosmail.tech (Postfix) id EDFEB1C878A;
-	Sun, 02 Aug 2026 09:03:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1785661409;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=85mK8UDi7QBt5jRlKz/7QZeVLFWA6U447/S6wVm/foA=;
-	b=BXWbBUiEb3uVA/1XQUswnLyz+0300SrCRvxedsG2jqHRPfNKGH3RtC3U4RrlCRfdgtDObe
-	HxLo2fxifS0FpMNW51EhEHAkR0LHcXJFkL22Fw4/CBDkC50tGjGtObdLC9sNxtywpEUW/w
-	vskDobfKQ370LfOaAEcM89eOmhYnXuY=
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lStp2W/D"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49553515a8bso18590375e9.1
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 02:04:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785661445; x=1786266245; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KLNngFHUaW4FMnMMnOZ4ee/Vyns/yW+WufUQsHnkGgI=;
+        b=lStp2W/DxU44DcfIaqwGkszwmLSUYfjd6d1nZmvUTu9qDyc5YrR55OQM/qelXZAiym
+         snP1KDyR3CBcf24WNAKvGZU1+MjMF3uBoB2FVnEvyUkqPHEjWJbAAIeID/xVf7aGK8wS
+         wBdaquxyj7LsasO2ziK0lxo/ovcnWfdfMHIu6/EOO8nSIOsrnKssImg03jLud3y4Jiw/
+         bBoJKnnLCjFv+L0Suv+JTAYZL+ZHgK9T68mJwoDM0nGH+tNou6recLCy3sSEx1+h48OF
+         JGhaTu2cM2w21wvhrAkoZc4/YW4x/zzn3zSG68evkH9DkYmOoJ8ZDZZwHwBtZnJQP6gU
+         XEJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785661445; x=1786266245;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KLNngFHUaW4FMnMMnOZ4ee/Vyns/yW+WufUQsHnkGgI=;
+        b=PB4K27H0KV//udx4YnBj+ayu2Kcw+drEav6AdVzWIl5rD3EzJdg/VQXt16YSzn4Sli
+         LK/qoMxHmciDjo2cHcaZgmFLWSJBf0gQnyHKgumUC0FeidC7clJ3HictHzvkRbkfXiwk
+         6h9FL0oxa1ugw9ooewyuEyJM11/wNXmUuoS7k2krsMxUz01hAhYSs9/R0r6kSK7HZtLp
+         cO5yavFwYObd3949aXDa3HNguDtP+XN/423C/+n33vtRijXtfDFT9s/u1bZMp2jDUs+g
+         7o9uQU0Tz89kW4bP/DYs5JTCmUEaMW1Mcl2Nt9d/ezto5mhyivzmwyU7Df9LLIwzPi60
+         mwtw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpbabjwmot3LHzXPlPHH+Dg0VHiGCEnezJd3WIYc5A5SVpZbFVqxQSko16iYb0DynibQePRrJNg5e4E@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz6avdK5SZRdZgzxN5lDXc1Ptf0UEuHcjScUlS1K866nw6D9Ju1
+	b1TPpsYrAR1v+oUxRgwMUQuLySEOt+NwIdWaGiEgRrWq+5otmdl/2jTQ
+X-Gm-Gg: AR+sD10rqvt+QvrQ81DcCnynPDOkzGeXt52WH5IfJe2NvwXrWGeWCKmJgEKzOZ1nNpc
+	BNVlyERFPOw+Bkwu3T7JVoZpXOJhO95oTopjBwBPTIpz5M8D0l6vP/OLqS9UBxZd2n/jMZ7rlqI
+	Kiw+nTELA5n3V6idu715Mah+WA1p1Wd3XjpiJSvALWmMdNc0UiDvJnbQZEcdy6T+F+hCgCQV7yZ
+	evI47G7Kqe1eFgm55pYRD1MkKuHztukXCt891XWYkE+d3AZktXscGlrI+LElw76MG5St8Mzw4GP
+	3B8HfoRqypZuRVgFS4NWZOiOXNf/JtnUTotwP9xh+BcxaMACV9MUnVpJzmfl+R0E+1H+2xxfwS0
+	wtm/v8G5kPI8uT0CdTMxsKr7O3dRZ3HOffcX0xjfYysuHpDWD3AVZrrFENHwkpBCu6u47KXCkz4
+	dJy15hSfCQTz3nW3c/UCh9i89s4/Qmk8LcU8HxU1Cj8wQq6EehZJ+NRb71DkfALgiHCqYie/Ywd
+	BJVri1a3SveiBOcT3xfYNUhHw==
+X-Received: by 2002:a05:6000:2dc5:b0:47f:34ba:2d0d with SMTP id ffacd0b85a97d-47fd72a9061mr14609516f8f.8.1785661445068;
+        Sun, 02 Aug 2026 02:04:05 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd4562a38sm22160461f8f.21.2026.08.02.02.04.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 02 Aug 2026 02:04:04 -0700 (PDT)
+Date: Sun, 2 Aug 2026 10:04:00 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>,
+ rodrigo.alencar@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org, Lars-Peter
+ Clausen <lars@metafoo.de>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Philipp
+ Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, "Gustavo A.
+ R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v10 11/17] iio: frequency: ad9910: add basic parallel
+ port support
+Message-ID: <20260802100400.588fa107@pumpkin>
+In-Reply-To: <20260802015607.7d7d4dd8@jic23-huawei>
+References: <20260729-ad9910-iio-driver-v10-0-aa1f6167729e@analog.com>
+	<20260729-ad9910-iio-driver-v10-11-aa1f6167729e@analog.com>
+	<20260802015607.7d7d4dd8@jic23-huawei>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/2] dmaengine: apple-admac: Add M3 generation ADMACs
-From: Sasha Finkelstein <k@chaosmail.tech>
-In-Reply-To: <20260802085437.GA806854@robin.jannau.net>
-Date: Sun, 2 Aug 2026 11:03:18 +0200
-Cc: Sven Peter <sven@kernel.org>,
- Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- =?utf-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <6AC365D2-475C-4DE4-BDFC-C31923A121B6@chaosmail.tech>
-References: <20260729-t603x-admac-v2-0-e4b2bb6ca45e@chaosmail.tech>
- <20260729-t603x-admac-v2-2-e4b2bb6ca45e@chaosmail.tech>
- <20260802085437.GA806854@robin.jannau.net>
-To: Janne Grunau <j@jannau.net>
 
-On Aug 2, 2026, at 10:54, Janne Grunau <j@jannau.net> wrote:
+On Sun, 2 Aug 2026 01:56:07 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
+
+> On Wed, 29 Jul 2026 09:25:38 +0100
+> Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 > 
-> On Wed, Jul 29, 2026 at 01:46:35PM +0200, Sasha Finkelstein wrote:
->> The admacs present on t8122 and t603x SoCs need additional writes in
->> order to operate correctly. The exact purpose of this register
->> is unknown
->> 
->> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
->> ---
->> drivers/dma/apple-admac.c | 32 ++++++++++++++++++++++++++++++--
->> 1 file changed, 30 insertions(+), 2 deletions(-)
->> 
->> diff --git a/drivers/dma/apple-admac.c b/drivers/dma/apple-admac.c
->> index 14a5ee14a481..72ff677c8ce5 100644
->> --- a/drivers/dma/apple-admac.c
->> +++ b/drivers/dma/apple-admac.c
->> @@ -39,10 +39,14 @@
->> 
->> #define FLAG_DESC_NOTIFY BIT(16)
->> 
->> +#define T8122_UNK_28_VAL 0x200000
+> > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > 
+> > Add parallel port support with amplitude, phase and frequency channels.
+> > Those will be buffered capable channels, but only basic control of offset
+> > and scale are implemented at this point. There are separate amplitude
+> > and phase control for polar destination, which will provide different scan
+> > types. Enabling and disabling of parallel mode will be implemented with
+> > buffer setup ops or with update_scan_mode() once IIO backend integration
+> > is in place.
+> > 
+> > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>  
+> Hmm. Curious... clang --version gives 22.1.8 on x86_64.
 > 
-> maybe BIT(21)
+> make LLVM=1 LOCALVERSION= -j12 W=1 C=1
+>   DESCEND objtool
+> Documentation/.renames.txt: warning: ignored by one of the .gitignore files
+>   CC [M]  drivers/iio/frequency/ad9910.o
+> In file included from drivers/iio/frequency/ad9910.c:10:
+> In file included from ./include/linux/clk.h:13:
+> In file included from ./include/linux/kernel.h:26:
+> In file included from ./include/linux/math.h:6:
+> ./arch/x86/include/asm/div64.h:113:8: error: invalid operand for instruction
+>   113 |                 asm ("addq %[add], %[lo]; adcq $0, %[hi]" :
+>       |                      ^
+> <inline asm>:1:7: note: instantiated into assembly here
+>     1 |         addq $2147483648, %rax; adcq $0, %rdx
+>       |              ^~~~~~~~~~~~
+> 1 error generated.
+> make[5]: *** [scripts/Makefile.build:289: drivers/iio/frequency/ad9910.o] Error 1
+> make[4]: *** [scripts/Makefile.build:549: drivers/iio/frequency] Error 2
+> make[3]: *** [scripts/Makefile.build:549: drivers/iio] Error 2
+> make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
+> make[1]: *** [/home/jic23/src/kernel/iio/Makefile:2184: .] Error 2
+> make: *** [Makefile:248: __sub-make] Error 2
+> 
+> 
+> > ---
+> >  drivers/iio/frequency/ad9910.c | 154 +++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 154 insertions(+)
+> > 
+> > diff --git a/drivers/iio/frequency/ad9910.c b/drivers/iio/frequency/ad9910.c
+> > index b41b011af281..aaeff2e7640e 100644
+> > --- a/drivers/iio/frequency/ad9910.c
+> > +++ b/drivers/iio/frequency/ad9910.c  
+> 
+> 
+> >  static int ad9910_read_raw(struct iio_dev *indio_dev,
+> > @@ -691,6 +753,48 @@ static int ad9910_read_raw(struct iio_dev *indio_dev,
+> >  			*val = 0;
+> >  			*val2 = tmp64 >> 14;
+> >  			return IIO_VAL_INT_PLUS_NANO;
+> > +		case AD9910_CHAN_IDX_PARALLEL_PHASE:
+> > +			*val = 0;
+> > +			*val2 = AD9910_PI_NANORAD >> 15;
+> > +			return IIO_VAL_INT_PLUS_NANO;
+> > +		case AD9910_CHAN_IDX_PARALLEL_FREQ:
+> > +			tmp32 = FIELD_GET(AD9910_CFR2_FM_GAIN_MSK,
+> > +					  st->reg[AD9910_REG_CFR2].val32);
+> > +			tmp64 = (u64)st->data.sysclk_freq_hz << tmp32;
+> > +			tmp64 = ad9910_rational_scale(tmp64, NANO, BIT_ULL(32));  
+> 
+> Process of elimination points me to this line which is a slim wrapper.
+> 
+> static inline u64 ad9910_rational_scale(u64 input, u64 scale, u64 reference)
+> {
+> 	return mul_u64_add_u64_div_u64(input, scale, reference >> 1, reference);
+> }
+> 
+> David, any thoughts?
 
-Probably not, this is not in any way related to channel 21. I suspect
-but can't confirm that this is rather an address.
+Lots of instructions only support sign extending 32bit immediates.
+The asm constraint for the ADCQ needs to be "erm" not "irm".
+I bet that is true elsewhere as well.
+
+See source/arch/x86/include/asm/div64.h line 114
+
+I'm actually surprised you see it with clang - it usually prefers the "m"
+constraint.
+
+I'll try to find a source tree that is clean enough to generate a patch.
+
+	David
+
 
 > 
->> #define REG_TX_START 0x0000
->> #define REG_TX_STOP 0x0004
->> #define REG_RX_START 0x0008
->> #define REG_RX_STOP 0x000c
->> +#define REG_UNK_28 0x0028
->> +#define REG_UNK_2C 0x002c
->> #define REG_IMPRINT 0x0090
->> #define REG_TX_SRAM_SIZE 0x0094
->> #define REG_RX_SRAM_SIZE 0x0098
->> @@ -127,6 +131,7 @@ struct admac_data {
->> struct mutex cache_alloc_lock;
->> struct admac_sram txcache, rxcache;
->> 
->> + bool set_unk28;
->> int irq;
->> int irq_index;
->> int nchannels;
->> @@ -147,6 +152,10 @@ struct admac_tx {
->> struct list_head node;
->> };
->> 
->> +struct admac_hw {
->> + bool set_unk28;
->> +};
->> +
->> static int admac_alloc_sram_carveout(struct admac_data *ad,
->>      enum dma_transfer_direction dir,
->>      u32 *out)
->> @@ -747,6 +756,11 @@ static int admac_device_config(struct dma_chan *chan,
->> u32 bus_width = readl_relaxed(ad->base + REG_BUS_WIDTH(adchan->no)) &
->> ~(BUS_WIDTH_WORD_SIZE | BUS_WIDTH_FRAME_SIZE);
->> 
->> + if (ad->set_unk28) {
->> + writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_28);
->> + writel_relaxed(T8122_UNK_28_VAL, ad->base + REG_UNK_2C);
->> + }
+> For now I'm backing out the series.
 > 
-> can this be done in probe? This writes the same value for every channel
-> without obvious way how the bit in those two registers can reset? If it
-> needs to be done here a comment explaining why would be useful.
-
-Those are getting reset. The AOP-attached ADMAC has it's power
-controlled by the AOP firmware, so I can't even touch any registers
-in probe, as the hw is off at that point and will SError at us.
-device_config is the earliest point when the ADMAC is powered on. There
-is an explanation of this setup in the commit history for this file.
-(8d55e8a16f019211163f1180fd9f9fbe05901900)
-
+> > +			*val = div_s64_rem(tmp64, NANO, val2);
+> > +			return IIO_VAL_INT_PLUS_NANO;
+> > +		case AD9910_CHAN_IDX_PARALLEL_POLAR_AMP:
+> > +			tmp64 = (u64)st->data.output_current_uA *
+> > +				AD9910_NANO_MILLIAMP_PER_MICROAMP;
+> > +			*val = 0;
+> > +			*val2 = tmp64 >> 8;
+> > +			return IIO_VAL_INT_PLUS_NANO;
+> > +		case AD9910_CHAN_IDX_PARALLEL_POLAR_PHASE:
+> > +			*val = 0;
+> > +			*val2 = AD9910_PI_NANORAD >> 7;
+> > +			return IIO_VAL_INT_PLUS_NANO;
+> > +		default:
+> > +			return -EINVAL;
+> > +		}  
 
