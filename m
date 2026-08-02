@@ -1,66 +1,66 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5253B3C15
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 14:51:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2A53B3C15
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 14:51:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785682283; cv=none; b=CKo/JfonMvjBXrvCj7gOSqTh7CqRIxgDo/hK1VxQ1r+WdrIzDC1Yw3NvwmV7re0jV12yT61vQRoW+ZOvqRQ12rb1mQsZd7jAjRqSAghUOc2D9Plkkso8lPx6Vr0mhZFz7THuKgzw6mpp9MnGaELE2rDxawYnTGsY4y757/oOmsE=
+	t=1785682285; cv=none; b=Hs9hiWJ4gFZ5L48tqGu7bZDhKgZwyz5JzVaG0WVTAZ5RL/S3LEeTzXXvBmLUEb9BPI2embAHCCTKjNE6M2O8lR7gKMsNAD5mv+hp3PR/Idt4X33n5Vh6RK2uxbwnTfG3SGe7coWFIjUsSv1a7D32pScVnwv34IJFNtkqsX6ESBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785682283; c=relaxed/simple;
-	bh=B8yYm5LklzgC4SuWrvgjSaEp1OEArgcYzgXwPZ2Q/hA=;
+	s=arc-20240116; t=1785682285; c=relaxed/simple;
+	bh=r2NEuqrCzOVhe66hes1V2OPETAdzw4qsfFazaIjsmmI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PpYeEVb6YgQINcCv9VEI7Wo5zyIGjRQVXpPgXDR/gP9d2RGYBb0UMsICxozKW6HVoWAz2tNP+/4UACQGYd7rcJI3ylIg8G/BnSZsNAvW3Vg0rO2bNlBCX427wEBLgsoecLjUhYUMdL81olbvq32AuK9gKGUM09zcBHZ6z1VOEwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S5EOCU3u; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=pSliDha0uE4FbPqFAbAmsOry0F18Zi7NROQGYd0ocq1lcp1l3efMJRDgGnhRdR+7GDwlflUPUU0z5NaOWm+AJss5+kr6sjF63NYwRem7RCWOnP6A0fZ4iPAQJxyEbB61LUouHd7U1cGYr0YQr7gvJZpvQ4g06pnieOoT9w1dsBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YEkzMHvP; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S5EOCU3u"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so13114615e9.2
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 07:51:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YEkzMHvP"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49802c418b5so10385055e9.1
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 07:51:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785682280; x=1786287080; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785682282; x=1786287082; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Y3oOyzEJqd6PpLuVoK+OLiYrq0YcXHeXdEUT4Q8GRzQ=;
-        b=S5EOCU3uo8+z0yNpsLxd/wV6m3sovB3hYZ518v2zCSnhPD7471PZS6rieeNT/wkT3z
-         5BU4Yf5Q5dCI8nonsJuEYhJpMDrKcjkVeNurZvsVwCd8AaEAAtWCkgMdydbwxL8shMTf
-         YKP13XUFJnNA2Nz9sHCBHITxcAzQ8z5UGzAVxRFXULQL2ZUFBDSKnDA720QO2BgVVwJi
-         56pvXecK41dObPk169/ar561eTrz17k4C23SBWYc06stEWyPFQkbVczbVW5rqmHYnINh
-         3B5dA6Vvs+b/kHooFA/U3kq32irsohwcoQtUeHGm/qavZdBU/nrDuDqp3lY8GprPwKPa
-         rs6w==
+        bh=L/eSA2+uClIahrAYzEIuh8oechnt30g1zfVwZP4yV0I=;
+        b=YEkzMHvPX3CYKL9ZtuJYlVn6JAnFD4PR8QcXJVfzDZzCLNeDduMVRoviDA/pDIjg/1
+         mml4KflkMnZo57ay/UiZVVpWWhjYjYm6Pll+pwnYm1jj9Z0HLMp5GgewM8fbd5JGZzN5
+         Osp4gqHBVPUxx/dbNbDXa1bH8ess7RtU6/OOwAjPOoT3wrbgQXIDia9gDT1vs8eHeqBo
+         rszFsRMWOao2NZ+viDg4dhD/b+6aqtwPakobonUZO+d+rMIkUrsoVoFX01mhpXfPO5iU
+         JamShdz4Cgotx3tmKBHszzDQdqK0UV9l/1U3BvjCqcPojftfXx3ZLZv9ikq2SbzvnfUT
+         cPYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785682280; x=1786287080;
+        d=1e100.net; s=20251104; t=1785682282; x=1786287082;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y3oOyzEJqd6PpLuVoK+OLiYrq0YcXHeXdEUT4Q8GRzQ=;
-        b=c3aNCGRRbg63Qvja6IivQJDM9tWNTi0HqKJzTFEs5pwZroBNYygcWfvtUiaaUTfcRC
-         wwRrP6HP5JktGPxwJH3Z2BQQtYnra179zDvOcLzh0Q3Hwo4XFSGCvKiAT0iDXHpVavjc
-         zc6U5WXP4ihYTt/30CZMG/n/nO5sUtq/FmlMGGx3VFGW3u8qXp6pS2odvgodArmio78O
-         1rOjZepNpAWfy3XF7WzGPz9L1DNTfrjoDyyfVNWerhJwRjhIoQn1MhIZxZEJKIfim06B
-         jooOLkS8DV4JjORe7hqXpFLS7FYyeNIwje7MgE9R3nuGmeB1eJ7RCuDlMhM+v8QWSqgu
-         Cdbw==
-X-Forwarded-Encrypted: i=1; AHgh+RpFMuFIrXW/V3CtZZ6qwJNZh7R8xwrX9ScbAFls3yuMGBV4A84lnK/tFz50CpZpd3VUcXhTeQ8QUNC9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOVPzwd7sVmVzAb+dF+YGgIFSS1o8/n4vz4dyaVBzjrNXj7ir0
-	fIwLR/Pz3dHruOsRwli13ooX64SIVQPD1O2ez1K2lQ31V7R99e45Up3y
-X-Gm-Gg: AR+sD10SimRPDhh46pfCW13foGGgZIq2TxCk8ZgyHE31yZ+a2FJBamCK/GVjPSjaPqF
-	+Uq18Px+3/m0pe1zh23fAqnaTOYHvV+D3fRhHX0MSF2WBFnmODbJkpNYTCFilpnvs9um7WwESzZ
-	WtKb+Iesvy4ymLn86Sn+Td94TjFGaAjdiJMugQef51Aykm44rrrIa3VIZVycCiJWKGS1lUQNg/2
-	wRWHs9JGnrf+ZQpQXm0HoOCp9B8yarde2XlswMOPexVEBh5vqHktatnUGB34gNEPOIodyGnXotK
-	5dBrJ+5Fql/7Dbo28cKhyHEqV6RKahJfLYzKsMYVZfuINB6Pn8quSrTRX8HuKZ5kMn1gxHp9ygH
-	oCzDBL3h3n7aZEI3zUbnVMzD6S5STnxww4naQJroYMdSI54j5BBJfuTobq8u80SUnKE0sCDmbsG
-	GPbEeMECMl1g/ZFn3yZ6XEOzPqVywtMHIA4BaxCLHDPrKsnqAGT1zsq7ZNgwHGTlqjKdKn3yAEL
-	5Yypk4mIau2BXif0mqPSWcc5rn1WVOhxOLOwIfCr3/N+Qc7pxnZGASy06zFRvFXe2lN+sb0jraH
-	92MZ+ie2MmQijQ1V2uvOl8KsP20khHmE32UEnNG1FkVFGajYuZZtGrjnzZ9Rs6RXUWJHoaTgZ4k
-	CjppO6LnV8XCuMNBl85DtQW0Xr4fzZ+0gsR8IYLen4YvS7WVigZxooTY14IAz99/pO/uD9Ac=
-X-Received: by 2002:a05:600c:8b33:b0:495:779a:ed33 with SMTP id 5b1f17b1804b1-4980c66c798mr151895165e9.7.1785682279780;
-        Sun, 02 Aug 2026 07:51:19 -0700 (PDT)
+        bh=L/eSA2+uClIahrAYzEIuh8oechnt30g1zfVwZP4yV0I=;
+        b=FcMAQxgMYqsWExu1rI2TdH8c5cqsZkS4xYfraIaAGBySFCd6opJkdXg0YYf14ZpClo
+         VmuohJiX4M9MmH2LzRmoq0YkePu/jJEdh/IM75Nwge+2v0AE+VZSEeYxEyU57d1VRkOK
+         WB47Gbwp1g85ylrhRk2KfNb55+EAHOc7txq00ONeAnBe8+1lzLuXGRAzwHjJ1NOmuWLh
+         cTsUkw3UNX/Vin01A15k4ChVK9cpzBD+bnWE1QGgjcdElDRGLgbhlZ5tr26C62xN8f6s
+         Sa6MFs/+Xbc7xmy2ETCQJSeWJyZPugU/joZIbZwmpgz+5JQFBfmjJAFJgL1DNYOR2bVN
+         cFRw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpm3Z7sfq2NJxhaWQ9mp9pv+oDKQAHPu9LSv6sQlrMWnzxLKuJ+WOnmLTeJFJrRzAELATFveJNUul92@vger.kernel.org
+X-Gm-Message-State: AOJu0YzZOFTxL/7yRvi/PtI0SHyd68VoB6OSOQw3214yRRNEWQcIXpC/
+	xx6qpbn3yT8ZfsXC7a1vRlBAoVg8pvZWjkwL7wzUticgVrX4e/Y47fwR
+X-Gm-Gg: AR+sD13AqSuHGwAzXjVWxqpMpV8w38K3tjl+wDxZPsDkAMhpJpUGAwn+xDF/0KSvNGI
+	5mZF9dYBrpzoIRONVQ4BoI4ERw5h/VjBgZ947gL0ugm8274p9tx18kihW/6jfdtE/xx8OQ25JzR
+	4lk43A8XLin5NflbtYXraNubwJaWnegQr2xdBTHAdfmSqeo15txDy0FSDjpRT02jRu7PJ9MTtIa
+	Sirind2C/LY5QAh/SosasJezZHVcBRcPap7KqRfVmJCExwNhjTs7cLOynv2Uy+WnHR0LfavIOP5
+	3Pd8RI0KhUkXRjxLJbg+9hqy/p0ujzfESrdqreKHOq8JuQiF1yRkB3+rnHtQK+xA8uUvmtWJkKp
+	gVMPviR9QqnZE9oei88iRGtoX+mddIbh3SPpw1xErksagTYAJXpJE+BqrDCE47mH7QN141vJske
+	0TM7qmGOlgcQ+HxyYsnjWedqb9ZpL5+t4mMnT3pVKH3Y4JximgX3b2zqdOzjDuWiJEuC4SCjNht
+	rhbyKibLTXVjKiPushrJNdW2OZyeHyztsHviATp90vAxH5N25YlgiftfLVzmyXAkf4O0wMp3zBk
+	A+la/C0r9VBorgFWAGDnEk8qgIoCx2RGmcE9Admxhk8C+L6HOFCM1j1DhcKuQ3jEo9sq3fZHfNu
+	IC/Ks1Bt51EwqE/0G2a5xPE9W+mCuBvCe7/88zYB6pi/Km1VAdIXN8BtaYUcG
+X-Received: by 2002:a05:600c:6990:b0:495:4d00:2fc0 with SMTP id 5b1f17b1804b1-4980c673907mr146632395e9.12.1785682281800;
+        Sun, 02 Aug 2026 07:51:21 -0700 (PDT)
 Received: from cypher.home.roving-it.com (1.e.2.e.9.4.4.d.0.e.6.8.9.8.8.3.0.0.0.0.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:fb11:0:3889:86e0:d449:e2e1])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4980878dcb4sm234526335e9.13.2026.08.02.07.51.18
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4980878dcb4sm234526335e9.13.2026.08.02.07.51.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 07:51:19 -0700 (PDT)
+        Sun, 02 Aug 2026 07:51:21 -0700 (PDT)
 From: Peter Robinson <pbrobinson@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -75,9 +75,9 @@ To: Rob Herring <robh@kernel.org>,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>,
 	Andrea della Porta <andrea.porta@suse.com>
 Cc: Peter Robinson <pbrobinson@gmail.com>
-Subject: [PATCH 1/3] arm64: dts: broadcom: bcm2712: add arm PMU
-Date: Sun,  2 Aug 2026 15:50:52 +0100
-Message-ID: <20260802145109.728793-2-pbrobinson@gmail.com>
+Subject: [PATCH 2/3] arm64: dts: broadcom: bcm2712: Add thermal monitor
+Date: Sun,  2 Aug 2026 15:50:53 +0100
+Message-ID: <20260802145109.728793-3-pbrobinson@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260802145109.728793-1-pbrobinson@gmail.com>
 References: <20260802145109.728793-1-pbrobinson@gmail.com>
@@ -89,38 +89,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The bcm2712 SoC in the Raspberry Pi 5 has a standard
-arm performance management unit that aligns with the
-Cortex-A76 cores that are in the SoC so add the details
-in so it can be used.
+The thermal sensors on the bcm2712 (rpi5) are the same
+infrastructure as on the bcm2711 (rpi4) so add those
+details so we can get thermal monitoring on the device
+as it can get quite hot.
 
 Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>
 Cc: Dave Stevenson <dave.stevenson@raspberrypi.com
 ---
- arch/arm64/boot/dts/broadcom/bcm2712.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm64/boot/dts/broadcom/bcm2712.dtsi | 32 +++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-index 9b36ecd7bba54..ae1fc9d728c00 100644
+index ae1fc9d728c00..c73ed9e066662 100644
 --- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
 +++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-@@ -10,6 +10,15 @@ / {
- 
- 	interrupt-parent = <&gicv2>;
- 
-+	arm-pmu {
-+		compatible = "arm,cortex-a76-pmu";
-+		interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
-+	};
+@@ -508,6 +508,18 @@ hdmi1: hdmi@7c706400 {
+ 			ddc = <&ddc1>;
+ 			status = "disabled";
+ 		};
 +
- 	clocks {
- 		/* The oscillator is the root of the clock tree. */
- 		clk_osc: clk-osc {
++		avs_monitor: avs-monitor@7d542000 {
++			compatible = "brcm,bcm2711-avs-monitor",
++						"syscon", "simple-mfd";
++			reg = <0x7d542000 0xf00>;
++			status = "okay";
++
++			thermal: thermal {
++				compatible = "brcm,bcm2711-thermal";
++				#thermal-sensor-cells = <0>;
++			};
++		};
+ 	};
+ 
+ 	axi: axi {
+@@ -724,4 +736,24 @@ hvs: hvs@107c580000 {
+ 		interrupt-names = "ch0-eof", "ch1-eof", "ch2-eof";
+ 		status = "disabled";
+ 	};
++
++	thermal-zones {
++		cpu_thermal: cpu-thermal {
++			polling-delay-passive = <1000>;
++			polling-delay = <1000>;
++			coefficients = <(-550) 450000>;
++			thermal-sensors = <&thermal>;
++
++			thermal_trips: trips {
++				cpu_crit: cpu-crit {
++					temperature	= <110000>;
++					hysteresis	= <0>;
++					type		= "critical";
++				};
++			};
++
++			cooling_maps: cooling-maps {
++			};
++		};
++	};
+ };
 -- 
 2.55.0
 
