@@ -1,128 +1,133 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736BE394785
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 21:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5EA6489898
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 22:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785707041; cv=none; b=HyqvFOvqTZwIZTlryiPiXwQoTn/NXiP5NZKUYQNo3NvjmjM/cwwpcsPtjo4vhiI4BWvagHiR1TRgC5osbA6N0JyQEURoUZKqH7feauD9zB6vEJ/PxyaO7Li6R5hCrDZd4Dq+Ad1WByLX6h9dbmFMJw0x07DV0n3E+Q6AHvC4fms=
+	t=1785709051; cv=none; b=CdU/5Lyrj/K8RqeKDX5A2WhY58Ep56dDuwfMx4Ft+cYwO+D6eZbuvltXCd2H+L0jPSgsT4l9owDnu0RqII31fym/xplcvPutflOBWYgpnCuhz4eVpDf3HzaNW28ayndDYaYf4+MjMP2xlLBoeuOKI5+ixcDgP+tcHUdHs2MZK2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785707041; c=relaxed/simple;
-	bh=q6W64z07uljSQGhS1KJCq4J0L83uuBcQTyVi+/MZhSY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nsDOmzhGUoDcCf2PSa0uQTeCQq7/d2ZQGfUKy/R7do2jMM+qrHpocx1L4Ep1qIBhm4RPC+wBtdO9pqjvAO82voRiz6iUgW7lfFKm0tgqHSIu4YFDQ2IW2HE9WTm5tJMlfqGA1J/Fd8UKUAQ1BdEpcSbzEhoz1vv6Kq3wCV6wjB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k2bag1F2; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785709051; c=relaxed/simple;
+	bh=T8GIVGVx3IVGy3cz7RX/iIVlyqRH0fdXuqZLWkXg95I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y5qKK8cJBc9vnnvjF/w39yoqBm4VaEw9H63GCLJHn8FPALNvJ8DG0m/BrEwH2NB33IEgKpftc9SWLPXEzGJUjvASpVuooUk967n/f8t1vjBUf0yFvtWLy7LYQ/RcUbEaV32t/tdnObQVdIJZ6vJ5K9tWFIpU+OeBBA4mkJ3X91I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=l30D97X0; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k2bag1F2"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-92edb12cdf2so169355085a.3
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 14:44:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="l30D97X0"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f6609c657so1368035f8f.2
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 15:17:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785707039; x=1786311839; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fuXEqimyffgC3r6i7frZWabp2CjAJ6czkCeh1u+cNBo=;
-        b=k2bag1F23+AshYtLixVaVpVS+nTnNkoKpZHqbblAk+TkukeopDhBBY+mIx91wInowW
-         5Y2pIEDVjcg44OsTVe2/fKY1RG4QiOUAj54q49Kl7f5ActkM7GuhPltXrruonr2PjslV
-         0DYOKz70vp2f2EwxkpoD6Z01vMNWi1MzsmKI6f868teWk4Czo1skdnPRSkNsIPLYo7vc
-         gZ6vXn918STloLSWfKPfpKsWINOklgQjRkuaNv6Uo4NVscm5aKO3NmZg30UGgjNe7QhG
-         TCLbWS1IwpMp8H60GRyToXbC6UlPQs64ljE3MczhAWuisM9sp8HwweSUbuIVsD6SsuoT
-         P4yw==
+        d=baylibre.com; s=google; t=1785709048; x=1786313848; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6bsPGvzNC3Iop4WsfghniduLra8GHqGeExlE9Ii45fI=;
+        b=l30D97X0haxplDJA1LQczHII77xXxIut2oUbt5aPYMTZ+cNYgj5AD3f6h+CjF2kS9M
+         ME5VilM82USaF0Kc7kgaPRVwy+IhJgbLylvhiBu3k7s5SQss20MZqTGXwIcsKNrtfe9r
+         tOfESoOpFErqibVvLhQZQi+5gWmFpA3roEh1D4kCxlk38fvV5zXevDQiPI+i4dCxTCRh
+         +s97HbuKcFi3JLXCeVDWyNsYtLc8Y1kS6IBOX2ucWxzuvw0Bi5YYR+yYf2hYvOXZXjqn
+         LfMe0R3KlIVeilGv2nFVxr3JF4IOapSkEL4VuIt2vAeo0WDpjEAKKQ0SAb9hqpf899bx
+         uiJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785707039; x=1786311839;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fuXEqimyffgC3r6i7frZWabp2CjAJ6czkCeh1u+cNBo=;
-        b=JINw9fBzPr3mmR07ReoOe7vyU4GY0Ou1i1fUUDLKj/ck9cps558LvFho7x/NBDmk1P
-         AOl/8FPuCEJ4G//6SFtJW+0wS5C0O1FSc5Yevt//y8BmISr2owpz2swr8Hm2zb65tWBC
-         qtE+PJV9AkQAfAoq4+b5oBUF61Jfi3oXli1hTo9iENnrwdWXWUVKyzn0KFOfe+C7+UYX
-         0ulQNLgbLlVlR9DX1dbDCp6ZR6Ug6RvYb8UMiGP4y551c2fnChiQebtIu/N+EQunH/+E
-         ViLu5PQJ6i07bvu1K+PCOcaZzhm0roVrQWQYtp0g/yA3OTu3uToka91nFkWtyW16PB9x
-         SEKQ==
-X-Gm-Message-State: AOJu0YyDAEMAIW8rSiA98KRONO0bwQ4gMzb9f/ZOxZhMep1mXaueCJOF
-	XAciyPH2qG3dxBiiAwT5vz1HmvvxK/YGYNMaAbZQLwiMGIfNqyCgmbpuSbEh+A==
-X-Gm-Gg: AR+sD13VKPjF8I+IjGpyrbDu2wRKrD50F1JkeV5WrJTZ9u8gYyJiwWR73YSJ9d1YVc0
-	tAdVdEZUalWAd7xtaGkEouEgYyIXsv9Ghlq98Efia0etdw6dF1TaaEzOZ5uC/cV9LvhRKHuhcdf
-	A9c5IOMcGiZ+nx56MhpvZIcCSZSdxCsNc+b2FbRC1Dc7zyNUPvjz+6uqIK/oxKxRfUsHD+05aAW
-	bklZa27gXLW51n9qACV46xcxTePVL6y3qbUiK+8k09hB2S4oITRVqUpdUXinMdmLsyFptfzf9Dm
-	UgTIvdyJKs2SGZV1N5r98YpaeYFtUrQBzt7HLJP6h7vHFeK1Wt0nABY+grRaj98d/k7R4cPDR4D
-	Rc9jOnjy7OzJR5gM+TZMYoQwRAKu4PoE8MfaZZcvrquaXR50xIRB73oo4RhOmP0AZyL6XH7O0HQ
-	Rqu34sTjpUx9w941m+abj15leExVKc2rpKQdSjuWFdf+O/13sIbqG4FI+Npo7f8aJoFoNwJzsJI
-	EbKP2zJnxJKrYHhfcoWl4TXDEB5aXO72EE/UAd08M1fk/jvxwJBPIhhL7n7+xoA/yTs3oMCZ9WA
-	M078MX9hyS5eLA/cIBmBJjsgzFURFIGQi3w+u73EVu34z6QF
-X-Received: by 2002:a05:6214:5403:b0:8b3:f911:c1df with SMTP id 6a1803df08f44-9084966585bmr185128876d6.21.1785707039288;
-        Sun, 02 Aug 2026 14:43:59 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-908435b6778sm60683266d6.30.2026.08.02.14.43.56
+        d=1e100.net; s=20251104; t=1785709048; x=1786313848;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6bsPGvzNC3Iop4WsfghniduLra8GHqGeExlE9Ii45fI=;
+        b=SKSMOmCuAkY/Fv7gh+PiJpSrhzoEJChE/Jen4c4riGXsiEYxA1Esq7PiyRq8OYo/nu
+         ko1yg9Ot4nkRMzI81VTu/NSuoImP65l+vi54+5b8LLirTBDsziHMcKC6FGQu7YrlDhar
+         H/QBjf+8ApE0F371HqFeqzZsolskzZj+bWOUuG+IblmgV9BkW4UzbZxPHSIJb4pHwIMY
+         gQLCYvVT/myXswryIyRlA323DufTTsYKamWOlNcQaoe9HIYTXQvt0x7vwFEBInMhdTZR
+         NtR78jQHJ9V+EBTfxGTASA27G2NTNR8dJtIpuLdMKUmgYBKV7S6tYKZhVsuL0sIwrcyl
+         wADw==
+X-Forwarded-Encrypted: i=1; AHgh+RqnXE0VZdblHOuxXHomm2EN/DXQGI61fE1MP6YCrW9rmLwjZhFn5Hx71PoydADJ7hAvnW9WMku2KwBs@vger.kernel.org
+X-Gm-Message-State: AOJu0YxIlt/ToNsEgee1AfWcBPOA/bpIbBTz9nYHLC4M0dX2vDDIiyXX
+	GzT5xSGzBE/oouyY1e6wOV/5ydgl5Ax6pja7N/MWYVKqelCBccbxVpnl54sW7l5lCHo=
+X-Gm-Gg: AR+sD127GPYa0sbF2W+cAwSIrp5KmBep+q/2xtVjvboYR345XTTjILNG1qO4RxbHxjY
+	sLj3dQtbsBeM6uR4TulgwIEQ+AZcvQFqLnTnVmLbPp9h5ib+XdfSthI3S4INeZEC0rdRfdmmiDD
+	h6PLzqlC0r3oNAGfX2gNk7Z0PrdevHL0AIHAVuH2sODxCmVXvr5+ZxFuXkRX4FWQdQwwzb4P7Vl
+	WFaU1okCgX3Xxby2746vTqRpdihPUCsLndwadCmL0jFXdiVaIvKGI3rUZrbdYDRRM4+PpsKulRr
+	FQqdgoOpInRDFHGb5CWMKQUsQ5DEm10V4/36xNTkMQVxue0in7Gh7LMOuQkqCoryyDVw4lsZeCP
+	nMudRvxO2+4V77MObtBanYx2ByaBHcnXBb2d8Ga5K28c2OXBDTfcYyYTyZu2wj89UGIKC+v72iI
+	lbk2kdB1KEPUSoUjQRVI+Jqjh6TnynAcW3H1e5RAKUKMX0aptJbW+RL2sT7+A53q323g==
+X-Received: by 2002:a7b:cd93:0:b0:495:3de8:33a6 with SMTP id 5b1f17b1804b1-4980c65ed1bmr126447945e9.16.1785709047703;
+        Sun, 02 Aug 2026 15:17:27 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49807b5f0c3sm155072855e9.5.2026.08.02.15.17.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 14:43:58 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Mailing List <devicetree-spec@vger.kernel.org>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Mediatek SoC support:Keyword:mediatek),
-	linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC support:Keyword:mediatek)
-Subject: [PATCH] dt-bindings: net: add nvmem-consumer reference to network-class
-Date: Sun,  2 Aug 2026 14:43:54 -0700
-Message-ID: <20260802214354.490074-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 02 Aug 2026 15:17:26 -0700 (PDT)
+Date: Mon, 3 Aug 2026 00:17:24 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH RFC 2/3] ASoC: codecs: tfa98xx: add driver for TFA2
+ amplifiers
+Message-ID: <am_BahJARF9z0P0u@monoceros>
+References: <20260802-tfa98xx-upstream-v1-0-4dd55cdd658a@ixit.cz>
+ <20260802-tfa98xx-upstream-v1-2-4dd55cdd658a@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eissgc2t76naakqg"
+Content-Disposition: inline
+In-Reply-To: <20260802-tfa98xx-upstream-v1-2-4dd55cdd658a@ixit.cz>
 
-The nvmem-cells and nvmem-cell-names properties are used to supply MAC
-addresses to both wired and wireless network controllers. The wired
-hierarchy already allows them through ethernet-controller.yaml, but the
-wireless hierarchy (wireless-controller.yaml -> network-class.yaml)
-does not. As a result, brcm,bcm4329-fmac nodes using nvmem (e.g.
-bcm4709-linksys-ea9200.dts) failed dtbs_check with:
 
-    Unevaluated properties are not allowed ('nvmem-cell-names',
-    'nvmem-cells' were unexpected)
+--eissgc2t76naakqg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH RFC 2/3] ASoC: codecs: tfa98xx: add driver for TFA2
+ amplifiers
+MIME-Version: 1.0
 
-Each wireless driver otherwise has to add the nvmem-consumer reference
-individually (qca,ath9k and mediatek,mt76 already declare their own
-nvmem-cells/nvmem-cell-names).
+Hello,
 
-Add the nvmem-consumer reference to network-class.yaml so all network
-nodes inherit the properties at once. Wired controllers keep the tighter
-single-cell, mac-address-only constraints via ethernet-controller.yaml,
-which still apply alongside the relaxed class-level properties.
+On Sun, Aug 02, 2026 at 02:42:41PM +0200, David Heidelberg wrote:
+> +#include <linux/i2c.h>
+> +#include <linux/mod_devicetable.h>
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- Documentation/devicetree/bindings/net/network-class.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+Please don't include <linux/mod_devicetable.h>, that is going away soon.
+Also <linux/i2c.h> already provides i2c_device_id and of_device_id
+(ie. the two structures that used to be defined in
+<linux/mod_devicetable.h> that you're using), so just drop the #include
+for <mod_devicetable.h>.
 
-diff --git a/Documentation/devicetree/bindings/net/network-class.yaml b/Documentation/devicetree/bindings/net/network-class.yaml
-index 06461fb92eb8..f7c8e24016f7 100644
---- a/Documentation/devicetree/bindings/net/network-class.yaml
-+++ b/Documentation/devicetree/bindings/net/network-class.yaml
-@@ -43,4 +43,7 @@ properties:
-       maximum frame size (there\'s contradiction in the Devicetree
-       Specification).
- 
-+allOf:
-+  - $ref: /schemas/nvmem/nvmem-consumer.yaml#
-+
- additionalProperties: true
--- 
-2.55.0
+> [...]
+> +static const struct i2c_device_id tfa98xx_i2c_id[] = {
+> +	{ "tfa9894", (kernel_ulong_t)&tfa9894_chip },
 
+Please make this
+
+	{ .name = "tfa9894", .driver_data = (kernel_ulong_t)&tfa9894_chip },
+
+Best regards
+Uwe
+
+--eissgc2t76naakqg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpvwfEACgkQj4D7WH0S
+/k5ofAf/fcXOQAhsDuQI1vXZjfYD+Nu2PG5sMkw/QbLri499oQfMbAfRG0JWATEF
+QlWrFmVUB03381JLDXyXWtkO5evnjkldLr3bqGY7QevsfpxmOHDV9zLomJjfAqyL
+RmIcbr5btKIh2FZJRZslqHYoKiG7SeNZJLyxeYU4lW8vZcohMMRHlPGSCEC7RoNI
+sJdx+JMXR+ZHBOuwOrObZDxREbyQwdSnxD1gEEwmXEcpb0rZUWVIEZKXNekbV2XN
+izdCJ/P/vwPVNl7yrZLjlzfD6t2AFmYBYIq4kLKM1vrAd8gxMcxwTQH+XKnFNaWC
+RZQ+MsjqlG8Lw4wj970ztO4ky/yXFQ==
+=/KIq
+-----END PGP SIGNATURE-----
+
+--eissgc2t76naakqg--
