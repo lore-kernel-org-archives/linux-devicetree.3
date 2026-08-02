@@ -1,95 +1,141 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C97B171B1;
-	Sun,  2 Aug 2026 19:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E45C237180;
+	Sun,  2 Aug 2026 19:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785697261; cv=none; b=um7cLqi2Y1nDxu5YSiuY9Aedp+bn6qvttYGcYjkSgjvB0HgQhKl8kyOY0V/tm2R2HIvtvm+LDXFCUeNOFnt/j7Upi8TM8TgcpfcTbEtVRbT6YLIU/Dlu7k6IlCr9VBHRsV8yOuX4BA1jfEdrKm3wEMA5Ut5m0xi09rZzglwomGM=
+	t=1785697468; cv=none; b=EN/chCVZCxs+UH8jjeCLTdradhlrNL8eQB2SZ0IUBGKdzTCp7gBJ86bZyFpoywI0GPm7w4Su6Hpi7QUJVEC2mJQa+TqoNzL8zLYp84d16dDwE7tiuXrrKVy6frABJReJdnrdHOzn8fVIK4H5UVcOOurKEEJZuAYka5n+rCxa0b0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785697261; c=relaxed/simple;
-	bh=EfT06c4bUG5RM6uvwUF2MIPaWAlOHTsViLXf2tLbKGI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GhJbi/TSTSypRLmFr4VhtgOAqkhlirFrm6iy7dah0qNGpeWhEO78OgX35QzmBf5AZT4aTgA4Mur9m9XryFRE3Q4r3qzsCvHLzulfxdZY3COQxhl6CWt4iq954bHBOmTTxFWxaU2cjG67uEZDHKddAF9/5HhzUKOjncYVvewrbo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=fXRZGqyY; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785697468; c=relaxed/simple;
+	bh=zugU8+y0Yoj+/w5PM+oZxznMMbVN70TW1KMWzz2DKy8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ngkCGl8ktUPvIqH+RfUEvUsg6W4jrlzmXVJW3+67sxZPpQgUuRIn99HK+KPioceaIeejNhN2qQI5+HiP/VauAoZlP3wUKZ6rlML/M0/re+CtlKWjrX3Kvu3UGhAr+1XlrqgVBhM0BeHbFd+XCjsJSabou5ZLC0YDu28NkPQFD4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sED3JR35; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="fXRZGqyY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=3ShKaSqVzpoKTOwv2WVILmoiM0sd7wX/pCkyn8buCZc=; b=fXRZGqyY1gL41dRfLIFcq8Dokz
-	GcgcZXVeYXq1zbgcc5ZyBAmzbC0u5hqrStplnQZ+iEp3PSZv6NSCpp4rA/5VTitgS30L+YNtgrGUO
-	x5bt2Yd5UN+G+vh9LuyONS2h6wd3zjmS5kL3nfrgY3k8KYHafnC4x7RR5ggbjSC9pUfk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqbQM-00FbXo-49; Sun, 02 Aug 2026 21:00:38 +0200
-Date: Sun, 2 Aug 2026 21:00:38 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 07/10] net: pcs: xpcs: add Rockchip RK3568 platform
- glue driver
-Message-ID: <ba5522ab-1e77-4236-89cd-9483ed1f2da0@lunn.ch>
-References: <20260801142244.679437-2-coiaprant@gmail.com>
- <20260801142244.679437-9-coiaprant@gmail.com>
- <23d8e994-8552-466f-98e6-c47d5783525b@lunn.ch>
- <CALj3r0i5yVcJY8V75y0Hm5xjtZSBpH0DXSAWKsAUqguChVcxYA@mail.gmail.com>
- <302c67b0-6729-4930-a409-a2408dde33fc@lunn.ch>
- <58C6FD30-02CF-4DC8-BE7F-4E2AAC5985E4@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sED3JR35"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BDF14C2BCFA;
+	Sun,  2 Aug 2026 19:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785697467;
+	bh=zugU8+y0Yoj+/w5PM+oZxznMMbVN70TW1KMWzz2DKy8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=sED3JR35f336Mg0/IJItKKeYkafWzDNFiQ9BKc78RY2BlR5sv4dYLbV6cVEQtM1xU
+	 5Dt40y1GUAGZO1gc3WWLM/WOkpkGdcF7NIMK1mcRu08qYoS8LEbAO5UHmD6NpabxF4
+	 pap6Tcq1gnDgEFXure5MkQLJDI7Z8HvirBMyuoA93lNPFyC7XhokQfdAdKKht9TZFQ
+	 RtHTTlEmUiQDXVl/06p1cfPpmPOkO2nFEQrol0VTTUMN9IVoCzs24J/5f8iUiGHQao
+	 AXqy/QvfQzZ2d5vFSHiVYkmipWG+ADUVzKkL2VLaKNw/38hPV3VJrRu1LtSOTLEhfo
+	 p3ezOuwbpzhww==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F8E8C55174;
+	Sun,  2 Aug 2026 19:04:27 +0000 (UTC)
+From: Antony Kurniawan Soemardi via B4 Relay <devnull+linux.smankusors.com@kernel.org>
+Date: Mon, 03 Aug 2026 02:03:46 +0700
+Subject: [PATCH v4 2/7] ARM: dts: qcom: msm8960: add RPM clock controller
+ and fix USB clocks
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <58C6FD30-02CF-4DC8-BE7F-4E2AAC5985E4@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260803-msm8960-wifi-v4-2-5ffa27aea39d@smankusors.com>
+References: <20260803-msm8960-wifi-v4-0-5ffa27aea39d@smankusors.com>
+In-Reply-To: <20260803-msm8960-wifi-v4-0-5ffa27aea39d@smankusors.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: phone-devel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785697465; l=2459;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=iIYYtM55Tx+Y0Xs653xyUTxfQMeNNj1lUSNegdYpWt4=;
+ b=vhmy5EWuy52VWKTM+23+rq5IxxrPW3ijYnpDNdMWD3ZDLn6GIt24GLVbTaTZ8kh1dpa+Q+Z3p
+ QhVfplEhsy9A1zR0jIQ+trRD6suZV+jfMnYPTf5q36RWPZ7Lh4KeB8m
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+X-Endpoint-Received: by B4 Relay for linux@smankusors.com/20250609 with
+ auth_id=733
+X-Original-From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Reply-To: linux@smankusors.com
 
-> Hi Andrew,
-> 
-> You're right that the xpcs core uses C45 exclusively, and modern kernels
-> no longer require C22 callbacks for mdiobus_register().
-> 
-> However, I'd prefer to keep them for two reasons:
-> 1. Debugging tools (mdio-tools, ethtool, etc.) often use C22 reads to
->    inspect PHY/PCS registers. Having these callbacks makes debugging
->    much easier without having to patch the driver.
-> 2. It keeps the driver consistent with pcs-xpcs-plat.c, which also
->    provides both C22 and C45 callbacks even though the xpcs core
->    only uses C45.
-> 
-> If you strongly prefer removing them to keep the code minimal, I can do
-> that in v3. But I think the debug benefit justifies keeping them.
+From: Antony Kurniawan Soemardi <linux@smankusors.com>
 
-Keep them. I was thinking it side steps the issue of accidentally
-mixing up C22 registers and C45 registers. But there are useful use
-cases for C22.
+The RPM clock controller manages clocks shared between the application
+processor and the RPM firmware, including fabric and bus clocks required
+by several peripherals.
 
-      Andrew
+With the RPM clock controller now available in the device tree, the USB
+controller must explicitly declare its dependency on
+RPM_DAYTONA_FABRIC_CLK. Without this declaration, the clock framework
+would consider it unused and disable it, breaking USB functionality.
+
+This also corrects the previous misuse of USB_HS1_XCVR_CLK as the core
+clock. The XCVR clock is in fact used for PHY/reset handling rather than
+as the main core clock.
+
+A similar issue has been observed on APQ8064, where missing the RPM
+fabric clock dependency leads to broken USB.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+---
+ arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+index fd28401cebb5..6ead9fec557a 100644
+--- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
++++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+@@ -5,6 +5,7 @@
+ #include <dt-bindings/clock/qcom,gcc-msm8960.h>
+ #include <dt-bindings/reset/qcom,gcc-msm8960.h>
+ #include <dt-bindings/clock/qcom,lcc-msm8960.h>
++#include <dt-bindings/clock/qcom,rpmcc.h>
+ #include <dt-bindings/mfd/qcom-rpm.h>
+ #include <dt-bindings/soc/qcom,gsbi.h>
+ 
+@@ -98,6 +99,16 @@ rpm: rpm@108000 {
+ 			interrupt-names = "ack",
+ 					  "err",
+ 					  "wakeup";
++
++			rpmcc: clock-controller {
++				compatible = "qcom,rpmcc-apq8064",
++					     "qcom,rpmcc";
++				#clock-cells = <1>;
++				clocks = <&pxo_board>,
++					 <&cxo_board>;
++				clock-names = "pxo",
++					      "cxo";
++			};
+ 		};
+ 
+ 		ssbi: ssbi@500000 {
+@@ -507,8 +518,12 @@ usb1: usb@12500000 {
+ 			reg = <0x12500000 0x200>,
+ 			      <0x12500200 0x200>;
+ 			interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+-			clocks = <&gcc USB_HS1_XCVR_CLK>, <&gcc USB_HS1_H_CLK>;
+-			clock-names = "core", "iface";
++			clocks = <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
++				 <&gcc USB_HS1_H_CLK>,
++				 <&gcc USB_HS1_XCVR_CLK>;
++			clock-names = "iface",
++				      "core",
++				      "fs";
+ 			assigned-clocks = <&gcc USB_HS1_XCVR_CLK>;
+ 			assigned-clock-rates = <60000000>;
+ 			resets = <&gcc USB_HS1_RESET>;
+
+-- 
+2.34.1
+
+
