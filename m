@@ -1,85 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B90B3385BE
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 12:48:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5623A3ACA58
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 12:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785674937; cv=none; b=GNjLzE8yHKiXO037R2f5GEBKTwj04YikGI1lObSkJ/DrOvw9WAg3zfATIQBSkzEqhFVfPnZhKctuOmcuzAsNTSDq84mlNoPjk5oW9dsYInoCpZ3BHHjKMiT2gIcCQkgw3Oza974b9wRLBE99jLnrs3wF6XYEb+sfoE/x91O2kUw=
+	t=1785675344; cv=none; b=UF1qmeH/I8sEs6mB8QqiybPc6epDM9qOdWIuUcKFaw/Jo+ogBiYtqzdu+LLT76XJ7kgXhkSnwk2XKv3U5S2wSSjrAg/VOW43GIQQm74F0mut52+yeYh7nHAHVmc/G1aCWHZs2kulRHYC5K+d9pFPmk3oqZYsenhaf3NkU0fRPBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785674937; c=relaxed/simple;
-	bh=MoVRBlMXHs851dZVBCSV0OKR9AP9DwNgbCuXidRZxGI=;
+	s=arc-20240116; t=1785675344; c=relaxed/simple;
+	bh=Fsv9jBP8HBIjh0JpUbsrnqiZDgPGmBHzUb4QzTnWvqk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Hhc0IwVbkZ2/1d5ytBsEsBYCDoyrA7OPv+up4lZjVFz+9vMVRY9wigqWXY8diW+u1yL2u5dktKJoxOQQ8LQ2WWWRFXo6Cl3xYuwhz/LLayvGFy9XGDGrXAsqbw6jCPLcuvkNVn53q94QQ61EOg/ss1o/HeTTXtTfs8XT6BNdhm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M95g88DD; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=lLTBAK4o4Zkq6paWa7UIOOAaKR7uyySsbxSCc2qYZ0aqj0Ucw3sRN2XsYiT1qqGowdMKz80sDC5seN5Tys2PG7o/ySaQ+qqHDrv2Vf5b7fd48o1QfDNhYcoTeDYyoDgvz2yN9mpeN+88AKGKz0GchtoloZ3di6wNE0XfPjHMNmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EWKQC+dU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M95g88DD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB921F000E9;
-	Sun,  2 Aug 2026 12:48:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EWKQC+dU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2B71F000E9;
+	Sun,  2 Aug 2026 12:55:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785674935;
-	bh=DN5g4uEPQSXuDvLKCCzhVylfsSl1zXQa3gsx0U01Puk=;
+	s=k20260515; t=1785675342;
+	bh=pZ1DIV4257OaqjqXg7K7mNRgWFZVM6ORGtX9MNPl0H0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M95g88DDO+eTrZUQjYp2HIHxqrUKU8NQ0TDgGvbCKyl4eCcL/v8yE8kVY2I3HUeYM
-	 CFT77ZFljlsPdRYWc1z7Cq+Z+qV/RR8/4j7hqSSmsQ1eu/VPLPMdjvrFD31AwWtced
-	 +nChWkme//MLO9hTKAyy/dS4kE/S6c92K5oiDocbkOd1ErogpMJBbjS8ZSUh2SD8I9
-	 w44UPhkGJ6m6sA93KvU1Ma/3kWqaz/6MI+gG1Ka3v8qD4/DOJjaeyqv5UKRuuiRHgc
-	 5mI8yFjTKpBb/kPcgGP3cxuW4z59IMJeAYD218BIpdB5GptavKD3ohy69jiB6P7Ced
-	 T74CQUZ1GjddA==
+	b=EWKQC+dUNytF1Prk9bbaFCOgAQI9+l51u+VZhdDFfwCV8qo/FcLBX/1teYbZO9toK
+	 ZbXz2E2GJ+RqDUxxYOOwCTfJyDaMjKm4tYGVlvYxLW8VEPEs1EEW6nzKE76GPPRAqc
+	 6uRq43KACzhzlgLjNHU+gXo7iEnvokesUuIsvftdvo/ntgLMXrR0hNDmJFoV1z7JLa
+	 24W6aO9Zy6Wg6t9AdUafYg4R8TvPqdE5fJY24wEMXpe6oHWfa3BaCWwCwT8Wridie0
+	 0T//Avpht+lKRRiF+jlZ81n9DBo5WUdXqKnJcXYIoPTGeXbXMxz4b5QpEApQXtlK5Y
+	 lMa77gvpHEtXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 2/3] ASoC: codecs: tfa98xx: add driver for TFA2
- amplifiers
+Subject: Re: [PATCH RFC 3/3] arm64: dts: qcom: sdm845-oneplus-fajita: Enable
+ speaker codec
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "David Heidelberg" <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260802-tfa98xx-upstream-v1-2-4dd55cdd658a@ixit.cz>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260802-tfa98xx-upstream-v1-3-4dd55cdd658a@ixit.cz>
 References: <20260802-tfa98xx-upstream-v1-0-4dd55cdd658a@ixit.cz>
- <20260802-tfa98xx-upstream-v1-2-4dd55cdd658a@ixit.cz>
+ <20260802-tfa98xx-upstream-v1-3-4dd55cdd658a@ixit.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 12:48:55 +0000
-Message-Id: <20260802124855.ABB921F000E9@smtp.kernel.org>
+Date: Sun, 02 Aug 2026 12:55:42 +0000
+Message-Id: <20260802125542.9E2B71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] The i2c_device_id array fails to use named initializers.
+- [High] Incorrect active polarity for the codec reset GPIO in the device t=
+ree, holding the hardware in reset.
+- [Medium] The commit message incorrectly identifies the target device as '=
+OnePlus 6', while the patch actually modifies the 'OnePlus 6T' (Fajita) dev=
+ice tree.
 --
 
---- Patch [2]: [PATCH RFC 2/3] ASoC: codecs: tfa98xx: add driver for TFA2 a=
-mplifiers ---
-commit 4120c0a8b537c48d7609971c712e99479ca0e3ec
+--- Patch [3]: [PATCH RFC 3/3] arm64: dts: qcom: sdm845-oneplus-fajita: Ena=
+ble speaker codec ---
+commit 05cefbbcdc0e5b43fbfd650af4c52fe9dfdebf01
 Author: David Heidelberg <david@ixit.cz>
 
-ASoC: codecs: tfa98xx: add driver for TFA2 amplifiers
+arm64: dts: qcom: sdm845-oneplus-fajita: Enable speaker codec
 
-This commit adds a driver for the NXP/Goodix TFA98xx (TFA2) smart speaker
-amplifiers, initially supporting the TFA9894 found on the OnePlus 6T.=20
-The driver bypasses the built-in CoolFlux DSP and takes the amplifier input
-straight from the TDM interface.
+This commit enables the NXP TFA9894 audio codec on the OnePlus 6T (Fajita)
+device tree by adding the required I2C node and linking it to the speaker
+playback DAI.
 
-> diff --git a/sound/soc/codecs/tfa98xx.c b/sound/soc/codecs/tfa98xx.c
-> new file mode 100644
-> index 0000000000000..c84abb8db207a
-> --- /dev/null
-> +++ b/sound/soc/codecs/tfa98xx.c
+> OnePlus 6 uses NXP TFA9894 audio codec. Enable it.
+
+[Severity: Medium]
+Is the device name correct here? The patch modifies sdm845-oneplus-fajita.d=
+ts,
+which corresponds to the OnePlus 6T. The OnePlus 6 (Enchilada) appears to u=
+se a
+completely different codec (MAX98927). Should this specify OnePlus 6T inste=
+ad?
+
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/ar=
+m64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+> index 0542333a83579..cb08aab4740a4 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
 
 [ ... ]
 
-> +static const struct i2c_device_id tfa98xx_i2c_id[] =3D {
-> +	{ "tfa9894", (kernel_ulong_t)&tfa9894_chip },
-> +	{ }
-> +};
+> @@ -40,7 +40,16 @@ &framebuffer {
+>  };
+> =20
+>  &i2c4 {
+> -	/* nxp,tfa9894 @ 0x34 */
+> +	clock-frequency =3D <400000>;
+> +
+> +	status =3D "okay";
+> +
+> +	tfa9894_codec: audio-codec@34 {
+> +		compatible =3D "nxp,tfa9894";
+> +		reg =3D <0x34>;
+> +		reset-gpios =3D <&tlmm 69 GPIO_ACTIVE_HIGH>;
 
-[Severity: Low]
-This isn't a bug, but should the tfa98xx_i2c_id array use named initializers
-(such as .name =3D "tfa9894", .driver_data =3D ...) to align with the I2C
-subsystem guidelines for initialized arrays of type struct i2c_device_id?
+[Severity: High]
+Does this GPIO polarity hold the codec in reset permanently?
+
+Looking at tfa98xx_i2c_probe() in sound/soc/codecs/tfa98xx.c, the driver
+clears the logical reset during boot:
+
+sound/soc/codecs/tfa98xx.c:tfa98xx_i2c_probe() {
+    ...
+    gpiod_set_value_cansleep(reset_gpiod, 0);
+    ...
+}
+
+Because the device tree specifies GPIO_ACTIVE_HIGH, deasserting the logical
+reset (setting to 0) will drive the physical pin LOW. If the hardware actua=
+lly
+expects a physical HIGH signal to operate, this active-high configuration w=
+ill
+cause the subsequent I2C probe to fail.
+
+> +		#sound-dai-cells =3D <0>;
+> +	};
+>  };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-tfa98xx-up=
-stream-v1-0-4dd55cdd658a@ixit.cz?part=3D2
+stream-v1-0-4dd55cdd658a@ixit.cz?part=3D3
