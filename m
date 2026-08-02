@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D499739891D
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 11:22:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AE63009D6
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 11:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785669755; cv=none; b=aZ3vnnkmHCEHgItcBHAoqi4ysbHNdI8xYQMMScJ25HKr2gaqMwp6ui9BigzfM1oGvV3UGx0CxE1qf56IGGIdXCcaLojPJ4prB+kxsCIqZDzlxpOUQWLTuKaLjXF1y0UIjo+tOED4NRQcJS5HfAUBgBJCHUf9j64bT32KAMAQzxM=
+	t=1785669756; cv=none; b=ABJ7VH41CYZON8g9z3vEYPuB+5/gSI6w7+OCvfizIejsSKnRflZGbMyYBlxmwZXl5yHHlNWOtojlOhkQt8uD+mEGgDt3mg1qRdbNZFUI2zCbBCEE1b3qQMhAmjd0D+5h5cssTp5vguT/kpvwu3i8Qim4d0Xdy95/4UHeLlwEuzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785669755; c=relaxed/simple;
-	bh=yYzbmiFSg6m0gNGW0DRXq69otdCI1NVQgrgtl0wIOXo=;
+	s=arc-20240116; t=1785669756; c=relaxed/simple;
+	bh=QaHfpScgQdgKFA3Th+It5w+59edDPLk+LeUELiBRdzQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GSE1dCHcRQZVeJae6QXNAxvhOIpOj6LlMTNim0DqTTVYyTUHwScoK/T9Ud5CaMOwuIzUY9kyTW/TWUJLVGEtPKSB48/4jvq5iCuRtuVHhiP5TrgGlUqHlLBFerxQTSK5wSOpqsF8ae6n26xqIfI1kCgGpTbi0/9vXvLlv57DVIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kq+Pe68c; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hRf1VKdNiFf1q7rV/WtEzuOEw5358PJC4BEntRDkDDCDKkhHd1tJkITWSf99GWl7Ck9xuN7ZGYvYPZs3XtHv1SHczgHQ8p3O+10lPCTGe26FMtT1V/ZEkW9wJiWsF9+js/Pne7LP6pju2aEKjjFAlc7x2kyXBQ6nQ5VqsSMYYwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FtwwcCeL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kq+Pe68c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 374711F00A3D;
-	Sun,  2 Aug 2026 11:22:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FtwwcCeL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C721F000E9;
+	Sun,  2 Aug 2026 11:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785669753;
-	bh=32kps7OxFkQQgpEaZ/4NIbNnhi7wqPHatkpgy6/FM+k=;
+	s=k20260515; t=1785669754;
+	bh=q+L7Db/3O2HnIYG9vUGp80ZgM+5yhje1NeMtzR6x+nY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kq+Pe68c9LCGpAZADx55Rm6DBiVRokLuLG6e7ZiOb/7ce8cnemqcZUSgepjBVtJis
-	 oggBsjDfiU0yf7zlmdRZXBXtSGfpFw+wCWph5dlEqJV8Zh4LMBWdF//E75/qyUbzrQ
-	 9JfvSXEIDGT3nW8FVA2XKUStiSs2MIowy3pUNV+RbmIJtgD0dbeWSuaQ4ymiu4UUSc
-	 DIA/cVlayxRRjCjhwav4vGszgbkRO9X4L1LFX5jX82H6DVgMWdpkW4q0zku0eM5d5w
-	 X1M1Inr+QLvh/nywecFTvCt9z/5C8tGerkZwFABMQyP2UR4NmVPpQxa3Kky2ndaJgc
-	 G/3fwt/QXANBQ==
+	b=FtwwcCeLbKed2S+d2UZyQEwqs09+ljWNxr86QWTetJZ61Y3cvqKH08I4BQSGe8bnQ
+	 znVi3pClLDwzLNRxyyqtJL9VVMU59ISPn7vsiGbeL0WoOfFsjBufns9HFrBeOqFPBq
+	 dyKPaHawZqetdFJiOGNcC5JbqPScBVfk4wkfT180cEurTPsLl5ogmeKhWnTTjwsaiT
+	 ikHOV4PCHEEv366NJCZxhaCD5BrdjDxYNBVV/v2BMxZZp/2MUN0ljVa1VQyT9golsA
+	 p2rKJzH/Yapxs+Ztz0CRopBePk44RLrk0SmJqbii9wLyxSfgJUFu2xX5JEkbvB6Ttx
+	 tIcIQQd5G6mEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 05/25] dt-bindings: clock: mediatek: regroup MT8188
+Subject: Re: [PATCH v5 06/25] dt-bindings: clock: mediatek: regroup MT8192
  dt-bindings into MT8186
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260801-mt8189-clocks-system-base-v5-5-ac4410697cc2@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260801-mt8189-clocks-system-base-v5-6-ac4410697cc2@collabora.com>
 References: <20260801-mt8189-clocks-system-base-v5-0-ac4410697cc2@collabora.com>
- <20260801-mt8189-clocks-system-base-v5-5-ac4410697cc2@collabora.com>
+ <20260801-mt8189-clocks-system-base-v5-6-ac4410697cc2@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 11:22:32 +0000
-Message-Id: <20260802112233.374711F00A3D@smtp.kernel.org>
+Date: Sun, 02 Aug 2026 11:22:33 +0000
+Message-Id: <20260802112234.36C721F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,81 +47,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `allOf` conditional block incorrectly uses `enum` instead of=
- `contains: enum` to match `compatible` strings, breaking schema validation=
- for MT8188 nodes that require `#reset-cells`.
+- [Medium] The `allOf` conditional block in `mediatek,mt8186-clock.yaml` in=
+correctly uses `enum` directly on the `compatible` property instead of `con=
+tains: enum:`, breaking device tree schema validation for MT8188 hardware v=
+ariants.
 --
 
---- Patch [5]: [PATCH v5 05/25] dt-bindings: clock: mediatek: regroup MT818=
-8 dt-bindings into MT8186 ---
-commit 504c0ed21eb6420741b43bf9c5aae33308e93b7b
+--- Patch [6]: [PATCH v5 06/25] dt-bindings: clock: mediatek: regroup MT819=
+2 dt-bindings into MT8186 ---
+commit 06947e98086d9925a384efecc6b70a1f4b24045a
 Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-dt-bindings: clock: mediatek: regroup MT8188 dt-bindings into MT8186
+    dt-bindings: clock: mediatek: regroup MT8192 dt-bindings into MT8186
 
-This commit merges the MT8188 clock and system clock device tree bindings
-into the existing MT8186 schema files. It aims to ease maintainability by
-having common files for SoCs with similar clock controller designs.
+This commit regroups the MT8192 functional and system clock bindings into
+the MT8186 binding files. It consolidates similar clock controller designs
+to ease maintainability.
 
 > diff --git a/Documentation/devicetree/bindings/clock/mediatek,mt8186-cloc=
 k.yaml b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
+> index 0bc2da60a6016..b5988d122e4dd 100644
 > --- a/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
 > +++ b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
-
+> @@ -58,6 +58,26 @@ properties:
+>            - mediatek,mt8188-vencsys
+>            - mediatek,mt8188-wpesys
+>            - mediatek,mt8188-wpesys-vpp0
+> +          - mediatek,mt8192-camsys
+> +          - mediatek,mt8192-camsys_rawa
 [ ... ]
-
-> @@ -42,11 +65,36 @@ properties:
->    '#clock-cells':
->      const: 1
+> +          - mediatek,mt8192-vdecsys_soc
+> +          - mediatek,mt8192-vdecsys
+> +          - mediatek,mt8192-vencsys
 > =20
-> +  '#reset-cells':
-> +    const: 1
-> +
->  required:
->    - compatible
->    - reg
->    - '#clock-cells'
-> =20
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
+>    reg:
+>      maxItems: 1
 
 [Severity: Medium]
-Does this compatible match logic need a "contains:" keyword?
+Does this file's allOf block incorrectly evaluate the compatible strings?
 
-Since the compatible property is evaluated as a string array, matching a li=
-st
-of scalar strings directly against it without "contains:" will always evalu=
-ate
-to false.
+Looking further down in the same file:
 
-Without "contains:", does this mean the schema will skip the "then" branch
-and incorrectly apply the "else" branch ('#reset-cells': false) to all MT81=
-88
-nodes, causing correct device trees to fail dtbs_check and allowing incompl=
-ete
-ones to pass?
+Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml:allOf:
+  allOf:
+    - if:
+        properties:
+          compatible:
+            enum:
+              - mediatek,mt8188-camsys-rawa
 
-> +            - mediatek,mt8188-camsys-rawa
-> +            - mediatek,mt8188-camsys-rawb
-> +            - mediatek,mt8188-camsys-yuva
-> +            - mediatek,mt8188-camsys-yuvb
-> +            - mediatek,mt8188-imgsys-wpe1
-> +            - mediatek,mt8188-imgsys-wpe2
-> +            - mediatek,mt8188-imgsys-wpe3
-> +            - mediatek,mt8188-imgsys1-dip-nr
-> +            - mediatek,mt8188-imgsys1-dip-top
-> +            - mediatek,mt8188-ipesys
-> +    then:
-> +      required:
-> +        - '#reset-cells'
-> +    else:
-> +      properties:
-> +        '#reset-cells': false
-> +
+Because the compatible property is evaluated as an array in Device Tree sch=
+emas,
+does using enum directly instead of contains: enum: cause the if condition
+to always evaluate to false?
+
+If it fails to match the array, it appears validation falls through to the
+else block, incorrectly enforcing '#reset-cells': false for MT8188 device n=
+odes
+that actually require resets.
+
+Should this use contains: enum: instead to properly validate the hardware
+variants?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801-mt8189-clo=
-cks-system-base-v5-0-ac4410697cc2@collabora.com?part=3D5
+cks-system-base-v5-0-ac4410697cc2@collabora.com?part=3D6
