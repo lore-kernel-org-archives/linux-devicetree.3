@@ -1,116 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A79B36C0AB;
-	Sun,  2 Aug 2026 06:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813D42C11E2;
+	Sun,  2 Aug 2026 06:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785652812; cv=none; b=cXi1pAztGCShbR2d8rgJFO/DbXdHhu9q1rT2lzdKx1A8imsyGHupPy6+s0uuG76rXo2j4QyhGaVerMKrUynBxCyYjaq3ciP9l1MgTrG7iQzKaCAN8rhOdPfVB5fxh7JoYJtGSojgvSiWGtpk0d6oAO286qnS58ImiPbTZEWcOuA=
+	t=1785653272; cv=none; b=R86eid5v03E5D6iXfQtnKtWKDH3L8pl3LreihdktbCd9KoiVhwR+cNqSsSZtm/QxBDk7UqikLLQGpr5P8Nv2N8TovDQMF4u3wNdgUO9VBja/uxjHmxIotmguLwVKJFtZb8pucLtegfW5bftIrPD4+3+7ZLVZtvhHhA7dhXk9x4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785652812; c=relaxed/simple;
-	bh=In5rCKNTa55tl3GwmLgLp4Wwbw3pKVv4bNBORL90G7Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iffi4nAo2rUWYR6AKS6BPSl1Tblk85BbYWVK/vDqRXfe9EyAYs5N/0lTndpjNXaEe1S7zlbmU68nqOXLHsLA3nO2EBfjEoB1iSsB4qht0E8QpKAKGWUMcju7M8dIiRRECKzR8km6VtFJAtU/jO70S/uoLLX7ACD2Lb+oOx8rhWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IzTw0wsZ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785653272; c=relaxed/simple;
+	bh=SBQRFcrBpdAwXQXYx355w+v2AgYgQvanSpIEWH+ofl4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KE8noeOpRw8BAmv88oRNA8h/OjYltljvHq92+OeUrn6mDTSyAhqaCjMvK4C/itbLXpwnkdfmLPh7S2ry/rPFGLCbFM0HnfSwWi7Ys6h6iqEKYEJhPiKi1c7IvKJ69YAxLH261SXNbLuvYL7Qoj53K+YQa/kIeOQzoWYkbP7t18g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zBg5ydY1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IzTw0wsZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 45ED6C19425;
-	Sun,  2 Aug 2026 06:40:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785652811;
-	bh=In5rCKNTa55tl3GwmLgLp4Wwbw3pKVv4bNBORL90G7Q=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=IzTw0wsZgcVixw8dFzV3DASwzTQ0NIfWr9Nw+Iff+quqyHCT+fLm2AkNrH+zVDuoJ
-	 vP50ZavPUg8qHO6Uhk4L9tBiZE3/9jI24a/qoDtH/fc5JvaSbQrqAZv+O3Vx7mVGtL
-	 Paw4GMWD4+aRdY44ENoaLHvbX18Sr+UTfpNJ0LtyFHaqGF44cvp4X2aZ6B5m5Qy6Qj
-	 Lcm6bMfLaXK4tZhYtJZCVNDtucOwdAjJMgQvL+YRT/RYVjA42IemxqQ66lGBDpjKH/
-	 dRUiSXIQx/KO2sTSYOcsZfvNK4aGh4Z+9/zQGe1n+55YxU4r4rhjuSVLIYIY3qtmbR
-	 HmswJOCKmiqTw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B4D2C55173;
-	Sun,  2 Aug 2026 06:40:11 +0000 (UTC)
-From: Esteban Urrutia via B4 Relay <devnull+esteuwu.proton.me@kernel.org>
-Date: Sun, 02 Aug 2026 02:39:55 -0400
-Subject: [PATCH v3] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible
- string for SM8475
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zBg5ydY1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9D01F00AC4;
+	Sun,  2 Aug 2026 06:47:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1785653269;
+	bh=d4tzf5OI2ty69S9e+u6dfdqhLKOYD2qDn1wkoiLc5Qc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=zBg5ydY1wX1rbPEx6zS4lr2WPZ2W6TAE2n5W74eqj8OznJjLOyuRL1cJ+Jk8PQPsA
+	 z0ip5R0D3rD1ro6ziNgVNsWEcoSkdYcjRlOW4oa2+Nqe2M7xo/UVBitf0P1zVriEga
+	 qrpPscuLwxtITkywEZWzQZNwwNUaHE++BFIW/LqM=
+Date: Sun, 2 Aug 2026 08:46:20 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>, Jyri Sarha <jyri.sarha@iki.fi>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jassi Brar <jassisinghbrar@gmail.com>, Lee Jones <lee@kernel.org>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>, Yangbo Lu <yangbo.lu@nxp.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Jens Wiklander <jenswi@kernel.org>,
+	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+	YC Hung <yc.hung@mediatek.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Sean Wang <sean.wang@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-arm-msm@vger.kernel.org, linux-ide@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+	linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
+	mfd@lists.linux.dev, linux-wireless@vger.kernel.org,
+	ath10k@lists.infradead.org, linux-pm@vger.kernel.org,
+	netdev@vger.kernel.org, linux-pwm@vger.kernel.org,
+	linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Correct white-space style
+Message-ID: <2026080211-marauding-twerp-1f8f@gregkh>
+References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-sm8475-pmic-glink-v3-1-45216e6ec572@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTQ7CIBQE4KsY1mLg9QfqynsYF5a+tqiFBirRN
- L27UDddGJeTzHwzE49OoyfH3UwcBu21NTFk+x1R/dV0SHUTMwEGJRNQUT/IXBR0HLSi3UObOy0
- EFmVbyQbqjMTd6LDVr9U8X77ZP+sbqilBqdFrP1n3Xk8DT71/fuCUUQXIq1Ioljd4Gp2drDkMS
- JIfYCNk/JcAUQAZxxVIbAG2wrIsH7TT1U8GAQAA
-X-Change-ID: 20260729-sm8475-pmic-glink-57e56f98d2b3
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- Esteban Urrutia <esteuwu@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785652809; l=1696;
- i=esteuwu@proton.me; s=20260622; h=from:subject:message-id;
- bh=tn2xH0fzQ/e6xT6kAD58wd7odc28IuNeh1bh7VNPiEQ=;
- b=e08RXdumGEVucO+Vc+5VdB5GOkbF64uTxGj6Kjc5KWzP2O2qAnY/d2BqgZVdaGIR2/0AN95oE
- pHTp6y+OnwKB1QmhPab8ixfMFDrvd5Yn6HgoNxLbXRGqHvA59zLZrpv
-X-Developer-Key: i=esteuwu@proton.me; a=ed25519;
- pk=wToFt4mOAWkzbqb15Ye1hrhevI13vK9BcMUFiQ/me1M=
-X-Endpoint-Received: by B4 Relay for esteuwu@proton.me/20260622 with
- auth_id=835
-X-Original-From: Esteban Urrutia <esteuwu@proton.me>
-Reply-To: esteuwu@proton.me
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-From: Esteban Urrutia <esteuwu@proton.me>
+On Sat, Aug 01, 2026 at 09:56:14PM +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues, like double space after '=' or before
+> bracket '{' characters, which will be flagged by dt-check-style.  No
+> functional changes.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Patch applies on Rob's for-next branch.
+> ---
+>  .../arm/firmware/linaro,optee-tz.yaml         |  8 +-
+>  .../devicetree/bindings/arm/psci.yaml         | 18 ++--
+>  .../bindings/arm/qcom,coresight-tnoc.yaml     |  2 +-
+>  .../devicetree/bindings/ata/st,ahci.yaml      | 22 ++---
+>  .../bindings/display/ti/ti,am65x-dss.yaml     | 12 +--
+>  .../bindings/display/ti/ti,j721e-dss.yaml     | 96 +++++++++----------
+>  .../bindings/display/ti/ti,k2g-dss.yaml       | 36 +++----
+>  .../bindings/dsp/mediatek,mt8195-dsp.yaml     |  2 +-
+>  .../bindings/gpio/st,nomadik-gpio.yaml        |  2 +-
+>  .../devicetree/bindings/i2c/st,sti-i2c.yaml   |  2 +-
+>  .../bindings/mailbox/st,sti-mailbox.yaml      |  2 +-
+>  .../bindings/mfd/maxim,max77620.yaml          |  2 +-
+>  .../bindings/net/wireless/qcom,ath10k.yaml    | 34 +++----
+>  .../devicetree/bindings/opp/opp-v2.yaml       | 28 +++---
+>  .../pinctrl/mediatek,mt7988-pinctrl.yaml      |  2 +-
+>  .../devicetree/bindings/ptp/fsl,ptp.yaml      | 12 +--
+>  .../devicetree/bindings/pwm/pwm-sifive.yaml   |  2 +-
+>  .../bindings/usb/ti,twl4030-usb.yaml          |  2 +-
+>  18 files changed, 142 insertions(+), 142 deletions(-)
 
-SM8475 is compatible with SM8450 with respect to pmic-glink support.
-Add a compatible string for SM8475 using SM8450 as a fallback.
-
-Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
----
-This series adds a compatible string for pmic-glink in SM8475 in
-dt-bindings using SM8450 as a fallback to provide support for it.
----
-Changes in v3:
-- Drop patch modifying ucsi_glink (redundant)
-  - Use SM8450 compatible as a fallback instead
-- Link to v2: https://patch.msgid.link/20260731-sm8475-pmic-glink-v2-0-28c04928ef22@proton.me
-
-Changes in v2:
-- Apply suggestions from Krzysztof
-- Link to v1: https://patch.msgid.link/20260729-sm8475-pmic-glink-v1-0-c2e1967c04de@proton.me
----
- Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-index 16ad4f5698fc..d4478d9b3212 100644
---- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-+++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-@@ -43,6 +43,11 @@ properties:
-               - qcom,sm7325-pmic-glink
-           - const: qcom,qcm6490-pmic-glink
-           - const: qcom,pmic-glink
-+      - items:
-+          - enum:
-+              - qcom,sm8475-pmic-glink
-+          - const: qcom,sm8450-pmic-glink
-+          - const: qcom,pmic-glink
-       - items:
-           - enum:
-               - qcom,eliza-pmic-glink
-
----
-base-commit: 415606a7be939835db9b0d6b711887586646346d
-change-id: 20260729-sm8475-pmic-glink-57e56f98d2b3
-
-Best regards,
---  
-Esteban Urrutia <esteuwu@proton.me>
-
-
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
