@@ -1,62 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DBA2264C7;
-	Sun,  2 Aug 2026 18:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175542F8EB7
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 18:25:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785693869; cv=none; b=hbIrZnrU5gidQ1BfvR032Fv5PzLhXWm7p0CXSaf9/cC3g2NATDVLvZhJzv8xWHLG/IES/cWgxQ2eDAfbu9nmAUzwjn/Mz8+GnGXxFIZnn+iauGFKTc4MlSNkc0Ucm7zH3yqv7TVB7L3h+ovNmFu5IJuJIl6kjXtvrNf8WvBsRzo=
+	t=1785695157; cv=none; b=m4X//rvqALtDKT+aWVsjsZ/PC6chj9ls2KIdvKa6rpA8mFKWavWi58E2ozoIAaDTL7YH2c/dSzQOX1MNKHpmLP0pCG+35CFF7mWZzDWbTOkTuaniCy82bcWLXQpiiCW/Frx6A8m1JbIKxW4XpV38nEuz+TYC8zviuiCzm9EF+e4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785693869; c=relaxed/simple;
-	bh=zmeFDNgD2J7sJiGEpm404uH+UGsAjIgFL64F50ar1Jw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P0P6+t5i1rYCnCrbHQl3NUZbVMb5vqkFl/PX7g1doS30pvZvsbKivkpvY2KzZbDCFho97Z+MsWwq5EPi6OI9XsDc5Ncj8mFrIxEgHETb1Mq7BcoGfBuSdc+9y5UPrPvoI0F4H1xDmO9MY62qGyFr+UgEhQiKt42qHE1phxTHjD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K45mERq2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785695157; c=relaxed/simple;
+	bh=miFaafVCXNwSq+nl8Kau8j0yfw0gqzbw8XlRunQpNTg=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=WhJYv+tMeUCWmI3nOI+HjqOEMSluR+WsJ88Jvag46hFsa6fUcO3w1FmpcuQdP+cool73i7uFspaLJZGq5RZETIU+wEMi2BQPsjxNtdm5I8Ng2+/uNDHEKl+GPrTakRxdOx8QD6rzjkT4CtWWcu8r/yJ8IiTuLwPj1g2BhHYcmS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N/qVa73x; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K45mERq2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F52C1F000E9;
-	Sun,  2 Aug 2026 18:04:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785693867;
-	bh=h+dDAtKfMnCAQZ4l+j52+VXsmQL9O1xV9kYcHsWbKtQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K45mERq2ovowhITJmeuhjKttKAlF55qFb9pj6Tg8MpGzhGmFewN+4j/8SgjU5uDBf
-	 7mhJ2Qn0Fp+2XxSI8w6oaraLhLwfkwkB1c56FpoHIDQLDyXH3NQRzXMh/LUqEXD/pf
-	 5GmbBwZGf+mPY1lY/gEtAu+vFdgYAbsB4vddfbQlmgcO0+eCyGWycj8YdiJD5xFhQX
-	 E6bDy340HAwyi2gxP1vjPEkoHT4cxIj0Wj/AvbpuILoa37FCKaFTsznMDX2c9AibAV
-	 KIcvtLsQMLotTXU6vnufIwXqaY9Gcg/LZRT8VNNcZtG3hR2B1KS+aMnIVR7A40VnZo
-	 QNA0AYIKNtDVQ==
-Date: Sun, 2 Aug 2026 19:04:23 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Maxwell Doose <maxwell@maxwelld.cc>
-Cc: Tomasz Duszynski <tduszyns@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org (open list), linux-iio@vger.kernel.org (open
- list:IIO SUBSYSTEM AND DRIVERS), devicetree@vger.kernel.org (open list:OPEN
- FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Subject: Re: [PATCH v2] iio: Update email for Maxwell Doose
-Message-ID: <20260802190423.548a98b7@jic23-huawei>
-In-Reply-To: <20260731213911.444306-1-maxwell@maxwelld.cc>
-References: <20260731213911.444306-1-maxwell@maxwelld.cc>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N/qVa73x"
+Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2cc80544c74so7550855ad.0
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 11:25:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785695155; x=1786299955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=F7s3GZYSnT0cjOvsmd+6nT8896EOTxni+8aCua2o/oc=;
+        b=N/qVa73xU8RNQ3mmC9UYKsojEB88PfmggNYXMEHeaxME238RDYfVWkUEk97kfb+RYU
+         84U04adTYm2THkZRZk9biZR9I6AXLfjfok48qNMD2f1Ob522Wvly4t6/nsUpnDElQOv3
+         qhIGqw8YOm7wDp4enivkP3rVXSeGLxOZEkhqmMxgxDDUX6PtOcdpFTTsdftTlD9wyxiw
+         n7UkbGd4TUi4c9qozeCWEyl7Y4LdIZe+iIR0D5HZgXu0mEEpOsVAlF+5R1L9tJdRENd5
+         J4R31vcmPCee7hJw5XME4zEorEvpen/KtZzNLjCFJ5XXeekLocv2bJtLHJsg1YLHe+FD
+         5KbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785695155; x=1786299955;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F7s3GZYSnT0cjOvsmd+6nT8896EOTxni+8aCua2o/oc=;
+        b=frVbZXlKoGVuTQxmlqP5cXEjttHHkXqFCMvF/jWzYh1f8WwUE5feA5dCNb8oEvUlCU
+         o/heE5cGZ3aUOki4Jjc3mP+zbqh31TLY/G5cFgSZl3gHLNVM/A2DyZrN57nxX2vcyW7B
+         KSI7b7V6gEYwzdF9ZRz+v3WbAFzowSHuvIxAzBn9xAFKPvgHqPPGkSy2sJJnoHqLbWMs
+         2aJraqV5wczsDZqNMANbNKrwuBXmzHqVR/PYd2pzRrJ+vXOjt+pe2+fHezso/BF/Jsqt
+         bL3zj0k7+XY6X4gp+g99R5RKzqoQsSknRwxBzaFKs0vDZAm2ELtcShjE57SNbcvO7hxc
+         KbBg==
+X-Forwarded-Encrypted: i=1; AHgh+RpxP+VI8hjNV6JzT7VPFyPLZm4lQqUnDvkyaFG4ipLyq9OpG46ClPcRsZLB6/aWw+hqATlUENIzkNRw@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYuk/Uka7FOeR5mpC8RmaZGZEIOtMKvXLHmWshdpXp8/7bE8sg
+	otqh+7oshKSTZhMKtquIdxKgAKkWNIe9ybOnVHIkla/IoeqTqbo1V9pb
+X-Gm-Gg: AR+sD11PaxffVsQh3PCV5Ps7hXUQor/aELl74aHe289eaigg3nMgmbnIaqT9TNJopVV
+	bE/lb6MOyPinR0kmxj5cvWl4Bx9NU+qGU6e/DIjf8eBzk/v5jMu7ggi/OAwMU9NMFnZkrs5ug/x
+	ZCH6e+ycE1by4D2NuFIkSGbCoL/e4RHTkSj0l0NV/vsK//4hR/tIgASvUBGNyI1eOTRB7RLYdek
+	GBaQ4SCXrd9crgAab5Pi0Ppu+Rle34LvTI8OZgmtdoAG2I593Cyv8uTA3Ef05+fpVCi/C1VaEkD
+	TWGkhjeLOzYZEzO4vJ/E9y1fUyUf5UqnDdwS/9WehftNUmWhtjo0aOOJ2RooZhGG6ETGw8L/SXk
+	82BSH2JDz8LmFeqJCtfkMIfud5/32A86nOsku+Gc9G8ouFhNtdd59Ai+mEaK5iMXUimvlPiyg5P
+	Fe9UVMenCK9pLxv8BwVVKeX7Qp3LvIAzWuudTm4CXaOD/Om5wZ2XlEbNT4EftwsRnR
+X-Received: by 2002:a17:903:b4b:b0:2cc:dacc:fe27 with SMTP id d9443c01a7336-2d0522984dbmr69929465ad.30.1785695155310;
+        Sun, 02 Aug 2026 11:25:55 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2401:5a0:1000:10:233::14])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04b0eb7b7sm27443245ad.39.2026.08.02.11.25.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 02 Aug 2026 11:25:54 -0700 (PDT)
+Date: Mon, 03 Aug 2026 02:25:45 +0800
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
+ David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org, Jiawen Wu <jiawenwu@trustnetic.com>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_06/10=5D_net=3A_pcs=3A_xpcs=3A_add_?=
+ =?US-ASCII?Q?ANRESTART_support_for_SGMII_link_recovery?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <2886b24e-1c3d-48f7-8b22-9620fa0404f7@lunn.ch>
+References: <20260801142244.679437-2-coiaprant@gmail.com> <20260801142244.679437-8-coiaprant@gmail.com> <cfddb747-11d0-476d-8402-e0886cca582e@lunn.ch> <CALj3r0i1TCTgvm8FrJAJqmZgoJp61NCxc_xmVYaDFd-gh4H=7w@mail.gmail.com> <2886b24e-1c3d-48f7-8b22-9620fa0404f7@lunn.ch>
+Message-ID: <2E676CD9-82F3-404A-B24D-27679042783B@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 31 Jul 2026 16:39:11 -0500
-Maxwell Doose <maxwell@maxwelld.cc> wrote:
+On August 2, 2026 10:30:52 PM GMT+08:00, Andrew Lunn <andrew@lunn=2Ech> wro=
+te:
+>On Sun, Aug 02, 2026 at 11:11:40AM +0800, Coia Prant wrote:
+>> Hi Andrew,
+>>=20
+>> Thanks for the careful review=2E
+>>=20
+>> > This probably needs more wide spread testing=2E I would be afraid tha=
+t
+>> > if you kick off an AN cycle, you loose the link until it completes?
+>> > You would of noticed that on your hardware, but other hardware
+>> > obviously behaves differently=2E=2E=2E
+>>=20
+>> The trigger condition is: link is down AND an_complete is set=2E
+>
+>Ah, i missed the "link is down" check=2E That makes it safer=2E
+>
+>I still find it interesting that this devices is different=2E Has the
+>silicon vendor done the integration of the licensed IP wrong?
+>
+>> Regarding testing:
+>> - Jiawen Wu has tested this on Wangxun NICs and reported no regression
+>>   (Tested-by tag included in the patch)=2E
+>
+>Probably Maxime will test on the platform he has, but i don't know if
+>any use the XPCS=2E
+>
+>	Andrew
 
-> I'm transitioning to a new email, add mapping and update MAINTAINERS
-> entries to keep email up to date.
-> 
-> Signed-off-by: Maxwell Doose <maxwell@maxwelld.cc>
-Applied, thanks.
+Hi Andrew,
 
-J
+Thanks for the follow-up=2E
+
+Honestly, I'm not sure why the RK3568 XPCS behaves this way=2E I don't hav=
+e
+other DW XPCS hardware to compare against, so I can't say whether this is
+a silicon integration quirk or something else=2E
+
+What I can confirm is that on RK3568, the PCS does not restart AN
+automatically when the link drops and comes back=2E Without this ANRESTART
+change, the link stays dead forever=2E
+
+I agree that wider testing is needed=2E If Maxime or anyone else finds a
+regression on other hardware, we can revisit and condition it with a
+platform-specific flag=2E For now, the change is limited to the SGMII
+recovery path with a safe condition (link down + an_complete), so the
+risk should be minimal=2E
+
+Thanks,
+Coia
