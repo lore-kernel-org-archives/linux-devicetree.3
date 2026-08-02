@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86973988F8
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 11:22:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FE93ACA65
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 11:22:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785669759; cv=none; b=jxqvcIPvnyUUNFqHmEx1mHpfryKo5JH01rFO3r0hIqcusWcmeXfKuczOus052RKrL8WuuNQcL+SQHBqWhw3mogXo/JXUNdOyKsCl37FnCTsd0THRmHtwR/GT9OxZfhm/+jgPdlxpkdGL5gMGg+5tjvahdO6I1FRgIQWQkPmJhzo=
+	t=1785669760; cv=none; b=IWqjX6oVdzLukuUbiIy5DiHiqWibtIN9ZouPDafptAg0vUcAchFD4jd94xlWVUyNDyHD0dr6edyDrPUB1ru5izrdHxFLfohtKHPrGDi1gghPrzcyaS/KYAkNDtpMdA3emva7UA93erexX4DrO1c7BblfBl+3qKuQ4QnP3YM6M4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785669759; c=relaxed/simple;
-	bh=WHuDjGRiI1+nmhiCfHjQ34EfMC3vItGcKt3Stb1aMXw=;
+	s=arc-20240116; t=1785669760; c=relaxed/simple;
+	bh=9j/bkdYfEdKR4V+KC1RCl9cUsc7jG2SaprT76Q0rlIA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=T2OG3zuCdRPYh5qIJ6rFiYPrYxwG4Ju1dvuafPew2PrSC7lhwkDIc0pO9UssGE0RepAv1AK40ZWqETOeIuhOL+fIEvkNmCuM14Su5RyojBYA1CeThZeyNO4LcrgA7USNTbFtRqFV00U3Jvy9thLf3UCGUICY5DNC30OI6efrJlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvYApa92; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Gt8XkeMPtB+3MaF4qKeyaDujzwMM1UFCFh+RJNcOLF7OgAllxGGKqYHEfy5ZtcIQ3+JHRXCYJf99HZsORMQmSmEzpqU991xgsdl++JrtUYsLnCvV+Gu22FMy749E5MU9YuTLwhUTcPxo3NP4FUM+lQ+MzLSGpR8fE+50/unpWxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSG8PNBW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvYApa92"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387A01F000E9;
-	Sun,  2 Aug 2026 11:22:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSG8PNBW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FD41F00A3E;
+	Sun,  2 Aug 2026 11:22:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785669757;
-	bh=ZzMs/vvTg0TD6IZ8Cilsl74TOXd5excCRGUIJSo0lYg=;
+	s=k20260515; t=1785669758;
+	bh=Jht/k0t/lwD2X1xbCObD/9lhHnsH9Z6bfTRpCLEwWUQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DvYApa92MIBVgZAi02k8vmvaG+qC6hLKsQ/GfME7O0Yvy9/ZKQ/ELn4r4QyXvv+5Q
-	 WTcSV3RWGo+Y4UIgr+eg6UeiCM2CUdIqbAMqtQy9HHUf2ny/H8hsr3d8YYlTfNtB5J
-	 YocjKrgrtXhcbTR9OCl8Vhbm0J7pldq87cwP5wmhb9HMxpX2pjT/mYOGkCogZyOA+M
-	 cKM+5cVTipP/3Ps564hiK1WZFRMykRGNdNlOxvdmTBWPunO+U+ScgFaR0x58MXg1oO
-	 bt21Qr2lWysCI+es1TE9Ga4Krf9rcJkNcMVGSzA/Gz80Qw6LoTmgi1BFM1n55EcONr
-	 bJ2MkZrR+Bp+A==
+	b=lSG8PNBWBAkzR4PLUyqlz8fjnQH1IEPRXLTRbb7Y7yWCRFT4pUEmljmh4xr2eZhGp
+	 sQFjVXguHDJvuwkIe/TZMsVQfmWv0iPvFGVbK8uk/oY61OLvoUTYQVEKq9CRMYYnS8
+	 3J0vRrsyTck6WqkZBfPrOwUbrHUKiAHOtiKMNuAEYl1N7PyLPqfoBTgEEzQ+hKS5bk
+	 SoE2xvgnI5BqxCxGCQkeV2CL5bfPwkE8wsl3i8iG9+JyPe5BRqrjSpmh+2yVYgBEiW
+	 uSW8pcf0v2OE2V9DyqvrVzGSIPU8A7b7GV0WbEpSyzFHB9fFuhe3wzFPqDA0WSMWBX
+	 XfkWBduyMxzeQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 17/25] clk: mediatek: Add MT8189 topckgen clock
- support
+Subject: Re: [PATCH v5 24/25] clk: mediatek: Add MT8189 scp clock support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260801-mt8189-clocks-system-base-v5-17-ac4410697cc2@collabora.com>
+In-Reply-To: <20260801-mt8189-clocks-system-base-v5-24-ac4410697cc2@collabora.com>
 References: <20260801-mt8189-clocks-system-base-v5-0-ac4410697cc2@collabora.com>
- <20260801-mt8189-clocks-system-base-v5-17-ac4410697cc2@collabora.com>
+ <20260801-mt8189-clocks-system-base-v5-24-ac4410697cc2@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 11:22:36 +0000
-Message-Id: <20260802112237.387A01F000E9@smtp.kernel.org>
+Date: Sun, 02 Aug 2026 11:22:37 +0000
+Message-Id: <20260802112238.38FD41F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,82 +46,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Use-After-Free occurs on the probe error path due to a lifecycle m=
-ismatch between manually unregistered clocks and devres-managed clock notif=
-iers.
+
+Pre-existing issues:
+- [High] The clock provider is not unregistered when `mtk_register_reset_co=
+ntroller_with_dev()` fails, leading to a Use-After-Free.
 --
 
---- Patch [17]: [PATCH v5 17/25] clk: mediatek: Add MT8189 topckgen clock s=
-upport ---
-commit 7ad0ff152f786ba34328391087a43e6c3c80dd0b
+--- Patch [24]: [PATCH v5 24/25] clk: mediatek: Add MT8189 scp clock suppor=
+t ---
+commit cfb69aff7b6d0acebfb8964210288168aecca4f1
 Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-clk: mediatek: Add MT8189 topckgen clock support
-   =20
-Add support for the MT8189 topckgen clock controller, which provides
-muxes and dividers for clock selection in other IP blocks.
+clk: mediatek: Add MT8189 scp clock support
 
-> diff --git a/drivers/clk/mediatek/clk-mt8189-topckgen.c b/drivers/clk/med=
-iatek/clk-mt8189-topckgen.c
+Add support for the MT8189 scp clock controller, which provides
+clock gate control for System Control Processor.
+
+> diff --git a/drivers/clk/mediatek/clk-mt8189-scp.c b/drivers/clk/mediatek=
+/clk-mt8189-scp.c
 > new file mode 100644
-> index 0000000000000..f25c0711512c4
+> index 0000000000000..75197cd98b521
 > --- /dev/null
-> +++ b/drivers/clk/mediatek/clk-mt8189-topckgen.c
-
+> +++ b/drivers/clk/mediatek/clk-mt8189-scp.c
 [ ... ]
-
-> +/* Register mux notifier for MFG mux */
-> +static int clk_mt8189_reg_mfg_mux_notifier(struct device *dev,
-> +					   struct clk *clk)
-> +{
-> +	struct mtk_mux_nb *mfg_mux_nb;
+> +static const struct of_device_id of_match_clk_mt8189_scp[] =3D {
+> +	{ .compatible =3D "mediatek,mt8189-scp-clk", .data =3D &scp_mcd },
+> +	{ .compatible =3D "mediatek,mt8189-scp-i2c-clk", .data =3D &scp_iic_mcd=
+ },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_scp);
 > +
-> +	mfg_mux_nb =3D devm_kzalloc(dev, sizeof(*mfg_mux_nb), GFP_KERNEL);
-> +	if (!mfg_mux_nb)
-> +		return -ENOMEM;
-> +
-> +	mfg_mux_nb->ops =3D &mtk_mux_clr_set_upd_ops;
-> +	mfg_mux_nb->bypass_index =3D 0; /* Bypass to CLK_TOP_MFG_REF_SEL */
-> +
-> +	return devm_mtk_clk_mux_notifier_register(dev, clk, mfg_mux_nb);
+> +static struct platform_driver clk_mt8189_scp_drv =3D {
+> +	.probe =3D mtk_clk_simple_probe,
 
 [Severity: High]
-Can this devres-managed registration cause a use-after-free if probe fails?
+This is a pre-existing issue, but I noticed this driver relies on
+mtk_clk_simple_probe(), which appears to have a use-after-free on its error
+path.
 
-During probe, if a later step (like of_clk_add_hw_provider) fails in
-__mtk_clk_simple_probe(), the error path manually unregisters and frees all
-clocks before returning:
+In drivers/clk/mediatek/clk-mtk.c:__mtk_clk_simple_probe(), the clock
+provider is registered via of_clk_add_hw_provider(). If the subsequent reset
+controller registration fails, the code jumps to unregister_clks:
 
-drivers/clk/mediatek/clk-mtk.c:__mtk_clk_simple_probe() {
-    ...
-unregister_muxes:
-	if (mcd->mux_clks)
-		mtk_clk_unregister_muxes(mcd->mux_clks,
-					 mcd->num_mux_clks, clk_data);
-    ...
-}
+	r =3D mtk_register_reset_controller_with_dev(&pdev->dev,
+						   mcd->rst_desc);
+	if (r)
+		goto unregister_clks;
 
-After the error is returned, the driver core cleans up devres allocations,
-which invokes clk_notifier_unregister() with the now-freed clk pointer. This
-dereferences the freed pointer:
+The cleanup path then frees clk_data without unregistering the clock provid=
+er
+first:
 
-drivers/clk/clk.c:clk_notifier_unregister() {
-    ...
-	list_for_each_entry(cn, &clk_notifier_list, node) {
-		if (cn->clk =3D=3D clk) {
-			ret =3D srcu_notifier_chain_unregister(&cn->notifier_head, nb);
+unregister_clks:
+	mtk_clk_unregister_gates(mcd->clks, mcd->num_clks, clk_data);
+free_data:
+	mtk_free_clk_data(clk_data);
 
-			clk->core->notifier_count--;
-    ...
-}
+Because of_clk_del_provider() is never called on this error path, the OF
+provider list retains a dangling pointer to the freed clk_data. Could a
+subsequent clk_get() that matches this provider's device node dereference
+the freed memory?
 
-Should this notifier be manually unregistered on the error path before the
-clocks are freed, instead of relying on devres?
-
-> +}
-
-[ ... ]
+> +	.remove =3D mtk_clk_simple_remove,
+> +	.driver =3D {
+> +		.name =3D "clk-mt8189-scp",
+> +		.of_match_table =3D of_match_clk_mt8189_scp,
+> +	},
+> +};
+> +module_platform_driver(clk_mt8189_scp_drv);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801-mt8189-clo=
-cks-system-base-v5-0-ac4410697cc2@collabora.com?part=3D17
+cks-system-base-v5-0-ac4410697cc2@collabora.com?part=3D24
