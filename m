@@ -1,120 +1,85 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EC624336D;
-	Sun,  2 Aug 2026 01:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE021DE4FB;
+	Sun,  2 Aug 2026 01:31:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785634200; cv=none; b=j7+zPPTSvyBm/r1xt+kAdX4hQ4PCR0VV1VLXiFZK2Cd0SGaMZ6f7/60XLqXNxQ3QjK9Bv2U9IX1uzl3BPf8xd5Po8Xi2zIuqX3bm++DX+DUyXXkZVtmIWcIh1dT+BBy/4B7JTcyk+cG/M+JxDqtbGXNK7FDrPy7uKH5tx0ggT5E=
+	t=1785634264; cv=none; b=Rmp6qYpOy8L3XbtXyDhkLP+c45KZ/dQEbviIjq6/yW2PDJ9BKgUuw7y1jx17NM8GwJdPT0yyMjml3UVNTvtTuI+uR8W78VdG4eAqnL4VnNuRTXk81sfGnTdMWIFOdn8zNm+qFRb4fglJv4ZG1RlkGJ7aEEYD8wuqGkOmHLlJPjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785634200; c=relaxed/simple;
-	bh=rH2aKSraH0c44uXQZT/STPiMl0tqHrwnBGIAG375Pjo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JRKUMhun3aQyqdJRLOPRhIqtIMiBVASlamf6e76gfPkpQGWQ0P9feu41gQ1SDvioRxTiKceezVsRY2XVw/g0q5na57m4R93eTEV4lZCtW8Vnd8iCKtrHRUiyHlRKbz+3D/co87aDgDG254++xaj9Yz1KdlCCbtchRGlBa11lAVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=PB3BuyjW; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785634264; c=relaxed/simple;
+	bh=QiRMI7iOL6WknIFRoN15qOxJv2SIX8sIO5xw+RCivRk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ni6OuxJE3O1CSb83s/zbvHKd7i/TpseV/Vcg8O7VlWepEpNnyvBjjQnp07xWaWhrqCVhWBKTMFYlQOXPfm2hTkYGucpoLJ1h+TjhDw1HazoH6aZB3rYZ29ldSfh38ocmUkibc0dlVlMVua5Cpk/ofR5bZkNIBVb3MoGzo2Kryrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mikZ1883; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="PB3BuyjW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=i1U1AtcK16K4ZDhnzb8W6FriM/O+cMuIM/9uVsxCuh4=; b=PB3BuyjWCE4sq287tegfpOJ1UZ
-	tRhEngfMmVJI6x8qTAGVrvuonUtnZUxkDXvluNybitc/70r7DpcgZA0iXAjEJYDQJzohJBTf/vpi6
-	IC5FYvOuZZFWb5ZZSDTf/n4xEVDz4ZKN+hstQnN4p6Eiakd97zsIMgVnlbmKhlCirJcQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqL1D-00FRwx-29; Sun, 02 Aug 2026 03:29:35 +0200
-Date: Sun, 2 Aug 2026 03:29:35 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mikZ1883"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3D9C1F00AC4;
+	Sun,  2 Aug 2026 01:30:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785634263;
+	bh=kF/jmHcAj/bSIW3njrcjP3ttcfjXyFDEpBH1tBCyzRw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mikZ1883IUq3+1exW3KCr0FvI4UO2SWkwv5a7cduHXhtS3bE/4+wgIlm4qptjvf8x
+	 IsDyPOvxfeY1g5PWcpgtBHvLng83oEzf7crjSL5cv3mkmvky3o97JEb11sKzQawZEq
+	 tX+OVH8wcNGUVEcwd6FZyCEQ9y9qDwZU+TtB6l+4zrJQkf6RhqMM772jtD+RZpAP9p
+	 aUelbLWnFbTGJZJy43X8kxEWopdhpzQWQCPGAaxhxg/fYCEVaLPnRWbSBV0QXktOl9
+	 RSKmYr41TJ8t/18l5FM3XmsnD8fA6ANaoAwqDy5jHtX1ZMIxfde0V3zIknBsguPVmA
+	 ixo5dxGFbCkTA==
+From: Yixun Lan <dlan@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 07/10] net: pcs: xpcs: add Rockchip RK3568 platform
- glue driver
-Message-ID: <23d8e994-8552-466f-98e6-c47d5783525b@lunn.ch>
-References: <20260801142244.679437-2-coiaprant@gmail.com>
- <20260801142244.679437-9-coiaprant@gmail.com>
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Yixun Lan <dlan@kernel.org>,
+	linux-clk@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/3] clk: spacemit: k3: fix i2s clock topology and divider rates
+Date: Sun,  2 Aug 2026 01:30:55 +0000
+Message-ID: <178563403274.1609232.15890573449451118017.b4-ty@b4>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260717-k3-clk-fix-i2s-v1-0-e95001a692ee@linux.spacemit.com>
+References: <20260717-k3-clk-fix-i2s-v1-0-e95001a692ee@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801142244.679437-9-coiaprant@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Sat, Aug 01, 2026 at 10:22:31PM +0800, Coia Prant wrote:
-> The RK3568 SoC integrates a Synopsys DesignWare XPCS that is accessed
-> via APB3 memory-mapped registers.
-> This driver provides the glue logic to make the XPCS accessible to
-> the generic pcs-xpcs core.
+
+On Fri, 17 Jul 2026 00:26:00 -0700, Troy Mitchell wrote:
+> The K3 i2s clock tree was modelled on the K1 layout but does not match
+> the actual K3 hardware topology, leading to incorrect clock rates being
+> reported and programmed.
 > 
-> The XPCS block contains four MII ports (0..3), each of which can be
-> routed to GMAC0 or GMAC1 via the pcs-handle property in the MAC node.
-> The hardware maps these ports to different MMDs:
->   - port 0: MMD 7 (ROCKCHIP_MMD_MII)
->   - port 1: MMD 2 (ROCKCHIP_MMD_MII1)
->   - port 2: MMD 3 (ROCKCHIP_MMD_MII2)
->   - port 3: MMD 4 (ROCKCHIP_MMD_MII3)
+> Three fixes are provided in dependency order:
+> 
+> First, the MPMU_ISCCR syscon register is renamed to MPMU_ISCCR1 to
+> match the hardware register name, and MPMU_ISCCR0 (offset 0x0040) is
+> added. This prepares the header for the clock topology corrections that
+> follow.
+> 
+> [...]
 
-Why is port 0 called ROCKCHIP_MMD_MII not ROCKCHIP_MMD_MII0 ?
+Applied, thanks! Also fixed minor comments from sashiko bot
 
-> This driver creates a virtual MDIO bus that translates MDIO operations
-> to APB3 register accesses, with proper address remapping for each port.
-> The generic xpcs driver then creates a phylink_pcs instance on top of
-> this bus, allowing the MAC to use the PCS via the standard phylink API.
+[1/3] dt-bindings: soc: spacemit: k3: add i2s_sysclk, i2s_bclk_factor and i2s1_sysclk_src IDs
+      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=cf59a8742581aa4a026b20c7a413be06f4fc9831
+[2/3] clk: spacemit: k3: fix i2s clock topology
+      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=e6b17a690c2f920963d6a9328642bb090f3be587
+[3/3] clk: spacemit: k3: fix missing /2 factor in i2s sysclk dividers
+      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=8a7d4b1924d2a424b1a6fe69de4f9464ee1fb485
 
-I would put some of this into the driver itself, but reading the code
-it is not so obvious.
-
-> +static int xpcs_rk_read_c22(struct mii_bus *bus, int addr, int reg)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +	int dev;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_read_remapping(addr, MDIO_MMD_VEND2, reg);
-
-Does this mean C22 registers are mapped into the first 32 of C45
-MDIO_MMD_VEND2?
-
-> +static int xpcs_rk_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
-> +{
-> +	struct dw_xpcs_rk *pxpcs = bus->priv;
-> +
-> +	if (!xpcs_rk_mdio_addr_validate(addr))
-> +		return -ENODEV;
-> +
-> +	dev = xpcs_rk_mdio_read_remapping(addr, dev, reg);
-
-Should it be returning an error for dev == MDIO_MMD_VEND2? Or at least
-if reg < 32?
-
-Andrew
+Best regards,
+-- 
+Yixun Lan <dlan@kernel.org>
