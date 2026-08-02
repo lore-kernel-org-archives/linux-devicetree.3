@@ -1,121 +1,183 @@
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C891A0BF3
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 02:38:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0A02931D7;
+	Sun,  2 Aug 2026 02:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785638309; cv=none; b=U/XWiowbJbxq6GsKRsorvH2hGWWmudpTcw9AbKX0LaW6e1ALweyNXWLbqqMLTI463aLuPHvixtk7hZ9DqfOcQbtiNY/8AMW0P/Zb0U6I8yJzseAAxQUepASZxt4v4GD1DGcCRzQzh281LzEXXjUDX/QJIk9NjdLVw6oRAWvMgEo=
+	t=1785638570; cv=none; b=thcnB2M3ZOs6mVocOoPFnIM3y0Utbei1TXAB9DS3w2ju9roa0Th8QYxwPHQNQutLetKAEmb3X995enknToOVmnWqQJxBTPw/3MASRidnHZz+ofPf4j5+n85zY+T+DdpcXYQ+dIEwK6+99xloRNlHoRQkeqJd49nGuhHY9d7asck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785638309; c=relaxed/simple;
-	bh=tLgvoo761nGkRbnfBNv03h0op3SxaSojdDA3HCtP4qg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lNpE4h6OCGmtUqyYPU+dsg6NWK6/GdGK28snuW6bADsyvoERargfeE9i0sB65HvdxO3zUS/bMmaDg6XLMJHUpR1SQFYo4myABWlUosaj9RGEnyOshh6+4XNMtFlZBgwnV0KD8FW+VSouyZpMGc0qvto9AVX/RsMpjbiIHL5i45k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qHvHeuDo; arc=none smtp.client-ip=209.85.222.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785638570; c=relaxed/simple;
+	bh=om1o2F5xohlkYwzDg4FK20X4jR0j84zX+T5ddpch3XQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HWGzgcJKI9b94YbfLlM+czUMfm8bpX1rHNNhp4pv1nboAj3VoDPuUHA4vSNKMHvo+h7AsAZUfZ4+Iqhi8uK9WNhxKQCVPuwDJClGgC5dYTlDlwxpTDVm1lZq3H9UsEi5ekT/WMszA2fhi9pD1tvNERN6d0TvZ6zfHFOcGoN2LDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFuN7roa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qHvHeuDo"
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-92ed19f4d60so119461585a.0
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 19:38:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785638307; x=1786243107; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jvEB2bDegHBMEcT13eWZQWB2y3G1J1ZGbL4bUzfuXyw=;
-        b=qHvHeuDo5sWxc8oASpeqkp9qwppoMtn7RZ65vMqXtaAc2pwQ4TthQWrNDQjdAR9jGE
-         OYsXEpra+3R7hww0Q8QGzuKV1b820uGd8iw7OfV3LQFTtS4LFQ7NjbkrjjFwh2WtrNk2
-         Ub5OpF4kxnbdWeNrSVNdQvJI8FTVjh8gBXs0RDLRIg0JXeHoFpucYJfnyIGGaCwUVgUH
-         w3KCrC1FUpPfTCLUIUtII+5G4zK+zcNpdpcLSXE7bTGIxbe+VzLCHH7hmZEaLdXNg4vP
-         UyQ31VZcdZmuBCk/YpdHLIzeRMpW+9+JmDCMz7oOwlrra6IgRbmpoXUfNEEQgogcqbI6
-         8+jA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785638307; x=1786243107;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jvEB2bDegHBMEcT13eWZQWB2y3G1J1ZGbL4bUzfuXyw=;
-        b=Em5q4PBdmZ5oJ55W7n05GvAFQdmjoc2jgh934483nugk6JFWLkp9jhgDIFXYxVwFPs
-         IQg9VcAL/Us8dak7cugwcM4w3WRe2huqR9CGfCQ+4KLJIc6MVtnKBc8UeMFPMWdsp0TF
-         xoVXVw09WxdEu62FctmnJlwjezNgAFz41R0G/3XMyRfGx/FGLliDi+PPBLlIwcuxTj0m
-         1TUZwA8w4TZAOCK6bRjc2sOu6PTW2gm5AE4CLuwBOjCUJoutNsH15N8TFdOgfyzpIi9t
-         Oc+VHSGDlku/MF8dbPuRwgfj5ULOjXr6XoKpETbQVv6VhB1T/4WBfdvs5apHPg96G2Y4
-         O25A==
-X-Gm-Message-State: AOJu0YzD2OMxt8SlFEYXnFy9NwpUI390gYaaisGdTN/NFtoOMTPmzhMg
-	CP2sB+rqYY6Wy8XdRqi28L4EcihCpaQwdXMPpC+UdOW8Cg4/fbvGt9np6di5TaDWRAg=
-X-Gm-Gg: AR+sD12U8ksl1TAO5OO8nJFR9Nrx6QXHS2JXcRkG0lgyKJiF5Z0m3VpsjsdqrOTAhxz
-	19IzJaEAQi84CGzxOaBTrZHrMEG3TU3aPUOa7XJ1gJBwjdNYVeEPP8PxvelKDCKvNmXTJJmybzE
-	fFuLs5Kc5okl2GYCiEZrMWKBKJRuuCN+580EIG7Lx19a0SRTtSHesDDJTF7VN6Jl9XIZnjHhx5F
-	jUyLtcmT5Gq6myUCKsPDPg4TnpVTNC8gBjiZqwGtOXk6kwL/8yMwPecroRPYKXkp8xxnWMCdoM9
-	T3Rcju2w8MendfFZqdw+edSorHiwaF2XEimf2p3jtSxRP8pBCIqYX3CpFa4QVffzms2x+NH2OJd
-	4mKBC/nfNA7lFUuc748QwmG3ovzOnrGjBud9oPh0QKufPaU8YgIb3Ym2Gma+mODkhVygzAae774
-	DeqlrCzegKKyOofMCPKOMbIwrAPu9WfwX6bkNFydXH30kyafaizA1C5/fS8AK52ql6tAzZPtU6S
-	UtzXCFzIkX3FWTPme3EYcahAXMVbTtVogisU9GkpFoEGaka6wLVlCcGvTzLHOI=
-X-Received: by 2002:a05:620a:4556:b0:8cd:d688:7aef with SMTP id af79cd13be357-934a1110c8emr1019405985a.19.1785638307016;
-        Sat, 01 Aug 2026 19:38:27 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9349bc24ffesm384090985a.10.2026.08.01.19.38.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 19:38:26 -0700 (PDT)
-From: Yuho Choi <dbgh9129@gmail.com>
-To: robh@kernel.org,
-	saravanak@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <dbgh9129@gmail.com>
-Subject: [PATCH v1] of: Put coreboot node after compatibility check
-Date: Sat,  1 Aug 2026 22:38:21 -0400
-Message-ID: <20260802023821.494178-1-dbgh9129@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFuN7roa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5761F00AC4;
+	Sun,  2 Aug 2026 02:42:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785638569;
+	bh=G7pjPdHcziQjL7fgeQl0SYtRU28wBVdIe8+9QWyN3dk=;
+	h=From:To:Cc:Subject:Date;
+	b=NFuN7roafmWP8un0HCDeLjAMTcWtOHov0Ib9mFHDC/yjyoV4eEcNvzz4p6fh+lHCf
+	 a9Y7u1IxynTlqbsYEgjr3XB7GcolN2ubz1LeUnNCIB9zPBpo35R+tSBZBpzXrb4+s+
+	 e3EgvmT1agjW0foKK4Wd2Eg22ClmDu5KsChuAN1WMgUX4OjgcUFs9K6y7m0lr7OSW1
+	 1hvmkeN8gRqDAZrY2OCoPmBfmd4AKH8fbKJWrsbwrDCIrGg9m4n7u5PSavfAj8hKd8
+	 7Nzr4DRQ6LoNJAOvHXYG4F2sgw+kZkLiwwvl0Cz5pk/Z4EoFv7Uo933U47XMarpFVT
+	 uC7rSo8Dy+3xw==
+From: Yixun Lan <dlan@kernel.org>
+To: soc@kernel.org
+Cc: Yixun Lan <dlan@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	spacemit@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] RISC-V SpacemiT Devicetrees for v7.3
+Date: Sun,  2 Aug 2026 02:42:43 +0000
+Message-ID: <20260802024052-KYC1424545@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-of_find_compatible_node() returns a referenced device node, but
-EXCLUDED_DEFAULT_CELLS_PLATFORMS used the result only as a boolean and
-discarded the reference. This leaked a reference each time the
-address-cells or size-cells warning condition was evaluated on a
-coreboot system.
+Hi SoC Maintainers,
 
-Use a helper that drops the node reference after checking whether the
-coreboot node exists.
+   Please pull SpacemiT's DeviceTree changes for v7.3
 
-Fixes: 8600058ba28a7 ("of: Add coreboot firmware to excluded default cells list")
-Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
----
- drivers/of/base.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+Yixun Lan
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 6e7a42dedad3..8d04eaed9805 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -95,9 +95,21 @@ static bool __of_node_is_type(const struct device_node *np, const char *type)
- 	return !strcmp(match, type);
- }
- 
-+static bool of_coreboot_present(void)
-+{
-+	struct device_node *np;
-+	bool found;
-+
-+	np = of_find_compatible_node(NULL, NULL, "coreboot");
-+	found = np != NULL;
-+	of_node_put(np);
-+
-+	return found;
-+}
-+
- #define EXCLUDED_DEFAULT_CELLS_PLATFORMS ( \
- 	IS_ENABLED(CONFIG_SPARC) || \
--	of_find_compatible_node(NULL, NULL, "coreboot") \
-+	of_coreboot_present() \
- )
- 
- int of_bus_n_addr_cells(struct device_node *np)
--- 
-2.43.0
+The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
 
+  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/ tags/spacemit-dt-for-7.3-1
+
+for you to fetch changes up to e273d298b74ea63d5d586bd50240f919a9c33fb3:
+
+  riscv: dts: spacemit: Add cpu scaling for Milk-V Jupiter (2026-07-30 09:02:11 +0000)
+
+----------------------------------------------------------------
+RISC-V SpacemiT DT changes for 7.3
+
+For K3 SoC
+- Enable SD card support
+- Enable QSPI
+- Fix reset delay of ETH PHY
+- Fix PHY ID of ETH
+- Symbolic PDAM ID
+- Add SPI controller support
+- Add USB and PHY support
+- Add I2S nodes
+
+For K1 SoC
+- Symbolic PDAM ID
+- Enable cpufreq support
+- Fix max CPU core voltage
+
+For boards of K3
+- Pico-ITX
+  - Enable ALDPS on RTL8211F PHY
+  - Disable 125MHz clock on RTL8211F PHY
+  - Enable NOR flash
+  - Add EEPROM support
+- CoM260
+  - Add EEPROM support
+
+For boards of K1
+- Milk-V Jupiter
+  - Enable CPU DVFS
+- Banana Pi BPI-CM6
+  - Add initial support
+- OrangePi R2S
+  - Enable PCIe
+
+----------------------------------------------------------------
+Aurelien Jarno (12):
+      riscv: dts: spacemit: set console baud rate on K3 Pico-ITX board
+      riscv: dts: spacemit: enable the i2c2 adapter on K3 Pico-ITX board
+      riscv: dts: spacemit: add 24c02 eeprom on K3 Pico-ITX board
+      riscv: dts: spacemit: add i2c aliases on K3 Pico-ITX board
+      riscv: dts: spacemit: improve RTL8211F PHY configuration on K3 Pico-ITX board
+      riscv: dts: spacemit: k1-bananapi-f3: fix maximum CPU core voltage
+      riscv: dts: spacemit: k1-milkv-jupiter: fix maximum CPU core voltage
+      riscv: dts: spacemit: k1-orangepi-rv2: fix maximum CPU core voltage
+      riscv: dts: spacemit: k1-musepi-pro: fix maximum CPU core voltage
+      riscv: dts: spacemit: k1-orangepi-r2s: fix maximum CPU core voltage
+      riscv: dts: spacemit: k1-bananapi-cm6: fix maximum CPU core voltage
+      riscv: dts: spacemit: Add cpu scaling for Milk-V Jupiter
+
+Chukun Pan (1):
+      riscv: dts: spacemit: enable PCIe on OrangePi R2S
+
+Guodong Xu (1):
+      riscv: dts: spacemit: Use symbolic PDMA request numbers on K1
+
+Inochi Amaoto (7):
+      riscv: dts: spacemit: Add enough deassert time for the PHY on PICO ITX
+      riscv: dts: spacemit: Add enough deassert time for the PHY on com260 board
+      riscv: dts: spacemit: Fix phy id check for the phy on pico-itx board
+      riscv: dts: spacemit: Fix phy id check for the phy on com260 board
+      riscv: dts: spacemit: k3: add USB controller and USB phy support
+      riscv: dts: spacemit: Make dtschema recognize the etherent PHY correctly on K3 pico-itx board
+      riscv: dts: spacemit: Make dtschema recognize the etherent PHY correctly on K3 com260 board
+
+Jennifer Berringer (2):
+      riscv: dts: spacemit: k3-com260: add eeprom on i2c2
+      riscv: dts: spacemit: k3-com260-ifx: add eeprom on i2c1
+
+Junhui Liu (3):
+      dt-bindings: riscv: spacemit: Add Banana Pi BPI-CM6 compatible
+      riscv: dts: spacemit: k1: Split gmac_clk_ref into independent pinctrl groups
+      riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board
+
+Shuwei Wu (2):
+      cpufreq: dt-platdev: Add SpacemiT K1 SoC to the allowlist
+      riscv: dts: spacemit: Add cpu scaling for K1 SoC
+
+Troy Mitchell (1):
+      riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
+
+Yixun Lan (1):
+      riscv: dts: spacemit: k3: Enable SD card support
+
+Zhengyu He (2):
+      riscv: dts: spacemit: k3: Add QSPI support for Pico-ITX board
+      riscv: dts: spacemit: add SPI controllers for K3
+
+liyeshan (1):
+      riscv: dts: spacemit: add K3 PDMA request numbers
+
+ .../devicetree/bindings/riscv/spacemit.yaml        |   5 +
+ arch/riscv/boot/dts/spacemit/Makefile              |   1 +
+ .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 177 +++++++++++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 217 +++++++++++++++++++
+ arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    |  43 +++-
+ arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts  |  43 +++-
+ arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts     |   6 +-
+ arch/riscv/boot/dts/spacemit/k1-opp.dtsi           | 105 +++++++++
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts   |  46 +++-
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts   |   4 +-
+ arch/riscv/boot/dts/spacemit/k1-pdma.h             |  56 +++++
+ arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi       |  24 ++-
+ arch/riscv/boot/dts/spacemit/k1.dtsi               |  12 +-
+ arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts     |  33 +++
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |  38 +++-
+ arch/riscv/boot/dts/spacemit/k3-pdma.h             |  83 +++++++
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts       | 117 +++++++++-
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       |  88 ++++++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi               | 240 ++++++++++++++++++++-
+ drivers/cpufreq/cpufreq-dt-platdev.c               |   2 +
+ 20 files changed, 1308 insertions(+), 32 deletions(-)
+ create mode 100644 arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
+ create mode 100644 arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
+ create mode 100644 arch/riscv/boot/dts/spacemit/k1-opp.dtsi
+ create mode 100644 arch/riscv/boot/dts/spacemit/k1-pdma.h
+ create mode 100644 arch/riscv/boot/dts/spacemit/k3-pdma.h
