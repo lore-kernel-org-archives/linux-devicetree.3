@@ -1,46 +1,52 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AD82E7657;
-	Sun,  2 Aug 2026 18:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975BB318EDA;
+	Sun,  2 Aug 2026 18:49:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785696596; cv=none; b=AfMcdgR7SaH6SVBy4SF+1B1AVCyzDRPnxSTLs2wKZJsqA7TJD/zwbR2x8i3VlllIOagG5KMl/mJ5EmRc+gWoM1FF8zzlOasPP1/maNid9vKKyZFfUhQKtuvYQ6gm6bqPqnfNVgfrgGexoRy1PT+D90Mz7zBgPT+ZCli9ZEXE30k=
+	t=1785696599; cv=none; b=FaYAn0RJSkIYSWP6G/axs19EjjUCyL7Ve4rryt9z7s7KXECDbzEHH4cNp1wJkGCdTsG0Bi9DG+29YfMKJIFhaWQ3wWHmZsjDh1GojQta3raq3Ai/2/MUPWksswXBA9oV+ULxLySu+l6xRh0E1tmy1bwrRL7YqHryfK9Mq7CVLs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785696596; c=relaxed/simple;
-	bh=r6+sC9+b3aiscshwp37dOzoDRJnmMoQXCH8KfEH+o1w=;
+	s=arc-20240116; t=1785696599; c=relaxed/simple;
+	bh=q6IcP2NZ8VtXOSP3++Aeq2kYceUrKzQEETXWLdg0uOA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KD9hHLhsXH5jofa5qbeO3Oq+gBEB2pEtiaB9Y+VmZGqOS3HHjubmkUjZJHfau6uElNEH9KwD66cxrOlb/ogDY8HPExWZu0s5Xa9mjcSr36f0eaJ533OimCvvS2t/75eFDGaDxXwrTQFLgaEV/teMTg66erqe1mvMCtJc7Wp74js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=PANDWike; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=OgCUTImT/AsYeiafTgBY2QpLJ4uAn/OeIZjTn2sQxlYsxBO9xw2JQDKtVtDtKoOP/Kf6UatmZw+Z6CsdAUNxHxmVte4kja0BkoeqZHqgnKMkiYo1uvFHCVnSjhvuL6MpqqKjXfDnB7YTPtS4c+gX5TcUvgQMvxiCf9N0gFBXueA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=2sy5zr93; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="PANDWike"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="2sy5zr93"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=mvZHB+V44L8GYhi9JYbmmktJzKqbJwzWpTrCCT/CpSg=; b=PANDWike84aLQV0/yndkOCzjfh
-	Ie+NnNZxqD7fpmYD0nQ8UbVvRuV/+AP6vjm0rNbVyB0YMQjWguHgZYQIEVYJ6ExiOROga9cZpgcMj
-	Q8xiT2OLal9TSM37lnLgqtdHC/WDAbAaomK3bO3wxxQD6sB8DvWJxtiUfqquEXDZXDJO7f5TFI+gT
-	Tiyd4pW3UxKBJCzrcVBSVUTohkkKnOYohS6jM0M4T/ik5e+0RHMDSVsHeF04VJHpA2GLOL7qPR9KH
-	9cJxu1IjuMJzytkjN1lO/FLF5tayp9gl01FFVbux+XDLA0vJiAXu9Nr/w0GL8kjHt0mU908p/hI8p
-	f8jVG5hw==;
+	bh=xhWt6jr8JZihiGThYig/NqKAx9byV7fmohEp1wFu2gs=; b=2sy5zr932l2o3B5VaZS1t+ti/4
+	0bJvautk0gtFwt9sw38nmTVx+kzGhbmCpk288NXP8iT9IN7nZs24r4d7J02K+XWCU+HHQ2IIO/847
+	Yek6iihPbUe3eTz3YXCmxGyDMX+aLeuXz9JH9z+xCH4Va04nEVaAP5MJV1r0vli+O4LlfpRRMVe2t
+	LrEAQ8hceDNsSeLJR2+X7GFPCKV4ry9V4/xcPYfEl1Uoumwso6AlPVR3I6J0fSMGWVq/wbuw8Z5tt
+	Ueli3C0QHlxpsWZK5qgRHF0jEU88VgEN3bT46c9Lri9Z/6CSgctL2SsMM4zcUpNlx9MUCFGwe3Utx
+	wjMfGtgg==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: linux-rockchip@lists.infradead.org,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: linux-iio@vger.kernel.org,
+	Chris Morgan <macroalpha82@gmail.com>
 Cc: Heiko Stuebner <heiko@sntech.de>,
+	andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
+	conor+dt@kernel.org,
 	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Subject: Re: [PATCH v3 0/2] Add support for Vicharak Vaaman board
-Date: Sun,  2 Aug 2026 20:49:37 +0200
-Message-ID: <178569657659.1403346.14538834007028104921.b4-ty@sntech.de>
+	robh@kernel.org,
+	andriy.shevchenko@intel.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: (subset) [PATCH V21 0/9] Add Invensense ICM42607
+Date: Sun,  2 Aug 2026 20:49:39 +0200
+Message-ID: <178569657657.1403346.3269375069451049226.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260730045947.388660-1-hrushirajg23@gmail.com>
-References: <20260730045947.388660-1-hrushirajg23@gmail.com>
+In-Reply-To: <20260728225542.174825-1-macroalpha82@gmail.com>
+References: <20260728225542.174825-1-macroalpha82@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,26 +57,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 30 Jul 2026 10:29:45 +0530, Hrushiraj Gandhi wrote:
-> This series adds initial support for the Vicharak Vaaman, an RK3399-based
-> single-board computer manufactured by Vicharak.
+On Tue, 28 Jul 2026 17:55:31 -0500, Chris Morgan wrote:
+> Add support for the ICM42607 IMU. This sensor shares the same
+> functionality but a different register layout with the existing
+> ICM42600.
 > 
-> Patch 1 documents the "vicharak,vaaman" compatible string in the Rockchip
-> arm bindings. It carries an Acked-by from Krzysztof Kozlowski.
-> 
-> Patch 2 adds the board devicetree, enabling the RK808 PMIC with
-> SYR827/SYR828 CPU-big/GPU regulators, Mali GPU, Gigabit Ethernet (RGMII,
-> RTL8211E PHY via a proper mdio subnode), eMMC, microSD, SARADC/TSADC,
-> PWM-based vdd_log regulator, and UART2 serial console.
+> This driver should work with the ICM42607 and ICM42607P over both I2C
+> and SPI, however only the ICM42607P over I2C could be tested.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: arm: rockchip: Add Vicharak Vaaman board
-      commit: 50208eafca2b1187079c0c5c54e5cf804c0ce0d1
-[2/2] arm64: dts: rockchip: Add Vicharak Vaaman board
-      commit: c0fe7b7226942eb4e405d3dd08671510510463f1
+[9/9] arm64: dts: rockchip: Add icm42607p IMU for RG-DS
+      commit: 264429dfe5294b76c7c3b4ed2c9e6cea1042255c
 
 Best regards,
 -- 
