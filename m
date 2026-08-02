@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA3A366816
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 08:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C20B3911CE
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 08:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785660356; cv=none; b=slYiV8/Q1CELms+hciudegNoc70LloqsR7GtEcsun/HRMatuoluk4yN1h7jXfRFZPXL262vdDKTDNaRt6/U0hhU+Xd6PkbVNvF2nB6YIx+c6wRkYuyDDcTdPLfhrC0z1FSdYueeI5iLQsWzmiRDGH1QgMEwWJ7W7l/Dxcn+z7rk=
+	t=1785660357; cv=none; b=QXfu9FILzDtAXYAJkktwTeSOpuMa/Jp3MtJhbrRtDcqjZ9n8pACGr/N1jsAeVMVeCZYClJXFdXI7eNQDYaHjh7X2O0j48PyNOwFEv3u0IC5VodV86FibzTpbgzQZTXSO6gmBcQMBqNFf6dX9+In7/yrk0tvemb/9eHPh37PP2b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785660356; c=relaxed/simple;
-	bh=1ohYjM0kcqQXFf/ASBsJHZYihajw/hCKyDfmALEWsBE=;
+	s=arc-20240116; t=1785660357; c=relaxed/simple;
+	bh=YE0z2ZRy+fNjyWhP8li1mcS3QB+EiA5HrR4nvwDI4xA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g6LOk7aK5PPWPpj1BpO/r8MoykQtwCbk22cGymKblhoMfLfIPwewd3H97dPzxHxTSXvKZyAmwBr96Xn0i0M3tILzZGzajIGCSC7w3BwiR4J69MZua+v0Clc1qyp+hc/IrRNoF5IwU1ESCybAWgJl+Iw4uluncrQdd65+Z9b71as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m0ZnKKUv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XIxjLLTq; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=Mg3lJCE0OvFSoYNZssUGMNGT513re/qGKpOWdbiiBg8rwIvdCzopSoqGwUnv0hKOSFoNxWIHBXuH3zuFqkJs9c8t7PNoShiI4DQx4m+jSQmSjlP0gLDeEqZEx6svTruoO48x3mG4ISSefhO3FzeLzdanV+4EWG/525Z0pdJogOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Od4/iVjr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OxQr2s44; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m0ZnKKUv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XIxjLLTq"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6727ll6R915754
-	for <devicetree@vger.kernel.org>; Sun, 2 Aug 2026 08:45:51 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Od4/iVjr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OxQr2s44"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6727luSU1262188
+	for <devicetree@vger.kernel.org>; Sun, 2 Aug 2026 08:45:55 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	E65DB6RMGvAetunXW7GsYIROhDk8tolV7VS8/HCkqVA=; b=m0ZnKKUvaDHqXGPC
-	+8lwI2rSHtzFonuvDQPiHCPGrNk5oIEwV1IR285jVwbsokBq4bi2rVmwKujQ3fTa
-	tYESIpts49l8y+Yxm9Zy6SxkaGEZb5pRwHl0wqIs85lD/IFS6Wtg+sti4KN05Tjs
-	6SccvuGNTw/1Qqhs3LJGQm/UlbXQ33rQoIj6AqaaeT4S1d72crTVU7PyYFgv31qU
-	ZeNe039oAEbaDl1Wm0wu8Yg71jepNWWu2Yuk1pIWrQi+fcYbOpW/O5BUSoivDYQ8
-	jL4MiLv7S29fzwkJQbzSc8RBZavdavWJNJSWXaoVs87OU+72tcPRY3voJGn+fGX0
-	MAdkcw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs966aftd-1
+	j09UVDmhRNeeJdTKDjolG1iUcKqWDW/GodeTRF2HL1I=; b=Od4/iVjr32EJSmk5
+	aqVCxxwTYt5AlgI8XSAVIz47dXbukXkbXWueMk/SPnau6yGkSLELAe9wuTMKHV+g
+	n6TEhMR+vkbepUuTRBEFJhQifA5pEBjetxm6Xg6KkYzKIGomTtmWgwWScKtASRTI
+	2439lCRMdxTxBbnRqjOdOTPZxoRRNnf+Iwu0eeYZSnS8UlbTuFRxFgFNRUdQOh1Z
+	jg3ydeDNdLxTTmYMcMjZDsdAHUbzoH/5LM6EYDhzJXalqH807mvMYQp7jEpJPRG9
+	4NmNcZpqPk4OrNQQEne9kyqAElyfr0ntT/dj1fL3VfmCiFY1QBJtKVITm92PcgBi
+	5cZF9g==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs911agcr-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 08:45:51 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9349c5af52bso355752385a.0
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 01:45:51 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 08:45:55 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c083f1818so23122431cf.0
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 01:45:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785660350; x=1786265150; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785660354; x=1786265154; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=E65DB6RMGvAetunXW7GsYIROhDk8tolV7VS8/HCkqVA=;
-        b=XIxjLLTqPr6U1wc52AgXFlpKxfneXOqFFVQ/3bE5LhL/LEnV7Wlj0/A1ccTpL+t+PZ
-         3eOgaxYcBo9v+CC8lec2408cSozXSvTGAAEDQKPgX21ZzUs/kQA4P8c0HfVQu6sDum9J
-         Suo7QCLs7o6UkWV4s4nCkNJg608dP2I9fnI2Sycsloe6LZEvFaXFLo710v94Qkri/Zoi
-         4HAVRyqr94xeSSn/kMGv/kNuJqS3UxB1jc4wo/FhIXMqJpDw6RgFMjMZQ23J9NDilJyb
-         zrwdR79t3oDvAkBkTG10xkad6bnw0apnh4KGXj4au+eDc83tOj+DXLvQUOqO9jeXVQ6P
-         IwhQ==
+        bh=j09UVDmhRNeeJdTKDjolG1iUcKqWDW/GodeTRF2HL1I=;
+        b=OxQr2s44Js0nr0YjY61ec1SzVUtzY8l6oQ1wUftCpAVHCcfUP3yAZK9zSQDPVFgpoQ
+         dRvwuKfU0f4iEYKBss/BY8abz0yGskYl3293acM/mW67guxPO7yysnz+6SL+M/9QF2sA
+         LH8IWemSM9+8BRXWeJj3DjUG/0oce4FL0asr+8ntnH0YqoWjkAGysbpLE1lc0C5omghq
+         Mh8aPV97jUW6F0vLj4HfeeTQrA5xFHhRTufNsJgvX5CqlRM32txfZy2QglsuG7erw768
+         dw8AHRE9wqBXf1Gc5ISfQUibEleAaV1LRbbBOFknbT4vUUQGk2eMYcA2IgNQC6OM1mSK
+         DlbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785660350; x=1786265150;
+        d=1e100.net; s=20251104; t=1785660354; x=1786265154;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E65DB6RMGvAetunXW7GsYIROhDk8tolV7VS8/HCkqVA=;
-        b=AVLjJ7GO9Yko9ppEvAyuEo+boHJY+QeB76EBQQvDhNd5BHoTjM/L/zUXQnI+uyaSyD
-         7dkKcN/v04EbHzX94BuQISOivYJmYzL6zNsply0mHgH67OBhay6z0+D14AN7vLg9Yx50
-         OjcHdRKYqjWrhDFsZQXAE+N3+ZMyR0H4RiwlHpCIqirScI5vKJpSOa4MulefoZdDafY2
-         7S80/HdEcdnP0uE3RLykPlEx2tPyiaDH9DKB+HG4yCf/bjqd9AZAtetzmQtBjrncGBpJ
-         bsWGn5BCKVAz51USbEYE93PAf4Yc3Jse4vWidG/If0JXgVzJh4PYQqmvon0eQv0LmRwK
-         brdA==
-X-Gm-Message-State: AOJu0YzCpl+6UxkZdqRf/3pgM55yHoP6gULThbQF+kt9+e0Knt0wD4ai
-	ArXn+ODPj7hZ3vN6PTV/z/OpUSTR9GeZrLrWTNoCRKYMBFEW1W6qteFaOH01GdpomDEHBOT0QeI
-	2Y6d5QmQr7sCBuGZeHnu6xoOLIrX1sm8l6qbqyMxXYj69rJD8qdnrsVT+/9NYFpNU
-X-Gm-Gg: AR+sD11P8x6Sy0hKe2fPBen4Yo4b9bzzSuXCdDaO3E5eGoX/99tw+RPmz20O3obkQ9x
-	fzbyVpdBR8+bIS3irY/mrBxIfj1KQ873Z3+Zoe1zs2OAZZZIqInogWLZGfv5ZSXnwsuMEQsxglG
-	jEW27TSX/LcgqazSrX3umZd2toV0Y4KEaVYfqhrIcWmKgiziwNpdzEXciyzrlF8MKZCwYmdUGNt
-	a//yN+NijYrRSnO6SOvaAyc0Eh8+UyrKB2aVyKEuy5e5sb85fYXL4UvWsuHGqprzOPZpgcxH4Jg
-	h4Xee7UGaNTNBCJpNzyiqFMlF9vPecprk9gTpYb645GDcO+LC/pIWQQ6gANzOZwFux2AtUDr74q
-	iY+DdgNyuRsv3xhQn/d5yY+Qh
-X-Received: by 2002:ac8:5f4a:0:b0:517:9570:c1bd with SMTP id d75a77b69052e-52b5673f0f1mr111125251cf.25.1785660350211;
-        Sun, 02 Aug 2026 01:45:50 -0700 (PDT)
-X-Received: by 2002:ac8:5f4a:0:b0:517:9570:c1bd with SMTP id d75a77b69052e-52b5673f0f1mr111124991cf.25.1785660349670;
-        Sun, 02 Aug 2026 01:45:49 -0700 (PDT)
+        bh=j09UVDmhRNeeJdTKDjolG1iUcKqWDW/GodeTRF2HL1I=;
+        b=Bao0k8R9P4lALjts283hZB8V7uBR8IKkSSbW/MRpDB1uMVR31UeUiNZLC9E2nwNP8k
+         SPRFF2OYzB0bLIWDE9Q0DXJzarmr0Zm1ABKTtE4TmMiZvhK1XdZUOjy60A6KrfFXYDuN
+         DTZhgB3oZFbP/gQSwIVZwaIJXY7tzcqKBcdzMTD/1Gw0nOuVYcn9RxBwksZyY3wS+L2K
+         +oq6W8YufVbncCnbdqC1IakSEf8mphPzHoP+K9coN2WkAbDy/5A4L3ZmSF9L6mL6uNBG
+         N2JA0pvvoyugnMpBINSVTdskRTxEFIUDGk5D54+l8RqyTV+mqegJlJ9r2Cg4J2HpTyjO
+         9y4A==
+X-Gm-Message-State: AOJu0YyyMcM1vHUVVibgZb9S3YegngxhFB0/NXUM8oadkjIHUz6Ch7GT
+	/V6h3AGO5LU56eYEgHJHe7tAJkrjtSafMD5srNDIMAopn1Ygg1n8/J/cTM6+FICZ8Gw1wJGgKFv
+	pnbBjtynH0ttSCDjxx2wuWjVoMNfjAKrkcSd3NRoPyAehDkZguJkm77COKqg/pSBUN1w+yDlJ
+X-Gm-Gg: AR+sD1125irjDmZT+j5EIC8Mgobw5Ujo6J39mF47ssA2MilPdQp4oXv3EKY3hQCHqOW
+	ssOS762PYUEe3Q9Yox2kYkWRcf5a0XphmjhijeLSqKJT/rTvRcHK68okcJldVXY+CLi0fe9Qn7a
+	qCeew+bqwODgxuaiwu50vqp2WY7W+HZk4gjuRoTFheNv48e8vUFZixaepG59Hk5OZCPOar1/T1R
+	ZjO+rWgGtbzTkiBSky45P0/7+vbEEsgPGNFi6GCFVAj6fy8LYr/klX8Ru2SBCnMcYukh5u+0Mtd
+	0X9JTZQXOwDaBBSCHSKejAEXJSwLXlAW8xFp45CtbTJAfFRfg/lYZJosQaTLxGW61rlSk0Zj9rd
+	f2yzzHfnf8Uuibmfl3mJc33EK
+X-Received: by 2002:a05:622a:2590:b0:51a:8c79:a2d with SMTP id d75a77b69052e-52b56673ed7mr118358031cf.1.1785660354133;
+        Sun, 02 Aug 2026 01:45:54 -0700 (PDT)
+X-Received: by 2002:a05:622a:2590:b0:51a:8c79:a2d with SMTP id d75a77b69052e-52b56673ed7mr118357841cf.1.1785660353707;
+        Sun, 02 Aug 2026 01:45:53 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49808191ef9sm139198195e9.1.2026.08.02.01.45.48
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49808191ef9sm139198195e9.1.2026.08.02.01.45.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 01:45:48 -0700 (PDT)
+        Sun, 02 Aug 2026 01:45:52 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Sun, 02 Aug 2026 10:45:26 +0200
-Subject: [PATCH v2 04/11] dtc: dt-check-style: Handle sorting of top-level
- nodes and properties
+Date: Sun, 02 Aug 2026 10:45:28 +0200
+Subject: [PATCH v2 06/11] dtc: dt-check-style: Fix alignment of values in
+ continued property lines
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-n-dts-style-checker-continued-v2-4-6c5dbd1ccfe4@oss.qualcomm.com>
+Message-Id: <20260802-n-dts-style-checker-continued-v2-6-6c5dbd1ccfe4@oss.qualcomm.com>
 References: <20260802-n-dts-style-checker-continued-v2-0-6c5dbd1ccfe4@oss.qualcomm.com>
 In-Reply-To: <20260802-n-dts-style-checker-continued-v2-0-6c5dbd1ccfe4@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
@@ -99,365 +99,253 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13857;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8500;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=1ohYjM0kcqQXFf/ASBsJHZYihajw/hCKyDfmALEWsBE=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbwOtSmHcUFmGqNR70K2f2lvAcdqe1+dlmhJCv
- BGqvfa3LSSJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam8DrQAKCRDBN2bmhouD
- 1/MBD/9xrPwvoSN4K/nCkc6VlLzGm16TLXuV+w/5sNML62v0uSr1AT5DyM8qztumq9dKXSosbh+
- QlW2yHO9O0BtNuNxncq4AbhXKJfBpfu0rx9VFweeW5//ZPlbu+nplZ3h2dsIPJsOCJcIqGvS0PZ
- vjpmtOR3mDZv8ypzpczpoUi2aFPbfAWCkmkG7LOP9JVj+Kl4J9WjXw5XuQtNeYH51EEs4spoKBY
- 0T13iJSFQvsu3HJzvuhcGRReBh9l7hsQ7U7s69B1oHq0nQ2ViBbQneCi9PSXbFzT07KlRQRBaVG
- hxvrS93ataTm7qRCrRaXKnzZX8DHBSG4IImh8uC16CTjQkY2M5RZlN4GKTePRbSTm6mRl8CVYLZ
- LXABanEUb4yhHLTx0sWaRhYKfGexTnmL8tHgKN9WWsSVbOOr/win3r5Vb8SXqkq/oeKSXEpU00w
- QZt++3iwRGzGQK4AbrEIEYXnv1dK32Oiy6sybjrDqlPZo1O5hraqnoqTC9XUjXFKSwgHD1QbOWT
- SztvUOzpJ6GFeUwD9XBgtcNcymFQstztsHOv8nCAriT2iJMp7eDsZT3jh5oZhoOoV7yMhtKga6Q
- XeR1ZmYWV8HFfQYO+5TvqJHZ5JU98MXBiMWrOfghY5hf1yaztttnyi/y9NO7BK7OqDB4nCuNQeI
- hcnCTOqS5m/KPSg==
+ bh=YE0z2ZRy+fNjyWhP8li1mcS3QB+EiA5HrR4nvwDI4xA=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqbwOvOiayFFnEAivgTHfQW/FnFwLdcyv7B4ZXd
+ oECqnVOKGGJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCam8DrwAKCRDBN2bmhouD
+ 18tkD/4pA/O5NjkVPWDyKxxm/wGIuoDtayJv4Vtl28kcbcZ+pfv3EynqgPYbMEH6CQAxuEh3caI
+ 4XLUt91o+NsFSS+KA2NLiFDyg7wf8exrNCdwu3gC4oQtfa1XI9xlgT2Qw2exUZ0Wk+1mJVKt1oK
+ 0fwwEafd4N2Jjcl7+iy5/Muf41yKgX5CQCh9evJqc2I1ixpdWb/J8R15jIk+dYPzIS5sLwfOsi2
+ SrPazmRaGzZVqTGLPzOjpY4MNazRhBJCbe844sAjN6obaNHjMju923SnYiN8NXupe+frBil6ofa
+ fbfUuC1+r7Vv6gC6TsS7ilzTO7yyqfu5pZ3kPg3BdbVxd5SpJCiZ3QDT7SbqSOZiQwyiLWyQjJt
+ r1rlP0WeroityA82zt7xPm66U9wRlA9bFidEBErWTcM6LirOI9xlvazVCBelzWNcKehrExGKc9H
+ 490UUPfUaGfxIgYfL6MD3RqLXMBJ751AzfkKBkeB6VtQutZ2VnHkoXAVxtAZ2UAy1KD5WJzqN5m
+ DEKRXdTVRBYdgZ7qBAD5cPPZpxpa5i0ZTskCJa2vJoQ1FidS6W/TXPVJ+8gGH4Myl7kgF70/bJQ
+ ogX4ILTzv8SdzXyrMJpBsCiG+tBGdSn4uG40fgAx4a4kjH45M35IwoacJr7k2kdII3hDhiHVbbT
+ XqCl62qGosY/N/g==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-ORIG-GUID: D2-yGpV20SANe9ygDeBwu3vfTOyLNdMW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDA3MiBTYWx0ZWRfX6+Hv+Rn8fhhO
- 2C/6apPvvud5RrOoSaq/zWq1+S3lmra1lcIRGTgKCDZS+WCUSyDb+5/dVda85Vq7x8NTHYZrKjO
- 7QEPqPvc5MIdrD5vAB5tBChtl5vvkm8CX+2aW/ghwelggGxGGWMjeJmRH473VV0mpH3FxNkkFMt
- OHgyHzp9E2ijWqI98L6WjQKeG53Mp17x27Aem65A8Wl0PxUzbRWgZtNvH6wEmISF5QmQVNnL5Qq
- W9qeeW4sarV2crAmfzbLqsicWNuOjlqL3PGVDh9LZ9dfmW804fqKrJNbND3I9ldrGVQqKtbXLBS
- xwlyW2k0yAktirTi6F0S+eYAMQHnlViJ1i4bKCTJPpq3yRlRwHS0mlO2Usfe3ACSI7XW3tqChgP
- D/gS0C7Gq/q4pK/ea3noQpV23vNvSDkP34KvQT4/D7TopMCINW+dZ8vi4ksxaHSVnYxBCt7NcN+
- um4GOUwepZqpv5vYbkg==
-X-Authority-Analysis: v=2.4 cv=TpfWQjXh c=1 sm=1 tr=0 ts=6a6f03bf cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDA3MiBTYWx0ZWRfXzuwJglQKsUqc
+ LwvmtHM+O27O7phGTa9/R4C0jxpdwTRv7tah1EIBsZIfhPG3RW5jg0gnus1y/LOS0Cb4Q2mlPyn
+ hz6T2flwQxlVkhqeydCOXd75qGB3q6c=
+X-Authority-Analysis: v=2.4 cv=PvGjqQM3 c=1 sm=1 tr=0 ts=6a6f03c3 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=nicHA5mNOroHdHr2fLUA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: D2-yGpV20SANe9ygDeBwu3vfTOyLNdMW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDA3MiBTYWx0ZWRfX2LthxOQsswfW
- y6KWUCgNhYEeblrI5MYWtIWl/hti0x5mCz4CJhogsRL40pCdDKm5+j0nNuGlrzHhe7DnQ+T///K
- 2X3jG2uQFfbB4vz/rsmXSxNNtZjggOg=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=A1X0JdhQAAAA:8 a=JHzK3u4RkIQMqoYOWxQA:9
+ a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: T624gsb5flVMmwZl-37VB9tNuelcGuYy
+X-Proofpoint-ORIG-GUID: T624gsb5flVMmwZl-37VB9tNuelcGuYy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDA3MiBTYWx0ZWRfXyI/yzy6F5AQ0
+ Vr3ybY6iWp9xE0pkFIIgv9XhiL5WzUT8su7YE2ti6yDPObqlffZPIyp08Nce/+S0wym10LkuUR5
+ wRBO/2aoJ6Fi349/7SfN4ub2ra46W4cNRzDlYlbWt1nptS4EVRz3ECaFRW95y4H9ma7cWtIbk3H
+ EU1yBvsqeiZqX/Bs1ZefypSLopCpDQTKCpnKlYcd8LLvSXb9mnecQc5cI2uFg9VPvq/PRM/Ni0t
+ vpIe1iaD+Y8RPSwVbvK2ItYCEs4SqBNNtN5nhgMHNEo+k5rUUwPvYm6oiMLBSqzrxJ8ylahMSMV
+ EkrWShrzpeEva91syZt+xGL5rLN6TWu9Baqkodai1i0W4Gzebc7xM96v3Ht0nREIXUxFrVW9LSX
+ fB+sjpAKDC+L/vI5TNr0sVNUzdx/XqRrOAcI9I192G8g5ZL/4L9MRMA7qOouPnjU9WYHC604FAn
+ iErK7LNA1JDL0zBulOg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-02_03,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608020072
+ malwarescore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608020072
 
-Top-level DTS (but not example in the bindings) has only two nodes with
-unit-addresses: memory@ and soc@.  There are two special cases here, in
-terms of coding style:
+Continued lines in property assignments should be indented to opening
+'<' or '"' if they also start with that character, e.g.:
 
-1. The unit-address of memory is often not known thus set to @0, because
-   it is filled up by bootloader.
+  reg = <0x1000 0x100>,
+        <0x2000 0x100>;
 
-2. There is mixture of non-unit-address and unit-address nodes.
+If the continued line is part of previous phandle, then alignment should
+be to inner values to make it more readable, e.g.:
 
-Therefore usually the DTS chooses sorting by the node name, not the unit
-address, for the top-level part.
-
-Also the properties have one exception: 'model' property is supposed to
-be before 'compatible'.  This cannot be applied to entire DTS, because
-sound cards have also 'model' where it is supposed to follow standard
-rules (after 'compatible').  Root node is just special.
+  reg = <0x1000 0x100
+         0x2000 0x100>;
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- scripts/dtc/dt-check-style                         | 60 +++++++++++++++++++---
- .../dt-style-selftest/bad/dts-digit-node-order.dts | 40 +++++++++++++++
- .../dt-style-selftest/bad/dts-property-order.dts   |  5 ++
- .../expected/dts-child-name-order.dts.txt          |  1 +
- .../expected/dts-digit-node-order.dts.txt          |  2 +
- .../expected/dts-property-order.dts.txt            | 12 +++--
- .../expected/dts-property-order.dtso.txt           |  1 +
- .../good/dts-digit-node-order.dts                  |  3 --
- .../dt-style-selftest/good/dts-property-order.dts  |  5 ++
- 9 files changed, 114 insertions(+), 15 deletions(-)
+ scripts/dtc/dt-check-style                         | 22 +++++++++------
+ .../dtc/dt-style-selftest/bad/dts-cont-align.dts   | 23 ++++++++++++++++
+ .../dtc/dt-style-selftest/bad/yaml-cont-align.yaml |  4 ++-
+ .../expected/dts-cont-align.dts.txt                |  8 ++++++
+ .../expected/yaml-cont-align.yaml.txt              |  3 +-
+ .../expected/yaml-value-ws-multiline.yaml.txt      |  1 +
+ .../dtc/dt-style-selftest/good/dts-cont-align.dts  | 11 +++++---
+ .../dt-style-selftest/good/yaml-cont-align.yaml    | 32 ++++++++++++++++++++++
+ 8 files changed, 90 insertions(+), 14 deletions(-)
 
 diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-index 1937c6feb57e..6a05929836f2 100755
+index 04247e39a78e..cb3cdfda5e73 100755
 --- a/scripts/dtc/dt-check-style
 +++ b/scripts/dtc/dt-check-style
-@@ -79,7 +79,7 @@ def is_preprocessor(stripped):
- class DtsLine:
-     __slots__ = ('lineno', 'raw', 'linetype', 'indent_str', 'stripped', 'is_root',
-                  'prop_name', 'continuations',
--                 'node_name', 'node_addr', 'label', 'ref_name', 'depth',
-+                 'node_name', 'node_addr', 'label', 'ref_name', 'parent', 'depth',
-                  'closures')
+@@ -928,10 +928,11 @@ def check_line_length(ctx):
  
-     def __init__(self, lineno, raw, linetype, depth, indent_str, stripped, is_root = False):
-@@ -96,6 +96,7 @@ class DtsLine:
-         self.node_addr = None
-         self.label = None
-         self.ref_name = None
-+        self.parent = None        # DtsLine of parent node
-         self.closures = 1         # count of '}' on a NODE_CLOSE line
- 
- 
-@@ -495,16 +496,24 @@ def _walk_bodies(lines):
-     """Yield lists of immediate-child NODE_OPEN lines for each node body
-     in the input. Skips ref-nodes (&label) since those don't have an
-     intrinsic ordering."""
-+    # Array of stacked nodes (parent/child)
-     body_stack = [[]]
-+    # Current stack of nodes, purely to track parent relationship for each node
-+    node_stack = []
-+    parent_dl = None
-     for dl in lines:
-         if dl.linetype == LineType.NODE_OPEN:
-+            dl.parent = parent_dl
-+            node_stack.append(dl)
-             body_stack[-1].append(dl)
-             body_stack.append([])
-+            parent_dl = dl
+ def check_continuation_alignment(ctx):
+     """A multi-line property's continuation lines must align their
+-    first non-whitespace character to the display column of the first
+-    '<' or '"' after the '=' in the leading line. Display columns are
+-    used so tab-indented .dts files (where a continuation aligns with
+-    tabs plus spaces) are compared correctly."""
++    first non-whitespace character to the display column of:
++    1. the first '<' or '"' after the '=' in the leading line, if continuation is with '<' or '"'
++    2. the first value, if the continuation is still the same phandle.
++    Display columns are used so tab-indented .dts files (where a continuation
++    aligns with tabs plus spaces) are compared correctly."""
+     for dl in ctx.lines:
+         if dl.linetype != LineType.PROPERTY:
              continue
-         if dl.linetype == LineType.NODE_CLOSE:
-             if len(body_stack) <= 1:
-                 # Unbalanced; ignore to avoid crashing on malformed input
-                 continue
-+            parent_dl = node_stack.pop().parent
-             yield body_stack.pop()
+@@ -942,15 +943,20 @@ def check_continuation_alignment(ctx):
              continue
-     while body_stack:
-@@ -525,12 +534,18 @@ def _natural_sort_key(s):
- 
- def check_child_address_order(ctx):
-     """Addressed siblings (foo@N) must appear in ascending address
--    order within their parent node body."""
-+    order within their parent node body.
-+    Exception: Top-level in DTS follows name order, regardless of unit address
-+    in memory@N and soc@N nodes
-+    """
-     for children in _walk_bodies(ctx.lines):
-         addressed = []
-         for c in children:
-             if c.node_addr is None:
-                 continue
-+            if c.parent and c.parent.is_root:
-+                # Top-level does not use unit address sorting usually
-+                continue
-             try:
-                 parts = tuple(int(p, 16) for p in c.node_addr.split(','))
-             except ValueError:
-@@ -548,12 +563,16 @@ def check_child_name_order(ctx):
-     """Unaddressed siblings must appear in natural-sort order by node
-     name within their parent node body. Addressed children are scoped
-     by check_child_address_order; reference nodes (&label { ... }) and
--    the root node are skipped."""
-+    the root node are skipped.
-+    However root node has children with and without unit address, and
-+    sorting should be only by name."""
-     for children in _walk_bodies(ctx.lines):
-         unaddressed = []
-         for c in children:
-             if c.node_addr is not None:
--                continue
-+                # Skip nodes with unit address, except when sorting top-level
-+                if not c.parent or not c.parent.is_root:
-+                    continue
-             if c.node_name is None:
-                 continue
-             if c.is_root:
-@@ -597,6 +616,30 @@ def _property_bucket(name):
-     return (5 if ',' in stripped else 4, None)
- 
- 
-+def _property_bucket_root(name):
-+    """Return the canonical bucket index for a property:
-+       0 model (for root nodes only)
-+       1 compatible
-+    Plus a sub-key inside the bucket for fixed slots (device_type, compatible,
-+    reg, reg-names, ranges, status). 'standard' and 'vendor' return None for
-+    the sub-key, signalling that the within-bucket key is computed by
-+    the pairing rules."""
-+    stripped = name.lstrip('#')
-+    if name == 'model':
-+        return (0, 0)
-+    if name == 'compatible':
-+        return (1, 0)
-+    if name == 'reg':
-+        return (2, 0)
-+    if name == 'reg-names':
-+        return (2, 1)
-+    if name == 'ranges':
-+        return (3, 0)
-+    if name == 'status':
-+        return (6, 0)
-+    return (5 if ',' in stripped else 4, None)
-+
-+
- # Declarative pairing rules: each is a callable
- #   (name, all_names) -> anchor_name_or_None
- # If a rule returns an anchor, the property sorts immediately after the
-@@ -633,13 +676,16 @@ def _pair_x_names(name, all_names):
- PAIRING_RULES = (_pair_pinctrl_names, _pair_x_names)
- 
- 
--def _property_sort_key(name, all_names):
-+def _property_sort_key(dl, name, all_names):
-     """Sort key for a property among its node-body siblings.
- 
-     Format: (bucket, within_key, tiebreak). 'within_key' for
-     standard/vendor buckets follows pairing rules: a property paired
-     with anchor X sorts as if it were X with a higher tiebreak."""
--    bucket, fixed_sub = _property_bucket(name)
-+    if dl.is_root:
-+        bucket, fixed_sub = _property_bucket_root(name)
-+    else:
-+        bucket, fixed_sub = _property_bucket(name)
-     if fixed_sub is not None:
-         return (bucket, (), fixed_sub)
- 
-@@ -674,7 +720,7 @@ def check_property_order(ctx):
-         if len(props) < 2:
+         # First '<' or '"' after '='
+         rest = dl.raw[eq + 1:]
+-        m = re.search(r'[<"]', rest)
++        m = re.search(r'\s*([<"])', rest)
+         if not m:
              continue
-         all_names = [p.prop_name for p in props]
--        keyed = [(p, _property_sort_key(p.prop_name, all_names))
-+        keyed = [(p, _property_sort_key(dl, p.prop_name, all_names))
-                  for p in props]
-         for k in range(1, len(keyed)):
-             if keyed[k][1] < keyed[k - 1][1]:
-diff --git a/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dts b/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dts
+-        target_col = _display_col(dl.raw[:eq + 1 + m.start()])
++        target_col = _display_col(dl.raw[:eq + 1 + m.start(1)])
+         for cont in dl.continuations:
+-            if _display_col(cont.indent_str) != target_col:
++            target_offset = 0
++            err_msg_explanation = 'to < or "'
++            if not re.match(r'[<"]', cont.stripped):
++                target_offset = 1
++                err_msg_explanation = 'to the value under <'
++            if _display_col(cont.indent_str) != target_col + target_offset:
+                 yield (cont.lineno,
+                        'continuation should align to column %d '
+-                       '(under < or ")' % (target_col + 1))
++                       '(%s)' % (target_col + target_offset + 1, err_msg_explanation))
+ 
+ 
+ def check_unclosed_block_comment(ctx):
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-cont-align.dts b/scripts/dtc/dt-style-selftest/bad/dts-cont-align.dts
 new file mode 100644
-index 000000000000..74c956398324
+index 000000000000..2087dac23d96
 --- /dev/null
-+++ b/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dts
-@@ -0,0 +1,40 @@
++++ b/scripts/dtc/dt-style-selftest/bad/dts-cont-align.dts
+@@ -0,0 +1,23 @@
 +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 +/dts-v1/;
 +
 +/ {
++	compatible = "example,test-board";
 +	#address-cells = <1>;
 +	#size-cells = <1>;
 +
-+	memory@a0000000 {
-+		device_type = "memory";
-+		reg = <0x0 0xa0000000 0x0 0x0>;
-+	};
-+
-+	pmu {
-+		compatible = "example,pmu";
-+	};
-+
-+	soc@0 {
-+		compatible = "simple-bus";
-+		ranges = <0 0 0 0xc0000000>;
-+
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+
-+		serial@20000 {
-+			compatible = "example,serial";
-+			reg = <0x20000 0x1000>;
-+		};
-+
-+		interrupt-controller@10000 {
-+			compatible = "example,intc";
-+			reg = <0x10000 0x1000>;
-+			interrupts = <1 2 3>;
-+		};
-+
-+		serial@30000 {
-+			compatible = "example,serial";
-+			reg = <0x30000 0x1000>;
-+		};
++	interrupt-controller@10000 {
++		compatible = "example,intc";
++		reg = <0x10000 0x1000>;
++		interrupts = <1 2 3>,
++				<4 5 6>,
++				<7 8 9>;
++		pinmux = <0x01
++			 0x02>,
++			<0x03
++			 0x04>;
++		power-domain-names = "foo",
++				"bar",
++					"baz";
 +	};
 +};
-diff --git a/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts b/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts
-index f31abb6ceae4..eb8b8b29fec5 100644
---- a/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts
-+++ b/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts
-@@ -6,6 +6,11 @@
- /dts-v1/;
- 
- / {
-+	compatible = "example,test-board", "example,test-soc";
-+	model = "DT style selftest";
-+	qcom,board-id = <8 0>;
-+	chassis-type = "handset";
-+
- 	cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
-diff --git a/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt
-index e2eea0862102..312a45ed913a 100644
---- a/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt
-+++ b/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
+index 92778540b056..d4662acc7b8f 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
+@@ -26,5 +26,7 @@ examples:
+     foo@1000 {
+         compatible = "example,test-cont-align";
+         reg = <0x1000 0x100>,
+-            <0x2000 0x100>;
++            <0x2000 0x100>,
++              <0x3000
++              0x100>;
+     };
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-cont-align.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-cont-align.dts.txt
+new file mode 100644
+index 000000000000..a4672206859c
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/dts-cont-align.dts.txt
+@@ -0,0 +1,8 @@
++# mode=strict
++bad/dts-cont-align.dts:13: [continuation-alignment] continuation should align to column 30 (to < or ")
++bad/dts-cont-align.dts:14: [continuation-alignment] continuation should align to column 30 (to < or ")
++bad/dts-cont-align.dts:16: [continuation-alignment] continuation should align to column 27 (to the value under <)
++bad/dts-cont-align.dts:17: [continuation-alignment] continuation should align to column 26 (to < or ")
++bad/dts-cont-align.dts:18: [continuation-alignment] continuation should align to column 27 (to the value under <)
++bad/dts-cont-align.dts:20: [continuation-alignment] continuation should align to column 38 (to < or ")
++bad/dts-cont-align.dts:21: [continuation-alignment] continuation should align to column 38 (to < or ")
+diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
+index c0801c56d5db..eb9a84d5c222 100644
+--- a/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
++++ b/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
 @@ -1,2 +1,3 @@
  # mode=strict
- bad/dts-child-name-order.dts:16: [child-name-order] child node 'bar' out of name order
-+bad/dts-child-name-order.dts:21: [child-name-order] child node 'memory' out of name order
-diff --git a/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dts.txt
-new file mode 100644
-index 000000000000..1f41acdea0b0
---- /dev/null
-+++ b/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dts.txt
-@@ -0,0 +1,2 @@
-+# mode=strict
-+bad/dts-digit-node-order.dts:29: [child-address-order] child node @10000 out of address order
-diff --git a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
-index 4bc21328625f..65977f96331d 100644
---- a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
-+++ b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
-@@ -1,6 +1,8 @@
+-bad/yaml-cont-align.yaml:29: example 0 [continuation-alignment] continuation should align to column 11 (under < or ")
++bad/yaml-cont-align.yaml:29: example 0 [continuation-alignment] continuation should align to column 11 (to < or ")
++bad/yaml-cont-align.yaml:31: example 0 [continuation-alignment] continuation should align to column 12 (to the value under <)
+diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
+index 3df55b1762d0..d25b5b425e3f 100644
+--- a/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
++++ b/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
+@@ -1,2 +1,3 @@
  # mode=strict
--bad/dts-property-order.dts:15: [property-order] property 'compatible' out of canonical order (should sort before 'reg')
--bad/dts-property-order.dts:16: [property-order] property 'device_type' out of canonical order (should sort before 'compatible')
--bad/dts-property-order.dts:25: [property-order] property 'dma-coherent' out of canonical order (should sort before 'status')
--bad/dts-property-order.dts:30: [property-order] property 'compatible' out of canonical order (should sort before 'ranges')
--bad/dts-property-order.dts:40: [property-order] property 'compatible' out of canonical order (should sort before 'interrupts')
-+bad/dts-property-order.dts:10: [property-order] property 'model' out of canonical order (should sort before 'compatible')
-+bad/dts-property-order.dts:12: [property-order] property 'chassis-type' out of canonical order (should sort before 'qcom,board-id')
-+bad/dts-property-order.dts:20: [property-order] property 'compatible' out of canonical order (should sort before 'reg')
-+bad/dts-property-order.dts:21: [property-order] property 'device_type' out of canonical order (should sort before 'compatible')
-+bad/dts-property-order.dts:30: [property-order] property 'dma-coherent' out of canonical order (should sort before 'status')
-+bad/dts-property-order.dts:35: [property-order] property 'compatible' out of canonical order (should sort before 'ranges')
-+bad/dts-property-order.dts:45: [property-order] property 'compatible' out of canonical order (should sort before 'interrupts')
-diff --git a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt
-index a78b8c042aa5..124183fab2ad 100644
---- a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt
-+++ b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt
-@@ -1,4 +1,5 @@
- # mode=strict
-+bad/dts-property-order.dtso:11: [property-order] property 'model' out of canonical order (should sort before 'compatible')
- bad/dts-property-order.dtso:13: [property-order] property 'chassis-type' out of canonical order (should sort before 'qcom,board-id')
- bad/dts-property-order.dtso:21: [property-order] property 'compatible' out of canonical order (should sort before 'reg')
- bad/dts-property-order.dtso:22: [property-order] property 'device_type' out of canonical order (should sort before 'compatible')
-diff --git a/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts b/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts
-index cdf3f91ebe01..2b21dde7f3c8 100644
---- a/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts
-+++ b/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts
-@@ -5,13 +5,10 @@ / {
- 	#address-cells = <1>;
- 	#size-cells = <1>;
- 
--	/* TODO: uncomment when child-address-order is fixed for top-level */
--	/*
- 	memory@a0000000 {
- 		device_type = "memory";
- 		reg = <0x0 0xa0000000 0x0 0x0>;
+ bad/yaml-value-ws-multiline.yaml:25: example 0 [value-whitespace] extra whitespace inside <...>
++bad/yaml-value-ws-multiline.yaml:26: example 0 [continuation-alignment] continuation should align to column 12 (to the value under <)
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts b/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
+index 36fb4eefcd83..1a1c07c09a41 100644
+--- a/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
++++ b/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
+@@ -18,9 +18,12 @@ interrupt-controller@10000 {
+ 		interrupts = <1 2 3>,
+ 			     <4 5 6>,
+ 			     <7 8 9>;
+-		pinmux = <
+-			 0x01
+-			 0x02
+-			 >;
++		pinmux = <0x01
++			  0x02>,
++			 <0x03
++			  0x04>;
++		power-domain-names = "foo",
++				     "bar",
++				     "baz";
  	};
--	*/
- 
- 	pmu {
- 		compatible = "example,pmu";
-diff --git a/scripts/dtc/dt-style-selftest/good/dts-property-order.dts b/scripts/dtc/dt-style-selftest/good/dts-property-order.dts
-index 0e183e3459cd..3d847cc9fa3e 100644
---- a/scripts/dtc/dt-style-selftest/good/dts-property-order.dts
-+++ b/scripts/dtc/dt-style-selftest/good/dts-property-order.dts
-@@ -6,6 +6,11 @@
- /dts-v1/;
- 
- / {
-+	model = "DT style selftest";
-+	compatible = "example,test-board", "example,test-soc";
-+	chassis-type = "handset";
-+	qcom,board-id = <8 0>;
+ };
+diff --git a/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml b/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
+new file mode 100644
+index 000000000000..2e7b8582bb7c
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
+@@ -0,0 +1,32 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/test-good-cont-align.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	cpus {
- 		#address-cells = <1>;
- 		#size-cells = <0>;
++title: Test fixture with aligned multi-line property
++
++maintainers:
++  - Test User <test@example.com>
++
++properties:
++  compatible:
++    const: example,test-cont-align
++  reg:
++    maxItems: 2
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    foo@1000 {
++        compatible = "example,test-cont-align";
++        reg = <0x1000 0x100>,
++              <0x2000 0x100>,
++              <0x3000
++               0x100>;
++    };
 
 -- 
 2.53.0
