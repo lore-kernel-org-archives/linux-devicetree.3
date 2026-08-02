@@ -1,743 +1,163 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063723C2BB4
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 15:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448C13932EA
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 15:55:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785685603; cv=none; b=VYcnfqN3cM4AW2Ft0LpQQ9EE9UrrTjSOFOGWGba4PGvZm2t+x7V7txAKjcGEBzFqA4LCWkHYQY0fF+WC0+Ow7qoJY+ysoI8l5lFZnv23BTt3QnJlVWq+Kaisln4G5q6ULid4bAm4Fqjzpt3FGHPQbDsP/j717e1rTUnuoBXYIHs=
+	t=1785686138; cv=none; b=bg4IWYYqRVmyGpMnVgSVJD+NSqP5b/aZJQ2/RUjuFoG8LY5/xMglceedW9YQPmfIWbkG1fJ66qoaqEVEnau3Htp8HajN/3OzvbJIaqDqWF7kN+mZ5l8MsTuASJLXKO1qA0oSyipAlrWZITlYMbhEl1qQdkQVg/6Kzq2RmezEsrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785685603; c=relaxed/simple;
-	bh=OR37Iv+hKosJmgVoNOTvEX7Csyg/AuprGKf/TLFamgE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fn7HNrL9iPmYTiTJSHlWclAYJ08IDIHvrntDmWx0sPhJP3SnR9h1crxWPhZzta/x1PH3V5ecny0wqiIc13JbxB7Nfdi2U+PxhpxTaCoH7bPf4Hfm5jgEF8PiuXwaDKKiCzjDU6PxMILcL7N4f9gn0qf1dcSWBz7e12DyQh/8aO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nNtKBz/8; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785686138; c=relaxed/simple;
+	bh=94Vn9LMeL25bDGpR7IjwB2qxd1rkbpBCCCaZp1irtYM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WWFzJeFrzG+/95lkBjeToX5edeQsj5QaT9tJ+3dppYdjdbruzgGbkyrwbIv169vFYxRtgiUvM1uS4baVOVaZsHfV9doGzkSTB9V7IQ8JwmDk8S8CnS80sqbGMS6oIGaiB3E960MpcgB8nUQi5jTad+vK9+772CCbw7fGe2B724Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRZ2u5d7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nNtKBz/8"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cacb8416a1so24775645ad.1
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 08:46:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785685594; x=1786290394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SiJGL86YIgemNjCRQw+qQrbA3LuaeRoAxQWIwG8BtCE=;
-        b=nNtKBz/8a6nyhKJA60VccdCySaQEk1emGKlDGqCf7ds7GutkvIgEVj0fAb7kWyy+SA
-         hH9d5t4ogOqvmjfIcTlQMim9qjIBzYeE0b+cb9EsfcJ8K1qB5nJeDnC5g6VO9m98yC2b
-         q1MB577oDC7TLmv+7J2j7symxdAvY/mE62XZlfNozTIBhAfNsPAMTHRY0vSWdzLXtirp
-         bS3aIrIW/503tk+Xtcik7wBTv63CsK/FoaiEv5g5s4mUrXZ0W57HLIp6pyidnz2RYvFz
-         vkViCprTmKulbtydxmcYBaDooRdxwLFcM5AfBGlUXhbMMF2lLNLjm0RD8hOR4p7m0Vst
-         +QsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785685594; x=1786290394;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SiJGL86YIgemNjCRQw+qQrbA3LuaeRoAxQWIwG8BtCE=;
-        b=SeiOji34uAV9CgwibeCYut92aBMwBzMG/tDNRgmo0KjrSapbOlgI0BB9ui2rAY1KnP
-         sZWklRCYxyKwfm9U2zrAk1o/6p/OEdJoNl/edHxMNUI0+nTD4PNcxzVrQ0sorUgtVRMS
-         hQfzyYKz/waEBrvLIuO4FIOJVuBR7wLIuW5IOO36iLUoiMuksrIrZlvdTdDVaPOfjOsL
-         c2baVoa6CCtIs1+WpweBQme3eQNBoTFXTlVJZUPPSGbCfU/TWuFLhylEFT1raObSSaTv
-         nzgojpkquZ7UNxPRDQxl9X/m3EnRKRE1C9HKu/018T4fa7WCqNaGrRGov2ltwy3lldFA
-         EMFQ==
-X-Forwarded-Encrypted: i=1; AHgh+RopKrVOiFVWVjjC5bzeE5Wcz8dJxxmKzQOwXdZLpnQh8DA2QVBPuA1kPvecvZGjiY+JnM2DoVHnf9ti@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywmd6HVKB9u6huWYOP181jY+fLEhYbdbkvO4DGl6bZ/Yu6wzOHb
-	Up7PnxtQYOsO5lKuu6sjMmKIC5vpmGDSNqQpHUEbt2hldfuDAsHp3EjV
-X-Gm-Gg: AR+sD10mASLWxek5cugNj15SBzkhGxDc6q3T2rQbb7Rq2YX0RRkUQsWhd3dKda8Xu3y
-	WWAkTPlawiWnU6cdDCtEjxlXMkrjGpG5DTg2e1w2sff7ruKqLIbOtDk8eIj9EJ+Jj2RNVMHR0zq
-	tnlPCtT5URtZdgTnmeElxOVXfnO8P18Wj0OuwMkd/b9z3Ut3z4yNDSMTWb5dtuHI944QSFNGiar
-	cN4oqkUFzk5lMpCz3gHmVmreCrbyeqm16Zthr0pYL1oCh+3+P4DiDjKEgVIK5a7rWnDab9FcvMV
-	wroRAdCm4MSctCaOSEl/v8I6Jm3F9O6dXh6vNM1cG1LcfazYb+3ay42HVQEOnejAx2ws83XHiYT
-	9WU6M+dCaB64jJ/CPpj3IXi5ODfF+1jg/jhrRVQVAxKzj/9hGwBqckEynHsugtojgL3XqWLOpPC
-	PMtfNOpDhzCgR+KeWdDNicuI8Y26tgQRFnBNtV68FbpaDC2PznTJ7RykXdm9rs6qSlsgL2yY49f
-	t3IetKx0OXqbgw/lGmwtkf3ghgM0JgkzmZF5hc=
-X-Received: by 2002:a17:903:1b43:b0:2ce:d957:59c4 with SMTP id d9443c01a7336-2d052188a6bmr70827165ad.6.1785685594212;
-        Sun, 02 Aug 2026 08:46:34 -0700 (PDT)
-Received: from Mac.net (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e29a126sm30602192eec.31.2026.08.02.08.46.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 02 Aug 2026 08:46:33 -0700 (PDT)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Peter Rosin <peda@lysator.liu.se>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ahmad Byagowi <ahmadexp@gmail.com>
-Subject: [RFC net-next 4/4] ptp: ocp: Add R4006 I2C peripheral topology
-Date: Sun,  2 Aug 2026 08:46:20 -0700
-Message-ID: <25f255ac12a006059e0a442a5d750c31e9da1ae2.1785684064.git.ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <cover.1785684064.git.ahmadexp@gmail.com>
-References: <cover.1785684064.git.ahmadexp@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRZ2u5d7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561381F000E9;
+	Sun,  2 Aug 2026 15:55:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785686136;
+	bh=vRE7BqVz2iEojLrscidbyM2uoiEMjtUhNhmwCfvBL1Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jRZ2u5d7puM8vhe2eaWsf1tyIKqLBF0lBCn43jc9a7z6stFfq9HfGIQa75cY8aKuM
+	 sl2B2RGZQ7kXks/ASNGsFPr+aQ1vLdAsHBlOf+lXDgTHVnwUx7iyqBcivVM3FgAzrU
+	 1XoaxKKAZHCO7NjwWmWK34dnFf/PVX1z5coW9tQPpFiYcKfhggKNWZOMJ9iqUIXF/u
+	 KItI0yB2bZtNALEpGnMVvLGKSR+LF8CYo8+8et/gomu3lxJFngs2ES3DN2pnkK9ywa
+	 5LuBPAwHV/iC3wDL0gti+YGAKwuvfrC4J23tzG1ngAgmEZ1Gx4Q2OkkVXHoTNwFOXd
+	 czAsfrTDg4eMw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yashas D" <y-d@ti.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260802153825.1570435-3-y-d@ti.com>
+References: <20260802153825.1570435-1-y-d@ti.com>
+ <20260802153825.1570435-3-y-d@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 15:55:35 +0000
+Message-Id: <20260802155536.561381F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-R4006 cards place a PCA9546 mux behind the FPGA I2C controller. The
-mux exposes three LM75B temperature sensors, an SHT3x humidity sensor,
-an ICP10100 pressure sensor, and an IS32FL3207 controller for the GNSS
-and SMA LEDs.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Detect the board through the existing EEPROM nvmem path and describe
-its per-card topology with software nodes. Instantiate the standard I2C
-clients after their adapters appear, allowing the component drivers to
-bind normally. Leave the channel containing the BNO08x empty because
-there is no upstream driver for that device.
+New issues:
+- [High] Polling `.detect()` breaks DPMS and wastes power by continuously r=
+etraining the link after the display is disabled.
+- [High] Skipping `cdns_mhdp_bridge_hpd_enable()` in no-hpd mode permanentl=
+y masks SW event interrupts, breaking HDCP.
 
-Serialize EEPROM discovery, retry topology population from I2C bus
-notifications, and atomically disable the delayed work during teardown.
-Limit the existing i2c sysfs link to the root adapter.
+Pre-existing issues:
+- [Critical] Accessing `bridge.base.state` outside of atomic commit context=
+ without modeset locks leads to a Use-After-Free.
+--
 
-Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
----
- drivers/ptp/ptp_ocp.c | 485 +++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 459 insertions(+), 26 deletions(-)
+--- Patch [2]: [PATCH v6 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd proper=
+ty ---
+commit 33969e025e143110f913b15c51739edb9cc917f9
+Author: Rahul T R <r-ravikumar@ti.com>
+Subject: drm: bridge: cdns-mhdp8546: Add no-hpd property
 
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 35e911f1a..b362a7c4d 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -21,10 +21,14 @@
- #include <net/devlink.h>
- #include <linux/i2c.h>
- #include <linux/mtd/mtd.h>
-+#include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
-+#include <linux/property.h>
- #include <linux/crc16.h>
- #include <linux/dpll.h>
- 
-+#include <dt-bindings/leds/common.h>
-+
- #define PCI_DEVICE_ID_META_TIMECARD		0x0400
- 
- #define PCI_VENDOR_ID_CELESTICA			0x18d4
-@@ -347,6 +351,32 @@ struct ptp_ocp_serial_port {
- #define OCP_SIGNAL_NUM			4
- #define OCP_FREQ_NUM			4
- 
-+#define OCP_R4006_MUX_CHANNELS		4
-+#define OCP_R4006_SENSOR_COUNT		5
-+#define OCP_R4006_LED_COUNT		5
-+#define OCP_R4006_LED_COMPONENT_COUNT	(3 * OCP_R4006_LED_COUNT)
-+#define OCP_R4006_NODE_COUNT		(1 + OCP_R4006_MUX_CHANNELS + \
-+					 OCP_R4006_SENSOR_COUNT + 1 + \
-+					 OCP_R4006_LED_COUNT + \
-+					 OCP_R4006_LED_COMPONENT_COUNT)
-+
-+struct ptp_ocp_r4006 {
-+	struct software_node mux_node;
-+	struct property_entry mux_props[6];
-+	struct software_node channel_nodes[OCP_R4006_MUX_CHANNELS];
-+	struct property_entry channel_props[OCP_R4006_MUX_CHANNELS][4];
-+	struct software_node sensor_nodes[OCP_R4006_SENSOR_COUNT];
-+	struct property_entry sensor_props[OCP_R4006_SENSOR_COUNT][3];
-+	struct software_node led_node;
-+	struct property_entry led_props[6];
-+	struct software_node led_nodes[OCP_R4006_LED_COUNT];
-+	struct property_entry led_group_props[OCP_R4006_LED_COUNT][7];
-+	struct software_node component_nodes[OCP_R4006_LED_COMPONENT_COUNT];
-+	struct property_entry component_props[OCP_R4006_LED_COMPONENT_COUNT][4];
-+	const struct software_node *node_group[OCP_R4006_NODE_COUNT + 1];
-+	bool registered;
-+};
-+
- enum {
- 	PORT_GNSS,
- 	PORT_GNSS2,
-@@ -403,6 +433,7 @@ struct ptp_ocp {
- 	u16			fw_version;
- 	u8			board_id[OCP_BOARD_ID_LEN];
- 	u8			serial[OCP_SERIAL_LEN];
-+	struct mutex		eeprom_lock; /* Serializes EEPROM discovery. */
- 	bool			has_eeprom_data;
- 	u32			pps_req_map;
- 	int			flash_start;
-@@ -414,6 +445,8 @@ struct ptp_ocp {
- 	const struct ocp_sma_op *sma_op;
- 	struct dpll_device *dpll;
- 	dpll_tracker tracker;
-+	struct ptp_ocp_r4006 *r4006;
-+	struct delayed_work i2c_work;
- 	int signals_nr;
- 	int freq_in_nr;
- };
-@@ -488,6 +521,71 @@ static struct ptp_ocp_eeprom_map art_eeprom_map[] = {
- 	{ }
- };
- 
-+struct ptp_ocp_r4006_i2c_device {
-+	const char *node_name;
-+	const char *compatible;
-+	const char *type;
-+	u8 channel;
-+	u8 address;
-+};
-+
-+/* Channel 3's BNO08x at 0x4a has no upstream Linux driver, so omit it. */
-+static const struct ptp_ocp_r4006_i2c_device ptp_ocp_r4006_sensors[] = {
-+	{ "temperature@48", "national,lm75b", "lm75b", 0, 0x48 },
-+	{ "temperature@49", "national,lm75b", "lm75b", 0, 0x49 },
-+	{ "temperature@4a", "national,lm75b", "lm75b", 0, 0x4a },
-+	{ "humidity@44", "sensirion,sht3x", "sht3x", 1, 0x44 },
-+	{ "pressure@63", "invensense,icp10100", "icp10100", 2, 0x63 },
-+};
-+
-+static_assert(ARRAY_SIZE(ptp_ocp_r4006_sensors) == OCP_R4006_SENSOR_COUNT);
-+
-+struct ptp_ocp_r4006_led {
-+	const char *node_name;
-+	const char *function;
-+	u8 function_enumerator;
-+	bool has_function_enumerator;
-+	u8 channel[3];
-+};
-+
-+static const struct ptp_ocp_r4006_led ptp_ocp_r4006_leds[] = {
-+	{
-+		.node_name = "multi-led@c",
-+		.function = LED_FUNCTION_STATUS,
-+		.channel = { 13, 12, 14 },
-+	},
-+	{
-+		.node_name = "multi-led@6",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 1,
-+		.has_function_enumerator = true,
-+		.channel = { 7, 6, 8 },
-+	},
-+	{
-+		.node_name = "multi-led@9",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 2,
-+		.has_function_enumerator = true,
-+		.channel = { 10, 9, 11 },
-+	},
-+	{
-+		.node_name = "multi-led@0",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 3,
-+		.has_function_enumerator = true,
-+		.channel = { 1, 0, 2 },
-+	},
-+	{
-+		.node_name = "multi-led@3",
-+		.function = LED_FUNCTION_INDICATOR,
-+		.function_enumerator = 4,
-+		.has_function_enumerator = true,
-+		.channel = { 4, 3, 5 },
-+	},
-+};
-+
-+static_assert(ARRAY_SIZE(ptp_ocp_r4006_leds) == OCP_R4006_LED_COUNT);
-+
- #define bp_assign_entry(bp, res, val) ({				\
- 	uintptr_t addr = (uintptr_t)(bp) + (res)->bp_offset;		\
- 	*(typeof(val) *)addr = val;					\
-@@ -1969,6 +2067,12 @@ ptp_ocp_nvmem_device_put(struct nvmem_device **nvmemp)
- 	*nvmemp = NULL;
- }
- 
-+static bool
-+ptp_ocp_has_eeprom_data(struct ptp_ocp *bp)
-+{
-+	return smp_load_acquire(&bp->has_eeprom_data);
-+}
-+
- static void
- ptp_ocp_read_eeprom(struct ptp_ocp *bp)
- {
-@@ -1977,11 +2081,11 @@ ptp_ocp_read_eeprom(struct ptp_ocp *bp)
- 	const void *tag;
- 	int ret;
- 
--	if (!bp->i2c_ctrl)
--		return;
--
- 	tag = NULL;
- 	nvmem = NULL;
-+	mutex_lock(&bp->eeprom_lock);
-+	if (!bp->i2c_ctrl || ptp_ocp_has_eeprom_data(bp))
-+		goto out;
- 
- 	for (map = bp->eeprom_map; map->len; map++) {
- 		if (map->tag != tag) {
-@@ -2001,10 +2105,12 @@ ptp_ocp_read_eeprom(struct ptp_ocp *bp)
- 			goto fail;
- 	}
- 
--	bp->has_eeprom_data = true;
-+	/* Publish the EEPROM fields before readers observe valid data. */
-+	smp_store_release(&bp->has_eeprom_data, true);
- 
- out:
- 	ptp_ocp_nvmem_device_put(&nvmem);
-+	mutex_unlock(&bp->eeprom_lock);
- 	return;
- 
- fail:
-@@ -2012,6 +2118,291 @@ ptp_ocp_read_eeprom(struct ptp_ocp *bp)
- 	goto out;
- }
- 
-+static int
-+ptp_ocp_i2c_adapter_match(struct device *dev, const void *data)
-+{
-+	return !!i2c_verify_adapter(dev);
-+}
-+
-+static struct i2c_adapter *
-+ptp_ocp_i2c_root_adapter(struct ptp_ocp *bp)
-+{
-+	struct i2c_adapter *adapter;
-+	struct device *dev;
-+
-+	if (!bp->i2c_ctrl)
-+		return NULL;
-+
-+	dev = device_find_child(&bp->i2c_ctrl->dev, NULL,
-+				ptp_ocp_i2c_adapter_match);
-+	if (!dev)
-+		return NULL;
-+
-+	adapter = i2c_verify_adapter(dev);
-+	if (!adapter || !try_module_get(adapter->owner)) {
-+		put_device(dev);
-+		return NULL;
-+	}
-+
-+	/* The device reference from device_find_child() is owned by the caller. */
-+	return adapter;
-+}
-+
-+static int
-+ptp_ocp_r4006_init_nodes(struct ptp_ocp *bp)
-+{
-+	static const char * const channel_names[] = {
-+		"i2c@0", "i2c@1", "i2c@2", "i2c@3",
-+	};
-+	static const char * const output_names[] = {
-+		"led@0", "led@1", "led@2", "led@3", "led@4", "led@5",
-+		"led@6", "led@7", "led@8", "led@9", "led@a", "led@b",
-+		"led@c", "led@d", "led@e", "led@f", "led@10", "led@11",
-+	};
-+	static const u32 colors[] = {
-+		LED_COLOR_ID_RED, LED_COLOR_ID_GREEN, LED_COLOR_ID_BLUE,
-+	};
-+	struct device *dev = &bp->pdev->dev;
-+	struct ptp_ocp_r4006 *r4006;
-+	unsigned int component = 0;
-+	unsigned int node = 0;
-+	unsigned int i, j, prop;
-+	int ret;
-+
-+	if (bp->r4006)
-+		return 0;
-+
-+	r4006 = devm_kzalloc(dev, sizeof(*r4006), GFP_KERNEL);
-+	if (!r4006)
-+		return -ENOMEM;
-+
-+	r4006->mux_node.name =
-+		devm_kasprintf(dev, GFP_KERNEL, "ocp%d-r4006-mux", bp->id);
-+	if (!r4006->mux_node.name)
-+		return -ENOMEM;
-+	r4006->mux_node.properties = r4006->mux_props;
-+	r4006->mux_props[0] =
-+		PROPERTY_ENTRY_STRING("compatible", "nxp,pca9546");
-+	r4006->mux_props[1] = PROPERTY_ENTRY_U32("reg", 0x70);
-+	r4006->mux_props[2] = PROPERTY_ENTRY_BOOL("i2c-mux-idle-disconnect");
-+	r4006->mux_props[3] = PROPERTY_ENTRY_U32("#address-cells", 1);
-+	r4006->mux_props[4] = PROPERTY_ENTRY_U32("#size-cells", 0);
-+	r4006->node_group[node++] = &r4006->mux_node;
-+
-+	for (i = 0; i < OCP_R4006_MUX_CHANNELS; i++) {
-+		r4006->channel_nodes[i].name = channel_names[i];
-+		r4006->channel_nodes[i].parent = &r4006->mux_node;
-+		r4006->channel_nodes[i].properties = r4006->channel_props[i];
-+		r4006->channel_props[i][0] = PROPERTY_ENTRY_U32("reg", i);
-+		r4006->channel_props[i][1] = PROPERTY_ENTRY_U32("#address-cells", 1);
-+		r4006->channel_props[i][2] = PROPERTY_ENTRY_U32("#size-cells", 0);
-+		r4006->node_group[node++] = &r4006->channel_nodes[i];
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(ptp_ocp_r4006_sensors); i++) {
-+		const struct ptp_ocp_r4006_i2c_device *sensor;
-+
-+		sensor = &ptp_ocp_r4006_sensors[i];
-+		r4006->sensor_nodes[i].name = sensor->node_name;
-+		r4006->sensor_nodes[i].parent =
-+			&r4006->channel_nodes[sensor->channel];
-+		r4006->sensor_nodes[i].properties = r4006->sensor_props[i];
-+		r4006->sensor_props[i][0] =
-+			PROPERTY_ENTRY_STRING("compatible", sensor->compatible);
-+		r4006->sensor_props[i][1] =
-+			PROPERTY_ENTRY_U32("reg", sensor->address);
-+		r4006->node_group[node++] = &r4006->sensor_nodes[i];
-+	}
-+
-+	r4006->led_node.name = "led-controller@34";
-+	r4006->led_node.parent = &r4006->channel_nodes[1];
-+	r4006->led_node.properties = r4006->led_props;
-+	r4006->led_props[0] =
-+		PROPERTY_ENTRY_STRING("compatible", "issi,is32fl3207");
-+	r4006->led_props[1] = PROPERTY_ENTRY_U32("reg", 0x34);
-+	r4006->led_props[2] = PROPERTY_ENTRY_U32("issi,riset-ohms", 4700);
-+	r4006->led_props[3] = PROPERTY_ENTRY_U32("#address-cells", 1);
-+	r4006->led_props[4] = PROPERTY_ENTRY_U32("#size-cells", 0);
-+	r4006->node_group[node++] = &r4006->led_node;
-+
-+	for (i = 0; i < ARRAY_SIZE(ptp_ocp_r4006_leds); i++) {
-+		const struct ptp_ocp_r4006_led *led = &ptp_ocp_r4006_leds[i];
-+		u32 group_reg;
-+
-+		group_reg = min3(led->channel[0], led->channel[1],
-+				 led->channel[2]);
-+		r4006->led_nodes[i].name = led->node_name;
-+		r4006->led_nodes[i].parent = &r4006->led_node;
-+		r4006->led_nodes[i].properties = r4006->led_group_props[i];
-+		prop = 0;
-+		r4006->led_group_props[i][prop++] =
-+			PROPERTY_ENTRY_U32("reg", group_reg);
-+		r4006->led_group_props[i][prop++] =
-+			PROPERTY_ENTRY_U32("color", LED_COLOR_ID_RGB);
-+		r4006->led_group_props[i][prop++] =
-+			PROPERTY_ENTRY_STRING("function", led->function);
-+		if (led->has_function_enumerator)
-+			r4006->led_group_props[i][prop++] =
-+				PROPERTY_ENTRY_U32("function-enumerator",
-+						   led->function_enumerator);
-+		r4006->led_group_props[i][prop++] =
-+			PROPERTY_ENTRY_U32("#address-cells", 1);
-+		r4006->led_group_props[i][prop] =
-+			PROPERTY_ENTRY_U32("#size-cells", 0);
-+		r4006->node_group[node++] = &r4006->led_nodes[i];
-+
-+		for (j = 0; j < ARRAY_SIZE(led->channel); j++, component++) {
-+			u8 channel = led->channel[j];
-+
-+			r4006->component_nodes[component].name =
-+				output_names[channel];
-+			r4006->component_nodes[component].parent =
-+				&r4006->led_nodes[i];
-+			r4006->component_nodes[component].properties =
-+				r4006->component_props[component];
-+			r4006->component_props[component][0] =
-+				PROPERTY_ENTRY_U32("reg", channel);
-+			r4006->component_props[component][1] =
-+				PROPERTY_ENTRY_U32("color", colors[j]);
-+			r4006->component_props[component][2] =
-+				PROPERTY_ENTRY_U32("led-max-microamp", 8150);
-+			r4006->node_group[node++] =
-+				&r4006->component_nodes[component];
-+		}
-+	}
-+
-+	if (WARN_ON(node != OCP_R4006_NODE_COUNT))
-+		return -EINVAL;
-+
-+	ret = software_node_register_node_group(r4006->node_group);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to register R4006 firmware nodes\n");
-+
-+	r4006->registered = true;
-+	bp->r4006 = r4006;
-+	return 0;
-+}
-+
-+static int
-+ptp_ocp_r4006_add_device(struct ptp_ocp *bp, struct i2c_adapter *adapter,
-+			 const struct software_node *node, const char *type,
-+			 u16 address)
-+{
-+	struct fwnode_handle *fwnode = software_node_fwnode(node);
-+	struct i2c_board_info info = { };
-+	struct i2c_client *client;
-+
-+	client = i2c_find_device_by_fwnode(fwnode);
-+	if (client) {
-+		put_device(&client->dev);
-+		return 0;
-+	}
-+
-+	strscpy(info.type, type, sizeof(info.type));
-+	info.addr = address;
-+	info.fwnode = fwnode;
-+	client = i2c_new_client_device(adapter, &info);
-+	if (IS_ERR(client))
-+		return dev_err_probe(&bp->pdev->dev, PTR_ERR(client),
-+				     "failed to add %s at %d-00%02x\n",
-+				     type, i2c_adapter_id(adapter), address);
-+
-+	return 0;
-+}
-+
-+static void
-+ptp_ocp_r4006_populate_channel(struct ptp_ocp *bp, unsigned int channel)
-+{
-+	struct ptp_ocp_r4006 *r4006 = bp->r4006;
-+	const struct software_node *node;
-+	struct fwnode_handle *fwnode;
-+	struct i2c_adapter *adapter;
-+	unsigned int i;
-+
-+	fwnode = software_node_fwnode(&r4006->channel_nodes[channel]);
-+	adapter = i2c_get_adapter_by_fwnode(fwnode);
-+	if (!adapter)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(ptp_ocp_r4006_sensors); i++) {
-+		const struct ptp_ocp_r4006_i2c_device *sensor;
-+
-+		sensor = &ptp_ocp_r4006_sensors[i];
-+		if (sensor->channel != channel)
-+			continue;
-+
-+		node = &r4006->sensor_nodes[i];
-+		ptp_ocp_r4006_add_device(bp, adapter, node, sensor->type,
-+					 sensor->address);
-+	}
-+
-+	if (channel == 1)
-+		ptp_ocp_r4006_add_device(bp, adapter, &r4006->led_node,
-+					 "is32fl3207", 0x34);
-+
-+	i2c_put_adapter(adapter);
-+}
-+
-+static void
-+ptp_ocp_i2c_work(struct work_struct *work)
-+{
-+	struct ptp_ocp *bp = container_of(work, struct ptp_ocp, i2c_work.work);
-+	const struct software_node *node;
-+	struct i2c_adapter *adapter;
-+	unsigned int channel;
-+	int ret;
-+
-+	if (!bp->eeprom_map)
-+		return;
-+
-+	adapter = ptp_ocp_i2c_root_adapter(bp);
-+	if (!adapter)
-+		return;
-+
-+	if (!ptp_ocp_has_eeprom_data(bp))
-+		ptp_ocp_read_eeprom(bp);
-+	if (!ptp_ocp_has_eeprom_data(bp) || memcmp(bp->board_id, "R4006", 5))
-+		goto out_put_adapter;
-+
-+	ret = ptp_ocp_r4006_init_nodes(bp);
-+	if (ret)
-+		goto out_put_adapter;
-+
-+	node = &bp->r4006->mux_node;
-+	ret = ptp_ocp_r4006_add_device(bp, adapter, node, "pca9546", 0x70);
-+	if (ret)
-+		goto out_put_adapter;
-+
-+	for (channel = 0; channel < OCP_R4006_MUX_CHANNELS; channel++)
-+		ptp_ocp_r4006_populate_channel(bp, channel);
-+
-+out_put_adapter:
-+	i2c_put_adapter(adapter);
-+}
-+
-+static void
-+ptp_ocp_r4006_unregister(struct ptp_ocp *bp)
-+{
-+	struct fwnode_handle *fwnode;
-+	struct i2c_client *client;
-+
-+	disable_delayed_work_sync(&bp->i2c_work);
-+	if (!bp->r4006)
-+		return;
-+
-+	fwnode = software_node_fwnode(&bp->r4006->mux_node);
-+	client = i2c_find_device_by_fwnode(fwnode);
-+	if (client) {
-+		i2c_unregister_device(client);
-+		put_device(&client->dev);
-+	}
-+
-+	if (bp->r4006->registered)
-+		software_node_unregister_node_group(bp->r4006->node_group);
-+	bp->r4006 = NULL;
-+}
-+
- static struct device *
- ptp_ocp_find_flash(struct ptp_ocp *bp)
- {
-@@ -2166,9 +2557,9 @@ ptp_ocp_devlink_info_get(struct devlink *devlink, struct devlink_info_req *req,
- 	if (err)
- 		return err;
- 
--	if (!bp->has_eeprom_data) {
-+	if (!ptp_ocp_has_eeprom_data(bp)) {
- 		ptp_ocp_read_eeprom(bp);
--		if (!bp->has_eeprom_data)
-+		if (!ptp_ocp_has_eeprom_data(bp))
- 			return 0;
- 	}
- 
-@@ -3756,7 +4147,7 @@ serialnum_show(struct device *dev, struct device_attribute *attr, char *buf)
- {
- 	struct ptp_ocp *bp = dev_get_drvdata(dev);
- 
--	if (!bp->has_eeprom_data)
-+	if (!ptp_ocp_has_eeprom_data(bp))
- 		ptp_ocp_read_eeprom(bp);
- 
- 	return sysfs_emit(buf, "%pM\n", bp->serial);
-@@ -4727,6 +5118,7 @@ ptp_ocp_device_init(struct ptp_ocp *bp, struct pci_dev *pdev)
- 
- 	bp->ptp_info = ptp_ocp_clock_info;
- 	spin_lock_init(&bp->lock);
-+	mutex_init(&bp->eeprom_lock);
- 
- 	for (i = 0; i < __PORT_COUNT; i++)
- 		bp->port[i].line = -1;
-@@ -4865,6 +5257,7 @@ ptp_ocp_detach(struct ptp_ocp *bp)
- {
- 	int i;
- 
-+	ptp_ocp_r4006_unregister(bp);
- 	ptp_ocp_debugfs_remove_device(bp);
- 	ptp_ocp_detach_sysfs(bp);
- 	ptp_ocp_attr_group_del(bp);
-@@ -5079,6 +5472,7 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto out_disable;
- 
- 	INIT_DELAYED_WORK(&bp->sync_work, ptp_ocp_sync_work);
-+	INIT_DELAYED_WORK(&bp->i2c_work, ptp_ocp_i2c_work);
- 
- 	/* compat mode.
- 	 * Older FPGA firmware only returns 2 irq's.
-@@ -5096,6 +5490,7 @@ ptp_ocp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	err = ptp_ocp_register_resources(bp, id->driver_data);
- 	if (err)
- 		goto out;
-+	mod_delayed_work(system_wq, &bp->i2c_work, 1);
- 
- 	bp->ptp = ptp_clock_register(&bp->ptp_info, &pdev->dev);
- 	if (IS_ERR(bp->ptp)) {
-@@ -5189,38 +5584,76 @@ static struct pci_driver ptp_ocp_driver = {
- 	.shutdown	= ptp_ocp_remove,
- };
- 
-+static struct ptp_ocp *
-+ptp_ocp_i2c_parent(struct device *child)
-+{
-+	struct device *dev = child;
-+
-+	while ((dev = dev->parent))
-+		if (dev->driver && !strcmp(dev->driver->name, KBUILD_MODNAME))
-+			return dev_get_drvdata(dev);
-+
-+	return NULL;
-+}
-+
-+static bool
-+ptp_ocp_i2c_is_root(struct ptp_ocp *bp, struct i2c_adapter *adapter)
-+{
-+	struct device *parent = adapter->dev.parent;
-+
-+	if (!parent)
-+		return false;
-+	if (bp->i2c_ctrl && parent == &bp->i2c_ctrl->dev)
-+		return true;
-+
-+	/* The adapter can notify before ptp_ocp_register_i2c() stores it. */
-+	return parent->parent == &bp->pdev->dev;
-+}
-+
- static int
- ptp_ocp_i2c_notifier_call(struct notifier_block *nb,
- 			  unsigned long action, void *data)
- {
--	struct device *dev, *child = data;
-+	struct i2c_adapter *adapter;
-+	struct i2c_client *client;
-+	struct device *child = data;
- 	struct ptp_ocp *bp;
--	bool add;
- 
- 	switch (action) {
- 	case BUS_NOTIFY_ADD_DEVICE:
--	case BUS_NOTIFY_DEL_DEVICE:
--		add = action == BUS_NOTIFY_ADD_DEVICE;
--		break;
--	default:
-+		adapter = i2c_verify_adapter(child);
-+		if (!adapter)
-+			return 0;
-+		bp = ptp_ocp_i2c_parent(child);
-+		if (!bp)
-+			return 0;
-+		if (ptp_ocp_i2c_is_root(bp, adapter))
-+			ptp_ocp_symlink(bp, child, "i2c");
-+		mod_delayed_work(system_wq, &bp->i2c_work, 1);
- 		return 0;
--	}
- 
--	if (!i2c_verify_adapter(child))
-+	case BUS_NOTIFY_DEL_DEVICE:
-+		adapter = i2c_verify_adapter(child);
-+		if (!adapter)
-+			return 0;
-+		bp = ptp_ocp_i2c_parent(child);
-+		if (bp && ptp_ocp_i2c_is_root(bp, adapter))
-+			sysfs_remove_link(&bp->dev.kobj, "i2c");
- 		return 0;
- 
--	dev = child;
--	while ((dev = dev->parent))
--		if (dev->driver && !strcmp(dev->driver->name, KBUILD_MODNAME))
--			goto found;
--	return 0;
-+	case BUS_NOTIFY_BOUND_DRIVER:
-+		client = i2c_verify_client(child);
-+		if (!client || client->addr != 0x50)
-+			return 0;
-+		bp = ptp_ocp_i2c_parent(child);
-+		if (!bp || !ptp_ocp_i2c_is_root(bp, client->adapter))
-+			return 0;
-+		mod_delayed_work(system_wq, &bp->i2c_work, 1);
-+		return 0;
- 
--found:
--	bp = dev_get_drvdata(dev);
--	if (add)
--		ptp_ocp_symlink(bp, child, "i2c");
--	else
--		sysfs_remove_link(&bp->dev.kobj, "i2c");
-+	default:
-+		return 0;
-+	}
- 
- 	return 0;
- }
--- 
-2.50.1 (Apple Git-155)
+Add a 'no-hpd' boolean property to support boards where the HPD line
+cannot be used for hotplug detection due to hardware limitations.
 
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
+s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> index 36c07b71fe04b..c81c742e56ac8 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+
+[ ... ]
+
+> @@ -698,7 +700,9 @@ static int cdns_mhdp_fw_activate(const struct firmwar=
+e *fw,
+>  	 * MHDP_HW_STOPPED happens only due to driver removal when
+>  	 * bridge should already be detached.
+>  	 */
+> -	cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
+> +
+> +	if (!mhdp->no_hpd)
+> +		cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
+
+[Severity: High]
+Does skipping cdns_mhdp_bridge_hpd_enable() here and in cdns_mhdp_attach()
+permanently mask software event interrupts?
+
+The CDNS_APB_INT_MASK_SW_EVENT_INT interrupt is multiplexed for multiple
+events, including HDCP status (CDNS_HDCP_TX_STATUS).
+
+If it is never unmasked in no-hpd mode, it looks like HDCP initialization
+and communication will timeout and fail completely.
+
+[ ... ]
+
+> @@ -2012,6 +2040,16 @@ static enum drm_connector_status
+>  cdns_mhdp_bridge_detect(struct drm_bridge *bridge, struct drm_connector =
+*connector)
+>  {
+>  	struct cdns_mhdp_device *mhdp =3D bridge_to_mhdp(bridge);
+> +	bool hw_ready;
+> +
+> +	if (mhdp->no_hpd) {
+> +		spin_lock(&mhdp->start_lock);
+> +		hw_ready =3D mhdp->hw_state =3D=3D MHDP_HW_READY;
+> +		spin_unlock(&mhdp->start_lock);
+> +
+> +		if (hw_ready)
+> +			cdns_mhdp_update_link_status(mhdp);
+> +	}
+
+[Severity: High]
+Will this polling cause the link to be continuously retrained even when the
+display is intentionally disabled?
+
+When the display is disabled for power management (DPMS blanking),
+cdns_mhdp_update_link_status() will see the link is down and execute
+cdns_mhdp_link_up():
+
+cdns_mhdp_update_link_status() {
+    ...
+    if (!mhdp->link_up) {
+        ret =3D cdns_mhdp_link_up(mhdp);
+        if (ret < 0)
+            goto out;
+    }
+}
+
+Since the .detect() callback is periodically invoked by the DRM core (every
+10 seconds), does this unconditionally wake the monitor up from sleep and w=
+aste
+power by ignoring the mhdp->bridge_enabled state?
+
+[Severity: Critical]
+This is a pre-existing issue, but does exposing cdns_mhdp_update_link_statu=
+s()
+to periodic polling significantly expand a use-after-free race window?
+
+Later in cdns_mhdp_update_link_status(), the code accesses the atomic state
+holding only the link_mutex:
+
+cdns_mhdp_update_link_status() {
+    ...
+    state =3D drm_priv_to_bridge_state(mhdp->bridge.base.state);
+    ...
+    cdns_bridge_state =3D to_cdns_mhdp_bridge_state(state);
+    ...
+    current_mode =3D cdns_bridge_state->current_mode;
+}
+
+Since drm_private_obj.state is managed by the DRM atomic framework, if a
+concurrent non-blocking atomic commit completes during this poll, the old
+state can be swapped and freed asynchronously by
+drm_atomic_state_default_clear(), leaving this thread dereferencing freed
+memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802153825.1570=
+435-1-y-d@ti.com?part=3D2
