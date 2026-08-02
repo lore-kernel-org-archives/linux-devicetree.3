@@ -1,75 +1,86 @@
-Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F4B3546C9;
-	Sun,  2 Aug 2026 10:20:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9F426ED37
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 10:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785666029; cv=none; b=JpL6m4XdP5kioPe3q1K0vS+q9IB82QhzR3QD62HMn55WXlJhVEXDMxinzYnjICUI6uOmkkzpmgVZvlquBdTuNfua+DxlWwZnaR61+u+yx8QI0bA0QfQCws7yW7cpo5MRdEjSpSxdrWHbteLdfNa9mmpW1AkM8DrmPUPqj7DQl/c=
+	t=1785667834; cv=none; b=T4LRmZhm1QOQrxrdR1+G62/kT+PTW7vPD8E2etm1GphYLeNwt9fvCQlXvcuCayjBvEbFI8Wov1O1G/2eEaAg5atrGz23zxhUvzmVIlDcs8gLNQFueQQvC3XWeUEl/UWhvNO8BOzH5C0gI1QeCfjJyqdQu9HEfPM0JrfWvXjoRgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785666029; c=relaxed/simple;
-	bh=ewrm2hHaY02kNIwQjsetBEkV6GBLfi+fSXJJRLowtZQ=;
+	s=arc-20240116; t=1785667834; c=relaxed/simple;
+	bh=Je6UYPtdW0cJqNgScuEMeybL+cKO3QLfoQtPD+y+9e4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EEJonOc30gIBz70+ZfVPUJFpA1BCbpREFNncdSVKX7bQgFU1UCc40pDGR7P7TXRie9FOacZNdcPOgonv4lvParRpbu9ggWXSHU59BQB/H5AMKlB9ONefRZmzb5vsJNManJZyJWeHUtEou/suOZtdMFqMqEvIf1Su+uvw5WXrvMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=iZwnkVSo; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BDnxRYHi; arc=none smtp.client-ip=202.12.124.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
+	 In-Reply-To:Content-Type; b=VjIgAw1IbUnrCmwDm0yTt9OXe6obf4gEqZgdcU5He4bNgj7hFOavgZD8hby2w2CYVx4Ut4sKws9OoPzg43o1B9fqkTS8/pPzO0ioiL8ARd0+c97h5Oy+EOMJBbPZWlkv2o/qvjAYWWfXZaF53vIa5hzSIsCgNlNPzP/rosVCI2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=g4L0rA3o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PBQ1hKp2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="iZwnkVSo";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BDnxRYHi"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.stl.internal (Postfix) with ESMTP id C146E1300093;
-	Sun,  2 Aug 2026 06:20:25 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Sun, 02 Aug 2026 06:20:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1785666025;
-	 x=1785673225; bh=UWXStCMoW6WCbh77+QZYpryjqAzaULEhXUbNrcfh4rw=; b=
-	iZwnkVSosBHNE8xpbW2/uRGeqmvdP7MUygil9KGnZUB9Xa9IDAA3U9JSiOogjVZW
-	1tt40D75cLDZGnVWkY/D1TQ9ySN8s8gC0Kt4wucww+TjSW92baCAn0jWAFnOseqf
-	665uGt8+/SISS2/7yCCSd4HUubsKgeQScQ9rwmFmHx/mir4+2gm/5YcCAmvxHtuh
-	4RQl0CiwQCX7bpzunx+GL0QyNagk1fHODyy6Lit3UYDOE2hsEGfw09C78ob6jmzi
-	H5e4opGZuvhLa4uVttC4T19BCT9ek1z/vd8/8VDDMQgBVzk4XjZxDzDCQULOnhwg
-	Mz1ZckZsqogahodGV4DnzA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785666025; x=
-	1785673225; bh=UWXStCMoW6WCbh77+QZYpryjqAzaULEhXUbNrcfh4rw=; b=B
-	DnxRYHiYO7+nhj2tcTfTdom1aUBnsbDb6AsS19aAl8kFmxkJFcG9td2FJSvD39Ov
-	FVS1gE5m9WqCd5JeQOy0Om5Je52Ch9bb1CLMvR/OHjJJIeTXIbxSQASWE/DyqhI9
-	8wG9ABtJE/f4e9LyB8f37qM5dMQutALMBkK6YWd1r0rUNdfaRIJZ4CctmbHWt88u
-	0P9Wgj9tmgzhDorOx5ORgUByFzJDmgq9/iAQYp69Xf7YPeAQUZE+kJ1fGlI4kUVJ
-	fN379P1wnb8s8FMuviiW7LXoVQ8xol/W6lHsdcYOySxxE+cT9COWm6GMQp4BE+ik
-	SbTHY5w24nMvleifrql1w==
-X-ME-Sender: <xms:6BlvauWuSlb2vA2ojV38iW8G58GBzSEiPw8bC2jhukWRngUmvDPRKw>
-    <xme:6BlvamtkrADkPVjhXoiU00XKp0dJCvTdBxzmBQUXLXuS6uIvo5kqOOcyMkg_xXbW-
-    GpZWa_tTmVxNkdmqVqGSS0ROk9T0d9UuLB23MFnGyO4sgWtwwDZ>
-X-ME-Received: <xmr:6BlvauMvjbDStu_vTDXfjJnxpxBHJLHiN0DbxdfoYoS-y_wwcEeywDcWljp7KkFROVrcEIq_m0YFLptS6UIzHOM>
-X-ME-Proxy-Cause: dmFkZTGkWVqRDKxcHXed4G2Im/dKcKeNjOvDOtoNYff23UD3/wEy+brhhk2RbqYNFArYft
-    yxG2GBFuo/j13wt08UgFKzWNJHXB1MYtyl0OJ+p3c+LmNt9xDuYa0828krvA9AU4dW3MVc
-    Z5n9mgmxq8A45aZYLVP40RS7oHZFHK4FWE7Hl0BBpELs6vISpMoZS716y4r/pXgHw7dGVE
-    HtZba2b+c323q/EucToLYsxPoAnfhDRiAWZPJ7sHTC70DdV/mF+iHA3pcAliftaH98HxlF
-    dWAU7NICZgRrE7g1GmWLChsHoNRsXBqeNgzRXezEKkEnCA25hSbCTGx1gy57PKPdifSkM2
-    1+ciZ2GlZM3GF80LlZuK77cxGBAdgbTWk8lgzFXdVtOY2danDcL3KQC3YDVBYv+d46w1le
-    kGqPJu6c2rOE4768YKbMvJs+9Jg+FP+SBbO1ftDchUC2tp7rAam/eBslVM9sjgVmzu0hC1
-    1IUP9pcqlFQ6gF2IZSlnI9D6R+BByUpikFCkdDbaQQmNibFVbiC/AEi09VwXv7+gdrH1CT
-    aE0mQD3qPQ+8j840mFjrWAmHsPz8NG7CivCMwnImvW95JZUIwrUtLboE28YsF76BJGmPeY
-    mGIb/QFKZI6gXrQsBHX/uuM35J6LeeDUpZn8B7mofvk3AJFfMows3UuAjWFA
-X-ME-Proxy: <xmx:6Blvaurww5cxUbuXjvHc-NXLfEZZhhcv-ak2IEiADLlMH6SivIkRWQ>
-    <xmx:6BlvaouAlqlGvoFhSUugZLwmA1jy3sUUn0WT_H6Y5-aX9y0cU9AKkA>
-    <xmx:6BlvauiSJND0xIkfHxP_JkZ4QPVNk_JsDHQCPGPvYm-1237I_qjUAA>
-    <xmx:6Blvas1Z2x02fdspsIPFFjRYIlBl41Sv55VojK-VZw7_z07Q1H-f2Q>
-    <xmx:6RlvavMS61OqS3oEGaKid47bE1XwBqD-7dwbctrl5oElNq6wolknVEnH>
-Feedback-ID: i60a14417:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 2 Aug 2026 06:20:20 -0400 (EDT)
-Message-ID: <e9523b5a-6623-49ea-9ba3-cddae1a9ce7e@jaseg.de>
-Date: Sun, 2 Aug 2026 12:20:18 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="g4L0rA3o";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PBQ1hKp2"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6727llhv2271946
+	for <devicetree@vger.kernel.org>; Sun, 2 Aug 2026 10:50:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Je6UYPtdW0cJqNgScuEMeybL+cKO3QLfoQtPD+y+9e4=; b=g4L0rA3oi6mKy1RK
+	TOfWsX1NIYnPa+UgPkVTm+N1eFzO1S8y9fAhGZ3qFfPutHu9Lkbtn8L+pHtwoWac
+	hBvXLZHPZYOuzykvsDtzghDEAMBJ031bFy93hEl6X91wgMR3rvCubK3xaHulTBbv
+	a0E2MGCRbEm6ATWtlhWYpZvYZSL3gTW7eY+qVZazfME5Q0DHPBb/G0TJjz2aSgpC
+	yQWE4cp60WgEuEOhkJ7DHsXUqnTxGYt2QBCO9CerF8wpxP3+9xVwzbwLgsVctTmR
+	5j+U4C+miOcqsfEw77hS13OwU6plIVLgO7c0GOli4UbfXbPO+eP3qBt904pb9uDH
+	ARYwAQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8pg2nbu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 10:50:32 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92ac0a54110so259907485a.2
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 03:50:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785667832; x=1786272632; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Je6UYPtdW0cJqNgScuEMeybL+cKO3QLfoQtPD+y+9e4=;
+        b=PBQ1hKp20MEd3BJn8iBghPjiSJfUFK30vqZG0wmGfQE8i7HFFfq3XlCKEZa4eCNh/n
+         zAZprxAfyh0fN7XLVi5uhT9GWNhf0BwcemkI9G/M/d32wa4kIxoOqffwWVHQ0pwi7JuY
+         dQngluO6hRdIfecp/xw74rG8BsT4eYcwHc7+WKT33RS3JfvOzu1058lWtuvAgkcsPP0j
+         mOqOsEj0jMm9Zicb9oXP5zDkaPKNJqmxhEKU6HTM7OphvQy2al40UN3c5CCMQg+HNWPy
+         gO51Uomq2rrZNbVFH9o7qLlVwfwRpNsii0pzMB/UX2vwg359xkFjDXO+y27e4H3rJJ5J
+         X0Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785667832; x=1786272632;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Je6UYPtdW0cJqNgScuEMeybL+cKO3QLfoQtPD+y+9e4=;
+        b=Anlw3UOR+afo872X9hbYgkq5aVBpdj/AwGE5dyOGOKVDQF5xGHx2WsGtnfeMjTB/Ge
+         eqw38pYk+RMGw9Mm0bNwR/UI/HnvCP9LNpjFJ+nSZbliocfKiw3ckQ640sJweI/bK/A4
+         +F7oCoK+jadfd5CvIW+VmhUzLJQgGAkaJprmS/Td7YcBbd61fie8xWDDIB1t7QlhNgK4
+         wnKBtHXlDgjaqtw+PFSc5f4w5fNr5FLf2y4bQiIq8h+bEYqyt9FJwiolfZF06aTp0j2s
+         RBvg8AWMjLO53Rh2b4mW/RKUCbuF7beh0dbefvi0flB5CxKPNEPiPzXIgimtepGvDxu7
+         S5Ng==
+X-Forwarded-Encrypted: i=1; AHgh+RocFX2KxHcKG6CvMUqqewNMwwV/gExeaGSMVfhRE8gbJP2W7XKqvUOMQhEOWSn424sboQ+aEpYiWO3p@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzNh9Bf324QY8B/N0J8nhYgHKSfmyqbzYapKfcONn0ZiurrzEI
+	nwu7/bzYQt2K7QfnVkBueNrj7m686qNB8ytfpfpNWwuCN2T/i7hGLQj+MsmGOlIgbLfHy6SCpA2
+	zNatUXwx3vLS207a+dGpAVClaIP7KH3u+qWulQpWsOD7Fx/eX7ybQ1Yvx0QvMiiBt
+X-Gm-Gg: AR+sD11LL8hIfa87mX9pfhF+DzZgc7p2bjcpwTh6lhb/1rNxnXztoK73sOED0T2+Nat
+	8pkmjlRr27XN5fmG7YkFRcypiaLo/EpCOajsczUIyaYGQq7bSHHP7PPh0b77VttgpSRqkLagWeX
+	xOBwiOUGiAiF5nqyxbYRuLyDm4HGjHjkkO3+6TtPlYx0hQTHhDUgLNcD0NUgx1IDdqm3079VrxA
+	nFLnWRRKtok2EtM9olZgZk5CJsyMSaVk2T7QnHYoi1fPoTe24C/xq7ZY80qvEFW73E6lxp1KqkQ
+	S768T45Pm46Jev/235JTy8h0OwHvayo6TARNNZb3+Ebo+CaJiZQnPGrpCEqAJQpdLfhp4Yo2liO
+	OFK0ZBbsjiixrj1lGm6KB/dRsxgPuAg==
+X-Received: by 2002:a05:622a:1e0e:b0:528:3b9d:2c7a with SMTP id d75a77b69052e-52b567784cbmr121528821cf.21.1785667831828;
+        Sun, 02 Aug 2026 03:50:31 -0700 (PDT)
+X-Received: by 2002:a05:622a:1e0e:b0:528:3b9d:2c7a with SMTP id d75a77b69052e-52b567784cbmr121528641cf.21.1785667831358;
+        Sun, 02 Aug 2026 03:50:31 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.223.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458ea4asm22846515f8f.31.2026.08.02.03.50.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 02 Aug 2026 03:50:29 -0700 (PDT)
+Message-ID: <b9496243-3d49-4971-8be8-bc4722a6bfaf@oss.qualcomm.com>
+Date: Sun, 2 Aug 2026 12:50:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,89 +88,51 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] CRASH_ZEROIZE: Wipe secrets before kdump
-To: Dave Young <ruirui.yang@linux.dev>, Baoquan He <baoquan.he@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
- <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Mimi Zohar <zohar@linux.ibm.com>,
- James Bottomley <James.Bottomley@hansenpartnership.com>,
- Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
- Coiby Xu <coxu@redhat.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- keyrings@vger.kernel.org, linux-mm@kvack.org,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org,
- Tao Liu <ltao@redhat.com>
-References: <20260731154608.153258-1-linux@jaseg.de>
- <am38qk60mpVFuJRi@MiWiFi-R3L-srv>
- <74625f78-15ea-439f-b9f0-939d2976fa7f@jaseg.de>
- <79610b53-5201-4af3-913a-0c4dcbb6f9d6@linux.dev>
+Subject: Re: [PATCH v2 08/11] dtc: dt-check-style: Introduce 'stricter' mode
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+References: <20260802-n-dts-style-checker-continued-v2-0-6c5dbd1ccfe4@oss.qualcomm.com>
+ <20260802-n-dts-style-checker-continued-v2-8-6c5dbd1ccfe4@oss.qualcomm.com>
+ <20260802090622.399B31F000E9@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <contact@jaseg.de>
-In-Reply-To: <79610b53-5201-4af3-913a-0c4dcbb6f9d6@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260802090622.399B31F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: biA9IvOycLklHbFXBkVDGcHCVPNcBG4S
+X-Proofpoint-ORIG-GUID: biA9IvOycLklHbFXBkVDGcHCVPNcBG4S
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDA5MiBTYWx0ZWRfX2RRD6phfA0qP
+ lylZ6f9+6WjGkTTlTYMNrAjmb5EPcAg4qtuFeANmmpu39Ufn9mIIR8hdsbx0gGwKseUCrHTT8QX
+ oj2mc629+6TAV2q539qFE3RvDAmdX2c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDA5MiBTYWx0ZWRfXztSSzFetqpsK
+ iyHeiWXaMt7uhxxteyjmwZw7pGZ8qm5X+ay5cng4hAdqVq28tTRKs9QoRcZpeRaedlkdXVwaupW
+ CBNoCdHQdKRy2KNj5XhH9DFODC5pMy3z1LSngIsJ9uoRBzs0DDjjJJB4oTo3nTgPcXQgWh2lfzr
+ vqYXwAii3Xv8WsdC0+aN7Zz6kH27W6PTs78fpLRAVfbM5Q97qjGqTtruHB8tXw3twBMl23L7ZIy
+ Z/5Jl/lcVxDZ6/UP8fH/zJQyxVhsh5zwhjCWjigU8apYo/f/iI2IvE2j4o1xq7SvFJ23jW4cv46
+ HRo/0vT7pOLdyuJ4EdNv3TdeJ1DFJN6RYi9UTvLXfMW389MxqRKU6VCOYRBqfhJjSkKXj+lA5j9
+ 9Lx6jCy7/Jj0CXVCTtAWEvd9E+bNXcroKFvRM1R/ks8TANZg9kX23QlSpn6co5LdHLguBF0+qNI
+ iMKrvasYVwnHJ2mFFAw==
+X-Authority-Analysis: v=2.4 cv=U4Oiy+ru c=1 sm=1 tr=0 ts=6a6f20f8 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=SvlgPUXKwTKBsf7v8KEA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-02_03,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608020092
 
-On 8/2/26 07:08, Dave Young wrote:
-> On 8/2/26 12:31 AM, Jan Sebastian Götte wrote:
->> On 8/1/26 16:03, Baoquan He wrote:
->>> Note that we usually dont' want to run a lot of work after panic and
->>> before jumping into kdump kernel.
->>
->> I understand. For this reason, I think it's best to keep this default-off. As-is, the notifier list call is timed and on the (slow) ARM64 target I'm using, it takes about 3-5 ms to run. I took the "try lock, skip if locked" approach to keep the risk of this code crashing during panic minimal. In my application, the kdump payload is code that then does a full wipe, taking a couple hundred milliseconds.
-> 
-> Not only about the time used, the panicked kernel is not reliable, any more extra logic can make it even not reliable, any pre-kdump extra logic is not a good idea unless it is a must to ensure kdump working.
-> 
-> Cleaning up secret data can be done with makedumpfile + eppic scripts (see the manual of makedumpfile), or it is even possible to do so in kdump kernel with Tao Liu's improvments for makedumpfile previously  (I don't know the status, probably dropped for the time being, but it is possible, cced him).
+On 02/08/2026 11:06, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The selftest runner `scripts/dtc/dt-style-selftest/run.sh` was not updated to test `good/` fixtures against the newly added `stricter` mode.
+> --
 
-Thank you for the pointer!
+Ack
 
-There's two scenarios worth considering. First, in the standard scenario 
-where you enable this option, then drop into a standard kdump kernel, I 
-don't think it makes a big difference *when* you do this cleanup since 
-someone is going to have to dereference these pointers. IMHO a good 
-reason to do it in the old kernel is that there, the code knows about 
-the layout of all the data structures. To retroactively do this in the 
-kdump kernel is much more complicated, since there you have to 
-reconstruct the structure layouts from symbols or hardcoded struct 
-layouts, and you have to keep this symbol/layout information perfectly 
-in sync with the running kernel.
-
-The second scenario is what I'm working on here: I'm not using a normal 
-kdump kernel, but instead a custom payload that wipes all RAM from start 
-to end. This payload will wipe all these keys too, but my critical 
-concern is speed: On the embedded SoCs I'm targeting, the full memory 
-wipe takes too long (hundreds of ms) for an HSM application, so I want 
-to do a targeted wipe of just the keys first. The old kernel I think is 
-the natural place to do this. Adding to that, in my scenario the most 
-likely trigger of a panic is not something like memory corruption, but a 
-trigger of the system's tamper alarms, which would leave the old kernel 
-relatively stable during panic.
-
-I can imagine several possible mitigations for the stability concerns 
-beyond the default off config option:
-
-* Since the wipe handlers are all really simple, it would be possible to 
-manually guard every memory access there to ensure they can't fail and 
-that they don't write to sensitive areas like the dump kernel or the 
-remaining panic'ing stack. Doing that would only rely on information 
-(more or less intact stack pointer, kdump kernel area boundaries) that 
-would be necessary for kdump to succeed anyway.
-
-* And/Or I could extend the patchset to include a mechanism similar to 
-that in Bradley Morgan's patchset that catches segfaults during wipe, 
-and then skips the handler causing the fault.
-
-* A last option would be to have the alive kernel prepare some kind of 
-"wipe this first" structure in its memory during normal operation that 
-the dump kernel then can pick up to do the actual dirty work. I disfavor 
-that since it adds double bookkeeping to a lot of places, some of which 
-could be performance critical.
-
-I've also picked up that I should remove the timing logic since that 
-could cause instability.
-
-Thanks,
-Jan Sebastian
+Best regards,
+Krzysztof
