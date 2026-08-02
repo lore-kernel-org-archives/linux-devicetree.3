@@ -1,127 +1,63 @@
-Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com [95.215.58.179])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A7931A572
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 19:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82FF23183C;
+	Sun,  2 Aug 2026 19:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785697704; cv=none; b=B4M96XMpJ0C3dryoStybRNNB4+2Ng1JKGniB0aXE0lc1ALSXsglNr6o2896c6fpm73Jr9GKZ4NzaIQ+BC92+JQmqJ/Oz7dmiS4AMVtRjgn77QD4FO+sPuhaBLcTNRoeIEh9QWqLxE5w+Q/XqCTwt53lclBVIL5aJs1ggEvT1pSU=
+	t=1785697718; cv=none; b=aAxGTJbioXAUJi5Fwcbc9uW0etwvyYoRTuAshx2x4heudSJ/Gxao4TDOJc9eZ2Z8AYoBxJvmhk7HRodSLcj2T6mgWXD8JpD6uZPSkE/yurO+W6TcZ/WvoolEFgXq7LKzTRuRDRBn2TWS8HAyGgs8iMBpkw6kumjjBEdWMjTL1mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785697704; c=relaxed/simple;
-	bh=2hOmZdPlfBzKcHtwcK27rodmO/H/LByEIMeVmYI76r0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Kp0UQMGwinsCouwZHUkfty4m6ssDXYS8dsvmWVX5g3r27FSn8/OA51/meSfe89CgdXQ7O2J4Blig6e1+yRtifLGRWEUQiyCtH+Yf+eEbFNn97odfw+SP3nKXANsFhsmTPb8+/iywnUfJj13XpR0T4nVHHZLCD0LnD0Gs0PRQHL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=cwVtQgf1; arc=none smtp.client-ip=95.215.58.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1785697718; c=relaxed/simple;
+	bh=FQfgcpRHZwuu3aQFU25YJvknvijmryGqgSR8EFZUToE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rGY8stkQvijdkiM4QFKTUpAT0maHibgkx/ha8h5hM+TzwRJ5XHglZkTSTNhWbV/UluWY99NmgXXogramFoUWl1N4BLZRbmZrstoTndN4W6cINIqrwuYcu0dZuHz/Nkp80Jb/5VCkslaac+kmrUjswfuhdYPzFEk1wbe8OggNHBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EcaOZ3Kd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="cwVtQgf1"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
-	s=key1; t=1785697688;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=NCeDnJm35+LyDL6EE/vXkfkMVeZz2GdJ2gAVeksgF8c=;
-	b=cwVtQgf1m39N9bovnrEWwjoCe37yGmY6hPciRq/PfJHAICFIGuKZccUIxBhJ2Bfw8/RCnk
-	2FIy5x8BTm3dIbuCVwg6bGCquSBQ3w27Oafv20b9Yapkk7EEvOQpgBeLEDKKqcOSuDq2ku
-	CSbC/xMt3qWHNNiXnXUrjSfSbNT8xXmb5ID2mJjfVq3tK1GvTInwPT4428qdPop+MrFcs5
-	0vZpJBWlzlmR0Chhrv8XcIknlNMhoTS1l6qwKwFHNZXOmGVeWqLnwA4TGHoKlyMrXznYnC
-	dSjmWzozi/B4pxGC9tz0MKI0qsSgepGqANR6ep5LD7xByP9lh0VbG1vhkq5a2g==
-From: Paul Sajna <sajattack@postmarketos.org>
-Date: Sun, 02 Aug 2026 12:06:42 -0700
-Subject: [PATCH] arm64: dts: qcom: sdm845-lg: fix sdcard pinctrl nodes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EcaOZ3Kd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E551F000E9;
+	Sun,  2 Aug 2026 19:08:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785697717;
+	bh=FQfgcpRHZwuu3aQFU25YJvknvijmryGqgSR8EFZUToE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EcaOZ3Kd1ArzmUJuR/AazsCXXpWSiRq6jx9n8trCzRjDLUGTfoI8rKEqHLaRhMV6Y
+	 5QR0doWDu7mAJdu1ytx9T1ieW8/DScOFj6qS6ysyb/jcFhPrlvP2TVViMBOkZlElwX
+	 jA/+gU3AwPZitVHcUhr61C0GlUS/7iiJ3juYToOXzvt5/oe9B2gyHnAo7Iss6BtMPd
+	 1RRXJaeRd2a+koSefgD0RiZzqP2VjmFXWTMcqWp60HNBJ26mQLMiXilSjrjFBFjJqv
+	 OcmVS9EH949G+nh1BUVYRxRUW6Y1g2RkarLgLVFE9Cmn9HNfomDQDoRTwhYfkC0/v3
+	 nuG/aTziISHUw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/7] ARM: dts: qcom: msm8960: add SMEM & hwlock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antony Kurniawan Soemardi" <linux@smankusors.com>
+Cc: lee@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260803-msm8960-wifi-v4-4-5ffa27aea39d@smankusors.com>
+References: <20260803-msm8960-wifi-v4-0-5ffa27aea39d@smankusors.com>
+ <20260803-msm8960-wifi-v4-4-5ffa27aea39d@smankusors.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 19:08:36 +0000
+Message-Id: <20260802190837.19E551F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-judyln-sdcard-fix-v1-1-b3477cfc42cc@postmarketos.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCQAyF4auUrBuYBm3Fq0gXcRLbFBllYkUpv
- btju/wevH8B12zqcK4WyPo2t0cqaOoK4shpUDQpBgrUhlMgnGb53hO6RM6CN/tgQ5E4HLhjOUL
- 5PbOWeWte+t0+XyeNr38I1vUH/GqU/nUAAAA=
-X-Change-ID: 20260802-judyln-sdcard-fix-12c2a04a7ad5
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Anton Bambura <jenneron@protonmail.com>, 
- Stefan Hansson <newbie13xd@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, Paul Sajna <sajattack@postmarketos.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785697685; l=1870;
- i=sajattack@postmarketos.org; s=20250413; h=from:subject:message-id;
- bh=2hOmZdPlfBzKcHtwcK27rodmO/H/LByEIMeVmYI76r0=;
- b=AFOycZYR4EEw1U+zGFN8WNqUPPIrcnit6NfhcTP3n61vxYHgvZc6O43LEPwbRSJBl5TWtQvGk
- JYCmseMidMpARNlo8S7ToGE9lQDEvkQqxnpcBnsegtAaTk8THaqEmfh
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=ZFE/UBqiz9Wr8b+zBL27opOjw5x5ket5JFqks/VQGeM=
-X-Migadu-Flow: FLOW_OUT
 
-sdcard was previously rather unreliable during boot on sdm845-lg-judyln
+> From: Antony Kurniawan Soemardi <linux@smankusors.com>
+>=20
+> Enable shared memory communication and add the SFPB lock for MSM8960.
+> These provide the foundation for inter-processor communication with the
+> Riva (BT + Wi-Fi) subsystem.
+>=20
+> Tested-by: Rudraksha Gupta <guptarud@gmail.com>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
 
-Identified and applied correct settings from downstream lineageos kernel.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Verified card was properly detected over 5 reboots with rootfs on sdcard.
-
-Refer to downstream: https://github.com/LineageOS/android_kernel_lge_sdm845/blob/efa8458f79dffeb380d43b38b9403407f87d9f05/arch/arm64/boot/dts/qcom/sdm845-pinctrl.dtsi#L148-L303
-
-Fixes: 28ae8aa3923c ("arm64: dts: qcom: add device tree for LG G7 and LG V35")
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
- arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-index 5ac2e058827c..055d17e966be 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-@@ -581,33 +581,26 @@ &tlmm {
- 	sdc2_clk: sdc2-clk-state {
- 		pins = "sdc2_clk";
- 		bias-disable;
--
--		/*
--		 * It seems that mmc_test reports errors if drive
--		 * strength is not 16 on clk, cmd, and data pins.
--		 *
--		 * TODO: copy-pasted from mtp, try other values
--		 * on these devices.
--		 */
- 		drive-strength = <16>;
- 	};
- 
- 	sdc2_cmd: sdc2-cmd-state {
- 		pins = "sdc2_cmd";
- 		bias-pull-up;
--		drive-strength = <16>;
-+		drive-strength = <10>;
- 	};
- 
- 	sdc2_data: sdc2-data-state {
- 		pins = "sdc2_data";
- 		bias-pull-up;
--		drive-strength = <16>;
-+		drive-strength = <10>;
- 	};
- 
- 	sd_card_det_n: sd-card-det-n-state {
- 		pins = "gpio126";
- 		function = "gpio";
- 		bias-pull-up;
-+		drive-strength = <2>;
- 	};
- };
- 
-
----
-base-commit: 415606a7be939835db9b0d6b711887586646346d
-change-id: 20260802-judyln-sdcard-fix-12c2a04a7ad5
-
-Best regards,
---  
-Paul Sajna <sajattack@postmarketos.org>
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-msm8960-wi=
+fi-v4-0-5ffa27aea39d@smankusors.com?part=3D4
 
