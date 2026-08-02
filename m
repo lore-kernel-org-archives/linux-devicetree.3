@@ -1,89 +1,57 @@
-Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8D3322A1F
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 19:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FAB320393;
+	Sun,  2 Aug 2026 19:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785698902; cv=none; b=Xr9jJBT6vSMQT87mCt1xdRo2q5N/1+wY6RNEgSbgxQx7p402MkSA/5Tu00DEEFkzh8TrFcd+vUeXh3Ngu2a0sD8iFARe0Wm6buLWLesZAd4dX/rvNSufmrqnWfbs7CwfLmU/pRmIQyWLcSgbyTVO65ViIh6lcRZ0TO+5mvF9RzY=
+	t=1785700658; cv=none; b=q24T4ZILMsm3WvyvCdDgJsvOqOFH/Gs3fB36Csjkm2iT8F8OPNI6wJR71lzJcHRBrd2amYDQIKgfnRZbUU1yZwldzWLx767KPCiH3FlVJFo1TNK+SYpWzh+tPuTopf3EbKblWCgg+EQRj7OTBQ0stqtpzPM+AXEgxx5WcqC5M9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785698902; c=relaxed/simple;
-	bh=ih17u19AEzHyVVPvha5pFDpYhRKd9u+uawUawKr9oxY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XJb5EiZ+/GW0iZK8rwJrbkI0+7qTJm8zxU6seIti9JDQi7PeJyA55eIMKsg9nijdsxP60Lvm47H2mJnMCmEabEejxZH/37YdkKGAEGrfxpGTZilpXd4mSC0HOCHgKYqjzjIJ/uRrXzbMR9TkVzuF6ToZr6HakRxWBE3pcKX4kMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HH4I9Pcm; arc=none smtp.client-ip=91.218.175.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785700658; c=relaxed/simple;
+	bh=NBki2fPqAF3R2oubXThTUCCPv5CPCuWt3NszO2YLnfI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Cu+fx+huATF5eg6IxMVX1iPJUq/HLyzGDuLO2tImuocRN2XmuSsJIc+HHrRhfcUeuOnaIIE7g13egWeQ4oV3b9yNrDlU7It/B/Wv5uLwTmHWtF+L5z0PpNGmZqo77oz6Hb852qxStaULxxYisHlMenDT0zlpyTHoKstklQuro/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGVicfUI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HH4I9Pcm"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785698887;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ih17u19AEzHyVVPvha5pFDpYhRKd9u+uawUawKr9oxY=;
-	b=HH4I9Pcm/SBcXwV76O4Zr3TEewgiBxIxBBXpqQM8Bxx6pbnHqmdspVGXVoRm/tgt+ZRxhP
-	Wkq2QgEeZnDBB73o9s4NOq1KfotlJUZUu9J7K8JDW1REDwfinGozamxxiHbS4lLkZI2pCQ
-	7/57U/olWMrrVRTQ9kGqYX0jVopHcEs=
-From: Igor Korotin <igor.korotin@linux.dev>
-To: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?q?=C3=96zkan?= <work@onurozkan.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bjorn Helgaas <bhelgaas@google.com>,
- Krzysztof =?utf-8?q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Robin Murphy <robin.murphy@arm.com>, Dave Ertman <david.m.ertman@intel.com>,
- Ira Weiny <iweiny@kernel.org>, Leon Romanovsky <leon@kernel.org>,
- Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
- Fu Wei <wefu@redhat.com>,
- Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
- linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: (subset) [PATCH v2 00/11] rust: driver: use pointers instead of
- indices for ID info
-Date: Sun, 02 Aug 2026 20:27:50 +0100
-Message-ID: <178569887068.1652.14450480404285948832@linux.dev>
-In-Reply-To: <20260730210149.1117242-2-dakr@kernel.org>
-References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
- <20260730210149.1117242-2-dakr@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGVicfUI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325651F000E9;
+	Sun,  2 Aug 2026 19:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785700656;
+	bh=2FBnVorze0mGUMFhKixNlw0OLeUgjg1WcovYGQUNhYc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IGVicfUI034aLZprr4H9yVgrVI4h7PadJhcG7/gUz84EjmB4LnuUI8SFdKrubjxKb
+	 slSeoEP0N0VyQwV0wt8dxozRxL5Q0ghXKWshBGKSw6XjzOQUjzMQp0rUIsgrldDDzz
+	 Yq+c4ZZz5qG0VfvgNJWjqF+O05zUs9gezi5rX92nIV1rDoF0zWKmoM4/314D8ZKwjJ
+	 HixQsGdkdSWgzSMWG84bbcVBwWKwBy5nmA91SE4gOLl9oXeptqOdbTkealwCduUC7d
+	 NV0dnqxjheTjivV7j0qAlYEFRdyKicKSM1kpVv9CdY8244Ssr3WOPNNNMzdGoJInUt
+	 Wym4Ya/zT/KFg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: Correct white-space style
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, dlemoal@kernel.org, linux-ide@vger.kernel.org, robh@kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, lee@kernel.org, cassel@kernel.org
+In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 19:57:35 +0000
+Message-Id: <20260802195736.325651F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
 
-Hi Danilo,
+> Correct a few white-space issues, like double space after '=3D' or before
+> bracket '{' characters, which will be flagged by dt-check-style.  No
+> functional changes.
+>=20
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Sorry for the silence -- I was offline for personal reasons for about two
-weeks from the 16th, and missed this before it got applied.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Checked 6-9/11 now: the i2c bits are correct. Unlike PCI/USB, i2c has no
-dynamic-ID (new_id) mechanism, so i2c_match_id() can only ever return a
-pointer that IdArray::new() actually populated -- the plain
-info_unchecked() (not _opt) in i2c_id_info() is the right call, not an
-oversight.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801195613.2354=
+30-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
 
-Cheers
-Igor
