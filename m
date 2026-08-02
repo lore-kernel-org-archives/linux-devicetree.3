@@ -1,113 +1,280 @@
-Received: from mailer241.gate86.rs.smtp.com (mailer241.gate86.rs.smtp.com [74.91.86.241])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2273C33372A
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 20:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.91.86.241
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401622F8E98
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 20:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785701075; cv=none; b=qLzkNwT6To9sPoDOjiUTn3BqhFdxja+9x7NRMPkzfyuMKRsm1LqIPqPwNcMs5PAlHIVLaXW0l2n9m2iJYPOC2g2nNIPyvRWuoE89wMk4100IgqbBkLwgLgB5TVjOsEWkIULl1Vz8c2qKffzS2pif2y3ovI1fCxjAp1ILZKIEpZ0=
+	t=1785702846; cv=none; b=nZ+YsOwbbNgPBJYvOnuBikCv0JovFgT4329KabZI2KtxzJ94MZKAnlkIJCjPHWXU87VKrkpM6/scz84MyZdw3Ui6EQNc7CdEqFO8FYzoYNCsmLdbmytoD0FfF8ro8aFczwRxP7i9C5KunrmMkCyY8QdbK7kXIg8apu+8HRY+qDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785701075; c=relaxed/simple;
-	bh=qltARmYzXUm3qHAeK/h0ZIoqQNWedRlot+Q0d5xsxlg=;
-	h=From:Subject:To:Content-Type:Date:Message-Id; b=mGoDXA20YvICEL6oO15zaChvPkWl78Xk7AXZ2QY9pNjH434DWcQqJvLHwDrDTDFUzfeiv0NV/igt3Kia9fLP0kcqV+TrQd1/kCRP4ZFzeJwobpDuLQva2rFYNO3U9VCXDrQ/ybA/rR/ohcIqHHTWZg2aUq/n3DklPIWAJdeUPZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com; spf=pass smtp.mailfrom=computergamingpc.com; dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b=uLmKaAiR; dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b=lEtDcVQ/; arc=none smtp.client-ip=74.91.86.241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=computergamingpc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=computergamingpc.com
+	s=arc-20240116; t=1785702846; c=relaxed/simple;
+	bh=ytkVlGWPC4ZaFYhCIySoL2e+Zt6OCP0DIB5EwOX97uk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AvYIZPYrr1uOFVEv6tlGPBO8mOSofBGDjftqAiZdLANY592aIN7qzjL46PruVDmXvfmsif4W9HnKzOn1JsxLdsZqD2bBQTT70BY4FODKk9AA1+ZdTQAOqvFcmCQy/bgue0nh9SjHpF4ym0lOZkM7E5yWERXpEDejfzSp0P/2BDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sn33F1zy; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=computergamingpc.com header.i=@computergamingpc.com header.b="uLmKaAiR";
-	dkim=pass (2048-bit key) header.d=smtpmessage.com header.i=@smtpmessage.com header.b="lEtDcVQ/"
-X-Report-Abuse: SMTP.com is an email service provider. Our abuse team cares
- about your feedback. Please contact abuse@smtp.com for further investigation.
-Received: from [10.0.16.127] (unknown [10.138.12.210])
-	by mtl-mta02-out1 (Halon) with ESMTP
-	id 70e8900d-24e9-45f2-9841-fd4392f1aec4;
-	Sun, 02 Aug 2026 20:04:33 +0000 (UTC)
-Received: Received from 10.138.12.155 by Caffeine
- (s0-aws-app2-swarm-manager-5) with SMTP id
- ad98e460-1ace-4f93-9ac9-b942ced34985  for devicetree@vger.kernel.org;
-  Sun, 02 Aug 2026 20:04:21 +0000 (UTC)
-Feedback-ID: 9194450:SMTPCOM
-Received: from ObaTech (unknown [191.177.202.7])
-	by s0-aws-app2-mta-in-1 (Halon) with ESMTPSA
-	id ad98e460-1ace-4f93-9ac9-b942ced34985;
-	Sun, 02 Aug 2026 20:04:21 +0000 (UTC)
-From: "Computer Gaming pc" <sales@computergamingpc.com>
-Subject: Availability Update: Memory, GPU & Server Components
-To: <devicetree@vger.kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Reply-To: <sales@computergamingpc.com>
-Date: Sun, 2 Aug 2026 21:04:21 +0100
-Message-Id: <02202026080421C6E3E57E0A-593BAC6F8C@computergamingpc.com>
-X-SMTPCOM-Sender-ID: 9194450
-X-SMTPCOM-Tracking-Number: ad98e460-1ace-4f93-9ac9-b942ced34985
-X-SMTPCOM-Message-ID: 9cd1d9df-0932-480d-afce-3705a8d500e4
-X-SMTPCOM-Payload: 
- RG60FvISMUW9xUaL4AkfWdy4OGAZhyxqf7BAE3iWlY-OA5o1llhAtoSsBfWdX5JQ6JwEyD1T0R8WePZ2Zf8S6WVtEzubQGj5rtumO2HFxkQgaoiYdJZDADibK43kTbKbXAB82kRYgW0ajxf-TQN3fwY87ticDbY0csXxrGBERqxmmwIHcfv6UphUk842JIJk
-List-Unsubscribe-Post: List-Unsubscribe=One-Click
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=computergamingpc.com; i=@computergamingpc.com; q=dns/txt; s=smtpkey;
- t=1785701066; h=feedback-id : from : subject : to : content-type :
- content-transfer-encoding : reply-to : date : message-id :
- list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
- bh=qltARmYzXUm3qHAeK/h0ZIoqQNWedRlot+Q0d5xsxlg=;
- b=uLmKaAiRU4Wjw88Ej0XVPBb6HNKooYKWr8ivJomyUcGHGPDOumChC7HQPS8o2ZMFb+imH
- qRk3aQZwii7UJq4SXgHm73Nk5t9FeM2UTYQtNNmDAjYa3VSexTkCjFsSqsaPzrgc9QMH1Sh
- FrTsibUOReLzsnuvBEm9soIOsjhcekflac+sJ8IRrRaDeKKvrRUP5sx8Sst4veRPH2R70OD
- v4kjam4IDy5XBvh/YW2VXeIsn2TaewQzfhD7rqKY5hOs87ti2B5/NpjP4QhlzA7icUta7OL
- FE8/32Qr40vXUZBT1l6EW0TjJ50db2Y1a1/JWJLi21FWjR5rtK1YblF9My0A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=smtpmessage.com;
- i=@smtpmessage.com; q=dns/txt; s=smtpcustomer; t=1785701066;
- h=feedback-id : from : subject : to : content-type :
- content-transfer-encoding : reply-to : date : message-id :
- list-unsubscribe : list-unsubscribe-post : from : subject : to : date;
- bh=qltARmYzXUm3qHAeK/h0ZIoqQNWedRlot+Q0d5xsxlg=;
- b=lEtDcVQ/IDlVvsm9mTdmiPPyZtJ3kzUEKJvRqLIbc3aLgrKeYscjc27ifkTTAIm9FrFf6
- gG0vyy+gcktNf+aFXHtuLBby8Ui//0LVTr9qaa0twQj7aYbKA/nU2vPrAKBEyvKczuUU8iv
- lG01Fz8N9oXuKR9SxSipvvXsd5vvM6bPvML9MxBovs0gLMXT8v+S6b9BVs4MweCPqydubNG
- HjzkIuEOdd5ZfGOJJPNAdhcgZTsi/tKXYzHuLSptWYQNW3N7DKxV8CRjWtqFQ8KpzKQsjAL
- bhVBI1I5+lEp0QjWcMx8CbfuiFvx64ZxHq1sm7aQITu+CDdTGOzDwxv0xUDA==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sn33F1zy"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49558ce01afso11012635e9.1
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 13:34:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785702842; x=1786307642; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tXBqjlY2f6bYpFJSuXlfBIwEMNbQe6Xjdd649Bgo4nA=;
+        b=sn33F1zyzIVqsQKNVwfMFhHVfY+yEcHTrOlIhaNrGvuY3nWKcKeCl5DtNmfPGtvwir
+         tGfj1ftFvScEjMrWxjLUaeSZBJJRFc1etojoQYFlB76r1s3T5Yn9HH6pdfkFPZg06lAj
+         BsSjoddOA2Me62qc/d9BU9r+oHcoMF6M8NZK2cCP5tB78RpMSHJ9dMoXC8SHOYGTe02y
+         FFByFx0T0OErlrc+KR1zeHE/3kTIGudwkOfGhcxF1HuSp4Mslaon7dqjPy/KIfH9DHvz
+         dYcX86xaeRvSRnYoTtsCXv0VOPdzDAcBry17EScXHDJBn3F0w1Qweu3fy6BBF+MPMRIM
+         tXNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785702842; x=1786307642;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tXBqjlY2f6bYpFJSuXlfBIwEMNbQe6Xjdd649Bgo4nA=;
+        b=a7FU4Xvf1xbZgcTCWDJUyaLd8eE93rr5rv+d9AxR6xD4VY/FJj9zVzrEVIvZ6KnxKT
+         0+39TSidtO3V/0eXIyAEUbMI6HC+h6u4SMkjS+LTP4vD9cCg2em0BYc2+peA1bJRlLnv
+         L6b7XNMvLhrVzTGqrJqqCZUD7DZD2/hod7UuPYfMwV/3D5d8HWux1zZqOj5236B6J9a8
+         SIYK+J9hgOaI+qbYX/PmH0dZcKFdfRU0AJPCCdRSl0yfi/s4GoF855hJSzRiYo6D8A76
+         TUrGJcozCRzSNZGbuh4hFriK78QAKdLGe6N0bSpEvFOKXx588VNl1nurjMBpGX2ss6v0
+         YBpA==
+X-Forwarded-Encrypted: i=1; AHgh+RrulHU62+jYz5tiTo9s6O8VVaYFunsl9fvt8Mf6AtRrY57CATUgA1V5iogK2PRAituApTC5kRQGL7tC@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNfYY0p8l21RjNXhM9oyCeOl9+bnoxQffOLL1TSVp1noysi7y6
+	uP0gke1fr6LzjgCyztzC5Tcr3/GliEzM91aAWFNa+OFf6vb/S8RYSlP1
+X-Gm-Gg: AR+sD12PbaoXs7WzLTI4fwZNJTC8uEXf45tJUM8qqDCULELNmB4hbRDuYXYN39oaDk8
+	S5Yjbcoj1QCNE1tjM0EmypEfOIU+ZoLkWgjdnQspzcy5QK/0M186qBPzwQc2PZfMxs8ImVHuXz3
+	SvTPpvN++y3Suj6jsH3hoEyuqaOuMsKFPXJvlPgXRoLsFHT62IEhzwrzV+m8gk8amPxQNvsOPwq
+	6zY89cORnC1AUx3GKPbeSaPxw7v64U8s67h5QC9YYd4yQJMn3pkZ32roEjyqv0hRz2+YLv/iuto
+	KaNv6w4+KIUN24fYwrwCa1gsJUDWo0IAZhZenl8UZdRUFrBJIp4yuOBfvwmRni5ky4bSsal1sk3
+	beO5ZaGY7lUqbhj/gHRU6TQLSnt29xTK8KCwZ24+ZkBEP4Td34vY8bT7EOoCqDw2ueDzXaY+2go
+	ygR12k8jgoaXUmkOM3xzwTi/+24dqmzVjpI9kmhsR24qgfx13iS1G1m8kvnESrfzqElT84wWiDw
+	eG2aKE8Z/A=
+X-Received: by 2002:a05:600c:811b:b0:495:6934:414c with SMTP id 5b1f17b1804b1-4980c696c7emr154090745e9.19.1785702842254;
+        Sun, 02 Aug 2026 13:34:02 -0700 (PDT)
+Received: from [192.168.0.2] ([197.250.226.155])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49807bb45ebsm118499905e9.4.2026.08.02.13.33.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 02 Aug 2026 13:34:00 -0700 (PDT)
+From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Subject: [PATCH v9 00/12] ZTE zx297520v3 clock bindings and driver
+Date: Sun, 02 Aug 2026 23:33:32 +0300
+Message-Id: <20260802-zx29clk-v9-0-d05530d85d28@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XQy07DMBAF0F+pvCbIM3b86Ir/QCz8mGkt+oCkR
+ IWq/47bLhzCciyf6zu+iJGGQqNYry5ioKmM5Xiog39aibQNhw11JddZoEQje5Ddzxl92r13SDo
+ rTwrQJVFvfwzE5XxPen17zAN9ftXA0+NQxDBSl477fTmtV5HIGpV7Vhqi94m1xcAUe+my9s6xw
+ WBSAHHL2pbxdBy+7yUnuIf96zNBJzuCGBIzkzf2ZbMPZfdcH7xnTDh30BxWh54l5aSk5H7p1My
+ hb05VlyxTrymoWnjpdHMGTHP65oL3OmZE8nnp+plD11xfnfXMUmvS4HHpTHNWYnOmOmVttFKzk
+ 0kvnZ05sM3Z6rR0GiBxYmWWzs0czpy79Qwgbay/CfnPftfr9RdFFtOHcgIAAA==
+X-Change-ID: 20260510-zx29clk-2e4d39e3128c
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
+ =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7558;
+ i=stefandoesinger@gmail.com; h=from:subject:message-id;
+ bh=ytkVlGWPC4ZaFYhCIySoL2e+Zt6OCP0DIB5EwOX97uk=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqb6modbMmWTEjfJLS3Z6rWqgIE4+olimQZbU63
+ SKtgKVYwimJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCam+pqBsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKAphAApm5Me2guqbkgXD/SWGOTxtNV/dl2exj
+ Jeqdx6EpnTWGJwnww9aM9S7eL0OtPfNKAZarMRAKhMhqNPB/FLr5ApZSlGhWG2ZC7eaBLnmcbpt
+ VJC3+YWYPzqLt+87KUD+qbYJgm2FnLqDkG900TWF7TXJeCm7gn/5snqFpxc6epqiyggr1YJ5SbA
+ Rx5YelP9xjPSlItbiIT3yCrt33LD8A7yqb5czo80VdHLGyx8ogkNBQSUK2XVXpK37uvo6SvWs8y
+ pCVEOLBxoBJJ81uku2HXLrNNwcR8UmrbR7RZSz9VfhEw1c/4uQZl/7ZbIRyugm0FoebYD33quxo
+ pDEiT1ocU/M4zroec8ehe4a0b/LAeKcvn8t2zBDa+6RTzK1KY8MqKuXBfSuS7B12/Iv0wZ5S0m3
+ Ne0LNFFOH7BaqSzz5REOR1TXL05Sh98G1ePeV6AiMczrv6J/cJ4dZ9VxV4eOz78wCQ8WNT3ZNom
+ gNwWeZ8q8XR+ucu3FHU2i9hSYRGFzAcCVCCPR6yR84l3VA/adE6PdDYySgVxOshcknUY9yaI37v
+ QNtYr4vpIs5NOFHSCX5FxMbwwUyFnWZ3H34JELxiDrsx/owPhBr9ivZgNkZg+uhaF1n3ULK2nVb
+ QmAueSe4wRQEhk6er4ExNgtkMBUf/lO1VyuNaxdjwxDWxV71dexI=
+X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
+ fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-Dear Partner,
-We’re pleased to share a current snapshot of our available inventory for
-immediate dispatch.
+Hi,
 
-Memory Modules
-32GB 2Rx4 PC4-2400T (1,500 units) – $40
-32GB 2Rx4 PC4-3200AA (1,500 units) – $40
-16GB 2Rx8 PC4-3200AA (1,500 units) – $20
-128GB 4DRx4 DDR4 PC4-2933Y REG ECC LRDIMM (980 units) – $170
-- DDR5 64GB 4800Mhz ECC RDimm 2Rx4 Samsung (Qty: 500) – $750.00
-- DDR5 64GB 5600Mhz ECC RDimm 2Rx4 SK Hynix (Qty: 500) – $850.00
+I am sending version 9 of my zx297520v3 clock patch. The main change vs 
+v8 is that the clock driver uses parent_data.hw instead of global names 
+for parent matching.
 
-GPUs & Accelerators
-RTX 5090 Founders Edition 32GB (90 units) – $2,800
-RTX 4090 24GB (45 units) – $1,700
-RTX 4090 Founders Edition 24GB (90 units) – $2,500
-RTX A6000 48GB Ada (54 units) – $1,100
-RTX 6000 48GB Ada (51 units) – $1,200
-Nvidia L40s GPU (12 units) – $3,000
-Nvidia H100 80GB PCIe (9 units) – $20,000
-Nvidia PRO 6000 96G Server Edition - $10,000.00 QTY: 17
-Storage & CPUs
-Samsung PM9A3 2.5" SSD PCIe 4.0 7.68TB (115 units) – $650
-7.68TB SAS SSD 2.5" 12G Server Drive (140 units) – $650
-Intel Xeon Silver 4214R (120 units) – $140
-Intel Xeon Gold 5220R (130 units) – $200
-AMD EPYC 7542 (97 units) – $450
-Intel Xeon Platinum 8380 (95 units) – $450
+I think the list of clocks in my driver is fairly complete; It is 
+certainly a lot better than what the downstream ZTE drivers have. I 
+deduced a lot of it by trial and error. I am sure there are some clocks 
+missing that will need to be added to the binding later. AFAIU adding 
+clocks is not an issue, but removing or reordering them is an ABI break.
 
-For quotes, availability, or inspection scheduling, please reach out 
-directly:
-sales@computergamingpc.com
-Call or WhatsApp: +1(774) 559-1248 | +1 (641)232-4364
-Thank you for your continued partnership.
-Ann Sam
-Computer Gaming PC Trading
-2500 US-6, Iowa City, IA 52240, USA
-To opt out of future updates, reply with “REMOVE” in the subject line.
+Merge dependencies: The binding patches (1, 2, 3) and DT patch (12) in 
+order. The MFD parent (4) is independent, although changing the ordering 
+likely needs trivial adjustments in MAINTAINERS. The clock driver 
+patches depend on the headers added by 1-3 and apply in order 
+(5-10). Reset needs headers (1-3), but it is independent of clock.
+
+Though in practice mfd, clock and reset drivers are dead code until 
+patch 12 adds the DT nodes. Clock and reset drivers won't be 
+instantiated without the MFD parent.
+
+Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+---
+Changes in v9:
+*) Use parent_data in the clock driver instead of parent_names. That 
+required some infrastructure to keep track of registered clocks rather 
+than devm-and-forget. A nice side effect is that it uncovered a missing 
+top->matrix clock link. (Brian)
+
+*) Remove the self-referencing USB PHY reset in topcrm (Krzysztof)
+
+*) (Hopefully) get unevaluatedProperties and additionalProperties right 
+in topcrm (Krzysztof)
+
+*) GMAC and SDIO on the matrixcrm controller need topcrm's ahb clock as 
+parent. It is added to Matrix's binding and fixed in the driver
+
+*) LSP reset and pclk handling moved from clock child to mfd parent 
+driver
+
+- Link to v8: https://lore.kernel.org/r/20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com
+
+Changes in v8:
+*) Put #phy-cells into topcrm. The mfd child will have to assign itself 
+the MFD parent's of_node to satisfy the check in phy-core.c's
+__of_phy_provider_register().
+
+*) Added another register to matrixclk that controls in-controller 
+distribution gates. No functional change, but it nicely confirms the 
+top->matrix interface
+
+*) Changed clock indices to start at 0, adjusted driver to not use 0 as 
+"do not export" marker.
+
+*) Rename DT fixed clock nodes from osc26m -> clock-26m and osc32k -> 
+clock-32k
+
+*) Fixed more issues pointed out by Sashiko
+
+- Link to v7: https://lore.kernel.org/r/20260717-zx29clk-v7-0-408411cfcf36@gmail.com
+
+Changes in v7:
+
+*) Moved DT bindings back to clock/ (Krzysztof)
+*) Added a usb-phy child node to top to expose the USB status register
+*) Add clock gates that control input of PLL clocks into topcrm and 
+forward to matrixcrm. Strip down matrixcrm inputs in the bindings to the 
+known clocks in this register
+*) Add DDR clocks and resets, arm arch timer clock. They are marked 
+critical and tell CCF not to gate off the aforementioned input/forward 
+gates
+*) Remove syscon from matrixcrm (Krzysztof). The DDR mailbox system is 
+on a different controller (soc_sys at 0x140000). ZTE's code merely 
+controlled clocks in matrixcrm, which doesn't require syscon on this 
+controller.
+*) Consistently use double quotes in bindings and full include paths 
+(Krzysztof)
+
+The individual patches call out changes in more detail.
+
+- Link to v6: https://lore.kernel.org/r/20260702-zx29clk-v6-0-377b704f80c4@gmail.com
+
+Changes in v6:
+*) Use MFD for all 3 controllers - I hope both Conor and Philipp will 
+agree. I kept top and matrix bindings in soc/zte and lsp in clock/ 
+though.
+
+*) Clean up issues found by Sashiko. I pointed them out in the individual 
+patches. They are localized fixes and don't affect the overall design
+
+*) Small code consistency: Changed "zx297520v3_lsp" to use "-" , "rst" 
+in driver names to "reset"
+
+Changes in v5:
+*) Use MFD instead of aux bus for top and matrix clocks
+*) Move top and matrix bindings to soc/zte
+*) Give USB PHY its own resets
+*) Other localized changes are noted in the individual patches
+- Link to v4: https://lore.kernel.org/r/20260616-zx29clk-v4-0-ca994bd22e9d@gmail.com
+
+Changes in v4:
+*) Use syscon and regmap instead of raw IO
+*) Move reset to its own driver on the aux bus, but keep reset and clk 
+in the same binding as it matches the way the hardware works
+*) Go back to having matrixclk in its own device because syscon deals 
+poorly with multi io reg devices. List all PLL outputs from topclk as 
+inputs to matrixclk
+*) Some more hardware research: Figure out the parents of the 4 possible
+GPIO clock outputs and declare them in the driver. They are unused on 
+the hardware I have, but they show that all PLLs can be used.
+
+- Link to v3: https://lore.kernel.org/r/20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com
+
+Changes in v3:
+Model top and matrix clocks as one device
+Add PLL driver
+Fixed a few issues found by Sashiko: register lock, some missing devm_, 
+error handling
+
+v2: Fix build issues introduced by checkpatch.pl fixes that I didn't 
+spot earlier.
+
+---
+Stefan Dösinger (12):
+      dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
+      dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controller
+      dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
+      mfd: zx297520v3: Add a clock and reset MFD driver
+      clk: zte: Add Clock registration infrastructure
+      clk: zte: Add regmap-based clocks
+      clk: zte: Add zx PLL support infrastructure
+      clk: zte: Introduce a driver for zx297520v3 top clocks
+      clk: zte: Introduce a driver for zx297520v3 matrix clocks
+      clk: zte: Introduce a driver for zx297520v3 LSP clocks
+      reset: zte: Add a zx297520v3 reset driver
+      ARM: dts: zte: Declare zx297520v3 CRM device nodes
+
+ .../bindings/clock/zte,zx297520v3-lspcrm.yaml      |  101 ++
+ .../bindings/clock/zte,zx297520v3-matrixcrm.yaml   |   98 ++
+ .../bindings/clock/zte,zx297520v3-topcrm.yaml      |  122 ++
+ MAINTAINERS                                        |    9 +
+ arch/arm/boot/dts/zte/zx297520v3.dtsi              |   81 +-
+ drivers/clk/Kconfig                                |    1 +
+ drivers/clk/Makefile                               |    1 +
+ drivers/clk/zte/Kconfig                            |   28 +
+ drivers/clk/zte/Makefile                           |    6 +
+ drivers/clk/zte/clk-regmap.c                       |  237 +++
+ drivers/clk/zte/clk-zx.c                           |  189 +++
+ drivers/clk/zte/clk-zx.h                           |  142 ++
+ drivers/clk/zte/clk-zx297520v3.c                   | 1571 ++++++++++++++++++++
+ drivers/clk/zte/pll-zx.c                           |  580 ++++++++
+ drivers/mfd/Kconfig                                |   11 +
+ drivers/mfd/Makefile                               |    2 +
+ drivers/mfd/zte-zx297520v3-crm.c                   |  117 ++
+ drivers/reset/Kconfig                              |   13 +
+ drivers/reset/Makefile                             |    1 +
+ drivers/reset/reset-zte-zx297520v3.c               |  236 +++
+ include/dt-bindings/clock/zte,zx297520v3-clk.h     |  144 ++
+ include/dt-bindings/phy/zte,zx297520v3-topcrm.h    |   12 +
+ include/dt-bindings/reset/zte,zx297520v3-reset.h   |   61 +
+ 23 files changed, 3755 insertions(+), 8 deletions(-)
+---
+base-commit: bee763d5f341b99cf472afeb508d4988f62a6ca1
+change-id: 20260510-zx29clk-2e4d39e3128c
+
+Best regards,
+-- 
+Stefan Dösinger <stefandoesinger@gmail.com>
+
