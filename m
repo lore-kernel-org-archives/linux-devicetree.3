@@ -1,152 +1,285 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0B0346AFD
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 13:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FCE390C85
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 13:29:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785677011; cv=none; b=IY2UrCdNnURX/nnfPgfj3VMrylKsZt+nEJtmGzbXpn/l75NOO078uyCm9E0B1zIaa9TMiRXjzXsMA1aUAXhjJKGq1oPTkbH+OHsj7DS7F2iBjdruyYGWNcZO80JozvetVMOnlIzJyJGeTANZkHj/F7W/THVRLXeFRCTeS5J3oOs=
+	t=1785677373; cv=none; b=vBdmtfcNcfR/QVkSWeo2ZfDMdBJUjkQ+i1OywPjn91w/5WJ0PzJPJdbZeO5XOi0H/6By5A+w6Ez3GPxueVZU7jZ8m0qrt3Yxap7HYlj7IDlzCuhx0xjWbKz/wREwChbNZNoo+bgOc80pHOJJU0y4QUeX4cn7pRvCx+VJRHQSZtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785677011; c=relaxed/simple;
-	bh=teVr7IdNUaL6HoT523oemvoGzAhZSzdkg4niNiWx0UU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=paJt/vv0hkmAzifEi/yTiyHF60FNRJMY9Eafq00f/m3ElAHkEG0VlAeIuvt8XGBWC5wQBFBMWzbjUvrbNqEShwf2KYjtGYOtbne5meM35tSdA4Wed1BUaZG6Oc6AxEPlXwwNTmZNP56rn7gSOIBmbtHUqNlhGzOye4jIH/FZru8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o8UEdo7a; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RpF+UH90; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785677373; c=relaxed/simple;
+	bh=Vx6atyePmZhMD1xDeyHVfZSIxO38yC1YPLdTK3pm0EA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=vEHzYxaBM0mE8AIvQKtQr//xd5R23bKJbs6Ed3O2j2oY6s8/WvEQnid2x2KCTICYFDKPFH1bV3s9SArjxoWoAIoawjGdyyibgYW9j9fL4SCS02nW2yWbmA06vYyxox1p5/ViE323fDZn1VkX1bhX+c/Hsgm1QdGqEVRThZqZuew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaTbG89W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o8UEdo7a";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RpF+UH90"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672B6nwi1318483
-	for <devicetree@vger.kernel.org>; Sun, 2 Aug 2026 13:23:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	YUXHqwM6RtCuMwiSufi3YELdEb3Cb9ksQ3xjASr+G1M=; b=o8UEdo7aAwO6oD8y
-	rxQKDLjzQQZP4OlV87Xd+UTXjKlQLTDNCGpzjVr1zpibzWuA+ejyLuYwWa8Z7aKv
-	8KLA0sA2l2Rs5VhrycStgLGVeBjX9kG7J2HZUWgBACmEsNt8HNny7bsqGsPTWlID
-	pVQWy7eIM3ob/WqCM3DiCdqQ7DACmFYK0+noOpTXjaXGX/kZ9e2OeM7QYL9+FB2T
-	uQ4LkVwtBTD/BisABJrOpBuYmiQVRyEgnG3DAn5bH0ChEgPijPGuqc6NqTZJuHwK
-	FjVt2GtjJjdk3gUHpfP54Y8OF0gtY2y0HTNQ9NO8oEoLjTV1na1OmKtxDcPjvekg
-	cl0uLg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs966au07-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 13:23:29 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb6ef846b33so1770442a12.1
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 06:23:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785677008; x=1786281808; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YUXHqwM6RtCuMwiSufi3YELdEb3Cb9ksQ3xjASr+G1M=;
-        b=RpF+UH90goIUy1xw3QHkaywcCQ0818x2WxO9VvVeoaqzf3EryNgCuPa76Jnndt0u4z
-         J6O6qwZmZgV7VUsIardBnkNmoBaHDID7/sSxjL2hfSRX1lq3sFjRXmAy+kvxe3SoV/Rf
-         js5QLHCbZ8Lti2gum0IEk9Ku1H+YT/68UssBkI1VLEcxfJHEsyrfsvf1zSaLFADZJcrX
-         VUgREMmxz1z9uGy5HRrFsSdxs4OOe2RS5QIw5FnhFiGnA4+snbFUKHN79ZDoz0kqiwxO
-         BTEoh/viEBTFcEUyEp1T8T3PaLQgARLIC7ZkJYPd94KrdTvbtv0ayeCw6+E/kxJ28FIl
-         SSGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785677008; x=1786281808;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YUXHqwM6RtCuMwiSufi3YELdEb3Cb9ksQ3xjASr+G1M=;
-        b=aF3ktFgC9YwjkYCEHp3CS4rjwLVtcAPzOh5VA1fxDNtqKT8zSg4SDBdnLBvW1JpIJZ
-         jArewys8LqON7iGc8pBg77kWwLhZmzsjg37dp66TGx/koTFqHXSjWoxtAo5LnLrefjwo
-         hN/LHRcpAvodJUqDZ3sb3/3TNkzqAcYtJp8YhZuhuqnq1w3/RGgQ1LypmR0ikZWhzVfK
-         Sp8jNP+l5eXr7sLztfaZLBVwWaMT1l4pHhN9HtiZ3zli/mKz0x91hz4Is46B/msPGTJE
-         WBCI/ZeCYVoDGNBv5woM+StYtCVt2OIcaSuuSWxXvgWxTHBKSWfEpcw7I1z5iMHdL/aZ
-         W22Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqaBJbCpnzCSqlzs/eMleRbGH2mg/gGa/RFlSqVfFMIzOncERsFzLniUQSNMosppJWSBTffUtbnRFvK@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKP4s1x8VI1/3QsAu9MfKW3ilIjnjQ4L8aDNA0yGbgnsBb94sf
-	WkNc/i5TjU1cQUlUVC7r0msuJ/B+7VwHOFbIqy3GG1eDcIm3Xhkj+9n3Pnp3boRPUe5xgI3fGZY
-	ban2VLnDDMlGYT1OovfHIS0bfkytzS1ObSsXkaxBw/gbJVTLgNd+0YuBvYyOz16c5
-X-Gm-Gg: AR+sD13sI+9EmPrmtPDDzAqTy1GbcgO/G5YZ3YYl87/DFuRYgyTJXQouqIrMrT+KtJR
-	mmoc537gd/LVX43FLeKna1LKiCwxMuJuK0kBsKy2x+N1kPEe2vl0vGJAlbr+cWFtAk0dXnL8Ouw
-	9/Kvs3HrM4dgMO/DrLyody+XFzT6F2j/pq7m81dl0xw+JUD60XNqg1oa1jUQ17XbX9eARvfmdMe
-	z7yTsC8JZNHSTPPZG+Qp8AtGzAtoYQbZ8f5OHQWcKg3eoFcObWHv0GsbaHkTolFeRlL6h4BPMxA
-	UBYTtn4Qn/L8CET24gzW+rB5YiY7FbLONa2M0pxhWsy+NBj6HtiCVzKjQJQVFLDGT6YwC3/mIl3
-	eaTx0YUaxjUbqMlxUBr2DzZ+g6V6cgmtUiek=
-X-Received: by 2002:a05:6a21:9984:b0:3c3:6e84:ace8 with SMTP id adf61e73a8af0-3c91a9099b8mr9194985637.23.1785677008354;
-        Sun, 02 Aug 2026 06:23:28 -0700 (PDT)
-X-Received: by 2002:a05:6a21:9984:b0:3c3:6e84:ace8 with SMTP id adf61e73a8af0-3c91a9099b8mr9194953637.23.1785677007896;
-        Sun, 02 Aug 2026 06:23:27 -0700 (PDT)
-Received: from [192.168.1.15] ([106.222.229.58])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd9c93dsm27661888eec.8.2026.08.02.06.23.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 02 Aug 2026 06:23:27 -0700 (PDT)
-Message-ID: <ed076cf9-b687-40aa-a1e4-c12b7205a818@oss.qualcomm.com>
-Date: Sun, 2 Aug 2026 18:53:22 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaTbG89W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF451F000E9;
+	Sun,  2 Aug 2026 13:29:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785677371;
+	bh=784rCKxpdxhrxSIZpjsZoTsyJ0Ilh27xaqbgcAl22R8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kaTbG89Wv5M+6l8yJRpETxx0U6Mc8BW5CagK7dP502hydfsFI1eFAu70i+i9/5g8X
+	 oelUpalBm5OzsgevXzR0Z71zQ9y8M+HWLTw0FBPkuDS2ni8z8han3PZxigvT4y9SHg
+	 ttw4ZqZovV88oCVma7cmc6zECYoUDkmNFQUI0vx3uBTNPuWmpW/qRPb2SS5MK8Y9ET
+	 OdN/Lp+Wg38/zP0Cg7PCaCTaTJkrExQWIy+9SyM5K4d2RC2lpz/uEZYBlgR7YCIFBN
+	 LGvaL+Jodz0IG0Tx9iYhcHQ79nV52WYfhvNkjKuwuzNWurobT20n+LKkFW/w+YO6tr
+	 S0FYxZ03qMtmw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
+ target controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Viken Dadhaniya" <viken.dadhaniya@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260802-i2c-qcom-slave-v2-2-27653118fa75@oss.qualcomm.com>
+References: <20260802-i2c-qcom-slave-v2-0-27653118fa75@oss.qualcomm.com>
+ <20260802-i2c-qcom-slave-v2-2-27653118fa75@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 13:29:30 +0000
+Message-Id: <20260802132931.4DF451F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] MAINTAINERS: Add entry for Qualcomm I2C slave
- controller
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260628-i2c-qcom-slave-v1-0-8b0a5c01f9f6@oss.qualcomm.com>
- <20260628-i2c-qcom-slave-v1-3-8b0a5c01f9f6@oss.qualcomm.com>
- <7183cd4b-833f-45f9-ada4-1392152680b1@kernel.org>
-Content-Language: en-US
-From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-In-Reply-To: <7183cd4b-833f-45f9-ada4-1392152680b1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: F4-JY6Ojzb2YPoh6BAH3cPHAoOdinal7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDExOCBTYWx0ZWRfX4E0QqfkEd9iU
- 6prqskuYGv0BnXUqJqnT/qFqlu3qLyXzWc/iyo4hrvRPTNLyYC2U0woIggaP4ldQC/G320aH4iK
- Aozrc8nBh37TkUnpwWOgUBAaUvxCS2Js45fbF1ppKxq8BbbeKZorkwSlqeVjhuqgXQPdbhAfats
- zvUlCIVpfzMyIVbPhHog4EA3obB1PktUR8mf99rx8RvSRR79E5VSpH19SzZdcDNKuPawimsfq67
- CE+71CXxX4OEa1FEEiyQ8CBUT4dvAKNu9XIDdG9Vc+z+sPTo+T4+LmH6bE4/6YlJZTLS3pGDg/0
- 7Hgj73kOhTXCK6546hHGtlswcOG4ls9G00Q/e+H17cjMrDsl7DrmwUNgb84XGSH3kn2rU0SEkd8
- lYjD1Nyjpy8yy7RPBKFY62cM32bri9Cor90sKhU92ugLt0eSQLIN1GU03soA9JOhGQUO1TwXN6+
- cZswgQE/spwVWMCPSrQ==
-X-Authority-Analysis: v=2.4 cv=TpfWQjXh c=1 sm=1 tr=0 ts=6a6f44d1 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=9c8ARojF9RoukzHm9jbkGw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=WZ9ViHwJSGtzc2qvcnoA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: F4-JY6Ojzb2YPoh6BAH3cPHAoOdinal7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDExOCBTYWx0ZWRfX1W7ijqGlqk+q
- OxxqUb6eR7v0uBhgkm1QcqodPM/NekV1qLqjA1FxLQpT4+x+d4XHLC4LAcsWnEdvNL82FWamGp9
- TCuWWvAoYFchls/gVQTbVGBLE5zU2Nk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_04,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608020118
 
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Enabling the I2C target core without a registered slave client exp=
+oses the system to unrecoverable I2C bus lockups and interrupt storms.
+- [High] Unbalanced disable_irq() in the remove function hangs the I2C bus =
+and causes kernel warnings.
+- [Medium] Incorrect IRQ dispatch order causes RESTART_DETECTED to wipe sta=
+te after data phases are processed, corrupting the I2C slave state machine.
+- [Medium] Failure to clear `target->status` during PM suspend/resume corru=
+pts the I2C slave event sequence on the next transaction.
+- [Medium] Using devm_clk_get_enabled() causes a clock reference count unde=
+rflow if resume() fails.
+- [Medium] Writing configuration registers immediately after asserting SW_R=
+ESET without a delay may cause the initialization to be ignored by the hard=
+ware.
+- [Low] Concurrent calls to `qcom_i2c_target_reg_slave` lack locking, poten=
+tially causing silent overwrites of the slave pointer.
+--
 
+--- Patch [2]: [PATCH v2 2/2] i2c: qcom-target: Add driver for Qualcomm I2C=
+ target controller ---
+commit d082641ecccd906b168547525bb8607e63afab2a
+Author: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-On 6/29/2026 12:05 PM, Krzysztof Kozlowski wrote:
-> On 28/06/2026 16:39, Viken Dadhaniya wrote:
->> Add a MAINTAINERS entry for the Qualcomm I2C slave controller driver
->> introduced in the previous patch. The entry covers the driver source
->> file and the associated Device Tree binding document.
-> 
-> Squash the patch if you cannot say here anything useful other than
-> repeating the diff (which we can read...).
-> 
+i2c: qcom-target: Add driver for Qualcomm I2C target controller
 
-Done. MAINTAINERS entry has been merged into the driver patch in v2.
+This patch introduces a new driver for the Qualcomm I2C target controller,
+allowing compatible SoCs like the QDU1000 to operate in I2C slave mode.
+It registers with the Linux I2C slave framework and handles interrupts for
+RX FIFO, clock stretching, and state recovery.
 
-> Best regards,
-> Krzysztof
+> diff --git a/drivers/i2c/busses/i2c-qcom-target.c b/drivers/i2c/busses/i2=
+c-qcom-target.c
+> new file mode 100644
+> index 0000000000000..79b0b9ff7b9bf
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-qcom-target.c
+[ ... ]
+> +static void qcom_i2c_target_hw_init(struct qcom_i2c_target *target)
+> +{
+> +	dev_dbg(target->dev, "HW init: resetting FIFOs, enabling IRQs and core\=
+n");
+> +	writel(CLEAR_TX_FIFO | CLEAR_RX_FIFO, target->base + I2C_S_CONTROL);
+> +	writel(QCOM_I2C_TARGET_ALL_IRQ, target->base + I2C_S_IRQ_EN);
+> +	writel(I2C_S_CORE_EN, target->base + I2C_S_CONFIG);
 
+[Severity: High]
+Could unconditionally enabling the I2C core here before a slave client
+registers expose the bus to lockups? If an external master sends a General
+Call to address 0x00, the hardware will ACK and stretch the clock.
+
+> +}
+> +
+> +static void qcom_i2c_target_write_requested(struct qcom_i2c_target *targ=
+et)
+[ ... ]
+> +static void qcom_i2c_target_hw_reset(struct qcom_i2c_target *target)
+> +{
+> +	/* Clear error bits before SW_RESET; the reset may not be instantaneous=
+ */
+> +	writel(BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT),
+> +	       target->base + I2C_S_IRQ_CLR);
+> +	writel(SW_RESET, target->base + I2C_S_SW_RESET_REG);
+> +	qcom_i2c_target_hw_init(target);
+
+[Severity: Medium]
+Since the comment notes the reset might not be instantaneous, is it safe to
+write to the configuration registers immediately in qcom_i2c_target_hw_init=
+()
+without a delay? Could the hardware silently drop these writes while it is
+actively processing the software reset?
+
+> +	writel(target->slave->addr, target->base + I2C_S_DEVICE_ADDR);
+> +}
+[ ... ]
+> +static irqreturn_t qcom_i2c_target_irq(int irq, void *dev)
+> +{
+> +	struct qcom_i2c_target *target =3D dev;
+> +	u32 irq_stat, rx_bits;
+[ ... ]
+> +	/*
+> +	 * Load target->slave once. Both reg_slave() and unreg_slave() disable
+> +	 * the IRQ before writing the pointer, so it cannot change while this
+> +	 * handler runs. Sub-handlers may dereference target->slave directly.
+> +	 */
+> +	if (!READ_ONCE(target->slave)) {
+> +		writel(irq_stat, target->base + I2C_S_IRQ_CLR);
+> +		return IRQ_HANDLED;
+
+[Severity: High]
+If the core was enabled during probe, but no slave is registered yet, could
+this early return leave the bus permanently stretched?
+
+Since this path clears the IRQ status but doesn't write to I2C_S_CONTROL to
+issue an ACK_RESUME or NACK, a General Call will cause the hardware to hang
+the bus waiting for a command.
+
+> +	}
+[ ... ]
+> +	rx_bits =3D irq_stat & (BIT(RX_FIFO_FULL) | BIT(RX_DATA_AVAIL) |
+> +			      BIT(STRCH_WR));
+> +	if (rx_bits)
+> +		qcom_i2c_target_handle_rx_data(target, rx_bits);
+> +
+> +	if (irq_stat & BIT(RESTART_DETECTED)) {
+> +		dev_dbg(target->dev, "Repeated start bit detected\n");
+> +		target->status =3D 0;
+
+[Severity: Medium]
+Does clearing the status here corrupt the slave state machine if a Repeated
+Start and a data phase assert in the same interrupt read?
+
+If irq_stat contains both STRCH_RD and RESTART_DETECTED, the earlier call to
+qcom_i2c_target_handle_strch_rd() will set READ_IN_PROGRESS. Then this code
+clears target->status, wiping out READ_IN_PROGRESS and causing subsequent
+reads to mistakenly trigger new I2C_SLAVE_READ_REQUESTED events.
+
+> +		writel(ACK_RESUME, target->base + I2C_S_CONTROL);
+> +		writel(BIT(RESTART_DETECTED), target->base + I2C_S_IRQ_CLR);
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int qcom_i2c_target_reg_slave(struct i2c_client *slave)
+> +{
+> +	struct qcom_i2c_target *target =3D i2c_get_adapdata(slave->adapter);
+> +
+> +	if (target->slave)
+> +		return -EBUSY;
+
+[Severity: Low]
+Is there a lock missing here to prevent concurrent slave registrations? If =
+two
+threads concurrently check this, they might both see NULL and proceed, caus=
+ing
+the second one to silently overwrite target->slave.
+
+> +
+> +	if (slave->flags & I2C_CLIENT_TEN)
+[ ... ]
+> +static int qcom_i2c_target_unreg_slave(struct i2c_client *slave)
+> +{
+> +	struct qcom_i2c_target *target =3D i2c_get_adapdata(slave->adapter);
+> +
+> +	if (!target->slave)
+> +		return -EINVAL;
+> +	disable_irq(target->irq);
+> +	WRITE_ONCE(target->slave, NULL);
+> +	target->status =3D 0;
+> +	writel(0, target->base + I2C_S_DEVICE_ADDR);
+
+[Severity: High]
+When unregistering the slave, this sets the device address back to 0 (Gener=
+al
+Call). Since the core remains enabled, doesn't this recreate the bus lockup
+vulnerability described earlier where external masters sending a General Ca=
+ll
+will hang the bus because the IRQ handler no longer services the transactio=
+n?
+
+> +	enable_irq(target->irq);
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int qcom_i2c_target_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	target->xo_clk =3D devm_clk_get_enabled(dev, "xo");
+> +	if (IS_ERR(target->xo_clk))
+> +		return dev_err_probe(dev, PTR_ERR(target->xo_clk),
+> +				     "failed to get and enable XO clock\n");
+> +
+> +	target->ahb_clk =3D devm_clk_get_enabled(dev, "ahb");
+
+[Severity: Medium]
+Because these clocks are requested using devm_clk_get_enabled(), devres will
+automatically disable them when the driver unbinds.
+
+[ ... ]
+> +static void qcom_i2c_target_remove(struct platform_device *pdev)
+> +{
+> +	struct qcom_i2c_target *target =3D platform_get_drvdata(pdev);
+> +
+> +	disable_irq(target->irq);
+
+[Severity: High]
+Does this unbalanced disable_irq() lead to kernel warnings during devres
+cleanup?
+
+Also, since the IRQ is disabled before the core is shut down below, if a
+transaction arrives right now, the hardware will stretch the clock and wait
+for the IRQ handler. Because the IRQ is disabled, the handler never runs,
+leading to an I2C bus hang.
+
+> +	i2c_del_adapter(&target->adap);
+> +	writel(0, target->base + I2C_S_CONFIG);
+> +	icc_set_bw(target->icc_path, 0, 0);
+> +}
+[ ... ]
+> +static int qcom_i2c_target_resume(struct device *dev)
+> +{
+> +	struct qcom_i2c_target *target =3D dev_get_drvdata(dev);
+> +	int ret;
+[ ... ]
+> +	qcom_i2c_target_hw_init(target);
+> +	if (target->slave)
+> +		writel(target->slave->addr, target->base + I2C_S_DEVICE_ADDR);
+> +
+> +	return 0;
+
+[Severity: Medium]
+Could the lack of clearing target->status here cause the I2C slave event
+sequence to become desynchronized?
+
+If a transaction was aborted by system suspend while READ_IN_PROGRESS or
+WRITE_IN_PROGRESS were set, they will remain set upon resume. The next
+transaction would then mistakenly skip sending the I2C_SLAVE_READ_REQUESTED
+or I2C_SLAVE_WRITE_REQUESTED events.
+
+> +
+> +err_disable_xo:
+> +	clk_disable_unprepare(target->xo_clk);
+> +err_disable_ahb:
+> +	clk_disable_unprepare(target->ahb_clk);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+If qcom_i2c_target_resume() fails and takes this error path, it manually
+disables the clocks. Since the clocks were registered via
+devm_clk_get_enabled(), won't devres attempt to disable them again when the
+driver unbinds, causing a clock reference count underflow?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-i2c-qcom-s=
+lave-v2-0-27653118fa75@oss.qualcomm.com?part=3D2
