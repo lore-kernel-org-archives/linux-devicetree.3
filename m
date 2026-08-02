@@ -1,52 +1,46 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975BB318EDA;
-	Sun,  2 Aug 2026 18:49:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BFC3264CE;
+	Sun,  2 Aug 2026 18:49:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785696599; cv=none; b=FaYAn0RJSkIYSWP6G/axs19EjjUCyL7Ve4rryt9z7s7KXECDbzEHH4cNp1wJkGCdTsG0Bi9DG+29YfMKJIFhaWQ3wWHmZsjDh1GojQta3raq3Ai/2/MUPWksswXBA9oV+ULxLySu+l6xRh0E1tmy1bwrRL7YqHryfK9Mq7CVLs0=
+	t=1785696599; cv=none; b=JfgO6cdOBdbM4fA7XP/sy3cOE0ptz76mzzNsCE83w2Qb8GS4a6Wbk15tNUWyVLlG5t0JQ6YfIDdN/fmAulVwOnw68hs5FprPiJsPhAnymBK/YxjA6M9XHQVCiVK2X/7FXG+SvLPOdLB4HeF7st1zEmt4JQnyZ2UyXC06EpIlZcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785696599; c=relaxed/simple;
-	bh=q6IcP2NZ8VtXOSP3++Aeq2kYceUrKzQEETXWLdg0uOA=;
+	bh=Dvb5mtFK9Rum7bt0/2q0kFwTyG4WpCdvD7ecePvvB0Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OgCUTImT/AsYeiafTgBY2QpLJ4uAn/OeIZjTn2sQxlYsxBO9xw2JQDKtVtDtKoOP/Kf6UatmZw+Z6CsdAUNxHxmVte4kja0BkoeqZHqgnKMkiYo1uvFHCVnSjhvuL6MpqqKjXfDnB7YTPtS4c+gX5TcUvgQMvxiCf9N0gFBXueA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=2sy5zr93; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=jY12DO8O30g5jRM41ZTcIZyFVUEMxzGUpDAc6DnVJ8ahRLmxH46znpNSyzJPWm+bx0Pt1yskayf6bkz5Xlbzk61ZR+G3wKNH2XelwsxZyrudnS12vPAOfTk6QCIh0n/58HAGPEQaT/nGAqyjcvxqmuT80QQ1J1bIa9VL1WoYO5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=qXH0XFF7; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="2sy5zr93"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="qXH0XFF7"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=xhWt6jr8JZihiGThYig/NqKAx9byV7fmohEp1wFu2gs=; b=2sy5zr932l2o3B5VaZS1t+ti/4
-	0bJvautk0gtFwt9sw38nmTVx+kzGhbmCpk288NXP8iT9IN7nZs24r4d7J02K+XWCU+HHQ2IIO/847
-	Yek6iihPbUe3eTz3YXCmxGyDMX+aLeuXz9JH9z+xCH4Va04nEVaAP5MJV1r0vli+O4LlfpRRMVe2t
-	LrEAQ8hceDNsSeLJR2+X7GFPCKV4ry9V4/xcPYfEl1Uoumwso6AlPVR3I6J0fSMGWVq/wbuw8Z5tt
-	Ueli3C0QHlxpsWZK5qgRHF0jEU88VgEN3bT46c9Lri9Z/6CSgctL2SsMM4zcUpNlx9MUCFGwe3Utx
-	wjMfGtgg==;
+	bh=pqx6OvTXdU0f9pU2nJLaZn6w5mtSJ6LW0/pV++t6mtY=; b=qXH0XFF7kupYbVbAa44dTR3mGv
+	s6jajJK0z15KaxMFV/lnA3KbmpaV3a7B2SlLb5Vn0WfTvswg1lRZv3hWHMEe5z1hGoCTqiJZ6Ozhb
+	1KXW3EgImXjKExczg00gwXTNxXXBfUqxNifQWjAv3j5NzymSXBFtCNp7rgrqX9ACEmR4QTzm/KYCa
+	1ZySyqmMwn3BwWwJ8LGOCbK2yEuen0JVTWV681emNDdDpNjzTzyEe1jaKy2wWqRnK3PBgDW56W+yB
+	tL99UcUQn5rdvgWV8H/DQjU7yPqPVbiz2kcywz9DsZzoRsEbBKgrYTOZ69KhdSnGnS9N5gNNtGmSA
+	K34xLpvw==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: linux-iio@vger.kernel.org,
-	Chris Morgan <macroalpha82@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	andy@kernel.org,
-	nuno.sa@analog.com,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	jean-baptiste.maneyrol@tdk.com,
-	linux-rockchip@lists.infradead.org,
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
-	conor+dt@kernel.org,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	andriy.shevchenko@intel.com,
-	Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: (subset) [PATCH V21 0/9] Add Invensense ICM42607
-Date: Sun,  2 Aug 2026 20:49:39 +0200
-Message-ID: <178569657657.1403346.3269375069451049226.b4-ty@sntech.de>
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Heiko Stuebner <heiko@sntech.de>
+Subject: Re: [PATCH 1/2] ARM: dts: rockchip: Correct white-space style
+Date: Sun,  2 Aug 2026 20:49:38 +0200
+Message-ID: <178569657651.1403346.13086086653286299708.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260728225542.174825-1-macroalpha82@gmail.com>
-References: <20260728225542.174825-1-macroalpha82@gmail.com>
+In-Reply-To: <20260801210247.383632-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801210247.383632-3-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,20 +51,19 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 28 Jul 2026 17:55:31 -0500, Chris Morgan wrote:
-> Add support for the ICM42607 IMU. This sensor shares the same
-> functionality but a different register layout with the existing
-> ICM42600.
+On Sat, 01 Aug 2026 23:02:48 +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues, like missing space before bracket '{'
+> character or spurious space, which will be flagged by dt-check-style
+> ("redundant-whitespace" warning).  No functional changes.
 > 
-> This driver should work with the ICM42607 and ICM42607P over both I2C
-> and SPI, however only the ICM42607P over I2C could be tested.
 > 
-> [...]
 
 Applied, thanks!
 
-[9/9] arm64: dts: rockchip: Add icm42607p IMU for RG-DS
-      commit: 264429dfe5294b76c7c3b4ed2c9e6cea1042255c
+[1/2] ARM: dts: rockchip: Correct white-space style
+      commit: 1a17f391c139567e2fac6894c6b43f5978e915c8
+[2/2] arm64: dts: rockchip: Correct white-space style
+      commit: 49ee9e9a51b85113b741bf97d9131d0416316f04
 
 Best regards,
 -- 
