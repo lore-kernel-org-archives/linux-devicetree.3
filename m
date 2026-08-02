@@ -1,82 +1,121 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B891B391849;
-	Sun,  2 Aug 2026 11:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5AF3B05B8;
+	Sun,  2 Aug 2026 11:40:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785670454; cv=none; b=hi8J9smB/O20w7kYtbURdwW3FH0KmGoDhxYYIjU62YuBD/f9yUjeeNh9EyPDbAEPMsZpqFRJmECYrszLV+MsS3BnenV6b6gJHBsrpnH4v1mXeqw+0AzzqZvLKTXr6xBzhNwbc/3rmzjps9dzVkdXGgSqklEnSnqiWTSsC/NtORE=
+	t=1785670866; cv=none; b=N0ttdmTAyPlRA0hn5nZQ+lNU7yRnrE5MDZYVBKwiv6+GtoCNBneKJzBHavOtidW+ABmBn/TpjgQ7mzQL5bikC1ow7QluBYbOHoVaclSUPIk5poSHLJzAt3RY/xrHRlSdhgzpBTXJrjx2Bvqv3zYz+JtQwgK8AKCgWSSG/7+/WKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785670454; c=relaxed/simple;
-	bh=PErM8AyAp7db7Mvhtqh+YFaFqZDfTFh4xTGjD1m5Frw=;
-	h=Content-Type:MIME-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=FqUXgSn73cKdLhXInLrBP+XsShnBtznGf5hGfPyKNeymV8USRhbhAIQyeZhBpl0D5SdysDDEQn+kQ1BRE6CyQKFCed3GhSzZSMrJFoGEH+LL41VheWJlH1Y8xOg2k0Nr/hv9KwsNzDhWO0Nx/418TsgMu69b8QwNxjwmkDpaugM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=JagXz8Ih; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1785670866; c=relaxed/simple;
+	bh=gJeqcNjGKhg4ra7YERdKWsJwggmrs0ek2ddMhRWnfHk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cVAkZAa9hL8EtA4HTHaavyrDa6iZd1wJAVetb96ytjZTFNsWS9Jv6EAzoYLV1si02pTgiOEcRiFZB8SnT387VKRHd4r950DKoz/vKB9HO8EaLVVUCupx7mZeMbehE5xnlxWVSQBFmHhQ2JNC8dmmXXPIhYsd6/1zTrUPbG3epYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhESa4Q3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="JagXz8Ih"
-Received: by chaosmail.tech (Postfix) id 883B41C7DFC;
-	Sun, 02 Aug 2026 11:33:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1785670426;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qQ8FA2fWTWW3ychqhFt4dxOngt5CRROg/bBvmNFIN9g=;
-	b=JagXz8IhkCCObi807f8UbOSh5vSP51UyR0EcFBXSFJjGZN33j8LTDk6yPiBCugJP6uUFcX
-	zG+UhtZaxwANGakNhuVQyL4mVcgI2vQcvg/Mz+axK+C14rK9aKZ+l+X9WrRRZlAfDjaKjF
-	X0NFjRdbLWt9uU5YaZkXLoJhoxE0Akw=
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhESa4Q3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F1A21F000E9;
+	Sun,  2 Aug 2026 11:40:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785670855;
+	bh=orMZo8XC5q8wzUoZRvS161bOQVWl8wv42guc5mSh2YM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bhESa4Q3WT36KyjVnZuVrajJ55PbcVapZvXgr+r/AN7ax4Zuau5NFlhq480dsDExd
+	 APy9k2FmAm1TgE+2IRHhE61bXu2p5Nrhn75u78wXnVM7bNWru1HzMcpwmZ9fKlXV14
+	 Jy81KwN7A4ojfJk5tH5ecnrnEhinDXLKThi9WsE06oWP1gxa3Yjkk0bJ6TGxlJ83lM
+	 oISrdkMyG5KjPnerBkH09g467vUL6/vaSwbcZqYCJogd14v6eAEwvbx14BF1T/8sHq
+	 tEKJOSOwuIJCNdemQSZXz3T+1w4NgBzdXeqsUoHkj7Xdb+F6tOAeD62/cMMuOUy9Eq
+	 1RGYTkvlnkS7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: pci: fsl,imx6q-pcie: Add extref clock
+ for i.MX8MQ
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Rudi Heitbaum" <rudi@heitbaum.com>
+Cc: linux-pci@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <7f99a670eba4b76c391cb87a487f7a837f66d838.1785669457.git.rudi@heitbaum.com>
+References: <cover.1785669457.git.rudi@heitbaum.com>
+ <7f99a670eba4b76c391cb87a487f7a837f66d838.1785669457.git.rudi@heitbaum.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 11:40:54 +0000
+Message-Id: <20260802114055.4F1A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH v2 4/7] spmi: apple: Implement remaining commands
-From: Sasha Finkelstein <k@chaosmail.tech>
-In-Reply-To: <20260802111853.GF806854@robin.jannau.net>
-Date: Sun, 2 Aug 2026 13:33:34 +0200
-Cc: Sven Peter <sven@kernel.org>,
- Neal Gompa <neal@gompa.dev>,
- Stephen Boyd <sboyd@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org,
- Alba Mendez <me@alba.sh>
-Content-Transfer-Encoding: 7bit
-Message-Id: <78A4FB29-7BD0-4AD3-973B-F73012F6671F@chaosmail.tech>
-References: <20260728-t603x-spmi-v2-0-f43e5f10e583@chaosmail.tech>
- <20260728-t603x-spmi-v2-4-f43e5f10e583@chaosmail.tech>
- <20260802111853.GF806854@robin.jannau.net>
-To: Janne Grunau <j@jannau.net>
 
-On Aug 2, 2026, at 13:18, Janne Grunau <j@jannau.net> wrote:
-[...]
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The optional 'extref' clock was added to the Root Complex bindin=
+g for i.MX8MQ but omitted from the corresponding Endpoint mode binding, res=
+ulting in schema validation failure if the endpoint uses the clock.
+--
 
->> if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY))
->> dev_warn(&ctrl->dev, "FIFO has extra data\n");
->> 
->> - if ((~reply >> SPMI_REPLY_FRAME_PARITY_OFFSET) & ((1 << len) - 1)) {
->> + if (!ilen && !(reply & SPMI_REPLY_ACK)) {
->> + dev_err(&ctrl->dev, "command not acknowledged\n");
->> + return -EIO;
->> + }
->> + if ((~reply >> SPMI_REPLY_FRAME_PARITY_OFFSET) & ((1 << ilen) - 1)) {
-> 
-> Is the parity check useful for write commands? I'm not sure if packing
-> all command processing into a single function is a good idea for code
-> readability. The diff is annoying to read.
+--- Patch [1]: [PATCH 1/3] dt-bindings: pci: fsl,imx6q-pcie: Add extref clo=
+ck for i.MX8MQ ---
+commit 4169458ec9055f45e1c7d18a9eea850e75cf9b6a
+Author: Rudi Heitbaum <rudi@heitbaum.com>
 
-Not useful, but on the contrary I like that every command is sent via
-a unified path, instead of using similar, but slightly different
-functions
+dt-bindings: pci: fsl,imx6q-pcie: Add extref clock for i.MX8MQ
 
+i.MX8MQ can drive PCIe REF_CLK either from the internal PLL or from an
+off-chip oscillator. This allows an optional fifth extref clock to describe
+the latter, matching the name already used for i.MX95.
 
+> diff --git a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml b/=
+Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
+> index e8b8131f5f23b..8fb0c919ae572 100644
+> --- a/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml
+
+[ ... ]
+
+> @@ -173,13 +174,16 @@ allOf:
+>      then:
+>        properties:
+>          clocks:
+> -          maxItems: 4
+> +          minItems: 4
+> +          maxItems: 5
+>          clock-names:
+> +          minItems: 4
+>            items:
+>              - const: pcie
+>              - const: pcie_bus
+>              - const: pcie_phy
+>              - const: pcie_aux
+> +            - const: extref  # Optional
+
+[Severity: Medium]
+Will this same clock be used when the hardware is configured in endpoint mo=
+de?
+
+Currently, this adds the optional extref clock to the root complex binding =
+for
+fsl,imx8mq-pcie, expanding the maximum items to 5. However, the correspondi=
+ng
+endpoint schema in fsl,imx6q-pcie-ep.yaml for fsl,imx8mq-pcie-ep still
+restricts clocks to exactly 4 items:
+
+Documentation/devicetree/bindings/pci/fsl,imx6q-pcie-ep.yaml:
+  - if:
+      properties:
+        compatible:
+          enum:
+            - fsl,imx8mq-pcie-ep
+            - fsl,imx95-pcie-ep
+    then:
+      properties:
+        clocks:
+          minItems: 4
+          maxItems: 4
+
+If an endpoint device tree describes the hardware using this 5th extref clo=
+ck,
+will it fail schema validation because the endpoint binding was not also
+updated?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785669457.gi=
+t.rudi@heitbaum.com?part=3D1
