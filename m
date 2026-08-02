@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A49397935
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 11:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB95682866
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 11:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785669753; cv=none; b=rzovzQ0oGpm8LxODdnzdip9GBEWBrA0oVxyfBPXFgqV48vWeXbi/lG8JOBCMBfpfk7XEh73ZgrF2SW0Q3xvTkbHzKANyfl6i3wDHqQ5ZiO7pOh6GSp9trZQbubh4GigWAt3zTQhSHem2Gv/s1DhdcM3544+Na0FjDvVVwJ0oEVo=
+	t=1785669753; cv=none; b=cDz1qFvGHWalbz00zzEhGATlTdAi//+XJhQh1799eRntxnMRfeVu1DvGM/HnZUmhB06boyRdcxmWuz9T71l9VhAJ+uHOSGkeNM8pP/67V8XFwvKHePEWZ3IG9H6SETQJ6cwP8sBS2ep7IqAavAAoaAMUKkkbqLhb+P2a/kNE1lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785669753; c=relaxed/simple;
-	bh=kCp2thK8aoRpVFY4C3IIxK4sEBC/FAyWNqKgydFwcwk=;
+	bh=OhZ85jLGzyKLHACI2CX7NiwCR6IeNXqeyFEqmTp+nhA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aM7rtWYPq8/bT/VBO+yFo7UbqPT4t0JFeTleq5oMFQX7yL/dbs3HpiGCJ2gihhvC5mX5JCTWPPc5FdyXUDRPjB3eO964zeuPjuibzYbex2m5URLScv9TXuhltjPbgCs5QcutklZ76hzKywCNJ2QQcmCIBMlXxI4qJA1W/9oAIDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqazGmCX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=h9Vu89ugkhv4c9+a4HALnrebGMQtxTlfOS/Mog+vvqA0s3ADEgjiPQx3mXpm5tD9GpCVxt0+4kgYnU2+K33MJntK/J6IMe2ZzdopVCVanWxcBxDcy201o2JmDPrdnpbx5nwoNaNKdTvHPN/hU5U6WHKyiY7lQUq6dDqZxIANgPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crML+lHo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqazGmCX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C67F1F000E9;
-	Sun,  2 Aug 2026 11:22:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crML+lHo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38DD81F00A3A;
+	Sun,  2 Aug 2026 11:22:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785669751;
-	bh=JkClEvPYAJ669pS/EWYLzZ5pqfGuhvYwwvua0cfuoJI=;
+	s=k20260515; t=1785669752;
+	bh=dNKxO+r53WMb4KAIoaR8u69Dsxtbh3P5uR6qxVZHoCA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kqazGmCXDSe990x87davEJhZs3JrWjYGvjYaMOtiDpFIo7LYeMHP1MA27yW646/hy
-	 iIPrUPzIVFvmIJpxGMw+Nzxt1ZALmPI2tGB/weAiHJDpYzH8g4DTeoolMYAOD7y7tm
-	 Z6fb6BERH2jFCk+kK1f807VueXx1nZw0PkUv0dtcanG15aAYZnaJ9cQv+vDlw/EOTP
-	 Vqj3/TQ0hRIqDhBuvg5jrRvZ8pxkmuWl+BxaPGuDfbVqLxPMOrnV0lgIoZcTuaV/9V
-	 TcO1CqogHAM2s+K/IWwhBKMdd7/cGgm41VX7ZUO2vT9j/dhC4O/QWGklr9sloIkxnf
-	 ioIb7trdJeNkg==
+	b=crML+lHojSw1GKh0HxVALukwfqgkiaVL/nTuL0b7/uIEMk+s6n3vmQnRcrlkoRG2w
+	 93DsYS8jnX8S30ktfdVzp9RBLttzshI3sbq5qAym6Jr/zKov8Unrwz8q83lTZUnGcR
+	 N2Mg0LDGRnCh6tkmZzOAQjIrnpyHoQ+Bc4Ul/LxWjrzAgDKGmEd9t9ulCmH2+ayQfB
+	 v/TZprj+PSnjNcD5/16FEilZBE+GuTSZLRjZxTRWUj/mp/9WvReGFZOYkTUuEFNtw8
+	 FCWg8AsfHanp2Dh1IGmNPU8x3Kfnm2u8mXSOXJO7Wl0W1UCUADp3LmszCuKSdtJ12k
+	 1znGb01HGhZ8Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/25] clk: mediatek: pll: Add BAR reset register
- offsets
+Subject: Re: [PATCH v5 08/25] dt-bindings: clock: mediatek: Add MT8189
+ system/base clocks and resets
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260801-mt8189-clocks-system-base-v5-10-ac4410697cc2@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260801-mt8189-clocks-system-base-v5-8-ac4410697cc2@collabora.com>
 References: <20260801-mt8189-clocks-system-base-v5-0-ac4410697cc2@collabora.com>
- <20260801-mt8189-clocks-system-base-v5-10-ac4410697cc2@collabora.com>
+ <20260801-mt8189-clocks-system-base-v5-8-ac4410697cc2@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 11:22:30 +0000
-Message-Id: <20260802112231.5C67F1F000E9@smtp.kernel.org>
+Date: Sun, 02 Aug 2026 11:22:31 +0000
+Message-Id: <20260802112232.38DD81F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +47,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The newly introduced `rst_bar_set_addr` and `rst_bar_clr_addr` are=
- completely unused in the `mtk_pll_prepare` and `mtk_pll_unprepare` callbac=
-ks, causing read-modify-writes to be performed on the status register inste=
-ad of writing to the dedicated set/clear registers.
+- [Medium] The `if` conditional block checking `compatible` strings in `med=
+iatek,mt8186-clock.yaml` is missing the `contains:` keyword, which causes t=
+he condition to always fail.
 --
 
---- Patch [10]: [PATCH v5 10/25] clk: mediatek: pll: Add BAR reset register=
- offsets ---
-commit 9a53464d4cd99a5e5248c794e08d787f148b4b00
+--- Patch [8]: [PATCH v5 08/25] dt-bindings: clock: mediatek: Add MT8189 sy=
+stem/base clocks and resets ---
+commit 58f0ae2ed060320d3d6921afeb65e04b05e09665
 Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-clk: mediatek: pll: Add BAR reset register offsets
+dt-bindings: clock: mediatek: Add MT8189 system/base clocks and resets
 
-This commit introduces new fields to the MTK PLL data structure to support
-separate reset BAR status, set, and clear registers on the MT8189 SoC. It
-also updates the prepare and unprepare callbacks to use the newly computed
-reset BAR address instead of hardcoding the CON0 register offset.
+This commit adds compatible strings and binding headers for the system and=
+=20
+base clock controllers, as well as reset controllers for the MediaTek MT818=
+9=20
+SoC. It also adds compatibles for frequency hopping and spread spectrum=20
+clock functionality.
 
-> diff --git a/drivers/clk/mediatek/clk-pll.c b/drivers/clk/mediatek/clk-pl=
-l.c
-> index ee478bc640851..4b0f7e2bfc5a5 100644
-> --- a/drivers/clk/mediatek/clk-pll.c
-> +++ b/drivers/clk/mediatek/clk-pll.c
+> diff --git a/Documentation/devicetree/bindings/clock/mediatek,mt8186-cloc=
+k.yaml b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
+> index ab9f8cb7dd6ee..380dab8f4e983 100644
+> --- a/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
+> +++ b/Documentation/devicetree/bindings/clock/mediatek,mt8186-clock.yaml
 [ ... ]
-> @@ -249,9 +249,9 @@ int mtk_pll_prepare(struct clk_hw *hw)
->  	udelay(20);
-> =20
->  	if (pll->data->flags & HAVE_RST_BAR) {
-> -		r =3D readl(pll->base_addr + REG_CON0);
-> +		r =3D readl(pll->rst_bar_addr);
->  		r |=3D pll->data->rst_bar_mask;
-> -		writel(r, pll->base_addr + REG_CON0);
-> +		writel(r, pll->rst_bar_addr);
->  	}
+> @@ -133,6 +146,8 @@ allOf:
+>              - mediatek,mt8188-imgsys1-dip-nr
+>              - mediatek,mt8188-imgsys1-dip-top
+>              - mediatek,mt8188-ipesys
+> +            - mediatek,mt8189-ufscfg-ao
+> +            - mediatek,mt8189-ufscfg-pdn
 
-[Severity: High]
-Does this logic correctly handle the new set and clear registers for MT8189?
+[Severity: Medium]
+Is the conditional block wrapping this list missing a `contains:` keyword=20
+before the `enum:`?
 
-The commit message mentions that MT8189 has separate set and clr registers=
+Because `compatible` strings are arrays in the device tree, comparing them=
 =20
-to handle the reset BAR. However, this code continues to perform a=20
-read-modify-write on the status register (rst_bar_addr) instead of writing
-to the newly added rst_bar_set_addr.=20
+directly to a scalar string list using `enum:` will always evaluate to fals=
+e.=20
 
-Will this fail to assert the reset BAR on MT8189 hardware that requires
-the dedicated set register?
-
-> =20
->  	return 0;
-> @@ -263,9 +263,9 @@ void mtk_pll_unprepare(struct clk_hw *hw)
->  	u32 r;
-> =20
->  	if (pll->data->flags & HAVE_RST_BAR) {
-> -		r =3D readl(pll->base_addr + REG_CON0);
-> +		r =3D readl(pll->rst_bar_addr);
->  		r &=3D ~pll->data->rst_bar_mask;
-> -		writel(r, pll->base_addr + REG_CON0);
-> +		writel(r, pll->rst_bar_addr);
->  	}
-
-[Severity: High]
-Similarly, shouldn't this unprepare path write to rst_bar_clr_addr if it is=
+As a result, the requirement for `#reset-cells` will not be enforced for=20
+these newly added hardware variants, allowing incomplete device tree nodes=
 =20
-available, rather than doing a read-modify-write on the status register?
+to silently pass schema validation.
+
+>      then:
+>        required:
+>          - '#reset-cells'
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801-mt8189-clo=
-cks-system-base-v5-0-ac4410697cc2@collabora.com?part=3D10
+cks-system-base-v5-0-ac4410697cc2@collabora.com?part=3D8
