@@ -1,154 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94650394EA7;
-	Sun,  2 Aug 2026 12:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1D228CF5F
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 12:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785674567; cv=none; b=MQGJ467H6Rkv22kZ5sB0QW/bta5HPpzw+/FTeFib3sm6Mpj8QaMfO8GqBhU7ZnkjRl28YO9z8zwBocZ9HJ8xwEmvlwEXXDWUXE4Pi2Zagap8Ti+QK2GzomNfFg4U1LUw8upOBaLyT3gsA0XR8T9NokpuptsxTD2TYA5+pvN4O4E=
+	t=1785674727; cv=none; b=P/PZQBscUIQu/ZaRYp7GmCIbp1bs23G2MfBwk4d+a3F5sxggDoVCNwcGjyi1iINdDjO6DFKAmV9dRoI3JPWQCK2vvCIdiwg7Lv93QSMBmj+/vjbC3fyhLm+V0ZTSUPaRG72b7veIcYZ+fyc3kzABauI54LTQQJSDYNaXXQwE3S0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785674567; c=relaxed/simple;
-	bh=gMz6c1u7vOhvnOY9ulQRhpy2xb4L/wbzVkIxYSZQCTs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QVoYBmZ9zkGYeXo2xa8ZAt/RCnmjHUUvp6h43CiZZX8D4NCw0BeQly4sFtZ8xv8OfqWyaaDUqwiOoRmaqd2R4fH5QU1RHbXfcCOJyInfQiZZjRKOgWJmywJPW0pcXU2g0O1EnPRdW0gVabZP2wS8SldJY0MApVZGnuuwbpgStqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tXro9iJy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785674727; c=relaxed/simple;
+	bh=R20gWZ3TDd8iVfTYJ2PlScTzFtG4EBxBavdB4Gq6FP0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GPCbyQM8CT1xfxfiiyVV6WweIc30tz9zRcguGbcpG3oSBrR7suPkPzpgLBgloze4nvJ8Vdumlp16iWv25WwIBTpLyeetKrhplM5cmDtGHV4y8fs/H5VtFbnInUNr8iVMw0XH12Ju+UCBQRJL7hq9hbjICR5BhtTx3fSBE4GLMJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iIOXG2Yz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tXro9iJy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 17B89C2BCF7;
-	Sun,  2 Aug 2026 12:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785674567;
-	bh=gMz6c1u7vOhvnOY9ulQRhpy2xb4L/wbzVkIxYSZQCTs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=tXro9iJyrljHF4Czg0o/jkUn3DOT/9/sPyYHNX4fW0+Vz7lrf7MisDEy6lvXGErnG
-	 D2MqdjZQzBY49TjVwNQzxKT3EBWdxQvyEMQwAzMH2Vu0IEp8U7ID2oEQSHysEJtFTW
-	 eMJd2QdFH/fEV9cQGp8W8NrGwN0tkkypyALXuqqWQ8QK6bf59UtG0zAMbGZfKntRaO
-	 P1/wqg9UXL2BAvtywIlcp2eiNA3MOTPbpvrK1bowXs3TJGpKgm9gAgZwrGc3c4gRWC
-	 iaSDk6S1ZsMDpp/D38cF6pdlMxk/PzhRwiJLdPC6Ds2C61Px8ivnypQrAwHS4VDcat
-	 en9rNCmkIC6gw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC84EC55171;
-	Sun,  2 Aug 2026 12:42:46 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 02 Aug 2026 14:42:40 +0200
-Subject: [PATCH RFC 1/3] dt-bindings: sound: Add NXP TFA98XX TFA2 amplifier
- binding
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iIOXG2Yz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 272831F000E9;
+	Sun,  2 Aug 2026 12:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785674726;
+	bh=8CEZWIE4kDJq0cJ7SkUpt0Ah43ixcSsukMifKFuXnGs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iIOXG2Yz1fsFV+Dn1eGHUmjUMX+ZQxLpAPUaeRhKuImQooivQ2au9zpkDeMdz0IJ3
+	 hayXdUCyWHhcOoMvJPux5LpItaf7PTAOqAw8Xp7wna0BxGYlMfpPlS/q20cKp5Fnya
+	 DoIrDma/XUaKeTnpqSzTw5Cvuu3GvF3h1tQKNnAyxLo91/ARE/iPocBzAljTQRzUUl
+	 r7dUZcuMyj1bh3Z2+aNzU4IPHF0xENGsUZsH5gmrW1HVDciMsOgW/xdAh/lZmCTWnn
+	 m1uXP/sDqrpigUPj3JEqlm6wURhayVD9O1vGY0A7XStgrjCojiM84tFAktpniBWtLM
+	 PUZT5rnq784cw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 1/3] dt-bindings: sound: Add NXP TFA98XX TFA2
+ amplifier binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260802-tfa98xx-upstream-v1-1-4dd55cdd658a@ixit.cz>
+References: <20260802-tfa98xx-upstream-v1-0-4dd55cdd658a@ixit.cz>
+ <20260802-tfa98xx-upstream-v1-1-4dd55cdd658a@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 12:45:25 +0000
+Message-Id: <20260802124526.272831F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-tfa98xx-upstream-v1-1-4dd55cdd658a@ixit.cz>
-References: <20260802-tfa98xx-upstream-v1-0-4dd55cdd658a@ixit.cz>
-In-Reply-To: <20260802-tfa98xx-upstream-v1-0-4dd55cdd658a@ixit.cz>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1851; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=ViUxE0LC3t90pmsmZSY5+bZF4yD/3WG8f30yBWITCnw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqbztFvRluDR502lw7/NRrEIgLQC8sh6Ek71XsZ
- KJ5ZupFntWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCam87RQAKCRBgAj/E00kg
- cqA9EAC3OE2BeZ1AqxbrtO7HUJMae20TUw2B+T7GH0/Jb0n7YF0GznXb20tw+/pmLxx/NG6zx9m
- dmh+aphYXRhoEUn2rXsxLcRn/t24DYiYV+hJ9R8qHCf1HuEZoh5LssODei9PV4G2wpW1kfQfWgP
- 20k56fREItfh9gy5OLAIEieYrjsn2yWghPpP8WrlSh9T9cxikj46tj4SQBSO0xTN36hLqVO1Cq4
- SmtdSNIVLtheR04tcqHsclcMMX976B9AtuSjKxADuxAvj4vb5lg92Nfczy8L7/NetJiPpPLjAUD
- iPdhmz68WU6BRCigOtceqlVlSRLCKDIx29ChAoFuF05d8v6zvw1iogWBvrJ/CXJjIyDxkx64Gpg
- xm7RCFKOZde+9NmH23IGYBFd723uu/3aOFbg+mhErJAg2qZLY+UylfAL7MOjIICswuiIY+LrF2x
- S4o227Um7/LPcTxOZjnObBTLKyFV1jBB2bV6gIlpGH6nUVlojNcLlApgpwF0UjS3bMyd8yBbgMh
- TwOqTuaRh9PWLn2aHRKrimiVG7HmdIAbNytKAA2HoOw1Vp6xwz4OEgeP8hhRgZe4FHmjlAzspFR
- X0+yG5gf8gdNhMPe8arbn9t4oz9vas7KfSYAqOEdvzlr6o5CevuLMzcvKTGDm/t7uTgitgJFYTa
- l4JRlZ1Wba33U0g==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The YAML schema fails to implement the compatible strings and IR=
+Q properties promised in the commit message.
+--
 
-Add a YAML devicetree binding schema for the NXP/Goodix TFA98XX TFA2
+--- Patch [1]: [PATCH RFC 1/3] dt-bindings: sound: Add NXP TFA98XX TFA2 amp=
+lifier binding ---
+commit fcdff8de986493484ef077c116e00cc54ac329f0
+Author: David Heidelberg <david@ixit.cz>
+
+dt-bindings: sound: Add NXP TFA98XX TFA2 amplifier binding
+
+Adds a YAML devicetree binding schema for the NXP/Goodix TFA98XX TFA2
 family of I2C-controlled smart speaker amplifiers with on-chip DSP.
 
-The binding covers supported chip variants (TFA9872 through
-TFA9912) and documents the optional reset and IRQ GPIO properties.
+> diff --git a/Documentation/devicetree/bindings/sound/nxp,tfa98xx.yaml b/D=
+ocumentation/devicetree/bindings/sound/nxp,tfa98xx.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nxp,tfa98xx.yaml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - nxp,tfa9894
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  reset-gpios:
+> +    maxItems: 1
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- .../devicetree/bindings/sound/nxp,tfa98xx.yaml     | 54 ++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+[Severity: Medium]
+The commit message states this binding covers chip variants TFA9872
+through TFA9912 and documents optional IRQ GPIO properties, but only
+nxp,tfa9894 and reset-gpios are defined in the schema here.
 
-diff --git a/Documentation/devicetree/bindings/sound/nxp,tfa98xx.yaml b/Documentation/devicetree/bindings/sound/nxp,tfa98xx.yaml
-new file mode 100644
-index 0000000000000..e80c046894454
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/nxp,tfa98xx.yaml
-@@ -0,0 +1,54 @@
-+# SPDX-License-Identifier: (GPL-2.0-only)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/nxp,tfa98xx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP/Goodix TFA98xx (TFA2) smart speaker amplifiers
-+
-+maintainers:
-+  - David Heidelberg <david@ixit.cz>
-+
-+description:
-+  The TFA98xx (TFA2) family are I2C-controlled class-D speaker amplifiers
-+  with an integrated CoolFlux DSP.
-+
-+allOf:
-+  - $ref: dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - nxp,tfa9894
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  '#sound-dai-cells':
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#sound-dai-cells'
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        audio-codec@34 {
-+            compatible = "nxp,tfa9894";
-+            reg = <0x34>;
-+            reset-gpios = <&tlmm 69 GPIO_ACTIVE_HIGH>;
-+            #sound-dai-cells = <0>;
-+        };
-+    };
+Since unevaluatedProperties is set to false, won't device trees attempting
+to use the other variants or IRQ functionality fail validation? Should the
+additional compatible strings and IRQ properties be added to this list to
+match the capabilities described in the commit message?
 
--- 
-2.53.0
+> +
+> +  '#sound-dai-cells':
+> +    const: 0
 
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-tfa98xx-up=
+stream-v1-0-4dd55cdd658a@ixit.cz?part=3D1
