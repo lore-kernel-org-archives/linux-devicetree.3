@@ -1,112 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A43148D9
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 09:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA871FBEA8;
+	Sun,  2 Aug 2026 09:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785661585; cv=none; b=Mg0K3iD6Zi5tROssWOD1fVpnpU/8gVqCDclAy9OomZT3JxkbzcpbMLNH9RVAK1++UwPzuGRVUj0zI3A+bWrpCWjOnHS2EMXB8sn9ecswu4Gv6fAxtFk5QwfEoC3u021bA83z9nGtFwC1XQMoPnFbCT1hbUrnDJhxOx4h9X8Olfo=
+	t=1785661643; cv=none; b=CoCixdc+9A++/aEMjUTzB32T3xoA5xG1e0HTZ2KUdxsO+TOy771GDDsb/uhcsCw76m9fcZ+sH3w0NPVWZ4jNmYe0t2Hw8NwvzmrBYfpxbiIkq0scwqDR6WOQQPPXD/mhVh1ak6zQ2AHEqo8k0f6WKUIt8s7Vskisv5rboZu2NfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785661585; c=relaxed/simple;
-	bh=nPtpQqMwyNDz6+d1/WBIohJqq5uj7lw9pwKtomovWB0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q+/68aP1fyB07iw0qBzTrKxv6kzWBYt3c5nD4kHMiZCwLlgcGaIUValkK93em6DWC2uKdagGXd1Zd8UM0ibymBqxzF+IHLiszjOvXMEfBU9YIKWzuqhG5CpfRWZFLBw4EVUP3SzQgY2xHVKUaBU0oRl00qy9jYhzN6tYhGKmDLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cJsfXOOX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785661643; c=relaxed/simple;
+	bh=RZ3yeMXR+2/THY7/Ox9OZK06r1AGGecqE3hZGQgHT2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Us+LfyynYM3qW59whTCYZQI1wTyrBegw6eeGYmb0Jx0isjUkmMbFoalFwGADXzFYbafDGDs54pv8f0KriKKvsArGfBmRtEvc3wjOozf4gdccZSklC5A+CmE6BOM+hLA/J6MX4RSCV+zZcWJg1jsQkJ04EEAnJkhc/OB12aws9kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=U45ZRKdZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=iaYYdgdb; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cJsfXOOX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399B31F000E9;
-	Sun,  2 Aug 2026 09:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785661582;
-	bh=EhJGku1Hy5fzsrAHOxFKj51I/HLdnlvBQ2igy4Y2XLg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cJsfXOOXlyv3PKi69ebEtSSMaQA5eKpRCGy/5U4XJyuUcR33PVDAltL7UwbBQkTZ4
-	 TzuU8fSJG7is74L/uoImfis/cr1dASgcf6OAoBjvRHIRHP9vBntVYOiPfnA0krQGuw
-	 MPi01Olwcf3eKGwRhPg0My+V1aHsVD3gT4oW2cVH5uriWrIAsza6GbIsJcYKGt0Rns
-	 1ROtDBrGa4RuKnPef6YuuEP/GocMAhPSb76eNq1zbknSJI6s96pKIe7mGu7tPi+lJY
-	 zGbmIZu12TgNnfG8UtivFTtaM5zCKudOCWW1CgJmfgdo+piUJE1rX9aYVbqSS1yxh+
-	 4xYscBBxYem+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/11] dtc: dt-check-style: Introduce 'stricter' mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260802-n-dts-style-checker-continued-v2-8-6c5dbd1ccfe4@oss.qualcomm.com>
-References: <20260802-n-dts-style-checker-continued-v2-0-6c5dbd1ccfe4@oss.qualcomm.com>
- <20260802-n-dts-style-checker-continued-v2-8-6c5dbd1ccfe4@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 09:06:21 +0000
-Message-Id: <20260802090622.399B31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="U45ZRKdZ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="iaYYdgdb"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 695B51400143;
+	Sun,  2 Aug 2026 05:07:20 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sun, 02 Aug 2026 05:07:20 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1785661640; x=1785748040; bh=GcowD4hPna
+	FHV6viQpEqJbkWL7F/EROyiT8dzgigGfM=; b=U45ZRKdZUacgCfJeuXq+8XIfwg
+	FkIe3LnHpKEl5LZJzKpkZTEgYvJADxrQbnUIvbEwJyCCQupTT7g1AudaCAvgZtp/
+	RjF9+arRNJ48T5pSgAIuDBfzh+zJJtnGAt1iG+LI4uZcLJduk00/VvCLXj1y3xHV
+	gHhEI8jFKw+kT4tctCg2ELCF0l9d/Avz7YJBnhQaL9njlSlzrH7Iug/RbFmlcbMm
+	SDlGlTNWsXZYvQOrkGNn+GoiPYMEp9VlNc8Bzb7xGKdwJUC+RqQwkH0IYRQRbkE2
+	Te2wKs6uO697k2wbzywGcnp7ABhMNLYghb4fjPYXfqoOx/TCuwzI45B9Dwlw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1785661640; x=1785748040; bh=GcowD4hPnaFHV6viQpEqJbkWL7F/EROyiT8
+	dzgigGfM=; b=iaYYdgdbc8hho4RDdf68ER6YQuxvEMU+b7dGVXkT9FVnk+yYfq4
+	qG1KtjuFg5G3rczAV6kXJR/rgTMgjt0O4q1d+lCgaAKkFXgfmPgg2IMX1YXfrAti
+	FF7VWQqdR5R9t+FPL8YDgBAS+Bp24T388klJ9ryT/KB9zfXRgut0FvbEQKZxRbvd
+	wChNh+5sJWSy43jyHOdcRhY6W6zd3V7kufYjHYRDBXDV9n1ZkzgSFAM9KYGGnWH1
+	2sa1fdelusbFhAlfYi4v30FI4M0Ll67c92XII7dUtuPj+gJMzHe+3KeDZvoKy5aJ
+	KmQuCb8B2QowbuP5Wn6Nk9UOwmI9nAFfRZA==
+X-ME-Sender: <xms:yAhvavzFCbnwRH47grekZXx3M80xjHwUS2f7ceA3O8S_mjzElsA1qg>
+    <xme:yAhvajEfi1o6NOMMub6v71PdXbVSMiJGDsQYYdGUSroH4bF4I7SSBTgp87fwSbgU0
+    _yjrBDh5Axng75fouGr_XeWBra9Us4BX1tGixBh30r2aBOOfNBSyb1U>
+X-ME-Received: <xmr:yAhvakuHv5JBVcUcW7EpRX-j8oelL8B5iZraeS1zagRG1EKa00DOUcOR5gYuC3M7jGpQYvHwxXavZ43kBb9q0oSXbwGzB0lwXO4>
+X-ME-Proxy-Cause: dmFkZTEtazb3aefcffG10LA8PvMPA8OYtMmfWjpIL55fBjfd9AI95fb06+KDp5LodwwKTa
+    JPvvjV0gUCD7/zA2r57MQ/BJw8SCZtTm5v+4VIwFpWnYvam2fq3cTt08REowgdxfh7rF3s
+    VEphO0c6UxRqSZepVtejjjSkCN9sKq2+9ZuSJBL3UYvaCGrAM/lrjjkRbtfjqShy8h2Fri
+    YcIQenOsldMbNDI/gnvMnwByKKzfL1ldbQFa9u8fJghDFWRJZszVcpQNJt7BgBPuUwOmFs
+    BilQLr70C8SPZH1vvDkfwZY369BotsIrtohR0HJdUnOylvl26JOeljIMdfkXrTXTluBdDm
+    mvoIqoTrzoLZ9ro/RwQhiJFXDbhaTYoJ15tHxiI6BaotM/COL/qA5k+Zy6qE32ZXOM8y3A
+    hVcCm9gORpMU159ZDU63ZUIPc01jnAPJOfL0qta4AYgMvbw7aFvJvW466LRYqGQY6n5jS/
+    xambnA9eMiJQ9M7Xer7dGN8ivfsZWzgsJz1aF4WmT0Jou4G6Wpb5mU/bLAAq1D0P3Hm9zO
+    nfMrVdvUxOIGaFHc/feZDhYubM9ETHYEKzxRApkBzhAfbHzvsAPfcEklD9EZ5zvtp1TOeE
+    V4pEeGkAjiGf32VBFMhL5XFreaAAWsKwRCWL3sXUL8FMuYKpLVWpw5zDPnaA
+X-ME-Proxy: <xmx:yAhvajA67ISfiPShw4ZqH6oZvH5brpyEvRoR1cReTSoIjNMkkIg7dQ>
+    <xmx:yAhvavB8pl8k_EnC_ieSqQqJvqGoEuxrrd8hUG4gV9YD0xVrqNfKtw>
+    <xmx:yAhvatqjYcYtyYrOuHc3MKU5-ZZLECogejx28JgAw3kfKMMVcUshMA>
+    <xmx:yAhvaqGtWRMhPvec5bjrutgo3-kEngXxBxEvo63EpEG92a07DeXoSw>
+    <xmx:yAhvahc9ngYaMtqECeuIW5VkzET0QgVu5qbqgBNIR01peIrlA9XFkgoQ>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 2 Aug 2026 05:07:19 -0400 (EDT)
+Date: Sun, 2 Aug 2026 11:07:18 +0200
+From: Janne Grunau <j@jannau.net>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] dt-bindings: spmi: apple,spmi: Add t603x
+Message-ID: <20260802090718.GC806854@robin.jannau.net>
+References: <20260728-t603x-spmi-v2-0-f43e5f10e583@chaosmail.tech>
+ <20260728-t603x-spmi-v2-1-f43e5f10e583@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260728-t603x-spmi-v2-1-f43e5f10e583@chaosmail.tech>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The selftest runner `scripts/dtc/dt-style-selftest/run.sh` was n=
-ot updated to test `good/` fixtures against the newly added `stricter` mode.
---
+On Tue, Jul 28, 2026 at 11:28:07AM +0200, Sasha Finkelstein wrote:
+> Add t603x compatibles, interrupt support, and support for SPMI
+> controllers that are not always-on.
+> 
+> Keeping the "interrupt-controller" property as optional, as taking the
+> j514c as an example, we only need this functionality on 3 out of 10
+> SPMI controllers present on this SoC.
+> 
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  Documentation/devicetree/bindings/spmi/apple,spmi.yaml | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> index 3e5b14bc8c31..9fc511bb0cb8 100644
+> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+> @@ -20,6 +20,8 @@ properties:
+>        - items:
+>            - enum:
+>                - apple,t6020-spmi
+> +              - apple,t6030-spmi
+> +              - apple,t6031-spmi
+>                - apple,t8012-spmi
+>                - apple,t8015-spmi
+>            - const: apple,t8103-spmi
 
---- Patch [8]: [PATCH v2 08/11] dtc: dt-check-style: Introduce 'stricter' m=
-ode ---
-commit 9aebf208f76b608e7a3091f58903f2279782a0e4
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please add "apple,t8122-spmi" as well
 
-dtc: dt-check-style: Introduce 'stricter' mode
+> @@ -34,6 +36,18 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Optional, operates in polled mode if not present
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+>  required:
+>    - compatible
+>    - reg
 
-Two rules, which are enabled in 'strict' mode make little sense for DTS:
+Reviewed-by: Janne Grunau <j@jannau.net>
 
-1. line-length, limiting length of line to 80 characters: DTS often has
-   a bit longer lines, especially for interconnects or heavily nested
-   opp-level.  Checkpatch already does not warn for exceeding 80
-   characters.
-
-2. unused-labels, discouraging unused labels in DTS or YAML (not DTSI or
-   DTSO): while not harming this leads to many false positives, e.g.
-   unused PMIC regulators in DTS.
-
-Introduce another 'mode' of running beside existing relaxed and strict:
-a 'stricter' one where these two rules are moved for DTS.  Intention is
-to have in-tree DTS passing 'strict' mode.
-
-> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index 54e96ce04b209..56d8d0c217f20 100755
-> --- a/scripts/dtc/dt-check-style
-> +++ b/scripts/dtc/dt-check-style
-> @@ -5,12 +5,14 @@
->  # .dts/.dtsi/.dtso source files. Enforces rules from
->  # Documentation/devicetree/bindings/dts-coding-style.rst.
->  #
-> -# Two modes:
-> +# Three modes:
->  #   --mode=3Drelaxed (default)
->  #     Only rules that produce zero warnings on the current tree.
->  #     Suitable for dt_binding_check.
->  #   --mode=3Dstrict
-> -#     All rules. Required for new submissions.
-> +#     Most of the rules. Required for new submissions.
-> +#   --mode=3Dstricter
-> +#     All rules, including ones having false positives.
-
-[Severity: Medium]
-Should the selftest runner be updated to cover this newly added mode?
-
-Looking at scripts/dtc/dt-style-selftest/run.sh, the loop for testing good
-fixtures still only iterates over relaxed and strict modes:
-
-scripts/dtc/dt-style-selftest/run.sh:
-    # good/ -- must exit 0 and produce no output in both modes
-    for f in "$here"/good/*; do
-        [ -e "$f" ] || continue
-        for mode in relaxed strict; do
-            out=3D$(run "$f" "$mode")
-
-This leaves the newly added stricter mode untested against valid fixtures,
-and leaves the script comment referring to "both modes" out of date.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-n-dts-styl=
-e-checker-continued-v2-0-6c5dbd1ccfe4@oss.qualcomm.com?part=3D8
+Janne
