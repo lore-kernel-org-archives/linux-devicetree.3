@@ -1,64 +1,64 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D913B8BDA
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 15:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3DC3C13EE
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 15:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785685591; cv=none; b=afvC+T36w3QlGA98lzWHZqMermcP6qRG7kF1cqP5wVFbAtWqOfkdNGAElhd9GYnAnNAjmClrqcafhZ/aDBrkyyByu97WqsYd9R1aPHfAEIVCQfA80n1AGpp5OUsCUm/9d2RXYZAnbONS4Q/xzxoTJBU7mQtKMdtUxfWFlaruexw=
+	t=1785685598; cv=none; b=moy8e2tqi+NSH+JmLV/zCS7jhM/uFDBLjIF62YWFkNgueHsjBK9N8XtMiA7Db8hK9bw9czhub0SJLoGklwt3tK+Uj7u6cVVBjxbk2K0nQks7AfREyJ4oxjAKKWEkYASkXB3gMNtTPXwqorYxVy4Nih1483uLuDSLWSfxMHCPGms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785685591; c=relaxed/simple;
-	bh=cLrS7qXp57cQ0CJ93Ue4JPXTnXTOGbW99vQlMqWVd/Y=;
+	s=arc-20240116; t=1785685598; c=relaxed/simple;
+	bh=Mv2fB5QTMgzygfKi4oX9eQwPWNNkjLy2vCUnRHb4K0E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lqND8Xd3uwSXjhGgYOvvqxAhSjvpISzYqeuErBKjtEEDz0hOYx9t16tF0kcB6XZ/Ynr14sZ6t/C63ZBfI46esQuv3YWhjCAIvDjHoETqqxeIbrhifpXoMVOErhkAfbT7n7oi7oX6dzhW8K56mxsvFVSO9dXvcDgb3gvqtt/LQCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F1fj5dKF; arc=none smtp.client-ip=209.85.214.171
+	 MIME-Version; b=ZCcUlBrtrz3o9nW7rggYyMOTncYXczYQRsgUDlJqz9q3tRPLAva5NpolZwkgTa3Ral0xHpEEKJ9TJneU6I99ql/5AGJH4RZJLB2USGbSjI/2KFmmbrcXXlt124T9cUJ46rbzMKnKw7JK998/zIljz3Dmv4C9o4Az/t3PC8PwxbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qMFtgvkJ; arc=none smtp.client-ip=209.85.215.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F1fj5dKF"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cf452def93so24962955ad.1
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 08:46:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qMFtgvkJ"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-ca12086c06eso2071644a12.0
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 08:46:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785685589; x=1786290389; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785685592; x=1786290392; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+VgJgsAsYz6ZQBu8o6pNRg8dz6ngWsg0lMioHUZEeJs=;
-        b=F1fj5dKF9rGHy+T2vqrkIdEjgW3Fv6h3GgYVFy3ikHKrEASciEZMSsw2sOYW2KyiQy
-         POETdTKSgxfywMF6Z4/iHs9VUVoLDng7MBOCI6YJsPbt1DaM7kWl+/ux0TqFJLNMEeYp
-         LWfNei2B+TXcv5U//WhlXh5Q7mYjZhkDurpv5GSCLnv4aWaupdFpG6mx92CgRyIJVrA6
-         W7JumN0UzmPcKjBstPdnMyLyjI4OITirdMyhNy+oM3NnnnNzeoBkiN4dr3B9z/Kh2x2D
-         0/girRARsqUxgEZ6E/8JsCwqJgKXyNKbw+lZ6MuIXLNOmambq7LZftvyELAhNiKtKhhI
-         Oe3A==
+        bh=jXjf3n6y2o2sUp9ziyNWD3SU5x1Q1/QeHjG5pG2QUDY=;
+        b=qMFtgvkJilu1Jb47IbDRWK0rgi8TfMB5dhX6YvSrkBWuPak0x9hqM1OXUoYHH4UsXq
+         PWsKri8MRpuqN82Zifecsb4yB5xkRHZvS4dQLxWA9or7mtRec92uPOYU2IiAcf+K4lUR
+         y7Cq8/W8dlzViTzq2o5GmjYvkg8GGbpF51J46oVLpfIOOgG1zZIQc9AhYs5lqzbIhZcd
+         OIrEXtp4MMnfbl7fONSFA04QQ4epgrwWzD1FKLAtYkpCp6+zB6Tu8kLVQpJ8ESlBX5r1
+         5T++mjmoN5NNJn6dPlyhAoEaHoHN1Wv/g+3vzJiI+Pn/vRlWDbRQMRtYJHlRCezLX3qk
+         QwIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785685589; x=1786290389;
+        d=1e100.net; s=20251104; t=1785685592; x=1786290392;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+VgJgsAsYz6ZQBu8o6pNRg8dz6ngWsg0lMioHUZEeJs=;
-        b=J5eWp6OWj53Fxo4ZGC7Is/omRXr3HlHUbq/PPHtuCwt2quqJNo6Y/IiTIzJyDJHdiO
-         OI1A8HsCsOimDczUhcxXtOghGlTKjArjdJCfF3x70nvUpNuF1wC6WxDm1MSXUFopMPbJ
-         1qbhKMI0bk0JzhPLdHUAkR2Q7AnTZUxeImbzSqncx6KVkxGUqH8LvtSUWJdxzbJgTUm4
-         S62ZAtZw2aO6CH2KoKJhWFrHVy2/8frUOoAXjTWGln88bQ7NqcA5gClxiYZ/4EfMH+06
-         iZ2WADrT4e5itiiMM0V/y5j9IXxXDGa01E41VWM1iXJnDQLcJBwqg1hV0ngVOgI2k0D3
-         jtkw==
-X-Forwarded-Encrypted: i=1; AHgh+RpcVBTsdmnNWj6XGiquvzjTBq/zQuScHTmK4o8F9Gnb4MFXtr+6wabJmshz7U+RzQCcFJ15L7k8IhCj@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKzdRr+9AjHh5jP9WSkshfmWs2w3PfSQOlVlbDHE5PWvzW8gAg
-	chdIpZmURZ21ZoYVroGSoV/Ue3Wr6oYqxlv3xAOPTy2oA912KPRr0PRS
-X-Gm-Gg: AR+sD10nnz5557ADCgDv0Xt+mGaE3ewdrA1vDX/Ig/4u/yRUdRGy6rJglHcRwAdr4Wz
-	yUxO+uxSA/h/pa9imm1K2ua44NKN2GzaQFpe7TFq4fh4oP2HUmqwSpCUJKmF2rKCvus9Bkj1Gag
-	nHxJgwk2DbN1IKi1VVzbpY6SE92F+l7M4BAA17UrUuzPSVG3fW2yIXl4w3LPWK59NvSLe2Q8NAX
-	O0I9JteefoH0NZdTGoZHC5MWdVG/aLVVeMVB6iTn7NkIpTD5/ZpTbZVPcBVeC6iLKggg8ZNExIG
-	G7yNmKGlJ2YDAuKyZYtEgd9ZzwAQxteRvVYItUaizwvFcG/Wq3Ca3kpTHJJ51lGoCmlVypGJlMB
-	+5JAdxo8ttwX+BgBxL8mY1tpYO5JGXLhNNPCZGCziKQUEGcElib1WKCNy4bixXfleOoaat6iyYb
-	ogT8PaL+5xVPOsX92uPMQrIljztLq97gCGLtq1XXMuQYl83MujVqliDBvUHXk0ggyRnFluE3yEu
-	Mhl1eJ31Kn/VyySqeAqRM24ptbAHZa1bVN4194=
-X-Received: by 2002:a05:6300:6186:b0:3bf:b7e8:68ab with SMTP id adf61e73a8af0-3c91a7131eemr9627291637.2.1785685589201;
-        Sun, 02 Aug 2026 08:46:29 -0700 (PDT)
+        bh=jXjf3n6y2o2sUp9ziyNWD3SU5x1Q1/QeHjG5pG2QUDY=;
+        b=ZDw2GQTEkPv5/yDg2WquMra2aUcq5XNzmsT/MFTl3dFJge6iB6ysl+XvXJAdN+uwRz
+         Bv6utq6pGjjNfOOiZlpJWQekbP9wX7r6c3Cf3ngKZO1AzW24VJ/PfJAKaqRNnlw3hvvY
+         HV9BQwx6vTiT9LggqpyimEApBg8tYV6iVD2/IvBMwKlu8i9zUgm/ywAS5tY55+U1j52u
+         nRVNyXQTl0tE5tqcQTLOdlpJ2iquVJiDKZ4+nDBhyPVpZnq7cpGv2IfykHHKKnwy80XB
+         7X3Lw3OfZ/j/LDbjvvTTGKssW70F78VVKHlI6iRFDW/gT+UuL3ZKvCe8UFBqh1C0Zixt
+         8KDA==
+X-Forwarded-Encrypted: i=1; AHgh+RqYQBh+JX7buJpyTcFCuT8vC8t24TQQ4QsNVkIDC6YSm0aW2Nvjy61PW9ju+qYqwleU0w6BlhNKjMrd@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQ3h3ZqFxedCFp8OVfQieuu+v/+u8EdxfHuXwInUywjlpPCNK7
+	lRxvnhpFaLGQFfIvuVT2HeGw7Y6aMdR51A4xNPjPp0EzWSTj4U+UsZBv
+X-Gm-Gg: AR+sD13cYPBXjQJNFmXeOAeoJ0L7YVbCVAhGwxd74hTMJMhbMuQNVzdZHb/svzWf3dI
+	n7ODzzIf09U0jl65VXKCy691d6CvjMDj676EUqo7NV6X6EFBQo30ne8JfxxZPRcBjSYaoSsbfVL
+	1AnnivFg430W0dL2XfBhLITOxjjb+Gf2LX3KVHGIMUSllC+fK4GGe9r5mtD/UhYdQ6vlZ2GpLdW
+	pq1HxCbK7LkXZOu0eE44CVHACzj4gkoOOe0VXRBrfuJ22OdfYy6Sp0SEThhZjqj7APMyxE3xAko
+	uopd3X1Mm5T1ZnVd9mYD9WkbMHk+Xwe+A15ef2O9vcVFLRJeL+6rYhr92z5Wk/+AKGMmvdjBFz9
+	yzd3BLLYmWDxAd0uANIZq2DrIjl4nfFuLMp5mEIRn3qiRcuvhsKJEcaVIiXNIlDHGuz2KcgNN3g
+	cJ7W+hF1OghixcKMRVUpL8p7TqkHx8BTIRmRgtbuVOXprKra0FbrLAzCA0V+QAfSUPD1jkxdpDy
+	OSJ/MNQqJTNIx0pLoEtFm/wW8dm+0OlLpWJsKA=
+X-Received: by 2002:a05:6a21:7a95:b0:3c1:85d:fa2f with SMTP id adf61e73a8af0-3c92a89c7bbmr7671642637.36.1785685592428;
+        Sun, 02 Aug 2026 08:46:32 -0700 (PDT)
 Received: from Mac.net (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e29a126sm30602192eec.31.2026.08.02.08.46.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e29a126sm30602192eec.31.2026.08.02.08.46.30
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 02 Aug 2026 08:46:28 -0700 (PDT)
+        Sun, 02 Aug 2026 08:46:31 -0700 (PDT)
 From: Ahmad Byagowi <ahmadexp@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>,
@@ -80,9 +80,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ahmad Byagowi <ahmadexp@gmail.com>
-Subject: [RFC net-next 1/4] dt-bindings: leds: Add IS32FL3207 controller
-Date: Sun,  2 Aug 2026 08:46:17 -0700
-Message-ID: <f45601f5a51e94e4d0fb58652fdd9a80eec8361f.1785684064.git.ahmadexp@gmail.com>
+Subject: [RFC net-next 3/4] i2c: mux: Propagate software nodes to channel adapters
+Date: Sun,  2 Aug 2026 08:46:19 -0700
+Message-ID: <3e76f1dc25b104a2c8558142c12e23b297f9c58c.1785684064.git.ahmadexp@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <cover.1785684064.git.ahmadexp@gmail.com>
 References: <cover.1785684064.git.ahmadexp@gmail.com>
@@ -94,247 +94,119 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The IS32FL3207 is an 18-channel constant-current LED controller
-with per-output PWM and current scaling.
+Device Tree channel nodes are associated with the adapters created by
+i2c-mux, but equivalent software-node descriptions are not.
 
-Describe I2C addressing, power and shutdown controls, RISET, and
-individual or multicolor output groupings. Require board current limits
-for each output.
+Find the software-node child whose reg value matches the channel and
+assign it to the new adapter. Keep a reference for the adapter lifetime
+so downstream clients can find the channel by firmware node.
 
 Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
 ---
- .../bindings/leds/issi,is32fl3207.yaml        | 204 ++++++++++++++++++
- MAINTAINERS                                   |   6 +
- 2 files changed, 210 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+ drivers/i2c/i2c-mux.c | 55 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
-new file mode 100644
-index 000000000..06a12cfb1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
-@@ -0,0 +1,204 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/issi,is32fl3207.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Lumissil IS32FL3207 18-channel LED controller
-+
-+maintainers:
-+  - Ahmad Byagowi <ahmadexp@gmail.com>
-+
-+description: |
-+  The IS32FL3207 is an I2C LED controller with 18 individually controlled
-+  constant-current outputs. Each output has 8-bit current scaling and up to
-+  16-bit PWM control. Outputs may be exposed as individual LEDs or grouped as
-+  multicolor LEDs.
-+
-+  The data sheet is available at:
-+    https://www.lumissil.com/assets/pdf/core/IS32FL3207_DS.pdf
-+
-+properties:
-+  compatible:
-+    const: issi,is32fl3207
-+
-+  reg:
-+    enum: [0x34, 0x35, 0x36, 0x37]
-+
-+  vcc-supply:
-+    description: Regulator providing power to the VCC pin.
-+
-+  enable-gpios:
-+    maxItems: 1
-+    description: GPIO connected to SDB, asserted to enable the controller.
-+
-+  issi,riset-ohms:
-+    minimum: 2000
-+    maximum: 76500000
-+    description: |
-+      Resistance in ohms of the external RISET resistor. The resistor sets the
-+      maximum output current according to IOUT(MAX) = 76.5 / RISET amperes.
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+patternProperties:
-+  "^led@[0-9a-f]+$":
-+    type: object
-+    $ref: common.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        minimum: 0
-+        maximum: 17
-+        description: LED output number.
-+
-+      led-max-microamp:
-+        minimum: 1
-+        maximum: 38250
-+
-+      color:
-+        not:
-+          enum: [8, 9]
-+
-+      max-brightness:
-+        minimum: 1
-+        maximum: 255
-+
-+      default-state:
-+        const: "off"
-+
-+      default-brightness: false
-+
-+      retain-state-shutdown: false
-+
-+    required:
-+      - reg
-+      - led-max-microamp
-+
-+  "^multi-led@[0-9a-f]+$":
-+    type: object
-+    $ref: leds-class-multicolor.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      reg:
-+        minimum: 0
-+        maximum: 17
-+        description: Lowest-numbered LED output used by the group.
-+
-+      "#address-cells":
-+        const: 1
-+
-+      "#size-cells":
-+        const: 0
-+
-+      max-brightness:
-+        minimum: 1
-+        maximum: 255
-+
-+      default-state:
-+        const: "off"
-+
-+      default-brightness: false
-+
-+      retain-state-shutdown: false
-+
-+    patternProperties:
-+      "^led@[0-9a-f]+$":
-+        type: object
-+        $ref: common.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          reg:
-+            minimum: 0
-+            maximum: 17
-+            description: LED output number.
-+
-+          led-max-microamp:
-+            minimum: 1
-+            maximum: 38250
-+
-+          color:
-+            not:
-+              enum: [8, 9]
-+
-+          max-brightness: false
-+
-+          default-state: false
-+
-+          default-brightness: false
-+
-+          retain-state-shutdown: false
-+
-+        required:
-+          - reg
-+          - color
-+          - led-max-microamp
-+
-+    required:
-+      - reg
-+      - "#address-cells"
-+      - "#size-cells"
-+
-+required:
-+  - compatible
-+  - reg
-+  - issi,riset-ohms
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/leds/common.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        led-controller@34 {
-+            compatible = "issi,is32fl3207";
-+            reg = <0x34>;
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            vcc-supply = <&led_3v3>;
-+            enable-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
-+            issi,riset-ohms = <4700>;
-+
-+            multi-led@0 {
-+                reg = <0>;
-+                color = <LED_COLOR_ID_RGB>;
-+                function = LED_FUNCTION_STATUS;
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                led@0 {
-+                    reg = <0>;
-+                    color = <LED_COLOR_ID_RED>;
-+                    led-max-microamp = <8100>;
-+                };
-+
-+                led@1 {
-+                    reg = <1>;
-+                    color = <LED_COLOR_ID_GREEN>;
-+                    led-max-microamp = <8100>;
-+                };
-+
-+                led@2 {
-+                    reg = <2>;
-+                    color = <LED_COLOR_ID_BLUE>;
-+                    led-max-microamp = <8100>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 932ea1db0..ff3a93474 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -13821,6 +13821,12 @@ F:	Documentation/devicetree/bindings/hwmon/renesas,isl28022.yaml
- F:	Documentation/hwmon/isl28022.rst
- F:	drivers/hwmon/isl28022.c
+diff --git a/drivers/i2c/i2c-mux.c b/drivers/i2c/i2c-mux.c
+index 681a201c2..1e587ea4e 100644
+--- a/drivers/i2c/i2c-mux.c
++++ b/drivers/i2c/i2c-mux.c
+@@ -25,6 +25,7 @@
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/property.h>
+ #include <linux/slab.h>
+ #include <linux/sysfs.h>
  
-+ISSI IS32FL3207 LED DRIVER
-+M:	Ahmad Byagowi <ahmadexp@gmail.com>
-+L:	linux-leds@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+@@ -264,6 +265,49 @@ static const struct i2c_lock_operations i2c_parent_lock_ops = {
+ 	.unlock_bus =  i2c_parent_unlock_bus,
+ };
+ 
++static struct fwnode_handle *
++i2c_mux_get_channel_swnode(struct i2c_mux_core *muxc, u32 chan_id)
++{
++	struct fwnode_handle *dev_node = dev_fwnode(muxc->dev);
++	struct fwnode_handle *mux_node, *child = NULL;
++	u32 reg;
 +
- ISOFS FILESYSTEM
- M:	Jan Kara <jack@suse.cz>
- L:	linux-fsdevel@vger.kernel.org
++	if (!is_software_node(dev_node))
++		return NULL;
++
++	if (muxc->arbitrator)
++		mux_node = fwnode_get_named_child_node(dev_node, "i2c-arb");
++	else if (muxc->gate)
++		mux_node = fwnode_get_named_child_node(dev_node, "i2c-gate");
++	else
++		mux_node = fwnode_get_named_child_node(dev_node, "i2c-mux");
++
++	if (mux_node) {
++		/* A "reg" property indicates an old-style firmware entry. */
++		if (!fwnode_property_read_u32(mux_node, "reg", &reg)) {
++			fwnode_handle_put(mux_node);
++			mux_node = NULL;
++		}
++	}
++
++	if (!mux_node)
++		mux_node = fwnode_handle_get(dev_node);
++	else if (muxc->arbitrator || muxc->gate)
++		child = fwnode_handle_get(mux_node);
++
++	if (!child) {
++		fwnode_for_each_child_node(mux_node, child) {
++			if (fwnode_property_read_u32(child, "reg", &reg))
++				continue;
++			if (chan_id == reg)
++				break;
++		}
++	}
++
++	fwnode_handle_put(mux_node);
++	return child;
++}
++
+ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
+ 			u32 force_nr, u32 chan_id)
+ {
+@@ -364,6 +408,12 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
+ 
+ 		priv->adap.dev.of_node = child;
+ 		of_node_put(mux_node);
++	} else {
++		struct fwnode_handle *fwnode;
++
++		fwnode = i2c_mux_get_channel_swnode(muxc, chan_id);
++		if (fwnode)
++			device_set_node(&priv->adap.dev, fwnode);
+ 	}
+ 
+ 	/*
+@@ -408,6 +458,8 @@ int i2c_mux_add_adapter(struct i2c_mux_core *muxc,
+ 	return 0;
+ 
+ err_free_priv:
++	if (is_software_node(dev_fwnode(&priv->adap.dev)))
++		fwnode_handle_put(dev_fwnode(&priv->adap.dev));
+ 	kfree(priv);
+ 	return ret;
+ }
+@@ -420,6 +472,7 @@ void i2c_mux_del_adapters(struct i2c_mux_core *muxc)
+ 	while (muxc->num_adapters) {
+ 		struct i2c_adapter *adap = muxc->adapter[--muxc->num_adapters];
+ 		struct i2c_mux_priv *priv = adap->algo_data;
++		struct fwnode_handle *fwnode = dev_fwnode(&adap->dev);
+ 		struct device_node *np = adap->dev.of_node;
+ 
+ 		muxc->adapter[muxc->num_adapters] = NULL;
+@@ -430,6 +483,8 @@ void i2c_mux_del_adapters(struct i2c_mux_core *muxc)
+ 
+ 		sysfs_remove_link(&priv->adap.dev.kobj, "mux_device");
+ 		i2c_del_adapter(adap);
++		if (is_software_node(fwnode))
++			fwnode_handle_put(fwnode);
+ 		of_node_put(np);
+ 		kfree(priv);
+ 	}
 -- 
 2.50.1 (Apple Git-155)
 
