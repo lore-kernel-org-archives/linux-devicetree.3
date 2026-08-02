@@ -1,142 +1,104 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD511D9A5F;
-	Sun,  2 Aug 2026 14:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A77513D503
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 14:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785681605; cv=none; b=EHhLux2pb8kXiY2xI8Zu+Nd/vI93zMnypNoV3RkeZ9kW4Ds/hlxI59J+MRXX8E/agu+4y5Pl4K/1XSvL3XSzXqSAk9N815+ghHCyBOomxnToyXhrng7rRAc0+wJswpWfj93j4vV3KfYdPJfqDk7+3SQlLwB8ExZyrdVPhYXCW/Q=
+	t=1785682281; cv=none; b=Cz3cR4x/1SA0Xnn2h6dpi+ijsjAmX2QzU1MoH+CSGk0JAwheneOVVlo1Oqu7A6nTiqxIawxYOiuR3TLsTQ8ovs/SXcUR+jXkTYZERrTpgz01FQq1KYq4pJnNvehwQ2hZbEQi2Vu93dA50hBO0SizwvO1m+oY8oRptFQrlqTqh54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785681605; c=relaxed/simple;
-	bh=lBypRljVkeXbZ+ijCa8JQDEKfwENg0tAQYeDOy7ouH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kdVl6OoP76xc73j1zq+xszczJpMCoYmCLr8UsK9PoSjD+2qF/Od84aShumQwG8kp8eIxsPwY7cyrHB8geNvhgIo2S4K9jO4u3pSfEnjRVJkFzNaPA14W0V1b2VrzG8Zf7O068o8/urC79utSDse9OzsgHsJJnM+ZnThozGCNbAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=N0oUJcTD; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785682281; c=relaxed/simple;
+	bh=eH0Mjwd53TLUsu8FBNNWLb5psZuQ66wuc7o8/5aRyKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b23dGC3YB3uw2xW7s3zX7ZOvNOdu6B/bWUBufExc3ewvXZbbFb49lm45uIiDnkJspx2dw1DzU4NKj/hWeivq/JuM1k2GEmHBOYdosfs3jJpC3/+RDV4UK0phzb7sw5RLVgSxsbect6arunyICOoivIUrGMBStOIRXOxH1jXvO3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JRR8qWt2; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="N0oUJcTD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=O9/czP7ioI9JHcEbksjmAMrCOj4f1C2Czk3C5v8LVJ0=; b=N0oUJcTDIX+KIOvluhlbWZ6tmp
-	36M5J+rTREuYz0/Q77XiMrfHby3pWmr1FZ75bT4DWzB5IkTrB8qgheB3gtsOiBAJkfktCnl/UcJr5
-	5c6EKEHVbEKV2bnS0tuEmgvdXm1Ary4bWf3/x8Wrs7CuoCu6X4U189WWnRg7pEejPXJg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqXLu-00Fa2t-7Z; Sun, 02 Aug 2026 16:39:46 +0200
-Date: Sun, 2 Aug 2026 16:39:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JRR8qWt2"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4955158f26aso8718485e9.3
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 07:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785682278; x=1786287078; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iK9MEaYcWVmSY9o1Sifwkzjfyq959QpeeaqLNOopIGc=;
+        b=JRR8qWt2Rl3A01lHL4UtY5rAa3G2xELoegwXht5Ka2sXSkTjUa67NTrBtqvm8tvTqo
+         sMsFeODmqu+mjVmO4yoHJC3vQjXGrkfo1t4r/znzHwCo3nFcrxMiZrdYKxu8sDle6zGI
+         8sHH5X6oydtju6l6xBHTd6iJIvuFDB2v9CZRutXoWzhfetBiBO4CH5qpGUve9JRMEq5K
+         zuFF+gFzPhjw02p74/5WnjCkSQafIjEfNIvInVQ7YZWyFA/ZCYb76JfWS81brHDMgY2O
+         JhFADi+1Sl4M9qOKuyjojU8T/ujp0JJPH8zFgylDfvJM3TkUYS1gyYM91AHlPtqKjYDT
+         K+QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785682278; x=1786287078;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iK9MEaYcWVmSY9o1Sifwkzjfyq959QpeeaqLNOopIGc=;
+        b=NF/GTm58dVX6FdQOXkGk4lDe0Oa07UvpjIOG8zyABDxXmMm+IVRV+dwIr75EfdEoU0
+         r4794q6BNSLEPWE+us5yfgKGLYmFGQQp8J3SYxo3tUOW8xsEOlAdZxcqFT742p9Y/e3q
+         tIg0GgxwCQp8Wp70oib9CF8twgIpygwTPTns0aaHufYipZAVUOTm/EA7W0NJ92uHAuWM
+         7HhnG3n8cTglN9NLY7Dfgi2prP1CfrgIirNaO1as7vlUL1NKECpQYr6dUnJIeGdCCtKu
+         WN35iyMldJDyKIdiwRmTHkAMrpqbUcq05F3v6w4vrciavvRlchtyko764G517jdbtYIj
+         s+4w==
+X-Forwarded-Encrypted: i=1; AHgh+RoQjuEHg+qzXvgzJSWzilOOu1h/pXxcWpmnCX4JKl99JdroXLsI79XSuqwqem0Xizy2jlw9yi0Y+/rE@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx0Jm08bVxGOppulWANwzlDR4fagGj268Yzy7D3xqlpD1GAHCXt
+	/W1t6h3eGcvq2sgPf6bfUvdK8rjZp2ZdbuWJvD6ZV+HShSH43jcysaD6
+X-Gm-Gg: AR+sD121MYXZekE4SZBqibrE1O+kwl5q/vSQePIxWNmnc2ptPrBLLk9B1IjLA7DPaVJ
+	qWYDl4JdFPeRFtEtdX/xYcntndBGtZse74aKN40TCLoO3kBIRbUfzhWCnYOc5X5OIE7GPx9/oTx
+	G4IlB4ApPX6nkREpwAHeA+KTNYuK1S+YNqhhSdg322eVDYklU9hwuJPFZyQw5UaJFu3RnT8AhuF
+	PSchO2Vs9DbQaP6rLxNbQ9Lj3gNH5N1MPNEA6RbM6C961OSI8KbkXXmbHycAyLqOGk9ceJ33d+N
+	1u11ZnBiq9QmoQbsm4D85s6SzE38GrMVTr/f3mLyVjlVWNc6mp6qHeTxS6g0ZE9QG31SDH+2obK
+	3niENrpr4uy99rBQX2/K7y+1HDsJ0hshxNtgwB2p7qYmhZ6jF4xiuRfscPA+9l+yYbd+uLv4LQz
+	WE0ckBXx7v53I/G/TVerlop4+xYENJN8SApQJLzuJ3hCBJRJJvPr0HzGFMzi2JjZ9evwrFiGDyV
+	/qBFqcj+e/fhGlbe/yrutBsZnTGR81Hvzr0PWv5PH+OgIGPzct3x6Co/L9y4g+ZBZSk0LcQK+xs
+	nuE5cyvrT0t5abFFGbK8ww0LrxJOUlqr4veXl0tlzq8knpS80H1WEWlZO3ap3i4wLfYWONjRcLU
+	FUJRWiHPnQ0StVDo0PPsJWhx2cHNsWsWbkl4Kkd7bpz8qvoDP7dxPlTAqACjfjzHsIeybWps=
+X-Received: by 2002:a05:600c:4d97:b0:495:52db:7e8 with SMTP id 5b1f17b1804b1-4980c694ef0mr83665505e9.19.1785682278217;
+        Sun, 02 Aug 2026 07:51:18 -0700 (PDT)
+Received: from cypher.home.roving-it.com (1.e.2.e.9.4.4.d.0.e.6.8.9.8.8.3.0.0.0.0.1.1.b.f.0.b.8.0.1.0.0.2.ip6.arpa. [2001:8b0:fb11:0:3889:86e0:d449:e2e1])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4980878dcb4sm234526335e9.13.2026.08.02.07.51.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 02 Aug 2026 07:51:16 -0700 (PDT)
+From: Peter Robinson <pbrobinson@gmail.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 07/10] net: pcs: xpcs: add Rockchip RK3568 platform
- glue driver
-Message-ID: <302c67b0-6729-4930-a409-a2408dde33fc@lunn.ch>
-References: <20260801142244.679437-2-coiaprant@gmail.com>
- <20260801142244.679437-9-coiaprant@gmail.com>
- <23d8e994-8552-466f-98e6-c47d5783525b@lunn.ch>
- <CALj3r0i5yVcJY8V75y0Hm5xjtZSBpH0DXSAWKsAUqguChVcxYA@mail.gmail.com>
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Phil Elwell <phil@raspberrypi.com>,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Andrea della Porta <andrea.porta@suse.com>
+Cc: Peter Robinson <pbrobinson@gmail.com>
+Subject: [PATCH 0/3] Some minor RPi5 bits
+Date: Sun,  2 Aug 2026 15:50:51 +0100
+Message-ID: <20260802145109.728793-1-pbrobinson@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALj3r0i5yVcJY8V75y0Hm5xjtZSBpH0DXSAWKsAUqguChVcxYA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 02, 2026 at 11:20:27AM +0800, Coia Prant wrote:
-> > On Sat, Aug 01, 2026 at 10:22:31PM +0800, Coia Prant wrote:
-> > > The XPCS block contains four MII ports (0..3), each of which can be
-> > > routed to GMAC0 or GMAC1 via the pcs-handle property in the MAC node.
-> > > The hardware maps these ports to different MMDs:
-> > >   - port 0: MMD 7 (ROCKCHIP_MMD_MII)
-> > >   - port 1: MMD 2 (ROCKCHIP_MMD_MII1)
-> > >   - port 2: MMD 3 (ROCKCHIP_MMD_MII2)
-> > >   - port 3: MMD 4 (ROCKCHIP_MMD_MII3)
-> >
-> > Why is port 0 called ROCKCHIP_MMD_MII not ROCKCHIP_MMD_MII0 ?
-> 
-> Hi Andrew,
-> 
-> The naming follows the Rockchip TRM. The hardware documentation refers to
-> the MMD for the first port as simply "MII" without a numeric suffix, while
-> the other ports are named "MII1", "MII2", "MII3". I kept the naming
-> consistent with the TRM to make it easier to cross-reference.
-> 
-> As I understand it, this is probably because the MII controls not only
-> Port 0, but
-> also the entire PCS (these registers are read-only in Ports 1-3 and reflected
-> back to the MII).
-> 
-> If you prefer, I can rename it to ROCKCHIP_MMD_MII0 for consistency. Let me
-> know and I'll update it in v3.
+These are taken from the downstream kernel device tree. They
+are small components that already have upstream support, from
+older generation RPis or existing arm IP with just minor
+changes for upstream, tested on rev C and D variants.
 
-If the TRM gives it this name, then O.K. It just makes the code look
-odd, unbalanced.
+Peter Robinson (3):
+  arm64: dts: broadcom: bcm2712: add arm PMU
+  arm64: dts: broadcom: bcm2712: Add thermal monitor
+  arm64: dts: broadcom: bcm2712: Add USB OTG port
 
-> > > +static int xpcs_rk_read_c22(struct mii_bus *bus, int addr, int reg)
-> > > +{
-> > > +     struct dw_xpcs_rk *pxpcs = bus->priv;
-> > > +     int dev;
-> > > +
-> > > +     if (!xpcs_rk_mdio_addr_validate(addr))
-> > > +             return -ENODEV;
-> > > +
-> > > +     dev = xpcs_rk_mdio_read_remapping(addr, MDIO_MMD_VEND2, reg);
-> >
-> > Does this mean C22 registers are mapped into the first 32 of C45
-> > MDIO_MMD_VEND2?
-> 
-> Yes, exactly. The C22 register space (reg 0-31) is mapped into the first
-> 32 registers of the VEND2 MMD (MMD 7). This is how the hardware is designed
-> and matches the standard C22 to C45 address mapping.
+ .../dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  6 ++
+ arch/arm64/boot/dts/broadcom/bcm2712.dtsi     | 66 +++++++++++++++++++
+ 2 files changed, 72 insertions(+)
 
-Does the xpcs code actually perform any C22 access? A quick look
-suggests it is C45 only. xpcs_read() calls mdiodev_c45_read(). If C22
-is not needed, i would not provide these functions.
+-- 
+2.55.0
 
-> 
-> >
-> > > +static int xpcs_rk_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
-> > > +{
-> > > +     struct dw_xpcs_rk *pxpcs = bus->priv;
-> > > +
-> > > +     if (!xpcs_rk_mdio_addr_validate(addr))
-> > > +             return -ENODEV;
-> > > +
-> > > +     dev = xpcs_rk_mdio_read_remapping(addr, dev, reg);
-> >
-> > Should it be returning an error for dev == MDIO_MMD_VEND2? Or at least
-> > if reg < 32?
-> 
-> No, we cannot simply return an error here.
-
-Thanks for the explanation.
-
-       Andrew
