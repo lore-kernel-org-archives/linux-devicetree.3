@@ -1,187 +1,165 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57AC13546C9;
-	Sun,  2 Aug 2026 10:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F4B3546C9;
+	Sun,  2 Aug 2026 10:20:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785665937; cv=none; b=lTQeYNZxIS6ciTpYZHCebtleYvTLqAoLcEyxflrQFxoKIFNi4ARl/KVNVb5ZvGyVpOQj5m8qI3ONjNcWUzkJWsHk7V4UdLcJAnyjkjsLng15kSELI7xWMzvJlK1JB0G8sgTd+HkXERpTVy8oIaZ9oPoEVYnhEUZM1HmjGsjho3g=
+	t=1785666029; cv=none; b=JpL6m4XdP5kioPe3q1K0vS+q9IB82QhzR3QD62HMn55WXlJhVEXDMxinzYnjICUI6uOmkkzpmgVZvlquBdTuNfua+DxlWwZnaR61+u+yx8QI0bA0QfQCws7yW7cpo5MRdEjSpSxdrWHbteLdfNa9mmpW1AkM8DrmPUPqj7DQl/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785665937; c=relaxed/simple;
-	bh=PIZLbD2r8FbPkKX+GXuA2GM5jUVaIQKf2uTBTxcgYq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rMrRmqRC89tT637zznJ6Sc2LWAX+408Ly/vs+4yQi0SAXvEDEBzY+TjmG1rjkFX0FUW2NyP79lkQlQuB5kU8UDm58GIlJtMRcxIzpuHeJU0EQDtP0A/uf/k53yrRhd6G9W/Kjq3zFc17ls0MYzgeVaP5nKkCnEHVheOflD50M0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=Bmy2tmd4; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AlXsz0OY; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1785666029; c=relaxed/simple;
+	bh=ewrm2hHaY02kNIwQjsetBEkV6GBLfi+fSXJJRLowtZQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EEJonOc30gIBz70+ZfVPUJFpA1BCbpREFNncdSVKX7bQgFU1UCc40pDGR7P7TXRie9FOacZNdcPOgonv4lvParRpbu9ggWXSHU59BQB/H5AMKlB9ONefRZmzb5vsJNManJZyJWeHUtEou/suOZtdMFqMqEvIf1Su+uvw5WXrvMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de; spf=pass smtp.mailfrom=jaseg.de; dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b=iZwnkVSo; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=BDnxRYHi; arc=none smtp.client-ip=202.12.124.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="Bmy2tmd4";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AlXsz0OY"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6E00B140014E;
-	Sun,  2 Aug 2026 06:18:54 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Sun, 02 Aug 2026 06:18:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1785665934; x=1785752334; bh=sYjFgrqQtD
-	yTaV/XiPsfNDKjVnYviPk0fwgxGzdp6UY=; b=Bmy2tmd4pr5/+lwTCZdk2URI4L
-	cPlEjDHLOmuzfqmT7CG8+Sp0c6eKRwEQdFuA8FJADnfyS9DQLm3LmFSHFi/TaNxN
-	yPJPQSzsQGB2NjCPchzmKW8qqsn7CwWIT/EI2XghzohRAATSoIMUwcb/2/W0Yvj2
-	U5TrUXRWrjIRDfdkOjbLNeVMN9xWyPr77akmbYLcMGsNwF0JjplFaQwBdpHlwbnW
-	OkD/G5IzszSjQCb91V2SKinVN+/+z4UYdURZYHFaoKva8iElb9vAWiSbMvorj9XA
-	YZxmsj7SgaBCB2yVvHXSLVQog9dXhgsn16xUsb8a83XjV1AEcAAg+Y+cKqfg==
+	dkim=pass (2048-bit key) header.d=jaseg.de header.i=@jaseg.de header.b="iZwnkVSo";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BDnxRYHi"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.stl.internal (Postfix) with ESMTP id C146E1300093;
+	Sun,  2 Aug 2026 06:20:25 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Sun, 02 Aug 2026 06:20:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1785666025;
+	 x=1785673225; bh=UWXStCMoW6WCbh77+QZYpryjqAzaULEhXUbNrcfh4rw=; b=
+	iZwnkVSosBHNE8xpbW2/uRGeqmvdP7MUygil9KGnZUB9Xa9IDAA3U9JSiOogjVZW
+	1tt40D75cLDZGnVWkY/D1TQ9ySN8s8gC0Kt4wucww+TjSW92baCAn0jWAFnOseqf
+	665uGt8+/SISS2/7yCCSd4HUubsKgeQScQ9rwmFmHx/mir4+2gm/5YcCAmvxHtuh
+	4RQl0CiwQCX7bpzunx+GL0QyNagk1fHODyy6Lit3UYDOE2hsEGfw09C78ob6jmzi
+	H5e4opGZuvhLa4uVttC4T19BCT9ek1z/vd8/8VDDMQgBVzk4XjZxDzDCQULOnhwg
+	Mz1ZckZsqogahodGV4DnzA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1785665934; x=1785752334; bh=sYjFgrqQtDyTaV/XiPsfNDKjVnYviPk0fwg
-	xGzdp6UY=; b=AlXsz0OYf3EhPWW6UNuWHm2Bo0oUarsaRkEQmsJ3brW8Blvv8HX
-	kAgxcstDvFp98hmi6HZ5UoHUyF6WsoiVNUUdgiS7n+8mTtUt5pSsrreTbtGxn0PQ
-	0P6B2pBZwEvQWBQBd5KT6SZnSJfv9bQ2NFxrzy1XZtKc5Xi/9kvK406rWE+0Wim8
-	lpvAoQQ1rKedEOgoI/yOGnLS0pNXDJbh0PoRAtwJsez8JtA78TMp86jVZt/YXv7H
-	3ivEYRbIO+nLmvUNKLjSnclId+HF0+PG719QJfAY+iNjOJrUQhEwoFuAwDsRRu7+
-	3uTft+CTImnd0V+I9swuAB/T7a4smtzSNZw==
-X-ME-Sender: <xms:jRlvavINX3-T1DGV9piYOLRPnGwC4ayV87hu8V4Ej0F89UcxwwgcwA>
-    <xme:jRlvapjagqs5PeSH5SknUTMyV9LkkmNx98J1bVK1ardWtVeXt51SIJdvT63iZwUZ8
-    nsZMx2Ldmxrsgap-5NarcpAD8A-jCBNyE2dxQKwIb_yGWxzEElEcA>
-X-ME-Received: <xmr:jRlvaj_EK2j2Y9rC6WKn8gwtYclaXklfLBY9uYgzwRD_AdJ8zUaL80_BrViH1CsRiGXKne2mdfaRcG5wf_cxrScZpVpHymElPVg>
-X-ME-Proxy-Cause: dmFkZTFjHCw4CSqjnCBFOt9sM9Qq66+yAIV8Fxa6AOKC9eLT2RSFltDg+ZhMdJVRhD2hls
-    RjhJpTxja3NpZ1aqkeKV78I159Ambir1/X/Pg8gYP+sSkXkzQBMybxhmpk50Xae6+SgTh3
-    ALPLMSCzkrpXKsKgqrhODaTV2v27PZJ0f1CR7dzQjfR7kh2UrIlhQaNaaCqLNihNJ/cEdK
-    8mBanYcKSMOONdPC8gykSX3Upuw6SsSXr0LASWWSZOXOldvtz3Joi0pEqtJO/T8uJ2gD/A
-    eCZlpbABkY50ANWv/uOEykOrEdgRmyfipJL5Rd/53rJtcRvxfVlxuGV1At9mgwvhLkG3Cj
-    K0BVXsZsdYcxmPp79bEpmVX7wGqwAP2uZPNIqB1GbD3b84hBWY49MG/O7H5qQCPRPEqthT
-    fD7nHEGSgmHFVECwdfgx6mK8cpmddvP/TDK8gksDcF7k00nH2UKpJ8XcAGQQAuErmZE4UO
-    AUUgGKoezkwxr1y8pqeipR5TfN67DiViLEgfO0yA97CUlqqqOldGQw4DTF9SuNCKslIPRn
-    +RmfwX2mdLq1w/mSp6yM/j63g2pRYJoTAPVh0Nlvvz5zg3e1JQfTanSkoeAHAy+UtVJJla
-    jcgWSmU7jXQAI4f68XMgqLOUIrZdknZUT7a7B/DWUmWShKZuf6bgi/GASkVA
-X-ME-Proxy: <xmx:jRlvamPIdJ7fHBBQico0IgKsIT5F0SekmcCKz2oFr2QNMBKnT8DygA>
-    <xmx:jRlvavBO8JHi8F1nNJ5XACrh77m2NugxTG_lvp8MfbWgqnEeNyaCTg>
-    <xmx:jRlvaiOIJ_0RfmyVf34giDkfWOLclCTnNdOKOlur5KFL6UfqfPEYOw>
-    <xmx:jRlvaudLVqI8UBi0DKoTc_3KFF2xUZNSe482GbuOW4S6yG1iGUGelg>
-    <xmx:jhlvaluKpUMu4grviNO9zDAC8QyuIw5JZbeMsMo35n_gPi7b4ShIy_Z6>
-Feedback-ID: i47b949f6:Fastmail
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785666025; x=
+	1785673225; bh=UWXStCMoW6WCbh77+QZYpryjqAzaULEhXUbNrcfh4rw=; b=B
+	DnxRYHiYO7+nhj2tcTfTdom1aUBnsbDb6AsS19aAl8kFmxkJFcG9td2FJSvD39Ov
+	FVS1gE5m9WqCd5JeQOy0Om5Je52Ch9bb1CLMvR/OHjJJIeTXIbxSQASWE/DyqhI9
+	8wG9ABtJE/f4e9LyB8f37qM5dMQutALMBkK6YWd1r0rUNdfaRIJZ4CctmbHWt88u
+	0P9Wgj9tmgzhDorOx5ORgUByFzJDmgq9/iAQYp69Xf7YPeAQUZE+kJ1fGlI4kUVJ
+	fN379P1wnb8s8FMuviiW7LXoVQ8xol/W6lHsdcYOySxxE+cT9COWm6GMQp4BE+ik
+	SbTHY5w24nMvleifrql1w==
+X-ME-Sender: <xms:6BlvauWuSlb2vA2ojV38iW8G58GBzSEiPw8bC2jhukWRngUmvDPRKw>
+    <xme:6BlvamtkrADkPVjhXoiU00XKp0dJCvTdBxzmBQUXLXuS6uIvo5kqOOcyMkg_xXbW-
+    GpZWa_tTmVxNkdmqVqGSS0ROk9T0d9UuLB23MFnGyO4sgWtwwDZ>
+X-ME-Received: <xmr:6BlvauMvjbDStu_vTDXfjJnxpxBHJLHiN0DbxdfoYoS-y_wwcEeywDcWljp7KkFROVrcEIq_m0YFLptS6UIzHOM>
+X-ME-Proxy-Cause: dmFkZTGkWVqRDKxcHXed4G2Im/dKcKeNjOvDOtoNYff23UD3/wEy+brhhk2RbqYNFArYft
+    yxG2GBFuo/j13wt08UgFKzWNJHXB1MYtyl0OJ+p3c+LmNt9xDuYa0828krvA9AU4dW3MVc
+    Z5n9mgmxq8A45aZYLVP40RS7oHZFHK4FWE7Hl0BBpELs6vISpMoZS716y4r/pXgHw7dGVE
+    HtZba2b+c323q/EucToLYsxPoAnfhDRiAWZPJ7sHTC70DdV/mF+iHA3pcAliftaH98HxlF
+    dWAU7NICZgRrE7g1GmWLChsHoNRsXBqeNgzRXezEKkEnCA25hSbCTGx1gy57PKPdifSkM2
+    1+ciZ2GlZM3GF80LlZuK77cxGBAdgbTWk8lgzFXdVtOY2danDcL3KQC3YDVBYv+d46w1le
+    kGqPJu6c2rOE4768YKbMvJs+9Jg+FP+SBbO1ftDchUC2tp7rAam/eBslVM9sjgVmzu0hC1
+    1IUP9pcqlFQ6gF2IZSlnI9D6R+BByUpikFCkdDbaQQmNibFVbiC/AEi09VwXv7+gdrH1CT
+    aE0mQD3qPQ+8j840mFjrWAmHsPz8NG7CivCMwnImvW95JZUIwrUtLboE28YsF76BJGmPeY
+    mGIb/QFKZI6gXrQsBHX/uuM35J6LeeDUpZn8B7mofvk3AJFfMows3UuAjWFA
+X-ME-Proxy: <xmx:6Blvaurww5cxUbuXjvHc-NXLfEZZhhcv-ak2IEiADLlMH6SivIkRWQ>
+    <xmx:6BlvaouAlqlGvoFhSUugZLwmA1jy3sUUn0WT_H6Y5-aX9y0cU9AKkA>
+    <xmx:6BlvauiSJND0xIkfHxP_JkZ4QPVNk_JsDHQCPGPvYm-1237I_qjUAA>
+    <xmx:6Blvas1Z2x02fdspsIPFFjRYIlBl41Sv55VojK-VZw7_z07Q1H-f2Q>
+    <xmx:6RlvavMS61OqS3oEGaKid47bE1XwBqD-7dwbctrl5oElNq6wolknVEnH>
+Feedback-ID: i60a14417:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 2 Aug 2026 06:18:53 -0400 (EDT)
-Date: Sun, 2 Aug 2026 12:18:52 +0200
-From: Janne Grunau <j@jannau.net>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Alba Mendez <me@alba.sh>
-Subject: Re: [PATCH v2 3/7] spmi: apple: check transaction status
-Message-ID: <20260802101852.GE806854@robin.jannau.net>
-References: <20260728-t603x-spmi-v2-0-f43e5f10e583@chaosmail.tech>
- <20260728-t603x-spmi-v2-3-f43e5f10e583@chaosmail.tech>
+ 2 Aug 2026 06:20:20 -0400 (EDT)
+Message-ID: <e9523b5a-6623-49ea-9ba3-cddae1a9ce7e@jaseg.de>
+Date: Sun, 2 Aug 2026 12:20:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260728-t603x-spmi-v2-3-f43e5f10e583@chaosmail.tech>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] CRASH_ZEROIZE: Wipe secrets before kdump
+To: Dave Young <ruirui.yang@linux.dev>, Baoquan He <baoquan.he@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
+ <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Mimi Zohar <zohar@linux.ibm.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Coiby Xu <coxu@redhat.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ keyrings@vger.kernel.org, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org,
+ Tao Liu <ltao@redhat.com>
+References: <20260731154608.153258-1-linux@jaseg.de>
+ <am38qk60mpVFuJRi@MiWiFi-R3L-srv>
+ <74625f78-15ea-439f-b9f0-939d2976fa7f@jaseg.de>
+ <79610b53-5201-4af3-913a-0c4dcbb6f9d6@linux.dev>
+Content-Language: en-US
+From: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <contact@jaseg.de>
+In-Reply-To: <79610b53-5201-4af3-913a-0c4dcbb6f9d6@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 28, 2026 at 11:28:09AM +0200, Sasha Finkelstein wrote:
-> From: Alba Mendez <me@alba.sh>
+On 8/2/26 07:08, Dave Young wrote:
+> On 8/2/26 12:31 AM, Jan Sebastian Götte wrote:
+>> On 8/1/26 16:03, Baoquan He wrote:
+>>> Note that we usually dont' want to run a lot of work after panic and
+>>> before jumping into kdump kernel.
+>>
+>> I understand. For this reason, I think it's best to keep this default-off. As-is, the notifier list call is timed and on the (slow) ARM64 target I'm using, it takes about 3-5 ms to run. I took the "try lock, skip if locked" approach to keep the risk of this code crashing during panic minimal. In my application, the kdump payload is code that then does a full wipe, taking a couple hundred milliseconds.
 > 
-> Check for parity errors and missing command ACKs
+> Not only about the time used, the panicked kernel is not reliable, any more extra logic can make it even not reliable, any pre-kdump extra logic is not a good idea unless it is a must to ensure kdump working.
 > 
-> Signed-off-by: Alba Mendez <me@alba.sh>
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> ---
->  drivers/spmi/spmi-apple-controller.c | 23 ++++++++++++++++++-----
->  1 file changed, 18 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-> index b4f442d0b4ad..4678a9e5270a 100644
-> --- a/drivers/spmi/spmi-apple-controller.c
-> +++ b/drivers/spmi/spmi-apple-controller.c
-> @@ -22,6 +22,12 @@
->  #define SPMI_CMD_REG 0x4
->  #define SPMI_RSP_REG 0x8
->  
-> +/* SPMI_RSP_REG reply word */
-> +#define SPMI_REPLY_FRAME_PARITY_OFFSET 16
+> Cleaning up secret data can be done with makedumpfile + eppic scripts (see the manual of makedumpfile), or it is even possible to do so in kdump kernel with Tao Liu's improvments for makedumpfile previously  (I don't know the status, probably dropped for the time being, but it is possible, cced him).
 
-SPMI_REPLY_FRAME_PARITY_STATUS GENMASK(31, 16)
+Thank you for the pointer!
 
-> +#define SPMI_REPLY_ACK BIT(15)
-> +#define SPMI_REPLY_SLAVE_ID GENMASK(14, 8)
-> +#define SPMI_REPLY_CMD GENMASK(7, 0)
-> +
->  #define SPMI_RX_FIFO_EMPTY BIT(24)
->  
->  #define REG_POLL_INTERVAL_US 10000
-> @@ -62,7 +68,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  {
->  	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
->  	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
-> -	u32 rsp;
-> +	u32 reply, rsp;
->  	size_t len_read = 0;
->  	u8 i;
->  	int ret;
-> @@ -73,8 +79,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  	if (ret)
->  		return ret;
->  
-> -	/* Discard SPMI reply status */
-> -	readl(spmi->regs + SPMI_RSP_REG);
-> +	reply = readl(spmi->regs + SPMI_RSP_REG);
->  
->  	/* Read SPMI data reply */
->  	while (len_read < len) {
-> @@ -93,6 +98,10 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY))
->  		dev_warn(&ctrl->dev, "FIFO has extra data\n");
->  
-> +	if ((~reply >> SPMI_REPLY_FRAME_PARITY_OFFSET) & ((1 << len) - 1)) {
+There's two scenarios worth considering. First, in the standard scenario 
+where you enable this option, then drop into a standard kdump kernel, I 
+don't think it makes a big difference *when* you do this cleanup since 
+someone is going to have to dereference these pointers. IMHO a good 
+reason to do it in the old kernel is that there, the code knows about 
+the layout of all the data structures. To retroactively do this in the 
+kdump kernel is much more complicated, since there you have to 
+reconstruct the structure layouts from symbols or hardcoded struct 
+layouts, and you have to keep this symbol/layout information perfectly 
+in sync with the running kernel.
 
-if (~GET_FIELD(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1)) {
+The second scenario is what I'm working on here: I'm not using a normal 
+kdump kernel, but instead a custom payload that wipes all RAM from start 
+to end. This payload will wipe all these keys too, but my critical 
+concern is speed: On the embedded SoCs I'm targeting, the full memory 
+wipe takes too long (hundreds of ms) for an HSM application, so I want 
+to do a targeted wipe of just the keys first. The old kernel I think is 
+the natural place to do this. Adding to that, in my scenario the most 
+likely trigger of a panic is not something like memory corruption, but a 
+trigger of the system's tamper alarms, which would leave the old kernel 
+relatively stable during panic.
 
-not sure this is clear improvement
+I can imagine several possible mitigations for the stability concerns 
+beyond the default off config option:
 
-> +		dev_err(&ctrl->dev, "some frames failed parity check\n");
-> +		return -EIO;
-> +	}
->  	return 0;
->  }
->  
-> @@ -101,6 +110,7 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  {
->  	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
->  	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
-> +	u32 reply;
->  	size_t i = 0, j;
->  	int ret;
->  
-> @@ -119,12 +129,15 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  	if (ret)
->  		return ret;
->  
-> -	/* Discard */
-> -	readl(spmi->regs + SPMI_RSP_REG);
-> +	reply = readl(spmi->regs + SPMI_RSP_REG);
->  
->  	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY))
->  		dev_warn(&ctrl->dev, "FIFO has extra data\n");
->  
-> +	if (!(reply & SPMI_REPLY_ACK)) {
+* Since the wipe handlers are all really simple, it would be possible to 
+manually guard every memory access there to ensure they can't fail and 
+that they don't write to sensitive areas like the dump kernel or the 
+remaining panic'ing stack. Doing that would only rely on information 
+(more or less intact stack pointer, kdump kernel area boundaries) that 
+would be necessary for kdump to succeed anyway.
 
-if (!GET_FIELD(SPMI_REPLY_ACK, reply)) {
+* And/Or I could extend the patchset to include a mechanism similar to 
+that in Bradley Morgan's patchset that catches segfaults during wipe, 
+and then skips the handler causing the fault.
 
-> +		dev_err(&ctrl->dev, "command not acknowledged\n");
-> +		return -EIO;
-> +	}
->  	return 0;
->  }
+* A last option would be to have the alive kernel prepare some kind of 
+"wipe this first" structure in its memory during normal operation that 
+the dump kernel then can pick up to do the actual dirty work. I disfavor 
+that since it adds double bookkeeping to a lot of places, some of which 
+could be performance critical.
 
-Janne
+I've also picked up that I should remove the timing logic since that 
+could cause instability.
+
+Thanks,
+Jan Sebastian
