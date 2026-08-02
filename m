@@ -1,145 +1,177 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF942DFA2F
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 03:28:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3AD2D7398;
+	Sun,  2 Aug 2026 03:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785641306; cv=none; b=hgaqK93U0tVNGEETwB4AIwcMtjzaab6G0ndtNkqCoAS4zWyJJOPbjjl/feAEUUV4asLILq5xtGK1ANTYr+B8+wovqWXUjUHfkHcPjJ5CJog4NhqJDATj1iNGUf4dk9v3vJnotUY2zh60QBRTQBZPTTbE/58zDYqcYejZqYY6G8A=
+	t=1785641919; cv=none; b=B1YkheHDjLs94eLitcSIj6rH/iRldF+fr7dJZRTu0jxvi2B/ZykaAeE+bCuak2CQWowF8RlBpBZVlReEBB6sstw5NtM0SyCAJ74oivChLfrBBkpX3x7foMjDC4+70zJNX8oiNCD2+9t5fhCKQhi5jNcrKo0huwyN3wdwGEy5+7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785641306; c=relaxed/simple;
-	bh=zVW9y8ku2uvDPevPqPFRUhCMmyFyJ7Yqdg2TMwGw9u4=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=uOL4S1/KwVRVMiCLQQeNpYwSlMLUqRPxXKQs89zWhvvSxLRqQG89SyDiBbtdkduhzlAln8p0lbeSqNifXXK/mBHb3q9ATw3unQUkhoeOw8QZ3U9kIaMkbB/DN57RO8hdmwhFcuifXOgbIraMZjuBYv269h6lh860/3HvVo4TRps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GPm/Qn/+; arc=none smtp.client-ip=74.125.227.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785641919; c=relaxed/simple;
+	bh=aF4RmHEruNGFHPMGVQ1ak9aHQShiwv1Ob0bELMip9Jk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FyvwRQYD42q11ONS338lUC6ABcNwjeil+ViInWr8z7QByLOGisdYC5zEa2SGyDXaxyC0znRKXA5XcVkLLKy3xgG0d3Uim3eo0MGZloQU2lWn2aQgW3Pb6CxfePnkMlZ1I5P362lDIgSGe/hzzQ1wR827hZnuuPCtyk2uszL0O8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XeCjXlI7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GPm/Qn/+"
-Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2cabf1f1051so5801075ad.0
-        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 20:28:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785641305; x=1786246105; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=TpANIRIXCFEaCO+NoYgeEquheHUazRAsrSjmXdnDLkw=;
-        b=GPm/Qn/+ajQIxPFAcut+9aW2WJFPy70NDWjQ/dx3sk/AK35IYp12HwPJyfX1gPK5B9
-         Wsm8ez83eBCOq7BcICvdJRH63dveQ/r9xqBuAKhbazHKYUEzcA6Pa1wk6U4aCAvegjFZ
-         DmpDb8HVWCG5Ju/KCwiY5s0RtbI57fFvuykIu7q/xFXaSKOIMwPaKctox2/SG7AMyidk
-         NbCjl6YrvDyNh4DQTE2Kc5TckoB2ew46GAtfsWeURi9bgs2nAV8TvRBUVgxGprgm7PDN
-         +GBpeE+xfR2un2ZW703FB20+gXIhCmSv/wVKZvDRxcO1BmPMAjn2gIe8o3JDyScnk6r0
-         lTfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785641305; x=1786246105;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TpANIRIXCFEaCO+NoYgeEquheHUazRAsrSjmXdnDLkw=;
-        b=mOXMBKhltT7ICl3ZSAb9pSLPLVaAvGXG+WTxU2FhMVxu8JkYuAGaQp7Ec8kCM//Z1A
-         e3U1gUZXQB4deCETijKkpRqtbY6fCRPuxmZtOsKA1O62K+k6GDx9taAujtLNgnaxOqtX
-         rlneKF+PtzLm1tiMiCs+VjyUL5loMFuFzPqc2EaQjLThcD5OIznz3K2W99kZADv6J5Le
-         EskHknzNX9F+66ibyUI0yx84BFKIvo67VdzI465FwQYUKliqYCgvM9tUQxqKmLWYqHBy
-         tuDdooguhA9y3QkZWlbdk6jiPPckRSvwkI2Njp1OhYF3Y1EgiHMSqG7i00IVfGD8ZHlq
-         kR4w==
-X-Forwarded-Encrypted: i=1; AHgh+RppCr4do/jQLotOYoYcsLyLDfyYgiwQ2mAFn2Bc0F5oqGYLdMXuj9v8gpxYLKAlFqeh0tJrUbUnzUw/@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzE8akoP7I29C1IrRgYeBCfD6o8r81Q+0WzSVFJNjc9KxDUL1t
-	02uav1oofvY83akX5jb0Kwkx3Jxrxhej6bXfvCjmkWhQh8F1UR7eMeuX
-X-Gm-Gg: AR+sD118m8VSQ2Kh5bu728EiyTh0EoNZN5vwFLEtyOG56KJgU8vEQEuAOxzTgqnAVQf
-	LBDPcGjryJuvdpsXjzl7B7OiliE4Cb8pHVJ2vR/gJAQ9nUw/KTLZSzwHIWQZUnSEbYuxHBt2sHH
-	Sf51sixGss3cOdgLjc2s7HhQMAFdE3mVgZ6htCtOuhkuGLgll91CgA4+aJqoB43ho8rDGul1dck
-	1uoJYinY8ZX9qmUD/orIRt+cXfEmRQffclei+APBgzI7/dXPBMYE2eVySDhuhF4PUiwxwpq4f3+
-	nphGmFl0HuxOfYDQlqLye5J4TQXWJT3XP/XrhEdsj8/D7ESWavrOlC3NROIJAKenz2DUpGgNK/Y
-	xeycA0TQb5tvBXPBKf8ZEgc2BjQoQgVsndpLP93oQRYeegjFlgPH7E/aviNWC8Hp8h7EeQmUHHl
-	yaSr4q4wPQiBF5EerFaorFNfKd0sXVLh4DVZhd+1XO02IIoWa3oLS6O22TKMrPXnH8x/E=
-X-Received: by 2002:a17:902:ea0c:b0:2cf:6f7f:55d8 with SMTP id d9443c01a7336-2d0523f76edmr54404665ad.37.1785641304908;
-        Sat, 01 Aug 2026 20:28:24 -0700 (PDT)
-Received: from ehlo.thunderbird.net ([103.213.4.16])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04ae19ba5sm23124875ad.17.2026.08.01.20.28.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 01 Aug 2026 20:28:24 -0700 (PDT)
-Date: Sun, 02 Aug 2026 10:51:37 +0800
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
- David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_03/10=5D_phy=3A_rockchip=3A_naneng-?=
- =?US-ASCII?Q?combphy=3A_add_SGMII_MAC_selection_for_RK3568?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <0cf1f734-69d4-471f-aa22-e1a2e7d0341b@lunn.ch>
-References: <20260801142244.679437-2-coiaprant@gmail.com> <20260801142244.679437-5-coiaprant@gmail.com> <0cf1f734-69d4-471f-aa22-e1a2e7d0341b@lunn.ch>
-Message-ID: <7F609DE6-F3C6-487E-9113-449F5BE05D94@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XeCjXlI7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345511F00AC4;
+	Sun,  2 Aug 2026 03:38:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785641918;
+	bh=+TexX9rPlZFjIyLEyoK3UWWn0etmeyXn6pzQ5byloqM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XeCjXlI7tOSJ1PRf6kZmJ+3zMIhva3ED4OoRl69JiO5HGRYGBSw3MbWTQc14PjVKV
+	 J06GMQRDQFrgwQQSV81JF0SlxOiiKT0Wl3TeMLsRSkOvI5YH03axrqJjKh/S4G4R2e
+	 CUIwOg+4FlWZUbhzkuVWzOamOuCwy5MedrTo0lx0btBxZH7ltqdDaTvwdO0QxePL5z
+	 Pl7KttgJacYwf/gtB6JSzwf17WzMCJ6ldHByp5lMcYmqp7Ym4hRL/Fziqp2cuU/LyL
+	 rxiWWh0iLEOsvteD5u/MF+tXhD3SwID/hodrx2MiI+KsPNeZ5JyCiB2kyaJ2DkhdhX
+	 /0wPNrcmAqG7Q==
+Date: Sat, 1 Aug 2026 22:38:33 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Rahul Samana <rahul.samana@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bartosz Golaszewski <brgl@bgdev.pl>, 
+	linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	quic_mohamull@quicinc.com, quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
+Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: rb3gen2: add Industrial BT UART
+ overlay
+Message-ID: <am6572YrbAULTa88@baldur>
+References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
+ <20260727-rb3-industrial-bt-uart-v2-6-2d100f30e202@oss.qualcomm.com>
+ <794424df-4714-43a4-b4b8-e960998ad1f1@oss.qualcomm.com>
+ <ce283ef7-2460-4fa4-a1f5-9757fd6b42b5@oss.qualcomm.com>
+ <6d61d749-440f-40ad-82e5-e1e909afad06@oss.qualcomm.com>
+ <b47345f1-1c7b-4424-9c6b-3dd02c0f4ab6@oss.qualcomm.com>
+ <bf7821a2-d813-4f89-b891-9c26d228ae67@oss.qualcomm.com>
+ <b5afd21c-4516-4a8c-bc8f-6598ec385d27@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b5afd21c-4516-4a8c-bc8f-6598ec385d27@oss.qualcomm.com>
 
-On August 2, 2026 4:58:39 AM GMT+08:00, Andrew Lunn <andrew@lunn=2Ech> wrot=
-e:
->On Sat, Aug 01, 2026 at 10:22:27PM +0800, Coia Prant wrote:
->> On RK3568, the SGMII interface can be routed to either GMAC0 or
->> GMAC1 via the GRF register pipe_sgmii_mac_sel=2E
->>=20
->> Add support for this selection by introducing
->> the "rockchip,sgmii-mac-sel" DT property=2E
->>=20
->> The hardware reset value is GMAC1 (1)=2E If the property is set to 0,
->> the driver routes SGMII to GMAC0; if set to 1 (or omitted), it
->> remains at GMAC1=2E
->>=20
->> This is necessary for boards such as the Ariaboard Photonicat, which
->> uses the SGMII interface connected to GMAC0=2E
->
->If SGMII is not selected, what MII is used? RGMII?
->
->Can this setting be implied from phy-mode?
->
->	Andrew
+On Fri, Jul 31, 2026 at 11:20:07PM +0530, Rahul Samana wrote:
+> 
+> 
+> On 31-07-2026 21:19, Konrad Dybcio wrote:
+> > On 7/31/26 4:48 PM, Rahul Samana wrote:
+> >>
+> >>
+> >> On 31-07-2026 18:20, Konrad Dybcio wrote:
+> >>> On 7/31/26 8:53 AM, Rahul Samana wrote:
+> >>>>
+> >>>>
+> >>>> On 29-07-2026 18:01, Konrad Dybcio wrote:
+> >>>>> On 7/27/26 5:45 PM, Rahul Samana wrote:
+> >>>>>> The reworked RB3 Gen 2 Industrial mezzanine keeps the common Industrial
+> >>>>>> mezzanine hardware description but routes QCC2072 Bluetooth over UART4
+> >>>>>> instead of the default Bluetooth-over-USB path.
+> > 
+> > I only noticed this now - are there 2 variants of the industrial
+> > mezz being sold concurrently? Is the already-in-kernel one some
+> > sort of a prototype SKU? i.e. should we support both?
+> > 
+> >>>>>>
+> >>>>>> Build this variant by applying the common Industrial mezzanine overlay
+> >>>>>> first, followed by the BT UART overlay. The overlay models the M.2 E-key
+> >>>>>> connector graph endpoints for PCIe and UART, and disables the on-board
+> >>>>>> WCN6750 PMU and UART7 path so the M.2 QCC2072 Bluetooth controller can be
+> >>>>>> used instead.
+> >>>>>
+> >>>>> So is the onboard module disabled? Can we not just use two in parallel?
+> >>>>>
+> >>>>
+> >>>> The Industrial mezzanine variants do not support the on-board WCN6750
+> >>>> wireless path. The common Industrial mezzanine overlay already disables
+> >>>> the on-board Wi-Fi node.
+> >>>
+> >>> What does 'do not support' it mean here? They are physically present
+> >>> as part of the SoM, so unless the lanes are somehow diverted away,
+> >>> why is it not?
+> >>>
+> >>> Konrad
+> >>
+> >> Hi Konrad,
+> >>
+> >> The WCN6750 module is physically present on the SoM. What I meant is that
+> >> the current Industrial mezzanine devicetree already disables the on-board
+> >> Wi-Fi path, and this BT UART variant followed the same board-level policy
+> >> for the on-board Bluetooth UART/PMU path.
+> > 
+> > Okay, and do we know why that's the case in the first place?
+> > 
+> >> For the endpoint labels, I can move the UART endpoint to the SoC DTSI,
+> >> kodiak.dtsi, as uart4_ep.
+> > 
+> > Please do
+> > 
+> >> For the PCIe endpoint, the PCIe path to the M.2 QCC2072 device is not the
+> >> PCIe0 root port in kodiak.dtsi. In the composed devicetree, it is
+> >> behind the Industrial mezzanine PCIe switch, under:
+> >>
+> >>     /soc@0/pcie@1c00000/pcie@0/pcie@0,0/pcie@2,0
+> >>
+> >>
+> >> So placing pcie0_port0_ep in kodiak.dtsi would not describe the actual
+> >> topology.
+> > 
+> > Yes, that was an omission from my side
+> > 
+> > 
+> >> I tried adding a generic label/endpoint to that downstream port in the
+> >> Industrial mezzanine overlay and referencing it from the BT UART overlay.
+> >> However, when the overlays are compiled separately and then composed, that
+> >> label is not available while applying the BT UART overlay, so the composed
+> >> DTB build fails with FDT_ERR_NOTFOUND.
+> > 
+> > I think this generic description is simply not achievable today without
+> > a bigger plan in place
+> > 
+> > Konrad
+> 
+> Hi Konrad, Dmitry,
+> 
+> Yes, both Industrial Kit variants need to be supported.
+> 
+> The default Industrial Kit uses the common Industrial mezzanine hardware
+> description and continues to use the existing Bluetooth-over-USB path.
 
-Hi Andrew,
+"Kit uses the common" what do you even mean?! The mezzanine is a
+physical thing, it doesn't _use_ anything! The mezzanine exists and the
+DeviceTree describe what it is.
 
-If phy-mode is not "sgmii" (e=2Eg=2E, "rgmii" or "rmii"), the GMAC works i=
-n
-the corresponding mode and this register is not touched=2E The reset
-default (GMAC1) remains, but it has no effect in non-SGMII modes because
-the register only controls SGMII signal routing=2E
+> The
+> reworked Industrial Kit variant keeps the rest of the Industrial mezzanine
+> hardware the same, but routes Bluetooth over UART4 instead.
+> 
 
-Regarding inference from phy-mode: phy-mode =3D "sgmii" only tells the MAC
-driver that the interface is SGMII=2E It does not specify whether the
-SGMII signals are physically routed to GMAC0 or GMAC1 on the board=2E
-That routing is a board-level decision and cannot be derived from any
-other DT property=2E
+Does "reworked mezzanine" mean what it usually does? I.e. that you have
+taken the mezzanine and modified it?
 
-Also, the PHY (Naneng Combo PHY) is initialized by the XPCS glue driver
-(pcs-xpcs-rk), not by the GMAC driver=2E The PHY driver has no way to know
-which GMAC is using it=2E Making the PHY aware of the MAC ID would require
-significant changes to the PHY layer, which is out of scope
-for this series=2E
+[..]
+> 
+> I am open to other suggestions if there is a better way to model this within
+> the current overlay structure.
+> 
 
-Therefore, an explicit DT property is the cleanest and most maintainable
-way to describe this hardware routing=2E
+I don't think it's possible to give you other suggestions as you haven't
+described what this thing is, you just explaining how you're hacking
+something together and ask us to help adjust your hack without knowing
+what it is you're trying to describe with your DeviceTree.
 
-Thanks,
-Coia
+Regards,
+Bjorn
+
+> Thanks,
+> Rahul
+> 
