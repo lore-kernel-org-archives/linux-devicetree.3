@@ -1,237 +1,208 @@
-Received: from flow-b3-smtp.messagingengine.com (flow-b3-smtp.messagingengine.com [202.12.124.138])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C890E3B42E1;
-	Sun,  2 Aug 2026 13:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52431F8AC5
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 14:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785678900; cv=none; b=XB6ayHlCC7Qw7SOCotKZwB5zpJKIgjVp622RG426fktzOB0dzuc36FJzUwm7VvJzhV86oSWjl6TKt9qYZyxmx6Up+4zhgXMej1nIC0qPxjtIyU+FlTMZsJHOGX5VHUZrc3epugmysGPW6UPo33+NZ89UgYzlSpVyyhFoP+gM/lc=
+	t=1785680737; cv=none; b=YztUkQn2WmAJa+OfpOMI13mJariqWUtMVuxxBGGUy9GGbqHf21yRMWkUUPg1EFzQqw9H2mMDw6Qq1agUtZ0FFLVV25K5ZANFP+m+8Pi7RyzZUmfKmlMtU0fRYHzoyQngKj0HVQRJBVxmwJHAjPJ9cQxrkK0F8pS5nw6P+ZhCZZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785678900; c=relaxed/simple;
-	bh=VOcJjiss4niXEUvQDfQflafcnB6M0cWpgiPL7XqFakk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WWz/qjPO7QdS+ao/ejH4Hlcz4Bz4coZqWbrQxAFsZGDzcisXAeYFeskP9RtdECmru4YKhpcRE2nV56ItUK4nRDRLwC4FN1Bd0Zp9vLtCDIc8b1cl10uPH2PpkjE8+DDqzWf5lIoDwfuTA+n/m80RkAjYEff0wBPSE0YR4TtQYDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=DplQdUY4; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XmXujbLf; arc=none smtp.client-ip=202.12.124.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1785680737; c=relaxed/simple;
+	bh=u0NTwD5MqxPalwMPDH171voAEUuyRjBAUalaep7EXq0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZIED3Wftd+sH+/ed22gPf7egCvAdd0pu6wBPSwwVWHBaSyAO9GH0Kn99jyowgomT2YhYFu+VPyFZ9vdthP3vBwSAii+eCwWxvyKWnHniyEW74jz1IJgOmagKYCBgRCQXZ8a41DdDfOY6BxTRxtrM21wHAPYRbfU7wpiXiQEUpP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFjJMjIq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="DplQdUY4";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XmXujbLf"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailflow.stl.internal (Postfix) with ESMTP id 452731300080;
-	Sun,  2 Aug 2026 09:54:55 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 02 Aug 2026 09:54:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1785678895; x=1785686095; bh=wr9KcQd5UO
-	YPcDKO9OAtdsNMsJA9M3uNYC31Vb57iYw=; b=DplQdUY4k5pHQXGjL444hzwd6x
-	Uq8dSWgKlS+OHbGSPASMrkkGChOSifHzzrcROinwlM/LbRiWRYwRepZ6NzEcq62J
-	1kHQB8c+GkHsi8Xy5ozdjGTV0UT0VfrO/ZCcAJib89mL/KBFed3s24XJXa0y4XR9
-	DmG07CgkJacT0R78Bx7D1e+PztPQNCrh105GK2Hel+sJVor6HeDuhC5/7cpoV6xQ
-	YjNshJiU/Krc1H5FAlRgLVfjqKGUUyYNT0cH1WmnIhiPUbpRAix/RkmQXRlkVgbM
-	acWu0zj9m3upJo6c++8sRnxmrgq5sK85QGKvzAIwtjybopnlu+AehCjw6D/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1785678895; x=1785686095; bh=wr9KcQd5UOYPcDKO9OAtdsNMsJA9M3uNYC3
-	1Vb57iYw=; b=XmXujbLftAvTzmIRsm3mJklvTHKNeuEFC/RkixKrfD0Mtz+K0QW
-	CD+BrUdFEAD4GJLRGUY49krlo/4WFwreAYfzd1zd1jSIbtSciI8kGuFZaceRc7Vq
-	Y7PRwikXC54QM3rLe6gMWLoYRglvL4ZRr6A9VOVKVHHvdoknMKisqi57ki0UBcCD
-	pvxjVsXivQxijNKu/pxj8f87L++4SmL8+MWJ0WH9QeS5HEr2c81sKgpbnzrDaZwr
-	tHKM4H159b94yLV8tQvs8KSWfraamvoV4njSnahvQMZGI0AU7fv5/OcqhV2/NQUd
-	NbZ83SIH8TXlD3UwxfXv2cRw8IK6W6jyO3A==
-X-ME-Sender: <xms:LkxvauCaoemi6ekbEL9n1F5lQzcO8jBhOXr2q22E3cdSKkDBc7sdiw>
-    <xme:LkxvakHYhXc-hWPSL2n9ehREvUyQMNYpvZFqUp57Koi0HCHbm9AXAlBznGHY43fYy
-    wtCSx1OlpFrZP5KmeYuogTxS-a6R57xJf5_41EDPpxNuQ4SqBl-f-eg>
-X-ME-Received: <xmr:LkxvahkWLqzXMhat6N7CPn46vxNua51boNrAuicmbkwZty6wGHJpTGIjE6L5vRXbV6EZ6rGww3WMNVYpl201s2WGZivyDdDTvs8>
-X-ME-Proxy-Cause: dmFkZTFlapO+z6cp3wvBebk5lTAia5phm9tTAKSNHefTMzPdePd5v+T7JVgHEkLB41y5Ob
-    eSvN7viLYvrIAaqw29v6S68ef3GuIe/2QfmzPl60v9SPYjt+CGGoHIW4icP01WLKDzOc6C
-    MiBlzN9g5EQDae7iZTKYWr2YlkWF31TgHFKA+LB0yLkroETBvzCa+CA0RRC4tNufFsVOkV
-    rBdO8gOdXsYuegeK25nP42KabMus7xNwyQdViuVL8OaIh7kc5VQHPyc0zfTyon2d0FkYKU
-    iKGSoWac7r1ZoY7PQNed9fLAr9J3ro1NKAbgYiWXJJ8jWVM7YjMG9Y3saYGTypBJmAoANg
-    6oyVuzBsRLxCsCECJx6mzrLQKjXPPDHic5NrLn4ffrLwK0LVVeX1gZ0Xk2S6fP1r9ng8rS
-    JictUazSi5ecwImXJh9ByzRm9cRSeuTXsMNeYC6L+UY13nPaxF/yi0rzjqeQDNB0/kfdwQ
-    7KinW3spMgGWUzGBKXz+yv830VxsxGCoeMjdqciLz8LbA1UDF/b68vIYDiGFV4WePjXVRy
-    Ljjjyl0eJI4aDHemiD5CRG+9GLw327mg51Vd9A4CxF++M/+65FvYbANoIyQ+nubqAvFiuR
-    ZfkRufrt8jndKpUKNswRdOgYbLvXM/0Sva+kw0GvSxAUnmTFekcIuPPkf3+A
-X-ME-Proxy: <xmx:LkxvahvS1sbdmvnJZ79bvRMoB4wNkKEXllAdwxfgsQmg_zYiyk3EMQ>
-    <xmx:LkxvalPISx2OLXNqtyUDD7RWX9DKGenGyH6nXZGyL_U3bWBDAYDzoQ>
-    <xmx:LkxvajqtZUL0UFkgWV4d3V9XSJ_CEH_wJ0DXe--DGmcfvHAzCkXYtA>
-    <xmx:Lkxvau82rTgkUyaBlOMluJnPrylfJgR9EPqvuTQkmdXVMpX1Vqqqlg>
-    <xmx:L0xval7YbN51x2-d2X3fl9RZ4c2iEFgHkPjz_Oa7-MvVDSfgkqY73WVC>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 2 Aug 2026 09:54:53 -0400 (EDT)
-Date: Sun, 2 Aug 2026 15:54:52 +0200
-From: Janne Grunau <j@jannau.net>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Hector Martin <marcan@marcan.st>, Linus Walleij <linusw@kernel.org>,
-	Mark Kettenis <kettenis@openbsd.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Sasha Finkelstein <k@chaosmail.tech>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-pwm@vger.kernel.org
-Subject: Re: [PATCH v2 9/9] arm64: dts: apple: Add minimal t8132 (M4) device
- trees
-Message-ID: <20260802135452.GJ806854@robin.jannau.net>
-References: <20260801-apple-m4-initial-devicetrees-v2-0-5cb07cc275da@cyberchaos.dev>
- <20260801-apple-m4-initial-devicetrees-v2-9-5cb07cc275da@cyberchaos.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFjJMjIq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14121F000E9;
+	Sun,  2 Aug 2026 14:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785680735;
+	bh=7U+9CVIPfdnYKjuhz32hd6acQkghvjuZiPmvNN09sQY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WFjJMjIqUUCbomYs7SXjj9AZUx67das+WxhXDmtSC1jO5EpL7c12Rk3XM8RzJSdWf
+	 PzCUJypP+xUieF5BNGDXly948rdMrwgrMwdl9m6nTQk+ISISyntw+vvDo2tiPrEORl
+	 PgWbcZVAC8k785HfN4gLOhcrBRwTEmYrrc1ZnEhxuPqybNvrW6Pw7ERlBAAAHGOVjR
+	 t1w/C18ryEGtcZai8wXGQKy3E5IkJuTLNDY/93obeHT5F19sIGxgxzilSYjTPlw3E8
+	 0uPbFcaPvH+qZ7zQTTAnHnTZ8f78AEnPRH+s/wqScPg5GXfhMbg0RRRr6JlDahS6sK
+	 m+4V0qabn2k2w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/10] net: pcs: xpcs: add Rockchip RK3568 platform
+ glue driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Coia Prant" <coiaprant@gmail.com>
+Cc: olteanv@gmail.com, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260801142244.679437-9-coiaprant@gmail.com>
+References: <20260801142244.679437-2-coiaprant@gmail.com>
+ <20260801142244.679437-9-coiaprant@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 14:25:32 +0000
+Message-Id: <20260802142533.C14121F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260801-apple-m4-initial-devicetrees-v2-9-5cb07cc275da@cyberchaos.dev>
 
-On Sat, Aug 01, 2026 at 11:40:39PM +0200, Yureka Lilian wrote:
-> Added device trees for the following devices:
-> - apple,j604 - MacBook Pro (14-inch, M4, 2024)
-> - apple,j623 - iMac (24-inch, 2x USB-C, M4, 2024)
-> - apple,j624 - iMac (24-inch, 4x USB-C, M4, 2024)
-> - apple,j713 - MacBook Air (13-inch, M4, 2025)
-> - apple,j715 - MacBook Air (15-inch, M4, 2025)
-> - apple,j773g - Mac mini (M4, 2024)
-> 
-> The device trees have a minimal set of devices limited to CPU cores,
-> interrupt controller, power states, watchdog, serial, pin controller,
-> i2c and framebuffer.
-> The device trees for the notebooks add a PWM controller for the keyboard
-> LED illumination.
-> 
-> Using the macOS 26.6 iBoot/firmware, the Mac mini reliably boots on a
-> single core using the stock kernel.
-> Booting with smp requires avoiding the wfi and wfit instructions
-> in the idle loop and `delay()` respectively, since those instructions
-> cause a loss of architectural state on the secondary cores, and even
-> then boot is unreliable.
-> 
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> ---
->  arch/arm64/boot/dts/apple/Makefile        |    6 +
->  arch/arm64/boot/dts/apple/t8132-j604.dts  |   35 +
->  arch/arm64/boot/dts/apple/t8132-j623.dts  |   18 +
->  arch/arm64/boot/dts/apple/t8132-j624.dts  |   18 +
->  arch/arm64/boot/dts/apple/t8132-j713.dts  |   35 +
->  arch/arm64/boot/dts/apple/t8132-j715.dts  |   35 +
->  arch/arm64/boot/dts/apple/t8132-j773g.dts |   25 +
->  arch/arm64/boot/dts/apple/t8132-jxxx.dtsi |   48 ++
->  arch/arm64/boot/dts/apple/t8132-pmgr.dtsi | 1130 +++++++++++++++++++++++++++++
->  arch/arm64/boot/dts/apple/t8132.dtsi      |  447 ++++++++++++
->  10 files changed, 1797 insertions(+)
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Probe fails unconditionally on systems without a PM domain or with=
+ CONFIG_PM_GENERIC_DOMAINS disabled.
+- [High] Premature `pm_runtime_force_suspend()` in `remove()` breaks PHY te=
+ardown, causes SErrors, and permanently disables PM runtime on rebind.
+- [High] Concurrent unbinding of the XPCS driver during `xpcs_rk_create` le=
+ads to a Use-After-Free of `pxpcs` and its MDIO bus.
+- [High] Unchecked return value of `device_link_add()` allows Use-After-Fre=
+e on supplier unbind.
+- [Low] Unconditional assignment of `dev_pm_ops` and missing `pm_ptr()` wra=
+pper causes unused function compiler warnings.
+--
 
-...
+--- Patch [7]: [PATCH v2 07/10] net: pcs: xpcs: add Rockchip RK3568 platfor=
+m glue driver ---
+commit 749227defaf729e0f171dc87722abef8ebe69759
+Author: Coia Prant <coiaprant@gmail.com>
+net: pcs: xpcs: add Rockchip RK3568 platform glue driver
 
-> diff --git a/arch/arm64/boot/dts/apple/t8132.dtsi b/arch/arm64/boot/dts/apple/t8132.dtsi
-> new file mode 100644
-> index 000000000000..6df6ccdda90e
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/apple/t8132.dtsi
-> @@ -0,0 +1,447 @@
-> +// SPDX-License-Identifier: GPL-2.0+ OR MIT
-> +/*
-> + * Apple T8132 "M4" SoC
-> + *
-> + * Copyright The Asahi Linux Contributors
-> + */
-> +
-> +#include <dt-bindings/interrupt-controller/apple-aic.h>
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +#include <dt-bindings/pinctrl/apple.h>
-> +
-> +/ {
-> +	compatible = "apple,t8132", "apple,arm-platform";
-> +
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
-> +
-> +	cpus {
-> +		#address-cells = <2>;
-> +		#size-cells = <0>;
-> +
-> +		cpu-map {
-> +			cluster0 {
-> +				core0 {
-> +					cpu = <&cpu_e0>;
-> +				};
-> +				core1 {
-> +					cpu = <&cpu_e1>;
-> +				};
-> +				core2 {
-> +					cpu = <&cpu_e2>;
-> +				};
-> +				core3 {
-> +					cpu = <&cpu_e3>;
-> +				};
-> +				core4 {
-> +					cpu = <&cpu_e4>;
-> +				};
-> +				core5 {
-> +					cpu = <&cpu_e5>;
-> +				};
-> +			};
-> +
-> +			cluster1 {
-> +				core0 {
-> +					cpu = <&cpu_p0>;
-> +				};
-> +				core1 {
-> +					cpu = <&cpu_p1>;
-> +				};
-> +				core2 {
-> +					cpu = <&cpu_p2>;
-> +				};
-> +				core3 {
-> +					cpu = <&cpu_p3>;
-> +				};
-> +			};
-> +		};
-> +
-> +		cpu_e0: cpu@0 {
-> +			compatible = "apple,donan-e";
-> +			device_type = "cpu";
-> +			reg = <0x0 0x0>;
-> +			enable-method = "spin-table";
-> +			cpu-release-addr = <0 0>;
-> +			next-level-cache = <&l2_cache_0>;
+This commit introduces a platform glue driver for the Synopsys DesignWare X=
+PCS
+controller found on Rockchip RK3568 SoCs. It translates MDIO operations to
+APB3 register accesses via a virtual MDIO bus. The generic xpcs driver then
+creates a phylink_pcs instance on top of this bus.
 
-missing "i-cache-size" and "d-cache-size". As far as I'm aware they
-remain unchanged. 128kB i-cache, 64kB d-cache for the e-cores and 192kB
-i-cache, 128kB d-cache for the p-cores
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
+20Part2%20V1.1-20210301.pdf (Page 2078)
 
-...
-
-> +		pmgr_mini: power-management@388280000 {
-> +			compatible = "apple,t8132-pmgr", "apple,t8103-pmgr", "syscon", "simple-mfd";
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +			reg = <0x3 0x88280000 0 0x4000>;
-> +			/* child nodes are added in t8132-pmgr.dtsi */
-> +		};
+diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
+index 0000000000000..36c1557b83367
+--- /dev/null
++++ b/drivers/net/pcs/pcs-xpcs-rk.c
+@@ -0,0 +1,538 @@
+[ ... ]
+> +static int xpcs_rk_serdes_phy_poweron(struct dw_xpcs_rk *pxpcs)
+> +{
+> +	struct device *dev =3D &pxpcs->pdev->dev;
+> +	int ret;
 > +
-> +		wdt: watchdog@3882b0000 {
-> +			compatible = "apple,t8132-wdt", "apple,t8103-wdt";
-> +			reg = <0x3 0x882b0000 0x0 0x4000>;
-> +			clocks = <&clkref>;
-> +			interrupt-parent = <&aic>;
-> +			interrupts = <AIC_IRQ 507 IRQ_TYPE_LEVEL_HIGH>;
-> +		};
+> +	ret =3D dev_pm_genpd_rpm_always_on(dev, true);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to power on power-domains\n");
+> +		return ret;
+> +	}
+
+[Severity: High]
+Does this code unintentionally fail the probe on systems without a PM domain
+or when PM generic domains are disabled?
+
+When CONFIG_PM_GENERIC_DOMAINS is disabled, dev_pm_genpd_rpm_always_on()
+returns -EOPNOTSUPP. If the device has no power domain (which appears to be
+optional), it returns -ENODEV.
+
+Because the probe is aborted on any non-zero return value, the driver will
+fail to load on these hardware configurations or in COMPILE_TEST builds.
+Should -ENODEV and -EOPNOTSUPP be explicitly ignored here?
+
+[ ... ]
+> +static void xpcs_rk_remove(struct platform_device *pdev)
+> +{
+> +	pm_runtime_force_suspend(&pdev->dev);
+> +}
+
+[Severity: High]
+Can this break PHY teardown and disable PM runtime permanently upon rebind?
+
+Because the MDIO bus is registered using devm_mdiobus_register(), devres
+will unregister it after xpcs_rk_remove() returns. However,
+pm_runtime_force_suspend() is called here first, cutting the clock and
+incrementing the PM runtime disable depth.
+
+When devres subsequently unregisters the MDIO bus, attached PHY devices
+are unbound, which triggers MDIO accesses for teardown. These accesses
+will call pm_runtime_resume_and_get(), which fails with -EACCES because
+PM runtime is disabled. This failure can cause a synchronous external abort
+if the clock is cut during access.
+
+Additionally, the double-disable (here and in devm_pm_runtime_enable cleanu=
+p)
+leaves the disable depth greater than zero on rebind.
+
+[ ... ]
+> +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node *n=
+p)
+> +{
+[ ... ]
+> +	pdev =3D of_find_device_by_node(pcs_np);
+> +	of_node_put(pcs_np);
+> +	if (!pdev)
+> +		return ERR_PTR(-EPROBE_DEFER);
 > +
-> +		pinctrl_nub: pinctrl@3881f0000 {
+> +	pxpcs =3D platform_get_drvdata(pdev);
+> +	if (!pxpcs || !pxpcs->bus) {
+> +		put_device(&pdev->dev);
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +	}
+> +
+> +	xpcs =3D xpcs_create_mdiodev(pxpcs->bus, (int)port);
 
-out of order node, it belongs before pmgr_mini in unit-address order
+[Severity: High]
+Is it possible for the XPCS driver to be unbound concurrently while
+platform_get_drvdata() is reading the data?
 
-Janne
+The device structure itself is pinned by of_find_device_by_node(), but
+without holding the device lock, a concurrent sysfs unbind could trigger
+devres cleanup. This would free pxpcs and unregister the MDIO bus right
+before xpcs_create_mdiodev() accesses pxpcs->bus, leading to a
+use-after-free.
+
+Should the device lock be held to verify the driver is still bound before
+proceeding?
+
+> +	if (IS_ERR(xpcs)) {
+> +		put_device(&pdev->dev);
+> +		return xpcs;
+> +	}
+> +
+> +	device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER);
+
+[Severity: High]
+Does this ignore the return value of device_link_add() if the link creation
+fails?
+
+If device_link_add() fails (for example, due to a memory allocation failure=
+),
+no link is established. Later, if the XPCS supplier unbinds, the driver
+core will not automatically unbind the MAC consumer. The XPCS devres
+cleanup will free the MDIO bus while the MAC driver is still bound and
+potentially using it, which can cause a use-after-free.
+
+Should the return value of device_link_add() be checked?
+
+[ ... ]
+> +static const struct dev_pm_ops xpcs_rk_pm_ops =3D {
+> +	SET_RUNTIME_PM_OPS(xpcs_rk_pm_runtime_suspend,
+> +			   xpcs_rk_pm_runtime_resume,
+> +			   NULL)
+> +};
+> +
+> +static struct platform_driver xpcs_rk_driver =3D {
+> +	.probe =3D xpcs_rk_probe,
+> +	.remove =3D xpcs_rk_remove,
+> +	.driver =3D {
+> +		.name =3D "rk_xpcs-dwxpcs",
+> +		.pm =3D &xpcs_rk_pm_ops,
+
+[Severity: Low]
+Will this generate unused function warnings when CONFIG_PM is disabled?
+
+The xpcs_rk_pm_runtime_suspend() and xpcs_rk_pm_runtime_resume() callbacks
+are defined as static. When CONFIG_PM is not set, SET_RUNTIME_PM_OPS expands
+to nothing, leaving the static functions unreferenced.
+
+Since xpcs_rk_pm_ops is unconditionally assigned to .pm without the
+pm_ptr() wrapper, the struct is always referenced, but the callbacks inside
+might not be. Should RUNTIME_PM_OPS() and pm_ptr() be used instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260801142244.6794=
+37-2-coiaprant@gmail.com?part=3D7
