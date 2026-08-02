@@ -1,128 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C25733938C;
-	Sun,  2 Aug 2026 12:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944A93911CE;
+	Sun,  2 Aug 2026 12:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785673760; cv=none; b=qO/rcRAFnXWUWQa341URwKoj+uLscP9GrkSPKxZkoNdwcmCN8pkW95QJdsliHDIbo0P3HGI7oI04CspwLrYFILyJ22H4SgRPshtdSN+8kcwkiGC09DKA2Fb+earvHYjBTHHZBGm9whHuiv5uGKdmGySmAQAx99ydDsYeP2ipHp4=
+	t=1785674567; cv=none; b=Ji6ke6jqMM5+3smXgKD8GhM04e2Nshcuo4nLshqY+/dEFGEFaUbaK7RTuL8R7BllTHjKGoBLKF5VfBcyj/lQltMzRoJqx/PC6kLExUJAnu4QqGseZzcbJ2T8ISEq5Q/fEekRhf4ApOtlWLKQ/aqK7N7ap6veuZqaQm951nsAxbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785673760; c=relaxed/simple;
-	bh=Oc+Pf6P+wet7UHezAuJRNaKASH+UQW2bFsWGp3UkczE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mf6Fm0hvQAAJI/h04j0SzTVXjWRPswwTU27YOyhlujQ7ZrDNjgplkL+GDpzp9b6k+m4xH/0IQuJl8+yhfwf4G8iWpdan3u1w46NCn+rwFND3hL21/ucXdoIw6hOSUu1VmJTdFK211Wbo9aCInysHqXes8SmoV6c62l1WL3IOzWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2OmZJER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785674567; c=relaxed/simple;
+	bh=LHd8IQtiCglZomN+UtHu/lSZZpaQjVgW1xEwT9BNfWk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lAWH2p7Una2F1U3/CLUHjTK5jODe8XoxqvwupM2dj/P5robOaoC4DeeTESzdesHOQeaKAeYZxbRwP4KGL8pnnUtXwdmLwX7o4sg3pUobCuYzGgMl5tf89zXXrWaJhweCYnUhJA2j2/X2Ea4N4jAcYxJNA/4AhJ4MGMq1ygDJhGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GAncVHJX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2OmZJER"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C46541F000E9;
-	Sun,  2 Aug 2026 12:29:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785673758;
-	bh=SHSGsM0vu6t3zdEJHGFOqvnDDQ/hs9cDuA8s50LeKfA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H2OmZJERCYxtrOOph6nrStzZdf9Px2+Qu52EKRUMyRnmj4QfSbClOGXvOwLQl/4aA
-	 QXrUGppcGBhRWhY9tW992RTQ83AkGGQJozNyGViEgllW7DJ8ayJ1pfg/mDZfKLYM+O
-	 iaCJu9ozHHoC9OJbqbp8GE2FXVc48vGCq9wTtZKsOYsPdu40/jveDStEa4FnAS8dvh
-	 eBwmazAysE+S1N5/1Od2as8vkHZiBiRzJzW/3NReG/Vr6BQSlyRO9SCgOFK91LoO0Z
-	 4Wat2UmYU94tkzX5l86TF3Srukt7Yi+4nQ/P5F5pqFRu3Ol3LaLh9TJ1K2EelnS/lt
-	 PpuVHx/cRwcTg==
-Date: Sun, 2 Aug 2026 14:29:15 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>, Damien Le Moal <dlemoal@kernel.org>, 
-	Niklas Cassel <cassel@kernel.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Patrice Chotard <patrice.chotard@foss.st.com>, 
-	Andi Shyti <andi.shyti@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Lee Jones <lee@kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
-	Jeff Johnson <jjohnson@kernel.org>, Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Yangbo Lu <yangbo.lu@nxp.com>, Paul Walmsley <pjw@kernel.org>, 
-	Samuel Holland <samuel.holland@sifive.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Richard Cochran <richardcochran@gmail.com>, Jens Wiklander <jenswi@kernel.org>, 
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>, YC Hung <yc.hung@mediatek.com>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, Sean Wang <sean.wang@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org, linux-arm-msm@vger.kernel.org, 
-	linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	mfd@lists.linux.dev, linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
-	linux-pm@vger.kernel.org, netdev@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Correct white-space style
-Message-ID: <am83ac93gyowUgSQ@monoceros>
-References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GAncVHJX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 12AD9C19425;
+	Sun,  2 Aug 2026 12:42:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785674567;
+	bh=LHd8IQtiCglZomN+UtHu/lSZZpaQjVgW1xEwT9BNfWk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=GAncVHJXmnuYjQ5BdwINvsKtpXtdPqKlYlGT14EHMmbYmWbI0CbPXBLOYEH1C2iD/
+	 34YSHML+EYra7LYE634p5u9lZYFLCgU3lXjEJ4p1PeoGnNJjmQZQejUi6Fu3eIdIXi
+	 f8Ukg9df6AJYQ1DC4FDZ8CkU6x/jfRNx9jzBm6mJpDwQFX4dOqfgVTaD9zx06ujxJz
+	 80xi+I4FwkoME9VgMY3rOfFb2YjHzH/t72WL9LDdunHIGmqcAKhgNAps4I9c+vMgPm
+	 Faw0ovgGP8cb4FI/TxH0s4qGsxNgv6rLS6Hkgzo/Gqny5D06iUta0p4CO6ZuTNLgIS
+	 krJX1eCmZvK9A==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD352C55175;
+	Sun,  2 Aug 2026 12:42:46 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH RFC 0/3] Initial TFA2 family driver for tfa98xx
+Date: Sun, 02 Aug 2026 14:42:39 +0200
+Message-Id: <20260802-tfa98xx-upstream-v1-0-4dd55cdd658a@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ynduf7ixmtnk7fvw"
-Content-Disposition: inline
-In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCwMj3ZK0REuLigrd0oLikqLUxFzdtEQLy+RUc/Mk87QkJaC2gqLUtMw
+ KsJHRSkFuzkqxEMHi0qSs1OQSkGFKtbUAEn59dnkAAAA=
+X-Change-ID: 20260802-tfa98xx-upstream-fa89ce77b7fb
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1676; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=LHd8IQtiCglZomN+UtHu/lSZZpaQjVgW1xEwT9BNfWk=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqbztEiZnS/iGr8vwcCTN7CWCBBcZcmD7+5eZR7
+ Yet0CTQCqWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCam87RAAKCRBgAj/E00kg
+ crFoD/43ZKjDyEsSBo7mc7a1yNkmdve6aqH1j4TkTcw5/MjdCAcsQyQOfMULb0K8+YtMFUFExCD
+ RpDSUYzLrT8cZQmWBGWAwVL52s2YATl9nCvZCw+5+cBOSHcWNvDhoiimHaF79JaRJwsaX2GQmmt
+ RPoLSZ+0466S7IMKC7BgNABxBbs6eX9HQ79gHTXTIubean9D/1YKnvtTEwNYd24OVJxbCCoIF/w
+ Ts5W9IISU5YVcDF2xAF7l5m7Vze2W18Ue2vuMMwkc5V4FYQsghu/wD0rQ2FHfJEKLFtdKmUt0hS
+ d7UTx0TKebC7iM6t6IquKVPgT/UAEqaQ8fIZ7G2HlMXhx2w/oxucWFEN1r12UxQPnswuuS2EtmS
+ g5TjjqlLivGTYA/4CFOx733JIWkh0Izl3/kkfZMmeiKt5GSGG7ZXtKg8AjUP7550nxTUR9G6FgO
+ XVizOuzif2V1VRYSSXHyemveLlc+XDly2/qRW91o3cpcE4ovj32sdusqmX1k75qwG/nTkmSKJZB
+ TfO8dfw9gmyBKhB7LjitIDzz9V8WLWYBKny3aOMAvCnTvbXcwtf/N6fycnfGOmRjyvYUs/dywmh
+ qF0LOoLWJSeh2mhdzRc19rDTaqdaxviC1Nxk0Zzy9uy+2+QuawA5hz32hLe1OVls/LmzMy42XRD
+ QdS+9x3XauPPalQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+
+Introduce basic speaker support for the OnePlus 6T, using the tfa98xx
+driver.
+
+I've tested this driver only with speaker on OnePlus 6T. Please be
+careful with volume levels, as the speaker protection are available only
+with CoolFlux DSP enabled.
+
+The downstream driver requires the firmware to bring up CoolFlux DSP,
+but this driver completly avoids the DSP and thus operates without the
+firmware.
+
+This driver is different enough to not share the TFA1 codebase (tfa989x).
+
+In the future, should be possible to extend this driver with other
+tfa98xx TFA2 family based chips.
+
+This RFC version mainly exist for early adopters (e.g. other phones
+using tfa98xx amplifiers).
+
+You can find the code at:
+  https://codeberg.org/sdm845/linux/commits/branch/b4/tfa98xx-upstream
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+David Heidelberg (3):
+      dt-bindings: sound: Add NXP TFA98XX TFA2 amplifier binding
+      ASoC: codecs: tfa98xx: add driver for TFA2 amplifiers
+      arm64: dts: qcom: sdm845-oneplus-fajita: Enable speaker codec
+
+ .../devicetree/bindings/sound/nxp,tfa98xx.yaml     |  54 +++
+ MAINTAINERS                                        |   7 +
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts |  22 +-
+ sound/soc/codecs/Kconfig                           |  11 +
+ sound/soc/codecs/Makefile                          |   2 +
+ sound/soc/codecs/tfa98xx.c                         | 421 +++++++++++++++++++++
+ 6 files changed, 510 insertions(+), 7 deletions(-)
+---
+base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
+change-id: 20260802-tfa98xx-upstream-fa89ce77b7fb
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
---ynduf7ixmtnk7fvw
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: Correct white-space style
-MIME-Version: 1.0
-
-On Sat, Aug 01, 2026 at 09:56:14PM +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like double space after '=3D' or before
-> bracket '{' characters, which will be flagged by dt-check-style.  No
-> functional changes.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> [...]
-> diff --git a/Documentation/devicetree/bindings/pwm/pwm-sifive.yaml b/Docu=
-mentation/devicetree/bindings/pwm/pwm-sifive.yaml
-> index bae993128981..40397bdf2d69 100644
-> --- a/Documentation/devicetree/bindings/pwm/pwm-sifive.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/pwm-sifive.yaml
-> @@ -62,7 +62,7 @@ additionalProperties: false
-> =20
->  examples:
->    - |
-> -    pwm:  pwm@10020000 {
-> +    pwm@10020000 {
->        compatible =3D "sifive,fu540-c000-pwm", "sifive,pwm0";
->        reg =3D <0x10020000 0x1000>;
->        clocks =3D <&tlclk>;
-
-I'm ok with this change (as &pwm is unused in the example), I also don't
-care much about this not being a whitespace only change and thus not
-really matching the commit log.
-
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org> # for Documentation/devi=
-cetree/bindings/pwm
-
-Best regards
-Uwe
-
---ynduf7ixmtnk7fvw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpvOBgACgkQj4D7WH0S
-/k5+WQf8CivH89faKCp48CBlupnrahHpA3qdaBm48BnUdJduo4BaximYlTqDGSxO
-NXL529LwysgvuiHkOxrg9bUdk/Lx68V5xZboTmO5BFwMGnqiXaazc9iWfyHrau7M
-YVderOTLj5yWcB/0FkMdHb59nmaH6H3DTA7lTyzhEH2rK1e56Xe0bWxXn5wPx//K
-Fg6BzFpjoO28RLKp88OCsgzFiu3Y6yaJNenCx2MeV0T15/L721ZmHJDKsQqu5iDJ
-iXzPSntzwtR7HAs/3NUW1jSaAV2Jq41LUqlqjX4CeZDwSDaX6iquowVSJDhJvYuK
-ZtKTkgqchOdbv2qhQEqje3UkwK9pWQ==
-=9CRH
------END PGP SIGNATURE-----
-
---ynduf7ixmtnk7fvw--
