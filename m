@@ -1,138 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D017B20A5C4;
-	Sun,  2 Aug 2026 03:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1048C1B4F1F
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 05:10:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785643073; cv=none; b=ITWLVAlQhPja9FNp/hpka5jinIof3emJN8HXo8kiZOVLsZq0fZUnViFaoB4Zj3RaU9QTMHXKv5TFoNblzfD4+OaYqkN8NqRE3kYcnXjiFj97SN8yy7gljT55Rd+F3+u7I0cw5zd87Pp+9y1ksBkjz2vqELak8aqjuMlZfagMK+Y=
+	t=1785647404; cv=none; b=F5t3iN5dxxfSSairFgousPlX/RiGGpIxxWSoeooDNOOhrPGQVHjR3jydloTfKpAtNWVbaDCNRiRrHSFiufb8Qlt0BQu7030ta8FkGdWmgQBqv4hnQqLmKWzh6FzY4/wpM3JwjyJ61MnlH/w4J97mKYdYmho5TgH4rNKH6piM+Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785643073; c=relaxed/simple;
-	bh=q1pARS5jbKSDrkB9t9HhaunyyBy2cboPHge2yfedUCI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IU7WUvcwlEa0ZrkXpX9R+asfAo+SIEXu+m9CIPEAb6PHu5EbWjgfaGeEicNsP2cGHZUmHsAxRvS+3Stpmf4vlTIsP8gdBMZmZGyagMw3nc11pkYuPMh17JYfa+/C9HXxy5d3eJCKQHLYru2lhg+pWxspw7FRrr9dZGf5qoyb9Tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8Ejf1aw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785647404; c=relaxed/simple;
+	bh=M/PT5wqeZKNu9R2JyRp1lW72XHXOJEUI0quab4FFNNQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I0DKW6mjNadBPtC9XRqp5394gUfsym/5YG7j38sdL5g8VHr1xZ7ILWuo03jEyIyGdN8t2HcPLhwcYCxxJObPwUdzpPVMNtdk/3gXivZ/tTSC5F7Aw26FK4wT0Ya81/vtfyIjU2EEYPlxzSFABtxnZaSiZIgA6myDRg4u7GSm3PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=RVJxx1S5; arc=none smtp.client-ip=95.215.58.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8Ejf1aw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F8B1F00AC4;
-	Sun,  2 Aug 2026 03:57:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785643070;
-	bh=Z6jKwCBwUouAbos6vdXsbSCPkFo09fH0Ecr1wnrqOmo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l8Ejf1awpBz1WS/OwPhGlOaBtCDS4hVpNvzM122iNNItoDE7jO1iW3zQ+GwBrB7zV
-	 SO6vrglalI0lTZeDoj9aqsHaVSKxrpzFUvQ/UxL1OSUbsyDenF8IoQCPpnMY8GiYw8
-	 JMj2INBsLjjxuNurkdkje9fvCgsV2FgU3qu9UmqgW7DLCByJ9Dzg4DyACw/YzdC/a9
-	 o/AuvT+WMQgEPj6ozmgTNkqsWih60atiVvgB7GuuS2/EvAMODbPFmguzLOwghrTYrR
-	 x/sVY4NxZ06uSPLhspdSPrjUrGD7ne23kVGi0Tw2LtoGI0aXkC+p4cvMcPtoPvwe0s
-	 Lx+vQTNDy0i9w==
-Date: Sat, 1 Aug 2026 22:57:47 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/3] arm64: dts: qcom: eliza-evk: Enable PCIe0 and
- PCIe1 with M.2 and TC9563 switch
-Message-ID: <am6_-E6qSKY1C1dN@baldur>
-References: <20260730-eliza_evk-v7-0-7ac7b66a3e6d@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="RVJxx1S5"
+Message-ID: <79610b53-5201-4af3-913a-0c4dcbb6f9d6@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785647390;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hd4cL7pghs+u2caiYGxcAzT0GxJfEgZpykZQLSOMKeI=;
+	b=RVJxx1S5DRBGBvjVn4pgA6hw3XqP4M3aArDWpSdUWbhITIKpirzqFnYKE0ULdaBQR9D5Kq
+	m6JkrqIjl2xpZoauRX3BuZJw5k3oj8Kog59W0gmvGdlMmtvX7gd+Do7FeQp92bxWQEttOH
+	Qx9cTu8lprDDh5cmN0cTG6d4wSItD+E=
+Date: Sun, 2 Aug 2026 13:08:21 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730-eliza_evk-v7-0-7ac7b66a3e6d@oss.qualcomm.com>
+Subject: Re: [PATCH 0/4] CRASH_ZEROIZE: Wipe secrets before kdump
+To: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>,
+ Baoquan He <baoquan.he@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport
+ <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>, David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Mimi Zohar <zohar@linux.ibm.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Coiby Xu <coxu@redhat.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ keyrings@vger.kernel.org, linux-mm@kvack.org,
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org,
+ Tao Liu <ltao@redhat.com>
+References: <20260731154608.153258-1-linux@jaseg.de>
+ <am38qk60mpVFuJRi@MiWiFi-R3L-srv>
+ <74625f78-15ea-439f-b9f0-939d2976fa7f@jaseg.de>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Dave Young <ruirui.yang@linux.dev>
+In-Reply-To: <74625f78-15ea-439f-b9f0-939d2976fa7f@jaseg.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Thu, Jul 30, 2026 at 05:30:15PM +0530, Krishna Chaitanya Chundru wrote:
-> This series enables PCIe for the Eliza EVK board (CQS SoM on EVK carrier).
+On 8/2/26 12:31 AM, Jan Sebastian Götte wrote:
+> Hi there,
 > 
-> The Eliza EVK exposes two PCIe ports:
+> On 8/1/26 16:03, Baoquan He wrote:
+>> On 07/31/26 at 05:46pm, Jan Sebastian Götte wrote:
+>>> Add CONFIG_CRASH_ZEROIZE (default off), which when enabled makes various
+>>> subsystems handling secret data do a quick, targeted wipe of these
+>>> secrets before kdump. This behavior might also be interesting in cases
+>>> where you run a normal kdump kernel but you still want to keep things
+>>> like fde crypto keys out of these dumps.
+>>
+>> Please check below patchset, you both seem to have the similar
+>> requirement. Please go there to discuss.
+>>
+>> [RFC PATCH 0/4] panic: a pre kdump notifier list for hypervisor upcalls
 > 
-> - PCIe0 drives an M.2 E key connector. The 3.3V supply is GPIO-controlled
->   via a TCA9538 I/O expander on I2C4. The slot hosts a WLAN module
->   (connected over PCIe) and a Bluetooth device (connected over UART5),
->   modelled with the pcie-m2-e-connector binding.
+> Thank you for the pointer. That's indeed similar, but I think this patchset here makes sense as an independent patchset.
 > 
-> - PCIe1 (8GT/s x2) connects to a Toshiba TC9563 PCIe switch, whose
->   management interface sits on I2C4 (address 0x77). The TC9563 RESX# and
->   PERST# lines are OR-ed internally; reset is driven via a TLMM GPIO on
->   the RESX# pin. The iommu-map covers all downstream switch ports
->   (SID range 0x1400-0x1408).
+> * The two notifier chains run at different points, and theirs runs inside panic independent of kdump. This one here has to be run after machine_crash_shutdown(), and so makes most sense inside __crash_kexec(). The wipe code in this patchset must be one of the last things to run before the kexec since the wiped data structures could easily lead to problems if something tried using them later.
 > 
-> The M.2 WLAN module carries a Qualcomm QCC2072 Bluetooth chip. A device-ID
-> entry is added to the M.2 power sequencer so the serdev node for the BT
-> UART interface is created on PCI enumeration.
+> * I think this patch series here is a bit cleaner. I don't think this needs a custom notifier implementation.
 > 
-> This seris Depends-on:
->   https://lore.kernel.org/all/20260630-eliza-dts-qcs-evk-v4-3-18cbbdba6e7e@oss.qualcomm.com/
->   https://lore.kernel.org/all/20260630-dts-qcom-eliza-mtp-evk-add-pmics-v1-1-f4f320f7c88b@oss.qualcomm.com/
+> * Since there's lots of places that may need wiping after crash, I think it makes sense to have an explicit notifier list for that purpose, and to not mix these with other things like hypercalls. I think ordering is important here: The wiping should be the last thing before the kexec jump. Having it on a generic notifier chain risks that later, other callbacks get added that when interleaved could cause problems.
+> 
+> * Since a good fraction of users may not care about wiping secrets, I think it should be gated behind an explicit enable setting.
+> 
+>> Note that we usually dont' want to run a lot of work after panic and
+>> before jumping into kdump kernel.
+> 
+> I understand. For this reason, I think it's best to keep this default-off. As-is, the notifier list call is timed and on the (slow) ARM64 target I'm using, it takes about 3-5 ms to run. I took the "try lock, skip if locked" approach to keep the risk of this code crashing during panic minimal. In my application, the kdump payload is code that then does a full wipe, taking a couple hundred milliseconds.
 
-As far as I can tell these where merged 3 weeks ago, please help me
-understand what dependencies we're missing.
+Not only about the time used, the panicked kernel is not reliable, any more extra logic can make it even not reliable, any pre-kdump extra logic is not a good idea unless it is a must to ensure kdump working.
 
-Regards,
-Bjorn
+Cleaning up secret data can be done with makedumpfile + eppic scripts (see the manual of makedumpfile), or it is even possible to do so in kdump kernel with Tao Liu's improvments for makedumpfile previously  (I don't know the status, probably dropped for the time being, but it is possible, cced him).
+
+Thanks
+Dave
 
 > 
-> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> ---
-> Changes in v7:
-> - Change the pcie sub nodes under dsp3 from pci to ethernet (Sashiko).
-> - Update the iommu-map to 2 cells from 1 cell (Mani).
-> - Link to v6: https://patch.msgid.link/20260730-eliza_evk-v6-0-40ece2d33114@oss.qualcomm.com
-> 
-> Changes in v6:
-> - change 0 to 0x0 & remove num-lanes property (Mani)
-> - Link to v5: https://patch.msgid.link/20260729-eliza_evk-v5-0-41790a5a24de@oss.qualcomm.com
-> 
-> Changes in v5:
-> - change from pci to pcie for subnode names (konrad)
-> - Link to v4: https://patch.msgid.link/20260728-eliza_evk-v4-0-decc7fe5246e@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Added new line and used pcie port names as pcieN_portM (Konrad).
-> - Link to v3: https://patch.msgid.link/20260721-eliza_evk-v3-0-92b10038f13d@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Clubbed pcie nodes to this series (Bjorn A)
->   (https://lore.kernel.org/all/20260708-eliza_dt-v2-1-e6281da26408@oss.qualcomm.com/)
-> - Added comment for PERST (Mani).
-> - Extended ranges property for pcie1 (Konrad).
-> - Link to v2: https://patch.msgid.link/20260708-eliza_evk-v2-0-c599246ceba1@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Drop patch 3, as this is already applied
-> - Rebase on top of https://lore.kernel.org/all/20260708055017.A90C91F000E9@smtp.kernel.org/
->   and remove pincntrl as pincntrl is added in the eliza.dtsi patch and also remove
->   pinctrl for resx as this is covered in pcie1_default_state as perst gpio.
-> - Link to v1: https://patch.msgid.link/20260703-eliza_evk-v1-0-7624440bd76d@oss.qualcomm.com
-> 
-> ---
-> Krishna Chaitanya Chundru (3):
->       arm64: dts: qcom: eliza: Add PCIe PHY and controller nodes
->       arm64: dts: qcom: eliza-evk: Add PCIe0 with M.2 E key connector
->       arm64: dts: qcom: eliza-evk: Add PCIe1 with TC9563 PCIe switch
-> 
->  arch/arm64/boot/dts/qcom/eliza-evk.dtsi | 221 +++++++++++++++++
->  arch/arm64/boot/dts/qcom/eliza.dtsi     | 413 +++++++++++++++++++++++++++++++-
->  2 files changed, 632 insertions(+), 2 deletions(-)
-> ---
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> change-id: 20260629-eliza_evk-6f30686b161f
-> prerequisite-patch-id: 9e10dfbe360941cdac0300aaf163149755952f9f
-> prerequisite-patch-id: fecce0170351baf00cbe8f6b302d1def4d99bbfc
-> prerequisite-patch-id: 97cd6cb495fdd198f6de7fbe45ef32e4a638ec9c
-> prerequisite-message-id: <20260630-dts-qcom-eliza-mtp-evk-add-pmics-v1-1-f4f320f7c88b@oss.qualcomm.com>
-> prerequisite-patch-id: f3615b5c1e2222a2491f862a7fba3994058ecc53
-> 
-> Best regards,
-> --  
-> Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-> 
+> Let me know what you think.
+
