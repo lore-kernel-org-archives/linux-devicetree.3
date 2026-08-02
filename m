@@ -1,183 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0A02931D7;
-	Sun,  2 Aug 2026 02:42:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D34C8EB
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 02:50:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785638570; cv=none; b=thcnB2M3ZOs6mVocOoPFnIM3y0Utbei1TXAB9DS3w2ju9roa0Th8QYxwPHQNQutLetKAEmb3X995enknToOVmnWqQJxBTPw/3MASRidnHZz+ofPf4j5+n85zY+T+DdpcXYQ+dIEwK6+99xloRNlHoRQkeqJd49nGuhHY9d7asck=
+	t=1785639050; cv=none; b=JhZnq0+rAtt2QX2+Cin4vzdlUJ7gicBoP/GKJ/UawF58ZkF+P2pUeMfR6afYvz3b87zFvICktScOGGE3PxGc0ntHRnG72U/mz6a2DPeu5ol0A4C02y9qM3yqiCsqcqPpeBxKtIPPQapqqpKlXA3R2YXa4ZLL/pUuMiezsNZFC1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785638570; c=relaxed/simple;
-	bh=om1o2F5xohlkYwzDg4FK20X4jR0j84zX+T5ddpch3XQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HWGzgcJKI9b94YbfLlM+czUMfm8bpX1rHNNhp4pv1nboAj3VoDPuUHA4vSNKMHvo+h7AsAZUfZ4+Iqhi8uK9WNhxKQCVPuwDJClGgC5dYTlDlwxpTDVm1lZq3H9UsEi5ekT/WMszA2fhi9pD1tvNERN6d0TvZ6zfHFOcGoN2LDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFuN7roa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785639050; c=relaxed/simple;
+	bh=B9xxYv0C1ukaF9udJFweRH9LRhrnYKTVbmI5s9y/IWs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kFyImEfw5l+H2tLCzzbGH13r2kuyrcabMVU/mqJbRb4sIuA/1C6z0M0ewOK7CihGfp2sVCBfL71IzvRiK+sj4Rqt04e6e3l4DcTen0QGrW5uz9hAwQmsrxfqHRW3nKhJMzF2iPVKoTfgp/o3l/3fTqU1ss6yenwTTygLypmjl2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=atcwvMD2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFuN7roa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5761F00AC4;
-	Sun,  2 Aug 2026 02:42:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="atcwvMD2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8053B1F00AC4;
+	Sun,  2 Aug 2026 02:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785638569;
-	bh=G7pjPdHcziQjL7fgeQl0SYtRU28wBVdIe8+9QWyN3dk=;
-	h=From:To:Cc:Subject:Date;
-	b=NFuN7roafmWP8un0HCDeLjAMTcWtOHov0Ib9mFHDC/yjyoV4eEcNvzz4p6fh+lHCf
-	 a9Y7u1IxynTlqbsYEgjr3XB7GcolN2ubz1LeUnNCIB9zPBpo35R+tSBZBpzXrb4+s+
-	 e3EgvmT1agjW0foKK4Wd2Eg22ClmDu5KsChuAN1WMgUX4OjgcUFs9K6y7m0lr7OSW1
-	 1hvmkeN8gRqDAZrY2OCoPmBfmd4AKH8fbKJWrsbwrDCIrGg9m4n7u5PSavfAj8hKd8
-	 7Nzr4DRQ6LoNJAOvHXYG4F2sgw+kZkLiwwvl0Cz5pk/Z4EoFv7Uo933U47XMarpFVT
-	 uC7rSo8Dy+3xw==
-From: Yixun Lan <dlan@kernel.org>
-To: soc@kernel.org
-Cc: Yixun Lan <dlan@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	spacemit@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL] RISC-V SpacemiT Devicetrees for v7.3
-Date: Sun,  2 Aug 2026 02:42:43 +0000
-Message-ID: <20260802024052-KYC1424545@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1785639048;
+	bh=dSUlydtuPJF6NSnQQb3lz7Oy0VB4DHcORV++VMRgHug=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=atcwvMD2KiXucCbsOtG3HNEr9Kz2ySbSUGgUOmNDCE0o5CsyTOHfsvS50jVMg5uI4
+	 ZykZMZGzHLJMRa4jfidvb8jmaMTUWUpmCMk7o+9F0TMx81O7sD8UeVKYUyWrPOHsdZ
+	 JbCx3XUBfQVfN68xK4X+tEFvwFE73czJ4kb+W6kzqBmGGzk7qUbetnL9LgyOqYuqqD
+	 JerMIp1AihWxKIZK+e1WQ4P9YO7LMmJ96lSph0duYrr0NUDTUM9U3lJha05v0sJqdy
+	 oWhg/sWklllCOyVW3YRvUX0REqrDDeCdA+TwLlLTcAPO/AockkYyLoAxKX4ALT03Aj
+	 jZwqjXL6Q5VYg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1] of: Put coreboot node after compatibility check
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yuho Choi" <dbgh9129@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260802023821.494178-1-dbgh9129@gmail.com>
+References: <20260802023821.494178-1-dbgh9129@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 02:50:48 +0000
+Message-Id: <20260802025048.8053B1F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-Hi SoC Maintainers,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-   Please pull SpacemiT's DeviceTree changes for v7.3
+Pre-existing issues:
+- [High] The EXCLUDED_DEFAULT_CELLS_PLATFORMS macro evaluates its condition=
+ on every execution of WARN_ONCE, causing repeated full device tree travers=
+als under a raw spinlock.
+- [High] of_msi_xlate() incorrectly ignores the msi-parent DT binding when =
+the caller passes NULL for msi_np, leading to erroneous MSI ID mapping.
+--
 
-Yixun Lan
+--- Patch [1]: [PATCH v1] of: Put coreboot node after compatibility check -=
+--
+commit d698ca1f75edc245216563869cb5c61be66a91d2
+Author: Yuho Choi <dbgh9129@gmail.com>
 
-The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
+of: Put coreboot node after compatibility check
 
-  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+of_find_compatible_node() returns a referenced device node, but
+EXCLUDED_DEFAULT_CELLS_PLATFORMS used the result only as a boolean and
+discarded the reference. This leaked a reference each time the
+address-cells or size-cells warning condition was evaluated on a
+coreboot system. Use a helper that drops the node reference after checking
+whether the coreboot node exists.
 
-are available in the Git repository at:
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index 6e7a42dedad3f..8d04eaed98053 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
+> @@ -95,9 +95,21 @@ static bool __of_node_is_type(const struct device_node=
+ *np, const char *type)
+>  	return !strcmp(match, type);
+>  }
+> =20
+> +static bool of_coreboot_present(void)
+> +{
+> +	struct device_node *np;
+> +	bool found;
+> +
+> +	np =3D of_find_compatible_node(NULL, NULL, "coreboot");
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/ tags/spacemit-dt-for-7.3-1
+[Severity: High]
+This isn't a bug introduced by this patch, but WARN_ONCE unconditionally
+evaluates its condition on every call, even if the warning has already fire=
+d.
 
-for you to fetch changes up to e273d298b74ea63d5d586bd50240f919a9c33fb3:
+When of_bus_n_addr_cells() or of_bus_n_size_cells() are called on a node
+missing these properties, EXCLUDED_DEFAULT_CELLS_PLATFORMS is evaluated,
+which now calls of_coreboot_present().
 
-  riscv: dts: spacemit: Add cpu scaling for Milk-V Jupiter (2026-07-30 09:02:11 +0000)
+Since of_find_compatible_node() acquires the global devtree_lock and
+linearly scans the entire device tree for a 'coreboot' compatible node,
+can this cause significant performance regressions and lock contention on
+systems where missing address/size cells are common?
 
-----------------------------------------------------------------
-RISC-V SpacemiT DT changes for 7.3
+> +	found =3D np !=3D NULL;
+> +	of_node_put(np);
+> +
+> +	return found;
+> +}
+> +
+>  #define EXCLUDED_DEFAULT_CELLS_PLATFORMS ( \
+>  	IS_ENABLED(CONFIG_SPARC) || \
+> -	of_find_compatible_node(NULL, NULL, "coreboot") \
+> +	of_coreboot_present() \
+>  )
+> =20
+>  int of_bus_n_addr_cells(struct device_node *np)
 
-For K3 SoC
-- Enable SD card support
-- Enable QSPI
-- Fix reset delay of ETH PHY
-- Fix PHY ID of ETH
-- Symbolic PDAM ID
-- Add SPI controller support
-- Add USB and PHY support
-- Add I2S nodes
+I also noticed a pre-existing issue in drivers/of/irq.c:
 
-For K1 SoC
-- Symbolic PDAM ID
-- Enable cpufreq support
-- Fix max CPU core voltage
+drivers/of/irq.c:of_msi_xlate() {
+	for (parent_dev =3D dev; parent_dev; parent_dev =3D parent_dev->parent) {
+		...
+		/* -ENODEV: msi-map absent -> check for msi-parent */
+		if (msi_np && !of_check_msi_parent(parent_dev->of_node, msi_np))
+			break;
+	}
+	return id_out;
+}
 
-For boards of K3
-- Pico-ITX
-  - Enable ALDPS on RTL8211F PHY
-  - Disable 125MHz clock on RTL8211F PHY
-  - Enable NOR flash
-  - Add EEPROM support
-- CoM260
-  - Add EEPROM support
+[Severity: High]
+This isn't a bug introduced by this patch, but does of_msi_xlate()
+incorrectly ignore the msi-parent DT binding when the caller passes NULL
+for msi_np?
 
-For boards of K1
-- Milk-V Jupiter
-  - Enable CPU DVFS
-- Banana Pi BPI-CM6
-  - Add initial support
-- OrangePi R2S
-  - Enable PCIe
+If a caller requests MSI ID translation but passes NULL for msi_np, the
+loop termination condition short-circuits since it requires msi_np to be
+non-NULL. This causes traversal to incorrectly continue up the device tree.
 
-----------------------------------------------------------------
-Aurelien Jarno (12):
-      riscv: dts: spacemit: set console baud rate on K3 Pico-ITX board
-      riscv: dts: spacemit: enable the i2c2 adapter on K3 Pico-ITX board
-      riscv: dts: spacemit: add 24c02 eeprom on K3 Pico-ITX board
-      riscv: dts: spacemit: add i2c aliases on K3 Pico-ITX board
-      riscv: dts: spacemit: improve RTL8211F PHY configuration on K3 Pico-ITX board
-      riscv: dts: spacemit: k1-bananapi-f3: fix maximum CPU core voltage
-      riscv: dts: spacemit: k1-milkv-jupiter: fix maximum CPU core voltage
-      riscv: dts: spacemit: k1-orangepi-rv2: fix maximum CPU core voltage
-      riscv: dts: spacemit: k1-musepi-pro: fix maximum CPU core voltage
-      riscv: dts: spacemit: k1-orangepi-r2s: fix maximum CPU core voltage
-      riscv: dts: spacemit: k1-bananapi-cm6: fix maximum CPU core voltage
-      riscv: dts: spacemit: Add cpu scaling for Milk-V Jupiter
+If an ancestor node defines an msi-map, it will erroneously apply that
+mapping to the device's ID, leading to incorrect interrupt mapping and
+potential device isolation failure. Should this check handle a NULL msi_np?
 
-Chukun Pan (1):
-      riscv: dts: spacemit: enable PCIe on OrangePi R2S
-
-Guodong Xu (1):
-      riscv: dts: spacemit: Use symbolic PDMA request numbers on K1
-
-Inochi Amaoto (7):
-      riscv: dts: spacemit: Add enough deassert time for the PHY on PICO ITX
-      riscv: dts: spacemit: Add enough deassert time for the PHY on com260 board
-      riscv: dts: spacemit: Fix phy id check for the phy on pico-itx board
-      riscv: dts: spacemit: Fix phy id check for the phy on com260 board
-      riscv: dts: spacemit: k3: add USB controller and USB phy support
-      riscv: dts: spacemit: Make dtschema recognize the etherent PHY correctly on K3 pico-itx board
-      riscv: dts: spacemit: Make dtschema recognize the etherent PHY correctly on K3 com260 board
-
-Jennifer Berringer (2):
-      riscv: dts: spacemit: k3-com260: add eeprom on i2c2
-      riscv: dts: spacemit: k3-com260-ifx: add eeprom on i2c1
-
-Junhui Liu (3):
-      dt-bindings: riscv: spacemit: Add Banana Pi BPI-CM6 compatible
-      riscv: dts: spacemit: k1: Split gmac_clk_ref into independent pinctrl groups
-      riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board
-
-Shuwei Wu (2):
-      cpufreq: dt-platdev: Add SpacemiT K1 SoC to the allowlist
-      riscv: dts: spacemit: Add cpu scaling for K1 SoC
-
-Troy Mitchell (1):
-      riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
-
-Yixun Lan (1):
-      riscv: dts: spacemit: k3: Enable SD card support
-
-Zhengyu He (2):
-      riscv: dts: spacemit: k3: Add QSPI support for Pico-ITX board
-      riscv: dts: spacemit: add SPI controllers for K3
-
-liyeshan (1):
-      riscv: dts: spacemit: add K3 PDMA request numbers
-
- .../devicetree/bindings/riscv/spacemit.yaml        |   5 +
- arch/riscv/boot/dts/spacemit/Makefile              |   1 +
- .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 177 +++++++++++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 217 +++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    |  43 +++-
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts  |  43 +++-
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts     |   6 +-
- arch/riscv/boot/dts/spacemit/k1-opp.dtsi           | 105 +++++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts   |  46 +++-
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts   |   4 +-
- arch/riscv/boot/dts/spacemit/k1-pdma.h             |  56 +++++
- arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi       |  24 ++-
- arch/riscv/boot/dts/spacemit/k1.dtsi               |  12 +-
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts     |  33 +++
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |  38 +++-
- arch/riscv/boot/dts/spacemit/k3-pdma.h             |  83 +++++++
- arch/riscv/boot/dts/spacemit/k3-pico-itx.dts       | 117 +++++++++-
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       |  88 ++++++++
- arch/riscv/boot/dts/spacemit/k3.dtsi               | 240 ++++++++++++++++++++-
- drivers/cpufreq/cpufreq-dt-platdev.c               |   2 +
- 20 files changed, 1308 insertions(+), 32 deletions(-)
- create mode 100644 arch/riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts
- create mode 100644 arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi
- create mode 100644 arch/riscv/boot/dts/spacemit/k1-opp.dtsi
- create mode 100644 arch/riscv/boot/dts/spacemit/k1-pdma.h
- create mode 100644 arch/riscv/boot/dts/spacemit/k3-pdma.h
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802023821.4941=
+78-1-dbgh9129@gmail.com?part=3D1
