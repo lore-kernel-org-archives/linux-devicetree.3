@@ -1,164 +1,219 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6FB2C1595
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 16:18:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED60B282F31
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 16:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785687527; cv=none; b=tLaHZRb3aHrwfdMyfTuG4Ssu59MbWGc3BcFN3tCLwXzmU/VPZNBjs7czEtUIqOVlVxuXve3Wy8N1qZCbkzrELQQ1L/ZC8tmBWrgS5pzrneKDMJeFgEnspYJh//gH26OQ0A3aegpTZLORguwQ/aBmtQ9HXE4za7ftUuX7LQTw4Ls=
+	t=1785687570; cv=none; b=WNp2JlGhlvPVZHCNkAdOn27OBGiN2gYTzVsr3DE/G89BkK0e8HTvimJdtVnW0L5H0KJc08LPZI8YQZwQKBR53yuorQpgkxCsO+YGEjcf+wuTyf/4EVryWuxxPQgFpPDQt8otTRfWVLsCReXzj3k+tXEmW0s3iC4DFnvGuxXSQ7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785687527; c=relaxed/simple;
-	bh=tmbPVsF+So8s6a7pvDrisi+fIavHlH62p81ZPio8PAg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s6/ZuuFYLa7AvB8dW2KXZwFIp/x77txp3NgjCeIIecwFpkNCfa1ypKUD29rJzUqV4es3rNc1ZET2MTY9cFfMEFvLmAJL52L1cp32HB3HWDOLak3I1IX3tO4H21dmOQFDnuk5M7iEru2fTN6wW9zQa0+M1MQchFQeFPesOLYKLGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKQX1Wmz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785687570; c=relaxed/simple;
+	bh=KxHPKoiDCurUCtsWQ6ggtOoQgw/61uc4/tX7qUf9nEk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EmMIKWf1FV63JA40q5YyTMr6lPZMJgLUCMlaEhFEFHDdUOgeyWud1Jy8LO4KG8k7MdK3n4xwI0neC0Sb5ywBm8y1kWjFnQr0bwes46TSDNFS5DcyQp6JybQebWjq6GW7mSoWA7pXmWD+PqufFl+0kCKMVorTlU7hsIlholHc8P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WUykbia9; arc=none smtp.client-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKQX1Wmz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573D51F000E9;
-	Sun,  2 Aug 2026 16:18:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785687525;
-	bh=N7pJq1N0NPx3zBqRdsVMkb0aTEzNrePy71Fcx50nO+Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mKQX1Wmzg2uo0n+SQWztIHHWDHtnExhauqFTg4Mw1V66JrRWPkZMAktISIYz84yCL
-	 6PqZ3mOoPrEftwoGW/z5N6mcYpCFT2q5O8Tr4CLuLWl+MgdlYWzO325numt/yjc31p
-	 ojtC6JWHfMS9L9a9pwRCLYBWUWdCa3OzGthZR8ACjTlXn2NznsNbTmrKHtoT/CDS11
-	 838g4TkyeKpgPV6O2sTN+coQCpEfdFwFJPnprAKpK5IJCLytxvpkBmHHTRSWb4rRkY
-	 fGgwbkv2a20LU98S0PAAz/rzwzMbF3OjbX7muD4jce+9pllxfraDB/1Hofqw9g5bSq
-	 vKCMI5xDW/KGQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] iio: dac: dac8163: Add driver for DAC8163
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lukas Metz" <lukas.metz@gmx.net>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260802-dac8163-work-v3-2-3ecc7bc66d0d@gmx.net>
-References: <20260802-dac8163-work-v3-0-3ecc7bc66d0d@gmx.net>
- <20260802-dac8163-work-v3-2-3ecc7bc66d0d@gmx.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 16:18:44 +0000
-Message-Id: <20260802161845.573D51F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WUykbia9"
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6aca105971eso1620748eaf.0
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 09:19:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1785687566; x=1786292366; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KfhxQUwsFgYF3mH3fJ4GDJgiou41ziE3NPkuGjACN5Q=;
+        b=WUykbia98RhxPYI9X2HerLBNqFPJdf1Zc8R/EfcrZZzg6KxEdQMC7R9N1xxMX4uGm7
+         OHhmds1mdlqpbPfYWL0e7qzuaHk+BxDhFylOMy5ybEq/mHYw1WzAEfR3k29m+dRYvPU4
+         mjUNTjh3s91lciiP/Mw2eo7rxRQaBmWPBrESOSGLh3Z1103NPP1lBOZH22C+yMaIRfOE
+         YUobl9q0cgKEVzQRejTbyezag20G7EpHJboo0GsCVtT9/uRupsPk4wfZzznK2dse1BRF
+         uTR/v/cJxKgmmzoJkDwXsa++uxXLcpd/UZ6qYzNnmoU88/97WsrVVX4ZKTp0RArD3ZHv
+         1Nig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785687566; x=1786292366;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KfhxQUwsFgYF3mH3fJ4GDJgiou41ziE3NPkuGjACN5Q=;
+        b=JWNL+dclLvXTjfIKm5r6IT4v1edMfImg62FaDrObsiUCdrQWIOr8bjCRM0FlEPyh0B
+         aSoWiGzPd1q1iKSOS2/W1a5k48rLPoDVrusYxeNinwz9mgG5nwYFHAO8Ls32xBLHsxFg
+         aq2y6UtKtjVHSuFV8rOo8wJgpMU2qksI01JHY2JscrWaFaFcL5Zzo9hn3P0BKagrfiQJ
+         PHlENUvZtpSL+SQT1maG/1ygeIwcejlcS803Ch5wXkfAWn72xYIn49++nhx1YFanEect
+         /PRdB+KJAbqnxFC2EzPRk4VimnKDhaBVc3JIZlteRjxG0Kh/DAA6pT2V9UU5xWj6l/T1
+         5Gkg==
+X-Forwarded-Encrypted: i=1; AHgh+RrY66K7MatG3hm0BPF/8Q+2l+CJ9BShmTgKiHf0RkRN0AUU2v7jdcl/iMkpvfh11uBe2aUs4UfV2FIw@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgsYJzdXoIW4zmU4+BbxMeH8Hhw1ZXtvCi+vLrNMKiYq3xx1Vz
+	H+nLG4KUnjeO/ZqfQEf1oAXlcgDyxVWXEpkb48TXWQQzbyL19LcgUJufj/OYIlXAMfTVCxyyI5R
+	X4iFSrtI=
+X-Gm-Gg: AR+sD13HiBvwS2jo7oTf+UnOReOMt2q3qBf8Suw1oibuYCDT46ideeX/jSg7GMN4HOc
+	pSnz3ukCSziNkja/+BHHdTdAsEl0aI9oqvhGvrNgeFRgjcd3ITtGr9oK5zJnRSM3eVfIxi1glij
+	zWv1+S9IGHygCSy35iyvNuxE7ukzb93DYHI7I5es7N9BMC9kTdh8WGJY1HMr7LjjRnNqBTcBcdU
+	Sg7COa8sUu1MFIchAYmDYIofBEMIyQmA3fIT0DoI0XkuNrimTLdPGrp1rOCWvZ1+jP23x5QpPm5
+	+F8JjV+m6YdYS6MrMqpDuPRu9OAa4hqq002T5vFLI3uawGBix55EJ6mU4mvUa2AIpvUOs9NbYOL
+	hNQcWHAr2QStr3oEeZo11iV10mA8L+fPrdjUZJ9M5qAkQb1A9tKbR7mSxQGo0s53HLM904q9q5x
+	CzuEHoOO9h6SEuYIURHEcy3BY1YWGjZMvxXoPyKv4Qil9LjJbxbltFWrhWvsdF4AwO6+HlmUSUo
+	P3d2DoYj7aNiO6CmKZFQbddkf9WRIRUUycTM8xR
+X-Received: by 2002:a05:6820:88f:b0:6a3:8b32:3ecf with SMTP id 006d021491bc7-6ae43217e3dmr12146792eaf.12.1785687565710;
+        Sun, 02 Aug 2026 09:19:25 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:5487:2b6e:1057:d3d3? ([2600:8803:e7e4:500:5487:2b6e:1057:d3d3])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ae3a0c724fsm4864613eaf.9.2026.08.02.09.19.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 02 Aug 2026 09:19:24 -0700 (PDT)
+Message-ID: <fde82f14-c0da-489a-81e9-cd047f8e5862@baylibre.com>
+Date: Sun, 2 Aug 2026 11:19:22 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add DAC8163
+To: Lukas Metz <lukas.metz@gmx.net>, Jonathan Cameron <jic23@kernel.org>,
+ Siratul Islam <siratul.islam@linux.dev>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260802-dac8163-work-v3-0-3ecc7bc66d0d@gmx.net>
+ <20260802-dac8163-work-v3-1-3ecc7bc66d0d@gmx.net>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260802-dac8163-work-v3-1-3ecc7bc66d0d@gmx.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Incorrect DAC scale/gain calculation due to hardcoding the output =
-buffer gain based on the reference type rather than the chip variant.
-- [High] The driver ignores the `clear-gpios` property defined in the DT bi=
-nding, potentially leaving the DAC stuck in reset.
-- [High] The LDAC GPIO is actively driven before the AVDD power supply is e=
-nabled, violating power sequencing constraints.
-- [Low] Passing `int *val` directly to `regmap_read()` which expects an `un=
-signed int *` causes a compiler error.
---
-
---- Patch [2]: [PATCH v3 2/2] iio: dac: dac8163: Add driver for DAC8163 ---
-commit 37b06ebefbaf9fd7f117618ad2ee0f83d7ce1b9c
-Author: Lukas Metz <lukas.metz@gmx.net>
-
-iio: dac: dac8163: Add driver for DAC8163
-
-This patch adds a new IIO driver for the Texas Instruments DAC756x, DAC816x,
-and DAC856x family of digital-to-analog converters. These devices are
-low-power, voltage-output, dual-channel DACs with up to 16-bit resolution.
-
-> diff --git a/drivers/iio/dac/ti-dac8163.c b/drivers/iio/dac/ti-dac8163.c
+On 8/2/26 11:07 AM, Lukas Metz wrote:
+> Add device tree binding for the Texas Instruments DAC8163 family
+> including the DAC7562, DAC7563, DAC8162, DAC8163, DAC8562 and DAC8563.
+> 
+> Signed-off-by: Lukas Metz <lukas.metz@gmx.net>
+> ---
+>  .../devicetree/bindings/iio/dac/ti,dac8163.yaml    | 87 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 ++
+>  2 files changed, 93 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/dac/ti,dac8163.yaml b/Documentation/devicetree/bindings/iio/dac/ti,dac8163.yaml
 > new file mode 100644
-> index 0000000000000..35af7828dc22e
+> index 000000000000..ba4099c78e06
 > --- /dev/null
-> +++ b/drivers/iio/dac/ti-dac8163.c
-[ ... ]
-> +static int dac8163_read_raw(struct iio_dev *indio_dev,
-> +			    struct iio_chan_spec const *chan,
-> +			    int *val, int *val2, long mask)
-> +{
-> +	struct dac8163_state *st =3D iio_priv(indio_dev);
-> +	int ret;
+> +++ b/Documentation/devicetree/bindings/iio/dac/ti,dac8163.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/dac/ti,dac8163.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-> +		ret =3D regmap_read(st->regmap,
-> +				  FIELD_PREP(COMMAND_MASK, CMD_WRITE_UPDATE) |
-> +				  FIELD_PREP(ADDRESS_MASK, chan->channel),
-> +				  val);
-
-[Severity: Low]
-Does this cause a compiler error with modern compilers? It looks like val is
-an int pointer, but regmap_read() expects an unsigned int pointer, which
-might trigger an incompatible pointer types warning or error.
-
-> +		if (ret)
-> +			return ret;
-> +		*val >>=3D chan->scan_type.shift;
-> +		return IIO_VAL_INT;
-> +	}
-[ ... ]
-> +static int dac8163_probe(struct spi_device *spi)
-> +{
-> +	const struct dac8163_chip_info *info;
-> +	struct gpio_desc *ldac_gpio;
-> +	struct iio_dev *indio_dev;
-> +	struct dac8163_state *st;
-> +	bool internal_reference;
-> +	int ret;
-[ ... ]
-> +	// for now we keep the ldac pin asserted permanently so that the output
-> +	// is updated immediately after a write to the channels raw attribute
-> +	ldac_gpio =3D devm_gpiod_get_optional(&spi->dev, "ldac",
-> +					    GPIOD_OUT_HIGH);
-
-[Severity: High]
-Does this driver need to handle the clear-gpios property defined in its DT
-binding? If the hardware CLR pin is wired to a GPIO that defaults to the
-active state, it seems the DAC might be left stuck in reset because the pin=
- is
-never deasserted.
-
-[Severity: High]
-Can driving the ldac GPIO high here back-power the unpowered IC? The GPIO is
-driven to an active output state before the avdd regulator is enabled below,
-which might forward-bias internal ESD protection diodes.
-
-> +	if (IS_ERR(ldac_gpio))
-> +		return dev_err_probe(&spi->dev, PTR_ERR(ldac_gpio),
-> +				     "failed to get ldac gpio");
+> +title: Texas Instruments DAC8163 family of DACs
 > +
-> +	ret =3D devm_regulator_get_enable(&spi->dev, "avdd");
-> +	if (ret < 0)
-> +		return dev_err_probe(&spi->dev, ret,
-> +				     "failed to get avdd voltage\n");
+> +description:
+> +  The DAC756x, DAC816x, and DAC856x devices are low-power, voltage-output,
+> +  dual-channel, 12-, 14-, and 16-bit digital-to-analog converters (DACs),
+> +  respectively. These devices include a 2.5-V, 4-ppm/°C internal
+> +  reference, giving a full-scale output voltage range of 2.5 V or 5 V.
+> +  None of these devices are fallback compatible because they differ in either
+> +  resolution or output register values after reset. The sync pin on the device
+> +  acts as chip-select pin.
 > +
-> +	if (device_property_present(&spi->dev, "vrefin-supply")) {
-> +		ret =3D devm_regulator_get_enable_read_voltage(&spi->dev,
-> +							     "vrefin");
-> +		if (ret < 0)
-> +			return dev_err_probe(&spi->dev, ret,
-> +					     "failed to get vrefin voltage\n");
+> +maintainers:
+> +  - Lukas Metz <lukas.metz@gmx.net>
 > +
-> +		st->vref_mV =3D ret / (MICRO / MILLI);
-> +		internal_reference =3D false;
-> +		st->gain =3D 1;
-> +	} else {
-> +		st->vref_mV =3D DAC8163_INTERNAL_REF_mV;
-> +		internal_reference =3D true;
-> +		st->gain =3D 2;
-> +	}
-
-[Severity: High]
-Is this gain calculation correct? The code hardcodes the output buffer gain
-based on whether the voltage reference is internal or external. It seems the
-gain should be a fixed hardware property of the specific chip variant inste=
-ad,
-such as 1x for variant 2 models and 2x for variant 3 models.
-
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,dac7562
+> +      - ti,dac7563
+> +      - ti,dac8162
+> +      - ti,dac8163
+> +      - ti,dac8562
+> +      - ti,dac8563
 > +
-> +	ret =3D regmap_write(st->regmap, FIELD_PREP(COMMAND_MASK, CMD_SOFT_RST),
-> +			   FULL_RESET);
+> +  spi-rx-bus-width:
+> +    items:
+> +      - const: 0
+> +
+> +  spi-max-frequency:
+> +    maximum: 50000000
+> +
+> +  spi-cpha: true
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  avdd-supply: true
+> +
+> +  clear-gpios:
+> +    description:
+> +      When asserted, the device output registers are reset to their default
+> +      values (zero for dacxxx2 and mid-scale for dacxxx3 devices).
+> +    maxItems: 1
+> +
+> +  ldac-gpios:
+> +    description:
+> +      Pin needs to be asserted permanently when updating the DAC synchronously.
+> +    maxItems: 1
+> +
+> +  vrefin-supply:
+> +    description:
+> +      External reference voltage supply for scaling. When no vrefin-supply
+> +      is present the internal voltage reference is used.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - spi-cpha
+> +  - avdd-supply
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        dac@1 {
+> +            compatible = "ti,dac8163";
+> +            reg = <0x1>; /* CS1 */
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-dac8163-wo=
-rk-v3-0-3ecc7bc66d0d@gmx.net?part=3D2
+Comment isn't really needed. The bindings already define that this
+is the chip select. And I would just use 1 instead of 0x1. This isn't
+a memory address.
+
+> +            spi-cpha;
+
+Missing spi-max-frequency and spi-rx-bus-width.
+
+> +            ldac-gpios = <&gpiog 8 GPIO_ACTIVE_LOW>;
+> +            avdd-supply = <&avdd_3v3>;
+> +        };
+> +    };
+> +...
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d238590a31f2..314f235332f5 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26394,6 +26394,12 @@ S:	Odd Fixes
+>  F:	drivers/clk/ti/
+>  F:	include/linux/clk/ti.h
+>  
+> +TI DAC8163 DAC DRIVER
+> +M:	Lukas Metz <lukas.metz@gmx.net>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/dac/ti,dac8163.yaml
+> +
+>  TI DATA TRANSFORM AND HASHING ENGINE (DTHE) V2 CRYPTO DRIVER
+>  M:	T Pratham <t-pratham@ti.com>
+>  L:	linux-crypto@vger.kernel.org
+> 
+
