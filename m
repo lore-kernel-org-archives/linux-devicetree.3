@@ -1,108 +1,87 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7403B8BC4;
-	Sun,  2 Aug 2026 15:43:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785685425; cv=fail; b=Ma7wOluuTKwvOptan+es9VHqTaFSnLeVeK+1njqOwG33rfJYAZQMhONgqaldx32T3LkO7DYoGaDJnFHw1JoyYJaY/x017YUzSTP/JrjD7E/DfHkBRwHDlRjHzPFUVo7pk+KZGMeSHxDpw9KlOPUjaBrKBUdn3C7W/K+VZzIljII=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785685425; c=relaxed/simple;
-	bh=aj8BKt5S88n4osMhMvsyHkskEq6QsYclFYQgduAi878=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m7zPjvHuGxyOqk8QAEWWwzb0n1uvHXRH0qU6liDsw041XXCJCkfK7EaoJDYWWOFhEApCMhe+G9Vb1S8VGMHhw9eO7AEpDcS5riYcHZBHjcsUfv1gDLn5z+8iEVN0tc6cYNaiYVN1+9aHwPs34dc6p+76EinQyUiGBm23y+lHxXE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=DSWqM7bD; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=S9mCC7NG; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3775E2AF1D
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 15:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785685589; cv=none; b=AnKrfn6mK2hf3xmKEgLRoRd+NTc7qHin9W5eXvDFBEqgzK4dY7eaF3rn+S3vbBSSMxzpSjImMGYCwxtAJot4mXrYFt2acw7JdWrX7RSTESO7pE+OfHhPYLehbpnpfICkZMN4FrdDw6vw2IhPvjS3eZPE3p5O2BF0hrOyF+8wLow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785685589; c=relaxed/simple;
+	bh=+jvAOF5SO3XqNwhCfQ0NZDjaKKztJGcQ5/Rywfk07Pw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bVJoSGdBRb2CdJ6T/1RUlLlPHvcU/ZA22LxanJSkp/UTYkHzoK+KBYGc0zltpZ4+bm6DadGl00oxHh+k+wZUn1FeSES3OMvTwHkG/P02MxzcZOWMIhe6vL1cDvVB4yilP2rW9qw4N2hAJpiLzglVQHqJP09ycasZQWFJrdNmPuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sDr9yjWh; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="DSWqM7bD";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="S9mCC7NG"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672EZ8AN1177425;
-	Sun, 2 Aug 2026 10:43:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=wdqgF5rNqKUjCPEvEn0dAHVAJeDGM00Q2pjqxzlMd
-	UI=; b=DSWqM7bD+qipJKmeNa1yIbN2DImXpNqVpAEHj8D6X76EPZuT6bcg8XI7I
-	FtJ0DctgEpc3bZKnzkA40HFKSTP2tdCFMSTTkTF1ZXbBC5Pk+jqxMgxWHdRWwydv
-	Aq1hMeG7re+aJ3mginVvxC512WxqS0d0AhTR0NX45SK0avRQeqPQ8s6ktbo9a+qf
-	wmhB90sKdRpTPHDGJowt3qUSMcP0MC3apUzFIj6EzfSf4sOZU4hxgnYFiN7oxg2f
-	I/BrJAQHaf7EmZ8vK7X9fs/0C4Qs6tcXx2jApMu8+vBU4RPQhCdaE18L0dHB12cO
-	JuQIpr925sLcpvIKMNEqcwAKDohjQ==
-Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11010050.outbound.protection.outlook.com [52.101.61.50])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fsyxphbc1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 02 Aug 2026 10:43:04 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y+HqVPN+VLK75czsMJX0HSXtYtBmqdMmsCR8uddI4LN89bpaPpiSyzKW7NGrL7OZmaRB3ltXGaSWfK8+zKGJMBqd+ngbTQFXi/QXHgyIDBwsG70f3uENp8bFinWGTI/qE5BvpIBlZ5ij3dMnxc91i/Nn9TrHM/n0Lbvm9vZu4I6kDd9B4/+sP/V4at4LjfvL1KviUqbZKsHqZJ/faHjx/Cn0UxCr2MWROnKYtHDwOZO0UOQpJ0aBMQXt5rcAwN43a45Qf7638uQO0yOwaj4hl3gakkDz5WhxO7N4oCNx1Lrq7+z6G781rxyL32ufSgw1O6evAAmQZSd84/zMrwcvNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wdqgF5rNqKUjCPEvEn0dAHVAJeDGM00Q2pjqxzlMdUI=;
- b=DmVGeReIXSQCXsznBKFGynsPN6OPhMwvghouMO4XXy01ysdkSslsa+eTHlDeXuoB1R3ARQYnLjtcrUABq99JyUJOX+VpUlnWIq4fcGf199ppleysINDInY0u7GjokPOZUlWPbE0EcuuKX5Xp1yoNp7e2RqoK9TvaB5HA57G1e96w+bf9CdAxQ6f0UeAiShTqRhLg8p3FhL6wtt+QFCKxhXK4Iqofn2sNOstP9fUDVLbFTwBRVN3mKDqIs0b62xXP5Y8yrsNPfkAkdhg+YEb1DeC7HmakN4RiC8/hpel7wAYVwo+lKXyKqUgcntuv2K2Uxaxb70lSwpPfLEQeBwhWXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=cadence.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wdqgF5rNqKUjCPEvEn0dAHVAJeDGM00Q2pjqxzlMdUI=;
- b=S9mCC7NGObTdVEn6CT8AoIRS7dihr9KiQqcSYLpRCRiD9To+608pyG/H6+qRWWX53ngpGoaIgH2R5hIMGnOF00FYKZP4t+T7TDI2DQ8HSy4jg+AK/aHL6YJsTZrqVVDJTn90OEfGSgmEO/YyNDnHZT7fLXFYm4i/Pb9Pjpq21mo=
-Received: from SJ0PR03CA0102.namprd03.prod.outlook.com (2603:10b6:a03:333::17)
- by CH0PR10MB5019.namprd10.prod.outlook.com (2603:10b6:610:c8::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Sun, 2 Aug
- 2026 15:43:00 +0000
-Received: from SJ1PEPF0000231B.namprd03.prod.outlook.com
- (2603:10b6:a03:333:cafe::ad) by SJ0PR03CA0102.outlook.office365.com
- (2603:10b6:a03:333::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.17 via Frontend Transport; Sun, 2
- Aug 2026 15:42:59 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- SJ1PEPF0000231B.mail.protection.outlook.com (10.167.242.232) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Sun, 2 Aug 2026 15:42:58 +0000
-Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Sun, 2 Aug
- 2026 10:42:57 -0500
-Received: from DFLE208.ent.ti.com (10.64.6.66) by DFLE207.ent.ti.com
- (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Sun, 2 Aug
- 2026 10:42:57 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Sun, 2 Aug 2026 10:42:57 -0500
-Received: from yashas.dhcp.ti.com (yashas.dhcp.ti.com [10.24.53.80])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 672FgZ15897228;
-	Sun, 2 Aug 2026 10:42:51 -0500
-From: Yashas D <y-d@ti.com>
-To: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
-        <airlied@gmail.com>, <simona@ffwll.ch>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-CC: <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
-        <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
-        <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
-        <tzimmermann@suse.de>, <tomi.valkeinen@ideasonboard.com>,
-        <r-ravikumar@ti.com>, <sjakhade@cadence.com>, <yamonkar@cadence.com>,
-        <u-kumar1@ti.com>, <devarsht@ti.com>, <s-jain1@ti.com>,
-        <d-mittal@ti.com>, <b-padhi@ti.com>
-Subject: [PATCH v6 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
-Date: Sun, 2 Aug 2026 21:08:25 +0530
-Message-ID: <20260802153825.1570435-3-y-d@ti.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260802153825.1570435-1-y-d@ti.com>
-References: <20260802153825.1570435-1-y-d@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sDr9yjWh"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38f0f132f56so2430061a91.0
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 08:46:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785685587; x=1786290387; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kbnrAvB6TS3MK29/B8lpsoG39eR5hWxmezJin1MS/dY=;
+        b=sDr9yjWhsKeQY1txWWd/tHo+LXjUCXGNe+B15bh06Jzx77XCQcZoPacj/MLXU2r8BF
+         qp2kGLCDUp2sd5UQCMv0zTgfHRc6e6R+qKc0cuZcfNr6Cxm+LKTGoWsylsD/xwFy1Hee
+         ThJwno5M59GZG628WuCQuxoFk03SMZC8czkGZ/i4D92Uq/CY3ZWOV+Brd/jNZD0cEqzU
+         inHSkEr5UCLXf8wlndPYx6S7SN8aoVTmYb5zcT0D+bVw1YNPJ8KjT3t5U5SocOnUAdL0
+         atWEPiyhK8vJqbprWb6iK/dOssksGFrh66EH0Ixn3wMAgOUG7A/J6ShvO3kiqaQfNsp2
+         5wEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785685587; x=1786290387;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kbnrAvB6TS3MK29/B8lpsoG39eR5hWxmezJin1MS/dY=;
+        b=VwatzGZtPTAXHbELrEOqgb+7XERckXtH3hRK/uNLRkfP9oyNciyCfuqCGhQy0AbfFj
+         eoszJVXSL+kQL3BnmYY9d6yMbMiTeKfcYZ2ZqyfS3VvjG4OBJww23IVaFQ4FqAIs5sL2
+         5tmUDnQVjxM9b2Wf1BR53nlHNh4Tyi5UOvx+7Bx1syBit1Vbde/3wbZbIvtpcY0SEk7g
+         ajR/jc2CxOdiHRwvNnHJDZGGZJZs0p3BV0/KuMawEgGhOevawTEx75yxygLEamphcTpp
+         l8TwqSCG2h4a7n++tmSdLh1zliIp4Hrky8rOun+a1oG+t+21xuQPpb7pg/DNKK1kaLYe
+         sqAQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpRb+rWwQkKlYJSSZlENpps+xmk/dMiiu3oH/nfxk5iEXmCCNHIKTDU2ywX8KQyFiDAur/GiJlerMSj@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaPEfT26Qd4nuqY54knRTG6PN+xhx5NrKwowqTDDwm9zpNKQco
+	PV1wnMJLOL4F3qJPJnS63xA/0r22YzfCt28AS/nmVT9tiVtJaIp08glH
+X-Gm-Gg: AR+sD13JyslhDwQ0cc1um5DkTrwZIidQTMBnoqSPbt29PDcCY2BmXQdFphRTp2pUNfb
+	oeCoY7yApIEqe54UHsg/C1XUoBLS9yD6sMqCYnCeKO5yGY+qQYKcf0x9CGsADgWE8TGhNzYB+wA
+	iTwOvYGu3U7fm7e0eE80/dkmM+V6Z2dprJeErJmK0Z7bl0nSbmr4/+jjT8ACypv5CUFKJsr4aOf
+	lJLXQP6XytGNWI5Jax6pAuU7gN1FnnNymYxKEtnzh9O6A0VNcArKniafya2rqgvlSBGtus1oF93
+	dU2uGz7/F40FEA7viWTAV9lFpiqJwnbdyFatxQaY/wms3pQptXMN6Q73lfIJUdxIPv+prqiYGr9
+	uIZwv+mq5I3fPkdThttKMQO+7Yt8F7CguVRw3mpkzaHnQOEfvjzhpwt1kCfE+ubwM0fgH6yDtby
+	YhqaaxEgWbE/39U93xn54tqHMpw7lcfcEX8mtWKhH08i7MU7HNEQ4vvtI5g5yWZHHz5THqoHHOV
+	CUPoigtNSx7J3VommnPKq9v3svU/e2jACaq45k=
+X-Received: by 2002:a05:6a21:6089:b0:3c4:2cd3:f0bb with SMTP id adf61e73a8af0-3c91a777750mr9595530637.10.1785685587512;
+        Sun, 02 Aug 2026 08:46:27 -0700 (PDT)
+Received: from Mac.net (198-27-228-154.fiber.dynamic.sonic.net. [198.27.228.154])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e29a126sm30602192eec.31.2026.08.02.08.46.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 02 Aug 2026 08:46:26 -0700 (PDT)
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Peter Rosin <peda@lysator.liu.se>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ahmad Byagowi <ahmadexp@gmail.com>
+Subject: [RFC net-next 0/4] ptp: ocp: Add R4006 I2C peripheral support
+Date: Sun,  2 Aug 2026 08:46:16 -0700
+Message-ID: <cover.1785684064.git.ahmadexp@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -110,251 +89,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231B:EE_|CH0PR10MB5019:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3dcb8320-6c2d-4da6-d5f7-08def0acba62
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|23010399003|1800799024|82310400026|921020|6133799003|56012099006|10067099003|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	FJkrWAfsmQLgvbAhgzIoVjDcYJSAmU5ZAzDtG8VbF4Py/ComxsEq0b3XOA4ol2oaBCa5qX1ASBLPRFfp/As3K0xBdNOZReycvSGI8bmCorhGGbDEGdRvOXjjxxYwOEjGPXeL6wvenRPyKN6VoCmaQq221YODbPpH0UCWshBgcAxoK5eJnp+TNlP67nBqoxnddLYSvtHdj8ABDOs96LTgSNYidtg9xxus3p3kViwD+Y+OHkpSAWX2FMiE249emaSObQKtrG/mIpYRpghP5K7S599C+nJBeahjtlcKYzGDXKfqoaVU2HSqGatmcfblsNp/lNnBvmdFgvNb2nS0twU2AvllMYZmFlzIe4wmwZxrttFuINp34lpWQaodKVHAB3K7Gww6alSZQRtRT/60ThtLhS8zLtFPJukEJ0BKDqepfKLoMS/zvA3DE7Gp7rbKPPe0mBoPke2+AcMVRV30u7Hu4rwXoVOd+7OoaCna4w+cuQHECHgj9uR4Sy4gpQDmwcWT3qoWe0IN6uSBHwQC/OSHRoGJwRpFn3D+es0HnMHwsa8gVguUIQBaPv/zeYPkS6F/T3lQ7VjvEeUCjk11wm0ZFwDkzoC9+obNTXQnqlZ+tHvdTmdVHPny66JnVUD9lS/Mx1e2Y/u2kO0qozf3Yha+yBumZPxipN5y3mvcxkfpzPtKVdiXonM2kNwI7zA+FZLoFu9KRTM2yJS4wgmsrcgrBKzj6CQQwSw+t5GVpRF/rlx411zHr2ME3dfeLR15YD2S
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(23010399003)(1800799024)(82310400026)(921020)(6133799003)(56012099006)(10067099003)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SBp54BdY9Ksu05vaV4JkJA0kfMi+RrICsrHwEeyB1Myu4Dv0qB3yePsi7mcdrOa6q+318+Bsh8tQJ8F65NaMNg2RYRzdEHOyhwmqgCYVBErVVr0DTvkhyWv2LTC662A8jmVtHZA86SMuMxOUGPaPPXyZTNzuwLlE7oRpT24xVugDPNc4bhY0nDkZg+eqcBrTdjbqUbFARuG4q2fN2SObdyjkJNX1vO0kObZk/01Wkd31I1SvgakhIBZgSnJwKXvJ8ri5D/5dWtduu45iLnUQvPVG4k0tnKO+HEAqWnOzZE5nLTUAPEHYNjLVwq/B8OEOd64q8lL0uH93u2KL2hEivg0wGX3G1p0l7Cu63KG+GgbM0/Vi8oZdC/PxVeOiiapbpHoSKOctQ+YpwQn4OvGLi+ufqubZUgTk2FtYAf2ZZVMDRfe3xH8usc67svY1GQFq
-X-Exchange-RoutingPolicyChecked:
-	MuvoXZjmWpJ0FpxY+htMn89Cg8kzIZtztL0tTVPCVHzIedbjg6SrroMqfEwFhhO1Jiw7HyiMZlaX7HneFPnwlew6RQkJ5ishxUHXBdyVoN6Hg50asszHHWT3euyK9ghqlEFKZcoqh4aLxHjZraUjtWCT1RZRgarm7DwnfXXnN1fjRLix74Aeqbqz48mJ6WbIvRvIg+DRMpH15QClTgSx88He9A53sbfjr/i5B/mX4oCYQipSVj6TLKvyBHtfK/oo3UyFhfW2KdfqRGAZ6W+Pqm2ZOYgmkvEZH6mFIYAsv02JH4UlFsB0RE2mdcMcmde6RJmyOizudJM5O5bRSvc+Sw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2026 15:42:58.3983
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3dcb8320-6c2d-4da6-d5f7-08def0acba62
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB5019
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDE0MSBTYWx0ZWRfX7zoqfJ2quBVd
- b+u6dBIT4h/EopFieMYyNu1gBkHnEOVMa1TntEM4Nf4EkZe4Qg8imZyJ2ikcQJKnfnE1pjVFdgx
- Lk4YLFHWdX6DAx7SDreFqsRgpPpZVUg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDE0MSBTYWx0ZWRfX+ty0iqXUk91p
- iPpDF5j+VSQZjXyupjcLoXqNnY/+Jg/cIgNceM4wUePdp7UAJrC5scwTQ9uGZnXv0gFElxAGQDU
- i2pI/TTLcE6tcPDYfFHsjnvEHtbPP2dwhnaiSZDVoIR7nCoiqhyuk+Ad/OLMe0HUkQzxVO6UgTm
- iO3v6zv8jiJbPxPAaLoLq7LUS28XIrazjQpV8hAgrRSCtrxMXRUOF3UofpmksDIXyEicYDfN/CO
- wgMhXynWTBWrZ9CegayD7dyqKVs+XJMpNSjGjq4eXj12wpcWhCvrqw8UHkpp0e4YYsjZilkGmdP
- 4ReyGX4RhChLgM4ZOQ0z1+PYJhsUNgYMSbXdWbnIXxFW/lhlECKS/EMdcSosrzf6CxM0PoOW0B2
- ZwDtkkfDbIcbM+DzL27+RvPJ9MnU3MhlaXKOr6avHtuym4UsaXjB5gQMmzfuOpW4PX5l93Zdr7e
- l6PZzdRq2tFuBFityQw==
-X-Proofpoint-ORIG-GUID: k3PYeYnjffnGPmajk9E0Nbws6aEx00Ua
-X-Proofpoint-GUID: k3PYeYnjffnGPmajk9E0Nbws6aEx00Ua
-X-Authority-Analysis: v=2.4 cv=Pb3PQChd c=1 sm=1 tr=0 ts=6a6f6588 cx=c_pps
- a=0CigaX/e8+d28YZ4T1vruA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Sv0fKeRqtYgA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22
- a=sozttTNsAAAA:8 a=8m6jy30CiBRjHBHqTgAA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_05,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 malwarescore=0 adultscore=0
- suspectscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608020141
 
-From: Rahul T R <r-ravikumar@ti.com>
+The R4006 Time Card places a PCA9546 I2C mux behind the FPGA XIIC
+controller. Its downstream buses contain temperature, humidity, and
+pressure sensors, an 18-channel LED controller, and a BNO08x inertial
+sensor. The current ptp_ocp driver exposes the root bus but does not
+describe these peripherals.
 
-Add a 'no-hpd' boolean property to support boards where the HPD line
-cannot be used for hotplug detection due to hardware limitations.
+This RFC adds the generic infrastructure and board description needed to
+let existing subsystem drivers bind to the R4006 devices:
 
-On TI J721S2 EVMs, the DP0 HPD resistor is not populated from factory
-(DNI), so the HPD signal is not physically connected to SoC pin AA24
-by default which makes HPD unavailable but AA24 must be in DP0_HPD
-mux mode for the MHDP firmware to operate.
+  1. A binding for the Lumissil IS32FL3207 LED controller.
+  2. A generic IS32FL3207 LED class driver with individual and multicolor
+     LED support and per-output current limits.
+  3. Software-node propagation from an I2C mux to its channel adapters.
+  4. EEPROM-based R4006 detection and a per-card software-node topology
+     in ptp_ocp.
 
-When this property is set, the driver uses auxiliary channel (AUX) DPCD
-reads to detect monitor presence instead of hardware HPD signals. The
-DRM framework polls the connection status via the .detect() callback,
-providing hotplug detection without requiring the HPD pin.
+The BNO08x is intentionally not instantiated because there is no upstream
+driver for it. LED status policy is also left to userspace. The kernel
+exports one multicolor LED class device for GNSS and one for each SMA
+connector.
 
-Valid use cases:
-- HPD pin not routed to connector on PCB
-- HPD signal muxed with another function on SoC
-- Hardware designs where HPD cannot reliably detect monitor presence
+The zero-based IS32FL3207 output mapping, confirmed on production
+hardware, is:
 
-Signed-off-by: Rahul T R <r-ravikumar@ti.com>
-Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-Signed-off-by: Harikrishna Shenoy <h-shenoy@ti.com>
-Signed-off-by: Yashas D <y-d@ti.com>
----
- .../drm/bridge/cadence/cdns-mhdp8546-core.c   | 79 +++++++++++++++++--
- .../drm/bridge/cadence/cdns-mhdp8546-core.h   |  1 +
- 2 files changed, 72 insertions(+), 8 deletions(-)
+             red  green  blue
+  GNSS        13    12    14
+  SMA1         7     6     8
+  SMA2        10     9    11
+  SMA3         1     0     2
+  SMA4         4     3     5
 
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-index 504a3186ebb3..ae9bbec855f3 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-@@ -53,6 +53,8 @@
- #include "cdns-mhdp8546-hdcp.h"
- #include "cdns-mhdp8546-j721e.h"
- 
-+static int cdns_mhdp_update_link_status(struct cdns_mhdp_device *mhdp);
-+
- static void cdns_mhdp_bridge_hpd_enable(struct drm_bridge *bridge)
- {
- 	struct cdns_mhdp_device *mhdp = bridge_to_mhdp(bridge);
-@@ -698,7 +700,9 @@ static int cdns_mhdp_fw_activate(const struct firmware *fw,
- 	 * MHDP_HW_STOPPED happens only due to driver removal when
- 	 * bridge should already be detached.
- 	 */
--	cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
-+
-+	if (!mhdp->no_hpd)
-+		cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
- 
- 	spin_unlock(&mhdp->start_lock);
- 
-@@ -739,7 +743,13 @@ static void cdns_mhdp_fw_cb(const struct firmware *fw, void *context)
- 	spin_lock(&mhdp->start_lock);
- 	bridge_attached = mhdp->bridge_attached;
- 	spin_unlock(&mhdp->start_lock);
--	if (bridge_attached)
-+
-+	if (!bridge_attached)
-+		return;
-+
-+	if (mhdp->no_hpd)
-+		cdns_mhdp_update_link_status(mhdp);
-+	else
- 		drm_bridge_hpd_notify(&mhdp->bridge, cdns_mhdp_detect(mhdp));
- }
- 
-@@ -788,9 +798,14 @@ static ssize_t cdns_mhdp_transfer(struct drm_dp_aux *aux,
- 		ret = cdns_mhdp_dpcd_read(mhdp, msg->address,
- 					  msg->buffer, msg->size);
- 		if (ret) {
--			dev_dbg(mhdp->dev,
--				"Failed to read DPCD addr %u\n",
--				msg->address);
-+			if (mhdp->no_hpd)
-+				dev_dbg(mhdp->dev,
-+					"Failed to read DPCD addr %u\n",
-+					msg->address);
-+			else
-+				dev_err(mhdp->dev,
-+					"Failed to read DPCD addr %u\n",
-+					msg->address);
- 
- 			return ret;
- 		}
-@@ -1523,6 +1538,19 @@ static int cdns_mhdp_attach(struct drm_bridge *bridge,
- 
- 	spin_unlock(&mhdp->start_lock);
- 
-+	if (mhdp->no_hpd) {
-+		/*
-+		 * In no-hpd mode there are no HPD interrupts to trigger
-+		 * detection. If firmware is already ready, do the initial
-+		 * AUX poll immediately. Otherwise fw_cb() will call
-+		 * cdns_mhdp_update_link_status() once firmware finishes
-+		 * loading and sees bridge_attached is true.
-+		 */
-+		if (hw_ready)
-+			cdns_mhdp_update_link_status(mhdp);
-+		return 0;
-+	}
-+
- 	/* Enable SW event interrupts */
- 	if (hw_ready)
- 		cdns_mhdp_bridge_hpd_enable(bridge);
-@@ -2012,6 +2040,16 @@ static enum drm_connector_status
- cdns_mhdp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct cdns_mhdp_device *mhdp = bridge_to_mhdp(bridge);
-+	bool hw_ready;
-+
-+	if (mhdp->no_hpd) {
-+		spin_lock(&mhdp->start_lock);
-+		hw_ready = mhdp->hw_state == MHDP_HW_READY;
-+		spin_unlock(&mhdp->start_lock);
-+
-+		if (hw_ready)
-+			cdns_mhdp_update_link_status(mhdp);
-+	}
- 
- 	return cdns_mhdp_detect(mhdp);
- }
-@@ -2100,7 +2138,29 @@ static int cdns_mhdp_update_link_status(struct cdns_mhdp_device *mhdp)
- 
- 	mutex_lock(&mhdp->link_mutex);
- 
--	mhdp->plugged = cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-+	if (mhdp->no_hpd) {
-+		u8 rev;
-+
-+		/*
-+		 * Use a side-effect-free capability register for presence
-+		 * detection. A successful AUX read means a sink is present;
-+		 * we do not need link training status registers here.
-+		 */
-+		ret = drm_dp_dpcd_read(&mhdp->aux, DP_DPCD_REV, &rev, 1);
-+		mhdp->plugged = (ret == 1);
-+		ret = mhdp->plugged ? 0 : -EIO;
-+		hpd_pulse = false;
-+
-+		/*
-+		 * If the monitor is still connected and the link is already
-+		 * up, there is nothing to do. Avoid falling through to
-+		 * cdns_mhdp_sst_enable() on every poll cycle.
-+		 */
-+		if (mhdp->plugged && old_plugged && mhdp->link_up)
-+			goto out;
-+	} else {
-+		mhdp->plugged = cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-+	}
- 
- 	if (!mhdp->plugged) {
- 		cdns_mhdp_link_down(mhdp);
-@@ -2288,6 +2348,8 @@ static int cdns_mhdp_probe(struct platform_device *pdev)
- 	mhdp->aux.dev = dev;
- 	mhdp->aux.transfer = cdns_mhdp_transfer;
- 
-+	mhdp->no_hpd = of_property_read_bool(dev->of_node, "no-hpd");
-+
- 	mhdp->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(mhdp->regs)) {
- 		dev_err(dev, "Failed to get memory resource\n");
-@@ -2360,8 +2422,9 @@ static int cdns_mhdp_probe(struct platform_device *pdev)
- 	mhdp->display_fmt.bpc = 8;
- 
- 	mhdp->bridge.of_node = pdev->dev.of_node;
--	mhdp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
--			   DRM_BRIDGE_OP_HPD;
-+	mhdp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID;
-+	if (!mhdp->no_hpd)
-+		mhdp->bridge.ops |= DRM_BRIDGE_OP_HPD;
- 	mhdp->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
- 
- 	ret = phy_init(mhdp->phy);
-diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.h b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.h
-index b53335b0d22c..24ffb732a207 100644
---- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.h
-+++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.h
-@@ -388,6 +388,7 @@ struct cdns_mhdp_device {
- 
- 	bool link_up;
- 	bool plugged;
-+	bool no_hpd;
- 
- 	/*
- 	 * "start_lock" protects the access to bridge_attached and
+Questions for this RFC:
+
+  - Should IS32FL3207 remain a standalone multicolor driver, or should
+    support be integrated into the older is31fl32xx driver?
+  - Is assigning software-node children in the generic I2C mux core the
+    preferred way to describe PCI-card mux topologies?
+  - Which tree should carry the cross-subsystem series once the LED and
+    I2C changes are reviewed?
+
+Validation performed:
+
+  - dt_binding_check, including schema lint and example compilation
+  - ARM64 and x86-64 W=1 builds of all three modified driver objects
+  - x86-64 sparse C=2 checks with endian checking enabled
+  - strict checkpatch and git diff --check
+  - I2C addresses and LED channel mapping validated on an R4006 using the
+    existing downstream implementation
+
+The complete upstream series has not yet been boot-tested on the card.
+One portability limitation is that the ICP10100 has a fixed 1.8 V board
+rail but its driver requires a vdd regulator. ACPI server systems provide
+the dummy regulator used by this PCI target; an ACPI-disabled system may
+leave the pressure sensor unbound. Feedback on whether that supply needs
+an explicit representation before v1 would be useful.
+
+Ahmad Byagowi (4):
+  dt-bindings: leds: Add IS32FL3207 controller
+  leds: rgb: Add IS32FL3207 controller driver
+  i2c: mux: Propagate software nodes to channel adapters
+  ptp: ocp: Add R4006 I2C peripheral topology
+
+ .../bindings/leds/issi,is32fl3207.yaml        | 204 +++++++
+ MAINTAINERS                                   |   7 +
+ drivers/i2c/i2c-mux.c                         |  55 ++
+ drivers/leds/rgb/Kconfig                      |  11 +
+ drivers/leds/rgb/Makefile                     |   1 +
+ drivers/leds/rgb/leds-is32fl3207.c            | 541 ++++++++++++++++++
+ drivers/ptp/ptp_ocp.c                         | 485 +++++++++++++++-
+ 7 files changed, 1278 insertions(+), 26 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+ create mode 100644 drivers/leds/rgb/leds-is32fl3207.c
+
+
+base-commit: 69963a0678a347d57c4ac8b16939dba216eb95ce
 -- 
-2.34.1
-
+2.50.1 (Apple Git-155)
