@@ -1,285 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FCE390C85
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 13:29:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80EE3B19CA
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 13:30:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785677373; cv=none; b=vBdmtfcNcfR/QVkSWeo2ZfDMdBJUjkQ+i1OywPjn91w/5WJ0PzJPJdbZeO5XOi0H/6By5A+w6Ez3GPxueVZU7jZ8m0qrt3Yxap7HYlj7IDlzCuhx0xjWbKz/wREwChbNZNoo+bgOc80pHOJJU0y4QUeX4cn7pRvCx+VJRHQSZtQ=
+	t=1785677424; cv=none; b=Bd80N3EIwHg7jumqTaZModRTbM1sMyq6yc5GKNrTZdfcBKwEd5gZl+qApC84k1esDCgQjOoaMiE6LgAnScWJY7+G9mwDhIOuwRU0+MrxDPMEr3Jm1zxTDzbsu2j/p4Gm6ahPma3mollyNK2xXQidbyTFZmcqkqCO2ayE4SH2F50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785677373; c=relaxed/simple;
-	bh=Vx6atyePmZhMD1xDeyHVfZSIxO38yC1YPLdTK3pm0EA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=vEHzYxaBM0mE8AIvQKtQr//xd5R23bKJbs6Ed3O2j2oY6s8/WvEQnid2x2KCTICYFDKPFH1bV3s9SArjxoWoAIoawjGdyyibgYW9j9fL4SCS02nW2yWbmA06vYyxox1p5/ViE323fDZn1VkX1bhX+c/Hsgm1QdGqEVRThZqZuew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaTbG89W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785677424; c=relaxed/simple;
+	bh=6+MsTxqLn3+j1CNnnq7//8dYOGO2DnYXhvIoC/Ul9lI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dKuYfWTNimKM62OPLkkYychp9bOfIvw7bQWBg0uIYNG16YZkLLnTARd7HShjCDkbZrznjgfgaWxXMDbrB1GMPKFfJy87ry9mFcLVWvt9zKGCLJ9G172d/HXdprgbhF3eP8pnotnXik7/Y9WWa4feaHyN+mw2HRLlaJtnLRSze+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AJek9/6i; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LkN9pVOU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaTbG89W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF451F000E9;
-	Sun,  2 Aug 2026 13:29:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785677371;
-	bh=784rCKxpdxhrxSIZpjsZoTsyJ0Ilh27xaqbgcAl22R8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kaTbG89Wv5M+6l8yJRpETxx0U6Mc8BW5CagK7dP502hydfsFI1eFAu70i+i9/5g8X
-	 oelUpalBm5OzsgevXzR0Z71zQ9y8M+HWLTw0FBPkuDS2ni8z8han3PZxigvT4y9SHg
-	 ttw4ZqZovV88oCVma7cmc6zECYoUDkmNFQUI0vx3uBTNPuWmpW/qRPb2SS5MK8Y9ET
-	 OdN/Lp+Wg38/zP0Cg7PCaCTaTJkrExQWIy+9SyM5K4d2RC2lpz/uEZYBlgR7YCIFBN
-	 LGvaL+Jodz0IG0Tx9iYhcHQ79nV52WYfhvNkjKuwuzNWurobT20n+LKkFW/w+YO6tr
-	 S0FYxZ03qMtmw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] i2c: qcom-target: Add driver for Qualcomm I2C
- target controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Viken Dadhaniya" <viken.dadhaniya@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260802-i2c-qcom-slave-v2-2-27653118fa75@oss.qualcomm.com>
-References: <20260802-i2c-qcom-slave-v2-0-27653118fa75@oss.qualcomm.com>
- <20260802-i2c-qcom-slave-v2-2-27653118fa75@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 13:29:30 +0000
-Message-Id: <20260802132931.4DF451F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AJek9/6i";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LkN9pVOU"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672B6bGf1487138
+	for <devicetree@vger.kernel.org>; Sun, 2 Aug 2026 13:30:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BH01Edhq/ypeap0BG3p414W44OzHwtPMsqAEhHXxmkw=; b=AJek9/6iqVZvx/Bm
+	cPQhMoV78fr4rY2+r0+SjBgKb7ErfWC/EgzBVYUNEnwd+W2aP7pMBBbinn19o5pR
+	AF3LjtMxXawtKeqyK/BGOMj2CyUmmfW07zSgOEF0c7a83Tlci244B5EPZiqbieFs
+	Fr2/MhDRVHcmFiKi7H0otfsJHV/dGzTr89OY7Hnv4+BNGRNJI7YuN2V4VUOJjb86
+	8SNeenjNEwwt/Rfrmh1scLMrtrem3HdjfwqAN9oXACEhqq/O/mDnnkbRKVXNbTWM
+	uFlRiVwdSVvQWL2yOJeJun7NaBHbLHF0x6I9QzJ8SPafumPXbu9MEjhTPIYDxjSJ
+	PN9zdA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8r6jx0e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 13:30:20 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1d7886cdso50077921cf.1
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 06:30:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785677420; x=1786282220; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BH01Edhq/ypeap0BG3p414W44OzHwtPMsqAEhHXxmkw=;
+        b=LkN9pVOUvstzQuP2MEQ06GcLP3WBx3kKXeEIlbg+kXyQyoYAtiaORBhyRp02H5cCJN
+         8EE8rYH8l4s2uTYMdccwB9IM+CCm1Cya1JNnoV/e0G/94Cplyv9K0IgZ5F+uA4e+8vHq
+         f66c7tVgZQFAR6SpEVSg1AW7j8rX4qL+iwIsaotuUvpUPLBk+QTBaQ6vLkeTHYs8GO8D
+         4QsDGTrP/vvbwrqPZ6ia6ovpkqjoJcngVXw86p7kG3r/HKghV/Mc5tXIMIf/lP5QqWt+
+         WUQF7rnlejKM9XHmFLaOccrD/K1xDkos6PbXpOXREOmmW0EULJ3rBaL5SyZKAoLmOdaz
+         /QcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785677420; x=1786282220;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BH01Edhq/ypeap0BG3p414W44OzHwtPMsqAEhHXxmkw=;
+        b=fJdxhDBeVIz7LtBR7gnHtsnvSDfhDRyUOVJ/pg7cCciciOUMc9h5ntWZyauOFt/UGm
+         ZxLe4QSHDJDA5DVeBlWm3Iw/kWrXoFL+raGDjxhQmGhDVS7YVzlN/FaaMKwMMJvGuKHC
+         WVU7cDwB79qSdFu4WF0ERK0kSY6qk4HR8bIzsc97kpr9qk2Y1q4++7ScoQJz8XyVopOF
+         x7yw0GBu3FxHH0NuxzDmpZreVLOWd4j0gA+7YAOxrQ0rwN8nNtPxOgWI5bK5dMPaGaFn
+         XErl03hlwmGbJFaZ3eyTqPrrbdvi/qea3cCyc5w5IukjzZfYxyOGcDmsVHuZa+CMEyKQ
+         t7XA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr8uHWhK90URMqL81SsSKMeXXtPRgAY1T9Rr1QtxPqkV+h1ztyG3bmX0rN6MsStli+7I7sDazI5KTlV@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxf1IzlYVEH1AzOMcSAhaB1aGTvxwhOjqmXjjG/EH15w0tm/0jW
+	vVCHS2SUbLqKx/2Y/WGkFHTeb4mr5ZR+3xGaocmIpQ59BGamLsemSD6dn/7iPVXh8KPziLrVnsS
+	5tKuA6MOVMsPsBl6k+h/LZ5O6fn+6dv8MMbN4nq9Vk10nMIb1tUo1QVUNu4lU+hUf
+X-Gm-Gg: AR+sD13X+o0fO4NsJ2dQCMWH4G6KJ8FKlUZu8ncwdnefnRrAj7lCsp4WU/4BSpd6XAo
+	qQSRYSQnLmiuKNTc2zTeEFQh+lnSw6zM31n8PS4zYH21vRrjWw/FjEqcMUGDXNStemc6xeOq6yr
+	c8A8ClIO8nDupsUtj0Ec22c8Tus77XDHjGwcm7vOqJHUC4E60trtHV+mxpQf1guztvXB4VV3N40
+	6So8cbrIeZloAoGRV2gG6yWsO/0ERWh+s3YBVpITPEQAZvIstv0gBmnipfsrXRPPXv39DUojxLx
+	VN8UezKjlAnocQojZmFUVS2wGu7yNvEEIM9tDzqQzm2dmaxbbVOCdRMKUdBISfYpQ945zyRnVr9
+	tHm1n1rVi5uNeBsop2GJGVyDcw0M=
+X-Received: by 2002:a05:622a:230a:b0:51c:8571:1ccc with SMTP id d75a77b69052e-52b567f2645mr142671861cf.41.1785677420040;
+        Sun, 02 Aug 2026 06:30:20 -0700 (PDT)
+X-Received: by 2002:a05:622a:230a:b0:51c:8571:1ccc with SMTP id d75a77b69052e-52b567f2645mr142670611cf.41.1785677419490;
+        Sun, 02 Aug 2026 06:30:19 -0700 (PDT)
+Received: from [192.168.68.104] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49808690ffbsm157118855e9.10.2026.08.02.06.30.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 02 Aug 2026 06:30:18 -0700 (PDT)
+Message-ID: <f24e2ad7-520a-4a19-9ebc-5771703de22d@oss.qualcomm.com>
+Date: Sun, 2 Aug 2026 14:30:16 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/7] dt-bindings: sound: qcom,q6dsp-lpass-ports: add
+ Audio IF clocks
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260801054610.4047089-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260801054610.4047089-4-prasad.kumpatla@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260801054610.4047089-4-prasad.kumpatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAyMDExOCBTYWx0ZWRfX+RN8L6/HSw2F
+ f/KC38q3Kz+ks/245ODnAPud9QWXFjbHfwoBmCUYHekHXVjTI3dQgcZQLG8PUj3rXHYyIkUP67s
+ 02sUX69DJNDz4k1KtVMd3CsKvHze02s=
+X-Proofpoint-GUID: v32JLdqg9CY0saavoLHRV8bATqNlmaiX
+X-Proofpoint-ORIG-GUID: v32JLdqg9CY0saavoLHRV8bATqNlmaiX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAyMDExOCBTYWx0ZWRfX7cS0aX9vSqog
+ jfGTydwGy2UB1OZNUqwwfMICEar8vzOANmvz9pg39eWoHKo4ShWJ5heHQuC6ZS9JJj8A03v1ufz
+ PjpIbkR+ttqYvGUVn2Uk82GP8NXhC1NYIRwapmXtALM9gwEsgxwgp7+AD9O2sl8598GUFrk1S69
+ 4L6Z41LdJRnoQYX8Xr4KZN85K8IlMDqtUwE5j5qKNS4uUykd5wZLCrsuq5uAjBoo4iDf3J/+qSn
+ B1vHQ16uC+pXR+Dn7IkTmNpwK5iYQFcws8HkQBP61WgZc/a2xFKMKZmPorJfryBSaKZY1nRbMvY
+ G63PIp5db3+zUEo+AsY/tuWUsAEyPiWDl0lhNTlYqWqyvPwKjSxzdvDCpiS4v+sB8sQ/rOAxeE/
+ zEseez6ytnYMzz1VUNEBltz2Rf/RqWGvJAGLvxzbY7b7JWwB2K9QgTa/3+xGdUVh0WqApp2h4gO
+ uJpznpuZPJxIX0xRNUQ==
+X-Authority-Analysis: v=2.4 cv=Q5ziJY2a c=1 sm=1 tr=0 ts=6a6f466c cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=S0i2IUftuXgoZizot94A:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-02_04,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608020118
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Enabling the I2C target core without a registered slave client exp=
-oses the system to unrecoverable I2C bus lockups and interrupt storms.
-- [High] Unbalanced disable_irq() in the remove function hangs the I2C bus =
-and causes kernel warnings.
-- [Medium] Incorrect IRQ dispatch order causes RESTART_DETECTED to wipe sta=
-te after data phases are processed, corrupting the I2C slave state machine.
-- [Medium] Failure to clear `target->status` during PM suspend/resume corru=
-pts the I2C slave event sequence on the next transaction.
-- [Medium] Using devm_clk_get_enabled() causes a clock reference count unde=
-rflow if resume() fails.
-- [Medium] Writing configuration registers immediately after asserting SW_R=
-ESET without a delay may cause the initialization to be ignored by the hard=
-ware.
-- [Low] Concurrent calls to `qcom_i2c_target_reg_slave` lack locking, poten=
-tially causing silent overwrites of the slave pointer.
---
+On 8/1/26 6:46 AM, Prasad Kumpatla wrote:
+> Add the LPASS Audio IF clock IDs used by newer backend interfaces.
+> 
+> Platforms using Audio IF module backends request the interface bit
+> clocks through q6prm. Add the Audio IF IBIT and EBIT IDs to the binding
+> header so these clocks can be referenced from device trees.
+> 
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+> ---
 
---- Patch [2]: [PATCH v2 2/2] i2c: qcom-target: Add driver for Qualcomm I2C=
- target controller ---
-commit d082641ecccd906b168547525bb8607e63afab2a
-Author: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-i2c: qcom-target: Add driver for Qualcomm I2C target controller
+>  .../sound/qcom,q6dsp-lpass-ports.h            | 29 +++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+> 
+> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> index 7b553a73bc92..fbcf1ef9ce22 100644
+> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> @@ -233,6 +233,35 @@
+>  /* Clock ID for RX CORE MCLK2 2X  MCLK */
+>  #define LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK	70
+>  
+> +#define LPASS_CLK_ID_INTF0_IBIT		71
+Patch itself looks fine for me,
+But the naming seems to be bit odd and misleading,  what does INTF mean
+is it QAIF or some other Interface.
 
-This patch introduces a new driver for the Qualcomm I2C target controller,
-allowing compatible SoCs like the QDU1000 to operate in I2C slave mode.
-It registers with the Linux I2C slave framework and handles interrupts for
-RX FIFO, clock stretching, and state recovery.
+Please prefix the interface name something like
+LPASS_CLK_ID_QAIF_IF0_EBIT or LPASS_CLK_ID_TDM_IF0_EBIT.. etc.
 
-> diff --git a/drivers/i2c/busses/i2c-qcom-target.c b/drivers/i2c/busses/i2=
-c-qcom-target.c
-> new file mode 100644
-> index 0000000000000..79b0b9ff7b9bf
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-qcom-target.c
-[ ... ]
-> +static void qcom_i2c_target_hw_init(struct qcom_i2c_target *target)
-> +{
-> +	dev_dbg(target->dev, "HW init: resetting FIFOs, enabling IRQs and core\=
-n");
-> +	writel(CLEAR_TX_FIFO | CLEAR_RX_FIFO, target->base + I2C_S_CONTROL);
-> +	writel(QCOM_I2C_TARGET_ALL_IRQ, target->base + I2C_S_IRQ_EN);
-> +	writel(I2C_S_CORE_EN, target->base + I2C_S_CONFIG);
+--srini
 
-[Severity: High]
-Could unconditionally enabling the I2C core here before a slave client
-registers expose the bus to lockups? If an external master sends a General
-Call to address 0x00, the hardware will ACK and stretch the clock.
-
-> +}
+> +#define LPASS_CLK_ID_INTF0_EBIT		72
+> +#define LPASS_CLK_ID_INTF1_IBIT		73
+> +#define LPASS_CLK_ID_INTF1_EBIT		74
+> +#define LPASS_CLK_ID_INTF2_IBIT		75
+> +#define LPASS_CLK_ID_INTF2_EBIT		76
+> +#define LPASS_CLK_ID_INTF3_IBIT		77
+> +#define LPASS_CLK_ID_INTF3_EBIT		78
+> +#define LPASS_CLK_ID_INTF4_IBIT		79
+> +#define LPASS_CLK_ID_INTF4_EBIT		80
+> +#define LPASS_CLK_ID_INTF5_IBIT		81
+> +#define LPASS_CLK_ID_INTF5_EBIT		82
+> +#define LPASS_CLK_ID_INTF6_IBIT		83
+> +#define LPASS_CLK_ID_INTF6_EBIT		84
+> +#define LPASS_CLK_ID_INTF7_IBIT		85
+> +#define LPASS_CLK_ID_INTF7_EBIT		86
+> +#define LPASS_CLK_ID_INTF8_IBIT		87
+> +#define LPASS_CLK_ID_INTF8_EBIT		88
+> +#define LPASS_CLK_ID_INTF9_IBIT		89
+> +#define LPASS_CLK_ID_INTF9_EBIT		90
+> +#define LPASS_CLK_ID_INTF10_IBIT	91
+> +#define LPASS_CLK_ID_INTF10_EBIT	92
+> +#define LPASS_CLK_ID_INTF11_IBIT	93
+> +#define LPASS_CLK_ID_INTF11_EBIT	94
+> +#define LPASS_CLK_ID_INTF12_IBIT	95
+> +#define LPASS_CLK_ID_INTF12_EBIT	96
+> +#define LPASS_CLK_ID_VA_INTF0_IBIT	97
+> +#define LPASS_CLK_ID_VA_INTF0_EBIT	98
 > +
-> +static void qcom_i2c_target_write_requested(struct qcom_i2c_target *targ=
-et)
-[ ... ]
-> +static void qcom_i2c_target_hw_reset(struct qcom_i2c_target *target)
-> +{
-> +	/* Clear error bits before SW_RESET; the reset may not be instantaneous=
- */
-> +	writel(BIT(ERR_CONDITION) | BIT(CLOCK_LOW_TIMEOUT),
-> +	       target->base + I2C_S_IRQ_CLR);
-> +	writel(SW_RESET, target->base + I2C_S_SW_RESET_REG);
-> +	qcom_i2c_target_hw_init(target);
+>  #define LPASS_HW_AVTIMER_VOTE		101
+>  #define LPASS_HW_MACRO_VOTE		102
+>  #define LPASS_HW_DCODEC_VOTE		103
 
-[Severity: Medium]
-Since the comment notes the reset might not be instantaneous, is it safe to
-write to the configuration registers immediately in qcom_i2c_target_hw_init=
-()
-without a delay? Could the hardware silently drop these writes while it is
-actively processing the software reset?
-
-> +	writel(target->slave->addr, target->base + I2C_S_DEVICE_ADDR);
-> +}
-[ ... ]
-> +static irqreturn_t qcom_i2c_target_irq(int irq, void *dev)
-> +{
-> +	struct qcom_i2c_target *target =3D dev;
-> +	u32 irq_stat, rx_bits;
-[ ... ]
-> +	/*
-> +	 * Load target->slave once. Both reg_slave() and unreg_slave() disable
-> +	 * the IRQ before writing the pointer, so it cannot change while this
-> +	 * handler runs. Sub-handlers may dereference target->slave directly.
-> +	 */
-> +	if (!READ_ONCE(target->slave)) {
-> +		writel(irq_stat, target->base + I2C_S_IRQ_CLR);
-> +		return IRQ_HANDLED;
-
-[Severity: High]
-If the core was enabled during probe, but no slave is registered yet, could
-this early return leave the bus permanently stretched?
-
-Since this path clears the IRQ status but doesn't write to I2C_S_CONTROL to
-issue an ACK_RESUME or NACK, a General Call will cause the hardware to hang
-the bus waiting for a command.
-
-> +	}
-[ ... ]
-> +	rx_bits =3D irq_stat & (BIT(RX_FIFO_FULL) | BIT(RX_DATA_AVAIL) |
-> +			      BIT(STRCH_WR));
-> +	if (rx_bits)
-> +		qcom_i2c_target_handle_rx_data(target, rx_bits);
-> +
-> +	if (irq_stat & BIT(RESTART_DETECTED)) {
-> +		dev_dbg(target->dev, "Repeated start bit detected\n");
-> +		target->status =3D 0;
-
-[Severity: Medium]
-Does clearing the status here corrupt the slave state machine if a Repeated
-Start and a data phase assert in the same interrupt read?
-
-If irq_stat contains both STRCH_RD and RESTART_DETECTED, the earlier call to
-qcom_i2c_target_handle_strch_rd() will set READ_IN_PROGRESS. Then this code
-clears target->status, wiping out READ_IN_PROGRESS and causing subsequent
-reads to mistakenly trigger new I2C_SLAVE_READ_REQUESTED events.
-
-> +		writel(ACK_RESUME, target->base + I2C_S_CONTROL);
-> +		writel(BIT(RESTART_DETECTED), target->base + I2C_S_IRQ_CLR);
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int qcom_i2c_target_reg_slave(struct i2c_client *slave)
-> +{
-> +	struct qcom_i2c_target *target =3D i2c_get_adapdata(slave->adapter);
-> +
-> +	if (target->slave)
-> +		return -EBUSY;
-
-[Severity: Low]
-Is there a lock missing here to prevent concurrent slave registrations? If =
-two
-threads concurrently check this, they might both see NULL and proceed, caus=
-ing
-the second one to silently overwrite target->slave.
-
-> +
-> +	if (slave->flags & I2C_CLIENT_TEN)
-[ ... ]
-> +static int qcom_i2c_target_unreg_slave(struct i2c_client *slave)
-> +{
-> +	struct qcom_i2c_target *target =3D i2c_get_adapdata(slave->adapter);
-> +
-> +	if (!target->slave)
-> +		return -EINVAL;
-> +	disable_irq(target->irq);
-> +	WRITE_ONCE(target->slave, NULL);
-> +	target->status =3D 0;
-> +	writel(0, target->base + I2C_S_DEVICE_ADDR);
-
-[Severity: High]
-When unregistering the slave, this sets the device address back to 0 (Gener=
-al
-Call). Since the core remains enabled, doesn't this recreate the bus lockup
-vulnerability described earlier where external masters sending a General Ca=
-ll
-will hang the bus because the IRQ handler no longer services the transactio=
-n?
-
-> +	enable_irq(target->irq);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int qcom_i2c_target_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	target->xo_clk =3D devm_clk_get_enabled(dev, "xo");
-> +	if (IS_ERR(target->xo_clk))
-> +		return dev_err_probe(dev, PTR_ERR(target->xo_clk),
-> +				     "failed to get and enable XO clock\n");
-> +
-> +	target->ahb_clk =3D devm_clk_get_enabled(dev, "ahb");
-
-[Severity: Medium]
-Because these clocks are requested using devm_clk_get_enabled(), devres will
-automatically disable them when the driver unbinds.
-
-[ ... ]
-> +static void qcom_i2c_target_remove(struct platform_device *pdev)
-> +{
-> +	struct qcom_i2c_target *target =3D platform_get_drvdata(pdev);
-> +
-> +	disable_irq(target->irq);
-
-[Severity: High]
-Does this unbalanced disable_irq() lead to kernel warnings during devres
-cleanup?
-
-Also, since the IRQ is disabled before the core is shut down below, if a
-transaction arrives right now, the hardware will stretch the clock and wait
-for the IRQ handler. Because the IRQ is disabled, the handler never runs,
-leading to an I2C bus hang.
-
-> +	i2c_del_adapter(&target->adap);
-> +	writel(0, target->base + I2C_S_CONFIG);
-> +	icc_set_bw(target->icc_path, 0, 0);
-> +}
-[ ... ]
-> +static int qcom_i2c_target_resume(struct device *dev)
-> +{
-> +	struct qcom_i2c_target *target =3D dev_get_drvdata(dev);
-> +	int ret;
-[ ... ]
-> +	qcom_i2c_target_hw_init(target);
-> +	if (target->slave)
-> +		writel(target->slave->addr, target->base + I2C_S_DEVICE_ADDR);
-> +
-> +	return 0;
-
-[Severity: Medium]
-Could the lack of clearing target->status here cause the I2C slave event
-sequence to become desynchronized?
-
-If a transaction was aborted by system suspend while READ_IN_PROGRESS or
-WRITE_IN_PROGRESS were set, they will remain set upon resume. The next
-transaction would then mistakenly skip sending the I2C_SLAVE_READ_REQUESTED
-or I2C_SLAVE_WRITE_REQUESTED events.
-
-> +
-> +err_disable_xo:
-> +	clk_disable_unprepare(target->xo_clk);
-> +err_disable_ahb:
-> +	clk_disable_unprepare(target->ahb_clk);
-> +	return ret;
-> +}
-
-[Severity: Medium]
-If qcom_i2c_target_resume() fails and takes this error path, it manually
-disables the clocks. Since the clocks were registered via
-devm_clk_get_enabled(), won't devres attempt to disable them again when the
-driver unbinds, causing a clock reference count underflow?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-i2c-qcom-s=
-lave-v2-0-27653118fa75@oss.qualcomm.com?part=3D2
