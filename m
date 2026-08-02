@@ -1,142 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f10.google.com (mail-ed2-f10.google.com [74.125.228.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D34C8EB
-	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 02:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785639050; cv=none; b=JhZnq0+rAtt2QX2+Cin4vzdlUJ7gicBoP/GKJ/UawF58ZkF+P2pUeMfR6afYvz3b87zFvICktScOGGE3PxGc0ntHRnG72U/mz6a2DPeu5ol0A4C02y9qM3yqiCsqcqPpeBxKtIPPQapqqpKlXA3R2YXa4ZLL/pUuMiezsNZFC1M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785639050; c=relaxed/simple;
-	bh=B9xxYv0C1ukaF9udJFweRH9LRhrnYKTVbmI5s9y/IWs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kFyImEfw5l+H2tLCzzbGH13r2kuyrcabMVU/mqJbRb4sIuA/1C6z0M0ewOK7CihGfp2sVCBfL71IzvRiK+sj4Rqt04e6e3l4DcTen0QGrW5uz9hAwQmsrxfqHRW3nKhJMzF2iPVKoTfgp/o3l/3fTqU1ss6yenwTTygLypmjl2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=atcwvMD2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AD01D5CFE
+	for <devicetree@vger.kernel.org>; Sun,  2 Aug 2026 03:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.74
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785640310; cv=pass; b=nDW8fstDIb074bH7sG0C2Zmq9t5s9tMV4NL22VA1W1O/bfgLgzn4sxiy8w2qGwLcXKVSWWJ2HBuTcX4QsFe8RTHsA1NFhZvsT/q8xyo2QEH2LgKgyKiNPPRFAcTEVA2NBxFZI7D5iW1gpORZNeiYUc92oCIWCfp6zr4arC19F38=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785640310; c=relaxed/simple;
+	bh=h/qPNbFzuWh+d9q8xOJUsBHHg8cmlcEFMBu7sZocerM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=vA8xOQFE2UWfyu5tlCowg8lVRFcjK6BLN/k2v9i48l/INdQTHuW1LLuyWaURsviis8jetBu9Gm1o8syQ/K1OHmtaQtfjiljxzHG3reD7Aa46/qC6kGW8BQ8cMATFq+ZOMwhB+j3UB4NXAPzqGnrUDny+FP/R8MDJJwwhEbw+0To=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O4TjMDOE; arc=pass smtp.client-ip=74.125.228.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="atcwvMD2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8053B1F00AC4;
-	Sun,  2 Aug 2026 02:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785639048;
-	bh=dSUlydtuPJF6NSnQQb3lz7Oy0VB4DHcORV++VMRgHug=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=atcwvMD2KiXucCbsOtG3HNEr9Kz2ySbSUGgUOmNDCE0o5CsyTOHfsvS50jVMg5uI4
-	 ZykZMZGzHLJMRa4jfidvb8jmaMTUWUpmCMk7o+9F0TMx81O7sD8UeVKYUyWrPOHsdZ
-	 JbCx3XUBfQVfN68xK4X+tEFvwFE73czJ4kb+W6kzqBmGGzk7qUbetnL9LgyOqYuqqD
-	 JerMIp1AihWxKIZK+e1WQ4P9YO7LMmJ96lSph0duYrr0NUDTUM9U3lJha05v0sJqdy
-	 oWhg/sWklllCOyVW3YRvUX0REqrDDeCdA+TwLlLTcAPO/AockkYyLoAxKX4ALT03Aj
-	 jZwqjXL6Q5VYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1] of: Put coreboot node after compatibility check
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yuho Choi" <dbgh9129@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260802023821.494178-1-dbgh9129@gmail.com>
-References: <20260802023821.494178-1-dbgh9129@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 02:50:48 +0000
-Message-Id: <20260802025048.8053B1F00AC4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O4TjMDOE"
+Received: by mail-ed2-f10.google.com with SMTP id 4fb4d7f45d1cf-6a0942e63b9so1301619a12.1
+        for <devicetree@vger.kernel.org>; Sat, 01 Aug 2026 20:11:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785640307; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sLcdvNVuanOG/knwVUTXl2KLWQbNBCUJX2F/3bWTjEOkQ1ELE0JQz8kYR+PlV7GL0K
+         jPZ70i22NgBnArIpvZEyz0CGDsvkix/oybEBTGQB33tpcJ6ZMJi1CnRRHGnTfBXeMVcP
+         QtFaE7BUNVlsOiwNXHcgcFKrwTJXKUKboKGPrGIFbz25FsYyBsAtetviqtKVRQVCmvue
+         n6+hmlaQ/js6y0ML5ciarIszcEXM14Apu6ueHVYcB0sX2LJwd2+ZZcgHMqP6mrIfCaDs
+         L3Dvp5yltMnVnwsbkrEQr7KOnBfXKC9Fj5oeFFDsiuanUtp+XWwjA0BiACS03ZvY73rj
+         ykOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=c7i9JdeVJzDWpjjDEXDdnp2erjUKykrkBMYRh4KI/Og=;
+        fh=Xo7bZhu0mN3Y+ePcI9eouh1KbY9ihyDlxPBPFHzc6bs=;
+        b=P+m405gHCfN6PnKLqC9k6WhANjR8Qj+Ric2ZRAxZ1+bDOSjOW3h301NReF3J76BmUd
+         grHRGUPmlNz+jxfN+ZWQ5rQNW8m+jfb2ku78+tLgogB3SqW5258AbBO0LiU2AfrHf0UW
+         BnEoKB8Kjj9XPWf7f1Pigz/uLI8/Al/en6onTIlyUNX2OpVtURyusE9DWHdTYVJqP7Rm
+         gcfWutgTx1hxYQyhy4HFEWGPZiZxMevh7VsBZ8m+Od/vxmjONzsihMW81GR7McE30BRS
+         xhn524NNJPYb/TOzMPMXssa+KI1HhHqxwMfbQYBt57YrFmuYDRcLvh5X7liI47PeykEa
+         J6ww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785640307; x=1786245107; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c7i9JdeVJzDWpjjDEXDdnp2erjUKykrkBMYRh4KI/Og=;
+        b=O4TjMDOEmS6pyMPSkwks2y9sHNkqT63FDsWuHoFfYw39SG54OcTdFKI6F1mRZESwHi
+         UWxUrw1LT9JeOil82KahPV5/nGhoONpK3XhzHBHSXcp+EtD3Hj0smaKEmW5Pq9DanEzY
+         QVWNXGz3ncBjC1jPCr8AWMqDSxiPiaRtGJ+bwgkxAcIX9KsFJcvFFlPfn1HcgtiX2icI
+         e8UoFZXzqew8Ijm3ftCqmfrK80K8ta0lE9YEUIUWQlYb2frOdZpieJUdbdJuUFRwStla
+         SdSC6IhGa8dbTwWpQcSBzEytd/5ykOJWbMwZO3iyXrrtlZu3uT/xdfMgKoMEGpsQ7+EG
+         K8aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785640307; x=1786245107;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=c7i9JdeVJzDWpjjDEXDdnp2erjUKykrkBMYRh4KI/Og=;
+        b=l6H+2hbNEZpDonS5VZOX/WoWxaa7EcrKTpRGHdUls4/ZB06o6qsJ4j8PHMNB0cp+4c
+         E1D/WIDrrybq34MlCduWTP8j70ifJb2EokIH8pViR9RzOxG6cIsEryxo50D/6YTxefi/
+         nzPzDcZzCnLbnIq8nBimskAKFgKpIjbKAI1TqF5YPLa0qnR5gFIVM/BjGA87llZA5h+d
+         i0tzPSs2ZUHD38UuhVO1J745W7Y87wlwyorvXwFLJRAZQwW8i4tlxPk0pZN2dSVYhH81
+         O7pSTwy1x7PBp6TqD1N+17TGNq3ETh+Hou9qqJx4Nt6lN4e7vw3hxytDd83J4pVqCXRD
+         4Jog==
+X-Forwarded-Encrypted: i=1; AHgh+Rr0Cj9lQKsxLgRnQeSt/0RTSySHN7sayKggXwpqhjCLja8C4bU2JrsTV16/caJGzXQoxztZhZQ40ems@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywe/caHJHG6mLcjiJoJUeTn+/d1FFhxyFcrByxLxPnVisdiBfXS
+	O5qGRgr3vCyjX5EpCJSQhIxEbHN4kDF9h5Sg1RpvnzEZuEcTGbSmbi+vXYb89eAVq16bELR7R4G
+	DL3qdM29U83KPSRsFt31UHLSqUmsrYns=
+X-Gm-Gg: AR+sD12aYjywCSz5gtE08dRFDDuXGjr+ebM4JTeG+znk0C023LEuyXNbci13vf6zBex
+	XrJt2KfD8ER4FLtLDuklRFjYXxpuUrdFRph6QlbpJm5Oo+y9U9nTzG/UG20hzUjnPq4SkqBAkRg
+	cQZYuZqXMbfVsLQ+51bRz1u3QLIF5VQb/qH8efxRgV7jA7YaAuLcivTKIsUOt78QcvVbh86CQFQ
+	e/QXhb8P7Pqhi8yrtsmbiNlZ7V5fSEVbMIVyCYMRoC1a9B3QzJcL0AqkmC03dgxj8Hc1LHA+GVY
+	GVunFqnHaH45aFUeHJtg7g1hc0FkGGbHmlg9vHbzMg7fmBR6qG+tv+sXt9k=
+X-Received: by 2002:a17:907:a0a:b0:c16:318:34e3 with SMTP id
+ a640c23a62f3a-c1fe7ee16b4mr409057166b.16.1785640307171; Sat, 01 Aug 2026
+ 20:11:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260801142244.679437-2-coiaprant@gmail.com> <20260801142244.679437-8-coiaprant@gmail.com>
+ <cfddb747-11d0-476d-8402-e0886cca582e@lunn.ch>
+In-Reply-To: <cfddb747-11d0-476d-8402-e0886cca582e@lunn.ch>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Sun, 2 Aug 2026 11:11:40 +0800
+X-Gm-Features: AUfX_mxry2V8YGgxr6fvsxNhCSaA_pBDCP69byM5eyulpGFZP2LcAYzvhwycRyM
+Message-ID: <CALj3r0i1TCTgvm8FrJAJqmZgoJp61NCxc_xmVYaDFd-gh4H=7w@mail.gmail.com>
+Subject: Re: [PATCH v2 06/10] net: pcs: xpcs: add ANRESTART support for SGMII
+ link recovery
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Romain Gantois <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-renesas-soc@vger.kernel.org, Jiawen Wu <jiawenwu@trustnetic.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Andrew,
 
-Pre-existing issues:
-- [High] The EXCLUDED_DEFAULT_CELLS_PLATFORMS macro evaluates its condition=
- on every execution of WARN_ONCE, causing repeated full device tree travers=
-als under a raw spinlock.
-- [High] of_msi_xlate() incorrectly ignores the msi-parent DT binding when =
-the caller passes NULL for msi_np, leading to erroneous MSI ID mapping.
---
+Thanks for the careful review.
 
---- Patch [1]: [PATCH v1] of: Put coreboot node after compatibility check -=
---
-commit d698ca1f75edc245216563869cb5c61be66a91d2
-Author: Yuho Choi <dbgh9129@gmail.com>
+> This probably needs more wide spread testing. I would be afraid that
+> if you kick off an AN cycle, you loose the link until it completes?
+> You would of noticed that on your hardware, but other hardware
+> obviously behaves differently...
 
-of: Put coreboot node after compatibility check
+The trigger condition is: link is down AND an_complete is set. This means
+auto-negotiation has already completed (or completed with failure), but
+the link is still down. In this state, the hardware will not restart AN
+on its own on RK3568, so the link stays dead forever. Kicking ANRESTART
+here is the only way to recover.
 
-of_find_compatible_node() returns a referenced device node, but
-EXCLUDED_DEFAULT_CELLS_PLATFORMS used the result only as a boolean and
-discarded the reference. This leaked a reference each time the
-address-cells or size-cells warning condition was evaluated on a
-coreboot system. Use a helper that drops the node reference after checking
-whether the coreboot node exists.
+For a working link (link up), state->an_complete may still be set, but
+the function returns earlier at the "if (state->link)" check, so
+ANRESTART is never triggered on an active link. This should not cause
+unexpected link loss on any hardware.
 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index 6e7a42dedad3f..8d04eaed98053 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-> @@ -95,9 +95,21 @@ static bool __of_node_is_type(const struct device_node=
- *np, const char *type)
->  	return !strcmp(match, type);
->  }
-> =20
-> +static bool of_coreboot_present(void)
-> +{
-> +	struct device_node *np;
-> +	bool found;
-> +
-> +	np =3D of_find_compatible_node(NULL, NULL, "coreboot");
+Regarding testing:
+- Jiawen Wu has tested this on Wangxun NICs and reported no regression
+  (Tested-by tag included in the patch).
+- On RK3568 (Photonicat board), this fixes the SGMII link recovery issue.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but WARN_ONCE unconditionally
-evaluates its condition on every call, even if the warning has already fire=
-d.
+I agree that wider testing is beneficial, and I'm open to running more
+tests on different platforms if needed. However, given the condition is
+strictly limited to "link down + an_complete", the risk of disrupting an
+already-working link is minimal.
 
-When of_bus_n_addr_cells() or of_bus_n_size_cells() are called on a node
-missing these properties, EXCLUDED_DEFAULT_CELLS_PLATFORMS is evaluated,
-which now calls of_coreboot_present().
-
-Since of_find_compatible_node() acquires the global devtree_lock and
-linearly scans the entire device tree for a 'coreboot' compatible node,
-can this cause significant performance regressions and lock contention on
-systems where missing address/size cells are common?
-
-> +	found =3D np !=3D NULL;
-> +	of_node_put(np);
-> +
-> +	return found;
-> +}
-> +
->  #define EXCLUDED_DEFAULT_CELLS_PLATFORMS ( \
->  	IS_ENABLED(CONFIG_SPARC) || \
-> -	of_find_compatible_node(NULL, NULL, "coreboot") \
-> +	of_coreboot_present() \
->  )
-> =20
->  int of_bus_n_addr_cells(struct device_node *np)
-
-I also noticed a pre-existing issue in drivers/of/irq.c:
-
-drivers/of/irq.c:of_msi_xlate() {
-	for (parent_dev =3D dev; parent_dev; parent_dev =3D parent_dev->parent) {
-		...
-		/* -ENODEV: msi-map absent -> check for msi-parent */
-		if (msi_np && !of_check_msi_parent(parent_dev->of_node, msi_np))
-			break;
-	}
-	return id_out;
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does of_msi_xlate()
-incorrectly ignore the msi-parent DT binding when the caller passes NULL
-for msi_np?
-
-If a caller requests MSI ID translation but passes NULL for msi_np, the
-loop termination condition short-circuits since it requires msi_np to be
-non-NULL. This causes traversal to incorrectly continue up the device tree.
-
-If an ancestor node defines an msi-map, it will erroneously apply that
-mapping to the device's ID, leading to incorrect interrupt mapping and
-potential device isolation failure. Should this check handle a NULL msi_np?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802023821.4941=
-78-1-dbgh9129@gmail.com?part=3D1
+Thanks,
+Coia
