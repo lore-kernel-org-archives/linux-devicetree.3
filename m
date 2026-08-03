@@ -1,358 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC3937F8DB;
-	Mon,  3 Aug 2026 10:33:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1D637F339
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785753184; cv=none; b=t1FljSSTwGyD5e9rpxK8QYAM1kUqrDtc+O5bfaGQ6h3xFkBvcKDgJlp/NI3fAKSec7+FduG4Y9FPBshd8Grp737Wuw/Xl2kHSjJJ/68yhQrgvIfSQiBp+dIUwEHEiVXVLwJKmrMdL+uxdDUUOT6jVydzLBoNffRXY36k+u+EMEI=
+	t=1785753190; cv=none; b=mCSk46HpJN24QVPGFXaExXwpMVChrrsMg0/HZMh+KYrOBDMSVTBPhK3pWKXKdiO/R9dHxcb1ncOg/Pf0iu/qkiQZ7HyE2HRTEPUd3yprndkPpMEfX9fQuEoSx9kMzbwmLs1EAlovcRqE0cPfcY2w6C8RNuvTEySB2G1Dh2VsOMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785753184; c=relaxed/simple;
-	bh=pvvVBBdPmwtc1XqUFY4o6ezb+U0sw/2o9BVK9vwNk+8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hyo6x2ZjbvCFWP6eNPNSsQOPBg8eVTgJ3hqpC9/sY+L/BHugRGQglI5sFi/zpFl3Hq0aczogMdpuhed68py4AfQfftSiefI9W5toONBgIpJJ1Es6qAxZxd8jlc0Kc9s5rE1WM4oJH+A8tc2a1WrA7i54G2e5PibrPsfRcUOT/sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NqEOEK2f; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785753190; c=relaxed/simple;
+	bh=XBNsRZbfUu6fSuYCGSsDNVTBu2aJ569/FPmiJkl0pJQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JsBaEl8eqKD101wrVXs7v0vO4SKRCHvnIaeL2ZggTYWNtulGFDiP5tZwpedUS2G8RgG0c1XWd4a+LRBvry4+4yZ3JlDk8i+OkgIDZvQ+E6aMR1qrU/VJ+vIm+E3igAfHnSFfMe4e8/xpJM1IplVUGJIXlawnA15TfQcUVfUijgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZCoOpEQX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TXUkuO6L; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NqEOEK2f"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785753182; x=1817289182;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pvvVBBdPmwtc1XqUFY4o6ezb+U0sw/2o9BVK9vwNk+8=;
-  b=NqEOEK2fzWXT81HI7papkACITwkPL+qeMU/yF93fA+1kAr2kZI0USOOE
-   lpNmRMQpCtXGA5uDb4uVqBIZiZZYmrIUIcNIn5Viubk5eyqzH+dNOZN3A
-   lOzY2D6yuCF+Bg/Yy6CYR9ruV4g/ewuDn8zQrppmDb1NLw4st+OnqFLJl
-   wnJj+WFdEYgUQApGrEsAvwsKJjtje0Og0dt7NhVD1MdzOT27wNIKGjqCj
-   nGbzks3rGON4ZrYJGdpNmmjwd3M2uykOVlnCylsUr3Cwp3J3R1pJ8aWAW
-   Q0iPc9IZjZ/az11631pu+sfz4M9lhyexiMAQ7ammFWm8oQTVuaSzmeh87
-   g==;
-X-CSE-ConnectionGUID: 1pAX0ZNlTt2yJAyfGgpY7A==
-X-CSE-MsgGUID: QrlaPZSaSPSzH/LG66rPwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11863"; a="86488362"
-X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
-   d="scan'208";a="86488362"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 03:33:01 -0700
-X-CSE-ConnectionGUID: hse4iVV4Sea9JeRrrseioQ==
-X-CSE-MsgGUID: ZwTmyxOfQI2NOCGAGhTvKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
-   d="scan'208";a="263172193"
-Received: from zzombora-mobl1 (HELO kekkonen.fi.intel.com) ([10.245.245.14])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 03:28:40 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id C92601205B0;
-	Mon, 03 Aug 2026 13:28:43 +0300 (EEST)
-Date: Mon, 3 Aug 2026 13:28:43 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v10 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
-Message-ID: <anBtWwyNVdKi90Zg@kekkonen.localdomain>
-References: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
- <20260727-mira220-v10-2-8825794e6095@ideasonboard.com>
- <amjAgRnL0vM2eQJl@kekkonen.localdomain>
- <amypEMpDvY47VkG5@zed>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZCoOpEQX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TXUkuO6L"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6736Dm983883017
+	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 10:33:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	HUVEG4Tg21b0/bBSzmUSCw72uxG++6DCgOpS4YwAsSw=; b=ZCoOpEQXZBKeUANP
+	N5DArR8JHarQhGdsvvfy1Wm+ccPqzuXIpEVMgsDtFgPkKV4LM6dPPESHkz2YYx62
+	KpUsZXmvaInaluqx9vctdoxCzesBl1apjQeQwfy5dKN6Z465r0soXr9D+uKUbEEV
+	EXsjEaiY/N9oZXvmiSBta26iFXqgM3hMyeCKGOYVX2w29qrofNrWef2jca640+vc
+	a8G6UaUIZIfgi/yV5msgkQb2m1mUbFS3kwCZQfaw0NgjwUJHUJFXOdsGK5S13qU5
+	C+V+Tlt/DsEYYHsi3mQSou1OYHCl1+rd0E24/M8IaRvQVhfOW07fbX861LaTVMvU
+	DIm6UQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnhkh36k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 10:33:07 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb5cc1e13f8so4257001a12.3
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 03:33:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785753187; x=1786357987; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HUVEG4Tg21b0/bBSzmUSCw72uxG++6DCgOpS4YwAsSw=;
+        b=TXUkuO6LGTQYfRpopHsShtenTn3RE17on4P4Eyn04AM6PXU1y8zhyyFTe7QW1B4u87
+         p8F/mcAYvuVP45cYXQ+nXLMaZqRdvyftqesPasRemCCbPnD8q54HS0ZDbC4N3lQloGzi
+         MhGyUAEUBxq3B0IuBw7wYlwMX8845lWuBu2XgoydIrli3M+sPGULrfR11WQ6T3yN30ar
+         MGeNhYZ2XGgZikIluRvk5iRKfp6hhUwD8uV6teFE6UiXDpaqXNGj4U35oTotrMSXVvxb
+         k77vP29nGwru3Duzj/Vp73gbjLx69xacYsoRGoQK/jjKqybg9wWPQ+4itUHJwl70zAMM
+         G1VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785753187; x=1786357987;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HUVEG4Tg21b0/bBSzmUSCw72uxG++6DCgOpS4YwAsSw=;
+        b=RIJ+O2GY74ByY+4inOMs75/sMnRrhd5HXFbWtVrY1R0wuR8gyaootUugicu4zJ6YoR
+         PwNcNay/Cm1btAFk26KoMvtf4hAVw1aOfeayHAqaBvj8bV7GrTRmitero2pGDGUbwYg0
+         7jibUYNBuqyai5D79FdWH8DeiPXlVHpIdo51U9KsbIjB/7XYm9ewdXN7sW5yz3fP0PaC
+         UttadEWhdbylCkE7rFzPLrdHkEpB6jGQSIkMJtgZXcyDDuHTDfX2mrwz2AHfNB2XbmuO
+         nnQHlS6pqQIdvVGIiJvcaZnQuXCr3Oobw+0iYUDUgvUOg8Qhrp72hnd6iPT7yWeVbx2/
+         g/EA==
+X-Forwarded-Encrypted: i=1; AHgh+RrOxXHxENuEfEEAroep9DTNZXt0cqjz8jEQEHdtR0/ScEsru+pJFobMzXUfKuxkrLwo5dyM4RGGa5BM@vger.kernel.org
+X-Gm-Message-State: AOJu0YxesVzuAKiW9ClgAmDVNzrm4wnTYttHTWe167iMSqtMR//VLJpc
+	IRhfMXV+SojERN4ICotzdEl65FaVLzTq6SBtLIIm9fzQTJQnSIbPuKljjxqnqvsqd485yuEs+Ed
+	mgJUXOUwfWnf/E7S6PgRI2On3UUsKaisp1FyZcdH/R9IrYJWsPqZ46/69bBqaJXGM
+X-Gm-Gg: AR+sD10cexwpMXUleI8BKW3+Cvf6vlUAsUUce8GrmLmh9y1jY0J8rUZhqjKEtjW/E5A
+	FEokFW8baCJgbmlEcioCXdkzsmff8ysksuVGrezVp0BVrSyCAvb8A1aO7bt0a1nnxn+CsrgN3C0
+	gcMCqWlQqAXC+Z+QDtUojFyChzwk4wisGIQTyILkIL9cVLdIizqdhJzVsFGQ15TuD8ALzXlBbuu
+	kngyi/QFelHwMRpIXGnT/klo5o6Wv7ewwwc1VUC97aJrU0Hlq1aQcTxdkFOPBRM5vdIz4q/eQZp
+	69LPfxw1l/1h1X/f9ibD2+k76FahAkY6SgqD5c8+FvJo0UvFI1N1B6NpI/isSly2UB+zLGWndCE
+	1yG+3pLM3KkIuIe4qraMPryvs9x1W
+X-Received: by 2002:a05:6a21:648b:b0:3c3:9595:57ef with SMTP id adf61e73a8af0-3c92a5bc4f9mr9402297637.31.1785753186653;
+        Mon, 03 Aug 2026 03:33:06 -0700 (PDT)
+X-Received: by 2002:a05:6a21:648b:b0:3c3:9595:57ef with SMTP id adf61e73a8af0-3c92a5bc4f9mr9402262637.31.1785753186241;
+        Mon, 03 Aug 2026 03:33:06 -0700 (PDT)
+Received: from [10.218.15.172] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4e44bcsm43148007c88.12.2026.08.03.03.33.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Aug 2026 03:33:05 -0700 (PDT)
+Message-ID: <fc24d80d-c970-458d-a912-1d5f18a3a4b6@oss.qualcomm.com>
+Date: Mon, 3 Aug 2026 16:03:00 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amypEMpDvY47VkG5@zed>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] arm64: dts: qcom: shikra: Add CPU idle states
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+        Shawn Guo <shawn.guo@linaro.org>, Marc Zyngier <maz@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
+ <20260713-b4-shikra_lpm_addition-v1-7-3d858df2cbbf@oss.qualcomm.com>
+ <5756164d-2e42-4eb1-ab18-69c6f784b789@oss.qualcomm.com>
+Content-Language: en-US
+From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+In-Reply-To: <5756164d-2e42-4eb1-ab18-69c6f784b789@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Tnl4V0O-Wzr4LUaqR7Sv9JRTabjVDnL4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA5NCBTYWx0ZWRfXyXcfsfaOjavx
+ fYuiZSwrwpsA8ljdbDV4eOW7IZ9U+rFFlaZIQ8b3vXtERifJ0bw1dRmnEBINxY3v8AzFzz+ru7q
+ nIMgduyIBZfGDHdQTBfqpN7rn3nz0UotpQAgr2fInyJTpU8R+bDhigjN/18EjAVmdK9cFYz9e7c
+ tAJoAavCKeP5Wg4bQVLthdaSmayOJ7BMGu/60LKZrXbDUE+0gSkiPKjmVo6ruM4bPNaW95HBZTA
+ XYFZRmSyM32OEpxufej9hNep1Lsk1MoMMJj6cs0aDRPyNLDGhVgBJi5F1GjNKr5pZQZ03dxQj2s
+ CfnZKhmljJqLG5BJjrW5EwYFmPVjorbpGvz6Aao5O2KmSMc7Glxmyae+cB1x0cNpCbjgkwnHckx
+ QupvmMYeO2nj9vizpZxDgopAZL18QCe+39j0hN7I2RJfPXPxsLohM4oKXSNTMogYW2wlk3pZDus
+ gdReGAxFWOGKugibrRg==
+X-Proofpoint-ORIG-GUID: Tnl4V0O-Wzr4LUaqR7Sv9JRTabjVDnL4
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA5NCBTYWx0ZWRfX41DBa9MGJn6Q
+ d3y7K0HqYfJ8qKzCAI5x1tUh7X+6jN+s6treoOe0DYXJTzmM4g6AutaHwunQwc8bLasSLiOfDYG
+ UhavumTck37aZgwgvC2udA1uNhEx14Q=
+X-Authority-Analysis: v=2.4 cv=UIjt2ify c=1 sm=1 tr=0 ts=6a706e63 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=eFh9wa1xyOHWc3L4cLUA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 adultscore=0 spamscore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608030094
 
-Hi Jacopo,
 
-On Fri, Jul 31, 2026 at 04:15:53PM +0200, Jacopo Mondi wrote:
 
-...
+On 15-Jul-26 3:32 PM, Konrad Dybcio wrote:
+> On 7/13/26 12:25 PM, Sneh Mankad wrote:
+>> Add idle states for the  CPUs as well as the whole cluster. This enables
+>> deeper-than-WFI cpuidle.
+>>
+>> Add MPM under cluster_pd power domain.
+>>
+>> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+>> ---
+> 
+> [...]
+> 
+>> +		domain_idle_states: domain-idle-states {
+>> +			cluster_sleep_apss_off: cluster-sleep-0 {
+>> +				compatible = "domain-idle-state";
+>> +				idle-state-name = "cluster-power-down";
+>> +				arm,psci-suspend-param = <0x41000044>;
+>> +				entry-latency-us = <2752>;
+>> +				exit-latency-us = <3038>;
+>> +				min-residency-us = <6118>;
+>> +			};
+>> +		};
+> 
+> Is this really the deepest state available on Shikra?
 
-> > > +	/* Sensor control mode */
-> > > +	{ CCI_REG8(0x0043), 0x0 }, //  Sensor Control Mode.SLEEP_POWER_MODE(0)
-> > > +	{ CCI_REG8(0x0043), 0x0 }, //  Sensor Control Mode.IDLE_POWER_MODE(0)
-> > > +	{ CCI_REG8(0x0043), 0x4 }, //  Sensor Control Mode.SYSTEM_CLOCK_ENABLE(0)
-> > > +	{ CCI_REG8(0x0043), 0xC }, //  Sensor Control Mode.SRAM_CLOCK_ENABLE(0)
-> > > +	{ CCI_REG8(0x1001), 0x41 }, //  Sensor Control Mode.EXT_EVENT_SEL(0)
-> > > +	{ CCI_REG8(0x10f2), 0x1 }, //  Sensor Control Mode.NB_OF_FRAMES_A(0)
-> > > +	{ CCI_REG8(0x10f3), 0x0 }, //  Sensor Control Mode.NB_OF_FRAMES_A(1)
-> > > +	{ CCI_REG8(0x0012), 0x0 }, //  IO Drive Strength.DIG_DRIVE_STRENGTH(0)
-> > > +	{ CCI_REG8(0x0012), 0x0 }, //  IO Drive Strength.CCI_DRIVE_STRENGTH(0)
-> > > +	{ CCI_REG8(0x1001), 0x41 }, //  Readout && Exposure.EXT_EXP_PW_SEL(0)
-> > > +	{ CCI_REG8(0x10d0), 0x0 }, //  Readout && Exposure.EXT_EXP_PW_DELAY(0)
-> > > +	{ CCI_REG8(0x10d1), 0x0 }, //  Readout && Exposure.EXT_EXP_PW_DELAY(1)
-> > > +	/* MIPI */
-> > > +	{ CCI_REG8(0x6006), 0x0 }, //  MIPI.TX_CTRL_EN(0)
-> > > +	{ CCI_REG8(0x5004), 0x1 }, //  MIPI.datarate
-> > > +	{ CCI_REG8(0x5086), 0x2 }, //  MIPI.datarate
-> > > +	{ CCI_REG8(0x5087), 0x4e }, //  MIPI.datarate
-> > > +	{ CCI_REG8(0x5088), 0x0 }, //  MIPI.datarate
-> > > +	{ CCI_REG8(0x5090), 0x0 }, //  MIPI.datarate
-> >
-> > How many of these registers are actually 16 or 32 bits? Does the sensor
-> > support wider than single-octet writes -- few don't?
-> 
-> The sensor is said to support both single read/write and burst read/write
-> sequences.
-> 
-> There is room for improvements here, but as the startup latency is not
-> a concern for the time being, I would leave this as an exercize for
-> later
+Yes, this is the deepest idle state for Shikra. It does involve
+handshaking with RPM to allow SoC level idle states to enter.
 
-Related to the previous comment, it'd be nice to have human-readable names
-also for these registers. I'm fine with that if you promise to address this
-later. :-)
-
-...
-
-> > > +	ret = pm_runtime_resume_and_get(&client->dev);
-> > > +	if (ret < 0)
-> > > +		return ret;
-> > > +
-> > > +	/*
-> > > +	 * Apply default values of current mode. Stop streaming before
-> > > +	 * uploading register sequence.
-> > > +	 */
-> > > +	ret = mira220_write_stop_streaming_regs(mira220);
-> > > +	if (ret)
-> > > +		goto err_rpm_put;
-> > > +
-> > > +	ret = cci_multi_reg_write(mira220->regmap, mira220_init_reg_list,
-> > > +				  ARRAY_SIZE(mira220_init_reg_list), NULL);
-> > > +	if (ret)
-> > > +		goto err_rpm_put;
-> > > +
-> > > +	ret = mira220_otp_restore(mira220);
-> > > +	if (ret)
-> > > +		goto err_rpm_put;
-> > > +
-> > > +	ret = mira220_set_bus_config(mira220);
-> > > +	if (ret)
-> > > +		goto err_rpm_put;
-> > > +
-> > > +	ret = mira220_set_framefmt(mira220, state);
-> > > +	if (ret)
-> > > +		goto err_rpm_put;
-> >
-> > Instead of a series of ifs and gotos, you could do
-> >
-> > 	if (!ret)
-> > 		...;
-> >
-> > Up to you.
-> >
-> 
-> 	ret = pm_runtime_resume_and_get(&client->dev);
-> 	if (ret < 0)
-> 		return ret;
-> 
-> 	/*
-> 	 * Apply default values of current mode. Stop streaming before
-> 	 * uploading register sequence.
-> 	 */
-> 	if (!ret)
-> 		ret = mira220_write_stop_streaming_regs(mira220);
-> 	if (!ret)
-> 		ret = cci_multi_reg_write(mira220->regmap, mira220_init_reg_list,
-> 					  ARRAY_SIZE(mira220_init_reg_list), NULL);
-> 	if (!ret)
-> 		ret = mira220_otp_restore(mira220);
-> 	if (!ret)
-> 		ret = mira220_set_bus_config(mira220);
-> 	if (!ret)
-> 		ret = mira220_set_framefmt(mira220, state);
-> 
-> 	/* Apply customized values from user */
-> 	if (!ret)
-> 		ret = __v4l2_ctrl_handler_setup(mira220->sd.ctrl_handler);
-> 	if (!ret)
-> 		ret = mira220_write_start_streaming_regs(mira220);
-> 
-> 	if (ret)
-> 		goto err_rpm_put;
-> 
-> 	/* vflip and hflip cannot change during streaming */
-> 	__v4l2_ctrl_grab(mira220->hflip, true);
-> 	__v4l2_ctrl_grab(mira220->vflip, true);
-> 
-> 	return 0;
-> 
-> Looks a bit unusual, but I think I can do that
-
-Such a pattern is used in quite a few sensor drivers.
-
-...
-
-> > > +	/* By default, PIXEL_RATE is read only */
-> > > +	v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops, V4L2_CID_PIXEL_RATE,
-> > > +			  MIRA220_PIXEL_RATE, MIRA220_PIXEL_RATE, 1,
-> > > +			  MIRA220_PIXEL_RATE);
-> > > +
-> > > +	min_vblank = mira220_calc_min_vblank(mira220);
-> > > +	mira220->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> > > +					    V4L2_CID_VBLANK,
-> > > +					    min_vblank, MIRA220_MAX_VBLANK, 1,
-> > > +					    min_vblank);
-> > > +
-> > > +	ctrl = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-> > > +				      0, 0, &mira220_link_freqs[0]);
-> > > +	if (ctrl)
-> > > +		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> > > +
-> > > +	/*
-> > > +	 * Scale hblank according to the number of enabled data lanes to match
-> > > +	 * row_length.
-> > > +	 */
-> > > +	hblank_val = MIRA220_LLP_1600x1400_304 * (2 / mira220->lanes)
-> > > +		   - MIRA220_PIXEL_ARRAY_WIDTH;
-> > > +	ctrl = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, hblank_val,
-> > > +				 hblank_val, 1, hblank_val);
-> > > +	if (ctrl)
-> > > +		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> > > +
-> > > +	/* Max exposure is determined by vblank + vsize and Tglob. */
-> > > +	max_exposure = mira220_calc_exposure(mira220,
-> > > +					     MIRA220_PIXEL_ARRAY_HEIGHT,
-> > > +					     min_vblank);
-> > > +
-> > > +	mira220->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> > > +					      V4L2_CID_EXPOSURE,
-> > > +					      MIRA220_EXPOSURE_MIN,
-> > > +					      max_exposure, 1,
-> > > +					      MIRA220_DEFAULT_EXPOSURE);
-> > > +
-> > > +	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_ANALOGUE_GAIN,
-> > > +			  MIRA220_ANALOG_GAIN_MIN, MIRA220_ANALOG_GAIN_MAX,
-> > > +			  MIRA220_ANALOG_GAIN_STEP,
-> > > +			  MIRA220_ANALOG_GAIN_DEFAULT);
-> > > +
-> > > +	mira220->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
-> > > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
-> > > +	if (mira220->hflip)
-> > > +		mira220->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
-> >
-> > You can omit these checks if you move setting the control flags after
-> 
-> ah yes
-> 
-> > checking for the handler's error state. I'd use different variables for the
-> > hblank and vblank controls for this reason.
-> 
-> vblank is writable and stored in the driver structure
-> 
-> link_freq and hblank are RO and re-use the local 'ctrl' variable.
-
-I indeed meant link_freq indeed, not vblank.
-
-> 
-> if I move everything below, I'll have to use 2 different variables for
-> sure
-
-Yes, that'd be nice.
-
-...
-
-> > > +	ret = v4l2_async_register_subdev_sensor(&mira220->sd);
-> > > +	if (ret < 0) {
-> > > +		dev_err_probe(dev, ret,
-> > > +			      "failed to register sensor sub-device\n");
-> > > +		goto error_subdev_cleanup;
-> > > +	}
-> > > +
-> > > +	pm_runtime_idle(dev);
-> >
-> > You probably want to call pm_runtime_idle() after setting autosuspend
-> > delay.
-> >
-> To be honest I copied this from imx219 but I can certainly change it.
-
-That could be fixed as well. I'll write a patch for it. :-)
-
-> 
-> 
-> 
-> > > +	pm_runtime_set_autosuspend_delay(dev, 1000);
-> > > +	pm_runtime_use_autosuspend(dev);
-> > > +
-> > > +	return 0;
-> > > +
-> > > +error_subdev_cleanup:
-> > > +	v4l2_subdev_cleanup(&mira220->sd);
-> > > +error_media_entity:
-> > > +	media_entity_cleanup(&mira220->sd.entity);
-> > > +error_handler_free:
-> > > +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
-> > > +error_power_off:
-> > > +	pm_runtime_disable(dev);
-> > > +	mira220_power_off(dev);
-> > > +	pm_runtime_set_suspended(dev);
-> >
-> > A newline here perhaps?
-> >
-> 
-> Usually I like to keep error path returns compact
-> 
-> Thanks, I'll send a new version soon.
-> It's mostly minor stuff, do you think I can get this in for this cycle
-> (a bit last minute, I know)
-> 
-> Thanks
->   j
-> 
-> 
-> > > +	return ret;
-> > > +}
-> > > +
-> > > +static void mira220_remove(struct i2c_client *client)
-> > > +{
-> > > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> > > +	struct mira220 *mira220 = to_mira220(sd);
-> > > +
-> > > +	v4l2_async_unregister_subdev(sd);
-> > > +	v4l2_subdev_cleanup(&mira220->sd);
-> > > +	media_entity_cleanup(&sd->entity);
-> > > +
-> > > +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
-> > > +
-> > > +	pm_runtime_disable(&client->dev);
-> > > +	if (!pm_runtime_status_suspended(&client->dev))
-> > > +		mira220_power_off(&client->dev);
-> > > +	pm_runtime_set_suspended(&client->dev);
-> > > +}
-> > > +
-> > > +static const struct dev_pm_ops mira220_pm_ops = {
-> > > +	SET_RUNTIME_PM_OPS(mira220_power_off, mira220_power_on, NULL)
-> > > +};
-> > > +
-> > > +static const struct of_device_id mira220_dt_ids[] = {
-> > > +	{ .compatible = "ams,mira220" },
-> > > +	{ /* sentinel */ }
-> > > +};
-> > > +MODULE_DEVICE_TABLE(of, mira220_dt_ids);
-> > > +
-> > > +static struct i2c_driver mira220_i2c_driver = {
-> > > +	.driver = {
-> > > +		.name = "mira220",
-> > > +		.of_match_table	= mira220_dt_ids,
-> > > +		.pm = pm_ptr(&mira220_pm_ops),
-
-If CONFIG_PM isn't defined, mira220_pm_ops needs to use __maybe_unused. I'd
-just drop pm_ops() here.
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks,
+Sneh`
