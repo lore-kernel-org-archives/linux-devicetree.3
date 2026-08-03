@@ -1,149 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A654407CF6
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 12:59:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4541C409283
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 12:59:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785761943; cv=none; b=piFQplKsyIS0H56NOtJvHekst+asx/31mFVP0Mi7PmXqhhr0yjMpLs3LYSyJOsXoMH5RYqakbyuFvorjpJ2U5wKrwdsc98DOJXpCrtQPFmKKmbz/Hu/d7lC6/++xO7TZSFcmVwvY6pyCouH+V82B2n+o5ehpuT0Ijefnmjv8UJI=
+	t=1785761964; cv=none; b=Y2VvSJ8EmmsfuX+tYZK4F4BoggWyjfvwzMZ3CtKe1z9HN63UYt1fd6/cic3kD/Bjpt6SiQ7VgtoEzLELemNN1kDBSiwlLDSvJ0ly+X65viMG/GIZKdxSmTyf4/v2iH4eYROcUuBBsJKxL37K/b+BkxGTmr7towuKaXhw90hnlG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785761943; c=relaxed/simple;
-	bh=6Q9qWncgBYR7a/8s3d+8efofGrC6Dzg/VVta2hPYA/M=;
+	s=arc-20240116; t=1785761964; c=relaxed/simple;
+	bh=uFQqhVhdhnK7eKv3YrHDo+m3+EaHLZnCVhpjitbGy5Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZmJ2F20tdH5Gubl0RJ88rYwdNe4Ryl/S0Bcvp+zRz2yY4inpKymUkAnAHJE2V1ea3Bzd0RnMFzGm3YnWwYkdDf8ZnSB07u/Z9/7MBpAIvObyO+zKDyYrIaudOMHsndzlEkMqMrfHrRwhzwR66Rzdh+pP5l+gsViH98i0KeBaWd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E5oVfU7I; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=q8HaLpcFZW1OveSn/DpAreA+YBY8Jf3rVSSSVkWQ83O1s2KLsIiwVwqvu5w6sJkwd6Wdi/ZggrTyWpkLTGRH3cxvd6Er6+v/9f30/22+9huBHEwhaqP15sjpGPQVE4xytv931vuy4KeRA3y1U0uHVyTBqM66z/CeozxlN0H5xhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=of9WxAsW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E5oVfU7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83AB71F000E9;
-	Mon,  3 Aug 2026 12:59:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="of9WxAsW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A3D81F00A3A;
+	Mon,  3 Aug 2026 12:59:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785761942;
-	bh=fhcznpkgjCNGKjjOWquz0c3kwmztGqpSx6lpwM+3prk=;
+	s=k20260515; t=1785761961;
+	bh=T7SEs/+3URUGAo3ukkjPz1hMot6edgfrsjrlH5LlqJA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=E5oVfU7IWFviQ48L2xfjvaDlaAqZnusBJaBm02t3OGiPNZ2dgibcJEDF44+PeGM3O
-	 a9yl6YpoMcC2QqrRoncuI3RxGWoJukfsLd2BYIC3QWwfNm5AgWNbbewXFmBoXbfRaW
-	 uPN5JhQWGveXbaRYPYqG5eHdbG6z/qOVVUJhMVvaybYLw8L06MV2cCa1zKBmDzUVJr
-	 ZoBXzEahaK6IiH4ndGQdNS0c3Q028eOXwI5v+b8iAeBblm6LFW2/iBS1jHlQZgnAdT
-	 Ct2cb7JTVXrUecv+EtYXYl4kM0FzMPotSg+s3I5PQJ7eSTJQYex1+gVE4wRSmEOogx
-	 pmmys4Ebozmxw==
+	b=of9WxAsWKj64jd01fw/nRKK7e3c98uEqc9YcVi5YxumYQrbJ8vEf0zBX4iP37mLB5
+	 MS3rM2pN2H20edEJhygT/0O2GyiyxwKCcXCzkdEWtAhxhxOrMRt1Znishk7+v3wb09
+	 zx7xwHW5dkKoUOv30ZRv43B/9rEns0YKxgsZd7voNce+F9GOCu/637YpV9ytNCpceq
+	 SetxKGbl2NrT81euY0ZeOCiIebI5JVZgmluvlUZyMSdjE/JEgmVZ+z9aGEkLOm0rkO
+	 nQtR5OUo6w99IuVpCCyOjbKYZLqtmDkpN5OVap4CsjEgu8uuc0swkMeoTAleStRm7u
+	 94WZXLQFuFWpg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/11] spi: dw: use irq handler for enhanced spi
+Subject: Re: [PATCH v2 07/11] spi: dw: send cmd and addr to start the spi
+ transfer
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260803124044.156998-9-changhuang.liang@starfivetech.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260803124044.156998-8-changhuang.liang@starfivetech.com>
 References: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
- <20260803124044.156998-9-changhuang.liang@starfivetech.com>
+ <20260803124044.156998-8-changhuang.liang@starfivetech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 12:59:01 +0000
-Message-Id: <20260803125901.83AB71F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 12:59:20 +0000
+Message-Id: <20260803125921.1A3D81F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The SPI controller's FIFO threshold registers are modified while t=
-he controller is active, and a hardcoded delay introduces a race condition =
-leading to silent RX FIFO overflows.
-- [High] dw_spi_exec_enh_mem_op() unconditionally relies on interrupts, bre=
-aking SPI operations on systems without an IRQ line.
+- [High] Missing Data Phase and Completion Wait in Enhanced SPI Mode
+- [Medium] Address Truncation on 16-bit I/O Width
+- [Medium] Preemption / FIFO Overflow Vulnerability
 --
 
---- Patch [8]: [PATCH v2 08/11] spi: dw: use irq handler for enhanced spi -=
---
-commit e91a45b5a4fd49e726c98b12e74d1f4306f85fe7
+--- Patch [7]: [PATCH v2 07/11] spi: dw: send cmd and addr to start the spi=
+ transfer ---
+commit 0e79a8e7a3709454ed5a5603c033614bdc1b0b5a
 Author: Sudip Mukherjee <sudip.mukherjee@sifive.com>
 
-spi: dw: use irq handler for enhanced spi
+spi: dw: send cmd and addr to start the spi transfer
+   =20
+In enhanced spi mode, read or write will start by sending the cmd
+and address (if present).
 
-This commit introduces an interrupt handler for enhanced SPI read/write
-operations. It utilizes the controller's xfer_completion to wait for
-transfer completion or timeout from the IRQ handler. It also adjusts
-RXFTLR dynamically based on the expected data length.
-
-> --- a/drivers/spi/spi-dw-core.c
-> +++ b/drivers/spi/spi-dw-core.c
+diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+index dbe8779ced865..3388f62dc695c 100644
+--- a/drivers/spi/spi-dw-core.c
++++ b/drivers/spi/spi-dw-core.c
 [ ... ]
-> @@ -920,11 +979,54 @@ static int dw_spi_exec_enh_mem_op(...)
-> =20
->  	dw_spi_update_config(dws, mem->spi, &cfg, &enh_cfg);
-> =20
-> +	dw_spi_mask_intr(dws, 0xff);
-> +	reinit_completion(&ctlr->xfer_completion);
->  	dw_spi_enable_chip(dws, 1);
-> =20
->  	dw_spi_enh_write_cmd_addr(dws, op);
-> +	dw_spi_set_cs(mem->spi, false);
-> =20
-> -	return 0;
-> +	/*
-> +	 * FIXME: The exact reason for this delay is not fully understood,
-> +	 * but empirical testing shows it significantly improves the stability
-> +	 * of read/write operations. Without this delay, occasional transfer
-> +	 * errors or timeouts may occur under certain conditions.
-> +	 * Keeping it as a safeguard based on practical validation.
-> +	 */
-> +	udelay(5);
+> +static void dw_spi_enh_write_cmd_addr(struct dw_spi *dws, const struct s=
+pi_mem_op *op)
+> +{
+> +       /* Send cmd as 32 bit value */
+> +       dw_write_io_reg(dws, DW_SPI_DR, op->cmd.opcode);
+> +       if (op->addr.nbytes) {
+> +               dw_write_io_reg(dws, DW_SPI_DR, lower_32_bits(op->addr.va=
+l));
+
+[Severity: Medium]
+Does passing a 32-bit chunk to dw_write_io_reg() truncate the address if the
+controller is configured with a 16-bit I/O width?
+
+Looking at dw_write_io_reg(), it uses writew_relaxed() when dws->reg_io_wid=
+th
+is 2. This would drop the upper 16 bits of the lower 32-bit value when
+executing an enhanced SPI operation with an address phase.
+
+> +               if (op->addr.nbytes > 4) {
+> +                       /* address more than 32bit */
+> +                       dw_write_io_reg(dws, DW_SPI_DR, upper_32_bits(op-=
+>addr.val));
+> +               }
+> +       }
+> +}
 > +
-> +	dw_spi_enh_irq_setup(dws);
+[ ... ]
+>  static int dw_spi_exec_enh_mem_op(struct spi_mem *mem, const struct spi_=
+mem_op *op)
+>  {
+>         struct spi_controller *ctlr =3D mem->spi->controller;
+> @@ -909,6 +922,8 @@ static int dw_spi_exec_enh_mem_op(struct spi_mem *mem=
+, const struct spi_mem_op *
+> =20
+>         dw_spi_enable_chip(dws, 1);
+> =20
+> +       dw_spi_enh_write_cmd_addr(dws, op);
+> +
+>         return 0;
+>  }
 
 [Severity: High]
-Does modifying the SPI controller's FIFO threshold registers inside
-dw_spi_enh_irq_setup() while the controller is active (after calling
-dw_spi_enable_chip()) violate the DW APB SSI hardware specifications?
+Is the payload data phase, chip select assertion, and completion wait
+intentionally omitted here?
 
-Additionally, with this 5us delay between starting the transfer and unmaski=
-ng
-interrupts, could the RX FIFO overflow before dw_spi_enh_irq_setup() prepar=
-es
-the IRQ handler to drain it?
+By returning 0 immediately after dw_spi_enh_write_cmd_addr(), the data
+phase (SPI_MEM_DATA_IN or SPI_MEM_DATA_OUT) seems to be skipped entirely,
+which would leave read buffers uninitialized and fail to transfer write
+payloads.
 
-At typical SPI frequencies (e.g., 50MHz), 5us is enough time to clock in
-more data than a small RX FIFO can hold, which might lead to silent data lo=
-ss
-and immediate -EIO timeouts.
+[Severity: Medium]
+Does dw_spi_exec_enh_mem_op() need to disable local interrupts and preempti=
+on
+during the IO transfer?
 
-> +
-> +	/* Use timeout calculation from spi_transfer_wait() */
-> +	ms =3D 8LL * MSEC_PER_SEC * (dws->rx_len ? dws->rx_len : dws->tx_len);
-> +	do_div(ms, dws->current_freq);
-> +
-> +	/*
-> +	 * Increase it twice and add 200 ms tolerance, use
-> +	 * predefined maximum in case of overflow.
-> +	 */
-> +	ms +=3D ms + 200;
-> +	if (ms > UINT_MAX)
-> +		ms =3D UINT_MAX;
-> +
-> +	ms =3D wait_for_completion_timeout(&ctlr->xfer_completion,
-> +					 msecs_to_jiffies(ms));
-> +	if (ms =3D=3D 0) {
-
-[Severity: High]
-Will this wait unconditionally time out on platforms without a connected IR=
-Q?
-
-Unlike the standard dw_spi_exec_mem_op() which falls back to polling, this
-appears to rely solely on the interrupt handler to signal completion. If a
-system uses polling mode (no dedicated SPI IRQ), it seems enhanced memory
-operations will always result in an -EIO timeout here.
-
-> +		dw_spi_mask_intr(dws, 0xff);
-> +		synchronize_irq(dws->irq);
-> +		dws->rx =3D NULL;
-> +		dws->tx =3D NULL;
-> +		dws->rx_len =3D 0;
-> +		dws->tx_len =3D 0;
-> +		dw_spi_stop_mem_op(dws, mem->spi);
-> +		return -EIO;
-> +	}
-[ ... ]
+The standard dw_spi_exec_mem_op() wraps the transfer in local_irq_save() and
+preempt_disable() to prevent the DesignWare APB SSI RX FIFO from overflowing
+if the CPU is preempted or handles a long interrupt. If the CPU is preempted
+here in enhanced mode under heavy system load, the incoming data might
+similarly overflow the RX FIFO.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803124044.1569=
-98-1-changhuang.liang@starfivetech.com?part=3D8
+98-1-changhuang.liang@starfivetech.com?part=3D7
