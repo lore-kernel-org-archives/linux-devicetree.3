@@ -1,116 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7142820A9
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 13:10:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BACA330644;
+	Mon,  3 Aug 2026 13:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785762659; cv=none; b=RxQlBh1dcomBFraisYygn12fhv4fPs1oUYVIZVgtBDxJePX89vHXpA59T9Vfpn2IrZ+tWOV5F4MhBcu7f5M87PXS51GYKvYGtHw1kAaA4nXffnsjvf2Qf+/OMWClUQMwDc1ATU/ibGZ4BVfBtnLSX4tFr3k56Xt+RQccRrmCTj0=
+	t=1785762906; cv=none; b=sQVNHvdOPFmxneztLLD4zqIy+o+b7xlVEZ+PgBqIG9E7b6ewVSvZtuVGejzDtzvmSiXRsgerPcR60ZOwJPathsG6dZOzMymnmKEFvUbKUhqmclBINQkdVioyIY1Mz4JBU6zZ01mNBPkU6K7Oi9nV65BV9Bc+I7jPgYsAGaC2vzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785762659; c=relaxed/simple;
-	bh=c53MOl6d95U90T4J4lVgCX+zUwFh/76GZxWSc6ZXM/E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sP6amPWnflB91uS/5mfpaH4poskh+d8JUCk2sP0S8Xw9okwnfspOb3javAVHiSQsFJNdqfdwsZQcEBweJ0SpXtvrjU2p3KSTqEsyaZgJ5rc2zb8ssdgqwT4/cfAqURhzjyVx67XhA9FEiEk7V76m7ckeFttPUD6NoAeSAjq/3Ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jrzWH9Sa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785762906; c=relaxed/simple;
+	bh=SjCYjATvRQ8vLkiNIWtKeOW8qz1wSzTU7uGxyq27uN8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rbC12aW/Ss0yCE66WhTagZ7ANBxssUWGF0yJhAk0FOz3iqjhNOmAf1SjzBQjUdmTiAGugx++RQDu9Rj1DzBfizt26Z4vEl6+6QULCWlErWbqx6uNp86UO0HJsyk3i7STQyI6SZFZ2sLzMV9Mj8ptZgjQ3SmYl7qTx/S2lO5c07E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=uzs0YsEl; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jrzWH9Sa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D331F00A3A;
-	Mon,  3 Aug 2026 13:10:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785762655;
-	bh=0SFcPfjM7Sz2V2FENc/OwISg52Fzaom780WtIuymEMg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jrzWH9SayH1WyM/EbWvoXIiGW4QpMMu3TO9HbxBVyhF8aUUqhlHqSpbpaTNGrrzGU
-	 2n9Mdix4/NikMyBiSXx/5tf+zv1sEgTfPzSpQ8it0mjoRBKyfI3Tuvs48ryRBcbxC+
-	 BA/TX3P8kB7RBzneJ8laTKJ2agGwrFqPDqE3yhE56ivXnFZYRet6kXG2lRrRiIpoLb
-	 ivRns5Kqa2H6Phg1Vv7cotghKMhriw76yBG2iMZoxQLXwm0vcWnziKgYrjNToftXcT
-	 Y1jGzc9pDVHLY3jdxAPgf+lij7tGVcXu3s9HXYtichlOSfueebMT2uRfbugnpZpnXz
-	 L94+0gu6zw6FA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/6] dt-bindings: spmi: apple,spmi: Add t603x
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803-t603x-spmi-v3-1-c17b506d91a1@chaosmail.tech>
-References: <20260803-t603x-spmi-v3-0-c17b506d91a1@chaosmail.tech>
- <20260803-t603x-spmi-v3-1-c17b506d91a1@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 13:10:54 +0000
-Message-Id: <20260803131055.00D331F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="uzs0YsEl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=8sNolu05p2stbRh8O9i9DhDkrV8/wacJ3u8HFpmRd9c=; b=uzs0YsEl/wyjSUeJIGAh44pup2
+	clSj5ky5vnYE1dv+Y3Q8VJcH+ZvefXHy3Z04HonSEMux5+T7uRkw+geiIY6GfdnrC3fVgL6VxjjVi
+	nl7VXpxEfoSNZIC9jQfRX+MDjRQ09znKfT8Rc1GsKGVh552ZksIsFxrL4wd9TkFcizBg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wqsV2-00Fj7p-CJ; Mon, 03 Aug 2026 15:14:36 +0200
+Date: Mon, 3 Aug 2026 15:14:36 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com, mfd@lists.linux.dev,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 00/21] net: phy: add X-Powers AC200/AC300 EPHY support
+Message-ID: <4b5fd8a3-3bfd-426c-8711-6aee45fceaa9@lunn.ch>
+References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] New provider capabilities (`interrupt-controller` and `#interrup=
-t-cells`) are added without proper requirements or dependencies, and the ex=
-ample is not updated, violating subsystem guidelines.
---
+On Sun, Aug 02, 2026 at 11:14:10PM -0600, James Hilliard wrote:
+> The Allwinner H616/H618 secondary EMAC is commonly connected to a Fast
+> Ethernet PHY in an X-Powers AC200 or AC300 companion package.  The two
+> packages expose the same link PHY ID and
 
---- Patch [1]: [PATCH v3 1/6] dt-bindings: spmi: apple,spmi: Add t603x ---
-commit 93ff9762b75f8c79f11e2bf64785642aca6a9d56
-Author: Sasha Finkelstein <k@chaosmail.tech>
+I have a couple of terminology questions, one here, anther later
 
-dt-bindings: spmi: apple,spmi: Add t603x
+What do you mean by link PHY ID? Especially the link part?
 
-Add t603x compatibles, interrupt support, and support for SPMI
-controllers that are not always-on. The interrupt-controller property
-is kept optional since it is only needed on a subset of the controllers.
+Are you talking about 802.3 Clause 22 registers 2 and 3?
 
-> diff --git a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml b/Doc=
-umentation/devicetree/bindings/spmi/apple,spmi.yaml
-> index 3e5b14bc8c317..fceed47b2cd17 100644
-> --- a/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-> +++ b/Documentation/devicetree/bindings/spmi/apple,spmi.yaml
-
-[ ... ]
-
-> @@ -34,6 +37,18 @@ properties:
->    reg:
->      maxItems: 1
-> =20
-> +  interrupts:
-> +    maxItems: 1
-> +    description: Optional, operates in polled mode if not present
-> +
-> +  interrupt-controller: true
-> +
-> +  "#interrupt-cells":
-> +    const: 2
-
-[Severity: Medium]
-Are these new provider capabilities properly enforced?
-
-The guidelines state that when hardware gains new provider capabilities, the
-binding must add the corresponding standard properties to the required list.
-
-Since "interrupt-controller" is optional here, incomplete device tree nodes
-could silently pass schema validation if they declare "interrupt-controller"
-but omit "#interrupt-cells".
-
-Should there be a dependencies block added to ensure "#interrupt-cells" is
-present whenever the "interrupt-controller" property is used?
-
-For example:
-dependencies:
-  interrupt-controller: [ "#interrupt-cells" ]
-
-Also, should the examples section be updated to demonstrate these newly add=
-ed
-provider capabilities?
-
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
->  required:
->    - compatible
->    - reg
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-t603x-spmi=
--v3-0-c17b506d91a1@chaosmail.tech?part=3D1
+	Andrew
