@@ -1,387 +1,186 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011070.outbound.protection.outlook.com [40.107.74.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A01041CB54;
-	Mon,  3 Aug 2026 17:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785777587; cv=none; b=dMsESCy7bG7o3kwEQEaKtudqbVV7aMIBdoAHVLHi2KjYDCMfymgRS0in6i8UWseVpLsJsoZvEGn8aKRVw+pWDzQdRFIL5F1Khz916+xJrwBPZWwgHQfxi7LgOfc8mQsyZSw7qWfN8ic8xrH5Br7TlF6YVlSAS6ybD+3amOuqi6Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785777587; c=relaxed/simple;
-	bh=DltHrEbu6Yn+fopGZabZd5WXyXxJ0a+yc9NdxpOGJ9o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bMgGzbcpaXg29qIXRFDYfIjOrEXekiRrlqQL5gkX5GXWXT4fcYr81Vz/bxqZ/PWread6YtNw8GufL7NY+1sWkyIq8hPXs4ZZiIa3gHV6YKb3ce628OtmDainzHThF/mKqsnCyIu7455X3xUIyaBWNDoNmfqBjsMJhDrhVN6vbXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=ncrXSc7m; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2F4421242;
+	Mon,  3 Aug 2026 17:20:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785777609; cv=fail; b=U7g0X400em5bnTg5zwJxcCnXQw7NkrIJamnnNWte8ukaI/emV3F22NCno3hCtIVapJfRBmmJ8QIy84neOSU5fiCyOyJ1hN+uVvNmu7UiPKAhAooucll/5zu9oxw+025zEU+Pi4a4RLx0GxkcvxONIvnTqwSWzKnJ+TfbNmKCAko=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785777609; c=relaxed/simple;
+	bh=8Fk9OghUClbAc0KKEiieKVffYyCDqAPNSp9shg2wmlo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=pvqglquhDZ5bl2T2Sxt6GjjM6lExxwZMyLMUDS7Ajg62tKEqeohQfRvSvT/rKGOx4L+M4BeuhXo3b9JevGjLfJVa47/Jq0PvzyM5rwCfoFIxerihjyF9XzwkgZSTOI895yE1cl2PNnKh738325aYrHch+1AE3/DzYviYuV2NZt0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=cPVIn+5I; arc=fail smtp.client-ip=40.107.74.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="ncrXSc7m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1785777550; x=1786382350;
-	i=markus.stockhausen@gmx.de;
-	bh=1stOHUjr+xFqar4yFGfRJOSH930hQu8td3GUUJ/e9b0=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=ncrXSc7mVIz7x6oz3Cg18iuxMTqx5Eob777amMsv616PtQMEsZM70KDfw8qV06lt
-	 aqS9CoQ0sGWMmQuUjmCKa8rcwvgW92SR8gj0dQWCrZ1eLA0u7vqIeS8EE4lnM2Jwz
-	 gzsl07DlIyGMJJTC8yViZKu+RbMjZrziploSmVeYmZz2LYwD8rOdoWDCYiwNtWi39
-	 S00i7euDAXkCdky3zTIr++RC6Sgc63jMI9Fmw/geYNsyztHWXutI/0KuKEPYCWwSh
-	 JTnOKHbls3kBBgRgKHtTars38IAs2ydPFR5T5nc7PBWSYnI2iDuOWrJihOcqwdrRB
-	 fP+czG2cKK6uHqRYRw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1Msq6C-1xAWV40HdI-00rakm; Mon, 03
- Aug 2026 19:19:10 +0200
-From: Markus Stockhausen <markus.stockhausen@gmx.de>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	daniel@makrotopia.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
-Subject: [PATCH net-next v12 00/11] net: mdio: realtek-rtl9300: Add RTL83xx support
-Date: Mon,  3 Aug 2026 19:18:42 +0200
-Message-ID: <20260803171853.507506-1-markus.stockhausen@gmx.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="cPVIn+5I"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wlGKvRaE+Xd6srTborL3vB0RsuFET7ItQo3HngD3TVcl660cDAO+f9eOAtmNS8QRqBSKi9wctECbXn8UNGxg96m1B86g/qqmOq6wbBwfDyM9hY8FzN1BfFrY4CVn1R10yif0H692ZWIrJjwbqmbAdd7CXPx2A/L+JA9+Rlxew0Ub6uLAGCQOmTSW1BTpKghmNRaCaQJd3vfA5n1LfVFNNBegzfeXf7Y1EqczPoAxa1bkklD1Wd8z6pAPU978i1oi2MKVVYyWzp0s1sdjtYOG2zWEkPtKvlEkCVeK9MUkxp3NYA8BEpxOWJQw3dNBnWILOXexC/GY8R1I/H/JsWUwtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VUCJcuEVM7ZYrn9JbsuiiSkNnzuXnHaeFLC44ASEQP4=;
+ b=UMeBKsjk9DQ6NwJQ5rEPzKzFGjhuMBow1sYABv/NDH/qVcEsCb00Mr6vu8vXSkSH6iZAI0rXtgWpGDPQVs4OQnpEWHA3xUzXMyiSLPUIByyDkpO2DY3YZCpoal3DtPVqE+gZuaQhOpRymHDYH1wYkN4K52NtIbPAyEaA1y5maHOsAQF+3jHqh0rPS5AWJAVnDVRFWJVIXfw+T54+sm6QHDQq8B1d6EWxMTo+qVrgps5LfUSQb1oQtUHlzINkkEGvWziwQZ9+f/Iqanl9TVXM5MTlqUUCn9NCQ8eTztg71ihmhx1PdWQrJr4OO8qEt8HejonlYab1psB6OY8hYCucGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VUCJcuEVM7ZYrn9JbsuiiSkNnzuXnHaeFLC44ASEQP4=;
+ b=cPVIn+5I8fQpgferZ0XLJpZNn4qkJ6MmogdB4i/XVxYlcYajjnmLfHB8ky8LHFMkwPJTpurx0jrXDgl2pdb7jAI1NGrMhFhnW+0jPav1j+DGAIik9O1hd9JcZBVF1Qgb5xEhs0XRhIcqN19yuQyHRIuEGjIak23nfVqK5k5M7as=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYCPR01MB18583.jpnprd01.prod.outlook.com (2603:1096:405:3f1::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 17:20:03 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
+ 17:20:03 +0000
+Date: Mon, 3 Aug 2026 19:19:50 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	John Madieu <john.madieu.xa@bp.renesas.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] ASoC: dt-bindings: renesas,r9a09g047-sound: Document
+ audio_clkout clock-frequency
+Message-ID: <anDNtrL-eL6VUD94@tom-desktop>
+References: <20260803132828.3249424-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260803132828.3249424-2-tommaso.merciai.xr@bp.renesas.com>
+ <44c150f6-b04e-4515-ba71-63780c56c38d@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <44c150f6-b04e-4515-ba71-63780c56c38d@kernel.org>
+X-ClientProxiedBy: FR5P281CA0020.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f1::19) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ZMXaIqG1WWSHaGK1ahsIxIU4fyctTltvnI4Mlfbvubwu7RZ48i3
- hDWboVp70jxLwnCebKmv3Ay1dGYgHUghe/huQTdCj8SyNqCqi9KN3Xrnigh4g9p2eDgHdDf
- mu7ZmpNq7k1BY6Opsl+u14erZ/RuX0Bm1dHPmKA7vVopPvStLHyMVMNP3fRLBku11O2CYWa
- 8z1svyrq3zXWI8Y1a7WyQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:bCpdYI8S2dc=;aP8h3U1CQJ0Cupvl/zcuWoXzKn3
- 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
- tfWmxpDC2Iwqk4w1v26Tqia4srxOjO39f0FvU=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYCPR01MB18583:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f188bb9-4240-406e-7d34-08def18374b2
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|52116014|1800799024|366016|38350700014|4143699003|56012099006|11063799006|3023799007|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	lhiJx3xWuoJjMqYAxdKk1lKK/tnQyhhWAGegF4eZBaSLNKbGELLgc7AUjxWLpBcZWNqlzA/pfNGxZcXTCv8zKYmIVzOvXkCjNULCnus6buHN7W3rlHUZeUIuoRY5RrmRlZTmgPvQbkGfJaZKy8CyzL6fMzAyeyU10a4VIVBN5Nj9jU0B5K7DVFldGunQKwnLGi62Ga9PYjxv9+Gg/funIRzYjsNHxM8LN4Jw2B0F14NeoxyUzxyOPuAq4iYPL8rj6FOcXXfCx1s0EM6xKs0wy942jP06EPrdTolyDd0INbpTyprtCxHjORMGuZyqxqN1bD6wZ0Q6NJ3LgVdwGB4fA0Doa0ipG44CMpPXjRdD3wmXuuCOGe0aJFEJwUpuSxQDqWRSkzTHew20OyXK+ApjmgvAdOLo3ZABvALt9i3bbFrmA4GMtQQD29YNUrU+1Kn5qKHMdNklIzYyc6fze3UMg9BPSQULxp+LfxFyzkGbKqstPknYgkIpUYrtNP79bhfIYsj1gTMLmnWAUmSdcx5KrxeeANY9wR+7xeY9hpV+vLMOdN+xzKkZE+O8dtdAjT/dgUl2T75BhM9b+txniJpAeQ4EdQoDHN/Vr56drfGIPDwHy/u1E0JRC6yV+yR2ssiVwStbT40IaAH6Iz1arhIRa2Vgp1GJxW3eOmdsx2yIIno=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(52116014)(1800799024)(366016)(38350700014)(4143699003)(56012099006)(11063799006)(3023799007)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?S1PXNfEjGj4730qChvpob83OKEcZNIM4oVrX8dxTpl5sEErhPNyzENCyoVHL?=
+ =?us-ascii?Q?Tox0inprS+jqIDVUMqK8Z1PyCuHUW48LZ2I9yF72okMXilTmYGhCXUl+mN0u?=
+ =?us-ascii?Q?oddiCCYF/wDL8NKPsCVU9zZADIX6Qly7YD4QjgTw6kJNK+xAGmB8fCDScGa9?=
+ =?us-ascii?Q?pPOFdpRTP7ZkVkOTWxFivZppxBpB3XRw62GStEmbBQEqLQPN1WDsoJx8RVpR?=
+ =?us-ascii?Q?WsgR86oToiNHQILjgzML36/Z4u/dL5F9HcT04OZE9Am0Dp+EUhTPikhL2gd6?=
+ =?us-ascii?Q?e5hf0I+z4UDEf5bwMXBQy0/lRKTq0TDi+vYXh3fJwSiB/Fg/YtvxxZRSU9xH?=
+ =?us-ascii?Q?ihmHplJofcTu2WSXBk6qA/n/LfUJ/L3RmFrqEsIfyuqgYsiaSxMhE4iGnyKC?=
+ =?us-ascii?Q?3jrTR2AwsvoqhQzB1zc6OSN0RxuICp0HJFgh21DQTyDTLc6/wIqzUDRfnoAI?=
+ =?us-ascii?Q?LUkcFnuZ/5ZkNYej2TklA2P3mqeCo03UwECTD7W0UsPZVV1WrY8vJCvEblyn?=
+ =?us-ascii?Q?3LlUNE+7J34caj/mJQvuWxGFeGQ5XYvKrr0V+EzMFeIlH0KR+j20YCyV+TBq?=
+ =?us-ascii?Q?dap9cKFMMG5BQgYFx+u+aP6jHKzoEdXnwyVO2bnLmEWG5xyT9DVp4ayYDUSr?=
+ =?us-ascii?Q?gqc4CwFSJY21QzDCzKOESftOgHjdRyHMq3uosfGkdAr39ZFgk7Q7sQBkuVO4?=
+ =?us-ascii?Q?AI/j6h+boSY78x0yl6mlf1N8/QNo96eOYXxtO6wZdfimSZsGk6msrcd18hrs?=
+ =?us-ascii?Q?IHkgl1shalbTR4Yt0HpkOCk1Zp8gaxw9MYcFEwjql1rWIgjM33FN0j1pI58C?=
+ =?us-ascii?Q?22YdQfzyaF0yEiM/Xfx/KcTjnEu3hz84WowkVQYxZTeUZ8RO/bByTDb038N0?=
+ =?us-ascii?Q?iFs4qJt9vO278a0629QpYUe1WFeQ8eqI4xrzJHB3zCQO3+ZdeWwWNEOr0TIG?=
+ =?us-ascii?Q?7eWgiTzmJLqiy5bBEhkseVBFA4U6i2UMRDWO0ErY43FD2UHWVEvAT7BqZP4b?=
+ =?us-ascii?Q?Y2T/GQByRONDjNBRMkIXDq7H+wj5VVMw/G7Tx87qpsw+2FdexqkuuMclV/8R?=
+ =?us-ascii?Q?U8fA7aGcXPW5kmKFH1L8QF7SLSd+MxuQGY23c/Y2PSSJM3DFJ7CGG1eTIy1a?=
+ =?us-ascii?Q?eqvW6bpXyX/wHqH7pKOS/795tePFMJ99BqEIaP3hftKOJv2X0z7b8M8Yist0?=
+ =?us-ascii?Q?Wz02x6wSlglPOjH3djev6XLahtb6mN4IcnTsTLvKtUkxb5EYMcYokwG2Ku1N?=
+ =?us-ascii?Q?LJwHk522bMHbUBuFzdjwsm+S1CjaeNV89mbIHw9OKH34BPagYqLmjBZzOWzZ?=
+ =?us-ascii?Q?v+1KHdiSWf4H92yINNwvY+PVnCI+r+M47DWdIOcp+jyLqph04izGp91ncsp0?=
+ =?us-ascii?Q?HXu+b2aYA7jKLqITplSQQyfE88UtTJnm47UYtCRAJShxtgqzoxRH3x3uGGje?=
+ =?us-ascii?Q?RKsfDBra9X98RFN6ORxhNdUvs8VhlEVU6njVhSnEWeiJMPACDqFTEEh2tNPN?=
+ =?us-ascii?Q?SJjZdzvvDZCtRFr/HxmoyraIRj2zU3IlEkHp4Z8MULfStVkUIIPMSQAwlQID?=
+ =?us-ascii?Q?+t32BM799dVbpTejJbFP/VMTyDljd/ztOYPY3kEN8o9bttvSO7CeWMX7HK4a?=
+ =?us-ascii?Q?/Mge0jbULDFl/glibuGk8i8Wk3AMtsh0Mk3BlIsyQULexQfIwNf6DC5YQ8MP?=
+ =?us-ascii?Q?FTOQi6YX8pB4IFWZUiEVypYvRPUK/UK1V3aMoXG+UHAWZ6vnB0UmB7zcLOAB?=
+ =?us-ascii?Q?T0XUUSA8gVnQHDhFCX+iz/GIjwyJbL+LTyd1bLxKk6CHxpZ5T4cw?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f188bb9-4240-406e-7d34-08def18374b2
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 17:20:03.5890
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WB5GhyZ/bDVZpyq/9mRknszvf4yXrMWZElPLEhGHCNco7c5qMo+LjXr6wHOkpeJXDSzMHF6qVI6l0xnNK6D2GZJn3slRaXWnlf7DZlPcBklIE8h0pZ8D/KQ5Ak24l4ia
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB18583
 
-The Realtek Otto switch platform consists of four different series
+Hi Krzysztof,
+Thanks for your review.
 
-- RTL838x aka maple   : 28 port 1G Switches
-- RTL839x aka cypress : 52 port 1G Switches
-- RTL930x aka longan  : 28 port 1G/2.5G/10G Switches
-- RTL931x aka mango   : 56 port 1G/2.5G/10G Switches
+On Mon, Aug 03, 2026 at 03:32:48PM +0200, Krzysztof Kozlowski wrote:
+> On 03/08/2026 15:28, Tommaso Merciai wrote:
+> > r9a09g047e57-smarc.dts set clock-frequency for the audio_clkout output,
+> > but the binding never declared it, so dtbs_check fails:
+> > 
+> >   sound@13c00000 (renesas,r9a09g047-sound): Unevaluated properties
+> >   are not allowed ('clock-frequency' was unexpected)
+> 
+> Maybe the DTS is wrong, because property was rejected? Did you check
+> this? You cannot document ABI post-factum if it was rejected.
+> 
+> 
+> > 
+> > clock-cells is fixed to 0, so only a single audio_clkout applies.
+> > 
+> > Fixes: a86fd3c20218 ("ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound")
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > ---
+> >  .../devicetree/bindings/sound/renesas,r9a09g047-sound.yaml     | 3 +++
+> >  1 file changed, 3 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+> > index d7fa16554698..6e2b2c93b4b7 100644
+> > --- a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+> > +++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+> > @@ -42,6 +42,9 @@ properties:
+> >    "#clock-cells":
+> >      const: 0
+> >  
+> > +  clock-frequency:
+> > +    description: for audio_clkout
+> 
+> Incomplete, missing type/ref, constraints.
 
-While the MDIO hardware polling unit and its necessity for the MAC=20
-layer was always well known, no detailed documentation was available.
-For this series the MDIO bus was inspected with a logic analyzer for=20
-a better understanding how polling and kernel access interact on the=20
-bus. All this will be explained now in the driver comments.
+renesas,r9a09g047-sound is handled by sound/soc/renesas/rcar/core.c [1],
+and "clock-frequency" is read by rsnd_adg_get_clkout() [2]. The same
+property is already documented for R-Car in
+Documentation/devicetree/bindings/sound/renesas,rsnd.yaml [3].
 
-This patch series adds support for the RTL83xx devices. For this
+Please correct me if I'm missing somenthing.
 
-- Enhance device tree binding.
-- Add special handling for limitations enforced by hardware polling.
-  These already have minor side effects on RTL93xx devices but are even
-  more critical for the RTL83xx hardware.
-- Add RTL83xx coding.
+[1] https://elixir.bootlin.com/linux/v7.2-rc5/source/sound/soc/renesas/rcar/core.c#L109
+[2] https://elixir.bootlin.com/linux/v7.2-rc5/source/sound/soc/renesas/rcar/adg.c#L690
+[3] https://elixir.bootlin.com/linux/v7.2-rc5/source/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml#L89
 
-Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-=2D--
+Kind regards,
+Tommaso
 
-v11 -> v12:
-  - v11 was sent with the wrong starting commit and with leftovers
-    from v10. Sorry for that and thanks to Jeremy.
-  - Allow to support devices that as of now only need C22 read/write
-    helpers. This avoids to carry around unneeded C45 code for RTL83xx.
-    The feature is implemented with an additional patch. With this=20
-    drop RTL83xx C45 helpers. (Sashiko)
-v11: https://lore.kernel.org/netdev/20260802083528.490216-1-markus.stockha=
-usen@gmx.de/
-v11 Sashiko review faild
-
-v10 -> v11:
-  - Fix typo in bindings patch. Cypress has only 52 ports. (Sashiko)
-  - Drop "extend priv lifetime" patch this was too complex and produced
-    even more Sashiko findings. Instead use suppress_bind_attrs to
-    disable sysfs unbinding. (Sashiko)
-  - Rename detach helper phy_detach_internal() to avoid confusion with
-    unlocked helpers that start with two underscores. (Sashiko)
-  - Clarify the reason for the unconditional notify_phy_detach()
-    that Sashiko complained about. (Markus) =20
-  - Explain that FIELD_PREP(RTL8390_PHY_CTRL_EXT_PAGE, 0x1ff) is taken
-    over from SDK and no meaningful name can be given for 0x1ff. Just
-    like RTL9300_PHY_CTRL_PARK_PAGE. (Sashiko).
-v10: https://lore.kernel.org/netdev/20260731061400.78301-1-markus.stockhau=
-sen@gmx.de/
-v10 sashiko-nipa: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2026=
-0731061400.78301-1-markus.stockhausen%40gmx.de
-v10 sashiko-gemini: https://sashiko.dev/#/patchset/20260731061400.78301-1-=
-markus.stockhausen%40gmx.de
-
-v9 -> v10:
-  - Run devm_add_action_or_reset() after devm_of_mdiobus_register().
-    Critical last minute flaw during v9 refactoring. (Sashiko)
-  - Enclose page access into guard() during detach notification to
-    avoid concurrency issues during teardown. (Sashiko)=20
-  - Clarify that system suspend/resume ist not supported. Hardware
-    polling will not need to take care about system power management.
-    (Sashiko)
-  - Add patch to reword Kconfig description. (Sashiko)
-  - Remark: v9 was mislabeled as v8
-v9: https://lore.kernel.org/netdev/20260729160227.155613-1-markus.stockhau=
-sen@gmx.de/
-v9 Sashiko review: https://sashiko.dev/#/patchset/20260729160227.155613-1-=
-markus.stockhausen%40gmx.de
-
-v8 -> v9:
-  - Align polling documentation with sample. Instead of "read" it
-    must be "write". (Sashiko)
-  - If otto_emdio_init_polling() fails do not leave otto_emdio_probe()
-    but jump to error label for cleanup. (Sashiko)
-  - Bind cleanup action to the bus and not the controller. This was
-    done wrong in v7. (Sashiko)
-  - Clear Realtek C22 PHY tracking page during detach. This ensures
-    that next PHY attachment does not work on wrong initial page.
-    (Sashiko)
-  - Explain that polling registers have different names for the
-    devices to avoid AI confusion. (Sashiko)
-  - Improve notify_phy_attach() and notify_phy_detach() documentation
-    to better reflect under what conditions these callbacks run.
-    (Sashiko)
-  - The v8 lifetime increase rework changed an error message without
-    explanation. Undo that change. (Sashiko)
-  - Improve page tracking commit message. Explain that bus scan runs
-    before Realtek PHY check and thus a delayed error handling is
-    accepted for now. (Sashiko)
-  - Explain that the driver implements c45 access for RTL838x and
-    RTL839x for completeness. (Sashiko)
-  - Replace kzalloc() by kzalloc_obj due to checkpatch. (Markus)
-  - Use define for page register 31. (Sashiko)
-  - Avoid duplicate pointer walk in otto_emdio_notify_phy_attach().
-    (Sashiko)
-  - Drop unneded parenthesis for phy vendor check inside
-    otto_emdio_notify_phy_attach(). (Sashiko)
-v8: https://lore.kernel.org/netdev/20260727191559.19617-1-markus.stockhaus=
-en@gmx.de/
-v8 Sashiko review: https://sashiko.dev/#/patchset/20260727191559.19617-1-m=
-arkus.stockhausen%40gmx.de=20
-
-v7 -> v8:
-  - Add patch 4 to increase lifetime of controller->priv structure so
-    it is available until the last bus is unregistered. This avoids
-    a use-after-free if controller is unbound via sysfs. (Sashiko)
-v7: https://lore.kernel.org/netdev/20260726071751.1359156-1-markus.stockha=
-usen@gmx.de/
-v7 Sashiko review: https://sashiko.dev/#/message/20260726071751.1359156-1-=
-markus.stockhausen%40gmx.de
-
-v6 -> v7:
-  - Drop phy_poll bitmap. It was used to detect asymmetrical attach()
-    and detach() callbacks. With v6 callback refactoring this is
-    now obsolete. (Sashiko)
-  - Relocate notify_detach() callback directly behind phy_suspend()
-    for better symmetry. To avoid further AI review complaints about
-    missing LIFO compliance explain that phy_detach() even without
-    the patch is not compliant. (Sashiko)
-v6: https://lore.kernel.org/netdev/20260724055611.1008577-1-markus.stockha=
-usen@gmx.de/
-v6 Sashiko review: https://sashiko.dev/#/patchset/20260724055611.1008577-1=
--markus.stockhausen%40gmx.de =20
-
-v5 -> v6:
-  - Adapt polling documentation with new findings after questions
-    about consistency of 100MBit downspeed detection. (Andrew)
-  - Add a clearer explanation to the page tracking commit and why
-    it was chosen over a polling enabling/disabling solution. (Andrew)
-  - Make bus notification symmetrical and respect LIFO order. For this
-    add a __phy_detach() helper that avoids code duplication in the
-    phy_attach_direct() error paths. Drop the mdio_bus_notified=20
-    status bit. (Andrew, Sashiko)
-  - Adapt notify_phy_attach()/notify_phy_detach() documentation to
-    reflect above changes.
-  - Drop lockdep_assert_held check from otto_emdio_set_port_polling()
-    and remove lock handling during polling initialization. At that
-    point in time the driver has exclusive access. (Andrew)
-  - Drop polling check in otto_emdio_notify_phy_attach(). Notification
-    is symmetrical now so there is no chance of double invocation.
-    (Andrew)
-  - Add Reviewed-by to "Increase MDIO timeout" patch (Andrew)
-v5: https://lore.kernel.org/netdev/20260722062356.12291-1-markus.stockhaus=
-en@gmx.de/
-v5 Sashiko review: https://sashiko.dev/#/patchset/20260722062356.12291-1-m=
-arkus.stockhausen%40gmx.de
-
-v4 -> v5:
-  - Design bus notification symmetric so that notify_phy_detach
-    is only invoked when notify_phy_attach succeeded. (Jakub)
-  - Improve documentation of notification callbacks. (Jakub)
-v4: https://lore.kernel.org/netdev/20260709064157.2865063-1-markus.stockha=
-usen@gmx.de/
-v4 Sashiko review: https://sashiko.dev/#/patchset/20260709064157.2865063-1=
--markus.stockhausen%40gmx.de
-
-v3 -> v4:
-  - Add Acked-by for dt-bindings commit (Conor)=20
-  - Test phy_poll bitfield under lock to avoid race. (Sashiko)=20
-  - Fix whitespace in commit "configure hardware polling" (Markus)
-v3: https://lore.kernel.org/netdev/20260705163532.2853959-1-markus.stockha=
-usen@gmx.de/
-v3 Sashiko review: https://sashiko.dev/#/patchset/20260705163532.2853959-1=
--markus.stockhausen%40gmx.de
-
-v2 -> v3:
-  - Enhance documentation and make clear that the driver and not the
-    kernel must handle the bus mess. (Andrew)
-  - Block non-Realtek PHYs on C22 buses to avoid issues with driver
-    internal register 31 handling. (Andrew, Chris)
-  - Drop C45 over C22 patch. This would need a bus lock/unlock design.
-    For all known hardware designs it is not needed. (Andrew)
-  - Drop tune_polling() and init_polling() from private structure.
-    It is not used in this series and only produces review bot
-    questions. (Sashiko)
-  - Sort patches for better logical consistency. (Markus)
-  - Add device tree patch that was missed in v2. (Markus)
-v2: https://lore.kernel.org/netdev/20260629152336.2239826-1-markus.stockha=
-usen@gmx.de/
-v2 Sashiko review: https://sashiko.dev/#/patchset/20260629152336.2239826-1=
--markus.stockhausen%40gmx.de
-
-v1 -> v2:
-  - The polling activation logic was refactored. V1 simply activated
-    polling after bus probing. Now a dedicated phydev/bus callback
-    takes care of this and also handles deferred PHY probing. (Sashiko)
-  - Run MMD prefix helper before register 31 (aka Realtek page register)=
-=20
-    handling. (Jakub's bot)
-  - Always run MMD postfix - even if the c22 register access fails. This=
-=20
-    ensures that the MMD state machine stays consistent. Adapt the error=
-=20
-    handling inside the postfix function to not overwrite the real MDIO=20
-    return code (Sashiko, Jakub's bot)
-  - Drop unused RTL8390_PHY_CTRL_PARK_PAGE define. Like on RTL931x this=20
-    field must not be set and thus can be ignored. (Sashiko)
-  - Change title in device tree documentation. Because of this do NOT=20
-    add the Reviewed-by of Krzysztof. (Jakub's bot)
-  - Fix wrong use of RTL839x in commit message of patch "c45 over c22=20
-    mitigation". RTL930x was wrongly named RTL839x in the list of good=20
-    devices. (Markus)
-  - Fix typos (e.g. c22 over c45) in polling documentation (Jakub's bot)
-v1: https://lore.kernel.org/netdev/20260613112946.1071411-1-markus.stockha=
-usen@gmx.de/
-v1 Sashiko review: https://sashiko.dev/#/patchset/20260613112946.1071411-1=
--markus.stockhausen@gmx.de
-
-
-Daniel Golle (1):
-  net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
-
-Markus Stockhausen (10):
-  dt-bindings: net: realtek,rtl9301-mdio: Add RTL83xx series
-  net: mdio: realtek-rtl9300: Add polling documentation
-  net: mdio: realtek-rtl9300: suppress sysfs bind/unbind attributes
-  net: mdio: realtek-rtl9300: Configure hardware polling during probing
-  net: mdio: realtek-rtl9300: Add page tracking
-  net: mdio: realtek-rtl9300: Increase MDIO timeout
-  net: mdio: realtek-rtl9300: Check for C45 support during setup
-  net: mdio: realtek-rtl9300: Add support for RTL838x
-  net: mdio: realtek-rtl9300: Add support for RTL839x
-  net: mdio: reword MDIO_REALTEK_RTL9300 Kconfig
-
- .../bindings/net/realtek,rtl9301-mdio.yaml    |  14 +-
- drivers/net/mdio/Kconfig                      |   4 +-
- drivers/net/mdio/mdio-realtek-rtl9300.c       | 344 +++++++++++++++++-
- drivers/net/phy/phy_device.c                  | 180 ++++-----
- include/linux/phy.h                           |  18 +
- 5 files changed, 465 insertions(+), 95 deletions(-)
-
-=2D-=20
-2.55.0
-
+> 
+> Best regards,
+> Krzysztof
