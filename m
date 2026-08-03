@@ -1,170 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1473FFF94
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 13:41:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D9C40F73A;
+	Mon,  3 Aug 2026 13:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785764463; cv=none; b=CtNSG0kap7Sh/w3Lgo4orx70Wv81HLs0QFZQTe1dhXjcKvkk4/jCtw5yKdP0GEiYKYnu70hVBdgiMi7SwxT2L+oVPHILwfNj0/k+29DLS7Djj6fizmnM0mKQeCG/I0aSoTvld4GiccjXUgy/2599S9ew62cD+mg27RgLC9UQoMc=
+	t=1785764466; cv=none; b=oHoEEasGQEY6F6iVnQgNjmfRz9aETdJXxumaT4m8jBL+668kxOmMM85AtYc4+66OHu1DhK1LuvnCuzIl1GaefDhxaBwgVfdLnAGrs+wcHWHOMketqJ4Q/Z9Xf8wpLvw0NEKHoBEx7isM2grTUTiTr85bnF2O5K+8PCoBJNkz1cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785764463; c=relaxed/simple;
-	bh=QUwu3aM7wyALv6OrkMnJwvZksgF64OQt61uiYF6+Cxs=;
+	s=arc-20240116; t=1785764466; c=relaxed/simple;
+	bh=25SKFpv1QTTVXKCOjBnd3SiFiPl5BeDwrMJaUS6kxTI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=M6QT8YWi1nlq/Zj94r5i/JF92IyOqLRZ+lhkySm59ODi3Za83xBHkWW+ZAa9lSWnBl5DDyS4DTpKGd4Wz2HPtpoFUWuSQjKsV4R60r0L/t463FJ+1o0VfsbJ0d7GJb9v6QvxbG/EhA0xK+uhonBytHnSixpE6PtNVExUxJl+P/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gEz9prSz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BuO8ORrJ18X/CYHo9tUmL2jtKEdK7altiNNZp0jSwzq5t7IqXlEHFlFc9sK+Hg3+v0Y+n+MIkeHD3kmMS5MTsV6hc2GKt9eiRWJNkVufMRcnWg06o87h++AakJGNurxyUFBZynXqX0+R31pcmFN5p0DhEtOgR0fplaIMOrtIU3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dpKHb8Pe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gEz9prSz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAFEC1F000E9;
-	Mon,  3 Aug 2026 13:41:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dpKHb8Pe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 829451F000E9;
+	Mon,  3 Aug 2026 13:41:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785764462;
-	bh=EFZeZplNyQ+RN6YUmOuBccf+iuq0oAQh+VXaLX9FTE8=;
+	s=k20260515; t=1785764465;
+	bh=rwr6Hg1BMYnjKFBU1U6rymvC8GBDfyq+kH6V3tyk8d4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gEz9prSzUffzXLzJKPJc5eWA5n3BzrzK5aFiQvXqq4e1lyL8OkNn8LeVfv5XVCAsc
-	 59cFgQEwzI2bL7u7Tv7mR9gPvIwyhHppBxidSId39lyUurUXzjMaXy91matzfOan26
-	 dqP7aOWas5TJgiozU3UNEGA2U6GY7QWAj74TrH8ozxprjWnLOdnKKXz6068WebSaTc
-	 XCLAJMLa+uGIG6Fp1KbFJC/alp+0h/3G5NTcrSBecjGBRlmUE1kOVuB3m+fKysdTXn
-	 atTbs5hwvPerdpQGgjdUy9DYrSTbbZmiaGqJ+FIabozqW+Hl3MKh50bgsDPjSqReNF
-	 3rgnTHOHI7GOQ==
+	b=dpKHb8Pefq4/wjvOGUmLoqVb3r/7LarRVwjg+EFyMSZ1Zg9ceOQJrVty6TEMiu0gl
+	 oMv8SX9nu94oEooK2ZnOnFMu/YhjXZbYLtfQG6WpGBwsWNb9oei16H0AKTAsu+ledh
+	 LnqHKEclBqoNZfF1s2DeR0ayoq6UJKXdNDzmromZjW3peBA5HYY4dvuvmzDSgOmMui
+	 oyTakNvmcVvGdtkgwiCpG8NgG5MS3WrHzDSsISR8CG6usZ64RxILs+yTNdkRja9HLF
+	 MOcqqGT5Uox92Bh3bkxBBwkd8hQeF3kyeMWAkZX0wuA+nyu17B16htKm4V7PehAvEU
+	 0Y/HJW2YR0fyA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/6] spmi: apple: check transaction status
+Subject: Re: [PATCH v5 1/2] phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803-t603x-spmi-v3-3-c17b506d91a1@chaosmail.tech>
-References: <20260803-t603x-spmi-v3-0-c17b506d91a1@chaosmail.tech>
- <20260803-t603x-spmi-v3-3-c17b506d91a1@chaosmail.tech>
+To: palash.kambar@oss.qualcomm.com
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, linux-scsi@vger.kernel.org, neil.armstrong@linaro.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260803130852.1432714-2-palash.kambar@oss.qualcomm.com>
+References: <20260803130852.1432714-1-palash.kambar@oss.qualcomm.com>
+ <20260803130852.1432714-2-palash.kambar@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 13:41:01 +0000
-Message-Id: <20260803134101.EAFEC1F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 13:41:03 +0000
+Message-Id: <20260803134104.829451F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Missing explicit header includes for bitfield and bitwise macros.
-
-Pre-existing issues:
-- [High] Leftover FIFO data on error paths permanently desynchronizes subse=
-quent transactions.
-- [High] Unbounded `while` loop polling hardware status can cause a kernel =
-hard lockup.
+- [High] Missing UFS_HS_G4 PHY configuration fallback overlay for the Hawi =
+SoC, leading to uninitialized critical registers.
 --
 
---- Patch [3]: [PATCH v3 3/6] spmi: apple: check transaction status ---
-commit c52cd20ea1913f6b44118c7681235dcecf7cc8dc
-Author: Alba Mendez <me@alba.sh>
+--- Patch [1]: [PATCH v5 1/2] phy: qcom-qmp-ufs: Add UFS PHY support on Haw=
+i ---
+commit 4d0cc515a612b40d0f5a7fc9e44b9fbc6b1527fb
+Author: Palash Kambar <palash.kambar@oss.qualcomm.com>
+Subject: phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
 
-spmi: apple: check transaction status
+Add the init sequence tables and config for the UFS QMP phy found in
+the Hawi SoC.
 
-This commit adds checks for parity errors and missing command ACKs in the
-Apple SPMI controller driver. It extracts the reply status from the response
-register instead of discarding it and returns an error if checks fail.
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualco=
+mm/phy-qcom-qmp-ufs.c
+> index 0f4ad24aa4058..d4aca22c181e4 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
 
-> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-app=
-le-controller.c
-> --- a/drivers/spmi/spmi-apple-controller.c
-> +++ b/drivers/spmi/spmi-apple-controller.c
-> @@ -22,6 +22,12 @@
->  #define SPMI_CMD_REG 0x4
->  #define SPMI_RSP_REG 0x8
+[ ... ]
+
+> @@ -1845,6 +1868,119 @@ static const struct qmp_phy_cfg sm8750_ufsphy_cfg=
+ =3D {
 > =20
-> +/* SPMI_RSP_REG reply word */
-> +#define SPMI_REPLY_FRAME_PARITY_STATUS GENMASK(31, 16)
-> +#define SPMI_REPLY_ACK BIT(15)
-> +#define SPMI_REPLY_SLAVE_ID GENMASK(14, 8)
-> +#define SPMI_REPLY_CMD GENMASK(7, 0)
+>  };
+> =20
+> +static const struct qmp_phy_init_tbl hawi_ufsphy_serdes[] =3D {
+
+[ ... ]
+
+> +static const struct qmp_phy_cfg hawi_ufsphy_cfg =3D {
+> +	.lanes			=3D 2,
 > +
-
-[Severity: Low]
-Are we missing explicit header includes for linux/bitfield.h and
-linux/bits.h?
-
-This patch introduces the use of GENMASK and FIELD_GET, but appears to rely
-on transitive inclusions from other headers, which might cause future build
-breakages if those headers change.
-
-[ ... ]
-
-> @@ -87,8 +93,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, =
-u8 opc, u8 sid,
->  	if (ret)
->  		return ret;
-
-[Severity: High]
-This is a pre-existing issue, but does this error path leave stale data in
-the RX FIFO?
-
-If apple_spmi_wait_rx_not_empty() times out, it returns an error and aborts
-immediately without draining the RX FIFO:
-
-drivers/spmi/spmi-apple-controller.c:apple_spmi_wait_rx_not_empty() {
-    ...
-    ret =3D poll_reg(spmi, SPMI_STATUS_REG, status, !(status & SPMI_RX_FIFO=
-_EMPTY));
-    if (ret) {
-        dev_err(&ctrl->dev, "failed to wait for RX FIFO not empty\n");
-        return ret;
-    }
-}
-
-The hardware might subsequently complete the transaction and push the reply
-into the FIFO. Later commands will begin by writing to the command register
-without first asserting that the RX FIFO is drained:
-
-drivers/spmi/spmi-apple-controller.c:spmi_raw_cmd() {
-    guard(mutex)(&spmi->fifo_lock);
-    reinit_completion(&spmi->fifo_rx);
-    writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-    ...
-}
-
-Could this permanently desynchronize subsequent transactions by causing them
-to read the stale reply data left by the aborted transaction?
-
-> -	/* Discard SPMI reply status */
-> -	readl(spmi->regs + SPMI_RSP_REG);
-> +	reply =3D readl(spmi->regs + SPMI_RSP_REG);
-
-[ ... ]
-
-> @@ -107,6 +112,10 @@ static int spmi_read_cmd(struct spmi_controller *ctr=
-l, u8 opc, u8 sid,
-> =20
->  	flush_extra_data(ctrl);
+> +	.offsets		=3D &qmp_ufs_offsets_v7,
+> +	.max_supported_gear	=3D UFS_HS_G5,
+> +
+> +	.tbls =3D {
+> +		.serdes		=3D hawi_ufsphy_serdes,
+> +		.serdes_num	=3D ARRAY_SIZE(hawi_ufsphy_serdes),
+> +		.tx		=3D hawi_ufsphy_tx,
+> +		.tx_num		=3D ARRAY_SIZE(hawi_ufsphy_tx),
+> +		.rx		=3D hawi_ufsphy_rx,
+> +		.rx_num		=3D ARRAY_SIZE(hawi_ufsphy_rx),
+> +		.pcs		=3D hawi_ufsphy_pcs,
+> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_pcs),
+> +	},
+> +
+> +	.tbls_hs_overlay[0] =3D {
+> +		.pcs		=3D hawi_ufsphy_g5_pcs,
+> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_g5_pcs),
+> +		.max_gear	=3D UFS_HS_G5,
+> +	},
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is it possible for this call
-to cause a kernel hard lockup?
+Does this missing G4 overlay cause initialization to fail when a device
+requests HS-G4?
 
-The flush_extra_data() function implements an unbounded while loop polling
-the hardware status:
+If a UFS 3.1 device is attached (max gear G4) or link training drops to G4,
+the host driver will call phy_set_mode() with UFS_HS_G4. Since the
+tbls_hs_overlay array only defines an entry for UFS_HS_G5,
+qmp_ufs_get_gear_overlay() will return -EINVAL.
 
-drivers/spmi/spmi-apple-controller.c:flush_extra_data() {
-    while (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
-        ...
-        readl(spmi->regs + SPMI_RSP_REG);
-    }
-}
+This leaves critical PCS registers like QPHY_V7_PCS_UFS_PLL_CNTL,
+TX_HSGEAR_CAPABILITY, and RX_HSGEAR_CAPABILITY at their hardware defaults,
+which could lead to link failures. Should there be a fallback G4 overlay
+defined here?
 
-If the hardware enters a faulty state or continuously reports that the FIFO
-is not empty, could the CPU loop infinitely here without yielding or timing
-out?
-
-> +	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1=
-)) {
-> +		dev_err(&ctrl->dev, "some frames failed parity check\n");
-> +		return -EIO;
-> +	}
->  	return 0;
->  }
+> +
+> +	.vreg_list		=3D hawi_ufsphy_vreg_l,
+> +	.num_vregs		=3D ARRAY_SIZE(hawi_ufsphy_vreg_l),
+> +	.regs			=3D ufsphy_v7_regs_layout,
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-t603x-spmi=
--v3-0-c17b506d91a1@chaosmail.tech?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803130852.1432=
+714-1-palash.kambar@oss.qualcomm.com?part=3D1
