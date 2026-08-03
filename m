@@ -1,172 +1,147 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F3743846C
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54C52206A7
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:09:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785780489; cv=none; b=KKIAPQ+eY03gDQGs9HGIUAsEM1CwCimwgYPhz2rz88W0F6+WAyjJrTCrk+TrXltHrmCB8uxwaafMVJgtfxqFo0WZXYKF/mLvH5MzwW37/1SE/gDZHLhVzMm+NJjcfleX0dftNfqpk/eDI1r+exDNSCoekJLqpuUGc6apHDKWCIg=
+	t=1785780555; cv=none; b=Wn0sh3Q5HlI8x5KAe81YP18aV4b9iTzc4VTsoMqkP693uC5ahCY/H1L+nJWbR7oXSSHd2opA3Rx9KXBqRjx45iFtdruArX9/Gl1s79EwrCk8Q8z40vgRPtNiFb2l4g2dwu2qgFNR9uarjxzg7UcGeZ0kDoEGYR5+4zDBhGssREQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785780489; c=relaxed/simple;
-	bh=PVzzc9du/j/IIUtVI0EpD2qkwZbInKS9/yBMHMA5D4g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=U14aHZoArNkEoKLAM3qrTyl8d8FqbqPmo2gONqm0MOcSEfay4E51szO/vyzaMwqbNmpRdR0/kpv1rFcc9iojZtvtiYhyayxZ+LAkbndOhS2BH3rwNJiHnyzCFj0E06lrEhzFj++Px7IYgUc30bsEtUL5Suw0NlHFE95+im4ZiYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GLXj0ltx; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785780555; c=relaxed/simple;
+	bh=pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ukg/58Wmh8kgOc1SJzdPgdgfsG88eMOVg5R+GxXLo8Yenl/TgEy2VOifyyqKOilTeXOQutoSKtwC8bFFyVjShRE3ZS1XZBPgNteaR5PzmJ23i1eTOT7ej1rImIkhLWwkG+r/rQD0LdHWzsB3y8nY5cpsJau/TmZzjSQtrHeWjoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kV9T8WKF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PBowEvWI; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GLXj0ltx"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso1871720f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:08:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kV9T8WKF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PBowEvWI"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673GwNnx1224792
+	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 18:09:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=; b=kV9T8WKFGUR7GR7t
+	BmoPKkpKLwPEM2BmAgc8G0u9ZAukWMNlUN8hUV/pWggiJwiKX/8cWzhRhNtYjCMd
+	f4ppDmo8EZ9fJZeqhK06ZKIOwp3Qg8JFceOgY80JqpvszXDnMKJpXZlIbW09ReAm
+	44sC262fAc4jjbX/mFjLnmBXTwH+g3lWAf29bobSQXIBcA3mxJur72jMWzyrmnOu
+	Z/78F4rFGkEMau/01olZU7YqWvzKV2JRE9IbmNQC2Oh7BjRPISx3niNZEzpdpIBx
+	W9dd81i8tuQJ1pRHuLhQMRnYIEV4cQHv9+aS0Np5+f1fn3k5T5UhR8T1mYBLgvvQ
+	LuhhLw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnvnjy2e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 18:09:12 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c9fe4c5eb39so2591785a12.1
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:09:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785780486; x=1786385286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6BWR8dmRaEKQHkFK66ev0gVEIwNsNYFwR9W/SfWvzP8=;
-        b=GLXj0ltxTXuBowk3JXfV28mbmq4UKfQ7/mmuS+BjJ5pslm9npFMa2JRcZejXKwjL9d
-         sN1vIT4/PRu572j9P4rftUKKEp5cj9aWXLEzJbYkLzG55two+dHipp1LpngJGapDFNwm
-         l3A3WpA4NunpD23SPp+4a7LW3TuoM3unKsxbI0UmZyeO7uCL59uSBnNaBpGz7ar4I1Q+
-         AKW/1kfQ7b4xFvIHUZejiHvoSLQsfvoCDkTb5cLinz3ZP/+d12aFmfzS5Jg39sj1CvN3
-         HVu8YDbRHwOcXAzoYHbWKsxLipfHjFS1akt0zcuG5JXQtf8znu6rC0lhYqoRsrf0bzsP
-         dtbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785780486; x=1786385286;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1785780551; x=1786385351; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6BWR8dmRaEKQHkFK66ev0gVEIwNsNYFwR9W/SfWvzP8=;
-        b=ZDOFOZGjTB2PcBiNhihEYDpl6y9zN5vD+/wmYJDaTDUYXW7Ui4u5p6/wPnC5DC6ZwG
-         LQ8O5BJJgT91AmOM3IvAAatOUvz9RB6e0YulXnV4zi9JfeKBtrExCVQB8t8dHBvX0HTC
-         5N7DansWbcbWbFgUvMF9yHoTB7iN13paZ0b0uNs5hH4RsbVcugpvK++ezug/iWGCsojA
-         /JdddGpJiHvCCzCndZdHwGNYCUMNJ4C8lK/sxQgLmQVrhERwDjZRrFJdtPCJFuMV7SYs
-         inyJUDr0sKDSDd2HlQBOKluUhlCb7a+YSpTkzHNiAs/K2atgivpOEgLYUskhPcqh2C1J
-         vKsw==
-X-Forwarded-Encrypted: i=1; AHgh+RpzLkSlhz99fmqYciMAywCK+FJpK/bamyjuOJGToDNo4rMXUBsXd+GG3ds2vZBNFDfb/uYr5NabDDhn@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCnUnRcjOQzdF0+X3iPnkn8irWrIxRxkSyYZWB7ng3re0Lo6iN
-	qCOYzIXJbwx/jS8gfuQlO12MWrFvmpbDBP4uq4e+lCU0UtJhnE+Qd/dF
-X-Gm-Gg: AR+sD138K5rjqoiY+SzdTG2DtMA37P1v0wShqNiOQoUkQiXFi/7bJVrE0IpHV1rt5vc
-	F5LtodVb3iCOPNceINXIzizwW1AsRKAYw59v/qKQ1f1YSeV0PyQUHiEMh+jCs6xkaeHmAy6Lfa1
-	ZU01Hi1dzuVaYNb6VERQVSCBnHDLAIqN8bfMM+x1GOlH77QPSHTh1iw9C5U4rh367Q6dGKhpGnE
-	AxSz1mxccj/VVrVsSSZ/kl3Je1DewaGWR8WtPSW5CeBdDe7+9roXZXHO1RCT6ZjUH5znXwL/3PQ
-	veqLeqpam1qYq0Q3pGy3h1znn7HfygsX+KhE/5helfNzLcYSEaYBU0vSVypf5Szjs8/KbB5/sdx
-	WYJJnITuI5LpNMZqVC9lLL7m632NnXEH7A66rprG9pmS+fQSAaN7SSzoVitUGQIK0P+9DZ/dCpe
-	lngVGSsZ4BVpSidz9qG59Q+DQ6gLWvodyLykyk3frTEhsn72O7wA8gGfoHEX9zFXJ1KecIOp+NW
-	MhaI7OsSliHQom3sMRWfxOg
-X-Received: by 2002:a5d:59c8:0:b0:47f:9404:5185 with SMTP id ffacd0b85a97d-47fd72c78ebmr26973780f8f.24.1785780485932;
-        Mon, 03 Aug 2026 11:08:05 -0700 (PDT)
-Received: from localhost.localdomain ([2a0d:3344:2841:7708:a101:2b8a:f76:a00f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91b3sm37950955f8f.14.2026.08.03.11.08.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 11:08:05 -0700 (PDT)
-From: =?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
-To: mturquette@baylibre.com,
-	sboyd@kernel.org,
-	wens@kernel.org,
-	jernej.skrabec@gmail.com,
-	samuel@sholland.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: andre.przywara@arm.com,
-	bmasney@redhat.com,
-	linux-clk@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
-Subject: [PATCH v2 3/3] arm64: dts: allwinner: a523: add GPU OPP table
-Date: Mon,  3 Aug 2026 20:07:55 +0200
-Message-ID: <20260803180755.288793-4-juanmanuellopezcarrillo@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260803180755.288793-1-juanmanuellopezcarrillo@gmail.com>
-References: <20260803180755.288793-1-juanmanuellopezcarrillo@gmail.com>
+        bh=pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=;
+        b=PBowEvWIuC/j2Gy9cJXDC5CyvYi6bLnnwbC2uivPynbcO2dCzEd1vLEcy+RFfgcjfe
+         MvVFo2tuZKxAGpw7A6tnofv5mz1iL/Pc+OEBkxlbSrxI60ftRG2wb4iaqT0tpXImMr7j
+         IFyGkB3DleL4JRToG0sTOfA5hSXzOhpTrS1hJcboipdDTxvcrfp9jVXZpXKPU61Dyz7X
+         2Ht5mROYJbst+BQHgNbwurD6NOItinpd7hBruFbP/13A2VvBtWWKcCZsL6qPOiMvHOG9
+         16Czr+CvHjyZ6gX1Qf5gSrGOgJ61L/AVppdNkJLj9s2A8s2iPLezqTlEXKBkrSyr7YNm
+         HMfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785780551; x=1786385351;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=;
+        b=oPcEACocZxqTYee1fFh5t5KgkCMccVfwQ0sndQf/AsggebaeVyUfxQ2KD0jaAw/DA/
+         MGzjeJrOBdB9BYWidswWgsJKZgrDnfrFH8u7MmScYTLD3XtfcPh9VHWafUnGMpPQbTDn
+         Ybk3F+vrQ0BZdXEpQ0FPmajos+VXOwPQO9EnFx6BohPGigNz8BZjL7ySD0sEm+5StHcs
+         PAJaqUS0pumonYCb/mNvuww6tzl4ccP/dobTjSElxdDolWnFm7fYrLU1vuobZBKr4e+B
+         I3i62JeCj2c84ytZteY46hz/6lsFd5Fb85mtw86EwvIfONpZQpmmXiJb2qJzrLNay23J
+         tyCw==
+X-Forwarded-Encrypted: i=1; AHgh+RoNg3qfljuVbICURy78BZMl5HjNCnbj9gwBhbS7v2zMxMFUDOSpY7KyGIgBq/WslcJi3+Oz5oLRWgo3@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUMBrgwxdvpaQBvsC6OMbwVndw+U1KJpcyfdg27QPZHcd16k/L
+	D5tzK6yegmCRKgHStk0Gv9e4c2QbbqkO2UTJMoy+AO4IW9IL6AwLBD+uUxSyT24SEri870SSLEb
+	ktPNA5FYGwQ90grdVtHmp7mDmf+eFAupqLTDVsi0Hmk0YEv4BjvXNkys8tFYgsUpf
+X-Gm-Gg: AR+sD12FP8bcnXbAfU2z3A5a1Ji2OnY8RsVF7QEycPkaav8eNhpDN3K4DlC7aIzuwmN
+	lH1nU4RkaV9xPnx2WNKEavGpDFIf9E+HZqrdO5KH4+/++JhelcJ3tWBvf8CZvBOOf3DhSev+uxJ
+	uSF0FvzPLHefvX330RTKFnLFjCqOQdpIJNao+FvI124pSOlA7eISJkgLOdvSCGh4rYYOFs1B+j8
+	MNcia4fUvXmAXJH1j/HrvSiFE9QQ77H1WUhBp7Jjq2UXbJKXgxC5WjMDqPlaLw+tL1ysbg0iKmY
+	sD3MdKUqQGa8TM1ulwlsWk+CtEBLOKz0HGHaRfAa7wRQ5vdfh8JHOCrvC56Z80rmVOUJqpjh9tM
+	7Rf1v7T9J+fA0SG2GXiJQaHnN9huEOVLMQA8=
+X-Received: by 2002:a05:6a20:6a10:b0:3c6:3c5b:f2e3 with SMTP id adf61e73a8af0-3c92a62d94cmr11790944637.33.1785780551600;
+        Mon, 03 Aug 2026 11:09:11 -0700 (PDT)
+X-Received: by 2002:a05:6a20:6a10:b0:3c6:3c5b:f2e3 with SMTP id adf61e73a8af0-3c92a62d94cmr11790921637.33.1785780551213;
+        Mon, 03 Aug 2026 11:09:11 -0700 (PDT)
+Received: from [192.168.0.100] ([49.204.17.188])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e18e114sm65919018eec.28.2026.08.03.11.09.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Aug 2026 11:09:10 -0700 (PDT)
+Message-ID: <bb8dd840-cf24-441b-b096-91cadf7b62a1@oss.qualcomm.com>
+Date: Mon, 3 Aug 2026 23:39:05 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/7] ASoC: qcom: add AudioReach TDM backend support
+To: Mark Brown <broonie@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
+        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260801054610.4047089-1-prasad.kumpatla@oss.qualcomm.com>
+ <47bce201-5086-4f70-9e4f-e5c50059e487@sirena.org.uk>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <47bce201-5086-4f70-9e4f-e5c50059e487@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aoaCzyZV c=1 sm=1 tr=0 ts=6a70d948 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=/JTPBhwEQko7YaD0RKblyA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=O_9MOtM5Qdc4zGp9YqwA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: vpaoJJR78nYAVllMwH3d8j3PDpnyAHPm
+X-Proofpoint-ORIG-GUID: vpaoJJR78nYAVllMwH3d8j3PDpnyAHPm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDE2MSBTYWx0ZWRfX00vFEBrbWrd8
+ Jr8dwaN91nYzXRu9uUkO1so4rIJ7xYnlSC3yNViMkpHBEY7An0UFp/I93eLJtwAPshmjbAjm78p
+ 8KRYXLBs2bEvVr9flfEuw+4/irxdw7YOY98r8JJNI/RZBcoUbMeU5eOqboTf+rHPlpgW089d+nS
+ TFV60f1miL61/1PG3K8h7UO5K9aAsg9QVf/Xdc2D/7bglJ3kDZbLmT3hfA8VzIdiPpBa5UcTeuZ
+ GzoDbHbp3iTjEs4PpHIQnKFETxsN/5ty8jebDJFTPbP13cJFN3mZuY/Ntgvepzp0c1HNMK7nc8h
+ de7xsXW5V91aJdYGDYbMsDdSTRTBlO/hYVjC6IvEJDsfdHYnEUMJcJn9KzJ98sGGwM/B11KQwb5
+ EIn/EB1xRNTZn8KsicCBi9odONVHvp8KlWPf2wgm7XSvg0kCRfbdjsjeY1d/DHHDZDnoAKCw5GI
+ MuZq5xdhLWGU1JREivA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDE2MSBTYWx0ZWRfX3t3/a+WssikF
+ BbNjzSa6Kk8+b2VOE9B+2G182Pl2Xga5M6mvGkIrFp00K98DpqrD2gt1ChR3dQFNdVj/86O8gM0
+ YMvY/sA6M1BAdolrNifumkspNzJA5Ok=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-03_04,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
+ spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030161
 
-Add the Mali-G57 operating points from the vendor BSP universal table
-(150/200/300/400/600 MHz) so panfrost devfreq can scale the GPU instead
-of running at the boot clock.
 
-The table describes the SoC rather than any particular board, so it
-lives in the .dtsi and is referenced from the GPU node there; every
-A523/T527 board in tree already provides mali-supply.
+On 8/3/2026 6:37 PM, Mark Brown wrote:
+> On Sat, Aug 01, 2026 at 11:16:03AM +0530, Prasad Kumpatla wrote:
+>> Add AudioReach support for LPASS Audio IF based TDM backends and wire it
+>> up for the sc8280xp machine driver.
+> This doesn't apply against current code, please check and resend.
+Hi Mark,
 
-The BSP universal table specifies 900 mV for all of these operating
-points, so that is the target and minimum voltage.  The maximum is set
-to 920 mV to also cover boards whose GPU rail is a fixed 920 mV supply
-(the Orange Pi 4A drives it from AXP717 DCDC2, fixed at 920 mV), where
-the voltage transitions are then no-ops.
+Ack, Sure will check and update.
 
-The higher speed-bin points of the BSP (648-792 MHz) are not included:
-they are gated by a SID efuse bin and need pll-gpu as a live parent.
-
-Depends on the sun55i-a523 GPU clock divider fix: the OPP rates are only
-produced correctly with the cycle-masking divider model.  Validated on
-hardware with the Mali cycle counter: 149/199/300/399/597 MHz measured
-under load, thermal-emulation throttling included.
-
-Signed-off-by: Juan Manuel López Carrillo <juanmanuellopezcarrillo@gmail.com>
----
- .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-index 85ef492ffeae..a3164b5dd609 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-@@ -85,6 +85,35 @@ osc24M: osc24M-clk {
- 		clock-output-names = "osc24M";
- 	};
- 
-+	gpu_opp_table: opp-table-gpu {
-+		compatible = "operating-points-v2";
-+
-+		opp-150000000 {
-+			opp-hz = /bits/ 64 <150000000>;
-+			opp-microvolt = <900000 900000 920000>;
-+		};
-+
-+		opp-200000000 {
-+			opp-hz = /bits/ 64 <200000000>;
-+			opp-microvolt = <900000 900000 920000>;
-+		};
-+
-+		opp-300000000 {
-+			opp-hz = /bits/ 64 <300000000>;
-+			opp-microvolt = <900000 900000 920000>;
-+		};
-+
-+		opp-400000000 {
-+			opp-hz = /bits/ 64 <400000000>;
-+			opp-microvolt = <900000 900000 920000>;
-+		};
-+
-+		opp-600000000 {
-+			opp-hz = /bits/ 64 <600000000>;
-+			opp-microvolt = <900000 900000 920000>;
-+		};
-+	};
-+
- 	pmu {
- 		compatible = "arm,cortex-a55-pmu";
- 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH>;
-@@ -121,6 +150,7 @@ gpu: gpu@1800000 {
- 			interrupt-names = "job", "mmu", "gpu";
- 			clocks = <&ccu CLK_GPU>, <&ccu CLK_BUS_GPU>;
- 			clock-names = "core", "bus";
-+			operating-points-v2 = <&gpu_opp_table>;
- 			power-domains = <&pck600 PD_GPU>;
- 			resets = <&ccu RST_BUS_GPU>;
- 			status = "disabled";
--- 
-2.47.3
-
+Thanks,
+Prasad
