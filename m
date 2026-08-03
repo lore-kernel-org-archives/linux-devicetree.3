@@ -1,91 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCFE2F8E9D;
-	Mon,  3 Aug 2026 15:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AFB3033E6;
+	Mon,  3 Aug 2026 15:47:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785772006; cv=none; b=qt5QLykLducGr+fLQvbwmf6G6NDqCMPJyEgI7GMHmbARauMF7ZkbM/bqTeb2WkTXLoqAiL58r+Fjt1ggy7/nGrN6tGdCup6HofvToJQUOiFyz+rmmduw6o8KK6tHjKCCanieeCXlnPijsLdZIOSjozlTNRXEfSovNsHokpd7oIo=
+	t=1785772070; cv=none; b=FwpHfOMgJCj0Zqjf6s3dz5pPZQg8cCkARb3FxNUTNAL9NtN5XGY688p+MJ30Qh30p8zYBxhWvM/ltmf0yTce8y+1RjTcQk5mEOBWVDSZ2EHqNWJ7kYMehej0Z4QmtZuiNszO7Lcdnc4U1KX7nXRuSt0oxwalBTUh4jKqRwfQsZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785772006; c=relaxed/simple;
-	bh=P0GUkDbtzCbp9Qw4obiPdjcNbJH8Jb6vFi0dAT8OA1I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aO1wff44N4DhahKMmc72UJGPHD1o7KztUgC/mrpQoxeMrEMBUvKeR4myw6NCNQlHlebMXbFBvb5PQmlBLcP83U0tkLcIrccfknhTyOMGKDh+vh+y6Fj0vshqCeab8SY9+HGeg/uAHtaYPBz1KQXfsuPJ7VK0P6HjgZrljRRK2GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BdpqzILf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785772070; c=relaxed/simple;
+	bh=Doe8eb8iT9MnXvbYNK2AUQO7IdDuVizBdxLPRUvh5uI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=spSnNJ72HQUIzzYYlOoFHhkdDg7pXrlUdlYc/IINecvixktgFeLphZzXWH6LgRCWqSiJgd/TbXJl9IiSZWYv/G2q/HltLnjvzZSZTzMBVBL/a5nKyv9TbmJCt78bEhK0j11DMnx2vOPXR01Dp9W/DsYjDwhhHcefoMeofLk/0aA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=vqW0cCMy; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Qx4JSaZl; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BdpqzILf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9626E1F000E9;
-	Mon,  3 Aug 2026 15:46:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785772005;
-	bh=Q6M+eyTgFgV8czxAacqDyZ8BHq22VWXaO4tklZ3polU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BdpqzILfXzZf2PjK1P9ZM/2jHW5o5iercGbE4IvNWZNrtmgpbRohEUayuVnbAOnWi
-	 35iRil+LpuMgPy/ExicyiNLKT+SAT3ky5bK8faKAvyKq7yTwJeqFR0+t0sZVkG6r6m
-	 CGCplJob3KWX0l8guDw3j1s0cN/zWmCaYH3kqcw7aF+O/w0/Ok9rdLPOF/5aKMYpgs
-	 7FaGL1xZbrwkI/afNnjHVrHRYuA5hIICjgFegWgO2THC3l4wTnFLrUEdRTq1nPze4T
-	 s72lk2WTnISqJFFjHhAJ3rRTWnH30GaY7axx56Lihn8ZaY5CSVcIcnJwekMjTvZ2YT
-	 z4mdRa9LNsZUw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC net-next 2/4] leds: rgb: Add IS32FL3207 controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmad Byagowi" <ahmadexp@gmail.com>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, lee@kernel.org, robh@kernel.org
-In-Reply-To: <7daca0186b6906af1d57314eebcecffc4cb68063.1785684064.git.ahmadexp@gmail.com>
-References: <cover.1785684064.git.ahmadexp@gmail.com>
- <7daca0186b6906af1d57314eebcecffc4cb68063.1785684064.git.ahmadexp@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="vqW0cCMy";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Qx4JSaZl"
+Message-ID: <425ab2f6e53057aba88b3e45b9e5dd17299772e3.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785772067;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gpYZfWgVcqEboE0dDBcxzCk51zyXqeNQdivsXNYg39o=;
+	b=vqW0cCMyG37S3G81VfmJ9swcXyXw10qArKFpe1/Bg6X41BMwJdUdb0mBBg8e0dG5OBBRX5
+	yomxqsfLhQjtcoAYOc8hDc+BgVQFRsqNsxi2Y2nh00D/bVrB7vuc+XkEv9PD3DVWi0jXzz
+	jcZI4gXFxSfTsXi+TvjZRltJjmj13ySMH3Mk45N7DATwGndfYmmAZcHVNOWcOKVXxnezcR
+	udBh7C5jMV8oFRVbi+GdPkaozvihllBVivBedW7oqPtyEqwnezCjjYbkO5RMjVKMwGI0pu
+	p+JZ+WIe4gtBDzld2JblNT3PtpbzTO/MpYSxGHUYqiWx3XQkj+qKNshN2u/T+Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785772067;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gpYZfWgVcqEboE0dDBcxzCk51zyXqeNQdivsXNYg39o=;
+	b=Qx4JSaZlfX1KmFxD4MPyE4ZyS+DZjwCGA1HH3d7vMIlKqrh5Wy5PpD0iP+ZFESxBArzq5V
+	Ysl5SFM7/7pOFwDg==
+Subject: Re: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and DSA
+ bindings
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>, Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean
+ <olteanv@gmail.com>, Simon Horman <horms@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Martin Kaistra <martin.kaistra@linutronix.de>, 
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Andrew Lunn <andrew@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ devicetree@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>
+Date: Mon, 03 Aug 2026 17:47:46 +0200
+In-Reply-To: <178534841981.3259959.17483842007790222848.robh@kernel.org>
+References: 
+	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+	 <178534841981.3259959.17483842007790222848.robh@kernel.org>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 15:46:43 +0000
-Message-Id: <20260803154644.9626E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The i2c_device_id array is initialized without named initializers.
---
+On Wed, 2026-07-29 at 13:07 -0500, Rob Herring (Arm) wrote:
+> On Wed, 29 Jul 2026 18:36:55 +0200, Vasilij Strassheim wrote:
+> > Add DT schema documentation for SoC-e FPGA switch devices.
+> > The binding is split into:
+> >  - a switch IP node describing the MMIO register block
+> >  - a DSA MDIO node describing the DSA-facing switch instance
+> > Both nodes are linked through the soce,switch-ip phandle.
+> >=20
+> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> > ---
+> >  .../bindings/net/dsa/soce,switch-dsa.yaml          | 195 +++++++++++++=
+++++++++
+> >  .../bindings/net/dsa/soce,switch-ip.yaml           |  54 ++++++
+> >  2 files changed, 249 insertions(+)
+> >=20
+>=20
+> My bot found errors running 'make dt_binding_check' on your patch:
+>=20
+> yamllint warnings/errors:
+>=20
+> dtschema/dtc warnings/errors:
+> Documentation/devicetree/bindings/net/dsa/soce,switch-ip.example.dtb: swi=
+tch@80020000 (soce,mrs-24-01): reg: [[0, 2147614720], [0, 65536]] is too lo=
+ng
+> 	from schema $id: http://devicetree.org/schemas/net/dsa/soce,switch-ip.ya=
+ml
+>=20
+> doc reference errors (make refcheckdocs):
+>=20
+> See https://patchwork.kernel.org/project/devicetree/patch/20260729-devel-=
+vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de
+>=20
+I can reproduce that and will fix it. I have to make a lot changes there
+before re-submitting.
 
---- Patch [2]: [RFC net-next 2/4] leds: rgb: Add IS32FL3207 controller driv=
-er ---
-commit 2f0ef1606e8fe9f37cd22e9360f765264557dd4d
-Author: Ahmad Byagowi <ahmadexp@gmail.com>
+> The base for the series is generally the latest rc1. A different dependen=
+cy
+> should be noted in *this* patch.
 
-leds: rgb: Add IS32FL3207 controller driver
+Got ot, I'll rebase the next version to net-next and add the information in
+this patch.
 
-This commit adds a generic I2C driver for the Lumissil IS32FL3207 18-channel
-LED controller. It exposes individual and multicolor LEDs through the LED
-class, handling optional supply and enable GPIO.
+>=20
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+>=20
+> pip3 install dtschema --upgrade
+>=20
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your sch=
+ema.
+>=20
 
-> diff --git a/drivers/leds/rgb/leds-is32fl3207.c b/drivers/leds/rgb/leds-i=
-s32fl3207.c
-> new file mode 100644
-> index 0000000000000..8f04534644dce
-> --- /dev/null
-> +++ b/drivers/leds/rgb/leds-is32fl3207.c
-[ ... ]
-> +static const struct of_device_id is32fl3207_of_match[] =3D {
-> +	{ .compatible =3D "issi,is32fl3207" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, is32fl3207_of_match);
-> +
-> +static const struct i2c_device_id is32fl3207_id[] =3D {
-> +	{ "is32fl3207" },
+Thanks for the tips! I will clean up and test it.
 
-[Severity: Low]
-This isn't a bug, but should this array use a named initializer=20
-(e.g., { .name =3D "is32fl3207" })? The I2C subsystem guidelines request=20
-that initialized arrays of type struct i2c_device_id use named initializers.
+Vasilij
 
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, is32fl3207_id);
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785684064.gi=
-t.ahmadexp@gmail.com?part=3D2
