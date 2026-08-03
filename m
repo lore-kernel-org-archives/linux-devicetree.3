@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5638C2D7DF1;
-	Mon,  3 Aug 2026 07:17:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061821E7C23;
+	Mon,  3 Aug 2026 07:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785741464; cv=none; b=CW/5/yYGxnq4A94wixllIxyL9EK4+H6DX6N+RwrP10ZvkZM1f5u8tacVWnMTBGd9sJzR0Y5IcD77bM6IogVU89b2TRnxzbVkL5VyheGPwfhfR4LtdRoZDuV/DYlvF4VFOfAMIYmofYabRDDYCyn99eAV5K09/HPWTuH3o116nNU=
+	t=1785741646; cv=none; b=LgsI9+SqSx0CEePm5a74HVh6NoeURBOJythriDWlicVALz9Q3NivXr9f9BSFSeWb1j2jMdA8nh8bFgFd3xH87Pe5O/FnQdXvFdOnBCGzf7bHLyvWHXnPlD6O0wtY3tKA6d8xzESOD29xhjdbtqTS/Rv0tCbhSCpstPpjrJSm/wA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785741464; c=relaxed/simple;
-	bh=LD2TIzgcDb4YKHl1qmeb1sQVgyqKCBpsYE6NHa63ROY=;
+	s=arc-20240116; t=1785741646; c=relaxed/simple;
+	bh=ve0FnataOy6jGi9uEH2zNrT7BdRoaSTDCZW5iL/3+B4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jrePw/YLqLKBfJSrYEYi1z1bdFX3Eaf7Iv52EiOLIAvRgOLYY/2Oyzl56DHUlZoLLFmSWgp/0G7e7N3pihWysb0zBW9TZgwa8Qtd26PYJidp2f1wbQWnH2aviz0RwIs4awYh90CoHQ8VanB2jun+vjRJhIab1NT05ueldpykvE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bo3wQoOr; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=pqO4kNqeiqF76Hi8joviUP9uiQffMdhY25Vo2NQ3wfIm8VS2FNvjzKFd9XXhgpy4usl/rS1QdJLtyfvOTezZktT1A8qey0hNdKwK7RNfQ3ovcT1CqkiwwkcL54zFnWhZaYYgueSg1vjdJHxuIePwb/gk5S2Mw6Xx9FxK1tqVzAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFEbYMLj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bo3wQoOr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A151F000E9;
-	Mon,  3 Aug 2026 07:17:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFEbYMLj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0281F000E9;
+	Mon,  3 Aug 2026 07:20:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785741463;
-	bh=tZlyZ8OtK+x/YR8QtferAl2xQ5Om0t8sQl4utKm0cp8=;
+	s=k20260515; t=1785741644;
+	bh=xTNdrUnQCfW7fN7mzKO7dzOqQ+FnXPR+Uy+Wyd5b0uE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bo3wQoOreaubTd3DUEAPaRrVOdGtsgzM7wLZUvQfbI2W7tMGr+t9G4rZJ134wzq9j
-	 Yxn8CAXu6CaYsLq6P5HPN2vsEIBatg6KHtHdl1QCrmgDXC62KhCkGmHFNvufdg+y1w
-	 kQHNtDXcINesnycR5phv6WvIqfhWbXDTQ6wqNCjm6UM52KIMiT8CFOIC2iRKSQY9Qg
-	 q+VRe4tFYLjcpnoZXq3n9ErPCGB3vlsII9osp+aVMN+Cp5XTkdgv/2DpKOD1mxL7vE
-	 fOyUnLIrlLzCAKLESiJFskgnZ2DXzSYcQTLAa6Z2itXZ4tRPVhO+ANSabeuQljO0OA
-	 awIMKDPAmDsHg==
-Date: Mon, 3 Aug 2026 09:17:38 +0200
+	b=UFEbYMLjD0eKmmNy1XVtLf7SqxlDnKrcBEKYfRUtAm3CAWLdSkCaeA0uPkCE6vJG8
+	 EOQbMPYum6VX4/8XPpgHgmeo1xVUaCDmkY0YbmxaEyIOViCpxc0bczZXWJx4ir6fDI
+	 4ihRs6W+U4F7X0l4VNYFs2jCvThYxfS/woqT4XN6pq3flZjHB48NnSkuvWL7B+c1B9
+	 nDw/jRxKMRcVuUr4gXwbwuj1U3Y/pHodDxG9z1XOd/Bspfm5crTLbr6FtWq5UW97y+
+	 Uds0RV+a3cJQNLn0S3vAxMTBKy+32vfdcTTuqAVG4mSFAhKxbG4IYAa2t63XpkmA7P
+	 qDDiJaoX4P02Q==
+Date: Mon, 3 Aug 2026 09:20:40 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Ali Rouhi <arouhi@sitime.com>
-Cc: "jiri@resnulli.us" <jiri@resnulli.us>, 
-	"vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>, 
-	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>, "robh@kernel.org" <robh@kernel.org>, 
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
-	"cjubran@nvidia.com" <cjubran@nvidia.com>, 
-	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 net-next 2/3] dt-bindings: dpll: add SiTime SiT9531x
- clock generator
-Message-ID: <20260803-musical-fat-hornet-11aa37@quoll>
-References: <20260731180951.65725-1-arouhi@sitime.com>
- <20260731180951.65725-3-arouhi@sitime.com>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH v3] dt-bindings: soc: qcom: qcom,pmic-glink: Add
+ compatible string for SM8475
+Message-ID: <20260803-upbeat-banana-ermine-4fdf45@quoll>
+References: <20260802-sm8475-pmic-glink-v3-1-45216e6ec572@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,24 +46,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260731180951.65725-3-arouhi@sitime.com>
+In-Reply-To: <20260802-sm8475-pmic-glink-v3-1-45216e6ec572@proton.me>
 
-On Fri, Jul 31, 2026 at 06:09:54PM +0000, Ali Rouhi wrote:
-> +                pin@1 {
-> +                    reg = <1>;
-> +                    label = "clkout1";
-> +                    supported-frequencies-hz = /bits/ 64 <25000000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> --
-> 2.43.0
+On Sun, Aug 02, 2026 at 02:39:55AM -0400, Esteban Urrutia wrote:
+> SM8475 is compatible with SM8450 with respect to pmic-glink support.
+
+"Add the Qualcomm SM8475 PMIC GLINK, compatible with the SM8450 one."
+
+(or "Add a compatible for ..." and rest as above)
+
+> Add a compatible string for SM8475 using SM8450 as a fallback.
+
+And this is redundant.
+
 > 
-> This email message and any attachments are for the sole use of the intended recipient and contain proprietary and/or confidential information that may be privileged or otherwise protected from disclosure. Any unauthorized review, use, disclosure, copying or distribution of the information included in this message and any attachment is prohibited and may be unlawful. If you are not an intended recipient, please contact the sender by reply email and permanently delete and destroy the original message and any attachments, and any printouts or copies of the message and attachments to the original message. Thank you.
+> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+> ---
 
-Sure, dropped from Patchwork.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
