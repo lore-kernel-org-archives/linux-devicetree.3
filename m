@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7176B39A7FD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7189B39A81B;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785738863; cv=none; b=jGw4ZQViNTE73D7DVuHcY5cDHiqhFbCi5H4AurpycHx6eo/3dgdQXRONG7DZNv5APvNLBBqAq+dpt9iIR6APYwxLxeN2jycERdS47WAoP91MQgL6+5sMwCI4nFAnZhuUerjsUKIFyX+DV6oj+sEmdJi1Vqjk5WbBmPgrtqSyWeA=
+	t=1785738863; cv=none; b=G4qKCBKlPYj6+o7XpYbQ+zCDm2d8IA+KETJg58ShGfCGcal7yP32XOyHPHQqP1ySlYbAI94G413mpBqQIsd2lYgc7fWTMQzt4RzjT9vK53aUvJUJ1fybkBsjVbKY8wLhofwJe5uR/bylw65nBz9lDPXx/XAmrCBSI5eoaKdB9UA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785738863; c=relaxed/simple;
-	bh=Qj0IeKtdQPuP/QWN5WPVEyMWcztiU3lYzYh4ko/E7rY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=CJXdBR5SKNoaZJsWzrfqpRKXPR9GeSwNfv3ZMzJr2XvfQu+duky1WTILH1rim5aWUWVU/WU7TD4tQetFWRODJtZnfJLQMwCbL8wDPp9fVdcF27+WnlQSyGvixcOKzfm1AVfFV0pjO/+w1B3Cx1HsS8cgJmhJQVz48qZWX1QQhgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/0TKmMh; arc=none smtp.client-ip=10.30.226.201
+	bh=8qLw2bPbG08JInJgSQM3SY3LyoK5UEDJvJH2fRZ53Vg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=e8tbEX/V3TiC4yj7XqbBxmNHrLd/649A6si3qnDOyhFgBL3YRUzgzTWNUlCPi8RSgFcxQRMsHxNra8Yb4qIrZlQt1H4rECzNP0PxIypv/AHy5Hpx7Zyof0X7jRpxa3bvmi04Z6tSCVL1m8/i95X+vrqrY0jz9CXrLGKBh9tCkMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=r95vBi5h; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/0TKmMh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1381EC2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="r95vBi5h"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 30C99C2BCFB;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785738863;
-	bh=Qj0IeKtdQPuP/QWN5WPVEyMWcztiU3lYzYh4ko/E7rY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=g/0TKmMh7rUVw88ZlH1KsEHAQKqE6nQ5ajjlIvc9p1vXTTRMRblcpI+9lFznt5KWv
-	 NdSRjRMsS/ipVv8xd4+MsfbrlyYTd3enCkqsgGNxi3D3YjTjUK9nQFDjpcGeW9EJ/Z
-	 H2utNwPb3PGSfoYWI25pXNIyxZjUTMs04Pcos88idnd9YJI/iaYF1rrsgArReNyU6C
-	 91QD4Nddka8hDVfN0DlyYh9Ny7e4xeejb72dO0EVMfSOwHBo2G0lC4m5e/SpxNlSk2
-	 n9h+TplmXRvEeEwPkI6yMkiApUKNAD6KCkkrbRB6hgsOL+zSyj0FfiRJ/NCiXq80XV
-	 aGWn7IYKKsvqg==
+	bh=8qLw2bPbG08JInJgSQM3SY3LyoK5UEDJvJH2fRZ53Vg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=r95vBi5h/cfYeQ30EpvDWDmLi9DJe8AyiTrrWDcaB+0jRfKMe5Ifa42GSBg1fFp6k
+	 FRvTZyrO1+dUI7cZZv65akOg1dWMzjuYDbGndZCmE5RPriJRkjipsJOOGzZjOAHQUL
+	 RpQwSh3xi6TCRJ8gEgHFBVU/h+fa/BN15gshJ78jtLCdysYH5Z8AUbVOwkkVTDwB0s
+	 0juqSRl++iza+Qo9T7IccT8+GlZPFqCLG1W2jwi7YJb6Ty2V4e0rMCqZ+On7rLngpJ
+	 TaSaE9+C1nDOycKPfWbSNx+vSbv7QsaYpFRXFbCZ+NxukN1uv2vMh5eQEGAHLNZVfW
+	 a1z80L7f0meJg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D08B7C55175;
-	Mon,  3 Aug 2026 06:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D072C5516F;
+	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Subject: [PATCH 00/28] arm64: dts: qcom: Fix swapped QMP PHY
+Date: Mon, 03 Aug 2026 08:34:01 +0200
+Subject: [PATCH 03/28] arm64: dts: qcom: sa8540p: Fix swapped USB QMP PHY
  vdda-phy/vdda-pll supplies
-Date: Mon, 03 Aug 2026 08:33:58 +0200
-Message-Id: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,11 +40,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAFY2cGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDc2ND3YKMSt3i0oKCnErdtMwKXRNTsyRDC0vDJDNzIyWgpoKiVKAw2MD
- oWAi/uDQpKzW5BGSKUm0tAKsWXOZyAAAA
-X-Change-ID: 20260731-phy-supply-fix-456b1891b672
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260803-phy-supply-fix-v1-3-5880630cde3e@oss.qualcomm.com>
+References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
+In-Reply-To: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -56,16 +55,16 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Manivannan Sadhasivam <mani@kernel.org>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9943;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2564;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=Qj0IeKtdQPuP/QWN5WPVEyMWcztiU3lYzYh4ko/E7rY=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqcDZgzbHr+U9GPiNUjsRpJ8K/ibNY0poMPp0L4
- Oxv4cMr4jqJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCanA2YAAKCRBVnxHm/pHO
- 9XxyCACh7qSQXBODjBcXQbHGwtqgY2tV1kjHVF0lOXU6FzoI+0lUdrVbpaJwyVwSCJy/6Kj4Lu6
- WtvE+SuPw223QL5IyJ5dOc1b40B05EXJi9nYaHFs4wc1nIHkO0zFWvFdSiuXm6pqZ9CNZD/tVJm
- urBTe4LC8b4/OpTnR0BdfogydgBaFbFZJYp3QOrB2gWnQZo1ZOEbdPVYOjp60ms+r2QQnXrv+O3
- zhXDu9/5vLAOjOLI57ie/YxsvHwzLD/QffR98T46YtZyq/lxdQCZSzAi+CDjYxdkwhPQ98IwRtN
- XXwEv6+hnQpPfRCXOpgzHs3g2AQAP/xJSFo45H7EefAu/o4k
+ bh=0rmPt/07pX2g9KPGixObuTKoy95XHhWTdoHlGDnMQ2Y=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqcDZih/NQ/ZW/PKYjWZcoI6S+gfSux15Gn2B8f
+ OvNb/ioTu6JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCanA2YgAKCRBVnxHm/pHO
+ 9SGgB/0cMz974pUXxH9YfXYD5RH6A8QpehsE+epwZzc9/CZBNLkgehVbZMD4G568VgoDeV9e81Q
+ oIr5qqiLHsCQ+vPs8Z5TovDoRD9By2krzh8cOkLtHTgMJXbjHXo5IC1VLJK4wyAlpcfabBknUKP
+ y5iNYdKZAy6/FrFshNc/QIEFrr+oDApQejOR0qjv0UC9/3szjCG2ZLZL25kA0ZwaruQJH4g9Dyx
+ 4FTm0l2T7tSsGAYtY11HiYKbFiOOXZpmgN9wufRPkBF+M9U2LimIz8rzLImM9V5rAURzluTzMRm
+ o5uBbse483ghLzx+DDfdCPCMAdw4er0UNpHRPenvoktXnHHk
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -73,152 +72,99 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Reply-To: manivannan.sadhasivam@oss.qualcomm.com
 
-The QMP PHY takes two analog supplies, vdda-phy and vdda-pll. By the
-hardware design, vdda-phy is the lower voltage rail (~0.8V) and vdda-pll
-is the higher voltage rail (~1.2V). This holds for every QMP PHY flavour
-(PCIe, UFS, DisplayPort and USB) on a given SoC.
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-A large number of Qualcomm ARM64 boards have these two supplies swapped
-for their USB QMP PHYs, feeding the ~1.2V rail to vdda-phy and the ~0.8V
-rail to vdda-pll. One board, sa8155p-adp, has the same swap on its UFS
-QMP PHY as well. The PCIe and DisplayPort QMP PHYs on the same SoCs are
-wired correctly, which confirms the intended assignment. The PHYs happen
-to work with the supplies swapped as there was no ordering requirement and
-both supplies get enabled anyway. So this was never noticed and got copied
-from board to board.
+The QMP PHY expects the vdda-phy supply to be around 0.88V and the
+vdda-pll supply to be 1.2V. But these two supplies are swapped for the
+USB QMP PHYs on these boards, feeding 1.2V to vdda-phy and 0.9V to
+vdda-pll.
 
-Fix all of the affected boards, one patch per SoC so that each can be
-reviewed and backported independently, at the same time reducing the number
-of commits. Only the USB and UFS QMP PHY nodes are touched and the PCIe and
-DisplayPort PHYs are left untouched.
+Fix it by swapping the two supplies back.
 
+Fixes: 519183af39b2 ("arm64: dts: qcom: add SA8540P and ADP")
+Fixes: 6be310347c9c ("arm64: dts: qcom: add SA8540P ride(Qdrive-3)")
+Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Assisted-by: Claude:opus-4-8
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
-Manivannan Sadhasivam (28):
-      dt-bindings: phy: qcom: Describe QMP USB and UFS PHY vdda-phy/vdda-pll voltages
-      arm64: dts: qcom: sc8280xp-blackrock: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sa8540p: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sdm845: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sdm850: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm8150: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm8250: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm8350: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm8450: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm8550: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: qcs8550-aim300: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: qcm6490: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: qcs6490: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm7225-fairphone-fp4: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sc7180: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sc7280: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sc8180x: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: hamoa: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: purwa: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm8650: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sm8750: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sar2130p: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: kaanapali: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: glymur: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: lemans: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: eliza-mtp: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: sa8155p-adp: Fix swapped USB and UFS QMP PHY vdda-phy/vdda-pll supplies
-      arm64: dts: qcom: talos-evk: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
+ arch/arm64/boot/dts/qcom/sa8295p-adp.dts  | 16 ++++++++--------
+ arch/arm64/boot/dts/qcom/sa8540p-ride.dts |  8 ++++----
+ 2 files changed, 12 insertions(+), 12 deletions(-)
 
- .../bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml      | 10 ++++++++--
- .../bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml     | 10 ++++++++--
- .../bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml      | 12 +++++++++---
- .../bindings/phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml | 12 +++++++++---
- .../bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml  | 10 ++++++++--
- arch/arm64/boot/dts/qcom/eliza-mtp.dts               |  4 ++--
- arch/arm64/boot/dts/qcom/glymur-crd.dts              | 16 ++++++++--------
- arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi          | 20 ++++++++++----------
- .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts    | 20 ++++++++++----------
- arch/arm64/boot/dts/qcom/kaanapali-mtp.dts           |  4 ++--
- arch/arm64/boot/dts/qcom/kaanapali-qrd.dts           |  4 ++--
- arch/arm64/boot/dts/qcom/lemans-evk.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi     |  8 ++++----
- arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi          | 20 ++++++++++----------
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts   |  4 ++--
- arch/arm64/boot/dts/qcom/qcm6490-idp.dts             |  4 ++--
- .../arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts |  4 ++--
- arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts     |  4 ++--
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts         |  4 ++--
- .../dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts    |  4 ++--
- .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts   |  4 ++--
- arch/arm64/boot/dts/qcom/qcs8550-aim300.dtsi         |  4 ++--
- arch/arm64/boot/dts/qcom/qrb5165-rb5.dts             |  8 ++++----
- arch/arm64/boot/dts/qcom/sa8155p-adp.dts             |  8 ++++----
- arch/arm64/boot/dts/qcom/sa8295p-adp.dts             | 16 ++++++++--------
- arch/arm64/boot/dts/qcom/sa8540p-ride.dts            |  8 ++++----
- arch/arm64/boot/dts/qcom/sar2130p-qar2130p.dts       |  4 ++--
- arch/arm64/boot/dts/qcom/sc7180-acer-aspire1.dts     |  4 ++--
- arch/arm64/boot/dts/qcom/sc7180-ecs-liva-qc710.dts   |  4 ++--
- arch/arm64/boot/dts/qcom/sc7180-idp.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sc7180-trogdor.dtsi         |  4 ++--
- arch/arm64/boot/dts/qcom/sc7280-idp.dtsi             |  4 ++--
- arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi           |  4 ++--
- arch/arm64/boot/dts/qcom/sc8180x-lenovo-flex-5g.dts  | 16 ++++++++--------
- arch/arm64/boot/dts/qcom/sc8180x-primus.dts          | 16 ++++++++--------
- .../boot/dts/qcom/sc8280xp-microsoft-blackrock.dts   |  8 ++++----
- arch/arm64/boot/dts/qcom/sdm845-db845c.dts           |  8 ++++----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi   |  4 ++--
- arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi       |  4 ++--
- arch/arm64/boot/dts/qcom/sdm845-mtp.dts              |  8 ++++----
- .../boot/dts/qcom/sdm845-samsung-starqltechn.dts     |  4 ++--
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts    |  4 ++--
- .../dts/qcom/sdm845-xiaomi-beryllium-common.dtsi     |  4 ++--
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts   |  4 ++--
- .../boot/dts/qcom/sdm850-huawei-matebook-e-2019.dts  |  8 ++++----
- arch/arm64/boot/dts/qcom/sdm850-lenovo-yoga-c630.dts |  8 ++++----
- arch/arm64/boot/dts/qcom/sdm850-samsung-w737.dts     |  8 ++++----
- arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts    |  4 ++--
- arch/arm64/boot/dts/qcom/sm8150-hdk.dts              |  8 ++++----
- .../boot/dts/qcom/sm8150-microsoft-surface-duo.dts   |  4 ++--
- arch/arm64/boot/dts/qcom/sm8150-mtp.dts              |  4 ++--
- .../boot/dts/qcom/sm8150-sony-xperia-kumano.dtsi     |  4 ++--
- arch/arm64/boot/dts/qcom/sm8250-hdk.dts              |  8 ++++----
- arch/arm64/boot/dts/qcom/sm8250-mtp.dts              |  8 ++++----
- arch/arm64/boot/dts/qcom/sm8250-sony-xperia-edo.dtsi |  4 ++--
- arch/arm64/boot/dts/qcom/sm8250-xiaomi-pipa.dts      |  4 ++--
- arch/arm64/boot/dts/qcom/sm8350-hdk.dts              |  8 ++++----
- .../boot/dts/qcom/sm8350-microsoft-surface-duo2.dts  |  8 ++++----
- arch/arm64/boot/dts/qcom/sm8350-mtp.dts              |  8 ++++----
- .../boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi     |  4 ++--
- arch/arm64/boot/dts/qcom/sm8450-hdk.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sm8450-qrd.dts              |  4 ++--
- .../boot/dts/qcom/sm8450-sony-xperia-nagara.dtsi     |  4 ++--
- arch/arm64/boot/dts/qcom/sm8550-hdk.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sm8550-mtp.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sm8550-qrd.dts              |  4 ++--
- .../boot/dts/qcom/sm8550-sony-xperia-yodo-pdx234.dts |  4 ++--
- arch/arm64/boot/dts/qcom/sm8650-ayaneo-pocket-s2.dts |  4 ++--
- arch/arm64/boot/dts/qcom/sm8650-hdk.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sm8650-mtp.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sm8650-qrd.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sm8750-mtp.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/sm8750-qrd.dts              |  4 ++--
- arch/arm64/boot/dts/qcom/talos-evk-som.dtsi          |  4 ++--
- arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi   | 20 ++++++++++----------
- arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi    | 20 ++++++++++----------
- arch/arm64/boot/dts/qcom/x1-crd.dtsi                 | 20 ++++++++++----------
- arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi          | 16 ++++++++--------
- arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi     | 12 ++++++------
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi    |  8 ++++----
- arch/arm64/boot/dts/qcom/x1e001de-devkit.dts         | 20 ++++++++++----------
- .../boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi | 20 ++++++++++----------
- .../arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts | 16 ++++++++--------
- .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts    | 12 ++++++------
- .../boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts | 16 ++++++++--------
- .../boot/dts/qcom/x1e80100-microsoft-romulus.dtsi    | 16 ++++++++--------
- arch/arm64/boot/dts/qcom/x1e80100-qcp.dts            | 20 ++++++++++----------
- .../boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts   | 20 ++++++++++----------
- 88 files changed, 378 insertions(+), 348 deletions(-)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260731-phy-supply-fix-456b1891b672
+diff --git a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts b/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
+index d28d69162427..7178ae087038 100644
+--- a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
++++ b/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
+@@ -604,8 +604,8 @@ &usb_0_hsphy {
+ };
+ 
+ &usb_0_qmpphy {
+-	vdda-phy-supply = <&vreg_l3a>;
+-	vdda-pll-supply = <&vreg_l5a>;
++	vdda-phy-supply = <&vreg_l5a>;
++	vdda-pll-supply = <&vreg_l3a>;
+ 
+ 	status = "okay";
+ };
+@@ -628,8 +628,8 @@ &usb_1_hsphy {
+ };
+ 
+ &usb_1_qmpphy {
+-	vdda-phy-supply = <&vreg_l4c>;
+-	vdda-pll-supply = <&vreg_l1c>;
++	vdda-phy-supply = <&vreg_l1c>;
++	vdda-pll-supply = <&vreg_l4c>;
+ 
+ 	status = "okay";
+ };
+@@ -671,15 +671,15 @@ &usb_2_hsphy3 {
+ };
+ 
+ &usb_2_qmpphy0 {
+-	vdda-phy-supply = <&vreg_l3a>;
+-	vdda-pll-supply = <&vreg_l5a>;
++	vdda-phy-supply = <&vreg_l5a>;
++	vdda-pll-supply = <&vreg_l3a>;
+ 
+ 	status = "okay";
+ };
+ 
+ &usb_2_qmpphy1 {
+-	vdda-phy-supply = <&vreg_l3a>;
+-	vdda-pll-supply = <&vreg_l5a>;
++	vdda-phy-supply = <&vreg_l5a>;
++	vdda-pll-supply = <&vreg_l3a>;
+ 
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/qcom/sa8540p-ride.dts b/arch/arm64/boot/dts/qcom/sa8540p-ride.dts
+index 44177e9b64b5..df40c44c447e 100644
+--- a/arch/arm64/boot/dts/qcom/sa8540p-ride.dts
++++ b/arch/arm64/boot/dts/qcom/sa8540p-ride.dts
+@@ -478,8 +478,8 @@ &usb_0_hsphy {
+ };
+ 
+ &usb_0_qmpphy {
+-	vdda-phy-supply = <&vreg_l3a>;
+-	vdda-pll-supply = <&vreg_l5a>;
++	vdda-phy-supply = <&vreg_l5a>;
++	vdda-pll-supply = <&vreg_l3a>;
+ 
+ 	status = "okay";
+ };
+@@ -493,8 +493,8 @@ &usb_2_hsphy0 {
+ };
+ 
+ &usb_2_qmpphy0 {
+-	vdda-phy-supply = <&vreg_l3a>;
+-	vdda-pll-supply = <&vreg_l5a>;
++	vdda-phy-supply = <&vreg_l5a>;
++	vdda-pll-supply = <&vreg_l3a>;
+ 
+ 	status = "okay";
+ };
 
-Best regards,
---  
-மணிவண்ணன் சதாசிவம்
+-- 
+2.43.0
 
 
