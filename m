@@ -1,81 +1,148 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E25B61FCF41;
-	Mon,  3 Aug 2026 13:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E4D035C183;
+	Mon,  3 Aug 2026 13:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785763847; cv=none; b=Klq3ZiCaHI/nsNpbEPKpo0a5lHPn455liN4P28SWjgtqMTQRAlHTrmoSWhe6hROeALIB3Sa2/NTDmAuV9cDgOMoKxWC4xZFXK0GqZNeea84RhmlhasUoT4klJFD1+CT2FrpGNrv/rGR/sBoJIiV/O0LGVM5eMFsaYCjbeLzVUok=
+	t=1785763927; cv=none; b=YQFwSZZs4br8RrVCzwYTWNvaOqino+2TsQgZkeDc1SWC0OgEJN4Ug5vB9OvWdRwu0wtqwKaV3KYqrJ3Y/pHo5vobfZ8Twac7O1sLZW/Nt3FTyukhSRMjrpF6EdhINEjdEo5Xu32gObkzLCVA5dF1/RvQBAkIo/2gJOGByvRP5U4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785763847; c=relaxed/simple;
-	bh=kO8Br3YMLtRFslGCiQwZo+9kGlBMhC8lw66HVFjVC38=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=twNB6WRCdjXSc3Exq8KE+iQpvvNOhb1X1yHxg2C5T7o3EEdLgp83j+I9pGRuwcegeG49BZr7iGqcWs8LvlnIgN39/ByDXUHf9Sl441e5Vr+9Opi0CDAVNnU3n3oWs5qcAf774oMDuwpazw0BQMXoMU18JBwxKBiCgI3bTSl83dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=DFsKnY+g; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785763927; c=relaxed/simple;
+	bh=9ff33wS8IPyJtj9+LwYLWA+CchM0/9Kcw0hwBUzW+G4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gfVfvha8bVlyH8wP1KrYMiZJLhBgUW5ciUyvouFRtaUv+dp57eCcTBze90Gaq26hMqMhigNKqis5MmAS0qAlJSjcLc/vKydw7L44EzorW2kgMBjUT9ZfYM/wdpfksY0Mu2aqDD8NBmFYfHNjtQFDQU6os79PV1NyF4u8ArE0Uy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C8vOmgBW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="DFsKnY+g"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=s0Nn8hdIgXmWzmhcG99Oh2fhpDgLrw7IOOOOFJwYqeY=; b=DFsKnY+gVEOvTe+do19wn9YHgk
-	jRtADcklHMwQYphjMhoDQN3im0vzjhJqZ+cZcdQM2GvtsYAPRMsh0XeCmjR+RO9EVWjPvFEyPxI3L
-	mV4GVOWX7lPAQ81k17dC9bRNcl+WjRpzx1/y0tvhwiSHxj9sDpNY3vCz1EMcEb8ZaSwc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqskO-00FjGe-HJ; Mon, 03 Aug 2026 15:30:28 +0200
-Date: Mon, 3 Aug 2026 15:30:28 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: James Hilliard <james.hilliard1@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, mfd@lists.linux.dev,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 00/21] net: phy: add X-Powers AC200/AC300 EPHY support
-Message-ID: <19241d58-1a69-4776-8d91-012de9fc421c@lunn.ch>
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
- <aaec8809-8218-4412-a60d-931406dbf287@arm.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C8vOmgBW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CAD751476;
+	Mon,  3 Aug 2026 06:31:56 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7A1033F66F;
+	Mon,  3 Aug 2026 06:31:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1785763920; bh=9ff33wS8IPyJtj9+LwYLWA+CchM0/9Kcw0hwBUzW+G4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=C8vOmgBWumd/IrLAX0iAMZNyUPVhapYAbmX/j/z0X+O/FFMQD5S4wn8udWgUFFsEp
+	 m/+quoEE+D3Yar9eKUcmRijRxITURBtedLeh8WzPSTQ3vEVB//l5JHCm18FBVrMDRc
+	 Bk+KSaIRtckB745grmz9/GWcJd4/MWY4R1nPYrH0=
+Message-ID: <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
+Date: Mon, 3 Aug 2026 15:31:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aaec8809-8218-4412-a60d-931406dbf287@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 0/2] net: phy: Add Maxio MAE0621A support
+To: Liu Changjie <liucj1228@outlook.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org
+Cc: Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Luo Jie <jie.luo@oss.qualcomm.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> Just to bring that shallow discussion we had on IRC to the list: I wonder if
-> this is the right solution? Alternatively I was wondering if just patching
-> the DT in U-Boot would simplify things, and also help other DT users like
-> *BSD or U-Boot (proper) itself, to not boil the ocean, but just allowing
-> them to follow a standard DT description.
+Hi,
 
-I've not looked into the MDIO bus probing changes in detail yet, but
-that was also what i was thinking.
+thanks for sending this, one question and an update below ...
 
-     Andrew
+On 7/17/26 05:39, Liu Changjie wrote:
+> Add a binding and PHY driver for the Maxio MAE0621A Gigabit Ethernet
+> PHY. The driver matches the exact PHY ID and optionally selects a
+> 125 MHz clock on CLKOUT. When the property is absent, the driver
+> preserves the hardware strap or bootloader setting.
+> 
+> This was tested on the LCKFB Taishan Pi 3M. With the PHY's default
+> CLKOUT configuration, the RK3576 GMAC negotiated a 1 Gbit/s link but
+> the data path did not work. A read-modify-write of page 0xa43,
+> register 0x19, setting bits 0 and 11 produced a readback value of
+> 0x0823 and restored the data path without changing the RGMII delays.
+> The readback also confirmed that the unrelated set bits were
+> preserved.
+> 
+> Only the 125 MHz setting has been exercised on hardware and only that
+> value is exposed by this series. The 0 and 25 MHz choices from the
+> initial draft have been removed.
+
+So what is this clock for, exactly? Is that the RXC clock, supposed to 
+depend on the line speed? Then it would need to change if a 100MBit/s 
+link is negotiated?
+Or is this something else entirely, and merely used as an optional 
+auxiliary clock, to support a switch or other network chips?
+
+If I read the schematic of that Taishan board correctly, it's the 
+former? But it's odd that both on the Radxa Cubie A5E (sporting the same 
+-Q3C variant) and the X96QPro+ box (-Q2C) don't need any extra setting, 
+and the clock there looks like the normal PHY controlled RXC clock.
+
+> Public documentation for the MAE0621A register is not available. The
+
+There seems to be now a datasheet, explaining all the non-standard 
+registers, including the one for the 125MHz clock out register:
+
+https://www.lcsc.com/datasheet/C49308069.pdf
+
+If the link doesn't work (in the future), just find the PHY in the LCSC 
+catalogue, it should have a link to the datasheet there.
+
+Cheers,
+Andre
+
+> exact definitions of page 0xa43, register 0x19 bits 0 and 11, their
+> reset defaults, and whether a soft reset is required after changing
+> them still need confirmation from Maxio. The register programming in
+> this series is therefore supported by the hardware A/B result, not by
+> a public datasheet citation.
+> 
+> Hardware tests with the 125 MHz setting:
+> - all supported 10/100/1000 Mbit/s link modes
+> - 100 ICMP packets in each direction with no loss
+> - 936/934 Mbit/s host-to-board iperf3, no retransmits
+> - 943/941 Mbit/s board-to-host iperf3, no retransmits
+> - link unplug/replug and a normal reboot, followed by another 100 ICMP
+>    packets in each direction with no loss
+> - no RX errors, missed packets, carrier errors or collisions
+> 
+> Static tests on net-next commit f6f3b36c15ed:
+> - dt_binding_check with dtschema 2026.6
+> - W=1 arm64 defconfig build of drivers/net/phy/maxio.o with GCC 10.3
+> - W=1 arm64 allmodconfig build of drivers/net/phy/maxio.o with GCC 10.3
+> - git diff --check and checkpatch.pl
+> 
+> Changes in v2:
+> - Extend hardware validation to all supported 10/100/1000 Mbit/s link
+>    modes.
+> - Keep the binding limited to the tested 125 MHz setting. CLKOUT-disable
+>    support can be added later after its register behavior is documented
+>    and tested.
+> - No binding or driver code changes.
+> 
+> Link: https://lore.kernel.org/r/MN0PR19MB6091CD5A84D2DA5DACF434DAACF92@MN0PR19MB6091.namprd19.prod.outlook.com [v1]
+> 
+> Liu Changjie (2):
+>    dt-bindings: net: Add Maxio MAE0621A PHY
+>    net: phy: Add support for the Maxio MAE0621A
+> 
+>   .../bindings/net/maxio,mae0621a.yaml          |  38 +++++++
+>   .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>   drivers/net/phy/Kconfig                       |   8 ++
+>   drivers/net/phy/Makefile                      |   1 +
+>   drivers/net/phy/maxio.c                       | 103 ++++++++++++++++++
+>   5 files changed, 152 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/net/maxio,mae0621a.yaml
+>   create mode 100644 drivers/net/phy/maxio.c
+> 
+> 
+> base-commit: f6f3b36c15ed44de1fbb44e645e4fae8c4a4453e
+
