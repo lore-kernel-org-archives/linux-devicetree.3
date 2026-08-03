@@ -1,243 +1,184 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8337C23ABBF
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 15:45:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AF423ABBF;
+	Mon,  3 Aug 2026 15:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785771931; cv=none; b=WTHvUh4uro3ORPzdPuq0BLZjainhNu8EHyn+/FW0m28Eo3kCnUHTdbu8u7jWs78udqPoQvhc8oCGHT6zqYGTYLYIc6CZNs+UZr3p3PcuCNnbdVwiLeOrihe3yBqFO3NKsTJnTTZ2XtAgmFqKF6thMLVCqcZEjGA7EsdzAzuhhmk=
+	t=1785772001; cv=none; b=fcRmc+BiyFAdrlI5cE1URnmLY+C1pFZNuBzKyOcm3MR43QxvJLzy4enUvjKvHTCtH1ZawQLfo+HhPG0y6pq6D4dKysYKs3n7T18snrfyBpFRnOKS2wBjFPi+POqQwaSz/xVLYUsQkfM598/+EzPinNuyegFPZuh47jfB2HDcBmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785771931; c=relaxed/simple;
-	bh=Ipp+MCCK7YinvsJCbSUzcQmor6cQB0RZUCzm1lx++k0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g4W8QfKpN7XtKuy/xCms2ZUm80B3/mCiaBRolm116h4adKtSNA12SKCgkOhOdUg9yGVs/ptIvWUfQAIfCG2E7QOGCGeU19QymXeEtaMzZ4x0FmjhAsQnq+pvupOU8vQ1sM1tLad568X028lN4XWDIhkhBKDcVmQnv27hHHm/DZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cTdCcpTC; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785772001; c=relaxed/simple;
+	bh=IdtU70tWsLEVbSHSgwDQi1+Q2Oh5dkltS8EqJJu5E9Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tUzqEWng50KnjsLRlHTEjTTc8N/jWV9r3GwFHEHXHv1FhvGl4g2zLyhDn8wlZR72ll49G+ixvcOBHCo/NlCWrzHcIyQylhJHpOBqWo+pbcBRRt+4ucSPo7+CB7/a07ymoZiL5RD5M4J7QJqUQ7shrsByDrYWyhY3PI9m9OBXeK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FyyPWLfH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cTdCcpTC"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e88b60121so2714270a91.3
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 08:45:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785771929; x=1786376729; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XVgpd4PZNZ+So7ScyxntuWilkocD0aj6xFhiwfkcPA4=;
-        b=cTdCcpTCHiKVbT1L7PGNswUoqe5BuabRuIR49PkjWrB9DtahNErRcNrmb173pihPaK
-         gR/SUpRPtUbOCDA6Dn94Q7u0IRqupU7Kg1bPPnhPlc1/OswA2wfdjJ0Zdk8eP1ifGnq9
-         fLtXytrKfWnpSELJ8cJLX3pqyPxv2yygoo44PdvI3GUBpAd2q921P21dwYLRaZsmgQRZ
-         G+za9mGC6sr8pe9LlZ7bGHn/CrngpY7oc9bJK/t0YoM0EG7gZwdXsJ60yUFHvuNsHGVD
-         7MCVjZiu4n7B7pk/PxY/PJkQYzXh50tSSi/bN8KvXgB4spFuRkB9hu9oPNVf3R3gLweh
-         hfJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785771929; x=1786376729;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=XVgpd4PZNZ+So7ScyxntuWilkocD0aj6xFhiwfkcPA4=;
-        b=B2ae1lZWZu8oc3OqqunTVViJZtUsbYkGPUHAg6zZmVeDOoD/kDt6Wr9rDzt43LnYkm
-         e1SkaRJSo7EeOrQO07m/pH7YvEhAiWJKp5oObXEcxhDVc1g8uKz1tg0ptvlbR2QLzVfV
-         9EBNF7HzgDs18LtVAsTdWsvX2zpRjsOWRmRMlUhzWxbjjA+cpXIznOaedLIVD3r+l8Z6
-         8JNRx6uScU7Fj+ns9ttxU7Yy38POAG3lDNjhaH4SxksOvkyfEfkx+vSL/s7cLRnk8UHS
-         oJ0K0kfIq/53i6pr3hb82sHlx4W2Mtn0odo3uJ4hQPpT0X/t9zR1JVZUkFJq60/EIHRh
-         CHkg==
-X-Forwarded-Encrypted: i=1; AHgh+RpW0ulCRHAQdghjyQiGxdGik9r7a02s2AsuxMrRW+xzbY//S1d91UdvkM+cjOWZe9u61pTm/oP9wY/c@vger.kernel.org
-X-Gm-Message-State: AOJu0YynMRs/ervgjwHYhKRJGZF3kceWWMdogwkwNU04bbS26FDXCz6r
-	HWqP7RTKqJjnkiLgII8tlLawJwNJLKnf4GBOpknmruk5BTFw6A4PhH5M
-X-Gm-Gg: AR+sD13wutQLuq5un4+lYygxPqCC3Sq2u1z+TOMaQWGSnWaWW9hLZE9Nnt8Iu5gPSJo
-	Fg23JGn9gNwCS3yBw/eW5TQIMzc5WFEC7uMfHoStTVfGoxVF4snMUo54dpQnEjdDFC9/HrA5KiA
-	o+FfrcmDqmh6qG6pm3Z9T+PvyN3neod6b4SQ7aT5ToKIiCQ+MF1hVwiFwF5udOrHs0ONi4Yo7V+
-	TZhzxV4HX5CG/SGe3LoXTCxqi3UWaKOH0VSUHOOeCDdyHy4tZGixVeDA5QtRZXXOut2MUGnx3NE
-	R+1g4YZJtC6mjO/nLNXkH8goY/xr4uH9/RXb5MgYC3UFbzB2R/6ta8Y1YpYc5/Bxh2cRq5QULU0
-	FR9uUbS/lG9KNXIfJwPA8mEbNvSN6lvgsTCsIvf5Ar1giDtJmRAUXhXbaztB6KfUtNXcJW2IQeM
-	h55446q0ovWRuun9borasIfRDo5n0moXyw4FM7JTVaBh0MQ0BfjRpIZZar5tLqdtTZBNUJIbE8T
-	W0rr9bX9TYB3Lf22UuNFbaryj9LAqTESZ8tl2qxzj6+EVY4LA==
-X-Received: by 2002:a17:90b:4c0e:b0:387:df8f:1408 with SMTP id 98e67ed59e1d1-38fbc5d2f96mr9370451a91.41.1785771928753;
-        Mon, 03 Aug 2026 08:45:28 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38febfd8ff8sm19327a91.4.2026.08.03.08.45.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 08:45:28 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <b8eaf1f3-2155-419e-b396-a094e548e7ec@roeck-us.net>
-Date: Mon, 3 Aug 2026 08:45:26 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FyyPWLfH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB581F00A3A;
+	Mon,  3 Aug 2026 15:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785771999;
+	bh=oEdT4mzGkWDV4vexqlT5cS64ry5dexwrhSGC0ZNoxIE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FyyPWLfHasaC7raR8by3BLYcpM+1xx5Y9lRqn7W52O/wefuEyaR0AtKLn0aUAwjOy
+	 8Le/uOnxVhRFlc6Ma3K1qALJDPdpRlVMdrVqBzA8YtOmdmomosxE8/blhQrJUt0XLo
+	 8d6Xx53g+A9VQFtvHtWzHOW1dgJY8kgH9HmAUSnm1SOesG2+Ke4W832EqWpyT+AOI5
+	 Jl+UzYya3DRDHKjZwt5bY+qUqN3hIXpbSpynBAbWTe2TQX8IEcwWhzczdjvJt6/Tn6
+	 7Bpid1Jw57413yDcAUAeTJoa3PPfskoouqOSau4SIdpCoLHqJ2/rJ0EDY/hcUrIX3V
+	 GcD1eMzcyHJfQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC net-next 1/4] dt-bindings: leds: Add IS32FL3207 controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ahmad Byagowi" <ahmadexp@gmail.com>
+Cc: linux-leds@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, lee@kernel.org
+In-Reply-To: <f45601f5a51e94e4d0fb58652fdd9a80eec8361f.1785684064.git.ahmadexp@gmail.com>
+References: <cover.1785684064.git.ahmadexp@gmail.com>
+ <f45601f5a51e94e4d0fb58652fdd9a80eec8361f.1785684064.git.ahmadexp@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 15:46:38 +0000
+Message-Id: <20260803154638.DBB581F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
- pmbus_read_block_data()
-To: =?UTF-8?Q?Nuno_S=C3=A1?= <noname.nuno@gmail.com>
-Cc: nuno.sa@analog.com, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Alan Tull <atull@opensource.altera.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
- <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
- <c3e143ed-af08-4a0f-a630-96a255df838d@roeck-us.net> <amtewh9lOgWz0-Nh@nsa>
- <e37df572-1ca9-4c56-a16e-faa44f1ff1cd@roeck-us.net> <amtqPQSM6zsiCh4B@nsa>
- <6287e749-04f5-4a03-a91c-fcc705df269c@roeck-us.net> <amzB2aw_4y6ji9zs@nsa>
- <b48636b8-33d1-425f-93a7-d0b9c4dd86ca@roeck-us.net> <anCsIHUkaL7ckyiL@nsa>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <anCsIHUkaL7ckyiL@nsa>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 8/3/26 08:03, Nuno Sá wrote:
-> On Fri, Jul 31, 2026 at 09:46:29AM -0700, Guenter Roeck wrote:
->> On 7/31/26 08:42, Nuno Sá wrote:
->>> On Thu, Jul 30, 2026 at 08:54:25AM -0700, Guenter Roeck wrote:
->>>> On 7/30/26 08:19, Nuno Sá wrote:
->>>>> On Thu, Jul 30, 2026 at 07:47:37AM -0700, Guenter Roeck wrote:
->>>>>> On 7/30/26 07:27, Nuno Sá wrote:
->>>>>>> On Tue, Jul 28, 2026 at 02:05:53PM -0700, Guenter Roeck wrote:
->>>>>>>> On 7/28/26 09:03, Nuno Sá via B4 Relay wrote:
->>>>>>>>> From: Nuno Sá <nuno.sa@analog.com>
->>>>>>>>>
->>>>>>>>> This is in preparation for adding support to a device which needs to
->>>>>>>>> use it's own read_block implementation.
->>>>>>>>>
->>>>>>>>
->>>>>>>> The chip-specific implementation calls i2c_smbus_read_i2c_block_data().
->>>>>>>> I'll need to know if this is a chip limit or a controller limit.
->>>>>>>> If it is a controller limit, a chip specific override would be
->>>>>>>> inappropriate.
->>>>>>>
->>>>>>> I'll reply from top of my head (did not looked at the driver again).
->>>>>>> IIRC, the biggest reason we need the chip-specific implementation is because of
->>>>>>> the RAIL selection logic (mainly when not in page mode).
->>>>>>>
->>>>>>
->>>>>> Yes, I have seen that. Question is why you use i2c_smbus_read_i2c_block_data()
->>>>>> instead of i2c_smbus_read_block_data(). The rail selection logic would not
->>>>>> require that.
->>>>>
->>>>> IIRC the reason was because the i2c controller on the raspberry pie does not
->>>>> support i2c_smbus_read_block_data(). So I guess this:
->>>>>
->>>>> https://elixir.bootlin.com/linux/v7.1.4/source/drivers/i2c/i2c-core-smbus.c#L220
->>>>>
->>>>
->>>> Hmm, I think we really need a common solution for that problem. Not all
->>>> controllers support i2c_smbus_read_i2c_block_data(), so you are just moving
->>>> the problem from one controller to another.
->>>
->>> Yikes. I actually though i2c_smbus_read_i2c_block_data(9 was more widely
->>> supported (if not always). Not sure if you have something in mind but
->>> one straight way would be to choose different implementations (for
->>> read_block) depending on i2c_check_functionality()
->>>
->>
->> Handling it in pmbus_read_block_data() would be straightforward. Actually, I
->> wonder why it isn't handled as fallback in i2c_smbus_read_block_data(),
->> but I assume there must be a reason.
->>
->> Either case, I don't understand how the existing calls to i2c_smbus_read_i2c_block_data()
->> work. For example, in drivers/hwmon/pmbus/max20830.c, the assumption is that the
->> first returned data byte would be the length field. However, that is already done
->> in i2c_smbus_read_i2c_block_data():
->>
->> /* Returns the number of read bytes */
->> s32 i2c_smbus_read_i2c_block_data(const struct i2c_client *client, u8 command,
->>                                    u8 length, u8 *values)
->> {
->>          union i2c_smbus_data data;
->>          int status;
->>
->>          if (length > I2C_SMBUS_BLOCK_MAX)
->>                  length = I2C_SMBUS_BLOCK_MAX;
->>          data.block[0] = length;
->>          status = i2c_smbus_xfer(client->adapter, client->addr, client->flags,
->>                                  I2C_SMBUS_READ, command,
->>                                  I2C_SMBUS_I2C_BLOCK_DATA, &data);
->>          if (status < 0)
->>                  return status;
->>
->>          memcpy(values, &data.block[1], data.block[0]);
->>          return data.block[0];
->> }
->>
->> Does the command return the length twice ?
-> 
-> I think the device is actually the one sending the block size again. I
-> went looking at very old emails and found this chain:
-> 
-> Me:
-> 
-> "Thanks for the inputs... As I said, I think know what’s my issue. I’m fairly sure the first
-> byte I’m reading is the block size. I’ll take this into account and re-test."
-> 
-> Reply:
-> 
-> "On one hand, that does make sense. The first byte in a block read transaction should indeed
-> be the block size. That said, 0xB1 is 6 bytes long when not including this first byte. So we
-> are still missing a byte with actual information. Could you perhaps please share the full
-> packet data that you are capturing?"
-> 
-> The above was me struggling with per phase reads.
-> 
-> But maybe the above changed with newer FW versions for the chips. I'll
-> ask around.
-> 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] Arbitrary restriction of standard LED properties (`default-state=
+`, `default-brightness`, `retain-state-shutdown`).
+- [Medium] The `max-brightness` limit contradicts the 16-bit PWM capability=
+ of the hardware.
+- [Low] MAINTAINERS file entry breaks strict alphabetical ordering.
+--
 
-No, I found that other chips do the same.
+--- Patch [1]: [RFC net-next 1/4] dt-bindings: leds: Add IS32FL3207 control=
+ler ---
+commit 7a01cdde2c240d5fb659f162c75c91152d916f4e
+Author: Ahmad Byagowi <ahmadexp@gmail.com>
 
-I am working on a generic function pmbus_read_smbus_i2c_block_data() which calls
-i2c_smbus_read_block_data() if supported and otherwise (if supoported) calls
-i2c_smbus_read_i2c_block_data(). It should be ready within a day or so.
+dt-bindings: leds: Add IS32FL3207 controller
+   =20
+This commit adds a new device tree binding for the Lumissil IS32FL3207
+18-channel LED controller. It describes the controller properties, such as
+I2C addressing, output groupings, and current limits.
 
-Thanks,
-Guenter
+> diff --git a/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml =
+b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+> @@ -0,0 +1,204 @@
+[ ... ]
+> +patternProperties:
+> +  "^led@[0-9a-f]+$":
+> +    type: object
+> +    $ref: common.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
+> +        maximum: 17
+> +        description: LED output number.
+> +
+> +      led-max-microamp:
+> +        minimum: 1
+> +        maximum: 38250
+> +
+> +      color:
+> +        not:
+> +          enum: [8, 9]
+> +
+> +      max-brightness:
+> +        minimum: 1
+> +        maximum: 255
 
+[Severity: Medium]
+Since the commit message states this hardware has up to 16-bit PWM control,
+does limiting max-brightness to 255 artificially restrict the hardware's PWM
+resolution? Should this allow values up to 65535 instead?
+
+> +
+> +      default-state:
+> +        const: "off"
+> +
+> +      default-brightness: false
+> +
+> +      retain-state-shutdown: false
+
+[Severity: Medium]
+Are these standard LED property restrictions necessary? Restricting
+default-state to off and disabling default-brightness and
+retain-state-shutdown entirely prevents device trees from configuring these
+LEDs to be on at boot or retain their state.
+
+> +
+> +    required:
+> +      - reg
+> +      - led-max-microamp
+> +
+> +  "^multi-led@[0-9a-f]+$":
+> +    type: object
+> +    $ref: leds-class-multicolor.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
+> +        maximum: 17
+> +        description: Lowest-numbered LED output used by the group.
+> +
+> +      "#address-cells":
+> +        const: 1
+> +
+> +      "#size-cells":
+> +        const: 0
+> +
+> +      max-brightness:
+> +        minimum: 1
+> +        maximum: 255
+
+[Severity: Medium]
+Does this 8-bit limit also restrict the 16-bit PWM capabilities for multico=
+lor
+LED groups?
+
+> +
+> +      default-state:
+> +        const: "off"
+> +
+> +      default-brightness: false
+> +
+> +      retain-state-shutdown: false
+
+[Severity: Medium]
+Should multicolor LEDs be permitted to use standard LED state configurations
+like default-brightness and retain-state-shutdown, similar to the standalone
+LEDs above?
+
+[ ... ]
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13821,6 +13821,12 @@ F:	Documentation/devicetree/bindings/hwmon/renes=
+as,isl28022.yaml
+>  F:	Documentation/hwmon/isl28022.rst
+>  F:	drivers/hwmon/isl28022.c
+> =20
+> +ISSI IS32FL3207 LED DRIVER
+> +M:	Ahmad Byagowi <ahmadexp@gmail.com>
+> +L:	linux-leds@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+> +
+>  ISOFS FILESYSTEM
+
+[Severity: Low]
+This isn't a bug, but does inserting ISSI before ISOFS break the strict
+alphabetical ordering of the MAINTAINERS file?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785684064.gi=
+t.ahmadexp@gmail.com?part=3D1
