@@ -1,169 +1,167 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52770411F92
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 13:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E1D2D8385
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 13:36:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785764054; cv=none; b=fVwkouJCbfoNfYReD3/Y/hrxlJNDDaJIl3VFHTBOZBku5t2oPCqNKkt+W9/ohpAMH0SnM/yIlHAKjguRCWbPvzLO0ZazSjxqX0Zwi7SEQ149IqBB/qtEmqi2bYbF+hfQePo0TehRdCNk3k8mI4tOb14YMPhFOESKWVR2spF19MM=
+	t=1785764191; cv=none; b=g1W6LnaTyjOD6IvGsrOgX2dxTjm0AtQHOUz4tlSpTP/Kz3npHzcbhA/TDik26HV5sVfBHBP6JM67ZbRDvH7q8yZa2eFbFgdxcu//+194Ji/TnhBHzPmoqu7ux3AjRJzQq3yI+LCgO7Ni+QkgxyEvaH7usSZSHDbfib4HuXVWpUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785764054; c=relaxed/simple;
-	bh=1GCCh9Rhuj9YT6EIaAlyNeSq0XtZkhoJuenhMEgUce0=;
+	s=arc-20240116; t=1785764191; c=relaxed/simple;
+	bh=e7iHy4y50xbc9ee083QD6NyxpmZ/tJFwQieA3NxFYgk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=A5GD4vUe1TpSv6dvXeZQIY9a5pOtGijM2q8NigcXDx2KuGR+tkkGEI+o90mgKy0hD9mdkVADYg3KhUbDfSzAKiugTxxBDCffcuXcIJkg2uEvSUe4c+4A5FwKsdo63OI1kKh8MXwqf1URKaAOu5Lae6ZHdwUFmV28J4Rl4lQYK0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eAdikwXw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EBNOIqiKpohK/rSauNJl72iV99vcHE+IoS1fslmFyoz2VAUZGRJi0oENlekALVdGOzSC9LFdg0/+B0OeLz7H8zvGh3uhFFiYQ89HygHXSTQ2Lkls6/K7aGq17z8IddbEnfJnmrI3QitW0u+/otYATgGDf4XnQX8Ij4nntRE3SiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOyDz/GB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eAdikwXw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE6DD1F000E9;
-	Mon,  3 Aug 2026 13:34:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOyDz/GB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235A21F000E9;
+	Mon,  3 Aug 2026 13:36:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785764051;
-	bh=8Oqrrp1jnAx3yl1OhgHR6Di5yXiAbcRUusY5WjfSrQY=;
+	s=k20260515; t=1785764190;
+	bh=kuMw0fS7Qekrcf5WDZBw9CimVXDr7m5fIiOu0aBPHqA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eAdikwXwdlmGa0qZsi8IrkaMzI7WcvkENmOA0ru4+WUYlMCruaUivN4ZZibcDsSCV
-	 gduvO1YsJwFnXhsP+MA2Plkk6BPkodRAOL7dxvzmfp0HQjnC+jXefRJPzlCSj+Y+wT
-	 PesCrIrTwLuiZ1Pvj324GehdgRhkCFYseAFF+YZjzsUkGQNgGQ2C0U1gD48slUSD+j
-	 YGUq+P09Y9Ur9SL8eEAiTBfwOngx0Ade5Wj4qabh/8lCsHdIz0/fRZSvGQsOCsF9VJ
-	 KAe/6S79VvFnpYSXbaWS7emCMcZ4u2i45UdXC9v3o+x39ym+itrFsHZKwQORHKM2od
-	 rao6amm6CHj+w==
+	b=BOyDz/GBb/hGuBGtYsshXXo38mcXeDk94PJQDArp0eyAa9m6BVpythG9zhC0ciqrM
+	 QsG6vZJgfnb62MKtD4BkNUKm4EGq1d9qiAFa+31kO7fULRIHY/qbxoNADXFC5E8jFF
+	 9ulpfHbjv4eEXFSh3ns8OCKhVPcAG0dI/X1hSBI+be0VJHhiCl1APy99A9/mmb4Jt2
+	 XxapIdaM8hjw0OpBtkOlCGF6tnIQovgW8A8Uyc9FW4/C8JOmgRiYUKsXHtvBt+Q4Qk
+	 8XEw98OiXW1H2dtfUpt6Zgvegc/i8tqSBadlkbFSQAm5hOLwNgFG99pQgy5/JvSoWN
+	 hR7GJZ3/roG7w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/6] spmi: apple: Implement remaining commands
+Subject: Re: [PATCH v3 5/6] spmi: apple: lock around FIFOs
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260803-t603x-spmi-v3-4-c17b506d91a1@chaosmail.tech>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260803-t603x-spmi-v3-5-c17b506d91a1@chaosmail.tech>
 References: <20260803-t603x-spmi-v3-0-c17b506d91a1@chaosmail.tech>
- <20260803-t603x-spmi-v3-4-c17b506d91a1@chaosmail.tech>
+ <20260803-t603x-spmi-v3-5-c17b506d91a1@chaosmail.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 13:34:09 +0000
-Message-Id: <20260803133410.EE6DD1F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 13:36:27 +0000
+Message-Id: <20260803133629.235A21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Critical] Integer underflow in SPMI read loop size calculation causes an=
- out-of-bounds write (buffer overflow).
-- [Medium] Using `memcpy()` combined with `writel()`/`readl()` to pack/unpa=
-ck stream data breaks big-endian compatibility and causes data corruption.
+
+Pre-existing issues:
+- [Critical] Out-of-bounds memory write in `spmi_raw_cmd` due to an unsigne=
+d integer underflow when calculating remaining bytes for SPMI reply payload=
+ copy.
+- [High] Improper use of `memcpy` with `writel`/`readl` for stream I/O caus=
+es byte reordering and data corruption on Big-Endian architectures.
+- [High] The `flush_extra_data` function uses an unbounded `while` loop tha=
+t can permanently deadlock the SPMI controller and cause a soft lockup.
 --
 
---- Patch [4]: [PATCH v3 4/6] spmi: apple: Implement remaining commands ---
-commit 92726351469b11b82f4d483115faf989e21b09b0
+--- Patch [5]: [PATCH v3 5/6] spmi: apple: lock around FIFOs ---
+commit a147e75e08f9462d0254d993c5221a8c13ead6d5
 Author: Alba Mendez <me@alba.sh>
 
-spmi: apple: Implement remaining commands
+spmi: apple: lock around FIFOs
 
-This commit adds support for zero write and power management commands to the
-Apple SPMI controller. It also refactors the command transmission logic into
-shared raw command helper functions for both read and write paths.
+The driver was missing locking around register interactions, which this
+commit addresses by adding a mutex around the FIFO operations.
 
 > diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-app=
 le-controller.c
+> index 8c9a70ba04221..74d4b5d98b113 100644
 > --- a/drivers/spmi/spmi-apple-controller.c
 > +++ b/drivers/spmi/spmi-apple-controller.c
-
 [ ... ]
-
-> @@ -77,18 +77,26 @@ static void flush_extra_data(struct spmi_controller *=
-ctrl)
-> -static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
-> -			 u16 saddr, u8 *buf, size_t len)
-> +static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
-> +			 u16 param, const u8 *buf, size_t len, u8 *ibuf, size_t ilen)
->  {
->  	struct apple_spmi *spmi =3D spmi_controller_get_drvdata(ctrl);
-> -	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, saddr, len);
-> +	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, param);
->  	u32 reply, rsp;
->  	size_t len_read =3D 0;
-> -	u8 i;
-> +	size_t i =3D 0, j;
+> @@ -87,6 +89,8 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl, u=
+8 opc, u8 sid,
+>  	size_t i =3D 0, j;
 >  	int ret;
 > =20
+> +	guard(mutex)(&spmi->fifo_lock);
+> +
 >  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
 > =20
-> +	while (i < len) {
-> +		j =3D min_t(size_t, sizeof(spmi_cmd), len - i);
-> +		spmi_cmd =3D 0;
-> +		memcpy(&spmi_cmd, buf + i, j);
-> +		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-
-[Severity: Medium]
-Will this sequence cause data corruption on big-endian architectures?
-
-By using memcpy() to copy the byte buffer directly into a u32 variable, and
-then passing that variable to writel(), the implicit CPU-to-little-endian
-byteswap in writel() will reverse the byte order on the bus.
-
-The previous code avoided this by packing the integer using manual bit shif=
-ts,
-which preserves the byte layout regardless of CPU endianness.
-
-> +		i +=3D j;
-> +	}
-> +
->  	ret =3D apple_spmi_wait_rx_not_empty(ctrl);
-
-[ ... ]
-
-> -	while (len_read < len) {
-> +	while (len_read < ilen) {
->  		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
-> -			dev_err_ratelimited(&ctrl->dev,
-> -					    "FIFO lacks reply data, controller stuck?\n");
-> +			dev_err(&ctrl->dev, "FIFO lacks reply data, controller stuck?\n");
->  			return -EIO;
->  		}
->  		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
-> -		i =3D 0;
-> -		while ((len_read < len) && (i < 4)) {
-> -			buf[len_read++] =3D ((0xff << (8 * i)) & rsp) >> (8 * i);
-> -			i +=3D 1;
-> -		}
-> +		i =3D min_t(size_t, sizeof(spmi_cmd), len_read - ilen);
-> +		memcpy(ibuf + len_read, &rsp, i);
+>  	while (i < len) {
 
 [Severity: Critical]
-Does this length calculation underflow and cause an out-of-bounds write?
+This is a pre-existing issue, but does this code have an integer underflow
+when calculating the remaining bytes to copy?
 
-Since len_read starts at 0 and the loop condition ensures it is strictly le=
-ss
-than ilen, the subtraction of len_read - ilen will mathematically yield a
-negative number. When evaluated as an unsigned size_t, this underflows to a
-massive positive number.
+Looking at spmi_raw_cmd() in drivers/spmi/spmi-apple-controller.c:
 
-Because of this underflow, min_t() will always select sizeof(spmi_cmd), whi=
-ch
-is 4. If a caller requests a read smaller than 4 bytes, memcpy() will
-unconditionally write 4 bytes and overflow the destination buffer. Should t=
-his
-calculation be ilen - len_read instead?
+	while (len_read < ilen) {
+		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
+			dev_err(&ctrl->dev, "FIFO lacks reply data, controller stuck?\n");
+			return -EIO;
+		}
+		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
+		i =3D min_t(size_t, sizeof(spmi_cmd), len_read - ilen);
+		memcpy(ibuf + len_read, &rsp, i);
+		len_read +=3D i;
+	}
 
-[Severity: Medium]
-Similar to the write path above, does unpacking the result of readl() using
-memcpy() introduce an endianness issue?
+Since len_read is less than ilen in the loop condition, len_read - ilen
+evaluates to a large positive integer. As a result, the min_t() call will
+always return sizeof(spmi_cmd), which is 4.
 
-readl() performs an implicit little-endian-to-CPU byteswap, which is then
-copied sequentially into the byte buffer, potentially scrambling the payload
-on big-endian systems.
+If this performs a 1-byte read, will it blindly copy 4 bytes into a 1-byte
+buffer on every iteration, leading to an out-of-bounds memory write?
 
-> +		len_read +=3D i;
->  	}
-> =20
->  	flush_extra_data(ctrl);
-> =20
-> -	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1=
-)) {
-> +	if (!ilen && !FIELD_GET(SPMI_REPLY_ACK, reply)) {
-> +		dev_err(&ctrl->dev, "command not acknowledged\n");
-> +		return -EIO;
-> +	}
+[Severity: High]
+This is a pre-existing issue, but could this implementation violate the I/O
+accessor guidelines by mixing memcpy() with writel() and readl() for
+stream data?
+
+When writing to the TX FIFO in spmi_raw_cmd():
+
+	while (i < len) {
+		j =3D min_t(size_t, sizeof(spmi_cmd), len - i);
+		spmi_cmd =3D 0;
+		memcpy(&spmi_cmd, buf + i, j);
+		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+		i +=3D j;
+	}
+
+And when reading from the RX FIFO:
+
+		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
+		i =3D min_t(size_t, sizeof(spmi_cmd), len_read - ilen);
+		memcpy(ibuf + len_read, &rsp, i);
+
+Because writel() and readl() perform implicit byte-swapping on big-endian
+architectures, placing bytes into a host-endian u32 with memcpy() before
+using these accessors reverses the byte order on the bus.
+
+Should this code use the stream I/O accessors like writesl() and readsl()
+instead to preserve byte order consistently across architectures?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can the loop in
+flush_extra_data() cause a soft lockup?
+
+In drivers/spmi/spmi-apple-controller.c:
+
+static void flush_extra_data(struct spmi_controller *ctrl)
+{
+	struct apple_spmi *spmi =3D spmi_controller_get_drvdata(ctrl);
+	bool warned =3D false;
+
+	while (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
+		if (!warned) {
+			dev_warn(&ctrl->dev, "FIFO has extra data\n");
+			warned =3D true;
+		}
+		readl(spmi->regs + SPMI_RSP_REG);
+	}
+}
+
+If the hardware misbehaves or enters a faulty state where the
+SPMI_RX_FIFO_EMPTY flag is never set, will this unbounded while loop run
+indefinitely?
+
+Since it executes with the new fifo_lock held, could this permanently
+deadlock any subsequent SPMI transactions and block the CPU core?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-t603x-spmi=
--v3-0-c17b506d91a1@chaosmail.tech?part=3D4
+-v3-0-c17b506d91a1@chaosmail.tech?part=3D5
