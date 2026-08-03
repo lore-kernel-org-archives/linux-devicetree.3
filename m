@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D37437476;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C2542C513;
 	Mon,  3 Aug 2026 18:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785780313; cv=none; b=fzHAV6c04B6i0AcQS8LXMa+nteOwaKr0K+mhH4UpCa+t7FId1SlBoxuJROjJBNrpDm5z+k55AnclCKE9VND7lfxHYwYtOTIlUrD35MPbfu2V4cUejdjsRPsFul1fMpclj9Lyb7P1KuMt/fdcq0qPRhGaDr8cE3qAENJPayquKZ4=
+	t=1785780313; cv=none; b=F3jdFT2yQVfmzWIQahMTpieHol1wUPiiRbmoaI8HDRvveSqXnKVCsYOEGdCLckDmP/RoscCoTl627IIBIScw04nhwv5eecyOHvvn5U86yX97a0hJ/ZJfCJb9kJ069IVSWy3+bCwrJprI/JnZh3oBpIRAn5W0HCE63wgLQBnHsBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785780313; c=relaxed/simple;
-	bh=+hvcTuzTih5vFZbymQZbCa4pv4dlmw/yOyTygYkYfXw=;
+	bh=vWHtus49X0hw1sn+NkpE62a91N52LNCAbMBD695LMik=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MPS0l27qNiMhndaoHnDgVVqcZwDo7KFYD73EvCnpsZW/hEayCKaWBJYXFGemrn5uUoWuPScicpTnDylosi2EpDxiR4x/U3AkchyAJBtoebFbjun98VBPgsu0ISbTS0Dmwkir7obm9OH2dsidyGwQB1X4yMq7nwKLk3y4Y3QY0vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Rnnvvk+y; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=PK+nTr8aSb8peDLR8G9Rf9ofzS4jigrJEVNi5tIyJQIoZaDfiFqsIonkSeJJW86aCCXM8Gu9Tt8DHK/f2XH/R7bJSM3o5wNg2Xd0TPzG6zAqKOuIUvEUHa4MewNNOrQKmrHfoMTFcSYNxOEMNlBoXloz3qbwHw61JaCVHzY20AE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=QgldZm3H; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Rnnvvk+y"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="QgldZm3H"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1785780304;
-	bh=+hvcTuzTih5vFZbymQZbCa4pv4dlmw/yOyTygYkYfXw=;
+	bh=vWHtus49X0hw1sn+NkpE62a91N52LNCAbMBD695LMik=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Rnnvvk+y3ZEPNKGORxSUGqsg+mNaM9ua+oPmZXjTDX25nKW4ZrgKL8Id44CQgPeHd
-	 dgf1MDIyR5EeSgciebeVwtJcOAYxVp1bPzQdMLnZZpf+e6dxk2rjTJzmQDVKP6fexk
-	 ZzX4rtp67mur4VMN8fbrVlCnyKqeHLZwH6JYxiVr7N3cggCCFyqgX827oO5smSpPzs
-	 5IEyqySgMeukcoOhnLsD2CsDwvqo79mkqUSKRuPNvDqatHOi7kQD54fN7YFYf8F9oF
-	 qrVuydhCTdkZac/DDPPeYCPgrwiWT+XOStGalRkexz7pDm0CDIHUewQOOqVkP+4WeO
-	 6K2XG9c9MD1qg==
+	b=QgldZm3HZ596a7+ZAgIJJ3KGQ39ltqVuo+XHbifbcaGT30m5Bp3AgcNFzBG5UjjzW
+	 A3t5xQCsD7SC+XykgOXN2s2WxGhpisxx8e3RdF9Uo/JmKqtoAyIAo1uXf9mZ0tC1qj
+	 oHaJqGt/BzsFQPDeUDiqVAEN2z57vKnZpKjBswUvqCHEpxISe5K+IJo76jXLC31R47
+	 vGG5LCePCudaPLUQy1DrwxpIFeMUHv/hkHIKgc090EqTwBVQ5y4PepnoeJnBZDvCGp
+	 yIYZ+UwxKRLgpWCdTlPOOhOOjGfzYpTxyAlcIIuv8B2OfcOR17JxuKJHRMv9QevLv1
+	 fR6F4YNVzr8lA==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 26D2117E10C0;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3BD6517E11E4;
 	Mon, 03 Aug 2026 20:05:04 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 6BE5748003A; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
+	id 707A5480048; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Mon, 03 Aug 2026 20:05:09 +0200
-Subject: [PATCH v9 08/22] drm/bridge: synopsys: dw-dp: Fix support for
- short I2C reads
+Date: Mon, 03 Aug 2026 20:05:12 +0200
+Subject: [PATCH v9 11/22] drm/bridge: synopsys: dw-dp: Add follow-up bridge
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-synopsys-dw-dp-improvements-v9-8-2e6e46135312@collabora.com>
+Message-Id: <20260803-synopsys-dw-dp-improvements-v9-11-2e6e46135312@collabora.com>
 References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
 In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -71,60 +71,104 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1481;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2515;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=+hvcTuzTih5vFZbymQZbCa4pv4dlmw/yOyTygYkYfXw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E4HoUBLboib/7pf45ZjmJMYsf9lGaA5k
- MEBu37ptA23aYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhOAAoJENju1/PI
- O/qafVIP/i0EYv84rNRDGB2pCStUpY6g7dRwEFWxpysmcS5LJT9JlNgdro7n9hnfkPfb9s6d9xq
- u578ReQLD9ALqlP3eZJ40BNhpsttHkGd5JwdrReFpagivYXj/YUqBuyLB9BHK6/cqvRgQj7hAmO
- /Mj1NnRh0OYaUNxXb6r1yB2HkCNgcRThYTJDQ/30RxxaJOk4FcuIwKUg+yu9xpxO7pRrWGai9/B
- NX8azki7+v7KaSz5I8IFx3cbGEfbTR2dN/050CvJK1Ke+F/eUTXgRoMriDQSjPhs8XyFb/LL5h2
- 0AOO4ZJrqgYc2WOOfUgQAlhJfSeAvQQCktQB6paFggZ31CwslyAl+4rl+96a6ge3GFQ3HOdhqHq
- o9F67I6RhzGfmf/EQyuelWysXOw+04DOybo+riXGxjAduL9dQR19HkDlOd+iUTXFbLBWnveFavt
- PVPJ+1nuXV45uMJ2iWbOQdn1Ky9XTHLN0/ljyq+e8yIMaZIkc8B7LAyh6HenY5oFgrTG41Z/1ST
- XhooYxMaL6cqsU//gYkROd70I4AYvk6Xx/hpDtmtQQ+dtUKvpZRg4als8LJZ5EF8CR3cxv0CoC5
- JIsymxjN/uxQC0+I3dR1GgxR2TUCxyXByzAfrvXZe9WkRV5r2g1ynmQJ13n5HeFHvBX8W4WX2yP
- +OOk8YazaXyw2nqh+mHsq1g==
+ bh=vWHtus49X0hw1sn+NkpE62a91N52LNCAbMBD695LMik=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E6snqkjQpQJoi0luDT4tnhQYhv3lMHaf
+ msTkh3eVHWWIIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhOAAoJENju1/PI
+ O/qaWfYQAI87lpMK3uwNe3zeQu6zC4e7IS7Ze6gpM3Sb0wAdWcSpxAHBGioyqZwT5c4rip0EYnM
+ SfUP4Ll7zdO/n48x/BhlZ2r5w+GSKgk5jNc1XmHpDSYvg1DnD4kPcT5wiYTSsURRlvXFnBpEa5M
+ JtxB8BytquQfx8PZsEsUjlZ73Kt2l/A+ydrNya3flif2DOe2SEoGDXVkihxUSi4iinjvC7xx4FM
+ ffVOnDx4wjluznyMQmOwJyW/RERNSLIJ/GACJfmhnsddcAUbjk+lRonghpOe4oqZR4pEP23yr3H
+ FHdvwLJ61BlRQ0h4O+uNz9pFXsgU9XML9/8uRiJNlaEsJf5nAAbDF9qFWBcuQHK4BXXRIEhwY/5
+ iOa/NFBB945//Z13Uddz+0V8QEMBPzkLLFy/dI+uPe26Sl7XxUlhW0qwGOqGw+/4jjqXS+tnLIL
+ 2/c5Q/lsBm02Y4hYoMXsU/h/KMQ8lPmt6y+gKK8YnL8XRS3I7L8sHJP+4Vs3WU208VVDBP3ror0
+ ZkY2v3kDG1JIOpOwaMSmxzOpeMlDOzxQ5ftRwXtSeymWjJE0CdTZO+u10CHjY/tOfH8CBKwL2N/
+ Lhm8z9GIjT8V7H7EoA4rXi76rmimaIGYLBBZpmjzu5+pJ2VOcbUVDEtkKufuQzAWLigCjUdUFMc
+ ZPmbz3BuUD86I1JTEzz4tIw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The transfer functions returns the amount of bytes read for
-DP_AUX_I2C_READ. By returning -EBUSY for short reads, the caller has
-less information available what is going wrong and possibly simply
-resends the read request. On sinks not supporting long reads, this will
-simply run into the same issue again.
+Add support to use USB-C connectors with the DP altmode helper code on
+devicetree based platforms. To get this working there must be a DRM
+bridge chain from the DisplayPort controller to the USB-C connector.
+E.g. on Rockchip RK3576:
 
-Instead it makes more sense to return the data from the short read with
-the length information, which allows drm_dp_i2c_do_msg() to read data in
-smaller chunks and succeed in the end.
+root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
+bridge[0]: dw_dp_bridge_funcs
+        refcount: 7
+        type: [10] DP
+        OF: /soc/dp@27e40000:rockchip,rk3576-dp
+        ops: [0x47] detect edid hpd
+bridge[1]: drm_aux_bridge_funcs
+        refcount: 4
+        type: [0] Unknown
+        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
+        ops: [0x0]
+bridge[2]: drm_aux_hpd_bridge_funcs
+        refcount: 5
+        type: [10] DP
+        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
+        ops: [0x4] hpd
 
-Due to lack of a sink, which only supports short reads, this change is
-effectively untested.
+It's fine to fatally error out when there is no follow-up bridge
+as the Rockchip Designware Displayport controller is the only
+user of the bridge helper and has the port marked as required
+in its binding.
 
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 8b587a4c5e93..22a244de08aa 100644
+index e60dab0d3b9d..577ec42c94a4 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1513,7 +1513,7 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 		if (msg->request & DP_AUX_I2C_READ) {
- 			size_t count = FIELD_GET(AUX_BYTES_READ, value) - 1;
+@@ -330,6 +330,8 @@ struct dw_dp {
+ 	struct dw_dp_plat_data plat_data;
+ 	u8 pixel_mode;
  
--			if (count != msg->size)
-+			if (!count || count > msg->size)
- 				return -EBUSY;
++	struct drm_bridge *next_bridge;
++
+ 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
+ };
  
- 			ret = dw_dp_aux_read_data(dp, msg->buffer, count);
+@@ -2049,13 +2051,31 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to attach bridge\n");
+ 
++	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
++	if (IS_ERR(dp->next_bridge)) {
++		ret = PTR_ERR(dp->next_bridge);
++		return dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
++	}
++
++	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
++				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
++		goto put_next_bridge;
++	}
++
+ 	return 0;
++
++put_next_bridge:
++	drm_bridge_put(dp->next_bridge);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_bind);
+ 
+ void dw_dp_unbind(struct dw_dp *dp)
+ {
+-	/* nothing to do */
++	drm_bridge_put(dp->next_bridge);
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_unbind);
+ 
 
 -- 
 2.53.0
