@@ -1,40 +1,63 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB442F8EB0;
-	Mon,  3 Aug 2026 15:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F232A4137BA;
+	Mon,  3 Aug 2026 15:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785770501; cv=none; b=dGQxlgHEdBbDJOXPeg9G+gKe9BzZwVowQ32d9EfbQLw6GFKOemzeNX9SE1ZS5vt5rhXsQNmhIuvD2IFt0MzanDx8FeKLXdLgyZquauSU2G0ocezoRrQzBn4Y0YUzsB+2p9CGhTKPDmU1i8pzTk0LBtxt0czElSomFTeRlq5DTcc=
+	t=1785770560; cv=none; b=Q6QNdcBYvELHLOAGXrarDDs1w6oWimGGoiDxc0YLjrZhqHYBYbAW3cxWKkcOT45Z03/cOT0DTWFCKlPxioAQntFfyp3l/s9vyd3z1ijfiHir1D1n8QE3WM+lpqaJtaKbo8+EbAD8v/mtf4jAZMqA7R9meKW9/9EwrmlFxaCcyW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785770501; c=relaxed/simple;
-	bh=kRrDqUYJu4CYLa0dhwgk0z3PDbZ9Xk86ftvpTUYNG84=;
+	s=arc-20240116; t=1785770560; c=relaxed/simple;
+	bh=HEwByISEMqTHOvuw/TQAwGYn4v3pB0HCjn+7Inh3g7w=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JELEiE5QHwnU70cCPMB4/A0/qtxv78DyZC2kP+BgBcguByfSoV41iokO6iO7BcYaIt0W2fbg9lFDvMW/11tNbKJosdwVLejuBn+Y2lKMj2Y5JQhTISh65V87o2yB7trFvvDAQDxvDnTe1rGzIasiAZgm7A/kbyThU2ld5hQ5IGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4821D200048;
-	Mon, 03 Aug 2026 17:21:31 +0200 (CEST)
-Message-ID: <156581f4ba49cdae4ff1a19767eb32ffa64ec900.camel@pengutronix.de>
-Subject: Re: [PATCH 2/2] can: arasan-canfd: add driver for arasan CAN-FD
- controller
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Jisheng Zhang <jszhang@kernel.org>, Marc Kleine-Budde
- <mkl@pengutronix.de>,  Vincent Mailhol <mailhol@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>
-Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 03 Aug 2026 17:21:31 +0200
-In-Reply-To: <20260803140531.12692-3-jszhang@kernel.org>
-References: <20260803140531.12692-1-jszhang@kernel.org>
-	 <20260803140531.12692-3-jszhang@kernel.org>
+	 Content-Type:MIME-Version; b=ORMhmaZWih+5QxnqDkt/hyDOT7EpIAqOtzkK7xjwJ38CnTG58ETJCD7UmEvq2O9YJlqGBIpWW+XlDdEIYYd1lUgRWNi+ZX27koLTskQKl3dm9Db3iKQHgxs27/qPyG37zT34xqrztrtEcYR4gEiWs4pAWMVfTix8azbLYn6D56Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=W11XnVUa; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+dHQg3FH; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="W11XnVUa";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+dHQg3FH"
+Message-ID: <8a5ec5c7d76d634293bd8c78a078d536ed516c08.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785770556;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SRWxtpCnTHBGpFZn7YG4kXSV1FW3nCbUeh8LaKke1XM=;
+	b=W11XnVUaY42qJ9otmV0Cknxr7COjFuekmtL8BRLHNwynqua6y3yOQYXO3i014Yyxgf1Bi9
+	BVgXgpVi+3fyMVns2J2XHxkyai/5K/XnMiVWBA4EirntaVAnW6aXSp+w+GELi2C0tY3weN
+	6/ylv30S9KSLR8ip6XOIUv9khIEphqw4gM0rBCwV1TAYmJiBuxe8Ec9XWy/RqgJ3i6dvCg
+	fpKODPsbdjTWsJaFaOyDf3uIs8u3bkE2dbLysQ4ba1Kbu1ezrPAl2Ooorl2qtDCZZ2gAD1
+	HN0v6wfBbK4EQy/+sEStFKjK0Q/u4krPbrzYsAYpM+vVSSzoMoYxUG5b2pCoOg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785770556;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SRWxtpCnTHBGpFZn7YG4kXSV1FW3nCbUeh8LaKke1XM=;
+	b=+dHQg3FH5nDwDsGzgQXAYpxdUQrCqRVBhFpa+/szGsAJBUD9TBgS25yGXE0yWRIAcHROp5
+	nRRAxk+h8CS8Z8DQ==
+Subject: Re: [PATCH 0/4] net: dsa: Add SoC-e DSA driver
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>
+Date: Mon, 03 Aug 2026 17:22:35 +0200
+In-Reply-To: <50e4f195-f810-470b-b05a-97f622e6efc4@lunn.ch>
+References: 
+	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+	 <50e4f195-f810-470b-b05a-97f622e6efc4@lunn.ch>
+Organization: Linutronix GmbH
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,57 +65,55 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Mo, 2026-08-03 at 22:05 +0800, Jisheng Zhang wrote:
-> Add driver for the arasan CAN-FD controller.
+On Wed, 2026-07-29 at 18:56 +0200, Andrew Lunn wrote:
+> On Wed, Jul 29, 2026 at 06:36:53PM +0200, Vasilij Strassheim wrote:
+> > Add initial support for the DSA driver for SoC-e FPGA-based (IP core)
+> > Ethernet switches.
 >=20
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->  drivers/net/can/Kconfig        |    6 +
->  drivers/net/can/Makefile       |    1 +
->  drivers/net/can/arasan-canfd.c | 1057 ++++++++++++++++++++++++++++++++
->  3 files changed, 1064 insertions(+)
->  create mode 100644 drivers/net/can/arasan-canfd.c
+> Let me start with a dumb question. Is this a true soft core switch,
+> which is synthesised and running in the FPGA? Or is it hardware at the
+> edge of the FPGA SoC?
+
+I should have made that clearer right away. This is a true soft-core
+switch that is synthesized and runs in AMD FPGAs.
+I have a version in which both the MAC and the switch are synthesized
+in FPGA, and two hardware PHYs are connected to the switch. The switch
+provides an MDIO bus for the PHYs.
+
 >=20
-[...]
-> diff --git a/drivers/net/can/arasan-canfd.c b/drivers/net/can/arasan-canf=
-d.c
-> new file mode 100644
-> index 000000000000..63a6191f84f6
-> --- /dev/null
-> +++ b/drivers/net/can/arasan-canfd.c
-> @@ -0,0 +1,1057 @@
-[...]
-> +static int arasan_canfd_probe(struct platform_device *pdev)
-> +{
-> +	struct net_device *ndev;
-> +	struct arasan_canfd_priv *priv;
-> +	struct phy *transceiver;
-> +	void __iomem *addr;
-> +	int ret;
-> +
-> +	addr =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(addr))
-> +		return PTR_ERR(addr);
-> +
-> +	ndev =3D alloc_candev(sizeof(struct arasan_canfd_priv), CAN_MAX_TX_QUEU=
-E);
-> +	if (!ndev)
-> +		return -ENOMEM;
-> +	priv =3D netdev_priv(ndev);
-> +
-> +	priv->sys_rst =3D devm_reset_control_get(&pdev->dev, "sys");
-> +	if (IS_ERR(priv->sys_rst)) {
-> +		dev_err(&pdev->dev, "failed to get sys reset\n");
-> +		ret =3D PTR_ERR(priv->sys_rst);
-> +		goto err_free;
-> +	}
-> +	reset_control_assert(priv->sys_rst);
-> +	reset_control_deassert(priv->sys_rst);
-> +
-> +	priv->can_rst =3D devm_reset_control_get(&pdev->dev, "can");
+> If it is synthesised, do we have to deal with different synthesis
+> options? Are there registers which indicate what these options are?
 
-Please use devm_reset_control_get_exclusive() directly.
+While setting up the switch, users will need to explore various
+synthesis options. Once it's up and running, it should be possible to
+load a preconfigured bitstream into the FPGA without having to deal with
+these options in the DSA driver. The device Tree should then match the
+configuration.
+However, users are provided with instructions and a user-space
+library/software from SoC-e to check and adjust the options if necessary.=
+=C2=A0
+DSA tagging, for example, is one of the synthesis options. If this option
+is not active, the DSA driver will not work.
 
+> Where as if it is fixed hardware in the SoC we don't need to worry so
+> much about variations, it is fixed at the SoC level.
+>=20
+> > There are different variants of the SoC-e switch IP, which can be
+> > additionally configured at runtime with proprietary userspace software.
+>=20
+> What sort of configuration?
 
-regards
-Philipp
+Different kinds e.g. general interface configuration, traffic
+management, redundancy, ...
+Most of them are listed on the product page:
+https://soc-e.com/products/10m-100m-1g-managed-redundant-switch-mrs/
+
+DSA integration can stay as lean as possible to support only basic
+functionality for different variants and versions of the switch.
+
+>=20
+>      Andrew
+
+Thanks,
+Vasilij
+
