@@ -1,157 +1,159 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568DC3A4F26
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 19:51:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD1F3A3E98;
+	Mon,  3 Aug 2026 19:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785786713; cv=none; b=m5aAfjXjM444UzmQZojz+waso4A1VcwdlxGijL3ChDGK3eYXbs5nlr4LU370KzaguDe7M4HznoNIwvYDk3igm6WkouOVbsQ+PhHCO6Hr71wZKP0BdtQcDFt6foddA7qelsdvjDUrpF6NIFjNTBDyALyzijgIC6qHQcS/y2kPNK0=
+	t=1785787003; cv=none; b=IkH4/laMNQP+XuAJI9mfvakzjqvrOSvU4J+XwOvyplbvZV+d4rOC9v74OnVytj+QwwUk3oy1r2ROMbXFbAS7SZRKSCpEWmqcE2CRszb7zoLLo+faLoJYRMuu3012fpuRngz1szsJ3DRMF34b3OhBb4kt4xs2dEqUqCfdoQS+MUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785786713; c=relaxed/simple;
-	bh=XmrhaH2TDgHKknIEGYdyh60fXe4kO/67pTBS8izoMqk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ad/MAuB2gcucGIw21ZF+7Gsi2OQPxQIjUtYdUInZ6MBwcRisYGQvuN5SGrJHz7ajWgS+qeuVH2aIbMNOe1lynD3H8RIoc02C+F3up2uutcwVnZOF26m25/fsNshVxKWPKg87zj6Svlv4nJwbYnEb4fwroyTcLHhoRICxVCBlDpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=CiO+xGAO; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=gFtIPEz6; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
+	s=arc-20240116; t=1785787003; c=relaxed/simple;
+	bh=/iv5XxS/3gFpnigOaB4DtAv95MORN/hbX7CcjMPJckU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kG0o3KV/vQaUot14C5uE8sream7wbuXjwvCNyjvN2nkfg/mfSNp/4dfXbIrIu6OfntuX83WL9z2uT0YupZYSNenwNxYZfnOC1v0C8FGQZpi702tmNijkza/REx+YR/11ojCblaRcBDhfKmeo+cWI0henN8qEKBaubXK3709S9+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TKhZF5je; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="CiO+xGAO";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="gFtIPEz6"
-DKIM-Signature: a=rsa-sha256; b=CiO+xGAOOK0IOA9wsdKoBX3d7Px3FRgX+iQxPAIwuNAy+nWL6Mbw5cOPIUItebL3R2u82XNcMVtsTpLHI/IKGUyHRE8tCbE/Kg8iwCUdiskVIeXAxWxQLa5pFLYI3Si1UO98MpyhLhya9y5cg/tZ8qK5xNzLuoInwpfUSHdfrO3zEST3m0bGtEMvbYkV5Eh50lWSQFtl9Xil/U4QeScRc2ag+BaiAbGAfC75yhfVucPiBvmNUmXWwlvCtJVRpD9z71q6APd56NVsHp9FXcxVR83KB8/+ybctEROzlYVAbzRxOO6I6w+BRefnofiMM6dIt73JFiyXtM9YPVGqpfSWMA==; s=purelymail1; d=tinyisr.com; v=1; bh=XmrhaH2TDgHKknIEGYdyh60fXe4kO/67pTBS8izoMqk=; h=Received:Date:From:To:Subject;
-DKIM-Signature: a=rsa-sha256; b=gFtIPEz6/XKPEGpaSbtwlB6fIPKRMx8+4a/hHGjr9D/vEOTF8CRaUEpmQju6MLFIV9mdwtgXPmGt5mYL3L5rV9YOSq/OeWfJe4+JljMPPEWu4SjpyxfjFT8cje0FnbFSGPqWXDvKhHQcYcO6uf7Ba4izJsZBctHr+h6BT6vz5/MlnpcijY5bIJ5OFhIdRZsQ4ISR2UY1P8v4cfzDBNTUkGyzvpTHdHOLVd9xQWhmemvA986+WCL/756Ttex8fSEtqr15e/bLtMOmEieyNtl1An6ypI8seq0jQoMu6Z+X1n5APM9G5S9EaHmLyuNAZyZEhtEWLxWpT8Ui5lxRLcPpQg==; s=purelymail1; d=purelymail.com; v=1; bh=XmrhaH2TDgHKknIEGYdyh60fXe4kO/67pTBS8izoMqk=; h=Feedback-ID:Received:Date:From:To:Subject;
-Feedback-ID: 99681:12517:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1533707783;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 03 Aug 2026 19:51:22 +0000 (UTC)
-Date: Mon, 3 Aug 2026 22:50:34 +0300
-From: Joris Vaisvila <joey@tinyisr.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
-	edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, andrew@lunn.ch, 
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com, 
-	sean.wang@mediatek.com, daniel@makrotopia.org
-Subject: Re: [PATCH net-next v6 4/4] net: dsa: initial support for MT7628
- embedded switch
-Message-ID: <anDmcBoebeG-DDXc@archlinux>
-References: <20260704105659.140970-5-joey@tinyisr.com>
- <20260720235219.466404-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TKhZF5je"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673JkcNX1405240;
+	Mon, 3 Aug 2026 19:56:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=e4PAHR7ItQG
+	9/+XFtJ2wMEtPFTKj2xYblRf96V5MB7g=; b=TKhZF5jeOCd1z3peOd3U4qaHdO6
+	clWtWNU/Oa8qYo822QZYhuuVcPMya9/gtldx1pDlF1oExQscErW/v2B1z6cA/qp+
+	pEGom4zNyNHUkfrC7tmac8loUZLkxBFU/jyeBZ9IVH1iQa0Ij6o+wMJ8gHQSplUw
+	fT2X9bmIyHeHWnNPPreO7R6MeJ2t6JMG+gJ9+xjyvvmr6nyJkAjpjmTKCi84IDIf
+	Cl/TOJMzWSdPUQz37PS9j2JJm3TjiwaKmGOIhhtboXfJEHUpdGOdTyk55pPv+uPQ
+	lSYJyMQkJNox2wedukv74LLk0Ez4vl5GcikPMr9wbjhe7Y+4QANnGCcVtVw==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fty3qgrjh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 03 Aug 2026 19:56:31 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 673JuS7m016737;
+	Mon, 3 Aug 2026 19:56:28 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fs9vj9wup-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 03 Aug 2026 19:56:28 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 673JuS5Z016713;
+	Mon, 3 Aug 2026 19:56:28 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 673JuRGj016703
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 03 Aug 2026 19:56:28 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id E0EDF640; Tue,  4 Aug 2026 01:26:26 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v6 3/7] dt-bindings: sound: qcom,q6dsp-lpass-ports: add Audio IF clocks
+Date: Tue,  4 Aug 2026 01:26:20 +0530
+Message-Id: <20260803195624.3606352-4-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260803195624.3606352-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260803195624.3606352-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720235219.466404-1-kuba@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: j9oNHSoYccu_4mg5YEel2uhRh_uZdz2v
+X-Proofpoint-ORIG-GUID: j9oNHSoYccu_4mg5YEel2uhRh_uZdz2v
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDE3NiBTYWx0ZWRfX4NY1z49+ZurB
+ XTPsx91VQSfBCl5dU+ieLMxnTs2PQg+YxSE5E1V82Ax+5UUtjdIgqmAnrjtfmkdm907eDGQNPzL
+ RgA5gctNmiqBy/DFddSPdqzBdgDpTTrTBYidddDCzIohTPPqAfKryWKqN5QBqfo3gPT2BE7p2bi
+ x+VWNiaRuYxuXoGoxXhz3UlLSVvuuVa09vbwnoPvyoa+saGsPLDQb+T6QQ/M00chUtDyOS4FdNf
+ DbcPXPkLVKtFSn92/hkExNkNGw1ABgwnl7VJKRpAzE2IKJ7DmdJKVpNkXFcmmMTm36hUpmsmzj4
+ TZRqMtc8rZSSm3GEuBWAED92cA7tXNmTskrUuKFH+qfT6O/kOYMUr6/mV++B+kaC3Gp5InIV39L
+ CNuo96IdW7hLseE6IcNt5fGlvfpDlf7sJ1f58erkaADi7hNqn72j+mJwZD2lOVhWGhpYYTQArhp
+ 6GKFqTXIBZNQp1FOXXA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDE3NiBTYWx0ZWRfX8QaCYc2MTmHl
+ t2pvxXjgdKl5bMyI5PdF2rPGDWM1YE8y4/6zQhKMXIo5ffkhxINQH9RJl68Gl+SyYIS1unaKmam
+ C/CfgzN3F12hArnguxjxWmmL6lCY14M=
+X-Authority-Analysis: v=2.4 cv=ONEXGyaB c=1 sm=1 tr=0 ts=6a70f26f cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=Z2x2jAe23Y4aVj-ete4A:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-03_05,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 spamscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030176
 
-On Mon, Jul 20, 2026 at 04:52:19PM -0700, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: dsa: initial support for MT7628 embedded switch
-> 
-> Add support for the MT7628 embedded switch. The switch has 5 built-in
-> 100Mbps user ports and one 1Gbps CPU port.
-> 
-> > diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-> > index 4ab567c5bbafc..daa1d3d4ba609 100644
-> > --- a/drivers/net/dsa/Kconfig
-> > +++ b/drivers/net/dsa/Kconfig
-> > @@ -63,6 +63,14 @@ config NET_DSA_MT7530_MMIO
-> >  	  are directly mapped into the SoCs register space rather than being
-> >  	  accessible via MDIO.
-> >  
-> > +config NET_DSA_MT7628
-> > +	tristate "MediaTek MT7628 Embedded Ethernet switch support"
-> > +	select NET_DSA_TAG_MT7628
-> > +	select MEDIATEK_FE_SOC_PHY
-> > +	help
-> 
-> [Severity: Low]
-> Can this lead to a build or link failure on randconfig? It looks like this
-> is missing a select REGMAP_MMIO and depends on HAS_IOMEM, which might cause
-> devm_regmap_init_mmio() to be unresolved when CONFIG_REGMAP_MMIO is not set.
+Add the LPASS Audio IF clock IDs used by newer backend interfaces.
 
-Will fix with v7.
+Platforms using Audio IF module backends request the interface bit
+clocks through q6prm. Add the Audio IF IBIT and EBIT IDs to the binding
+header so these clocks can be referenced from device trees.
 
-> > diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
-> > new file mode 100644
-> > index 0000000000000..eccdb05fce9b7
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/mt7628.c
-> > @@ -0,0 +1,649 @@
-> > [ ... ]
-> > +static int mt7628_setup_internal_mdio(struct dsa_switch *ds)
-> > +{
-> > +	struct mt7628_esw *esw = ds->priv;
-> > +	struct device *dev = ds->dev;
-> > +	struct mii_bus *bus;
-> > +
-> > +	bus = devm_mdiobus_alloc(dev);
-> > +	if (!bus)
-> > +		return -ENOMEM;
-> > +
-> > +	bus->name = "MT7628 internal MDIO bus";
-> > +	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-mii", dev_name(dev));
-> > +	bus->priv = esw;
-> > +	bus->read = mt7628_mii_read;
-> > +	bus->write = mt7628_mii_write;
-> > +	bus->parent = dev;
-> > +
-> > +	ds->user_mii_bus = bus;
-> > +	bus->phy_mask = ~ds->phys_mii_mask;
-> > +
-> > +	return devm_mdiobus_register(dev, bus);
-> > +}
-> 
-> [Severity: High]
-> Does this cause a resource leak and sysfs name collision if the switch setup
-> callback runs multiple times?
-> 
-> If the DSA master device unbinds and rebinds, dsa_tree_teardown() and
-> dsa_tree_setup() can be triggered again. Because devm_mdiobus_alloc() and
-> devm_mdiobus_register() tie the resource to the platform device's lifetime
-> rather than the DSA tree setup/teardown cycle, the first registration will
-> leak, and the second might fail with -EEXIST.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ .../sound/qcom,q6dsp-lpass-ports.h            | 29 +++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-I am not able to find any code path that would trigger dsa_switch_ops
-setup other than through `dsa_register_switch`, which is called in the
-platform device probe. That would make it impossible for setup to be
-called again without removing the platform device first, which tears
-down the mdiobus.
+diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+index 7b553a73bc92..dfa79da5c8e7 100644
+--- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
++++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+@@ -233,6 +233,35 @@
+ /* Clock ID for RX CORE MCLK2 2X  MCLK */
+ #define LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK	70
+ 
++#define LAPSS_CLK_ID_QAIF_IF0_IBIT		71
++#define LAPSS_CLK_ID_QAIF_IF0_EBIT		72
++#define LAPSS_CLK_ID_QAIF_IF1_IBIT		73
++#define LAPSS_CLK_ID_QAIF_IF1_EBIT		74
++#define LAPSS_CLK_ID_QAIF_IF2_IBIT		75
++#define LAPSS_CLK_ID_QAIF_IF2_EBIT		76
++#define LAPSS_CLK_ID_QAIF_IF3_IBIT		77
++#define LAPSS_CLK_ID_QAIF_IF3_EBIT		78
++#define LAPSS_CLK_ID_QAIF_IF4_IBIT		79
++#define LAPSS_CLK_ID_QAIF_IF4_EBIT		80
++#define LAPSS_CLK_ID_QAIF_IF5_IBIT		81
++#define LAPSS_CLK_ID_QAIF_IF5_EBIT		82
++#define LAPSS_CLK_ID_QAIF_IF6_IBIT		83
++#define LAPSS_CLK_ID_QAIF_IF6_EBIT		84
++#define LAPSS_CLK_ID_QAIF_IF7_IBIT		85
++#define LAPSS_CLK_ID_QAIF_IF7_EBIT		86
++#define LAPSS_CLK_ID_QAIF_IF8_IBIT		87
++#define LAPSS_CLK_ID_QAIF_IF8_EBIT		88
++#define LAPSS_CLK_ID_QAIF_IF9_IBIT		89
++#define LAPSS_CLK_ID_QAIF_IF9_EBIT		90
++#define LAPSS_CLK_ID_QAIF_IF10_IBIT	91
++#define LAPSS_CLK_ID_QAIF_IF10_EBIT	92
++#define LAPSS_CLK_ID_QAIF_IF11_IBIT	93
++#define LAPSS_CLK_ID_QAIF_IF11_EBIT	94
++#define LAPSS_CLK_ID_QAIF_IF12_IBIT	95
++#define LAPSS_CLK_ID_QAIF_IF12_EBIT	96
++#define LAPSS_CLK_ID_VA_QAIF_IF0_IBIT	97
++#define LAPSS_CLK_ID_VA_QAIF_IF0_EBIT	98
++
+ #define LPASS_HW_AVTIMER_VOTE		101
+ #define LPASS_HW_MACRO_VOTE		102
+ #define LPASS_HW_DCODEC_VOTE		103
+-- 
+2.34.1
 
-This pattern is used in multiple other DSA drivers. A few examples:
-
-	- in NXP NETC priv->dev is sset to the &pci_dev->dev, which is used
-	  in devm_mdiobus_alloc_size().
-	- in mt7530-mmio priv->dev is set to the &platform_device->dev,
-	  which is then used in devm_mdiobus_alloc().
-	
-This seems like an AI review false positive. 
-
-> > [ ... ]
-> > +static void mt7628_switch_init(struct dsa_switch *ds)
-> > +{
-> > +	struct mt7628_esw *esw = ds->priv;
-> > +
-> > +	regmap_write(esw->regmap, MT7628_ESW_REG_FCT0,
-> > +		     FIELD_PREP(MT7628_ESW_FCT0_DROP_SET_TH, 0x50) |
-> > +		     FIELD_PREP(MT7628_ESW_FCT0_DROP_RLS_TH, 0x78) |
-> > +		     FIELD_PREP(MT7628_ESW_FCT0_FC_SET_TH, 0xa0) |
-> > +		     FIELD_PREP(MT7628_ESW_FCT0_FC_RLS_TH, 0xc8));
-> 
-> [Severity: High]
-> Can traffic leak across isolated ports (like WAN and LAN) during boot?
-> 
-> It looks like mt7628_switch_init() resets the switch but fails to explicitly
-> set the MT7628_ESW_POC0_PORT_DISABLE bits for the user ports. Since the
-> DSA core relies on port_disable during ndo_close and doesn't automatically
-> disable ports upon initialization, does the hardware default to acting as
-> an unmanaged switch, bridging all networks until the interfaces are brought
-> up administratively?
-
-The hardware defaults to an all ports disabled state. Will add this as a
-comment in v7.
