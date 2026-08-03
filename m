@@ -1,96 +1,167 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE97237713;
-	Mon,  3 Aug 2026 16:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2040E361948
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785775771; cv=none; b=Qrnsx1PW2HBVIcwhZ7YECQtbeQvT2nqTkGOdaTrWy1vSQCjrcZ90GNscQlBkfhZmlMaJPZrbGemFlzOmY9kyRx09ecr20FtX0cY/fQoIP8ETHb4juhl90Yd1oZj+tMY+KEOsB9jpisVCHMkdx3CHcw90q/fJOXX0icrmwhMrhAs=
+	t=1785775924; cv=none; b=IMju5RD+I649CxUUJYinMV1VUFYu/ERbQcWqqeoU+2Rh2L+h+AhVk90ip6kFiwaIskWpVZSiGWepAikBrwq/L0kauQV1oPOVryrU8kGYcdp8MwZ1Kpk33KAfmbY8kwOcitBejVU7ojeUGI6J6Obs80pcdock+G4mWxQG+rvyylA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785775771; c=relaxed/simple;
-	bh=XRslH+ds/XEmRs/mI27Lty7v5b9whUZvYbha/qDkt6A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gGVBRPK8ZUgiy+RaI3FpZcPQw3HSIQUrpy1sAA92LmiHoNHvXpXHlr7C88+VYNQ2ZDdLvYtLm618CZhBXsz+xWlTUeO3BiSLNNCp7ymI3UO8NDFBTnb9Tuc7n9zrlW5MzyWEByJEVQoP7+djsH4YH9VAxeqyIPiOrdZ212f3sNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=19i8IK/c; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785775924; c=relaxed/simple;
+	bh=t8GrFVEmP2+TMFS1kIwMJqGnk6LwSp2JqfgYsUYnFAo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SrIxzqGpfrroTsZfU3Q2WRp38tNcO97c6yhhzOlujBskEFcrRXZ6PeMJrC61McUIfkUSCyxn1YvNFOwXJFN5OwWFPpjYWKJ0vlDFbsIxMFd5a/VF5DHMF095WzZiFR9E8R5iJ29S+Fg8x/i1zU+px5foscYPfTZlJFiw+m7/6AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Bl4txuOs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pnrUzDkp; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="19i8IK/c"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=YQ7ugXHM89P+ZpYBYZd1EkFIhNDujOCisPw+4orVrxw=; b=19i8IK/cMs0rIkjtGJAvvhzsvk
-	LEmOaOpnwyd+brsGoXqlDYZYXk/FcTW3u6tqMgbMEI4dc9fV2MZtYeeHoMj+Uw+Ms9a6Pva7yknth
-	uvsFa141Xj8vadBeTSffof4t91/PDDP/GU3FtOrhW6GRs2GnUpj83qtdNGpFQQtDt5OM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqvqr-00Fm97-9D; Mon, 03 Aug 2026 18:49:21 +0200
-Date: Mon, 3 Aug 2026 18:49:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>
-Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
- switches
-Message-ID: <653d9c23-6087-4e7f-ac01-fcb01ade405c@lunn.ch>
-References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
- <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
- <f17d3a62-456f-4580-90bd-c54a30dceddc@lunn.ch>
- <cee2e05d931a977d0db938ada0964d05885949a5.camel@linutronix.de>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Bl4txuOs";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pnrUzDkp"
+Message-ID: <95963572ab3aedd2322d76107b70e67cf32db808.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785775921;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=udeRltbpOSwt06zJe4HtN9yW6onEmLdVDb9SWFSlNro=;
+	b=Bl4txuOsr1iSFn+1p/OE92BUVgXZE0OOpudYTuMRLB19P1t/ofih4PDbmOLsGsylSIC+Dx
+	M4aFUEtLCLjN+Qqpp0R43o0QSRh99VIKF1JaIrHZD57dPD39mMq83li5Ho07rpMNMWPNnu
+	VkL+lK7ezsUSvbUy1jB6dpi6+F7h57KET8I+QYsbISAlVO14ZOEmNR//DkXWGFrQQhbJyM
+	rKI60T1NXeysU5OwTYV3QWdiJ5tn4HtfM2MGiPeW4QhuzfVK/c2UyGlggFbNj++DyS03EJ
+	CAFI317kYs1TfX8zEsT+bz2/FEGSod9I5Nn6r7uzpkoFrpK5eQ76M5lV27l7Kw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785775921;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=udeRltbpOSwt06zJe4HtN9yW6onEmLdVDb9SWFSlNro=;
+	b=pnrUzDkpH6To88+D4aq3cVAMNz8LT4MM2PpEIiQ3zSsOxrvuoJcNR1/z1o3YQHevp7nuSj
+	mMeOm6EDWZdlIkDw==
+Subject: Re: [PATCH 3/4] net: dsa: Add support for SoC-e SDSA tags
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+Date: Mon, 03 Aug 2026 18:52:00 +0200
+In-Reply-To: <20260730163759.15CD21F000E9@smtp.kernel.org>
+References: 
+	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-3-be569dae1b20@linutronix.de>
+	 <20260730163759.15CD21F000E9@smtp.kernel.org>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cee2e05d931a977d0db938ada0964d05885949a5.camel@linutronix.de>
 
-On Mon, Aug 03, 2026 at 06:01:23PM +0200, Vasilij Strassheim wrote:
-> On Wed, 2026-07-29 at 22:05 +0200, Andrew Lunn wrote:
-> > > +static u8 soce_map_stp_state(u8 state)
-> > > +{
-> > > +	switch (state) {
-> > > +	case BR_STATE_DISABLED:
-> > > +	case BR_STATE_BLOCKING:
-> > > +	case BR_STATE_LISTENING:
-> > > +		return 0;
-> > > +	case BR_STATE_LEARNING:
-> > > +		return 1;
-> > > +	case BR_STATE_FORWARDING:
-> > > +	default:
-> > > +		return 3;
-> > 
-> > #defines for 0, 1 and 3.
-> > 
-> > What does 2 mean?
-> > 
-> > Since you don't implement bridge offload, i'm not sure having STP
-> > states makes any sense.
-> 
-> I tested bridge and STP and observed the callback calls with something like
-> this (reduced setup):
-> # ip link add name br0 type bridge
-> # ip link set dev port0 master br0
-> # ip link set dev port1 master br0
-> # brctl stp br0 on
-> 
-> That probably wasn't enough. I'll take a closer look at it and either fix it
-> or remove it for the next version.
+On Thu, 2026-07-30 at 16:37 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] The `sdsa_xmit` and `sdsa_rcv` functions leak the SKB on all err=
+or paths by returning `NULL` without freeing the buffer, leading to memory =
+exhaustion.
+> --
+>=20
+> --- Patch [3]: [PATCH 3/4] net: dsa: Add support for SoC-e SDSA tags ---
+> commit d07af353633eb9eecc24042cfdf75f9ecf082368
+> Author: Vasilij Strassheim <v.strassheim@linutronix.de>
+>=20
+> net: dsa: Add support for SoC-e SDSA tags
+>=20
+> Adds a DSA tagger for the SoC-e SDSA header format used between
+> the conduit and SoC-e switch ports.
+>=20
+> > diff --git a/net/dsa/tag_sdsa.c b/net/dsa/tag_sdsa.c
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/net/dsa/tag_sdsa.c
+>=20
+> [ ... ]
+>=20
+> > +static struct sk_buff *sdsa_xmit(struct sk_buff *skb, struct net_devic=
+e *dev)
+> > +{
+> > +	struct dsa_port *dp =3D dsa_user_to_port(dev);
+> > +	u8 *sdsa_header;
+> > +
+> > +	if (skb_cow_head(skb, SDSA_HLEN) < 0)
+> > +		return NULL;
+>=20
+> [Severity: High]
+> Does this leak the skb when skb_cow_head() fails? The DSA core expects th=
+e
+> tagger to consume and free the skb if it returns NULL on transmission. Sh=
+ould
+> this call kfree_skb() before returning?
+>=20
 
-For a really minimal DSA driver, look at mv88e6060. But it is also
-really old, and does not always follow best practices, e.g. .phy_read
-and .phy_write which should be replaced by a Linux MDIO driver.
+Yes, I will fix all this findings.
 
-	Andrew
+> [ ... ]
+>=20
+> > +static struct sk_buff *sdsa_rcv(struct sk_buff *skb, struct net_device=
+ *dev)
+> > +{
+> > +	u8 *sdsa_header;
+> > +	int source_port;
+> > +	u8 frame_type;
+> > +
+> > +	if (unlikely(!pskb_may_pull(skb, SDSA_HLEN)))
+> > +		return NULL;
+>=20
+> [Severity: High]
+> Does this error path leak the skb? If a malformed packet causes
+> pskb_may_pull() to fail, returning NULL without freeing the buffer could
+> allow network traffic to cause memory exhaustion.
+>=20
+
+Yes, I will fix all this findings.
+
+> > +
+> > +	sdsa_header =3D dsa_etype_header_pos_rx(skb);
+> > +
+> > +	/* Check that the frame type is TO_CPU. */
+> > +	frame_type =3D FIELD_GET(SDSA_TAG_FRAME_TYPE_MASK, sdsa_header[4]);
+> > +	if (frame_type !=3D 0)
+> > +		return NULL;
+>=20
+> [Severity: High]
+> Should the skb be freed here when the frame type check fails to avoid a
+> memory leak?
+>=20
+
+Yes, I will fix all this findings.
+
+> > +
+> > +	/* VLAN-tagged traffic is intentionally unsupported yet. */
+> > +	if (sdsa_header[4] & SDSA_TAG_VLAN_BIT)
+> > +		return NULL;
+>=20
+> [Severity: High]
+> Could unsupported VLAN-tagged traffic trigger a memory leak here?
+>=20
+
+Yes, I will fix all this findings.
+
+> > +
+> > +	/* Determine the source port from the two port fields. */
+> > +	source_port =3D ((sdsa_header[4] & 0x1f) << 5) |
+> > +		      ((sdsa_header[5] & 0xf8) >> 3);
+> > +
+> > +	skb->dev =3D dsa_conduit_find_user(dev, 0, source_port);
+> > +	if (!skb->dev)
+> > +		return NULL;
+>=20
+> [Severity: High]
+> Does this also leak the skb if the conduit cannot find a corresponding us=
+er
+> device?
+
+Yes, I will fix all this findings.
+
+
