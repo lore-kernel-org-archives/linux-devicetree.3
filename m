@@ -1,149 +1,83 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013037.outbound.protection.outlook.com [40.107.159.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0813769F8;
-	Tue,  4 Aug 2026 11:40:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785843648; cv=fail; b=p2756Lpn8e+V+bvJORWT1LSCWQeRkcMbHbsreV2IwCSIvp7a1WOXPd+dM7Ff7YQjPcAbFXd4MXZ8/DeptYgEsgznQAcs+DHQBtPoXF8g0dC/sxyVVgn9bwNMApvg2+aLE5ukDlCiJc/M+Cu8+oeb+jbScNDlb7mj2j6Xo0aLZOg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785843648; c=relaxed/simple;
-	bh=zSAAG9k/p4cEu/dvvcPVt1TEZcDs01ritsx/GUWulOM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l7a+HCgtic5e6vV/fZmw11B1v2RAIzoyzydZrgI9M0lAO0ZTNouNKoKpJQhrdClYeHRgf98P9w8caAn3bsN+OW9frcVBDOfup/+4DoAOkAEprMeXza8bYh+9uAbl/npMjS5Hfvrzk3VZP7Lj7h8KehblcwFaIwmp12YHh+MBAsA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Juq63Y25; arc=fail smtp.client-ip=40.107.159.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF49360EF7;
+	Tue,  4 Aug 2026 11:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785843784; cv=none; b=ezavQdqBYs5UQqUlSDaecFr7DDIrbSPPn4pxmPZj02oe77QPWRjLyFzVxMPqnor2m8L0T78GWLlMmlaCMtmvjLzbHYcaEsEePNbeM5gbM5qCgp/3GwsJy8u/WwWoWI2mrS5GrtjEWCD4M3v8MerYc9sWRHjlFGVl84JasoN6Os8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785843784; c=relaxed/simple;
+	bh=Zy1s6k4xFjAsae9gDHml+01wbDvmKlo1v2fgSRHCf9s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=bwHvhgDUoQaKzMujK5CuNP8nTQTgUdStAqLm9UzjFAEkzb6dcpPgPFheingEtbjAWcyiZB1efTtuf0K7IWKJD5m8MnzmM2rdeKhCE8v6cUZDoLK0mihBPRIT+BVYK6EcyLyu0V9g7+EXJPtIeOJpFSSUlSIGRCPU2qvd2hNULbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ff5WYfYO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Juq63Y25"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b4qE+imMc7h5qT7kWibKrkHb8GlihsZ9AQ9AzU1uaQJMTOTmUs2+cAM0sW+prVJIksJsBFpnJXY5r0FI5sfyVhAMDURofbuzIq6/lfxRK9JGL4yPEQn5RGucBVtxjiE/3+0lBATq7yaCJSU/+Yoo51LuOzVbZvUFFNqsnj5wdFH36Clafe8uwnG4PaltOJrjMBPokhUVq0A8sVszBos7OVZJJBT0m6t/bBsBts2z3fNRv+Gy3pAby8iQAB7/kytZfphzZcUN4YuGcrEzkp4wkcyNh/TvtXqrMQNjNEmu4/h0N+IJB1y9fpsBK+NWWse+w7Z3WrhLb/jMtOPyCwq6+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ag6NWqqSgOsVB6rCUM+cqBcKkX7ZUoxIF/glK1eRdws=;
- b=sZyYxYveyf9tGBWlLlbYNOgsdyOnyvrRKvxnAmTIAp7GeovfvpPz0PdrxvkRQDViS9Xb027cw3kehNzTksy4qxJnop0ZHDtTzsydqLoVDDasn9cWtl5KE6KabjxprWW05wYIpTH7tT5LLJtjZPbADsNc/iii6LUl7Qch+VfP+gBkRT2y8Rwf5xn2SZkfnSjjm8xM8SEO+O7ztAwJiseukL57+fNrs7hHpKx8JLNjvFMZGguG0xDs4oxF2ybvegU1rz216+2sLGy6x9/4DVo6oXUUm3l+Mj4UEQWZPX3XkveNCbFp8a3tGC5TZyrhHBw07sEcJa2zFGKiBjm0sywVRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ag6NWqqSgOsVB6rCUM+cqBcKkX7ZUoxIF/glK1eRdws=;
- b=Juq63Y250DJzWZXDJlE7QFkhIYXxGyz+6mY23RVi9SsHIxFjjnbRQM6nW7ADaGbw90XpDkR+HSK/iw/HtkGnQgil4JZr1aTbMscZbkHiGLtlpVf6Kt645KvJN6YVh1FZtGyEZOKJQw0AAhauJRmOFXb+BUexPR+xb0ZFloMzalz6b9ZTSHBCoHLRKCr+MTJ/14EHcIer7YI9znI0xboRO5XpZwXZDT7/1/LqzTnh8czuMfhxv5k+u5flBfTgq9ExPUSFKCCy9Wps/I6xGaomMcVFXY6G93MLyZNzPOo3HA9gRrVwO1j3wgbM+0o/uvw0lfnvlEc/MKCzSc7eX2ePvw==
-Received: from AS8PR04CA0165.eurprd04.prod.outlook.com (2603:10a6:20b:331::20)
- by VI1PR10MB3982.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:141::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
- 2026 11:40:38 +0000
-Received: from AMS0EPF0000019B.eurprd05.prod.outlook.com
- (2603:10a6:20b:331:cafe::28) by AS8PR04CA0165.outlook.office365.com
- (2603:10a6:20b:331::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.17 via Frontend Transport; Tue, 4
- Aug 2026 11:40:37 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AMS0EPF0000019B.mail.protection.outlook.com (10.167.16.247) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 11:40:37 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 4 Aug
- 2026 13:46:02 +0200
-Received: from localhost (10.48.87.235) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 4 Aug
- 2026 13:40:37 +0200
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christophe Roullier <christophe.roullier@foss.st.com>
-CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 1/1] arm64: dts: st: Add I/O sync to eth1 pinctrl in stm32mp25-pinctrl.dtsi
-Date: Tue, 4 Aug 2026 13:40:19 +0200
-Message-ID: <20260804114019.201949-2-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260804114019.201949-1-christophe.roullier@foss.st.com>
-References: <20260804114019.201949-1-christophe.roullier@foss.st.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ff5WYfYO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4033B1F000E9;
+	Tue,  4 Aug 2026 11:43:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785843782;
+	bh=8kwtSjShrUzbT4zlEgbhDWplwWeVDnZkpVzMV+T03B8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ff5WYfYOyMP2NbmrIB2IdaisRuFuJEiccprZPH6RMQQhEVlB5Pc8GaeKRyuGSddBw
+	 2bhW9ZkDtj99Fc1ONPuvnLUbhjKQTwn6EcRqtLebZXRITPvS0KzCZqwlu20ts5jq/Q
+	 QG1mr+98tgz8ftb9qoZHj6o5hQOSJykv2WYkegm9cr6trbfV9JOZQ0yTCyqy/m2xFK
+	 YtVCE7StTNdLB2zKOZr0IQFjsIXKPYnCqS6iD46yOBAN4N3aN+Bkdz06rireG4DAxL
+	 YIq3R/4rPv7HUL2BCtJyK9BZW2euhgPayiFCCr+QPLJ1lpFDS1mbQtVuXL+8zFos0N
+	 F4xWi51Zc+N4A==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com
+In-Reply-To: <20260729-ti-pbias-omap-v3-1-20fcc0bdc890@gmail.com>
+References: <20260729-ti-pbias-omap-v3-1-20fcc0bdc890@gmail.com>
+Subject: Re: [PATCH v3] regulator: dt-bindings: ti,pbias-omap: Convert to
+ DT schema
+Message-Id: <178579633855.881378.16970784433207225982.b4-ty@b4>
+Date: Mon, 03 Aug 2026 23:32:18 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF0000019B:EE_|VI1PR10MB3982:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a862397-39a0-4818-0350-08def21d344f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|11063799006|10067099003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	EF9NUnT28By7QjlGO52a8ULfhO6luVtqAfQ07pJcwSwKTHEMNfzsnzUqFFvvzGZMEMIRGZGdfAaqwYEQFun9Phrb6tDSUvwZMzYMxqo7oHf6c7t8Vl6+NAnmnE1jurLlm8tQg3kwFJHSCxEJF4YG6RULuiGBREXzustVX9Q2YwhkSYLCTVLQ3anYlcWld815cxmE0NpbADzeSJxsGUqERa8hvAHe4ubBlPGeCCVa/8ASMGOQFJv79M0LIocIxsXq/UiXUCPhCaLxHF0QTNPcD9ltTVrWjbFbkOEW3eO78MSJD36uI1swVHLapWJnJExvTRKpjOIPEZCh5VxAPipeNYGNJiBP8zp8lcQPDy2QKhMpf2+3oTgfqq08XiifkOQJGP5Ork+lj17+YduGBcreypCHbNpCZmHYyGNs/Sq/ys2LcFYNPcLUM5eCdOwZJd33qtaBPiBp/dcylwjNquxnn6U1I4N3FHQ+ddG0XjX4B7quJqA5f/BnN6dqlj4W++tA0MuseL522vSSzf9Js0j+QKXlraAXT1hFi61kttOY18dtK4wo3xhaoPsHUq67r53QFnJdBcnFjBrFMQF9LM59MPlLlCzmItZSxkseejA65UuFzQXy1v1rZpt+Rj46zBO8w0KjDyElTCJbEd6o2lTIitj+IvK5Rfif2eYNOZ0c7ZJIgtfDEZGOs2jFcqloWVZnGjKbVZmmpZycaO0bsLP7qw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dl4a4I6risWLoSeYKDq0CQyNdieMV1QK5D8bg55A2zTeS4vhQtn8FOpwjJNfQJyZKhvjaQcnzWSEvAoVfxqaQTdFgaFkZWG/gppROPqNFN/7waJRqTyaU/6rCqpxgzqtxxEOz6OmorNtsuHPpaoKfwwThzSOHWToQ6KnR5gmOW8TiMLy7pLt2vtl3ovKi1a72a1IV1eQUSB+3+69Zw++QBT6S8KXPT3IonGym8dOW2iF4w4nHFhacI1dtNdjZZ/Kx5aCridgO1VRw50byNEz62iFzE5zAVFicbyELq70m9WCy7LwmBeRgTr8mWGgINeV6MSZcngmZzgT8ikxrmJcuofGwmpjSTdEXgKAuz7vQPF1HnyK6ERgy3FUeaib8RG19lDioYLgWzfE8/WsVOV1tk2e/zjBaa33YOdqiPqQOXFTUfMNDmYegxnEZt9dsr+O
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 11:40:37.7912
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a862397-39a0-4818-0350-08def21d344f
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF0000019B.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3982
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
 
-On board stm32mp235f-dk, stm32mp257f-dk the propagation
-delay between eth1 and the external PHY requires a compensation to
-guarantee that no packet get lost in all the working conditions.
+On Wed, 29 Jul 2026 12:37:55 +0530, Bhargav Joshi wrote:
+> regulator: dt-bindings: ti,pbias-omap: Convert to DT schema
 
-Add I/O synchronization properties in pinctrl on all the RGMII
-data pins, activating re-sampling on both edges of the clock.
+Applied to
 
-Co-developed-by: Antonio Borneo <antonio.borneo@foss.st.com>
-Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index 456ece7f8ebc..4fcfc4528c5e 100644
---- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -95,6 +95,7 @@ pins1 {
- 			bias-disable;
- 			drive-push-pull;
- 			slew-rate = <3>;
-+			st,io-sync = "data on both edges";
- 		};
- 		pins2 {
- 			pinmux = <STM32_PINMUX('H', 9, AF10)>, /* ETH_RGMII_CLK125 */
-@@ -112,6 +113,7 @@ pins3 {
- 				 <STM32_PINMUX('H', 13, AF10)>, /* ETH_RGMII_RXD3 */
- 				 <STM32_PINMUX('A', 11, AF10)>; /* ETH_RGMII_RX_CTL */
- 			bias-disable;
-+			st,io-sync = "data on both edges";
- 		};
- 		pins4 {
- 			pinmux = <STM32_PINMUX('A', 14, AF10)>; /* ETH_RGMII_RX_CLK */
--- 
-2.43.0
+Thanks!
+
+[1/1] regulator: dt-bindings: ti,pbias-omap: Convert to DT schema
+      https://git.kernel.org/broonie/regulator/c/36c3ea842899
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
