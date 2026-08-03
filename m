@@ -1,70 +1,70 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7703E3939C2
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 05:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F74238E8B2
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 05:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785734139; cv=none; b=XwxyqeDIXz4x26urwQQhQS1bzQvi4Qfpi1BNOGbkd7ZxfmyR9ZhZ8qHzJv1QlOm7lQjTQehwUPZ9zlDvGqMcXw4kkBgHcZfE1MViGl0j6uhoQCZOMULb+qqn5LAaauGGFW0KMfQZLgmWqhhyOTASjAx0ZvA6GdWsQjd86qyzQD4=
+	t=1785734140; cv=none; b=CieidEejJ2jHfFCt5uzFEPAN9s0SHdPKk6c0LUaLX3Bs1hK7HllsTmz5DjbCAP5cCtKKMw5U0aX1M1GmmlbMR+9B2mVULFd/IXYnOJdrDyiphq55L6bX1+U7BxpC0shHY4ehW+B4pcQv9dwNRL89LmnUsqjCc3YbmwW2WXGYDNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785734139; c=relaxed/simple;
-	bh=Tw9U9x3x5olXZaLQIjQpOA/JFbVYSe4nj6Dx94hoQbg=;
+	s=arc-20240116; t=1785734140; c=relaxed/simple;
+	bh=FJxa6pnlwH8NOKl4g0tgsIa3AWI3yPSDz31JZnSznJk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kc+WEqN5+2KupAefrb2OF7+zyeJqCQNxAPTtaNUw4+MyYUB32FP3D+9b0lOcicHZVkvsinBR7DrMAHcUTybXjYtpnH7E8NZ1vKYGs1E1BYWRKzTzc9GCqPzLykcoExBmtAlXAbmTR1YCDoYiXuVgriBOKaGx10OGnEWOTuObjZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U90fw1DP; arc=none smtp.client-ip=209.85.210.53
+	 In-Reply-To:To:Cc; b=nvjOj0Y/JFjT3LDgQA0MYaq6EpdmshfwUnD9f+7YdcL8sNIzn4yGd/owEXGYr0evcQfVOcx53RaZHAbvlEBDwGlGDpRRPR8DjLJDWyMGsH7POeUzksnNevLAKSIkSTQxT4llzbX2uPeud457LxMnifMsozghECnay0ejBkBA8F4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l67wsoJN; arc=none smtp.client-ip=209.85.210.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U90fw1DP"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7ee4399c3abso2221135a34.2
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 22:15:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l67wsoJN"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7eb4d532e65so1138660a34.0
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 22:15:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785734133; x=1786338933; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785734136; x=1786338936; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=maRxG9UiuybqBbIKlnDyAqHdPuODzpVicj9v0akXa2o=;
-        b=U90fw1DPOa85llF/5biOK+L+0aNnJDACHawAvvKfxYLQxOGCTgVgLe1xiT2Grr1AU6
-         VPojtxevL3Nc/gqor+u0eNyRjU2nTj4AzrBtOzVzAfNMzJjznxYzM1FxPcZbk/Dyl07D
-         qf+YSgDpzl/nmcszYboXNRL3wpLcNVHI+QDRGxjL3g3BNTBUvJpmeeEmg1VrQZE4tltk
-         NdXR3uxnV16t8/SDu4gSxGn9bEUQvBC78/WBvr45NGfQriya7TBgbyKmQAjqTLQ7et7s
-         YSkwrqxWTFTM1gI8j3yy+sdjFhB2ybT5nDJGrCv745sLnor+gNmoMmmv+Pr+SydzGuh2
-         prWA==
+        bh=DdvS6JgS1wsN4XXB/DPlHPE/KXR5tqJa5L67sBE8VSE=;
+        b=l67wsoJN6t30rVIBp7+uBbgcWZkndVIk5Nah2YO2I+2O1Ghx2WssLH29vKK+YoFvIo
+         pPcBuAr21Ko5IFbuzDyesQ9SHoU29wNOvDI9c66oLoQSabcYpzl5KgcSbOduXQmyLz6R
+         4JJ/AOHH0cQvwHuxbNxFW9K+gbip9JHMXizHk79pQju+RzHWwAoCDJ25ymyxHTra8Kac
+         HLljaaKvPLamk9E2u1lxM4vCQbTF4zTcaYtw6Hl/CoM4B8AZYALG1TYiHMXLqPlAMBkH
+         m+8b4Dw0x6QHRoOwxas1OLUTezjkhTF/1zeyHq9WT8VMYHdqTQGEkpcE1TDfbcGyF37W
+         WQeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785734133; x=1786338933;
+        d=1e100.net; s=20251104; t=1785734136; x=1786338936;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=maRxG9UiuybqBbIKlnDyAqHdPuODzpVicj9v0akXa2o=;
-        b=rXpumXiE2AQJBGwBvZP+l63ULv+IztepteRZGK/gKCVNWt4fN+DV4Tr35WYyn0//7I
-         CO4VcCDrCfyUnUH9quMuot6JXYfgsf1KrC9V7m4CiVjEnabon2JmmplLgmwwhe/8H0vv
-         wXAmUCzJQKuwbVGgUM0tXO7VqfO5ENtIoMYIC3Ee3Vc/fG/evjmcBOZGAq/G4ygyekbI
-         xPz8LXVlpaCytZj0flgQ2jKZlAhlCa9IOs3Mudl/zk2cLkSi7wZtyXo+/k2L95dpF+ID
-         eBlP/W+gv4y/7SWlnAUMQ17xr3VoBrMdhAiGLFg8uEvZT1x/8gpnhN9X+vw1E+Ll9IqH
-         dBVg==
-X-Forwarded-Encrypted: i=1; AHgh+RpZDu3jXXtTiW0AUvHldzaRi5wbI1ITdFC7ucFg8LnhQCoOEkB57VnLElh4WfRra2aoGieChNlebM3C@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz31Iw4kMspInVMNjppEeq2unhkUjnTU6Jyq8sioYrczIeeHMsy
-	caaUq8Kn7VQvuJP/0Y/22IwXTWuZmaiPJQrdWDjsJRTQwA0Rn7tWNf2m
-X-Gm-Gg: AR+sD12wEDYQmSDO6voHyc3rylFKd8EAsiD7GWHjkrGxKAWekOTARVOnnVRCXn0oI88
-	GwJsZQ0pSaCtPZmw/LTPFws69N8JRR8516sjUOAntqpcO3jMfpU0T1+gczVGV6QHocDE1+0t5cS
-	CL59ob1VYAFiicJYp8gP1SxW95Dx4RhL+7dy8gulY/e0fiYQrY69Gjd3/fc9Cxn2OIw9Crv0BQy
-	datEffcBkBcQGCeKgoCcrk8x4jEnGkia4iUjZVzpocyAl9tDr0oHF7qdSoeqqE00gkPydggq52E
-	FJ/Rzn37CH+slwDfOYKi6Rte8OxkPvC/dh+Uswyl5GoCGIFu1T81ZyYcw2VkyJzQowTVgIYoODq
-	d3bkWuZ51H3Zrfo+3m235fnzbL6W+iAUqedWsY2MLO1unQbn/17OIjYK2Uh2vxQ7McsQrNbTyGh
-	EXE2lzA7faovtFBiawGs/M1uCCgPUeuXKKRix04gbkmzIJEuGtrcwRnqTTZxsjmgqyr8psPBUjX
-	5rjFmeIZfQW00nJSl4vM+OHEOxS3sWIAQml7fcmk1mrny2xTfwb7uP750Yzt3TTw02VzHQWSsFw
-	PS4DYKYMHNoGfkpPqFmxw4vZR5TgkhgTnE6dw862Cc76JmrHgtNT2QgkoBj+QAjoDOZrAyU+BAq
-	qrGayzRJm+GTVg6su
-X-Received: by 2002:a05:6830:61ce:b0:7dc:3db6:f02 with SMTP id 46e09a7af769-7f196d51885mr15457605a34.9.1785734128311;
-        Sun, 02 Aug 2026 22:15:28 -0700 (PDT)
+        bh=DdvS6JgS1wsN4XXB/DPlHPE/KXR5tqJa5L67sBE8VSE=;
+        b=Y81j/2ZE+omsU3W6N45MJpqpXCPw0VQN/0m99eLNmrHIOw/VudXjHsaVSUNXIb8Vzm
+         mBlA4gIS1kvQrJGjR1CQKYt0mmx9WueHoq006j1+yZww8gvbkRNCOt59mmiTcqHsxfc3
+         y883NlwaznH9N3iKyFSooTs9N++rAdFif5HzNruTXhGLB6+iPlOniIkdGM8BKZDOU7G4
+         tlUIlHOKTXXDzsshrDNe0d/+CueKYeeErsLqBMbo+sirGbDRAb/wl8KlHVdysblJoQQB
+         gUs2UwxxrKX8qZx/B57widFLe4CX2TVa19TxHjdBzzP+AzLaE9ajPkeev8R6bLqkgypv
+         ooLg==
+X-Forwarded-Encrypted: i=1; AHgh+RoNYgutxdTxkw5uqsFRMQ5vOwtTicxsNSq9tBKVFun+CisUoWnSTrj1ZPOWR/xf4oeR9sojOrTNu0jh@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlpDV+7OWA+I/sKj7sZgL+2r274RJKAveoO5LSUznPh1ZFddJa
+	Vq9CxnzaKcVNkoN8O1OpDIFafeSGZMnw7A6fHTQP0c64b1Vd8d1xyRsN
+X-Gm-Gg: AR+sD109//aVzN8n8i2Pk0+Qxo2jnPa8kngBtBYnDE9ybCUESuzB5AyOZ7CynmQkbxm
+	clL6BTLlTvI922bEeAW7Qa2G1MtD8gOIHydI5Rjf/9Ldfl+DuXlIv0Xq61T02u1OLGG3QxzJYft
+	uJCYG8mb7rBs1xJ7hnixzuByH8StE1FknnvXrV+zRxKxmNharwvAzJM2ay+Dnvd+LBHrAIEaktX
+	ohr3L7RFn9R+alWXsWxV6VH3V/TxHkvxs8Hpn0iXYHzcxtKXPm/cX4oIaFTisXCy9H8XwAyC2Wf
+	1vhUTWuMsXnohSgiidfBRzlaCi3PmeinhP7gdEbjGEfd2bUXJnF0C+VKGkTEGf1xq15d4KTjHOU
+	OH68dWQYKJQ1f1yTEaSNd3QM3WY1OAO5UFbvIs0gxuaRCjx0jxgAqjed8/FJRNqgVVhhQdDS3bX
+	NqQBRFf6yrdolcKNc8XHxRpzX9zo//pl55xnzdmNSkUHVZLf+RoLO1dD2BZy+hOaVHxYfgET0xq
+	2s+Z3DWT4lR4LNbvVwQqknoN671C6WTCqWBioK96/zLavLVE2G4YwJJbhD6i9l2RgV/kzRNaxxN
+	YkozLrqIqmSujsS3Rt11zPn9cnMPfJfV4Vk5TIsvmLhsPgLUfM6T3kIefipLwrSRX0vAZlf83NG
+	aOHBWpQFa+Zm3Cnek
+X-Received: by 2002:a05:6830:3814:b0:7e6:ca29:9609 with SMTP id 46e09a7af769-7f196d82b85mr13995078a34.13.1785734136211;
+        Sun, 02 Aug 2026 22:15:36 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f07a5e3sm6787108a34.15.2026.08.02.22.15.27
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f07a5e3sm6787108a34.15.2026.08.02.22.15.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 22:15:27 -0700 (PDT)
+        Sun, 02 Aug 2026 22:15:35 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 02 Aug 2026 23:14:16 -0600
-Subject: [PATCH 06/21] net: mdio: support dynamic OF device changes
+Date: Sun, 02 Aug 2026 23:14:20 -0600
+Subject: [PATCH 10/21] net: phy: add X-Powers AC200 EPHY control driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,7 +73,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-submit-acx00-of-dynamic-v1-v1-6-0a53cd9e21cc@gmail.com>
+Message-Id: <20260802-submit-acx00-of-dynamic-v1-v1-10-0a53cd9e21cc@gmail.com>
 References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 In-Reply-To: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -102,555 +102,433 @@ Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-MDIO buses enumerate firmware children only when the bus is registered.
-A later DT overlay or status transition is ignored, unlike I2C and SPI.
+The AC200 Fast Ethernet PHY is powered and configured through registers
+in the parent I2C regmap before its Clause 22 link registers become usable.
 
-Add an OF reconfiguration notifier. On addition, create fixed-address
-PHYs and generic MDIO devices, scan free addresses for legacy PHY nodes
-without reg, and recurse into Ethernet PHY packages. Track populated
-nodes so static enumeration, address scanning and notifier-driven
-enumeration cannot create duplicates. Walk every package child and report
-the first population error without undoing devices which may already have
-acquired consumers.
+Add a control driver that prepares the calibration value and vendor
+offset, interface mode and input-clock selection. Use an optional SoC SID
+cell when supplied, otherwise read the AC200's internal calibration eFuse.
+Derive the documented 24 or 27 MHz selector from the actual locked clock
+rate. Although the feature summary also mentions 25 MHz, EPHY_CTL provides
+no encoding for it, so reject that rate rather than silently selecting
+27 MHz.
 
-Serialize static and notifier-driven population while allowing a PHY
-probe to enable another node on the same bus. Check the node's current
-state after taking that lock so an older notification cannot override a
-newer status change.
+Program the link PHY MDIO address into EPHY_CTL.PHY_ADDR before bringing
+the PHY out of its disabled state using the vendor initialization sequence.
 
-On removal, reject attached or in-flight PHYs and unregister the object
-found by its OF node. This also covers PHYs found by address scanning.
-Treat all PHYs in a package as one removal scope, so removing one member
-cannot invalidate state used by an attached peer. Preflight overlay
-removal while it can still be refused; normal changeset errors are
-propagated so the caller can restore the previous state.
-
-Hold a core MDIO change transaction across discovery and registration so
-bus teardown cannot race the MDIO reads used to identify a PHY. Compile
-the notifier only with CONFIG_OF_DYNAMIC and the overlay preflight only
-with CONFIG_OF_OVERLAY.
+Expose serialized, idempotent power-on and power-off operations so the
+link-PHY driver can sequence the control block across resets and system
+sleep. Also expose operations for the global LED polarity and package pad
+enables. Initialize all three outputs active-low as in the vendor kernel,
+while allowing an explicit link-PHY LED topology to replace that fallback.
+Quiesce the block during probe failures, driver removal and system
+shutdown.
 
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/mdio/of_mdio.c | 448 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 438 insertions(+), 10 deletions(-)
+ drivers/net/phy/Kconfig             |   9 +
+ drivers/net/phy/Makefile            |   1 +
+ drivers/net/phy/xpowers-ac200-ctl.c | 330 ++++++++++++++++++++++++++++++++++++
+ drivers/net/phy/xpowers-acx00.h     |  25 +++
+ 4 files changed, 365 insertions(+)
 
-diff --git a/drivers/net/mdio/of_mdio.c b/drivers/net/mdio/of_mdio.c
-index 051e449bbe7c..a8313b3721f6 100644
---- a/drivers/net/mdio/of_mdio.c
-+++ b/drivers/net/mdio/of_mdio.c
-@@ -13,6 +13,7 @@
- #include <linux/fwnode_mdio.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/netdevice.h>
- #include <linux/of.h>
- #include <linux/of_irq.h>
-@@ -20,6 +21,8 @@
- #include <linux/of_net.h>
- #include <linux/phy.h>
- #include <linux/phy_fixed.h>
-+#include <linux/sched.h>
-+#include <linux/string.h>
+diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
+index 099f25dceabb..e059bd6c5eda 100644
+--- a/drivers/net/phy/Kconfig
++++ b/drivers/net/phy/Kconfig
+@@ -469,6 +469,15 @@ config VITESSE_PHY
+ 	help
+ 	  Currently supports the vsc8244
  
- #define DEFAULT_GPIO_RESET_DELAY	10	/* in microseconds */
- 
-@@ -27,6 +30,52 @@ MODULE_AUTHOR("Grant Likely <grant.likely@secretlab.ca>");
- MODULE_LICENSE("GPL");
- MODULE_DESCRIPTION("OpenFirmware MDIO bus (Ethernet PHY) accessors");
- 
-+#if IS_ENABLED(CONFIG_OF_DYNAMIC)
++config XPOWERS_AC200_PHY_CTL
++	tristate "X-Powers AC200 Ethernet PHY control"
++	depends on MFD_AC200
++	help
++	  Enable the control driver for the Fast Ethernet PHY function in
++	  the X-Powers AC200 mixed-signal companion IC. It programs the PHY
++	  address, interface mode, calibration and I/O controls through the
++	  parent AC200 I2C regmap.
++
+ config XILINX_GMII2RGMII
+ 	tristate "Xilinx GMII2RGMII converter driver"
+ 	help
+diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
+index de660ae94945..e53ca319f9c4 100644
+--- a/drivers/net/phy/Makefile
++++ b/drivers/net/phy/Makefile
+@@ -99,4 +99,5 @@ obj-$(CONFIG_SMSC_PHY)		+= smsc.o
+ obj-$(CONFIG_STE10XP)		+= ste10Xp.o
+ obj-$(CONFIG_TERANETICS_PHY)	+= teranetics.o
+ obj-$(CONFIG_VITESSE_PHY)	+= vitesse.o
++obj-$(CONFIG_XPOWERS_AC200_PHY_CTL) += xpowers-ac200-ctl.o
+ obj-$(CONFIG_XILINX_GMII2RGMII) += xilinx_gmii2rgmii.o
+diff --git a/drivers/net/phy/xpowers-ac200-ctl.c b/drivers/net/phy/xpowers-ac200-ctl.c
+new file mode 100644
+index 000000000000..c2a37f958565
+--- /dev/null
++++ b/drivers/net/phy/xpowers-ac200-ctl.c
+@@ -0,0 +1,330 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * OF changes can nest when probing one MDIO device enables another node on
-+ * the same bus. Serialize independent changes while allowing that nesting.
++ * X-Powers AC200 Ethernet PHY control driver
++ *
++ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
 + */
-+static DEFINE_MUTEX(of_mdio_reconfig_mutex);
-+static struct task_struct *of_mdio_reconfig_owner;
-+static unsigned int of_mdio_reconfig_depth;
 +
-+static void of_mdio_reconfig_lock(void)
++#include <linux/bitfield.h>
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/nvmem-consumer.h>
++#include <linux/phy.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/regmap.h>
++
++#include "xpowers-acx00.h"
++
++#define AC200_EPHY_BPS_EFFUSE_OFFSET	3
++
++#define AC200_SYS_EPHY_CTL0_REG			0x0014
++#define AC200_EPHY_RESET_DEASSERT		BIT(0)
++#define AC200_EPHY_SYSCLK_ENABLE			BIT(1)
++
++#define AC200_SYS_EPHY_CTL1_REG			0x0016
++#define AC200_EPHY_MII_IO_ENABLE			BIT(0)
++#define AC200_EPHY_LINK_LED_IO_ENABLE		BIT(1)
++#define AC200_EPHY_SPEED_LED_IO_ENABLE		BIT(2)
++#define AC200_EPHY_DUPLEX_LED_IO_ENABLE		BIT(3)
++#define AC200_EPHY_LED_IO_ENABLE_MASK \
++	(AC200_EPHY_LINK_LED_IO_ENABLE | AC200_EPHY_SPEED_LED_IO_ENABLE | \
++	 AC200_EPHY_DUPLEX_LED_IO_ENABLE)
++
++/* AC200-internal copy of the Ethernet PHY calibration eFuse. */
++#define AC200_EFUSE_EPHY_REG			0x8004
++
++#define AC200_EPHY_CTL_REG			0x6000
++#define AC200_EPHY_SHUTDOWN			BIT(0)
++#define AC200_EPHY_LED_ACTIVE_LOW		BIT(1)
++#define AC200_EPHY_CLK_SEL_24_MHZ		BIT(2)
++#define AC200_EPHY_PHY_ADDR_MASK			GENMASK(8, 4)
++#define AC200_EPHY_RMII_SEL			BIT(11)
++#define AC200_EPHY_BPS_EFFUSE_MASK		GENMASK(15, 12)
++
++struct ac200_ephy_ctl {
++	struct acx00_ephy_control control;
++	struct regmap *regmap;
++	struct mutex lock; /* Serializes power sequencing and state. */
++	u16 ephy_ctl;
++	u16 led_io_enable;
++	unsigned int phy_addr;
++	bool powered;
++};
++
++static int
++ac200_ephy_ctl_set_led_outputs(struct acx00_ephy_control *control,
++			       unsigned long outputs)
 +{
-+	if (!mutex_trylock(&of_mdio_reconfig_mutex)) {
-+		if (of_mdio_reconfig_owner == current) {
-+			of_mdio_reconfig_depth++;
-+			return;
-+		}
-+		mutex_lock(&of_mdio_reconfig_mutex);
++	struct ac200_ephy_ctl *priv =
++		container_of(control, struct ac200_ephy_ctl, control);
++	u16 led_io_enable;
++	int ret = 0;
++
++	if (outputs & ~GENMASK(ACX00_EPHY_LED_COUNT - 1, 0))
++		return -EINVAL;
++
++	led_io_enable = (outputs << 1) & AC200_EPHY_LED_IO_ENABLE_MASK;
++
++	mutex_lock(&priv->lock);
++	if (priv->powered)
++		ret = regmap_update_bits(priv->regmap, AC200_SYS_EPHY_CTL1_REG,
++					 AC200_EPHY_LED_IO_ENABLE_MASK,
++					 led_io_enable);
++	if (!ret)
++		priv->led_io_enable = led_io_enable;
++	mutex_unlock(&priv->lock);
++
++	return ret;
++}
++
++static int
++ac200_ephy_ctl_set_led_polarity(struct acx00_ephy_control *control,
++				bool active_low)
++{
++	struct ac200_ephy_ctl *priv =
++		container_of(control, struct ac200_ephy_ctl, control);
++	u16 value = active_low ? AC200_EPHY_LED_ACTIVE_LOW : 0;
++	int ret = 0;
++
++	mutex_lock(&priv->lock);
++	if (priv->powered)
++		ret = regmap_update_bits(priv->regmap, AC200_EPHY_CTL_REG,
++					 AC200_EPHY_LED_ACTIVE_LOW, value);
++	if (!ret) {
++		priv->ephy_ctl &= ~AC200_EPHY_LED_ACTIVE_LOW;
++		priv->ephy_ctl |= value;
 +	}
++	mutex_unlock(&priv->lock);
 +
-+	WARN_ON_ONCE(of_mdio_reconfig_owner);
-+	WARN_ON_ONCE(of_mdio_reconfig_depth);
-+	of_mdio_reconfig_owner = current;
-+	of_mdio_reconfig_depth = 1;
++	return ret;
 +}
 +
-+static void of_mdio_reconfig_unlock(void)
++static int ac200_ephy_ctl_power_off_locked(struct ac200_ephy_ctl *priv)
 +{
-+	WARN_ON_ONCE(of_mdio_reconfig_owner != current);
-+	WARN_ON_ONCE(!of_mdio_reconfig_depth);
-+
-+	if (--of_mdio_reconfig_depth)
-+		return;
-+
-+	of_mdio_reconfig_owner = NULL;
-+	mutex_unlock(&of_mdio_reconfig_mutex);
-+}
-+#else
-+static inline void of_mdio_reconfig_lock(void)
-+{
-+}
-+
-+static inline void of_mdio_reconfig_unlock(void)
-+{
-+}
-+#endif
-+
- /* Extract the clause 22 phy ID from the compatible string of the form
-  * ethernet-phy-idAAAA.BBBB */
- static int of_get_phy_id(struct device_node *device, u32 *phy_id)
-@@ -44,7 +93,7 @@ int of_mdiobus_phy_device_register(struct mii_bus *mdio, struct phy_device *phy,
- EXPORT_SYMBOL(of_mdiobus_phy_device_register);
- 
- static int of_mdiobus_register_phy(struct mii_bus *mdio,
--				    struct device_node *child, u32 addr)
-+				   struct device_node *child, u32 addr)
- {
- 	return fwnode_mdiobus_register_phy(mdio, of_fwnode_handle(child), addr);
- }
-@@ -80,10 +129,20 @@ static int of_mdiobus_register_device(struct mii_bus *mdio,
- static int of_mdiobus_register_child(struct mii_bus *mdio,
- 				     struct device_node *child, u32 addr)
- {
-+	int rc;
-+
-+	if (of_node_test_and_set_flag(child, OF_POPULATED))
-+		return 0;
-+
- 	if (of_mdiobus_child_is_phy(child))
--		return of_mdiobus_register_phy(mdio, child, addr);
-+		rc = of_mdiobus_register_phy(mdio, child, addr);
-+	else
-+		rc = of_mdiobus_register_device(mdio, child, addr);
- 
--	return of_mdiobus_register_device(mdio, child, addr);
-+	if (rc)
-+		of_node_clear_flag(child, OF_POPULATED);
-+
-+	return rc;
- }
- 
- /* The following is a list of PHY compatible strings which appear in
-@@ -255,13 +314,21 @@ int __of_mdiobus_register(struct mii_bus *mdio, struct device_node *np,
- 	if (rc)
- 		return rc;
- 
-+	of_mdio_reconfig_lock();
-+	rc = mdiobus_device_change_begin(mdio, false);
-+	if (rc) {
-+		of_mdio_reconfig_unlock();
-+		mdiobus_unregister(mdio);
-+		return rc;
-+	}
-+
- 	/* Loop over the child nodes and register a phy_device for each phy */
- 	rc = __of_mdiobus_parse_phys(mdio, np, &scanphys);
- 	if (rc)
--		goto unregister;
-+		goto out_change;
- 
- 	if (!scanphys)
--		return 0;
-+		goto out_change;
- 
- 	/* auto scan for PHYs with empty reg property */
- 	for_each_available_child_of_node(np, child) {
-@@ -272,19 +339,380 @@ int __of_mdiobus_register(struct mii_bus *mdio, struct device_node *np,
- 
- 		rc = of_mdiobus_scan_phy(mdio, child);
- 		if (rc && rc != -ENODEV)
--			goto put_unregister;
-+			goto put_child;
-+		rc = 0;
- 	}
- 
--	return 0;
-+out_change:
-+	mdiobus_device_change_end(mdio, false);
-+	of_mdio_reconfig_unlock();
-+	if (!rc)
-+		return 0;
- 
--put_unregister:
--	of_node_put(child);
--unregister:
- 	mdiobus_unregister(mdio);
- 	return rc;
-+
-+put_child:
-+	of_node_put(child);
-+	goto out_change;
- }
- EXPORT_SYMBOL(__of_mdiobus_register);
- 
-+#if IS_ENABLED(CONFIG_OF_DYNAMIC)
-+static bool of_mdiobus_node_is_available(struct device_node *node)
-+{
-+	return !of_node_check_flag(node, OF_DETACHED) &&
-+	       of_device_is_available(node);
-+}
-+
-+static int of_mdiobus_add_node(struct mii_bus *mdio,
-+			       struct device_node *node)
-+{
-+	struct device_node *child;
-+	int addr, rc, ret = 0;
-+
-+	if (!of_mdiobus_node_is_available(node))
-+		return 0;
-+
-+	if (of_node_name_eq(node, "ethernet-phy-package")) {
-+		if (!of_property_present(node, "reg"))
-+			return 0;
-+
-+		for_each_available_child_of_node(node, child) {
-+			rc = of_mdiobus_add_node(mdio, child);
-+			if (rc && rc != -ENODEV && !ret)
-+				ret = rc;
-+		}
-+
-+		return ret;
-+	}
-+
-+	addr = of_mdio_parse_addr(&mdio->dev, node);
-+	if (addr < 0)
-+		rc = of_mdiobus_scan_phy(mdio, node);
-+	else
-+		rc = of_mdiobus_register_child(mdio, node, addr);
-+
-+	if (rc == -ENODEV && addr >= 0)
-+		dev_err(&mdio->dev,
-+			"MDIO device at address %d is missing.\n", addr);
-+
-+	return rc;
-+}
-+
-+static bool of_mdiobus_node_is_busy(struct mii_bus *mdio,
-+				    struct device_node *node)
-+{
-+	struct mdio_device *mdiodev;
-+	bool busy = false;
-+
-+	if (of_node_name_eq(node, "ethernet-phy-package")) {
-+		for_each_child_of_node_scoped(node, child) {
-+			if (of_mdiobus_node_is_busy(mdio, child))
-+				return true;
-+		}
-+
-+		return false;
-+	}
-+
-+	if (!of_node_check_flag(node, OF_POPULATED))
-+		return false;
-+
-+	mdiodev = of_mdio_find_device(node);
-+	if (!mdiodev)
-+		return true;
-+	if (mdiodev->bus != mdio) {
-+		put_device(&mdiodev->dev);
-+		return false;
-+	}
-+
-+	mutex_lock(&mdio->mdio_map_lock);
-+	busy = mdio->mdio_map[mdiodev->addr] != mdiodev ||
-+	       (mdio->mdio_map_pending & BIT(mdiodev->addr));
-+	if (mdiodev->flags & MDIO_DEVICE_FLAG_PHY) {
-+		struct phy_device *phydev = to_phy_device(&mdiodev->dev);
-+
-+		if (phydev->attached) {
-+			busy = true;
-+			dev_warn(&mdiodev->dev,
-+				 "cannot remove an attached PHY; remove its consumer first\n");
-+		}
-+	}
-+	mutex_unlock(&mdio->mdio_map_lock);
-+	put_device(&mdiodev->dev);
-+
-+	return busy;
-+}
-+
-+static struct device_node *
-+of_mdiobus_get_removal_scope(struct device_node *node)
-+{
-+	struct device_node *parent;
-+
-+	if (of_node_name_eq(node, "ethernet-phy-package"))
-+		return of_node_get(node);
-+
-+	parent = of_get_parent(node);
-+	if (of_node_name_eq(parent, "ethernet-phy-package"))
-+		return parent;
-+
-+	of_node_put(parent);
-+	return of_node_get(node);
-+}
-+
-+static int of_mdiobus_remove_node(struct mii_bus *mdio,
-+				  struct device_node *node)
-+{
-+	struct mdio_device *mdiodev;
-+	struct device_node *child;
++	int err;
 +	int ret;
 +
-+	if (of_node_name_eq(node, "ethernet-phy-package")) {
-+		for_each_child_of_node(node, child) {
-+			ret = of_mdiobus_remove_node(mdio, child);
-+			if (ret) {
-+				of_node_put(child);
-+				return ret;
-+			}
-+		}
-+		return 0;
-+	}
-+
-+	if (!of_node_check_flag(node, OF_POPULATED))
++	if (!priv->powered)
 +		return 0;
 +
-+	/* The OF node lookup also covers PHYs found by address scanning. */
-+	mdiodev = of_mdio_find_device(node);
-+	if (!mdiodev)
-+		return -EBUSY;
-+	if (mdiodev->bus != mdio) {
-+		put_device(&mdiodev->dev);
-+		return -ENODEV;
-+	}
-+
-+	ret = mdiodev->device_remove_dynamic(mdiodev);
++	ret = regmap_write(priv->regmap, AC200_EPHY_CTL_REG,
++			   priv->ephy_ctl |
++			   FIELD_PREP(AC200_EPHY_PHY_ADDR_MASK,
++				      priv->phy_addr) |
++			   AC200_EPHY_SHUTDOWN);
++	err = regmap_write(priv->regmap, AC200_SYS_EPHY_CTL1_REG, 0);
 +	if (!ret)
-+		mdiodev->device_free(mdiodev);
-+	put_device(&mdiodev->dev);
++		ret = err;
++	err = regmap_write(priv->regmap, AC200_SYS_EPHY_CTL0_REG, 0);
++	if (!ret)
++		ret = err;
 +
-+	return ret == -ENODEV ? 0 : ret;
++	priv->powered = false;
++
++	return ret;
 +}
 +
-+static struct mii_bus *of_mdiobus_find_parent(struct device_node *node)
++static int ac200_ephy_ctl_power_off(struct acx00_ephy_control *control)
 +{
-+	struct device_node *parent, *bus_node;
-+	struct mii_bus *mdio;
++	struct ac200_ephy_ctl *priv =
++		container_of(control, struct ac200_ephy_ctl, control);
++	int ret;
 +
-+	parent = of_get_parent(node);
-+	if (!parent)
-+		return NULL;
++	mutex_lock(&priv->lock);
++	ret = ac200_ephy_ctl_power_off_locked(priv);
++	mutex_unlock(&priv->lock);
 +
-+	if (of_node_name_eq(parent, "ethernet-phy-package")) {
-+		if (!of_device_is_available(parent) ||
-+		    !of_property_present(parent, "reg")) {
-+			of_node_put(parent);
-+			return NULL;
-+		}
++	return ret;
++}
 +
-+		bus_node = of_get_parent(parent);
-+		of_node_put(parent);
++static int ac200_ephy_ctl_power_on(struct acx00_ephy_control *control,
++				   unsigned int phy_addr)
++{
++	struct ac200_ephy_ctl *priv =
++		container_of(control, struct ac200_ephy_ctl, control);
++	u16 ephy_ctl;
++	int ret;
++
++	if (phy_addr > FIELD_MAX(AC200_EPHY_PHY_ADDR_MASK))
++		return -EINVAL;
++
++	mutex_lock(&priv->lock);
++	if (priv->powered && priv->phy_addr == phy_addr) {
++		ret = 0;
++		goto out_unlock;
++	}
++	if (priv->powered) {
++		ret = ac200_ephy_ctl_power_off_locked(priv);
++		if (ret)
++			goto out_unlock;
++	}
++
++	ephy_ctl = priv->ephy_ctl |
++		FIELD_PREP(AC200_EPHY_PHY_ADDR_MASK, phy_addr);
++
++	/* Start from a disabled state before applying the configuration. */
++	ret = regmap_write(priv->regmap, AC200_SYS_EPHY_CTL0_REG, 0);
++	if (ret)
++		goto err_disable;
++
++	ret = regmap_write(priv->regmap, AC200_SYS_EPHY_CTL1_REG,
++			   AC200_EPHY_MII_IO_ENABLE |
++			   priv->led_io_enable);
++	if (ret)
++		goto err_disable;
++
++	ret = regmap_write(priv->regmap, AC200_EPHY_CTL_REG,
++			   ephy_ctl | AC200_EPHY_SHUTDOWN);
++	if (ret)
++		goto err_disable;
++
++	ret = regmap_write(priv->regmap, AC200_SYS_EPHY_CTL0_REG,
++			   AC200_EPHY_RESET_DEASSERT |
++			   AC200_EPHY_SYSCLK_ENABLE);
++	if (ret)
++		goto err_disable;
++
++	fsleep(10000);
++
++	ret = regmap_write(priv->regmap, AC200_EPHY_CTL_REG, ephy_ctl);
++	if (ret)
++		goto err_disable;
++
++	priv->phy_addr = phy_addr;
++	priv->powered = true;
++	goto out_unlock;
++
++err_disable:
++	/* Mark it active so the cleanup sequence is always attempted. */
++	priv->phy_addr = phy_addr;
++	priv->powered = true;
++	ac200_ephy_ctl_power_off_locked(priv);
++out_unlock:
++	mutex_unlock(&priv->lock);
++
++	return ret;
++}
++
++static int ac200_ephy_ctl_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct ac200_ephy_ctl *priv;
++	phy_interface_t interface;
++	struct clk *clk;
++	unsigned long clk_rate;
++	unsigned int calibration;
++	u8 nvmem_calibration;
++	u8 bps_effuse_code;
++	u16 ephy_ctl;
++	int ret;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++	mutex_init(&priv->lock);
++
++	priv->regmap = dev_get_regmap(dev->parent, NULL);
++	if (!priv->regmap)
++		return dev_err_probe(dev, -EPROBE_DEFER,
++				     "parent regmap is not ready\n");
++
++	if (device_property_present(dev, "nvmem-cells")) {
++		ret = nvmem_cell_read_u8(dev, "calibration",
++					 &nvmem_calibration);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to read calibration data\n");
++		calibration = nvmem_calibration;
 +	} else {
-+		bus_node = parent;
++		ret = regmap_read(priv->regmap, AC200_EFUSE_EPHY_REG,
++				  &calibration);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to read on-chip calibration data\n");
 +	}
 +
-+	mdio = of_mdio_find_bus(bus_node);
-+	of_node_put(bus_node);
++	ret = device_get_phy_mode(dev);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to read PHY mode\n");
++	interface = ret;
 +
-+	return mdio;
-+}
++	/* The vendor driver supplies no transfer function beyond this offset. */
++	bps_effuse_code = (calibration + AC200_EPHY_BPS_EFFUSE_OFFSET) &
++			   FIELD_MAX(AC200_EPHY_BPS_EFFUSE_MASK);
++	ephy_ctl = FIELD_PREP(AC200_EPHY_BPS_EFFUSE_MASK, bps_effuse_code) |
++		   AC200_EPHY_LED_ACTIVE_LOW;
++	/* EPHY_MODE and BIST_CLK_EN stay clear for normal operation. */
 +
-+#if IS_ENABLED(CONFIG_OF_OVERLAY)
-+/* Overlay entry notifier errors cannot stop removal after the tree changed. */
-+static bool of_mdiobus_live_node_is_busy(struct device_node *node)
-+{
-+	struct device_node *scope;
-+	struct mii_bus *mdio;
-+	bool busy = true;
-+
-+	scope = of_mdiobus_get_removal_scope(node);
-+	mdio = of_mdiobus_find_parent(scope);
-+	if (!mdio)
-+		goto out_put_scope;
-+
-+	if (!mdiobus_device_change_begin(mdio, true)) {
-+		busy = of_mdiobus_node_is_busy(mdio, scope);
-+		mdiobus_device_change_end(mdio, true);
-+	}
-+	put_device(&mdio->dev);
-+
-+out_put_scope:
-+	of_node_put(scope);
-+	return busy;
-+}
-+
-+static struct device_node *
-+of_mdiobus_overlay_target_child(struct device_node *target,
-+				struct device_node *overlay_child)
-+{
-+	const char *name = kbasename(overlay_child->full_name);
-+	struct device_node *child;
-+
-+	for_each_child_of_node(target, child) {
-+		if (!of_node_cmp(kbasename(child->full_name), name))
-+			return child;
-+	}
-+
-+	return NULL;
-+}
-+
-+static bool of_mdiobus_overlay_node_is_busy(struct device_node *overlay,
-+					    struct device_node *target,
-+					    bool added)
-+{
-+	struct device_node *overlay_child, *target_child;
-+	bool busy, child_added;
-+
-+	if ((added || of_property_present(overlay, "status")) &&
-+	    of_mdiobus_live_node_is_busy(target))
-+		return true;
-+
-+	for_each_child_of_node(overlay, overlay_child) {
-+		target_child = of_mdiobus_overlay_target_child(target,
-+							       overlay_child);
-+		if (!target_child)
-+			continue;
-+
-+		child_added = of_node_check_flag(target_child, OF_OVERLAY);
-+		busy = of_mdiobus_overlay_node_is_busy(overlay_child,
-+						       target_child, child_added);
-+		of_node_put(target_child);
-+		if (busy) {
-+			of_node_put(overlay_child);
-+			return true;
-+		}
-+	}
-+
-+	return false;
-+}
-+
-+static int of_mdiobus_overlay_notify(struct notifier_block *nb,
-+				     unsigned long action, void *arg)
-+{
-+	struct of_overlay_notify_data *nd = arg;
-+	bool busy;
-+
-+	if (action != OF_OVERLAY_PRE_REMOVE)
-+		return NOTIFY_OK;
-+
-+	of_mdio_reconfig_lock();
-+	busy = of_mdiobus_overlay_node_is_busy(nd->overlay, nd->target,
-+					       false);
-+	of_mdio_reconfig_unlock();
-+
-+	return busy ? notifier_from_errno(-EBUSY) : NOTIFY_OK;
-+}
-+
-+static struct notifier_block of_mdio_overlay_notifier = {
-+	.notifier_call = of_mdiobus_overlay_notify,
-+};
-+#endif
-+
-+static int of_mdiobus_notify(struct notifier_block *nb, unsigned long action,
-+			     void *arg)
-+{
-+	struct of_reconfig_data *rd = arg;
-+	struct device_node *scope;
-+	struct mii_bus *mdio;
-+	enum of_reconfig_change change;
-+	bool removing;
-+	int rc, ret = NOTIFY_OK;
-+
-+	of_mdio_reconfig_lock();
-+	change = of_reconfig_get_state_change(action, rd);
-+	switch (change) {
-+	case OF_RECONFIG_CHANGE_ADD:
-+		/* A newer change may have made this notification stale. */
-+		if (!of_mdiobus_node_is_available(rd->dn))
-+			goto out_unlock;
-+		removing = false;
++	switch (interface) {
++	case PHY_INTERFACE_MODE_MII:
 +		break;
-+	case OF_RECONFIG_CHANGE_REMOVE:
-+		/* A newer change may have made this notification stale. */
-+		if (of_mdiobus_node_is_available(rd->dn))
-+			goto out_unlock;
-+		removing = true;
++	case PHY_INTERFACE_MODE_RMII:
++		ephy_ctl |= AC200_EPHY_RMII_SEL;
 +		break;
 +	default:
-+		goto out_unlock;
++		return dev_err_probe(dev, -EINVAL,
++				     "unsupported PHY mode %s\n",
++				     phy_modes(interface));
 +	}
 +
-+	mdio = of_mdiobus_find_parent(rd->dn);
-+	if (!mdio)
-+		goto out_unlock;
++	clk = clk_get(dev->parent, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk),
++				     "failed to get input clock\n");
 +
-+	rc = mdiobus_device_change_begin(mdio, removing);
-+	if (rc) {
-+		if (!removing)
-+			ret = notifier_from_errno(-EPROBE_DEFER);
-+		goto out_put_mdio;
++	clk_rate = clk_get_rate(clk);
++	clk_put(clk);
++
++	switch (clk_rate) {
++	case 24000000:
++		ephy_ctl |= AC200_EPHY_CLK_SEL_24_MHZ;
++		break;
++	case 27000000:
++		break;
++	default:
++		return dev_err_probe(dev, -EINVAL,
++				     "unsupported input clock rate %lu Hz\n",
++				     clk_rate);
 +	}
 +
-+	if (!removing) {
-+		rc = of_mdiobus_add_node(mdio, rd->dn);
-+	} else {
-+		/* The node may already be detached from its parent hierarchy. */
-+		scope = of_mdiobus_get_removal_scope(rd->dn);
-+		if (of_mdiobus_node_is_busy(mdio, scope))
-+			rc = -EBUSY;
-+		else
-+			rc = of_mdiobus_remove_node(mdio, rd->dn);
-+		of_node_put(scope);
-+	}
-+
-+	mdiobus_device_change_end(mdio, removing);
-+	if (rc && (removing || rc != -ENODEV))
-+		ret = notifier_from_errno(rc);
-+
-+out_put_mdio:
-+	put_device(&mdio->dev);
-+out_unlock:
-+	of_mdio_reconfig_unlock();
-+
-+	return ret;
++	priv->control.power_on = ac200_ephy_ctl_power_on;
++	priv->control.power_off = ac200_ephy_ctl_power_off;
++	priv->control.set_led_outputs = ac200_ephy_ctl_set_led_outputs;
++	priv->control.set_led_polarity = ac200_ephy_ctl_set_led_polarity;
++	priv->control.interface = interface;
++	priv->ephy_ctl = ephy_ctl;
++	priv->led_io_enable = AC200_EPHY_LED_IO_ENABLE_MASK;
++	platform_set_drvdata(pdev, &priv->control);
++	return 0;
 +}
 +
-+static struct notifier_block of_mdio_notifier = {
-+	.notifier_call = of_mdiobus_notify,
++static void ac200_ephy_ctl_remove(struct platform_device *pdev)
++{
++	struct acx00_ephy_control *control = platform_get_drvdata(pdev);
++
++	control->power_off(control);
++}
++
++static const struct of_device_id ac200_ephy_ctl_of_match[] = {
++	{ .compatible = "x-powers,ac200-ephy-ctl" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ac200_ephy_ctl_of_match);
++
++static struct platform_driver ac200_ephy_ctl_driver = {
++	.probe = ac200_ephy_ctl_probe,
++	.remove = ac200_ephy_ctl_remove,
++	.shutdown = ac200_ephy_ctl_remove,
++	.driver = {
++		.name = "ac200-ephy-ctl",
++		.of_match_table = ac200_ephy_ctl_of_match,
++	},
++};
++module_platform_driver(ac200_ephy_ctl_driver);
++
++MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
++MODULE_DESCRIPTION("X-Powers AC200 Ethernet PHY control driver");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/net/phy/xpowers-acx00.h b/drivers/net/phy/xpowers-acx00.h
+new file mode 100644
+index 000000000000..8cf6fe616137
+--- /dev/null
++++ b/drivers/net/phy/xpowers-acx00.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef __DRIVERS_NET_PHY_XPOWERS_ACX00_H
++#define __DRIVERS_NET_PHY_XPOWERS_ACX00_H
++
++#include <linux/phy.h>
++
++enum acx00_ephy_led {
++	ACX00_EPHY_LED_LINK_ACTIVITY,
++	ACX00_EPHY_LED_SPEED,
++	ACX00_EPHY_LED_DUPLEX,
++	ACX00_EPHY_LED_COUNT,
 +};
 +
-+static int __init of_mdio_init(void)
-+{
-+	int ret;
++struct acx00_ephy_control {
++	phy_interface_t interface;
++	int (*power_on)(struct acx00_ephy_control *control,
++			unsigned int phy_addr);
++	int (*power_off)(struct acx00_ephy_control *control);
++	int (*set_led_outputs)(struct acx00_ephy_control *control,
++			       unsigned long outputs);
++	int (*set_led_polarity)(struct acx00_ephy_control *control,
++				bool active_low);
++};
 +
-+	ret = of_reconfig_notifier_register(&of_mdio_notifier);
-+	if (ret)
-+		return ret;
-+
-+#if IS_ENABLED(CONFIG_OF_OVERLAY)
-+	ret = of_overlay_notifier_register(&of_mdio_overlay_notifier);
-+	if (ret)
-+		of_reconfig_notifier_unregister(&of_mdio_notifier);
 +#endif
-+
-+	return ret;
-+}
-+module_init(of_mdio_init);
-+
-+static void __exit of_mdio_exit(void)
-+{
-+#if IS_ENABLED(CONFIG_OF_OVERLAY)
-+	of_overlay_notifier_unregister(&of_mdio_overlay_notifier);
-+#endif
-+	of_reconfig_notifier_unregister(&of_mdio_notifier);
-+}
-+module_exit(of_mdio_exit);
-+#endif /* CONFIG_OF_DYNAMIC */
-+
- /**
-  * of_mdio_find_device - Given a device tree node, find the mdio_device
-  * @np: pointer to the mdio_device's device tree node
 
 -- 
 2.53.0
