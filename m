@@ -1,144 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7B1489863;
-	Mon,  3 Aug 2026 08:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527293ACA6C
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 08:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785745310; cv=none; b=OrjAFwJm7d9m0tZdEpfPIW7EzS16iDiQ1Uwq8mnxrNjnf59iPB9Vc3TcyG49iK+rJMuBiCxRx0nN8V7How8p4IZ/gKE/xHhSp9IoFUveMVxK0GUUQDhjtixZ40eaKP8QNsvGOFw7dTGG+UR4ASFTybSIBqZBU0FcswaDZ+d6oi4=
+	t=1785745757; cv=none; b=daE3fA0V5ngS1KNZ49GJWgenk7PBGxuwUv/ljjjHC6rmNBuEfzf5XU3Fx5OsZeXhxrP0KbmOvWJ/RuWLLr5uZTitbnEyfmZ0l4lrRJhB2ewSWb533MPlA01Oly5f7OkDtfdsEOZZEA/8dZiiAYdBN3R2DZJeAaFTAarBMP1ks1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785745310; c=relaxed/simple;
-	bh=X9MwxYTwdCgXSNS4gRckHGyDyVA2TZTvHpPNebUxtKQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kqqtPZW0Uni14eG3M8R9sQveYRWGV3vTMw67MziuoilM+JnTdScCNza6oDk0LGAjttTNbz1o5h8/VtvU1yTAFrkRUW5kIk1Ri5I2xsNuxcyA3ic1gHHe07rA8BtBLfYd0W34xUp40/ieP6RBwhIUd9a1jIVItOeZc+b9Qc/1r78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IucJlZnT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785745757; c=relaxed/simple;
+	bh=Z/y9bxtOoGbkfjhIV9x0o1TeX0FamxcMKPkwaKtP6zo=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=dS2qeQtUhRXvvUD70fZXQv40aFfNW3WQnVNqHv+LE57vbLSmL4oFZq+TgCTjXLOepZ/GxZOyTKTFo/i5kshbulOV3GoVCjOA9hxjECUFkJ5GD6IrotbEN6VHJNzmYrFX2zHvyrwaTDxZ54c7RLszyvfb4jEfC2anU2ImSbfCWu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=p3lN4kSz; arc=none smtp.client-ip=95.215.58.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IucJlZnT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532B21F000E9;
-	Mon,  3 Aug 2026 08:21:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785745309;
-	bh=e5uwIV2Y4sYN43Sv15YtOuNlkl0578hRCHETri1JqXY=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=IucJlZnTzfbxH/e0Qk+Z9/AYn5jhp3/hetueeRO6zyjqCEHUwvFT/5690oo0ate+w
-	 rOVwoHcXPW2yYowgVEy2+IdW/gr2lYlQd1s+E4CHMpe3bUNFXR7S0tt9xmOyW6kFWZ
-	 AUSgoUbfrZeyU7/K+cPQHKATQQVNyvDvn1GoMo6f3c9sk+OR4CzLhj9yoMGiKrZXS5
-	 h4sOOrtlaucdEFiTddVsXNLh4cgMiSCpNFlbwM9lq3T5KFzsGbNdHpJcm4GujGtx1U
-	 IZ1ShWsfIfYP3J2fVee9eQuRpyXsEkRJffX8z7wpJ1DGbaNxw8TcYMUBF7sJ3kcZYm
-	 ngmdJrLYaEbTQ==
-Message-ID: <cd177647-827c-481a-9ac6-5f5a1882f14e@kernel.org>
-Date: Mon, 3 Aug 2026 10:21:35 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="p3lN4kSz"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/21] dt-bindings: mfd: x-powers: add AC200
-Content-Language: en-US
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Andre Przywara
- <andre.przywara@arm.com>, Richard Genoud <richard.genoud@bootlin.com>,
- Maxime Ripard <mripard@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Saravana Kannan <saravanak@kernel.org>,
- Lee Jones <lee@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
- <20260802-submit-acx00-of-dynamic-v1-v1-8-0a53cd9e21cc@gmail.com>
- <f2cc3c90-060f-40c1-a55e-e2ed91e65487@kernel.org>
- <CADvTj4q7HnOYJZE-M070-1npEdne__Ct5D9FeUNVVXa8Bsm7qQ@mail.gmail.com>
- <e198e8fa-6c5e-4c8d-a4de-d8bb25aab0bd@kernel.org>
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <e198e8fa-6c5e-4c8d-a4de-d8bb25aab0bd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785745743;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yReSINz53RALtgsTLYaQBfhtA4c8gjFI8bbYPh7aZ+U=;
+	b=p3lN4kSzvQB6qKNF0Nd+o94KqUgK78m0DcS2fKfjsbzeEE2TCKVFOi/tYOMoyirY/eAw+0
+	SYYCP7tdQqo+6Q2GSg1iRiWF2MfTu+o7EUpMnFP/WWD3ogEwdqHKju7hKxGAIvOdYVoHfA
+	G8AtVnTZ0/RUbMkcadlL5W5aZl5Fp/w=
+Date: Mon, 03 Aug 2026 08:28:51 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Siratul Islam" <siratul.islam@linux.dev>
+Message-ID: <a967c89f72bc36226dfd35ceba61dc0d2e632ddc@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v3 2/2] iio: dac: dac8163: Add driver for DAC8163
+To: "David Lechner" <dlechner@baylibre.com>, "Lukas Metz"
+ <lukas.metz@gmx.net>, "Jonathan Cameron" <jic23@kernel.org>,
+ "=?utf-8?B?TnVubyBTw6E=?=" <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <50fee508-db53-46c3-b245-22893023f370@baylibre.com>
+References: <20260802-dac8163-work-v3-0-3ecc7bc66d0d@gmx.net>
+ <20260802-dac8163-work-v3-2-3ecc7bc66d0d@gmx.net>
+ <50fee508-db53-46c3-b245-22893023f370@baylibre.com>
+X-Migadu-Flow: FLOW_OUT
 
-On 03/08/2026 10:20, Krzysztof Kozlowski wrote:
->>>> --- /dev/null
->>>> +++ b/include/dt-bindings/mfd/x-powers,ac200.h
->>>> @@ -0,0 +1,13 @@
->>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
->>>> +/*
->>>> + * Interrupt numbers of the X-Powers AC200 interrupt controller.
->>>> + */
->>>> +
->>>> +#ifndef _DT_BINDINGS_MFD_X_POWERS_AC200_H
->>>> +#define _DT_BINDINGS_MFD_X_POWERS_AC200_H
->>>> +
->>>> +#define AC200_IRQ_TVE                        0
->>>> +#define AC200_IRQ_EPHY                       1
->>>> +#define AC200_IRQ_RTC                        2
->>>
->>> Hardware constants are not really bindings, even though you use them in
->>> the driver.
->>
->> Should I do something different for this?
-> 
-> I would just drop the defines and the header, because these are fixed
-> hardware numbers.
-> 
+August 2, 2026 at 11:19 PM, "David Lechner" <dlechner@baylibre.com> wrote=
+:
 
-Hm, unless they are not and you added abstract ID numbers for both DTS
-and drivers? Then this would be fine.
 
+>=20
+>=20On 8/2/26 11:07 AM, Lukas Metz wrote:
+...
+> >  +#define LDAC_CHANNEL_A_MASK BIT(0)
+> >  +#define LDAC_CHANNEL_B_MASK BIT(1)
+> >  +#define VREF_MASK BIT(0)
+> >  +
+> >  +#define DAC8163_INTERNAL_REF_mV 2500
+> >  +#define DAC8163_RES_12_BIT 12
+> >  +#define DAC8163_RES_14_BIT 14
+> >  +#define DAC8163_RES_16_BIT 16
+> >=20
+>=20Macros that just map to a number that is part of the macro name
+> aren't that helpful. We can just use the number directly.
+>=20
+Each=20of them repeats 4 times. I think typing a number that many times=
+=20
+is=20more error prone than having a macro.
+> >=20
+>=20>
+>
+
+--
 Best regards,
-Krzysztof
+Sirat
