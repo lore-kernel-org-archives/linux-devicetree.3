@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DAC39CD18;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CB639D3D0;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785738864; cv=none; b=lLsi2yZaqOKC1SNtNkf1lHmrocVf+Jtvz2uvCp++HAKIqr/P6TMBplia8hUa1QJl1Jk5KSxT/sxMv8/gNM+v2r8StsCZ+hwQjxqygQVFXMmJLe+COkCxjQT0+M5IpUmrTlA592SFSiJBpILoPUTELRDScG7YC6jKGeA/d/H06Cw=
+	t=1785738864; cv=none; b=kHEPs5IqVDGqIR3oQV8Yqq0GdmnK/JBv+5V7xlNLQ1MKXrMJXvhNeGr/UktqLvlqNFRDuw6/ohBGHv6NvqiWTr+1t7zNRiIhxVw0U6bHYiwOEfDhouLcDmWaXMRvqcKPqt+89/zm8PZf2SeqcBkysMWh8f1b8l/oYDTPaSflfpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785738864; c=relaxed/simple;
-	bh=+CZAyrOcvGJijWgwJrsUe+2RziEDz8zelzdM7KMLiRQ=;
+	bh=7V4VYsNRRYYnmW8fYgDqrH7Do70+OYn1vjb2No0hNuk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OITg9TbcO8TqX2Ugk5pLysIhzlkX5B5Olof83aqF9d9+yXnlaQ+zB8ARfXXusky+CRceiNZGaSQ/fvLqOm3slM5qJYVDXZIzgZm30qKgSJUht4WT2b7/rXk8WekEOfGrdm9Tv6ZFDjsKHGyKzUfyCUeTfc3w2sWFB8FTP/PwZ4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ss/tI9Xm; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=MAbxYe2RDXpi9qNdK7Zop6HQvXu4wO4bl/bw0+tP1GzngXi9Pu7giDANh62vx8Dl0WRF9JHufSASN+1DGYyeK18BkidVPZDz/ttaQaaO98Wk6y2E6zM+HjIsQNlhvHPsDp9zC5YUmnt5M5xExcGme2/pYZEx/WsBLjvrcqlUOYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/iq03qk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ss/tI9Xm"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B0247C2BD05;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/iq03qk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C19FDC4AF0B;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785738863;
-	bh=+CZAyrOcvGJijWgwJrsUe+2RziEDz8zelzdM7KMLiRQ=;
+	bh=7V4VYsNRRYYnmW8fYgDqrH7Do70+OYn1vjb2No0hNuk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ss/tI9XmZSlUwDIsPavXKrqq064a4BQOmNAmaRkCFmBRgK6YS+FX8HqfGKrsiakQ4
-	 dBqI6sQACQB9Wr/1xO7mpApqXONqnY8HjB5TRK8lqA2st4XxyEqk/N7FaU0LKlt+Rt
-	 RjZBHPsniyxYEouccYFqaTzAZi6JMh5nTHUOCSZyNHqDuCHSe9J++dtADYWZRoxZTS
-	 aWYiLAS2vmUXBQ7lV2VpuXc6hLyJwZaqxZWnFyhayYioTshxlSkjiU4SNXK9zKB6Fs
-	 BzdVOaV5e1/fM1cc3bjjE1pBOy3ejHjIy15KEEx9JwCvSniIDpIgzf1AYThCgRhXRt
-	 RjItZBjg0K2DQ==
+	b=C/iq03qkrdjDo9r/Doqcm+8iG2tDcO6cuooquaH2mSWayzfxUhlFZnxPhO3hBl7mE
+	 fmYb718sE3CdTI33vX2dTrP7+PvnZ4tFagdRWzdprA1rZHTJi4ZCY3ZkQHH4CNYXI6
+	 VNm1crBi3wH96s6FWeXqZMqzI1bwdX1grEYJmA6HfcmzaDR5soLN9UrIGsreHbFz8d
+	 7NzaTaNjeW29zCORsadqcnSnTXgh+PXfxXSTJw13P3w+A7WUIDSbS1BULf59sa+qLO
+	 tJXoRnQYdl68bzKw3SPczaiiEZbRMNU0F/9L44P1CAjU1IqYcehITLOfzPHeG4If68
+	 8kn2Vt2K4uSDg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BD35C55162;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AB8E6C5518E;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Mon, 03 Aug 2026 08:34:10 +0200
-Subject: [PATCH 12/28] arm64: dts: qcom: qcm6490: Fix swapped USB QMP PHY
+Date: Mon, 03 Aug 2026 08:34:11 +0200
+Subject: [PATCH 13/28] arm64: dts: qcom: qcs6490: Fix swapped USB QMP PHY
  vdda-phy/vdda-pll supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-phy-supply-fix-v1-12-5880630cde3e@oss.qualcomm.com>
+Message-Id: <20260803-phy-supply-fix-v1-13-5880630cde3e@oss.qualcomm.com>
 References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 In-Reply-To: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -55,16 +55,16 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Manivannan Sadhasivam <mani@kernel.org>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3090;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2584;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=RhG3XH0/Ea2Rv232KNpCp7WdKXwu1fia53eO8pGiLeo=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqcDZlC6do8v58lflssdfHGlL7RQX0Jpdxkg0hs
- 5ObJgA74PSJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCanA2ZQAKCRBVnxHm/pHO
- 9burB/4qTPpKz+M9XO9lpNrkOeep+ylX8WN9ElcvmVZZsh4HpEh/61tFzYkrDtgNSCRrF50beGC
- tPt8RkvIKveMUYV0NpAYq/HLcSjm+vL5q/Gonw49Jo7M+FINXGldb3u1PMPG4Jn3iJGfZSmUNsu
- OcndszXNI+lry+SD3+z3m/kAaeXsjWVAPt54dcsRPA8sbht+WiJ90x+kRlkWKW0TFoQn8Pm+Fpq
- 8oO1x2f5r2MquM7sIX+f2mM+HtRdKPazX2M+RlfgLFsE9G6rnbzUASeQdYimv3sziD2u8evxYAd
- 60eexD1CAhhXPE6FalQzWbPaNtEIWR8LZO4wcj/3wdxMJppl
+ bh=R6CtZoRHEQqaE+BxpC08C35TWHS9qRmr1Xft9+BSqs8=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqcDZldmiHj6ZDWnGO9YEvYOCd4QIwjfpTMB6Tc
+ vGdXDI322CJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCanA2ZQAKCRBVnxHm/pHO
+ 9ZCbCACENmg4NZ8NBcE8NrJHnfJow/rvXW6DNIcfgCJiTfR+CuneIOm2PX2tzNu7xb4x0nf3R4k
+ A1XGdsj04oeQ6kzIXjpmm5tSv43NChtTG8ZP4Br1kaNZo8s+m+akf40wzB01eA6RhwRISvDKJq7
+ 9Ycqu0cjqwJ3ntlIlm2tJyOWQfIj5/u0n286oTzU8IOvqO4u9tb58iIbPb9TxidqtyI+i9ZtJ2c
+ wvE7AyobHjBwI/RRsPjUniixqDdIM8b91dggkbPX/BopupOLTUKW9XzbMxPriI1D6KQuAqyhws2
+ IRLrGxMPGQzD+atTK0SseLWKMSU+EEukemAnD2X03nJqvoQM
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -81,40 +81,38 @@ vdda-pll.
 
 Fix it by swapping the two supplies back.
 
-Fixes: 9af6a9f32ad0 ("arm64: dts: qcom: Add base qcm6490 idp board dts")
-Fixes: a319cf4a4b09 ("arm64: dts: qcom: qcm6490: Introduce the Particle Tachyon")
-Fixes: eee9602ad649 ("arm64: dts: qcom: qcm6490: Add device-tree for Fairphone 5")
-Fixes: 249666e34c24 ("arm64: dts: qcom: add QCM6490 SHIFTphone 8")
+Fixes: 04cf333afc75 ("arm64: dts: qcom: Add base qcs6490-rb3gen2 board dts")
+Fixes: 1cde54c54b83 ("arm64: dts: qcom: qcs6490: Add Thundercomm AI Mini PC G1 IoT")
+Fixes: f055a39f6874 ("arm64: dts: qcom: Add qcs6490-rubikpi3 board dts")
 Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Assisted-by: Claude:opus-4-8
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts    | 4 ++--
- arch/arm64/boot/dts/qcom/qcm6490-idp.dts              | 4 ++--
- arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts | 4 ++--
- arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts      | 4 ++--
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts                  | 4 ++--
+ arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts | 4 ++--
+ arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts     | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index 04cb9230d29f..92a7d80b7fee 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-@@ -1502,8 +1502,8 @@ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+index 37a3b51323ce..8e200ba3711a 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+@@ -1419,8 +1419,8 @@ &usb_1_hsphy {
  };
  
  &usb_1_qmpphy {
--	vdda-phy-supply = <&vreg_l6b>;
--	vdda-pll-supply = <&vreg_l1b>;
-+	vdda-phy-supply = <&vreg_l1b>;
-+	vdda-pll-supply = <&vreg_l6b>;
+-	vdda-phy-supply = <&vreg_l6b_1p2>;
+-	vdda-pll-supply = <&vreg_l1b_0p912>;
++	vdda-phy-supply = <&vreg_l1b_0p912>;
++	vdda-pll-supply = <&vreg_l6b_1p2>;
  
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-index bdc02260f902..58cce89a0c1c 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-@@ -1141,8 +1141,8 @@ &usb_1_hsphy {
+ 	orientation-switch;
+ 
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
+index a5ad796cb65d..ae2cc2c2e701 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
+@@ -1059,8 +1059,8 @@ &usb_1_hsphy {
  };
  
  &usb_1_qmpphy {
@@ -125,11 +123,11 @@ index bdc02260f902..58cce89a0c1c 100644
  
  	status = "okay";
  };
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-index bf18c4852081..17804de03e17 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-@@ -839,8 +839,8 @@ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+index f47efca42d48..7336118ae7e3 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts
+@@ -1103,8 +1103,8 @@ &usb_1_hsphy {
  };
  
  &usb_1_qmpphy {
@@ -137,21 +135,6 @@ index bf18c4852081..17804de03e17 100644
 -	vdda-pll-supply = <&vreg_l1b_0p912>;
 +	vdda-phy-supply = <&vreg_l1b_0p912>;
 +	vdda-pll-supply = <&vreg_l6b_1p2>;
- 
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
-index 797f37596bf1..cdaacc09f56c 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
-@@ -976,8 +976,8 @@ &usb_1_hsphy {
- };
- 
- &usb_1_qmpphy {
--	vdda-phy-supply = <&vreg_l6b>;
--	vdda-pll-supply = <&vreg_l1b>;
-+	vdda-phy-supply = <&vreg_l1b>;
-+	vdda-pll-supply = <&vreg_l6b>;
  
  	status = "okay";
  };
