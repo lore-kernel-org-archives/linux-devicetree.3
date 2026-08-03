@@ -1,125 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEB4427F8D
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 19:11:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00468431E70;
+	Mon,  3 Aug 2026 19:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785784286; cv=none; b=Pw31sXkldECcY75HMqalzJo4FsTi2o7/9XrpStH1W+yWq2vpsMnthORJBMOm7UBE78EH/U1ZZhM9WoA03Gpn/A0kQQ5a4f9EiRbw/js2v0HcfbtrxfRzwBXZe+5JmZKPU+dSeEk4F1r9Xyp/H8rpBlCLC004dBQ7AnlKgmQxevo=
+	t=1785784335; cv=none; b=FnBCXVaNGGksMBRgZLtnQLQkc70gH60yICQYafwk/R0kCtH6bWIpLBlxega26235ggrgI6Ck2fC372RdN6rDYmbJP0X9vOSbcS6t2qaCfV7zZGcvi+iDZLuQD9iS3CZj51Rxvc+JYkDi1sPr+T25ylbdpCdpaZdpW6K9dAjgRTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785784286; c=relaxed/simple;
-	bh=pbyVuL0jyIOpRjobRLpTrVDGSBb2tXH8rM+mBeDjXq0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UQtAML4lKB/COFFdcvez/U1XFNTI8nkumkae3MlTydVdBNv18Rvhhny+osriXO7cWozjiqO2dQMgFlVDFxgZysfFXsEEVW7bZicvjxTPyw91FsCP8/6H8aTq//GxX90dPmXtShsqPJ3kjFxKv1xmQC/PoYIVh5arNybSUUZoCyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V42jbEtP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785784335; c=relaxed/simple;
+	bh=/6KaWvUelBxDjgc2cwlXIqW/0SPvjE2lBZrFIgts5oY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tl8NmIuQVnyMCUUhZbtoYugtqs1jZ1H0TtEPk+AuikMVnYUA2KERaxGrJURqrrjotk/sH4wvQBdufGPUmRguhoBKlzxE729VnyiV9oG5lKdmuGp3ueSjnqs8RUHeIot6pFpQtgMlaQbBkUkRjS4bHKkr6kWX8v4VMT2FXMc7vqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=NlOGalGj; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V42jbEtP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6881F000E9;
-	Mon,  3 Aug 2026 19:11:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785784285;
-	bh=CEkB3xaDs0YfnDvaLlwCGFAPS42mAHu8+bIMDJw6FWU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V42jbEtPHEasv/YwWqUtEjJVvPNxlVam/kdBKspeE4qeAcR1hhRX6R/z6TW+68hNJ
-	 gjc4o9QjhAsBcyWnXaruuJgm8M+9+TOceRJYmxqpxK59nbjt1FJvp+uyMbKPNvB/T0
-	 1SrQF7JjkU6I5eh1gaoHpgLQ1dNPFQ081ZLd30rku2pOSTi11KG11vzpgnW346rpdM
-	 8FIrRlJQa0InjOCbz9LwL1rFnTuR/+vwoWleIaOoSMPVdOzI9uEPeMeeKKdbzcajaL
-	 7DOMIKODr1tOXahWrZNuL63DMYpqTtqAbWaQqRud05iZIsj8yzj5621ZZ24nh1zy+f
-	 e88NnxMfWCwvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 22/22] drm/bridge: synopsys: dw-dp: Add audio support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-22-2e6e46135312@collabora.com>
-References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
- <20260803-synopsys-dw-dp-improvements-v9-22-2e6e46135312@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 19:11:24 +0000
-Message-Id: <20260803191124.DB6881F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="NlOGalGj"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F272A5B3;
+	Mon,  3 Aug 2026 21:11:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785784261;
+	bh=/6KaWvUelBxDjgc2cwlXIqW/0SPvjE2lBZrFIgts5oY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NlOGalGjIbx+k28jCNWhAwSewPaUT6+v35KYAxwxMZw4y+IaneTdFMDx1v8F/Sg5i
+	 MsjyCZhXybP4wjBIriKmQP+Eo12NR2KtTyCu3Za2WVSzXMfk3d/zD2LMque27YHdhf
+	 aC6ODv7Z3b7nWRwB1O7m2/X8XdWF9T2/i1UWCogo=
+Date: Mon, 3 Aug 2026 22:12:08 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
+	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+	Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com,
+	Kazumi.A.Sato@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: i2c: Add Sony IMX908 image sensor driver
+Message-ID: <20260803191208.GA2201016@killaraus.ideasonboard.com>
+References: <20260730021525.166811-1-lachlan.michael@sony.com>
+ <20260730021525.166811-3-lachlan.michael@sony.com>
+ <20260803005333.GE1927055@killaraus.ideasonboard.com>
+ <CAPY8ntC1T4_orgvxBRqpqux4V90d5XZ-3KZZKoqnCPkbf6wE0Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntC1T4_orgvxBRqpqux4V90d5XZ-3KZZKoqnCPkbf6wE0Q@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The result of regmap_read() is used without checking its return =
-value, potentially leading to the use of uninitialized stack memory.
---
+Hi Dave,
 
---- Patch [22]: [PATCH v9 22/22] drm/bridge: synopsys: dw-dp: Add audio sup=
-port ---
-commit f36ed9436eafc188ce4405c443eb47147a26dbd1
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-drm/bridge: synopsys: dw-dp: Add audio support
+On Mon, Aug 03, 2026 at 06:37:47PM +0100, Dave Stevenson wrote:
+> Hi Lachlan and Laurent.
+> 
+> It's brilliant that Sony are getting involved in upstreaming drivers!
+> 
+> <snip>
+> >
+> > In his IMX678 driver, Jai hardcodes the pixel rate to 594MHz, which is
+> > 8 * 74.25MHz (IMX908_XHS_HZ). The rationale is that HMAX is expressed in
+> > units of the 74.25 MHz internal clock, so we assumed that the pixel
+> > array is not read out using the link clock but using a clock derived
+> > from the internal clock. The multiplier was chosen to ensure that the
+> > minimum HMAX value corresponds to a positive HBLANK, as negative HBLANK
+> > would confuse userspace (and developers). Having a fixed pixel rate
+> > greatly simplifies the driver, as you don't have to update the pixel
+> > rate control, and HMAX calculation from HBLANK becomes a division by 8.
+> >
+> > We're not sure how the pixel array of the IMX678 is clocked exactly, so
+> > I don't know if the above corresponds to reality, neither for the IMX678
+> > nor the IMX908. If you could provide more information about the pixel
+> > array readout, that would be greatly appreciated. Note that the pixel
+> > rate value does not have to match the physical readout clock, as it is
+> > only used by userspace to calculate timings (to convert between h/v
+> > blank and fps).
+> >
+> > Jai can provide more information if needed.
+> 
+> In case you'd missed it, I'm trying to convert Jai's IMX678 driver
+> into a generic Starvis 2 driver[1].
 
-This commit implements audio support for the Synopsys DesignWare DisplayPort
-controller.
+Just a quick message to tell you that I plan to reply to that mail
+thread. I'm on vacation this week, so there will be a delay.
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> IMX662 that I'm interested in is streaming with a total of 7 changes
+> to defines or const structs in the current imx678 driver.
+> IMX675 (5MPix Starvis2) frames with a similar number of changes but
+> currently isn't giving me images (test patterns work).
+> IMX585 looks like it may fit the same pattern, but I'm waiting on a
+> module for that one.
+> 
+> I'm therefore looking to parameterise those diffs but otherwise keep
+> it all common. This avoids the hassle of having to convert potentially
+> 4 (or more) drivers to the Common Raw Sensor Model once it is
+> finalised.
+> 
+> IMX908 here looks to very much follow the same pattern, so unless
+> there are additional diffs between Starvis 2 and Starvis 3 it would
+> potentially fit into the same framework.
+> 
+> I'm hoping to get an RFC out this week as I'm then on holiday for a
+> week. It'll be interesting to see if IMX908 will fit with the same
+> pattern.
+> 
+> Lachlan: Are there any particular people we should contact for details
+> of IMX908, or just go through our normal contact?
+> 
+> Thanks
+>   Dave
+> 
+> [1] https://lore.kernel.org/linux-media/20260312150437.1091195-1-eagle.alexander923@gmail.com/T/#m6072f85b03811932427597d8ffe5da008d33246a
 
-[ ... ]
+-- 
+Regards,
 
-> @@ -1690,6 +1721,254 @@ static int dw_dp_link_enable(struct dw_dp *dp)
-
-[ ... ]
-
-> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
-> +			       struct drm_connector *connector,
-> +			       struct hdmi_codec_daifmt *daifmt,
-> +			       struct hdmi_codec_params *params)
-> +{
-> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
-> +	u8 supported_audio_interfaces;
-> +	enum dw_dp_audio_interface audio_interface;
-> +	u32 cfg1;
-> +	int ret;
-
-[ ... ]
-
-> +	switch (daifmt->fmt) {
-> +	case HDMI_SPDIF:
-> +		audio_interface =3D DW_DP_AUDIO_SPDIF;
-> +		break;
-> +	case HDMI_I2S:
-> +		/*
-> +		 * It is recommended to use SPDIF instead of I2S, since I2S mode requi=
-res
-> +		 * manually inserting PCUV control bits from userspace and this is done
-> +		 * automatically in hardware for SPDIF mode.
-> +		 */
-> +		audio_interface =3D DW_DP_AUDIO_I2S;
-> +		break;
-> +	default:
-> +		dev_err(dp->dev, "invalid DAI format %d\n", daifmt->fmt);
-> +		return -EINVAL;
-> +	}
-> +
-> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
-> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
-
-[Severity: Medium]
-Is it possible for regmap_read() to fail here? If the read operation fails,
-cfg1 would remain uninitialized, causing FIELD_GET() to operate on
-uninitialized stack memory.=20
-
-Should the return value of regmap_read() be checked before accessing cfg1?
-
-> +
-> +	if (supported_audio_interfaces !=3D DW_DP_AUDIO_I2S_AND_SPDIF &&
-> +	    supported_audio_interfaces !=3D audio_interface) {
-> +		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
-> +		return -EINVAL;
-> +	}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-synopsys-d=
-w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D22
+Laurent Pinchart
