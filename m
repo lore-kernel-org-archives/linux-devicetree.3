@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CD137106E;
-	Mon,  3 Aug 2026 10:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA3D372EFA
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:00:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785751225; cv=none; b=KJzYX4mfpTmKoh7q7OUqoZmSbx3eMTa5UrBKt/UrqG7drM/xGZuVKBsJzyrrTkEn7GJE7Nf94ojSLDIxct6eoVSMmzaySGvSzLec7QfPKcvl6a3z1p2XH/kuN3P2tKW5kUGoAU00Ge8jDq6qMIQWEOQbmHI8S7llAk388n7QuN8=
+	t=1785751237; cv=none; b=S4h0YJ7+fJQGxcDbGdmjxy2rdiDKzcIef1LybZY9yIqvhjlFKP00MKbr4iIKF240ZSkJ54Z/dPy9PSQoAHsDmJJKczGEacdU58GpiZ1ThYtqTAB8XrWTusDWNWOnwI/LeYEzxlV8TI39Ymm9als4xo7vIu2xLnzm3gImSsJPCjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785751225; c=relaxed/simple;
-	bh=9N86zhQ4eHlwVu8ONQ1O47axnKpFnkJHgYFuLWcPJuE=;
+	s=arc-20240116; t=1785751237; c=relaxed/simple;
+	bh=tcq+NfikfbLQ8jKxRv+FPVL9FcZ5yGHyV7cYgFT8fb4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=t7+v8ytTUCgGYT9Lmz2tNtnpSFDCirPuhYUFzq7SFgk2+a9wFefMAltNi99gm5+R1W+WUc5We2mLe0M/fFAvVSGMTknhJ3IW6k5NiJlhdB+NdYw3446dZA9+QD2ZD2JWtG/b3yW7SNTjcOmmX+ErezAMvhbEMQnT7RlO95QcsQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jL748+hq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=E3Zfu/a0Zw5ZuWndxYKu1biWhyiEQPStpXAHWVa2K1RVEccTKDjTaCyR3litYrJoCzIB5w5Wrho9mjqZ18hlnmmV9wLClU8UNtC302KmWK2hDgujnxkhpFOsld1jLY7FP9i2/YgVSY1zkeBKDCOwZmkb3Vc85k9Bmzxr8oWEaps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=maiJofX8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jL748+hq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA1C1F00A3A;
-	Mon,  3 Aug 2026 10:00:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="maiJofX8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139691F000E9;
+	Mon,  3 Aug 2026 10:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785751223;
-	bh=sSi+Cog5FLF2MAZzsQBbDzybhZsCaSzUjja3124AXNc=;
+	s=k20260515; t=1785751235;
+	bh=vhIiPuKdiD99XKyI/KBKLbn1uwcu23QsuHv1LIMGDFg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jL748+hqF8D0VA9CnJLwDvtkvsPx02MDYfN0lGsFk7yzAaOZKqZ9Xr19jXStoJLd+
-	 dIMuatL0flXaQVQ/q5bmynSG3GdvVcRJ15MLAhum1Di/22WLTiDuCyvGcfZ+ds7glv
-	 3ir1RT8U/IK1vP4bmFLg0ijrzY+tgJLTFCvVpKJLrbQ3TL6wHequOxBiaK2gIhWr0B
-	 TJ6KWgxycErzj81OF3dEOpKgPapKa4xgf1hi/Vmig5lqST9psZxaJO6x8qAGAOQHvu
-	 YepmWtkfjVIB++11ByosmDHuBGfLfhbCBZ9YnZhhlWG9/12gxdt2WmD4tSpDyHLgNz
-	 N9vm5w6STLjsg==
+	b=maiJofX8yRBwhKcCJUfu8VGSPiEZnZtQI676esJUgDVBS/H/KYNXPotUshMueL/4q
+	 oPpGDD+/YteRveNmnTM7r43xtQS7S2KOqF/HWFge8tEKPvkqoCfBFxSQkN8yOgWmGx
+	 jXcGfaADwUJf1ltHf5/kuD0dJJZsVqXzSjX01YxCGVlOnKLQJK4SV5rfRLuZqdRX2j
+	 ep4cSDlzlax0LaWtchss08x6mm8ZjeTgc/rv50UTbOrh2yQ1/Y5JyDmfe+NQccxF7X
+	 BHofYFK8BX9An5B9gweamLdNMscIrfsV5DhsH2gHTi8Ti6SjTZIep+DnL2TiFpy1ob
+	 5juCnDe+RF0Pw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for
- cpuidle-psci-domain cell
+Subject: Re: [RFC PATCH v4 6/6] arm64: dts: rockchip: rk3576-rock-4d: enable
+ NPU
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, mfd@lists.linux.dev, lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-4-889281373870@oss.qualcomm.com>
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260803094125.3285895-7-gahing@gahingwoo.com>
+References: <20260803094125.3285895-1-gahing@gahingwoo.com>
+ <20260803094125.3285895-7-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 10:00:22 +0000
-Message-Id: <20260803100023.7AA1C1F00A3A@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 10:00:34 +0000
+Message-Id: <20260803100035.139691F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,59 +47,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The new `psci-mfd` driver lacks a `.remove` callback and does no=
-t set `.suppress_bind_attrs =3D true`, allowing manual unbinding via sysfs =
-which leads to resource leaks.
-- [Low] The newly introduced MFD driver, its file, and its structures inclu=
-de the string 'mfd' in their names, violating subsystem conventions.
+- [Medium] The `vdd_npu_s0` regulator is forcibly kept `regulator-always-on=
+`, defeating runtime dynamic power management for the NPU.
+- [Medium] The patch only enables the first NPU core (`rknn_core_0`), leavi=
+ng the second symmetric NPU core (`rknn_core_1`) disabled.
 --
 
---- Patch [4]: [PATCH v24 04/12] mfd: psci-mfd: Add PSCI MFD driver for cpu=
-idle-psci-domain cell ---
-commit 26907aee3ff3e0a5d7112a9be25ebbebb10e94c7
-Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+--- Patch [6]: [RFC PATCH v4 6/6] arm64: dts: rockchip: rk3576-rock-4d: ena=
+ble NPU ---
+commit 2ef1c8164923c68f245bae8c6ee995f5fd70d4d3
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-mfd: psci-mfd: Add PSCI MFD driver for cpuidle-psci-domain cell
+arm64: dts: rockchip: rk3576-rock-4d: enable NPU
 
-This commit introduces a new PSCI MFD driver to manage multiple consumers of
-the PSCI device node. It registers the cpuidle-psci-domain as a child cell
-and updates the cpuidle driver to probe as an MFD child.
+Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D and supply the
+core from vdd_npu_s0.
 
-> diff --git a/drivers/mfd/psci-mfd.c b/drivers/mfd/psci-mfd.c
-> new file mode 100644
-> index 0000000000000..7affd6bb09dd8
-> --- /dev/null
-> +++ b/drivers/mfd/psci-mfd.c
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64=
+/boot/dts/rockchip/rk3576-rock-4d.dts
+> index 272af1012ab03..965e0906bd07e 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+
 [ ... ]
-> +static struct platform_driver psci_mfd_driver =3D {
-> +	.probe =3D psci_mfd_probe,
-> +	.driver =3D {
-> +		.name =3D "psci-mfd",
 
-[Severity: Low]
-This isn't a bug, but does naming the driver and struct with the "mfd"
-string violate the MFD subsystem guidelines?
-
-The MFD guidelines state not to hard-code implementation details in driver,
-struct, or device names, and to specifically avoid including the string
-"mfd" or the driver's own filename in names.
+> @@ -442,6 +442,7 @@ regulator-state-mem {
+>  			};
+> =20
+>  			vdd_npu_s0: dcdc-reg2 {
+> +				regulator-always-on;
 
 [Severity: Medium]
-Since there is no .remove callback provided in psci_mfd_driver, does this
-allow manual sysfs unbinding that could leak resources?
+Does keeping this regulator always-on defeat runtime dynamic power manageme=
+nt
+for the NPU?
 
-If a user unbinds the driver via sysfs, devres will destroy the child
-devices. Because the child driver (psci-cpuidle-domain) lacks proper
-cleanup for non-devm resources like generic PM domains, those resources
-might leak or leave dangling pointers on this administrative path.
+The regulator will remain permanently powered, leading to unnecessary power
+drain when the NPU is idle. Could we remove regulator-always-on and instead
+assign this as the domain-supply for the NPU power domain so the generic
+power domain framework can dynamically toggle the voltage?
 
-Should .suppress_bind_attrs =3D true be set in the driver struct to prevent
-unsupported sysfs unbinding?
+>  				regulator-boot-on;
+>  				regulator-enable-ramp-delay =3D <400>;
+>  				regulator-min-microvolt =3D <550000>;
 
-> +		.of_match_table =3D psci_mfd_of_match,
-> +	},
+[ ... ]
+
+> @@ -869,3 +870,12 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
+>  		remote-endpoint =3D <&hdmi_in_vp0>;
+>  	};
+>  };
+> +
+> +&rknn_core_0 {
+> +	npu-supply =3D <&vdd_npu_s0>;
+> +	status =3D "okay";
+> +};
+> +
+> +&rknn_mmu_0 {
+> +	status =3D "okay";
 > +};
 
+[Severity: Medium]
+Is there a reason to only enable the first NPU core (rknn_core_0) and leave
+the second symmetric core (rknn_core_1) disabled?
+
+Since both cores share the same voltage supply and power domains, leaving
+rknn_core_1 and rknn_mmu_1 disabled limits the board to half of its
+physical AI compute capacity.
+
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-arm-psci-s=
-ystem_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803094125.3285=
+895-1-gahing@gahingwoo.com?part=3D6
