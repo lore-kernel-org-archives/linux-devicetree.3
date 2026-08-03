@@ -1,216 +1,358 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9D237883E
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:28:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC3937F8DB;
+	Mon,  3 Aug 2026 10:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785752935; cv=none; b=ntnmiGeCEvmKFSq/czaFoHtu321dzbTPY9IQ/7sjoyfPt62InIR0EAL/ZQu53YrtzAYg582/oOzKIE0bYgO3WihYhfk+g8dZknssI9Tn21tekk0gPGALdb+mVFg62wVZepw4ANH+xmsMXwLuCgbIr/Bkj++VnS3UQBsjQHdVyY0=
+	t=1785753184; cv=none; b=t1FljSSTwGyD5e9rpxK8QYAM1kUqrDtc+O5bfaGQ6h3xFkBvcKDgJlp/NI3fAKSec7+FduG4Y9FPBshd8Grp737Wuw/Xl2kHSjJJ/68yhQrgvIfSQiBp+dIUwEHEiVXVLwJKmrMdL+uxdDUUOT6jVydzLBoNffRXY36k+u+EMEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785752935; c=relaxed/simple;
-	bh=YI+SeCXwe3QTLmdnaISpUAOdff3psaCPzk+4QqEjGC8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eLg7dEJcJoOmy9mhdc5KNyd/mXKNUmAwjXI+lu0c9XeQhuh1FSVtEuBVTw3qbA07qvwvLb001KvCM7SPKGqqsE2PoSN8wPQbQxbvgC7Ef3hy9fnuZUE6oZhZiPhBoPJQUZhY90pMBJXYFC6jT1mKTp6i2fyqDTyRQzhBsRyIedQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MwiN0Mx5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Qha4TP7k; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785753184; c=relaxed/simple;
+	bh=pvvVBBdPmwtc1XqUFY4o6ezb+U0sw/2o9BVK9vwNk+8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hyo6x2ZjbvCFWP6eNPNSsQOPBg8eVTgJ3hqpC9/sY+L/BHugRGQglI5sFi/zpFl3Hq0aczogMdpuhed68py4AfQfftSiefI9W5toONBgIpJJ1Es6qAxZxd8jlc0Kc9s5rE1WM4oJH+A8tc2a1WrA7i54G2e5PibrPsfRcUOT/sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NqEOEK2f; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MwiN0Mx5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Qha4TP7k"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6736bXVT3957265
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 10:28:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Awud7FmFVBbftdi8mV4xuz2E3JQyxCXhFkWyr+GNJ38=; b=MwiN0Mx5BKR/F6I4
-	uqweJyOgADhPfHdriE3f9k5zS0JqcnsKy5R7j0+DUv6J8MwOJHO4OdgpONGuIidx
-	IDAOGm3rxSyZBnNAZRIf+xMC+Z9++C2ejecIY53uwEo1dN0Fv9vLRcLK7tNcI9Lo
-	z+KrSrhi6t43ppImzdh1TKgn6KX2EiwplpVcSoJTe0heLAz9AiXdPNosg/yUCEtf
-	5wjgoCLo/7B30v7PIjWBHoWe1PEtarUI0OubhmAWW613doe96uD0wUwShV95IF22
-	OROQ5UakQuQSUwj4VPK+YBYz5dTZQ/dwvKuUAMU2jhqFuhz/EE0Oe2Pd1HLBgo9e
-	QPZhOg==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnvnh0ur-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 10:28:52 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb835525b10so4341452a12.2
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 03:28:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785752931; x=1786357731; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Awud7FmFVBbftdi8mV4xuz2E3JQyxCXhFkWyr+GNJ38=;
-        b=Qha4TP7k0HQ+QAMPFKft5zxzoU9pePk8WMQ/Cgb48mK+MNfzQw+GsZluWpUuEFZTFF
-         kRIL3alZnsv/U68uex2o7MHtosvDp1JT918Y4hlLrm91VyXc+IB/HNpWk8WpOWwmY7fE
-         ywvIFnqwT35iAQ92SH4tTpVZPWgQxx5dtRFmQca7w2qCBGfRg7Edg0FGp7cKTWpTtdAv
-         6i3zWbObfDPKDsDINc/E4HMGS4w5KtuK4NP1jySUU25oTXuMuHMAmgLBT4yU1mHQRxt+
-         Y+DhEDaIaDgbf1ni4wFadx9jaoVOO8rs7c28HrlcVkDjiyBBfTOzM2xXqZK5N1/MLMCS
-         cWCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785752931; x=1786357731;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Awud7FmFVBbftdi8mV4xuz2E3JQyxCXhFkWyr+GNJ38=;
-        b=oh/wPGjq+Jhvz9uD2/UCwIT0DvYCO0XgD+YKWhzZP6sBm6rG/pcG2ZGZstiND9JiIa
-         8mZUtpVN1f5g+qOhIj6C40cuWRW2jFadJwyuhU0qZ9GsCwQgng79FbIz0tObqbzycgLH
-         PvWFaw3pqHhP3D11/wDDi4QAuM/Bb67uN7sgWs9WOvsmSDhXz+KDCbSsCEyf/2dxXL/I
-         0QfKJNZSGC1vDwpCNcYaPLIcDcDI0Tfclqne21hvMwo1Zp+Ox549C8zGHL5MOra8vI/W
-         JIzSpfm0504vwVukLmEkxb9z4RtAeUg39WPrI8eDdnuoy9CwP2f2fylZQVISsZ1vpKgE
-         Br1A==
-X-Forwarded-Encrypted: i=1; AHgh+RqcyomZvJCNWaAqSQGVOoYkalzVCNkdJURp0WPebRaQcgyJFN2ITvdTKko70Grvq0hycqJZDCHGhy0s@vger.kernel.org
-X-Gm-Message-State: AOJu0YxOKv3S3n0Bb+K/t2KDGKa9FmN60LC6mcKdJq6O7VIXUvKpAJdS
-	MqEJeryqbIeAwuzuBAiezxXx/dpaQxzCuPu2KCHNSwv0JIj5V1cKHPL1kXOE3TaqonHZA+A0ccK
-	rklXL46TBU+TwMhTiGaH6DLxrMMPL3NnsmCXhKPlz9HwmVYXPWgyp8fLGHeTv8Ycn
-X-Gm-Gg: AR+sD11OIz3v1V9ZE68IjIoqi4WNt3m1erkFlBtU9A+UHBUGx44vhS0zODrXsDcFga0
-	I+F50SlE7OUhNoi6Z87V0+29axlyj6NCrJyMoGxDMWZoiroCkCOFb2pomJqxUYWWWGW6quexTdc
-	JutgGhP77XcEwfe6Bfxlo685ywzsCsz54sHVssqBYtF7KXJ6oPHrDmjaUhQQW/BYqUNlqeSWFVM
-	NegXYCEhOyNy2kFnRR1RJDBNhc2X489lzHluFtWQ8sdOfRziguRtFo71LT4k9NdREVTcQdba8kJ
-	sN35h/wlSUZRkNt5wnmzYcE1Bpv05E/u3pAf/6uBhQzqGLPYBYR2vaUazOx6krk/ycYkosMqllW
-	y5mNcHGPMncmCBWP7S72NszK0nyug
-X-Received: by 2002:a05:6a21:a03:b0:3c3:8bab:80b with SMTP id adf61e73a8af0-3c92a8be67amr9529956637.61.1785752931534;
-        Mon, 03 Aug 2026 03:28:51 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a03:b0:3c3:8bab:80b with SMTP id adf61e73a8af0-3c92a8be67amr9529932637.61.1785752931082;
-        Mon, 03 Aug 2026 03:28:51 -0700 (PDT)
-Received: from [10.218.15.172] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e29a126sm39291548eec.31.2026.08.03.03.28.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 03:28:50 -0700 (PDT)
-Message-ID: <e8846903-1c1a-4e11-9a7c-9703536e50fd@oss.qualcomm.com>
-Date: Mon, 3 Aug 2026 15:58:44 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NqEOEK2f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785753182; x=1817289182;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pvvVBBdPmwtc1XqUFY4o6ezb+U0sw/2o9BVK9vwNk+8=;
+  b=NqEOEK2fzWXT81HI7papkACITwkPL+qeMU/yF93fA+1kAr2kZI0USOOE
+   lpNmRMQpCtXGA5uDb4uVqBIZiZZYmrIUIcNIn5Viubk5eyqzH+dNOZN3A
+   lOzY2D6yuCF+Bg/Yy6CYR9ruV4g/ewuDn8zQrppmDb1NLw4st+OnqFLJl
+   wnJj+WFdEYgUQApGrEsAvwsKJjtje0Og0dt7NhVD1MdzOT27wNIKGjqCj
+   nGbzks3rGON4ZrYJGdpNmmjwd3M2uykOVlnCylsUr3Cwp3J3R1pJ8aWAW
+   Q0iPc9IZjZ/az11631pu+sfz4M9lhyexiMAQ7ammFWm8oQTVuaSzmeh87
+   g==;
+X-CSE-ConnectionGUID: 1pAX0ZNlTt2yJAyfGgpY7A==
+X-CSE-MsgGUID: QrlaPZSaSPSzH/LG66rPwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11863"; a="86488362"
+X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
+   d="scan'208";a="86488362"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 03:33:01 -0700
+X-CSE-ConnectionGUID: hse4iVV4Sea9JeRrrseioQ==
+X-CSE-MsgGUID: ZwTmyxOfQI2NOCGAGhTvKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
+   d="scan'208";a="263172193"
+Received: from zzombora-mobl1 (HELO kekkonen.fi.intel.com) ([10.245.245.14])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 03:28:40 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C92601205B0;
+	Mon, 03 Aug 2026 13:28:43 +0300 (EEST)
+Date: Mon, 3 Aug 2026 13:28:43 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Message-ID: <anBtWwyNVdKi90Zg@kekkonen.localdomain>
+References: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
+ <20260727-mira220-v10-2-8825794e6095@ideasonboard.com>
+ <amjAgRnL0vM2eQJl@kekkonen.localdomain>
+ <amypEMpDvY47VkG5@zed>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: interrupt-controller: mpm: Document
- power-domains property
-To: Marc Zyngier <maz@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Shawn Guo <shawn.guo@linaro.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
- <20260713-b4-shikra_lpm_addition-v1-1-3d858df2cbbf@oss.qualcomm.com>
- <87ik6i6i22.wl-maz@kernel.org>
- <CGME20260715063901eucas1p2a4c2d72e4d9dbd9fd2f1e686d1a6c89c@eucas1p2.samsung.com>
- <3dac25b9-a464-4350-aff5-0ada4dc1d65e@samsung.com>
- <86cxwoocol.wl-maz@kernel.org>
-Content-Language: en-US
-From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-In-Reply-To: <86cxwoocol.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=aoaCzyZV c=1 sm=1 tr=0 ts=6a706d64 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=hD80L64hAAAA:8 a=EUspDBNiAAAA:8
- a=Hgul2LAUnyHK3LffZBEA:9 a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: 2H4GlgG3Au1m9_qgIaAoNP0pV_qb56Ku
-X-Proofpoint-ORIG-GUID: 2H4GlgG3Au1m9_qgIaAoNP0pV_qb56Ku
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA5MyBTYWx0ZWRfX6+08OBrnnv/g
- cwYOYnbZj/dH5xLtTfCRVoJfc1X8ctsjz1BEgKkmu2V8bQTP8jNCENqAw9XH1WQnaWNNa9teDEo
- s/cF7rStwfEXJmx+YHhi8F9VJj/w5hvbiim/9/6o8n6ysNiSecNRE90jyGcu2BTsOc95AHpPYHT
- TgpDKjLW7jhsxx9i3lachRW6xE8NLxsUeDbmi5jlXqeUoK9X46ZeSkroubukzlIUDBiPonZwk+q
- mLlBKzd9LuQErn8HHGUdt0o9cZlOvzv9y6nLoHOpo6xQnzRiCKrYFD9WmCMWPQAgK25ThMuCj7w
- fUhk/bAEYhrTuhgHkzuWwvm7tIsFeRiO0GSIKr5wAQQ6/MZyiKMxyXubP8ttHr3S6krHL2LKGJG
- FbCss85lWjhJ8HUnmgfBPKAtjOfbQVyD1l9l+x2zUZEpb5DaWVcLrxOkGJm/hBioGnU7ykO6sot
- e+/T5f4sYcAwGvZI19A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA5MyBTYWx0ZWRfX2KXkODJrYGsW
- a1zCnxoOdHnI5WBxvI7WaGbkbVgthWyH2AuvKiNsV1a0BM2Ae37ngNboQn4EhN5lIBS8fe3fEZE
- Wltmj9sUS0DdVFrSLRaHDJCei0qmE5I=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030093
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amypEMpDvY47VkG5@zed>
 
+Hi Jacopo,
 
+On Fri, Jul 31, 2026 at 04:15:53PM +0200, Jacopo Mondi wrote:
 
-On 15-Jul-26 2:24 PM, Marc Zyngier wrote:
-> On Wed, 15 Jul 2026 07:38:59 +0100,
-> Marek Szyprowski <m.szyprowski@samsung.com> wrote:
->>
->> On 13.07.2026 17:11, Marc Zyngier wrote:
->>> On Mon, 13 Jul 2026 11:25:41 +0100,
->>> Sneh Mankad <sneh.mankad@oss.qualcomm.com> wrote:
->>>> Remove #power-domain-cells property and add power-domains property for
->>>> MPM device.
->>>>
->>>> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
->>>> ---
->>>>  .../devicetree/bindings/interrupt-controller/qcom,mpm.yaml          | 6 +++---
->>>>  1 file changed, 3 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
->>>> index ebb40c48950ab3a8fc86f5708acfc33c33d68993..3f9645fbc3c20633077aaa589e5d5a43928dab51 100644
->>>> --- a/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
->>>> +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,mpm.yaml
->>>> @@ -68,8 +68,8 @@ properties:
->>>>          - description: MPM pin number
->>>>          - description: GIC SPI number for the MPM pin
->>>>  
->>>> -  '#power-domain-cells':
->>>> -    const: 0
->>>> +  power-domains:
->>>> +    maxItems: 1
->>> What makes you think it is OK to change an existing binding in an
->>> incompatible way?
->>
->>
->> Ulf suggests that this has been modeled upside down in the initial
->> submission:
->>
->> https://lore.kernel.org/all/CAPx+jO9d1qH12mxg-n1rkbp6Xd__sdrSMeoc7CPELE+jgxRYHA@mail.gmail.com/
+...
+
+> > > +	/* Sensor control mode */
+> > > +	{ CCI_REG8(0x0043), 0x0 }, //  Sensor Control Mode.SLEEP_POWER_MODE(0)
+> > > +	{ CCI_REG8(0x0043), 0x0 }, //  Sensor Control Mode.IDLE_POWER_MODE(0)
+> > > +	{ CCI_REG8(0x0043), 0x4 }, //  Sensor Control Mode.SYSTEM_CLOCK_ENABLE(0)
+> > > +	{ CCI_REG8(0x0043), 0xC }, //  Sensor Control Mode.SRAM_CLOCK_ENABLE(0)
+> > > +	{ CCI_REG8(0x1001), 0x41 }, //  Sensor Control Mode.EXT_EVENT_SEL(0)
+> > > +	{ CCI_REG8(0x10f2), 0x1 }, //  Sensor Control Mode.NB_OF_FRAMES_A(0)
+> > > +	{ CCI_REG8(0x10f3), 0x0 }, //  Sensor Control Mode.NB_OF_FRAMES_A(1)
+> > > +	{ CCI_REG8(0x0012), 0x0 }, //  IO Drive Strength.DIG_DRIVE_STRENGTH(0)
+> > > +	{ CCI_REG8(0x0012), 0x0 }, //  IO Drive Strength.CCI_DRIVE_STRENGTH(0)
+> > > +	{ CCI_REG8(0x1001), 0x41 }, //  Readout && Exposure.EXT_EXP_PW_SEL(0)
+> > > +	{ CCI_REG8(0x10d0), 0x0 }, //  Readout && Exposure.EXT_EXP_PW_DELAY(0)
+> > > +	{ CCI_REG8(0x10d1), 0x0 }, //  Readout && Exposure.EXT_EXP_PW_DELAY(1)
+> > > +	/* MIPI */
+> > > +	{ CCI_REG8(0x6006), 0x0 }, //  MIPI.TX_CTRL_EN(0)
+> > > +	{ CCI_REG8(0x5004), 0x1 }, //  MIPI.datarate
+> > > +	{ CCI_REG8(0x5086), 0x2 }, //  MIPI.datarate
+> > > +	{ CCI_REG8(0x5087), 0x4e }, //  MIPI.datarate
+> > > +	{ CCI_REG8(0x5088), 0x0 }, //  MIPI.datarate
+> > > +	{ CCI_REG8(0x5090), 0x0 }, //  MIPI.datarate
+> >
+> > How many of these registers are actually 16 or 32 bits? Does the sensor
+> > support wider than single-octet writes -- few don't?
 > 
-> Sure. We have collectively fucked up a lot of bindings over the years,
-> mostly because of the lack of accurate documentation and people not
-> giving a damn about the correctness of these descriptions. I'm glad
-> that Ulf is now able to make it right.
+> The sensor is said to support both single read/write and burst read/write
+> sequences.
 > 
-> But that is not a license to invalidate DTs retrospectively. We don't
-> update DTs in lockstep with the kernel (I *never* do), and something
-> that existed must be supported in the long run.
+> There is room for improvements here, but as the startup latency is not
+> a concern for the time being, I would leave this as an exercize for
+> later
+
+Related to the previous comment, it'd be nice to have human-readable names
+also for these registers. I'm fine with that if you promise to address this
+later. :-)
+
+...
+
+> > > +	ret = pm_runtime_resume_and_get(&client->dev);
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +
+> > > +	/*
+> > > +	 * Apply default values of current mode. Stop streaming before
+> > > +	 * uploading register sequence.
+> > > +	 */
+> > > +	ret = mira220_write_stop_streaming_regs(mira220);
+> > > +	if (ret)
+> > > +		goto err_rpm_put;
+> > > +
+> > > +	ret = cci_multi_reg_write(mira220->regmap, mira220_init_reg_list,
+> > > +				  ARRAY_SIZE(mira220_init_reg_list), NULL);
+> > > +	if (ret)
+> > > +		goto err_rpm_put;
+> > > +
+> > > +	ret = mira220_otp_restore(mira220);
+> > > +	if (ret)
+> > > +		goto err_rpm_put;
+> > > +
+> > > +	ret = mira220_set_bus_config(mira220);
+> > > +	if (ret)
+> > > +		goto err_rpm_put;
+> > > +
+> > > +	ret = mira220_set_framefmt(mira220, state);
+> > > +	if (ret)
+> > > +		goto err_rpm_put;
+> >
+> > Instead of a series of ifs and gotos, you could do
+> >
+> > 	if (!ret)
+> > 		...;
+> >
+> > Up to you.
+> >
 > 
-> Properties can be deprecated, but:
+> 	ret = pm_runtime_resume_and_get(&client->dev);
+> 	if (ret < 0)
+> 		return ret;
 > 
-> - they must be kept in the binding
+> 	/*
+> 	 * Apply default values of current mode. Stop streaming before
+> 	 * uploading register sequence.
+> 	 */
+> 	if (!ret)
+> 		ret = mira220_write_stop_streaming_regs(mira220);
+> 	if (!ret)
+> 		ret = cci_multi_reg_write(mira220->regmap, mira220_init_reg_list,
+> 					  ARRAY_SIZE(mira220_init_reg_list), NULL);
+> 	if (!ret)
+> 		ret = mira220_otp_restore(mira220);
+> 	if (!ret)
+> 		ret = mira220_set_bus_config(mira220);
+> 	if (!ret)
+> 		ret = mira220_set_framefmt(mira220, state);
 > 
-> - drivers must still honor them if they are present in the DT
+> 	/* Apply customized values from user */
+> 	if (!ret)
+> 		ret = __v4l2_ctrl_handler_setup(mira220->sd.ctrl_handler);
+> 	if (!ret)
+> 		ret = mira220_write_start_streaming_regs(mira220);
+> 
+> 	if (ret)
+> 		goto err_rpm_put;
+> 
+> 	/* vflip and hflip cannot change during streaming */
+> 	__v4l2_ctrl_grab(mira220->hflip, true);
+> 	__v4l2_ctrl_grab(mira220->vflip, true);
+> 
+> 	return 0;
+> 
+> Looks a bit unusual, but I think I can do that
 
-Currently only two chipsets have #power-domain-cells property mentioned in MPM DT node,
-agatti and sm6375.
+Such a pattern is used in quite a few sensor drivers.
 
-Agatti - does not execute CPU cluster LPMs as of now, so not handling the #power-domain-cells in
-driver will have no effect in functionality.
+...
 
-sm6375 - Being an old chipset I am not aware of its status. 
+> > > +	/* By default, PIXEL_RATE is read only */
+> > > +	v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops, V4L2_CID_PIXEL_RATE,
+> > > +			  MIRA220_PIXEL_RATE, MIRA220_PIXEL_RATE, 1,
+> > > +			  MIRA220_PIXEL_RATE);
+> > > +
+> > > +	min_vblank = mira220_calc_min_vblank(mira220);
+> > > +	mira220->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
+> > > +					    V4L2_CID_VBLANK,
+> > > +					    min_vblank, MIRA220_MAX_VBLANK, 1,
+> > > +					    min_vblank);
+> > > +
+> > > +	ctrl = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
+> > > +				      0, 0, &mira220_link_freqs[0]);
+> > > +	if (ctrl)
+> > > +		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> > > +
+> > > +	/*
+> > > +	 * Scale hblank according to the number of enabled data lanes to match
+> > > +	 * row_length.
+> > > +	 */
+> > > +	hblank_val = MIRA220_LLP_1600x1400_304 * (2 / mira220->lanes)
+> > > +		   - MIRA220_PIXEL_ARRAY_WIDTH;
+> > > +	ctrl = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, hblank_val,
+> > > +				 hblank_val, 1, hblank_val);
+> > > +	if (ctrl)
+> > > +		ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> > > +
+> > > +	/* Max exposure is determined by vblank + vsize and Tglob. */
+> > > +	max_exposure = mira220_calc_exposure(mira220,
+> > > +					     MIRA220_PIXEL_ARRAY_HEIGHT,
+> > > +					     min_vblank);
+> > > +
+> > > +	mira220->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
+> > > +					      V4L2_CID_EXPOSURE,
+> > > +					      MIRA220_EXPOSURE_MIN,
+> > > +					      max_exposure, 1,
+> > > +					      MIRA220_DEFAULT_EXPOSURE);
+> > > +
+> > > +	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_ANALOGUE_GAIN,
+> > > +			  MIRA220_ANALOG_GAIN_MIN, MIRA220_ANALOG_GAIN_MAX,
+> > > +			  MIRA220_ANALOG_GAIN_STEP,
+> > > +			  MIRA220_ANALOG_GAIN_DEFAULT);
+> > > +
+> > > +	mira220->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &mira220_ctrl_ops,
+> > > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
+> > > +	if (mira220->hflip)
+> > > +		mira220->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
+> >
+> > You can omit these checks if you move setting the control flags after
+> 
+> ah yes
+> 
+> > checking for the handler's error state. I'd use different variables for the
+> > hblank and vblank controls for this reason.
+> 
+> vblank is writable and stored in the driver structure
+> 
+> link_freq and hblank are RO and re-use the local 'ctrl' variable.
 
-If the driver honors the #power-domain-cells property, even the CPU level idle states will fail to
-probe on these devices, due to the reasoning provided in cover letter.
+I indeed meant link_freq indeed, not vblank.
 
-With these patches, the CPU level idle states will function properly, so will cluster level
-idle states if enabled.
-In addition to that, the fallback mechanism of registering for CPU PM notification when power-domains
-property is not mentioned in DT node will take care of the RPM notification when cluster idle state
-is entered.
+> 
+> if I move everything below, I'll have to use 2 different variables for
+> sure
 
-As suggested by Konrad, I will add a brief explanation on the need for this bindings change in this patch.
+Yes, that'd be nice.
 
-Thanks,
-Sneh
+...
 
+> > > +	ret = v4l2_async_register_subdev_sensor(&mira220->sd);
+> > > +	if (ret < 0) {
+> > > +		dev_err_probe(dev, ret,
+> > > +			      "failed to register sensor sub-device\n");
+> > > +		goto error_subdev_cleanup;
+> > > +	}
+> > > +
+> > > +	pm_runtime_idle(dev);
+> >
+> > You probably want to call pm_runtime_idle() after setting autosuspend
+> > delay.
+> >
+> To be honest I copied this from imx219 but I can certainly change it.
+
+That could be fixed as well. I'll write a patch for it. :-)
+
+> 
+> 
+> 
+> > > +	pm_runtime_set_autosuspend_delay(dev, 1000);
+> > > +	pm_runtime_use_autosuspend(dev);
+> > > +
+> > > +	return 0;
+> > > +
+> > > +error_subdev_cleanup:
+> > > +	v4l2_subdev_cleanup(&mira220->sd);
+> > > +error_media_entity:
+> > > +	media_entity_cleanup(&mira220->sd.entity);
+> > > +error_handler_free:
+> > > +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
+> > > +error_power_off:
+> > > +	pm_runtime_disable(dev);
+> > > +	mira220_power_off(dev);
+> > > +	pm_runtime_set_suspended(dev);
+> >
+> > A newline here perhaps?
+> >
+> 
+> Usually I like to keep error path returns compact
+> 
+> Thanks, I'll send a new version soon.
+> It's mostly minor stuff, do you think I can get this in for this cycle
+> (a bit last minute, I know)
+> 
+> Thanks
+>   j
+> 
+> 
+> > > +	return ret;
+> > > +}
+> > > +
+> > > +static void mira220_remove(struct i2c_client *client)
+> > > +{
+> > > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> > > +	struct mira220 *mira220 = to_mira220(sd);
+> > > +
+> > > +	v4l2_async_unregister_subdev(sd);
+> > > +	v4l2_subdev_cleanup(&mira220->sd);
+> > > +	media_entity_cleanup(&sd->entity);
+> > > +
+> > > +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
+> > > +
+> > > +	pm_runtime_disable(&client->dev);
+> > > +	if (!pm_runtime_status_suspended(&client->dev))
+> > > +		mira220_power_off(&client->dev);
+> > > +	pm_runtime_set_suspended(&client->dev);
+> > > +}
+> > > +
+> > > +static const struct dev_pm_ops mira220_pm_ops = {
+> > > +	SET_RUNTIME_PM_OPS(mira220_power_off, mira220_power_on, NULL)
+> > > +};
+> > > +
+> > > +static const struct of_device_id mira220_dt_ids[] = {
+> > > +	{ .compatible = "ams,mira220" },
+> > > +	{ /* sentinel */ }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, mira220_dt_ids);
+> > > +
+> > > +static struct i2c_driver mira220_i2c_driver = {
+> > > +	.driver = {
+> > > +		.name = "mira220",
+> > > +		.of_match_table	= mira220_dt_ids,
+> > > +		.pm = pm_ptr(&mira220_pm_ops),
+
+If CONFIG_PM isn't defined, mira220_pm_ops needs to use __maybe_unused. I'd
+just drop pm_ops() here.
+
+-- 
+Regards,
+
+Sakari Ailus
