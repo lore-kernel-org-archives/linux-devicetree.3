@@ -1,123 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD3311CBA
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 17:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EEF23955D8;
+	Mon,  3 Aug 2026 17:48:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785779082; cv=none; b=r7y5OMuqKnqdsatfwEZ1CEjujPcZ2S09yHUzOQ78VL1VPU4leF483CI6aM2/hfZEoctgr/5lzI15WUTxRFTLOjGTbvwtautMFO0ANzjgXdIK52OP37YtReHCMlaT5NQN9YJWOqPwBQGD+W4z2rhIFAhzL0kWlmOumM+rSHtGwv8=
+	t=1785779307; cv=none; b=QB4Ia2mxElafoTfDh4eVVw+EwpCZrctHURt6oqr4dP//Y1lEUhpOygLOHwlWYXmjCGFDaj8nU8OBNf8o/g6GyRrfp4BNVVOI9+bCsuitspByZM+gel/17kVOB5qzmnvqSBzzuqQu6bUHjdTedvemIIHHoTaL/ALjo3BvhLQ6RVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785779082; c=relaxed/simple;
-	bh=dSE2p6pZtl3Eecy5hdjRNjPJisO9eHmq+e4tMSl01pY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IN3mxyJ92syw2DdE9khVn/+T6UlccYcPk2Yj54qEb8IUDv2NX7kZZxSy7DI4D9MQnxl7hAvaxYVAE5BViLftADOU5qXVfbS7L0m9UyHyQZ01pTdrBz2LhYaaDtqTytKlq67Wh6HFE/u2B6b6DorZn8TugNFT8vZtPg6vy1GNrmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uzin+D0K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785779307; c=relaxed/simple;
+	bh=65cb7UEHUvs9af0Ej+kL97qAT27LpOyQMo8mrY/QLik=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uO2kGNc8vHV1ucw58dFTTopdo0OO7+N9InqvqsBoC6OH7zAZAVkcuBN8k6OusrQ7WF0XZhKucuUyBcW42Yl26MvcIAatKvXFpd9XMja4ShLLeJPvByg/ZlVpwIIl8HUKLsmVtf5DxYUB570KyqcSu8fGOVgAuOJP1FKnzJgtTMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=u1kXI2+R; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uzin+D0K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294171F000E9;
-	Mon,  3 Aug 2026 17:44:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785779081;
-	bh=Xl8zwObqQknpSaeR99I80qnr5YAA0oqRT9U0qhseZMA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Uzin+D0KqTkykZjRQmv5t8Yw4wK+fjHlTeShVIUI+ll3jNDuPLO5qJJK+OV50ynW3
-	 TjMf0wy0Lr8B6x1ul4+U49TGRVtoy/xkl1GDYHroJY1pG0qKzw8nzfr7lrYH3AE70W
-	 FFAVPflOMkT1yQoc4d94i75IALDNR9aqrb0pj1BOISSziKJ2EUALC2/itiGs0Hmj2X
-	 esQXmVikmM6mxkhnhxcDtZLvcAw/TeW27k6VzRMnY72QdDQ+NCe5mLtwj8rNNM2gFk
-	 +5y6dEQcqFOHGV1T2w3u0wCF0i8z0Q9h1Pu/g24FeowcOyEgM2KzHFPcnPWoIaAfSG
-	 2fVXXUx6al4yA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] iio: dac: mcp47a1: add support for new device
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803-mcp47a1-add-support-v3-2-540e71b4fd2e@gmail.com>
-References: <20260803-mcp47a1-add-support-v3-0-540e71b4fd2e@gmail.com>
- <20260803-mcp47a1-add-support-v3-2-540e71b4fd2e@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 17:44:40 +0000
-Message-Id: <20260803174441.294171F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="u1kXI2+R"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=cSyyM7BUXIDF3kJhgyCmgOwoW98OlpC1I9i3DPZMz2s=; b=u1
+	kXI2+R12w43beaPSCbM1HCJtvorD9d3Ebq53sQZR3ik4voCij2lPlW5oXM+0wRshrRMCr87mcUHo7
+	XN23BeKdWZNVXSS4v3jExOreZBR9tOxH6d4xKQfMcUyCUx/18N/JTdJBnEYVUqcMnpK/q5TYssUsX
+	zXFXTFEDjez0ehA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wqwlg-00Fn1q-LQ; Mon, 03 Aug 2026 19:48:04 +0200
+Date: Mon, 3 Aug 2026 19:48:04 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com, mfd@lists.linux.dev,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 10/21] net: phy: add X-Powers AC200 EPHY control driver
+Message-ID: <9b8be475-1fde-409c-a82e-be4b2e402650@lunn.ch>
+References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+ <20260802-submit-acx00-of-dynamic-v1-v1-10-0a53cd9e21cc@gmail.com>
+ <05b1e6a2-725e-4b8e-8629-249637bbcb81@lunn.ch>
+ <CADvTj4o0JdjoO+FC4pO=qnjEQ8MRyzQdKp2Hxy9NsPU-gym5OQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADvTj4o0JdjoO+FC4pO=qnjEQ8MRyzQdKp2Hxy9NsPU-gym5OQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incorrect SMBus commands send extra bytes and corrupt the DAC ha=
-rdware state.
---
+On Mon, Aug 03, 2026 at 10:09:01AM -0600, James Hilliard wrote:
+> On Mon, Aug 3, 2026 at 7:51 AM Andrew Lunn <andrew@lunn.ch> wrote:
+> >
+> > > +static int
+> > > +ac200_ephy_ctl_set_led_outputs(struct acx00_ephy_control *control,
+> > > +                            unsigned long outputs)
+> > > +{
+> > > +}
+> >
+> > > +static int
+> > > +ac200_ephy_ctl_set_led_polarity(struct acx00_ephy_control *control,
+> > > +                             bool active_low)
+> > > +{
+> > > +}
+> >
+> > I've not looked into the details, but these look like pinmux. Does
+> > this I2C device have a GPIO controller? Can these pins be used for
+> > other things than LEDs? Maybe you should be implementing a GPIO and
+> > pinmux driver. The Ethernet PHY driver can then just select the
+> > correct pinmux configuration.
+> 
+> These do not appear to be GPIO or muxable pins. The AC200
+> documentation describes them as three dedicated EPHY LED
+> outputs: link/activity, speed, and duplex. The bits in SYS_EPHY_CTL1
+> enable those output pads, while EPHY_CTL provides their shared
+> polarity setting. I have not found any documented GPIO data
+> registers or alternative functions for these pins.
 
---- Patch [2]: [PATCH v3 2/2] iio: dac: mcp47a1: add support for new device=
- ---
-commit f73263d5ea24798a693c0c4cfa738627794988ba
-Author: Joshua Crofts <joshua.crofts1@gmail.com>
+So what i'm trying to do with both of these is make it look more like
+standard Linux building blocks.
 
-iio: dac: mcp47a1: add support for new device
+If that is not possible, i would actually put all this code into the
+PHY driver. You then have a regmap property to gain access to the I2C
+registers.
 
-This commit introduces a new driver for the Microchip MCP47A1 6-bit volatile
-DAC. It supports writing and reading the raw values and exposing the scale
-using I2C.
+       Andrew
 
-> diff --git a/drivers/iio/dac/mcp47a1.c b/drivers/iio/dac/mcp47a1.c
-> new file mode 100644
-> index 0000000000000..0bf994aa0e4f5
-> --- /dev/null
-> +++ b/drivers/iio/dac/mcp47a1.c
-
-[ ... ]
-
-> +static int mcp47a1_write(struct iio_dev *indio_dev,
-> +			 struct iio_chan_spec const *chan,
-> +			 int val, int val2, long mask)
-> +{
-> +	struct mcp47a1_data *data =3D iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		if (!in_range(val, 0, MCP47A1_MAX_STEPS))
-> +			return -EINVAL;
-> +
-> +		return i2c_smbus_write_byte_data(data->client, MCP47A1_CMD_CODE,
-> +						 val);
-
-[Severity: Medium]
-Could this corrupt the DAC hardware state by sending an extra byte?
-
-If the MCP47A1 expects a single byte without a command code, using
-i2c_smbus_write_byte_data() will send a 2-byte payload, writing 0x00 to the
-DAC before the actual value. This could potentially cause an output glitch.
-
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static int mcp47a1_read(struct iio_dev *indio_dev,
-> +			struct iio_chan_spec const *chan,
-> +			int *val, int *val2, long mask)
-> +{
-> +	struct mcp47a1_data *data =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret =3D i2c_smbus_read_byte_data(data->client, MCP47A1_CMD_CODE);
-
-[Severity: Medium]
-Does this destructively reset the DAC on every read?
-
-If the device does not expect a command code and interprets it as a data by=
-te,
-calling i2c_smbus_read_byte_data() will perform a write of 0x00 before read=
-ing,
-destructively resetting the DAC output to 0.
-
-> +		if (ret < 0)
-> +			return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-mcp47a1-ad=
-d-support-v3-0-540e71b4fd2e@gmail.com?part=3D2
