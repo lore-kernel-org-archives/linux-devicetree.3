@@ -1,34 +1,33 @@
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE142388385;
-	Mon,  3 Aug 2026 16:46:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE97237713;
+	Mon,  3 Aug 2026 16:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785775598; cv=none; b=t/LlDJ0q7jL6wjvby1u8bIsutI53Ze+aowEtm8uIBXXlp/jtcQGJ51wSPait1kSfdkCG77EFtQ6FAsySgyQeglECuZvcB/a8KNa6vxX/bc9uLy23UiKCHN32Ab+8cKWzP0Ev+KvwH5w81ksu68EsAJplRG2L9wtb6Cs92/UfhGE=
+	t=1785775771; cv=none; b=Qrnsx1PW2HBVIcwhZ7YECQtbeQvT2nqTkGOdaTrWy1vSQCjrcZ90GNscQlBkfhZmlMaJPZrbGemFlzOmY9kyRx09ecr20FtX0cY/fQoIP8ETHb4juhl90Yd1oZj+tMY+KEOsB9jpisVCHMkdx3CHcw90q/fJOXX0icrmwhMrhAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785775598; c=relaxed/simple;
-	bh=Pbh6UPSpoybrpGLQu1d+4xoK2AIsAMzDFDDk/7PPQy8=;
+	s=arc-20240116; t=1785775771; c=relaxed/simple;
+	bh=XRslH+ds/XEmRs/mI27Lty7v5b9whUZvYbha/qDkt6A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=raN0Q0a/N/JxY008vSN2rnz0Lr+BmVsKYJGCotN62ZTzsZHTV1g+59RnhfSHfLaVE0UEV0xxQpyqarcuxQc8Ptgdbc4TXekkqLlL6ktHPd8vAbNwBeg4UKq4frIDfBtMMiLiC9J6vwREDmPaCfDUBzfuok5lh5yRCe5HZWvpir4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=D8VXbyXn; arc=none smtp.client-ip=156.67.10.101
+	 Content-Type:Content-Disposition:In-Reply-To; b=gGVBRPK8ZUgiy+RaI3FpZcPQw3HSIQUrpy1sAA92LmiHoNHvXpXHlr7C88+VYNQ2ZDdLvYtLm618CZhBXsz+xWlTUeO3BiSLNNCp7ymI3UO8NDFBTnb9Tuc7n9zrlW5MzyWEByJEVQoP7+djsH4YH9VAxeqyIPiOrdZ212f3sNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=19i8IK/c; arc=none smtp.client-ip=156.67.10.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="D8VXbyXn"
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="19i8IK/c"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=p3P51v8Pp+kfjQZvn9d42tiHB+e6mckj4zmi8I6qVew=; b=D8
-	VXbyXniBMuPzK6zM7bemsOaGltWS/XM9WsWaPHsbC1enc6l197I2vr8xAihV6muWLnKLNZHVj/R0L
-	tkqcowWTHW4ItTdrlfs03/olDrfsVXdh0S+EeW1ckyZK37vSA2ARkiNIWfBrbXjUto3MmNDc8d7rB
-	T8W7hkxgLgr6cwY=;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=YQ7ugXHM89P+ZpYBYZd1EkFIhNDujOCisPw+4orVrxw=; b=19i8IK/cMs0rIkjtGJAvvhzsvk
+	LEmOaOpnwyd+brsGoXqlDYZYXk/FcTW3u6tqMgbMEI4dc9fV2MZtYeeHoMj+Uw+Ms9a6Pva7yknth
+	uvsFa141Xj8vadBeTSffof4t91/PDDP/GU3FtOrhW6GRs2GnUpj83qtdNGpFQQtDt5OM=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
 	(envelope-from <andrew@lunn.ch>)
-	id 1wqvo4-00Fm6D-Pk; Mon, 03 Aug 2026 18:46:28 +0200
-Date: Mon, 3 Aug 2026 18:46:28 +0200
+	id 1wqvqr-00Fm97-9D; Mon, 03 Aug 2026 18:49:21 +0200
+Date: Mon, 3 Aug 2026 18:49:21 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Vasilij Strassheim <v.strassheim@linutronix.de>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -41,41 +40,57 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
 	Martin Kaistra <martin.kaistra@linutronix.de>
-Subject: Re: [PATCH 3/4] net: dsa: Add support for SoC-e SDSA tags
-Message-ID: <6129c629-370e-4081-89d2-6dbf1a142cd7@lunn.ch>
+Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
+ switches
+Message-ID: <653d9c23-6087-4e7f-ac01-fcb01ade405c@lunn.ch>
 References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
- <20260729-devel-vstrassheim-soce-dsa-ml-v1-3-be569dae1b20@linutronix.de>
- <df7e7e04-80fc-4b80-9afd-0e9bc14a759f@lunn.ch>
- <723a256eb9d5aa64e7037f98eabeeb99257f03f2.camel@linutronix.de>
+ <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
+ <f17d3a62-456f-4580-90bd-c54a30dceddc@lunn.ch>
+ <cee2e05d931a977d0db938ada0964d05885949a5.camel@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <723a256eb9d5aa64e7037f98eabeeb99257f03f2.camel@linutronix.de>
+In-Reply-To: <cee2e05d931a977d0db938ada0964d05885949a5.camel@linutronix.de>
 
-On Mon, Aug 03, 2026 at 05:37:26PM +0200, Vasilij Strassheim wrote:
-> On Wed, 2026-07-29 at 19:22 +0200, Andrew Lunn wrote:
-> > > @@ -98,6 +98,12 @@ config NET_DSA_TAG_EDSA
-> > >  	  Say Y or M if you want to enable support for tagging frames for the
-> > >  	  Marvell switches which use EtherType DSA headers.
-> > >  
-> > > +config NET_DSA_TAG_SDSA
-> > > +	tristate "Tag driver for SoC-e switches using EtherType SDSA headers"
-> > > +	help
-> > > +	  Say Y or M if you want to enable support for tagging frames for the
-> > > +	  SoC-e switches.
-> > > +
+On Mon, Aug 03, 2026 at 06:01:23PM +0200, Vasilij Strassheim wrote:
+> On Wed, 2026-07-29 at 22:05 +0200, Andrew Lunn wrote:
+> > > +static u8 soce_map_stp_state(u8 state)
+> > > +{
+> > > +	switch (state) {
+> > > +	case BR_STATE_DISABLED:
+> > > +	case BR_STATE_BLOCKING:
+> > > +	case BR_STATE_LISTENING:
+> > > +		return 0;
+> > > +	case BR_STATE_LEARNING:
+> > > +		return 1;
+> > > +	case BR_STATE_FORWARDING:
+> > > +	default:
+> > > +		return 3;
 > > 
-> > These entries are sorted, so it probably should be between
-> > NET_DSA_TAG_RZN1_A5PSW and NET_DSA_TAG_LAN9303.
+> > #defines for 0, 1 and 3.
+> > 
+> > What does 2 mean?
+> > 
+> > Since you don't implement bridge offload, i'm not sure having STP
+> > states makes any sense.
 > 
-> I will insert it as suggested. To better understand, what is the sort order?
+> I tested bridge and STP and observed the callback calls with something like
+> this (reduced setup):
+> # ip link add name br0 type bridge
+> # ip link set dev port0 master br0
+> # ip link set dev port1 master br0
+> # brctl stp br0 on
+> 
+> That probably wasn't enough. I'll take a closer look at it and either fix it
+> or remove it for the next version.
 
-The tristate string.
+For a really minimal DSA driver, look at mv88e6060. But it is also
+really old, and does not always follow best practices, e.g. .phy_read
+and .phy_write which should be replaced by a Linux MDIO driver.
 
-    Andrew
+	Andrew
