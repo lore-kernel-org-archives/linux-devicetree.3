@@ -1,82 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D86C363C5F
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 03:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CFE935DA63
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 03:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785726948; cv=none; b=ai6/h9LpENceUoJJswwUusmJ4ATjTdrkIaCgJt8X8HCwuLUIeCP+ecxA6Yln2z4TbL4u453i1tru4pamBWiRb4+Vti5vICp7yJrAnUu2fIWil5XvnA1IM0mAijfrmVVqZ7acy2YP+/WbDyM5Ju9ytamv4yQs6Ysp6Hhg9q8/dzY=
+	t=1785726948; cv=none; b=rWqHCdOKj/a7z5mp/5luxGO+KxEr3/WOUMCp8B1+JJt2FVS5Cal5us3vA3vFrPhBBLDLedHRYdqL5qUmdNccDQnjjICeF0b04kijqZ4bFlhAJ0FL0TYOk5NguEBsSx3OS3TzmVojKwHlQvosLFnsPHhJauL4QIHcrV7u6jBqIIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785726948; c=relaxed/simple;
-	bh=XZLciamH/wbfMlCyMbSXczWHwkmWjTG5jgkd1xDkSi8=;
+	bh=/zuik8IdUv5jQQ9WIET1PHPqFn0iJxzjcyyR0zwdaPM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fTDNK+Fqf3EfTJxr52oEyVvis/PDNICwho/N3TiNXnqjsCuYzV+lcHhWQIqaGjaMi6WCGrNBut7krRKRjZF1YlVdyu72QO3fAae8+d+2+5i/HjPbQtxS5lU8jeDw90PJC/2WspThd17YgXDVg/kgIxK69XvxmV+Gto44y72IOvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iqEcxq8y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JoPlBDgU; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=rFw6L5vQl7qd6AJr9TjH0idGlo7/gcZlMU+Vlzd/dbKgT60kjc2wUdPJD6HZQ/R7lOOVFmM3vpzu/crFKsijI+0H8CMbdfV0gU2oshZDDNSmCoHjM/dBQUANk1S+21rc9lubES5g/0xRFKXFdxPwV4weMPumrZzp1f/9DU/lA+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oudIUmBK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bvJkT+1a; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iqEcxq8y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JoPlBDgU"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672LWbhf2943257
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 03:15:45 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oudIUmBK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bvJkT+1a"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672LWvDM3301641
+	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 03:15:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Gexg2OCd5HT
-	5LbNBVBev2qK2kO8LY++t9yEzWXMAh38=; b=iqEcxq8y26eonL304FCX5HJOVgB
-	lUZcyAwMU3vQzeVHvV3s6vs4rR11E6YvIaCOVrXzMUgR02oUwKUUn8gyoVg4Kkma
-	rTe5VWLRX7J04iYSb2h/bb+oPZqrQAj1vlhYlRdnYasE2L5BWTnjQ1dEY8cUuPSJ
-	toqqbdE6gK9SvwhjVkFCywtAEIJj+zJut7GgR/G7KwtNvl9ITgav1C2StZ7J6t3u
-	KngARDcsX1DxtwcGiLHMWpVuIi2J8Th5fhfv1JgF7sNoXdWfp3DoyRVOfab/20ou
-	4WKDYRGFgJMECERcGhF2kUrZvlyMhLQ6GVl9sYVxlllG/u/5pwjneqhv88g==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=3sGB3Fal3bV
+	qXiQy7bl5CeUWFPhCUyUHhWRj6XmUwrQ=; b=oudIUmBKE9c0WSEtsSaAG4T1QD7
+	m6Kn0ZPCJ0x2nV1Mws4kZt1KWiL5m8mC2CAm3h6xdncQrkvT0s9icocD3W7UL38r
+	vugLtNwwuLzFFKp4Vo9L0exTM5rv1OKT78ZWhfjN4XccKBjTMqayP7Q6VnBqo25d
+	fg3lf7UyZ5Hg7KC8HccY/gRP0ui36CksbjZsg0fmtQgs0VHFnj+r6uLI0BbnMwBY
+	IUO7/JKYuQMt3xKGEFBzvFT6TpdW3S81oxXhL5j46tUwqzFkewGgWiI2YU1vXPJv
+	YjRPTQg2YXhHNFJJv0QqbHaFXGf8xl0GazvejjaKTSt3qCsVfSrECyv7hCQ==
 Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs911c852-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8qpv8v6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 03:15:45 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e7621655eso5365753a91.0
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 20:15:45 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 03:15:44 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e11baa66eso2787777a91.2
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 20:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785726945; x=1786331745; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785726944; x=1786331744; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gexg2OCd5HT5LbNBVBev2qK2kO8LY++t9yEzWXMAh38=;
-        b=JoPlBDgUbSSIUWcsc4fiegYI7iMXkMqvgjv7rXOPnBCoaBpd+ve6S1s+yoBjWBzJp3
-         Nt/Yq6jvvQ5wojw1llsTkrQgrEDk6rofyOiknK8PJ6hU63vwEBJ18wdUEZd/qNKcZ01/
-         8GYEZDQkHToptbRUP3+y/4p2rXA3wwMRMm98G1mHAH62HPRbgnMYUA8ZVgvNOB8+ZjSR
-         FEuEkU3APsMRvuz1SSdZDgN+hUoqQQUV8xNYPkU7eEvzRGbn4se1Nvpz0AgTjP2etyLN
-         SRUubGpbW31Ikof8ESXd/4+We07PFG5HrCMyyAg2IOKMUcKNN8lzpaqxL5xWsZGKH3uD
-         JpZw==
+        bh=3sGB3Fal3bVqXiQy7bl5CeUWFPhCUyUHhWRj6XmUwrQ=;
+        b=bvJkT+1amRbAfZhXOW9Nos+sEi265p4cIAuR/ukNDTmVmCLOwJv9WU0cS0hzNPJ6ck
+         7mKEtpthcJ4oopUSdEkkLNABBUev1AXxVpVxKJl4tfqIhU1LR/DSBnVbpGg5r0S3LIZD
+         PLw7MvO73noZTrMcdDaYiFPcfVYd9E034uSv8EUTW8/1OrS7IpCSaqBFBfGiG1pssX2v
+         pjptAHgdYFaYRl1HDCE+5T3p+8vf9CDSIexw7HmYhjGAPmzguH/++U2tC7duoPlhBZSS
+         2RGlq//ZFVSXUaUz8DbJMogGE8FqqfI60JRg3vIuK2J7xe9UEF4UZ82Umn8orEG9IU0L
+         xLLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785726945; x=1786331745;
+        d=1e100.net; s=20251104; t=1785726944; x=1786331744;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gexg2OCd5HT5LbNBVBev2qK2kO8LY++t9yEzWXMAh38=;
-        b=tRy6ErsNiqb1Uv6LdmjHHkFHOJhVyd/pz4E+0tRHKICOPB8/KqBwxzrrP7+coT1KgX
-         kC85XeA+qrMTpCDYerLwYSb8rhxFRRodQRyYUjQ5H0vOX636AJj+Plc0Qq1yBr1zId19
-         1dPWqCS6EbnvFuHqdEBQ+gqyqIdIDpE5r6CYX685yBIatSguLl23fpO95oQMX5d8hbZB
-         OOnnZtZHr5sSh/YS430z4PVBfsXbkmV+/JxA9W+YAQ0Iu/awb7CP09gbfRMhMILxGfY6
-         mDKTzdgGerdWab9bNinAoAeAEectoe0RTRkmVz5vg4+bcrfmdc4yqf0J/dZkB4M2CVDN
-         TAfw==
-X-Forwarded-Encrypted: i=1; AHgh+RpmEPy9yAvyEKbojNdTo5g9vgIQ6MnZ/5CwbDsZ7ySTUjS0bxMnDbS0kDI76DuNtpBhWTEoWEM1AfdV@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7VnHqIVwU7VgT1u6b7Rg19ee3Mzb0k3h8xXTmPJnHf/MT/Am+
-	1W/+Po17J4zb0aDAXfZT7oy05FAeYoZfsbGV3wTjvmPk0eBkCG6MUp9blyULiQtueIyarf74Tpa
-	fHUyabkTMsJVxr8gIlKJs4tGlHIZmhiUo6qwy46vaV671JS93WLUtIk7Xi64NYZwW
-X-Gm-Gg: AR+sD115kFJfh+pMTC2KS+LxRrWWnrMMZX5WZfp4M60a6+1rQc0bw7A8bOkZblbL5kj
-	53HP0hq1O6J1XWlDNnIzKHQ/t/ySkzg6ePsZzSWRNXvcFM4Fi1emec0syj602Fm+mZ1atBq+YqC
-	H6RtplA++ailuuivT397hi7JR7DPRCfolaBO1E+LVvhW50jZdD+g7o9lD36m4Hm75W7bG3BKvSb
-	2AgmWFzOGZKxFMluJAE0KEtVhPD5uVnnNudREs6odyIM7lYvcGB0+O1VkHQXmtcsui/oGafOVYo
-	Ps+j+DQ03aJ0Rwejbag8s24cJJtDaejbsCCqeu9bJz4jKNO19RWILyTc1mjakBLCqbRj03sRgDz
-	OcJsIaJwl9me4FF8+G2IMY1o+wSSt6Jw3klRcrO7GDiPNEyjNtWYEIg==
-X-Received: by 2002:a05:6a21:338a:b0:3c3:791e:5e12 with SMTP id adf61e73a8af0-3c92a8e2cedmr8565841637.72.1785726945107;
-        Sun, 02 Aug 2026 20:15:45 -0700 (PDT)
-X-Received: by 2002:a05:6a21:338a:b0:3c3:791e:5e12 with SMTP id adf61e73a8af0-3c92a8e2cedmr8565806637.72.1785726944641;
-        Sun, 02 Aug 2026 20:15:44 -0700 (PDT)
+        bh=3sGB3Fal3bVqXiQy7bl5CeUWFPhCUyUHhWRj6XmUwrQ=;
+        b=O3GaQmhVYzoXZy3ckPFLOK30gYCe+eGbf3u3i/9/m0Aq9noZhCfvErvownvmJ4iANi
+         T9mDumKEZARBKQMIdQgtuo31ZQWqStpHgr5rBOskPjhBdrQcvYhGGtYghutBRVURHd6w
+         gxlTzNcWDGkxIMm9l9xZmuJe05qRuNK0q0Jxdn+KM53s9P6YOsAzQmiHT86b4Tg/Cjqk
+         uJosWIbNXJiwA4SWJtdpYV9C1clZlOrpNe+WFPwehh7F3qpuNOo2ZN4zdgSaFTzsaHfL
+         h5tj/7GodAUDVlripZu74CG2D1OVTYVp5oxvuvdpdjxs5CwXeLamIPHRt4mayYG0JotR
+         wGQA==
+X-Forwarded-Encrypted: i=1; AHgh+RoMtsU0eXLG8lbj6WLCbTzy80b8VUP1JhNvT75rlCd3crOgRjUp+5BH8BZN3KTR+jFDCi/8mi7GIrCN@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzt05fjLgZBszcvDWCFHZUlYpXO3ueC8eb8dt7pRYXELwMuYe6N
+	fSE4ZFP7ApoyFvTr/5NizOfQdn/lBoGaCrTNE0QiU7BPoof4dvOQbm7qhDvZuc0lj6h9anZmKqB
+	Re6ImeUmyC/m8asTkPyYPS6qCs4zYu066Z5dWondur94NmVcZAc0uEQoYaFL5K2/T2ANaJePL
+X-Gm-Gg: AR+sD1126+3bMiQJjUX6d1JMCoMOrKq9qh1wJmofJngk8Lk1HXZmCZJIl0zzimR70Do
+	eKrGXD5tTUcutFMu4LTyiq/9FhqWB1NpKRvZdUJE02ftLKkPqGXvsfoVIqTJQ5/QE8HABJgRNJt
+	EjhNz7ZbAacHfVlQhWug2fW+aSP7SJfAoWXZFNJDFam+CliN43VErpPnLK9CUXpZhgnuCrZLn3/
+	QIgWorw1G7iq9FY5GDdjTBYMt6kvd9JXRRllrqwtmC+Pdryfg7crdOiaqyc0OFgBXwIpGDF+uNi
+	wy9E5lUn8Nypy7sbbBXCN1vRHg51yCZZie7HUtFkibfRTEHW62fXGxr0lJ4oVcKtyyeFVyrIHOU
+	LOm516HoTdEyyJ2gLcq84Sibkl4x0AqUgJTz+mkxN07gGvOszRIw9HA==
+X-Received: by 2002:a05:6a20:d43:b0:3c6:61b9:917d with SMTP id adf61e73a8af0-3c92a9c1adbmr9012288637.49.1785726943628;
+        Sun, 02 Aug 2026 20:15:43 -0700 (PDT)
+X-Received: by 2002:a05:6a20:d43:b0:3c6:61b9:917d with SMTP id adf61e73a8af0-3c92a9c1adbmr9012231637.49.1785726942719;
+        Sun, 02 Aug 2026 20:15:42 -0700 (PDT)
 Received: from hu-eserrao-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd9c93dsm32585113eec.8.2026.08.02.20.15.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd9c93dsm32585113eec.8.2026.08.02.20.15.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 20:15:44 -0700 (PDT)
+        Sun, 02 Aug 2026 20:15:41 -0700 (PDT)
 From: Elson Serrao <elson.serrao@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
         Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
@@ -87,9 +87,9 @@ To: Bjorn Andersson <andersson@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v5 8/9] arm64: dts: qcom: kodiak: Describe EUD UTMI path using child node
-Date: Sun,  2 Aug 2026 20:15:33 -0700
-Message-Id: <20260803031534.2942628-9-elson.serrao@oss.qualcomm.com>
+Subject: [PATCH v5 6/9] usb: misc: qcom_eud: add role-based EUD control
+Date: Sun,  2 Aug 2026 20:15:31 -0700
+Message-Id: <20260803031534.2942628-7-elson.serrao@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260803031534.2942628-1-elson.serrao@oss.qualcomm.com>
 References: <20260803031534.2942628-1-elson.serrao@oss.qualcomm.com>
@@ -100,116 +100,146 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDAyNCBTYWx0ZWRfX8uYiZg31zosf
- +hlfejobd2aVAgF/cyAmdO/onwt33kNi1RecTpsJ4G4cDba2Cc5dNgBGc6WkFVNELhx2HMKYZ0j
- o6sQJ8qTu8dc8CKfL+tfbk8N4fH+Pto=
-X-Authority-Analysis: v=2.4 cv=PvGjqQM3 c=1 sm=1 tr=0 ts=6a7007e1 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDAyNCBTYWx0ZWRfX36REhMm8WfXt
+ GfAT5XxC73jsmXEzuR2WvQS0qzq/iTeeChpybjPw2jcO6wKFL4oUKFMnadohVuKICiqYEEdff9e
+ Z8q3AZhAYiLBdzD7nlwJtoJb3o/cdzJjWcgSRrXnOPKGOhvP0s8oGIWV5AIT7xajcI0HCIXzBNH
+ AZ91iQb/GgJyBxBDxqiPWc3aThRmfKrJ8TKKrMKBTUI3oGmd76Lmdr8jDMGaR9wUqy2IC3Ao+3+
+ YaV14EoN23yUYAdZAoIb3gfdFuzPOGpM3HZWlB6yeJkpbazJpbnGVGpVb7iL3etettLhXnY7j/I
+ WvxBgwNIJQtZ9hQI2sGTpVkwtKT0L7TRI5iV9nnCazZnnr8j8E/ex3pMxlhYGJFvy9KdhxRFv5h
+ hRSPiiD32ET5fFRQW0tBOr99x4cytYY3sE31/oiIUXDHb2zMGRzac687IDnaTDG/bchOHfzuPDK
+ TUchpPkq9zE1PZm2cAQ==
+X-Proofpoint-GUID: m9B76rY8nIAAXiKdy15SiBLUV_jM24ui
+X-Authority-Analysis: v=2.4 cv=MpViLWae c=1 sm=1 tr=0 ts=6a7007e0 cx=c_pps
  a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=-Y8wEhFFMILef-Bpc8oA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-GUID: AhCZmNVYXj5w4JwCqspiCGQXH-lYfVCd
-X-Proofpoint-ORIG-GUID: AhCZmNVYXj5w4JwCqspiCGQXH-lYfVCd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDAyNCBTYWx0ZWRfXyu8wYwnlBtuU
- T1Z6EzkOuiDksJoMxTdH3Xc02qIL04X1SAV9J1O2NqIPSJlOID6KOlt8xahpFFk/fXXaqNtTrf4
- mkvYLI1i53Ats2OwG4P/V7kLCPe1b6KBuwNWoaHXdJazs5D03ohzkljxFQEgg42aHyU7BBeNrVr
- rB+mPFWzah9UDkXUjkqdJ5yqVN66bD/IBPgB8nc4Lqcw7MYZxn6hpwJznIEyPO5h4241/HSBQgw
- TCSMfdpE9hjURJ/vJc2a54E78Y/OSmfWJ2jgtgUkDYqBVbafxnPEzw/PwDb7+nbJ+Zyz8iiEFPU
- 0QYd0UgsZkfGRklXHwRAvUPmYyG68Ubx8bqF3yR744PuzLfoGHBlpzeMKkLC+5f3k6FipOPWMaX
- nqrD854os9C4k1WRUFMfyorYmAJPjezodH4wgJOtfhmgCoEwYJxqUCl7e6+zBQS8Wdpxlyi8l0C
- WbuB5NnIiVyCx3QbWjw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=4GSD5CdKrKcBI9kQVZUA:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-ORIG-GUID: m9B76rY8nIAAXiKdy15SiBLUV_jM24ui
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDAyNCBTYWx0ZWRfX9n7gOpN7eXvL
+ MrzaAP2TMv3gQWV45R/ITs+6EW0ZIBimX4gcc2MMr9cZ7rYGuuMMgxuY6bzqAHsztth+SvdVJqF
+ 6V0u7RqQvYAaJrUlvyR7BdYjHhESA9Y=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608030024
+ impostorscore=0 clxscore=1015 phishscore=0 malwarescore=0 spamscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030024
 
-The existing EUD description uses a legacy single-path representation
-that assumes uniform UTMI routing. This was sufficient for minimal
-configurations where the USB port operated only in device mode and role
-switching was not considered.
+EUD functions by presenting itself as a USB device to the host PC and is
+therefore only applicable when the port operates in device role. Keeping
+EUD enabled in other roles provides no benefit and unnecessarily keeps
+the associated PHY resources enabled. Furthermore, enabling EUD in host
+role can cause the USB controller to misbehave because the EUD hub
+supports only a single upstream-facing port.
 
-Update the description to explicitly model the topology using eud path
-child node and add a role-switch declaration to reflect role-dependent
-UTMI routing. Also on this SoC, the EUD hardware intercepts only the
-primary UTMI path. So remove the USB endpoint mapping to the secondary
-controller and associate it with the primary controller.
-
-With the UTMI path now accurately described, enable the EUD by default.
-The connector side of the path is left unspecified, allowing board-level
-DTS files to describe the physical connector mapping.
+Address this by treating EUD as usable only in device role. The
+role-switch callback enables or disables EUD as the port enters or
+leaves device role. A sysfs enable request made outside device role is
+recorded and honored when the port subsequently switches to device role.
 
 Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/kodiak.dtsi | 35 +++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 14 deletions(-)
+ drivers/usb/misc/qcom_eud.c | 46 ++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 45 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-index fa540d8c2615..be9d02760a98 100644
---- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-@@ -4404,12 +4404,6 @@ usb_2: usb@8c00000 {
- 			phy-names = "usb2-phy";
- 			maximum-speed = "high-speed";
- 			usb-role-switch;
--
--			port {
--				usb2_role_switch: endpoint {
--					remote-endpoint = <&eud_ep>;
--				};
--			};
- 		};
+diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
+index e83a4402e4b8..538e070cc140 100644
+--- a/drivers/usb/misc/qcom_eud.c
++++ b/drivers/usb/misc/qcom_eud.c
+@@ -15,6 +15,7 @@
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
++#include <linux/string_choices.h>
+ #include <linux/sysfs.h>
+ #include <linux/usb/role.h>
+ #include <linux/firmware/qcom/qcom_scm.h>
+@@ -55,6 +56,8 @@ struct eud_chip {
+ 	struct device			*dev;
+ 	void __iomem			*base;
+ 	struct eud_path			*paths[EUD_MAX_PORTS];
++	/* serializes EUD control operations */
++	struct mutex			state_lock;
+ 	phys_addr_t			mode_mgr;
+ 	unsigned int			int_status;
+ 	int				irq;
+@@ -156,17 +159,33 @@ static ssize_t enable_store(struct device *dev,
+ 		const char *buf, size_t count)
+ {
+ 	struct eud_chip *chip = dev_get_drvdata(dev);
++	struct eud_path *path;
+ 	bool enable;
+ 	int ret;
  
- 		qspi: spi@88dc000 {
-@@ -4736,16 +4730,28 @@ eud: eud@88e0000 {
- 			      <0 0x88e2000 0 0x1000>;
- 			interrupts-extended = <&pdc 11 IRQ_TYPE_LEVEL_HIGH>;
+ 	if (kstrtobool(buf, &enable))
+ 		return -EINVAL;
  
--			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 
--			ports {
--				#address-cells = <1>;
--				#size-cells = <0>;
-+			eud0: eud-path@0 {
-+				reg = <0>;
-+				usb-role-switch;
- 
--				port@0 {
--					reg = <0>;
--					eud_ep: endpoint {
--						remote-endpoint = <&usb2_role_switch>;
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
++	guard(mutex)(&chip->state_lock);
 +
-+					port@0 {
-+						reg = <0>;
-+						eud_usb: endpoint {
-+							remote-endpoint = <&usb_1_dwc3_hs>;
-+						};
-+					};
+ 	/* Skip operation if already in desired state */
+ 	if (chip->enabled == enable)
+ 		return count;
+ 
+ 	if (enable) {
++		path = chip->paths[chip->port_idx];
 +
-+					port@1 {
-+						reg = <1>;
-+						eud_con: endpoint {
-+						};
- 					};
- 				};
- 			};
-@@ -4972,6 +4978,7 @@ port@0 {
- 					reg = <0>;
++		/*
++		 * If not yet in device role, honor the userspace request and defer
++		 * EUD enablement until the port transitions to device role in the
++		 * set_role callback.
++		 */
++		if (path->curr_role != USB_ROLE_DEVICE) {
++			dev_info(chip->dev, "Deferring EUD enable until port enters device mode\n");
++			chip->enabled = enable;
++			return count;
++		}
++
+ 		ret = enable_eud(chip);
+ 		if (ret) {
+ 			dev_err(chip->dev, "failed to enable eud\n");
+@@ -304,7 +323,30 @@ static irqreturn_t handle_eud_irq_thread(int irq, void *data)
+ static int eud_role_switch_set(struct usb_role_switch *sw, enum usb_role role)
+ {
+ 	struct eud_path *path = usb_role_switch_get_drvdata(sw);
+-	int ret;
++	struct eud_chip *chip = path->chip;
++	int ret = 0;
++
++	guard(mutex)(&chip->state_lock);
++
++	/*
++	 * EUD is usable only in device role. Power it down for every other
++	 * role to avoid keeping an unusable module 'ON'. chip->enabled
++	 * preserves user's sysfs configuration and is not modified across
++	 * role transitions.
++	 */
++	if (chip->enabled && path->num == chip->port_idx && role != path->curr_role) {
++		if (role == USB_ROLE_DEVICE)
++			ret = enable_eud(chip);
++		else if (path->curr_role == USB_ROLE_DEVICE)
++			ret = disable_eud(chip);
++
++		if (ret) {
++			dev_err(chip->dev, "failed to %s EUD for role %s: %d\n",
++				str_enable_disable(role == USB_ROLE_DEVICE),
++				usb_role_string(role), ret);
++			return ret;
++		}
++	}
  
- 					usb_1_dwc3_hs: endpoint {
-+						remote-endpoint = <&eud_usb>;
- 					};
- 				};
+ 	/* Forward the role request to the USB controller */
+ 	ret = usb_role_switch_set_role(path->controller_sw, role);
+@@ -431,6 +473,8 @@ static int eud_probe(struct platform_device *pdev)
  
+ 	chip->dev = &pdev->dev;
+ 
++	mutex_init(&chip->state_lock);
++
+ 	for_each_child_of_node_scoped(np, child) {
+ 		ret = eud_init_path(chip, child);
+ 		if (ret)
 -- 
 2.34.1
 
