@@ -1,123 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E7F4137AC;
-	Mon,  3 Aug 2026 14:31:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEB3540B0FB;
+	Mon,  3 Aug 2026 14:32:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785767514; cv=none; b=OFSxQKC1cmCCWAbZU3UxMMuf418NOdMFuXFOgNftPJm/3zZWIZXk/NPooK8Cq6ECEY+v2NVTftqEGA4mnmkHemyzUjzDwobRjY27qCVzS7AzzEGVTjpYEjCLPgN9vsXJQieaNbPn9WmGMGQqC39TCRB2i+rc0bCAOSNH9y5SpxE=
+	t=1785767564; cv=none; b=eYuNAIe8z/hgNApQD3Dj39QkfVvp/eqTgQs9+p3dkqc3sQePU737/cLE9stj8ZogsQGa9TZyQB1u7Aa/BnViwIv6iDKwrnh0AkNVJXNpgvQvesU/TTYeqQni8W98QvoFfSKMdBFiRpp6hSzFgjaC/nYN5V9vb0zM6LPSmew4bHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785767514; c=relaxed/simple;
-	bh=n7CYJm5kdMQBFLrv52/k0etICMbhcf0XfZdwy5lc2Hg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pyBjLaL0S5wDjC24JP8qO4KyVKqwwPyLK2rxXnRFc3c2NKmZ9+gDpCfgOb+6g8lJWDJoqI0OrDOwqQc4p+ZNdoyPlhRx6jSjjcAG6BkvqpkN7kucPBYwBnQLbWpTFIwoxyoD+VVqkulDYLIRpfpJAZIXzHfTM6aDy935eQQl3No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NAuC+RRQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785767564; c=relaxed/simple;
+	bh=qG6GFx0LNRftNJMQeSITFbVXN1+rUFbPVDeQkE5hv8A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YuMIHBgjyH2G+4kVK7Zg3ZH/1aePlXgPtee3ooCT0bvDzJ2fjeVK66bpLh0OHxgRjOaBgNjrRCRJHUD2+Hn+xThkeXRH2f3xTJMT7CddQ4ij0Zwu89ZgOEraKTvUN2JButtx2syAobCM9pfCw3E7fzv/nCIHgtwv1RXLAQ17kvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QUPBTl2p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NAuC+RRQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24A121F000E9;
-	Mon,  3 Aug 2026 14:31:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QUPBTl2p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1EAD1F000E9;
+	Mon,  3 Aug 2026 14:32:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785767511;
-	bh=W31cxZYCGxJOkvim9lq2QsMO3LwL9ztN41NLsPb4i+0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NAuC+RRQ86EHwAYekMih1ASmdqGS2SHXRiZ35yO6Q4FIEzo1KSxnnPMdGu8RmL2SN
-	 PrL209fH/n0vBxAnuEWEGsRCCfCutpYRvQbLieipMI4THbmSYTJwnqj6tt872i79kI
-	 yIgfJY4ZUXeqhdvM2XOQCJDhyVOK7kxButWW6q8OFU3SsI1B1om/AaJDxAS4Igz/ro
-	 LUoNX+S8dUe/6teXXdUaN6P2r3xsGUsczh5L8Kg7kzN6wy/iboasRrxsdpk30sELWP
-	 Ze2ZeASQEFFsCg3uhS7pBQKQBwoIfy9qD/v1/Y8bp69ngtkHF+zxuizfPmGILEqbVq
-	 +OUbKxHHbsW9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: can: add arasan canfd controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: "Oleksij Rempel" <o.rempel@pengutronix.de>, conor+dt@kernel.org, linux-can@vger.kernel.org, "Marc
- Kleine-Budde" <mkl@pengutronix.de>, robh@kernel.org, "Vincent Mailhol" <mailhol@kernel.org>, devicetree@vger.kernel.org, "Oliver
- Hartkopp" <socketcan@hartkopp.net>
-In-Reply-To: <20260803140531.12692-2-jszhang@kernel.org>
-References: <20260803140531.12692-1-jszhang@kernel.org>
- <20260803140531.12692-2-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 14:31:49 +0000
-Message-Id: <20260803143151.24A121F000E9@smtp.kernel.org>
+	s=k20260515; t=1785767562;
+	bh=+MvjEox02nrAn0z45q6fn8PHVoWaNqOPmiIqFcaqtnw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QUPBTl2pipdm0XUD5ghg05DTqF6JXGNI7J4CWx6Ab3MMv5q5iE+UCy+RUJEuH824j
+	 +7pObk08TxUPA61W4gwlf2trz+sp3kFO/LK6US774DlBKZsd3Sj/gtCMkjug1QVf1K
+	 ISxy44eacyelk/MG6Ep3vskDVrbFTKFhT9NGmfVYLRkuPJiyRxEfwWJL5B62U12Iak
+	 X6/yx4C8M3HN1/g2jmsRlWIGR21FfO6fxGfSnpOJxnP4cCsfKMiyyqNm/HF3u0Jp1l
+	 J1/PonD01JyFA/Vv0Zx/CzMdsykgeHDiGlHxflkPfqj4Dev8kWqitY7RJS4Wd7xoF0
+	 EdpnP7xaOyKwA==
+Date: Mon, 3 Aug 2026 09:32:41 -0500
+From: Rob Herring <robh@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Ramshouriesh R <rshouriesh@gmail.com>, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, media-ci@linuxtv.org
+Subject: Re: [PATCH v6 1/2] media: dt-bindings: Add Himax HM1092 NIR sensor
+Message-ID: <20260803143241.GA3364728-robh@kernel.org>
+References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
+ <20260801-hm1092-driver-v6-1-5979f223748a@gmail.com>
+ <20260801130150.5BDB41F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801130150.5BDB41F00AC4@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The schema uses `additionalProperties: false` instead of `uneval=
-uatedProperties: false`, which breaks property inheritance from `can-contro=
-ller.yaml`.
-- [Medium] Missing `clock-names` and `reset-names` in the `required` list, =
-and missing `minItems` constraints.
---
+On Sat, Aug 01, 2026 at 01:01:49PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The schema fails to restrict the `data-lanes` property to a single lane, allowing physically invalid device tree configurations to silently pass validation.
+> --
+> 
+> --- Patch [1]: [PATCH v6 1/2] media: dt-bindings: Add Himax HM1092 NIR sensor ---
+> commit ee5879a0923ec6b56edc74d8a66ff697b111ae09
+> Author: Ramshouriesh R <rshouriesh@gmail.com>
+> 
+> media: dt-bindings: Add Himax HM1092 NIR sensor
+> 
+> This commit adds a device tree binding schema for the Himax HM1092, a 1
+> megapixel monochrome near-infrared CMOS image sensor. The sensor is described
+> as outputting 10-bit RAW data over a single MIPI CSI-2 data lane.
+> 
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
+> [ ... ]
+> > +  port:
+> > +    $ref: /schemas/graph.yaml#/$defs/port-base
+> > +    additionalProperties: false
+> > +
+> > +    properties:
+> > +      endpoint:
+> > +        $ref: /schemas/media/video-interfaces.yaml#
+> > +        unevaluatedProperties: false
+> > +
+> > +        required:
+> > +          - link-frequencies
+> 
+> [Severity: Medium]
+> The commit message mentions the sensor outputs over a single MIPI CSI-2 data
+> lane, but does this schema restrict the data-lanes property to a single lane?
+> 
+> Without explicitly defining a data-lanes property constraint (such as
+> maxItems: 1 or items: - const: 1) in this endpoint block, the schema inherits
+> the permissive defaults from video-interfaces.yaml. This would allow device
+> trees specifying physically impossible multi-lane configurations
+> (e.g., data-lanes = <1 2>;) to silently pass schema validation.
 
---- Patch [1]: [PATCH 1/2] dt-bindings: can: add arasan canfd controller ---
-commit 282ace981cf63f65fd400dda84f1806d370fbc9b
-Author: Jisheng Zhang <jszhang@kernel.org>
+data-lanes should not be present, but that's probably an issue on a 
+number of bindings. There's not a great way to so this other than using 
+'additionalProperties' instead and listing all the properties used from 
+video-interfaces.yaml. But then you have to list 'remote-endpoint' 
+everywhere which is not great either. I'd rather just allow the property 
+even if it doesn't make sense for the h/w.
 
-dt-bindings: can: add arasan canfd controller
-
-This commit adds device tree binding documentation for the Arasan CAN-FD
-controller.
-
-> diff --git a/Documentation/devicetree/bindings/net/can/arasan,canfd.yaml =
-b/Documentation/devicetree/bindings/net/can/arasan,canfd.yaml
-> new file mode 100644
-> index 0000000000000..a120c11ce3045
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/can/arasan,canfd.yaml
-[ ... ]
-> +allOf:
-> +  - $ref: can-controller.yaml#
-[ ... ]
-> +  clocks:
-> +    maxItems: 2
-> +
-> +  clock-names:
-> +    items:
-> +      - const: can
-> +      - const: sys
-> +
-> +  resets:
-> +    maxItems: 2
-> +
-> +  reset-names:
-> +    items:
-> +      - const: can
-> +      - const: sys
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - resets
-
-[Severity: Medium]
-Should clock-names and reset-names be included in this required list? A dev=
-ice
-tree omitting these names might pass validation, but could cause the driver=
- to
-fail during probe when requesting clocks or resets by name.
-
-Also, should clocks and resets specify minItems: 2, since the definition
-expects two distinct items for each?
-
-> +
-> +additionalProperties: false
-
-[Severity: Medium]
-Should this use unevaluatedProperties: false instead? Since the schema incl=
-udes
-can-controller.yaml via $ref earlier in the file, using additionalPropertie=
-s:
-false will prevent the inheritance of valid standard properties from the
-included schema.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803140531.1269=
-2-1-jszhang@kernel.org?part=3D1
+Rob
