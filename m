@@ -1,61 +1,63 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8090734251B
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 11:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55753FCB3A
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 11:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785756083; cv=none; b=IsaQAQ5Q3hjQhdNcQxT3qZJOeNW1BAGH6m3y9j6A5DdEuIuQbOYPFjzCPQDKuLJpVF7hqb6QGiL3y2fHlBY28sVoyJQswMA2650F7Cb7XVKj4/u9pnJDcAxvgJ/6jL+T2m5E8+hVmZ1iSYoeBfUAEAOe1jCLmLdbRn7TWFuWbFU=
+	t=1785756085; cv=none; b=Ald5s1ptfmVLQjZld7wkH4HWx5pwNKAPedPrqYRDKLldo/QFbbZnAehif6VMGv1nIaxXYRGxCOlrcB/rg0bdLrivGrmyD4tju4YHyPpQmIjZDdm8M0DXr3blPpZvVn1bGPZRIEk50IV3kvSue76UW2HSGmv8Wzxh9zvW0c+/0RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785756083; c=relaxed/simple;
-	bh=Zt1TyE8+pN0nTA60PquXXjjCy8hDKoV7fYuk7bAiblU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VIVaFGUW2mXu7SmY6/98rXCwdL7EyK9ST+Q7hCTX31IUT/ysmj/RHWlIyLZxuLzGUBw9kjLJFpi+tUxHuvZqTgpjOJa6NAeLqraHmOeR9IDDrb0bZqrfbjKV1Ox5VEPRjgkC1vNF5M1JQRRP4C3EF2VoOquZzHLQrPhXax7NH3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ap0fPt/1; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1785756085; c=relaxed/simple;
+	bh=S31RcA/iT73E2rlScRcBB8K94r3tzTju+wWFc1ueh9E=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=kK25IqRDXvgFbEY3mwEqAc/RiEK39qXDZrRN4P0mH1IigycW2moxVwoca/+0gnONGOlAK0NndUBA0iuZj5wL5d3xg7Eiq3TH33UjXUhf0M3N9nAWe6cbVyJdrfgyfA8pVYpXw1qh4BBad9YKhRyiZACx2gJm9oEA4WSBVE6bic8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XFusmT5p; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ap0fPt/1"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so3483896f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 04:21:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XFusmT5p"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f6609c657so1642657f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 04:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785756080; x=1786360880; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OE3uND4Z2avCBL2hS5rIJ6Hp23ST+cHbCiiTEUWZqK4=;
-        b=ap0fPt/1QoIzPwcBpwtEj2x2simI4nEEQDH1gCYHEraVcXH2ZMNQXPXm+Hnf2VZozu
-         t9tDm9xGexBIAhwVf7erBZGtXxkfsiAyUD2EuXtyZHKaa9N9GhwQ7QBZyxtyVFdJd6Ok
-         axHL1GlLotaDK3k4tT52L+OSQdbVM+EdDvLClKV9J5mNBK2+TuJK+2IjxOhbMKRhHaCV
-         yEo0HHZqAzLxYtNbUEqeCPYaPRg56RdMd7GJSAaUuWy85URxNhANgOkp7zZ2okCeHBnQ
-         6kqW3NGKPEQqVTL5j81aApsYHyAY3Rn9zP8uieCSObrsqxXo1413phOsmUujfr9oQ9RV
-         ONrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785756080; x=1786360880;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785756082; x=1786360882; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OE3uND4Z2avCBL2hS5rIJ6Hp23ST+cHbCiiTEUWZqK4=;
-        b=b0aDE70th607jsa5PtTZo9R9zpmrpksJ12lcZmCmwLBwF2ce4tqdX+8zBXfvIvkPsg
-         qLhcwVdDng9MPGsu1wEp4G+C2RsOUMy6+hvyq5tyR2NX2jX2zmEy+xCyR9jRavYKOCik
-         jxkxFCAuSeaZG6C+SdR/4ySL7KnCHPCxa7VrxHJWa895IegtOV+b82xaELgdo4UoGSqg
-         belFOYg3Xty5zioX0bNR2aaNVtZ6/wJHl036bSHzVCjuVyE5Ny3A8lQp6pySOU8HdY7o
-         mub/+51HvrahwhKRL7b2oudV8afSHQJmr5pSyLrKcYoEbyQaa6C9oPtSbpqyTPa1JEAD
-         Zgvw==
-X-Forwarded-Encrypted: i=1; AHgh+RobjLNS3qv5QlFKD7ixfcj/GvjkJxmqpyeviiW6MyCS/IQkZpa086GHciM0DDvFvyyBSio0+zc2VuTC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzw8DkXBhTnRHzcW+XgcwBNvZXfoh+lQBk4hK5whhK+B5LcxxRu
-	fi4m/C2uRDM/3BsfH9USVdkKNKlxlP6xJ33Tf9CDuPez3SgQc/Tl/YKc
-X-Gm-Gg: AR+sD12xwj3tB8il9KFLnENL/NGWFAlzY6IOrSFQvPti14rwMu+LC8mat0wRzsFp6d7
-	jsF3pSJvugQ2XGYgvpLFyMn/GepcmtElYoMyqwLJPJ2QwFsvIUj+BD5fwtVSqXSAmsbtYbfzyox
-	o6i2SmE5+OX03y56VaCFBU66J4fHvfJ2xkvMtLWEB3XO3CpQ+v+E48vy3xCaLAsPebM4Ta0t1bq
-	+ks5qvgdxNo4pPeVEWgVncgb0VBjW25PnCNSd5/GZvc6P88aje7OBClu2AsdWP52JBYxBD6ncEu
-	eTeyPlWN0C4h5Gg4qV08uGVk4k0b8oKWQmGqg85PdTeYj9A8UaE3mVweO7ePbza4uVAm0yu1h/q
-	Ix7XMl25NwP1eUJHgMTRgyI2tQD4vppOoVwHXIkzaBa2PMllwrgb217LQsB4fcNWRY9yzzknzpY
-	6fAyyyzfZmNWXcBaoQQx4f/ldfuk2a9kmEp4n2mz94qOBXqUSZssYMlMXbcim2qOGfFRWHIlQ=
-X-Received: by 2002:a05:6000:2483:b0:47f:7c50:2222 with SMTP id ffacd0b85a97d-47fd72c353emr23278471f8f.24.1785756079458;
-        Mon, 03 Aug 2026 04:21:19 -0700 (PDT)
+        bh=k9A30rq3ztTZA8NjaSTuX8appAKxji9QAPEQZArsTJ4=;
+        b=XFusmT5pgzCqsK7ikvbAJSFJgO3Qx1w1rgPg+zccMbQe3JsrXXDkqc/bLEE9jRPrke
+         Csa+x3sq98c6Fi/+Rf/YHWt74fsW+w/r3Hai/pOT4KQQDiPL0xqzBRTmunx2gCsSvaKB
+         /QLlsbiGBq9jU9tGKwnQfTCjPDUhb1j5tYgeLsjiePyQaGHHBTikXuthWiQQtepO2yyZ
+         z7M56E0jBOMZpZKdqjuIWKiKsaJZh5r7ifT7PicBfLxI3OVn2wSa5SiXgcLJssaCK7px
+         ow1bGg2BhREEzIgWDHAeOAQp77Fpn+3N/UDcom0rw7F9l/JCZBxWo9dbgyArWfbBFebn
+         V6og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785756082; x=1786360882;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k9A30rq3ztTZA8NjaSTuX8appAKxji9QAPEQZArsTJ4=;
+        b=hKsBFzOEoZHWuci2XbkC3E12cc10D2wCMg9y80PDT4kTLFgmKDqnvUWNBwWr1/Ydck
+         SrnGFsijY0VSKDfB/f+uGQN0NkC6ZE8BvlzP5Rrl4A5OcQD8ZOmxF9ZCY+q1EWCBDwJw
+         KOijbpAQuvGpGotF6hrH5TGNR5CSj2ZxpVWympeU943dbAJh2Pvta0l5OEHx8rrYSfGd
+         HlyKYKtOGxAfS56CU/XNYhU4GMakM7aHyaGtN+mwnFyXiG3IEf1N+UyS/DG6JSUmFaEZ
+         ZkvhXLg6txdVd3bEMyTkZ56fNGIVSZz1lxY2AHD2+4dHFp7hiztczodFPuyv3/lLqT22
+         vpVg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/BceyGTIwB2RZACGiOH2rS7Kh2QLs2ovjj60tyVUB13k4cEBlMtlaBoOunuJkD4OsOGID7p6ZaHHj@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywp7JTjBEG+YS6G8TwX5O61v2Xz6zOZcIvK/RufcXbnMVl6m2m4
+	nsFj/Py0fUWlWbVIEG3dWgfOB0bvtkGgPPmAu6f3b75eYTCQuwoxemcy
+X-Gm-Gg: AR+sD12DGifEsmZwpHoWocCVIjinHU2bICnuQ+j3AKQL3A9ef6k1HN2nHg9oDb4Lhtb
+	rj6ACytxJMfgGAneS8ytOuu2+9wmWMsH3UouIUb53hr+gVlpY9W/ZuL1aVqZGmZctM87tZyevck
+	VdcxX3zrEfIorXyuPLLEdh1wPb/1mS2gW7qJ9k9Il+sVvW7Q5OHNxy+bVBaHngPCI8pHSXm8znU
+	o4JXmWC8FtHqQ8adH1TusG+QcI7mZBjHSWUgdEWrgrshqOfBK3YPivNT1mmOFAZwHcQhJcDvWFs
+	ZozjUaKbrlI8iRXGMOkjT9w/pnN83CLsXe0OIo5HrBEn98zKoM3N62WjxcvEI8Z9Ds3M43od0hS
+	t2ukW3QHoKV7Rq2wVn7MX37PCZR6mmVRzmF9qfR/M/5GOjPbbLmAXrULYMawQWgu4vubJIDblpl
+	A9+gfkgBq53DfuQwUOu2bpbwpZfm/iPbdzGGtNR8mWY0WSDPyHDy4KCRiFsKVRiOJlzYcZYvA=
+X-Received: by 2002:a05:6000:430c:b0:47f:81fe:12f8 with SMTP id ffacd0b85a97d-47fd72c722fmr25304247f8f.1.1785756082026;
+        Mon, 03 Aug 2026 04:21:22 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458adc9sm34154913f8f.27.2026.08.03.04.21.17
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458adc9sm34154913f8f.27.2026.08.03.04.21.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 04:21:18 -0700 (PDT)
+        Mon, 03 Aug 2026 04:21:21 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	robh@kernel.org,
@@ -70,10 +72,12 @@ Cc: openbmc@lists.ozlabs.org,
 	venture@google.com,
 	yuenn@google.com,
 	benjaminfair@google.com
-Subject: [PATCH v9 0/5] arm64: dts: nuvoton: add NPCM845 SoC and EVB support
-Date: Mon,  3 Aug 2026 14:19:01 +0300
-Message-Id: <20260803111906.1931384-1-tmaimon77@gmail.com>
+Subject: [PATCH v9 1/5] arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
+Date: Mon,  3 Aug 2026 14:19:02 +0300
+Message-Id: <20260803111906.1931384-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260803111906.1931384-1-tmaimon77@gmail.com>
+References: <20260803111906.1931384-1-tmaimon77@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,88 +86,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes the remaining timer binding issue and adds device tree
-support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
-Board (EVB).
+The NPCM845 timer0 node references a single clock, but its
+clock-names property is not described by the timer binding. Drop the
+undocumented name so the DTS matches the binding.
 
-The first patch drops the undocumented timer0 clock-names property.
-The second patch reorders timer0 and PECI so the APB child nodes stay in
-ascending unit-address order.
-The third patch introduces peripheral nodes for Ethernet, MMC, SPI, USB,
-RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC device
-tree.
-The fourth patch cleans up the pre-existing NPCM845 EVB DTS property
-ordering to match strict dt-check-style expectations.
-The fifth patch enables the NPCM845-EVB peripherals, adding MDIO nodes,
-reserved memory, aliases, and board-specific configurations such as PHY
-modes and SPI flash partitions.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-The NPCM8XX device tree was tested on NPCM845 evaluation board.
-
-Addressed comments from:
-        - Andrew Jeffery: https://lore.kernel.org/all/22ecb2fc6f4a4ca3c3018fffba8a56bcf5ca89fc.camel@codeconstruct.com.au/
-
-Changes since version 9:
-        - Modify dts code style.
-
-Changes since version 8:
-        - Split the EVB changes into a DTS coding-style cleanup patch
-          for the pre-existing board file and a separate peripheral
-          enablement patch.
-        - Fix strict dt-check-style issues in the EVB DTS by reordering
-          properties and nodes, normalizing blank lines and continuation
-          alignment, and lowercasing hex literals.
-        - Drop the unused tip_reserved label.
-        - Keep patches 1-3 unchanged.
-        - The remaining refclk unused-label report is a false positive
-          because the label is referenced from the included common DTSI.
-
-Changes since version 7:
-        - Move timer0 to keep APB child nodes in unit-address order.
-        - Add PSPI to the commit message.
-
-Changes since version 6:
-        - Remove IPMI I2C device.
-        - Add FIX enable property.
-        - Keep patches 1-3 unchanged.
-
-Changes since version 5:
-        - Add no-map to the tip_reserved firmware memory region.
-        - Drop the unsupported snps,eee-force-disable property from gmac1.
-        - Rework the FIU0 boot flash layout into nested fixed-partitions
-          under the bmc container.
-        - Keep patches 1-3 unchanged.
-
-Changes since version 4:
-        - Split the timer0 clock-names cleanup into a separate first patch.
-        - Remove nuvoton,sysgcr from udc8 and udc9.
-        - Rename apb: bus@f0000000 back to apb.
-        - Rename spix-mode to nuvoton,spix-mode.
-        - Keep cooling-levels as 32-bit cells while encoding fan-tach-ch
-          as /bits/ 8.
-
-Changes since version 3:
-        - Remove tmp100.
-
-Changes since version 2:
-        - Fix DTS warning.
-        - Arrange node order by ascending unit address.
-
-Changes since version 1:
-        - Fix commit message.
-        - Fix dtbs_check warnings.
-
-Tomer Maimon (5):
-  arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
-  arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
-  arm64: dts: nuvoton: npcm845: Add peripheral nodes
-  arm64: dts: nuvoton: npcm845-evb: Fix DTS coding style
-  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
-
- .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 721 +++++++++++++++++-
- .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 441 ++++++++++-
- .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |   7 +
- 3 files changed, 1149 insertions(+), 20 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+index c781190b4..9e4fa2669 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+@@ -73,7 +73,6 @@ timer0: timer@8000 {
+ 				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg = <0x8000 0x1C>;
+ 				clocks = <&refclk>;
+-				clock-names = "refclk";
+ 			};
+ 
+ 			serial0: serial@0 {
 -- 
 2.34.1
