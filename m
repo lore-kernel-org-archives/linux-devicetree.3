@@ -1,126 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C16E39CCF0;
-	Mon,  3 Aug 2026 07:00:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 251A23845D5
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 07:01:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785740453; cv=none; b=YglCCDcb8W/O/E81itMerpj/gDsjgtRIdkYnABjL7Snob/hYQI6xamcs1vPgxs8urqutvWtx5ZJd6JnuE6KYUE/amR0x3qCa+NV9pc7n70dKtx639paevUTjpSDqryJ03f6bE+O76hG9IufTCIpdkt69xVpLmXT+RlYTzF2lnRk=
+	t=1785740521; cv=none; b=B9sJE4Dj6ls/Dih5lG6+yrLKSw8qh3/KMZ36dFhi5hm3ghIx4TZ8LymJw8AQ+/8FAp4zqoCkHq1zZKNQFGV8S6o9S1i8ZoA1d3pKNxTz/3HdaxwqWDYzI/o5uTcGUF0oTgARONHXuvRo3yl3iVCAA24L4lqe5jWBDZs+WH5Fw5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785740453; c=relaxed/simple;
-	bh=i9qxjczYBRKPFMbdEg2F+nl3jGUbygT/ra3t8nb+SDE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tgVNd6VNiP0qsO9qLoEKmKs661iH7X4MyfzHWaiFOJPeo/ghr15q5AhqemznP8SWrpNj0JhG/LlMIhom6/8O9TAE0qcMZniIfQlf441iyxF3WMgjODgOIoLow01+Lp6gSJXprphEKiufq4O/5T7vThT1Nbfy/Ay8ow7DpR0op6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vc3KiDz+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785740521; c=relaxed/simple;
+	bh=ElXEm7gKmQrmDvvCdyjb55+gJWkZofMlyS/QpD8MpYs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D4/w50le7EyLrRmPQlO4onRLz7odr0zYiD0vUb9cQLvggl45kIgymP4pewN0ydfcqE8j06MVEAD2Y6vHE40i5WX+UyWStQQ1ds0TvYgnPfm8HUBXEEu8dElwzmYADOMA/1twPAv31qcqxhkj3myHM3fssCl3YfJNlk6lfAAXZ+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMsRMwf+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vc3KiDz+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ACB21F000E9;
-	Mon,  3 Aug 2026 07:00:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMsRMwf+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771841F00A3A;
+	Mon,  3 Aug 2026 07:01:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785740451;
-	bh=i9qxjczYBRKPFMbdEg2F+nl3jGUbygT/ra3t8nb+SDE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Vc3KiDz+kOPho8ipDObQbJnd+sfhPt1yM4VAlgpMkh4am7UlnaTS/ns4G0Fxey4eX
-	 cUWpmvh10hEJQUG9dRZiG9qtsDQp5IXibuGF2MB4tGzx2CBodAHqFG9NY6aETr/njE
-	 JO1NahwCREFXXuEDBUHIVbpo0RXNG0KBk4beakpx2KRQocsVv5hrYbGi6Jh+zqGbXk
-	 PpjoVxCbgikTM0F3ZlVnbE3a5aixvU75hgilC+xjUztDT+0ByCS7hrUXJNI573iTB/
-	 UNH5lJ95eeHoQ83VLruPpmSUqxA37imuZ/30QeiC2yHZ8VsAPbbeZZpXVCHa8gBAld
-	 BCwzzg+IO2ueQ==
-Message-ID: <c3171c59-bc83-4be5-beb4-e93bfb4d05a2@kernel.org>
-Date: Mon, 3 Aug 2026 09:00:37 +0200
+	s=k20260515; t=1785740519;
+	bh=I28J6cK4TxAllAdjNk09SGudJYfE5wtDptxjrqupb/Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aMsRMwf+SuNwJl+DKfx2RkiZZWT+WZIxXAqX84bNa5+JSp7iwlErERa9TBgx6lFbf
+	 +L5/vFrdGBxUOzIrjpVuQyPWF03CMWWBem1+/dvw8dzrclkeKGzpNLA2oUHPHdOA/s
+	 3FWjRC8cys/giLgFahgndTxWjQ/XrghLaDrNKS827w3mUs+/7RbdW8V2izKm5XPpy4
+	 WmMa8wLDXw9spfjaPHvGwxoOV/MR+y2dEJFK/R+SIHdTWp28aoXwVnBh6e4QFuN55a
+	 93nYM8gQ4HCXlVtkYVTeR83dDZ0b7jqNWTga9XX2TWrOvANCV1HA8PyRyX8y+zV8X4
+	 f24+ty7jSmx5w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 28/28] arm64: dts: qcom: talos-evk: Fix swapped USB QMP
+ PHY vdda-phy/vdda-pll supplies
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260803-phy-supply-fix-v1-28-5880630cde3e@oss.qualcomm.com>
+References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
+ <20260803-phy-supply-fix-v1-28-5880630cde3e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 07:01:59 +0000
+Message-Id: <20260803070159.771841F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 21/21] arm64: defconfig: enable X-Powers ACx00 Ethernet
- support
-To: James Hilliard <james.hilliard1@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Andre Przywara
- <andre.przywara@arm.com>, Richard Genoud <richard.genoud@bootlin.com>,
- Maxime Ripard <mripard@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Russell King
- <linux@armlinux.org.uk>, Saravana Kannan <saravanak@kernel.org>,
- Lee Jones <lee@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
- <20260802-submit-acx00-of-dynamic-v1-v1-21-0a53cd9e21cc@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260802-submit-acx00-of-dynamic-v1-v1-21-0a53cd9e21cc@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 03/08/2026 07:14, James Hilliard wrote:
-> Build the H616 PWM clock provider, AC200 MFD, both variant-specific
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Use full names. Is it Samsung H616 PWM clock controller?
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch provid=
+es an incomplete fix that leaves several QMP PHYs incorrectly configured. T=
+he commit message states that the QMP PHY expects the `vdda-pll` supply to =
+be 1.2V, and the patch correctly sets `usb_qmpphy_2` to use `vreg_l11a` (wh=
+ich is configured for 1.23V - 1.26V). However, it fails to fix `usb_qmpphy`=
+, `ufs_mem_phy`, and `pcie_phy` in the same file (`talos-evk-som.dtsi`), al=
+l of which continue to use `vreg_l12a` (which is configured for 1.8V - 1.89=
+V) for their PLL supply. Furthermore, the sibling board `qcs615-ride.dts` a=
+lso leaves both `usb_qmpphy` and `usb_qmpphy_2` configured with `vreg_l12a`=
+ (1.8V). This leaves the remaining PHYs exposed to a significant overvoltag=
+e (1.8V instead of 1.2V).
+--
 
-> EPHY control drivers and the shared link-PHY driver as modules. Enable the
-> netdev LED trigger as a module so DT-described PHY LEDs can use hardware
-> offload.
+--- Patch [28]: [PATCH 28/28] arm64: dts: qcom: talos-evk: Fix swapped USB =
+QMP PHY vdda-phy/vdda-pll supplies ---
+commit a8da26c25bde26c79bbdbc3a2692464d3f213cfd
+Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Why? IOW, which upstream board needs all of these?
+arm64: dts: qcom: talos-evk: Fix swapped USB QMP PHY vdda-phy/vdda-pll supp=
+lies
 
+This commit corrects the swapped vdda-phy and vdda-pll supplies for the USB
+QMP PHY on the QCS615 Talos EVK board. The patch ensures the vdda-pll supply
+is fed 1.2V instead of 0.9V.
 
-Best regards,
-Krzysztof
+> diff --git a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi b/arch/arm64/boo=
+t/dts/qcom/talos-evk-som.dtsi
+> index 294354c034c37..6469c6fa9f634 100644
+> --- a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
+> @@ -589,8 +589,8 @@ &usb_qmpphy {
+>  };
+> =20
+>  &usb_qmpphy_2 {
+> -	vdda-phy-supply =3D <&vreg_l11a>;
+> -	vdda-pll-supply =3D <&vreg_l5a>;
+> +	vdda-phy-supply =3D <&vreg_l5a>;
+> +	vdda-pll-supply =3D <&vreg_l11a>;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this provide an
+incomplete fix that leaves several other QMP PHYs incorrectly configured?
+
+The commit message states that the QMP PHY expects the vdda-pll supply to
+be 1.2V, and this patch updates usb_qmpphy_2 to use vreg_l11a (1.23V - 1.26=
+V).
+
+However, looking just above this block in talos-evk-som.dtsi, usb_qmpphy
+still uses vreg_l12a (which is configured for 1.8V):
+
+&usb_qmpphy {
+        vdda-phy-supply =3D <&vreg_l5a>;
+        vdda-pll-supply =3D <&vreg_l12a>;
+
+Similarly, ufs_mem_phy and pcie_phy also continue to use vreg_l12a for their
+vdda-pll-supply.
+
+Additionally, the sibling reference board qcs615-ride.dts leaves both
+usb_qmpphy and usb_qmpphy_2 configured with vreg_l12a (1.8V).
+
+Since supplying 1.8V to a PLL expecting 1.2V could expose the PHYs to a
+significant overvoltage, or alternatively undervolt usb_qmpphy_2 if the SoC
+natively requires 1.8V, should the remaining PHYs and sibling boards
+be updated to the correct voltage as well?
+
+> =20
+>  	status =3D "okay";
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-phy-supply=
+-fix-v1-0-5880630cde3e@oss.qualcomm.com?part=3D28
