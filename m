@@ -1,149 +1,64 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE293FC5A4;
-	Mon,  3 Aug 2026 12:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12C7403B1B;
+	Mon,  3 Aug 2026 12:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785760776; cv=none; b=jAfBOWvya6r29sLmA3b3OoyTwBquMa0rxsar6lgdnJrfWuSX45KYirFWnjGThx7ev1ToofYLPrrBRn0BopJ2LJzugol/sZG/JKQMKLouTEmZMc3B6Dncz4tcheIyuGS2DfiUv42HXvTCHEwzd0QDlN55Uct3fyxwmnOsNc9QU+U=
+	t=1785760824; cv=none; b=lrCAhnJYplc2TYqlG2Fl0nXBe09dsmypIxc7wz9JFb9c5LTPJu8mbFpR+2NwuLfZlQGKvs0aGN8d1RLD1jR9uEyi3NvyTZSpigevSJ7u9id/7sDAOkCLiOEra881u4U004EMWvL2WRYbLyvDBwC3pe1ngbykddQv0r4Ynr4BEPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785760776; c=relaxed/simple;
-	bh=Q/zNKt2jP2LxRSpySO8+OqVXysuTz1qBbm+xhcLHVL0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=M2b8nqAbi3BLsvovRg9S9hlUVoUsT/rwkXr//ZbcV5GeMO2xDwSUHewA7J3liR+Nj00atj42f6foibVtmZGqz6cc06IDqYsHuKsgi0ZLtcFt+kAVFc9oUeHrBOTJ6gexssurioqKrv3+TbS0J4YirO5VHGO0zLh/yRDcbUgBwdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3B4DC20077D;
-	Mon, 03 Aug 2026 14:39:31 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <u.oelmann@pengutronix.de>)
-	id 1wqrx5-002hRS-0U;
-	Mon, 03 Aug 2026 14:39:31 +0200
-Received: from uol by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <u.oelmann@pengutronix.de>)
-	id 1wqrx5-00000007p19-08Ll;
-	Mon, 03 Aug 2026 14:39:31 +0200
-From: =?utf-8?Q?Ulrich_=C3=96lmann?= <u.oelmann@pengutronix.de>
-To: Max Pedraza <maximpedraza@gmail.com>
-Cc: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,  Rob
- Herring
- <robh@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
-  kernel@pengutronix.de,  devicetree@vger.kernel.org,  Helge Deller
- <deller@gmx.de>,  linux-fbdev@vger.kernel.org,  Maxime Ripard
- <mripard@kernel.org>,  linux-kernel@vger.kernel.org,
-  dri-devel@lists.freedesktop.org,  Thomas Zimmermann
- <tzimmermann@suse.de>,  Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-In-Reply-To: <am2mvECnCcO9IxuI@monoceros> ("Uwe =?utf-8?Q?Kleine-K=C3=B6ni?=
- =?utf-8?Q?g=22's?= message of
-	"Sat, 1 Aug 2026 10:08:00 +0200")
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
-	<am2mvECnCcO9IxuI@monoceros>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Date: Mon, 03 Aug 2026 14:39:30 +0200
-Message-ID: <6rbjbj74zh.fsf@pengutronix.de>
+	s=arc-20240116; t=1785760824; c=relaxed/simple;
+	bh=1fPHYSPWlpVGJCK9eX/ujdFr83qCBTf/PIroRGp2Nmo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=QYcsQtVUsrwuAp1c619rYbNw1kRDbswwLIHkQtJK5rMPOPdiaoaRWlLDv/dgYGZR20SeRecdXLIRV6YP6Kpc1eCLFgBC2ICF0vOh2V1+PibKqHp+uQZ/lLhMAdmRyTF0+NwFfG4pd7T8dNQ8sELYylWgtC0dH3oStCyY16UxpMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.116])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4895a4bee;
+	Mon, 3 Aug 2026 20:40:09 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: zyheihei_123@163.com
+Cc: amadeus@jmu.edu.cn,
+	andrew@lunn.ch,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org
+Subject: Re: [RFC PATCH] arm64: dts: rockchip: H28K: release RTL8211F reset before MDIO probing
+Date: Mon,  3 Aug 2026 20:40:00 +0800
+Message-Id: <20260803124000.840861-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260803104646.26836-1-zyheihei_123@163.com>
+References: <20260803104646.26836-1-zyheihei_123@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fc7a3819d03a2kunm7af09f8f2859a5
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTE1CVkhLHkxLQkJOGklIH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpKTVlXWRYaDxIVHRRZQVlPS0hVSktIS0
+	pMS1VKS0tVS1kG
 
-Hi M=C3=A0xim,
+Hi,
 
-On Sat, Aug 01 2026 at 10:08 +0200, Uwe Kleine-K=C3=B6nig <u.kleine-koenig@=
-baylibre.com> wrote:
-> Hello Max,
->
-> On Fri, Jul 31, 2026 at 11:50:37PM +0200, Max Pedraza wrote:
->> Embedded products routinely need their own boot logo. Today the only way=
- to
->> get one is to replace one of the logo_*_clut224.ppm files in the kernel
->> source tree, which bakes the image into the kernel image. Two products t=
-hat
->> share a board support package but differ in branding therefore need two
->> kernel builds, and rebranding an existing product means rebuilding and
->> requalifying a kernel for what is purely a cosmetic change.
->>
->> This series lets the logo be described by the device tree instead: a node
->> compatible with "linux,boot-logo-clut224" supplies the image in the same
->> paletted format the built-in CLUT224 logos already use, and the kernel
->> prefers it over the built-in ones when it is present and enabled. If the
->> node is absent or disabled, nothing changes.
->>
->> The image can come from the node itself (patches 1-2) [...]
+> Release the reset from the MAC node via snps,reset-gpios so it is
+> deasserted before MDIO scanning, and drop the PHY-node reset-gpios (a
+> second consumer on the same GPIO is rejected with -EBUSY).
 
-independently of the specific implementation, please keep in mind that
-the kernel is distributed under the GPLv2, which may have implications
-for a proprietary image embedded in the device tree. That doesn't
-necessarily have to be a deal-breaker, but it's probably something that
-should be considered carefully.
+This is incorrect. Has your uboot's DT been synchronized with the kernel?
+Normally, U-Boot will reset this GPIO. Another way to solve your problem
+is to hardcode the PHY ID here. However, considering that manufacturers
+might use either RTL8211F or YT8531, it's best to let U-Boot handle it.
 
-Best regards,
-Ulrich
+For reference: https://github.com/openwrt/openwrt/commit/384127320e0b
 
-
->> [...] or from a reserved
->> memory region the bootloader filled in (patches 4-5), because the image =
-and
->> its placement are independent axes of variation. One board sold to sever=
-al
->> customers wants several device trees differing in the logo. One customer
->> with several products built on that board, with different panels, wants =
-the
->> same logo placed differently on each: there the image belongs in a shared
->> binary and only the placement belongs in the device tree. Patch 3 adds t=
-hat
->> placement.
->>
->> We have been carrying a cruder version of this downstream on an AM335x
->> product since 2020, across a handful of board revisions, and it has remo=
-ved
->> a real maintenance burden for us. This is an attempt to find out whether
->> something along these lines is wanted upstream, and if so in what shape =
---
->> hence RFC.
->>
->> I am aware of the contentious part: a bitmap is not hardware, and the de=
-vice
->> tree is not an obvious place to put one. The argument for it is that the
->> logo identifies the board in the same way the model property does, it is
->> available before any filesystem is mounted, and it is per board rather t=
-han
->> per kernel. The argument against is presumably that this is policy and
->> belongs in userspace or in the bootloader. I would rather hear that
->> explicitly than keep the patch downstream on a guess, and if the concept=
- is
->> rejected I would still like to know whether a smaller subset -- say the
->> placement properties driven from the fbcon command line, without any ima=
-ge
->> in the device tree -- would be worth submitting separately.
->
-> My 0.02=E2=82=AC: Usually you want to use the display using drm and not f=
-b once
-> the machine is fully booted. If you're using fb during boot to display a
-> logo, it's hardly possible to switch to drm later in the boot process
-> without flicker.
->
-> So my recommendation for your usecase is to not use the kernel boot logo
-> stuff, but something like https://github.com/pengutronix/platsch.  Then
-> all the configuration is in userspace and modifyable using kernel
-> parameters. Or you create your own application using libplatsch that
-> selects the image based on the actual product derived from the dt
-> compatible or some EEPROM's content.
->
-> Best regards
-> Uwe
---=20
-Pengutronix e.K.                           | Ulrich =C3=96lmann            =
-   |
-Industrial Linux Solutions                 | http://www.pengutronix.de/  |
-Peiner Str. 6-8, 31137 Hildesheim, Germany | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+By the way, you sent this patch twice within two hours...
