@@ -1,341 +1,231 @@
-Received: from mail-m15574.qiye.163.com (mail-m15574.qiye.163.com [101.71.155.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7482C2EEE7D;
-	Mon,  3 Aug 2026 02:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785723978; cv=none; b=VusQJ27D6H53wJzxegAIkEzn5BwVqQ4650T3dSepotjBlLPbLf1fINf8J1GlCIS6kYQYxroLwsnvEUzN/VSyk5xGtMcZ0cSbiq845Yq09q0vv9j1SU5GYuyIjEgZV0ynSW4v5hoqRZp1ke4DOjD60tpZ3OqIJaeBbuFNBBWR3JE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785723978; c=relaxed/simple;
-	bh=jmICrp22bg+DMwROhMPAgL0Clx+/l72Z63eMy2vzPc8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ePduLwfbNKNDv5W0oD8UnXLFYmrcCpLrE/qQMBdl45JFp7AzU8lEf4dSlnRmnEuVQbjdwOQDDGqPzGofkQlIYOWXkNz+LkrbOFzHYEDfLvf9O/6fL4n2BKK7ZLY7fEdz3xyCce7t+SR+lFgttFy9QsSJ86SBYGzsIqYjw4RdOjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=KbRfJgCD; arc=none smtp.client-ip=101.71.155.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B5630FC03
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 02:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785724259; cv=pass; b=mXhspbgINC7g/iGp3yoDEke2p36sVErIvl7tjUaZF3TaQGUeqxDSGxGQlDqe1WnnTXuCkYQhGU7tiGs/cosPFZmGi2DjLQsdvzyF5ck9IVMFk8JCTdNG9Lp2bQA5HXdf65JgepoqGEVqT4oL3Tn6aOzEj2Op8IpOQrjxSf48tKE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785724259; c=relaxed/simple;
+	bh=jNyNjdk9PNgwREJvOimkD8X6lwxWtmK86IwlK0nh5Xk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gl/LAFEDAA7PIYYmmnpNBEfGyxdLEcA9RZ6iKHHLO160DaklrTu+BLSHiAOJ2j8Au69A1FYIKy3ljJGNYUtLNzOfjzdxZBs4Q6RfkzlJcMVnx1Z+rAXSYx3LdV3+aL5y2Ung7H/ApPiQLgo81KG9exn35CAdyJkF0FbHeLFhRC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o50OZRYO; arc=pass smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="KbRfJgCD"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 487d3130a;
-	Mon, 3 Aug 2026 09:50:31 +0800 (GMT+08:00)
-Message-ID: <a51a6359-c00c-4190-b3ef-13c79bb5bfed@rock-chips.com>
-Date: Mon, 3 Aug 2026 09:50:31 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o50OZRYO"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b015532f7bso2371823e87.0
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 19:30:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785724255; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IpMB+sOf9WZ7kc2LukKhAbSv6kVDX1p1ktEcL2udVccc2GGtbAzbaFFVvdVK5hqrF0
+         LwCp9P11czO7QkuBy+vJj+5p+tNogvfICd4P2GHMIVzQ/w1XQOnNeKJgL/kM3OUOEZj4
+         J3OXcy5HsmWMbg1lCukG2W5O1gPk4nQ7LpCOafTDxFWOcfGqzsZVEhu3aTLhsVB8Yc5/
+         KVtyOjkxb7/V0SoBBaDgvviGE07sBGMTlIX6Ve5tGjZU5aoaRZy+amuf42O15aAf5cll
+         pSB45Q42G8qR6HlpuW1yghrslIinHdyGOS1ralvwyvUrSbhHpZmwh3Xe+qwogc/W7wBT
+         N13A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=RnMU7IHc6px78a2zQeM08cBItnOh1w1M97WR78ocvnY=;
+        fh=QwSZs1ehrBersG0pYXsPJk14uaiH5/8bgpSpxt2em7E=;
+        b=CHKyzv3UNjtjOB4484xP4pyyfSrQZdmsi5GWltma3bjukddWTWOQeKiE8YUd8IGe8d
+         JX6jhgxqDwki8+XYtgLc1InRkMhShbPQwlkEY3Qc45P7h61kH7BtTslBUmc1AhxfehAs
+         32GJirrrBNZaDwomrMOd93/1z4PrSgKhgPztaC8dwY0rx6NFoDDk4DN1Eh1Y1+H3FTOe
+         zSkQ4/f6zT6OlQvTi5EcMx932tV/aBz8gRYaFg5+m9lTHtym0bI6RxmdfSKK2C2NcChY
+         a/MH9IUzThuOO3qyFrmjFiLcPIPOGQhvAVZlhiqbbl4M95kHYF33h7rL3e4wJx7i1tPc
+         Bodg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785724255; x=1786329055; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RnMU7IHc6px78a2zQeM08cBItnOh1w1M97WR78ocvnY=;
+        b=o50OZRYOzqlLy/v3oYD+/Mho3TOKqWJDKF85QFyTeDL+K5SBGeZ6o2E0z0+bgE33J9
+         Wb+s9N/kuzKDQu53nNDVDwKoEKxgIT1fI5/mnM/4uL1qpD+FhHpSnEqqtiQyflVCCZyR
+         CoB8S09SuZL5/XfTdYT57rKKJE+vDPzzodwtKNI3aA2RUCDAB8fGmFySyD2gNl/pkYUo
+         fR5PJ46QVRTnzaIGeSoyW3jqENlKCXv2gLekRpVx8yakDpOFvLdnT5zwDdMUhNTjmzrd
+         eIjpvCxYyyfLyYm7BX/zsO+xCLMxL3zfO0nwAa82/d0yPm1WZ7WntaFS9u/Z4q/sCNaj
+         ZAjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785724255; x=1786329055;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RnMU7IHc6px78a2zQeM08cBItnOh1w1M97WR78ocvnY=;
+        b=JE+PgX84/lfQ5J9oAEpgzVXjIxU7JJbgUpHyISnacnajidhVLn+vHmejI/dWswGKHm
+         p9QYRve9f6gOgnZgdNNP1ySRRM2cu/afmWjGfaJsvzDZZNwsW8g75YNrGhpPE5ZZ/UiR
+         JzYrM1dMcPG9xUva8vNzVmYZ9PF89qEDxSdAG6rBgEOyeXP1IYrz9nRoIk4+gGdD8WdK
+         4aojzVruCfbczQBc0/ZBTZ8ivlrh4AWuI4jNn6jDWXCqQZl6TM4HExh7fvh+PfUtTWyC
+         7TrLQGMZeVC1vp9B553xgVGRj84R3c8UefTra+U+QvTVcuECibUZS0LYizwEpnECidOs
+         Pgvg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3VkW+Ci3Jo7wZA8lcWejeuIZVZRyMMUyNeC2gCjbH1S6A/BDDU89BFClnQdoxJrUB0xK3srEZk9w9@vger.kernel.org
+X-Gm-Message-State: AOJu0YylgZuDsqVbuvffa2ZbynDiT5nznthJDm91IpBBLTBAgKv1SZpR
+	DxLsPc2bVFoDJ1kd5OukErCzHfKU4g5ttwdzy3t4C11i8FpmoeyjcOrF8BcfaMSqVmlgIAee74N
+	A1J4kXRwaaymIsRmKrYqSKTk6dp+mNos=
+X-Gm-Gg: AR+sD10rxD7CXzB3vR4WWq2BbfObinZw6IspG5UEZc7sF92vif+6HohDYbnC5aO4joA
+	pkPxcab8Xn4ADvt/LlUCDvC+RwfQCXi6uyDT6ZSGyohD0MCv/IfFMedBMTfKyVEKG86mjDSti1u
+	KHn7oNXn21Dhb9lVx5tzKX0BRsxKINmNSmCyMqlrnh9Njv94oc5qF2hRPd4+NXWKDEBig+5Egqy
+	po03qrRPIG7PTSa+UaF1nasZOD1ThWyIU56MQk+Ykz1wquIrDI1KjbwqHNdwLxkZwBjLI5LOQSc
+	iVJj98U7vKuWfoZlgZqH4e/g7rV+PxO/NOQoRP/TIHeQKU19i3jRfJWn
+X-Received: by 2002:a05:6512:6614:b0:5b0:eda:de25 with SMTP id
+ 2adb3069b0e04-5b2e4f18512mr1212646e87.6.1785724254914; Sun, 02 Aug 2026
+ 19:30:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260730032744.381566-1-damon.ding@rock-chips.com>
- <24131962.ssLaC8jLEa@diego>
- <44ff5316-43cc-46be-b947-ea6e1f5da1bb@rock-chips.com>
- <5209243.oAaWjsssbx@diego>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <5209243.oAaWjsssbx@diego>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fc550bff503a8kunm98219b2a55f5b9
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUlMVkNMT01PSU9MSR8dQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=KbRfJgCDsDrnjcREajGQGc5avyyAbQToOYReFowTyhSSJ7BHpVIUrzum2s11qB4PSjrizUtHAq66dMGoLg93ne4f9uXk7tbb7/Z1CHHKNMtuD3PiQjBBf537wFyD/yAqXgEMRvqx/LeyUP4L7ublfViUYWrJZ9R0eCOY/heSB3M=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=c6wh7zdiLYbCoFb7Xy9PfvQW4nqvBFuzM1gperfrKNs=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com>
+ <20260731-ti-ads112c04-driver-v2-1-aab0168c3c01@gmail.com> <b2297241-e0ae-4058-a406-348440798e38@baylibre.com>
+In-Reply-To: <b2297241-e0ae-4058-a406-348440798e38@baylibre.com>
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Mon, 3 Aug 2026 10:32:45 +0800
+X-Gm-Features: AUfX_mxvBmWr20zpVeWomwBTghWXfR5czaw5n8HLsdzKC9VbeOD2hGqhKXv2nj0
+Message-ID: <CAF7HswOr1CbsR2+K06NwCNty=xJg5mgCa8mXxY_nSP8um-YBRQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads112c04: Add binding
+ for ADS112C04
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Heiko,
-
-On 7/31/2026 6:30 PM, Heiko Stübner wrote:
-> Hi Damon,
-> 
-> Am Freitag, 31. Juli 2026, 11:55:42 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->> On 7/31/2026 5:23 PM, Heiko Stübner wrote:
->>> Am Freitag, 31. Juli 2026, 05:08:45 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->>>> On 7/31/2026 2:49 AM, Heiko Stübner wrote:
->>>>> Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->>>>>> This series improves the HPD (Hotplug Detect) interrupt handling in
->>>>>> the Analogix DP driver to enable reliable native HPD pin detection on
->>>>>> Rockchip platforms, and introduces platform-specific HPD detection
->>>>>> schemes with fine-grained interrupt control.
->>>>>
->>>>> [...]
->>>>>
->>>>>> Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
->>>>>>
->>>>>> Native HPD pin mode:
->>>>>>
->>>>>>      &edp {
->>>>>>          status = "okay";
->>>>>>          pinctrl-names = "default";
->>>>>>          pinctrl-0 = <&edp_txm0_pins>;
->>>>>>      };
->>>>>>
->>>>>> GPIO HPD mode:
->>>>>>
->>>>>>      &edp {
->>>>>>          status = "okay";
->>>>>>          pinctrl-names = "default";
->>>>>>          pinctrl-0 = <&edp0_hpd>;
->>>>>>          hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
->>>>>>      };
->>>>>>
->>>>>>      &pinctrl {
->>>>>>          edp {
->>>>>>              edp0_hpd: edp0-hpd {
->>>>>>                  rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
->>>>>>              };
->>>>>>          };
->>>>>>      };
->>>>>
->>>>> Yay and thanks a lot for working on that.
->>>>>
->>>>> If I roll my display-port carrier board back to the analogix-dp being
->>>>> the endpoint, this works exactly as expected :-) .
->>>>>
->>>>> I can plug in the display at some point after the boot and have it
->>>>> detected and setup correctly. Same with unplugging it while
->>>>> the system is running. The connection status is correctly reported
->>>>> in sysfs.
->>>>>
->>>>>
->>>>> Though there is a caveat. When the eDP is not the last part, this does not
->>>>> work anymore. The detect function always returns "connected" if there is
->>>>> a next bridge available.
->>>>>
->>>>> My board [0] has a physical DP connector on it, so models it as
->>>>> dp-connector, but in that case the Analogix driver always reports being
->>>>> connected.
->>>>>
->>>>>
->>>>> [0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-heiko@sntech.de/
->>>>> ... same effect with hpd-gpios in either the edp node or dp-connector node
->>>>>
->>>>>
->>>>
->>>> My previous tests were carried out on the modified RK3576 IOTEST board
->>>> DTS based on RK3576 EVB1, which includes dp-connector by default. I also
->>>> did extra verification without dp-connector, and HPD detection works
->>>> correctly in both cases.
->>>>
->>>> I've taken a look at the Tiger board DT configuration. The pinctrl
->>>> settings for the eDP HPD GPIO may need adjustment:
->>>>
->>>> &pinctrl {
->>>> 	edp0 {
->>>> 		edp0_hpd_l: edp0-hpd-l-pin {
->>>> 			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
->>>> 		};
->>>> 	};
->>>> };
->>>>
->>>> It is recommended to configure GPIO4B5 as pull-down or pll-none. Pull-up
->>>> configuration may prevent GPIO interrupts from being triggered properly,
->>>> resulting in a permanent "connected" status.
->>>
->>> At least on that DP-carrier the pin direction is different.
->>> I.e. it is active-low, meaning 0 for plugged in.
->>>
->>> In the schematics I do see a hw pull up too - so pull-none in the pinconfig
->>> would also be possible, but pull-down is definitly wrong on _this_ board.
->>>
->>> So we're talking about the same code, I put the dts up on [0] .
->>>
->>> I'm currently running with a printk diff [1] to showcase the issue.
->>>
->>> So on boot, with the display unplugged I get:
->>> [   14.757911] ---> drm_bridge_connector_detect: detect
->>> [   14.757914] ---> analogix_dp_bridge_detect a
->>> [   14.757918] ---> drm_bridge_connector_detect: detect
->>> [   14.773779] ---> analogix_dp_bridge_detect a
->>> [   14.838658] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
->>> [   14.838662] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
->>> [   14.838670] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
->>> [   14.884791] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
->>> [   14.884793] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
->>> [   14.884796] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
->>> [   14.930925] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
->>> [   14.930927] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
->>> [   14.930930] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
->>> [   14.977032] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
->>> [   14.977034] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
->>> [   14.977037] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
->>> [   15.023150] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
->>> [   15.023152] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
->>> [   15.023155] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
->>> [   15.023168] rockchip-dp fdec0000.edp: too many times retry set bridge, give it up
->>> [   15.052485] Console: switching to colour frame buffer device 80x30
->>> [   15.210457] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb frame buffer device
->>> [   15.223444] ---> drm_bridge_connector_detect: detect
->>> [   15.231974] ---> analogix_dp_bridge_detect a
->>> [   15.239587] ---> drm_bridge_connector_detect: detect
->>> [   15.245341] ---> analogix_dp_bridge_detect a
->>>
->>> So analogix_dp_bridge_detect() is called and always returns connected.
->>>
->>> Plugging in the the display, I get:
->>> [  290.592096] ---> display_connector_detect gpio value is 1   {display-connector returning connected}
->>> [  290.598648] ---> drm_bridge_connector_detect: detect
->>> [  290.604637] ---> analogix_dp_bridge_detect a
->>> [  290.609826] ---> drm_bridge_connector_detect: detect
->>> [  290.615784] ---> analogix_dp_bridge_detect a
->>>
->>> Unplugging the display, I get:
->>> [  302.081444] ---> display_connector_detect gpio value is 0   {display-connector returning disconnected}
->>> [  302.087996] ---> drm_bridge_connector_detect: detect
->>> [  302.093945] ---> analogix_dp_bridge_detect a
->>> [  302.099131] ---> drm_bridge_connector_detect: detect
->>> [  302.105090] ---> analogix_dp_bridge_detect a
->>> [  302.144834] ---> drm_bridge_connector_detect: detect
->>> [  302.150784] ---> analogix_dp_bridge_detect a
->>> [  302.155933] ---> drm_bridge_connector_detect: detect
->>> [  302.161859] ---> analogix_dp_bridge_detect a
->>>
->>>
->>> So it looks like on the gpio-side the detection is correct and/but
->>> analogix_dp_bridge_detect() is always returning a connected state
->>> ("b" output is never reached).
->>>
->>> I'm still working on understanding how the whole detection logic works
->>> in drm ;-) .
->>>
->>>
->>
->> I think I've spotted the environmental difference between our setups.
->> Your DTS places the hpd-gpios property under the dp-connector node,
->> which is a scenario I haven't covered yet. I will reproduce and test
->> this case locally.
->>
->> As a quick experiment, could you try removing hpd-gpios from
->> dp-connector and move it under the edp node instead? As expected, GPIO
->> HPD should work properly with that configuration.
-> 
-> I've updated the branch in [0] with that hpd move to the edp node, but
-> the result is similar:
-> 
-> With the panel _disconnected_ on boot I see
-> [   12.887555] ---> drm_bridge_connector_detect: detect
-> [   12.893104] ---> analogix_dp_bridge_detect a
-> [   12.897881] ---> drm_bridge_connector_detect: detect
-> [   12.903424] ---> analogix_dp_bridge_detect a
-> [   14.124848] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
-> [   14.124891] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
-> [   14.236031] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
-> [   14.236074] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
-> [   14.346940] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
-> [   14.346990] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
-> [   14.458590] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
-> [   14.458638] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
-> [   14.570262] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
-> [   14.570312] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
-> [   14.570328] rockchip-dp fdec0000.edp: too many times retry set bridge, give it up
-> [   14.751371] ---> drm_bridge_connector_detect: detect
-> [   14.757207] ---> analogix_dp_bridge_detect a
-> 
-> So with the diff from earlier, analogix_dp_bridge_detect() still runs,
-> finds its next bridge and returns "connected".
-> 
-> I.e. the
->>>           if (dp->plat_data->next_bridge)
->>>                   return connector_status_connected;
-> 
-> part.
-> 
-> 
-
-Thanks a lot for running the test and confirming the behaviour. I've 
-also reproduced this issue locally.
-
-I will dig deeper into this problem and fix this incorrect connection 
-status logic in v2. :-)
-
-Best regards,
-Damon
-
-> 
-> 
-> 
->>> [0] https://github.com/mmind/linux-rockchip/blob/dev/v7.3/rk3588-tiger-dp-carrier-v5/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
->>> [1]
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> index 7a89548a7a885..0accdf62637ae 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> @@ -915,8 +915,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
->>>           struct analogix_dp_device *dp = to_dp(bridge);
->>>           enum drm_connector_status status = connector_status_disconnected;
->>>    
->>> +printk("---> %s a\n", __func__);
->>>           if (dp->plat_data->next_bridge)
->>>                   return connector_status_connected;
->>> +printk("---> %s b\n", __func__);
->>>    
->>>           if (!analogix_dp_detect_hpd(dp))
->>>                   status = connector_status_connected;
->>> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
->>> index 16c0631adeb18..b0c07694b82e3 100644
->>> --- a/drivers/gpu/drm/bridge/display-connector.c
->>> +++ b/drivers/gpu/drm/bridge/display-connector.c
->>> @@ -45,6 +45,7 @@ static enum drm_connector_status display_connector_detect(struct drm_bridge *bri
->>>           struct display_connector *conn = to_display_connector(bridge);
->>>    
->>>           if (conn->hpd_gpio) {
->>> +printk("---> %s gpio value is %d\n", __func__, gpiod_get_value_cansleep(conn->hpd_gpio));
->>>                   if (gpiod_get_value_cansleep(conn->hpd_gpio))
->>>                           return connector_status_connected;
->>>                   else
->>> @@ -84,6 +85,7 @@ static enum drm_connector_status display_connector_detect(struct drm_bridge *bri
->>>    static enum drm_connector_status
->>>    display_connector_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
->>>    {
->>> +printk("---> %s\n", __func__);
->>>           return display_connector_detect(bridge);
->>>    }
->>>    
->>> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
->>> index 649969fca1413..8816d837c9a77 100644
->>> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
->>> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
->>> @@ -218,6 +218,7 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
->>>           enum drm_connector_status status;
->>>    
->>>           if (detect) {
->>> +printk("---> %s: detect\n", __func__);
->>>                   status = detect->funcs->detect(detect, connector);
->>>    
->>>                   if (hdmi)
->>>
->>>
->>>
->>>
->>>
->>
->>
-> 
-> 
-> 
-> 
-> 
-> 
-
+On Fri, Jul 31, 2026 at 9:52=E2=80=AFPM David Lechner <dlechner@baylibre.co=
+m> wrote:
+>
+> On 7/30/26 9:58 PM, Kyle Hsieh wrote:
+> > Add device tree binding documentation for Texas Instruments ADS112C04
+> > I2C Analog-to-Digital Converters.
+> >
+> > These devices provide 4-channel, 16-bit delta-sigma ADCs with an I2C
+> > interface, programmable gain amplifier (PGA), and data-ready (DRDY)
+> > interrupt output.
+> >
+> > The binding uses child nodes to dynamically define the connected
+> > single-ended or differential channels.
+> >
+> > Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> > ---
+> >  .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 122 +++++++++++++=
+++++++++
+> >  1 file changed, 122 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yam=
+l b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> > new file mode 100644
+> > index 000000000000..6a5ffda84b80
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> > @@ -0,0 +1,122 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/adc/ti,ads112c04.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Texas Instruments ADS112C04 ADC
+> > +
+> > +maintainers:
+> > +  - Kyle Hsieh <kylehsieh1995@gmail.com>
+> > +
+> > +description: |
+>
+> The | isn't needed in this case. (It is only needed if we needed
+> to preserve formatting, or if there is a : in the text that would
+> be interpreted as a dict key.)
+Understood. I will remove the `|` from in v3.
+>
+> > +  The ADS112C04 (16-bit) are precision analog-to-digital converters (A=
+DCs)
+> > +  with an I2C interface. They feature a flexible input multiplexer, a
+> > +  low-noise programmable gain amplifier (PGA), two programmable excita=
+tion
+> > +  current sources, a voltage reference, and a precision temperature se=
+nsor.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - ti,ads112c04
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +    description: I2C address of the device.
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +    description: Data ready (DRDY) interrupt output.
+> > +
+> > +  "#address-cells":
+> > +    const: 1
+> > +
+> > +  "#size-cells":
+> > +    const: 0
+> > +
+> > +  reset-gpios:
+> > +    maxItems: 1
+> > +    description: GPIO connected to the RESET pin. Active low.
+> > +
+> > +  avdd-supply: true
+> > +  dvdd-supply: true
+> > +
+> > +  refp-supply: true
+> > +  refn-supply: true
+> > +
+> > +  ti,refp-refn-resistor-ohms:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+>
+> As the bot said, don't need $ref here because it is a standard unit.
+> (So don't forget to run `make dt_binding_check DT_SCHEMA_FILES=3Dads112c0=
+4`
+> before sending.)
+Yes, the `dt_binding_check` robot caught this right away. I will
+removed the redundant `$ref` and resolved the warning locally.
+>
+> > +    description: Resistance of the external resistor between REFP and =
+REFN.
+> > +
+> > +patternProperties:
+> > +  "^channel@[0-9a-f]$":
+> > +    $ref: adc.yaml
+> > +    unevaluatedProperties: false
+> > +    properties:
+> > +      reg:
+> > +        items:
+> > +          - maximum: 15
+>
+> This chip doesn't allow arbitrary combinations, so there
+> are actually only 12 possible single-channel + diff-channels
+> values. So maximum: 11 and channel@[0-9a-b] would make sense.
+I will update the regex and set the reg maximum to 11 to strictly reflect
+the 12 possible MUX configurations supported by the hardware.
+>
+> > +
+> > +      single-channel:
+> > +        maximum: 3
+> > +
+> > +      diff-channels:
+> > +        items:
+> > +          maximum: 3
+>
+> For this chip, we should also have excitation-channels, excitation-curren=
+t-nanoamp,
+> and reference-sources.
+I will add these properties to the binding to fully describe
+the hardware capabilities.
+>
+> > +
+> > +    oneOf:
+> > +      - required: [ single-channel ]
+> > +      - required: [ diff-channels ]
+> > +
