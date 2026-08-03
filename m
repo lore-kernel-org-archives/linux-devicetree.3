@@ -1,181 +1,239 @@
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AFC3403F9
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 15:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785772650; cv=pass; b=erMJUSbHQa3qQaOuV56OHf3YDl8i6kGKxBqsOcZlZhmk+BbpDnvbSWQZL9gL2Kwu4vregsbEFFwJFMlsxEaqWdcBLZOPQ1YMhBQcmAE66/zhF30q6wbUKddDp9qoKBt/x1ulJ7kc5IgtSzIO4V6auG9Tn8+maQ+aOQYSLjJpYCE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785772650; c=relaxed/simple;
-	bh=fZ8BuOv3ILCmNDbfVHwiSe/Itiuz/HLNsG0RZrH9AfQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ilcOsyNJ6l9UEd6Uiqt5PZfdIGioT54I7qcFSgcnz3cN2snsDqj2x21Nciq1faDbiPVUiq4v0+H4zOw6NRFVr5EPvYAdYU6GTM2VqY9Q0loSqZ+6Mh315DfvStWxgniSwn+KdW65yyRmNmRSrYxnXTCZCCES3cvjFGSZp52+AWQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hj9Qjsg6; arc=pass smtp.client-ip=209.85.222.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109DB2F8E96;
+	Mon,  3 Aug 2026 16:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785772887; cv=none; b=Rfj1V7G5u0MAnoqMvkJdiY1ieuWhISQN6QtGpoWmBAR7lOBV2JYcOOtEQd3s7+fECkf16aCZxHdgnjtDotSTvGupomHMSaISTOIb8tzpM/W+heOtCtD1g2W7l0G6WByyj4dD8PUDGdxfbSyHmLqVs/glS8wL8gaXEfyKADmA9R0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785772887; c=relaxed/simple;
+	bh=/6SC4853A0hdynqBxXGhnjTONP+X1lIr8xUj8gNWjXM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZtgC+wc5GXmRcfiq2Y0hN33L7Zg2v3mxP3eRD/jyrHwPwXkfhgkhLDRH3ZhC82o1wbY5SOenmkMtJ9OX2uikIliDXL60/qY98knPn/ar4TVElXqPL5maSJDiKBuxMpqBZp8NG6slSuakEQ+bXOWTguqKeyt8wXQdRCunk/Tb4rI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=21NMZNiE; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iWUI0C66; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hj9Qjsg6"
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-963f63fe025so694997241.0
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 08:57:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785772647; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YMeqxLekVa9IFNKxeeGlG2p8dP1VP6ZyPdSf7kQ/cWJli6DkHVPUEJC7Tw5OOBCijZ
-         pyjVFsH79vXsKWfCzgubAnHVndGHQCCY08AGZ8lxdih3qlxm5G/oH3rKUQzIAB2UZbJu
-         X4SbLl7Jf6+De3XHJMfpJKfT4GsjefU+itJgrjrBzt5BYN+lTTahYi02rhvNkiqfaRFF
-         D6bAwpYaNlfzBRWEMweCsj3VlFypUkjz/ouNSS+mPf951tmIo6DUZaql/t4wXQCIJ8v/
-         FKx/9XBE1MXMDOAZeHkHuGJuDGshpqxNS53gWH4d4NFf2OwXkdI/CATT9BKQbCTz7BwS
-         vDFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N0JlmS2gNslt5buGhuv7J6Rqxg7nw4cpe34TAqatS1E=;
-        fh=60vGaG1SeSI/Ugy3NkEyJokCg+Gx4FZyRxEf6emnmmA=;
-        b=U6iK36cWK15mT9kyBLoH6m5fE96q8uHXV2B9e1dfFNFwtdmGRTphDt1Czr8OfnLfaM
-         rn9ZS8lGwwhKFvp7AelrxU3QzYzsTyvskNXhMjZa1gScvkRgmraQA7kdD4wiZjaIAlsf
-         Fw7Rw0bU2/AOEqCHs91rD1SONZVmAw6wkZiG6O4HY9QUt1dcZisqDNouBvQAD4QZdpzC
-         CPQBz3LuIrWNHY3TCf8SUQw+ffTK3N8EF3Fe4bmojRIpadHhiv5XpVUN9mC4xFHE+tc4
-         TYuGjNzxEF41CYvQetL/EAICCbFO/M9ufgqzxJ9rYo+BpHv9Kchu97p+4r/xu+B9t5zt
-         ox8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785772647; x=1786377447; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N0JlmS2gNslt5buGhuv7J6Rqxg7nw4cpe34TAqatS1E=;
-        b=Hj9Qjsg6KW1MSz/SX+6kLkXVUgEoGCC/TK3P8TC676mNuOGkpgnHnQSDLqLq14TuXD
-         btpWKdByixT/6wnmsGSILoRUi0F7dWjaaTt15PCCBd6+OqzJQWPYIFTE79x5wD+Eu5x1
-         IOarCfnRr8a9DqvJ+YpOAXNJTvSVtKAKZQXYw8Rb9S3m8w0CAp0/vV+NO/z4isXVAATV
-         CdIe3DgetUYN+XzybdHWFys3Hk7WRw0W0WkdeWvf2oolEbndkvSHS2bN/2uuFTiuLy3c
-         tpxEdQ4ecvFjDZ0VnvJkccJhuKm3odKwBXhG6FHKJrZXPkn6MNrkCIixixMfm89MVWF1
-         fndw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785772647; x=1786377447;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N0JlmS2gNslt5buGhuv7J6Rqxg7nw4cpe34TAqatS1E=;
-        b=Sh+HlEO62vlOmmzCr5fUCmVO6kuiNsBN3hpxBqFALhLvu+vFT6jR4J/NOmJiWEUp8O
-         TjPbxM+2Z6YI7BlT4gXXq/jqjnKHfeKlinjF7aQ1LVPjfffPboRqDqMHlD1z1HjJA46x
-         b3TyCWANJAMpRh8mWC44dCJwAz1O6ShF+aiitnhquDL19CGoChlmoUija75mfRc/k2F8
-         ve3weXR1JPVGh0uy2tiFvUn6vDGNJJe/Km84Z6MBb15gu28YALDlQCGB4xWbXG6ZGpwH
-         YOsODn5pb5o5wQ0c3Q24Y2OATkdwmvXcQs+PIsbIqbd9+Mhg4LrcR+cK4Qgcrvqw1CJm
-         2Q9g==
-X-Forwarded-Encrypted: i=1; AHgh+RrGKMDKYGg5Kqcn1CebPscAjst+6Pzdwp9sdNONbHRZE/RLUhdtu83Tmli4mxbbFTgxel1+hltCPxO6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwB9Lpb/ZMSZEES0OmBJ58GeF88GTynnIXUsXPwTF0O5xRX3/YD
-	+TRvF3SRmbK85aJTzyPrQa7DWm11Y8yl5zzCdKdc9WfaZ3vezfwpULZdmYqoI/S0RyQaZFqHgK6
-	9J/Vd7+lfxN5fgrga92iGxFeVB62ILiQ=
-X-Gm-Gg: AR+sD12CMazO1NX30oaDc44BPYJH0XMPXsOSQUhulmTkMY4hJQKzoEWTQ94ZXHav4q1
-	Uvk8bZoRNz0CfcIIlsOBzEB3AcozovQl2/ZqilwJ6HpGwIty8vO1iBjgJeSe65NMFEcqoVeODCh
-	k5ge1s7N16LWNLhh1OlE6bhncB447OtDoeHNTKGzxvZ8y4o8DN74mnlwvay2+bZ5UHp5Rq5AvBK
-	F3pGtsaYV8yX677omY4zPJFOb67xrAppRNdrEtB8CYZBdIuxULf5D1ZI6O2Ycx550lUuG/wBT//
-	QLIf/RNDj7leD/H+LAq5pprR2VDmEZTNSX85cSA9BAmlzWk6cslibeW9L0930nl3gcCgbbKJxpU
-	G9ocoZm8EBaQshb9AnJzNTT4TSIWu9sO9+sZwWXz9nvlrtUI/bdZ2lk0YzqQkwMMyu3zALYcNyH
-	M5K1WG2PRdqfVZjo+mVEWFha8FiB3Ms7iw6Dlv
-X-Received: by 2002:a05:6102:3ec1:b0:740:177:f357 with SMTP id
- ada2fe7eead31-75b21b5cddamr7901767137.6.1785772647108; Mon, 03 Aug 2026
- 08:57:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="21NMZNiE";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iWUI0C66"
+Message-ID: <cee2e05d931a977d0db938ada0964d05885949a5.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785772884;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ySmtU3pkYZUuotVPA1jLe8VSFpas5QtatAndD2IpiDU=;
+	b=21NMZNiElD9wKbgt/Gy4DZX3c0xFlDBub7zU2RKJCeG3SYW3RX0c3G5Tmg4k69ghowTxgH
+	rJjGgpf32gYQBMJnHxoJpV9V9tYv1uKFSPv4rzLaGe0L1/E/KAT8IZdxghhLZm2FencYPE
+	tB6F0/dhlYRvn0CkD1j1i6yBh9OBLr9hDtep/lt0aCz/Er7234m7ZcRA5avh9a+jVJnc98
+	m3HL6LvNyavyj91kv/gxo6vru7jVLsEDA69xsLr8PcJuuemrQJuyslDvh79UrnIzEWGx6A
+	hzVKBF9nnAktvqR26u/KsM8HXI40LtBA4nF5Trfl0DMLp+me9Bf0FaBUFeoEdw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785772884;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ySmtU3pkYZUuotVPA1jLe8VSFpas5QtatAndD2IpiDU=;
+	b=iWUI0C66q0rk9cyewpyxm4LPIVifQtphSECU7+yGRCJDZkWwZLezpiryUqJxcQP5emgL5C
+	YCG0Z6sRK6NZt2CA==
+Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
+ switches
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>
+Date: Mon, 03 Aug 2026 18:01:23 +0200
+In-Reply-To: <f17d3a62-456f-4580-90bd-c54a30dceddc@lunn.ch>
+References: 
+	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
+	 <f17d3a62-456f-4580-90bd-c54a30dceddc@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com> <aaec8809-8218-4412-a60d-931406dbf287@arm.com>
-In-Reply-To: <aaec8809-8218-4412-a60d-931406dbf287@arm.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 3 Aug 2026 09:57:15 -0600
-X-Gm-Features: AUfX_myOaFTmy1w_XsU_xICVSFiXSt1enMYBuh0WDNCP9gRZxCQ8cKkbteQKJ94
-Message-ID: <CADvTj4qCYjQHOQn1jRTHNNL=xeX6z3Dgc-PLwOBUvX34AU6cuA@mail.gmail.com>
-Subject: Re: [PATCH 00/21] net: phy: add X-Powers AC200/AC300 EPHY support
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Maxime Ripard <mripard@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 3, 2026 at 7:26=E2=80=AFAM Andre Przywara <andre.przywara@arm.c=
-om> wrote:
->
-> Hi James,
->
-> thanks for sending this to the list, but as Andrew already mentioned:
-> this is quite a beast, and would need to be broken down.
-> Jernej and I created some patches just for the AC200 PHY on the H6,
-> which Jernej recently revived, and IIUC, wanted to send to the list.
-> This would probably be a more workable route: start easy, then add
-> support for more SoCs (H616 depends on the WIP PWM driver) and more
-> variants (AC300) later.
+On Wed, 2026-07-29 at 22:05 +0200, Andrew Lunn wrote:
+> > +static u8 soce_map_stp_state(u8 state)
+> > +{
+> > +	switch (state) {
+> > +	case BR_STATE_DISABLED:
+> > +	case BR_STATE_BLOCKING:
+> > +	case BR_STATE_LISTENING:
+> > +		return 0;
+> > +	case BR_STATE_LEARNING:
+> > +		return 1;
+> > +	case BR_STATE_FORWARDING:
+> > +	default:
+> > +		return 3;
+>=20
+> #defines for 0, 1 and 3.
+>=20
+> What does 2 mean?
+>=20
+> Since you don't implement bridge offload, i'm not sure having STP
+> states makes any sense.
 
-Well, I wanted to validate that the overall driver design is suitable for
-the H616 which has to support both PHY variants at runtime effectively
-since that is the most complex use case, I also don't have a H6 board
-to test with myself at the moment. I think being able to see a more
-complete implementation like this is helpful as it can better inform how
-we can tie the different control interfaces to the link PHY in a way that
-works for the more complex H616 case.
+I tested bridge and STP and observed the callback calls with something like
+this (reduced setup):
+# ip link add name br0 type bridge
+# ip link set dev port0 master br0
+# ip link set dev port1 master br0
+# brctl stp br0 on
 
-> Which also brings me to some attribution questions: If I understand
-> correctly, this has been written mostly by some LLM? I think you would
-> need at least to disclose that, if not even add an official tag?
+That probably wasn't enough. I'll take a closer look at it and either fix i=
+t
+or remove it for the next version.
 
-Some patches were, sure, my understanding is that it's not required to
-explicitly call that out but I can add more info if that helps, this was
-tested/validated using a heavily automated hardware in the loop
-testbench setup on an AC200 and AC300 variant H616 board.
+>=20
+> > +static void soce_fast_age(struct dsa_switch *ds, int port,
+> > +			  const struct soce_layout *layout)
+> > +{
+> > +	struct soce_priv *priv =3D ds->priv;
+> > +	struct soce_dsa_local *local;
+> > +	void __iomem *p_mes_ctrl;
+> > +	u32 val;
+>=20
+> Does aging make any sense without bridge offload?
 
-> Also I wonder how this relates to the patches floating around for a
-> while already: https://github.com/jernejsk/linux-1/commits/ac200-v4.
-> This branch is relatively new, but the ac200-v3 branch for instance is
-> much older.
+Same as above. I'll take a closer look at it and either fix it or remove it
+for the next version.
 
-Yeah, parts of this are loosely based off of some existing patches that
-were floating around like those, although it has diverged quite a bit as
-well since this series is designed to handle both phy variants.
+>=20
+> > +/* Bridge membership is handled by the switch forwarding model directl=
+y. */
+> > +int soce_port_bridge_join(struct dsa_switch *ds, int port,
+> > +			  struct dsa_bridge bridge, bool *tx_fwd_offload,
+> > +			  struct netlink_ext_ack *extack)
+> > +{
+> > +	return 0;
+> > +}
+> > +
+> > +void soce_port_bridge_leave(struct dsa_switch *ds, int port,
+> > +			    struct dsa_bridge bridge)
+> > +{
+> > +}
+>=20
+> If you don't support bridge offload, you should not need these.
 
-I guess I should link to some of the earlier work in the cover letter?
+Also here. I'll take a closer look at it and either fix it or remove it for
+the next version.
 
-> On 8/3/26 07:14, James Hilliard wrote:
-> > The Allwinner H616/H618 secondary EMAC is commonly connected to a Fast
-> > Ethernet PHY in an X-Powers AC200 or AC300 companion package.  The two
-> > packages expose the same link PHY ID and largely compatible link-side
-> > registers, but require different control paths before those registers c=
-an
-> > be accessed: AC200 is initialized through its I2C MFD, while AC300 uses=
- a
-> > non-PHY Clause 22 control endpoint.
-> >
-> > Some H616-family products were shipped with either package under the sa=
-me
-> > board identity.  For those systems, this series uses a SID NVMEM field =
-to
-> > select the control provider at run time.  With CONFIG_OF_DYNAMIC, the l=
-ink
-> > PHY enables only the selected fail-needs-probe provider, so an AC300 bo=
-ard
->
-> Just to bring that shallow discussion we had on IRC to the list: I
-> wonder if this is the right solution? Alternatively I was wondering if
-> just patching the DT in U-Boot would simplify things, and also help
-> other DT users like *BSD or U-Boot (proper) itself, to not boil the
-> ocean, but just allowing them to follow a standard DT description.
+>=20
+> > +static void soce_phylink_get_caps(struct dsa_switch *ds, int port,
+> > +				  struct phylink_config *config)
+> > +{
+> > +	if (dsa_is_cpu_port(ds, port)) {
+> > +		__set_bit(PHY_INTERFACE_MODE_GMII,
+>=20
+> Is that really true? What is part of the IP core, and what is to do
+> with integration of the core into the system as a whole? It seems like
+> RGMII is also supported, so why cannot i instantiate a RGMII MII blob
+> for the CPU port as well?
 
-This can be used either way, CONFIG_OF_DYNAMIC isn't a hard
-dependency with this design, aside from adding CONFIG_OF_DYNAMIC
-support for mdio the dynamic enablement of the correct phy control
-drivers is relatively simple with this architecture.
+No it's wrong, I will adjust that.
+
+>=20
+> > +			  config->supported_interfaces);
+> > +		config->mac_capabilities =3D MAC_10 | MAC_100 | MAC_1000 |
+> > +					   MAC_SYM_PAUSE | MAC_ASYM_PAUSE;
+> > +		return;
+> > +	}
+> > +
+> > +	phy_interface_set_rgmii(config->supported_interfaces);
+>=20
+> And flipping that around, if the core supports GMII, could i
+> instantiate a GMII user port?
+
+Will also be fixed in the next version.
+
+>=20
+> > +static const struct dsa_switch_ops soce_switch_ops =3D {
+> > +	.get_tag_protocol	=3D soce_get_tag_protocol,
+> > +	.setup			=3D soce_setup,
+> > +	.teardown		=3D soce_teardown,
+> > +	.phylink_get_caps	=3D soce_phylink_get_caps,
+> > +	.phy_read		=3D soce_phy_read,
+> > +	.phy_write		=3D soce_phy_write,
+>=20
+> phy_read and phy_write are legacy. Instantiate a Linux MDIO bus and
+> don't list anything here.
+
+I will do it.
+
+>=20
+> > +static const struct soce_variant_desc *
+> > +soce_match_variant(const char *compatible)
+> > +{
+> > +	int i;
+> > +
+> > +	for (i =3D 0; soce_variants[i].compatible; i++) {
+> > +		if (!strcmp(compatible, soce_variants[i].compatible))
+> > +			return &soce_variants[i];
+> > +	}
+> > +
+> > +	return NULL;
+>=20
+> This kind of looks like a reinvention of of_device_get_match_data()
+
+I will update this in the next version.
+
+>=20
+> > +static int soce_sw_parse_port_mdio_config(struct soce_dsa_local *local=
+,
+> > +					  struct device *dev,
+> > +					  struct device_node *port_node,
+> > +					  u32 port)
+> > +{
+> > +	struct device_node *phy_node;
+> > +	u32 val;
+> > +	int ret;
+> > +
+> > +	if (of_find_property(port_node, "ethernet", NULL) ||
+> > +	    of_find_property(port_node, "link", NULL)) {
+> > +		if (of_find_property(port_node, "phy-handle", NULL)) {
+> > +			dev_err(dev,
+> > +				"phy-handle not allowed on CPU/DSA port %u\n",
+> > +				port);
+> > +			return -EINVAL;
+> > +		}
+> > +
+> > +		return 0;
+> > +	}
+>=20
+> Why is all of this parsing of DT needed? These should all be standard
+> properties which the DSA core handles.
+
+I will make greater adjustments to the driver here and in other places for
+the next version.
+
+>=20
+> This currently has the feel of being a "vendor crap" driver. Please
+> spend some time to clean this driver up, bring it up to Mainline
+> standards.
+
+This is actually already the cleaner version.
+Thank you for the feedback. This will allow me to reorganize the project
+accordingly and adapt the code more closely to already mainlined drivers.
+It looks like Lantiq provides a good example.
+
+>=20
+> 	Andrew
+
+Thanks,
+Vasilij
+
