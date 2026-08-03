@@ -1,213 +1,182 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619FC409632
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 12:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785761206; cv=none; b=s/bNjkZHTzd3NBSYAgXDQ/2zNz0mbE2IROY10pWWhCPkgA5jxAW2uQdW0OkR8dHhaJ/TMjmHJyKqUxZsFGqKCt/ZN1J4B0hahT6hhaczL6q8UmtmqEmmVHotkFDV0AKmRKhj+CA0NKgJXYcndcW7fjaxteGYvwP4/mMYXmuGZJk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785761206; c=relaxed/simple;
-	bh=rh1eLSVVlNLNo/CfcBH9x58GeH1IP8v1OBx+qCItK94=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TVUIiooOSPi43KX7FKmcs2be64xQdU2aNb/yNrqWlsqsN/J0L9p5Uwm0/3mml8VI+aQzH221TmoclDZ5WHN2Hy9guGLOONEVp4yJBjaV7+GVFV9I0nGzYZYu+nfjSF9EejR0hNdfGsR9v2bYE7lds2jwMqYU0PET4gWy8PNsqrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bQtZJW7x; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=f0VGDxTK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0002C40861C
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 12:48:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785761302; cv=pass; b=Jnf3nRsH7lSTQixrMPceim+V678QWwRkIg5YE5icr1vOrJ76yebwzrJ2xfgG654kf/wa1ApxoWw/yIt+tFw3s7BTU5AKksi2Qq0ZttdWqgu42IjrB0HucS0tfUanyY8T7hGQqhD1l2FQ4HGW9HAofk7YWrj9eGSTSOTOOnNJQRw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785761302; c=relaxed/simple;
+	bh=FqG7OmGKUyU4sbv1V0oLUSK9uJRSuOp1aPGEqAPuBwE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T/9l0BET0pSV2gH0iK4sZH4y7Bn4ENxJSnIpDAO+yzTmaJ2HOhxlKTeDsPCTBiC0RCMNT6DbaRaIZIGOVV5hj+iJ613UMPJyYG0EmtDQquTqeJz3rNyfNtM9PZ+ZgpJ3zp6tx4Xw9hG8j+KekQ45cymeYPIxbMKsn90DmXlwNeg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=muX0k9Av; arc=pass smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bQtZJW7x";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="f0VGDxTK"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673C4aUx840240
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 12:46:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rh1eLSVVlNLNo/CfcBH9x58GeH1IP8v1OBx+qCItK94=; b=bQtZJW7xURfw1K8P
-	JbrKy4C7zNGt1oX0z9cL1YPZyNfKYOyvQ1Pt6zPn5e5nqoqMHPrzG6hgmDp+6x1L
-	lswiM2dP5b9ZPLaW3lh0SNMKZqa+meLz+PBIBuxm9WrZiFPRfjadaJArQLDWszq+
-	B09qqt68o2bupcFzO7iDHlj/YdhkUqk8lLzT65cZl//Jwz3NnNHjjijPojl050HD
-	86SOyeE0v7OoKJMzHNs89R6z0C5qYmmd+Gzo74w1oAiUAoKnql8/RnY5+nAt7xcj
-	aBZm2txyrKJP3uznCisBzRH1AemgWaqBkKvJ1lEkSG8ktBoASGCunmYba5IhAbUR
-	i80e8A==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnj79jgg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 12:46:44 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ccd1958e8fso50682755ad.2
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 05:46:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="muX0k9Av"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47de008b020so2215290f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 05:48:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785761299; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X4j7yNS3s1m0KWh4PGSBBLs8DUEO0OUXZ2VHo3Kj5WrYJU1PSFtgFK7MmI9hwlN0Y4
+         4e4VbypxUzbIsPzq8CI4SoGZlh2BbK1sT8vs57DMYid8pkYLZIp7M/v4AagoaP9/+LXO
+         KsJ41Jmf0P53b3FbWR/kClk2WVzEonlo4qEe4p8BOzus1jjF3CRu3HIcbC2Fr8LF7Ylw
+         G4XfAn2zyriUX6D/BXk+5wLterUCBJjUkmq58tBBY2yIQ9whGAL0TJ1CCvlh6fMj+vqw
+         jzg7bB6CfSXmty3h8jAgBMoivtLetqKCrKGl9zZLsmm44LPG5fBve29a8i7S8Woc/78q
+         VZeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5fax5mU2nzN+Aiq0QARQ+H5w0Gibs6bj0/RcHVBZ+sM=;
+        fh=yvifKZYGD/exnVHiPMncrHlYjwcF5S+RgzKMU7T3mek=;
+        b=pjb1xlZitJ+d5q0zNh1X7LkqjZZiF4uXJ6qr9Z2ZHcVTcSiniKd02t+KhfZa97/XMV
+         5PfcG7F2oDbcpRf7MAzvA8NX4BdL1SVh6S3lzoRxjZxbs14KAmls52rOxbpyamDfM66W
+         U3VayKU6vZVm2/vvx8WZwoNB0Bug0wiv1kZR1ONDVlwHc4IeLQlAWLaUVk+UWpM1PZp3
+         HT5TyksbXfIocb3DxJpmtcVlvrSB2SLyDnixyoj3SKbaEcwAUEXlUVG/+1dUqmlKbduG
+         CxWvajmmBqDhxMiScPg/XyD8PcK5SNSpNZKIRrz/saEOQP0E38Aqtxagq6jndfYzgb/I
+         1gJQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785761203; x=1786366003; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rh1eLSVVlNLNo/CfcBH9x58GeH1IP8v1OBx+qCItK94=;
-        b=f0VGDxTKM9PsOQbaxVt6OANoCTyQK25aRTYQZVMQihA5kT212YL4YwLS/jKP2TMcaj
-         y4TD1pqZZBN9ljlJRFWXUe/kV25dlJ+GHGf62iV/vCF50fAeOFBYRsdlg6c/UJRTRDqu
-         h1+2PoQ+b+egmpX+FAUCK/eBnMlAQZUaosMAhPxAVr3fVfO9+FpTz7SNQy32UdvmhazV
-         iUBPNeZvxQWLoix2SlajcQRUIVON1WVVYcGbZzb4s7B0Z7P09VOR7JNs5OKxYipB6NrL
-         UQRKFsF3uzizTku16OoveIdfEb1oZAH1FSydOjSvhmSOSYVsvLmRZ7byI1mYWZjNCUrX
-         2AnQ==
+        d=gmail.com; s=20251104; t=1785761299; x=1786366099; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5fax5mU2nzN+Aiq0QARQ+H5w0Gibs6bj0/RcHVBZ+sM=;
+        b=muX0k9AvrH7b+PBR7pwMnntSIKbMKrMW7Lkzi46y36VJR4SapVqccU5iXzMcjJ3rlu
+         mS9T4ZuWf5LlPkgZu6QLkjFj7EfGC7Yx/uNdN3sr9oZLdI3fnfnNXk8WVxq21Fe4bJWx
+         pxnpIrhZwywwjpH8AS3UxlsH3rmGBJDpLwMzpMcaM/EzqSVIdZH2prrnddIg4hZ9LyYj
+         x+8jgFin9wTAfoHzqWe/GJ+rP9fKLe9/7tuwbx7gOko1sNgZuvl5asD90b4jlQYJfp/Y
+         HX+6mJ7cTOcR36q6VoTr2lWIiGXd3sEjdAXx8ZGA2qjzdYxJTqtdg0MmYJ2sdCzliC07
+         r6Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785761203; x=1786366003;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rh1eLSVVlNLNo/CfcBH9x58GeH1IP8v1OBx+qCItK94=;
-        b=iELGV4WI9idkEKflg9kSpyjyhnH6o7pG8ld7BUB1bclT5xzXC/ymarY0po3jbnQE45
-         O7HtFnjWWzYyBgoK9xPOJhGSK4/WoJHJwznF+s+ZzVIQsEZE5urP8lP5x9A8BXI0Ajpu
-         dqml+9N0ktC5Q886lH/c/0oRG0O/IoIJZeDkgf++sM2NYyVW4X8pYIhR/r/b52a9oXoi
-         GpoFSK2tKpGWGejgtTzoeRNikO/G9paqgP1oSvcy/5VLUxd1OZnTJe8294tQx3fmH0e9
-         mZudCzvR9xnKImgyS25t+kds/X/e+qqIx79abihFJNuHUrtLxIrzjAZeh7+TuGdhLBwD
-         kacQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqKEAKIVK4giNFPB4KrMDqrhxysR4Ct4bwptcJsS8snD+JST0co1oELJLUzzMmQZARpGa9nIqVZD8SO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzu4waz0scr5KHbKibaEgn9A0uO6Qflh4hAM1WTYs1CtR/Gbto8
-	rjBzHieaftjiTk2Y0kySTfRoLY160X9I40f4QtJ7ZJb7mOuhKSHk3X1gNygGsg6ect2V54zJIEU
-	oC0RiIPaqRp1qBzpkWgD3NmIW0Sw7fvaHVEX6Ubu7UIPi5GPS4SBuQSlDKIBpPIUe
-X-Gm-Gg: AR+sD11wytULftXoAT9cfVczqRGF++SgaOLu8vtYgYPQ8NY1xfRKhgDz4QNHXGghfN4
-	88koa0PN3l6FsGOs5QrHIQ/vuq5ni6xlt6Kgb+J3D9D/HODeyOJYTJmqkEWJnkEUNURYobVz5tK
-	b57457Earq/NIOVZziYjEZCRYuKafj7CfsfP4mKBFLnQUwPFS0ZWBNJF/hoVcQrA+PanKhHm8n4
-	m0T0iOUSOal8+nIm4vlDXsD0WoVddZS6fKWJ4fshOTUO/jGNhnvJUsCt+WtcCl2088Idz4NE8Ej
-	wPLj4Ce45Z29LR3/3mlGVECAyO+B+Pe9d/pmlBl1Lie83Wz6vsgPKCqXEVw55rFZUzt/9TTwAL5
-	zd+6W9+Xl5ztOQ1Yn0jlbKP0OSItzbdVg/A==
-X-Received: by 2002:a17:903:37c8:b0:2b2:67ca:5ff9 with SMTP id d9443c01a7336-2d051efd46amr97307355ad.0.1785761203059;
-        Mon, 03 Aug 2026 05:46:43 -0700 (PDT)
-X-Received: by 2002:a17:903:37c8:b0:2b2:67ca:5ff9 with SMTP id d9443c01a7336-2d051efd46amr97307005ad.0.1785761202596;
-        Mon, 03 Aug 2026 05:46:42 -0700 (PDT)
-Received: from [10.218.44.82] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04ae193fasm37538085ad.7.2026.08.03.05.46.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 05:46:42 -0700 (PDT)
-Message-ID: <14c7d776-a1e5-41a6-aa47-a9ff16516c81@oss.qualcomm.com>
-Date: Mon, 3 Aug 2026 18:16:30 +0530
+        d=1e100.net; s=20251104; t=1785761299; x=1786366099;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5fax5mU2nzN+Aiq0QARQ+H5w0Gibs6bj0/RcHVBZ+sM=;
+        b=s1/0wgHY06oRbJ/GJwz3AwhUMKDf7G1DxvZtF/IoA1RAJIVxeGz1MGS7uVulsw33hY
+         cdSUArmj/fIC4igxFbUzzqwBKnmW1fNBH8sC+62qaK/T2itshyiu9bDuH+2/z+/Pcp8Y
+         fpFJzNxZn56BoA0oXlu3wf2ZggVhGStilPbzjoT/kDI8MXCz3dwn6hA7DVEt10uaB3bJ
+         8SSzcjGk7I7dpsbe5M53i399+okUOqDpK7jApGUY2Uy8wuvmnuSfGDLFvrO1eWcNEUMK
+         UWakvRV/b29WFk2+cvdYyUEq0c/YA8ZZkx232+K3YgWhwplI+eL1FAgP36ATdu272mvo
+         DjtQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpHMLhT7KFrzNJsXCNTo1G+3zRMIthAzrkyhBj9+eyNxbLMYrnd8jV4yBNt6DL3DdMySwyoaxbWoycq@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywp2gCmjjKTqTqOb4Kmv/B+gkBsVOF14dKaUggzxerjH/vrkQq0
+	xDQk6vbQQntfTtv7ZfH8n+wLasR4DJCfeSoe58aLA6H7yOmjpR9J9DRnew241sHz6IkrpKUr6dD
+	iIpLcbNAXajNozwhRjXBKckQerzNCOzk=
+X-Gm-Gg: AR+sD12oIv5gJeN1JdF7IE99MF4mzu/NnQfxIcOOB7ImG5UVZ+T5tYtoi7PuyuA5XQz
+	ATZNJZCGmP7aGL/IZtys1Lh70Pi8q37AX1WqHSifqyIlH7RDdp+SLK9yXu51gj6c7PELJKlZvbi
+	U4tgeFWAxV7fqCIgIolpWrm0FwgijkRTKMuLgXMbBBnSRNapiSI0i4Bzv/eniDqcxAZeQnFVY9F
+	u/vHBI0z3UPNsb+wZ1XjXf1edwLRtlwteaOA0Z1TarwXyAhiOaER47dnvKZRvGECVg68Jw8Mxvv
+	QE5AsUd+c60I6ZgOsUTmlIwwF4akGuvtx8c7vy3Lo/axk0vAxY4PMl82wSikvajyvWmmR73D3Y8
+	BrCHjp6iG7hLoBqSYd6t66nthKwWV69krISWzDavkgjF/129rauOwZC/LQm1yAbU=
+X-Received: by 2002:a5d:6f0b:0:b0:47f:95cf:26a3 with SMTP id
+ ffacd0b85a97d-47fd32e1f41mr28059514f8f.14.1785761298926; Mon, 03 Aug 2026
+ 05:48:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v24 05/12] dt-bindings: arm: Document reboot mode magic
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, linux-pm@vger.kernel.org,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Mark Rutland <mark.rutland@arm.com>, Lee Jones <lee@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio
- <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Ulf Hansson <ulfh@kernel.org>,
-        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Arnd Bergmann <arnd@arndb.de>, Conor Dooley <conor+dt@kernel.org>,
-        linux-arm-kernel@lists.infradead.org,
-        Sebastian Reichel <sre@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Andy Yan <andy.yan@rock-chips.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        Christian Loehle <christian.loehle@arm.com>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, Andre Draszik <andre.draszik@linaro.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        John Stultz <john.stultz@linaro.org>, mfd@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Moritz Fischer <moritz.fischer@ettus.com>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-5-889281373870@oss.qualcomm.com>
- <178575749351.2483197.6720070407824857023.robh@kernel.org>
-Content-Language: en-US
-From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-In-Reply-To: <178575749351.2483197.6720070407824857023.robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-X-Proofpoint-ORIG-GUID: BPPDbfaYd8EbB7mLuH6yxNRpU-r0VyP2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDExNCBTYWx0ZWRfXwux8++T0xbni
- fF/o2Yer8cj6MhIdjptTSZMDnxPsUZi2WVZgLHrOo0L3Oz9E49T8y3sLNFR1GLXNQkixDPiwzNY
- zRoppKm2zBZ7P6bCX/0FmzCYHlB78I+YN8reEGfZYfWfKVNoRJ5lThyyDiDFEf/rhoyDnPtGq8y
- NrMIZgfekic0UWytpryP3xNwlz96/A+CFLNEymL9N+q81CtOCRGCBy3jaihkc04uFnxWFRnU0FT
- V06GtoBF3CCKC7r39EfXmVkFfrXsLRVCdoo4ZaxfQ/2dtnyjzgKmfBmPwVyvOSs6elpppOZAoFU
- QGYBGZzD7lT+nBZVgHyWyPwRo6ygjTWRWIoXmrMklicl6wSEs91JMwBcn06Fxo6PmRG/aDAYrjh
- 8b7YRNu9/47ZerHoD40rwxj61g2KvAEMrtaNK25uY3he90aUUAuSaE/oa6vjXEXpaKRX3mXCluZ
- sKeXWP4JoLfngXUvfjw==
-X-Proofpoint-GUID: BPPDbfaYd8EbB7mLuH6yxNRpU-r0VyP2
-X-Authority-Analysis: v=2.4 cv=PqSjqQM3 c=1 sm=1 tr=0 ts=6a708db4 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=gEfo2CItAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=0awkmHLjsCMGZ7zvgVIA:9
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDExNCBTYWx0ZWRfX2/6MjU3SsB2G
- NgIX836YWJyxrpTu4yfbIboo471+L6ULv6W/gMgW4TYfWlbHIV93rT+qkWsxzBtt/FAXmSqiA6D
- 4w32ypWwSvAM9WJsrAvju1ZdU4CPvz0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-03_03,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 spamscore=0 priorityscore=1501 adultscore=0
- clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030114
+References: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260706175138.12587-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Mon, 3 Aug 2026 13:47:52 +0100
+X-Gm-Features: AUfX_mz8pwuAO_YEZl6wI79Yl2xndxoZy1e642I1E-oM4Ny4k409h84jPMs-axQ
+Message-ID: <CA+V-a8vohu9Sswp9jrmUkZ3SUVhVJzf0=9MdU_1S7h6aMShT0g@mail.gmail.com>
+Subject: Re: [PATCH v3 00/12] Add RTC support for Renesas RZ/T2H and RZ/N2H SoCs
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Conor Dooley <conor+dt@kernel.org>, linux-rtc@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-DQoNCk9uIDgvMy8yMDI2IDU6MTQgUE0sIFJvYiBIZXJyaW5nIChBcm0pIHdyb3RlOg0KPiAN
-Cj4gT24gTW9uLCAwMyBBdWcgMjAyNiAxNToxMzozNiArMDUzMCwgU2hpdmVuZHJhIFByYXRh
-cCB3cm90ZToNCj4+IEFkZCBiaW5kaW5ncyB0byBkZXNjcmliZSB2ZW5kb3Itc3BlY2lmaWMg
-cmVib290IG1vZGVzLiBWYWx1ZXMgaGVyZQ0KPj4gY29ycmVzcG9uZCB0byB2YWxpZCBwYXJh
-bWV0ZXJzIHRvIHZlbmRvci1zcGVjaWZpYyByZXNldCB0eXBlcyBpbiBQU0NJDQo+PiBTWVNU
-RU1fUkVTRVQyIGNhbGwuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogU2hpdmVuZHJhIFByYXRh
-cCA8c2hpdmVuZHJhLnByYXRhcEBvc3MucXVhbGNvbW0uY29tPg0KPj4gLS0tDQo+PiAgIERv
-Y3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9hcm0vcHNjaS55YW1sIHwgNTggKysr
-KysrKysrKysrKysrKysrKysrKysrKw0KPj4gICAxIGZpbGUgY2hhbmdlZCwgNTggaW5zZXJ0
-aW9ucygrKQ0KPj4NCj4gDQo+IE15IGJvdCBmb3VuZCBlcnJvcnMgcnVubmluZyAnbWFrZSBk
-dF9iaW5kaW5nX2NoZWNrJyBvbiB5b3VyIHBhdGNoOg0KPiANCj4geWFtbGxpbnQgd2Fybmlu
-Z3MvZXJyb3JzOg0KPiANCj4gZHRzY2hlbWEvZHRjIHdhcm5pbmdzL2Vycm9yczoNCj4gL2J1
-aWxkcy9yb2JoZXJyaW5nL2R0LXJldmlldy1jaS9saW51eC9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvYXJtL3BzY2kueWFtbDogcHJvcGVydGllczpyZWJvb3QtbW9kZTpw
-YXR0ZXJuUHJvcGVydGllczpebW9kZS0uKiQ6IHsnbWluSXRlbXMnOiAxLCAnbWF4SXRlbXMn
-OiAzLCAnaXRlbXMnOiBbeydkZXNjcmlwdGlvbic6ICdhcmcxICh2ZW5kb3Itc3BlY2lmaWMg
-U1lTVEVNX1JFU0VUMiByZXNldF90eXBlKScsICdhbGxPZic6IFt7JyRyZWYnOiAnL3NjaGVt
-YXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyJ30sIHsnbWluaW11bSc6IDIxNDc0
-ODM2NDh9XX0sIHsnZGVzY3JpcHRpb24nOiAnYXJnMiAoY29va2llX2xvIGluIDItY2VsbCBm
-b3JtLCBjb29raWVfaGkgaW4gMy1jZWxsIGZvcm0pJywgJyRyZWYnOiAnL3NjaGVtYXMvdHlw
-ZXMueWFtbCMvZGVmaW5pdGlvbnMvdWludDMyJ30sIHsnZGVzY3JpcHRpb24nOiAnYXJnMyAo
-Y29va2llX2xvIGluIDMtY2VsbCBmb3JtKScsICckcmVmJzogJy9zY2hlbWFzL3R5cGVzLnlh
-bWwjL2RlZmluaXRpb25zL3VpbnQzMid9XSwgJ2Rlc2NyaXB0aW9uJzogJ0Rlc2NyaWJlcyBh
-IFBTQ0kgU1lTVEVNX1JFU0VUMiB2ZW5kb3Itc3BlY2lmaWMgcmVzZXQgdHlwZS4gVGhlIHN0
-cmluZ1xuYWZ0ZXIgIm1vZGUtIiBtYXBzIGEgcmVib290IG1vZGUgdG8gYSB2ZW5kb3Itc3Bl
-Y2lmaWMgcmVzZXQuXG5BIHZlbmRvci1zcGVjaWZpYyByZXNldCB0YWtlcyB0d28gYXJndW1l
-bnRzLCBhIDMyLWJpdCByZXNldF90eXBlIGFuZCBhXG42NC1iaXQgY29va2llLiBUaGUgYXJn
-dW1lbnRzIGFyZSBlbmNvZGVkIGFzIHVwIHRvIHRocmVlIDMyLWJpdCBjZWxscy5cbkVhY2gg
-bW9kZSBwcm9wZXJ0eSBpcyBlbmNvZGVkIGFzIG1vZGUteHh4ID0gPGFyZzFbLCBhcmcyWywg
-YXJnM11dPixcbndoZXJlOlxuLSBhcmcxIGlzIHJlc2V0X3R5cGUgYW5kIG11c3QgYmUgPj0g
-MHg4MDAwMDAwMC5cbi0gSW4gMi1jZWwNCj4gICBsIGZvcm0sIGFyZzIgaXMgbG93ZXIgMzIg
-Yml0cyBvZiBjb29raWUuXG4tIEluIDMtY2VsbCBmb3JtLCBhcmcyIGlzIGhpZ2ggMzIgYml0
-cyBvZiBjb29raWVcbiAgYW5kIGFyZzMgaXMgbG93IDMyIGJpdHMgb2YgY29va2llLlxuXG5B
-bGwgdmFsdWVzIHNob3VsZCBiZSBwcm92aWRlZCBhcyBwZXIgdGhlIFBTQ0kgU1lTVEVNX1JF
-U0VUMlxuc3BlY2lmaWNhdGlvbi5cbid9IHNob3VsZCBub3QgYmUgdmFsaWQgdW5kZXIgeydy
-ZXF1aXJlZCc6IFsnbWF4SXRlbXMnXX0NCj4gCWhpbnQ6ICJtYXhJdGVtcyIgaXMgbm90IG5l
-ZWRlZCB3aXRoIGFuICJpdGVtcyIgbGlzdA0KPiAJZnJvbSBzY2hlbWEgJGlkOiBodHRwOi8v
-ZGV2aWNldHJlZS5vcmcvbWV0YS1zY2hlbWFzL2l0ZW1zLnlhbWwNCj4gDQo+IGRvYyByZWZl
-cmVuY2UgZXJyb3JzIChtYWtlIHJlZmNoZWNrZG9jcyk6DQo+IA0KPiBTZWUgaHR0cHM6Ly9w
-YXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L2RldmljZXRyZWUvcGF0Y2gvMjAyNjA4MDMt
-YXJtLXBzY2ktc3lzdGVtX3Jlc2V0Mi12ZW5kb3ItcmVib290cy12MjQtNS04ODkyODEzNzM4
-NzBAb3NzLnF1YWxjb21tLmNvbQ0KPiANCj4gVGhlIGJhc2UgZm9yIHRoZSBzZXJpZXMgaXMg
-Z2VuZXJhbGx5IHRoZSBsYXRlc3QgcmMxLiBBIGRpZmZlcmVudCBkZXBlbmRlbmN5DQo+IHNo
-b3VsZCBiZSBub3RlZCBpbiAqdGhpcyogcGF0Y2guDQo+IA0KPiBJZiB5b3UgYWxyZWFkeSBy
-YW4gJ21ha2UgZHRfYmluZGluZ19jaGVjaycgYW5kIGRpZG4ndCBzZWUgdGhlIGFib3ZlDQo+
-IGVycm9yKHMpLCB0aGVuIG1ha2Ugc3VyZSAneWFtbGxpbnQnIGlzIGluc3RhbGxlZCBhbmQg
-ZHQtc2NoZW1hIGlzIHVwIHRvDQo+IGRhdGU6DQo+IA0KPiBwaXAzIGluc3RhbGwgZHRzY2hl
-bWEgLS11cGdyYWRlDQo+IA0KPiBQbGVhc2UgY2hlY2sgYW5kIHJlLXN1Ym1pdCBhZnRlciBy
-dW5uaW5nIHRoZSBhYm92ZSBjb21tYW5kIHlvdXJzZWxmLiBOb3RlDQo+IHRoYXQgRFRfU0NI
-RU1BX0ZJTEVTIGNhbiBiZSBzZXQgdG8geW91ciBzY2hlbWEgZmlsZSB0byBzcGVlZCB1cCBj
-aGVja2luZw0KPiB5b3VyIHNjaGVtYS4gSG93ZXZlciwgaXQgbXVzdCBiZSB1bnNldCB0byB0
-ZXN0IGFsbCBleGFtcGxlcyB3aXRoIHlvdXIgc2NoZW1hLg0KPiANCg0KdGhhbmtzIHdpbGwg
-Y2hlY2sgYW5kIHVwZGF0ZSB0aGlzIHBhdGNoLg0KDQp0aGFua3MsDQpTaGl2ZW5kcmENCg==
+On Mon, Jul 6, 2026 at 6:51=E2=80=AFPM Prabhakar <prabhakar.csengg@gmail.co=
+m> wrote:
+>
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Hi all,
+>
+> This series adds support for the RTC IP found on the Renesas RZ/T2H and
+> RZ/N2H SoCs.
+>
+> The RTC block is closely related to the RZ/N1 implementation and can
+> reuse the existing driver infrastructure when operating in SCMP mode,
+> which is required on these SoCs due to their 195.3 kHz RTC input clock.
+>
+> While the RZ/T2H and RZ/N2H variants do not implement the RTCA0SUBU
+> register present on RZ/N1, this register is not accessed by the driver
+> in SCMP mode, allowing support to be added with minimal changes.
+>
+> The RZ/T2H RTC variant also supports a 1 Hz output signal on the
+> RTCAT1HZ pin, controlled by the RTCA0CTL1[RTCA01HZE] bit. This bit is
+> marked as reserved in the RZ/N1 hardware manual, making RZ/T2H a
+> distinct RTC variant despite its overall compatibility with the RZ/N1
+> implementation.
+>
+> Patches have been rebased on top of next-20260706.
+>
+> v2->v3:
+> - Added new patch to fix weekday underflow when alarm crosses month
+>   boundary.
+> - Make use of devm_add_action_or_reset() to simplify driver teardown
+>   and remove the .remove() callback.
+>
+> v1->v2:
+> - Dropped wakeup capability support patch.
+> - Dropped header sort patch as it was already fixed upstream.
+> - Updated commit message to drop reference about RTCA0TCR register.
+> - Added Acked-by and Reviewed-by tags.
+> - Updated Kconfig help text to keep it generic and not specific to
+>   RZ/N1 SoCs.
+> - Initialized rate variable to 32768 to avoid timeout_us of 0.
+> - Made use of RZN1_RTC_SUBU_RTCA0FX mask for SUBU register access
+>   instead of 0x3F.
+>
+> v1: https://lore.kernel.org/all/20260615154805.1619693-1-prabhakar.mahade=
+v-lad.rj@bp.renesas.com/
+>
+> Cheers,
+> Prabhakar
+>
+> Lad Prabhakar (12):
+>   dt-bindings: rtc: renesas,rzn1-rtc: Add RZ/T2H and RZ/N2H support
+>   rtc: rzn1: Handle EPROBE_DEFER for optional pps interrupt
+>   rtc: rzn1: fix weekday underflow when alarm crosses month boundary
+>   rtc: rzn1: Fix malformed MODULE_AUTHOR string
+>   rtc: Kconfig: Broaden RTC_DRV_RZN1 dependency to ARCH_RENESAS
+>   rtc: rzn1: Fix alarm range check truncation on 32-bit systems
+>   rtc: rzn1: Replace remove callback with devm_add_action_or_reset()
+>   rtc: rzn1: Dynamically calculate synchronization delay based on clock
+>     rate
+>   rtc: rzn1: Use temporary variable for struct device
+>   rtc: rzn1: Consistently use dev_err_probe()
+>   rtc: rzn1: use FIELD_PREP/FIELD_GET and GENMASK for register access
+>   rtc: rzn1: Add support for Renesas RZ/T2H and RZ/N2H SoCs
+>
+Gentle ping.
 
+Cheers,
+Prabhakar
+
+>  .../bindings/rtc/renesas,rzn1-rtc.yaml        |  35 +++-
+>  drivers/rtc/Kconfig                           |   5 +-
+>  drivers/rtc/rtc-rzn1.c                        | 159 ++++++++++--------
+>  3 files changed, 116 insertions(+), 83 deletions(-)
+>
+> --
+> 2.54.0
+>
