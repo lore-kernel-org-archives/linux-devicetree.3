@@ -1,22 +1,22 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F19374A1B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEACE374185;
 	Mon,  3 Aug 2026 10:06:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785751611; cv=none; b=K03EXSGE0X1kfZbXuIqHOud884g07Mmyt2IDpu8O32RaqDYODygDoP9H+Ag2IXdTDQoc+692wWkQvQ7JmCcFgJJuNxLAzbSJgAJpanB7IeR30BGGbvt1M+otMmf5CgCqwmrtDR0b9DXmJpNa7mKnZyE7YE6FwljAhw6OOKN100o=
+	t=1785751611; cv=none; b=Ty/3LsjV1HebOmGv4INHf1DfJMNRZ6nXkyirXB206ZxWmv2h8V+gM6gGAqnUT11FiOnyqBFvYO1chkaSlZVyZa3FqTj0ooHJ0soNUsSse4KByHN7cudKm2yc3tPk2fEFZ7J8QjzgEN2BDYAK/w7vMmWeN8IdC/CQvHSEwPpJrMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785751611; c=relaxed/simple;
-	bh=LYWeZ2upKWS8B2/ERLkNN+fvSd4smTBxK5Abj2B9biA=;
+	bh=DSPSDoGviOFyo8k3qvSQl5w8Jy3UBcbhVpFibB9/rT0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OFqENO/5CItQ/OIvHLQKa7sIQ0MKW8vXPLvzqUoeygBAHqW4NK5KJfd0Nxn2MXsZWIelIuQQXKKzM6LTIQ7ClMQgCICxUbpNxHJ3WEB0cBXUmlvjwOOUAnOagDW4Pm4zp/6r+zf4+4tcSnrgmSLZE8Gh7Rlsq2K3oDjV51G5rGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=L9h67yDe; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gHvG8Fg6; arc=none smtp.client-ip=193.142.43.55
+	 In-Reply-To:To:Cc; b=uhrNBQWAJi2UNzs9ZwCFonPEjAErVUhOWT4fgj0PiQn0KQTa5/MJA6p1dHRvFHEv/G1f2DWvoq0lAEXq2NvVSQXPNNGmwTbgLOtOs1a4HqK1ht1dI0tu0Pq598XwKPVzsUImgej2RhG/nDcPbM3KHx8CLDu61ueN31XF81g4Tac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=tvMCjteP; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=cyGS1kDP; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="L9h67yDe";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gHvG8Fg6"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="tvMCjteP";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="cyGS1kDP"
 From: Gregor Herburger <gregor.herburger@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1785751608;
@@ -24,24 +24,24 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+0R7UvEnhCni08A6zvyB5ypdO3lgXpKbMitNA1dEJ4Q=;
-	b=L9h67yDeIbfzHmzFdZukIwmFnggpBJvp9AoVxEVo+MFJu1LYIGqe5LRePiZ/nCCxJuKXWn
-	all87GKEjWrlFjErAV8e7EkCjKVXb7bSd4bUk5KCqxmGYZlZ55J7XA1pOFmGfIPxUPyCvy
-	b9OyqC4PzhJB6GTeDxlZO9RtJXmDKfwks8+weQnlzet2Cm3uv/TT72eQA9rizuQGFIgmRX
-	6kt8nuJz45Yp8NG5GF0lElXVopwK7HksZ+Lru0AWVT79SmgZ70mxZVh/TU2N/GrFXBgdgc
-	XJJkDM/rpw0owVNfy78vn2AZAX6Ka2dUWidQMqnQYr64TsTzW6dq+KZYBVcoSQ==
+	bh=9P9bubSjejExvocqDDS92y3ppWHsNSy9m2WTpszexZM=;
+	b=tvMCjtePIo+htCYbYVLOO/gMz4x+hw/GmLVIBRimrXBzm2WWtTUCoClPp/yR2QgpoVzEOn
+	BtQS/ujqC3VUEoTGxB9Pl8R9aJXPJtFb08LFV7TgD+ZOcbcaNvZiFFWzqRzWr9qPJYWuxQ
+	EF5oub9GbDBgmIaeeFULf1dQP+a4hH+LnjscLF8L74cCnqEsUG4a2Qvq8OeSeWTKTi9xZl
+	iZvytM5QvS9A4dfQzNdrzSaUOkVVL+g3jG1qUGy2R04L8RV6pBs4vq9sLINgCit/yDVSnR
+	euJ5dccWom9KGtbL7wSUaN+RwpvNqA6V9cMVyyBh3SKlABNcUPEcx4oG4ki10g==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1785751608;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+0R7UvEnhCni08A6zvyB5ypdO3lgXpKbMitNA1dEJ4Q=;
-	b=gHvG8Fg6B7ZlxZ5a3YDJ7jIpEIVLx+AUjxWKoQEZMjHgvrem1UJXv98sfWwXy7yxmhYWcV
-	7JxxnR0b2KxBLlCw==
-Date: Mon, 03 Aug 2026 12:06:41 +0200
-Subject: [PATCH 1/2] dt-bindings: arm: bcm2835: Add Raspberry Pi 5 d0
- Stepping
+	bh=9P9bubSjejExvocqDDS92y3ppWHsNSy9m2WTpszexZM=;
+	b=cyGS1kDPsvBg+5P1O46UoU/N+o3u3VOMGfpEzXo7Koxbp3RdaMaVTiPM7L+8+EFonry4d7
+	/rrju/ysZxzzgaAg==
+Date: Mon, 03 Aug 2026 12:06:42 +0200
+Subject: [PATCH 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,7 +50,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-bcm2712-d-stepping-compatible-v1-1-401934357a44@linutronix.de>
+Message-Id: <20260803-bcm2712-d-stepping-compatible-v1-2-401934357a44@linutronix.de>
 References: <20260803-bcm2712-d-stepping-compatible-v1-0-401934357a44@linutronix.de>
 In-Reply-To: <20260803-bcm2712-d-stepping-compatible-v1-0-401934357a44@linutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -62,43 +62,47 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785751607; l=1077;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785751607; l=1240;
  i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=LYWeZ2upKWS8B2/ERLkNN+fvSd4smTBxK5Abj2B9biA=;
- b=gkK0yU8KAwFOk2pPVSuHRdmUsI17ApQ2RP0YRm+e0WKA1in5BBqe69EC3+myiBNHJS6/+tuy3
- OUeHZHyyT8TBhL+d1Brf0OMbwneDF4A1DI5csZ+36oV+Bw9nmwbUUT0
+ bh=DSPSDoGviOFyo8k3qvSQl5w8Jy3UBcbhVpFibB9/rT0=;
+ b=VLpAZ7NDEZhh1OyXF/WX0FJjof4ksB++8EvPwHlUO/rzcttuBR9BZn9bllNAbQSYrc/DYe7lQ
+ BhwNbv8FY4YB0cXdTlWIHCu46B2VICjWgGcPkWLe8UWbVzTSfYYkjVh
 X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
  pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-Add the Raspberry Pi 5 d0 Stepping to the schema.
+The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
+and in a c Stepping. There are two separate dts files. The
+bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
+the d Stepping. The d stepping does not set its own compatible/model
+string but uses "raspberrypi,5-model-b".
+
+These two steppings are not compatible. Booting with the wrong dtb file
+causes a crash at boot.
+
+Add a compatibles string "raspberrypi,5-model-b-d0" to allow us to
+distinguish between those two steppings.
 
 Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
- Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml b/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml
-index 2729a542c4f3..43729a887f84 100644
---- a/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml
-+++ b/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml
-@@ -25,8 +25,15 @@ properties:
+diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+index 127be0fc27c2..11a38cd53401 100644
+--- a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
++++ b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+@@ -3,6 +3,11 @@
  
-       - description: BCM2712 based Boards
-         items:
--          - enum:
--              - raspberrypi,5-model-b
-+          oneOf:
-+            - enum:
-+                - raspberrypi,5-model-b
-+            - const: brcm,bcm2712
+ #include "bcm2712-rpi-5-b.dts"
+ 
++/ {
++	compatible = "raspberrypi,5-model-b-d0", "raspberrypi,5-model-b", "brcm,bcm2712";
++	model = "Raspberry Pi 5 d0 Stepping";
++};
 +
-+      - description: BCM2712 based Boards d0 stepping
-+        items:
-+          - const: raspberrypi,5-model-b-d0
-+          - const: raspberrypi,5-model-b
-           - const: brcm,bcm2712
+ &gio_aon {
+ 	brcm,gpio-bank-widths = <15 6>;
  
-       - description: BCM2835 based Boards
 
 -- 
 2.47.3
