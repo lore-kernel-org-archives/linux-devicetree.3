@@ -1,232 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454CA366562;
-	Mon,  3 Aug 2026 09:59:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3853836B938
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785751145; cv=none; b=oHsi8e/X1sQg1xFJQeejBPaA1POCZradfn7v6GHNTfeWNyKWwV6nMiqjroAgOBwvgLtXNQGiwJ21/2aknUwLyTUC5KGAhk1sdqR0Owf5KbJNBI2jwtkosRAlXYKQBXN/4yCBCXBHq5rNtE/OSFxDOfBFrJr66VZD5v7GW01zAQI=
+	t=1785751223; cv=none; b=o5ijq3g3N2Bx9O08821blarodW9qMMtvtsuI5+QsKuUfgMe/C+rqebenPqA+oHlk0iT3LfW8epZSLlGwTmnwNi0WqE6m0CJ2OtXfU7T8mHvxYLgHKfnxPA3jHwFhAa5A85vmaZANkODEWLVKaWMDwDJL4vSF+8gMSZsk/fTBJe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785751145; c=relaxed/simple;
-	bh=z9ePozt5hbXewtobOAzuGq0qGTIC/zsH5NBuDxHqFno=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zgn3z8qor3ISF4iuDSu/HoAIjFlLSybIGkh92bcRelaKnWPLpRNBIto7B894twcEippIvmAyrtlrMBfHAdHGOmRJxiD8icU88qMQdQygQF9x7Ht2D9GD119uPY+oQK4QnvShjyE1EtZkuVKKOuqxxgsvLlSxhfv4JDCu47c4kJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPFvZQUO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785751223; c=relaxed/simple;
+	bh=VTDojHWmzDF57rWjbVsqEly30gNTipH/63rqQ0BGqjI=;
+	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
+	 Content-Type:Date:Message-ID; b=PyTCcAZWTeW8Jrwt17IjXgW9/pXxfw8XzUtUCT7t6kHxlcB/1Fakxbn0NU+sS1aroCsyaf89TL8O45wF+Lyrs7wd0NKEOwL9h66dtajHNzndnq4kmsSYEobXq3kCE7ygTBrz2Gesu4NJFW9ULdpNwe/bAx70RnkrrkKY1VsREEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PNtvgRGJ; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPFvZQUO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFAA21F000E9;
-	Mon,  3 Aug 2026 09:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785751144;
-	bh=kWWIcEh7Vp8/p7sal5ICu1bVpLyvSXZFleyePq9n/7w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UPFvZQUOtdj5/yzRphN4WCfXlo1y2TI5GK+qJq+idVMroS/b1BMcflnzVGhuXBwOi
-	 zlQj+5gE7rmOP9xGdqqKE3LzafLIkI6yqxm4B8c5hd1K9B0mzCVzD1/uGXd0frDsWw
-	 8KWSu9mxbcuR/CflTrBnSqbPXrE4qdFZhG9O0sq98w1HtbwRPNC57QEeFlTCmE0SjP
-	 Qxb5TH8E22cwM6/TkVNlVsDRpLUun+HJMCcQVtF/jb1Ea1kS0pSPDuj3oBXdVxIeXv
-	 E3louNrAEOuPHUcwZx1Ui2DkDpJn+R1Qaja9uhrvABwc4jW/XNqi2mzXyDNSFa93EM
-	 HV3plpWd2ZVdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v24 02/12] power: reset: reboot-mode: Add support for
- predefined reboot modes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shivendra Pratap" <shivendra.pratap@oss.qualcomm.com>
-Cc: lee@kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803-arm-psci-system_reset2-vendor-reboots-v24-2-889281373870@oss.qualcomm.com>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-2-889281373870@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 09:59:02 +0000
-Message-Id: <20260803095903.CFAA21F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PNtvgRGJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785751221;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wSbzfg+WF8irzWdRDzhVCU6AXptOY9bPmk0b+GI3hig=;
+	b=PNtvgRGJuVWxoDW70WZSIJ9A/VssA3IfbevvKD2NOivTFGzHdxXOChREV/CKg5zs9biCq5
+	Ulr13bdOOtT9Nyuq0Bi6ckekMSWC/Y389G6phSYYNISjJkd2Z7ZKBwuSWPCTQEkNqX68fx
+	b/wY2+jS2l3gjf9FhDzx3lkymlLeTdw=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-424-5OgXQmzJOZ-Z3BY2OCUC2A-1; Mon,
+ 03 Aug 2026 06:00:19 -0400
+X-MC-Unique: 5OgXQmzJOZ-Z3BY2OCUC2A-1
+X-Mimecast-MFC-AGG-ID: 5OgXQmzJOZ-Z3BY2OCUC2A_1785751216
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5F46519560B4;
+	Mon,  3 Aug 2026 10:00:14 +0000 (UTC)
+Received: from warthog.procyon.org.uk (unknown [10.44.32.44])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5B1301800480;
+	Mon,  3 Aug 2026 10:00:00 +0000 (UTC)
+Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
+	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
+	Kingdom.
+	Registered in England and Wales under Company Registration No. 3798903
+From: David Howells <dhowells@redhat.com>
+In-Reply-To: <79610b53-5201-4af3-913a-0c4dcbb6f9d6@linux.dev>
+References: <79610b53-5201-4af3-913a-0c4dcbb6f9d6@linux.dev> <20260731154608.153258-1-linux@jaseg.de> <am38qk60mpVFuJRi@MiWiFi-R3L-srv> <74625f78-15ea-439f-b9f0-939d2976fa7f@jaseg.de>
+To: Dave Young <ruirui.yang@linux.dev>
+Cc: dhowells@redhat.com,
+    =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>,
+    Baoquan He <baoquan.he@linux.dev>,
+    Andrew Morton <akpm@linux-foundation.org>,
+    Mike Rapoport <rppt@kernel.org>,
+    Pasha Tatashin <pasha.tatashin@soleen.com>,
+    Pratyush Yadav <pratyush@kernel.org>,
+    Jarkko Sakkinen <jarkko@kernel.org>,
+    Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+    "Serge E. Hallyn" <serge@hallyn.com>,
+    Mimi Zohar <zohar@linux.ibm.com>,
+    James Bottomley <James.Bottomley@hansenpartnership.com>,
+    Rob Herring <robh@kernel.org>,
+    Saravana Kannan <saravanak@kernel.org>, Coiby Xu <coxu@redhat.com>,
+    devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+    kexec@lists.infradead.org, keyrings@vger.kernel.org,
+    linux-mm@kvack.org, linux-security-module@vger.kernel.org,
+    linux-integrity@vger.kernel.org, Tao Liu <ltao@redhat.com>
+Subject: Re: [PATCH 0/4] CRASH_ZEROIZE: Wipe secrets before kdump
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2490024.1785751199.1@warthog.procyon.org.uk>
+Date: Mon, 03 Aug 2026 10:59:59 +0100
+Message-ID: <2490025.1785751199@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Dave Young <ruirui.yang@linux.dev> wrote:
 
-New issues:
-- [Low] Duplicate predefined reboot modes are not properly deduplicated aga=
-inst DT-defined modes, violating precedence rules and causing duplicate sys=
-fs entries.
-- [Low] The patch silently changes how device tree arrays are parsed, skipp=
-ing valid properties with more than 3 elements.
+> Cleaning up secret data can be done with makedumpfile + eppic scripts (see
+> the manual of makedumpfile), or it is even possible to do so in kdump kernel
+> with Tao Liu's improvments for makedumpfile previously (I don't know the
+> status, probably dropped for the time being, but it is possible, cced him).
 
-Pre-existing issues:
-- [High] Memory leak of `struct device` in `reboot_mode_unregister_device` =
-due to a missing `put_device()`.
-- [High] Multiple instances of the same reboot-mode driver cause sysfs name=
- collisions and incorrect device unregistration, leading to a Use-After-Fre=
-e.
---
+Does this represent a leak of the secrets?  Also do governmental
+standardisation bodies have opinions on what constitutes a leak?
 
---- Patch [2]: [PATCH v24 02/12] power: reset: reboot-mode: Add support for=
- predefined reboot modes ---
-commit a1dab4a1d45dc9572ca3952f97f12675bbb17e32
-Author: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+David
 
-power: reset: reboot-mode: Add support for predefined reboot modes
-
-reboot-mode based drivers can define a reboot-mode by adding it under
-the reboot-mode node in device tree. This limits such drivers, to define
-any predefined reboot-modes statically within the driver and creates a
-dependency on device-tree.
-
-Extend the reboot-mode framework to support driver-defined predefined
-reboot modes. Add a centralized initcall to initialize driver state
-along with predefined modes.
-
-> diff --git a/drivers/power/reset/reboot-mode.c b/drivers/power/reset/rebo=
-ot-mode.c
-> index c7e9285c64e92..cf8978c0ce222 100644
-> --- a/drivers/power/reset/reboot-mode.c
-> +++ b/drivers/power/reset/reboot-mode.c
-[ ... ]
-> @@ -160,11 +234,38 @@ static int reboot_mode_create_device(struct reboot_=
-mode_driver *reboot)
-[ ... ]
-> +static int reboot_mode_add_predefined_modes(struct reboot_mode_driver *r=
-eboot)
-> +{
-> +	const struct reboot_mode_entry *modes =3D reboot->predefined_modes;
-> +	struct mode_info *info;
-> +	size_t i;
-> +
-> +	if (!modes)
-> +		return 0;
-> +
-> +	for (i =3D 0; i < reboot->predefined_mode_count; i++) {
-> +		if (modes[i].name && strpbrk(modes[i].name, "\n ,/"))
-> +			return -EINVAL;
-> +
-> +		if (!modes[i].count || modes[i].count > ARRAY_SIZE(modes[i].magic))
-> +			return -EINVAL;
-> +
-> +		info =3D reboot_mode_create_info(reboot->dev, modes[i].name,
-> +					       modes[i].magic, modes[i].count);
-> +		if (IS_ERR(info))
-> +			return PTR_ERR(info);
-> +
-> +		list_add_tail(&info->list, &reboot->head);
-
-[Severity: Low]
-Does this code append predefined modes to the list unconditionally without
-checking if a mode with the same name was already populated from the DT?
-
-If a predefined mode has the same name as a mode from the Device Tree, both
-entries will be added to the list. When reboot_mode_create_device() iterates
-the list, it will create duplicate sysfs entries. Should we check for exist=
-ing
-modes and deduplicate them to honor the DT precedence rules mentioned in the
-commit message?
-
-> +	}
-> +
-> +	return 0;
-> +}
-[ ... ]
-> @@ -183,52 +284,36 @@ int reboot_mode_register(struct reboot_mode_driver =
-*reboot)
-> =20
->  	INIT_LIST_HEAD(&reboot->head);
-> =20
-> -	for_each_property_of_node(np, prop) {
-> -		memset(magic, 0, sizeof(magic));
-[ ... ]
-> +	if (np) {
-> +		for_each_property_of_node(np, prop) {
-> +			memset(magic, 0, sizeof(magic));
-> +			if (strncmp(prop->name, PREFIX, len))
-> +				continue;
-> +
-> +			count =3D device_property_count_u32(reboot->dev, prop->name);
-> +
-> +			if (count <=3D 0 || count > ARRAY_SIZE(magic) ||
-> +			    device_property_read_u32_array(reboot->dev, prop->name, magic, co=
-unt)) {
-
-[Severity: Low]
-Does this condition strictly reject properties with more than 3 elements
-instead of reading up to the maximum supported count?
-
-If a DT configuration defines a reboot mode property with more than 3 items,
-it appears this would skip the valid properties entirely. Previously, would
-device_property_read_u32_array() have successfully read the first element
-and functioned correctly while ignoring extra elements?
-
-> +				dev_dbg(reboot->dev, "reboot mode %s without magic number\n",
-> +					prop->name);
-> +				continue;
-> +			}
-[ ... ]
-> @@ -272,7 +356,7 @@ static inline void reboot_mode_unregister_device(stru=
-ct reboot_mode_driver *rebo
->  	if (!priv)
->  		return;
-> =20
-> -	reboot_mode_release_list(priv);
-> +	reboot_mode_release_list(&priv->head);
->  	kfree(priv);
-
-[Severity: High]
-This is a pre-existing issue, but does reboot_mode_unregister_device() leak=
- a
-struct device here?
-
-When finding the device, class_find_device() internally increments the
-reference count of the returned device:
-
-reboot_mode_unregister_device() {
-    reboot_mode_device =3D class_find_device(&reboot_mode_class, NULL,
-                                           reboot->dev->driver->name,
-                                           reboot_mode_match_by_name);
-    ...
-    device_unregister(reboot_mode_device);
-}
-
-However, device_unregister() only drops the reference count incremented dur=
-ing
-device registration. It does not drop the extra reference acquired by
-class_find_device(). Could this lead to a memory leak every time a driver is
-unregistered or fails to probe?
-
-
-[Severity: High]
-This is a pre-existing issue, but can having multiple instances of the same
-reboot-mode driver cause sysfs name collisions and a Use-After-Free?
-
-In reboot_mode_create_device(), the sysfs device is uniquely named after the
-driver name:
-
-reboot_mode_create_device() {
-    priv->reboot_mode_device =3D device_create(&reboot_mode_class, NULL, 0,
-                                             (void *)priv, "%s",
-                                             reboot->dev->driver->name);
-}
-
-If multiple instances of the driver exist (e.g., "qcom-pon"), this guarante=
-es
-a naming collision. The second instance will fail to probe.
-
-During the error path, reboot_mode_unregister_device() matches the device
-purely by the shared driver name:
-
-reboot_mode_unregister_device() {
-    reboot_mode_device =3D class_find_device(&reboot_mode_class, NULL,
-                                           reboot->dev->driver->name,
-                                           reboot_mode_match_by_name);
-}
-
-This incorrectly finds and unregisters the first successfully initialized
-instance's device instead of the failed instance's device, and frees its
-private data. Subsequent sysfs operations on the first instance could then
-trigger a Use-After-Free.
-
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-arm-psci-s=
-ystem_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com?part=3D2
