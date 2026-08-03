@@ -1,144 +1,188 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4D136C9C0
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 19:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A4642A14D;
+	Mon,  3 Aug 2026 19:35:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785785724; cv=none; b=TnP1UbRFAJjlJf8rL9T6HmecdLecd9mS5Bp120sWKacWgPMD1+TCsWj7xqM2JmCBLnHhkLEUAGiuAP9iT770JDu3SzbAMH6mtGxIdK+AufTsBr1U0SN1eLuGx0IdgOFECh8fKi4vWd/ZFkx+E3uEe8LOUSHnrt5pxmu+IVs83xk=
+	t=1785785726; cv=none; b=K64Bq3Diz2WdbGRsnl6eiPqtRjRuE7P+GKfNmBMYbWXM7Hs6KQccohvZmV217l5ahG80Wgsc0lpwqDsiWUvnNT7ipo5G2r6XCn1Hcmsp+ny+iEvj243xykX32EJZOfFp+36R0JPGQsreexx2Yfk5kQqsOVntT1kzIhU5iVcgWlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785785724; c=relaxed/simple;
-	bh=VjAnPKkOhrNzBBj74/3IQ5jyXGO7ZA3AmQIZeJkp3YE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F3fsx8iblLBExtGSKPv3a4cNvIJ9DkXaYIdPfzq6HF0z3Afi4XihvMMdr/IoPI4Xk5ZzFpAF2TOK31dnRC8n3h4+uSVZwZWqGvL0JiydORfqgZbnfLHOzJz9OUP8ikD8jM34Qi+3PNSx5aP1m6wKvAXtK7/dI5lHic9I/2PtJcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UOtd5Iux; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785785726; c=relaxed/simple;
+	bh=0u2a1lSVQ4ZR1c9tPuyVboKw1enQLnWGm/vncMiKhk8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PFt7ryKw1DPvD1PBKH/cuhUOAT/zX6EW8DeYFoLaO5Bmq+gkKt0oH161tAQvLawBTimEO0DaINmf9ItyHbis0B/U1MXNVkqxOgGwHAcGERmdJeN1+u9vIxtC5DvcDCMa/CNAdO5/5vYLWc8DMcjhYFfmd35G5D+q/iIqASQlCqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CCKoQ1CV; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UOtd5Iux"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-495590dde14so25096145e9.0
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 12:35:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785785722; x=1786390522; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rIsx6zbYaQEdLVAaackOaf7e88l+t3puadax1/1AhNI=;
-        b=UOtd5IuxjO+0CawwxJUBWuop0lzlLd5/uZhrltQgg9jIS3N5sre30KR2dsAcsc4ktb
-         Ov5KYlNJSnRUmZGMTSiDoLWCe/dYmIFDvE7JlWxd3LpcsoPlxLmBFRz+LItp6Oa2+UqY
-         7F7Iufx7c+TMi96uou4UHWerJcRNlMwFuFjdIP6BGheHMSeZVnZ9u5EcOT2R6YfbLEQY
-         CCXbgR7NGUxw52lQXuq1JZHeA4ha5fCd2xo5IbuMwdRk4mbeiREkkz4KfKsWqE2I5YvW
-         13ZvmhaXLrfJb9r3YMNjeGTpymqzb20UqVL+NkpEzvWlwWnogdrZMe04ntu9hxAIdlIk
-         bMoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785785722; x=1786390522;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rIsx6zbYaQEdLVAaackOaf7e88l+t3puadax1/1AhNI=;
-        b=eoLMXzm2Uunuh/LwM5lK12FIRFvaMx9Uocj6UrRyG1xJWXPH6mctzl8lm6CpLCOV5X
-         oLpU9XFV8OBsB1XjNLJ+AfaWIsJfjPAiKQjOOFlwzJK+l+gEcat96igCnjEiDIdXU2mR
-         tQCIxb8RacFiko/GZM3Yvf0BeWiEPc7J3zyVr0ZIJhHFf4HB/2NYuZTUZu+c1bOzEnuQ
-         MxoITp3n2EG3okPkJTRqz18vIyNprVZ4zI7C1W85Hm0213EiW7lKckj9oXkAFSO2LxBy
-         hRBil8lEFLkctAUbr2dj0IbmaVq9JEUCkkhfZPe4Q5fJBkeRgA36pUdpgkcbaA7oYmSo
-         aXaA==
-X-Forwarded-Encrypted: i=1; AHgh+RrRSbBK3k88kQAM5pkc3XjdwhYCEZgJQs8QIOvHYQND0nONT0cTjG+YM2+cINEau57kPamF8XuiLfmj@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxkliU72H7QnS3cnByRb5+b69o0FPJ6YEfIbklJW7R2i/wT+VY
-	7bpt30uXojpBGkBC8Z3SjByRw0MXo6toui0wZdCDn52WUPSphzjAm3SE
-X-Gm-Gg: AR+sD12eTNHooHAm4m0vpfqb4sJJsiOT50LrQdedg+7Zn2BMGh9VN5j9yE2s32x2h8h
-	HZmROeqptS2PwIWLqfuZoHSd9TK7uXxTsMkZdeTp78OTSzbn/E5/tcvGFLV2gpNA5RxYbkss0Zu
-	321xY7rB4BuCmZtV7D/+ssGaz7vi7Wnik/mShPYj9dAS5A+iTscgGQhvfcC521wtVl7bWIIaciX
-	KSIpTHSTyPiF2qkTWBNIV8ShDQxm2TZ1GBtSGHQqu5f21uFLYBYWmJoFghJEXH60lwZijhFebUl
-	tb09pAqBJWeLntxZqWG16oy8KV+tGdprxR+VbIBQOyFNko38A5tXzJGp8FLBRBywo5Jy68RpjTk
-	r4cM9uByTVLvNo+cxr+vLlJ6Yc2EJOUVuYxHxFk6AWpS3I1mGeFBf10PlcWi2RMgNkECBCjNrHS
-	Np+QqH74f1EShnRa51Mde94WA0+kfMhAjewKSVsSN6AtZ+l6LIgccQQgPRk8XHGpf5yS5B/+WWn
-	RxYBfcKmN0WWxLTTEbcjnTF6sLafyp4pgSZWD4B/sXyRBPaBiuy7ev0kRfmGp6WuWBRzpcE5bDP
-	io+HOaT+TOG/UX9p392tFzTK0uzNWEslDOuC0Avqj1IMFTyfEZtOj1B8n096NVWMfbvACVt1cfx
-	fYq9SX5wq/Z0T8DKeKkBhqRWAbbwtqW+f
-X-Received: by 2002:a05:600c:3b99:b0:498:519:e660 with SMTP id 5b1f17b1804b1-4980c66d8b0mr265523695e9.4.1785785721474;
-        Mon, 03 Aug 2026 12:35:21 -0700 (PDT)
-Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456220esm36742356f8f.18.2026.08.03.12.35.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 12:35:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CCKoQ1CV"
+Received: from [10.0.0.182] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id AA37E5340321;
+	Mon, 03 Aug 2026 21:35:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1785785719;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=qNkEgZtE9MyrRrLinjI/1vsPROGFxoSujraxlInN0iw=;
+	b=CCKoQ1CVpmqp8XoxyeAiSn1Wke25wcx+oIwCGSfaJkvDrezNwe9fgfOWhY+y71UhUhRLO1
+	/0HfWAFcTOX46qQ75eNsOvZ5YmwCY8Y3PquVUqU/ltOdR0QYunrLxXDFgX2P9EQ6eC4a18
+	mEZ8erCjUnmSdpDymfaUC0GKg00N/j4=
+Message-ID: <58da7454-e539-4e2b-b658-829cece52205@ixit.cz>
 Date: Mon, 3 Aug 2026 21:35:19 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, linux-iio@vger.kernel.org,
- jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: add support for mcp47a1
-Message-ID: <20260803213519.7d3d241e@systembl0wer>
-In-Reply-To: <20260803180717.4BE651F000E9@smtp.kernel.org>
-References: <20260803-mcp47a1-add-support-v3-0-540e71b4fd2e@gmail.com>
-	<20260803-mcp47a1-add-support-v3-1-540e71b4fd2e@gmail.com>
-	<20260803180717.4BE651F000E9@smtp.kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] arm64: dts: imx8mq-librem5: Dongwoon DW9714 coil
+ requires higher voltage
+To: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Ondrej Jirman <megi@xff.cz>, Olivier Benjamin
+ <olivier.benjamin@bootlin.com>, Manuel Traut <manut@mecka.net>,
+ Alexander Warnecke <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Martin Kepplinger <martin.kepplinger@puri.sm>,
+ Shawn Guo <shawnguo@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ phone-devel@vger.kernel.org, imx@lists.linux.dev, stable@vger.kernel.org
+References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+ <20260801-pp-pro-camera-v1-4-7b4d90788f9f@ixit.cz>
+ <yJywMSNTQGGZm3rbxd56Yw@puri.sm>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <yJywMSNTQGGZm3rbxd56Yw@puri.sm>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 03 Aug 2026 18:07:16 +0000
-sashiko-bot@kernel.org wrote:
+On 03/08/2026 20:12, Sebastian Krzyszkowiak wrote:
+> On sobota, 1 sierpnia 2026 02:35:23 czas środkowoeuropejski letni David
+> Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
+>> Usually it's around 2.8 V. Here it matches the reg_vcam_2v8.
+> 
+> It doesn't - VCAM_2V8 isn't connected to DW9714 (and neither is CSI_1V8);
+> VCAM_AFVDD is.
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] The I2C addresses specified in the schema and example appear to be 8-bit write addresses instead of the 7-bit addresses required by the DT specification.
-> - [Low] The `reg` property schema applies an integer `enum` directly to a matrix array element, which will cause `dt_binding_check` validation to always fail.
-> --
-> 
-> --- Patch [1]: [PATCH v3 1/2] dt-bindings: iio: dac: add support for mcp47a1 ---
-> commit 441e840b5a2a3f037c3520c49013a55b7dc4c1bd
-> Author: Joshua Crofts <joshua.crofts1@gmail.com>
-> 
-> dt-bindings: iio: dac: add support for mcp47a1
-> 
-> The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converter
-> which communicates via I2C.
-> 
-> > diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
-> > new file mode 100644
-> > index 0000000000000..b181fe73dce84
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml  
-> [ ... ]
-> > +properties:
-> > +  compatible:
-> > +    const: microchip,mcp47a1
-> > +
-> > +  reg:
-> > +    items:
-> > +      - enum: [0x2e, 0x3e]  
-> 
-> [Severity: Low]
-> Will this cause dt_binding_check validation to fail?
-
-No, this is a perfectly valid dt-schema which passes dt_binding_check.
+I didn't realized we have datasheet here :)
 
 > 
-> Since dt-schema parses reg values into a uint32-matrix (an array of arrays),
-> the items array applied to it defines a tuple schema for the outer array's
-> elements. This means the inner array [0x2e] will be matched against the
-> integer enum [0x2e, 0x3e], which will mathematically fail since an array
-> is not an integer.
+>> 1.8 V here is likely used for i2c level shifter.
 > 
-> [Severity: Medium]
-> Are these 8-bit write addresses instead of the 7-bit addresses required by
-> the Device Tree specification?
-> 
-> If these are indeed 8-bit addresses (as indicated by the 0 LSB and typical
-> Microchip datasheet conventions), they must be shifted right by 1. That would
-> make the correct 7-bit DT addresses 0x17 and 0x1f.
+> I'm not sure where you've got an I2C level shifter from, there's none involved
 
-No clue what Sashiko is on about since these are indeed 7-bit addresses which
-do work when tested on the actual hardware.
+it's copy-paste from previous commits.
+
+> there. CSI_1V8 is passed to the rear camera module as DOVDD and is consumed by
+> S5K3L6 as VDDIO, and both S5K3L6 and DW9714 are connected to I2C4_SDA/
+> I2C4_SCL, operating at the 1.8V level, only though an EMI filter (F7 in the
+> schematic).
+
+I don't see the AFVDD in the [1], do you have it somewhere defined?
+
+Thanks
+David
+
+[1] 
+https://source.puri.sm/Librem5/linux/-/tree/pureos/latest/arch/arm64/boot/dts/freescale?ref_type=heads
+
+> 
+>>
+>> Fixes: f00df2bdb512 ("arm64: dts: imx8mq-librem5: describe the voice coil
+>> motor for focus control") Cc: stable@vger.kernel.org
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+>> b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi index
+>> f5d529c5baf3e..583cba2d3bebf 100644
+>> --- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+>> +++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
+>> @@ -1167,17 +1167,17 @@ &i2c4 {
+>>   	pinctrl-1 = <&pinctrl_i2c4_gpio>;
+>>   	scl-gpios = <&gpio5 20 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+>>   	sda-gpios = <&gpio5 21 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+>>   	status = "okay";
+>>
+>>   	vcm@c {
+>>   		compatible = "dongwoon,dw9714";
+>>   		reg = <0x0c>;
+>> -		vcc-supply = <&reg_csi_1v8>;
+>> +		vcc-supply = <&reg_vcam_2v8>;
+>>   	};
+>>
+>>   	bat: fuel-gauge@36 {
+>>   		compatible = "maxim,max17055";
+>>   		reg = <0x36>;
+>>   		interrupt-parent = <&gpio3>;
+>>   		interrupts = <20 IRQ_TYPE_LEVEL_LOW>;
+>>   		pinctrl-names = "default";
+> 
+> 
+> 
+> 
 
 -- 
-Kind regards,
-Joshua Crofts
+David Heidelberg
+
