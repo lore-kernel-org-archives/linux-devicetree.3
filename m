@@ -1,200 +1,348 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349EB40BCBC
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 15:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF8240F758
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 15:12:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785769320; cv=none; b=MUsCfRc2fhZwe/SZhJb7fp8ovyS4J5/7g5IrbjeE1+ydVMCe1dkoECXG8k2K8HFjbtT++7Z1rVzV1aqHQI2dawv2tAVFHhFqtGEzDLRfHQeWhCkBJNOkEuLAKaqo2A+6wVBOZAtPEW8Sb81GClTQONTQ/GRCtMlsMVwPuQw0xeE=
+	t=1785769948; cv=none; b=Nquku3tQ6KXeivkTbVHeoB+dbso4RAEF54iSs9jv/u5Nl1i+G5W/050QqBv4sFNFqbQF5WQuKOCd+hc35l0cIXdCVX2fgKFzeoD2MhvXbMmhYz6kteajv+q7Wmy41/1ivtytGKmE7dzFx7Ji3wqt9Q2bXVBP+6mYcZOK084t3Io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785769320; c=relaxed/simple;
-	bh=IZhNb9orP3q/qKe1fv5lTgp5V9rCwNYTH1hDIO9R7MQ=;
+	s=arc-20240116; t=1785769948; c=relaxed/simple;
+	bh=iexzmFB8KQHgucwZjKyJV/HshQ3jw4C884ppX1S0bMo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E3zcf6wWdlay4dm18oZSPfnpjXzvMtSxj3OhE0PQhPT3cm8gbX0lWVGmpZbpFBSEOt4CnxMGjWhmF51yzubk7CSduudkghp3JqkkIseu7SZgHc4k863StieS/RjJuXGx8BKJt8vs8yPYWaIOFH7YA4nXPpEDzfl3oFz3zAtqPG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QMcHXGjF; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=OhucJLAyyXevS64mUfaXoFCwuaA27NAv7apEGA0hfNSBZdOyR0Y9XFAylseoBm5QIhrgJnp4wGW1cqcjXZeeV/EM6tb8IRa8BtwjguWcvaVz2EQUAe83jK6JVB1MJ5nE+4+PyHXJcyUWc1nhhK6v97vSnQ32Uny9Vx9NCuJiZWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HHUj5lac; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=XshItDJc; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QMcHXGjF"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so22592905e9.2
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 08:01:57 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HHUj5lac";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="XshItDJc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785769945;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jF3MmI86y2BChVqhm8vdVAw/xAkrV44X6MqoOsmdA58=;
+	b=HHUj5lacBpmFjEes7/hIsyN8s3nTBWen7w/vLY3FXSL8hNDAcvCtHFMXjufvb/XXXZeWy2
+	X2CPJXcvCGq3Ga9kazQ1YEp2G8SEG/qboI9h+UIVos5tjfxsUdm59+fu6gHVyBje6Pjjmm
+	qtLmGNbKPcQk4mJJwyQ0v97LiYT/Bg8=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-119-eVATjw5vNviZZQ6RWHKPEw-1; Mon, 03 Aug 2026 11:12:23 -0400
+X-MC-Unique: eVATjw5vNviZZQ6RWHKPEw-1
+X-Mimecast-MFC-AGG-ID: eVATjw5vNviZZQ6RWHKPEw_1785769942
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-667d6c4384dso5141962d50.3
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 08:12:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785769316; x=1786374116; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ep+nLqQCF6bAr0oltLdzKjN/n2j57SUc0s56vDHNl7U=;
-        b=QMcHXGjFysL9Kf0JxEJORaRDjwIncMKaYNK2PcOc1/FEYdQnad1oJmyAskYN9LhfZ+
-         LZuqmyG1r+TO8KpRPWxVhkr5GbSKTKKXLH3wxeXA8LpNFclWm34WDwB8xBr60EymguwZ
-         UYzyYdnxEqAGgFL6nwC8Kyj8xU5TJXh3fgKuLocxKYMkPOs73/r5vH7ADM+vc/X2oPkZ
-         up+aBPBU91JChuJ/O/WN0ky7Z4fMERYYhfvc6sgRYts00qDpCPgiSz4Q/GRgTzq8Y4FW
-         /pJ//JKSRW0VjEmG/E0YlSOrD/+vFVIpxlARFpyrPeEkg4SWIbfE3sdcEyN7AKKh+qgW
-         fgrw==
+        d=redhat.com; s=google; t=1785769942; x=1786374742; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=jF3MmI86y2BChVqhm8vdVAw/xAkrV44X6MqoOsmdA58=;
+        b=XshItDJcrw4c+tZSk/O6v22qTJF6qczk3jmhYQy1ypfRNdVflu1t+uypnN+zoCKdZ3
+         lRhxqxIjzwTRrCHE81Flfy2Pw1EfvcG+pKjggtS3WIckFtANVsKq87rdpq4LttPOcnE9
+         6zkqEveYQDBdm+8CsZ5ZXU+HbJWr9RSKtis+bgiv0ITM21UcQqLV70qXVbC6TDCIpwXZ
+         kJ7cSbEj76uUS8RHB10mIhmQocwfxb8RTTwJH5vePYzr35qwkEGx4Hspt45P0storPPe
+         jA6iDdQGbHN/Tf2HI2DbYJqBGn3YqIH2SQ7+wGFWcfnHK4RGGcxJNu/qtg65losUMM5D
+         ZZnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785769316; x=1786374116;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ep+nLqQCF6bAr0oltLdzKjN/n2j57SUc0s56vDHNl7U=;
-        b=brNuhMReziNtnAUItdpJ3D/XkSTz3SbloQHKCMACG+UoZACRpktM1MjjQMXZX6UAv7
-         Fj2LYtYZc9wlJED49Dn6PNbB8tZxmx0s27fDDs70H1ab7H+7j2BN2SNgziyqi0kwofgG
-         JZgdG3BKqq7BjSoyNXYZ3t+/s/QZnRVXZJr14ASUVBmChU6q3LgTZeuiXyitP4cl2peo
-         LH3+iF5zybQX/nPe1uosFCPv14zEMGat0kmkMNOYl/HGKSRMCoCRl2CZh1trthlmwb7Y
-         q93eRf9nq/k0hqCXFXlvX29Ieob2wL9qRMAcyZU1mTh2PODxuiF1/8CNEQ+rHfLJh/fD
-         bPsw==
-X-Forwarded-Encrypted: i=1; AHgh+RqDGX8RTb60Q4CYToR4Thr2tL6H7xcPjJP+724n1AOgxavEV+cY9aidYxPTvPXRia1HH8fiD0JlXFkX@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQsSskVSl4+Sz0INkwQcqwAiyz8GWxA7E1Rz8Y7ImFPv8kqJVN
-	2J9BJD70FLjEJOX1ZlRQQzq+9YGI40qFjDhMa1MWEub5pnadlryVsYAA
-X-Gm-Gg: AR+sD13OekG/oYCVKF+8K7/4FDEDj05vHtQ7eJdYq88qjSHXneB1cMo7U4FaxHsl+VU
-	ldW3qJXFPPAdZg5ohzByriLYowpgM8xM7r9xm+c0IK0l+NUMID8VWPrbf0IXeTeV3cgQvBenYK5
-	I9iRJcM75jTZWsJrGtkvggWDJcfMIpZ3CNJLgymohnO+IFn4uoLjrx1JdO6s+k/mqFxZqD4FRwT
-	i9TfYeQezkxJmykx0VLX8BEL1txoHeTDV5XCMb/LHo7DlWwknGs6LC/JQtytJw28tJ0Fnoa/s6A
-	oqlfXRB+GR3R3xu5s3e8cmYjFqe21eRd/+4AE5T9FvsferjajEnIzKZVixzaeMUwL/Wnintc+sm
-	4mP9D0EvIX+kk6PN6DtLAnRyU18lqiTNEH29akVpPKj3B2tlrKlCGHgyT505FmY6pdVnwISyOeN
-	TNx5Tl634xIpFU1MiWB+h01quh/aLxRXjuHAOF1WD+ixvr6YZB4iyXLDyY3XQohIs=
-X-Received: by 2002:a05:600d:849c:10b0:499:48bb:417e with SMTP id 5b1f17b1804b1-49948bb41d5mr32558375e9.2.1785769315942;
-        Mon, 03 Aug 2026 08:01:55 -0700 (PDT)
-Received: from nsa ([148.63.225.166])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4980878dbaesm404528925e9.12.2026.08.03.08.01.54
+        d=1e100.net; s=20251104; t=1785769942; x=1786374742;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jF3MmI86y2BChVqhm8vdVAw/xAkrV44X6MqoOsmdA58=;
+        b=UjDFnJsQy17lG+UnsEw8CVx34krV5ZJXfZ/GALBVDM9eoPPVCcfcsUJY2QqpF8WrcB
+         HLWao4yHKZiSEREECG403adtqojYQppBxKPnBWWypoWBxxWrMgRKMLGWxTr8DgE4SrBS
+         HZ0ZV29MXOfP+CPLaqM97agDGSh8RJKB2xzPd1ujv9TKbJrXtZf2qn2qcj62D8uAyJuI
+         bHeajClyjwT5ySov+3e9Kigk48ofx8AcuJzjnDfFUeQ8m0A35s2gEbAMgsidkAJ1lN83
+         //HukmQttu4OGcHS4iQQ2V+zBG4hZu/JA+AtH/gcn+4EDYwfVsBhp0iunIYkWQOMe/q1
+         Y9VQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp/IPEC1ggZ/rQ457Ckjl8ddDbAbVHl/py+t8BHMtp1YqGyPzs0Upuq20xjoFCs/c17FNOtUqdOv4qP@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+UnRUT1fkPkBJ1/p3WWUVG8jIIb0DE4T/EAwhMAWzUasNuP4+
+	yrptb3qbIhqWFY83IFwujGSLNEnT+JswKk+xbBq5C5WbGQIWLXzUTWApiLBpnuu0Cp1Y7qAbClf
+	NgGX3urq19QDkBOX7umUQSHC7yDsJBtwRgemC6gf/qGQSDOr4k02Je38RbTmcSNs=
+X-Gm-Gg: AR+sD10xOBW2gX6SN/X+x0dDhQUBXsfjYzLHPiNhdmVHGHoMQGymbtWMcts69UiwUY6
+	JSzkzQlqkyOCfD1fZNAOx+sDGFdxtDEGc5zzuO/JQgLa9LfufnDSMrwyClqooUhQT/2LmIQMsMg
+	ndcd3BP7XDMIzB4XTvqem0eBGrLkDhee//xQtr3nmCiu8sk4PsJ1cdFbrQVFNgKSI7nY6B9oBxP
+	Cl/MkI63izoqyTFBTiRMEGssxgM6oBulM0gUkN9HaLjlCaqYlkedbtay8xon+I69uIocEY7QbVg
+	yrcAeI47oqB5Vs9mfOHxMedesAfBiHDLMU8uFQvbj7jjc3CFvnqbCskT5P11HnoLAs0aivLkxGA
+	rgWLnqWgXo+7gbTOA9qKyLL90T/wEGw2wrDs=
+X-Received: by 2002:a05:690e:2244:b0:663:9a0a:7b80 with SMTP id 956f58d0204a3-6694f08c75fmr9214976d50.19.1785769942538;
+        Mon, 03 Aug 2026 08:12:22 -0700 (PDT)
+X-Received: by 2002:a05:690e:2244:b0:663:9a0a:7b80 with SMTP id 956f58d0204a3-6694f08c75fmr9214934d50.19.1785769942042;
+        Mon, 03 Aug 2026 08:12:22 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66948fc7ef2sm5945641d50.13.2026.08.03.08.12.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 08:01:55 -0700 (PDT)
-Date: Mon, 3 Aug 2026 16:03:04 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: nuno.sa@analog.com, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
-	Alan Tull <atull@opensource.altera.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
- pmbus_read_block_data()
-Message-ID: <anCsIHUkaL7ckyiL@nsa>
-References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
- <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
- <c3e143ed-af08-4a0f-a630-96a255df838d@roeck-us.net>
- <amtewh9lOgWz0-Nh@nsa>
- <e37df572-1ca9-4c56-a16e-faa44f1ff1cd@roeck-us.net>
- <amtqPQSM6zsiCh4B@nsa>
- <6287e749-04f5-4a03-a91c-fcc705df269c@roeck-us.net>
- <amzB2aw_4y6ji9zs@nsa>
- <b48636b8-33d1-425f-93a7-d0b9c4dd86ca@roeck-us.net>
+        Mon, 03 Aug 2026 08:12:21 -0700 (PDT)
+Date: Mon, 3 Aug 2026 11:12:18 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Edward-JW Yang <edward-jw.yang@mediatek.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
+	Irving-CH Lin <irving-ch.lin@mediatek.com>
+Subject: Re: [PATCH v5 16/25] clk: mediatek: Add MT8189 apmixedsys clock
+ support
+Message-ID: <anCv0ga226obZg2g@redhat.com>
+References: <20260801-mt8189-clocks-system-base-v5-0-ac4410697cc2@collabora.com>
+ <20260801-mt8189-clocks-system-base-v5-16-ac4410697cc2@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b48636b8-33d1-425f-93a7-d0b9c4dd86ca@roeck-us.net>
+In-Reply-To: <20260801-mt8189-clocks-system-base-v5-16-ac4410697cc2@collabora.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Fri, Jul 31, 2026 at 09:46:29AM -0700, Guenter Roeck wrote:
-> On 7/31/26 08:42, Nuno Sá wrote:
-> > On Thu, Jul 30, 2026 at 08:54:25AM -0700, Guenter Roeck wrote:
-> > > On 7/30/26 08:19, Nuno Sá wrote:
-> > > > On Thu, Jul 30, 2026 at 07:47:37AM -0700, Guenter Roeck wrote:
-> > > > > On 7/30/26 07:27, Nuno Sá wrote:
-> > > > > > On Tue, Jul 28, 2026 at 02:05:53PM -0700, Guenter Roeck wrote:
-> > > > > > > On 7/28/26 09:03, Nuno Sá via B4 Relay wrote:
-> > > > > > > > From: Nuno Sá <nuno.sa@analog.com>
-> > > > > > > > 
-> > > > > > > > This is in preparation for adding support to a device which needs to
-> > > > > > > > use it's own read_block implementation.
-> > > > > > > > 
-> > > > > > > 
-> > > > > > > The chip-specific implementation calls i2c_smbus_read_i2c_block_data().
-> > > > > > > I'll need to know if this is a chip limit or a controller limit.
-> > > > > > > If it is a controller limit, a chip specific override would be
-> > > > > > > inappropriate.
-> > > > > > 
-> > > > > > I'll reply from top of my head (did not looked at the driver again).
-> > > > > > IIRC, the biggest reason we need the chip-specific implementation is because of
-> > > > > > the RAIL selection logic (mainly when not in page mode).
-> > > > > > 
-> > > > > 
-> > > > > Yes, I have seen that. Question is why you use i2c_smbus_read_i2c_block_data()
-> > > > > instead of i2c_smbus_read_block_data(). The rail selection logic would not
-> > > > > require that.
-> > > > 
-> > > > IIRC the reason was because the i2c controller on the raspberry pie does not
-> > > > support i2c_smbus_read_block_data(). So I guess this:
-> > > > 
-> > > > https://elixir.bootlin.com/linux/v7.1.4/source/drivers/i2c/i2c-core-smbus.c#L220
-> > > > 
-> > > 
-> > > Hmm, I think we really need a common solution for that problem. Not all
-> > > controllers support i2c_smbus_read_i2c_block_data(), so you are just moving
-> > > the problem from one controller to another.
-> > 
-> > Yikes. I actually though i2c_smbus_read_i2c_block_data(9 was more widely
-> > supported (if not always). Not sure if you have something in mind but
-> > one straight way would be to choose different implementations (for
-> > read_block) depending on i2c_check_functionality()
-> > 
+On Sat, Aug 01, 2026 at 01:21:02PM +0200, Louis-Alexis Eyraud wrote:
+> Add support for the MT8189 apmixedsys clock controller, which provides
+> PLLs generated from SoC 26m.
 > 
-> Handling it in pmbus_read_block_data() would be straightforward. Actually, I
-> wonder why it isn't handled as fallback in i2c_smbus_read_block_data(),
-> but I assume there must be a reason.
+> Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+> Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
+> Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> ---
+>  drivers/clk/mediatek/Kconfig                 |  13 ++
+>  drivers/clk/mediatek/Makefile                |   1 +
+>  drivers/clk/mediatek/clk-mt8189-apmixedsys.c | 203 +++++++++++++++++++++++++++
+>  3 files changed, 217 insertions(+)
 > 
-> Either case, I don't understand how the existing calls to i2c_smbus_read_i2c_block_data()
-> work. For example, in drivers/hwmon/pmbus/max20830.c, the assumption is that the
-> first returned data byte would be the length field. However, that is already done
-> in i2c_smbus_read_i2c_block_data():
-> 
-> /* Returns the number of read bytes */
-> s32 i2c_smbus_read_i2c_block_data(const struct i2c_client *client, u8 command,
->                                   u8 length, u8 *values)
-> {
->         union i2c_smbus_data data;
->         int status;
-> 
->         if (length > I2C_SMBUS_BLOCK_MAX)
->                 length = I2C_SMBUS_BLOCK_MAX;
->         data.block[0] = length;
->         status = i2c_smbus_xfer(client->adapter, client->addr, client->flags,
->                                 I2C_SMBUS_READ, command,
->                                 I2C_SMBUS_I2C_BLOCK_DATA, &data);
->         if (status < 0)
->                 return status;
-> 
->         memcpy(values, &data.block[1], data.block[0]);
->         return data.block[0];
-> }
-> 
-> Does the command return the length twice ?
+> diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
+> index 2c09fd729bab..f67dfb6cd019 100644
+> --- a/drivers/clk/mediatek/Kconfig
+> +++ b/drivers/clk/mediatek/Kconfig
+> @@ -815,6 +815,19 @@ config COMMON_CLK_MT8188_WPESYS
+>  	help
+>  	  This driver supports MediaTek MT8188 Warp Engine clocks.
+>  
+> +config COMMON_CLK_MT8189
+> +	tristate "Clock driver for MediaTek MT8189"
+> +	depends on ARM64 || COMPILE_TEST
+> +	select COMMON_CLK_MEDIATEK
+> +	select COMMON_CLK_MEDIATEK_FHCTL
+> +	default ARCH_MEDIATEK
+> +	help
+> +	  Enable this option to support the clock management for MediaTek MT8189 SoC. This
+> +	  includes handling of all primary clock functions and features specific to the MT8189
+> +	  platform. Enabling this driver ensures that the system's clock functionality aligns
+> +	  with the MediaTek MT8189 hardware capabilities, providing efficient management of
+> +	  clock speeds and power consumption.
+> +
+>  config COMMON_CLK_MT8192
+>  	tristate "Clock driver for MediaTek MT8192"
+>  	depends on ARM64 || COMPILE_TEST
+> diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
+> index d8736a060dbd..66577ccb9b93 100644
+> --- a/drivers/clk/mediatek/Makefile
+> +++ b/drivers/clk/mediatek/Makefile
+> @@ -123,6 +123,7 @@ obj-$(CONFIG_COMMON_CLK_MT8188_VDOSYS) += clk-mt8188-vdo0.o clk-mt8188-vdo1.o
+>  obj-$(CONFIG_COMMON_CLK_MT8188_VENCSYS) += clk-mt8188-venc.o
+>  obj-$(CONFIG_COMMON_CLK_MT8188_VPPSYS) += clk-mt8188-vpp0.o clk-mt8188-vpp1.o
+>  obj-$(CONFIG_COMMON_CLK_MT8188_WPESYS) += clk-mt8188-wpe.o
+> +obj-$(CONFIG_COMMON_CLK_MT8189) += clk-mt8189-apmixedsys.o
+>  obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
+>  obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
+>  obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
+> diff --git a/drivers/clk/mediatek/clk-mt8189-apmixedsys.c b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
+> new file mode 100644
+> index 000000000000..a50a8979b849
+> --- /dev/null
+> +++ b/drivers/clk/mediatek/clk-mt8189-apmixedsys.c
+> @@ -0,0 +1,203 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2025-2026 MediaTek Inc.
+> + *                    Qiqi Wang <qiqi.wang@mediatek.com>
+> + *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
+> + * Copyright (C) 2026 Collabora Ltd.
+> + *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> + *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> + */
+> +
+> +#include <linux/clk-provider.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include "clk-fhctl.h"
+> +#include "clk-mtk.h"
+> +#include "clk-pll.h"
+> +
+> +#include <dt-bindings/clock/mediatek,mt8189-clk.h>
+> +
+> +#define MT8189_PLL_FMAX		(3800UL * MHZ)
+> +#define MT8189_PLL_FMIN		(1500UL * MHZ)
+> +#define MT8189_PLLEN_OFS	0x70
+> +#define MT8189_PLLEN_SET_OFS	0x74
+> +#define MT8189_PLLEN_CLR_OFS	0x78
+> +#define MT8189_RSTBAR_OFS	0x80
+> +#define MT8189_RSTBAR_SET_OFS	0x84
+> +#define MT8189_RSTBAR_CLR_OFS	0x88
+> +#define MT8189_INTEGER_BITS	8
+> +
+> +#define PLL_SETCLR(_id, _name, _reg, _pwr_reg, _en_setclr_bit,		\
+> +			_rstb_setclr_bit, _flags, _pd_reg,	\
+> +			_pd_shift, _tuner_reg, _tuner_en_reg,	\
+> +			_tuner_en_bit, _pcw_reg, _pcw_shift,	\
+> +			_pcwbits) {				\
+> +		.id = _id,					\
+> +		.name = _name,					\
+> +		.en_reg = MT8189_PLLEN_OFS,			\
+> +		.en_set_reg = MT8189_PLLEN_SET_OFS,		\
+> +		.en_clr_reg = MT8189_PLLEN_CLR_OFS,		\
+> +		.reg = _reg,					\
+> +		.pwr_reg = _pwr_reg,				\
+> +		.pll_en_bit = _en_setclr_bit,			\
+> +		.rst_bar_reg = MT8189_RSTBAR_OFS,		\
+> +		.rst_bar_set_reg = MT8189_RSTBAR_SET_OFS,	\
+> +		.rst_bar_clr_reg = MT8189_RSTBAR_CLR_OFS,	\
+> +		.rst_bar_mask = BIT(_rstb_setclr_bit),		\
+> +		.flags = _flags,				\
+> +		.fmax = MT8189_PLL_FMAX,			\
+> +		.fmin = MT8189_PLL_FMIN,			\
+> +		.pd_reg = _pd_reg,				\
+> +		.pd_shift = _pd_shift,				\
+> +		.tuner_reg = _tuner_reg,			\
+> +		.tuner_en_reg = _tuner_en_reg,			\
+> +		.tuner_en_bit = _tuner_en_bit,			\
+> +		.pcw_reg = _pcw_reg,				\
+> +		.pcw_shift = _pcw_shift,			\
+> +		.pcwbits = _pcwbits,				\
+> +		.pcwibits = MT8189_INTEGER_BITS,		\
+> +		.ops = &mtk_pll_setclr_ops,			\
+> +	}
+> +
+> +static const struct mtk_pll_data apmixed_plls[] = {
+> +	PLL_SETCLR(CLK_APMIXED_ARMPLL_LL, "armpll-ll", 0x204, 0x210, 18,
+> +		   0, PLL_AO, 0x208, 24, 0, 0, 0, 0x208, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_ARMPLL_BL, "armpll-bl", 0x214, 0x220, 17,
+> +		   0, PLL_AO, 0x218, 24, 0, 0, 0, 0x218, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_CCIPLL, "ccipll", 0x224, 0x230, 16,
+> +		   0, PLL_AO, 0x228, 24, 0, 0, 0, 0x228, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MAINPLL, "mainpll", 0x304, 0x310, 15,
+> +		   2, HAVE_RST_BAR | PLL_AO,
+> +		   0x308, 24, 0, 0, 0, 0x308, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_UNIVPLL, "univpll", 0x314, 0x320, 14,
+> +		   1, HAVE_RST_BAR, 0x318, 24, 0, 0, 0, 0x318, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MMPLL, "mmpll", 0x324, 0x330, 13,
+> +		   0, HAVE_RST_BAR, 0x328, 24, 0, 0, 0, 0x328, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MFGPLL, "mfgpll", 0x504, 0x510, 7,
+> +		   0, 0, 0x508, 24, 0, 0, 0, 0x508, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_APLL1, "apll1", 0x404, 0x414, 11,
+> +		   0, 0, 0x408, 24, 0x040, 0x00c, 0, 0x40c, 0, 32),
+> +	PLL_SETCLR(CLK_APMIXED_APLL2, "apll2", 0x418, 0x428, 10,
+> +		   0, 0, 0x41c, 24, 0x044, 0x00c, 1, 0x420, 0, 32),
+> +	PLL_SETCLR(CLK_APMIXED_EMIPLL, "emipll", 0x334, 0x340, 12,
+> +		   0, PLL_AO, 0x338, 24, 0, 0, 0, 0x338, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_APUPLL2, "apupll2", 0x614, 0x620, 2,
+> +		   0, 0, 0x618, 24, 0, 0, 0, 0x618, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_APUPLL, "apupll", 0x604, 0x610, 3,
+> +		   0, 0, 0x608, 24, 0, 0, 0, 0x608, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_TVDPLL1, "tvdpll1", 0x42c, 0x438, 9,
+> +		   0, 0, 0x430, 24, 0, 0, 0, 0x430, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_TVDPLL2, "tvdpll2", 0x43c,  0x448, 8,
+> +		   0, 0, 0x440, 24, 0, 0, 0, 0x440, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_ETHPLL, "ethpll", 0x514, 0x520, 6,
+> +		   0, 0, 0x518, 24, 0, 0, 0, 0x518, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_MSDCPLL, "msdcpll", 0x524, 0x530, 5,
+> +		   0, 0, 0x528, 24, 0, 0, 0, 0x528, 0, 22),
+> +	PLL_SETCLR(CLK_APMIXED_UFSPLL, "ufspll", 0x534, 0x540, 4,
+> +		   0, 0, 0x538, 24, 0, 0, 0, 0x538, 0, 22),
+> +};
+> +
+> +#define FH(_pllid, _fhid, _offset) {				\
+> +		.data = {					\
+> +			.pll_id = _pllid,			\
+> +			.fh_id = _fhid,				\
+> +			.fh_ver = FHCTL_PLLFH_V2,		\
+> +			.fhx_offset = _offset,			\
+> +			.dds_mask = GENMASK(21, 0),		\
+> +			.slope0_value = 0x6003c97,		\
+> +			.slope1_value = 0x6003c97,		\
+> +			.sfstrx_en = BIT(2),			\
+> +			.frddsx_en = BIT(1),			\
+> +			.fhctlx_en = BIT(0),			\
+> +			.tgl_org = BIT(31),			\
+> +			.dvfs_tri = BIT(31),			\
+> +			.pcwchg = BIT(31),			\
+> +			.dt_val = 0x0,				\
+> +			.df_val = 0x9,				\
+> +			.updnlmt_shft = 16,			\
+> +			.msk_frddsx_dys = GENMASK(23, 20),	\
+> +			.msk_frddsx_dts = GENMASK(19, 16),	\
+> +			.ops = &mtk_pllfh_setclr_ops,		\
+> +		},						\
+> +	}
+> +
+> +static struct mtk_pllfh_data pllfhs[] = {
+> +	FH(CLK_APMIXED_ARMPLL_LL, 0, 0x003C),
+> +	FH(CLK_APMIXED_ARMPLL_BL, 1, 0x0050),
+> +	FH(CLK_APMIXED_CCIPLL, 2, 0x0064),
+> +	FH(CLK_APMIXED_MAINPLL, 3, 0x0078),
+> +	FH(CLK_APMIXED_MMPLL, 4, 0x008C),
+> +	FH(CLK_APMIXED_MFGPLL, 5, 0x00A0),
+> +	FH(CLK_APMIXED_EMIPLL, 6, 0x00B4),
+> +	FH(CLK_APMIXED_TVDPLL1, 7, 0x00C8),
+> +	FH(CLK_APMIXED_TVDPLL2, 8, 0x00DC),
+> +	FH(CLK_APMIXED_MSDCPLL, 9, 0x00F0),
+> +	FH(CLK_APMIXED_UFSPLL, 10, 0x0104),
+> +	FH(CLK_APMIXED_APUPLL, 11, 0x0118),
+> +	FH(CLK_APMIXED_APUPLL2, 12, 0x012c),
+> +};
+> +
+> +static const struct of_device_id of_match_clk_mt8189_apmixed[] = {
+> +	{ .compatible = "mediatek,mt8189-apmixedsys" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_apmixed);
+> +
+> +static int clk_mt8189_apmixed_probe(struct platform_device *pdev)
+> +{
+> +	const u8 *fhctl_node = "mediatek,mt8189-fhctl";
+> +	struct device_node *node = pdev->dev.of_node;
+> +	struct clk_hw_onecell_data *clk_data;
+> +	int r;
+> +
+> +	clk_data = mtk_alloc_clk_data(ARRAY_SIZE(apmixed_plls));
+> +	if (!clk_data)
+> +		return -ENOMEM;
+> +
+> +	fhctl_parse_dt(fhctl_node, pllfhs, ARRAY_SIZE(pllfhs));
 
-I think the device is actually the one sending the block size again. I
-went looking at very old emails and found this chain:
+So I know this is how the existing drivers are written. This calls
+of_iomap(), and the iounmap is called by mtk_clk_unregister_pllfhs().
+I usually like to see things in pairs to make it easier to review
+where there's some register, and an unregister with the same name.
 
-Me:
+Could the fhctl_parse_dt() call be moved into
+mtk_clk_register_pllfhs() ?
 
-"Thanks for the inputs... As I said, I think know what’s my issue. I’m fairly sure the first
-byte I’m reading is the block size. I’ll take this into account and re-test."
+Additionally fhctl_parse_dt() sets some state variables that are never
+cleared in the unregister:
 
-Reply:
+                pllfh->state.fh_enable = 1;
+                pllfh->state.ssc_rate = ssc_rate;
+                pllfh->state.base = base;
 
-"On one hand, that does make sense. The first byte in a block read transaction should indeed
-be the block size. That said, 0xB1 is 6 bytes long when not including this first byte. So we
-are still missing a byte with actual information. Could you perhaps please share the full 
-packet data that you are capturing?"
+Just a quick glance though I think this is fine.
 
-The above was me struggling with per phase reads.
+Brian
 
-But maybe the above changed with newer FW versions for the chips. I'll
-ask around.
-
-- Nuno Sá
-
-> 
-> > > 
-> > > One key example is the PIIX4 driver. Your new driver does not support the
-> > > majority of PC style systems with AMD CPUs.
-> > > 
-> > 
-> > I see!
-> > 
-> > - Nuno Sá
-> > 
-> 
