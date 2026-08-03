@@ -1,149 +1,133 @@
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC2742BC4F
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785780221; cv=pass; b=TxFfp5oSiC4XuHE/R/qKk9BUDhscr6UGq8UT8Mq+VLFWTQIC1Lk7qu1X53wAztctfrN0oXAx41/mcrferjvZmdnGDj3gu+jaiBgprHe42X0IkbpEN+d9b2rvdYNOxQww2hDckSIUNMdaZwQilqtArbm+9Auou0HnEoirKxY4+SE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785780221; c=relaxed/simple;
-	bh=ACfuI3AX9kRQ1+CBBBf5za/2rVC3FsYXI8omco7jK4w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a/K16t8cykR6VXhIhckYQIrxiqNyvPvKjltdyYivEkp6gBcR9KqWtcCbpJ9b+22bFaEmEq338AtY+S5uzDq23Rt80U/x3TzOrrAGXhST6Et2Na3zLVrGpC0Eg33nzkM/zfFo+QEaL7Eh17u12B6Lq5di+jX1Duz79P+QsbzjGoc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8rdjtCS; arc=pass smtp.client-ip=209.85.217.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E423C42FCDE;
+	Mon,  3 Aug 2026 18:05:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785780307; cv=none; b=ml1UmVrTS7w71ZApWH0eisq/WAA+RSeUVgX9rB8Xv3UzbeUOOnbGyX1FFjHWxihZ8NFvpEnfhcTiHAPIiWnSlMvYLTcz6NADzIGqX2eqXndRo5NdJ4eYQh541acfyc7jfG/pjsKlDchqOUm6UOcHREMzztUF0Qo6VGx8IJ5shPI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785780307; c=relaxed/simple;
+	bh=gsnLkYdJot6Z1ais3o8Gn5zKRKRHUmR6IXkylWaPyJE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PF0kZnT1fD4ifoOGzyoRRwGt18TEqdtyFX9FLYGH9SCENZ1MPRiUwnnZwBHWXwzx50NPr9t/MVorLc3WeV/WKcTFXP1cD0I0Vhp8djBy3t/vfx30p6xfsgB71pQUVs0sNX1BuqK4L+2c5WW6WPjZa2JfHUktIKKxpxMX0IUDDgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XqBELNTG; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8rdjtCS"
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7475a4f8b05so2003187137.1
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:03:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785780218; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CLSRYbcetjbt7nS70HG4NLwyYuAZfXvPbJZ3yl3NVaYAOvKGRkGYg9CX6InJ0aUL0J
-         alKBr3MT2acpi+jIlY0BrvBtX6YV8bQz1cPM4Ui2UBYMqA55MKkJ2xy4wOkyaiHSZRyQ
-         uvkXvX5PRtscqBhni8UGs32meX3mQ6jYkrOHIypQvtUvDYNInJtJHNnKq2megeqrHji4
-         t9Wetg8xGqi/eSzHQrHDYyl+ldVcBCrJ48zrH5eXxpzaVklxv0OpYFLZBR3s9UFQIUUF
-         qPCzzp0RYQ1U6s5PjsfKdgDyi8Gs1geKAew7P7E8/6WdquQLvRvr22EJf7o6CnhKl+ge
-         aDNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2r8t0fZLO1G1B7jNQrzEMX2EdERqWbCFEmueS3AzIlQ=;
-        fh=1qxB1R5ZafDf9anS57ExW7GfGxLxoqF7jElxbs7iqxk=;
-        b=fkb5PtHUEgyRc9Dk0MyI62YKH9fJPPyGw2D/4H/8CAYh5GzmmTU9NL1F4UBVDEl5jh
-         Zk06x5OfX0hO1bOMfZcVMfDa74+XwlfGB6FBsEKQz/TfkDRZGHV/rN2Kg1q7WcE7EnN9
-         XSIgIWcv9DhuQNWyDs60LYz3DlxyZTSEPLFzOtdMkj9mv6UFFJ2BVTPf/XFUdhKKQ3ye
-         34DcgOTK+gP9LOP/d6s0/CxaL0odtY+v76uV8oVHKuW0kS3BQxCH/UF/ZgVaqf97OWbj
-         6CCJw6JaMP4/5/1a/7ewuc/b16aUeZEfY6MR7NgN58JuN6Q2+T5Zn9FXlG90smgpyzEo
-         Pfog==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785780218; x=1786385018; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2r8t0fZLO1G1B7jNQrzEMX2EdERqWbCFEmueS3AzIlQ=;
-        b=X8rdjtCSlSv+4fH0zqn/t1oQJctljVdd6i+nB9p4sblbQltjHgzQk3we5TxCPwj7gt
-         SbRoev7y85CkzLEVDfAIXCGPjsU2RWS/XhyVMFb0lVxlGI8XvhInr3mjgTeDhMYbmyOJ
-         rGlofDzjTHTcYGkM3HYJTwDLk3zwe77ZgAxRu8B7hNr5JuJFGtsPd0q4w1k7QgGvFj0w
-         EsENgbjrOZ2gjvYvTtwrJPogTH4eaGWBSUfrwx5fBR4BpJiyqN+EOb+0WCOWOnIraheg
-         HPMPrD6E8gFLQvWaC9XtnUL8L4t6TDmtROlli3oKaz0byG4Y+XLHywFJsfAxxnmNDxLZ
-         S9LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785780218; x=1786385018;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2r8t0fZLO1G1B7jNQrzEMX2EdERqWbCFEmueS3AzIlQ=;
-        b=IlTNCTrIXropIXpQDhJ33ETCQmEkOiSzHTz+oO3L0ZTX+IcPcnAvqTV5kQCVpzvfWm
-         sGfccN/+6Me6NfzcRaqj/5aVR/boljeX25Cidd34du0AnpRPOgzB+nJQwlgNcFJrr5xX
-         X8dWAGCJuUAKZBxQKJqh9A999vAZbLeIXQDHffnDMPf7sIC6dIBkf5cAH2gJCtjWYNIN
-         ZKMOSHkIhmnG4nxREVmFcFEBQz65hCAzYpfjHm8rFmNdhF1jOF5RI8wAvSfx1uTsEgqW
-         FjqpPcVTzjF9pGQUFPNf6NVcaANLNSNeW803lT105CBdFZMifdxDNPSTAgcW0B+tzsGD
-         4PYA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp+bqSIKePrT264SK1XPNcZPZuB1WDpFghE9cEihHgVvsJxKO2yVIeA1DchaNmmAF+PE6oJ+8ZsJLRT@vger.kernel.org
-X-Gm-Message-State: AOJu0YyoJyk/dm+u1XrM2uAICvh5oxQoXXtPBG2BU7IjmMH7mhHEEA6W
-	F3Fm7hhx8gGwg//WW/vycuAq47E+yuULP64/kuhKXUheFd9Djx/+OIJ2YdnpHLsw0YOeTxFysQ8
-	I3npPqZZBp534lgoRycIU5Pfvn6Nxeng=
-X-Gm-Gg: AR+sD12UE/yLFcyw5PZbOeBRafPFRqLVK+p/ccbNJz5W1L1n9Rfq/JREG+SvRDZt3pH
-	jbuDrjvb+HQ2wjvfZU2s/LUugi3JX35airqAQhEAuZRATi1b7/1vZFdkGrKkfXHLMoFyPmWmaci
-	QQ7jwG+PU3jZ9QYIsyHnvbs5fwkX9cllC9wPgT1b9J+tAlSxGs7ak5mGmQMbJmuJBewXLk8ROrj
-	wpXTCH80hDmTwm0JkTSYcSPC5fs7ZiuPSwiYwfUyD9IrjZhwaJj3pJGahZL7rYBx1s0q6keKuRy
-	3q4kHTr4ANtj+WJA9L0Na2+VXVGC4CtAg3uSFwC7hIJ49h2/I9tIUMDvDGB0JIvxhUHeg9V7TPk
-	g1X18sS1pDy9DLis4art+56k+bT3Fi57mZvzIsxXj3o1LMgzZaA1tonGJfYawxJQOSNnKZZ+bwt
-	ELFJviBbYi9l8TRvXizfcCeE+eoqmeIqkmxgyiyxFXzYPHFelV
-X-Received: by 2002:a05:6102:6899:b0:726:8813:2085 with SMTP id
- ada2fe7eead31-75b23d6e2d3mr8230898137.13.1785780218392; Mon, 03 Aug 2026
- 11:03:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XqBELNTG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1785780303;
+	bh=gsnLkYdJot6Z1ais3o8Gn5zKRKRHUmR6IXkylWaPyJE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=XqBELNTGDIR6Kn23VzSalnNY3N0Z3qALuVcDDGA6lM9LDt/j/3HNV2v0zLTipDjX6
+	 q0AYBWNEKOfwhFAzqXjhPesBO5fNHOv/n1beAEJcjNLFRwy7Aqu6OIYZEHAcmtqcPP
+	 WYpUpvIddA2q1Cwzp0Rf6uL1eGd9qgbIDfvAuQjE4ifdUy3tFLOPXab/vKZ9RlaaBi
+	 rAhSZ/24s/YMjYUP5kZb/GkU73ojhT3bNZ+8Qzw+Q6nFdwmQGS6MG8VgDZEIpoNWvQ
+	 mo2g0k7y0dXx3UJE2iXHM81XEjSN8QXRoPqoz8+rr3zi1tlAYCU3aL8bVyBitqMGUD
+	 zjBwy82rAivWQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BA6D117E08E1;
+	Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 6473048002F; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Mon, 03 Aug 2026 20:05:04 +0200
+Subject: [PATCH v9 03/22] drm/bridge: synopsys: dw-dp: Fix error handling
+ in dw_dp_link_enable()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
- <20260802-submit-acx00-of-dynamic-v1-v1-7-0a53cd9e21cc@gmail.com> <2979768f-4f83-4f28-ace3-826f4b4c6844@lunn.ch>
-In-Reply-To: <2979768f-4f83-4f28-ace3-826f4b4c6844@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 3 Aug 2026 12:03:27 -0600
-X-Gm-Features: AUfX_mybO2gp37G6C7TCuAPmk0gNUYqtWf9KEEokxzjK6lix8AMcIQeuj4MOO0w
-Message-ID: <CADvTj4prV688JDR-QAuNd+jTVFyE9aicRaciqq0M6sB0V2GiXQ@mail.gmail.com>
-Subject: Re: [PATCH 07/21] dt-bindings: net: x-powers: add AC200 EPHY control
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, 
-	Richard Genoud <richard.genoud@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
-	Jose Abreu <joabreu@synopsys.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260803-synopsys-dw-dp-improvements-v9-3-2e6e46135312@collabora.com>
+References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
+In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1144;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=gsnLkYdJot6Z1ais3o8Gn5zKRKRHUmR6IXkylWaPyJE=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E5RW8CHJOFx/ap2kREctC+xp44RGQRb9
+ 3YHU9jsZxop0IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhOAAoJENju1/PI
+ O/qazc0P/jmxNEHDRPWvJ9vOHzDo2Pnelys/zqgKGjCVWSuCzKv6BxJ19dXi8Ur+m+P5h62Z6Ke
+ BTz8r+dgEKl3BN7BEk4umBJlFxniNmFfqGP6zOB8VG+mNzzmIpKpcuKb15yGGEx4fERiSB1H9rf
+ qGE+66Bd2fu7ISUTiIkEBKbEsB1t8n8KDoNhK+wwz4Ms8AJficCUawYDCfMVyWqJFaIMM3M6I7S
+ EcW8x5X1Il+GXJLEX/LrnzuGjpLjSsHlIqaeKSv300Av59NUf2yf2qsU2YqPrvHd+S7oxvo/Jew
+ y5i2XGnWADjUf7jZG1p6N2rQduwATvnYZRux+prwxRKA6Pb3IGrW8K/modMdK9BNfMLY9FTC8El
+ Fz1rpzBQIyR8rWgNIQhSL4OYah2ISfz4JuzM+H+7XOroJZNDGXdrb3fictmOfhoiWV1oJ52hqV2
+ ckB5t7e/zAtCi8IbAZG//UvCHZJH3tFh0MISnNplviqnxKrMR2elY7aeLoNskE8VkYE3Euyt6Ge
+ xoQHUF6Ijyf/4dTdq/VCgntDzX4zKNlyQz8DUQO2xOaUJEr32kNoiJVqi67DOgeHSN6scPn4Pah
+ UkyKms2F6uzgS8qCD+F8hnux1uLyJ1QD5qrp5z2fTb//kTIEO2CMcWnxuwapx17r3HWfIIjKwij
+ qSSuKrrsTm+r2A+xCK0swvA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Mon, Aug 3, 2026 at 7:40=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> > +  phy-mode:
-> > +    enum:
-> > +      - mii
-> > +      - rmii
->
-> Despite the phy- bit, phy-mode is a MAC property, it defines the MII
-> the MAC uses. I would not expect to see this anywhere else.
->
-> The PHY driver is told what MII to use, phydev->interface, which takes
-> the values PHY_INTERFACE_MODE_RMII, PHY_INTERFACE_MODE_MII etc.
->
-> Please explain why you need this here, why is the MAC nodes phy-mode
-> property not sufficient.
+Add missing error handling in dw_dp_link_enable(), which failed to
+release resources it already requested before hitting an error.
 
-I have reworked this for v2. The phy-mode properties will be removed from
-both control bindings and their DT nodes, leaving the MAC node as the sole
-source of the interface mode. The PHY driver instead passes
-phydev->interface to the selected control provider.
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-There is one ordering complication: the control block must be powered befor=
-e
-the Clause 22 PHY identification registers become accessible, which happens
-before a MAC has attached. Early discovery therefore uses the hardware's
-reset-default MII mode.
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 06997208945e..e332d66b8057 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1636,10 +1636,19 @@ static int dw_dp_link_enable(struct dw_dp *dp)
+ 
+ 	ret = drm_dp_link_power_up(&dp->aux, dp->link.revision);
+ 	if (ret < 0)
+-		return ret;
++		goto err_phy_power_off;
+ 
+ 	ret = dw_dp_link_train(dp);
++	if (ret < 0)
++		goto err_link_power_down;
++
++	return 0;
++
++err_link_power_down:
++	drm_dp_link_power_down(&dp->aux, dp->link.revision);
+ 
++err_phy_power_off:
++	phy_power_off(dp->phy);
+ 	return ret;
+ }
+ 
 
-For v2, I split the provider interface into separate power_on() and
-set_interface() operations. Once the MAC has supplied phydev->interface, th=
-e
-PHY reset path calls set_interface(). If the provider is already powered,
-this changes only the RMII_SEL bit; the normal phylib soft reset then
-completes the handoff. It does not repeat the full control-block power and
-reset sequence.
+-- 
+2.53.0
 
->
->     Andrew
