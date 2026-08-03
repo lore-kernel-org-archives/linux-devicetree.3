@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D1739A4BA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C2039A05D;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785738863; cv=none; b=IEgdPXxOJ/SZeeNdGHxgUdSTjeZR3pGoSOSH+gbki0pkdrrQLXtYo7vr9BIRYi1Y5SY6s6qzU+wZFtWFWRPu486LPQaHXAVT/obhhNMsqxKusSO4fi//RnyU/DIHBRNjDMAPEwFA0fheTcOq0vmpAhJYyncJkGBg7F0REr+oekM=
+	t=1785738863; cv=none; b=fNMmke6M2e4LCqLUAmZKXjdQ2bPhYidUnOP6vkhhmPnepc3Ap1IjyulGAxgoE71pv7XeUaAYQ6EyHWzpcBGIFYe2TdYL8YfAYZtztRH33GJ10HIESMvCa5zkMUPXFOBPqPH+/UmQKir0x9t98SFSHgsSUgjpNvJPgHCV90qbeOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785738863; c=relaxed/simple;
-	bh=DReL7/6vWhSTl0AJM01PqOXaRlEt5iFPZqOKbvYOgE4=;
+	bh=oKYyRVgRmjUYYiCKKaQRvT+jwRsNJE+TlrMs7SjxWDg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nHCsZNCV0ld9VR0L5X16Mb6Kurm7wCZx9SNvCgFhVy17MW/RMdEhnuq9n56JYYOOdHct/+A7RFm+jQBI0L6moc0C1QVgECfMHf9O7NqVqk62rWaadE1+sq+XwqJzAE+wnb1kDPTK26BoMQUOTxGl6WlsHd9QJpkMCijvZXf6Bro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qIow42sc; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=MEe54VOExNUo78GgWLpzeoCStM9F4VKa5i7xSuiLBBR3OKM59SvFR1wu9im/AZEIN0rRbMlPBPZeigbGsjhkm2KScm86BXtGAQTA0+w9Q5k4DapQtbivVuzL1k+QBGwmy3HqoB+supLrYa9ZE7tHk0Pe39ncZlem9A73msvDGIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XGd4NYoF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qIow42sc"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 16094C2BCF7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XGd4NYoF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 27B4EC2BCFA;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785738863;
-	bh=DReL7/6vWhSTl0AJM01PqOXaRlEt5iFPZqOKbvYOgE4=;
+	bh=oKYyRVgRmjUYYiCKKaQRvT+jwRsNJE+TlrMs7SjxWDg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qIow42scglKRtuXnJa10Z0yQhiyQUXnnVDmzX6HzRP3LgSmBGJRUxahqgHy/pLk5J
-	 WB1yZBBjXqCPiSpLXsi9Vc4P255I3BMDC8jFZ3qyX/SIWFduL1HcZIcbMpKndv1Yf7
-	 oC3agYAzI43cJPo6alsp5yX6QWSmZVUkmFAKLZqrWZljnTMmN57VJaKF/b0Cr0z3r2
-	 Xzv1bvvkjSCZLwUjfZdy3F3u+m3jo+XQVFPowkFyJ3eZwVi9ABmlTf+PnDDPBek/bM
-	 CdfV0JuxAB3A1CfHpn3MwaWGqzV5cNFaXz2Gtiewf7iXpTCDGZiUTN5sG4Ocl14wL8
-	 uSnZlNLvzpliQ==
+	b=XGd4NYoF2Puf8Pb4XgKUm3vsDCcwZVBeAUsoaeB9od/Oi0JkfSUNH+jpewzrqdg6E
+	 So/88ryTPcQ/U0ZgA7IHdkUfKDMMQCpNiLaF65arNJdKP7gZuyboI6zBY2s1/uS1po
+	 q/We23VUlZ+ZqeXL9WthJxDuoOuE11oheCBLTy9orlyfksm2xe0DDAwtOYHd5HeQHx
+	 CGWMqOjEzntLDjRXSLTPjNABA0bpNQ+PYxafd3XVFzKQgz6kunvIYQ1aFFn+TM0cgj
+	 trBtrAdCzK1kQiNCWncqMJF0xpxUPNdlTcwm+CVWelW/9oiYFwtLwW0gQUL1Bk09F3
+	 7fTbGiPTceDRA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1EEEC55162;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1F0FC55177;
 	Mon,  3 Aug 2026 06:34:22 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Mon, 03 Aug 2026 08:33:59 +0200
-Subject: [PATCH 01/28] dt-bindings: phy: qcom: Describe QMP USB and UFS PHY
- vdda-phy/vdda-pll voltages
+Date: Mon, 03 Aug 2026 08:34:00 +0200
+Subject: [PATCH 02/28] arm64: dts: qcom: sc8280xp-blackrock: Fix swapped
+ USB QMP PHY vdda-phy/vdda-pll supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-phy-supply-fix-v1-1-5880630cde3e@oss.qualcomm.com>
+Message-Id: <20260803-phy-supply-fix-v1-2-5880630cde3e@oss.qualcomm.com>
 References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 In-Reply-To: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -55,16 +55,16 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Manivannan Sadhasivam <mani@kernel.org>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5004;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1429;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=V97d3d49T3Ee08UA2ANGKnoJaHfjqiGr+dmZjl7gLmg=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqcDZhEYjetD5xsCIhq6BRmQLvzv4sSqmowK7vh
- L1GGmGwBhCJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCanA2YQAKCRBVnxHm/pHO
- 9QiECACV+yoFC7pE5pmYnGXoGG7FFf9w4afdXw7XUlEjXsJlvsfkwHzdyyrMytZj7U2cCWhqTJI
- gPYq9t+EN48ves/mp58BYPfis9YV9ewCvicSAYkgGASORq1C63QyBjql+4bH9bB9oiydkNsVBty
- w0v2oSwEGSwUIgg80+0cvFV4F+trc9Z9CetFrLOI0Z52/uZ9hR80JlMotmfG2YAGKuxk3pIGZt8
- 3ZSikojHUuZNiwMP64HPlgUrpFew4nK6plmV6oOGVyotb1orDafCrpnRZn5PUtkYMPAYDbbk3iX
- JzLKfmKX1GbGAZJjgAgO0mWFGV9fN1CbZsSLqUq78qr1Xvob
+ bh=CcvnhusAZmfI+yh1IIykSb8F96Q6pOG85doT5s1hKoU=;
+ b=owGbwMvMwMUYOl/w2b+J574ynlZLYsgqMEtk4PkaZm/2p3335S0ML9/4ng1fWFmnOnX6voD71
+ Wc8V/nUdDIaszAwcjHIiimypC911mr0OH1jSYT6dJhBrExgU7g4BWAiux9wMDSkXXvSre9tcjBs
+ A3ev+5KVtWoOT/rn1CTGMIf2eZlfeGsxpbL2KMu6u6/0FHxDNjUb6KXbJdzhEY2fM/eo0d6zkg8
+ eae0JajR5ZyT0RcC11uraqfxd55+o3E7NYF9y78QUP5Ginrj3vz+/WtOokGkyp3fdJovfhrKL9v
+ HODnsZccRNSKn2aFNj/eXEbUvU1WvWb025n5Eo1r4suMjp33efqolr5mgf4JV30zGKeDSBcb3tv
+ WuG9kVzXY/HZFyv7bT+xvt73uuqpglWTxmMdOXv3fmouKJL1D/pU2Ck37dbqgLddv5nBYM89I3K
+ erkcwleH7RPMFHk4O+FeQwfL9Us+t/bom77gmHG85JgNAA==
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -74,134 +74,46 @@ Reply-To: manivannan.sadhasivam@oss.qualcomm.com
 
 From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-The vdda-phy and vdda-pll supplies of the QMP USB and UFS PHYs are
-frequently swapped in devicetrees, as the naming does not make clear
-which supply expects which voltage. Document that vdda-phy is around
-0.8V and vdda-pll is around 1.2V, with the exact voltage varying per
-SoC, so that the correct supplies can be assigned.
+The QMP PHY expects the vdda-phy supply to be around 0.88V and the
+vdda-pll supply to be 1.2V. But these two supplies are swapped for the
+USB QMP PHYs on this board, feeding 1.2V to vdda-phy and 0.9V to
+vdda-pll.
 
+Fix it by swapping the two supplies back.
+
+Fixes: 16a7fed11714 ("arm64: dts: qcom: sc8280xp-blackrock: dt definition for WDK2023")
 Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Assisted-by: Claude:opus-4-8
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
- .../devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml   | 10 ++++++++--
- .../devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml  | 10 ++++++++--
- .../devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml   | 12 +++++++++---
- .../bindings/phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml         | 12 +++++++++---
- .../bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml          | 10 ++++++++--
- 5 files changed, 42 insertions(+), 12 deletions(-)
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml
-index 1636285fbe53..4cbcf54aef2c 100644
---- a/Documentation/devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml
-@@ -39,9 +39,15 @@ properties:
-       - const: phy
-       - const: phy_phy
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
+index 125af356e24b..4e74eda7405f 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
+@@ -1003,8 +1003,8 @@ &usb_0_hsphy {
+ };
  
--  vdda-phy-supply: true
-+  vdda-phy-supply:
-+    description:
-+      Supply for the PHY, typically around 0.8V, though the exact voltage
-+      varies per SoC.
+ &usb_0_qmpphy {
+-	vdda-phy-supply = <&vreg_l4d>;
+-	vdda-pll-supply = <&vreg_l9d>;
++	vdda-phy-supply = <&vreg_l9d>;
++	vdda-pll-supply = <&vreg_l4d>;
  
--  vdda-pll-supply: true
-+  vdda-pll-supply:
-+    description:
-+      Supply for the PLL, typically around 1.2V, though the exact voltage
-+      varies per SoC.
+ 	orientation-switch;
  
-   "#clock-cells":
-     const: 0
-diff --git a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
-index efb465c71c1b..9dbe49afaa6c 100644
---- a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml
-@@ -40,9 +40,15 @@ properties:
-       - const: phy_phy
-       - const: dp_phy
+@@ -1040,8 +1040,8 @@ &usb_1_hsphy {
+ };
  
--  vdda-phy-supply: true
-+  vdda-phy-supply:
-+    description:
-+      Supply for the PHY, typically around 0.8V, though the exact voltage
-+      varies per SoC.
+ &usb_1_qmpphy {
+-	vdda-phy-supply = <&vreg_l3b>;
+-	vdda-pll-supply = <&vreg_l4b>;
++	vdda-phy-supply = <&vreg_l4b>;
++	vdda-pll-supply = <&vreg_l3b>;
  
--  vdda-pll-supply: true
-+  vdda-pll-supply:
-+    description:
-+      Supply for the PLL, typically around 1.2V, though the exact voltage
-+      varies per SoC.
- 
-   "#clock-cells":
-     const: 1
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-index b2c5c9a375a3..968a700d2a55 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-@@ -81,9 +81,15 @@ properties:
-     items:
-       - const: ufsphy
- 
--  vdda-phy-supply: true
--
--  vdda-pll-supply: true
-+  vdda-phy-supply:
-+    description:
-+      Supply for the PHY, typically around 0.8V, though the exact voltage
-+      varies per SoC.
-+
-+  vdda-pll-supply:
-+    description:
-+      Supply for the PLL, typically around 1.2V, though the exact voltage
-+      varies per SoC.
- 
-   "#clock-cells":
-     const: 1
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml
-index 01342823e57f..532afa116ba0 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml
-@@ -64,9 +64,15 @@ properties:
-       - const: phy
-       - const: phy_phy
- 
--  vdda-phy-supply: true
--
--  vdda-pll-supply: true
-+  vdda-phy-supply:
-+    description:
-+      Supply for the PHY, typically around 0.8V, though the exact voltage
-+      varies per SoC.
-+
-+  vdda-pll-supply:
-+    description:
-+      Supply for the PLL, typically around 1.2V, though the exact voltage
-+      varies per SoC.
- 
-   refgen-supply: true
- 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-index 4eff92343ce4..865395fe1416 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
-@@ -69,9 +69,15 @@ properties:
-       - const: phy
-       - const: common
- 
--  vdda-phy-supply: true
-+  vdda-phy-supply:
-+    description:
-+      Supply for the PHY, typically around 0.8V, though the exact voltage
-+      varies per SoC.
- 
--  vdda-pll-supply: true
-+  vdda-pll-supply:
-+    description:
-+      Supply for the PLL, typically around 1.2V, though the exact voltage
-+      varies per SoC.
- 
-   refgen-supply: true
+ 	orientation-switch;
  
 
 -- 
