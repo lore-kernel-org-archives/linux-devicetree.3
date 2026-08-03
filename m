@@ -1,115 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0601033FE33
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:52:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA97F361948
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:54:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785775934; cv=none; b=G+3QNUD2zKCj2JDOqE0G9TWrwpcWmsqDQ8j0he3kbA1hgaFLzipv+X43DVwcn+ntlsSsvKSCJL+aj0gXOLPQfkOfBiZJudSVczFXujbICPOMnbOQ4q8aeMfuqsNgIL9KkL232rH14hnwpRIfW9qQHvT1rGK0EhgC2matPka72x4=
+	t=1785776055; cv=none; b=NGBrYjt48PfMiRgiBPHqEz2vtNMTR7Ce8bRRaIkMBwhA46zHCzZtUrd2i8rKcAR8NBSRaL5OQbOe1JYSmIALJYaV8M89ZtLuIIBQxb5LInRZdbOLX9frJCYgq0KCKjPRov/z2TWzj3VkG3XD7Mm9EbuYyn9bY+aA5axOh33n3i8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785775934; c=relaxed/simple;
-	bh=9hFWHpMr6667KTRSWMmWOov01VOWplUFcHlU43Po8Bo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=l/pFDKteN9oVsuV9zf4pltrJMFIEdmR5qmz5PRdX8S+BqNrMY8poecWGGUL7as6caf/Y/Gt/O0Q7g22FC5CiTOOhdD3RnrgLlztvSqOx2Q3mpRGnuyXgRMW4+wmhSBa5SoLdPb5CypM6PVzyFHmZijfCO+8LlZMu7up+1+aDmk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W4ObqZm1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785776055; c=relaxed/simple;
+	bh=SIrKx18Tgzc/8XHuX+K9BgWqnrsIjO3L31vtx1YRw/k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZwzQSKPSt4GQ3LHyUxBtphHmJj+pOJyck3xL1fnSsKEccmZysP8f2SPjvQ0hmJxqS6gGuhMqWCNCQZnraQ+RDrYU4Gl9atr8DtrhNfBa08w0vXptfmCVPDxWdfrex8UixO7sU+5JLvRoDS6Qgz8PCfTLCX7SXh+8S36Y7VyJCqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSia9HSo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W4ObqZm1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB86B1F01560
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:52:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSia9HSo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE81C1F000E9;
+	Mon,  3 Aug 2026 16:54:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785775932;
-	bh=ktJ1TUfqLx16vP/MAvZ075WUJwVncZtbcK2MP7W0fJA=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=W4ObqZm1721yih5Cc72KTg1SNORcLauLEAeTR/pQvfulljFV1MY786WAqOG+xn40r
-	 Nm6krj9Zt3xk+1UjcfnwqMXNgD5eKdkTOopLe6stmk4hDhhDo+pnbC9woAg+LNhCEU
-	 rfOXG8bFLRNqvzlg52wWAsCZKeZXzzsFdGKuftIB4RdoErFBA6IpAs8GvfEfVtD0yT
-	 DhNz6Rmwo19vJ3v461khXi2B3D+UUxZ8Sr0FXMUTiYY9fXY8So5/RbjYmIoC3rlDmt
-	 zeYYhcpO9uCkfPhrdg0r6h8cpqA0QbjEIp0DoSaTgZbDBaLOxjRM7OGX/eWpQiklrP
-	 fO7+/JOLtU5hA==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b0148201fbso3696614e87.3
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:52:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqZBsKzR8+ofd7Nu9vePVSQ2kSaLnlpEXrsFNd9UGLz/N9PyFH+Epu7cNcDWHqbAPkue0cd7L3S5OGO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz7D+d6FnOjj+TPRgtT3dGElq8kf6Afc9oXt1ouPXgZVPpnJ/BZ
-	hKqRgF7lN9PjGx+lx7hDcQZxAj19Sxs0nzCEMTgzTX1fNEspL46a0QkTn50sxHp6AtGmD13HPu5
-	9dJi0/U+lJJcBV5QNcds3F8U/XnWJqgE=
-X-Received: by 2002:ac2:5218:0:b0:5b2:9c0e:a2d9 with SMTP id
- 2adb3069b0e04-5b2e4f9dd16mr1400790e87.65.1785775931139; Mon, 03 Aug 2026
- 09:52:11 -0700 (PDT)
+	s=k20260515; t=1785776054;
+	bh=FTfoWEJzaoRw7vRib7twGYop0XF7u+N9Lq+cFROyPx8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LSia9HSo2GVrK0ogRSh4sWqXVpFrIZyHko9QIaMhvWlNkvdxneLgRuDndktihrgE0
+	 yKU7eiIQNJI2Dw2XFG80EQGXgfOG+hUGGknTAxb5RrRHxQC+ZgQ/Q8Ctn1QkVYHuUt
+	 QsmgTnyCnpGjvT/yetN0sG7Cf0b9G9hZZwHWd4kKUsr4hLwT/2sxMxWg91CuJrefmJ
+	 vUqPqQ43b07lhnW7MMcfBWU13lVLWdnF29MX5uFm/9bamaphPlHYAyIK05NpIWkwLL
+	 BCAO2iLkoaqg7HmvtOwilki3k2ouS3kq4g2UeJKu9wAdVPKOYpDxf7hI2bSR35OGfw
+	 NftOFgdBa+nBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v2] arm64: dts: rockchip: H28K: release RTL8211F
+ reset before MDIO probing
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Zhyi <zyheihei_123@163.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <178577533421.26919.15449256732994709630.h28k-rfc-v2@163.com>
+References: <20260803104646.26836-1-zyheihei_123@163.com>
+ <178577533421.26919.15449256732994709630.h28k-rfc-v2@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 16:54:12 +0000
+Message-Id: <20260803165413.AE81C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
- <20260802-submit-acx00-of-dynamic-v1-v1-8-0a53cd9e21cc@gmail.com>
- <2c0210b3-2c68-41f1-aa33-3f1693454849@lunn.ch> <CADvTj4pfNFVGrQV86T7X+nZQYUamxEYLLWuxVXk=av0da_XocQ@mail.gmail.com>
-In-Reply-To: <CADvTj4pfNFVGrQV86T7X+nZQYUamxEYLLWuxVXk=av0da_XocQ@mail.gmail.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 4 Aug 2026 00:51:57 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67Wo+WG47jF_vBUOwv0Vw1SDygXMdBgpsy3R1AQ_LLfHw@mail.gmail.com>
-X-Gm-Features: AUfX_my4aoD19Jk3-8CcfeDfaoI0T_9zWEBW-1SE8UXOLwMz9Yfo_iLW9hIPcwI
-Message-ID: <CAGb2v67Wo+WG47jF_vBUOwv0Vw1SDygXMdBgpsy3R1AQ_LLfHw@mail.gmail.com>
-Subject: Re: [PATCH 08/21] dt-bindings: mfd: x-powers: add AC200
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Andre Przywara <andre.przywara@arm.com>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Maxime Ripard <mripard@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 4, 2026 at 12:45=E2=80=AFAM James Hilliard
-<james.hilliard1@gmail.com> wrote:
->
-> On Mon, Aug 3, 2026 at 7:18=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
-:
-> >
-> > > +            ethernet-phy-control {
-> > > +                compatible =3D "x-powers,ac200-ephy-ctl";
-> > > +                nvmem-cells =3D <&ephy_calibration>;
-> > > +                nvmem-cell-names =3D "calibration";
-> > > +                phy-mode =3D "rmii";
-> > > +            };
-> >
-> > What do you mean by an ethernet PHY control?
-> >
-> > I assume this is not an actual Ethernet PHY, but some control logic
-> > around it? Where is the ethernet PHY itself?
->
-> Correct, this is not the Ethernet PHY itself. It is the package-specific
-> sideband control block that must be configured before the normal Clause 2=
-2
-> PHY registers become usable. For AC200, this control block is accessed
-> through the parent AC200 I2C regmap. For AC300, the equivalent control bl=
-ock
-> is accessed through a separate non-PHY Clause 22 address.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The pinctrl configuration for the PHY reset GPIO (`&gmac1_rstn_l=
+`) was incorrectly left on the PHY node after the `reset-gpios` control was=
+ moved to the MDIO bus node, resulting in the pinmux being applied too late.
+--
 
-Basically, all the PHY behavior that is normally configured using strapping
-pins on a discrete PHY is done over this I2C channel.
+--- Patch [1]: [RFC PATCH v2] arm64: dts: rockchip: H28K: release RTL8211F =
+reset before MDIO probing ---
+commit ed5c8c6d0629795b93f02fb617db0f38d4725c0d
+Author: Zhyi <zyheihei_123@163.com>
 
-> The actual Ethernet PHY is a separate device on the MAC's MDIO bus. The
-> shared PHY driver for that device is added in patch 16:
->
-> https://lore.kernel.org/linux-sunxi/20260802-submit-acx00-of-dynamic-v1-v=
-1-16-0a53cd9e21cc@gmail.com/
->
-> The later board DTS patches instantiate it as an ethernet-phy node beneat=
-h
-> the MAC's MDIO bus and reference the appropriate sideband control provide=
-r.
->
-> >
-> >        Andrew
+arm64: dts: rockchip: H28K: release RTL8211F reset before MDIO probing
+
+Move the reset-gpios property to the MDIO bus level to ensure the RTL8211F
+PHY is released from reset before scanning the bus. This fixes an issue
+where the PHY cannot be found during probe.
+
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts b/arch/=
+arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
+> index 0ec50e9156eb1..7ba3fa46c8610 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
+[ ... ]
+>  &mdio1 {
+> +	reset-gpios =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+> +	reset-delay-us =3D <20000>;
+> +	reset-post-delay-us =3D <100000>;
+>  	rgmii_phy: ethernet-phy@1 {
+>  		compatible =3D "ethernet-phy-ieee802.3-c22";
+>  		reg =3D <0x1>;
+>  		pinctrl-names =3D "default";
+>  		pinctrl-0 =3D <&gmac1_rstn_l>;
+
+[Severity: Medium]
+Will this pinctrl configuration be applied too late since it was left on the
+PHY node?
+
+During initialization, mdiobus_register() parses reset-gpios from the &mdio1
+node and toggles it before scanning for PHY devices on the bus.
+
+The driver core only applies a device's pinctrl when that specific device
+is probed. Since the PHY device is only created and probed after the MDIO
+bus scan successfully discovers it, the pinctrl configuration is applied
+after the reset phase has already completed.
+
+Should the pinctrl-0 =3D <&gmac1_rstn_l> property also be moved to the pare=
+nt
+&gmac1 node to ensure it is applied before the MDIO bus reset sequence?
+
+> -		reset-assert-us =3D <20000>;
+> -		reset-deassert-us =3D <100000>;
+> -		reset-gpios =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+>  	};
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/178577533421.26919.=
+15449256732994709630.h28k-rfc-v2@163.com?part=3D1
