@@ -1,115 +1,123 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D0A386422;
-	Mon,  3 Aug 2026 13:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE9E386422
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 13:02:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785762112; cv=none; b=Rvy+RVrREqJjGLwRpeWQTC05Uk5CY9m0PV4mPQjusB239tswrG2ks+co4FK2J0GyOsD0nrqcwKrXwaNYBPcKL8zm58MvFkFtK+2+lxZ+RdZ16Itf7t3MsEB+8S1SDmhvTVWHAEcAHlf8Fp1C4bW07QUk0XvVXPiu3Z9PgcTpoqI=
+	t=1785762166; cv=none; b=YGeY5AJ2dqLkLbEAuR3GDcMLtHxUSDnSICaOY/RVzegK7zFKbGBDDiUqOpljg2ZrdrKW7L+ByEobxcLWXe7rHM6hS2hBnnvjoSsDf3xo8+IbfJlEEbw2R0/66NO9/WqRH5YlbxM4LJG1kE/js366t2A8YiCsXzGMdExiqOFJi+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785762112; c=relaxed/simple;
-	bh=ulfl3/X5f/LYXJvwrI7YEnXUirLbSE8K+L7KYNiv+rQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jEHjNM0nZsaMPIdJ4RewiMRwhjFiRyOXn1C1RSlId4Ux4LNXHeRLyNrXWB4htgZBdfsRunvVNc7uwzJau8/PrKmmqdi+0JvWFLrRU2R72yCtqPwE/MQviVwqXlLJQ7bnnjLYqa5RkddkIcrXBFBi2Yo7rbiGU0WQHGTvKB0YNxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=44VXgAvS; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785762166; c=relaxed/simple;
+	bh=X+ONgLmFJ7wfcEGbccW8EecOO6CMmLI5FEHfHld3OQs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=B63lJeOY2DMrBaGXE3TLZ5Ku1XDW/bE0HY0LODeXuBtvMN6Hfz2ejF+tLnVkGxhKeQNc33ghIzvCfEGDqXbm1pt+wZPSdcyWRAme/cMl51qKcBBOIuBTjtBtGkh1cirC4SpEV0uOQNqL8A9m7z0DFdQqsKMMjqDO5FEokA9c7is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VV5dKYXJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="44VXgAvS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=hRXn5kzc97BQTjib/Wj0YW5AbHYZrqSl7Di4vozL+yk=; b=44VXgAvShSfyUZOOhHGJmb8U/1
-	knBdqbXRkyUJrsKE6mh5V36V9fJJDComtnWDbSenQ4KQWk+FQw8sQnu+MFJaIVdN3vAkOphjPptWN
-	7SVc+xjX5VaRedewLqN/xtp6VqFOVwiPgkFYuXrUmBQwoFPonWcRio1yCqS4ybSaQxHk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqsIN-00Fixe-Bi; Mon, 03 Aug 2026 15:01:31 +0200
-Date: Mon, 3 Aug 2026 15:01:31 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, mfd@lists.linux.dev,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 00/21] net: phy: add X-Powers AC200/AC300 EPHY support
-Message-ID: <8088f2b1-1fd9-4acc-b9f4-8bfbaa2bd28a@lunn.ch>
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VV5dKYXJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A642E1F000E9;
+	Mon,  3 Aug 2026 13:02:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785762164;
+	bh=qKfWCM8TYXgl00O+REo807SvAktKoS1zeKAMdiMYa3I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VV5dKYXJ5KiA3Nmrt3vx38VuuatY0Pb4Qx7p9Q8ztVKMtdxHTrpmaJQifZuDm90D5
+	 QqVHFKat6URKsC3BzX9xdRyjm3EVKWz3sfkKh66apZnuEMCL0W7JikmPp9M81621B2
+	 GAZg/CGAI0WZDi1f+JWn9t5Rv/lye7bkL3szJpwCe7CS8XvGC75vCfgZq0qTYfA2uw
+	 PqAGLCGn6Fc5JkZIE4p3xASSNb8+TzMGERkZQ4rixYKsYGdgFPq/doNoL5ZxoyVqIp
+	 DwwWzaXfmMwMdiGaFgYtijM/Kd8hGIGWCy4SgRbNDcS9344MUj6fWt8K9AQIz9Q8mf
+	 nNTxOY22KESBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 05/11] spi: dw: update NDF while using enhanced spi
+ mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260803124044.156998-6-changhuang.liang@starfivetech.com>
+References: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
+ <20260803124044.156998-6-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 13:02:43 +0000
+Message-Id: <20260803130244.A642E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 
-On Sun, Aug 02, 2026 at 11:14:10PM -0600, James Hilliard wrote:
-> The Allwinner H616/H618 secondary EMAC is commonly connected to a Fast
-> Ethernet PHY in an X-Powers AC200 or AC300 companion package.  The two
-> packages expose the same link PHY ID and largely compatible link-side
-> registers, but require different control paths before those registers can
-> be accessed: AC200 is initialized through its I2C MFD, while AC300 uses a
-> non-PHY Clause 22 control endpoint.
-> 
-> Some H616-family products were shipped with either package under the same
-> board identity.  For those systems, this series uses a SID NVMEM field to
-> select the control provider at run time.  With CONFIG_OF_DYNAMIC, the link
-> PHY enables only the selected fail-needs-probe provider, so an AC300 board
-> does not probe the unused AC200 I2C controller or claim its pins.  The same
-> drivers also support fixed descriptions without CONFIG_OF_DYNAMIC: a board
-> can reference one enabled provider, or enable both candidates when runtime
-> selection is still required.
-> 
-> The series adds:
-> 
->   - the H616 EMAC1 binding, stmmac variant and controller node;
->   - generic MDIO OF reconfiguration support for PHYs, packages, scanned
->     addresses and generic MDIO devices;
->   - the AC200 MFD and AC200/AC300 EPHY control providers;
->   - the shared AC200/AC300 link-PHY driver, including calibration, power and
->     reset sequencing, MDI/MDI-X, statistics, EDPD, PHY-managed EEE, package
->     LEDs, interrupts and Wake-on-LAN; and
->   - H6 and H616-family device-tree descriptions and arm64 defconfig support.
-> 
-> The AC200 and AC300 control and link paths were exercised on H616-family
-> hardware during development, including link traffic, address handling,
-> ethtool EDPD/EEE controls, statistics and LEDs.  The H6 interrupt and
-> Wake-on-LAN description still needs validation by an H6 hardware user.
-> 
-> This series depends on Richard Genoud's v7 H616 PWM controller series,
-> which provides the bypass clock used by the companion EPHY:
-> 
->   https://lore.kernel.org/all/20260703152215.192859-1-richard.genoud@bootlin.com/
-> 
-> The PWM patches are an external prerequisite and are intentionally not
-> included in this 21-patch series.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `cfg.ndf` (Number of Data Frames) field is left uninitialize=
+d (0) for Transmit Only operations in `dw_spi_exec_mem_op()`, causing the h=
+ardware to be erroneously programmed to transmit 0 frames.
+- [Medium] The condition to update the NDF register for Transmit Only mode =
+incorrectly checks the static controller capability instead of the actual t=
+ransfer format.
+--
 
-21 patches is on the big side. Now you have shown the big picture, can
-you break this up into a couple of series?
+--- Patch [5]: [PATCH v2 05/11] spi: dw: update NDF while using enhanced sp=
+i mode ---
+commit 5891fe2f8ceff4e681ce6ee14b10868e4b3ce4bc
+Author: Sudip Mukherjee <sudip.mukherjee@sifive.com>
 
-    Andrew
+spi: dw: update NDF while using enhanced spi mode
+
+This commit updates the driver to configure the Number of Data Frames (NDF)
+register during Transmit Only mode on enhanced SPI controllers. It modifies
+dw_spi_update_config() to write cfg->ndf to DW_SPI_CTRLR1 when the transfer
+mode is DW_SPI_CTRLR0_TMOD_TO and the controller supports enhanced SPI.
+
+> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+> index f1b7328fed772..d654cb748646a 100644
+> --- a/drivers/spi/spi-dw-core.c
+> +++ b/drivers/spi/spi-dw-core.c
+> @@ -348,6 +348,9 @@ void dw_spi_update_config(struct dw_spi *dws, struct =
+spi_device *spi,
+>  	if (cfg->tmode =3D=3D DW_SPI_CTRLR0_TMOD_EPROMREAD ||
+>  	    cfg->tmode =3D=3D DW_SPI_CTRLR0_TMOD_RO)
+>  		dw_writel(dws, DW_SPI_CTRLR1, cfg->ndf ? cfg->ndf - 1 : 0);
+> +	else if (cfg->tmode =3D=3D DW_SPI_CTRLR0_TMOD_TO &&
+> +		 dws->caps & DW_SPI_CAP_EMODE)
+> +		dw_writel(dws, DW_SPI_CTRLR1, cfg->ndf);
+
+[Severity: Medium]
+Will this write a 0 to DW_SPI_CTRLR1 for outbound memory operations?
+
+Looking at dw_spi_exec_mem_op(), cfg is initialized to zero, and cfg.ndf is
+only assigned for SPI_MEM_DATA_IN:
+
+drivers/spi/spi-dw-core.c:dw_spi_exec_mem_op() {
+	struct dw_spi_cfg cfg =3D {0};
+	...
+	if (op->data.dir =3D=3D SPI_MEM_DATA_IN) {
+		cfg.tmode =3D DW_SPI_CTRLR0_TMOD_EPROMREAD;
+		cfg.ndf =3D op->data.nbytes;
+	} else {
+		cfg.tmode =3D DW_SPI_CTRLR0_TMOD_TO;
+	}
+	...
+}
+
+For transmit operations (SPI_MEM_DATA_OUT), cfg.ndf remains 0 when it's pas=
+sed
+into dw_spi_update_config(), causing the hardware to be programmed to trans=
+mit
+0 frames.
+
+[Severity: Medium]
+Does this condition correctly identify an Enhanced SPI transfer?
+
+Checking dws->caps & DW_SPI_CAP_EMODE verifies that the controller supports
+Enhanced SPI, but it does not check if the current transfer is actually
+using it.
+
+Could this cause standard 1-bit SPI memory writes on EMODE-capable controll=
+ers
+to inappropriately update DW_SPI_CTRLR1 with cfg->ndf?
+
+>  	/* Note DW APB SSI clock divider doesn't support odd numbers */
+>  	clk_div =3D (DIV_ROUND_UP(dws->max_freq, cfg->freq) + 1) & 0xfffe;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803124044.1569=
+98-1-changhuang.liang@starfivetech.com?part=3D5
