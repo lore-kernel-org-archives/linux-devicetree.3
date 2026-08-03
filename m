@@ -1,316 +1,275 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2115.outbound.protection.partner.outlook.cn [139.219.146.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB252F90C9
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 09:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785750993; cv=none; b=COkGNFFXQ8QNZQd7l8jQ+ycffOdE/b+Qp8PZ7DP7k/4v8jARdsWLi7b9hdpXVvWiGl1/UWi7ZRUM7HtcrG7x6SdHJtPg23XXf4R2NQAQInAj35C+3kGme1e/C90t3hEelLZq0qZrnYmAIzSkxxQaUkFfSloGQ22SZFp/rZRkcS8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785750993; c=relaxed/simple;
-	bh=VwRz8JAEW0HhG6itgdrL+Man68R/P0eMjW5whZmXy4I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OPSsL7f8Lffxveid5K7eXuiHNsMJMRX2Z+38jPEl5ZPpqMhWb4w9PMCu3K82iiKx6Lv9RZ6BYQhH2ZF76YacpyQzzGtSlHGm7rRVxDFmDENtI+EjN0FAoALcdT14RnLRbMlF52umheBaxk42B8BI6fye9tGVBAM8/w/wAZnUKOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H1M4CXb+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H1M4CXb+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23E861F000E9;
-	Mon,  3 Aug 2026 09:56:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785750991;
-	bh=I+F0TLFpNh816P8trLFqqvxwgMDSKzcrjwn0wQfg25Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H1M4CXb+Yyuf2hfJyUTh/4c0AUKfIRAH2e3AwuAxvk/ImPuLn2ylQtieVPl8ozjHL
-	 Ys49UTOgRhf7RIJF33AbqEduIrFWi1ustjrevwdMTo8WZTkF2Mcj3SldCwJ2pTBI6c
-	 5AikchKnOWoSzwzlAdV3reyUqNSd3lePNCG0CfCaEUipCiVBQtN43OPSf59heLnUId
-	 vTClo9/O9xbU2lqQfx+HGpi53H3GeQ4+5bA/fH0vHFjuyctNIPtby8H1IES7wpbxYe
-	 VXrd3IjRwqdn0XuHjS0K7xMnr/ehPB4ugAsAhPF6OAGon4kiItrCvLr1N4JF4gcOl6
-	 9HdGUf5PBUwzg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v4 4/6] accel/rocket: add RK3576 NPU (RKNN) support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260803094125.3285895-5-gahing@gahingwoo.com>
-References: <20260803094125.3285895-1-gahing@gahingwoo.com>
- <20260803094125.3285895-5-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 09:56:30 +0000
-Message-Id: <20260803095631.23E861F000E9@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D50366055;
+	Mon,  3 Aug 2026 09:56:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.115
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785750999; cv=fail; b=Oi/ZvBLlmH+hizHmB74c0txbvhgNhLvVkK0GQNYMk+nHGltF/d0ykhg0Uv3pqibwRM9FDHsx/SQ+wdoXWJZkKr3PZSWQJzpiVtlhoKdwoj+XkpS29PednYHW00851qPR/BujpEP43h7soqwh+t2v9BU1xDvpOHCAz/YCnFbMa98=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785750999; c=relaxed/simple;
+	bh=zFQgFknC5NX5CDvtTJDSEjaej4wqNhlBEQB1hgHZrgQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=jHsYcQP2R4eXl8N2jfCyfhO4U1JBhym1sztQhpNF4YMQfoOIYPC3eyM96R0N/XE3IwYBdyruV2J4SDOVPdtvdE/qyK+mmQylmLGA2e9rPKhkeqydfnsz4eGmB9deGZFZu9zNw7lxcumIB/+OQhmo1+1YxdQePnfbnUqRzrn1+9U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kICF6ghXNCU6EewL1w5PQX9zndGClom8q3HMhUfn2FsV7lSOSR8H6V5+tJZNIR7TZJly7CjBMf/sDRmmues/8EDZk6Z+DqQhkbui4O7WcEOOm7BstyWjMbwa4lZ0Z7tYhWb5zvBQZGK56hHuk+jsO39iDlzJ4XW36Fz4Eds5uPwwmyMSkZvvOG+3iwQ+hIILUoto1jWfW0XVGda1ANdnvc7rCb0S8EHPdytlULvMtLHNK3EAT1NwL1T8OIOAC9gC1TAnvOMwaK6yb3GQBdZ1v8IgOkQkXKNxJJvz54X+tmpa6+fsuucSkmCQqOPLFNGwY1nTdn3Ii7E5M6mkEwwW8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zFQgFknC5NX5CDvtTJDSEjaej4wqNhlBEQB1hgHZrgQ=;
+ b=XZgl258IXKlresGIIomAMBdOii0u4R6SmftplRhIQi6qHj8RbXrDP7CFko0E8s/X9MnLTDq3Gq1iijmf6wcOK689jDcUoGYIbMarSZRnTK5Mx+viVCfsmKyOGVDQg7g90A8zIa2H0L22JpGJD2gFeMzu3Decm37hLwa/P7fPDyTjQW/DGKwwYnTYf5kXeuXAKFbk+Mous653rZ7GMTih4M9U7OCo2W3Vzg7bNn44dF4sDG5atZX/LNJ6SBhytwvF5Us97qBBlNcyikM/QrEo+ebVF+FtGP1Ns2URJ6hWscpMYHhlKlytGeGwTBQmfKi5cRDyXnrjFT8dq7hlRqCtHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1298.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
+ 2026 09:56:23 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0270.016; Mon, 3 Aug 2026 09:56:23 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
+	<p.zabel@pengutronix.de>, Bartosz Golaszewski <brgl@kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Lianfeng
+ Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v3 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
+ controller driver
+Thread-Topic: [PATCH v3 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
+ controller driver
+Thread-Index:
+ AQHc8x1jj1AWoBKzsESqiyGUJQ5KXbY5RwGAgEUSdKCAAEHjAIAHoxrggAYaiwCAAB10EA==
+Date: Mon, 3 Aug 2026 09:56:22 +0000
+Message-ID:
+ <ZQ4PR01MB1202DC395D0213BABE68FF31F2D52@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
+ <20260603055347.66845-5-changhuang.liang@starfivetech.com>
+ <CAD++jL=Qd8ADR_kX2Q7msM4Dd0xFayPGM4ZzB3uv2ufvkuybtQ@mail.gmail.com>
+ <ZQ4PR01MB120228AD03507B4836EFE19DF2CE2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <CAD++jLnNa6HsS5q5aYHxCLkQdZ3eh09PspO=eZx-4=p4EFr4PA@mail.gmail.com>
+ <ZQ2PR01MB121089A3224D22A573A0875BF2C92@ZQ2PR01MB1210.CHNPR01.prod.partner.outlook.cn>
+ <CAD++jLn_vdk2VxupDRErNfqFNZbf7pimCrfnziRPTmDPm7toVw@mail.gmail.com>
+In-Reply-To:
+ <CAD++jLn_vdk2VxupDRErNfqFNZbf7pimCrfnziRPTmDPm7toVw@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1298:EE_
+x-ms-office365-filtering-correlation-id: 41a28d0f-4bcc-4bd8-1f42-08def14579b9
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|38070700021|6133799003|56012099006|4143699003|10067099003|22082099003|18002099003|3023799007;
+x-microsoft-antispam-message-info:
+ kQ4Fk8w0CFTPBpLCGsXw7ezeX3/uKGLTEG4kc2YLZQtqLSKYrPGTJtQQNa61CGxBtPg67CwlSf6Pdbh9oOcXYk9DnpwuonMF0pDapZPxs5z3GlzONn0PdcRn0LteSw6GBKSJbKdfeR5cmv59VN3IVvy+Ef85smAYn+t2EWlzWraJzA0QzshAZzWK1vJsjFaaFKMWKGJqxXHcgHEDR6Tb9E+FSAUh8YXoUlOoV08y4gMlgobU0dgSgu6GDz1USA8RiNpMnr2rFa9llhx8RExkaBDsK2GVb/vVQrf6ehICk1tNYwGmFEKGNEiz43N6VOVDMhDzkajuiUKlMAzM84/6iqj3rbHt9iv9hgu5ElzuJlCC7XmjblKIpDHbHkzZJOpjlot/83n8awP+jC7/28s3XKdXbl7owlLek8SWdkPzG4zLoOuC742WLVuImnYqre+qnSpRul7uvhdl8zfwo/vk4yL4CzqvPsvyWL6NXOkSQvcZtQ72D80DT05Mgx56+NnRDUzz3kGXMDf+6ZGjMqTutULqCx9iphs/nT25v5FCBD6YQWO6vaRX5A5C2pQQdxOR
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(38070700021)(6133799003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dnFCamExUTdoZVh2VWd6MVAvbGlLVkpnZzZVL0ltelJoU2FhMU5oK3BYQVVv?=
+ =?utf-8?B?MDNmcUc2WXpHSHhGam5aQWxvY1BRbVNTRUV2UE5mUmtWNGZFdzlnaW4zU1ZS?=
+ =?utf-8?B?SWxvamtBUW5EbEkvTDI1L00xOHNhSGkzWXdCcktSekhoT1AzREt6TDYvMFZ4?=
+ =?utf-8?B?N3lwK2RpTy9XeFJQWDlqZkorQ1o1ZDMyQi85bVdreHNFTWFSYU1vZEE5MGQ1?=
+ =?utf-8?B?K0RWbWNOdHFMakRkODd1aUJPZks5V1VRdTN5L0QzcmVVZ3RNeE43TFlLbHlL?=
+ =?utf-8?B?Z1NscVB4U2F3eS9uTUhGWkZCKzgvSGlGd0RnaFdKMmxhWi8vanYrRXk2blh2?=
+ =?utf-8?B?V0N5cWh3YmM3V1g3T010WkZKaE9KKzVkWGJ6REcrQjdWYWhud2RndjVhcUN1?=
+ =?utf-8?B?NnFaeXpOQWJvb2VvMi9OQ3VpYVhsQ1YwZld0bk9YZkJTVndXMkhOUEdkWkhp?=
+ =?utf-8?B?WWV2SUpRdExYVGMyenczcHdyazU1TkxzVys1ZXFKYTVhTnhJbVhjeHBpUGRs?=
+ =?utf-8?B?V295TlZBWjdaSE9OaExDaktKblBhbkFoVHpPb09sVVhEd0s3MFUwdmNkcVRw?=
+ =?utf-8?B?UW1XSEJnRGJsTXFSNnVLZ1VWbzE3cVdBMXNmWEpnTkZVcnVTZDVZcXpWWWYx?=
+ =?utf-8?B?NDNSRnp5VW9tNXh2T2owa3hKL0V6MUl1dWJnUS96TVBtYzVvMVJtMW94R2FO?=
+ =?utf-8?B?Tk4xTFRkYzh5T2lTTHhGQVZSQytPazRCVWJmaFQ0UHNMOEpkc1lJTW5Lbng3?=
+ =?utf-8?B?STJaUXFDalM1MVhCZStGN0hNczB2ZWg0L01sMHFHQWlZZ0FqU1VyY0lpdjFP?=
+ =?utf-8?B?MWhNemxZTHU2TGxnOUI1MHdtOG4rT1FQMGRONjdHV3daRGx3U3NUZ1k1UHh3?=
+ =?utf-8?B?SVF0RllMalA2OUh5eFJuTmwzOWpGTU9jbEtsNkxwVDV5bzZGRFQrZkxkSllF?=
+ =?utf-8?B?OTRxdEJ4L3VYa0NiYW56YmYySFdLN0dVWHpDOTJMYmhLTzY5VGZESWNQS3hm?=
+ =?utf-8?B?eE5SdU9XOHpZOURZOHB1eVl3WGd5cDN1cmF4bnloV3lhZXRiOUV5bU1LenhZ?=
+ =?utf-8?B?R1FpRlZiK01CZ2YvS1NlOUZqNVZ3amR5Q3luYVFCY2pIdWNYNzFDU1hobU9S?=
+ =?utf-8?B?UDRXMzRPRVBSUVNtbnFiV3pwdHNGeENSOHo2dTNQTkxTbUJCUW1XQ2dqbDNS?=
+ =?utf-8?B?dkNwUUt5emk4VDlTWGRIei9OT2lLanBWaVdJVWd4TEhkMnRVWlliTEZoTXZI?=
+ =?utf-8?B?R2VYQ1g0N2FzaVZKcFREQ1M5QkIzZzdmUjVsVFVRWUlCWGhNWi9RbDlQbGZM?=
+ =?utf-8?B?QkNBdExmMU9aWVJVaXFqN2J2MGlZT1hvN3FQZ0pjOUozRm92MWwyQ0VpNGNa?=
+ =?utf-8?B?S3l4UmxKdHR1L0wxQVN6VUNhWG9ZSkZ6U2k5dlRrZTc4ZjJzMURqdDFIVFBQ?=
+ =?utf-8?B?bXlyeG1LaHQzVERsNnF6clV1RnhIY01JbFVPK3hzRmR2a1YzcGJtZ3c0Y0JI?=
+ =?utf-8?B?VVhHUjJWUzFsSnA3czcxaUZyd1A3WFVhaUY4K1BRVnhPVFk3OEhabFZXT2Uy?=
+ =?utf-8?B?alJJdjVwZE5acndzTjk3UUw2eHpMY3o4bXN1UjZxR1lyZGdrMzlySm1GaTJi?=
+ =?utf-8?B?QlUyOGtQbXNjNElJQWQyaGY1NzZRYkk0WkZSZTBNT0hJQ2pKZGdOOGlUNzJ0?=
+ =?utf-8?B?Q09kNElRMnpObDh2aGZOUTN4OW5hSndLQjBGMTNLUUpYZm10bzBIUDFjYzk5?=
+ =?utf-8?B?MjdsckZialo4YVQybDIzdDBqUmo4Z3dyc2VsNjV1Tzd1N1BkWFdpMnMzVzZk?=
+ =?utf-8?B?dWw4YXpGbE1UbGJxR05EMUJZTzRkSms5cEwwbUorL3RicTZGSEUxYmFJZjQy?=
+ =?utf-8?B?YkxteTdBcXVWSDVUdStjajRnQmViWng3MHd5K1lVa0UwTitlMnRONTV5QjN5?=
+ =?utf-8?B?UXJNbWhFWURFV3JudDFiK0lsTU4weWlKMDJHZzlwbjM1eXFHS2U4TmsxdHpZ?=
+ =?utf-8?B?cytnZmJOVzVqZWYwa2ExVVBXZDJaZngrcGs4YUk4RGpoYW4yTmdXN0twTWNh?=
+ =?utf-8?B?ZUZraWhnb1djNFJyV2tWeVpJa2NPNS9xMmVZUjhsK0taMndlYlZXS2JsOFR3?=
+ =?utf-8?B?RU1BS1o5WDh6NzlqendtOEtsRi8zUWxrWXpua2ZLa0NTMzNDcEJTOVU5LytS?=
+ =?utf-8?B?OUUwaEZiQVk2MlRibXp3dGdvY3B6OE5tNEVwQm05d3d2OHM3SXMzMi9yYVhk?=
+ =?utf-8?B?K1RlZEJGN2RxMFdtczl6allrUllheXhWZkVvZGJrQkZJRllXd2JLcC8vVTky?=
+ =?utf-8?B?UnZMY2N0U0Q3NklUTkQ5elhiaktDUmN2SFAvc2JjN1l5WWk3RlI0OXZuT2Ir?=
+ =?utf-8?Q?4LaIwa23iohSlMqs=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41a28d0f-4bcc-4bd8-1f42-08def14579b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 09:56:23.0101
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: y/PM5QepoTGge9Yji5hNU1rznRi1rmpRGlwqO1JTCKm2l/3bSEx2Ds3vBJYCW9DBafg24Vp4dWyVyZ0snvCdefu0PVPRbD0gZrgd5Wl4GP2q0SKJylIv6624oFvAWEvw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1298
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [Critical] Arbitrary physical memory corruption in experimental debug fun=
-ction rocket_sptr_patch_regcmd.
-- [High] TOCTOU race in rocket_poll_work_fn leads to job corruption and pre=
-mature completion.
-- [High] Partial allocation failure causes NULL pointer dereference in rock=
-et_snap_take.
-- [High] Data race and memory leak on global variables in rocket_snap_take.
-- [High] Hardware initialization is skipped after a job timeout reset, caus=
-ing subsequent jobs to fail.
-- [High] Teardown ordering bug: DRM scheduler is destroyed before canceling=
- polling timer and work.
-- [High] Resource leak on devm_pm_domain_attach_list error path.
-- [Low] Logic error: rocket_core_reset hardcodes ARRAY_SIZE instead of util=
-izing the SoC-specific reset count.
---
-
---- Patch [4]: [RFC PATCH v4 4/6] accel/rocket: add RK3576 NPU (RKNN) suppo=
-rt ---
-commit 312454d18760cf447cabd81f08e885f92b5a4313
-Author: Jiaxing Hu <gahing@gahingwoo.com>
-
-accel/rocket: add RK3576 NPU (RKNN) support
-
-This commit introduces support for the RK3576 NPU by abstracting platform
-differences such as clock configurations, reset mechanisms, and power
-domains. It also implements an hrtimer-based polling mechanism for job
-completion since the RK3576 DPU completion interrupt does not reach the GIC.
-
-> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
-cket_core.c
-> index b3b2fa9ba645a..5738fccdbd133 100644
-> --- a/drivers/accel/rocket/rocket_core.c
-> +++ b/drivers/accel/rocket/rocket_core.c
-[ ... ]
-> @@ -21,14 +49,22 @@ int rocket_core_init(struct rocket_core *core)
->  	/* RK3576 moves the BIU reset into its power domain and takes only srst=
-_a. */
->  	core->resets[0].id =3D "srst_a";
->  	core->resets[1].id =3D "srst_h";
-> -	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(co=
-re->resets),
-> +	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->nu=
-m_resets,
->  						    core->resets);
-
-[Severity: Low]
-Since we now fetch the resets using core->soc->num_resets, do we also need
-to update rocket_core_reset() to use this count?
-
-If rocket_core_reset() still uses ARRAY_SIZE(core->resets), it will try to
-assert and deassert uninitialized elements on RK3576 where num_resets is 1:
-
-rocket_core_reset() {
-    reset_control_bulk_assert(ARRAY_SIZE(core->resets), core->resets);
-    ...
-}
-
->  	if (err)
->  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", c=
-ore->index);
-[ ... ]
-> @@ -65,6 +101,19 @@ int rocket_core_init(struct rocket_core *core)
->  		return err;
->  	}
-> =20
-> +	/*
-> +	 * RK3576 spans two power domains, and a multi-domain device is skipped
-> +	 * by the driver-core single-domain auto-attach, so attach the list her=
-e.
-> +	 */
-> +	if (core->soc->multi_power_domain) {
-> +		struct dev_pm_domain_list *pd_list;
-> +
-> +		err =3D devm_pm_domain_attach_list(dev, NULL, &pd_list);
-> +		if (err < 0)
-> +			return dev_err_probe(dev, err,
-> +					     "failed to attach NPU power domains\n");
-
-[Severity: High]
-Does this error path leak the resources allocated by rocket_job_init()?
-
-Earlier in this function, rocket_job_init() successfully sets up non-devm
-resources like the ordered workqueue (core->reset.wq), initializes the DRM
-scheduler, and acquires a reference to core->iommu_group.
-
-If devm_pm_domain_attach_list() fails, we return immediately. Do we need a
-cleanup path here that calls rocket_job_fini() and releases the IOMMU
-group?
-
-> +	}
-> +
->  	pm_runtime_use_autosuspend(dev);
-[ ... ]
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 8bbbce594883e..95599e791e26f 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-[ ... ]
-> @@ -240,12 +256,15 @@ static int rocket_device_runtime_resume(struct devi=
-ce *dev)
->  	if (core < 0)
->  		return -ENODEV;
-> =20
-> -	err =3D clk_bulk_prepare_enable(ARRAY_SIZE(rdev->cores[core].clks), rde=
-v->cores[core].clks);
-> +	err =3D clk_bulk_prepare_enable(rdev->cores[core].soc->num_clks, rdev->=
-cores[core].clks);
->  	if (err) {
->  		dev_err(dev, "failed to enable (%d) clocks for core %d\n", err, core);
->  		return err;
->  	}
-> =20
-> +	/* Vendor runs its state_init once per power-up; we never did. */
-> +	rocket_core_state_init(&rdev->cores[core]);
-
-[Severity: High]
-Does the timeout reset path also need to call this state initialization?
-
-Looking at rocket_reset() which handles job timeouts, it calls
-rocket_core_reset() to wipe the hardware state and then restarts the
-scheduler.
-
-Because the device does not go through a full suspend/resume cycle before t=
-he
-next job executes, rocket_device_runtime_resume() is not triggered. Will
-subsequent jobs fail because the hardware is left uninitialized?
-
-> +
->  	return 0;
->  }
-[ ... ]
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index bb77b6bf0f231..c21310ef78c7f 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-[ ... ]
-> +static void rocket_snap_take(struct rocket_core *core)
-> +{
-> +	void __iomem *blk[ROCKET_SNAP_NBLK];
-> +	unsigned int slot, b, i, w =3D 0, diffs =3D 0;
-> +	u32 *cur;
-> +
-> +	if (!rocket_snap)
-> +		return;
-> +
-> +	if (!rocket_snap_buf[0]) {
-
-[Severity: High]
-Are these global static variables safe from concurrent access?
-
-RK3576 and RK3588 have multiple independent NPU cores. If two cores finish
-jobs simultaneously and enter rocket_snap_take(), both might see
-!rocket_snap_buf[0] as true. Could this result in double allocations and
-leaked memory, as well as corrupted snapshot data from concurrent writes?
-
-> +		rocket_snap_buf[0] =3D kmalloc_array(ROCKET_SNAP_WORDS, 4, GFP_KERNEL);
-> +		rocket_snap_buf[1] =3D kmalloc_array(ROCKET_SNAP_WORDS, 4, GFP_KERNEL);
-> +		if (!rocket_snap_buf[0] || !rocket_snap_buf[1])
-> +			return;
-
-[Severity: High]
-Can this error path lead to a NULL pointer dereference on subsequent calls?
-
-If rocket_snap_buf[0] allocates successfully but rocket_snap_buf[1] fails,
-we return without freeing rocket_snap_buf[0].
-
-The next time this function runs, !rocket_snap_buf[0] will be false, so it
-skips the allocation block entirely. Later in the function, it will try to
-use rocket_snap_buf[1], which is still NULL.
-
-> +	}
-> +
-[ ... ]
-> +static void rocket_sptr_patch_regcmd(struct rocket_core *core, struct ro=
-cket_job *job,
-> +				     struct rocket_task *task, u32 bank)
-> +{
-> +	phys_addr_t phys =3D iommu_iova_to_phys(job->domain->domain, task->regc=
-md);
-> +	unsigned int i, patched =3D 0;
-> +	struct scatterlist sg;
-> +	struct page *page;
-> +	u64 *rv;
-> +
-> +	if (!phys || !pfn_valid(PFN_DOWN(phys)))
-> +		return;
-> +
-> +	rv =3D phys_to_virt(phys);
-> +	for (i =3D 0; i < task->regcmd_count; i++) {
-
-[Severity: Critical]
-Does this sequence allow userspace to overwrite arbitrary kernel physical
-memory?
-
-iommu_iova_to_phys() gives us a physical address, but phys_to_virt() is only
-valid for direct-mapped memory, and the physical pages backing the IOVA are
-not guaranteed to be contiguous.
-
-Since task->regcmd_count is user-controlled, can an attacker provide a large
-count that causes the loop to scan past the page boundary and overwrite mem=
-ory
-outside the intended buffer?
-
-> +		u16 reg =3D rv[i] & 0xffff;
-[ ... ]
-> +static void rocket_poll_work_fn(struct work_struct *work)
-> +{
-> +	struct rocket_core *core =3D container_of(work, struct rocket_core, pol=
-l_work);
-> +
-> +	/*
-> +	 * The interrupt can land while this work is already queued, finalise t=
-he
-> +	 * job and let the next one start. Without this the stale work would th=
-en
-> +	 * finalise that new job as well.
-> +	 */
-> +	if (core->poll_work_seq !=3D core->poll_seq)
-> +		return;
-> +
-> +	rocket_job_handle_irq(core);
-
-[Severity: High]
-Is this lockless sequence check vulnerable to a race condition?
-
-If rocket_poll_work_fn() evaluates the condition to false but is preempted
-immediately after, a physical IRQ could fire. That IRQ would complete the
-current job and submit a new one (incrementing poll_seq).
-
-When rocket_poll_work_fn() resumes, it will unconditionally execute
-rocket_job_handle_irq(). Could this abruptly kill the newly submitted job
-and prematurely signal its completion fence?
-
-> +}
-[ ... ]
-> @@ -503,6 +803,12 @@ void rocket_job_fini(struct rocket_core *core)
->  {
->  	drm_sched_fini(&core->sched);
-> =20
-> +	if (core->soc->poll_completion) {
-> +		atomic_set(&core->poll_active, 0);
-> +		hrtimer_cancel(&core->poll_timer);
-> +		cancel_work_sync(&core->poll_work);
-> +	}
-
-[Severity: High]
-Should the polling timer and work be stopped before destroying the schedule=
-r?
-
-drm_sched_fini() halts the scheduler, but any already-queued poll_work can
-still execute immediately after. If it does, rocket_job_handle_irq() might
-submit the next task to the hardware.
-
-As teardown continues, clocks are disabled and memory is unmapped. If the N=
-PU
-is actively executing a newly started job when this happens, could it cause
-bus hangs or IOMMU faults?
-
-> +
->  	cancel_work_sync(&core->reset.work);
->  	destroy_workqueue(core->reset.wq);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803094125.3285=
-895-1-gahing@gahingwoo.com?part=3D4
+SGksIGxpbnVzDQoNClRoYW5rcyBmb3IgdGhlIHJldmlldy4NCg0KPiBPbiBUaHUsIEp1bCAzMCwg
+MjAyNiBhdCAxMjo1OOKAr1BNIENoYW5naHVhbmcgTGlhbmcNCj4gPGNoYW5naHVhbmcubGlhbmdA
+c3RhcmZpdmV0ZWNoLmNvbT4gd3JvdGU6DQo+IA0KPiA+ID4gSWYgYSBwaW4gY29udHJvbGxlciBi
+YWNrLWVuZCBpcyB1c2VkLCB0aGUgR1BJTyBjb250cm9sbGVyIG9yDQo+ID4gPiBoYXJkd2FyZSBk
+ZXNjcmlwdGlvbiBuZWVkcyB0byBwcm92aWRlICJHUElPIHJhbmdlcyIgbWFwcGluZyB0aGUgR1BJ
+Tw0KPiA+ID4gbGluZSBvZmZzZXRzIHRvIHBpbiBudW1iZXJzIG9uIHRoZSBwaW4gY29udHJvbGxl
+ciBzbyB0aGV5IGNhbg0KPiA+ID4gcHJvcGVybHkgY3Jvc3MtcmVmZXJlbmNlIGVhY2ggb3RoZXIu
+Ig0KPiA+DQo+ID4gSSB0cmllZCB0aGlzIGNoYW5nZSwgYnV0IGl0IGRvZXNuJ3Qgd29yay4gSW4g
+bXkgbmV3IHZlcnNpb24sIHRoZSBHUElPDQo+ID4gZGlyZWN0aW9uIGlzIHNldCB2aWEgdGhlIGBz
+dHJ1Y3QgcGlubXV4X29wcyAuZ3Bpb19zZXRfZGlyZWN0aW9uYA0KPiA+IGNhbGxiYWNrLCB3aGlj
+aCBpcyBleGVjdXRlZCBhZnRlciBgbXV0ZXhfbG9jaygmcGN0bGRldi0+bXV0ZXgpO2AuIEkNCj4g
+PiBuZWVkIHRvIGNvbmZpZ3VyZSBzb21lIHBpbmNvbmYgc2V0dGluZ3Mgd2hpbGUgc2V0dGluZyB0
+aGUgR1BJTyBkaXJlY3Rpb24NCj4gaW5zaWRlIGAuZ3Bpb19zZXRfZGlyZWN0aW9uYCwgZm9yIGV4
+YW1wbGU6DQo+ID4NCj4gPiAgICAgY29uZmlnID0gcGluY29uZl90b19jb25maWdfcGFja2VkKFBJ
+Tl9DT05GSUdfSU5QVVRfRU5BQkxFLCAwKTsNCj4gPiAgICAgcmV0ID0gcGluY3RybF9ncGlvX3Nl
+dF9jb25maWcoZ2MsIGdwaW8sIGNvbmZpZyk7DQo+ID4NCj4gPiBIb3dldmVyLCBgcGluY3RybF9n
+cGlvX3NldF9jb25maWdgIHdpbGwgYWdhaW4gYWNxdWlyZSB0aGUgbG9jayB3aXRoDQo+ID4gYG11
+dGV4X2xvY2soJnBjdGxkZXYtPm11dGV4KTtgLg0KPiA+DQo+ID4gU28gdGhpcyBhcHByb2FjaCBt
+YXkgbm8gbG9uZ2VyIHdvcms/DQo+IA0KPiBJIGNhbid0IHNlZSBhbGwgeW91ciBjb2RlIHNvIEkg
+ZG9uJ3Qga25vdyBleGFjdGx5IHdoeSB0aGlzIGhhcHBlbnMsIGJ1dA0KPiBub21pbmFsbHkgeW91
+IGltcGxlbWVudCB0aGUgR1BJTyBoZWxwZXJzOg0KPiANCj4gc3RydWN0IHBpbm11eF9vcHMgew0K
+PiAoLi4uKQ0KPiAgICAgICAgIGludCAoKmdwaW9fcmVxdWVzdF9lbmFibGUpIChzdHJ1Y3QgcGlu
+Y3RybF9kZXYgKnBjdGxkZXYsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHN0cnVjdCBwaW5jdHJsX2dwaW9fcmFuZ2UNCj4gKnJhbmdlLA0KPiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgb2Zmc2V0KTsNCj4gICAgICAgICB2b2lk
+ICgqZ3Bpb19kaXNhYmxlX2ZyZWUpIChzdHJ1Y3QgcGluY3RybF9kZXYgKnBjdGxkZXYsDQo+ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHBpbmN0cmxfZ3Bpb19yYW5n
+ZSAqcmFuZ2UsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQg
+aW50IG9mZnNldCk7DQo+ICAgICAgICAgaW50ICgqZ3Bpb19zZXRfZGlyZWN0aW9uKSAoc3RydWN0
+IHBpbmN0cmxfZGV2ICpwY3RsZGV2LA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHN0cnVjdCBwaW5jdHJsX2dwaW9fcmFuZ2UgKnJhbmdlLA0KPiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGludCBvZmZzZXQsDQo+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgYm9vbCBpbnB1dCk7DQo+IA0KPiBUaGVuIG9uIHRoZSBHUElP
+IHNpZGU6DQo+IA0KPiBzdGF0aWMgaW50IG15X2dwaW9fZGlyZWN0aW9uX2lucHV0KHN0cnVjdCBn
+cGlvX2NoaXAgKmNoaXAsIHVuc2lnbmVkIGludCBvZmZzZXQpDQo+IHsNCj4gICAgICAgICByZXR1
+cm4gcGluY3RybF9ncGlvX2RpcmVjdGlvbl9pbnB1dChjaGlwLCBvZmZzZXQpOyB9DQo+IA0KPiBz
+dGF0aWMgaW50IG15X2dwaW9fZGlyZWN0aW9uX291dHB1dChzdHJ1Y3QgZ3Bpb19jaGlwICpjaGlw
+LCB1bnNpZ25lZCBpbnQNCj4gb2Zmc2V0LA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBpbnQgdmFsdWUpIHsNCj4gICAgICAgICBpbnQgcmV0Ow0KPiANCj4gICAgICAg
+ICByZXQgPSBteV9ncGlvX3NldChjaGlwLCBvZmZzZXQsIHZhbHVlKTsNCj4gICAgICAgICBpZiAo
+cmV0KQ0KPiAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gDQo+ICAgICAgICAgcmV0dXJu
+IHBpbmN0cmxfZ3Bpb19kaXJlY3Rpb25fb3V0cHV0KGNoaXAsIG9mZnNldCk7IH0NCj4gDQo+IHN0
+YXRpYyBjb25zdCBzdHJ1Y3QgZ3Bpb19jaGlwIG15X2dwaW9fY2hpcCA9IHsNCj4gICAgICAgICAu
+ZGlyZWN0aW9uX2lucHV0ID0gbXlfZ3Bpb19kaXJlY3Rpb25faW5wdXQsDQo+ICAgICAgICAgLmRp
+cmVjdGlvbl9vdXRwdXQgPSBteV9ncGlvX2RpcmVjdGlvbl9vdXRwdXQsDQo+ICAgICAgICAgLnNl
+dF9jb25maWcgPSBncGlvY2hpcF9nZW5lcmljX2NvbmZpZywgfTsNCj4gDQo+IEFuZCB0aGVzZSB3
+aWxsIGNhbGwgaW50byB0aGUgcGluIGNvbnRyb2xsZXIgYmFja2VuZCBmb3IgeW91LCBzbyB5b3Ug
+ZG8gbm90IG5lZWQNCj4gdG8gc2V0IHRoaXMgeW91cnNlbGY/DQoNCkNvcHkgZnJvbSB2NDogLS0t
+LS0tLS0tLS06DQoNCnN0YXRpYyBpbnQgamhiMTAwX2dwaW9fZGlyZWN0aW9uX2lucHV0KHN0cnVj
+dCBncGlvX2NoaXAgKmdjLA0KCQkJCSAgICAgICB1bnNpZ25lZCBpbnQgZ3BpbykNCnsNCglzdHJ1
+Y3QgamhiMTAwX2dwaW9fYmFuayAqYmFuayA9IGpoYjEwMF9nY190b19iYW5rKGdjKTsNCglzdHJ1
+Y3QgamhiMTAwX3BpbmN0cmwgKnNmcCA9IGdwaW9jaGlwX2dldF9kYXRhKGdjKTsNCgljb25zdCBz
+dHJ1Y3QgamhiMTAwX3BpbmN0cmxfZG9tYWluX2luZm8gKmluZm8gPSBzZnAtPmluZm87DQoJY29u
+c3Qgc3RydWN0IGNvbmZpZ19yZWdfbGF5b3V0X2Rlc2MgKmNybF9kZXNjOw0KCXVuc2lnbmVkIGlu
+dCBwaW4gPSBqaGIxMDBfZ3Bpb190b19waW4oZ2MsIGdwaW8pOw0KCXVuc2lnbmVkIGludCBvZmZz
+ZXQgPSA0ICogYmFuay0+aWQ7DQoJdm9pZCBfX2lvbWVtICpyZWdfZ3Bpb19vZW47DQoJdTMyIGRv
+ZW4gPSAwOw0KDQoJY3JsX2Rlc2MgPSBnZXRfY3JsX2Rlc2NfYnlfcGluKHNmcCwgcGluKTsNCglp
+ZiAoIWNybF9kZXNjKSB7DQoJCWRldl9lcnIoc2ZwLT5kZXYsICJwaW4gJWQgY2FuJ3Qgbm90IGZv
+dW5kIHJlZyBsYXlvdXQgZGVzY3JpcHRvclxuIiwNCgkJCXBpbik7DQoJCXJldHVybiAtRUlOVkFM
+Ow0KCX0NCg0KCWpoYjEwMF9wYWRjZmdfcm13KHNmcCwgcGluLA0KCQkJICBSTF9ERVNDX0dFTk1B
+U0soY3JsX2Rlc2MsIFBBRF9DRkdfSU5QVVRfRU5BQkxFKSB8DQoJCQkgIFJMX0RFU0NfR0VOTUFT
+SyhjcmxfZGVzYywgUEFEX0NGR19TQ0hNSVRUX1RSSUdHRVJfU0VMRUNUKSwNCgkJCSAgUkxfREVT
+Q19HRU5NQVNLKGNybF9kZXNjLCBQQURfQ0ZHX0lOUFVUX0VOQUJMRSkgfA0KCQkJICBSTF9ERVND
+X0dFTk1BU0soY3JsX2Rlc2MsIFBBRF9DRkdfU0NITUlUVF9UUklHR0VSX1NFTEVDVCkpOw0KDQoJ
+cmVnX2dwaW9fb2VuID0gc2ZwLT5iYXNlICsgaW5mby0+cmVncy0+b3V0cHV0X2VuICsgb2Zmc2V0
+Ow0KDQoJZ3VhcmQocmF3X3NwaW5sb2NrX2lycXNhdmUpKCZzZnAtPmxvY2spOw0KCWRvZW4gPSBy
+ZWFkbF9yZWxheGVkKHJlZ19ncGlvX29lbikgfCBCSVQoZ3Bpbyk7DQoJd3JpdGVsX3JlbGF4ZWQo
+ZG9lbiwgcmVnX2dwaW9fb2VuKTsNCg0KCXJldHVybiAwOw0KfQ0KDQpzdGF0aWMgaW50IGpoYjEw
+MF9ncGlvX2RpcmVjdGlvbl9vdXRwdXQoc3RydWN0IGdwaW9fY2hpcCAqZ2MsIHVuc2lnbmVkIGlu
+dCBncGlvKQ0Kew0KCXN0cnVjdCBqaGIxMDBfZ3Bpb19iYW5rICpiYW5rID0gamhiMTAwX2djX3Rv
+X2JhbmsoZ2MpOw0KCXN0cnVjdCBqaGIxMDBfcGluY3RybCAqc2ZwID0gZ3Bpb2NoaXBfZ2V0X2Rh
+dGEoZ2MpOw0KCWNvbnN0IHN0cnVjdCBqaGIxMDBfcGluY3RybF9kb21haW5faW5mbyAqaW5mbyA9
+IHNmcC0+aW5mbzsNCgljb25zdCBzdHJ1Y3QgY29uZmlnX3JlZ19sYXlvdXRfZGVzYyAqY3JsX2Rl
+c2M7DQoJdW5zaWduZWQgaW50IHBpbiA9IGpoYjEwMF9ncGlvX3RvX3BpbihnYywgZ3Bpbyk7DQoJ
+dW5zaWduZWQgaW50IG9mZnNldCA9IDQgKiBiYW5rLT5pZDsNCgl2b2lkIF9faW9tZW0gKnJlZ19n
+cGlvX29lbjsNCgl1MzIgZG9lbiA9IDA7DQoNCgljcmxfZGVzYyA9IGdldF9jcmxfZGVzY19ieV9w
+aW4oc2ZwLCBwaW4pOw0KCWlmICghY3JsX2Rlc2MpIHsNCgkJZGV2X2VycihzZnAtPmRldiwgInBp
+biAlZCBjYW4ndCBub3QgZm91bmQgcmVnIGxheW91dCBkZXNjcmlwdG9yXG4iLA0KCQkJcGluKTsN
+CgkJcmV0dXJuIC1FSU5WQUw7DQoJfQ0KDQoJamhiMTAwX3BhZGNmZ19ybXcoc2ZwLCBwaW4sDQoJ
+CQkgIFJMX0RFU0NfR0VOTUFTSyhjcmxfZGVzYywgUEFEX0NGR19JTlBVVF9FTkFCTEUpIHwNCgkJ
+CSAgUkxfREVTQ19HRU5NQVNLKGNybF9kZXNjLCBQQURfQ0ZHX1NDSE1JVFRfVFJJR0dFUl9TRUxF
+Q1QpIHwNCgkJCSAgUkxfREVTQ19HRU5NQVNLKGNybF9kZXNjLCBQQURfQ0ZHX1BVTExfRE9XTikg
+fA0KCQkJICBSTF9ERVNDX0dFTk1BU0soY3JsX2Rlc2MsIFBBRF9DRkdfUFVMTF9VUCksDQoJCQkg
+IDApOw0KDQoJcmVnX2dwaW9fb2VuID0gc2ZwLT5iYXNlICsgaW5mby0+cmVncy0+b3V0cHV0X2Vu
+ICsgb2Zmc2V0Ow0KDQoJZ3VhcmQocmF3X3NwaW5sb2NrX2lycXNhdmUpKCZzZnAtPmxvY2spOw0K
+CWRvZW4gPSByZWFkbF9yZWxheGVkKHJlZ19ncGlvX29lbikgJiB+QklUKGdwaW8pOw0KCXdyaXRl
+bF9yZWxheGVkKGRvZW4sIHJlZ19ncGlvX29lbik7DQoNCglyZXR1cm4gMDsNCn0NCg0Kc3RhdGlj
+IGludCBqaGIxMDBfZ3Bpb19zZXRfZGlyZWN0aW9uKHN0cnVjdCBwaW5jdHJsX2RldiAqcGN0bGRl
+diwNCgkJCQkgICAgIHN0cnVjdCBwaW5jdHJsX2dwaW9fcmFuZ2UgKnJhbmdlLA0KCQkJCSAgICAg
+dW5zaWduZWQgaW50IHBpbiwNCgkJCQkgICAgIGJvb2wgaW5wdXQpDQp7DQoJc3RydWN0IGpoYjEw
+MF9waW5jdHJsICpzZnAgPSBwaW5jdHJsX2Rldl9nZXRfZHJ2ZGF0YShwY3RsZGV2KTsNCgl1bnNp
+Z25lZCBpbnQgaWQgPSBwaW4gLyBKSEIxMDBfTlJfR1BJT1NfUEVSX0JBTks7DQoJdW5zaWduZWQg
+aW50IGdwaW8gPSBwaW4gJSBKSEIxMDBfTlJfR1BJT1NfUEVSX0JBTks7DQoNCglpZiAoaW5wdXQp
+DQoJCXJldHVybiBqaGIxMDBfZ3Bpb19kaXJlY3Rpb25faW5wdXQoJnNmcC0+YmFua3NbaWRdLmNo
+aXAuZ2MsIGdwaW8pOw0KDQoJcmV0dXJuIGpoYjEwMF9ncGlvX2RpcmVjdGlvbl9vdXRwdXQoJnNm
+cC0+YmFua3NbaWRdLmNoaXAuZ2MsIGdwaW8pOw0KfQ0KDQpzdGF0aWMgY29uc3Qgc3RydWN0IHBp
+bm11eF9vcHMgamhiMTAwX3Bpbm11eF9vcHMgPSB7DQoJLmdldF9mdW5jdGlvbnNfY291bnQJPSBw
+aW5tdXhfZ2VuZXJpY19nZXRfZnVuY3Rpb25fY291bnQsDQoJLmdldF9mdW5jdGlvbl9uYW1lCT0g
+cGlubXV4X2dlbmVyaWNfZ2V0X2Z1bmN0aW9uX25hbWUsDQoJLmdldF9mdW5jdGlvbl9ncm91cHMJ
+PSBwaW5tdXhfZ2VuZXJpY19nZXRfZnVuY3Rpb25fZ3JvdXBzLA0KCS5zZXRfbXV4CQk9IGpoYjEw
+MF9zZXRfbXV4LA0KCS5ncGlvX3JlcXVlc3RfZW5hYmxlCT0gamhiMTAwX2dwaW9fcmVxdWVzdF9l
+bmFibGUsDQoJLmdwaW9fc2V0X2RpcmVjdGlvbgk9IGpoYjEwMF9ncGlvX3NldF9kaXJlY3Rpb24s
+DQp9Ow0KDQpZZXMsIEkgc2VudCB0aGUgbmV3IHZlcnNpb24gYXMgYWJvdmUuIEhvd2V2ZXIsIEkg
+c3RpbGwga2VwdCBqaGIxMDBfZ3Bpb190b19waW4oKSBpbiBqaGIxMDBfZ3Bpb19kaXJlY3Rpb25f
+aW5wdXQoKS4gDQpUaGUgZmlyc3QgdGltZSBJIHdhbnRlZCB0byByZXBsYWNlIHRoaXMgcGFydDoN
+Cg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCnVuc2lnbmVkIGludCBwaW4gPSBqaGIxMDBfZ3Bpb190
+b19waW4oZ2MsIGdwaW8pOw0KDQpqaGIxMDBfcGFkY2ZnX3JtdyhzZnAsIHBpbiwNCiAgICAgICAg
+ICBSTF9ERVNDX0dFTk1BU0soY3JsX2Rlc2MsIFBBRF9DRkdfSU5QVVRfRU5BQkxFKSB8DQogICAg
+ICAgICAgUkxfREVTQ19HRU5NQVNLKGNybF9kZXNjLCBQQURfQ0ZHX1NDSE1JVFRfVFJJR0dFUl9T
+RUxFQ1QpLA0KICAgICAgICAgIFJMX0RFU0NfR0VOTUFTSyhjcmxfZGVzYywgUEFEX0NGR19JTlBV
+VF9FTkFCTEUpIHwNCiAgICAgICAgICBSTF9ERVNDX0dFTk1BU0soY3JsX2Rlc2MsIFBBRF9DRkdf
+U0NITUlUVF9UUklHR0VSX1NFTEVDVCkpOw0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCndpdGgNCi0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLQ0KY29uZmlnID0gcGluY29uZl90b19jb25maWdfcGFja2VkKFBJ
+Tl9DT05GSUdfSU5QVVRfRU5BQkxFLCAxKTsNCnJldCA9IHBpbmN0cmxfZ3Bpb19zZXRfY29uZmln
+KGdjLCBncGlvLCBjb25maWcpOw0KDQpjb25maWcgPSBwaW5jb25mX3RvX2NvbmZpZ19wYWNrZWQo
+UEFEX0NGR19TQ0hNSVRUX1RSSUdHRVJfU0VMRUNULCAxKTsNCnJldCA9IHBpbmN0cmxfZ3Bpb19z
+ZXRfY29uZmlnKGdjLCBncGlvLCBjb25maWcpOw0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpI
+b3dldmVyLCBkdXJpbmcgdGVzdGluZywgSSBmb3VuZCBhIHJlY3Vyc2l2ZSBsb2NrIGlzc3VlOg0K
+DQpwaW5jdHJsX2dwaW9fZGlyZWN0aW9uKCkNCiAgbXV0ZXhfbG9jaygmcGN0bGRldi0+bXV0ZXgp
+Ow0KICAtPiBwaW5tdXhfZ3Bpb19kaXJlY3Rpb24oKQ0KICAgLT4gb3BzLT5ncGlvX3NldF9kaXJl
+Y3Rpb24NCgktPiBqaGIxMDBfZ3Bpb19zZXRfZGlyZWN0aW9uKCkNCiAgICAgLT4gamhiMTAwX2dw
+aW9fZGlyZWN0aW9uX2lucHV0KCkNCgkgIC0+IHBpbmN0cmxfZ3Bpb19zZXRfY29uZmlnKCkNCiAg
+ICAgICAtPiBwaW5jdHJsX2dldF9kZXZpY2VfZ3Bpb19yYW5nZSgpDQogICAgICAgIC0+IHBpbmN0
+cmxfbWF0Y2hfZ3Bpb19yYW5nZSgpDQogICAgICAgICAtPiBtdXRleF9sb2NrKCZwY3RsZGV2LT5t
+dXRleCk7ICA9PT09PiAgRXhlY3V0ZXMgbXV0ZXhfbG9jaygmcGN0bGRldi0+bXV0ZXgpOyBhZ2Fp
+bg0KICBtdXRleF91bmxvY2soJnBjdGxkZXYtPm11dGV4KTsNCi0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0NCg0KU28gaW4gdjQsIEkgdGVtcG9yYXJpbHkga2VwdCBqaGIxMDBf
+Z3Bpb190b19waW4oKS4NCg0KQmVzdCBSZWdhcmRzLA0KQ2hhbmdodWFuZw0K
