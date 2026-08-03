@@ -1,47 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D532E7370;
-	Mon,  3 Aug 2026 14:10:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9743D2D23A6;
+	Mon,  3 Aug 2026 14:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785766235; cv=none; b=F7ZarehzzUTZrvTgYhs+8oxRjkHnMYZ8B0st4ApT64n44cqOVjMo3LvWClTa2uKBoSjfEVesPjPirmhX0yPLugNP1PER/VHpcV4xN726boA9ERlsxKR/QsLOMA6lVFmlw1tkEwrcbjnmIpkZDmXboz6zeag7SSXLO7asqNa3q5A=
+	t=1785766389; cv=none; b=NVtRJI3p6WX5UuVjbmuVQwdzoHsadsmKimV0Bey3E5Nq51Yvj2Iqgi5bsoLAnIzELUfeyZj1zoy83boZLBAbzoGYc5oJIzzZkUIEi1FO8XZTo0Qktrc+9oznR4+GItzyGnVHlHXMU4avz8vxSVzN80wv39jUlXkB2i2CEdQ5dJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785766235; c=relaxed/simple;
-	bh=4mz27+a1J+Jp8j9W6bqeehSiOY34eworYz+oTQio4pU=;
+	s=arc-20240116; t=1785766389; c=relaxed/simple;
+	bh=YMNvusX9LkKSyLKyFVXEOeMchH7Hgn44IJ52cwQeKJw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xmck0Xaa5+LBoXb4Z7G+zax1RODhnUDV8t3DlPvWNXfv8Ua0ed1/+BnmTzqvRHaIVvEAxQaDx4v0PYEEEdNyt5Zl7wDJ5FQU6WMbrYKh56fWUajydTL7vbUcQFhUYfDm49f3b8WuGOISbaz/4dxB1C/yxNI5afSWe/LSSFksbjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P0jJyogJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GufN4K0/3XMiSqxSjLectzg2kZWwpGCyMOPKUzprR7ThQrKsGVmmOyhWZSG1JfqERhpXLCYPqISRsWgM4ibPZNjbAd6545kHmJpsE+Eio2FTfExdAR7ELcZjLzpJ9HczMqKNjV5hiklxPxYm6Z2fF3u6h4mprj+t7VL58/rThrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNVNklkB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P0jJyogJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D03921F000E9;
-	Mon,  3 Aug 2026 14:10:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNVNklkB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3744E1F000E9;
+	Mon,  3 Aug 2026 14:13:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785766234;
-	bh=6bLPoXyW/nuFn6O2vS2mnNbHO2itc891hn1C6FGQRms=;
+	s=k20260515; t=1785766388;
+	bh=ZvuX3gYi0iFYh3K/3zoFONlt8miaxRz0FW6PbvfW+CA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P0jJyogJC+E6pnMRNxXlxvAuuAAxdvOCmL8f/Wg+feZC/uC6N4wuDQiUFQtp0AwYN
-	 WDrfympx7Jbztc4r3aXS0qbcsfOuwno//8CGof4YmQKMT/F3VEE5Wn0uNtzMpk1QQr
-	 an4nL0Wq6Mvl9BgJEIER//GggHQ208uHNYeru9SeU7TIws42OM6dUnafGFAEOZvKg9
-	 q3Ag2TFdkLEx++SMV0mjCxYkG6sCmC8QkxQRtLt7KA6X0NeB22dqlAX+KoXKlXEk6N
-	 GflxRunuwZSzSuHQVnT3zGSp9wKJv3BJb5y310aQvQnKbsoBN+KLDvxBrgty2MEoOD
-	 ZaFVh93M05QDg==
-Date: Mon, 3 Aug 2026 09:10:33 -0500
+	b=HNVNklkBqBtRhyKSY3TW0c2Sapiig58cPzEbfBnhyKxG4P10SiQaKB6BBl6NAoxNQ
+	 4Z5dcmbqPljiloJsSoFCXTEqkqmt42ziFjCX92AlLpD/cwQCIjDLrwyCfB8/ci3mEY
+	 dV3uDK1opzozzNEO978RkJ+pk2z+h5+U79HnrShlRxrZrxBC1HhQULxMSXrMHXXy7F
+	 UuRuy5E73wa+7gU1n0ppdCIRb6kiCe5WSNLwnn4RBbuvRtXYP1/F0LgJ1GAz2cS/S5
+	 77HLDo+sQTXpHug6B1+boWye8T5KubiEaQVPN2UkiW+efTOmTVG7s7WixwPNbA+1C4
+	 OuL8NT6PEeiIg==
+Date: Mon, 3 Aug 2026 09:13:07 -0500
 From: Rob Herring <robh@kernel.org>
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Linus Walleij <linusw@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/7] dt-bindings: sound: qcom,q6dsp-lpass-ports: add
- Audio IF clocks
-Message-ID: <20260803141033.GA3231247-robh@kernel.org>
-References: <20260801054610.4047089-1-prasad.kumpatla@oss.qualcomm.com>
- <20260801054610.4047089-4-prasad.kumpatla@oss.qualcomm.com>
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v4 01/21] dt-bindings: pincfg-node: Add property
+ 'input-debounce-ns'
+Message-ID: <20260803141307.GA3243695-robh@kernel.org>
+References: <20260801072711.153217-1-changhuang.liang@starfivetech.com>
+ <20260801072711.153217-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,19 +54,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260801054610.4047089-4-prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260801072711.153217-2-changhuang.liang@starfivetech.com>
 
-On Sat, Aug 01, 2026 at 11:16:06AM +0530, Prasad Kumpatla wrote:
-> Add the LPASS Audio IF clock IDs used by newer backend interfaces.
-> 
-> Platforms using Audio IF module backends request the interface bit
-> clocks through q6prm. Add the Audio IF IBIT and EBIT IDs to the binding
-> header so these clocks can be referenced from device trees.
-> 
-> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+On Sat, Aug 01, 2026 at 12:26:51AM -0700, Changhuang Liang wrote:
+> Add the property 'input-debounce-ns' to specify debounce time in
+> nanoseconds as an alternative to the existing 'input-debounce' which
+> uses microseconds. Make the new property unavailable when the existing
+> property 'input-debounce' is selected to prevent conflicting definitions.
 
-Missing krzk's ack and comment on the subject.
+Why do we need this? Why is usec resolution not good enough?
 
-> ---
->  .../sound/qcom,q6dsp-lpass-ports.h            | 29 +++++++++++++++++++
->  1 file changed, 29 insertions(+)
+That's what your commit msg should answer, not explain the diff which I 
+can read myself.
+
+Rob
