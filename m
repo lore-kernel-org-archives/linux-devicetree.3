@@ -1,36 +1,36 @@
 Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3B531E846;
-	Mon,  3 Aug 2026 13:02:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833FC3BAD9F;
+	Mon,  3 Aug 2026 13:02:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785762179; cv=none; b=mHAXTVQJzZcj407QiQXCcC5tiD9zTtIMZ06YuKaS/hWtB3TB/+EFgw0FnEOoPNn4pWTVCGDoAi5ky6h4ceu3lnLg3FS11mhEi1yvngYZi1dxQcTMryCwN/7vfmppem6ZToLxsHGiGAqO9Z6fczvcswWAsI8/9M0Kqz+KCUTC9YY=
+	t=1785762179; cv=none; b=nrKgwaPavrpzicplM5hr1ceJWFaUgUZiHZFLbwYi+0wh4vTvHW8xh9F8+e12pVBcmVbP8pp/evZGMREcSnIrhzZkilepjgJcyfugT27c6bu0pS6qf0HMHwoULXAnX3HlwTcmNmL0HRvFLPesg365NxeHIRnR4sI70WNiWtfKWWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785762179; c=relaxed/simple;
-	bh=1D3696k1UMOZodsP8VRLAjZgOk2Lm/UF5XqnyjaOrBY=;
+	bh=WnSqo5DkKEebqBayu2UDewUn0iMVdFk9k+nwTD4hroA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GNGcrrrQjPL2QN7UImC3p7yv4NXm1KD082vfALKadiUUeZsPhQOFHh5RsGsXHJtv+7P1xrmxj3Wyk3pdGUrRstHmYBuoNad7oWWasaCJnzCf8ziGs4KIogmNkMAHv9iA36d/0C2F/phLJ4EdvLFl1HAGwfuKe/ULTYRfYhtBUwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=IvGnhCMH; arc=none smtp.client-ip=77.81.229.115
+	 In-Reply-To:To:Cc; b=IF+f/pCc2ET2rT2rAm2sCS99l89EQVPrRlsP9wvPnk0Iu2QfvWGVcYhrQaujFb2TKorc0M+DAtso46TFKhkxtJ7lryIlsJiJlHb9sorV4InOgwr/D4O+fl8V+LwHwmU0aw7+9zkNy0caWkfqnaRBQ9iaQ8LYJ3lTUNm3V7SZ6CQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=qW9UtaB0; arc=none smtp.client-ip=77.81.229.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="IvGnhCMH"
-Received: by chaosmail.tech (Postfix) id 777531C87E8;
-	Mon, 03 Aug 2026 13:02:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="qW9UtaB0"
+Received: by chaosmail.tech (Postfix) id B1DED1C878A;
+	Mon, 03 Aug 2026 13:02:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1785762170;
+	s=mail; t=1785762169;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tyJNA99L9vX85qotZSnU+cUukPaUc9GgIg7vFCtLncc=;
-	b=IvGnhCMHEbfH7d277Gx9kiG29iMNk6LtkKOhgH+Q4ciCQRgdgUJWBcUiG6WRrLqyMhlaEv
-	lb3AsuRMTRTEEwP82b2cVTZtRgvHpMOoyVbnhG/TR/9xeQEeCsa4fpfJOmoLsGgYC7Xj8m
-	RVODIIjwfP+XFK20dQDpIAxV3isStk8=
+	bh=Dp0o1m5yR2f4Z+ciPm4AbRNRENMEbbSgtEL3uzjlmxQ=;
+	b=qW9UtaB03q2/iFqAGH2zC3o7QCw5a8JJLJXwBubWfxvhUfoAkt5rzMHZhnk5tqrZAs8Z+2
+	71cPPhBV2hWTTWiHihcHkRAXwROLtV5S9VC7p8DZsPa4lVze5oziBY8rTJcIHMQA9+e5+k
+	37g2RoCMXNHpmtmPO39ezYoq+O/iDvo=
 From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Mon, 03 Aug 2026 15:02:45 +0200
-Subject: [PATCH v3 3/6] spmi: apple: check transaction status
+Date: Mon, 03 Aug 2026 15:02:44 +0200
+Subject: [PATCH v3 2/6] spmi: apple: Validate FIFO state
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,7 +39,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-t603x-spmi-v3-3-c17b506d91a1@chaosmail.tech>
+Message-Id: <20260803-t603x-spmi-v3-2-c17b506d91a1@chaosmail.tech>
 References: <20260803-t603x-spmi-v3-0-c17b506d91a1@chaosmail.tech>
 In-Reply-To: <20260803-t603x-spmi-v3-0-c17b506d91a1@chaosmail.tech>
 To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
@@ -49,93 +49,77 @@ To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
  Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785762167; l=2442;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785762167; l=1923;
  i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=MQQKCL+2hqQSxayW3TO3xUWQbGnFAR6iCdnBHYXDXa0=;
- b=c/+HkhJAISslxQIwwQqZxsV2o4xZdJPhYXjlClWBaPXhPfQYVr6zaZAmJVtxGYZ9Bww08lg9l
- gS+G9M50nNgBXXEz3A0CU6aFkstYJly94Y61L4TixYOVAPDKm5mMPf/
+ bh=PkmvT+O1yoJbmERoyOrzU/RzWX78PMERIonM3LtJq8g=;
+ b=K1gkvvUPbxJZxhkWs1UjBnx7EK9MM6PUBsqSP5hIupZQ8BM9IMWmZsNpOrcRJPsxj74o3/Vj9
+ /TzUJllIznOAO7wF1bVS0fEpcmaMoBTcfz56M28Jz9yKpoHpiyAIx/1
 X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
  pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
 From: Alba Mendez <me@alba.sh>
 
-Check for parity errors and missing command ACKs
+Check for data before reading the body of a reply, and check for
+end of data afterwards.
 
 Signed-off-by: Alba Mendez <me@alba.sh>
 Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
- drivers/spmi/spmi-apple-controller.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ drivers/spmi/spmi-apple-controller.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
 diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-index e037ef914b6c..db03081796d1 100644
+index 376cf682c43e..e037ef914b6c 100644
 --- a/drivers/spmi/spmi-apple-controller.c
 +++ b/drivers/spmi/spmi-apple-controller.c
-@@ -22,6 +22,12 @@
- #define SPMI_CMD_REG 0x4
- #define SPMI_RSP_REG 0x8
- 
-+/* SPMI_RSP_REG reply word */
-+#define SPMI_REPLY_FRAME_PARITY_STATUS GENMASK(31, 16)
-+#define SPMI_REPLY_ACK BIT(15)
-+#define SPMI_REPLY_SLAVE_ID GENMASK(14, 8)
-+#define SPMI_REPLY_CMD GENMASK(7, 0)
-+
- #define SPMI_RX_FIFO_EMPTY BIT(24)
- 
- #define REG_POLL_INTERVAL_US 10000
-@@ -76,7 +82,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- {
- 	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
- 	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
--	u32 rsp;
-+	u32 reply, rsp;
- 	size_t len_read = 0;
- 	u8 i;
- 	int ret;
-@@ -87,8 +93,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 	if (ret)
- 		return ret;
- 
--	/* Discard SPMI reply status */
--	readl(spmi->regs + SPMI_RSP_REG);
-+	reply = readl(spmi->regs + SPMI_RSP_REG);
- 
- 	/* Read SPMI data reply */
- 	while (len_read < len) {
-@@ -107,6 +112,10 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 
- 	flush_extra_data(ctrl);
- 
-+	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1)) {
-+		dev_err(&ctrl->dev, "some frames failed parity check\n");
-+		return -EIO;
-+	}
+@@ -57,6 +57,20 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
  	return 0;
  }
  
-@@ -115,6 +124,7 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- {
- 	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
- 	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
-+	u32 reply;
- 	size_t i = 0, j;
- 	int ret;
- 
-@@ -133,11 +143,14 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
- 	if (ret)
- 		return ret;
- 
--	/* Discard */
--	readl(spmi->regs + SPMI_RSP_REG);
-+	reply = readl(spmi->regs + SPMI_RSP_REG);
- 
- 	flush_extra_data(ctrl);
- 
-+	if (!FIELD_GET(SPMI_REPLY_ACK, reply)) {
-+		dev_err(&ctrl->dev, "command not acknowledged\n");
-+		return -EIO;
++static void flush_extra_data(struct spmi_controller *ctrl)
++{
++	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
++	bool warned = false;
++
++	while (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
++		if (!warned) {
++			dev_warn(&ctrl->dev, "FIFO has extra data\n");
++			warned = true;
++		}
++		readl(spmi->regs + SPMI_RSP_REG);
 +	}
++}
++
+ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 			 u16 saddr, u8 *buf, size_t len)
+ {
+@@ -78,6 +92,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 
+ 	/* Read SPMI data reply */
+ 	while (len_read < len) {
++		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
++			dev_err_ratelimited(&ctrl->dev,
++					    "FIFO lacks reply data, controller stuck?\n");
++			return -EIO;
++		}
+ 		rsp = readl(spmi->regs + SPMI_RSP_REG);
+ 		i = 0;
+ 		while ((len_read < len) && (i < 4)) {
+@@ -86,6 +105,8 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 		}
+ 	}
+ 
++	flush_extra_data(ctrl);
++
+ 	return 0;
+ }
+ 
+@@ -115,6 +136,8 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+ 	/* Discard */
+ 	readl(spmi->regs + SPMI_RSP_REG);
+ 
++	flush_extra_data(ctrl);
++
  	return 0;
  }
  
