@@ -1,167 +1,115 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2040E361948
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0601033FE33
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785775924; cv=none; b=IMju5RD+I649CxUUJYinMV1VUFYu/ERbQcWqqeoU+2Rh2L+h+AhVk90ip6kFiwaIskWpVZSiGWepAikBrwq/L0kauQV1oPOVryrU8kGYcdp8MwZ1Kpk33KAfmbY8kwOcitBejVU7ojeUGI6J6Obs80pcdock+G4mWxQG+rvyylA=
+	t=1785775934; cv=none; b=G+3QNUD2zKCj2JDOqE0G9TWrwpcWmsqDQ8j0he3kbA1hgaFLzipv+X43DVwcn+ntlsSsvKSCJL+aj0gXOLPQfkOfBiZJudSVczFXujbICPOMnbOQ4q8aeMfuqsNgIL9KkL232rH14hnwpRIfW9qQHvT1rGK0EhgC2matPka72x4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785775924; c=relaxed/simple;
-	bh=t8GrFVEmP2+TMFS1kIwMJqGnk6LwSp2JqfgYsUYnFAo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SrIxzqGpfrroTsZfU3Q2WRp38tNcO97c6yhhzOlujBskEFcrRXZ6PeMJrC61McUIfkUSCyxn1YvNFOwXJFN5OwWFPpjYWKJ0vlDFbsIxMFd5a/VF5DHMF095WzZiFR9E8R5iJ29S+Fg8x/i1zU+px5foscYPfTZlJFiw+m7/6AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Bl4txuOs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=pnrUzDkp; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1785775934; c=relaxed/simple;
+	bh=9hFWHpMr6667KTRSWMmWOov01VOWplUFcHlU43Po8Bo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=l/pFDKteN9oVsuV9zf4pltrJMFIEdmR5qmz5PRdX8S+BqNrMY8poecWGGUL7as6caf/Y/Gt/O0Q7g22FC5CiTOOhdD3RnrgLlztvSqOx2Q3mpRGnuyXgRMW4+wmhSBa5SoLdPb5CypM6PVzyFHmZijfCO+8LlZMu7up+1+aDmk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W4ObqZm1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Bl4txuOs";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="pnrUzDkp"
-Message-ID: <95963572ab3aedd2322d76107b70e67cf32db808.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785775921;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=udeRltbpOSwt06zJe4HtN9yW6onEmLdVDb9SWFSlNro=;
-	b=Bl4txuOsr1iSFn+1p/OE92BUVgXZE0OOpudYTuMRLB19P1t/ofih4PDbmOLsGsylSIC+Dx
-	M4aFUEtLCLjN+Qqpp0R43o0QSRh99VIKF1JaIrHZD57dPD39mMq83li5Ho07rpMNMWPNnu
-	VkL+lK7ezsUSvbUy1jB6dpi6+F7h57KET8I+QYsbISAlVO14ZOEmNR//DkXWGFrQQhbJyM
-	rKI60T1NXeysU5OwTYV3QWdiJ5tn4HtfM2MGiPeW4QhuzfVK/c2UyGlggFbNj++DyS03EJ
-	CAFI317kYs1TfX8zEsT+bz2/FEGSod9I5Nn6r7uzpkoFrpK5eQ76M5lV27l7Kw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785775921;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=udeRltbpOSwt06zJe4HtN9yW6onEmLdVDb9SWFSlNro=;
-	b=pnrUzDkpH6To88+D4aq3cVAMNz8LT4MM2PpEIiQ3zSsOxrvuoJcNR1/z1o3YQHevp7nuSj
-	mMeOm6EDWZdlIkDw==
-Subject: Re: [PATCH 3/4] net: dsa: Add support for SoC-e SDSA tags
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Date: Mon, 03 Aug 2026 18:52:00 +0200
-In-Reply-To: <20260730163759.15CD21F000E9@smtp.kernel.org>
-References: 
-	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
-	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-3-be569dae1b20@linutronix.de>
-	 <20260730163759.15CD21F000E9@smtp.kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W4ObqZm1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB86B1F01560
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785775932;
+	bh=ktJ1TUfqLx16vP/MAvZ075WUJwVncZtbcK2MP7W0fJA=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=W4ObqZm1721yih5Cc72KTg1SNORcLauLEAeTR/pQvfulljFV1MY786WAqOG+xn40r
+	 Nm6krj9Zt3xk+1UjcfnwqMXNgD5eKdkTOopLe6stmk4hDhhDo+pnbC9woAg+LNhCEU
+	 rfOXG8bFLRNqvzlg52wWAsCZKeZXzzsFdGKuftIB4RdoErFBA6IpAs8GvfEfVtD0yT
+	 DhNz6Rmwo19vJ3v461khXi2B3D+UUxZ8Sr0FXMUTiYY9fXY8So5/RbjYmIoC3rlDmt
+	 zeYYhcpO9uCkfPhrdg0r6h8cpqA0QbjEIp0DoSaTgZbDBaLOxjRM7OGX/eWpQiklrP
+	 fO7+/JOLtU5hA==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b0148201fbso3696614e87.3
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:52:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqZBsKzR8+ofd7Nu9vePVSQ2kSaLnlpEXrsFNd9UGLz/N9PyFH+Epu7cNcDWHqbAPkue0cd7L3S5OGO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7D+d6FnOjj+TPRgtT3dGElq8kf6Afc9oXt1ouPXgZVPpnJ/BZ
+	hKqRgF7lN9PjGx+lx7hDcQZxAj19Sxs0nzCEMTgzTX1fNEspL46a0QkTn50sxHp6AtGmD13HPu5
+	9dJi0/U+lJJcBV5QNcds3F8U/XnWJqgE=
+X-Received: by 2002:ac2:5218:0:b0:5b2:9c0e:a2d9 with SMTP id
+ 2adb3069b0e04-5b2e4f9dd16mr1400790e87.65.1785775931139; Mon, 03 Aug 2026
+ 09:52:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+ <20260802-submit-acx00-of-dynamic-v1-v1-8-0a53cd9e21cc@gmail.com>
+ <2c0210b3-2c68-41f1-aa33-3f1693454849@lunn.ch> <CADvTj4pfNFVGrQV86T7X+nZQYUamxEYLLWuxVXk=av0da_XocQ@mail.gmail.com>
+In-Reply-To: <CADvTj4pfNFVGrQV86T7X+nZQYUamxEYLLWuxVXk=av0da_XocQ@mail.gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 4 Aug 2026 00:51:57 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67Wo+WG47jF_vBUOwv0Vw1SDygXMdBgpsy3R1AQ_LLfHw@mail.gmail.com>
+X-Gm-Features: AUfX_my4aoD19Jk3-8CcfeDfaoI0T_9zWEBW-1SE8UXOLwMz9Yfo_iLW9hIPcwI
+Message-ID: <CAGb2v67Wo+WG47jF_vBUOwv0Vw1SDygXMdBgpsy3R1AQ_LLfHw@mail.gmail.com>
+Subject: Re: [PATCH 08/21] dt-bindings: mfd: x-powers: add AC200
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Andre Przywara <andre.przywara@arm.com>, Richard Genoud <richard.genoud@bootlin.com>, 
+	Maxime Ripard <mripard@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-07-30 at 16:37 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] The `sdsa_xmit` and `sdsa_rcv` functions leak the SKB on all err=
-or paths by returning `NULL` without freeing the buffer, leading to memory =
-exhaustion.
-> --
->=20
-> --- Patch [3]: [PATCH 3/4] net: dsa: Add support for SoC-e SDSA tags ---
-> commit d07af353633eb9eecc24042cfdf75f9ecf082368
-> Author: Vasilij Strassheim <v.strassheim@linutronix.de>
->=20
-> net: dsa: Add support for SoC-e SDSA tags
->=20
-> Adds a DSA tagger for the SoC-e SDSA header format used between
-> the conduit and SoC-e switch ports.
->=20
-> > diff --git a/net/dsa/tag_sdsa.c b/net/dsa/tag_sdsa.c
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/net/dsa/tag_sdsa.c
->=20
-> [ ... ]
->=20
-> > +static struct sk_buff *sdsa_xmit(struct sk_buff *skb, struct net_devic=
-e *dev)
-> > +{
-> > +	struct dsa_port *dp =3D dsa_user_to_port(dev);
-> > +	u8 *sdsa_header;
-> > +
-> > +	if (skb_cow_head(skb, SDSA_HLEN) < 0)
-> > +		return NULL;
->=20
-> [Severity: High]
-> Does this leak the skb when skb_cow_head() fails? The DSA core expects th=
-e
-> tagger to consume and free the skb if it returns NULL on transmission. Sh=
-ould
-> this call kfree_skb() before returning?
->=20
+On Tue, Aug 4, 2026 at 12:45=E2=80=AFAM James Hilliard
+<james.hilliard1@gmail.com> wrote:
+>
+> On Mon, Aug 3, 2026 at 7:18=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote=
+:
+> >
+> > > +            ethernet-phy-control {
+> > > +                compatible =3D "x-powers,ac200-ephy-ctl";
+> > > +                nvmem-cells =3D <&ephy_calibration>;
+> > > +                nvmem-cell-names =3D "calibration";
+> > > +                phy-mode =3D "rmii";
+> > > +            };
+> >
+> > What do you mean by an ethernet PHY control?
+> >
+> > I assume this is not an actual Ethernet PHY, but some control logic
+> > around it? Where is the ethernet PHY itself?
+>
+> Correct, this is not the Ethernet PHY itself. It is the package-specific
+> sideband control block that must be configured before the normal Clause 2=
+2
+> PHY registers become usable. For AC200, this control block is accessed
+> through the parent AC200 I2C regmap. For AC300, the equivalent control bl=
+ock
+> is accessed through a separate non-PHY Clause 22 address.
 
-Yes, I will fix all this findings.
+Basically, all the PHY behavior that is normally configured using strapping
+pins on a discrete PHY is done over this I2C channel.
 
-> [ ... ]
->=20
-> > +static struct sk_buff *sdsa_rcv(struct sk_buff *skb, struct net_device=
- *dev)
-> > +{
-> > +	u8 *sdsa_header;
-> > +	int source_port;
-> > +	u8 frame_type;
-> > +
-> > +	if (unlikely(!pskb_may_pull(skb, SDSA_HLEN)))
-> > +		return NULL;
->=20
-> [Severity: High]
-> Does this error path leak the skb? If a malformed packet causes
-> pskb_may_pull() to fail, returning NULL without freeing the buffer could
-> allow network traffic to cause memory exhaustion.
->=20
-
-Yes, I will fix all this findings.
-
-> > +
-> > +	sdsa_header =3D dsa_etype_header_pos_rx(skb);
-> > +
-> > +	/* Check that the frame type is TO_CPU. */
-> > +	frame_type =3D FIELD_GET(SDSA_TAG_FRAME_TYPE_MASK, sdsa_header[4]);
-> > +	if (frame_type !=3D 0)
-> > +		return NULL;
->=20
-> [Severity: High]
-> Should the skb be freed here when the frame type check fails to avoid a
-> memory leak?
->=20
-
-Yes, I will fix all this findings.
-
-> > +
-> > +	/* VLAN-tagged traffic is intentionally unsupported yet. */
-> > +	if (sdsa_header[4] & SDSA_TAG_VLAN_BIT)
-> > +		return NULL;
->=20
-> [Severity: High]
-> Could unsupported VLAN-tagged traffic trigger a memory leak here?
->=20
-
-Yes, I will fix all this findings.
-
-> > +
-> > +	/* Determine the source port from the two port fields. */
-> > +	source_port =3D ((sdsa_header[4] & 0x1f) << 5) |
-> > +		      ((sdsa_header[5] & 0xf8) >> 3);
-> > +
-> > +	skb->dev =3D dsa_conduit_find_user(dev, 0, source_port);
-> > +	if (!skb->dev)
-> > +		return NULL;
->=20
-> [Severity: High]
-> Does this also leak the skb if the conduit cannot find a corresponding us=
-er
-> device?
-
-Yes, I will fix all this findings.
-
-
+> The actual Ethernet PHY is a separate device on the MAC's MDIO bus. The
+> shared PHY driver for that device is added in patch 16:
+>
+> https://lore.kernel.org/linux-sunxi/20260802-submit-acx00-of-dynamic-v1-v=
+1-16-0a53cd9e21cc@gmail.com/
+>
+> The later board DTS patches instantiate it as an ethernet-phy node beneat=
+h
+> the MAC's MDIO bus and reference the appropriate sideband control provide=
+r.
+>
+> >
+> >        Andrew
