@@ -1,54 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA3478F39;
-	Mon,  3 Aug 2026 22:17:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2DEEA8;
+	Mon,  3 Aug 2026 22:18:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785795447; cv=none; b=Awh0bAWFpUquLQWTqoN6B21HAyaJXRJgJJ0m6EGHKMHIGxIOV7fYIbf8nNw+Zj/L6q6+1N++D2B80edWT0kvRgHBAv7aaT6q0FoeDjus0jO0HM+HydlsR+Xx0OJ1y3z/ss341TgFPi0mCbAJSHTQwzJvirnuBzhhieiMgpXQlMU=
+	t=1785795512; cv=none; b=mCX8Hxaay58xShmkD9hJMJBrAzgoHvcCgyf3DmOwftVbPSarwQ6gl9uLA9rhGcNxPc8c1Z7sT0447cLC4s2MbXSsQNzVBzE3b4dGjNEB+ZFG9BJ4kFlxOQn4C0gMF/SOVrT2qxVAdlJBIiF3dbrBmZ+eFrHQ7vVrrbzMiP1oJsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785795447; c=relaxed/simple;
-	bh=6XzzIxTML45VHMRREzLkhjMtOFwy0FLglt1nKSpd+G8=;
+	s=arc-20240116; t=1785795512; c=relaxed/simple;
+	bh=my4Y1+wmf3sMwspSF+4bGvbRTH4U+vqqwKX8SBPxYnI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gToHS9Y9vxy3Jv31sXFuunZIa7WUq1iD10Efx0bTQieQICZRaE+/GI1iw22RCUzXBHz4iEhyxv8lEb3N5Ok7H7NJmAZYjXZSfNS5PDWD/2bEsEI2te/QsYLOp5UgXE2hJNyl4fi+GrfM8CA5zAxkChJeJli3kUfgkNCs0/52vII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8Ec4Kpp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QvWT9qouRAY2TY1vvSpjyk38BS4lSX4JEBDzRiELgLL9VL8qtAeg4Qlr05FkwW8CWJcbKCKqFoj6ZZYF1a6BSyFURTgAKdPS/p8d4MCuqy6xw6rzsaviiGvIiTeSMcrMujt9P8+9Hc1coXzZ+MN3gIo5jIl4jeYl9dIo9hrDqu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hbeYKtw1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8Ec4Kpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077141F000E9;
-	Mon,  3 Aug 2026 22:17:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hbeYKtw1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BAB51F00A3A;
+	Mon,  3 Aug 2026 22:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785795446;
-	bh=3WeJos72ttiJG8idgzFWMe7RMdPcnTN0tGN50tPiISI=;
+	s=k20260515; t=1785795511;
+	bh=ZDYaoH2ZhDHFaQRTgoESAI5O+FdsRsQMwdsTlUSbNQc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q8Ec4Kppwy2DajK8Q6p+5cIVr2Fj092lxSRbM4bh2aYT2xBlhsWk2M+8Eo0oRVwwu
-	 axos48ewmWTJUe2+9y66NM/iDbO8DIksCuVi7GkncoqQXKEhWI2NVIWlf3GjrwLfWn
-	 4yzAguu0MpNmEsN7N5YySv1ek7CzP7ePA4xe7fbYPMk5IwDr6XQi5GkBtyiBNvTSfP
-	 VFtTCJDWuThG3cQYOyF+bHf64y/NUhPvNe0IBk+K080MozQ+ezSh/AgjIo650PhITE
-	 7Hq5n/yefGZvBkxRFUIH++F2Qt7+wRcp23IEij4oL6/Ih/0uXdC2wjre5J8vP34IcD
-	 wroZ94RwUKxgA==
-Date: Mon, 3 Aug 2026 17:17:25 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
+	b=hbeYKtw1mM5R7QCesGMwI7BV14gRJ0qYwWk/qAZAUoHn3RCj79eoHrccHuV/ejmJ1
+	 hiypYB7My3emEKKS0d5kd+af4XwUacG1TAVAuPsN7Q9wlKgRU3huXlHbWlSiBv5aul
+	 34ml617ss7jw8Eq67JTWt+6/+Lyw2C3qy9a1FqW5y6elrUQbK9N4sdoZ7iQkN2keDf
+	 MftuGHGeeoAjnPSF6zp2mKwi0udAGcJdoPwa0aG9foaTI39Th7a5aZsdQ8ln4q3grv
+	 9tB7nb8i/+r0hJLGtVqkVOtgA1jcrZfptmKs34Xh7/a9IeD53fozldmCdWoWTBe3hj
+	 8jcY0COEuN8hw==
+Date: Mon, 3 Aug 2026 17:18:30 -0500
+From: Rob Herring <robh@kernel.org>
 To: Eduard Bostina <egbostina@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	simona.toaca@nxp.com, daniel.baluta@nxp.com,
-	Kevin Hilman <khilman@baylibre.com>,
-	Maxime Ripard <mripard@kernel.org>, goledhruva@gmail.com,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
+Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org, m-chawdhry@ti.com,
-	linux-omap@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	Roger Quadros <rogerq@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Tony Lindgren <tony@atomide.com>
-Subject: Re: [PATCH 1/2] dt-bindings: display: ti: Convert ti,tpd12s015 to DT
- schema
-Message-ID: <178579544500.726225.3201826985280204584.robh@kernel.org>
-References: <20260730092245.52034-1-egbostina@gmail.com>
- <20260730092245.52034-2-egbostina@gmail.com>
+	linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
+	m-chawdhry@ti.com
+Subject: Re: [PATCH] dt-bindings: power: Convert TI SmartReflex to DT schema
+Message-ID: <20260803221830.GA726471-robh@kernel.org>
+References: <20260730092454.52466-1-egbostina@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,28 +45,102 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260730092245.52034-2-egbostina@gmail.com>
+In-Reply-To: <20260730092454.52466-1-egbostina@gmail.com>
 
-
-On Thu, 30 Jul 2026 12:22:44 +0300, Eduard Bostina wrote:
-> Convert the Texas Instruments TPD12S015 HDMI level shifter and
-> ESD protection chip bindings to DT schema.
-> 
-> During the conversion, the following updates were made:
-> - Added the 'ti,tpd12s016' compatible string, which is used in
->   am57xx device trees.
-> - The 'gpios' property now allows up to 5 items, as the
->   omap5-igep0050 device tree routes additional control pins
->   beyond the standard 3 documented in the old text file.
+On Thu, Jul 30, 2026 at 12:24:54PM +0300, Eduard Bostina wrote:
+> Convert the Texas Instruments SmartReflex bindings to DT schema.
 > 
 > Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 > ---
->  .../bindings/display/ti/ti,tpd12s015.txt      | 44 -----------
->  .../bindings/display/ti/ti,tpd12s015.yaml     | 78 +++++++++++++++++++
->  2 files changed, 78 insertions(+), 44 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
->  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+>  .../bindings/power/ti,smartreflex.yaml        | 70 +++++++++++++++++++
+>  .../bindings/power/ti-smartreflex.txt         | 47 -------------
+>  2 files changed, 70 insertions(+), 47 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/power/ti,smartreflex.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/power/ti-smartreflex.txt
 > 
+> diff --git a/Documentation/devicetree/bindings/power/ti,smartreflex.yaml b/Documentation/devicetree/bindings/power/ti,smartreflex.yaml
+> new file mode 100644
+> index 000000000..b2dc59b4d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/ti,smartreflex.yaml
+> @@ -0,0 +1,70 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/power/ti,smartreflex.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments SmartReflex
+> +
+> +maintainers:
+> +  - Eduard Bostina <egbostina@gmail.com>
+> +
+> +description: |
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Drop '|'
 
+> +  SmartReflex is used to set and adjust the SoC operating points.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,omap3-smartreflex-core
+> +      - ti,omap3-smartreflex-mpu-iva
+> +      - ti,omap4-smartreflex-core
+> +      - ti,omap4-smartreflex-mpu
+> +      - ti,omap4-smartreflex-iva
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  ti,hwmods:
+> +    description: Shall contain the TI interconnect module name if needed by the SoC
+> +    $ref: /schemas/types.yaml#/definitions/string
+
+deprecated: true
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    smartreflex@4a0db000 {
+> +        compatible = "ti,omap4-smartreflex-iva";
+> +        reg = <0x4a0db000 0x80>;
+> +        interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
+> +        ti,hwmods = "smartreflex_iva";
+> +    };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    smartreflex@4a0dd000 {
+> +        compatible = "ti,omap4-smartreflex-core";
+> +        reg = <0x4a0dd000 0x80>;
+> +        interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
+> +        ti,hwmods = "smartreflex_core";
+> +    };
+> +
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    smartreflex@4a0d9000 {
+> +        compatible = "ti,omap4-smartreflex-mpu";
+> +        reg = <0x4a0d9000 0x80>;
+> +        interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+> +        ti,hwmods = "smartreflex_mpu";
+> +    };
+
+One example is enough.
+
+Rob
