@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FF02836A0
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 06:45:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B7AC8EB
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 06:46:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785739541; cv=none; b=c2GcSiyynqWA75aEeVfTK5nJfkLHfJUt4arcryZXQZw0b9RPB3BbEByI6cJ4zivTWmkg2LvYuhmnbwXZKTupEVah+gH0pwNYxuVkHIFZH1F0sjY3cAfirX1VB0QqHdWLtkFN+pG0Srbsoa+ZYLPZJjbwq8Wa6TyLFxn2JcXzbAU=
+	t=1785739562; cv=none; b=Q721uBJMK6XaFn+INepuTT3e4Lo1RzSVLSoLXTIt5G9mAxCv1JQSk23HenzdTHVn6PqLzTShe4ypzVXGK1yHy2q31XJjTwiOHzD9uHvDOETiGMBh1JMIR1dZ1aq7Lg1cnCZdN8X22AtYekjI6hsTcqfQUHrYpIEKAHBJUvA2g1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785739541; c=relaxed/simple;
-	bh=iwDXPNuEASxnRGB3cumq3M/d/g47mKlQtY/hnpgjiic=;
+	s=arc-20240116; t=1785739562; c=relaxed/simple;
+	bh=xTlgY5JpYaC+AjTWEIKzSzgc/r1YVyEDADg1d89tDIY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YM/nkUj2+eLuNykhB9wyj/4J1dQ9tY2ihtp3Dd+2Lp7hbcEjIqJUkEdDVswQRCZA5oUE7eX2/rC0kPP3A2+0y3JRZJW1xeMvCXysCMqw/mq9mRiWNxlprUjkqMwWr2ydBiaika3G2IGCH1B6oC0CJ6lkMdHH9f7Rk5OuljOEX1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iZc0X9UH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=c9mjdvbUEMOv9pIPR21jjBqwHSrMEnH01mGeV+r976aIJesEI8+7KQ+bbbbdJeNjcImakQplQjTNzUuh0xOrAQFDHXpCLzLHfd1Upe0diScV+lVAHQoAsW/kkiQ/E1izv6TFFYKTIfkkq80s2gMi7oTJMA7V3KL8wJ69uNo5rpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rh+BhStr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iZc0X9UH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2DF1F000E9;
-	Mon,  3 Aug 2026 06:45:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rh+BhStr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB091F000E9;
+	Mon,  3 Aug 2026 06:46:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785739540;
-	bh=Btv+a5Uh4yS/r5R4hClOIlB0rWlkwM3JnpLvWmNymIQ=;
+	s=k20260515; t=1785739560;
+	bh=vaMF5i5UNNi6HlVCvDY1nNgPy2BUnKHTRBRR3VWQg+4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iZc0X9UHFnywFVHxrRiEO1nMrpaibvrVlrH/XgTQArT6/FShuzC3LHKF6rprBHjIZ
-	 6E4xSUTzbNNU2ZHD3WM4xveDhWd9iEx1/yh1ETyjOZinwhBK18Uvr/IBSOtPdzdUZr
-	 kUN9CrOg1LT6Fqzap2Qp+w2qrwo7z4Cax0hSrm9vRyFQ606LOe+hBksKq828k2O0yV
-	 yyTL1b1k19q5IG0vUJAQYu9X9h1gaaVRjkC8uIsXZFVJlWui2RWWUhCbyHpIyQdADt
-	 9qWJS84lSkCmSGFW18LMuUuS2yFPm8SwDR39Khzft/4oxuhUCJH3t1RWeYkt0W1+jS
-	 wO+sUdEikHB/A==
+	b=Rh+BhStrh8j9b7vi717AO5yINNOE6ggliJvLAlJztmNeZ+a4146qBbxjaOqnGGu5J
+	 LRWREUtFstCiC304qmlN8kr1+uVveFyZscjGSm3PrNo7jne5pEFCWiUP4aoSBF32iq
+	 WLSLBAiwcSJ8ANyazuX9OUVpBFbxRbzD7o1pKz7RY0JwZs5CgS22nZ4j6Jmrl0S5TC
+	 KzqnhF5LJ0Qx3V8DeJAW00XfQis0a8ChyQwDPaOueRk2ZSLE1TyVx8hYv/11BNeLm3
+	 FLug7+24r7WaXlndKxw3cCA2nTiz+iLST8WeoacQq0os8jC8HXypV9faCBfX/gLDOX
+	 Fh3tee/imv3Aw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 18/28] arm64: dts: qcom: hamoa: Fix swapped USB QMP PHY
- vdda-phy/vdda-pll supplies
+Subject: Re: [PATCH 13/28] arm64: dts: qcom: qcs6490: Fix swapped USB QMP
+ PHY vdda-phy/vdda-pll supplies
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260803-phy-supply-fix-v1-18-5880630cde3e@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260803-phy-supply-fix-v1-13-5880630cde3e@oss.qualcomm.com>
 References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
- <20260803-phy-supply-fix-v1-18-5880630cde3e@oss.qualcomm.com>
+ <20260803-phy-supply-fix-v1-13-5880630cde3e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 06:45:39 +0000
-Message-Id: <20260803064539.BC2DF1F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 06:46:00 +0000
+Message-Id: <20260803064600.9EB091F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,65 +49,68 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Incomplete fix: Snapdragon X Plus (purwa/x1p) boards were missed a=
-nd continue to supply incorrect voltages to the USB QMP PHYs.
+- [High] The patch series fixes swapped `vdda-phy` and `vdda-pll` supplies =
+for the QMP USB PHY on various boards, but misses identical misconfiguratio=
+ns on other closely related boards such as SC7280, SC7180, and SM7225.
 --
 
---- Patch [18]: [PATCH 18/28] arm64: dts: qcom: hamoa: Fix swapped USB QMP =
-PHY vdda-phy/vdda-pll supplies ---
-commit 56ae73fe6fa593d516dd7a86b9b535d8c22c1819
+--- Patch [13]: [PATCH 13/28] arm64: dts: qcom: qcs6490: Fix swapped USB QM=
+P PHY vdda-phy/vdda-pll supplies ---
+commit 0c6d97f5f784273baeb5afe41418c7609191becd
 Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-arm64: dts: qcom: hamoa: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
+arm64: dts: qcom: qcs6490: Fix swapped USB QMP PHY vdda-phy/vdda-pll suppli=
+es
 
-This commit fixes an issue across multiple Snapdragon boards where the 1.2V
-and 0.88V regulators for the USB QMP PHY were incorrectly swapped. The patch
-swaps vdda-phy-supply and vdda-pll-supply back to their correct voltages for
-the affected devices.
+This patch corrects the swapped vdda-phy and vdda-pll supplies for the USB =
+QMP
+PHY on QCS6490 boards.
 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi b/arch/arm64/boo=
-t/dts/qcom/hamoa-iot-som.dtsi
-> index 9c5e77df00547..bc70fe5db96f5 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
-> @@ -590,8 +590,8 @@ &usb_1_ss0_hsphy {
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
+ot/dts/qcom/qcs6490-rb3gen2.dts
+> index 37a3b51323ce5..8e200ba3711ae 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> @@ -1419,8 +1419,8 @@ &usb_1_hsphy {
 >  };
 > =20
->  &usb_1_ss0_qmpphy {
-> -	vdda-phy-supply =3D <&vreg_l2j_1p2>;
-> -	vdda-pll-supply =3D <&vreg_l1j_0p8>;
-> +	vdda-phy-supply =3D <&vreg_l1j_0p8>;
-> +	vdda-pll-supply =3D <&vreg_l2j_1p2>;
-> =20
->  	status =3D "okay";
->  };
+>  &usb_1_qmpphy {
+> -	vdda-phy-supply =3D <&vreg_l6b_1p2>;
+> -	vdda-pll-supply =3D <&vreg_l1b_0p912>;
+> +	vdda-phy-supply =3D <&vreg_l1b_0p912>;
+> +	vdda-pll-supply =3D <&vreg_l6b_1p2>;
 
 [Severity: High]
-This is a pre-existing issue, but it looks like some Snapdragon X Plus (pur=
-wa/x1p)
-boards were missed and continue to supply incorrect voltages to the USB QMP=
- PHYs.
+This isn't a bug introduced by this patch, but since you are fixing the
+swapped supplies here, should this fix also be applied to other closely
+related boards that appear to have the exact same misconfiguration?
 
-For example, in arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi around line 586
-for usb_1_ss0_qmpphy:
+For example, in arch/arm64/boot/dts/qcom/sc7280-idp.dtsi:
 
-&usb_1_ss0_qmpphy {
-	vdda-phy-supply =3D <&vreg_l2j_1p2>;
-	vdda-pll-supply =3D <&vreg_l1j_0p8>;
+&usb_1_qmpphy {
+	vdda-phy-supply =3D <&vreg_l6b_1p2>;
+	vdda-pll-supply =3D <&vreg_l1b_0p8>;
+}
 
-And similarly in arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
-around line 1590 for usb_1_ss0_qmpphy:
+And in arch/arm64/boot/dts/qcom/sc7280-qcard.dtsi:
 
-&usb_1_ss0_qmpphy {
-	vdda-phy-supply =3D <&vreg_l2j_1p2>;
-	vdda-pll-supply =3D <&vreg_l1j_0p8>;
+&usb_1_qmpphy {
+	vdda-phy-supply =3D <&vdd_a_usbssdp_0_1p2>;
+	vdda-pll-supply =3D <&vdd_a_usbssdp_0_core>;
+}
 
-Should these files be updated as well to prevent unconditionally feeding 1.=
-2V
-into the 0.88V PHY rails on those boards during boot?
+Similarly in arch/arm64/boot/dts/qcom/sc7180-ecs-liva-qc710.dts:
+
+&usb_1_qmpphy {
+	vdda-phy-supply =3D <&vreg_l3c_1p2>;
+	vdda-pll-supply =3D <&vreg_l4a_0p8>;
+}
+
+> =20
+>  	orientation-switch;
 
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-phy-supply=
--fix-v1-0-5880630cde3e@oss.qualcomm.com?part=3D18
+-fix-v1-0-5880630cde3e@oss.qualcomm.com?part=3D13
