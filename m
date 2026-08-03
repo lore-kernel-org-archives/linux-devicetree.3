@@ -1,242 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17C9424D47;
-	Mon,  3 Aug 2026 18:25:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D3242E8F4
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:25:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785781525; cv=none; b=mKJBTqV+GP/BlMiTREWatOLAV+epvRdKUB0UyG8Euthe7PBTaq6SDll2gL4Wx5CoK9lPxhMafbTMJLRjD5Ok+sUt2uESslpRFXjmrAjxKHhNXNw8wRgbdBxz1JIJRvqpirH2tC3Lk5Bsas9fFeGTpDEm4detAo/3MNgtJbM2NKc=
+	t=1785781557; cv=none; b=NKjfSEDcWUjYC95c4YTVOdlrCTwHYN7PSRqwanKNhNHG2qWIMeC/ukH3OZoyE3NCBudSWDbQhrJ6JFVP0ygazkOWVNKuaGWVma/9lhMdNAX9Ekox/wZpC7EDLh0m8RC2VL1USMRpH9BlCviWeDcL7BUKI6W6VkIwUAmPQF03lXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785781525; c=relaxed/simple;
-	bh=G+HC2nacxJ4lkfBjb3CnHFIyYmAtdL2bozWSNt/crl4=;
+	s=arc-20240116; t=1785781557; c=relaxed/simple;
+	bh=NuIQEEXXwcqnyG80rVWtYIngc+G/yGskz/QzM1Hmh3o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oDSPaeAaQmU5GC8oDy994Thg6Fz5fTw1OVz4NflNyfCqPt+AZTtfNjN/stIOG8zLxQ5SGxqj4KcOaNnnw3MW+VtluVAHoHIZBT78/ZJz1JtWDJ8vOxXlMOoeDQtHSxFF84x6HXwkLuQVTn++VX5nTGdXhAU8tGo+oerJEfQ8Hkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKg/Vb2g; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=PQVKbFv8LvjacdcjbWFj1oqKW4vgdfmm7sVo79S+JIBozRHPiZ8la4+LL1joA4LpzWb2+THudwNwudvQxB1q+9cI/8qW7TjAXCwA6zXHk+6j2s//2AW4mTAfT0D/ZlkROT1gvWJST2+62cVqTsN8BTNJmjlPBxJB1XE0mSJ7DKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMsQDEi5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKg/Vb2g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A344A1F00A3D;
-	Mon,  3 Aug 2026 18:25:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMsQDEi5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605441F000E9;
+	Mon,  3 Aug 2026 18:25:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785781522;
-	bh=VFH2M+sDIdx5VpvmChPymOMUcFm95RQsW5QajwIXc+U=;
+	s=k20260515; t=1785781556;
+	bh=Lg4Ei7T3x4PiumiOJaM6qKthCJPOhQgQiLuVjJMpNHA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jKg/Vb2gEUrpKpadY++J4ALo25OQ6KaWRkopILxsWqd4i4yJSONCsHUFDv20ydNq1
-	 rKIfPR/Y9AQ/491W3DeXywJtFBj6+heXsObDNqzXC8itMxUrAeeiRJzNHUmxkP7l2N
-	 R7yEqmiwulkb4Op7wNEDzCjLOiDOfMOrmTifkQ6HdeBRkvNbIrP9PqF7U74YvAQp2p
-	 W4hYHpP9i2N06YcKO7Id5ApssZvMOjBWvqakegTfpV3tZLIFMF+/UAIrRyMDSvMNLO
-	 ZfGXr/KOd0vmBt2pco3kyUjFOJuOi4xxVjChuIJsf31ZUqmCSN/qG4NpVO1HQ7thsu
-	 Xj1dWXaaZdHHA==
+	b=SMsQDEi5IZpmZMKEhP1GgZo84mhcGNlwMCZp/xaMPf54ayUmVRt3u8ad9GWLlWUTL
+	 7AqKjDYV4icgFWe29YIVK9ZkoChZaGpcQvOiwgL5Gb5T7KYj9opHD+vFpY3KGqih9w
+	 XAjdlAYVPsuHfQOceLVmTyTUNpwqS0l6IpNJXxDcTRN0YRRu6wUEF2v4VDqeeV+AvV
+	 4DzP4m+mLOJ/Wu6LT/KTw2HunXvhpakXzM0ZvUem99E/+5z4Sc/UNpqTI5xKKF78/T
+	 7+q/4PMe8jmKzABaRhvjwncKEVEFscjXtmiZ9YqOMv+3L4Zc4rZovwRidenmXwywJ/
+	 /h8g8+Ro9Vfiw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] clk: sunxi-ng: sun55i-a523: GPU clock divider is
- fractional, not linear
+Subject: Re: [PATCH v9 03/22] drm/bridge: synopsys: dw-dp: Fix error
+ handling in dw_dp_link_enable()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SnVhbiBNYW51ZWwgTMOzcGV6IENhcnJpbGxv?= <juanmanuellopezcarrillo@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260803180755.288793-3-juanmanuellopezcarrillo@gmail.com>
-References: <20260803180755.288793-1-juanmanuellopezcarrillo@gmail.com>
- <20260803180755.288793-3-juanmanuellopezcarrillo@gmail.com>
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-3-2e6e46135312@collabora.com>
+References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
+ <20260803-synopsys-dw-dp-improvements-v9-3-2e6e46135312@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 18:25:22 +0000
-Message-Id: <20260803182522.A344A1F00A3D@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 18:25:54 +0000
+Message-Id: <20260803182555.605441F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Integer truncation in `ccu_maskdiv_find_m()` causes the hardware t=
-o drift lower than the framework's requested rate when the parent rate is n=
-ot a perfect multiple of the cycle width (16). When `determine_rate` comput=
-es a new rate using `new_rate =3D (parent_rate * (16 - m)) / 16`, integer d=
-ivision truncates the remainder. When `set_rate` subsequently attempts to r=
-ecover `m` by computing `kept =3D (new_rate * 16) / parent_rate`, the loss =
-of the remainder strictly reduces `kept` by 1. This causes `set_rate` to pr=
-ogram `m_found =3D m + 1` into the hardware, masking an additional cycle an=
-d driving the clock at a lower rate than what was reported and committed by=
- `determine_rate`.
+- [High] The patch introduces a double-free bug by adding error path cleanu=
+ps (`phy_power_off()` and `drm_dp_link_power_down()`) in `dw_dp_link_enable=
+()`. Because `atomic_enable` returns `void` and cannot abort a commit, the =
+DRM core unconditionally invokes `atomic_disable` later, executing a second=
+ cleanup.
 
 Pre-existing issues:
-- [High] The newly introduced sparse `gpu_mux_table` triggers a pre-existin=
-g flaw in `ccu_mux_helper_get_parent()`. If the vendor bootloader leaves th=
-e GPU mux at hardware index 1 (`pll-periph0-800M`), `ccu_mux_helper_get_par=
-ent()` fails to find `1` in the sparse table (`{ 0, 2, 3, 4, 5 }`) and fall=
-s back to returning the raw hardware index `1`. The clock framework interpr=
-ets this `1` as a software array index and incorrectly maps it to `gpu_pare=
-nts[1]` (`pll_periph0_600M_clk`). If the kernel subsequently requests a 600=
-MHz GPU rate, the framework falsely assumes the mux is already on the corre=
-ct parent, skipping the mux switch and only setting the divider. This cause=
-s the hardware to remain at the undivided 800MHz parent, triggering the exa=
-ct GPU job faults this patch intends to fix.
-- [High] `pll_gpu_clk` is defined with the `CLK_SET_RATE_GATE` flag, which =
-requires the clock to be unprepared (gated) before its rate can be changed.=
- However, as noted in the commit message, reprogramming this PLL while its =
-gate is off causes a 70ms lock timeout because the lock bit never asserts w=
-hen the clock is disabled. This means any rate change on `pll_gpu` while it=
- is gated will stall the kernel for 70ms. The patch works around this for t=
-he `gpu` downstream consumer by dropping `CLK_SET_RATE_PARENT`, but `pll_gp=
-u_clk` itself remains incorrectly modeled. It should use `CLK_SET_RATE_UNGA=
-TE` to inform the framework that the clock must be powered on to change its=
- rate.
+- [High] A preexisting bug where `phy_power_off()` is called on atomic disa=
+ble even if `phy_power_on()` failed in `dw_dp_link_enable()`, corrupting th=
+e PHY power state and regulator counts.
 --
 
---- Patch [2]: [PATCH v2 2/3] clk: sunxi-ng: sun55i-a523: GPU clock divider=
- is fractional, not linear ---
-commit 5635b9edbbd86c7ae0bef62dc457d0e280dc656a
-Author: Juan Manuel L=C3=B3pez Carrillo <juanmanuellopezcarrillo@gmail.com>
+--- Patch [3]: [PATCH v9 03/22] drm/bridge: synopsys: dw-dp: Fix error hand=
+ling in dw_dp_link_enable() ---
+commit 37d17812be83d5554aca9b8d15486591d59db100
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-clk: sunxi-ng: sun55i-a523: GPU clock divider is fractional, not linear
+drm/bridge: synopsys: dw-dp: Fix error handling in dw_dp_link_enable()
 
-This patch changes the GPU clock modeling on sun55i-a523 from a linear divi=
-der
-to a fractional cycle-masking divider. It updates the parent list, removes
-the 800M parent due to hardware faults, and drops CLK_SET_RATE_PARENT to
-prevent reprogramming the GPU PLL while it is gated.
+This commit adds missing error handling in dw_dp_link_enable(), which
+failed to release resources it already requested before hitting an error.
 
-> Also drop CLK_SET_RATE_PARENT: every OPP is reachable from the fixed
-> pll-periph0 outputs, and pll-gpu must never be reprogrammed through this
-> mux.  Once the GPU moves off pll-gpu the PLL is no longer prepared, so
-> it loses the rate protection of CLK_SET_RATE_GATE; a propagated rate
-> request would then reprogram the PLL while its gate is off (the lock
-> bit never asserts, 70 ms poll timeout per transition) and switch the
-> running GPU onto it before it locks.
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 06997208945ed..e332d66b80571 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1636,10 +1636,19 @@ static int dw_dp_link_enable(struct dw_dp *dp)
+> =20
 
 [Severity: High]
-This is a pre-existing issue, but does pll_gpu_clk use the wrong rate flag?
+This is a pre-existing issue, but does the same unbalanced power state
+happen if phy_power_on() fails?
 
-The commit message notes that the lock bit never asserts when the gate is
-off, causing a 70ms timeout when reprogrammed. However, pll_gpu_clk is
-declared in this file with CLK_SET_RATE_GATE:
+Looking at dw_dp_link_enable(), which executes just before this hunk:
 
-drivers/clk/sunxi-ng/ccu-sun55i-a523.c:
+    ret =3D phy_power_on(dp->phy);
+    if (ret)
+        return ret;
+
+If phy_power_on() fails, we return early. However, because atomic_enable()
+returns void and cannot abort a commit, the DRM core will still
+unconditionally call dw_dp_link_disable() later:
+
+dw_dp_link_disable() {
     ...
-                               CLK_SET_RATE_GATE),
-    ...
-
-Using CLK_SET_RATE_GATE enforces that the clock must be gated (unprepared)
-before its rate can be changed. Since the hardware requires the PLL to be
-ungated to lock, this contradicts the hardware's requirements.
-
-Should pll_gpu_clk be updated to use CLK_SET_RATE_UNGATE instead, to inform
-the framework that the clock must be powered on to change its rate?
-
-> diff --git a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c b/drivers/clk/sunxi-n=
-g/ccu-sun55i-a523.c
-> index 20dad06b37ca3..979e53e635228 100644
-> --- a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-> +++ b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-
-[ ... ]
-
-> @@ -442,18 +443,37 @@ static SUNXI_CCU_GATE_HWS(bus_g2d_clk, "bus-g2d", a=
-hb_hws, 0x63c, BIT(0), 0);
-> =20
->  static const struct clk_hw *gpu_parents[] =3D {
->  	&pll_gpu_clk.common.hw,
-> -	&pll_periph0_800M_clk.common.hw,
->  	&pll_periph0_600M_clk.hw,
->  	&pll_periph0_400M_clk.hw,
->  	&pll_periph0_300M_clk.hw,
->  	&pll_periph0_200M_clk.hw,
->  };
-> =20
-> -static SUNXI_CCU_M_HW_WITH_MUX_GATE(gpu_clk, "gpu", gpu_parents, 0x670,
-> -				    0, 4,	/* M */
-> -				    24, 3,	/* mux */
-> -				    BIT(31),	/* gate */
-> -				    CLK_SET_RATE_PARENT);
-> +/*
-> + * Mux index 1 (pll-periph0-800M) is skipped: the vendor BSP removed it
-> + * from the parent list ("If GPU use pll-peri0-800m, gpu will occur job
-> + * fault"), and with the masking divider every OPP would match exactly
-> + * from it first.
-> + */
-> +static const u8 gpu_mux_table[] =3D { 0, 2, 3, 4, 5 };
-
-[Severity: High]
-This is a pre-existing issue, but does skipping index 1 here expose a flaw
-in ccu_mux_helper_get_parent()?
-
-If the bootloader leaves the GPU mux at hardware index 1, the helper fails
-to find it in this sparse table and falls back to returning the raw index:
-
-drivers/clk/sunxi-ng/ccu_mux.c:ccu_mux_helper_get_parent() {
-    ...
-        for (i =3D 0; i < num_parents; i++)
-            if (cm->table[i] =3D=3D parent)
-                return i;
-    }
-
-    return parent;
+    phy_power_off(dp->phy);
 }
 
-The clock framework then interprets this returned 1 as a software array
-index and incorrectly maps it to gpu_parents[1] (which is now
-pll_periph0_600M_clk).
+Will this unconditional cleanup drop the phy power count to -1, permanently
+breaking subsequent power on attempts because the next phy_power_on()
+will only increment the count to 0 and skip hardware initialization?
 
-If the kernel subsequently requests a 600MHz GPU rate, the framework
-might falsely assume the mux is already on the correct parent and skip the
-switch. This would leave the hardware at the undivided 800MHz parent,
-triggering the exact GPU job faults this patch intends to fix.
-
+>  	ret =3D drm_dp_link_power_up(&dp->aux, dp->link.revision);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto err_phy_power_off;
+> =20
+>  	ret =3D dw_dp_link_train(dp);
+> +	if (ret < 0)
+> +		goto err_link_power_down;
 > +
-> +/*
-> + * The M factor is a cycle-masking (fractional) divider, not a linear
-> + * one: rate =3D source * (16 - M) / 16 (T527 manual, GPU_CLK_REG).
-> + *
-> + * No CLK_SET_RATE_PARENT: every GPU OPP is reachable from the fixed
-> + * pll-periph0 outputs, and pll-gpu must never be reprogrammed through t=
-his mux.
-> + * Once the GPU moves off pll-gpu the PLL is no longer prepared, so it l=
-oses
-> + * the rate protection of CLK_SET_RATE_GATE; a propagated rate request w=
-ould
-> + * then reprogram the PLL while its gate is off (the lock bit never asse=
-rts,
-> + * 70 ms timeout) and switch the running GPU onto it before it locks.
-> + */
-> +static SUNXI_CCU_MASKDIV_HW_WITH_MUX_TABLE_GATE(gpu_clk, "gpu", gpu_pare=
-nts,
-> +						gpu_mux_table, 0x670,
-> +						0, 4,	/* M */
-> +						24, 3,	/* mux */
-> +						BIT(31),	/* gate */
-> +						0);
+> +	return 0;
+> +
+> +err_link_power_down:
+> +	drm_dp_link_power_down(&dp->aux, dp->link.revision);
+> =20
+> +err_phy_power_off:
+> +	phy_power_off(dp->phy);
 
 [Severity: High]
-Does using the maskdiv implementation here cause the hardware to drift
-lower than the requested rate when the parent rate is not evenly divisible
-by 16?
+Will this explicit rollback result in phy_power_off() being called twice?
 
-In ccu_maskdiv_find_m(), integer truncation occurs when recovering the
-multiplier:
+Since the DRM core will unconditionally invoke atomic_disable() later
+when the commit fails, dw_dp_link_disable() will execute and perform
+its own cleanup:
 
-drivers/clk/sunxi-ng/ccu_maskdiv.c:ccu_maskdiv_find_m() {
+dw_dp_link_disable() {
     ...
-    kept =3D div64_ul((u64)rate * n, parent_rate);
+    if (dw_dp_hpd_detect(dp))
+        drm_dp_link_power_down(&dp->aux, dp->link.revision);
     ...
+    phy_power_off(dp->phy);
 }
 
-When determine_rate computes new_rate =3D (parent_rate * (16 - m)) / 16,
-the remainder is truncated. When set_rate subsequently attempts to recover
-m using the truncated rate:
+Doing the cleanup here in the error path means these functions will be
+called a second time.
 
-drivers/clk/sunxi-ng/ccu_maskdiv.c:ccu_maskdiv_set_rate() {
-    ...
-    m =3D ccu_maskdiv_find_m(parent_rate, rate, cmd->width);
-    ...
-}
+Can this double cleanup cause the phy power count to drop to -1, resulting
+in the same permanent breakage of the display pipeline described above?
 
-The loss of the remainder strictly reduces kept by 1. This causes set_rate
-to program m + 1 into the hardware, masking an additional cycle and driving
-the clock at a lower rate than what was reported by determine_rate.
-
-Could DIV_ROUND_UP_ULL be used to prevent this truncation?
+>  	return ret;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803180755.2887=
-93-1-juanmanuellopezcarrillo@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-synopsys-d=
+w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D3
