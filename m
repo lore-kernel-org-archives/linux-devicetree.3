@@ -1,175 +1,546 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002D541CB20;
-	Mon,  3 Aug 2026 16:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785773501; cv=pass; b=ZqfWPJq4/m836nbL/fnSyZPjfYmajlednwlR6buIQ7CFVm8oQrTof6Ztqn8s02fbAk+prB5pRFfqPFTDFH1EATbO6s339j0y0n9KdD2AkTY/jq4xrls/L36x11KxpK+sH7x1e/ZWgXF1iDlTjVldWt4e+UKMyIF/VRcQM5VbxdE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785773501; c=relaxed/simple;
-	bh=jotNqgCztkp3Xeor14/oCMOxmbbq70siUCKsp4sE8ds=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YH+T+CBD9xuWeU82HJPZ/KvJZEHS2Fe84h75QenIaEfdbYMXy7TtVwJBy32/vswS1yo1Xy+UkehEWOt3hpZ4Lq3spI8e32cvABLIjaTbxTyjwU2UWvd/TjKn9FT8I0bHQoenZITdK9LgyglwtVhyCFnYRRU5toR3Nhbao7/SDeI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net; spf=fail smtp.mailfrom=hartkopp.net; dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=hFQbDHJo; dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b=aIy8soE4; arc=pass smtp.client-ip=81.169.146.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355D137A83B
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785773710; cv=none; b=hdlw/Ir7J2G3fcqY6KTTyocOZ3ALQIvYBeKBXjU/hL2fmCC8MVLLXy3Fb1JUkuvN8n0sd3D8FMHACreoJbwgeYtF8guUdGOzIzEeuMdNB7Tx9L4ZvJIvM8BOgGty60EOUDe2Y2IGK68ZQnU26oBw4pa8k2aXdPclgFmgMbIIUe8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785773710; c=relaxed/simple;
+	bh=qJ7OHeRdhigjpazP5LHh19uweVNBGbyeFWULJEFKjXc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KVAHg1OgMY9FMEsZRVab2pHMPEon9M/R0sOOJWteH3IJHIEAsH8B2SfvGj7zvRWJ503oS/4Yr7PVi+sV8eladSCXy0XUHMNLp3RjgK/c9u6UAexmK+oxvynaNy47NZDoGLderZcXKGmA2yThtQKByDC0rLHdBdHp/sNrYT4BSFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cfMYOR4p; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=neldnove; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="hFQbDHJo";
-	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="aIy8soE4"
-ARC-Seal: i=1; a=rsa-sha256; t=1785773130; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=odhMUvWprXX5AQG5EfHg9t08CS1eyZGM6QMil/FqzzU9zD6CJ/MSsLe+/c0PJSTcrI
-    S7zuV7UpLmoxkibaxWUPl4Q17UrgG84Zb8K40trKLNn4MtoGLCxGT8NugcjbHlthB9Ra
-    iJEK9mDD7l7LyIa9bTzFiJiV4GRf5Y4THGh0vx4u2phdIOQZtaEC9A4eJWZOa1jwEBRi
-    ih68cqvIglklr9lX/i1SIQEEG8yw/BP2GcnBBtxgr2WfV8QQOIJogRc7e7GTdHomQf9H
-    kWf2cEouQ4kHBQQpD6/nu34TzJcJuQVS8qWIVNn5NM/9Adl93VHlsAwHTrzNJ/vvqUNO
-    6ukw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1785773130;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=BSb3GcMKg+gyzYLX8t+TY5utwwyEasIW2FI0UXjAEOE=;
-    b=GCayWMoVoo2wah0cjDq4CT/7zA/vKCS/JBSJNjnn2Tr2unAJkG3RvbLtthPXhcFlIq
-    JYrC0836ZGwiGxJJ5SDyBkaQDVULOOSfP3zoHishFu9mB94uuWO5BQV458pDSzJjblf0
-    6axchh/Gk/QwuxhhPK478tjkpnpN3UT22yH26GaFTSRVkdCcwKONMgEtigAmys9pW1AL
-    s9gMIhAJAwtBGVpMZylIUBpX6oTE8xhJ7R31A3znZupXG47YnGs/yIw/4Rc7hTXD5EUp
-    3NyrFkS+Hajy5mGmkhFV40aFK64UYL+qniYH8nrrIrPhTQ9nJggvGdRnGcoskbz/Al0z
-    INlA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1785773130;
-    s=strato-dkim-0002; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=BSb3GcMKg+gyzYLX8t+TY5utwwyEasIW2FI0UXjAEOE=;
-    b=hFQbDHJof3NxIHeuJfSDM/BIElQlV3Jx0m32626Db5ZwzxUruuVvwe6CMs1RmcpheM
-    Kxec8shEtxJzTuGG1AggNAmfIjkpKqAvTtFknb42haDCfq+AFU6QAjOmNjdFublWSgjd
-    H/mEVOUaYQOZ946/G3bS2M6YM/PEz+TR+OpXGHl4hjcSlpZp00fD+HTlokESy9KPEJxQ
-    UslBJVo/zIiDf17E4U31rHdaq548pNF3U46XLXP/pPoQobw5eo8pVJt0QPub01VUPJ8D
-    xmgwGAh7XC2Lske4mNNIhWbCQNlmjlcWBg52+dlNth3URuc8nWTYq0iw/MmxnIDkJgR+
-    kjeA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1785773130;
-    s=strato-dkim-0003; d=hartkopp.net;
-    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=BSb3GcMKg+gyzYLX8t+TY5utwwyEasIW2FI0UXjAEOE=;
-    b=aIy8soE4u3PWlBnK4JAWTflUE+DiGQmlefUmzXFWZqAT6cECpYPeCX4r6aB3gJlOAD
-    0f0yZozsJzDixm/gdqCQ==
-X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tRkI16oOSW1Ti/f4PoH8="
-Received: from [192.168.20.231]
-    by smtp.strato.de (RZmta 55.5.6 DYNA|AUTH)
-    with ESMTPSA id K52819273G5Tupe
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 3 Aug 2026 18:05:29 +0200 (CEST)
-Message-ID: <5eb9a4e8-383f-42bc-bf4a-4ce626916828@hartkopp.net>
-Date: Mon, 3 Aug 2026 18:05:24 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cfMYOR4p";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="neldnove"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785773702;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TYABYwpx6ruAb5bhUwEW7oIyVa3yNnOD8j4tVtfIkMg=;
+	b=cfMYOR4pupB8xPCifIIqNXlTmHY4ZQ7TwdMH+/Bs9T0FrmO5LDOOjmEeinAb8VwQjlRAmM
+	Uss+/ZK2xGExzdoKX4rqFhsHuFEgRctAwnE/4iKQ358ayzbSv9QTeXvJmL2ta6trT/L0Q5
+	tF79L7IYaiMe6gqtQ1590HWCp1S4Hqc=
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
+ [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-94-7VsFzUBzP2uTKkVsjFk9ug-1; Mon, 03 Aug 2026 12:14:51 -0400
+X-MC-Unique: 7VsFzUBzP2uTKkVsjFk9ug-1
+X-Mimecast-MFC-AGG-ID: 7VsFzUBzP2uTKkVsjFk9ug_1785773691
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-81ec0eb032aso118750347b3.1
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:14:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1785773691; x=1786378491; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TYABYwpx6ruAb5bhUwEW7oIyVa3yNnOD8j4tVtfIkMg=;
+        b=neldnoveHUS1RFeAPUQTUYpuyyFv7k+BvJ73USDVzrgyJRR8uTYREUsJD44XyAfvCO
+         jXU2CYfIv3x4ODlSU7rXUVd9FcZWknyFiVNXAp/93BiFhVBvwLy9hctMrJ5mJ1wIgs1p
+         4z77Rqy044D9JnyYCzgMSqZ3P0s3yPS9KMVrhQECLgrDOH/RaKSV5axlXEu/mu8PMhYZ
+         VVyQb8MYFKkG4kBsMmO+uz15jJEgcQzsF+TCVhKwVtcbrLquvgI7NCWaGrBfeTc8+9GJ
+         DxepevSo/BRKBmek1qF8+4gXIjc7F3VKBwLqXn5zYRntalK5D8BwJogAsPB1ARLReju3
+         rPKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785773691; x=1786378491;
+        h=user-agent:in-reply-to:content-transfer-encoding
+         :content-disposition:content-type:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TYABYwpx6ruAb5bhUwEW7oIyVa3yNnOD8j4tVtfIkMg=;
+        b=JqVob90VAtS6UerkVtEgN4dxvXIspUyIDKZY1ICdplhbemJyXiQeKRwtkMQfCivAxr
+         5PM/I2X4Oq83YKq0lheVLx26AMuJKCNQ3PvcMMkcFcyNlFIG5xvXi4xeWUwL331MDFAU
+         /oNkhYCbwsxgT14kZtTqPRDTlvjb/aFnvJJ8j9/WRWFXUTQwn6lXKR9BRZhu7W2K7coF
+         ErT+LolQHjBR4mFTN4AcH8vtKTkZrq7RW0IDrXOoRSdSUA0h2l6gyXFoXpQrcxG6aiPg
+         tb0978tjt98yQz8dXBeCw2EI9w70bcYYObjhEogSNSVzJJP/bz9OkyoO7Cp0plRfQhIN
+         x2Ig==
+X-Forwarded-Encrypted: i=1; AHgh+RrFY+LhkjhYtCQ/3dpo4UbJrvzbIDZgOMuJ9tzWa7pNzA9+3qrB4aQ24J4YPIAuOHVHqD+/os8QKU0a@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQ/J57/vzw9gAIv2FO+iIDWJ5juYN7+NXEWVARp4G2IgSQYU3J
+	1kLgUfmVFyuCXt6AkbekzfErShe/QdBMdGccub4QyL3ZrfJPBnHohxFTzqIV3W2RuKb5uA/eN2a
+	c9U5vklhnjLgxndiKOSZfpxgQpkKkdiM/8uRKco47KU6lNaYN2xCXFDZHobJos38=
+X-Gm-Gg: AR+sD11DgMhgpoDkyf5Zr94jr5wqPa3rIQlSSLGwoyZY8yYvohp4VgV2SEADI1l1a2h
+	2CHN8h+PWMt0pmtDdGwsGx+AB8wUwYnQvt02RWqibYpdvgbsLOEOI1D4poAunXKX38CWA9ECh4q
+	aEWebyCc+fZrAbAVrDMjG6gGA46benHqGwoqWq8Blrbyi6nCDSp6lAIq4BMNgGVrSZs3ljL7E86
+	jZPP6yDJjPDDJnfYafci8wMjJyfEJ8abDK9PRFrYBMfRkZUoxbOiKrbjuf+B8MMoo9iLbVUh0M6
+	mHERsL0x8sNL44XF7OTU3xk1Ape6WrxYuzKEwsrd9Nx67ozz/ABrTqRaxjATMrUsHELprsSoEt+
+	g501XhrP9/E68xYMgtt2RK9MH9tOtCxTYtXI=
+X-Received: by 2002:a05:690c:e3f0:b0:81c:eca8:dbaf with SMTP id 00721157ae682-81fd4bed013mr148250427b3.31.1785773690483;
+        Mon, 03 Aug 2026 09:14:50 -0700 (PDT)
+X-Received: by 2002:a05:690c:e3f0:b0:81c:eca8:dbaf with SMTP id 00721157ae682-81fd4bed013mr148250027b3.31.1785773689959;
+        Mon, 03 Aug 2026 09:14:49 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fcd0d6fcasm57682727b3.29.2026.08.03.09.14.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 09:14:49 -0700 (PDT)
+Date: Mon, 3 Aug 2026 12:14:47 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org, mfd@lists.linux.dev
+Subject: Re: [PATCH v9 07/12] clk: zte: Add zx PLL support infrastructure
+Message-ID: <anC-d-cNuHoYD7px@redhat.com>
+References: <20260802-zx29clk-v9-0-d05530d85d28@gmail.com>
+ <20260802-zx29clk-v9-7-d05530d85d28@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] can: arasan-canfd: add driver for arasan CAN-FD
- controller
-To: Jisheng Zhang <jszhang@kernel.org>, Marc Kleine-Budde
- <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260803140531.12692-1-jszhang@kernel.org>
- <20260803140531.12692-3-jszhang@kernel.org>
-Content-Language: en-US
-From: Oliver Hartkopp <socketcan@hartkopp.net>
-In-Reply-To: <20260803140531.12692-3-jszhang@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260802-zx29clk-v9-7-d05530d85d28@gmail.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-
-
-On 03.08.26 16:05, Jisheng Zhang wrote:
-> Add driver for the arasan CAN-FD controller.
+On Sun, Aug 02, 2026 at 11:33:39PM +0300, Stefan Dösinger wrote:
+> I am guessing how much of this is reusable among other zx chips or even
+> differently named ZTE platforms (if there are any). From reading the old
+> zx2967 code, I think the PLL code would be reusable there, maybe with
+> platform-specific bitmasks but otherwise the same logic.
 > 
-
+> Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+> 
+> ---
+> 
+> Version 9:
+> *) Take req->min_rate and req->max_rate into account when looking for
+> possible PLL configurations (sashiko). In practice the code will still
+> only ever encounter a fixed request to set dpll to 491.52 MHz.
+> 
+> *) The same code style changes Brian requested on the other clk patches.
+> 
+> Version 8:
+> *) Document the behavior of unlocked PLLs better: They don't pass
+> through their reference/parent, but pass through the fixed clock-26m
+> oscillator, even if their reference clock is something else.
+> *) dpll has working fractionals. Add this in the comment, but there is
+> no actual code support for it - the LTE hardware doesn't need it.
+> 
+> As for Sashiko's comments on the .set_rate implementation: In practice
+> .set_rate will only ever set one rate, 491.52 MHz for dpll. All other
+> PLLs are bootloader configured. Dpll could be handled by writing a magic
+> constant into its config.
+> 
+> I want to have the rate finding code as documentation, and maybe there
+> is more elaborate future use for it (e.g. more flexible underclocking),
+> but attempts to handle eventualities like rate searches or misconfigured
+> bootloader values would be dead code.
+> 
+> Version 7:
+> *) Always keep unknownpll enabled when prepared so dpll can acquire a
+> lock in its prepare() function.
+> *) Clean up error reporting a bit (Sashiko)
+> 
+> Version 6:
+> *) Use abs_diff to compare target and candidate PLL rate (Sashiko).
+> *) Use req->best_parent_rate in zx29_pll_determine_rate. Add a TODO
+> comment about the parent rate flexibility.
+> 
+> Version 5: Fix some issues pointed out by Sashiko: NULL dev,
+> zx29_pll_recalc_rate error handling, disable PLL again on enable error.
+> ---
+>  drivers/clk/zte/pll-zx.c | 568 ++++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 565 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/clk/zte/pll-zx.c b/drivers/clk/zte/pll-zx.c
+> index fc76c6524a16..e61b462ec0b4 100644
+> --- a/drivers/clk/zte/pll-zx.c
+> +++ b/drivers/clk/zte/pll-zx.c
+> @@ -4,15 +4,577 @@
+>   */
+>  
+>  #include <linux/clk-provider.h>
+> +#include <linux/clk.h>
+> +#include <linux/container_of.h>
+>  #include <linux/device.h>
+> +#include <linux/err.h>
+>  #include <linux/errno.h>
+> +#include <linux/math.h>
+> +#include <linux/rational.h>
+>  #include <linux/regmap.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+>  
+>  #include "clk-zx.h"
+>  
+> +/*
+> + * This code has only been tested with zx297520v3 PLLs, but from reading the zx296718 clock code it
+> + * looks like PLL registers are similar. ZTE's sources explain the PLL register contents only in a
+> + * .cmm file (A Lauterbach TRACE32 script) and some unused headers in their U-Boot code dump, which
+> + * may not be accurate. When calculating the frequencies from the default PLL configuration the
+> + * results match the fixed rate clocks from their clock driver.
+> + *
+> + * The 26 MHz and 32 kHz clocks can be easily observed with the timers. The 104 MHz output can be
+> + * observed through the UART. One 122.88 MHz clock can be observed through the TDM device. All
+> + * others can only be indirectly inferred, e.g. by comparing CPU speed or SDIO transfer rate between
+> + * the fixed 26 MHz oscillator and the provided PLL frequency.
+> + *
+> + * The formula to calculate the clock is ((ref / refdiv) * fbdiv) / postdiv1 / postdiv2. The masks
+> + * are given below. There are a few control flags:
+> + *
+> + * Bit 31: Disables the PLL, but passes clock-26m through unmodified. Whether POSTDIV_OUT_DISABLE
+> + *         still matters is different between PLLs.
+> + * Bit 30: Returns if the PLL is locked
+> + * Bit 29: Not named in ZTE's code, but can be set. There is no obvious impact. Lock times are
+> + *         unchanged, so it doesn't influence or bypass lock detection. It doesn't raise any IRQs or
+> + *         influence GPIOs.
+> + * Bit 27: Given its name it likely disables the Delta-Sigma Modulator, if one exists at all. The
+> + *         boot ROM sets it on every PLL. Unsetting it marginally decreases the time it takes to
+> + *         lock to the reference clock (from ~400 us to ~300 us).
+> + * Bit 24: Bypasses the VCO, but still applies refdiv and postdiv. Doesn't matter if PLL_DISABLE=1.
+> + *
+> + * NB: Some PLLs have an automatic bypass logic that forwards clock-26m (REGARDLESS of reference)
+> + * when they don't have a lock, regardless of reason. This can be triggered by disabling the PLL,
+> + * setting an out-of-spec VCO frequency or disabling the parent. This shouldn't matter in regular
+> + * operation, but caused me some confusion when reverse engineering the clock tree. E.g. clock-26m->
+> + * unknownpll(disabled) -> dpll(enabled) counterintuitively results in a 26 MHz output clock.
+> + */
 > +
-> +static const u32 ecc_syndrom[7] = {
-> +	0xC14840FF,
-> +	0x2124FF90,
-> +	0x6CFF0808,
-> +	0xFF01A444,
-> +	0x16F092A6,
-> +	0x101F7161,
-> +	0x8A820F1B,
+> +#define ZX29_PLL_DISABLE			BIT(31)
+> +#define ZX29_PLL_LOCKED				BIT(30)
+> +#define ZX29_PLL_LOCK_FILTER			BIT(29)
+> +#define ZX29_PLL_DSM_DISABLE			BIT(27)
+> +#define ZX29_PLL_PARENT_MASK			GENMASK(26, 25)
+> +#define ZX29_PLL_PARENT_SHIFT			25
+> +#define ZX29_PLL_BYPASS				BIT(24)
+> +#define ZX29_PLL_REFDIV_MASK			GENMASK(23, 18)
+> +#define ZX29_PLL_REFDIV_SHIFT			18
+> +#define ZX29_PLL_FBDIV_MASK			GENMASK(17, 6)
+> +#define ZX29_PLL_FBDIV_SHIFT			6
+> +#define ZX29_PLL_POSTDIV1_MASK			GENMASK(5, 3)
+> +#define ZX29_PLL_POSTDIV1_SHIFT			3
+> +#define ZX29_PLL_POSTDIV2_MASK			GENMASK(2, 0)
+> +#define ZX29_PLL_POSTDIV2_SHIFT			0
+> +
+> +/*
+> + * The second register has a 24 bit fractional value, which only matters when ZX29_PLL_DSM_DISABLE
+> + * is not set, and only seems to matter for dpll. ZTE's firmware does not make use of the fractional
+> + * and it is unimplemented in this driver. Experimental testing confirms that it has an impact on
+> + * dpll.
+> + *
+> + * Bits 27:24 contain more flags:
+> + *
+> + * Bit 27: Setting ZX29_PLL_DACAP slows down the lock time and obviates the speed gained from
+> + *         !DSM_DISABLE. No other effect observed.
+> + *
+> + * Bit 26: ZX29_PLL_4PHASE_OUT_DISABLE is set on some PLLs on boot but not on others. It is set on
+> + *         boot on mpll and upll, but not gpll, dpll or unknownpll. I am not sure what it does
+> + *         either. The SDIO devices break if they are fed from gpll with this flag set, but they
+> + *         work OK if they are fed from mpll without this flag set.
+> + *
+> + * Bit 25: ZX29_PLL_POSTDIV_OUT_DISABLE seems to disable the PLL output entirely. Whether it is
+> + *         bypassed by PLL_DISABLE differs between PLLs. gpll still produces an output clock if
+> + *         PLL_DISABLE = 1 and POSTDIV_DISABLE = 1, but produces no output if PLL_DISABLE = 0 and
+> + *         POSTDIV_DISABLE = 1. The dpll feeder ("unknownpll") at 0x100 produces no output clock if
+> + *         both PLL_DISABLE and POSTDIV_DISABLE are set to 1.
+> + *
+> + * Bit 24: ZX29_PLL_VCO_OUT_DISABLE probably disables the output of the VCO clock without
+> + *         post-VCO-dividers, but the raw VCO output is not a possible parent of any consumer clock,
+> + *         so I could not confirm this. It does not disable the VCO entirely - that's what
+> + *         PLL_DISABLE does.
+> + *
+> + * A spinlock should not be needed. PLLs don't share their registers with anything else and the
+> + * global prepare mutex and enable spinlock should be enough. Beware of conflicts in reg2 between
+> + * POSTDIV_OUT_DISABLE and the fractional value in case you find out how fractional dividers work
+> + * and add support for them.
+> + */
+> +#define ZX29_PLL_REG2_OFFSET			4
+> +#define ZX29_PLL_DACAP				BIT(27)
+> +#define ZX29_PLL_4PHASE_OUT_DISABLE		BIT(26)
+> +#define ZX29_PLL_POSTDIV_OUT_DISABLE		BIT(25)
+> +#define ZX29_PLL_VCO_OUT_DISABLE		BIT(24)
+> +#define ZX29_PLL_FRACT				GENMASK(23, 0)
+> +
+> +/*
+> + * The VCO's frequency range is limited. The stock settings run the VCO between 960 and 1248 MHz.
+> + * Ad-hoc testing with gpll suggests that at least this PLL remains stable down to about 7 MHz and
+> + * up to 2 GHz and produces a clock that can be used by the SDIO controller. Attempting to run the
+> + * mpll VCO at 624 MHz and setting postdiv1 = postdiv2 = 1 - which should result in the same output
+> + * frequency - or running it at 1872 MHz with an effective post divider of 3 crashes the CPU. Most
+> + * likely the PLLs become unstable outside their core range and the SDIO controller is much more
+> + * forgiving than CPU and DRAM are.
+> + */
+> +#define ZX29_PLL_VCO_MAX_FREQ			(1300 * HZ_PER_MHZ)
+> +#define ZX29_PLL_VCO_MIN_FREQ			(900 * HZ_PER_MHZ)
+> +
+> +struct zx29_clk_pll {
+> +	struct clk_hw	hw;
+> +	struct device	*dev;
+> +	struct regmap	*map;
+> +	u16		reg;
 > +};
 > +
-> +static inline int parity(unsigned int x)
-
-int / unsigned int ?
-
-u32 might have been better.
-
+> +static inline struct zx29_clk_pll *to_zx29_clk_pll(struct clk_hw *hw)
 > +{
-> +	/*
-> +	 * public domain code snippet, lifted from
-> +	 * http://www-graphics.stanford.edu/~seander/bithacks.html
-> +	 */
-> +	x ^= x >> 1;
-> +	x ^= x >> 2;
-> +	x = (x & 0x11111111U) * 0x11111111U;
-> +	return (x >> 28) & 1;
+> +	return container_of(hw, struct zx29_clk_pll, hw);
 > +}
 > +
-> +static u8 ecc_calc(u32 data)
+> +static int zx29_pll_is_prepared(struct clk_hw *hw)
 > +{
-> +	int i;
-> +	u8 result = 0;
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +	int res;
 > +
-> +	for (i = 0; i < 7; i++) {
-> +		if (parity(data & ecc_syndrom[i]))
-> +			result |= BIT(i);
+> +	res = regmap_test_bits(pll->map, pll->reg, ZX29_PLL_DISABLE);
+> +	if (res < 0)
+> +		return res;
+> +
+> +	return !res;
+> +}
+> +
+> +static int zx29_pll_prepare(struct clk_hw *hw)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +	u32 val = 0;
+> +	int res;
+> +
+> +	res = regmap_clear_bits(pll->map, pll->reg, ZX29_PLL_DISABLE);
+> +	if (res < 0)
+> +		return res;
+> +
+> +	/* Lock duration is usually between 300 us and 500 us */
+> +	res = regmap_read_poll_timeout(pll->map, pll->reg, val, val & ZX29_PLL_LOCKED, 50, 2000);
+> +	if (res) {
+> +		regmap_set_bits(pll->map, pll->reg, ZX29_PLL_DISABLE);
+> +		dev_err(pll->dev, "%s: PLL prepare failed: %d. Config value 0x%08x\n",
+> +			clk_hw_get_name(&pll->hw), res, val);
+> +	}
+> +	return res;
+> +}
+> +
+> +static void zx29_pll_unprepare(struct clk_hw *hw)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +
+> +	regmap_set_bits(pll->map, pll->reg, ZX29_PLL_DISABLE);
+> +}
+> +
+> +static int zx29_pll_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +	int res;
+> +
+> +	res = regmap_test_bits(pll->map, pll->reg + ZX29_PLL_REG2_OFFSET,
+> +			       ZX29_PLL_POSTDIV_OUT_DISABLE);
+> +	if (res < 0)
+> +		return res;
+> +
+> +	return !res;
+> +}
+> +
+> +static int zx29_pll_enable(struct clk_hw *hw)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +
+> +	return regmap_clear_bits(pll->map, pll->reg + ZX29_PLL_REG2_OFFSET,
+> +				 ZX29_PLL_POSTDIV_OUT_DISABLE);
+> +}
+> +
+> +static void zx29_pll_disable(struct clk_hw *hw)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +
+> +	regmap_set_bits(pll->map, pll->reg + ZX29_PLL_REG2_OFFSET,
+> +			ZX29_PLL_POSTDIV_OUT_DISABLE);
+> +}
+> +
+> +static unsigned long zx29_pll_get_rate(const struct zx29_clk_pll *pll, unsigned long parent_rate,
+> +				       u32 setting)
+> +{
+> +	unsigned long refdiv, fbdiv, postdiv1, postdiv2, freq;
+> +	const char *name = clk_hw_get_name(&pll->hw);
+> +	u64 vco;
+> +
+> +	refdiv = (setting & ZX29_PLL_REFDIV_MASK) >> ZX29_PLL_REFDIV_SHIFT;
+> +	fbdiv = (setting & ZX29_PLL_FBDIV_MASK) >> ZX29_PLL_FBDIV_SHIFT;
+> +	postdiv1 = (setting & ZX29_PLL_POSTDIV1_MASK) >> ZX29_PLL_POSTDIV1_SHIFT;
+> +	postdiv2 = (setting & ZX29_PLL_POSTDIV2_MASK) >> ZX29_PLL_POSTDIV2_SHIFT;
+> +	dev_dbg(pll->dev, "%s: reference clock %lu Hz, PLL setting 0x%08x\n",
+> +		name, parent_rate, setting);
+> +
+> +	if (!refdiv || !postdiv1 || !postdiv2) {
+> +		dev_err(pll->dev, "%s: divide by zero (%lu, %lu, %lu)\n", name, refdiv, postdiv1,
+> +			postdiv2);
+> +		return 0;
 > +	}
 > +
-> +	return result;
+> +	vco = div_u64((u64)parent_rate * fbdiv, refdiv);
+> +	freq = div_u64(div_u64(vco, postdiv1), postdiv2);
+> +	dev_dbg(pll->dev, "%s: refdiv %lu fbdiv %lu\n", name, refdiv, fbdiv);
+> +	dev_dbg(pll->dev, "%s: postdiv1 %lu postdiv2 %lu\n", name, postdiv1, postdiv2);
+> +
+> +	dev_dbg(pll->dev, "%s: %lu MHz\n", name, freq / HZ_PER_MHZ);
+> +
+> +	return freq;
 > +}
 > +
+> +static unsigned long zx29_pll_recalc_rate(struct clk_hw *hw, unsigned long parent_rate)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +	u32 val;
+> +	int res;
+> +
+> +	res = regmap_read(pll->map, pll->reg, &val);
+> +	if (res < 0) {
+> +		dev_err(pll->dev, "%s: Failed to read PLL settings\n", clk_hw_get_name(&pll->hw));
+> +		return 0;
+> +	}
+> +
+> +	return zx29_pll_get_rate(pll, parent_rate, val);
+> +}
+> +
+> +static u32 zx29_pll_calc_values(const struct zx29_clk_pll *pll, unsigned long parent_rate,
+> +				unsigned long rate, unsigned long min_rate, unsigned long max_rate)
+> +{
+> +	const unsigned int postdiv1_max = (1 << hweight32(ZX29_PLL_POSTDIV1_MASK)) - 1;
+> +	const unsigned int postdiv2_max = (1 << hweight32(ZX29_PLL_POSTDIV2_MASK)) - 1;
+> +	unsigned long fbdiv, refdiv, best_fbdiv = 0, best_refdiv = 0;
+> +	u32 postdiv1 = 0, postdiv2 = 0, i, j, setting;
+> +	const char *name = clk_hw_get_name(&pll->hw);
+> +	long best = LONG_MAX;
+> +
+> +	/*
+> +	 * This code produces the same VCO settings that the boot loader and stock firmware use for
+> +	 * the standard frequencies. It has seen only very little manual testing beyond that.
+> +	 *
+> +	 * The goal is to find a VCO setting that gets us as close as possible to the desired output
+> +	 * rate, while being within the VCO's operating limits and achievable with the input value
+> +	 * range. It is iterating over possible post-VCO divider values (1-7)*(1-7) to look for
+> +	 * valid VCO target frequencies and then looks for refdiv and fbdiv values to achieve the
+> +	 * VCO frequency from the reference frequency.
+> +	 */
+> +	for (j = 1; j <= postdiv2_max; j++) {
+> +		for (i = 1; i <= postdiv1_max; i++) {
+> +			u64 vco = (u64)rate * i * j;
+> +			unsigned long out;
+> +
+> +			if (vco > ZX29_PLL_VCO_MAX_FREQ || vco < ZX29_PLL_VCO_MIN_FREQ)
+> +				continue;
+> +
+> +			rational_best_approximation(vco, parent_rate,
+> +						    (1 << hweight32(ZX29_PLL_FBDIV_MASK)) - 1,
+> +						    (1 << hweight32(ZX29_PLL_REFDIV_MASK)) - 1,
+> +						    &fbdiv, &refdiv);
+> +			setting = fbdiv << ZX29_PLL_FBDIV_SHIFT;
+> +			setting |= refdiv << ZX29_PLL_REFDIV_SHIFT;
+> +			setting |= i << ZX29_PLL_POSTDIV1_SHIFT;
+> +			setting |= j << ZX29_PLL_POSTDIV2_SHIFT;
+> +			out = zx29_pll_get_rate(pll, parent_rate, setting);
+> +
+> +			if (out < min_rate || out > max_rate)
+> +				continue;
+> +
+> +			if (abs_diff(out, rate) > best)
+> +				continue;
+> +
+> +			if (abs_diff(out, rate) < best) {
+> +				postdiv1 = i;
+> +				postdiv2 = j;
+> +				best_fbdiv = fbdiv;
+> +				best_refdiv = refdiv;
+> +				best = abs_diff(out, rate);
+> +
+> +				if (!best)
+> +					goto search_done;
+> +			}
+> +		}
+> +	}
+> +search_done:
+> +
+> +	if (!postdiv1) {
+> +		dev_err(pll->dev, "Did not find a setting for %lu Hz, parent %lu Hz\n",
+> +			rate, parent_rate);
+> +		return 0;
+> +	}
+> +
+> +	dev_dbg(pll->dev, "%s: parent rate %lu\n", name, parent_rate);
+> +	dev_dbg(pll->dev, "%s: found VCO dividers %u and %u\n", name, postdiv1, postdiv2);
+> +	dev_dbg(pll->dev, "%s: VCO target rate %lu\n", name, rate * postdiv1 * postdiv2);
+> +
+> +	dev_dbg(pll->dev, "%s: Got fbdiv = %lu refdiv = %lu\n", name, best_fbdiv, best_refdiv);
+> +
+> +	setting = best_fbdiv << ZX29_PLL_FBDIV_SHIFT;
+> +	setting |= best_refdiv << ZX29_PLL_REFDIV_SHIFT;
+> +	setting |= postdiv1 << ZX29_PLL_POSTDIV1_SHIFT;
+> +	setting |= postdiv2 << ZX29_PLL_POSTDIV2_SHIFT;
+> +	dev_dbg(pll->dev, "%s: Final setting 0x%08x\n", name, setting);
+> +
+> +	return setting;
+> +}
+> +
+> +static int zx29_pll_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +	unsigned long new_rate;
+> +	u32 setting;
+> +
+> +	/*
+> +	 * TODO: DPLL can switch between two parents, one of which is another PLL. Take this into
+> +	 * account when searching the config space and set req->best_parent_rate.
+> +	 *
+> +	 * In practice it shouldn't matter though. Dpll is always configured to a fixed frequency
+> +	 * and is the only clock with a switchable parent.
+> +	 */
+> +	if (!req->best_parent_rate) {
+> +		dev_err(pll->dev, "Did not expect best_parent_rate=0\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	setting = zx29_pll_calc_values(pll, req->best_parent_rate, req->rate, req->min_rate,
+> +				       req->max_rate);
+> +	if (!setting)
+> +		return -EINVAL;
+> +
+> +	new_rate = zx29_pll_get_rate(pll, req->best_parent_rate, setting);
+> +	if (new_rate != req->rate) {
+> +		dev_warn(pll->dev, "Did not find an exact match. Want %lu, got %lu\n",
+> +			 req->rate, new_rate);
 
-IIRC there's a even better solution with already existing kernel 
-functions (e.g. hweight32()) which can use optimized CPU operations e.g. 
-to count bits in a value than open coding the parity function.
+Could this also be dev_dbg() ?
 
-#include <linux/bitops.h>
-#include <linux/types.h>
+> +		req->rate = new_rate;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int zx29_pll_set_rate(struct clk_hw *hw, unsigned long rate,
+> +			     unsigned long parent_rate)
+> +{
+> +	struct zx29_clk_pll *pll = to_zx29_clk_pll(hw);
+> +	u32 setting;
+> +
+> +	/*
+> +	 * TODO: Implement gradual PLL rate change. PLLs can be changed while they are running and
+> +	 * downstream hardware is generally fine with that. The exception is DRAM, which reads
+> +	 * incorrect values if changed too fast.
+> +	 *
+> +	 * Changing the mpll rate is potentially useful for over/underclocking. Gating mpll is
+> +	 * unrealistic because too many devices depend on it.
+> +	 */
+> +	setting = zx29_pll_calc_values(pll, parent_rate, rate, rate, rate);
+> +	if (!setting)
+> +		return -EINVAL;
+> +
+> +	dev_info(pll->dev, "%s: Setting new configuration: 0x%08x\n", clk_hw_get_name(hw), setting);
 
-static const u32 ecc_syndrom[7] = {
-	0xC14840FF,
-	0x2124FF90,
-	0x6CFF0808,
-	0xFF01A444,
-	0x16F092A6,
-	0x101F7161,
-	0x8A820F1B,
-};
+dev_dbg()
 
-static u8 ecc_calc(u32 data)
-{
-	int i;
-	u8 result = 0;
-
-	for (i = 0; i < 7; i++) {
-		if (hweight32(data & ecc_syndrom[i]) & 1)
-			result |= BIT(i);
-	}
-
-	return result;
-}
-
-Please re-check if you can use existing kernel code here.
-
-Best regards,
-Oliver
+Brian
 
