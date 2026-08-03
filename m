@@ -1,154 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A366D38E5C5;
-	Mon,  3 Aug 2026 11:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C672D402443
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 11:51:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785757745; cv=none; b=LScmKxcjAVQ00eaJ3JzRg5S1CPE9vR9JEhL/E4Tt4bVyDNd8ZvWEzQRh48jsRsNzwxs8p1a21URfg8kb0KUWIUmSFbkkWICyf/vtF3Ou2u2SBpvUNA+Pz4age4oHU55ArctI9cjGY+2ho/qdep6ZeYGqybzWso/DZt2vNBG6rj0=
+	t=1785757904; cv=none; b=ZM6nZNoupTBXKTvSYBKjYXdUYRy6nwA2/gXef/7Xfr7ldFah/UU8HsFg4PHCYdUvXTDp33/1tVYWIQQVTzqWA3gIXwR75yQGbz4/975XWGpMULp5M5NwzpSmWG4uOtWYEMC3ZSPS0ULPKB8ardq5RohKJShAXHtUYixk/Cmz8ZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785757745; c=relaxed/simple;
-	bh=qyolqh7f6KRNIbLf9tdd7+tpzpJU3N31mzBG55W/j44=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nvOVekARCr238am9svjlXE4Qyx+ebCgmPdy0VNqU5FFKgnNqiMhSNP/y1wXjowNEqM8ataXPeZR22QY08RbuoyAPNUIyY0tBSKFwwBn8iyVUp9SDa34sMiFzg0CHM1/CVVk1f2HqChIqItslLR7Q6Vxn4uiV/xfYwdSy0La6a1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AxnIc12M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785757904; c=relaxed/simple;
+	bh=Gt4TTDkgbjgDqdzkkX8XFlaBL23bU2EzA0Ftl8TbBTs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pz5nhzNDg+I2QH1N/v1Z0W45tO5krq90fd9IPMKz3l68HfjHslIyE35ou80A3NnZJrlaOYDQjgi7Qzj/3JfjPc4wKactQEEPD7wN1DOWEYq0f100K53ZGFPAmOFe8lNec50HlVqAfUAGxSxsbPYbF7ij/ypBtAcxjt50XOSxiRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UhjeWSIH; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AxnIc12M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A59751F00A3A;
-	Mon,  3 Aug 2026 11:49:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785757744;
-	bh=ZVztUxkNMNVWRcRuTWihqv1opv9N7dt9FCDyL9qjZ2I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AxnIc12MpBj6MT+alKHgOe/dDRjif+jGXi6GOpi046yFg6xwvBk01zAMhGesBmjRo
-	 4uNQygF5McXySgduHoLMgjyuN9HxLmv/RBVocDNYkCi9QTBFkir8eyGmxNKsMWuatb
-	 heTJuFw9d8zOpCHovPnTKBVnTO3ga1Fvy9Svyy+3OybKsJrtfraEB+e0J3MZjAuU+/
-	 QraFlZ+7jpnQSj5mbzxQVUf1Eb0zrfyFDiVYKCwQTykaoenV6PwzQ8dcYnFXPdg5EZ
-	 NnEyMtL9/uSwe6L6U9XawzJcVv2DiBYPFeChLEoHlWTOskLMkh1CSE2CDnVY1OOoal
-	 0DpEwgAEm2NZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v7 09/10] arm64: dts: qcom: shikra: Enable
- WiFi/BT on SoMs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803-shikra-dt-m1-v7-9-7fec8e777076@oss.qualcomm.com>
-References: <20260803-shikra-dt-m1-v7-0-7fec8e777076@oss.qualcomm.com>
- <20260803-shikra-dt-m1-v7-9-7fec8e777076@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 11:49:02 +0000
-Message-Id: <20260803114903.A59751F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UhjeWSIH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785757901;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AUAOQMzjYiynO138/0Rtw/7oG5P6xr2MxjpkKxKIOJU=;
+	b=UhjeWSIHCz6y7y2dqUFxIAYtnAcSGqnotlDY9Cvvxrp1uOSfCCt5QjJaIRebSVHpBI7nai
+	YvxwF76hQtWm6s1tPRr0KfmoT+r+SuGboV2dufkFKz6DV6aNq++xyt3aXIPmasnuHuWALQ
+	BCfrUH/nHgmDLfFVVUN99ah1xZ/V/ic=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-679-8IXOUgSANjC1aCqnaXoGtA-1; Mon,
+ 03 Aug 2026 07:51:31 -0400
+X-MC-Unique: 8IXOUgSANjC1aCqnaXoGtA-1
+X-Mimecast-MFC-AGG-ID: 8IXOUgSANjC1aCqnaXoGtA_1785757889
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1EB5619560AA;
+	Mon,  3 Aug 2026 11:51:29 +0000 (UTC)
+Received: from [10.44.33.235] (unknown [10.44.33.235])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A357E414;
+	Mon,  3 Aug 2026 11:51:25 +0000 (UTC)
+Message-ID: <760d9664-14f6-4cf8-af55-699ea3021b47@redhat.com>
+Date: Mon, 3 Aug 2026 13:51:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dpll: zl3073x: add ZL30643 chip support
+To: Vincent Jardin <vjardin@free.fr>
+Cc: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>,
+ Prathosh Satish <Prathosh.Satish@microchip.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260724-for-upstream-zl30643-v1-0-ea93ba4d85c8@free.fr>
+ <20260724-for-upstream-zl30643-v1-2-ea93ba4d85c8@free.fr>
+ <4CCA3CCC-C687-4658-8ACD-BC0CB3294A39@redhat.com>
+ <amuE9yIaBsFSgRhL@L30177.local>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <amuE9yIaBsFSgRhL@L30177.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The 0.8V WiFi core voltage (VDD_CX_MX) and the 1.8V PMU IO voltage=
- (VDDIO) are incorrectly assigned to the same regulator on both SoMs, causi=
-ng severe overvoltage or undervoltage.
-- [Low] The device tree uses undocumented compatible strings 'qcom,wcn3988-=
-bt' and 'qcom,wcn3988-pmu'.
---
+On 7/30/26 7:08 PM, Vincent Jardin wrote:
+> Hi Ivan,
+> 
+>> Hi Vincent,
+>> I'm not sure that all driver's functionality is supported by ZL3064x. Did you test everything?
+>>
+>> I need to check datasheets for this chip models, maybe some device flags will be needed.
+> 
+> I checked both datasheets. They are the same registers:
+> 
+>    - the register descriptions are verbatim identical
+> 
+>    - same chip-ID encoding (base / A +0x1000 / B +0x2000 / 7x7 +0x8000)
+> 
+> So ZL_CHIP_INFO(0x0E3B, 3, ZL3073X_FLAG_REF_PHASE_COMP_32) is correct
+> and no new device flag is needed: the ref-phase mechanism the flag
+> governs is identical between the families.
+> 
+> The only differences seem to be non-register related: line card vs
+> central system and the min input-frequency spec (1 kHz vs 0.5 Hz).
 
---- Patch [9]: [PATCH RESEND v7 09/10] arm64: dts: qcom: shikra: Enable WiF=
-i/BT on SoMs ---
-commit 30ae129f7cfc5fecf1be133f1d9e0c8ef423f904
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Hi Vincent,
 
-arm64: dts: qcom: shikra: Enable WiFi/BT on SoMs
+Yes, minimal reference frequency for zl3064x is 1000Hz and also
+supported bandwidth range is different (not relevant now).
 
-This patch enables WCN3988 WiFi and Bluetooth on Shikra SoM cards. It adds
-the pmu, wifi, and bluetooth device tree nodes with their corresponding
-regulator supplies and calibration data.
+So, we need to
+- add new field into zl3073x_chip_info that will describe minimal input
+   reference frequency
+- add a check into zl3073x_pin_check_freq()
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-cqm-som.dtsi
-> index dc3861489f64d..2fff5fe9f6d2f 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi
-[ ... ]
-> @@ -27,6 +31,42 @@ key-volume-up {
->  			linux,can-disable;
->  		};
->  	};
-> +
-> +	wcn3988-pmu {
-> +		compatible =3D "qcom,wcn3988-pmu";
-> +
-> +		pinctrl-0 =3D <&sw_ctrl_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		swctrl-gpios =3D <&tlmm 88 GPIO_ACTIVE_HIGH>;
-> +
-> +		vddio-supply =3D <&pm4125_l7>;
+Let me know if you want to do it yourself or if I should do it (I would
+send it along with your two patches).
 
-[Severity: High]
-Will this cause a severe undervoltage for the IO domain?
+Thanks,
+Ivan
 
-The vddio-supply typically requires 1.8V. However, it is assigned here to
-pm4125_l7, which is also mapped to the 0.8V vdd-0.8-cx-mx-supply in the wifi
-node later in this file.
-
-> +		vddxo-supply =3D <&pm4125_l13>;
-> +		vddrf-supply =3D <&pm4125_l10>;
-> +		vddch0-supply =3D <&pm4125_l22>;
-[ ... ]
-> +&uart8 {
-> +	status =3D "okay";
-> +
-> +	bluetooth {
-> +		compatible =3D "qcom,wcn3988-bt";
-
-[Severity: Low]
-This isn't a bug, but are the qcom,wcn3988-bt and qcom,wcn3988-pmu
-compatibles missing from the dt-bindings?
-
-They do not appear to be documented in Documentation/devicetree/bindings/,
-which might trigger device tree schema validation warnings.
-
-> +		max-speed =3D <3200000>;
-> +
-> +		vddio-supply =3D <&vreg_pmu_io>;
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-iqs-som.dtsi
-> index 73945bf42112d..657a14ca96067 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-[ ... ]
-> +	wcn3988-pmu {
-> +		compatible =3D "qcom,wcn3988-pmu";
-> +
-> +		pinctrl-0 =3D <&sw_ctrl_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		swctrl-gpios =3D <&tlmm 88 GPIO_ACTIVE_HIGH>;
-> +
-> +		vddio-supply =3D <&pm8150_s4>;
-> +		vddxo-supply =3D <&pm8150_l12>;
-> +		vddrf-supply =3D <&pm8150_l8>;
-[ ... ]
-> +&wifi {
-> +	vdd-0.8-cx-mx-supply =3D <&pm8150_s4>;
-
-[Severity: High]
-Could this cause hardware damage by overvolting the 0.8V WiFi core logic?
-
-This maps the 0.8V vdd-0.8-cx-mx-supply to pm8150_s4. However, in the
-wcn3988-pmu node above, pm8150_s4 is mapped to the 1.8V vddio-supply.
-
-If pm8150_s4 has a physical minimum of 1.08V (as is common for this 1.8V
-buck), will the regulator framework fail to set the 0.8V request,
-leaving the 0.8V core rail subjected to over 35% overvoltage?
-
-> +	vdd-1.8-xo-supply =3D <&vreg_pmu_xo>;
-> +	vdd-1.3-rfa-supply =3D <&vreg_pmu_rf>;
-> +	vdd-3.3-ch0-supply =3D <&vreg_pmu_ch0>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-shikra-dt-=
-m1-v7-0-7fec8e777076@oss.qualcomm.com?part=3D9
