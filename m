@@ -1,68 +1,113 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF6819DF55;
-	Mon,  3 Aug 2026 01:45:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2523019D8
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 02:06:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785721562; cv=none; b=oM46HoGPcHrBby6cbg1Gard9+0j9CoXLQW+5dMZTvDXfL2ydKxlTcrIoxIXbATWE6fUszv8O1Y4WQmFRnXgLqp+W5tQFVN08MNquByoV4TUK00LI/wyQbRmNzWAhlxQzbzbOc3gjSbt29Q4EdAiIaWIXAQGssFEHfeYamXCiQbI=
+	t=1785722778; cv=none; b=jQrEcsj2M1JbkfIhQYNC1vEfJrGppye1fb60fySr6LtGUbeKNePQP3iysfH2jD1ZWRkbRdoEbeJpQcRL2twufdGLyyk/at7gw+stbogmb/vVi1omZycYGbjPJ7FLwgNWgQEWiUHSk9ws/an1U+UcggfD2gUPRvdFF7u8TaaLBNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785721562; c=relaxed/simple;
-	bh=QyFzjCqjY7uEZRws4LKtNTUJXsiwPaqTv20mgsxjKgc=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=p9SGXVxcF/PtEzNQBQ4FGSFQs/VU6cO6cg0HnkFwT8VytRd3quCL+QS5/c+kAstErh2wdL4Gvtijle1ruuO4M6L+I4Qa4R/uCmkRgkcrrg5S/gf14FwKto3cwyU/UyuqZ099+lcIGhdB2jx4rPdQB/5CZZQQY6z962WeZ4BWdUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=OayOjARH; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1785722778; c=relaxed/simple;
+	bh=8Yv3hh31LT/ea1kydVeshMQp3oy3EXGN203QyIn9mjs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AldzU899DEz5dFtJiXz0Pq0dAuvlWLWO9hcirRDJHz5oEKh0KmwsAvC9khLsKJ6YAKpMrWpbPpzMg8toyYzDuwjLNZnKox7WwAHdrqooyK93z2N11wE466O3ZIAfZr0SCRudXSIiyO42e/2XRURsBJp6LR7wotlReLvVy6P4O4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NyXck0ss; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="OayOjARH"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NyXck0ss"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38e3617ba36so2871579a91.3
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 19:06:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1785721557;
-	bh=QyFzjCqjY7uEZRws4LKtNTUJXsiwPaqTv20mgsxjKgc=;
-	h=Subject:From:To:Date:In-Reply-To:References;
-	b=OayOjARHKRkxNBYY36mKOZRTyJ27C6uYSTe2cW2bpnXWYT2urB6PBDeRxj5h2TFDK
-	 saOMrz7UN98kIwWdnqp520JeIjAlQTFTAFQRYgI6HnAdfLIu9hS6PEFQYOSSTrqxVi
-	 8nVbIIyjdu8ffvLct+ZZZT/Dmd2itjnVjO6Sqm81zjJrrBQuZ386DPMMxZWUduSjpf
-	 dr7jZ1FzYX1/3O/GUv4x0QNpbgD8SFsauduI7RT1zjg9IIhYO96t12tDbPaVjOiKoD
-	 j6Zs9/INLCrs8zT8i4a673yl/tfy2dwyNYCiiwySMKz9ALebI2znc6e7hTMfBXTf7b
-	 HkU3dJkrz2OBg==
-Received: from pecola.lan (unknown [159.196.93.152])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 8254365626;
-	Mon,  3 Aug 2026 09:45:54 +0800 (AWST)
-Message-ID: <7a537ca124f1b5d0b8dfbf9524f47ad5120e9dfc.camel@codeconstruct.com.au>
-Subject: Re: [PATCH net-next v11 01/10] net: mctp: usb: Allow multiple urbs
- in flight
-From: Jeremy Kerr <jk@codeconstruct.com.au>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>, andrew@lunn.ch, 
-	hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, 	chris.packham@alliedtelesis.co.nz,
- daniel@makrotopia.org, robh@kernel.org, 	krzk+dt@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-Date: Mon, 03 Aug 2026 09:45:54 +0800
-In-Reply-To: <20260802083528.490216-2-markus.stockhausen@gmx.de>
-References: <20260802083528.490216-1-markus.stockhausen@gmx.de>
-	 <20260802083528.490216-2-markus.stockhausen@gmx.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=gmail.com; s=20251104; t=1785722776; x=1786327576; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zBpvBewXJUAUQskEE9gVJKiIy2xHWWYPydLmxFZvPhA=;
+        b=NyXck0ssIL66oPpr9E8Rlx3eXsxC9fmA2ucAeYuiWdIabOAyLeDIeuzJaZCSrNvTnP
+         LMniQfCype3d8sy009P8Zibi7wOkyT2rh8GwDVeGzGAoELjOMV//7rsu3KnDNAMHXoRO
+         Ffzk1+cFVSflgElDkMva3gpbI42fxgKOm175kZ/UritzlAHYSVqX8x17O4JSp+2nqCoL
+         ci3xBOfeBZZP0h3CQ2NKVMRAbG1+FUO+HfiXITsYoL6mSYBSUQ721PvYt1JSU5vokHiS
+         vCRK0RNKSUCeA4O2k9TRqbmvG1G/zi4AEx4UrxZ8sdUDwhSjjauTDzx1RjVtQ13OvLRT
+         H+Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785722776; x=1786327576;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zBpvBewXJUAUQskEE9gVJKiIy2xHWWYPydLmxFZvPhA=;
+        b=E5p/C/riu2b/n4B9k50aNmVTDd46gzs75xgw97ndnBWPPD87OJcJJ72OlSg+CPY6wy
+         nxldeLYdbmH/B53l1PjzKS+NMyTvpfOfMQqOdALMR3Dryw8wolaE9fxkud83FGD/0IUi
+         Ob4Dn47TEIHFakhwr28DGgPC2TwQiq/tWce+GQcKOzKN39hiXsAMNaYJcm9d9hZI7P7T
+         1AozrINbmdoPH+fyn3qFVIGM5i5fe6folphmTFWc+pQceO+STzN3koiVbZGZTEmixQjj
+         060pzAAC0OURkL4VQCZ32p+bpqI1LHclnic/sMSNCR02p7U9L8YAOcrDgBW3fW8wNagr
+         ytfg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1TToVmrGhvURbMPXF8snSMdPb0Vy7k2lYMxNWfZ/zd2tT3vYgm2SrC5HpuXk05kf870UMhxZs2mBf@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjNNDpIdAwcOTayz6x/oNEUZ1aJE3ipEO/ju2Y61ev2l9rAnbj
+	jEH0QSJ1JCapobCFZv37NZ6ASHK/VsWtaSxS7XiXqoF1hTvzW+24MDha
+X-Gm-Gg: AR+sD12pTTdTcEZgzQ4zjhcnPV9AWvQPtLJpRQLzwDnYuXSEFcfKbLrfNfFMXmmknja
+	58mItTRUzxxSaBdViNjFz4HO5dyJZEVHB6KjS2tD8YCELzZJ968QdnUKT1U2QdIg4ncBOW65wvU
+	Os8fJfkmSaa+CPQn5Dbl/sPywGr5H+VCJOc9OABavadfxqMcplgrQrse1UUgfEqOQQug0VCoIxD
+	/uo7YTUspAZzk9z0KvCbtW7waMT70RvAfGkchm0mElsMV2SG/YVOfz8WiHuYvcDyw1QZlg3yyxk
+	sIZimsYXillKkhPecGIHEiuYT4t1iN3RFilj/43cFe+Jxh2LZzx58AHczD4HFog9pWVXP1pWVYq
+	zN14CJDP46+Drn/3bFV3vA5ey+EAATMrv1+UZLpJhax0JQUEBdb0+m6DYHuW/9zWUC+Liy5QRin
+	L7NUU5jL8Ps3iuvBXcToVHLHczasgsJPfkGVNPrTLYvFnNEamnVHISTJkmyu+Eyt3Hz39UokTOz
+	779iDTbxF4tF1ppa26k0gEDRm9RQbbwe0UL9V/R
+X-Received: by 2002:a17:90a:c104:b0:38f:c8f6:4ab4 with SMTP id 98e67ed59e1d1-38fc8f64da1mr3417332a91.41.1785722776096;
+        Sun, 02 Aug 2026 19:06:16 -0700 (PDT)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38fb2e0f409sm3199716a91.4.2026.08.02.19.06.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 02 Aug 2026 19:06:15 -0700 (PDT)
+Message-ID: <222f1bd8-e680-4a45-a7b3-d6e8b653c2a8@gmail.com>
+Date: Mon, 3 Aug 2026 10:06:12 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: spi: nuvoton,ma35d1-qspi: Add Nuvoton
+ MA35D1 QSPI
+To: Mark Brown <broonie@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ cwweng@nuvoton.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260731023818.1626075-1-cwweng.linux@gmail.com>
+ <20260731023818.1626075-2-cwweng.linux@gmail.com>
+ <5769eae0-1b40-419f-8311-0d919bf619fa@sirena.org.uk>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <5769eae0-1b40-419f-8311-0d919bf619fa@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Markus,
 
-> Subject: [PATCH net-next v11 01/10] net: mctp: usb: Allow multiple urbs i=
-n flight
-> From: Jeremy Kerr <jk@codeconstruct.com.au>
+Mark Brown 於 2026/8/1 上午 04:28 寫道:
+> On Fri, Jul 31, 2026 at 10:38:17AM +0800, Chi-Wen Weng wrote:
+>> From: Chi-Wen Weng <cwweng@nuvoton.com>
+>>
+>> Add a devicetree binding for the Quad SPI controller found in
+>> Nuvoton MA35D1 SoCs.
+> This leaves the generic binding's support for GPIO chip selects enabled
+> but the driver doesn't set use_gpio_descriptors so they don't actually
+> work.  Either the binding or the driver needs an update.  Otherwise
+> things seem mostly OK so I'll apply, please send an incremental patch
+> for this.
 
-I don't think you intended to include this in your series? Did it just
-get pulled in from your net-next base?
+Hi Mark,
 
-Cheers,
+Thanks for pointing this out and for applying the series.
 
+The current driver only supports the controller's native chip selects, 
+so I will send an incremental binding patch to disallow the cs-gpios 
+property.
 
-Jeremy
+Best regards,
+Chi-Wen
+
