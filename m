@@ -1,140 +1,186 @@
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADC1372B5E;
-	Mon,  3 Aug 2026 09:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB2A363C60
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 09:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785750777; cv=none; b=hfYsHq0u6VZ1K9ogULBa5PpP7RrOaOYMu/wZzEhIwGsDZ5fhriOx+JRZXSwb6q6oLbm09+knABlTsFPZy8AmZU17TPxBHbe5EmoI2DB1BF0jSnLsMkydJhzc0y+VwYLnEmgbOLDJNYuHbO6Ez42m03Px/b2WK4OwPL3q2+/7o/s=
+	t=1785750970; cv=none; b=s1gf1qDKACHqWQZLYGRKYxK/3X55wyNgek1h+yCQ9JVpCWGYdhUtHpl3Iyw6t9KINCnIj6hi+S6gKi4j6RjOPrp8bGg+YxIqA0+iWoP2c4/a1ZVBLGHJfKg9AX73nj/NCNnMy1FZANTySyg/4zzvDqQQmutCm1hffIrVmiTnfOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785750777; c=relaxed/simple;
-	bh=PpoJ8mSDeO5J500ag0sun37EeE6AvIqeZEsWDfHGEXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OxK0Yiu42EAdLzURC6yUl1Pw2OIpkmqbZdxGgYDe2y241kNTmRRlfZAU6C9XCHDC0lDmi/hxhajl4t4WQNVnIPWsucw8DtnlAT3W10arg/9WvbumHBZglngm0vF/H8RwBfdot6WW/YOGARGHgcCurRWfDJ8kzJnRJqL2pyzhIrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=Obns7FDw; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=TkKRScf4; arc=none smtp.client-ip=103.168.172.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1785750970; c=relaxed/simple;
+	bh=7VhsYiDic3tYjyFTPbTJYRPoBi0hp2XTEd3K+SuRHdw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pzcszC/HtAk+rC/JrpPYH3AI4tQhxNKK+LZ+W42Pp37lEc69UB7pJs04x+jCH/n5J7wKjxmVcyhewFtbvfmRHROYytTVfRZj5OGbJGi8MfwYtxyAjCo+Tul2MCyQY5Wu08wOa2hUbBAnI/bliX6B/oAItRs2506XZHbuu5lYElI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPEJ8m3E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="Obns7FDw";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="TkKRScf4"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id ECBAFEC010E;
-	Mon,  3 Aug 2026 05:52:54 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Mon, 03 Aug 2026 05:52:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785750774;
-	 x=1785837174; bh=sLmOrxWgSzKesbLl24YL8N9oK1UdIQD9gnT9tarZDw8=; b=
-	Obns7FDwMh3/0IkS1sdALZiAVY6yIOgARv4ntkPVHWg/cl/Poiah6uvHVMnFIzD/
-	YRUIWlWKncd7R+Ey1xAsFQBNzMBl63+PzFcWhuM2SA66u+SnsBvUfGG9aXSHK3cx
-	3tr3nxcWM2rcCdE4UtZVFjD//nVC28kWsSxXQ4mh1Pd9jahWjo5ImoECKTC8Lv8i
-	4RR86uan4peBzwlc4Q3LQNI6LMcqgQD+B9SL+ojLfiKX1l/1+hWxCZMkFxss9HE4
-	LJYw9rCedtrfIVUzIqqZwvPSwt/WDaM++qAZVIeHvycW0y0i1d8RRyMQZjffwe8t
-	6qA3imeAGuyNT/jjghxP+w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785750774; x=
-	1785837174; bh=sLmOrxWgSzKesbLl24YL8N9oK1UdIQD9gnT9tarZDw8=; b=T
-	kKRScf4zHv4weOG59WM4syRTdzb4v+Lv/mxDMtVgmggwIhxkZ3xqKv+34gPiCkfy
-	sV4/rvsEj74Rw6Ra9a2/7va3vc9yXKhfnSYoBul+v0Vz4EqYYmHPuz5/iuuLLzW9
-	Dcm9XZBxxWXkAHbb79gdM/vFeQFuWYe9qK3AnCwo0wIGzelMnx6GYWKLV8Cag2bZ
-	oe6wxdNQmZi4jFNw+QC/oa4IIPUOLIh/om27bpywlBLBn8wPvcrtPcMCOhXnMdci
-	Off7DBS4VXIeb0Bw7H060NZwTcIJGhQedgC/sI3kbULcLy3UrRoWrncWM0vQsJRp
-	qK1d0vf8+YODc4JKJGw4Q==
-X-ME-Sender: <xms:9mRwalmx_jDMR5CimbNSL-sOWjrngjOzUa1A9xQBGiifGI2sJ2lNLQ>
-    <xme:9mRwatJCVQkP_f0x46A8eIqDHKqqEgMI0UCwkcDv5B6OZpjsAKxvlUtF1JucdqH2b
-    O2gBZjVmv_AjyOwyqGg9gsZN7V5SqL8TVch34C3JTbVkMxPmy_hU04>
-X-ME-Received: <xmr:9mRwatTB4wJ6TZ4bkwFgPOcS2zVeGDeAtxHcbsqEXmotV_mkEJ57YRF9065OCizxlkSt9BCwbGS_0S3Xa34CXB_mZMRYig4>
-X-ME-Proxy-Cause: dmFkZTEMQcaLM4G7F8T469MzRDySTwXwtTZysuNZjG7d4SEShkbR55q6QEQYGLZAOfR0W3
-    qX+c43CkoJp43hQ6+MsVG2ar/Ag2yll4kAu+tgP92WQPNQ+ICX5OXWzmzry25XoTaeiSSi
-    CRjCq71qJmyfPzHorRZG1zDyJX1MflxVa1L17BL0wT55CnSW9YxMJVsOR2/ZWIUl1F1IYB
-    8IMFcEhITOkAmbFKlMiGhr5SqBJjG4WwvcHbtmNVPr/LrVQLolB9g6Zjr6kj/s/NP+Hk9P
-    niawvdbMWrOfV9MASYvkC7mreMxSiwzbYiAz99WaGHhhnNasGaXyhRz74r6qR2jaCKmlf1
-    XkaGQ19jXyCwOuEdQoFGoVM0FFrRwl6lbhITtRyqfdCuBiBwmQZGzSW3eu6t2eXqKoXeck
-    QKB2jjmMR90gsZFejg7AItDdb5rfsYtgiz04mcLEWghxpKXVNOXxNl0YQOTcbO+U22BBUU
-    Xu/TegfRUV15xJaFHQ4tHvLmNRmp2OBKlTr2qBlUyiBcENsG1ZpM5H+vxI65VwUafR2gUE
-    TwpgkJoB3xDdIqdZEYN7XZbhJvHk6yYiaNQ12XDNwgZSiEmdYGB+I3Xe1sL8oqZ7WWQXYM
-    fNBt3gsR3nzrDBPuF5WQ9XE9s1aLoI3vBt2xc7SyUS0k9Xuk1pcCEdshk2fQ
-X-ME-Proxy: <xmx:9mRwaiu-0qvUODy_IuM3_Tg0IZ5iMcSnsc-9m6VddpcDVdeR6Uz2rQ>
-    <xmx:9mRwao82G9w97DhRn2MoMcm73cW7IxI103Stv2ofucffveECauhc0g>
-    <xmx:9mRwaraNFJsdi1926bMAR7I3-hQJ1HykLxl06H6op_uyw95Qxuvldw>
-    <xmx:9mRwakqNmQOkWKTr4arIhR3F9MyG6HWQNaA3DgGIvRTFwkRJFCFppg>
-    <xmx:9mRwao0yJJSbuSkQ3jrNpfO7FYKM5ao36tbhidDx8Is-6Og2K8DMZqzV>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 3 Aug 2026 05:52:54 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH net-next v6 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-Date: Mon,  3 Aug 2026 11:52:32 +0200
-Message-ID: <20260803095232.3527111-4-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260803095232.3527111-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260803095232.3527111-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPEJ8m3E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CBCD1F00A3A;
+	Mon,  3 Aug 2026 09:56:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785750968;
+	bh=1txSijz23MsSNY+eEq4S0NG9v46J20XQD8HMS0G8d4k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aPEJ8m3EztBRamt7MVHueU9tJtod3s7UjiF5GqCQZY0iQ/BCcG7qE4Gztjhi0XN9D
+	 uFbvHNeap+CTqyac2JXCdSwmZL6sojx8oqXNMIfHSXUG4NiQrwvXwqeBbDWhMtLERr
+	 rM1Y8c8wDKwugYCtxpK6TyJTQEW+76H3CmT7Nq76rUbQyKjEN/+W/1urXblW9oojtg
+	 mrd9cZ2LE9/ek1vzjGow125vgOxCJhdN5rvgHPustFSG2XeSyNck60xnb6mmK1ejMZ
+	 TrgH13cTIYXbYKzGXlkFsI4ZwyN4QqD/aDi1lJxM6vIrhnl/K2Rzj5DLl+xZJ6Cto4
+	 /oNuCWOmZ1p0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v4 5/6] arm64: dts: rockchip: rk3576: add NPU (RKNN)
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260803094125.3285895-6-gahing@gahingwoo.com>
+References: <20260803094125.3285895-1-gahing@gahingwoo.com>
+ <20260803094125.3285895-6-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 09:56:07 +0000
+Message-Id: <20260803095608.5CBCD1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-the SoC.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The newly added NPU core nodes violate the `rockchip,rk3588-rknn-co=
+re` binding schema across multiple properties.
+- [Low] The newly added IOMMU nodes violate the `rockchip,iommu` binding sc=
+hema by declaring excessive clocks and missing required properties.
+- [Low] Adding a `resets` property to the NPU power domains violates the ge=
+neric Rockchip power controller schema.
+--
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
----
-* Changes since v2
-- Preserve sort order by unit-address.
+--- Patch [5]: [RFC PATCH v4 5/6] arm64: dts: rockchip: rk3576: add NPU (RK=
+NN) nodes ---
+commit aae8c26737d67b11f41b924b5322997c922df364
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-* Changes since v1
-- Rename node ptp.
----
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 82a7278836e5..b9b860ef7035 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -589,6 +589,15 @@ tmu4: timer@ffc00000 {
- 			status = "disabled";
- 		};
- 
-+		gptp: ptp@e6449000 {
-+			compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-+			reg = <0 0xe6449000 0 0x500>;
-+			clocks = <&cpg CPG_MOD 2723>;
-+			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-+			resets = <&cpg 2723>;
-+			status = "disabled";
-+		};
-+
- 		tsn0: ethernet@e6460000 {
- 			compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
- 			reg = <0 0xe6460000 0 0x7000>,
--- 
-2.55.0
+Add the two RKNN cores and their IOMMUs, plus the NPU power-domain
+resets the pmdomain driver now cycles on power-on. Both cores are
+disabled by default; boards enable what they wire up.
 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3576.dtsi
+> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+> @@ -1070,14 +1070,22 @@ power-domain@RK3576_PD_NPUTOP {
+>  						power-domain@RK3576_PD_NPU0 {
+>  							reg =3D <RK3576_PD_NPU0>;
+>  							clocks =3D <&cru HCLK_RKNN_ROOT>,
+> -								 <&cru ACLK_RKNN0>;
+> +								 <&cru ACLK_RKNN0>,
+> +								 <&cru CLK_RKNN_DSU0>,
+> +								 <&cru ACLK_RKNN_CBUF>,
+> +								 <&cru HCLK_RKNN_CBUF>;
+> +							resets =3D <&cru SRST_A_RKNN0_BIU>;
+
+[Severity: Low]
+Does adding the resets property here violate the generic Rockchip power
+controller schema?
+
+The rockchip,power-controller.yaml binding restricts properties for pd-nodes
+and it doesn't appear to list resets as an allowable property, which could
+cause a dtbs_check failure.
+
+>  							pm_qos =3D <&qos_npu_m0>;
+>  							#power-domain-cells =3D <0>;
+>  						};
+>  						power-domain@RK3576_PD_NPU1 {
+>  							reg =3D <RK3576_PD_NPU1>;
+>  							clocks =3D <&cru HCLK_RKNN_ROOT>,
+> -								 <&cru ACLK_RKNN1>;
+> +								 <&cru ACLK_RKNN1>,
+> +								 <&cru CLK_RKNN_DSU0>,
+> +								 <&cru ACLK_RKNN_CBUF>,
+> +								 <&cru HCLK_RKNN_CBUF>;
+> +							resets =3D <&cru SRST_A_RKNN1_BIU>;
+
+[Severity: Low]
+This shares the same resets property schema issue mentioned for RK3576_PD_N=
+PU0
+above.
+
+[ ... ]
+
+> +		rknn_core_0: npu@27700000 {
+> +			compatible =3D "rockchip,rk3576-rknn-core";
+> +			reg =3D <0x0 0x27700000 0x0 0x1000>,
+> +			      <0x0 0x27701000 0x0 0x1000>,
+> +			      <0x0 0x27703000 0x0 0x1000>;
+> +			reg-names =3D "pc", "cna", "core";
+> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
+> +				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
+> +				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
+> +			clock-names =3D "aclk", "hclk", "npu", "pclk",
+> +				      "aclk_cbuf", "hclk_cbuf";
+> +			resets =3D <&cru SRST_A_RKNN0>;
+> +			reset-names =3D "srst_a";
+> +			power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
+
+[Severity: Low]
+Do the power-domains, clocks, and missing npu-supply properties violate the
+rockchip,rk3588-rknn-core binding schema?=20
+
+The current schema seems to require exactly 1 power-domain, up to 4 clocks,
+and explicitly requires an npu-supply.
+
+> +			iommus =3D <&rknn_mmu_0>;
+> +			status =3D "disabled";
+> +		};
+> +
+> +		rknn_mmu_0: iommu@27702000 {
+> +			compatible =3D "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
+> +			reg =3D <0x0 0x27702000 0x0 0x100>,
+> +			      <0x0 0x27702100 0x0 0x100>;
+> +			interrupts =3D <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
+> +			clocks =3D <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
+> +				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
+> +				 <&cru HCLK_RKNN_CBUF>;
+
+[Severity: Low]
+Does this node violate the rockchip,iommu binding schema by declaring 5 clo=
+cks
+without a clock-names mapping?=20
+
+The rockchip,iommu.yaml schema restricts clocks to exactly 2 items and
+requires the clock-names property to be defined.
+
+[ ... ]
+
+> +		rknn_core_1: npu@27708000 {
+> +			compatible =3D "rockchip,rk3576-rknn-core";
+[ ... ]
+> +			power-domains =3D <&power RK3576_PD_NPU1>, <&power RK3576_PD_NPU0>;
+
+[Severity: Low]
+This shares the same rockchip,rk3588-rknn-core schema violation mentioned f=
+or
+rknn_core_0.
+
+> +			iommus =3D <&rknn_mmu_1>;
+> +			status =3D "disabled";
+> +		};
+> +
+> +		rknn_mmu_1: iommu@2770a000 {
+> +			compatible =3D "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
+[ ... ]
+> +			clocks =3D <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
+> +				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
+> +				 <&cru HCLK_RKNN_CBUF>;
+
+[Severity: Low]
+This shares the same rockchip,iommu schema violation mentioned for rknn_mmu=
+_0
+regarding extra clocks and missing clock-names.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803094125.3285=
+895-1-gahing@gahingwoo.com?part=3D5
