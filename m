@@ -1,120 +1,64 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA3D372EFA
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:00:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D7A36826E;
+	Mon,  3 Aug 2026 10:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785751237; cv=none; b=S4h0YJ7+fJQGxcDbGdmjxy2rdiDKzcIef1LybZY9yIqvhjlFKP00MKbr4iIKF240ZSkJ54Z/dPy9PSQoAHsDmJJKczGEacdU58GpiZ1ThYtqTAB8XrWTusDWNWOnwI/LeYEzxlV8TI39Ymm9als4xo7vIu2xLnzm3gImSsJPCjM=
+	t=1785751242; cv=none; b=cOMVuvuJLeu5qVI068jGcpmDd3vyDn2yzI9UIEX7HJxxNOfz6OH+iwwW0JkLTp6z+o5lM1TIzwY/nr7QdXncrUMpd6cyh+bPR2XEFZttajiCPochcII6TIhwaOeXMicxmaemC7rvA90i+tZeIuyqR1gpxroX+JHpHJp6bSqFOHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785751237; c=relaxed/simple;
-	bh=tcq+NfikfbLQ8jKxRv+FPVL9FcZ5yGHyV7cYgFT8fb4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E3Zfu/a0Zw5ZuWndxYKu1biWhyiEQPStpXAHWVa2K1RVEccTKDjTaCyR3litYrJoCzIB5w5Wrho9mjqZ18hlnmmV9wLClU8UNtC302KmWK2hDgujnxkhpFOsld1jLY7FP9i2/YgVSY1zkeBKDCOwZmkb3Vc85k9Bmzxr8oWEaps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=maiJofX8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785751242; c=relaxed/simple;
+	bh=L6oNT+HDW5bFqo4PXu8zY5Fgd+Li3abAZoVms3Hct9g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CO4GHRdHgCJIlXX08TtO1oL97jNrqu++bOwuLzStjJerufDmBgJUC1Ql28LDNW5rvryqKyTT8NJL+irA8nKF0/pAnY9xZ/z5WUGtXNqAXsi7UUbMVgDpjzh1ioo6Od/NR0XGN+18/T8vnR52APyP82ZoyKHVMPYUU+z37z7B5M4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTGzOxtG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="maiJofX8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139691F000E9;
-	Mon,  3 Aug 2026 10:00:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTGzOxtG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F991F000E9;
+	Mon,  3 Aug 2026 10:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785751235;
-	bh=vhIiPuKdiD99XKyI/KBKLbn1uwcu23QsuHv1LIMGDFg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=maiJofX8yRBwhKcCJUfu8VGSPiEZnZtQI676esJUgDVBS/H/KYNXPotUshMueL/4q
-	 oPpGDD+/YteRveNmnTM7r43xtQS7S2KOqF/HWFge8tEKPvkqoCfBFxSQkN8yOgWmGx
-	 jXcGfaADwUJf1ltHf5/kuD0dJJZsVqXzSjX01YxCGVlOnKLQJK4SV5rfRLuZqdRX2j
-	 ep4cSDlzlax0LaWtchss08x6mm8ZjeTgc/rv50UTbOrh2yQ1/Y5JyDmfe+NQccxF7X
-	 BHofYFK8BX9An5B9gweamLdNMscIrfsV5DhsH2gHTi8Ti6SjTZIep+DnL2TiFpy1ob
-	 5juCnDe+RF0Pw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v4 6/6] arm64: dts: rockchip: rk3576-rock-4d: enable
- NPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260803094125.3285895-7-gahing@gahingwoo.com>
-References: <20260803094125.3285895-1-gahing@gahingwoo.com>
- <20260803094125.3285895-7-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 10:00:34 +0000
-Message-Id: <20260803100035.139691F000E9@smtp.kernel.org>
+	s=k20260515; t=1785751241;
+	bh=L6oNT+HDW5bFqo4PXu8zY5Fgd+Li3abAZoVms3Hct9g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gTGzOxtGffiUvjhglH/QjdPoGVHEGL+++vcMksz9Pwocehly23c54PlEOdnCSDpXz
+	 tPNhWEQkoMzNbbFHigWZIhYzWCwYCX1wd/6MSmLGXWKXd7SjjJLh//KHzwb66yQovF
+	 /vtzlYRteUh/iPn7FGT4qjHiMotkDZ6h0FURVc3PhVD2OgK+awGcyuHIY0nCKf9PfD
+	 5K6qKfNrGvC5IyKVhnSQA1ykaJ6WnL0LcEZiN8Kl3B0lZcdQiDmuchH1VC0pG0jUmT
+	 EETMW1l4jNpaY+t/3BJc0AN05chCKIpI/n80unr/fnFMj9rha6O0dFS8fy5vFunH4k
+	 QjWi9FdkQ4vkQ==
+Date: Mon, 3 Aug 2026 12:00:36 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] dt-bindings: pinctrl: qcom,sm8450-tlmm: Add
+ compatible for SM8475
+Message-ID: <20260803-greedy-ruby-whippet-8ed6eb@quoll>
+References: <20260802-sm8475-tlmm-v2-0-a93e1d1cb53b@proton.me>
+ <20260802-sm8475-tlmm-v2-3-a93e1d1cb53b@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260802-sm8475-tlmm-v2-3-a93e1d1cb53b@proton.me>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `vdd_npu_s0` regulator is forcibly kept `regulator-always-on=
-`, defeating runtime dynamic power management for the NPU.
-- [Medium] The patch only enables the first NPU core (`rknn_core_0`), leavi=
-ng the second symmetric NPU core (`rknn_core_1`) disabled.
---
+On Sun, Aug 02, 2026 at 03:30:56AM -0400, Esteban Urrutia wrote:
+> SM8450 and SM8475 have different pinctrl drivers, which are incompatible
+> with each other.
 
---- Patch [6]: [RFC PATCH v4 6/6] arm64: dts: rockchip: rk3576-rock-4d: ena=
-ble NPU ---
-commit 2ef1c8164923c68f245bae8c6ee995f5fd70d4d3
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+Describe the hardware and its incompatibility, not drivers.
 
-arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+> Add compatible string for the SM8475 pinctrl driver.
 
-Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D and supply the
-core from vdd_npu_s0.
+Drop references to driver completely. See DTS101 slides.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64=
-/boot/dts/rockchip/rk3576-rock-4d.dts
-> index 272af1012ab03..965e0906bd07e 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+Best regards,
+Krzysztof
 
-[ ... ]
-
-> @@ -442,6 +442,7 @@ regulator-state-mem {
->  			};
-> =20
->  			vdd_npu_s0: dcdc-reg2 {
-> +				regulator-always-on;
-
-[Severity: Medium]
-Does keeping this regulator always-on defeat runtime dynamic power manageme=
-nt
-for the NPU?
-
-The regulator will remain permanently powered, leading to unnecessary power
-drain when the NPU is idle. Could we remove regulator-always-on and instead
-assign this as the domain-supply for the NPU power domain so the generic
-power domain framework can dynamically toggle the voltage?
-
->  				regulator-boot-on;
->  				regulator-enable-ramp-delay =3D <400>;
->  				regulator-min-microvolt =3D <550000>;
-
-[ ... ]
-
-> @@ -869,3 +870,12 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
->  		remote-endpoint =3D <&hdmi_in_vp0>;
->  	};
->  };
-> +
-> +&rknn_core_0 {
-> +	npu-supply =3D <&vdd_npu_s0>;
-> +	status =3D "okay";
-> +};
-> +
-> +&rknn_mmu_0 {
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Is there a reason to only enable the first NPU core (rknn_core_0) and leave
-the second symmetric core (rknn_core_1) disabled?
-
-Since both cores share the same voltage supply and power domains, leaving
-rknn_core_1 and rknn_mmu_1 disabled limits the board to half of its
-physical AI compute capacity.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803094125.3285=
-895-1-gahing@gahingwoo.com?part=3D6
