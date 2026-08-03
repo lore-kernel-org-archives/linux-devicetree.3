@@ -1,123 +1,181 @@
-Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28604334DE
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 20:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944964334B5
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 20:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785790567; cv=none; b=VXoOqi3Rkf5d/mMZ8A9zGFDeIFtc5EYEs9kqkPBA3Y8w39bMHGLSrmYk6fY5KHLLZtD8sX9sdAw1q1fM91tA0cMRg4mhIdM77rH/yh+O7fXuilbbNKQCY9Lwe7ekWeZmaVaCMUOQSdYGdb/1N4zS4nbNrom8W8YLn3TvQSCAn9U=
+	t=1785790738; cv=none; b=ILn0wT+8ykP37ko3EHx9m8lZjXztjxoeEJ15YpoT3BGMv5goJtNny7ofWT8Gk8o6VXPe5dfAB+qqSrrojFYZPeaEp4eNMZkCFwYDWS7aiI80Y4bKMiZ1FWufAMpbluA2qryouHR3zSmmdgE8oz4OloeMk6YXiA9+qrLBVO5N3tU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785790567; c=relaxed/simple;
-	bh=Am3Qpb/8MiDnIsx3aXYKb/RfHdbN3e7+11RDaxHetMo=;
+	s=arc-20240116; t=1785790738; c=relaxed/simple;
+	bh=WL+ga9AoN/j7RlE3rJ4Q6wn9IKo+XDS+L+c88fic/Qs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uOsV8WhUNkt0YO3RRVgn7Fu10PdqeEiS548V0Dv7vbr6IlLnmehK/16b6BgOK+kpKaiYSsEpJwwLjVJk+gCCpA3HFOgB9sVrpH1qpTyT9Wo8yFOQj98CTTumEdoe+5w12s3641bFZPU6bQOZ8RwIFkWSVowqsAlAYP1pTSjRBqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com; spf=pass smtp.mailfrom=tinyisr.com; dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b=j2rxWUOC; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=n8H34Gwl; arc=none smtp.client-ip=34.202.193.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tinyisr.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tinyisr.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=B5ERaQVqWVceL1wBMPauOtUnF8X3Apcwh58LF/BTgjqLxMTjykb5/OYMeEESajkjICF5xjljPoFWZ9T3h0v3LWk+1tUOO/Sy2+bNfQzh9TrGxQak70sEqxAm0jX3S1ZO/TNHa5bbTjdOnVCBWXkuO+hb+6H5Le3kq6+uDIQ2LwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q11/kxWR; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tinyisr.com header.i=@tinyisr.com header.b="j2rxWUOC";
-	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="n8H34Gwl"
-DKIM-Signature: a=rsa-sha256; b=j2rxWUOCYmrNmb0tzg4yngKlaEJNXAizA8ma01qvvecwvvpGLyp09KSfGDnNyKpCMq0V/TJBa27MQI5w+bGHEeraI3Lns1Rfu41ZiFO0auvDcvtqUrpR2hupTW5vS+0NguiuO9LAMDMPL5qxRKOdxQTcP5VDKrJxqFTd+ku18EVFtBFCMXzeZp45dSOX4t1MJJL3p6vG5L1ozLeR+DnHE0Z78+u5MgCt2eUBuSDfG8X4WS442FuLvhs4t0ofNrbusLzLqGxJ4xHX1/f8bvjoNuXFUw1kqNu0+WHnAmV3/cLcrUUSnzzPpGpGbkVdEq8jvd8QhKUBDw6SnMBUuralzw==; s=purelymail1; d=tinyisr.com; v=1; bh=Am3Qpb/8MiDnIsx3aXYKb/RfHdbN3e7+11RDaxHetMo=; h=Received:Date:From:To:Subject;
-DKIM-Signature: a=rsa-sha256; b=n8H34GwlB6BUlcD6dpV/9IpPV6ZYmmOf7hmtbZ0BBnUXwwd7FEHoYOMpFaGdFaiDHS0BSghxS+ANVwMXL74/eEgBMV5JnOk9xX+ThnKxRl3BXBV2sf83zSzQLAbjpZ92V8Op12kgSIqwkZeoZFwVkHP9DoaK3QvlENBP2CuRzosEQL6K9THOi22m7dmvLYaKPzxJsrfIeWUf7AB0CUr+likusoUaxt4Jum1gscpTNC2rQ8U+0ZHzEcZBfL31DeTt+SdVSKu+7vzv/GNUe+HX3h5R8YJtudOGnb+TuBo+bJjXDzkKWIuCq29h5Sayp0avudMa5Wuy7s7Qd4Hr3BBOGg==; s=purelymail1; d=purelymail.com; v=1; bh=Am3Qpb/8MiDnIsx3aXYKb/RfHdbN3e7+11RDaxHetMo=; h=Feedback-ID:Received:Date:From:To:Subject;
-Feedback-ID: 99681:12517:null:purelymail
-X-Pm-Original-To: devicetree@vger.kernel.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1032040423;
-          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 03 Aug 2026 20:55:48 +0000 (UTC)
-Date: Mon, 3 Aug 2026 23:55:00 +0300
-From: Joris Vaisvila <joey@tinyisr.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: netdev@vger.kernel.org, horms@kernel.org, pabeni@redhat.com, 
-	edumazet@google.com, davem@davemloft.net, olteanv@gmail.com, andrew@lunn.ch, 
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com, 
-	sean.wang@mediatek.com, daniel@makrotopia.org
-Subject: Re: [PATCH net-next v6 4/4] net: dsa: initial support for MT7628
- embedded switch
-Message-ID: <anDxMZRFgM-Kgmaf@archlinux>
-References: <20260704105659.140970-5-joey@tinyisr.com>
- <20260720235201.466172-1-kuba@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q11/kxWR"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso17289665e9.0
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 13:58:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785790735; x=1786395535; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VTNIwA5rIl7yheggGg5y8ZUCyvaskjkiO8o5tUu1AJc=;
+        b=Q11/kxWRy/6lnbYXlQVCWzTKWXoE74iUR3Af6bVUGpCSU7GfWlvU71zUjiauHHfB0+
+         hmQLAvB1R0Ic1rqPXdfNTcrnuumk3A6MvgcFO5gN+WXjyRv+4x4esLXkPZDvvSN/odxp
+         L6IXvdIatXK6+OTOTvOygjV/0I5oO6HlHIkPkdvPNEK4G6OeT56jlkW9AqzRcZ7Huf3z
+         /5h5gO8tZlfiC8yWnzhru/U/W2/rZ9NnJcLgtdlp7ycUuZWlRuodSAY1OPw3k8r9oFtC
+         45pBHfVI4GyTpuHHrkZmfY70p/DYgja8cAeV7QPsYCEljBU0DdnXzmkikKcV1TQkvEj6
+         xIaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785790735; x=1786395535;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VTNIwA5rIl7yheggGg5y8ZUCyvaskjkiO8o5tUu1AJc=;
+        b=kbG2LCktaHGhAp2PlR889+xMN3dRVYwWuYK5D0/vcumQShL2sTsf8CI2Tghgwa2DGF
+         10V+svVsonC7r6DVXeDs/tiRyhxZw64o8edwSNVNx9Bk+pqsRcnlCAyhxuaD/bFrEQfT
+         5PgSHIldM6GDVIIx7OztnHXJXwxiQ9UJHOWaOCqOzU0bjGPth2x4/DlMr6yn1XMrZVR6
+         w3vGNEUaiVTzs9YCKiZfsBXxrvlM2NieWK5wCu2usufWLw8PtdCyo3rfvSE0+b0OGs58
+         sPExJRjj2bgHG5pmaF+eP9dvKetl/F7/PWv+kT9IgHljeUndBKtembYNxRrGkkq4705+
+         cIZw==
+X-Forwarded-Encrypted: i=1; AHgh+RrOKkMO8IC8ldp7qYpTyn0nzdMynL4kWd4av+IU4iRPdf348qyrABonGqwXXvTvaMgXCCp4giZBorK2@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXAhIlovDy50Sf4Ud0dgvSaAu5snw1FH5lSstpeydeeTlixW8k
+	k8c/42Yjyx/aLDp0g62o6arNmYdbju2orer84LiCLGTwWG9wzG9wmPYD0cawdA==
+X-Gm-Gg: AR+sD10MznZHhJY0oWjlVQZ5M8QkxwauSF2MX0gzVBKG9gw0+9oVjyLgVlpEHAmcdL6
+	L65FVXbzbwIzBizGNfq/etpqKUqFJLn1UNMT6skf1YJIdBQY71C0YKrtJ2iruC6cc8Zx/+Vhfrr
+	Jgo7aUTOsoeV8AeAIlX/oPUt8gkl3TuM+Yv+xLVHSQpOgUnMsg5uJ7bs7pElS3zc9X7wRsSJLNs
+	+PzZXjUBLnkteo/19cu7hgyKwJbeX5heBHTCscv1bK/hPpIRgc/8rjkXzWasmDmBDRXvd+D/VJs
+	nZmC5LCbFJhNfBRy5Mgn44XSe1FOOYsKXgPKNHGma9PCf5Z/iUxKyotbiQK1yT+PMWMPGCM827u
+	VSQYxV7waqJb99bG2Ks/JgAHlRIlCKKdn0Fbm5o6LCUwxoVHHtGuNg9v0YlNdpMRXGT5tT2JbIn
+	IsBAJXE6sjDIkd/mAVK9DfPkzio8zCgzvDRG2PAgvx9d0ZJVtCEEFqNkLBhyn1WS/z
+X-Received: by 2002:a05:600c:6989:b0:495:4811:7998 with SMTP id 5b1f17b1804b1-4980c664d83mr310149265e9.17.1785790734612;
+        Mon, 03 Aug 2026 13:58:54 -0700 (PDT)
+Received: from antoniarch ([78.209.183.178])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49949fd4bbcsm23236215e9.7.2026.08.03.13.58.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 13:58:54 -0700 (PDT)
+Date: Mon, 3 Aug 2026 22:57:26 +0200
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, conor+dt@kernel.org
+Subject: Re: [PATCH v3 6/8] rtc: abx80x: replace read-modify-write pattern
+ with regmap helpers
+Message-ID: <anEAX5qGZzIGH02T@antoniarch>
+References: <20260731184831.44037-1-apokusinski01@gmail.com>
+ <20260731184831.44037-7-apokusinski01@gmail.com>
+ <20260731190137.E8A701F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260720235201.466172-1-kuba@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260731190137.E8A701F00AC4@smtp.kernel.org>
 
-On Mon, Jul 20, 2026 at 04:52:01PM -0700, Jakub Kicinski wrote:
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> net: dsa: initial support for MT7628 embedded switch
+On Fri, Jul 31, 2026 at 07:01:37PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Using `guard(mutex)` inside a `switch` statement case without an enclosing block causes a compilation failure (or uninitialized cleanup execution).
+> - [High] Configuration Key unlock sequence is broken by unprotected concurrent reads and newly introduced read-modify-write regmap helpers.
+> --
 > 
-> This patch adds a DSA driver for the MT7628 embedded switch, which has
-> five 100Mbps user ports and a 1Gbps CPU port. tag_8021q is used to
-> isolate ports via the switch's 16-entry VLAN table, with the double tag
-> feature enabled to simulate VLAN-unaware behaviour.
+> --- Patch [6]: [PATCH v3 6/8] rtc: abx80x: replace read-modify-write pattern with regmap helpers ---
+> commit 68e1add63890d6b130ad7ce142d172f06e590b90
+> Author: Antoni Pokusinski <apokusinski01@gmail.com>
 > 
-> > diff --git a/drivers/net/dsa/mt7628.c b/drivers/net/dsa/mt7628.c
-> > new file mode 100644
-> > index 000000000000..eccdb05fce9b
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/mt7628.c
+> rtc: abx80x: replace read-modify-write pattern with regmap helpers
+> 
+> This commit replaces manual read-modify-write register operations in the 
+> rtc-abx80x driver with regmap_update_bits() and regmap_write_bits() 
+> functions to simplify the code.
+> 
+> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> > index 23823fc2f5458..52f958e2aecd2 100644
+> > --- a/drivers/rtc/rtc-abx80x.c
+> > +++ b/drivers/rtc/rtc-abx80x.c
+> [ ... ]
+> > @@ -371,7 +364,7 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
+> >  					  int autocalibration)
+> >  {
+> [ ... ]
+> >  	/* Unlock write access to Oscillator Control Register */
+> >  	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
+> >  		return -EIO;
+> >  
+> > -	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
+> > -
+> > -	return retval;
+> > +	return regmap_write_bits(priv->regmap, ABX8XX_REG_OSC,
+> > +				 ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512,
+> > +				 flags);
+> >  }
+> 
+> [Severity: High]
+> Does switching to regmap_write_bits() break the configuration key unlock
+> sequence here?
+> 
+> The hardware requires writing the configuration key immediately before 
+> writing a protected register. If any other register is accessed in between, 
+> the unlock state is cleared. 
+> 
+> Because regmap_write_bits() performs a read operation internally before 
+> writing, does that read happen after the configuration key is written,
+> causing the hardware to relock itself before the write can execute?
+> 
+> Additionally, can an unlocked concurrent read sequence interleave here and
+> clear the unlock state? Looking at abx80x_rtc_read_time(), it performs I2C 
+> reads without taking priv->lock:
+> 
+> abx80x_rtc_read_time() {
+>     ...
+>     err = regmap_bulk_read(priv->regmap, ABX8XX_REG_HTH, buf, sizeof(buf));
+>     ...
+> }
+Same answer as in patch 2 ("rtc: abx80x: add mutex protection for register writes"):
+register reads do not cause a reset of the configuration key, so no
+issue here.
 > 
 > [ ... ]
+> > @@ -566,17 +545,8 @@ static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
+> >  	case RTC_VL_CLR:
+> >  		guard(mutex)(&priv->lock);
+> >  
+> > -		err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
+> > -		if (err < 0)
+> > -			return err;
+> > -
+> > -		status &= ~ABX8XX_STATUS_BLF;
+> > -
+> > -		err = regmap_write(priv->regmap, ABX8XX_REG_STATUS, status);
+> > -		if (err < 0)
+> > -			return err;
+> > -
+> > -		return 0;
+> > +		return regmap_update_bits(priv->regmap, ABX8XX_REG_STATUS,
+> > +					  ABX8XX_STATUS_BLF, 0);
+> >  
+> >  	default:
+> >  		return -ENOIOCTLCMD;
+> >  	}
 > 
-> > +static const struct dsa_switch_ops mt7628_switch_ops = {
-> > +	.get_tag_protocol = mt7628_get_tag_proto,
-> > +	.setup = mt7628_setup,
-> > +	.teardown = mt7628_teardown,
-> > +	.port_enable = mt7628_port_enable,
-> > +	.port_disable = mt7628_port_disable,
-> > +	.phylink_get_caps = mt7628_phylink_get_caps,
-> > +	.tag_8021q_vlan_add = mt7628_dsa_8021q_vlan_add,
-> > +	.tag_8021q_vlan_del = mt7628_dsa_8021q_vlan_del,
-> > +};
+> [Severity: High]
+> Will this cause a compiler error or undefined behavior?
 > 
-> [Medium]
-> How is a user expected to place two of the user ports into a Linux bridge?
+> The guard(mutex) is declared inside the case block, but without an 
+> enclosing scope. If cmd is an unhandled ioctl, the switch statement jumps 
+> to the default label, bypassing the initialization of the guard(mutex) 
+> variable. 
 > 
-> The ops table does not implement port_bridge_join or port_bridge_leave,
-> so dsa_switch_bridge_join() in net/dsa/switch.c returns -EOPNOTSUPP:
+> Does this require adding braces around the RTC_VL_CLR case to restrict the 
+> lifetime of the guard?
 > 
->     if (!ds->ops->port_bridge_join)
->         return -EOPNOTSUPP;
-> 
-> That makes ip link set swpN master brX fail for every user port, which
-> seems to contradict the commit message:
-> 
->     The switch hardware has a very limited 16 entry VLAN table.
->     Configuring VLANs is the only way to control switch forwarding.
->     Currently 6 entries are used by tag_8021q to isolate the ports.
-> 
-
-It does not contradict the commit message. The driver intentionally does
-not implement bridge offloading.
-
-The ports can still be bridged in software without propagating it to
-the hardware. This is a deliberate simplification to keep the initial
-driver easier to review. It is also a practical initial solution for
-this switch, as all of the user ports are 100mbps, while the CPU to
-switch link is 1gbps, making it possible to bridge multiple ports at
-line rate in software.
-
-> Without a port_bridge_join hook, dsa_tag_8021q_bridge_join() is never
-> invoked, so there is no path to migrate a port's tag_8021q VID from its
-> standalone VID to a bridge VID.
-> 
-> Would wiring the tag_8021q helpers directly, similar to what
-> vitesse-vsc73xx-core.c does, be sufficient here:
-> 
->     .port_bridge_join = dsa_tag_8021q_bridge_join,
->     .port_bridge_leave = dsa_tag_8021q_bridge_leave,
-> 
-> Related bridge-lifecycle callbacks such as port_stp_state_set,
-> port_pre_bridge_flags, port_bridge_flags and port_fast_age also appear
-> to be absent, is that intentional for this initial submission?
-
-For the initial submission tag_8021q is only used for the standalone VID
-feature and software bridging is used. I intend to work on hardware
-bridging after initial support is complete.
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260731184831.44037-1-apokusinski01@gmail.com?part=6
