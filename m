@@ -1,151 +1,127 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C332B43302E
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:07:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F03429CFF
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785780429; cv=none; b=hnf5zFshSV4YvEtuwnoQnY92wFaU/Hyqy854V3tyjRaDSqXWFhmjn4ypXjlt/oI0JF16j7+ObcIfpAtCrZHwvlviKaD/9wSF2Of9ZNpXN8YmOW4pQA/IEanIYBegdcJ/QJma3hl2WLIW1jHywVDSR/a9uPPgCa4QHyBsvI1F9yM=
+	t=1785780439; cv=none; b=n12TSCnlXgxdwm3Bpg5UgyXxDjhyp3I4HoVMAs/9ecwQDD84tVHUA8usfxwg4pkW9AFxpaKd2k6GZtXhBGqNZj53PM8Irgzkryz1TauLgLBe+bTIWA2tzrrnpZ1TMmVxKsbth5Z1v2gQ6MMcZFoXRphQCDAEj36BAaYp1v6w+oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785780429; c=relaxed/simple;
-	bh=LwHbaRL7meJ5BgK2SJUYXT64Aczh0owcQAjNNq14KzA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MyxwmjTMudnoWjkKg1+FxvnTlUlWIx6/UpOdItMb86lT36JKmVR287MCX4a6THy5DrO0/98IN/tyiwBNTm16XkcpZYpv3VqS9snG1uP7BHhGuLo8B9I+1DbFiWYDiH48LM5nCnDxwfW/Oby7f4DeFoOzxe0/mm0I9w9o5pj445g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JYAerpfG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QgC/D+eo; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785780439; c=relaxed/simple;
+	bh=Tz7S5tWbr+GN7N1xiXEgJlmxhCWxjAgkKA0r6eoPvSU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qziIx+bXAKWktjUH13i2eTTfgAZOxIKQ3ig7ecrCBCyKiBxwTLz18C2hRu1rm/3gubelTyynoCaF5ucchOLcLhpjFjfmWQw7oRr3Qnx780gVwpNZpeShcPcc7hhILKkMKlriV7/QOdtTnQOyqNZhyYq7dWyaRBnMGGMtpOfm/rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwjFAj0x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JYAerpfG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QgC/D+eo"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673Gvuc8617258
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 18:07:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=42DUib38jBSO/OccuRuv4DNA
-	e93CWj3U0RdHsNPxIBQ=; b=JYAerpfG8mgDi35J/yd18a5D9Jt4mGvvhi9XlsMQ
-	wDT2/MsZA+oTqTPIExTufzQ3jx+xHOvmWNkL4/cKi+Bz3WYwrDbVSLT4bnSZIaxt
-	CrUJz/+S2akXNk9Nr82d8/z9c4Ll8oGFKtb+VlbSgKKcnjqhj0G9b1rIyUDHT2Px
-	AgIsX6Elig8GlzR0pj0W4xLIR5feKvdw4FjA1bpBBG/ZyhZ9jBSsGCctMh4t7+Ue
-	OV7NCZ4tYfEA+Q45448fSJULenpC/wifGUiPdjaVT0ZSrQM2Zv7gVvh01iJYO/Bv
-	obZqEBqRDaqeEVljSF7865mH9vsBI/jnAIvQEpR7aVi1UQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftx7m0jyk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 18:07:06 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52769fc3f2eso40985391cf.0
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:07:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785780421; x=1786385221; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=42DUib38jBSO/OccuRuv4DNAe93CWj3U0RdHsNPxIBQ=;
-        b=QgC/D+eolH5BowtoSPTX/IhVKWHWo1MwnkXe3c+gCvca24s22hYFOiGCzFHwBNOPdf
-         hBpt8whe5JhpGzx+eB6z1fUZeH9SqMpzaxORTM8YAcw/1TGMTLJHKqGpLB62+0/VRJOZ
-         KRYQ0j75mTbU6EsTVXkG/NoPqcaKPJ737QmocDO8+n/E5Z5/cxO9s57alMm48wGX96IL
-         DM81S3mMAoLMAxIiOLSAri0yvvaLYeP1U4FYnihd9rQwT5057SUBCE+Bx5jDnbT8FViW
-         pH4BLKw5isH9ifdCXYKJWgp2kpR2dpSlNsFMXeKgpavFz1HkMKofuHbNtXCFEvXuCt6q
-         Nm8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785780421; x=1786385221;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=42DUib38jBSO/OccuRuv4DNAe93CWj3U0RdHsNPxIBQ=;
-        b=NI9/RpoXIp/vAwb7ZIZ9j+DviuwPiFBRb1FAldNbqqtsCwZC9Nv7ZNPqEKAH/xBdsD
-         4DYdj7SRpacUwVwgvMEfkluemfr4Qbwq9qZc16/R+UNY2VsNdlfk9aH/mY30E2Vwvtr5
-         T+Y7uH3Bu9fcuhEtPp+pcOjV4VhfdPluBxM/cgXzFFRb1PtCF/5NZOaewlFNz14sE0AH
-         qW5mKvU6YtiY3Af14PnmrZPTp5oQ+n5/Gag1kRFKvxr4w4hjHao6hYgKP4flVySdbwSJ
-         5KpORsiB6Ed+fEYBolhF9dVulqo4qshzeStUzVa1f5IOGTfmlYOwKYYVMZYI9obzJRO5
-         Kdbw==
-X-Forwarded-Encrypted: i=1; AHgh+RpaL7eZ5DrflljI/iqVA+uloT1Q6lHfEvgNW+8KZgW+CX5AyqaXo2nG6nF0LpsC9u2FzXIMVRlQVMGi@vger.kernel.org
-X-Gm-Message-State: AOJu0YyiSRKzwUUKs/OBSw0seGULEcWg1I3QxXsMjTundWMHRrwEB24c
-	QDO+WCdfVvFotSoRBAQEiNVgWwFq8LxPIM9eKP+RnS8G/QA4DuPXpMWaGYl53lEx4vCsKSV8UIE
-	crVHaDeeYAhESVhJUCb68+uQXmfg+2eRW3aUNeBM9mB8F3lsDRR8pgZGz5fQ/OuBp
-X-Gm-Gg: AR+sD11m3S80kjBG3J0bRxZzGxQrEYENwVScn8qEbV+0lkvbF4y2z8oltp9mv9QP7RU
-	Itu7VHHPiOPbg/KbPVZwmQ38oaqBrMkYhm6XMZF5I4nQI9aQBXon+itCLw8AI9qJ56gXGpt0D05
-	qanvQZp8oYCPvMnvQuLhA8GItQwvDgFcf6u4JShGhh9CGLFdtOxd530vJH5CuYUrl+AyEiZzflb
-	GRpPhT5o1+rFxxVAiRQ0ZxvvBdJDuFw7YCNxJgd16ArQdBHWpvEr3yym4YiIIVHsyt5WRTlt8Dz
-	eFobGsCc1rV3WZCIcaMPEl81bJFFatpDTiOBQU+6gL2HFkltmnTDi6ohHrkRGSG00xYUzXjwXh3
-	r/EyV/Jg1qBDAZncOKWVlnZzZUaPZ+ZViSKbHmFiv44PY+z+NjycgN90FxItyHX9+XeTxeJB0Ym
-	wS0axOY9T4uMdk+A==
-X-Received: by 2002:a05:622a:2611:b0:51a:8696:cb38 with SMTP id d75a77b69052e-52b56670997mr241805151cf.7.1785780420835;
-        Mon, 03 Aug 2026 11:07:00 -0700 (PDT)
-X-Received: by 2002:a05:622a:2611:b0:51a:8696:cb38 with SMTP id d75a77b69052e-52b56670997mr241804201cf.7.1785780420185;
-        Mon, 03 Aug 2026 11:07:00 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f812ade92sm13853431fa.23.2026.08.03.11.06.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 11:06:57 -0700 (PDT)
-Date: Mon, 3 Aug 2026 21:06:54 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sdx75: Use SM8650 MPSS as fallback
- compatible
-Message-ID: <sxn52bn2zcy6blv4rzkdwpthr3s2ozlzarex3iclk7ail4uhx7@czy6k5krxuex>
-References: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
- <20260803180021.20368-2-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwjFAj0x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BE651F000E9;
+	Mon,  3 Aug 2026 18:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785780438;
+	bh=YebdfjdfLGEmx5ZVHrgoJ3CHkcItYW0Uc3ygbwYcSXE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VwjFAj0xq6s6IhUMBWvSNFE14Fw0Tu6lMogOqWSPTw7bG7G0dn4RMAU/EcV05Lswi
+	 fEXPDPE3s57gny0QpWIuJIEGNsWlknN1pFW+No72vCUJWu4tdKChwu8fV8C/ZGaLRE
+	 9+rAN9eo3j/CE2JKMK71FYTx3rxiBc8XGdrepAzCI3S/+o70ZRS+lLA8i69ehB/HEt
+	 NgP/bpcOtDPSy9uSLX9DmpvjpeFGaDZZBjlkhZf9tN2nPOFmqQrsuOJIc8JxWoBFKf
+	 SRX14EKuZl41XDVb/XKyyL9bGcfA8jvS7DpdR5kllbPUf/DNv7kz+1K9pCcGmjzZHJ
+	 4geB2nQJxi9hA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: add support for mcp47a1
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260803-mcp47a1-add-support-v3-1-540e71b4fd2e@gmail.com>
+References: <20260803-mcp47a1-add-support-v3-0-540e71b4fd2e@gmail.com>
+ <20260803-mcp47a1-add-support-v3-1-540e71b4fd2e@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 18:07:16 +0000
+Message-Id: <20260803180717.4BE651F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260803180021.20368-2-mukesh.ojha@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDE2MSBTYWx0ZWRfX70BAkMVqWwDW
- 8XpB2wj5Sm8J3Jn6fViFfZ8mSHNE9fRd3T9JliIylE0vOXKzlvx4l99JSJ2J0LV5x3gcZxLYKZO
- kg+tTLG0JAk7vsYyIeD2L+ZDnSgQyR0KNFqf1UiLv4wAHnhRzAP2nct+i+LwdnFU+VnQ+9LXVY/
- GAcxzVV4sZE9RjPZuhnMq7F20Svn9jhWTTyI0giGqDe4HqoYVTsZrlp4xqZ0LkHf9nsFq4TFqm5
- oZSlcu/Z7Hd7s9eND/NC/5qMsmVg3uNeHCWFz8ilkWBUjNwZrKIkBePSlL8ntgmOF6BbPJDYRKT
- +k9jw8del1XeHKZ8Tu/cKE2VbbnJ0Utnx1A0pTGRCBBCAHutv34wMA07rOjDzCPzlVCQrzyLgrI
- D9wkUEx4Q+9Im1AYYvT8Ezc6MJsA2Y7EDi6IwkOUUNcIVNmA8IIaGk1rmVV3fmSi+bDiMoYUwqI
- fVBYCHXl2iuHK6qeUuA==
-X-Authority-Analysis: v=2.4 cv=TIt1jVla c=1 sm=1 tr=0 ts=6a70d8ca cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=gIi9JqMhTtM_ZK88ZZIA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: fBE0JrXL0UgNrH100vg2y6vg06DXCojx
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDE2MSBTYWx0ZWRfXzQBnbSxevfGm
- GC2b35ObIFEAi2IuDWDJqmIUjvSNcQOy7noS0KpFKClLDmIfj3GETvbt56pyYAXVrvierKaE5/G
- 4QwYj4CUD89faqrT5WMaYXf29t0t5M0=
-X-Proofpoint-GUID: fBE0JrXL0UgNrH100vg2y6vg06DXCojx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-03_04,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 spamscore=0 suspectscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030161
 
-On Mon, Aug 03, 2026 at 11:30:21PM +0530, Mukesh Ojha wrote:
-> Following the dt-bindings change that expresses the SDX75 MPSS PAS as
-> a SM8650 MPSS fallback, list the SM8650 compatible alongside the
-> SDX75 one so the node validates against the updated schema.
-> 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/sdx75.dtsi | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The I2C addresses specified in the schema and example appear to =
+be 8-bit write addresses instead of the 7-bit addresses required by the DT =
+specification.
+- [Low] The `reg` property schema applies an integer `enum` directly to a m=
+atrix array element, which will cause `dt_binding_check` validation to alwa=
+ys fail.
+--
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+--- Patch [1]: [PATCH v3 1/2] dt-bindings: iio: dac: add support for mcp47a=
+1 ---
+commit 441e840b5a2a3f037c3520c49013a55b7dc4c1bd
+Author: Joshua Crofts <joshua.crofts1@gmail.com>
 
+dt-bindings: iio: dac: add support for mcp47a1
 
--- 
-With best wishes
-Dmitry
+The Microchip MCP47A1 is a 6-bit volatile Digital-to-Analog converter
+which communicates via I2C.
+
+> diff --git a/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.=
+yaml b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+> new file mode 100644
+> index 0000000000000..b181fe73dce84
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/dac/microchip,mcp47a1.yaml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    const: microchip,mcp47a1
+> +
+> +  reg:
+> +    items:
+> +      - enum: [0x2e, 0x3e]
+
+[Severity: Low]
+Will this cause dt_binding_check validation to fail?
+
+Since dt-schema parses reg values into a uint32-matrix (an array of arrays),
+the items array applied to it defines a tuple schema for the outer array's
+elements. This means the inner array [0x2e] will be matched against the
+integer enum [0x2e, 0x3e], which will mathematically fail since an array
+is not an integer.
+
+[Severity: Medium]
+Are these 8-bit write addresses instead of the 7-bit addresses required by
+the Device Tree specification?
+
+If these are indeed 8-bit addresses (as indicated by the 0 LSB and typical
+Microchip datasheet conventions), they must be shifted right by 1. That wou=
+ld
+make the correct 7-bit DT addresses 0x17 and 0x1f.
+
+> +
+> +  vref-supply: true
+[ ... ]
+> +examples:
+> +  - |
+> +    i2c {
+> +          #address-cells =3D <1>;
+> +          #size-cells =3D <0>;
+> +
+> +          dac@2e {
+> +              compatible =3D "microchip,mcp47a1";
+> +              reg =3D <0x2e>;
+
+[Severity: Medium]
+Does this example propagate the DT specification violation?
+
+Using an 8-bit write address directly in the reg property and unit name
+(dac@2e) will cause the device to fail to probe or communicate, as the I2C
+subsystem expects a 7-bit address.
+
+> +              vref-supply =3D <&vref_regulator>;
+> +              vdd-supply =3D <&vdd_regulator>;
+> +          };
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-mcp47a1-ad=
+d-support-v3-0-540e71b4fd2e@gmail.com?part=3D1
