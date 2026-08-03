@@ -1,172 +1,217 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A706835202C
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F094359A6F
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785773136; cv=none; b=u+SVqsHVpmcP7B8gAOdLabst3YDpDLqGn0qGYCjpZ8FPmXdCDWlWDA5l024HbTFy0cWUUbPtp3xTauOpTQZfF5EQ2NwakM49M6AWHp+6VTKs2stXB3FJOUvoMVqo4wB60AtHSlifTlzO8EnMWr9RSJy6J3MWxXNyQWHhfKG4P1E=
+	t=1785773141; cv=none; b=CcRxBGb0UuNGnhAl35vSLHui4suWLN8Z8yOXocjoHvXd6ygZfJHZKhCW3QnW2InwD+AcbEioJ1nc93EyYZ1L2H0C+xdnCPnT6OLfsRzeQb20U2/3oa4f0+nMTH/yucIEJi54UisCwXvKnW7qkO60amkblxA9cFjnf5IcuU3LGxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785773136; c=relaxed/simple;
-	bh=jjmdBTOcGsvvUEbiWQaxptxR3fZBHNirFhVPTnjc2vU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PaopTNWZnp9GebfJ7XZQoxPCtN0bKMzgxZf0fTcv40jd8cKEiXmPcAxYiHULD5bObIjLPZNXBJPrfK/dahkodLK8IKPNMxgtuof+Vq/tSWVIiNpTEjrPfRGFkllgptMOTt0ao8Zz97iBYTsVGTXVI13lATm5NYtB4zICVY2n06Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IvCuQrHN; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ax0dazgC; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785773141; c=relaxed/simple;
+	bh=eHE2ySkMd6RAJ+Zg9AWbLE4UmHsl2HS5GH6ryQ6tlfc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cfmygIY19X1bx1sAxxNwKrIK9YjqdRucIS4N29RArbcR//xbl/L1qkRpHFdSnPuSBgFBb9/9+MN6GG8zeZKKzmgQ8XaKuQmQdhF5Ic42fCgUd5R9oMnqlWSMhkgNJ7ezLiyRSWPcQP84ac4Tv0PWBDLERqszIrjEGAeQqr0Jqnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m7uqO/Z/; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IvCuQrHN";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ax0dazgC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785773133;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=357lP/N3j9Pe8409LQo6pgh/hm23lTt1qCsWKe9kpVU=;
-	b=IvCuQrHNqAxukO5AaQ6Avure5gpxAfZk4Bnvrkk357CPjv0zG25eC9/nGQVSt+ZVwFAkGe
-	slxHSKTZqtf9ZcDcUJ5KJrZprfPtO7NpbyhMWHkWPnAtx3wsvj+cGjd3uZhIMZhenD8zwh
-	DxCRKQiNeLHalW9lDU+4NiExkcEhi50=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-668--kEVQyn1Oxe2GtQ6RXsy3g-1; Mon, 03 Aug 2026 12:05:31 -0400
-X-MC-Unique: -kEVQyn1Oxe2GtQ6RXsy3g-1
-X-Mimecast-MFC-AGG-ID: -kEVQyn1Oxe2GtQ6RXsy3g_1785773131
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-81e6ae12b42so51331857b3.0
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:05:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m7uqO/Z/"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f706438c3so199309f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:05:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785773131; x=1786377931; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=357lP/N3j9Pe8409LQo6pgh/hm23lTt1qCsWKe9kpVU=;
-        b=Ax0dazgCo9jwxDz71T5sA+iFPmfBn6jOIh2qSOx/8pOz6DoO+LtXcJYwQSNmtGBu1S
-         HhKc/03tG2XdaO3mc1ug49koloQtOuqYJl6Z2vXL0l94CAvSvEZ0je8TRaml16aGOfgb
-         a/BW+rfWHVEarSN9L1fpqqoRtNmReLeIVnmSFAsXjI0sSgIEn+dydqT1FjlG9OuUddBs
-         2OETHWc6HNabDldSZkZYMXX6dIaz9Rmo+XBt68AnaVz6x1Z556TxZ+YS9ev6jebV3PDX
-         nCIaiUXKzS5N6KeBoQqeeVFCoJW2pxuI9574DnQmeLieXkstBBtSQ27MunInJ71DWekp
-         5Q1g==
+        d=gmail.com; s=20251104; t=1785773138; x=1786377938; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Orw1gQutvOkZopO7ifTGK4f+dabsbqDeP0c5VLSqs1g=;
+        b=m7uqO/Z/UI7Kqeb7bWxJ9Xp1xMERja3adVFrj7jYOnq5oAUUDVjkJf9JAujVleRRT2
+         Dg275ztrMgYb6VuGdcfhK9QbmPWwyBaetkRGTJ9yLuHqvDaHKWCBt4AFUqHZH6hlwbvN
+         mBNUj4f2ovEOmNjRI0TTCWg4Ggwy+zvaXEttcMqR/WBWJIwG1ZZnR0RnNPN5YZZmUJ1r
+         mZWHh1wHSu6kbEsExo/xLHf2sU3GcemNwm1sQROgzMBZwMaSImQLB9vx++a/IuJ/+ySe
+         wKDYP64AtbGtxaIYpC7oO3Y6ISKkYsj6p3tvy93+htIItLkV/IPbOvrtAeZGdN+LJ16P
+         9vMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785773131; x=1786377931;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=357lP/N3j9Pe8409LQo6pgh/hm23lTt1qCsWKe9kpVU=;
-        b=hYFrbai4j33yJ/4ajFrNa34a00FnWHf92wGPuf8QTRI4Fz4H0kkSVc44pk4uved4TL
-         bsuXCA+Vfk4EgBBgPFKMhXXPZ5XWFBdPlKD0bknzQJK8+2kPvUXh2H5eDsBFQ8TJtn0e
-         TN8z8J+nS30hCo4Yzl1RLxtWmkfPx8xIcyEZqoxRSTqy4rxkR01VWcAeR7xIv3JArQhg
-         AQrAYy4Yq/6un6ODTIulxHtMs9mtj0BpAuNUvr7NND0iuWK7DnJ8C3601CBO5dHVi5D5
-         B9fMf5L8QEovVV0WXD82uDO+4IBqlAHWk4cg3580vVNRo0BVcresEmw+BbWGl7duGv97
-         375g==
-X-Forwarded-Encrypted: i=1; AHgh+Row4+51v4wkYcHQNNVb2TESXG8DrLG6sZFBM5GgwD1wBlR0zEbrPToYfZpPW6uLw6R81aNkqxfkzNLF@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0QuwnotkbbOBOE5uJ8KONgS6WqqjbXrbJ8VyoFA2A12Th0mom
-	VV6FJRpbahxE/PR2QSFLwhhayx05ZvEF+0Bw8C9S/M2/N+DQxaOODKNUTIP3PksyP4TU9Yd6G9V
-	vWZ8GvLvfTgTAOuDhoUU6/1KNs3b5D4uMNEyaEzbcIOwCB+yiumP/Yj2EToNmvTc=
-X-Gm-Gg: AR+sD10krb/kWAcxVj1kh9heidD1dijWQMvQHh0JphbRngsXuAksSSp4s1l3aVFsmaj
-	Zv5rnGX+uDqrSrHWSuKkXZ+kn/VlqkZXR08agQwIS7EjQ5pj8YXXzqnORvJgm8td/3bxay6Qq9g
-	3d/7fCraCm3MmYrtSytiqqiYCqFbFdVDH6lN+UubvwUYoIGIQIEhkqGU3U0LVLwedPTHjjoZWLU
-	JkEpDoTv7OIoW6MxyNnWPzEzQTIYjPGX4PwdAEdtUB0xbFmGzRc2AZVAMhIfdSP358NKrzK0wTn
-	7DsGjvnCQ2QRLMv6qIvPMopMhiejKLBz3pAf1Jh0dPHwa4RkJtoKxfdZhk4bS1QQl5cu8ksA6m+
-	C29w0rdD3VAvi3p58eLRH3XHuS6hcd825kD0=
-X-Received: by 2002:a05:690c:6f04:b0:80c:ebd4:762 with SMTP id 00721157ae682-81fd49b4b80mr130783387b3.7.1785773130737;
-        Mon, 03 Aug 2026 09:05:30 -0700 (PDT)
-X-Received: by 2002:a05:690c:6f04:b0:80c:ebd4:762 with SMTP id 00721157ae682-81fd49b4b80mr130782967b3.7.1785773130388;
-        Mon, 03 Aug 2026 09:05:30 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fccf30319sm57712047b3.6.2026.08.03.09.05.28
+        d=1e100.net; s=20251104; t=1785773138; x=1786377938;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Orw1gQutvOkZopO7ifTGK4f+dabsbqDeP0c5VLSqs1g=;
+        b=UDnmHNg2Sr3pCT2n3XKa6c3043nh8nvR/eSWHUgelEWFUTOVCABZklUTTzfzQAz5jf
+         BYfo3HHK9RyQkiUJ+4bJFwS/Otg5Uq0vCw9DiAQcLigfUuWqTlmS8ri8lAHIOes9sxeL
+         f0rx+cwhHM+neZkGUfqr5xNu0Q5H6c7gmzJIBQPCDyFngHKIDcoWcd1ipn6EHfiBpl3/
+         BDdma2zQioHJzfA6YRwGHFtEznog/ogQb55mpqbu/nZdW2pjjeADWbmGqN0t5GuTZF2G
+         uocDkP35DR6fmDnK4w5gGVxNK1kOWhxMWXbnZD4HGV1ZmDJcTfuiKoB67R4oYgLYpV2N
+         HDPA==
+X-Forwarded-Encrypted: i=1; AHgh+RoKfUdFX2qh4XgiR/wH5N42xjSfHZDrYS+jn/gnnqHOR0WGKfrPYCfZzy3VBwygcSS4UT8zEyTdXICj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxuw+F13OudiblWAezmLbGKc63oWOKDH0IrvOSDBhH1BlxuTzpY
+	6M5f4dErCcpuy7jUJElqkrJfEKhuxVowZKKTP5fjxP5qWyYXwq6V+vUb
+X-Gm-Gg: AR+sD12dhnmNGqsIdCsXEoLj0g//dpAWw7mUQ2euBO/lVAMEL9BQfuGdoGt3vJA4Jc5
+	kD1RfNU/RhmPVCH3OshcWq6PLSpsPmWxzzIydH28zPf93Y0tpPvmHmJXY++uQYTxaCPpw0JmyIu
+	i9nTi3ZRSYl9wyKBuiZinlqeMIUrF4YM+lxR/d5VhVQ6eGGETh7RaUPU//vB1OnVqjdHuAZI/fd
+	fIShbbUc7f121ZvEhmv4a22doTz2rHcBsqY3EvGHFO0XnLvCcbIFVXw53ROo7EfeDymf5J8T8Re
+	Vx8sOq3Fj6xI0HOjhlbvFGOWh/NFtpNlbv549qErAufkjGMtUUckmyjFquysIN5175EtsEPKB2h
+	LwD1JRbksZIyjiCXN9UIc8uUuuK+7oR6YkrlYEMiJMdL2VlPw0ClRpM2DgZy16w9NHI7QJEXPHq
+	gqvYDRJ7tpvU4JOTOrgKCWn3U9hv0Z4yFQ7IWKPLScNhKN5zn4lI4/c3VSesh0q6QsOEGolqi+U
+	U8fj1ZmJdRnd/Mzm1VTg5jvOXJ79HyZ80WK9hsTyYJwfUihNSvQcFS7epDsRsj82wv+
+X-Received: by 2002:a05:6000:61e:b0:47f:4d11:3472 with SMTP id ffacd0b85a97d-47fd72a00e1mr15561662f8f.1.1785773138178;
+        Mon, 03 Aug 2026 09:05:38 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B85F300A5CC0DBDABDC4661.dsl.pool.telekom.hu. [2001:4c4e:1b85:f300:a5cc:dbd:abdc:4661])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd458b73asm31953719f8f.29.2026.08.03.09.05.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 09:05:29 -0700 (PDT)
-Date: Mon, 3 Aug 2026 12:05:27 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v9 05/12] clk: zte: Add Clock registration infrastructure
-Message-ID: <anC8R2Nxgv_w7Ahp@redhat.com>
-References: <20260802-zx29clk-v9-0-d05530d85d28@gmail.com>
- <20260802-zx29clk-v9-5-d05530d85d28@gmail.com>
+        Mon, 03 Aug 2026 09:05:37 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	alchark@gmail.com,
+	chaoyi.chen@rock-chips.com,
+	krzk@kernel.org,
+	will@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v4 5/6] arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+Date: Mon,  3 Aug 2026 18:05:21 +0200
+Message-ID: <20260803160521.14621-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260803094125.3285895-6-gahing@gahingwoo.com>
+References: <20260803094125.3285895-1-gahing@gahingwoo.com> <20260803094125.3285895-6-gahing@gahingwoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260802-zx29clk-v9-5-d05530d85d28@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Sun, Aug 02, 2026 at 11:33:37PM +0300, Stefan Dösinger wrote:
-> diff --git a/drivers/clk/zte/clk-zx.h b/drivers/clk/zte/clk-zx.h
-> new file mode 100644
-> index 000000000000..175fbba3e0b3
-> --- /dev/null
-> +++ b/drivers/clk/zte/clk-zx.h
-> @@ -0,0 +1,142 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (C) 2026 Stefan Dösinger
-> + */
-> +
-> +#ifndef __DRV_CLK_ZX_H
-> +#define __DRV_CLK_ZX_H
-> +
-> +#include <linux/clk-provider.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
-> +
-> +#define CLK_ZX_PLL_PREPARE_IS_ENABLE	1
-> +#define CLK_ZX_MAX_PARENTS		8
-> +
-> +enum zx_parent_type {
-> +	ZX_PARENT_FW,
-> +	ZX_PARENT_ID,
-> +};
-> +
-> +struct zx_parent_desc {
-> +	enum zx_parent_type		type;
-> +	union {
-> +		const char		*fw_name;
-> +		unsigned int		id;
-> +	};
-> +};
-> +
-> +#define PARENT_FW(_name) { .type = ZX_PARENT_FW, .fw_name = (_name) }
-> +
-> +#define PARENT_ID(_id) { .type = ZX_PARENT_ID, .id = (_id) }
-> +
-> +static inline struct clk_parent_data zx_get_parent(const struct zx_parent_desc *p,
-> +						   struct clk_hw * const *clocks)
-> +{
-> +	struct clk_parent_data ret = {};
-> +
-> +	switch (p->type) {
-> +	case ZX_PARENT_FW:
-> +		ret.fw_name = p->fw_name;
-> +		ret.index = -1;
-> +		return ret;
-> +
-> +	case ZX_PARENT_ID:
-> +		ret.hw = clocks[p->id];
-> +		ret.index = -1;
-> +		return ret;
-> +	};
+Hi Jiaxing,
 
-Stray semicolon
+Following on from my note on 4/6, since a v5 is coming anyway: rknn_core_0
+as written here does not validate against the binding 1/6 installs. 1/6
+adds the compatible and the conditional sram-supply, so every other
+constraint in rockchip,rk3588-rknn-core.yaml still describes RK3588 only.
 
-Brian
+I put your node through dt-validate (dtschema 2026.6) against the binding
+with 1/6 applied, macros resolved to plain numbers and everything else
+left as you wrote it:
 
+  npu@27700000 (rockchip,rk3576-rknn-core): clocks: [...6 entries...] is too long
+  npu@27700000 (rockchip,rk3576-rknn-core): clock-names: ['aclk', 'hclk',
+      'npu', 'pclk', 'aclk_cbuf', 'hclk_cbuf'] is too long
+  npu@27700000 (rockchip,rk3576-rknn-core): power-domains: [[2, 7], [2, 8]] is too long
+  npu@27700000 (rockchip,rk3576-rknn-core): resets: [[1, 20]] is too short
+  npu@27700000 (rockchip,rk3576-rknn-core): reset-names: ['srst_a'] is too short
+
+The last two are the ones easy to miss: the binding writes only
+"resets: maxItems: 2", and dtschema fills in minItems from maxItems, so a
+single reset is a hard failure rather than a permitted subset.
+
+The v4 changelog says the reg entries were cut to the three the binding
+defines after running dtbs_check, so I suspect that run predates the CBUF
+clocks and the second power domain going in.
+
+The fix is the same allOf shape you already used for sram-supply. This is
+the diff I tested, on top of 1/6:
+
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@
+   clocks:
+-    maxItems: 4
++    minItems: 4
++    maxItems: 6
+
+   clock-names:
++    minItems: 4
+     items:
+       - const: aclk
+       - const: hclk
+       - const: npu
+       - const: pclk
++      - const: aclk_cbuf
++      - const: hclk_cbuf
+@@
+   power-domains:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
+
+   resets:
++    minItems: 1
+     maxItems: 2
+
+   reset-names:
++    minItems: 1
+     items:
+       - const: srst_a
+       - const: srst_h
+@@ allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3576-rknn-core
++    then:
++      properties:
++        clocks:
++          minItems: 6
++        clock-names:
++          minItems: 6
++        power-domains:
++          minItems: 2
++        resets:
++          minItems: 1
++          maxItems: 1
++        reset-names:
++          maxItems: 1
++    else:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
++        power-domains:
++          maxItems: 1
++        resets:
++          minItems: 2
++        reset-names:
++          minItems: 2
+
+With that, your node validates clean, and the RK3588 example in the
+binding still passes, so nothing loosens for the existing SoC - the else
+branch pins it back to exactly what it has today. Take it as a starting
+point rather than a finished patch; the DT maintainers may well want the
+per-SoC clock list spelled out differently.
+
+Separately, and this one spans 3/6 and 5/6: the resets you add to the
+power-domain@ nodes have no binding at all. Same test, against
+Documentation/devicetree/bindings/power/rockchip,power-controller.yaml:
+
+  power-controller (rockchip,rk3576-power-controller): power-domain@7:
+      Unevaluated properties are not allowed ('resets' was unexpected)
+
+$defs/pd-node there defines reg, clocks, domain-supply, pm_qos and
+#power-domain-cells, and every nesting level is unevaluatedProperties:
+false. So 3/6 teaches the driver to read a property the schema does not
+admit; that patch needs a binding change of its own, before or alongside
+it.
+
+For what it is worth I did check the DOMAIN_M_O_R_G to DOMAIN_M_O_R_G_W
+rename in 2/6 against mainline, and you are right that DOMAIN_RK3576 is
+its only user, so nothing else moves.
+
+None of this touches RK3588, so it does not change what I said about the
+tag on 4/6 - just worth folding into the same v5 rather than finding it
+in a v6.
+
+Thanks,
+Igor
