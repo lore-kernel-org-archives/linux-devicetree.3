@@ -1,51 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5175138333F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D602F38839F;
 	Mon,  3 Aug 2026 03:24:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785727474; cv=none; b=s04Ck5sfWYMZGHavRdu1OiB57zLPrnl+YPSV8AieR92L4xvPkAnEesRB3Qm/5VLiXphla43laXYqfJ5YDhGzQQYZHCRhQC3Puk1NrgGiC8XRVwUNqv7EXrqO4MZOkXDLt4+d//sX0DfibNbUXOGU5ls8Qafwb6Oah6HCf2NIh+8=
+	t=1785727475; cv=none; b=AGptpRr1NwRFAPC7sP19UF1FUAOX9SDUDamBzKw8MPEgM6C1zPLr9UvW0HiQRH7mbISmpZXLf+UlDCLPsPic0gx6BXxlS/D1bsGAu3kWvqC2owUjOWE4H5+Qr+zoPAlfTxQtsmeGyDkXZeauBrjiQLAvZpFUJjGKeDpi2p4VPC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785727474; c=relaxed/simple;
-	bh=nF9JmbixLFY3qRDdQW3RqSM/78O/ELsARFHwiTtxDHM=;
+	s=arc-20240116; t=1785727475; c=relaxed/simple;
+	bh=CDanET+eIxB3b93NqkEXIEhHYk/I32W+SWltSRW+BCU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fdyaufQR5+d8YjKqb6g/YLQgr/KkWrg++GnxJON60kkDN1/w0FC86QUSz5wTno7zeb82w8zI7byOjCgnFQB24SvLMzZk7ugkgmdpoH4MvYWxDO54tkNEuotYpqWQx++J6X3x7FI2jrKSRRBE52SYbW7uOHLrx9gV4N7yL858LVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfWuv81n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=SFm99lCNG82dl6K4aRPX4Q29V5jWnX8hBOCXHQAhfYMbx/w6bJbbjo+75GiP11V02WssBWg5Y6cwnHPkCEkfLyqE6QY0srqafHp/6iCyCr1ljQ1xy00UurzK1eudb5Q6v9ySt/EeTIvQJqZC1pd9qaENqcBryejvvgxfBx+qYDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DntbEyES; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfWuv81n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F171F00A3D;
-	Mon,  3 Aug 2026 03:24:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DntbEyES"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B36F1F00A3E;
+	Mon,  3 Aug 2026 03:24:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1785727473;
-	bh=jwypTDJipm9aNwUQ+Gfsqh16qBeuRCXeDsbo6nrhIVU=;
+	bh=yGHXw1PdPPf7FbG8Yyuk6qAr+fwTDwoS6sm6kmhhg+Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dfWuv81nSDXCIE5rS7bJyWbwNTdlDYOnC1GI3GKrIe/SQhdbVXGIwFW5xqqgUhAZJ
-	 gEVjCvb6Xb5+DnNkRkZ1t0vWBJ+8P2DySixzFrVhQHqxKIMzB81nrJbe4IN0wbfXOU
-	 exGKLZiEzKLVyVKSuHOyszUSwc+OLIVWaXzdGQLMhYWHfqpzFllGy794XninIJRKHG
-	 TV204/5ubMLmL21OmGi81wyJV5lkfHpzjs0NKUuSHuWMNPqn6S0ntSbG0BDWnko4sP
-	 5MpmVddBSDTeEdSKaiuDWARAiGjlChsvHVt0rJYmA3I9n4KGkBv3ubSHXFogA2NiLn
-	 MNBe150khRlkA==
+	b=DntbEyESoccS0gBzV8NnY+v7NDwQ83GdOFyVqMFruzog8rkh+DyurEBMXTNVhekzA
+	 elDoWGnkjVvFmS0PNmj1IlvcezWCXnPYi0pEPlczLzqkuK1uGDl00CZUvNBAlpYVpe
+	 4eIGRZ38ZyGCALCodgks87R0yEr0LcYLDwBURWgm1maHPm2be3nhez7LffclP6LQPb
+	 sd2REjdO0qV+1Qq25Ku1vHiedfzrXTOfGf7GF5aTR55MVPuCFEzh/dRsdrwmHEUxXA
+	 Dwma7RjufqZoQKySLbQS5PCLHsLJ5rctNFlInFrZLLii/hPw3I4G3jeDlF/dIMhtee
+	 kxHvfCTuA4/cw==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/2] Add APSS clock driver support for IPQ5210
-Date: Sun,  2 Aug 2026 22:24:05 -0500
-Message-ID: <178572744555.408250.5529471482065457058.b4-ty@kernel.org>
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sm8650: Assign CCI clock rates to 37.5MHz
+Date: Sun,  2 Aug 2026 22:24:06 -0500
+Message-ID: <178572744562.408250.3011948892531028605.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260703-apss-clk-v3-0-4785e89a9c58@oss.qualcomm.com>
-References: <20260703-apss-clk-v3-0-4785e89a9c58@oss.qualcomm.com>
+In-Reply-To: <20260729112719.1151700-1-vladimir.zapolskiy@linaro.org>
+References: <20260729112719.1151700-1-vladimir.zapolskiy@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,19 +50,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 03 Jul 2026 10:33:46 +0530, Varadarajan Narayanan wrote:
-> IPQ5210 uses the HUAYRA pll for the APSS clock. This series adds support
-> for the APSS clock to change the CPU frequency to one of the supported
-> frequencies.
+On Wed, 29 Jul 2026 14:27:19 +0300, Vladimir Zapolskiy wrote:
+> Setting CCI supply clock rate to higher value of 37.5MHz allows to
+> program the controller to configure its I2C bus speed to Fast-mode plus.
 > 
 > 
 
 Applied, thanks!
 
-[1/2] dt-bindings: clock: qcom,a53pll: Add IPQ5210 compatible
-      commit: 4af10c020e29607dacf1e06e98aa4286cf71d4c0
-[2/2] clk: qcom: apss-ipq-pll: Add IPQ5210 support
-      commit: 546e0bc2aa207f7e9c78c88b0190b0045f796169
+[1/1] arm64: dts: qcom: sm8650: Assign CCI clock rates to 37.5MHz
+      commit: 2cc1076501887746f20bdcca40ae703c8c13bc7a
 
 Best regards,
 -- 
