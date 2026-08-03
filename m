@@ -1,228 +1,154 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C18C3932FF
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 06:15:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1EF1E5B64;
+	Mon,  3 Aug 2026 06:16:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785737710; cv=none; b=j38AX8WRMpXAQ2kmtcMeB56iAJDRCe7n3uZpWXoz4+iL7L8BWClc6oW8kYP3R6w3N/fc1sthyThcAmtRF0lzB/1vc+EC79CBrQW4iskD5+AS0quyrdME6gnssmUNnE7jyKBCIwxwGzQVmIO77e+sLIimz/exbWpsfsXL6sLbrmY=
+	t=1785737780; cv=none; b=pJ33NJNY+a9LezrmGYcdQKq221doz8FxZTsovAEw1Lx4jzc/x+VQtCmEKdeBsMPkDl+FFg0unhG+UX1/hw5MLJp3jm22L0ZWAatuMD5QHNHp/23VoS1kigfmEccBrLUB77PJ5WL5ecdN3Qyk9K7cerG3tSWg17S9SbAAfNJ3qkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785737710; c=relaxed/simple;
-	bh=lV0FNc2jGbA4z0aPBrbq09G9Arq65dq7bjEYXqJ5/+Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NVXHVIiXXcvGXsk0rUb+7gFcUw6iawv40EzrWzVYzAsjqjfkd5c0Nqu2bcZ+rQWvtxfiN5RbwWlD/O8Lh7HnMr52/gt8JKdgFL8C6ATv+IzO0C1w3PdPsUXgM0GrYb5zcPVVaTZH6klmS6xPiDcOWi8glVQD1g2KekWi1NHDWWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i4+OJ5/c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=REYXmbVc; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785737780; c=relaxed/simple;
+	bh=BopCKBvc+/vOh9lupetCn5dslWB7Kn8V1y64Lq8Q8c4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dffcDJR1sgjR4xt2nHOSymI0FrB8GRE58RguTrmei9yv7qRx2F1vw9im1mSqMcrL2faZS7uqrSLyTDE+rp91c1Tzk5dXhwgR0Vk+WfojTZReARmy0Fzmq/CMa9qoMfbwots3UrNJhCPxPH8KyVYECGcZWp9Wr05S8N7urBhM8XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=he3OujF5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i4+OJ5/c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="REYXmbVc"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 672LVq3h3101570
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 06:15:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=B7h+X9G8Urq50HCuJaQ8lxLP
-	AAO5dohspwHE3VjyRzs=; b=i4+OJ5/cTfBTDrvpwhUzMGxbJ3Qa2NfFGLDNfzm1
-	nWw6sIHaPI0KVCgri5tJcQyoOUXrC1I/2zQ1P5TBP7HICjJuIQlcw/bwCch1RgmO
-	yg4qJCSGG50ikGRtK1W9IwJsDHe1M7qXiGOM+g5aN59V658/RoOO8gSuj5YbJflp
-	TRDvPfCuc14SnufVOWvVTv5rTTfOhStZ79yhJ9qIMPRP89EtzflOSC6xmhr2jYUT
-	im6XaPQ2TLjnpybsGTbl7AiEVRWxGy3+IK+rXyk0hKIUp+IoKeo+Vpe4kg5u4e+R
-	dbxLLWaGC4OYSvaFzSvJ/dnGE6M3iSSPl7MZxAgimIcIMA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8q54tj7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 06:15:06 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-91931144870so302156285a.1
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 23:15:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785737706; x=1786342506; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B7h+X9G8Urq50HCuJaQ8lxLPAAO5dohspwHE3VjyRzs=;
-        b=REYXmbVcLmZTkAMdv9xm/3pntfBrDRMekYic1fEckmMW8Ce7dkC86gU0azxdCym0AD
-         wjpS86177Q0YuWwpyEI6GXe6WV25oFQaycfsQwGBHJ2PdE4P/GRVqNTG8sJeDnpo3e/b
-         /BUFTovQjc7pJ5/+bRn1wZMZulD/lqqGGiaqKhOFEXM8taYgVkvbIn8qvI4JOzOYO0v1
-         UHSJWh6a5FXCu/ht7e1FnIxAbI3ZPcbC7YNHXUqmvLJzHMH+/fuuGJyPlrGfiV9ZPu+7
-         btVhegBbU4lV1dTj+0LrSECz4g3OgZkNWZmISr3qivtkQr3ECVji/LcpMLBQfRVgA4gW
-         fk7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785737706; x=1786342506;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B7h+X9G8Urq50HCuJaQ8lxLPAAO5dohspwHE3VjyRzs=;
-        b=rgdKRyz02fI9eVU8DMFWILDLSOxPtnDuprpgPv1URTl+7ZELKZ1DZWxe1hMTI4NPyK
-         EMrfUaouJ/SeVfnJ7mzBG4gFWzENaJbvq7h2C6UU6yyK4NaUyPjOut8VB9e8GgCG8P7o
-         xorWSW6PWjxbEmBXg/INKejguJIdOoUlU603Ga/Ut3kjEhyrLOma2DsmsLoX/Ql69eGK
-         nLTSeTydxHKEp7cWCfPPTKQJo6eb8ysXEmLSuohl06IzWGtPfnjMUFNEAa+x8O8ba7BB
-         4JljTD2UC9j8aUvgPxhLVI17iYuL9cSBchMqRxoJlxluWbGYiYLOSjkpOv2FEqPpqknA
-         yxQA==
-X-Forwarded-Encrypted: i=1; AHgh+RrjnhkRLAeTOQQRetnGS7oeKrCWTdQx+2Rtu8gsKNiTYY+l4fv0BsacyUSffxmv1100mR64zSmvWWpz@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEom+SEHpdgcPSbv8kQKdn5TbEweDm5ANzRmn3JEZ9jhZ+dI0N
-	HeT54gylhLOd04b4UMK0y7SmvMmC6KFW76JE4HtqHXYY3qQ5FAlBI/cSdBrZJU2kWbyagDRpOUW
-	CKGxZfTg8hNt9yXvdMjASLc2ey3SxmlHQ6hckzpJW9V67NUq+H39D2TZHaJmVQ66HQ1zQibCX
-X-Gm-Gg: AR+sD11Zvbtxyi5yKAAeaEE+XOHXVLn8F3f280RvgQHhvQdMuVXF4OzF6vpGJQjw3CG
-	kK20WibpeLXxcgDpblPwmg2uz22o96E6n2JSbyDdw3mMkTz6kwy9UdH4JctPYqHyuAJVyhHtBUe
-	ekND/airl8Hn7wo5TGa1ydSlf2lDKlrTjY587CgMgXhXgY+f+9WcXuiYngyNt5c4CQTL//PMqPd
-	lEXitg+4ECLReyvHd+ZZRIz9dWPBScjQVGeW0P0gxm/aMbl20mooBLcSOqO/zjBKZDu0c6lh+Y3
-	CVDrGBPq5ZLOantBRk8psG+w+ER6NY8ahoidxSrhTP6ztgVq0qWTUI2k5UWTTI4bxPKbagnLn2V
-	yXYn5gdmUd055j0nP5ad3+dxwHKBxdl8WvfarlMiFGeVRmTwA9+OH4dmXKuscGj0=
-X-Received: by 2002:a05:620a:4104:b0:92e:2c3a:a15c with SMTP id af79cd13be357-934a0943968mr1814479285a.29.1785737706236;
-        Sun, 02 Aug 2026 23:15:06 -0700 (PDT)
-X-Received: by 2002:a05:620a:4104:b0:92e:2c3a:a15c with SMTP id af79cd13be357-934a0943968mr1814470385a.29.1785737705658;
-        Sun, 02 Aug 2026 23:15:05 -0700 (PDT)
-Received: from YUANJIEY2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9349c19f881sm594920985a.29.2026.08.02.23.15.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 23:15:05 -0700 (PDT)
-Date: Mon, 3 Aug 2026 14:14:58 +0800
-From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        tingwei.zhang@oss.qualcomm.com
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: qcom: Add HAMOA-IOT-COME board
-Message-ID: <anAx4kqb4PwEImeE@YUANJIEY2.ap.qualcomm.com>
-References: <20260727070758.528-1-yuanjie.yang@oss.qualcomm.com>
- <20260727070758.528-2-yuanjie.yang@oss.qualcomm.com>
- <20260730-alchemical-phoenix-of-excitement-fff9bc@quoll>
- <amsfSzgMArno9zRH@YUANJIEY2.ap.qualcomm.com>
- <2eb33f53-2320-40dc-8098-79fc4f48af8e@kernel.org>
- <28fb7750-bd46-4f3f-a3ba-7cc1fb88b235@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="he3OujF5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066EB1F000E9;
+	Mon,  3 Aug 2026 06:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785737778;
+	bh=Nwv0Hx1KpfpKSMl7HZwvOlDpe7huQxwS54Hy0Bu6Xtg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=he3OujF57SGehO/1Ovm0njDqlsAnrER2BK1WAKOVqjjlSF5a9cdtoB6SWzR5c3Gzx
+	 usGVF6YPrWWJGtpDbhkxuiYBLfyPcDfRzaNNhFoZi8er5vtvG6Okg2B+Ommly1/e+V
+	 ZJBE7gd/2+7cE1G1hCyDGUQm2eXr9VUCuk9ZCetU6LzWSnJPn76bE7LnAevJF9TY6a
+	 NAXPufU9qOq0LxIpD54W68RmGD/dcU7SyYAqbnYhAmy25+CXM+hlbLnCIMSNbtXzGl
+	 X8YqeATImm2TlNmLVB42Jfo0VmBsA2u64QnFL64Z9LoHS5e8r68Np40ZRh2QTNDbHE
+	 dDMSKHUE68f1w==
+Message-ID: <a4d585fa-ccdc-4021-b7f7-f88638a9dbe4@kernel.org>
+Date: Mon, 3 Aug 2026 08:16:10 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <28fb7750-bd46-4f3f-a3ba-7cc1fb88b235@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA1MyBTYWx0ZWRfX+CC4iti53LCT
- QzwQ9rHmxn5E9X1tgr8cfj59gELtViPztw9Lvgm2tzQ7ps/t2fZckZTuXwoEf88fUA7N+oxbAeb
- C/nBTxtF6ygMNWw8xU0kFXLr81d4yOc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA1MyBTYWx0ZWRfX9E6MTKu2n358
- CQ1sYPlBn8J0ioFhPm7cBg8LhYMJjgnvzPHmtnMJQlr+/4wfZdT6bOC9zuQGD1QlgPUEfJ60CCQ
- IJs99O8pPOa9+cmJdou9ImBlcV5xi7qd3c0JllvrBBs9Eb+cH4b3bxVJmHXtNvAljx3AP3r167s
- fUP1D3/NdQp9HKAApsDZLGO+HY6ZsKwDTFu2eNJZVnm0uRvnrew6RRUeN1NVyXPebG4fmRVEHt3
- ovFxpruR3FVh0r6Mxob7EBicBi9HHJxDOl/RoVMvml1QlieYoUZm2V4J4UWMHwqQPWqk2BKXtMa
- /0eaYklz8Nnay4Vi/1C7urPPTb2bcj++jjGNIAj8ZYRmGOCwQJJv8Jd0YtTT6yWzWnVqoMf1p15
- 20fIChOEbO7xgJ+D0yMoWv8R+zNrHo9+SjkK9mwtTVznu26wqIranA4YRYsvWhab3f0A9s+y5Fr
- 0HOxMSFKSZw0lKDSQww==
-X-Proofpoint-GUID: 71fyYPYCxvxhbqIwwolPcNdTh_WE00TS
-X-Authority-Analysis: v=2.4 cv=IYC3n2qa c=1 sm=1 tr=0 ts=6a7031ea cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=TJUqZQk6AAAA:8 a=EUspDBNiAAAA:8 a=m8ToADvmAAAA:8 a=HtLsr6L4JtS92wG4dZoA:9
- a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=Q0W1slMkcave-rSCEGgY:22
- a=kCrBFHLFDAq2jDEeoMj9:22
-X-Proofpoint-ORIG-GUID: 71fyYPYCxvxhbqIwwolPcNdTh_WE00TS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030053
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+ bindings
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
+ sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+ jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+ Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
+ linux-kernel@vger.kernel.org
+References: <20260730021525.166811-1-lachlan.michael@sony.com>
+ <20260730021525.166811-2-lachlan.michael@sony.com>
+ <20260730-elastic-amaranth-urchin-4b8bbf@quoll>
+ <20260802230344.GD1927055@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260802230344.GD1927055@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 30, 2026 at 12:23:56PM +0200, Krzysztof Kozlowski wrote:
-> On 30/07/2026 12:08, Krzysztof Kozlowski wrote:
-> > On 30/07/2026 11:54, yuanjiey wrote:
-> >> On Thu, Jul 30, 2026 at 08:51:40AM +0200, Krzysztof Kozlowski wrote:
-> >>> On Mon, Jul 27, 2026 at 03:07:16PM +0800, Yuanjie Yang wrote:
-> >>>> Document the device tree binding for the HAMOA-IOT-COME board based on
-> >>>> the Qualcomm X1E80100 SoC.
-> >>>>
-> >>>> The platform consists of a system-on-module (SoM) mounted on a carrier
-> >>>> board. The SoM integrates the core system functionality, including a
-> >>>> SiP containing the X1E80100 SoC and its supporting components.
-> >>>>
-> >>>> The COME SiP hardware is effectively the same as the SoM used on the
-> >>>
-> >>> Effectively the same or the same? I googled for "hamoa iot come" and it
-> >>> gives me zero results. Provide some URLs describing both.
-> >> The same.
-> >>
-> >>
-> >> Here is pdf about the "hamoa iot come" SiP and SoM
-> >> link: https://advdownload.advantech.com.cn/productfile/PIS/SOM-6820/file/SOM-6820_DS(052925)20250529110758.pdf
-> >>
-> >> The preliminary figure provides a complete overview of architecture, including the SiP, SoM.
-> >>
-> >> In Block Diagram
-> >> hamoa come Qualcomm X-Elite SiP Module is the SoM on haoma evk.
-> > 
-> > I see on that PDF "SOM-6820", not "Hamoa IoT Come".
-> > 
-> > I have an impression that all this and previous bindings and DTs did not
-> > match reality at all. Or did not match how upstream works with such
-> > hardware.
-> > 
+On 03/08/2026 01:03, Laurent Pinchart wrote:
+> On Thu, Jul 30, 2026 at 11:06:09AM +0200, Krzysztof Kozlowski wrote:
+>> On Thu, Jul 30, 2026 at 11:15:24AM +0900, Lachlan Michael wrote:
+>>> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+>>> with a MIPI CSI-2 output interface.
+>>>
+>>> Add device tree bindings for the sensor.
+>>>
+>>> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+>>
+>> You need to test code before you send it, not with our infra.
 > 
-> Adding more: I did ask in the past to properly represent SoM and
-> carriers. I pointed to other examples how this is done correctly. I did
-> look now inside and found absolutely no reference of actual product
-> called "Hamoa IoT" or "Purwa IoT". For sure there is no "Hamoa IoT Come"
-> SoM (sometimes COMe appears).
-
-I check the hamoa iot evk board page:
-https://docs.qualcomm.com/doc/80-77183-262/topic/Getting-started.html#get-familiar
-and 
-purwa iot evk board page:
-https://docs.qualcomm.com/doc/80-80022-297/80-80022-297_REV_AC_Qualcomm_IQ-X_Series_Evaluation_Kit_-_Linux_Bringup_guide.pdf
-
-And I see below info:
-
-Dragonwing IQ-X7xxx EVK components:
-The kit includes the following components:
-Dragonwing IQ-X7xxx EVK mainboard
-"System in package (SiP) "
-
-I think the current naming of hamoa-iot-som.dtsi and purwa-iot-som.dtsi in the
-Linux device tree is incorrect. They should be renamed to hamoa-iot-sip.dtsi
-and purwa-iot-sip.dtsi.
-
-hamoa-iot-som.dtsi --> hamoa-iot-sip.dtsi
-purwa-iot-som.dtsi --> purwa-iot-sip.dtsi
-
-> Look, this is a SoM:
-> https://www.toradex.com/computer-on-modules/verdin-arm-family/nxp-imx95
+> I have provided guidance to Lachlan on how to test DT bindings (and have
+> submitted a fix to dt-schema as part of that work) before he submitted
+> this patch series. Unfortunately, we missed an issue in the
+> configuration of his development environment which resulted in the DT
+> bindings check not being run. Mistakes happen, it will work better next
+> time :-)
 > 
-> And you can find corresponding bindings and DTS in tree.
+>> To spare you one sending cycle:
+>>
+>> A nit, subject: drop second/last, redundant "bindings". The
+>> "dt-bindings" prefix is already stating that these are bindings.
+>> See also:
+>> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+>>
+>>> ---
+>>>  .../bindings/media/i2c/sony,imx908.yaml       | 107 ++++++++++++++++++
+>>>  MAINTAINERS                                   |   7 ++
+>>>  2 files changed, 114 insertions(+)
+>>>  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+>>
+>> ...
+>>
+>>> +++ b/MAINTAINERS
+>>> @@ -25264,6 +25264,13 @@ T:	git git://linuxtv.org/media.git
+>>>  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+>>>  F:	drivers/media/i2c/imx415.c
+>>>  
+>>> +SONY IMX908 SENSOR DRIVER
+>>> +M:	Lachlan Michael <lachlan.michael@sony.com>
+>>> +L:	linux-media@vger.kernel.org
+>>
+>> Drop
 > 
-> I refuse to accept more of this fake products trying to imitate well
-> known industry standards in their own way and effectively pushing some
-> downstream crap, just because that's how we do it in downstream.
-> 
-> Unless you can present us with such product details matching what you
-> send, I will be NAK-ing these and future patches like that.
+> Why so ?
 
-Thanks for your tips:
+It's just redundant and bloat. The address will ALWAYS appear through
+the subsystem maintainers entry, thus duplicating exactly the same list
+is not necessary. Many drivers make the same mistake (I fixed Samsung
+now) resulting in quite big amount of redundant data.
 
-I check hamoa come som page:
-https://advdownload.advantech.com.cn/productfile/PIS/SOM-6820/file/SOM-6820_DS(052925)20250529110758.pdf
-and come board page:
-https://www.advantech.com.cn/zh-cn/products/1-fc23ff/som-db5830/mod_16b1a718-27d6-4a4c-8684-e8f2a8e9c57b
-
-So I should rename come binding with real devices name:
-binding should be:
-
-      - items:
-          - enum:
-              - hamoa-som6820-db5830.dts
-          - const: hamoa-som6820.dtsi
-          - const: qcom,hamoa-iot-sip
-          - const: qcom,x1e80100
-
-
-Thanks,
-Yuanjie
-
-> Best regards,
-> Krzysztof
+Best regards,
+Krzysztof
