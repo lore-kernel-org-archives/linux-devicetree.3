@@ -1,161 +1,103 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16CD3386422
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6A09332907;
+	Mon,  3 Aug 2026 10:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785754034; cv=none; b=Am2V7Bs/gOG8bYRVy4x6K2uoPAgK9EMUmIIf1EdgT2jjr71VEaDE9RP7hrKCCtQEDpLlh9DxVMWcxP0QmbeJKLvR1QDeAD9YbO0ct6iQFM6z4Ni8/eaA32bRMwP1rrcbr2S6hThbSWezymtL0LgCGwac+bUALWHaeDtBrHN3ktc=
+	t=1785754067; cv=none; b=TEXfSgbiXbJMIqENHDb8kehzVCDdLsFwDg1bH1ajx31ZHA1/nGA8X18p7mT/yZ8eKqmyre6FXen1UGaRq9jKNeUvbECIpmhd5Jp6mTD+5hfdP+zCwr39Ev2wYewQ5Wc5ttxLYbn2khP6pvS7/RHOtuqCcQHDLxS8DDF6PsYlJpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785754034; c=relaxed/simple;
-	bh=bloAeWS97IJ5qqPAdt7nsKjEyYSGak2VI2PPUR8dBeM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OaOb/NQ42krvZtYVEUbn+UkQgXvWmq2ZVsV6dl8Y6txpCqs8eGmjcQPBVu2efOHlv0Kr83y63sHHhUZiDI8iOvXwsMU1YwOVARv8X2PvmH+Fzp5NFbpfw+aCbmk7ms0AOd947nobPnj6+hGIw9JLoDxHP9vRs+hn09KUeW51hVI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TSGHcJqo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q7qJWFzJ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785754067; c=relaxed/simple;
+	bh=V6PITVCZxajUh8lYHaimE4g3irqIWEsEGdahthEG2KU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YsSV6MIbNvF6MsuZ3hPAFU2DIulxG2Yk+1Te8yABSMW48F2eCiXGw4waJjMQyUnqd4U5ryN4HYa/Cm1U23h13gBmjRqztxiNvpAps4pVEB/mUlnVSGhOebS8jwXYOy/59x6rQDePZ4+mUD6m+fLiOBs6VTAjJMdxdPVs0aPxvWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cmfErLPR; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TSGHcJqo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q7qJWFzJ"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6736S8tw051899
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 10:47:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tdomSG4cINgdN6XeSewnH69cAoSAj/JSssxs+ZUxKEg=; b=TSGHcJqoBkHM8Hle
-	SLWqnE+KCrjMNHYsoybUFK4xFnfXcwb/kSzLpeOLr6VhEb1un9KmumJ6Ij2QDN3T
-	n3uPlzKLii2S0vrnXpbGwVBllZZRm6xjXFf0gld3be37t1MUB7ASjtrGVEvkk+3f
-	BLgqoLrBRc0lXJhiKvfO2ifAdYJo697EqWH4CyBWT3MEw2fiTCh+e0c0GRpleNF7
-	CLge17pzUWU4P7fQa3R59fOZkVQe8P+xD6llkWiQT+IiSlsSNfUAgi7VZ8uUP7OJ
-	4aF1aepeEPpQw477EvYbfUfLUA/SamggBSPMMwTTqF9vez+1y2vUUF3nfFiM6M8Q
-	Lq45Yw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnrb93mr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 10:47:11 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cb7d6ba548eso4168556a12.1
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 03:47:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785754030; x=1786358830; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tdomSG4cINgdN6XeSewnH69cAoSAj/JSssxs+ZUxKEg=;
-        b=Q7qJWFzJpuf64PHfRSZqdifIdujX5ZVAXsUs9d3385qsXT/PE9TeeCQUf9uBBAoey+
-         qZtPEqyofiTfcUikQhsv/C7byIeK6remxO4g2Z6erTw2+lCojv6Xee4nEX84bWz4hAXN
-         N/oUV33r7OD3anJ1YMAqjXLn+Nox7x0g+0LjccXcQS3WGyApZqVHtk/CEUH12nmvnDNm
-         oP9nJ2IuIMdnbUB+TwbkrhNAZHZyLbsEGFzCVqPvcNhRj+hTI/2LkG3Uit4sW8mQYCgw
-         vuz1FXcppf7s3k1PFMVoYGH1kvABVQigGJVH3DFgWkQxoZ7uIFdXMnIx02RIc1eyylbc
-         20Lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785754030; x=1786358830;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tdomSG4cINgdN6XeSewnH69cAoSAj/JSssxs+ZUxKEg=;
-        b=Nxs9TsTkc9D+vMU94WH8gF6dKRPsHWKF7UycIfB4FXLqHmP2I2YiG7xHAFsHWVI9/N
-         Yxh7Ob9mzbT6zskixKs4ISHuLuHbBuT8HzlwWZv6AU5Axiyc+a1+aGcKb8eo6WGfRssb
-         wt2e7BYc0kvr10OsOl6BvZS8BKAJfdQh8fq0EYyj0+lunNkMQjwF1XBkxA4cNZlKDm3E
-         7ybJe1VMD6ZXSEX+UdtR5lKraZD7xe6PzCmieQjyvIKjyaQ6ARuw5+Uqt9Z+zyJzXKG5
-         9h1bogVbgKNIgmUWRePqiB/DzNR+qgiyHIi9/NtxWT8lEE1xpBsTc/vJIaXnsGdAyck6
-         iPTA==
-X-Forwarded-Encrypted: i=1; AHgh+RrlzW5IivCG98ZS1PyX1vvO4RAtvKkj29ExJKLlwX++l9xxvEhr2VdJaq2AWW0gfuJ1Jgn7giMg9pXO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKFtMXr35BzcNE6nh2BxQ4mIGqzVefrteJTR9uDXTppUv5DSHi
-	ZZ3LzERdolhc3yYE36RHbX6fA6LEyYEkci4Z2vRmLFEPfS82Th87bDKNQpqJqV+LkzezQ/n0zGG
-	HZ1oVabT7vsGOBTdCm99V6RRC6iVbbkL8XBc812649r/CAW2ZGP4MVHxpm98hoEuw
-X-Gm-Gg: AR+sD11Z0QUf5X/ICPELGgtu4EaO7YH60nq3LxCUgTtvHGK/anNfi1EqJ/Bb7GzXmmu
-	OGNvuBruSVOBkACbzUQk4v0z0MCjhhOHEpn/yeLotFQpJnTbwWODw9rkrCc14lhGK5R4hAXmXh7
-	Vfwtx6rVs6+kfDQvA9h8sdc19DgIqBPQDSY+wYN64Foo46xB+txrrzMM4bostkawkIYlHux1oma
-	Nk/jUCjJqaQMx5nfRK87CaHshbI1WMrApWKl2MWzO2EwE/uH1+7Op+qTu9xHTAQLolUBaVEgWBl
-	ai/ftNPlASDEf4bGruNiDZFBtyey9IWp53Dl64jxc7uWEAsg0hgvk4wIBvKkXt1f2oQHbkgEy/a
-	Fq5NF4SfaIgqtZZ9fro23qgJSD6E/txfFM6B2EB+fBORbQ5ImOoB0vPw386+SVNY6xp6G3TIWx8
-	Eo/Fq1iSEmthL4rDRnGvLw7v8sVW48VA==
-X-Received: by 2002:a05:6a21:6cc4:b0:3c3:8ce8:203 with SMTP id adf61e73a8af0-3c92a8f3287mr8929322637.50.1785754030617;
-        Mon, 03 Aug 2026 03:47:10 -0700 (PDT)
-X-Received: by 2002:a05:6a21:6cc4:b0:3c3:8ce8:203 with SMTP id adf61e73a8af0-3c92a8f3287mr8929304637.50.1785754030211;
-        Mon, 03 Aug 2026 03:47:10 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4e506csm29993730c88.13.2026.08.03.03.47.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 03:47:09 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Mon, 03 Aug 2026 16:16:15 +0530
-Subject: [PATCH v14 9/9] arm64: dts: qcom: ipq9574: Enable q6v5_wcss
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cmfErLPR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Qr
+	r2Zysc4pyzy3uLfxsjmMcf5E8OW7lBqpqv/XW/WdU=; b=cmfErLPRdE84v5o8wg
+	1soPBZduhOYc94YCh+4YG2EXZ6/UQsdYIKYfAO8HK4FWEL6iCNFUB57hIL6hBd4e
+	PkLyV/wx0n9hpaPVEfDw1BIPkt5uLG3I3M6YefsIfJqsiiGKuBQ9ZktWzMikRqKF
+	aCjCRmRvWce+AjUH9Mx8SVYjw=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wCnVF6WcXBqw5sANQ--.10564S2;
+	Mon, 03 Aug 2026 18:46:48 +0800 (CST)
+From: Zhyi <zyheihei_123@163.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Zhyi <zyheihei_123@163.com>,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Subject: [RFC PATCH] arm64: dts: rockchip: H28K: release RTL8211F reset before MDIO probing
+Date: Mon,  3 Aug 2026 18:46:46 +0800
+Message-ID: <20260803104646.26836-1-zyheihei_123@163.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-rproc-v14-9-a1f87b0b0ad2@oss.qualcomm.com>
-References: <20260803-rproc-v14-0-a1f87b0b0ad2@oss.qualcomm.com>
-In-Reply-To: <20260803-rproc-v14-0-a1f87b0b0ad2@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA5NiBTYWx0ZWRfX5De1FIFAQcDY
- mSvvfqBvtI9pw4fuoA4x8JttlW+/w3x9HHimThHG0O77org8HuCNBLURfW+BpmKdDBPYIvh5ivg
- PwQbtKGnak+uf3v531VUStpn6GDIDIg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA5NiBTYWx0ZWRfXyM7eIA2qQlvl
- IwicZ/lGBMbnweCV5Ppd6ozZTy6sxrVnr6rDS53P4k89FZQqxUUPvDX0pTj7HmI3HMz5KyZRSrq
- cIskvHu3Af0670hssKoBAMum3VlDdMhD0Gy5Q6xM3agJtCcm0NNW7E1xIz0kILveYUd01DrRkoo
- 1rn15863MdeoFRCAypaudsijHLIFpoICYmPzaOfSedLClq7tpL1hd+Uk5lnEpwQn3q9KoTUwAeC
- pwq0nHzRbQHoi2VrqC9ko8RCaqWht5FMmmxrvax8uYgbzXyoc9rtDJkK4y7tbTr4bC1ZJigH0I1
- eyjCC7ChgiVGv+kOO9ueijLc/gN3bUNeNcseKaHkr5GPj4wObwLUEbCrVij6qcW5wClkT4LkwkC
- AR+9IsJa5CaS5tmGANqDqvSk2OKf5dBqyQZunHi9W0oVy7pXZTb/RrPlLq81Dd765ubg5TMlN41
- tkOIeS/Klq4JcHaspNA==
-X-Authority-Analysis: v=2.4 cv=RNSD2Yi+ c=1 sm=1 tr=0 ts=6a7071af cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=jH_bmcyh0L3YvPtRZzoA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: Q7QfLwtaT1virzCWeT8Gg8SuBHnMNyIl
-X-Proofpoint-ORIG-GUID: Q7QfLwtaT1virzCWeT8Gg8SuBHnMNyIl
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- malwarescore=0 phishscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030096
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnVF6WcXBqw5sANQ--.10564S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFy5WF1kuryxXr1fGF4xXrb_yoW8Aw4Dpr
+	s3uFWfJr4kKFWFg3yDJw15Zr4fJwsaqrWrAr1IgFyIyFsrZw1Iyr1jgFnxZrZ8Jr1rCayr
+	ur13tFyDZFWqvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUUhL8UUUUU=
+X-CM-SenderInfo: 521kvx5khlsiist6il2tof0z/xtbC2xg502pwcZg7NAAA3V
 
-Turn on the q6v5_wcss node.
+arm64: dts: rockchip: H28K: release RTL8211F reset before MDIO probing
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+The RTL8211F on the HINLINK H28K (RK3528) is held in reset at power-on:
+its reset line (gpio4 RK_PC2, pin 146) is left unconfigured and reads
+low. The PHY node's reset-gpios are only acted upon after the PHY has
+been found on MDIO (fwnode_mdiobus_register_phy() reads the PHY ID
+before it requests and toggles the reset GPIO), so the first probe
+deadlocks and eth0 never gets a link:
+
+    mdio_bus stmmac-0: MDIO device at address 1 is missing.
+    rk_gmac-dwmac ffbe0000.ethernet eth0: cannot attach to PHY (error: -ENODEV)
+
+Release the reset from the MAC node via snps,reset-gpios so it is
+deasserted before MDIO scanning, and drop the PHY-node reset-gpios (a
+second consumer on the same GPIO is rejected with -EBUSY).
+
+This is an RFC: snps,reset-gpios is deprecated in favour of the
+ethernet-PHY reset bindings, so feedback on the preferred way to release
+the reset early is welcome.
+
+Fixes: 145d4af4b204 ("arm64: dts: rockchip: Add HINLINK H28K")
+Signed-off-by: Zhyi <zyheihei_123@163.com>
 ---
- arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi b/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-index 62877b46f9b3..494a150535cf 100644
---- a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-@@ -113,6 +113,10 @@ &cpu3 {
- 	cpu-supply = <&mp5496_s1>;
+diff --git a/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts b/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
+index 0ec50e9..9d7e33a 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3528-hinlink-h28k.dts
+@@ -191,6 +191,8 @@
+ 		    <&rgmii_rx_bus2>,
+ 		    <&rgmii_rgmii_clk>,
+ 		    <&rgmii_rgmii_bus>;
++	snps,reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
++	snps,reset-delays-us = <0 20000 100000>;
+ 	status = "okay";
  };
  
-+&q6v5_wcss {
-+	status = "okay";
-+};
-+
- &rpm_requests {
- 	regulators {
- 		compatible = "qcom,rpm-mp5496-regulators";
-
--- 
-2.34.1
+@@ -205,9 +207,6 @@
+ 		reg = <0x1>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&gmac1_rstn_l>;
+-		reset-assert-us = <20000>;
+-		reset-deassert-us = <100000>;
+-		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+ 	};
+ };
+ 
 
