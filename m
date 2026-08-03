@@ -1,70 +1,70 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2E539CCFF
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 05:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF14739D6FC
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 05:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785734145; cv=none; b=uXLixbZ8BLne61cKo4OiiUrPBiJbrKOA76VmXteNGKfpNoSYbpGIEFYIzJ+42edB7fx8wMdl+mB5FARxjVbZYXTCdAUt9xzUdaUc35f4Oqt+kdsjeg2YakqWyMjEk8eWQ1aROqkcRlXqKrpCsvoinsRpMrMhejFUomnBDg91XtU=
+	t=1785734147; cv=none; b=ZZz7vyxM3w+MUfm2VsBzD+u8Vv1My8Grt3cdjE0+MRuOTtI00Gz1yB7CCM3A4t8ZViU8ELYVrSZ3hAthiSMH2EsYWl97hc41qRGDDGm0drjmKNzfHNkxHnJYHdw6wFhTxhP2BJhvsiLyA3oizCglkDC9dEzQnSIE1L5oujViWL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785734145; c=relaxed/simple;
-	bh=DTn/pnAwjoqAyUd80mDT7MV7oTEK5ffPq/Jme8VHnRg=;
+	s=arc-20240116; t=1785734147; c=relaxed/simple;
+	bh=z1D09xijThRsRnsDX/ozKwmhi7sR7kyQDCuYiAXqUqg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cmpDHLYabXJXDnx3bcpQ55fsNHh+kTaq8Ov90oXREZXx18ko6Q/+S4uX+EksGnM9hljostSENheWNqNcOnaBqOFnJvBl9uj7hNERooSRchGakMS0wNXMPWXu3s0KlyGh41jDxphBe5nR/xrVofZSO98Low/VfmbGoBjlkBCfihY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q316WcA8; arc=none smtp.client-ip=209.85.210.44
+	 In-Reply-To:To:Cc; b=YGkVLxubUw2TqM2Cw+wlHNTYFcYjI3zNxxXn97NG5AEvbzV64rntS+mAIc6HESnnf5f3e4hwSRcN+1HiKrJh9Au9wwGBGKk0Yj/ZVN7nY5+Svvr6T45JOLNor59A8VPscm7Bjlgm3+X7z1u49NIhYAMRGIeCD7/ZCerzEnfpJu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SY7X+RxD; arc=none smtp.client-ip=209.85.210.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q316WcA8"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb5bdb50fcso1945155a34.1
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 22:15:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SY7X+RxD"
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7ebd88be784so1889396a34.2
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 22:15:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785734142; x=1786338942; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785734143; x=1786338943; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jidbxiox7dX03nOKASiwvW/wC69oSzUN52btxDpp97E=;
-        b=q316WcA8v72PzRic2zxv8ou7FCtD9wInxSBdYdOeV3f15ICzn7mP/+kBrshXd2G6xC
-         /Kd/ZvtEI93uFfwJBWUV4XNOa+3oRR03EwfBiDRvY0oKJ39MsoM6OOCKKJ6HxP9AzIQo
-         SlExCbg54uJNaAev7l+bhplWdvA068IypIXRa0kTCVoGKB5T5DaHsXpO9PvwUIf85gJy
-         YK/x/AFVSKnkSdGyOqRrKVpP6MNZCJRloICUsZ3lFsOYA3m/gecXwZTmPS7DbUkJ1xmD
-         EdTBmKnq1NGVa1JixF8KiKFuomnkitGZ/7f62b43XW207T5lJJB996rTG2tLZFVjpgip
-         GFEQ==
+        bh=S/5/uq1wl03WMsz5ualIqMKCury9OUeuYtebMNsXO2w=;
+        b=SY7X+RxDKLHFH6BT0SgLRCAqP4C+ANphgxQFOP0bvcu2efhASBb3mDR0cj9lZ6KVkC
+         EdzQL36GTA3zjACos8uxwlJxDMWQfqW35NMr5nUNYAm7aJGJQjUN4fXVOz4NLCdmQcW+
+         NHtzgl0gjtJXQxr4K1S5s4uJZWgMb2Aq+H0IgGwplvODnemZcA4Y9GJantlt9w93hUvP
+         E0835B7x1R06ezVsPUeQLQrz2XCe500ULbe0RauTutn47hARQQ0b5ZF6ZuLQYSWCmK7t
+         koPp022MxvB6AZcEoQT4a1NyHmno+Svxh1ZMkw2fRyh1qKPx8WL1/T7v60SbSpcdRoiO
+         XSdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785734142; x=1786338942;
+        d=1e100.net; s=20251104; t=1785734143; x=1786338943;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Jidbxiox7dX03nOKASiwvW/wC69oSzUN52btxDpp97E=;
-        b=WhTgfkFaQQEd+oTcRlqgEqUYp7w4auFsP6pvMj95VrP302WUksQHK040NQM2FxA/GZ
-         XLgs4A3waIWvDxHJdSVS0aSuKmfxXgY4oStMffyqkpP2NPBXi9YfSQlefKlb9FRisGor
-         +HLpOBHsEHb+MZAJsduGKayshMWjzrwyp5I+4Q1x90oAYYs2hqqKi34Nw4kP7TK0QmnO
-         o4uZ3SKVSbEX3PohBGAxbj46QwyOIfTQtBt5U9SNyhZDkIfpoPBjwYodQ6/RdIyDIceU
-         nADgNG0Z91x3QnPG9A8syzPzRGEmVpqyQZe6myEZjWsmjc4qvUGyg4ALQUwcwDfy+oQX
-         DoRw==
-X-Forwarded-Encrypted: i=1; AHgh+Rqf6ZSV8spY4YjJ/9VoR8mxxYt1hkpPMOmNoGzjcnHcceFsMN3/ZZSHSjYlWdJN5mfKNi2Re/F8hHn9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyx8kfUq7Ra4EQZBsiVay3aNI+C7bPsurobgHGcPAfCvYdzbXXa
-	FUgTyLZKymxxn9fynmuR4wOjZ2YOOLv8JB01xlNO7wNbJR3tX5rAIfQp
-X-Gm-Gg: AR+sD11WxoQKmm5pgmwwJpE/JPFOqRT7S65tsrihURry60mDdFVRCQQ6tmNKBZtVA59
-	8pt8w0oQuvbW1B832HaW7XPkccBp+qJtsdyhLNz03adbpzLz0ZefvrS4q3hE+HtNLjDp32YRpyw
-	obOiLqn5p6cAfl2205XkirFzvFFwLE1xxDN7IOLXOgMq2V1OLbbW0a2+Df6eYIkbK78jecUKnCI
-	HRXlY93/7WOI4WXz5RYkOj5oxIIkcqIUkLNHBmGVcSmYDMu8abTPVt7soXZkhMzHjRIvltaP+0b
-	hiPsRMIxhrMKIkwmzOd9jXe+zG4C9e1iKhmfO34LXlM45UvfrXmmeHEFWfkF32ZRfhLVqHMXSBV
-	ESqcCapHHt0U46ZquLZ45TeFv91wNu74QscFimZn8aSeRYboZGnOJvJxxGHZr9rP1W39C67VP36
-	UeGjxUfZjBSXhXiHW34Jlrz73AjSvNRbtHP5DjfiT3dygLfCGgnt6HbvAqccM1N8h6Kz2wX0T70
-	ONdKB/1/lSh2XmPkUWjxzJXpPOnm5cIkI3l6fW86FAjg1IP6ZT+qfKQ9KWKNvRBeaxLx3iXrpi4
-	4//ApAF37UhDRiCbhh0i29QMcupN+0FpWftjYByxkMI5E3WDLs2XYbV8zod6p45nS3dKdCCMcVh
-	ahsuLjklibUjRgcdK
-X-Received: by 2002:a05:6830:411d:b0:7d9:f50f:9691 with SMTP id 46e09a7af769-7f1968c88e1mr15370101a34.0.1785734141726;
-        Sun, 02 Aug 2026 22:15:41 -0700 (PDT)
+        bh=S/5/uq1wl03WMsz5ualIqMKCury9OUeuYtebMNsXO2w=;
+        b=ZZsoCCRdXpjDmiSiBooYM0sP+IvJOdNIa0yLyn1xotm0Ykb+VrhPO6sH5ZU5bAMPO3
+         mt8IIUjoWx87AcL8H/0qmnpH+4ZZmpvQEYykOYP7dp9aKjJxihGxUs6fxdqPi7JYttWa
+         pbl0mfE4svORsNZrCyel4QZLllWmbi3UDzJ7iHClHcFjL6Lv+x5OKxpXmGeSEAlGobH1
+         uWyb9lZp8Gnyjxy5OiG8Wadqp1Cu0VYjkrTZ6ViJ3MFlo+geLNpsORerojQMK4DpBry3
+         TwZIugKpybRodudfJRX+Z/UrOCczdr5ov7x1HKfyON+8c14MVjR1qF/8CHJ+haf1dN4P
+         HjkA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp6A/LfBk6t2m2Q3QHbs+ri2/Eq9D/8xAsbd9Dcn2aY0PtKFRFN5NEhaYzSYouetmSBpSr37ioYLIum@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywkd1+DTaijipiPmWa6FvTPiUxeE0Ub3Th1u8m982SigmUDMW64
+	tMZwGl06IXlgLg/kqxznl6soMl0XH0+pPm7jFsc2JNF78zq1z2WkW+hF
+X-Gm-Gg: AR+sD12bHeOkc8RH09z5t1fEzqO6BlPKBbwy27SzcujpTEQPO6aoL6tDokTg7jo4u+Y
+	+9Xs6R+/42LCNV0Id/3tNBerWZS1SmImwqfokFzBtNKf9zPjOdk5xxmpeXt0Wh8oYK6lT8rxlHs
+	+cVpp58WJDSeUh6Jxpi3qeJhZ1QRs+WFs8PTOrwKza2U3y+V6cNRq7YDddplG3WHbTDwVvgpiL2
+	uhX5qTsSSFulyUgpS96C80YQKhKMqQNlOjAEhQ+ma/F01Olg6SbNeHxij/afd80q6WZu6K4JvTe
+	a5r4WjVtiLq+lKCvPU6KhpZJ1jIzjvusjl3qetYke8uB7GtkWcoRQuJl/5Zsj8hhmqN7P0BTAra
+	/BKQB/5bC6WJK1eQ9m9cfUlmOPdbgHg8czAeuv7abFcXymhabE6NDxYhNlpx0TNoE2NPzc7sfZD
+	vLZ76KGO0CrRxRofJjrHi5+5BayY1RrhfkwNpns+zxBNPHqJZoDCL+qVbg+eLYpTA7q4z2yrmtI
+	gqywTaNm5+f6vnCynUQPTfKicMsdi6gALoOrV4mkGie87CLtfXwLIqZ1kWcgrKgOQihz1bUt7ws
+	N2MGoUejBaWFkrlH1jsYbrdQ+StymFQALZsqKYhKNLmeyI8WxRdZ7w/BjIxWh3X/5ZSmFZZLXUv
+	kklo/YC2E54u8IyFV
+X-Received: by 2002:a05:6830:4114:b0:7e9:bd00:c6ad with SMTP id 46e09a7af769-7f196f29291mr14805744a34.16.1785734143562;
+        Sun, 02 Aug 2026 22:15:43 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f07a5e3sm6787108a34.15.2026.08.02.22.15.40
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f07a5e3sm6787108a34.15.2026.08.02.22.15.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 22:15:40 -0700 (PDT)
+        Sun, 02 Aug 2026 22:15:42 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 02 Aug 2026 23:14:23 -0600
-Subject: [PATCH 13/21] dt-bindings: net: x-powers: add AC200/AC300 EPHY
+Date: Sun, 02 Aug 2026 23:14:24 -0600
+Subject: [PATCH 14/21] net: phy: support configuring PHY-autonomous Tx LPI
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,7 +73,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-submit-acx00-of-dynamic-v1-v1-13-0a53cd9e21cc@gmail.com>
+Message-Id: <20260802-submit-acx00-of-dynamic-v1-v1-14-0a53cd9e21cc@gmail.com>
 References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 In-Reply-To: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -102,262 +102,168 @@ Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-AC200 and AC300 companion ICs contain compatible Fast Ethernet
-link-PHY implementations which report the same PHY ID but use
-different control interfaces.
+The ethtool Tx LPI fields currently update phylib software state and
+notify an attached MAC, but they do not configure PHYs which generate LPI
+autonomously. This can make a successful ethtool request leave the PHY
+hardware unchanged.
 
-Describe the forced-ID link PHY and its control-device references.
-Fixed systems reference one already enabled control interface. A fixed
-AC300 system may optionally provide the configuration field for its
-calibration-range bit; omitting it selects the normal range. Systems which
-can contain either companion reference both candidates and require a
-logical two-bit NVMEM field for variant selection and AC300 calibration-
-range tuning.
+Add a PHY driver callback for applying the Tx LPI enable state and timer.
+Call it before updating EEE advertisement, and attempt to restore the old
+hardware state if either the callback itself or the advertisement update
+fails. Use the callback to disable autonomous LPI when phy_support_eee()
+hands LPI control to the MAC, and reapply that state after PHY reset.
 
-The link node reg value is programmed through the AC200 control
-interface, while AC300 requires it to match the package-strapped
-address. A control reference is required to distinguish this
-integration from other PHYs which report the same ID. Also describe
-the optional xMII receive-clock inversion required by some integrations.
-
-Describe the three fixed-function package LED outputs using standard
-PHY LED children. Their functions are link/activity, 100 Mbps speed
-and duplex, and their polarity is shared. Omitting the container
-retains the vendor fallback with all outputs active-low; an explicit
-container enables only the outputs it describes and may select the
-shared polarity.
-
-Allow a PHY with a routed interrupt to be marked as a wakeup source
-for magic-packet and link-change Wake-on-LAN.
+Drivers without the new callback retain the existing behavior in which
+the Tx LPI fields configure phylib and the attached MAC. Existing drivers
+which only implement disable_autonomous_eee() therefore need no changes.
 
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- .../bindings/net/x-powers,acx00-ephy.yaml          | 217 +++++++++++++++++++++
- 1 file changed, 217 insertions(+)
+ drivers/net/phy/phy.c        | 35 +++++++++++++++++++++++++++++++++--
+ drivers/net/phy/phy_device.c | 25 ++++++++++++++++++++-----
+ include/linux/phy.h          | 18 ++++++++++++++++++
+ 3 files changed, 71 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/x-powers,acx00-ephy.yaml b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy.yaml
-new file mode 100644
-index 000000000000..3e01f6b44006
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy.yaml
-@@ -0,0 +1,217 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/x-powers,acx00-ephy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index fce9bc7be330..c76d5baa1f84 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -1996,6 +1996,8 @@ static void phy_ethtool_set_eee_noneg(struct phy_device *phydev,
+ int phy_ethtool_set_eee(struct phy_device *phydev, struct ethtool_keee *data)
+ {
+ 	struct eee_config old_cfg;
++	bool tx_lpi_cfg_attempted = false;
++	bool tx_lpi_cfg_changed;
+ 	int ret;
+ 
+ 	if (!phydev->drv)
+@@ -2005,16 +2007,45 @@ int phy_ethtool_set_eee(struct phy_device *phydev, struct ethtool_keee *data)
+ 
+ 	old_cfg = phydev->eee_cfg;
+ 	eee_to_eeecfg(&phydev->eee_cfg, data);
++	tx_lpi_cfg_changed = phydev->eee_cfg.tx_lpi_enabled !=
++			     old_cfg.tx_lpi_enabled ||
++			     phydev->eee_cfg.tx_lpi_timer !=
++			     old_cfg.tx_lpi_timer;
 +
-+title: X-Powers AC200 and AC300 Ethernet PHY
++	if (tx_lpi_cfg_changed && !phydev->autonomous_eee_disabled &&
++	    phydev->drv->set_tx_lpi) {
++		ret = phydev->drv->set_tx_lpi(phydev, &phydev->eee_cfg);
++		tx_lpi_cfg_attempted = true;
++		if (ret)
++			goto restore_tx_lpi;
++	}
+ 
+ 	ret = genphy_c45_ethtool_set_eee(phydev, data);
+ 	if (ret == 0)
+ 		phy_ethtool_set_eee_noneg(phydev, &old_cfg);
+ 	else if (ret < 0)
+-		phydev->eee_cfg = old_cfg;
++		goto restore_tx_lpi;
+ 
+ 	mutex_unlock(&phydev->lock);
+ 
+-	return ret < 0 ? ret : 0;
++	return 0;
 +
-+maintainers:
-+  - James Hilliard <james.hilliard1@gmail.com>
++restore_tx_lpi:
++	if (tx_lpi_cfg_attempted) {
++		int rollback_ret;
 +
-+description:
-+  The AC200 and AC300 contain compatible Fast Ethernet link-PHY
-+  implementations which report the same PHY ID, but use different control
-+  interfaces. Systems with a fixed companion IC describe one control
-+  interface, which must already be enabled. A fixed AC300 system may provide
-+  an NVMEM configuration field to select its calibration range; omitting the
-+  field selects the normal range. Systems that can contain either companion IC
-+  describe both control interfaces and require the field to select the
-+  matching one before the PHY identification registers are accessible. In
-+  that dual-control topology, the AC200 I2C controller and AC300 control
-+  device may use status "fail-needs-probe" so the selected one can be enabled
-+  dynamically. The PHY node's reg value is programmed through the AC200
-+  control interface. For AC300, it must match the address selected by the
-+  package straps.
++		rollback_ret = phydev->drv->set_tx_lpi(phydev, &old_cfg);
++		if (rollback_ret)
++			phydev_warn(phydev,
++				    "Failed to restore autonomous Tx LPI: %pe\n",
++				    ERR_PTR(rollback_ret));
++	}
 +
-+select:
-+  properties:
-+    compatible:
-+      contains:
-+        const: ethernet-phy-id0044.1400
-+  required:
-+    - compatible
-+  anyOf:
-+    - required:
-+        - x-powers,ac200-control
-+    - required:
-+        - x-powers,ac300-control
++	phydev->eee_cfg = old_cfg;
 +
-+properties:
-+  compatible:
-+    const: ethernet-phy-id0044.1400
++	mutex_unlock(&phydev->lock);
 +
-+  nvmem-cells:
-+    maxItems: 1
-+    description:
-+      Logical SoC SID field whose bit 0 selects the AC300 control interface in
-+      a dual-control topology and whose bit 1 selects its low-calibration
-+      tuning sequence.
++	return ret;
+ }
+ EXPORT_SYMBOL(phy_ethtool_set_eee);
+ 
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index f7472a743185..30929b0354b6 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -1357,6 +1357,21 @@ static int phy_poll_reset(struct phy_device *phydev)
+ 	return 0;
+ }
+ 
++static int phy_disable_autonomous_tx_lpi(struct phy_device *phydev)
++{
++	struct eee_config config = phydev->eee_cfg;
 +
-+  nvmem-cell-names:
-+    description:
-+      In a dual-control topology the configuration field uses bit 0 to select
-+      AC200 (zero) or AC300 (one). Bit 1 selects the AC300 vendor sequence for
-+      a low-level calibration value in both dual and fixed AC300 topologies.
-+    const: configuration
++	if (phydev->drv->set_tx_lpi) {
++		config.tx_lpi_enabled = false;
++		return phydev->drv->set_tx_lpi(phydev, &config);
++	}
 +
-+  x-powers,ac200-control:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Reference to the AC200 Ethernet PHY control function
++	if (phydev->drv->disable_autonomous_eee)
++		return phydev->drv->disable_autonomous_eee(phydev);
 +
-+  x-powers,ac300-control:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Reference to the AC300 MDIO Ethernet PHY control device
++	return 0;
++}
 +
-+  x-powers,xmii-rx-clock-inverted:
-+    type: boolean
-+    description:
-+      Invert the xMII receive clock inside the PHY. This is required by some
-+      SoC integrations, including the Allwinner H6 AC200 connection.
+ int phy_init_hw(struct phy_device *phydev)
+ {
+ 	int ret = 0;
+@@ -1395,9 +1410,8 @@ int phy_init_hw(struct phy_device *phydev)
+ 	}
+ 
+ 	/* Re-apply autonomous EEE disable after soft reset */
+-	if (phydev->autonomous_eee_disabled &&
+-	    phydev->drv->disable_autonomous_eee) {
+-		ret = phydev->drv->disable_autonomous_eee(phydev);
++	if (phydev->autonomous_eee_disabled) {
++		ret = phy_disable_autonomous_tx_lpi(phydev);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -2973,8 +2987,9 @@ void phy_support_eee(struct phy_device *phydev)
+ 	 * manage LPI signaling instead. The flag is stored so it can be
+ 	 * re-applied after a PHY soft reset (e.g. suspend/resume).
+ 	 */
+-	if (phydev->drv && phydev->drv->disable_autonomous_eee) {
+-		int ret = phydev->drv->disable_autonomous_eee(phydev);
++	if (phydev->drv && (phydev->drv->set_tx_lpi ||
++			    phydev->drv->disable_autonomous_eee)) {
++		int ret = phy_disable_autonomous_tx_lpi(phydev);
+ 
+ 		if (ret)
+ 			phydev_warn(phydev, "Failed to disable autonomous EEE: %pe\n",
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 2eba54e068f6..55053b914144 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -1391,6 +1391,24 @@ struct phy_driver {
+ 	 */
+ 	int (*disable_autonomous_eee)(struct phy_device *dev);
+ 
++	/**
++	 * @set_tx_lpi: Configure PHY-autonomous Tx LPI
++	 * @dev: PHY device to configure
++	 * @config: Requested Tx LPI enable state and idle timer
++	 *
++	 * The presence of this callback advertises that the driver supports
++	 * configuring PHY-autonomous LPI through the ethtool EEE Tx LPI fields.
++	 * It is not used for userspace configuration after phylib has handed LPI
++	 * control to the MAC. Drivers without this callback retain the legacy
++	 * behavior in which those fields only configure phylib and the attached
++	 * MAC. A request with Tx LPI disabled must be accepted regardless of the
++	 * timer, since the timer has no meaning while the transmitter is disabled.
++	 *
++	 * Return: 0 on success, negative errno on failure.
++	 */
++	int (*set_tx_lpi)(struct phy_device *dev,
++			  const struct eee_config *config);
 +
-+  wakeup-source:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      Indicates that the PHY interrupt is routed to a wake-capable interrupt
-+      controller and may be used for magic-packet or link-change Wake-on-LAN.
-+
-+  leds:
-+    type: object
-+    description: |
-+      Package LED outputs. Output 0 indicates link and flashes for transmit or
-+      receive activity, output 1 indicates a 100 Mbps link, and output 2
-+      indicates full duplex and flashes on a half-duplex collision. The
-+      polarity setting is shared by all outputs, so active-high or active-low
-+      declarations on different children must agree. Without an leds
-+      container, all three outputs are enabled active-low to match the vendor
-+      initialization. An explicit container replaces that fallback: only
-+      outputs described by available child nodes are enabled, with active-low
-+      used when no child specifies a polarity.
-+
-+    properties:
-+      '#address-cells':
-+        const: 1
-+
-+      '#size-cells':
-+        const: 0
-+
-+    patternProperties:
-+      '^led@[0-2]$':
-+        type: object
-+        $ref: /schemas/leds/common.yaml#
-+
-+        properties:
-+          reg:
-+            enum: [0, 1, 2]
-+
-+          inactive-high-impedance: false
-+
-+        required:
-+          - reg
-+
-+        unevaluatedProperties: false
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+
-+oneOf:
-+  - properties:
-+      nvmem-cells: false
-+      nvmem-cell-names: false
-+      x-powers,ac300-control: false
-+    required:
-+      - x-powers,ac200-control
-+  - properties:
-+      x-powers,ac200-control: false
-+    required:
-+      - x-powers,ac300-control
-+  - required:
-+      - nvmem-cells
-+      - nvmem-cell-names
-+      - x-powers,ac200-control
-+      - x-powers,ac300-control
-+
-+dependentRequired:
-+  nvmem-cells: [ nvmem-cell-names ]
-+  nvmem-cell-names: [ nvmem-cells ]
-+
-+allOf:
-+  - $ref: ethernet-phy.yaml#
-+  - if:
-+      required:
-+        - x-powers,ac300-control
-+    then:
-+      properties:
-+        reg:
-+          maximum: 7
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/common.h>
-+
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet-phy@0 {
-+            compatible = "ethernet-phy-id0044.1400";
-+            reg = <0>;
-+            nvmem-cells = <&ephy_config>;
-+            nvmem-cell-names = "configuration";
-+            x-powers,ac300-control = <&ac300_ephy_ctl>;
-+
-+            leds {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                led@0 {
-+                    reg = <0>;
-+                    color = <LED_COLOR_ID_GREEN>;
-+                    function = LED_FUNCTION_LAN;
-+                    active-low;
-+                    default-state = "keep";
-+                };
-+
-+                led@1 {
-+                    reg = <1>;
-+                    color = <LED_COLOR_ID_YELLOW>;
-+                    function = LED_FUNCTION_LAN;
-+                    function-enumerator = <1>;
-+                    active-low;
-+                    default-state = "keep";
-+                };
-+            };
-+        };
-+    };
-+
-+  - |
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet-phy@0 {
-+            compatible = "ethernet-phy-id0044.1400";
-+            reg = <0>;
-+            x-powers,ac200-control = <&ac200_ephy_ctl>;
-+        };
-+    };
-+
-+  - |
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet-phy@0 {
-+            compatible = "ethernet-phy-id0044.1400";
-+            reg = <0>;
-+            nvmem-cells = <&ephy_config>;
-+            nvmem-cell-names = "configuration";
-+            x-powers,ac200-control = <&ac200_ephy_ctl>;
-+            x-powers,ac300-control = <&ac300_ephy_ctl>;
-+        };
-+    };
-+...
+ 	/* Get and Set PHY tunables */
+ 	/** @get_tunable: Return the value of a tunable */
+ 	int (*get_tunable)(struct phy_device *dev,
 
 -- 
 2.53.0
