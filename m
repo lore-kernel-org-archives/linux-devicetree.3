@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B5343747C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA5F43747E;
 	Mon,  3 Aug 2026 18:05:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785780313; cv=none; b=S1DDk6AzXEVYdTYM9s4JGNMNahR2RUAHLtujibj30K/LsgDzR8kLC2HKp5kyDK1E0FJWG94FWGCII/LC2WUWYh/WVvNZMlYZvNtWFJWmy5oZfkxhuVTqhZF/92t8P11LuFt1RhBd/u9F9nJ7Rzi+IY7MRroyUYbTABAAb2zBp4k=
+	t=1785780313; cv=none; b=bLrFj7x8ZveI0r47WlM5n3yl2eKwri+5TZWvFm8HY2n1oEInMsvUC9zwF4lfyGmzxdb3YfCTsTqloXdvKTfFq2OliybI49PEm6dZ4Iy/Iz18zVsulNmCiGt+2xMpARxVUYgHihPr0ciU9fiS8n7SG111qTSlX3dgjEI8uajd2is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785780313; c=relaxed/simple;
-	bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
+	bh=31JR5ctnkUqP4a3j87tILTU3TX2Uxhcb2umS1hDJIJQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HdIAYuNF7uHH2kB5ZQlXZxdGxy0x02EQeIue51DyYnFC2Bm95dVys45Mu+un0k+8bAg4lm6bkvbGpikr8ptib7ODva+5k6Yip5gtUayTYKzxccyBxRFwLjXXWz4vSWDG3uY2Uc6PLyVRSMe+cZKU2KoIhxJIGfad2QPjONiPIFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=S2vhX5pP; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=NwTswOkzJ4P4nfTNETTdiCIwyLY+XFpz/uUnhmSYzvzeaT773eChoVAeFRnGlJ7CS4+Ktn5g6zGScvx3uOyeBbIg1EfeN4FilNBqKY5fnGpsSmRfKQAN8BL1J/wkB+Lu+uFEJWhsFdHQAhUcoLEBpIMF4IMz268UbaOW8P96P2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nlo+VO/Z; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="S2vhX5pP"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nlo+VO/Z"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1785780304;
-	bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
+	bh=31JR5ctnkUqP4a3j87tILTU3TX2Uxhcb2umS1hDJIJQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=S2vhX5pPJZ6qsJ3dRVOK5hHZgtJzfoKxDf5BaktPx2ggykjXmaL66AcvrVoKB63We
-	 V74kytV/MNiI1fVkLbMobZbk2xKst3bkS3YvqQ2wVP2CCyhUvIMyKxDHy2bN2qAl6e
-	 jJrlxvsShbTYa4bsyYe/FUqA5zBlXHBzO90YRwPh3ej66Ow5X+d8+uUSbQp07UduLF
-	 HXhU/7QPt9Rxbm0T7QZas+TUUhaZDcJo5XK4hr57MPjlK6KGgwcNZtuBa6U01aSXEc
-	 4Jc4hON6b0jJtnI+SU2NhR8xxC0EJkrwYZ4m/Sz3OD2Z+4T66QLDZHQDMwU/qaDjgE
-	 kVze0ae2K2Auw==
+	b=nlo+VO/ZpwSGnB6wBmvvOovbVmGV24hwBlsE5KK6LZOf99QAh2Tx4jZKK8o/GNKWE
+	 KUnExs1/wIgjdGdCplEqFcE92ijhG4+Pr1Dap0S64N3Bo53dmrl7w7okdZSZT29+Jo
+	 MqhZWdXAF3REAQqValYUg3ZKqCbE0RWf77i6mnQ5ByPpEb0bSKxgNEM2pbAX9tEu8A
+	 FXLeW1U86bMVTT8ao+ZLJ3OkmuipHHkjCGeN4L0hGGoFKRlEbrnYRBhq9fmZf2AXr1
+	 ASzus5w+YZmBKd8syfvQnxayjpjvNSY+Yvdn7TyOANio94ES6DTKydOba1xzdcCCfT
+	 Nto8eAX4QuG5w==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3D42D17E11E6;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 309A617E10F1;
 	Mon, 03 Aug 2026 20:05:04 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 720A448004C; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
+	id 6EF20480047; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Mon, 03 Aug 2026 20:05:13 +0200
-Subject: [PATCH v9 12/22] drm/bridge: Add out-of-band HPD notify handler
+Date: Mon, 03 Aug 2026 20:05:11 +0200
+Subject: [PATCH v9 10/22] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-synopsys-dw-dp-improvements-v9-12-2e6e46135312@collabora.com>
+Message-Id: <20260803-synopsys-dw-dp-improvements-v9-10-2e6e46135312@collabora.com>
 References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
 In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -72,84 +73,109 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2377;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3804;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E7TGTFviK0mQ23q8a18/F3gqxVuSqW3b
- VzN92r3UZUYD4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhOAAoJENju1/PI
- O/qaDa4P/2lxII8SdFU+mCdan/NuG2rcTag+x2tacHOZ9vZQKrhFPYEZuSa1X/LSDFUVDuxadIe
- 3IyGY24aYpnBFfwcIJ8jNfVraCwWvF0EDZs3jjzWoBs5kjJ7myZJmu9zBvbck14pjCYVH7NkoZb
- 47qoYc1CCNR01Xyrh6RN+tAYQACR474rNbms8XROXTPRYu+or2AX0YQ/bb5KtmdWEx0B0zn8d/U
- 2hFG9xahJYx2yuvBPUhoZ/6Ig7lSsJT7ePdqh5fIXVv5EWZarX4kgyTXOHJQmvSDLW32iTzIw3P
- 356qWIE9mkgep+uwCed0210Nt/3kI/ZtISc6L2Nc2j8ksixK3FDbS+Xybva2nDD9rxMa8a255TQ
- ga0dQIfd1nvQZALi/ZPH2Qor3XnSJ8yxSpqBX7cwbCsciXdHTVlxGnZq59XXR3arbYiIuqhpfCX
- v5p9dXe2O0yc+tM5VR8NWHwxgfO1LjGjpU4ZDQDg7soVxjuL6bi3wyVDoxUYZ2c/JcGObvrTgXo
- +9Q2OObCT0Kqrp38fuG68MEh96MyZ04n1uLSeeK4IryBlWK1LNWPmcrLIf/Ity6E3FUkYx1WcjA
- rOAu+AmaFmAEBdCyjNKAqt7ZZvOoN3xSCQ19FixGc1AnNrfJQq/KU4GMhbJ5Pl6Q/DbsBBST7OO
- ILQceB+kaAS8ut0wAtwosig==
+ bh=31JR5ctnkUqP4a3j87tILTU3TX2Uxhcb2umS1hDJIJQ=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E4bb2zzi9LBFhHjbW/ufrdTLfaLwFXie
+ 6Le8OjDbcF7WIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhOAAoJENju1/PI
+ O/qaKQAP+wbs7PMJsZNyNvIO84mv9Lzrvn6H5T+BX8VgravZYj7iOHodB3hHLBTLcmsntcqzRL4
+ Kr/JctFB31awnTylMiJ4hgsD9TiE37qZr5Zm8cOlnZ3zJgwmekOW6EDkxITv2T0ykYwr4/E9rVa
+ rdid5dc8Wtmkrhx/JW/+LS1lZMq30RJgoZPmXcCkX1vsqHgT6tjoMec7ogyxSvrZhc8yUVka+i4
+ CZv/XX06+yuGv4t+CospUYCadL/hPY4ZdE0OhpKFUVk8lAixi1MgMoy+LF/WxXfrhk6mmsK0U9X
+ yJaxEXe/4f+3l+H5eNrsame5q/B+lR+pfPRNCfLwrKPhmcbQo4jYiXz+ktcCUNP7gIgUkeatep9
+ M0lG8ykinrF5gMdXKP4xMXnZahEpJzHEmTL5G+rNaRNfSHT8G5kqY/MYGdGTii+UxAt35SSSfSE
+ ilGxaYrywEHln3t/ZhnTmm9c+T1cGEXBDLKjAMpFMkt5ibcOgG1nUZkjUkyAz0s7srH+Y7KeHrN
+ n2ofm+Wlo6CeuSJnODdCBlSH8aUrmoWziQhzK3Ej8FPFjQDyKXKuyq+OQ2JSmRteZQR/S2Opvgk
+ +PIOfB1GwNOJ/EbL2tJcQb2rHzt7RpCdLYiT6NO13BoxY1HWeT6MaAWcMECAkPjCnG6NtOdrey1
+ oFcQVj+lVFW9ALAze8uE4cA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-For DP bridges, that can be used for DP AltMode, it might be necessary
-to enforce HPD status. There is an existing ->oob_hotplug_event() on
-the DRM connector, but it currently just calls into hpd_notify().
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead. For decent support of this, two areas are changed:
 
-As DP bridge drivers usually also implement .detect and that also
-generates calls into hpd_notify, this is a bad place to force the
-HPD status as the follow-up detect call might force it off again
-resulting in all follow-up calls to the detection routine also
-failing.
+1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
+   using the negotiated input format.
 
-Avoid this by having a dedicated function for OOB events.
+2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
+   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
+   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
+   upstream encoder negotiate the best mutually supported format.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
- include/drm/drm_bridge.h                       | 14 ++++++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..632cc3ae3b54 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index bde938b0d116..e60dab0d3b9d 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1537,6 +1537,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1547,7 +1548,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
  
-+	/* Notify all bridges in the pipeline of hotplug events. */
-+	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
-+		if (bridge->funcs->oob_notify)
-+			bridge->funcs->oob_notify(bridge, connector, status);
-+	}
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = bridge_state->input_bus_cfg.format;
 +
- 	drm_bridge_connector_handle_hpd(bridge_connector, status);
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
+@@ -1823,6 +1827,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 	return output_fmts;
  }
  
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 58fff047f43b..713652fca033 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
- 	 */
- 	void (*hpd_disable)(struct drm_bridge *bridge);
- 
-+	/**
-+	 * @oob_notify:
-+	 *
-+	 * Notify the bridge of out of band hot plug detection.
-+	 *
-+	 * This callback is optional, it may be implemented by bridges that
-+	 * need to be notified of display connection or disconnection for
-+	 * internal reasons. One use case is to force the DP controllers HPD
-+	 * signal for USB-C DP AltMode.
++static u32 *
++dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
++				       struct drm_bridge_state *bridge_state,
++				       struct drm_crtc_state *crtc_state,
++				       struct drm_connector_state *conn_state,
++				       u32 output_fmt,
++				       unsigned int *num_input_fmts)
++{
++	/*
++	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
++	 * the bus format. In that case, advertise all formats supported by the
++	 * DP link so the upstream encoder can negotiate the best match.
 +	 */
-+	void (*oob_notify)(struct drm_bridge *bridge,
-+			   struct drm_connector *connector,
-+			   enum drm_connector_status status);
++	if (output_fmt == MEDIA_BUS_FMT_FIXED)
++		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
++							       bridge_state,
++							       crtc_state,
++							       conn_state,
++							       num_input_fmts);
 +
- 	/**
- 	 * @hdmi_tmds_char_rate_valid:
- 	 *
++	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
++							 crtc_state, conn_state,
++							 output_fmt,
++							 num_input_fmts);
++}
++
+ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
+ {
+ 	struct dw_dp_bridge_state *state;
+@@ -1869,7 +1899,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+-	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
++	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
+ 	.atomic_check = dw_dp_bridge_atomic_check,
+ 	.mode_valid = dw_dp_bridge_mode_valid,
 
 -- 
 2.53.0
