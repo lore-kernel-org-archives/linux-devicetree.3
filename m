@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78CA03A1A38
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 06:38:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6572D97BB
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 06:41:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785739112; cv=none; b=U8T0EknBc/1dqLR1ClvudT0XrLLmuuTa05SRlcnjAy1tYE/7txw2XUtHoWtcWAYgAIu6S8F+uCUpnVA76RB4jUtMbSdYjf7bCG1mp3PBhG04S6+f9Efk6lJX8kjYEceyI1RDQBAC1WXjcyHqBdKSAd8OfC/j+5GJ+AfcDHPKou8=
+	t=1785739305; cv=none; b=gQbvVu07OtedjsP1ehY6KubZk0J5MkjA63WrH9d6vGKJtyKnXd3coEBIcHgy13k7976t8nQOqoJGu3JYctFt4yo2H/VGJrikObkuey5dKajWBb320k716H6tOQaAxaoohrA+khCIFtTWDgA1B6lMv0heeemSrtnxhC65q9Pzybk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785739112; c=relaxed/simple;
-	bh=Bwr8Bb6wNau/XkKDj0V+CJJZ5klD8pAzySfYMFfklJA=;
+	s=arc-20240116; t=1785739305; c=relaxed/simple;
+	bh=quy8ExEuB2/g1r5y1Q8KfVy2A6LXm8Rw7nX+v4woARo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ThQ0V6RV3x3VmUn/zITvHiILLOmTu98ZXZI0xb8p0Snr8r7PBdag5zKLwmuYvQ8m49ad65LiCL6rs1UOPVOmEsmlfchvYh0o3/9b9MGDGD1Qn/2dmcZ7iRh6Q6APhK2AYM9DFQFozq9QQVG0y1FhFZldF4XExXqg44wYuu7O6Bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBHyJJzt; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pGqsoJ65YxXBiy6+tbBIhpmF0TCGHv66fP3YmxGnq34D/17uy2X0BtRFaicZiA5knfRM+n/H5etdlUk6dea+hvk+e3ju0d7altSdpqXxHZeIvT8HJWZvo9B2XdR0gZkgv0O/gt/Rr6MS+qAX0Xeeg0D5YZWhxiI3pVawOtyZaes=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSLBeMNW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBHyJJzt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7461F00A3A;
-	Mon,  3 Aug 2026 06:38:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSLBeMNW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04F61F000E9;
+	Mon,  3 Aug 2026 06:41:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785739111;
-	bh=3aKyPxyj0s5Vy/pGgTqoqJgVTXtuAZ8P/lRTfI8wPJE=;
+	s=k20260515; t=1785739304;
+	bh=s4px+AwciG4tIavxqnQP6G9xCQEX8bXbucWgY/1DHJ0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eBHyJJztCdpzMbf7fhEj+2kbau9k6rpXZEiT52P8/A+FC+dXYQtVeoOkQ0o1s977O
-	 fevE8abU7IYLLAuYoUDcBwkvh9ubm+oayFlMMpyBERgiX9SDq5foEtQZLJl0kNwjU8
-	 A45sHKwKCLAaHJ7LZDz5LIXHhaJ8uojfSzVmaDpGFRAW2FU7G7YQtR2we11lkJcaBz
-	 CRyxdR70jr+DuCwhNBJYt+d2HMDgD08RTXuP4tQ5hIG0tk415ljuRpAN2E4dQIKoD6
-	 dFYAwJzXT9/JCmwyjsa1zAY+ZFVy10/foTfmu8S8zRR/NoVq7YHU8I/0PS9idGfNq6
-	 9jOTasWCyP4Aw==
+	b=jSLBeMNWgdrHeRD36HM/SbxhGIIx438BGt4QhKkX93ijx0zXZNoqNzsxUnT6GBtlE
+	 iuHhvaRaSUV6f67L4tMgCpGwHRy26BHAWnMb9CssVY9sTtp7iTbkIqRvHgmN6J6OL4
+	 ewvWiFseol7QOCQ6UsiN1nzF2WWEz/UN2noZ06QBFjEmEOb07OZT3K13vNd21uMRX/
+	 QiGYWXhWEmlNHJbpk8upBTYf20FIRjEjDAmWIfb7LQJ8YvxpQ8ezFzqjVXoz99bXp6
+	 KCZ4/BlZljeKv3V/Tw5lBOXGswv7YSfgzGbZRe6dYdgKkYDinefUcay8kcfBCfsUDK
+	 LjB1T3WcRIh6Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] spi: ma35d1-qspi: Enable GPIO chip selects
+Subject: Re: [PATCH 10/28] arm64: dts: qcom: sm8550: Fix swapped USB QMP PHY
+ vdda-phy/vdda-pll supplies
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803062444.1649057-1-cwweng.linux@gmail.com>
-References: <5769eae0-1b40-419f-8311-0d919bf619fa@sirena.org.uk>
- <20260803062444.1649057-1-cwweng.linux@gmail.com>
+To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260803-phy-supply-fix-v1-10-5880630cde3e@oss.qualcomm.com>
+References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
+ <20260803-phy-supply-fix-v1-10-5880630cde3e@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 06:38:30 +0000
-Message-Id: <20260803063830.BD7461F00A3A@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 06:41:43 +0000
+Message-Id: <20260803064143.E04F61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,63 +47,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The driver improperly restricts the total number of chip selects=
- (`num_cs`) to the hardware's native maximum, causing probe to fail for val=
-id device tree configurations that explicitly declare additional GPIO chip =
-selects.
+
+Pre-existing issues:
+- [High] The patch series fixes swapped `vdda-phy-supply` and `vdda-pll-sup=
+ply` regulators for several boards (e.g., sm8550), but misses identical swa=
+ps in other QMP PHY users across the tree (e.g., sm8650, sm8750, x1e80100).
 --
 
---- Patch [1]: [PATCH v2] spi: ma35d1-qspi: Enable GPIO chip selects ---
-commit 9b36effcfaa138327c6207a2889e09445f4ecaba
-Author: Chi-Wen Weng <cwweng@nuvoton.com>
+--- Patch [10]: [PATCH 10/28] arm64: dts: qcom: sm8550: Fix swapped USB QMP=
+ PHY vdda-phy/vdda-pll supplies ---
+commit c8c05b6ce3c72eb6b9fb37b78a8e1a5e58bf14e9
+Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-spi: ma35d1-qspi: Enable GPIO chip selects
+arm64: dts: qcom: sm8550: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
 
-The generic SPI controller binding allows GPIO-based chip selects, but
-the MA35D1 QSPI driver does not currently enable the SPI core's GPIO
-descriptor handling. Enable GPIO chip-select support and specify that
-the controller provides two native chip selects.
+This commit corrects the swapped vdda-phy and vdda-pll supplies for USB QMP
+PHYs on several SM8550 boards. By swapping the regulators back, it ensures
+the PHY receives the expected 0.88V instead of 1.2V, and the PLL receives
+1.2V instead of 0.88V.
 
-> diff --git a/drivers/spi/spi-ma35d1-qspi.c b/drivers/spi/spi-ma35d1-qspi.c
-> index 541d5d72484cf..60e082de58f51 100644
-> --- a/drivers/spi/spi-ma35d1-qspi.c
-> +++ b/drivers/spi/spi-ma35d1-qspi.c
-
-[ ... ]
-
-> @@ -613,10 +624,13 @@ static int nuvoton_qspi_probe(struct platform_devic=
-e *pdev)
->  				     num_cs);
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts b/arch/arm64/boot/dt=
+s/qcom/sm8550-hdk.dts
+> index ee13e6136a825..25ff5e39dd346 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8550-hdk.dts
+> @@ -1374,8 +1374,8 @@ &usb_1_hsphy {
+>  };
 > =20
->  	ctlr->num_chipselect =3D num_cs;
-> +	ctlr->max_native_cs =3D NUVOTON_QSPI_MAX_NUM_CS;
-> +	ctlr->use_gpio_descriptors =3D true;
+>  &usb_dp_qmpphy {
+> -	vdda-phy-supply =3D <&vreg_l3e_1p2>;
+> -	vdda-pll-supply =3D <&vreg_l3f_0p88>;
+> +	vdda-phy-supply =3D <&vreg_l3f_0p88>;
+> +	vdda-pll-supply =3D <&vreg_l3e_1p2>;
+> =20
+>  	status =3D "okay";
+>  };
 
-[Severity: Medium]
-Since this patch enables GPIO chip selects, shouldn't the driver allow
-configurations where the total number of chip selects exceeds the native
-maximum?
+[Severity: High]
+This is a pre-existing issue, but does this same regulator swap bug affect
+other boards across the tree?
 
-In nuvoton_qspi_probe() just above this diff, there is a check:
+Looking at other device trees, it appears the 1.2V and ~0.88V supplies
+might still be swapped in several other QMP PHY configurations. For
+example, in arch/arm64/boot/dts/qcom/sm8650-mtp.dts for usb_dp_qmpphy:
 
-	if (!num_cs || num_cs > NUVOTON_QSPI_MAX_NUM_CS)
-		return dev_err_probe(dev, -EINVAL, "invalid num-cs %u\n",
-				     num_cs);
+        vdda-phy-supply =3D <&vreg_l3i_1p2>;
+        vdda-pll-supply =3D <&vreg_l3g_0p91>;
 
-If a device tree explicitly defines a higher value for num-cs (for example
-num-cs =3D <3>) to declare additional GPIO chip selects alongside the native
-ones, this check will cause the probe to fail with -EINVAL, preventing
-any devices on the bus from functioning.
+And similarly in arch/arm64/boot/dts/qcom/sm8750-mtp.dts:
 
->  	ctlr->max_transfer_size =3D nuvoton_qspi_max_transfer_size;
->  	ctlr->max_message_size =3D nuvoton_qspi_max_message_size;
->  	ctlr->mem_ops =3D &nuvoton_qspi_mem_ops;
->  	ctlr->mem_caps =3D &nuvoton_qspi_mem_caps;
-> +	ctlr->setup =3D nuvoton_qspi_setup;
->  	ctlr->set_cs =3D nuvoton_qspi_set_cs;
->  	ctlr->transfer_one =3D nuvoton_qspi_transfer_one;
->  	ctlr->bits_per_word_mask =3D SPI_BPW_MASK(8);
+        vdda-phy-supply =3D <&vreg_l3g_1p2>;
+        vdda-pll-supply =3D <&vreg_l2d_0p88>;
+
+Even the Snapdragon X Elite ecosystem seems to exhibit this pattern, such as
+in arch/arm64/boot/dts/qcom/x1e80100-qcp.dts for usb_1_ss0_qmpphy:
+
+        vdda-phy-supply =3D <&vreg_l2j_1p2>;
+        vdda-pll-supply =3D <&vreg_l1j_0p8>;
+
+Supplying 1.2V to the 0.88V PHY domain and 0.88V to the 1.2V PLL domain
+might prevent the USB/DP PHY PLL from locking and risk hardware degradation
+due to overvoltage on the PHY pins. Should these other boards be updated
+with a similar fix?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803062444.1649=
-057-1-cwweng.linux@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-phy-supply=
+-fix-v1-0-5880630cde3e@oss.qualcomm.com?part=3D10
