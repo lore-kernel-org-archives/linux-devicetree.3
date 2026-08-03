@@ -1,63 +1,30 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BACA330644;
-	Mon,  3 Aug 2026 13:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C273F313531;
+	Mon,  3 Aug 2026 13:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785762906; cv=none; b=sQVNHvdOPFmxneztLLD4zqIy+o+b7xlVEZ+PgBqIG9E7b6ewVSvZtuVGejzDtzvmSiXRsgerPcR60ZOwJPathsG6dZOzMymnmKEFvUbKUhqmclBINQkdVioyIY1Mz4JBU6zZ01mNBPkU6K7Oi9nV65BV9Bc+I7jPgYsAGaC2vzM=
+	t=1785762949; cv=none; b=C0Y4EKB0aWulDNFIv8GOMK2kr7121JouJV8qE6zRjLmncXfiZ/b2oXv2YTcxmesvs4FAiba9GvV3FUzTrtAsM0l3230PjjxSZcmigLVmxLwjuY6D9HQN6b4/e60YUjQFr5HwzDvYmOLZcbXX8Ec0brkgJSJhb9Qh741NWljeRrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785762906; c=relaxed/simple;
-	bh=SjCYjATvRQ8vLkiNIWtKeOW8qz1wSzTU7uGxyq27uN8=;
+	s=arc-20240116; t=1785762949; c=relaxed/simple;
+	bh=T/vGjWzQuh08DtM/tEEgQ4fO2d2Df/FoXussaiYzm2w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rbC12aW/Ss0yCE66WhTagZ7ANBxssUWGF0yJhAk0FOz3iqjhNOmAf1SjzBQjUdmTiAGugx++RQDu9Rj1DzBfizt26Z4vEl6+6QULCWlErWbqx6uNp86UO0HJsyk3i7STQyI6SZFZ2sLzMV9Mj8ptZgjQ3SmYl7qTx/S2lO5c07E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=uzs0YsEl; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="uzs0YsEl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=8sNolu05p2stbRh8O9i9DhDkrV8/wacJ3u8HFpmRd9c=; b=uzs0YsEl/wyjSUeJIGAh44pup2
-	clSj5ky5vnYE1dv+Y3Q8VJcH+ZvefXHy3Z04HonSEMux5+T7uRkw+geiIY6GfdnrC3fVgL6VxjjVi
-	nl7VXpxEfoSNZIC9jQfRX+MDjRQ09znKfT8Rc1GsKGVh552ZksIsFxrL4wd9TkFcizBg=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqsV2-00Fj7p-CJ; Mon, 03 Aug 2026 15:14:36 +0200
-Date: Mon, 3 Aug 2026 15:14:36 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Richard Genoud <richard.genoud@bootlin.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com, mfd@lists.linux.dev,
-	linux-rockchip@lists.infradead.org
-Subject: Re: [PATCH 00/21] net: phy: add X-Powers AC200/AC300 EPHY support
-Message-ID: <4b5fd8a3-3bfd-426c-8711-6aee45fceaa9@lunn.ch>
-References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=OWr9B1xh1D7CmjBMSHNoFds5Mb7S33cZggYJElU4EV8gB0fUcSPuLoxvQgWA/GztYq/zxpXZNNFoczGZ4peG6COMVZdRsBiqvKelIQboj8InJ9i23GOeoV8ViKzn6i301cf2ohRK4fMJUV8HWrHS0qZDNe+NcaeJJl9r6IYpVds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
+Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
+	id 1wqsW1-0002bv-00; Mon, 03 Aug 2026 15:15:37 +0200
+Received: by alpha.franken.de (Postfix, from userid 1000)
+	id 86667C0110; Mon,  3 Aug 2026 15:14:41 +0200 (CEST)
+Date: Mon, 3 Aug 2026 15:14:41 +0200
+From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+To: Caleb James DeLisle <cjd@cjdns.fr>
+Cc: linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/2] mips: econet: add multi-vpe capability to EN751221
+Message-ID: <anCUQbjVYwg9SKWY@alpha.franken.de>
+References: <20260728184959.102441-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,17 +33,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+In-Reply-To: <20260728184959.102441-1-cjd@cjdns.fr>
 
-On Sun, Aug 02, 2026 at 11:14:10PM -0600, James Hilliard wrote:
-> The Allwinner H616/H618 secondary EMAC is commonly connected to a Fast
-> Ethernet PHY in an X-Powers AC200 or AC300 companion package.  The two
-> packages expose the same link PHY ID and
+On Tue, Jul 28, 2026 at 06:49:57PM +0000, Caleb James DeLisle wrote:
+> The EN751221 is a MIPS 34Kc so it supports MIPS_SMP_MT, but until now
+> this was disabled because to enable it requires the interrupt
+> controller to be in VEIC mode and previously only cascading mode was
+> supported by the interrupt controller driver. Since
+> commit 2ee2a685ee83 ("irqchip/econet-en751221: Support MIPS 34Kc VEIC mode")
+> the intc driver now supports VEIC mode. Add SMP_MT to init.c and
+> update the Device Tree to recognize dual VPE.
+> 
+> Caleb James DeLisle (2):
+>   mips: econet: add multi-vpe capability to EN751221
+>   mips: dts: econet: Describe dual-VPE 34Kc processor
+> 
+>  arch/mips/boot/dts/econet/en751221.dtsi |  7 +++++
+>  arch/mips/econet/Kconfig                |  4 +--
+>  arch/mips/econet/init.c                 | 42 ++++++++++++++++++++++++-
+>  3 files changed, 49 insertions(+), 4 deletions(-)
 
-I have a couple of terminology questions, one here, anther later
+series applied to mips-next
 
-What do you mean by link PHY ID? Especially the link part?
+Thomas.
 
-Are you talking about 802.3 Clause 22 registers 2 and 3?
-
-	Andrew
+-- 
+Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
+good idea.                                                [ RFC1925, 2.3 ]
