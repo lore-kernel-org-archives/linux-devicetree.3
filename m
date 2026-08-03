@@ -1,370 +1,255 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1176F25B0B3;
-	Mon,  3 Aug 2026 05:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A11330675C
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 05:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785735929; cv=none; b=nH3wPcskpCSS74j5MWFk1mvb0eo4TmpKOQJG/F0QSwKbYG74ZMW+Se/38g5rxMcz/z3q1D4mZ8SY9VlZhJ2DevkbrXX8ycGLClxY0rFrdvRcZgb3Rpd3aT4J73bTjH6x/cRraBYp9RTWpLun9d7rdPYttLMTHLiduHADEV/8S0E=
+	t=1785736145; cv=none; b=D9jHrcrw+DUjHtsUF6rn9ejwj5foq7K15i1LfA7Nb/4tCIXL1oFGsBL+XOITnwP6lgE8Irn0xU+oayLyLMHqU2krl/hvx99G54tdsHyQBFQni2FfF2x0ryFozqYvmk3oZqe+9eUDiBMIffGM9YfOMDMqiWYAQnFuALhowOrEAoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785735929; c=relaxed/simple;
-	bh=tOny/PTSdPsIZ8ySfKLaP95wssozFmoXgDA3kGAhKmc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BJ1sfd0ewnWxpWZ+4hBNrQAES81AL4W0E4kBevM583SKftoMPgR4phsTqu/y2EMbBRoLxdopzMN+7avrQKHHw+CVPT3UHFk/Q0hKX3qwZ1xH4mf178DVIR+NSYifcwV6oP7srzESUSHzSwmsk3Jh75UkBMFDmJ1K15bQVmOXj+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=ma5weV+V; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1785736145; c=relaxed/simple;
+	bh=x1Z4nUqvVtCWJiVWeGWzCEKbiZv0wMWpiYwZdmMU34k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D5LTtrGILSgjCUHsmfAc84GnmZan4+4sb1HjLaB+CPOtPw9cMspEXtp2Yt2jGOLcTvO0zyl6JFJe792YqDUJEtyNtOvcmJQjQIIcrGdO4MsTy+jz/pjasB6eZXCDpxxsQ2JJ75FOsGmj1wlrHvsvMHhoXIqlGmShI91kk5FS5sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qcNL7HwG; arc=none smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="ma5weV+V"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=48PALNf6FaW6jxdpb8NdGbAhPOU2X7FvJyVVO35TFGI=; b=ma5weV+VzGltGQtH8g6HPzdtIU
-	fl58hisYeqVrPHoJYMrqjnjo66NGlNh98Wy5nKa/9kDiFFRFSDxMkFckP9Fi1soHgsK+YJd7Z8sGK
-	OCejII58/JXe9l23vbHd4FKU4fhDYvvFe18P8cGDdzcc3pvltXkzms/ex+8Jg8yY5D1/9YxsmChHn
-	aCUs50Dl6WHif3ORBvgsEUOqis83xbj/Qjs8JBnYbk2LPR4c2yUs/HuK3G06MkqfjzvpwLnJOM1AW
-	Dlb13O8bNJv6W69jil8Kf38SrI+EJNmlt4JYkmxZh+Lju/oxSihsN0PClmfTZPQmXKjGeT0qijVHg
-	IYgbyNnw==;
-Received: from sslproxy07.your-server.de ([78.47.199.104])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wqlUJ-0006BS-1X;
-	Mon, 03 Aug 2026 07:45:23 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wqlUI-000G1r-0p;
-	Mon, 03 Aug 2026 07:45:22 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Chester Lin <chester62515@gmail.com>,
- Matthias Brugger <mbrugger@suse.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- NXP S32 Linux Team <s32@nxp.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux@ew.tq-group.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH 1/2] ARM: dts: nxp: Correct white-space style
-Date: Mon, 03 Aug 2026 07:45:21 +0200
-Message-ID: <6019329.DvuYhMxLoT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260801210420.383984-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260801210420.383984-3-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qcNL7HwG"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b29599b81cso4295059e87.1
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 22:49:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785736141; x=1786340941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Z8jXZAUhcjKTtPoIZ4/epKb5xdLnKYJzAnB3Lfizgk=;
+        b=qcNL7HwG00+Ui84qD0786CouAT5q6Fwv392Lrn0nX8l4oULWsE1nbACCco/+cq3qnG
+         Xm8t5vkQ9sl+ejHH7GQrZKy6HqAJwm/1AIA3hlgm0PbNBXdOss6HqMX1yCycRPPwI9kB
+         uXxI5A0jcIJmm6Sj8AdsWe7JXT60dEen+yZN2DAfnmhufcDmu9Cr+S3d/QWUp0e1BsgA
+         /CEDB55XQbpCI2lNU7+tb2PNon8RTqS9CtVyEVrKJLaujMBWl+BYZbMBO+0gs61wScdA
+         Z4bQXrBz6SAeLz2T4eZ7Wuw3Hnsl1DQY6qItdbqwMyEnoqbnUCRAAyujN+nPI237XWkw
+         mmbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785736141; x=1786340941;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+Z8jXZAUhcjKTtPoIZ4/epKb5xdLnKYJzAnB3Lfizgk=;
+        b=g8HMFkggYdclZjfvRukIZx+B+WeGshMnqnjtrWoJTcSXm69uE4QX6CwHdomyUrfgF3
+         DXGosULX708VPB6B+Pg61eUsaJJJcKIlaR/ig8qBgYK0Hoq6HNGa7OR5+mbAZfIGkVBz
+         /evKgarwjnH6bJD1wBrbnCiL4DRDrb/EMXXIHTrMoqLkxBJV96VIkwUggPMTIIjrSv2P
+         GIgpIpeMrVSx1/ySxWaehdhAEdeAAebUM1EfRIV8a3coaYuOuYeex97N8UN3LFr09H6C
+         pyXk7bzHyntxQw2sFuL1P0bbHsOgrdddvhbHtyoVNEEusE9d+YRyRHyPXuOAMOzDOZtF
+         VW7Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3tQBNp/HABF3XZQeCZrYUq1N6Mcu3RtDv5xgVSbZZW9lzaEovgoMaynSdPb0eRI8YMlK7J2GWEG3+@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzc+e6GpwSjRoKIBbfdYgdALDyGjv5o4XYxE100XXGSBYj47Mtf
+	9GpmGPxG6naO2uGwvUIn3lGy1b64h53XYyjl6yfAzlDK3OyqFkcxmGCl
+X-Gm-Gg: AR+sD13kQQnG3M/xl2XOO1+/ZyBTVVWq3G/IF8E5PTg16y4hL0/zhLNaeTs4lbcIRfW
+	WDlUykQMPgwrsu0nyte2Hd4ZwE2Qhl4yht/Mj51A6BwgVluCARLYDMYEcZG70I50vNDvXGxChYn
+	7jDwur7slLN32sv2xQQVODAIEDq0EkSOnE345onEyAecJCFOAd8yCJb4B42iaiCqyJ0fjsTT4R0
+	9i0bP/GRT7rg9YqEZEMa6pLrDRXagPsvGYgSXMAn7Rmjip7c1E0jxfnqTkCLkjfI/UYDm77DYCK
+	MWiCW3Upn+FeEYXNMto7auXHRrbQOs4y/LGE+Z4miOv17Nw4Qn/Y87CquxF8lpIRNxhBWpsRU4k
+	oupAoenH29c0SlP3bz6xsza76X/KdOu+rivFg0B3RmqHc8FImZ0Dkgz0C5G/gYi1MZcfzzyxWVJ
+	SjLVHT1GrZ60QyT8EScNZEcgtSyPnL+sQXvSUaT9pdZIuzL35nhhJNcV/lpAokU2H1VSD3vuTSP
+	U0bgDp4oWVMPEctL/Z0HNFdWehjC471sluANeHJo6qbz3ZAmgHcFMmn5Q==
+X-Received: by 2002:ac2:41c3:0:b0:5ae:b130:1e1 with SMTP id 2adb3069b0e04-5b2e4f3b5c0mr1164615e87.28.1785736141209;
+        Sun, 02 Aug 2026 22:49:01 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2e23cb4e6sm1832235e87.22.2026.08.02.22.48.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 02 Aug 2026 22:49:00 -0700 (PDT)
+Message-ID: <db4a8ecc-65c2-4965-bb53-bd637e3765df@gmail.com>
+Date: Mon, 3 Aug 2026 08:48:59 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28080/Sun Aug  2 08:24:19 2026)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/8] dt-bindings: mfd: ROHM BD73800 PMIC
+To: Linus Walleij <linusw@kernel.org>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+ Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-rtc@vger.kernel.org
+References: <cover.1782909323.git.mazziesaccount@gmail.com>
+ <3e700a3fa7872a96257ff25a77670ec05cfd239c.1782909323.git.mazziesaccount@gmail.com>
+ <CAD++jLnaOOoLsLxzib4d1XXLxRpWBPrqCdRwqVVEUmKYS4ad6g@mail.gmail.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <CAD++jLnaOOoLsLxzib4d1XXLxRpWBPrqCdRwqVVEUmKYS4ad6g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Am Samstag, 1. August 2026, 23:04:21 CEST schrieb Krzysztof Kozlowski:
-> Correct a few white-space issues, like missing space before bracket '{'
-> character or spurious space, which will be flagged by dt-check-style
-> ("redundant-whitespace" warning).  No functional changes.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Hi dee Ho Linus,
 
-Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> ---
->  arch/arm/boot/dts/nxp/imx/e60k02.dtsi                |  8 ++++----
->  arch/arm/boot/dts/nxp/imx/e70k02.dtsi                |  8 ++++----
->  arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts           |  2 +-
->  arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts        |  4 ++--
->  arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts      |  8 ++++----
->  arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts |  8 ++++----
->  arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts            |  2 +-
->  arch/arm/boot/dts/nxp/imx/imx7s-warp.dts             |  2 +-
->  arch/arm/boot/dts/nxp/ls/ls1021a.dtsi                | 10 +++++-----
->  9 files changed, 26 insertions(+), 26 deletions(-)
->=20
-> diff --git a/arch/arm/boot/dts/nxp/imx/e60k02.dtsi b/arch/arm/boot/dts/nx=
-p/imx/e60k02.dtsi
-> index aac7b9ef7627..ed59b27834a6 100644
-> --- a/arch/arm/boot/dts/nxp/imx/e60k02.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/e60k02.dtsi
-> @@ -240,13 +240,13 @@ regulator-state-mem {
->  			};
-> =20
->  			/* IR_3V3 */
-> -			ldo1_reg: LDO1  {
-> +			ldo1_reg: LDO1 {
->  				regulator-name =3D "LDO1";
->  				regulator-boot-on;
->  			};
-> =20
->  			/* Core1_3V3 */
-> -			ldo2_reg: LDO2  {
-> +			ldo2_reg: LDO2 {
->  				regulator-name =3D "LDO2";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -259,7 +259,7 @@ regulator-state-mem {
->  			};
-> =20
->  			/* Core5_1V2 */
-> -			ldo3_reg: LDO3  {
-> +			ldo3_reg: LDO3 {
->  				regulator-name =3D "LDO3";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -310,7 +310,7 @@ ldo10_reg: LDO10 {
->  				regulator-boot-on;
->  			};
-> =20
-> -			ldortc1_reg: LDORTC1  {
-> +			ldortc1_reg: LDORTC1 {
->  				regulator-name =3D "LDORTC1";
->  				regulator-boot-on;
->  			};
-> diff --git a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi b/arch/arm/boot/dts/nx=
-p/imx/e70k02.dtsi
-> index 3bb11c5a6353..dc7ff108aa85 100644
-> --- a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
-> @@ -243,13 +243,13 @@ regulator-state-mem {
->  				};
->  			};
-> =20
-> -			ldo1_reg: LDO1  {
-> +			ldo1_reg: LDO1 {
->  				regulator-name =3D "LDO1";
->  				regulator-boot-on;
->  			};
-> =20
->  			/* Core1_3V3 */
-> -			ldo2_reg: LDO2  {
-> +			ldo2_reg: LDO2 {
->  				regulator-name =3D "LDO2";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -262,7 +262,7 @@ regulator-state-mem {
->  			};
-> =20
->  			/* Core5_1V2 */
-> -			ldo3_reg: LDO3  {
-> +			ldo3_reg: LDO3 {
->  				regulator-name =3D "LDO3";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -311,7 +311,7 @@ ldo10_reg: LDO10 {
->  				regulator-boot-on;
->  			};
-> =20
-> -			ldortc1_reg: LDORTC1  {
-> +			ldortc1_reg: LDORTC1 {
->  				regulator-name =3D "LDORTC1";
->  				regulator-boot-on;
->  			};
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts b/arch/arm/boot/d=
-ts/nxp/imx/imx6dl-mamoj.dts
-> index ec5a9bf40677..30275319902e 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts
-> @@ -151,7 +151,7 @@ reg_usb_host: regulator-usb-vbus {
->  		enable-active-high;
->  	};
-> =20
-> -	reg_wl18xx_vmmc:  regulator-wl18xx-vmcc {
-> +	reg_wl18xx_vmmc: regulator-wl18xx-vmcc {
->  		compatible =3D "regulator-fixed";
->  		regulator-name =3D "vwl1807";
->  		pinctrl-names =3D "default";
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts b/arch/arm/boo=
-t/dts/nxp/imx/imx6q-bosch-acc.dts
-> index 929def2bb35e..20b6cc74f622 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts
-> @@ -177,7 +177,7 @@ reg_usb_h2_vbus: regulator-usb-h2-vbus {
->  		regulator-name =3D "usb_h2_vbus";
->  		regulator-min-microvolt =3D <5000000>;
->  		regulator-max-microvolt =3D <5000000>;
-> -		vin-supply =3D <&reg_5p0> ;
-> +		vin-supply =3D <&reg_5p0>;
->  		regulator-always-on;
->  	};
-> =20
-> @@ -207,7 +207,7 @@ reg_dac: regulator-dac {
->  		regulator-name =3D "vref_dac";
->  		regulator-min-microvolt =3D <20000>;
->  		regulator-max-microvolt =3D <20000>;
-> -		vin-supply =3D <&reg_5p0> ;
-> +		vin-supply =3D <&reg_5p0>;
->  		regulator-boot-on;
->  	};
-> =20
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts b/arch/arm/b=
-oot/dts/nxp/imx/imx6sl-kobo-aura2.dts
-> index 657d0f1b6115..47b05207574e 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts
-> @@ -211,14 +211,14 @@ regulator-state-mem {
->  			};
-> =20
->  			/* IR_3V3 */
-> -			ldo1_reg: LDO1  {
-> +			ldo1_reg: LDO1 {
->  				regulator-name =3D "LDO1";
->  				regulator-always-on;
->  				regulator-boot-on;
->  			};
-> =20
->  			/* Core1_3V3 */
-> -			ldo2_reg: LDO2  {
-> +			ldo2_reg: LDO2 {
->  				regulator-name =3D "LDO2";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -231,7 +231,7 @@ regulator-state-mem {
->  			};
-> =20
->  			/* Core5_1V2 */
-> -			ldo3_reg: LDO3  {
-> +			ldo3_reg: LDO3 {
->  				regulator-name =3D "LDO3";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -282,7 +282,7 @@ ldo10_reg: LDO10 {
->  				regulator-boot-on;
->  			};
-> =20
-> -			ldortc1_reg: LDORTC1  {
-> +			ldortc1_reg: LDORTC1 {
->  				regulator-name =3D "LDORTC1";
->  				regulator-always-on;
->  				regulator-boot-on;
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts b/arch/=
-arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
-> index 4c655579f43e..64a74719c216 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
-> @@ -276,13 +276,13 @@ regulator-state-mem {
->  			};
-> =20
->  			/* IR_3V3 */
-> -			ldo1_reg: LDO1  {
-> +			ldo1_reg: LDO1 {
->  				regulator-name =3D "LDO1";
->  				regulator-boot-on;
->  			};
-> =20
->  			/* Core1_3V3 */
-> -			ldo2_reg: LDO2  {
-> +			ldo2_reg: LDO2 {
->  				regulator-name =3D "LDO2";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -295,7 +295,7 @@ regulator-state-mem {
->  			};
-> =20
->  			/* Core5_1V2 */
-> -			ldo3_reg: LDO3  {
-> +			ldo3_reg: LDO3 {
->  				regulator-name =3D "LDO3";
->  				regulator-always-on;
->  				regulator-boot-on;
-> @@ -346,7 +346,7 @@ ldo10_reg: LDO10 {
->  				regulator-boot-on;
->  			};
-> =20
-> -			ldortc1_reg: LDORTC1  {
-> +			ldortc1_reg: LDORTC1 {
->  				regulator-name =3D "LDORTC1";
->  				regulator-always-on;
->  				regulator-boot-on;
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts b/arch/arm/boot/dt=
-s/nxp/imx/imx6sll-evk.dts
-> index 814401486792..d20d2735cab5 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts
-> @@ -633,7 +633,7 @@ MX6SLL_PAD_PWM1__PWM1_OUT   0x110b0
->  		>;
->  	};
-> =20
-> -	pinctrl_wdog1: wdog1grp	{
-> +	pinctrl_wdog1: wdog1grp {
->  		fsl,pins =3D <
->  			MX6SLL_PAD_WDOG_B__WDOG1_B   0x170b0
->  		>;
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts b/arch/arm/boot/dts=
-/nxp/imx/imx7s-warp.dts
-> index 25f38acc5350..b1989013c1a4 100644
-> --- a/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts
-> @@ -272,7 +272,7 @@ &uart1 {
->  	status =3D "okay";
->  };
-> =20
-> -&uart3  {
-> +&uart3 {
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pinctrl_uart3>;
->  	assigned-clocks =3D <&clks IMX7D_UART3_ROOT_SRC>;
-> diff --git a/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi b/arch/arm/boot/dts/nx=
-p/ls/ls1021a.dtsi
-> index e0b9ea6dd510..af518fc08809 100644
-> --- a/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi
-> +++ b/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi
-> @@ -721,7 +721,7 @@ queue-group@2d10000 {
->  					<GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
->  			};
-> =20
-> -			queue-group@2d14000  {
-> +			queue-group@2d14000 {
->  				reg =3D <0x0 0x2d14000 0x0 0x1000>;
->  				interrupts =3D <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>,
->  					<GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
-> @@ -740,14 +740,14 @@ enet1: ethernet@2d50000 {
->  			ranges;
->  			dma-coherent;
-> =20
-> -			queue-group@2d50000  {
-> +			queue-group@2d50000 {
->  				reg =3D <0x0 0x2d50000 0x0 0x1000>;
->  				interrupts =3D <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
->  					<GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
->  					<GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
->  			};
-> =20
-> -			queue-group@2d54000  {
-> +			queue-group@2d54000 {
->  				reg =3D <0x0 0x2d54000 0x0 0x1000>;
->  				interrupts =3D <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
->  					<GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
-> @@ -766,14 +766,14 @@ enet2: ethernet@2d90000 {
->  			ranges;
->  			dma-coherent;
-> =20
-> -			queue-group@2d90000  {
-> +			queue-group@2d90000 {
->  				reg =3D <0x0 0x2d90000 0x0 0x1000>;
->  				interrupts =3D <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>,
->  					<GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
->  					<GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
->  			};
-> =20
-> -			queue-group@2d94000  {
-> +			queue-group@2d94000 {
->  				reg =3D <0x0 0x2d94000 0x0 0x1000>;
->  				interrupts =3D <GIC_SPI 160 IRQ_TYPE_LEVEL_HIGH>,
->  					<GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>,
->=20
+The way too short summer holiday is now gone, so I am back at this :) 
+Thanks again for the comments, I am trying to improve for v2 ;)
 
+On 03/07/2026 23:46, Linus Walleij wrote:
+> On Wed, Jul 1, 2026 at 2:41 PM Matti Vaittinen
+> <matti.vaittinen@linux.dev> wrote:
+> 
+>> +  # The GPIO1, CLKOUT (GPIO2), FAULT_B and EXTEN_OUT pins can be
+>> +  # configured to interrupt pins by OTP.
+> 
+> Maybe move this helpful comment into the top description: instead?
+> It's kind of generic helpful info.
+> 
+>> +# The GPIO1, CLKOUT, FAULT_B and EXTEN_OUT pins may be configured for a
+>> +# specific purpose (like ADC input, 32.768 clk output, fault indicator or
+>> +# delivering power sequence to a companion PMIC when multiple PMICs are
+>> +# used) - but also to be either a GPO or GPI. (When used as a GPI the pin
+>> +# can also be used as an IRQ source). The pin purpose is determined by
+>> +# OTP (One Time Programmable memory), typically during device manufacturing.
+>> +# The OTP can't be read at runtime so device-tree should describe the pins.
+>> +  rohm,pin-gpio1:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    description:
+>> +      Indicate if the GPIO1 pin has been set to GPI or GPO at manufacturing.
+>> +    enum: [gpi, gpo]
+>> +
+>> +  rohm,pin-clkout:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    description:
+>> +      Indicate if the CLKOUT pin has been set to GPI or GPO at manufacturing.
+>> +    enum: [gpi, gpo]
+>> +
+>> +  rohm,pin-fault-b:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    description:
+>> +      Indicate if the FAULT_B pin has been set to GPI or GPO at manufacturing.
+>> +    enum: [gpi, gpo]
+>> +
+>> +  rohm,pin-exten:
+>> +    $ref: /schemas/types.yaml#/definitions/string
+>> +    description:
+>> +      Indicate if the EXTEN_OUT pin has been set to GPI or GPO at
+>> +      manufacturing.
+>> +    enum: [gpi, gpo]
+> 
+> Can we explain what "GPI" and "GPO" means in this context?
+> 
+> I read it as "general purpose input" and "general purpose output", but...
+> you just describe the exact purpose? So what is "general purpose"
+> about them in that case?
 
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+These property names (pin-gpio1, pin-clkout, pin-fault-b, pin-exten) do 
+not define the purpose of the pin, but they match the pin name in the 
+data-sheet. The idea is indeed to be able to say "the fault-b -pin is 
+not a fault signal, but a general purpose input" - if the IC we are 
+describing here has OTP configuration enabling this.
 
+I am re-using the approach from the BD72720 here. I think I will add a 
+common binding file with these, which can then be referred by multiple 
+rohm ICs (in same fashion I added the 
+Documentation/devicetree/bindings/regulator/rohm,pmic-states.yaml for 
+commonly used ROHM regulator properties). I'll see if it looks Ok (to 
+me), and send it in v2 :)
 
+> I would re-use "input-enable" and "output-enable" from:
+> Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+> (I mean don't $rf that, just use these strings).
+> 
+> I suppose:
+> enum: [input-enable, output-enable]
+> 
+>> +  rohm,clkout-open-drain:
+>> +    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmos".
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    minimum: 0
+>> +    maximum: 1
+> 
+> Here I would also reuse the generic pinconf properties,
+> something like;
+> 
+> rohm,clkout-drive-type:
+>    enum: [drive-push-pull, drive-open-drain]
+
+As I mentioned in my very hasty original reply, this is also an existing 
+binding used in quite a few PMIC device-trees. Changing it now sounds 
+like asking for problems, for (in my opinion) little benefit. Yet, since 
+it is used by a few PMICs, I could perhaps put it in a common rohm 
+binding file as well. Then it would be more obvious it is an existing 
+property if new models re-use this.
+
+> (Push-pull is what is colloquially referred to as "cmos".)
+
+I will at least add a.k.a "push-pull" to the description :)
+
+> 
+>> +            rohm,pin-gpio1 = "gpo";
+>> +            rohm,pin-exten = "gpi";
+> 
+> If you instead use nodes with properties you can do this:
+> 
+> rohm,pin-clkout {
+>      output-enable;
+>      drive-push-pull;
+> };
+> 
+> This collects the clkout config in one place and make
+> it obvious what is going on. But I don't know what the DT
+> maintainers think about this idea.
+
+I believe you mean I could translate:
+
+rohm,pin-clkout = "gpo";
+rohm,clkout-open-drain = <0>;
+
+to
+rohm,pin-clkout {
+	output-enable;
+	drive-push-pull;
+};
+right?
+
+I am actually not sure if this would work. The data-sheet made me to 
+assume it might not. There is separate "OUT32K" register, which controls 
+the clock gate. This, as far as I understand, is not usable when the OTP 
+variant sets the CLKOUT -pin to GPO. The mode (open-drain / cmos) 
+configuration resides in this clock gate register.
+
+[Just to complete picture, when OTP is set to GPO, the pin output is 
+controlled by GPIO_OUT register instead. When OTP has set the pin to clk 
+output (or to GPI), then the GPIO_OUT register writes have no impact.]
+
+Thus, in case of the BD73800, the:
+
+rohm,pin-clkout = "gpo";
+rohm,clkout-open-drain = <0>;
+
+might actually be contradicting.
+
+...
+
+Now, I will make a side-note... The data-sheet front page says:
+> 4 GPIOs
+> - OTP Option for GPIOs instead of I/F signals:
+> EXTEN_OUT, FAULT_B, CLKOUT, GPIO1
+> - GPO Supports Open Drain and CMOS Output
+
+I, however, see no register control for the GPO output types. I _assume_ 
+the output type (when pins are used for GPO) depends on OTP again. I 
+will see if I can clarify this.
+
+Yours,
+	-- Matti
+
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
