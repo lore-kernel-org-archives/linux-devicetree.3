@@ -1,173 +1,193 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184E63A05C4
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 20:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB9442EEDA
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 20:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785790198; cv=none; b=df8dLiqkY0v4R06RK3d6iRViBDfgJheqHd+R/WsRaHulm3gFMo3UHrBi12/0QzWDvOvfTeyYYhuXIkMINin5tE20iPTmOREEMl9t23PyEye/gWSTP8nxxNsz94EjBe+r2o4yUCd/AtLLshgxB0YGsfdc8t/A0xakM1e60D2ya/I=
+	t=1785790221; cv=none; b=fN+hxkt02JZRhuF4A+9Z9tpXCDdsJQuvEcEWYbJ57zU9mbCWQmHGn1k9iKNdvdo1oZbMpKZMJhkspRIhQhL2AgMhMeWVnNNfmBM7XjMNbt9ccRg8npVNzSYHIcnIbHTErLpPnASCGwZgOeJv0h40TA4zHqz7ZA0xAiIJWF1RK4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785790198; c=relaxed/simple;
-	bh=/1OaECMujIFSJE7t+DVTrABpYZ5BfId7y7cIHEcKVeM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GHgWZ4lyGJpMJEqOxmfGcuaCILgMkeQVrApCtyQN8EQeXaP76EUkxIq3KbLPHDKMR9Ze/M20jM2Zxq8en1d7UOLnM3i1qS13NZ2zGUww6a8cEReZVHjRRXX0QT8XTCkFDAN0o4/loaKJbcguqE/YcwRiwtFlqzuhxIn6tyN7MSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AmL2CiUe; arc=none smtp.client-ip=209.85.221.44
+	s=arc-20240116; t=1785790221; c=relaxed/simple;
+	bh=wZ1N2REpOJJNPxLZ9GguARRcKMAl5kI4U1va3fafSDU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J+mNL8do2OjHeJCSBxeBOViEfhgmkQ66VPg60yiBgDiGQ0mw5q6Iln4q2dpdlsA4VonHjlHiZbYp/n+UCBJsnwL1ru4paINYnhlaptT80L1Sfn4GNP9yUQyGAdphX8+OlqSa6Kvj1pA4x0BPm/9VUwccx3qOB+UJW3/6AbLS/qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d3Poe6/S; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AmL2CiUe"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f9ab7ee38so1978091f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 13:49:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d3Poe6/S"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso2928786a91.1
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 13:50:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785790195; x=1786394995; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vhuGZy0V/iO4wh9VJe2g8/AuD286lKexbEG58gGTA9A=;
-        b=AmL2CiUe/leCa0YJ9czB1Y3+I3M9Bwu9onjkRk2epDRdgUhZO1AUlCRaOBc5gjslgl
-         77OV9MsdamglxI6npg00GeSFv7h8IA01WGLG6gPMJL4Lymm+1fbOxEUE2mHMjIWLMiu8
-         chQ/VROsznlhe4j6uyhHKz5jiwL5ZdfaHmrpugrIWIH0eGv0x7OFKf4mcN0iAAuOmhwb
-         SuVPD+TVzEkzCTIXb8IpGo/PU1BmCjEmt836IUZePvsfH4oy9iTGFL/WT7nn2ioJUJHY
-         ktXUSweTwDQWkR4BEasa7VwsoPneu68VmlGUSLGZBYCWA4jb/3Ea26DDz/5yoz4mGkOx
-         CkCg==
+        d=gmail.com; s=20251104; t=1785790218; x=1786395018; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gsxiDzL0I01ABFBzvuI/N7g4tWws5xrBk47m3Bu1XsM=;
+        b=d3Poe6/SCVzVH66b7Ra8rqXkXtBg2L3xIicd6+NbV+9zhx4TRLixENlkFBPUiHp3Wi
+         NoRPQice2O5wcxd0Y7sCpubqlu80zrBCK+Qt2Lmt6I/yq3GpoBVZX4Gck3f00ROfRRdl
+         ay7MQNZjevt5zOlrqGWsnywXYpuXjz2FzZ5kOYRa9Kvq22eHx+hboqq7bkWWR4Y7rgrz
+         kq6RaoUcG8e9UOC+f3vlVaAiK6bkcmC8YsfLkwysD/fVbZKWL4HHLEw6fhSyFzE1P3fF
+         istdpNUCUZc5M56AIcBzXSKHpp1tshpRtEIZgZk43cHYgCGh0cbDRhEYoKZZM7XeZjj/
+         g/QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785790195; x=1786394995;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vhuGZy0V/iO4wh9VJe2g8/AuD286lKexbEG58gGTA9A=;
-        b=eiglao1oB1xndTHzXXq97s3NHGy7fSmUY3xc8QtAwCzC17a18ptmjXq09dUv263+th
-         pBuMOCGF9jNSSt2PAgxqb4BYXP02/Ymkba5BxctqOVSQ7ayeFdTv59rOwT3B8Qq72Y00
-         IKbN4xtB0jDPt8+K359+WMEodxzSvjU/fd2d5GxI0qGrel7j7Iqs3jAgqVf727/p6fo5
-         LA652Zph2WokshdSzP5S1nL9PMZsUbhoPolhpaGbZOdiqLMXuIm7K4+UzUX6FR/dC7Ty
-         fe1GqRgl9J4sS6VIrrwWtKBWO0mnUNxt/lXlssULfP8OU8Rm68JKzwgu6ZA7RXhxoYl3
-         mPuw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8q9G+zGhF26YwSIxaG/1O78wr9cGhUCbERyl+djdbKG1jifKna6V3kykb4mfij44FWcz6UxUJOBl5@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzfLk2ot++LcI+NSomDwDgzxhAGwZY4QYSRizCCqHod4/mGIyF
-	vNoxiBU/SEi/7gaCkPUAjqW4spd1uUJbjNeFH9ccXhxXMeCmhXvvJe9QMimS4w==
-X-Gm-Gg: AR+sD1231URhwfyVDALYMIuWiQZhu9vqoc6urQYN4EvYds3VXJNdaPSr/IABo8JN6uu
-	CTXiKuMpJKVHHmLAMr2jDav7l2Qq+kdrrxvWCF1pXKNaQTqrlpA/8PJsUiYx1Xt11ifKaK2Ko64
-	jtEma0M+qpe4Yj0/7DFlaj1QXhrDij1kQ2mAMtyH3X9Uf1QGvMNH0WP2nV8sxznBJo2R2v/eCfG
-	G2VMhglHXGrMMB+RSJEfPo58R3n2JrUN40eh3XZM4X06oBu3+ab+/nAFebZQHnkHLPy3rIfGbgX
-	BJlgfJObMRU9CKuFGRi07zJCszc0SfQDqSrnb2jFUs07S90qTU5+PGJ0IHDiZA2qt871RTDPSmF
-	NvT1I6ZWUszDZE0oQNzHdHGNnduNLFvEFXLe+o/ZQq3JktLFmsJJZQIGfSgf61rbsm8DoiZ1gAM
-	nSAQHm7Xs+l7LDkEYZx2dhFPK3l2kFEYSzuULGOG01Es9AOv54yAU7uZuk3b9KCb1M
-X-Received: by 2002:a05:6000:29db:b0:477:3986:9b54 with SMTP id ffacd0b85a97d-47fd72b0820mr19601084f8f.20.1785790195099;
-        Mon, 03 Aug 2026 13:49:55 -0700 (PDT)
-Received: from antoniarch ([78.209.183.178])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41e2961sm40075934f8f.13.2026.08.03.13.49.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 13:49:54 -0700 (PDT)
-Date: Mon, 3 Aug 2026 22:48:26 +0200
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	linux-rtc@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v3 2/8] rtc: abx80x: add mutex protection for register
- writes
-Message-ID: <anD96GGy16VCzpCL@antoniarch>
-References: <20260731184831.44037-1-apokusinski01@gmail.com>
- <20260731184831.44037-3-apokusinski01@gmail.com>
- <20260731190257.45F771F00AC4@smtp.kernel.org>
+        d=1e100.net; s=20251104; t=1785790218; x=1786395018;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gsxiDzL0I01ABFBzvuI/N7g4tWws5xrBk47m3Bu1XsM=;
+        b=T9yAlegMbhgz2uH3f2Nk01UI3OFxenxo4Cc7BgpVJK5NPb33ulsJuN+oFPoDMV/NtQ
+         uNli+pjxdBO0zjAvo7yp8mjLILoioduyc9GUUJtb7T6bIn1DO5suYcEup9lKlavU/INs
+         AqyZxaBiziWw803+TrvjHAadqCMqLvk9QCiyHjgKh8Uki29+kZ/v6g4HOggTD7z2zqtX
+         BVuM1M54lWn0AeJUL1PWqCzjEeGmVS6uh43dbasBkDAegx3uUQZnHrieOGaHk0IXPa7K
+         RFxDPnwJXvxyA5+ejcObFARraNvV4r4kiWXf3FdeRL3bPOP3JYhIIcvDou5PFJy/DdPR
+         7nJA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0+2f2HYLkCngLbTuLLxY560IGAS5sosZyOUMClvOmHt7AR/qtwETwrf1uyl+VXlLb0XYBrrz+uz+t@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLRkIuwde8BTTorP9+X227RHVnUB6/hjc4AyZk/N9OMCCmQbzd
+	eSldZS1UDVvCNV5nyCKFkUVN3ftOufG2/U5Os7qExlhdQ+0m8xxtP82X
+X-Gm-Gg: AR+sD11ojbclNXTUYvbgLHOSoxmm+1+Cn1McAjFfpSFFNA2E59qpXqwH+gFwoRp3u6Q
+	vRZKRI3PlNjf1UNuAENOSZ7JdrQhkFcItV1mJG6uzQB4uO35XtdT1tmrVQ1yt4kc9OZXAEoix85
+	6e0Of4tP725vNy4HT1i8ulDZHMGRG03CBReMCT0rJt5jfOeRYiLumoJxVUhdtkeIWq9pEbQbatO
+	XOCKHpWqNLDH5+yjbzSvXyR+uuX31GrWrwwhSdDigVLjOASuGJRp10n790/K3WCwEIW9ds8L6Y6
+	nmX8O31x8uwOw7rd0eriYP0WQa6z2UsUNc6neCZp9uDsYXQQ7veeiV9CeqZv6/GAOCDSKY9vGMB
+	kA6ozwLLwkmLo4Fa68i7dBcrgXEL8hbPVLr/xcn3f4PLyIg8Ij1mprgbmZsbj1QqbTdCBvjEaHX
+	1ns95Ru1W3My9b4Yh24EEDWFR1NtMcl4Hi9sYqVQLo6RqqAlFSpkYTHFgrgvRjnuEP4WLhVl7bQ
+	WlcZgA=
+X-Received: by 2002:a17:90b:4a42:b0:38e:3a8:2374 with SMTP id 98e67ed59e1d1-38fbc51610emr9556132a91.30.1785790217545;
+        Mon, 03 Aug 2026 13:50:17 -0700 (PDT)
+Received: from Mac.net ([12.162.234.74])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab4d10bbsm33112324c88.11.2026.08.03.13.50.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 03 Aug 2026 13:50:16 -0700 (PDT)
+From: Ahmad Byagowi <ahmadexp@gmail.com>
+To: linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Peter Rosin <peda@lysator.liu.se>,
+	Nam Tran <trannamatk@gmail.com>,
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC net-next v2 0/6] ptp: ocp: Add R4006 and V9 I2C peripheral support
+Date: Mon,  3 Aug 2026 13:50:05 -0700
+Message-ID: <20260803205011.1249-1-ahmadexp@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260731190257.45F771F00AC4@smtp.kernel.org>
 
-On Fri, Jul 31, 2026 at 07:02:55PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> 
-> New issues:
-> - [Low] Build failure due to jumping over a `__cleanup__` variable declaration in a switch statement.
-> 
-> Pre-existing issues:
-> - [High] Shared IRQ handler unconditionally returns IRQ_HANDLED and clears the status register, risking interrupt storms and breaking battery low detection.
-> - [High] Missing mutex protection on I2C reads allows them to interleave with and silently break multi-step configuration key write sequences.
-> --
-> 
-> --- Patch [2]: [PATCH v3 2/8] rtc: abx80x: add mutex protection for register writes ---
-> commit d3bc95e6c97e9f4f1dbb461f4986e984a4ccd25a
-> Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> 
-> rtc: abx80x: add mutex protection for register writes
-> 
-> The ABX80X RTC driver performs multi-step register operations such as
-> NVMEM transfers or register writes preceded by a configuration key
-> write. Add a mutex to serialize all the register writes to protect
-> these sequences against race conditions.
-> 
-> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > index 5486d9d0b1e5d..8d791b9ec7d21 100644
-> > --- a/drivers/rtc/rtc-abx80x.c
-> > +++ b/drivers/rtc/rtc-abx80x.c
-> [ ... ]
-> > @@ -219,6 +221,7 @@ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
-> 
-> [Severity: High]
-> This is a pre-existing issue, but should I2C reads like those performed in
-> abx80x_rtc_read_time() also be protected by the new mutex?
-> 
-> If an unprotected I2C read interleaves with a protected multi-step write
-> (such as abx80x_rtc_set_autocalibration()), it can reset the configuration
-> key on the hardware. This would cause the target register write to be
-> silently ignored.
->
-Not true. The reset of the configuration key happens on any register write
-but on on read.
-> >  static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
-> >  {
-> >  	struct i2c_client *client = to_i2c_client(dev);
-> [ ... ]
-> > @@ -263,6 +268,8 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
-> >  	struct rtc_device *rtc = priv->rtc;
-> >  	int status;
-> >  
-> > +	guard(mutex)(&priv->lock);
-> > +
-> >  	status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
-> >  	if (status < 0)
-> >  		return IRQ_NONE;
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this interrupt handler
-> unconditionally clear the status register and return IRQ_HANDLED later in
-> the function?
-> 
-> If a shared device or spurious interrupt triggers abx80x_handle_irq(),
-> returning IRQ_HANDLED for unrelated interrupts prevents the core IRQ
-> subsystem from disabling a stuck shared line.
-> 
-> Additionally, writing 0 unconditionally clears all flags, including
-> ABX8XX_STATUS_BLF, which prevents userspace from detecting a low battery.
->
-> [ ... ]
-> > @@ -539,6 +559,8 @@ static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
-> >  		return put_user(tmp, (unsigned int __user *)arg);
-> >  
-> >  	case RTC_VL_CLR:
-> > +		guard(mutex)(&priv->lock);
-> > +
-> 
-> [Severity: Low]
-> Does this cause a build failure?
-> 
-> The guard macro declares a cleanup variable inside the switch statement
-> without a surrounding compound block. Any other ioctl command jumping to the
-> default label will bypass the variable's initialization, which GCC usually
-> flags as a hard error.
-> 
-Even though I didn't experience any issue, this review seems valid to
-me. I'd change the guard() here to mutex_lock/unlock in v4
-> >  		status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
-> >  		if (status < 0)
-> >  			return status;
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260731184831.44037-1-apokusinski01@gmail.com?part=2
+R4006 and Time Card V9 place an I2C mux behind the FPGA XIIC
+controller. The current ptp_ocp driver exposes the root adapter but does
+not describe the peripherals behind the mux.
+
+This series adds the generic infrastructure and board profiles needed
+for existing subsystem drivers to bind to those peripherals:
+
+  1. A binding for the Lumissil IS32FL3207 18-channel LED controller.
+  2. An IS32FL3207 LED class driver with individual and multicolor LED
+     support and per-output current limits.
+  3. Software-node propagation from an I2C mux to its channel adapters.
+  4. Validation of the fixed-width EEPROM board identifier.
+  5. An R4006 profile for its sensors and GNSS/SMA LEDs.
+  6. A Time Card V9 profile for its BME280, BNO055, GNSS1, GNSS2, and
+     four SMA LEDs.
+
+Profile selection is deliberately fail-closed. PCI IDs are shared by
+multiple PCB revisions, so only a validated EEPROM board identifier may
+select a topology. Erased, malformed, and unknown identifiers leave the
+downstream devices unconfigured. R4006 identifiers are matched by their
+R4006 prefix, while Time Card V9 requires the exact "TIMECARD-V9"
+identifier.
+
+The R4006 BNO08x is intentionally not instantiated because no upstream
+driver exists for it. LED status policy remains in userspace; this
+series exposes standard multicolor LED class devices.
+
+The EEPROM validation patch fixes a pre-existing out-of-bounds string
+read and carries Fixes and stable trailers. It is included because safe
+board identification is a prerequisite for the profiles. That patch can
+travel separately through the net tree if preferred.
+
+Validation performed:
+
+  - dt_binding_check, including YAML lint and example compilation
+  - x86-64 and arm64 W=1 builds of the modified driver objects
+  - strict checkpatch and git diff --check
+  - R4006 addresses and LED routing exercised with the downstream
+    implementation
+  - Time Card V9 BME280, BNO055, mux, and LED-controller addresses
+    verified directly on hardware
+
+The complete upstream series has not yet been boot-tested on an R4006.
+The V9 test card has an erased EEPROM and was intentionally left
+unchanged, so automatic V9 profile selection was not exercised. Its LED
+controller responded, but the outputs reported open-load status on that
+board, so physical LED illumination could not be validated. The test
+distribution also lacked the BME280 and BNO055 modules.
+
+Questions for this RFC:
+
+  - Should IS32FL3207 remain a standalone multicolor driver, or be
+    integrated into the existing is31fl32xx driver?
+  - Is assigning software-node channel children in the generic I2C mux
+    core the preferred representation for PCI-card mux topologies?
+  - Should net-next carry the complete series after DT, LED, and I2C
+    review, or should the prerequisite patches travel separately?
+
+Changes since RFC v1:
+
+  - Correct the documented PWM resolution and support standard LED
+    startup and retained-shutdown state properties.
+  - Use a named I2C ID initializer and fix MAINTAINERS ordering.
+  - Move EEPROM validation into a separate prerequisite fix.
+  - Select profiles only from validated EEPROM identifiers.
+  - Rework the R4006 implementation into reusable board profiles.
+  - Bound asynchronous retries and serialize topology population with
+    controller and mux driver bind/unbind.
+  - Avoid repeated managed allocations during retry.
+  - Add the Time Card V9 profile, including the second GNSS LED.
+  - Leave the I2C mux software-node propagation patch unchanged.
+
+RFC v1:
+  https://lore.kernel.org/r/cover.1785684064.git.ahmadexp@gmail.com/
+
+Ahmad Byagowi (6):
+  dt-bindings: leds: Add IS32FL3207 controller
+  leds: rgb: Add IS32FL3207 controller driver
+  i2c: mux: Propagate software nodes to channel adapters
+  ptp: ocp: Validate EEPROM board IDs
+  ptp: ocp: Add R4006 I2C peripheral topology
+  ptp: ocp: Add Time Card V9 I2C peripheral topology
+
+ .../bindings/leds/issi,is32fl3207.yaml        | 208 +++++
+ MAINTAINERS                                   |   7 +
+ drivers/i2c/i2c-mux.c                         |  55 ++
+ drivers/leds/rgb/Kconfig                      |  11 +
+ drivers/leds/rgb/Makefile                     |   1 +
+ drivers/leds/rgb/leds-is32fl3207.c            | 580 ++++++++++++
+ drivers/ptp/ptp_ocp.c                         | 871 +++++++++++++++++-
+ 7 files changed, 1687 insertions(+), 46 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/issi,is32fl3207.yaml
+ create mode 100644 drivers/leds/rgb/leds-is32fl3207.c
+
+
+base-commit: 69963a0678a347d57c4ac8b16939dba216eb95ce
+-- 
+2.50.1 (Apple Git-155)
