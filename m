@@ -1,139 +1,136 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CA3426D03
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785782389; cv=pass; b=Im5qgUKQTpq4Dz1iR6x9Eiwpw8ZXunfMPXbQZL0HgAetxdzQCJuEzk8qFbK1Ir5nUv3StlI3vt60xaZtbCOxtHrMQxykz3ISTc58B+Crh/OUPOJuPVBDblaxJBFoaWGgk92TD6WTpODLgoXLPQdeQchvXoFD8VnKYJy84amljcM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785782389; c=relaxed/simple;
-	bh=ysEVWKF2WWNcsBakZlX2KYejEWt8550NvykEr9wiGg0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dSh3jC9+yLttwhJPZ60Lx1mwT45JOgwWxrp8YXbDWh/IBNYa+43sSCRzA9k/N+Hp0iVmM9ZFLzwzH/OK8X5bhp6qTb9cwRsYuvEuu4FOoKsUT9CH0d9fTFUE4OhLpkDg82kb6zW2tHXrRbSolQ8BF6hO++bex2Fm/8aodFZt6js=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hhTEYTAI; arc=pass smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB0D414DDD
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785782597; cv=none; b=shXOGTcTnHXYbXYrlQscn9SkbuMwRvvfsyILt6j+U6bvnGA1WrC/78c6RscexB3SDr35dv3zRrwFGCeig4w97iDJ1h04BaLNcDxWRVEIg+//A0wR42Xit4YXbFQA8zdR08sjKUDhacroFOWYMnM+h7xmoRbM0EWsMDq4I8+WyeE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785782597; c=relaxed/simple;
+	bh=vLiPiFuF/c4K7XUMn6+yOzszmRdAVjfL9HhbC7Ek2rU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pzu2FJzhKQITZtnS0sJbCwo4MC3om1IXiZADir5gXjdAvfqcgWqS9RmABzFcjID05SqMH/SXSGlgwlxNHdhgOxWKjMPZ1y1iHNFlKqYk7R8rjQJUaZRbLZXTl9Ajv+ZYmt6MJ1j2B8awuOziucE8ZCWw2Xu4ZeZtMxHYnCVPYtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUejm2+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hhTEYTAI"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cede6375caso20425ad.0
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:39:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785782387; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ORXJDN/jL6CyaMNWi8B8bF8tSOeEvoacXzbd0mx658Rz7t/sF4jWq7eCphf+zu3FGZ
-         yCC9CwaMQfrEzlU/gOHZ7nIV5HOIFlAwz91CohHB5bB72c7oLtEIhLv4+dWade7kPDtw
-         6mmcQM4n82TWT8s5o8ej4M55jC7vWLvvX2kLTdS5aD/1E1A8h0kk2fks/40bf41CasNA
-         eqtnEbnUAmgc1YaII7NMy7FRkKegqhu81OIqE4P2KihRFMaMr9DVkcW/aRNg3hdk/3gK
-         a86uxSp0xsOzGXLqVNFD+HGUOpkemkqUNrHWCesRfH7r0hWk0F8Cj6RPIechDNX5K9iN
-         0Sqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ysEVWKF2WWNcsBakZlX2KYejEWt8550NvykEr9wiGg0=;
-        fh=XQXZxoYWHl8SQ6VmkbNDENS4k9SclyOa2Khav5bZhq0=;
-        b=KcHoeb157tTJSYXHmEda1JYBMIljM/xxnkCcK1Fng2nHTeSSXIfNjTNBIcBLa4PR77
-         Rhu59WCrLuyQb9iV6vRCRdld5n6AWrgy/eZREGAiSh4wln2rn25gg1TCMHUOTT3+EbTW
-         GjOd7mnRBntZ/sIXKK++Nyv40rRPOLBcRrMvi9Errep0AylYrKGeIhcLEH32vSDJulYc
-         SmlD0hekqZcBQBCYgyX1zCmGI9s9r4yVK5EB4orCoJvId4+WBvawJACaVWSjNByiQugm
-         LqX/gMj3R/kxpdpIK/cKPI0Qpo2e71ZZQbx09+CXYJleFWhb2ewQStQmFbq988JIbYHN
-         L/QQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785782387; x=1786387187; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ysEVWKF2WWNcsBakZlX2KYejEWt8550NvykEr9wiGg0=;
-        b=hhTEYTAIsp82823RsktqvjAXf+CdTejZpB5eMTtHRKTXdoxI0wjmKvnJ8jcRxnY/Bb
-         bs2ywk/ESUu5eWzL4rPeQso1YlWQmgY9SJ3RdmNp3i3eBFHkpEsR6Ln30GASQCX7HA9H
-         0iGbXmS0pyqezHMqsErnWE0+2P/fnLlJDQrjuAOJ/SeL18UfjSsq4Zacmg4vE8wEtGVO
-         sSssdbP7TpKs14fTecjxGeCzTGKwNSd3tyQVi7YHDtUAtg/+WJrOv1u4X6wMWUryhHGr
-         tjgxgTwMb1iW2h1QM/dl7FBY8zmeGOyJixTlQIMcXqupYhxFI/nSGGHU4Gnyx2XokpmI
-         t1Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785782387; x=1786387187;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ysEVWKF2WWNcsBakZlX2KYejEWt8550NvykEr9wiGg0=;
-        b=JAmhepVK8Ec7651fHybqWCLsVcLbQhnmt9BAQKhzhYb7RURQlQhZDvBHmbHZ7mcaPE
-         klSKEpes6pLe1k8BD18Ums0YNqHJ1qISEDSqqqtCOBKStgi4tiUy+ix8z/5E34KHJo3i
-         U+zZkMVv3uPgZJLSfYcU6WiKYJNA1jPHOTOElzHsY+LskMr25NXDYAfPcmTmZJmtCuVA
-         bMn/kKr8T60gqcctDIsSkYkLZQSG62L74V3L3JB6eM36d0sF/nDUAsMT74O1C5Vu09tW
-         n+wIzAIVYWaqhYDIU32qQK/E8OPcjKTnm0Z+DomoeZy6Qb4GLOi52r5hP2JTD/OwF9Dz
-         B7ig==
-X-Forwarded-Encrypted: i=1; AHgh+RqNTZcMPlXZ7HYYN4ef/Jvt0kxXXj+kOeNZzTLzbzbKX9cYENjxBck4oaiyEz5+Egh/GEIhje6AirgI@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBQpmgrrNhYpNMPOVbImq7txbAHdhy/OCo2w/MmIKUphG7riuC
-	R5gBZUBKqzuIALE7P2p9vxw6I929jZ+1D76pUxokDX69E6iXubpja+cMfBe8yIA629zsdhQgplJ
-	k5F4+0disphqaE5fln4+IWRjktdGI2Yw3bLjFhTtCvLjp5Oi4rHmr5ySH
-X-Gm-Gg: AR+sD113ypGk1eKgLZp3uqcyafOd2h33kHBZvsZ4+14qRcizYyYrRPdBmOY9rAsrmho
-	CQ/i7yOLapA1UndAXdW/JZH3l9TGfJf9FrSFuPPy5YuSrHmNT1xsUHd09vNaa6ESNhglf3Xsyx3
-	DrPe54NPT9PiRwg1yDOi/aLIVD82ZJ1Y+6tt3C/qcFS0JXxEI3/OFLTUEtOaegE0pfr7M1WrhSs
-	Br7HxbCp54Ptn96HSm4g/426Fl+gJB8pQStqmthpOiGT4/uRjA0yWn2K0b1sDOY2tmL683cd1+S
-	/1FL2lpVbu3cX42yv2mdSNTAnFpAwgAo+/WRMdvO4zJf
-X-Received: by 2002:a17:903:8cd:b0:2c0:defb:557e with SMTP id
- d9443c01a7336-2d08cda9b92mr1251285ad.1.1785782386773; Mon, 03 Aug 2026
- 11:39:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUejm2+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561921F000E9;
+	Mon,  3 Aug 2026 18:43:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785782596;
+	bh=j0VZL6JhnPfBNF4P8887PVTU5xpaUqguwksk7tHuUnY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TUejm2+DBiDfTs7ui2RoxOVMV1Q71q8ZqWS9FXx99iycfuK3nNJV9GxzRwsgFaG4k
+	 n5Zbjt9XQ02mKQoErWiwcPu3CZjgAQj41JduLTKVvqvQoMLfvfuyE04CCVP88vlx0H
+	 rNUoXrP0mjjrJqqnJUIcYE+GJrrdQ4+cHHdXkTzVZSeoeT7xtM5dV6VfAIzAt4ppfk
+	 Z7dVzdhpVnhni17lq91PVUko9IE0sq3XcD4R3V9DKVHvn5lod7bNb3SuDDf67v9pRt
+	 pV21037Kf9GsYd7VVLKwo46yAHq7MRqymjVjUfE1sKPKZfcH7mhsBYz6+TGDmxNQk4
+	 +LsrBISRNrYnQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 10/22] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-10-2e6e46135312@collabora.com>
+References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
+ <20260803-synopsys-dw-dp-improvements-v9-10-2e6e46135312@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 18:43:14 +0000
+Message-Id: <20260803184315.561921F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260803070513.4657-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260803070513.4657-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-In-Reply-To: <20260803070513.4657-3-muhammad.nazim.amirul.nazle.asmade@altera.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 3 Aug 2026 11:39:27 -0700
-X-Gm-Features: AUfX_my-IXUAAmiOm1dPrWOoSLO_UNWLKoIxVmuwUTZRIKlicpuwAkpUNxi7N9c
-Message-ID: <CAHS8izN1mCBH5=ERy9OKaeC4Wz2-v2N2oGDW34P=ZoS7oo2aOw@mail.gmail.com>
-Subject: Re: [PATCH net-next 2/3] net: stmmac: Use pagepool instead of
- streaming buffers for Tx
-To: muhammad.nazim.amirul.nazle.asmade@altera.com, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, dinguyen@kernel.org, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, 
-	joabreu@synopsys.com, mcoquelin.stm32@gmail.com, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 3, 2026 at 12:08=E2=80=AFAM
-<muhammad.nazim.amirul.nazle.asmade@altera.com> wrote:
->
-> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
->
-> Use page pool buffers instead of streaming skb buffers in stmmac_xmit
-> when snps,pagepool-tx-buf-quirk is enabled. As page pool buffers are
-> recycled, the overhead of dma map/unmap for each transmit can be
-> avoided. There is a trade-off of copying from the skb into the page
-> pool buffer, but this helps where the copy is cheaper than dma
-> map/unmap (for example with IOMMU invalidate cost).
->
-> Currently page pool buffers are only used for single-fragment transmit
-> in the non-TSO path.
->
-> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.co=
-m>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Whoa!
+Pre-existing issues:
+- [High] dw_dp_bridge_atomic_get_input_bus_fmts blindly propagates unsuppor=
+ted formats, breaking bus format negotiation fallback.
+--
 
-I haven't looked at the patch deeply to be honest, but using the
-page-pool for tx is a bit interesting. There is no other code that
-uses it like that I think. I can't think of any blockers off the top
-of my head, but I think there are places where we keep a global list
-of created page_pools on the system/netdev and the code parses those
-lists may be assuming it's a normal page-pool, which is a pp used for
-rx and attached to the an rx queue.
+--- Patch [10]: [PATCH v9 10/22] drm/bridge: synopsys: dw-dp: Support MEDIA=
+_BUS_FMT_FIXED ---
+commit 536f8f5a7df863a273e0062b67fbc6ca7b57d8a8
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+drm/bridge: synopsys: dw-dp: Support MEDIA_BUS_FMT_FIXED
 
-Just Ccing the maintainers of pp to know about this use case. I can't
-think of issues again, but I wonder if a more-expert has thoughts.
+Add support for MEDIA_BUS_FMT_FIXED, which is requested for USB-C DP
+chains when the last bridge does not implement atomic_get_output_bus_fmts().
+This resolves the output format by using the negotiated input format in=20
+atomic_check and implements a custom atomic_get_input_bus_fmts hook.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index bde938b0d116d..e60dab0d3b9dd 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+[ ... ]
+> @@ -1823,6 +1827,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmt=
+s(struct drm_bridge *bridge,
+>  	return output_fmts;
+>  }
+> =20
+> +static u32 *
+> +dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
+> +				       struct drm_bridge_state *bridge_state,
+> +				       struct drm_crtc_state *crtc_state,
+> +				       struct drm_connector_state *conn_state,
+> +				       u32 output_fmt,
+> +				       unsigned int *num_input_fmts)
+> +{
+> +	/*
+> +	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
+> +	 * the bus format. In that case, advertise all formats supported by the
+> +	 * DP link so the upstream encoder can negotiate the best match.
+> +	 */
+> +	if (output_fmt =3D=3D MEDIA_BUS_FMT_FIXED)
+> +		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
+> +							       bridge_state,
+> +							       crtc_state,
+> +							       conn_state,
+> +							       num_input_fmts);
+> +
+> +	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
+> +							 crtc_state, conn_state,
+> +							 output_fmt,
+> +							 num_input_fmts);
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but since we are adding a custom
+dw_dp_bridge_atomic_get_input_bus_fmts() hook here, does this code blindly
+propagate downstream formats even if they aren't supported by the dw-dp
+hardware?
+
+If a downstream bridge proposes an unsupported preferred bus format,
+propagating it directly via drm_atomic_helper_bridge_propagate_bus_fmt() ma=
+kes
+the format negotiation succeed prematurely. It seems this would skip testing
+any valid fallback formats.
+
+Later during the modeset, this results in a complete failure (a black scree=
+n)
+when dw_dp_bridge_atomic_check() checks if the negotiated format is actually
+supported:
+
+dw_dp_bridge_atomic_check() {
+        ...
+        fmt =3D dw_dp_get_output_format(out_bus_format);
+        if (!fmt)
+                return -EINVAL;
+}
+
+Should this new hook check if output_fmt is supported by dw-dp (e.g., verif=
+ying
+it exists in dw_dp_output_formats) before propagating it, to allow the brid=
+ge
+chain to properly negotiate a fallback format?
 
 --=20
-Thanks,
-Mina
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-synopsys-d=
+w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D10
