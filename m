@@ -1,143 +1,214 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AEA3AEF47
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 08:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA83D24E4C3;
+	Mon,  3 Aug 2026 08:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785744672; cv=none; b=dPG2+QjMqOvaKYmGn/HlhHkkfTlIL0dMONr7NE2Rw52AJyt98ChQqb4cwW5CH9EZyQgIFWL2rvHlmP4oTJybC5jaG3IfcpB9NKCoTia7JK/qCU07OxUEXhkwQeSoULAv17Ot0/8XicFkap3jiXnmgsFaLm2pmdfdI1OrWRs4f+Y=
+	t=1785745245; cv=none; b=tPya2kpQc/pviRjIly5wPzlQiK+bwYVFLlMOsKo9BsK0GbkTi+kk+OYA/RmdiS67XUN6dIpv8M1gSMochBLbca6h8s2o8Ke8mbuBH93arwANk5PVCE0R2zTR0wJRphxtwQsNgkz+7egmX4mEWiUEumRYQk0S/aFuTGMI/FVfseo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785744672; c=relaxed/simple;
-	bh=uM28O1VgHFmn8qZ097jlz8X6iL+QUYi9QN5g4p9a7DM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oCj2I/hr8YUud3bbPyVFUYMrHSTHrPYXMFRuzKFHz3vTT/hSTZ+qZpUT7GVfkveDwbykI2BZD0YZxFT8gglVlHQOpTbp+fQUoYrmiQZF5M3uKs8syH7ZDfSrR2hIYxsb7mPT4dLscGdgPIH5YHZEu3n8+YAG4T3esjrFMKy19Hc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HFYLMkDh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785745245; c=relaxed/simple;
+	bh=x8sTt/zpr6WRtmjXKttmcVUnT9K1ZRHZhEP2vFb3kN8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t1qxcPAoxoI8zhmGh1LKcTZwHOtT2T0z7Dpmv5kCuY+L+PIY/5Op7sN6zd7+zkY6E6UKrswWUqsOVc2zMm9uH9xABUkgB/k9eC7tHpV0wjPbX05lKo8eW7Xqgys4ZvAlox4LapPChollMbzuS3GPYZ+lSZltAIY26YLujvChmwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/BStKSG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HFYLMkDh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3391F00ACF
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 08:11:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/BStKSG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDA81F000E9;
+	Mon,  3 Aug 2026 08:20:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785744670;
-	bh=1b9nrSK95yZpqNOCATuK8srF+lYk8+rYEDNNrA4wHQM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HFYLMkDhLfR+H8zUyTNVXWLpekoG8c30DS3FrIo8lG8X14QGybtCiwO87YJVh7A6H
-	 5KpHSzeoDcgSoTN4r480+DY2wL018G4/mgmU4tTyaq2kCvKuzZhviuOo+eCHDNagEM
-	 jo1p05dV7zCX6Wdrx0XsFJnmSTJ+WzoTXuQmE8lu5w0SDDNPWoet+gViBvHDtLUT8J
-	 usQJyrrD5u0q2LSsH8UgSCQy0mXNJxeJX34Zd+1YfDgbVuUGnEGlKuPgCw83VEjqcc
-	 NKhUdOPYboTSPT99O2BQfaOxsWBqKvycfPOsyyCRpE0Q5Mz8H3+HHIY1A9M7b17joB
-	 K1tbwcjsUgamQ==
-Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39c953950dfso25594231fa.1
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 01:11:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrEhzSrPJ8p8lWYlQF7KCh75wMTbR/0JfOgDlZc29RnmivY+bXxjEbLX39hdFQRfDlkqQaa8Q9pQWNX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFnducKOBwKdXiDezGB5TOITcVpu20vqGzj6SUosrlr/TtUgHq
-	oeQFcF10e1YoY16uwuAzONKrBjNYWiEVQZ93VI0mrKMe+F7PYS8bq2ULkwukEXN1VmaqHDTgRe1
-	2bbWssGWVlRAxPbWWZpGJc29NQ4ohthA=
-X-Received: by 2002:a05:651c:150a:b0:39f:a2be:bc3f with SMTP id
- 38308e7fff4ca-39fa2bec180mr4076081fa.16.1785744669449; Mon, 03 Aug 2026
- 01:11:09 -0700 (PDT)
+	s=k20260515; t=1785745244;
+	bh=oL77ikjGFVW7QH8ozMC74CWfxuPdNOXGLUeFKsMycB8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=V/BStKSGhLspBCfJaAyL/O1UrXPMY+cIrEN87pQ4cFZRFUCkbLwpEucGYZibMqVUt
+	 rKKPxVnP+n5lL5+QJBLYnF+MpSPAAGezZoKLMJvhMp4OLpqwLpztg/FQYzZ4H8GwMh
+	 GOALuLZvqqoAMl7nXGjm5sameAlhvDcgs/wH+OjxV3QiFTrTF/9kYsvLGDtkOpU+6c
+	 SCg+kUQuMhTZJUEp1v2kzIWMJWknuU8nUcZQQeYCNN9B6D2EyCrsQJ5sESITvN3QG8
+	 eJNr0lxm1BPCHAzj9aB1hycB4I//WCPwH3r6mAvQcxxUppMfIXhy2msFbxRPgwV/n7
+	 kqW0dHeBirljA==
+Message-ID: <e198e8fa-6c5e-4c8d-a4de-d8bb25aab0bd@kernel.org>
+Date: Mon, 3 Aug 2026 10:20:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
- <20260603055347.66845-5-changhuang.liang@starfivetech.com>
- <CAD++jL=Qd8ADR_kX2Q7msM4Dd0xFayPGM4ZzB3uv2ufvkuybtQ@mail.gmail.com>
- <ZQ4PR01MB120228AD03507B4836EFE19DF2CE2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
- <CAD++jLnNa6HsS5q5aYHxCLkQdZ3eh09PspO=eZx-4=p4EFr4PA@mail.gmail.com> <ZQ2PR01MB121089A3224D22A573A0875BF2C92@ZQ2PR01MB1210.CHNPR01.prod.partner.outlook.cn>
-In-Reply-To: <ZQ2PR01MB121089A3224D22A573A0875BF2C92@ZQ2PR01MB1210.CHNPR01.prod.partner.outlook.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 3 Aug 2026 10:10:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn_vdk2VxupDRErNfqFNZbf7pimCrfnziRPTmDPm7toVw@mail.gmail.com>
-X-Gm-Features: AUfX_myhWBOKTrh0pDXm3mErdt-aRaWUKZYTBMjotcYIiFbhzYYWetsahaD6aWE
-Message-ID: <CAD++jLn_vdk2VxupDRErNfqFNZbf7pimCrfnziRPTmDPm7toVw@mail.gmail.com>
-Subject: Re: [PATCH v3 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
- controller driver
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, 
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 08/21] dt-bindings: mfd: x-powers: add AC200
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Andre Przywara
+ <andre.przywara@arm.com>, Richard Genoud <richard.genoud@bootlin.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King
+ <linux@armlinux.org.uk>, Saravana Kannan <saravanak@kernel.org>,
+ Lee Jones <lee@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
+References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+ <20260802-submit-acx00-of-dynamic-v1-v1-8-0a53cd9e21cc@gmail.com>
+ <f2cc3c90-060f-40c1-a55e-e2ed91e65487@kernel.org>
+ <CADvTj4q7HnOYJZE-M070-1npEdne__Ct5D9FeUNVVXa8Bsm7qQ@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CADvTj4q7HnOYJZE-M070-1npEdne__Ct5D9FeUNVVXa8Bsm7qQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 30, 2026 at 12:58=E2=80=AFPM Changhuang Liang
-<changhuang.liang@starfivetech.com> wrote:
+On 03/08/2026 09:54, James Hilliard wrote:
+> On Mon, Aug 3, 2026 at 1:07 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 03/08/2026 07:14, James Hilliard wrote:
+>>> The AC200 is an I2C-controlled mixed-signal companion IC containing
+>>> audio, video, RTC and Fast Ethernet PHY functions.
+>>
+>> This fails when applied, because you did not explain the
+>> dependencies/merging of this patchset.
+>>
+>> This is THE MOST important information of cover letter. The first thing
+>> to explain.
+> 
+> I did mention in the cover letter that the pwm series is a dependency:
+> https://lore.kernel.org/all/20260703152215.192859-1-richard.genoud@bootlin.com/
 
-> > If a pin controller back-end is used, the GPIO controller or hardware
-> > description needs to provide "GPIO ranges" mapping the GPIO line offset=
-s to
-> > pin numbers on the pin controller so they can properly cross-reference =
-each
-> > other."
->
-> I tried this change, but it doesn't work. In my new version, the GPIO dir=
-ection is set
-> via the `struct pinmux_ops .gpio_set_direction` callback, which is execut=
-ed after
-> `mutex_lock(&pctldev->mutex);`. I need to configure some pinconf settings=
- while
-> setting the GPIO direction inside `.gpio_set_direction`, for example:
->
->     config =3D pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 0);
->     ret =3D pinctrl_gpio_set_config(gc, gpio, config);
->
-> However, `pinctrl_gpio_set_config` will again acquire the lock with
-> `mutex_lock(&pctldev->mutex);`.
->
-> So this approach may no longer work?
+Apply this patch and test.
 
-I can't see all your code so I don't know exactly why this happens, but
-nominally you implement the GPIO helpers:
+> 
+> With the pwm series first this should apply on top of master. Should
+> I just mention that it applies on master or should I reference a specific
+> commit hash or something?
+> 
+>>>
+>>> Describe the parent device, its input clock, required function supplies,
+>>> the optional SID bandgap calibration cell used by the vendor initialization
+>>> sequence, and its optional Ethernet PHY control child. Document the 24 and
+>>> 27 MHz rates encoded by the public EPHY clock selector.
+>>>
+>>
+>> ...
+>>
+>>> +required:
+>>> +  - compatible
+>>> +  - reg
+>>> +  - clocks
+>>> +  - ac-ldoin-supply
+>>> +  - ephy-vcc-supply
+>>> +  - rtc-vcc-supply
+>>> +  - tv-vcc-supply
+>>> +
+>>> +dependencies:
+>>> +  interrupts: [ interrupt-controller ]
+>>> +  interrupt-controller: [ '#interrupt-cells', interrupts ]
+>>> +  '#interrupt-cells': [ interrupt-controller ]
+>>> +  nvmem-cells: [ nvmem-cell-names ]
+>>> +  nvmem-cell-names: [ nvmem-cells ]
+>>
+>> Why do you need all these dependencies? What are you trying to express?
+> 
+> Looks like we probably can get rid of all except these:
+> interrupt-controller: [ interrupts ]
+> nvmem-cells: [ nvmem-cell-names ]
+> 
+> I was just trying to express the MFD controller dependencies.
+> 
+>>> +
+>>> +additionalProperties: false
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/interrupt-controller/irq.h>
+>>> +
+>>> +    i2c {
+>>> +        #address-cells = <1>;
+>>> +        #size-cells = <0>;
+>>> +
+>>> +        mixed-signal@10 {
+>>
+>> ...
+>>
+>>> +...
+>>> diff --git a/include/dt-bindings/mfd/x-powers,ac200.h b/include/dt-bindings/mfd/x-powers,ac200.h
+>>> new file mode 100644
+>>> index 000000000000..cc59e2ab4912
+>>> --- /dev/null
+>>> +++ b/include/dt-bindings/mfd/x-powers,ac200.h
+>>> @@ -0,0 +1,13 @@
+>>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>>> +/*
+>>> + * Interrupt numbers of the X-Powers AC200 interrupt controller.
+>>> + */
+>>> +
+>>> +#ifndef _DT_BINDINGS_MFD_X_POWERS_AC200_H
+>>> +#define _DT_BINDINGS_MFD_X_POWERS_AC200_H
+>>> +
+>>> +#define AC200_IRQ_TVE                        0
+>>> +#define AC200_IRQ_EPHY                       1
+>>> +#define AC200_IRQ_RTC                        2
+>>
+>> Hardware constants are not really bindings, even though you use them in
+>> the driver.
+> 
+> Should I do something different for this?
 
-struct pinmux_ops {
-(...)
-        int (*gpio_request_enable) (struct pinctrl_dev *pctldev,
-                                    struct pinctrl_gpio_range *range,
-                                    unsigned int offset);
-        void (*gpio_disable_free) (struct pinctrl_dev *pctldev,
-                                   struct pinctrl_gpio_range *range,
-                                   unsigned int offset);
-        int (*gpio_set_direction) (struct pinctrl_dev *pctldev,
-                                   struct pinctrl_gpio_range *range,
-                                   unsigned int offset,
-                                   bool input);
+I would just drop the defines and the header, because these are fixed
+hardware numbers.
 
-Then on the GPIO side:
 
-static int my_gpio_direction_input(struct gpio_chip *chip, unsigned int off=
-set)
-{
-        return pinctrl_gpio_direction_input(chip, offset);
-}
-
-static int my_gpio_direction_output(struct gpio_chip *chip, unsigned int of=
-fset,
-                                       int value)
-{
-        int ret;
-
-        ret =3D my_gpio_set(chip, offset, value);
-        if (ret)
-                return ret;
-
-        return pinctrl_gpio_direction_output(chip, offset);
-}
-
-static const struct gpio_chip my_gpio_chip =3D {
-        .direction_input =3D my_gpio_direction_input,
-        .direction_output =3D my_gpio_direction_output,
-        .set_config =3D gpiochip_generic_config,
-};
-
-And these will call into the pin controller backend for you, so you do not
-need to set this yourself?
-
-Yours,
-Linus Walleij
+Best regards,
+Krzysztof
