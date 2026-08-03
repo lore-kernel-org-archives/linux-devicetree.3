@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B069840DB5B
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 13:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A93A540D587
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 13:07:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785762454; cv=none; b=smjyP59+CMVJWpn6ix3jnU8SWRe9Kyhn9vKo9T5DZ79UEHukvLXoHU1BQFgkkqhOvGfZhpUVGyLsxULT2yMKnUvlgQdEH1JptJ5hR/tW1HuFK0sCTPfLVS5/Hu+nBZ3gKLmr19U9fZvYj/BrZ3aFoYJiEXAh2yx08bKi1Zgjf9c=
+	t=1785762475; cv=none; b=MRzbC5lX5P4XuzXRmfzh99BpNAgXOkZZnp/VRFY3f/a2CD2hXsuOOilz+JMgs78aHE70r0X6S0EN3mfgj4yWo/ZpKlw+cDty8x3mnBoxzTRwxk/vfburGXAXQCVUsdW9FwrRFEuDzHfoOSkYUC6Wf35PCSXNA+I4zFr1sq9pAVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785762454; c=relaxed/simple;
-	bh=ADwxUMi9UW/alGpfaQfBNPjvt99aPM0glNXq7HMxzAA=;
+	s=arc-20240116; t=1785762475; c=relaxed/simple;
+	bh=5/AslOUpaZqkHN28fm3bJbKWWAKfUlvCUjRsNPjP67k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jRBY4XTx+ZUweRgEdPjAYIOEafVvWT6SxYf+fl+98Nhke0CNFb2vDB5WZwrmMhCnF5vF+UHQOw+0GdLryr3MV3+iIlT8fRkC7QUrIXmDnVsP90OCcbIfMiTC09sqSmPIJlAKFaNJEg1e52en4vNFo8+YtRWekFz/QbOp5E9GQds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OHQGVNoe; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pMzQ3B/hr86fLebW+JAOsk7HRn6TQ79RjdMNps/fNaK0YcxUqITs+IarrzOXUs62n7jr6qJxBi1BNuuUNgBbZnJSnWh7DA+TI7qmBefn4W3eDYVhSvrm6Vp5jPFlVIBLBZa0uhBRMvmQTXo/CJN1gWHxCKSz6D9h8uPNFcpGHIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YMNoOcF6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OHQGVNoe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3D9D1F000E9;
-	Mon,  3 Aug 2026 13:07:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YMNoOcF6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5E71F000E9;
+	Mon,  3 Aug 2026 13:07:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785762450;
-	bh=9h+rTMrizo9u42Y8cTvTMMogqzXJ62UsQwyrNYwKqec=;
+	s=k20260515; t=1785762473;
+	bh=Gvte8vKwIrbnceTLc13bu1SpUvYK6Jyw88pH+svnI6k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OHQGVNoefPLCQbBYE9pvnx0CkeEbIDtlGmpynsk2iMuCc4HvbuBpBOm4gIhDiP543
-	 JFtaY5FpWe2KqC+jie8ckVh4wljtklEwdP4Pvk3xPqtJrI5PUDteXcRiz2PLCSzpHo
-	 Pscnx3DMs4kz/87HukYt+3MSX6tpYCRF4n2ILCIW2WjLoNZVc4P6jllMwtGrFk6Ksz
-	 M2mTiJImlaMgSN8U3lONcEeaHrGjtlP3vHRUhoxPuX8xVhU4TElKeU+3JZUl5uVGCY
-	 IfPyZOKgBbV/n3vm/uH7ALKsQV/xT2L+CJA4XWYaLqtu9Ya0PDNYXXTRKB8zC6I03y
-	 exQuiS2Jz1oyQ==
+	b=YMNoOcF6VbKKwGMcGT3iRRlFTqRPcV0GcYQTHHwS2AdgKT444iymx6Lnb8PhrO1BM
+	 BoC/a//mX4Zw19kf88ssFVzWDHPTAFjQ13kYZ80sPCR8g0G+5D06/e5mJDUS7HOcDo
+	 WEdmaw+VSPw9/1IvGdqlpWL+kRbz2IcWhoLqkeqJY70ksQI0RgSUDaxz8WwkeNqgLX
+	 9pk9T9rxUALiUSYfEocf662uIg2D5O9DPGY6phyW1BGs/qQDaocX7TZJmY5hDqrzCa
+	 vGhydjMjx5d2xignUBT7hk+dImb7i3v50Ifn9CmqZixG7Yf5/qQqsFL3T1lGtWeAL1
+	 DgTACqMD1b/uw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/11] spi: dw: Add support for StarFive JHB100 SoC
- SFC
+Subject: Re: [PATCH v2 09/11] spi: dw: detect enhanced spi mode
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803124044.156998-12-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260803124044.156998-10-changhuang.liang@starfivetech.com>
 References: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
- <20260803124044.156998-12-changhuang.liang@starfivetech.com>
+ <20260803124044.156998-10-changhuang.liang@starfivetech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 13:07:28 +0000
-Message-Id: <20260803130729.D3D9D1F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 13:07:52 +0000
+Message-Id: <20260803130753.3B5E71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,64 +46,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The return value of `regmap_update_bits` is silently ignored in =
-`dw_spi_jhb100_set_addr_nbyte`.
+- [High] Naive register read-back probing for OCTAL mode can incorrectly de=
+tect OCTAL support on QUAD-only hardware.
 --
 
---- Patch [11]: [PATCH v2 11/11] spi: dw: Add support for StarFive JHB100 S=
-oC SFC ---
-commit 6fd643ebea16814890aa0dbec055ee773f4f746d
-Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+--- Patch [9]: [PATCH v2 09/11] spi: dw: detect enhanced spi mode ---
+commit 55207343ce55e6e564d0b04f2044bd3036ccb30f
+Author: Sudip Mukherjee <sudip.mukherjee@sifive.com>
 
-spi: dw: Add support for StarFive JHB100 SoC SFC
+spi: dw: detect enhanced spi mode
 
-This commit adds support for the StarFive JHB100 SoC SPI Flash Controller
-(SFC). It introduces customizations to handle separate registers for
-instruction and address, and utilizes a syscon to configure 3-byte/4-byte
-address mode switching per chip select.
+This commit adds detection for enhanced SPI modes (dual, quad, octal) by
+testing if the controller supports them via a register read-back. If
+supported, it enables the DW_SPI_CAP_EMODE capability.
 
-> diff --git a/drivers/spi/spi-dw-mmio.c b/drivers/spi/spi-dw-mmio.c
-> index 603e81a92c57a..8cdb0351605b2 100644
-> --- a/drivers/spi/spi-dw-mmio.c
-> +++ b/drivers/spi/spi-dw-mmio.c
+> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+> index cca8f4ba1004b..bfa017df7673f 100644
+> --- a/drivers/spi/spi-dw-core.c
+> +++ b/drivers/spi/spi-dw-core.c
 [ ... ]
-> @@ -310,6 +314,58 @@ static int dw_spi_elba_init(struct platform_device *=
-pdev,
->  	return 0;
+> @@ -1103,6 +1108,66 @@ static void dw_spi_cleanup(struct spi_device *spi)
+>  	spi_set_ctldata(spi, NULL);
 >  }
 > =20
-> +static int dw_spi_jhb100_set_addr_nbyte(struct spi_device *spi, u8 nbyte)
+> +static u16 detect_enh_mode(struct dw_spi *dws)
 > +{
-> +	struct dw_spi *dws =3D spi_controller_get_devdata(spi->controller);
-> +	struct dw_spi_mmio *dwsmmio =3D container_of(dws, struct dw_spi_mmio, d=
-ws);
-> +	struct regmap *syscon =3D dwsmmio->priv;
-> +
-> +	if (nbyte =3D=3D 3) {
-> +		regmap_update_bits(syscon, JHB100_ADDRMODE_CS,
-> +				   BIT(spi_get_chipselect(spi, 0)),
-> +				   0);
-> +	} else if (nbyte =3D=3D 4) {
-> +		regmap_update_bits(syscon, JHB100_ADDRMODE_CS,
-> +				   BIT(spi_get_chipselect(spi, 0)),
-> +				   BIT(spi_get_chipselect(spi, 0)));
+[ ... ]
+> +	/* test octal mode */
+> +	tmp_val =3D DW_SPI_CTRLR0_SPI_FRF_OCT_SPI << frf_shift;
+> +	dw_writel(dws, DW_SPI_CTRLR0, tmp_val);
+> +	if ((tmp_val & dw_readl(dws, DW_SPI_CTRLR0)) =3D=3D tmp_val)
+> +		mode |=3D SPI_TX_OCTAL | SPI_RX_OCTAL;
 
-[Severity: Medium]
-Is it intentional to silently ignore the return value of
-regmap_update_bits() here?
+[Severity: High]
+Could this read-back test incorrectly detect OCTAL support on hardware that
+only supports up to QUAD mode?
 
-If the regmap_update_bits() call fails, the hardware might be left in an
-incorrect address mode (e.g., 3-byte instead of 4-byte). This could
-silently corrupt subsequent SPI flash operations.
+Since DW_SPI_CTRLR0_SPI_FRF_OCT_SPI is 3, writing this to the 2-bit wide
+SPI_FRF field will succeed if the hardware supports QUAD mode (value 2),
+as the field is already 2 bits wide. The value will read back as 3 in the
+register flip-flops even if the IP's internal state machine physically lacks
+OCTAL support.
 
-> +	} else {
-> +		dev_err(&spi->dev, "Unsupported address nbyte %d\n", nbyte);
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
+Can this falsely advertise SPI_TX_OCTAL and SPI_RX_OCTAL capabilities,
+potentially leading to communication failure or hardware lockups when the
+SPI flash driver attempts to use OCTAL mode?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803124044.1569=
-98-1-changhuang.liang@starfivetech.com?part=3D11
+98-1-changhuang.liang@starfivetech.com?part=3D9
