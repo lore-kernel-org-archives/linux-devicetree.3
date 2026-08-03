@@ -1,147 +1,178 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54C52206A7
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:09:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F684307A0;
+	Mon,  3 Aug 2026 18:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785780555; cv=none; b=Wn0sh3Q5HlI8x5KAe81YP18aV4b9iTzc4VTsoMqkP693uC5ahCY/H1L+nJWbR7oXSSHd2opA3Rx9KXBqRjx45iFtdruArX9/Gl1s79EwrCk8Q8z40vgRPtNiFb2l4g2dwu2qgFNR9uarjxzg7UcGeZ0kDoEGYR5+4zDBhGssREQ=
+	t=1785780656; cv=none; b=C1mJJwwQcA6pDn5PMUaSHmg0Qxy+WYgZK7YFRzFzUqBRJOFQokS956UVq6y66NNO4Ckw+AHLTJHnV67OFdVv6Agnsw3eb4sWnFnR0arrBk0UK3HW1Pk3N2jbEPdTund12J01IhyaPfxlqbI/k1U3hZ5nVjvvI52pyLdx+G1yejQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785780555; c=relaxed/simple;
-	bh=pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ukg/58Wmh8kgOc1SJzdPgdgfsG88eMOVg5R+GxXLo8Yenl/TgEy2VOifyyqKOilTeXOQutoSKtwC8bFFyVjShRE3ZS1XZBPgNteaR5PzmJ23i1eTOT7ej1rImIkhLWwkG+r/rQD0LdHWzsB3y8nY5cpsJau/TmZzjSQtrHeWjoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kV9T8WKF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PBowEvWI; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785780656; c=relaxed/simple;
+	bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IPwJ3FF3lh3LtasZd/gcQIfgYcioX12eUTqEYBb6oz/0CUIKXMg3JAZlBJ0O8prBMIc8aIGJz4WsDu8gXg2hdc7Z9YInsrz5aoRhi5k/mO9NlzO+/OA3GKFfiqg9i0Fm5TBVof++6QTw+ZLGIyMEsx9C1zZvk1s0EyUeuS6wSrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Mk6PlTa3; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kV9T8WKF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PBowEvWI"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673GwNnx1224792
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 18:09:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=; b=kV9T8WKFGUR7GR7t
-	BmoPKkpKLwPEM2BmAgc8G0u9ZAukWMNlUN8hUV/pWggiJwiKX/8cWzhRhNtYjCMd
-	f4ppDmo8EZ9fJZeqhK06ZKIOwp3Qg8JFceOgY80JqpvszXDnMKJpXZlIbW09ReAm
-	44sC262fAc4jjbX/mFjLnmBXTwH+g3lWAf29bobSQXIBcA3mxJur72jMWzyrmnOu
-	Z/78F4rFGkEMau/01olZU7YqWvzKV2JRE9IbmNQC2Oh7BjRPISx3niNZEzpdpIBx
-	W9dd81i8tuQJ1pRHuLhQMRnYIEV4cQHv9+aS0Np5+f1fn3k5T5UhR8T1mYBLgvvQ
-	LuhhLw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnvnjy2e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 18:09:12 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c9fe4c5eb39so2591785a12.1
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:09:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785780551; x=1786385351; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=;
-        b=PBowEvWIuC/j2Gy9cJXDC5CyvYi6bLnnwbC2uivPynbcO2dCzEd1vLEcy+RFfgcjfe
-         MvVFo2tuZKxAGpw7A6tnofv5mz1iL/Pc+OEBkxlbSrxI60ftRG2wb4iaqT0tpXImMr7j
-         IFyGkB3DleL4JRToG0sTOfA5hSXzOhpTrS1hJcboipdDTxvcrfp9jVXZpXKPU61Dyz7X
-         2Ht5mROYJbst+BQHgNbwurD6NOItinpd7hBruFbP/13A2VvBtWWKcCZsL6qPOiMvHOG9
-         16Czr+CvHjyZ6gX1Qf5gSrGOgJ61L/AVppdNkJLj9s2A8s2iPLezqTlEXKBkrSyr7YNm
-         HMfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785780551; x=1786385351;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pEcF4/ScY9yepDUk6ra3ssH1iheAlSjyXcFH23m7zkc=;
-        b=oPcEACocZxqTYee1fFh5t5KgkCMccVfwQ0sndQf/AsggebaeVyUfxQ2KD0jaAw/DA/
-         MGzjeJrOBdB9BYWidswWgsJKZgrDnfrFH8u7MmScYTLD3XtfcPh9VHWafUnGMpPQbTDn
-         Ybk3F+vrQ0BZdXEpQ0FPmajos+VXOwPQO9EnFx6BohPGigNz8BZjL7ySD0sEm+5StHcs
-         PAJaqUS0pumonYCb/mNvuww6tzl4ccP/dobTjSElxdDolWnFm7fYrLU1vuobZBKr4e+B
-         I3i62JeCj2c84ytZteY46hz/6lsFd5Fb85mtw86EwvIfONpZQpmmXiJb2qJzrLNay23J
-         tyCw==
-X-Forwarded-Encrypted: i=1; AHgh+RoNg3qfljuVbICURy78BZMl5HjNCnbj9gwBhbS7v2zMxMFUDOSpY7KyGIgBq/WslcJi3+Oz5oLRWgo3@vger.kernel.org
-X-Gm-Message-State: AOJu0YwUMBrgwxdvpaQBvsC6OMbwVndw+U1KJpcyfdg27QPZHcd16k/L
-	D5tzK6yegmCRKgHStk0Gv9e4c2QbbqkO2UTJMoy+AO4IW9IL6AwLBD+uUxSyT24SEri870SSLEb
-	ktPNA5FYGwQ90grdVtHmp7mDmf+eFAupqLTDVsi0Hmk0YEv4BjvXNkys8tFYgsUpf
-X-Gm-Gg: AR+sD12FP8bcnXbAfU2z3A5a1Ji2OnY8RsVF7QEycPkaav8eNhpDN3K4DlC7aIzuwmN
-	lH1nU4RkaV9xPnx2WNKEavGpDFIf9E+HZqrdO5KH4+/++JhelcJ3tWBvf8CZvBOOf3DhSev+uxJ
-	uSF0FvzPLHefvX330RTKFnLFjCqOQdpIJNao+FvI124pSOlA7eISJkgLOdvSCGh4rYYOFs1B+j8
-	MNcia4fUvXmAXJH1j/HrvSiFE9QQ77H1WUhBp7Jjq2UXbJKXgxC5WjMDqPlaLw+tL1ysbg0iKmY
-	sD3MdKUqQGa8TM1ulwlsWk+CtEBLOKz0HGHaRfAa7wRQ5vdfh8JHOCrvC56Z80rmVOUJqpjh9tM
-	7Rf1v7T9J+fA0SG2GXiJQaHnN9huEOVLMQA8=
-X-Received: by 2002:a05:6a20:6a10:b0:3c6:3c5b:f2e3 with SMTP id adf61e73a8af0-3c92a62d94cmr11790944637.33.1785780551600;
-        Mon, 03 Aug 2026 11:09:11 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6a10:b0:3c6:3c5b:f2e3 with SMTP id adf61e73a8af0-3c92a62d94cmr11790921637.33.1785780551213;
-        Mon, 03 Aug 2026 11:09:11 -0700 (PDT)
-Received: from [192.168.0.100] ([49.204.17.188])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e18e114sm65919018eec.28.2026.08.03.11.09.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 11:09:10 -0700 (PDT)
-Message-ID: <bb8dd840-cf24-441b-b096-91cadf7b62a1@oss.qualcomm.com>
-Date: Mon, 3 Aug 2026 23:39:05 +0530
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Mk6PlTa3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1785780653;
+	bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=Mk6PlTa3pgWRgp6jXxlofN7jCJ+WTkNj4pU6H9aqm2BuXL+fk5mjcV7pzT3ugmmYC
+	 V1zWdLV2MlA2BVOHATBoY+oMC1+mPZWFPH8cOz8tkAjJE745Gxe6+mqYF9G3sJ4Lod
+	 tNmo5MhCKBgutgDniuXMeCZgiJCXSRmOc/0ddH5TgUmEXlLzQYrSq3ilrN4ni4tDEH
+	 G/53d7MsmWVPDK3iIQXJF0WfnIXC/CiLiuaLljf1QLz6fCMzdnf8QbCIGQeUoehbMj
+	 0a7DdmWnkYKr5cpAu8QLN1pgvx6SVfcTjkrYnc17BB3PpFQIrFGFBgUpw8v7T6pbPX
+	 /ahDPpP40tZTg==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 44AF217E0048;
+	Mon, 03 Aug 2026 20:10:53 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 7F634480067; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Mon, 03 Aug 2026 20:05:22 +0200
+Subject: [PATCH v9 21/22] dt-bindings: display: rockchip: dw-dp: Fix sound
+ DAI cells
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/7] ASoC: qcom: add AudioReach TDM backend support
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260801054610.4047089-1-prasad.kumpatla@oss.qualcomm.com>
- <47bce201-5086-4f70-9e4f-e5c50059e487@sirena.org.uk>
-Content-Language: en-US
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-In-Reply-To: <47bce201-5086-4f70-9e4f-e5c50059e487@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=aoaCzyZV c=1 sm=1 tr=0 ts=6a70d948 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=/JTPBhwEQko7YaD0RKblyA==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=O_9MOtM5Qdc4zGp9YqwA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-GUID: vpaoJJR78nYAVllMwH3d8j3PDpnyAHPm
-X-Proofpoint-ORIG-GUID: vpaoJJR78nYAVllMwH3d8j3PDpnyAHPm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDE2MSBTYWx0ZWRfX00vFEBrbWrd8
- Jr8dwaN91nYzXRu9uUkO1so4rIJ7xYnlSC3yNViMkpHBEY7An0UFp/I93eLJtwAPshmjbAjm78p
- 8KRYXLBs2bEvVr9flfEuw+4/irxdw7YOY98r8JJNI/RZBcoUbMeU5eOqboTf+rHPlpgW089d+nS
- TFV60f1miL61/1PG3K8h7UO5K9aAsg9QVf/Xdc2D/7bglJ3kDZbLmT3hfA8VzIdiPpBa5UcTeuZ
- GzoDbHbp3iTjEs4PpHIQnKFETxsN/5ty8jebDJFTPbP13cJFN3mZuY/Ntgvepzp0c1HNMK7nc8h
- de7xsXW5V91aJdYGDYbMsDdSTRTBlO/hYVjC6IvEJDsfdHYnEUMJcJn9KzJ98sGGwM/B11KQwb5
- EIn/EB1xRNTZn8KsicCBi9odONVHvp8KlWPf2wgm7XSvg0kCRfbdjsjeY1d/DHHDZDnoAKCw5GI
- MuZq5xdhLWGU1JREivA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDE2MSBTYWx0ZWRfX3t3/a+WssikF
- BbNjzSa6Kk8+b2VOE9B+2G182Pl2Xga5M6mvGkIrFp00K98DpqrD2gt1ChR3dQFNdVj/86O8gM0
- YMvY/sA6M1BAdolrNifumkspNzJA5Ok=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-03_04,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030161
+Message-Id: <20260803-synopsys-dw-dp-improvements-v9-21-2e6e46135312@collabora.com>
+References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
+In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3153;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E8X8/6ke5YGf2wLX23DQHWF7z3+T7N9U
+ SvEmWNK9XTt7YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhPAAoJENju1/PI
+ O/qa7xAP/3pZJ+jglV4aS914Qd8fTI3HTRaYHMNJ4xdJAdLlRPH34gsOK0mFgaYNp1zUJ6XnONd
+ fBbPwmwczsneWu002o9AqSvLh2GCPioBh0jcAF8eq/rHrz8g+Hg6J+NOLyiOg+234BBaIq+R2lU
+ nGoEiVzjO2k8ljIfHhqNzqTwU5zpzPZ3nwQqozz4rNPBL8mQO084DGuUF2X/onFwuXEjGw8Vbwn
+ YgNyYnjD8h7hl7rBx/SKc3O0qbKJb4MvqJRndMsWOQZ956DyyvprOOsbuxi+n/GpmYB+dtMgNCF
+ MjEqgH9IYmZSq9zGY55dUFNOC0osANOYh8XFSgsDAmGtSof3Pjia8gcWXUM5pDUHtELHOt1CGhl
+ eJkNRcOrvf4ZNxTASKQuwCzHx0pNYhjr+2aXK1+LvnhLy5zWx5Ieb6sUxvTVN82/NCPx6tyS3nn
+ 6TBOZ+sPeow7OAOxlBlblG91a2Sfdr2MesmUd0A6Eh+Q/mqF3tCxDPq4qTHE1ZX7rvZqgV9KtZL
+ eGWrB/UlkxkOCyYir5rTBpiPN31vz7CuwAHDXFcIMjRQgOZTAILyp9Nci2P7MWgNnA7xLKWzIgX
+ MHco6sRm9NnaPOzmeleNzBNnuY4G/fES+xb04O5bc3nRG+YCDzpsqfUfNd4taaJlUCv1IH81Bv/
+ Ig+AKejGtMvzRuvviVGU1YQ==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
+The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+to select the right interface.
 
-On 8/3/2026 6:37 PM, Mark Brown wrote:
-> On Sat, Aug 01, 2026 at 11:16:03AM +0530, Prasad Kumpatla wrote:
->> Add AudioReach support for LPASS Audio IF based TDM backends and wire it
->> up for the sc8280xp machine driver.
-> This doesn't apply against current code, please check and resend.
-Hi Mark,
+In addition to that the RK3576 DisplayPort controller is configured
+with Multi Stream Transport (MST) enabled for up to 3 displays and
+thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
+stream). Meanwhile the RK3588 does not support MST and thus has only 2
+DAI interfaces.
 
-Ack, Sure will check and update.
+The binding update from this patch has only been tested with the simple
+single stream transport (SST) setup as the Linux driver does not yet
+support MST. Once MST support is added, the plan is to simply add more
+numbers to the argument, so that it looks like this for RK3576:
 
-Thanks,
-Prasad
+0 = I2S on stream 0,
+1 = S/PDIF on stream 0
+2 = I2S on stream 1,
+3 = S/PDIF on stream 1
+4 = I2S on stream 2,
+5 = S/PDIF on stream 2
+
+As the arguments are not part of the binding itself the audio side
+is also ready for MST after this change.
+
+Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
+is an ABI break. The rationale for going that way is, that there is not
+a single known driver implementation for the current binding. It's also
+unclear how the current binding would be used (only support I2S or
+S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
+does not have any soundcard using the DAI. This will be fixed up
+separately. The RK3576 does not set it at all.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+index 2b0d9e23e943..c4f8959dd65d 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+@@ -25,7 +25,7 @@ description: |
+   * Supports up to 8/10 bits per color component
+   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
+   * Pixel clock up to 594MHz
+-  * I2S, SPDIF audio interface
++  * I2S, S/PDIF audio interface
+ 
+ properties:
+   compatible:
+@@ -46,7 +46,7 @@ properties:
+       - description: DisplayPort AUX clock
+       - description: HDCP clock
+       - description: I2S interface clock
+-      - description: SPDIF interfce clock
++      - description: S/PDIF interfce clock
+ 
+   clock-names:
+     minItems: 3
+@@ -83,7 +83,8 @@ properties:
+     maxItems: 1
+ 
+   "#sound-dai-cells":
+-    const: 0
++    const: 1
++    description: 0 for I2S, 1 for S/PDIF
+ 
+ required:
+   - compatible
+@@ -144,7 +145,7 @@ examples:
+         resets = <&cru SRST_DP0>;
+         phys = <&usbdp_phy0 PHY_TYPE_DP>;
+         power-domains = <&power RK3588_PD_VO0>;
+-        #sound-dai-cells = <0>;
++        #sound-dai-cells = <1>;
+ 
+         ports {
+           #address-cells = <1>;
+
+-- 
+2.53.0
+
