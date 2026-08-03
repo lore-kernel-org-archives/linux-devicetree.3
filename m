@@ -1,302 +1,144 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A4D838F24D
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785775502; cv=none; b=QXEAIKfOpBGSpKAIFlkcom4+/2iYJkXI1g2ekeGfc0RtCY5pRo5dBMEqrc6XzMMPGhR39imsAw04vV6EVu7DdglVbd3KnHTObK5jET97yIGOJEQdiTcUBY/ntCT5aTKmIR+9fB28g8k52LUIDikNzsKwwqvrDjHtD6uVVGYT43M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785775502; c=relaxed/simple;
-	bh=yaYd7U63PvaDA6cO7LeE/1mHb8xRDDi/2mnJxnd1u98=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uXXUD9BzI+amCn+7fFV+pSKURHeLVzBStBddhjFOM5oDnlox+gWg2vwe2z1Vf+bNCLa9/ekqA+l6kq+Fu0i5ApEeQ+M+kuZ4cwNRLHVOQqyTZctZa1ZalB6WSovQs9A/8isYfuVi/BRsBJz2C+XP5xSTy1r2olrNchgNeK9ubsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hl7xggAb; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nJbe6q2+; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFED388385
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 16:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785775538; cv=pass; b=p4CJHuwGqtCeUGCEV/OIw31JWO43UbR3wN5TREBmn+hmcTrS6V4nRjKNWvm21vNbE4SdlBo1S83sn+r0ASopOQB0qDvFkeEb117LNHO4QonGgRMyvZHI41ImFfW4aqYHjNe9BjC4550icdxftAZ2aiFyMYcx8LT7OOzlAASQz4Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785775538; c=relaxed/simple;
+	bh=pVJ/u9SrHtpIYcpsDllTKqpayBtCBNOqrDA3wdvqLR4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HZtsogAo2dTnpnTxvM5+LaJbSUjN3kC7RvmcksJdT3x+yscsNIJO0Q/4VlILIABlAsQM576xu2dbiri41HfJbvwLVqdvWnc4l8Z5t2bivMVxxV1HqYv6pupja8RYU3AKhH1p+d+VUuX587dxCZNc7dXbOmgVDeBKqmARqbb4rAc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jjb7+6s6; arc=pass smtp.client-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hl7xggAb";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nJbe6q2+"
-Message-ID: <139da0ad01de73c947eb235375af982cd95ab4d4.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785775497;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JYkAFHj7VrpJHLOiM/4YLytheDbJSWzMveXEyjQO7dg=;
-	b=hl7xggAb7RK2MHrEK8gp6x7IArwsO6B7yYM9777cLDFpoJPL2OikteypiyueuqPrDAWHV4
-	7QGGv0IMyBNVtCLBso/NVBPFJsvLK9L9bH8X74was9RTMKOrvV2+NY8BldPsq9N5Sq5rtb
-	wqnzD9Jx9sMyVQVmuKlY9KcwC/TbhWuGJa+ds87WXO0HN0g6lzZ2eWAr4CnI50YkhwNaoq
-	GOfmBGv74ote/fUpLBiigIBJ1/A3t5NzjhZ88IjfdyEXGxDQPv0s687elt9wVwb4FQwVg3
-	8HI6VCVyqC3KHWJ+H4DiHTuTriBFzbfnmIYIAMLijRvIwFGVDJY1L0N0WWW3/w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785775497;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JYkAFHj7VrpJHLOiM/4YLytheDbJSWzMveXEyjQO7dg=;
-	b=nJbe6q2+ENCbp7mS3YHDZfPAzf03KQCuQjElB4ZdHzhQVH0CWPAx7BcAV0fFFcZi6OTd9R
-	WUAbEWZ5Z4f7rtAQ==
-Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
- switches
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Date: Mon, 03 Aug 2026 18:44:56 +0200
-In-Reply-To: <20260730163758.659C91F00A3A@smtp.kernel.org>
-References: 
-	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
-	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
-	 <20260730163758.659C91F00A3A@smtp.kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jjb7+6s6"
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-96723c7151eso891178241.2
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:45:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785775535; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TwZ1FvwHeXFmYsxXME0jcAu1qselTi2HfoMZLWjZ96oYKJ1YEidoLOExpKtMS4q3Nk
+         IvRkJdKXJZw9ASCzKBHM44pi8YSSU5fCCJBUwYUPTl4QZl19CzYzB9Cthw1wRwi7ztkX
+         Hsdmi3rv4tWKDBiTG4PhKu9TN1K3rnbA1QKY+1Y0p4LIsjFnlgmFlSkNsaN/AVYQA1EG
+         k93rlEkoiN7g36gHjHjRE9eFO2tiNz8yXjXSeD1brZ96g50xTuInoeu5KI2+EEpGfDYe
+         uLrrdLRVSsGfVwYJFCGmcLcAqRbtXRyiveTuqZnvdKYA8ktzWPFusfweOi49v/OHV7Ta
+         WI8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=niqvePJlDSQd28Qyc7y5gE/vwAYMmaOcsvRZCG9PwY8=;
+        fh=w3WSZ1ekXBH5/FFrf/giWOxEL5hKsn32YzQd2HjmvRQ=;
+        b=H3lwlNFuge1pKbDbuwYOWj5X5zzV+3Y2guw83klJvzJHHoLAeREvWU+HH6EpIfNzoT
+         +pt8s4ATJZmm6E5ZsFthxZw/b4luVDaMXwXORONHwZCQbc/kWtwt2da7gTA+oy3xX+3M
+         3wYd2GUoIZncQ6ep5SYQT5l3uoGNMN8dLww77I3ztP/SNZiugVqY2yinfcs0VvV76qpm
+         RC2lbCXdRDiphzum54uAjIo//4L23MYmuVlBkhKqaYkN3tRJwy+NbEXXAQk5h57ZqmRb
+         gv42rLs/pEJDunW7VXN6igPV2J7x3xqqQzdn/GE4dOiZXthlQtEmItNacU8JPmswpfls
+         cC9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785775535; x=1786380335; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=niqvePJlDSQd28Qyc7y5gE/vwAYMmaOcsvRZCG9PwY8=;
+        b=Jjb7+6s6TLFWkOKejxwVE79v/pHkKWcfRtDNHkt49mRhfkUcOV65hnXYgFCgxlRbYM
+         OcgqZe3TxIn664s4+7YrY/E5n4QRGLLgYj6J9Vfz7SgRICyQZqIyTvWt8rW0MOLY0nlc
+         LlKqLm8Vzu0ip+aSFCUq+gyJJvJPvhMpcZobSUDu4WQSjoAX15+QnRoARTaBVejBzaGO
+         xbWR4SavD+rEoi/M/wf/SGEzW4HKYn4xaOZpprSjsUr5vua4l6B1VUsN1aI5tH5v3Rss
+         AaH3sQXP1H7gxi4lCQwoZjXD+A1iWZedLFs+aghC0X2OgtjnjEqlsKI5czbza+5Noyfu
+         q37w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785775535; x=1786380335;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=niqvePJlDSQd28Qyc7y5gE/vwAYMmaOcsvRZCG9PwY8=;
+        b=fo3zbHJ80fHuZspt4Qm08r7ZM9GaK4VKzmm4b70qOudOOaQru7mAtUqfIeIRur2EFp
+         KP73qRuO5tgPsk7NFoWBBkoYZE/NHH+P24lUMXlLj8JJKy8W9NhqBAOFuP5xPsn1Nd1p
+         +DPihkxzF6vK0PUnYuCHEoe/ChIEqrl4UdQEGfVm6DkmQUiGL5CoFdLjnMbxTQpPosCL
+         Lx7mtiOIHdOumDeuVckaHW5V5HqYuJGgrMsgm0grr2ZtPvK9g6hT5PxR2abwtG0CshpW
+         oTtIkHK1usnSFncnW8MBmD7oPo7jKg2mfUPUreoFa75U1nTZXJ9aRD++iSvAsUKFSCIt
+         icRg==
+X-Forwarded-Encrypted: i=1; AHgh+RpZTIruPy52fB9UmwqBDqvHKyGjuUYn799NaTABqZaYyam71S6aOS2UXc8Th2kMkxEEjKq4Qvj02Azy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwLxxAXyyAp97iabrQjDau0iZIjnbAxzhgxoBvdD7fwSEMIG2eP
+	Y8L207Z/LUuFSVV2cw3USAec1w2XCI6wYSycrbHU6utXWSwvwnXYhvl8qm1MKv7ln4zo4Fpl6df
+	1uYdSqy0TGiP+6vum3rtEs3BDKKWDVP4=
+X-Gm-Gg: AR+sD100GXya2dNflTvuRxidixb6WgtwFm/3hH9i9/4YhtYjJPlEI5t991a+YI8weWL
+	nV93eIbP4NnLl277Ted8TiUL/TZi5jGE2LdS6H68ACse1hQJQ7Ib1CPBLG3GpFO5v+puHDm7lP/
+	07Z9rNvQkWAZZuxYUIgfNyLPbYVUjbrJgvqFNsRHwckWzUISAj2Q9cIfBuH0Q0kRaYx40dQnFl8
+	nQ+R52FVRNZLJxaCPOBLceLUjCRdXMXBkUMCe9d0eSD65ifQQlopsM5oHro9ArPciuXMk7tsSp6
+	NZJ55X5xEfkFECdl2DtqEyhtAPqjY7QeM3iXkHjjEt34gqY1bc37xsQaAlcPZym9PLSjJiFODEe
+	9kAjh13jzKAk2TSfWEDzpQ9/beJNSWAz81eWIKu3b/5h98V4ScjdrKzMfXTIhgQpxuhRTtnz3cw
+	JmVTYTm5Pq73+GbJ77TGjQnTk/Af2COcRrZnJe
+X-Received: by 2002:a05:6102:5e82:b0:73a:128c:4e3d with SMTP id
+ ada2fe7eead31-75b22b6375cmr7983333137.8.1785775535469; Mon, 03 Aug 2026
+ 09:45:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+ <20260802-submit-acx00-of-dynamic-v1-v1-8-0a53cd9e21cc@gmail.com> <2c0210b3-2c68-41f1-aa33-3f1693454849@lunn.ch>
+In-Reply-To: <2c0210b3-2c68-41f1-aa33-3f1693454849@lunn.ch>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 3 Aug 2026 10:45:23 -0600
+X-Gm-Features: AUfX_myHhqSCOlS18NU3-rnIJB_yJDCs5Z0LNUdIv6o7tNasY8YkhUjPJd2Ilvs
+Message-ID: <CADvTj4pfNFVGrQV86T7X+nZQYUamxEYLLWuxVXk=av0da_XocQ@mail.gmail.com>
+Subject: Re: [PATCH 08/21] dt-bindings: mfd: x-powers: add AC200
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Richard Genoud <richard.genoud@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, 
+	Jose Abreu <joabreu@synopsys.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	mfd@lists.linux.dev, linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-07-30 at 16:37 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issu=
-e(s) to consider:
-> - [High] Incorrect error check for `devm_of_iomap()` leads to potential N=
-ULL pointer dereference on mapping failure.
-> - [High] The `ds->phys_mii_mask` is never initialized, causing the driver=
-'s custom MDIO bus to silently ignore all PHY reads and writes.
-> - [High] Concurrent MDIO accesses via `slave_mii_bus` and `user_mii_bus` =
-race on shared hardware registers, causing state corruption.
-> - [Medium] Missing bitmasks on input parameters in MDIO hardware register=
- construction allows out-of-bounds values to corrupt adjacent register fiel=
-ds.
-> - [Medium] The driver unconditionally issues a flush command to the hardw=
-are FDB controller even if the previous command is still being processed.
-> - [Medium] Asynchronous, switch-wide FDB flush is performed instead of a =
-synchronous, per-port flush.
-> --
->=20
-> --- Patch [4]: [PATCH 4/4] net: dsa: soce: Add initial driver support for=
- MRS switches ---
-> commit 4ad10a20f72f216349a16415f424608c5d3e5c86
-> Author: Vasilij Strassheim <v.strassheim@linutronix.de>
->=20
-> net: dsa: soce: Add initial driver support for MRS switches
->=20
-> This commit adds initial support for SoC-e switches based on FPGA IP core=
-s.
-> It provides MDIO access helpers for supported IP register layouts and com=
-mon
-> STP/FDB handling.
->=20
-> > diff --git a/drivers/net/dsa/soce/soce_common.c b/drivers/net/dsa/soce/=
-soce_common.c
-> > index 0000000000000..f7f345a690e46
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/soce_common.c
->=20
-> [ ... ]
->=20
-> > +static void soce_fast_age(struct dsa_switch *ds, int port,
-> > +			  const struct soce_layout *layout)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +	struct soce_dsa_local *local;
-> > +	void __iomem *p_mes_ctrl;
-> > +	u32 val;
-> > +
-> > +	local =3D &priv->local;
-> > +	if (!layout || !local->base_addr)
-> > +		return;
-> > +
-> > +	p_mes_ctrl =3D local->base_addr + layout->fdb_ctrl;
-> > +	if (readl_poll_timeout(p_mes_ctrl, val,
-> > +			       !(val & SOCE_FDB_CLEAR_UNDER_PROCESS),
-> > +			       SOCE_FAST_AGE_POLL_US, SOCE_FAST_AGE_TIMEOUT_US))
-> > +		dev_warn(ds->dev, "SoC-e fast_age timeout on port %d\n", port);
-> > +
-> > +	writel(SOCE_FDB_CLEAR_FLUSH_MSTID, p_mes_ctrl);
->=20
-> [Severity: Medium]
-> Does this code continue to issue the flush command even if the hardware i=
-s
-> still processing the previous one? If readl_poll_timeout() fails, it prin=
-ts
-> a warning but unconditionally executes the writel() below it.
+On Mon, Aug 3, 2026 at 7:18=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > +            ethernet-phy-control {
+> > +                compatible =3D "x-powers,ac200-ephy-ctl";
+> > +                nvmem-cells =3D <&ephy_calibration>;
+> > +                nvmem-cell-names =3D "calibration";
+> > +                phy-mode =3D "rmii";
+> > +            };
+>
+> What do you mean by an ethernet PHY control?
+>
+> I assume this is not an actual Ethernet PHY, but some control logic
+> around it? Where is the ethernet PHY itself?
 
-This code will be reworked or removed in next version.
+Correct, this is not the Ethernet PHY itself. It is the package-specific
+sideband control block that must be configured before the normal Clause 22
+PHY registers become usable. For AC200, this control block is accessed
+through the parent AC200 I2C regmap. For AC300, the equivalent control bloc=
+k
+is accessed through a separate non-PHY Clause 22 address.
 
->=20
-> [Severity: Medium]
-> Will this flush the entire MSTID globally rather than just the specified =
-port?
-> The command ignores the port argument. Additionally, it appears to return
-> immediately without waiting for the clear operation to complete.
->=20
+The actual Ethernet PHY is a separate device on the MAC's MDIO bus. The
+shared PHY driver for that device is added in patch 16:
 
-This code will be reworked or removed in next version.
+https://lore.kernel.org/linux-sunxi/20260802-submit-acx00-of-dynamic-v1-v1-=
+16-0a53cd9e21cc@gmail.com/
 
-> > +}
->=20
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/soce/soce_dsa_core.c b/drivers/net/dsa/soc=
-e/soce_dsa_core.c
-> > index 0000000000000..b88d00c56d718
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/soce_dsa_core.c
->=20
-> [ ... ]
->=20
-> > +static int soce_phy_read(struct dsa_switch *ds, int port, int regnum)
-> > +{
-> > +	struct soce_priv *priv =3D ds->priv;
-> > +	struct soce_dsa_local *local;
-> > +
-> > +	local =3D &priv->local;
-> > +	if (!local->mdio_ops || !local->mdio_ops->phy_read)
-> > +		return 0xffff;
-> > +
-> > +	return local->mdio_ops->phy_read(ds, port, regnum);
-> > +}
->=20
-> [Severity: High]
-> Can concurrent MDIO accesses race on the shared hardware registers here?
-> The DSA core implicitly registers the slave_mii_bus, and the driver expli=
-citly
-> registers a user_mii_bus. Both buses have their own independent mdio_lock
-> mutex, but they share the same underlying MMIO routines.
->=20
+The later board DTS patches instantiate it as an ethernet-phy node beneath
+the MAC's MDIO bus and reference the appropriate sideband control provider.
 
-This will be reworked based on other review comments. I'll check afterward =
-if
-the problem still exists.
-
-> [ ... ]
->=20
-> > +static int soce_sw_probe(struct mdio_device *mdiodev)
-> > +{
-> [ ... ]
-> > +	local->base_addr =3D devm_of_iomap(dev, switch_node, 0, NULL);
-> > +	if (IS_ERR(local->base_addr)) {
-> > +		dev_err(dev, "failed to map switch register space for %pOF\n",
-> > +			switch_node);
-> > +		of_node_put(switch_node);
-> > +		return PTR_ERR(local->base_addr);
-> > +	}
->=20
-> [Severity: High]
-> Does devm_of_iomap() return NULL on failure rather than an error pointer?
-> Checking IS_ERR() here will evaluate to false if it returns NULL, leading=
- to a
-> potential NULL pointer dereference later when accessing the MMIO base.
->=20
-
-No, this pattern is used in other files and proposed in devres.c:
- \* Usage example:
- \*
- \*      base =3D devm_of_iomap(&pdev->dev, node, 0, NULL);
- \*      if (IS_ERR(base))
- \*              return PTR_ERR(base);
-
-> [ ... ]
->=20
-> > diff --git a/drivers/net/dsa/soce/soce_mdio.c b/drivers/net/dsa/soce/so=
-ce_mdio.c
-> > index 0000000000000..241fc373de8b8
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/soce/soce_mdio.c
->=20
-> [ ... ]
->=20
-> > +static int soce_user_phy_read(struct mii_bus *bus, int addr, int reg)
-> > +{
-> > +	struct dsa_switch *ds =3D bus->priv;
-> > +
-> > +	if (ds->phys_mii_mask & BIT(addr))
-> > +		return ds->ops->phy_read(ds, addr, reg);
-> > +
-> > +	return 0xffff;
-> > +}
->=20
-> [Severity: High]
-> Is ds->phys_mii_mask ever initialized? It appears to default to 0 when
-> allocated in soce_sw_probe(). If it is always 0, this check will fail and
-> all user PHY reads will silently return 0xffff.
->=20
-
-Yes, ds->phys_mii_mask is initialized in dsa.c dsa_switch_setup():
-
-/\* Initialize ds->phys_mii_mask before registering the user MDIO bus =20
- \* driver and before ops->setup() has run, since the switch drivers and =
-=20
- \* the user MDIO bus driver rely on these values for probing PHY =20
- \* devices or not =20
- \*/ =20
-ds->phys_mii_mask |=3D dsa_user_ports(ds);
-
-> [ ... ]
->=20
-> > +int soce_user_mii_bus_register(struct dsa_switch *ds)
-> > +{
-> [ ... ]
-> > +	ds->user_mii_bus->parent =3D ds->dev;
-> > +	ds->user_mii_bus->phy_mask =3D ~ds->phys_mii_mask;
->=20
-> [Severity: High]
-> Since ds->phys_mii_mask defaults to 0, will setting phy_mask to the inver=
-ted
-> value instruct the MDIO core to ignore all PHYs and prevent probing entir=
-ely?
->=20
-ds->phys_mii_mask is valid here, see the comment above.
-
-> [ ... ]
->=20
-> > +int soce_mdio_20_03_write(struct dsa_switch *ds, int portnumber, int r=
-egnum,
-> > +			  u16 val)
-> > +{
-> [ ... ]
-> > +	/* Then write control */
-> > +	regvalue =3D (mdio->phy_addr << SOCE_MDIO_20_03_CTRL_PHY_ADDR_SHIFT) =
-|
-> > +		   (regnum << SOCE_MDIO_20_03_CTRL_REG_ADDR_SHIFT) |
-> > +		   SOCE_MDIO_20_03_CTRL_OP_WRITE |
-> > +		   SOCE_MDIO_20_03_CTRL_START |
-> > +		   mdio->mdio_output;
-> > +	writel(regvalue, ctrl);
->=20
-> [Severity: Medium]
-> Should the phy_addr and regnum inputs be bounded or masked before shiftin=
-g?
-> If an oversized regnum is passed in via userspace ioctls, or a malformed =
-DT
-> provides a large soce,phy-addr, the shifted bits could overflow into adja=
-cent
-> control register fields.
->=20
-
-Good point, I will fix that.
-
-> [ ... ]
->=20
-> > +static int soce_mdio_23_02_read_c22(struct dsa_switch *ds, int portnum=
-ber,
-> > +				    int regnum)
-> > +{
-> [ ... ]
-> > +	regvalue =3D (regnum << SOCE_MDIO_23_02_CTRL_REGADDRDEVTYPE_OFFSET) +
-> > +		   (mdio->phy_addr << SOCE_MDIO_23_02_CTRL_PHYADDR_OFFSET);
-> > +	writel(regvalue, params);
->=20
-> [Severity: Medium]
-> Similarly here, can the addition of unmasked values risk arithmetic overf=
-low
-> into adjacent bit ranges if the inputs are out-of-bounds?
->=20
-I will also fix that in the next version.
-
-
+>
+>        Andrew
