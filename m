@@ -1,65 +1,65 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E890C438015
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F3743846C
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:08:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785780488; cv=none; b=iAVeiNf+WCJUSWAQ3cCyGFGcG+Kjybdw/IcXqlbH8ZPsIAq+3Qgpb54znRaOO58wyuKxWukZcxfqaEkrrBQdXzhMEtq+YAF3MoE1+0YpfW+iYoN0n2ETdDZCBCVUZOOltdL29HDj1uo2gSrV8daA/snTcFnCjvCjXTrpYcPpMCA=
+	t=1785780489; cv=none; b=KKIAPQ+eY03gDQGs9HGIUAsEM1CwCimwgYPhz2rz88W0F6+WAyjJrTCrk+TrXltHrmCB8uxwaafMVJgtfxqFo0WZXYKF/mLvH5MzwW37/1SE/gDZHLhVzMm+NJjcfleX0dftNfqpk/eDI1r+exDNSCoekJLqpuUGc6apHDKWCIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785780488; c=relaxed/simple;
-	bh=oiNY1UIn6YQNbReVM+ZIKN2X4hpTZ/t+jCzScRipcW8=;
+	s=arc-20240116; t=1785780489; c=relaxed/simple;
+	bh=PVzzc9du/j/IIUtVI0EpD2qkwZbInKS9/yBMHMA5D4g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s8Jlz9uPYIkpUTxCN/AYhQxRfeiA4GUC7nK9Cu7RFG4WvWCURvR3brh19Ys5ES8LDwR+XzSVRYnH3944BYtRnC6WmiGTa+lq6fp8+U3BGUCAT8LHxL0hW701lGJ0BDjTQEXWuUf7gNsfgXz3Wf5fdCa4v2lrscEpLQ5x7m77clU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IPrXrAxX; arc=none smtp.client-ip=209.85.221.41
+	 MIME-Version:Content-Type; b=U14aHZoArNkEoKLAM3qrTyl8d8FqbqPmo2gONqm0MOcSEfay4E51szO/vyzaMwqbNmpRdR0/kpv1rFcc9iojZtvtiYhyayxZ+LAkbndOhS2BH3rwNJiHnyzCFj0E06lrEhzFj++Px7IYgUc30bsEtUL5Suw0NlHFE95+im4ZiYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GLXj0ltx; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IPrXrAxX"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47fdcdfceb6so1160935f8f.3
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:08:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GLXj0ltx"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f703a9e5dso1871720f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:08:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785780484; x=1786385284; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785780486; x=1786385286; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=+eQVck/8/EmRztvhd8Uz87RWfrINzUZUMP2w+5sPTpA=;
-        b=IPrXrAxXs52I+ZbZoMMWhj6Cu+Yc7cFNtSvXru5GkgtjJwDtN2taggxA5q1aDPiav0
-         sPvyd2JQmJ7gqs0i70G3errDdMtwE28erkqj8m94SdkQaUoYnDBa7Rz6VEZite0mYW39
-         azugXaxrVkh2IgFJ71iuLexh9QT4o7j1drMdiVvgQgfFsBx/tlZfRYR6chwCs3aB0lt7
-         VbmDqdjrDZ0aqPTfLBaM3hJCKAWtAK0Q1XIf/X8/m+/o0R7MZwm9IEfE5S6DN6NXwOpG
-         dvsBhkbz/ohy2pl5WbEuetQKIWvZvjkDlOtHNOfEC66Gca9jn362WwoCiQ1S4X0GDKwL
-         UA3w==
+        bh=6BWR8dmRaEKQHkFK66ev0gVEIwNsNYFwR9W/SfWvzP8=;
+        b=GLXj0ltxTXuBowk3JXfV28mbmq4UKfQ7/mmuS+BjJ5pslm9npFMa2JRcZejXKwjL9d
+         sN1vIT4/PRu572j9P4rftUKKEp5cj9aWXLEzJbYkLzG55two+dHipp1LpngJGapDFNwm
+         l3A3WpA4NunpD23SPp+4a7LW3TuoM3unKsxbI0UmZyeO7uCL59uSBnNaBpGz7ar4I1Q+
+         AKW/1kfQ7b4xFvIHUZejiHvoSLQsfvoCDkTb5cLinz3ZP/+d12aFmfzS5Jg39sj1CvN3
+         HVu8YDbRHwOcXAzoYHbWKsxLipfHjFS1akt0zcuG5JXQtf8znu6rC0lhYqoRsrf0bzsP
+         dtbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785780484; x=1786385284;
+        d=1e100.net; s=20251104; t=1785780486; x=1786385286;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+eQVck/8/EmRztvhd8Uz87RWfrINzUZUMP2w+5sPTpA=;
-        b=A5C/x4Bjv2dM1U3f5wOV4u3XdFagLPvm+XIiecSNpz0O950sH/vf7UAdd8rh2ig3OB
-         OFF+TjKBFIo+JPrI8khVGNWOjLhqzgSpxAUmE/U0wUAbmFC1FvT9lD1G5b7W/o6lvmCq
-         pYtot9noAVsxVHkDzgRpwnz7YVhAWB34Rfd8wa1UIDWebBtgfu0HY/FUedMehok6x6Ex
-         CCn36/uU/Bmq/HVVj5mymp4KhVRkX8JGxiv3AASi+bwPvIa45tJN+iMdObrGtDWGXthw
-         aYjwA7a1M2kJbkPasEr2OURI846tPXwjpbNDTNJqH0w2bYcHvKGIARLfNzqh7qiLY04D
-         Ya7w==
-X-Forwarded-Encrypted: i=1; AHgh+RqPbvvByxQxTohW978wdY11aqk2EarbaS2zr+iRKzdLIWXM5cATXwloMciGeaGbLHhAktO9H3ILDvgS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxz3cRUb6IBQRbMnL5ULtlJ4kPD00WNogKog1v/Iv+UadLDGHMV
-	2a3sKxolZXdX1MGXkw9GhtCGos9Vuf8SHeaa7GgfmMAw4g78qwZ+i4tH
-X-Gm-Gg: AR+sD12n0xrSyGceijhi1LBtc3Ox704H5cpp0dv4QbEH4hAEMvU1yR22AoH3NpyT1jj
-	Hoj53nphtu3vOyJ41ctXDTJL0WqZbyVB6a/8bHFCMyKzItE9LJwbctRWW17/seDm6tTIQMOfgub
-	wve3Dx7UhH/Q0nm8s84lRB5sa11CSbuloNxbC/U8diswFUZmYCq6YxW/AaRIt3TxHU6UdSC6e7O
-	VJ5D7vyl0wa7TMC+SElalfLZUGDzGl7qbwd+v3jb2NgA+G6uJuTjy1WCamfX3g8KZULzagrQHZY
-	iUr0JmBZwGFsdGOd4DpnK9K47VtSFyxGRDvGHizx+rUkqk33CP9fh9kLgxHO+hlWSNiIUghaZy/
-	IxHyJBdbQSyd/7+MKO0tlzP2Xf4CtZZA4UNkckJuA/lYHQr6rpP55WJzoQSX8Z1nDxXExcM44G9
-	o4y5bwlFTlLF2T5C59Cdx+SmwgUPKvg1EZnjkcBgMgtllxYhfmMC2vxH6TEo/K79Nsw5r9r+Y2T
-	46h16yS33lfcNbUB87t1NBF
-X-Received: by 2002:adf:e90f:0:b0:47f:9d0e:f8f with SMTP id ffacd0b85a97d-47fd72e6079mr24242189f8f.26.1785780483886;
-        Mon, 03 Aug 2026 11:08:03 -0700 (PDT)
+        bh=6BWR8dmRaEKQHkFK66ev0gVEIwNsNYFwR9W/SfWvzP8=;
+        b=ZDOFOZGjTB2PcBiNhihEYDpl6y9zN5vD+/wmYJDaTDUYXW7Ui4u5p6/wPnC5DC6ZwG
+         LQ8O5BJJgT91AmOM3IvAAatOUvz9RB6e0YulXnV4zi9JfeKBtrExCVQB8t8dHBvX0HTC
+         5N7DansWbcbWbFgUvMF9yHoTB7iN13paZ0b0uNs5hH4RsbVcugpvK++ezug/iWGCsojA
+         /JdddGpJiHvCCzCndZdHwGNYCUMNJ4C8lK/sxQgLmQVrhERwDjZRrFJdtPCJFuMV7SYs
+         inyJUDr0sKDSDd2HlQBOKluUhlCb7a+YSpTkzHNiAs/K2atgivpOEgLYUskhPcqh2C1J
+         vKsw==
+X-Forwarded-Encrypted: i=1; AHgh+RpzLkSlhz99fmqYciMAywCK+FJpK/bamyjuOJGToDNo4rMXUBsXd+GG3ds2vZBNFDfb/uYr5NabDDhn@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCnUnRcjOQzdF0+X3iPnkn8irWrIxRxkSyYZWB7ng3re0Lo6iN
+	qCOYzIXJbwx/jS8gfuQlO12MWrFvmpbDBP4uq4e+lCU0UtJhnE+Qd/dF
+X-Gm-Gg: AR+sD138K5rjqoiY+SzdTG2DtMA37P1v0wShqNiOQoUkQiXFi/7bJVrE0IpHV1rt5vc
+	F5LtodVb3iCOPNceINXIzizwW1AsRKAYw59v/qKQ1f1YSeV0PyQUHiEMh+jCs6xkaeHmAy6Lfa1
+	ZU01Hi1dzuVaYNb6VERQVSCBnHDLAIqN8bfMM+x1GOlH77QPSHTh1iw9C5U4rh367Q6dGKhpGnE
+	AxSz1mxccj/VVrVsSSZ/kl3Je1DewaGWR8WtPSW5CeBdDe7+9roXZXHO1RCT6ZjUH5znXwL/3PQ
+	veqLeqpam1qYq0Q3pGy3h1znn7HfygsX+KhE/5helfNzLcYSEaYBU0vSVypf5Szjs8/KbB5/sdx
+	WYJJnITuI5LpNMZqVC9lLL7m632NnXEH7A66rprG9pmS+fQSAaN7SSzoVitUGQIK0P+9DZ/dCpe
+	lngVGSsZ4BVpSidz9qG59Q+DQ6gLWvodyLykyk3frTEhsn72O7wA8gGfoHEX9zFXJ1KecIOp+NW
+	MhaI7OsSliHQom3sMRWfxOg
+X-Received: by 2002:a5d:59c8:0:b0:47f:9404:5185 with SMTP id ffacd0b85a97d-47fd72c78ebmr26973780f8f.24.1785780485932;
+        Mon, 03 Aug 2026 11:08:05 -0700 (PDT)
 Received: from localhost.localdomain ([2a0d:3344:2841:7708:a101:2b8a:f76:a00f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91b3sm37950955f8f.14.2026.08.03.11.08.02
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91b3sm37950955f8f.14.2026.08.03.11.08.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 11:08:03 -0700 (PDT)
+        Mon, 03 Aug 2026 11:08:05 -0700 (PDT)
 From: =?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
 To: mturquette@baylibre.com,
 	sboyd@kernel.org,
@@ -77,9 +77,9 @@ Cc: andre.przywara@arm.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Juan=20Manuel=20L=C3=B3pez=20Carrillo?= <juanmanuellopezcarrillo@gmail.com>
-Subject: [PATCH v2 2/3] clk: sunxi-ng: sun55i-a523: GPU clock divider is fractional, not linear
-Date: Mon,  3 Aug 2026 20:07:54 +0200
-Message-ID: <20260803180755.288793-3-juanmanuellopezcarrillo@gmail.com>
+Subject: [PATCH v2 3/3] arm64: dts: allwinner: a523: add GPU OPP table
+Date: Mon,  3 Aug 2026 20:07:55 +0200
+Message-ID: <20260803180755.288793-4-juanmanuellopezcarrillo@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260803180755.288793-1-juanmanuellopezcarrillo@gmail.com>
 References: <20260803180755.288793-1-juanmanuellopezcarrillo@gmail.com>
@@ -92,106 +92,81 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The GPU mod clock (0x670) was modelled as a linear M+1 divider, but the
-M factor of this register is a cycle-masking divider: GPU_CLK = Clock
-Source * ((16-M)/16) (T527 user manual v0.92, section 2.7.6.58).
+Add the Mali-G57 operating points from the vendor BSP universal table
+(150/200/300/400/600 MHz) so panfrost devfreq can scale the GPU instead
+of running at the boot clock.
 
-With the linear model every OPP that needed M > 0 silently ran the GPU
-faster than requested.  Measured on an Orange Pi 4A (T527) with the
-Mali cycle counter against the programmed register:
+The table describes the SoC rather than any particular board, so it
+lives in the .dtsi and is referenced from the GPU node there; every
+A523/T527 board in tree already provides mali-supply.
 
-	OPP request	programmed	real rate
-	150 MHz		600M, M=3	487.5 MHz
-	200 MHz		800M, M=3	650   MHz
-	300 MHz		600M, M=1	562.5 MHz
-	400 MHz		800M, M=1	750   MHz
-	600 MHz		600M, M=0	600   MHz
+The BSP universal table specifies 900 mV for all of these operating
+points, so that is the target and minimum voltage.  The maximum is set
+to 920 mV to also cover boards whose GPU rail is a fixed 920 mV supply
+(the Orange Pi 4A drives it from AXP717 DCDC2, fixed at 920 mV), where
+the voltage transitions are then no-ops.
 
-i.e. the "400 MHz" OPP ran the GPU at 750 MHz, 25% above the vendor
-ceiling of 600 MHz, at the low-OPP voltage.  Thermal throttling to
-"400 MHz" actually overclocked the GPU.
+The higher speed-bin points of the BSP (648-792 MHz) are not included:
+they are gated by a SID efuse bin and need pll-gpu as a live parent.
 
-Switch the clock to the maskdiv type.  With least-masking preference
-the vendor OPP set now resolves to 600/400/300/200 MHz taken undivided
-from their periph outputs and 150 MHz = pll-periph0-200M * 12/16, all
-verified exact on hardware with the same cycle-counter method.
+Depends on the sun55i-a523 GPU clock divider fix: the OPP rates are only
+produced correctly with the cycle-masking divider model.  Validated on
+hardware with the Mali cycle counter: 149/199/300/399/597 MHz measured
+under load, thermal-emulation throttling included.
 
-Drop pll-periph0-800M from the selectable parents (the mux table skips
-hardware index 1): the vendor BSP removed it from its parent list with
-the comment "If GPU use pll-peri0-800m, gpu will occur job fault", and
-with the masking semantics every vendor OPP matches exactly from the
-800M parent first, so it would otherwise always be chosen.
-
-Also drop CLK_SET_RATE_PARENT: every OPP is reachable from the fixed
-pll-periph0 outputs, and pll-gpu must never be reprogrammed through this
-mux.  Once the GPU moves off pll-gpu the PLL is no longer prepared, so
-it loses the rate protection of CLK_SET_RATE_GATE; a propagated rate
-request would then reprogram the PLL while its gate is off (the lock
-bit never asserts, 70 ms poll timeout per transition) and switch the
-running GPU onto it before it locks.
-
-Fixes: 6702d17f54a8 ("clk: sunxi-ng: a523: add video mod clocks")
 Signed-off-by: Juan Manuel López Carrillo <juanmanuellopezcarrillo@gmail.com>
 ---
- drivers/clk/sunxi-ng/ccu-sun55i-a523.c | 32 +++++++++++++++++++++-----
- 1 file changed, 26 insertions(+), 6 deletions(-)
+ .../arm64/boot/dts/allwinner/sun55i-a523.dtsi | 30 +++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-index 20dad06b37ca..979e53e63522 100644
---- a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-+++ b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
-@@ -21,6 +21,7 @@
+diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+index 85ef492ffeae..a3164b5dd609 100644
+--- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
+@@ -85,6 +85,35 @@ osc24M: osc24M-clk {
+ 		clock-output-names = "osc24M";
+ 	};
  
- #include "ccu_div.h"
- #include "ccu_gate.h"
-+#include "ccu_maskdiv.h"
- #include "ccu_mp.h"
- #include "ccu_mult.h"
- #include "ccu_nk.h"
-@@ -442,18 +443,37 @@ static SUNXI_CCU_GATE_HWS(bus_g2d_clk, "bus-g2d", ahb_hws, 0x63c, BIT(0), 0);
- 
- static const struct clk_hw *gpu_parents[] = {
- 	&pll_gpu_clk.common.hw,
--	&pll_periph0_800M_clk.common.hw,
- 	&pll_periph0_600M_clk.hw,
- 	&pll_periph0_400M_clk.hw,
- 	&pll_periph0_300M_clk.hw,
- 	&pll_periph0_200M_clk.hw,
- };
- 
--static SUNXI_CCU_M_HW_WITH_MUX_GATE(gpu_clk, "gpu", gpu_parents, 0x670,
--				    0, 4,	/* M */
--				    24, 3,	/* mux */
--				    BIT(31),	/* gate */
--				    CLK_SET_RATE_PARENT);
-+/*
-+ * Mux index 1 (pll-periph0-800M) is skipped: the vendor BSP removed it
-+ * from the parent list ("If GPU use pll-peri0-800m, gpu will occur job
-+ * fault"), and with the masking divider every OPP would match exactly
-+ * from it first.
-+ */
-+static const u8 gpu_mux_table[] = { 0, 2, 3, 4, 5 };
++	gpu_opp_table: opp-table-gpu {
++		compatible = "operating-points-v2";
 +
-+/*
-+ * The M factor is a cycle-masking (fractional) divider, not a linear
-+ * one: rate = source * (16 - M) / 16 (T527 manual, GPU_CLK_REG).
-+ *
-+ * No CLK_SET_RATE_PARENT: every GPU OPP is reachable from the fixed
-+ * pll-periph0 outputs, and pll-gpu must never be reprogrammed through this mux.
-+ * Once the GPU moves off pll-gpu the PLL is no longer prepared, so it loses
-+ * the rate protection of CLK_SET_RATE_GATE; a propagated rate request would
-+ * then reprogram the PLL while its gate is off (the lock bit never asserts,
-+ * 70 ms timeout) and switch the running GPU onto it before it locks.
-+ */
-+static SUNXI_CCU_MASKDIV_HW_WITH_MUX_TABLE_GATE(gpu_clk, "gpu", gpu_parents,
-+						gpu_mux_table, 0x670,
-+						0, 4,	/* M */
-+						24, 3,	/* mux */
-+						BIT(31),	/* gate */
-+						0);
- 
- static SUNXI_CCU_GATE_HWS(bus_gpu_clk, "bus-gpu", ahb_hws, 0x67c, BIT(0), 0);
- 
++		opp-150000000 {
++			opp-hz = /bits/ 64 <150000000>;
++			opp-microvolt = <900000 900000 920000>;
++		};
++
++		opp-200000000 {
++			opp-hz = /bits/ 64 <200000000>;
++			opp-microvolt = <900000 900000 920000>;
++		};
++
++		opp-300000000 {
++			opp-hz = /bits/ 64 <300000000>;
++			opp-microvolt = <900000 900000 920000>;
++		};
++
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++			opp-microvolt = <900000 900000 920000>;
++		};
++
++		opp-600000000 {
++			opp-hz = /bits/ 64 <600000000>;
++			opp-microvolt = <900000 900000 920000>;
++		};
++	};
++
+ 	pmu {
+ 		compatible = "arm,cortex-a55-pmu";
+ 		interrupts = <GIC_PPI 7 IRQ_TYPE_LEVEL_HIGH>;
+@@ -121,6 +150,7 @@ gpu: gpu@1800000 {
+ 			interrupt-names = "job", "mmu", "gpu";
+ 			clocks = <&ccu CLK_GPU>, <&ccu CLK_BUS_GPU>;
+ 			clock-names = "core", "bus";
++			operating-points-v2 = <&gpu_opp_table>;
+ 			power-domains = <&pck600 PD_GPU>;
+ 			resets = <&ccu RST_BUS_GPU>;
+ 			status = "disabled";
 -- 
 2.47.3
 
