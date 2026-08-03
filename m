@@ -1,409 +1,590 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2115.outbound.protection.partner.outlook.cn [139.219.146.115])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87E541DE00;
-	Mon,  3 Aug 2026 12:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.115
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785760884; cv=fail; b=ivJwypZx+lLJglMWa/+9PYvnu0r+Ywxon9dpDn5LxmnsfEHrH1tuesgLBZZyoGCRYud0t/kKzBlP489cJR+C3/LbZax++TQxnjhE7M8bGn8dwpfkPIrzhsbhiwAOPOTSAr8lt8qL2DyF6u4h/soXe5uKtyfN1LLcxE5X+RF1hhk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785760884; c=relaxed/simple;
-	bh=nxgDUI+b1ce1j1QVWJC7/fkuSDS5P7vq8ghdU75FIDU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ff0JSm25FYdv2oqGY0D+Cu7Ms0BCDchZIy6jaeO+/ElLulxFWrJFOIpUgbKEMuel9B/ShhWh2seNFhbJpa5VsadVLJPUQxvY+LQe/Xn5WJFR/cSJKi+lOf1/mpa5CLzgUmb+/baL84v49l0MoAsSHXY+6mSqaYQYiPwzxaUrMRE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oq+ULwqsmlGl4qs4IFKtFsVjAKidL3ausiRSB7Qr1oZWqDkDrBUvAuu68nKUavTPt1xdNP2+iZmdbjaISuD35jc8/N2H0Njve+M+7YCMgVo29BWA8MIvSe0XX+6NUIEMVmddR2dyqmvYrWKNPULgdbgbVy7T0ESHHUJi7Xy0yCrBETlj/SM2mKlL+E8vpFXxMdYrNz5riizAhrnBXQ9MQ2uV5Z9EnT2AGNubtGHjeqnn6UqpxxsUohdQptFZ503ybec51DXQkSuEVce1SVq5J4Hycax9BuL+srbZOxpWdsk4sYYsnn0GFNSQ5NIZf5X1ZT3YoVLqmkpeYPSQRii9zA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3t+PcLw8AaOiZfxHPj+CQBSEWwpHlIeRxoZZ0CNBVi8=;
- b=eu7HBHlK2bU3CbLWnKuCkoYUOQbFC06jTckXlS7/UA+2cf0iLItv+06vQ8lU8iBqLoAr7Ij1uvUrtkkaaQNIlCnnVn/R7xHHAnSa8a5ME4Ikh+zdZO57W7ifiiOEZHfZ/89z3cOO4mVWR4JstcmSxlaf8FcAvy7UDTUIBlCt8+KU+uG+/vwVPFNPaw61Gz9l6fvEIRimUYdUMXyCV7LloWfBT+xVjt4YQa/gD9z/NFZLOLyGAUe/SQ+deBDgndgezzdDWrU5Wqpo3JcBc8T57XspXQFAnsmTW25Bdpb+i7eMDP+5abvouIL9EeFdJAKqMVA3mu0boJBdW5Z2lbyCMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1267.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:16::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 12:41:12 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0270.016; Mon, 3 Aug 2026 12:41:12 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mark Brown <broonie@kernel.org>
-Cc: Sudip Mukherjee <sudip.mukherjee@sifive.com>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v2 11/11] spi: dw: Add support for StarFive JHB100 SoC SFC
-Date: Mon,  3 Aug 2026 05:40:44 -0700
-Message-Id: <20260803124044.156998-12-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
-References: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SHXPR01CA0023.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1b::32) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242842253B0
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 12:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785761096; cv=none; b=eCzapSr+4uIYzUGROa4Hs5hnF8JGOK4R/Be3p1uTsYdYlIbR5kvBhdeXRygxTQVxa1JX0Yq4tfbVM2C9kvaw0o7S2UDXQqv29nBRj/09IqTYdJkiZi0xndduT8y6GU7iCYUcc255lVL3i9SMnONT1nTV0gmS3js+aMD76Kt859Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785761096; c=relaxed/simple;
+	bh=m0MjEAjAa3m4MAFFaWYqhHdmua9fODvkFTLu52h/HNc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=juP4xyjVeZAlrkZOdHmI44g5lOrnnqNc6b9tWk8F5EBOPOzKQRFWAbby3uSY1kLNKRI6vj/Rhy4Vai56bGAtqSzbyxxNHEL7ldZg0VcECm6OSH+5UKmQL7lRrnnvqh8VvrrJACe6i9JGpPWQ6/1AfydfO48EgDsI3CJUSEfBPfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rv/7586T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TxfLFqSc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rv/7586T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TxfLFqSc"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673C4aGX840258
+	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 12:44:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=wiEjTOr3Tm8yOp0qFz6uuY1u
+	b8uyFumZPZODy1x9kgM=; b=Rv/7586TZlq48QMpNvzBveC6QSqWLykdxbKnItyC
+	NcAz9na8VqqzgmTz3GgZokclIMz+6pJ8DKj5ON6+iZU5O5yMs8PwVOGNI16724A2
+	A8fehusGD5zgiZNSXiGhTcxJjr5mxgvkzL+2RhRUkcYaKa4YRMI3LikUkf4EEpxJ
+	/j499oC5MXABrMiU/d34CWD42A9dVd4DpzucuItUxAxvaAjq4ttJaWRokHaDOGWa
+	x5gjKhlPPrIFGTZkIrZhtl8j/YkYqghF0X+bN9W/7ZnuItHcyVVVIkXBnyaAjTra
+	qvLIYgb4EhyJJBHsB6TF+3Vyg3rnwBAXkOX/Z3iPbc/hBA==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnj79j83-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 12:44:52 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cb5cc1e139bso2223012a12.3
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 05:44:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785761092; x=1786365892; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wiEjTOr3Tm8yOp0qFz6uuY1ub8uyFumZPZODy1x9kgM=;
+        b=TxfLFqScnYoyjCZWB0GLF6D01fHcuUIjWjW3kkX9OuTYS3XXxQ/bMAkeTCHbIsHFlZ
+         2zSwrua0Zb3vrqs4UKIYJM/PUnoyI+KaZde3s+hdRwMb79AjV7oxRmBhRW2LhF3oULbk
+         ZgY2P2AusRHbgWPbKztWwNeljnfGRPgygjDcIRVRK4+NX03ZKkReWFYR0YaTNhpPZlS4
+         DWQtWc1asCZ8Ec/RWk6VZW1NNnt5MvnLFNWKz5MR0rNSa9tYcnlUm8r09iYLLefUt+ZP
+         FDSGeYtjA/s8ZY36TB9/A92sWWnkW72c9ri2+Mgj8NFEF40clLNVLEgYBnyvSvYBuKZI
+         QG7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785761092; x=1786365892;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wiEjTOr3Tm8yOp0qFz6uuY1ub8uyFumZPZODy1x9kgM=;
+        b=c8xvoSL+HmSD9OrP6Hb0OLwCun0cU3odxgNPwC3SBsEZKHj4BqjG0CvrE1t7Y+rzen
+         e6HcGkaniAN+UZMkHe7J0cQFCxq5nCrNMCZQFchuiamtQPA84nTkxvMETckj7D4LRRsI
+         NcDUVjYbkryS7vxF+KBSdj/aVYDsvpzEVz1hcPTUHl21KPHvJazr2IVPN/QhiqaxA5Qp
+         ByjIc0RQLMVUJ6e59nYL8LA8E40XBxr076WpwHXJ7g6MZ+U8Td6KPSjg+Yfl1XiqeHkj
+         WFb9cq1Imcl8OBJla2I87bdTn3prdGxwmmQ1Ce0GmNZJCuTc5lPVv3behjmjisNe44kN
+         9big==
+X-Forwarded-Encrypted: i=1; AHgh+RrRRkA38kif5VQ+rnxTtBKsbOKt1cWBaquHr/PAy1NbTrVdH9M4XHc0lwyT5aeCJfwpLZ7k2i/DjOmV@vger.kernel.org
+X-Gm-Message-State: AOJu0YwH+sEOv8I+7WieYH+n0CQ9IxL8bxOvd6vnSRRzg9ZqSjTVgd3y
+	gbC4RO9MbGM0B5TJgAxuEvNNBSGQzbrXOjhAIgHZNPQvvxhKhLvV5xbCpqRWeT+oonZdfkonGAa
+	MHRrsLj/bkUTibozTm3DIHcQuZXQCQyEawbK8+IvrdBMUp/5NgBs35Cwl8eL/9EEO
+X-Gm-Gg: AR+sD11qjE/11clHNinPJCjt7GZr4jKaety30NQAutggCDRlX0ouyzruoJjAAbL0fGC
+	sbDM3dxZejKphA1oVZL0eOMIttjHs68H72DPaS+roAKimb9iCSL8mQCO9bl9J+WE2HvicvrXtYF
+	rA8mi8QBWlNuSnPVZpC/7Q6VMh3LVwqA1VQgpT5KgWd6t5sPXQ8UW3uJsiakhXw5dWVMPlA3k/k
+	W+7cKxlkdgItu9lReEYX2U+Zmu4K1oscsPE6Gy9MhAyKUdbsUrDsEuwBXqE475coi8ukV4PVN0t
+	0rccxkTLDL1eQhcjl40eKMNsWHucI5CqSn019OZeqDPvFhiRYtABm4U2yehiCymfkCQBHc4cCg1
+	Iip3V5/J6oN5/etO5EsjBLCAdEzs=
+X-Received: by 2002:a05:6a21:4514:b0:3c3:a529:1e44 with SMTP id adf61e73a8af0-3c92a8d6802mr10817202637.57.1785761091603;
+        Mon, 03 Aug 2026 05:44:51 -0700 (PDT)
+X-Received: by 2002:a05:6a21:4514:b0:3c3:a529:1e44 with SMTP id adf61e73a8af0-3c92a8d6802mr10817145637.57.1785761090937;
+        Mon, 03 Aug 2026 05:44:50 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153ddd7a33sm35397081eec.12.2026.08.03.05.44.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 03 Aug 2026 05:44:50 -0700 (PDT)
+Date: Mon, 3 Aug 2026 18:14:42 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>,
+        Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>,
+        George Moussalem <george.moussalem@outlook.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v14 3/9] remoteproc: qcom: add hexagon based WCSS secure
+ PIL driver
+Message-ID: <20260803124442.krqtw6si4ujsnuul@hu-mojha-hyd.qualcomm.com>
+References: <20260803-rproc-v14-0-a1f87b0b0ad2@oss.qualcomm.com>
+ <20260803-rproc-v14-3-a1f87b0b0ad2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1267:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2b3da4d-c6c0-49a1-7a29-08def15c79c3
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|1800799024|366016|23010399003|38350700014|6133799003|10067099003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	tp5ozginm8f06LobW8GlBQTKrjcZueTIXcuuwBD3x21E7mv+rvVqSzkaWB5eP1yEqk4YiHFTPTSC1iqPLAf7pmvFXUVzqKgVfV7m+X0eq4GYAPdrLucI97kgN+4ZDG5m8Skqb5znT0h1WqZgVcuymKqMikB9KC0NMEHTYjMrzMIcn6qpXE8uSI/jGl6HWbL8NtxhXsT2lKO1Lgo9/TaPOulu3KK9CodRYEmTaMY5Dr2LNSOn2qZvBeTqH/+5KkwMY1REfRUPxE1fvqUTyvjqmSiw/WO1S/+umkUHKNqKkfmiNGCCN/EaoBZjUeAGoTs17YkmX1BqKBeQQ2ddgbrVn9sqhz3r5NIfOq1EU7X2j5L8e1bmWj292yFYmBsEc+XYdOAF/tgTMusxaem7sr8VZkBxx48+qpGndjxrNxV84t8pDOkNNwJO4F8w/kzTMHbEPNiIXRCLnVYLPtXjOzKWuedMaFdMyDA+BCbBp9Am3yfbmtEUumHEFC4j2yfEd2SZSFwefdSfVyR/OYdbK4xEXx6jLxwURTyLWKyos3rAwFRbrHn70Xm1juBP/RPbBv/e
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(1800799024)(366016)(23010399003)(38350700014)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?H/hU395ZFtAMro10+/ibClmUou8T4ofSJ0Dl+J1kSeiGAjj0vKPfDDFQ6vLk?=
- =?us-ascii?Q?fMkZvTaneS7ShUyJ3MngRzoaVtH0uOmxuEw/SDiEbimcMDPVst6wOcrd8qHq?=
- =?us-ascii?Q?h2zJ0NJsvwsGFZOtrRcxMR7zCYK2X3OP9/fjDKwQxlfxvSlVBKlVUg3zUOQJ?=
- =?us-ascii?Q?nzmqefQdsn3P0hA0X5Cz0OxwmoCmhzrauQabMj0KbWUxZhmVu8zRQm4b68/N?=
- =?us-ascii?Q?UCVweidxBlYg5l0VWjuA+uojTX7lDld4uDtK05/cKigDukZBegAJw2oBO9b1?=
- =?us-ascii?Q?tU6vZH6i5W7ltS2bpqxIXCaR4xB3hmhT+c4mAO1RpROfl+Ts5NrYONSTPKEg?=
- =?us-ascii?Q?zpwViVGzvXxSdPReCQV/D9YhXR+Z8e4PT2IDucBBX/zOlGysqCHBowBp/Wbw?=
- =?us-ascii?Q?vsm4ozdckKWHKRbJLkFEBuzE5OIl7dbZS184+JyrF8hsCfc02r16ipBPG0t9?=
- =?us-ascii?Q?SuB/e3Hmbbskoy1Ec/SOT0Gh/eXE690j3Vz1NOmB0VHtYrjpMPXuJmc5AuhH?=
- =?us-ascii?Q?V6d2kztAnz4iuSBKpXZRjikX2FWseXmhYFY3Nlh9hR6HDzPmAe08/ee/FHRB?=
- =?us-ascii?Q?tHPEwhvKIVkeVPDeCiE+XxJTkBN6io/iN0KAflf0luUBHM6TNUsQ6FjYlFoW?=
- =?us-ascii?Q?5G3HUoD5HtZjYl/o02btWAWfxZ8Fr5f3PESylnIfHcpQM5og+jdd8RyPdkxp?=
- =?us-ascii?Q?kCaTIxe2LPYBZu8bbcyxOLWa9IEM1c268BuPe1ttVkq3xQrhZVbLPRWYvFW1?=
- =?us-ascii?Q?FstqUh0O4yg65lp0nsCRmqVfYYzuUVk8aWarLFXaJmPwrYm3rCKU7pwV1/5+?=
- =?us-ascii?Q?3Ji1ufG0WFLBpDe7T69OUj8ewhqu47hkZDORxEcAGBVK4AUuuK5/nbYw3H24?=
- =?us-ascii?Q?P0erwFS9iFsJL8wKx/qytHAduzDBb1B6tuSR0+8NVHGAC1IsewK/hZxpsuZQ?=
- =?us-ascii?Q?b7LChU8LSPpa3FaQoByxVYhVKdNo5yLDBExRbE+/yNRqbGy4sDwKeilkktu0?=
- =?us-ascii?Q?HufcUgVH6DFx3aheSPTtXfcAgAOBaNmGeac2HaSJNYfyjxtgQpLHYTC+9Sg9?=
- =?us-ascii?Q?6YYv2o6V/l6iV+yXuYOVRChs1qsRSIalxNHWiwiBxnpT1YZmqkAezQ6ta6zO?=
- =?us-ascii?Q?EMDD1NPf+FTx/LeV+ZyIuPydjl6D/cH9n1ATkWXca64i/qCWM3lgDoT/hhKX?=
- =?us-ascii?Q?pf1U4HwG9OX3BF/8rVuSbLVZQZ3ubExdcwapc2fs8FiA0hX2WolkgkbiBStr?=
- =?us-ascii?Q?EGB5AWQqNIJXXO46/YNL99ddouas9pDF2NatIKtzbVq4iDgGEzHUs3jNL16m?=
- =?us-ascii?Q?uEEjNjxYmLfQ3D+QN9SjamFIQ/JgZIWDxTLc/rSdK7BUFsMZPKy6FFwwd2GF?=
- =?us-ascii?Q?qpbJcHJb08NWLvkVHILhsodUiqcAYwm/GGrIpFURrl+3l09GRAJiDZ76sJ/7?=
- =?us-ascii?Q?rQzC11/psRUg77N6ZezXipBSoXX5twMI4wUpCGpisXjPsHjr+vSB+5bfhTM7?=
- =?us-ascii?Q?0mu7c267YDYB9tV+n4frjFnNfkMWZdPNUZJhlPzaKw+mgJY2dkwLaLO4FYnA?=
- =?us-ascii?Q?EP9Y0DRLmyLgKt7ejLuKOKq9CK5APQQhxxVRLy/zGP+kHwTJMqzSJmS/+gr7?=
- =?us-ascii?Q?aU980FDvFa8x67+5xBuDEpLS4fW4Dyly34hdmrzdnS7bTT7QYGwPJPhsxC1V?=
- =?us-ascii?Q?lWiKh7Lumb05o6gqYHvnTIe4OhLnekNhUcq0Txx0SklUlMlHMlg4Qm/DKrYj?=
- =?us-ascii?Q?xx1Xr7+s7nopKrnJbXDJnFYtx2eLkIO4ixXCHgMH0l9RK8V4PJKH?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2b3da4d-c6c0-49a1-7a29-08def15c79c3
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:41:01.6703
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gjbxxPEezRdEkUXYwf1MKeXbsRgRxZb7S4FUPj4bICZiCWkNOIXlBHpurSI7iPML9QDYyjI0i+9jTv3FyI+JDZo60aNlncCw7dgox5tSa4GwZcGiJHt2spwyqeC80vJP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1267
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803-rproc-v14-3-a1f87b0b0ad2@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: IIdbF8H9fAyiTQeJpZLff6Bw4JnjSGo9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDExNCBTYWx0ZWRfXzdA+fAOY6ys7
+ FT8FRMRCrAECaCHvi/kIKaZsJCi8ektxjGvyOogzyDLFniqgxGbyW5rU4hTOxt+764v6Ml0PFqz
+ nw0FYmEvi6fCHXTvuv5M+DlpWeCJ+mSwU2Kd2RJHJEmHmVrtDdg/COeQnjGQdjdKknvCDGe75j2
+ GAnMPfJEsKA3IrGA9/NTx3fdOvI6svxnYBfUTrSV/ybD4gFNbWARw+e9qupbK3l38KVyrHQnNFf
+ pwnOdrlLQRrBtFXNVLoGwTsLjtFAVgmS51afC9upTCau4Nq5C9ESGjJuLR8JzRv3HSqczDLnjmv
+ WljZSIsT2La0rj/lt8TPonVeu0nzmLgdCYf7IZwSnve2sJTry2tnW/TI1U4c0FB1ydC6QnzPcfm
+ i5MO5Kt58JvSTh0+RhMLHU2iqRa+T/wBpHUvxGrR+sGpwTZkO18LXyCS5eA9K07Org/eHMb8odl
+ xKEAB8ubmvanx0XJjUQ==
+X-Proofpoint-GUID: IIdbF8H9fAyiTQeJpZLff6Bw4JnjSGo9
+X-Authority-Analysis: v=2.4 cv=PqSjqQM3 c=1 sm=1 tr=0 ts=6a708d44 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=UqCG9HQmAAAA:8 a=BXM0GNU5JGEDd1tv9sUA:9 a=CjuIK1q_8ugA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDExNCBTYWx0ZWRfX2Fwv9ZHvEIgH
+ Opz7rDqArQaa50soCg+4OM7PjN92G53qN0mA7LGMfF6GZQqchU1MnI4sRvEuAOD/k7of6x385ZC
+ lnjPt2WWMW6ALQPPRzBJ7qHXWVXNOvs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-03_03,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 spamscore=0 priorityscore=1501 adultscore=0
+ clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030114
 
-Add support for the StarFive JHB100 SoC SPI Flash Controller (SFC),
-which is based on the Synopsys DesignWare SSI version 2.00a but with
-some customizations.
+On Mon, Aug 03, 2026 at 04:16:09PM +0530, Varadarajan Narayanan wrote:
+> From: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+> 
+> Add support to bring up hexagon based WCSS using secure PIL. All IPQxxxx
+> SoCs support secure Peripheral Image Loading (PIL).
+> 
+> Secure PIL image is signed firmware image which only trusted software such
+> as TrustZone (TZ) can authenticate and load. Linux kernel will send a
+> Peripheral Authentication Service (PAS) request to TZ to authenticate and
+> load the PIL images.
+> 
+> In order to avoid overloading the existing WCSS driver or PAS driver, we
+> came up with this new PAS based IPQ WCSS driver.
 
-The JHB100 SFC controller has the following special features:
-1. Separate registers for instruction and address (DW_SPI_JHB100_INST
-   and DW_SPI_JHB100_ADDR) instead of using the common data register.
-2. A filter interrupt mask register (DW_SPI_JHB100_FILTER_IMR),
-   which is default masked to disable filter interrupts as they
-   are not used.
-3. Requires a system controller phandle "starfive,sfc-filter-syscon"
-   to configure 3-byte/4-byte address mode switching per chip select.
-4. Different Set CS and Enable Controller Timing.
+Can you tell why you need another driver if you are using the same PAS
+method and it is using more of everything what PAS already
+supports ?
 
-A new quirk flag DW_SPI_QUIRK_JHB100 is introduced to handle these
-differences in the enhanced SPI memory operation path. The controller
-uses the HSSI initialization path (DW_HSSI_ID) and shares the same
-interrupt masking logic. Limit the JHB100 SFC address to 3-byte or
-4-byte length.
+> 
+> Signed-off-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+> Signed-off-by: Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
+> Signed-off-by: Gokul Sriram Palanisamy <gokul.sriram.p@oss.qualcomm.com>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> [ Dropped ipq5424 support ]
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Tested-by: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
 
-Additionally, the platform_suspend() and platform_resume() callbacks
-are introduced to handle platform-private suspend/resume procedures.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/spi/spi-dw-core.c | 48 ++++++++++++++++++++------
- drivers/spi/spi-dw-mmio.c | 72 +++++++++++++++++++++++++++++++++++++++
- drivers/spi/spi-dw.h      | 18 ++++++++++
- 3 files changed, 127 insertions(+), 11 deletions(-)
+Author and tested looks weird..here..
 
-diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-index 0d900afa015d..ce6144a34785 100644
---- a/drivers/spi/spi-dw-core.c
-+++ b/drivers/spi/spi-dw-core.c
-@@ -591,6 +591,8 @@ static int dw_spi_adjust_mem_op_size(struct spi_mem *mem, struct spi_mem_op *op)
- static bool dw_spi_supports_enh_mem_op(struct spi_mem *mem,
- 				       const struct spi_mem_op *op)
- {
-+	struct dw_spi *dws = spi_controller_get_devdata(mem->spi->controller);
-+
- 	if (op->addr.nbytes != 0 && op->addr.buswidth != 1 &&
- 	    op->addr.buswidth != op->data.buswidth)
- 		return false;
-@@ -614,6 +616,10 @@ static bool dw_spi_supports_enh_mem_op(struct spi_mem *mem,
- 	    FIELD_MAX(DW_SPI_ENH_CTRLR0_WAIT_CYCLE_MASK))
- 		return false;
- 
-+	if ((dws->quirk_flags & DW_SPI_QUIRK_JHB100) && op->addr.nbytes &&
-+	    op->addr.nbytes != 3 && op->addr.nbytes != 4)
-+		return false;
-+
- 	return spi_mem_default_supports_op(mem, op);
- }
- 
-@@ -906,16 +912,30 @@ static void dw_spi_init_enh_mem_buf(struct dw_spi *dws, const struct spi_mem_op
- 	}
- }
- 
--static void dw_spi_enh_write_cmd_addr(struct dw_spi *dws, const struct spi_mem_op *op)
-+static void dw_spi_enh_write_cmd_addr(struct dw_spi *dws, const struct spi_mem_op *op,
-+				      struct spi_mem *mem)
- {
--	/* Send cmd as 32 bit value */
--	dw_write_io_reg(dws, DW_SPI_DR, op->cmd.opcode);
--	if (op->addr.nbytes) {
--		dw_write_io_reg(dws, DW_SPI_DR, lower_32_bits(op->addr.val));
--		if (op->addr.nbytes > 4) {
--			/* address more than 32bit */
--			dw_write_io_reg(dws, DW_SPI_DR, upper_32_bits(op->addr.val));
-+	if (dws->quirk_flags & DW_SPI_QUIRK_JHB100) {
-+		dw_write_io_reg(dws, DW_SPI_JHB100_INST, op->cmd.opcode);
-+		if (op->addr.nbytes)
-+			dw_write_io_reg(dws, DW_SPI_JHB100_ADDR, op->addr.val);
-+
-+		dw_spi_set_cs(mem->spi, false);
-+		dw_spi_enable_chip(dws, 1);
-+	} else {
-+		dw_spi_enable_chip(dws, 1);
-+
-+		/* Send cmd as 32 bit value */
-+		dw_write_io_reg(dws, DW_SPI_DR, op->cmd.opcode);
-+		if (op->addr.nbytes) {
-+			dw_write_io_reg(dws, DW_SPI_DR, lower_32_bits(op->addr.val));
-+			if (op->addr.nbytes > 4) {
-+				/* address more than 32bit */
-+				dw_write_io_reg(dws, DW_SPI_DR, upper_32_bits(op->addr.val));
-+			}
- 		}
-+
-+		dw_spi_set_cs(mem->spi, false);
- 	}
- }
- 
-@@ -981,10 +1001,16 @@ static int dw_spi_exec_enh_mem_op(struct spi_mem *mem, const struct spi_mem_op *
- 
- 	dw_spi_mask_intr(dws, 0xff);
- 	reinit_completion(&ctlr->xfer_completion);
--	dw_spi_enable_chip(dws, 1);
- 
--	dw_spi_enh_write_cmd_addr(dws, op);
--	dw_spi_set_cs(mem->spi, false);
-+	if (op->addr.nbytes && dws->set_addr_nbyte) {
-+		ret = dws->set_addr_nbyte(mem->spi, op->addr.nbytes);
-+		if (ret) {
-+			dw_spi_enable_chip(dws, 1);
-+			return ret;
-+		}
-+	}
-+
-+	dw_spi_enh_write_cmd_addr(dws, op, mem);
- 
- 	/*
- 	 * FIXME: The exact reason for this delay is not fully understood,
-diff --git a/drivers/spi/spi-dw-mmio.c b/drivers/spi/spi-dw-mmio.c
-index 603e81a92c57..8cdb0351605b 100644
---- a/drivers/spi/spi-dw-mmio.c
-+++ b/drivers/spi/spi-dw-mmio.c
-@@ -31,6 +31,8 @@ struct dw_spi_mmio {
- 	struct clk     *pclk;
- 	void           *priv;
- 	struct reset_control *rstc;
-+	void (*platform_suspend)(struct dw_spi_mmio *dwsmmio);
-+	int (*platform_resume)(struct dw_spi_mmio *dwsmmio);
- };
- 
- #define MSCC_CPU_SYSTEM_CTRL_GENERAL_CTRL	0x24
-@@ -48,6 +50,8 @@ struct dw_spi_mmio {
- #define SPARX5_FORCE_ENA			0xa4
- #define SPARX5_FORCE_VAL			0xa8
- 
-+#define JHB100_ADDRMODE_CS			0x00
-+
- struct dw_spi_mscc {
- 	struct regmap       *syscon;
- 	void __iomem        *spi_mst; /* Not sparx5 */
-@@ -310,6 +314,58 @@ static int dw_spi_elba_init(struct platform_device *pdev,
- 	return 0;
- }
- 
-+static int dw_spi_jhb100_set_addr_nbyte(struct spi_device *spi, u8 nbyte)
-+{
-+	struct dw_spi *dws = spi_controller_get_devdata(spi->controller);
-+	struct dw_spi_mmio *dwsmmio = container_of(dws, struct dw_spi_mmio, dws);
-+	struct regmap *syscon = dwsmmio->priv;
-+
-+	if (nbyte == 3) {
-+		regmap_update_bits(syscon, JHB100_ADDRMODE_CS,
-+				   BIT(spi_get_chipselect(spi, 0)),
-+				   0);
-+	} else if (nbyte == 4) {
-+		regmap_update_bits(syscon, JHB100_ADDRMODE_CS,
-+				   BIT(spi_get_chipselect(spi, 0)),
-+				   BIT(spi_get_chipselect(spi, 0)));
-+	} else {
-+		dev_err(&spi->dev, "Unsupported address nbyte %d\n", nbyte);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dw_spi_jhb100_resume(struct dw_spi_mmio *dwsmmio)
-+{
-+	dw_spi_jhb100_mask_intr(&dwsmmio->dws, 0xff);
-+
-+	return 0;
-+}
-+
-+static int dw_spi_jhb100_init(struct platform_device *pdev,
-+			      struct dw_spi_mmio *dwsmmio)
-+{
-+	struct regmap *syscon;
-+
-+	syscon = syscon_regmap_lookup_by_phandle(dev_of_node(&pdev->dev),
-+						 "starfive,sfc-filter-syscon");
-+	if (IS_ERR(syscon))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(syscon),
-+				     "syscon regmap lookup failed\n");
-+
-+	dwsmmio->priv = syscon;
-+	dwsmmio->platform_resume = dw_spi_jhb100_resume;
-+
-+	dwsmmio->dws.set_addr_nbyte = dw_spi_jhb100_set_addr_nbyte;
-+	dwsmmio->dws.ip = DW_HSSI_ID;
-+	dwsmmio->dws.quirk_flags = DW_SPI_QUIRK_JHB100;
-+
-+	dw_spi_jhb100_mask_intr(&dwsmmio->dws, 0xff);
-+
-+	return 0;
-+}
-+
- static int dw_spi_mmio_probe(struct platform_device *pdev)
- {
- 	int (*init_func)(struct platform_device *pdev,
-@@ -399,6 +455,9 @@ static int dw_spi_mmio_suspend(struct device *dev)
- 	if (ret)
- 		return ret;
- 
-+	if (dwsmmio->platform_suspend)
-+		dwsmmio->platform_suspend(dwsmmio);
-+
- 	reset_control_assert(dwsmmio->rstc);
- 
- 	clk_disable_unprepare(dwsmmio->pclk);
-@@ -410,12 +469,24 @@ static int dw_spi_mmio_suspend(struct device *dev)
- static int dw_spi_mmio_resume(struct device *dev)
- {
- 	struct dw_spi_mmio *dwsmmio = dev_get_drvdata(dev);
-+	int ret;
- 
- 	clk_prepare_enable(dwsmmio->clk);
- 	clk_prepare_enable(dwsmmio->pclk);
- 
- 	reset_control_deassert(dwsmmio->rstc);
- 
-+	if (dwsmmio->platform_resume) {
-+		ret = dwsmmio->platform_resume(dwsmmio);
-+		if (ret) {
-+			reset_control_assert(dwsmmio->rstc);
-+
-+			clk_disable_unprepare(dwsmmio->pclk);
-+			clk_disable_unprepare(dwsmmio->clk);
-+			return ret;
-+		}
-+	}
-+
- 	return dw_spi_resume_controller(&dwsmmio->dws);
- }
- 
-@@ -447,6 +518,7 @@ static const struct of_device_id dw_spi_mmio_of_match[] = {
- 	{ .compatible = "microchip,sparx5-spi", dw_spi_mscc_sparx5_init},
- 	{ .compatible = "canaan,k210-spi", dw_spi_canaan_k210_init},
- 	{ .compatible = "amd,pensando-elba-spi", .data = dw_spi_elba_init},
-+	{ .compatible = "starfive,jhb100-sfc", .data = dw_spi_jhb100_init},
- 	{ /* end of table */}
- };
- MODULE_DEVICE_TABLE(of, dw_spi_mmio_of_match);
-diff --git a/drivers/spi/spi-dw.h b/drivers/spi/spi-dw.h
-index 2dae81c15423..2fce5bde75f0 100644
---- a/drivers/spi/spi-dw.h
-+++ b/drivers/spi/spi-dw.h
-@@ -67,6 +67,11 @@
- #define DW_SPI_SPI_CTRLR0		0xf4
- #define DW_SPI_CS_OVERRIDE		0xf4
- 
-+/* Register offsets (StarFive JHB100 DWC SSI IP-cores) */
-+#define DW_SPI_JHB100_INST		0x1000
-+#define DW_SPI_JHB100_ADDR		0x1004
-+#define DW_SPI_JHB100_FILTER_IMR	0x1008
-+
- /* Bit fields in CTRLR0 (DWC APB SSI) */
- #define DW_PSSI_CTRLR0_DFS_MASK			GENMASK(3, 0)
- #define DW_PSSI_CTRLR0_DFS32_MASK		GENMASK(20, 16)
-@@ -199,6 +204,7 @@ struct dw_spi {
- 	u32			num_cs;		/* chip select lines */
- 	u16			bus_num;
- 	void (*set_cs)(struct spi_device *spi, bool enable);
-+	int (*set_addr_nbyte)(struct spi_device *spi, u8 nbyte);
- 
- 	/* Current message transfer state info */
- 	void			*tx;
-@@ -228,6 +234,9 @@ struct dw_spi {
- 	const struct dw_spi_dma_ops *dma_ops;
- 	struct completion	dma_completion;
- 
-+#define DW_SPI_QUIRK_JHB100		BIT(0)
-+	u32			quirk_flags;
-+
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *debugfs;
- 	struct debugfs_regset32 regset;
-@@ -296,6 +305,15 @@ static inline void dw_spi_umask_intr(struct dw_spi *dws, u32 mask)
- 	dw_writel(dws, DW_SPI_IMR, new_mask);
- }
- 
-+/* Disable JHB100 SPI filter IRQ bits */
-+static inline void dw_spi_jhb100_mask_intr(struct dw_spi *dws, u32 mask)
-+{
-+	u32 new_mask;
-+
-+	new_mask = dw_readl(dws, DW_SPI_JHB100_FILTER_IMR) & ~mask;
-+	dw_writel(dws, DW_SPI_JHB100_FILTER_IMR, new_mask);
-+}
-+
- /*
-  * This disables the SPI controller, interrupts, clears the interrupts status
-  * and CS, then re-enables the controller back. Transmit and receive FIFO
+
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> ---
+>  drivers/remoteproc/Kconfig              |  20 ++
+>  drivers/remoteproc/Makefile             |   1 +
+>  drivers/remoteproc/qcom_q6v5_wcss_sec.c | 337 ++++++++++++++++++++++++++++++++
+>  include/linux/remoteproc.h              |   2 +
+>  4 files changed, 360 insertions(+)
+> 
+> diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
+> index 5b56b2dcc725..3feea5bda129 100644
+> --- a/drivers/remoteproc/Kconfig
+> +++ b/drivers/remoteproc/Kconfig
+> @@ -267,6 +267,26 @@ config QCOM_Q6V5_WCSS
+>  	  Hexagon V5 based WCSS remote processors on e.g. IPQ8074.  This is
+>  	  a non-TrustZone wireless subsystem.
+>  
+> +config QCOM_Q6V5_WCSS_SEC
+> +	tristate "Qualcomm Hexagon based WCSS Secure Peripheral Image Loader"
+> +	depends on OF && ARCH_QCOM
+> +	depends on QCOM_SMEM
+> +	depends on RPMSG_QCOM_GLINK_SMEM || RPMSG_QCOM_GLINK_SMEM=n
+> +	depends on RPMSG_QCOM_GLINK || RPMSG_QCOM_GLINK=n
+> +	depends on QCOM_AOSS_QMP || QCOM_AOSS_QMP=n
+> +	select QCOM_MDT_LOADER
+> +	select QCOM_PIL_INFO
+> +	select QCOM_Q6V5_COMMON
+> +	select QCOM_RPROC_COMMON
+> +	select QCOM_SCM
+> +	help
+> +	  Say y here to support the Qualcomm Secure Peripheral Image Loader
+> +	  for the Hexagon based remote processors on e.g. IPQ5332.
+> +
+> +	  This is TrustZone wireless subsystem. The firmware is
+> +	  verified and booted with the help of the Peripheral Authentication
+> +	  System (PAS) in TrustZone.
+> +
+>  config QCOM_SYSMON
+>  	tristate "Qualcomm sysmon driver"
+>  	depends on RPMSG
+> diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
+> index 689686de0d41..f74519ea6502 100644
+> --- a/drivers/remoteproc/Makefile
+> +++ b/drivers/remoteproc/Makefile
+> @@ -29,6 +29,7 @@ obj-$(CONFIG_QCOM_Q6V5_ADSP)		+= qcom_q6v5_adsp.o
+>  obj-$(CONFIG_QCOM_Q6V5_MSS)		+= qcom_q6v5_mss.o
+>  obj-$(CONFIG_QCOM_Q6V5_PAS)		+= qcom_q6v5_pas.o
+>  obj-$(CONFIG_QCOM_Q6V5_WCSS)		+= qcom_q6v5_wcss.o
+> +obj-$(CONFIG_QCOM_Q6V5_WCSS_SEC)	+= qcom_q6v5_wcss_sec.o
+>  obj-$(CONFIG_QCOM_SYSMON)		+= qcom_sysmon.o
+>  obj-$(CONFIG_QCOM_WCNSS_PIL)		+= qcom_wcnss_pil.o
+>  qcom_wcnss_pil-y			+= qcom_wcnss.o
+> diff --git a/drivers/remoteproc/qcom_q6v5_wcss_sec.c b/drivers/remoteproc/qcom_q6v5_wcss_sec.c
+> new file mode 100644
+> index 000000000000..4837825d1717
+> --- /dev/null
+> +++ b/drivers/remoteproc/qcom_q6v5_wcss_sec.c
+> @@ -0,0 +1,337 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +#include <linux/clk.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
+> +#include <linux/io.h>
+> +#include <linux/mailbox_client.h>
+> +#include <linux/of_reserved_mem.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/soc/qcom/mdt_loader.h>
+> +
+> +#include "qcom_common.h"
+> +#include "qcom_q6v5.h"
+> +#include "qcom_pil_info.h"
+> +
+> +#define WCSS_CRASH_REASON		421
+> +
+> +#define WCSS_PAS_ID			0x6
+> +#define MPD_WCSS_PAS_ID			0xd
+> +
+> +#define Q6_WAIT_TIMEOUT			(5 * HZ)
+> +
+> +struct wcss_sec {
+> +	struct device *dev;
+> +	struct qcom_rproc_glink glink_subdev;
+> +	struct qcom_rproc_ssr ssr_subdev;
+> +	struct qcom_q6v5 q6;
+> +	phys_addr_t mem_phys;
+> +	phys_addr_t mem_reloc;
+> +	void *mem_region;
+> +	size_t mem_size;
+> +	const struct wcss_data *desc;
+> +};
+> +
+> +struct wcss_data {
+> +	u32 pasid;
+> +	const char *ss_name;
+> +	bool auto_boot;
+> +};
+> +
+> +static int wcss_sec_start(struct rproc *rproc)
+> +{
+> +	struct wcss_sec *wcss = rproc->priv;
+> +	struct device *dev = wcss->dev;
+> +	int ret;
+> +
+> +	ret = qcom_q6v5_prepare(&wcss->q6);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = qcom_pas_auth_and_reset(wcss->desc->pasid);
+> +	if (ret) {
+> +		dev_err(dev, "wcss_reset failed\n");
+> +		goto unprepare;
+> +	}
+> +
+> +	ret = qcom_q6v5_wait_for_start(&wcss->q6, msecs_to_jiffies(Q6_WAIT_TIMEOUT));
+> +
+> +	if (ret == -ETIMEDOUT) {
+> +		dev_err(dev, "start timed out\n");
+> +		qcom_pas_shutdown(wcss->desc->pasid);
+> +		goto unprepare;
+> +	}
+> +
+> +	return 0;
+> +
+> +unprepare:
+> +	qcom_q6v5_unprepare(&wcss->q6);
+> +
+> +	return ret;
+> +}
+> +
+> +static int wcss_sec_stop(struct rproc *rproc)
+> +{
+> +	struct wcss_sec *wcss = rproc->priv;
+> +	struct device *dev = wcss->dev;
+> +	int ret;
+> +
+> +	ret = qcom_q6v5_request_stop(&wcss->q6, NULL);
+> +	if (ret == -ETIMEDOUT)
+> +		dev_err(dev, "timed out on wait\n");
+> +
+> +	ret = qcom_pas_shutdown(wcss->desc->pasid);
+> +	if (ret)
+> +		dev_err(dev, "Failed to shutdown %d\n", ret);
+> +
+> +	qcom_q6v5_unprepare(&wcss->q6);
+> +
+> +	return ret;
+> +}
+> +
+> +static void *wcss_sec_da_to_va(struct rproc *rproc, u64 da, size_t len,
+> +			       bool *is_iomem)
+> +{
+> +	struct wcss_sec *wcss = rproc->priv;
+> +	int offset;
+> +
+> +	offset = da - wcss->mem_reloc;
+> +	if (offset < 0 || offset + len > wcss->mem_size)
+> +		return NULL;
+> +
+> +	if (is_iomem)
+> +		*is_iomem = true;
+> +
+> +	return wcss->mem_region + offset;
+> +}
+> +
+> +static int wcss_sec_load(struct rproc *rproc, const struct firmware *fw)
+> +{
+> +	struct wcss_sec *wcss = rproc->priv;
+> +	struct device *dev = wcss->dev;
+> +	int ret;
+> +
+> +	ret = qcom_mdt_load(dev, fw, rproc->firmware, wcss->desc->pasid, wcss->mem_region,
+> +			    wcss->mem_phys, wcss->mem_size, &wcss->mem_reloc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	qcom_pil_info_store("wcss", wcss->mem_phys, wcss->mem_size);
+> +
+> +	return 0;
+> +}
+> +
+> +static unsigned long wcss_sec_panic(struct rproc *rproc)
+> +{
+> +	struct wcss_sec *wcss = rproc->priv;
+> +
+> +	return qcom_q6v5_panic(&wcss->q6);
+> +}
+> +
+> +static void wcss_sec_copy_segment(struct rproc *rproc,
+> +				  struct rproc_dump_segment *segment,
+> +				  void *dest, size_t offset, size_t size)
+> +{
+> +	struct wcss_sec *wcss = rproc->priv;
+> +	struct device *dev = wcss->dev;
+> +
+> +	if (!segment->io_ptr)
+> +		segment->io_ptr = ioremap_wc(segment->da, segment->size);
+> +
+> +	if (!segment->io_ptr) {
+> +		dev_err(dev, "Failed to ioremap segment %pad size 0x%zx\n",
+> +			&segment->da, segment->size);
+> +		return;
+> +	}
+> +
+> +	if (offset + size <= segment->size) {
+> +		memcpy_fromio(dest, segment->io_ptr + offset, size);
+> +	} else {
+> +		iounmap(segment->io_ptr);
+> +		segment->io_ptr = NULL;
+> +	}
+> +}
+> +
+> +static int wcss_sec_dump_segments(struct rproc *rproc,
+> +				  const struct firmware *fw)
+> +{
+> +	struct device *dev = rproc->dev.parent;
+> +	struct reserved_mem *rmem = NULL;
+> +	struct device_node *node;
+> +	int num_segs, index;
+> +	int ret;
+> +
+> +	/*
+> +	 * Parse through additional reserved memory regions for the rproc
+> +	 * and add them to the coredump segments
+> +	 */
+> +	num_segs = of_count_phandle_with_args(dev->of_node,
+> +					      "memory-region", NULL);
+> +	for (index = 0; index < num_segs; index++) {
+> +		node = of_parse_phandle(dev->of_node,
+> +					"memory-region", index);
+> +		if (!node)
+> +			return -EINVAL;
+> +
+> +		rmem = of_reserved_mem_lookup(node);
+> +		of_node_put(node);
+> +		if (!rmem) {
+> +			dev_err(dev, "unable to acquire memory-region index %d num_segs %d\n",
+> +				index, num_segs);
+> +			return -EINVAL;
+> +		}
+> +
+> +		dev_dbg(dev, "Adding segment 0x%pa size 0x%pa",
+> +			&rmem->base, &rmem->size);
+> +		ret = rproc_coredump_add_custom_segment(rproc,
+> +							rmem->base,
+> +							rmem->size,
+> +							wcss_sec_copy_segment,
+> +							NULL);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct rproc_ops wcss_sec_ops = {
+> +	.start = wcss_sec_start,
+> +	.stop = wcss_sec_stop,
+> +	.da_to_va = wcss_sec_da_to_va,
+> +	.load = wcss_sec_load,
+> +	.get_boot_addr = rproc_elf_get_boot_addr,
+> +	.panic = wcss_sec_panic,
+> +	.parse_fw = wcss_sec_dump_segments,
+> +};
+> +
+> +static int wcss_sec_alloc_memory_region(struct wcss_sec *wcss)
+> +{
+> +	struct device *dev = wcss->dev;
+> +	struct resource res;
+> +	int ret;
+> +
+> +	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
+> +	if (ret) {
+> +		dev_err(dev, "unable to acquire memory-region resource\n");
+> +		return ret;
+> +	}
+> +
+> +	wcss->mem_phys = res.start;
+> +	wcss->mem_reloc = res.start;
+> +	wcss->mem_size = resource_size(&res);
+> +	wcss->mem_region = devm_ioremap_resource_wc(dev, &res);
+> +	if (IS_ERR(wcss->mem_region)) {
+> +		dev_err(dev, "unable to map memory region: %pR\n", &res);
+> +		return PTR_ERR(wcss->mem_region);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int wcss_sec_probe(struct platform_device *pdev)
+> +{
+> +	const struct wcss_data *desc = of_device_get_match_data(&pdev->dev);
+> +	const char *fw_name = NULL;
+> +	struct wcss_sec *wcss;
+> +	struct clk *sleep_clk;
+> +	struct clk *int_clk;
+> +	struct rproc *rproc;
+> +	int ret;
+> +
+> +	ret = of_property_read_string(pdev->dev.of_node, "firmware-name",
+> +				      &fw_name);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	rproc = devm_rproc_alloc(&pdev->dev, desc->ss_name, &wcss_sec_ops,
+> +				 fw_name, sizeof(*wcss));
+> +	if (!rproc) {
+> +		dev_err(&pdev->dev, "failed to allocate rproc\n");
+> +		return -ENOMEM;
+> +	}
+> +
+> +	wcss = rproc->priv;
+> +	wcss->dev = &pdev->dev;
+> +	wcss->desc = desc;
+> +
+> +	ret = wcss_sec_alloc_memory_region(wcss);
+> +	if (ret)
+> +		return ret;
+> +
+> +	sleep_clk = devm_clk_get_optional_enabled(&pdev->dev, "sleep");
+> +	if (IS_ERR(sleep_clk))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(sleep_clk),
+> +				     "Failed to get sleep clock\n");
+> +
+> +	int_clk = devm_clk_get_optional_enabled(&pdev->dev, "interconnect");
+> +	if (IS_ERR(int_clk))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(int_clk),
+> +				     "Failed to get interconnect clock\n");
+> +
+> +	ret = qcom_q6v5_init(&wcss->q6, pdev, rproc,
+> +			     WCSS_CRASH_REASON, NULL, NULL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	qcom_add_glink_subdev(rproc, &wcss->glink_subdev, desc->ss_name);
+> +	qcom_add_ssr_subdev(rproc, &wcss->ssr_subdev, desc->ss_name);
+> +
+> +	rproc->auto_boot = desc->auto_boot;
+> +	rproc->dump_conf = RPROC_COREDUMP_INLINE;
+> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
+> +
+> +	ret = devm_rproc_add(&pdev->dev, rproc);
+> +	if (ret) {
+> +		qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
+> +		qcom_remove_glink_subdev(rproc, &wcss->glink_subdev);
+> +		qcom_q6v5_deinit(&wcss->q6);
+> +		return ret;
+> +	}
+> +
+> +	platform_set_drvdata(pdev, rproc);
+> +
+> +	return 0;
+> +}
+> +
+> +static void wcss_sec_remove(struct platform_device *pdev)
+> +{
+> +	struct rproc *rproc = platform_get_drvdata(pdev);
+> +	struct wcss_sec *wcss = rproc->priv;
+> +
+> +	qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
+> +	qcom_remove_glink_subdev(rproc, &wcss->glink_subdev);
+> +	qcom_q6v5_deinit(&wcss->q6);
+> +}
+> +
+> +static const struct wcss_data wcss_sec_ipq5332_res_init = {
+> +	.pasid = MPD_WCSS_PAS_ID,
+> +	.ss_name = "q6wcss",
+> +};
+> +
+> +static const struct wcss_data wcss_sec_ipq9574_res_init = {
+> +	.pasid = WCSS_PAS_ID,
+> +	.ss_name = "q6wcss",
+> +};
+> +
+> +static const struct of_device_id wcss_sec_of_match[] = {
+> +	{ .compatible = "qcom,ipq5018-wcss-sec-pil", .data = &wcss_sec_ipq5332_res_init },
+> +	{ .compatible = "qcom,ipq5332-wcss-sec-pil", .data = &wcss_sec_ipq5332_res_init },
+> +	{ .compatible = "qcom,ipq9574-wcss-sec-pil", .data = &wcss_sec_ipq9574_res_init },
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, wcss_sec_of_match);
+> +
+> +static struct platform_driver wcss_sec_driver = {
+> +	.probe = wcss_sec_probe,
+> +	.remove = wcss_sec_remove,
+> +	.driver = {
+> +		.name = "qcom-wcss-secure-pil",
+> +		.of_match_table = wcss_sec_of_match,
+> +	},
+> +};
+> +module_platform_driver(wcss_sec_driver);
+> +
+> +MODULE_DESCRIPTION("Hexagon WCSS Secure Peripheral Image Loader");
+> +MODULE_LICENSE("GPL");
+> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> index ef711a5b1a7f..cf06b9846309 100644
+> --- a/include/linux/remoteproc.h
+> +++ b/include/linux/remoteproc.h
+> @@ -204,6 +204,7 @@ enum rproc_dump_mechanism {
+>   * @node:	list node related to the rproc segment list
+>   * @da:		device address of the segment
+>   * @size:	size of the segment
+> + * @io_ptr:	ptr to store the ioremapped dump segment
+>   * @priv:	private data associated with the dump_segment
+>   * @dump:	custom dump function to fill device memory segment associated
+>   *		with coredump
+> @@ -215,6 +216,7 @@ struct rproc_dump_segment {
+>  	dma_addr_t da;
+>  	size_t size;
+>  
+> +	void __iomem *io_ptr;
+>  	void *priv;
+>  	void (*dump)(struct rproc *rproc, struct rproc_dump_segment *segment,
+>  		     void *dest, size_t offset, size_t size);
+> 
+> -- 
+> 2.34.1
+> 
+
 -- 
-2.25.1
-
+-Mukesh Ojha
