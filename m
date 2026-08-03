@@ -1,77 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B9F92EEE80;
-	Mon,  3 Aug 2026 21:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD6833E37A
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 21:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785793934; cv=none; b=Qzao8pX62WSqNSx/kFLP8h1CX+SQ8lFAfDi67NqpzGfCCYv1zNYarhHmFSXmGdUsZ2JyIcY1ZSzuw/4flhakgoKnQ4st22miTsIeGua5VKVFJgzREhUKrDVjWtAu9/SVwZrGmsjn7l/87a+O7HLGniV2gs5bqN030yu6hCAgIAg=
+	t=1785794072; cv=none; b=IrN9j0cTEqiTdE3Rx5Ls/56LLbZO1Q42fO1UAGO2AnzuW2BXg6jGENVzS9vq2n1GD7GcCoRNhdOt1d276mSnuSFkgJFpZuxNYAczNqnBaBVijjzHXlfJWF0E9udORqUs4Wvjqy9AmGQuSJkK1m1DVTFmhB+uYfN97N06j3KsQCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785793934; c=relaxed/simple;
-	bh=bTlirTCNbs3J0vod37ZE97IIWtj2lP+6snOSBoQIe28=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GPIf0GTCcLvWVWCaonjOaUGPYpjncAAHNBsroNpS37Jvv0hAkoSuxjQVBl5yS0EfAS65JNqawCtiUwDqK84YWrbZjLrpdHKXF0WBg814c55cwu1zQeEmflykii49ZE7HY3iLlY3KSM9TmQLKVTtJIJMG8IY9AfVbU8YNf7TiEhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ln5WahKI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785794072; c=relaxed/simple;
+	bh=k6ACJui1sIL/GKQN5BgZfOTRtWGOGxawvRoiYFeOjSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dDC6qXby7AU0yjOJ65VJ328WcSVz4mtCNRDpTUDbJofY2RGYe/GoLxb2776dCgPPbgH/we19uYYlb0JCBaPFeu3zkwdasHF/qV0ylA44AiWZXyLAqL/gxRCt2jqO1Hup+uGFqXzdZXgvlw7NP1RHoYdQPkyUENoiGxOBovJTfDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mufWI0bg; arc=none smtp.client-ip=95.215.58.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ln5WahKI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6111F000E9;
-	Mon,  3 Aug 2026 21:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785793932;
-	bh=2P8n1ZdKOdStEpUrUOvUOtkZBuoALsjW9JDY38Sab0w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ln5WahKI71EAaNqRLZRi129+K4Gj3pNkONmBFfQWOaeYrmYCHh7ohV/CRKDj4Blfp
-	 rvulr9/YRDBSCDu5bGeRlmxhiyaflcWIg4wHeGCcY+AAT4MDugpCvzW2O1Ugw9GbD9
-	 6971b1fzQGKGZks4f1PnjN+s3y6vyxImTOhNv/v4ByAJbtvzy+p96713DHU6+Zkql4
-	 DTLGzQ/tfPL1MXed3DBqFcD7txqf1h9lcNTAjPLLYCXA1fxacga+d7lYebBBVu0JJ2
-	 we+grCwXyqaqZEudBKK3OaHji+SuCJJMDihO8u7HK2lBmhPKOAd0wtrpmI0TWCvdMB
-	 l4tWuR4Bx08Vg==
-Date: Mon, 3 Aug 2026 16:52:12 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: simona.toaca@nxp.com, Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	linux-remoteproc@vger.kernel.org, m-chawdhry@ti.com,
-	Brian Masney <bmasney@redhat.com>, goledhruva@gmail.com,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Murali Karicheri <m-karicheri2@ti.com>, daniel.baluta@gmail.com,
-	Santosh Shilimkar <santosh.shilimkar@ti.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>
-Subject: Re: [PATCH] dt-bindings: clock: ti,keystone-gate: Convert to DT
- schema
-Message-ID: <178579393160.675389.1182670890474341118.robh@kernel.org>
-References: <20260726-ti-keystone-gate-clk-v1-1-5b2449bc31ee@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mufWI0bg"
+Message-ID: <437bcc6d-2c4c-4c4d-b5fc-885e92db8975@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785794056;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KJsH3atiMvuqZlBdNBMGMLmGM8erxFtkd8bNSMbxCKg=;
+	b=mufWI0bg7WUM3d7yyKdwTIZ+NlgDza6LCWtFbzMW1ZSuLobWL6PwE3Hm4zHgBvMt9cCeuQ
+	l4Z9aJG5sTyt9ukTVOnobGpTJxtQFx0DJb/M/N+BNWyulfLSgSqO28du56efN+YqzvU3td
+	tjy8GDwSm2LdYrnPZGDgXT9x52vomTM=
+Date: Mon, 3 Aug 2026 14:53:58 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260726-ti-keystone-gate-clk-v1-1-5b2449bc31ee@gmail.com>
+Subject: Re: [PATCH v8 13/22] RISC-V: perf: Add a mechanism to defined legacy
+ event encoding
+To: Yicong Yang <yang.yicong@picoheart.com>
+Cc: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>,
+ Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Ian Rogers <irogers@google.com>,
+ Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
+References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
+ <20260701-counter_delegation-v8-13-7909f863a645@meta.com>
+ <37db8fc7-4702-4af6-878a-b46572d6f2f4@picoheart.com>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Atish Patra <atish.patra@linux.dev>
+In-Reply-To: <37db8fc7-4702-4af6-878a-b46572d6f2f4@picoheart.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
 
-On Sun, 26 Jul 2026 01:34:08 +0530, Bhargav Joshi wrote:
-> Convert Texas Instruments keystone PSC clock binding to DT schema.
-> 
-> The vendor-specific 'domain-id' property is intentionally kept without a
-> "ti," prefix to preserve existing ABI since driver and existing board
-> file use property without "ti," prefix.
-> 
-> Also update the reference to this binding in ti,keystone-rproc.txt to
-> point at the new filename.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  .../devicetree/bindings/clock/keystone-gate.txt    | 27 ----------
->  .../bindings/clock/ti,keystone,psc-clock.yaml      | 60 ++++++++++++++++++++++
->  .../bindings/remoteproc/ti,keystone-rproc.txt      |  2 +-
->  3 files changed, 61 insertions(+), 28 deletions(-)
-> 
+On 7/7/26 12:51 AM, Yicong Yang wrote:
+> On 7/1/26 4:47 PM, Atish Patra wrote:
+>> From: Atish Patra <atishp@rivosinc.com>
+>>
+>> RISC-V ISA doesn't define any standard event encodings or specify
+>> any event to counter mapping. Thus, event encoding information
+>> and corresponding counter mapping fot those events needs to be
+>> provided in the driver for each vendor.
+>>
+>> Add a framework to support that. The individual platform events
+>> will be added later.
+>>
+>> Signed-off-by: Atish Patra <atishp@rivosinc.com>
+>> ---
+>>   drivers/perf/riscv_pmu_sbi.c | 70 +++++++++++++++++++++++++++++++++++++++++++-
+>>   1 file changed, 69 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+>> index c20f1e33c65d..2568c6808f5d 100644
+>> --- a/drivers/perf/riscv_pmu_sbi.c
+>> +++ b/drivers/perf/riscv_pmu_sbi.c
+>> @@ -10,6 +10,7 @@
+>>   
+>>   #define pr_fmt(fmt) "riscv-pmu-sbi: " fmt
+>>   
+>> +#include <linux/limits.h>
+>>   #include <linux/mod_devicetable.h>
+>>   #include <linux/perf/riscv_pmu.h>
+>>   #include <linux/platform_device.h>
+>> @@ -379,6 +380,71 @@ static int pmu_sbi_check_event_info(void)
+>>   	return result;
+>>   }
+>>   
+>> +/*
+>> + * Vendor specific PMU events.
+>> + */
+>> +struct riscv_pmu_event {
+>> +	u64 event_id;
+>> +	u32 counter_mask;
+> could we name it as counterid_mask to match to the PMU format
+> name (introduced in patch 16/22)?
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Sure. I will change it.
 
+> thanks.
+>
+>> +};
+>> +
+>> +#define HW_OP_UNSUPPORTED		U64_MAX
+>> +#define CACHE_OP_UNSUPPORTED		U64_MAX
+>> +
+>> +#define PERF_MAP_ALL_UNSUPPORTED					\
+>> +	[0 ... PERF_COUNT_HW_MAX - 1] = {HW_OP_UNSUPPORTED, 0x0}
+>> +
+>> +#define PERF_CACHE_MAP_ALL_UNSUPPORTED					\
+>> +[0 ... PERF_COUNT_HW_CACHE_MAX - 1] = {					\
+>> +	[0 ... PERF_COUNT_HW_CACHE_OP_MAX - 1] = {			\
+>> +		[0 ... PERF_COUNT_HW_CACHE_RESULT_MAX - 1] = {		\
+>> +			CACHE_OP_UNSUPPORTED, 0x0			\
+>> +		},							\
+>> +	},								\
+>> +}
+>> +
+>> +struct riscv_vendor_pmu_events {
+>> +	unsigned long vendorid;
+>> +	unsigned long archid;
+>> +	unsigned long implid;
+>> +	const struct riscv_pmu_event *hw_event_map;
+>> +	const struct riscv_pmu_event (*cache_event_map)[PERF_COUNT_HW_CACHE_OP_MAX]
+>> +						       [PERF_COUNT_HW_CACHE_RESULT_MAX];
+>> +};
+>> +
+>> +#define RISCV_VENDOR_PMU_EVENTS(_vendorid, _archid, _implid, _hw_event_map, _cache_event_map) \
+>> +	{ .vendorid = _vendorid, .archid = _archid, .implid = _implid, \
+>> +	  .hw_event_map = _hw_event_map, .cache_event_map = _cache_event_map },
+>> +
+>> +static struct riscv_vendor_pmu_events pmu_vendor_events_table[] = {
+>> +};
+>> +
+>> +static const struct riscv_pmu_event *current_pmu_hw_event_map;
+>> +static const struct riscv_pmu_event (*current_pmu_cache_event_map)[PERF_COUNT_HW_CACHE_OP_MAX]
+>> +							   [PERF_COUNT_HW_CACHE_RESULT_MAX];
+>> +
+>> +static void __init rvpmu_vendor_register_events(void)
+>> +{
+>> +	int cpu = raw_smp_processor_id();
+>> +	unsigned long vendor_id = riscv_cached_mvendorid(cpu);
+>> +	unsigned long impl_id = riscv_cached_mimpid(cpu);
+>> +	unsigned long arch_id = riscv_cached_marchid(cpu);
+>> +
+>> +	for (int i = 0; i < ARRAY_SIZE(pmu_vendor_events_table); i++) {
+>> +		if (pmu_vendor_events_table[i].vendorid == vendor_id &&
+>> +		    pmu_vendor_events_table[i].implid == impl_id &&
+>> +		    pmu_vendor_events_table[i].archid == arch_id) {
+>> +			current_pmu_hw_event_map = pmu_vendor_events_table[i].hw_event_map;
+>> +			current_pmu_cache_event_map = pmu_vendor_events_table[i].cache_event_map;
+>> +			break;
+>> +		}
+>> +	}
+>> +
+>> +	if (!current_pmu_hw_event_map || !current_pmu_cache_event_map) {
+>> +		pr_info("No default PMU events found\n");
+>> +	}
+>> +}
+>> +
+>>   static void rvpmu_sbi_check_event(struct sbi_pmu_event_data *edata)
+>>   {
+>>   	struct sbiret ret;
+>> @@ -1670,8 +1736,10 @@ static int __init rvpmu_devinit(void)
+>>   	 */
+>>   	if (riscv_isa_extension_available(NULL, SSCCFG) &&
+>>   	    riscv_isa_extension_available(NULL, SMCDELEG) &&
+>> -	    riscv_isa_extension_available(NULL, SSCSRIND))
+>> +	    riscv_isa_extension_available(NULL, SSCSRIND)) {
+>>   		static_branch_enable(&riscv_pmu_cdeleg_available);
+>> +		rvpmu_vendor_register_events();
+>> +	}
+>>   
+>>   	if (!(riscv_pmu_sbi_available_boot() || riscv_pmu_cdeleg_available_boot()))
+>>   		return 0;
