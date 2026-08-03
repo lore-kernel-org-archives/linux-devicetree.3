@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D383B83E0
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 09:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A8C3B8D41
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 09:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785747818; cv=none; b=FQSobVJNzpLZ/4+JnlhYLLuQdn1X3MmkycoQun+XR/Zppm8hOL3JS4LFoK7ElZySct7tKnjxcXDUi9Ms9VJCN8HIclx3cBgYEGFjV8VlhFYebxpJnrBdaDi6S5e7xaZlHYQ11GzuoUW7jxMWKIMHD12jTdPx7XFMyVYyjJsqeTs=
+	t=1785747825; cv=none; b=REvLspy47uSfk49eXom3G6u9vl0IoQGOh68H+luqsS0CY/2qXsP4J/Ris9WhaJWgBbRYUR+uMYTMXYf30h1m8Oeveg5DfuY8bOfSTSHaBGRAzxVlCTSvp9x+pTAltsKeGFlXth6tPTCL6rmYMvo79m6s60eJPz5ZHIHa/J+lDlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785747818; c=relaxed/simple;
-	bh=LjkbmCe6vn81FFu+ZMtn1oaw7c6HMT27qU1FnMtVjvE=;
+	s=arc-20240116; t=1785747825; c=relaxed/simple;
+	bh=+ehgfCq88a330bC4aVlKBlM7axSaqvHg7R8ENeXWgqE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O5m3OhFRoVhxDVw7A3H1ebOWt6m41wPwYXUdWQAEECr46ApRDoLbdaGNmMvqJxintj5Wm0oILIXLKVFRKamfndn4VgCb0CcwxNT617z2r0BpEByjpYL22VcOFxzfK7zhWk/BvyqYummEpLR2QZMVeQo1+k6D44XLx9axwqaNT3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Bcy+8QSf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FvtqocVa; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=KFEqwvQomB2YPbD4HgkgxfZHe2crv0BZl7nkW8aoSUJANq3CkhRsvS/9HNjYYjmfDnAKvrcgGJVGuESm0NAlq8lZR8LiqemapmJQjUcb4Nt9I9CT1D5WjtDqm+gk4TfhjFX90OHKU+sfd03AORaMvGxG9kK9U7Gf0KyT5/BmbUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=H+OsUYkw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dJSaWiJR; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Bcy+8QSf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FvtqocVa"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6737Duth4041882
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 09:03:36 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="H+OsUYkw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dJSaWiJR"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6736Db6L3882607
+	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 09:03:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fnX+Bhb9Lb7raNVA3JPHSL8HRf4LFQTpLNpp44RNZTM=; b=Bcy+8QSfYHPu0TsH
-	0UXAdFWoQ/JZT4q730JwAlc/9yrmCJfzYm0sd4MEsFCjoaoKhPKI3Q/UY6oYFIgi
-	AR8l4N9BIlP4+4i4KGGTD/Oo7iFyhtc1DH3Fi0p7bOF+enmuZnM8cELP1IOrOP0i
-	fYTqNVxPP92jOzRFLrOBbRZ9CdDAraNZAiZA6jfuQfpQttzLKJe+FsBVPUgCZD3b
-	C7jakTwC2JhUW8tNKnHE+YieJiv2JAqO46BQpG9xRNvpzOpL8l9BmBNPW84thdim
-	OLUq+lNbuSubS1Q4Cdu8pwwpEp+BpvhCJqDJ9KU2zV77vIIhpdAyf2MjiZ1uLyh0
-	n+4X2A==
+	qfS7xPNcUV5R2reXYO78DYUur2fRiq7mPGCcABscjcY=; b=H+OsUYkwa4nO4n0B
+	2b9+1QXRraWlpJbV63HPmm1NGR0nsiGfErttlcetNB63Gp0hmANHlNmcaY1vHfRp
+	9dRuGfH/pnhZSlyjJZNBgXOEzlrN3qkWoshBzy/fkieob7ZeCEsUwCP8TKx6kH/Q
+	QzThXyksNWZNNm/1Vsx9qbokmfUiRbHtKL2gHPraBVo/Z91PaJpHvssIywx7ie/N
+	t3BinxHVJ2JXBJ5TzLT1/zPE6QxCufr2TKy/8vLu4eEddVWRjCCUBIz7XdXjZqfc
+	oB2sEFuirEkYo/zK11LgO0fGkxi1nPD3P1iTh+KOMuheXbitOcqI1KWvjER1tsjQ
+	HR0a7g==
 Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnvngnbm-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnhkgqse-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:03:35 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c21c01cf3so57203581cf.2
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 02:03:35 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:03:41 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1d137a68so58973031cf.3
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 02:03:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785747815; x=1786352615; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785747821; x=1786352621; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fnX+Bhb9Lb7raNVA3JPHSL8HRf4LFQTpLNpp44RNZTM=;
-        b=FvtqocVaSFOEgyWFcfeJAQ1cMw9seRuJ1pePIWUSF4BpMMLHV3J4+5QIAGfRc8m32n
-         OIJT1sDcul7X0bfs6x7b4rPe80HXaqCfKKHobMwdrnFPdhMJ7rZxgqO7IrrM/en/VWq+
-         SXqPfQ5yWvhfMngRUz/SBwQvzS9Qyr/IV/O61RDygbgY0a2g74bIfXi9MqhaMo52bkgz
-         XrAaTKpzlNJINhZV3CxUDFRndXUXbur2Yn7/FzOFIRECa4HrgdetsVok4bhqbKz24MFE
-         dB782V5dmeaitt0mwu6BSv4N7WeANLMqmEP3e+HwsnvDIWAKwczpbxsxI55mBajOcD6p
-         ZU5g==
+        bh=qfS7xPNcUV5R2reXYO78DYUur2fRiq7mPGCcABscjcY=;
+        b=dJSaWiJRwWNN4wUXaMOwNIyAF4u2dbUKvp9DlHha0S2ejhUHYO4x9Sf/GlpWHfg7Pg
+         FdWqpP2hxnMx6q+8TgPYExNSk7iOPchk6yBMFH5Sswoq1CwHw3QIDEq7kQ5ilczFe0BO
+         ngHlACYnPU+pI54rPQ7ckcoMbfatSrwgJiRCnb3xKwXzdR3mZHefRfmCk37gE5M5hLlE
+         5N/QFZ/un7woGT5AU72qZkYKnnXYqQ1IG3PKry6mRHOsIx2k8bDn1fEd09XPmiQs/kRo
+         IMulmcgH5AbME0PCJmP58n1XRHGCdzAJrHyC6Qd9zT2FQY742SN9nHZNyEhvJgL+hgOv
+         nPLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785747815; x=1786352615;
+        d=1e100.net; s=20251104; t=1785747821; x=1786352621;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fnX+Bhb9Lb7raNVA3JPHSL8HRf4LFQTpLNpp44RNZTM=;
-        b=fv6Ly/VbtKFd14pLNy/7axbnCK0XLDqbEsCMOFNSWqSkLUmPBqhIzYr10rhlyheREA
-         6E9RL5CJVTYScBXm89LVbmO8qQ2XR83Pdy2+iZPFhWwZiXzta5TIN5EBXUNFsgTLz14T
-         Sr07/hk0BPR9qc7EkmaE0mx+MXCabtGic17Mc9dCuYQ8Ax7X1wQlqPzbwkS9JOzGYWDI
-         wONK5R/3LRFprM/qIbT1k2RUWXXxUVdAx10xQu8UrlpCzayKwBzHm8uyK8vnOBwMkVp2
-         JKGnp27lVrIWYWhbL1wxMi4S0snl9vpPBMbJ5IuBZl8JL1puKHPEBd2de8gKwuDaabbD
-         6Bpg==
-X-Gm-Message-State: AOJu0YxJ5WNyutUb85JqSM004nYBfbjJgFJRq4IMJelOBYJ+z0Jwydvq
-	kBzzLop4JIHb8RqxKD1fPUeDimmX87cAwBTwWdTPWNO7i/55TmAIzsbPINhn4RCOLok2UfxR53p
-	4YPlxCcytSTKdAVyTunBExhQ1gh9XYRmNE3+spna6Z8Olp6sHorHiLVeMuqcC+z8O
-X-Gm-Gg: AR+sD11MmwX2Bb9Thdbxems1STJhkuAzONBkZA4aoyN5iLUjZq8WkQhYKH7bNE4xIU9
-	vXNDSbe+/jbp56G6kOtQG7ssWd04FzCa2nKH7c+M7k6DZCbgtW8dHGZorlqruyUFPcQlyrvqjKF
-	r6LPp7IuCm5OCdSEtK0dClvHrfNqG9pYGqHQZ9KgfQdAkoZGi94eJN78RHnppg4E3wU5X/ykUQN
-	JWQ5bP0gtLIGY76EVfGTsR/W1TMhvv8VuTeklK/oUxa4vCZsl4acR2TMSRH51neoThJrhdDQQPr
-	MEGZ8NqtQ4qQS9dJFvymQZ/Im81lTgsZE7Lb6pagK/m+53SU1GjAj2INe8WguqZJaiSJMZQBu1f
-	GpvdZdecZjMWjvlmE614iw+66
-X-Received: by 2002:a05:622a:480b:b0:527:7d0f:709c with SMTP id d75a77b69052e-52b567d0f3emr181101181cf.42.1785747815226;
-        Mon, 03 Aug 2026 02:03:35 -0700 (PDT)
-X-Received: by 2002:a05:622a:480b:b0:527:7d0f:709c with SMTP id d75a77b69052e-52b567d0f3emr181100751cf.42.1785747814785;
-        Mon, 03 Aug 2026 02:03:34 -0700 (PDT)
+        bh=qfS7xPNcUV5R2reXYO78DYUur2fRiq7mPGCcABscjcY=;
+        b=dRTFSrzJ1nnrtAfESHZWfyx3Va7IuxShjcNV/DMU72wcBoJhE1I400g3NyixfbqAFE
+         8KVy30n4Rbt2NXIRtW1vC3krJ0OHV5TZj8Imuc5nWJ3UhQ93lKlWMs+u9kkRZwAtWd65
+         r2JTugLJJTl7Z++DJ5BTBYl2o6I2V5h/Td52SobQeDBhJQkXMzI0ezeDW6BrcJqWbgkC
+         5zO9FRpo4Q6pz4Gh8LpGaDlXVzUJ5lKZYs4uruY83//cM9keZEfdCI26oqV0SqOLuQ0D
+         Q3olp7iejapsc6pTe90W0MclohIhXzeM59P4V3HniZKgaSjqsoK6+WST+gEfD6NZgbbt
+         fmlw==
+X-Gm-Message-State: AOJu0YxpdFaMF+F+Vl+28io7lkakGw27ceMeguV3rrrgp6ipsWa2Mm/Q
+	hHhmNsS9cpEOI2aqWejFmhQCENuu7Ua7m10YOz0vdGVrZGtC77tb1mV/YYLakc8Nv/WUXWBj18x
+	mpx4LuVe6+CM+qp0Ft4pR+szGTJCzUP+f9s5m+aBzm7jmtFmgRLrECHgLPy+Xii1Q
+X-Gm-Gg: AR+sD11GGXSw1uXUFlG5fidP/e5iyQlBb3Rx2xEywWdGwEqTOb3UblOhfmO/Iia/6ao
+	1NWKbKK5QDbeXROqP9zqWu/3N6wTVvqp+Xn3IR3lV4Srhgxyi7rr5gyYT9NUHPjzazR56TGqf1Z
+	DPZILe8zjO2eW6wUBOkok9ZSuyTesJNJIEHA9EQx5lR1A9Z+/4cLWUxYVZQJGCPa4WSkGUtkA2s
+	tLezf4VkhhD8eK+/6WTEauz3yX2/f+pTCUP4Topjf/MleOqNEivZJwdeYV1x+Dz+kF/BHqahwat
+	Nk88Q+AjnGwq58YhHyjKPTXeOo5wMYfFCzy/b9bSYvctvcSFMDUbzljGlT0AAHykHSvPqZZxfOw
+	opTzIMaYIU9AcK6ftVkSXFdAI
+X-Received: by 2002:ac8:5808:0:b0:51c:511:c5 with SMTP id d75a77b69052e-52b566abe43mr168063291cf.16.1785747820209;
+        Mon, 03 Aug 2026 02:03:40 -0700 (PDT)
+X-Received: by 2002:ac8:5808:0:b0:51c:511:c5 with SMTP id d75a77b69052e-52b566abe43mr168062891cf.16.1785747819725;
+        Mon, 03 Aug 2026 02:03:39 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456a6d7sm31858493f8f.19.2026.08.03.02.03.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456a6d7sm31858493f8f.19.2026.08.03.02.03.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 02:03:33 -0700 (PDT)
+        Mon, 03 Aug 2026 02:03:38 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Mon, 03 Aug 2026 11:03:05 +0200
-Subject: [PATCH v3 02/11] dtc: dt-check-style: Simplify setting depth of
- DtsLine
+Date: Mon, 03 Aug 2026 11:03:07 +0200
+Subject: [PATCH v3 04/11] dtc: dt-check-style: Handle sorting of top-level
+ nodes and properties
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-n-dts-style-checker-continued-v3-2-6c9776928cea@oss.qualcomm.com>
+Message-Id: <20260803-n-dts-style-checker-continued-v3-4-6c9776928cea@oss.qualcomm.com>
 References: <20260803-n-dts-style-checker-continued-v3-0-6c9776928cea@oss.qualcomm.com>
 In-Reply-To: <20260803-n-dts-style-checker-continued-v3-0-6c9776928cea@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
@@ -99,171 +99,616 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5042;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20420;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=LjkbmCe6vn81FFu+ZMtn1oaw7c6HMT27qU1FnMtVjvE=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqcFlX7rP3/bps2wQR5+1Pp5z3NfWThWrh63kxX
- Rm19NVuXiCJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCanBZVwAKCRDBN2bmhouD
- 1zKBD/9nP/0DnnPL/v76mDdbXbBi3vnwkdAhz8N1oYlhQp3Nco2lylxN0vKr9qiWd5hXHFWMHKN
- L/9iX3W1b/1GATb2SRJV09Z6Uvz174t+qJ6Qe7GMqHe2DBXJJ2D1/KxSmc7aN+Ij89rltsf59zk
- 1+YMKQzFWFw+VVB8QSZjPU9cppwujl/0+AYt5Hf8neW6QavFsEYjZBjxotBMzsH6D7YkdtHzK3g
- fr4DG/kdPm0aRNWIc0OTC8p4CAxc8+kzl9+SE+qTlMa9bAwCgW/SwL3txjZz69TfHJoXw1lFg8i
- 1QFJ0NOeIA/7HBEttq0xTkLKz4xd74QbhSHqjUG3GBu9aeDyJK2AhVtGQi2WPfF4c7wKdk/D5XF
- bh634bV0+ULCcvqH/K/ImrsqNn40z1odHuPsPLtOxFtylpIWngflx7PXoSj/IW3AQhDGunl5lLY
- HzNsOZFJA1JBxfnzYM+H6jzzGprysEtqnkgZE9Q9d8/vjRHrEAg2az2Jw2cyESrSQPnEgkbRkch
- oJr7QE7Ys4GxDOV4njYAiXAEQF/Y9mtpLcUyJ5aWSs6P0IGr0OF0eI1HGU20PGdmaj+0KsGIV59
- CQEAzYTjP2CUqpZYhocZbHPFk4SRsSJ+cWnPJWHkdDt1UTpU7u/Zf1ix296GnOc3IDROlFRF6S0
- AmUt2xRe6hEXBMA==
+ bh=+ehgfCq88a330bC4aVlKBlM7axSaqvHg7R8ENeXWgqE=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqcFlYHwrGUFNm8yI94HF1GbHn5Kv7cMIgH4uXX
+ 7D2+mjMniaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCanBZWAAKCRDBN2bmhouD
+ 10TBD/45mUJmowNJwo0RfTjffS8itme6lHJJJhTOz2KCl9BjPwMm3dFHCRyqtfw8fo4IrioeT5O
+ bPcFI7FXKZLub+0MCtm9+5KH1GZV63yH27H8j5JPC55FEj4dFisH6anZSXi8sixS1SxECebNjPE
+ OpSvUQHfMSb7CQMrxwdiIylsZ3VtLpGSq2H5+QPrIhxH5PANz0ftRXEnyem9SGs9tx84f29TgxC
+ 8Pz68Ol6b4D+/nm3hFU7g8o3eBhI6U928HBMZgYvPEpZkwKF6GxYf+p2LM5GP7f71RrvE295Zrk
+ l14PBCgMwitWkKP7nRJrHYecjJB2mj1bWOs1y9wJ8GTDl6eMHFcjFJsxCaM0hhLwYcyswMObSm/
+ yJ1l9a7vzWtYAC/Z6IhVfzIQlKJOue16nM+1Jr4MM2B0riQ3vuN6lUiClYAT/cC5D3t2svzUM/S
+ JbNw6yuDIaLSyPchBHV0FA5GorWB+bQpFRSA/QsHlB8VRxbw5DqSRDqcM0PTa4PlboIJ2GFFeec
+ MEiHu6/GVYqgU+AAJ//q/1JJCk84SvOxJzrtfh6St7Fsvw5lcgP7aJWJ8Zs63qUVrCLarxatK+9
+ eISaOxgFOHSVYQyTWtSqphyqj++Wu/ASXe4gE4DyEZonmh/PfFrvx9UqeNCO2P7NGmkkfLK7Ey2
+ UFvNSEZGNdOx30A==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=aoaCzyZV c=1 sm=1 tr=0 ts=6a705967 cx=c_pps
+X-Proofpoint-GUID: iRdJGfnwQQAEWBO7sSrW0RFnHx7LRJAt
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX7DuAO5eTK7hT
+ sGKAO/7Ro4cdqZNRxcAC/vJONhVUpXIa0bw2CKPVXECUg4iKZ/SFGQdcP4Xo/WKrfgQsqTmC1li
+ 0DfojH6hhvtd/+m6x5nBNe/tG0HizFMh45OIfsMurQLYh20fQHfcJSrSf5jNjDyogDvgub1pRFu
+ NsKl8QqCF7dLd2Uk9nf6vQQK4N0WXO/QzfDJH0Npk6xnrvH21nmlLIpDVSy1sXcYPMC2H3oQYdu
+ r6zUw7nrJ8N46/fX1F9h0L4wmt5wHEoWMSpkp2uCFFFiSv5KgBAByt3TdEQ24o7j9VpeKsI0/iM
+ sa9i3H4vhFHWflj2XHCaqijxgSKaAUqoU9xiGEUtccV0erwFlGNsiBsDTfugvgbxx6foWemNAGx
+ QHJhFbgFoi+IrmAmjjjm3/6jfi8t1uIezUHaw2w+/kHIL9T4XHfD5rOoMGRyZhjdkFVSicc48xy
+ 3qbPrR2sYPHXz2T5VVA==
+X-Proofpoint-ORIG-GUID: iRdJGfnwQQAEWBO7sSrW0RFnHx7LRJAt
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX5GlJGa17fLUM
+ Yb6f9kw4W04B/qqE4leHIvaXKPAboVkcr6g9Lcavy3UW31D9dggDoqut2U8TBCZsAkLWOI9JQB0
+ V0xAt7Um3V0wGLA9FIibC5IQSWdveMs=
+X-Authority-Analysis: v=2.4 cv=UIjt2ify c=1 sm=1 tr=0 ts=6a70596d cx=c_pps
  a=WeENfcodrlLV9YRTxbY/uA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=8sziXlxsN6MBhN6jAs0A:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=M31IkpsM9wu0Ilc1mG4A:9 a=QEXdDO2ut3YA:10
  a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: NdW8fTmSpPW6HtykiVMCAvPVZluy4y1Z
-X-Proofpoint-ORIG-GUID: NdW8fTmSpPW6HtykiVMCAvPVZluy4y1Z
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX0oWClFg37V8K
- ysjZzcdJZ4z/gFjkY9TWkV29whngnvD+ZLa49eYzjrkHkYsUJIOqTAi2TFWru0atu5jvLyjwhiY
- cLyHcObhMVQrA80JGpnnJUNcgZPnkoNHvjvEeRjyVhl25rh+TY2yGlpl/+SwCp4urnqZdSPdlm3
- pgV42cyWb9Qg/a6pmcOqzEzwUyAkipBk7nVLgnfagcTVb910NpjqG504FO9CG3wQ5zX6hzNYIPx
- SI0GYDHinE1wDA89ewyya3ee7kzZ9JspMzmqNC53CIXec/3lK0ysnzV1vn+SqjAwMd7oy/Dy6wG
- iUFwBsMCG2rXVCh72GKenJKr0P8DB2tOpCUvbvE1ukcsWAWixDyZKil+pDyPuNrukILLNTfXWxT
- QszNpx9LJoIOA5x4JwTQR3s1YCI5ORb0NW94oP4rQ4UDRMORJ7hwDlsOTZSjgAJ/52AsL1pqKvK
- 7HuiZtHFr2b45Lf4JYQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX3wBKdQjLbPW+
- HuThHQZuM5jx57oABrJb8lW/dah44Z7/0sUhHqYo9ikuKXpkE2Tw9QO74CnfLO0eZ3luFweZIZp
- mfC4T67irtUBb2sCTw2WQZesEMBGm7s=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030080
+ malwarescore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 bulkscore=0 adultscore=0 spamscore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608030080
 
-When creating new DtsLine object, pass expected indentation depth as
-constructor, instead of assigning it immediately after, so the code will
-be easier to read and explicit (depth is not supposed to change during
-DtsLine lifetime).
+Top-level DTS (but not example in the bindings) has only two nodes with
+unit-addresses: memory@ and soc@.  There are two special cases here, in
+terms of coding style:
+
+1. The unit-address of memory is often not known thus set to @0, because
+   it is filled up by bootloader.
+
+2. There is mixture of non-unit-address and unit-address nodes.
+
+Therefore usually the DTS chooses for the top-level part sorting by the
+node name, not the unit address.
+
+Also the properties have one exception: 'model' property is supposed to
+be before the 'compatible'.  This cannot be applied to the entire DTS,
+because sound cards have also 'model' where it is supposed to follow
+standard rules (after the 'compatible').  Root node is just special.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- scripts/dtc/dt-check-style | 31 +++++++++++--------------------
- 1 file changed, 11 insertions(+), 20 deletions(-)
+ scripts/dtc/dt-check-style                         | 60 +++++++++++++++++++---
+ .../bad/dts-child-name-order.dtso                  | 33 ++++++++++++
+ .../dt-style-selftest/bad/dts-digit-node-order.dts | 40 +++++++++++++++
+ .../bad/dts-digit-node-order.dtso                  | 41 +++++++++++++++
+ .../dt-style-selftest/bad/dts-property-order.dts   |  5 ++
+ .../expected/dts-child-name-order.dts.txt          |  1 +
+ .../expected/dts-child-name-order.dtso.txt         |  3 ++
+ .../expected/dts-digit-node-order.dts.txt          |  2 +
+ .../expected/dts-digit-node-order.dtso.txt         |  2 +
+ .../expected/dts-property-order.dts.txt            | 13 +++--
+ .../expected/dts-property-order.dtso.txt           |  1 +
+ .../good/dts-child-name-order.dtso                 | 33 ++++++++++++
+ .../good/dts-digit-node-order.dts                  |  3 --
+ .../good/dts-digit-node-order.dtso                 | 41 +++++++++++++++
+ .../dt-style-selftest/good/dts-property-order.dts  |  5 ++
+ .../dt-style-selftest/good/dts-property-order.dtso | 47 +++++++++++++++++
+ 16 files changed, 315 insertions(+), 15 deletions(-)
 
 diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-index 3985923622e8..96deffc0d8a7 100755
+index d9f76d6d9179..f9e5762862a5 100755
 --- a/scripts/dtc/dt-check-style
 +++ b/scripts/dtc/dt-check-style
-@@ -82,11 +82,12 @@ class DtsLine:
-                  'node_name', 'node_addr', 'label', 'ref_name', 'depth',
+@@ -79,7 +79,7 @@ def is_preprocessor(stripped):
+ class DtsLine:
+     __slots__ = ('lineno', 'raw', 'linetype', 'indent_str', 'stripped', 'is_root',
+                  'prop_name', 'continuations',
+-                 'node_name', 'node_addr', 'label', 'ref_name', 'depth',
++                 'node_name', 'node_addr', 'label', 'ref_name', 'parent', 'depth',
                   'closures')
  
--    def __init__(self, lineno, raw, linetype, indent_str, stripped):
-+    def __init__(self, lineno, raw, linetype, depth, indent_str, stripped):
-         self.lineno = lineno      # 1-based within the block
-         self.raw = raw
-         self.linetype = linetype
-         self.indent_str = indent_str  # leading whitespace as-is
-+        self.depth = depth
-         self.stripped = stripped
-         self.prop_name = None
-         self.continuations = []
-@@ -94,7 +95,6 @@ class DtsLine:
+     def __init__(self, lineno, raw, linetype, depth, indent_str, stripped, is_root = False):
+@@ -96,6 +96,7 @@ class DtsLine:
          self.node_addr = None
          self.label = None
          self.ref_name = None
--        self.depth = 0            # filled in by classify_lines
++        self.parent = None        # DtsLine of parent node
          self.closures = 1         # count of '}' on a NODE_CLOSE line
  
  
-@@ -162,16 +162,14 @@ def classify_lines(text):
-         # or a blank line).
-         if in_cpp_macro:
-             dl = DtsLine(i, raw, LineType.PREPROCESSOR,
--                         indent_str, stripped)
--            dl.depth = depth
-+                         depth, indent_str, stripped)
-             out.append(dl)
-             in_cpp_macro = (bool(stripped) and
-                             stripped.rstrip().endswith('\\'))
+@@ -495,16 +496,24 @@ def _walk_bodies(lines):
+     """Yield lists of immediate-child NODE_OPEN lines for each node body
+     in the input. Skips ref-nodes (&label) since those don't have an
+     intrinsic ordering."""
++    # Array of stacked nodes (parent/child)
+     body_stack = [[]]
++    # Current stack of nodes, purely to track parent relationship for each node
++    node_stack = []
++    parent_dl = None
+     for dl in lines:
+         if dl.linetype == LineType.NODE_OPEN:
++            dl.parent = parent_dl
++            node_stack.append(dl)
+             body_stack[-1].append(dl)
+             body_stack.append([])
++            parent_dl = dl
              continue
- 
-         if not stripped:
--            dl = DtsLine(i, raw, LineType.BLANK, '', '')
--            dl.depth = depth
-+            dl = DtsLine(i, raw, LineType.BLANK, depth, '', '')
-             out.append(dl)
+         if dl.linetype == LineType.NODE_CLOSE:
+             if len(body_stack) <= 1:
+                 # Unbalanced; ignore to avoid crashing on malformed input
+                 continue
++            parent_dl = node_stack.pop().parent
+             yield body_stack.pop()
              continue
+     while body_stack:
+@@ -525,12 +534,18 @@ def _natural_sort_key(s):
  
-@@ -180,15 +178,13 @@ def classify_lines(text):
-                      else LineType.COMMENT_BODY)
-             if ltype == LineType.COMMENT_END:
-                 in_block_comment = False
--            dl = DtsLine(i, raw, ltype, indent_str, stripped)
--            dl.depth = depth
-+            dl = DtsLine(i, raw, ltype, depth, indent_str, stripped)
-             out.append(dl)
+ def check_child_address_order(ctx):
+     """Addressed siblings (foo@N) must appear in ascending address
+-    order within their parent node body."""
++    order within their parent node body.
++    Exception: Top-level in DTS follows name order, regardless of unit address
++    in memory@N and soc@N nodes
++    """
+     for children in _walk_bodies(ctx.lines):
+         addressed = []
+         for c in children:
+             if c.node_addr is None:
+                 continue
++            if c.parent and c.parent.is_root:
++                # Top-level does not use unit address sorting usually
++                continue
+             try:
+                 parts = tuple(int(p, 16) for p in c.node_addr.split(','))
+             except ValueError:
+@@ -548,12 +563,16 @@ def check_child_name_order(ctx):
+     """Unaddressed siblings must appear in natural-sort order by node
+     name within their parent node body. Addressed children are scoped
+     by check_child_address_order; reference nodes (&label { ... }) and
+-    the root node are skipped."""
++    the root node are skipped.
++    However root node has children with and without unit address, and
++    sorting should be only by name."""
+     for children in _walk_bodies(ctx.lines):
+         unaddressed = []
+         for c in children:
+             if c.node_addr is not None:
+-                continue
++                # Skip nodes with unit address, except when sorting top-level
++                if not c.parent or not c.parent.is_root:
++                    continue
+             if c.node_name is None:
+                 continue
+             if c.is_root:
+@@ -597,6 +616,30 @@ def _property_bucket(name):
+     return (5 if ',' in stripped else 4, None)
+ 
+ 
++def _property_bucket_root(name):
++    """Return the canonical bucket index for a property:
++       0 model (for root nodes only)
++       1 compatible
++    Plus a sub-key inside the bucket for fixed slots (device_type, compatible,
++    reg, reg-names, ranges, status). 'standard' and 'vendor' return None for
++    the sub-key, signalling that the within-bucket key is computed by
++    the pairing rules."""
++    stripped = name.lstrip('#')
++    if name == 'model':
++        return (0, 0)
++    if name == 'compatible':
++        return (1, 0)
++    if name == 'reg':
++        return (2, 0)
++    if name == 'reg-names':
++        return (2, 1)
++    if name == 'ranges':
++        return (3, 0)
++    if name == 'status':
++        return (6, 0)
++    return (5 if ',' in stripped else 4, None)
++
++
+ # Declarative pairing rules: each is a callable
+ #   (name, all_names) -> anchor_name_or_None
+ # If a rule returns an anchor, the property sorts immediately after the
+@@ -633,13 +676,16 @@ def _pair_x_names(name, all_names):
+ PAIRING_RULES = (_pair_pinctrl_names, _pair_x_names)
+ 
+ 
+-def _property_sort_key(name, all_names):
++def _property_sort_key(dl, name, all_names):
+     """Sort key for a property among its node-body siblings.
+ 
+     Format: (bucket, within_key, tiebreak). 'within_key' for
+     standard/vendor buckets follows pairing rules: a property paired
+     with anchor X sorts as if it were X with a higher tiebreak."""
+-    bucket, fixed_sub = _property_bucket(name)
++    if dl.is_root:
++        bucket, fixed_sub = _property_bucket_root(name)
++    else:
++        bucket, fixed_sub = _property_bucket(name)
+     if fixed_sub is not None:
+         return (bucket, (), fixed_sub)
+ 
+@@ -674,7 +720,7 @@ def check_property_order(ctx):
+         if len(props) < 2:
              continue
+         all_names = [p.prop_name for p in props]
+-        keyed = [(p, _property_sort_key(p.prop_name, all_names))
++        keyed = [(p, _property_sort_key(dl, p.prop_name, all_names))
+                  for p in props]
+         for k in range(1, len(keyed)):
+             if keyed[k][1] < keyed[k - 1][1]:
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dtso b/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dtso
+new file mode 100644
+index 000000000000..74b49be69e98
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/bad/dts-child-name-order.dtso
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	pmu {
++		compatible = "example,pmu";
++
++		/* Include labels to be sure they do not affect sorting */
++		foo: foo {
++			label = "foo";
++		};
++
++		label_bar: bar {
++			label = "bar";
++		};
++	};
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	pmu-2 {
++		compatible = "example,pmu";
++
++		/* Just reference labels to avoid strict warnings */
++		example,foo = <&foo>, <&label_bar>;
++	};
++};
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dts b/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dts
+new file mode 100644
+index 000000000000..74c956398324
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dts
+@@ -0,0 +1,40 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	pmu {
++		compatible = "example,pmu";
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		serial@20000 {
++			compatible = "example,serial";
++			reg = <0x20000 0x1000>;
++		};
++
++		interrupt-controller@10000 {
++			compatible = "example,intc";
++			reg = <0x10000 0x1000>;
++			interrupts = <1 2 3>;
++		};
++
++		serial@30000 {
++			compatible = "example,serial";
++			reg = <0x30000 0x1000>;
++		};
++	};
++};
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dtso b/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dtso
+new file mode 100644
+index 000000000000..052c02935a45
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/bad/dts-digit-node-order.dtso
+@@ -0,0 +1,41 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	pmu {
++		compatible = "example,pmu";
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		serial@20000 {
++			compatible = "example,serial";
++			reg = <0x20000 0x1000>;
++		};
++
++		interrupt-controller@10000 {
++			compatible = "example,intc";
++			reg = <0x10000 0x1000>;
++			interrupts = <1 2 3>;
++		};
++
++		serial@30000 {
++			compatible = "example,serial";
++			reg = <0x30000 0x1000>;
++		};
++	};
++};
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts b/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts
+index 782cd55ec283..e675e5e05a46 100644
+--- a/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts
++++ b/scripts/dtc/dt-style-selftest/bad/dts-property-order.dts
+@@ -6,6 +6,11 @@
+ /dts-v1/;
  
-         if (stripped.startswith('#') or stripped.startswith('/')) and is_preprocessor(stripped):
--            dl = DtsLine(i, raw, LineType.PREPROCESSOR,
-+            dl = DtsLine(i, raw, LineType.PREPROCESSOR, depth,
-                          indent_str, stripped)
--            dl.depth = depth
-             out.append(dl)
-             prev_complete = True
-             in_cpp_macro = stripped.rstrip().endswith('\\')
-@@ -205,14 +201,12 @@ def classify_lines(text):
-         # structural classification entirely.
-         if not code:
-             ltype = LineType.COMMENT_START if opens_block else LineType.COMMENT
--            dl = DtsLine(i, raw, ltype, indent_str, stripped)
--            dl.depth = depth
-+            dl = DtsLine(i, raw, ltype, depth, indent_str, stripped)
-             out.append(dl)
-             continue
+ /  {
++	compatible = "example,test-board", "example,test-soc";
++	model = "DT style selftest";
++	qcom,board-id = <8 0>;
++	chassis-type = "handset";
++
+ 	cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt
+index e2eea0862102..312a45ed913a 100644
+--- a/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt
++++ b/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dts.txt
+@@ -1,2 +1,3 @@
+ # mode=strict
+ bad/dts-child-name-order.dts:16: [child-name-order] child node 'bar' out of name order
++bad/dts-child-name-order.dts:21: [child-name-order] child node 'memory' out of name order
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dtso.txt b/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dtso.txt
+new file mode 100644
+index 000000000000..e44ceb24ece8
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/dts-child-name-order.dtso.txt
+@@ -0,0 +1,3 @@
++# mode=strict
++bad/dts-child-name-order.dtso:17: [child-name-order] child node 'bar' out of name order
++bad/dts-child-name-order.dtso:22: [child-name-order] child node 'memory' out of name order
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dts.txt
+new file mode 100644
+index 000000000000..1f41acdea0b0
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dts.txt
+@@ -0,0 +1,2 @@
++# mode=strict
++bad/dts-digit-node-order.dts:29: [child-address-order] child node @10000 out of address order
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dtso.txt b/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dtso.txt
+new file mode 100644
+index 000000000000..21db32f6e639
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/expected/dts-digit-node-order.dtso.txt
+@@ -0,0 +1,2 @@
++# mode=strict
++bad/dts-digit-node-order.dtso:30: [child-address-order] child node @10000 out of address order
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
+index 4bc21328625f..29283f3451c7 100644
+--- a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
++++ b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dts.txt
+@@ -1,6 +1,9 @@
+ # mode=strict
+-bad/dts-property-order.dts:15: [property-order] property 'compatible' out of canonical order (should sort before 'reg')
+-bad/dts-property-order.dts:16: [property-order] property 'device_type' out of canonical order (should sort before 'compatible')
+-bad/dts-property-order.dts:25: [property-order] property 'dma-coherent' out of canonical order (should sort before 'status')
+-bad/dts-property-order.dts:30: [property-order] property 'compatible' out of canonical order (should sort before 'ranges')
+-bad/dts-property-order.dts:40: [property-order] property 'compatible' out of canonical order (should sort before 'interrupts')
++bad/dts-property-order.dts:8: [redundant-whitespace] extra whitespace before {
++bad/dts-property-order.dts:10: [property-order] property 'model' out of canonical order (should sort before 'compatible')
++bad/dts-property-order.dts:12: [property-order] property 'chassis-type' out of canonical order (should sort before 'qcom,board-id')
++bad/dts-property-order.dts:20: [property-order] property 'compatible' out of canonical order (should sort before 'reg')
++bad/dts-property-order.dts:21: [property-order] property 'device_type' out of canonical order (should sort before 'compatible')
++bad/dts-property-order.dts:30: [property-order] property 'dma-coherent' out of canonical order (should sort before 'status')
++bad/dts-property-order.dts:35: [property-order] property 'compatible' out of canonical order (should sort before 'ranges')
++bad/dts-property-order.dts:45: [property-order] property 'compatible' out of canonical order (should sort before 'interrupts')
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt
+index a78b8c042aa5..124183fab2ad 100644
+--- a/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt
++++ b/scripts/dtc/dt-style-selftest/expected/dts-property-order.dtso.txt
+@@ -1,4 +1,5 @@
+ # mode=strict
++bad/dts-property-order.dtso:11: [property-order] property 'model' out of canonical order (should sort before 'compatible')
+ bad/dts-property-order.dtso:13: [property-order] property 'chassis-type' out of canonical order (should sort before 'qcom,board-id')
+ bad/dts-property-order.dtso:21: [property-order] property 'compatible' out of canonical order (should sort before 'reg')
+ bad/dts-property-order.dtso:22: [property-order] property 'device_type' out of canonical order (should sort before 'compatible')
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dtso b/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dtso
+new file mode 100644
+index 000000000000..477b13b1ac2e
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/good/dts-child-name-order.dtso
+@@ -0,0 +1,33 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	pmu {
++		compatible = "example,pmu";
++
++		/* Include labels to be sure they do not affect sorting */
++		label_bar: bar {
++			label = "bar";
++		};
++
++		foo: foo {
++			label = "foo";
++		};
++	};
++
++	pmu-2 {
++		compatible = "example,pmu";
++
++		/* Just reference labels to avoid strict warnings */
++		example,foo = <&foo>, <&label_bar>;
++	};
++};
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts b/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts
+index cdf3f91ebe01..2b21dde7f3c8 100644
+--- a/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts
++++ b/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dts
+@@ -5,13 +5,10 @@ / {
+ 	#address-cells = <1>;
+ 	#size-cells = <1>;
  
-         if not prev_complete:
--            dl = DtsLine(i, raw, LineType.CONTINUATION, indent_str, code)
--            dl.depth = depth
-+            dl = DtsLine(i, raw, LineType.CONTINUATION, depth, indent_str, code)
-             out.append(dl)
-             prev_complete = (code.endswith(';') or
-                              code.endswith('{') or
-@@ -227,26 +221,23 @@ def classify_lines(text):
-         if re_only_closures.match(code):
-             closures = code.count('}')
-             depth = max(depth - closures, 0)
--            dl = DtsLine(i, raw, LineType.NODE_CLOSE, indent_str, code)
--            dl.depth = depth
-+            dl = DtsLine(i, raw, LineType.NODE_CLOSE, depth, indent_str, code)
-             dl.closures = closures
-             out.append(dl)
-             prev_complete = True
-             continue
+-	/* TODO: uncomment when child-address-order is fixed for top-level */
+-	/*
+ 	memory@a0000000 {
+ 		device_type = "memory";
+ 		reg = <0x0 0xa0000000 0x0 0x0>;
+ 	};
+-	*/
  
-         if code.endswith('{'):
--            dl = DtsLine(i, raw, LineType.NODE_OPEN, indent_str, code)
-+            dl = DtsLine(i, raw, LineType.NODE_OPEN, depth, indent_str, code)
-             parse_node_header(dl)
--            dl.depth = depth
-             out.append(dl)
-             depth += 1
-             prev_complete = True
-             continue
+ 	pmu {
+ 		compatible = "example,pmu";
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dtso b/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dtso
+new file mode 100644
+index 000000000000..79ea2deec789
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/good/dts-digit-node-order.dtso
+@@ -0,0 +1,41 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	memory@a0000000 {
++		device_type = "memory";
++		reg = <0x0 0xa0000000 0x0 0x0>;
++	};
++
++	pmu {
++		compatible = "example,pmu";
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		interrupt-controller@10000 {
++			compatible = "example,intc";
++			reg = <0x10000 0x1000>;
++			interrupts = <1 2 3>;
++		};
++
++		serial@20000 {
++			compatible = "example,serial";
++			reg = <0x20000 0x1000>;
++		};
++
++		serial@30000 {
++			compatible = "example,serial";
++			reg = <0x30000 0x1000>;
++		};
++	};
++};
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-property-order.dts b/scripts/dtc/dt-style-selftest/good/dts-property-order.dts
+index 0e183e3459cd..3d847cc9fa3e 100644
+--- a/scripts/dtc/dt-style-selftest/good/dts-property-order.dts
++++ b/scripts/dtc/dt-style-selftest/good/dts-property-order.dts
+@@ -6,6 +6,11 @@
+ /dts-v1/;
  
-         # Property (or first line of a multi-line property).
--        dl = DtsLine(i, raw, LineType.PROPERTY, indent_str, code)
-+        dl = DtsLine(i, raw, LineType.PROPERTY, depth, indent_str, code)
-         parse_property_name(dl)
--        dl.depth = depth
-         out.append(dl)
-         prev_complete = code.endswith(';')
- 
+ / {
++	model = "DT style selftest";
++	compatible = "example,test-board", "example,test-soc";
++	chassis-type = "handset";
++	qcom,board-id = <8 0>;
++
+ 	cpus {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+diff --git a/scripts/dtc/dt-style-selftest/good/dts-property-order.dtso b/scripts/dtc/dt-style-selftest/good/dts-property-order.dtso
+new file mode 100644
+index 000000000000..5ae78541f68b
+--- /dev/null
++++ b/scripts/dtc/dt-style-selftest/good/dts-property-order.dtso
+@@ -0,0 +1,47 @@
++// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++/*
++ * Test fixture: Incorrect property order
++ */
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	model = "DT style selftest";
++	compatible = "example,test-board", "example,test-soc";
++	chassis-type = "handset";
++	qcom,board-id = <8 0>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu@0 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a57";
++			reg = <0x0 0x0>;
++			enable-method = "psci";
++		};
++	};
++
++	pmu {
++		compatible = "example,pmu";
++		dma-coherent;
++
++		status = "disabled";
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		ranges = <0 0 0 0xc0000000>;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		interrupt-controller@10000 {
++			compatible = "example,intc";
++			reg = <0x10000 0x1000>;
++			interrupts = <1 2 3>;
++		};
++	};
++};
 
 -- 
 2.53.0
