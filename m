@@ -1,174 +1,158 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB95412BF0
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 15:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8194B3242A4;
+	Mon,  3 Aug 2026 15:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785770249; cv=none; b=hT4iuLjKjOhqaYHDXlKhmGQF8Evii5Vt4iXvf/wV/HUfsCiKRnWgWbGT9XQcZig9ki84TsWQS2vpORU/Ix6AQgJ7apOK6NWkHyUBnKbY+g53PGGlnrYF0yHPQyVrLb13mdqgnHvv/p1qzszf+KRUFpQNTjGerhSdeiZwAY+sEYk=
+	t=1785770279; cv=none; b=k3L1Dryr5l0h8m7qQG1twDlTePNJqN9yezXbPFPfxhevUDr8roxPP2emYjYQ7UI9+GDMtJq/VtNRxRY67Gd71yDz+SFycuoD52WY1WE7t7dKB9kutlCwiTmea5+YNLAMIeF1utBWbka4PjeNC+wWlrm4c8/7K791tf3fTi4YLX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785770249; c=relaxed/simple;
-	bh=Tg2c5hSCmf4R8GHhniWyNjrjuYL6rS8mvKvO0Rjnhuk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nnzRP59H5RAQS0m3KR4o7FY+dxOtHdRXYT+x62qhChMH39VRqQQHH0m1MTICxoeFRxsRA6wumHCiPHXyClBZ+xNacg4mBzGvjUBvUNGTcPWgolmqPcvw6HGadIV003V7KhSktpxRTJ86uFCHNT6IOqnlTnXoS7+JVYKAN4pQbIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Zz4SWlT/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=mXU3yDj8; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1785770279; c=relaxed/simple;
+	bh=soSEqzDnwQ1aex2KUZpN+z6bYr4irSG1QXDqt7TlF7A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J6s1JphhLpzk+vv3OJEJtrfbWPMWxKbnJ4F1mgMAt3j/52vh0iPg3VY+dj5/mhsTostb637i6ut/it9F/fC6e8Q0x0CIncnw+/1f+4iTTwgwoTOB8yBtLDVmpEB0Exufflyv7raWmoTFMp9w0QvYssgUMXmJJn0zYDv9GtoXDAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UAo7ptbf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Zz4SWlT/";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="mXU3yDj8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785770245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CISqUyNrQHnuig4NG6zWObmoUM7qsn/M6rO8iF8GMa0=;
-	b=Zz4SWlT/Ho4Ro80EfMM4dWEGc0lLq3zukxv/YKRmvp+3sAoZ4LE/Nyb3zEd29BJnLZz5Bz
-	vlh9+PXYkzFQQzmHQf/nAZpH0iH/GiLhdTCDvuep6uHJgPB9MqIZGlZRybSxW2bODA19RY
-	+vnftvrkM5QMdSa+xkEr82IT/CMs/GM=
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-282-XulfJc5WOcGFGLom-8HhRg-1; Mon, 03 Aug 2026 11:17:19 -0400
-X-MC-Unique: XulfJc5WOcGFGLom-8HhRg-1
-X-Mimecast-MFC-AGG-ID: XulfJc5WOcGFGLom-8HhRg_1785770238
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-81ec0eb032aso115993907b3.1
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 08:17:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785770238; x=1786375038; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=CISqUyNrQHnuig4NG6zWObmoUM7qsn/M6rO8iF8GMa0=;
-        b=mXU3yDj8sgvW1Lz2y0uH3xGhrctJRqqPSLaZfb+GkguOPtEFs6GQWVeKOOyxzcZqnt
-         wsSSxVcw595yPKu/cwJNHNrLr/9aScc4zZDOoalXviSj/zq0U7yvUg2jXeuRF/weLKSD
-         II3tFVp9zhZs8eKOw8Xm5zfTG5yJoqIfCJTrkBv6oVAMJcTDsTDxaGvYsEKsJVh8ixKa
-         +GNiv1yKmGPTdnICLq+Wt4fwPb/NJA0uNt6ntqQYfU2v2b571lRE9hlNbuTPtkbjxiTr
-         r34uvbKP1F9WitGVan/aCGoJwLgpYKxbaJ9FFJRlAa6c5SC/ciLtuFau26pLhH8x0R0c
-         l0lg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785770238; x=1786375038;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CISqUyNrQHnuig4NG6zWObmoUM7qsn/M6rO8iF8GMa0=;
-        b=aRIdsdOyzflIwx8LHKfT5JQf3rKJv2i5M3cPUslJbiXSBfxalAaa0NCAkQueMb6Vr1
-         dxt5CZWFOuGy+pjDvcsIdgOMehkx5KtvM2aChWPxpbNZ/10JFzcO5m1zGCUa3odoxQzZ
-         C5AHH7XuVRGJdLJM+aHvsJ/odZe+qPfHAMBftoAkukHlMbba71T8kU0C/EoVL0Ar3xv2
-         ryC7n6GB9IlobDgVanCWQLi6IWBYQWhTEdk5l9t7ypXs8Eir61X5U27F/QLutetnWT3U
-         smbliRl1Qto1OpJIKyKvqw0ZrzYcfkafK1b8LqkkSOcyoqT2mYfBsgaTPRHE77WHi3vD
-         /Y7w==
-X-Forwarded-Encrypted: i=1; AHgh+RpB4I90Hok+9LJHy7dxfLC0GBNgt2eAmnub4Pxd+fa8h6w98nwwmCZ1UWUD4OPe0CUNqA6HZmUu89Ot@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx56sCoSdaXUN1jeCS6z5kzG/kHlYIit/nncHaWs/+6CDoA6UqJ
-	02siA7fVvv+A0XT1+umFmyDqE0VWEHpwJG8vf7dzylR8m/tSAWf/P+Fhxb017kpLg4TZVoM07Vd
-	1HjJHH4phPFuxhnfRIL1I2o0mYN74Cnfrs/xktLXfJoLU1Ic0A5FubgcAFNNwJZI=
-X-Gm-Gg: AR+sD11v/VhGUoT1EB2myfKXo5Ew6TV/rwCHGtxL9ZLLFaLgb2TOVJu3F6v2319AfyK
-	phB7ohfSwEyJBVNdsVX9ERJ79/lRpV2FtSOVD7rhLAC8TZ+vGJ4LVgQawDb6yA+WKrPXbxqPSB1
-	Fvj0TifSHcoKLcr6hULt42q9N8irbpRYPGjcB/XKyXdPoIaVo7toaXTJqurWWKGU5y/JdNGw9cl
-	wTagIUM1fNFQENp8IN6K2jsyngXdsgwfJ4vm4ZeVlpwTXCXEP+ebhJRLdiGoFLX0a8J+R9GoCaw
-	P5Bit2zdJMY634kXqLnfkZf9YVk+GrFRfZgeoHcXpj6KOqCrGD7hCKG+z1oquXoZcNBkXPh9q3V
-	WOC+ROtj20E3cJXHwT22k8+fuMjyeKkmZ/p4=
-X-Received: by 2002:a05:690c:450d:b0:7d1:dd7b:b734 with SMTP id 00721157ae682-81fd4b5a2c8mr136703307b3.23.1785770238441;
-        Mon, 03 Aug 2026 08:17:18 -0700 (PDT)
-X-Received: by 2002:a05:690c:450d:b0:7d1:dd7b:b734 with SMTP id 00721157ae682-81fd4b5a2c8mr136702797b3.23.1785770237899;
-        Mon, 03 Aug 2026 08:17:17 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fccf2e239sm57358447b3.5.2026.08.03.08.17.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 08:17:17 -0700 (PDT)
-Date: Mon, 3 Aug 2026 11:17:14 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Edward-JW Yang <edward-jw.yang@mediatek.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Chen-Yu Tsai <wenst@chromium.org>, kernel@collabora.com,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	Irving-CH Lin <irving-ch.lin@mediatek.com>
-Subject: Re: [PATCH v5 18/25] clk: mediatek: Add MT8189 vlpckgen clock support
-Message-ID: <anCw-ozpIjYfan5O@redhat.com>
-References: <20260801-mt8189-clocks-system-base-v5-0-ac4410697cc2@collabora.com>
- <20260801-mt8189-clocks-system-base-v5-18-ac4410697cc2@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UAo7ptbf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5FF1F00A3A;
+	Mon,  3 Aug 2026 15:17:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785770278;
+	bh=TNA7GdkAswJiqC3JDVltfJ/np3RxwXSiqHv7NKRjLLU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UAo7ptbf/DNg1ropP/nHqdL8ytmjkZv630Ohkx0gfsuDrmk6hEK+D2BWwMz12JXeA
+	 8Z4KVXPkCZSnVHqewCytLlJmdW3pNsrzt5AB+OykrHKFEwdZ4lEXP+8FC4jZNELMhl
+	 JzPs/Q6dYLjoFpTavsm/aYIDM3VHHoLy/+0B7RYU/64xGejrgKj5D7Rc4k+QKv8OOP
+	 Z2+Vw6Qm37K04RNDKaSMYlrF1VyT4QfGvapEM2JAxKcvboN6hsFdmllZjsAbudIV+X
+	 wCxRe4NYHQPbvYrLJMvRtpjXvW/T1w0ijeXUxwoJlGKpxzk5zDvKYeDOmrOB16A4nS
+	 h3LdbaNyWOFlg==
+Message-ID: <b79be791-8e11-4891-93c5-0e9c51397b08@kernel.org>
+Date: Mon, 3 Aug 2026 17:17:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801-mt8189-clocks-system-base-v5-18-ac4410697cc2@collabora.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: can: add arasan canfd controller
+To: Jisheng Zhang <jszhang@kernel.org>, Marc Kleine-Budde
+ <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260803140531.12692-1-jszhang@kernel.org>
+ <20260803140531.12692-2-jszhang@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260803140531.12692-2-jszhang@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Louis-Alexis,
+On 03/08/2026 16:05, Jisheng Zhang wrote:
+> Add documentation for the arasan canfd controller.
 
-On Sat, Aug 01, 2026 at 01:21:04PM +0200, Louis-Alexis Eyraud wrote:
-> Add support for the MT8189 vlpckgen clock controller, which provides
-> muxes and dividers for clock selection in vlp domain for other IP blocks.
+Here goes hardware description. What is arasan canfd?
+
 > 
-> Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-> Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-> Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
 > ---
->  drivers/clk/mediatek/Makefile              |   3 +-
->  drivers/clk/mediatek/clk-mt8189-vlpckgen.c | 285 +++++++++++++++++++++++++++++
->  2 files changed, 287 insertions(+), 1 deletion(-)
+>  .../bindings/net/can/arasan,canfd.yaml        | 63 +++++++++++++++++++
+>  1 file changed, 63 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/can/arasan,canfd.yaml
 > 
-> diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
-> index 9d3d2983bfb2..3b25df9e7b50 100644
-> --- a/drivers/clk/mediatek/Makefile
-> +++ b/drivers/clk/mediatek/Makefile
-> @@ -123,7 +123,8 @@ obj-$(CONFIG_COMMON_CLK_MT8188_VDOSYS) += clk-mt8188-vdo0.o clk-mt8188-vdo1.o
->  obj-$(CONFIG_COMMON_CLK_MT8188_VENCSYS) += clk-mt8188-venc.o
->  obj-$(CONFIG_COMMON_CLK_MT8188_VPPSYS) += clk-mt8188-vpp0.o clk-mt8188-vpp1.o
->  obj-$(CONFIG_COMMON_CLK_MT8188_WPESYS) += clk-mt8188-wpe.o
-> -obj-$(CONFIG_COMMON_CLK_MT8189) += clk-mt8189-apmixedsys.o clk-mt8189-topckgen.o
-> +obj-$(CONFIG_COMMON_CLK_MT8189) += clk-mt8189-apmixedsys.o clk-mt8189-topckgen.o \
-> +				   clk-mt8189-vlpckgen.o
->  obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
->  obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
->  obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
-> diff --git a/drivers/clk/mediatek/clk-mt8189-vlpckgen.c b/drivers/clk/mediatek/clk-mt8189-vlpckgen.c
+> diff --git a/Documentation/devicetree/bindings/net/can/arasan,canfd.yaml b/Documentation/devicetree/bindings/net/can/arasan,canfd.yaml
 > new file mode 100644
-> index 000000000000..8eda5331972e
+> index 000000000000..a120c11ce304
 > --- /dev/null
-> +++ b/drivers/clk/mediatek/clk-mt8189-vlpckgen.c
-> @@ -0,0 +1,285 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2025-2026 MediaTek Inc.
-> + *                    Qiqi Wang <qiqi.wang@mediatek.com>
-> + *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
-> + * Copyright (C) 2026 Collabora Ltd.
-> + *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> + *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-> + */
+> +++ b/Documentation/devicetree/bindings/net/can/arasan,canfd.yaml
+> @@ -0,0 +1,63 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/can/arasan,canfd.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/slab.h>
+> +title:
+> +  Arasan CAN-FD controller
+> +
+> +maintainers:
+> +  - Jisheng Zhang <jszhang@kernel.org>
+> +
+> +allOf:
+> +  - $ref: can-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: arasan,canfd
 
-There are also some headers that can likely be dropped here as well. I'm
-not going to comment on this on any other patches. I'll just list any
-new issues I see.
+This is way too generic. Why isn't there any integration compatible?
 
-Brian
+Please follow writing bindings.
 
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 2
+
+Instead list and describe items
+
+> +
+> +  clock-names:
+> +    items:
+> +      - const: can
+
+can is too generic, not really useful. Same for resets.
+
+
+Best regards,
+Krzysztof
