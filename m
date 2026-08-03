@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1089F390CB5;
-	Mon,  3 Aug 2026 16:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E825338B7D6;
+	Mon,  3 Aug 2026 16:59:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785776337; cv=none; b=bvIeBuGvD7WVldddepJ0pcpM1IGycaSU621oBNTQjpJ0jNTaBAWgsGCEVaaEktzKHgiiHinZsdXlMG5G+w4axm1FfJao5/dWV9c4CdrH6Pcuwlqe8n5AFVYAVMOemvkSzHz1T8M5s5aGZHUWkRwkmtV5IaNND2Nmsh8AJ5pQjf4=
+	t=1785776342; cv=none; b=rX7RPYCDgYtrj9jaXs80FMKAYwCnZuiyMSfC9eYpPxXmOhfvIc0jxhfDMBdexiUVYP3mTGXX6OA8uyjf95oJFVyYGQan6SDNL2x2VEp0IyGiLLsVg4pyZv0I8RkJcD2vaf9vo5KQXSQII3gMSh2CGw/rPImy/7NgpW/v/OKoxuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785776337; c=relaxed/simple;
-	bh=MCpMJYs95hX7XnYN3C1mpMTfVimOIxZoL75dV/frPTs=;
+	s=arc-20240116; t=1785776342; c=relaxed/simple;
+	bh=BAEQrlJqrouW5uCPmtDZMCviSOhGCyYupanKmxINdbo=;
 	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=XLBn6ykmJfwFy/kymUxOVeZXPerYbFfwVj4If2JAmOylCw1GJcdAEJktW4b/dIPOciUzwJuShmeiCekj0k8dGYc8QyKvuNyng4tJUG4rvRP9AjSdyu2wJFsBF7qcA4EwXjFavVJ14tu1ho1yUunJmL2tX5gH6guoW8RzsD8TNXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UAlwpDeF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=QpAcUAamUxMwiQAU2iOZDKmMbnG9zUPg4v5ilxh6R+HHvy7ljCFYIVRqmVNT+5XDxF/oAip28y4XgFXOgD/muxgekgB9DBbpS6ixMp1oyKcnr9NAMv0xuvwjX3lBdB2+1GVTWNJKZds7sVFNEhFXOwnUtYdzmI/Lk2ayMIfdtgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f39wxxK9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UAlwpDeF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499251F000E9;
-	Mon,  3 Aug 2026 16:58:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f39wxxK9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4AA1F000E9;
+	Mon,  3 Aug 2026 16:58:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785776335;
-	bh=/+DalorzNNAXGuMO9CXpxRAiHqIyaZJ8YhD6g/XBZ2A=;
+	s=k20260515; t=1785776340;
+	bh=PW4q0KQmWMHecwKrmolSBkPoiVQTjYKQPNP+4cmx9Is=;
 	h=From:To:In-Reply-To:References:Subject:Date;
-	b=UAlwpDeFnDjgljcdNpRssOd5bTF60/M8BCPFvNJbyx6irv18Y1ECquyToMwsHK57p
-	 tn1hV4j4yxMnQgBLTRgylo4b/AgZo6UIdvQgjfiuGOglT615COpJS6dGAsGi8Oa2F6
-	 jlLhL0DvypOCI0CjMFpAkzuu35BP7sKhFXVQEYTtzMEz1NrkwhPhmUQ9XJq59TYTVX
-	 Go4woXkhLcP9AHMzBkDbU+wQv7DgNVujnqLDaxeuqCFtNPIV+ytrClVu8fyPn6bnw2
-	 h/ykgrBHuiyl2aGIA562gRje2TH9eJpvNvEvxxK1vmlr/ZTIU555w/gpb5oOAXysVY
-	 6k3lQ5JpTCj6w==
+	b=f39wxxK9k0xTJe8LldySaRpQqzD/1yfoAjAcGFk56H/qoiuIHPlGol9qNUytGrAn6
+	 q7S+yJwoyI3qObIrHKSSXIGEhF4udJxLhqnmWhYtkD/6wfTogYi+cPvD6TVr8ULKdl
+	 4dbQA4CaU2LwTB4srlfE9FuUahLGhgJC2N9F9+2ey2di4gqnxiNNQoe1Xt8kQT3Xp4
+	 bPJjwGrxLH47q7PuDFC7aESxHnlTM0nSZr8iLjYK/Kwl6bgz8DcGnSqkzzvdrsXGL4
+	 NVTz3stVJX1yxGg2+pwrs3TP0uG21eHtmDHgMsKRxrjhUFFI+hoG+ZwECLdR72mJBA
+	 C/OTI0aLND8zA==
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+To: Jagan Teki <jagan@amarulasolutions.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Igor Prusov <ivprusov@salutedevices.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- John Madieu <john.madieu.xa@bp.renesas.com>, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, 
+ Troy Kisky <troy.kisky@boundarydevices.com>, 
+ Laxman Dewangan <ldewangan@nvidia.com>, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260801195425.234120-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260801195425.234120-2-krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH] ASoC: dt-bindings: Correct white-space style
-Message-Id: <178576320596.255647.13467259013744121256.b4-ty@b4>
-Date: Mon, 03 Aug 2026 14:20:05 +0100
+In-Reply-To: <20260801195440.234183-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801195440.234183-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] regulator: dt-bindings: Correct white-space style
+Message-Id: <178576580811.255647.18095123204094746997.b4-ty@b4>
+Date: Mon, 03 Aug 2026 15:03:28 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,29 +49,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1113; i=broonie@kernel.org;
- h=from:subject:message-id; bh=MCpMJYs95hX7XnYN3C1mpMTfVimOIxZoL75dV/frPTs=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqcMjMJzIY1WiYJU0QvrYfyU6yJkqSWnS9iLTXh
- mK42kb9UI2JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanDIzAAKCRAk1otyXVSH
- 0Ph2CACCMsyKb76l27CvI0GWZsqf/rLB+vgphmZXiGNL40RO6L5RMLEiqfl1g27+NCT/EfuWJsj
- mxTHSJrYQxnCVVzDDpNO+V63jSBr3VRUeuKSn+KdQ7vNSpA0oNuX2m+WzksFyEGUWdLX0juL2al
- inGRbxkj0pcRmTEk6sSKHNjLP35UruAxD674XbADdhNt/K+SO0lsbA6Vym7IUUKYaI9tfrL7ONv
- jzb+v04rwvXwcvLFFN4rp23Elcmuh0y8+o7V4n5WmYsaE6rwaUHja/Lp5jz8M+b4vALq7t5Vcjk
- c9IqLFsWQTiofP637BMgtrva+DvIiOg1P2QyJ2lIoK3AgBco
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1131; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=BAEQrlJqrouW5uCPmtDZMCviSOhGCyYupanKmxINdbo=;
+ b=kA0DAAoBJNaLcl1Uh9AByyZiAGpwyNHIT1ue/F4HdkJBLOkdMMU7z6E3TP/F+4fzb1kkXBTYB
+ okBMwQAAQoAHRYhBK3maKpnVxi1n+Kf6iTWi3JdVIfQBQJqcMjRAAoJECTWi3JdVIfQjN4H/2v6
+ nEQa25SSoAPreRwONowf56pMDeqPB5TGvCk6ny+/tu5M7A9mKNsREhdqrDX2MU4XykdmgrGG4DT
+ 3PZ8h4l52N9AVKsDn2bTWWyQLS26mhx+Ev59OlrnVUtMpcwMgLEd1q1cDuCv/wVS9p7ukrg/KbL
+ 7aC0Wz8J5wbt2krr3oN642eNpXU+65Uo73kWxc0la6FxVRWkzEvkcP6aSL3luD0STALZ6n3dz5L
+ XQJ7Db/hx0dJbrJBEYjDBi4XlzPP8LLdAOj1JDJVkujyP9IQXSu0nXraXzt/aVeZI3/ueqRzNbG
+ QjwoBbHyQrKZF70RaAkEG2uw5liUIIOsL+IeYGA=
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sat, 01 Aug 2026 21:54:26 +0200, Krzysztof Kozlowski wrote:
-> ASoC: dt-bindings: Correct white-space style
+On Sat, 01 Aug 2026 21:54:41 +0200, Krzysztof Kozlowski wrote:
+> regulator: dt-bindings: Correct white-space style
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: Correct white-space style
-      https://git.kernel.org/broonie/sound/c/abea6e6abdbe
+[1/1] regulator: dt-bindings: Correct white-space style
+      https://git.kernel.org/broonie/regulator/c/6f06147a5df6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
