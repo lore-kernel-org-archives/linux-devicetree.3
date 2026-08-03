@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7387A39B943;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D8D39C015;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785738863; cv=none; b=FDLF5dhBth/TdiBQvoRop8BHKG7TwGt8GDf+XRWCFvs3lKROi8R1cb8kf1/a6ae1QRKE/xVvpFyIXSZV/eVRbezDctSSmwHDQ1yarCad+vgrg4Cv0ISltxIWfkll3ciWe0Kj1LPbto/MCPRd2zs71wQ9+K5ujG56VMLqQUdgDb4=
+	t=1785738863; cv=none; b=pHpLZ1QVw+bSskmWyzoX/HyoVLZz5h3V0EfmQ6fXdr3ssM0avDYP/xB6erPQ3n870e/+I354fht8K7FZ25jFBT6FlqhWKVo7EE76ETzms6xTJgcUqUqpbck7XvOx7S1LdNWiuWhkZzqS2FTTZSwvd/WsYrwVq92bcWoZ2AtTL54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785738863; c=relaxed/simple;
-	bh=YP9dM2ri6SYkEDriM4K7b3rx7ToJDC/PR8bJa4YIsb4=;
+	bh=RHjYr6A9bDGWoSjs7vbkBnNLu0X993I4pOtfEg0ex3E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kcWngUKsvMvgGQ2zuC/T0d0LaJwjOML14kb07GmUJBCRyzqQA3BLcpq4FGZB72hA44oaLmwE9RBJluB60i/eL42qAFeIXGJWvQ6LOmnCmKSzqNWSSwBPsovlvmpptNXF2P8AnpiBN4FG462xINB9I4KStGefVO0qfn/jjBXobUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jGHTIf8w; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=UWsBhVhiVRsD0bM2A/CROwUH96IrxzzmT/5Ydd25ptM+6UBopnRnBfO1oLu60mSl9fKRX/LswoRdUggSGY28sad60GkyLcCQ3vKf8qzG8EBshPKzMneAf9SiIjLOM2l68HYbzQqEMDM5IVLaKm4+ZV7Gli83r7PDNtrZDU8DPq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d1Hs4w49; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jGHTIf8w"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3B6F8C2BD04;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d1Hs4w49"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 51FD5C4AF10;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785738863;
-	bh=YP9dM2ri6SYkEDriM4K7b3rx7ToJDC/PR8bJa4YIsb4=;
+	bh=RHjYr6A9bDGWoSjs7vbkBnNLu0X993I4pOtfEg0ex3E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jGHTIf8wsXKyOtcMuOv1sfCotuGiSK9+9ICZL9YDobkJBVMk6HFjN8KORbXLWQz4N
-	 hDzzHnDIHRRtnnAjTGLsFpTSqJTeDWpFy30obilxZNoRrpYbni2Dorxh2EegLjgk4M
-	 OgpGdFVhMsysUgBS+GSx6SfhwN9vAo7i/GEa4JDeOY/RmT4A648h6GAAxmFnb5tm6J
-	 vHW06E32tYobPhQChRhTAtdjUsGErYy7OVVrlJQESohmbN+MT16N/ew3Fi+M0a7Arg
-	 TQENIXq3pt+HHVY9zDry+xfGJ6t4APwPcWTsLSge3sxbYlyZKBd486GCkghgvm/XId
-	 ebSC7afq62xJA==
+	b=d1Hs4w49d9NvpNMtSm+Z1nZ8kMpJ8ruIhQ2tvfDQ1LHNMBcyd1/raotFThB2TIVOy
+	 2QWnHUKVFhFVeRRhc+6B9tNyHsqaAjLMqLtKTwfeA4alKe92pCd+1vnoCCezsnP1DC
+	 43fH36t8mGFS4WXnQJDqNRsi1gpuOjVNY6Rlp6YBUMy2SKclmm67q7RgrL00VdFniN
+	 HKZ5p9wHCN7iHgCCHSDjXFQq7s/eMz6LTSOjI596/jJLCQMulTPF7CxpvcgQ0nxqNR
+	 0bocBNyblIy+1oL7STlfQJOdQCIwCg7EMNCTynVzezE/KMlOnRLUaGnaa6tIS5Eguh
+	 /8Yrg8k4h3HaA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D327C5518C;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DA11C5518E;
 	Mon,  3 Aug 2026 06:34:23 +0000 (UTC)
 From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Mon, 03 Aug 2026 08:34:02 +0200
-Subject: [PATCH 04/28] arm64: dts: qcom: sdm845: Fix swapped USB QMP PHY
+Date: Mon, 03 Aug 2026 08:34:04 +0200
+Subject: [PATCH 06/28] arm64: dts: qcom: sm8150: Fix swapped USB QMP PHY
  vdda-phy/vdda-pll supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-phy-supply-fix-v1-4-5880630cde3e@oss.qualcomm.com>
+Message-Id: <20260803-phy-supply-fix-v1-6-5880630cde3e@oss.qualcomm.com>
 References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 In-Reply-To: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -55,16 +55,16 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Manivannan Sadhasivam <mani@kernel.org>, 
  Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6478;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3477;
  i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=mBGTc2+AZnjEfAn8jbUG8I9jasDyu2Eu0VcfvKAbU6g=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBqcDZihvHjxwaN2ifCtNmopIqN8OPzrexyTODfO
- sEIirJz3R6JATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCanA2YgAKCRBVnxHm/pHO
- 9cGAB/4qE/7i7/83O9mFTqDr5QFl0DJQ3NAr9v9eTSQ4rZjUy8UJAc195Q4BKYZbtqJC+vAv6lt
- Ew8Q1dpex3ZigY/5upNf+dPYNbzwwqNBkrb8c1CtMJteHJQyOzIfV/fSqWuV/ErSFjxqBvdWTsH
- wf4s3QJx/Z0GYpDc6BfObcbHxDd9HT3u1ZzPDWjNP86WkE59PttrYgnBZ8D1CBD9vEDWi/OOORj
- 0WksqxH725MrIf3BHvhB4OHdXCd4nnYb6QyShraaeh/emA4Hs728zcTF8FEvrn84AAPgK6YLiuj
- mkUOxPdc/D0im0UKm+63rCfvY4RuKb2bUh4cuFHwbs85OcL8
+ bh=R9gWgGPsJc/ReITNmuw8OdtfAfHDTeozmBiKZBujo5w=;
+ b=owGbwMvMwMUYOl/w2b+J574ynlZLYsgqMEveIpdlUGaUEvVx0cl9RyIqlHumtsRUefT2sq3p+
+ H/dLYS/k9GYhYGRi0FWTJElfamzVqPH6RtLItSnwwxiZQKZwsDFKQATyYti/+/W5Tu559g902/H
+ HrtGSqSImITzZ7esbGdL+2H4Six8ktcspuf3/5+Q92vP7FvjUseVcvVVR975s7y6PG3R8cWL+gq
+ DYj99al3rOWWvs+eF+zfkpYVF7pnLybxLybZawzS/tSju1gWT6n0pK4+VW2X/aMz60dGS/ajxV4
+ BXS++xCX4qdod85HhrzYot3nz2zYjyCT5Qea5y/zXpwhuHlqTc1a8o+v49UM+ZreDizMTKAx8XO
+ 8+NPTxBq/mskvmBAx255emrOj6GXf/SvISpd4XQ1r6k0i+T/RbcPlOw5Pc35U1v5STPv483sihT
+ qT+9Z2HMRZ/NpbY+Zy1OHG0SnxhR7aVUfrDi9KcfGRmrAQ==
 X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 X-Endpoint-Received: by B4 Relay for
@@ -81,170 +81,89 @@ vdda-pll.
 
 Fix it by swapping the two supplies back.
 
-Fixes: 3f72e2d3e682 ("arm64: dts: qcom: Add Dragonboard 845c")
-Fixes: a678adbf2d22 ("arm64: dts: qcom: Add support for Pixel 3 and Pixel 3 XL")
-Fixes: 28ae8aa3923c ("arm64: dts: qcom: add device tree for LG G7 and LG V35")
-Fixes: cfe10d38aa1a ("arm64: dts: qcom: sdm845-mtp: Add nodes for USB")
-Fixes: d711b22eee55 ("arm64: dts: qcom: starqltechn: add initial device tree for starqltechn")
-Fixes: 45882459159d ("arm64: dts: qcom: sdm845: add device tree for SHIFT6mq")
-Fixes: dd6459a0890a ("arm64: dts: qcom: split beryllium dts into common dtsi and tianma dts")
-Fixes: be497abe19bf ("arm64: dts: qcom: Add support for Xiaomi Mi Mix2s")
+Fixes: 0ab1b2d10afe ("arm64: dts: qcom: add sm8150 hdk dts")
+Fixes: b33d2868e8d3 ("arm64: dts: qcom: sm8150: Add USB and PHY device nodes")
+Fixes: d1f781db47a8 ("arm64: dts: qcom: add initial device-tree for Microsoft Surface Duo")
+Fixes: d0a6ce59ea4e ("arm64: dts: qcom: sm8150: Add support for SONY Xperia 1 / 5 (Kumano platform)")
 Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Assisted-by: Claude:opus-4-8
 Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/sdm845-db845c.dts                   | 8 ++++----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi           | 4 ++--
- arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi               | 4 ++--
- arch/arm64/boot/dts/qcom/sdm845-mtp.dts                      | 8 ++++----
- arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts      | 4 ++--
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts            | 4 ++--
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi | 4 ++--
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts           | 4 ++--
- 8 files changed, 20 insertions(+), 20 deletions(-)
+ arch/arm64/boot/dts/qcom/sm8150-hdk.dts                   | 8 ++++----
+ arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts | 4 ++--
+ arch/arm64/boot/dts/qcom/sm8150-mtp.dts                   | 4 ++--
+ arch/arm64/boot/dts/qcom/sm8150-sony-xperia-kumano.dtsi   | 4 ++--
+ 4 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index 02416812b6a7..846138149b2c 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -1121,8 +1121,8 @@ &usb_1_hsphy {
+diff --git a/arch/arm64/boot/dts/qcom/sm8150-hdk.dts b/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
+index 8fb04ce72f91..cdced5c848d3 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8150-hdk.dts
+@@ -801,8 +801,8 @@ &usb_2_hsphy {
+ 
  &usb_1_qmpphy {
  	status = "okay";
- 
--	vdda-phy-supply = <&vreg_l26a_1p2>;
--	vdda-pll-supply = <&vreg_l1a_0p875>;
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
+-	vdda-phy-supply = <&vreg_l3c_1p2>;
+-	vdda-pll-supply = <&vreg_l18a_0p8>;
++	vdda-phy-supply = <&vreg_l18a_0p8>;
++	vdda-pll-supply = <&vreg_l3c_1p2>;
+ 	orientation-switch;
  };
  
- &usb_2 {
-@@ -1147,8 +1147,8 @@ &usb_2_hsphy {
+@@ -812,8 +812,8 @@ &usb_1_qmpphy_out {
+ 
  &usb_2_qmpphy {
  	status = "okay";
- 
--	vdda-phy-supply = <&vreg_l26a_1p2>;
--	vdda-pll-supply = <&vreg_l1a_0p875>;
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
+-	vdda-phy-supply = <&vreg_l3c_1p2>;
+-	vdda-pll-supply = <&vreg_l5a_0p875>;
++	vdda-phy-supply = <&vreg_l5a_0p875>;
++	vdda-pll-supply = <&vreg_l3c_1p2>;
  };
  
- &ufs_mem_hc {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index b2dc0327dff8..ebeebbde6405 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -571,8 +571,8 @@ &usb_1_hsphy {
- };
+ &usb_1 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts b/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts
+index 835ef929ff2d..f37e11bde067 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts
++++ b/arch/arm64/boot/dts/qcom/sm8150-microsoft-surface-duo.dts
+@@ -520,8 +520,8 @@ &usb_1_hsphy {
  
  &usb_1_qmpphy {
--	vdda-phy-supply = <&vreg_l26a_1p2>;
--	vdda-pll-supply = <&vreg_l1a_0p875>;
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
- 
  	status = "okay";
+-	vdda-phy-supply = <&vreg_l3c_1p2>;
+-	vdda-pll-supply = <&vdda_usb_ss_dp_core_1>;
++	vdda-phy-supply = <&vdda_usb_ss_dp_core_1>;
++	vdda-pll-supply = <&vreg_l3c_1p2>;
  };
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-index e0c3566761bf..c14b4b3d9a3c 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-@@ -677,8 +677,8 @@ &usb_1_hsphy {
- };
+ 
+ &usb_1 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8150-mtp.dts b/arch/arm64/boot/dts/qcom/sm8150-mtp.dts
+index 0f2d511624a8..6a6564d8d7f7 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150-mtp.dts
++++ b/arch/arm64/boot/dts/qcom/sm8150-mtp.dts
+@@ -438,8 +438,8 @@ &usb_1_hsphy {
  
  &usb_1_qmpphy {
--	vdda-phy-supply = <&vdda_usb1_ss_1p2>;
--	vdda-pll-supply = <&vdda_usb1_ss_core>;
-+	vdda-phy-supply = <&vdda_usb1_ss_core>;
-+	vdda-pll-supply = <&vdda_usb1_ss_1p2>;
- 
  	status = "okay";
+-	vdda-phy-supply = <&vreg_l3c_1p2>;
+-	vdda-pll-supply = <&vdda_usb_ss_dp_core_1>;
++	vdda-phy-supply = <&vdda_usb_ss_dp_core_1>;
++	vdda-pll-supply = <&vreg_l3c_1p2>;
  };
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-mtp.dts b/arch/arm64/boot/dts/qcom/sdm845-mtp.dts
-index 091568642faa..00ea30afc9f6 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-mtp.dts
-@@ -729,8 +729,8 @@ &usb_1_hsphy {
+ 
+ &usb_1 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8150-sony-xperia-kumano.dtsi b/arch/arm64/boot/dts/qcom/sm8150-sony-xperia-kumano.dtsi
+index 70fd6455518b..6c2e2bf869d0 100644
+--- a/arch/arm64/boot/dts/qcom/sm8150-sony-xperia-kumano.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8150-sony-xperia-kumano.dtsi
+@@ -869,6 +869,6 @@ &usb_1_hsphy {
+ 
  &usb_1_qmpphy {
  	status = "okay";
- 
--	vdda-phy-supply = <&vdda_usb1_ss_1p2>;
--	vdda-pll-supply = <&vdda_usb1_ss_core>;
-+	vdda-phy-supply = <&vdda_usb1_ss_core>;
-+	vdda-pll-supply = <&vdda_usb1_ss_1p2>;
+-	vdda-phy-supply = <&vreg_l3c_1p2>;
+-	vdda-pll-supply = <&vreg_l18a_0p8>;
++	vdda-phy-supply = <&vreg_l18a_0p8>;
++	vdda-pll-supply = <&vreg_l3c_1p2>;
  };
- 
- &usb_2 {
-@@ -761,8 +761,8 @@ &usb_2_hsphy {
- &usb_2_qmpphy {
- 	status = "okay";
- 
--	vdda-phy-supply = <&vdda_usb2_ss_1p2>;
--	vdda-pll-supply = <&vdda_usb2_ss_core>;
-+	vdda-phy-supply = <&vdda_usb2_ss_core>;
-+	vdda-pll-supply = <&vdda_usb2_ss_1p2>;
- };
- 
- &venus {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-index 0d915ecb0444..cd735417addd 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-@@ -949,8 +949,8 @@ &usb_1_hsphy {
- };
- 
- &usb_1_qmpphy {
--	vdda-phy-supply = <&vdda_usb1_ss_1p2>;
--	vdda-pll-supply = <&vdda_usb1_ss_core>;
-+	vdda-phy-supply = <&vdda_usb1_ss_core>;
-+	vdda-pll-supply = <&vdda_usb1_ss_1p2>;
- 	status = "okay";
- };
- 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-index f21b914f22b5..ca503af9b832 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
-@@ -876,8 +876,8 @@ &usb_1_hsphy {
- &usb_1_qmpphy {
- 	status = "okay";
- 
--	vdda-phy-supply = <&vreg_l26a_1p2>;
--	vdda-pll-supply = <&vreg_l1a_0p875>;
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
- };
- 
- &venus {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-index 54e58ca04693..710b296e4964 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-beryllium-common.dtsi
-@@ -645,8 +645,8 @@ &usb_1_hsphy {
- &usb_1_qmpphy {
- 	status = "okay";
- 
--	vdda-phy-supply = <&vreg_l26a_1p2>;
--	vdda-pll-supply = <&vreg_l1a_0p875>;
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
- };
- 
- &venus {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-index a44d6e776c82..cce7348e583a 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-@@ -668,8 +668,8 @@ &usb_1_hsphy {
- };
- 
- &usb_1_qmpphy {
--	vdda-pll-supply = <&vreg_l1a_0p875>;
--	vdda-phy-supply = <&vreg_l26a_1p2>;
-+	vdda-pll-supply = <&vreg_l26a_1p2>;
-+	vdda-phy-supply = <&vreg_l1a_0p875>;
- 	status = "okay";
- };
- 
 
 -- 
 2.43.0
