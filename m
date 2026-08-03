@@ -1,176 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193F43502A5;
-	Mon,  3 Aug 2026 21:27:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04F33B47F5;
+	Mon,  3 Aug 2026 21:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785792444; cv=none; b=TzlQh1ht1ymT5JRvvvcRxJTkVH4bU64a5SEcPl8NZCANcXn+YBg982kVgcJIsh9CItbmcEg431/s6ydl085UQBxMqWn29j71XZpzOWWGpHtUbIbWXHf/oUJnYsEgA2INToImUIpxQvZYn5g2vNsxzb8ll97LSYP/lqw6yj1U4pI=
+	t=1785792710; cv=none; b=qpRI9ADEAOYU4QUYiSrreDS45FZ6XAFI2RFiPkjrjM6vMlMKohc6tD6HOjyVQ3JCcFrn4c2BZe8J1k/5iNYARp+Wfc98GTnT2QTJbs1keRphwGDFRCBY+JBSK3ax/IO4ARbxoPBoLx/bdjMBe4lRJwWkTs94KASWkjt00e/WD14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785792444; c=relaxed/simple;
-	bh=seMLHlEDZy+mTM071EV4Zyx3Om5Ke3BlahHFB9AoDCI=;
+	s=arc-20240116; t=1785792710; c=relaxed/simple;
+	bh=1boA9uu9X/v8Uud12H6iu/wny3ZGrn69G5OCFDpQeqQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NMmT5OaDFOEnhSnR3BjPeJKgT0Mn5t2a+tsj+/IVUV9HDkKrI9n7rGUMeSli6MJvXUZ6VR1xOcQ3ZI6HDcSMuMBFEMZrhfCRw4OApsUpZZu1z9C3x1fK2jYKiLti32kpVy1JMRGh9JExyumkZRkxV8r2OlhxKVm0Om6oJRRPgSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZO90NxIj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nm5fmxyFxMnqVMkaaWWmwHmDk2saz2Y57EQv5hDVNpRxzyhkAsrr9XhiUsRw2CqSKN9Ey5yMsG/U9PoDM9+pw9K3rBUts+0Zd0div3B0qOEBkLkrrKWgYLIUJmi3vTCBgvuZ/vcF3AwA8bKHEDhIDdjh0w5WqfDLAMfE7Xwre84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=njBnbM5c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZO90NxIj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17951F000E9;
-	Mon,  3 Aug 2026 21:27:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="njBnbM5c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393231F000E9;
+	Mon,  3 Aug 2026 21:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785792442;
-	bh=dwJt0rr7dx2w5IxYaj+TelwjH2Zy2+tzGR2gR9KtOjA=;
+	s=k20260515; t=1785792709;
+	bh=/9Ti5n/72tblCcl9KsbLsR8o/ouaD+YWMPOtsNAyORg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZO90NxIjy1QY3zlcoc7etg3cfMu08gPNV1gaTxKuf7h/aB2zxMRFnxNdr1IxlhJfW
-	 N+aHJDOqf0oVk+f630apkufwabyykuWgJmYBrwUpTwbu9FSY4w6mAVC7Sv3u/hUyLs
-	 Fy9yTSeVssHowVZ92O5bdhGZOrVwHaTYTw0/ldI8lTDS81j4SUEQDCaCkuK7XmbU2v
-	 cNQIWvjmJajZQWF/M8atTpGPIPqy0zBLeCEAhcV1winFG170h/4lS81agy20lbeTdd
-	 ol2lTzsKz5fbtoRYpGkCYB83PNGCgsucPZ1TPWFX3XMlV9IIrHdxLiH95yCX4pUn8J
-	 45U+ph5GO47Ww==
-Date: Mon, 3 Aug 2026 16:27:22 -0500
-From: Rob Herring <robh@kernel.org>
-To: Bhargav Joshi <j.bhargav.u@gmail.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	b=njBnbM5c32reDmarRByD8piJsLo4hAii9b8QdHFXsPCekjVQBGkMWxM8YO0SXSO9P
+	 lD+DJOSN7LlCkGYLgMFeBFabW99PhMmVHqYdIHbLCEi/y2j4afi1kdG/+HVzSWwYQw
+	 yLjcGfPuIDDnqZ6DGe9AnaZ82oinU3D4oKUOxgKESiNvPo5aiR++lcFL6/hUBiXw4K
+	 4BZVcXCeoBvKw+1BRUYOn85gaYdfHx0aWIWpJ7eWebW/FD+yUbr8nU4UKuj9fsJsaD
+	 2HIKHOKD6PqkzFAXiJE751jXnHF5EB0WijPlQTSrlnrpRxyl81MmN72D4v9LmYahjc
+	 07PLsQ8quMc+A==
+Date: Mon, 3 Aug 2026 22:31:44 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Keerthy <j-keerthy@ti.com>, Afzal Mohammed <afzal@ti.com>,
-	linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
-	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
-	simona.toaca@nxp.com
-Subject: Re: [PATCH v2 3/3] dt-bindings: rtc: ti,omap-rtc: Convert to DT
- schema
-Message-ID: <20260803212722.GA575926-robh@kernel.org>
-References: <20260725-ti-omap-rtc-v2-0-13f765ca96b3@gmail.com>
- <20260725-ti-omap-rtc-v2-3-13f765ca96b3@gmail.com>
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 0/7] ASoC: qcom: add AudioReach TDM backend support
+Message-ID: <467a15d1-158b-4ab1-825c-475fe89a8b34@sirena.org.uk>
+References: <20260803195624.3606352-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zFEno68VFnLf+Vf2"
+Content-Disposition: inline
+In-Reply-To: <20260803195624.3606352-1-prasad.kumpatla@oss.qualcomm.com>
+X-Cookie: Prunes give you a run for your money.
+
+
+--zFEno68VFnLf+Vf2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260725-ti-omap-rtc-v2-3-13f765ca96b3@gmail.com>
 
-On Sat, Jul 25, 2026 at 02:31:58AM +0530, Bhargav Joshi wrote:
-> Convert the Texas Instruments OMAP Real Time Clock (RTC) binding from
-> the legacy text format to the DT schema. Mark 'ti,hwmods' as deprecated
-> as it is no longer used, it is kept to support legacy boards.
-> 
-> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> ---
->  Documentation/devicetree/bindings/rtc/rtc-omap.txt |  53 --------
->  .../devicetree/bindings/rtc/ti,omap-rtc.yaml       | 149 +++++++++++++++++++++
->  2 files changed, 149 insertions(+), 53 deletions(-)
-> 
+On Tue, Aug 04, 2026 at 01:26:17AM +0530, Prasad Kumpatla wrote:
+> Add AudioReach support for LPASS Audio IF based TDM backends and wire it
+> up for the sc8280xp machine driver.
 
-> diff --git a/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml b/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
-> new file mode 100644
-> index 000000000000..326d5ad97292
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
-> @@ -0,0 +1,149 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/ti,omap-rtc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Texas Instruments OMAP Real Time Clock
-> +
-> +maintainers:
-> +  - Keerthy <j-keerthy@ti.com>
-> +  - Afzal Mohammed <afzal@ti.com>
-> +
-> +description:
-> +  The OMAP RTC is a year/month/day/hours/minutes/seconds BCD clock with
-> +  century-range alarm matching, driven by the 32kHz clock.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,da830-rtc
-> +      - const: ti,am3352-rtc
+This *also* does not apply against current code.  Whatever undisclosed
+tree you are sending this against it's none of asoc/for-7.3 (nor
+asoc/for-next so it's not missing fixes).  Please test that whatever you
+are sending can be applied to my current tree before you send it.
 
-am3352 is either compatible with da830 or it isn't. You can't have both. 
-I would drop this entry. You don't have the fix the .dts (or can do that 
-separately).
+--zFEno68VFnLf+Vf2
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +      - items:
-> +          - const: ti,am3352-rtc
-> +          - const: ti,da830-rtc
-> +      - items:
-> +          - const: ti,am4372-rtc
-> +          - const: ti,am3352-rtc
-> +          - const: ti,da830-rtc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 2
-> +    maxItems: 2
-> +
-> +  system-power-controller:
-> +    type: boolean
-> +    description:
-> +      Indicates that this RTC controls system power via the pmic_power_en pin.
-> +
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  clock-names:
-> +    oneOf:
-> +      - items:
-> +          - const: ext-clk
-> +          - const: int-clk
-> +      - items:
-> +          - const: ext-clk
-> +      - items:
-> +          - const: int-clk
+-----BEGIN PGP SIGNATURE-----
 
-This can be just:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpxCL8ACgkQJNaLcl1U
+h9CFRwgAgy/tC6vGRf5XVmaw9c6ySzx4UVNNUjumvVKwUbPzgulrWoK1zDcT6l9A
+c23PkhQqqymo67yC85jn5jkRtjOwvLtE+P2B3L+8LaFDNLtjD2QeQNNTVFpoKqqv
+VsjW8uZ/E+IOnUDOvWoNYrxbsfomeRtB72lZaixUFtYhoR5S11oYWewqEk+eWbOs
+Y0dEcTzAW0Ngc0zVzWpm7e4G4GCpVKichDn0R3VlaSKZGp9W5k1/nXlQDuoD/wOV
+xz5jt28/YCwEp3D0gz8DTkb0RReQAh2BJo1SsUHyrcavyzZ28mXSVN352+QF78Mb
+pFPRYBPe6HqqOfRW1bWULl8kEUeAcw==
+=lRyZ
+-----END PGP SIGNATURE-----
 
-minItems: 1
-items:
-  - enum [ ext-clk, int-clk ]
-  - const: int-clk
-
-
-> +
-> +  pinctrl-0:
-> +    description:
-> +      Phandle to pin configuration for the external wakeup pins.
-> +
-> +  pinctrl-names:
-> +    minItems: 1
-> +
-> +  ti,hwmods:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Name of the hwmod associated with the RTC.
-> +    const: rtc
-> +    deprecated: true
-> +
-> +patternProperties:
-> +  "^ext-wakeup(-[0-9]+)?$":
-> +    type: object
-> +
-> +    description:
-> +      Child node describing external wakeup pin configuration.
-> +
-> +    properties:
-> +      pins:
-> +        enum:
-> +          - ext_wakeup0
-> +          - ext_wakeup1
-> +          - ext_wakeup2
-> +          - ext_wakeup3
-
-pattern: '^ext_wakeup[0-3]$'
-
+--zFEno68VFnLf+Vf2--
