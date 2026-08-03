@@ -1,88 +1,151 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94BE23507C;
-	Mon,  3 Aug 2026 12:58:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5BF23507C
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 12:58:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785761910; cv=none; b=EHeZElSIKO82WitT3a2kwC9aLlY7o77n45p51sQYjmt/6tJjJ/7VmdsDXMN0mZWwKRXyl1NIn3dRJstHl14EitUgukjKUx2d1ZYQPaMPxJZjGQs8h2/M0qeOyL+NhmuakYDtkDxCzDZkWQgu/a6Qy2Z8ZM10IRrqczYnc/FS0e8=
+	t=1785761941; cv=none; b=pnYhBa8OAfu5yxO7ZNmmnKxoTx8ccVoAeQuyQOZczIFZKOmWxx4/zTxjD0JGWEFmH4CXt1ZNKjuos1+hLbbbGoaR6UcPVIPXNs8rseNvk8lAf2GNr3ulRXDe5H1Yr2MmMifcVxXwXz4QAAIIkR+/6aTXJ7q/ut1Lh2ape3da36U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785761910; c=relaxed/simple;
-	bh=6B4CVU01vXTHlyd7DRJzdlqwtH3luX7l9YjrjUVM/u0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rEIPAZWI62dH3b0BppPDFgMZLYdrgvo1sq5kqeXP9Pjngf1l6JnnwPhKVh+WLBXEk9bzfSbSPFYfEzZ+LI86oUmIpN+iXPk5iaIhI1325+t2eJjo37DSDzDHNna7Y7px7VJIUbbUah7NE+NOXUeFQXGDqW1CRBmcODkbaQdmLaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XPvO/U2D; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785761941; c=relaxed/simple;
+	bh=d4RdjqkhWOkRSiqn3YEVFB0r5Vd5co6c7TI3/Wtf2Dg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HszFl3xUMItjiB/l5nVATr0fVcqWOv5qxb0Pli3+VcuzP0QzGhYF94a+NLIOXLTDPapdSwv4Ewg/Qemri+kPWzuXWOj7hF3gPbFW22B4b52Y3AbCA3RdcFr1NN8xhjNGr+ei1vEM6i/nLkMILs7r5B4MTP6ZZJK/bhowVyEtx5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eYzxySm2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XPvO/U2D"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=h3RZ9MZrJRlYpmJWGBALRfdgpWl81bAE0/bWp0ApIOY=; b=XPvO/U2DqO7spL0YdgbUNARhiN
-	IV21tBivZ4qqClwaWOpn/2TW1bLemo/ud6v9m73u0/K/JkL+qag97XzdbNhX9tBn0Ypl3DG7xLL17
-	pKxw77Qn0Y3S/+D17G37K3voCR/R4iCeQz4WYq+Yy3QKfguKXLfWC/XKTXGwjtguI2vc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wqsFF-00Fiw8-46; Mon, 03 Aug 2026 14:58:17 +0200
-Date: Mon, 3 Aug 2026 14:58:17 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: =?utf-8?B?6a2U5YqbIOmXquWFiQ==?= <molishanguang@outlook.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	"linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chukun Pan <amadeus@jmu.edu.cn>
-Subject: Re: [RFC PATCH] arm64: dts: rockchip: H28K: release RTL8211F reset
- before MDIO probing
-Message-ID: <d2780faf-54e8-4c0a-8070-93d36c91cb19@lunn.ch>
-References: <SJ2PR04MB851017E50140354C2F5B3FF3B5D52@SJ2PR04MB8510.namprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eYzxySm2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC2A1F000E9;
+	Mon,  3 Aug 2026 12:58:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785761939;
+	bh=RNd8LxS6QDhsE5viaELdTNqjhen9WNng2o7q/DLZcvA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eYzxySm2yi//964lQO7cx0GxzWdrFoqmc/+40ACPzyLOTv1z4jd42EWSGgqjqaJ11
+	 XJmC0/YURNtk8aRA/xJT7ww4H5z6mjQGBxLwc30EpnmRDqAHmtlQ4SznGTdP5wSlAj
+	 tgpFaqjjUjahLNbu5dVh72JUKvazE10V3DCyqQHFixYb3EZIAm8Dd79kiMNhSm+KTw
+	 8hRtf0Nj/TSASwYh/DjRfx54C/6PsrnHYSPAGEP+UkhBhlAg839UCPxMgmzjLimuyb
+	 fRN/BWko/V3NRAEJzlUZQHgbQjgI76u8TP4/Uk7rYDC1Oh7FH2BCj6HoOusrlAwzjR
+	 BYtjgvCHCsUUQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 06/11] spi: dw: Introduce enhanced
+ single/dual/quad/octal spi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260803124044.156998-7-changhuang.liang@starfivetech.com>
+References: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
+ <20260803124044.156998-7-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 12:58:58 +0000
+Message-Id: <20260803125859.5DC2A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SJ2PR04MB851017E50140354C2F5B3FF3B5D52@SJ2PR04MB8510.namprd04.prod.outlook.com>
 
-> This is an RFC: snps,reset-gpios is deprecated in favour of the
-> ethernet-PHY reset bindings, so feedback on the preferred way to release
-> the reset early is welcome.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] The newly introduced dw_spi_exec_enh_mem_op() lacks actual SPI=
+ data transfer execution logic, returning success without performing I/O an=
+d leaving hardware enabled.
+- [High] Incorrect transfer type (trans_t) mapping for multi-bit commands w=
+ithout an address phase (e.g., 4-0-4) silently misconfigures the wire proto=
+col.
+--
 
-> + snps,reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-> + snps,reset-delays-us = <0 20000 100000>;
+--- Patch [6]: [PATCH v2 06/11] spi: dw: Introduce enhanced single/dual/qua=
+d/octal spi ---
+commit 02b326945674bcd1a149d5a5a3e3cd78b2ccabda
+Author: Sudip Mukherjee <sudip.mukherjee@sifive.com>
 
-  snps,reset-gpio:
-    deprecated: true
-    maxItems: 1
-    description:
-      PHY Reset GPIO
+spi: dw: Introduce enhanced single/dual/quad/octal spi
 
-  snps,reset-active-low:
-    deprecated: true
-    $ref: /schemas/types.yaml#/definitions/flag
-    description:
-      Indicates that the PHY Reset is active low
+If the spi transfer is using enhanced single/dual/quad/octal spi mode,
+then we need to update the SPI_CTRLR0 register. The SPI_CTRLR0 register
+will be updated in dw_spi_update_config() via the values in
+dw_spi_enh_cfg.
 
-  snps,reset-delays-us:
-    deprecated: true
-    description:
-      Triplet of delays. The 1st cell is reset pre-delay in micro
-      seconds. The 2nd cell is reset pulse in micro seconds. The 3rd
-      cell is reset post-delay in micro seconds.
-    minItems: 3
-    maxItems: 3
+> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
+> index d654cb748646a..dbe8779ced865 100644
+> --- a/drivers/spi/spi-dw-core.c
+> +++ b/drivers/spi/spi-dw-core.c
 
-As you say, deprecated: true. You should not be adding new uses of
-deprecated properties.
+[ ... ]
 
-Try using the reset properties in mdio.yaml
+> @@ -828,6 +828,90 @@ static int dw_spi_exec_mem_op(struct spi_mem *mem, c=
+onst struct spi_mem_op *op)
+>  	return ret;
+>  }
+> =20
+> +static void dw_spi_init_enh_mem_buf(struct dw_spi *dws, const struct spi=
+_mem_op *op)
 
-    Andrew
+[ ... ]
+
+> +static int dw_spi_exec_enh_mem_op(struct spi_mem *mem, const struct spi_=
+mem_op *op)
+> +{
+> +	struct spi_controller *ctlr =3D mem->spi->controller;
+> +	struct dw_spi *dws =3D spi_controller_get_devdata(ctlr);
+> +	struct dw_spi_enh_cfg enh_cfg =3D {0};
+> +	struct dw_spi_cfg cfg =3D {0};
+
+[ ... ]
+
+> +	if (op->data.buswidth =3D=3D op->addr.buswidth &&
+> +	    op->data.buswidth =3D=3D op->cmd.buswidth)
+> +		enh_cfg.trans_t =3D DW_SPI_ENH_CTRLR0_TRANS_TYPE_TT2;
+> +	else if (op->data.buswidth =3D=3D op->addr.buswidth)
+> +		enh_cfg.trans_t =3D DW_SPI_ENH_CTRLR0_TRANS_TYPE_TT1;
+> +	else
+> +		enh_cfg.trans_t =3D DW_SPI_ENH_CTRLR0_TRANS_TYPE_TT0;
+
+[Severity: High]
+Does this code handle multi-bit commands without an address phase correctly?
+
+For example, on a 4-0-4 operation where op->addr.nbytes =3D=3D 0 and=20
+op->addr.buswidth =3D=3D 0, op->data.buswidth (4) won't match op->addr.busw=
+idth (0).
+This logic would fall through to the else branch and set trans_t to
+DW_SPI_ENH_CTRLR0_TRANS_TYPE_TT0, which misconfigures the wire protocol to
+send the multi-bit command as a 1-bit Standard SPI command.
+
+> +
+> +	enh_cfg.addr_l =3D op->addr.nbytes << 1;
+> +	if (op->cmd.nbytes =3D=3D 2)
+> +		enh_cfg.inst_l =3D DW_SPI_ENH_CTRLR0_INST_L_INST_L16;
+> +	else if (op->cmd.nbytes =3D=3D 1)
+> +		enh_cfg.inst_l =3D DW_SPI_ENH_CTRLR0_INST_L_INST_L8;
+> +	else
+> +		enh_cfg.inst_l =3D DW_SPI_ENH_CTRLR0_INST_L_INST_L0;
+> +
+> +	if (op->dummy.buswidth)
+> +		enh_cfg.wait_c =3D op->dummy.nbytes * BITS_PER_BYTE / op->dummy.buswid=
+th;
+> +
+> +	dw_spi_enable_chip(dws, 0);
+> +
+> +	dw_spi_update_config(dws, mem->spi, &cfg, &enh_cfg);
+> +
+> +	dw_spi_enable_chip(dws, 1);
+> +
+> +	return 0;
+> +}
+
+[Severity: Critical]
+Is it intentional that this function omits the actual data transfer and chip
+teardown?
+
+It appears to return success (0) immediately after enabling the chip, witho=
+ut
+calling any I/O routines like dw_spi_write_then_read() or dw_spi_stop_mem_o=
+p().
+For read operations, this would leave the caller's receive buffer uninitial=
+ized
+and the SPI chip enabled indefinitely.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803124044.1569=
+98-1-changhuang.liang@starfivetech.com?part=3D6
