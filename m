@@ -1,75 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C95C39989B;
-	Mon,  3 Aug 2026 06:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3298C30D3E2
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 06:43:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785739399; cv=none; b=EDqhSGoNhQn6LiCciN+I9exJSIAIUIBAW6SvvpE9lG+SairPmTbPrkp6jO+YZNE8h6HwPtC+5f/9cqa5l7WX8+P64BhQt1Qr+3BVq/owc2vg9w/OV6QGJcQ8HmtFQLmTDisDgh+WJkoOz5aWw0bSArfZMupJ8d0/Vfd7K/HVIzM=
+	t=1785739408; cv=none; b=ik79PZwVIByyokDzXr1Vx/ZePxHNcTZ/jLF9iaGeNR8X8BdQSCeAaG5ah06fi656j310NiJp5KDpjZLZrNL7dFzxgJUkw+kb4LzKEhrE55tvxY0oz/dzDEOTfRDku8Ier142eqMLOYHOpQFiFovTsNYu9DTOBnmsoNUVku901Iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785739399; c=relaxed/simple;
-	bh=Y+Z/xlL98udLKJBx7QdaDvxeqBtlSJyWxMBwJLQ4dXU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZrdyUiRlvvYImqaZY+a5bgggCbiZ9XhbDBi/ZcNNPa4YSYMFvkb9fb+BSIACraa8rLq9ZzIHYWzOvvOz/Lpfe5cUsSR+LtAOuHJpcy8u8djCSlob194bTdnQFkX4svnDyUwD/Uvpw5zFE0SPQPq6pp9eqjCCxcEfhdtTUqi5toc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LaVyvb0Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785739408; c=relaxed/simple;
+	bh=oo93RsyqZho96rNge4LCFJJdtzeBXIhoUvhTvucF+zc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=stg+88PmPcuk0K6o9w9eC1kIVec+8ig+6IRdM00hcTTAcVh0ddMa4/stU4hWE+9hkzZXDP0avd7UP9OuzwbIX/yzsuefyhtA6oRTgICktrHiIPvXiCDcslre1ikLg+sQwNx4E0mE6hDaxS3j+xIaAf1Icq03bqHZ8BqL9J5sFME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TQ0TXSqR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LaVyvb0Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861D21F000E9;
-	Mon,  3 Aug 2026 06:43:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TQ0TXSqR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916CF1F000E9;
+	Mon,  3 Aug 2026 06:43:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785739396;
-	bh=8+nAouAuXvyDU7VJvvOC4UNpwl9RZe5dgUCmC2jZ2gU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LaVyvb0YDuH5TbAn6LmrElxm4p+Hrw1lOsUoVhA/jFTQzBFWDLiVJ76SqIm4oUDop
-	 jp8CSX0D9n1KhyuVzV8XXDac9IyDsfKu9hqrP0tAsW+AXX94WIlxGS/n+WITQglmqN
-	 dGITfFBDoIQ0xeKyfaR5Ip6Yq8BntywbLSsBH2OXbh2pI+7pH77t/pn81pXC1sOIb2
-	 3T8PWFyaqem2M1U+I+s1iQtv9JZ3FTFQuWLW7pNQi9HpVgYz+HVqVJcQejbMECs+Nd
-	 5pEx11UAlRvbbc6XUz3BQ6iR39hpvUs+H0Kfr7OfXCBMEw6Cyuox7sin4IJBOPGhTZ
-	 75Yx8vd3zJ8lQ==
-Date: Mon, 3 Aug 2026 08:43:12 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yashas D <y-d@ti.com>
-Cc: andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
-	airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, 
-	jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, tomi.valkeinen@ideasonboard.com, 
-	r-ravikumar@ti.com, sjakhade@cadence.com, yamonkar@cadence.com, u-kumar1@ti.com, 
-	devarsht@ti.com, s-jain1@ti.com, d-mittal@ti.com, b-padhi@ti.com
-Subject: Re: [PATCH v6 1/2] dt-bindings: display: bridge: cdns,mhdp8546: Add
- no-hpd property to the cadence bridge
-Message-ID: <20260803-obedient-truthful-centipede-4e5f1c@quoll>
-References: <20260802153825.1570435-1-y-d@ti.com>
- <20260802153825.1570435-2-y-d@ti.com>
+	s=k20260515; t=1785739406;
+	bh=1Li6MTNCfYxiexthaiuTmT54vEGeYtIUwYvbEDF5RxE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TQ0TXSqRAxDtvX7o54KfZpL10qHf/vQjGcUW5tmSuVdz++WRQB49Q9U1pj+okZLuh
+	 9rRPzMXyLTc9Y6zDD57y+T2N5+CYfjp4w/kug5HlbZ6yNcq5ejcj2MvZUlB8vsh+94
+	 JWJXkJ+TNjtTfzxMH7ZTDYO+x33fSivCgGCwOW6gqVZCH4XLdSf3m++xJrAGi7PR4z
+	 TByKZuhf5SLloumOvzEikHTpWedcWTxBPZXos3O7Baw1AlX9lR0IMLJTE+5IyL4jCW
+	 QKDVqBZ484Vc6fJW3B1D9sJMUEH3EoPeZvF63THyuurvwX0er7VHd9yhvZbGeU2CpW
+	 gzew03AOHyaGw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 09/28] arm64: dts: qcom: sm8450: Fix swapped USB QMP PHY
+ vdda-phy/vdda-pll supplies
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260803-phy-supply-fix-v1-9-5880630cde3e@oss.qualcomm.com>
+References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
+ <20260803-phy-supply-fix-v1-9-5880630cde3e@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 06:43:26 +0000
+Message-Id: <20260803064326.916CF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260802153825.1570435-2-y-d@ti.com>
 
-On Sun, Aug 02, 2026 at 09:08:24PM +0530, Yashas D wrote:
-> From: Rahul T R <r-ravikumar@ti.com>
-> 
-> The mhdp bridge can work without its HPD pin hooked up to the connector,
-> but the current bridge driver throws an error when hpd line is not
-> connected to the connector. For such cases, we need an indication for
-> no-hpd, using which we can bypass the hpd detection and instead use the
-> auxiliary channels connected to the DP connector to confirm the
-> connection.
-> So add no-hpd property to the bindings, to disable hpd when not
-> connected or cannot be used for hotplug detection.
-> 
-> Signed-off-by: Rahul T R <r-ravikumar@ti.com>
-> Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-> Signed-off-by: Yashas D <y-d@ti.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Pre-existing issues:
+- [High] Incomplete fix: Swapped QMP PHY `vdda-phy` and `vdda-pll` supplies=
+ are also present on many other SoC platforms.
+--
 
-Best regards,
-Krzysztof
+--- Patch [9]: [PATCH 09/28] arm64: dts: qcom: sm8450: Fix swapped USB QMP =
+PHY vdda-phy/vdda-pll supplies ---
+commit b676d59f3c957659ff365b6c3e896016ef8c4405
+Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
+arm64: dts: qcom: sm8450: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies
+
+This commit swaps back the vdda-phy and vdda-pll supplies for the sm8450
+USB QMP PHYs. The supplies were previously swapped, feeding 1.2V to a 0.88V
+line and 0.91V to a 1.2V line.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dt=
+s/qcom/sm8450-hdk.dts
+> index b37998cd9a2c3..4ade28f40cae0 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
+> @@ -1214,8 +1214,8 @@ &usb_1_hsphy {
+>  &usb_1_qmpphy {
+>  	status =3D "okay";
+> =20
+> -	vdda-phy-supply =3D <&vreg_l6b_1p2>;
+> -	vdda-pll-supply =3D <&vreg_l1b_0p91>;
+> +	vdda-phy-supply =3D <&vreg_l1b_0p91>;
+> +	vdda-pll-supply =3D <&vreg_l6b_1p2>;
+
+[Severity: High]
+This is a pre-existing issue, but does this same swapped regulator bug exis=
+t=20
+in other board files that should also be addressed?
+
+For instance, looking at arch/arm64/boot/dts/qcom/sc7280-idp.dtsi in &usb_1=
+_qmpphy:
+
+	vdda-phy-supply =3D <&vreg_l6b_1p2>;
+	vdda-pll-supply =3D <&vreg_l1b_0p8>;
+
+And similarly in arch/arm64/boot/dts/qcom/qcm6490-idp.dts in &usb_1_qmpphy:
+
+	vdda-phy-supply =3D <&vreg_l6b_1p2>;
+	vdda-pll-supply =3D <&vreg_l1b_0p912>;
+
+Should these other boards also be included in this fix to prevent overvolti=
+ng
+the PHYs on those platforms?
+
+>  };
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-phy-supply=
+-fix-v1-0-5880630cde3e@oss.qualcomm.com?part=3D9
