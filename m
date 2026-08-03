@@ -1,115 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B5F923BD1B
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 06:46:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3B52F8EB3;
+	Mon,  3 Aug 2026 06:49:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785739573; cv=none; b=Npq+jgwu9oA44EwX6Yzd4MTdydDZIjVbRF9U9ENyeMA+l67tNBFMXm6S7a0Ilxa1Qu/p15VUVQLZ6XjYVKF6ctW7VzrwMAOlwwCDNS1CAY6jZHTtatEwAcezQXM8p2yYROeOgIpbe2DLl07bK1JNxX1GGVNuPeuRubSuaHhfY+Q=
+	t=1785739768; cv=none; b=Ast7q+BzYYDItGcE4ZqUutS3/wsum7tnzRs2IzJlvrl48Rw6Tuy5u9/R19lzodmzfBV2T2yrD/6pucaLFgbYMywNc5T/6fVO6mXxggJjkS/HXdOb+Llk0xsIeWrhSBBkH9aOZOBmaz7Gv3bmSedQyDaxYSfk7GX3CNBlgaVgcdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785739573; c=relaxed/simple;
-	bh=F09L/N/CYEMQ4QaEBc+JHCFjC+BnDHVAPCO/QJRTik8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=stk+/7919yrtiZXea9J8F6R2ixF8yMxcfrEhE52+QE4AWHC9iSov9K7hgAymci56MJDdKEH80l2t10W022lSYEAmV7s984dWh+0B4fRg1P2fruqDb6kJgdP6E1GfCUKjHBM8XR6KdALD+GP2mHi+ZshGRvdYS8MMh9x7fbq8XLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FKqtd29d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785739768; c=relaxed/simple;
+	bh=n7W1/CR2fnqvRQ1Me7jxh9E9/huwjhD6a8dCIrKmWQo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QgJE4sliAE+qABxYfgHQRX84VBANlXabizEgQPcU0x89HOqF19GhalVjkyBqLKts2b3giO8yenTFNcFWOR/ecEApNXSAecd26roG5ey6S1Fio7IecZcnbqc+byihilmErwRK3n4tc1M9ZKgfcT/nMrXi4ohMMorm2qHV2tU2E80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oHPwSwhr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FKqtd29d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76C511F000E9;
-	Mon,  3 Aug 2026 06:46:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oHPwSwhr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC1E31F000E9;
+	Mon,  3 Aug 2026 06:49:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785739571;
-	bh=gehH/b9hKVZiZiH1pqoDnHVHwplDbDrWan0GqqHW5nA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FKqtd29d56kE7MbVZVfKwipBgeVnmB4YU1esVl4oTvsmw4dZ4oNWyIulRSLnQ6yan
-	 nUyf+LJoOAcUILiPUXovb8/2u4YZ7ybeAY4dzzQ5cliYVQq+UxfVUNqpygMqmGzXt5
-	 j72X4ydU/u6nfjzOEqJl/V6YJjBcxhG8G+eheXq/FDwoDNMSquBJCk6iC2UQQV3CgC
-	 R7zfHX11ysyjpVqkMEmriQ7YRuqfwO89S7yu+tqJDkGnMTiXFWDN4ZEDN2qx+Jwsej
-	 S6RJaCv6PYC/XfiyJV6BccWEfIyg7oLT+ZUcMCT/QM8A072v4UKMLoVN9Yrt5uIddj
-	 8JSO0JjK0SgZg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/28] arm64: dts: qcom: sa8540p: Fix swapped USB QMP
- PHY vdda-phy/vdda-pll supplies
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260803-phy-supply-fix-v1-3-5880630cde3e@oss.qualcomm.com>
-References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
- <20260803-phy-supply-fix-v1-3-5880630cde3e@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 06:46:11 +0000
-Message-Id: <20260803064611.76C511F000E9@smtp.kernel.org>
+	s=k20260515; t=1785739767;
+	bh=JPTDrdjixJ8M01ykdTWBJ/WbejRC3iM9Zy6wkUYIJw8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oHPwSwhrC3By/P1n7JX4mUc/ARiE+Ebh6/sf/5IUjy3dO5WrjIa8unyo7BQvJTGrD
+	 Oxl3igQYFz/u03OTFpqyy4F0w+T58YP9lLCoqdXKnTGfvT4i9Gm18GZv9UdK9Q/UvM
+	 CV1xX4bmGo5a91yTAPCb1LldEOx/48qZcuzhOSRrYgw6QC/Bg9IFgHMCm02HUzwq5J
+	 hTp1zRC44BhbajlRWgaCfn4bHOyoZyGNLexU+4mJXiwZQM29+hDKe9qDttoR3KsM9z
+	 5jPOanplVvQ8nbscml7QVcgGf24V2mn7u2ek+ptWcRptwEVwjgU9cC2zBDfnypGapW
+	 FhjWJ9btpWEaQ==
+Date: Mon, 3 Aug 2026 08:49:22 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Josua Mayer <josua@solid-run.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v4 2/5] dt-bindings: usb: cypress,hx3: make peer-hub
+ property optional
+Message-ID: <20260803-real-shrewd-bee-ad6cba@quoll>
+References: <20260730-rzg2-sr-boards-v4-0-08bc459578dc@solid-run.com>
+ <20260730-rzg2-sr-boards-v4-2-08bc459578dc@solid-run.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260730-rzg2-sr-boards-v4-2-08bc459578dc@solid-run.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, Jul 30, 2026 at 01:38:33PM +0300, Josua Mayer wrote:
+> Cypress HX3 Hubs are combined USB-2.0 and USB-3.0 devices, and should be
+> described by one node per speed and linked by peer-hub property.
+> 
+> It is however possible to install this Hub to a USB-2.0-only host, in
+> which case the USB-3.0 peer has no place in device-tree.
+> 
+> Remove peer-hub from required properties.
+> 
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
+> ---
+>  Documentation/devicetree/bindings/usb/cypress,hx3.yaml | 1 -
+>  1 file changed, 1 deletion(-)
 
-Pre-existing issues:
-- [High] Swapped PHY and PLL regulator supplies in additional Qualcomm boar=
-ds missed by patch series.
---
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
---- Patch [3]: [PATCH 03/28] arm64: dts: qcom: sa8540p: Fix swapped USB QMP=
- PHY vdda-phy/vdda-pll supplies ---
-commit f7f68ce606103ed03353b8e43b7fb5b5dfb4a92b
-Author: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Best regards,
+Krzysztof
 
-arm64: dts: qcom: sa8540p: Fix swapped USB QMP PHY vdda-phy/vdda-pll suppli=
-es
-
-The QMP PHY expects the vdda-phy supply to be around 0.88V and the vdda-pll
-supply to be 1.2V. This patch fixes an issue where these two supplies were
-swapped for the USB QMP PHYs on SA8540P and SA8295P boards.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts b/arch/arm64/boot/d=
-ts/qcom/sa8295p-adp.dts
-> index d28d691624279..7178ae087038c 100644
-> --- a/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-> +++ b/arch/arm64/boot/dts/qcom/sa8295p-adp.dts
-> @@ -604,8 +604,8 @@ &usb_0_hsphy {
->  };
-> =20
->  &usb_0_qmpphy {
-> -	vdda-phy-supply =3D <&vreg_l3a>;
-> -	vdda-pll-supply =3D <&vreg_l5a>;
-> +	vdda-phy-supply =3D <&vreg_l5a>;
-> +	vdda-pll-supply =3D <&vreg_l3a>;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but while reviewing this fix I
-noticed that identical swapped PHY and PLL supplies seem to exist in other
-Qualcomm boards missed by this patch series.
-
-For instance, in arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
-for pcie2a_phy and pcie4_phy:
-
-&pcie2a_phy {
-	vdda-phy-supply =3D <&vreg_l4d>;
-	vdda-pll-supply =3D <&vreg_l6d>;
-
-Here 1.2V (vreg_l4d) is fed to the 0.88V vdda-phy rail and 0.88V (vreg_l6d)=
- is
-fed to the 1.2V vdda-pll rail.
-
-Similarly, in arch/arm64/boot/dts/qcom/lemans-evk.dts (usb_0_qmpphy) and
-arch/arm64/boot/dts/qcom/lemans-ride-common.dtsi (usb_0_qmpphy and
-usb_1_qmpphy):
-
-&usb_0_qmpphy {
-	vdda-phy-supply =3D <&vreg_l1c>;
-	vdda-pll-supply =3D <&vreg_l7a>;
-
-This also mistakenly feeds 1.2V to the 0.88V rail and 0.88V to the 1.2V rail
-during device probe at boot.
-
-Are these additional nodes also causing a deterministic overvoltage on the =
-PHY
-circuitry that risks hardware damage, and should they be fixed as well?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-phy-supply=
--fix-v1-0-5880630cde3e@oss.qualcomm.com?part=3D3
