@@ -1,87 +1,43 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9553515FA
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 11:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785755021; cv=none; b=Qm9+4KgHxBZjpLuyYbsNBjzshev1jZLGf7nKXUtjEGFteNuROnJm/mmKBDwxiKrLOp51vkRMcuwcvCnMlsZ+n5F8J3KeSSjlQoNseCzO3wMRkFmNTK67zTb0VCV4mQg1Zv/Xmu5Hv6c4jyrdO8367ogfuM0BUmblKUzVdAziD9k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785755021; c=relaxed/simple;
-	bh=5zMP7IArrpQ6Xa4Y9ntfsERpVQIAEaFdp1G14Flm4uU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9183B2FFE;
+	Mon,  3 Aug 2026 11:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785755071; cv=pass; b=FzBppQn5JSXyu9CVYVZ3l2lULSTyQ0srA+QKLSF6frz6jEQf5KSuobAhXLY0gUV28MqvpnVbgSWkRhFvWvKi/nK27uP/Ggt+/OyNHOOYTtN6Na5Jzm1ZEa4uk3+CMF2kvGbch/VCevFS2nNL7r+/hzG1d+A0lvtJZq1DETRj2DE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785755071; c=relaxed/simple;
+	bh=belPi1nnLRo7goLyBJojiVeLOYqXKi84+Xmell44/Ys=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aHasgggt+UembSqJ6Zvyr/4oaDaFKdhLy8EpWM0XuC82svoGmUihuFZ6QSCAefSxs5NlRn8+1ZWodQOycRjkYBuvCrpSwgP1cDEGFW4xec9J3czTaBCYJaCz3BQl1Rjd7/JS6JIv9VLfaSQMhQWN37VITUo2nwYlmZgSPFOchYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o0K5Zghw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WXj/RXFP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=ETiHzHGG5MnnaQwWy298sS/0u5FhERvVMdmWWQ1pi61IilfPygbe3iTjWn58XCMFcoNQlyjIM7VT0iM0x36LIbm8Vahi7Wg0iXeHDFOrCg5Fti0ynglcnXLhFxMhE8w2qx6J/1IoqFmICbOTOOGn6PVjb2y/561+xdtP/0VoRQQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=YmslsaxG; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o0K5Zghw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WXj/RXFP"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 673AXOp13759351
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 11:03:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hhi1uU7Xn6WTgizHjN2RJSbjsbctqcIUEUH41J8KyPQ=; b=o0K5ZghweMLpYkqy
-	YMVg8JD9ORHEI+qLuucNYwefqmVhgVL1SUGbaLPaKlT/4hQ6mBlB5ruES/x8i6bg
-	ywlV9MmtdCXcx7e9w24s40CUU1bet9dSaN/tcAh5TD6CzcSxeI0O4mWl+nE/a6rH
-	9Zc+p7qbD62DCwkQEAZ2uR8WO1gxRUQBC5tkrUC13HjbYvI7I/L0WDAB/3+joSxy
-	JRAXJr3H7WWPpG30olfs2iWchZMgLpn4N69dRu+PwSd1YYAbjtq44pSrNKKcd/IO
-	JPkznvngASOulk1H3zESH0TH8oymtE+/IkbTVZKDTu/KvMLZMA3YhvxPwNMu1XIa
-	n2HMuw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnrns5vh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 11:03:35 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-ca860baea9fso8419543a12.2
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 04:03:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785755015; x=1786359815; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hhi1uU7Xn6WTgizHjN2RJSbjsbctqcIUEUH41J8KyPQ=;
-        b=WXj/RXFP+vUVlhuqAa1EI3Cn1OL8MljqO5i3W+gqj5TCntlyBXMSyOsc7WHVVDKLkj
-         a5OX2dmmFDnkfSoDZsE9nFWORty8hQaiMZH4W/DK2frpqHCpSjjlbKWNUb4CHb3A0OBM
-         vYbaOygrCDB20+Q0H/18CkCuFrjCIHgozr8EkXirfMeDRZgytvTd7fKAl75mB8XGlmPn
-         bcTmMFUrj82t/+0xX3y/f7G6F6FXWYFyTvi8LIxOZ3iYxhCelCONNJ1/pmuXpdTrhAy7
-         8d39KwkoDL+9TXIrhswRC0SaiSPl4jbAlWQkn6f77E0NtMqFDhZhApb4TZFAWAtb1IyA
-         mRbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785755015; x=1786359815;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hhi1uU7Xn6WTgizHjN2RJSbjsbctqcIUEUH41J8KyPQ=;
-        b=CITgjDu/IsSOnHE6f2p1oCvqIFXWCH8rQQSaXf5793i7GYbMiSCZC6VlAk6YRGEI7K
-         1J2GEencwOCi1LqQQf2+e2Ttzy8CiGkimNdW9jILMMGvjciASnXzJoNiTnuCvBw1lyQ6
-         qNyuDqyCY50hGuGt456Gp/U6gzEMghTNyVM8+2FzlJhKSYLO+FDKNCN+9/Zrg3WFSPxR
-         VqtfISdzmMCbtwkMkSmXdzEzh/cwDILSJhABHFHmFfo6evKH+faBm+ZFuxwoimDLX7eL
-         Xb998ctKnnzG3oLTvxBjrq46HAau99RQIeAgp42nt+IYyXJHIKWck5B4+vKbkeWllVYv
-         SVDw==
-X-Forwarded-Encrypted: i=1; AHgh+RrOqtTFuNQPLzA+Vv/I5KhgC+sZOBWsUSMUwgl0Mm2mxHg1O4wlx4mOF5hXhxW9asyDq6NXoo2bYDou@vger.kernel.org
-X-Gm-Message-State: AOJu0YwnHMxfuMwc4r4LF57r0Ko0zMVQDUeIQ+4OuSmtC1fzvFQoV83R
-	kFCEiaFhSlU01I00DT56/oHW0SdgK+AUQWi9OE4F/vuFiPYXV2n2CP+c0kp7cTavvhI1rqcNPfS
-	q1DrlImzHsDYHHtcEddr1iRCQF7/+W/SBaEF2rcF3iB8ekoc8imOG5zcGOyLqErpY
-X-Gm-Gg: AR+sD10DO8tz9t9pmoFtn5Agrshb2mk6FDlpNa/4/Nt+uqlbwZw6PQxW2bor9m1lpA1
-	nnYNmkMpruSchxwLs+kzjGL1YUGxeZzJATmL5BUe2YE/z0jz8KveGTUFM1XuGDGxfkTr6g4/N2h
-	HdH/jKYKgqGRAuItFlC+0GUdVJj6DbLctlFl/IJ41Ha1Mh4LMbP5iTMz51ZX2c986sAuLRivss+
-	qJ3v/Ny09y4RsASXqG9pxH8XbZXo06C9NzFP/kccr4RlZr3juhFuw36RmRWx6UQ/MCN39wJyGJ7
-	8vYg+h6bnR+pj/oDgKZY4WcX3XVWfiL/IaZzx84Hk+O+cOrfMYM4AnuXqw0dFTD1xNjFsdqiDWq
-	dmbH7fzuV9XNmTdBscaRNTDB0HgKl
-X-Received: by 2002:a05:6a21:103:b0:3c0:9c1b:d0c0 with SMTP id adf61e73a8af0-3c92a99a476mr9183317637.75.1785755015300;
-        Mon, 03 Aug 2026 04:03:35 -0700 (PDT)
-X-Received: by 2002:a05:6a21:103:b0:3c0:9c1b:d0c0 with SMTP id adf61e73a8af0-3c92a99a476mr9183285637.75.1785755014787;
-        Mon, 03 Aug 2026 04:03:34 -0700 (PDT)
-Received: from [10.218.15.172] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e04491dsm49107229eec.16.2026.08.03.04.03.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 04:03:34 -0700 (PDT)
-Message-ID: <d5137c66-8895-4b08-a089-42e16fa211e1@oss.qualcomm.com>
-Date: Mon, 3 Aug 2026 16:33:28 +0530
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="YmslsaxG"
+ARC-Seal: i=1; a=rsa-sha256; t=1785755053; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=hQ0MpJ9A3P3+L5VntZJclLcy7Kg4rETAnyVcG02PM4ZKRrVXL4rNykvlj6OzZPNmIzaKpouofqSulkfv/pCciGwPBoQogvAIhYYDU4mFsbakFPtAXx8X57YZR8GDuYG8uBzy9GGOD9kX/6SBUh2kecXQDTnMO8y4As8xwv8HBRo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785755053; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=vEjfuOOqjt4DKH+Agnkv8+PSzwehlSi9y606REMac8k=; 
+	b=NN0GW/XzKfqszrKUbUDODRNhjmkKYzUOyB1MmRzDhmAQwU7nDT9RiGGccv/lgfr1fuocuK+GpfIX217hiEtoyLXUpyjuB7M6+/u2ZPsMS2BQtl6YWR9F08aykeOOrDl/M5syiQAufm+AbVqDHDRh+Moyt5+6MqJOWdejZhglgzE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785755053;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=vEjfuOOqjt4DKH+Agnkv8+PSzwehlSi9y606REMac8k=;
+	b=YmslsaxG4pGR0uRF+wFiDwdG+68+XDpe+xbWRA4G5/fEC/yC73+yew9Z3yc40h1r
+	7fiV9ZV8CoN5NjdzRpZOupXOJ4zRUOr4w5BpzlxMnGvxFPQJfxPac1ySZ3QVXg/zasg
+	peZnfCqRls+GmQbtS0GojJ4U75BGM13gKde5pvfU=
+Received: by mx.zohomail.com with SMTPS id 1785755051075901.122732738344;
+	Mon, 3 Aug 2026 04:04:11 -0700 (PDT)
+Message-ID: <e4a4eef8-3c42-407b-a6b7-e2f9a32da29e@collabora.com>
+Date: Mon, 3 Aug 2026 13:04:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,116 +45,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] irqchip/irq-qcom-mpm: Program wakeup timer when CPU
- cluster goes to LPM
-To: Marc Zyngier <maz@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Shawn Guo <shawn.guo@linaro.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
- <20260713-b4-shikra_lpm_addition-v1-4-3d858df2cbbf@oss.qualcomm.com>
- <87h5m26hqv.wl-maz@kernel.org>
+Subject: Re: [PATCH v4 3/3] phy: rockchip: phy-rockchip-inno-csidphy: add
+ clock lane phase tuning
+To: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260725-feature-mipi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net>
+ <20260725-feature-mipi-csi-dphy-4k60-v4-3-5b2c4626d31e@wolfvision.net>
 Content-Language: en-US
-From: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-In-Reply-To: <87h5m26hqv.wl-maz@kernel.org>
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260725-feature-mipi-csi-dphy-4k60-v4-3-5b2c4626d31e@wolfvision.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA5OSBTYWx0ZWRfX3GkFUfz+9oQq
- ZvJr6lSozZ6BbV5+rKPpMiziHK3Y+VH5q77zgRM1I/1w94NWCCn9Y5A9vbIugFTyxz1xS34xLXx
- cMYa5jmj2fcHgJJu1WXSRiyGsrNthgE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA5OSBTYWx0ZWRfXzvMf/Ekj4U64
- G6FkNHmJGJ9qqCn+lN+GXUBBwgln1rMsEfmaBm0CN4RWrAT6prKRx1T7CwMvm8hVX5z8rnQn4Bw
- fZ2Rx3T41zrdDF2IozelUkx++C7FFy5XZhsNJzuA3ACD3BT43XC3khgNyqmMdXq6ghZQjcQnkv+
- QPUHn/5wMhr4SntgoU7ulIiKYYdvumzQqkdLKMxqZTu5sVJQgXxJPp2R2YkHRJJEk5GG3r6A6Xp
- VrINMK/F2KiVfMmi2mt75lweDvykVRFPswyu4RPTKnl1TEW86O0xy6U/9jYz/q6KS427yG4g4H/
- ZHXURX69AupsqS7ceq5ufkv9Bdbx5Tb67LhCgkk1wesHRTm4XqFRjgVhiw+PmWJIhkKxainFLyc
- KxjN+Ej4X9m9GlssAwKYUaDAWCHK4+FVOy8Nes+CuFDOz2oCFi73AqZTyaem0wJ1HOKVVGyYkQQ
- Krnck8xwbxf0zBqh1Og==
-X-Authority-Analysis: v=2.4 cv=Zest8MVA c=1 sm=1 tr=0 ts=6a707587 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=2w1JuJCqnWd_qW_YTkwA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: 4b-61GpwaPePMHpLXUl1u_zq8m1jz2ud
-X-Proofpoint-ORIG-GUID: 4b-61GpwaPePMHpLXUl1u_zq8m1jz2ud
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030099
+X-ZohoMailClient: External
 
+Hi Gerald,
 
-
-On 13-Jul-26 8:48 PM, Marc Zyngier wrote:
-> On Mon, 13 Jul 2026 11:25:44 +0100,
-> Sneh Mankad <sneh.mankad@oss.qualcomm.com> wrote:
->>
->> The next wakeup timer value needs to be set in MPM timer as the arch timer
->> interrupt can not wakeup the SoC if after the deepest CPUidle states the
->> SoC also enters deepest low power state.
->>
->> To wakeup the SoC in such scenarios the earliest wakeup time is set in MPM
->> timer and the Resource Power Manager (RPM processor) takes care of setting
->> the timer in HW.
->>
->> Add MPM timer programming when CPU cluster enters power collapse.
->>
->> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
->> ---
->>  drivers/irqchip/irq-qcom-mpm.c | 44 ++++++++++++++++++++++++++++++++++++++++++
->>  1 file changed, 44 insertions(+)
->>
->> diff --git a/drivers/irqchip/irq-qcom-mpm.c b/drivers/irqchip/irq-qcom-mpm.c
->> index 763eddee99dc4cdd5edab22ce54808528f9ef165..f43c4a1c35f78b6cdae194dc7ae88c5c307ada94 100644
->> --- a/drivers/irqchip/irq-qcom-mpm.c
->> +++ b/drivers/irqchip/irq-qcom-mpm.c
->> @@ -13,6 +13,7 @@
->>  #include <linux/io.h>
->>  #include <linux/irqchip.h>
->>  #include <linux/irqdomain.h>
->> +#include <linux/ktime.h>
->>  #include <linux/mailbox_client.h>
->>  #include <linux/module.h>
->>  #include <linux/of.h>
->> @@ -25,6 +26,8 @@
->>  #include <linux/soc/qcom/irq.h>
->>  #include <linux/spinlock.h>
->>  
->> +#include <clocksource/arm_arch_timer.h>
->> +
->>  /*
->>   * This is the driver for Qualcomm MPM (MSM Power Manager) interrupt controller,
->>   * which is commonly found on Qualcomm SoCs built on the RPM architecture.
->> @@ -77,6 +80,13 @@ enum qcom_mpm_reg {
->>  	MPM_REG_STATUS,
->>  };
->>  
->> +#define USECS_TO_CYCLES(time_usecs)	xloops_to_cycles((time_usecs) * 0x10C7UL)
->> +
->> +static inline unsigned long xloops_to_cycles(u64 xloops)
->> +{
->> +	return (xloops * loops_per_jiffy * HZ) >> 32;
->> +}
->> +
+On 7/25/26 18:56, Gerald Loacker wrote:
+> At high data rates like 4K60 (2500 Mbps), such as when using an
+> LT6911GXD bridge chip on an RK3588 board, fixed default timing parameters
+> can cause signal integrity issues and clock-data recovery failures.
+> The driver currently lacks a mechanism to adjust the clock lane sampling
+> phase to compensate for board-specific trace variations.
 > 
-> Do we really need arch-specific code to be literally copied from
-> arm64's delay.c, without any comment or attempt at making it generic?
+> Resolve this by parsing and applying the optional 'rockchip,clk-lane-phase'
+> device tree property. This enables board-specific tuning of the clock
+> lane sampling phase in ~40 ps steps (range 0-7) to optimize link
+> stability. If the property is absent, the driver falls back to the
+> hardware default.
 > 
-> Specially after having added the same stuff to rpmh-rsc.c 4 years ago?
+> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
+
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+
+Thanks and best regards,
+Michael
+
+> ---
+>  drivers/phy/rockchip/phy-rockchip-inno-csidphy.c | 25 ++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
 > 
-> See a pattern here?
-
-Agreed Marc, there should be a more generic way to get this information. I will
-work on it and post.
-
-Thanks,
-Sneh
+> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> index 5281f8dea0ad3..d989f1649b0e4 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
+> @@ -69,6 +69,10 @@
+>  #define RK1808_CSIDPHY_CLK_CALIB_EN		0x168
+>  #define RK3568_CSIDPHY_CLK_CALIB_EN		0x168
+>  
+> +#define CSIDPHY_LANE_CLK_3_PHASE		0x38
+> +#define CSIDPHY_CLK_PHASE_MASK			GENMASK(6, 4)
+> +#define CSIDPHY_CLK_PHASE_DEFAULT		3
+> +
+>  #define RESETS_MAX				2
+>  
+>  /*
+> @@ -151,6 +155,7 @@ struct rockchip_inno_csidphy {
+>  	const struct dphy_drv_data *drv_data;
+>  	struct phy_configure_opts_mipi_dphy config;
+>  	u8 hsfreq;
+> +	int clk_phase;
+>  };
+>  
+>  static inline void write_grf_reg(struct rockchip_inno_csidphy *priv,
+> @@ -304,6 +309,13 @@ static int rockchip_inno_csidphy_power_on(struct phy *phy)
+>  		rockchip_inno_csidphy_ths_settle(priv, priv->hsfreq,
+>  						 CSIDPHY_LANE_THS_SETTLE(i));
+>  
+> +	if (priv->clk_phase >= 0) {
+> +		val = readl(priv->phy_base + CSIDPHY_LANE_CLK_3_PHASE);
+> +		val &= ~CSIDPHY_CLK_PHASE_MASK;
+> +		val |= FIELD_PREP(CSIDPHY_CLK_PHASE_MASK, priv->clk_phase);
+> +		writel(val, priv->phy_base + CSIDPHY_LANE_CLK_3_PHASE);
+> +	}
+> +
+>  	write_grf_reg(priv, GRF_DPHY_CSIPHY_CLKLANE_EN, 0x1);
+>  	write_grf_reg(priv, GRF_DPHY_CSIPHY_DATALANE_EN,
+>  		      GENMASK(priv->config.lanes - 1, 0));
+> @@ -449,6 +461,7 @@ static int rockchip_inno_csidphy_probe(struct platform_device *pdev)
+>  	struct device *dev = &pdev->dev;
+>  	struct phy_provider *phy_provider;
+>  	struct phy *phy;
+> +	u32 phase;
+>  	int ret;
+>  
+>  	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> @@ -464,6 +477,18 @@ static int rockchip_inno_csidphy_probe(struct platform_device *pdev)
+>  		return -ENODEV;
+>  	}
+>  
+> +	priv->clk_phase = -1;
+> +	if (device_property_read_u32(dev, "rockchip,clk-lane-phase",
+> +				     &phase) == 0) {
+> +		if (phase > 7) {
+> +			dev_warn(dev,
+> +				 "invalid rockchip,clk-lane-phase %u, using default %u\n",
+> +				 phase, CSIDPHY_CLK_PHASE_DEFAULT);
+> +			phase = CSIDPHY_CLK_PHASE_DEFAULT;
+> +		}
+> +		priv->clk_phase = phase;
+> +	}
+> +
+>  	priv->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
+>  						    "rockchip,grf");
+>  	if (IS_ERR(priv->grf)) {
+> 
 
