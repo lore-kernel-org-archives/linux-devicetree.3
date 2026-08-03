@@ -1,113 +1,418 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D811DFFB;
-	Mon,  3 Aug 2026 12:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785758756; cv=none; b=mbNr2KFI+f9f8OtbUVZ70u2oflvyNtrOYrwjgHx20hQ4ITFCeRnp5tGRsXE8jbN2Fr1ZNHUyQSGe7qkdC5KpwoUlInE7dFxY9wfweMe7wJKXVUICanAPU0Zfb3vQhPJnAuUt6wDSy2UivUM9i/yCiodJo3ezwqQ+dMkznRQkJ2w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785758756; c=relaxed/simple;
-	bh=o9BDYjroSfvjw6WE8VUTd6Zi89w2LPG+xHYD8KX3P9I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Xj47M/HtmEvY1BUvgkhsa3Aivb6w/ImOAPlLMSJ2zc7ilJIfdf2XBf2Ce2nQygS/RcVrlWz28T/U8pBar5w8JOJAgpTD1zfU7LyctDZQzfGjJdtkbFiYngOfJiB6PkI9bPEeUcSxRER30psab9uJscS2U/6Q4vNyKZa2QAaceHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Si7N9zre; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8451DFFB;
+	Mon,  3 Aug 2026 12:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785758760; cv=pass; b=LlbCKp7legcWHuQA1XH82sCLrGMyDYPvotZ2Q2ZBpNIRBaR3UcqZwOLHC/PnEBYKDhMeSrEEA2cTF08Xv1oPckF0ng+dE4CYwZ3mBjBZW9ZBJhX42x59A43Li3HliP5iaeO3UtL+SEfwCfUbgTiwoijkRuEZ/KTa4Gm1xlMVIkw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785758760; c=relaxed/simple;
+	bh=l/wmwiuziPcpCBiOtqPlyDHTjtq9MzumWUtrdI2/dYk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CjlBc+ZY968iWa3T2gKpkcs71o1Sg6+2Yg1JORiLZ9e3JS5UEWM9t0SoQTYJJvCOJ21Wl0dDkvy+wMfHplvYIr0TxX1gKOzawuiz1dSuJDyOIEeSP4TwL8yvTBq5rzfjz40EI55Dn+yka+rFSF5yZSAfhvLHA121A/KZxkkyLwM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=CS/CcCy4; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Si7N9zre"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B932B1F00A3A;
-	Mon,  3 Aug 2026 12:05:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785758754;
-	bh=9JDu+Y0kXE0cIuki0Jpsoq3K8xv49qjhQ8yZxe90Y28=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Si7N9zreIbejL2eQ7ytQI2m5sEypUc+eozaAqI+LJbcuypCS0HfBIUJ80yt/FqVWB
-	 cdoyUzwn6GKIvWGlBReJFpTe+xKtt/NhFVNsxHnVP/62in7JVAaOkmh6N3tjOX42Y+
-	 vMpHevScEROoptD7JyDMPif93BiWNo2Q+io5cmgyXqaYWIC5XRASnSsx4FR3UMCZ4c
-	 S1zI+QUq12tiUISY7vKWIiGRRhLwX6ZmUGIzbcQsaVb7oWwa6BWFzT6wbXjeaZKhFU
-	 8nIVpcz7IMxLTlF13ss0gpy0ICFPm1JGU8t3mQ1jURGY478oSQcpvq7H5J16AGWGiP
-	 dkyNrZdeBdJxA==
-From: Mark Brown <broonie@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org
-In-Reply-To: <20260724141708.2212057-1-prasad.kumpatla@oss.qualcomm.com>
-References: <20260724141708.2212057-1-prasad.kumpatla@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v6 0/5] Subject: [PATCH v6 0/7] ASoC: qcom and
- pinctrl: add LPASS LPR voting and Hawi LPASS LPI support
-Message-Id: <178553935171.353541.12577645858362068543.b4-ty@b4>
-Date: Sat, 01 Aug 2026 00:09:11 +0100
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="CS/CcCy4"
+ARC-Seal: i=1; a=rsa-sha256; t=1785758736; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=e4Dg17uHVsTyri3KDQmTiF35rQEIwhN/SObt8mjMLC/qBj/2oQHwYaifQESbQno9BU6v8CzA+cPHNe/abqdCMlaUL0zktLduavpoJlZlt9qKTGFEfBC7pt8ez1JnI4E6I7mGVfT9LFeWYOVCbfq1ysbFGmHreVDsudpGrGNId50=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785758736; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xSDgbFaMy9AXsq0EBdVcXih7ZqDA4mjZqd2Srs2jSzs=; 
+	b=QDuv/4zbvpdP/Tff9Cio3sMLgPONsSTbKzFh2qdtwENVREZYc8VfdUsirlCxuwiCxy39MBZE5IuVkHt4eJ5Myhol3Xcaih0QcqqceXYV6NUbKv1qX1MCKTp1w5wIJCT9oTyVes/ZvAY+8xBLv89DsQxkK/xgIWlneFtDEJKXkRA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785758736;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=xSDgbFaMy9AXsq0EBdVcXih7ZqDA4mjZqd2Srs2jSzs=;
+	b=CS/CcCy4wG7nTYQZadcHHzZbxr14Z2aQuuuuGD8aPjufCphH2I+RBRJLXVQ5h6UM
+	+8kOrjiJmIz4EukmjS6hzsb5nK44jzTemZy03ngbbp7t/45jfJt4eaSvXG2hPChrGJ+
+	hYmNHa4zdxCAlIHCkLGucv3vZ5ws1jhWPhL4cUhY=
+Received: by mx.zohomail.com with SMTPS id 1785758734039169.63352621996466;
+	Mon, 3 Aug 2026 05:05:34 -0700 (PDT)
+Message-ID: <7e55b8bc-d11d-4b25-99ee-d5d181be158f@collabora.com>
+Date: Mon, 3 Aug 2026 14:05:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] phy: rockchip-samsung-dcphy: model TX and RX as
+ separate PHYs
+To: jason98166@gmail.com, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
+ <20260726-dcphy-rx-v1-v2-3-cf9cc34a412a@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260726-dcphy-rx-v1-v2-3-cf9cc34a412a@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1809; i=broonie@kernel.org;
- h=from:subject:message-id; bh=o9BDYjroSfvjw6WE8VUTd6Zi89w2LPG+xHYD8KX3P9I=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqcIQewSTDm+2N9X7G/ueL8x+82BXIH2i/PCrwF
- 1v6fdKeFLKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanCEHgAKCRAk1otyXVSH
- 0HDGB/0RSBIfyTLGmxlApye6wypM9TQMVo/vsLP8Mp7edZ5SsfmNk6a3yitankVnffKNo+OV+Lt
- 9rA5RvyxS7vDs6COymAyUmvYR3GqENdg0TQk9gW/+Q6byKgDDIRnNOY5CfVGcS8rb2FK0oRJB3B
- vh0eainnp/f4nqwaww4seIxWoB4Pa7EHNro1TwREMvXxMTrvDCBf29lq9bPsMs4yAXp/jPZcL2e
- RQjlXgZH+xJQD6/tXfymdRVh8zN4WPtAFoVz9+Fb5doS3bwdhxlhFEa8sTvHHOygSvAS/WOAHP6
- KmsjN6tXT7OV5XeLdTuQGO/Kj2m+44Vpy7kxPkWXIHQDcIE5
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-ZohoMailClient: External
 
-On Fri, 24 Jul 2026 19:47:03 +0530, Prasad Kumpatla wrote:
-> Subject: [PATCH v6 0/7] ASoC: qcom and pinctrl: add LPASS LPR voting and Hawi LPASS LPI support
+Hi Jason,
+
+Thanks for the patch!
+
+On 7/26/26 16:55, Jason Yang via B4 Relay wrote:
+> From: Jason Yang <jason98166@gmail.com>
 > 
-> This series adds support for LPASS low-power resource (LPR) voting
-> through PRM and introduces LPASS LPI TLMM pinctrl support for newer
-> platforms such as Hawi.
+> The DC-PHY drives a MIPI DSI transmitter and a MIPI CSI receiver, and on
+> RK3588 both can be wired to the same PHY as independent consumers. The
+> PHY core reference-counts power_on() per struct phy, so a single struct
+> phy cannot bring the two directions up independently.
 > 
-> On such platforms, LPASS requires LPR resource voting via PRM to keep
-> the subsystem active. This is handled by adding a new clock ID and
-> support for PARAM_ID_RSC_CPU_LPR in q6prm.
+> Register one struct phy per direction and move the per-direction state
+> (direction, PHY type, lane count and powered flag) into its own driver
+> data. of_xlate() accepts the legacy single cell as the transmitter and
+> an optional second cell that selects the direction, so existing
+> single-cell DSI device trees keep resolving to the transmitter.
+> configure() rejects the not yet supported receiver before touching any
+> state, and each direction keeps its own lane count.
 > 
-> [...]
+> The PHY's common block contains a single BIAS block shared by both
+> directions (RK3588 TRM section 22.2), so it must be programmed only
+> once. Whichever direction powers on first enables it; each direction
+> records its powered state under the per-provider mutex so that powering
+> one direction on does not disturb an already running one. The APB reset
+> is issued on the transmitter bring-up path.
+> The receiver bring-up itself is added in a later change.
+> 
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
+> Assisted-by: Claude:claude-opus-4-8
+> ---
+>  drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c | 143 +++++++++++++++-------
+>  1 file changed, 102 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> index d0d77421bd4b..95eb1200cab4 100644
+> --- a/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> +++ b/drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c
+> @@ -5,6 +5,7 @@
+>   *      Guochun Huang <hero.huang@rock-chips.com>
+>   */
+>  
+> +#include <dt-bindings/phy/rockchip,rk3588-mipi-dcphy.h>
+>  #include <dt-bindings/phy/phy.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/clk.h>
+> @@ -13,6 +14,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/of.h>
+>  #include <linux/phy/phy.h>
+>  #include <linux/platform_device.h>
+> @@ -280,6 +282,19 @@ struct samsung_mipi_dcphy_plat_data {
+>  	u32 dphy_tx_max_lane_kbps;
+>  };
+>  
+> +struct samsung_mipi_dcphy;
+> +
+> +/* One PHY per direction: transmitter (DSI) and receiver (CSI). */
+> +struct samsung_mipi_dcphy_dir {
 
-Applied to
+This may be bike-shedding, but I am not a big fan of the notion of
+"direction". This is a combo PHY that in essence contains different
+PHYs, so why not call this "samsung_mipi_phy" or something?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+> +	struct phy *phy;
+> +	struct samsung_mipi_dcphy *parent;
+> +	u8 dir;
+> +	u8 type;
+> +	unsigned int lanes;
+> +	/* Written under the parent's lock. */
+> +	bool powered;
+> +};
+> +
+>  struct samsung_mipi_dcphy {
+>  	struct device *dev;
+>  	struct clk *ref_clk;
+> @@ -290,9 +305,9 @@ struct samsung_mipi_dcphy {
+>  	struct reset_control *s_phy_rst;
+>  	struct reset_control *apb_rst;
+>  	struct reset_control *grf_apb_rst;
+> -	unsigned int lanes;
+> -	struct phy *phy;
+> -	u8 type;
+> +	struct samsung_mipi_dcphy_dir phys[2];
 
-Thanks!
+This would look like this then:
 
-[1/5] ASoC: dt-bindings: qcom: add LPASS LPR vote clock ID
-      https://git.kernel.org/broonie/sound/c/cdba62ff7413
-[2/5] ASoC: qcom: qdsp6: Increase Q6DSP_MAX_CLK_ID for LPASS LPR vote clock
-      https://git.kernel.org/broonie/sound/c/037826ea448d
-[3/5] ASoC: qcom: q6prm: add support for LPASS LPR resource voting
-      https://git.kernel.org/broonie/sound/c/42cc644e071c
+	struct samsung_mipi_phy phys[2];
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+which seems clean and simple to me.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> +	/* Serialises the two directions' access to the shared PHY state. */
+> +	struct mutex lock;
+>  
+>  	const struct samsung_mipi_dcphy_plat_data *pdata;
+>  	struct {
+> @@ -995,7 +1010,7 @@ static void samsung_mipi_dphy_lane_enable(struct samsung_mipi_dcphy *samsung)
+>  	regmap_update_bits(samsung->regmap, DPHY_MC_GNR_CON0,
+>  			   PHY_ENABLE, PHY_ENABLE);
+>  
+> -	switch (samsung->lanes) {
+> +	switch (samsung->phys[RK_DCPHY_DIR_TX].lanes) {
+>  	case 4:
+>  		regmap_write(samsung->regmap, DPHY_MD3_GNR_CON1,
+>  			     T_PHY_READY(0x2000));
+> @@ -1026,7 +1041,7 @@ static void samsung_mipi_dphy_lane_enable(struct samsung_mipi_dcphy *samsung)
+>  
+>  static void samsung_mipi_dphy_lane_disable(struct samsung_mipi_dcphy *samsung)
+>  {
+> -	switch (samsung->lanes) {
+> +	switch (samsung->phys[RK_DCPHY_DIR_TX].lanes) {
+>  	case 4:
+>  		regmap_update_bits(samsung->regmap, DPHY_MD3_GNR_CON0,
+>  				   PHY_ENABLE, 0);
+> @@ -1334,11 +1349,23 @@ samsung_mipi_dphy_data_lane_timing_init(struct samsung_mipi_dcphy *samsung)
+>  
+>  static int samsung_mipi_dphy_tx_power_on(struct samsung_mipi_dcphy *samsung)
+>  {
+> +	bool first = !samsung->phys[RK_DCPHY_DIR_RX].powered;
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Note to myself: the lock is acquired in the calling method, all is well.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+>  	int ret;
+>  
+> +	/*
+> +	 * The shared BIAS block is brought up by whichever direction powers
+> +	 * on first, leaving an already active peer undisturbed.
+> +	 */
+> +	if (first) {
+> +		reset_control_assert(samsung->apb_rst);
+> +		udelay(1);
+> +		reset_control_deassert(samsung->apb_rst);
+> +	}
+> +
+>  	reset_control_assert(samsung->m_phy_rst);
+>  
+> -	samsung_mipi_dcphy_bias_block_enable(samsung);
+> +	if (first)
+> +		samsung_mipi_dcphy_bias_block_enable(samsung);
 
-Thanks,
-Mark
+This approach with the "first" variable seems unintuitive. If you need
+reference counting on the BIAS block, then use a state variable
+"bias_powered", use a mutex that protects it, and call
+samsung_mipi_dcphy_bias_block_{en,dis}able (from
+samsung_mipi_dcphy_power{on, off}) unconditionally. Those methods shall
+acquire the mutex, check the state variable, {en,dis}able the BIAS
+block, set the state variable accordingly, release the mutex.
+
+
+>  	samsung_mipi_dcphy_pll_configure(samsung);
+>  	samsung_mipi_dphy_clk_lane_timing_init(samsung);
+>  	samsung_mipi_dphy_data_lane_timing_init(samsung);
+> @@ -1368,34 +1395,44 @@ static int samsung_mipi_dphy_tx_power_off(struct samsung_mipi_dcphy *samsung)
+>  
+>  static int samsung_mipi_dcphy_power_on(struct phy *phy)
+>  {
+> -	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+> -
+> -	reset_control_assert(samsung->apb_rst);
+> -	udelay(1);
+> -	reset_control_deassert(samsung->apb_rst);
+> +	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
+
+Again, this may be bike-shedding, but "pd" seems misleading to me.
+Please reconsider the naming. Maybe "samsung_phy" for the individual PHY
+and "samsung" for the complete combo PHY? Or "phy_data" and
+"dcphy_data"? ...?
+
+> +	struct samsung_mipi_dcphy *samsung = pd->parent;
+> +	int ret;
+>  
+> -	switch (samsung->type) {
+> -	case PHY_TYPE_DPHY:
+> -		return samsung_mipi_dphy_tx_power_on(samsung);
+> -	default:
+> -		/* CPHY part to be implemented later */
+> +	if (pd->type != PHY_TYPE_DPHY)
+>  		return -EOPNOTSUPP;
+> -	}
+>  
+> -	return 0;
+> +	mutex_lock(&samsung->lock);
+> +	if (pd->dir == RK_DCPHY_DIR_RX)
+> +		ret = -EOPNOTSUPP;
+> +	else
+> +		ret = samsung_mipi_dphy_tx_power_on(samsung);
+> +	if (!ret)
+> +		pd->powered = true;
+
+Not sure whether you actually need to track the power status of the
+individual PHYs (maybe you actually need to track the BIAS block status
+alone) but anyway I would appreciate if
+"samsung_mipi_dphy_tx_power_{on,off}" would set the "pd->powered" variable.
+
+Best regards,
+Michael
+
+
+> +	mutex_unlock(&samsung->lock);
+> +
+> +	return ret;
+>  }
+>  
+>  static int samsung_mipi_dcphy_power_off(struct phy *phy)
+>  {
+> -	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+> +	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
+> +	struct samsung_mipi_dcphy *samsung = pd->parent;
+> +	int ret;
+>  
+> -	switch (samsung->type) {
+> -	case PHY_TYPE_DPHY:
+> -		return samsung_mipi_dphy_tx_power_off(samsung);
+> -	default:
+> -		/* CPHY part to be implemented later */
+> +	if (pd->type != PHY_TYPE_DPHY)
+>  		return -EOPNOTSUPP;
+> -	}
+> +
+> +	if (pd->dir == RK_DCPHY_DIR_RX)
+> +		return -EOPNOTSUPP;
+> +
+> +	mutex_lock(&samsung->lock);
+> +	ret = samsung_mipi_dphy_tx_power_off(samsung);
+> +	if (!ret)
+> +		pd->powered = false;
+> +	mutex_unlock(&samsung->lock);
+> +
+> +	return ret;
+>  }
+>  
+>  static int
+> @@ -1488,10 +1525,14 @@ samsung_mipi_dcphy_pll_calc_rate(struct samsung_mipi_dcphy *samsung,
+>  static int samsung_mipi_dcphy_configure(struct phy *phy,
+>  					union phy_configure_opts *opts)
+>  {
+> -	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+> +	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
+> +	struct samsung_mipi_dcphy *samsung = pd->parent;
+>  	unsigned long long target_rate = opts->mipi_dphy.hs_clk_rate;
+>  
+> -	samsung->lanes = opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lanes;
+> +	if (pd->dir == RK_DCPHY_DIR_RX)
+> +		return -EOPNOTSUPP;
+> +
+> +	pd->lanes = opts->mipi_dphy.lanes > 4 ? 4 : opts->mipi_dphy.lanes;
+>  
+>  	samsung_mipi_dcphy_pll_calc_rate(samsung, target_rate);
+>  	opts->mipi_dphy.hs_clk_rate = samsung->pll.rate;
+> @@ -1501,16 +1542,16 @@ static int samsung_mipi_dcphy_configure(struct phy *phy,
+>  
+>  static int samsung_mipi_dcphy_init(struct phy *phy)
+>  {
+> -	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+> +	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
+>  
+> -	return pm_runtime_resume_and_get(samsung->dev);
+> +	return pm_runtime_resume_and_get(pd->parent->dev);
+>  }
+>  
+>  static int samsung_mipi_dcphy_exit(struct phy *phy)
+>  {
+> -	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
+> +	struct samsung_mipi_dcphy_dir *pd = phy_get_drvdata(phy);
+>  
+> -	pm_runtime_put(samsung->dev);
+> +	pm_runtime_put(pd->parent->dev);
+>  
+>  	return 0;
+>  }
+> @@ -1536,19 +1577,29 @@ static struct phy *samsung_mipi_dcphy_xlate(struct device *dev,
+>  					    const struct of_phandle_args *args)
+>  {
+>  	struct samsung_mipi_dcphy *samsung = dev_get_drvdata(dev);
+> +	struct samsung_mipi_dcphy_dir *pd;
+> +	u8 dir = RK_DCPHY_DIR_TX;
+>  
+> -	if (args->args_count != 1) {
+> +	if (args->args_count < 1 || args->args_count > 2) {
+>  		dev_err(dev, "invalid number of arguments\n");
+>  		return ERR_PTR(-EINVAL);
+>  	}
+>  
+> -	if (samsung->type != PHY_NONE && samsung->type != args->args[0])
+> -		dev_warn(dev, "phy type select %d overwriting type %d\n",
+> -			 args->args[0], samsung->type);
+> +	if (args->args_count == 2) {
+> +		if (args->args[1] > RK_DCPHY_DIR_RX) {
+> +			dev_err(dev, "invalid direction %u\n", args->args[1]);
+> +			return ERR_PTR(-EINVAL);
+> +		}
+> +		dir = args->args[1];
+> +	}
+>  
+> -	samsung->type = args->args[0];
+> +	pd = &samsung->phys[dir];
+> +	if (pd->type != PHY_NONE && pd->type != args->args[0])
+> +		dev_warn(dev, "phy type select %u overwriting type %u\n",
+> +			 args->args[0], pd->type);
+> +	pd->type = args->args[0];
+>  
+> -	return samsung->phy;
+> +	return pd->phy;
+>  }
+>  
+>  static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+> @@ -1559,6 +1610,7 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+>  	struct phy_provider *phy_provider;
+>  	struct resource *res;
+>  	void __iomem *regs;
+> +	unsigned int i;
+>  	int ret;
+>  
+>  	samsung = devm_kzalloc(dev, sizeof(*samsung), GFP_KERNEL);
+> @@ -1568,6 +1620,7 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+>  	samsung->dev = dev;
+>  	samsung->pdata = device_get_match_data(dev);
+>  	platform_set_drvdata(pdev, samsung);
+> +	mutex_init(&samsung->lock);
+>  
+>  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>  	regs = devm_ioremap_resource(dev, res);
+> @@ -1613,11 +1666,19 @@ static int samsung_mipi_dcphy_probe(struct platform_device *pdev)
+>  		return dev_err_probe(dev, PTR_ERR(samsung->grf_apb_rst),
+>  				     "Failed to get system grf_apb_rst control\n");
+>  
+> -	samsung->phy = devm_phy_create(dev, NULL, &samsung_mipi_dcphy_ops);
+> -	if (IS_ERR(samsung->phy))
+> -		return dev_err_probe(dev, PTR_ERR(samsung->phy), "Failed to create MIPI DC-PHY\n");
+> +	for (i = 0; i < ARRAY_SIZE(samsung->phys); i++) {
+> +		struct phy *phy = devm_phy_create(dev, NULL,
+> +						  &samsung_mipi_dcphy_ops);
+>  
+> -	phy_set_drvdata(samsung->phy, samsung);
+> +		if (IS_ERR(phy))
+> +			return dev_err_probe(dev, PTR_ERR(phy),
+> +					     "Failed to create MIPI DC-PHY\n");
+> +
+> +		samsung->phys[i].phy = phy;
+> +		samsung->phys[i].parent = samsung;
+> +		samsung->phys[i].dir = i;
+> +		phy_set_drvdata(phy, &samsung->phys[i]);
+> +	}
+>  
+>  	ret = devm_pm_runtime_enable(dev);
+>  	if (ret)
+> 
 
