@@ -1,91 +1,192 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42D83B05A9;
-	Mon,  3 Aug 2026 21:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5102264C7;
+	Mon,  3 Aug 2026 21:51:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785793152; cv=none; b=p8zJlWM0cnX+CtvSRcdE+/zeeFh0HM2f3hz1Q2LFiic2xM76dVlioR5LA4I5rp3YZkN/ilXVfU+f3EkXoGRhwXxe4rDdq/qabIIHxaXGEL3PzxER/ZGsGR9/P3NbSNu9X6bmRevOHA6m+dpNj8I7whrmXAnd+MR2hjXMhPYkaxQ=
+	t=1785793862; cv=none; b=MjyQN/c7f1PYLQR5xnI8FxJ8h/Z51A/RUMjll75pChsagShALFJUozHDLwX42Em5Oc6rHwi35uyswVKRfRqaVLmp1waQSd5PcltMUX856PAcACctLRxy8ckx0Yan30MssWVqky3LQtCfBysKk6uVHsa8Z05A4ZzCv6XOAzhsZKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785793152; c=relaxed/simple;
-	bh=1eKZ244Lmy6bf6DXmqYIibMqKOERDiyUj1094P2o2pA=;
+	s=arc-20240116; t=1785793862; c=relaxed/simple;
+	bh=zpHQ0icqyDBjgiK1oDNMGEjpggztPui8Qra0SOdy7BE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TMs2+RF2QfyB8hSTVALWEK0ZIheHbHKe3Sho4JRUW67pyzUjdy81CcXPLY5gdRYWvkipcvJ2v1qW04VtBtNe9c6sXT5edWsFSqwhLlKBgoCqh8jELmbixrmq1n9AqCwxBrxUtikbNCYakvCc6oaZxawU3TNIyffq6HMYU+ZNmOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/2iuiMs; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=h/NoRtlmF0KGNXagZ/wblu+OlT4bhSg4W3ThQgNNStOzhD1MKzH6GqhvyHKLBXby4JoSs9lH4kP8I3p8HXA3VZW1LyReZJEy3viHAYBSu0sQkdW6DPq1Xx5YA2euJU4fhccOvSwdeoVF0F5NhwXlFtWptZ7FwJNfKmzGxtAqggQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oSeCpLWa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/2iuiMs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973401F000E9;
-	Mon,  3 Aug 2026 21:39:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oSeCpLWa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14F7C1F000E9;
+	Mon,  3 Aug 2026 21:51:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785793150;
-	bh=1eKZ244Lmy6bf6DXmqYIibMqKOERDiyUj1094P2o2pA=;
+	s=k20260515; t=1785793860;
+	bh=CYVTO77JKdixFTwe5auLV+AQitaj1TKmfvI7QlU3U18=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z/2iuiMsELzNzb68s/mp0XPzEff9h7c2vjnbAFdwVlhaAz2Hg9646Kz0ob7n87uO/
-	 HUyeAdL/qkR0l0LGGexl5Brpx/5Pge11fvQLVHcTjRjg01vOPDqjn57PjFf1Fmf0iu
-	 mdWBUFE6fAueyxwwSeJAmEyJhmWmAJfBL9p5w+vg/Z2rL+IxVb8lxps/a7sGsvrK94
-	 CEKOaod/9nq1hzwrs5QzKyCwMGUeGjdyQpDzbwP6WJHrjpp9ehwsG3ZWpHBaFlKLNq
-	 Rz5/0WiJP1sGgDWFY/355BbUHleVeP9xkkO2bV8NSpE6bEmtmkpqYtcQcUuaJicG0U
-	 kQPB1DqTrr8zQ==
-Date: Mon, 3 Aug 2026 22:39:05 +0100
-From: Mark Brown <broonie@kernel.org>
-To: david@ixit.cz
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	b=oSeCpLWa9LLSKWMX90sLvZWRaqXGHaa3Yqazrcd/Cyj3Fvrs+iXjOQKcJAYSdbWci
+	 S+ZwRk8YPLFcn0MBAQYxkRbRnYOA+3nLAp0lA5ps/F1gIxbG5xNukzg4cTgjcQhQWM
+	 IKYEcYDKBL4BGmub+MjlYQ/0jGnsnG/aLilyroIVTDiebJEly8DvdneFv8C4f/oybu
+	 CCw0sa8yTUyoVdcVMnxv48mp7rRVjnbq/su4kt2xRiMnpm13ULBM9ZVcFkax9GLceD
+	 IEQxaOPAmrMK5ojOcBjG/zpVk3dnNl9LmA9nhRJNb3kE3zoIi0CznXJQ1m0YjWj20l
+	 jFnpVQSm/DEMQ==
+Date: Mon, 3 Aug 2026 16:50:59 -0500
+From: Rob Herring <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
+	Tony Lindgren <tony@atomide.com>, linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH RFC 1/3] dt-bindings: sound: Add NXP TFA98XX TFA2
- amplifier binding
-Message-ID: <467bc583-b0d5-4b9b-913b-0053dfe5e69d@sirena.org.uk>
-References: <20260802-tfa98xx-upstream-v1-0-4dd55cdd658a@ixit.cz>
- <20260802-tfa98xx-upstream-v1-1-4dd55cdd658a@ixit.cz>
+	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
+	simona.toaca@nxp.com
+Subject: Re: [PATCH] dt-bindings: clock: ti,DM814x-ADPLL: Convert to DT schema
+Message-ID: <20260803215059.GA638187-robh@kernel.org>
+References: <20260726-ti-adpll-v1-1-86f6fc936507@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="znd2vZhPfXf+jTWJ"
-Content-Disposition: inline
-In-Reply-To: <20260802-tfa98xx-upstream-v1-1-4dd55cdd658a@ixit.cz>
-X-Cookie: Prunes give you a run for your money.
-
-
---znd2vZhPfXf+jTWJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260726-ti-adpll-v1-1-86f6fc936507@gmail.com>
 
-On Sun, Aug 02, 2026 at 02:42:40PM +0200, David Heidelberg via B4 Relay wro=
-te:
-> From: David Heidelberg <david@ixit.cz>
->=20
-> Add a YAML devicetree binding schema for the NXP/Goodix TFA98XX TFA2
-> family of I2C-controlled smart speaker amplifiers with on-chip DSP.
+On Sun, Jul 26, 2026 at 12:17:47AM +0530, Bhargav Joshi wrote:
+> Convert the Texas Instruments DM814x ADPLL clock binding to DT schema
+> format. Add 'clock-output-names' as required which was missing in
+> legacy binding, as the driver (clk-adpll.c) mandates it and fails
+> probing if it is missing.
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+>  .../devicetree/bindings/clock/ti/adpll.txt         |  39 --------
+>  .../bindings/clock/ti/ti,dm814-adpll-clock.yaml    | 108 +++++++++++++++++++++
+>  2 files changed, 108 insertions(+), 39 deletions(-)
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+> diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml
+> new file mode 100644
+> index 000000000000..7f551dfca030
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.yaml
+> @@ -0,0 +1,108 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/clock/ti/ti,dm814-adpll-clock.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments DM814x ADPLL Clock
+> +
+> +maintainers:
+> +  - Tony Lindgren <tony@atomide.com>
+> +
+> +description:
+> +  The ADPLL is a register-mapped clock generator found on TI DM814x SoCs. It
+> +  provides multiple output clocks from two or three selectable input clocks and
+> +  three to four children.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ti,dm814-adpll-s-clock
+> +      - ti,dm814-adpll-lj-clock
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  '#clock-cells':
+> +    const: 1
+> +
+> +  clocks:
+> +    minItems: 2
+> +    maxItems: 3
+> +
+> +  clock-names:
+> +    minItems: 2
+> +    maxItems: 3
+> +
+> +  clock-output-names:
+> +    minItems: 3
+> +    maxItems: 4
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - '#clock-cells'
+> +  - clocks
+> +  - clock-output-names
+> +
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        const: ti,dm814-adpll-s-clock
+> +then:
+> +  properties:
+> +    clocks:
+> +      minItems: 3
+> +    clock-names:
+> +      items:
+> +        - const: clkinp
+> +        - const: clkinpulow
+> +        - const: clkinphif
 
---znd2vZhPfXf+jTWJ
-Content-Type: application/pgp-signature; name="signature.asc"
+This can move to the top level and just 'minItems: 3' here.
 
------BEGIN PGP SIGNATURE-----
+> +    clock-output-names:
+> +      items:
+> +        - description: dcoclkldo
+> +        - description: clkout
+> +        - description: clkoutx2
+> +        - description: clkouthif
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpxCngACgkQJNaLcl1U
-h9BLBAf/XkpYCwWXR7nRrQXAMB5vXTfnmqNukSbg1JIMs2mOzLhzyjr+WHME096q
-SDbi9Hg2BqriGxtARQ35bdDEvpSoauIaM6DYIxU2SSiJ8dJoigyCHD39VCkR7Dtl
-Heva1uX8ivkOw7JnWwk+4JOHpDmigkdudtm0Alkx7NVv3MLXQsz1U4hwnLL/cp7e
-wFs+4g+mykOfVQVWAb2E7xycGJ7AlKi4R1eQre7k2zCY3RmLt4BkoEPj4/BHIi5W
-fKrWlkb4vgLU7FI8bRkUKC5ueGwBFV5ZtQAY/tkIwrDgQKS+YgVeVOJBUGyEKowN
-TQBzgK+E/Lp/Bh0/lj41B4kUla87Eg==
-=xfFr
------END PGP SIGNATURE-----
+You don't have to document the clock-output-names.
 
---znd2vZhPfXf+jTWJ--
+> +else:
+> +  properties:
+> +    clocks:
+> +      maxItems: 2
+> +    clock-names:
+> +      items:
+> +        - const: clkinp
+> +        - const: clkinpulow
+
+And just 'maxItems: 2' here.
+
+> +    clock-output-names:
+> +      items:
+> +        - description: dcoclkldo
+> +        - description: clkout
+> +        - description: clkoutldo
+
+And drop. Or maybe just 'maxItems: 3'
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    adpll@40 {
+> +        compatible = "ti,dm814-adpll-s-clock";
+> +        reg = <0x40 0x40>;
+> +        #clock-cells = <1>;
+> +        clocks = <&devosc_ck &devosc_ck &devosc_ck>;
+> +        clock-names = "clkinp", "clkinpulow", "clkinphif";
+> +        clock-output-names = "481c5040.adpll.dcoclkldo",
+> +                             "481c5040.adpll.clkout",
+> +                             "481c5040.adpll.clkoutx2",
+> +                             "481c5040.adpll.clkouthif";
+> +    };
+> +
+> +  - |
+> +    adpll@80 {
+> +        compatible = "ti,dm814-adpll-lj-clock";
+> +        reg = <0x80 0x30>;
+> +        #clock-cells = <1>;
+> +        clocks = <&devosc_ck &devosc_ck>;
+> +        clock-names = "clkinp", "clkinpulow";
+> +        clock-output-names = "481c5080.adpll.dcoclkldo",
+> +                             "481c5080.adpll.clkout",
+> +                             "481c5080.adpll.clkoutldo";
+> +    };
+
+One example is enough.
