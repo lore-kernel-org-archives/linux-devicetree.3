@@ -1,112 +1,97 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BEA3016E7
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 02:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3312EEE6A
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 02:48:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785724901; cv=none; b=uSDX0rVhvuSCmcvWOK/KfgONpPmg0WJc8DzcK4n1v9uQch9/CTc3YdjX6Av/qwdTsFuSNlKH4nxHA1f7XWVh1nX9n9VK/EhtReWEIl/YAj05OkG9gx2aWr8az0AbFp/D42obavb0kK0Rf4U8Xf7WiglTGtQI/DSj0cjL0mLrwwM=
+	t=1785725295; cv=none; b=T9J21CAewgFkg+X5/T74A0Nvn4WQGSpw5Q9b2rfazSzCfGd+HOZivM3Y3nRIluLiCgH4I68Xi8hHLXovsC09AOeZOcFx6qNpLLFcI6MHH4ZRl/oZ+FfDZL583ScOlHGG0COkssmH3JZJ09Fc396vDVLomKkzqL2es4lIAtC/AWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785724901; c=relaxed/simple;
-	bh=zIrrFuB7x4ex4Jv1JNXALjQ07Vk9xYw7VV0Zi32eI1w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WX9WJOIoNzp84UU3yVtvc1lg8NzIsjEoVlOwnYDiOLU7SUuUzWgGsaZSayD4DwaXWto2UCh/O8PEf3GIucGZWUTt+5RqrUY5r0tFmktNn8Axst//VLQNMVZpwAvGmjsyidaKfpDA0em1f5LcDwVvkzOrjfqsgF8Ejob5LuYNCpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nB/yvzXI; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785725295; c=relaxed/simple;
+	bh=AXjQeKg1GxeKZ7uAXwGG0I+kMOD/CPIeAzTxqO7gg6w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nByB5kAyu2d/mxjbvl+Tgn7rkhEG4PZaZVPLfiee4bPyaf/eee2bzyLUn6ev2T3hF0CcMuLlQzfGNxrXSsBBU5zzsvmYamOJRSj426OiUnfTfYpaTMvuqOKvDWNhdEZe295x+akagAmygpWL9gAteNDI7bzW7np0pyfWwFMTwY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J+CuAbgM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nB/yvzXI"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d02b4c3601so31693855ad.3
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 19:41:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785724899; x=1786329699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sCHwCKyWw8sq72dejSTrSVAee4EJg7rmMPvIvja2B2Q=;
-        b=nB/yvzXImkLOEDvp/LPr1tKtecByc7rNZCwR/8djEJj3Yl8HeKlf4jSAnZOG8XKPGK
-         0njTIN1C5Van4bjliTdWzdghj7CPx9ZGv817T7uSN3vSMBsAca0HocV36u+dsIibfQab
-         nf1aGDlRpscOyN+dAtnHHrZVMHqj+c1iejwsKQqvtuJ7mdq9howysJXb1SwBnCd1GP3w
-         DgCcexBkTk7xnOrtTZPRUoobHvPIqdgXUJQyDGQl8IJ5TbMgJfbmCpq3jCuawPsd3+Rl
-         wqvBZJSN/6YtezoZmeGwv1RYf8j/nMHYKY2u4hdYr0VFkJlrf8xVM8/Uja0W11hambDw
-         hEIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785724899; x=1786329699;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sCHwCKyWw8sq72dejSTrSVAee4EJg7rmMPvIvja2B2Q=;
-        b=DuMLC5VRqomdervktXNa4sOgJi8XBapqutyE+G1sQTk7ka5QjWasNjrvzGw4RrYI1R
-         a2BPxZyyV+jYo06scwss6zl8pentmAT+VVxhzDpyNz+FRzTJwWDcxa4wMJ8dJVTR8QbI
-         CWNebz8Ft3YdFPBjwKLpQRiYIs82XLru6aOHP120gpOyIyF8eWXRZIQ3xIQ5qYDo+dlQ
-         4B/ha/d+z7lDMgNFL6Y+Lv1qyMLNZhpBUv0MTwrJkbxsn7p8jJbV4SEyVZlcr8ZjIoPP
-         aktrSOtzfRBfd8GOaXceVePUc2oKeipZi5ecvZJ4gElzrMXfr/1MgCC2HCTX+e56fnqb
-         A3eg==
-X-Forwarded-Encrypted: i=1; AHgh+RrGPzsahUilPyaZtrYHey2JnodpBHOS5DDATXj+dZ+Mli1b24FKnLozgpSU7Nn1U3UNajLZ0WZe6zr6@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRJf9BHHxomB25tVPGGq2cy0QL5r46MtcmK9ChYa+OxP/ZLfdb
-	mb3NZDXvg+lw3FXJ8Gg4FkLzjul5biFbmZVnZzUqzxu2IQXtg2NEsB/u
-X-Gm-Gg: AR+sD12gocZPQeU/6RdiF/WezDWxGUmQMszPMkvGIyM4JOR4XLEyHefecgXggjcOIW+
-	tjBMNX0QNV0OMr9lOANcjmsZmdYMUJyNanJ3aoVZVGTVg6rXLd8QbhXh4PP3run4iP2LC5BCy9V
-	s9b4Fb70glmNYeoGGmrU/Dxaw1yy1On/EDTDzkvgxeFCVQ0NA0+czus3UUSlveIF47vvKWKQtvZ
-	/HXmo3sqLEJuhys3qWBtvWps92yxGJpkb/Ue7Qd/kre49XBv2gHc8SchKTzYbnvgiHB4RqTyAOM
-	TDoVDrh28qS51tXEoa144vIbmtzEhgMO3nDGln2ZjBCWU9FNcoF6zPaz2x0kKOmzE6ppoupcllT
-	pC/vTfe/WHSZ/frLV1ZdidOo2D1X5m6qhwjILWC+U1epeS9LwgbCpDDBpGUQHpruyITxn75lwBz
-	zA9aUht6Js7nSWOs7HERl0S0/KJ6LhesFq2PHMWbGo4+5yePQ5o9Kg82C22Vr4WRgEiQhdovB9P
-	gsamhY34tAQErFRunNjFN7y1qA3KmQkuBJS5wIh3Izu8gOneHY=
-X-Received: by 2002:a17:903:252:b0:2cf:b6b5:9cce with SMTP id d9443c01a7336-2d0524cd574mr99284765ad.46.1785724899298;
-        Sun, 02 Aug 2026 19:41:39 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04ae5abaesm30827645ad.27.2026.08.02.19.41.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 19:41:38 -0700 (PDT)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH] dt-bindings: spi: nuvoton,ma35d1-qspi: Disallow GPIO chip selects
-Date: Mon,  3 Aug 2026 10:40:48 +0800
-Message-Id: <20260803024048.1641756-1-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J+CuAbgM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FBDD1F000E9;
+	Mon,  3 Aug 2026 02:48:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785725292;
+	bh=2/m7t4F1bLUut9G46fPZcKbRn7UQeH8icSgQfTCoBBs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J+CuAbgM5/WiJnqXjMavqSCWsRCuE3yH0HPDxS46K7+vb6nvuzFYYIT9GOH0ZkZY5
+	 ukGePTxYpk71maG5v/Nd6PhwlmlnlNoKO/TIR79RLizjhJGPnRkYbHUtuGnZmYzMIw
+	 Haoan1B22+asA92siU6B+gz2JErCyuMyR7jlowDWRD32HY4jtsAb79f8vtvZhBfh9h
+	 oo9P3bR4Lbm6PMhpNq9N9ko0CC6vp5cFrGonHKeDLXpfjLa6mjB94DFw3eoxQ558MC
+	 YzhpLsvdKiCs8AJ2YRii5lW2xvTQvH6n4ESfzIEt8R5GCAIWampd4YF3DNHfURz93c
+	 gEHQpU+LOP+yw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: spi: nuvoton,ma35d1-qspi: Disallow GPIO
+ chip selects
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chi-Wen Weng" <cwweng.linux@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260803024048.1641756-1-cwweng.linux@gmail.com>
+References: <20260803024048.1641756-1-cwweng.linux@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 02:48:12 +0000
+Message-Id: <20260803024812.9FBDD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit disallows the `cs-gpios` property in the DT binding b=
+ased solely on a current Linux driver limitation, violating the core Device=
+ Tree principle that bindings describe hardware, not software capabilities.
+--
 
-The generic SPI controller binding allows GPIO-based chip selects, but
-the MA35D1 QSPI driver currently supports only the controller's native
-chip selects.
+--- Patch [1]: [PATCH] dt-bindings: spi: nuvoton,ma35d1-qspi: Disallow GPIO=
+ chip selects ---
+commit 3aecb6991adf3696410ad69c99107c7d732fd078
+Author: Chi-Wen Weng <cwweng@nuvoton.com>
 
-Disallow the cs-gpios property so that the binding matches the
-functionality provided by the driver.
+dt-bindings: spi: nuvoton,ma35d1-qspi: Disallow GPIO chip selects
 
-Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
----
- Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+This commit updates the nuvoton,ma35d1-qspi binding to explicitly disallow
+the cs-gpios property. The change is made because the current driver only
+supports native chip selects, preventing the use of GPIO-based chip selects.
 
-diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-index 377ccf4fb224..40965ec5163b 100644
---- a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-+++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-@@ -33,6 +33,8 @@ properties:
-     maximum: 2
-     default: 2
- 
-+  cs-gpios: false
-+
- required:
-   - compatible
-   - reg
--- 
-2.25.1
+> diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.ya=
+ml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+> --- a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+> +++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
+> @@ -33,6 +33,8 @@ properties:
+>      maximum: 2
+>      default: 2
+> =20
+> +  cs-gpios: false
+> +
 
+[Severity: Medium]
+Does this restriction violate the device tree principle that bindings should
+describe hardware rather than software capabilities?
+
+By explicitly disallowing cs-gpios in the properties block based on a curre=
+nt
+Linux driver limitation, board designers who route a standard GPIO to a SPI
+peripheral's chip select pin will be incorrectly prevented from describing
+their actual physical board wiring. When running make dtbs_check on a board
+device tree that uses cs-gpios for this controller, the schema will reject =
+it.
+
+Should the hardware schema allow standard hardware properties like cs-gpios
+even if the current software driver lacks support for them?
+
+>  required:
+>    - compatible
+>    - reg
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803024048.1641=
+756-1-cwweng.linux@gmail.com?part=3D1
