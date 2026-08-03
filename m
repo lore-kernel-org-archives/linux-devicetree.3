@@ -1,205 +1,349 @@
-Received: from knowth.nicko.org (knowth.nicko.org [52.215.230.155])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DB8342C9E;
-	Mon,  3 Aug 2026 16:19:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.215.230.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B343161A1;
+	Mon,  3 Aug 2026 16:23:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785774004; cv=none; b=P2g/4ECWb/NlzDlzfy5OnaDXTUh9Dqb+zgEWkAATORt3Fo4cuxo0tvCMaiCuQu5uZ8d59opcKNcXJ2ni/a6KI3JJ/I2f9q+1sNfaHt1mGigUB/yL6tv3T1/7m+nKVYYqUoabTwa/tTBmzoVqIOII6bsLuZlgz0t0g/7dBCnPs1c=
+	t=1785774215; cv=none; b=CwBr5tKfMKIKxE9sou+bMKvPPEulTberLRuw3APH2Hb1ldikmSMfdiTM84j7uAcJZYrjsmf/fkc6O71Id1DNWMW1froCOOirLgSA/asaovq+SJgJsbaUYJDQHWsM7Y0VlGWpTZz3nBA3wZ5kW2+HdNDNiK3rN3TyG3LmoTCSaOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785774004; c=relaxed/simple;
-	bh=hgQVAdeDVrCIN+Z49ylLdyA0idWgHfnnwAtWKGNF2DI=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=RtJ5hj1+yNMLRqboQR0i2pGdmPflnzr0SyABNahwA5EGfqsmGmkQis1Ir94tUFmCn2sY0uB9o4uHZ1JIZjPtMpKgajoTHxGqSbqT19Y4CrD0bQ7jqn+oBwhVbLCid0rjQ/glqka0ksnaxUPB0O/aQyiKaeqaeHg7+H+xbIm1IM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nicko.org; spf=pass smtp.mailfrom=nicko.org; dkim=pass (2048-bit key) header.d=nicko.org header.i=@nicko.org header.b=vXDuQWrv; arc=none smtp.client-ip=52.215.230.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nicko.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nicko.org
+	s=arc-20240116; t=1785774215; c=relaxed/simple;
+	bh=U4bgqk2SbU2hMLu2vQzXMdHlguP9PmemA8O5dwa57Fw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=D3GbggPkcpfz+hv3oi4LyLhyysXALH8rzJ7pi0fVZ2iOPS9gZgppB3VRvduj/MH9RH5QLzTyFAu03DNRCuwpIN0G8XlutEW2h00lP+KyrsghPZmYjrbvqYUQxMdiBGWJh/Y1KwG1c1cO6vChszvRLcbAh+a4+PRnF9asmmg62RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Vd5/xvfG; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IENqR0O8; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nicko.org header.i=@nicko.org header.b="vXDuQWrv"
-Content-Type: text/plain;
-	charset=us-ascii
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nicko.org; s=dkim;
-	t=1785773988;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Vd5/xvfG";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IENqR0O8"
+Message-ID: <ef6c7f16f041fc05098e9c2dc75f5d8f99a4c515.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785774212;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UhueohGQclX/GRBPF3HMrvfjnxB2F8qyYo8Y31LUtcY=;
-	b=vXDuQWrvopki68Ybcda6x84boN1CkcFqGLvI6W6PE9ZEtUA+xRLU4oozEIQVT5vf2Ej610
-	ah5Ee3dbgAzzHoeWxJrXSMwk8L+89zltEYx+FJ1fGEphEbwD6sHMMW/33MfKQs/F6afiIM
-	foEdpzkWUvJtXVK5LyN8HKuut1GZKsRXdPCeZZrmcUqhpOJqzR7IiyswG8g8L73w55CmAs
-	qTOav/7yBNzMoLaV5YdWnzn5zcjF5F27F6Ej5G/KeJ66fTRx4ltRQAxnIbH6qBOqY+J93y
-	BUmL2F41zlKYCddvYxei8KaaA2qhl2n+WQ7fX1Tw/n507l8la3yS5jX+6MsoqA==
-Authentication-Results: knowth.nicko.org;
-	auth=pass smtp.mailfrom=nicko@nicko.org
+	bh=J9+2z4K7Z6oHtge3Jfpr6Mn1+pAcz55kshcDPQONNlU=;
+	b=Vd5/xvfGMvkcCXgTKm3GQW+4B7knN/mO4YMJ12gFZvAcDJkZ7chkmljU8EQWlb4ntTGX2J
+	qYCVjJCgY5pMWnOIMUVoASrB6xkz+L//bbOI+l5MnAFTMvcJM7JaMpBhArCV9iLluGbKnX
+	OkOxb9gDvzYiw3ehzUwIkZUZUdijzH++vX4NXnQ35LpQdMN+YRox84BTuqyNjC+gqOVraQ
+	TG6N0LU4SylksFG41AJ1TlgYgE0Zka1devnojYG9Zw3D2vXgyCG9uGJvoqEWJTepwG/T1W
+	+gvo3RqlRhAIA3SY3RPhTeRagFc4/HuDsoSlCNcUc+CHsRc1kSvJvdVifLbDMw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785774212;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J9+2z4K7Z6oHtge3Jfpr6Mn1+pAcz55kshcDPQONNlU=;
+	b=IENqR0O8ypceurrik6cY1k/5Ucfx5kttALeRygpOt3PkS1VErzNWui6+TA5FG5l7so1zpr
+	ry/to/7mdoK0EgBg==
+Subject: Re: [PATCH 4/4] net: dsa: soce: Add initial driver support for MRS
+ switches
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
+ Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>
+Date: Mon, 03 Aug 2026 18:23:31 +0200
+In-Reply-To: <20260730-prophetic-ordinary-crane-0ebedf@quoll>
+References: 
+	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-4-be569dae1b20@linutronix.de>
+	 <20260730-prophetic-ordinary-crane-0ebedf@quoll>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: glymur: Add Asus Zenbook A14
- (UX3407NA)
-From: Nicko van Someren <nicko@nicko.org>
-In-Reply-To: <20260623-zenbook-dts-v1-2-3f80f680381d@oss.qualcomm.com>
-Date: Mon, 3 Aug 2026 10:19:33 -0600
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1D8BC06E-7D8C-4BD6-ADF2-A4CC1BD24B93@nicko.org>
-References: <20260623-zenbook-dts-v1-0-3f80f680381d@oss.qualcomm.com>
- <20260623-zenbook-dts-v1-2-3f80f680381d@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-X-Spamd-Bar: -
+MIME-Version: 1.0
 
-On Jun 22, 2026, at 19:31, Bjorn Andersson <andersson@kernel.org> wrote:
-
-> From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+On Thu, 2026-07-30 at 11:01 +0200, Krzysztof Kozlowski wrote:
+> On Wed, Jul 29, 2026 at 06:36:57PM +0200, Vasilij Strassheim wrote:
+> > +static const struct soce_variant_desc soce_variants[] =3D {
+> > +	{
+> > +		.compatible		=3D "soce,mrs-21-01",
+> > +		.mdio_master_offset	=3D SOCE_MRS_21_01_MDIO_MASTER_OFFSET,
+> > +		.layout			=3D &soce_mrs_21_01_layout,
+> > +		.mdio_ops		=3D &soce_mdio_ops_20_03,
+> > +	},
+> > +	{
+> > +		.compatible		=3D "soce,mrs-23-02",
+> > +		.mdio_master_offset	=3D SOCE_MRS_21_01_MDIO_MASTER_OFFSET,
+> > +		.layout			=3D &soce_mrs_24_01_layout,
+> > +		.mdio_ops		=3D &soce_mdio_ops_c22_c45,
+> > +	},
+> > +	{
+> > +		.compatible		=3D "soce,mrs-24-01",
+> > +		.mdio_master_offset	=3D SOCE_MRS_21_01_MDIO_MASTER_OFFSET,
+> > +		.layout			=3D &soce_mrs_24_01_layout,
+> > +		.mdio_ops		=3D &soce_mdio_ops_c22_c45,
+> > +	},
+> > +	{ /* sentinel */ },
+> > +};
+> > +
+> > +static const struct soce_variant_desc *
+> > +soce_match_variant(const char *compatible)
+> > +{
+> > +	int i;
+> > +
+> > +	for (i =3D 0; soce_variants[i].compatible; i++) {
+> > +		if (!strcmp(compatible, soce_variants[i].compatible))
+> > +			return &soce_variants[i];
 >=20
-> UX3407NA is a variant of the Asus Zenbook A14 built on the Qualcomm
-> Glymur platform. It comes with an 18-core X2 Elite SoC, 32GB DDR, and
-> the other typical Glymur platform capabilities.
+> Do not re-invent OF matching. This is supposed to be of_device_id table.
 
-Firstly, many thanks for this. I recently acquired one of these machines
-for some firmware work I'm doing and having a working Linux system on it
-makes my life much easier!
+I will change that.
 
-I tested this patch set, along with the others it depends on. I have it
-mostly working now but ran into some issues that might indicate a few
-changes.
+>=20
+> > +	}
+> > +
+> > +	return NULL;
+> > +}
+> > +
+> > +static int soce_sw_parse_port_mdio_config(struct soce_dsa_local *local=
+,
+> > +					  struct device *dev,
+> > +					  struct device_node *port_node,
+> > +					  u32 port)
+> > +{
+> > +	struct device_node *phy_node;
+> > +	u32 val;
+> > +	int ret;
+> > +
+> > +	if (of_find_property(port_node, "ethernet", NULL) ||
+> > +	    of_find_property(port_node, "link", NULL)) {
+> > +		if (of_find_property(port_node, "phy-handle", NULL)) {
+> > +			dev_err(dev,
+> > +				"phy-handle not allowed on CPU/DSA port %u\n",
+> > +				port);
+> > +			return -EINVAL;
+> > +		}
+> > +
+> > +		return 0;
+> > +	}
+> > +
+> > +	phy_node =3D of_parse_phandle(port_node, "phy-handle", 0);
+> > +	if (!phy_node) {
+> > +		if (of_phy_is_fixed_link(port_node))
+> > +			return 0;
+> > +
+> > +		dev_err(dev, "user port %u requires phy-handle or fixed-link\n",
+> > +			port);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	ret =3D of_property_read_u32(phy_node, "soce,mdio-output", &val);
+> > +	if (ret) {
+> > +		dev_err(dev,
+> > +			"missing soce,mdio-output in %pOF referenced by port %u\n",
+> > +			phy_node, port);
+> > +		goto out_put_phy;
+> > +	}
+> > +	local->mdio_info[port].mdio_output =3D val;
+> > +
+> > +	ret =3D of_property_read_u32(phy_node, "soce,phy-addr", &val);
+> > +	if (ret) {
+> > +		dev_err(dev,
+> > +			"missing soce,phy-addr in %pOF referenced by port %u\n",
+> > +			phy_node, port);
+> > +		goto out_put_phy;
+> > +	}
+> > +	local->mdio_info[port].phy_addr =3D val;
+> > +
+> > +out_put_phy:
+> > +	of_node_put(phy_node);
+> > +	return ret;
+> > +}
+> > +
+> > +static int soce_sw_parse_port_mdio(struct soce_priv *priv, struct devi=
+ce *dev,
+> > +				   u32 numports)
+> > +{
+> > +	struct soce_dsa_local *local =3D &priv->local;
+> > +	struct device_node *ports_node;
+> > +	struct device_node *port_node;
+> > +	u32 port;
+> > +	int ret;
+> > +
+> > +	ports_node =3D of_get_child_by_name(dev->of_node, "ports");
+> > +	if (!ports_node) {
+> > +		dev_err(dev, "missing ports node\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	for_each_available_child_of_node(ports_node, port_node) {
+>=20
+> Why not scoped?
 
-WIFI:
+I will change it to scoped.
 
-> + wifi@0 {
-> + compatible =3D "pci17cb,1107";
-> ...
-> + };
+>=20
+> > +		if (of_property_read_u32(port_node, "reg", &port))
+> > +			continue;
+> > +
+> > +		if (port >=3D numports || port >=3D SOCE_MAX_NUM_PORTS) {
+> > +			dev_warn(dev,
+> > +				 "ignoring invalid port index %u in %pOF\n",
+> > +				 port, port_node);
+> > +			continue;
+> > +		}
+> > +
+> > +		ret =3D soce_sw_parse_port_mdio_config(local, dev, port_node,
+> > +						     port);
+> > +		if (ret) {
+> > +			of_node_put(port_node);
+> > +			of_node_put(ports_node);
+> > +			return ret;
+> > +		}
+> > +	}
+> > +
+> > +	of_node_put(ports_node);
+> > +	return 0;
+> > +}
+> > +
+> > +static int soce_sw_probe(struct mdio_device *mdiodev)
+> > +{
+> > +	const struct soce_variant_desc *variant;
+> > +	struct device *dev =3D &mdiodev->dev;
+> > +	struct device_node *switch_node;
+> > +	struct soce_dsa_local *local;
+> > +	const char *soce_compatible;
+> > +	struct soce_priv *priv;
+> > +	u32 numports;
+> > +	int ret;
+> > +
+> > +	priv =3D devm_kzalloc(&mdiodev->dev, sizeof(*priv), GFP_KERNEL);
+> > +	if (!priv)
+> > +		return -ENOMEM;
+> > +
+> > +	priv->ds =3D devm_kzalloc(&mdiodev->dev, sizeof(*priv->ds), GFP_KERNE=
+L);
+> > +	if (!priv->ds)
+> > +		return -ENOMEM;
+> > +
+> > +	priv->ds->dev =3D dev;
+> > +	priv->ds->priv =3D priv;
+> > +	local =3D &priv->local;
+> > +
+> > +	switch_node =3D of_parse_phandle(dev->of_node, "soce,switch-ip", 0);
+> > +	if (!switch_node) {
+> > +		dev_err(dev, "missing or invalid switch IP reference\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	ret =3D of_property_read_string(switch_node, "compatible",
+> > +				      &soce_compatible);
+> > +	if (ret) {
+> > +		dev_err(dev, "missing compatible property in %pOF\n",
+> > +			switch_node);
+> > +		of_node_put(switch_node);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	variant =3D soce_match_variant(soce_compatible);
+> > +	if (!variant) {
+> > +		dev_err(dev, "unsupported compatible '%s' in %pOF\n",
+> > +			soce_compatible, switch_node);
+> > +		of_node_put(switch_node);
+>=20
+> Use proper error handling exit paths with goto.
 
-ASUS don't specify what WiFi7 chip they use, which is fairly normal =
-since
-ASUS tends to swap the parts depending on supply. As a result, my =
-machine
-has a QCC2072 (17cb:1112) WiFi/BT module not the WCN7850 (17cb:1107) =
-device
-that you listed. Inspection of the hardware shows that the WiFi/BT =
-module
-is a solder-down M.2 LGA module, but electrically that's still an M.2
-interface. Photos that I can find of the Zenbook A16 show it does the =
-same.
-I think it might be more reliable to define a wlan-connector, like =
-Konrad
-Dybcio did in the Asus Zenbook A16 (UX3607OA) (2/3) from 2026-07-21,
-rather than specify the chip.
+I will do it.
 
+>=20
+> > +		return -ENODEV;
+> > +	}
+> > +
+> > +	ret =3D of_property_read_u32(switch_node, "soce,num-ports", &numports=
+);
+> > +	if (ret) {
+> > +		dev_err(dev, "missing soce,num-ports in %pOF\n", switch_node);
+> > +		of_node_put(switch_node);
+> > +		return -EINVAL;
+> > +	}
+> > +	if (numports =3D=3D 0 || numports > SOCE_MAX_NUM_PORTS) {
+> > +		dev_err(dev, "invalid soce,num-ports %u (max %d)\n", numports,
+> > +			SOCE_MAX_NUM_PORTS);
+> > +		of_node_put(switch_node);
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	local->base_addr =3D devm_of_iomap(dev, switch_node, 0, NULL);
+> > +	if (IS_ERR(local->base_addr)) {
+> > +		dev_err(dev, "failed to map switch register space for %pOF\n",
+> > +			switch_node);
+> > +		of_node_put(switch_node);
+> > +		return PTR_ERR(local->base_addr);
+> > +	}
+> > +
+> > +	priv->ds->ops =3D &soce_switch_ops;
+> > +	local->mdio_ops =3D variant->mdio_ops;
+> > +	local->mdio_master_addr =3D
+> > +		local->base_addr + variant->mdio_master_offset;
+> > +	local->layout =3D variant->layout;
+> > +	of_node_put(switch_node);
+> > +
+> > +	priv->ds->num_ports =3D numports;
+> > +	ret =3D soce_sw_parse_port_mdio(priv, dev, numports);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	dev_set_drvdata(&mdiodev->dev, priv);
+> > +
+> > +	dev_info(dev, "soce %s SDSA driver probed.\n", soce_compatible);
+>=20
+> Drop, driver should be silent on success.
 
-SOUND:
+Does this really apply to DSA drivers? I see some corresponding dev_info()
+entries in mainlined drivers. See for example mv88e6060_probe(),
+gswip_probe_common() and sja1105_probe().
+And there are others as well, especially if you consider the _detect()
+functions that are called from _probe().
+I also find it very helpful for troubleshooting, so I'd like to keep it alo=
+ng
+with some additional information about the hardware, just like other driver=
+s.
 
-Regarding sound definitions, the dts declares four WSA8845s -- a woofer
-and tweeter per side, two on swr0 and two on swr3.=20
+>=20
+> > +
+> > +	return dsa_register_switch(priv->ds);
+> > +}
+> > +
+> > +static void soce_sw_remove(struct mdio_device *mdiodev)
+> > +{
+> > +	struct soce_priv *priv =3D dev_get_drvdata(&mdiodev->dev);
+> > +
+> > +	dsa_unregister_switch(priv->ds);
+> > +}
+> > +
+> > +static const struct of_device_id soce_of_match[] =3D {
+> > +	{ .compatible =3D "soce,switch-dsa" },
+> > +	{ /* sentinel */ },
+> > +};
+> > +
+> > +static struct mdio_driver soce_mdio_driver =3D {
+> > +	.mdiodrv.driver =3D {
+> > +		.name =3D "soce-switch-dsa",
+> > +		.of_match_table =3D soce_of_match,
+> > +	},
+> > +	.probe  =3D soce_sw_probe,
+> > +	.remove =3D soce_sw_remove,
+> > +};
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
-> +&swr0 {
-> + status =3D "okay";
-> +
-> + /* WSA8845, left woofer */
-> ...
-> +
-> + /* WSA8845, left tweeter */
-> ...
-> +};
-> +
-> +&swr3 {
-> + status =3D "okay";
-> ...
-> + /* WSA8845, right woofer */
-> ...
-> +
-> + /* WSA8845, right tweeter */
-> ...
-> +};
-
-This machine only has two speakers (again confirmed by physical =
-inspection).
-Only swr0 shows attached on /sys/bus/soundwire/devices/sdw:*/status:
-
-  sdw:1:0:0217:0204:00:0   Attached
-  sdw:1:0:0217:0204:00:1   Attached
-  sdw:4:0:0217:0204:00:0   UNATTACHED
-  sdw:4:0:0217:0204:00:1   UNATTACHED
-
-I don't think that's a config fault either; the swr0 and swr3 reset =
-lines are
-both claimed and in identical state of (out, 0, 2mA, no pull). It's not =
-really
-a surprise that the cheaper model from ASUS would not use the full spec =
-audio
-offered on the Qualcomm reference designs, but without a suitable
-UX3407NA-tplg.bin topology file I can't really tell more.
-
-It appears that the audio setup is blocked further up the audio stack =
-anyway.
-I hacked some dts changes, purloined blobs from Windows and got a stereo =
-speaker
-setup configured. SoundWire is healthy, but no audio is possible because =
-the DSP
-does not respond. The ADSP boots and the audio PD is reported up:
-
-  remoteproc remoteproc1: remote processor adsp is now up
-  PDR: Indication received from msm/adsp/audio_pd, state: 0x1fffffff
-  qcom,apr ...: Adding APR/GPR dev: gprsvc:service:2:1
-
-then, on every boot:
-
-  qcom-apm gprsvc:service:2:1: CMD timeout for [1001021] opcode
-
-I'm curious as to if you tested this (or if this even known to work on =
-the
-Zenbook A16, Yoga Slim 7x or EliteBook X G2q with the other =
-submissions). Do
-you know if/when the required firmware blobs will be forthcoming and
-upstreamed?
-
-
-HDMI:
-
-The built-in HDMI cannot read EDID: the connector reports "connected" =
-with
-a monitor attached but the EDID is 0 bytes and there are no modes. Less =
-than
-2 seconds into every boot, before any cable is involved:
-
-  gcc_usb3_tert_phy_com_aux_clk status stuck at 'off'
-  Failed to enable clk 'com_aux': -16
-  phy phy-88e1000.phy.5: phy init failed --> -16
-
-I have not really investigated this in detail.
-
-
-eDP:
-
-eDP link training intermittently times out on resume, leaving visible =
-flicker
-until another suspend/resume retrains it:
-
-  [drm:msm_dp_ctrl_link_train_1_2] *ERROR* link training #2 on phy 0 =
-failed. ret=3D-110
-
-I am carrying the (unmerged) "phy: qcom: edp: update v8 power-on
-programming sequence" series, so this may be feedback for that rather =
-than
-a report against mainline.
-
-
-Anyway, thank you again for this patch series. It got me to the point of
-having a very usable machine for my limited needs. If you have updates =
-the
-need testing I'm happy to help.
-
-Nicko
-
+Thanks,
+Vasilij
 
