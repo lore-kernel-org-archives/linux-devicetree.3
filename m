@@ -1,133 +1,242 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4748B4302E6
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:21:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17C9424D47;
+	Mon,  3 Aug 2026 18:25:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785781287; cv=none; b=ITdneLuj6laXZ3UKw/eVq3MMj/Ncuh9ojIPFDnKPOa6PPHXIh2hqBEdABmUGVVwDlph+dO8nxkqdbcd8PW9nsjzshHfPPqXWqfn3lkGvxzpGWClLzvsTCvzDlqsXRGjAKRxrm5PCwz7yPcp3V96ax5Q/U7diQKvP/+aXWWoj7L8=
+	t=1785781525; cv=none; b=mKJBTqV+GP/BlMiTREWatOLAV+epvRdKUB0UyG8Euthe7PBTaq6SDll2gL4Wx5CoK9lPxhMafbTMJLRjD5Ok+sUt2uESslpRFXjmrAjxKHhNXNw8wRgbdBxz1JIJRvqpirH2tC3Lk5Bsas9fFeGTpDEm4detAo/3MNgtJbM2NKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785781287; c=relaxed/simple;
-	bh=nLNsi6HjFBN5vRHFDl4G3Ltv2LVHPME4BT9A9TCCAn0=;
+	s=arc-20240116; t=1785781525; c=relaxed/simple;
+	bh=G+HC2nacxJ4lkfBjb3CnHFIyYmAtdL2bozWSNt/crl4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l3dziWij1+A6ptR0Qo1qBdhFmyJ8PYNoNj9+MoukFEl1rXPTFY4usLrer0gVvbEa7rio+BLEBblPB+pCWuEGgWQje0YKSbHG1uv6c4eEPnB4TBogJnrSFR2YLal/BErU9bZDM0QwnciEIMXxvV2uar7t59thEej2ytEzPiHmPus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/h1rgd0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=oDSPaeAaQmU5GC8oDy994Thg6Fz5fTw1OVz4NflNyfCqPt+AZTtfNjN/stIOG8zLxQ5SGxqj4KcOaNnnw3MW+VtluVAHoHIZBT78/ZJz1JtWDJ8vOxXlMOoeDQtHSxFF84x6HXwkLuQVTn++VX5nTGdXhAU8tGo+oerJEfQ8Hkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKg/Vb2g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/h1rgd0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980F41F000E9;
-	Mon,  3 Aug 2026 18:21:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKg/Vb2g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A344A1F00A3D;
+	Mon,  3 Aug 2026 18:25:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785781286;
-	bh=fAvNz2dM9s988pS4XAVnMfmRokgSw8yypfBJgfkvKgY=;
+	s=k20260515; t=1785781522;
+	bh=VFH2M+sDIdx5VpvmChPymOMUcFm95RQsW5QajwIXc+U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d/h1rgd0/eSMjnUMFUUF4ytX7x+fGjnhcNpKmYcqBZAx/K8DDtcvHzzIna2VLJeyM
-	 B/Gvn9hJZJwiDGpV2SUNQv/hv3i3EpX6A7SDrhdqWCwmuvEqwh2wSOeBqmlSGyxKqr
-	 65pVnvNpUZWxKi9KHi11paP16vRaYEXHsFRSeWNKZU1YsDUcCYyOF1zFF5Yz7FZNfv
-	 62AO/H+p8gC0XRW86LecqK7K1HbyqY4N0nXFdPceouhjr8DdoLy1nt8ZuLCu/xGFlF
-	 zRnMwy8eFFuss2yYi0kEMTi4qYSriUvGk7AzFhpq7ioCuUtzzUha/c4tVPnTADl3iL
-	 CzjXBjvNrOvcQ==
+	b=jKg/Vb2gEUrpKpadY++J4ALo25OQ6KaWRkopILxsWqd4i4yJSONCsHUFDv20ydNq1
+	 rKIfPR/Y9AQ/491W3DeXywJtFBj6+heXsObDNqzXC8itMxUrAeeiRJzNHUmxkP7l2N
+	 R7yEqmiwulkb4Op7wNEDzCjLOiDOfMOrmTifkQ6HdeBRkvNbIrP9PqF7U74YvAQp2p
+	 W4hYHpP9i2N06YcKO7Id5ApssZvMOjBWvqakegTfpV3tZLIFMF+/UAIrRyMDSvMNLO
+	 ZfGXr/KOd0vmBt2pco3kyUjFOJuOi4xxVjChuIJsf31ZUqmCSN/qG4NpVO1HQ7thsu
+	 Xj1dWXaaZdHHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Make
- SDX75, Hawi and Maili MPSS fallback to SM8650
+Subject: Re: [PATCH v2 2/3] clk: sunxi-ng: sun55i-a523: GPU clock divider is
+ fractional, not linear
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
+To: =?utf-8?b?SnVhbiBNYW51ZWwgTMOzcGV6IENhcnJpbGxv?= <juanmanuellopezcarrillo@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260803180755.288793-3-juanmanuellopezcarrillo@gmail.com>
+References: <20260803180755.288793-1-juanmanuellopezcarrillo@gmail.com>
+ <20260803180755.288793-3-juanmanuellopezcarrillo@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 18:21:24 +0000
-Message-Id: <20260803182125.980F41F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 18:25:22 +0000
+Message-Id: <20260803182522.A344A1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Removing `qcom,sdx75-mpss-pas` from the standalone enum and enfo=
-rcing a fallback breaks schema validation for existing DTBs and the in-tree=
- DTS.
+
+New issues:
+- [High] Integer truncation in `ccu_maskdiv_find_m()` causes the hardware t=
+o drift lower than the framework's requested rate when the parent rate is n=
+ot a perfect multiple of the cycle width (16). When `determine_rate` comput=
+es a new rate using `new_rate =3D (parent_rate * (16 - m)) / 16`, integer d=
+ivision truncates the remainder. When `set_rate` subsequently attempts to r=
+ecover `m` by computing `kept =3D (new_rate * 16) / parent_rate`, the loss =
+of the remainder strictly reduces `kept` by 1. This causes `set_rate` to pr=
+ogram `m_found =3D m + 1` into the hardware, masking an additional cycle an=
+d driving the clock at a lower rate than what was reported and committed by=
+ `determine_rate`.
+
+Pre-existing issues:
+- [High] The newly introduced sparse `gpu_mux_table` triggers a pre-existin=
+g flaw in `ccu_mux_helper_get_parent()`. If the vendor bootloader leaves th=
+e GPU mux at hardware index 1 (`pll-periph0-800M`), `ccu_mux_helper_get_par=
+ent()` fails to find `1` in the sparse table (`{ 0, 2, 3, 4, 5 }`) and fall=
+s back to returning the raw hardware index `1`. The clock framework interpr=
+ets this `1` as a software array index and incorrectly maps it to `gpu_pare=
+nts[1]` (`pll_periph0_600M_clk`). If the kernel subsequently requests a 600=
+MHz GPU rate, the framework falsely assumes the mux is already on the corre=
+ct parent, skipping the mux switch and only setting the divider. This cause=
+s the hardware to remain at the undivided 800MHz parent, triggering the exa=
+ct GPU job faults this patch intends to fix.
+- [High] `pll_gpu_clk` is defined with the `CLK_SET_RATE_GATE` flag, which =
+requires the clock to be unprepared (gated) before its rate can be changed.=
+ However, as noted in the commit message, reprogramming this PLL while its =
+gate is off causes a 70ms lock timeout because the lock bit never asserts w=
+hen the clock is disabled. This means any rate change on `pll_gpu` while it=
+ is gated will stall the kernel for 70ms. The patch works around this for t=
+he `gpu` downstream consumer by dropping `CLK_SET_RATE_PARENT`, but `pll_gp=
+u_clk` itself remains incorrectly modeled. It should use `CLK_SET_RATE_UNGA=
+TE` to inform the framework that the clock must be powered on to change its=
+ rate.
 --
 
---- Patch [1]: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Make S=
-DX75, Hawi and Maili MPSS fallback to SM8650 ---
-commit 47a9ace0c12a078f309c8a844f59ffd712d4d63a
-Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+--- Patch [2]: [PATCH v2 2/3] clk: sunxi-ng: sun55i-a523: GPU clock divider=
+ is fractional, not linear ---
+commit 5635b9edbbd86c7ae0bef62dc457d0e280dc656a
+Author: Juan Manuel L=C3=B3pez Carrillo <juanmanuellopezcarrillo@gmail.com>
 
-dt-bindings: remoteproc: qcom,sm8550-pas: Make SDX75, Hawi and Maili MPSS f=
-allback to SM8650
+clk: sunxi-ng: sun55i-a523: GPU clock divider is fractional, not linear
 
-SDX75, Hawi and Maili MPSS are compatible with the SM8650 MPSS as
-they share the same set of interrupts, memory regions and power domains.
-Rather than describing them as standalone compatibles, model them as
-fallbacks to qcom,sm8650-mpss-pas.
+This patch changes the GPU clock modeling on sun55i-a523 from a linear divi=
+der
+to a fractional cycle-masking divider. It updates the parent list, removes
+the 800M parent due to hardware faults, and drops CLK_SET_RATE_PARENT to
+prevent reprogramming the GPU PLL while it is gated.
 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas=
-.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
-> @@ -18,9 +18,6 @@ properties:
->      oneOf:
->        - enum:
->            - qcom,eliza-cdsp-pas
-> -          - qcom,hawi-mpss-pas
-> -          - qcom,maili-mpss-pas
-> -          - qcom,sdx75-mpss-pas
->            - qcom,sm8550-adsp-pas
+> Also drop CLK_SET_RATE_PARENT: every OPP is reachable from the fixed
+> pll-periph0 outputs, and pll-gpu must never be reprogrammed through this
+> mux.  Once the GPU moves off pll-gpu the PLL is no longer prepared, so
+> it loses the rate protection of CLK_SET_RATE_GATE; a propagated rate
+> request would then reprogram the PLL while its gate is off (the lock
+> bit never asserts, 70 ms poll timeout per transition) and switch the
+> running GPU onto it before it locks.
+
+[Severity: High]
+This is a pre-existing issue, but does pll_gpu_clk use the wrong rate flag?
+
+The commit message notes that the lock bit never asserts when the gate is
+off, causing a 70ms timeout when reprogrammed. However, pll_gpu_clk is
+declared in this file with CLK_SET_RATE_GATE:
+
+drivers/clk/sunxi-ng/ccu-sun55i-a523.c:
+    ...
+                               CLK_SET_RATE_GATE),
+    ...
+
+Using CLK_SET_RATE_GATE enforces that the clock must be gated (unprepared)
+before its rate can be changed. Since the hardware requires the PLL to be
+ungated to lock, this contradicts the hardware's requirements.
+
+Should pll_gpu_clk be updated to use CLK_SET_RATE_UNGATE instead, to inform
+the framework that the clock must be powered on to change its rate?
+
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c b/drivers/clk/sunxi-n=
+g/ccu-sun55i-a523.c
+> index 20dad06b37ca3..979e53e635228 100644
+> --- a/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
+> +++ b/drivers/clk/sunxi-ng/ccu-sun55i-a523.c
 
 [ ... ]
 
-> @@ -49,6 +46,12 @@ properties:
->        - items:
->            - const: qcom,sm8750-cdsp-pas
->            - const: qcom,sm8650-cdsp-pas
-> +      - items:
-> +          - enum:
-> +              - qcom,hawi-mpss-pas
-> +              - qcom,maili-mpss-pas
-> +              - qcom,sdx75-mpss-pas
-> +          - const: qcom,sm8650-mpss-pas
-
-[Severity: Medium]
-Does removing the standalone compatible strings and enforcing them only as=
-=20
-part of a 2-item array break backward compatibility for existing device tre=
-es?
-
-If older device trees, such as arch/arm64/boot/dts/qcom/sdx75.dtsi, use=20
-qcom,sdx75-mpss-pas without the newly required fallback, will they start=20
-failing dtbs_check validation?
-
+> @@ -442,18 +443,37 @@ static SUNXI_CCU_GATE_HWS(bus_g2d_clk, "bus-g2d", a=
+hb_hws, 0x63c, BIT(0), 0);
 > =20
->    reg:
->      maxItems: 1
+>  static const struct clk_hw *gpu_parents[] =3D {
+>  	&pll_gpu_clk.common.hw,
+> -	&pll_periph0_800M_clk.common.hw,
+>  	&pll_periph0_600M_clk.hw,
+>  	&pll_periph0_400M_clk.hw,
+>  	&pll_periph0_300M_clk.hw,
+>  	&pll_periph0_200M_clk.hw,
+>  };
+> =20
+> -static SUNXI_CCU_M_HW_WITH_MUX_GATE(gpu_clk, "gpu", gpu_parents, 0x670,
+> -				    0, 4,	/* M */
+> -				    24, 3,	/* mux */
+> -				    BIT(31),	/* gate */
+> -				    CLK_SET_RATE_PARENT);
+> +/*
+> + * Mux index 1 (pll-periph0-800M) is skipped: the vendor BSP removed it
+> + * from the parent list ("If GPU use pll-peri0-800m, gpu will occur job
+> + * fault"), and with the masking divider every OPP would match exactly
+> + * from it first.
+> + */
+> +static const u8 gpu_mux_table[] =3D { 0, 2, 3, 4, 5 };
 
-[ ... ]
+[Severity: High]
+This is a pre-existing issue, but does skipping index 1 here expose a flaw
+in ccu_mux_helper_get_parent()?
 
-> @@ -205,11 +208,9 @@ allOf:
->    - if:
->        properties:
->          compatible:
-> -          enum:
-> -            - qcom,hawi-mpss-pas
-> -            - qcom,maili-mpss-pas
-> -            - qcom,sdx75-mpss-pas
-> -            - qcom,sm8650-mpss-pas
-> +          contains:
-> +            enum:
-> +              - qcom,sm8650-mpss-pas
->      then:
->        properties:
->          interrupts:
+If the bootloader leaves the GPU mux at hardware index 1, the helper fails
+to find it in this sparse table and falls back to returning the raw index:
 
-[Severity: Medium]
-Since older device trees might not include the fallback string, does
-removing the standalone compatible strings from these allOf conditional=20
-blocks mean those device trees will silently bypass validation for=20
-interrupts, power-domains, and memory-regions constraints?
+drivers/clk/sunxi-ng/ccu_mux.c:ccu_mux_helper_get_parent() {
+    ...
+        for (i =3D 0; i < num_parents; i++)
+            if (cm->table[i] =3D=3D parent)
+                return i;
+    }
+
+    return parent;
+}
+
+The clock framework then interprets this returned 1 as a software array
+index and incorrectly maps it to gpu_parents[1] (which is now
+pll_periph0_600M_clk).
+
+If the kernel subsequently requests a 600MHz GPU rate, the framework
+might falsely assume the mux is already on the correct parent and skip the
+switch. This would leave the hardware at the undivided 800MHz parent,
+triggering the exact GPU job faults this patch intends to fix.
+
+> +
+> +/*
+> + * The M factor is a cycle-masking (fractional) divider, not a linear
+> + * one: rate =3D source * (16 - M) / 16 (T527 manual, GPU_CLK_REG).
+> + *
+> + * No CLK_SET_RATE_PARENT: every GPU OPP is reachable from the fixed
+> + * pll-periph0 outputs, and pll-gpu must never be reprogrammed through t=
+his mux.
+> + * Once the GPU moves off pll-gpu the PLL is no longer prepared, so it l=
+oses
+> + * the rate protection of CLK_SET_RATE_GATE; a propagated rate request w=
+ould
+> + * then reprogram the PLL while its gate is off (the lock bit never asse=
+rts,
+> + * 70 ms timeout) and switch the running GPU onto it before it locks.
+> + */
+> +static SUNXI_CCU_MASKDIV_HW_WITH_MUX_TABLE_GATE(gpu_clk, "gpu", gpu_pare=
+nts,
+> +						gpu_mux_table, 0x670,
+> +						0, 4,	/* M */
+> +						24, 3,	/* mux */
+> +						BIT(31),	/* gate */
+> +						0);
+
+[Severity: High]
+Does using the maskdiv implementation here cause the hardware to drift
+lower than the requested rate when the parent rate is not evenly divisible
+by 16?
+
+In ccu_maskdiv_find_m(), integer truncation occurs when recovering the
+multiplier:
+
+drivers/clk/sunxi-ng/ccu_maskdiv.c:ccu_maskdiv_find_m() {
+    ...
+    kept =3D div64_ul((u64)rate * n, parent_rate);
+    ...
+}
+
+When determine_rate computes new_rate =3D (parent_rate * (16 - m)) / 16,
+the remainder is truncated. When set_rate subsequently attempts to recover
+m using the truncated rate:
+
+drivers/clk/sunxi-ng/ccu_maskdiv.c:ccu_maskdiv_set_rate() {
+    ...
+    m =3D ccu_maskdiv_find_m(parent_rate, rate, cmd->width);
+    ...
+}
+
+The loss of the remainder strictly reduces kept by 1. This causes set_rate
+to program m + 1 into the hardware, masking an additional cycle and driving
+the clock at a lower rate than what was reported by determine_rate.
+
+Could DIV_ROUND_UP_ULL be used to prevent this truncation?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803180021.2036=
-8-1-mukesh.ojha@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803180755.2887=
+93-1-juanmanuellopezcarrillo@gmail.com?part=3D2
