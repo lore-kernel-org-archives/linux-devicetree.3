@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2DEEA8;
-	Mon,  3 Aug 2026 22:18:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F003515FB;
+	Mon,  3 Aug 2026 22:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785795512; cv=none; b=mCX8Hxaay58xShmkD9hJMJBrAzgoHvcCgyf3DmOwftVbPSarwQ6gl9uLA9rhGcNxPc8c1Z7sT0447cLC4s2MbXSsQNzVBzE3b4dGjNEB+ZFG9BJ4kFlxOQn4C0gMF/SOVrT2qxVAdlJBIiF3dbrBmZ+eFrHQ7vVrrbzMiP1oJsA=
+	t=1785795755; cv=none; b=Hb+1sYo7HCxOP2AyYUJhXoTUV36ZlCVY+Y3/2UnS+URTzU+oRW6frAQsiFj5w8S9+fhpHA5MdCUZuRadG3ogutLpNjpNOAIz7DhsM9E0Tq1cnk1NfIMK00d6VHdlnPW5U5uBSPBOmFBXNzd7kNVyFMWdh2eP2cPcKO7sw0acCuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785795512; c=relaxed/simple;
-	bh=my4Y1+wmf3sMwspSF+4bGvbRTH4U+vqqwKX8SBPxYnI=;
+	s=arc-20240116; t=1785795755; c=relaxed/simple;
+	bh=CNSO+WBmvcqw+nvXWqefnKshU3yhwvZPb8pHXa21cmM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QvWT9qouRAY2TY1vvSpjyk38BS4lSX4JEBDzRiELgLL9VL8qtAeg4Qlr05FkwW8CWJcbKCKqFoj6ZZYF1a6BSyFURTgAKdPS/p8d4MCuqy6xw6rzsaviiGvIiTeSMcrMujt9P8+9Hc1coXzZ+MN3gIo5jIl4jeYl9dIo9hrDqu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hbeYKtw1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XHhv2KDtuZkBTQG9UKMw8pvDGcGCI/PkDzB+6L0B749KNqbjd/gC/B4vFFPRCsTv0gSWW2cg+AjB3ym/wPgSfZr/SsGLYHC/2aRVjoGwWRuksHcel5G2yJgeLcCb8J4U6cSOedl3+a1Q+0fsc7UekWQGYs178B9kdVy2lfCAglU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C3vNjADY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hbeYKtw1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BAB51F00A3A;
-	Mon,  3 Aug 2026 22:18:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C3vNjADY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83D731F000E9;
+	Mon,  3 Aug 2026 22:22:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785795511;
-	bh=ZDYaoH2ZhDHFaQRTgoESAI5O+FdsRsQMwdsTlUSbNQc=;
+	s=k20260515; t=1785795754;
+	bh=QyFPn8q42V8UAdgnXK7tNQAdLlrB0mrtydrnFstRtOY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hbeYKtw1mM5R7QCesGMwI7BV14gRJ0qYwWk/qAZAUoHn3RCj79eoHrccHuV/ejmJ1
-	 hiypYB7My3emEKKS0d5kd+af4XwUacG1TAVAuPsN7Q9wlKgRU3huXlHbWlSiBv5aul
-	 34ml617ss7jw8Eq67JTWt+6/+Lyw2C3qy9a1FqW5y6elrUQbK9N4sdoZ7iQkN2keDf
-	 MftuGHGeeoAjnPSF6zp2mKwi0udAGcJdoPwa0aG9foaTI39Th7a5aZsdQ8ln4q3grv
-	 9tB7nb8i/+r0hJLGtVqkVOtgA1jcrZfptmKs34Xh7/a9IeD53fozldmCdWoWTBe3hj
-	 8jcY0COEuN8hw==
-Date: Mon, 3 Aug 2026 17:18:30 -0500
+	b=C3vNjADY8AkCkgdef674Ux6vNUnGjEVwy+Q149SCSwvkxrkRdiKnrfXbr86VIonb2
+	 7s1O5Lh0oX+ctP2/i9Mb07/AMW18YVoZNiooaka2Vcff5zzESjKEjPcKGNt4xZwi7X
+	 Qv6+Xr51KWHv9LoToBUUA24iTxLCzOP5rnZRQ2Qrkg8FBEyf/XB+GbAMKXeksuNsNA
+	 a3bAKhwKP+wXNaQ41RXiLI75lxPYpeGK1CIJ4NXvkLuo/902CrMvCd5rCFZ5PGdgWp
+	 Jl3OatlG52N232U3kjz3fOZpvHgN1AqSBXWePQ83RtrWZJ4VEG8/n9nP/3qZsfbd56
+	 3f3FacM2OdRMQ==
+Date: Mon, 3 Aug 2026 17:22:31 -0500
 From: Rob Herring <robh@kernel.org>
-To: Eduard Bostina <egbostina@gmail.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
-	m-chawdhry@ti.com
-Subject: Re: [PATCH] dt-bindings: power: Convert TI SmartReflex to DT schema
-Message-ID: <20260803221830.GA726471-robh@kernel.org>
-References: <20260730092454.52466-1-egbostina@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Eduardo Valentin <edubezval@gmail.com>, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
+	simona.toaca@nxp.com
+Subject: Re: [PATCH] dt-bindings: thermal: ti,omap-bandgap: Convert to DT
+ schema
+Message-ID: <20260803222231.GA728307-robh@kernel.org>
+References: <20260731-ti-bandgap-v1-1-aeee6a658520@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,102 +50,266 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260730092454.52466-1-egbostina@gmail.com>
+In-Reply-To: <20260731-ti-bandgap-v1-1-aeee6a658520@gmail.com>
 
-On Thu, Jul 30, 2026 at 12:24:54PM +0300, Eduard Bostina wrote:
-> Convert the Texas Instruments SmartReflex bindings to DT schema.
+On Fri, Jul 31, 2026 at 12:42:38AM +0530, Bhargav Joshi wrote:
+> Convert Texas Instruments OMAP SCM bandgap from legacy text to DT schema
 > 
-> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> Add "ti,dra752-bandgap" to compatible which was missing in text binding
+> but used and matched by same driver.
+> 
+> Document the "#thermal-sensor-cells" property, which was missing from
+> the original text binding but is required in practice by all in-tree
+> users via the common thermal-sensor.yaml binding.
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 > ---
->  .../bindings/power/ti,smartreflex.yaml        | 70 +++++++++++++++++++
->  .../bindings/power/ti-smartreflex.txt         | 47 -------------
->  2 files changed, 70 insertions(+), 47 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/power/ti,smartreflex.yaml
->  delete mode 100644 Documentation/devicetree/bindings/power/ti-smartreflex.txt
+>  .../bindings/thermal/ti,omap-bandgap.yaml          | 227 +++++++++++++++++++++
+>  .../devicetree/bindings/thermal/ti_soc_thermal.txt |  88 --------
+>  2 files changed, 227 insertions(+), 88 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/power/ti,smartreflex.yaml b/Documentation/devicetree/bindings/power/ti,smartreflex.yaml
+> diff --git a/Documentation/devicetree/bindings/thermal/ti,omap-bandgap.yaml b/Documentation/devicetree/bindings/thermal/ti,omap-bandgap.yaml
 > new file mode 100644
-> index 000000000..b2dc59b4d
+> index 000000000000..5afd10a84f70
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/ti,smartreflex.yaml
-> @@ -0,0 +1,70 @@
+> +++ b/Documentation/devicetree/bindings/thermal/ti,omap-bandgap.yaml
+> @@ -0,0 +1,227 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/power/ti,smartreflex.yaml#
+> +$id: http://devicetree.org/schemas/thermal/ti,omap-bandgap.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Texas Instruments SmartReflex
+> +title: Texas Instruments OMAP SCM bandgap
 > +
 > +maintainers:
-> +  - Eduard Bostina <egbostina@gmail.com>
+> +  - Eduardo Valentin <edubezval@gmail.com>
 > +
-> +description: |
-
-Drop '|'
-
-> +  SmartReflex is used to set and adjust the SoC operating points.
+> +description:
+> +  In the System Control Module, OMAP supplies a voltage reference and a
+> +  temperature sensor feature that are gathered in the band gap voltage and
+> +  temperature sensor (VBGAPTS) module. The band gap provides current and
+> +  voltage reference for its internal circuits and other analog IP blocks. The
+> +  analog-to-digital converter (ADC) produces an output value that is
+> +  proportional to the silicon temperature.
 > +
 > +properties:
 > +  compatible:
 > +    enum:
-> +      - ti,omap3-smartreflex-core
-> +      - ti,omap3-smartreflex-mpu-iva
-> +      - ti,omap4-smartreflex-core
-> +      - ti,omap4-smartreflex-mpu
-> +      - ti,omap4-smartreflex-iva
+> +      - ti,omap34xx-bandgap
+> +      - ti,omap36xx-bandgap
+> +      - ti,omap4430-bandgap
+> +      - ti,omap4460-bandgap
+> +      - ti,omap4470-bandgap
+> +      - ti,omap5430-bandgap
+> +      - ti,dra752-bandgap
 > +
 > +  reg:
-> +    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 6
 > +
 > +  interrupts:
 > +    maxItems: 1
 > +
-> +  ti,hwmods:
-> +    description: Shall contain the TI interconnect module name if needed by the SoC
-> +    $ref: /schemas/types.yaml#/definitions/string
-
-deprecated: true
-
+> +  gpios:
+> +    maxItems: 1
+> +    description:
+> +      used to inform which GPIO line the tshut signal is routed to. The
+> +      informed GPIO will be treated as an IRQ;
+> +
+> +  "#thermal-sensor-cells":
+> +    enum: [0, 1]
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - interrupts
 > +
-> +additionalProperties: false
+> +allOf:
+> +  - $ref: thermal-sensor.yaml#
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - ti,omap34xx-bandgap
+> +              - ti,omap36xx-bandgap
+> +
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 1
+> +          maxItems: 1
+> +
+> +        interrupts: false
+> +
+> +        gpios: false
+> +
+> +        "#thermal-sensor-cells":
+> +          const: 0
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ti,omap4430-bandgap
+> +
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 2
+> +          maxItems: 2
+> +
+> +        interrupts: false
+> +
+> +        "#thermal-sensor-cells":
+> +          const: 0
+> +
+> +      required:
+> +        - gpios
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - ti,omap4460-bandgap
+> +              - ti,omap4470-bandgap
+> +
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 3
+> +          maxItems: 3
+> +
+> +        interrupts:
+> +          maxItems: 1
+
+Drop. 1 is already the max.
+
+> +
+> +        "#thermal-sensor-cells":
+> +          const: 0
+> +
+> +      required:
+> +        - interrupts
+> +        - gpios
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ti,omap5430-bandgap
+> +
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 4
+> +          maxItems: 4
+> +
+> +        interrupts:
+> +          maxItems: 1
+
+Drop. 1 is already the max.
+
+> +
+> +        gpios: false
+> +
+> +        "#thermal-sensor-cells":
+> +          const: 1
+> +
+> +      required:
+> +        - interrupts
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: ti,dra752-bandgap
+> +
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 6
+> +          maxItems: 6
+> +
+> +        interrupts:
+> +          maxItems: 1
+
+Drop. 1 is already the max.
+
+> +
+> +        gpios: false
+> +
+> +        "#thermal-sensor-cells":
+> +          const: 1
+> +
+> +      required:
+> +        - interrupts
+> +
+> +unevaluatedProperties: false
 > +
 > +examples:
 > +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    bandgap@48002524 {
+> +        compatible = "ti,omap34xx-bandgap";
+> +        reg = <0x48002524 0x4>;
+> +        #thermal-sensor-cells = <0>;
+> +    };
 > +
-> +    smartreflex@4a0db000 {
-> +        compatible = "ti,omap4-smartreflex-iva";
-> +        reg = <0x4a0db000 0x80>;
-> +        interrupts = <GIC_SPI 102 IRQ_TYPE_LEVEL_HIGH>;
-> +        ti,hwmods = "smartreflex_iva";
+> +  - |
+> +    bandgap@48002524 {
+> +        compatible = "ti,omap36xx-bandgap";
+> +        reg = <0x48002524 0x4>;
+> +        #thermal-sensor-cells = <0>;
+> +    };
+> +
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    bandgap@4a002260 {
+> +        compatible = "ti,omap4430-bandgap";
+> +        reg = <0x4a002260 0x4>, <0x4a00232c 0x4>;
+> +        gpios = <&gpio3 22 GPIO_ACTIVE_HIGH>; /* tshut */
+> +        #thermal-sensor-cells = <0>;
+> +    };
+> +
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    bandgap@4a002260 {
+> +        compatible = "ti,omap4460-bandgap";
+> +        reg = <0x4a002260 0x4>, <0x4a00232c 0x4>, <0x4a002378 0x18>;
+> +        interrupts = <0 126 IRQ_TYPE_LEVEL_HIGH>; /* talert */
+> +        gpios = <&gpio3 22 GPIO_ACTIVE_HIGH>; /* tshut */
+> +        #thermal-sensor-cells = <0>;
 > +    };
 > +
 > +  - |
 > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
 > +
-> +    smartreflex@4a0dd000 {
-> +        compatible = "ti,omap4-smartreflex-core";
-> +        reg = <0x4a0dd000 0x80>;
-> +        interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
-> +        ti,hwmods = "smartreflex_core";
+> +    bandgap@4a0021e0 {
+> +        compatible = "ti,omap5430-bandgap";
+> +        reg = <0x4a0021e0 0xc>, <0x4a00232c 0xc>,
+> +              <0x4a002380 0x2c>, <0x4a0023c0 0x3c>;
+> +        interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>; /* talert */
+> +        #thermal-sensor-cells = <1>;
 > +    };
 > +
 > +  - |
 > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
 > +
-> +    smartreflex@4a0d9000 {
-> +        compatible = "ti,omap4-smartreflex-mpu";
-> +        reg = <0x4a0d9000 0x80>;
-> +        interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-> +        ti,hwmods = "smartreflex_mpu";
+> +    bandgap@4a0021e0 {
+> +        compatible = "ti,dra752-bandgap";
+> +        reg = <0x4a0021e0 0xc>, <0x4a00232c 0xc>,
+> +              <0x4a002380 0x2c>, <0x4a0023c0 0x3c>,
+> +              <0x4a002564 0x8>, <0x4a002574 0x50>;
+> +        interrupts = <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>; /* talert */
+> +        #thermal-sensor-cells = <1>;
 > +    };
 
-One example is enough.
-
-Rob
+1 or 2 examples is enough. Perhaps the 1st and last to have the simplest 
+and most complex.
