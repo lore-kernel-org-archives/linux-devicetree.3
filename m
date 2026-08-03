@@ -1,124 +1,133 @@
-Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4569442E8DD;
-	Mon,  3 Aug 2026 18:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=135.181.196.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4748B4302E6
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 18:21:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785781228; cv=none; b=FDelybAPjf4k89jm+/R1kQMT4U+j9BW8Kz46rQZkY2FcelpFurjecrcjIW98f1XkxcpMNHL+7ZfNmzyqpIwDT9xGxgSkewZslveqJsokBUZGr0+qnGopKM9SvxhK1a7hJSvjKaN3g2XkB1Az/vsDz8qkFYkxLAkrzMO/doAFp+E=
+	t=1785781287; cv=none; b=ITdneLuj6laXZ3UKw/eVq3MMj/Ncuh9ojIPFDnKPOa6PPHXIh2hqBEdABmUGVVwDlph+dO8nxkqdbcd8PW9nsjzshHfPPqXWqfn3lkGvxzpGWClLzvsTCvzDlqsXRGjAKRxrm5PCwz7yPcp3V96ax5Q/U7diQKvP/+aXWWoj7L8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785781228; c=relaxed/simple;
-	bh=HNTPaYDGutREzLTVPWESt82E01iFz+jQ39UPafEurv0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FoVjUwjyGf9CAmYvdy0bsEx1c8ytu2E7Ck3z0FxFlmVxRbTRULlVW3RBjOUI7crqSgXdiT5dUHA2EA8R4Zh1fOx4zPHM2kUGB5pBpAf0Nq5xvwlwe4cEeH6qPeu4oUD1ojBYiV3oE/wVxguuf/Ht2mvK8qkDqxtWQRjAFfxt4FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm; spf=pass smtp.mailfrom=puri.sm; dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b=J4qIa0M3; arc=none smtp.client-ip=135.181.196.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
+	s=arc-20240116; t=1785781287; c=relaxed/simple;
+	bh=nLNsi6HjFBN5vRHFDl4G3Ltv2LVHPME4BT9A9TCCAn0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l3dziWij1+A6ptR0Qo1qBdhFmyJ8PYNoNj9+MoukFEl1rXPTFY4usLrer0gVvbEa7rio+BLEBblPB+pCWuEGgWQje0YKSbHG1uv6c4eEPnB4TBogJnrSFR2YLal/BErU9bZDM0QwnciEIMXxvV2uar7t59thEej2ytEzPiHmPus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/h1rgd0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b="J4qIa0M3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
-	t=1785780772; bh=HNTPaYDGutREzLTVPWESt82E01iFz+jQ39UPafEurv0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J4qIa0M3q9Mja66JJpMWCm3Si2k+eQxKBPYsxWlsjhzfhFhyNWkHOce9T4N2rqDaA
-	 kEmxNLjWJMeQEHDhJ5UGXkpeibsTQ5FNwkQR0x7UnO77zXdxXGMA00/OFQkd/fCgSc
-	 6gZulAcTEPaP0/4e+WFabqGthdJvYdZUuaEdjBfYKwQQ3V4pyKcPDqIGq8SVIBvdNT
-	 XG4o2BAoNJclC5KD2v8WfgpNg7zAq0p3jURjCMHKPQ58y8ibkwVhykQHlXlncggeTq
-	 mDrVCDZBH3C/DsnWTYfXBbi4VpA/j86hwwBXQPHp1E0qCCB5XIeh536HehZjTFh+3v
-	 36zRINnOxbN2Q==
-Received: from pliszka.localnet (79.184.66.106.ipv4.supernova.orange.pl [79.184.66.106])
-	by ms.puri.sm (Postfix) with ESMTPSA id A9F351F617;
-	Mon, 03 Aug 2026 11:12:47 -0700 (PDT)
-From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Ondrej Jirman <megi@xff.cz>,
- Olivier Benjamin <olivier.benjamin@bootlin.com>,
- Manuel Traut <manut@mecka.net>,
- Alexander Warnecke <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Martin Kepplinger <martin.kepplinger@puri.sm>,
- Shawn Guo <shawnguo@kernel.org>, david@ixit.cz
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- phone-devel@vger.kernel.org, imx@lists.linux.dev,
- David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
-Subject:
- Re: [PATCH 4/4] arm64: dts: imx8mq-librem5: Dongwoon DW9714 coil requires
- higher voltage
-Date: Mon, 03 Aug 2026 20:12:44 +0200
-Message-ID: <yJywMSNTQGGZm3rbxd56Yw@puri.sm>
-In-Reply-To: <20260801-pp-pro-camera-v1-4-7b4d90788f9f@ixit.cz>
-References:
- <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-4-7b4d90788f9f@ixit.cz>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/h1rgd0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 980F41F000E9;
+	Mon,  3 Aug 2026 18:21:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785781286;
+	bh=fAvNz2dM9s988pS4XAVnMfmRokgSw8yypfBJgfkvKgY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=d/h1rgd0/eSMjnUMFUUF4ytX7x+fGjnhcNpKmYcqBZAx/K8DDtcvHzzIna2VLJeyM
+	 B/Gvn9hJZJwiDGpV2SUNQv/hv3i3EpX6A7SDrhdqWCwmuvEqwh2wSOeBqmlSGyxKqr
+	 65pVnvNpUZWxKi9KHi11paP16vRaYEXHsFRSeWNKZU1YsDUcCYyOF1zFF5Yz7FZNfv
+	 62AO/H+p8gC0XRW86LecqK7K1HbyqY4N0nXFdPceouhjr8DdoLy1nt8ZuLCu/xGFlF
+	 zRnMwy8eFFuss2yYi0kEMTi4qYSriUvGk7AzFhpq7ioCuUtzzUha/c4tVPnTADl3iL
+	 CzjXBjvNrOvcQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Make
+ SDX75, Hawi and Maili MPSS fallback to SM8650
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mukesh Ojha" <mukesh.ojha@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 18:21:24 +0000
+Message-Id: <20260803182125.980F41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-On sobota, 1 sierpnia 2026 02:35:23 czas =C5=9Brodkowoeuropejski letni Davi=
-d=20
-Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
->=20
-> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
-> Usually it's around 2.8 V. Here it matches the reg_vcam_2v8.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Removing `qcom,sdx75-mpss-pas` from the standalone enum and enfo=
+rcing a fallback breaks schema validation for existing DTBs and the in-tree=
+ DTS.
+--
 
-It doesn't - VCAM_2V8 isn't connected to DW9714 (and neither is CSI_1V8);=20
-VCAM_AFVDD is.
+--- Patch [1]: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Make S=
+DX75, Hawi and Maili MPSS fallback to SM8650 ---
+commit 47a9ace0c12a078f309c8a844f59ffd712d4d63a
+Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-> 1.8 V here is likely used for i2c level shifter.
+dt-bindings: remoteproc: qcom,sm8550-pas: Make SDX75, Hawi and Maili MPSS f=
+allback to SM8650
 
-I'm not sure where you've got an I2C level shifter from, there's none invol=
-ved=20
-there. CSI_1V8 is passed to the rear camera module as DOVDD and is consumed=
- by=20
-S5K3L6 as VDDIO, and both S5K3L6 and DW9714 are connected to I2C4_SDA/
-I2C4_SCL, operating at the 1.8V level, only though an EMI filter (F7 in the=
+SDX75, Hawi and Maili MPSS are compatible with the SM8650 MPSS as
+they share the same set of interrupts, memory regions and power domains.
+Rather than describing them as standalone compatibles, model them as
+fallbacks to qcom,sm8650-mpss-pas.
+
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas=
+.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> @@ -18,9 +18,6 @@ properties:
+>      oneOf:
+>        - enum:
+>            - qcom,eliza-cdsp-pas
+> -          - qcom,hawi-mpss-pas
+> -          - qcom,maili-mpss-pas
+> -          - qcom,sdx75-mpss-pas
+>            - qcom,sm8550-adsp-pas
+
+[ ... ]
+
+> @@ -49,6 +46,12 @@ properties:
+>        - items:
+>            - const: qcom,sm8750-cdsp-pas
+>            - const: qcom,sm8650-cdsp-pas
+> +      - items:
+> +          - enum:
+> +              - qcom,hawi-mpss-pas
+> +              - qcom,maili-mpss-pas
+> +              - qcom,sdx75-mpss-pas
+> +          - const: qcom,sm8650-mpss-pas
+
+[Severity: Medium]
+Does removing the standalone compatible strings and enforcing them only as=
 =20
-schematic).
+part of a 2-item array break backward compatibility for existing device tre=
+es?
 
->=20
-> Fixes: f00df2bdb512 ("arm64: dts: imx8mq-librem5: describe the voice coil
-> motor for focus control") Cc: stable@vger.kernel.org
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-> b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi index
-> f5d529c5baf3e..583cba2d3bebf 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-> @@ -1167,17 +1167,17 @@ &i2c4 {
->  	pinctrl-1 =3D <&pinctrl_i2c4_gpio>;
->  	scl-gpios =3D <&gpio5 20 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
->  	sda-gpios =3D <&gpio5 21 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
->  	status =3D "okay";
->=20
->  	vcm@c {
->  		compatible =3D "dongwoon,dw9714";
->  		reg =3D <0x0c>;
-> -		vcc-supply =3D <&reg_csi_1v8>;
-> +		vcc-supply =3D <&reg_vcam_2v8>;
->  	};
->=20
->  	bat: fuel-gauge@36 {
->  		compatible =3D "maxim,max17055";
->  		reg =3D <0x36>;
->  		interrupt-parent =3D <&gpio3>;
->  		interrupts =3D <20 IRQ_TYPE_LEVEL_LOW>;
->  		pinctrl-names =3D "default";
+If older device trees, such as arch/arm64/boot/dts/qcom/sdx75.dtsi, use=20
+qcom,sdx75-mpss-pas without the newly required fallback, will they start=20
+failing dtbs_check validation?
 
+> =20
+>    reg:
+>      maxItems: 1
 
+[ ... ]
 
+> @@ -205,11 +208,9 @@ allOf:
+>    - if:
+>        properties:
+>          compatible:
+> -          enum:
+> -            - qcom,hawi-mpss-pas
+> -            - qcom,maili-mpss-pas
+> -            - qcom,sdx75-mpss-pas
+> -            - qcom,sm8650-mpss-pas
+> +          contains:
+> +            enum:
+> +              - qcom,sm8650-mpss-pas
+>      then:
+>        properties:
+>          interrupts:
 
+[Severity: Medium]
+Since older device trees might not include the fallback string, does
+removing the standalone compatible strings from these allOf conditional=20
+blocks mean those device trees will silently bypass validation for=20
+interrupts, power-domains, and memory-regions constraints?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803180021.2036=
+8-1-mukesh.ojha@oss.qualcomm.com?part=3D1
