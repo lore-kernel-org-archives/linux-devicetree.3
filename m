@@ -1,130 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13C5A401A0B;
-	Mon,  3 Aug 2026 12:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B333FFAB0
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 12:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785758974; cv=none; b=E6lHxIVAkqjJgdFDov81CtPXY88kAYe05nZZPOHibDzSd/XxFIlOA1oYbXsqojLR26DKuUdZ0pStBHAB9KmKEAQF0FpFZbp1EbWphfJVxsH+jcVmc8BB7JswSOqzc29FzRap/nzYKavR7oqnUOkJBgAgm/y5bU2LSeUqmn4WwSM=
+	t=1785758984; cv=none; b=fVhw0nNmAjMj1Zkc9/nMELtNYXLaavlTnea7ZNFelb7huNkGJOHEv83vwHpP4/40mvopgpAutEsLjQuWbo9BYT9O2mEXdJBAd+D0+0Pdz6DdKdt8O7O1e/k1EEgoe2egCTpqmYRLB1FrqARsvLhEZZfv2rxx0yj+EqLlO9ohpVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785758974; c=relaxed/simple;
-	bh=0ubLwj31Q148WFirjvyUycb1uebMl4Y4Fg4bbxK+EE4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=offDDnzEmCzO54NVItGprT/ujq7q10KYM/lhxxzYVvJBViAPHLXSI5tvA4w5nR1bn1cNSe97z237Q0c9ocvj012zqFOPzVrCuU8NOPNl4Tf9aUo4UyUtmb4KHZT3AzgdPYJFqpzvkgUOVmnJK//cEjrQ6O2o4oHcdpM/553+ZhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFhYjIXY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFhYjIXY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67D11F000E9;
-	Mon,  3 Aug 2026 12:09:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785758972;
-	bh=gLgqvs3sTRNrs/tckGqlVL1dJSc5lNbXDd2F4BvaDac=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=TFhYjIXY/6CMmgHNMuQpbwkmxee3Ad8Z6LjnfHKo+z3wLv9NrX4Z9bgFSby/ww5Pf
-	 c7JdNCd1oku+48Q5n/H1ggZFoBzZo7EWA16Nl8681Z4cw5REzjVyKWy7uEsOWkB9F3
-	 VPO+c8HN3I9fa/pLwjzaUDzPo8SPKPYLx1WQDdPk8QCk5efI/aUBPehMdAvujriKvA
-	 +rbPz+e5oduZQLkzoGunsGmP3u2qeVoZX8CmVFkC/gIwhhX/FO5ZEzQKWHmroa7HIv
-	 gSglZf8iCtgt16t6ymD47iejCmjzrrydg/+xcxUjU49qShwBjgi8+AJ6Dcu04ryY1N
-	 7f95/udgrltUw==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Konrad Dybcio <konradybcio@kernel.org>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>
-Cc: Nickolay Goppen <setotau@mainlining.org>, 
- Adam Skladowski <a39.skl@gmail.com>, 
- Vladimir Lypak <vladimir.lypak@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
- Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
- Charles Keepax <ckeepax@opensource.cirrus.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <20260730174353.108023-1-mailingradian@gmail.com>
-References: <20260730174353.108023-1-mailingradian@gmail.com>
-Subject: Re: [PATCH v6 00/15] SDM660 sound card and internal MI2S support
-Message-Id: <178554049927.353541.14417243139211059408.b4-ty@b4>
-Date: Sat, 01 Aug 2026 00:28:19 +0100
+	s=arc-20240116; t=1785758984; c=relaxed/simple;
+	bh=okWIOwpaAfBMcyH50oSVfKzplqlhnVTdVosRYGHHdGI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F/ACv05uhDfkOj+5X/gG3ZP1Hndix3mz83uWU8VLu9cCEjThiqiIUNlQfWC6EeLC83hscCxx9WY5Od3eyPknZOLsjYE07k+sepq39Ibuaa6SQR7I91TAr6WauHgtA9blkGxfplC7xgKNkK/6n86K6LL8faMCUW/1IAy66AHZyd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-7eb64371a2aso1832026a34.0
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 05:09:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785758981; x=1786363781;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/3F2htAaSgkkxvZ/5MPPccMC2gln25kjMNeYIdiRBb0=;
+        b=RxzyGar/951aUisMtfCEqZUgtTjg1rwbjw1gYfv31Qpv4HZXf5XQwdMpH3kNFpSeEk
+         d950cd9rKHTej7Rsd2ZBhw30bvNd/+Ma1ca383+GORTUDIQ2m+jxMNl/+Seo/BFOzsjd
+         tkjBoqZsgNg1sdQjjxwEYV7Q5Cr5ZtgQZFHHk4vl/BrTWi1CMiS2vR6wFkvRbJGb8Do7
+         pZ1r0VnPJepXxWCOPXjDDU+7zlExbpn2Q7qkoKIIJQHl+4BaoWMMdJWGgtg/Ip7NOxLh
+         p3aaU31y5YU3AwIRqoawG4vCHp5Bl5nv2/3J5UqOyxcm2ewQjHkQA6zLHVijZkc1V2PQ
+         5whg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrs5JRQK3eB/eBNuJgICLmAP20xIWX4zykaPZbv6h9DGjlc0f7IcIMcRszYJR3FFaPgPUNh6LJOAFnq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzErP9qpaSAQ9xizV9RwcxPT0A2hNUP90gZDYmMUI5iZUnADe52
+	RkP+ofH6Gty9tjHzTmlj1YUBAWk/Z/d1DdhRsw8OH0Jrd2PoO6Wb8GePq21K+R4Y
+X-Gm-Gg: AR+sD12qK8vaCGbYQ404XW4lviHGs/Kwn1WG0odzl4rkNGvLLlqzpwkPEKKrtb5hzYR
+	FHtppR83copXRqmeIlKXOjQ8xn3HydHFF6FXKTA7Zg3N5jbY0DrIV0wHJXHttDoQS5lbdQrSkfi
+	+Z9FHgIgRxSDpuYsyT+BNVzXYaxMWXFCyWHur4/ISFbaT8pdqgLJRj0Re6qKZc70mDhhoodqrzO
+	VqynrstYX8QeTuNzpaqeJpDGae2EqjlmqvkvR1TvMIsrrc+ytZXrlBn8IYhAAuA4ZS5szT+r2se
+	6unCc9NS82Y2qo7UPY+akeIcGEzZitRC90dqvBf8HYASM5tqvomUoky/vtPZ7UyzarIwHCfrU++
+	PCk3eeLxoI9cVsAdQrHIWg3nX+Dhae4uSYsiKTw+VG7cSfMXBpxT1tvHmQ8RCpiSSoLYgTst/Ge
+	bFCruvt1V4iDxx6ILpUJZynDmtMjVeKLRvLwpOrnfaRSVz6o48bMwR/aux3INw6wVSeXE+dt8bf
+	pP3hs2Ymm1k1SHmrd9dh1qXQQ==
+X-Received: by 2002:a05:6830:6d17:b0:7eb:d848:c856 with SMTP id 46e09a7af769-7f196bb81e2mr15640483a34.4.1785758981197;
+        Mon, 03 Aug 2026 05:09:41 -0700 (PDT)
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com. [209.85.161.42])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f0da967sm7972611a34.23.2026.08.03.05.09.40
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 03 Aug 2026 05:09:41 -0700 (PDT)
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6ae409c13d5so1356913eaf.3
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 05:09:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rqp40HWtpwUFIMSgO1joSWSKj6uDDvg/i7XnPUZLwInTE9ulNZJQGzB36FGAUGLTeBf6mntRpwn4Ju8@vger.kernel.org
+X-Received: by 2002:a05:6122:c94:b0:5a0:370:f12c with SMTP id
+ 71dfb90a1353d-5c3877ee9a2mr2551587e0c.11.1785758489767; Mon, 03 Aug 2026
+ 05:01:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
+References: <cover.1783505329.git.geert+renesas@glider.be> <49726acff0fee1c3606e83c4f242ef6aad25b4b8.1783505329.git.geert+renesas@glider.be>
+ <20260710-adventurous-burgundy-chimera-b2fff9@quoll> <CAMuHMdV=ckONBbTYELPJU8YWoNzdu3PJ95VR8cz+f_7dUeiPUw@mail.gmail.com>
+ <20260716214924.GA1477674-robh@kernel.org>
+In-Reply-To: <20260716214924.GA1477674-robh@kernel.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 3 Aug 2026 14:01:18 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdU0ss6wUEdjC+OYa3iQS439aJ8b_d9M2ws7Ayn4_kOyMQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxcGqdlDliYxmfdCYiKuiCZlBR4i5y6ZczTyLGv0wHHqfKRM8R7C8jMMeU
+Message-ID: <CAMuHMdU0ss6wUEdjC+OYa3iQS439aJ8b_d9M2ws7Ayn4_kOyMQ@mail.gmail.com>
+Subject: Re: [PATCH v2 05/10] dt-bindings: clock: renesas,r8a78000-cpg: Add
+ firmware property
+To: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Cristian Marussi <cristian.marussi@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Ulf Hansson <ulfh@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 30 Jul 2026 13:43:38 -0400, Richard Acayan wrote:
-> SDM660 sound card and internal MI2S support
-> 
-> This adds support for the SDM660 (formerly "SDM660 internal") sound card
-> and support for WCD codecs over internal MI2S (represented in APIs as
-> LPI MI2S).
-> 
-> Like on MSM8916 and MSM8953, some SDM660 and SDM670 devices connect to a
-> digital and analog codec. The connection to the digital codec is through
-> special "internal" MI2S ports. The digital and analog codecs are used on
-> the Xiaomi Redmi Note 7 for headset (playback + capture) and earpiece,
-> and also on the Google Pixel 3a for the headset.
-> 
-> [...]
+Hi Rob,
 
-Applied to
+On Thu, 16 Jul 2026 at 23:49, Rob Herring <robh@kernel.org> wrote:
+> On Fri, Jul 10, 2026 at 01:02:39PM +0200, Geert Uytterhoeven wrote:
+> > On Fri, 10 Jul 2026 at 12:21, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > > On Wed, Jul 08, 2026 at 12:16:23PM +0200, Geert Uytterhoeven wrote:
+> > > > Add a firmware property, for systems where SCMI must be used instead of
+> > > > direct hardware access.
+> > > >
+> > > > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > > > ---
+> > > > v2:
+> > > >   - Spin off from "dt-bindings: clock: Document Renesas R-Car X5H Clock
+> > > >     Pulse Generator".
+> > > > ---
+> > > >  .../devicetree/bindings/clock/renesas,r8a78000-cpg.yaml    | 7 +++++++
+> > > >  1 file changed, 7 insertions(+)
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml b/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+> > > > index 4e23bba334382346..fc499e7cf52e4f0c 100644
+> > > > --- a/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+> > > > +++ b/Documentation/devicetree/bindings/clock/renesas,r8a78000-cpg.yaml
+> > > > @@ -35,6 +35,12 @@ properties:
+> > > >        <dt-bindings/clock/renesas,r8a78000-cpg.h>.
+> > > >      const: 1
+> > > >
+> > > > +  firmware:
+> > >
+> > > RPi is doing similar, but I have doubts. It looks way too close to
+> > > generic "syscon" which is disallowed.
+> > >
+> > > I think this should be vendor+purpose specific, e.g.:
+> > > "renesas,scmi-transport" or "renesas,scmi-firmware"
+>
+> If you can tell me the resource that a 'firmware' provider provides then
+> it is fine, but you can't.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+It provides a firmware API, which is not available until the firmware
+provider is initialized.
 
 Thanks!
 
-[01/15] ASoC: dt-bindings: qcom,sm8250: add compatible for sdm660
-        https://git.kernel.org/broonie/misc/c/c143608b5602
-[02/15] ASoC: dt-bindings: qcom: q6dsp: add support for lpi mi2s ports 5-6
-        https://git.kernel.org/broonie/misc/c/96591d7030a6
-[03/15] ASoC: dt-bindings: pm8916-wcd-analog-codec: Document pm8950/pm8953
-        https://git.kernel.org/broonie/misc/c/e70f03958849
-[04/15] ASoC: dt-bindings: pm8916-analog-codec: Add PM660L compatible
-        https://git.kernel.org/broonie/misc/c/5f42d4525b43
-[05/15] ASoC: dt-bindings: msm8916-digital-codec: Add SDM660 compatible
-        https://git.kernel.org/broonie/misc/c/6f48a57f4bb2
-[06/15] ASoC: qdsp6: q6dsp-lpass-ports: add support for lpi mi2s ports 5-6
-        https://git.kernel.org/broonie/misc/c/68400191e005
-[07/15] ASoC: qdsp6: q6afe: add internal mi2s support
-        https://git.kernel.org/broonie/misc/c/bfe9098dc275
-[08/15] ASoC: qdsp6: q6afe-dai: add internal mi2s support
-        https://git.kernel.org/broonie/misc/c/0b494ae6a582
-[09/15] ASoC: qdsp6: q6routing: add lpi mi2s support
-        https://git.kernel.org/broonie/misc/c/14d3cca9c2ed
-[10/15] ASoC: qdsp6: common: support headphone jacks connected to lpi mi2s
-        https://git.kernel.org/broonie/misc/c/bd8216bfe24f
-[11/15] ASoC: qcom: sm8250: add support for LPI_MI2S_RX_0 and LPI_MI2S_TX_3
-        https://git.kernel.org/broonie/misc/c/5e913c10bd0d
-[12/15] ASoC: qcom: sm8250: add SDM660 compatible
-        https://git.kernel.org/broonie/misc/c/84f950973d91
-[13/15] ASoC: msm8916-wcd-analog: add pm8950 codec
-        https://git.kernel.org/broonie/misc/c/a3e1181e12c7
-[14/15] ASoC: msm8916-wcd-analog: add pm8953 codec
-        https://git.kernel.org/broonie/misc/c/4583c124538d
-[15/15] ASoC: msm8916-wcd-analog: add quirk for cajon 2.0
-        https://git.kernel.org/broonie/misc/c/ff01bff07665
+Gr{oetje,eeting}s,
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+                        Geert
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
