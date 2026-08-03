@@ -1,185 +1,370 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21783909A6;
-	Mon,  3 Aug 2026 05:34:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1176F25B0B3;
+	Mon,  3 Aug 2026 05:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785735244; cv=none; b=STJIsIVf8N34jhVFcLGbRrMFtDc6xnuXV+xZynBo95kQtXlka7CTjrsoeaw7K7hbDI5q3XLauPPdSTvCNRVb0jJxhN3ss7Q+bBGIWAlp55scjlA20WO486Y1CaCuHV4YHbItQe3S6e56jOUpNEsCI0w5KujUFo/dYi5rAtiaxFI=
+	t=1785735929; cv=none; b=nH3wPcskpCSS74j5MWFk1mvb0eo4TmpKOQJG/F0QSwKbYG74ZMW+Se/38g5rxMcz/z3q1D4mZ8SY9VlZhJ2DevkbrXX8ycGLClxY0rFrdvRcZgb3Rpd3aT4J73bTjH6x/cRraBYp9RTWpLun9d7rdPYttLMTHLiduHADEV/8S0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785735244; c=relaxed/simple;
-	bh=iIKND3yZEloqxnMUQYfHlxnmavKDuI24hxCESCWg3DE=;
-	h=From:To:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=quQEzClQT0Z0OWvXGCNVWSc49OxBSNmKzBXFVFc7V2RcBOrC4ZG/p6LYqYT4HN180824ugXP/pszkoPWmUt9XkUBJ7gPSu4va3mHToR98GT4/P/fuYO/OP8zu32c+DWNcfnIJf2mUxB9sQV2QCVu/slaA12djpfR1/qYaAfNydM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=fuyqJxxv; arc=none smtp.client-ip=212.227.17.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1785735929; c=relaxed/simple;
+	bh=tOny/PTSdPsIZ8ySfKLaP95wssozFmoXgDA3kGAhKmc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BJ1sfd0ewnWxpWZ+4hBNrQAES81AL4W0E4kBevM583SKftoMPgR4phsTqu/y2EMbBRoLxdopzMN+7avrQKHHw+CVPT3UHFk/Q0hKX3qwZ1xH4mf178DVIR+NSYifcwV6oP7srzESUSHzSwmsk3Jh75UkBMFDmJ1K15bQVmOXj+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=ma5weV+V; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="fuyqJxxv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1785735213; x=1786340013;
-	i=markus.stockhausen@gmx.de;
-	bh=iIKND3yZEloqxnMUQYfHlxnmavKDuI24hxCESCWg3DE=;
-	h=X-UI-Sender-Class:From:To:References:In-Reply-To:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=fuyqJxxvtvjN4RcUC0VWGTbK4DNa7DflW7yxtduGTGP5l2Z36coAmnY0oREaufTH
-	 0/HssGgcj4hc483zrNTYIVa0P0j2tc8DDRMo6s/z9EAKIrNoWZQsio70KKB0izGSO
-	 5u3WnnbMonRrHVah0UPlXGKkz6gUnN+U/hGvWKswCVFrqGj3VQ/mS+6Eldpa/l51g
-	 vgpRb8Fg9VbwaxGrYlWpQF6ihyK5E1DRRMcvxb1kSBDJiCZhmjLGE65mE2FTNIz+B
-	 4sh0dmyb7K4dPEna/m/5uPMwx9/dFg+dGM/VZA5T/lxP5mRUejbe+P/VPZQF+PzPQ
-	 Lreo3vYS6yPwZU0PwA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MgesG-1xP0j32Zbg-00fQch; Mon, 03
- Aug 2026 07:33:33 +0200
-From: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-To: "'Jeremy Kerr'" <jk@codeconstruct.com.au>,
-	<andrew@lunn.ch>,
-	<hkallweit1@gmail.com>,
-	<linux@armlinux.org.uk>,
-	<davem@davemloft.net>,
-	<edumazet@google.com>,
-	<kuba@kernel.org>,
-	<pabeni@redhat.com>,
-	<netdev@vger.kernel.org>,
-	<chris.packham@alliedtelesis.co.nz>,
-	<daniel@makrotopia.org>,
-	<robh@kernel.org>,
-	<krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>
-References: <20260802083528.490216-1-markus.stockhausen@gmx.de>	 <20260802083528.490216-2-markus.stockhausen@gmx.de> <7a537ca124f1b5d0b8dfbf9524f47ad5120e9dfc.camel@codeconstruct.com.au>
-In-Reply-To: <7a537ca124f1b5d0b8dfbf9524f47ad5120e9dfc.camel@codeconstruct.com.au>
-Subject: AW: [PATCH net-next v11 01/10] net: mctp: usb: Allow multiple urbs in flight
-Date: Mon, 3 Aug 2026 07:33:28 +0200
-Message-ID: <006301dd2309$a07876b0$e1696410$@gmx.de>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="ma5weV+V"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=48PALNf6FaW6jxdpb8NdGbAhPOU2X7FvJyVVO35TFGI=; b=ma5weV+VzGltGQtH8g6HPzdtIU
+	fl58hisYeqVrPHoJYMrqjnjo66NGlNh98Wy5nKa/9kDiFFRFSDxMkFckP9Fi1soHgsK+YJd7Z8sGK
+	OCejII58/JXe9l23vbHd4FKU4fhDYvvFe18P8cGDdzcc3pvltXkzms/ex+8Jg8yY5D1/9YxsmChHn
+	aCUs50Dl6WHif3ORBvgsEUOqis83xbj/Qjs8JBnYbk2LPR4c2yUs/HuK3G06MkqfjzvpwLnJOM1AW
+	Dlb13O8bNJv6W69jil8Kf38SrI+EJNmlt4JYkmxZh+Lju/oxSihsN0PClmfTZPQmXKjGeT0qijVHg
+	IYgbyNnw==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wqlUJ-0006BS-1X;
+	Mon, 03 Aug 2026 07:45:23 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy07.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wqlUI-000G1r-0p;
+	Mon, 03 Aug 2026 07:45:22 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Chester Lin <chester62515@gmail.com>,
+ Matthias Brugger <mbrugger@suse.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ NXP S32 Linux Team <s32@nxp.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux@ew.tq-group.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] ARM: dts: nxp: Correct white-space style
+Date: Mon, 03 Aug 2026 07:45:21 +0200
+Message-ID: <6019329.DvuYhMxLoT@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260801210420.383984-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801210420.383984-3-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQI8agZxcsV+DPxUrdmNszaPhNiTjAE/LIzZAUKWx4m1uS/3oA==
-Content-Language: de
-X-Provags-ID: V03:K1:rRzb80k/x7Tzt9jYViir6guCxHwUHXDwH9mSP2Pi9dRyOJiqxnp
- 9P2EA5D+MFzL6NRIZqCkOmbx0pRjRVuFCnm00M1XKF5HDCPi+KHMmH7a0/glK91x+0cW+Jk
- A7+po6/sdIU0yQq18AhmGYWkm4dHJGCqDOjOIAkgEFJ7DtcuVcKAWCVkvmKzMqrBcaIS+GO
- 6t33oiUUAi9TT0Kn8OQtA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:IEqmGW1lQSs=;wZ5bWpOYMoDjbLR6pjvopMTGi17
- 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
- /o5yY4xAyNmQbswL0M6roWOkJkPRDEqAAX4PI=
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28080/Sun Aug  2 08:24:19 2026)
 
-Hi Jeremy,
-
-> Von: Jeremy Kerr <jk@codeconstruct.com.au>=20
-> Gesendet: Montag, 3. August 2026 03:46
-> Betreff: Re: [PATCH net-next v11 01/10] net: mctp: usb: Allow multiple =
-urbs in flight
+Am Samstag, 1. August 2026, 23:04:21 CEST schrieb Krzysztof Kozlowski:
+> Correct a few white-space issues, like missing space before bracket '{'
+> character or spurious space, which will be flagged by dt-check-style
+> ("redundant-whitespace" warning).  No functional changes.
 >=20
-> Hi Markus,
->
-> > Subject: [PATCH net-next v11 01/10] net: mctp: usb: Allow multiple =
-urbs in flight
-> > From: Jeremy Kerr <jk@codeconstruct.com.au>
->
-> I don't think you intended to include this in your series? Did it just
-> get pulled in from your net-next base?
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks for the feedback. This patchset is part of
-a much longer series. I just rebased to the wrong
-last commit and therefore included an already
-pulled commit.
+Reviewed-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> ---
+>  arch/arm/boot/dts/nxp/imx/e60k02.dtsi                |  8 ++++----
+>  arch/arm/boot/dts/nxp/imx/e70k02.dtsi                |  8 ++++----
+>  arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts           |  2 +-
+>  arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts        |  4 ++--
+>  arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts      |  8 ++++----
+>  arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts |  8 ++++----
+>  arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts            |  2 +-
+>  arch/arm/boot/dts/nxp/imx/imx7s-warp.dts             |  2 +-
+>  arch/arm/boot/dts/nxp/ls/ls1021a.dtsi                | 10 +++++-----
+>  9 files changed, 26 insertions(+), 26 deletions(-)
+>=20
+> diff --git a/arch/arm/boot/dts/nxp/imx/e60k02.dtsi b/arch/arm/boot/dts/nx=
+p/imx/e60k02.dtsi
+> index aac7b9ef7627..ed59b27834a6 100644
+> --- a/arch/arm/boot/dts/nxp/imx/e60k02.dtsi
+> +++ b/arch/arm/boot/dts/nxp/imx/e60k02.dtsi
+> @@ -240,13 +240,13 @@ regulator-state-mem {
+>  			};
+> =20
+>  			/* IR_3V3 */
+> -			ldo1_reg: LDO1  {
+> +			ldo1_reg: LDO1 {
+>  				regulator-name =3D "LDO1";
+>  				regulator-boot-on;
+>  			};
+> =20
+>  			/* Core1_3V3 */
+> -			ldo2_reg: LDO2  {
+> +			ldo2_reg: LDO2 {
+>  				regulator-name =3D "LDO2";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -259,7 +259,7 @@ regulator-state-mem {
+>  			};
+> =20
+>  			/* Core5_1V2 */
+> -			ldo3_reg: LDO3  {
+> +			ldo3_reg: LDO3 {
+>  				regulator-name =3D "LDO3";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -310,7 +310,7 @@ ldo10_reg: LDO10 {
+>  				regulator-boot-on;
+>  			};
+> =20
+> -			ldortc1_reg: LDORTC1  {
+> +			ldortc1_reg: LDORTC1 {
+>  				regulator-name =3D "LDORTC1";
+>  				regulator-boot-on;
+>  			};
+> diff --git a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi b/arch/arm/boot/dts/nx=
+p/imx/e70k02.dtsi
+> index 3bb11c5a6353..dc7ff108aa85 100644
+> --- a/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
+> +++ b/arch/arm/boot/dts/nxp/imx/e70k02.dtsi
+> @@ -243,13 +243,13 @@ regulator-state-mem {
+>  				};
+>  			};
+> =20
+> -			ldo1_reg: LDO1  {
+> +			ldo1_reg: LDO1 {
+>  				regulator-name =3D "LDO1";
+>  				regulator-boot-on;
+>  			};
+> =20
+>  			/* Core1_3V3 */
+> -			ldo2_reg: LDO2  {
+> +			ldo2_reg: LDO2 {
+>  				regulator-name =3D "LDO2";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -262,7 +262,7 @@ regulator-state-mem {
+>  			};
+> =20
+>  			/* Core5_1V2 */
+> -			ldo3_reg: LDO3  {
+> +			ldo3_reg: LDO3 {
+>  				regulator-name =3D "LDO3";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -311,7 +311,7 @@ ldo10_reg: LDO10 {
+>  				regulator-boot-on;
+>  			};
+> =20
+> -			ldortc1_reg: LDORTC1  {
+> +			ldortc1_reg: LDORTC1 {
+>  				regulator-name =3D "LDORTC1";
+>  				regulator-boot-on;
+>  			};
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts b/arch/arm/boot/d=
+ts/nxp/imx/imx6dl-mamoj.dts
+> index ec5a9bf40677..30275319902e 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6dl-mamoj.dts
+> @@ -151,7 +151,7 @@ reg_usb_host: regulator-usb-vbus {
+>  		enable-active-high;
+>  	};
+> =20
+> -	reg_wl18xx_vmmc:  regulator-wl18xx-vmcc {
+> +	reg_wl18xx_vmmc: regulator-wl18xx-vmcc {
+>  		compatible =3D "regulator-fixed";
+>  		regulator-name =3D "vwl1807";
+>  		pinctrl-names =3D "default";
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts b/arch/arm/boo=
+t/dts/nxp/imx/imx6q-bosch-acc.dts
+> index 929def2bb35e..20b6cc74f622 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6q-bosch-acc.dts
+> @@ -177,7 +177,7 @@ reg_usb_h2_vbus: regulator-usb-h2-vbus {
+>  		regulator-name =3D "usb_h2_vbus";
+>  		regulator-min-microvolt =3D <5000000>;
+>  		regulator-max-microvolt =3D <5000000>;
+> -		vin-supply =3D <&reg_5p0> ;
+> +		vin-supply =3D <&reg_5p0>;
+>  		regulator-always-on;
+>  	};
+> =20
+> @@ -207,7 +207,7 @@ reg_dac: regulator-dac {
+>  		regulator-name =3D "vref_dac";
+>  		regulator-min-microvolt =3D <20000>;
+>  		regulator-max-microvolt =3D <20000>;
+> -		vin-supply =3D <&reg_5p0> ;
+> +		vin-supply =3D <&reg_5p0>;
+>  		regulator-boot-on;
+>  	};
+> =20
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts b/arch/arm/b=
+oot/dts/nxp/imx/imx6sl-kobo-aura2.dts
+> index 657d0f1b6115..47b05207574e 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6sl-kobo-aura2.dts
+> @@ -211,14 +211,14 @@ regulator-state-mem {
+>  			};
+> =20
+>  			/* IR_3V3 */
+> -			ldo1_reg: LDO1  {
+> +			ldo1_reg: LDO1 {
+>  				regulator-name =3D "LDO1";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+>  			};
+> =20
+>  			/* Core1_3V3 */
+> -			ldo2_reg: LDO2  {
+> +			ldo2_reg: LDO2 {
+>  				regulator-name =3D "LDO2";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -231,7 +231,7 @@ regulator-state-mem {
+>  			};
+> =20
+>  			/* Core5_1V2 */
+> -			ldo3_reg: LDO3  {
+> +			ldo3_reg: LDO3 {
+>  				regulator-name =3D "LDO3";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -282,7 +282,7 @@ ldo10_reg: LDO10 {
+>  				regulator-boot-on;
+>  			};
+> =20
+> -			ldortc1_reg: LDORTC1  {
+> +			ldortc1_reg: LDORTC1 {
+>  				regulator-name =3D "LDORTC1";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts b/arch/=
+arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
+> index 4c655579f43e..64a74719c216 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6sl-tolino-shine2hd.dts
+> @@ -276,13 +276,13 @@ regulator-state-mem {
+>  			};
+> =20
+>  			/* IR_3V3 */
+> -			ldo1_reg: LDO1  {
+> +			ldo1_reg: LDO1 {
+>  				regulator-name =3D "LDO1";
+>  				regulator-boot-on;
+>  			};
+> =20
+>  			/* Core1_3V3 */
+> -			ldo2_reg: LDO2  {
+> +			ldo2_reg: LDO2 {
+>  				regulator-name =3D "LDO2";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -295,7 +295,7 @@ regulator-state-mem {
+>  			};
+> =20
+>  			/* Core5_1V2 */
+> -			ldo3_reg: LDO3  {
+> +			ldo3_reg: LDO3 {
+>  				regulator-name =3D "LDO3";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> @@ -346,7 +346,7 @@ ldo10_reg: LDO10 {
+>  				regulator-boot-on;
+>  			};
+> =20
+> -			ldortc1_reg: LDORTC1  {
+> +			ldortc1_reg: LDORTC1 {
+>  				regulator-name =3D "LDORTC1";
+>  				regulator-always-on;
+>  				regulator-boot-on;
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts b/arch/arm/boot/dt=
+s/nxp/imx/imx6sll-evk.dts
+> index 814401486792..d20d2735cab5 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6sll-evk.dts
+> @@ -633,7 +633,7 @@ MX6SLL_PAD_PWM1__PWM1_OUT   0x110b0
+>  		>;
+>  	};
+> =20
+> -	pinctrl_wdog1: wdog1grp	{
+> +	pinctrl_wdog1: wdog1grp {
+>  		fsl,pins =3D <
+>  			MX6SLL_PAD_WDOG_B__WDOG1_B   0x170b0
+>  		>;
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts b/arch/arm/boot/dts=
+/nxp/imx/imx7s-warp.dts
+> index 25f38acc5350..b1989013c1a4 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts
+> +++ b/arch/arm/boot/dts/nxp/imx/imx7s-warp.dts
+> @@ -272,7 +272,7 @@ &uart1 {
+>  	status =3D "okay";
+>  };
+> =20
+> -&uart3  {
+> +&uart3 {
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&pinctrl_uart3>;
+>  	assigned-clocks =3D <&clks IMX7D_UART3_ROOT_SRC>;
+> diff --git a/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi b/arch/arm/boot/dts/nx=
+p/ls/ls1021a.dtsi
+> index e0b9ea6dd510..af518fc08809 100644
+> --- a/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi
+> +++ b/arch/arm/boot/dts/nxp/ls/ls1021a.dtsi
+> @@ -721,7 +721,7 @@ queue-group@2d10000 {
+>  					<GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>;
+>  			};
+> =20
+> -			queue-group@2d14000  {
+> +			queue-group@2d14000 {
+>  				reg =3D <0x0 0x2d14000 0x0 0x1000>;
+>  				interrupts =3D <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>,
+>  					<GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>,
+> @@ -740,14 +740,14 @@ enet1: ethernet@2d50000 {
+>  			ranges;
+>  			dma-coherent;
+> =20
+> -			queue-group@2d50000  {
+> +			queue-group@2d50000 {
+>  				reg =3D <0x0 0x2d50000 0x0 0x1000>;
+>  				interrupts =3D <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>,
+>  					<GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>,
+>  					<GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
+>  			};
+> =20
+> -			queue-group@2d54000  {
+> +			queue-group@2d54000 {
+>  				reg =3D <0x0 0x2d54000 0x0 0x1000>;
+>  				interrupts =3D <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>,
+>  					<GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>,
+> @@ -766,14 +766,14 @@ enet2: ethernet@2d90000 {
+>  			ranges;
+>  			dma-coherent;
+> =20
+> -			queue-group@2d90000  {
+> +			queue-group@2d90000 {
+>  				reg =3D <0x0 0x2d90000 0x0 0x1000>;
+>  				interrupts =3D <GIC_SPI 157 IRQ_TYPE_LEVEL_HIGH>,
+>  					<GIC_SPI 158 IRQ_TYPE_LEVEL_HIGH>,
+>  					<GIC_SPI 159 IRQ_TYPE_LEVEL_HIGH>;
+>  			};
+> =20
+> -			queue-group@2d94000  {
+> +			queue-group@2d94000 {
+>  				reg =3D <0x0 0x2d94000 0x0 0x1000>;
+>  				interrupts =3D <GIC_SPI 160 IRQ_TYPE_LEVEL_HIGH>,
+>  					<GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>,
+>=20
 
-Will fix with next version.
 
-Markus
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
 
