@@ -1,157 +1,247 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9183B2FFE;
-	Mon,  3 Aug 2026 11:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785755071; cv=pass; b=FzBppQn5JSXyu9CVYVZ3l2lULSTyQ0srA+QKLSF6frz6jEQf5KSuobAhXLY0gUV28MqvpnVbgSWkRhFvWvKi/nK27uP/Ggt+/OyNHOOYTtN6Na5Jzm1ZEa4uk3+CMF2kvGbch/VCevFS2nNL7r+/hzG1d+A0lvtJZq1DETRj2DE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785755071; c=relaxed/simple;
-	bh=belPi1nnLRo7goLyBJojiVeLOYqXKi84+Xmell44/Ys=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ETiHzHGG5MnnaQwWy298sS/0u5FhERvVMdmWWQ1pi61IilfPygbe3iTjWn58XCMFcoNQlyjIM7VT0iM0x36LIbm8Vahi7Wg0iXeHDFOrCg5Fti0ynglcnXLhFxMhE8w2qx6J/1IoqFmICbOTOOGn6PVjb2y/561+xdtP/0VoRQQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=YmslsaxG; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FF733CE88
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 11:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785755217; cv=none; b=JZ2GVSRICCBdVowKegJAEEDzDG6kCrj+i2mKBlnqIBoGE0ogXq/XpyYzvs2lYXiA/56Qzht7JSEhJIEzkeH/u2o4NumODK+AhPjCmmYSChAzlxID6KQM89GP3O1TsLewXcyIbjAaQN8FE+IOM/kWC0qZg1HcwY89NBr0ECmYo3g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785755217; c=relaxed/simple;
+	bh=9n7OBu01+i/Z9qhO1CdACMwvvPuAYYBdWhR5j731mLw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=n1sZp1k/9msjvlG81LwNkIfNbdpJ2TI1qUbIxftmCggZ9tcWaAJCTXHljh5AOAlve8EQt6yV0j7MTYIytZOe9pqxinCCt0Xuf06bdctCAyqF1kYYgFVhiYObGHV44uAECT3ZdqTmBNSCppWHYChC4gGmcJOhBM9K/TASXK9RnWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhSr7FDh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="YmslsaxG"
-ARC-Seal: i=1; a=rsa-sha256; t=1785755053; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hQ0MpJ9A3P3+L5VntZJclLcy7Kg4rETAnyVcG02PM4ZKRrVXL4rNykvlj6OzZPNmIzaKpouofqSulkfv/pCciGwPBoQogvAIhYYDU4mFsbakFPtAXx8X57YZR8GDuYG8uBzy9GGOD9kX/6SBUh2kecXQDTnMO8y4As8xwv8HBRo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1785755053; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=vEjfuOOqjt4DKH+Agnkv8+PSzwehlSi9y606REMac8k=; 
-	b=NN0GW/XzKfqszrKUbUDODRNhjmkKYzUOyB1MmRzDhmAQwU7nDT9RiGGccv/lgfr1fuocuK+GpfIX217hiEtoyLXUpyjuB7M6+/u2ZPsMS2BQtl6YWR9F08aykeOOrDl/M5syiQAufm+AbVqDHDRh+Moyt5+6MqJOWdejZhglgzE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785755053;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=vEjfuOOqjt4DKH+Agnkv8+PSzwehlSi9y606REMac8k=;
-	b=YmslsaxG4pGR0uRF+wFiDwdG+68+XDpe+xbWRA4G5/fEC/yC73+yew9Z3yc40h1r
-	7fiV9ZV8CoN5NjdzRpZOupXOJ4zRUOr4w5BpzlxMnGvxFPQJfxPac1ySZ3QVXg/zasg
-	peZnfCqRls+GmQbtS0GojJ4U75BGM13gKde5pvfU=
-Received: by mx.zohomail.com with SMTPS id 1785755051075901.122732738344;
-	Mon, 3 Aug 2026 04:04:11 -0700 (PDT)
-Message-ID: <e4a4eef8-3c42-407b-a6b7-e2f9a32da29e@collabora.com>
-Date: Mon, 3 Aug 2026 13:04:07 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhSr7FDh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590AD1F000E9;
+	Mon,  3 Aug 2026 11:06:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785755215;
+	bh=O4Ef1Fs/5DVOg8PlXvq5qgL6VB7FIcQ3hLkj8Tumltg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NhSr7FDh14cFHgGTPwj2Xghh8yQL3lTFTN/BcxSXO9uo+pYM62nslpor1pJsfJrJf
+	 obR5qz1VRinaG+vWXoJ5mSELAC6j+AA+zGeJfUkI2RZOUDtGdEWM1zRcCiuZxR/1Wk
+	 e5N+iDeS3m2jWlKpDWoaaSMnarJ9/XRA/w49buuRrxSaEoAsg/RZmWg9N9E7W57aUl
+	 hkY97GqkC026ZcEPWR+8w1yWyd/eXSGKe1sWxfh67GWHs02k7e9IPDpW6quelA4CD7
+	 6Flnx5Rq0nCDfLBwjAIjtcqpwziqOJBd4Dx1C6fz0fUpp+dnFO1KsttrjuzqYd47Ia
+	 KKJzoxDJrpU1A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 3/9] remoteproc: qcom: add hexagon based WCSS secure
+ PIL driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260803-rproc-v14-3-a1f87b0b0ad2@oss.qualcomm.com>
+References: <20260803-rproc-v14-0-a1f87b0b0ad2@oss.qualcomm.com>
+ <20260803-rproc-v14-3-a1f87b0b0ad2@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 11:06:54 +0000
+Message-Id: <20260803110655.590AD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] phy: rockchip: phy-rockchip-inno-csidphy: add
- clock lane phase tuning
-To: Gerald Loacker <gerald.loacker@wolfvision.net>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260725-feature-mipi-csi-dphy-4k60-v4-0-5b2c4626d31e@wolfvision.net>
- <20260725-feature-mipi-csi-dphy-4k60-v4-3-5b2c4626d31e@wolfvision.net>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20260725-feature-mipi-csi-dphy-4k60-v4-3-5b2c4626d31e@wolfvision.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-Hi Gerald,
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-On 7/25/26 18:56, Gerald Loacker wrote:
-> At high data rates like 4K60 (2500 Mbps), such as when using an
-> LT6911GXD bridge chip on an RK3588 board, fixed default timing parameters
-> can cause signal integrity issues and clock-data recovery failures.
-> The driver currently lacks a mechanism to adjust the clock lane sampling
-> phase to compensate for board-specific trace variations.
-> 
-> Resolve this by parsing and applying the optional 'rockchip,clk-lane-phase'
-> device tree property. This enables board-specific tuning of the clock
-> lane sampling phase in ~40 ps steps (range 0-7) to optimize link
-> stability. If the property is absent, the driver falls back to the
-> hardware default.
-> 
-> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
+New issues:
+- [High] Teardown asymmetry between `devm_rproc_add` and manual `remove` cl=
+eanup causes subdevices to skip shutdown routines and causes lockless list =
+corruption.
+- [High] `wcss_sec_copy_segment` silently returns on `ioremap_wc` failure, =
+corrupting the devcoredump with uninitialized memory or zeroes.
+- [Medium] Permanent `ioremap_wc` mapping leak during coredump segment read=
+ing due to unreachable unmap condition.
+- [Medium] Error paths in `wcss_sec_dump_segments` permanently leak previou=
+sly added custom coredump segments.
+- [Medium] Missing NULL check on `of_device_get_match_data` during driver p=
+robe.
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+Pre-existing issues:
+- [High] Unconditionally calling `qcom_remove_ssr_subdev()` on uninitialize=
+d subdev causes a kernel panic if `qcom_add_ssr_subdev()` failed silently.
+--
 
-Thanks and best regards,
-Michael
+--- Patch [3]: [PATCH v14 3/9] remoteproc: qcom: add hexagon based WCSS sec=
+ure PIL driver ---
+commit f96fb4a46b22ed73d132da71366a2ebbfe51729c
+Author: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
+Subject: remoteproc: qcom: add hexagon based WCSS secure PIL driver
 
-> ---
->  drivers/phy/rockchip/phy-rockchip-inno-csidphy.c | 25 ++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-> index 5281f8dea0ad3..d989f1649b0e4 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-inno-csidphy.c
-> @@ -69,6 +69,10 @@
->  #define RK1808_CSIDPHY_CLK_CALIB_EN		0x168
->  #define RK3568_CSIDPHY_CLK_CALIB_EN		0x168
->  
-> +#define CSIDPHY_LANE_CLK_3_PHASE		0x38
-> +#define CSIDPHY_CLK_PHASE_MASK			GENMASK(6, 4)
-> +#define CSIDPHY_CLK_PHASE_DEFAULT		3
+Adds support for a Hexagon-based WCSS secure PIL driver for IPQxxxx SoCs
+using TrustZone (TZ) for authentication and loading.
+
+> diff --git a/drivers/remoteproc/qcom_q6v5_wcss_sec.c b/drivers/remoteproc=
+/qcom_q6v5_wcss_sec.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/remoteproc/qcom_q6v5_wcss_sec.c
+[ ... ]
+> +static void wcss_sec_copy_segment(struct rproc *rproc,
+> +				  struct rproc_dump_segment *segment,
+> +				  void *dest, size_t offset, size_t size)
+> +{
+> +	struct wcss_sec *wcss =3D rproc->priv;
+> +	struct device *dev =3D wcss->dev;
 > +
->  #define RESETS_MAX				2
->  
->  /*
-> @@ -151,6 +155,7 @@ struct rockchip_inno_csidphy {
->  	const struct dphy_drv_data *drv_data;
->  	struct phy_configure_opts_mipi_dphy config;
->  	u8 hsfreq;
-> +	int clk_phase;
->  };
->  
->  static inline void write_grf_reg(struct rockchip_inno_csidphy *priv,
-> @@ -304,6 +309,13 @@ static int rockchip_inno_csidphy_power_on(struct phy *phy)
->  		rockchip_inno_csidphy_ths_settle(priv, priv->hsfreq,
->  						 CSIDPHY_LANE_THS_SETTLE(i));
->  
-> +	if (priv->clk_phase >= 0) {
-> +		val = readl(priv->phy_base + CSIDPHY_LANE_CLK_3_PHASE);
-> +		val &= ~CSIDPHY_CLK_PHASE_MASK;
-> +		val |= FIELD_PREP(CSIDPHY_CLK_PHASE_MASK, priv->clk_phase);
-> +		writel(val, priv->phy_base + CSIDPHY_LANE_CLK_3_PHASE);
+> +	if (!segment->io_ptr)
+> +		segment->io_ptr =3D ioremap_wc(segment->da, segment->size);
+> +
+> +	if (!segment->io_ptr) {
+> +		dev_err(dev, "Failed to ioremap segment %pad size 0x%zx\n",
+> +			&segment->da, segment->size);
+> +		return;
+
+[Severity: High]
+If ioremap_wc() fails, this returns early without populating the userspace
+buffer. Because it returns void, the devcoredump core assumes the copy
+succeeded.=20
+
+Does this cause the framework to leak uninitialized kernel memory
+(if not zeroed) or zeroes to userspace, silently corrupting the coredump
+instead of gracefully failing?
+
 > +	}
 > +
->  	write_grf_reg(priv, GRF_DPHY_CSIPHY_CLKLANE_EN, 0x1);
->  	write_grf_reg(priv, GRF_DPHY_CSIPHY_DATALANE_EN,
->  		      GENMASK(priv->config.lanes - 1, 0));
-> @@ -449,6 +461,7 @@ static int rockchip_inno_csidphy_probe(struct platform_device *pdev)
->  	struct device *dev = &pdev->dev;
->  	struct phy_provider *phy_provider;
->  	struct phy *phy;
-> +	u32 phase;
->  	int ret;
->  
->  	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> @@ -464,6 +477,18 @@ static int rockchip_inno_csidphy_probe(struct platform_device *pdev)
->  		return -ENODEV;
->  	}
->  
-> +	priv->clk_phase = -1;
-> +	if (device_property_read_u32(dev, "rockchip,clk-lane-phase",
-> +				     &phase) == 0) {
-> +		if (phase > 7) {
-> +			dev_warn(dev,
-> +				 "invalid rockchip,clk-lane-phase %u, using default %u\n",
-> +				 phase, CSIDPHY_CLK_PHASE_DEFAULT);
-> +			phase = CSIDPHY_CLK_PHASE_DEFAULT;
+> +	if (offset + size <=3D segment->size) {
+> +		memcpy_fromio(dest, segment->io_ptr + offset, size);
+> +	} else {
+> +		iounmap(segment->io_ptr);
+> +		segment->io_ptr =3D NULL;
+> +	}
+
+[Severity: Medium]
+Because the remoteproc framework bounds the read size such that=20
+offset + size <=3D segment->size is always true, is this else branch
+mathematically dead code?
+
+During cleanup, rproc_coredump_cleanup() frees the segment structure but
+lacks a hook to unmap the custom io_ptr. Could this permanently leak vmalloc
+space on every crash dump?
+
+> +}
+[ ... ]
+> +static int wcss_sec_dump_segments(struct rproc *rproc,
+> +				  const struct firmware *fw)
+> +{
+> +	struct device *dev =3D rproc->dev.parent;
+> +	struct reserved_mem *rmem =3D NULL;
+> +	struct device_node *node;
+> +	int num_segs, index;
+> +	int ret;
+> +
+> +	/*
+> +	 * Parse through additional reserved memory regions for the rproc
+> +	 * and add them to the coredump segments
+> +	 */
+> +	num_segs =3D of_count_phandle_with_args(dev->of_node,
+> +					      "memory-region", NULL);
+> +	for (index =3D 0; index < num_segs; index++) {
+> +		node =3D of_parse_phandle(dev->of_node,
+> +					"memory-region", index);
+> +		if (!node)
+> +			return -EINVAL;
+> +
+> +		rmem =3D of_reserved_mem_lookup(node);
+> +		of_node_put(node);
+> +		if (!rmem) {
+> +			dev_err(dev, "unable to acquire memory-region index %d num_segs %d\n",
+> +				index, num_segs);
+> +			return -EINVAL;
+
+[Severity: Medium]
+If an error occurs midway through the segment parsing loop, does returning
+early here leave previously added segments on the rproc->dump_segments list?
+
+The remoteproc core's rproc_fw_boot() handles a parse_fw() failure by jumpi=
+ng
+directly to unprepare_rproc, bypassing rproc_resource_cleanup(). Will any
+segments successfully added in earlier iterations be permanently leaked?
+
 > +		}
-> +		priv->clk_phase = phase;
+[ ... ]
+> +static int wcss_sec_probe(struct platform_device *pdev)
+> +{
+> +	const struct wcss_data *desc =3D of_device_get_match_data(&pdev->dev);
+> +	const char *fw_name =3D NULL;
+> +	struct wcss_sec *wcss;
+> +	struct clk *sleep_clk;
+> +	struct clk *int_clk;
+> +	struct rproc *rproc;
+> +	int ret;
+> +
+> +	ret =3D of_property_read_string(pdev->dev.of_node, "firmware-name",
+> +				      &fw_name);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	rproc =3D devm_rproc_alloc(&pdev->dev, desc->ss_name, &wcss_sec_ops,
+> +				 fw_name, sizeof(*wcss));
+
+[Severity: Medium]
+Is a NULL check needed for the return value of of_device_get_match_data()?
+
+If the driver is bound manually via sysfs to a platform device with a
+compatible of_node that lacks match data in the driver's table, it could
+return NULL and cause a NULL pointer dereference on desc->ss_name.
+
+> +	if (!rproc) {
+[ ... ]
+> +	qcom_add_glink_subdev(rproc, &wcss->glink_subdev, desc->ss_name);
+> +	qcom_add_ssr_subdev(rproc, &wcss->ssr_subdev, desc->ss_name);
+> +
+> +	rproc->auto_boot =3D desc->auto_boot;
+> +	rproc->dump_conf =3D RPROC_COREDUMP_INLINE;
+> +	rproc_coredump_set_elf_info(rproc, ELFCLASS32, EM_NONE);
+> +
+> +	ret =3D devm_rproc_add(&pdev->dev, rproc);
+> +	if (ret) {
+> +		qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
+
+[Severity: High]
+This is a pre-existing issue, but if qcom_add_ssr_subdev() fails (e.g., due
+to -ENOMEM), it returns early and leaves ssr->subdev.node zero-initialized.
+
+Later, unconditionally calling qcom_remove_ssr_subdev() here during probe
+error handling (or in wcss_sec_remove() below) invokes list_del() on the
+zero-initialized list head. Can this dereference a NULL prev pointer and
+cause a kernel panic?
+
+> +		qcom_remove_glink_subdev(rproc, &wcss->glink_subdev);
+> +		qcom_q6v5_deinit(&wcss->q6);
+> +		return ret;
 > +	}
 > +
->  	priv->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
->  						    "rockchip,grf");
->  	if (IS_ERR(priv->grf)) {
-> 
+> +	platform_set_drvdata(pdev, rproc);
+> +
+> +	return 0;
+> +}
+> +
+> +static void wcss_sec_remove(struct platform_device *pdev)
+> +{
+> +	struct rproc *rproc =3D platform_get_drvdata(pdev);
+> +	struct wcss_sec *wcss =3D rproc->priv;
+> +
+> +	qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
+> +	qcom_remove_glink_subdev(rproc, &wcss->glink_subdev);
 
+[Severity: High]
+Because rproc_del() is deferred to devres cleanup (after remove()),
+does manually removing subdevices from rproc->subdevs here while the rproc
+is still active skip their .stop callbacks?
+
+Since they are no longer in the list when rproc_del() executes, it seems
+this leaves GLINK edges active and dangling for a powered-off remoteproc,
+potentially corrupting the GLINK state machine and freeing structures still
+in use. Should the subdevices be left for rproc_del() to clean up?
+
+> +	qcom_q6v5_deinit(&wcss->q6);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-rproc-v14-=
+0-a1f87b0b0ad2@oss.qualcomm.com?part=3D3
