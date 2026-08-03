@@ -1,63 +1,63 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425A6377AAF
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3406833CE88
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 10:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785752264; cv=none; b=uPay1iRZo5WJ02InrojDETLrYasOA0FzAl1umRULsfBYmXofYO1fQeq9YRxQzXTxMnpvrzTtCBDljYLudJNhWBMtLWUIweZSpaRMBxeYv9TEIWXT/4YlzyW48TIyFr7x7Ts2vx9X7oogMnKiehCoiV0PViEtZyu46NTLCfdy/BI=
+	t=1785752266; cv=none; b=FDZYn4lCjdhOtyWn5Mma7ywORSAooZfxEQFdrDchS9C/8WJUlisyezNaEpo9D98vcTxlIHnma+2GpIamZ+ZoAPd+HIUWhbiYtXgnmnkz4iioWvo1RC7yCJYkHqhFGDC1k74D+b9V4+NJUJbeizJd4Y5zh8Ir7ynKHT3LrNLZEdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785752264; c=relaxed/simple;
-	bh=mdK76CmT+sB/dQ5ZJu5idZ9uOc3wWirMdV42A93LRnk=;
+	s=arc-20240116; t=1785752266; c=relaxed/simple;
+	bh=ihxYljt9TvSONhIQg9chU2CaRvgGK8sqjjqdKQaNFaA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l/XPywotxKbzNNlWIPAFzrj5T1ywEyo1QwlTOWJk2qhkWNstC5xH4gxuAE5EyTl842v27DZeL49YMIKQTzMkyt6SRMNCj4xWFyFDJiQhsBMwxo2rTnfknSKmyeJKOwPl2gEnZphh5tqY78qAbdQVTJ0Tz/wDtFKylEwMjYfp/Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iO1GDl31; arc=none smtp.client-ip=209.85.208.46
+	 MIME-Version; b=NJvFkltOXexs4rV7YT9//gOfprpOuAmDueG0y828TJ7BDGQVfVo/GCPGf8b48qzsMoa65nM2UTmqiuyb/0xgBMyhX90tJlbI45XayqHsih02Sf8n8HEH35fqldKFsSCVNguWV3+WF06ThguSjNVPqc1fvGGpV5SQxwi34ZY9KxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aDJmuL9g; arc=none smtp.client-ip=209.85.218.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iO1GDl31"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso4576166a12.3
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 03:17:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aDJmuL9g"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c1c24ec9525so535875966b.1
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 03:17:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785752260; x=1786357060; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785752262; x=1786357062; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ugGg4EQGeqEihDKrAN4SwKwxBN4TCJS1gjxrloyykU4=;
-        b=iO1GDl31oHaQv7+DoivVv9UodxIwA2+wjHJ8oDKHHd3Dx0c9hVVreQhNLsZX1MOEkQ
-         JsuRu/nB7VKIe3ikgW/bHi20lh5trydiEKgwvK7iHIGAMzTW4SgBt/z4TCyTOBmC4W4K
-         /p7fAJO1RfEDtfvRVS3orWa2wwOwCSkV9Ggg9uJjkqAumwz30eDX9nnN/CAa2xWZdKCY
-         MAaMuYg245EAtAOoi0cNlkA84nTH60eSmoul7XTcj6lTQpACrgqSMDHSD9lXZM3lDmuK
-         kPUC08T9CTwyW3xikhDFoHUTMYhWnRDYoG8qDB7MR0RTTCJLDj/0wfEEj3VtitUBhuPX
-         0C4A==
+        bh=BKK29opAwoDm9NA+sehIYh0i1MrAbhgyis4MH0MRWRg=;
+        b=aDJmuL9gyjSBcG4iVbPCUm7TiQzojbCezEL+HyIjpOeywEipBGURuE4FBVMrzk5rqG
+         Zs4nNmDPEopLq9z1YkAnrxbMNLWNTNfK8QxYDw74PgZpiqgKVsgutl+MLdoy/d7Gber6
+         KFL6NX83G7WgYch9CRL72A738yRVFRjRzcHTFbn3/S0+4BK9iSNtYif5EYkpfDewTOLo
+         ToHDsGOCKK6f5asNDKuc/E4qNlWyB3H9QEhBSyVV+m1cAdWgsVY0Jxp3aokMG2tjgdLS
+         aExfG4qv2vdk4MT/rncz8jAEQ8LfluiWX/V59Kb+kdOT7XNT52rfYrp5aO6ysozYBDMA
+         14cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785752260; x=1786357060;
+        d=1e100.net; s=20251104; t=1785752262; x=1786357062;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ugGg4EQGeqEihDKrAN4SwKwxBN4TCJS1gjxrloyykU4=;
-        b=Ms5WUIJYxRWwUx1lLuQcmH7n5B9XJJXAjyHzmWIEQt6MYxrjbwLg3IDrMSsDg2zsfA
-         gOTJGG6au2PDGPgAgJ1L7ftDpjia/CxNr3mbnrCcWaUqYUoYGeWTwhnzxYXEwVqdVhA6
-         5ugIzHTLqyM71s4rPb7HHaDkptZC6/wFIimK3dor89cBwiAMVYzCbhs5MnmG6xxO35tb
-         Mx9zAJba+y45tgC8qW6mCatMUYOlZOIm2vMs5/ovOQqhQnhNVEYBpxXNjvCG44xLWzHd
-         YjkhHy+0aYpuhX9jp7SKJ8N6aZ52jPCNnEfmd5ncAkyKmkr9w40zfQ+hu8vNQiuzHaYA
-         Hiyg==
-X-Forwarded-Encrypted: i=1; AHgh+Roy1GrQRP2/EicQ5w8WVFbFDlJCkgxAkR6YvFotsrOxJPuxX/dikj9TU5lsCKPPWFwE4omuu0GU+4GQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIcr54KO3NVST8wW2vF6taB58Rm7ea67xHk1tmAfZxFGTw7mCI
-	r0q1xsJ0qsr5CJ/iqeDjhEcIaGLZF+Bg0zVbSdsrxNSXmFEIJBQAeEcW
-X-Gm-Gg: AR+sD135cVCsM0nd8QUT5smOc63mKB7v2/RdLNyF8IyaTVCxgyEQqGjF4uOPRitRn5X
-	1U1QBXdR1LrtD7FRVy6sw+lGKzHTQEX6ZuFUNHhNcnQj5u9lRyGUefEZ1/G6hFm2vxXKY+01Ms4
-	4qH/hKQiU6tnAYW8v3jI5/n4AmADEStf967oX3Dapb4ZaauJB9ikZ2FRCK/M04IwSuBbmBXtj1d
-	l3XHXLeb8V1DhDkV492y3kpagV9XhmrVwv/stibFm7YuXicLdklX53vkmyu0SKxuvGIcwOXJkTW
-	1fkePxf7rZ6QUlQlF3sQq2W9zOOZIqjgDdH48UIHOBS8wX9w0u/s9EJs+L7lGrxZRWWBrIeIDqI
-	48/FLwWh/nqWV6pe58wf7J9Ym90Z4qRRWP0wm8vsJbhGbt9OtBFPrsUxUxGuaXgy3X5z+vsqVgs
-	HS+58ynLRM+oUqshGtV/rZqoqYuZGpCMc5EeIo7SESVsxJBeFzXX+ot6SymhLAVg==
-X-Received: by 2002:a05:6402:44d8:b0:6a0:567c:c2fe with SMTP id 4fb4d7f45d1cf-6a0a7ce217amr5861015a12.20.1785752260122;
-        Mon, 03 Aug 2026 03:17:40 -0700 (PDT)
+        bh=BKK29opAwoDm9NA+sehIYh0i1MrAbhgyis4MH0MRWRg=;
+        b=Z7DCj9iBPwB7Htv64+SfUgJYWNcroEzlQMs6HmyJlrXAH9bBCdr9kjNSNjxtMncaiU
+         DoSAsun0YT0gIl4dN5Y+iFuq/2in68AGCVQ6aVaIuTXCkC9eRoUyKxta+RMpVCVN1afE
+         0B/+DZZQY3ISY7jxiZ8fZ1Cf0ztk4ymGQeclXEVpnXACqYtlHuYgyUiPHMgrJpa1KBD7
+         HLLf2HcKeIL+PZClo62ZJ0+4ZvYQpR93H9jehLqw7usqidAyAiYyX0vhZHRu6n4DmXc7
+         9xQoCti6iu8iatA5IOvcTlBa9xi1PFAJUw0I6zM0CLdZu7gt8gfERbOxnbrpGxft+m6H
+         K3UA==
+X-Forwarded-Encrypted: i=1; AHgh+RoqqDvcsSER8epvk5UKTIu7Vx0O1g2N/L8C55Quixkx7XWazY54PtIzig08Xayk81tpPdWMT6iPCisW@vger.kernel.org
+X-Gm-Message-State: AOJu0YywDv/M1iICx9SZLp2+x9Do7KRfGWyxcVDkRYI3GkJ4t+2GUh6g
+	H4CQTjZkei9dkwp4CojBvQGepTyXQ9hNVfmKen/feDbl7WjgA8XzUrS6
+X-Gm-Gg: AR+sD10l1QLUZnbYZCwop71R6vvL9+yjdMPgJyxSUvaMCD/14Ho3ofXtOqL+XjVsN0K
+	MwE6Q8V0VOsM4O0VUEBaa4T/iYddwQzJwyzWLjo92K9snxAHHGNtgqZUg4+cbq9KMN6pAzQH0Ar
+	Jwcm1yUOdpLJ7f2tmxgf6y/7Cn6SunqxnN7DtLsiMJVoTd/0Apk80nOrue0opYQI1b3cMUSISG1
+	K4MJdVzsBL/F5VkdtqepEeQLZvTvHVPg14uJnYVZN4BPSWdXEgvISMzU15W9VQk9dU6u6TA5ylS
+	fibGtCqY4U6S1UX4FgWZyyi2C1wRdL4BfL+Ewo+56rEeOTkg7C4IK+xOn5JKsGQdDtRcIWb/tQb
+	WjccoXh78F5OfRO+DKGdPaP27zcw+/+9GxWVZazmG3K9O4+YoRgiw9M9kxAHCFyF6aWCCCG9NOz
+	q4kyUfjF2RhI7iAJ+5fXqPbHt6kNLC4QxrWEEG4cvHdmG2o9XEvTkLm04wLwL2uJYpMypTeUGH
+X-Received: by 2002:a17:906:dd9:b0:c1c:4afd:8d8c with SMTP id a640c23a62f3a-c1fe7f67f8bmr472940466b.14.1785752262065;
+        Mon, 03 Aug 2026 03:17:42 -0700 (PDT)
 Received: from NB-6746.. ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c6566b3sm5355731a12.23.2026.08.03.03.17.38
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c6566b3sm5355731a12.23.2026.08.03.03.17.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 03:17:39 -0700 (PDT)
+        Mon, 03 Aug 2026 03:17:41 -0700 (PDT)
 From: Artem Shimko <a.shimko.dev@gmail.com>
 To: netdev@vger.kernel.org,
 	Andrew Lunn <andrew@lunn.ch>,
@@ -74,9 +74,9 @@ To: netdev@vger.kernel.org,
 Cc: Artem Shimko <a.shimko.dev@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH net-next v5 1/3] dt-bindings: vendor-prefixes: add Guangdong Dapu Telecom Co., Ltd.
-Date: Mon,  3 Aug 2026 13:17:32 +0300
-Message-ID: <20260803101734.270821-2-a.shimko.dev@gmail.com>
+Subject: [PATCH net-next v5 2/3] dt-bindings: net: add DAPU Telecom DAP8211R(I) PHY binding
+Date: Mon,  3 Aug 2026 13:17:33 +0300
+Message-ID: <20260803101734.270821-3-a.shimko.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260803101734.270821-1-a.shimko.dev@gmail.com>
 References: <20260803101734.270821-1-a.shimko.dev@gmail.com>
@@ -88,30 +88,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add vendor prefix for Guangdong Dapu Telecom Co., Ltd. [1], a manufacturer
-of Ethernet PHYs, networking and other equipment.  The prefix will be
-used in the DAP8211R(I) Gigabit Ethernet PHY binding.
+Add device tree binding documentation for the DAPU Telecom DAP8211R(I)
+Gigabit Ethernet PHY.
 
-[1] https://www.dptel.com/
+The PHY supports TX and RX clock delays in 150 ps steps from 0 to 2250 ps,
+with a default of 1950 ps if not specified.
 
 Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../bindings/net/dapu,dap8211r.yaml           | 62 +++++++++++++++++++
+ 1 file changed, 62 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 396044f368e7..c3db857b9837 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -403,6 +403,8 @@ patternProperties:
-     description: CZ.NIC, z.s.p.o.
-   "^dallas,.*":
-     description: Maxim Integrated Products (formerly Dallas Semiconductor)
-+  "^dapu,.*":
-+    description: Guangdong Dapu Telecom Co., Ltd.
-   "^dataimage,.*":
-     description: DataImage, Inc.
-   "^davicom,.*":
+diff --git a/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
+new file mode 100644
+index 000000000000..fb78fa4f58ca
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/dapu,dap8211r.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/dapu,dap8211r.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY
++
++maintainers:
++  - Artem Shimko <a.shimko.dev@gmail.com>
++
++description: |
++  The DAP8211R(I) is a Gigabit Ethernet PHY with RGMII interface,
++  supporting IEEE 802.3az Energy Efficient Ethernet, IEEE 1588 SyncE,
++  and an internal packet generator for diagnostics.
++
++  Specifications:
++    - 10BASE-Te, 100BASE-TX, 1000BASE-T
++    - RGMII with configurable TX/RX clock delays (150 ps steps, 0-2250 ps)
++    - IEEE 802.3az-2010 Energy Efficient Ethernet
++    - IEEE 1588 SyncE support
++    - Internal packet generator and checker for link diagnostics
++
++allOf:
++  - $ref: ethernet-phy.yaml#
++
++properties:
++  compatible:
++    const: ethernet-phy-id0008.011b
++
++  reg:
++    maxItems: 1
++
++  rx-internal-delay-ps:
++    description:
++      RGMII RX clock delay in picoseconds (0 to maximum).
++    multipleOf: 150
++    maximum: 2250
++    default: 1950
++
++  tx-internal-delay-ps:
++    description:
++      RGMII TX clock delay in picoseconds (0 to maximum).
++    multipleOf: 150
++    maximum: 2250
++    default: 1950
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy@1 {
++            compatible = "ethernet-phy-id0008.011b";
++            reg = <1>;
++            rx-internal-delay-ps = <2100>;
++            tx-internal-delay-ps = <2100>;
++        };
++    };
 -- 
 2.43.0
 
