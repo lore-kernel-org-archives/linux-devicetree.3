@@ -1,70 +1,70 @@
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B8439B970
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 05:15:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2E539CCFF
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 05:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785734144; cv=none; b=tyxWFg7RRHugEPNCHjTzY6jk4lWuDLDAtdljj6hGhT15Cj0HTANWiHCfIRMczw4UH/G0wLZhmGgtCmGXndfP6DJZ6IxS3mv4jSAQk89qiR4KeJUfGUEQHMHkfsvq0LzHNosaGTnGHflVdOw3lhU6YfF3Jxcd38XFvNdJTtU6bdg=
+	t=1785734145; cv=none; b=uXLixbZ8BLne61cKo4OiiUrPBiJbrKOA76VmXteNGKfpNoSYbpGIEFYIzJ+42edB7fx8wMdl+mB5FARxjVbZYXTCdAUt9xzUdaUc35f4Oqt+kdsjeg2YakqWyMjEk8eWQ1aROqkcRlXqKrpCsvoinsRpMrMhejFUomnBDg91XtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785734144; c=relaxed/simple;
-	bh=ivlB4EsccJlR8c56XVzqea+fP0pw7c0V38csFjkA2GA=;
+	s=arc-20240116; t=1785734145; c=relaxed/simple;
+	bh=DTn/pnAwjoqAyUd80mDT7MV7oTEK5ffPq/Jme8VHnRg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ts4Z30Ag7XhmtsHs8jl69cMc/MLYiScjA/bFquJDgo8C7L4d7m9UUA5Hsm48skqslajj8V6sTqbkeZQcgQqebKAM5H4gxXFUuy1/fWvClG55dAnsLuZPr3S+lz+7uBnDxmQ5+V5f9VcTp0fi89Mp4TiZFZIZXknQMwEpgpviCdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lgTMMGYX; arc=none smtp.client-ip=209.85.210.48
+	 In-Reply-To:To:Cc; b=cmpDHLYabXJXDnx3bcpQ55fsNHh+kTaq8Ov90oXREZXx18ko6Q/+S4uX+EksGnM9hljostSENheWNqNcOnaBqOFnJvBl9uj7hNERooSRchGakMS0wNXMPWXu3s0KlyGh41jDxphBe5nR/xrVofZSO98Low/VfmbGoBjlkBCfihY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q316WcA8; arc=none smtp.client-ip=209.85.210.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lgTMMGYX"
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e9ef94c0e2so1586180a34.3
-        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 22:15:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q316WcA8"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb5bdb50fcso1945155a34.1
+        for <devicetree@vger.kernel.org>; Sun, 02 Aug 2026 22:15:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785734140; x=1786338940; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785734142; x=1786338942; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qMpLqvLPj4rvPj5SZvuQI1CV6P3xEdk1nLLBNVxHBq8=;
-        b=lgTMMGYXAXacOBgAvqTIGSRwce0xxTzm6K9g3qRv3n2huWDXm5PJ89rpothYHZNJ17
-         YpLJeVbOPfL7viytHz8N51ooUfud2QhVrXsHnXi/8vxciASnmTrdUTahDOQDi65fC/A3
-         e1i6FnHzdG+UbCbWB08xCiksSfegyWXd54QWdeeuwyGtGdC76TdNWIt69ZlS5tBHE1dX
-         JwYebkKXZ6avy0XJWSKxVfJrZ4tHFhK6JYTc3SiB6Bo8aGCyb20giGkad00PHsK9YpJ9
-         XArT730PDs18gL0O35fyt1pjoFck36lLCjZ40QUYpMbZBEVYcC2SSRc3oVmvKgXDDgHS
-         dbWQ==
+        bh=Jidbxiox7dX03nOKASiwvW/wC69oSzUN52btxDpp97E=;
+        b=q316WcA8v72PzRic2zxv8ou7FCtD9wInxSBdYdOeV3f15ICzn7mP/+kBrshXd2G6xC
+         /Kd/ZvtEI93uFfwJBWUV4XNOa+3oRR03EwfBiDRvY0oKJ39MsoM6OOCKKJ6HxP9AzIQo
+         SlExCbg54uJNaAev7l+bhplWdvA068IypIXRa0kTCVoGKB5T5DaHsXpO9PvwUIf85gJy
+         YK/x/AFVSKnkSdGyOqRrKVpP6MNZCJRloICUsZ3lFsOYA3m/gecXwZTmPS7DbUkJ1xmD
+         EdTBmKnq1NGVa1JixF8KiKFuomnkitGZ/7f62b43XW207T5lJJB996rTG2tLZFVjpgip
+         GFEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785734140; x=1786338940;
+        d=1e100.net; s=20251104; t=1785734142; x=1786338942;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qMpLqvLPj4rvPj5SZvuQI1CV6P3xEdk1nLLBNVxHBq8=;
-        b=gRKX/00A6xIDad14uVNBSREiDOkAXVo9FVrLuhnLrJe3leD9I00BMmEXDAvfMq2Ri0
-         Tiv4/5smn1wpjeBTvM/r1I/Gk0gPNqhfilWcyBNnL1aOqrPVvhnfNEJQ3y3jiBBznk01
-         UwAewAqtGQca20LSXJpUjsZ8Q0jTv4JkulD74xcYoJs5CI+QVpp6CufUUtN19qud51lG
-         Nr0R5p1NOVaX5yx3h+QNVKQqr9sJt2cQnJuvXKIe5jxSiThzqawSIqFCmz9TZI8AeRX9
-         Tuuka0ShUOVoVcp6m9Hpj/iOFGMU89HE98KokiDBANqacAUMpzPKv2uctzIVAmLgV46L
-         aKqg==
-X-Forwarded-Encrypted: i=1; AHgh+RrIjqTVs0ShyUUPKYwbheLL02KSKlwsTnEgosFbEhd3ji0kh72LRjN/nJxeYg+ZO+k4/kv0gvsio4HF@vger.kernel.org
-X-Gm-Message-State: AOJu0YxmPdu5eTah8fbp66ALB1VdAbsJ0AiT0vg4ZHQg83sjO7aElOKP
-	CNs7x5JM4eh62X+2RI+e3bG3LCMY50s+5Rj+eXaP9oiQRoEsQl0fR/sY
-X-Gm-Gg: AR+sD13C753aaOvM5QuQcUESijeQ0VIwuChkz55fBCNOIM/KAtVLh+BjYzGAaBODyzz
-	trBBlgNzaLEvP5IGdK1NvRPf4KpEZ+XAfq0i/553xuQ3WeObyhgKRn/PSlmwtE7+lwfmszb1uUq
-	ujxcjYkFD7OxQ4us3C5mAJ35+uCXEwQ6Sht23FSV5pkcqoeYruKUP2azwYOAbKUS9MwcyCnaVz4
-	Rs7UBjFfFZJPBHvleSDwGk+PP3pWD5fxtbFgSYjPyxPaJyqxXAsRUmAg5/ZE4invsWtHiNvgP4p
-	e65mx11JScGbRu/OTD8IjFPTDo6k7sE1ATKilMoyQDQ1OnJzzXyh2muQeT1iaCqQnYfNVbR92ep
-	FSuL3dCWVIgnyMct8Gggp65EA37sT+BqtqiCn6SBtG/yXQt/5Ee0gdtKcDKjcrme0VFfzJ8TibW
-	KPA2xCD1/jOmc+KTz9RyfUQOc1HmLFnytQ7JHleEbEDkG6YWQH6XJ8arD3NHnndNO4olDkwh9ct
-	M8CrEe0GNbDbml1l+xo5B8mz0fXmEBi0mjNW485qF0skSjcgjsbnlaY45lUMrcqpHqVR/P+02HO
-	on0l12BB5sIMW13e0rWh6w1qI7m9oaqYyyVCcbThaTH728pBoVNb24vdhy+oBEnGKpdc2uHWZ6R
-	sB7pxzKsUoSCPwrMmaw==
-X-Received: by 2002:a05:6830:67f6:b0:7e6:e022:4b44 with SMTP id 46e09a7af769-7f196f1c52bmr14209690a34.15.1785734139942;
-        Sun, 02 Aug 2026 22:15:39 -0700 (PDT)
+        bh=Jidbxiox7dX03nOKASiwvW/wC69oSzUN52btxDpp97E=;
+        b=WhTgfkFaQQEd+oTcRlqgEqUYp7w4auFsP6pvMj95VrP302WUksQHK040NQM2FxA/GZ
+         XLgs4A3waIWvDxHJdSVS0aSuKmfxXgY4oStMffyqkpP2NPBXi9YfSQlefKlb9FRisGor
+         +HLpOBHsEHb+MZAJsduGKayshMWjzrwyp5I+4Q1x90oAYYs2hqqKi34Nw4kP7TK0QmnO
+         o4uZ3SKVSbEX3PohBGAxbj46QwyOIfTQtBt5U9SNyhZDkIfpoPBjwYodQ6/RdIyDIceU
+         nADgNG0Z91x3QnPG9A8syzPzRGEmVpqyQZe6myEZjWsmjc4qvUGyg4ALQUwcwDfy+oQX
+         DoRw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqf6ZSV8spY4YjJ/9VoR8mxxYt1hkpPMOmNoGzjcnHcceFsMN3/ZZSHSjYlWdJN5mfKNi2Re/F8hHn9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyx8kfUq7Ra4EQZBsiVay3aNI+C7bPsurobgHGcPAfCvYdzbXXa
+	FUgTyLZKymxxn9fynmuR4wOjZ2YOOLv8JB01xlNO7wNbJR3tX5rAIfQp
+X-Gm-Gg: AR+sD11WxoQKmm5pgmwwJpE/JPFOqRT7S65tsrihURry60mDdFVRCQQ6tmNKBZtVA59
+	8pt8w0oQuvbW1B832HaW7XPkccBp+qJtsdyhLNz03adbpzLz0ZefvrS4q3hE+HtNLjDp32YRpyw
+	obOiLqn5p6cAfl2205XkirFzvFFwLE1xxDN7IOLXOgMq2V1OLbbW0a2+Df6eYIkbK78jecUKnCI
+	HRXlY93/7WOI4WXz5RYkOj5oxIIkcqIUkLNHBmGVcSmYDMu8abTPVt7soXZkhMzHjRIvltaP+0b
+	hiPsRMIxhrMKIkwmzOd9jXe+zG4C9e1iKhmfO34LXlM45UvfrXmmeHEFWfkF32ZRfhLVqHMXSBV
+	ESqcCapHHt0U46ZquLZ45TeFv91wNu74QscFimZn8aSeRYboZGnOJvJxxGHZr9rP1W39C67VP36
+	UeGjxUfZjBSXhXiHW34Jlrz73AjSvNRbtHP5DjfiT3dygLfCGgnt6HbvAqccM1N8h6Kz2wX0T70
+	ONdKB/1/lSh2XmPkUWjxzJXpPOnm5cIkI3l6fW86FAjg1IP6ZT+qfKQ9KWKNvRBeaxLx3iXrpi4
+	4//ApAF37UhDRiCbhh0i29QMcupN+0FpWftjYByxkMI5E3WDLs2XYbV8zod6p45nS3dKdCCMcVh
+	ahsuLjklibUjRgcdK
+X-Received: by 2002:a05:6830:411d:b0:7d9:f50f:9691 with SMTP id 46e09a7af769-7f1968c88e1mr15370101a34.0.1785734141726;
+        Sun, 02 Aug 2026 22:15:41 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f07a5e3sm6787108a34.15.2026.08.02.22.15.37
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f18f07a5e3sm6787108a34.15.2026.08.02.22.15.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 02 Aug 2026 22:15:39 -0700 (PDT)
+        Sun, 02 Aug 2026 22:15:40 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 02 Aug 2026 23:14:22 -0600
-Subject: [PATCH 12/21] net: phy: add X-Powers AC300 EPHY control driver
+Date: Sun, 02 Aug 2026 23:14:23 -0600
+Subject: [PATCH 13/21] dt-bindings: net: x-powers: add AC200/AC300 EPHY
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,7 +73,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-submit-acx00-of-dynamic-v1-v1-12-0a53cd9e21cc@gmail.com>
+Message-Id: <20260802-submit-acx00-of-dynamic-v1-v1-13-0a53cd9e21cc@gmail.com>
 References: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 In-Reply-To: <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -102,542 +102,262 @@ Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-The AC300 Fast Ethernet PHY uses a non-PHY Clause 22 endpoint for the
-power-up and configuration sequence required before its link registers
-become usable.
+AC200 and AC300 companion ICs contain compatible Fast Ethernet
+link-PHY implementations which report the same PHY ID but use
+different control interfaces.
 
-Enable the required VCC1 supply and wait the manual's 10 ms power-on-reset
-interval before accessing the device. Accept the configured 24, 25 or
-27 MHz input clock and program its corresponding selector, apply the SoC
-SID calibration value and vendor offset, select the interface mode,
-configure the I/O drive controls, and follow the manual reset-before-clock
-power-up sequence. Retain the vendor eFuse and register-clock enable
-settings.
+Describe the forced-ID link PHY and its control-device references.
+Fixed systems reference one already enabled control interface. A fixed
+AC300 system may optionally provide the configuration field for its
+calibration-range bit; omitting it selects the normal range. Systems which
+can contain either companion reference both candidates and require a
+logical two-bit NVMEM field for variant selection and AC300 calibration-
+range tuning.
 
-Validate the control address and supply configuration against the package
-strap state. Clear a latched MDIO error after reset and fail power-up if
-it remains asserted. Enable the internal digital LDO only for the
-corresponding package and preserve the external-supply configuration
-across later power cycles. Report the chip, mask and package revisions.
+The link node reg value is programmed through the AC200 control
+interface, while AC300 requires it to match the package-strapped
+address. A control reference is required to distinguish this
+integration from other PHYs which report the same ID. Also describe
+the optional xMII receive-clock inversion required by some integrations.
 
-Expose serialized, idempotent power-on and power-off operations so the
-link-PHY driver can sequence the input clock and control block across
-resets and system sleep. Also expose operations for the global LED polarity
-and package pad enables, retaining the documented default drive strength.
-Initialize all three outputs active-low as in the vendor kernel, while
-allowing an explicit link-PHY LED topology to replace that fallback.
+Describe the three fixed-function package LED outputs using standard
+PHY LED children. Their functions are link/activity, 100 Mbps speed
+and duplex, and their polarity is shared. Omitting the container
+retains the vendor fallback with all outputs active-low; an explicit
+container enables only the outputs it describes and may select the
+shared polarity.
+
+Allow a PHY with a routed interrupt to be marked as a wakeup source
+for magic-packet and link-change Wake-on-LAN.
 
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/net/phy/Kconfig             |   9 +
- drivers/net/phy/Makefile            |   1 +
- drivers/net/phy/xpowers-ac300-ctl.c | 454 ++++++++++++++++++++++++++++++++++++
- drivers/net/phy/xpowers-acx00.h     |   2 +
- 4 files changed, 466 insertions(+)
+ .../bindings/net/x-powers,acx00-ephy.yaml          | 217 +++++++++++++++++++++
+ 1 file changed, 217 insertions(+)
 
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index e059bd6c5eda..9b202072d5a0 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -478,6 +478,15 @@ config XPOWERS_AC200_PHY_CTL
- 	  address, interface mode, calibration and I/O controls through the
- 	  parent AC200 I2C regmap.
- 
-+config XPOWERS_AC300_PHY_CTL
-+	tristate "X-Powers AC300 Ethernet PHY control"
-+	depends on COMMON_CLK && NVMEM && OF_MDIO
-+	help
-+	  Enable the MDIO control driver for the Fast Ethernet PHY in the
-+	  X-Powers AC300 companion IC. It programs the PHY calibration,
-+	  interface mode, clock and I/O controls through the separate MDIO
-+	  control address.
-+
- config XILINX_GMII2RGMII
- 	tristate "Xilinx GMII2RGMII converter driver"
- 	help
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index e53ca319f9c4..2d22d5a4c93d 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -100,4 +100,5 @@ obj-$(CONFIG_STE10XP)		+= ste10Xp.o
- obj-$(CONFIG_TERANETICS_PHY)	+= teranetics.o
- obj-$(CONFIG_VITESSE_PHY)	+= vitesse.o
- obj-$(CONFIG_XPOWERS_AC200_PHY_CTL) += xpowers-ac200-ctl.o
-+obj-$(CONFIG_XPOWERS_AC300_PHY_CTL) += xpowers-ac300-ctl.o
- obj-$(CONFIG_XILINX_GMII2RGMII) += xilinx_gmii2rgmii.o
-diff --git a/drivers/net/phy/xpowers-ac300-ctl.c b/drivers/net/phy/xpowers-ac300-ctl.c
+diff --git a/Documentation/devicetree/bindings/net/x-powers,acx00-ephy.yaml b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy.yaml
 new file mode 100644
-index 000000000000..eb3faaab9337
+index 000000000000..3e01f6b44006
 --- /dev/null
-+++ b/drivers/net/phy/xpowers-ac300-ctl.c
-@@ -0,0 +1,454 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * X-Powers AC300 Ethernet PHY control driver
-+ *
-+ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/mdio.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/nvmem-consumer.h>
-+#include <linux/phy.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include "xpowers-acx00.h"
-+
-+#define AC300_EPHY_BGS_EFFUSE_OFFSET	3
-+
-+#define AC300_SYS_CONTROL_REG			0x00
-+#define AC300_CHIP_VERSION_MASK			GENMASK(15, 12)
-+#define AC300_PACKAGE_STATUS_MASK		GENMASK(11, 8)
-+#define AC300_EPHY_CLK_SEL_MASK			GENMASK(7, 6)
-+#define AC300_EPHY_CLK_SEL_25_MHZ		FIELD_PREP(AC300_EPHY_CLK_SEL_MASK, 0)
-+#define AC300_EPHY_CLK_SEL_27_MHZ		FIELD_PREP(AC300_EPHY_CLK_SEL_MASK, 1)
-+#define AC300_EPHY_CLK_SEL_24_MHZ		FIELD_PREP(AC300_EPHY_CLK_SEL_MASK, 2)
-+#define AC300_EFUSE_CLK_ENABLE			BIT(5)
-+#define AC300_EPHY_REG_CLK_ENABLE		BIT(4)
-+#define AC300_MDIO_ERROR			BIT(3)
-+#define AC300_CLKIN_GATING_ENABLE		BIT(2)
-+#define AC300_EPHY_RESET_DEASSERT		BIT(1)
-+#define AC300_CHIP_RESET_DEASSERT		BIT(0)
-+
-+#define AC300_MASK_VERSION_REG			0x04
-+#define AC300_MASK_VERSION_MASK			GENMASK(2, 0)
-+
-+#define AC300_PACKAGE_POR_INTERNAL_DLDO		BIT(3)
-+#define AC300_PACKAGE_PHY_ADDR_MASK		GENMASK(2, 0)
-+
-+#define AC300_SYS_BIAS1_REG			0x02
-+#define AC300_INTERNAL_DLDO_ENABLE		BIT(15)
-+
-+#define AC300_SYS_IO_REG			0x05
-+#define AC300_MDIO_DRV_MASK			GENMASK(15, 14)
-+#define AC300_LED_DRV_MASK			GENMASK(13, 12)
-+#define AC300_MII_DRV_MASK			GENMASK(11, 10)
-+#define AC300_IO_DRV_LEVEL_2			2
-+#define AC300_CLKIN_PAD_ENABLE			BIT(4)
-+#define AC300_DUPLEX_LED_IO_ENABLE		BIT(3)
-+#define AC300_SPEED_LED_IO_ENABLE		BIT(2)
-+#define AC300_LINK_LED_IO_ENABLE			BIT(1)
-+#define AC300_EPHY_MII_IO_ENABLE			BIT(0)
-+#define AC300_LED_IO_ENABLE_MASK \
-+	(AC300_DUPLEX_LED_IO_ENABLE | AC300_SPEED_LED_IO_ENABLE | \
-+	 AC300_LINK_LED_IO_ENABLE)
-+
-+#define AC300_EPHY_CONFIG_REG			0x06
-+#define AC300_EPHY_BGS_EFFUSE_MASK		GENMASK(15, 12)
-+#define AC300_EPHY_RMII_SEL			BIT(11)
-+#define AC300_EPHY_LED_ACTIVE_LOW		BIT(1)
-+#define AC300_EPHY_SHUTDOWN			BIT(0)
-+
-+#define AC300_SYS_CONTROL_ENABLE_BITS \
-+	(AC300_EFUSE_CLK_ENABLE | AC300_EPHY_REG_CLK_ENABLE | \
-+	 AC300_CLKIN_GATING_ENABLE | \
-+	 AC300_EPHY_RESET_DEASSERT | AC300_CHIP_RESET_DEASSERT)
-+
-+#define AC300_SYS_IO_BASE_VALUE \
-+	(FIELD_PREP(AC300_MDIO_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
-+	 FIELD_PREP(AC300_LED_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
-+	 FIELD_PREP(AC300_MII_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
-+	 AC300_CLKIN_PAD_ENABLE | AC300_EPHY_MII_IO_ENABLE)
-+
-+struct ac300_ephy_ctl {
-+	struct acx00_ephy_control control;
-+	struct mdio_device *mdiodev;
-+	struct clk *clk;
-+	struct mutex lock; /* Serializes power sequencing and state. */
-+	u16 sys_control;
-+	u16 ephy_config;
-+	u16 led_io_enable;
-+	bool package_known;
-+	bool internal_dldo;
-+	bool powered;
-+};
-+
-+static unsigned int
-+ac300_ephy_ctl_link_addr(const struct ac300_ephy_ctl *priv)
-+{
-+	return priv->mdiodev->addr - AC300_EPHY_CONTROL_ADDR_OFFSET;
-+}
-+
-+static int
-+ac300_ephy_ctl_set_led_outputs(struct acx00_ephy_control *control,
-+			       unsigned long outputs)
-+{
-+	struct ac300_ephy_ctl *priv =
-+		container_of(control, struct ac300_ephy_ctl, control);
-+	u16 led_io_enable;
-+	int ret = 0;
-+
-+	if (outputs & ~GENMASK(ACX00_EPHY_LED_COUNT - 1, 0))
-+		return -EINVAL;
-+
-+	led_io_enable = (outputs << 1) & AC300_LED_IO_ENABLE_MASK;
-+
-+	mutex_lock(&priv->lock);
-+	if (priv->powered)
-+		ret = mdiodev_modify(priv->mdiodev, AC300_SYS_IO_REG,
-+				     AC300_LED_IO_ENABLE_MASK, led_io_enable);
-+	if (!ret)
-+		priv->led_io_enable = led_io_enable;
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
-+static int
-+ac300_ephy_ctl_set_led_polarity(struct acx00_ephy_control *control,
-+				bool active_low)
-+{
-+	struct ac300_ephy_ctl *priv =
-+		container_of(control, struct ac300_ephy_ctl, control);
-+	u16 value = active_low ? AC300_EPHY_LED_ACTIVE_LOW : 0;
-+	int ret = 0;
-+
-+	mutex_lock(&priv->lock);
-+	if (priv->powered)
-+		ret = mdiodev_modify(priv->mdiodev, AC300_EPHY_CONFIG_REG,
-+				     AC300_EPHY_LED_ACTIVE_LOW, value);
-+	if (!ret) {
-+		priv->ephy_config &= ~AC300_EPHY_LED_ACTIVE_LOW;
-+		priv->ephy_config |= value;
-+	}
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_power_off_locked(struct ac300_ephy_ctl *priv)
-+{
-+	int err;
-+	int ret;
-+
-+	if (!priv->powered)
-+		return 0;
-+
-+	ret = mdiodev_write(priv->mdiodev, AC300_EPHY_CONFIG_REG,
-+			    priv->ephy_config | AC300_EPHY_SHUTDOWN);
-+	err = mdiodev_write(priv->mdiodev, AC300_SYS_IO_REG, 0);
-+	if (!ret)
-+		ret = err;
-+	err = mdiodev_write(priv->mdiodev, AC300_SYS_CONTROL_REG,
-+			    priv->package_known && !priv->internal_dldo ?
-+			    AC300_CHIP_RESET_DEASSERT : 0);
-+	if (!ret)
-+		ret = err;
-+
-+	clk_disable_unprepare(priv->clk);
-+	priv->powered = false;
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_power_off(struct acx00_ephy_control *control)
-+{
-+	struct ac300_ephy_ctl *priv =
-+		container_of(control, struct ac300_ephy_ctl, control);
-+	int ret;
-+
-+	mutex_lock(&priv->lock);
-+	ret = ac300_ephy_ctl_power_off_locked(priv);
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_power_on(struct acx00_ephy_control *control,
-+				   unsigned int phy_addr)
-+{
-+	struct ac300_ephy_ctl *priv =
-+		container_of(control, struct ac300_ephy_ctl, control);
-+	u8 package_status;
-+	int sys_control;
-+	u16 reset_value;
-+	int ret;
-+
-+	if (phy_addr != ac300_ephy_ctl_link_addr(priv))
-+		return -EINVAL;
-+
-+	mutex_lock(&priv->lock);
-+	if (priv->powered) {
-+		ret = 0;
-+		goto out_unlock;
-+	}
-+
-+	ret = clk_prepare_enable(priv->clk);
-+	if (ret)
-+		goto out_unlock;
-+	priv->powered = true;
-+
-+	/* Keep the external-supply configuration across subsequent resets. */
-+	reset_value = priv->package_known && !priv->internal_dldo ?
-+		      AC300_CHIP_RESET_DEASSERT : 0;
-+	ret = mdiodev_write(priv->mdiodev, AC300_SYS_CONTROL_REG, reset_value);
-+	if (ret)
-+		goto err_power_off;
-+
-+	/* The manual requires both resets to be released before the clocks. */
-+	ret = mdiodev_write(priv->mdiodev, AC300_SYS_CONTROL_REG,
-+			    AC300_EPHY_RESET_DEASSERT |
-+			    AC300_CHIP_RESET_DEASSERT);
-+	if (ret)
-+		goto err_power_off;
-+
-+	/* Retain the vendor clock-enable defaults, including the eFuse clock. */
-+	ret = mdiodev_write(priv->mdiodev, AC300_SYS_CONTROL_REG,
-+			    priv->sys_control);
-+	if (ret)
-+		goto err_power_off;
-+
-+	sys_control = mdiodev_read(priv->mdiodev, AC300_SYS_CONTROL_REG);
-+	if (sys_control < 0) {
-+		ret = sys_control;
-+		goto err_power_off;
-+	}
-+	if (sys_control & AC300_MDIO_ERROR) {
-+		ret = mdiodev_write(priv->mdiodev, AC300_SYS_CONTROL_REG,
-+				    priv->sys_control | AC300_MDIO_ERROR);
-+		if (ret)
-+			goto err_power_off;
-+
-+		sys_control = mdiodev_read(priv->mdiodev, AC300_SYS_CONTROL_REG);
-+		if (sys_control < 0) {
-+			ret = sys_control;
-+			goto err_power_off;
-+		}
-+		if (sys_control & AC300_MDIO_ERROR) {
-+			ret = -EIO;
-+			goto err_power_off;
-+		}
-+	}
-+
-+	package_status = FIELD_GET(AC300_PACKAGE_STATUS_MASK, sys_control);
-+	if ((~package_status & AC300_PACKAGE_PHY_ADDR_MASK) !=
-+	    ac300_ephy_ctl_link_addr(priv)) {
-+		ret = -EINVAL;
-+		goto err_power_off;
-+	}
-+
-+	priv->internal_dldo = package_status &
-+				      AC300_PACKAGE_POR_INTERNAL_DLDO;
-+	priv->package_known = true;
-+	ret = mdiodev_modify(priv->mdiodev, AC300_SYS_BIAS1_REG,
-+			     AC300_INTERNAL_DLDO_ENABLE,
-+			     priv->internal_dldo ?
-+			     AC300_INTERNAL_DLDO_ENABLE : 0);
-+	if (ret)
-+		goto err_power_off;
-+
-+	/* Keep the documented default drive level and leave the IRQ disabled. */
-+	ret = mdiodev_write(priv->mdiodev, AC300_SYS_IO_REG,
-+			    AC300_SYS_IO_BASE_VALUE | priv->led_io_enable);
-+	if (ret)
-+		goto err_power_off;
-+
-+	fsleep(10000);
-+
-+	ret = mdiodev_write(priv->mdiodev, AC300_EPHY_CONFIG_REG,
-+			    priv->ephy_config | AC300_EPHY_SHUTDOWN);
-+	if (ret)
-+		goto err_power_off;
-+
-+	fsleep(10000);
-+
-+	ret = mdiodev_write(priv->mdiodev, AC300_EPHY_CONFIG_REG,
-+			    priv->ephy_config);
-+	if (ret)
-+		goto err_power_off;
-+
-+	goto out_unlock;
-+
-+err_power_off:
-+	ac300_ephy_ctl_power_off_locked(priv);
-+out_unlock:
-+	mutex_unlock(&priv->lock);
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_probe(struct mdio_device *mdiodev)
-+{
-+	struct device *dev = &mdiodev->dev;
-+	struct ac300_ephy_ctl *priv;
-+	phy_interface_t interface;
-+	u8 calibration;
-+	u8 bgs_effuse_code;
-+	u8 package_status;
-+	u16 ephy_config;
-+	struct clk *clk;
-+	int mask_version;
-+	int sys_control;
-+	unsigned long clk_rate;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+	if (mdiodev->addr < AC300_EPHY_CONTROL_ADDR_OFFSET ||
-+	    mdiodev->addr > AC300_EPHY_CONTROL_ADDR_OFFSET +
-+			    FIELD_MAX(AC300_PACKAGE_PHY_ADDR_MASK))
-+		return dev_err_probe(dev, -EINVAL,
-+				     "control address is outside the package range\n");
-+	priv->mdiodev = mdiodev;
-+	mutex_init(&priv->lock);
-+
-+	ret = devm_regulator_get_enable(dev, "vcc1");
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to enable VCC1 supply\n");
-+
-+	/* Wait for the power-on reset interval specified by the manual. */
-+	fsleep(10000);
-+
-+	clk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get input clock\n");
-+	priv->clk = clk;
-+
-+	ret = devm_clk_rate_exclusive_get(dev, clk);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to lock clock rate\n");
-+
-+	clk_rate = clk_get_rate(clk);
-+	switch (clk_rate) {
-+	case 24000000:
-+		priv->sys_control = AC300_EPHY_CLK_SEL_24_MHZ;
-+		break;
-+	case 25000000:
-+		priv->sys_control = AC300_EPHY_CLK_SEL_25_MHZ;
-+		break;
-+	case 27000000:
-+		priv->sys_control = AC300_EPHY_CLK_SEL_27_MHZ;
-+		break;
-+	default:
-+		return dev_err_probe(dev, -EINVAL,
-+				     "unsupported input clock rate %lu Hz\n",
-+				     clk_rate);
-+	}
-+	priv->sys_control |= AC300_SYS_CONTROL_ENABLE_BITS;
-+
-+	ret = nvmem_cell_read_u8(dev, "calibration", &calibration);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to read calibration data\n");
-+
-+	ret = device_get_phy_mode(dev);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to read PHY mode\n");
-+	interface = ret;
-+
-+	/* The vendor driver supplies no transfer function beyond this offset. */
-+	bgs_effuse_code = (calibration + AC300_EPHY_BGS_EFFUSE_OFFSET) &
-+			   FIELD_MAX(AC300_EPHY_BGS_EFFUSE_MASK);
-+	ephy_config = FIELD_PREP(AC300_EPHY_BGS_EFFUSE_MASK, bgs_effuse_code) |
-+		      AC300_EPHY_LED_ACTIVE_LOW;
-+	/* EPHY_MODE and BIST_CLK_EN stay clear for normal operation. */
-+
-+	switch (interface) {
-+	case PHY_INTERFACE_MODE_MII:
-+		break;
-+	case PHY_INTERFACE_MODE_RMII:
-+		ephy_config |= AC300_EPHY_RMII_SEL;
-+		break;
-+	default:
-+		return dev_err_probe(dev, -EINVAL,
-+				     "unsupported PHY mode %s\n",
-+				     phy_modes(interface));
-+	}
-+
-+	priv->control.power_on = ac300_ephy_ctl_power_on;
-+	priv->control.power_off = ac300_ephy_ctl_power_off;
-+	priv->control.set_led_outputs = ac300_ephy_ctl_set_led_outputs;
-+	priv->control.set_led_polarity = ac300_ephy_ctl_set_led_polarity;
-+	priv->control.interface = interface;
-+	priv->ephy_config = ephy_config;
-+	priv->led_io_enable = AC300_LED_IO_ENABLE_MASK;
-+	mdiodev_set_drvdata(mdiodev, &priv->control);
-+
-+	ret = ac300_ephy_ctl_power_on(&priv->control,
-+				      ac300_ephy_ctl_link_addr(priv));
-+	if (ret)
-+		goto err_disable;
-+
-+	sys_control = mdiodev_read(mdiodev, AC300_SYS_CONTROL_REG);
-+	if (sys_control < 0) {
-+		ret = sys_control;
-+		goto err_disable;
-+	}
-+	package_status = FIELD_GET(AC300_PACKAGE_STATUS_MASK, sys_control);
-+
-+	mask_version = mdiodev_read(mdiodev, AC300_MASK_VERSION_REG);
-+	if (mask_version < 0) {
-+		ret = mask_version;
-+		goto err_disable;
-+	}
-+
-+	dev_info(dev, "chip version %u, mask version %u, package %#x, %s supplies, PHY %u, %lu Hz clock\n",
-+		 (unsigned int)FIELD_GET(AC300_CHIP_VERSION_MASK, sys_control),
-+		 (unsigned int)FIELD_GET(AC300_MASK_VERSION_MASK, mask_version),
-+		 package_status,
-+		 package_status & AC300_PACKAGE_POR_INTERNAL_DLDO ?
-+			"POR/internal DLDO" : "reset pin/external VDD",
-+		 ac300_ephy_ctl_link_addr(priv), clk_rate);
-+
-+	return 0;
-+
-+err_disable:
-+	ac300_ephy_ctl_power_off(&priv->control);
-+	return ret;
-+}
-+
-+static void ac300_ephy_ctl_remove(struct mdio_device *mdiodev)
-+{
-+	struct acx00_ephy_control *control = mdiodev_get_drvdata(mdiodev);
-+
-+	control->power_off(control);
-+}
-+
-+static const struct of_device_id ac300_ephy_ctl_of_match[] = {
-+	{ .compatible = "x-powers,ac300-ephy-ctl" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ac300_ephy_ctl_of_match);
-+
-+static struct mdio_driver ac300_ephy_ctl_driver = {
-+	.probe = ac300_ephy_ctl_probe,
-+	.remove = ac300_ephy_ctl_remove,
-+	.shutdown = ac300_ephy_ctl_remove,
-+	.mdiodrv.driver = {
-+		.name = "ac300-ephy-ctl",
-+		.of_match_table = ac300_ephy_ctl_of_match,
-+	},
-+};
-+
-+mdio_module_driver(ac300_ephy_ctl_driver);
-+
-+MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-+MODULE_DESCRIPTION("X-Powers AC300 Ethernet PHY control driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/net/phy/xpowers-acx00.h b/drivers/net/phy/xpowers-acx00.h
-index 8cf6fe616137..8ed15bc4eed5 100644
---- a/drivers/net/phy/xpowers-acx00.h
-+++ b/drivers/net/phy/xpowers-acx00.h
-@@ -4,6 +4,8 @@
- 
- #include <linux/phy.h>
- 
-+#define AC300_EPHY_CONTROL_ADDR_OFFSET	16
-+
- enum acx00_ephy_led {
- 	ACX00_EPHY_LED_LINK_ACTIVITY,
- 	ACX00_EPHY_LED_SPEED,
++++ b/Documentation/devicetree/bindings/net/x-powers,acx00-ephy.yaml
+@@ -0,0 +1,217 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/x-powers,acx00-ephy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: X-Powers AC200 and AC300 Ethernet PHY
++
++maintainers:
++  - James Hilliard <james.hilliard1@gmail.com>
++
++description:
++  The AC200 and AC300 contain compatible Fast Ethernet link-PHY
++  implementations which report the same PHY ID, but use different control
++  interfaces. Systems with a fixed companion IC describe one control
++  interface, which must already be enabled. A fixed AC300 system may provide
++  an NVMEM configuration field to select its calibration range; omitting the
++  field selects the normal range. Systems that can contain either companion IC
++  describe both control interfaces and require the field to select the
++  matching one before the PHY identification registers are accessible. In
++  that dual-control topology, the AC200 I2C controller and AC300 control
++  device may use status "fail-needs-probe" so the selected one can be enabled
++  dynamically. The PHY node's reg value is programmed through the AC200
++  control interface. For AC300, it must match the address selected by the
++  package straps.
++
++select:
++  properties:
++    compatible:
++      contains:
++        const: ethernet-phy-id0044.1400
++  required:
++    - compatible
++  anyOf:
++    - required:
++        - x-powers,ac200-control
++    - required:
++        - x-powers,ac300-control
++
++properties:
++  compatible:
++    const: ethernet-phy-id0044.1400
++
++  nvmem-cells:
++    maxItems: 1
++    description:
++      Logical SoC SID field whose bit 0 selects the AC300 control interface in
++      a dual-control topology and whose bit 1 selects its low-calibration
++      tuning sequence.
++
++  nvmem-cell-names:
++    description:
++      In a dual-control topology the configuration field uses bit 0 to select
++      AC200 (zero) or AC300 (one). Bit 1 selects the AC300 vendor sequence for
++      a low-level calibration value in both dual and fixed AC300 topologies.
++    const: configuration
++
++  x-powers,ac200-control:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: Reference to the AC200 Ethernet PHY control function
++
++  x-powers,ac300-control:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: Reference to the AC300 MDIO Ethernet PHY control device
++
++  x-powers,xmii-rx-clock-inverted:
++    type: boolean
++    description:
++      Invert the xMII receive clock inside the PHY. This is required by some
++      SoC integrations, including the Allwinner H6 AC200 connection.
++
++  wakeup-source:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      Indicates that the PHY interrupt is routed to a wake-capable interrupt
++      controller and may be used for magic-packet or link-change Wake-on-LAN.
++
++  leds:
++    type: object
++    description: |
++      Package LED outputs. Output 0 indicates link and flashes for transmit or
++      receive activity, output 1 indicates a 100 Mbps link, and output 2
++      indicates full duplex and flashes on a half-duplex collision. The
++      polarity setting is shared by all outputs, so active-high or active-low
++      declarations on different children must agree. Without an leds
++      container, all three outputs are enabled active-low to match the vendor
++      initialization. An explicit container replaces that fallback: only
++      outputs described by available child nodes are enabled, with active-low
++      used when no child specifies a polarity.
++
++    properties:
++      '#address-cells':
++        const: 1
++
++      '#size-cells':
++        const: 0
++
++    patternProperties:
++      '^led@[0-2]$':
++        type: object
++        $ref: /schemas/leds/common.yaml#
++
++        properties:
++          reg:
++            enum: [0, 1, 2]
++
++          inactive-high-impedance: false
++
++        required:
++          - reg
++
++        unevaluatedProperties: false
++
++    additionalProperties: false
++
++required:
++  - compatible
++
++oneOf:
++  - properties:
++      nvmem-cells: false
++      nvmem-cell-names: false
++      x-powers,ac300-control: false
++    required:
++      - x-powers,ac200-control
++  - properties:
++      x-powers,ac200-control: false
++    required:
++      - x-powers,ac300-control
++  - required:
++      - nvmem-cells
++      - nvmem-cell-names
++      - x-powers,ac200-control
++      - x-powers,ac300-control
++
++dependentRequired:
++  nvmem-cells: [ nvmem-cell-names ]
++  nvmem-cell-names: [ nvmem-cells ]
++
++allOf:
++  - $ref: ethernet-phy.yaml#
++  - if:
++      required:
++        - x-powers,ac300-control
++    then:
++      properties:
++        reg:
++          maximum: 7
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/leds/common.h>
++
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy@0 {
++            compatible = "ethernet-phy-id0044.1400";
++            reg = <0>;
++            nvmem-cells = <&ephy_config>;
++            nvmem-cell-names = "configuration";
++            x-powers,ac300-control = <&ac300_ephy_ctl>;
++
++            leds {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                led@0 {
++                    reg = <0>;
++                    color = <LED_COLOR_ID_GREEN>;
++                    function = LED_FUNCTION_LAN;
++                    active-low;
++                    default-state = "keep";
++                };
++
++                led@1 {
++                    reg = <1>;
++                    color = <LED_COLOR_ID_YELLOW>;
++                    function = LED_FUNCTION_LAN;
++                    function-enumerator = <1>;
++                    active-low;
++                    default-state = "keep";
++                };
++            };
++        };
++    };
++
++  - |
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy@0 {
++            compatible = "ethernet-phy-id0044.1400";
++            reg = <0>;
++            x-powers,ac200-control = <&ac200_ephy_ctl>;
++        };
++    };
++
++  - |
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet-phy@0 {
++            compatible = "ethernet-phy-id0044.1400";
++            reg = <0>;
++            nvmem-cells = <&ephy_config>;
++            nvmem-cell-names = "configuration";
++            x-powers,ac200-control = <&ac200_ephy_ctl>;
++            x-powers,ac300-control = <&ac300_ephy_ctl>;
++        };
++    };
++...
 
 -- 
 2.53.0
