@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5EB3264E7
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 03:28:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EF0360EC0
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 03:30:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785727708; cv=none; b=TF7RCW2mSs43pja31LwMSP913Y9QutZqA4mQ7fg+vwSBmBJiJeNebze92V1rDiRj0hsSCuG7OU0SJTnWsAw19oIrLsR5U4nZCgHc3vvM+cEnHugEpNMaJ/j12R8dQSjW3LFVsIwGIE+BD7uBcLxp5auYcVX4pVuKqNn67365mGA=
+	t=1785727805; cv=none; b=FT2MY8WPBGhrdg2WFAhrmwrE2JuyaN72SKkVgY2v83i2yXvfj+IrgROnTpBbq6rzHS3WG0qt9/6w8RGo3ix378yFdTuq0h/8KJNCI6Vr9Q7fRQEIjI+G4UaDK8+Oisar3SvHA8wH5Vl2BWgWGzzJNbOiF5ExGQgx7tIgnUdiB5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785727708; c=relaxed/simple;
-	bh=PmdmzZzeXkN01boOocXi+5Rp4FwVRAvI90jeUkvgDzQ=;
+	s=arc-20240116; t=1785727805; c=relaxed/simple;
+	bh=hzcxJac49eC4V/mpexIECW5LDhsF+rce/kxIvDwxQE4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jOi3irwRHJv2o8QRCioRNi9CLOtFx1Xa1+jzJU/UqOvp55XsfqGK8kcI8VvzAq2IVmy+SpI5LQFyAKNo6rvfPt9DjfQ0+KHqk7f06gDx8iHSqkjiw1vVtpMkdZJynK35mQTU40vuu+zzrDBnIpM326DeUCPk3vST5R2rk1Zx598=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h2OoNVRE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Mi/iBhuPJ/e9W8B5A6kvZJ5xLXC+POdy8h2Yb4fjCq4KcNTpUZNhI2VF0e0MtOf78SWf3g7gCYYHwIbd13WXLfdy7bz+tvtfJM/61s9bt1Z5RsvD77kC0E+i9c5WC18pn/mlbbqhQ3vrHtiNKJ1rbSC0jo/LbuXHKY4zvQ586Gc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6QV2sXn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h2OoNVRE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1FFE1F000E9;
-	Mon,  3 Aug 2026 03:28:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6QV2sXn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A381F000E9;
+	Mon,  3 Aug 2026 03:30:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785727707;
-	bh=ZyXc4luhiPwOl6mqJwkweBisKGtRDtoeaS+Lca7tTjE=;
+	s=k20260515; t=1785727804;
+	bh=CDYjTeCnUJVxktJ+fEzBMHnxRYQU0WMbxOrpniUbrMU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h2OoNVREHqIUEDUFbrBLVScDKgCImZE+VUBqeW1OA96m5L5uSfOA91S9oH1skBwXB
-	 7BnwtvVhmduMTxm/t6h+jM+Fx28J2hSsUJrUqgAKU4Qainq6/1a8lKAmk+cRoTcd6t
-	 2z769JPY7HZBlb6nkkygDYM2shA7uJF5jHr5HRypJBQNxGuYLGqVfzrHAGrUPgeq6v
-	 LwJR+S+VwOs6cFASYuM5AoOZipm9UkAB7NlP8O9pjqni2GYdLUQR9kKmC45oDL4DZ9
-	 EakASqoSP2sJWaF5QXLT6Q0dGaYzFld+G0wwSz2T8wFtD3fdZFASZXEe1tRqyDpVe2
-	 vx63Eqf1ga/Hg==
+	b=D6QV2sXnQqsSxoHMAvz/SwtyZcnI9UPxfQWuVKVQqaUzPjCjTc5BwI8pVE1pt6UUZ
+	 zIhY2J5hWvX7EWeyw8GcGuW29NSzyHK/GCzQE2UAShPDbyd/UThIvHKD1Dp1QJkS96
+	 MWNbOig7Z0CSDY7/X3mgxVsJkZgnnghaoDsxNOvpIN935yrCT+5JVMuPppW9PFzVYp
+	 yrVKSc6Zz2wntrReR0UsECBoKRPT8DDr2Bj5Wx8LOdID964hwVF+LQr/1A3exha9GG
+	 bqyRlTcB3r3ulzUMzshsU7D/LMh19fwtk4fbX5AlmgEVqOiH1fL9rNOUD1CjC0f0id
+	 +hw0EFwaoqWZQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/9] usb: misc: qcom_eud: add per-path High-Speed PHY
- control
+Subject: Re: [PATCH v5 4/9] usb: misc: qcom_eud: add per-path role switch
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803031534.2942628-4-elson.serrao@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260803031534.2942628-5-elson.serrao@oss.qualcomm.com>
 References: <20260803031534.2942628-1-elson.serrao@oss.qualcomm.com>
- <20260803031534.2942628-4-elson.serrao@oss.qualcomm.com>
+ <20260803031534.2942628-5-elson.serrao@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 03:28:26 +0000
-Message-Id: <20260803032826.F1FFE1F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 03:30:03 +0000
+Message-Id: <20260803033003.F2A381F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,145 +49,119 @@ Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] A race condition between `enable_store` and `port_store` leads to =
-unbalanced PHY power operations and resource leaks due to lockless state mo=
-dification.
-- [High] Concurrent writes to the `enable` sysfs attribute lack serializati=
-on, causing double-initialization and leakage of PHY resources.
+- [High] Missing synchronization in sysfs handlers enable_store and port_st=
+ore causes PHY reference count corruption and hardware desynchronization.
+- [High] EUD remains physically enabled when the role switches to HOST, bre=
+aking host mode.
 
 Pre-existing issues:
-- [High] The sysfs `enable_store` callback fails to clear the `chip->enable=
-d` flag when disabling the EUD, permanently locking the device state.
+- [High] Sysfs enable_store fails to clear chip->enabled on disable, perman=
+ently locking port_store.
 --
 
---- Patch [3]: [PATCH v5 3/9] usb: misc: qcom_eud: add per-path High-Speed =
-PHY control ---
-commit 577fea81d5ebf5fe65bcee04faa29252dcef08d7
+--- Patch [4]: [PATCH v5 4/9] usb: misc: qcom_eud: add per-path role switch=
+ support ---
+commit b7772664d1b8d3bcc67e85e648539118fa47a9cd
 Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
-usb: misc: qcom_eud: add per-path High-Speed PHY control
-   =20
-EUD hardware can support multiple High-Speed USB paths, each routed
-through its own PHY. The active path is selected in hardware via the
-EUD_PORT_SEL register. As a High-Speed hub, EUD requires access to
-the High-Speed PHY associated with the active path. To support this
-multi-path capability, the driver must manage PHY resources on a
-per-path basis, ensuring that the PHY for the currently selected
-path is properly initialized and powered.
+usb: misc: qcom_eud: add per-path role switch support
 
-[ ... ]
+This commit updates the EUD driver to support per-path role switches instead
+of a single chip-level switch. It allows each path to handle independent ro=
+le
+management by relaying requests from the connector to the controller. The
+unnecessary role switch call from enable_eud() is also removed.
 
 > diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index 25a6a8f110ec8..03d1c200658c8 100644
+> index 03d1c200658c8..48a4441b0c9c0 100644
 > --- a/drivers/usb/misc/qcom_eud.c
 > +++ b/drivers/usb/misc/qcom_eud.c
+
 [ ... ]
-> @@ -39,26 +41,84 @@ static const char * const eud_port_names[] =3D {
->  	"secondary",
->  };
+
+> @@ -286,17 +292,39 @@ static irqreturn_t handle_eud_irq_thread(int irq, v=
+oid *data)
+>  	return IRQ_HANDLED;
+>  }
 > =20
-> +struct eud_path {
-> +	struct eud_chip		*chip;
-> +	struct phy		*phy;
-> +	u8			num;
-> +};
-> +
->  struct eud_chip {
->  	struct device			*dev;
->  	struct usb_role_switch		*role_sw;
->  	void __iomem			*base;
-> +	struct eud_path			*paths[EUD_MAX_PORTS];
->  	phys_addr_t			mode_mgr;
->  	unsigned int			int_status;
->  	int				irq;
->  	bool				enabled;
->  	bool				usb_attached;
-> +	bool				phy_enabled;
->  	u8				port_idx;
->  };
-> =20
-> +static int eud_phy_enable(struct eud_chip *chip)
-> +{
-> +	struct phy *phy;
+> -static void eud_role_switch_release(void *data)
+> +static int eud_role_switch_set(struct usb_role_switch *sw, enum usb_role=
+ role)
+>  {
+> -	struct eud_chip *chip =3D data;
+> +	struct eud_path *path =3D usb_role_switch_get_drvdata(sw);
 > +	int ret;
 > +
-> +	if (chip->phy_enabled)
-> +		return 0;
+> +	/* Forward the role request to the USB controller */
+> +	ret =3D usb_role_switch_set_role(path->controller_sw, role);
+> +	if (ret) {
+> +		dev_err(path->chip->dev, "failed to set role %s for port %u: %d\n",
+> +			usb_role_string(role), path->num, ret);
+> +		return ret;
+> +	}
+> +
+> +	path->curr_role =3D role;
+> +
+> +	return 0;
+> +}
 
 [Severity: High]
-Does this lack serialization for concurrent sysfs writes? If two threads
-concurrently write '1' to the 'enable' attribute, both could invoke
-enable_eud() and reach here simultaneously.=20
+Does the EUD remain physically enabled when the role switches to USB_ROLE_H=
+OST?
 
-Since there is no locking, both threads could evaluate chip->phy_enabled as
-false at the same time and proceed to call phy_init() and phy_power_on().
-
-Would this double-increment the PHY's reference counts, meaning a later call
-to eud_phy_disable() would only execute once and leave the PHY references
-permanently leaked?
-
-> +
-> +	phy =3D chip->paths[chip->port_idx]->phy;
-> +
-> +	ret =3D phy_init(phy);
-
-[ ... ]
-
-> @@ -130,6 +192,10 @@ static ssize_t port_store(struct device *dev, struct=
- device_attribute *attr,
->  	if (port < 0)
->  		return port;
-> =20
-> +	/* Check if the corresponding path is available */
-> +	if (!chip->paths[port])
-> +		return -EOPNOTSUPP;
-> +
->  	/* Port selection must be done before enabling EUD */
->  	if (chip->enabled)
->  		return -EBUSY;
->  	writel(port, chip->base + EUD_REG_PORT_SEL);
->  	chip->port_idx =3D port;
+If a role switch to USB_ROLE_HOST occurs, eud_role_switch_set() forwards the
+request to the USB controller but doesn't appear to dynamically disable the
+EUD hardware itself. Since EUD is only usable in device role, would keeping=
+ it
+enabled during host role disrupt the UTMI lines and break the host connecti=
+on?
 
 [Severity: High]
-Can this race with enable_store()? If thread A writes to the 'enable'
-attribute and calls enable_eud(), which enables the PHY for the current
-port_idx, could thread B write to 'port' before thread A sets
-chip->enabled =3D true?
+Could the missing synchronization between the sysfs handlers enable_store()
+and port_store() cause PHY reference count corruption?
+
+Looking at drivers/usb/misc/qcom_eud.c, if Thread A executes enable_store()
+while Thread B concurrently executes port_store(), port_store() can modify
+chip->port_idx locklessly:
+
+Thread B in port_store():
+    chip->port_idx =3D port;
+
+Thread A in enable_store() would then execute enable_eud() without seeing t=
+he
+updated port_idx or while it is changing:
 
 Thread A in enable_store():
     ret =3D enable_eud(chip);
     if (!ret)
         chip->enabled =3D enable;
 
-Thread B in port_store():
-    if (chip->enabled)
-        return -EBUSY;
-    writel(port, chip->base + EUD_REG_PORT_SEL);
-    chip->port_idx =3D port;
-
-If thread B updates chip->port_idx locklessly during this window, wouldn't a
-subsequent disable operation in eud_phy_disable() use the new port_idx,
-disabling a PHY that was never enabled and leaking the one that was?
-
+Because neither function holds a lock, port_store() can bypass the
+chip->enabled check. This might cause eud_phy_enable() to power on the PHY
+for the new port. When disable_eud() is later called, could it disable the
+wrong PHY and leak the power-on state for the old PHY?
 
 [Severity: High]
 This is a pre-existing issue, but does enable_store() fail to clear the
-chip->enabled flag when disabling the EUD?
+enabled flag on disable?
 
 Looking at enable_store() in drivers/usb/misc/qcom_eud.c:
 
-    if (enable) {
-        ret =3D enable_eud(chip);
+enable_store() {
+    ...
     } else {
         ret =3D disable_eud(chip);
     }
 
-If the else branch handles disabling but omits clearing chip->enabled,
-wouldn't writing '0' to 'enable' disable the hardware while leaving
-chip->enabled true? This would cause subsequent attempts to write to
-'port' to permanently fail with -EBUSY, breaking the new port switching
-functionality introduced here.
+    return ret < 0 ? ret : count;
+}
+
+If a user writes 0 to the enable sysfs attribute, this calls disable_eud(ch=
+ip)
+but doesn't set chip->enabled =3D false. Could this permanently lock
+port_store(), since subsequent writes will unconditionally fail with -EBUSY
+when checking if (chip->enabled)?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803031534.2942=
-628-1-elson.serrao@oss.qualcomm.com?part=3D3
+628-1-elson.serrao@oss.qualcomm.com?part=3D4
