@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D2B3B8BA1
-	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 09:03:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9EE3AC0CB
+	for <devicetree@vger.kernel.org>; Mon,  3 Aug 2026 09:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785747829; cv=none; b=YWbd5MEQUx8mdcyV0V79VJaD15FGgK1V+zwKvQKtDXtkQizgOLb25yTWJoLRDNtYi8EDyrwH3gW5UmkPwGJksrHGwmWAk5b4GVl9TEj/sqS3J4V+NJ7QOAdZegVgl4a8T9QSiySckdT2lbr/BfnGR+1q/NJcdsqfY/0DLhyNWAg=
+	t=1785747830; cv=none; b=O+nr//09sQXzBH8dqJBKjau+4Vg9XSt0tq8FeOKPcl7TGJ3bxwE8Q4/zv7Y8Z3pG2maiDWDDddck/nJzNlmyWYetXAje5277G8eF8Y6x3qriGolpP8C+hN8fZ3gO20/jFVF8SHg5yxmLR5KhahNe6o56hxwDs1C8/j2swDqC1Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785747829; c=relaxed/simple;
-	bh=Av2HS7fUExlNg+81qDfD4hRHsNSti9gi7XlyddTlo28=;
+	s=arc-20240116; t=1785747830; c=relaxed/simple;
+	bh=cBtimW4GeUT2bq8Z/kkjmsXWhphuDQBBWyDRZP70Z/Y=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ELHfguq+U0o6F45pSPkAehovE/kSShUjsKkYx8RwmEpcBWxKdJ0K0rY+U71fPc6dHLPSqKr1d0OMU1JbVNji2rOUyHu+9DsHFbNHQazIKCbL16j71aG7uDwGRwvp+UIj0mC4cwo+tNr5nc65OeHpy+voMBVQjo7xhAQ3dUyR2b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jmyV86ei; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jB8Odrc6; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=QysbblhAezcMbUwwqQCe90d82FPfadEo1A6s4Ci1srnF9pEnRYCIpUzZ397BunD/YVtmfna8hybmsbPZqw+Aj9i/Cmstt8ECLFH1Enn60FIDta+gIvWNa887SFuqPHGB6w8J+40fAPGpeNCdBxYVsKnJ3llzoXfcD+npht2PgFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=elSf+vz7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HQmt+3Rl; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jmyV86ei";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jB8Odrc6"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6737Dutk4041882
-	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 09:03:45 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="elSf+vz7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HQmt+3Rl"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6736DE6A3654877
+	for <devicetree@vger.kernel.org>; Mon, 3 Aug 2026 09:03:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NPks+x60BCYOO8XRSEJcDRXMlkEPWzK7NZ574fiVVUk=; b=jmyV86eiwh/zujTK
-	E/6s63FsAw76KAW56f0Qlk+TN/CC/L2Z1lICEcnVzxjgTokr8bdNAyTaM/vfMSlP
-	8DDQ7uXvnxFq304+nPYWa5ECQXj0Q/XIaGnYk6E9phGdffQDPsRcJguiGHXK9Bl4
-	7N/i7+LGkj0q4Br14hE6lD0+JS7s54DabIwh0Yu28D77mBagnkXswYiq+jAmYvXs
-	5frjF7ZtVvSSrCx7Lbe8ZGIVF6rXty7BRezRTEMi4Iu/yuGSdIRmjPg9PNFzLLtQ
-	x/0TT3QdiP3GF2ooELD9OAoCa5nHQZLq89gZCOF475cWAX6izrTsRNcAdT/2+IRc
-	KHcKdQ==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnvngnc6-1
+	8ihYme2F+ZG8mNB7ktOuMv3VhK+M5a9w23lt4w64r+E=; b=elSf+vz7q8pfuoAL
+	UplnHgRJ4RWSearQFxzy1fcb4PqpusiUN3la/UAhdff1nXyW8UG/im6AxUUmthz+
+	gW4MfL+cdj5uI7gJvc14ALMMHSCWJ5cmLnOGTngzhB/ca12AlC4SA5XZr0ybNa8l
+	kuBZZMSpReaS8/KeD98JII8GrEYuGXTQ17Gt3JOzPZN9MPhdt0gLQ20qqawHdCjb
+	sP9QrwOS9BqC41o2R026ER2cLQqhyyzNwZSY/x1GeXnPrir4SAY9x9pGObPUKO1Q
+	jM50MBPae8PSzMv1T+eIY5qdkPZpzekTYg7q58QYGE3a+/vaIuXRO8jlx+ts1p+l
+	c1HDkw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnhb0rst-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:03:45 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51ebdfceddcso34630171cf.3
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 02:03:45 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 09:03:47 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934956beec8so536765285a.0
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 02:03:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785747825; x=1786352625; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785747827; x=1786352627; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NPks+x60BCYOO8XRSEJcDRXMlkEPWzK7NZ574fiVVUk=;
-        b=jB8Odrc6g+TU2eJtQPDGwuhbScx2R7L6/Ti4/yGOf9PThxfGGpyS8FPZBPqQfNRHDW
-         AiP9w0Zf+C9MJbfYUmTntvbAnU4wQNxsGJ/JU8wdHqeVxUTg/0DbCHzfRbxEiPqubjia
-         jwY8TKTod9dXkqanN42XX2n+flS4jQ62mz6GMWqJuyDg1eRPTMCmp9stqkXynmUfTrTJ
-         x0/xQAvJiRTYOyXnLE4f+FPUH12l+zPp5lU7S1FRp+d8ujdYJmPgozmiC7k7H+Xi20Dh
-         VfG5bCciQBQNaj0CgewHuFeASv9Vc0QA+/Q/JY8Ij2rb74PEahU5rLfg7Deggl2Skykw
-         DA+w==
+        bh=8ihYme2F+ZG8mNB7ktOuMv3VhK+M5a9w23lt4w64r+E=;
+        b=HQmt+3RllGUeE7vJH6OVsPQK/ElGKZhgLvXir0WdUEEZLU0jO8rBnZzefBrr5hsXRe
+         h5/z6P5uPPvRR+mXKTxkswuaHdkCotOBbBCESRQ3MEkPoCXOb1WqqwsUOMy1oJC/T+T1
+         pgw+TQJIEl4K0bWSmiMXPhXADlLzvV8WtfDXJ9Im8EbU2sWOQpQK4uknVbwDzB/8dGWZ
+         VXLi9U09u+DBC+U29P/hbxTKAqITHs4QgAX0yP7MolIsLGiNmAhXgb5VTAyL2b0OspQi
+         KAL34/8ecdkGJs8R08A85Vn6k98uyknhEdHZaWZ8LCYXS7r0FQviboY3mg/pCbTdls8n
+         4h7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785747825; x=1786352625;
+        d=1e100.net; s=20251104; t=1785747827; x=1786352627;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NPks+x60BCYOO8XRSEJcDRXMlkEPWzK7NZ574fiVVUk=;
-        b=SCdxwQQiGxFrjfgTgARYdr1aF7WPFsVW3hH17KcvfSzHVi9mWlDzXCYHr8V5gWvIzh
-         53VDFYWtVmTd8g+WlI5/I1UXo9wLdJ7Ckzfz1/0zj6QrSXaHP0E7JDpJFsKmweYUrbDR
-         7SFA/oCxiIBh9uNmqEPabaWPQXdhIsSbPuq6xDk6ecOICcYWCMzJVRhlJM5xGZT1MsjC
-         DLptFJRjXh7dTqWIysSWiMCo2q7ktNwVenwB2fPNaQ8Q6yvuWphncw04e4MT+NgEVnjj
-         is4huWC2L4KxlsInEI5VuGkhN7GqTOT5Ri7dwfLUnsbgoU/CDGyXcIP6rLxNRzi8GLg6
-         u1lA==
-X-Gm-Message-State: AOJu0YzLXFaATKPpSi5Lc2onATu7A/zEtNuwbytvM4h0djsIwVsgR6mH
-	2Kxnkm6FdVTLCkg1sPl2Mio8L+OjqqPHvIFbNtqf7KNhH4MPVU5uIFCWNq+xt7znn0rACqWzzJx
-	ceaXmqtgvW/1L8ci2D+nSEIkxmzqfLM6nGYNgfLr6wJ7q+l/yZmz/xDKsH/z0g1F1
-X-Gm-Gg: AR+sD10M1gZ1rRFGmigB+cKfv5QKdXCbkYb4nrmb/P01vaLAvvgfsKJZpsWiuwfhIJU
-	+3cDh8LOrFIs0jBdInbHjCoFyRMGB2XbuJrSDhp36pLrVB8TZTGocs2s/SK8zV0lYIRntk2ZSL3
-	WmAHdAGUxZirHkCVqfoppvMOX3vtkALzWBr9nbG5zVyyriN9fR9lUcyqKCtxWMp+8/tAF+iiRXX
-	9V6+yrMypJEuXGWoVXmrrNXGLxKcYn+5XTv6/peYCa3FOxlaXiw93fd8l5w8IItp6oAmXPIZNH/
-	4vNmpYlBy5CIh1QTwTBqoRyKKIzId8WKCRFmahh8m5IlFIxYdbm9xhhhB/DmqNROjfqW+3VyMK1
-	+famzlIeq37o9gF8uFp7ryj0J
-X-Received: by 2002:a05:622a:1aa5:b0:51c:a8:51cd with SMTP id d75a77b69052e-52b5669ddc1mr165929681cf.1.1785747824465;
-        Mon, 03 Aug 2026 02:03:44 -0700 (PDT)
-X-Received: by 2002:a05:622a:1aa5:b0:51c:a8:51cd with SMTP id d75a77b69052e-52b5669ddc1mr165929121cf.1.1785747823851;
-        Mon, 03 Aug 2026 02:03:43 -0700 (PDT)
+        bh=8ihYme2F+ZG8mNB7ktOuMv3VhK+M5a9w23lt4w64r+E=;
+        b=SFogkpFckHEJZfLqsUk2qBq+34Sty2MIOzEbw1XEnC52T9lN9gqDCEotsIHBwo1ESF
+         Gxxsd3xv3oSs1tyg/6Wdj9Uxf6KfC+bVM04kS1RU6uRhXirWLxWWZuUYBRf3NigoXz+Y
+         3oiRgmpmHFRum80gVOT5KB88yWVEwByPrqtlruXSKkl1qocR8eysi4kWza76d5AYxVfB
+         THRoaqd0Jm0NvLjDGepzOa5VXhmx1b53PJ4Vc82l6XrzfzPZHqhXIIdvvzZCrbfcUU55
+         zIuHM73KLvopGYVNA4vxAuUPMK6a4OMnRvbCWHU9alRNcgPVwlPsNjcP1rvsCecOSPDE
+         a6Dw==
+X-Gm-Message-State: AOJu0YyGD7NxButEGgFTzTXHmGmHZ08ZD6yiBnShoHoLm9hYqtvZM/Us
+	P7cbBDl5wmFfvLNRqeCNe2m996XQ4o3SJmy6wWADYmZErB9M9EbzQ0Cx2wCG5wiD/GGRhEWl+NY
+	g1TY2s842U5eDMt4F7e0jIzrM/N6MJDAC3bda/je0f0n7fzjwapnIbIefgZEKzhK2
+X-Gm-Gg: AR+sD12XzpbI0buEWiKjk0q6TQYukhmuOmzWVvL4JpCv19AH+BcMXtW+w6ZnA2eDpZK
+	DTzl6M0O3b3Rl2BKTtdcNmSKqhQMsuOgyubKfrS8G3yh4G1brObb2H7dDECB/ei77zMkPsbD3RM
+	mAnNJWo/lUXpa+ciFXFu1y69+Z7MdL9MMiqFwGG9do1Yf2ctJIwJXrBHmixDDTGdKS9ZouTvshO
+	87xPpXwlLSsXKf1oildm4xiVeWBu11hCNNkpLI/Lf/hHqcY/tFCD8T/V5rEyxEQ2DcKotjlUzFL
+	+Ng5HXLAwC0zX0tZHD2Y4MtsvSmjnSjbKAuQg7kxyc/rQFJWnemyQ0py1q5mFvg+LEMrNKAh5Lw
+	N2gbz73kvevUQCzTeNTFG3yhK
+X-Received: by 2002:a05:622a:1353:b0:526:d595:c7fa with SMTP id d75a77b69052e-52b56791b0emr183613851cf.31.1785747826697;
+        Mon, 03 Aug 2026 02:03:46 -0700 (PDT)
+X-Received: by 2002:a05:622a:1353:b0:526:d595:c7fa with SMTP id d75a77b69052e-52b56791b0emr183613091cf.31.1785747826153;
+        Mon, 03 Aug 2026 02:03:46 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456a6d7sm31858493f8f.19.2026.08.03.02.03.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd456a6d7sm31858493f8f.19.2026.08.03.02.03.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 02:03:42 -0700 (PDT)
+        Mon, 03 Aug 2026 02:03:45 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Mon, 03 Aug 2026 11:03:09 +0200
-Subject: [PATCH v3 06/11] dtc: dt-check-style: Fix alignment of values in
- continued property lines
+Date: Mon, 03 Aug 2026 11:03:10 +0200
+Subject: [PATCH v3 07/11] dtc: dt-check-style: Consistently call 'kind' as
+ 'file_type'
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-n-dts-style-checker-continued-v3-6-6c9776928cea@oss.qualcomm.com>
+Message-Id: <20260803-n-dts-style-checker-continued-v3-7-6c9776928cea@oss.qualcomm.com>
 References: <20260803-n-dts-style-checker-continued-v3-0-6c9776928cea@oss.qualcomm.com>
 In-Reply-To: <20260803-n-dts-style-checker-continued-v3-0-6c9776928cea@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
@@ -99,252 +99,145 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8500;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3656;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=Av2HS7fUExlNg+81qDfD4hRHsNSti9gi7XlyddTlo28=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqcFlabo1mGLd1kMsbMy7hsvPDJ+y0EDPxuDvA7
- qk5d840DvWJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCanBZWgAKCRDBN2bmhouD
- 12fOD/wPklfAeaGs8rQgVKCU3DVZZAWG2K4v2B5mWP/M/vkeA1cz2mseX8+bzv+bKtQcm10GH0J
- NkSO/NZ7pVH6BTqL4/X9p2WdiR3+S08+4NSVIMN2oc0il8jrPObV9lCPEsX5ZLFzB0zDvP+nCvy
- E8Mnxlr1uxknccv/3lVSdQl70jdJGGpT71lkaLB6NFVmpbkpYGRfKy/wUsXWJVXAvlZaM8bhjLN
- ulDiWO63/FUsbZkb2ba8pshj4M+zjKfLXl7qa2M7cJNlWW4K/mkS0kBdiV3UNlTlcHNZb5bYWRe
- QM31jlXZJqas855set4b7BvMEJxllUvHXqVJ3ZcL7MbGRGK2fBhDtlNBsvtyPxYEZ+vc8IU4Q7T
- kEQIOQM4lK+zrL31KihK3mnSyDCQVsHbF1uM7Nnbj+5xkhAeHVZT/2sN93feW0XXQxEIqMnl4g0
- BBDHHmqpbMU9jJL5BwVV/r+VYtrd8XNX5y1iNTTz0U5DxMQUgDYFaZHLnGJ6bIpo5MUdm9emm4n
- fo8StmG8rtgaJa4eA2LN6nnN0Ux88BM6m/TM14qe1e1hICNd4hWuYHDB5rpFOE1DDYMguArGH1p
- NldkK+KmOaEg+4nq80AKTEqcs+FiGxpKZagHru7ifOizKUmCnDoFiRU4DAZsTb0JzBzWqvl9Rbf
- zExG06jLXs8veqQ==
+ bh=cBtimW4GeUT2bq8Z/kkjmsXWhphuDQBBWyDRZP70Z/Y=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqcFlbI0eGsvqlDNd2OqQ2r7x7k/qx4sagRzV6W
+ UD0rR6tKtiJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCanBZWwAKCRDBN2bmhouD
+ 18EUEACTZoExoN5OcQfd4ZGWV7WjkxqezN8p9B9lftgb4iRcKUWQc3O4UU2Ciy54iaJBF7nfYOj
+ O9zX6QcTwI4IXAFcHPAxddjj/te7k//lJb+2WXNAI3I0VCvG2/++3FfpdGNpTfNLKgyD2WJ3gRC
+ 6DQfzMBEFrCJwgAztQX0RJCOP11HY8X2KSbaZNTvJhNVk4LvLOva+GEM6Jp2Wn5yqseLRDeGDCc
+ wn5nWdG98UD3+QrSPO/QJjTjB4Ak0+g9SliXy2JiFAJB22dOc5prcZB4kKqP7832wtKeGRqSoW2
+ xriZ4yleh5eua8sK3ZAttRdXufDehwx9E+irBjtDQ6ERWf69ytdVvwJWsySnx9HBLnK5aZEYYYT
+ 4Po1o+BrKZ6+C6RvXMVBdoBlvBb6V/gy/zp4jsp9gHtwtdJdxgfyhn5K/LGVi8ISy2cigGrwV5P
+ U3FSpmElrTVc9wVmhkhZPJj4CY/TvVBHsIOr3BPNGnKb29lxkp+AHaAlIndMOXS4b3MeB8iQhE+
+ ZF6r63S3QnZ38JAPM90mZAY+ohZ+KBl5/aqNxwPo60zVR7YxoOVR0lGutjjkQdC8Reb8kpARX1C
+ yqImVrgPXtxsW/+LKXQflAjylsHKSKebQPfgdweaw1eIYD1dZ/t5z2NNprhc4Gsd4mQ/hIL+aro
+ HpkGhALQSqnFNJw==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=aoaCzyZV c=1 sm=1 tr=0 ts=6a705971 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-ORIG-GUID: RwLLmqjNGMJD9GhcjEBempWACdGt3aWJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX9+woVCRZdgte
+ WEPb+JIBPCBa666Ej7T3Uwv1d6YF00MbtVGPi0Nj2pAofGvt+ax4/fkPQg+sN+GWWb93nVxRjae
+ 36eNiQAqrhfuzKCKCyPSTOtTvE4hhio=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX3LsCmTEZINCi
+ OgCzlpPgybEo0a4mvb8LmPP29suzQ52js6vk8oFlYq+4BCXynKI8Xu9GPfaRVN7W8oq3/PctNf0
+ kmcegFydwhOpNC4cGGaIACSe7M1S5usmMNNr7OpfobNurS/XP6j2Kn6Qb6NLB587x0YCJqYZry6
+ UKzU3PxQmzyUpl6CNK7Ohl0ZLT63ULwrKRKRM1pW0X3yEL/VugfbstLBn2OrW7MxmMZIjO4P/V8
+ p0rdLhyKe84WANO4xWi6aHXiQ93EmSo8/jL11gIPnrpsPfcYKv2Of8fsCkWEVYzspp42E72fzQ+
+ Y0DCwH1HIGS7iRIvA3Vf4lutOHxTwRKb72ReTo7jwBlcFQ47/thHC/JrQOpP7fAguR2q+Hf1pz0
+ HxrljmY8iSZUy0Q/DsG8yZ4bBoHSGQVLdn39MZUcgyQBx3VBTyLLnFH2z6TQlFLdN19VratGYkI
+ 8DCd5cFzzpNyTLDNj8Q==
+X-Proofpoint-GUID: RwLLmqjNGMJD9GhcjEBempWACdGt3aWJ
+X-Authority-Analysis: v=2.4 cv=bKEm5v+Z c=1 sm=1 tr=0 ts=6a705973 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=A1X0JdhQAAAA:8 a=JHzK3u4RkIQMqoYOWxQA:9
- a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: 8L1mjRmsCwTYW8E66NTtrimrQoOE-gTd
-X-Proofpoint-ORIG-GUID: 8L1mjRmsCwTYW8E66NTtrimrQoOE-gTd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX8pHmcjFlOehX
- EMKR0ffqe6uLYE7rD3iTC5Z8VTX5yV6Xk156913bUNqp83VX9Jnl5FtxJOlAXmin8aqtgjTaWDf
- WLahfEVh3zODjOsNZCG9sO3KrMLOI0CZ909timw8MVDvjFf74uyLsCC+cYgwuuMfFsp89EL1kHQ
- s/6q3rMdfj98RzMC1KuCFSwj6WQpOLr40QZ+pn54Lbob4RBohghJodoo4vB0llYXPfqWHVMRdj4
- l2vCGno6wQ4NIVtaPxv6vpfQ5QgYz/dbfeMSwTYShnUG4PCUtUnMS8P0WylagLNw91xlX5/uPbS
- PmXJB3E2qmiIp4qRk475C5s52aNjW703Mr8AMmZjj7Qn85N1eyAzFpSh4gYPcRcnmDPu/2MO6t+
- +8Vd+U2eKsidNBqak+tZuGqjaOklIx1sA75EUqsKlZqBpaijn8NcU/RMGj6xYuJgVv1gVCygorr
- KUPiprUC2pi2FF+hdNQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA4MCBTYWx0ZWRfX/AdxxwFPYNXk
- a0IQannKLQZ2J5j3+AO4eOfWKohCfptYKIhug3xsVDTgZVPnGF7s52l+9a1fkPQtHNkSBuiENB7
- lD7Z+KY+hulduVQTLS7sFdyHJ4yc7kU=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=6JaV1sFd9OF9Hac_-DgA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0
+ priorityscore=1501 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030080
 
-Continued lines in property assignments should be indented to opening
-'<' or '"' if they also start with that character, e.g.:
-
-  reg = <0x1000 0x100>,
-        <0x2000 0x100>;
-
-If the continued line is part of previous phandle, then alignment should
-be to inner values to make it more readable, e.g.:
-
-  reg = <0x1000 0x100
-         0x2000 0x100>;
+Script was using different names for variables or attributes with the
+same meaning: the type of file (YAML, DTS, DTSI, DTSO).  Unify 'kind',
+'input_kind' and function input_kind() to consistent 'file_type'.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- scripts/dtc/dt-check-style                         | 22 +++++++++------
- .../dtc/dt-style-selftest/bad/dts-cont-align.dts   | 23 ++++++++++++++++
- .../dtc/dt-style-selftest/bad/yaml-cont-align.yaml |  4 ++-
- .../expected/dts-cont-align.dts.txt                |  8 ++++++
- .../expected/yaml-cont-align.yaml.txt              |  3 +-
- .../expected/yaml-value-ws-multiline.yaml.txt      |  1 +
- .../dtc/dt-style-selftest/good/dts-cont-align.dts  | 11 +++++---
- .../dt-style-selftest/good/yaml-cont-align.yaml    | 32 ++++++++++++++++++++++
- 8 files changed, 90 insertions(+), 14 deletions(-)
+ scripts/dtc/dt-check-style | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-index bdf36ba9e274..1c67348fb526 100755
+index 1c67348fb526..e3adaad1be63 100755
 --- a/scripts/dtc/dt-check-style
 +++ b/scripts/dtc/dt-check-style
-@@ -928,10 +928,11 @@ def check_line_length(ctx):
+@@ -314,13 +314,13 @@ def collect_labels_and_refs(text):
  
- def check_continuation_alignment(ctx):
-     """A multi-line property's continuation lines must align their
--    first non-whitespace character to the display column of the first
--    '<' or '"' after the '=' in the leading line. Display columns are
--    used so tab-indented .dts files (where a continuation aligns with
--    tabs plus spaces) are compared correctly."""
-+    first non-whitespace character to the display column of:
-+    1. the first '<' or '"' after the '=' in the leading line, if continuation is with '<' or '"'
-+    2. the first value, if the continuation is still the same phandle.
-+    Display columns are used so tab-indented .dts files (where a continuation
-+    aligns with tabs plus spaces) are compared correctly."""
-     for dl in ctx.lines:
-         if dl.linetype != LineType.PROPERTY:
-             continue
-@@ -942,15 +943,20 @@ def check_continuation_alignment(ctx):
-             continue
-         # First '<' or '"' after '='
-         rest = dl.raw[eq + 1:]
--        m = re.search(r'[<"]', rest)
-+        m = re.search(r'\s*([<"])', rest)
-         if not m:
-             continue
--        target_col = _display_col(dl.raw[:eq + 1 + m.start()])
-+        target_col = _display_col(dl.raw[:eq + 1 + m.start(1)])
-         for cont in dl.continuations:
--            if _display_col(cont.indent_str) != target_col:
-+            target_offset = 0
-+            err_msg_explanation = 'to < or "'
-+            if not re.match(r'[<"]', cont.stripped):
-+                target_offset = 1
-+                err_msg_explanation = 'to the value under <'
-+            if _display_col(cont.indent_str) != target_col + target_offset:
-                 yield (cont.lineno,
-                        'continuation should align to column %d '
--                       '(under < or ")' % (target_col + 1))
-+                       '(%s)' % (target_col + target_offset + 1, err_msg_explanation))
+ class Ctx:
+     """Context passed to each rule check. Carries the parsed lines,
+-    raw text, mode and kind."""
++    raw text, mode and file_type."""
+ 
+-    def __init__(self, lines, text, mode, kind):
++    def __init__(self, lines, text, mode, file_type):
+         self.lines = lines
+         self.text = text
+         self.mode = mode               # 'relaxed' or 'strict'
+-        if kind in DTS_FAMILY:
++        if file_type in DTS_FAMILY:
+             self.file_type = 'dts'
+         else:
+             self.file_type = 'yaml'
+@@ -1069,14 +1069,14 @@ RULES = [
+ ]
  
  
- def check_unclosed_block_comment(ctx):
-diff --git a/scripts/dtc/dt-style-selftest/bad/dts-cont-align.dts b/scripts/dtc/dt-style-selftest/bad/dts-cont-align.dts
-new file mode 100644
-index 000000000000..2087dac23d96
---- /dev/null
-+++ b/scripts/dtc/dt-style-selftest/bad/dts-cont-align.dts
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+/dts-v1/;
-+
-+/ {
-+	compatible = "example,test-board";
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+
-+	interrupt-controller@10000 {
-+		compatible = "example,intc";
-+		reg = <0x10000 0x1000>;
-+		interrupts = <1 2 3>,
-+				<4 5 6>,
-+				<7 8 9>;
-+		pinmux = <0x01
-+			 0x02>,
-+			<0x03
-+			 0x04>;
-+		power-domain-names = "foo",
-+				"bar",
-+					"baz";
-+	};
-+};
-diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
-index 92778540b056..d4662acc7b8f 100644
---- a/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
-+++ b/scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
-@@ -26,5 +26,7 @@ examples:
-     foo@1000 {
-         compatible = "example,test-cont-align";
-         reg = <0x1000 0x100>,
--            <0x2000 0x100>;
-+            <0x2000 0x100>,
-+              <0x3000
-+              0x100>;
-     };
-diff --git a/scripts/dtc/dt-style-selftest/expected/dts-cont-align.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-cont-align.dts.txt
-new file mode 100644
-index 000000000000..a4672206859c
---- /dev/null
-+++ b/scripts/dtc/dt-style-selftest/expected/dts-cont-align.dts.txt
-@@ -0,0 +1,8 @@
-+# mode=strict
-+bad/dts-cont-align.dts:13: [continuation-alignment] continuation should align to column 30 (to < or ")
-+bad/dts-cont-align.dts:14: [continuation-alignment] continuation should align to column 30 (to < or ")
-+bad/dts-cont-align.dts:16: [continuation-alignment] continuation should align to column 27 (to the value under <)
-+bad/dts-cont-align.dts:17: [continuation-alignment] continuation should align to column 26 (to < or ")
-+bad/dts-cont-align.dts:18: [continuation-alignment] continuation should align to column 27 (to the value under <)
-+bad/dts-cont-align.dts:20: [continuation-alignment] continuation should align to column 38 (to < or ")
-+bad/dts-cont-align.dts:21: [continuation-alignment] continuation should align to column 38 (to < or ")
-diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
-index c0801c56d5db..eb9a84d5c222 100644
---- a/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
-+++ b/scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
-@@ -1,2 +1,3 @@
- # mode=strict
--bad/yaml-cont-align.yaml:29: example 0 [continuation-alignment] continuation should align to column 11 (under < or ")
-+bad/yaml-cont-align.yaml:29: example 0 [continuation-alignment] continuation should align to column 11 (to < or ")
-+bad/yaml-cont-align.yaml:31: example 0 [continuation-alignment] continuation should align to column 12 (to the value under <)
-diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
-index 3df55b1762d0..d25b5b425e3f 100644
---- a/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
-+++ b/scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
-@@ -1,2 +1,3 @@
- # mode=strict
- bad/yaml-value-ws-multiline.yaml:25: example 0 [value-whitespace] extra whitespace inside <...>
-+bad/yaml-value-ws-multiline.yaml:26: example 0 [continuation-alignment] continuation should align to column 12 (to the value under <)
-diff --git a/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts b/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
-index 36fb4eefcd83..1a1c07c09a41 100644
---- a/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
-+++ b/scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
-@@ -18,9 +18,12 @@ interrupt-controller@10000 {
- 		interrupts = <1 2 3>,
- 			     <4 5 6>,
- 			     <7 8 9>;
--		pinmux = <
--			 0x01
--			 0x02
--			 >;
-+		pinmux = <0x01
-+			  0x02>,
-+			 <0x03
-+			  0x04>;
-+		power-domain-names = "foo",
-+				     "bar",
-+				     "baz";
- 	};
- };
-diff --git a/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml b/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
-new file mode 100644
-index 000000000000..2e7b8582bb7c
---- /dev/null
-+++ b/scripts/dtc/dt-style-selftest/good/yaml-cont-align.yaml
-@@ -0,0 +1,32 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/test-good-cont-align.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Test fixture with aligned multi-line property
-+
-+maintainers:
-+  - Test User <test@example.com>
-+
-+properties:
-+  compatible:
-+    const: example,test-cont-align
-+  reg:
-+    maxItems: 2
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    foo@1000 {
-+        compatible = "example,test-cont-align";
-+        reg = <0x1000 0x100>,
-+              <0x2000 0x100>,
-+              <0x3000
-+               0x100>;
-+    };
+-def select_rules(mode, input_kind):
++def select_rules(mode, file_type):
+     """Return rules that apply to the given mode and input type."""
+     rank = {'relaxed': 0, 'strict': 1}
+     out = []
+     for r in RULES:
+         if rank[r.mode] > rank[mode]:
+             continue
+-        if input_kind not in r.applies_to:
++        if file_type not in r.applies_to:
+             continue
+         out.append(r)
+     return out
+@@ -1086,12 +1086,12 @@ def select_rules(mode, input_kind):
+ # Block runner
+ # ---------------------------------------------------------------------------
+ 
+-def check_block(text, mode, input_type):
++def check_block(text, mode, file_type):
+     """Run all selected rules on a single block of DTS text. Returns a
+     list of (lineno, rule_name, message) tuples."""
+     lines = classify_lines(text)
+-    ctx = Ctx(lines, text, mode, input_type)
+-    rules = select_rules(mode, input_type)
++    ctx = Ctx(lines, text, mode, file_type)
++    rules = select_rules(mode, file_type)
+     findings = []
+     for r in rules:
+         for lineno, msg in r.check(ctx):
+@@ -1148,7 +1148,7 @@ def iter_dts_file(filepath):
+ # Top-level processing
+ # ---------------------------------------------------------------------------
+ 
+-def input_kind(filepath):
++def get_file_type(filepath):
+     p = filepath.lower()
+     if p.endswith('.yaml') or p.endswith('.yml'):
+         return 'yaml'
+@@ -1168,17 +1168,17 @@ DTS_FAMILY = ('dts', 'dtsi', 'dtso')
+ def collect_findings(filepath, mode):
+     """Return a (lines, count) pair for filepath. lines is a list of
+     formatted output strings; count is the number of findings."""
+-    kind = input_kind(filepath)
+-    if kind == 'yaml':
++    file_type = get_file_type(filepath)
++    if file_type == 'yaml':
+         iterator = iter_yaml_examples(filepath)
+-    elif kind in DTS_FAMILY:
++    elif file_type in DTS_FAMILY:
+         iterator = iter_dts_file(filepath)
+     else:
+         return (['%s: unknown file type, skipping' % filepath], 0)
+ 
+     out = []
+     for text, base, idx in iterator:
+-        for lineno, rule, msg in check_block(text, mode, kind):
++        for lineno, rule, msg in check_block(text, mode, file_type):
+             abs_line = base + lineno - 1
+             ex_tag = '' if idx is None else ' example %d' % idx
+             out.append('%s:%d:%s [%s] %s' %
 
 -- 
 2.53.0
