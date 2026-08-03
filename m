@@ -1,110 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2473BCD17;
-	Mon,  3 Aug 2026 11:44:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9E60341062;
+	Mon,  3 Aug 2026 11:46:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785757497; cv=none; b=nIAvGQa2C8lC6JKPgewcxieR8YLIMLU3Zde+lOyA7IcXnbBwOyTpwUaKBOg85QRh///bK4VUIrSc3qeYy9hVC4gpykxvd9E9q4ijp30p6HdXKhP2tzp/NR/q1b0jY9l9cwyMOlrvaXpTvfxrEe4smZ8r04IFhhdejOVkRmI1DOU=
+	t=1785757612; cv=none; b=d5UnvaZyqFZJDa52DTYPhzb3N6aGLJ2Dp46gG02/Tzbh3p2ArcIguxPTBYeirC+K4EOZF3RzVDIOyEpXyF8jsSTXzSI9SYe8im+VEVHuUdau4UNOIZolc0QyHTofph6908G0zXah+/xWuNNSEh2lbue9x/Xq/98Mw2ZkeZ2H1/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785757497; c=relaxed/simple;
-	bh=J8PRGWV3+I0wXpCaHk5I0Izh5G9sTqdLEINNXqnVHwM=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=TAT4sypIWCu8NxcHIuAT7ou9X9KRZ445b4cK7Ltva3L3Q8Dekaaguig1z8WE0bgTgoW2eYI2v89gokLdWt6RbTrWA5fUvdd123viPSKpaoMAxLh4oF2RBr3yynHOy0k8P5AAMCOfwOUtrqxw7JhEJLa1EP6joPf4uHp5PckYh3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=fail (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3FjwlGI reason="signature verification failed"; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785757612; c=relaxed/simple;
+	bh=6bcT2EVhP5fqnMrfN66dKJfnkbuNDydY0wRGvNBMisQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=B5BSlSbiVf/bs2jwgKpTXiM8M7XiixYl5ZD95+10BBkHIKYa9gCVmqAExQ3xSs4dgvaK6kdkrBnYmHv8N1T8PHT0tTHQ9R2AdYl6Rhfzq/R/WegccbxjIqEHTcaE4HqIym9m2+a1RYKZGlOmu1vd1D2XDmuAqMmtnnYfl5DM+K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecB+DFzq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3FjwlGI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662DE1F000E9;
-	Mon,  3 Aug 2026 11:44:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecB+DFzq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C311F00A3F;
+	Mon,  3 Aug 2026 11:46:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785757496;
-	bh=8YQ2M9Eps1JKx10yr4780R1ecWZB0HlgXUHXNalwtiM=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=l3FjwlGIvY9J5WKcaj4U+GHHJ0vSTZaGjUixFKx7WZt0ScOo/BXhTkDF14UlaeWpc
-	 GS+60FdPXJC2+HBGNfM815HDuGPwFTVT2ZMnIYj5Qqpp2feLlNTTkGKY1FDdZuu13N
-	 9HEbTx8Hs8V2b68uOQF1IjA0Ra9kNb91CiPSQShAG+XdLbXXxvBJOq+KxVAT/IY/Fi
-	 OCTiBlG1fa8naz1MYhSsv29Xqa60dU5Y7HgoD3PVylPvEz9cls3/EMcfStwYRpoee6
-	 vmyofz453SgmnpYcoUGzSXmGhYs4tT/zboqO7Y/CymG1XWULb56CvCkZRsw3MdTHZy
-	 RUiZFTLw6OXzw==
-Date: Mon, 03 Aug 2026 06:44:53 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1785757610;
+	bh=OFuTX5qn5Wz5lmlLuFwGH6+S1+vKHWO/bLV/HTkJjh4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ecB+DFzqkKzITg3cGweUymUcc+qFF4MIh9cLx+L4CZZRsKgCzxaxxqg3zfw9fzJPz
+	 TATEIBchyNUS/Wlh0f96LsBsftRfn9YCV1qB32Qfj4JafD68uNvWj45WXSI5J3z7f4
+	 n1qxQILwNwz+/VaPjGxPfJZhdYAn1CBb+rb6nbE8lFH4m8Y5xXTkHSE8TDOO3iwaFV
+	 B3wTYHpxEVGlQIlvtMoXYzE+5KoELdSEyH2zcuTq6LztEsRqupFWUt8e7CD7/KT8va
+	 PiOJ5lx72Ff/oNfl7kFnwnBmE5wLl3XxL4F4oF2R1s1hcNGW3HC/IWq44Z7Ja4QwNe
+	 0qS+h8OI4/U9w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v7 05/10] arm64: dts: qcom: shikra: Add CDSP,
+ LPAICP, MPSS remoteproc PAS nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
+Cc: robh@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260803-shikra-dt-m1-v7-5-7fec8e777076@oss.qualcomm.com>
+References: <20260803-shikra-dt-m1-v7-0-7fec8e777076@oss.qualcomm.com>
+ <20260803-shikra-dt-m1-v7-5-7fec8e777076@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 11:46:49 +0000
+Message-Id: <20260803114650.27C311F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, 
- linux-pm@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Lee Jones <lee@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Ulf Hansson <ulfh@kernel.org>, 
- Souvik Chakravarty <Souvik.Chakravarty@arm.com>, 
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
- Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sre@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Christian Loehle <christian.loehle@arm.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, 
- Sudeep Holla <sudeep.holla@kernel.org>, 
- Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
- devicetree@vger.kernel.org, Andre Draszik <andre.draszik@linaro.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, John Stultz <john.stultz@linaro.org>, 
- mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Moritz Fischer <moritz.fischer@ettus.com>
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-In-Reply-To: <20260803-arm-psci-system_reset2-vendor-reboots-v24-5-889281373870@oss.qualcomm.com>
-References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
- <20260803-arm-psci-system_reset2-vendor-reboots-v24-5-889281373870@oss.qualcomm.com>
-Message-Id: <178575749351.2483197.6720070407824857023.robh@kernel.org>
-Subject: Re: [PATCH v24 05/12] dt-bindings: arm: Document reboot mode magic
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] Both `remoteproc_mpss` and `remoteproc_cdsp` incorrectly use `MA=
+STER_AMPSS_M0` (the Application Processor) as the source master for their i=
+nterconnect paths.
+- [Low] The `remoteproc_lpaicp` node configures its `smp2p_in` interrupts w=
+ith `IRQ_TYPE_NONE` instead of `IRQ_TYPE_EDGE_RISING`.
+- [Low] The `power-domains` property for `remoteproc_mpss` and `remoteproc_=
+cdsp` uses the undefined macro `RPMHPD_CX`.
+--
 
-On Mon, 03 Aug 2026 15:13:36 +0530, Shivendra Pratap wrote:
-> Add bindings to describe vendor-specific reboot modes. Values here
-> correspond to valid parameters to vendor-specific reset types in PSCI
-> SYSTEM_RESET2 call.
-> 
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/psci.yaml | 58 +++++++++++++++++++++++++
->  1 file changed, 58 insertions(+)
-> 
+--- Patch [5]: [PATCH RESEND v7 05/10] arm64: dts: qcom: shikra: Add CDSP, =
+LPAICP, MPSS remoteproc PAS nodes ---
+commit d887c029e52194e73c0d6673eaad6485dc1a7361
+Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 
-My bot found errors running 'make dt_binding_check' on your patch:
+arm64: dts: qcom: shikra: Add CDSP, LPAICP, MPSS remoteproc PAS nodes
+   =20
+Add nodes for remoteproc PAS loader for CDSP, LPAICP, MPSS subsystem.
 
-yamllint warnings/errors:
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
+com/shikra.dtsi
+> index 42a17ffc040f8..570505c927bb3 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> @@ -1813,6 +1813,170 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
+>  			};
+>  		};
+> =20
+> +		remoteproc_mpss: remoteproc@6080000 {
+[ ... ]
+> +			clocks =3D <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> +			clock-names =3D "xo";
+> +
+> +			interconnects =3D <&mem_noc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
+> +					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/arm/psci.yaml: properties:reboot-mode:patternProperties:^mode-.*$: {'minItems': 1, 'maxItems': 3, 'items': [{'description': 'arg1 (vendor-specific SYSTEM_RESET2 reset_type)', 'allOf': [{'$ref': '/schemas/types.yaml#/definitions/uint32'}, {'minimum': 2147483648}]}, {'description': 'arg2 (cookie_lo in 2-cell form, cookie_hi in 3-cell form)', '$ref': '/schemas/types.yaml#/definitions/uint32'}, {'description': 'arg3 (cookie_lo in 3-cell form)', '$ref': '/schemas/types.yaml#/definitions/uint32'}], 'description': 'Describes a PSCI SYSTEM_RESET2 vendor-specific reset type. The string\nafter "mode-" maps a reboot mode to a vendor-specific reset.\nA vendor-specific reset takes two arguments, a 32-bit reset_type and a\n64-bit cookie. The arguments are encoded as up to three 32-bit cells.\nEach mode property is encoded as mode-xxx = <arg1[, arg2[, arg3]]>,\nwhere:\n- arg1 is reset_type and must be >= 0x80000000.\n- In 2-cel
- l form, arg2 is lower 32 bits of cookie.\n- In 3-cell form, arg2 is high 32 bits of cookie\n  and arg3 is low 32 bits of cookie.\n\nAll values should be provided as per the PSCI SYSTEM_RESET2\nspecification.\n'} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+[Severity: Medium]
+Does this interconnect path incorrectly use the CPU's master endpoint for t=
+he
+modem DSP?=20
 
-doc reference errors (make refcheckdocs):
+Voting for bandwidth using MASTER_AMPSS_M0 inflates the CPU's memory bandwi=
+dth
+requirements and fails to configure the actual hardware path the DSP uses to
+access memory.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260803-arm-psci-system_reset2-vendor-reboots-v24-5-889281373870@oss.qualcomm.com
+> +
+> +			power-domains =3D <&rpmpd RPMHPD_CX>;
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+[Severity: Low]
+Is this the correct macro for the older SMD RPM power controller?=20
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+It looks like RPMHPD_CX belongs to the RPMh header, which causes a dtc
+compilation syntax error when left unresolved by the preprocessor.
 
-pip3 install dtschema --upgrade
+> +
+> +			memory-region =3D <&mpss_wlan_mem>;
+[ ... ]
+> +		remoteproc_cdsp: remoteproc@b300000 {
+[ ... ]
+> +			clocks =3D <&rpmcc RPM_SMD_XO_CLK_SRC>;
+> +			clock-names =3D "xo";
+> +
+> +			interconnects =3D <&mem_noc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
+> +					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+[Severity: Medium]
+Should this interconnect path use the compute DSP hardware path instead of =
+the
+application processor master (MASTER_AMPSS_M0)?
 
+> +
+> +			power-domains =3D <&rpmpd RPMHPD_CX>;
+
+[Severity: Low]
+Is it intentional to use the unresolved RPMHPD_CX macro here?=20
+
+This produces a build error because it belongs to the unincluded RPMh header
+rather than the older SMD RPM bindings.
+
+> +
+> +			memory-region =3D <&cdsp_mem>;
+[ ... ]
+> +		remoteproc_lpaicp: remoteproc@b800000 {
+> +			compatible =3D "qcom,shikra-lpaicp-pas";
+> +			reg =3D <0x0 0x0b800000 0x0 0x200000>;
+> +
+> +			interrupts-extended =3D <&intc GIC_SPI 257 IRQ_TYPE_EDGE_RISING 0>,
+> +					      <&lmcu_smp2p_in 0 IRQ_TYPE_NONE>,
+> +					      <&lmcu_smp2p_in 1 IRQ_TYPE_NONE>,
+> +					      <&lmcu_smp2p_in 2 IRQ_TYPE_NONE>,
+> +					      <&lmcu_smp2p_in 3 IRQ_TYPE_NONE>;
+
+[Severity: Low]
+Does this configuration incorrectly define the trigger type for the SMP2P
+interrupts?=20
+
+The smp2p inbound interrupts represent software-triggered edges, so using
+IRQ_TYPE_NONE instead of an edge trigger violates the binding expectations.
+Even though the driver happens to mask the failure by explicitly passing
+IRQF_TRIGGER_RISING, the Device Tree configuration appears factually
+incorrect.
+
+> +
+> +			interrupt-names =3D "wdog",
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-shikra-dt-=
+m1-v7-0-7fec8e777076@oss.qualcomm.com?part=3D5
