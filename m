@@ -1,99 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91CB927876A;
-	Tue,  4 Aug 2026 23:46:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49AF3E5ECF
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 23:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785887173; cv=none; b=c5wXi3z07XzmyznPnKKMsJ0vWdo6uJvNQgn36YTHvlNKAnnCMnt3dzgVPtip/joHeAeMor8wByM5OK6CsP+bowc1mwX4r5FIgjgJG29RJj8sPRZZGswNNyVHws2lnXCqRyc6gwCPJsr7uxvlbfgX61FlT7lyfgYXwnGi53sQ0i4=
+	t=1785887352; cv=none; b=HAxvHypUVrI08NBr+BKEhQLV/+WdI8n55RDw7MFtBQIiuj/sFk9xAHhIGfrGpPLVkNOHsCirSfMs5nPA5mzn7JKwqC38KebTOMj3gmiG/dW3v/PDRqmHb3bWiS3ZlFwaGAUu5UA6TwMqvnk262twoFeFTx19IdhXjd8gqlKaViE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785887173; c=relaxed/simple;
-	bh=IGlxB+cjXGhotHSR5Y/gM6kxg65s3JF9L1DezP6vOtM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q56yjCcKaEpSYf5w7w/Dnswu4ltdJuDg4wzE2FjoWAs3GzXO3WO2PA/r2g8L7FLR5ykfqXoRQP5nHBwLOb+bMOEzsWOoqFoPUUzQYYoWWjywhrIGU37+Lv+7IRiHQb4G/Amr6j09qmSFBlN2Yi0ecPrpZjD5TI+DdOdbr4TyMko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJu3vWrA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785887352; c=relaxed/simple;
+	bh=5hpP7z86FFY8OXWHUhmNK0j7bqpXKUc6PTcv7+UYwN8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PrGuI7YyGEd2xbvpnnC1iCNJxVUG3/dfepKbyPpZ0BGHiq68QYWKb3mdnOQWD3c+EuzPl2GBxFBOAB3gfTNwB7KTLFQSPT+JTqLY5Xf3tWHHa9rgPsdGa26V/XrhUiSnp2oIfSrcVL+4gWpFP6SUfuzsB6sAAYwKxXRTmV2+rEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OsIZixB0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJu3vWrA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE71D1F000E9;
-	Tue,  4 Aug 2026 23:46:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OsIZixB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E5A21F00A3A;
+	Tue,  4 Aug 2026 23:49:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785887172;
-	bh=tgzQT2eb0ik9glYYypPb1LzOOimeFURiv/h2vun0Vak=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lJu3vWrAjtCCcNHl4C0SdtXvewyi1xf68K6cFLypaJ1W9OhalrQhlozIUsLPNDdEU
-	 RJ7Cizdz2XXQDvKnQOipzOBRoxE+kOb/QCd7pYPvfSNdQu7chVUWRo8tPOkeTowTBp
-	 OuLB93amB6igBhb0P3FjMD35xVTn9ghmbTMg5aR8KxEtscP4SPW8+AoBTL09+EFIDL
-	 9FWpQ7q3IxhWHgYuiz12Vu3/ZwfJrHFE/cYk5cSwtb1U3l65c5YqX4wuJRS4OjIVII
-	 X+PlJI0n9KB5cA+g7FuDFmwA28jv2TNS/FK25n5gnAWrGQxkfEzPdkEWWYxacsUj3Q
-	 abZ4NB61G4k4A==
-Date: Wed, 5 Aug 2026 00:46:06 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Siratul Islam" <siratul.islam@linux.dev>
-Cc: "David Lechner" <dlechner@baylibre.com>, "Lukas Metz"
- <lukas.metz@gmx.net>, "Nuno =?UTF-8?B?U8Oh?=" <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: dac: dac8163: Add driver for DAC8163
-Message-ID: <20260805004606.7a190728@jic23-huawei>
-In-Reply-To: <a967c89f72bc36226dfd35ceba61dc0d2e632ddc@linux.dev>
-References: <20260802-dac8163-work-v3-0-3ecc7bc66d0d@gmx.net>
-	<20260802-dac8163-work-v3-2-3ecc7bc66d0d@gmx.net>
-	<50fee508-db53-46c3-b245-22893023f370@baylibre.com>
-	<a967c89f72bc36226dfd35ceba61dc0d2e632ddc@linux.dev>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1785887349;
+	bh=5hpP7z86FFY8OXWHUhmNK0j7bqpXKUc6PTcv7+UYwN8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OsIZixB0xhxbCmUQBHv2IYU5VpVPHFiXhFAR22KNu1PX3jDjsmtitjHrBGUZ0XeJT
+	 timt1WgceMtaSVATOA628iTMP2oqpZvAmnE8Lv1epbovEa5cgLVbBX0VzwtJQP2x+5
+	 RQuX2bDswRrk7+gdBQKrbyD9G4jIT53SYFCTIu/2ZF7biA7HqINkAm1TPhSlkZPyS9
+	 kfc1sT6t4onn02dD2WxsZF2hHHiQIu/658+1zMzoour8w6xqdviPGcyqP0OhbvEcmr
+	 H0meMvFmVzWuXdsCbc4VrxVUXG61RFdp+r/gyX/GUNWepkhEffBKQP+YEux1Pm7C02
+	 /EDopdv8E7HAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 2/3] net: mdio: make device map changes
+ hotplug-safe
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Hilliard" <james.hilliard1@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260803-submit-mdio-of-dynamic-v2-v2-2-f8841f3124d7@gmail.com>
+References: <20260803-submit-mdio-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com>
+ <20260803-submit-mdio-of-dynamic-v2-v2-2-f8841f3124d7@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 23:49:08 +0000
+Message-Id: <20260804234909.7E5A21F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 03 Aug 2026 08:28:51 +0000
-"Siratul Islam" <siratul.islam@linux.dev> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-> August 2, 2026 at 11:19 PM, "David Lechner" <dlechner@baylibre.com> wrote:
-> 
-> 
-> > 
-> > On 8/2/26 11:07 AM, Lukas Metz wrote:  
-> ...
-> > >  +#define LDAC_CHANNEL_A_MASK BIT(0)
-> > >  +#define LDAC_CHANNEL_B_MASK BIT(1)
-> > >  +#define VREF_MASK BIT(0)
-> > >  +
-> > >  +#define DAC8163_INTERNAL_REF_mV 2500
-> > >  +#define DAC8163_RES_12_BIT 12
-> > >  +#define DAC8163_RES_14_BIT 14
-> > >  +#define DAC8163_RES_16_BIT 16
-> > >   
-> > Macros that just map to a number that is part of the macro name
-> > aren't that helpful. We can just use the number directly.
-> >   
-> Each of them repeats 4 times. I think typing a number that many times 
-> is more error prone than having a macro.
+New issues:
+- [High] `mdiobus_remove_devices()` can race with concurrent non-dynamic de=
+vice removals, leading to a double free of the device reference count.
+- [Medium] The dynamic removal safety mechanisms introduced in the patch ar=
+e dead code because `device_remove_dynamic` is never invoked.
 
-These only go into DAC8163_CHAN() as the resolution.
-Sure we might end up with 13 due to a typo, but on same
-basis the channel numbers might end up as 42 rather than 2
-but we don't define a macro for those.
+Pre-existing issues:
+- [High] Accessing `bus->owner` in `phy_detach()` and the error path of `ph=
+y_attach_direct()` after potentially freeing the `bus`.
+--
 
-So I agree with David; use the numbers.
+--- Patch [2]: [PATCH net-next v2 2/3] net: mdio: make device map changes h=
+otplug-safe ---
+Note: The format of this review has been altered to a free-form summary due
+to recitation restrictions. A standard inline diff has been omitted.
 
-Thanks,
+commit 22975fc157973334c571ff5ec87c6baf39897f09
+Author: James Hilliard <james.hilliard1@gmail.com>
+Subject: net: mdio: make device map changes hotplug-safe
 
-Jonathan
+This commit adds serialization and safety mechanisms to MDIO device
+registration and removal. It aims to protect the device map from concurrent
+dynamic firmware changes and bus teardowns by pinning dynamically removed
+devices.
 
+[Severity: High]
+Does mdiobus_remove_devices() have a race condition with concurrent
+non-dynamic device removals?
 
-> > > 
-> > >  
-> >  
-> 
-> --
-> Best regards,
-> Sirat
-> 
+Looking at mdiobus_remove_devices() in drivers/net/phy/mdio_bus_provider.c,
+the loop reads the device pointer from the map and subsequently calls
+device_free() without taking a reference or checking for a concurrent
+removal's success.
 
+If a concurrent thread performs a non-dynamic removal (like an SFP unplug)
+calling phy_device_remove() on the same device, it could successfully
+unpublish the device and call phy_device_free().
+
+Then mdiobus_remove_devices() continues and calls
+mdiodev->device_remove(mdiodev). This fails internally with -ENODEV in
+mdiobus_begin_remove(). However, __phy_device_remove() and device_remove()
+swallow this error and return early without indicating failure to the void
+returning caller.
+
+Because of this, mdiobus_remove_devices() unconditionally proceeds to call
+mdiodev->device_free(mdiodev), resulting in a double free of the device
+reference count.
+
+[Severity: Medium]
+Are the dynamic removal protections reachable in practice?
+
+The patch introduces mdio_device_remove_dynamic() and
+phy_mdio_device_remove_dynamic() intended to pass dynamic =3D true to the
+removal routines.
+
+However, the function pointer device_remove_dynamic declared in
+include/linux/mdio.h is never invoked anywhere. The standard APIs continue
+to call phy_device_remove() in drivers/net/phy/phy_device.c, which hardcodes
+__phy_device_remove(phydev, false). This appears to leave the dynamic
+removal safety mechanisms inactive.
+
+[Severity: High]
+This is a pre-existing issue, but can accessing bus->owner cause a
+use-after-free?
+
+In phy_detach() in drivers/net/phy/phy_device.c, the code calls
+put_device(&phydev->mdio.dev) which drops the network driver's reference to
+the PHY device.
+
+If the MDIO bus is a separate device that was already unregistered and freed
+by its driver, dropping the child PHY device removes the last reference to
+the parent bus kobject, causing the bus structure to be freed immediately.
+
+The very next line checks if (ndev_owner !=3D bus->owner), reading from
+potentially freed memory.
+
+The same sequence exists in the error_put_device path of
+phy_attach_direct(), which calls put_device(d) followed by checking
+bus->owner.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-submit-mdi=
+o-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com?part=3D2
