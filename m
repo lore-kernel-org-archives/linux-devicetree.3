@@ -1,123 +1,179 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-vk1-f225.google.com (mail-vk1-f225.google.com [209.85.221.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CDB431A57
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785875853; cv=pass; b=qUQ+eVMrt/KedJGkfOH8WlC58P1j716BvZpCYFcMACcOlB6JBs42D3i2Aa98eDrQ5RElqw6JnaBJpGXtY6YbP0EL1HgmfkR9ofDDI3J1foo+lHjtOjAJs4deRAg7TUIkpxbsgLld+4Izqzxg+OAuIp2tNX1p4dKVPYw3v7REM5A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785875853; c=relaxed/simple;
-	bh=K8Nry9JZX0+jkudHxKcPqQRdC9OkvdOyv4wLmj940zo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MRVS53CgZvzF24gQdp6Ft1NepQ/CUQEX86D5tWzU/NXFmteOAGJ0uAkYFWq/XkZwKpmWrX9mRikaQgjr6BxvBhf9yYMkJguk/vZpRmTfXs4kQqf3SLcxyjO6vZVX5MHge0heUNCZlPdKTBLNUeozRNR6v0dXSMxPU/QBdkEZz5U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dbzSQZBx; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A9E3C942C
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.225
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785875907; cv=none; b=CZ4t72CSdZ++rMoLY9F/hBep92VQevo0PKTtpUE28l4ECCoXMniWlgdhuKRcaDVnuhL8S4jeP7VWDiDdLfjGkUg587YBBIO1CgWw32yHRsUlc5maLZTWgMxUV7N2qTYyKej1oRsswgQoCftn2jU3n2ad/1nL2Ql1Je8R18VcCoc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785875907; c=relaxed/simple;
+	bh=R5Qnv70P5N/IFzuqDWY904MEeXroycu6O4z9BGFiyQ4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cz4ppiA5FxHpyxMK7/flA++RVkMmspZ5iii3INrwX+9CAl/JYZ+wHulFFngv5iKtH6skT534m5NgmP0AlalzMh4MrdmtPDxcI0D+N+3+t3EW7jG2kc1ESeTWvQ3dIeCHaayl8pY0AzMuKBXHcoB4XF8qsHTr1Bbsm6PIO67SkZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=RLNLoRYM; arc=none smtp.client-ip=209.85.221.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dbzSQZBx"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69fc2261f2bso359686a12.3
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:37:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785875850; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YFaL9WSJr2oxhGP0HuyDpOb3fCuNgbnOv76lanBFk4XjwtrAlUegsWNcj5d+7EuFM7
-         Kk74ZoJqCmGrDzpaoS/6cNUfP9UTp4dBZ6RvhwQgjFlf/FgpP30VXWjTXdoMXOp1IVgM
-         a6fLosPqXNBe6hMQHhb5ksJz9TF0fZV2Wumb1qf6fKF/wwvjVQcAqbYEdLU0nH3a15bD
-         hUEGtxpH9kxQRuXodqceQlqtTxDmPDh1sU0891wM5fV8AlquC3ZCn9sVoGsB/diW0vg8
-         Dyo2AbSMOyKho+bQHmbTZhjQEPnGmsZyb4ruCUhKlrVcUFUqWlaGm9EzWrp59cBxBmJE
-         Lzyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K8Nry9JZX0+jkudHxKcPqQRdC9OkvdOyv4wLmj940zo=;
-        fh=zep5sB78nnDIKhgJQmlqJK1jcc9jmYrvYsqncVeZDSc=;
-        b=YZONPsmkb/eNXngDu3hwQZD6XlJcAR4TrNi39ZugZH9Bt3xiiRrwuNibdSd6++ZPp7
-         QDgMDghWNZqTpOZPgz6/07M1tjJTQebDvc9cNpAEAd1vUk2i/kr5/LdDvJzKHS9u/6Lj
-         WTPegySQ4budFHOMf2a4v3qlzAMaoFaO5NEMNYDnO1nTB8jWiRMoxitAUTCKF+VMaKxm
-         kIQxreZzkcy0HYerKFMCpEpSSC2NLeuoLVatXWM3r1djtjgseXN3bf2XJb3abyq7K5kD
-         c0sf8FcnNsXXfMAkSnHi79eecXBNx2+7FESvRbmyIZR5YKWBFo+B6QqeIqcjYZNDMgVa
-         DLhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785875850; x=1786480650; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K8Nry9JZX0+jkudHxKcPqQRdC9OkvdOyv4wLmj940zo=;
-        b=dbzSQZBxCX09yD+cRzsL+ZoPNCtflLUuIWGVSlqxeKFgDYNvtTvMwtSEr6zdjFYTIS
-         CUO9zc+I8jX2pC1gD14PBknwj/G65rKxYHMPZMSrj/VMvt/yz9M5zmPAHDiigy9ZggOO
-         Rbh8l55ThFO4qr4s/3AsBnvSnkD6H5cCiMhMVsVECeokkVdtSX+obTqlLHn9m1F8EJBE
-         MeBuVahvAKaBjieyhiOh468WtKd38nA/w6nxUzrUGX3pHBMEqp+AT8Qd9EFkcty6jDwq
-         2RHodwUAkhGuzgoU3EzyST2gfdul/y9GJ0Fofa7vfkXO+VwIuhGQcCuMex16citeuNR0
-         UL2g==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="RLNLoRYM"
+Received: by mail-vk1-f225.google.com with SMTP id 71dfb90a1353d-5c2c96286f0so89743e0c.3
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:38:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785875850; x=1786480650;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K8Nry9JZX0+jkudHxKcPqQRdC9OkvdOyv4wLmj940zo=;
-        b=Y+rstKBjsjwE4R+RAioAxikLC/GaS2e6vj3alUIgDDaINW6kRsqk9f6vDx9c1Qu/f9
-         0mEsf+tQTU56ftLl6dhqplgRhmcFHT3lZIsk0P7WfcaD0l/fjjIR+HjVatc2eAIh4/F2
-         c2jZ8A44egI4+ARHFs0FoU9U2rlR6JTvKoyTqiQ1uwjtsQXlisqyuCfc/H7HR25YtQfZ
-         6CB1jt0s3k18fuBbPPwolmRJD/ZNiXMcU70q+MmWrPgaS54yjAUkRji22J8p0q1z47W/
-         MNTkIAkb8EjZi/TVRp8OipmhSsUVY2OhvzRG47bzFcsCrdYoqwasZ/RsM4KUw4dYxI0t
-         h+Fw==
-X-Forwarded-Encrypted: i=1; AHgh+RrSwS1fnLgjSY16+l6e9gyweaSDGMp+7Hr4gNqAcD9LfYjIrgHMdlZJYrSzli008luoSNKjGBItRgUb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgiQuC3PqixujgqTmeuSZJydo86npWrR+xgubGR81FptKCr9yc
-	hM67dt8N4EzVjvyBabiJg5YwtPH6mm1qtx8yj4FMQUb5pnbG+0ZGanzCLcpM4Ot/xz4rCSXhNP9
-	iDFxddLcravEFfPHrGw0n3ApdDRwpi7E=
-X-Gm-Gg: AR+sD10soBvHfSINucO2kgAv3NSwCeCvU1UYqYTXe2Oxk+4pCo3m9R2ANaCLdJ3b8hg
-	fPNqspq1+w7iY75P8YwIiIWXIVmu46XpR1KOiA3ESPENSJyX/vApTBEgzX1HzFaSWaNy6344FIF
-	+41kKL4LuqgCiy/N/LSjNrJOlw9Cpkar3YneUfD8HFhzzUdW19ymqcUiU3+G93I4OviVEBAciWZ
-	ypwaM1Pvd6TLn0bpCrMQ/V8KcHyQEj1MGVRYD8wE8W/VR0L4+hHz2F0BgzFwtBaCz1RZ0AaR5Zg
-	EiPL7pakwk9qBo//pWRhcQ6i7uzLwx02lg5fuMAX2Hm7
-X-Received: by 2002:a05:6402:3506:b0:6a1:44c8:edc4 with SMTP id
- 4fb4d7f45d1cf-6a14f15d5f7mr779529a12.12.1785875850152; Tue, 04 Aug 2026
- 13:37:30 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785875905; x=1786480705;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RifdID+ubAjNrEP9gKUm/CCi/duq76C23UHVDTetxoc=;
+        b=DmDwpLY2Tc1LBRQaCVTHYcvlPrdjl3e5yzZsk+NapPxVDlI9dBLuBZdLmKZ9qq/61z
+         EvYKdXMKwzEu36c2SbN3bUeykd09ZuRSHWeex27R0/x00o90GjuiG6i3Nb4RIUPkd8x9
+         Jswn+Ur+5tymkuocJlwBxc05Uuyf3QaCWRMm0G1tCgREaatwWkethpwwPORPEiR8eMtS
+         nDzcEqnl809qO0G/CaZsANSaFZudRXi0lgMsG0H8+pacNN3vEU/6q+OZCH2MeZ87bNQr
+         lbDZmbdttmx0Uw+sf27jM759p5GeCuvdSBJ6rGHYiJa3aib6MjUlNrBFMGItj/4gIx4X
+         EaqQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr/6bBNaJdBpk/ow2PXbHYg+Dy4Jfsk60DEwHxGivZ40NQOQfOVQfTI52NqcYnNJAd/j1MefX7uR8+j@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxQHu3x2rz9t2tvNN3NkxuVuI/ha878+Gvt4UYr8OQILL9BX0d
+	Twwwf8GEOhw+NcyR0f9c1Jwpay+MGLYlx4J1ECPenYSzDgeqwAed0JdMG2tbsRwG/1esuvC1YAP
+	tU6txHfAuDiJv3ObzxPXMok0xZkJ3N9btb05DOWdmcmj/YxhDJqyZJIT4jYD/ieSA7kBWUzdmo/
+	ZW582BP70BOiAxYrDoM/8RY4D56qgeoPCuCvL9jg57SjNJET1kwS5JfMNNojo5/DbEabgIiMY9J
+	P0vcoL26Fq+XA==
+X-Gm-Gg: AR+sD12vjVTh4D0mWyFDkYXiiSLX1nWs/lr5oEisCOtA4tVCG+/nuRpPI4d8DtskMb7
+	rwamz/bJGX+Q0/+lYpAZfRz3Lua1A3PDzxX6v3pmRW8vokYrN0+Mlz8HkD9I9XBJtFmCiBI9v/X
+	8m4noWGBwjfE2H7UfOT0OJdE99/b78VsgXfBTpNBQPrzoJdt6/yQNer/elXhWntjinq05uTe9r3
+	9ZE5+KKMuo8WPD2HswlPeWrvEdYAEA4Iht4fG4Bp7Oxm8h3fgiccL2ZKVYUVUy3b/9Av3i3xisv
+	bPwh4Tu4/wPoPshI0h4Zh2oGmdXtJ36TFBIkmWca3U23ydqzGngs0AUjbsnKE6HL4zIPElLg7Pl
+	Khqr3yc9gAQi3GWum+3H74aTl4I2So6JPa0gS7SA5piBWAoFMazZ51SrvAlOEBMfVtWzDr2eoKD
+	y0ewiXR6WF4vUo0+WV7kvxZO8yZirIcCxe
+X-Received: by 2002:a05:6102:c48:b0:737:783d:1900 with SMTP id ada2fe7eead31-760ec867d7fmr420667137.9.1785875904751;
+        Tue, 04 Aug 2026 13:38:24 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-9782c90947dsm73270241.7.2026.08.04.13.38.24
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 04 Aug 2026 13:38:24 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e5fc4c7e9so29106585a.3
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:38:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1785875904; x=1786480704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RifdID+ubAjNrEP9gKUm/CCi/duq76C23UHVDTetxoc=;
+        b=RLNLoRYMP7UjAE/aw19tImWOtEMwjA/Qx0swy+fgPpDbQ9hBU3K7yIYHyhGy2YUUIK
+         9N/igmTab9grxLVwoNTXFAWjIL/9h70m0TwW8IOMRk6sPYmhs0+JagCZXjwpZk09zR+v
+         MRlx3Gx6Iyy1XInr5L2yKgOnt9KwOxzyBqv3M=
+X-Forwarded-Encrypted: i=1; AHgh+RrYaIkO3OmYHEaE2FsbqohE9l9jaIEir2oqW1Q8S30stezw2lx3zqdFLUDOtTn9uh/U1zDY5sRpJJY9@vger.kernel.org
+X-Received: by 2002:a05:620a:8012:b0:936:4955:e5ef with SMTP id af79cd13be357-9364955e630mr106755785a.22.1785875904039;
+        Tue, 04 Aug 2026 13:38:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:8012:b0:936:4955:e5ef with SMTP id af79cd13be357-9364955e630mr106749285a.22.1785875903436;
+        Tue, 04 Aug 2026 13:38:23 -0700 (PDT)
+Received: from mail.broadcom.net ([192.19.144.250])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9364a52dbeesm11089085a.30.2026.08.04.13.38.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 13:38:23 -0700 (PDT)
+From: Kamal Dasu <kamal.dasu@broadcom.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Kamal Dasu <kamal.dasu@broadcom.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
+	Erick Shepherd <erick.shepherd@ni.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/3] mmc: core: Keep the card powered across suspend when firmware needs it live
+Date: Tue,  4 Aug 2026 16:38:15 -0400
+Message-Id: <20260804203818.881765-1-kamal.dasu@broadcom.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260731215043.30392-1-maximpedraza@gmail.com> <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
-In-Reply-To: <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
-From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
-Date: Wed, 5 Aug 2026 00:37:15 +0200
-X-Gm-Features: AUfX_mxvS-q6d9SV5M7tSXzAAroVFKsSN0D5MKV2-5EaFu7n2XqTheS2vhlCf9g
-Message-ID: <CAEUXW=EAYTxdwyvpVFDLqof+wNGD-N3hRDRYve2Ou40ZA5R3fQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Helge Deller <deller@gmx.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-El mar, 4 ago 2026 a las 15:59, Geert Uytterhoeven
-(<geert@linux-m68k.org>) escribi=C3=B3:
-> The standard location for configuration that is not hardware
-> description is under /chosen...
->
-> IIRC, real Open Firmware used to have some logo configuration, too...
-> Yep, /options/oem-logo on CHRP LongTrail[1].
-> And it's even documented[2], but fixed to 64x64 monochrome.
+This is v6, and grows from two patches to three per Ulf's review.
 
-Thank you, that is the answer I was missing. I had written the "a bitmap
-is not hardware" objection into the cover letter as something to defend
-against, and /chosen turns it into a matter of putting the node in the
-right place instead.
+Background: on brcmstb boards with a Kioxia 016G01 eMMC, firmware
+accesses the card directly during resume from Suspend-to-DRAM, before
+the kernel's own resume path runs, in order to load boot code using
+hard wired logic that is not field updatable. The card needs to stay
+powered and responsive for that access to succeed, and since it is
+never power-cycled, it also needs to be reset before the kernel
+reuses it after resume.
 
-v2 moves it there, and I will post it shortly: the node is a child of
-/chosen and the kernel looks it up with of_get_compatible_child(of_chosen,
-...). The binding now says why, and points at the oem-logo precedent. It
-also puts the node in the same company as simple-framebuffer, which lives
-under /chosen for the same reason.
+Changes in v6:
+  - Split keeping the card powered and needing a reset before reuse
+    into two independent DT properties, per Ulf: extending
+    keep-power-in-suspend beyond SDIO (patch 1) no longer carries any
+    brcmstb-specific rationale, and a new reset-card-at-resume
+    property (patch 2) covers that instead. brcmstb sets both; SDIO's
+    existing keep-power-in-suspend users are unaffected.
+  - Patch 3 (the driver patch) reflects the split: the
+    mmc_set_clock()/mmc_set_initial_state() reset moved out of the
+    suspend-side fast path and into _mmc_resume(), gated on the new
+    MMC_CAP2_RESET_AT_RESUME, matching reset-card-at-resume's name
+    and description.
+  - Also per Ulf (raised on v4, applies equally to v5): dropped the
+    mention of sdio_set_host_pm_flags() and how Linux's SDIO stack
+    happens to expose this at runtime from the binding description --
+    that's a software implementation detail, not a hardware/platform
+    description.
 
-Thanks as well for the references, the CHRP one was new to me.
+Changes in v5:
+  - Patch 1: added Krzysztof's Reviewed-by.
+  - Patch 2: only set host->pm_flags |= MMC_PM_KEEP_POWER after
+    mmc_deselect_cards() succeeds, instead of unconditionally before
+    it. Otherwise, if the deselect fails, the card is never marked
+    suspended, _mmc_resume() takes its early exit, and the flag never
+    gets cleared -- leaking it for the rest of uptime.
 
-Max
+Changes in v4:
+  - Dropped the no-mmc-poweroff-suspend DT property and
+    MMC_CAP2_NO_POWEROFF_SUSPEND host capability entirely. Krzysztof
+    pointed out they described exactly the same contract as the
+    existing keep-power-in-suspend property (don't power off the card
+    across suspend/resume). Extended keep-power-in-suspend's scope
+    beyond SDIO instead, and reworked _mmc_suspend() to check
+    host->pm_caps & MMC_PM_KEEP_POWER directly rather than adding a
+    new capability.
+  - Gated the fast path on pm_type == MMC_POWEROFF_SUSPEND; it was
+    previously unconditional, so it wrongly skipped the required
+    power-off/notify handling during shutdown, unbind and
+    undervoltage as well.
+  - Set/clear host->pm_flags |= MMC_PM_KEEP_POWER around the suspend/
+    resume, mirroring the SDIO convention, so host drivers can tell
+    power was preserved if they need to.
+
+Changes in v3:
+  - Reworked the fix in _mmc_suspend() (drivers/mmc/core/mmc.c) to
+    skip the poweroff-notify/sleep/power-off sequence entirely.
+  - Renamed no-mmc-sleep/MMC_CAP2_NO_SLEEP_CMD to
+    no-mmc-poweroff-suspend/MMC_CAP2_NO_POWEROFF_SUSPEND.
+
+Changes in v2:
+  - Replaced v1's card-level MMC_QUIRK_BROKEN_SLEEP quirk with a host
+    capability and matching DT property, per Ulf's suggestion.
+  - Added Reported-by/Closes tags crediting Florian.
+
+Kamal Dasu (3):
+  dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
+  dt-bindings: mmc: Add reset-card-at-resume property
+  mmc: core: Honor keep-power-in-suspend/reset-card-at-resume for (e)MMC
+
+ .../bindings/mmc/mmc-controller-common.yaml |  9 ++++++-
+ drivers/mmc/core/host.c                     |  2 ++
+ drivers/mmc/core/mmc.c                      | 33 ++++++++++++++++++++++
+ include/linux/mmc/host.h                    |  1 +
+ 4 files changed, 44 insertions(+), 1 deletion(-)
+
+--
+2.34.1
+
