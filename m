@@ -1,119 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACE63BCD3C;
-	Tue,  4 Aug 2026 19:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213AC3BCD3C
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 19:42:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785872498; cv=none; b=Hn9r6XyOqJEjH77XrUFikj2ijAOu+B31Hgk9bSvIhCPUw/Yq57AdHbg1rQHuI3NTp2LPvRHFABrjokIsCZ9JYX7yKej6+RJ8d5lT5lOq5AyRM5pJXwSWemUFAaS62s1KcqSqM09bpqGrtjX6M7Wozf/gEvE/zJd1nSxEoAxGeZc=
+	t=1785872569; cv=none; b=VldhGMeLI48yQdQ23iCScFtZFshzzJeDBA7foIYF9JtmqnQEfWk4G/lOs0yPYEUmkL8dPL+b0flCQ1vkYOOkaXhJS8IZyMEgw3h5m1asqQUUx3MIkln8FmRl+Zy8vw62GncjQ+TePh/XwEglwqmf5M0SefTwTXsCCbvVT2RvGCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785872498; c=relaxed/simple;
-	bh=9EDERQJ4HZqTGGWwB24WdmoGO6+L9DJncbN1ZsNVsrw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=CiDCJiG/U9Phpdo4KHqomses1wLAKM46OnMdjol2q28Q+4UG5OBnF58nCg8B0V4ydBn2otiXuRlVZvUC4ZOawh6NZrayDYcpfa5jEaZtAAyIiSsURxKCGCLjslmHTH+anuSkt0fu3LVk0uOcVCwjMseAxCWTnPSR8JJDIgAf5Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwSPTTnW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785872569; c=relaxed/simple;
+	bh=hEVOwQHLJ0n3yBfAeZVzTJMYO75zYbIet3QWMz7f+i8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qX9axqcW5LvN0TbQJ3EYxOgNgoLA+wo8o+YPXx/1WtYq83Gl6F/bGPBAEbmXCJ+JPEWmbkruEBiFuB3uQRWMFED+wd81Szp9401q8FDNGY6ErBbJLg1YajaEizVw/LGZdDLUGHpb0lOZpr7KhTbq3GHKowPo0KJML4JOisbhqKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmeQ489e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwSPTTnW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947371F00A3A;
-	Tue,  4 Aug 2026 19:41:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmeQ489e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64F201F00A3D;
+	Tue,  4 Aug 2026 19:42:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785872497;
-	bh=zb8FAbDfD2tCENb5hd+V6dVydQ8w7GMKoU5UPDij9i0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=kwSPTTnWh6B0XSdN6VituJrUE7lhIeokHTcaDte7DlU9yJGthJCZmoh3x1Hx+Catj
-	 3vwegc3vtsk6TERiUmUs3KksDJqBSFfbJPInYBQ/LIkPrEEw6Pdc62fNUHL+Q4xGk8
-	 5+c3I9IvnzeuaU0YwImbQ6SELYANfMeykw7dB51nAJKffzyXUETJTX33f0FReV9t4O
-	 mElpOs2RdLjdWmuW2uQZNIQWF7U5iigecZdJOWpOtLW0Urt9A35efLpK6MOawq/LL4
-	 2bBDSZpiF8DhLeR9a7Bwk2GBFaAN0xC0qUfyV70EaquKkQrr89epi7V69gE9hlTEqe
-	 Z9LPCFF4jym6w==
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Sudip Mukherjee <sudip.mukherjee@sifive.com>, 
- Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
-References: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
-Subject: Re: [PATCH v2 00/11] Add support for StarFive JHB100 SFC
-Message-Id: <178584803821.111355.7674282835778349051.b4-ty@b4>
-Date: Tue, 04 Aug 2026 13:53:58 +0100
+	s=k20260515; t=1785872568;
+	bh=k3kpVDY5AbzrikDToGJ1bOPS0Hh/hrMUX0yM8Qs/cHU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lmeQ489epP3O8Bw2oTzuBecqXe7+GHnnw2e51B5vurJ3/WGd/IFPZ6qFnhXmMqJPw
+	 KFWfd6zO55XTQoPsNS+/Kbye9vdCRejCY4/YICY9Jf2rl7OcOxd5YQ1+1mEMC9CzOL
+	 AVTyfP1LTQRd0GA6OBltcQrDGqiuzwAgQ2dFne04LnKx/58syAmTPOAV9EpQHOWpW/
+	 hM4zFB1iHGyN/xClcGjBTVh0PCgW+Ri9pCz4OGmH8cVWN/UdhmTVov8glAoLqSqW3k
+	 Fgs/KWHkOR6AWXWEsTj2Lz80yJJnKsPQSDMZWMfv3QI9AenTozKXBfnxzN6x1GUXfi
+	 d6x8DYGN64jPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 3/3] iio: adc: ti-ads1100: Add ti-ads1110 support to
+  ti-ads1100 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260804192840.29121-4-jakubszczudlo40@gmail.com>
+References: <20260804192840.29121-1-jakubszczudlo40@gmail.com>
+ <20260804192840.29121-4-jakubszczudlo40@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 19:42:46 +0000
+Message-Id: <20260804194247.64F201F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2490; i=broonie@kernel.org;
- h=from:subject:message-id; bh=9EDERQJ4HZqTGGWwB24WdmoGO6+L9DJncbN1ZsNVsrw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqckBuklnY8aM6ASEPX0kF1gaEt9Do8OhOoXzIX
- iS/e7YZkQiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanJAbgAKCRAk1otyXVSH
- 0NsXB/447pC7Ta4LIEcdEnqHe+qMGWkT9cTW6kGy4C6WKZMcmBVcdq90u2wCOTaq7q4h+2sgx15
- Mf6GjP9IEiHOV9ai2Kb6Gp7hL4W8ApclAmU0csoJCvK5GeDbbs9vZLL3J2wTqmABi8eEx5Uf7eT
- lDtJ/FV/SiAD4ZZSxarEKAJnH9duplahYsUKLvKgoECZ/gfDx4o16keeCViYbCvFu4G4jOZdtPJ
- eOGC6g2DeLu164CsJlo50q7JxvmzAEXL1Ffd3D6v9CtQPigGJQdsqSSGOfo036yLJBKeHpI/09U
- vl6+i5ISH3MyrBfebQThatfY207Qw4wHYMfBwVylRIe28zPQ
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, 03 Aug 2026 05:40:33 -0700, Changhuang Liang wrote:
-> Add support for StarFive JHB100 SFC
-> 
-> This serial add support for the StarFive JHB100 SoC SPI Flash
-> Controller (SFC), which is based on the Synopsys DesignWare SSI
-> version 2.00a but with some customizations and it also add
-> enhanced SPI for DesignWare SPI controllers.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Missing error check for `ads1100_get_vref_millivolts()` return v=
+alue propagates negative error codes to userspace.
+- [Medium] Missing state restore on error paths in `ads1100_poll_data_ready=
+` leaves the ADC permanently in single-shot mode.
+--
 
-Applied to
+--- Patch [3]: [PATCH v9 3/3] iio: adc: ti-ads1100: Add ti-ads1110 support =
+to  ti-ads1100 driver ---
+commit 1ff426338598760f136ce661b966962981800132
+Author: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+iio: adc: ti-ads1100: Add ti-ads1110 support to ti-ads1100 driver
 
-Thanks!
+Add ADS1110 support that have faster datarate than ADS1100, it also uses
+internal voltage reference of 2.048V for measurement.
 
-[01/11] spi: dw: Introduce spi_frf and STD_SPI
-        https://git.kernel.org/broonie/spi/c/c87b4ba09702
-[02/11] spi: dw: update SPI_CTRLR0 register
-        https://git.kernel.org/broonie/spi/c/607687a869e6
-[03/11] spi: dw: add check for support of enhanced spi
-        https://git.kernel.org/broonie/spi/c/f6b36efcbe01
-[04/11] spi: dw: adjust size of mem_op
-        https://git.kernel.org/broonie/spi/c/3d7fd27c970e
-[05/11] spi: dw: update NDF while using enhanced spi mode
-        https://git.kernel.org/broonie/spi/c/8678095362cc
-[06/11] spi: dw: Introduce enhanced single/dual/quad/octal spi
-        https://git.kernel.org/broonie/spi/c/4cd882e1da79
-[07/11] spi: dw: send cmd and addr to start the spi transfer
-        https://git.kernel.org/broonie/spi/c/51119176c252
-[08/11] spi: dw: use irq handler for enhanced spi
-        https://git.kernel.org/broonie/spi/c/e017fae89e6d
-[09/11] spi: dw: detect enhanced spi mode
-        https://git.kernel.org/broonie/spi/c/defdd0f3d09a
-[10/11] spi: dt-bindings: snps,dw-apb-ssi: Add starfive,jhb100-sfc
-        https://git.kernel.org/broonie/spi/c/8edce30fc953
-[11/11] spi: dw: Add support for StarFive JHB100 SoC SFC
-        https://git.kernel.org/broonie/spi/c/012c1b04f528
+> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+> index 288d209ecf92d..acbf9b96c545d 100644
+> --- a/drivers/iio/adc/ti-ads1100.c
+> +++ b/drivers/iio/adc/ti-ads1100.c
+[ ... ]
+> @@ -90,6 +114,20 @@ static int ads1100_set_config_bits(struct ads1100_dat=
+a *data, u8 mask, u8 value)
+>  	return 0;
+>  };
+> =20
+> +static int ads1100_get_vref_millivolts(struct ads1100_data *data)
+> +{
+> +	int voltage_uV;
+> +
+> +	if (data->chip_info->has_internal_vref_only)
+> +		return ADS1110_INTERNAL_REF_mV;
+> +
+> +	voltage_uV =3D regulator_get_voltage(data->reg_vdd);
+> +	if (voltage_uV < 0)
+> +		return voltage_uV;
+> +
+> +	return voltage_uV / (MICRO / MILLI);
+> +}
+> +
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+[Severity: Medium]
+Will this return a negative error code (like -EINVAL) to callers that don't
+expect it?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+If regulator_get_voltage() fails, ads1100_get_vref_millivolts() returns the
+error code. However, callers like ads1100_calc_scale_avail() and
+ads1100_read_raw() don't check for errors:
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+drivers/iio/adc/ti-ads1100.c:ads1100_calc_scale_avail() {
+    int millivolts =3D ads1100_get_vref_millivolts(data);
+    ...
+    data->scale_avail[i * 2 + 0] =3D millivolts;
+}
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+drivers/iio/adc/ti-ads1100.c:ads1100_read_raw() {
+    case IIO_CHAN_INFO_SCALE:
+        *val =3D ads1100_get_vref_millivolts(data);
+        ...
+}
 
-Thanks,
-Mark
+Could this regression incorrectly expose a negative integer to userspace as=
+ a
+valid voltage or scale value?
 
+[ ... ]
+> @@ -145,7 +183,7 @@ static int ads1100_conversion_busy(struct ads1100_dat=
+a *data)
+>  static int ads1100_wait_single_conversion(struct ads1100_data *data)
+>  {
+>  	int data_rate_index =3D FIELD_GET(ADS1100_DR_MASK, data->config);
+> -	int data_rate_Hz =3D ads1100_data_rate[data_rate_index];
+> +	int data_rate_Hz =3D data->chip_info->available_data_rate_hz[data_rate_=
+index];
+>  	unsigned long poll_us =3D DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz)=
+ / 4;
+>  	int busy;
+>  	int ret;
+
+[Severity: Medium]
+If ads1100_wait_single_conversion() returns an error here, does it leave the
+ADC permanently stuck in single-shot mode?
+
+Looking at the caller ads1100_poll_data_ready():
+
+drivers/iio/adc/ti-ads1100.c:ads1100_poll_data_ready() {
+    ...
+    ret =3D ads1100_wait_single_conversion(data);
+    if (ret)
+        return ret;
+
+    return ads1100_set_config_bits(data, ADS1100_CFG_SC, ADS1100_CONTINUOUS=
+);
+}
+
+If ads1100_wait_single_conversion() fails, the function returns immediately,
+bypassing the step that restores the hardware to continuous conversion mode.
+
+Could this regression cause subsequent continuous reads to fetch stale data
+because the ADC stopped converting?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804192840.2912=
+1-1-jakubszczudlo40@gmail.com?part=3D3
