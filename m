@@ -1,97 +1,96 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109B6468C28
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B43B38E100
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:54:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785851428; cv=pass; b=MlAqpgIXicJRFINtFyp1GlMAHsZ7ZNuGGDXIkqSaujpg9hO/TXTnk66bZuhizVhEzad74jJ7ftk2hGp0ZyRkxzjBWJxSYjPnj4qZ90jRwsvPNSqVFL3zUuKmmHm7+izyQg2fsKEdxHATXGtJkKm1Ju8Ie26t4yA7CpZc13O5O9g=
+	t=1785851644; cv=pass; b=oPGyNH1CZ1Q7E6vZOPh6f8AAeImjuGAJFF31E2M7kfwXD0H4q6IJIOJ96Gn2vmLh+Eiv4wZ+Nr4Bb8sF8YzUbHJr0ygBMdpssoiufymdE6apJCNpzSBcoX1QhyIc0m6ZQysA6eqbUOjunQKDnSevePdD0hLuUOAZ/f697qAONS8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785851428; c=relaxed/simple;
-	bh=ntiiMJw0n1K5Z7TxjYixtiA9S/kmRkDI1jzXd/0u+98=;
+	s=arc-20240116; t=1785851644; c=relaxed/simple;
+	bh=G7tap1XRGOvCEUHEXcCFtnTiVK07JRCwSl13kORQpeg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ixxo0SZjbTF6qwDoYA5ntGUFkq1/dgNbVkfWj5jVFC6yM7nexeJlPrDGu2gEmbOJLjNUOtH3ImOuBJMph+bgbCV2njpi0MnCU6ihkvn6+OLkgNSLfhJJ6wFIvvr9T6cC9Hi3ALqcPTJ96fUbOIDWhBHGTNnjwlq36o2IhZvodjY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D07u+bpM; arc=pass smtp.client-ip=209.85.208.48
+	 To:Cc:Content-Type; b=Bi0kitWhqL7mDar/JSMNvXmZ6PTXVFPv9IrVqYvimE67vLlTvySvLowHOmPNP9Vt8qqiB9+uhyX1zkC98AWHe5ipzMoe/cNEzrfuK330z3tbBfCyiS40LfnyfPD3J1qAs+GZMXH+fkYTGcUB6cY5fp1uz/K6KL5Szu2iJxsypwE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhiNPZG7; arc=pass smtp.client-ip=209.85.218.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D07u+bpM"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a097f5ab95so6184223a12.2
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 06:50:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785851425; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhiNPZG7"
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1c24ec9525so777106566b.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 06:54:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785851640; cv=none;
         d=google.com; s=arc-20260327;
-        b=dJGCRHMngAbzbM1xm480ht8X5DBT7syyaQQFbXW30TdmzrEMghqJvJib7DNCULh/In
-         wlXOPogGxFruy7D2lk1INn/cqvEcOXxngX3TjKmrv+N/rrjREVBL0N0n+JXSfbf1Qi4D
-         yXOma/u1Qw7VZ64DrtY476s+NAiO83ME5KV/pXjX68LLYkEMNyNcvStdC/WfovVTOK6G
-         fwsqVV5cgNuuIYXHHeleFe7tKF1R2Xjq5V4DWIOJ7e9BhR29ObmSTpHl8HFwh9++TBFl
-         l8GvZ8KyJdXAkWo/oeML/Yux9CBe+BWJCfYo6rZn89aMIObqEguxGJ3l96GMC6s/8yfI
-         WG8A==
+        b=fhRkfXD39SosXhUZA5880Ii+YDKf4Wo2NdMnqMlKa+tU2X3xi5IkSla9GC5Lvc/uIb
+         ysENEA7pssokEPGKL+JXSJqGylwTeX8UJWW2HUNQnAwKdtFf3UsGokq3QcYf95ZXKJWU
+         HIcVdA46mUDR6rw2TpGXqotJf2bcJhfPlUO2m9dXgqkZOw1vVFskEJwV4yKLohU5IXXj
+         g6P19EvW3/FVFwh7oTckFsBnP2P2ZFFmGgTM721DSRBn2zXI6MFUqQftwIWdr2XN8Bze
+         wkh9OJhw0caMsyAgdDB4x6pm1tgQTzyEDphUngIJgmsP7SiYNXabYH0ifMiPz0HOhnOq
+         IrQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=zPUq4gSDjzsN5XydY66vNAKwQ+iuieDx500MN2oAnCQ=;
-        fh=fn8+1NT2iBi0RE5xFk5cvFg2rtXeqAt2gjmVcclMV7A=;
-        b=keb/yiOs1hnCYNppGRDQt8FLzkUUjXakxtXkJkRZqv8Lya4XleVkyJzvEK/pIOmRkS
-         wbFbq40+Uwm9KIJkQVo02R/jWX1KIja5pG5WRqZlDCICAicaZt5LKYHfqJiG3FSKmOkK
-         fN5ysYN6UYkfsPo+AVcR1r3Jts/m7Re0Ncni43BcCcmJQgLCTZducrJx5NBco0tO3erY
-         gTBbiZA/ypifkHXNhdp+huIH3Eny5gHZEJz3axbWbDtzJXNL0+4JZlbqBEfWmDPatvpW
-         ZxdOjOW45iXlyTTnxPIrM/nzzY39WoKhCuK1twuJWSPEnhj/1kYVt8Ixh7nYNKuLu0/6
-         Xlmg==;
+        bh=PPUmXWxsibLFFcGxzHWKhbRyg3VRNMzX4a8y84eYXjQ=;
+        fh=vKGO/Ws6UJFimyEbCVVwEPtKqgTzhGw0hUCWElQ4+oY=;
+        b=AIsnW1iN007CrypE8+HxwST8w6FeSy7CIWErAIpT4DwRdvU18Vcx61kbUisSRf1ZeU
+         oJadAh8+4ufHGYw4/jRku50Ja75aMR4UGKIno0y51kdp1su6O/SpTRqd92QVV+WOq3H8
+         tSKlFICbUeK5ImcqWk5m/Ag+/6VFcA6ZyV4rOEmbiVpEEob/xIyO42GJBJwzT9CJtKeS
+         4DVgeuk5Yx6zUJ6Ssq+VxW2iCwaFertX7nWxe8ev6XU/sAuaOjNrq0pCiCHj0Gxll6SS
+         NH03qcclUcJxG4IpZ6yBoDt0+TWEXZRI4h/DJGJ4Unlxg22g4+5ipVncVIo5Gc2kgB/4
+         Y7Ug==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785851425; x=1786456225; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785851640; x=1786456440; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=zPUq4gSDjzsN5XydY66vNAKwQ+iuieDx500MN2oAnCQ=;
-        b=D07u+bpMSx46z38z4vp8dB/Fky8rDXkONVwjlbi4YeD6FtHrUmTn1nI5ldJEesSVA/
-         PXb+alcBt6rONyOUh9/7Jqnfy6G/5KWEgk2m2YvG6g01dnSq5D1VQ2TLrieLVbJwgnFx
-         bzSR6Q6Eh6wU7um+3XiyE+VXO7RV2I+QdNVeDsIizJFOY8nZzzADSszyvMVTCvUcLUGp
-         M5yUWNijtcZc/Q7PLoEwm3QxFCd2/AARYvBFksAOtc9sGdinUSWqZ0xGCi6GcCKKhCgm
-         Y1MARARMUJZ3jZCwCmVafi3VnGQs7qP6xD9NpAP3pXgH2CZm5bWPnqq129SjLaGiTguj
-         t7HA==
+        bh=PPUmXWxsibLFFcGxzHWKhbRyg3VRNMzX4a8y84eYXjQ=;
+        b=XhiNPZG7EgIST9ZDuMOOAC2mk74VETngpt+MdqMizPme9B+uHYi+9xp5EgHFJIyQ5K
+         o4GTNKD9bj6Pfk5UAzIX/7qJPHzbozSsbDWdYZOt7WX8BCqG1nJNhNWXkcQfxpH7RJjv
+         bjlQPli/Ba9ArUabmkF1IjLnH3yzQZRS944bOPP2bP/QDbCLe31qhB13SxeV0LNleU9P
+         gzsLhjp1TwGUNpTAdJtL3D246X389e8vUKlyQjd6Y/26Q3mZjCRWQxJXfxlOHD1V2MK6
+         QAVowppmPt3MPHx/KEgIvjxBSqIzocorfeArR8uLT9yURgGyuPfwJBgCC/IUTgS9C3Jc
+         indg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785851425; x=1786456225;
+        d=1e100.net; s=20251104; t=1785851640; x=1786456440;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zPUq4gSDjzsN5XydY66vNAKwQ+iuieDx500MN2oAnCQ=;
-        b=ooAykrnd8n08nKtOGJXaIEpJjiX6ge4aptWmVGkGeqzkMQ+AmBL13fxW20A9JQCRm+
-         h0fAQ1smUkV2jC12c5mXi2YBu7eHs/lZiT7Yf57Ia7qBrHx4EDItCLdPYigLWE03cDnP
-         O8cAsqIXOOmE+sIPnSj657zS8ozeJSsTCBxBEzDoWNh6FJz959gLeSVUrHIPv/JRUbiW
-         d8wRvUvBXvtzjqKRJr+rpmOkgtFcIHvijHwx26ZIf3rFu3gVYZz6ozoxBFCrloagt4yw
-         yMUrfZprqoShD9jOEfAJf8aqHpQ5NkeIM43ZJleCsdu3kEYq5JygG93qha/ghbSRAs12
-         m0ww==
-X-Forwarded-Encrypted: i=1; AHgh+RqN3hqEWst5xmDC6pLg23jM5X+89Yy/UibPIFJZHcdX2Vmi5jCQgUaToSp2VP4uGIgwFGR1juMI+kHk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx1d+Y09vcKtXZd9rDinaBUJB7vm96ClA+R6XpnJ611lrImub9O
-	+sEOk0KD9FkZ2qPC8uX6iLjBWe2AePhnNr3AVhnQ6JQYe2pGUnehbfafNUjc7pEBDDfuk0QckUU
-	myoIv5GyqCwxRhvlhVbvYyBDSkjap0Gg=
-X-Gm-Gg: AR+sD111MW4KG/FCCk4+4TAtTKU1MR3CfiBjjIV8QVDpB18u1LlI3BIGK/8MsYYXu1D
-	unLxEe4O0qXeL/N9c6v8yJ+nBDZSCQoFuC8Ii/1p55dhktD7DBXwcSG//W60tAZIKKPycnn2hK/
-	ei0ET6Jh6Bdhh6VXXO4fCL4QnkdlkcFretbS+Uq+6nieAPmUk2Rt+kAo4zUGVen0Hf9RxKYLzAR
-	TUk7PXQO566MTKittJGUs7+LYT/dGV98VpRRkYRhZRyTbHd3G0FZ1/jE+j/tMDwcBpk5iss0vHA
-	mrgZPZ02GVADDXTVqdFFcFU2ybqWacSwu3GnlIB9dSK4/ceh/g53hekoULbX4SpJfpGLW9bVHNz
-	DM8OMNmSoggB8Vc2VKEGV9TR3bJWkxQ7RSjp9jYIYSDI/ubh9J7uHyyaHjHyVK4hVNlT79MSFx6
-	+6JX2F9/pNoLkCu3OyYr8T1tVXNXGjQJ2vigoetVeJ4GyW1vo7JLX3eBoihE81HrY=
-X-Received: by 2002:a17:907:3e8b:b0:c15:d6c8:2816 with SMTP id
- a640c23a62f3a-c20239b98bdmr471522866b.27.1785851424918; Tue, 04 Aug 2026
- 06:50:24 -0700 (PDT)
+        bh=PPUmXWxsibLFFcGxzHWKhbRyg3VRNMzX4a8y84eYXjQ=;
+        b=d5kCdvlIURT/k98ndtEiNBoXp3YhrXS3z3dkoALkZNzaZjObBWxCLTigTpdGKBqiAC
+         ng/yr4KmlLj9WhFkhwT79e9JJwimyhgovv+Umj6DagxWKIMXdBWLfPgB+km3z5Q8EHU5
+         scXfS5kPnjf2v7UMHjbSYMaL41kq9S/8u+CAKxhHZK+Z4uSsQGdxbcCocgtUB5ABCOPm
+         MeIaJiqQrQHs/j+NZeLg0LKgGOMjrPX+ysAiGFkgAfwsKr96vtijRhnUdHCj8bFMP6I/
+         0YEAIvIhA79ntfpYLnGvbPewWQ4G9KvWItUs/A1cXOBNxZH4VDMP8iNyrp7SCW+PoEEb
+         HOjw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqgfgg9O8yZ315FmeA4mAU8eIAdSjeguTEuwlFpWhvp8oyOPpyiZMJaX+0RI42W4gTo7PxzhEv4xcGo@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNRNBqBlWVTpiVZkN8Z9sZGwpj/0IKQG8S43zoLm9AVq28kMwf
+	mq87Gyor53Gq1GfALESY2dP/n1ufJ6PRRzbds5OQwjQ0zk0bQptAh4Ig4BYcATms0a0WyaTDG0/
+	NMN5CbVZ2c86cEbbW1saagrJvgrosY3Q=
+X-Gm-Gg: AR+sD12VBS1ZVa750/9n+zEWVJ2P0pCuqoyBUp2oCp18WnTJE6i5wzQqIhV+YZloih0
+	94iORYyF/j4CwCveqx8sDNXv7FjSjparTb9EIXbvi/n/ps66UKUJGfc6Gb+XvXmWn5hU/qsL9FL
+	3073qVTkGd0grREhPgjgbFoXXUNzZBcrI2MWKhdyQGeFUCow7yMMuRNX727/F6dKyAi9Z6JnyEH
+	ApYIg7KJqpckYt3FIIcBJLX9p8cWhWaXqRY5S2bKWvSo4deCfEYg2nW22gzS22kk4+7GZHKNwzo
+	dvLxHIRW/t1c+yFoUe7unWGR3REuIiKMUNf+RtSswqDUR6ISc1QpkuexJy6pWB5AidlQ5F+33if
+	/2uzWfgUowFz5mIbbs7sMC2H9yfbYyfZ6XfTz3vpchHstt7hZo84K2c/XFjLIQ0P4kpwIsssjjo
+	xhj0yJxosOohULHWvs3OeeI1mOGe+fP8wjHGPPQMx9xQA3DfLZrwqcxmSt4/DL1Ds=
+X-Received: by 2002:a17:906:630b:b0:c1f:bbe9:963d with SMTP id
+ a640c23a62f3a-c1fe822928cmr1417002966b.30.1785851640233; Tue, 04 Aug 2026
+ 06:54:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804-mcp47feb02_refactor-v3-0-97f8b81f3628@microchip.com> <20260804-mcp47feb02_refactor-v3-1-97f8b81f3628@microchip.com>
-In-Reply-To: <20260804-mcp47feb02_refactor-v3-1-97f8b81f3628@microchip.com>
+References: <20260804-mcp47feb02_refactor-v3-0-97f8b81f3628@microchip.com> <20260804-mcp47feb02_refactor-v3-3-97f8b81f3628@microchip.com>
+In-Reply-To: <20260804-mcp47feb02_refactor-v3-3-97f8b81f3628@microchip.com>
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 4 Aug 2026 16:49:48 +0300
-X-Gm-Features: AUfX_mwVvjiXqocsQ2YgwSYQ8gQZ7vg7rt96Z5KqVZBgWRn4HOmKB8EAjeAiNck
-Message-ID: <CAHp75Vcd-A84KxiCsZpv3y=G-WW8H7GpZ2Y2G7BAnGsVL6Vjiw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
- driver into two modules
+Date: Tue, 4 Aug 2026 16:53:23 +0300
+X-Gm-Features: AUfX_myAnyW643u-12_ny2quh8TtnzwfkUEIgn_rryy2DoW96KR_ckNocIMJ2Io
+Message-ID: <CAHp75VciUg_iwLQ3bp+mY6n2e=sf-697zAOe3PC7gPnpJ5PanA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/3] iio: dac: add support for Microchip MCP48FEB02
 To: Ariana Lazar <ariana.lazar@microchip.com>
 Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
 	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
@@ -104,89 +103,52 @@ Content-Transfer-Encoding: quoted-printable
 On Tue, Aug 4, 2026 at 4:30=E2=80=AFPM Ariana Lazar <ariana.lazar@microchip=
 .com> wrote:
 >
-> Prepare the driver for the bus-specific code by refactoring into separate
-> files. The renamed file will contain the common DAC functionality shared =
-by
-> the MCP47FxBy1/2/4/8 I2C and MCP48FxBy1/2/4/8 SPI drivers. The MCP47FEB02
-> driver was refactored into two modules: mcp47feb02-core.c and
-> mcp47feb02-i2c.c in order to prepare the support for SPI MCP48FxBy1/2/4/8
-> DAC family on top of the current implementation.
+> This is the iio driver for Microchip MCP48FxBy1/2/4/8 series of buffered
+
+IIO
+
+> voltage output Digital-to-Analog Converters with nonvolatile or volatile
+> memory and an SPI Interface.
+>
+> The families support up to 8 output channels.
+>
+> The devices can be 8-bit, 10-bit and 12-bit.
 
 ...
 
-> +MCP47FEB02_CHIP_INFO(mcp47feb22, 2, 12, false, true);
-> +MCP47FEB02_CHIP_INFO(mcp47feb24, 4, 12, true,  true);
-> +MCP47FEB02_CHIP_INFO(mcp47feb28, 8, 12, true,  true);
-
-You need to add a header for 'true' and 'false'.
+> +++ b/drivers/iio/dac/mcp47feb02-spi.c
 
 
-...
+> +#include <linux/dev_printk.h>
+> +#include <linux/err.h>
 
-> +++ b/drivers/iio/dac/mcp47feb02.h
-
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-> +#ifndef __DRIVERS_IIO_DAC_MCP47FEB02_H__
-> +#define __DRIVERS_IIO_DAC_MCP47FEB02_H__
-> +
-> +#include <linux/bits.h>
+> +#include <linux/export.h>
 
 Not used
 
-> +#include <linux/mutex.h>
-
-Not used
-
+> +#include <linux/module.h>
+> +#include <linux/pm.h>
 > +#include <linux/regmap.h>
-
-> +#include <linux/regulator/consumer.h>
-
-Not used
-
-> +#include <linux/types.h>
+> +#include <linux/spi/spi.h>
 > +
-> +extern const char * const mcp47feb02_powerdown_modes[];
+> +#include "mcp47feb02.h"
 > +
-> +/* Macro used for generating chip features structures */
-> +#define MCP47FEB02_CHIP_INFO(_name, _channels, _res, _vref1, _eeprom) \
-> +static const struct mcp47feb02_features _name##_chip_features =3D { \
-> +       .name =3D #_name, \
-> +       .phys_channels =3D _channels, \
-> +       .resolution =3D _res, \
-> +       .have_ext_vref1 =3D _vref1, \
-> +       .have_eeprom =3D _eeprom, \
-> +}
-> +
-> +/**
-> + * struct mcp47feb02_features - chip specific data
-> + * @name: device name
-> + * @phys_channels: number of hardware channels
-> + * @resolution: DAC resolution
-> + * @have_ext_vref1: does the hardware have an the second external voltag=
-e reference?
-> + * @have_eeprom: does the hardware have an internal eeprom?
-> + */
-> +struct mcp47feb02_features {
-> +       const char *name;
-> +       unsigned int phys_channels;
-> +       unsigned int resolution;
-> +       bool have_ext_vref1;
-> +       bool have_eeprom;
-> +};
-> +
-> +extern const struct regmap_config mcp47feb02_regmap_config;
-> +extern const struct regmap_config mcp47fvb02_regmap_config;
-> +
-> +/* Properties shared by I2C and SPI families */
-> +int mcp47feb02_common_probe(const struct mcp47feb02_features *chip_featu=
-res, struct regmap *regmap);
-> +
-> +extern const struct dev_pm_ops mcp47feb02_pm_ops;
+> +/* Parts with EEPROM memory */
+> +MCP47FEB02_CHIP_INFO(mcp48feb01, 1, 8,  false, true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb02, 2, 8,  false, true);
 
-Missed header for struct dev_pm_ops definition.
+Need a header for 'true' and 'false'.
 
-> +#endif /* __DRIVERS_IIO_DAC_MCP47FEB02_H__ */
-
+> +MCP47FEB02_CHIP_INFO(mcp48feb04, 4, 8,  true,  true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb08, 8, 8,  true,  true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb11, 1, 10, false, true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb12, 2, 10, false, true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb14, 4, 10, true,  true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb18, 8, 10, true,  true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb21, 1, 12, false, true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb22, 2, 12, false, true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb24, 4, 12, true,  true);
+> +MCP47FEB02_CHIP_INFO(mcp48feb28, 8, 12, true,  true);
 
 --=20
 With Best Regards,
