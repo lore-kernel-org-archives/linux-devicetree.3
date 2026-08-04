@@ -1,358 +1,97 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8999A3AAF7C
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:13:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785845599; cv=pass; b=izLZJvGfl9uRFv7QC6N/nGnJce00eG9gHHpBKK3S4OF0a/Cf486pEFWhudJ+p97PAz7gB9IrcGs6kf6HSFuOQAVmmeYmMDc/ugJRSm+roIegldETM5R2+fNGx8qsr4dFIji1IonSsHatcqKPwE7FuYFHM4ZFUo2YeXhRL5FSS6A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785845599; c=relaxed/simple;
-	bh=1jmt5WCmRdYFJEkC9Rif/cfA1XLv5OjEVL2XiuFUUMs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O87dnjZ/Zh3wIYd+9c7yAYyip03RWFntFlL1bBLR8mizZ9Bzb2mfePYr4bV9jdJHK6ufaIFidV39L7HHfaWOo+2+Ue7G9QxQSWQCt3TEiBf7k8fT3Sdl29pNmmunm5xOk6vFZ/tv+GTftL84HiSfVdNVhR19reUvGozMCUXZxAc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=A541xQpc; arc=pass smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1B93C8C48
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785845693; cv=none; b=jQd14ehs3coG1y7GTgAEepjkoDT60WI76/pF/HA59cAZg2KiYIEiryrxD3RiHTrM99ZY8Fe6nbQk9D75dhSnZkKW6QF9zKZSwmGSmOnMsZu9WGI7EUhma4rzb42xEPj+y1qwNble7ehyyvjzYEg4u4PUQ4qSUOpkZ2eqf/iFbuQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785845693; c=relaxed/simple;
+	bh=wh9PSGzU/M4S09lIfZ3z8Ixb0mf2rZg7R0cuTMmpra8=;
+	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=d+tM5WUXYADE7FC3Ip8igzfl3vv+X0PIy55USfzRh5KJljZXjvQkqJJlIVuPuGLZwuef49I/c7D3sOvdJ8Lg3EFfc0n0f178dUdLUOhl0ILD5cVQtOIuYu3MeV0AzV/NIwISaWABbhUqMRns05OOStK7m1yIUHjmTBYkCyJZiMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IwMdCUer; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="A541xQpc"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a051904222so6424160a12.2
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 05:13:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785845596; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sDSHvx08ZKGUyh8foud06Au2b7hDj0QyYck+p2yJDEr10ReuR68qo9+kgUkPv3bUFQ
-         1b+YUUHVqQ6dbyu3SmGBjONW7/DcIFis6Hq4fDR3xerBCLZs08CafaHwR0YnVJWGreuK
-         9KMlO9mYZDjZ9kS18gmFpir3PIHAlcnLNjUiJarCMZvu8mwKwTYF1AtgE9VRBWroVGqE
-         3d8tryF1nGLqNiNQtL21Mfk/xI2gPVfvXO/bo9Jw6CaX+6T6HJCzfBC7fqPZEWGHZ9K7
-         xzOZxgad82wFY46uex9HNCkLFebGZp3E60tXuUcrfAPy4HuJrsIGpe6Hi4f4w/AWk9fG
-         mNMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IXbZR8tAcrziDMeRXEJQbq2r3n3VLeqHoVnsKPcZdkM=;
-        fh=sEyTV2+ZNs3HzjuPxamUcdT0Ybrx0VZIf/FLaLFMVyE=;
-        b=DM1E6U3MhnUA05nfzQLkywa7lu/QmRh2VAO+ey0Z/HzgdtWcpKpESRnyTLkG/0e5xU
-         Rx5vlQyj2uRjZkiiFi+d5BmoMuoGSVgrJXz5PsE8FdddAQDlaI8gLLV9GEoZmqvDqkwY
-         70pPNi8LVrX3D8DqgWclY5sXKkJxvfPgk23yyx7rn2F30qiMpt+K2pddSsp31Ya8rbJs
-         6w6cWQUgd60fzp0eqERavPhzklmwoYn7cUFk0WE6hPSa+7bSJWeomTJgCOPNY97bH6ug
-         AhKRm7aa7Bw6n5fVtrG20+4TLKpNJg0lEE1FM4RdcKCu5neFkwGuuuFAE5Q+X1UT3Fej
-         g97g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IwMdCUer"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f59f25ec4so1650751f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 05:14:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785845596; x=1786450396; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IXbZR8tAcrziDMeRXEJQbq2r3n3VLeqHoVnsKPcZdkM=;
-        b=A541xQpcY59QDdUBNiR5AzU+FDat0f0C3w6EWdHVaQOcEWsUSiPAMzJiBIxpXKtLsl
-         Rqmyuyh+g15mgW0YwefgKOwVe7rH/r8c6nuhrqtPCtYRONtrInDX1tjuJ2ugZ+6UZgVp
-         9Lp/QFBYDpNVcqhRygEqhTxNCCznx9TMwZqELpskQ8ykQTJqhre72LcGWLtYRxdN/CuB
-         Giw8SfqSz97mt/3Qa+HBKDND85fJ2F5bcqPkn5dSHfNiblbBdrQ5ODWylsizDsnpB7hn
-         +Mwsqb8XTrBt/wK3NYvLMR9wrjhyebkJ7bgvqlB0frKStECfqGX3U6xB3boT669IhW3a
-         RYQQ==
+        d=linaro.org; s=google; t=1785845689; x=1786450489; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:to:from:subject:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wh9PSGzU/M4S09lIfZ3z8Ixb0mf2rZg7R0cuTMmpra8=;
+        b=IwMdCUerX/Wfig47tUSmhlnlC4C5jZTYZ2Mxfrcgzx2nU4rzeSYJoJ4Fi8vfKIXH9s
+         ocKcBZJvkWoRm3yYT/07/RoSNsx7bQKZAjFP1FS7yIb0biDCgMswE9WG/pP1rsIgbaNV
+         IMhJnzCHE/hBOQyZx9wPIw1k9FSv6IvG2wuq+h4TL+rG/Ajw3ybeEW7uAw8iEKPeLQDv
+         ZwvQNiO7B5EKMyHhA/tcPJM5u2YJ2anvXMvXeCctVfUntCuw3eny0wX7JJ1NJQUidM1R
+         L4YpuqgCSd3DPBi0tgoaekBC6YrWMjFjPg6ciJpEuexKJPS7gTG1xJIBgdGyv1EpFZNO
+         YBqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785845596; x=1786450396;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785845689; x=1786450489;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IXbZR8tAcrziDMeRXEJQbq2r3n3VLeqHoVnsKPcZdkM=;
-        b=R7pAh0aUTevguXf1R2bBSZOCU3hHpMB6hHtpE9Q7BT35ftjyC/uKXj0hmz+B+DS+8Y
-         +OQ04zcgah4tJctR8ml1HiaVj3R562KvoZ6JDbvgj74003Aj6PyM5ddFWeTlZ71k/y0+
-         Fjpx8nJpuhEG6g3yjrer3Oz42aurQT6PdvMtTXGwApVGC8a1vExXRRNuvt0iIb0S4JNN
-         Nf7Wr49QlEGtyfYYT4vrmW65TO2gmp/jmnbB8tewXFbIVj0Ww+bwwdOfYk6m1y6CIBPj
-         OjXsIxQsdAJkVemQop8vt6SbPftEjHIWYs4DFm4p4CQzXccF2QTwf/Gg9r9wlt9tcnCS
-         hZuA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq4KXG3cJZNuO7Bsqn1EMdyrIecAlcc7GA7gBDIrzVCMfVpamCwEBiGB43fkaUwMFTYXLeVUIqatnhS@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyvBmpyyWdcGLTtwYaq5NQGqBKmHUCqji/u5tP4e8bA84OOX7d
-	EZgtVzgy3P2qx3l/ayKvk74q15SOUDpNisslBQZcdLN8jljeeqCIM7M2uUsC3gyOd4G9i5XeeB4
-	eB4THjzCNE0r+tK+FKgzGoJpDBW+8omFMs+SZtKj4VA==
-X-Gm-Gg: AR+sD10chtmWeMMqPrRZnGG7LsZMjVS9nPow7NAc0uNlTkjTLCjR7UoYitoTC+5HNxz
-	ZrVolfl6fFSBO27Iwma80LK0ibE1RLnwHbKUADNt0Gtwyh1LnoZN1DFj5ZyBTdnoDNzY87EgiUE
-	gpt2LGIHH7brzon0+BWyBVmlyeiFBgvAMh/ALTRvIE1OcZY30Z+s8RRm7fRJ7/8/HJLmyTslpl7
-	3RTd9eeW0ebSmzN+ajlcgHy2cJY82ABNRBtCR7+R95kb90qtXnyhVo12kRE92vKP4O/JSXtvnic
-	BGrwK2+TWkJzPbsM8B6CWRNCHV4XGbZ8Xk3toFEV5sjFToAo4ctxKJmRZRJJvQFwH3/P4QfdQTD
-	UODI=
-X-Received: by 2002:a05:6402:210e:b0:6a1:dbd:bfe with SMTP id
- 4fb4d7f45d1cf-6a10dbd14d3mr6487020a12.7.1785845595738; Tue, 04 Aug 2026
- 05:13:15 -0700 (PDT)
+        bh=wh9PSGzU/M4S09lIfZ3z8Ixb0mf2rZg7R0cuTMmpra8=;
+        b=KGviru9HuQQrXv4SSuRA6G8GedGYyNvfyqfHRD4XIMCTrJU3zRHbq1+Win1d8tg0ml
+         QrnA+bOtHm1Njqq9FsnQFXpQD0TUxnOdZmc3vUaqkS/G6FdGQUwPSwodVB9Y13LYES2F
+         +6C3DFiujuQ9xjyB7Hjh1oPm7HZJSrB6e+0Btt/f4AVdcT3Bz9mtCDFi7jb/htF/RB13
+         7jC2aSz4sjogoHHrRDUizqyM8GbKZ77+PMo6BLWjgfrFM0+fTnEiH8rYQnfkHY/5NoC9
+         h1B6NNGKjrv8VXSKOWuK5GNF19KsA9XCirxL4OW5QpeQRdrA3Hh71Sovf0sYmpanpfTA
+         zjpg==
+X-Forwarded-Encrypted: i=1; AHgh+Rp5y0gt/LT3vu7Ls3N2GjVBOLdNXp6OJb7USs3RMiCNkYIsKbIdW4JCMxaVIyc5rn9Li4/6dVoOcBfR@vger.kernel.org
+X-Gm-Message-State: AOJu0YysH8jJxsLixc8awTeb7uoDhKzCwSGFGXvuZEfWz2EtZSeqX1mi
+	WTCMCa3fyOqRgYDBkdwNL2YmkQIZc8SMFxygnG8dnZiIzt1tnlWsLGV5KtkL1rtkZxg=
+X-Gm-Gg: AR+sD11XH2v+3hcnm+iItZ1PbnR7h6QHJzqzPZJyvLM+L8Fz/FrCItUpihI3dstuNUN
+	wRP5MWTZih8iz1NJIQfkr63n8dCMOO2jF6dFjZIoF7q83/FuPohnBV1tXu04QA0LH6+u1spBXBN
+	rRuvDgW+ENwBqEZxE1Z425kzQdT08FoLi1gZWvflB8VVSE1NqGPi3ta7h737VPDpC4zvqNPspyG
+	2p6OflQEXI3P2Q6udUDKujjXZVSg3zgMdgC96nHOaQNnKf8K2XPZtvBsldTDjW2Zf6MWX3oF/Yb
+	lxzzOcWVRNDHSxPR9qn7Boq3jEpg2M+Ks2XFzYmglxXTYCzKJIClHGIJYxR/bwg7lrphZclDUV0
+	LCFKgIOiptu2enl6t8pM/JymZheW2xM4Gw2G6WkS6Dto/XfVptVs8A/N52EKJuMlvjjag9oUwzj
+	uCDafH3kj1rWclpXAuUrLRrTcs9a8K/kkOiQQ94c9FGwWS7bq6461H5coYffon42pC
+X-Received: by 2002:a05:6000:491d:b0:47f:93fc:2d27 with SMTP id ffacd0b85a97d-47fd72f08f6mr36907224f8f.30.1785845689066;
+        Tue, 04 Aug 2026 05:14:49 -0700 (PDT)
+Received: from [10.1.1.59] ([109.255.181.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91bfsm45894550f8f.15.2026.08.04.05.14.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 05:14:48 -0700 (PDT)
+Message-ID: <6ac14ee5f61625e4254fac74d7e8894b3136e007.camel@linaro.org>
+Subject: Re: [PATCH] arm64: dts: exynos: Correct white-space style
+From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Alim Akhtar	
+ <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter
+ Griffin	 <peter.griffin@linaro.org>, Tudor Ambarus
+ <tudor.ambarus@linaro.org>, 	linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 04 Aug 2026 13:14:58 +0100
+In-Reply-To: <20260801210353.383880-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801210353.383880-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260801-b4-dts-coding-style-strict-v2-0-f09a659ab80d@oss.qualcomm.com>
- <20260801-b4-dts-coding-style-strict-v2-8-f09a659ab80d@oss.qualcomm.com>
-In-Reply-To: <20260801-b4-dts-coding-style-strict-v2-8-f09a659ab80d@oss.qualcomm.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Tue, 4 Aug 2026 13:13:04 +0100
-X-Gm-Features: AUfX_mwc02vgie46TBnIUko-uRbRaYK1so1vlpZtpYgOnY3URFkF56TQorxPBfo
-Message-ID: <CADrjBPo0OzJP7UmnW2igYyqhWxbrdF_fmj0xrvX_0N6P3tNoXg@mail.gmail.com>
-Subject: Re: [PATCH v2 8/8] arm64: dts: fsd: Align continued properties and
- add missing blank lines
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Sam Protsenko <semen.protsenko@linaro.org>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, Krzysztof Kozlowski <krzk@kernel.org>, linux-fsd@tesla.com, 
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, 1 Aug 2026 at 16:07, Krzysztof Kozlowski
-<krzysztof.kozlowski@oss.qualcomm.com> wrote:
->
-> Trivial white-space only changes to adjust to DTS coding style and fix
-> dt-check-style strict warnings like:
->
->   [required-blank-lines] child node must be preceded by a blank line
->   [continuation-alignment] continuation should align to column 39 (under =
-< or ")
->
-> Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+On Sat, 2026-08-01 at 23:03 +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues, like missing space before bracket '{'
+> character or spurious space, which will be flagged by dt-check-style
+> ("redundant-whitespace" warning).=C2=A0 No functional changes.
+>=20
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
+> =C2=A0arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi=C2=A0=C2=A0 | 2 =
++-
+> =C2=A0arch/arm64/boot/dts/exynos/google/gs101-pinctrl.dtsi | 8 ++++----
+> =C2=A02 files changed, 5 insertions(+), 5 deletions(-)
 
-Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
-
->  arch/arm64/boot/dts/tesla/fsd-evb.dts |  2 +
->  arch/arm64/boot/dts/tesla/fsd.dtsi    | 97 +++++++++++++++++++----------=
-------
->  2 files changed, 55 insertions(+), 44 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts b/arch/arm64/boot/dts/=
-tesla/fsd-evb.dts
-> index 73b6a25e0e4d..503abe52a81c 100644
-> --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> @@ -53,9 +53,11 @@ simple-audio-card,dai-link@0 {
->                         cpu-0 {
->                                 sound-dai =3D <&i2s_0 0>;
->                         };
-> +
->                         cpu-1 {
->                                 sound-dai =3D <&i2s_0 1>;
->                         };
-> +
->                         codec {
->                                 sound-dai =3D <&tlv320aic3x>;
->                                 system-clock-frequency =3D <33000000>;
-> diff --git a/arch/arm64/boot/dts/tesla/fsd.dtsi b/arch/arm64/boot/dts/tes=
-la/fsd.dtsi
-> index 214d33ca7177..6766c78243a3 100644
-> --- a/arch/arm64/boot/dts/tesla/fsd.dtsi
-> +++ b/arch/arm64/boot/dts/tesla/fsd.dtsi
-> @@ -43,12 +43,15 @@ cluster0 {
->                                 core0 {
->                                         cpu =3D <&cpucl0_0>;
->                                 };
-> +
->                                 core1 {
->                                         cpu =3D <&cpucl0_1>;
->                                 };
-> +
->                                 core2 {
->                                         cpu =3D <&cpucl0_2>;
->                                 };
-> +
->                                 core3 {
->                                         cpu =3D <&cpucl0_3>;
->                                 };
-> @@ -58,12 +61,15 @@ cluster1 {
->                                 core0 {
->                                         cpu =3D <&cpucl1_0>;
->                                 };
-> +
->                                 core1 {
->                                         cpu =3D <&cpucl1_1>;
->                                 };
-> +
->                                 core2 {
->                                         cpu =3D <&cpucl1_2>;
->                                 };
-> +
->                                 core3 {
->                                         cpu =3D <&cpucl1_3>;
->                                 };
-> @@ -73,12 +79,15 @@ cluster2 {
->                                 core0 {
->                                         cpu =3D <&cpucl2_0>;
->                                 };
-> +
->                                 core1 {
->                                         cpu =3D <&cpucl2_1>;
->                                 };
-> +
->                                 core2 {
->                                         cpu =3D <&cpucl2_2>;
->                                 };
-> +
->                                 core3 {
->                                         cpu =3D <&cpucl2_3>;
->                                 };
-> @@ -456,13 +465,13 @@ clock_imem: clock-controller@10010000 {
->                         reg =3D <0x0 0x10010000 0x0 0x3000>;
->                         #clock-cells =3D <1>;
->                         clocks =3D <&fin_pll>,
-> -                               <&clock_cmu DOUT_CMU_IMEM_TCUCLK>,
-> -                               <&clock_cmu DOUT_CMU_IMEM_ACLK>,
-> -                               <&clock_cmu DOUT_CMU_IMEM_DMACLK>;
-> +                                <&clock_cmu DOUT_CMU_IMEM_TCUCLK>,
-> +                                <&clock_cmu DOUT_CMU_IMEM_ACLK>,
-> +                                <&clock_cmu DOUT_CMU_IMEM_DMACLK>;
->                         clock-names =3D "fin_pll",
-> -                               "dout_cmu_imem_tcuclk",
-> -                               "dout_cmu_imem_aclk",
-> -                               "dout_cmu_imem_dmaclk";
-> +                                     "dout_cmu_imem_tcuclk",
-> +                                     "dout_cmu_imem_aclk",
-> +                                     "dout_cmu_imem_dmaclk";
->                 };
->
->                 clock_cmu: clock-controller@11c10000 {
-> @@ -499,17 +508,17 @@ clock_peric: clock-controller@14010000 {
->                         reg =3D <0x0 0x14010000 0x0 0x3000>;
->                         #clock-cells =3D <1>;
->                         clocks =3D <&fin_pll>,
-> -                               <&clock_cmu DOUT_CMU_PLL_SHARED0_DIV4>,
-> -                               <&clock_cmu DOUT_CMU_PERIC_SHARED1DIV36>,
-> -                               <&clock_cmu DOUT_CMU_PERIC_SHARED0DIV3_TB=
-UCLK>,
-> -                               <&clock_cmu DOUT_CMU_PERIC_SHARED0DIV20>,
-> -                               <&clock_cmu DOUT_CMU_PERIC_SHARED1DIV4_DM=
-ACLK>;
-> +                                <&clock_cmu DOUT_CMU_PLL_SHARED0_DIV4>,
-> +                                <&clock_cmu DOUT_CMU_PERIC_SHARED1DIV36>=
-,
-> +                                <&clock_cmu DOUT_CMU_PERIC_SHARED0DIV3_T=
-BUCLK>,
-> +                                <&clock_cmu DOUT_CMU_PERIC_SHARED0DIV20>=
-,
-> +                                <&clock_cmu DOUT_CMU_PERIC_SHARED1DIV4_D=
-MACLK>;
->                         clock-names =3D "fin_pll",
-> -                               "dout_cmu_pll_shared0_div4",
-> -                               "dout_cmu_peric_shared1div36",
-> -                               "dout_cmu_peric_shared0div3_tbuclk",
-> -                               "dout_cmu_peric_shared0div20",
-> -                               "dout_cmu_peric_shared1div4_dmaclk";
-> +                                     "dout_cmu_pll_shared0_div4",
-> +                                     "dout_cmu_peric_shared1div36",
-> +                                     "dout_cmu_peric_shared0div3_tbuclk"=
-,
-> +                                     "dout_cmu_peric_shared0div20",
-> +                                     "dout_cmu_peric_shared1div4_dmaclk"=
-;
->                 };
->
->                 sysreg_peric: system-controller@14030000 {
-> @@ -522,13 +531,13 @@ clock_fsys0: clock-controller@15010000 {
->                         reg =3D <0x0 0x15010000 0x0 0x3000>;
->                         #clock-cells =3D <1>;
->                         clocks =3D <&fin_pll>,
-> -                               <&clock_cmu DOUT_CMU_PLL_SHARED0_DIV6>,
-> -                               <&clock_cmu DOUT_CMU_FSYS0_SHARED1DIV4>,
-> -                               <&clock_cmu DOUT_CMU_FSYS0_SHARED0DIV4>;
-> +                                <&clock_cmu DOUT_CMU_PLL_SHARED0_DIV6>,
-> +                                <&clock_cmu DOUT_CMU_FSYS0_SHARED1DIV4>,
-> +                                <&clock_cmu DOUT_CMU_FSYS0_SHARED0DIV4>;
->                         clock-names =3D "fin_pll",
-> -                               "dout_cmu_pll_shared0_div6",
-> -                               "dout_cmu_fsys0_shared1div4",
-> -                               "dout_cmu_fsys0_shared0div4";
-> +                                     "dout_cmu_pll_shared0_div6",
-> +                                     "dout_cmu_fsys0_shared1div4",
-> +                                     "dout_cmu_fsys0_shared0div4";
->                 };
->
->                 sysreg_fsys0: system-controller@15030000 {
-> @@ -541,11 +550,11 @@ clock_fsys1: clock-controller@16810000 {
->                         reg =3D <0x0 0x16810000 0x0 0x3000>;
->                         #clock-cells =3D <1>;
->                         clocks =3D <&fin_pll>,
-> -                               <&clock_cmu DOUT_CMU_FSYS1_SHARED0DIV8>,
-> -                               <&clock_cmu DOUT_CMU_FSYS1_SHARED0DIV4>;
-> +                                <&clock_cmu DOUT_CMU_FSYS1_SHARED0DIV8>,
-> +                                <&clock_cmu DOUT_CMU_FSYS1_SHARED0DIV4>;
->                         clock-names =3D "fin_pll",
-> -                               "dout_cmu_fsys1_shared0div8",
-> -                               "dout_cmu_fsys1_shared0div4";
-> +                                     "dout_cmu_fsys1_shared0div8",
-> +                                     "dout_cmu_fsys1_shared0div4";
->                 };
->
->                 sysreg_fsys1: system-controller@16830000 {
-> @@ -921,7 +930,7 @@ spi_0: spi@14140000 {
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->                         clocks =3D <&clock_peric PERIC_PCLK_SPI0>,
-> -                               <&clock_peric PERIC_SCLK_SPI0>;
-> +                                <&clock_peric PERIC_SCLK_SPI0>;
->                         clock-names =3D "spi", "spi_busclk0";
->                         samsung,spi-src-clk =3D <0>;
->                         pinctrl-names =3D "default";
-> @@ -940,7 +949,7 @@ spi_1: spi@14150000 {
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->                         clocks =3D <&clock_peric PERIC_PCLK_SPI1>,
-> -                               <&clock_peric PERIC_SCLK_SPI1>;
-> +                                <&clock_peric PERIC_SCLK_SPI1>;
->                         clock-names =3D "spi", "spi_busclk0";
->                         samsung,spi-src-clk =3D <0>;
->                         pinctrl-names =3D "default";
-> @@ -959,7 +968,7 @@ spi_2: spi@14160000 {
->                         #address-cells =3D <1>;
->                         #size-cells =3D <0>;
->                         clocks =3D <&clock_peric PERIC_PCLK_SPI2>,
-> -                               <&clock_peric PERIC_SCLK_SPI2>;
-> +                                <&clock_peric PERIC_SCLK_SPI2>;
->                         clock-names =3D "spi", "spi_busclk0";
->                         samsung,spi-src-clk =3D <0>;
->                         pinctrl-names =3D "default";
-> @@ -973,21 +982,21 @@ timer@10040000 {
->                         compatible =3D "tesla,fsd-mct", "samsung,exynos42=
-10-mct";
->                         reg =3D <0x0 0x10040000 0x0 0x800>;
->                         interrupts =3D <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 459 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 460 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 463 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 464 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 465 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 466 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 467 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 468 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 469 IRQ_TYPE_LEVEL_HIGH>,
-> -                               <GIC_SPI 470 IRQ_TYPE_LEVEL_HIGH>;
-> +                                    <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 459 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 460 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 463 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 464 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 465 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 466 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 467 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 468 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 469 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 470 IRQ_TYPE_LEVEL_HIGH>;
->                         clocks =3D <&fin_pll>, <&clock_imem IMEM_MCT_PCLK=
->;
->                         clock-names =3D "fin_pll", "mct";
->                 };
->
-> --
-> 2.53.0
->
+Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
