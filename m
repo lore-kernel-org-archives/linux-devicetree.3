@@ -1,107 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECE24503FA;
-	Tue,  4 Aug 2026 08:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BAB42AF8F
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 09:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785833764; cv=none; b=Tuo+pAmAwfdNZ6Zq43PajG9KfEh0DIjWmbZnA2hd6THS+DyadjmZf+FbsN4cNnV5SWZLSAZ7B5F7mXba17crhYKC7HNAkQrkaVqBM1vFyONV2u1fR5XJkv6+SdUanjKm92WQ4KwwD4drWDlZycjgvSuVsF2f0kpLXSczWeaG+u4=
+	t=1785834284; cv=none; b=QLdueb8SDxR5HmRmwviKZB6QqlC9M1vripa4C4KgvSv1lcIISgWephb4LidZES2uRz0YGn0oMyxTksccmePsh7M3s2RooSjAik4c6QBFnBbu8itTdrGm+WGtsMegG/k6ZTntpmb2Ws4yNJ77bGnNVZEa23Z7Opjlrs7xiBfC7vY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785833764; c=relaxed/simple;
-	bh=HXOiia6kvh0ZrH9ueHxWeVpGai2uVznQFbdZS265ors=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A4LgKPrvjWHYXdtCe3PmAsrm8/yTrUYhUHhWyZRwfpeqE0LPaZ17/GctJHc25X6YF6+envExu/Q5Hd7BBH1nUvP/6KRgcmx5NaTJmu/9NgRDAkgY0Y1XafBlrCxi5kp1XreWFsbpQ08U8AbqXE68u3tucpX5qdEXWZ30I8v3JfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NWo0K3YC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785834284; c=relaxed/simple;
+	bh=0jL2w+SolyTTvOnDtWZM/sEAY+hmOUYdWAyDxxHnoQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YbHdih1dvPWldR7AmwcCKUpVzZdUWpO6GqH6y5OilFer3ycNEWf1F5YAiGJFp4cndhz2N+6Q2bfUZp/4AdAvwIuMDfr1VADuT5I5/cF/NwlweWZMzePr7ZvZL6tSZ1wvwzBYFUqAEKYp6Cgr01Fwc3pqN5JIrJOi/4bIviGSA0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwaEoOit; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NWo0K3YC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1D720C2BCF4;
-	Tue,  4 Aug 2026 08:56:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785833764;
-	bh=HXOiia6kvh0ZrH9ueHxWeVpGai2uVznQFbdZS265ors=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=NWo0K3YC+ck9e5IWmXePCzGqIQWQmu2j8ikFVunva71OMYmBbJGWaN3w82CdY6ZTw
-	 P63nJ8Nlu+SBydItk1GClakx4djzta8QcwVCzKYEHVTMxM4oYA7t16rKYdZzaCujNe
-	 4sB8XIFP6/o2bFWpk5knvOGv1+zYCuBIUqA1ySsFLan5d4YQre8FstsGeLRHdAwp/r
-	 D1/5df/yMDVUl+REcM9wKYfiRof+lFVwb91DA9SKcweIycDzWXYRhf84jgoF9jjlCQ
-	 ZEnSwpRMabpjo4SOIRmz4tEpOick7BOIakkJHdeIr472PwU8A2covHhIquixJkHvcy
-	 T+fiyiAAXc0vA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F176AC5518F;
-	Tue,  4 Aug 2026 08:56:03 +0000 (UTC)
-From: =?utf-8?q?Dawid_Wr=C3=B3bel_via_B4_Relay?= <devnull+me.dawidwrobel.com@kernel.org>
-Date: Tue, 04 Aug 2026 10:55:55 +0200
-Subject: [PATCH v2 1/3] dt-bindings: display: panel: novatek,nt36523: add
- the Mi Pad 5 Pro 5G panel
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwaEoOit"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49802c418b5so24864435e9.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 02:04:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785834281; x=1786439081; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7+7in0iqAam6igQXMwDR/UZUiEop9VUXSy8nMMaT7/Q=;
+        b=VwaEoOit6DxqG1SSgYF6p0iHgubuvMF943eAju7d+KuhAXmHwILdYaPlWRMY5cuIuP
+         2BpzrvIAQ3VImeQyn0Yl+TKzU/22ZwpioIdGjO27fT2Bg/t14coZ3VFt437//4wqM4Ri
+         lgK1aFpG9oCl6vzrZSJz2243zUAL5u5fdj8nU+M+jYawdFhdYgL5Vi3YAq5g6vB2K9VG
+         XzSwoap6xMmG7kOnDdsDF44atqEFcJCagsIM11v97DZXrCboOMxZvIhI4yXNi/NYuyY9
+         yz6PFN/sOo2gv1XMb94exquSyF1ltbsNqr2pML2e7bWIcrhomZ3Q5uF35tTqrA0ZS6Td
+         DulQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785834281; x=1786439081;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7+7in0iqAam6igQXMwDR/UZUiEop9VUXSy8nMMaT7/Q=;
+        b=Q9vxdc/GAS1lLIgb0pg56U+bkDRd2VCnEIAVg9+UpMMV6SYkfKaI7DWVZ9RPd1LncZ
+         mOBZuqAPUBcBpImUcGIQk778kxtyfLuS+kU1eHT0903vZW9gn8OEJ0318dyxRSL97ehI
+         u++TyOzJY7NLNfagjrTYOoR3kCfYxbMG2sYtnOZvmPCeIEJPyL0w6ogJndqCRfx2uidp
+         H+8dUluoZMqYknWLKAlZTRe+ky15CwgJ2fHOwnw1D/ZoG4t/pvo7VpLO/AzQ0NUxXgbZ
+         tYOoguSk8cUB4HgjtgTndW4CRrH6SHmAUWiPqHY4dyIb3jyTNlFK0SK0U7R89IGXfcGV
+         wqmw==
+X-Forwarded-Encrypted: i=1; AHgh+RrJ2SOuaotPublBqntoJChKK+D+XCEJzv4ZUSIzeIaNj72qoNygFl0c0DQCw1yVIDKVSQBl8joCmb/c@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4ne0slnO0TPByIMi9JlfjDsyxjeVow9GGbvDo3ogq6qTiCM0d
+	fAt5K5KZ2tquidD0D1gKUWxJ6UWEyrVkJ6VSG5mpddHhyF8CA5Yth3cu
+X-Gm-Gg: AR+sD12JCfBDpT8V2SXKrb/sKt9ldmIxh43E48UYdgxDj6Wz7BjX63FqKqyVkRb4P+L
+	83yKJrgWYXM5eGLXaO/U1g0OgNx9OuqwnJwPibXzYT/9DAAJ7FAab2+OgSJFAVNuA82dU1LeYF9
+	xT/c9fHYvSzJZgK54fms8NAEDMNZ4u88vh9rrYujBdNfEnHAYKISMwf6nxWXcfeZQUa2v4c3LXS
+	NZ5SPxhBjxkkbGrd4WrL7xpNSCqkTd8eKTALv8M+tXwafZsnBo+NumSj4YeS2uJ5NMx54ZjYeQE
+	n6xJwyWgkUjIr2g7ytSVJZraTBDpUFWduojDCV6JpSewE1yTEwNsdlv/lCBatMtfZ1gbsKq44BS
+	P7KdQU1VBDqohoFcDZAxebTUYV3lax5iaIqyIXbDfYZSSBY5BxOC5oDs7BM2IdKeol0cP2hNjvs
+	NeGWQW2B32tl8Yoz0wm0g/ZgHrIqDvsdk5IrZjVezGo/UUj+yKt+G1
+X-Received: by 2002:a05:600c:c8c:b0:493:eed4:7210 with SMTP id 5b1f17b1804b1-4980c673866mr245619265e9.11.1785834281201;
+        Tue, 04 Aug 2026 02:04:41 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994a101ac9sm64111255e9.15.2026.08.04.02.04.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 02:04:40 -0700 (PDT)
+Date: Tue, 4 Aug 2026 10:05:51 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: sashiko-reviews@lists.linux.dev, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, conor+dt@kernel.org, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to
+ pmbus_read_block_data()
+Message-ID: <anGrNyrEX5GX9lYJ@nsa>
+References: <20260728-hwmon-max20826-support-v1-0-224766e0acd1@analog.com>
+ <20260728-hwmon-max20826-support-v1-3-224766e0acd1@analog.com>
+ <20260728162749.A42051F000E9@smtp.kernel.org>
+ <e8ba1c8a-cf68-421e-9974-f31f31e90e59@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260804-sm8250-xiaomi-enuma-v2-1-9dd0486f1155@dawidwrobel.com>
-References: <20260804-sm8250-xiaomi-enuma-v2-0-9dd0486f1155@dawidwrobel.com>
-In-Reply-To: <20260804-sm8250-xiaomi-enuma-v2-0-9dd0486f1155@dawidwrobel.com>
-To: Jianhua Lu <lujianhua000@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1225; i=me@dawidwrobel.com;
- h=from:subject:message-id;
- bh=K3PgfeiNwX67+Qu2eA93ZAIdcx9wFeJuCrMiBI+GtWU=;
- b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWQVrlR6e6Ama9rh0Oe/0i/+nJP1sdXy5ap3gUo3knIcb
- SL6jtnJdJSyMIhxMciKKbLopQXtsQp++f3di9/hMHNYmUCGMHBxCsBEYjoYGZp6ZgR/Nn3f96mH
- nfvprfUvPK/xbqnIYw7RcOr0TrJO38/IMKOl+cHdWNUfH3/t2C635sKZ9TwLls+/KriiwGT50cr
- JbzgA
-X-Developer-Key: i=me@dawidwrobel.com; a=openpgp;
- fpr=B64A778E0E64049A70C831C8B7B81FA12B282A92
-X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
- auth_id=901
-X-Original-From: =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
-Reply-To: me@dawidwrobel.com
+In-Reply-To: <e8ba1c8a-cf68-421e-9974-f31f31e90e59@roeck-us.net>
 
-From: Dawid Wróbel <me@dawidwrobel.com>
+On Tue, Jul 28, 2026 at 11:13:26AM -0700, Guenter Roeck wrote:
+> On 7/28/26 09:27, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> > 
+> > New issues:
+> > - [High] Stack buffer overflow in `pmbus_debugfs_block_read` due to unbounded return value from custom `read_block_data` callback.
+> > 
+> > Pre-existing issues:
+> > - [High] TOCTOU data race on PMBus hardware page selection during probe.
+> > --
+> > 
+> > --- Patch [3]: [PATCH 3/5] hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data() ---
+> > commit c4bd4d03203a9fd14a7a2bcff69ec842b441fa68
+> > Author: Nuno Sá <nuno.sa@analog.com>
+> > 
+> > hwmon: (pmbus/core) Add mapping function to pmbus_read_block_data()
+> > 
+> > This commit introduces a mapping function to pmbus_read_block_data() in
+> > preparation for adding support to a device which needs to use its own
+> > read_block implementation.
+> > 
+> > > diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+> > > index 3d5586c67f840..d697939ec8921 100644
+> > > --- a/drivers/hwmon/pmbus/pmbus.h
+> > > +++ b/drivers/hwmon/pmbus/pmbus.h
+> > > @@ -459,6 +459,9 @@ struct pmbus_driver_info {
+> > >   	int (*read_byte_data)(struct i2c_client *client, int page, int reg);
+> > >   	int (*read_word_data)(struct i2c_client *client, int page, int phase,
+> > >   			      int reg);
+> > > +	/* size of data_buf is I2C_SMBUS_BLOCK_MAX + 2 */
+> > > +	int (*read_block_data)(struct i2c_client *client, int page, u8 reg,
+> > > +			       char *data_buf);
+> > 
+> > [Severity: High]
+> > Does this API need a size limit parameter? The comment specifies the buffer
+> > size is 34, without providing a limit parameter to the callback, which might
+> > encourage callbacks to return values up to 34.
+> > 
+> 
+> The maximum amount of data returned must be 32 bytes, not 34. Callers define
+> a larger buffer size to be able to append, for example, '\n\0'. The function
+> itself, however, must not return more than 32 bytes of data, plus the data
+> length in the first byte.
 
-The Xiaomi Mi Pad 5 Pro 5G (enuma) ships the same CSOT panel as the Mi
-Pad 5 Pro (elish), so it falls back to the elish compatible. Give it a
-device-specific one in front, so a later difference does not need a
-device tree change.
+Curious, do you want me to drop the comment or your reply is also about
+giving AI context so it does not come up again with the comment?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
----
- Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+- Nuno Sá
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
-index b9300a1f2646..2f3f34d08f29 100644
---- a/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
-@@ -22,6 +22,10 @@ properties:
-               - xiaomi,elish-boe-nt36523
-               - xiaomi,elish-csot-nt36523
-           - const: novatek,nt36523
-+      - items:
-+          - const: xiaomi,enuma-csot-nt36523
-+          - const: xiaomi,elish-csot-nt36523
-+          - const: novatek,nt36523
-       - items:
-           - enum:
-               - lenovo,j606f-boe-nt36523w
-
--- 
-2.55.0
-
-
+> 
+> Guenter
+> > [ ... ]
+> > 
+> > > diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+> > > index 7b58f71985741..ff4572c473b70 100644
+> > > --- a/drivers/hwmon/pmbus/pmbus_core.c
+> > > +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> > [ ... ]
+> > > @@ -678,7 +698,7 @@ static bool __maybe_unused pmbus_check_block_register(struct i2c_client *client,
+> > >   	struct pmbus_data *data = i2c_get_clientdata(client);
+> > >   	char data_buf[I2C_SMBUS_BLOCK_MAX + 2];
+> > > -	rv = pmbus_read_block_data(client, page, reg, data_buf);
+> > > +	rv = _pmbus_read_block_data(client, page, reg, data_buf);
+> > 
+> > [Severity: High]
+> > This is a pre-existing issue, but can this lead to a race condition with
+> > sysfs accesses during probe?
+> > 
+> > Looking at pmbus_init_debugfs(), it traverses pages and reads registers
+> > without taking the pmbus_lock. This indirectly invokes pmbus_set_page()
+> > through pmbus_check_block_register():
+> > 
+> > pmbus_init_debugfs()
+> >    pmbus_check_block_register()
+> >      _pmbus_read_block_data()
+> >        pmbus_read_block_data()
+> >          pmbus_set_page()
+> > 
+> > If userspace reads or writes to a sysfs attribute concurrently, it acquires
+> > the lock and sets the hardware page. Could the lockless call from
+> > pmbus_init_debugfs() interleave between the sysfs thread's pmbus_set_page()
+> > and its subsequent I2C operation, causing the sysfs thread to hit the wrong
+> > PMBus page?
+> > 
+> > >   	if (rv >= 0 && !(data->flags & PMBUS_SKIP_STATUS_CHECK))
+> > >   		rv = pmbus_check_status_cml(client);
+> > [ ... ]
+> > > @@ -3564,7 +3584,7 @@ static ssize_t pmbus_debugfs_block_read(struct file *file, char __user *buf,
+> > >   	char data[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
+> > >   	scoped_guard(pmbus_lock, client) {
+> > > -		rc = pmbus_read_block_data(client, entry->page, entry->reg, data);
+> > > +		rc = _pmbus_read_block_data(client, entry->page, entry->reg, data);
+> > >   		if (rc < 0)
+> > >   			return rc;
+> > >   	}
+> > 
+> > [Severity: High]
+> > Can the new callback return a value large enough to cause an out-of-bounds
+> > write here?
+> > 
+> > If _pmbus_read_block_data() delegates to the new read_block_data callback,
+> > and that callback returns a size of 34 (I2C_SMBUS_BLOCK_MAX + 2) or greater,
+> > would it cause a buffer overflow?
+> > 
+> > Just below this hunk in pmbus_debugfs_block_read(), the code does:
+> > 
+> >      data[rc] = '\n';
+> > 
+> > Since the size of the data array is 34, an rc of 34 would write past the end
+> > of the array. Is a bounds check needed on rc before using it as an index?
+> > 
+> 
