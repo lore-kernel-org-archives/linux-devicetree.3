@@ -1,100 +1,81 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957CC4C0420
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:12:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CAD393DC7;
+	Tue,  4 Aug 2026 20:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785874330; cv=none; b=kmv7PZ4LjHzWzSRf40BXZ6zdVaUUMkMpyTvZkjUnG96VQLqwOarmfPXq7XndTL5jAFM+X23T9k79HwveNphH0g9X7Z1Y8cmbAJT23p9kwz41DzhDTS5jeEe3CA5Uk/BOK7SWGbT4FNTzQM383piN7kCpGT+LTFkAa8qJRD6M8Ok=
+	t=1785874607; cv=none; b=RVPdqJYi/qmhmgfmT9AQziVMYtbEEUHnjhNdymQVXtv0cc2vYejZJONish+WRAtUgyV22kGs7qiNujLFHwkBcDAG75UuVaRpPXv6QacQoaKzzgqgeWQvkrulpqPxJhp/lWnw8mocj8FhsuJN1ulI+/JkqbgoqLthDotIRKA8a5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785874330; c=relaxed/simple;
-	bh=wpf69s1Ff8qScLAMkLZ9gpi5DiKNuCHz3HvGvqrBn0E=;
+	s=arc-20240116; t=1785874607; c=relaxed/simple;
+	bh=ddvCW5TpTrmawZnwkCT94vPmm/PM8poYMvhogbDNdY4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jAMBGBhs6R7vX4g//vqNVKadcT54wIy4+EchNR33ZXOLsSjBItkioQSl7CUDQsmd3t77oTUxuvE5xzhAbPjGrUoMaPHW074AVhQXH2RUSeXDxzMSQTOM81JMQgkbUQeikRnDDcezhyzH66+0jL5VLw6vwQE4mVYc87Fxa5MnA8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=J1S+qOqR; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rEmrPyg1UrCFYNLok4LsJFs6aHVNab2afU7ajdXCDut5JI3zoE08p3AnAoa7sVsl4ckVLLbTNzsF/s9nfMDX0vHArfRPdMPb7kcN6m1la3wXp4PACzNFwlwMpzZBBjz2GNNZeq7pTfMRMdsGJx7A297uvMtGs/5P4JTsYOg8gOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2V6kbZu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="J1S+qOqR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=wpf6
-	9s1Ff8qScLAMkLZ9gpi5DiKNuCHz3HvGvqrBn0E=; b=J1S+qOqR1q35FHlbqhAB
-	MEkD7dZoGvKPP1TNJ+nxfLVb79aM1juDQL0kRmLnQIq/K1s8iIIbpY9lgxnkx+mB
-	tl/bWdolotlGgsWko5Hv6ktcukXmU8LyZQdiPpmOUQsi4bhY9JOtXtmR/ThyxOsy
-	ioBEz2XiMxjI5Bi2ZulKyWenqC7zTrelhIs+v8n8bJnd1BZQhxINjFmiPmOD6kTz
-	Q1LlBZ0YX2j+4vjW7GH91dKL0hp/1D+3sIZTcSeD+QtPjXSxU29ouur+u7/G2o41
-	0Ngj34vLxA5XZ33sd8sa2DQibWUu0BjzgGXFaa8VHAxwE5nRUJ7IBFT+9HtZd/d9
-	gg==
-Received: (qmail 3516405 invoked from network); 4 Aug 2026 22:12:06 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Aug 2026 22:12:06 +0200
-X-UD-Smtp-Session: l3s3148p1@dtLQRD5YkLwujnsQ
-Date: Tue, 4 Aug 2026 22:12:05 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2V6kbZu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EA41F000E9;
+	Tue,  4 Aug 2026 20:16:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785874605;
+	bh=qu0CT8rG9jZzpQDEGzamjnzM80udV5r2s0XEsYufbQ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q2V6kbZuhNexW96LIqVkqSK6PilMy3/GJ0YUGxoSZL6ttS/51lUaxI8vwXtcyc+IM
+	 SniuDuY3MXKKHDF1gM25LNGtfju0TbEBRoBjrePGfFeec2GUnOziJ+U1wSttf/Os7L
+	 Jjz3JS0RRk8QMGrc/4qh3NDJYotx+0b/tnmB0O5W9HSJ8kDKnzLc5ImUMHuHI/byo3
+	 DGePCt6xycatA8KGl6+VRgInPfC3ffISKqluMe6iB4EznIlvJLmpjW0bVQsup9aPd9
+	 TmUoPJXsH0MnheYOjcBTTmhCSOsW01njEi8EmuekiQNnsOHq6ldyeA528wh2awz3u+
+	 3SyQ8d9ubI8Gg==
+Date: Tue, 4 Aug 2026 15:16:45 -0500
+From: Rob Herring <robh@kernel.org>
+To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v4 4/4] MAINTAINERS: Add the Renesas RZ/N1 timers driver
- entry
-Message-ID: <anJHlR3FEJxpRNAr@ninjato>
-References: <20260721082952.215691-1-herve.codina@bootlin.com>
- <20260721082952.215691-5-herve.codina@bootlin.com>
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: Re: [PATCH v7 3/7] dt-bindings: sound: qcom,q6dsp-lpass-ports: add
+ Audio IF clocks
+Message-ID: <20260804201645.GA1781336-robh@kernel.org>
+References: <20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260804070307.117119-4-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e9eQDEvhZvpgy4nx"
-Content-Disposition: inline
-In-Reply-To: <20260721082952.215691-5-herve.codina@bootlin.com>
-
-
---e9eQDEvhZvpgy4nx
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260804070307.117119-4-prasad.kumpatla@oss.qualcomm.com>
 
-On Tue, Jul 21, 2026 at 10:29:50AM +0200, Herve Codina (Schneider Electric)=
- wrote:
-> After contributing the driver, add myself as the maintainer for the
-> Renesas RZ/N1 timers driver.
->=20
-> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.co=
-m>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On Tue, Aug 04, 2026 at 12:33:03PM +0530, Prasad Kumpatla wrote:
+> Add the LPASS Audio IF clock IDs used by newer backend interfaces.
+> 
+> Platforms using Audio IF module backends request the interface bit
+> clocks through q6prm. Add the Audio IF IBIT and EBIT IDs to the binding
+> header so these clocks can be referenced from device trees.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+> ---
+>  .../sound/qcom,q6dsp-lpass-ports.h            | 29 +++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+> 
+> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> index ca84952c3884..2e879a3c09ae 100644
+> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> @@ -237,6 +237,35 @@
+>  /* Clock ID for RX CORE MCLK2 2X  MCLK */
+>  #define LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK	70
+>  
+> +#define LAPSS_CLK_ID_QAIF_IF0_IBIT		71
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-
-
---e9eQDEvhZvpgy4nx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpyR5UACgkQFA3kzBSg
-KbYe+Q/7BGzUJ6pQXvmKRPumYNhGJkjLvlN6Ly8/QxwvJxhypsikAW/Ihlt5Zi5C
-z2qJyFdcfhdyr7YKY2DZtZZpjjcIc4eu/SLx1X5Md/0IrfnfdTGAQKRm/9XdTXzE
-nyrVRVGsEJMGd5ErHEke0tOAzrxflEV/arC7oz1Ce5QN0azvPt3J6OtO2yXT0DvL
-Wq1Rr2jiwi70R7TJRRqegop6cNLsBNtdGmoeZZ21IAXInSn28GtNF5cu1vZ8JKF/
-TXCsL0q22J36CV5DOcCV9pojQvaS14JQIIeIcgCzeH1HUOhG9D4RPSz2BkeaBHkT
-oZjjKg2fABnNsYv2+Ow4IUXSW7Ro8f8cuHyJMzg1XavVRhIgG7mL3EDpw8VgQ+/7
-VVuiP2AALCJBA7aC3xI638a1Oe40wiskSQzQ8DA5wjpFaRsZcgyY2ptqZrhNNWIu
-PuZDSHiw04Nt9dxw8I/F0S3M3ckO9OD4mW2nv1cI1bmFcURdXBppEGHYN5KWgxEc
-Ed2Zi8lMS1+gay3FBv5l9t4W61uoasXH7HqeSnbgOH7uXSSzncIWja6cuzmrsus0
-MYnGxZrCDvlEZl2XR8vPTFeI6pJumGvm7eSCGzRfeAb3itctubUTWODisg5rpLvU
-JjcB/gZZmudxYfYjmfTw3btrgi+RHh0zfNsh4XRctvqjYdcxZ80=
-=SZg5
------END PGP SIGNATURE-----
-
---e9eQDEvhZvpgy4nx--
+LPASS_ as saskiho points out.
