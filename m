@@ -1,46 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0687130566A;
-	Tue,  4 Aug 2026 07:48:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714332C027F;
+	Tue,  4 Aug 2026 07:49:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785829704; cv=none; b=Hw1e1ZIXf8Bf7Rr98c7E/6SMzOy1TWaiG+EJfXWzFe1YUUy/DZpCATJLjGoWRaHVrNec18fz5f28Q5pOyNzOI7E0+0UQbs0btzl5/IMHEcDobXanuYkrgpmtDuruhLr2K+xk7X4HcUGB7Lfwqp69+I5Q7kca6Bk8RXc4aL73cbI=
+	t=1785829769; cv=none; b=Zp2uf1BmLbIeXz2btuoSES4U+ZPvOK1DdAVxEMhvQVdsYWwY4HkrloJegIQT4v4PEbk85XC3gkdSuwHBmcgdfC04wPfZ6QLV60YFDL3ccXB32P3NplW5gxukwj/kuUGLSARSBMe6OwIyBcqg8dhW37ejRNtxuAsCazv1ScypeBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785829704; c=relaxed/simple;
-	bh=afsBes9TO9uWmCdyd4/nAFvt7d/3AITXksKBCyufGhs=;
+	s=arc-20240116; t=1785829769; c=relaxed/simple;
+	bh=hZwkU4v4ZgiZYw7xukxF2CsRmRDO+ILQy+qfT5G5aYM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kC5uBT05J97w6gEFP3TZ0orB/R5bI0kj4ZnfLrKHKDiMQy/YKMwWjT0Xbj+RJfW1DK3IaX7xLZimx7km3TlaFM2gZATLblA/WAURLswH4NaXb9Ikyx5hH0FkP4Egidfrbic6KZTm4YBtfHL2gCTcAE96D0qsTyEP/GWd9aOOVjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ec+VVqvT; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fQk7GmXLBzyYUzGkxu/tuhqLmx4pZc+UULI0UEM936iV1zpuVpaupBmbm9dvFPgzUcv1mrnJGPb/JS89UZkzBC4YvFxAxcEITttwMPWmG5UbVSFdeTuQBXjTA0pERAe/bQVe/T9FCVWp/UcJGdLVNn2ICHYNkUTC5P6ofpFk/QI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZZbY807; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ec+VVqvT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8A51F000E9;
-	Tue,  4 Aug 2026 07:48:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZZbY807"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E8B1F000E9;
+	Tue,  4 Aug 2026 07:49:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785829702;
-	bh=NWahUvJ869KYcFwOImwjqm6rJ8smONrk+DtdT/9DldY=;
+	s=k20260515; t=1785829767;
+	bh=09V/+Tk+VUYyHEsKIEpjSsvjFczTBQklJUtW8tDxN40=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ec+VVqvT8ZS4ECZoClUqLkK06Smr5R69Pq+jFikyeNXwxq30k1s/kkf41IHV3yruF
-	 jR2uOHklLLgd8iT5y92wawagNy/Nm9X1AxTxktqc2dhOzrRrHSaCLTiHZ16ArNAu2/
-	 /u1t0JDwkn632r1L4wyKEtR6a4ELqVKykRe7BnyX/47IGx+GvVMtqJvkmqWQThYBX4
-	 DZjNFVbxugjj8BqaSum4J7YE7ESsYLRCrAewPhe83IKkpb8c6Ri6Yq7tnXC3QXeW18
-	 1z5RdpEL0+8gLnV0p+mZN2h82cj0ijuTUkNIkbZvcv0fv3ZKfJUAsDM5EkPkVFmnPe
-	 tpGlg/33rsLDA==
-Date: Tue, 4 Aug 2026 09:48:19 +0200
+	b=nZZbY807QBLDeIGpVjtLhBD3Qim0BG2MP7WgzB1rl8HUQ82njtk7SHKnNbVs8KMO6
+	 xPfAcSgHJZiyRj61ezzMmuD0bzOuip+yu/ER+uKkpSO4Dv5hhDZKEUCrR/iuGVV6WZ
+	 i9whdXo+kaydNrgQrafA88PeqFo+qEar+8hfxDZdJkhnlDNUyr0em6Z80fW/KcluXL
+	 x6IPZJzKYFU0Ubur5A5rm+6YYQMJOCF4j2FgQ7TQAROpZhEZ5sBjMzNx811yALSP0t
+	 ClNjoHmZffJdYRALvcOZkxB93GVt1eYJ1JFGJVbJ8ZQlbmVEY7kRniwVpKDGkxKFyS
+	 Zj0uyZllRTn6g==
+Date: Tue, 4 Aug 2026 09:49:23 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, 
+To: genevieve.chan@altera.com
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
- compatible
-Message-ID: <20260804-unbeatable-fluffy-galago-bfe282@quoll>
-References: <20260803-bcm2712-d-stepping-compatible-v2-0-803017e4ba7a@linutronix.de>
- <20260803-bcm2712-d-stepping-compatible-v2-2-803017e4ba7a@linutronix.de>
+	Dinh Nguyen <dinguyen@kernel.org>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux driver reviews <linux-drivers-review@altera.com>
+Subject: Re: [PATCH] dt-bindings: clock: agilex: mark mpu_l2ram_clk deprecated
+Message-ID: <20260804-excellent-electric-yak-d2de63@quoll>
+References: <20260727094926.1124-1-genevieve.chan@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,42 +45,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260803-bcm2712-d-stepping-compatible-v2-2-803017e4ba7a@linutronix.de>
+In-Reply-To: <20260727094926.1124-1-genevieve.chan@altera.com>
 
-On Mon, Aug 03, 2026 at 02:09:25PM +0200, Gregor Herburger wrote:
-> The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
-> and in a c Stepping. There are two separate dts files. The
-> bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
-> the d Stepping. The d stepping does not set its own compatible/model
-> string but uses "raspberrypi,5-model-b".
+On Mon, Jul 27, 2026 at 05:49:26PM +0800, genevieve.chan@altera.com wrote:
+> From: Genevieve Chan <genevieve.chan@altera.com>
 > 
-> These two steppings are not compatible. Booting with the wrong dtb file
-
-Not compatible but...
-
-> causes a crash at boot.
+> Preliminary documentation referred to mpu_l2ram_clk, but that clock is
+> now mpu_ccu_clk and is already represented by AGILEX_MPU_CCU_CLK.
+> Keep AGILEX_MPU_L2RAM_CLK as a legacy ABI-preserved ID (do not use in
+> new DTs) and mark clock ID 42 as reserved/unused so it is not reused,
+> keeping all existing clock IDs stable for DT ABI compatibility.
 > 
-> Add a compatibles string "raspberrypi,5-model-b-d0" to allow us to
-> distinguish between those two steppings.
-> 
-> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> Fixes: 6b3c59780ed3 ("dt-bindings: documentation: add clock bindings information for Agilex")
+> Cc: stable@vger.kernel.org # 5.8+
+> Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
 > ---
->  arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts | 5 +++++
->  1 file changed, 5 insertions(+)
+>  include/dt-bindings/clock/agilex-clock.h | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> index 127be0fc27c2..11a38cd53401 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> @@ -3,6 +3,11 @@
+> diff --git a/include/dt-bindings/clock/agilex-clock.h b/include/dt-bindings/clock/agilex-clock.h
+> index 06feca07e08e..de7a58a06651 100644
+> --- a/include/dt-bindings/clock/agilex-clock.h
+> +++ b/include/dt-bindings/clock/agilex-clock.h
+> @@ -44,6 +44,7 @@
 >  
->  #include "bcm2712-rpi-5-b.dts"
->  
-> +/ {
-> +	compatible = "raspberrypi,5-model-b-d0", "raspberrypi,5-model-b", "brcm,bcm2712";
+>  /* Gate clocks */
+>  #define AGILEX_MPU_CLK			30
+> +/* Legacy ABI ID; do not use in new DTs, use AGILEX_MPU_CCU_CLK */
+>  #define AGILEX_MPU_L2RAM_CLK		31
+>  #define AGILEX_MPU_PERIPH_CLK		32
+>  #define AGILEX_L4_MAIN_CLK		33
+> @@ -55,6 +56,7 @@
+>  #define AGILEX_CS_TIMER_CLK		39
+>  #define AGILEX_S2F_USER0_CLK		40
+>  #define AGILEX_EMAC0_CLK		41
+> +/* 42 - reserved/unused */
 
-this tells they are compatible. If compatibility was wrong since the
-beginning, you do not have to preserve the ABI.
+How IDs can be reserved? These are implemented by drivers (abstract IDs
+not used by hardware), so how driver could reserve it?
 
 Best regards,
 Krzysztof
