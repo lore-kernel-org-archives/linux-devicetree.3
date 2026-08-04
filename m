@@ -1,133 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49AF3E5ECF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2904A3F39EA
 	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 23:49:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785887352; cv=none; b=HAxvHypUVrI08NBr+BKEhQLV/+WdI8n55RDw7MFtBQIiuj/sFk9xAHhIGfrGpPLVkNOHsCirSfMs5nPA5mzn7JKwqC38KebTOMj3gmiG/dW3v/PDRqmHb3bWiS3ZlFwaGAUu5UA6TwMqvnk262twoFeFTx19IdhXjd8gqlKaViE=
+	t=1785887353; cv=none; b=cb84V24y4rjFu7lhmBCNpM+qoAs4oawLi89mzq3Li1FHVr+aZjSECd8CPRWvCNxRtxBVwZUUkdSzelJUpPQ1Voh1IeB54Tg9QjQABM7aShfAEQcefGPGRE3vYvVPY7b+TSFPRK2IAKioL7laESTC3BVHhcpsuKQeFSLd99O9vqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785887352; c=relaxed/simple;
-	bh=5hpP7z86FFY8OXWHUhmNK0j7bqpXKUc6PTcv7+UYwN8=;
+	s=arc-20240116; t=1785887353; c=relaxed/simple;
+	bh=soqX5MdTNMGI5/Di23cfEXk5ZulLvxXWVbseDnqDBQg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PrGuI7YyGEd2xbvpnnC1iCNJxVUG3/dfepKbyPpZ0BGHiq68QYWKb3mdnOQWD3c+EuzPl2GBxFBOAB3gfTNwB7KTLFQSPT+JTqLY5Xf3tWHHa9rgPsdGa26V/XrhUiSnp2oIfSrcVL+4gWpFP6SUfuzsB6sAAYwKxXRTmV2+rEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OsIZixB0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WaMBMT9rqwrYR5xidElqvqatjLnuMYxPzFM/zDoCYH6f0lu5xHQpTcyFV5PwTlychGgp+vtmNwZ8BjqUjKdMUqiWac58a/RpKsPpQmRU+zbGmX4wAhdleSiJ2uZnDf+2ZprRlksVDfOqMiW48v1uAK7avJe2akJySOGa712qvpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D/Hv2j7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OsIZixB0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E5A21F00A3A;
-	Tue,  4 Aug 2026 23:49:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D/Hv2j7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44C731F00A3D;
+	Tue,  4 Aug 2026 23:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785887349;
-	bh=5hpP7z86FFY8OXWHUhmNK0j7bqpXKUc6PTcv7+UYwN8=;
+	s=k20260515; t=1785887350;
+	bh=d+2D6ZD44jEDte4UF4g5P4szNoQ0J5d8KtZ8mE/57FM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OsIZixB0xhxbCmUQBHv2IYU5VpVPHFiXhFAR22KNu1PX3jDjsmtitjHrBGUZ0XeJT
-	 timt1WgceMtaSVATOA628iTMP2oqpZvAmnE8Lv1epbovEa5cgLVbBX0VzwtJQP2x+5
-	 RQuX2bDswRrk7+gdBQKrbyD9G4jIT53SYFCTIu/2ZF7biA7HqINkAm1TPhSlkZPyS9
-	 kfc1sT6t4onn02dD2WxsZF2hHHiQIu/658+1zMzoour8w6xqdviPGcyqP0OhbvEcmr
-	 H0meMvFmVzWuXdsCbc4VrxVUXG61RFdp+r/gyX/GUNWepkhEffBKQP+YEux1Pm7C02
-	 /EDopdv8E7HAg==
+	b=D/Hv2j7hwt4OOqWSAqGQV9pmHVbNjDcDrqUqhAQKsqMfnjhwGSaFviq2LU8hzhj7y
+	 Ecqr26WinDYY9zBsUfu3sVweF0PvawDcDdDecjzfi/THWabR3DossBork7RG/GdGVM
+	 6Vhhjg5xQFOPwepvP80Z2UanSSz+e/OXoFVX9Oo1mJlqci+W89ViJebsqVUSs8oVTt
+	 TLvon9w1AOSdCuzykBG6Slojp0pOZ765IZwlp64PmzjPEf7yMTes1/upRDO90ULBjR
+	 xz9tIf+4xD2xnnelEopyZLCWWZ8bP+xRLWMWxmmh3c7CKnlp4/r+cGNtV82SzmClpm
+	 ff0PggVWZ1rdQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 2/3] net: mdio: make device map changes
- hotplug-safe
+Subject: Re: [PATCH net-next v2 3/3] net: mdio: support dynamic OF device
+ changes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "James Hilliard" <james.hilliard1@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260803-submit-mdio-of-dynamic-v2-v2-2-f8841f3124d7@gmail.com>
+In-Reply-To: <20260803-submit-mdio-of-dynamic-v2-v2-3-f8841f3124d7@gmail.com>
 References: <20260803-submit-mdio-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com>
- <20260803-submit-mdio-of-dynamic-v2-v2-2-f8841f3124d7@gmail.com>
+ <20260803-submit-mdio-of-dynamic-v2-v2-3-f8841f3124d7@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 23:49:08 +0000
-Message-Id: <20260804234909.7E5A21F00A3A@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 23:49:09 +0000
+Message-Id: <20260804234910.44C731F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] `mdiobus_remove_devices()` can race with concurrent non-dynamic de=
-vice removals, leading to a double free of the device reference count.
-- [Medium] The dynamic removal safety mechanisms introduced in the patch ar=
-e dead code because `device_remove_dynamic` is never invoked.
-
-Pre-existing issues:
-- [High] Accessing `bus->owner` in `phy_detach()` and the error path of `ph=
-y_attach_direct()` after potentially freeing the `bus`.
+- [High] The global OF overlay notifier inadvertently blocks the removal of=
+ any overlay containing non-MDIO nodes, and any overlay whose underlying MD=
+IO bus is unregistered.
+- [Low] Data race on `of_mdio_reconfig_owner` in the recursive lock impleme=
+ntation.
 --
 
---- Patch [2]: [PATCH net-next v2 2/3] net: mdio: make device map changes h=
-otplug-safe ---
-Note: The format of this review has been altered to a free-form summary due
-to recitation restrictions. A standard inline diff has been omitted.
-
-commit 22975fc157973334c571ff5ec87c6baf39897f09
+--- Patch [3]: [PATCH net-next v2 3/3] net: mdio: support dynamic OF device=
+ changes ---
+commit c037ead180706f6895d9e354b94ae56ca7628104
 Author: James Hilliard <james.hilliard1@gmail.com>
-Subject: net: mdio: make device map changes hotplug-safe
 
-This commit adds serialization and safety mechanisms to MDIO device
-registration and removal. It aims to protect the device map from concurrent
-dynamic firmware changes and bus teardowns by pinning dynamically removed
-devices.
+net: mdio: support dynamic OF device changes
+
+This commit adds dynamic OF device support for MDIO buses. It enumerates PH=
+Ys
+on OF reconfiguration addition events and handles removals by unregistering
+devices attached to removed nodes. It also introduces serialization and ove=
+rlay
+preflight checks.
+
+> diff --git a/drivers/net/mdio/of_mdio.c b/drivers/net/mdio/of_mdio.c
+> index 051e449bbe7c0..c89f88aacd8df 100644
+> --- a/drivers/net/mdio/of_mdio.c
+> +++ b/drivers/net/mdio/of_mdio.c
+[ ... ]
+> @@ -27,6 +30,52 @@ MODULE_AUTHOR("Grant Likely <grant.likely@secretlab.ca=
+>");
+>  MODULE_LICENSE("GPL");
+>  MODULE_DESCRIPTION("OpenFirmware MDIO bus (Ethernet PHY) accessors");
+> =20
+> +#if IS_ENABLED(CONFIG_OF_DYNAMIC)
+> +/*
+> + * OF changes can nest when probing one MDIO device enables another node=
+ on
+> + * the same bus. Serialize independent changes while allowing that nesti=
+ng.
+> + */
+> +static DEFINE_MUTEX(of_mdio_reconfig_mutex);
+> +static struct task_struct *of_mdio_reconfig_owner;
+> +static unsigned int of_mdio_reconfig_depth;
+> +
+> +static void of_mdio_reconfig_lock(void)
+> +{
+> +	if (!mutex_trylock(&of_mdio_reconfig_mutex)) {
+> +		if (of_mdio_reconfig_owner =3D=3D current) {
+
+[Severity: Low]
+Since `of_mdio_reconfig_owner` can be updated to NULL in
+`of_mdio_reconfig_unlock()` concurrently, does this lockless read trigger a
+KCSAN data race?
+
+Would it be safer to use `READ_ONCE()` here and `WRITE_ONCE()` in the unlock
+path to satisfy concurrency rules?
+
+> +			of_mdio_reconfig_depth++;
+> +			return;
+> +		}
+> +		mutex_lock(&of_mdio_reconfig_mutex);
+> +	}
+> +
+> +	WARN_ON_ONCE(of_mdio_reconfig_owner);
+> +	WARN_ON_ONCE(of_mdio_reconfig_depth);
+> +	of_mdio_reconfig_owner =3D current;
+> +	of_mdio_reconfig_depth =3D 1;
+> +}
+> +
+> +static void of_mdio_reconfig_unlock(void)
+> +{
+> +	WARN_ON_ONCE(of_mdio_reconfig_owner !=3D current);
+> +	WARN_ON_ONCE(!of_mdio_reconfig_depth);
+> +
+> +	if (--of_mdio_reconfig_depth)
+> +		return;
+> +
+> +	of_mdio_reconfig_owner =3D NULL;
+> +	mutex_unlock(&of_mdio_reconfig_mutex);
+> +}
+[ ... ]
+> +/* Overlay entry notifier errors cannot stop removal after the tree chan=
+ged. */
+> +static bool of_mdiobus_live_node_is_busy(struct device_node *node)
+> +{
+> +	struct device_node *scope;
+> +	struct mii_bus *mdio;
+> +	bool busy =3D true;
+> +
+> +	scope =3D of_mdiobus_get_removal_scope(node);
+> +	mdio =3D of_mdiobus_find_parent(scope);
+> +	if (!mdio)
+> +		goto out_put_scope;
 
 [Severity: High]
-Does mdiobus_remove_devices() have a race condition with concurrent
-non-dynamic device removals?
+If a removed overlay contains non-MDIO nodes (for example, I2C devices),
+`of_mdiobus_find_parent()` will return NULL.
 
-Looking at mdiobus_remove_devices() in drivers/net/phy/mdio_bus_provider.c,
-the loop reads the device pointer from the map and subsequently calls
-device_free() without taking a reference or checking for a concurrent
-removal's success.
+Since `busy` is initialized to `true`, doesn't jumping to `out_put_scope`
+return `true` in this case?
 
-If a concurrent thread performs a non-dynamic removal (like an SFP unplug)
-calling phy_device_remove() on the same device, it could successfully
-unpublish the device and call phy_device_free().
+Because this overlay notifier is registered globally, does this inadvertent=
+ly
+block the removal of any overlay containing non-MDIO nodes system-wide by
+falsely claiming the non-MDIO node is a busy MDIO device?
 
-Then mdiobus_remove_devices() continues and calls
-mdiodev->device_remove(mdiodev). This fails internally with -ENODEV in
-mdiobus_begin_remove(). However, __phy_device_remove() and device_remove()
-swallow this error and return early without indicating failure to the void
-returning caller.
-
-Because of this, mdiobus_remove_devices() unconditionally proceeds to call
-mdiodev->device_free(mdiodev), resulting in a double free of the device
-reference count.
-
-[Severity: Medium]
-Are the dynamic removal protections reachable in practice?
-
-The patch introduces mdio_device_remove_dynamic() and
-phy_mdio_device_remove_dynamic() intended to pass dynamic =3D true to the
-removal routines.
-
-However, the function pointer device_remove_dynamic declared in
-include/linux/mdio.h is never invoked anywhere. The standard APIs continue
-to call phy_device_remove() in drivers/net/phy/phy_device.c, which hardcodes
-__phy_device_remove(phydev, false). This appears to leave the dynamic
-removal safety mechanisms inactive.
-
-[Severity: High]
-This is a pre-existing issue, but can accessing bus->owner cause a
-use-after-free?
-
-In phy_detach() in drivers/net/phy/phy_device.c, the code calls
-put_device(&phydev->mdio.dev) which drops the network driver's reference to
-the PHY device.
-
-If the MDIO bus is a separate device that was already unregistered and freed
-by its driver, dropping the child PHY device removes the last reference to
-the parent bus kobject, causing the bus structure to be freed immediately.
-
-The very next line checks if (ndev_owner !=3D bus->owner), reading from
-potentially freed memory.
-
-The same sequence exists in the error_put_device path of
-phy_attach_direct(), which calls put_device(d) followed by checking
-bus->owner.
+> +
+> +	if (!mdiobus_device_change_begin(mdio, true)) {
+> +		busy =3D of_mdiobus_node_is_busy(mdio, scope);
+> +		mdiobus_device_change_end(mdio, true);
+> +	}
+> +	put_device(&mdio->dev);
+> +
+> +out_put_scope:
+> +	of_node_put(scope);
+> +	return busy;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-submit-mdi=
-o-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com?part=3D2
+o-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com?part=3D3
