@@ -1,81 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CAD393DC7;
-	Tue,  4 Aug 2026 20:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6556143D500
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785874607; cv=none; b=RVPdqJYi/qmhmgfmT9AQziVMYtbEEUHnjhNdymQVXtv0cc2vYejZJONish+WRAtUgyV22kGs7qiNujLFHwkBcDAG75UuVaRpPXv6QacQoaKzzgqgeWQvkrulpqPxJhp/lWnw8mocj8FhsuJN1ulI+/JkqbgoqLthDotIRKA8a5I=
+	t=1785875453; cv=none; b=Beh9H4uOuJmlYWvO1kyN5BVzFZ/6luqmiiKHxZq0PATKBKtuXeyOe49R4gGISgYTL+iIJNfO0VmuqmjgLOiqdDJO3C2ZdGb1QcPIQ3BC5Bc8k3aSa/2dZWDH6Bu8sEzRV1mCD4FLkbnrPF1odqeSoURF9kyBInJwatiwAok61Is=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785874607; c=relaxed/simple;
-	bh=ddvCW5TpTrmawZnwkCT94vPmm/PM8poYMvhogbDNdY4=;
+	s=arc-20240116; t=1785875453; c=relaxed/simple;
+	bh=I/KROJ6W1p3ukcHx9q7nR+jw1dZYN3XjY8PzDF93NpY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rEmrPyg1UrCFYNLok4LsJFs6aHVNab2afU7ajdXCDut5JI3zoE08p3AnAoa7sVsl4ckVLLbTNzsF/s9nfMDX0vHArfRPdMPb7kcN6m1la3wXp4PACzNFwlwMpzZBBjz2GNNZeq7pTfMRMdsGJx7A297uvMtGs/5P4JTsYOg8gOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q2V6kbZu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=iguLly5P+xulcN8lek7n8Strrg8TRXvM4rVPA0wl2gKR79RTwGAG9e9qTuExQ4tUVr0/SzSslrQsT3ZgKWQkW96Q2YCuoXt6QHWRWhKzvd83VWukfNd2ppPcZGrqakoT5RnIbzw87IylC+d2X1aHiU9f2SrPTaGvtmwBkWwhBO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Knf5FeeO; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q2V6kbZu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95EA41F000E9;
-	Tue,  4 Aug 2026 20:16:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785874605;
-	bh=qu0CT8rG9jZzpQDEGzamjnzM80udV5r2s0XEsYufbQ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q2V6kbZuhNexW96LIqVkqSK6PilMy3/GJ0YUGxoSZL6ttS/51lUaxI8vwXtcyc+IM
-	 SniuDuY3MXKKHDF1gM25LNGtfju0TbEBRoBjrePGfFeec2GUnOziJ+U1wSttf/Os7L
-	 Jjz3JS0RRk8QMGrc/4qh3NDJYotx+0b/tnmB0O5W9HSJ8kDKnzLc5ImUMHuHI/byo3
-	 DGePCt6xycatA8KGl6+VRgInPfC3ffISKqluMe6iB4EznIlvJLmpjW0bVQsup9aPd9
-	 TmUoPJXsH0MnheYOjcBTTmhCSOsW01njEi8EmuekiQNnsOHq6ldyeA528wh2awz3u+
-	 3SyQ8d9ubI8Gg==
-Date: Tue, 4 Aug 2026 15:16:45 -0500
-From: Rob Herring <robh@kernel.org>
-To: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Knf5FeeO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=xbF3
+	O0GLiwFRICGBmn1o8JilNeiutX/EuZsrLXHxG8U=; b=Knf5FeeO/15X6M4LuAAb
+	goyYPuA4gv55ZTsLXln/MfuEI3gHEfyR4FUW3RM+m0oP6L6BOHsSVC6+yIQH7PU0
+	b1HUeAP/P82quo27q2YW9W/jpq4aUM3Lp2odK1zeCy6b6DI8F9+9/31F4G9RjvoG
+	oNk65ig11EGkxfuaiXDe8eTr/yu/MY5FEkj77xpQe9sDMkS7dN+f9GD+2kLZq+Xi
+	/UZZwF5B0Mzwllprax0i2zweJ0wQSlRXbDsKkeZdKRI9wAW6c+2VarLGQXYoA3nL
+	hMNx5RaVi1//9HO3cSI8vvoAzstz2xT2fV8JNgq1dB3byNU2lIYDep2WIZMamEKt
+	8A==
+Received: (qmail 3520160 invoked from network); 4 Aug 2026 22:30:48 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Aug 2026 22:30:48 +0200
+X-UD-Smtp-Session: l3s3148p1@DpWthz5YYqEujnsQ
+Date: Tue, 4 Aug 2026 22:30:47 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: Re: [PATCH v7 3/7] dt-bindings: sound: qcom,q6dsp-lpass-ports: add
- Audio IF clocks
-Message-ID: <20260804201645.GA1781336-robh@kernel.org>
-References: <20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com>
- <20260804070307.117119-4-prasad.kumpatla@oss.qualcomm.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v4 2/4] clocksource/drivers: Add support for the Renesas
+ RZ/N1 timers
+Message-ID: <anJL96XqyzlQVb9d@ninjato>
+References: <20260721082952.215691-1-herve.codina@bootlin.com>
+ <20260721082952.215691-3-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pV0yin9mZAw4oQrG"
+Content-Disposition: inline
+In-Reply-To: <20260721082952.215691-3-herve.codina@bootlin.com>
+
+
+--pV0yin9mZAw4oQrG
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260804070307.117119-4-prasad.kumpatla@oss.qualcomm.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 04, 2026 at 12:33:03PM +0530, Prasad Kumpatla wrote:
-> Add the LPASS Audio IF clock IDs used by newer backend interfaces.
-> 
-> Platforms using Audio IF module backends request the interface bit
-> clocks through q6prm. Add the Audio IF IBIT and EBIT IDs to the binding
-> header so these clocks can be referenced from device trees.
-> 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-> ---
->  .../sound/qcom,q6dsp-lpass-ports.h            | 29 +++++++++++++++++++
->  1 file changed, 29 insertions(+)
-> 
-> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-> index ca84952c3884..2e879a3c09ae 100644
-> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
-> @@ -237,6 +237,35 @@
->  /* Clock ID for RX CORE MCLK2 2X  MCLK */
->  #define LPASS_CLK_ID_RX_CORE_MCLK2_2X_MCLK	70
->  
-> +#define LAPSS_CLK_ID_QAIF_IF0_IBIT		71
+On Tue, Jul 21, 2026 at 10:29:48AM +0200, Herve Codina (Schneider Electric)=
+ wrote:
+> The Renesas RZ/N1 timer block controller is the controller in charge of
+> timers available in the Renesas RZ/N1 SoCs family.
+>=20
+> This controller handles 8 timers:
+>   - 6 16-bit timers
+>   - 2 32-bit timers
+>=20
+> Each timer has its own interrupt, its own prescaler that can be used to
+> divide the clock by 25 and all of them can work in either one-shot or
+> periodic mode.
+>=20
+> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.co=
+m>
 
-LPASS_ as saskiho points out.
+Dunno how much this helps, but I successfully ran 'inconsistency-check',
+'nanosleep', and 'clocksource-switch' from the kernel selftest on my N1D
+board.
+
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+
+
+--pV0yin9mZAw4oQrG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpyS/MACgkQFA3kzBSg
+KbYG7Q/9GR7b28yQC0ny+ZFY3WtMlhWKPoOvjOFZ5GjiCbaNgc4fYoDmEXpgaLya
+3vX5Z7/F5okVIlk5VqsvzIood8yL1Jo6baOZlW5YZVt5WtVLeW7pnmxAEvgrKBiM
+p55UX1qDXPaLpVux4jT5GWEwgrcJTKgEm+ry/Ami4DRg+i3Aah2gn7Nj67Zu1c2Z
+JVGtcBZwLEBRj6Tunr+62fDXpSKgtefGWGbIMA8o7kfeIvdjz/oaAcrx0/eNB1wN
+jnf8ob7HuzWq1qHVAUhUufNU6qLpYU5miCop2saTIeA1L7/mkh68OIZk+RJ/2m2T
+MTOP9xbKkM3Inpq8YfL0KRMCZs6KidghbmAypccrAKKZj/BXAKtASm0nRsot+V1V
+IDgeqTtGmGcK3ovwlWE5Z86IboOFbOUxJJcfLhFLJ1Sg9Hjnmbr+wJ0+e3eJr7ZA
+kEXrI2JZXAdzwKiHsNHc4aF3opfK11EYO2WeKIpN26SnfGXZyyp0nYtteQZEKKVf
+DUkpUWmXD5BEQjmciCSCy1cAz/YhWbdTiDItE7v8w0wyYfiaFnhh5gKr6aP6sWE0
+wDN4xbabh8rPv3ucJSme/DtnecrBKs/5smDWm2LnNLUgw4p3mUe4CNTl0KnOUW91
+h2lYwiGp1yxLtwvwVJtATrbwB2VzV2VBDC56sBTjq3/Fvi1mV+8=
+=03fo
+-----END PGP SIGNATURE-----
+
+--pV0yin9mZAw4oQrG--
