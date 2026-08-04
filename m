@@ -1,112 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248C61C2324
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C74324B22;
+	Tue,  4 Aug 2026 12:31:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785846615; cv=none; b=BY0vPcm6XjeUuLmmuyKVNk1+NR8CGViheAPRdf8ACC1cX92M50B2DCvZFmjscy6obbc17qu4MHis9BjE4Re9gCBBr1ie+pgTPgDGNveOR8TPBueVUDw2wkIzwPRnT7w8toWVRdVtbSB9C7JdmQdk6JQg8FTmf9ssgemxefSwJ2A=
+	t=1785846694; cv=none; b=qNYwMd0dmwu9FgwFNrRdRIduRi7qbN1lfvMAGCcGUm3A66gYlR+Yw+hxYewjkdHlexvGLqTE+GwKPW6CKuTaqZ3y+IMx2lEdO5vahbKmzC/vZJ69Ccn8xgqC6D77k/6/scIc9248m0XFdMRB5ePEtCD59z/0xVaxkXAhXpVixAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785846615; c=relaxed/simple;
-	bh=yO9KmHv7eYNvKRyxqmNP3Fll7cdVGT3PQAQySc5lxVo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RvE0oQ5Rt98tXpCEcKJGAlaGCkv2XAzTCbfTSJWJ/LB8tz+VZ2/ob8fqzGeEbwxQSqNj7NJHFAXzDWEQDXztwBlUKbUA/D+kUiN6ufzLz2n7tHzlmi3/N8aRnePOeBdVd7PjVpSJaqwFZRZr0oPXEQ8ndwfOuvSQGZOlVWMUQ0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3InYoRB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785846694; c=relaxed/simple;
+	bh=zhmILJFeH687gl0qZB4h8j2X8MK23jdm7gaOmy62XgE=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=f4lei3gv2NGRQk1gKpJorZ0D2UN2UNOSjl8kiKlSpFpwlcFoJu1XiTeO7MIroZkE3wErB1jGqjxAcPHFj95Gy5K5owV4v92ClCA2k/67oBvU5hZ3jikIqveOQv6RaWLtOR8zKsiPjX94hoiWFsjcfu9ih0pXNgiXUd9jGqCL9+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=los5lZCp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3InYoRB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3CFB1F00A3A;
-	Tue,  4 Aug 2026 12:30:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="los5lZCp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08BD61F000E9;
+	Tue,  4 Aug 2026 12:31:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785846613;
-	bh=YZyYMwAilSfRsoeRrSre9NzMRcJElUCmK32uucO4mRw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l3InYoRBXv4DxNdDigLXpXTYr6gNIop20ge2jfuXy7O2nhNtgi5gQ6B3lngjk2xvW
-	 NH46QT0PpXUnDuBkLtUI4iiySqIfMb8+lBucmxmzDtTnut6K+mbnn4vUqJmLySuMQv
-	 lUnTNInT6lyBmIiB7o912K3lsopGkmDK8Jm2jE+HTHcC5QQGXAY/tlb6WEWt8rMeDB
-	 Z6LDmDRXHCfMinD+c2fFVPHb+39nhN8WjzqOqRV+oA3wdMzJLwScOnT/GD2ASVp4/k
-	 BL9ZUqbF8vnuo5ZEEEpjJLZcc98bvTQBJ82VlHAFIaho3qjItW9cdrWss8BZx8C9Ip
-	 V8PkyiM+v3OMg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 2/2] arm64: dts: qcom: Enable SD card for Shikra EVK
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Monish Chunara" <monish.chunara@oss.qualcomm.com>
-Cc: vkoul@kernel.org, robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260804122054.3462145-3-monish.chunara@oss.qualcomm.com>
-References: <20260804122054.3462145-1-monish.chunara@oss.qualcomm.com>
- <20260804122054.3462145-3-monish.chunara@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 12:30:11 +0000
-Message-Id: <20260804123012.D3CFB1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1785846692;
+	bh=1th4MRdrWEXVS1CdRQMmq+8pIN5tPBGnhYNWdXQzIRc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=los5lZCpFK8+ONp4q4qoBA6AWquO+EJzvUjmANhCFBRV/ofJFEQcsU4r/atx0P7nX
+	 r+lJHN/yUWzfxJBByVyufaP26PggrxmcEv9WqYN0/CTDE9rnbaV5jzzOZlRHIrZ/nq
+	 Gr6kd/sDk6Jtr+C3L+IBsJuyHUMUmZJHVALmNf6fiqerMQKMzN+QXu+OK+9RH6fPEK
+	 zb9lXAKKQXdySg8CADxAzjpUldssdy5q7YcI+24fu0YN/sQWJeEk13AcHQAnNYG5Gt
+	 GqO2+jE/3b7nFjsrWlexKrjTrStW3a4Z0LNMI20IWJEtieDlvbJs4D/n03/CuOkJX5
+	 pMi5dDFFC4SZQ==
+Date: Tue, 04 Aug 2026 07:31:30 -0500
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Brian Masney <bmasney@redhat.com>, 
+ Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ linux-gpio@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+ linux-kernel@vger.kernel.org, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Matti Vaittinen <mazziesaccount@gmail.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, linux-rtc@vger.kernel.org, 
+ Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org
+To: Matti Vaittinen <matti.vaittinen@linux.dev>
+In-Reply-To: <e1ada83ee4bdc1d1718fa81c335c741771ab57c3.1785838585.git.mazziesaccount@gmail.com>
+References: <cover.1785838584.git.mazziesaccount@gmail.com>
+ <e1ada83ee4bdc1d1718fa81c335c741771ab57c3.1785838585.git.mazziesaccount@gmail.com>
+Message-Id: <178584668929.3596441.16841432061647404160.robh@kernel.org>
+Subject: Re: [PATCH v2 03/10] dt-bindings: regulator: ROHM BD73800
+ regulators
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Redundant and incorrectly ordered `#include <dt-bindings/gpio/gpio.=
-h>` in board .dts files.
---
 
---- Patch [2]: [PATCH V4 2/2] arm64: dts: qcom: Enable SD card for Shikra E=
-VK ---
-commit 7a9a37a5e1e99fa00a175a6837969ca251cbb0d3
-Author: Monish Chunara <monish.chunara@oss.qualcomm.com>
+On Tue, 04 Aug 2026 13:21:14 +0300, Matti Vaittinen wrote:
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+> 
+> Add bindings for the BUCKs and LDOs on ROHM BD73800. The PMIC state
+> specific voltages can be set in same fashion as with a few other ROHM
+> PMICs (for example with BD718[15,28,37,47,50,79]). Same properties are
+> recycled :)
+> 
+> The LDOs 1 and 4 can use different voltage ranges depending on the OTP
+> configuration.
+> 
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> 
+> ---
+> Revision history:
+> v1 => v2:
+>  - Description of the state specific voltages moved to own file and
+>    referenced from it (because multiple PMIC bindings used them).
+> 
+> The dt checker's documentation reference checker warns about the link to
+> the MFD binding - which will be introduced in next commit. These commits
+> have kind of a chicken and egg issue as MFD is referencing regulator
+> properties introduced in this patch.
+> 
+> I could squash these but IMO, this is clearer for the reviewers. AFAICS,
+> Both MFD and regulator subsystems tend to be busy. I could also split
+> adding the MFD comment reference to own patch which would be after the
+> patch adding the MFD binding, but having own patch for just adding the
+> comment is a bit meh.
+> 
+> So, I decided to live with the broken doc-link between these two
+> patches.
+> ---
+>  .../regulator/rohm,bd73800-regulator.yaml     | 99 +++++++++++++++++++
+>  1 file changed, 99 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/regulator/rohm,bd73800-regulator.yaml
+> 
 
-arm64: dts: qcom: Enable SD card for Shikra EVK
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Enable SD card for Shikra CQS, CQM and IQS EVK variants. Configure the
-vmmc/vqmmc regulators and gpio-based card detection for each board
-variant.
+yamllint warnings/errors:
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boo=
-t/dts/qcom/shikra-cqm-evk.dts
-> index 0a52ab9b7a4c3..8e4656a51371f 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> @@ -7,6 +7,7 @@
-> =20
->  #include "shikra-cqm-som.dtsi"
->  #include "shikra-evk.dtsi"
-> +#include <dt-bindings/gpio/gpio.h>
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/regulator/rohm,bd73800-regulator.yaml: Unresolvable reference: rohm,pmic-states.yaml#
 
-[Severity: Low]
-Would it be better to move this include directive into shikra-evk.dtsi?
+doc reference errors (make refcheckdocs):
+Warning: Documentation/devicetree/bindings/regulator/rohm,bd73800-regulator.yaml references a file that doesn't exist: Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic.yaml
+Documentation/devicetree/bindings/regulator/rohm,bd73800-regulator.yaml: Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic.yaml
 
-Since shikra-evk.dtsi is the file that actually uses GPIO_ACTIVE_LOW, placi=
-ng
-the include here after shikra-evk.dtsi is processed means it cannot satisfy
-the macro dependency directly. The build only succeeds because the preceding
-SOM include already happens to include gpio.h.
+See https://patchwork.kernel.org/project/devicetree/patch/e1ada83ee4bdc1d1718fa81c335c741771ab57c3.1785838585.git.mazziesaccount@gmail.com
 
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/d=
-ts/qcom/shikra-evk.dtsi
-> index 6eb4184f76422..177a599cd2c24 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-> @@ -9,6 +9,17 @@ &qupv3_0 {
->  	status =3D "okay";
->  };
-> =20
-> +&sdhc_2 {
-> +	pinctrl-0 =3D <&sdc2_default &sdc2_card_det_n>;
-> +	pinctrl-1 =3D <&sdc2_sleep &sdc2_card_det_n>;
-> +	pinctrl-names =3D "default", "sleep";
-> +
-> +	no-sdio;
-> +	no-mmc;
-> +
-> +	cd-gpios =3D <&tlmm 89 GPIO_ACTIVE_LOW>;
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-[Severity: Low]
-Should shikra-evk.dtsi include <dt-bindings/gpio/gpio.h> directly to
-provide the definition for GPIO_ACTIVE_LOW used here?
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-> +};
+pip3 install dtschema --upgrade
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804122054.3462=
-145-1-monish.chunara@oss.qualcomm.com?part=3D2
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
