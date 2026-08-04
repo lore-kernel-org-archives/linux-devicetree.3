@@ -1,171 +1,261 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A050723BD1B;
-	Tue,  4 Aug 2026 12:59:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54F23E3150
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:59:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785848368; cv=none; b=JKnKM0CXV37f2jhCHwPO8VKZTCmswYp0bQe6GXp7K/6VjlnEfD8zS3wEDGkCkorKls9WHJ1ugVhxB57d8o79dUkHxthU5iB2TnfUfK7inhUOumwAgEdQIYkWdfdRRVNhNPjJhHtEg8EKRQtqvmXHUFNsOqDqCKD3/XEjrPFJKCo=
+	t=1785848381; cv=none; b=kiGv2MqYXhf8vaqP1LjUcYSUcOXX+3cMT6ifyjok8ZG8vinRN9LYVH+vfZ1RVY1/nXsxZh2xbVgPgb3u1a2QmiMyjZ7HWm0CVn7xH0q6oHUEAGqx5zpN0Qr955g0c6RfX5gw+x4cqoJJSOYNxu1/OCjDahbH6KkhiNvT/LhJkxo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785848368; c=relaxed/simple;
-	bh=ve1K+iUSPeFmO1XfuPGB6+L3+NV1E8+eXhzGOpPu+JI=;
+	s=arc-20240116; t=1785848381; c=relaxed/simple;
+	bh=2gS00zW48GV8PRqXwUbSe2+AGIH4/7LPe69+hczQ5Co=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TRnXpcWVWuUsicDCCZVLUDACLTugXdga169J4WlmACxkFp0fzeeeFM9YsFhCuSoqCZ1DqJKIQ2jZioSeEpVcYFxQOpMRkIBNyzJY8r85pkxBYdzWhkO5wGXyrWtSJUUYXuMfy0FOgsrktIM5wSlJsEfzHVxmFCXOon79++SBN14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5GbCoWn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ROtH6ugbrfa39hD6AOZ3j1+BF4bAZEEskFLpZV/dFUP9WDSNhLGSJ/cN22xxJJ7tb11JLspeI6AtGFRcXvxuERC/bDtgiVPSoErGAYh7HbPIV9B42aZ/k0UL0sjVgJAqcYGD0qkjWhEuo0x9ibKLkFNoSBR6wKUNWcR+74TwLJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TbHnOEAI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5GbCoWn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9EC1F00A3A;
-	Tue,  4 Aug 2026 12:59:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TbHnOEAI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD6A1F000E9;
+	Tue,  4 Aug 2026 12:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785848367;
-	bh=9ZGB8/UWvh6L1fVmEZiC/zozBpAuILOLK25J1iPQIf4=;
+	s=k20260515; t=1785848379;
+	bh=6BgEOFimK9Ijc8WS/Da0OShanm+yXaE7lQ5oYYyKz7M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=I5GbCoWnoxBKvKlVuxf0Er5imr5zz2Uht3ijmuiC3HJhsO7mQK5Cmnk1NQ73T9a0w
-	 vqki4XNnDMuAcJyeiA8Kn0coCtmQADQPD/mcXHw2BH3gqmhHwjT1ccZnbXx3GU6qY6
-	 TEMSR+bnF/38b5c4FFf9ZfbeJUHjDJlfnBCUB6fNxqdQdPFCPct/4wOkngMeS2+5fR
-	 wx9chgRkXA+4OAcz4gJaPJOtN2Zm1J0fWZclTgp2Tn3INJ6IOwLZpcciQbnjd8lGxP
-	 8adlRA3q6IlfJbxCj9NqVmPk7l9E9s8sLUdQePBkSn/isMA9eUrpjK19toV5G6qaId
-	 FHeTTrOuLDmyQ==
+	b=TbHnOEAIUhEsitGoEIiOwH3HpsL0JVG8RNSaXh/MofbVWFRtelDN2todtbcRyLN47
+	 SGbUhpCX0WMwPWCxkijJAwnTtDSxUENZJH3ZTF2IkJ7cUbRWB8dDX1cp3DHwCgcYUc
+	 HpBnyakUtV3KwF9WhFmFDB2lUlPBdlGWiRiBpjMWglDKQZ47LYzyby7oTQgHXgUxVr
+	 iCf7F040bmZG4+SEGSYUniX6InusoRmc3x3EfpVmTUo3hm6UbXIgA7296RzDInvox/
+	 14P4QhXjjz1j2oh3zYBEFK1ngSReb+e4+LBmgHF2HNtHxKxFM9oKzjzA/DdChPJUOB
+	 abWI1b5oNtaJw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] thermal/drivers/loongson2: Add support for
- Loongson-2K0300
+Subject: Re: [PATCH v9 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: devicetree@vger.kernel.org, lee@kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <0c2af3251d520ab04d18c14fce0a825e7b171ca5.1785829933.git.zhoubinbin@loongson.cn>
-References: <cover.1785829933.git.zhoubinbin@loongson.cn>
- <0c2af3251d520ab04d18c14fce0a825e7b171ca5.1785829933.git.zhoubinbin@loongson.cn>
+To: mohit.dsor@oss.qualcomm.com
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260804-lt9611c-v7-v9-2-3423a76856d3@oss.qualcomm.com>
+References: <20260804-lt9611c-v7-v9-0-3423a76856d3@oss.qualcomm.com>
+ <20260804-lt9611c-v7-v9-2-3423a76856d3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 12:59:26 +0000
-Message-Id: <20260804125926.DE9EC1F00A3A@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 12:59:38 +0000
+Message-Id: <20260804125938.DCD6A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
-- [High] The 'old fuse' validity check uses legitimate dynamic temperature =
-bounds, which will permanently disable sensor calibration during real therm=
-al emergencies.
-- [Medium] The return values of `regmap_read()` for chip ID registers are i=
-gnored, potentially leading to silent failures and miscalculation of temper=
-atures.
-- [Medium] Suspicious manual sign-magnitude parsing and missing sign handli=
-ng for `chip_id0` calibration data.
+- [High] Missing `disable_irq()` before `cancel_work_sync()` in `lt9611c_re=
+move()` causes a use-after-free when `devm` frees the device context.
+- [High] Bridge is left registered and accessible to DRM core while its pow=
+er regulators are disabled during module unload.
+- [High] Unconditional dereference of `cdata` returned by `i2c_get_match_da=
+ta()` without checking for NULL.
+- [Medium] Incorrect interrupt clearing sequence in `lt9611c_irq_thread_han=
+dler()` can permanently suppress other pending interrupts.
+- [Medium] The return value of `devm_drm_bridge_add()` is ignored, which ca=
+n lead to silent probe failures.
+- [Medium] Firmware upgrade via sysfs silently resets the bridge hardware, =
+breaking active DRM display state.
+- [Medium] The IRQ handler incorrectly returns `IRQ_HANDLED` when the inter=
+rupt was not generated by this device.
+- [Medium] The return value of `read_poll_timeout` is ignored during flash =
+block erase, which can lead to firmware corruption.
 --
 
---- Patch [5]: [PATCH v4 5/5] thermal/drivers/loongson2: Add support for Lo=
-ongson-2K0300 ---
-commit 3e3a89cf673b3132da6f690e9200a7140d2ed6ae
-Author: Binbin Zhou <zhoubinbin@loongson.cn>
+--- Patch [2]: [PATCH v9 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI =
+DSI to HDMI driver ---
+commit 6e88557e672677022a4675c645ef3cbef1ee7ce0
+Author: Sunyun Yang <syyang@lontium.com>
+Subject: drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
 
-thermal/drivers/loongson2: Add support for Loongson-2K0300
+This commit introduces a DRM bridge driver for the Lontium LT9611C,
+LT9611EX, and LT9611UXD DSI-to-HDMI chips. It handles configuration over I2=
+C,
+video timing setup, audio infoframe handling, and firmware upgrades.
 
-This commit adds support for the thermal sensor on the Loongson-2K0300 SoC.
-The sensor uses a 10-bit ADC and requires per-chip calibration offsets read
-from syscon CHIP ID registers. A fallback formula and validity check are
-included for older fuse versions.
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
+ridge/lontium-lt9611c.c
+> new file mode 100644
+> index 0000000000000..f5af2856ce00b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+[ ... ]
+> +static void lt9611c_block_erase(struct lt9611c *lt9611c)
+> +{
+> +	unsigned int block_num;
+> +	unsigned int flash_status =3D 0;
+> +	u32 flash_addr =3D 0;
+> +
+> +	for (block_num =3D 0; block_num < 2; block_num++) {
+> +		flash_addr =3D block_num * 0x008000;
+> +		lt9611c_erase_op(lt9611c, flash_addr);
+> +		msleep(100);
+> +		read_poll_timeout(read_flash_reg_status, flash_status,
+> +				  !(flash_status & 0x01),
+> +				  50 * USEC_PER_MSEC, 2500 * USEC_PER_MSEC,
+> +				  false, lt9611c);
 
-> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongs=
-on2_thermal.c
-> index 1a8ca2cd06f1b..51b29b60372a5 100644
-> --- a/drivers/thermal/loongson2_thermal.c
-> +++ b/drivers/thermal/loongson2_thermal.c
+[Severity: Medium]
+Is it safe to ignore the return value of read_poll_timeout() here?
+
+If the hardware fails to erase the flash within the timeout, the driver
+will proceed to lt9611c_write_data() anyway. This would cause it to write
+new firmware data over un-erased or partially erased flash pages,
+potentially corrupting the device firmware permanently.
 
 [ ... ]
-
-> @@ -72,13 +96,54 @@ static int loongson2_thermal_set(struct loongson2_the=
-rmal_data *data,
->  	return 0;
->  }
-> =20
-> +static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz, int=
- *temp)
+> +static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
 > +{
-> +	struct loongson2_thermal_data *tdata =3D thermal_zone_device_priv(tz);
-> +	int calib_data, calib_offset, temp_mc, raw_adc;
-> +	u32 chip_id0 =3D 0, chip_id1 =3D 0;
-> +
-> +	writel(0xff03, tdata->ctrl_reg + LOONGSON2_THSENS_CFG_REG);
-> +	raw_adc =3D FIELD_GET(LOONGSON2_THSENS_OUT_11B_MASK,
-> +			    readl(tdata->ctrl_reg + LOONGSON2_THSENS_OUT_REG));
-> +
-> +	if (tdata->flags & LS2K0300_OLD_FUSE_FLAG) {
-> +		*temp =3D raw_adc * 569 - 394700;
-> +		return 0;
+[ ... ]
+> +	ret =3D lt9611c_write_crc(lt9611c, fw_crc, FW_SIZE - 1);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to write firmware crc\n");
+> +		goto out_unlock;
 > +	}
 > +
-> +	regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID0, &chip_id0);
-> +	regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID1, &chip_id1);
+> +	lt9611c_reset(lt9611c);
+> +	ret =3D lt9611c_upgrade_result(lt9611c, fw_crc);
 
 [Severity: Medium]
-Is it safe to ignore the return values of these regmap_read() calls?
+Could this reset break the active DRM display state?
 
-If regmap_read() fails due to an underlying bus or configuration error, it
-will not modify chip_id0 or chip_id1, leaving them at 0. This could cause
-the driver to silently compute an uncalibrated temperature without reporting
-the read error.
+When userspace writes to the firmware sysfs attribute, this function
+resets the bridge chip without notifying the DRM subsystem. This wipes all
+video timings and configurations, meaning an active display pipeline will
+go blank and become desynchronized from the DRM state.
 
+[ ... ]
+> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_id;
+> +	struct device *dev =3D lt9611c->dev;
+> +	int ret;
+> +	unsigned int irq_status;
 > +
-> +	if (chip_id0 & LS2K0300_EXTERN_ID) {
-> +		calib_data =3D FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id1);
-> +		calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-> +		if (calib_data & LS2K0300_COMP_SIGN_BIT)
-> +			calib_offset =3D -calib_offset;
-> +	} else {
-> +		calib_data =3D FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id0);
-> +		calib_offset =3D FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-
-[Severity: Medium]
-Does the chip_id0 fallback path have a missing sign bit check?
-
-The code extracts a 12-bit value into calib_data using a 12-bit mask
-(LS2K0300_ID0_VAL_MASK is GENMASK(31, 20)). It then immediately applies a
-15-bit mask (LS2K0300_COMP_VAL_MASK is GENMASK(14, 0)) to that 12-bit value,
-which appears redundant.
-
-Additionally, unlike the chip_id1 branch above which explicitly checks for a
-sign bit and negates the offset, this branch lacks sign handling. If the
-12-bit fuse data uses a sign bit, interpreting a negative value as a large
-positive integer could skew the temperature calculation significantly.
-
+> +	guard(mutex)(&lt9611c->mcu_lock);
+> +
+> +	ret =3D regmap_read(lt9611c->regmap, 0xe084, &irq_status);
+> +	if (ret) {
+> +		dev_err(dev, "failed to read irq status: %d\n", ret);
+> +		return IRQ_HANDLED;
 > +	}
 > +
-> +	temp_mc =3D (raw_adc + calib_offset) * 570 - 394700;
+> +	if (!(irq_status & BIT(0)))
+> +		return IRQ_HANDLED;
+
+[Severity: Medium]
+Should this early return use IRQ_NONE instead?
+
+Returning IRQ_HANDLED when the interrupt does not belong to this device
+defeats the kernel's spurious interrupt detection mechanism. If the IRQ
+line becomes noisy or stuck, the kernel will falsely assume this driver
+handled it and will not disable the line, potentially causing an interrupt
+storm that freezes the system.
+
 > +
-> +	/* For old fuse which can not read right thermal data */
-> +	if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K0300_HIGHEST_=
-VALID_TEMP) {
+> +	/*Clear interrupt: hardware requires two writes with delay*/
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
+> +	usleep_range(10000, 12000);
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
+
+[Severity: Medium]
+Could this interrupt clearing sequence accidentally suppress other pending
+interrupts?
+
+If multiple interrupts were pending (for example, bit 1 is also set in
+irq_status), the second write outputs a 1 for those other bits because of
+the bitwise inversion logic. If the hardware clears interrupts via a
+pulse mechanism, those other bits are left stuck at 1 and are never written
+back to 0. This would break the clearing mechanism for any interrupt
+other than the primary bit.
+
+[ ... ]
+> +static int lt9611c_probe(struct i2c_client *client)
+> +{
+> +	struct lt9611c *lt9611c;
+> +	struct device *dev =3D &client->dev;
+> +	bool fw_updated =3D false;
+> +	int ret;
+> +
+> +	crc8_populate_msb(lt9611c_crc8_table, LT9611C_CRC_POLYNOMIAL);
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
+> +
+> +	lt9611c =3D devm_drm_bridge_alloc(dev, struct lt9611c, bridge, &lt9611c=
+_bridge_funcs);
+> +	if (IS_ERR(lt9611c))
+> +		return dev_err_probe(dev, PTR_ERR(lt9611c), "drm bridge alloc failed.\=
+n");
+> +
+> +	lt9611c->dev =3D dev;
+> +	lt9611c->client =3D client;
+> +	const struct lt9611c_chip_data *cdata =3D i2c_get_match_data(client);
+> +
+> +	lt9611c->chip_type =3D cdata->chip_type;
 
 [Severity: High]
-Could this logic permanently disable sensor calibration during a real overh=
-eat?
+Can cdata be NULL here?
 
-If the physical CPU temperature genuinely exceeds 125 degrees Celsius during
-a thermal emergency, this check will incorrectly flag the valid hardware fu=
-se
-as invalid.
-
-It then sets the LS2K0300_OLD_FUSE_FLAG, permanently disabling calibration
-for all future reads, which causes the sensor to report lower uncalibrated
-temperatures exactly when accurate readings are needed to trigger a shutdow=
-n.
-
-> +		dev_warn_once(tdata->dev, "It's an old fuse, thermal %d is not right\n=
-", temp_mc);
-> +		tdata->flags |=3D LS2K0300_OLD_FUSE_FLAG;
-> +		temp_mc =3D raw_adc * 569 - 394700;
-> +	}
-> +	*temp =3D temp_mc;
-> +
-> +	return 0;
-> +}
+When the device is instantiated via the sysfs bind attribute or new_device
+without a valid match table entry (e.g., matching by driver name fallback),
+i2c_get_match_data() will return NULL. Dereferencing cdata immediately
+would result in a NULL pointer dereference and a kernel panic.
 
 [ ... ]
+> +	devm_drm_bridge_add(dev, &lt9611c->bridge);
+> +
+> +	enable_irq(client->irq);
+> +
+> +	return 0;
+
+[Severity: Medium]
+Is there a missing error check for devm_drm_bridge_add()?
+
+Since devm_drm_bridge_add() can return an error code like -ENOMEM,
+ignoring it allows the driver to probe successfully without registering the
+bridge. This leaves a dysfunctional driver bound to the device, silently
+consuming resources.
+
+[ ... ]
+> +static void lt9611c_remove(struct i2c_client *client)
+> +{
+> +	struct lt9611c *lt9611c =3D i2c_get_clientdata(client);
+> +
+> +	cancel_work_sync(&lt9611c->work);
+
+[Severity: High]
+Could this lead to a use-after-free since the IRQ is not disabled before
+cancelling the work?
+
+The IRQ was requested with devm_request_threaded_irq, meaning it remains
+active until devres cleanup, which happens after lt9611c_remove() returns.
+An interrupt firing right after cancel_work_sync() completes will invoke
+the threaded handler, which calls schedule_work(&lt9611c->work). When
+devres frees the lt9611c structure, the newly queued work isn't cancelled,
+causing the workqueue to eventually execute lt9611c_hpd_work on freed memor=
+y.
+
+> +	regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies=
+);
+
+[Severity: High]
+Does this prematurely power down the chip while the bridge is still active?
+
+Because the bridge was registered with devm_drm_bridge_add(), the DRM core
+will only unregister it during devres teardown, which runs after this
+remove function completes. By manually disabling the regulators here, there
+is a window where the bridge is globally visible and can receive DRM calls
+(such as a detect call from userspace polling), but the hardware is powered
+off. This can cause I2C timeouts or bus lockups during module unload.
+
+> +	of_node_put(lt9611c->dsi1_node);
+> +	of_node_put(lt9611c->dsi0_node);
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785829933.gi=
-t.zhoubinbin@loongson.cn?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-lt9611c-v7=
+-v9-0-3423a76856d3@oss.qualcomm.com?part=3D2
