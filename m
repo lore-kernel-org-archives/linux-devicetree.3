@@ -1,105 +1,149 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFD53C9EDD
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F0F421250
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785828901; cv=none; b=XJofZivzP3y0o45lneE0UlLxTL2xN0PjRLunWuXYWkfuKmPprPR758kBfmvklb+TA5XS2FwZbxKy2NhxqBkKk1YFAznrwkupNUIRWU00v46+3F916k1FIzj27ouBJBu2geOgzYWYmSAixaO8UBovBy9JQBdlPtefcXVoX0vYjIU=
+	t=1785828922; cv=none; b=evLTmnbraurPVmZ5xCJXWLvz5gUQZ4zzcDBLNWalqsikutXIkt0mtalDZDjRFQ7B0dJbyYA64uKeYrZrPqeP05lT57yji3JpsGbTC9OmFb833DWHLBvYqYgNa+5xyr67icDbG7cJy0U38pGyceLv3ZiUGXaXsraTkEzpvIBZTNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785828901; c=relaxed/simple;
-	bh=KazPXkOf+br4bp1cxqinwcaXXuaNW8H+zds6OLhGIFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oabxGnjqbhO4Rvsz5Vc5CP69TMLXLMSbdYxdemHwwC4iBcgtfdqPpm11TaYRaKJTpZD3Rl48D9JiGBv1GPB+Fz4WoZfjbpyC6p9IsZOPc4mExRCwcgnfxnkqlz4q8E65r3qD59sW/vAklNz8EN6F99+AonQ8VdhfB83K4xeXpO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IGEX/we1; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785828922; c=relaxed/simple;
+	bh=VXq/e6yx/ODBsZFJHxHev9uG6iLtPJ63w3iGHEJgbd0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LgrtapXS5sQTygZ10nsVeZpz8af+WULyI8ap9zV7v65YBPtORJSFMHkdMwJqiWXxc18CwBmhiFFkPn27uV5QWYco30loiaE2rKYfbIl3wpCCTCeDgPhZjG7YWAisMWBaq1THfHqm+gdxJyc0xgjiOA3ubX7pmlUBS2aUX3na9EI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=I2tZ+bNA; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IGEX/we1"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785828897;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=DWMTuq9NkCnrgokFcLH3C7+v8FiIoP6xFMC71YOuo3Y=;
-	b=IGEX/we1QDJAsgCIQRHFTugI6JeEnyAKDp6+LNwa6ghbmAFdvduUPZL3I/3lhcGFlwJufh
-	5CD8OSL2wmoekN11h15y1hViiMEuh/vieEU87mSvn1zzC2MzII3lVtLCvpcT+fjND/AvOI
-	u/ryaZ/YyiBWo35SAqtXEqjTfsvisQQ=
-From: Junjie Cao <junjie.cao@linux.dev>
-To: neil.armstrong@linaro.org,
-	jesszhan0024@gmail.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: dmitry.baryshkov@oss.qualcomm.com,
-	konrad.dybcio@oss.qualcomm.com,
-	mitltlatltl@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] drm/panel: Add support for Novatek NT36532 panel
-Date: Tue,  4 Aug 2026 00:34:17 -0700
-Message-ID: <20260804073419.84727-1-junjie.cao@linux.dev>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="I2tZ+bNA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 65E9D4E410D1;
+	Tue,  4 Aug 2026 07:35:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2F9F66029E;
+	Tue,  4 Aug 2026 07:35:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87C3011C3243E;
+	Tue,  4 Aug 2026 09:35:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1785828911; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=AFfzA1yEpz98WSrUzXTIRfHYsrqeBVjjHGrLZ3rUQuw=;
+	b=I2tZ+bNA0vzRFhmdyuin09lXj1zvdD7zwq/21TRtxvJAS28BdjiQqtpbzj/qkdu/zExPwL
+	oPHZkLSwWK7Dx2acBZLJ3QnuU/EDBoTZFMxbEjiFUTJ/yEmg+lalZTFlB80ZIQYnAl2rQn
+	dyJJccTFoqBivc6fofHC4q6t2/NO5siAIF7G79RfCow7oKPOhMOmFOaTNlaI2ARxjtMoWy
+	6rcQtZiaPuta6OTGCRVld6D3B/e+eV6zHVjG3tif4H2eVPfj+pvBHDo+unxSNXCTHmKpeN
+	VsQC+5ssJaQf9L7NrC/mZB4niI02oyvoAxeK7+OLrLr6hgKl9szAWq7bS0ZKZw==
+Message-ID: <28ca553c-59ce-4608-b63a-6e8c4dfb6020@bootlin.com>
+Date: Tue, 4 Aug 2026 09:35:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 06/10] net: pcs: xpcs: add ANRESTART support for SGMII
+ link recovery
+To: Coia Prant <coiaprant@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
+ David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org, Jiawen Wu <jiawenwu@trustnetic.com>
+References: <20260801142244.679437-2-coiaprant@gmail.com>
+ <20260801142244.679437-8-coiaprant@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20260801142244.679437-8-coiaprant@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-This series adds support for panels using the Novatek NT36532 Display
-Driver IC, a dual-DSI, dual-DSC controller that requires DPU support
-for MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT.
+Hi Coia,
 
-The first user is the CSOT PPC100HB1-1 panel found in the OnePlus Pad 2
-(OnePlus Pad Pro in China) tablet: 3000x2120, dual-DSI in bonded mode,
-DSC 1.2 with two slices per line.
+On 8/1/26 16:22, Coia Prant wrote:
+> On some hardware using the DesignWare XPCS IP (e.g., RK3568 MAC side
+> SGMII), the PCS does not automatically restart auto-negotiation when the
+> link goes down and comes back up. Without an explicit ANRESTART, the link
+> stays down forever.
+> 
+> Add BMCR_ANRESTART in two places:
+> 1. In xpcs_config_aneg_c37_sgmii(), when starting AN, set ANRESTART
+>    alongside ANENABLE to initiate a fresh negotiation.
+> 2. In xpcs_get_state_c37_sgmii(), when link is down and AN completion is
+>    detected, clear the interrupt and trigger ANRESTART to restart the
+>    negotiation process.
+> 
+> This change has been verified on:
+> - RK3568 (Photonicat board)
+> - Wangxun NICs (no regression)
+> 
+> Tested-by: Jiawen Wu <jiawenwu@trustnetic.com>
+> Signed-off-by: Coia Prant <coiaprant@gmail.com>
 
-v2 has been tested on the OnePlus Pad 2: the panel comes up in its
-native 3000x2120 mode at 120Hz over dual-DSI in bonded mode with DSC,
-and displays a stable image. The only wire-level change in v3 is the
-page 0x23 0x51 write going from two bytes to one, matching the stock
-firmware DT.
+KSZ9477's old XPCS doesn't break with that code, tested in SGMII
+mode :)
 
-Changes in v3:
-- Kconfig: select DRM_DISPLAY_DSC_HELPER, DRM_DISPLAY_HELPER and
-  DRM_KMS_HELPER, depend on BACKLIGHT_CLASS_DEVICE.
-- Write the page 0x23 dimming table entry 0x51 as a plain one-byte
-  write instead of the two-byte DCS brightness helper.
-- Spell the page 0x10 brightness write as MIPI_DCS_SET_DISPLAY_BRIGHTNESS
-  with an explicit 07 ff payload instead of the byte-swapped 0xff07.
-- Drop accidental MIPI_DCS_* macro names from vendor-page register
-  writes.
-- Make the DSC config const and copy it into the panel instance at
-  probe time.
-- Support an external backlight via drm_panel_of_backlight().
-- Report the panel physical size via the display mode.
-- Link to v2: https://lore.kernel.org/all/20260729160804.912826-1-junjie.cao@linux.dev
-- Link to v1: https://lore.kernel.org/all/20251001135914.13754-1-caojunjie650@gmail.com
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Junjie Cao (2):
-  dt-bindings: display: panel: Add Novatek NT36532
-  drm/panel: Add Novatek NT36532 panel driver
+Maxime
 
- .../display/panel/novatek,nt36532.yaml        |  83 ++++
- MAINTAINERS                                   |   7 +
- drivers/gpu/drm/panel/Kconfig                 |  14 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36532.c | 431 ++++++++++++++++++
- 5 files changed, 536 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
-
-
-base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
--- 
-2.43.0
+> ---
+>  drivers/net/pcs/pcs-xpcs.c | 17 +++++++++++++----
+>  1 file changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
+> index 0337e2bcc0125..28e98449e8ac2 100644
+> --- a/drivers/net/pcs/pcs-xpcs.c
+> +++ b/drivers/net/pcs/pcs-xpcs.c
+> @@ -816,9 +816,14 @@ static int xpcs_config_aneg_c37_sgmii(struct dw_xpcs *xpcs,
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	/* Clear CL37 AN complete status */
+> +	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
+> +	if (ret < 0)
+> +		return ret;
+> +
+>  	if (neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED)
+>  		ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
+> -				 mdio_ctrl | BMCR_ANENABLE);
+> +				 mdio_ctrl | BMCR_ANENABLE | BMCR_ANRESTART);
+>  
+>  	return ret;
+>  }
+> @@ -1089,14 +1094,18 @@ static int xpcs_get_state_c37_sgmii(struct dw_xpcs *xpcs,
+>  			state->duplex = DUPLEX_FULL;
+>  		else
+>  			state->duplex = DUPLEX_HALF;
+> -
+>  		return 0;
+>  	}
+>  
+> -	/* Clear AN complete status or interrupt */
+> -	if (state->an_complete)
+> +	if (state->an_complete) {
+> +		/* Clear AN complete status or interrupt */
+>  		xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0);
+>  
+> +		/* Initiate the next round of AN */
+> +		xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_ANRESTART,
+> +				    BMCR_ANRESTART);
+> +	}
+> +
+>  	return 0;
+>  }
+>  
 
