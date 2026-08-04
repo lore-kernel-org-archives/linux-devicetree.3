@@ -1,62 +1,64 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800E4427FBF
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E084A429CCD
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785827111; cv=none; b=A9xFU5J6RWIFoBGFtsPJOvfycDSdv3RVvNh8KdmH5r9Q3889NdgH3SbE/JixT9LEdRXflTaQvUjfrld6cPwRKY7e+PY+pnT573qFMOJtJP997vh5GMUbygKWY5OmW+AtCib0VtQIgvel8RX6oE1DMIRsqdNq617KsGCrhTrkhuM=
+	t=1785827115; cv=none; b=rF2Kmd4U3FHjA9gJYURzK8VSaNy5htw2gesiok2VMDpI0WpJAIpsarr3Oa8THJygDDSke1/Jh8VYFiTuEfoKdN7XIl3Acrto+5q0m//wz15htGcDGJ1g0crhIpNubaxkbYHrz5AX3Vmui/h0bGvLM6qHHPnRki9iasTUSsb0dCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785827111; c=relaxed/simple;
-	bh=UQLoxgFdRGmfeGkdyRiO8Pw1s81tlUUoDSru2L5czZI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oQ1KfTFWVB5rDFMytYtYefkn9xAWSakzX1oY0KlbJ0aL7IIywY581kmQUVEUXVVZeZZbo0y+bw3ejBecxMUhho4etufcWs++m6Q/OHRibssJpSgQzl00qN2o163xZe73XTQ/dMLP/PjyYVjpRo3CSkr1QOTlbTsPjP0kvoCo9U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KZ18ZAlS; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1785827115; c=relaxed/simple;
+	bh=MKjq23mwbHabkMkKyl1pk/U2S7bpmtBZr4AcT9DgqNE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=TSmP9wC1PELnz6OF+yCmshWFLoh/MaJmY9Dmktstw0256QD7r6x3pGIeUmseypTXwEdnSBLRivn+yq1LS/PSLgqG26zv51GavMzA8PSl8lruLJ+wZ4zhOBvlAvFO5P0yz4y8ChSBMUKViK84cW99TV9P+yKBwzWcUC+PXDZCrBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TTv0XHcX; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KZ18ZAlS"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso3997238a91.3
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 00:05:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TTv0XHcX"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso4024821a91.3
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 00:05:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785827110; x=1786431910; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7r8iZsa4EFD7LRQXVCVW9FMeh53EBj3eyxUC5DEXkhg=;
-        b=KZ18ZAlSzPdp5MwhRIquI3S3e+q+1Io4HmZR3tSpvjDL0RWfyldfaFSJr1Dl/g0/+P
-         xd8sxDkBtcgC8GQaBU/XB+b/MIx0isIC+roZUm0HIwu+5NIFztuGZ8pziOMch5Y+nxpp
-         FymuaTn9lafexIVv85/kEIVVlHzj5hQzybjUO01ulSTPLU9FdmgMdy59Ve7L/IIyvynM
-         YzC+9xKgj7E9vjnvmbVmOR3NyeJeBEZt6LU5fjyV+K2d0C03a19hbk8aOaequzAIQATB
-         ORQxkQp0HDyhRmBwDaGiO1Vyna2gnxOCNSNe3DU1slL7AqpZOT8JazLtQExJ2nRD4uB9
-         agjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785827110; x=1786431910;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785827113; x=1786431913; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7r8iZsa4EFD7LRQXVCVW9FMeh53EBj3eyxUC5DEXkhg=;
-        b=QVQcirE+juHoNcuG3vvc/EkR8XaWSs1UuoN4pJrX8D6IRj4+aBA26OXNNyemQuRRP8
-         mCJphC2iNvHj4KX/iYL3DoqbLmsaIEAjgzFXCqlrLI+cwGb5n/hVr4itYfL/L7xsISjb
-         eB3RzkfIKFO9HnMgjEKopqQRE4wK9+661KzcRCdQsOFrwWrXl42ebhIAQgIX9xsegxeI
-         FZQnL496/5l9+QVVVSCIzChbF14lHuC7ka7PBk1pV5zpDjkmZYqVD3chJRkxYxlA5tuj
-         EoukZvYJGPhl682uTce/YF3CwTD01Q/MeLPdH/QQyrqVv0YZNmuEn9zW9Ny4N15ssOuj
-         7i0w==
-X-Forwarded-Encrypted: i=1; AHgh+RpHRU0SeU8GirFnYp4l5AkefsaIiG3n/EleJzTgM2nf1VKdzgjyZPWpqH1cgd7YP02OZuiABJr/DfkA@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFTnrOvOCJNS2mNvTjYrAyU9lKOXOfKG6Cg+PEXMPRszNxMhkn
-	OmPVeqD7F1/eVVdesq7dGFHMbMtrToF51DsYwdLis+dE7Q2EVlUBCHDr
-X-Gm-Gg: AR+sD1352EcMqPFp4JoYHcr5IrFRMLhz+O95rwNst1QSspbj6BpS201GZa9k6RbskDX
-	Njq1nQ6NVrHTBZKLOUpmX40+A1wUZzMDOoBVOH4b71VQkkwrUr224JqO8XtfGBihXJWdpwnY/q9
-	mYJfgalFvz6oC/NAKpBhv0gCUMXwxCPxBP5G+KqIcA4vS1GJS5CyHejtToanNhqUveXG61e1N9w
-	fOG31dScnJtwhFFUEb1PxaA+6QGeHNFEzRjzqIS9sJWkJv4EMuXoVOqXnHejz8iXDkn5/S6/f7i
-	xMzX/JwWlR2Yu7yHfdIb5eV2uRuMdBTyUPuOz0t01o3i0y9JcEhKpTfFEJNMfNxhGb9WXiHWtC+
-	+A7muV8ZDcWVp9g/FD0H1RtxyzzFGJsM1ctFXZxaKY3Dtb7AJHdnudYaM+M0Xw99XyGo0ANz1BT
-	X32i959fVHobtyZRHSM1vxmPWWmuOwZJAvU+ZGJwaJsIMRqiicM7u35L5mb28BgTHzuxpjfCZ0s
-	eO5bn70VuWARzLM4iAWur+usCN/HerJ0La9rsW/8TkN9Rw=
-X-Received: by 2002:a17:90b:57e6:b0:38d:e658:5959 with SMTP id 98e67ed59e1d1-38fbc3e596cmr12071256a91.5.1785827109823;
-        Tue, 04 Aug 2026 00:05:09 -0700 (PDT)
+        bh=cYle3ok/ZHpbCa/gvJJfuJ/kdU7yLL+dRoi+qfcwl8E=;
+        b=TTv0XHcXUHCxcof6iEz/59xWEC0/WfiqQvyMed6DlO3mfnqZYfM63ZpM15MsXMGGzu
+         kiU3F+1bk9KS1bHmcYryNxzWBPMY5RYW8fN2YCb5NtASoELmS/t7uNrdFIEGgnjw0bFn
+         M9GTt2vQdGbHiixeaYVpiySx07CB5JLFDLBUaeqL9YulPK+wCoE+zBT2tiEIneBQj/Zz
+         Y5POnsp7a4VDfcBxe0GFJxQu6riQHAR8WvIc/uaNzH29xjFQPAtAnLJFIFfu9tXgEycb
+         4LQ6m9xctoB5XHZIPUEBYuVqpGN5AGCPpRELNb9uSQoKJPzjnUjmoVy5buLbV7xJc1Dk
+         8Osg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785827113; x=1786431913;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cYle3ok/ZHpbCa/gvJJfuJ/kdU7yLL+dRoi+qfcwl8E=;
+        b=muLbyYmskH4ZhDlcvEj1CXFjXdjasBQgzHrBzF8QV9zeAoHjjvZZwjVKj5sal41IGE
+         S3awk1ihd2y11Swp3zOx+XArSft/xajIatvAT0C9q6+ICijhIlHPISJLOKWFPkGQagaT
+         haOhO8Gw4PsY9T/ubCS+HNzU1VKNZSDUFDOltWt3mQ/IkRs5hy6efKrCj+10QhKDjp5u
+         LD3wqGlz8sapHlM7R4Bt9VC2A2oxOA/gfCblR8L5w+qGEYAfqRFwRX46IzRtw+SKGK/5
+         GYBsOmNldnhe1CLcojB6HXRD3qq29WrjOQYM4d3omEQRYd86cLm9ADhutCk/DAKl+boO
+         BJig==
+X-Forwarded-Encrypted: i=1; AHgh+RpbQpzw9tLfKQKAVHGsNapsqITpzYxgIPylZrFNiOP7p5NVnEEqsyUNlDNBAKT0kl7S6qHFQz6+e8kc@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVOrRdxz/ub6LFq8wE/VwbnuUD+4nbOCYQk6jppRWj6YaFfWG4
+	6v2ZrX1RsZaSPLTwd6zXNRUfV73itkmkfg52P+BFeliAMBiohf5HfHpK
+X-Gm-Gg: AR+sD115I7uqXlVjP6j/knFQfYrnjRqS4Pz6P5CXvt6tZsCUFDmB0BKo2I8RQ3FNFng
+	YqEfqfOVfCiI6w1bOhK89aKigw82aiS+8OYC/9Zn3Uk4LSquC92tGQTe/hebBxVlU1dpjeQdK2m
+	R9h4rX99eQGZbm1GWvT2k3LBjZtToOf9OvZ74WumGVx+TanJSVz6BlwcI1Fs7Y3/g4eYABm6zn+
+	p4U/hSwFPYIjxpdTfq3Cf/TCvwcJ+TyAVKuN4IMwbQYfpU5FUORz2QyMkV3ZpA8xNFlF2iXZWSC
+	HV2JusaLSR2wSL0GOxEna4o6QpnF1ig9lmjUuJYBKvvorVUucJWSszrJ2OZjYeNY4rAMUsTu2QU
+	11OmiuHNob9ntgE6m+21aW3TX66qAU/uI9uh2sQZDVJntKQJkLNSm1YV4+cJjiprX+auZzvYi1Q
+	2jMFlY61dtPggt6wnf5NqOVlYEDDoHyyI/gdM+gaDQjmCFg4oKzzBg1BGamNh2w81VtAKwcK2LD
+	hQMvCYkgg5PAH0049INimge7WrwiYPtqzKcoZfWSNzhBzg=
+X-Received: by 2002:a17:90b:5403:b0:381:792d:f993 with SMTP id 98e67ed59e1d1-38fbc4835fcmr12263384a91.17.1785827113305;
+        Tue, 04 Aug 2026 00:05:13 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38febfd8ff8sm859815a91.4.2026.08.04.00.05.06
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38febfd8ff8sm859815a91.4.2026.08.04.00.05.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 00:05:09 -0700 (PDT)
+        Tue, 04 Aug 2026 00:05:12 -0700 (PDT)
 From: Zi-Yu Chen <zychennvt@gmail.com>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>,
 	Guenter Roeck <linux@roeck-us.net>
@@ -70,11 +72,14 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH v3 0/3] watchdog: ma35d1: Add support for MA35D1 Watchdog
-Date: Tue,  4 Aug 2026 15:03:48 +0800
-Message-Id: <20260804070351.1846165-1-zychennvt@gmail.com>
+	Zi-Yu Chen <zychennvt@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/3] dt-bindings: watchdog: Add MA35D1 Watchdog
+Date: Tue,  4 Aug 2026 15:03:49 +0800
+Message-Id: <20260804070351.1846165-2-zychennvt@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260804070351.1846165-1-zychennvt@gmail.com>
+References: <20260804070351.1846165-1-zychennvt@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,64 +88,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series introduces watchdog timer support for the Nuvoton MA35D1
-SoC platform.
+Add device tree binding documentation for the watchdog timer (WDT)
+controller found on Nuvoton MA35D1 SoC.
 
-The MA35D1 watchdog timer hardware provides a programmable countdown timer
-capable of triggering a system reset upon timeout expiration or generating
-an interrupt to wake up the system from low-power states.
-
-Key features supported in this driver:
- - Standard watchdog operations (start, stop, ping, set_timeout).
- - Boot status detection to identify watchdog reset events (WDIOF_CARDRESET).
- - Power management support including suspend/resume and wakeup functionality.
-
-Series breakdown:
- - Patch 1: Add DT binding documentation for Nuvoton MA35D1 watchdog.
- - Patch 2: Add the watchdog driver implementation for MA35D1.
- - Patch 3: Add the watchdog node in the MA35D1 SoC DeviceTree file.
-
-Testing:
- - Tested on the Nuvoton MA35D1 development board using standard watchdog
-   test utilities (e.g., watchdog-test from tools/testing/selftests/watchdog).
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
 ---
-Changes in v3:
- - Added check for watchdog_hw_running in suspend/resume.
- - Add set_timeout in probe before devm_watchdog_register_device.
- - fix spelling mistake in Kconfig help text.
- - Drop redundant "binding" wording from patch 1 subject.
-
-Changes in v2:
- - Added `watchdog_stop_on_reboot()` and `watchdog_stop_on_unregister()`.
-Addressed automated review feedback (Sashiko AI) and reviewer comments:
- - Remove redundant 'struct device *dev' from driver private structure.
- - Add ma35d1_wdt_wait_sync() after writing WDTEN to REG_WDT_CTL in
-   ma35d1_wdt_start().
- - Preserve wdt_dev->timeout when requested timeout exceeds hardware maximum.
- - Replace dev_pm_set_wake_irq with devm_pm_set_wake_irq.
- - Set WDOG_HW_RUNNING if watchdog was already enabled by bootloader.
- - Fix IRQ variable type from u32 to int.
- - Removed unnecessary `select MFD_SYSCON` from Kconfig.
-
- Note: RMW operations on REG_WDT_CTL have no runtime side-effects on W1C
-       flags as IF/WKF are only utilized during PM suspend/resume window.
-
-Zi-Yu Chen (3):
-  dt-bindings: watchdog: Add MA35D1 Watchdog
-  watchdog: Add Nuvoton MA35D1 watchdog driver support
-  arm64: dts: nuvoton: Add WDT node for MA35D1 SoC
-
- .../bindings/watchdog/nuvoton,ma35d1-wdt.yaml |  55 +++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |   7 +
- drivers/watchdog/Kconfig                      |  10 +
- drivers/watchdog/Makefile                     |   1 +
- drivers/watchdog/ma35d1_wdt.c                 | 363 ++++++++++++++++++
- 5 files changed, 436 insertions(+)
+ .../bindings/watchdog/nuvoton,ma35d1-wdt.yaml | 55 +++++++++++++++++++
+ 1 file changed, 55 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/watchdog/nuvoton,ma35d1-wdt.yaml
- create mode 100644 drivers/watchdog/ma35d1_wdt.c
 
+diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,ma35d1-wdt.yaml b/Documentation/devicetree/bindings/watchdog/nuvoton,ma35d1-wdt.yaml
+new file mode 100644
+index 000000000000..aced7d77a7d3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/watchdog/nuvoton,ma35d1-wdt.yaml
+@@ -0,0 +1,55 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/watchdog/nuvoton,ma35d1-wdt.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Nuvoton MA35D1 Watchdog Timer
++
++maintainers:
++  - Zi-Yu Chen <zychennvt@gmail.com>
++
++allOf:
++  - $ref: watchdog.yaml#
++
++properties:
++  compatible:
++    enum:
++      - nuvoton,ma35d1-wdt
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  wakeup-source: true
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
++
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++        wdt1: watchdog@40440000 {
++          compatible = "nuvoton,ma35d1-wdt";
++          reg = <0x0 0x40440000 0x0 0x100>;
++          interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++          clocks = <&clk WDT1_GATE>;
++        };
++    };
++...
 -- 
 2.34.1
 
