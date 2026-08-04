@@ -1,163 +1,252 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD3A38D3E2;
-	Tue,  4 Aug 2026 17:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A666F38F93B
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785865656; cv=none; b=kpsvOk34nu9bNmhD1DRffOlIKECb5CUVKzH4V4cg9po1E/4AdpjMH30HMY5uGFgmiyTPGjJwfDHZangN+t2Nxr9VAlRMGGAS7ttv5gVoHiTjb4i4WRTNx96BTsYqy5l1z09rhI9DjuvWD1vyW8SozOcNJVgTsrdJRARhTU64PG4=
+	t=1785865836; cv=none; b=cx7tKtt2k2buLNAfZ3Bxy+1Wt2xxieYTS1hz/FfrlB/r/c2Bxs9VAUjKJS62EGLM/hNUH7ifQUl+g04Uvb/knQmQcbzDa/kRRpENKdaVqqdJB4lbP1zAhzxLLyqxZlk+aX2U9Xt7wVHxWc7nUhmHqF3hfR6khQbrjhUL54lYob4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785865656; c=relaxed/simple;
-	bh=j/hPP8jkbfi3rboQ6Wnz+CDqqpULZUvZIxsVMAuWt2U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=myDdA4pPj+WgFWgeTEQYNzxnVy2QxDS9CHq8N2ZzXHaA1HsA5pwuJDXQPp1U3XOx3JBpE/uaBUDzRSMDVn2Evcp5jISSJJrMyeDQHvSODULurquBam4RnsU67XzwXzhn2h2ikBh3nivtsoOUxsk6Z103iHZSZDXrnCmuAaD6BHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=NEN801rJ; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1785865836; c=relaxed/simple;
+	bh=4HLWFOIJoKrAfczj8cSYP5QPntOP9ZRMrRl2nIPmrtk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PwjtsHuj7ON1apMbUi41TIOCtHOnK87QQXMitft8ZrDqCU9+X8jjaVfs+3CM2L7Hj0wzo0Y1BqXx4onZLMXq5/9mUSfUDFJsrNdj6DPN+1sqtudrbFyxp2dyvbgL4D3ihj9WcNGFs9iAFpjyk+WKymoysqZUpLUhHGgb/5aSwAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y9dOD2IF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JSRuq7dL; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="NEN801rJ"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 23DFC3ED12;
-	Tue,  4 Aug 2026 17:47:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1785865651;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7vkceEGEwK/ANQemAF3H6G68yDEuGawBZ5Gr2wXTA6Q=;
-	b=NEN801rJQPFCC5TFexQrJp3xyO1W914RbOAdhH08M5LChCS4RnY8SqDO9g+8l4Ioudgdwq
-	a4sjNJHp1dOQCEyoB5WBs//wM266653Qq5QDcnU53jYtr3Xn4FcpZbYe/BEu2XQk4CCD09
-	BGDfRw1sCQlhRPN12yd8HEC+JR/rGuj/Jp9BjytIM3WeDFfchO9wduEY6llhp5L2UDnMcb
-	fvNTkVKN6KU4T/192vi2l4qcRNVnRLXSGH2HdxSioWcd8cHst/amJeZ11ZhRgH8W1lhn3v
-	k7y36JjES5lw6FuhQZXWL5kPX07NugGsj8D75hGl9yVBe123rq0x6a7idsRuaA==
-Date: Tue, 4 Aug 2026 19:47:20 +0200
-From: Arthur =?utf-8?Q?Cr=C3=A9pin?= Leblond <arthur@marmottus.net>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Netdev <netdev@vger.kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] w5100: restore GPIO-based link detection
-Message-ID: <anIlqILTusVzSefH@pc-du-fromage>
-References: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
- <75937d1b-8ae9-4daa-bc36-08bdf5a6c5a9@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y9dOD2IF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JSRuq7dL"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674H3ShO404557
+	for <devicetree@vger.kernel.org>; Tue, 4 Aug 2026 17:50:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=DCj2HtSGnhXe/Ygho7KA2q
+	0SbWlkqUr8cQ+cFl5j0aQ=; b=Y9dOD2IFK81gElcd1KYYdzgmaWqFV6FKlLknQA
+	W27ku4pHnad6XFinvORylWWRwyuRa9NMUKPwuGxMc2ejwrI2YFbcP/SeDqGiQY15
+	LC6O3ebT/8+G9ug4BWiEO2oNS08tjmvwImlDwrpTKeOVB07qVbd6cEmO1QU7Be+I
+	ItahjrfHPQJ3SRZBYsu240+sxqhsRlFmWQ5EmMJakMMmwDL2sb5I2pLPPA1L5Ouv
+	GTOHuUovrYVpvR7oRGi5IxQCv9APVzMC9wncfMVpk3uGdQC0ekDQV9oFtG3+LvlN
+	1z70dLK48E+ws4FPrQ6X9Hx8F/L6BRXQtCpDWTMbghkZCv4Q==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fum56g7b5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 17:50:31 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cca3673560so2146475ad.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 10:50:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785865830; x=1786470630; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DCj2HtSGnhXe/Ygho7KA2q0SbWlkqUr8cQ+cFl5j0aQ=;
+        b=JSRuq7dLHP9H4dOp1ZXYNHy1LobXtBk7jWvgK6c2TnBpVutNCHKaAh37VEviniTaar
+         rjvwyWwk9uToSaOToAGgzG5kTw2CM/pGKnItL6/RuP3EKpK1AFq4wb0HaSig2GYxnsk/
+         bzaKU4VUQezzwOFugeZLRG61Bb0m46ppAGVpPuhGKNlXbEM4mC3s0G5ZA96kECVuYbCu
+         7HyJ2Sh/4Rbb3fhIH8/Td5udRDDbjMZ1xM7ApiQrq93HfQYJDWrfnipmluykRSy0TNV0
+         s4RCG9RiO6GObDMvmm/c8+QPjfYTFu6xR6HvA7coCLpAm/rc5miLy5y7s/5fg4eLxyVF
+         Hr9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785865830; x=1786470630;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DCj2HtSGnhXe/Ygho7KA2q0SbWlkqUr8cQ+cFl5j0aQ=;
+        b=QUuoke3yrHsGjBUoEWagOPb1KngRLVH0yuMFWW7AKgo7D4uqMxn+EVi2s0jI635Z4s
+         7QmGTJUVOxdMDsQEPOQ2fVjCsKuxgGe5Nx6FTnq+mYDl8bOEaoakGu8hnimJRGZPquMr
+         mi/A9gUzslMP8xkxltyI/CeY6ct7Ha1uKwyfgoEg3JMXrpzGn1LL9s2V+Nb0yNfYgHnX
+         z7Epz0hsub6wprVWjWliWAOXgZeWrgvm71mke302JND/PiJbqxgGBJ6RqL9o9kf/Xhr4
+         L1Iqx1uJtkQ1nRmLzDE/MRyz1cV4eva6w//tXhf4fO8Uv71++Xfpkh/FcvSXcpAHGu1e
+         F8Eg==
+X-Forwarded-Encrypted: i=1; AHgh+RqPZI6fVB0nYUK1WaIiqoipEBW730p7rxJcM4rbKteo2iAlJBzIBIqIHdkFXwLhAJ2svrlA51AF9Y4K@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw41N6LXwWmdrpi+NcU3J64YH4xtqB/VFoBLIQIQB4Yaiu7AdVR
+	enLEmBjHvtlLBdyd30X+4NUIZxd98j3GWWo7/w1FroELZdvF2/MiglZKtPDLC48d5v2vqX8x2TL
+	IaGmjFB12kMWhphbypOjxqmVBr2FBbRkymyo1AlgmTSj9IGL0l98yLVkKqMxeceSH
+X-Gm-Gg: AR+sD11xsEaFVBxsMN64fvVwR7MTQrftJH0Msm9ajy27eiLrk8hvo4oTSy6Qfvt/btj
+	rGUfCL5Y+JGsJFY7kX4As3O7bnNajOznAIuxyqt/vUk68uMrxkTlE+Ef+RLtf3k0PXtOQeCwkpR
+	CRz2Koo8wSLPVntnpvSyuGOJ5CdCLGVPr6G1MRKYOWNPO+36Lkm+YzNmejxciCLqjd6RXgExa9E
+	PNTU1/bprJ09xUL+gN9nPkpMbfLivl8t9yk6nfxW5LWF2Tpz/lDWUDwiDFx7wnjfbjhLgUeLVmM
+	Qk3wILXrCYxTXTpZO+q4Kl2SAZETVAL3QvgKifz51G7Z079XgRJNNB9Ev/YJRevsY/AnwjKxRsi
+	J6y3jv9zjWOGM+54K9jRm9yWn
+X-Received: by 2002:a17:903:b48:b0:2cc:7e4a:bcc5 with SMTP id d9443c01a7336-2d0ca9d0975mr4965115ad.32.1785865830517;
+        Tue, 04 Aug 2026 10:50:30 -0700 (PDT)
+X-Received: by 2002:a17:903:b48:b0:2cc:7e4a:bcc5 with SMTP id d9443c01a7336-2d0ca9d0975mr4964505ad.32.1785865830115;
+        Tue, 04 Aug 2026 10:50:30 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586790e21sm7052108eec.24.2026.08.04.10.50.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 10:50:29 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH v9 00/10] Add support for Video, Camera, Graphics clock
+ controllers on Eliza
+Date: Tue, 04 Aug 2026 23:20:13 +0530
+Message-Id: <20260804-eliza-mm-cc-v9-v9-0-39067760dc3c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <75937d1b-8ae9-4daa-bc36-08bdf5a6c5a9@app.fastmail.com>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTFd1G6aU6NpiT96xs0T3HJ4vOA0zeGEzJunf9PVWnVHeLQDFlORYa9HG9rmVmtZUGqcazTsix+7IfhgXF8jIcWYUf0HG3FbFt//r9QBp7TvsBOAhhXtCNL5Wf3hS3CaIeNlMTnswOMVYylUux58OG0A2nHPOLyf5vT7aocApvoIMU3SuDKmsNB1DIM8GDg+YFnml2eOTmzLHaLSM89L64J5MEs3lhPP9Oy6VppRAz/arnOvYkgTns8eDMNY/ENuSjyuze/Ht0SsO8R1ZDsZUcXPSZf6xshZDae56grWENGSl2UfBZxz7A1XJGh8JYxmKPcfCnDFC5Kieoj71t8ZXX2TES14mnMR7Ncn/0f3IaNXeQInX3eFZcatupKTmXM3FviUM18cNbWteQUqKn5Sgu0vBYWSKQs9/yGOHCmDnHEp23zSD9JPaeA0MSa67e4WLGpTHTLfUx9vdtVpDA0g2mgQYUXgfXy2FX7oHl3/V8VsFpxqsaq4878U2AT7MJlgr04UTAv2+KzG8Yk2N4TxIOwkbB2XcA6A07fk/+LFApRPylWGaWfun5LVIqlOXQ+7I0oV8tqiNlxxTFWCXk0kYBr4E7nDAMR1UdyGCMh/RQwP4QH9YPduZoZ7/UAkJ2QbIs5LC700QQmtu247Ygh8ikTkJ5FsMSMvVY8GCZpobO6UZQ
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFYmcmoC/x3MTQqAIBBA4avErBsQEcmuEi1sHGugPxQkiu6et
+ PwW7z2QOQln6JsHEhfJcuwVrm2AFr/PjBKqQSttVacM8iq3x21DIiwOrY3eBOcmTR5qdCaOcv3
+ DYXzfD5WYpL9gAAAA
+X-Change-ID: 20260804-eliza-mm-cc-v9-66fa4d99b2ca
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-ORIG-GUID: PR8kXQAjjMRh2SVhSdtHKZn9GjXw5rYl
+X-Authority-Analysis: v=2.4 cv=Co+PtH4D c=1 sm=1 tr=0 ts=6a722667 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=9qvLLBMeT0BavxF-EG0A:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDE0NCBTYWx0ZWRfX3Tm3OIg8rsod
+ Lnn3VNTNFtUWGkgn8Fkg1V29Goqd2PzDNH5CBBbK+9aH3Z/QY7Tc1FoXTW8jtbHn5LCR9gADUQ/
+ RwSEzg2yCBPBLdpNIOcT8Rtz68XD9G4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDE0NCBTYWx0ZWRfX+9DhhQ/DwG9t
+ 4Ssks/T07o/O+FGMW/EBR8pYbXFRi8hYDAt2T33B2ijnx8+nnk1j7VqhLA6WrQq04bLdqGZgQCu
+ TUpAQtHK+VfzedVlX8NLKgogdpr57fYXALxgUZ1RFyBAi8dyz/jRrqxdln/4B1Q0RNLv7SOxknv
+ Wff6UMtwWVMfllyUqQApii/cbzBqYdAFRsR9Zkw+5h+0RDe1kqu0xAomyAifNNJtdCXJyVSjJuU
+ iR7FphE07ZI2yDJ83SW3kxroLLRmt5cHe73RCnzixKEKqFjDiFKaGJamscYSBAZJr8Bq8MNurN7
+ 1vB8U3hDA+UCFc+ck9kXoHHXQ+zsgCeTlL5bdFl53V2nFEY1q9KYn2R/MyP+u2NLnLnPM08ICAt
+ my4dke7nJr5aAx3y36zNooWk5gtWID3LCYqFNIkY4jH7xWH0vniBzT7lbbYApHwRzPFa1TKKFws
+ fh5ta7V/sNYFd4i7xKw==
+X-Proofpoint-GUID: PR8kXQAjjMRh2SVhSdtHKZn9GjXw5rYl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_03,2026-08-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608040144
 
-On Tue, Aug 04, 2026 at 05:02:48PM +0200, Arnd Bergmann wrote:
->On Tue, Aug 4, 2026, at 16:38, Arthur Crépin Leblond wrote:
->> Commit dacf281771a9 ("w5100: remove unused gpio link detection")
->> dropped the link_gpio/link_irq handling on the grounds that no
->> devicetree user passed a "link" GPIO at the time.
->>
->> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
->
->Hi Arthur,
+Add driver for Eliza SoC camera, graphics and Video clock controllers.
+The camera clock controller supports the cambist clock controller and
+the regular camera clock controller.
 
-Hi Arnd,
+Eliza camcc and videocc are on CX and MX rails and doesn't have MMCX
+and MXC rails dependency. Add explicit power-domain voting for Milos
+which are required. Hence extended the Milos camcc & videocc
+documentation bindings for Eliza.
 
-Thanks for the reply and the review!
+The patches have been tested on Qualcomm Eliza MTP board.
 
->
->The patch description could use some more explanation here, and
->a clarification that you don't just bring back the original
->broken code but add devicetree support for it.
->
->>  .../devicetree/bindings/net/wiznet,w5x00.txt       |  8 ++-
->>  drivers/net/ethernet/wiznet/w5100.c                | 84 ++++++++++++++++++++++
->>  2 files changed, 89 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
->> b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
->> index e9665798c4be..e97ce3cb9183 100644
->> --- a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
->> +++ b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
->> @@ -25,6 +25,7 @@ Optional properties:
->>    According to the w5500 datasheet, the chip allows a maximum of 80
->> MHz, however,
->>    board designs may need to limit this value.
->>  - local-mac-address: See ethernet.txt in the same directory.
->> +- link-gpios: a GPIO line used for the link detection interrupt
->>
->>
->>  Example (for Raspberry Pi with pin control stuff for GPIO irq):
->> @@ -38,13 +39,14 @@ Example (for Raspberry Pi with pin control stuff
->> for GPIO irq):
->>  		interrupt-parent = <&gpio>;
->>  		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
->>  		spi-max-frequency = <30000000>;
->> +		link-gpios = <&gpio 4 GPIO_ACTIVE_HIGH>;
->>  	};
->>  };
->
->Ok, so you are using the binding I suggested originally,
->which I think is fine here, but note that Rob asked for
->the binding to be converted to yaml format in
->https://lore.kernel.org/all/20260427145010.GA2502144-robh@kernel.org/
->
->I avoiding touching it by just removing the broken implementation,
->but it would be good if you could do this now.
+Changes in v9:
+    - Rebase the patches on tip of linux-next.
+    - Added the RB-by from patchset v8.
+    - Link to v8: https://lore.kernel.org/r/20260717-b4-eliza_mm_cc_v6-v8-0-5cca1bef2e48@oss.qualcomm.com
 
-Yes, I started to reintroduce the driver link GPIO code from the 6.18 tree
-and converted to gpiod_ and noticed that you already had a patch
-(20230127095839.3266452-1-arnd@kernel.org) so I reused most of your code.
+Changes in v8:
+    - Remove unnecessary '#include <linux/mod_devicetable.h>' from the
+      videocc, gpucc, camcc and cambistmclkcc Eliza drivers.
+    - Added the RB-by from patchset v7.
+    - Link to v7: https://lore.kernel.org/r/20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com
 
->
->> +
->> +		priv->link_irq = gpiod_to_irq(priv->link_gpio);
->> +		if (priv->link_irq < 0) {
->> +			err = priv->link_irq;
->> +			goto err_gpio;
->> +		}
->> +
->> +		err = request_any_context_irq(priv->link_irq, w5100_detect_link,
->> +					      IRQF_TRIGGER_RISING |
->> +						      IRQF_TRIGGER_FALLING,
->> +					      link_name, priv->ndev);
->
->I think you can just use a hardcoded link name here, and
->an open-coded gpiod_to_irq(priv->link_gpio) for simplicity. My
->previous version kept this from the original code, but if you
->reintroduce it, you can improve it further (as you did elsewhere
->already)
->
->I would probably also use devm_request_threaded_irq()
->
->> @@ -840,6 +918,7 @@ static int w5100_suspend(struct device *dev)
->>
->>  	if (netif_running(ndev)) {
->>  		netif_carrier_off(ndev);
->> +
->>  		netif_device_detach(ndev);
->...
->>  		w5100_hw_close(priv);
->>  	}
->> +
->>  	return 0;
->
->The whitespace changes should not be part of the patch.
->
->     Arnd
+Changes in v7:
+   - Add missing 'power-domains' and 'required-opps' properties to the
+     Milos camcc and videocc dt-bindings, and the corresponding device
+     tree nodes, since the Eliza bindings extend the Milos ones. [Konrad]
+   - Update the camcc, videocc driver to 'use_rpm' flag for Eliza.
+   - Add the RB-by tags from patchset v6.
+   - Link to v6: https://lore.kernel.org/r/20260609-b4-eliza_mm_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com
 
-I took your changes into account and made a v2.
+Changes in v6:
+  - Update device tree to latest linux-next.
+  - Update commit text for no ABI breakage for VideoCC and CAMCC
+    binding [Krzysztof]
+  - Added the RB-by from patchset v5.
+  - Link to v5: https://lore.kernel.org/r/20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com
 
-Thanks!
+Changes in v5:
+- Taken care of comments from v3, v4.
+- Update milos-videocc and milos-camcc bindings to add '#power-domain-cells'
+  as required property in bindings.
+- Remove duplicate clock 'gpu_cc_gpu_smmu_vote_clk' from driver and
+  bindings.
+- Add '#power-domain-cells' for 'camcc' and 'cambistmclkcc' device node.
+- Link to v4: https://lore.kernel.org/r/20260513-eliza_mm_cc_v2-v4-0-e61b5434e8d9@oss.qualcomm.com
 
+Changes in v4:
+- Update the clock ordering for camcc and cambistmclkcc in milos.dtsi.
+- Link to v3: https://lore.kernel.org/r/20260513-eliza_mm_cc_v2-v3-0-b59c370dc281@oss.qualcomm.com
+
+Changes in v3:
+- Dropped new documentation bindings & extended Milos documentation bindings for Eliza videocc & camcc.
+- Dropped the defconfig patch and included the drivers as m from Kconfig itself.
+- Update the header inclusion in the milos.dtsi.
+- Link to v2: https://lore.kernel.org/r/20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com
+
+Changes in v2:
+ - rebased the patches on the latest linux-next.
+ - Add new bindings for Video and Camcc.
+ - Remove commented code in GPUCC (limiter code).
+ - Add device nodes for the corresponding clock controllers.
+ - Add RB-by tags for VideoCC and CamCC/Cambistmclk from v1.
+ - Link to v1: https://lore.kernel.org/r/20260317-eliza_mm_clock_controllers_v1-v1-0-4696eeda8cfb@oss.qualcomm.com
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (10):
+      dt-bindings: clock: qcom,milos-camcc: Add missing power-domains support
+      dt-bindings: clock: qcom,milos-videocc: Add missing power-domains support
+      arm64: dts: qcom: milos: Add power-domains for camcc and videocc
+      dt-bindings: clock: qcom: Add video clock controller on Qualcomm Eliza SoC
+      dt-bindings: clock: qcom: document the Eliza GPU Clock Controller
+      dt-bindings: clock: qcom: Add support for CAMCC for Eliza
+      clk: qcom: videocc: Add video clock controller driver for Eliza
+      clk: qcom: gpucc: Add GPU Clock Controller driver for Eliza
+      clk: qcom: camcc: Add support for camera clock controller for Eliza
+      arm64: dts: qcom: eliza: Add support for MM clock controllers
+
+ .../bindings/clock/qcom,milos-camcc.yaml           |   31 +-
+ .../bindings/clock/qcom,milos-videocc.yaml         |   29 +-
+ .../bindings/clock/qcom,sm8450-gpucc.yaml          |    3 +
+ arch/arm64/boot/dts/qcom/eliza.dtsi                |   76 +
+ arch/arm64/boot/dts/qcom/milos.dtsi                |   10 +
+ drivers/clk/qcom/Kconfig                           |   31 +
+ drivers/clk/qcom/Makefile                          |    3 +
+ drivers/clk/qcom/cambistmclkcc-eliza.c             |  464 ++++
+ drivers/clk/qcom/camcc-eliza.c                     | 2803 ++++++++++++++++++++
+ drivers/clk/qcom/gpucc-eliza.c                     |  606 +++++
+ drivers/clk/qcom/videocc-eliza.c                   |  404 +++
+ .../dt-bindings/clock/qcom,eliza-cambistmclkcc.h   |   32 +
+ include/dt-bindings/clock/qcom,eliza-camcc.h       |  151 ++
+ include/dt-bindings/clock/qcom,eliza-gpucc.h       |   51 +
+ include/dt-bindings/clock/qcom,eliza-videocc.h     |   37 +
+ 15 files changed, 4727 insertions(+), 4 deletions(-)
+---
+base-commit: 0f6da28aab51b16762ed82e8fdeaa5042da45b08
+change-id: 20260804-eliza-mm-cc-v9-66fa4d99b2ca
+
+Best regards,
 -- 
-Arthur Crépin Leblond
+Taniya Das <taniya.das@oss.qualcomm.com>
+
