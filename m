@@ -1,218 +1,140 @@
-Received: from out-162.mta1.migadu.com (out-162.mta1.migadu.com [95.215.58.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B114E468C00;
-	Tue,  4 Aug 2026 13:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D3E46985B
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:59:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785851747; cv=none; b=TZtlc+uRo2HohIIyN1dXJyFTlJp837OSyao3mKFEW2ZGdbCXLIU+NqClPkNFvcKOuVA9EgXQ2a1n/R4RXh0/HGDt/1HXtC/t7zmjpXLEDw0/WyktCi50vZdbtHdTaIWJfi12aiOB5hQrZeiz712REtgUx21K0xz7FZQmo1kOaHE=
+	t=1785851949; cv=none; b=TWqUTTI2Skvn9Ng4kpGK0RA3atpnxTaB8yumjIJKha48aucXELETruwWJP+kLdFlQbwEA0/aVAfCsxSEYnLUJ8eUpaynHZ2W7c8ZzB7aWcB83rQjs5vhr+AKB2+LaH9kwwOxZFVlPRUKSb8i/LG2LxlAXhnfEeOf8/kHqYrW3Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785851747; c=relaxed/simple;
-	bh=LcYiPqB4tVrRiy7Cltegl8juqIwND8gItntjWapowOk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a0vhF+2agdppJMFa+hLFh1q5L117Fk9fplRpOThkDV6jxA5Sl34Hs6L8vXe24pq9gBZIbQCP3s9xTZ7dBTWf3EnrT/dYO32Vc5dA3UOPMBA3OezV7jUjeYsZPnH34/20dIk50a1Iult6wY/eNiOCAR66DAB5py5TOe2Ah1XbXxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FYZtil51; arc=none smtp.client-ip=95.215.58.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FYZtil51"
-Message-ID: <4ef01fa0-969f-4ec0-997b-5f5f3f67e11a@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785851742;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gYaRYJJ4lK/MLOWAM2e1uCFUmqoZIVPfPNaQ31GMp0Q=;
-	b=FYZtil51LzrZNx/hTwezUS2eYSm/487ebVTBuTingdSO8uBcyrhjubzK1fAG6PcwWSkRPD
-	zBrz32hja2gVCBTzht+8r03mrRntjCdIpIvmrBDfj3qKue+wASayNRuJEd3iYBE708hwp2
-	46ODWFVYxV9tghywi/XhsIpsaAGZbZM=
-Date: Tue, 4 Aug 2026 14:55:17 +0100
+	s=arc-20240116; t=1785851949; c=relaxed/simple;
+	bh=bijMh6YVN02L/DmihwClxQpYomd+j6W5tABqliS3/J8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ka2hVlB1xeJ4WnDPITxlQRSbb9+QpLR9U3PrLn1mnn1tzqHULrU9zhPRBahsGm4HGMXUUeAlksTn/ubZ+Kds+Un5ut1jVYnk6yXqfyxAgQ3+8cTKrVcKtxrjdmn+Do1d+iiOm0kBA63nwNreP+uVyzR9Bu6hV12rJz5H2TOhqKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-9693bbb962eso2732100241.2
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 06:59:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785851945; x=1786456745;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jMZGg3Hr90Da/te9ZK4e2PlgcVa8qZPpj3G51Zmu8Ic=;
+        b=DOQq4At1T025tKIeOPrqw4pYd6K8paG5QVG+ruALyAm51fwO95gVsylLPaywtlcIkD
+         i6/kQx32gJcQ+4Z60R5sKRfmEKasKR2EVYKDHEY6+10hbKHJgFC8MdTG+M5C3zOLHWFX
+         6626n6xnNkfL3OkZ+ccLcCk++qND5y60FORO4Gf9zYbcJeyDZmJ3SnoItqIEh/e5TD+g
+         daW+ZCsQonq32p4La+9fRjqutr73rydIJ+1x0xKMx368dlXJuccuiGsnQ8wzsNIDXKlB
+         r4C9dtOCTJPucRivMY9uFZqqUz+U4o2XPhgLQOlku+JW8+jIqbFvGUmITn2joarH+dOg
+         wJ1A==
+X-Forwarded-Encrypted: i=1; AHgh+RrZDQgg/DfIffYxwpd5BnAWoap2V9DCZIBENnt5q/GTwebKA6KS5qrX+3/pXEaC27NUcYnmql6rTERa@vger.kernel.org
+X-Gm-Message-State: AOJu0YyNH4DTvesULsnD9gDmkUl3jZDXe93cnDiurhXavmBltluJicG0
+	cgrxHO97fcsGuHQ2VSJyeyjUVyDnSdkYl++hENvWTQGitqsni67ghZvfflwzj7AD
+X-Gm-Gg: AR+sD100MMECrmiFUnBG6cLex+7etinzhBpBN1GZRK2jI/ZtuUqcWc2JmNHDb3GgNW3
+	GE8TuQrNitPZw57jhq/vj/cSKfXicViMWONxnkRVLXZ1Y9VJMS89eg2O4tNjObqwnKJ9a6o3D6d
+	28Tx6KQ7Rcw6DxuOcAto5+A2MSKpmoYUmIRA1dG/hq+sZMAzEPEmoJbSXaCt87/OgiraQoN8aJo
+	kb2JPhG7IQxvxSJQkfHJYP853jpUfxH1uJ6cPDsJ2BJ2OQqt7S956w7MOMzUBArVbSUtxNthkbC
+	czX1Is5JXqje9AU+tThB7RW0AmsatBrL/tz2rqqT8tVYPlcOnHZX9qcBErgBsaS9wNtiuQ2a6VA
+	VGYHwKizkhcJno2usiCdmCsW115Hm4rhsEWmU649+JgCuRcopnsFzDbX7LCGM3mmN+KLBbFDdM4
+	jBF31psgV7BFTTHU8ys+2eARQztE5HzgrJSRTh41RFOfFDST1bVKdxxT/BJq8xF9xsd3D5lgZd7
+	6/HZmGxQHUYVvHBWqA0FI9oXsfy5ATHE9RxHusn
+X-Received: by 2002:a05:6102:1496:b0:74a:9ac9:792c with SMTP id ada2fe7eead31-75b243758c1mr10937571137.12.1785851945425;
+        Tue, 04 Aug 2026 06:59:05 -0700 (PDT)
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com. [209.85.221.174])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9782c7e4d96sm147843241.6.2026.08.04.06.59.03
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 04 Aug 2026 06:59:03 -0700 (PDT)
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c276bd3692so3158419e0c.3
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 06:59:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrpNe+LSaLtSaWEtK0+4jbn74M88z7h8IY1/zay339bvgV1Oc8dgezzvK0NmyvfuM4/tLDTCvzWbXGg@vger.kernel.org
+X-Received: by 2002:a05:6122:178a:b0:5bd:ea6e:52f4 with SMTP id
+ 71dfb90a1353d-5c3878da56dmr4433506e0c.10.1785851943093; Tue, 04 Aug 2026
+ 06:59:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [RFC net-next v2 4/6] ptp: ocp: Validate EEPROM board IDs
-To: Ahmad Byagowi <ahmadexp@gmail.com>, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-i2c@vger.kernel.org, netdev@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Peter Rosin <peda@lysator.liu.se>, Nam Tran <trannamatk@gmail.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260803205011.1249-1-ahmadexp@gmail.com>
- <20260803205011.1249-5-ahmadexp@gmail.com>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260803205011.1249-5-ahmadexp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+In-Reply-To: <20260731215043.30392-1-maximpedraza@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 4 Aug 2026 15:58:51 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
+X-Gm-Features: AUfX_mxuzkKCO3FqjKUxMjQ1O7E0RvhlBOsj8RUg6kF0tqsdz7CSmr5lOxZ_jd0
+Message-ID: <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+To: Max Pedraza <maximpedraza@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 03/08/2026 21:50, Ahmad Byagowi wrote:
-> The EEPROM board ID is a fixed 13-byte field. It is stored without room
-> for a terminator and passed to devlink as a C string. An erased EEPROM
-> therefore exposes 0xff bytes and can make devlink read beyond the field
-> while formatting board.id.
-> 
-> Reserve a trailing byte, classify erased and malformed contents, and
-> publish board.id only when the field contains printable text with valid
-> padding. Continue reporting the serial number when the board ID is
-> absent.
-> 
-> Fixes: 0cfcdd1ebcfe1a9b262f6ad8419580720dc843c4 ("ptp: ocp: add nvmem interface for accessing eeprom")
+Hi Max,
 
-use short format of hash to provide commit to fix:
+On Fri, 31 Jul 2026 at 23:56, Max Pedraza <maximpedraza@gmail.com> wrote:
+> Embedded products routinely need their own boot logo. Today the only way to
+> get one is to replace one of the logo_*_clut224.ppm files in the kernel
+> source tree, which bakes the image into the kernel image. Two products that
+> share a board support package but differ in branding therefore need two
+> kernel builds, and rebranding an existing product means rebuilding and
+> requalifying a kernel for what is purely a cosmetic change.
+>
+> This series lets the logo be described by the device tree instead: a node
+> compatible with "linux,boot-logo-clut224" supplies the image in the same
+> paletted format the built-in CLUT224 logos already use, and the kernel
+> prefers it over the built-in ones when it is present and enabled. If the
+> node is absent or disabled, nothing changes.
+>
+> The image can come from the node itself (patches 1-2) or from a reserved
+> memory region the bootloader filled in (patches 4-5), because the image and
+> its placement are independent axes of variation. One board sold to several
+> customers wants several device trees differing in the logo. One customer
+> with several products built on that board, with different panels, wants the
+> same logo placed differently on each: there the image belongs in a shared
+> binary and only the placement belongs in the device tree. Patch 3 adds that
+> placement.
+>
+> We have been carrying a cruder version of this downstream on an AM335x
+> product since 2020, across a handful of board revisions, and it has removed
+> a real maintenance burden for us. This is an attempt to find out whether
+> something along these lines is wanted upstream, and if so in what shape --
+> hence RFC.
 
-Fixes: 0cfcdd1ebcfe ("ptp: ocp: add nvmem interface for accessing eeprom")
+Thanks for your series!
 
-And as this is a fix, it has to go to net rather than net-next
+> I am aware of the contentious part: a bitmap is not hardware, and the device
+> tree is not an obvious place to put one. The argument for it is that the
+> logo identifies the board in the same way the model property does, it is
+> available before any filesystem is mounted, and it is per board rather than
+> per kernel. The argument against is presumably that this is policy and
+> belongs in userspace or in the bootloader. I would rather hear that
+> explicitly than keep the patch downstream on a guess, and if the concept is
+> rejected I would still like to know whether a smaller subset -- say the
+> placement properties driven from the fbcon command line, without any image
+> in the device tree -- would be worth submitting separately.
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ahmad Byagowi <ahmadexp@gmail.com>
-> ---
->   drivers/ptp/ptp_ocp.c | 69 +++++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 66 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-> index 35e911f1a..cec936bd1 100644
-> --- a/drivers/ptp/ptp_ocp.c
-> +++ b/drivers/ptp/ptp_ocp.c
-> @@ -347,6 +347,13 @@ struct ptp_ocp_serial_port {
->   #define OCP_SIGNAL_NUM			4
->   #define OCP_FREQ_NUM			4
->   
-> +enum ptp_ocp_board_id_state {
-> +	OCP_BOARD_ID_UNREAD,
-> +	OCP_BOARD_ID_VALID,
-> +	OCP_BOARD_ID_ERASED,
-> +	OCP_BOARD_ID_INVALID,
-> +};
-> +
->   enum {
->   	PORT_GNSS,
->   	PORT_GNSS2,
-> @@ -401,8 +408,9 @@ struct ptp_ocp {
->   	bool			fw_loader;
->   	u8			fw_tag;
->   	u16			fw_version;
-> -	u8			board_id[OCP_BOARD_ID_LEN];
-> +	char			board_id[OCP_BOARD_ID_LEN + 1];
->   	u8			serial[OCP_SERIAL_LEN];
-> +	enum ptp_ocp_board_id_state board_id_state;
->   	bool			has_eeprom_data;
->   	u32			pps_req_map;
->   	int			flash_start;
-> @@ -472,18 +480,23 @@ struct ptp_ocp_eeprom_map {
->   	.len = sizeof_field(struct ptp_ocp, member),		\
->   	.bp_offset = offsetof(struct ptp_ocp, member)
->   
-> +#define EEPROM_ENTRY_LEN(addr, member, entry_len)		\
-> +	.off = addr,						\
-> +	.len = entry_len,					\
-> +	.bp_offset = offsetof(struct ptp_ocp, member)
-> +
->   #define BP_MAP_ENTRY_ADDR(bp, map) ({				\
->   	(void *)((uintptr_t)(bp) + (map)->bp_offset);		\
->   })
->   
->   static struct ptp_ocp_eeprom_map fb_eeprom_map[] = {
-> -	{ EEPROM_ENTRY(0x43, board_id) },
-> +	{ EEPROM_ENTRY_LEN(0x43, board_id, OCP_BOARD_ID_LEN) },
->   	{ EEPROM_ENTRY(0x00, serial), .tag = "mac" },
->   	{ }
->   };
->   
->   static struct ptp_ocp_eeprom_map art_eeprom_map[] = {
-> -	{ EEPROM_ENTRY(0x200 + 0x43, board_id) },
-> +	{ EEPROM_ENTRY_LEN(0x200 + 0x43, board_id, OCP_BOARD_ID_LEN) },
->   	{ EEPROM_ENTRY(0x200 + 0x63, serial) },
->   	{ }
->   };
-> @@ -1969,6 +1982,52 @@ ptp_ocp_nvmem_device_put(struct nvmem_device **nvmemp)
->   	*nvmemp = NULL;
->   }
->   
-> +static enum ptp_ocp_board_id_state
-> +ptp_ocp_classify_board_id(char *board_id)
-> +{
-> +	bool all_zero = true;
-> +	bool all_ones = true;
-> +	bool terminated = false;
-> +	unsigned int i;
-> +
-> +	board_id[OCP_BOARD_ID_LEN] = '\0';
-> +	for (i = 0; i < OCP_BOARD_ID_LEN; i++) {
-> +		u8 value = board_id[i];
-> +
-> +		all_zero &= value == 0;
-> +		all_ones &= value == 0xff;
-> +	}
-> +
-> +	if (all_zero || all_ones) {
-> +		board_id[0] = '\0';
-> +		return OCP_BOARD_ID_ERASED;
-> +	}
-> +
-> +	for (i = 0; i < OCP_BOARD_ID_LEN; i++) {
-> +		u8 value = board_id[i];
-> +
-> +		if (terminated) {
-> +			if (value)
-> +				goto invalid;
-> +			continue;
-> +		}
-> +
-> +		if (!value) {
-> +			terminated = true;
-> +			continue;
-> +		}
-> +		if (value < 0x20 || value > 0x7e)
-> +			goto invalid;
-> +	}
-> +
-> +	if (board_id[0])
-> +		return OCP_BOARD_ID_VALID;
-> +
-> +invalid:
-> +	board_id[0] = '\0';
-> +	return OCP_BOARD_ID_INVALID;
-> +}
-> +
->   static void
->   ptp_ocp_read_eeprom(struct ptp_ocp *bp)
->   {
-> @@ -2001,6 +2060,7 @@ ptp_ocp_read_eeprom(struct ptp_ocp *bp)
->   			goto fail;
->   	}
->   
-> +	bp->board_id_state = ptp_ocp_classify_board_id(bp->board_id);
->   	bp->has_eeprom_data = true;
->   
->   out:
-> @@ -2177,6 +2237,9 @@ ptp_ocp_devlink_info_get(struct devlink *devlink, struct devlink_info_req *req,
->   	if (err)
->   		return err;
->   
-> +	if (bp->board_id_state != OCP_BOARD_ID_VALID)
-> +		return 0;
-> +
+The standard location for configuration that is not hardware
+description is under /chosen...
 
-why don't simply
-snprintf(buf, OCP_BOARD_ID_LEN + 1, "%s", bp->board_id); ?
+IIRC, real Open Firmware used to have some logo configuration, too...
+Yep, /options/oem-logo on CHRP LongTrail[1].
+And it's even documented[2], but fixed to 64x64 monochrome.
 
-buf is already used in the function, let's reuse it
+[1] http://g33rt.be/migrated/Linux/PPC/DeviceTree.html
+[2] https://www.djc.id.au/2008/IEEE1275-1994.pdf
 
->   	err = devlink_info_version_fixed_put(req,
->   			DEVLINK_INFO_VERSION_GENERIC_BOARD_ID,
->   			bp->board_id);
+Gr{oetje,eeting}s,
 
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
