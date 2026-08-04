@@ -1,66 +1,75 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013007.outbound.protection.outlook.com [52.101.83.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A659D3546C0;
-	Tue,  4 Aug 2026 11:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785843419; cv=none; b=BXiU/vKbAiLq0tSGYm1NlusnYNqo7h1DJFbFy4yU+pnF5UGI91qJZdxzb7PxqJxfTARxPGNDY5WiNSmQBKsTNYa7rUNl4BAKLyTRaEhbOklvSxSTcsN1GKHRrrSsQTHrIwuzQuhpqGrMRjnzYIDCMElckMu+05A3rw7Pl2SDqh8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785843419; c=relaxed/simple;
-	bh=XNeG3M4dWAfIsmDBbwjWj2IXhD+Qtz4KOR6R5jwR+jw=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Swc9CK8llI8JAFLypprjQ/RHmj11cPZSGbUBaPRYFsYCCvUszaXPCwov75WVAsTgLSDHsY/OSLKXosB1b9MxIPKYgPgKZ1lnpAA7/ai3Oaj7c0+QpigNlOhy/G3POdR+gJxOjDBxRsTUSXitKYeVJMCHNQFpbCXMUrf58lvrV6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=OuSGkuKN; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299A7360EF7;
+	Tue,  4 Aug 2026 11:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785843641; cv=fail; b=gJh+r4nyfiwlNOZ1R0Kyh1Ah+0SkapP9whNfcuWURjdob7NnscWLfZTUAIO8cl4Sq+1ABTIcKF9rmbB/4+Oj1l6Fu+7GowHcKrNQLkfLqabqArrtUGPzxQRgSZJ/dvmD1B2qU+Ky1rntm0BDInWEi/MU+9zdaTDfoCiTfXy19s4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785843641; c=relaxed/simple;
+	bh=wUtto4yf3tgxjvicWBKNzGw78rDVqu+490g9QRvK2h0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AJ2VaVLaYnh4G3AJjqupYFlvmHmjgRBYvde2ofHXj3deTgPBDucsovVLRzl9RFu1OGrUxVvBR2ZDyhZ6+lkzCv1hl1Y1bDG57Haknh4sgVYqeH5YfAoXg5CbAJ89VufRe7M1lmrCE8JW3w+JbLz8ti7ENFFqNQmMaqvxvl1p+fg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=lKZgkBlA; arc=fail smtp.client-ip=52.101.83.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="OuSGkuKN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1785843417; x=1817379417;
-  h=from:to:subject:date:message-id:in-reply-to:references:
-   mime-version:content-transfer-encoding;
-  bh=XNeG3M4dWAfIsmDBbwjWj2IXhD+Qtz4KOR6R5jwR+jw=;
-  b=OuSGkuKNH1sAeVWoJfLdr6t2lQGVZ8PINK9gaRqs9UYDD0QgsyLDbMst
-   j5CqJGsnY5QCceuCVcAGozUu/XZwPef1QVAbDqACvmi2W/ehjrZBbc0ef
-   W//mspeRvnW/ODeDEZDPOvkNzkwwyJcnPbAATyVlzwxDzv1tIh/xTbrPw
-   iyyguo/8AO2FyGgJ6XyCpSkMJBr6wMccBRvhAuUSoAjViPVpbhj0LQ++1
-   2H361U1P7eoz7IJPcae31BRgWXbznZ618NON8z/0Edch2ANnfej0ApfLO
-   EMfYGFaaEilDf1+ELZCc+YAIae+Di4goZz1owIl4w6/Fc+ZjyB+BPAt7H
-   Q==;
-X-CSE-ConnectionGUID: 7CuNwgWqRGiaWdZkGYCKTQ==
-X-CSE-MsgGUID: sI5zwelDS8SKIypgjElsaA==
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="292994117"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 04 Aug 2026 04:36:56 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 4 Aug 2026 04:36:55 -0700
-Received: from che-ll-i67070.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 4 Aug 2026 04:36:44 -0700
-From: Varshini Rajendran <varshini.rajendran@microchip.com>
-To: <ehristev@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
-	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<srini@kernel.org>, <marcelo.schmitt@analog.com>, <radu.sabau@analog.com>,
-	<joshua.crofts1@gmail.com>, <jorge.marques@analog.com>,
-	<Jonathan.Santos@analog.com>, <jishnu.prakash@oss.qualcomm.com>,
-	<antoniu.miclaus@analog.com>, <duje@dujemihanovic.xyz>,
-	<mazziesaccount@gmail.com>, <varshini.rajendran@microchip.com>,
-	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="lKZgkBlA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JUxxfRyYvpvBPGtRPb4BDN2EQudVySjj/SZ5otVgwDQZKvVenrBs2NE0C4oAngDakThxgcFogPP/i/wP0bJkaRPXkTphfiY595vW1leJnM9xaRADfcW+aZGvuaq0gEdlWZ+1EqNw+aUs7ARojVohNZadTKpgXZuorwHObFFwQa2+suT13X4CCAgj0Q7h8WTqcvfH6uRujMjJ4MNDpckXmcc/3lQr3XYdzNLEHbEW/9jWOcYulkktkktYv9U2koI6aPiVRTzNSpcUhX9CnHwWqDHm/xGl/hULW0lV+z8EGVBxJOueYPNYpbURHULsZZH5KHCijsKFr5EsZkYM7L2aeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ehQ9d6N75axMWk2n+Z69+Svo/anYZ4zabP7mePu8ShQ=;
+ b=aUJwSGb5G56KicrBIpHEmxRjrF8BMxwc9h5oDEO7hs7EpbcJYFIjP/TT2ChdFVp+g/3pgYn+2LBP4FSjuvcTib4i/RDutlVfwQ3MFDEebyM/WL6KoiFaQ2XveUkyfkELfwXK9lyVSCQyHjIogGhik0A0nCW/wdnSZCYOQpAFd28Mj5mVn+wETb4IIRwOUW4IJzfIlzrM400BSUWVjqopKX7/+/ch4NE6q5Pt1+nsNDoksdJc4DGtuEKWbLJc04ur6kjo7xCmk844ukjuuIDlfeltffLTw0nnN0mtavIap0R4TZDo+q82Y5+Y97GKDNx5omlQtK6TbSBCk1ptRlFQpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ehQ9d6N75axMWk2n+Z69+Svo/anYZ4zabP7mePu8ShQ=;
+ b=lKZgkBlAOdFXlweRl1xZSzSBmQkBd6Dx6EC+Hb1KHmLnQZH2nGMo5CfK2inr4jeqGE6As7Hx2fGIcR+XR4fSU2peEeqcW6t7B6DjR7APYmVgyrpW5RlvcQXUapGclqYjT13DQGxrS9sXbbf+Vjew+6qkyitlvBLivTL8BU4ijFr/Gyewcafo8g2AgoHqiYkVO9qz8J+f3lrt3qewo1pnqGbbYnMZ6u37hDJLc61S3I9Zt9e3bytjIiafS/Tq1Dz1QxfNQ1XzPXzdB6k/0eZ9LnMb2WFNnuSg4sWmpI5+a+dH40WWKmor6WIbL/z51LvzPog1ar5aq+INzkuv5Iy2KQ==
+Received: from AS4P250CA0011.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:5df::13)
+ by PA3PR10MB9231.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:4d4::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
+ 2026 11:40:36 +0000
+Received: from DB5PEPF00014B8B.eurprd02.prod.outlook.com
+ (2603:10a6:20b:5df:cafe::33) by AS4P250CA0011.outlook.office365.com
+ (2603:10a6:20b:5df::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.18 via Frontend Transport; Tue, 4
+ Aug 2026 11:40:36 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DB5PEPF00014B8B.mail.protection.outlook.com (10.167.8.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 11:40:35 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 4 Aug
+ 2026 13:45:27 +0200
+Received: from localhost (10.48.87.235) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 4 Aug
+ 2026 13:40:35 +0200
+From: Christophe Roullier <christophe.roullier@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>
+CC: <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
 	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v5 17/17] ARM: dts: microchip: sama7d65: add thermal zones node
-Date: Tue, 4 Aug 2026 17:03:38 +0530
-Message-ID: <20260804113338.261782-18-varshini.rajendran@microchip.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260804113338.261782-1-varshini.rajendran@microchip.com>
-References: <20260804113338.261782-1-varshini.rajendran@microchip.com>
+Subject: [PATCH v2 0/1] arm64: dts: st: Add I/O sync to eth1 pinctrl in stm32mp25-pinctrl.dtsi
+Date: Tue, 4 Aug 2026 13:40:18 +0200
+Message-ID: <20260804114019.201949-1-christophe.roullier@foss.st.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,83 +78,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B8B:EE_|PA3PR10MB9231:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2506f88d-1218-49ba-32cb-08def21d332c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|11063799006|56012099006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	5qkxtkhfbt1vUr2zK/Zlmjp266+kZ1R9AyHcSi1nrUgdS+XRpRkEJVwx+zQU9nwM55CsOwih7Q3uLUnbzlnkx3AIwgUmo7onrwv+ZN/3vKrGA82/nNUhtHPfAfCZEUbXca+HFKfChFYPR7wk+e9DCxcOs1v7gT6INe8tlBF2SDfnSYUXZi9iC8ZGtfh1dsFY/p5lcnP4OMPx45IjUEWtddoglRyUX1Ch9x3Wfc8zMi/GyhR2V15Zrk8BJq0yjs9YgCR1E+ETiL2Pwfh8qNa1hahcOOr+H2izhIAgk3UX6xb3MV7ZYk5LUX93Ld5LbAXy4bJCiDJUTsxJu7CWjqodztMqyBBdoFYTmfwfYpzZ5hPqIQkk7d7L7A5FslGemVECkw9yrYoE+QDQb1h95UiApeSnzOo4DOOHhqwK8PRvhQ42LpnnUuYlHatoLT2DdmuzumSbQMdJkXCVLwk7e8DGCRTs1Jo8rSjPZXKYmcGRbotm8ZOJs6thtk7EJ7W5JrkOGlmvwmEuN7+W9XvWsqJAX30/NTW/BFpUks3xOhGpXjF6mLb6CzIZQ+pfKbwqPPW6FdGIjs57IogztHxA+PkYyq8QEDw8RlfkGHh794oNKFOqaQkHjPWtdQxTZfdmKOLW9g9z1M2xu4sUxSbRZ+STuvu91gmIiueNhSdM9eTbNeewqbV+bginOOket7IUBC3odoScwSZV6wVTjp4l1A+C4Q==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/ssDBXIV5nlq7bbZPvT9xqNr1J8KC99j3E4mQGrO6TFtlBcnOSc0lPTnW7PO8ixn4subHX4xpuFTywN7rB7fub4jreChhNit8HEO9ZTWswWIv/h4phRf8TPQWnbLqFIZe0O80QkvAQGiTWeiE0VJPIMRyN1YJ781jFUGEIa4siFXnY/KaVt6PhZfKSk+3flFyYJCttavQaHPTf1SvyozWwmoHk4ZCITDV0BwFBaDKuTa47EG9hqmPaXdQOz2Asejst6Jp3/CjXFSimqlX8l/jZae+IHQIbnoXZXdZocl56DDWgPEA+4p6PD43b4hkMV4vEcvPlDKBkrKoE5BLZA5Q5PSEFDLqU25wXOr1U/+P14KsSmumAl9zZ9+0qtsLyWbHmh0jTkwtgm2w/Dlz4//UE5Nr5ygti2pw0MU42/LnFummDNZJT5/NyrnvugA+PSB
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 11:40:35.8592
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2506f88d-1218-49ba-32cb-08def21d332c
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5PEPF00014B8B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA3PR10MB9231
 
-Add thermal zones node for SAMA7D65 with trip points for passive
-cooling and critical shutdown.
+v2: Remarks from Alexandre Torgue
 
-Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
----
- arch/arm/boot/dts/microchip/sama7d65.dtsi | 42 +++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
+Christophe Roullier (1):
+  arm64: dts: st: Add I/O sync to eth1 pinctrl in stm32mp25-pinctrl.dtsi
 
-diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-index 3aba73983c79..7743f9e8f692 100644
---- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
-+++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-@@ -16,6 +16,7 @@
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/mfd/at91-usart.h>
- #include <dt-bindings/nvmem/microchip,sama7g5-otpc.h>
-+#include <dt-bindings/thermal/thermal.h>
- 
- / {
- 	model = "Microchip SAMA7D65 family SoC";
-@@ -38,6 +39,7 @@ cpu0: cpu@0 {
- 			i-cache-size = <0x8000>;	// L1, 32 KB
- 			next-level-cache = <&L2>;
- 			operating-points-v2 = <&cpu_opp_table>;
-+			#cooling-cells = <2>; /* min followed by max */
- 
- 			L2: l2-cache {
- 				compatible = "cache";
-@@ -126,6 +128,46 @@ thermal_sensor: thermal-sensor {
- 		io-channel-names = "sensor-channel";
- 	};
- 
-+	thermal-zones {
-+		cpu_thermal: cpu-thermal {
-+			polling-delay-passive = <1000>;
-+			polling-delay = <5000>;
-+			thermal-sensors = <&thermal_sensor>;
-+
-+			trips {
-+				cpu_normal: cpu-alert0 {
-+					temperature = <90000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				cpu_hot: cpu-alert1 {
-+					temperature = <95000>;
-+					hysteresis = <0>;
-+					type = "passive";
-+				};
-+
-+				cpu_critical: cpu-critical {
-+					temperature = <100000>;
-+					hysteresis = <0>;
-+					type = "critical";
-+				};
-+			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&cpu_normal>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+
-+				map1 {
-+					trip = <&cpu_hot>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		ranges;
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
+
 -- 
-2.34.1
+2.43.0
 
