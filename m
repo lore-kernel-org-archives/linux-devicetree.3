@@ -1,110 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3503D380FFB
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 16:26:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C37AB4746D4
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 16:27:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785860792; cv=none; b=Goj6ayX9JnWviCm5QvXysIOZ3x7LE9PzcmkVfuig/ardsipCGQ4YfhhcrAAVon0ggoIEasIDbEkbauuGnUrhNuNt0KKHgESyGs6vsrdkVbx0vmAnQVhVt0iS2Hb/eglhyeWsnPRpLGrvHObBaMgtdvzS9M+rysNh5T6DfoGFFSM=
+	t=1785860833; cv=none; b=dGDaUb3C/1/nvbUq/IrZrAjj9Dw3nrUliV4gdwyArpYJQ+3qLr67ehpzBJFp3MYgqGJlm8XxU6RI9nrr54opqQZ8cPmvm7PUhFNSDSvfSrg5JCPs8WVG8PvpPLPuVPTolCTho3Of00t2PvdZyjfuJHgMBAtIDO+Pp4xKsK4TF/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785860792; c=relaxed/simple;
-	bh=maKYxFUzOyINnCo+bFwewKRmb0hPpYqHPg6NmZWWwWw=;
+	s=arc-20240116; t=1785860833; c=relaxed/simple;
+	bh=ijDd0o74DOLs/yuSC2y0dxfzHLCZ+Sf1rIm0d+BESWE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OQc6k/M0Dllz4ASvADCCH0vuw05TpZXVCL5z+JfB7x8O93+mLV668P0rujhYUzL7udyq8u9FeD5x33ZfCMgcFm9HqJnADrfFNQwfWL6DcsK/n6W4XFbhdjix2K+lmQ9+OmgKam8YqtyCSzLYgGU0K6VUOg+BEmlxN8XjbeavkIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbWQgR2c; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Weth4AZ5meqmOA/IO2I+Vsqw4WXIczqnwQclDzglepbGh3n3+c0VMM4S8RQhDUxVYiKw6HkGLnZ9XRTPV7CFv9qDS7T2duLXd8sUr969biErGbhBRNVGwBRFVS925M+D84nbNsgw/0ZnJLBTn9mH5NyZ/8H1QSJXUND43oVX2dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SSzD1rdt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbWQgR2c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F191F000E9;
-	Tue,  4 Aug 2026 16:26:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SSzD1rdt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 342551F000E9;
+	Tue,  4 Aug 2026 16:27:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785860791;
-	bh=iYf7UFzbvbkjAkdaP1vnTDXjWm1Jp+b1pgIfvh8Milo=;
+	s=k20260515; t=1785860832;
+	bh=DO5zvOTbMO116eGAKrv8r6HWaCa0sNUKBAY+KK5Tzus=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PbWQgR2cyOmSDkTq4laWKHRqbK2Q6cZEZtRgOWy0MA0sYUCOme6swNXHBIuSSrZes
-	 8BIG1EgF3lwkBvNPxATHA41XpDWbDsjs+bP1rjBwFZSfqa+LIxm5yyaGmVNupIlKpv
-	 eQbk0zZSwsbMi3YyykgzzQkjzr4uyUfIUmsSc16DJIAWANw1YbqYlZb9MkURLUOORx
-	 QMbNa+il1IqqMRVigH5C/L/E0SWd4LRKey+ib8L5JV3H8e9oGRzUmxydeQbq69CPs6
-	 zROLDKaWHLSaSpRYg9dY/0YorEUcjk+ruG8RlH+DQXDC3q0CWz9H4D317vi1mCrO7r
-	 zac1J/pnEr9AQ==
+	b=SSzD1rdt6jHhkRYxvWV/G+Ej26YXPvcOb+fC80DKe9/T2w+ORisqgnmIpmhPQnI1j
+	 j9llNMX2NWyAofIT6EjV5r+iLesEZozZHMxZvBQe0jLLOszc+WIY6hD68bFugUkJW1
+	 Yq99SoZ3umWpkhBVPcLatyV1WUFU9y7R5hGBnI5bjaH4KOz6yrCG16HrFarVk02vjV
+	 WwDkKRL1p7jt2+1FfDvWSbJ3/p7eNmvaedQSQEXYlO4fNIf14Ad4ykVLtC/twQW1WI
+	 YODUjnLMrpDqsJ+dpULLbLh7gyclj09BKfiPhdUioWWcxPBTEyVabfm91npuxmA0VG
+	 wfauf3QLIl8RQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 14/36] pinctrl: airoha: add missed get_direction()
- function for gpio_chip
+Subject: Re: [PATCH v9 06/36] pinctrl: airoha: an7581: fix mux/conf of
+ pcie_reset pins
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804160419.3592327-15-mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260804160419.3592327-7-mikhail.kshevetskiy@iopsys.eu>
 References: <20260804160419.3592327-1-mikhail.kshevetskiy@iopsys.eu>
- <20260804160419.3592327-15-mikhail.kshevetskiy@iopsys.eu>
+ <20260804160419.3592327-7-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 16:26:30 +0000
-Message-Id: <20260804162630.C3F191F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 16:27:11 +0000
+Message-Id: <20260804162712.342551F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Calling `gpiochip_get_data()` before the `gpio_chip` is registered=
- causes a guaranteed NULL pointer dereference.
+
+New issues:
+- [Low] The newly introduced `AIROHA_PINCTRL_GPIO` macro is completely unus=
+ed.
+
+Pre-existing issues:
+- [High] The patch fixes the pcie_reset pin muxing for EN7581 by clearing t=
+he mask in REG_GPIO_PON_MODE, but fails to apply the identical fix to AN758=
+3.
 --
 
---- Patch [14]: [PATCH v9 14/36] pinctrl: airoha: add missed get_direction(=
-) function for gpio_chip ---
-commit bbd3ee4d01c65dc100b15681639e2141c5e673a0
+--- Patch [6]: [PATCH v9 06/36] pinctrl: airoha: an7581: fix mux/conf of pc=
+ie_reset pins ---
+commit c635409b9a1090e964e56f47b67fd7f0f0235294
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: add missed get_direction() function for gpio_chip
-
-This commit adds the missing get_direction() function for the airoha
-gpio_chip. It also reimplements the pinconf get_direction() function
-to utilize this newly added function.
+pinctrl: airoha: an7581: fix mux/conf of pcie_reset pins
+   =20
+This commit fixes the pinmux configuration for pcie_reset pins on the EN7581
+SoC by mapping them to the correct pins (60-62) and updating their muxing
+logic to allow proper configuration as PCIe reset, GPIO, or PWM pins. It al=
+so
+introduces new GPIO and PWM macros to handle the corrected pin functionalit=
+ies.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
 roha/pinctrl-airoha.c
-> index a1044babb2823..df1694296046c 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-[ ... ]
-> @@ -2523,6 +2523,22 @@ static int airoha_gpio_get(struct gpio_chip *chip,=
- unsigned int gpio)
->  	return err ? err : !!(val & BIT(pin));
->  }
+> @@ -1406,6 +1414,45 @@ static const struct airoha_pinctrl_func_group pnan=
+d_func_group[] =3D {
+>  	},
+>  };
 > =20
-> +static int airoha_gpio_get_direction(struct gpio_chip *chip, unsigned in=
-t gpio)
-> +{
-> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
+> +#define AIROHA_PINCTRL_GPIO(gpio, mux_val)			\
+> +	{							\
+> +		.name =3D (gpio),					\
+> +		.regmap[0] =3D {					\
+> +			AIROHA_FUNC_MUX,			\
+> +			REG_GPIO_PON_MODE,			\
+> +			(mux_val),				\
+> +			(mux_val)				\
+> +		},						\
+> +		.regmap_size =3D 1,				\
+> +	}
+> +
+
+[Severity: Low]
+Is this AIROHA_PINCTRL_GPIO macro used anywhere? It appears that only the
+AIROHA_PINCTRL_GPIO_EXT variant is actually used to configure the new GPIO
+functions for pins 47, 48, and 49 below, leaving this base macro unused.
+
+> +#define AIROHA_PINCTRL_GPIO_EXT(gpio, mux_val, smux_val)	\
+> +	{							\
+> +		.name =3D (gpio),					\
+> +		.regmap[0] =3D {					\
+> +			AIROHA_FUNC_PWM_EXT_MUX,		\
+> +			REG_GPIO_FLASH_MODE_CFG_EXT,		\
+> +			(mux_val),				\
+> +			0					\
+> +		},						\
+> +		.regmap[1] =3D {					\
+> +			AIROHA_FUNC_MUX,			\
+> +			REG_GPIO_PON_MODE,			\
+> +			(smux_val),				\
+> +			(smux_val)				\
+> +		},						\
+> +		.regmap_size =3D 2,				\
+> +	}
+> +
+
+[ ... ]
+
+> @@ -1431,7 +1478,7 @@ static const struct airoha_pinctrl_func_group pcie_=
+reset_func_group[] =3D {
+>  			AIROHA_FUNC_MUX,
+>  			REG_GPIO_PON_MODE,
+>  			GPIO_PCIE_RESET2_MASK,
+> -			GPIO_PCIE_RESET2_MASK
+> +			0
+>  		},
+>  		.regmap_size =3D 1,
+>  	},
 
 [Severity: High]
-Will this result in a NULL pointer dereference if called early during boot?
+This is a pre-existing issue, but while this patch fixes the multiplexing
+for en7581 by setting the hardware mux value to 0 here in
+pcie_reset_func_group[], should the identical fix be applied to
+an7583_pcie_reset_func_group[]?
 
-When early pinctrl operations are executed (such as applying pin
-configuration hogs during pinctrl_enable(), or via debugfs reads before
-GPIO chip registration), airoha_pinconf_get_direction() is called.
-
-This delegates to airoha_gpio_get_direction() passing the partially
-initialized and unregistered gpio_chip:
-
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinconf_get_direction() {
-    ...
-    ret =3D airoha_gpio_get_direction(&pinctrl->gpiochip.chip, pin);
-    ...
-}
-
-Because devm_gpiochip_add_data() has not been called yet in this path,
-chip->gpiodev is strictly NULL. This causes a crash when
-gpiochip_get_data() attempts to access gc->gpiodev->data.
-
-Could this be restructured to avoid relying on the gpiochip_get_data()
-accessor before the gpio_chip is fully registered?
-
-> +	u32 val, mask;
-> +	u8 index;
-> +	int err;
+Looking at an7583_pcie_reset_func_group[] further down in the file, it still
+sets the hardware mux values to GPIO_PCIE_RESETx_MASK instead of 0, which
+would cause the AN7583 PCIe resets to continue being incorrectly multiplexed
+as GPIOs.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804160419.3592=
-327-1-mikhail.kshevetskiy@iopsys.eu?part=3D14
+327-1-mikhail.kshevetskiy@iopsys.eu?part=3D6
