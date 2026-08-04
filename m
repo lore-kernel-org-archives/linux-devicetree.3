@@ -1,163 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E3F39B481
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 19:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEB141687A
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785872689; cv=none; b=n4AXOKdFC6hMtXkwaonjqHXRXQTNlnkaSIjAat/Z3HKqZnSocaq9vYSzdnhPucTBY9TFu+TmwVP5OYXLPx/sYUE1BZXol1iam1O3uWNyWX5zUF1lUV2+ePmRzl3z0hJev9pnglvsyLpYklvjadxwA+XqwLvbN8p56RTrEfyvzaU=
+	t=1785873990; cv=none; b=Fg87S2umm3Lwo098p7UG4GK2gzVqk93cQgx4excIX4US7xZyDynGhs7HgsekxMpr3TK25wrnzNDmG4y+/0SY3oZmVoE8VeA0FqI1kEYQp14Ydj9d3ymnMtZX8GnUebeZ4hnxupGP/FwS28gCGRONg9bs+FevEk6vMPvysmAIMDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785872689; c=relaxed/simple;
-	bh=IcfNrEa3Ul2DcanQx5MgFrozwnED9J2qUHs+uCG+/9g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DQtUzosMd1Kk6baywP6xfwuuxel2lxUjKmZ8JAKmcPOwvl3mj2PIp3ugAVM2PU/s+EXSNmgTaH6rjJL8M3VPuX7+r+FKJcIiv7aUZWd846soGQmwoZHs7/2sSuHMsLafH85PBQVTAyp+oS2Aa8w2RjzClmM8YeMQrdanLbtP0ro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbuQzr7Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785873990; c=relaxed/simple;
+	bh=gD1MfLnCAaFRcWetE3NiZig5k758kytS/smQILHwkGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KXK7NYOZBC22KW88A1XF4wAashoEWzb5GROPacnQNso14ZdWl4e7pxARm8dUCRdvt377AurTQA4Wys66JF9bkN7BJD8wTet/xYPXB0LSAEX+4GzlKiokoRXxsE+/bbP1zmDDI/is6K+z2bvWPAncYJUS5yDA6s4tapuUt7p61lQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=WiIjDqU0; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbuQzr7Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A29A41F00A3D;
-	Tue,  4 Aug 2026 19:44:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785872687;
-	bh=G4u56PlJ5n2EFIwXy7J0rCrjMrv8EnFUQ5IpGvKXbcE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WbuQzr7Q3knfZ2M63wWVRqdaopfJvrNc7rdiJTUQQ4qh5fXgUzzsbfTEYNlVOoWzL
-	 fBNeIkZqlHJf1fVS8dXlGtZk/TwAn1nSZWSIGmc9d6PN9tFGeqVqudZVIE01hndv4r
-	 4sP8BnrXQqF/XQ27EuEvVHJRlU6FZrEl72if+I3taXmktGjpDyA3whtGuv+1IoZtXQ
-	 jn0xkylfBsC4ZoDax/EjdVNhFojfBBSMGcCOjM4sasfXHtovNVol0If8YFmfWY/DfC
-	 buwpgArDCrXf1tmVjTlMvYRxP1VqC/I0BWbvW80dXNQ3u9OAkEvQfG/84i43fO8CwI
-	 3BHlsITC0yTsw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 1/3] iio: adc: ti-ads1100: Fix incorrect reading when
- datarate changed in single mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jakub Szczudlo" <jakubszczudlo40@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804192840.29121-2-jakubszczudlo40@gmail.com>
-References: <20260804192840.29121-1-jakubszczudlo40@gmail.com>
- <20260804192840.29121-2-jakubszczudlo40@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 19:44:47 +0000
-Message-Id: <20260804194447.A29A41F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="WiIjDqU0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=wr7q
+	ld4CYOnNrQHlbO9S3jk20nz81d8l7qEVsAvo6So=; b=WiIjDqU0OSJi6rAWvewk
+	ZwxPwNtbYKXnpmQBIn23GQBYqz+FlwdESEodfvc8t/iuW0wP+e0gvpfL1yJIdPtC
+	bPNLXJT8Y6titQhxfi4t+9FqbDkKTN3yQLJN7EBmXL6zgIQUfwBHELHnWhujzBF4
+	erp2RF0ng7khbrg3I9hhd8W6dNRe3K9/SVRpnsnoOjVZjVSqGNGjFmMiEPCnyTDy
+	jUAhmV2Or3qsb8Pkw1/SmncDtFqGApe9ldENlYquED2VKzGrjUciU2ls7G+aWIBt
+	zlyjeowcnbXJItqsbcc3I11DuxpuqGbkCSptQbsaIqHhhlql6igyMFSXdAOsYQqg
+	bQ==
+Received: (qmail 3515143 invoked from network); 4 Aug 2026 22:06:16 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Aug 2026 22:06:16 +0200
+X-UD-Smtp-Session: l3s3148p1@0iryLz5Y1JsujnsQ
+Date: Tue, 4 Aug 2026 22:06:15 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/4] dt-bindings: timer: Add the Renesas RZ/N1 timer
+Message-ID: <anJGNyNxcSAwylK8@ninjato>
+References: <20260721082952.215691-1-herve.codina@bootlin.com>
+ <20260721082952.215691-2-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="K3YzAXkCWFXIec1c"
+Content-Disposition: inline
+In-Reply-To: <20260721082952.215691-2-herve.codina@bootlin.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Error paths in `ads1100_start_single_conversion()` leave the devic=
-e and driver in a permanently desynchronized state on timeout or I2C failur=
-e.
-- [High] I2C buffers allocated on the stack are passed to DMA-capable I2C A=
-PIs.
+--K3YzAXkCWFXIec1c
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Pre-existing issues:
-- [High] ADC read after runtime resume returns garbage or power-on reset va=
-lues without waiting for the first conversion to complete.
---
+On Tue, Jul 21, 2026 at 10:29:47AM +0200, Herve Codina (Schneider Electric)=
+ wrote:
+> The Renesas RZ/N1 timer block controller is the controller in charge of
+> timers available in the Renesas RZ/N1 SoCs family.
+>=20
+> This controller handles 8 timers:
+>  - 6 16-bit timers
+>  - 2 32-bit timers
+>=20
+> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.co=
+m>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
---- Patch [1]: [PATCH v9 1/3] iio: adc: ti-ads1100: Fix incorrect reading w=
-hen datarate changed in single mode ---
-commit e93e149965f30840eff030d72d0901bf664fc6dd
-Author: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+In general:
 
-iio: adc: ti-ads1100: Fix incorrect reading when datarate changed in single=
- mode
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-When device is suspended and it is in single mode then changing
-datarate doesn't make it actually wait for new measurement, so to
-be sure that read after change is correct, functions that changes
-datarate and gain will wait for a new data.
+One nit:
 
-> diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-> index 9fe8d54cce83c..288d209ecf92d 100644
-> --- a/drivers/iio/adc/ti-ads1100.c
-> +++ b/drivers/iio/adc/ti-ads1100.c
-> @@ -123,10 +128,87 @@ static int ads1100_get_adc_result(struct ads1100_da=
-ta *data, int chan, int *val)
+> +        reg =3D <0x51001000 0x400>;
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does ads1100_get_adc_result()
-read garbage or power-on reset values if executed immediately after waking =
-up?
+Isn't 0x400 a bit excessive? The last documented register in my docs is
+0x114, so maybe 0x200 will do above?
 
-In ads1100_get_adc_result():
 
-	ret =3D pm_runtime_resume_and_get(&data->client->dev);
-	if (ret < 0)
-		return ret;
+--K3YzAXkCWFXIec1c
+Content-Type: application/pgp-signature; name="signature.asc"
 
-	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
+-----BEGIN PGP SIGNATURE-----
 
-Since a single conversion takes up to 125ms (at 8 SPS), calling
-i2c_master_recv() immediately after runtime resume reads the ADC before it
-completes its initial measurement.
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpyRjcACgkQFA3kzBSg
+KbblfRAAp6Zw/Q5+g6+t0gQ6a1Ir0bRwdsP3ZOHD/Xdz/uXcxyOroVwP6+U86jrO
+1UK5H3qTw7Ah07iWEKp9GXk3czVrvrMcAua0G/DhLBXU6E9lu2npWQoVeb4zaSEA
+LOtzNATycySMssxdU08cEWg97/+LMTsGoshphhzkwdLHruD6lwFp4Pd5HKzW6JB/
+phz4mgovybDKS6vl2kIluFpTjKM4JJvwZYSSIIuyGevSHjgcUb1JESUnvT2Qf+23
+jmY9DMMQiKunWeDuS1i1iFXGT8Va8ah2HCqFO/CEAeF64dZ/AAigXbxMcfRMcvLK
+abKi4Y/n1UD1JD9r3JL4MLLVLHiZ5ALsYFSjMI/pIUMLy04O48kdPdcINl/Ims3G
+IFjQxxSqjpIu6S9fc2EUmb06lai4WtHkHryBlltNJd8uKhg4pEPJnwJqoQEFYPqc
+cPXWtsNDPdb3LD4HEYJsAzj0IgRoeG4AQ2BfmhErJuyMWFBlVJZkqbLCRiR0a5CR
+maPdD4OdPxENbV+UBbZCsb1gJxP3uN0oL73Y7Frkm45hWXTkelO7cYR/XKWG9TgE
+bkYM7LR9JLukMahPEm/MAeTT/Ew8ctGRw5YHqDZ225deETZx4VEwNP/bza773KZZ
+Z24UFLUGxF22qp/V6PoVpHJQPbQCnyqaA55436URZD5fvak2zr8=
+=i0mk
+-----END PGP SIGNATURE-----
 
->  	return 0;
->  }
-> =20
-> +static int ads1100_conversion_busy(struct ads1100_data *data)
-> +{
-> +	u8 buffer[3];
-> +	int ret;
-> +
-> +	ret =3D i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-
-[Severity: High]
-Can this cause memory corruption?  Passing the stack-allocated buffer to
-i2c_master_recv() is unsafe if the underlying I2C host controller uses DMA,
-as it can corrupt adjacent stack variables due to cache line invalidation.
-
-> +	if (ret < 0) {
-[ ... ]
-> +static int ads1100_start_single_conversion(struct ads1100_data *data)
-> +{
-> +	u8 config =3D data->config | ADS1100_CFG_SC;
-> +	int ret;
-> +
-> +	ret =3D i2c_master_send(data->client, &config, sizeof(config));
-
-[Severity: High]
-Could passing this stack-allocated config variable to i2c_master_send() also
-cause memory corruption if the host controller uses DMA?
-
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-> +		return ret;
-> +	}
-> +   /* Need to wait because of change from continuous to single mode */
-> +	ret =3D ads1100_wait_single_conversion(data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	config |=3D ADS1100_CFG_ST_BSY;
-> +
-> +	ret =3D i2c_master_send(data->client, &config, sizeof(config));
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* No need to cache it, it's status bit */
-> +	data->config =3D config & ~ADS1100_CFG_ST_BSY;
-
-[Severity: High]
-Are we leaving the driver and hardware permanently out of sync on error her=
-e?
-
-If ads1100_wait_single_conversion() or the second i2c_master_send() fails,
-we return early. However, the physical hardware was transitioned to
-single-shot mode while the software cache data->config was not updated to
-include ADS1100_CFG_SC.
-
-If userspace later tries to restore continuous mode, won't it silently skip
-the I2C write because data->config appears unchanged, leaving the device
-stuck in single-shot mode indefinitely?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804192840.2912=
-1-1-jakubszczudlo40@gmail.com?part=3D1
+--K3YzAXkCWFXIec1c--
