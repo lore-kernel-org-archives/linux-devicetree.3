@@ -1,289 +1,134 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AEC43B6C5
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 08:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2406843BDA3
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 08:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832203; cv=none; b=H/G2xRg2qjvFrmJB4JAQt2iU93+ewZYVGhWM46H6iOQ/nJI1nS+/8vzVAhfnDwHCj7CE/CcigSWnNnIfsJCdFElsfPyvQp48Iqtq/4gE4doN+Dlh3+plTgK5IIR3cS7Bani/q+N18pkpK+30mv8P/RRXNRMCTpFS3EntUyUkozM=
+	t=1785832255; cv=none; b=oOhRZTVLZLm34j380CEF6Z3mliWCtTWd5J3mcMCVjEONLONTZcCC1TQNpeCD7Duzj+N7EIVcnV++Fftw6SsISCyISoBPtbjy4PvLk0aOK8vWea15RYLUnJjcHupcIttgs8Vefkhe0HBGiCtNlEAWZETXHcAS7edyZjriEcpV5tY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832203; c=relaxed/simple;
-	bh=8a7Bz3Wlks6VmUuy1QdCs07MrDDdazuF93jL7Wz6o6M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rl39UUgSn9bxOoWqkTM5FOywv80xyDJPmCAkyWy0NyUqISCL/eNJW5AeNdWhc9/P105Xc5ySz25Dw0VcAsXqdW0Sc8K8TDJvBLuZ0TPVwcwdT662c7PUhthKfO1GMpC/+/RMM+xf2ISQ+CJ4DfUjYFYZF88p34oagZFIQUo8ZGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WkECgT51; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785832255; c=relaxed/simple;
+	bh=26JSb96Y0y0ImYlUgH0jeYjlivi/yQFlSHAETZbcFKg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UzoLL9KQNVCIrs5g7dOJE33ZFLvpH2p2D3IYVGN/95ezTccrGN3SzEA0y9hIFNxKGA8o0f6EJxoRw6BmW86ZwrWmfsiu+ycwBWIogglo6VctNDCAKyC/CmBN2hxp/BXCtove8yDaddgLt5gAHHX6H/tb0M1lDOQaJJSby+M+Lzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCaoLX18; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WkECgT51"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84867f07d63so4979544b3a.2
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 01:29:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785832198; x=1786436998; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WegLssWBkCTfdMAfMFQf4uWctgk7OkqV1+UwWvmH+Mc=;
-        b=WkECgT51v0QKJOMO0vp+rtJyr7ZiV12WK5afXiBMVQHLazv/s5ZrQVFgx48/vaOrjl
-         nW5UoGcZ5SV59UfhNpH1fx1wyWCqLy1kpyPNICpFiVooYdSEChcyeoutlT9urdzyYwcN
-         JxPYEMvlWJk7/KMhM/hH7FOSt5x0bSNUVBoWYv/K8x1h3DRr4mR/oEbSjq69XXKssAV7
-         RLQvMG7LkqKDahLjOu0IEbISF3tDLUhQH0qKQnVn9oNkFYpZeRaZ7P4ipVwBVrnH+zn4
-         EA6AyfQDo9RKDoeHKgkJrLm4M+QKle2AZdlTnLvOJRNKbLnENUyN+i0N0IKwYjoqFPOo
-         ghcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785832198; x=1786436998;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WegLssWBkCTfdMAfMFQf4uWctgk7OkqV1+UwWvmH+Mc=;
-        b=h4ZkGU8gruE/xeXiQZu/mqp/RD8iGvcfemJM2Vs78VHN9ZLYhfmOwQM+aVpeJ0CGAd
-         tzn41HRL7WoKZ0GqGcC45eg8FGtLLN7xbsfAXeRTlYYn1bXK4I1HGJis4zLBI7Em6Uwo
-         x78XMBNIBPhFPnf/tRPxeRnGrguIL30bQY7E/diCTzmNGxHv0qbHoCTxVvoJwtPYHtzN
-         MxwT8lLBpzrDrJ4jZf4BW407qjZrW5Z7eYzXEeM70pvOquqbsc26SvtwRUYQNA6aTO3k
-         yuuwzJtLdz2gZe7w3AlrPz3j/hAwbxW68+U634vwvtQqW42LRL7wreF0rFXluudcdoKE
-         YOuw==
-X-Forwarded-Encrypted: i=1; AHgh+RqKvqH0Od4/BHNhDnB/7O4igiaUskoPSX1yxgj/EyItpc24PNKcWAMY5xLIIK3K7iKo3v/Zry0JwdFi@vger.kernel.org
-X-Gm-Message-State: AOJu0YxF8P0r42uE6tLi6+xpv6PL23ElsizLn4EvYfLIMRYQ7CNZKJ/Q
-	ynxvJkD4bVHjDAkso3y16/wg7qU7PHXPufXR/T+qhAO6a40FvpJKBlSZ
-X-Gm-Gg: AR+sD12VnOOknKlH1rEhZMp4DDBzVYn+RYS1ulfLJV2m3/Nio/UfspBUVZzTiSvbZr8
-	4fPoOy/qAxUf/TOP1L+zKUSKkPd89/VLtSoEF/yAaRk188QSbgvRp3aQkNbvZvHqZckifH8oLq9
-	4Yng1mi9yudIFW3t1ttMhzfIPtZXAl0L99xSQRXuDrSJOXPnbkczMdCbF79f7Q/yt2zUoSJq2Gr
-	b1kGPUTxRLq3Zoz2yluLeOy6oSnmmFkLNzFF5iH3PwDMq+ediXixeldUioFgCc6bA/C2j0gxTke
-	ggaC/mUO/HrC/24mavlbrHowc8RRHkHN5iMLhHVZtVpG1b6jfwky4+jizEwCGUHwjBmtI1A3kxN
-	Y2TuvQycJWpKZ2KXNQeytM4uhCEcQv4oKx6AqMVkx9P7CweiSSUOpjtguXJYZkweXo0ECQblq34
-	tfh3YqkrLmtjmBJLL/xieAlLWujRbdIV4awDsZLGMCTWpt8zv1avmdhpXuX/2GVaH0f4SuNb9Ki
-	xXTAteb30fo6X8a8lw6cGznvcQBmSJub4OzbBj34sjROTE=
-X-Received: by 2002:a05:6a00:c82:b0:84a:6540:3389 with SMTP id d2e1a72fcca58-84ee47f5779mr12177054b3a.10.1785832198241;
-        Tue, 04 Aug 2026 01:29:58 -0700 (PDT)
-Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edbe7da67sm4940625b3a.25.2026.08.04.01.29.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Aug 2026 01:29:57 -0700 (PDT)
-Message-ID: <fdf0ff5e-3307-41f4-8c9c-362becf750fa@gmail.com>
-Date: Tue, 4 Aug 2026 16:29:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCaoLX18"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A301F000E9;
+	Tue,  4 Aug 2026 08:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785832253;
+	bh=9g9WJpdvyVCic1IuudqZvp/iNeX6syDlQ6cEx+tzFS8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iCaoLX18glXyCBVJ809l7OcZqTwxqebxswEi+PQUIQpVyidfisCq0cEu76dqBn1FH
+	 2+2WC5BKlqpzPQ7XQfpuEo9usc2UZL/agAi+ScPxIdthg0CM/CEWeI4eXFROWCZJmH
+	 CUNAt2XtXZ7JPI/Q9DK5trjmEmYQi+upUrWUQimZxA3q2NQRb8dtxdRResOhMCiKP5
+	 c168IaDqXsphsoaCHVhn6o6Oe4hpRLB3qzRlxPO7kpJXF+COp0rQC3DJeI6wwECxAI
+	 AvcyV24defCAR4wwZm+cSyUMw8SwVms6Ugp/Xp61BMM7WlmilfzviJLV4N+ichYF0+
+	 n0V3hq8NKxUTQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 09/10] drm/bridge: analogix_dp: Restrict forced
+ connected status only for panel endpoint
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260804081717.741404-10-damon.ding@rock-chips.com>
+References: <20260804081717.741404-1-damon.ding@rock-chips.com>
+ <20260804081717.741404-10-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 08:30:52 +0000
+Message-Id: <20260804083053.70A301F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] watchdog: Add Nuvoton MA35D1 watchdog driver
- support
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-References: <20260804070351.1846165-1-zychennvt@gmail.com>
- <20260804070351.1846165-3-zychennvt@gmail.com>
- <20260804071552.E6BF01F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: zychen <zychennvt@gmail.com>
-In-Reply-To: <20260804071552.E6BF01F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing early return in analogix_dp_bridge_detect() causes uninten=
+ded hardware accesses and significant delays for panel bridges.
+- [Medium] Missing drm_bridge_put() causes a reference count leak for the b=
+ridge returned by drm_bridge_chain_get_last_bridge().
+--
 
+--- Patch [9]: [PATCH v2 09/10] drm/bridge: analogix_dp: Restrict forced co=
+nnected status only for panel endpoint ---
+commit 7e658941bfdab69a58f5d04d4acd4ae671e37ea8
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-sashiko-bot@kernel.org 於 2026/8/4 下午 03:15 寫道:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] Missing wait for hardware synchronization (`SYNC` bit) after writing to `REG_WDT_CTL` leads to dropped writes and hardware races.
-Not applicable.
-According to the MA35D1 TRM, hardware synchronization (SYNC bit) is only required when the WDTEN (Watchdog Enable) bit status is toggled.
-Other control bit updates do not require waiting for SYNC."
+drm/bridge: analogix_dp: Restrict forced connected status only for panel en=
+dpoint
 
-> - [High] Read-modify-write operations on `REG_WDT_CTL` inadvertently clear Write-1-to-Clear (W1C) status flags.
-Not applicable.
-INTEN and WKEN are only enabled during PM suspend when watchdog wakeup is configured. During normal runtime, INTEN and WKEN are disabled, 
-so IF and WKF remain 0. Therefore, read-modify-write operations during runtime will not inadvertently clear active flags.
+This commit limits the unconditional connected status shortcut to cases
+where the last bridge in the chain is a panel. For other cases, it relies
+on analogix_dp_detect_hpd() to report accurate hotplug state.
 
-> - [Medium] The interrupt handler unconditionally clears all flags and returns IRQ_HANDLED without verifying the interrupt source.
-Not applicable.
-The WDT interrupt line is dedicated (non-shared) and strictly utilized as a wakeup source during PM suspend.
-Unconditionally clearing the flags upon interrupt entry ensures the wakeup/interrupt state is properly reset when exiting sleep.
+Link: https://lore.kernel.org/all/5209243.oAaWjsssbx@diego/
 
-> --
-> 
-> --- Patch [2]: [PATCH v3 2/3] watchdog: Add Nuvoton MA35D1 watchdog driver support ---
-> commit b3e6fc51e35611680a67e3e8fcf506e2ac5f75cb
-> Author: Zi-Yu Chen <zychennvt@gmail.com>
-> 
-> watchdog: Add Nuvoton MA35D1 watchdog driver support
-> 
-> Add driver support for the Watchdog Timer (WDT) integrated in Nuvoton
-> MA35D1 SoC. This driver provides standard watchdog functionality,
-> including timeout configuration, ping, and system reset support via
-> the watchdog framework.
-> 
->> diff --git a/drivers/watchdog/ma35d1_wdt.c b/drivers/watchdog/ma35d1_wdt.c
->> new file mode 100644
->> index 0000000000000..119d58f338bf0
->> --- /dev/null
->> +++ b/drivers/watchdog/ma35d1_wdt.c
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_set_timeout(struct watchdog_device *wdt_dev,
->> +				  unsigned int timeout)
->> +{
-> 
-> [ ... ]
-> 
->> +	guard(spinlock_irqsave)(&ma35d1_wdt->lock);
->> +	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	val &= ~TOUTSEL;
->> +	val |= FIELD_PREP(TOUTSEL, i);
->> +	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-> 
-> [Severity: High]
-> Does this read-modify-write of REG_WDT_CTL inadvertently clear W1C flags?
-> 
-> If bits like IF, WKF, and RSTF are write-1-to-clear, writing back a value
-> that has them set will unintentionally clear pending interrupts, wakeups, or
-> reset status. Should these W1C bits be masked out from val before it is
-> written back?
-> 
-> Also, should there be a call to ma35d1_wdt_wait_sync() here?
-> 
-> When ma35d1_wdt_start() calls this function, it modifies REG_WDT_CTL, returns,
-> and then immediately modifies REG_WDT_CTL again. Could this second write
-> overlap with the clock domain synchronization of the first write and cause
-> hardware races?
-> 
->> +
->> +	ma35d1_wdt_ping(wdt_dev);
->> +	return 0;
->> +}
->> +
->> +static int ma35d1_wdt_start(struct watchdog_device *wdt_dev)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = watchdog_get_drvdata(wdt_dev);
->> +	void __iomem *wdt_base = ma35d1_wdt->wdt_base;
->> +	unsigned int val;
->> +	int ret;
->> +
->> +	ret = ma35d1_wdt_set_timeout(wdt_dev, wdt_dev->timeout);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	guard(spinlock_irqsave)(&ma35d1_wdt->lock);
->> +	val = readl_relaxed(wdt_base + REG_WDT_CTL);
->> +	val |= (WDTEN | RSTEN);
->> +
->> +	writel_relaxed(val, wdt_base + REG_WDT_CTL);
-> 
-> [Severity: High]
-> This read-modify-write shares the same potential W1C flag clearing issue
-> mentioned in ma35d1_wdt_set_timeout().
-> 
->> +	ret = ma35d1_wdt_wait_sync(ma35d1_wdt);
->> +	if (ret) {
->> +		dev_err(wdt_dev->parent, "Wait for WDTEN SYNC timeout!\n");
->> +		return ret;
->> +	}
->> +
->> +	writel_relaxed(RESET_COUNTER, wdt_base + REG_WDT_RSTCNT);
->> +
->> +	return 0;
->> +}
-> 
-> [ ... ]
-> 
->> +static irqreturn_t ma35d1_wdt_isr(int irq, void *dev_id)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = dev_id;
->> +	unsigned int val;
->> +
->> +	/* Clear the flag if set */
->> +	guard(spinlock)(&ma35d1_wdt->lock);
->> +	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +
->> +	return IRQ_HANDLED;
->> +}
-> 
-> [Severity: Medium]
-> Does this interrupt handler need to verify the interrupt source before
-> returning IRQ_HANDLED?
-> 
-> As written, this unconditionally claims the interrupt, which bypasses the
-> kernel's spurious interrupt detection if the interrupt was actually
-> generated by another device sharing the line.
-> 
-> Additionally, would writing back the unmodified value of REG_WDT_CTL clear
-> all W1C flags at once, including RSTF, which might destroy status
-> information needed elsewhere?
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_probe(struct platform_device *pdev)
->> +{
-> 
-> [ ... ]
-> 
->> +	val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	if (val & RSTF) {
->> +		ma35d1_wdt->wdt_dev.bootstatus = WDIOF_CARDRESET;
->> +		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +	}
-> 
-> [Severity: High]
-> Does this write to clear RSTF also require a call to ma35d1_wdt_wait_sync()?
-> 
-> The code proceeds to call ma35d1_wdt_set_timeout() shortly after this, which
-> will write to REG_WDT_CTL again. Could this lead to dropped writes or hardware
-> races if the synchronization from this first write isn't complete?
-> 
->> +
->> +	if (val & WDTEN)
->> +		set_bit(WDOG_HW_RUNNING, &ma35d1_wdt->wdt_dev.status);
->> +
->> +	watchdog_set_drvdata(&ma35d1_wdt->wdt_dev, ma35d1_wdt);
->> +	watchdog_set_nowayout(&ma35d1_wdt->wdt_dev, nowayout);
->> +	watchdog_init_timeout(&ma35d1_wdt->wdt_dev, timeout, &pdev->dev);
->> +
->> +	ma35d1_wdt_set_timeout(&ma35d1_wdt->wdt_dev,
->> +			       ma35d1_wdt->wdt_dev.timeout);
-> 
-> [ ... ]
-> 
->> +static int ma35d1_wdt_suspend(struct device *dev)
->> +{
->> +	struct ma35d1_wdt_dev *ma35d1_wdt = dev_get_drvdata(dev);
->> +
->> +	if (watchdog_active(&ma35d1_wdt->wdt_dev) ||
->> +	    watchdog_hw_running(&ma35d1_wdt->wdt_dev)) {
->> +		u32 val;
->> +		int ret;
->> +
->> +		guard(spinlock_irqsave)(&ma35d1_wdt->lock);
->> +		val = readl_relaxed(ma35d1_wdt->wdt_base + REG_WDT_CTL);
->> +
->> +		if (device_may_wakeup(dev)) {
->> +			val &= ~RSTEN;
->> +			val |= (INTEN | WKEN);
->> +		} else {
->> +			val &= ~(WDTEN | RSTEN);
->> +		}
->> +		writel_relaxed(val, ma35d1_wdt->wdt_base + REG_WDT_CTL);
-> 
-> [Severity: High]
-> This read-modify-write shares the same potential W1C flag clearing issue.
-> 
-> If a pending wakeup flag is set during the read, could it be inadvertently
-> cleared right before the system sleeps?
-> 
->> +		ret = ma35d1_wdt_wait_sync(ma35d1_wdt);
->> +		if (ret) {
->> +			dev_err(dev, "Wait for WDTEN SYNC timeout!\n");
->> +			return ret;
->> +		}
->> +	}
->> +
->> +	return 0;
->> +}
-> 
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 1c85ca93ee7b1..f7db5b5a3f917 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -910,8 +910,15 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge,=
+ struct drm_connector *conne
+>  	struct analogix_dp_device *dp =3D to_dp(bridge);
+>  	enum drm_connector_status status =3D connector_status_disconnected;
+> =20
+> -	if (dp->plat_data->next_bridge)
+> -		return connector_status_connected;
+> +	/*
+> +	 * Only assume connected when the bridge chain ends with a panel.
+> +	 * Panel bridges lack a detect callback and historically rely on
+> +	 * this shortcut. For other next bridge types (e.g., DP connector
+> +	 * bridges), fall through to analogix_dp_detect_hpd() to report
+> +	 * accurate hotplug state.
+> +	 */
+> +	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
+> +		status =3D connector_status_connected;
+> =20
+>  	if (!analogix_dp_detect_hpd(dp))
+>  		status =3D connector_status_connected;
 
-Regards,
-Zi-Yu Chen
+[Severity: High]
+Does this unintentionally fall through and execute analogix_dp_detect_hpd()
+even when the bridge chain ends with a panel?
+
+Previously, analogix_dp_bridge_detect() returned early here. By just
+assigning the status without returning, it looks like panel bridges will now
+unconditionally execute analogix_dp_detect_hpd(). This can introduce an
+unnecessary 100ms delay and unintended register/AUX writes to manually force
+HPD on hardware that lacks an HPD signal.
+
+Should there be an early return here instead of continuing execution?
+
+[ ... ]
+
+> @@ -938,6 +946,10 @@ static int analogix_dp_bridge_attach(struct drm_brid=
+ge *bridge,
+>  			dev_err(dp->dev, "failed to attach following panel or bridge (%d)\n",=
+ ret);
+>  			return ret;
+>  		}
+> +
+> +		last_bridge =3D drm_bridge_chain_get_last_bridge(dp->encoder);
+> +		if (drm_bridge_is_panel(last_bridge))
+> +			dp->last_bridge_is_panel =3D true;
+>  	}
+> =20
+>  	return 0;
+
+[Severity: Medium]
+Does this leak the reference to the last bridge in analogix_dp_bridge_attac=
+h()?
+
+drm_bridge_chain_get_last_bridge() increments the reference count of the
+returned bridge, but it doesn't appear that drm_bridge_put() is called
+before the function returns. Will this prevent proper cleanup when the
+device is unbound or the module is unloaded?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804081717.7414=
+04-1-damon.ding@rock-chips.com?part=3D9
