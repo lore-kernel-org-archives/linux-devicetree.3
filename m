@@ -1,665 +1,261 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0a-00230701.pphosted.com (mx0a-00230701.pphosted.com [148.163.156.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F04729ACCD;
-	Tue,  4 Aug 2026 22:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785882025; cv=none; b=HdGxetjdbmTI01ubgEljFfdORRVzyHLZahh4qA03vNtZWuB3DiGYt7EwXDmRI1UF+rX1SgNOxusM5DAqe7O5zNRkA4FrXHB+m+7EvRWC0jfn4UZUH9dVA/tXCJtJqW/HsrxwHx+XIqR+4bhPtm/natxbWhj4qoMP/aifcFrbtq0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785882025; c=relaxed/simple;
-	bh=Ne5loAQ13itRw7wzbWT7hlShFWvAQxB612puaga+0Kg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rhmQ0ZGNM8dnYz7C4gZp0Z9Ye10HAYOAki6U2a7ScwQORHJXdoTHYqJ8IA2YTQU7bJWV7bNuF7Jti8KmsSY5Z3TJ/QXmz0Cyoju/3Xr2r/5mBrRxHQW2jwUtp0QrbVelvvlZpQnpVLEXKojG0Wju3Ivzj0GNv9It1d136RG/r2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=XAYfL2wX; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11343EEAE1;
+	Tue,  4 Aug 2026 22:22:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.156.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785882158; cv=fail; b=bXvQJw1u8CI7lBXelih/gwfJR3BEd82bWc48Xe+FvoY8Tvl2JDRCCRTNrNE2b0cRlzNaTb/Io6fOB9HzJrnWDBwmh+CAIm73An/dVh+3hIo4cLXgJ8J7z2P6PdimPmn/75X4Uk5cL55up579m1htgo+iENJayWjmcB/brntFbfg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785882158; c=relaxed/simple;
+	bh=r2NTa/jtbT7kISPFSaDUxhEXTVeYJYHrFw+4VDn55R0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=VCLabDE3avv3zFnYyN9t/ed247TxZTJgnyAH9f6MWr/q/tvw+UQXAf7BVlK57GeJvJX5FaelquOeKvSYg0N6AEwa77kCOuHTNYLUnmC+ivGloyAZuzpQSlhM50qecEWriLJoGAvO2f5JmsNl17B0gexBHOP+kduwQqPJziHi3Hc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=dBxIhEKY; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=I8++vJjm; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=FtDzIZ4M reason="signature verification failed"; arc=fail smtp.client-ip=148.163.156.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="XAYfL2wX"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 173D04E410E9;
-	Tue,  4 Aug 2026 22:20:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C29906029E;
-	Tue,  4 Aug 2026 22:20:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EABD411C33B27;
-	Wed,  5 Aug 2026 00:20:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785882014; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=hEHN7Q6DvzLp/gSdB+yy83IXHC9wc+QPCe7F+A+2eMI=;
-	b=XAYfL2wXpCX1sL/rcEwGcJprw/YT7GTkqp3Ya4hZzXCrl/f/ooGE7H2XNZj7h49DgU0Jhb
-	eS4rN/wFvSzXj+Tw6Mjts4nFUxHbIBXIuWX6oT+q6gDxDE72v5VWx5bbDXiLZtiwQWwTto
-	um5vbRoJug/IOwBdnC8XmcjxkCtQ6oaWaPXYAqXLjcvKR6+GKTq354CQ7d7UFE/HG0xpug
-	uClcOA2z/oBVth9v6aDyzTYjo/pj7ViRNxCa/QXbVzMvoojPE9v3iBfE1LW3t75kPcGzXu
-	M4KsSmRLaiQQPOGQs45xw1N7gscbxZ0wdGbM0d4rTbBhYdhaAz/L/iMl1XbG6g==
-Date: Wed, 5 Aug 2026 00:20:12 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Michael Langer <michael.brainbug.langer@googlemail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] rtc: s35390a: Add pinctrl
-Message-ID: <2026080422201232a44ff0@mail.local>
-References: <20260801-rtc_s35390a_int1-v2-0-f10c99ad1d6c@posteo.de>
- <20260801-rtc_s35390a_int1-v2-4-f10c99ad1d6c@posteo.de>
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="dBxIhEKY";
+	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="I8++vJjm";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="FtDzIZ4M"
+Received: from pps.filterd (m0297266.ppops.net [127.0.0.1])
+	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674JpXrv1535178;
+	Tue, 4 Aug 2026 15:22:28 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-id:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	pfptdkimsnps; bh=r2NTa/jtbT7kISPFSaDUxhEXTVeYJYHrFw+4VDn55R0=; b=
+	dBxIhEKYsnCKDoyDO63aZsPerXacNlWma+7UXWOsvH1pX4z18I90p3WN9NZZzWSS
+	KoWDRn2k3yo3xAFDrNZcUOr3Cf7thJ/6oXtwMr8Qsd7x+rxadKfPOlZTdMH4zvYC
+	sKnYuJyk/2SRD9wGipmkirixD3P+CD6UVb2z6ZhOMpFZi5mgjAwrUjwtH+IzMl7Q
+	kaB/LuYbAtgLx9SC5R5WVfdv1mvOHfLOApfIhtyHhSAQ9TMdKvUQrPvcTYaI6MIX
+	WrNR4+0+Gb/OeNE1cmfUjcHzO6rIqlAXxwA1nbyaqMVH6tqoaEBFW0ldXqIwIg5g
+	5KJLhHGLir1GbBDnmkGJNg==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
+	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4fuey35tpq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 15:22:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1785882147; bh=r2NTa/jtbT7kISPFSaDUxhEXTVeYJYHrFw+4VDn55R0=;
+	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
+	b=I8++vJjmi3guuSnMdTDIoKDjZvKhtjzfzDtVznsmDxbQBKchdLQNHidZuSAEGe3aJ
+	 IkRcjwZIjb+Kd+W97W7rgMXnM2DBx3AFryPsvqI99weK9Lf8XYba9vNjcrhAjHXIBr
+	 dTqpVWsc/OvUcfmeuL5kUm64HF4kF0NBvK+3zDLaNPhsZhUCO3aXJ8sK6qOVlkd0Bu
+	 23DuuRXwFExHz3OCtx4wumX3GKfY0lJAOqcD0JiCrgpx0DD2FrHJiLVw1OhitGwBtH
+	 C32nYJa+7d07j4nv1BSY+YNUXWudNfepoCeDCBReU7UL0Z9C5VM7v6A8Aa8RaBipec
+	 cSokac8Eqgwng==
+Received: from mailhost.synopsys.com (us03-mailhost1.synopsys.com [10.4.17.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 656F24064B;
+	Tue,  4 Aug 2026 22:22:27 +0000 (UTC)
+Received: from o365relay-in.synopsys.com (sv2-o365relay7.synopsys.com [10.202.1.143])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
+	by mailhost.synopsys.com (Postfix) with ESMTPS id E2B54A0072;
+	Tue,  4 Aug 2026 22:22:26 +0000 (UTC)
+Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
+Authentication-Results: o365relay-in.synopsys.com;
+	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=FtDzIZ4M;
+	dkim-atps=neutral
+Received: from BL2PR08CU001.outbound.protection.outlook.com (mail-bl2pr08cu00106.outbound.protection.outlook.com [40.93.4.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
+	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
+	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
+	by o365relay-in.synopsys.com (Postfix) with ESMTPS id A88B62200BA;
+	Tue,  4 Aug 2026 22:22:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NciNOV1ai42DjgiLb9EwfUc2pvWNMrJzr5LN6JsyKrRuroNvGWYrNRDEH91/aF5y+ZWNZujij2ER6g3GlOiZ+mLS0K8nwpQBZWcuYNh8BVN9v1qKEvvqRZawhJnphrLgycySTaP6NOyIS5hePUOsZk4ADwYcxFix2/b/0NZIkJmeX6f9jgBQz2tqQ1JDpP+rAdYD5Bj6vhyNhNWMhhrPWtDSOzwozDpzyA7e/2S1T6QOveQVDKaOzi0ncku+ywIkgTqR55wDGyz5sqMBC3dBHNAGlClRLmnP4fvwCIwAYxXiKDETHdH5BN96d+5psCH94MzpMWY5xXFcEeff4w+oAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r2NTa/jtbT7kISPFSaDUxhEXTVeYJYHrFw+4VDn55R0=;
+ b=feORZOiRa4q7sXddnKjbdhToBPgRdpOWZU0j2GCYEHDhsupMwUyl0NS9Daal7h3vigQa5bgwpRja3dd1UhVdq935eOppGQ32Lxkb3NSwAaOYgYEGwgw+dMMSOW8QfmCaI9FlLb21SazyFzQlT29DITqb/JYUS8XOVFMi/Usc2QHQD7ygsP+7/K+WNxOLePzGEpEnPNqHAYtMG2hdTKXSJwhlUi10PkRZ6fX2++sbpmYqLEHdF5c1nX7qx2B7IaXyCTHyPX5PFbql51L8dwYsamrQHD2mcymHob5rncVoZ60tpTYEGyzPDl4/fw+sMyhdL87cBID0OjOx7pkMcATPVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
+ dkim=pass header.d=synopsys.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r2NTa/jtbT7kISPFSaDUxhEXTVeYJYHrFw+4VDn55R0=;
+ b=FtDzIZ4M6SfyFEf1PXhCwy+/QWxKO6TS5ZClWwkHLlX1NT++wO+CG0XD9tIEt8dUP3rjLC/QGdkHIDBVmNuDiXn6nuBRmpjBf9C89TJ88mEMi5Ca50v/BvFfhx+UGf+TD2SUa+yV74nNe2W4FjjC3bdKBNZKiRJv1UKQhqphhx4=
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
+ by DS4PR12MB999077.namprd12.prod.outlook.com (2603:10b6:8:2f9::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Tue, 4 Aug
+ 2026 22:22:20 +0000
+Received: from PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
+ ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0292.013; Tue, 4 Aug 2026
+ 22:22:20 +0000
+X-SNPS-Relay: synopsys.com
+From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+CC: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>
+Subject: Re: [PATCH v5 2/5] include: linux: phy: Add phy attribute "type" and
+ associated helpers
+Thread-Topic: [PATCH v5 2/5] include: linux: phy: Add phy attribute "type" and
+ associated helpers
+Thread-Index: AQHdGo+OtO3eh7CzF0GOXQEldLsQKLaAR7GAgA5CnIA=
+Date: Tue, 4 Aug 2026 22:22:20 +0000
+Message-ID: <anJhN9-4dOtDqncs@vbox>
+References:
+ <20260723-eusb2-int-handling-v5-v5-0-f32ea6c1a318@oss.qualcomm.com>
+ <20260723-eusb2-int-handling-v5-v5-2-f32ea6c1a318@oss.qualcomm.com>
+ <5zgabwyhxu65hacpr53cwktwe4npu2ndzgvt3uulja5lejnmi4@bj4uxp5wlb7l>
+In-Reply-To: <5zgabwyhxu65hacpr53cwktwe4npu2ndzgvt3uulja5lejnmi4@bj4uxp5wlb7l>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|DS4PR12MB999077:EE_
+x-ms-office365-filtering-correlation-id: 16f78c66-9040-4e7f-a113-08def276d984
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|3023799007|22082099003|18002099003|4143699003|11063799006|56012099006|38070700021|10067099003;
+x-microsoft-antispam-message-info:
+ npyoJHwPscZwLuWXYq7R/WDyQk0VQ5hQGlZ5DefPUoiVDnphBuGhxo4AI5PLae3sMxMo60RhRYpWECd6ETL+yeVpUstbjUXf6tQGXboapusseFlXVFdmc7OwuD9ubNTduPYzNlRwhZI5amH9WMgZs+aYMc4bRxrT4MN2sOrrIIqBwniKfn5QdDanPsVbumhnSxYohydtARqvqprl3N20eH3elSEyVrz0TeNoqzYykBdT8YR4auZ9cnJWVUm+Y9HnbqtY0szp0750WuGjzJk/KUgw7+2VfAyslvZbon8+YZigXqY9ttNfXQpRTa8Upjtib71Mk20Nsnm1T2cLv92TvVgW4biOYddh+iduxVQWbUIiK11U1iqnVMBEKEl3fEa5/JP1Cdwqoit7Ldr/ERm5f7RpBquSnE6JSzsH/U6iuwjOyzqeuxvYTbuS1plMiLfxiReceAE5Fc1BaBfChtyi36W9qd5DGCC/4kuMdq6wkHF5E7TGrOPP/hR4XyPZiB3Vku4tRMBvj010EO77Vym2yNEgOMgRvmCUiorMWivOL8fh+P6MtNPPrKdutpxY8f9uSdQCUCW/u8vcnTNJepzMus0cxsN52K+vokoZRSkxtOks7DPKgKA2w2sqexAFKmux6b4zGMVFB5azQ6ta+oYwopQ82tPHAPZ3pc9dfMnEZgK6V1MiqEqzRbrs5loklMYT673ujATM+/jUnBamehl9ruqL8RU4Xh2mxpX2Hhdm20E=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(3023799007)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(38070700021)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SkE4cXFFaDVaM3l5cGd6d1FNOGVQeVVxRFN0cjl3WHVZcE1GeTJJdDBFRHM1?=
+ =?utf-8?B?L2tnemthNHFJK2VUNlZxaUQrQ2d5TDdHdzZHaGhGQlpuZlJBdDRkT2JtZWRj?=
+ =?utf-8?B?bk0vMlVFNXJXSFRYcFhqcHN3aGNmc2tiMlpXZUZVUXJDRThTbHdnQzI1OXYz?=
+ =?utf-8?B?MUZ6ZHBvZExKSlBjUW11eXVucVdRd2hWUWRyS1gxbkdtaEVkdzkyck9iemRC?=
+ =?utf-8?B?anVFMXhrTVliTllXSjhNM1AzYkllMC9FWGhUTWZDNTRGeHQvSWw5eE9CY0Nw?=
+ =?utf-8?B?WFlLU0FoN0c3UThTZTlaODdDeHFLbnFGenZEVTJtL0V4UXZIUllCT3ZUY2h1?=
+ =?utf-8?B?Y0NHWlRLQ3NzK3BLWE5JbU95eVNUV1ZqWmZhUDlGanF3Y01ueE1ZMW1DOFl2?=
+ =?utf-8?B?QjQvZ3RSR01IRFNjSUtoc2FrWWVNakc5N3pxK0M0eHZqVGNpajNkT0cvdmxa?=
+ =?utf-8?B?THRzbGIzYXhmQ3RBenhqQWprbFRiSTlmMG9URUtEY3E5aTBqQzJrNTZUdW92?=
+ =?utf-8?B?czFvbXJ4MWFyMEVpRlBNa1hxdVlmbDVGUWVnMGFaMm1zSDNNOVRETy9iak90?=
+ =?utf-8?B?WnlJTHpFcXE5bXBZa3pLWHNkN1J1am40Z09lbHhSUXFsSHFNYlptUDdiMmJY?=
+ =?utf-8?B?a0x1dzZqMkE1dStaWVRyRU43UWlhcmJmd3c3c2hjRDZBWjh0bkpkQ25lRW5P?=
+ =?utf-8?B?UXE3Szg0SXpnZXc2VHBWUTN3eGdBQno5YXQ5d0p2c3A3cUJNNDBvN2lPU25i?=
+ =?utf-8?B?bWpBdXBEWDhWbE1EZGZWT0o4bWZyUkQ5bTRaV0NIcEhVc3ZodklxTnNFeWpp?=
+ =?utf-8?B?aWREOTlSRGJ2R3N3aVkxRDVMUVU3K2VXUmc1SGtIZmhrVFJhTnMxYU5aYkNZ?=
+ =?utf-8?B?YkFMUXNTa2Q4YXQ4S3pnSGNhZWd6NnBXTW1WdURPMFcrWTFlUlY4VjJ0N1N3?=
+ =?utf-8?B?TEVuQjExM2l4ZEpzeHYyWjdyUENNQ3JDcE0vL3ZvVnV5NkdPcVkycC9CcVJW?=
+ =?utf-8?B?ajlZQzZJWnoydjN6VkZGSFRRclo5cVFXRUFEYXlDTTNvTWMvM2ZHNnF4WWl2?=
+ =?utf-8?B?alFHTnFWQnlSeDZySTNJcHliY0dtK3JWMU1BL1FWbnI5K3lWTDZZOGZIWnQy?=
+ =?utf-8?B?VWJucko1Z0J5VXJBN0ZJS3Y5TVovcFZjREI4SlRWUTNLWFJrU2dIbThoeW9V?=
+ =?utf-8?B?am1XclpKbGVROEM3OGMzS1p2b1o4S25Oc2dhQmRYZFdIRTUxejA1Y0VDSTA2?=
+ =?utf-8?B?YkRaUGN4a3MrUFRWa0ZJY3V5R0dua3NsMmRML0puMVNnRDNoeGJheGo1N0hG?=
+ =?utf-8?B?K3JzTGxwZmhBUUwrNi92K1k0eXdxVHIxeVZjMUhQZDR0T2VpNnh2T2F2K0JX?=
+ =?utf-8?B?T200L0RWeDd5L2VqMXJFVnZrSFF6YzcxMTBNNFgxL3VCNTlJWFZCZkhFaVMy?=
+ =?utf-8?B?ZFdRQVFBZHZIYWZQdERvcjBVRlBwSEpTek93L2h4NjFISkorTTN4dTZLamps?=
+ =?utf-8?B?NDVMeTdkVGFrZGlHaXRJSHBrY0lRbHQ0eVM4dUMyemFWMkZoZmJtcVN0VHVy?=
+ =?utf-8?B?bDJHOHpkbGVVUWhPQ3VPeVQxNUpvL0lxZDQ2L1FUSzZTcXBYNmFDV3VGUVBp?=
+ =?utf-8?B?VUMzWEY3R1p4WjlBZDZ4UU9wWGZqK2t3a1RhaFNFVmtVOEdhd0NEVFM0cmtH?=
+ =?utf-8?B?UUlTbXBvbkRORXNEamNUd2ZzbGhTUkQxS2xhZzRrWXo4bjBUdVpYMGhsTGZs?=
+ =?utf-8?B?elYrUGN3Sm5pNm5PeTA4dXlVSEs4aXJVbE9oY2xwU2t5YTVpN0owMzA0ZXdB?=
+ =?utf-8?B?SFBlYWFHMVVxMkJrdkYwMWJLbmVvWWZIcnpDRWJySTkveW43ZVJENjBCWG05?=
+ =?utf-8?B?N2xDTkhEVDBBd3dCZCtQUUJLcWhvekVKclZMR0ZkTXFGblRjVFN5d3A5QUhQ?=
+ =?utf-8?B?YWR3UjE3THlEdDNSZVNWMEVRRHNZYS8vSmlKcUZTNmJJWStkU3BNYWFWZjNy?=
+ =?utf-8?B?TU1IeUV2c3pHa1JvR1ZzOEQ3Y3ZsTE1tU20zNTFJSzNQblNtdFlPZVp1SDJw?=
+ =?utf-8?B?YVlNS09iYWRrUWNQZU91WFo0QTNtZllVbElIeEtiaGxaUXducnlPN251ZG9D?=
+ =?utf-8?B?VjcxWVE4K1pia2twL1QvVkVEL0wweFVsKzNYNHVuMUg2VmZ1SDZNMk5hSXFW?=
+ =?utf-8?B?dGt4YW9EQkU5TnFtdDA1MXBNUitUT2lrOXBXL0t4bm5DZDdBR1poeHY5eTlR?=
+ =?utf-8?B?UFRtOHp4STBXZHFEeG4wTDN2V1hFdHhzMzJSa1FJSUFhbHd0emNSRlU1YS9j?=
+ =?utf-8?B?eHNSdGZ6Qml1aUNWQ0dJVGZ5d3QvK2FlZ053UzlzdHFFaGNFRDBLQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <92BBA13D87136B40BE02A58AA9320D46@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801-rtc_s35390a_int1-v2-4-f10c99ad1d6c@posteo.de>
-X-Last-TLS-Session-Version: TLSv1.3
+X-Exchange-RoutingPolicyChecked:
+	j8t6s1ehy4zBcQpxg7zXIznGP4he12NN8myCd1TndRqihdG0o3RMHTRthacaBVq3UjbNjbvXYXwkZA3Bjs8lYQ19HR6rjzizNhT0IZFKHR3pVqVU4d/eK4zCWhsyMdmzw/ErMUSNikEFa//Y6K2xUn8qWQlLOYdylzSouPJ9WWRHDcOx4380pAFQbPOt8uB+ffVlGxXDWfAcViKM2B+E+RElBJs0wOn2S3EOjOu9i97DomfmJKwoRaVQw9m5AO39DRn8xgNShFHoQe02JOiyQCQ8ogjOTXoSKgxRHcj3ZnvC+1qAB0hnqHnVUoA0Ta3TIMKFCHJaCwy+txf/lqlE5A==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	2hQgO2xTwQG5Pd5+UFNTUeeIJn4kMxWKJ2qTehV8UbWkkQ1Yy2Tcw0cHeXTQACMgs2RiShCF8swKDvVzysLOZk1odOgtGEK0P7UClEQiOVUN85p3IBsUdD0iQrgOJLZl1/y/hCmPbjwrxr0x7VYCgnS0Nox1ZkH8A3xtVELFPmVuPiTUvYp9lp4XlgwYrkadYxI4F4CiTembc6N61AG26Ws+FOIQgr4KnhYzNjATazvYd9hFUs7kDxfMuYK5AI/Un6Rg+BrJUOMQ4ET/TB7O5ADQHE/VCTxmYU2yZG9iaEmfMBlo9ldkI08Zi/EddIJhICX31r3IT68GCmsj6jjerdjT65mr0CTVgllLanG5VFA0oxPaFqFECt229fjCXjgoQI9mX92bGqkPW4wf1jFuCW22VDTOy/y+nPZ8kTDDk4mvyMZa0I/nif1huh1nXn+BvZjpMMlMTe6vpNfqSz/wdtouXJmYinwRHAQ5pYrq8hI+85e/tnFA+bCbgHz1g+VwvMjoc2WiAnXTq3hZEUG4RISnDr/OLE5Xd2guJi1/ly8Ex1yq5yWIcd9/i3RKZFaoczpWNqd/kJsxw86SAWk1BKfYtJCoPXEIh492cdoN8FvYfRqZrB8wCfN87RpIL7qau8uAIKOuPaljtXIIPLh7Dw==
+X-OriginatorOrg: synopsys.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16f78c66-9040-4e7f-a113-08def276d984
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 22:22:20.2381
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7ynYpSuVvn+X2MOn8H+yY9+WWYyaWSThkWKecBcVhBi5N2ryLuXwtS/BkdfQxxd5pbaoW1IEuJkqN4MBoTPrWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999077
+X-Proofpoint-GUID: GaUi7oDYjXY-tU2tIA6JfQI9ZkWappQm
+X-Proofpoint-ORIG-GUID: GaUi7oDYjXY-tU2tIA6JfQI9ZkWappQm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDE4MSBTYWx0ZWRfXz3Q0i6JJ8V62
+ JlxKqXGJ01s6kp5wsZ/7G7s849lGBQ8Mg1JnS+4KNBVArD5Wcu4W27LiVY5GP+kYaIej/npn5nc
+ UTc/B386RKAZU8njHbQw+2OLG16o9no=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDE4MSBTYWx0ZWRfX6jIatTOT2O7u
+ +RBUyWDvPffiLJkvLSyD31ExMkfkk9ya2YaN084j+Xw80nQ7UNWMS1pj22S59Jqe/mLFcaqv8DX
+ 3CNeSKjOXSAFF/3VFXD8cnAW60n1+cuQR401gJ39HWpMWZ+uwBYUONE5HvltAaTPYSErY0+zRdJ
+ 2p29NSaIZbQKRdRnanTJefznZ1X1BDf5vP9KRss4Wx3N6rU/EEEW/E7OBTDI0BDZvq+3KktUg6Z
+ 2ToQBGVInhkM3Akq8lWyJOxDpmelQkj/dWcSQ0nMmena7YhI7dsYB/lW072WAMfF8MRw8D2yNbI
+ QV4YR0SKW4KQFSr3bbSF1gELm3M2D+cDmmtQVdE3mXLg93YDCM2nD7ijR+ge+9yp0izggFf3sqO
+ JZ4KPB/cWYyt8LZpJsaCeQtHRcA9nXsbHPve46RVebU4ct8mjLLXZHM11CoON/P58aoXdK8igQ+
+ D4p6SIJafmE/uQCYnLQ==
+X-Authority-Analysis: v=2.4 cv=DvxmPm/+ c=1 sm=1 tr=0 ts=6a726624 cx=c_pps
+ a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=qPHU084jO2kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=Wo6YDfOMAEstGd-0DxeT:22
+ a=EUspDBNiAAAA:8 a=zN5QJerk4Z3PnD9rnr4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_05,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 malwarescore=0 adultscore=0
+ phishscore=0 impostorscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2606150000 definitions=main-2608040181
 
-On 01/08/2026 18:43:04+0000, Markus Probst wrote:
-> Allow configuration of other output modes than wake alarm, including:
-> - keeping the previous configured mode
-> - disabling output
-> - custom frequency
-> - minute periodical interrupt (1: 50% duty, 2: 7.81 ms)
-> - raw 32.768 kHz output
-> 
-> Allow use of interrupt signal 1.
-
-There are a lot of checkpatch --strict warnings taht can be fixed. This
-patch also needs to be reviewed by the pinctrl maintainers.
-
-> 
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  drivers/rtc/Kconfig       |   3 +
->  drivers/rtc/rtc-s35390a.c | 403 +++++++++++++++++++++++++++++++++++++++-------
->  2 files changed, 349 insertions(+), 57 deletions(-)
-> 
-> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-> index 01def8231873..054ff134d84e 100644
-> --- a/drivers/rtc/Kconfig
-> +++ b/drivers/rtc/Kconfig
-> @@ -668,7 +668,10 @@ config RTC_DRV_RC5T619
->  
->  config RTC_DRV_S35390A
->  	tristate "Seiko Instruments S-35390A"
-> +	depends on OF
-> +	depends on PINCTRL
->  	select BITREVERSE
-> +	select GENERIC_PINCONF
->  	help
->  	  If you say yes here you will get support for the Seiko
->  	  Instruments S-35390A.
-> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-> index fbf5471eb3d0..fc0dbce0e8f4 100644
-> --- a/drivers/rtc/rtc-s35390a.c
-> +++ b/drivers/rtc/rtc-s35390a.c
-> @@ -12,11 +12,18 @@
->  #include <linux/bcd.h>
->  #include <linux/slab.h>
->  #include <linux/delay.h>
-> +#include <linux/pinctrl/pinctrl.h>
-> +#include <linux/pinctrl/pinconf.h>
-> +#include <linux/pinctrl/pinconf-generic.h>
-> +#include <dt-bindings/rtc/s35390a.h>
-> +
-> +#define DRIVER_NAME "rtc-s35390a"
->  
->  #define S35390A_CMD_STATUS1	0
->  #define S35390A_CMD_STATUS2	1
->  #define S35390A_CMD_TIME1	2
->  #define S35390A_CMD_TIME2	3
-> +#define S35390A_CMD_INT1_REG1	4
->  #define S35390A_CMD_INT2_REG1	5
->  #define S35390A_CMD_FREE_REG    7
->  
-> @@ -36,19 +43,31 @@
->  #define S35390A_FLAG_POC	BIT(0)
->  #define S35390A_FLAG_BLD	BIT(1)
->  #define S35390A_FLAG_INT2	BIT(2)
-> +#define S35390A_FLAG_INT1	BIT(3)
->  #define S35390A_FLAG_24H	BIT(6)
->  #define S35390A_FLAG_RESET	BIT(7)
->  
->  /* flag for STATUS2 */
->  #define S35390A_FLAG_TEST	BIT(0)
->  
-> +
-> +#define S35390A_INT_MODE_NOINTR	0x00
-> +
->  /* INT2 pin output mode */
->  #define S35390A_INT2_MODE_MASK		0x0E
-> -#define S35390A_INT2_MODE_NOINTR	0x00
->  #define S35390A_INT2_MODE_ALARM		BIT(1) /* INT2AE */
->  #define S35390A_INT2_MODE_PMIN_EDG	BIT(2) /* INT2ME */
->  #define S35390A_INT2_MODE_FREQ		BIT(3) /* INT2FE */
-> -#define S35390A_INT2_MODE_PMIN		(BIT(3) | BIT(2)) /* INT2FE | INT2ME */
-> +#define S35390A_INT2_MODE_PMIN1		(BIT(3) | BIT(2)) /* INT2FE | INT2ME */
-> +
-> +/* INT1 pin output mode */
-> +#define S35390A_INT1_MODE_MASK		0xF0
-> +#define S35390A_INT1_MODE_ALARM		BIT(5) /* INT1AE */
-> +#define S35390A_INT1_MODE_PMIN_EDG	BIT(6) /* INT1ME */
-> +#define S35390A_INT1_MODE_FREQ		BIT(7) /* INT1FE */
-> +#define S35390A_INT1_MODE_PMIN1		(BIT(7) | BIT(6)) /* INT1FE | INT1ME */
-> +#define S35390A_INT1_MODE_PMIN2		(BIT(7) | BIT(6) | BIT(5)) /* INT1FE | INT1ME | INT1AE */
-> +#define S35390A_INT1_MODE_32768KHZ	BIT(4) /* 32kE */
->  
->  static const struct i2c_device_id s35390a_id[] = {
->  	{ .name = "s35390a" },
-> @@ -64,8 +83,15 @@ MODULE_DEVICE_TABLE(of, s35390a_of_match);
->  
->  struct s35390a {
->  	struct i2c_client *client[8];
-> -	struct rtc_time tm_alarm;
-> +	struct rtc_device *rtc;
-> +	struct pinctrl_dev *pinctrl;
-> +	struct rtc_wkalrm alarm;
->  	int twentyfourhour;
-> +
-> +	struct mutex mode_lock;
-> +	bool mode_init;
-> +	int mode[2];
-> +	u8 freq[2];
->  };
->  
->  static int s35390a_set_reg(struct s35390a *s35390a, int reg, u8  *buf, int len)
-> @@ -283,33 +309,33 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
->  		alm->time.tm_min, alm->time.tm_hour, alm->time.tm_mday,
->  		alm->time.tm_mon, alm->time.tm_year, alm->time.tm_wday);
->  
-> -	/* disable interrupt (which deasserts the irq line) */
-> -	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
-> -	if (err < 0)
-> -		return err;
-> +	guard(mutex)(&s35390a->mode_lock);
->  
-> -	/* clear pending interrupt (in STATUS1 only), if any */
-> -	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS1, &sts, sizeof(sts));
-> +	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
->  	if (err < 0)
->  		return err;
->  
-> -	if (alm->enabled)
-> -		sts = S35390A_INT2_MODE_ALARM;
-> -	else
-> -		sts = S35390A_INT2_MODE_NOINTR;
-> +	/* disable interrupt (which deasserts the irq line) */
-> +	if (s35390a->mode[0] == S35390A_MODE_WAKEUP)
-> +		sts = (sts & ~S35390A_INT1_MODE_MASK) | S35390A_INT_MODE_NOINTR;
-> +
-> +	if (s35390a->mode[1] == S35390A_MODE_WAKEUP)
-> +		sts = (sts & ~S35390A_INT2_MODE_MASK) | S35390A_INT_MODE_NOINTR;
->  
-> -	/* set interrupt mode*/
->  	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
->  	if (err < 0)
->  		return err;
->  
-> +	if (!alm->enabled)
-> +		goto end;
-> +
->  	if (alm->time.tm_wday != -1)
->  		buf[S35390A_ALRM_BYTE_WDAY] = bin2bcd(alm->time.tm_wday) | 0x80;
->  	else
->  		buf[S35390A_ALRM_BYTE_WDAY] = 0;
->  
->  	buf[S35390A_ALRM_BYTE_HOURS] = s35390a_hr2reg(s35390a,
-> -			alm->time.tm_hour) | 0x80;
-> +						      alm->time.tm_hour) | 0x80;
->  	buf[S35390A_ALRM_BYTE_MINS] = bin2bcd(alm->time.tm_min) | 0x80;
->  
->  	if (alm->time.tm_hour >= 12)
-> @@ -318,13 +344,33 @@ static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
->  	for (i = 0; i < 3; ++i)
->  		buf[i] = bitrev8(buf[i]);
->  
-> -	err = s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf,
-> -								sizeof(buf));
-> +	/* set interrupt mode */
-> +	if (s35390a->mode[0] == S35390A_MODE_WAKEUP)
-> +		sts = (sts & ~S35390A_INT1_MODE_MASK) | S35390A_INT1_MODE_ALARM;
-> +
-> +	if (s35390a->mode[1] == S35390A_MODE_WAKEUP)
-> +		sts = (sts & ~S35390A_INT2_MODE_MASK) | S35390A_INT2_MODE_ALARM;
-> +
-> +	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
-> +	if (err < 0)
-> +		return err;
-> +
-> +	if (s35390a->mode[0] == S35390A_MODE_WAKEUP) {
-> +		err = s35390a_set_reg(s35390a, S35390A_CMD_INT1_REG1, buf, sizeof(buf));
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	if (s35390a->mode[1] == S35390A_MODE_WAKEUP) {
-> +		err = s35390a_set_reg(s35390a, S35390A_CMD_INT2_REG1, buf, sizeof(buf));
-> +		if (err)
-> +			return err;
-> +	}
->  
-> -	if (!err)
-> -		s35390a->tm_alarm = alm->time;
-> +end:
-> +	s35390a->alarm = *alm;
->  
-> -	return err;
-> +	return 0;
->  }
->  
->  static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
-> @@ -332,24 +378,35 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
->  	struct i2c_client *client = to_i2c_client(dev);
->  	struct s35390a *s35390a = i2c_get_clientdata(client);
->  	u8 buf[3], sts;
-> -	int i, err;
-> +	int i, err, reg;
-> +
-> +	guard(mutex)(&s35390a->mode_lock);
->  
->  	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
->  	if (err < 0)
->  		return err;
->  
-> -	if ((sts & S35390A_INT2_MODE_MASK) != S35390A_INT2_MODE_ALARM) {
-> +	if (s35390a->mode[1] == S35390A_MODE_WAKEUP
-> +		&& (sts & S35390A_INT2_MODE_MASK) == S35390A_INT2_MODE_ALARM) {
-> +
-> +		reg = S35390A_CMD_INT2_REG1;
-> +	} else if (s35390a->mode[0] == S35390A_MODE_WAKEUP
-> +		&& (sts & S35390A_INT1_MODE_MASK) == S35390A_INT1_MODE_ALARM) {
-> +
-> +		reg = S35390A_CMD_INT1_REG1;
-> +	} else {
->  		/*
->  		 * When the alarm isn't enabled, the register to configure
->  		 * the alarm time isn't accessible.
->  		 */
->  		alm->enabled = 0;
-> +		alm->time = s35390a->alarm.time;
->  		return 0;
-> -	} else {
-> -		alm->enabled = 1;
->  	}
->  
-> -	err = s35390a_get_reg(s35390a, S35390A_CMD_INT2_REG1, buf, sizeof(buf));
-> +	alm->enabled = 1;
-> +
-> +	err = s35390a_get_reg(s35390a, reg, buf, sizeof(buf));
->  	if (err < 0)
->  		return err;
->  
-> @@ -358,7 +415,7 @@ static int s35390a_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
->  		buf[i] = bitrev8(buf[i]);
->  
->  	/*
-> -	 * B0 of the three matching registers is an enable flag. Iff it is set
-> +	 * B0 of the three matching registers is an enable flag. If it is set
->  	 * the configured value is used for matching.
->  	 */
->  	if (buf[S35390A_ALRM_BYTE_WDAY] & 0x80)
-> @@ -388,10 +445,10 @@ static int s35390a_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled
->  	struct s35390a *s35390a = dev_get_drvdata(dev);
->  	struct rtc_wkalrm alm;
->  
-> -	alm.enabled = enabled;
-> -
->  	if (enabled)
-> -		alm.time = s35390a->tm_alarm;
-> +		alm = s35390a->alarm;
-> +
-> +	alm.enabled = enabled;
->  
->  	return s35390a_rtc_set_alarm(dev, &alm);
->  }
-> @@ -452,13 +509,241 @@ static int s35390a_nvmem_write(void *priv, unsigned int offset, void *val,
->  	return s35390a_set_reg(s35390a, S35390A_CMD_FREE_REG, val, bytes);
->  }
->  
-> +static int s35390a_pinctrl_get_groups_count(struct pinctrl_dev *pctldev)
-> +{
-> +	return 0;
-> +}
-> +
-> +static const char *s35390a_pinctrl_get_group_name(struct pinctrl_dev *pctldev,
-> +						  unsigned int group)
-> +{
-> +	return NULL;
-> +}
-> +
-> +static const struct pinctrl_pin_desc s35390a_pins_desc[] = {
-> +	PINCTRL_PIN(0, "int1"),
-> +	PINCTRL_PIN(1, "int2"),
-> +};
-> +
-> +static const struct pinctrl_ops s35390a_pinctrl_ops = {
-> +	.get_groups_count = s35390a_pinctrl_get_groups_count,
-> +	.get_group_name = s35390a_pinctrl_get_group_name,
-> +	.dt_node_to_map = pinconf_generic_dt_node_to_map_pin,
-> +	.dt_free_map = pinconf_generic_dt_free_map,
-> +};
-> +
-> +#define PIN_CONFIG_MODE		(PIN_CONFIG_END + 1)
-> +#define PIN_CONFIG_FREQ		(PIN_CONFIG_END + 2)
-> +
-> +static const struct pinconf_generic_params s35390a_pinconf_params[] = {
-> +	{"sii,mode", PIN_CONFIG_MODE},
-> +	{"sii,frequency", PIN_CONFIG_FREQ},
-> +};
-> +
-> +static int s35390a_set_freq(struct s35390a *s35390a, int pin, int freq)
-> +{
-> +	int err, reg;
-> +	u8 buf;
-> +
-> +	reg = pin == 0 ? S35390A_CMD_INT1_REG1 : S35390A_CMD_INT2_REG1;
-> +
-> +	buf = bitrev8(freq);
-> +
-> +	err = s35390a_set_reg(s35390a, reg, &buf, 1);
-> +	if (err < 0)
-> +		return err;
-> +	return 0;
-> +}
-> +
-> +static int s35390a_update_mode(struct s35390a *s35390a, int pin, int mode, int freq)
-> +{
-> +	int err;
-> +	u8 buf, status1, flag, mask;
-> +	bool update_irq = false;
-> +
-> +	mask = pin == 0 ? S35390A_INT1_MODE_MASK : S35390A_INT2_MODE_MASK;
-> +
-> +	s35390a->mode_init = true;
-> +
-> +	guard(mutex)(&s35390a->mode_lock);
-> +
-> +	dev_dbg(&s35390a->client[0]->dev, "%s: pin=%d mode=%d\n",
-> +			__func__, pin, mode);
-> +
-> +	if (mode == S35390A_MODE_FREQ) {
-> +		if (freq & ~S35390A_FREQ_MASK) {
-> +			dev_err(&s35390a->client[0]->dev, "Unsupported frequency %u\n", freq);
-> +			return -EINVAL;
-> +		}
-> +	} else
-> +		freq = 0;
-> +
-> +	if (mode == s35390a->mode[pin] && freq == s35390a->freq[pin])
-> +		return 0;
-> +
-> +	s35390a->mode[pin] = mode;
-> +	s35390a->freq[pin] = freq;
-> +
-> +	if (mode == S35390A_MODE_IGNORE)
-> +		return 0;
-> +
-> +	err = s35390a_get_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
-> +	if (err < 0) {
-> +		dev_err(&s35390a->client[0]->dev, "error reading status\n");
-> +		return err;
-> +	}
-> +
-> +	switch (mode) {
-> +	case S35390A_MODE_DISABLE:
-> +	case S35390A_MODE_ALARM: /* not implemented */
-> +		buf = (buf & ~mask) | S35390A_INT_MODE_NOINTR;
-> +		break;
-> +	case S35390A_MODE_WAKEUP:
-> +		flag = pin == 0 ? S35390A_INT1_MODE_ALARM : S35390A_INT2_MODE_ALARM;
-> +		if ((buf & mask) != flag) {
-> +			buf = (buf & ~mask) | S35390A_INT_MODE_NOINTR;
-> +			break;
-> +		}
-> +
-> +		err = s35390a_read_status(s35390a, &status1);
-> +		if (err < 0) {
-> +			dev_err(&s35390a->client[0]->dev, "error reading status\n");
-> +			return err;
-> +		}
-> +
-> +		flag = pin == 0 ? S35390A_FLAG_INT1 : S35390A_FLAG_INT2;
-> +
-> +		/* disable alarm */
-> +		if (status1 & flag) {
-> +			buf = (buf & ~mask) | S35390A_INT_MODE_NOINTR;
-> +			update_irq = true;
-> +		}
-> +
-> +		break;
-> +	case S35390A_MODE_FREQ:
-> +		flag = pin == 0 ? S35390A_INT1_MODE_FREQ : S35390A_INT2_MODE_FREQ;
-> +		buf = (buf & ~mask) | flag;
-> +		break;
-> +	case S35390A_MODE_PMIN1:
-> +		flag = pin == 0 ? S35390A_INT1_MODE_PMIN1 : S35390A_INT2_MODE_PMIN1;
-> +		buf = (buf & ~mask) | flag;
-> +		break;
-> +
-> +	/* INT1 only modes */
-> +	case S35390A_MODE_PMIN2:
-> +		buf = (buf & ~mask) | S35390A_INT1_MODE_PMIN2;
-> +		break;
-> +	case S35390A_MODE_32768KHZ:
-> +		buf = (buf & ~mask) | S35390A_INT1_MODE_32768KHZ;
-> +		break;
-> +	}
-> +
-> +	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
-> +	if (err < 0) {
-> +		dev_err(&s35390a->client[0]->dev, "error setting interrupts\n");
-> +		return err;
-> +	}
-> +
-> +	if (freq) {
-> +		err = s35390a_set_freq(s35390a, pin, freq);
-> +		if (err < 0) {
-> +			dev_err(&s35390a->client[0]->dev, "error setting frequency\n");
-> +			return err;
-> +		}
-> +	}
-> +
-> +	if (update_irq)
-> +		rtc_update_irq(s35390a->rtc, 1, RTC_AF);
-> +
-> +	return 0;
-> +}
-> +
-> +static int s35390a_pinconf_get(struct pinctrl_dev *pctldev,
-> +			       unsigned int pin, unsigned long *config)
-> +{
-> +	struct s35390a *s35390a = pinctrl_dev_get_drvdata(pctldev);
-> +	unsigned int param = pinconf_to_config_param(*config);
-> +	u16 arg;
-> +
-> +	switch (param) {
-> +	case PIN_CONFIG_MODE:
-> +		arg = s35390a->mode[pin];
-> +		break;
-> +	case PIN_CONFIG_FREQ:
-> +		arg = s35390a->freq[pin];
-> +		break;
-> +	default:
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	*config = pinconf_to_config_packed(param, arg);
-> +
-> +	return 0;
-> +}
-> +
-> +static int s35390a_pinconf_set(struct pinctrl_dev *pctldev,
-> +			       unsigned int pin, unsigned long *configs,
-> +			       unsigned int num_configs)
-> +{
-> +	struct s35390a *s35390a = pinctrl_dev_get_drvdata(pctldev);
-> +	unsigned int param;
-> +	u32 param_val;
-> +	int i, mode, freq = 0;
-> +
-> +	mode = pin == 0 ? S35390A_MODE_IGNORE : S35390A_MODE_WAKEUP;
-> +
-> +	for (i = 0; i < num_configs; i++) {
-> +		param = pinconf_to_config_param(configs[0]);
-> +		param_val = pinconf_to_config_argument(configs[0]);
-> +
-> +		switch (param) {
-> +		case PIN_CONFIG_MODE:
-> +			if (param_val <= (pin == 0 ? S35390A_MODE_INT1_MAX : S35390A_MODE_INT2_MAX))
-> +				mode = param_val;
-> +			else {
-> +				dev_err(&s35390a->client[0]->dev, "Unsupported pin mode %u\n",
-> +					param_val);
-> +				return -EINVAL;
-> +			}
-> +			break;
-> +		case PIN_CONFIG_FREQ:
-> +			freq = param_val;
-> +			break;
-> +		default:
-> +			dev_err(&s35390a->client[0]->dev, "Property %u not supported\n",
-> +				param);
-> +			return -EOPNOTSUPP;
-> +		}
-> +	}
-> +
-> +	return s35390a_update_mode(s35390a, pin, mode, freq);
-> +}
-> +
-> +
-> +static const struct pinconf_ops s35390a_pinconf_ops = {
-> +	.is_generic = true,
-> +	.pin_config_get = s35390a_pinconf_get,
-> +	.pin_config_set = s35390a_pinconf_set,
-> +};
-> +
-> +static struct pinctrl_desc s35390a_pinctrl_desc = {
-> +	.name = DRIVER_NAME,
-> +	.pins = s35390a_pins_desc,
-> +	.npins = ARRAY_SIZE(s35390a_pins_desc),
-> +	.pctlops = &s35390a_pinctrl_ops,
-> +	.confops = &s35390a_pinconf_ops,
-> +	.custom_params = s35390a_pinconf_params,
-> +	.num_custom_params = ARRAY_SIZE(s35390a_pinconf_params),
-> +	.owner = THIS_MODULE,
-> +};
-> +
->  static int s35390a_probe(struct i2c_client *client)
->  {
->  	int err, err_read;
->  	unsigned int i;
->  	struct s35390a *s35390a;
->  	struct rtc_device *rtc;
-> -	u8 buf, status1;
-> +	u8 status1;
->  	struct device *dev = &client->dev;
->  	struct nvmem_config nvmem_cfg = {
->  		.name = "s35390a_nvram",
-> @@ -477,7 +762,10 @@ static int s35390a_probe(struct i2c_client *client)
->  	if (!s35390a)
->  		return -ENOMEM;
->  
-> +	mutex_init(&s35390a->mode_lock);
-> +
->  	s35390a->client[0] = client;
-> +
->  	i2c_set_clientdata(client, s35390a);
->  
->  	/* This chip uses multiple addresses, use dummy devices for them */
-> @@ -492,10 +780,37 @@ static int s35390a_probe(struct i2c_client *client)
->  		}
->  	}
->  
-> +	err = s35390a_disable_test_mode(s35390a);
-> +	if (err < 0) {
-> +		dev_err(dev, "error disabling test mode\n");
-> +		return err;
-> +	}
-> +
->  	rtc = devm_rtc_allocate_device(dev);
->  	if (IS_ERR(rtc))
->  		return PTR_ERR(rtc);
->  
-> +	rtc->ops = &s35390a_rtc_ops;
-> +	rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
-> +	rtc->range_max = RTC_TIMESTAMP_END_2099;
-> +
-> +	set_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features);
-> +	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
-> +
-> +	s35390a->rtc = rtc;
-> +
-> +	err = devm_pinctrl_register_and_init(dev, &s35390a_pinctrl_desc, s35390a,
-> +					     &s35390a->pinctrl);
-> +	if (err)
-> +		return err;
-> +
-> +	/* If no pinctrl config is defined in DT, fallback to previous behaviour */
-> +	if (!s35390a->mode_init) {
-> +		err = s35390a_update_mode(s35390a, 1, S35390A_MODE_WAKEUP, 0);
-> +		if (err)
-> +			return err;
-> +	}
-> +
->  	err_read = s35390a_read_status(s35390a, &status1);
->  	if (err_read < 0) {
->  		dev_err(dev, "error resetting chip\n");
-> @@ -507,34 +822,8 @@ static int s35390a_probe(struct i2c_client *client)
->  	else
->  		s35390a->twentyfourhour = 0;
->  
-> -	if (status1 & S35390A_FLAG_INT2) {
-> -		/* disable alarm (and maybe test mode) */
-> -		buf = 0;
-> -		err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &buf, 1);
-> -		if (err < 0) {
-> -			dev_err(dev, "error disabling alarm\n");
-> -			return err;
-> -		}
-> -	} else {
-> -		err = s35390a_disable_test_mode(s35390a);
-> -		if (err < 0) {
-> -			dev_err(dev, "error disabling test mode\n");
-> -			return err;
-> -		}
-> -	}
-> -
->  	device_set_wakeup_capable(dev, 1);
->  
-> -	rtc->ops = &s35390a_rtc_ops;
-> -	rtc->range_min = RTC_TIMESTAMP_BEGIN_2000;
-> -	rtc->range_max = RTC_TIMESTAMP_END_2099;
-> -
-> -	set_bit(RTC_FEATURE_ALARM_RES_MINUTE, rtc->features);
-> -	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, rtc->features);
-> -
-> -	if (status1 & S35390A_FLAG_INT2)
-> -		rtc_update_irq(rtc, 1, RTC_AF);
-> -
->  	nvmem_cfg.priv = s35390a;
->  	err = devm_rtc_nvmem_register(rtc, &nvmem_cfg);
->  	if (err)
-> @@ -545,7 +834,7 @@ static int s35390a_probe(struct i2c_client *client)
->  
->  static struct i2c_driver s35390a_driver = {
->  	.driver		= {
-> -		.name	= "rtc-s35390a",
-> +		.name	= DRIVER_NAME,
->  		.of_match_table = of_match_ptr(s35390a_of_match),
->  	},
->  	.probe		= s35390a_probe,
-> 
-> -- 
-> 2.54.0
-> 
-
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+T24gU3VuLCBKdWwgMjYsIDIwMjYsIERtaXRyeSBCYXJ5c2hrb3Ygd3JvdGU6DQo+IE9uIFRodSwg
+SnVsIDIzLCAyMDI2IGF0IDA0OjA5OjA1UE0gKzA1MzAsIEtyaXNobmEgS3VyYXBhdGkgd3JvdGU6
+DQo+ID4gSW4gY2FzZXMgbGlrZSBVU0IgSGlnaC1zcGVlZCBwaHlzIHdoaWNoIGNhbiBiZSBlaXRo
+ZXIgVVNCMiBvciBFVVNCMiwgaXQgaXMNCj4gPiByZXF1aXJlZCB0byBrbm93IHRoZSB0eXBlIG9m
+IHBoeSAocmF0aGVyIHRoYW4gdGhlIG9wZXJhdGluZyBtb2RlKS4NCj4gDQo+IFdoeT8NCg0KUGVy
+aGFwcyBLcmlzaG5hIHNob3VsZCBleHBhbmQgb24gdGhpcyBpbiB0aGUgY29tbWl0IG1lc3NhZ2Uu
+IFNlZSBwYXRjaA0KNS81IGZvciB0aGUgcmVhc29uLg0KDQo+IA0KPiA+IEFkZA0KPiA+IHN1cHBv
+cnQgdG8gY2FjaGUgdGhlIFBIWV9UWVBFIGFuZCBhZGQgdGhlIGZvbGxvd2luZyBoZWxwZXJzOg0K
+PiA+IA0KPiA+IC0gcGh5X3NldF90eXBlKCkgZm9yIHRoZSBwaHkgZHJpdmVycyAobGlrZSBtMzFf
+ZXVzYjIgb3Igc25wcy1ldXNiMikgdG8NCj4gPiBkZWNsYXJlIHdoYXQgdHlwZSBvZiBQSFkgdGhl
+eSBhcmUgKGluIHRoaXMgY2FzZSBQSFlfVFlQRV9FVVNCMikuDQo+IA0KPiBQSFkgdHlwZSBpcyB1
+c3VhbGx5IGNvdmV5ZWQgdGhyb3VnaCB0aGUgUEhZIGNlbGxzIGluIERULiBXaHkgZG8geW91IG5l
+ZWQNCj4gdG8gc2V0IGl0IGZyb20gdGhlIGRyaXZlcj8NCg0KUEhZX1RZUEVfKiB2aWEgcGh5IGNl
+bGxzIGlzIHR5cGljYWxseSB1c2VkIGZvciBjb21ibyBQSFlzIGZvciBtdWx0aXBsZQ0KcHJvdG9j
+b2xzIHdoZXJlIGNlbGwgYXJnIHNlbGVjdHMgdGhlIGxhbmUuIEluIHRoaXMgY2FzZSwgdGhlIGV1
+c2IyIHBoeQ0KaXMgYSBzaW5nbGUgcHJvdG9jb2wgcGh5IHdpdGggI3BoeS1jZWxscyA9IDwwPi4g
+QWRkaW5nIGEgY2VsbCBhcmcganVzdA0KZm9yIHRoZSB0eXBlIHdvdWxkIHJlcXVpcmUgdXBkYXRp
+bmcgYWxsIHRoZSBldXNiMiBwaHkgYmluZGluZ3MgYW5kIGV2ZXJ5DQpkdHMgZmlsZSByZWZlcmVu
+Y2luZyBpdC4gSW50cm9kdWNpbmcgYSBuZXcgaW50ZXJmYWNlIGFuZCBzZXR0aW5nIGl0IGZyb20N
+CnRoZSBwaHkgZHJpdmVyIGlzIElNSE8gYSBjbGVhbmVyIGFwcHJvYWNoLg0KDQpCUiwNClRoaW5o
+DQoNCj4gDQo+ID4gDQo+ID4gLSBwaHlfZ2V0X3R5cGUoKSBmb3IgdGhlIGNvbnN1bWVycyAobGlr
+ZSBVU0IgY29udHJvbGxlcnMpIHRvIHF1ZXJ5IHRoZQ0KPiA+IHR5cGUgb2YgcGh5IGNvbm5lY3Rl
+ZCB0byB0aGVtLg0KPiA+IA0KPiA+IFNpZ25lZC1vZmYtYnk6IEtyaXNobmEgS3VyYXBhdGkgPGty
+aXNobmEua3VyYXBhdGlAb3NzLnF1YWxjb21tLmNvbT4NCj4gPiAtLS0NCj4gPiAgaW5jbHVkZS9s
+aW51eC9waHkvcGh5LmggfCAyNyArKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gPiAgMSBm
+aWxlIGNoYW5nZWQsIDI3IGluc2VydGlvbnMoKykNCj4gPiANCj4gDQo+IC0tIA0KPiBXaXRoIGJl
+c3Qgd2lzaGVzDQo+IERtaXRyeQ==
