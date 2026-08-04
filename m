@@ -1,150 +1,137 @@
-Received: from mail-m49205.qiye.163.com (mail-m49205.qiye.163.com [45.254.49.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09654439F9E;
-	Tue,  4 Aug 2026 08:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39FCC3E7BB2
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 08:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785831783; cv=none; b=HaPLWRrP/77DNLcRqKia3MOx7MlkFSbjSR4poMgFRub8hNjkhsLI8PY1/WqWOItjbuydnXd96DR63Rd4RDkF0cD0XzN1aTbTMmtUGABCr9RTHq+h929g9ApJWb00J3KMQZtwy42FjJ1X2igjZxXD6ce1W6urC8GVEzvEuu5nARE=
+	t=1785831940; cv=none; b=QSD4KK2s8ZvksumtNEUQSnI9tHMziEAmU3BHHjkGIO2rZp+9eK0zkrLwVe1KPalVW/ponGfFHEb5BECayLzfU8dOG3wTBNaVBPZX8/drzMhop8tTU1GSbCgynyM2yqdLQgLX7GjG1RT3rl/b3rvlUa34Xgxrq7faA8w6f6CEl7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785831783; c=relaxed/simple;
-	bh=4utsPspCznIst6RwhQpK8VJpuzAjSNRRAyrAu1lTS5s=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LlPdgGGdpN7Li/dJgJ4oYHvTXYK101teEERdj8seeXhp2PFVWkA+FVlAkNXTrgNvBseQlt8vVKnCjs68PeP9Mmz6/7ciT6SjY06NA+TyqTM1Cj1Ru31vUlFu6Fjrw3vIzU0LmOPmdAGJAlt+OStm4ntZQc7qW/sK125Dv+GAgDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=RoKQnGWY; arc=none smtp.client-ip=45.254.49.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1785831940; c=relaxed/simple;
+	bh=JFLe89ORv6CtpTIOWlPLJ4jMWK/w3jKTnLrwTPVsSmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PxCALQ0VXNjHdYxcRTY7yeSv6kmXQhJOJHnf/Tso4qLWp81UO46VDj5QfgUAXilFP67WYdkFGc8UxCvfGhEzku5prz/+pFZtwYqEqBrwtk8E9KTveqgoBGvkkoLmmCLKoU7iL4N6GGVoyx68q8pjfNc4XFfGPtJUhk96hL6D+U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=EkoxFlBV; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="RoKQnGWY"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 48b4fff21;
-	Tue, 4 Aug 2026 16:17:34 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v2 09/10] drm/bridge: analogix_dp: Restrict forced connected status only for panel endpoint
-Date: Tue,  4 Aug 2026 16:17:16 +0800
-Message-Id: <20260804081717.741404-10-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260804081717.741404-1-damon.ding@rock-chips.com>
-References: <20260804081717.741404-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="EkoxFlBV"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ced3386430so43185525ad.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 01:25:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sifive.com; s=google; t=1785831936; x=1786436736; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5pIRJZIZuQtpYpVv500fQ7C7fCRBLkrhOWthKpIbWoU=;
+        b=EkoxFlBV7wRAigeq34KveuCoyQo+eF3JY8RKb2gQ1r10BDRyB0zjUdyx3d6xCMjyY+
+         vEhIt/ZoSQpp01vlVV5nw3un1g4jR+Lf/mUtign0HADX2pOdUvlEOHd/BbEDOFnxlKJr
+         N9hyLy5BbZ0HQeeXzvzOzPfOCmRpP4Sh3aZYAg7qpweC5K6xEqSlZIgo8CCYlgfsxoT1
+         82pqi/I6fQhrnBu/TCJa2ZuQWrw0xuWKkhOr59/NCTDLr5akxAFTIgU/wx3zh0SK2iCK
+         LdLZSCLzCjeXa6pIKK9wJtXeIr5p1AJdlaygFrpq+lAmcVwO81Z97WRKTK31C7uRNdRz
+         cnGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785831936; x=1786436736;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5pIRJZIZuQtpYpVv500fQ7C7fCRBLkrhOWthKpIbWoU=;
+        b=IsJtJkdNRrrYP2KiWcYJKy823z5tNK64bRukETvjd/UZdN/Y7SgQNGSdOJ/bFM/pzy
+         F8a8mRlOczrDIdZRhHi0XTqR5NxJ0peAytJvOBg+GCRWU3Dn26hq/csmFqm/OYGbPBGb
+         dgvrlXJNZ+Si6z5s7qdlHGCmMvpWGwRpT3H+QGRKvL9OYwXWJqbcbXRu0YjiX1zb46sv
+         a+Ove6HChgGae6S9p7XV1Ac898Vxzum5kgFJsulLD4LgoCu2ISXp/+zEMfBByED5LxtO
+         8iGWST3kdGbKClblCs4/IJ9fWwcpOFVv6GhvkUdEK8P8hP2/luikDbFa9/RlSAno6Z1r
+         PRIg==
+X-Gm-Message-State: AOJu0YwRCJT5xfC0NUPFJg1N+5ad4GvC4WYpC1jLZzktBZ8ysNNJdYNp
+	D2K1xyXKBPh5gnAvvtyohsY3W3WyVUQfYFV7wqCdptC3kbqZPy77kbnsIMSF+8Yq7oQ=
+X-Gm-Gg: AR+sD13fFYs5IieiW6GZsoQOuxg/gmVyMqiUM5r+3matHrr5v4zl6PVsExGTODFg78u
+	mudj/jJAhhhzMwHmeWjNG/sKb9aBoSUptPBscFaDvEX12U3v/0kFWihYbC09lf1+NPUprlMzn00
+	F34PokL0DXFht3WBg7e7qGZeVuSEcFbK/aqUPfMknsdIyR2VoFj8Z5FRUXqAQws4DkRtiGrkpOL
+	jxSw/ySIm0YnDZQWZc1gobFCbObuDsELY+3OBAqDvEnnU6iXWFHQDPSik5tkI5sHQNslcGFfLEz
+	xaf64ge8mDGKyAqGm+F0Q/OjeIshA4TMvmQ3k1003u9fywaX5ZrovYYDY3Q9pJy4soLY9ufCEok
+	6fqdETBPdWwpZcYWxjgF74wG2AMjkKrXMc1a6dplUVdNP/bW+c9a+O6QQXL9LOQFBd6/dQsoROa
+	EuXFGgiMwO4PGOuNciqEAu5L5j27Jk3otTdGcTc3BnheRK3IktOmU5msb2szo=
+X-Received: by 2002:a17:903:124c:b0:2ca:5d9a:ecc6 with SMTP id d9443c01a7336-2d0523b7dbamr119193075ad.28.1785831935707;
+        Tue, 04 Aug 2026 01:25:35 -0700 (PDT)
+Received: from plin-1878 ([136.226.240.191])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa4930e1sm2426415ad.41.2026.08.04.01.25.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 01:25:35 -0700 (PDT)
+Date: Tue, 4 Aug 2026 16:25:29 +0800
+From: Yu-Chien Peter Lin <peter.lin@sifive.com>
+To: Nick Kossifidis <mick@ics.forth.gr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr
+Subject: Re: [PATCH v2 0/3] dt-bindings: riscv: Add RISC-V Worlds and SiFive
+ WorldGuard DT bindings
+Message-ID: <anGh+dr/5dCX/cHd@plin-1878>
+References: <20260729163908.249838-1-peter.lin@sifive.com>
+ <bf39e87c-c077-4ccf-a791-42ae194b4780@ics.forth.gr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fcbd9777003a8kunma7b8cbe762b0ed
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQh4eVkJIQx5LSEIZSkkaQlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=RoKQnGWYAYRI7Qa3lvdPLalCuoRZUR+wcRtqd5S/f6K2s5PC8vLunb1kwJ2FtSXrOKj+EjsbMUpc4rPNa7/jF6u0e2FWxLzMut6IPJfCzd8Pe77wh/8rQUm0TUcIT8/l6fGkIfjWfxuH1pVFAv3CiSMUrqdCxJRBYxp0qEbz6CU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=++hasEF6aBrRfCl+8wlVRjHt23leSsAweKpeIh4oR8k=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bf39e87c-c077-4ccf-a791-42ae194b4780@ics.forth.gr>
 
-Limit the shortcut which unconditionally returns connected status when
-a next bridge exists. Only apply this logic if the last bridge in the
-chain is a panel. For all other cases, rely on analogix_dp_detect_hpd()
-to report accurate hotplug state.
+Hi Nick,
 
-Background for the special handling:
-- If the chain ends with a DP connector bridge, the connector relies
-on analogix_dp to perform detection. We must avoid hardcoding connected
-status here.
-- For intermediate bridges such as PS8625 / PTN3460 without detect
-support [1], historically the bridge connector defaults to connected
-via drm_helper_probe_detect() when no per-bridge detect callback
-exists. Maintain compatibility by keeping the shortcut exclusively for
-panel endpoints.
+Thanks for the questions.
 
-[1] https://lore.kernel.org/all/4939d55e-b560-4235-8295-adf8e48d9b74@samsung.com/
+On Fri, Jul 31, 2026 at 04:43:56AM +0300, Nick Kossifidis wrote:
+> Hello Peter,
+> 
+> On 7/29/26 19:39, Yu-Chien Peter Lin wrote:
+> > Add device tree bindings for RISC-V Worlds, a standard extension that tags
+> > every transaction with a World ID for fine-grained isolation. SiFive's
+> > WorldGuard Checker is a hardware firewall in the system interconnect that
+> > inspects transaction WIDs and enforces per-World access policies on memory
+> > and MMIO devices.
+> > 
+> > wgChecker specification reference:
+> > https://github.com/riscvarchive/security/blob/main/papers/worldguard%20proposal.pdf
+> > 
+> > Yu-Chien Peter Lin (3):
+> >    dt-bindings: riscv: Add Worlds ISA extensions
+> >    dt-bindings: riscv: Add Worlds per-hart properties
+> >    dt-bindings: sifive: Add WorldGuard Checker
+> > 
+> >   .../devicetree/bindings/riscv/cpus.yaml       |  61 +++
+> >   .../devicetree/bindings/riscv/extensions.yaml |  53 +++
+> >   .../devicetree/bindings/riscv/worlds.yaml     |  86 +++++
+> >   .../bindings/sifive/sifive,wgchecker2.yaml    | 356 ++++++++++++++++++
+> >   4 files changed, 556 insertions(+)
+> >   create mode 100644 Documentation/devicetree/bindings/riscv/worlds.yaml
+> >   create mode 100644 Documentation/devicetree/bindings/sifive/sifive,wgchecker2.yaml
+> > 
+> 
+> What's the plan for this and why do we need Linux-specific dt bindings ?
+> This looks more like a set of firmware specific bindings, like OpenSBI
+> domains for example (https://github.com/riscv-software-src/opensbi/blob/master/docs/domain_support.md).
+> I understand adding the ISA extensions in the list (although the fast track
+> is still underway, it's not ratified yet), but the rest don't make sense,
+> not yet at least. How do you plan to use pmlwidlist on Linux to associate
+> processes to wids ? Do you plan on adding a driver for the wg checker (and
+> the markers that you mention) on Linux ? Do you ever expect Linux to run
+> under trustedwid ?
 
-Reported-by: Heiko Stuebner <heiko@sntech.de>
-Link: https://lore.kernel.org/all/5209243.oAaWjsssbx@diego/
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c   | 16 ++++++++++++++--
- .../gpu/drm/bridge/analogix/analogix_dp_core.h   |  1 +
- 2 files changed, 15 insertions(+), 2 deletions(-)
+We do not currently plan to implement a wgChecker driver in
+the Linux kernel which holds the untrusted WID; wgChecker slot
+configuration is handled by OpenSBI only at boot-time.
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index f05db455b430..a5a50b9ab8a7 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -906,8 +906,15 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
- 	struct analogix_dp_device *dp = to_dp(bridge);
- 	enum drm_connector_status status = connector_status_disconnected;
- 
--	if (dp->plat_data->next_bridge)
--		return connector_status_connected;
-+	/*
-+	 * Only assume connected when the bridge chain ends with a panel.
-+	 * Panel bridges lack a detect callback and historically rely on
-+	 * this shortcut. For other next bridge types (e.g., DP connector
-+	 * bridges), fall through to analogix_dp_detect_hpd() to report
-+	 * accurate hotplug state.
-+	 */
-+	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
-+		status = connector_status_connected;
- 
- 	if (!analogix_dp_detect_hpd(dp))
- 		status = connector_status_connected;
-@@ -920,6 +927,7 @@ static int analogix_dp_bridge_attach(struct drm_bridge *bridge,
- 				     enum drm_bridge_attach_flags flags)
- {
- 	struct analogix_dp_device *dp = to_dp(bridge);
-+	struct drm_bridge *last_bridge;
- 	int ret = 0;
- 
- 	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
-@@ -934,6 +942,10 @@ static int analogix_dp_bridge_attach(struct drm_bridge *bridge,
- 			dev_err(dp->dev, "failed to attach following panel or bridge (%d)\n", ret);
- 			return ret;
- 		}
-+
-+		last_bridge = drm_bridge_chain_get_last_bridge(dp->encoder);
-+		if (drm_bridge_is_panel(last_bridge))
-+			dp->last_bridge_is_panel = true;
- 	}
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-index 2066e575ce10..bcb5674801a2 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-@@ -168,6 +168,7 @@ struct analogix_dp_device {
- 	bool			force_hpd;
- 	bool			fast_train_enable;
- 	bool			psr_supported;
-+	bool			last_bridge_is_panel;
- 
- 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
- 
--- 
-2.34.1
+The intention here is providing a standardized device-tree format
+for describing wgChecker hardware and protection policy, usable
+consistently across Linux ecosystem (OpenSBI and possibly OP-TEE).
 
+Thanks,
+Peter Lin
+
+> 
+> Regards,
+> Nick
