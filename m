@@ -1,121 +1,573 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE07A421242;
-	Tue,  4 Aug 2026 07:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C553F9277
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785829330; cv=none; b=nb5Ea2M3FVnvcJgAGAKhOXQIdXIt+o7QTVZDj5TxqF9uRTXzLSSTZGH5Lxi9L1Lrn/XNX7qXAjvjcNxCK8UhmezpZQl2Tfo87Z7uQTsuaoT5vgfC6/IfATPynntydu9Mksw76QR2nk+l7CzctWPuGz1WCMOJKm9Y4fpz7Bb3bhQ=
+	t=1785829395; cv=none; b=fqHv7ZBa/vmeYu7XHisojCSkS84C8iTPY1qMvxVnTbHsiptoIjGkJHk3qJNAyGf6++MrZE+WZMwJ2NVxNyhaM6CUafTpRftLJjTpUrJSjFuDRc3eYHw5HlEL1wm6dAxFK2JDkX73ami/gl2ibWmACszx33kKLxZHRk3qPt/tzGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785829330; c=relaxed/simple;
-	bh=R6kK68iKq6B3hsFkprnUZ5V4wQJLFkN9RhYMQ1aFDRY=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=acJ2i+6rYBmjipfDdy6GhyE/ykBAZ4pjnX86GBHu0UVbCzJD7iXyswoYk1lnbvcanEAArjhCaXl/1/L7CjDRX8acOd9F97R6wJ7bLUpgxdvaADNQP3xh/w/Fpm24WdXlRUTURSuHC4kCSorlqROy21e4UZhOyTxg/Qa/+HezoaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=E3cUNDBe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hGAN1CBV; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1785829395; c=relaxed/simple;
+	bh=qGXyhv3LSvROYj5l0LUO3EnBIS/TVpllhUjIaAHSsbg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bRXjw704q8P2swDIPHX/YDxHMu64QtnimRc9XwV1YTQa9l0cx0swxclCqzkfHXMDcNl6rrZLvbl1nfDEhzsaQpNotbX6hoQtGSkiySTWmKUrQ6nx+9WvoI2Ntrnac2LwEYI+PZj/78AObpvZqgG4SNIkZnrhHB1i1lfquKIFPxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UzGCDuUX; arc=none smtp.client-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="E3cUNDBe";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hGAN1CBV"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id D61C51D0017E;
-	Tue,  4 Aug 2026 03:42:06 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 04 Aug 2026 03:42:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785829326;
-	 x=1785915726; bh=EKpVVOy/vAF//iLEvNyTANx2jy7aUA2O60ZeWWvd0cI=; b=
-	E3cUNDBeFEZJr5XV3ccwz3OQo4YOMV5Fu9Xl648bD/u9qENTzEeJRU2b7cf3GWjn
-	vvWvX665VDZv6uqm8VO2p1NJOMTEccHjU4nyfz4gaZAPQeicr8GMzc9iyjWxd3mB
-	uqzWCpoalPb/loA0/Uv/8RGrmtQcsK9erLNcrrQj3phn/ypEMOme9DGQqSlk4TOn
-	Nj4ddwJlgMZmJGRLjw/Tv201uFvMXyjKIAmQ+5q2qyIp5YtiUsfkfE03Xs9Isofx
-	XOL4pcsi+1O5Nzc/ynCUl0jNbZBuZTpgoc8FAXMJfScL1T+nuRjVNY2VOQ5HG175
-	+hu55k/qDhSrBj8BD+vUtA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785829326; x=
-	1785915726; bh=EKpVVOy/vAF//iLEvNyTANx2jy7aUA2O60ZeWWvd0cI=; b=h
-	GAN1CBVgDGmxdvV+vmGhB630VE0hdiJ7m/TmMkq+20yZ4jOd8qrK+B6OmwnhGtLY
-	vCI2JZ2H6h10Uokd3WozGEBYuv/rlSccGG6ov/xKamlbaTLY1v9jZVRiKKIKk7fB
-	JkOj6Q8pV3q5ucs6jNMR4JAakZyPZ07/QfWj/eUa1WJQGxKT3PZP8uzLbe9QRbqi
-	BuZLWGnWqftU3n0ESZ6kZRHeXf1roypeDTxAPiKPRIP2ehEZUdieJVCp2jR1SzCl
-	uhKk0vM23KUOakUz0gQWYCfKw5/piVue4zT0P57d9d/F61a02ACAUPaV2W4GH7Zz
-	kboe7xS5jcCeeCMorL7ug==
-X-ME-Sender: <xms:yJdxahP_t8ETQrjfILkhbK48-JtAbMq73jgPjFMSuTRVZ9VDY8TDjw>
-    <xme:yJdxauyAlUVu3CCQdjEWbJ3oc-o0p6FsBE8IUXn-_BnXxoe5JrJ7QJFKA5_bWfOYz
-    YGKzuj_7rDjAcR_QXLiVycrtOCTrypBADFJD6a-a6hLuHXBMIB23Wur>
-X-ME-Proxy-Cause: dmFkZTGFCYPo2AGgkRnqUylk8j8MDUHYfufINqLmmmGhtrVudRIgPX3z8wRljbN9Mmir8Z
-    64D3e+TnyDNB97KNPSHMAiHeS+vfJps4AY4A3UG7sZax+6gc++uSDuIJ0EgJidxXH4Nsgf
-    z8/PpVCwLr0nsIt3a1eKaQ1eUEy/OmVVwjdckjWSb5GujX7PPoOsFBm8aFPGYLDJrniYq8
-    vTIp1OUvHPGtCwt8oG4RkCOagbIl3RI0Xh3Apu3+X2wug8gtCM+2bXGDN3HfDu0ND4gGYB
-    d/9W/6MVjtZduHbO4RDTTbqqfrEXpce03HIWbZQf+X/Qg9517uxzpcu92J4CCrqp5F30nN
-    fomcq3IcinHtAvCFC5d3OzIbLdwtdLFjiu/ZBbf+fAb0ZhgJAz3Wli7DyLVCvKa3y9DBHc
-    Gl6mH/vxR1a2AVj+LN16AZlU8VgEXWMWamLXH3n9gEi+IubVlCww631aVsbCNVUdNk7m3J
-    Xgd2kYaD4jLquadTCLxWWDDfIsd4WOKVeUjLnG58XNGgWGnDb0d6W+zUGTZxWHc/JU8MW/
-    PeffmGbL6KhOS1YCXJ43EOLoaDDVK/tI8AVFKVYuXvHqDNq5oLWc7VCwphe6gvlIxkef6r
-    /9hjD5ivsRxIZn8KCqyuCWt+olO2zhfwtn8BHRMH4TrfD9rdGUXj5/HCLXKw
-X-ME-Proxy: <xmx:ypdxahAJlverSBktLbs0rLAN_jwK9108VtXcF53G7IfTX79LjXcQ4Q>
-    <xmx:ypdxasOHcH_gK2azF_-MugQDNtLjQSoor3cro4-fF3aSIqmrnhWZUA>
-    <xmx:ypdxagfjlBhFzIjDOauEtHKbGiaDyBtU2lFk1VEK5aP0D-aYxd3npw>
-    <xmx:ypdxal7nljWsEXbuQuQNTLsvhTO9_cCu-58hMTuv_DAgAxk2g6NuLg>
-    <xmx:zpdxapy1AgxiUFR1PTPXcOfaJ42Vx-pMxOlso7F07eK8LTNtIU-d5AnN>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 2BE1732A0065; Tue,  4 Aug 2026 03:42:00 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UzGCDuUX"
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785829381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xdoTJiLc6rog1imDWKsLh7mdWHrC63aQL6Kxh2SsaDs=;
+	b=UzGCDuUXpz0AUSvTEPjaQwGvrPSIbnRkqRRbvYQkcYRsi95djo4WImFPq1mJwI5Exv5SJx
+	nQ9rLRcbHScd5isQMbGSz9PHcJgmrLqtxd7YYqUgwOMsMnB4h+O4nr2/eXqY6o3ExFAueI
+	tiwxcWO4FVZF/oSMElmV0+Ee99jj2DM=
+From: Junjie Cao <junjie.cao@linux.dev>
+To: neil.armstrong@linaro.org,
+	jesszhan0024@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: dmitry.baryshkov@oss.qualcomm.com,
+	konrad.dybcio@oss.qualcomm.com,
+	mitltlatltl@gmail.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 2/2] drm/panel: Add Novatek NT36532 panel driver
+Date: Tue,  4 Aug 2026 00:42:33 -0700
+Message-ID: <20260804074233.85629-1-junjie.cao@linux.dev>
+In-Reply-To: <20260804073419.84727-1-junjie.cao@linux.dev>
+References: <20260804073419.84727-1-junjie.cao@linux.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AdFLe7-IZaaF
-Date: Tue, 04 Aug 2026 09:41:39 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Andrew Jeffery" <andrew@codeconstruct.com.au>,
- "Jacky Huang" <ychuang570808@gmail.com>, "Zi-Yu Chen" <zychennvt@gmail.com>
-Cc: soc@lists.linux.dev, "Jacky Huang" <ychuang3@nuvoton.com>,
- schung@nuvoton.com, "Rob Herring" <robh@kernel.org>, krzk+dt@kernel.org,
- "Conor Dooley" <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <fa1d3251-817d-4095-8fc0-dbee0f9cbafc@app.fastmail.com>
-In-Reply-To: 
- <6da6d2fa5111e479aeefd62da70974601acccb96.camel@codeconstruct.com.au>
-References: <20260708082457.460710-1-zychennvt@gmail.com>
- <5f2954e4-2e0c-40d0-b67f-933446c83cc1@app.fastmail.com>
- <825a3a1b-8891-4172-afd6-8de6077fa129@gmail.com>
- <6da6d2fa5111e479aeefd62da70974601acccb96.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v2 RESEND] arm64: dts: nuvoton: ma35d1: add CAN nodes
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 
-On Tue, Aug 4, 2026, at 07:13, Andrew Jeffery wrote:
-> On Mon, 2026-07-13 at 10:57 +0800, Jacky Huang wrote:
->> Hi Arnd,
->> 
->> Thanks for the clarification.
->> 
->> Shan-Chun and I are still maintaining the MA35 platform.
->> 
->> I have reviewed this patch and it looks good to me.
->> 
->> Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
->> 
->> We agree that the current maintenance path for MA35 could be clearer.
->> We will work on making the MA35 maintenance flow more transparent.
->
-> I discussed this with Jacky off-list. Going forward I'll take MA35
-> patches with R-b tags from Jacky and Zi-Yu through the BMC tree to keep
-> things simple.
->
-> I'll pick up v2 for the next merge window if there are no other issues
-> with it.
+Add a driver for panels using the Novatek NT36532 Display Driver IC,
+including support for the CSOT PPC100HB1-1, found in the OnePlus Pad 2
+tablets.
 
-Sounds good, thanks!
+It has been tested on the OnePlus Pad 2: the panel comes up in its native
+3000x2120 mode at 120Hz over dual-DSI in bonded mode with DSC, and
+displays a stable image.
 
-      Arnd
+Signed-off-by: Junjie Cao <junjie.cao@linux.dev>
+---
+ MAINTAINERS                                   |   7 +
+ drivers/gpu/drm/panel/Kconfig                 |  14 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36532.c | 431 ++++++++++++++++++
+ 4 files changed, 453 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 92a2167f1eb8..bcbdd38981be 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8324,6 +8324,13 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
+ F:	drivers/gpu/drm/panel/panel-novatek-nt36523.c
+ 
++DRM DRIVER FOR NOVATEK NT36532 PANELS
++M:	Junjie Cao <junjie.cao@linux.dev>
++S:	Maintained
++T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
++F:	Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
++F:	drivers/gpu/drm/panel/panel-novatek-nt36532.c
++
+ DRM DRIVER FOR NOVATEK NT36672A PANELS
+ M:	Sumit Semwal <sumit.semwal@linaro.org>
+ S:	Maintained
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index cbdf7b8f7f7a..f368eb4a4f58 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -664,6 +664,20 @@ config DRM_PANEL_NOVATEK_NT36523
+ 	  around the Novatek NT36523 display controller, such as some
+ 	  Boe panels used in Xiaomi Mi Pad 5 and 5 Pro tablets.
+ 
++config DRM_PANEL_NOVATEK_NT36532
++	tristate "Novatek NT36532-based MIPI-DSI panels"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DSC_HELPER
++	select DRM_DISPLAY_HELPER
++	select DRM_KMS_HELPER
++	help
++	  Say Y here if you want to enable support for the panels built
++	  around the Novatek NT36532 display controller, such as some
++	  CSOT panels used in OnePlus Pad 2 tablets. These panels are
++	  typically dual-DSI and may use DSC (Display Stream Compression).
++
+ config DRM_PANEL_NOVATEK_NT36536
+ 	tristate "Novatek NT36536 panel driver"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 3b523cf37833..0f920cff7c2a 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -64,6 +64,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35532) += panel-novatek-nt35532.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35560) += panel-novatek-nt35560.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT35950) += panel-novatek-nt35950.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) += panel-novatek-nt36523.o
++obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36532) += panel-novatek-nt36532.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36536) += panel-novatek-nt36536.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36532.c b/drivers/gpu/drm/panel/panel-novatek-nt36532.c
+new file mode 100644
+index 000000000000..41d2721e0513
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-novatek-nt36532.c
+@@ -0,0 +1,431 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Novatek NT36532 DriverIC panels driver
++ * Based on the template generated by linux-mdss-dsi-panel-driver-generator
++ *
++ * Copyright (c) 2025, 2026 Junjie Cao <junjie.cao@linux.dev>
++ */
++
++#include <linux/delay.h>
++#include <linux/device-id/of.h>
++#include <linux/gpio/consumer.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_graph.h>
++#include <linux/regulator/consumer.h>
++
++#include <video/mipi_display.h>
++
++#include <drm/display/drm_dsc.h>
++#include <drm/display/drm_dsc_helper.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++struct nt36532 {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi[2];
++	const struct panel_info *panel_info;
++	struct drm_dsc_config dsc;
++	struct gpio_desc *reset_gpio;
++	struct regulator_bulk_data *supplies;
++};
++
++struct panel_info {
++	unsigned int lanes;
++	enum mipi_dsi_pixel_format format;
++	unsigned long mode_flags;
++
++	const struct drm_display_mode display_mode;
++
++	const struct drm_dsc_config *dsc_cfg;
++
++	int (*init_sequence)(struct nt36532 *ctx);
++
++	bool is_dual_dsi;
++};
++
++static const struct regulator_bulk_data nt36532_supplies[] = {
++	{ .supply = "vddio" }, /* 1.8v */
++};
++
++static inline struct nt36532 *to_nt36532(struct drm_panel *panel)
++{
++	return container_of(panel, struct nt36532, panel);
++}
++
++static inline struct mipi_dsi_device *to_primary_dsi(struct nt36532 *ctx)
++{
++	/* Sync on DSI1 for dual dsi */
++	return ctx->panel_info->is_dual_dsi ? ctx->dsi[1] : ctx->dsi[0];
++}
++
++static void nt36532_reset(struct nt36532 *ctx)
++{
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(10000, 10100);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	usleep_range(5000, 5100);
++	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++	usleep_range(15000, 15100);
++}
++
++static int nt36532_prepare(struct drm_panel *panel)
++{
++	struct nt36532 *ctx = to_nt36532(panel);
++	int ret;
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(nt36532_supplies),
++				    ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	nt36532_reset(ctx);
++
++	ret = ctx->panel_info->init_sequence(ctx);
++	if (ret < 0) {
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		regulator_bulk_disable(ARRAY_SIZE(nt36532_supplies),
++				       ctx->supplies);
++		return ret;
++	}
++
++	return 0;
++}
++
++static int nt36532_off(struct nt36532 *ctx)
++{
++	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 10000, 10100);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 65);
++
++	return dsi_ctx.accum_err;
++}
++
++static int nt36532_unprepare(struct drm_panel *panel)
++{
++	struct nt36532 *ctx = to_nt36532(panel);
++	struct device *dev = &ctx->dsi[0]->dev;
++	int ret;
++
++	ret = nt36532_off(ctx);
++	if (ret < 0)
++		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++	regulator_bulk_disable(ARRAY_SIZE(nt36532_supplies), ctx->supplies);
++
++	return 0;
++}
++
++static int nt36532_get_modes(struct drm_panel *panel,
++			     struct drm_connector *connector)
++{
++	struct nt36532 *ctx = to_nt36532(panel);
++	const struct panel_info *panel_info = ctx->panel_info;
++
++	return drm_connector_helper_get_modes_fixed(connector,
++						    &panel_info->display_mode);
++}
++
++static const struct drm_panel_funcs nt36532_panel_funcs = {
++	.prepare = nt36532_prepare,
++	.unprepare = nt36532_unprepare,
++	.get_modes = nt36532_get_modes,
++};
++
++static int csot_init_sequence(struct nt36532 *ctx)
++{
++	struct mipi_dsi_device *dsi = to_primary_dsi(ctx);
++	struct drm_dsc_picture_parameter_set pps;
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x22);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2d, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x24);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbc,
++				     0x00, 0x00, 0x03, 0x22, 0x00, 0x41);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x23);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x60);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x07, 0x20);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x08, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x09, 0x5a);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x10, 0x0c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x11, 0x03);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x12, 0xe1);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x15, 0xa9);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x16, 0x16);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0a, 0x8e);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0b, 0x8e);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0c, 0x8e);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x0d, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x19, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1a, 0x04);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1b, 0x08);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1c, 0x0c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1d, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1e, 0x14);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1f, 0x18);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x20, 0x1c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x21, 0x20);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x22, 0x24);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x23, 0x28);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x24, 0x2c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x25, 0x30);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x26, 0x34);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x27, 0x38);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x28, 0x3c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2a, 0x20);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2b, 0x20);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x30, 0xff);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x31, 0xfd);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x32, 0xfc);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x33, 0xfa);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x34, 0xf8);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35, 0xf6);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x36, 0xf4);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x37, 0xf2);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x38, 0xf0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0xee);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3a, 0xec);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3b, 0xea);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3d, 0xe9);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3f, 0xe8);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0xe7);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0xe6);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0xff);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x46, 0xf9);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x47, 0xf6);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x48, 0xf2);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x49, 0xf0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4a, 0xec);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4b, 0xe8);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4c, 0xe4);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4d, 0xe0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4e, 0xde);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4f, 0xd9);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0xd6);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0xd4);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x52, 0xc2);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x53, 0xd0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x54, 0xcd);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0xff);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0xf6);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0xf0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5b, 0xeb);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5c, 0xe8);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5d, 0xe5);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5e, 0xe3);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5f, 0xe0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0xde);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0xda);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0xd7);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0xd4);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0xd2);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0xd0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0xcc);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0xc8);
++
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x27);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x30, 0xf0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x31, 0x2a, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xd0, 0x31);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xd1, 0x54);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xde, 0x40);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xdf, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x2a);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc4, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xf0);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x05);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x76, 0x16);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x23);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xba, 0xaa, 0x2a);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbb, 0xa0, 0x2a);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x27);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x01, 0x8c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0x10);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfb, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_SET_DISPLAY_BRIGHTNESS,
++				     0x07, 0xff);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY,
++				     0x2c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb9, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3b,
++				     0x03, 0xd2, 0x1a, 0x04, 0x04, 0x00);
++
++	/* Enable DSC */
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0x03);
++	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
++	mipi_dsi_picture_parameter_set_multi(&dsi_ctx, &pps);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9d, 0x01);
++
++	/* Program refresh rate control registers */
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb2, 0x91);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb3, 0x40);
++
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++	mipi_dsi_usleep_range(&dsi_ctx, 10000, 10100);
++
++	return dsi_ctx.accum_err;
++}
++
++static const struct drm_display_mode csot_display_mode = {
++	/* 120Hz, the typical value */
++	.clock = (1500 + 118 + 20 + 100) * 2 * (2120 + 26 + 2 + 208) * 120 / 1000,
++	.hdisplay = 1500 * 2,
++	.hsync_start = (1500 + 118) * 2,
++	.hsync_end = (1500 + 118 + 20) * 2,
++	.htotal = (1500 + 118 + 20 + 100) * 2,
++	.vdisplay = 2120,
++	.vsync_start = 2120 + 26,
++	.vsync_end = 2120 + 26 + 2,
++	.vtotal = 2120 + 26 + 2 + 208,
++	.width_mm = 250,
++	.height_mm = 177,
++};
++
++static const struct drm_dsc_config csot_dsc_cfg = {
++	.dsc_version_major = 1,
++	.dsc_version_minor = 2,
++	.slice_height = 20,
++	.slice_width = 750,
++	.slice_count = 2,
++	.bits_per_component = 8,
++	.bits_per_pixel = 8 << 4,
++	.block_pred_enable = true,
++};
++
++static int nt36532_probe(struct mipi_dsi_device *dsi)
++{
++	struct mipi_dsi_device_info dsi_info = {"nt36532-secondary", 0, NULL};
++	const struct panel_info *panel_info;
++	struct mipi_dsi_host *dsi1_host;
++	struct device *dev = &dsi->dev;
++	struct device_node *dsi1;
++	struct nt36532 *ctx;
++	int num_dsi = 1;
++	int ret, i;
++
++	ctx = devm_drm_panel_alloc(dev, struct nt36532, panel,
++				   &nt36532_panel_funcs,
++				   DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ret = devm_regulator_bulk_get_const(&dsi->dev,
++					    ARRAY_SIZE(nt36532_supplies),
++					    nt36532_supplies, &ctx->supplies);
++	if (ret < 0)
++		return ret;
++
++	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
++	ctx->panel_info = of_device_get_match_data(dev);
++	panel_info = ctx->panel_info;
++	if (!panel_info)
++		return -ENODEV;
++
++	ctx->dsc = *panel_info->dsc_cfg;
++
++	if (panel_info->is_dual_dsi) {
++		num_dsi = 2;
++		dsi1 = of_graph_get_remote_node(dsi->dev.of_node, 1, -1);
++		if (!dsi1) {
++			dev_err(dev, "cannot get secondary DSI node.\n");
++			return -ENODEV;
++		}
++
++		dsi1_host = of_find_mipi_dsi_host_by_node(dsi1);
++		of_node_put(dsi1);
++		if (!dsi1_host)
++			return dev_err_probe(dev, -EPROBE_DEFER,
++					     "cannot get secondary DSI host\n");
++
++		ctx->dsi[1] = devm_mipi_dsi_device_register_full(dev, dsi1_host,
++								 &dsi_info);
++		if (IS_ERR(ctx->dsi[1])) {
++			dev_err(dev, "cannot get secondary DSI device\n");
++			return PTR_ERR(ctx->dsi[1]);
++		}
++
++		mipi_dsi_set_drvdata(ctx->dsi[1], ctx);
++	}
++
++	ctx->dsi[0] = dsi;
++	mipi_dsi_set_drvdata(dsi, ctx);
++
++	ctx->panel.prepare_prev_first = true;
++
++	ret = drm_panel_of_backlight(&ctx->panel);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to get backlight\n");
++
++	ret = devm_drm_panel_add(dev, &ctx->panel);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to add panel\n");
++
++	for (i = 0; i < num_dsi; i++) {
++		ctx->dsi[i]->lanes = panel_info->lanes;
++		ctx->dsi[i]->format = panel_info->format;
++		ctx->dsi[i]->mode_flags = panel_info->mode_flags;
++		ctx->dsi[i]->dsc = &ctx->dsc;
++		ret = devm_mipi_dsi_attach(dev, ctx->dsi[i]);
++		if (ret < 0) {
++			return dev_err_probe(dev, ret,
++					     "Failed to attach to DSI host\n");
++		}
++	}
++
++	return 0;
++}
++
++static const struct panel_info csot_panel_info = {
++	.lanes = 4,
++	.format = MIPI_DSI_FMT_RGB888,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_CLOCK_NON_CONTINUOUS |
++		      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT,
++	.display_mode = csot_display_mode,
++	.dsc_cfg = &csot_dsc_cfg,
++	.init_sequence = csot_init_sequence,
++	.is_dual_dsi = true,
++};
++
++static const struct of_device_id nt36532_of_match[] = {
++	{ .compatible = "csot,ppc100hb1-1", .data = &csot_panel_info },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, nt36532_of_match);
++
++static struct mipi_dsi_driver nt36532_driver = {
++	.probe = nt36532_probe,
++	.driver = {
++		.name = "panel-novatek-nt36532",
++		.of_match_table = nt36532_of_match,
++	},
++};
++module_mipi_dsi_driver(nt36532_driver);
++
++MODULE_AUTHOR("Junjie Cao <junjie.cao@linux.dev>");
++MODULE_DESCRIPTION("DRM driver for Novatek NT36532 based MIPI DSI panels");
++MODULE_LICENSE("GPL");
+-- 
+2.43.0
+
