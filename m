@@ -1,281 +1,123 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C3C83C9ED5;
-	Tue,  4 Aug 2026 12:44:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D4034B669
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785847468; cv=none; b=AWpD4rhXnY0jlK1+Zr95gp9SXj9L2Zu7B56yWDqcn3PX85erkyAgBN32uszTmKYGll5HbquxMwbJGT40VnyAdvoAUfqkrxirzTNMncOgA2NhVJ6yRPej/cXWXpdjqZF853d+wiD3dYSUeo8at00GUwmrcOGPfPAulfppEQFrXxE=
+	t=1785847480; cv=none; b=fFPZex2DhgS4nJSURYkIM8X/GED5mn7mAZ5uKsc22mVwHP2ddIIaxS+AVCtbdN9y0Je6SF7CvItr7Es0LKx0AdIzrrTrVN6u4ehR1UCu2RcZNIS6SkgK6iHKRMtr1eQ7odSqAXh4KJ3FZv2tm8PgNNdMlDb8tg1YwjRIwVblZ8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785847468; c=relaxed/simple;
-	bh=3i7qTuHhbOEJanLblXH/lCXNJUTYLppKVnZlLOpeXL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZYuRBZwe+OwyvTfsU27YN36y12Afk2Q11iboTGwcILreu4NLs6Z0fiBbE8Ll4OtZmD/LwlJO3VxXu5j1DBXi6NG1ftrhudmDrcoEO9DmRWDdy3mWeEPB4B6P1Bt7btSotVfQlejvWBxRT5fwXJG3CAySE/pkwFIt9BQW7KXrd1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.205])
-	by gateway (Coremail) with SMTP id _____8Bx+aCp3nFqKEUKAA--.10446S3;
-	Tue, 04 Aug 2026 20:44:25 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.205])
-	by front1 (Coremail) with SMTP id qMiowJAxTOWX3nFqiHAjAA--.53S5;
-	Tue, 04 Aug 2026 20:44:23 +0800 (CST)
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-To: Binbin Zhou <zhoubb.aaron@gmail.com>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>,
-	zhanghongchen <zhanghongchen@loongson.cn>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Lee Jones <lee@kernel.org>
-Cc: Huacai Chen <chenhuacai@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: [PATCH v4 5/5] thermal/drivers/loongson2: Add support for Loongson-2K0300
-Date: Tue,  4 Aug 2026 20:43:58 +0800
-Message-ID: <0c2af3251d520ab04d18c14fce0a825e7b171ca5.1785829933.git.zhoubinbin@loongson.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1785829933.git.zhoubinbin@loongson.cn>
-References: <cover.1785829933.git.zhoubinbin@loongson.cn>
+	s=arc-20240116; t=1785847480; c=relaxed/simple;
+	bh=VbgUD8OiTZgCbCH126kOEFhNLipA4kG3bD4L52b+Euw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hHvdF1zNDlk9X75Pjorql8VongfDRo240exb83F1j644v3lt9ZUT9nPCAdpzcFXhcwYnamd6QbG+Pj0yQrAVmeMwbpz+Om4WdO78qT6uQCECpCPeupOFgaHnwvJNSJSuHGL3mxe0j1YmxSS3Y/pI7OPzuwx6MukeXK04ihh+a4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KEzfFOWm; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KEzfFOWm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23191F000E9;
+	Tue,  4 Aug 2026 12:44:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785847479;
+	bh=rv92E52hagASJlAJK/VgXsQp3hAjEP4jB8cQX7AUXrE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KEzfFOWmIALOPmoaazjQ7PXK+cIh6oBfypdhARlaLWhANn+bIekZWeeOkEHHRMthY
+	 CYdXixtc60MnFG6iKz99oH+davc+YZ7DHabeIQqlRfbXsIcJM/hD87g4y7UyWhX39V
+	 HJNXw6CvJypUxEgOMqHTOiAxTIEhAUCkxRNtiWW3NICjKHQWY8HUu37PCeN+xtOCBV
+	 Mr4FGmZumVgzjBnOMvOnBM42ER2YvaUHAmlst+hRB/dcdnisLUWvhBtMSN4UAuG+R4
+	 UWP2S0X+hpn1ndXtOXLYqTZANwzOzxR9Prisz0HX3KRkDqZeAtngHHk0USf8IMmF+W
+	 4HGHS/SqWEXeQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/4] arm64: dts: qcom: hamoa-iot-evk: Describe the
+ PCIe M.2 Key E connector
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wei Deng" <wei.deng@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260804-hamoa-m2-dts-v2-v4-3-1b5ceac74538@oss.qualcomm.com>
+References: <20260804-hamoa-m2-dts-v2-v4-0-1b5ceac74538@oss.qualcomm.com>
+ <20260804-hamoa-m2-dts-v2-v4-3-1b5ceac74538@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 12:44:37 +0000
+Message-Id: <20260804124438.E23191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxTOWX3nFqiHAjAA--.53S5
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEJCGpxaFEnjQAAsJ
-X-Coremail-Antispam: 1Uk129KBj93XoW3WFyUurWkKFyrKFW7ury8JFc_yoW3JFy3pa
-	y7AFy5KFW8Gr48uw4jyrnrZF4Yvr17tFZxZFs7Kw1ru397t34aqrW7tF1FvrW3CFs8JFy7
-	ZrWqkFWUCa4DX3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAF
-	wI0_Gr1j6F4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2
-	xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Wrv_ZF1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkE
-	bVWUJVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14v26r1j6r18MI8I3I0E74
-	80Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0
-	I7IYx2IY67AKxVW7JVWDJwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42
-	xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF
-	7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUVU73DUUUU
 
-Add support for the thermal sensor found on the Loongson-2K0300 SoC.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Replacing the static `bluetooth` node with dynamic serdev instan=
+tiation drops the `max-speed =3D <3200000>` property, causing the Bluetooth=
+ UART to silently downgrade to 3.0 Mbps.
+--
 
-The Loongson-2K0300 thermal sensor uses a 10-bit ADC and requires
-per-chip calibration. The calibration offset is stored in the CHIP ID
-registers, which are accessed via syscon. The driver reads this offset
-and applies it when converting the raw ADC value to millicelsius.
+--- Patch [3]: [PATCH v4 3/4] arm64: dts: qcom: hamoa-iot-evk: Describe the=
+ PCIe M.2 Key E connector ---
+commit 26e9e455cf8a7ecff96e1f53323ed9575366864d
+Author: Wei Deng <wei.deng@oss.qualcomm.com>
 
-To handle old fuse versions that cannot be calibrated correctly, the
-driver includes a fallback formula and a validity check. Once invalid
-data is detected, the driver falls back to the old formula for future
-reads and warns the user.
+arm64: dts: qcom: hamoa-iot-evk: Describe the PCIe M.2 Key E connector
 
-Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
----
- drivers/thermal/loongson2_thermal.c | 94 ++++++++++++++++++++++++++++-
- 1 file changed, 92 insertions(+), 2 deletions(-)
+This commit describes the PCIe M.2 Key E connector for the Hamoa IoT EVK to
+manage the Wi-Fi/Bluetooth module dynamically. It removes the static
+chip-specific nodes in favor of a hardware-agnostic connector representatio=
+n.
 
-diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
-index 1a8ca2cd06f1..51b29b60372a 100644
---- a/drivers/thermal/loongson2_thermal.c
-+++ b/drivers/thermal/loongson2_thermal.c
-@@ -2,9 +2,11 @@
- /*
-  * Author: zhanghongchen <zhanghongchen@loongson.cn>
-  *         Yinbo Zhu <zhuyinbo@loongson.cn>
-+ *         Binbin Zhou <zhoubinbin@loongson.cn>
-  * Copyright (C) 2022-2023 Loongson Technology Corporation Limited
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/minmax.h>
-@@ -14,6 +16,9 @@
- #include <linux/property.h>
- #include <linux/thermal.h>
- #include <linux/units.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/regmap.h>
-+#include <linux/syscore_ops.h>
- 
- #include "thermal_hwmon.h"
- 
-@@ -23,18 +28,34 @@
- #define LOONGSON2_THSENS_CTRL_LOW_REG	0x8
- #define LOONGSON2_THSENS_STATUS_REG	0x10
- #define LOONGSON2_THSENS_OUT_REG	0x14
-+#define LOONGSON2_THSENS_CFG_REG	0x18
- 
- #define LOONGSON2_THSENS_INT_LO		BIT(0)
- #define LOONGSON2_THSENS_INT_HIGH	BIT(1)
- #define LOONGSON2_THSENS_INT_EN		(LOONGSON2_THSENS_INT_LO | \
- 					 LOONGSON2_THSENS_INT_HIGH)
--#define LOONGSON2_THSENS_OUT_MASK	0xFF
-+#define LOONGSON2_THSENS_OUT_8B_MASK	0xFF
-+#define LOONGSON2_THSENS_OUT_11B_MASK	GENMASK(10, 0)
-+
-+#define LS2K0300_CHIP_ID0		0x10
-+#define LS2K0300_CHIP_ID1		0x14
-+#define LS2K0300_EXTERN_ID		BIT(4)
-+#define LS2K0300_ID0_VAL_MASK		GENMASK(31, 20)
-+#define LS2K0300_ID1_VAL_MASK		GENMASK(15, 0)
-+
-+#define LS2K0300_COMP_VAL_MASK		GENMASK(14, 0)
-+#define LS2K0300_COMP_SIGN_BIT		BIT(15)
-+
-+#define LS2K0300_LOWEST_VALID_TEMP	(-55000)
-+#define LS2K0300_HIGHEST_VALID_TEMP	(125000)
- 
- /*
-  * This flag is used to indicate the temperature reading
-  * method of the Loongson-2K2000
-  */
- #define LS2K2000_THSENS_OUT_FLAG	BIT(0)
-+#define LS2K0300_CHIP_ID_FLAG		BIT(1)
-+#define LS2K0300_OLD_FUSE_FLAG		BIT(2)
- 
- struct loongson2_thermal_chip_data {
- 	unsigned int thermal_sensor_sel;
-@@ -43,8 +64,11 @@ struct loongson2_thermal_chip_data {
- };
- 
- struct loongson2_thermal_data {
-+	struct device *dev;
- 	void __iomem *ctrl_reg;
- 	void __iomem *temp_reg;
-+	struct regmap *regmap_cfg;
-+	u32 flags;
- 	const struct loongson2_thermal_chip_data *chip_data;
- };
- 
-@@ -72,13 +96,54 @@ static int loongson2_thermal_set(struct loongson2_thermal_data *data,
- 	return 0;
- }
- 
-+static int loongson2_2k0300_get_temp(struct thermal_zone_device *tz, int *temp)
-+{
-+	struct loongson2_thermal_data *tdata = thermal_zone_device_priv(tz);
-+	int calib_data, calib_offset, temp_mc, raw_adc;
-+	u32 chip_id0 = 0, chip_id1 = 0;
-+
-+	writel(0xff03, tdata->ctrl_reg + LOONGSON2_THSENS_CFG_REG);
-+	raw_adc = FIELD_GET(LOONGSON2_THSENS_OUT_11B_MASK,
-+			    readl(tdata->ctrl_reg + LOONGSON2_THSENS_OUT_REG));
-+
-+	if (tdata->flags & LS2K0300_OLD_FUSE_FLAG) {
-+		*temp = raw_adc * 569 - 394700;
-+		return 0;
-+	}
-+
-+	regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID0, &chip_id0);
-+	regmap_read(tdata->regmap_cfg, LS2K0300_CHIP_ID1, &chip_id1);
-+
-+	if (chip_id0 & LS2K0300_EXTERN_ID) {
-+		calib_data = FIELD_GET(LS2K0300_ID1_VAL_MASK, chip_id1);
-+		calib_offset = FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-+		if (calib_data & LS2K0300_COMP_SIGN_BIT)
-+			calib_offset = -calib_offset;
-+	} else {
-+		calib_data = FIELD_GET(LS2K0300_ID0_VAL_MASK, chip_id0);
-+		calib_offset = FIELD_GET(LS2K0300_COMP_VAL_MASK, calib_data);
-+	}
-+
-+	temp_mc = (raw_adc + calib_offset) * 570 - 394700;
-+
-+	/* For old fuse which can not read right thermal data */
-+	if (temp_mc < LS2K0300_LOWEST_VALID_TEMP || temp_mc > LS2K0300_HIGHEST_VALID_TEMP) {
-+		dev_warn_once(tdata->dev, "It's an old fuse, thermal %d is not right\n", temp_mc);
-+		tdata->flags |= LS2K0300_OLD_FUSE_FLAG;
-+		temp_mc = raw_adc * 569 - 394700;
-+	}
-+	*temp = temp_mc;
-+
-+	return 0;
-+}
-+
- static int loongson2_2k1000_get_temp(struct thermal_zone_device *tz, int *temp)
- {
- 	int val;
- 	struct loongson2_thermal_data *data = thermal_zone_device_priv(tz);
- 
- 	val = readl(data->ctrl_reg + LOONGSON2_THSENS_OUT_REG);
--	*temp = ((val & LOONGSON2_THSENS_OUT_MASK) - HECTO) * KILO;
-+	*temp = ((val & LOONGSON2_THSENS_OUT_8B_MASK) - HECTO) * KILO;
- 
- 	return 0;
- }
-@@ -113,6 +178,11 @@ static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low,
- 	return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
- }
- 
-+static const struct thermal_zone_device_ops loongson2_2k0300_of_thermal_ops = {
-+	.get_temp = loongson2_2k0300_get_temp,
-+	.set_trips = loongson2_thermal_set_trips,
-+};
-+
- static const struct thermal_zone_device_ops loongson2_2k1000_of_thermal_ops = {
- 	.get_temp = loongson2_2k1000_get_temp,
- 	.set_trips = loongson2_thermal_set_trips,
-@@ -135,6 +205,8 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	data->chip_data = device_get_match_data(dev);
-+	data->flags = data->chip_data->flags;
-+	data->dev = dev;
- 
- 	data->ctrl_reg = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(data->ctrl_reg))
-@@ -147,6 +219,14 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 			return PTR_ERR(data->temp_reg);
- 	}
- 
-+	/* The chip id register is needed for Loongson-2K0300 */
-+	if (data->chip_data->flags & LS2K0300_CHIP_ID_FLAG) {
-+		data->regmap_cfg =
-+			syscon_regmap_lookup_by_phandle(dev->of_node, "loongson,chipid");
-+		if (IS_ERR(data->regmap_cfg))
-+			return PTR_ERR(data->regmap_cfg);
-+	}
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
-@@ -179,6 +259,12 @@ static int loongson2_thermal_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k0300_data = {
-+	.thermal_sensor_sel = 0,
-+	.flags = LS2K0300_CHIP_ID_FLAG,
-+	.thermal_ops = &loongson2_2k0300_of_thermal_ops,
-+};
-+
- static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k1000_data = {
- 	.thermal_sensor_sel = 0,
- 	.flags = 0,
-@@ -192,6 +278,10 @@ static const struct loongson2_thermal_chip_data loongson2_thermal_ls2k2000_data
- };
- 
- static const struct of_device_id of_loongson2_thermal_match[] = {
-+	{
-+		.compatible = "loongson,ls2k0300-thermal",
-+		.data = &loongson2_thermal_ls2k0300_data,
-+	},
- 	{
- 		.compatible = "loongson,ls2k1000-thermal",
- 		.data = &loongson2_thermal_ls2k1000_data,
--- 
-2.52.0
+[ ... ]
+> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+[ ... ]
+> @@ -1514,19 +1457,10 @@ wcn_usb_sw_n: wcn-usb-sw-n-state {
+> =20
+>  &uart14 {
+>  	status =3D "okay";
+> +};
+> =20
+> -	bluetooth {
+> -		compatible =3D "qcom,wcn7850-bt";
+> -		max-speed =3D <3200000>;
 
+[Severity: Medium]
+Will this removal of the max-speed property cause a performance regression =
+for
+the Bluetooth UART?
+
+Looking at drivers/power/sequencing/pwrseq-pcie-m2.c, the dynamic serdev no=
+de
+is constructed using an OF changeset:
+
+pwrseq_pcie_m2_create_bt_node() {
+    ...
+    ret =3D of_changeset_add_prop_string(pci_dev->ocs, np, "compatible",
+                                       compatible);
+    ...
+}
+
+Because the pwrseq-pcie-m2 driver only adds the compatible string during
+dynamic creation, it lacks a mechanism to propagate the board-specific
+max-speed property. When the hci_qca driver probes, it will fail to read
+max-speed from the dynamically generated node and fall back to its protocol
+default of 3.0 Mbps instead of the expected 3.2 Mbps.
+
+Could we retain the max-speed configuration for this board, perhaps by pass=
+ing
+it through the new M.2 connector node?
+
+> -
+> -		vddaon-supply =3D <&vreg_pmu_aon_0p59>;
+> -		vddwlcx-supply =3D <&vreg_pmu_wlcx_0p8>;
+> -		vddwlmx-supply =3D <&vreg_pmu_wlmx_0p85>;
+> -		vddrfacmn-supply =3D <&vreg_pmu_rfa_cmn>;
+> -		vddrfa0p8-supply =3D <&vreg_pmu_rfa_0p8>;
+> -		vddrfa1p2-supply =3D <&vreg_pmu_rfa_1p2>;
+> -		vddrfa1p8-supply =3D <&vreg_pmu_rfa_1p8>;
+> -	};
+> +&uart14_ep {
+> +	remote-endpoint =3D <&m2_e_uart_ep>;
+>  };
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-hamoa-m2-d=
+ts-v2-v4-0-1b5ceac74538@oss.qualcomm.com?part=3D3
