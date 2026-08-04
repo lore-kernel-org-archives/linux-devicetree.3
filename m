@@ -1,126 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF6F369236
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 18:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE173EB112;
+	Tue,  4 Aug 2026 18:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785867625; cv=none; b=GJM30QKLeMUZvsOwOgHcshg8zY0+WzktarBF4F0p79APlgm8OBgFzLb65bF5VLBzu0vlS9lzZMQLTAeXImdFbaX2zz9HwHSeaf+uedSz+7XBaDm+37plYATihYhKbqsun63GMc3uZ62guIBfkidQpieePsihcr0TMLI4IPuDkfA=
+	t=1785868059; cv=none; b=E7irh1tV5sG7/UvbWwETaxkFNk4y3yvbmCdcxvu7bhW6iFtdquaROnmSof2uhSlE1ni3PjCK3euLyfqFsUGjdWCAUQBoiq0NA42Dy7eg3urQb1Gg0g+Gmv+KCaFo5bFjp/Va+sukUDeAzR4bmd5mgaYKuZ2Qq7Q8weaQ7EdPrMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785867625; c=relaxed/simple;
-	bh=clJsgfpFfzIchT6ULgn7XOqBj3fMTG8J/KyBMR/ADPk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BvlvS+WufUwJwgcewpFAIQeq2e51Qi0pD/IeJy2c30EafkM1M2MVyDpBiKUmtHkkywyeIzQrwlZkiuHBMTDeCLI7/8fXnjscv+hsOQV6/NjuFoBp3blvYv39IEXMfgIpUX0CWjcacA6VMGtVULfy69/zrhjJeCDAY8lTcTNtpb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNTgkSpk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785868059; c=relaxed/simple;
+	bh=+nx0m30jvJNLR+AVrWZqkStFCFrEd/LxWlDlNr663aQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RnCdREXY9qMoYsILC8qvjjiWcpn9rEE7zyOtKXXvptujjk9zVeDeLwkDhzX7Oz70yLlyKzu85nkSd9jWtWNztla+lDPCmEWJzNxL+UJjEYHOfX+16erADXNpGyxhkRLKwFKhp7QZEzwOkzhTtfUwNFxfZMLGhDQe+n2NUglCgC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=gLzyDobi; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=/Z4jYYRh; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNTgkSpk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE951F000E9;
-	Tue,  4 Aug 2026 18:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785867623;
-	bh=HE73bSZgtxzzTvNz/PBn/nW4/fGGSKWGGgtsYMqaa6Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cNTgkSpk8//hsRf4j2ciYZDTStlHCW8ncUwmD2wNUtYg3ciP/8oT7NIAgxlqzJtJa
-	 tbkpSLCg6uwpQzjn5+bc7sWyhlhXCp1OKX4+ASMmoUnBAvFBvPt1R/MGyANlEOTJhe
-	 41vTXhqM/kSqX46B0DXliPOqjsdvQELDsIEXBITshyUA3LECWElbHdE9BIhO6YCmpc
-	 ZNivor7CRMOiB9jl/8LgxuI4ddWlAVbv10yW4Szh41EHaPC6GxuiwPMvFnshESZ1IO
-	 zIDM8AUWf4YN7TYznGKvWBOTnrBuUeDZU/eX8IYuWuoyFpLcScXS+zHZPN0KQhvZu6
-	 IAXtsNszeJUyg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v3 2/2] phy: qcom: qmp-combo: Add SM8475 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esteban Urrutia" <esteuwu@proton.me>
-Cc: olteanv@gmail.com, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org
-In-Reply-To: <20260804-sm8475-bup-usbss-v3-2-9a5b9ebf62de@proton.me>
-References: <20260804-sm8475-bup-usbss-v3-0-9a5b9ebf62de@proton.me>
- <20260804-sm8475-bup-usbss-v3-2-9a5b9ebf62de@proton.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 18:20:22 +0000
-Message-Id: <20260804182023.4AE951F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="gLzyDobi";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="/Z4jYYRh"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1785868024; bh=YrMMNGosshER4iLXgDtpRWx
+	BdjnbgQ6m/RcBo2d3aCo=; b=gLzyDobiekLYeul74NVwZIeqq+9U9cogl97CCXaDsOFMhbjipB
+	A/64P6yRvr2mCa/UZkATDS/PFdFrCGe3WHpfiRZpXGK3yFrfeGdQg/mXXGPP7C8IemM8+Q2KVkC
+	SqKQ3rcTtFZUODWBw1AJ/rNDIo/4jF4mEWr19aXRE+qT/gUgpOMfmAT9XbPHmoKw9lpR4rqMnlx
+	JmPIOwHHUdE2Rrjh0axObrnQDenhMrYOyeGAyBDLSggED0qKSicVMBXY3+qxK7PXrOykHqpaJHt
+	Tcy9jrelq1HZfVgqzMsW+9kb7DaX3hBQRRcPLybn5+KW5jjjhcmDNaPr1tmsmXT8g6Q==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1785868024; bh=YrMMNGosshER4iLXgDtpRWx
+	BdjnbgQ6m/RcBo2d3aCo=; b=/Z4jYYRh+7g2lZVXvXMut/rg4c/2TvcRvWAziqmMZ/2Jwvq1mG
+	G1IS8tRg7q5DQvk59l0BUGgjA+5MyfdaNvDg==;
+Message-ID: <f7cae569-0c51-41fe-92ab-f29311a22761@mainlining.org>
+Date: Tue, 4 Aug 2026 21:27:01 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
+ <git@apitzsch.eu>, Daniel Scally <dan.scally@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
+ Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
+ <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
+ <anGlY_kwp_I-fRnz@kekkonen.localdomain>
+Content-Language: en-US
+From: Danila Tikhonov <danila@mainlining.org>
+In-Reply-To: <anGlY_kwp_I-fRnz@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Sakari,
 
-New issues:
-- [High] Missing `.calibrate_dp_phy` callback assignment in the newly added=
- `sm8475_usb3dpphy_cfg` struct.
+Thank you for your comment.
 
-Pre-existing issues:
-- [High] SAR2130P configuration is not updated to use the new v1 DP PLL tab=
-les despite being explicitly identified as a v1 SoC.
---
+On 04/08/2026 11:40, Sakari Ailus wrote:
+> Hi Danila,
+>
+> Thank you for the patch.
+>
+> On Sat, Aug 01, 2026 at 09:04:15PM +0300, Danila Tikhonov wrote:
+>> The DW9800W uses the same chip ID and register layout as the DW9800K,
+>> but requires different default VCM frequency value.
+> Is this a real difference between the two models or what fits for the
+> attached lens? Too bad the datasheet isn't publicly available. :-(
+>
+> At least the differing default and constraints for dongwoon,vcm-prescale
+> needs to be documented in bindings.
+I share your skepticism and have essentially the same concerns. Since I
+do not have the DW9800K datasheet, I cannot say with certainty how it
+differs from the DW9800W.
 
---- Patch [2]: [PATCH RESEND v3 2/2] phy: qcom: qmp-combo: Add SM8475 suppo=
-rt ---
-commit 1b30757e50e17e9f7e360c8987c9aafc76411e20
-Author: Esteban Urrutia <esteuwu@proton.me>
+In particular, the parameter referred to as the VCM frequency in the
+driver is used to derive the SACT value. For the DW9800W, SACT[5:0]
+defines the actuator resonance period in SAC mode and the one-step
+period in LSC mode. The datasheet gives the corresponding formulas as:
+- tVIB = 6.3 ms + SACT * 0.1 ms
+- LSC 1-step period = 252 µs + SACT * 4 µs
 
-phy: qcom: qmp-combo: Add SM8475 support
+Therefore, the default value may differ between the DW9800K and DW9800W
+if the formulas or timing characteristics used to calculate SACT are
+different.
 
-This patch adds USB3 and DP combo PHY support for the Qualcomm SM8475 SoC.
-It introduces new RX and PCS USB tables, reuses others from existing SoCs,
-and adds specific v1 PLL structures for 4nm-v1 SoCs to fix link training
-failures caused by reference clock differences.
+This uncertainty is also one of the reasons why the series currently
+carries the RFT prefix. I hope the Fairphone guys can provide some
+insight into the rationale behind the default-value directives that were
+added for the DW9800K.
+>> Add a separate device match entry for the DW9800W and validate the
+>> common chip ID. Use the matched variant to select the appropriate
+>> default values.
+>>
+>> Tested on the Nothing Phone (1) smartphone.
+>>
+>> Signed-off-by: Danila Tikhonov <danila@mainlining.org>
+>> ---
+>>   drivers/media/i2c/dw9719.c | 25 +++++++++++++++++++++----
+>>   1 file changed, 21 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
+>> index 3b7ba88fd67c..bb9319fc350b 100644
+>> --- a/drivers/media/i2c/dw9719.c
+>> +++ b/drivers/media/i2c/dw9719.c
+>> @@ -44,6 +44,7 @@
+>>   
+>>   #define DW9719_INFO			CCI_REG8(0)
+>>   #define DW9719_ID			0xF1
+>> +#define DW9800_ID			0xF2
+>>   #define DW9761_ID			0xF4
+>>   
+>>   #define DW9719_CONTROL			CCI_REG8(2)
+>> @@ -72,6 +73,8 @@
+>>   #define DW9800K_MODE_SAC_SHIFT		6
+>>   #define DW9800K_DEFAULT_VCM_FREQ		0x10
+>>   
+>> +#define DW9800W_DEFAULT_VCM_FREQ	0x60
+>> +
+>>   #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
+>>   
+>>   enum dw9719_model {
+>> @@ -79,6 +82,7 @@ enum dw9719_model {
+>>   	DW9719,
+>>   	DW9761,
+>>   	DW9800K,
+>> +	DW9800W,
+>>   };
+>>   
+>>   struct dw9719_device {
+>> @@ -140,10 +144,6 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+>>   			dw9719->sac_mode = DW9718S_DEFAULT_SAC;
+>>   			dw9719->vcm_freq = DW9718S_DEFAULT_VCM_FREQ;
+>>   			goto props;
+>> -		case DW9800K:
+>> -			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
+>> -			dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
+>> -			goto props;
+>>   		default:
+>>   			break;
+>>   		}
+>> @@ -159,6 +159,21 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+>>   			dw9719->sac_mode = DW9719_DEFAULT_SAC;
+>>   			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
+>>   			break;
+>> +		case DW9800_ID:
+> Ideally the detection change would be in its own patch but I guess it's ok
+> as-is.
+>
+>> +			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
+>> +			switch (dw9719->model) {
+>> +			case DW9800K:
+>> +				dw9719->model = DW9800K;
+>> +				dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
+>> +				break;
+>> +			case DW9800W:
+>> +				dw9719->model = DW9800W;
+>> +				dw9719->vcm_freq = DW9800W_DEFAULT_VCM_FREQ;
+>> +				break;
+>> +			default:
+>> +				return -ENODEV;
+>> +			}
+>> +			break;
+>>   		case DW9761_ID:
+>>   			dw9719->model = DW9761;
+>>   			dw9719->mode_low_bits = 0x01;
+>> @@ -189,6 +204,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
+>>   
+>>   	switch (dw9719->model) {
+>>   	case DW9800K:
+>> +	case DW9800W:
+>>   		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
+>>   		cci_write(dw9719->regmap, DW9719_MODE,
+>>   			  dw9719->sac_mode << DW9800K_MODE_SAC_SHIFT, &ret);
+>> @@ -453,6 +469,7 @@ static const struct of_device_id dw9719_of_table[] = {
+>>   	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
+>>   	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
+>>   	{ .compatible = "dongwoon,dw9800k", .data = (const void *)DW9800K },
+>> +	{ .compatible = "dongwoon,dw9800w", .data = (const void *)DW9800W },
+>>   	{ }
+>>   };
+>>   MODULE_DEVICE_TABLE(of, dw9719_of_table);
+>>
+---
 
-> Some SoCs such as SAR2130P, SM7550, SM7635 and SM8475 use 4nm-v1 PLLs.
-> For SM8475, trying to use qmp_v6_dp_serdes_tbl structs (which are for
-> 4nm-v1.1 PLLs) causes link training to fail because of ref clock
-> differences, which in turn makes these structs differ.
+Best regards,
+Danila
 
-[Severity: High]
-This is a pre-existing issue, but since this patch introduces the v1 DP PLL
-tables to fix link training for 4nm-v1 PLLs, shouldn't
-sar2130p_usb3dpphy_cfg also be updated to use them?
-
-Currently sar2130p_usb3dpphy_cfg still references the incompatible v1.1
-tables (qmp_v6_dp_serdes_tbl), which according to this commit message
-causes link training to fail on these SoCs.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qual=
-comm/phy-qcom-qmp-combo.c
-> index cdcfad2e86b1d..52b07de2c52b5 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-
-[ ... ]
-
-> @@ -2845,6 +2965,51 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_c=
-fg =3D {
->  	.has_pwrdn_delay	=3D true,
->  };
-> =20
-> +static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg =3D {
-> +	.offsets		=3D &qmp_combo_offsets_v3,
-
-[ ... ]
-
-> +	.dp_aux_init		=3D qmp_v4_dp_aux_init,
-> +	.configure_dp_tx	=3D qmp_v4_configure_dp_tx,
-> +	.configure_dp_clocks	=3D qmp_v3_configure_dp_clocks,
-> +	.configure_dp_phy	=3D qmp_v4_configure_dp_phy,
-
-[Severity: High]
-Is the .calibrate_dp_phy callback intentionally omitted here?
-
-Without the calibration loop being assigned (e.g., to
-qmp_v4_calibrate_dp_phy), DP link training will not iterate through
-different voltage swing and pre-emphasis settings upon a failure. This
-could cause link training failures with certain cables or external displays.
-
-> +
-> +	.regs			=3D qmp_v6_usb3phy_regs_layout,
-> +	.reset_list		=3D msm8996_usb3phy_reset_l,
-> +	.num_resets		=3D ARRAY_SIZE(msm8996_usb3phy_reset_l),
-> +	.vreg_list		=3D qmp_phy_vreg_l,
-> +	.num_vregs		=3D ARRAY_SIZE(qmp_phy_vreg_l),
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-sm8475-bup=
--usbss-v3-0-9a5b9ebf62de@proton.me?part=3D2
