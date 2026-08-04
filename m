@@ -1,192 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32916404BF4
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 21:09:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F49C30ACF6;
+	Tue,  4 Aug 2026 21:19:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785877777; cv=none; b=TCYzr1yU4SAtl5egIgI3oZH3T0HGqHtXifoCp2PMOCpHhjxkO/Wzv52euC+9owzgpnuA5EI7tfd631Vs7BZwPROF2VbdBQELLbbBU2UhuenlSYTfZ1AFVr3jO52FvAGqZejwqqsuqXlZ1NmKEMoh9OZJiNbFCxsQjobVu6rHcgI=
+	t=1785878365; cv=none; b=n/DYLy4B3ndMnAnO9oKdGDk3X3jxUXFQjnTC0/TXYlWWvlYD3yXimPYH4UYFzF88vwaazEUvooVzB6/Sygs2KrUa+k0T96UQY0uNZBMMK85HE7M2o1zkj9GEx7zA4Jl01SeYw8OhO5XM5r+pi/ZDsJnKbXU/u+xLacB7DMEcWzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785877777; c=relaxed/simple;
-	bh=H9nqS82m/d22SMD0u7lRelgemI1E4L9pzmRCrgcmTSo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kSRK6ivFsVJpgTF2KNAswyZIhL0PEzGu16U7LIEVGgC0qt9iTQ4ab9k9Pd2P+0Mk7yq3viNH68vv1/OM3nSvLT0b7EIaZxOF9Zm4w1BzNLDhF5CTdsKAbyI6uz4/blz+np+wNT1+2VETYT5dkwCZnd7rDYLPbwXd14SWZ9aifZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pu9rBH1k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785878365; c=relaxed/simple;
+	bh=pLt/cU+TnyqtlnI5xON5SLbuyKMa5di2C9UmmlL2O8c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=gJz8lfF2sIok2m3Kf5CtNUGSNhUTutLIMK+wLpyJcypqYeUQyCRp1VYTr77k7FzUEIAS/f4OsDKjugeMSdk1fs2ZqPCx7ocuMzbiiSsv2KSF7yujYL4dIAAEWj32KjedBxSO/7v0rHRt26FviFnxIeRPRH8QkGfJS6jS079tu/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jIJoUCcw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pu9rBH1k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C979F1F000E9;
-	Tue,  4 Aug 2026 21:09:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jIJoUCcw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008AC1F000E9;
+	Tue,  4 Aug 2026 21:19:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785877776;
-	bh=QEoNqKl434OcZ9ol7VN+iY+WCGKC5wklOthnlL5AtoA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pu9rBH1kiEntXN6r6rePk7bmacoaz7MXBGqkCHADxeTUiYczwKuM7jM4AE+u79+hf
-	 3OlYlDvFFXR0jZzkd2XeDfljEouqPRAeZs4qm0J3Sq3NsQOzzCNlUkOIXX2u7ZAp88
-	 S6eszK+cD3HULtRp3L0bAwV762mtLwfFDV0Bz04E5cm3WscU+GssOjFcGZVD1AqtPp
-	 kW9Lw5P+hLiJHnsWK6U8MO6Xse3e9UzXZ5Z61X4EDauvSwPGwSMi14n1v2SVy/JPN+
-	 JxGhTKSddZ+TMXw9c4rYtY+dTvrSEHSvu1Hkb+5xnH4RyDgyd+XuPLRO27ns+R0Qrr
-	 kLvmsHqTWY8og==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] video: logo: allow the boot logo to come from
- the device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Max Pedraza" <maximpedraza@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260804225617.264861-3-maximpedraza@gmail.com>
-References: <20260804225617.264861-1-maximpedraza@gmail.com>
- <20260804225617.264861-3-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 21:09:35 +0000
-Message-Id: <20260804210935.C979F1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785878363;
+	bh=TBycfkJw5I/ng54OHAnOW8sWPT0mi9f8UR2eLGlndbc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=jIJoUCcwm8Tp3eupSw3jTlPGD2RGQHuM+UFQSS77odS0q0ZUxRY6MlT/XFKQ/xtaf
+	 azR+gN64IRiBGdDI32cNQwswHuCEzSOrFaZS8Ujgbbk+Y2PG/LyDomx4wIqcGh2U7R
+	 oag8gUnezF0gRijEbcmqMZSeK6byN9ecBU+5sFCGD0A+r3iVCMbNj7TIA6jE7+gp6L
+	 qf0KVoc7deMvpHqcOApvSWu7BipzwOS/VwwDMAK1lrlurX7a7C9FoqpSqWv5vtrzbX
+	 LsT2Q0RrwiH702KayiY2Ofb+CAu2YxymlCWbHyp+svmdGyLB7Xxd0loBHDuwW2l6+l
+	 H0gsFsSFnhfTw==
+From: Mark Brown <broonie@kernel.org>
+To: CL Wang <cl634@andestech.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Kousik Sanagavarapu <five231003@gmail.com>, 
+ Vladimir Moravcevic <vmoravcevic@axiado.com>, Tzu-Hao Wei <twei@axiado.com>, 
+ Swark Yang <syang@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, 
+ Karthikeyan Mitran <kmitran@axiado.com>, 
+ Michal Simek <michal.simek@amd.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260804-spi-num-cs-v1-0-4ccb13dcc7b0@oss.qualcomm.com>
+References: <20260804-spi-num-cs-v1-0-4ccb13dcc7b0@oss.qualcomm.com>
+Subject: Re: [PATCH 0/5] spi: Few cleanups while looking at num-cs
+Message-Id: <178586591185.111355.14637687266555996787.b4-ty@b4>
+Date: Tue, 04 Aug 2026 18:51:51 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1777; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=pLt/cU+TnyqtlnI5xON5SLbuyKMa5di2C9UmmlL2O8c=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqcldY1DeS9mNj2yy1OE2P4KfiH21c9R+Pvn/L7
+ /yLsmGB9ZqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanJXWAAKCRAk1otyXVSH
+ 0NbEB/0SYx3PdmLpeMU3PawZ31PrGosiVxngXQhyelNrGQ3m3g3dPn0j+nrDV2gGTSp98/6a//d
+ kdWDwdJFXeCFwr5H0ghvXXBWvq95DotaZl0durAgcWbK/rmmFZtPhjrlWR1v+surxqTur9CkfrD
+ CLJdqdF+OKooavAsnHqHn/iWI1f0vV9mihsZ3iiVuOB321w3GXGs4hQ8a1vuwZDw2/KQusHW3y1
+ wkG/z3G0fqDLjMVOI7apxvh0Z9eFiJTeGazTneVF3nkDZ0cK/fNCb93IvZgAAz3vHdUMlw7Ua10
+ Td7BmAwAaKl8hYxd8qfCr/2JnzUm34yvtju1Gm5WGvrf8ST5
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Premature freeing of device tree boot logo memory creates a race c=
-ondition with asynchronous framebuffer probes, leading to a NULL pointer de=
-reference.
-- [Medium] Unbounded kmalloc() allocation for device tree boot logo trigger=
-s a kernel warning and fails for sizes exceeding KMALLOC_MAX_SIZE.
-- [Medium] Silent fallback to searching the device tree root node if the /c=
-hosen node does not exist.
---
+On Tue, 04 Aug 2026 09:16:56 +0200, Krzysztof Kozlowski wrote:
+> spi: Few cleanups while looking at num-cs
+> 
+> Few minor cleanups for DT bindings and Andes driver.
+> 
+> Patches do not have inter-dependencies.
+> 
+> Best regards,
+> Krzysztof
+> 
+> [...]
 
---- Patch [2]: [PATCH v2 2/6] video: logo: allow the boot logo to come from=
- the device tree ---
-commit f460a2fda249375abd332c49e9ef32c7cd3a3f7b
-Author: Max Pedraza <maximpedraza@gmail.com>
+Applied to
 
-video: logo: allow the boot logo to come from the device tree
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
 
-Add CONFIG_LOGO_DT_CLUT224, which makes fb_find_logo() look for a node
-compatible with "linux,boot-logo-clut224" under /chosen before falling
-back to the logos built into the kernel image.
+Thanks!
 
-> diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
-> index 91535f8848da9..7f8b04ecfa987 100644
-> --- a/drivers/video/logo/logo.c
-> +++ b/drivers/video/logo/logo.c
+[1/5] spi: dt-bindings: andestech,ae350-spi: Drop redundant num-cs
+      https://git.kernel.org/broonie/spi/c/82024a7ae057
+[2/5] spi: dt-bindings: marvell,armada-3700-spi: Drop redundant num-cs
+      https://git.kernel.org/broonie/spi/c/9ec27e118da7
+[3/5] spi: dt-bindings: axiado,ax3000-spi: Drop duplicated type/ref
+      https://git.kernel.org/broonie/spi/c/577ada5875dc
+[4/5] spi: dt-bindings: spi-cadence: Drop duplicated type/ref
+      https://git.kernel.org/broonie/spi/c/ad0dcba3ab9c
+[5/5] spi: atcspi200: Drop redundant andestech,qilai-spi compatible
+      https://git.kernel.org/broonie/spi/c/463c840f54f8
 
-[ ... ]
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> +static int logo_dt_parse(struct device_node *np)
-> +{
-> +	unsigned int clutsize, npixels, i;
-> +	unsigned char *clut, *data;
-> +	u32 width, height;
-> +	int len, ret;
-> +
-> +	ret =3D of_property_read_u32(np, "width", &width);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D of_property_read_u32(np, "height", &height);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
-> +		return -EINVAL;
-> +
-> +	npixels =3D width * height;
-> +
-> +	len =3D of_property_count_u8_elems(np, "clut");
-> +	if (len < 3 || len % 3)
-> +		return -EINVAL;
-> +
-> +	clutsize =3D len / 3;
-> +	if (clutsize > LOGO_DT_MAX_CLUT)
-> +		return -EINVAL;
-> +
-> +	ret =3D of_property_count_u8_elems(np, "data");
-> +	if (ret < 0)
-> +		return ret;
-> +	if ((unsigned int)ret !=3D npixels)
-> +		return -EINVAL;
-> +
-> +	clut =3D kmalloc(len, GFP_KERNEL);
-> +	if (!clut)
-> +		return -ENOMEM;
-> +
-> +	data =3D kmalloc(npixels, GFP_KERNEL);
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-[Severity: Medium]
-Could this allocation trigger a kernel warning (WARN_ON_ONCE_GFP) and fail =
-if
-the device tree provides a valid boot logo larger than KMALLOC_MAX_SIZE?
-LOGO_DT_MAX_PIXELS is 32MB, but kmalloc() without __GFP_NOWARN will warn if
-it exceeds the maximum contiguous allocation size. Does this code need to u=
-se
-kvmalloc() instead, or restrict the size limit to KMALLOC_MAX_SIZE?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> +	if (!data) {
-> +		ret =3D -ENOMEM;
-> +		goto err_free_clut;
-> +	}
-> +
-> +	ret =3D of_property_read_u8_array(np, "clut", clut, len);
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-[ ... ]
+Thanks,
+Mark
 
-> +static const struct linux_logo *logo_dt_find(void)
-> +{
-> +	static bool probed;
-> +	struct device_node *np;
-> +	int ret;
-> +
-> +	if (probed)
-> +		return logo_dt_data ? &logo_dt_clut224 : NULL;
-> +
-> +	probed =3D true;
-> +
-> +	np =3D of_get_compatible_child(of_chosen, LOGO_DT_COMPATIBLE);
-
-[Severity: Medium]
-If the device tree lacks a /chosen node, of_chosen will be NULL. In that
-scenario, wouldn't of_get_compatible_child() silently fall back to iterating
-the children of the root node (of_root)? This seems to bypass the strict
-constraint mentioned in the commit message that the node must be located un=
-der
-/chosen.
-
-> +	if (!np)
-> +		return NULL;
-> +
-> +	if (of_device_is_available(np)) {
-> +		ret =3D logo_dt_parse(np);
-> +		if (ret)
-> +			pr_warn("logo: ignoring malformed %pOF node (%d)\n",
-> +				np, ret);
-> +	}
-> +
-> +	of_node_put(np);
-
-[ ... ]
-
-> @@ -32,6 +184,7 @@ static bool logos_freed;
->  static int __init fb_logo_late_init(void)
->  {
->  	logos_freed =3D true;
-> +	logo_dt_free();
-
-[Severity: High]
-Can this introduce a race condition resulting in a NULL pointer dereference
-or use-after-free for framebuffer drivers that use async probing?
-
-fb_logo_late_init() executes as a late_initcall_sync during do_initcalls(),
-which happens before async_synchronize_full() guarantees async probes are
-complete. If an async probe caches the logo pointer via fb_find_logo(), and
-then fb_logo_late_init() frees the memory and clears the pointers, the async
-probe might dereference the freed memory later in fb_show_logo().
-
->  	return 0;
->  }
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
-61-1-maximpedraza@gmail.com?part=3D2
