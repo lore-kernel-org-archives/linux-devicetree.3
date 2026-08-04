@@ -1,118 +1,217 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC63525B30D
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 05:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFA41F8691
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 05:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785819801; cv=none; b=Uc5U8FrRGQfrxPo3Vft20XLirBM2ZdxrRMzCz4mQXVzqyKVZNTxgTr5ts5ZH4cMRLblwMx9jj4PGrXQuN3fAMo8tqTpukBExNMjMwIy0JK9+pD2CJ0doqBo9pMVLUubS2bD4rOYN5cax0sgRJIR81CaGtbK7h/aqxBTrTYZjoT0=
+	t=1785819841; cv=none; b=qZYidaHKa7c9tGdpleH1ZI2If+g5VQZsxK9DU2AqVPdFmjrrVUm8/30OirEsUQonDxnEXlBD+8BNpTO04lGq+rNOQikm7rTwmrGza2uFz/K7+3CyGPjQWz+Wv5cvOjd0CuRTxgLEZLR0+Seq/z2H0ppL8j4wTspd5pIfj9PQnEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785819801; c=relaxed/simple;
-	bh=R2VmxxTs+MpXch2wxSsqwZgW7vlIaZ+bgUcmW+Zx31M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Flb5P7BHZhaRVnGxFmXDarPBIJ9LujtkksFGMeKXocLbu2i1IevJwoOri29VHVs/mvI6ByMil2Ozgc+0dXTGNXSeppiHWascpgHSSzirVL1gPSA/C6ZYNZuopYdW0zkFIr4rKBzilsQH1hOSa5i1L+14VohHfspi2o2W3LN7vpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oT7upiHo; arc=none smtp.client-ip=209.85.215.169
+	s=arc-20240116; t=1785819841; c=relaxed/simple;
+	bh=FSJlrY3I3aNh7f4zmDrsNnt6kg6s2wYYb9KmntktFLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SbNtNO+/GQoHFuphoTkwjwSlfAkOPcwErijyTd30rMX/eVZ4u6sRJ14atKvB7DFRgj64S1FMp3yMD7FPTD+f0SmHIWi+vdeKlnTjx6sJ+rFSGBBSW40Bu5YzLRmJTeSUGjvxlGhzYuhGxTnPIrMJwF2Q3YdyujJyJjmKREJwaco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crj1fG+J; arc=none smtp.client-ip=209.85.218.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oT7upiHo"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbb85186d43so1986420a12.3
-        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 22:03:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crj1fG+J"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c1600d040e4so82579266b.1
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 22:03:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785819799; x=1786424599; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1785819838; x=1786424638; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/8CDi2Jj1vQpqhue3/u9PKS7MdffrHoCAeV6rBW/gOw=;
-        b=oT7upiHoki1v1JkPHHAiIMCNXaXcmMB645Dp5lGcAkq0picQo0HVxlAzL6Re0W+rtj
-         5xwdEwwx4M4MJYWvnruWdyQIks/Bu0qmHCa+PMi/unenKrkZJ/7xsy9StXvqRigxNY4X
-         87Ido1oFpDbtwnojP4NQ4BXaLs1V1Po3sznI6ewsOP4Sbpa2LFaX8r6mQW3sBFBjxAj+
-         I7HZCzWifuBpIZGgzY0u8+VX/sHNLG8deYwmnji3n2diGZSHHcqQtrM6gNS8Yod6SQ4R
-         jfaSlW8727IZ/2DHORjrdD+V65Iw4proAZV8EKsHDWG/J2q7QsuVCwnmiP1cnY1pd+Y6
-         OIWA==
+        bh=m0K5uL+ffxmjOwUEwo70igju+6SeZRlmphKolSxYy0o=;
+        b=crj1fG+J5oDM9i1p4hnCN9tAlKW4Wzr7aa36BqSYBUrbVvnDr0hEQTPkY7KYKjcQSk
+         uSyrLVOjDvoF6tBgydwGHjjANKajC4p/09c1zkcRAnMKVzhp1BQOGFKZxMMjMJjhI2MO
+         5qVbGeBoBoNXx7dfYEcj8NVEikkHcy7/y1UC5SS9jg6f7bfaDfFCr44mJuo1Ix2XFgYx
+         hlHtWWk8TeFUtj83fLgyVQ7HQ3qXYyAeuygzU84vYM2w4jU/TSXQqqrfiC4yxOlzMXh1
+         oXuzoL8d8j2IiGlEBoLvGFfbklhbJwIU4++kgCJlRuaayBCeOUOlzvdiajMV/7K2fIHQ
+         srow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785819799; x=1786424599;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1785819838; x=1786424638;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/8CDi2Jj1vQpqhue3/u9PKS7MdffrHoCAeV6rBW/gOw=;
-        b=dBmxD0qXvxxU1xPXehp1e6qLtnZ/mYUjsY+CLq7kNwgXHD6FhAB0TK55Dj/HnIa+SD
-         12YuCy5m0El6DYNpxpjLYBRXp6bRWyLdO0cSuuKZtFPF9wt9rUr7axI/Xk51YRdmxjDV
-         oFLdiaoSHifpgY9MvvBqz9ztIYEC+2DqiWDBz4xMQTV2nXTuzjVWQ7Yh0dqDD8Iy3u0T
-         XRjFAVuL82fEbfed1An2Wys8IPn4Xdt7NHFYttP8SNJ7+yC3O52xbgcvUL8Lw5l5tOyI
-         vNOxkZwMjafGF/eHOiHS252+c9IPTWL3gxxjod1wG6ZukzLa6iCJK8VgtzHbA9a2AP2c
-         V9CQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrTqSCp+cToT0B94lQ9d6Ku6o3sM6ABh6ZWpqtKGzTCd9h9f4wNiP4lAg0nmEjzf1gITRyRc4EfhxKJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcCHtZyHOkUTiEzbdHHw2CSzSDb2qbAY/3E4+71HiTVN3rnDzI
-	WwLAyPlkukvqLYBHX10VJURa4jZjvTBHLtMrbV070TEQoSdyO7y88mru
-X-Gm-Gg: AR+sD13hbmMaMoyvz+ajdZDxruuepmQwOqiaERiTlXwhnojBSgUv+x4gmpxSD8rWF0w
-	8wquf0XP/Ef1KAWmt9JPE948x5OHGXcZQ6MM4SaMTbWoZuftaS44e1XlpCa0pwY1TAyG25CghBj
-	Kmqf0mqFW/50JO4Cepv2mVE/zmwihnHOqKo7vqPW+eHK7tfms3yQGKuYivEQ+JJndHuF62dI7Nz
-	DuumPXTcBJJrEA5h4PQZXGmJfP1frKTHyoUn8rdvLM9Xy/yQxcAO+h0nr6TKiNGFZWE4NBSqpfO
-	3rbLxaSJxOL9JK6P8L92LV8/k7WfdJiKNDuR1i2OeBnBjfvmopN9Xs6ldF9nd04dZ8lRHVagugT
-	IEVh4rC6sM46EVEKEDkJjJqLMv17ofP4UKTcweMqgrG3C38Zd36j5+K8xqBnGbikl1LIDIi1K0E
-	hoSv5AJ3W6QlAbzcMdyXdNpd81sJVIdVJIImF/4sjjowIFJVM+yvRkY+NSCyVsxH3H3Y/MefD7n
-	K/hULwpfGTamzHOpfYbjvAWKxGy8MLfshguzsqJ
-X-Received: by 2002:a05:6a21:3a96:b0:3b3:1b38:d9d6 with SMTP id adf61e73a8af0-3c92a89da25mr12660784637.39.1785819799052;
-        Mon, 03 Aug 2026 22:03:19 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:d109:cdba:8a20:74ad])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153db2f911sm49653631eec.0.2026.08.03.22.03.17
+        bh=m0K5uL+ffxmjOwUEwo70igju+6SeZRlmphKolSxYy0o=;
+        b=oZK9cwjqBB8UlohNtnUgWZw8xiMtcyIH5lxnroWB65oX5VPsUdCpMrfyM3dkzfIzVi
+         y4EdyQ27d1vO5iRz8xTGU/7DbEe9pySlPhbqwb38Ah/N2uY9+C3LMu9rWDYKVkU2bBNP
+         +vIkyMMMs88dBdo1WH1CgpgJGaIp9P1qwOT/SpN8sF/Kphpmd9IU2h8sF3Kchzcgw0SF
+         I8u2UzhPYwNDCLetyHEbxfgY+CagAa8ylysoo9q57ZUAVNwxReaSRabMsAGfwJ+Uo0NO
+         YlQuUTVeFLyLt388VT9Pq5mPac+tx9ko1uI6ttsc1RGZZiPMoZtbi8qB41Y4sdUbaBB5
+         i1ng==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+Y3JzMS7r4KJkZ5MwpJ40ywI38+Blz52eORf/BZKZR9pHQOVOKxRsccnjnrjgIUCPZhufhEtRGRmr@vger.kernel.org
+X-Gm-Message-State: AOJu0YzYgb1knOtuLFx1BQc+mKZkwBHFhrjn5lfUDrGnxMSRzqekQLfi
+	VnNUNrXHu6USeIgTxxYbeBlavav3/4w9bOj/t8Mfd22pZdZW+5WE2qzaIi1ADp0B
+X-Gm-Gg: AR+sD10Rys4EVSmFSlWKW4j6RGxFRez0y6OTdN97eejTfHTrF0vhDz+UPivsfqrwBYH
+	Hsr9M2ogiNB1sxxw797NL2gp1DsAK01HRFSFpf/ogCxrJAwXG6TG/ri/XUXJLk+XoAcFyDjRO/4
+	FVot0GQss+0q6POjbq0jkyYhaoyXPEAIBVvLIMDkgmBfql+fuIS4B0gYWPhzlEd0ouA3CO1PP67
+	msU1yk2yRWuP7gQL4O829V/DFisaaj1JmR9g+8gK3HKQ3jYepuFB0/2nwCUa1HrrMXg6P1FOl1c
+	w5PGRYL/boW+YdyYF7ZP7jQWlDSUvtINmOEfdaEWd3nwhf5fcu8pB3bno7uRRdSBC6v6nDaRIZ2
+	hn68OwOnQu/a2V8ja2dxMDOBJNwqBhASmFhgjXUwOrGYEmTkAXoPSU9BIJg1kfIrmjOD/PQw5PU
+	jGTiWcnU2nNH728I+T25A/B5Db1XsFB+lvAIPYb5fx0QS4MDLD7Cf29v934mcIsVkkNpasqm8R/
+	xCtl5XxRTD3gGCVXYOjIk/lw3UtrJ/lG2+zmRUAl4UAe/gKwP/+Rk3WlIPx7MCxfh6SlIsoaMmY
+	wkB2ZvSZa90pb3UAasvf5zhCtd4g9+9uauIDiFGcJ2O9Km9PiDgrG+U2bEytmR82BeVgQ1CbBIa
+	DYzW84iMjB78K7olRrL+HozfYideLQpWJQOPaQ43J1i49rw39IIy572WpyymjNDeVhQQu8xrVUW
+	gOOd5HSVgRYAbT8na4/Wk=
+X-Received: by 2002:a17:907:3e07:b0:c12:3cbf:9f6d with SMTP id a640c23a62f3a-c20244fb9a5mr217102666b.1.1785819838130;
+        Mon, 03 Aug 2026 22:03:58 -0700 (PDT)
+Received: from jernej-laptop.localnet (APN-122-65-17-gprs.simobil.net. [46.122.65.17])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd3c90739sm627034766b.14.2026.08.03.22.03.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 22:03:18 -0700 (PDT)
-Date: Mon, 3 Aug 2026 22:03:15 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Marco Felsch <m.felsch@pengutronix.de>, robh@kernel.org, 
-	linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v7 4/4] Input: Add TouchNetix aXiom I2C Touchscreen
- support
-Message-ID: <anFxs8grhvIVSdNA@google.com>
-References: <20260703-v6-10-topic-touchscreen-axiom-v7-0-0d2a550a7ee8@pengutronix.de>
- <20260703-v6-10-topic-touchscreen-axiom-v7-4-0d2a550a7ee8@pengutronix.de>
- <20260702224804.E0B0D1F000E9@smtp.kernel.org>
+        Mon, 03 Aug 2026 22:03:57 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Andre Przywara <andre.przywara@arm.com>,
+ James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ Saravana Kannan <saravanak@kernel.org>, Lee Jones <lee@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, mfd@lists.linux.dev,
+ linux-rockchip@lists.infradead.org
+Subject: Re: [PATCH 00/21] net: phy: add X-Powers AC200/AC300 EPHY support
+Date: Tue, 04 Aug 2026 07:03:49 +0200
+Message-ID: <AGtA6uUwR9yJMX3xYVDz6g@gmail.com>
+In-Reply-To:
+ <CADvTj4qCYjQHOQn1jRTHNNL=xeX6z3Dgc-PLwOBUvX34AU6cuA@mail.gmail.com>
+References:
+ <20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com>
+ <aaec8809-8218-4412-a60d-931406dbf287@arm.com>
+ <CADvTj4qCYjQHOQn1jRTHNNL=xeX6z3Dgc-PLwOBUvX34AU6cuA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260702224804.E0B0D1F000E9@smtp.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Thu, Jul 02, 2026 at 10:48:04PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 18 potential issue(s) to consider:
-> - [High] Missing bounds checking during firmware chunk parsing allows malformed firmware to trigger integer underflow and out-of-bounds memory accesses.
-> - [High] Invalid cast of regmap buffer to u16* causes endian-dependent behavior and corrupts register addresses.
-> - [High] Unbalanced pm_runtime_put in firmware upload cleanup leads to negative PM usage counts.
-> - [High] Firmware-controlled allocation size allows out-of-bounds heap read when checking touch slots.
-> - [High] The driver prevents firmware recovery when the device boots in bootloader mode by improperly failing the probe.
-> - [High] fwupdate_lock is held across system calls violating kernel mutex semantics, and is double-unlocked on error paths.
-> - [High] Improper devm teardown order causes Use-After-Free of the input device by background firmware upload threads.
+Dne ponedeljek, 3. avgust 2026 ob 17:57:15 Srednjeevropski poletni =C4=8Das=
+ je James Hilliard napisal(a):
+> On Mon, Aug 3, 2026 at 7:26=E2=80=AFAM Andre Przywara <andre.przywara@arm=
+=2Ecom> wrote:
+> >
+> > Hi James,
+> >
+> > thanks for sending this to the list, but as Andrew already mentioned:
+> > this is quite a beast, and would need to be broken down.
+> > Jernej and I created some patches just for the AC200 PHY on the H6,
+> > which Jernej recently revived, and IIUC, wanted to send to the list.
+> > This would probably be a more workable route: start easy, then add
+> > support for more SoCs (H616 depends on the WIP PWM driver) and more
+> > variants (AC300) later.
+>=20
+> Well, I wanted to validate that the overall driver design is suitable for
+> the H616 which has to support both PHY variants at runtime effectively
+> since that is the most complex use case, I also don't have a H6 board
+> to test with myself at the moment. I think being able to see a more
+> complete implementation like this is helpful as it can better inform how
+> we can tie the different control interfaces to the link PHY in a way that
+> works for the more complex H616 case.
 
-I am not sure this is true as sysfs attributes should be removed iand
-handlers complete before we get to remove() method. 
+No. AC200 and AC300 are separate chips.
 
-> - [High] Use-after-free of ts->input in the threaded IRQ handler during config firmware updates and device removal.
-> - [High] The driver waits on completion primitives for hardware resets and saves without reinitializing them, causing future waits to falsely succeed immediately.
-> - [High] The driver passes stack-allocated buffers to I2C transfers, which violates DMA requirements and can cause memory corruption.
+Just making some artificial connection in DT, because H616 wafer is once
+copackaged with AC200 die and at other time with AC300 is not correct.
+Let just have bootloader properly identify copackaged chip, enable it
+and be done with it.
 
-This is Sashiko's hallucination.
+I'm working on proper AC200 series as Andre mentioned. I researched all
+functionality because I don't want to miss anything in DT and to have
+good arguments why I did thing the way I did. This series doesn't care
+of anything else than AC200 EPHY, which isn't correct. Some things are
+even not properly modeled and it was already discussed in previous
+reviews. For example, MDIO PHY node should reference both, clock and
+resets.
 
-> - [High] NULL pointer dereference in `axiom_remove_axfw_fwl_action` if `devm_add_action_or_reset` fails.
-> - [Medium] An operator precedence error in subtracting the preamble and postamble causes the calculated report payload length to be artificially inflated.
-> - [Medium] Probe error paths leak PM runtime references and fail to disable regulators.
-> - [Medium] I2C read errors are swallowed and falsely reported as success in polling functions.
-> - [Medium] Missing NULL check on `kasprintf` results in a crash or broken sysfs state when registering the firmware upload interfaces.
-> - [Medium] The driver lacks system sleep power management callbacks, causing the device to remain powered on during system suspend if not acting as a panel follower.
-> - [Medium] Dead code in `axiom_register_input_dev` prevents failing initialization when no touchslots are enabled.
-> - [Low] Typo in the sysfs `device_state` output violates the documented ABI.
-> --
+I plan to post AC200 patches with at least audio codec included,
+alongside EPHY. TVE is also working but it has more open questions, so
+it won't be part of next submission.
 
-However there appears to be quite a few items that need addressing.
+>=20
+> > Which also brings me to some attribution questions: If I understand
+> > correctly, this has been written mostly by some LLM? I think you would
+> > need at least to disclose that, if not even add an official tag?
+>=20
+> Some patches were, sure, my understanding is that it's not required to
+> explicitly call that out but I can add more info if that helps, this was
+> tested/validated using a heavily automated hardware in the loop
+> testbench setup on an AC200 and AC300 variant H616 board.
 
-Thanks.
+Yes, you have to reveal AI involvement.
 
--- 
-Dmitry
+>=20
+> > Also I wonder how this relates to the patches floating around for a
+> > while already: https://github.com/jernejsk/linux-1/commits/ac200-v4.
+> > This branch is relatively new, but the ac200-v3 branch for instance is
+> > much older.
+>=20
+> Yeah, parts of this are loosely based off of some existing patches that
+> were floating around like those, although it has diverged quite a bit as
+> well since this series is designed to handle both phy variants.
+>=20
+> I guess I should link to some of the earlier work in the cover letter?
+
+However, what bother me more, is that obviously a lot of AC200 things
+were copied (even if only by LLM) from my WIP AC200 branch without any
+atribution to either Andre or me.
+
+As Andre mentioned in other response, let do it separately for AC200,
+AC300 and detection between them (best in bootloader).
+
+Best regards,
+Jernej
+
+>=20
+> > On 8/3/26 07:14, James Hilliard wrote:
+> > > The Allwinner H616/H618 secondary EMAC is commonly connected to a Fast
+> > > Ethernet PHY in an X-Powers AC200 or AC300 companion package.  The two
+> > > packages expose the same link PHY ID and largely compatible link-side
+> > > registers, but require different control paths before those registers=
+ can
+> > > be accessed: AC200 is initialized through its I2C MFD, while AC300 us=
+es a
+> > > non-PHY Clause 22 control endpoint.
+> > >
+> > > Some H616-family products were shipped with either package under the =
+same
+> > > board identity.  For those systems, this series uses a SID NVMEM fiel=
+d to
+> > > select the control provider at run time.  With CONFIG_OF_DYNAMIC, the=
+ link
+> > > PHY enables only the selected fail-needs-probe provider, so an AC300 =
+board
+> >
+> > Just to bring that shallow discussion we had on IRC to the list: I
+> > wonder if this is the right solution? Alternatively I was wondering if
+> > just patching the DT in U-Boot would simplify things, and also help
+> > other DT users like *BSD or U-Boot (proper) itself, to not boil the
+> > ocean, but just allowing them to follow a standard DT description.
+>=20
+> This can be used either way, CONFIG_OF_DYNAMIC isn't a hard
+> dependency with this design, aside from adding CONFIG_OF_DYNAMIC
+> support for mdio the dynamic enablement of the correct phy control
+> drivers is relatively simple with this architecture.
+>=20
+
+
+
+
