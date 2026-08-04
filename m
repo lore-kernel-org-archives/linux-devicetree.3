@@ -1,64 +1,64 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68FD496914
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 19:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4A04A2E0F
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 19:29:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785871749; cv=none; b=eYrIllhRMr5zw1VHTnEp9hlJMDikw2iqIqZiqlrPVYBkmLa0zFe7q0X4eIzFWpaY6g7FFHw5+oDrkim280l7M3e/QVKyB+e/QjCEzZ48vVOHrVWa49IzIKIVtvbsZRUyNEJfP3WMompKgmuxVXLBZjk8qDSWt4NMt+l0C88FuUw=
+	t=1785871754; cv=none; b=jKK2OuTjKuxxcuDs2BLddI1XRxIZHVG2S58YzfDzmA5XYtpVG0ZxM4Fruj3W0i489ED23/CcRureV9gnfni3zqcdIs0ICP0fNDKC8j8Hnot+EIi16GYmythA5MfDZop12fNjHgz1D1oXK6Z8FaaX0WoRwFab9BUTKe+EB+Cg038=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785871749; c=relaxed/simple;
-	bh=U2YoNQx/hGloZRC8McPJss1WdTnU2vgI7Fy7zmdhFok=;
+	s=arc-20240116; t=1785871754; c=relaxed/simple;
+	bh=ihfieZOmGRUlg9L0kPunx38Slio+02jdZ49LHDO693Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BzIQMv2dMpt2dmpWyUJ67ca4hY6ah+PBtufVdH5Vbwi4PJy5/6s9z2PYKg/pajhMknmTtWR2Ctts6sEIHHKiD3EtQWZDuihs72UXdX+2cMAROvU08mdxSm/wPgD2vizf6QYDYaMmydSLsO+N06oMgQPl+gj2q8QEKwTW2wPfr2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=itB1cmNa; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=IrPNp3duNMBHCRtpddtnqMkPNRUUZ+HyVZCpY3MB8apdh2Bu4YV9PBTtdF0i92O9WcwkTDTJbgDH1HgD9d4NvOtzUhNJ2dkZyKbHONKNT9EGbgkDxYXc8X3F8rDNbD2rsRk/lx9jkfkM7zf4yDQbz2WIyWebGMgAyO8WuMrHM6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JOqPUJfd; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="itB1cmNa"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4957eefd361so1226425e9.1
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 12:29:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JOqPUJfd"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49553515a8bso2222055e9.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 12:29:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785871743; x=1786476543; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785871745; x=1786476545; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=L/Qd/2tRCLWffwMQFEM05180CiTbv4f9HSRyN2+W50k=;
-        b=itB1cmNak3ayfAEubxJt8+o0mzp2yW8ZrJPi1XzprmpvZL85zQDYXOx+O4/CWrsf+r
-         /62MJjT+FPcRWIjiRXJcnPoqAxr8FELx05VzepAbL+WiUfYkLcRzTN7D1IebQ98Ew+Kd
-         exhy6rD0cAtzqILnMhCjrdP+C/5Qwdv0AuUUUy3jDi3PqJpKhUxKLSdOEW2dNyx8x216
-         n+/KU2sb21fCGKBrBNKTubVtwst+KML9ZAmthljTgX2ftHLv794vEeNwVH4xA7rM3vcK
-         uiOaPRx4wenaA95EnmIblzPKQaDfKG+BZSUSDpeut7qF4PCfzULanMbQrH+af5/21K1e
-         6/Cw==
+        bh=EsUmxdiO7N7txn+9Zra2ZwFC2m1JBFv1qJhgneFjwTc=;
+        b=JOqPUJfdUO3xbpmDCwsMNwOKn1JK2Gr4oB0BzIy3LD+M+d1U3ICnR8X1An7oBUa6Z8
+         b9E+czlujj/Bon1i9w/aW7rS04vdSarCtbwfWKPc9uStvjB1lcllueyaO5Yqg7xuMMso
+         N1Eb4cyjumxieSuZQ+YawDP9HZF777x4eMKrRRS2LTct7pjBIZ2tUdbihvPv2QB71uNk
+         w2Yq1BD+w/f9uSJba6dby4OR0UTVtf5oZcpIAYXiJIUVDjPFKEMw47HB144fnGAwbO+1
+         osZ2OL2BuiNnMzJ+WrCw9HbE+of9laNT60uyjfT3SvfRN8ue65jySxHeRHmm2hNPgl2G
+         C3Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785871743; x=1786476543;
+        d=1e100.net; s=20251104; t=1785871745; x=1786476545;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L/Qd/2tRCLWffwMQFEM05180CiTbv4f9HSRyN2+W50k=;
-        b=ZKoSLlgAiaNrmw4VNCg36y35WJD15ad6xR0Dr4QSj9WO5hWbgxRswQLNCKRCHQqMft
-         9KpeBZkDrMJS3Wn5IRuLbTeWttgChkrz3zznd06I8xf5HLA4ua22itgPxZliS4W6HSYI
-         Qu1vvkrFXSbvFLY2MyLPyZNFYypgys+cr0mFt0OpAyRYD8JNkVVWNmQ+tpO6fA0zDyXp
-         PX1NGRrAeNnj2Jxqvm3BsngkKSd8mQgeLHBXQJmtxgodN4Gg2qPNGKfF/i3PfFMiAo9e
-         /qjiJ2K5Wa6zDpuRFGX8Ou8/Ubo2qjiIt3o0Mm37YTIKV3wJmC6hCtmpkERbqtPx0l8y
-         0X/w==
-X-Forwarded-Encrypted: i=1; AHgh+RoruwI1tMxvwHY64RZFLezMSxESrQGJY4RVsbw60Ilke4lbWZa04sTqjJBaZoVWAWS+NY4JebIN2pJu@vger.kernel.org
-X-Gm-Message-State: AOJu0YzLckpnknP9HC24CLrmYIOi2gIfAc7m83ffMXfKKeExt3qvpXKY
-	ygZOsm3ZQXyyYLNwnNCYwb4LTx5FdzbWDJCzhmWjPBe7jVh8XbTMTdrl
-X-Gm-Gg: AR+sD11PdPzDfx0DC8T8uwB6w+9/T6LyWUZiQoWZksxGtVAerX/YQqd8iaZlOdOtZBl
-	1vJD/0KRMEiZ9I8GyKJNh8cKsa5ekVYaSEWOeT85FCPE5AsZgDnK8S8nPlbzO4pc8CuNJOWebCX
-	Ww5MZXj35kMTj0wOL4W0Wf+ebIkDNqjizy24DVzYru1Lwc9NLHqcaFLrssDt/722wU6cdxoSKTL
-	LWRRchF8TvHJbXDsrNvyUMHLlw6aqZMQQ+kNaxCH8JFpVeQEn8P92v6RyYwt7jDBIrHPBcLiMLp
-	lN4d7cQFu49kaoFD/ivNXAogigicAmLL1+dnBf93LyVrKxBFFR2I4gUSIWq+5RyXxk7TMMjaZ4G
-	o92np3lznQMI7kSpV/XFzWYwuOG5XuTRUffpb72ZfnlmpyoVkGqJnP8e0YmvKdUk5gzP6xlVIok
-	/PuOfBu+cBHUuGF2972wpIh1Q+BsVKp/PFxNuUcW44Pt8dsQEqTFtNdWm/497FdLADhh3lVF/9s
-	TgzScFB3WND6q6zLUALM2w=
-X-Received: by 2002:a05:600c:1d1f:b0:496:c9cd:e7ab with SMTP id 5b1f17b1804b1-4994e71d2acmr7600625e9.5.1785871742982;
-        Tue, 04 Aug 2026 12:29:02 -0700 (PDT)
+        bh=EsUmxdiO7N7txn+9Zra2ZwFC2m1JBFv1qJhgneFjwTc=;
+        b=dUWxJx8S4AoEALx8UBu5nrWXfCXMaeczMoacWEQLt/q0iiRp3u96zzLfgNzro+llYP
+         DM1L4TuSuGfQA0gHw0omLEBK32PJD1xV79a471L8Y6YZr0umDc+4fryq5+lIi0jgDanu
+         BMRVwB8Q+8FugPUNhqWBbRbp8RHjdY/mIpCtDiM6RfR7GxdHMzg5DdfK2/FPYyag5Xnn
+         xqqcukgFS+EwCBWFDJrnI8H0do5Tbd8KFzMcHusK2bWsJzido/rk8ZIzd7y2dLcJgLR8
+         omAAwJhaR8KlRe0H6jak0i4uS3BkZGGy0yZUDVqBrjQhGcv1ewj/AqQGEIENLhh6o8oh
+         AQgg==
+X-Forwarded-Encrypted: i=1; AHgh+RodQQsXzRKkdAQN8nt5F9Q0b2tQ4GNZmwvKoXDtOLsu+erGb1PnVIOJiyRnK3G3x6iaqz72xT6BlMD/@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxffjYPi2sj0ggHltBfUYdYhD1LjAzOpdTfn4D+qXFwZ/0XDPY
+	i/49UBC4A+sq4n7ssghO7mEADLwHz2h0RPUd8zFszn+6wOLNA28HS/iG
+X-Gm-Gg: AR+sD11/3T1VzC/ZDvU1HUHS+zRjqnNdXhwZK9auY94rfuGLjexak0ACECWfwNmuLvZ
+	Jk5QVdk1ExID7ORX6/KDWkvC2D6pplF7OV8So+AiOuOIpUAamt+c8OEczK/uOsTZJsftAc5Dzxc
+	9sx2lGSphx5QFKuxn2XGxSjAvbsQU8xVF+n962WtBbSUTet0b4clRJyGmt63PB7Av9HRjhpRufz
+	I4L/VuAUKBqD86b0o9K6G+2ncfX5XcA5RRiO3eOoag54dj6C8upAGiRz87NILc6FWBWRa2BEWmh
+	Lt8Juj0Y+WnZnv3mRM6AEzZ2gyhlUpk7h+KNGkKmt8mBdac+ub5I7efyu9Y9jAnI2UjTHinioJs
+	Fqx1AvL6h6sh1O/7EQU3uLQfmjRFZMJaiwwaSPzeGXOcI/V5iO2epEuluZRJONh9fnK9aEpVc5o
+	0KDC7T5v+PaVc14yvO7sJmdKSeJuCxcDGqSJoMItT2sC5DUcBuycvD2eOL7QDa+Tmu4OBhyiGca
+	wWB8QmT4+p8ck/NjYLRCpQ=
+X-Received: by 2002:a7b:cc97:0:b0:492:6447:7a7f with SMTP id 5b1f17b1804b1-4994e7a7f1fmr5617565e9.6.1785871745299;
+        Tue, 04 Aug 2026 12:29:05 -0700 (PDT)
 Received: from MSI-LINUX.kielce.vectranet.pl ([2a02:2a40:27ec:2900:68f0:30cb:8ca1:f965])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994e4bf820sm8248745e9.0.2026.08.04.12.28.59
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994e4bf820sm8248745e9.0.2026.08.04.12.29.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 12:29:02 -0700 (PDT)
+        Tue, 04 Aug 2026 12:29:04 -0700 (PDT)
 From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
 To: linux-iio@vger.kernel.org
 Cc: jic23@kernel.org,
@@ -80,11 +80,10 @@ Cc: jic23@kernel.org,
 	wens@kernel.org,
 	sakari.ailus@linux.intel.com,
 	linusw@kernel.org,
-	Jakub Szczudlo <jakubszczudlo40@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v9 2/3] dt-bindings: iio: adc: ti,ads1100: add support for ADS1110
-Date: Tue,  4 Aug 2026 21:28:39 +0200
-Message-ID: <20260804192840.29121-3-jakubszczudlo40@gmail.com>
+	Jakub Szczudlo <jakubszczudlo40@gmail.com>
+Subject: [PATCH v9 3/3] iio: adc: ti-ads1100: Add ti-ads1110 support to  ti-ads1100 driver
+Date: Tue,  4 Aug 2026 21:28:40 +0200
+Message-ID: <20260804192840.29121-4-jakubszczudlo40@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260804192840.29121-1-jakubszczudlo40@gmail.com>
 References: <20260804192840.29121-1-jakubszczudlo40@gmail.com>
@@ -96,47 +95,236 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Register layouts are the same as for ADS1100 but ADS1110 have different
-data rates and have internal voltage reference that is always 2.048V.
-Also correct order of ads so they will be sorted alphabetically.
+Add ADS1110 support that have faster datarate than ADS1100, it also uses
+internal voltage reference of 2.048V for measurement.
 
 Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../devicetree/bindings/iio/adc/ti,ads1100.yaml        | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/iio/adc/Kconfig      |  9 ++--
+ drivers/iio/adc/ti-ads1100.c | 85 ++++++++++++++++++++++++++----------
+ 2 files changed, 69 insertions(+), 25 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
-index 970ccab15e1e..28c5e2dd0ad6 100644
---- a/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1100.yaml
-@@ -4,19 +4,23 @@
- $id: http://devicetree.org/schemas/iio/adc/ti,ads1100.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+index 3755a81c1efd..49a9ac3bf43d 100644
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
+@@ -1768,11 +1768,14 @@ config TI_ADS1018
+          called ti-ads1018.
  
--title: TI ADS1100/ADS1000 single channel I2C analog to digital converter
-+title: TI ADS1100 and similar single channel I2C Analog to Digital Converters
+ config TI_ADS1100
+-	tristate "Texas Instruments ADS1100 and ADS1000 ADC"
++	tristate "Texas Instruments ADS1100 and similar single channel I2C ADC"
+ 	depends on I2C
+ 	help
+-	  If you say yes here you get support for Texas Instruments ADS1100 and
+-	  ADS1000 ADC chips.
++	  If you say yes here you get support for TI single channel I2C Analog
++	  Devices.
++	  * ADS1000 12-Bit, 128 SPS Analog-to-Digital Converter
++	  * ADS1100 16-Bit, 128 SPS Analog-to-Digital Converter
++	  * ADS1110 16-Bit, 240 SPS Analog-to-Digital Converter
  
- maintainers:
-   - Mike Looijmans <mike.looijmans@topic.nl>
+ 	  This driver can also be built as a module. If so, the module will be
+ 	  called ti-ads1100.
+diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+index 288d209ecf92..acbf9b96c545 100644
+--- a/drivers/iio/adc/ti-ads1100.c
++++ b/drivers/iio/adc/ti-ads1100.c
+@@ -5,7 +5,7 @@
+  * Copyright (c) 2023, Topic Embedded Products
+  *
+  * Datasheet: https://www.ti.com/lit/gpn/ads1100
+- * IIO driver for ADS1100 and ADS1000 ADC 16-bit I2C
++ * IIO driver for ADS1100 and similar single channel ADC 16-bit I2C
+  */
  
- description: |
--  Datasheet at: https://www.ti.com/lit/gpn/ads1100
-+  Datasheets:
-+    - https://www.ti.com/lit/gpn/ads1000
-+    - https://www.ti.com/lit/gpn/ads1100
-+    - https://www.ti.com/lit/gpn/ads1110
+ #include <linux/bitfield.h>
+@@ -41,20 +41,44 @@
+ #define	ADS1100_SINGLESHOT	ADS1100_CFG_SC
  
- properties:
-   compatible:
-     enum:
--      - ti,ads1100
-       - ti,ads1000
-+      - ti,ads1100
-+      - ti,ads1110
+ #define ADS1100_SLEEP_DELAY_MS	2000
++#define ADS1110_INTERNAL_REF_mV 2048
  
-   reg:
-     maxItems: 1
+ static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
++static const int ads1110_data_rate[] = { 240, 60, 30, 15 };
+ static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
+ 
+ /* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
+ #define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
+ 
++struct ads1100_config {
++	const char *name;
++	const int *available_data_rate_hz;
++	const int data_rate_count;
++	bool has_internal_vref_only;
++};
++
++static const struct ads1100_config ads1100_config = {
++	.name = "ads1100",
++	.available_data_rate_hz = ads1100_data_rate,
++	.data_rate_count = ARRAY_SIZE(ads1100_data_rate),
++	.has_internal_vref_only = false,
++};
++
++static const struct ads1100_config ads1110_config = {
++	.name = "ads1110",
++	.available_data_rate_hz = ads1110_data_rate,
++	.data_rate_count = ARRAY_SIZE(ads1110_data_rate),
++	.has_internal_vref_only = true,
++};
++
+ struct ads1100_data {
+ 	struct i2c_client *client;
+ 	struct regulator *reg_vdd;
+ 	struct mutex lock;
+ 	int scale_avail[2 * 4]; /* 4 gain settings */
++	const struct ads1100_config *chip_info;
+ 	u8 config;
+-	bool supports_data_rate; /* Only the ADS1100 can select the rate */
++	bool supports_data_rate;
+ };
+ 
+ static const struct iio_chan_spec ads1100_channel = {
+@@ -90,6 +114,20 @@ static int ads1100_set_config_bits(struct ads1100_data *data, u8 mask, u8 value)
+ 	return 0;
+ };
+ 
++static int ads1100_get_vref_millivolts(struct ads1100_data *data)
++{
++	int voltage_uV;
++
++	if (data->chip_info->has_internal_vref_only)
++		return ADS1110_INTERNAL_REF_mV;
++
++	voltage_uV = regulator_get_voltage(data->reg_vdd);
++	if (voltage_uV < 0)
++		return voltage_uV;
++
++	return voltage_uV / (MICRO / MILLI);
++}
++
+ static int ads1100_data_bits(struct ads1100_data *data)
+ {
+ 	return ads1100_data_rate_bits[FIELD_GET(ADS1100_DR_MASK, data->config)];
+@@ -145,7 +183,7 @@ static int ads1100_conversion_busy(struct ads1100_data *data)
+ static int ads1100_wait_single_conversion(struct ads1100_data *data)
+ {
+ 	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
+-	int data_rate_Hz = ads1100_data_rate[data_rate_index];
++	int data_rate_Hz = data->chip_info->available_data_rate_hz[data_rate_index];
+ 	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
+ 	int busy;
+ 	int ret;
+@@ -222,7 +260,7 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 	if (ret)
+ 		return ret;
+ 
+-	microvolts = regulator_get_voltage(data->reg_vdd);
++	microvolts = ads1100_get_vref_millivolts(data) * (MICRO / MILLI);
+ 	/*
+ 	 * val2 is in 'micro' units, n = val2 / 1000000
+ 	 * result must be millivolts, d = microvolts / 1000
+@@ -245,9 +283,9 @@ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
+ 	unsigned int size;
+ 	int ret;
+ 
+-	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
++	size = data->supports_data_rate ? data->chip_info->data_rate_count : 1;
+ 	for (i = 0; i < size; i++) {
+-		if (ads1100_data_rate[i] == rate)
++		if (data->chip_info->available_data_rate_hz[i] == rate)
+ 			break;
+ 	}
+ 
+@@ -267,14 +305,9 @@ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
+ 	return ads1100_poll_data_ready(data);
+ }
+ 
+-static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
+-{
+-	return regulator_get_voltage(data->reg_vdd) / (MICRO / MILLI);
+-}
+-
+ static void ads1100_calc_scale_avail(struct ads1100_data *data)
+ {
+-	int millivolts = ads1100_get_vdd_millivolts(data);
++	int millivolts = ads1100_get_vref_millivolts(data);
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(data->scale_avail) / 2; i++) {
+@@ -296,9 +329,9 @@ static int ads1100_read_avail(struct iio_dev *indio_dev,
+ 	switch (mask) {
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+ 		*type = IIO_VAL_INT;
+-		*vals = ads1100_data_rate;
++		*vals = data->chip_info->available_data_rate_hz;
+ 		if (data->supports_data_rate)
+-			*length = ARRAY_SIZE(ads1100_data_rate);
++			*length = data->chip_info->data_rate_count;
+ 		else
+ 			*length = 1;
+ 		return IIO_AVAIL_LIST;
+@@ -318,6 +351,7 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
+ {
+ 	int ret;
+ 	struct ads1100_data *data = iio_priv(indio_dev);
++	int data_rate_index;
+ 
+ 	guard(mutex)(&data->lock);
+ 	switch (mask) {
+@@ -333,12 +367,12 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
+ 		return IIO_VAL_INT;
+ 	case IIO_CHAN_INFO_SCALE:
+ 		/* full-scale is the supply voltage in millivolts */
+-		*val = ads1100_get_vdd_millivolts(data);
++		*val = ads1100_get_vref_millivolts(data);
+ 		*val2 = 15 + FIELD_GET(ADS1100_PGA_MASK, data->config);
+ 		return IIO_VAL_FRACTIONAL_LOG2;
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+-		*val = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK,
+-						   data->config)];
++		data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
++		*val = data->chip_info->available_data_rate_hz[data_rate_index];
+ 		return IIO_VAL_INT;
+ 	default:
+ 		return -EINVAL;
+@@ -418,7 +452,12 @@ static int ads1100_probe(struct i2c_client *client)
+ 	data->client = client;
+ 	mutex_init(&data->lock);
+ 
+-	indio_dev->name = "ads1100";
++	data->chip_info = i2c_get_match_data(client);
++	if (!data->chip_info)
++		return dev_err_probe(dev, -ENODATA,
++				     "Can't get device data from firmware\n");
++
++	indio_dev->name = data->chip_info->name;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 	indio_dev->channels = &ads1100_channel;
+ 	indio_dev->num_channels = 1;
+@@ -500,16 +539,18 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ads1100_pm_ops,
+ 				 NULL);
+ 
+ static const struct i2c_device_id ads1100_id[] = {
+-	{ .name = "ads1100" },
+-	{ .name = "ads1000" },
++	{ .name = "ads1000", .driver_data = (kernel_ulong_t)&ads1100_config },
++	{ .name = "ads1100", .driver_data = (kernel_ulong_t)&ads1100_config },
++	{ .name = "ads1110", .driver_data = (kernel_ulong_t)&ads1110_config },
+ 	{ }
+ };
+ 
+ MODULE_DEVICE_TABLE(i2c, ads1100_id);
+ 
+ static const struct of_device_id ads1100_of_match[] = {
+-	{.compatible = "ti,ads1100" },
+-	{.compatible = "ti,ads1000" },
++	{ .compatible = "ti,ads1000", .data = &ads1100_config },
++	{ .compatible = "ti,ads1100", .data = &ads1100_config },
++	{ .compatible = "ti,ads1110", .data = &ads1110_config },
+ 	{ }
+ };
+ 
 -- 
 2.47.3
 
