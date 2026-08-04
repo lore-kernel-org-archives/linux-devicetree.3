@@ -1,24 +1,24 @@
-Received: from mail-m15578.qiye.163.com (mail-m15578.qiye.163.com [101.71.155.78])
+Received: from mail-m49205.qiye.163.com (mail-m49205.qiye.163.com [45.254.49.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9194841D63F;
-	Tue,  4 Aug 2026 08:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09654439F9E;
+	Tue,  4 Aug 2026 08:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785831776; cv=none; b=Saw1bFnZfEja9Fshmifur9vGVmC1EMWdaKlqYB2lcXX6GcrUq6ehmB8d2erRt25i5CtxZ7NTHSmk6TrG2CsM3j1SjFNcznZfIUEbGC8W3gQAmEbeatTshKcJkSdNAIZxKUHuyzDIT6BybJd7HSgY5R6d0ba7TjrSUcsTsJGHBSk=
+	t=1785831783; cv=none; b=HaPLWRrP/77DNLcRqKia3MOx7MlkFSbjSR4poMgFRub8hNjkhsLI8PY1/WqWOItjbuydnXd96DR63Rd4RDkF0cD0XzN1aTbTMmtUGABCr9RTHq+h929g9ApJWb00J3KMQZtwy42FjJ1X2igjZxXD6ce1W6urC8GVEzvEuu5nARE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785831776; c=relaxed/simple;
-	bh=+nriaTfGRGUuZolbvnrRUjWspWpQjWzPm0NAqhIjzyM=;
+	s=arc-20240116; t=1785831783; c=relaxed/simple;
+	bh=4utsPspCznIst6RwhQpK8VJpuzAjSNRRAyrAu1lTS5s=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VCgZf6rCmUkOW6yq/dwJcf+A8kCF0DY6sD3dDzUYeiJ2ZdfBoiewQXVbOUDVyCyZ7XKn3AqaiFKGiSUHnWMNlzSz94cfsz5F2TNzoT0csXPjBFlyOO0SVvMqzJGaBrGK8JX2DbcudXJQsbaB/cm/7qiq991hn1xkxVKiJJVbh50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=QCGabk+Q; arc=none smtp.client-ip=101.71.155.78
+	 MIME-Version; b=LlPdgGGdpN7Li/dJgJ4oYHvTXYK101teEERdj8seeXhp2PFVWkA+FVlAkNXTrgNvBseQlt8vVKnCjs68PeP9Mmz6/7ciT6SjY06NA+TyqTM1Cj1Ru31vUlFu6Fjrw3vIzU0LmOPmdAGJAlt+OStm4ntZQc7qW/sK125Dv+GAgDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=RoKQnGWY; arc=none smtp.client-ip=45.254.49.205
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="QCGabk+Q"
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="RoKQnGWY"
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 48b4fff07;
-	Tue, 4 Aug 2026 16:17:32 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 48b4fff21;
+	Tue, 4 Aug 2026 16:17:34 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
 	Neil Armstrong <neil.armstrong@linaro.org>,
@@ -43,9 +43,9 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
 	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v2 07/10] drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
-Date: Tue,  4 Aug 2026 16:17:14 +0800
-Message-Id: <20260804081717.741404-8-damon.ding@rock-chips.com>
+Subject: [PATCH v2 09/10] drm/bridge: analogix_dp: Restrict forced connected status only for panel endpoint
+Date: Tue,  4 Aug 2026 16:17:16 +0800
+Message-Id: <20260804081717.741404-10-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260804081717.741404-1-damon.ding@rock-chips.com>
 References: <20260804081717.741404-1-damon.ding@rock-chips.com>
@@ -56,106 +56,95 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fcbd96e8e03a8kunma7b8cbe762b0ca
+X-HM-Tid: 0a9fcbd9777003a8kunma7b8cbe762b0ed
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQh5LVkgeGUxPT0pOGB5JSFYVFA
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQh4eVkJIQx5LSEIZSkkaQlYVFA
 	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
 	pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=QCGabk+QwK5jAbSPr+yb8oB5ATcsAXCcuXxAghMo/OPvYwFSsoiw7Y9nekmGfrHRaxH1Lj+a6W17xjpZZj7jVMwmE6xKRAtk9Sa4JiJcSFhdG5IMeRmekQeI3a4vZcJO05lL56y4QdKn4fDe9V7WHONmlJ2AJ8OSMPlBPWcuWkc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=VqqntTbLfre8Aozfj6SrJo9fJCRw3SHt2DOPzo6lH78=;
+	b=RoKQnGWYAYRI7Qa3lvdPLalCuoRZUR+wcRtqd5S/f6K2s5PC8vLunb1kwJ2FtSXrOKj+EjsbMUpc4rPNa7/jF6u0e2FWxLzMut6IPJfCzd8Pe77wh/8rQUm0TUcIT8/l6fGkIfjWfxuH1pVFAv3CiSMUrqdCxJRBYxp0qEbz6CU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=++hasEF6aBrRfCl+8wlVRjHt23leSsAweKpeIh4oR8k=;
 	h=date:mime-version:subject:message-id:from;
 
-Hotplug detection can be implemented either via HOTPLUG_CHG interrupt,
-or the combination of PLUG and HPD_LOST interrupts.
+Limit the shortcut which unconditionally returns connected status when
+a next bridge exists. Only apply this logic if the last bridge in the
+chain is a panel. For all other cases, rely on analogix_dp_detect_hpd()
+to report accurate hotplug state.
 
-For Rockchip platforms, configure HPD deglitch to 2ms and rely on
-HOTPLUG_CHG interrupt for hotplug events, which is verified as the
-optimal solution through engineering tests. Other platforms continue
-using PLUG + HPD_LOST pair.
+Background for the special handling:
+- If the chain ends with a DP connector bridge, the connector relies
+on analogix_dp to perform detection. We must avoid hardcoding connected
+status here.
+- For intermediate bridges such as PS8625 / PTN3460 without detect
+support [1], historically the bridge connector defaults to connected
+via drm_helper_probe_detect() when no per-bridge detect callback
+exists. Maintain compatibility by keeping the shortcut exclusively for
+panel endpoints.
 
-Adjust analogix_dp_config_interrupt() to apply platform-specific
-interrupt masking and deglitch settings. Update threaded irq handler
-to check corresponding interrupt flags according to platform type.
+[1] https://lore.kernel.org/all/4939d55e-b560-4235-8295-adf8e48d9b74@samsung.com/
 
+Reported-by: Heiko Stuebner <heiko@sntech.de>
+Link: https://lore.kernel.org/all/5209243.oAaWjsssbx@diego/
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
 ---
-
-Changes in v2:
-- Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
-  analogix_dp_reset().
----
- .../drm/bridge/analogix/analogix_dp_core.c    |  9 ++++++--
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 22 ++++++++++++++++---
- 2 files changed, 26 insertions(+), 5 deletions(-)
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c   | 16 ++++++++++++++--
+ .../gpu/drm/bridge/analogix/analogix_dp_core.h   |  1 +
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 603abd940a7c..d207cc864bdc 100644
+index f05db455b430..a5a50b9ab8a7 100644
 --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -717,13 +717,18 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- {
- 	struct analogix_dp_device *dp = arg;
- 	u32 irq_type;
-+	bool hpd_detected;
+@@ -906,8 +906,15 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
+ 	struct analogix_dp_device *dp = to_dp(bridge);
+ 	enum drm_connector_status status = connector_status_disconnected;
  
- 	irq_type = analogix_dp_get_irq_type(dp);
- 	if (irq_type)
- 		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
- 
--	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
--	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
-+	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-+		hpd_detected = irq_type & DP_IRQ_TYPE_HP_CHANGE;
-+	else
-+		hpd_detected = (irq_type & DP_IRQ_TYPE_HP_CABLE_IN) ||
-+			       (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT);
-+	if (hpd_detected) {
- 		dev_dbg(dp->dev, "Detected cable status changed!\n");
- 		if (dp->drm_dev)
- 			drm_helper_hpd_irq_event(dp->drm_dev);
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 42463e18f392..fa8e2f104d6c 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -149,8 +149,13 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
- 	writel(0x0, dp->reg_base + ANALOGIX_DP_PKT_SEND_CTL);
- 	writel(0x0, dp->reg_base + ANALOGIX_DP_HDCP_CTL);
- 
--	writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
--	writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-+	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
-+		writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-+		writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-+	} else {
-+		writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-+		writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-+	}
- 
- 	writel(0x10, dp->reg_base + ANALOGIX_DP_LINK_DEBUG_CTL);
- 
-@@ -177,7 +182,18 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
- 
--	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
+-	if (dp->plat_data->next_bridge)
+-		return connector_status_connected;
 +	/*
-+	 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
-+	 * pair can be used to implement hotplug detection.
-+	 *
-+	 * On Rockchip platforms, configuring HPD deglitch to 2ms and
-+	 * using HOTPLUG_CHG interrupt for hotplug detection is proven
-+	 * as a better solution via engineering verification.
++	 * Only assume connected when the bridge chain ends with a panel.
++	 * Panel bridges lack a detect callback and historically rely on
++	 * this shortcut. For other next bridge types (e.g., DP connector
++	 * bridges), fall through to analogix_dp_detect_hpd() to report
++	 * accurate hotplug state.
 +	 */
-+	if (analogix_dp_is_rockchip(dp->plat_data->dev_type))
-+		analogix_dp_unmute_hpd_interrupt(dp, DP_IRQ_TYPE_HP_CHANGE);
-+	else
-+		analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
- }
++	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
++		status = connector_status_connected;
  
- void analogix_dp_mute_hpd_interrupt(struct analogix_dp_device *dp, u32 irq_type)
+ 	if (!analogix_dp_detect_hpd(dp))
+ 		status = connector_status_connected;
+@@ -920,6 +927,7 @@ static int analogix_dp_bridge_attach(struct drm_bridge *bridge,
+ 				     enum drm_bridge_attach_flags flags)
+ {
+ 	struct analogix_dp_device *dp = to_dp(bridge);
++	struct drm_bridge *last_bridge;
+ 	int ret = 0;
+ 
+ 	if (!(flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)) {
+@@ -934,6 +942,10 @@ static int analogix_dp_bridge_attach(struct drm_bridge *bridge,
+ 			dev_err(dp->dev, "failed to attach following panel or bridge (%d)\n", ret);
+ 			return ret;
+ 		}
++
++		last_bridge = drm_bridge_chain_get_last_bridge(dp->encoder);
++		if (drm_bridge_is_panel(last_bridge))
++			dp->last_bridge_is_panel = true;
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index 2066e575ce10..bcb5674801a2 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -168,6 +168,7 @@ struct analogix_dp_device {
+ 	bool			force_hpd;
+ 	bool			fast_train_enable;
+ 	bool			psr_supported;
++	bool			last_bridge_is_panel;
+ 
+ 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+ 
 -- 
 2.34.1
 
