@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8505C38E8DC
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D9748423D
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:20:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785864008; cv=none; b=OVt5WZNTvVWgbakBFOqp8F9IsXU46AmlUTb/fiTTqLdSu6y+JrNhdWif3hz8U/51KbA8tyFYhZHnoitCLLoJyTpQfGCLqP3nwVWqM4iVs8cfxDM9X5A33Pi9lRhh4II6I/ERgDHGA/ejxCYija4HRAoXFZVUK3EdtrdOaUsHuHc=
+	t=1785864010; cv=none; b=QgdlmKhU8iRraZ40DyAooFS5HXPpvHOSmcvJDpjF7IxDXlq/idT93iayQPLVwqjklz2kIkZgBCaBkMApxG97bSaPAKNU0pVc8taylhAUK9KTtrYcgLHkxZ+3l9yzECdMO98k3MV7qOxkjij7iCqww4A+sMsUexo1+bfFGORjLoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785864008; c=relaxed/simple;
-	bh=057EjBptM9IyUnQ+zRIp6TPYMUIjL/6I0cb59yMk0oU=;
+	s=arc-20240116; t=1785864010; c=relaxed/simple;
+	bh=ChuO1LQyP6Hqw42Vb7Br/6MZFu9dL9yYWkZm/qIDJdo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Nf2FrK1FC2bL5oO0KWJWOAlOx0YFJ81xhcya9IbRbgjAvffqDFo6wuerBKdpXyDh5Vj/6HngtbowCEBMIdLUU+Fa49jsZ+lDOkUT4sle25fYbfycUMpCEnrxXPlId46xlx0t5Xwe5N/sJS1vwFz31x8dBbAgevUKt0TK1VWNoDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cgqq5Av5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=n1mungd0/8J9jBPASSmQcWEDVvOXjy4/pm5Hwk4v/B7P/xDFhdH4oQGxo4XGM7N6ISUZKPxdQHws6FoRqwFFVwXZYwZxlByel7ijaiXx6wl3pNPZ/Psv4HvoryqYjunrREVb7fOVJxY2Pp/qaTnAGjSmupsBta053Bmh3a3dqg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HZCBu0Sf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cgqq5Av5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F241F000E9;
-	Tue,  4 Aug 2026 17:19:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HZCBu0Sf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95151F00A3D;
+	Tue,  4 Aug 2026 17:19:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785863998;
-	bh=77gEe8ycNhbQpKUDBW4nmO8Bjr8jXzTE6ee0hN2jS6s=;
+	s=k20260515; t=1785864000;
+	bh=P4BEtav6qtVHD/4Pcyj298li0u6hli5vclNgO1DC8Zo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Cgqq5Av5tp72pZiRlDbW2uDZoPZsZMnQtArqDqqSzWmwTZBUnOS77xFhiwNCNUiHN
-	 E16tZDNkzHvGhtZtXXezDEuUkk3/Uno7HtHfHeiC/YltSiFRgslo6PshuW8QfK5kMM
-	 ooXqBnELakM0tlbiUeHAdF2ZmXG716bQsm+XwTlk/mPPpueJ5nfQxLpHKPgCr4M90H
-	 mPJNAYdUyqBoPfE/hSMGClA+kWGwAnSfnZFQUcFLrGhGt9Jl4s1QyXRXvsQh9C2gN3
-	 6ux7uejjRMvMLIyXIPYa42OCmt/nGABp1NsZqm85IwGo9f8tDMPw2rdWk0q2vno2nP
-	 LpPUc8MOflncA==
+	b=HZCBu0Sft6TEA5hDsMfKTl8+ITyf0yY3RKt+BQfvcJhIa3M8AmMUm5zVRgTLsr5pv
+	 kF5Q0OIaaWG5aOFcqTqUmfZFvDGyBhKWZ8iTBwLVQY6uocq14TwLVyE/hZQ0fTZYeo
+	 1brueMioMT8PR+3UqQZ2r1mEP8drXHOhdSfEi09Up0gxZ2rKDEoEaKeEBxWLzkRI6o
+	 ME06yoP/ZE/3/1qpxKntZ7rNRF0b4NHmOynfQReYoddz96atXxYNc9qr1ObtUgJ4F2
+	 yL+hx1KiVF/2EVxYX0VBPxHqPe1VB1y5N6l5DVNtZx53ZR23ziV+PnJsopOjt0Lv2g
+	 2hQtKN2S1emQA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v12 03/11] net: phy: add
- (*notify_phy_attach/detach)() hooks to struct mii_bus
+Subject: Re: [PATCH net-next v12 04/11] net: mdio: realtek-rtl9300: suppress
+ sysfs bind/unbind attributes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260803171853.507506-4-markus.stockhausen@gmx.de>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260803171853.507506-5-markus.stockhausen@gmx.de>
 References: <20260803171853.507506-1-markus.stockhausen@gmx.de>
- <20260803171853.507506-4-markus.stockhausen@gmx.de>
+ <20260803171853.507506-5-markus.stockhausen@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 17:19:57 +0000
-Message-Id: <20260804171958.36F241F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 17:19:59 +0000
+Message-Id: <20260804171959.A95151F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,100 +49,79 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Calling `phy_attach_direct` on an already-attached PHY destructive=
-ly tears down the existing attachment and leaks refcounts.
+- [High] This problem wasn't introduced by this patch, but the patch attemp=
+ts to fix a devm-related use-after-free by suppressing sysfs unbind, while =
+leaving the exact same use-after-free vulnerability open during probe failu=
+re and parent device removal. The underlying structural flaw (mismatched li=
+fetimes between devm-managed `priv` and refcounted `mii_bus`) is not addres=
+sed.
 --
 
---- Patch [3]: [PATCH net-next v12 03/11] net: phy: add (*notify_phy_attach=
-/detach)() hooks to struct mii_bus ---
-commit f476eabef52740ac2e24b92c70182265b4497974
-Author: Daniel Golle <daniel@makrotopia.org>
+--- Patch [4]: [PATCH net-next v12 04/11] net: mdio: realtek-rtl9300: suppr=
+ess sysfs bind/unbind attributes ---
+commit d996574f6db0effaeff6b6c77116223c1f0e43d9
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
 
-net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
+net: mdio: realtek-rtl9300: suppress sysfs bind/unbind attributes
 
-This commit adds notify_phy_attach() and notify_phy_detach() hooks to the
-MDIO bus driver. This allows MDIO bus drivers to handle PHY polling registe=
-rs
-appropriately without reinventing bus scanning. It also refactors phy_detac=
-h()
-into phy_detach_internal() to support symmetric notification.
+This patch attempts to fix a use-after-free issue when the Realtek MDIO
+driver is unbound via sysfs. It suppresses sysfs bind/unbind attributes to
+prevent manual unbinding, mitigating the lifetime mismatch between
+devm-managed resources and reference-counted MDIO buses.
 
-[1] https://github.com/openwrt/openwrt/pull/21515#discussion_r2714069716
-[2] https://lore.kernel.org/netdev/cover.1769053496.git.daniel@makrotopia.o=
-rg/
-[3] https://lore.kernel.org/netdev/9e40f50b-357a-4a93-9f59-94847850835d@lun=
-n.ch/#t
-
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 94b2e85e00a37..1a43fec022aa8 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-> @@ -1734,6 +1734,96 @@ static bool phy_drv_supports_irq(const struct phy_=
-driver *phydrv)
->  	return phydrv->config_intr && phydrv->handle_interrupt;
->  }
-> =20
-> +static void phy_detach_internal(struct phy_device *phydev, bool notify_b=
-us)
-> +{
-> +	struct net_device *dev =3D phydev->attached_dev;
-
-[ ... ]
-
-> +	if (dev) {
-> +		struct hwtstamp_provider *hwprov;
-> +
-> +		/* hwprov may technically be protected by ops lock but
-> +		 * not for devices with a phydev, see phy_link_topo_add_phy()
-> +		 */
-> +		hwprov =3D rtnl_dereference(dev->hwprov);
-> +		/* Disable timestamp if it is the one selected */
-> +		if (hwprov && hwprov->phydev =3D=3D phydev) {
-> +			rcu_assign_pointer(dev->hwprov, NULL);
-> +			kfree_rcu(hwprov, rcu_head);
-> +		}
-> +
-> +		phydev->attached_dev->phydev =3D NULL;
-> +		phydev->attached_dev =3D NULL;
-> +		phy_link_topo_del_phy(dev, phydev);
-> +	}
-
-[ ... ]
-
-> @@ -1890,8 +1986,8 @@ int phy_attach_direct(struct net_device *dev, struc=
-t phy_device *phydev,
->  	return err;
-> =20
->  error:
-> -	/* phy_detach() does all of the cleanup below */
-> -	phy_detach(phydev);
-> +	/* cleanup without bus notification */
-> +	phy_detach_internal(phydev, false);
->  	return err;
+> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
+dio-realtek-rtl9300.c
+> index 73ac5fdcd2674..1873928b362dd 100644
+> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
+> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+> @@ -830,6 +830,7 @@ static struct platform_driver otto_emdio_driver =3D {
+>  	.driver =3D {
+>  		.name =3D "mdio-rtl9300",
+>  		.of_match_table =3D otto_emdio_ids,
+> +		.suppress_bind_attrs =3D true,
 
 [Severity: High]
-This is a pre-existing issue, but does calling phy_detach_internal() here
-destructively tear down the original attachment?
+This isn't a bug introduced by this patch, but does this fully mitigate the
+use-after-free vulnerability?
 
-If phy_attach_direct() is called on a PHY that is already attached, it dete=
-cts
-this with:
+While this prevents manual unbinding via sysfs, the same mismatched resource
+lifetime issue appears to remain open during probe failures and parent devi=
+ce
+removal.
 
-	if (phydev->attached_dev) {
-		dev_err(&dev->dev, "PHY already attached\n");
-		err =3D -EBUSY;
-		goto error;
-	}
+If otto_emdio_probe() fails on a later child node iteration, devres cleanup
+is triggered. This unregisters the previously registered MDIO bus and frees
+the central priv structure:
 
-Because this jumps to the error label and invokes phy_detach_internal() wit=
-h the
-existing phydev->attached_dev, does it tear down the state of the original
-network device attachment while leaving its initial refcounts leaked?
+drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_probe() {
+    ...
+    for_each_available_child_of_node(np, child) {
+        err =3D otto_emdio_probe_one(dev, priv, child);
+        if (err)
+            return err;
+    ...
+}
 
-This could leave the original device with a nullified PHY pointer, potentia=
-lly
-crashing when accessed.
+If a MAC driver already holds a reference to a PHY device on the registered
+bus, it keeps the mii_bus structure alive. If the MAC driver subsequently
+accesses the PHY during its teardown, the bus read operation will dereferen=
+ce
+the freed priv pointer to acquire the lock:
+
+drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_read_c22() {
+    ...
+    scoped_guard(mutex, &priv->lock)
+        ret =3D priv->info->read_c22(bus, port, regnum, &value);
+    ...
+}
+
+Since the underlying structural flaw isn't addressed by suppressing sysfs
+unbinding, would it be safer to fix the mismatched lifetimes directly?
+
+>  	},
+>  };
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803171853.5075=
-06-1-markus.stockhausen@gmx.de?part=3D3
+06-1-markus.stockhausen@gmx.de?part=3D4
