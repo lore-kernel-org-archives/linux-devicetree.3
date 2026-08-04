@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5976C3EFFB9
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 16:38:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AC74582D4
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 16:38:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785861525; cv=none; b=QWJAsVhiHQRfh2hgKolTEHrE/EviUdbJwn1xyPGQaEPSzPWe/kwnu3sfq+BKaO2HzNW23uHTheZONiF04+vhRcyVoKTidyKGalclE0MxvGb6Uae5zRcjGE/oXEvzgLMKlZJsKBk293VPq9yLi3PTjqveZupp/khxrw7+1kazp7c=
+	t=1785861537; cv=none; b=c+zQMnUI7x9nUN2EajxxeMr27aQvC96jRVuCUYZ582NcAMROVONlk2/HhnzZWCcHECZCR87tazwW+gGBMfUtYtQ3tispPlX2xGqp63hMPdhSYlyWFfaCmRiY9xivIOtH74J3MybB6zrtHwt3VYbMbdHGYSWP20bLpP3mRASGfHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785861525; c=relaxed/simple;
-	bh=hSI4g5EwNSKmHRTpx2v9HkYmD28KlrR8wf9vA0eVP3U=;
+	s=arc-20240116; t=1785861537; c=relaxed/simple;
+	bh=zYGCF/YCZFLB0WuJWxrAPLPtkgFCsxKv6dHM7XMT67s=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cWycC+iVFW2rSf3arOEK50yIsZTudqAuN+8TNApwiAgUmEaoasKhcrz819tia0nWHHHpts9codrUrqIy/HuCadLX4Cy4XcQBlRoQelvXOfgIDFxAGcCt1z3k7WY/Dqe7B69P0Dq0X88ciNQV+ufPIdJBaPAXKAKTwBPXG4HDyto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZDLHygkK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ENje0ue4Igu0jqZsJOskHRvtnGXygAicQZV6VkNaTVwkSQEDVvZxwIkiTS7duHGUv45hB/YqJ+jLIt88DDlr9GmoHGsx7zznNyWsd/FY0Rir/5RJM4Ve3Z9FQWsyVq7nlmg7uDjZqEKpMYk0pAkEeSqRO0Dr4NrnCZf3SMxUGzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XV66/mUH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZDLHygkK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53481F00A3A;
-	Tue,  4 Aug 2026 16:38:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XV66/mUH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA46B1F00ADF;
+	Tue,  4 Aug 2026 16:38:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785861504;
-	bh=xNinFUtf1JXhPxGiF2py219zG01w37MM3AdFHoBnTH0=;
+	s=k20260515; t=1785861498;
+	bh=at/VviD5y85KPSz3WjC4PGRXCERrRswQCSRzf//95vM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZDLHygkKIM+RuAu0JY9OYht9rfsbivM4YAF+peBIsrp7BNCtsCb6abN/vNghPJ8mE
-	 U2a9n9zk+GpeLMeppAhttUBHw+BBtyk81Qh9GqpRuzic/BbJZo4ZZx0RBLDHvm/rGg
-	 zrYlQhcecq4BSdF/cZT+gR7TTodjpXiT9yz0hnwxbuV1Ud/wntFbVUHcUyxfJ22PZ6
-	 foLpJWHGS7ZRmCo5/Ay/VowjSfwwEAxZFNUQZm3EHSJJmR8BeU338WOmlS83jKkBGS
-	 YaErMr+l1ay7UBICXwE+RUNKxtarhy18NDL5T5rIgc8y2q8cTANcSxsTb3MiBBj4Zp
-	 85iiquRzWTneA==
+	b=XV66/mUHDDdVNqpVMd4rMzuSp/A6ApctqrqQKpnnaz8ei6bwxCTHeoUpVR8CIOsmQ
+	 CrKVFje/nLRa4zx/tXp+0eZI5aTKbanv32OFxN0zc9y7SLtK7BCmbmLY62kaNK6Fgz
+	 Vy+8R5IcoI+lJCcaj+5H5yEFboSgaXx1NrWTp3JrWEe+OBl3ONYgRQhEcabuBE2Q9d
+	 vZTi3QB2fg8J8qtt13oJjtfJRnAUGxr/jxLd6ecRx0RB29QhgOWeY2e6CLBEsFHIR7
+	 cMBt30cZA0TtUgaSBhxHcNx7LW/k+JHBmCeSZ8to4asoBzKmOIRyQrProaJvcqXqO5
+	 JWboJ13cPz8hg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 24/36] pinctrl: airoha: split driver on shared code
- and SoC specific drivers
+Subject: Re: [PATCH v9 30/36] pinctrl: airoha: an7583: add support for olt
+ pinmux
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260804160419.3592327-25-mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260804160419.3592327-31-mikhail.kshevetskiy@iopsys.eu>
 References: <20260804160419.3592327-1-mikhail.kshevetskiy@iopsys.eu>
- <20260804160419.3592327-25-mikhail.kshevetskiy@iopsys.eu>
+ <20260804160419.3592327-31-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 16:38:23 +0000
-Message-Id: <20260804163823.E53481F00A3A@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 16:38:16 +0000
+Message-Id: <20260804163817.CA46B1F00ADF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,53 +47,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The newly added `mdio1` pin group is orphaned because it lacks a co=
-rresponding pinmux function mapping, making it unusable dead code.
+- [Medium] Hardware Pin Multiplexing Conflict due to missing mutual exclusi=
+on in register masks between `olt` and `pon_alt`.
 --
 
---- Patch [24]: [PATCH v9 24/36] pinctrl: airoha: split driver on shared co=
-de and SoC specific drivers ---
-commit 183c2af4d64e75f7c6e2fd8f6310a303940ea68d
+--- Patch [30]: [PATCH v9 30/36] pinctrl: airoha: an7583: add support for o=
+lt pinmux ---
+commit 83ceff2ddef41f5f471bb95f51c02740f7fc8a11
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: split driver on shared code and SoC specific drivers
+pinctrl: airoha: an7583: add support for olt pinmux
 
-This commit splits the combined an7581/an7583 source file into shared pinct=
-rl
-code and SoC specific drivers.
+This commit adds support for the olt pin function for the olt pin group in
+the airoha an7583 pinctrl driver.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
 roha/pinctrl-an7583.c
-> new file mode 100644
-> --- /dev/null
+> --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
+> @@ -393,6 +394,7 @@ static struct pinctrl_pin_desc pinctrl_pins[] =3D {
+> =20
+>  static const int pon_pins[] =3D { 15, 16, 17, 18, 19, 20 };
+>  static const int pon_alt_pins[] =3D { 36, 37, 38, 39, 40 };
+> +static const int olt_pins[] =3D { 36, 37, 38, 39, 40 };
+
 [ ... ]
-> +static const int an7583_sipo_pins[] =3D { 34, 35 };
-> +static const int an7583_sipo_rclk_pins[] =3D { 34, 35, 33 };
-> +static const int an7583_mdio_pins[] =3D { 53, 54 };
-> +static const int an7583_mdio1_pins[] =3D { 43, 44 };
-> +static const int an7583_uart2_pins[] =3D { 34, 35 };
-[ ... ]
-> +static const struct pingroup an7583_pinctrl_groups[] =3D {
-> +	PINCTRL_PIN_GROUP("pon", an7583_pon),
-> +	PINCTRL_PIN_GROUP("pon_tod_1pps", an7583_pon_tod_1pps),
-> +	PINCTRL_PIN_GROUP("gsw_tod_1pps", an7583_gsw_tod_1pps),
-> +	PINCTRL_PIN_GROUP("sipo", an7583_sipo),
-> +	PINCTRL_PIN_GROUP("sipo_rclk", an7583_sipo_rclk),
-> +	PINCTRL_PIN_GROUP("mdio", an7583_mdio),
-> +	PINCTRL_PIN_GROUP("mdio1", an7583_mdio1),
 
-[Severity: Low]
-Is this mdio1 pin group an unintentional leftover?
+> @@ -651,6 +655,19 @@ static const struct airoha_pinctrl_func_group pon_fu=
+nc_group[] =3D {
+>  	},
+>  };
+> =20
+> +static const struct airoha_pinctrl_func_group olt_func_group[] =3D {
+> +	{
+> +		.name =3D "olt",
+> +		.regmap[0] =3D {
+> +			AIROHA_FUNC_MUX,
+> +			REG_GPIO_PON_MODE,
+> +			GPIO_OLT_MODE_MASK,
+> +			GPIO_OLT_MODE_MASK
+> +		},
 
-It is defined and added to the group list here, but it lacks a corresponding
-pinmux function mapping in an7583_pinctrl_funcs, meaning it cannot be
-referenced by device tree pinmux setups. Additionally, pins 43 and 44 are
-already assigned to an7583_i2c1_pins.
+[Severity: Medium]
+Does this mask configuration safely handle mutually exclusive routing?
 
-> +	PINCTRL_PIN_GROUP("uart2", an7583_uart2),
-> +	PINCTRL_PIN_GROUP("uart2_cts_rts", an7583_uart2_cts_rts),
+Since olt_pins and pon_alt_pins share the exact same physical pins,
+should the bitmask for olt_func_group also include GPIO_PON_ALT_MODE_MASK
+to ensure the pon_alt routing bit is cleared when olt is applied?
+
+Similarly, pon_func_group does not appear to have been updated to clear
+GPIO_OLT_MODE_MASK when pon_alt is activated. If a bootloader initially
+configures pon_alt and the kernel later transitions the state to olt
+(or vice versa during runtime pinmux state switches), could this leave
+multiple routing bits set to 1 in REG_GPIO_PON_MODE and cause electrical
+contention or incorrect IP block routing?
+
+> +		.regmap_size =3D 1,
+> +	},
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804160419.3592=
-327-1-mikhail.kshevetskiy@iopsys.eu?part=3D24
+327-1-mikhail.kshevetskiy@iopsys.eu?part=3D30
