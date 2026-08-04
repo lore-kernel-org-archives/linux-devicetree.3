@@ -1,315 +1,108 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068D84963A2
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05C5481A9E
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785863205; cv=none; b=dJx9Drje3rgUCSco+gOfjmBOykvihiKmkQWQfYKoZyu9Wj5fZvm0PZxyKsbxGARvb7/+exkXFKeLshWlNmIy9BS/MI4hDyKzmUCsVOqHl2y4rJZHdeWM7ePlrFveNYf2k6Zyx2t+Qol5MmKtPf+hDABHuzmA0MQYIuqndy8dWfI=
+	t=1785863552; cv=none; b=M23ufhDeTCWzQxqwKDQptRPrgyetkbBf42ThMrqR9DPIvaHBtGytHbdoh5T5HWY+y+lNJ0KRv9M7FYofsJSbC2qwxrDsOkGYsCK50RYUSUiTyOWWnJ6CdPVoumPcaqSJw+UOSj7WwuQlajLkhT9BOXt5azwfsNbg9uD43sa8Jxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785863205; c=relaxed/simple;
-	bh=VbB4Wil3UCJk1uCa8RVTSXImGevkwsTjzv2S+pJ7HVg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GAdfD/WVxuru90i0DD9ZHjLd8Rk/i/KRsxPnTxFJR0BY+VG0XkbjyRXUYbSWDeJgTmY8tBnWULA45vCAfXd9FlCtGXWQwPSlMt7s0Ql75mP9NyXv4FmtkCeaPHnaCywLZKjXSvn3LQ+4zrZ4MukwP0OiAZ6493J+K/QZsTw9XdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dfzIATKN; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785863552; c=relaxed/simple;
+	bh=P15mhGTAHN03UUxTt2ICvG5dzMPjnehVnICxKR6Ku34=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=byY4tyn13bKSXb+96UbeSUGZKdQ6hL2ce2bup3Bq1CGvVX8C1YBoE1toJkTkvNZwXaTjU/MDFt8/UgDJKDYLmsbu1g2tfRAbl8qBU4RA92Gq0YrAKlPaSTk1hd9VMUf0D0YatbdFugwSj9W8aMhx5c7IO4W2H5YuVB06UmldeJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L2aPrhJK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dfzIATKN"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38fe113c792so5897a91.3
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 10:06:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785863193; x=1786467993; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uYY+O4tPwhRgJZdDFD4Z3lnoHAwg4o64PZBS1DmAN5c=;
-        b=dfzIATKN1Lw1QchjIA+KADYhFvMIiX8MG9B/itTFLVq0gFBWGqKJ9pNtKLGF75J87X
-         mykm6uxak/72vIp6fmz/Zwm9c0bUxZ5VuARiyPnH65lg0+r4mofdVTxsyfDcqz8qyfZm
-         5pR3B72/4bPo8KuuU7gWwUWdWiV1AHsigLfIE1SxzfmqNVTTMniQSwmecMfsu45p7pt3
-         urQ+LVJg28eWwc5HbWD3t1mATtpG1fWRiUy7xsYAb2ARSw/7j6JTL4C/evTZ8yM/0vF5
-         gP/6ePEEJ7GhXatOHB6dXxRpX8ZZmFvhpr2FZ5Glj4DDbgdY9YIjkC2TQ4wusnMWeskE
-         d9iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785863193; x=1786467993;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uYY+O4tPwhRgJZdDFD4Z3lnoHAwg4o64PZBS1DmAN5c=;
-        b=PqRAgkJTtvtu68jVkN9b1SpRFEw/xkgaBX5281cH36JzffXtoVdi8guqvVdXw0kxGl
-         MnTA9f//Tb9SY5PiBBdvWeG4KLn7AJRsSjTwEuhOsJIHqf7cazsFCCzd+Y7DU+lULqN4
-         fWQKS7T3u3xmLTggcZJUuup8OIfvZnGwPzCgHzx6nLSdxRXPmHB4Db+3DH8o7YyPCCKz
-         /AzmFZlQDw6FRAHtmCmQdyljidM+yLAy3+4Yd1JakAmyjn1Gl1iIzSZeMalyqyjgW24b
-         ZticWAz9z4pzoJBzN6M+vfumMuzb4HbSi5TRd6qNDfRMdX4ktWfJ751IT1aLiLjPFG2J
-         1aww==
-X-Forwarded-Encrypted: i=1; AHgh+RrcL4UfXzJyPYnWBu1ORvyDvkftOvr5BWOFSYe7sfU528VVIJ8MLkUOlO/23YdliFsAqOmLqVcj1Mji@vger.kernel.org
-X-Gm-Message-State: AOJu0YzHzYQTahWpvPhxaURox8p0EBj1IZrmeagq5dY4JnynkNtz+Fl+
-	7mj+Py9snPEPFa0ED64PQ+z7Q8pMfJ2JF3EzqVC4cPq92x5hqE55lCl/
-X-Gm-Gg: AR+sD10XXPopJ2tkRdsqrMw52xeiDyMrQtxzBM8SAfNccwO6hgpO6TC0gWoQu0aZL4P
-	2zPalcIBm+9TbokLSdZOQye1Mbqez0z9Za3BQwpxe1zcsiKBYFimEXUA5lMX0ucfoVpByJlfk44
-	+hdptFIdMwWCY5WthBr0udSRs0HnwaVsqIhVb4VVSU/X7+bj/KKl9DzBgMt8g87yyJZcz1lWfWM
-	J8IwclLgdXba1BJ9GycicCGbAO59TDa2Zu+IyckjgCtOkbwRX+nVlweBGjwlLvRGZ6KuzJwyX09
-	gjetzufJYglsx89nQU9sEqALh7Q9J0LphKqn7GaIv1zCF5AlLbHmW3MdTsw02BsNH0ylLyMbe4p
-	S0z6PbQ+hjeY6VmoR+paLACC8zu4/x9Abn0SaoxRiXlrKXhR5vxlgzeFEfKWhyW7PpIG2qMkAQH
-	mJ2t+Cv+wu2xY298Z4O7Sh2VA7azF2iP69uYKHfmia6mqhOunI8KkRqLT8KLEEgd/ndZfNsIKt7
-	bFTuhBFng==
-X-Received: by 2002:a17:90b:264b:b0:381:bcfb:e710 with SMTP id 98e67ed59e1d1-3903c64c81cmr455190a91.3.1785863193378;
-        Tue, 04 Aug 2026 10:06:33 -0700 (PDT)
-Received: from [10.15.72.252] ([2409:40c2:5423:e712:2aaf:ae79:67c5:476d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca52d329sm5147124c88.4.2026.08.04.10.06.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 10:06:32 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 04 Aug 2026 22:35:08 +0530
-Subject: [PATCH v3 4/4] dt-bindings: rtc: ti,omap-rtc: Convert to DT schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L2aPrhJK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF9E1F000E9;
+	Tue,  4 Aug 2026 17:12:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785863535;
+	bh=doSS1NYhXqXud9rGZz+Q87BCc/R8b0aSLwfe/tMIONw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=L2aPrhJKjqGN6l76GDXQvbZ6r4GvCGy4i/AZiwZU1Ljf4Aq04pVtTmx8iZmSBu0ai
+	 +lXy27B4u5ojv8i/DhBlLTDn7UXxJ/Z4HNshl9SqFdtoJk1cTL5c8zzbtAit/oqnep
+	 mPr+YdXr0hK5mQv2slE15/EDEZ7go6AqojEIHI5boIOJ6PZWbD+SQPzCR2gjV7dmH7
+	 /D1ChOk/ySi0urAB3BEUlyRhk5r7zo3q6C4lu7zCkaWDXgLPt0Is/UcZpECWzYSTgn
+	 8xmxXD37xN5ZX/hdCvCZKtF3Og5nD0sgyrOdwavQ2TfM6+vdlHODVTKScMD+AmTWLi
+	 T63hhfW4U6ZiA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 09/11] clk: realtek: Add RTD1625-CRT clock
+ controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260804163807.1285869-10-eleanor.lin@realtek.com>
+References: <20260804163807.1285869-1-eleanor.lin@realtek.com>
+ <20260804163807.1285869-10-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 17:12:14 +0000
+Message-Id: <20260804171215.5BF9E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260804-ti-omap-rtc-v3-4-ba3bbd8af570@gmail.com>
-References: <20260804-ti-omap-rtc-v3-0-ba3bbd8af570@gmail.com>
-In-Reply-To: <20260804-ti-omap-rtc-v3-0-ba3bbd8af570@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Keerthy <j-keerthy@ti.com>, Afzal Mohammed <afzal@ti.com>
-Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785863118; l=5941;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=VbB4Wil3UCJk1uCa8RVTSXImGevkwsTjzv2S+pJ7HVg=;
- b=hK83DJtdql0s9fVh0pB1mN+aT5VcopcY4vEC3oE/GWqdpf61rbyaapMGXgY8nsB8zlSmT0CHu
- blXDB+X02dWAAIUK5xAgstu5LtMM1MuV3jlRiN16zVo+9IRzMTsk5tf
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert the Texas Instruments OMAP Real Time Clock (RTC) binding from
-the legacy text format to the DT schema. Mark 'ti,hwmods' as deprecated
-as it is no longer used, it is kept to support legacy boards.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Nullifying `regmap` in `rtk_clk_remove` introduces a race conditio=
+n that leads to a NULL pointer dereference if the driver is unbound via sys=
+fs.
+--
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- Documentation/devicetree/bindings/rtc/rtc-omap.txt |  53 --------
- .../devicetree/bindings/rtc/ti,omap-rtc.yaml       | 140 +++++++++++++++++++++
- 2 files changed, 140 insertions(+), 53 deletions(-)
+--- Patch [9]: [PATCH v12 09/11] clk: realtek: Add RTD1625-CRT clock contro=
+ller driver ---
+commit 9b8b892d0fe2cab055b1375b43022988ae2354a2
+Author: Cheng-Yu Lee <cylee12@realtek.com>
 
-diff --git a/Documentation/devicetree/bindings/rtc/rtc-omap.txt b/Documentation/devicetree/bindings/rtc/rtc-omap.txt
-deleted file mode 100644
-index 062ebb14cecf..000000000000
---- a/Documentation/devicetree/bindings/rtc/rtc-omap.txt
-+++ /dev/null
-@@ -1,53 +0,0 @@
--TI Real Time Clock
--
--Required properties:
--- compatible:
--	- "ti,da830-rtc"  - for RTC IP used similar to that on DA8xx SoC family.
--	- "ti,am3352-rtc" - for RTC IP used similar to that on AM335x SoC family.
--			    This RTC IP has special WAKE-EN Register to enable
--			    Wakeup generation for event Alarm. It can also be
--			    used to control an external PMIC via the
--			    pmic_power_en pin.
--	- "ti,am4372-rtc" - for RTC IP used similar to that on AM437X SoC family.
--- reg: Address range of rtc register set
--- interrupts: rtc timer, alarm interrupts in order
--
--Optional properties:
--- system-power-controller: whether the rtc is controlling the system power
--  through pmic_power_en
--- clocks: Any internal or external clocks feeding in to rtc
--- clock-names: Corresponding names of the clocks
--- pinctrl-0: a phandle pointing to the pin settings for the device
--- pinctrl-names: should be "default"
--
--Optional subnodes:
--- generic pinctrl node
--
--Required pinctrl subnodes properties:
--- pins - Names of ext_wakeup pins to configure
--
--Optional pinctrl subnodes properties:
--- input-enable - Enables ext_wakeup
--- ti,active-high - Set input active high (by default active low)
--
--Example:
--
--rtc@1c23000 {
--	compatible = "ti,da830-rtc";
--	reg = <0x23000 0x1000>;
--	interrupts = <19
--		      19>;
--	interrupt-parent = <&intc>;
--	system-power-controller;
--	clocks = <&clk_32k_rtc>, <&clk_32768_ck>;
--	clock-names = "ext-clk", "int-clk";
--
--	pinctrl-0 = <&ext_wakeup>;
--	pinctrl-names = "default";
--
--	ext_wakeup: ext-wakeup {
--		pins = "ext_wakeup0";
--		input-enable;
--		ti,active-high;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml b/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
-new file mode 100644
-index 000000000000..02b3c23cf435
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rtc/ti,omap-rtc.yaml
-@@ -0,0 +1,140 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/rtc/ti,omap-rtc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments OMAP Real Time Clock
-+
-+maintainers:
-+  - Keerthy <j-keerthy@ti.com>
-+  - Afzal Mohammed <afzal@ti.com>
-+
-+description:
-+  The OMAP RTC is a year/month/day/hours/minutes/seconds BCD clock with
-+  century-range alarm matching, driven by the 32kHz clock.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ti,da830-rtc
-+      - items:
-+          - const: ti,am3352-rtc
-+          - const: ti,da830-rtc
-+      - items:
-+          - const: ti,am4372-rtc
-+          - const: ti,am3352-rtc
-+          - const: ti,da830-rtc
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    minItems: 2
-+    maxItems: 2
-+
-+  system-power-controller:
-+    type: boolean
-+    description:
-+      Indicates that this RTC controls system power via the pmic_power_en pin.
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    minItems: 1
-+    items:
-+      - enum: [ext-clk, int-clk]
-+      - const: int-clk
-+
-+  pinctrl-0:
-+    description:
-+      Phandle to pin configuration for the external wakeup pins.
-+
-+  pinctrl-names:
-+    minItems: 1
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      Name of the hwmod associated with the RTC.
-+    const: rtc
-+    deprecated: true
-+
-+patternProperties:
-+  "^ext-wakeup(-[0-9]+)?$":
-+    type: object
-+
-+    description:
-+      Child node describing external wakeup pin configuration.
-+
-+    properties:
-+      pins:
-+        pattern: '^ext_wakeup[0-3]$'
-+
-+      input-enable:
-+        type: boolean
-+        description:
-+          Enables the external wakeup input on the selected pin.
-+
-+      ti,active-high:
-+        type: boolean
-+        description:
-+          Sets the wakeup input polarity to active high. By default the
-+          input is active low.
-+
-+    required:
-+      - pins
-+
-+    additionalProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+allOf:
-+  - $ref: rtc.yaml#
-+  - if:
-+      not:
-+        properties:
-+          compatible:
-+            contains:
-+              const: ti,am3352-rtc
-+    then:
-+      properties:
-+        system-power-controller: false
-+      patternProperties:
-+        "^ext-wakeup(-[0-9]+)?$": false
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    rtc@23000 {
-+        compatible = "ti,da830-rtc";
-+        reg = <0x23000 0x1000>;
-+        interrupts = <19>, <19>;
-+        clocks = <&clk_32768_ck>;
-+        clock-names = "int-clk";
-+    };
-+
-+  - |
-+    rtc@0 {
-+        compatible = "ti,am3352-rtc", "ti,da830-rtc";
-+        reg = <0x0 0x1000>;
-+        interrupts = <75>, <76>;
-+        system-power-controller;
-+        clocks = <&clk_32k_rtc>, <&clk_32768_ck>;
-+        clock-names = "ext-clk", "int-clk";
-+
-+        pinctrl-0 = <&ext_wakeup>;
-+        pinctrl-names = "default";
-+
-+        ext-wakeup {
-+            pins = "ext_wakeup0";
-+            input-enable;
-+            ti,active-high;
-+        };
-+    };
+clk: realtek: Add RTD1625-CRT clock controller driver
 
--- 
-2.55.0
+Add support for the CRT (Clock, Reset, and Test) domain clock controller
+on the Realtek RTD1625 SoC. This driver acts as the parent device and
+registers the reset controller as an auxiliary device on the auxiliary bus.
 
+> diff --git a/drivers/clk/realtek/clk-rtd1625-crt.c b/drivers/clk/realtek/=
+clk-rtd1625-crt.c
+> new file mode 100644
+> index 0000000000000..982ef73785ac5
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-rtd1625-crt.c
+
+[ ... ]
+
+> +static struct platform_driver rtd1625_crt_driver =3D {
+> +	.probe =3D rtd1625_crt_probe,
+> +	.remove =3D rtk_clk_remove,
+
+[Severity: High]
+Does adding this remove callback and allowing sysfs unbind expose a NULL
+pointer dereference race condition?
+
+Because the clocks are registered using devm_clk_hw_register() in
+rtk_clk_probe(), they are unregistered during devres cleanup, which
+happens after rtk_clk_remove() completes.
+
+Looking at rtk_clk_remove() in clk-rtk-common.c, it explicitly sets the
+regmap to NULL:
+
+    for (int i =3D 0; i < desc->num_clks; i++)
+        desc->clks[i]->regmap =3D NULL;
+
+If a concurrent clock operation occurs (like reading the debugfs
+clk_summary) between rtk_clk_remove() returning and the devres cleanup
+finishing, will CCF invoke the clock callbacks with a NULL regmap and
+cause a kernel panic in regmap_read()?
+
+> +	.driver =3D {
+> +		.name =3D "rtk-rtd1625-crt-clk",
+> +		.of_match_table =3D rtd1625_crt_match,
+> +	},
+> +};
+> +
+> +module_platform_driver(rtd1625_crt_driver)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804163807.1285=
+869-1-eleanor.lin@realtek.com?part=3D9
