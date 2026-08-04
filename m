@@ -1,151 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B522B477285;
-	Tue,  4 Aug 2026 16:37:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5976C3EFFB9
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 16:38:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785861465; cv=none; b=OauGPsBhqu7Sv9KmNgpUkKe89oYdEsH4LrEYxA8lFRNXgNYPxjR77xBJeHCY/2DFnj7U5xtGDBtR3vlAoWYYWfiMmBBtOvK/VeZvRkGj1W0kghkzlvChCc1CNByMHsKZ8UVMDosWKSMZLUU1YczO1vvw8E6J4hxcJACkUSRSntc=
+	t=1785861525; cv=none; b=QWJAsVhiHQRfh2hgKolTEHrE/EviUdbJwn1xyPGQaEPSzPWe/kwnu3sfq+BKaO2HzNW23uHTheZONiF04+vhRcyVoKTidyKGalclE0MxvGb6Uae5zRcjGE/oXEvzgLMKlZJsKBk293VPq9yLi3PTjqveZupp/khxrw7+1kazp7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785861465; c=relaxed/simple;
-	bh=FkjP6otm0o6yy7b/ktpjAfjxkpYkBuycKwY4tPhkXNU=;
+	s=arc-20240116; t=1785861525; c=relaxed/simple;
+	bh=hSI4g5EwNSKmHRTpx2v9HkYmD28KlrR8wf9vA0eVP3U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WX4eivNoHZpVYnEjbRxv/4Tud7tkQE5q2xQor8hzR/g4crI5bGoOqu1U7k2lvBgbJSgD5pZ5o9VXNn0UE3VCT7PT6wVC5h23CnRWGAPjmqUGmPPX6FPhmLewigDHq3IBvgafV8K2oPEQsb76wYysuyxwMkrWF7+aqgKK9au1vvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnW6V/V0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cWycC+iVFW2rSf3arOEK50yIsZTudqAuN+8TNApwiAgUmEaoasKhcrz819tia0nWHHHpts9codrUrqIy/HuCadLX4Cy4XcQBlRoQelvXOfgIDFxAGcCt1z3k7WY/Dqe7B69P0Dq0X88ciNQV+ufPIdJBaPAXKAKTwBPXG4HDyto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZDLHygkK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnW6V/V0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF9751F000E9;
-	Tue,  4 Aug 2026 16:37:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZDLHygkK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53481F00A3A;
+	Tue,  4 Aug 2026 16:38:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785861446;
-	bh=5FkBxZTNITsbu/MDmQLfWF2iUrskB8LBvnw8UUCDDKo=;
+	s=k20260515; t=1785861504;
+	bh=xNinFUtf1JXhPxGiF2py219zG01w37MM3AdFHoBnTH0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WnW6V/V0I3eAOjykbdhhPfgnWf5adY2aJZSqiKE48+42RvvzC4XIrNiWLiCOOA9/6
-	 G4gdEd8ECYtBSIVLY5GtGijj7C45LPq2ORqEG7xE3br0jYhRRISj+O21+y//OM9eSt
-	 Ny2wx6g5JBatC/8gKdulvkVjVDhRoWMGaL2u3zpZH3G66CYChGJv5dOTCV2V0VnxBe
-	 ph+UPgLu7ufx/HkN63rQqruabPOFlOlXuBa5YwXHZEOtiOKu2D0T1gjmGEOhwTHOZ/
-	 mUxpyqO/Uq4J/KWZ7f+w77ycpy5r5dy0ubADqn+t246ywOEFViwuoVcL7+bEcpHP3X
-	 +3IeoExfbAWtg==
+	b=ZDLHygkKIM+RuAu0JY9OYht9rfsbivM4YAF+peBIsrp7BNCtsCb6abN/vNghPJ8mE
+	 U2a9n9zk+GpeLMeppAhttUBHw+BBtyk81Qh9GqpRuzic/BbJZo4ZZx0RBLDHvm/rGg
+	 zrYlQhcecq4BSdF/cZT+gR7TTodjpXiT9yz0hnwxbuV1Ud/wntFbVUHcUyxfJ22PZ6
+	 foLpJWHGS7ZRmCo5/Ay/VowjSfwwEAxZFNUQZm3EHSJJmR8BeU338WOmlS83jKkBGS
+	 YaErMr+l1ay7UBICXwE+RUNKxtarhy18NDL5T5rIgc8y2q8cTANcSxsTb3MiBBj4Zp
+	 85iiquRzWTneA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for
- Data Modul i.MX8M Mini and Plus eDM SBC
+Subject: Re: [PATCH v9 24/36] pinctrl: airoha: split driver on shared code
+ and SoC specific drivers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260804162310.24374-2-marex@nabladev.com>
-References: <20260804162310.24374-1-marex@nabladev.com>
- <20260804162310.24374-2-marex@nabladev.com>
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260804160419.3592327-25-mikhail.kshevetskiy@iopsys.eu>
+References: <20260804160419.3592327-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260804160419.3592327-25-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 16:37:24 +0000
-Message-Id: <20260804163725.AF9751F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 16:38:23 +0000
+Message-Id: <20260804163823.E53481F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The G215HVN011 panel overlay hardcodes the backlight enable GPIO=
-, breaking the backlight functionality when used with the native i.MX8MP SB=
-C LVDS interface.
-- [Low] Mismatch between the mathematical comment and the actual assigned c=
-lock rate for the G156HCE-L01 panel.
-- [Low] The built-in i.MX8MP LVDS overlay inherits and incorrectly configur=
-es the external adapter's SoC pinctrls for its regulators.
+- [Low] The newly added `mdio1` pin group is orphaned because it lacks a co=
+rresponding pinmux function mapping, making it unusable dead code.
 --
 
---- Patch [2]: [PATCH v9 2/7] arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for=
- Data Modul i.MX8M Mini and Plus eDM SBC ---
-commit 9eb4f5b623d7a9a7866c31e6663fe324b4e72663
-Author: Marek Vasut <marex@nabladev.com>
+--- Patch [24]: [PATCH v9 24/36] pinctrl: airoha: split driver on shared co=
+de and SoC specific drivers ---
+commit 183c2af4d64e75f7c6e2fd8f6310a303940ea68d
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-arm64: dts: imx8mm: imx8mp: Add LVDS DTOs for Data Modul i.MX8M Mini and Pl=
-us eDM SBC
+pinctrl: airoha: split driver on shared code and SoC specific drivers
 
-Add DT overlay for the DSI-to-LVDS adapter eDM-MOD-iMX8Mm-LVDS populated
-with Lontium LT9211 bridge. This adapter can be optionally populated onto
-the eDM SBC.
+This commit splits the combined an7581/an7583 source file into shared pinct=
+rl
+code and SoC specific drivers.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
-lay-lvds-g215hvn011.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-=
-edm-sbc-overlay-lvds-g215hvn011.dtsi
+> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
+roha/pinctrl-an7583.c
 > new file mode 100644
-> index 0000000000000..3585170bd59dd
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-lvd=
-s-g215hvn011.dtsi
-
+> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
 [ ... ]
-
-> +&backlight {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pinctrl_panel_backlight>;
-> +	enable-gpios =3D <&gpio3 0 GPIO_ACTIVE_HIGH>;
-
-[Severity: Medium]
-Does hardcoding enable-gpios here break the backlight for the native
-i.MX8MP SBC LVDS interface?
-
-Since the native LVDS overlay does not override this property, the driver
-will toggle the SoC GPIO3_IO00 instead of the correct I2C expander pin,
-which might leave the screen black.
-
-Could we abstract this using the reg_panel_bl node instead?
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
-lay-edm-sbc-imx8mp-lvds-g156hce-l01.dtso b/arch/arm64/boot/dts/freescale/im=
-x8mp-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-g156hce-l01.dtso
-> new file mode 100644
-> index 0000000000000..86163d6ddd5c6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
--sbc-imx8mp-lvds-g156hce-l01.dtso
-
+> +static const int an7583_sipo_pins[] =3D { 34, 35 };
+> +static const int an7583_sipo_rclk_pins[] =3D { 34, 35, 33 };
+> +static const int an7583_mdio_pins[] =3D { 53, 54 };
+> +static const int an7583_mdio1_pins[] =3D { 43, 44 };
+> +static const int an7583_uart2_pins[] =3D { 34, 35 };
 [ ... ]
-
-> +&media_blk_ctrl {
-> +	/*
-> +	 * The G156HCE-L01 panel requires 141.86 MHz LVDS clock.
-> +	 * Set IMX8MP_VIDEO_PLL1 to 993.2 MHz , since 993.2 MHz / 7 =3D 141.86 =
-MHz .
-> +	 */
-> +	assigned-clock-rates =3D <500000000>, <200000000>,
-> +			       <0>, <0>, <500000000>, <993020000>;
-> +};
+> +static const struct pingroup an7583_pinctrl_groups[] =3D {
+> +	PINCTRL_PIN_GROUP("pon", an7583_pon),
+> +	PINCTRL_PIN_GROUP("pon_tod_1pps", an7583_pon_tod_1pps),
+> +	PINCTRL_PIN_GROUP("gsw_tod_1pps", an7583_gsw_tod_1pps),
+> +	PINCTRL_PIN_GROUP("sipo", an7583_sipo),
+> +	PINCTRL_PIN_GROUP("sipo_rclk", an7583_sipo_rclk),
+> +	PINCTRL_PIN_GROUP("mdio", an7583_mdio),
+> +	PINCTRL_PIN_GROUP("mdio1", an7583_mdio1),
 
 [Severity: Low]
-Is there a typo in the comment here? It mentions 993.2 MHz, but the code
-configures 993020000 (993.02 MHz).
+Is this mdio1 pin group an unintentional leftover?
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
-lay-edm-sbc-imx8mp-lvds.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-data-mo=
-dul-edm-sbc-overlay-edm-sbc-imx8mp-lvds.dtsi
-> new file mode 100644
-> index 0000000000000..95f4761869d75
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
--sbc-imx8mp-lvds.dtsi
+It is defined and added to the group list here, but it lacks a corresponding
+pinmux function mapping in an7583_pinctrl_funcs, meaning it cannot be
+referenced by device tree pinmux setups. Additionally, pins 43 and 44 are
+already assigned to an7583_i2c1_pins.
 
-[ ... ]
-
-> +&reg_panel_bl {
-> +	gpio =3D <&gpiowifi 0 0>;
-> +	vin-supply =3D <&reg_panel_bl_supply>;
-> +};
-> +
-> +&reg_panel_vcc {
-> +	enable-gpios =3D <&gpiowifi 4 0>;
-
-[Severity: Low]
-Since this native LVDS overlay routes the regulator GPIOs to the gpiowifi
-I2C expander, does it also need to delete the pinctrl-0 properties inherited
-from the base tree and external adapter include?
-
-Without /delete-property/ pinctrl-0; the regulators might still needlessly
-request and configure the SoC pins via pinctrl.
+> +	PINCTRL_PIN_GROUP("uart2", an7583_uart2),
+> +	PINCTRL_PIN_GROUP("uart2_cts_rts", an7583_uart2_cts_rts),
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804162310.2437=
-4-1-marex@nabladev.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804160419.3592=
+327-1-mikhail.kshevetskiy@iopsys.eu?part=3D24
