@@ -1,85 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17544ADDAD;
-	Tue,  4 Aug 2026 17:51:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053AF47045B
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785865868; cv=none; b=iLnh9lw5OxDcjBh76+V6tKsBJPrOQlQE1B4NCyPQmFV+I4tqBeQmYMWUUMqS6+v7yUA5x+83QNBtcz5K0T0atUjfR6i2c1rJmKNG7Vk+j50RU59LA6/XLZHsoYjuKnU+e3quxfzSRuQD1E8zdlSqQY8EcdqV4WPe3yEjkBVv3SM=
+	t=1785865883; cv=none; b=b2eZeWGNcLobJU9YuCZEb/Gee6dhqTiHliC/nygDTXgGpX9tHoodyQWSk98A2DcaTb87TV0GwxYc20lWpF+XmjEOGykxBzE5uC/DkQIj/XTk5SDW/4rn97DdxEP9p4/jPIGqFlWPDQcXmzfrZScv+xQuT+HeQ84NeUYx2/B35Pk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785865868; c=relaxed/simple;
-	bh=LkOqpgJZWV09ABQYMSBhyXxk1G2S9zV+9flifzj8E7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MCwES99lsJTxMyUcYweahpodDRsZyoYuqN6ojqTaZXae9GLV92vpUPuKYpvA7/zk16Wz6lHUCXof14bbr2UTB1B4cJkn6QsrSHT/mHfPdXP87Hz2PwrIZUfu9MYaQ1BqFmGWfmoWBzkq0mQO8ruX6DNYKlSKdd5lN6VwN+T/sck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QYggY9C5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785865883; c=relaxed/simple;
+	bh=bAnJzL5nLMKzmc490vK/S9JEOOf+TuZ+2sbk011AeJA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tYjoJRAxuVAbTLxmHtoPO6maAH0lIDr2cp4vb05jDvbPOw2k4Ktgz5tBfwwWeB1C/DQ9D7wbADKxxyUSk/wtHP1X6DwIrbxAfrAJuTlDCNv8AtSAYeV+2AM28hj56v/8n7NXCkT9oYvsT39LxuobfDjcx8hVFbHEtzNDbPTyafw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GInJQocP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BHhPX83r; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QYggY9C5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2483D1F00A3A;
-	Tue,  4 Aug 2026 17:51:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785865863;
-	bh=LkOqpgJZWV09ABQYMSBhyXxk1G2S9zV+9flifzj8E7I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QYggY9C5rrZYrPOr4pNWnMex4qpINP+UNbauC3Qaa50dDbpdPuOl2egqjYAevYRgz
-	 eotVGD5zAxbSAy6zvnS8w7VNZARc+LNmwKE6gwJ0k7PprymrbfjN5dj52FqrtQqXdE
-	 1UPtq/2IgRjOH3zj8MXfGCjTAWEhn4IJhiYjgHQddyKbecBKpP+mHE80EBzNUtLoyk
-	 EVYJXKaIV2iGzbHvb9JR/keUFIPnICretg94Gr/kPMuyK+MSb5DO3R7XvgoO8+lQCk
-	 /TQ6bBsIi5wbWQSu0u9HC6fpQgsVtvq/yBSiZ9JQNF1vfdNxEijD1VVDXaG1t8DCdL
-	 pxVFlPUiq2h4g==
-Date: Tue, 4 Aug 2026 18:50:58 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [PATCH v7 1/7] ASoC: qcom: qdsp6: add topology-driven Audio IF
- support
-Message-ID: <1179aaa5-a7e5-40d6-804e-b52597d844f4@sirena.org.uk>
-References: <20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com>
- <20260804070307.117119-2-prasad.kumpatla@oss.qualcomm.com>
- <03f5d925-3d54-4634-bbf7-c2b29dfc7f07@intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GInJQocP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BHhPX83r"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674FfSOr4057061
+	for <devicetree@vger.kernel.org>; Tue, 4 Aug 2026 17:51:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VSDEP9DFxsC2WGKb9Mm8ttM1p92PZNbAVOez4KimUXs=; b=GInJQocPDqFnfqzj
+	cLx07Q+ofcw2HykRMzzvJtbPNG7/V/bUvRKQfPxmxJFKX9RTVb4NnUAV4EVUnBXW
+	BNQwTHnleAYDS/45m3DsHrFx41I7lr/O+8koUCE6WrjD/ii7nqjgJ0gbz97ECC14
+	ucWWYjOS8lyVTBIrxRbvLjRRlvbZ6w0FtFBvWV8M5PqBYN6r+7aV2uAeQUIsHreb
+	8Ih3XPr/fHJgtv5t33M0mYMkBPmUMdgOIH9qvzV8qBgBt2wOhPHXz1twS5j7ZXLE
+	xBRvW7QeIKKStr+z2Jmnewbn1vNwFalu4ABCie44JDTyXm9PRfzvQneMUJCgRlIJ
+	xaVanA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fugmgheb8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 17:51:14 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cb48f41343aso989581a12.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 10:51:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785865868; x=1786470668; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VSDEP9DFxsC2WGKb9Mm8ttM1p92PZNbAVOez4KimUXs=;
+        b=BHhPX83rwKPuP+BUwY3Vchj5GBshZd/TCMjVgeFZyXj5k/EwMzRYL9UAyzwD+Zw4QA
+         9fBgeYUOt2hLvax3XvugB46frLFiIAPdvipBH4cohrLJj5PhnrqIGmAkQ/+pDQpk0fMB
+         ZIHdqMvTcOwxlzoq15y/djdedfPuAJ0hk9NExbeAdh7kHe8Pb05BHbH1juKp+kphtd46
+         YR8HrZG5y6sChkde49WFpowEPQ4H1xrBkNuHFl9GInwhvhx83bvPPOClOptThH30kzGS
+         CPu1NFd7u6zAFRdJtaxzEShY9Wmhx8TOFnmFz9MhM/1/ehUaEOJFihmwzWNqrnquLi9l
+         g0Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785865868; x=1786470668;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VSDEP9DFxsC2WGKb9Mm8ttM1p92PZNbAVOez4KimUXs=;
+        b=mRnZ2BkCUum8J88wmMqf7AFU4moA3N0Lpcco3UJwwBhsVd2oMtqIkeO+B52mJ5+g3B
+         z7Uc0ft/rpBBz2rOgj42LD0Dqn3ViS/GEyike1e2LHouLbLXxnTXDy2cjdnQXgF1BUgB
+         RSTjabwSTcn1q+Wsy2h2sbvaGylQsAn/pXYS8FOmnFbvB2DBqKxU954/YvX1c1IehgWD
+         fa/ps8zDDG1aLGj7V6SVZmCkF9IqinSDHaKaDn2DT3Vtuoi1y1iNrw0LpuyQ5okM5sGC
+         dOPUr6FCD5ODg3ie1Cl6Qv/44tPAeHFO0qOtw9L3YTvZuwj4AN33HfLNrlFseT95fFXr
+         1cpg==
+X-Forwarded-Encrypted: i=1; AHgh+RqoThR4fMu+/IsBpjA0c8C5l/aaKmOn+Ehe1BT3HbP/8AKRPIfOz4M228fAhlXNMwj+v/bYA/XehQ1r@vger.kernel.org
+X-Gm-Message-State: AOJu0YygXiAsekfhXKVzMYaUzoj8VNOKPPNPqT+XRxOPvZ1zC3PtPEbG
+	H/+AoIzQSCo6oAeagEpZ4OU5/fFnMjKi1SKfxWvUVw6AYlM5X4lWvPFpRQ9trx/Dim1xQeRYkVw
+	rwjbIXKOQ80iWmvc91sYJub8Dmjzy8g1hhJ0rtWNEw7XIx5frOu5I0RPQWt6VJCWl
+X-Gm-Gg: AR+sD130J0JyvDjyBWGjsWfneN2NMhffxPKelHI1uofC+GVEL4ZFiFmulawpE8AMGmi
+	RO9FJg00vXmdmr1M/WbXy31SWuiWMr9gfjNxy198BqM0TwU1LLlEzjx5ArGrHzh2owfqfEffAlj
+	Z7f4r39AqcHLqTBaYLF4UV+C1XYOtp2lZtmdiIWVDehIHUeKC5wkziLBph5RnzvuxWA8WPTH1PX
+	UNdqh6sMXu0N0UMfPnuFSlJgobRFPAfQYbJMqBsW+kWwVvOsAhn/9yx4GtO8Alau7ZgSBJeEFR/
+	PsCp/PkFzwM/EfSzO9Bpes3buGmk9z9xjdcTFUZhM5yCyk/o9xT3elPbQPkoBqdEKRWp7aPIeuw
+	kI90ReXjV8IpSJgbqTxGTdPhJ
+X-Received: by 2002:a05:6a20:a10b:b0:3c3:b57b:645a with SMTP id adf61e73a8af0-3cb85a5cbdemr749922637.21.1785865867667;
+        Tue, 04 Aug 2026 10:51:07 -0700 (PDT)
+X-Received: by 2002:a05:6a20:a10b:b0:3c3:b57b:645a with SMTP id adf61e73a8af0-3cb85a5cbdemr749862637.21.1785865867214;
+        Tue, 04 Aug 2026 10:51:07 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586790e21sm7052108eec.24.2026.08.04.10.51.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 10:51:06 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Date: Tue, 04 Aug 2026 23:20:18 +0530
+Subject: [PATCH v9 05/10] dt-bindings: clock: qcom: document the Eliza GPU
+ Clock Controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="W/FSfqyDzeIMsdOE"
-Content-Disposition: inline
-In-Reply-To: <03f5d925-3d54-4634-bbf7-c2b29dfc7f07@intel.com>
-X-Cookie: Biz is better.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260804-eliza-mm-cc-v9-v9-5-39067760dc3c@oss.qualcomm.com>
+References: <20260804-eliza-mm-cc-v9-v9-0-39067760dc3c@oss.qualcomm.com>
+In-Reply-To: <20260804-eliza-mm-cc-v9-v9-0-39067760dc3c@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDE0NCBTYWx0ZWRfX37lDeA/pxfKY
+ rdKIoDbwQhieOcOJ4McCZ0/AmLVDlH6OtbXK/1qUTkPHpqJUc317XVgpFDityMCLR3kggBzCL13
+ 7bX/XV5Jk0LiyPBlg5hEiR4ryEmXAEeFy1WvdExU3GQZF9M0JvpV66zO4lzL3ZuvYcPnJekoUTi
+ jNY0qAT1OxByLCW1NU+VZpGXMGPGvnjthqqs9UnAaiiEgMcpZhNvapFgXwdm0K605JQ7JU/QgEO
+ s5v2pTDIRw07NqTq4NwBIPvw7OL/yzvw9yKle3HeYHJNJ+aN7cqNX+eJ0wu4XllZ2EKh13dSqX6
+ EkTlmg9MQe9vnxkVKpDymJIaHRl+UbX7WYykCwq/iHUqokzUPXAHxrVlHmVirFilhikLB2Isl8X
+ 9kY0wGC4kU9zbK8OH36ICcEcohlNzSCrgAy4grOMnWROt6dzziE+pRYkD0kFrS/zz0STfRsYZFo
+ PDpWqTZkYs73sTRdcfg==
+X-Proofpoint-GUID: MiY5hJ4ZM59X_torAU6udeJok7vVtRUw
+X-Proofpoint-ORIG-GUID: MiY5hJ4ZM59X_torAU6udeJok7vVtRUw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDE0NCBTYWx0ZWRfX8Zja4lbAdFcR
+ EKHDavbbd28nE+tvl9TmRC6ayEbWD5ByL+vZano8qeZh8KwYjzvMUEDA9/pgXyi4qHr0sjpDK0X
+ 7u5DkSJ8oEAC/5s658raiHJ7FfNRywk=
+X-Authority-Analysis: v=2.4 cv=XYC5Co55 c=1 sm=1 tr=0 ts=6a722694 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=005LtiolIcJ_eoEmTSIA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_03,2026-08-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040144
 
+Add bindings documentation for the Eliza Graphics Clock Controller.
 
---W/FSfqyDzeIMsdOE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+ .../bindings/clock/qcom,sm8450-gpucc.yaml          |  3 ++
+ include/dt-bindings/clock/qcom,eliza-gpucc.h       | 51 ++++++++++++++++++++++
+ 2 files changed, 54 insertions(+)
 
-On Tue, Aug 04, 2026 at 07:46:58PM +0200, Cezary Rojewski wrote:
+diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-gpucc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-gpucc.yaml
+index 2a2d37c59442de427874dfe42849cd0ec1a8b752..7eca456211e476b86cad274a81426f52cf24d527 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,sm8450-gpucc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-gpucc.yaml
+@@ -15,6 +15,7 @@ description: |
+   domains on Qualcomm SoCs.
+ 
+   See also:
++    include/dt-bindings/clock/qcom,eliza-gpucc.h
+     include/dt-bindings/clock/qcom,glymur-gpucc.h
+     include/dt-bindings/clock/qcom,kaanapali-gpucc.h
+     include/dt-bindings/clock/qcom,milos-gpucc.h
+@@ -32,6 +33,7 @@ description: |
+ properties:
+   compatible:
+     enum:
++      - qcom,eliza-gpucc
+       - qcom,glymur-gpucc
+       - qcom,kaanapali-gpucc
+       - qcom,milos-gpucc
+@@ -75,6 +77,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - qcom,eliza-gpucc
+               - qcom,sm8750-gpucc
+     then:
+       required:
+diff --git a/include/dt-bindings/clock/qcom,eliza-gpucc.h b/include/dt-bindings/clock/qcom,eliza-gpucc.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..c3d9b7827325c5b8db696d1d95b4876e17c01c83
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,eliza-gpucc.h
+@@ -0,0 +1,51 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_GPU_CC_ELIZA_H
++#define _DT_BINDINGS_CLK_QCOM_GPU_CC_ELIZA_H
++
++/* GPU_CC clocks */
++#define GPU_CC_AHB_CLK						0
++#define GPU_CC_CRC_AHB_CLK					1
++#define GPU_CC_CX_ACCU_SHIFT_CLK				2
++#define GPU_CC_CX_FF_CLK					3
++#define GPU_CC_CX_GMU_CLK					4
++#define GPU_CC_CXO_AON_CLK					5
++#define GPU_CC_CXO_CLK						6
++#define GPU_CC_DEMET_CLK					7
++#define GPU_CC_DEMET_DIV_CLK_SRC				8
++#define GPU_CC_FF_CLK_SRC					9
++#define GPU_CC_FREQ_MEASURE_CLK					10
++#define GPU_CC_GMU_CLK_SRC					11
++#define GPU_CC_HLOS1_VOTE_GPU_SMMU_CLK				12
++#define GPU_CC_HUB_AON_CLK					13
++#define GPU_CC_HUB_CLK_SRC					14
++#define GPU_CC_HUB_CX_INT_CLK					15
++#define GPU_CC_MEMNOC_GFX_CLK					16
++#define GPU_CC_MND1X_0_GFX3D_CLK				17
++#define GPU_CC_MND1X_1_GFX3D_CLK				18
++#define GPU_CC_PLL0						19
++#define GPU_CC_PLL1						20
++#define GPU_CC_SLEEP_CLK					21
++#define GPU_CC_XO_CLK_SRC					22
++#define GPU_CC_XO_DIV_CLK_SRC					23
++
++/* GPU_CC power domains */
++#define GPU_CC_CX_GDSC						0
++#define GPU_CC_GX_GDSC						1
++
++/* GPU_CC resets */
++#define GPU_CC_ACD_BCR						0
++#define GPU_CC_CB_BCR						1
++#define GPU_CC_CX_BCR						2
++#define GPU_CC_FAST_HUB_BCR					3
++#define GPU_CC_FF_BCR						4
++#define GPU_CC_GFX3D_AON_BCR					5
++#define GPU_CC_GMU_BCR						6
++#define GPU_CC_GX_BCR						7
++#define GPU_CC_RBCPR_BCR					8
++#define GPU_CC_XO_BCR						9
++
++#endif
 
-> I'd suggest to move away from snd_ar_tokens.h (the name is as ambiguous is
-> at can be) and start new header family within 'qcom' subfolder.
+-- 
+2.34.1
 
-FWIW the "ar" is I think AudioReach.
-
---W/FSfqyDzeIMsdOE
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpyJoEACgkQJNaLcl1U
-h9A9cgf/a7q/h2mSTEAXkRJK1Vbw8tA+DW70JCQuNvD/HtC5omymOgh72MS0N4RW
-EY7kKetcJduoBJnJ4269n7ntA5zHL3FePdwke0RpjuSTDsyNifgD4MpFPHjWsJrV
-c02GZ83Bipln1j+5g3pMAqSP+tG0oyXbY21phamqoTOTtedyQms01GZR0o3D4caE
-7NCRRt6hny1IjI5LWvf6VX0FYvxyUWB5/th3+eXdLIfC1TsaP/U9khJOPVJd98Rs
-hPNYDCWwYFIjIFl/nK2Yon5eGQfs+H1g7muznnSr/yzKZqM2bQIWxbwqPrjd9kzu
-t5PNvBFCcm3nrtP0xwswVlcP1NNXlA==
-=aZqG
------END PGP SIGNATURE-----
-
---W/FSfqyDzeIMsdOE--
