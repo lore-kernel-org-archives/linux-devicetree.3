@@ -1,237 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D4C414A15
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 03:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785815118; cv=none; b=IjYXE+zx6QH/0xGIl7OUQwqHF4V9UZmi8HX/vsEnvexY6SIM+SWg+onnA3PQQUyHxQvEZgYchwjIATL2QHCcIkS2RiUITW99StAnTxmPaJp+D6CUctX/PWF8ulwc/8j5dMpQ6iyFD8YXliSioSZ6oLmmBuU6BiV8sbYyc8IhWgc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785815118; c=relaxed/simple;
-	bh=zR9TMie0YSeYvbLWPGq/CLqeJAHQ6Fsxd5QxN4F6QH4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WuG0EG3MJrJYOuyn+3qUdkDH2mVGPW8tDqfM5RHLvfsnpa1OuKzRw26Qfc6zHynAdUWoacQoWWx19+85bF54aa/XtZ9g61uNYYRRUVDpXt6pkczVzr1Yapcq+o6VYpma9O2J6DLFFt0X1OX7U7n81Ei3kn22giv+y0INyr4bNT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRpIcE6h; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61F941D12B
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 04:03:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785816185; cv=pass; b=roNuYt6KkgoMucjScsRKEv0mfAZXXRugnXptgcaCxk2jLclHP0vI5Yh6ZzTu+eNAvF/GzSCakPIlR2AcuLHEOQSwXUpFaLtL9xnNP12b1KsB6mTn2hR5n6QAfmM6Zs3XMI0ErWTyvuQ55KB+XEoWY0pPCn89fgKPzgX19a5xYT8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785816185; c=relaxed/simple;
+	bh=RkdB92KGZY7tyP0CuxNF3WyK0sWw7koVzFr0NNoR0sc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ioxSU/UrRAgil82uChaROQ8ZQ+SfbKCA2sCK98FETzS54TeUcOzFOvTUsPmujH200/l4ae7eh7oVAR+GBOK++c/PTRaUMckDlfRKEYdlQKay/3OvfQ3IpMob4l846REcTJDKCoklY12CtJICICSFLQnO/bCx1ihMe6nJEwaD5Os=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xb6qbD/g; arc=pass smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRpIcE6h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF09C1F000E9;
-	Tue,  4 Aug 2026 03:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785815116;
-	bh=MdAmIo7hrhWzVQpZTF428Jx1BTLkaqe3SyxRaJhFqRI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oRpIcE6hCkLMG9xbh6/qcGReM61mXVodNHT3TruKceVRK/xKGPMpW4NfecoTLiURh
-	 16Sb0krM/GU7frpOTtdrw0ChfhI2HnH+aLJo2Ui2kkdAI+m8DTR5+ZygHxK4JGXTj9
-	 +j63OuKQWnrkgoR6Idr2BmT8qnPztAOgkX3bAGrgcuHfUwMYdOXz3gYgFkwDq8rfVt
-	 /N9/MlfENq+SNJCwpcejpcmrMo5JXh7TjyU88IetAbqRfyHTxUR17LIgeN78X31Zz9
-	 4BeC8xoqB1NjPTnMaIa/eCDlAVQhe30IgOND+Ph5wVgdPpM1+1qMO5MuAY1hNttDDA
-	 rx40LYi/b4nfg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: nina_kuo@novatek.com.tw
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804033419.693819-3-nina_kuo@novatek.com.tw>
-References: <20260804033419.693819-1-nina_kuo@novatek.com.tw>
- <20260804033419.693819-3-nina_kuo@novatek.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 03:45:15 +0000
-Message-Id: <20260804034515.BF09C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xb6qbD/g"
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-754ac74c495so1283050137.0
+        for <devicetree@vger.kernel.org>; Mon, 03 Aug 2026 21:03:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785816182; cv=none;
+        d=google.com; s=arc-20260327;
+        b=g7I54Zw2kSvcHjORRWKsp+yESd07SUfnk8PX5+nYSRAsj+rBPxZ+GdSJIG4elpiOQY
+         sK00VybcYRJRUVm3PQLpabfJkVXDA3k2D1FwcRJk0KeZq499f6boCLGsrYuoc3qD0ds/
+         YQt+KQq8eqSsIb9HJxmRN6tfML5gMYScbQuNZGlbiS8LZdM19nMi2nLjivwA8SgCfdaz
+         2gMmHz4xuQozbEjxQZKo6lyEuLFHp7fii5iDOU/9bcCIbvNUaa96CQZmKr2QbDPhFs2+
+         ZLMk1KQ7ixBmfuQgQddh06D96SNZ1YV7dMGvSeDFp+9hwfHGGJLRQgeqpEZLcGaezdos
+         Kd6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vjyfvHU8F3NgL4NW8N8+pld5mLwJIrHHWmLLvG4oy4g=;
+        fh=PMcWp/3C8A+044li5wmHz0q65H76b4UyXAOe4l4PW5s=;
+        b=sFHVOAaAM78RkPlJqV0lQt5fGbfc4msIVIN5GzZ/LJEQ+zgZlzz3UxTFczlQTbi4Y6
+         20e4aRmOjI/qmbx/TB/HsJrOQ1EinlMuQstJ0s8xkOrAbVBXv7lz2Nuj66zldympmou7
+         Hb56HEIN+sdokMxRh4PHYxvpfykvXKqtGIWBZQ2OuRwgn2/hB+420C8WVUlVQ65HdGXE
+         Bpxy3s/XIhuPDEdXsYS55uM2N2wc5ZGEZlBa+aiEWvWGRLrI51xUwU0/kJTiLYn6jm+E
+         2HfmwI6R3CLd8BTUYZts2U30dpy1aPmIjTLB7KEsEzVVLAntctmoBgxxQZLIzTFhOPTC
+         zooA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785816182; x=1786420982; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vjyfvHU8F3NgL4NW8N8+pld5mLwJIrHHWmLLvG4oy4g=;
+        b=Xb6qbD/gZN1fxX/kenbFvB0Ro308w++AMJG9KrgkmFLQjh37LT+apr5yEExHxIQfWS
+         vS7dDwtgO3zUGSHvORS1I6gjydYmv+iz1zk7MbRBhpS09tFAXLKYpseGge9ZFX546xXT
+         ANSKOfFTHDPLRbfoEXbanXm+Yl3Wpf4ixD1ef/DN7ltNZwmXrkYemL25RjqhHPR7H1qx
+         Jt7+ua2zvaE3FSA0iUFTfhitzmq7dKa7svLIqeTTLYCbNfjAuC+pjmV3uQ2HN3OUUJur
+         E1FXlrSXn2dthwG5naVNzxW7+LOJ863Kjl54IVd7LByAwUPUyK1Cw2fXatINDcMM+Z8V
+         +WJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785816182; x=1786420982;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vjyfvHU8F3NgL4NW8N8+pld5mLwJIrHHWmLLvG4oy4g=;
+        b=g8kPCsuvuzFpyOPnbtqUHa6WsW6Y8MNUywsRBMv0J8bCEm4rn3pjSAP23Bx48B6iKA
+         vIHAcU+rrsfiRzpK9Jamw6whOyWpWn5mD2XbHhr4frywZ1WJ6EyPPRYjpHPCMqu8gW88
+         9SZ5EGEP+mKDfNGTSxzpgq4EQ6NH6YjrhxwYXlwpuTbRYcJIEL4Mukre3NCFed63Qzry
+         Dp/SifyzoDn5U2n8UY+oE9vgGGeE0YgBhPnX1x3cUi9scTLi81u6LjqJSmpRG9eYiwcK
+         q7Zvy+We1vHZuXrlF/PlogpxMhYLsiR/4p6l8DtSTc19K6N/r2yxoNOtxGD8yU10xyMP
+         NBLg==
+X-Forwarded-Encrypted: i=1; AHgh+RqN5p8SUySeYY0Y0Q93rwV0A31RmXu2Mq3oqUnGmHDSGKYWi7MRG+KQv6D8Pi7mXQ5B67lk+WixQOeQ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yynit91iIa/qXFn04tXHn/hvMenIKDy8xehvcny8Auo1kInAtaQ
+	6TFHnJOn7KyxEUORKT1KixZ8T1/E102jJovGKkt2pC6K4m/xH0DiyZf37TYdbGafBBrgdXhesgc
+	U6OrEY2dgz0ajOL88OCUVP4SJlXuszAA=
+X-Gm-Gg: AR+sD119VHCSiH4EDrVZXBCPFK/8ntkPc5c/pz5r0Prwhv+ZH68c/Gr9psYGkkSCjwR
+	jhNs/Ro2AorGOW1dR+8Fa+MAuuToDC/7v7nXg/5tZPRzzKWOyFFU38M5pyjQafgQdZ9eDLujpzd
+	fHAevj6PxneKYJGEvPGCoDI1T6D0f/2f7cZkrdM70WVT4w23uh34ZEFk2I4PJvbNSwmesoSjo34
+	gAKRPkE98t1SwNAPiakHmQNL5YnUECNssv2Odg7bgxMvdPEoAxbR4ZQmfYOkFkN/BNbcK+m/oZX
+	DagzKqvVLlrem7tKFpazXjT/q6cadPQgOE13TaRTI/8yjBNCl6Jmo58zpkzGZX1zUe4yqsPXJBn
+	5FRCQ083K5zEdsfUBGbz7JpodgB6fz5GFJT5q2abrajIgv8CVfQ1RHuSeIRwWO/c3eAT4ABFn/V
+	k7rlrtaZ7gXSEm9Rz59KP7B/2RWAg3sKzM6gOduolcioCb1NzK
+X-Received: by 2002:a05:6102:6899:b0:726:cd42:d023 with SMTP id
+ ada2fe7eead31-75b2375d6eemr8045788137.11.1785816182410; Mon, 03 Aug 2026
+ 21:03:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260803-submit-mdio-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com> <c1c5ce0f-2c65-4c19-a525-cdd2ef33b6e4@lunn.ch>
+In-Reply-To: <c1c5ce0f-2c65-4c19-a525-cdd2ef33b6e4@lunn.ch>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 3 Aug 2026 22:02:50 -0600
+X-Gm-Features: AUfX_mzYnShoXS6dXEQ_Ip01VArc0qPkR2yK0Lso7PSkwQm8kgd7SY9mx0R0MLc
+Message-ID: <CADvTj4o+B933k4TUshgcvZ4tENDbit3fHEBtwy5ODpsf60osyw@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 0/3] net: mdio: support dynamic OF device changes
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The driver unconditionally treats the first message of any 2-messa=
-ge transfer as a subaddress write, silently dropping it or misinterpreting =
-read operations.
-- [High] The interrupt handler returns IRQ_NONE without clearing the hardwa=
-re interrupt if current_msg is NULL, causing an interrupt storm.
-- [High] Lack of synchronization between the I2C transfer timeout path and =
-the interrupt handler leads to a use-after-free of the message buffer.
-- [High] The I2C controller hardware is disabled before unregistering the a=
-dapter, breaking concurrent ongoing transfers and client device removal.
-- [High] The ISR fails to handle the enabled CLK_STR_TIMEOUT interrupt, lea=
-ving it asserted and causing an interrupt storm.
-- [Medium] Hardware interrupts are left enabled if `i2c_add_adapter` fails =
-during probe.
---
+On Mon, Aug 3, 2026 at 8:06=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Mon, Aug 03, 2026 at 05:48:09PM -0600, James Hilliard wrote:
+> > MDIO buses enumerate firmware children only when the bus is registered.=
+ A
+> > later devicetree overlay or status transition is ignored, unlike on I2C=
+ and
+> > SPI buses. Supporting live reconfiguration also means that population a=
+nd
+> > removal can race address scanning, PHY attachment and bus teardown.
+> >
+> > Patch 1 factors fixed-address child registration and legacy PHY scannin=
+g
+> > into helpers shared by initial and dynamic population.
+> >
+> > Patch 2 serializes MDIO device-map changes, reserves addresses while
+> > registration is in progress, and coordinates scans, attachment, removal
+> > and bus teardown. Dynamically removed devices remain pinned until bus
+> > teardown, preserving the borrowed-pointer convention of
+> > mdiobus_get_phy().
+> >
+> > Patch 3 adds the OF reconfiguration notifier. It supports fixed-address
+> > PHYs and generic MDIO devices, scanned PHY addresses, and Ethernet PHY
+> > packages. It also preflights overlay removal and rejects removal of
+> > attached or in-flight PHYs before their firmware nodes can disappear.
+>
+> This is a lot of complexity which i think should be avoided by just
+> getting the bootloader to put the correct nodes in DT.
 
---- Patch [2]: [PATCH v5 2/3] i2c: nt72676: Add Novatek NT72676 I2C control=
-ler driver ---
-commit 2546eac52465a246476611598e7130d303e3cc7f
-Author: Ben Huang <Ben_Huang@novatek.com.tw>
+This should all be generic OF_DYNAMIC support for MDIO, so the
+changes shouldn't really be tied to a specific PHY driver in any case.
 
-i2c: nt72676: Add Novatek NT72676 I2C controller driver
-   =20
-This driver performs the fundamental read/write functions as an I2C
-controller and supports Standard-mode and Fast-mode.
-Default operation is Standard-mode.
+> If this was a hat on top of a SBC, with an EEPROM indicating what the
+> hat was, then maybe DT overlays would make sense. But from what you
+> have said, this is a fixed PCB design, nothing hot/cold plugable.
 
-> diff --git a/drivers/i2c/busses/i2c-nt72676.c b/drivers/i2c/busses/i2c-nt=
-72676.c
-> new file mode 100644
-> index 0000000000000..48750b02537fb
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-nt72676.c
+Some H616/H618 boards have the ethernet port on an expansion board:
+http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/2=
+W-expansion-board.html
 
-[ ... ]
-
-> +static irqreturn_t nvt_i2c_isr(int irq, void *dev_id)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D dev_id;
-> +	struct i2c_msg *msg =3D i2c->current_msg;
-> +	unsigned int status =3D nt72676_i2c_readl(i2c, I2C_REG_INTR);
-> +	unsigned int clr =3D 0;
-> +	int do_complete =3D 0;
-> +
-> +	if (!(status & I2C_IRQ_FLAG) || !i2c->current_msg)
-> +		return IRQ_NONE;
-
-[Severity: High]
-Could this early return cause an interrupt storm if a spurious interrupt
-fires, or if current_msg is NULL after a timeout? Since it returns
-IRQ_NONE without writing to the clear register, the level-triggered
-hardware interrupt might remain asserted indefinitely.
-
-> +
-> +	if (status & I2C_IRQ_NACK) {
-> +		i2c->error_code =3D -ENXIO;
-> +		clr |=3D I2C_IRQ_NACK << 8;
-> +	} else if (status & I2C_IRQ_RX_FULL) {
-
-[Severity: High]
-What happens if the hardware asserts I2C_IRQ_CLK_STR_TIMEOUT? The
-I2C_IRQ_ENABLE_SETTING macro enables this interrupt (bit 12), but it is
-omitted from this if/else chain. Does this mean it won't be added to
-the clr variable, leaving it asserted and causing an interrupt storm?
-
-> +		if (i2c->remaining > 0)
-> +			nvt_i2c_handle(i2c, msg, true);
-> +		clr |=3D I2C_IRQ_RX_FULL << 8;
-> +	} else if (status & I2C_IRQ_TX_EMPTY) {
-
-[ ... ]
-
-> +static int nvt_i2c_write(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
-> +{
-
-[ ... ]
-
-> +	ret =3D wait_for_completion_timeout(&i2c->msg_complete, i2c->adapter.ti=
-meout);
-> +	if (ret =3D=3D 0) {
-> +		i2c->error_code =3D -ETIMEDOUT;
-> +		nvt_i2c_reset(i2c);
-> +	}
-> +	if (i2c->error_code)
-> +		dev_err(i2c->dev, "[%s]: write failed (err:%d); SA[0x%X]\n",
-> +			i2c->adapter.name, i2c->error_code, msg->addr);
-> +
-> +	i2c->current_msg =3D NULL;
-
-[Severity: High]
-Can the timeout path race with the interrupt handler here? If the transfer
-times out, current_msg is set to NULL and the function returns, leading the
-caller to free the message buffer. If the ISR executes concurrently on anot=
-her
-CPU, could it access the freed buffer via current_msg before it gets fully
-nullified, causing a use-after-free?
-
-> +
-> +	return i2c->error_code;
-> +}
-
-[ ... ]
-
-> +static int nvt_i2c_xfer(struct i2c_adapter *adap,
-> +			struct i2c_msg msgs[],
-> +			int num)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D i2c_get_adapdata(adap);
-> +	int ret =3D 0, i =3D 0;
-> +	struct i2c_msg *msg =3D NULL;
-> +
-> +	nvt_i2c_ctrl_init(i2c);
-> +
-> +	if (num =3D=3D 2) {
-> +		nvt_i2c_set_subaddr(i2c, &msgs[0]);
-> +		msg =3D &msgs[1];
-
-[Severity: High]
-Is it correct to unconditionally treat the first message of any 2-message
-transfer as a subaddress write? If a user-space caller sends a 2-message ar=
-ray
-where the first message is a read, has a length > 4, or targets a different
-device address, won't this silently drop or misinterpret the first message =
-and
-only execute the second one?
-
-> +
-> +		if (msg->flags & I2C_M_RD)
-> +			ret =3D nvt_i2c_read(i2c, msg);
-> +		else
-> +			ret =3D nvt_i2c_write(i2c, msg);
-> +	} else {
-
-[ ... ]
-
-> +static int nvt_i2c_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D nvt_i2c_init(i2c);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Setup I2C adapter */
-> +	i2c->adapter.owner =3D THIS_MODULE;
-> +	i2c->adapter.algo =3D &nvt_i2c_algo;
-> +	i2c->adapter.dev.of_node =3D pdev->dev.of_node;
-> +	i2c->adapter.dev.parent =3D &pdev->dev;
-> +	i2c->adapter.timeout =3D 3 * HZ;
-> +	strscpy(i2c->adapter.name, dev_name(&pdev->dev), sizeof(i2c->adapter.na=
-me));
-> +	i2c_set_adapdata(&i2c->adapter, i2c);
-> +
-> +	ret =3D i2c_add_adapter(&i2c->adapter);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to add adapter\n");
-
-[Severity: Medium]
-Does this error path need to disable the hardware interrupts that were
-enabled earlier in nvt_i2c_init()? Returning directly might leave
-interrupts enabled on a shared IRQ line.
-
-> +
-> +	platform_set_drvdata(pdev, i2c);
-> +
-> +	return 0;
-> +}
-> +
-> +static void nvt_i2c_remove(struct platform_device *pdev)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D platform_get_drvdata(pdev);
-> +
-> +	nt72676_i2c_writel(I2C_IRQ_DISABLE_SETTING, i2c, I2C_REG_INTR);
-> +	nt72676_i2c_writel(nt72676_i2c_readl(i2c, I2C_REG_CTRL) & ~I2C_ENABLE,
-> +			   i2c, I2C_REG_CTRL);
-> +	i2c_del_adapter(&i2c->adapter);
-
-[Severity: High]
-Should the adapter be deleted before disabling the I2C controller hardware?
-Disabling interrupts and clocks first could break concurrent ongoing
-transfers or client device removal operations that happen during
-i2c_del_adapter().
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804033419.6938=
-19-1-nina_kuo@novatek.com.tw?part=3D2
+>
+>      Andrew
+>
