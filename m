@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9FA476067
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:20:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7674E483BEB;
+	Tue,  4 Aug 2026 17:20:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785864015; cv=none; b=TPsyo7upxEaxYMyumiMV7s+108FTD6sCh8KkxSG15Hsr3W8kYNxsehEY8PbOR0f0Pa5kSL5a5/baUxRo4Dn9FF+YQ6DN7SifMRMJfL0FCfT10XH3W9Z0+ZR/u9WQO7fCJN+yzt5A3k7F9D8WdNFNRUOzAYeCk08WZVafFQTz5Ys=
+	t=1785864020; cv=none; b=G4yjxNxjMrM5orjVwlvTI/XuqLPuScEvOYcEZ/e9rSmZ5KmIZdZARnurg3Y0xWuuFrsBxFkHD/i2xU+YegNuFB47vYw9hoeuFG31L3e/c0tNABwvY3SCDg/v0BOOc6AiC19NXdv8QzYrR38M74dx7iKCAxpiz1y/I71pUEya4E4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785864015; c=relaxed/simple;
-	bh=Z1xhaQP7TlVytHmKlY+Vr+kppy0K4EtEOvhjh7NXr1Q=;
+	s=arc-20240116; t=1785864020; c=relaxed/simple;
+	bh=yn9q/LQUUuTE73/CA/xqzXBtHuQ1kZpXfDRBwehXd/g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pZvvsWTW/s2iHMfCui/Jg2T/qGy6cWnFx+EoCxlwlhb19Lrgf04SPROzt0cGB3hXx2xeEppTmFcm9rd2Q7t5I7KpeDCyZfIo/qoIITBKBrquFQ/IcXYlY3wXB93cLCczqMbO78A30Vmkt6z7H7T8OXvFnRYCY2o3b3wMkNDFvsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iqe40Uxy; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rsld9qNpCpKlAEqKasbrQaHDpnMzYGtArf7ZBObSbPM8kFPlazBKhzSGkSHgUs2iUN0Cluj24GirD3JYwbqTOXWF6rwy/dlJGsyLUj11AalCylvtAVUgugyl9b+WaTVFILZwzh+BIkOdoh41vLkxERX/ybG+XB1K5ClJ5p1/toM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSrJ+a2E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iqe40Uxy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57D01F00A3A;
-	Tue,  4 Aug 2026 17:19:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSrJ+a2E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD3C51F000E9;
+	Tue,  4 Aug 2026 17:20:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785863999;
-	bh=Y3PoCRdBk3TzPftRwQqEMwpyFoXR8whPC4Z03872MeE=;
+	s=k20260515; t=1785864011;
+	bh=WESL2TVF/PZW3BVZnHuChAg7+wBXDd2q5pCQuz/jxwk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Iqe40UxyAcIvil3PZYXbXXNtqsKlj7SPIqMT3t2VOwt3p5bnwxm8WipJ2grLXE6dQ
-	 7/4BdX7P/aBwP7mWkTqZpq+R4PRsEzslVycUeHuHoAoVgrAcvxxd80oxoGfgdcXjRI
-	 VvhgIbRA8Cmhb3n4woGE2KvYS8vVcmadVQDG11IGXAU1tImys/BRzo+HEhCrDzllz/
-	 CtFjRF94FHnClGJaplOGlfu95lmgImh62iG5o5UcGFLwvxmPSsnZJn5XNNYb526jBR
-	 gjZsOiYhLUS2I5nnOI58t4Bsm76XXdUp54LGp3Jodh9mRJ7F6iI3uzMBlirZP/Ce2g
-	 QlSB8qVgX7uuw==
+	b=DSrJ+a2E1VlK1dUrQ2ZWCxanePat7CgyrhEWJdC0K0GUaBjAveBWZX3G9hgG07Jo0
+	 H7gErs/goS48nvx4qpUAAAaP1DLUfLX8Y4yKBfEV3F7FThRVfnadZBYevETiiiJCiu
+	 7UjevMW3Njfc5OWv3SLR9fD0vtoXwoHy6NECnxrc84tFPzfa/OmRyN2EO0DFj3KKPB
+	 eSzoXiQGi8KiOO9Ud4A8GltmdH1C++p6VuptmIJQf4DVNfdnuB22eI2qah+HIoYhGo
+	 iuPWypbjIsIfBK4ABBz6bNzXvTN/iCmIEM9JiwMJAhSYkhq+KdNNdSblKL+UQ+yzfS
+	 KNfH3XW+m7UFw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v12 05/11] net: mdio: realtek-rtl9300:
- Configure hardware polling during probing
+Subject: Re: [PATCH v9 6/7] arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for
+ Data Modul i.MX8M Mini and Plus eDM SBC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260803171853.507506-6-markus.stockhausen@gmx.de>
-References: <20260803171853.507506-1-markus.stockhausen@gmx.de>
- <20260803171853.507506-6-markus.stockhausen@gmx.de>
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
+In-Reply-To: <20260804162310.24374-6-marex@nabladev.com>
+References: <20260804162310.24374-1-marex@nabladev.com>
+ <20260804162310.24374-6-marex@nabladev.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 17:19:58 +0000
-Message-Id: <20260804171958.E57D01F00A3A@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 17:20:10 +0000
+Message-Id: <20260804172010.CD3C51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,99 +47,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] notify_phy_attach aborts phy_attach_direct() for PHYs unmapped to =
-switch ports
-
-Pre-existing issues:
-- [High] Hardware polling corrupts software C45-over-C22 MMD access sequenc=
-es at runtime
+- [High] Device Tree node collision and hardware I2C address conflict for i=
+o-expander@20 on i.MX8MP.
+- [High] Incorrect UART role configuration for RS485 on i.MX8MP.
 --
 
---- Patch [5]: [PATCH net-next v12 05/11] net: mdio: realtek-rtl9300: Confi=
-gure hardware polling during probing ---
-commit b348a1eaa3ac89042c8633ae18e01b3be6294f9d
-Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+--- Patch [6]: [PATCH v9 6/7] arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for=
+ Data Modul i.MX8M Mini and Plus eDM SBC ---
+commit a7ddf5cabeef2078bf36b166e42e85f54f0b7289
+Author: Marek Vasut <marex@nabladev.com>
 
-net: mdio: realtek-rtl9300: Configure hardware polling during probing
+arm64: dts: imx8mm: imx8mp: Add FIO1 DTOs for Data Modul i.MX8M Mini and Pl=
+us eDM SBC
 
-During PHY probing and configuration complex configuration sequences
-might be issued and firmware might be loaded. Hardware polling can
-interfere badly with that. This patch disables polling for all ports
-when the MDIO driver starts, reenables it after the PHY has been
-attached, and disables it just before the PHY is detached.
+This commit adds a Device Tree overlay for the eDM-MOD-iMX8Mm-FIO1 feature
+connector expansion module. The adapter provides additional interfaces like
+UARTs, CAN, PWM Beeper, I2C, SPI, and GPIO, and can be optionally populated
+onto the eDM SBC.
 
-Link: https://github.com/openwrt/openwrt/blob/main/target/linux/realtek/fil=
-es-6.18/drivers/net/mdio/mdio-realtek-otto.c#L818
-Link: https://lore.kernel.org/netdev/680696024a8648535ce6dee771fe4de67802e0=
-e8.1769053496.git.daniel@makrotopia.org/
-
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
-dio-realtek-rtl9300.c
-> index 1873928b362dd..210e570c09732 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-over=
+lay-edm-mod-imx8mm-fio1.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-data-mo=
+dul-edm-sbc-overlay-edm-mod-imx8mm-fio1.dtsi
+> new file mode 100644
+> index 0000000000000..905db21d57c21
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc-overlay-edm=
+-mod-imx8mm-fio1.dtsi
 
 [ ... ]
 
-> @@ -582,6 +591,33 @@ static int otto_emdio_9310_setup_controller(struct o=
-tto_emdio_priv *priv)
->  	return 0;
->  }
-> =20
-> +static int otto_emdio_notify_phy_attach(struct phy_device *phydev)
-> +{
-> +	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(phydev->mdio.bu=
-s);
-> +	int port =3D otto_emdio_phy_to_port(phydev->mdio.bus, phydev->mdio.addr=
-);
+> +&i2c_feature {	/* Feature connector I2C */
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
 > +
-> +	if (port < 0)
-> +		return port;
+> +	gpio_feature: io-expander@20 {
+> +		compatible =3D "nxp,pca9554";
+> +		reg =3D <0x20>;
 
 [Severity: High]
-Are PHYs unmapped to switch ports handled correctly here?
+Does this cause a device tree node collision on the i.MX8MP?
 
-By returning a negative error code (e.g., -ENOENT) instead of 0 here, it
-looks like it will cause the generic phylib attachment sequence to abort.
-A MAC driver calling phy_connect() for an unmapped PHY on the bus will
-hit this when otto_emdio_phy_to_port() returns -ENOENT, leading
-phy_attach_direct() to fatally abort the attachment and fail to bring up
-the network interface.
+When this shared FIO1 overlay is applied to the i.MX8MP baseboard, it
+appears this will overwrite the statically defined gpiolvds: io-expander@20
+node on the &i2c2 bus (aliased as &i2c_feature).
 
-Should this return 0 instead to allow non-switch PHYs to attach properly?
+This would replace the LVDS GPIO line names and interrupt configurations wi=
+th
+the FIO1 configurations, potentially breaking the LVDS expander controls.
 
-> +
-> +	return otto_emdio_set_port_polling(priv, port, true);
-> +}
+Also, does physically connecting the FIO1 expansion board to the i.MX8MP SBC
+cause a hardware I2C address collision at 0x20 on i2c2?
 
 [ ... ]
 
-> @@ -611,6 +647,9 @@ static int otto_emdio_probe_one(struct device *dev, s=
-truct otto_emdio_priv *priv
->  		bus->write =3D otto_emdio_write_c22;
+> +&uart1 {	/* J500/J501 */
+> +	status =3D "okay";
+> +};
+> +
+> +&uart2 {	/* RS485 J302/J303 */
+> +	linux,rs485-enabled-at-boot-time;
+> +	uart-has-rtscts;
+> +	status =3D "okay";
+> +};
 
 [Severity: High]
-This is a pre-existing issue, but can the hardware polling engine corrupt
-software C45-over-C22 MMD access sequences at runtime?
+Are these UART role configurations correct for both i.MX8MM and i.MX8MP?
 
-Since this patch re-enables hardware polling for a C22 PHY in
-notify_phy_attach(), the unpaused hardware polling engine can interleave
-with the 4-step software C45-over-C22 sequence used when phylib falls back
-to standard C22 writes. This could overwrite the MMD address/data registers
-(13 and 14).
+The shared overlay hardcodes &uart2 as RS485 and &uart1 as standard UART,
+which is correct for i.MX8MM. However, the i.MX8MP baseboard appears to
+rely on &uart1 for RS485 and &uart2 for standard UART.
 
-Would it be safer to temporarily disable the hardware polling engine across
-multi-register C45-over-C22 transactions in otto_emdio_write_c22() and
-otto_emdio_read_c22() to prevent race conditions?
-
->  	}
->  	bus->parent =3D dev;
-> +	bus->notify_phy_attach =3D otto_emdio_notify_phy_attach;
-> +	bus->notify_phy_detach =3D otto_emdio_notify_phy_detach;
-> +
+Applying this shared overlay to i.MX8MP might improperly enable RS485 on
+&uart2, causing it to try to toggle RTS as RS485 transmit enable (breaking
+hardware flow control), while leaving the actual RS485 port (&uart1)
+misconfigured.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803171853.5075=
-06-1-markus.stockhausen@gmx.de?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804162310.2437=
+4-1-marex@nabladev.com?part=3D6
