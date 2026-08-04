@@ -1,110 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010027.outbound.protection.outlook.com [52.101.84.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E734F42AF96
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 09:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785837195; cv=none; b=hpj54hXItewFGlqQOWKZmVd0qDn7Cz0gQ32mptEeothF5bNfbRkEukeWqG6RE67yBEhdRdCA7M2+8OuJ0sfkNTMco7e9Fdg3vfAd1k0a/bjHNHtcqS0uJqJe6DZTtTDi97/jhEg0iqOgcAf6LRH0YLlwWCnJG8Brnm6MZesyag8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785837195; c=relaxed/simple;
-	bh=ZvmXH4jD376JOZkngep/b/WPY9vxRzbzEa3nqPr6gPI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JIi8vft7mgWeNhVITfacLamGHW51UuslvSnjXDGy9j/U4McwO9hE60ZP4Q6BZ4wLttcXb/GmXB4pQze8yuUYaXPKoPQ/EjTpbLJtvRvVAwkd8l2olyLhAqoufdvGhyVwPrAfPLbkTKZ+GxZzPVSktWaw1fBjeaBmlmWN+weNDiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZE74cyeM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4689B43FD3B;
+	Tue,  4 Aug 2026 09:55:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785837355; cv=fail; b=iWcxh92iQNVxmZqqZ5TLa9yo60uy/5JPJ6dFW3kiV24kloJ76EplofTus4KvjmJUcLXjLsbKhpPl2PyBU2F/aOpyXdD6o+Feo/bLi2/59o9jTv/xgsEhpN5mYClG6qD4MX5GmVrtjSxUN0bWv+NTGaJG6Fsq1wgTaT7Yp8O+SYk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785837355; c=relaxed/simple;
+	bh=IpyMwVq9zdonbQ9Ol2S3kHV5G+syP2cGlOHBersnA78=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=dd/SZDmga+pXsFNLFGnhxbHJxBzTEUv/G4MumokfSbuZdEYvcD06qPkrtTKVU7K2kgxsR0FKxrAk4wShGQ5XCEkRHIMtxNjnvNkcu953fg/nghJxKP5Pha7ONYWbVCjggEdAVjFHxobDUWstfL+5HNSMjKhDsBh3MHGqiMCyyCo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qzlTiAh2; arc=fail smtp.client-ip=52.101.84.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZE74cyeM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2881F00AC4;
-	Tue,  4 Aug 2026 09:53:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785837190;
-	bh=MlX7QdQ4dSTNp3lJWBW2DNEeB/txChg4d8KbBDUAjik=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZE74cyeMqRcP1LtLH+jW7vjSj/SR6dP20+YWGR9QT1TX8kxHEy2adglg0RXsmFWhb
-	 9+8ZRgYZx+Y+kGVdH5mazyGTrbZk1tLg/XMAPpAN5x1APbLnvYvASGT69OTvYJsAEC
-	 N/yXy2gnPYNZbf516NdHSh95xFrGNKEteCAO5Q/k7SJ++Ro/U9Pvd9cLrMZWawpMuz
-	 NIl1GJJwAm2/xb9cTQ7sM6IwKezXp7kmNU3aq5J73qw5F3J30hHhP6if7anacmNaj0
-	 OaY6cztXqoOLlkitEpjK+E2E4aCbRsQMdnzam+wV/iUYJ47JGZvgk72C+ntuOSe5Xm
-	 9HKD+KzFbwDVA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 3/3] arm64: dts: renesas: r8a779g0: Add gPTP
- node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260803095232.3527111-4-niklas.soderlund+renesas@ragnatech.se>
-References: <20260803095232.3527111-1-niklas.soderlund+renesas@ragnatech.se>
- <20260803095232.3527111-4-niklas.soderlund+renesas@ragnatech.se>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 09:53:08 +0000
-Message-Id: <20260804095309.7B2881F00AC4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qzlTiAh2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SPmf1P6qbPgysUQUMHQn8aL2fPUeNORG0HjVJ15HuR/yoQ4ciIz7qydL7PU2Q27c/b/YEOk/aciXRVNJUo6/kBE38nPwvNmXazR4DID0+pNaW80IDayoBkguxM9EH7ZNaN9YaE4/RpMfOo8Yf3k/jf1ypzWV4CHeo9I7deFtUu4Db1CUrE+JneUgXqeRxK4AzVqmw1C+dkVodOn43cqyaRrMax0ZCEBsnRdS8n7nbM7i2ECPnIgCvvfj1MDaH8mXLMOAcCoaC/fYDFbkqUqPsvcwMvoAmAs+wHxNtHSYnUIlkfMfaBbuTKMcou7MmaZ+yX3DAC1K08b5x9ifV9tjJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/oxjEhcd90sIwT8oacfo/mQ+G4Ay48k/aqmt/lOs02A=;
+ b=CIMq2BNpp1dkA3Dcrxs4T5SsgPIw1zd1gomOmHZ9x4CJNwantIzz3ZkU2tRS1hPfAtCdX+uIuPWWUDLEsZIFJjK7HJBXHS/k0U3OSgf5JfotPvuMjkMUOg4Q17fAv5DwQxON7RDoWUEckpTHK8AG+n9NtySEAZBJsYpbxfIXPirzPMFZ7hmfqwwxUXNrOrVHrX4iIQhdQQHXDDgyx+jwZVtCph1Zp4rlnZzlPyRk0CFgDzxTUem1gi3i82eiRzV+cgcUOD2S+Dv7GhNnlNlIXtlSP0Z1GpIw2ZGT87Jtpp8gEpjT3BgygvqW2R2f+fnLwJGXy4yS/5HRCtFviPhWmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/oxjEhcd90sIwT8oacfo/mQ+G4Ay48k/aqmt/lOs02A=;
+ b=qzlTiAh23qVz2VAgUpikbXEKuLXMGd6hFjv/weI2NsuKxrwETuoh2Aal52USDX/6BtgDGUZVZuGQZSFS3PP5Ry3sM22qLb/GqSZVxumot6L+ZmngmcXr5Z3MvgzLRIsGuRKaZGcoHI0TLKpKRJn20kzmN760icX4X81mG1DZMEMNqqbjFUs5COdUMSy4d6bDwsFx93VEAR8+0oYFW/Mh29fAfRxL7X23jc/D/3wWFvSif9nDv7qJuCygypHBJfIl+fawUxaXHJRtHnYaRz0fBJCv4j1M37iKtvesR2D5+X8WmbuVmvEgdErL0aJFzpjTjOXubidFeBN4RUvaPMjSVA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
+ by DU0PR04MB9465.eurprd04.prod.outlook.com (2603:10a6:10:359::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
+ 2026 09:55:44 +0000
+Received: from PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa]) by PAXPR04MB9351.eurprd04.prod.outlook.com
+ ([fe80::1058:a430:52c1:5aa%6]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
+ 09:55:44 +0000
+From: shengjiu.wang@oss.nxp.com
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	shawnguo@kernel.org,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	nicoleotsuka@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linuxppc-dev@lists.ozlabs.org
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: [PATCH v3 0/5] ASoC: fsl_asrc/fsl_easrc: expose per-pair/context DAIs and fix DMA race
+Date: Tue,  4 Aug 2026 18:02:13 +0800
+Message-Id: <20260804100218.49587-1-shengjiu.wang@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2P153CA0029.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:190::16) To PAXPR04MB9351.eurprd04.prod.outlook.com
+ (2603:10a6:102:2b6::17)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB9351:EE_|DU0PR04MB9465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4f696ea9-3d05-4f6b-77a4-08def20e8d00
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|7416014|376014|23010399003|1800799024|366016|18002099003|11063799006|56012099006|6133799003|10067099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	TYyXzRtT8d+zsvr1ELUWXI0ubhfkkBNE7hRBe1Qu95T1VuolKSq1YIiMzDwkbKNAWh+iEbadiL/LYuZoXdqd+XFdM5qeMyx869xYWylTBNCJGQvkC49RFQbVVGoDV7D6scAoLr7keVhC0JcaET+Zuy1arw2OEFr/B2MKuz2Ni/TU/hDMosTyXbnkTvbqtFOHEYgETqYFtCdPFviIdDkjey9vsJm9S8Ag1rmYbgzrU/kKXtKaEaqkJo3rYJCljIpIBGLqZows78aVo2fOT5B/usCpRjiiReqL9m9m0Zb5BijZezPw1bBaIqI3yZ/Gs3YJEUaV7taZFcfwZ+p3vieYipsEmU1NoDAzuGnbtz5MEWhtBadJNIrZvI8BbVpoQKcuKLxi7O9Ys7B7x+khfGYMKUACItI11+V8F2EE7rISOUyCsSGo22Y3qYYeeq1DPy1GhGnbipOPAQ7ZZ6ADcPK9WZVNZYwAmbxtHLHLsekzZZ3Rogauka7PdPistG9lVOgNjupgGNHeO1b7poso4yn3zOxB307MXWGoKIjCnfuZH3DYqkuHn3WLiu7K5fYBWC3yaPLxkfXGLrs3fyEX+uOQ3vW4dUy15K6btoNHr6TbeewqvelSEkwoJkZYWxTi7ZUqurEaUICO+Ur9jutRR7zJu1Ubx9z267K6OJuZfAZrRP2FJGRXsYKIjERQSh9wU7oHrXFX65NLmhhB3wf92xZzPQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9351.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(11063799006)(56012099006)(6133799003)(10067099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tuXJCmw62UzpzsIidqQFkBBLH1tSAz8/2RGNVdmjtj3R6Ude7/Ch792h8PZW?=
+ =?us-ascii?Q?190nFD911bdiQWcB8OdakUKjKvtveYfuzWU40lDNHzDD0JwajXESRMICl4iz?=
+ =?us-ascii?Q?seL/V5kxBmFvLmWBNusos9kf0XylMi3gm8c7MpuB4M6W633rhw1ozlanOYBH?=
+ =?us-ascii?Q?q86+F8MglU3fsoBt6SX2tWX3vIHNo4uku+cJPRptB2tR9EYKxvzDciYOtYRD?=
+ =?us-ascii?Q?HGF9WDcShwoE+nb6xoKVyXDgCU+qMK615BlqSFqRZUAPWOkrv3zVf1/XZJWo?=
+ =?us-ascii?Q?9zFSx1ULcB0I6lC3c6mj9H3o9ScNDub+TSBqjaX8mT7+VBjMC5u4X6VAm7MG?=
+ =?us-ascii?Q?veU1r05caBLecVbGY/OmfD8AFyxixSVeQiLfVrHttd5Lv9Ss7FTjdDSvs7zp?=
+ =?us-ascii?Q?9kdnfcx6b4R/fEmACK8IPjUE3SmSztjBfNfbz3vtt9vPUh4eOHEypYg/wIKB?=
+ =?us-ascii?Q?rAl/vYh11LkydmUSpSPJZzou2Rn1bxuPvyCO2DcdQT1uElfMpY2x8XYBh0h0?=
+ =?us-ascii?Q?u8qb1Lse5mKudeyMxu9SvgopNmnE8sUznl+LrKuM1E1RHXeQ4Sm0mde2Uzvs?=
+ =?us-ascii?Q?NzuhqIlIXyuKuxafax0ckBAZVemzh+1+Qcsg4ScOTP0fVUiK6DIdWd2yS4zK?=
+ =?us-ascii?Q?ucTfqfu056hKbvTmB/Dg7J73U9x3/i9oZQUqy/4VArtX7R/MT5gePXyS138p?=
+ =?us-ascii?Q?4JRcPyPlGiH5FNQ9OY8sPUaEz3IoU771S05lrD+HY8E6wxd8EZwAV/gXI7wq?=
+ =?us-ascii?Q?XMcFonb6TkV5skxEcTzdPzALn4Cj9q7b5+y1s3qKBbnStLYXh/KHjktaPSOS?=
+ =?us-ascii?Q?JyqYFOBWO7V+y/1NvF5uZq9gTnlnUFyVeFs/eLq7zai5UERRJiXy7jxDMWCJ?=
+ =?us-ascii?Q?BICKpQpcp3inqb+Q6qDkOUezgZHFBB+AwMbeueGRr7MD06L+HlWnWf+im0yR?=
+ =?us-ascii?Q?x3whMoPKLWsZk9ZUr/cjW6EzwHYJorpL14y5ZiQKJi2yZws8ZXDMWIKfY2vL?=
+ =?us-ascii?Q?E2nYGXgh/7BrvcknhyGUFn/lOUcgvjSV9qPeGL8jFrt+8FUcel5gBQ6Xzwkb?=
+ =?us-ascii?Q?+wrwDrBD2shPz7JzICAq8ubHMjPf6/mqkV3coLjmqEuzJp9CcRREQxhS2kVB?=
+ =?us-ascii?Q?t9S0Y56szVC9AI3B3/6185FxhyVbXtc+Xr6eI2vD/XLklV29mYBMF7UN9USY?=
+ =?us-ascii?Q?xo0X0qh37Sg7g+YzICzsLU09CPS/Sc+U9kamwWyKsSh5pMLyhFarNliLzUva?=
+ =?us-ascii?Q?XCXH9LQCeNGXcxbDZLpQuEzpwtZ+gnnWSyIclqtiopFAQkxEglUJc/8TiPNP?=
+ =?us-ascii?Q?Y5Otyt5qvBUjlFbFnjBNlwKLHIEyxEMntZpGpV4c2jbsYYV0RrXjfjsVWYI/?=
+ =?us-ascii?Q?TE99KajRMvkFYMGvJ4GtHyzCnVRPWL2bHNcDu2du6r6T4VJeU7wVcyK2bYU5?=
+ =?us-ascii?Q?Y+76ds74CZF0XOIEL7CZilXurl6INToGphPm4nZaCpFqMckViHiyvA7pUqaJ?=
+ =?us-ascii?Q?xdoYzM4zhMHNGkdbEmUdLW30y0ujZ09h3dLZtN2QeYjIwXmtsienz1w/ThYO?=
+ =?us-ascii?Q?cVBwoS/RP5ay9MjUeKWGPtvPBjdGLYprgK0RSINt/spE+v9dGV6HQgUgWmwv?=
+ =?us-ascii?Q?MXROKEwWjvHXZjLlV6L/dYORl8hunIhUfJktQfeiGX/jEqful/sHfqu293xa?=
+ =?us-ascii?Q?Iui8GKiiiw99smIJ2glPZkRvBtMCiqAloSdM16UfsYJmyW+es24S8IR9aCrA?=
+ =?us-ascii?Q?2wWrfwlZEk1HVbDwKrLg4OWZ/phAmaNyTHYCtLxExLQOmZIgpZJB?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f696ea9-3d05-4f6b-77a4-08def20e8d00
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9351.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 09:55:44.4514
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5TXiRsWGGhFStqBifDQXneqzKR2uhpjolqye+9W7pMtb/rjtNHyXCmPssJTZvjXiptt2TLKRL2oDM07S4PNDAX5cAIzOGCela4VBhT+2jhrExUNh+LgTZYWO7eQCoK3R
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9465
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Device Tree Resource Conflict: Overlapping memory regions for gp=
-tp and tsn0 nodes will cause -EBUSY probe failures.
---
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
---- Patch [3]: [PATCH net-next v6 3/3] arm64: dts: renesas: r8a779g0: Add g=
-PTP node ---
-commit bb4e1d1111c141906839e9f11b82a931aa6c6fd6
-Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
+This series extends the i.MX ASRC and EASRC drivers to expose one DAI
+per hardware conversion pair/context, allowing multiple independent
+conversion paths to be active simultaneously.
 
-arm64: dts: renesas: r8a779g0: Add gPTP node
+Patches 1-2 update the DT bindings to add a ports container so each
+conversion path can be wired independently in the audio graph.  The old
+single port property is kept but marked deprecated.
 
-This commit adds a new gPTP node to the r8a779g0 device tree, sharing the
-module between the RAVB and RTSN Ethernet devices on the SoC.
+Patch 3 moves dma_params into struct fsl_asrc_pair so each pair owns its
+own copy, and registers it with the cpu DAI using per-direction setters in
+fsl_asrc_dma_startup().  This removes the per-DAI probe callbacks from
+fsl_asrc.c and fsl_easrc.c, which are no longer needed.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/=
-dts/renesas/r8a779g0.dtsi
-> index 82a7278836e57..b9b860ef70351 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+Patches 4-5 expose the individual DAIs: fsl_asrc registers three DAIs
+(asrc-0/1/2) and fsl_easrc registers four (easrc-0/1/2/3).  The first
+DAI in each driver retains the original generic stream names for
+backward compatibility with existing machine drivers.
 
-[ ... ]
+Changes since v2:
+- add ports example to original example case in yaml file as port is
+  deprecated 
+- remove the label in example.
 
-> @@ -589,6 +589,15 @@ tmu4: timer@ffc00000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		gptp: ptp@e6449000 {
-> +			compatible =3D "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-> +			reg =3D <0 0xe6449000 0 0x500>;
-> +			clocks =3D <&cpg CPG_MOD 2723>;
-> +			power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
-> +			resets =3D <&cpg 2723>;
-> +			status =3D "disabled";
-> +		};
-> +
->  		tsn0: ethernet@e6460000 {
->  			compatible =3D "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethert=
-sn";
->  			reg =3D <0 0xe6460000 0 0x7000>,
+Changes since v1:
+- Patch 3 is new: moves dma_params into struct fsl_asrc_pair (one per pair)
+- Per-direction snd_soc_dai_dma_data_set_playback/capture used instead
+  of snd_soc_dai_init_dma_data to avoid clearing the other direction
+- dma_params_tx/rx removed from struct fsl_asrc; single dma_params per
+  pair suffices because each pair is unidirectional
+- per-DAI probe callbacks removed (startup now sets dma_data)
+- Cover letter and commit messages updated to reflect the above
+- DAI names changed: paira/pairb/pairc -> asrc-0/asrc-1/asrc-2,
+  ctxa/ctxb/ctxc/ctxd -> easrc-0/easrc-1/easrc-2/easrc-3; use index-based
+  naming consistent with port@N in the DT binding
+- Stream names changed: ASRCB/ASRCC/ASRCD -> ASRC1/ASRC2/ASRC3; align with
+  the index-based DAI names above
+- Binding port descriptions updated: pair A/B/C -> conversion path 0/1/2;
+  hardware-agnostic wording to match port@N numbering
 
-[Severity: Medium]
-Will this overlapping memory region cause a resource conflict during probe?
+Shengjiu Wang (5):
+  ASoC: dt-bindings: fsl,imx-asrc: update port binding to support
+    multiple paths
+  ASoC: dt-bindings: fsl,easrc: add ports binding for multiple
+    conversion paths
+  ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct
+  ASoC: fsl_asrc: expose individual DAIs per conversion path
+  ASoC: fsl_easrc: expose individual DAIs per conversion path
 
-The new gptp node maps the memory region at 0xe6449000. However, the existi=
-ng
-tsn0 node directly below it already claims this exact same region in its reg
-property:
+ .../devicetree/bindings/sound/fsl,easrc.yaml  |  45 +++++++
+ .../bindings/sound/fsl,imx-asrc.yaml          |  45 ++++++-
+ sound/soc/fsl/fsl_asrc.c                      | 100 +++++++++-----
+ sound/soc/fsl/fsl_asrc_common.h               |   7 +-
+ sound/soc/fsl/fsl_asrc_dma.c                  |  14 ++
+ sound/soc/fsl/fsl_easrc.c                     | 123 +++++++++++++-----
+ 6 files changed, 263 insertions(+), 71 deletions(-)
 
-arch/arm64/boot/dts/renesas/r8a779g0.dtsi:tsn0: ethernet@e6460000 {
-            reg =3D <0 0xe6460000 0 0x7000>,
-                  <0 0xe6449000 0 0x500>;
-            reg-names =3D "tsnes", "gptp";
+-- 
+2.34.1
 
-If a board file enables both the tsn0 and gptp nodes, whichever driver prob=
-es
-second is likely to fail with an -EBUSY error because request_mem_region()
-enforces exclusive access.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803095232.3527=
-111-1-niklas.soderlund+renesas@ragnatech.se?part=3D3
