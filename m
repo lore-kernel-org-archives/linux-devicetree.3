@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B403A38F653;
-	Tue,  4 Aug 2026 06:25:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C323FADFD;
+	Tue,  4 Aug 2026 06:30:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785824729; cv=none; b=d2Wazp0I7TEOb+0gViHmrcxb7PTX9len6hbwQw1mHk9phqmkQQlApKUhGHGzTp5h5ZCwIDK4CuAUi00UXEnZqnYqzRYQSNFamE6F1wlmotPt9dCf5CP0uDa6/eRp2f3CPTK/oyasK8aOHeqgVLw5RfaIs13PaY/404D2Fjxz3RE=
+	t=1785825012; cv=none; b=rhUTg5hT5d8XTS8jUBOyxNQQ+I1tS3H2mDw1XGLturj8XENRqev0WTZ4jtIon0l19Fn/Tw5R67GDl4ngmUEVBKa5x7JcOL36ki5Ws0U4ZYDbYQbhZvW2LO8rfBtmRAJuHpzVK5obkSFMlALzbuqUwbXBOJmVnV5nW/TypcoVne0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785824729; c=relaxed/simple;
-	bh=lPryO3MxFHHeRT6WH4H2dKr1Cv19kVbp7ZuTaqYqXzg=;
+	s=arc-20240116; t=1785825012; c=relaxed/simple;
+	bh=+VwFfGj24XKgd6cRoI4mXjYVZjgG5hl5FA60MKhvvbU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e/5L9LYqqwTq9W+NxZojBvEWnNklUuh9+IiShxcuA7DwYtdwPbNRIkP4NRTFzBrJI3wgKCjt0tOtS4Jj/jvcYdJi/B6Bj7zwDkyIjavTt7yxUcfKBuFR2fAXjkU7EYkWUxejgR9XSs1TibTkYZHvMXPrvhwlfkOT/yI30WmTHR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAk9QDhe; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=KH0EZwNAhkjHALbrOLuT1iV4e4GBwwdvAOd3tW4/lh61wuWkFE+SQsvTVGo41xbFCbMiwE3EQs9DdkvmOl5pCeYbeiXTCSV3lwEdd2W9Ok5JLKlGdaf1gWci4uFdLwgoehGoIbyi9naBstCwh5EKjacKSXFp9IAPoDujLAAQVKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c4WhJifQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAk9QDhe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E41E1F000E9;
-	Tue,  4 Aug 2026 06:25:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c4WhJifQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E541F000E9;
+	Tue,  4 Aug 2026 06:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785824728;
-	bh=fGorC68ff84+f7K5aUxjOqih6BHYiODyJZvYALgwCoU=;
+	s=k20260515; t=1785825011;
+	bh=Mx1XeDGAzXDPK/6rjzRAZe1JCbz5sJKsQhIN2j9b9h4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HAk9QDher32vY/44zHYn5z39BisMfo/zfPby2x5M7TfX0xgdv5PHNmU7E7DM5VhkV
-	 eTdtmA4n4HqfjseuTxYHlmgKB2dEdO+ArvTpxcxzbk4NZwO+WLfJK+Cq8mMH/3AlCM
-	 /9AiPZP6S2dIjq3Q+47hpb0klv3ocSh7uN8M7coRDO1Qq3FqLL1QZoPqLWl+VlRbvx
-	 xweiBkhr9pIE6sakJvQwzm+0Pqsp9Kb18WR6CjBaWyKIQr4Fc62EDiPaOJLpRciIuC
-	 Btqv3fH2dcYsVGcJjJ1/SXBMGNAxDJ+lsCuB92Zaa9jujLQ8yUuJUIBJER8Jdq8TZQ
-	 1OEqm22UA2EpA==
-Message-ID: <60ef0086-6137-4e8c-b61b-64e3c833893d@kernel.org>
-Date: Tue, 4 Aug 2026 08:25:20 +0200
+	b=c4WhJifQ94PdbagifwbA1MBvyrg4VN3a7Xayvtv2xSKEMbHnOAC2ahKK4MyMwjSMQ
+	 5E97wvx+pKp0LlMSvMEdrzZ87SDWvrBe4+MGuYz1Osk5A1NR22zg3PqtWTzlzkztvc
+	 4KI93vUhLvfoBZGAz4554iJrQeqskt/DSftOnE8n0qSD+UNPj7hUKs0wUH4fCpOimD
+	 72roI7ENIqV6peM2a5O2vLidmY0osp89fZMvdx0fwIcVj6mwvwjFj4v+4C7nzUhFzX
+	 yoxSHLr8uVflV4M0S5CA11K2XcWMUhDU0ZPGZMEeMRuBqp+c7+RwEtppOV6QSz91p3
+	 bjr4/+wvm0+TQ==
+Message-ID: <f4d603f8-4b4a-4983-900a-5f4cca957fb4@kernel.org>
+Date: Tue, 4 Aug 2026 08:30:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and DSA
- bindings
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Vladimir Oltean <olteanv@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
+Subject: Re: (subset) [PATCH v6 00/16] clk: qcom: Add DISPCC and GPUCC support
+ for the Qualcomm Shikra SoC
+To: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Brian Masney <bmasney@redhat.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Taniya Das <taniya.das@oss.qualcomm.com>,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>
-References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
- <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
- <20260730-loutish-labrador-of-joviality-6e6c79@quoll>
- <411ec84fd55e152e94ac1f4edba497eac3a5623d.camel@linutronix.de>
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260718-shikra-dispcc-gpucc-v6-0-62703e05ef0f@oss.qualcomm.com>
+ <178572744553.408250.18300678058452023245.b4-ty@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,140 +100,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <411ec84fd55e152e94ac1f4edba497eac3a5623d.camel@linutronix.de>
+In-Reply-To: <178572744553.408250.18300678058452023245.b4-ty@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/08/2026 18:15, Vasilij Strassheim wrote:
-> On Thu, 2026-07-30 at 10:56 +0200, Krzysztof Kozlowski wrote:
->> On Wed, Jul 29, 2026 at 06:36:55PM +0200, Vasilij Strassheim wrote:
->>> Add DT schema documentation for SoC-e FPGA switch devices.
->>> The binding is split into:
->>>  - a switch IP node describing the MMIO register block
->>>  - a DSA MDIO node describing the DSA-facing switch instance
->>> Both nodes are linked through the soce,switch-ip phandle.
->>>
->>> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
->>> ---
->>>  .../bindings/net/dsa/soce,switch-dsa.yaml          | 195 +++++++++++++++++++++
->>>  .../bindings/net/dsa/soce,switch-ip.yaml           |  54 ++++++
->>>  2 files changed, 249 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.yaml b/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.yaml
->>> new file mode 100644
->>> index 000000000000..a04e2838d14e
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/net/dsa/soce,switch-dsa.yaml
->>> @@ -0,0 +1,195 @@
->>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/net/dsa/soce,switch-dsa.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: SoC-e DSA switch MDIO device
->>> +
->>> +maintainers:
->>> +  - SoC-e <info@soc-e.com>
->>
->> Nope, as explained more than once group boxes are not accepted.
+On 03/08/2026 05:23, Bjorn Andersson wrote:
 > 
-> That rule makes actually sense. I just saw UNGLinuxDriver@microchip.com in
-> several places and thought it wasn't completely forbidden here.
-> Will change it to my address in the next version.
+> On Sat, 18 Jul 2026 18:26:07 +0530, Imran Shaik wrote:
+>> This series adds support for the Display clock controller (DISPCC) and
+>> GPU Clock Controller (GPUCC) on Qualcomm Shikra SoC, by reusing the
+>> respective QCM2290 SoC drivers, and adds fix-ups for the QCM2290 Clock
+>> drivers.
+>>
+>>
 > 
->>
->>> +
->>> +description: |
->>> +  This node is the MDIO-bus device entry for the SoC-e DSA switch driver.
->>
->> Node is not for a driver. Explain the hardware, not drivers, not DTS.
+> Applied, thanks!
 > 
-> Got it, will change it for the next version.
-> 
->>
->>
->>> +  It is a lightweight configuration node that lives on the MDIO bus of the
->>> +  SoC Ethernet controller acting as the DSA conduit (CPU port).
->>> +
->>> +  The switch hardware itself (MMIO register interface) is a separate IP core
->>> +  described by a companion node with one of the SoC-e compatible strings,
->>> +  for example:
->>> +    - soce,mrs-<version>
->>
->> How is this relevant here? do you describe this compatible?
-> 
-> I will completely rework the documentation to reflect other code changes and
-> take the comment into account.
->>
->>> +  See the consolidated IP-core binding:
->>> +    - Documentation/devicetree/bindings/net/dsa/soce,switch-ip.yaml
->>> +  The two nodes are linked via the "soce,switch-ip" phandle property.
->>> +
->>> +  Port sub-nodes follow the DSA port binding documented in dsa-port.yaml.
->>> +  User ports should reference PHY nodes through "phy-handle". These PHY nodes
->>> +  live under the optional "mdio" child node of the switch and are exposed on
->>> +  the switch's synthetic DSA user MDIO bus.
->>> +
->>> +  The PHY-specific properties "soce,mdio-output" and "soce,phy-addr" describe
->>> +  the MDIO bus index and hardware PHY address used by the on-chip MDIO master
->>> +  of the switch IP core.
->>> +
->>> +properties:
->>> +  '#address-cells':
->>> +    const: 1
->>> +
->>> +  '#size-cells':
->>> +    const: 0
->>
->> You need to follow DTS coding style.
-> 
-> I will check and correct this.
-> 
->>
->>> +
->>> +  compatible:
->>> +    const: soce,switch-dsa
->>
->> Way too generic. I understand that SoCe will NEVER - and you certify
->> that - develop a second, different "switch-dsa" model and they call this
->> one like this?
-> 
-> It is intentionally generic to cover the common basics of all variants and
-> configurations of the synthesized switch in DSA.
+> [01/16] dt-bindings: clock: qcom,qcm2290-dispcc: Add missing power-domains property
+>         commit: 70ef527b483f6373c4b954e81bbb73f3bdc3184a
 
-Compatible must not be generic, as expressed hundreds times and
-documented in writing bindings.
-
-> I'm not sure what kind of guarantee I'm supposed to provide here regarding
-> SoCe. If switch-dsa is already mainline in the future, then a different
-> compatible will be needed for incompatible new models.
-
-I also don't know what guarantee you must provide, it's you who wants to
-add an exception.
-
-...
-
->>> +
->>> +examples:
->>> +  - |
->>> +    switch_ip: switch@80020000 {
->>
->> ethernet-switch
->>
->> And drop unused label.
-> 
-> I will adjust it.
-> 
->>
->> Considering this wasn't tested I should not even give here review...
->>
-> Thank you very much for the review!
-> I'm not sure what you mean by not tested. I ran make dt_binding_check` few
-> times, but forgot to do it after making the latest adjustments.
-
-Untested as it has an obvious failure as reported by bot.
-
+This causes new dtbs_check warning for Agatti-based boards which were
+warning free. Please also apply the DTS changes.
 
 Best regards,
 Krzysztof
