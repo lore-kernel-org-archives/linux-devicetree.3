@@ -1,330 +1,119 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4A04A2E0F
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 19:29:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACE63BCD3C;
+	Tue,  4 Aug 2026 19:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785871754; cv=none; b=jKK2OuTjKuxxcuDs2BLddI1XRxIZHVG2S58YzfDzmA5XYtpVG0ZxM4Fruj3W0i489ED23/CcRureV9gnfni3zqcdIs0ICP0fNDKC8j8Hnot+EIi16GYmythA5MfDZop12fNjHgz1D1oXK6Z8FaaX0WoRwFab9BUTKe+EB+Cg038=
+	t=1785872498; cv=none; b=Hn9r6XyOqJEjH77XrUFikj2ijAOu+B31Hgk9bSvIhCPUw/Yq57AdHbg1rQHuI3NTp2LPvRHFABrjokIsCZ9JYX7yKej6+RJ8d5lT5lOq5AyRM5pJXwSWemUFAaS62s1KcqSqM09bpqGrtjX6M7Wozf/gEvE/zJd1nSxEoAxGeZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785871754; c=relaxed/simple;
-	bh=ihfieZOmGRUlg9L0kPunx38Slio+02jdZ49LHDO693Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IrPNp3duNMBHCRtpddtnqMkPNRUUZ+HyVZCpY3MB8apdh2Bu4YV9PBTtdF0i92O9WcwkTDTJbgDH1HgD9d4NvOtzUhNJ2dkZyKbHONKNT9EGbgkDxYXc8X3F8rDNbD2rsRk/lx9jkfkM7zf4yDQbz2WIyWebGMgAyO8WuMrHM6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JOqPUJfd; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785872498; c=relaxed/simple;
+	bh=9EDERQJ4HZqTGGWwB24WdmoGO6+L9DJncbN1ZsNVsrw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=CiDCJiG/U9Phpdo4KHqomses1wLAKM46OnMdjol2q28Q+4UG5OBnF58nCg8B0V4ydBn2otiXuRlVZvUC4ZOawh6NZrayDYcpfa5jEaZtAAyIiSsURxKCGCLjslmHTH+anuSkt0fu3LVk0uOcVCwjMseAxCWTnPSR8JJDIgAf5Vo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwSPTTnW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JOqPUJfd"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49553515a8bso2222055e9.1
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 12:29:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785871745; x=1786476545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EsUmxdiO7N7txn+9Zra2ZwFC2m1JBFv1qJhgneFjwTc=;
-        b=JOqPUJfdUO3xbpmDCwsMNwOKn1JK2Gr4oB0BzIy3LD+M+d1U3ICnR8X1An7oBUa6Z8
-         b9E+czlujj/Bon1i9w/aW7rS04vdSarCtbwfWKPc9uStvjB1lcllueyaO5Yqg7xuMMso
-         N1Eb4cyjumxieSuZQ+YawDP9HZF777x4eMKrRRS2LTct7pjBIZ2tUdbihvPv2QB71uNk
-         w2Yq1BD+w/f9uSJba6dby4OR0UTVtf5oZcpIAYXiJIUVDjPFKEMw47HB144fnGAwbO+1
-         osZ2OL2BuiNnMzJ+WrCw9HbE+of9laNT60uyjfT3SvfRN8ue65jySxHeRHmm2hNPgl2G
-         C3Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785871745; x=1786476545;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EsUmxdiO7N7txn+9Zra2ZwFC2m1JBFv1qJhgneFjwTc=;
-        b=dUWxJx8S4AoEALx8UBu5nrWXfCXMaeczMoacWEQLt/q0iiRp3u96zzLfgNzro+llYP
-         DM1L4TuSuGfQA0gHw0omLEBK32PJD1xV79a471L8Y6YZr0umDc+4fryq5+lIi0jgDanu
-         BMRVwB8Q+8FugPUNhqWBbRbp8RHjdY/mIpCtDiM6RfR7GxdHMzg5DdfK2/FPYyag5Xnn
-         xqqcukgFS+EwCBWFDJrnI8H0do5Tbd8KFzMcHusK2bWsJzido/rk8ZIzd7y2dLcJgLR8
-         omAAwJhaR8KlRe0H6jak0i4uS3BkZGGy0yZUDVqBrjQhGcv1ewj/AqQGEIENLhh6o8oh
-         AQgg==
-X-Forwarded-Encrypted: i=1; AHgh+RodQQsXzRKkdAQN8nt5F9Q0b2tQ4GNZmwvKoXDtOLsu+erGb1PnVIOJiyRnK3G3x6iaqz72xT6BlMD/@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxffjYPi2sj0ggHltBfUYdYhD1LjAzOpdTfn4D+qXFwZ/0XDPY
-	i/49UBC4A+sq4n7ssghO7mEADLwHz2h0RPUd8zFszn+6wOLNA28HS/iG
-X-Gm-Gg: AR+sD11/3T1VzC/ZDvU1HUHS+zRjqnNdXhwZK9auY94rfuGLjexak0ACECWfwNmuLvZ
-	Jk5QVdk1ExID7ORX6/KDWkvC2D6pplF7OV8So+AiOuOIpUAamt+c8OEczK/uOsTZJsftAc5Dzxc
-	9sx2lGSphx5QFKuxn2XGxSjAvbsQU8xVF+n962WtBbSUTet0b4clRJyGmt63PB7Av9HRjhpRufz
-	I4L/VuAUKBqD86b0o9K6G+2ncfX5XcA5RRiO3eOoag54dj6C8upAGiRz87NILc6FWBWRa2BEWmh
-	Lt8Juj0Y+WnZnv3mRM6AEzZ2gyhlUpk7h+KNGkKmt8mBdac+ub5I7efyu9Y9jAnI2UjTHinioJs
-	Fqx1AvL6h6sh1O/7EQU3uLQfmjRFZMJaiwwaSPzeGXOcI/V5iO2epEuluZRJONh9fnK9aEpVc5o
-	0KDC7T5v+PaVc14yvO7sJmdKSeJuCxcDGqSJoMItT2sC5DUcBuycvD2eOL7QDa+Tmu4OBhyiGca
-	wWB8QmT4+p8ck/NjYLRCpQ=
-X-Received: by 2002:a7b:cc97:0:b0:492:6447:7a7f with SMTP id 5b1f17b1804b1-4994e7a7f1fmr5617565e9.6.1785871745299;
-        Tue, 04 Aug 2026 12:29:05 -0700 (PDT)
-Received: from MSI-LINUX.kielce.vectranet.pl ([2a02:2a40:27ec:2900:68f0:30cb:8ca1:f965])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994e4bf820sm8248745e9.0.2026.08.04.12.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 12:29:04 -0700 (PDT)
-From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-To: linux-iio@vger.kernel.org
-Cc: jic23@kernel.org,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	marcelo.schmitt@analog.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	mike.looijmans@topic.nl,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jorge.marques@analog.com,
-	antoniu.miclaus@analog.com,
-	mazziesaccount@gmail.com,
-	jishnu.prakash@oss.qualcomm.com,
-	duje@dujemihanovic.xyz,
-	wens@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linusw@kernel.org,
-	Jakub Szczudlo <jakubszczudlo40@gmail.com>
-Subject: [PATCH v9 3/3] iio: adc: ti-ads1100: Add ti-ads1110 support to  ti-ads1100 driver
-Date: Tue,  4 Aug 2026 21:28:40 +0200
-Message-ID: <20260804192840.29121-4-jakubszczudlo40@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260804192840.29121-1-jakubszczudlo40@gmail.com>
-References: <20260804192840.29121-1-jakubszczudlo40@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwSPTTnW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947371F00A3A;
+	Tue,  4 Aug 2026 19:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785872497;
+	bh=zb8FAbDfD2tCENb5hd+V6dVydQ8w7GMKoU5UPDij9i0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=kwSPTTnWh6B0XSdN6VituJrUE7lhIeokHTcaDte7DlU9yJGthJCZmoh3x1Hx+Catj
+	 3vwegc3vtsk6TERiUmUs3KksDJqBSFfbJPInYBQ/LIkPrEEw6Pdc62fNUHL+Q4xGk8
+	 5+c3I9IvnzeuaU0YwImbQ6SELYANfMeykw7dB51nAJKffzyXUETJTX33f0FReV9t4O
+	 mElpOs2RdLjdWmuW2uQZNIQWF7U5iigecZdJOWpOtLW0Urt9A35efLpK6MOawq/LL4
+	 2bBDSZpiF8DhLeR9a7Bwk2GBFaAN0xC0qUfyV70EaquKkQrr89epi7V69gE9hlTEqe
+	 Z9LPCFF4jym6w==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Sudip Mukherjee <sudip.mukherjee@sifive.com>, 
+ Serge Semin <fancer.lancer@gmail.com>, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
+References: <20260803124044.156998-1-changhuang.liang@starfivetech.com>
+Subject: Re: [PATCH v2 00/11] Add support for StarFive JHB100 SFC
+Message-Id: <178584803821.111355.7674282835778349051.b4-ty@b4>
+Date: Tue, 04 Aug 2026 13:53:58 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2490; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=9EDERQJ4HZqTGGWwB24WdmoGO6+L9DJncbN1ZsNVsrw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqckBuklnY8aM6ASEPX0kF1gaEt9Do8OhOoXzIX
+ iS/e7YZkQiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCanJAbgAKCRAk1otyXVSH
+ 0NsXB/447pC7Ta4LIEcdEnqHe+qMGWkT9cTW6kGy4C6WKZMcmBVcdq90u2wCOTaq7q4h+2sgx15
+ Mf6GjP9IEiHOV9ai2Kb6Gp7hL4W8ApclAmU0csoJCvK5GeDbbs9vZLL3J2wTqmABi8eEx5Uf7eT
+ lDtJ/FV/SiAD4ZZSxarEKAJnH9duplahYsUKLvKgoECZ/gfDx4o16keeCViYbCvFu4G4jOZdtPJ
+ eOGC6g2DeLu164CsJlo50q7JxvmzAEXL1Ffd3D6v9CtQPigGJQdsqSSGOfo036yLJBKeHpI/09U
+ vl6+i5ISH3MyrBfebQThatfY207Qw4wHYMfBwVylRIe28zPQ
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Add ADS1110 support that have faster datarate than ADS1100, it also uses
-internal voltage reference of 2.048V for measurement.
+On Mon, 03 Aug 2026 05:40:33 -0700, Changhuang Liang wrote:
+> Add support for StarFive JHB100 SFC
+> 
+> This serial add support for the StarFive JHB100 SoC SPI Flash
+> Controller (SFC), which is based on the Synopsys DesignWare SSI
+> version 2.00a but with some customizations and it also add
+> enhanced SPI for DesignWare SPI controllers.
+> 
+> [...]
 
-Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
----
- drivers/iio/adc/Kconfig      |  9 ++--
- drivers/iio/adc/ti-ads1100.c | 85 ++++++++++++++++++++++++++----------
- 2 files changed, 69 insertions(+), 25 deletions(-)
+Applied to
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 3755a81c1efd..49a9ac3bf43d 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1768,11 +1768,14 @@ config TI_ADS1018
-          called ti-ads1018.
- 
- config TI_ADS1100
--	tristate "Texas Instruments ADS1100 and ADS1000 ADC"
-+	tristate "Texas Instruments ADS1100 and similar single channel I2C ADC"
- 	depends on I2C
- 	help
--	  If you say yes here you get support for Texas Instruments ADS1100 and
--	  ADS1000 ADC chips.
-+	  If you say yes here you get support for TI single channel I2C Analog
-+	  Devices.
-+	  * ADS1000 12-Bit, 128 SPS Analog-to-Digital Converter
-+	  * ADS1100 16-Bit, 128 SPS Analog-to-Digital Converter
-+	  * ADS1110 16-Bit, 240 SPS Analog-to-Digital Converter
- 
- 	  This driver can also be built as a module. If so, the module will be
- 	  called ti-ads1100.
-diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-index 288d209ecf92..acbf9b96c545 100644
---- a/drivers/iio/adc/ti-ads1100.c
-+++ b/drivers/iio/adc/ti-ads1100.c
-@@ -5,7 +5,7 @@
-  * Copyright (c) 2023, Topic Embedded Products
-  *
-  * Datasheet: https://www.ti.com/lit/gpn/ads1100
-- * IIO driver for ADS1100 and ADS1000 ADC 16-bit I2C
-+ * IIO driver for ADS1100 and similar single channel ADC 16-bit I2C
-  */
- 
- #include <linux/bitfield.h>
-@@ -41,20 +41,44 @@
- #define	ADS1100_SINGLESHOT	ADS1100_CFG_SC
- 
- #define ADS1100_SLEEP_DELAY_MS	2000
-+#define ADS1110_INTERNAL_REF_mV 2048
- 
- static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
-+static const int ads1110_data_rate[] = { 240, 60, 30, 15 };
- static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
- 
- /* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
- #define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
- 
-+struct ads1100_config {
-+	const char *name;
-+	const int *available_data_rate_hz;
-+	const int data_rate_count;
-+	bool has_internal_vref_only;
-+};
-+
-+static const struct ads1100_config ads1100_config = {
-+	.name = "ads1100",
-+	.available_data_rate_hz = ads1100_data_rate,
-+	.data_rate_count = ARRAY_SIZE(ads1100_data_rate),
-+	.has_internal_vref_only = false,
-+};
-+
-+static const struct ads1100_config ads1110_config = {
-+	.name = "ads1110",
-+	.available_data_rate_hz = ads1110_data_rate,
-+	.data_rate_count = ARRAY_SIZE(ads1110_data_rate),
-+	.has_internal_vref_only = true,
-+};
-+
- struct ads1100_data {
- 	struct i2c_client *client;
- 	struct regulator *reg_vdd;
- 	struct mutex lock;
- 	int scale_avail[2 * 4]; /* 4 gain settings */
-+	const struct ads1100_config *chip_info;
- 	u8 config;
--	bool supports_data_rate; /* Only the ADS1100 can select the rate */
-+	bool supports_data_rate;
- };
- 
- static const struct iio_chan_spec ads1100_channel = {
-@@ -90,6 +114,20 @@ static int ads1100_set_config_bits(struct ads1100_data *data, u8 mask, u8 value)
- 	return 0;
- };
- 
-+static int ads1100_get_vref_millivolts(struct ads1100_data *data)
-+{
-+	int voltage_uV;
-+
-+	if (data->chip_info->has_internal_vref_only)
-+		return ADS1110_INTERNAL_REF_mV;
-+
-+	voltage_uV = regulator_get_voltage(data->reg_vdd);
-+	if (voltage_uV < 0)
-+		return voltage_uV;
-+
-+	return voltage_uV / (MICRO / MILLI);
-+}
-+
- static int ads1100_data_bits(struct ads1100_data *data)
- {
- 	return ads1100_data_rate_bits[FIELD_GET(ADS1100_DR_MASK, data->config)];
-@@ -145,7 +183,7 @@ static int ads1100_conversion_busy(struct ads1100_data *data)
- static int ads1100_wait_single_conversion(struct ads1100_data *data)
- {
- 	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
--	int data_rate_Hz = ads1100_data_rate[data_rate_index];
-+	int data_rate_Hz = data->chip_info->available_data_rate_hz[data_rate_index];
- 	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
- 	int busy;
- 	int ret;
-@@ -222,7 +260,7 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	if (ret)
- 		return ret;
- 
--	microvolts = regulator_get_voltage(data->reg_vdd);
-+	microvolts = ads1100_get_vref_millivolts(data) * (MICRO / MILLI);
- 	/*
- 	 * val2 is in 'micro' units, n = val2 / 1000000
- 	 * result must be millivolts, d = microvolts / 1000
-@@ -245,9 +283,9 @@ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- 	unsigned int size;
- 	int ret;
- 
--	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
-+	size = data->supports_data_rate ? data->chip_info->data_rate_count : 1;
- 	for (i = 0; i < size; i++) {
--		if (ads1100_data_rate[i] == rate)
-+		if (data->chip_info->available_data_rate_hz[i] == rate)
- 			break;
- 	}
- 
-@@ -267,14 +305,9 @@ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- 	return ads1100_poll_data_ready(data);
- }
- 
--static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
--{
--	return regulator_get_voltage(data->reg_vdd) / (MICRO / MILLI);
--}
--
- static void ads1100_calc_scale_avail(struct ads1100_data *data)
- {
--	int millivolts = ads1100_get_vdd_millivolts(data);
-+	int millivolts = ads1100_get_vref_millivolts(data);
- 	unsigned int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(data->scale_avail) / 2; i++) {
-@@ -296,9 +329,9 @@ static int ads1100_read_avail(struct iio_dev *indio_dev,
- 	switch (mask) {
- 	case IIO_CHAN_INFO_SAMP_FREQ:
- 		*type = IIO_VAL_INT;
--		*vals = ads1100_data_rate;
-+		*vals = data->chip_info->available_data_rate_hz;
- 		if (data->supports_data_rate)
--			*length = ARRAY_SIZE(ads1100_data_rate);
-+			*length = data->chip_info->data_rate_count;
- 		else
- 			*length = 1;
- 		return IIO_AVAIL_LIST;
-@@ -318,6 +351,7 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
- {
- 	int ret;
- 	struct ads1100_data *data = iio_priv(indio_dev);
-+	int data_rate_index;
- 
- 	guard(mutex)(&data->lock);
- 	switch (mask) {
-@@ -333,12 +367,12 @@ static int ads1100_read_raw(struct iio_dev *indio_dev,
- 		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
- 		/* full-scale is the supply voltage in millivolts */
--		*val = ads1100_get_vdd_millivolts(data);
-+		*val = ads1100_get_vref_millivolts(data);
- 		*val2 = 15 + FIELD_GET(ADS1100_PGA_MASK, data->config);
- 		return IIO_VAL_FRACTIONAL_LOG2;
- 	case IIO_CHAN_INFO_SAMP_FREQ:
--		*val = ads1100_data_rate[FIELD_GET(ADS1100_DR_MASK,
--						   data->config)];
-+		data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
-+		*val = data->chip_info->available_data_rate_hz[data_rate_index];
- 		return IIO_VAL_INT;
- 	default:
- 		return -EINVAL;
-@@ -418,7 +452,12 @@ static int ads1100_probe(struct i2c_client *client)
- 	data->client = client;
- 	mutex_init(&data->lock);
- 
--	indio_dev->name = "ads1100";
-+	data->chip_info = i2c_get_match_data(client);
-+	if (!data->chip_info)
-+		return dev_err_probe(dev, -ENODATA,
-+				     "Can't get device data from firmware\n");
-+
-+	indio_dev->name = data->chip_info->name;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 	indio_dev->channels = &ads1100_channel;
- 	indio_dev->num_channels = 1;
-@@ -500,16 +539,18 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ads1100_pm_ops,
- 				 NULL);
- 
- static const struct i2c_device_id ads1100_id[] = {
--	{ .name = "ads1100" },
--	{ .name = "ads1000" },
-+	{ .name = "ads1000", .driver_data = (kernel_ulong_t)&ads1100_config },
-+	{ .name = "ads1100", .driver_data = (kernel_ulong_t)&ads1100_config },
-+	{ .name = "ads1110", .driver_data = (kernel_ulong_t)&ads1110_config },
- 	{ }
- };
- 
- MODULE_DEVICE_TABLE(i2c, ads1100_id);
- 
- static const struct of_device_id ads1100_of_match[] = {
--	{.compatible = "ti,ads1100" },
--	{.compatible = "ti,ads1000" },
-+	{ .compatible = "ti,ads1000", .data = &ads1100_config },
-+	{ .compatible = "ti,ads1100", .data = &ads1100_config },
-+	{ .compatible = "ti,ads1110", .data = &ads1110_config },
- 	{ }
- };
- 
--- 
-2.47.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+
+Thanks!
+
+[01/11] spi: dw: Introduce spi_frf and STD_SPI
+        https://git.kernel.org/broonie/spi/c/c87b4ba09702
+[02/11] spi: dw: update SPI_CTRLR0 register
+        https://git.kernel.org/broonie/spi/c/607687a869e6
+[03/11] spi: dw: add check for support of enhanced spi
+        https://git.kernel.org/broonie/spi/c/f6b36efcbe01
+[04/11] spi: dw: adjust size of mem_op
+        https://git.kernel.org/broonie/spi/c/3d7fd27c970e
+[05/11] spi: dw: update NDF while using enhanced spi mode
+        https://git.kernel.org/broonie/spi/c/8678095362cc
+[06/11] spi: dw: Introduce enhanced single/dual/quad/octal spi
+        https://git.kernel.org/broonie/spi/c/4cd882e1da79
+[07/11] spi: dw: send cmd and addr to start the spi transfer
+        https://git.kernel.org/broonie/spi/c/51119176c252
+[08/11] spi: dw: use irq handler for enhanced spi
+        https://git.kernel.org/broonie/spi/c/e017fae89e6d
+[09/11] spi: dw: detect enhanced spi mode
+        https://git.kernel.org/broonie/spi/c/defdd0f3d09a
+[10/11] spi: dt-bindings: snps,dw-apb-ssi: Add starfive,jhb100-sfc
+        https://git.kernel.org/broonie/spi/c/8edce30fc953
+[11/11] spi: dw: Add support for StarFive JHB100 SoC SFC
+        https://git.kernel.org/broonie/spi/c/012c1b04f528
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
