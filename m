@@ -1,417 +1,237 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7925423395C
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 03:44:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D4C414A15
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 03:45:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785815066; cv=none; b=OngAvF9m1fffRJsnBC+WVpJQAnq9FwkzdtF5+JEjP+my4xVxj01uuNkVf2hVgyQrT7mClfKD/TJhGFzwFmN1KWmcG0c5TZQBF/l181Z/eFX+vS+4IwkSL7+F85FsmrYZgwpcRQ3TqPuRWjFDgGG2zUT5xq+iIeBC7px0Ht1hXZk=
+	t=1785815118; cv=none; b=IjYXE+zx6QH/0xGIl7OUQwqHF4V9UZmi8HX/vsEnvexY6SIM+SWg+onnA3PQQUyHxQvEZgYchwjIATL2QHCcIkS2RiUITW99StAnTxmPaJp+D6CUctX/PWF8ulwc/8j5dMpQ6iyFD8YXliSioSZ6oLmmBuU6BiV8sbYyc8IhWgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785815066; c=relaxed/simple;
-	bh=zfDXUNu1/YmPHOXTUn5dj36KU4nexQcuJSfkmFEKDOw=;
+	s=arc-20240116; t=1785815118; c=relaxed/simple;
+	bh=zR9TMie0YSeYvbLWPGq/CLqeJAHQ6Fsxd5QxN4F6QH4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nXf4jGVScDkrjzGX/if4kQ3U1hEUmgHdEX3HSE+Sgvqw9Cai+gOluyl2/F/mpLqO+/McEnxY2YnBYFELsHQAIT7vSkQiTet0QXzIYZqhDVUBVgdNj637uz8DaOdCKuog+evMcine601SOfBOB0LNnLalks9k6cT6eMUxNGTXxNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKSz7aTk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WuG0EG3MJrJYOuyn+3qUdkDH2mVGPW8tDqfM5RHLvfsnpa1OuKzRw26Qfc6zHynAdUWoacQoWWx19+85bF54aa/XtZ9g61uNYYRRUVDpXt6pkczVzr1Yapcq+o6VYpma9O2J6DLFFt0X1OX7U7n81Ei3kn22giv+y0INyr4bNT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRpIcE6h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKSz7aTk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74AF91F000E9;
-	Tue,  4 Aug 2026 03:44:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRpIcE6h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF09C1F000E9;
+	Tue,  4 Aug 2026 03:45:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785815064;
-	bh=hrmidxHlbbSWvpLyib/NfWb4OokpjS5sbAphs35mTvU=;
+	s=k20260515; t=1785815116;
+	bh=MdAmIo7hrhWzVQpZTF428Jx1BTLkaqe3SyxRaJhFqRI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hKSz7aTkbj2HTcAlR3ipC6ICWUqGmYbLsaRpcxNqkUaAhvnbwi4CHyLrzft/guNC9
-	 4Tj0p61UIPymB5hPnRTTLC+Qz/JrUoDDIPCivP8dKtHmDKXpwBVmnR7yi3hPgaQtS2
-	 sx9fOA7YMuGdTI7BQX2U35h34C10BRKCwlx0zfEyKFfPwWnC1eAhZ59vQS0LjSdofB
-	 BuaFZW2qR6vlt2O5DVYr1YkZHclJHFk/B7RgjgWG3j9AFgpCN7gvkiZpOpaIqBX4DK
-	 pn5AHRU2c+NgNQRUSgA6zPhvvmToLNNIvoF/tQ4IzBM6zoHaC62YR58Ua/wVKZBMS4
-	 7X+K8ppMo2H/g==
+	b=oRpIcE6hCkLMG9xbh6/qcGReM61mXVodNHT3TruKceVRK/xKGPMpW4NfecoTLiURh
+	 16Sb0krM/GU7frpOTtdrw0ChfhI2HnH+aLJo2Ui2kkdAI+m8DTR5+ZygHxK4JGXTj9
+	 +j63OuKQWnrkgoR6Idr2BmT8qnPztAOgkX3bAGrgcuHfUwMYdOXz3gYgFkwDq8rfVt
+	 /N9/MlfENq+SNJCwpcejpcmrMo5JXh7TjyU88IetAbqRfyHTxUR17LIgeN78X31Zz9
+	 4BeC8xoqB1NjPTnMaIa/eCDlAVQhe30IgOND+Ph5wVgdPpM1+1qMO5MuAY1hNttDDA
+	 rx40LYi/b4nfg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
+Subject: Re: [PATCH v5 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neo Chang" <YLCHANG2@nuvoton.com>
+To: nina_kuo@novatek.com.tw
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804032951.1069901-3-YLCHANG2@nuvoton.com>
-References: <20260804032951.1069901-1-YLCHANG2@nuvoton.com>
- <20260804032951.1069901-3-YLCHANG2@nuvoton.com>
+In-Reply-To: <20260804033419.693819-3-nina_kuo@novatek.com.tw>
+References: <20260804033419.693819-1-nina_kuo@novatek.com.tw>
+ <20260804033419.693819-3-nina_kuo@novatek.com.tw>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 03:44:22 +0000
-Message-Id: <20260804034423.74AF91F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 03:45:15 +0000
+Message-Id: <20260804034515.BF09C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [High] DSP initialization fails unconditionally during resume due to regm=
-ap `cache_only` mode.
-- [High] Concurrent asynchronous firmware loading requests cause a Use-Afte=
-r-Free during device unbind.
-- [High] Unkillable task deadlock on module unload (remove) if the device i=
-s removed after a suspend/resume cycle.
-- [High] Ignored `regmap_read()` return values result in uninitialized stac=
-k variables driving hardware logic.
-- [Medium] Silent failure when rejecting DAC mux path changes during playba=
-ck.
-- [Medium] Unprotected access to `nau8360->anc_enable` and hardware registe=
-rs creates a data race in `nau8360_dsp_switch`.
-- [Medium] Short fragments from the DSP can cause uninitialized stack memor=
-y to be used in `nau8360_dsp_kcs_setup`.
-- [Medium] Out-of-bounds `tdm_tx_func_slot` configurations cause undefined =
-behavior via bit shifts.
-- [Medium] Data race on the `dsp_created` flag between firmware callback an=
-d ALSA startup.
-- [Medium] Manual DAPM pin toggling of the 'Sense' widget breaks I/V captur=
-e streams when the DSP is bypassed.
-- [Low] Incompatible pointer type warning in `nau8360_validate_tdm_slots`.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] The driver unconditionally treats the first message of any 2-messa=
+ge transfer as a subaddress write, silently dropping it or misinterpreting =
+read operations.
+- [High] The interrupt handler returns IRQ_NONE without clearing the hardwa=
+re interrupt if current_msg is NULL, causing an interrupt storm.
+- [High] Lack of synchronization between the I2C transfer timeout path and =
+the interrupt handler leads to a use-after-free of the message buffer.
+- [High] The I2C controller hardware is disabled before unregistering the a=
+dapter, breaking concurrent ongoing transfers and client device removal.
+- [High] The ISR fails to handle the enabled CLK_STR_TIMEOUT interrupt, lea=
+ving it asserted and causing an interrupt storm.
+- [Medium] Hardware interrupts are left enabled if `i2c_add_adapter` fails =
+during probe.
 --
 
---- Patch [2]: [PATCH v7 2/2] ASoC: codecs: nau8360: Add support for NAU83G=
-60 amplifier ---
-commit 498f738336b985a294d2d2e4f2b2064ec352e710
-Author: Neo Chang <YLCHANG2@nuvoton.com>
+--- Patch [2]: [PATCH v5 2/3] i2c: nt72676: Add Novatek NT72676 I2C control=
+ler driver ---
+commit 2546eac52465a246476611598e7130d303e3cc7f
+Author: Ben Huang <Ben_Huang@novatek.com.tw>
 
-ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
+i2c: nt72676: Add Novatek NT72676 I2C controller driver
+   =20
+This driver performs the fundamental read/write functions as an I2C
+controller and supports Standard-mode and Fast-mode.
+Default operation is Standard-mode.
 
-Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
-stereo 30W+30W smart amplifier with an integrated low-latency
-Advanced Audio DSP.
-
-> diff --git a/sound/soc/codecs/nau8360-dsp.c b/sound/soc/codecs/nau8360-ds=
-p.c
-> index 14ff6c5705d14.....
+> diff --git a/drivers/i2c/busses/i2c-nt72676.c b/drivers/i2c/busses/i2c-nt=
+72676.c
+> new file mode 100644
+> index 0000000000000..48750b02537fb
 > --- /dev/null
-> +++ b/sound/soc/codecs/nau8360-dsp.c
+> +++ b/drivers/i2c/busses/i2c-nt72676.c
+
 [ ... ]
-> +static int nau8360_read_data_payload(struct snd_soc_component *cp,
-> +	unsigned short dsp_addr, int frag_len, bool msg_param,
-> +	void *data, int data_size, int *data_count)
+
+> +static irqreturn_t nvt_i2c_isr(int irq, void *dev_id)
 > +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
-> +	struct device *dev =3D cp->dev;
-> +	unsigned int payload;
-> +	u32 *data_buf =3D data;
-> +	int i, j, ret;
+> +	struct nvt_i2c_bus *i2c =3D dev_id;
+> +	struct i2c_msg *msg =3D i2c->current_msg;
+> +	unsigned int status =3D nt72676_i2c_readl(i2c, I2C_REG_INTR);
+> +	unsigned int clr =3D 0;
+> +	int do_complete =3D 0;
 > +
-> +	*data_count =3D (msg_param) ? data_size : 0;
-> +	for (i =3D 0; i < frag_len - 1; i++) {
-
-[Severity: Medium]
-What happens if the DSP hardware returns a trailing fragment with a frag_len
-of 1?=20
-
-The loop extracting payload bytes wouldn't execute, leaving the data buffer=
-=20
-untouched without returning an error.
-
-[ ... ]
-> +static int nau8360_dsp_kcs_setup(struct snd_soc_component *cp, int offse=
-t, int size,
-> +	const void *data, unsigned short dsp_addr)
-> +{
-[ ... ]
-> +		/* checking KCS result */
-> +		ret =3D nau8360_dsp_exec_command(cp, NAU8360_DSP_CMD_GET_KCS_RSLTS,
-> +			0, NAU8360_DSP_DATA_BYTE, NULL,
-> +			NAU8360_DSP_DATA_BYTE, &kcs_rst, dsp_addr);
-> +		if (ret)
-> +			return ret;
-> +		if (kcs_rst !=3D NAU8360_DSP_KCS_RSLTS_SUCCESS)
-> +			return -EINVAL;
-
-[Severity: Medium]
-Could this evaluate uninitialized stack memory?
-
-If nau8360_read_data_payload() encounters a frag_len of 1, kcs_rst is left=
-=20
-uninitialized but the reply validation still returns success. Evaluating=20
-kcs_rst here could then randomly fail or pass based on whatever was on the=
-=20
-stack.
-
-[ ... ]
-> +static int nau8360_dsp_chan_kcs_setup(struct snd_soc_component *cp,
-> +	const char *fw_name, int dsp_addr)
-> +{
-[ ... ]
-> +	ctx =3D kmalloc(sizeof(*ctx), GFP_KERNEL);
-> +	if (!ctx)
-> +		return -ENOMEM;
-> +
-> +	ctx->cp =3D cp;
-> +	ctx->dsp_addr =3D dsp_addr;
-> +
-> +	reinit_completion(&nau8360->fw_done[core_id]);
-> +
-> +	ret =3D request_firmware_nowait(THIS_MODULE, true,
-> +		fw_name, dev, GFP_KERNEL, ctx, nau8360_dsp_fw_cb);
+> +	if (!(status & I2C_IRQ_FLAG) || !i2c->current_msg)
+> +		return IRQ_NONE;
 
 [Severity: High]
-Does this create a race condition if called multiple times before the previ=
-ous=20
-firmware request finishes?
+Could this early return cause an interrupt storm if a spurious interrupt
+fires, or if current_msg is NULL after a timeout? Since it returns
+IRQ_NONE without writing to the clear register, the level-triggered
+hardware interrupt might remain asserted indefinitely.
 
-Reinitializing the completion and launching a duplicate request could leave=
-=20
-multiple asynchronous callbacks pending, which might bypass later unbind
-synchronizations.
+> +
+> +	if (status & I2C_IRQ_NACK) {
+> +		i2c->error_code =3D -ENXIO;
+> +		clr |=3D I2C_IRQ_NACK << 8;
+> +	} else if (status & I2C_IRQ_RX_FULL) {
 
-> diff --git a/sound/soc/codecs/nau8360.c b/sound/soc/codecs/nau8360.c
-> index 4a5fe315850fd.....
-> --- /dev/null
-> +++ b/sound/soc/codecs/nau8360.c
+[Severity: High]
+What happens if the hardware asserts I2C_IRQ_CLK_STR_TIMEOUT? The
+I2C_IRQ_ENABLE_SETTING macro enables this interrupt (bit 12), but it is
+omitted from this if/else chain. Does this mean it won't be added to
+the clr variable, leaving it asserted and causing an interrupt storm?
+
+> +		if (i2c->remaining > 0)
+> +			nvt_i2c_handle(i2c, msg, true);
+> +		clr |=3D I2C_IRQ_RX_FULL << 8;
+> +	} else if (status & I2C_IRQ_TX_EMPTY) {
+
 [ ... ]
-> +static int nau8360_get_tdm_chan_len(struct nau8360 *nau8360)
+
+> +static int nvt_i2c_write(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
 > +{
-> +	int val;
+
+[ ... ]
+
+> +	ret =3D wait_for_completion_timeout(&i2c->msg_complete, i2c->adapter.ti=
+meout);
+> +	if (ret =3D=3D 0) {
+> +		i2c->error_code =3D -ETIMEDOUT;
+> +		nvt_i2c_reset(i2c);
+> +	}
+> +	if (i2c->error_code)
+> +		dev_err(i2c->dev, "[%s]: write failed (err:%d); SA[0x%X]\n",
+> +			i2c->adapter.name, i2c->error_code, msg->addr);
 > +
-> +	regmap_read(nau8360->regmap, NAU8360_R0C_I2S_PCM_CTRL2, &val);
-> +	val =3D (val & NAU8360_TDM_CLEN_MASK) >> NAU8360_TDM_CLEN_SFT;
+> +	i2c->current_msg =3D NULL;
+
+[Severity: High]
+Can the timeout path race with the interrupt handler here? If the transfer
+times out, current_msg is set to NULL and the function returns, leading the
+caller to free the message buffer. If the ISR executes concurrently on anot=
+her
+CPU, could it access the freed buffer via current_msg before it gets fully
+nullified, causing a use-after-free?
+
 > +
-> +	return (val << 3) + 16;
+> +	return i2c->error_code;
 > +}
 
-[Severity: High]
-Can regmap_read() fail here?
-
-If an I2C error occurs, the return value is ignored and the uninitialized=20
-stack variable val is used to compute the channel length. This garbage=20
-value then propagates into the mathematical bounds for TDM slots.
-
 [ ... ]
-> +static void nau8360_dsp_switch(struct snd_soc_component *component, bool=
- enable)
+
+> +static int nvt_i2c_xfer(struct i2c_adapter *adap,
+> +			struct i2c_msg msgs[],
+> +			int num)
 > +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct regmap *regmap =3D nau8360->regmap;
-> +	int value =3D NAU8360_PEQ_BAND_8;
+> +	struct nvt_i2c_bus *i2c =3D i2c_get_adapdata(adap);
+> +	int ret =3D 0, i =3D 0;
+> +	struct i2c_msg *msg =3D NULL;
 > +
-> +	/* If DSP is enabled, unstall HW3 engine and DSP, loading DSP firmware,
-> +	 * and configure PEQ after dsp reset.
-> +	 */
-> +	if (enable) {
-> +		value =3D nau8360->anc_enable ? NAU8360_PEQ_BAND_15 : NAU8360_PEQ_BAND=
-_12;
-> +		nau8360_dsp_enable(regmap, true);
+> +	nvt_i2c_ctrl_init(i2c);
+> +
+> +	if (num =3D=3D 2) {
+> +		nvt_i2c_set_subaddr(i2c, &msgs[0]);
+> +		msg =3D &msgs[1];
+
+[Severity: High]
+Is it correct to unconditionally treat the first message of any 2-message
+transfer as a subaddress write? If a user-space caller sends a 2-message ar=
+ray
+where the first message is a read, has a length > 4, or targets a different
+device address, won't this silently drop or misinterpret the first message =
+and
+only execute the second one?
+
+> +
+> +		if (msg->flags & I2C_M_RD)
+> +			ret =3D nvt_i2c_read(i2c, msg);
+> +		else
+> +			ret =3D nvt_i2c_write(i2c, msg);
 > +	} else {
-> +		dev_dbg(nau8360->dev, "Bypass DSP path");
-> +		nau8360_dsp_enable(regmap, false);
-> +	}
-> +	regmap_update_bits(regmap, NAU8360_R9D_PEQ_CTL, NAU8360_PEQ_BAND_MASK,
-> +		value << NAU8360_PEQ_BAND_SFT);
-> +}
-
-[Severity: Medium]
-Is it safe to read nau8360->anc_enable and update the PEQ register without
-holding nau8360->lock?=20
-
-Looking at nau8360_anc_put(), it protects these variables with a mutex.
-Concurrent execution from ALSA control put handlers might result in a stale
-hardware state here.
 
 [ ... ]
-> +static int nau8360_dac_mux_put_enum(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
+
+> +static int nvt_i2c_probe(struct platform_device *pdev)
 > +{
-> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
-ntrol);
-> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
-> +	unsigned int *item =3D ucontrol->value.enumerated.item;
-> +	int ret =3D 0;
-> +
-> +	if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
-> +		dev_warn(nau8360->dev, "changing path is not allowed during playback");
+
+[ ... ]
+
+> +	ret =3D nvt_i2c_init(i2c);
+> +	if (ret)
 > +		return ret;
-> +	}
+> +
+> +	/* Setup I2C adapter */
+> +	i2c->adapter.owner =3D THIS_MODULE;
+> +	i2c->adapter.algo =3D &nvt_i2c_algo;
+> +	i2c->adapter.dev.of_node =3D pdev->dev.of_node;
+> +	i2c->adapter.dev.parent =3D &pdev->dev;
+> +	i2c->adapter.timeout =3D 3 * HZ;
+> +	strscpy(i2c->adapter.name, dev_name(&pdev->dev), sizeof(i2c->adapter.na=
+me));
+> +	i2c_set_adapdata(&i2c->adapter, i2c);
+> +
+> +	ret =3D i2c_add_adapter(&i2c->adapter);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "Failed to add adapter\n");
 
 [Severity: Medium]
-Should this return an error code like -EBUSY?=20
-
-Returning 0 when rejecting the change silently fails and tricks userspace=20
-into thinking the hardware path was updated.
-
-[ ... ]
-> +static int nau8360_startup(struct snd_pcm_substream *substream, struct s=
-nd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component =3D dai->component;
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int i2s_mask =3D NAU8360_FRAME_START_MASK | NAU8360_RX_OFFSET_=
-MASK;
-> +	unsigned int i2s_fmt =3D NAU8360_FRAME_START_H2L | NAU8360_RX_OFFSET_I2=
-S;
-> +	int val;
-> +
-> +	if (nau8360->dsp_created !=3D NAU8360_DSP_FW_ALL_DONE) {
-> +		dev_warn(nau8360->dev, "DSP firmware is not ready yet!");
-> +		return -EBUSY;
-> +	}
-
-[Severity: Medium]
-Is a lock needed here when checking the dsp_created flag?=20
-
-The firmware callback nau8360_dsp_fw_cb() modifies this flag under=20
-nau8360->lock. Reading it unlocked might cause a torn read and spuriously=20
-reject playback streams.
+Does this error path need to disable the hardware interrupts that were
+enabled earlier in nvt_i2c_init()? Returning directly might leave
+interrupts enabled on a shared IRQ line.
 
 > +
-> +	if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-> +		regmap_read(nau8360->regmap, NAU8360_R0B_I2S_PCM_CTRL1, &val);
-> +		if ((val & i2s_mask) =3D=3D i2s_fmt)
-> +			regmap_update_bits(nau8360->regmap, NAU8360_R0B_I2S_PCM_CTRL1,
-> +				NAU8360_EN_TDM_RX, NAU8360_EN_TDM_RX);
-
-[Severity: High]
-Does regmap_read() need its return value checked here?=20
-
-Similar to nau8360_get_tdm_chan_len(), if this read fails due to bus issues=
-,=20
-an uninitialized stack variable will be evaluated to determine if the recei=
-ver=20
-should be enabled.
-
+> +	platform_set_drvdata(pdev, i2c);
 > +
-> +		if (nau8360_dsp_active(component))
-> +			snd_soc_dapm_enable_pin(nau8360->dapm, "Sense");
-> +	}
-
-[Severity: Medium]
-Will this break I/V capture streams when the DSP is bypassed?=20
-
-The Sense widget is the DAPM source for ADC_I and ADC_V. If it's never enab=
-led=20
-when nau8360_dsp_active() evaluates to false, DAPM won't power up the ADCs,=
-=20
-leaving the host recording silence over TDM.
-
-[ ... ]
-> +static int nau8360_validate_tdm_slots(struct device *dev, unsigned int m=
-ask,
-> +	const int *func_slots, const char * const *func_names,
-> +	int num_funcs, const char *dir,
-> +	unsigned int *slot_used)
-
-[Severity: Low]
-Does the func_slots parameter need its type updated?=20
-
-The struct fields tdm_tx_func_slot and tdm_rx_func_slot were updated to u32=
-,=20
-which results in passing an unsigned int array to a const int pointer here.
-
-> +{
-> +	int i;
-> +	unsigned int func_slot;
-> +	*slot_used =3D 0;
-> +
-> +	if (!mask)
-> +		return 0;
-> +
-> +	for (i =3D 0; i < num_funcs; i++) {
-> +		func_slot =3D func_slots[i];
-[ ... ]
-> +		if (func_slot >=3D NAU8360_TDM_MAX_CHAN) {
-> +			dev_warn(dev, "Invalid %s %s slot index: %d",
-> +				dir, func_names[i], func_slot);
-> +			continue;
-> +		}
-
-[Severity: Medium]
-Should this clear the invalid slot from the array?=20
-
-It logs a warning and continues, but leaves the out-of-bounds value intact =
-in
-the original array for later consumption.
-
-[ ... ]
-> +static void nau8360_enable_tdm_channels(struct snd_soc_component *cp,
-> +	int rx_slot_used, int tx_slot_used)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
-> +	int i, slot;
-> +	unsigned int val =3D 0;
-> +	bool enable;
-> +
-> +	for (i =3D 0; i < NAU8360_TDM_TXN; i++) {
-> +		slot =3D nau8360->tdm_tx_func_slot[i];
-> +		enable =3D (slot !=3D TDM_SLOT_NONE) && (tx_slot_used & BIT(slot));
-
-[Severity: Medium]
-Can this trigger undefined behavior?=20
-
-If the invalid slot value from earlier (e.g. >=3D 32) remains in the array,=
-=20
-evaluating BIT(slot) will bit-shift out of bounds.
-
-[ ... ]
-> +static int __maybe_unused nau8360_suspend(struct snd_soc_component *comp=
-onent)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	int i;
-> +
-> +	for (i =3D 0; i < NAU8360_DSP_CORE_NUM; i++)
-> +		wait_for_completion(&nau8360->fw_done[i]);
-
-[Severity: High]
-Does this consume the completion token without replacing it if the resume
-fails?=20
-
-If nau8360_resume() doesn't properly replenish the token, a subsequent modu=
-le=20
-unload will deadlock forever when it waits on this completion.
-
-[ ... ]
-> +static int __maybe_unused nau8360_resume(struct snd_soc_component *compo=
-nent)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct regmap *regmap =3D nau8360->regmap;
-> +	int ret;
-> +
-> +	/* disable Sense at standby */
-> +	snd_soc_dapm_disable_pin(nau8360->dapm, "Sense");
-> +	snd_soc_dapm_sync(nau8360->dapm);
-> +
-> +	ret =3D nau8360_dsp_setup(component);
-> +
-> +	regcache_cache_only(regmap, false);
-
-[Severity: High]
-Can the DSP initialization succeed here?=20
-
-nau8360_dsp_setup() is called before clearing the cache_only flag. Since=20
-nau8360_dsp_setup() relies on polling hardware registers over the bus, it=20
-will silently fail every time during resume, skipping firmware loads and=20
-leaving the hardware unprotected.
-
-[ ... ]
-> +static void nau8360_i2c_remove(struct i2c_client *client)
-> +{
-> +	struct nau8360 *nau8360 =3D i2c_get_clientdata(client);
-> +	int i;
-> +
-> +	for (i =3D 0; i < NAU8360_DSP_CORE_NUM; i++)
-> +		wait_for_completion(&nau8360->fw_done[i]);
+> +	return 0;
 > +}
+> +
+> +static void nvt_i2c_remove(struct platform_device *pdev)
+> +{
+> +	struct nvt_i2c_bus *i2c =3D platform_get_drvdata(pdev);
+> +
+> +	nt72676_i2c_writel(I2C_IRQ_DISABLE_SETTING, i2c, I2C_REG_INTR);
+> +	nt72676_i2c_writel(nt72676_i2c_readl(i2c, I2C_REG_CTRL) & ~I2C_ENABLE,
+> +			   i2c, I2C_REG_CTRL);
+> +	i2c_del_adapter(&i2c->adapter);
 
 [Severity: High]
-If nau8360_suspend() consumed the token and nau8360_resume() failed to repl=
-ace
-it, won't this cause an unkillable deadlock?
+Should the adapter be deleted before disabling the I2C controller hardware?
+Disabling interrupts and clocks first could break concurrent ongoing
+transfers or client device removal operations that happen during
+i2c_del_adapter().
 
-Additionally, if duplicate firmware requests were launched by=20
-nau8360_dsp_chan_kcs_setup(), this wait_for_completion() will only synchron=
-ize=20
-against the first one. The second pending callback could execute after the=
-=20
-device unbinds, triggering a use-after-free on the nau8360 struct.
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804032951.1069=
-901-1-YLCHANG2@nuvoton.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804033419.6938=
+19-1-nina_kuo@novatek.com.tw?part=3D2
