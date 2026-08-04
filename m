@@ -1,112 +1,86 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3513B2FFE
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:31:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB00846A
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785875463; cv=none; b=mheg5wJ960K+QQxNlDtXsaxICbJ5YRTUSJ1a4HiL74r+YGd/93XQRImnb1LYKrEDg0773iayWVvOf6GB3eM8OE1NOo+FWFidMVQz2qRG8DeQ6xYBsr+sa+47t/zOSNRnpRfVWfT11y0mNDUIIPSdoezfSvb/Hgj/Yjq1htB+3ps=
+	t=1785875474; cv=none; b=gyl5xtAAvZEAJxfB/PglJnGfnlFCMm9XezlYAVkodfp8vxQISE5XrfBFJ2AXzfujvTnbHQrA9f1WCaaYklCL2JtwgIZ4xm1N/g9rJJJxn2bWpQzb2AUL240sFuKU1hCb/CLM8bZ3qMhb6Q+b+jO6TZpQ+Hmf5sEnP1+8l5QRmA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785875463; c=relaxed/simple;
-	bh=FEVcsLwCi13+tQSy5pOPAi3kFTUi4iMbxrJ6/313e+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qkz4vK4MCthwXVQVg7/bBH6ZVIzdmFYq5Ix6Mfb0pXnrRenVqJ1zsqhF1L4dx1imAFucyZvrwtS8b2jpmhbusEU7+gDCnb8JQRNUEQX4UXgI6yKaXBkcy1bf0EZG2CPESj1bC2TLBMfhwzjoaQihXEAZsnnhOVP4INXnk6M/xgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=FmOEo6mC; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1785875474; c=relaxed/simple;
+	bh=hQ/IF9zsRp6EfE4UNaPgSz8EQXYUIanVlGiQJgbb6as=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ikzIR7dQZZEmwj2lW41aq35W68WN9nQu3xKMXK+vuZ6GSIsmP8+7fPEFTJQ1V4cKUAAs5iQVVsIj0pRbF/RH/24vSpsW/JJB6vRDL+hbCu9CiVgjjmZ4M9aAqKNhy0flXahVZf3mc/4o7PJuz9RLaA/521xRfXSTzYvdHCzFMjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jdb5XWaT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="FmOEo6mC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=FEVc
-	sLwCi13+tQSy5pOPAi3kFTUi4iMbxrJ6/313e+k=; b=FmOEo6mCQ3DcbiVSTcLZ
-	AYrIaxf/L/NI6wCVFBdVPJsPK55pOWaYF5PSKF91DefbWUzuShhHr1hrhFNBGHmS
-	AhmP8hoXig5Ja+gOvaXkyCp+lIJ6wj/teXDtU7hNcE2ySAX7MKw4iwIGEEQLspLH
-	L9u/cGFtzMxv9ohjl0IvfyNipxskcXgi1eu+sVGZMzxNz1hQFP1ufOUKe27C1PvO
-	ysrl6CWDo+Vc8UHRb/WhbO0pcAXuWOJX2KOau+qALlQ0oQ8h1FGLYrfDerrE69TA
-	AuvJRj5VE+RsgvgvSaU5/zrKo7lk0TlDfwZgk2Tab3SyQMnqK7d4KNGD80glOMvG
-	6g==
-Received: (qmail 3520273 invoked from network); 4 Aug 2026 22:30:59 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Aug 2026 22:30:59 +0200
-X-UD-Smtp-Session: l3s3148p1@8VRgiD5YVMsujnsQ
-Date: Tue, 4 Aug 2026 22:30:59 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v4 3/4] ARM: dts: r9a06g032: Add support for timers
-Message-ID: <anJMAwn-ke2CnUx8@ninjato>
-References: <20260721082952.215691-1-herve.codina@bootlin.com>
- <20260721082952.215691-4-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jdb5XWaT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AB7C1F00A3E
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785875473;
+	bh=hQ/IF9zsRp6EfE4UNaPgSz8EQXYUIanVlGiQJgbb6as=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=jdb5XWaTxkq+n6O53rvIAk3SysegMg1HmXJeeSTmoOmmG+x6wcMVbEpwCCvy0f3iG
+	 cf5ZVHDJV+yM+UT5/XUOi5ROLw+pJlj6FS4pMpv/e0pMZOJdhh663bNVf6pSyeVQNJ
+	 t4IHmveN0te3rwW8o1h97uK8SaWJOXyrvRWYWVPWipJBlu6S6q42vYrPrkZIgY8JH7
+	 X2tYAd7TmK5eRbqeEhJBnsCH3Wh7sC89Fs0U7GG2vv/UfXSYFziwD5fIoDKZv8m35i
+	 l23zB59keWG4A/xhAn5os0DKKvDukEtcneCEKJ5oasGR7yUc3s2qyan4NA8xrYp/ED
+	 ZhNGOCmQ/hcog==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so270962e87.0
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:31:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrvTRRvUrnuyYIwDZ6oSAQKRZ/siGQGkmKwJ+XSStFp/Z9NAOvjJGNwGskiKZJMRLhwTErB+qzlcQQ9@vger.kernel.org
+X-Gm-Message-State: AOJu0YybvuHgxM7wpeN6YqPG+ttUfg2jVlO1Rn8Yhe9jEwQ1/PKTq79o
+	pp56P+CK515NEy3CAG8OCWXolFbUpaBC3fiyrg69n5UDdRtySAs1XaY47Gq3QzLTUk2DJQ/66Tk
+	Vfc25dRy4bmZdasxneqG3EvFbgJ6591E=
+X-Received: by 2002:a05:6512:2342:b0:5b0:1760:fabe with SMTP id
+ 2adb3069b0e04-5b2f4b8bfe8mr161410e87.15.1785875471838; Tue, 04 Aug 2026
+ 13:31:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="aoFCxAs525i516L1"
-Content-Disposition: inline
-In-Reply-To: <20260721082952.215691-4-herve.codina@bootlin.com>
-
-
---aoFCxAs525i516L1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260801072711.153217-1-changhuang.liang@starfivetech.com> <20260801072711.153217-5-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260801072711.153217-5-changhuang.liang@starfivetech.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 4 Aug 2026 22:30:59 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmbuS-Tx82AZzwJZ=ANVwi3XVtYL3J4VYaE3yEZBumZ0Q@mail.gmail.com>
+X-Gm-Features: AUfX_mxydusxf8VE7_hAS02smaZytShMdtSQeu6nrNbjybQ0dqWTUpDubwEFwtM
+Message-ID: <CAD++jLmbuS-Tx82AZzwJZ=ANVwi3XVtYL3J4VYaE3yEZBumZ0Q@mail.gmail.com>
+Subject: Re: [PATCH v4 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
+ controller driver
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 21, 2026 at 10:29:49AM +0200, Herve Codina (Schneider Electric)=
- wrote:
-> In the Renesas RZ/N1 SoCs family, two timers block are available.
->=20
-> Each block contains 8 timers composed of 6 16-bits timers and 2 32-bits
-> timers.
->=20
-> Each timer has its own interrupt line.
->=20
-> Describe those timers blocks.
->=20
+Hi Changhuang,
 
-Nits: Maybe delete the empty lines and write all this in one paragraph?
+On Sat, Aug 1, 2026 at 9:27=E2=80=AFAM Changhuang Liang
+<changhuang.liang@starfivetech.com> wrote:
 
-> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.co=
-m>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Add pinctrl driver for StarFive JHB100 SoC System-0(sys0) pinctrl
+> controller.
+>
+> Simultaneously add a generic pinctrl driver framework for registering
+> the pinctrl of other domains (sys1, sys2, and so on) in the JHB100 SoC.
+>
+> Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> Signed-off-by: Alex Soo <yuklin.soo@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+With Uwe's and Philipp's comments addressed this looks very nice.
+I really like how you use all helper libraries in this driver!
 
-Same testing as in patch 2, same comment about 0x400 reg-size as in
-patch 1.
+Once DT bindings and comments are accepted, this can be merged.
 
-
---aoFCxAs525i516L1
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpyTAMACgkQFA3kzBSg
-KbaSUBAAoCiV7bvLt69Riujk0VxlkiX/AXRHP0Mog7A18gBhB+qoUgcZFE5spHln
-05Xh9POGu6HS0vsY+8GlBkg+68J30753gmJ/I4zWA3KBrtHZ6Fz50SUsX8ZWJzfH
-0sOAStzCn+PsRJjJ5BwAL/SIq6hPpc3CZEKzaduzwZQ3VSFuxAjO2W5GH6I9+5qN
-iNgfF0kCUEhd5mfatzaYvimVLGdgrW4fTrCw6zRmpU8edCas/61Hdzw4oDLjEc2q
-nKGfuw1qo5VzW2F/gYo5ZeJQ5YYKx5P6P60U56LSmimgQcpAQqpwUFqectpf2ZwW
-14sdEblb3hWTtSMThPqDfJBKNCDNPWO/TVGCrf4iqUeNC8ZKFP3BfuLZryM1Ln3C
-HDU3NrXzUIJtjxJSA0DPZonywCVJHKEEzFPjGJvtA7h8+NJJnwZSDFaM35nF9NJw
-vA/S3Cat6rmDZidW+p7rcGOJJM0uO2iOjHx7RHvI4QXsS7++zUekSUKUY9oSeqvk
-Ykr2DA5/lEhZpO3i3h2jAwRX25F1IckOY3yEsiaCEeUISVeXzjDAB+vLOEeKHrYV
-JptdI9Ppnhy4kuJMTSSJoYI5lkYf0/vtQDWU2Si96uRFNckNOQHrubovL/hmCphO
-4uWwvVROYwPOZr+GAANdUALR1tK5uP+0MgFm5h+QpB5Q+a/KlaI=
-=+F3g
------END PGP SIGNATURE-----
-
---aoFCxAs525i516L1--
+Yours,
+Linus Walleij
