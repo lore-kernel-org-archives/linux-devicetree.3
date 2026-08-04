@@ -1,100 +1,107 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A6A356773;
-	Tue,  4 Aug 2026 11:34:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0CE2E7374
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 11:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785843245; cv=none; b=m1y7QMWzUNsksv9HPC2HyrjaC/SgG8QW184jftVysHcDduLd9ffGtxVk2uzbEk/ZQgeRx7X68RNve1IBt9yajogR+BOkn45XJgqnMBLgbcASedXBMvmym9TiuLjak0EpWs7AG0+psleocwUmwYP9UVNfGNWmqhSSIJZZh+8vYn0=
+	t=1785843261; cv=none; b=is8XRPVTUCX4Yb8Dt5XmQ9lfZtjiQPFsNouvT6M/onvE05S1IqVMBAskcbc93PEU7jd49QFRjresls+qpNooG2oVC9yq4/cvRmgKLjhc46qMXflpE0FaYxFDMUPj2OTJDGGcyM7sjW8ZKJj6+iOhWaWOwFarww2pIrj+te/gegM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785843245; c=relaxed/simple;
-	bh=G59VGDA6rhTXCxCP3iHlNCuRW3WqGdznOrZvREZZi/0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Bo46xx3HEFU0KpBIezXQVx/CQY3uEBes/nse6QsXXP/k09zi+06wJ9b+XdhERnM7atM2I5tWePtFsZvzUUkKsakf/gQmnolpFOAqNBt1HpozGcC06uHpcMnTc/aEEHodyS/+J5a+S2aKgldF4NY0wUA97mgMuGdF8D3qlWLNgks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=H+sXVw+a; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1785843261; c=relaxed/simple;
+	bh=OUUNQfaOmgNCKOlitYwUJKpII0ZpniRgkTu5PNFcMF0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AFfMHVUj0qe3kZZ4Gbpd+gSiHCOZpaYhZgS3s9J1bdwEdMEgUTigj8NiaJ+uAJyTa6b609mR3VvwDRuxYgRb8VLgSPABhZSbDjan08RsM8jjO2ZwVsXCNeWZI3StrJ1yNJL45b4xeMe6sLAnxUJHNhCmllzfslxzSwTSaTGFSms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEJzkMGj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="H+sXVw+a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1785843244; x=1817379244;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=G59VGDA6rhTXCxCP3iHlNCuRW3WqGdznOrZvREZZi/0=;
-  b=H+sXVw+a+Pg4TJvaKM34JdV+4FL3jenkUmRSk9AHwDQM3w3zI1bTjD5n
-   99ZMEYQhfPg0IGloI8Ro0ZY8XcNOhjYj8ARjqlA1AwaTTESqrFV6tcc4k
-   3Q4fFxxtXsZYjI2IYiXxaOq3l4WLSr5GTkBhUkjLBa13LNUPMc0rmXLq1
-   /mOSyz8qh6VM1sOzBr+JDoLfjkBbOAdW5E0E/cmbZUXOzMM30Ueyn5nVb
-   0cw0sqXtDcb09Zu1XcnhQi0gdU2Wfy63Thzgi003V6CWbQ8CLHMsY/v6W
-   c0JaIw45yz9G/ktvDyU2QPMVT95tEZtzFnVGsLUztnahVuy8oDuVLPZz/
-   A==;
-X-CSE-ConnectionGUID: ZAh7y7BsQI2UUJU92+Rbdw==
-X-CSE-MsgGUID: 6x+8kSwqS3qVFry6LfnbDg==
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="60737105"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 04:34:03 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Tue, 4 Aug 2026 04:34:03 -0700
-Received: from che-ll-i67070.microchip.com (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 4 Aug 2026 04:33:52 -0700
-From: Varshini Rajendran <varshini.rajendran@microchip.com>
-To: <ehristev@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
-	<nuno.sa@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
-	<alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
-	<srini@kernel.org>, <marcelo.schmitt@analog.com>, <radu.sabau@analog.com>,
-	<joshua.crofts1@gmail.com>, <jorge.marques@analog.com>,
-	<Jonathan.Santos@analog.com>, <jishnu.prakash@oss.qualcomm.com>,
-	<antoniu.miclaus@analog.com>, <duje@dujemihanovic.xyz>,
-	<mazziesaccount@gmail.com>, <varshini.rajendran@microchip.com>,
-	<linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v5 01/17] dt-bindings: iio: adc: at91-sama5d2: document sama7d65
-Date: Tue, 4 Aug 2026 17:03:22 +0530
-Message-ID: <20260804113338.261782-2-varshini.rajendran@microchip.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260804113338.261782-1-varshini.rajendran@microchip.com>
-References: <20260804113338.261782-1-varshini.rajendran@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEJzkMGj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF11F1F000E9;
+	Tue,  4 Aug 2026 11:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785843260;
+	bh=bWB7xHGsW5uM29vnX+zBrMJjI8/vQSjsIYvAFyEFE8s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oEJzkMGjlA0IY7jBvGhj6NhDIoNNeqSSrbHw2S3Tlr6gRpu9/96QzmXK6yl22X8K9
+	 iP8wCrrRO4P/YDTixxD/wGtIt3zKBw1wAtQKLgiJN8gv1iQ7MPuth1Nh5DyhOVbM0E
+	 fg4qVFDdC8t9cFSYJZxDsM86yJGZfot5J0XpmwrIBZauDrgSYwZGun0JbO1IN1gkMH
+	 mCw+m8ExyglYFr72bnrHyB4b7cPGgYBZUODGfHqJ3lqPz4o3xTiU3EOBYAexQ1Eia1
+	 m4GLfQCx9nasQAwJ2f7N/2+h/AIyqisxtjjGeTBYRLPMN1sorW2LGyZKv5u81+YyEl
+	 xR4mBnY21AehQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 8/8] riscv: dts: eswin: add watchdog support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pinkesh Vaghela" <pinkesh.vaghela@einfochips.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260804104431.1391839-9-pinkesh.vaghela@einfochips.com>
+References: <20260804104431.1391839-1-pinkesh.vaghela@einfochips.com>
+ <20260804104431.1391839-9-pinkesh.vaghela@einfochips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 11:34:19 +0000
+Message-Id: <20260804113419.EF11F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-Add dt-binding documentation for sama7d65 ADC.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Incorrect timer reference clock mapping for watchdog nodes
+--
 
-sama7d65 requires an individual compatible to address the differences
-from its predecessor sama7g5. The main difference is the temperature
-calibration layout and its handling.
+--- Patch [8]: [PATCH v3 8/8] riscv: dts: eswin: add watchdog support ---
+commit bfe09d553ee566b62eb6947526013fd32a57d405
+Author: Pritesh Patel <pritesh.patel@einfochips.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
----
- Documentation/devicetree/bindings/iio/adc/atmel,sama5d2-adc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+riscv: dts: eswin: add watchdog support
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/atmel,sama5d2-adc.yaml b/Documentation/devicetree/bindings/iio/adc/atmel,sama5d2-adc.yaml
-index 4817b840977a..e8a65fdcd018 100644
---- a/Documentation/devicetree/bindings/iio/adc/atmel,sama5d2-adc.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/atmel,sama5d2-adc.yaml
-@@ -15,6 +15,7 @@ properties:
-       - atmel,sama5d2-adc
-       - microchip,sam9x60-adc
-       - microchip,sama7g5-adc
-+      - microchip,sama7d65-adc
- 
-   reg:
-     maxItems: 1
--- 
-2.34.1
+This commit adds watchdog nodes for the ESWIN EIC7700 SoC and enables
+them for the HiFive Premier P550 board.
 
+[ ... ]
+
+> diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts=
+/eswin/eic7700.dtsi
+> index c13432d145042..f873e9eeb9290 100644
+> --- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> +++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
+> @@ -265,6 +265,46 @@ syscon: syscon@50440000 {
+>  			};
+>  		};
+> =20
+> +		wdt0: watchdog@50800000 {
+> +			compatible =3D "snps,dw-wdt";
+> +			reg =3D <0x0 0x50800000 0x0 0x4000>;
+> +			interrupts =3D <87>;
+> +			clocks =3D <&clk EIC7700_CLK_GATE_LSP_WDT0_PCLK>;
+> +			clock-names =3D "tclk";
+
+[Severity: High]
+Will this cause the watchdog to calculate timeouts incorrectly or freeze
+entirely?
+
+The snps,dw-wdt driver uses the clock named tclk to determine the frequency
+for timeout calculations. Here it is mapped to the APB interface clock
+(EIC7700_CLK_GATE_LSP_WDT0_PCLK).
+
+Since the ESWIN EIC7700 clock driver defines a separate watchdog reference
+clock (EIC7700_CLK_GATE_NOC_WDREF), providing the faster APB clock frequency
+to the driver might cause it to calculate extremely large tick counts. This
+would result in physical timeouts taking much longer than requested.
+
+Additionally, if EIC7700_CLK_GATE_NOC_WDREF is not referenced here, could
+the common clock framework's clk_disable_unused late initcall gate it and
+completely freeze the watchdog counter?
+
+This same clock mapping pattern appears in the wdt1, wdt2, and wdt3 nodes
+introduced below.
+
+> +			resets =3D <&reset EIC7700_RESET_WDT0>;
+> +			status =3D "disabled";
+> +		};
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804104431.1391=
+839-1-pinkesh.vaghela@einfochips.com?part=3D8
