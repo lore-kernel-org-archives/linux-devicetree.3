@@ -1,138 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7854241E6A7
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:59:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459332AD37
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 21:01:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785877185; cv=none; b=ELvT7Qq3jn3NT6mvFUerX8CJBPVsNB0QRn76b0y9C9c+Co5wNIR7cKVHn74mj7ppAJU6YwMXV9n5phqDsgZ0brMXOS6v9FwefOP9Aw1G2gU0FwhmxjWiTV4TfIDf7R1xS1s/aWoRgKV1tsCURmTOYmtFjXcf0+vcIfIsRrVrn6A=
+	t=1785877293; cv=none; b=vBDrFXNHSC/NOW6kqVmHx+Iu1HJ8Y6AfQNtHMeKuZ+l1OLUWBxj4324mkljRjlO8GSx0SKKFCfbMCKfqDm8ch71IDJTUrmdpQXBCjss0cWie6OjDT7mV5BAKYz6QfgYJnBRP+YQFPnjZ1/2/iShvc1uhsWI2sf14ecFYnpw/27c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785877185; c=relaxed/simple;
-	bh=TuWRjIRjemj45zX34RbCIZlGeH+m9jMmMHNJhSHPNj4=;
+	s=arc-20240116; t=1785877293; c=relaxed/simple;
+	bh=7/5v4ZTBfmpS6G2byJ5eoC+6/9xh0H1hjqZ1oPePxao=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ax4kAXKVIu+fOKeLwLuAoCDqpKnqMmRFoEtmkRnzyz0a/rUmaYvRSjGqbzVO1LkUsZjiCRoVApsVhBCFQGVIDg2OiwYlGjTi/yIvBWWzILkv+BFcp42RxBMbHAn3JDk2M2UkNnzpXMWHPA2Wvwec0vpEG+5F1nwc7Fpg26x5PmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GjkF+CdI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GWSpNjxLkJCJGyID4AXHbrStZiObej6VcTSn6w1T5rN0KiQiSEBbqukycRsQO4GQHdzJYCEadNUv0hhEdY0GFJqmgv5KtBNTWaqu3YxC46yjlnYRqjMc3R7472i2V3gM5UMl4J90zc5YUyUTxikk6CsM6tuJyMGpT1opbo2GtUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mACRRa8p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GjkF+CdI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFABB1F000E9;
-	Tue,  4 Aug 2026 20:59:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mACRRa8p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37541F000E9;
+	Tue,  4 Aug 2026 21:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785877184;
-	bh=d3lrPPc1Xu9fg67OlFrfVWCmVfdPU9mogEgTw1UYSF8=;
+	s=k20260515; t=1785877291;
+	bh=2mefUfUOSQEb3Po3WvN9Rb739lGP7HL7Hfbyuo5l7sc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GjkF+CdIuDTMCSSscL7l9YNzcqiMEglENiu6DKVDGsOXN84OyJA8BUZm+Ie/RU/OA
-	 wb/2Gycf1w66LnLKv17fgGM6II/0E3ARTQmCRQxj5B6veqzrZY24Uyc0AH9KJgh5jV
-	 O8AGpTG2ZhB4SZxvqgTzrisLyZshplGVRijAzTTfF+0eoeRV62JmYEitxWc+okRPzs
-	 +7xm4TCg2e7xxXoMRA8cXv8RIp46IdxS0aPW83/KUruCkZ+5u/lLcgmROGF0acgN+p
-	 JZEB5x0QgXlWQqPfZkKZtRPCH6EASR4fp/KkCSP7nEZkSJBET/Ft/LG19Wcs6AORcF
-	 KIKlhkIzD02sQ==
+	b=mACRRa8pgG9vNfwCDg/hkmoIsxqTKnsnXDZUvUe0Tu+NyMyvOdusDphEArPh/N/tr
+	 lGWJJyt+5zEhbKfB5TcAc/IUqn/5Q7ntGdMxyP8fX2x9dADfUgGj6jfwpQUxGs4gy4
+	 guPJk4AbtVp4qeSwInbPtIUMB180PGOu5AanVFsO/YZxbS8Dd+MslFIcMrJXpdsRlk
+	 WucSAo5k2ZcbZKPELnFplWO14CBPkIELsj+16FoPdCCnk4zUg6RwCPF0xA6HGHBU7i
+	 fk8pNAsSD9nExW55dLJE69JMWRusQpNvt03oSjyMimqzXqyRgHddfF4fRJVKNbmhgv
+	 F7px7JQUOhW7Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/3] mmc: core: Honor keep-power-in-suspend and
- reset-card-at-resume for (e)MMC
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: add a device tree supplied
+ boot logo
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kamal Dasu" <kamal.dasu@broadcom.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804203818.881765-4-kamal.dasu@broadcom.com>
-References: <20260804203818.881765-1-kamal.dasu@broadcom.com>
- <20260804203818.881765-4-kamal.dasu@broadcom.com>
+To: "Max Pedraza" <maximpedraza@gmail.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260804225617.264861-2-maximpedraza@gmail.com>
+References: <20260804225617.264861-1-maximpedraza@gmail.com>
+ <20260804225617.264861-2-maximpedraza@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 20:59:42 +0000
-Message-Id: <20260804205943.CFABB1F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 21:01:30 +0000
+Message-Id: <20260804210130.A37541F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Enabling `keep-power-in-suspend` without `reset-card-at-resume` le=
-aves the host controller in a high-speed state, causing `mmc_init_card()` t=
-o fail on resume.
-- [High] Back-powering unpowered MMC cards by driving the clock before the =
-VDD regulator is enabled when `reset-card-at-resume` is set but `keep-power=
--in-suspend` is not.
+- [Medium] The `memory-region` alternative is completely broken due to conf=
+licting top-level `required` constraints and a missing property definition.
 --
 
---- Patch [3]: [PATCH v6 3/3] mmc: core: Honor keep-power-in-suspend and re=
-set-card-at-resume for (e)MMC ---
-commit be3e1ca70917d880d996ee80f1806958a2aa8477
-Author: Kamal Dasu <kamal.dasu@broadcom.com>
+--- Patch [1]: [PATCH v2 1/6] dt-bindings: display: add a device tree suppl=
+ied boot logo ---
+commit f24f24c36e68703fb2282044b3ecdd6fe92fa5c4
+Author: Max Pedraza <maximpedraza@gmail.com>
 
-mmc: core: Honor keep-power-in-suspend and reset-card-at-resume for (e)MMC
+dt-bindings: display: add a device tree supplied boot logo
 
-This commit introduces support for keep-power-in-suspend and
-reset-card-at-resume properties for (e)MMC devices. It allows platforms to
-keep the card powered during suspend to DRAM for firmware access, and resets
-the host controller state upon resume.
+Embedded products frequently need a product specific boot logo. This commit
+adds a binding for a "linux,boot-logo-clut224" node to allow the boot logo
+to be described by the device tree instead of baked into the kernel. The
+image can live in the device tree directly or in a reserved memory region.
 
-Link: https://lore.kernel.org/r/20260413180551.3683969-1-florian.fainelli@b=
-roadcom.com/
-
-> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> index 05444ecf3909f..f85e034c79ed7 100644
-> --- a/drivers/mmc/core/mmc.c
-> +++ b/drivers/mmc/core/mmc.c
+> diff --git a/Documentation/devicetree/bindings/display/linux,boot-logo-cl=
+ut224.yaml b/Documentation/devicetree/bindings/display/linux,boot-logo-clut=
+224.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.y=
+aml
 
 [ ... ]
 
-> @@ -2217,9 +2237,22 @@ static int _mmc_resume(struct mmc_host *host)
->  	if (!mmc_card_suspended(host->card))
->  		goto out;
-> =20
-> +	/*
-> +	 * Firmware or other hardware may have accessed the card while it
-> +	 * stayed powered through suspend, leaving it in a state the kernel
-> +	 * can no longer assume it knows. Reset the host to its initial bus
-> +	 * state like _mmc_hw_reset() does for a non-power-cycle reset,
-> +	 * before mmc_init_card() re-identifies the card.
-> +	 */
-> +	if (host->caps2 & MMC_CAP2_RESET_AT_RESUME) {
-> +		mmc_set_clock(host, host->f_init);
-> +		mmc_set_initial_state(host);
-> +	}
+> +required:
+> +  - compatible
+> +  - width
+> +  - height
+> +  - clut
+> +  - data
 
-[Severity: High]
-If a device tree specifies reset-card-at-resume but not
-keep-power-in-suspend, _mmc_suspend() will call mmc_power_off(), disabling
-the VDD regulator and setting power_mode =3D MMC_POWER_OFF.
+[Severity: Medium]
+Does this global required block conflict with the oneOf block below?
 
-When _mmc_resume() executes this MMC_CAP2_RESET_AT_RESUME block, it calls
-mmc_set_clock() and mmc_set_initial_state() before mmc_power_up() is called.
-
-Could this lead to back-powering the unpowered MMC card by actively driving
-the clock pin before the VDD regulator is enabled?
+Since width, height, clut, and data are unconditionally required here, any
+node attempting to use the memory-region alternative will fail schema
+validation because it lacks these globally required properties.
 
 > +
->  	mmc_power_up(host, host->card->ocr);
->  	err =3D mmc_init_card(host, host->card->ocr, host->card);
+> +# The image either lives in the device tree or in a reserved memory regi=
+on,
+> +# never both.
+> +oneOf:
+> +  - required:
+> +      - width
+> +      - height
+> +      - clut
+> +      - data
+> +  - required:
+> +      - memory-region
+> +
+> +additionalProperties: false
 
-[Severity: High]
-If a device tree specifies keep-power-in-suspend but lacks
-reset-card-at-resume, _mmc_suspend() skips mmc_power_off(), leaving
-power_mode =3D=3D MMC_POWER_ON.
+[Severity: Medium]
+Can this schema successfully validate a node using a memory-region?
 
-When _mmc_resume() is called, it skips the MMC_CAP2_RESET_AT_RESUME block
-above. Then mmc_power_up() is called, but it returns immediately because
-power_mode is already MMC_POWER_ON:
-
-drivers/mmc/core/core.c:mmc_power_up() {
-	if (host->ios.power_mode =3D=3D MMC_POWER_ON)
-		return;
-	...
-}
-
-Does this cause mmc_init_card() to be called while the host is still
-configured for high-speed operation (e.g. 200MHz, HS400), causing the 400kHz
-initialization commands to fail?
-
->  	mmc_card_clr_suspended(host->card);
-> +	host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
-> =20
->  out:
->  	mmc_release_host(host);
+Since memory-region is missing from the main properties block, setting
+additionalProperties to false here will cause validation to reject any node
+that includes it, completely preventing this configuration alternative from
+being used.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804203818.8817=
-65-1-kamal.dasu@broadcom.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
+61-1-maximpedraza@gmail.com?part=3D1
