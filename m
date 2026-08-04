@@ -1,125 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B683191BB
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 10:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650C443BDB2
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 10:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785838678; cv=none; b=C99Z3gN/EYoPvz898sDFd/TVg0rC9pB5/7Wb3qe6ELldqySHjLwOcGv+e7ZFvAk6kcq8Q3pLD5L+P/sePumdzodIeSasDNU0nyCiFCWLiIFqv5FfCed/4vpeEfPW9umSLhsdcxEE47W2XG2r4KhTqz5t8a8qBqGKePzFinMtc4A=
+	t=1785838804; cv=none; b=k7VdsL8DuHppZ2I0qBNiOS8G/IoBz7FlBAIjZkG5JunGuSprbB9TtcW8ZtSQmme0Esh5nG5HYaX99BMS8nedWMZe3T+5MYAj+KPyfRrYQJVUVGG3U7ZCsf0gZ9UaFmO6PS07FmqbcXfef5S68rA/hDRmwmLc7podgKT5w2tY8Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785838678; c=relaxed/simple;
-	bh=zWkCCsMRzagoh5KeqReWvxEssGrZDQxl1N/u+cbcfAU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Lq58sBXqG5egLabhn7qDRf9+XR2ECocHTTR4Wax9YMu5cB7O3sqJ/FrFruxTvHQ1WiWE1mXTr8cxSCacQ33l42lFniPf9nOZLSPnayf2SlpkiIhcymDVp7xwE46LZwKPTkhNZsz7rOZqNXQnxZ/T9Jr2c2/UcxaU2ETC/z8C8Y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7vwMH7j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785838804; c=relaxed/simple;
+	bh=W0VsvBw4erS62StCAwFbLIw6VY59rs3FwUtxsXp2c1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=a2Y7O2+8/MtB9M9MbFn59isQAk9koWVJarBaM3iv1xyD29ntIyrP2OYvc32Lx+hYS8oG6XMXGU6xfSUWj4y+kjtNJxDa6kD0QgfKoBtc2QwjRBtpX5E7S6+pht6amCVpmOVMmd8sX5QSah3k1Lv3z8bbID1rnhm/HL4RNFKDdBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MQajXf89; arc=none smtp.client-ip=95.215.58.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7vwMH7j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F350A1F000E9;
-	Tue,  4 Aug 2026 10:17:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785838677;
-	bh=n2u/BaXQVvuC5mXZNKv9EHY6dsCWs6cD33KIlN/IATo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q7vwMH7jJxf/8pTghbcQtkwEEbKVUAgfo7SwSPLE1q/Fc59xNQ/hUx9DyuoUqzcsr
-	 Ngfa7eMxKqe8m6FDv/D6BH9t75bG3VrwywUsl4ZEuWhugglBxVvME6d4oFR/DdjjEH
-	 Rb6MJKBPtAdwoi++0Jbi3dMDFsnfc1ur7QY9k8AKVfpWkX7VxWfZjfXGGrUkgSGrNO
-	 3zCbEwwW+nsRO81OS43eZ95HnxV4ARqp2wMfntzG33+dSPQVZkNx2zzEBS1dOOLnAB
-	 dyO93HUoHQh64GtPB6GWQF4Q/OsJQZYWvK4Vp+16ykhcDjaueAbxGwlt17D1xzytou
-	 ZAh9Hsk5DOX1w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v5 3/3] net: phy: add DAPU Telecom DAP8211R(I)
- Gigabit Ethernet PHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Artem Shimko" <a.shimko.dev@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260803101734.270821-4-a.shimko.dev@gmail.com>
-References: <20260803101734.270821-1-a.shimko.dev@gmail.com>
- <20260803101734.270821-4-a.shimko.dev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 10:17:56 +0000
-Message-Id: <20260804101756.F350A1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MQajXf89"
+Date: Tue, 4 Aug 2026 13:19:43 +0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785838799; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type; bh=59bV0VTFOGjwq0yxRhupbuwjdHtO+zfKFhfxls/eC1w=;
+	b=MQajXf89w0T5db6AJd9zx//7rK725ZHKv5Ok+6Bjr62pPw7N17z3N5RCH0aPmCPXoJVyu+
+	NlBiKSyGDQ3ZaGHIvY4YbkDVMDiqwZSq6qEyCkomAIabtYiXScS3prTWPVYTg3NpdPmNtD
+	DMfwz52CyuLOzwJb9MUA2Ko0LJLzDy0=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Matti Vaittinen <matti.vaittinen@linux.dev>
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org
+Subject: [PATCH v2 00/10] Support ROHM BD73800
+Message-ID: <cover.1785838584.git.mazziesaccount@gmail.com>
+Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VHhze1AYksE9JiYU"
+Content-Disposition: inline
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Incorrect initialization order: RGMII delay settings are written=
- after the PHY software reset.
-- [Low] Brittle error handling in read_poll_timeout relies on mathematical =
-coincidence of negative error codes.
---
+--VHhze1AYksE9JiYU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [3]: [PATCH net-next v5 3/3] net: phy: add DAPU Telecom DAP8211R(=
-I) Gigabit Ethernet PHY driver ---
-commit a53a9ce41047cdc6842142dab15fe0303b0f860a
-Author: Artem Shimko <a.shimko.dev@gmail.com>
+Add support for the ROHM BD73800 PMIC and compatibles.
 
-net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+The ROHM BD73800 is a power management IC which integrates 8 BUCKs and 4
+LDOs. There is also an ADC and operation amplifier intended for current
+/ temperature measurement and accumulation. RTC and 32.768 kHz clock
+gate are also included. The PMIC can be customized via OTP and it has
+options for operating as a main PMIC in multi-PMIC installation. Some
+of the pins can also be used for GPO or GPI (including interrupt support).
 
-Adds a new PHY driver for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
-The driver implements extended register access for RGMII delay configuratio=
-n.
+There are also ROHM BD71851 and BD71885 PMICs out there. These are, from
+the SW-perspective, similar to the BD73800. There is only some different
+default values and OTP settings. The driver should be able to handle them
+just fine.
 
-> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/net/phy/dap8211r.c
+Revision history:
 
-[ ... ]
+v1 =3D> v2:
+ - Rebased on regulator/for-7.3 as it carries dependency:
+   f29a8bf6fde1 ("regulator: dt-bindings: ROHM PMIC state-machine voltages")
+ - dt-bindings: Various fixes, split generic stuff to own files.
+ - gpio: Styling, return -ENODEV if no GPIOs found
+ - MFD: Styling
+ - regulator: Simplify dt-reading
+ More accurate change-log in individual patches.
 
-> +static int dap8211r_config_init(struct phy_device *phydev)
-> +{
+---
 
-[ ... ]
+Matti Vaittinen (10):
+  dt-bindings: mfd: common ROHM PMIC properties
+  dt-bindings: rohm,bd*: Ref common ROHM bindings
+  dt-bindings: regulator: ROHM BD73800 regulators
+  dt-bindings: mfd: ROHM BD73800 PMIC
+  mfd: Support for ROHM BD73800 PMIC core
+  rtc: bd70528: Support RTC on ROHM BD73800
+  regulator: bd71828: Support ROHM BD73800
+  clk: bd718x7: Support ROHM BD73800
+  gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+  MAINTAINERS: Add ROHM BD73800 PMIC files
 
-> +	set |=3D FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, rx_internal_delay);
-> +	set |=3D FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, tx_internal_delay);
-> +
-> +	ret =3D dap8211r_modify_ext(phydev, DAP8211R_PHY_CON, DAP8211R_PHY_SW_R=
-ST, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Wait for reset self-clear (from low active to high) */
-> +	ret =3D read_poll_timeout(dap8211r_read_ext, val,
-> +				(val & DAP8211R_PHY_SW_RST),
+ .../bindings/mfd/rohm,bd71815-pmic.yaml       |   9 +-
+ .../bindings/mfd/rohm,bd71828-pmic.yaml       |   9 +-
+ .../bindings/mfd/rohm,bd72720-pmic.yaml       |  29 +-
+ .../bindings/mfd/rohm,bd73800-pmic.yaml       | 218 +++++++
+ .../bindings/mfd/rohm,pmic-pins.yaml          |  72 +++
+ .../regulator/rohm,bd73800-regulator.yaml     |  99 ++++
+ MAINTAINERS                                   |   2 +
+ drivers/clk/clk-bd718x7.c                     |   8 +
+ drivers/gpio/Kconfig                          |  11 +
+ drivers/gpio/Makefile                         |   1 +
+ drivers/gpio/gpio-bd73800.c                   | 227 +++++++
+ drivers/mfd/Kconfig                           |  15 +-
+ drivers/mfd/rohm-bd71828.c                    | 147 ++++-
+ drivers/regulator/Kconfig                     |   4 +-
+ drivers/regulator/bd71828-regulator.c         | 558 +++++++++++++++++-
+ drivers/rtc/rtc-bd70528.c                     |   8 +
+ include/linux/mfd/rohm-bd73800.h              | 307 ++++++++++
+ include/linux/mfd/rohm-generic.h              |   1 +
+ 18 files changed, 1679 insertions(+), 46 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic=
+=2Eyaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,pmic-pins.ya=
+ml
+ create mode 100644 Documentation/devicetree/bindings/regulator/rohm,bd7380=
+0-regulator.yaml
+ create mode 100644 drivers/gpio/gpio-bd73800.c
+ create mode 100644 include/linux/mfd/rohm-bd73800.h
 
-[Severity: Low]
-Should this exit condition explicitly check for val < 0?
 
-If dap8211r_read_ext() returns a negative error code, this loop currently
-terminates only because negative values in two's complement happen to have
-BIT(15) set. Relying on this coincidence might mask errors if a different
-register or bit is polled in the future.
-
-> +				20, 200, false, phydev, DAP8211R_PHY_CON);
-> +	if (ret)
-> +		return ret;
-> +	if (val < 0)
-> +		return val;
-> +
-> +	ret =3D dap8211r_modify_ext(phydev, DAP8211R_RGMII_CON, DAP8211R_RGMII_=
-CONFIG_MASK, set);
-
-[Severity: Medium]
-The function's docstring mentions "Software reset to apply settings", but h=
-ere
-the RGMII configuration is written after the reset completes.=20
-
-Does this PHY require the settings to be written before the software reset =
-in
-order to latch them properly?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-
+base-commit: 36c3ea84289913d16dd2ed783534193c957055b9
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803101734.2708=
-21-1-a.shimko.dev@gmail.com?part=3D3
+2.55.0
+
+
+--VHhze1AYksE9JiYU
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmpxvLYACgkQeFA3/03a
+ocW5HQgAlH75SLN8BaghMw7rYf5U9E5OPedQFEdQAj2bvP6pi2a0oh763U9YtSRZ
+QfAyxQwz7oEW7rvDT9sMY5A1DcNAo5rTCxeyFKJ1KeBiimdmB277fU2cpMzJ0Noh
+zYrxA2ttWRKa4vGfhxraIK0Z4IAHiL0wSOkH6bvDagXjaUVflGVSShS9xGur5hhY
+udrdU6DX1VAiphwBais1772pxrPuDYtx048OL1TZb9KmKyMX6XY5zEOi1LpvWfhL
+cXGA50TcS3+PLDDGGZF2n0+AYxdc2sL8IEYDJZwo5eWsJ19MdysbX4xWDzCz+NHY
+2G4KMK/9ZJxdjPekEoDWrzyH1P7AnQ==
+=+2F/
+-----END PGP SIGNATURE-----
+
+--VHhze1AYksE9JiYU--
