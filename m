@@ -1,97 +1,120 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1B93C8C48
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35964334C08
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785845693; cv=none; b=jQd14ehs3coG1y7GTgAEepjkoDT60WI76/pF/HA59cAZg2KiYIEiryrxD3RiHTrM99ZY8Fe6nbQk9D75dhSnZkKW6QF9zKZSwmGSmOnMsZu9WGI7EUhma4rzb42xEPj+y1qwNble7ehyyvjzYEg4u4PUQ4qSUOpkZ2eqf/iFbuQ=
+	t=1785845741; cv=none; b=QZ7mdDsZAHtO11m1c4jVE6RlyPqGaopzr35LhytySGBVsD5uWgiuwRQj0aBNNtV8/H181fmloofrOOMY37gPeLT0xLiGJOisHPjmSeFeRYCsoucUEDmDs+DADY1Illli3/B0aHPuw8JvyXPD6XndV+W55/pf12Olxl2qg/gD4Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785845693; c=relaxed/simple;
-	bh=wh9PSGzU/M4S09lIfZ3z8Ixb0mf2rZg7R0cuTMmpra8=;
-	h=Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d+tM5WUXYADE7FC3Ip8igzfl3vv+X0PIy55USfzRh5KJljZXjvQkqJJlIVuPuGLZwuef49I/c7D3sOvdJ8Lg3EFfc0n0f178dUdLUOhl0ILD5cVQtOIuYu3MeV0AzV/NIwISaWABbhUqMRns05OOStK7m1yIUHjmTBYkCyJZiMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IwMdCUer; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785845741; c=relaxed/simple;
+	bh=uIZlzca7wlPKLQlxUXUSejQzIJqCeICNzOAyQt1Nq2U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gcvF+0DHe43RQoYtJhbPvygQmDKH4QDHgnfp7YaYeyR6SSLSacv/kl5yGDb4pH8QGhHb4e/JKlJk2aq0/ceHFa1TAYWKqhve0PNNDCeRZCDxlkzxEPPakO0FN60kX3LfvF64DNQzmiRX0/M+KlCdsdcoQFJy9Ld6h+rv9SwTb/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eA1gf8JC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IwMdCUer"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f59f25ec4so1650751f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 05:14:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785845689; x=1786450489; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:to:from:subject:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wh9PSGzU/M4S09lIfZ3z8Ixb0mf2rZg7R0cuTMmpra8=;
-        b=IwMdCUerX/Wfig47tUSmhlnlC4C5jZTYZ2Mxfrcgzx2nU4rzeSYJoJ4Fi8vfKIXH9s
-         ocKcBZJvkWoRm3yYT/07/RoSNsx7bQKZAjFP1FS7yIb0biDCgMswE9WG/pP1rsIgbaNV
-         IMhJnzCHE/hBOQyZx9wPIw1k9FSv6IvG2wuq+h4TL+rG/Ajw3ybeEW7uAw8iEKPeLQDv
-         ZwvQNiO7B5EKMyHhA/tcPJM5u2YJ2anvXMvXeCctVfUntCuw3eny0wX7JJ1NJQUidM1R
-         L4YpuqgCSd3DPBi0tgoaekBC6YrWMjFjPg6ciJpEuexKJPS7gTG1xJIBgdGyv1EpFZNO
-         YBqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785845689; x=1786450489;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wh9PSGzU/M4S09lIfZ3z8Ixb0mf2rZg7R0cuTMmpra8=;
-        b=KGviru9HuQQrXv4SSuRA6G8GedGYyNvfyqfHRD4XIMCTrJU3zRHbq1+Win1d8tg0ml
-         QrnA+bOtHm1Njqq9FsnQFXpQD0TUxnOdZmc3vUaqkS/G6FdGQUwPSwodVB9Y13LYES2F
-         +6C3DFiujuQ9xjyB7Hjh1oPm7HZJSrB6e+0Btt/f4AVdcT3Bz9mtCDFi7jb/htF/RB13
-         7jC2aSz4sjogoHHrRDUizqyM8GbKZ77+PMo6BLWjgfrFM0+fTnEiH8rYQnfkHY/5NoC9
-         h1B6NNGKjrv8VXSKOWuK5GNF19KsA9XCirxL4OW5QpeQRdrA3Hh71Sovf0sYmpanpfTA
-         zjpg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp5y0gt/LT3vu7Ls3N2GjVBOLdNXp6OJb7USs3RMiCNkYIsKbIdW4JCMxaVIyc5rn9Li4/6dVoOcBfR@vger.kernel.org
-X-Gm-Message-State: AOJu0YysH8jJxsLixc8awTeb7uoDhKzCwSGFGXvuZEfWz2EtZSeqX1mi
-	WTCMCa3fyOqRgYDBkdwNL2YmkQIZc8SMFxygnG8dnZiIzt1tnlWsLGV5KtkL1rtkZxg=
-X-Gm-Gg: AR+sD11XH2v+3hcnm+iItZ1PbnR7h6QHJzqzPZJyvLM+L8Fz/FrCItUpihI3dstuNUN
-	wRP5MWTZih8iz1NJIQfkr63n8dCMOO2jF6dFjZIoF7q83/FuPohnBV1tXu04QA0LH6+u1spBXBN
-	rRuvDgW+ENwBqEZxE1Z425kzQdT08FoLi1gZWvflB8VVSE1NqGPi3ta7h737VPDpC4zvqNPspyG
-	2p6OflQEXI3P2Q6udUDKujjXZVSg3zgMdgC96nHOaQNnKf8K2XPZtvBsldTDjW2Zf6MWX3oF/Yb
-	lxzzOcWVRNDHSxPR9qn7Boq3jEpg2M+Ks2XFzYmglxXTYCzKJIClHGIJYxR/bwg7lrphZclDUV0
-	LCFKgIOiptu2enl6t8pM/JymZheW2xM4Gw2G6WkS6Dto/XfVptVs8A/N52EKJuMlvjjag9oUwzj
-	uCDafH3kj1rWclpXAuUrLRrTcs9a8K/kkOiQQ94c9FGwWS7bq6461H5coYffon42pC
-X-Received: by 2002:a05:6000:491d:b0:47f:93fc:2d27 with SMTP id ffacd0b85a97d-47fd72f08f6mr36907224f8f.30.1785845689066;
-        Tue, 04 Aug 2026 05:14:49 -0700 (PDT)
-Received: from [10.1.1.59] ([109.255.181.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd42d91bfsm45894550f8f.15.2026.08.04.05.14.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 05:14:48 -0700 (PDT)
-Message-ID: <6ac14ee5f61625e4254fac74d7e8894b3136e007.camel@linaro.org>
-Subject: Re: [PATCH] arm64: dts: exynos: Correct white-space style
-From: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Alim Akhtar	
- <alim.akhtar@samsung.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter
- Griffin	 <peter.griffin@linaro.org>, Tudor Ambarus
- <tudor.ambarus@linaro.org>, 	linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Tue, 04 Aug 2026 13:14:58 +0100
-In-Reply-To: <20260801210353.383880-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260801210353.383880-2-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eA1gf8JC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441531F000E9;
+	Tue,  4 Aug 2026 12:15:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785845739;
+	bh=jNlc1/2H/tYW6O3NqAOXTyKmcZTGLuP4zz1/HgBcn6k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eA1gf8JCGI6/hFgockcWZ4UH/A10O064yarSduxUct8T4OuspRGKZxMhGvnFyTCb0
+	 RKQGYA2HsCiR6DQaa2hhf2Mm+xMvxndK6TZ27ztoCKAamG04gUBkPlxih2vsqkBYWg
+	 I73UbUtBqJqW8nt1oc7+4pzn1nM9P+RJibXuWFtrcNbV+FKSS/Z8St/tvSP+jxxnFZ
+	 smK7pZvwJPIWTtKOqP2MpA2/aVZg3z07CQQjfEWEn8Nv+6S5UGz0ps8V3YFY16u/Fu
+	 rAGBO+C/HRy9hdouHFWDACtnDx2oPbx+i1wb7FLN5puaFUKy9dBGPnO0DmacpeYJ2J
+	 N20NeMphaO4fQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 08/17] dt-bindings: nvmem: microchip,sama7g5-otpc:
+ add sama7d65 and dt node example
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260804113338.261782-9-varshini.rajendran@microchip.com>
+References: <20260804113338.261782-1-varshini.rajendran@microchip.com>
+ <20260804113338.261782-9-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+Date: Tue, 04 Aug 2026 12:15:38 +0000
+Message-Id: <20260804121539.441531F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Sat, 2026-08-01 at 23:03 +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like missing space before bracket '{'
-> character or spurious space, which will be flagged by dt-check-style
-> ("redundant-whitespace" warning).=C2=A0 No functional changes.
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
-> =C2=A0arch/arm64/boot/dts/exynos/exynos8855-pinctrl.dtsi=C2=A0=C2=A0 | 2 =
-+-
-> =C2=A0arch/arm64/boot/dts/exynos/google/gs101-pinctrl.dtsi | 8 ++++----
-> =C2=A02 files changed, 5 insertions(+), 5 deletions(-)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The device tree node example incorrectly uses a 32-bit TAG (0x41=
+435354) as the `reg` offset in a `fixed-layout`, which violates the static =
+byte offset semantics of `fixed-layout` and will cause immediate runtime dr=
+iver failures if copied.
+--
 
-Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+--- Patch [8]: [PATCH v5 08/17] dt-bindings: nvmem: microchip,sama7g5-otpc:=
+ add sama7d65 and dt node example ---
+commit f1d25062b84ac824ea90292adfefcc0c472e00d6
+Author: Varshini Rajendran <varshini.rajendran@microchip.com>
+
+dt-bindings: nvmem: microchip,sama7g5-otpc: add sama7d65 and dt node example
+
+This commit adds support for the sama7d65 variant and includes a device tree
+node example demonstrating how a tag can be used to reference a packet stor=
+ed
+in the OTP memory.
+
+> diff --git a/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-ot=
+pc.yaml b/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.ya=
+ml
+> --- a/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
+> +++ b/Documentation/devicetree/bindings/nvmem/microchip,sama7g5-otpc.yaml
+[ ... ]
+> @@ -48,4 +54,20 @@ examples:
+>          };
+>      };
+> =20
+> +  - |
+> +    efuse@e8c00000 {
+> +        compatible =3D "microchip,sama7d65-otpc", "microchip,sama7g5-otp=
+c", "syscon";
+> +        reg =3D <0xe8c00000 0x100>;
+> +
+> +        nvmem-layout {
+> +            compatible =3D "fixed-layout";
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <1>;
+> +
+> +            calib@41435354 {
+> +                reg =3D <0x41435354 0x2c>;    /* Temp calib data packet =
+TAG */
+
+[Severity: Medium]
+Will this configuration cause a regression where drivers fail to initialize=
+ at
+runtime if downstream developers follow the example?
+
+The generic fixed-layout binding strictly interprets the reg property as a
+static physical byte offset, rather than a tag.
+
+If a consumer attempts to read this cell at runtime, the NVMEM generic pars=
+er
+will pass 0x41435354 as the physical byte offset. When mchp_otpc_read()
+calculates the packet ID using offset / 4, it results in an out-of-bounds ID
+of 273732821. This exceeds the controller's maximum packet count, causing t=
+he
+bounds check to fail and immediately reject the read with -EINVAL.
+
+Is there a different layout compatible string intended for tag-based lookup=
+s?
+
+> +            };
+> +        };
+> +    };
+> =20
+>  ...
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804113338.2617=
+82-1-varshini.rajendran@microchip.com?part=3D8
