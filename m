@@ -1,107 +1,803 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA533AF656
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785845335; cv=none; b=rBXq/RIjPvDaamrI5rl1QWFBMRuVL4TQMHYsLdNjwcCUfC3GSUNegcPukRBLLx19pxjuKf+uuEG7i7MzXZ6NVljYdev3Ay8gJAVU/EtTs49FjvPB6Hw1seKki64m6N5BBtlp/5123sHguPQkM8+9y8SaaS7dBj3oXEd2OQnF6AQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785845335; c=relaxed/simple;
-	bh=rGZID/1D35HR/30Li2M9KBZTZRtG7ra5hgUmU2nMHVM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uetpHcSuuudQSAzVAbk9g5AuWdOJGlBvRslQUECXTW5o2xWZDPLPi0PDIvo44FmCeXPkg9eCU/nY+0/xIQ4La7iif7lZcX7wXHFUrvTXK0BHiukyoslMFCGTdHwY4skR7Wg8bxTMEOIaKN0JtnDdmiZ1CXWOhycVlnFTzLrfu+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJgL1n5I; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3704D3ACEE2
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785845398; cv=pass; b=pnIfm+oiDaDpL4vrs7HCUqTZ3WKIheckPwj5UrxGbbktfuwMam4kiNUy5OB3sj756YYwSSjcloH5k0ASDNSIFucX9t+biOAmqCxOsq+BU8B9vhU/1y6dlg5Uh3mHn+P1V9YxGqXH8qLYF6l2nLZ9q0B821PnJBGIk9g9yiRr9L8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785845398; c=relaxed/simple;
+	bh=GsO226cxsvl06Z+Lm1YrsedEZpgGpqjUUyvb2s8/qmc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N92CRo2dggqgLM1MZiIQlPpd4VKIjV8cf8OjXbzLuapN0P98brleYuxGFyYDZUgZIgreI6Gps7w8EiePY7U+kBsbNcXIPwS/YJAlyYj/AMMHPRT2xDBnVNZrWrufWYXG0iFmOAsIzopxqeqeqgSFe7YTfS9eunQAYPozvbXcXuY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QIkdV/Wx; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJgL1n5I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92D5B1F000E9;
-	Tue,  4 Aug 2026 12:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785845329;
-	bh=Gzi8hvO7o4D4gJkAJnHSPHM2lfpdoBvWkcQib0uGuFE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fJgL1n5IdAwcSuMxFgm0cQE3xjOyJKiOcK63hGSTIEiFYzR7xaxsL1ylCEclCqu1K
-	 Hk4O4ltnWqLOW74ZfFCiPCZGFcM5sMwUJGLBAzxw7um/j7DEBU44nlaZCOcH73kK9C
-	 YakBeJybfDHA5KtyQTKa6cjTVuf/uPw1W/wgDNAEAQJ9sEnmNZ0uOU7tQn1+alzKE7
-	 TOIOKade/GFKRqh+IgP2a0PYst0Qr1PSKs4ftZVk4QS0I1TlXFT/hBjdZsHTIa3yJ8
-	 xSXoZ+Tu07JWigPkiBQuXUSIDpljd8epb8UdKAeHwZXeQ9oH5tIjD8/vNlr3+BURg6
-	 2/uCxHXpxCGBg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 07/17] iio: adc: at91-sama5d2_adc: adapt the driver
- for sama7d65
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260804113338.261782-8-varshini.rajendran@microchip.com>
-References: <20260804113338.261782-1-varshini.rajendran@microchip.com>
- <20260804113338.261782-8-varshini.rajendran@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 12:08:49 +0000
-Message-Id: <20260804120849.92D5B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QIkdV/Wx"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69c600f76ccso6767077a12.0
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 05:09:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785845394; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EtNIFHh3QFX4EC+S/jKhCbNv8MCx56yG7YX9qjHKenJzUHd8tbrBqseG47XBMSjHLd
+         NvOFXwn+CjX8sjT3cO7d2KkUtL9xkKqY660XE5bRL2XoCk05hvIFx6jlv/nxqtKRv5Su
+         zewvHi5POMQeltnNPsEanUt7/tok0hifCgnshjkxijUqaJS/Q/d07oP8D4sxaV9LY/oD
+         WqoXdUpNvESqDQBRblBmVfPKMQxrOFwLXYsEBQJJLZKPO/g/JRjCh8QXqdcv3jkKecS9
+         RWdgmyccZAMJX2wXT5fEvEOJe1nwVG7p6auAoV/SfUSUGrpih6hs1x353uME8o/Cvk5m
+         9Jpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jei8t4G8dP/WHAA3ArvZkOSCI1ouVxL8YiLBglXmf+U=;
+        fh=ZI8BCx1sO9T4HH6XIYTfuMey70MeiDiCYcCwmJnEHfY=;
+        b=WoX9pRXLdlkHUZvVt2KZQt2iKCIhDWzRF4QjOFoOBYDrlEer+FoJjqm+xTH1XDwzNY
+         +ILMw6nCacaNRwJGK1BKofDVJbo+TLY2YP1/5V24JrKk+oR88yE7g7t/lapRW/CugXbr
+         8LhGJeKc9mszgA4gdyJtX4FSbdy/sUMExWsPQJtTKJnO4UgXVbKk3tRBKO+aCkPm//vr
+         ODQtjpn55Azi30AudIRhQ6c1Ba3WbcF6hXvM3qka313IC3GBzv1E1WGkIBI91xdnRo73
+         tOnZHb3E1Kn9NHe4D4ubFVT8yJ32bp7vkaoVULzgfrtFhceNzJT9rUoP99VJdVyklqHQ
+         j0sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785845394; x=1786450194; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jei8t4G8dP/WHAA3ArvZkOSCI1ouVxL8YiLBglXmf+U=;
+        b=QIkdV/WxNPlvWMBpIXzi+k8pZxKdq2sWfJKRaObNLAb/AcW0An35+Wl3dzkKiWbbdO
+         fbsuIpyaD5vNkY6Qt9QUCRsXaHakvuqdPuJqclXNVVtQIsST+aRtoKWTNPhJ2h7fAK0c
+         nJGUHid7R+7EgyiS/gWWSlM6PsF3rhC7oWRf/bZ3c/c0ZlZZeVJn3hYHx2ZAPwg5Ar6z
+         C+e8gJH8kkGgD3pw+f+KRZtAETG1t/PhN3odSD5tMZbE9B9ekwJxDhnJvOwGI4s0RaSk
+         lvNJixgLUhjCSCsalibLllvEa9itOYMYHw0MDq+LrmKIlT1O4s3yKpe5gLNo5+r6zq1b
+         f/sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785845394; x=1786450194;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jei8t4G8dP/WHAA3ArvZkOSCI1ouVxL8YiLBglXmf+U=;
+        b=fnu2lsNitGVe/O48yP+GkcY1hXSl1l5uz83JsiHrPEN1GHdfiqHsCnkEFgw+CZQ87z
+         FUp76j9q7tYAoGpXmccOK4htDwbBTewQip6VwW92ed6x0o5127hOjoa3AFmN+rTAzE+u
+         XJGM47rm4EUgQHcw/qHFKpHSi93iShheTYtPtQio/IuH/PVghij5XkyVXs88G9y/BPQJ
+         c39xTLxQ67Hc16Rr8fWSRvf4eKcKOoRPEbbPvbmFKPGeQcujyKUQWTRh+ft1qJflCBpm
+         j19begCX/5WoTfQWu/OC06vcRqCNbhwtEHhSfomwSM/n76FXt3TQsL5V3S4Lq3iZQ+cT
+         lLNw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq5wU2sB33czmSw+HcB/iVqM31LKgKO4K2PTpuo5uTB1xCmTqQU/yjeLuhAgH3gTZZdkp4ApxJTeH6S@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvFXQEEqmj/lUZgpxkQz0wIPEKwQdG+1ctWkEVBRYcmpxSPxNi
+	vCNOkaNenx52fxg65oyvL8+9vNiMWtwqAJH5RakJ4KjebrjO86uOdpsS2KzuEXvzkn8PAm1E5yM
+	HkXIRExPGS8m2puh6Q7mReCigviRDko1b1BU45ejilw==
+X-Gm-Gg: AR+sD10bJW+MTgvR1Ya0rUoYyig05BthzyLX0cWXean5rr6YQUQuw/nkDc5G4MBBJuF
+	/gErPWvi3aU6o+YI626VZpSEsmd36CJ72vWcA8KUKine6a67s1xc2JdbIWk6IDu1C0C3VkVIfip
+	rjkb8YvhT+9zLHJZUIb9BKFWIVQQ3uh0oYdMFWqPnDN2+t4QKx9DLXFJ7Gk5FQcC4ds6MeWgilA
+	gXjVdwE9TumUlY6f+206LIqCAWOr+Acuw+Uv6deanGA7nYKCa91kU6ltJDMATURm5paXKj5WwUM
+	xhtCXtdVNjcoVjOuCLiF6Tb2yhfPHXiGzns7xYCCB5RlSDrYLGFGAHxWf39NyWoKdb4QlGE2wfq
+	6lBs=
+X-Received: by 2002:a05:6402:44d7:b0:69c:72e2:a3d5 with SMTP id
+ 4fb4d7f45d1cf-6a0a7c61137mr10766363a12.6.1785845394084; Tue, 04 Aug 2026
+ 05:09:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260801-b4-dts-coding-style-strict-v2-0-f09a659ab80d@oss.qualcomm.com>
+ <20260801-b4-dts-coding-style-strict-v2-4-f09a659ab80d@oss.qualcomm.com>
+In-Reply-To: <20260801-b4-dts-coding-style-strict-v2-4-f09a659ab80d@oss.qualcomm.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Tue, 4 Aug 2026 13:09:41 +0100
+X-Gm-Features: AUfX_mxuN5Q1A0xEeX4rZ1XnLBRRG-u0-05MQYuftCBPTDnQctf3eV8dHANyUJg
+Message-ID: <CADrjBPqqQxE6qnwdrG2YnTW_+sieuynHSqBUXQu05ptii6kVLw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/8] arm64: dts: exynos: Re-order clocks and align
+ continued properties
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Sam Protsenko <semen.protsenko@linaro.org>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Krzysztof Kozlowski <krzk@kernel.org>, linux-fsd@tesla.com, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Incorrect scaling factor `p1_scale` for sama7d65 temperature calib=
-ration data, likely due to swapped numerator and denominator.
---
+On Sat, 1 Aug 2026 at 16:07, Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+>
+> Trivial white-space only changes to adjust to DTS coding style
+> (clocks-names should follow clocks) and fix dt-check-style strict
+> warnings like:
+>
+>   [property-order] property 'clocks' out of canonical order (should sort =
+before 'clock-names')
+>   [continuation-alignment] continuation should align to column 39 (under =
+< or ")
+>
+> Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
---- Patch [7]: [PATCH v5 07/17] iio: adc: at91-sama5d2_adc: adapt the drive=
-r for sama7d65 ---
-commit ea05a7089eb84578f2d6135b1c963b5c2be91fdd
-Author: Varshini Rajendran <varshini.rajendran@microchip.com>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
-iio: adc: at91-sama5d2_adc: adapt the driver for sama7d65
-
-Add support for sama7d65 ADC. The differences are highlighted with the
-compatible. The calibration data layout is the main difference.
-
-Update Kconfig help text to mention SAMA7 SoC family support.
-
-> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sa=
-ma5d2_adc.c
-> --- a/drivers/iio/adc/at91-sama5d2_adc.c
-> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
-
-[ ... ]
-
-> @@ -528,6 +528,15 @@ static const struct at91_adc_temp_calib_layout sama7=
-g5_temp_calib =3D {
->  	.p1_scale =3D { .numerator =3D 1000, .denominator =3D 1 },
->  };
-> =20
-> +static const struct at91_adc_temp_calib_layout sama7d65_temp_calib =3D {
-> +	.tag_idx =3D 1,
-> +	.p1_idx =3D 3,
-> +	.p4_idx =3D 2,
-> +	.p6_idx =3D 5,
-> +	.min_len =3D 11,
-> +	.p1_scale =3D { .numerator =3D 1, .denominator =3D 1000 },
-> +};
-
-[Severity: High]
-Is this scale correct for the p1 value?
-
-In at91_adc_temp_sensor_init(), the calibration value is scaled like this:
-
-clb->p1 /=3D layout->p1_scale.denominator;
-
-With a denominator of 1000, the raw NVMEM calibration value will be divided
-by 1000. Later in at91_adc_read_temp(), this scaled p1 value is added
-directly to a milli-Celsius delta.
-
-If the NVMEM stores p1 in Celsius (like it does for SAMA7G5), dividing by
-1000 yields 0 due to integer truncation. If it is already in milli-Celsius,
-dividing by 1000 converts it back to Celsius. In either case, adding Celsius
-or 0 to a milli-Celsius delta results in an incorrect temperature reading.
-
-Could the numerator and denominator have been accidentally swapped here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804113338.2617=
-82-1-varshini.rajendran@microchip.com?part=3D7
+>  arch/arm64/boot/dts/exynos/exynos5433.dtsi | 282 ++++++++++++++---------=
+------
+>  1 file changed, 141 insertions(+), 141 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/exynos/exynos5433.dtsi b/arch/arm64/boot=
+/dts/exynos/exynos5433.dtsi
+> index ebd63b9e244d..d318c87effaa 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos5433.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos5433.dtsi
+> @@ -400,14 +400,14 @@ cmu_top: clock-controller@10030000 {
+>                         reg =3D <0x10030000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "sclk_mphy_pll",
+> -                               "sclk_mfc_pll",
+> -                               "sclk_bus_pll";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_cpif CLK_SCLK_MPHY_PLL>,
+> -                               <&cmu_mif CLK_SCLK_MFC_PLL>,
+> -                               <&cmu_mif CLK_SCLK_BUS_PLL>;
+> +                                <&cmu_cpif CLK_SCLK_MPHY_PLL>,
+> +                                <&cmu_mif CLK_SCLK_MFC_PLL>,
+> +                                <&cmu_mif CLK_SCLK_BUS_PLL>;
+> +                       clock-names =3D "oscclk",
+> +                                     "sclk_mphy_pll",
+> +                                     "sclk_mfc_pll",
+> +                                     "sclk_bus_pll";
+>                 };
+>
+>                 cmu_cpif: clock-controller@10fc0000 {
+> @@ -415,8 +415,8 @@ cmu_cpif: clock-controller@10fc0000 {
+>                         reg =3D <0x10fc0000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk";
+>                         clocks =3D <&xxti>;
+> +                       clock-names =3D "oscclk";
+>                 };
+>
+>                 cmu_mif: clock-controller@105b0000 {
+> @@ -424,10 +424,10 @@ cmu_mif: clock-controller@105b0000 {
+>                         reg =3D <0x105b0000 0x2000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "sclk_mphy_pll";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_cpif CLK_SCLK_MPHY_PLL>;
+> +                                <&cmu_cpif CLK_SCLK_MPHY_PLL>;
+> +                       clock-names =3D "oscclk",
+> +                                     "sclk_mphy_pll";
+>                 };
+>
+>                 cmu_peric: clock-controller@14c80000 {
+> @@ -447,26 +447,26 @@ cmu_fsys: clock-controller@156e0000 {
+>                         reg =3D <0x156e0000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "sclk_ufs_mphy",
+> -                               "aclk_fsys_200",
+> -                               "sclk_pcie_100_fsys",
+> -                               "sclk_ufsunipro_fsys",
+> -                               "sclk_mmc2_fsys",
+> -                               "sclk_mmc1_fsys",
+> -                               "sclk_mmc0_fsys",
+> -                               "sclk_usbhost30_fsys",
+> -                               "sclk_usbdrd30_fsys";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_cpif CLK_SCLK_UFS_MPHY>,
+> -                               <&cmu_top CLK_ACLK_FSYS_200>,
+> -                               <&cmu_top CLK_SCLK_PCIE_100_FSYS>,
+> -                               <&cmu_top CLK_SCLK_UFSUNIPRO_FSYS>,
+> -                               <&cmu_top CLK_SCLK_MMC2_FSYS>,
+> -                               <&cmu_top CLK_SCLK_MMC1_FSYS>,
+> -                               <&cmu_top CLK_SCLK_MMC0_FSYS>,
+> -                               <&cmu_top CLK_SCLK_USBHOST30_FSYS>,
+> -                               <&cmu_top CLK_SCLK_USBDRD30_FSYS>;
+> +                                <&cmu_cpif CLK_SCLK_UFS_MPHY>,
+> +                                <&cmu_top CLK_ACLK_FSYS_200>,
+> +                                <&cmu_top CLK_SCLK_PCIE_100_FSYS>,
+> +                                <&cmu_top CLK_SCLK_UFSUNIPRO_FSYS>,
+> +                                <&cmu_top CLK_SCLK_MMC2_FSYS>,
+> +                                <&cmu_top CLK_SCLK_MMC1_FSYS>,
+> +                                <&cmu_top CLK_SCLK_MMC0_FSYS>,
+> +                                <&cmu_top CLK_SCLK_USBHOST30_FSYS>,
+> +                                <&cmu_top CLK_SCLK_USBDRD30_FSYS>;
+> +                       clock-names =3D "oscclk",
+> +                                     "sclk_ufs_mphy",
+> +                                     "aclk_fsys_200",
+> +                                     "sclk_pcie_100_fsys",
+> +                                     "sclk_ufsunipro_fsys",
+> +                                     "sclk_mmc2_fsys",
+> +                                     "sclk_mmc1_fsys",
+> +                                     "sclk_mmc0_fsys",
+> +                                     "sclk_usbhost30_fsys",
+> +                                     "sclk_usbdrd30_fsys";
+>                 };
+>
+>                 cmu_g2d: clock-controller@12460000 {
+> @@ -474,12 +474,12 @@ cmu_g2d: clock-controller@12460000 {
+>                         reg =3D <0x12460000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "aclk_g2d_266",
+> -                               "aclk_g2d_400";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_top CLK_ACLK_G2D_266>,
+> -                               <&cmu_top CLK_ACLK_G2D_400>;
+> +                                <&cmu_top CLK_ACLK_G2D_266>,
+> +                                <&cmu_top CLK_ACLK_G2D_400>;
+> +                       clock-names =3D "oscclk",
+> +                                     "aclk_g2d_266",
+> +                                     "aclk_g2d_400";
+>                         power-domains =3D <&pd_g2d>;
+>                 };
+>
+> @@ -488,24 +488,24 @@ cmu_disp: clock-controller@13b90000 {
+>                         reg =3D <0x13b90000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "sclk_dsim1_disp",
+> -                               "sclk_dsim0_disp",
+> -                               "sclk_dsd_disp",
+> -                               "sclk_decon_tv_eclk_disp",
+> -                               "sclk_decon_vclk_disp",
+> -                               "sclk_decon_eclk_disp",
+> -                               "sclk_decon_tv_vclk_disp",
+> -                               "aclk_disp_333";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_mif CLK_SCLK_DSIM1_DISP>,
+> -                               <&cmu_mif CLK_SCLK_DSIM0_DISP>,
+> -                               <&cmu_mif CLK_SCLK_DSD_DISP>,
+> -                               <&cmu_mif CLK_SCLK_DECON_TV_ECLK_DISP>,
+> -                               <&cmu_mif CLK_SCLK_DECON_VCLK_DISP>,
+> -                               <&cmu_mif CLK_SCLK_DECON_ECLK_DISP>,
+> -                               <&cmu_mif CLK_SCLK_DECON_TV_VCLK_DISP>,
+> -                               <&cmu_mif CLK_ACLK_DISP_333>;
+> +                                <&cmu_mif CLK_SCLK_DSIM1_DISP>,
+> +                                <&cmu_mif CLK_SCLK_DSIM0_DISP>,
+> +                                <&cmu_mif CLK_SCLK_DSD_DISP>,
+> +                                <&cmu_mif CLK_SCLK_DECON_TV_ECLK_DISP>,
+> +                                <&cmu_mif CLK_SCLK_DECON_VCLK_DISP>,
+> +                                <&cmu_mif CLK_SCLK_DECON_ECLK_DISP>,
+> +                                <&cmu_mif CLK_SCLK_DECON_TV_VCLK_DISP>,
+> +                                <&cmu_mif CLK_ACLK_DISP_333>;
+> +                       clock-names =3D "oscclk",
+> +                                     "sclk_dsim1_disp",
+> +                                     "sclk_dsim0_disp",
+> +                                     "sclk_dsd_disp",
+> +                                     "sclk_decon_tv_eclk_disp",
+> +                                     "sclk_decon_vclk_disp",
+> +                                     "sclk_decon_eclk_disp",
+> +                                     "sclk_decon_tv_vclk_disp",
+> +                                     "aclk_disp_333";
+>                         power-domains =3D <&pd_disp>;
+>                 };
+>
+> @@ -513,8 +513,8 @@ cmu_aud: clock-controller@114c0000 {
+>                         compatible =3D "samsung,exynos5433-cmu-aud";
+>                         reg =3D <0x114c0000 0x1000>;
+>                         #clock-cells =3D <1>;
+> -                       clock-names =3D "oscclk", "fout_aud_pll";
+>                         clocks =3D <&xxti>, <&cmu_top CLK_FOUT_AUD_PLL>;
+> +                       clock-names =3D "oscclk", "fout_aud_pll";
+>                         power-domains =3D <&pd_aud>;
+>                 };
+>
+> @@ -523,8 +523,8 @@ cmu_bus0: clock-controller@13600000 {
+>                         reg =3D <0x13600000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "aclk_bus0_400";
+>                         clocks =3D <&cmu_top CLK_ACLK_BUS0_400>;
+> +                       clock-names =3D "aclk_bus0_400";
+>                 };
+>
+>                 cmu_bus1: clock-controller@14800000 {
+> @@ -532,8 +532,8 @@ cmu_bus1: clock-controller@14800000 {
+>                         reg =3D <0x14800000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "aclk_bus1_400";
+>                         clocks =3D <&cmu_top CLK_ACLK_BUS1_400>;
+> +                       clock-names =3D "aclk_bus1_400";
+>                 };
+>
+>                 cmu_bus2: clock-controller@13400000 {
+> @@ -541,8 +541,8 @@ cmu_bus2: clock-controller@13400000 {
+>                         reg =3D <0x13400000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk", "aclk_bus2_400";
+>                         clocks =3D <&xxti>, <&cmu_mif CLK_ACLK_BUS2_400>;
+> +                       clock-names =3D "oscclk", "aclk_bus2_400";
+>                 };
+>
+>                 cmu_g3d: clock-controller@14aa0000 {
+> @@ -550,8 +550,8 @@ cmu_g3d: clock-controller@14aa0000 {
+>                         reg =3D <0x14aa0000 0x2000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk", "aclk_g3d_400";
+>                         clocks =3D <&xxti>, <&cmu_top CLK_ACLK_G3D_400>;
+> +                       clock-names =3D "oscclk", "aclk_g3d_400";
+>                         power-domains =3D <&pd_g3d>;
+>                 };
+>
+> @@ -560,12 +560,12 @@ cmu_gscl: clock-controller@13cf0000 {
+>                         reg =3D <0x13cf0000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "aclk_gscl_111",
+> -                               "aclk_gscl_333";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_top CLK_ACLK_GSCL_111>,
+> -                               <&cmu_top CLK_ACLK_GSCL_333>;
+> +                                <&cmu_top CLK_ACLK_GSCL_111>,
+> +                                <&cmu_top CLK_ACLK_GSCL_333>;
+> +                       clock-names =3D "oscclk",
+> +                                     "aclk_gscl_111",
+> +                                     "aclk_gscl_333";
+>                         power-domains =3D <&pd_gscl>;
+>                 };
+>
+> @@ -574,8 +574,8 @@ cmu_apollo: clock-controller@11900000 {
+>                         reg =3D <0x11900000 0x2000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk", "sclk_bus_pll_apollo";
+>                         clocks =3D <&xxti>, <&cmu_mif CLK_SCLK_BUS_PLL_AP=
+OLLO>;
+> +                       clock-names =3D "oscclk", "sclk_bus_pll_apollo";
+>                 };
+>
+>                 cmu_atlas: clock-controller@11800000 {
+> @@ -583,8 +583,8 @@ cmu_atlas: clock-controller@11800000 {
+>                         reg =3D <0x11800000 0x2000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk", "sclk_bus_pll_atlas";
+>                         clocks =3D <&xxti>, <&cmu_mif CLK_SCLK_BUS_PLL_AT=
+LAS>;
+> +                       clock-names =3D "oscclk", "sclk_bus_pll_atlas";
+>                 };
+>
+>                 cmu_mscl: clock-controller@150d0000 {
+> @@ -592,12 +592,12 @@ cmu_mscl: clock-controller@150d0000 {
+>                         reg =3D <0x150d0000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "sclk_jpeg_mscl",
+> -                               "aclk_mscl_400";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_top CLK_SCLK_JPEG_MSCL>,
+> -                               <&cmu_top CLK_ACLK_MSCL_400>;
+> +                                <&cmu_top CLK_SCLK_JPEG_MSCL>,
+> +                                <&cmu_top CLK_ACLK_MSCL_400>;
+> +                       clock-names =3D "oscclk",
+> +                                     "sclk_jpeg_mscl",
+> +                                     "aclk_mscl_400";
+>                         power-domains =3D <&pd_mscl>;
+>                 };
+>
+> @@ -606,8 +606,8 @@ cmu_mfc: clock-controller@15280000 {
+>                         reg =3D <0x15280000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk", "aclk_mfc_400";
+>                         clocks =3D <&xxti>, <&cmu_top CLK_ACLK_MFC_400>;
+> +                       clock-names =3D "oscclk", "aclk_mfc_400";
+>                         power-domains =3D <&pd_mfc>;
+>                 };
+>
+> @@ -616,8 +616,8 @@ cmu_hevc: clock-controller@14f80000 {
+>                         reg =3D <0x14f80000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk", "aclk_hevc_400";
+>                         clocks =3D <&xxti>, <&cmu_top CLK_ACLK_HEVC_400>;
+> +                       clock-names =3D "oscclk", "aclk_hevc_400";
+>                         power-domains =3D <&pd_hevc>;
+>                 };
+>
+> @@ -626,12 +626,12 @@ cmu_isp: clock-controller@146d0000 {
+>                         reg =3D <0x146d0000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "aclk_isp_dis_400",
+> -                               "aclk_isp_400";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_top CLK_ACLK_ISP_DIS_400>,
+> -                               <&cmu_top CLK_ACLK_ISP_400>;
+> +                                <&cmu_top CLK_ACLK_ISP_DIS_400>,
+> +                                <&cmu_top CLK_ACLK_ISP_400>;
+> +                       clock-names =3D "oscclk",
+> +                                     "aclk_isp_dis_400",
+> +                                     "aclk_isp_400";
+>                         power-domains =3D <&pd_isp>;
+>                 };
+>
+> @@ -640,14 +640,14 @@ cmu_cam0: clock-controller@120d0000 {
+>                         reg =3D <0x120d0000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "aclk_cam0_333",
+> -                               "aclk_cam0_400",
+> -                               "aclk_cam0_552";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_top CLK_ACLK_CAM0_333>,
+> -                               <&cmu_top CLK_ACLK_CAM0_400>,
+> -                               <&cmu_top CLK_ACLK_CAM0_552>;
+> +                                <&cmu_top CLK_ACLK_CAM0_333>,
+> +                                <&cmu_top CLK_ACLK_CAM0_400>,
+> +                                <&cmu_top CLK_ACLK_CAM0_552>;
+> +                       clock-names =3D "oscclk",
+> +                                     "aclk_cam0_333",
+> +                                     "aclk_cam0_400",
+> +                                     "aclk_cam0_552";
+>                         power-domains =3D <&pd_cam0>;
+>                 };
+>
+> @@ -656,20 +656,20 @@ cmu_cam1: clock-controller@145d0000 {
+>                         reg =3D <0x145d0000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "sclk_isp_uart_cam1",
+> -                               "sclk_isp_spi1_cam1",
+> -                               "sclk_isp_spi0_cam1",
+> -                               "aclk_cam1_333",
+> -                               "aclk_cam1_400",
+> -                               "aclk_cam1_552";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_top CLK_SCLK_ISP_UART_CAM1>,
+> -                               <&cmu_top CLK_SCLK_ISP_SPI1_CAM1>,
+> -                               <&cmu_top CLK_SCLK_ISP_SPI0_CAM1>,
+> -                               <&cmu_top CLK_ACLK_CAM1_333>,
+> -                               <&cmu_top CLK_ACLK_CAM1_400>,
+> -                               <&cmu_top CLK_ACLK_CAM1_552>;
+> +                                <&cmu_top CLK_SCLK_ISP_UART_CAM1>,
+> +                                <&cmu_top CLK_SCLK_ISP_SPI1_CAM1>,
+> +                                <&cmu_top CLK_SCLK_ISP_SPI0_CAM1>,
+> +                                <&cmu_top CLK_ACLK_CAM1_333>,
+> +                                <&cmu_top CLK_ACLK_CAM1_400>,
+> +                                <&cmu_top CLK_ACLK_CAM1_552>;
+> +                       clock-names =3D "oscclk",
+> +                                     "sclk_isp_uart_cam1",
+> +                                     "sclk_isp_spi1_cam1",
+> +                                     "sclk_isp_spi0_cam1",
+> +                                     "aclk_cam1_333",
+> +                                     "aclk_cam1_400",
+> +                                     "aclk_cam1_552";
+>                         power-domains =3D <&pd_cam1>;
+>                 };
+>
+> @@ -678,23 +678,23 @@ cmu_imem: clock-controller@11060000 {
+>                         reg =3D <0x11060000 0x1000>;
+>                         #clock-cells =3D <1>;
+>
+> -                       clock-names =3D "oscclk",
+> -                               "aclk_imem_sssx_266",
+> -                               "aclk_imem_266",
+> -                               "aclk_imem_200";
+>                         clocks =3D <&xxti>,
+> -                               <&cmu_top CLK_DIV_ACLK_IMEM_SSSX_266>,
+> -                               <&cmu_top CLK_DIV_ACLK_IMEM_266>,
+> -                               <&cmu_top CLK_DIV_ACLK_IMEM_200>;
+> +                                <&cmu_top CLK_DIV_ACLK_IMEM_SSSX_266>,
+> +                                <&cmu_top CLK_DIV_ACLK_IMEM_266>,
+> +                                <&cmu_top CLK_DIV_ACLK_IMEM_200>;
+> +                       clock-names =3D "oscclk",
+> +                                     "aclk_imem_sssx_266",
+> +                                     "aclk_imem_266",
+> +                                     "aclk_imem_200";
+>                 };
+>
+>                 slim_sss: slim-sss@11140000 {
+>                         compatible =3D "samsung,exynos5433-slim-sss";
+>                         reg =3D <0x11140000 0x1000>;
+>                         interrupts =3D <GIC_SPI 312 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk";
+>                         clocks =3D <&cmu_imem CLK_PCLK_SLIMSSS>,
+>                                  <&cmu_imem CLK_ACLK_SLIMSSS>;
+> +                       clock-names =3D "pclk", "aclk";
+>                 };
+>
+>                 pd_gscl: power-domain@105c4000 {
+> @@ -954,8 +954,8 @@ pmu_system_controller: system-controller@105c0000 {
+>                         compatible =3D "samsung,exynos5433-pmu", "simple-=
+mfd", "syscon";
+>                         reg =3D <0x105c0000 0x5008>;
+>                         #clock-cells =3D <1>;
+> -                       clock-names =3D "clkout16";
+>                         clocks =3D <&xxti>;
+> +                       clock-names =3D "clkout16";
+>
+>                         mipi_phy: mipi-phy {
+>                                 compatible =3D "samsung,exynos5433-mipi-v=
+ideo-phy";
+> @@ -975,13 +975,13 @@ reboot: syscon-reboot {
+>
+>                 gic: interrupt-controller@11001000 {
+>                         compatible =3D "arm,gic-400";
+> +                       reg =3D <0x11001000 0x1000>,
+> +                             <0x11002000 0x2000>,
+> +                             <0x11004000 0x2000>,
+> +                             <0x11006000 0x2000>;
+>                         #address-cells =3D <0>;
+>                         #interrupt-cells =3D <3>;
+>                         interrupt-controller;
+> -                       reg =3D <0x11001000 0x1000>,
+> -                               <0x11002000 0x2000>,
+> -                               <0x11004000 0x2000>,
+> -                               <0x11006000 0x2000>;
+>                         interrupts =3D <GIC_PPI 9 0xf04>;
+>                 };
+>
+> @@ -1190,13 +1190,13 @@ gsc_0: video-scaler@13c00000 {
+>                         compatible =3D "samsung,exynos5433-gsc";
+>                         reg =3D <0x13c00000 0x1000>;
+>                         interrupts =3D <GIC_SPI 297 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk", "aclk_xiu",
+> -                                     "aclk_gsclbend", "gsd";
+>                         clocks =3D <&cmu_gscl CLK_PCLK_GSCL0>,
+>                                  <&cmu_gscl CLK_ACLK_GSCL0>,
+>                                  <&cmu_gscl CLK_ACLK_XIU_GSCLX>,
+>                                  <&cmu_gscl CLK_ACLK_GSCLBEND_333>,
+>                                  <&cmu_gscl CLK_ACLK_GSD>;
+> +                       clock-names =3D "pclk", "aclk", "aclk_xiu",
+> +                                     "aclk_gsclbend", "gsd";
+>                         iommus =3D <&sysmmu_gscl0>;
+>                         power-domains =3D <&pd_gscl>;
+>                 };
+> @@ -1205,13 +1205,13 @@ gsc_1: video-scaler@13c10000 {
+>                         compatible =3D "samsung,exynos5433-gsc";
+>                         reg =3D <0x13c10000 0x1000>;
+>                         interrupts =3D <GIC_SPI 298 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk", "aclk_xiu",
+> -                                     "aclk_gsclbend", "gsd";
+>                         clocks =3D <&cmu_gscl CLK_PCLK_GSCL1>,
+>                                  <&cmu_gscl CLK_ACLK_GSCL1>,
+>                                  <&cmu_gscl CLK_ACLK_XIU_GSCLX>,
+>                                  <&cmu_gscl CLK_ACLK_GSCLBEND_333>,
+>                                  <&cmu_gscl CLK_ACLK_GSD>;
+> +                       clock-names =3D "pclk", "aclk", "aclk_xiu",
+> +                                     "aclk_gsclbend", "gsd";
+>                         iommus =3D <&sysmmu_gscl1>;
+>                         power-domains =3D <&pd_gscl>;
+>                 };
+> @@ -1220,13 +1220,13 @@ gsc_2: video-scaler@13c20000 {
+>                         compatible =3D "samsung,exynos5433-gsc";
+>                         reg =3D <0x13c20000 0x1000>;
+>                         interrupts =3D <GIC_SPI 299 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk", "aclk_xiu",
+> -                                     "aclk_gsclbend", "gsd";
+>                         clocks =3D <&cmu_gscl CLK_PCLK_GSCL2>,
+>                                  <&cmu_gscl CLK_ACLK_GSCL2>,
+>                                  <&cmu_gscl CLK_ACLK_XIU_GSCLX>,
+>                                  <&cmu_gscl CLK_ACLK_GSCLBEND_333>,
+>                                  <&cmu_gscl CLK_ACLK_GSD>;
+> +                       clock-names =3D "pclk", "aclk", "aclk_xiu",
+> +                                     "aclk_gsclbend", "gsd";
+>                         iommus =3D <&sysmmu_gscl2>;
+>                         power-domains =3D <&pd_gscl>;
+>                 };
+> @@ -1294,10 +1294,10 @@ scaler_0: scaler@15000000 {
+>                         compatible =3D "samsung,exynos5433-scaler";
+>                         reg =3D <0x15000000 0x1294>;
+>                         interrupts =3D <0 402 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk", "aclk_xiu";
+>                         clocks =3D <&cmu_mscl CLK_PCLK_M2MSCALER0>,
+>                                  <&cmu_mscl CLK_ACLK_M2MSCALER0>,
+>                                  <&cmu_mscl CLK_ACLK_XIU_MSCLX>;
+> +                       clock-names =3D "pclk", "aclk", "aclk_xiu";
+>                         iommus =3D <&sysmmu_scaler_0>;
+>                         power-domains =3D <&pd_mscl>;
+>                 };
+> @@ -1306,10 +1306,10 @@ scaler_1: scaler@15010000 {
+>                         compatible =3D "samsung,exynos5433-scaler";
+>                         reg =3D <0x15010000 0x1294>;
+>                         interrupts =3D <0 403 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk", "aclk_xiu";
+>                         clocks =3D <&cmu_mscl CLK_PCLK_M2MSCALER1>,
+>                                  <&cmu_mscl CLK_ACLK_M2MSCALER1>,
+>                                  <&cmu_mscl CLK_ACLK_XIU_MSCLX>;
+> +                       clock-names =3D "pclk", "aclk", "aclk_xiu";
+>                         iommus =3D <&sysmmu_scaler_1>;
+>                         power-domains =3D <&pd_mscl>;
+>                 };
+> @@ -1318,11 +1318,11 @@ jpeg: codec@15020000 {
+>                         compatible =3D "samsung,exynos5433-jpeg";
+>                         reg =3D <0x15020000 0x10000>;
+>                         interrupts =3D <GIC_SPI 411 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk", "aclk_xiu", "sclk=
+";
+>                         clocks =3D <&cmu_mscl CLK_PCLK_JPEG>,
+>                                  <&cmu_mscl CLK_ACLK_JPEG>,
+>                                  <&cmu_mscl CLK_ACLK_XIU_MSCLX>,
+>                                  <&cmu_mscl CLK_SCLK_JPEG>;
+> +                       clock-names =3D "pclk", "aclk", "aclk_xiu", "sclk=
+";
+>                         iommus =3D <&sysmmu_jpeg>;
+>                         power-domains =3D <&pd_mscl>;
+>                 };
+> @@ -1331,10 +1331,10 @@ mfc: codec@152e0000 {
+>                         compatible =3D "samsung,exynos5433-mfc";
+>                         reg =3D <0x152e0000 0x10000>;
+>                         interrupts =3D <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "pclk", "aclk", "aclk_xiu";
+>                         clocks =3D <&cmu_mfc CLK_PCLK_MFC>,
+>                                  <&cmu_mfc CLK_ACLK_MFC>,
+>                                  <&cmu_mfc CLK_ACLK_XIU_MFCX>;
+> +                       clock-names =3D "pclk", "aclk", "aclk_xiu";
+>                         iommus =3D <&sysmmu_mfc_0>, <&sysmmu_mfc_1>;
+>                         iommu-names =3D "left", "right";
+>                         power-domains =3D <&pd_mfc>;
+> @@ -1344,9 +1344,9 @@ sysmmu_decon0x: sysmmu@13a00000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x13a00000 0x1000>;
+>                         interrupts =3D <GIC_SPI 192 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_disp CLK_ACLK_SMMU_DECON0X>,
+> -                               <&cmu_disp CLK_PCLK_SMMU_DECON0X>;
+> +                                <&cmu_disp CLK_PCLK_SMMU_DECON0X>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         power-domains =3D <&pd_disp>;
+>                         #iommu-cells =3D <0>;
+>                 };
+> @@ -1355,9 +1355,9 @@ sysmmu_decon1x: sysmmu@13a10000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x13a10000 0x1000>;
+>                         interrupts =3D <GIC_SPI 194 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_disp CLK_ACLK_SMMU_DECON1X>,
+> -                               <&cmu_disp CLK_PCLK_SMMU_DECON1X>;
+> +                                <&cmu_disp CLK_PCLK_SMMU_DECON1X>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_disp>;
+>                 };
+> @@ -1366,9 +1366,9 @@ sysmmu_tv0x: sysmmu@13a20000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x13a20000 0x1000>;
+>                         interrupts =3D <GIC_SPI 214 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_disp CLK_ACLK_SMMU_TV0X>,
+> -                               <&cmu_disp CLK_PCLK_SMMU_TV0X>;
+> +                                <&cmu_disp CLK_PCLK_SMMU_TV0X>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_disp>;
+>                 };
+> @@ -1377,9 +1377,9 @@ sysmmu_tv1x: sysmmu@13a30000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x13a30000 0x1000>;
+>                         interrupts =3D <GIC_SPI 216 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_disp CLK_ACLK_SMMU_TV1X>,
+> -                               <&cmu_disp CLK_PCLK_SMMU_TV1X>;
+> +                                <&cmu_disp CLK_PCLK_SMMU_TV1X>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_disp>;
+>                 };
+> @@ -1388,9 +1388,9 @@ sysmmu_gscl0: sysmmu@13c80000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x13c80000 0x1000>;
+>                         interrupts =3D <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_gscl CLK_ACLK_SMMU_GSCL0>,
+>                                  <&cmu_gscl CLK_PCLK_SMMU_GSCL0>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_gscl>;
+>                 };
+> @@ -1399,9 +1399,9 @@ sysmmu_gscl1: sysmmu@13c90000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x13c90000 0x1000>;
+>                         interrupts =3D <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_gscl CLK_ACLK_SMMU_GSCL1>,
+>                                  <&cmu_gscl CLK_PCLK_SMMU_GSCL1>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_gscl>;
+>                 };
+> @@ -1410,9 +1410,9 @@ sysmmu_gscl2: sysmmu@13ca0000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x13ca0000 0x1000>;
+>                         interrupts =3D <GIC_SPI 292 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_gscl CLK_ACLK_SMMU_GSCL2>,
+>                                  <&cmu_gscl CLK_PCLK_SMMU_GSCL2>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_gscl>;
+>                 };
+> @@ -1421,9 +1421,9 @@ sysmmu_scaler_0: sysmmu@15040000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x15040000 0x1000>;
+>                         interrupts =3D <GIC_SPI 404 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_mscl CLK_ACLK_SMMU_M2MSCALER0>,
+> -                               <&cmu_mscl CLK_PCLK_SMMU_M2MSCALER0>;
+> +                                <&cmu_mscl CLK_PCLK_SMMU_M2MSCALER0>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_mscl>;
+>                 };
+> @@ -1432,9 +1432,9 @@ sysmmu_scaler_1: sysmmu@15050000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x15050000 0x1000>;
+>                         interrupts =3D <GIC_SPI 406 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_mscl CLK_ACLK_SMMU_M2MSCALER1>,
+> -                               <&cmu_mscl CLK_PCLK_SMMU_M2MSCALER1>;
+> +                                <&cmu_mscl CLK_PCLK_SMMU_M2MSCALER1>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_mscl>;
+>                 };
+> @@ -1443,9 +1443,9 @@ sysmmu_jpeg: sysmmu@15060000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x15060000 0x1000>;
+>                         interrupts =3D <GIC_SPI 408 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_mscl CLK_ACLK_SMMU_JPEG>,
+> -                               <&cmu_mscl CLK_PCLK_SMMU_JPEG>;
+> +                                <&cmu_mscl CLK_PCLK_SMMU_JPEG>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_mscl>;
+>                 };
+> @@ -1454,9 +1454,9 @@ sysmmu_mfc_0: sysmmu@15200000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x15200000 0x1000>;
+>                         interrupts =3D <GIC_SPI 352 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_mfc CLK_ACLK_SMMU_MFC_0>,
+> -                               <&cmu_mfc CLK_PCLK_SMMU_MFC_0>;
+> +                                <&cmu_mfc CLK_PCLK_SMMU_MFC_0>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_mfc>;
+>                 };
+> @@ -1465,9 +1465,9 @@ sysmmu_mfc_1: sysmmu@15210000 {
+>                         compatible =3D "samsung,exynos-sysmmu";
+>                         reg =3D <0x15210000 0x1000>;
+>                         interrupts =3D <GIC_SPI 354 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "aclk", "pclk";
+>                         clocks =3D <&cmu_mfc CLK_ACLK_SMMU_MFC_1>,
+> -                               <&cmu_mfc CLK_PCLK_SMMU_MFC_1>;
+> +                                <&cmu_mfc CLK_PCLK_SMMU_MFC_1>;
+> +                       clock-names =3D "aclk", "pclk";
+>                         #iommu-cells =3D <0>;
+>                         power-domains =3D <&pd_mfc>;
+>                 };
+> @@ -1620,8 +1620,8 @@ adc: adc@14d10000 {
+>                         compatible =3D "samsung,exynos5433-adc", "samsung=
+,exynos7-adc";
+>                         reg =3D <0x14d10000 0x100>;
+>                         interrupts =3D <GIC_SPI 438 IRQ_TYPE_LEVEL_HIGH>;
+> -                       clock-names =3D "adc";
+>                         clocks =3D <&cmu_peric CLK_PCLK_ADCIF>;
+> +                       clock-names =3D "adc";
+>                         #io-channel-cells =3D <1>;
+>
+>                         status =3D "disabled";
+>
+> --
+> 2.53.0
+>
