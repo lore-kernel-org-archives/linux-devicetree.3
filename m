@@ -1,64 +1,64 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DA442BC26
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555C241E6A7
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785876988; cv=none; b=mk67lt9hoCQSth+lXhgXymJTVBh2GDpGn9T6N2dqnnVXrTRfgyS9pSJj0WpEFdQFaz529q8y3lu923ly23Y4cOArkVmeCfXl3/mmt6Abx+k33lyFKzSHhlbEF+i9+f6GQ8hF6NO59G+E/+JzK/WWZRQgAbYRW8c7tsB79f2Oc9k=
+	t=1785876991; cv=none; b=XYSndfcKptqeqdFlE8pydS7UHU0KFLRTMQCc2nZvFN7WUbEmhhJ2KEeCM/DCfmVw45HZBtNE2+tyw2+xt7nBeyWxTU6ZrKfYtslEZ3RBD/13DswljIqHken2aKs6OTpuXjbv+npoQ0gtXyc1DA6fBHjCTxE6sJLlOOQpuAO6Yaw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785876988; c=relaxed/simple;
-	bh=lt0mcBR/xBSiSFpNw9TpFma/Wx/XqysIpYFDw49QURY=;
+	s=arc-20240116; t=1785876991; c=relaxed/simple;
+	bh=b6pkm9AbznuP6ASEvkFpmUaiFAyJ0vcaTsusVxEfRjM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ubqYWZN9oCPGI1o4LwCCLTghQbiPt6SFnHzdJRc7jV1c31IoLLaoPPVUTIl/rBa1i+X3zVnKksb/8NAGCvBnZxd8LS/7q3c68fgytKMRAz1Ik6/F71wlI+EHZ61DKBNBMUiNlkExJzkfhXfYuB6iiNVtc6GtyNHELt0jV4K+Eoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TbSD8Mqr; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=b7qcN/KtqJ6pGoJ8Go8Ydw4AndKo5tbFlorJ9fvXBrvSikXdLR/cAFo0dEwFxrFBEv9P4RtyhtWs3ZVte0zNlkgX39IWHV3yMhYPPr95VI0Y9/cPEF9yGeW3j9VxW+DKblOL5Yoj8qThky3kTPK9S2A+BRPUq+Pz88VxrmsjblQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=neS7QGSu; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TbSD8Mqr"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4980dc26022so2030555e9.1
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:56:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="neS7QGSu"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so2046215e9.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:56:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785876985; x=1786481785; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785876987; x=1786481787; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xEGbIZ53FjPXZVHPJc+jEB5q1hKyvKtu0OiAqfcxBNQ=;
-        b=TbSD8MqrDqYP5d847lhWNiJw75ByTFAiAvXhC3TOvSyEGiG1yULS1FXvdcCRVtSci0
-         CTEEb80+Bf3Ns37H/p1HGve4QUxxrSxjQJLnlDe2AiHF4WZQZA6KuH2usR2Xop/OJUAm
-         +awPLz4Sxl1dvL5XN9MkB9S+mLWvQ9vYo8VxVBtI7V43tGYSPB/zf0JaZrQYrvXrnxV0
-         r08b0UyfqmBbjzVKCf78MeoRiTqAvzMb1P+HHkqCYyEx2aT3XvXsL0BM4nzeR5c7OO/S
-         ZR9/EFSL/moUyBhPnvlqkz4zEcP3Le1sc91B2uL/7HPox2cy70QKd90ZQGjCPYH8rOEG
-         dByQ==
+        bh=aPWyvzGNLa7rHTsTZpFRCraZCWg00Qf6Fr76L45avBk=;
+        b=neS7QGSuJmPzeON1P1UrrzYjiKjK5L1nPJPEkNjarlFcPXy5Y5UMdB3HUSliNUXaPa
+         u77EN8wR5fhSadZBhWwyk5FjrQzA8+1FBfCiufAu9ooKL4/I+IC6NMnQ94UJ1/pUlYOD
+         CVvgJnLpD/QKJvJcRsU+X3NwHxcfylgVxu/EcBtvS54t/s7jQxOMneGru2LY7fyGIt+V
+         ejs5jKzaedHd2c6o2Rsi0NzT3/qJ7b5APAvfwtLsp1TEREh9L5kHVCDI6Be76TKnwi99
+         +BC1yyqT06gSwG5P6iRbSRZgCLSTOdZgQPlN4bXkiSIQpMuhQMOoRm0fNj4whHFev4Be
+         uHeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785876985; x=1786481785;
+        d=1e100.net; s=20251104; t=1785876987; x=1786481787;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xEGbIZ53FjPXZVHPJc+jEB5q1hKyvKtu0OiAqfcxBNQ=;
-        b=mZ+ypnxcHCByDUPtr7P5vu844I+qOwvu8QP8WsALuA2IZ9ynNZ+Bs9kZ8/uAL9I5hK
-         Uwzg5FLyt3uXNlGYyNOcfvXt9F9OVlGjftUHjuPy06+ZPAZmePfI5YeaJdm3UeyAM3Gp
-         N5Iqdg4A3exrITCphK5F0lXgBM99EuFbJZnPkUD6tvt4FSTybSgO4eWESf+Zv9zqqUeB
-         y+N7UDCkbWyadmMHs5ij6x+JvHFfecN2UQ9fYKTFbyaGV02DaTuNgvTSFEx1AVlSBrcO
-         HnujefC3S7GWlCAjR5PWXPqyvUi4iaqOCzdNpcDOBDL8z8v5nTHHV+59GgGe6QoG/0N/
-         QwfA==
-X-Forwarded-Encrypted: i=1; AHgh+RqCl+QJVb0NOYh7Yr6SWqnebWH2zoWuwpAQmlHpsb18uAfeHMZErc9VxdLn/tL5cWTTD5jrbAK8HY2A@vger.kernel.org
-X-Gm-Message-State: AOJu0YwxZtHUYQU8YpF9JJVnvkJ1pDGuT76J9civuqHRGKoSkhc7c3+0
-	vobVVYeYwic08DYvGXrMxxpQ4VwSZ1+DVElcCb88jxuZ0hHDEXfK4GMY
-X-Gm-Gg: AR+sD139LYkjUDgkcLnBtbXC0cfa/U5E0UZJRxgUHyGrve4CSHSS5hXvynPg0t84H3U
-	lPC98YaC6BRH+xmyWPp2gKXB+KIr00+/qvnYsSOdRymbMJSmGIOr5CWF/wxS6pVWO63N6VEXINT
-	5LCRciM9dgUh5M++sOIVw74r8ehTxvIdb8OsES16GAdY0XvcB+AEoFZVHFFN9PauIP/LtCDys4K
-	uoMqXKZR71srGU+xIVriF58s1GADf001+lvJboVa77clJUxrdjWHOTkNNdd2Wan2duTewWblEfB
-	WaUkiQb9OZeQ2pGwZ60OkY76t4B1PekyP7zykqzG+T4XMm5bDKt+xxV43haY/3zQrCrqKDWvzca
-	0dIh7VvN5CLwV4VG7ZJkLC0BrujJsPN/8okOM0w+Vpjuxrwe5hL6+CuOmZVIauzX6DnRl4e4i0V
-	nqYBM2jS0Kv74ujnnyR+JxkIVyW/TnP4Z5NCpsQygsX65ZTcMDzQsDPNA7VveGPwdmrbIl6W/hl
-	990sxhsKf5pvBE=
-X-Received: by 2002:a05:600c:a20b:b0:495:737a:7afe with SMTP id 5b1f17b1804b1-4994e7d5b82mr8732495e9.15.1785876984840;
-        Tue, 04 Aug 2026 13:56:24 -0700 (PDT)
+        bh=aPWyvzGNLa7rHTsTZpFRCraZCWg00Qf6Fr76L45avBk=;
+        b=Zoj6L0Qqevjg7EcQUhjZ8xqNT3HuuESVdRmg9zInOHLokWLwK/9+sAqJGUHjE9BZuU
+         FwZ9hRbjaDxxUU8mXjUY0c/tsq3gDorMJOWrDBxLHEaloEtrWXl6lHFOzZ30M0f7Cqy4
+         N6BP3weHsxYbQhQdGIH0INILy9vEluXVrPoRD9adJIk+dEAQ7EGPSnfOPRlYS025uXw3
+         qShJjxg40TFcD19RqcVNut9JimokPEykuywabBua9U+PZJlBk7roMM5As9qSEBEMvu/X
+         t40dXgfzwDayDnkZpBFtL6FgvA3CUzMEtMOik6hxyXfviJzoR/uRaqhoF+11fYwKIYAf
+         mEsw==
+X-Forwarded-Encrypted: i=1; AHgh+Rork3vy2cT6H3vHbtlX6gDYloakq01jQEduN+N98WtvbML9TcQfm065ktwviTC2LW6UnTyQp9Rtltmk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/TvaRXVFLhTW8ZGt66Rni57fIeWjTDyZCSAdDZIrzCKfKN4cp
+	0b4anYhKgV4oLzTLZ0QBQBT5BJhunguoK1f7TGZBPqGf8CQJfj/0X6xS
+X-Gm-Gg: AR+sD13qbC0d/ciRPr6mTubt2m+f52YpLuLeaEQ5c/0PgrcSqQkjFWzTPzIsZSrOk3j
+	/SKU/N3sdBSkWtAvkYTu61Q2olSMopT6xLlXPVjoVFpkisR7TogkZXLBniWe4jCpz4leJlwh011
+	D9FIS6R84Nv2arqE7P6RcS96emJbQQwVK3LVvSa57Gd+ASCo4CU9dEDsHuBEDHmhOiJsKRCQnTA
+	XuzYWwUeuRq3BYDCYxhmFP0Auw3pn7DHIhlyUaHTXQJSJAxICKgfrhxW9W9RFcWT9FW7P9Rj1uu
+	Zs0hd/DYkmvqBJgpzw4mfqjQEw+YjFeXAuv7dIkf9+MbBJ7hE0S7c0O3RfWN9mQ6KGRjiJtE2m0
+	W8GP36u5etRik/SJbv9Oofe4Z0W88h04iliPTD+R54QYoH5QvYFJFeMeowUTJokxONj9RSktoSx
+	yZBZglpbRtaRswWk+EDiwgMLbORpArd08NecNp/7znsvw7ZARWogXtlNI4Uzt2R7cgu+9WSF8lV
+	Dq9OlvEw+L5Cmk=
+X-Received: by 2002:a05:600c:1f87:b0:495:607e:5ee7 with SMTP id 5b1f17b1804b1-4994e7d8ab9mr9728935e9.17.1785876986562;
+        Tue, 04 Aug 2026 13:56:26 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.116.176.33])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994e4bf820sm12070645e9.0.2026.08.04.13.56.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994e4bf820sm12070645e9.0.2026.08.04.13.56.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 13:56:24 -0700 (PDT)
+        Tue, 04 Aug 2026 13:56:25 -0700 (PDT)
 From: Max Pedraza <maximpedraza@gmail.com>
 To: Helge Deller <deller@gmx.de>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
@@ -73,9 +73,9 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Max Pedraza <maximpedraza@gmail.com>
-Subject: [PATCH v2 2/6] video: logo: allow the boot logo to come from the device tree
-Date: Wed,  5 Aug 2026 00:56:13 +0200
-Message-Id: <20260804225617.264861-3-maximpedraza@gmail.com>
+Subject: [PATCH v2 3/6] fbdev: honour the device tree boot logo placement properties
+Date: Wed,  5 Aug 2026 00:56:14 +0200
+Message-Id: <20260804225617.264861-4-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260804225617.264861-1-maximpedraza@gmail.com>
 References: <20260804225617.264861-1-maximpedraza@gmail.com>
@@ -87,244 +87,253 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add CONFIG_LOGO_DT_CLUT224, which makes fb_find_logo() look for a node
-compatible with "linux,boot-logo-clut224" under /chosen before falling
-back to the logos built into the kernel image.
+A logo supplied by the device tree describes a specific product, so where
+it lands on the panel matters in a way it does not for the built-in Tux.
+Honour the optional "logo-position", "logo-offset", "logo-centered" and
+"logo-rotation" properties of the "linux,boot-logo-clut224" node.
 
-The image is validated before it is used: the palette must have at most
-224 entries, the pixel data length must match the geometry, and every
-pixel must reference an entry that exists. A malformed node is reported
-and ignored rather than drawn, so a bad device tree cannot take the
-display down with it.
+The rotation is folded into the rotate argument at the entry points, so
+fb_prepare_logo() reserves the right amount of space and fb_do_show_logo()
+tiles in the same direction the image was rotated in.
 
-The image is copied out of the device tree so that the 32 entry offset
-the frame buffer layer reserves for the console can be applied to the
-pixels, and the copy is released from fb_logo_late_init() alongside the
-built-in logos.
+Placement is applied after fb_rotate_logo(), since a rotation swaps the
+image width and height and centring needs the final dimensions.
 
-The node lives under /chosen because a logo is configuration handed over
-by firmware rather than a description of the hardware, which is also
-where simple-framebuffer nodes live for the same reason.
+fb_prepare_logo() has to grow its reservation to cover wherever the logo
+ends up, the way fb_center_logo already does: fbcon only leaves the first
+n rows alone, so a logo placed further down is drawn and then immediately
+cleared by the console.
+
+"logo-centered" is deliberately close to the existing fb_center_logo, but
+it is per device tree rather than per fbcon command line, and it composes
+with "logo-offset" so that a logo can be centred and then nudged. That
+combination is what panels with a partially visible area need, where the
+usable region is not the centre of the mode.
 
 Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
 ---
- drivers/video/logo/Kconfig |  12 +++
- drivers/video/logo/logo.c  | 160 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 172 insertions(+)
+ drivers/video/fbdev/core/fb_logo.c | 174 +++++++++++++++++++++++++++++
+ 1 file changed, 174 insertions(+)
 
-diff --git a/drivers/video/logo/Kconfig b/drivers/video/logo/Kconfig
-index cda15b958..215afa7ef 100644
---- a/drivers/video/logo/Kconfig
-+++ b/drivers/video/logo/Kconfig
-@@ -76,4 +76,16 @@ config LOGO_LINUX_CLUT224_FILE
+diff --git a/drivers/video/fbdev/core/fb_logo.c b/drivers/video/fbdev/core/fb_logo.c
+index 0bab8352b..bfc1b72ce 100644
+--- a/drivers/video/fbdev/core/fb_logo.c
++++ b/drivers/video/fbdev/core/fb_logo.c
+@@ -2,12 +2,178 @@
  
- 	    magick source_image -compress none -colors 224 destination.ppm
- 
-+config LOGO_DT_CLUT224
-+	bool "224-color logo supplied by the device tree"
-+	depends on OF
-+	help
-+	  Look for a boot logo in the device tree, in a node compatible with
-+	  "linux,boot-logo-clut224" under /chosen, instead of using one of
-+	  the logos built into the kernel image. This allows a single kernel
-+	  image to be used by several products that only differ in branding.
-+
-+	  If no such node is present, or it is disabled, the built-in logo
-+	  selected above is used, so saying Y here is safe.
-+
- endif # LOGO
-diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
-index 91535f884..7f8b04ecf 100644
---- a/drivers/video/logo/logo.c
-+++ b/drivers/video/logo/logo.c
-@@ -11,6 +11,9 @@
-  */
- 
+ #include <linux/fb.h>
  #include <linux/linux_logo.h>
 +#include <linux/of.h>
-+#include <linux/sizes.h>
-+#include <linux/slab.h>
- #include <linux/stddef.h>
- #include <linux/module.h>
  
-@@ -22,6 +25,155 @@ static bool nologo;
- module_param(nologo, bool, 0);
- MODULE_PARM_DESC(nologo, "Disables startup logo");
+ #include "fb_internal.h"
+ 
+ bool fb_center_logo __read_mostly;
+ int fb_logo_count __read_mostly = -1;
  
 +#ifdef CONFIG_LOGO_DT_CLUT224
 +
-+#define LOGO_DT_COMPATIBLE	"linux,boot-logo-clut224"
-+#define LOGO_DT_MAX_CLUT	224
 +/*
-+ * The first 32 palette entries are reserved for the console, so the logo
-+ * colours start at index 32. That is an implementation detail of the frame
-+ * buffer layer rather than a property of the image, so the device tree stores
-+ * plain indices and the offset is applied here.
++ * Placement of a logo supplied by the device tree. The image itself is parsed
++ * by drivers/video/logo/logo.c, here we only care about where it goes.
 + */
-+#define LOGO_DT_CLUT_OFFSET	32
-+/* Sanity limit on the image size, a device tree is not a good place for more */
-+#define LOGO_DT_MAX_PIXELS	SZ_32M
-+
-+static struct linux_logo logo_dt_clut224 = {
-+	.type		= LINUX_LOGO_CLUT224,
++struct fb_logo_dt_placement {
++	bool valid;
++	bool centered;
++	bool has_position;
++	int rotation;		/* FB_ROTATE_*, or -1 when unspecified */
++	u32 x, y;
++	s32 offset_x, offset_y;
 +};
 +
-+static unsigned char *logo_dt_clut;
-+static unsigned char *logo_dt_data;
++static struct fb_logo_dt_placement fb_logo_dt;
 +
-+static int logo_dt_parse(struct device_node *np)
++static int fb_logo_dt_parse_rotation(const char *rotation)
 +{
-+	unsigned int clutsize, npixels, i;
-+	unsigned char *clut, *data;
-+	u32 width, height;
-+	int len, ret;
++	if (!strcmp(rotation, "none"))
++		return FB_ROTATE_UR;
++	if (!strcmp(rotation, "cw"))
++		return FB_ROTATE_CW;
++	if (!strcmp(rotation, "ud"))
++		return FB_ROTATE_UD;
++	if (!strcmp(rotation, "ccw"))
++		return FB_ROTATE_CCW;
 +
-+	ret = of_property_read_u32(np, "width", &width);
-+	if (ret)
-+		return ret;
-+
-+	ret = of_property_read_u32(np, "height", &height);
-+	if (ret)
-+		return ret;
-+
-+	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
-+		return -EINVAL;
-+
-+	npixels = width * height;
-+
-+	len = of_property_count_u8_elems(np, "clut");
-+	if (len < 3 || len % 3)
-+		return -EINVAL;
-+
-+	clutsize = len / 3;
-+	if (clutsize > LOGO_DT_MAX_CLUT)
-+		return -EINVAL;
-+
-+	ret = of_property_count_u8_elems(np, "data");
-+	if (ret < 0)
-+		return ret;
-+	if ((unsigned int)ret != npixels)
-+		return -EINVAL;
-+
-+	clut = kmalloc(len, GFP_KERNEL);
-+	if (!clut)
-+		return -ENOMEM;
-+
-+	data = kmalloc(npixels, GFP_KERNEL);
-+	if (!data) {
-+		ret = -ENOMEM;
-+		goto err_free_clut;
-+	}
-+
-+	ret = of_property_read_u8_array(np, "clut", clut, len);
-+	if (ret)
-+		goto err_free_data;
-+
-+	ret = of_property_read_u8_array(np, "data", data, npixels);
-+	if (ret)
-+		goto err_free_data;
-+
-+	for (i = 0; i < npixels; i++) {
-+		if (data[i] >= clutsize) {
-+			ret = -ERANGE;
-+			goto err_free_data;
-+		}
-+		data[i] += LOGO_DT_CLUT_OFFSET;
-+	}
-+
-+	logo_dt_clut = clut;
-+	logo_dt_data = data;
-+
-+	logo_dt_clut224.width = width;
-+	logo_dt_clut224.height = height;
-+	logo_dt_clut224.clutsize = clutsize;
-+	logo_dt_clut224.clut = clut;
-+	logo_dt_clut224.data = data;
-+
-+	return 0;
-+
-+err_free_data:
-+	kfree(data);
-+err_free_clut:
-+	kfree(clut);
-+	return ret;
++	return -EINVAL;
 +}
 +
-+static const struct linux_logo *logo_dt_find(void)
++static void fb_logo_dt_read(void)
 +{
-+	static bool probed;
++	struct fb_logo_dt_placement *p = &fb_logo_dt;
++	static bool read_done;
 +	struct device_node *np;
-+	int ret;
++	const char *rotation;
++	u32 val[2];
++	int rot;
 +
-+	if (probed)
-+		return logo_dt_data ? &logo_dt_clut224 : NULL;
++	if (read_done)
++		return;
 +
-+	probed = true;
++	read_done = true;
 +
-+	np = of_get_compatible_child(of_chosen, LOGO_DT_COMPATIBLE);
++	np = of_find_compatible_node(NULL, NULL, "linux,boot-logo-clut224");
 +	if (!np)
-+		return NULL;
++		return;
 +
-+	if (of_device_is_available(np)) {
-+		ret = logo_dt_parse(np);
-+		if (ret)
-+			pr_warn("logo: ignoring malformed %pOF node (%d)\n",
-+				np, ret);
++	if (!of_device_is_available(np))
++		goto out;
++
++	p->valid = true;
++	p->rotation = -1;
++	p->centered = of_property_read_bool(np, "logo-centered");
++
++	if (!of_property_read_u32_array(np, "logo-position", val, 2)) {
++		p->has_position = true;
++		p->x = val[0];
++		p->y = val[1];
 +	}
 +
-+	of_node_put(np);
++	if (!of_property_read_u32_array(np, "logo-offset", val, 2)) {
++		p->offset_x = (s32)val[0];
++		p->offset_y = (s32)val[1];
++	}
 +
-+	return logo_dt_data ? &logo_dt_clut224 : NULL;
++	if (!of_property_read_string(np, "logo-rotation", &rotation)) {
++		rot = fb_logo_dt_parse_rotation(rotation);
++		if (rot < 0)
++			pr_warn("fb: %pOF: unknown logo-rotation \"%s\"\n",
++				np, rotation);
++		else
++			p->rotation = rot;
++	}
++
++out:
++	of_node_put(np);
 +}
 +
-+static void logo_dt_free(void)
++static int fb_logo_dt_rotation(int rotate)
 +{
-+	logo_dt_clut224.clut = NULL;
-+	logo_dt_clut224.data = NULL;
++	fb_logo_dt_read();
 +
-+	kfree(logo_dt_clut);
-+	logo_dt_clut = NULL;
++	if (fb_logo_dt.valid && fb_logo_dt.rotation >= 0)
++		return fb_logo_dt.rotation;
 +
-+	kfree(logo_dt_data);
-+	logo_dt_data = NULL;
++	return rotate;
++}
++
++/* Top edge of the logo, in the coordinate space the caller works in */
++static int fb_logo_dt_top(unsigned int yres, unsigned int logo_height)
++{
++	struct fb_logo_dt_placement *p = &fb_logo_dt;
++	int top;
++
++	if (p->centered)
++		top = ((int)yres - (int)logo_height) / 2;
++	else if (p->has_position)
++		top = p->y;
++	else
++		top = 0;
++
++	return max(top + p->offset_y, 0);
++}
++
++static void fb_logo_dt_place(struct fb_info *info, struct fb_image *image)
++{
++	struct fb_logo_dt_placement *p = &fb_logo_dt;
++	int dx;
++
++	fb_logo_dt_read();
++
++	if (!p->valid)
++		return;
++
++	if (p->centered)
++		dx = ((int)info->var.xres - (int)image->width) / 2;
++	else if (p->has_position)
++		dx = p->x;
++	else
++		dx = image->dx;
++
++	image->dx = max(dx + p->offset_x, 0);
++	image->dy = fb_logo_dt_top(info->var.yres, image->height);
++}
++
++/*
++ * fbcon only leaves the first @height rows of the screen alone, so a logo
++ * placed further down would be drawn and then immediately cleared. Grow the
++ * reservation to cover wherever the logo actually ends up, the same way
++ * fb_center_logo does.
++ */
++static int fb_logo_dt_reserve(unsigned int yres, unsigned int logo_height,
++			      int height)
++{
++	fb_logo_dt_read();
++
++	if (!fb_logo_dt.valid)
++		return height;
++
++	return max(height, fb_logo_dt_top(yres, logo_height) +
++			   (int)logo_height);
 +}
 +
 +#else /* !CONFIG_LOGO_DT_CLUT224 */
 +
-+static inline const struct linux_logo *logo_dt_find(void)
++static inline int fb_logo_dt_rotation(int rotate)
 +{
-+	return NULL;
++	return rotate;
 +}
 +
-+static inline void logo_dt_free(void) { }
++static inline void fb_logo_dt_place(struct fb_info *info,
++				    struct fb_image *image)
++{
++}
++
++static inline int fb_logo_dt_reserve(unsigned int yres,
++				     unsigned int logo_height, int height)
++{
++	return height;
++}
 +
 +#endif /* CONFIG_LOGO_DT_CLUT224 */
 +
- /*
-  * Logos are located in the initdata, and will be freed in kernel_init.
-  * Use late_init to mark the logos as freed to prevent any further use.
-@@ -32,6 +184,7 @@ static bool logos_freed;
- static int __init fb_logo_late_init(void)
+ static inline unsigned int safe_shift(unsigned int d, int n)
  {
- 	logos_freed = true;
-+	logo_dt_free();
- 	return 0;
- }
+ 	return n < 0 ? d >> -n : d << n;
+@@ -350,6 +516,9 @@ static int fb_show_logo_line(struct fb_info *info, int rotate,
+ 			fb_rotate_logo(info, logo_rotate, &image, rotate);
+ 	}
  
-@@ -48,6 +201,13 @@ const struct linux_logo * __ref fb_find_logo(int depth)
- 	if (nologo || logos_freed)
- 		return NULL;
- 
-+	/* A logo supplied by the device tree wins over the built-in ones */
-+	if (depth >= 8) {
-+		logo = logo_dt_find();
-+		if (logo)
-+			return logo;
-+	}
++	/* Done last, image dimensions are only final after the rotation */
++	fb_logo_dt_place(info, &image);
 +
- #ifdef CONFIG_LOGO_LINUX_MONO
- 	if (depth >= 1)
- 		logo = &logo_linux_mono;
+ 	fb_do_show_logo(info, &image, rotate, n);
+ 
+ 	kfree(palette);
+@@ -423,6 +592,8 @@ int fb_prepare_logo(struct fb_info *info, int rotate)
+ 
+ 	memset(&fb_logo, 0, sizeof(struct logo_data));
+ 
++	rotate = fb_logo_dt_rotation(rotate);
++
+ 	if (info->flags & FBINFO_MISC_TILEBLITTING ||
+ 	    info->fbops->owner || !fb_logo_count)
+ 		return 0;
+@@ -483,6 +654,7 @@ int fb_prepare_logo(struct fb_info *info, int rotate)
+ 	height = fb_logo.logo->height;
+ 	if (fb_center_logo)
+ 		height += (yres - fb_logo.logo->height) / 2;
++	height = fb_logo_dt_reserve(yres, fb_logo.logo->height, height);
+ #ifdef CONFIG_FB_LOGO_EXTRA
+ 	height = fb_prepare_extra_logos(info, height, yres);
+ #endif
+@@ -498,6 +670,8 @@ int fb_show_logo(struct fb_info *info, int rotate)
+ 	if (!fb_logo_count)
+ 		return 0;
+ 
++	rotate = fb_logo_dt_rotation(rotate);
++
+ 	count = fb_logo_count < 0 ? num_online_cpus() : fb_logo_count;
+ 	y = fb_show_logo_line(info, rotate, fb_logo.logo, 0, count);
+ #ifdef CONFIG_FB_LOGO_EXTRA
 -- 
 2.39.5
 
