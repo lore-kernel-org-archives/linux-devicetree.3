@@ -1,64 +1,64 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B167C426D19
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DCD41E6A7
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:56:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785876997; cv=none; b=bo/yf9sQ+znf6n7dYj34w1M4PePu9uIcFDq/0/ZDSxP3Uc0rIYxcnXvGyaCzENDy0PdLNwNc+01E24BxRA/imzGjsOdda8EWMvaq2GPqiNe8WqSPC4F4kxCyo0erpOMQDJkrwKPfiDRVPDErxHQBq9wZ7A9E+7oTJGQac3/unJs=
+	t=1785876999; cv=none; b=gbEPqEgcq6XwNwuUfc2HX+U5TP/1N07Av/R9HOCXtBVMaw6XAwajQUxFxJEMC2awsv3MXWJ8PpsXQulKDncz3TAux1q1FgIXih9JgrHzt3QGHmAlltacsbh1bhFPyXNuvtTC5BKA5iI9HHH4d/Oa/Pz7riT3blKtiu5E0iXSYIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785876997; c=relaxed/simple;
-	bh=xGIABBsXaUoJaXPxJBCwzJ6/LRKxGWYYgzXd5in9Gl0=;
+	s=arc-20240116; t=1785876999; c=relaxed/simple;
+	bh=Sc3RdNoHAxHHoHapSrdLmmJERSIsY5kD1xNxOX6do8c=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qPoWm/cQW/fjymvTmo5u4ru6guT4ieVVw7VHuV1BXZFZ7RzlzdUIzaGdAP7/sO2gxjL2tcd21HjMUbTC3JtwrdwHmZVuenKfvf9SfqqnIb4MiiZaoub/HuHQzzSfWeF87uLGVDsNwIi09MJG3mYGl8X0+06XBr2nlaTYh9vlESw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dp8jQCK1; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version; b=khHbO87/gjuwjKEyShpf+kkYzJPtk7hUQwP7xAjFJqkHVc8WN+s4U7bxmRhPoWCYjcWQXwKMYfVZj3cP+IvV7DimhBFEelcLBj/yTm45J8ffnCihPDq2N5tPHdq4YNZtbgrZKfen99IA41t7xdAREMSSrVdJXxEbMw6+rrMsFXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwnEmM8L; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dp8jQCK1"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49800c6a846so2013475e9.3
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:56:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwnEmM8L"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so2127885e9.2
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:56:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785876990; x=1786481790; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785876992; x=1786481792; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ei4wu5HfRa2wxht5dmisRmUFZUNWVNZz+Xwp09rdeeM=;
-        b=dp8jQCK1YaYirOoxHAGZTLCnTeS/buaok+RRZGMULE+p2axPEaXayjhtGmZ1HRvfP3
-         xB9af6sTkYd3wLR5tJdglDlWNy52hCKbp6tS0bHFlaxkjsTii+gy+vOfmSm2Ek0fugrX
-         dg3bkh14ei6NS23THNwPOrjYTTuMssJDU5tCKvwC8F5U3JpF/WaDiz5Cq5iegfbjWDbm
-         bgjIJTIchdeuk7vaz6Kvt4Lsaiqg0+ihz5AItnYj7iYrnxE+Nx915+14ZPhfl/vrOBmj
-         YblI4XAPSHhDImTR669JSs5pd3kn7AY/mmd3KBerdeCTrQt4TdXGdHIxvUdhQpDPw2zb
-         +B6Q==
+        bh=0rdtrk8XXOPPUZBCUeUX/HYP4M8McVi1CQOTrbTXLV8=;
+        b=WwnEmM8LJQPLjY1BDkLpyYPIs/YcLAVU1NDYe5W7nrwPBVoc4OiFF255kC+U/gx+bo
+         78KAMOyslLFWh6DOu07N5J64/bQBRrDQtMrPsyBEX6/Nbg6K+0Lj/OZdAGbKsXjc6rcw
+         cxXaEgS1xT9ncbjrVssBx3GLp9tEHiZCJpREiCjxBx42bpMQrwIE2zmqJg4y0GxYFRh7
+         8LmPR8WU+86zVSJSdblIZXMUKpdOPdzgYaqMMS1Lnvou52vmjWEbYloNvMvNZo5MsZGV
+         iOudiMAQgbVHbAwzMV2QNDcDAbgQzwdJ7a27MI1WvmQEZcm2X+QP6vUWOPs0AzGAoi+d
+         Uv6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785876990; x=1786481790;
+        d=1e100.net; s=20251104; t=1785876992; x=1786481792;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ei4wu5HfRa2wxht5dmisRmUFZUNWVNZz+Xwp09rdeeM=;
-        b=LOrS8RLcGHgAjzJy5uulzd0kkEx0j+DnSgG/z4ur9KBuZ41Jyby5e3/0PvBj/Ycu37
-         WySdPEBdTq/RvBcqnlLC3bKhuSxyEieZCETHrSRW8ikMaQiuUS+1nZqiXE1HGmq50AAK
-         mKIZMUxtNy8/2FcEl1uE32wrlc8VON5rpnYc+D3Ce0mGh+J5xcxpOKdq7u5V/TMtBRws
-         u4ymQ14NNxKCiOKRiyJ+KnBIve65DLWNKVFgsWmIwrtV81JpJbOPYCIh7QWUpxzHhORC
-         8BFTEgBBjR5aReu0oyDKyBAoGGlKaALBXrFaujEZsDCxN3tkkPs5BPAXmXZr+RYjeo1Z
-         6fDg==
-X-Forwarded-Encrypted: i=1; AHgh+RrkoNUGFgvW/B7ySDw7tE8HT2q98CNiyN4s29QRYau/Z1dBtINZqKP/JFJyAIdovXz19LyphlkEr44Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YyB6MSoUsGDqHqls3AMc/PmqbLy1Xl8t6HSIzp6O+XrHBF0Dvio
-	Jkt624WA5XymrGkSQm5xWAvyYcMKYrtzviQLMJ9rgA3Txor9IIuBI6ie
-X-Gm-Gg: AR+sD10pN2efLJCRIwsVEIO1rOhx8aHBOkKAzVanWIZu6USgzCgc+xBZEdSGnakOccl
-	8uXsVNANOPuZHqn+sjvqW8zIcpyZj14fcNiFjTF5sPeKLwXExwXJdPUkKrDaqunYyK9M8+dkQou
-	fWAWLbI11URosZvkbQwVuLF16Fk1vDZpWGRdUGtR2EMSWOhEIPJBj3nQ+MQaYvi0a3i8CgI62Yd
-	Y9A08+HYwl+6rsDWAcEqlv922OtYF39Te69cOXO+zeLRzRKCOZyjzTA+m+HyzSMJNVk9t/fDGIE
-	1kg7eU9bMbqB9L30qft7N9+SaNfgZQHpU21GhxQrNsxM84Db6r0iUoQTWw5tg/T9fzgQ043OFEa
-	0BcBFqXj+Gp8Wg8wptgqkzGcNSskWg56ccPJIES9Saz27jap1NSYMtArXiAXUa9wpdFlNTYsDrn
-	B1UZx53FVuYbQkWjkPnNOYKBauTwI6xrZoPRkSVosqSFbGqVCNnsr306Za8Js5IKHxM53/UR4ZY
-	KoEYkf0aXhFmVc=
-X-Received: by 2002:a05:600c:1c22:b0:495:734e:4825 with SMTP id 5b1f17b1804b1-4994e7dcf28mr10141705e9.16.1785876989801;
-        Tue, 04 Aug 2026 13:56:29 -0700 (PDT)
+        bh=0rdtrk8XXOPPUZBCUeUX/HYP4M8McVi1CQOTrbTXLV8=;
+        b=rhiFqxMY0k1SruqOeePpX4sRYAzJPz1Op89l7/NO5UcEH/XP+w9MB7B2ehpQ+ZXIDy
+         WtHOfwptkq3zBnc3IjMj7xRZxqzfq7vNcH9pYwYbx16zofwlpUweUg3qpIWeHovwgj2e
+         8vKB4zG/BFMdEcpuksZ0DdeUxw7fZ8kpXJPM3MOYBk6YI8IwVI7TBbmK1vG/YjvO50oU
+         smXSsCWF846ZMQoWfVE/80mP0HDjqbTWGnxmAvn6CH4XNBtn5TE5nkROAYRB7GlLjWCB
+         DaXNjgOv0xnU5yytnE206r40nHgwdB0sqL9Ok8RYfAkn80eCwkLeQDqYQna8Sgbke6bw
+         /QNg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4/uGG82lv68zAUJkJP6an1A498xLMf3BAn9AKFqo1EjELC5kyz8WL7eQpNGWptsFFqIkxCo/Be/Ww@vger.kernel.org
+X-Gm-Message-State: AOJu0YyuTxDq/eFAjE96CY09ebHINKEv96biNzIo5nZBQT80btHdDykI
+	1FMDI9ANP30T1OwpO7cTk98m+DIZgi+MVMebACbg2TNWKVRCrq2VMuLo
+X-Gm-Gg: AR+sD13UJpeSQqFv369g4vworlJgs0/gtQ50u3vK4GdYe8dLlYOLkCp44Uu4qRUtIMN
+	/kahI2ZmerlhQY05CxJhAWcm2Oe/XrPuTh/HTIpbpO3LdfqJKtR33NPvXhdEzUV24NG2xweHa7p
+	DKN4EPuhI2NyCg+M2t8+QmgAtu3q+hmZwsTg9e1UuQ6IW/3dGAJkcksU8mkt+p4yitEgpnLc/xN
+	QKr0kHTiclW0aN/jB4pLMgewAlqXhhwASfuQLgOTyCKOdlzREf/rC+jD5cXICQZWorflAXo890Q
+	JwScQEYxnGdgKYuTSxg19BNgeaUc8dVyPF7lU5b3zLmEnN55kGLKEzN3VEwK/p0bJn1K4jbUslL
+	xgxMK+/ZYoZnqiQ31wvOa6QEGXAL6Zx5ZXVKDrDk5OICC9efJhMIQR/bip3kU/it4qd206DOO8N
+	k/T2WG9V8txKYIARnWHPI/DwcrijNXbVTcOc6xAxGkrBFuNV9sChlSLFJM9a3HvWPDdsK0ZCqVu
+	VtGyybqfhLygEg=
+X-Received: by 2002:a05:600c:8582:b0:492:3e69:a86f with SMTP id 5b1f17b1804b1-4994e79b93fmr11058805e9.1.1785876991477;
+        Tue, 04 Aug 2026 13:56:31 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.116.176.33])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994e4bf820sm12070645e9.0.2026.08.04.13.56.28
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994e4bf820sm12070645e9.0.2026.08.04.13.56.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 13:56:29 -0700 (PDT)
+        Tue, 04 Aug 2026 13:56:31 -0700 (PDT)
 From: Max Pedraza <maximpedraza@gmail.com>
 To: Helge Deller <deller@gmx.de>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
@@ -73,9 +73,9 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Max Pedraza <maximpedraza@gmail.com>
-Subject: [PATCH v2 5/6] video: logo: allow the boot logo to come from a reserved memory region
-Date: Wed,  5 Aug 2026 00:56:16 +0200
-Message-Id: <20260804225617.264861-6-maximpedraza@gmail.com>
+Subject: [PATCH v2 6/6] video: logo: add ppmtodtlogo host tool
+Date: Wed,  5 Aug 2026 00:56:17 +0200
+Message-Id: <20260804225617.264861-7-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260804225617.264861-1-maximpedraza@gmail.com>
 References: <20260804225617.264861-1-maximpedraza@gmail.com>
@@ -87,252 +87,464 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Take the image from the region a "memory-region" phandle points at, when
-the node has one, instead of from the width, height, clut and data
-properties.
+The byte arrays a "linux,boot-logo-clut224" node carries are not meant to
+be written by hand. Add a host tool that converts a PPM image into the
+node, along the lines of the existing pnmtologo: plain C, no dependencies,
+and no quantization of its own -- the image must already use at most 224
+distinct colours, and the tool points at ImageMagick when it does not.
 
-Only a declared region is accepted, never a bare physical address. That
-matters for more than tidiness: the region is reserved before the allocator
-starts, so the logo code can never be pointed at memory the kernel is using
-for something else, and a size is known, so every field can be bounds
-checked. The region is mapped with memremap(), which copes with a no-map
-reservation and fails cleanly instead of handing back a bogus pointer the
-way phys_to_virt() on an arbitrary address would.
+Three output flavours:
 
-The image is validated and copied out rather than used in place: the magic
-number has to match, the geometry has to be sane, the palette and pixels
-have to fit inside the reserved region, and every pixel has to reference an
-existing palette entry. Anything else is reported and ignored, falling back
-to the built-in logo. Copying also means nothing that happens to the region
-afterwards can affect what has already been validated, and it keeps the
-pixel data in the same shape both paths produce.
+  ppmtodtlogo logo.ppm                  a complete overlay
+  ppmtodtlogo -t dtsi logo.ppm          a bare node, for inclusion
+  ppmtodtlogo -t bin -o logo.bin ...    the blob for a reserved memory
+                                        region, header included
+
+The devicetree outputs also carry the optional placement properties,
+commented out unless requested on the command line, so the generated file
+documents what can be tuned without regenerating the image.
+
+The tool is built when CONFIG_LOGO_DT_CLUT224 is enabled but is not used
+by the kernel build itself.
 
 Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
 ---
- drivers/video/logo/logo.c | 171 ++++++++++++++++++++++++++++++--------
- 1 file changed, 135 insertions(+), 36 deletions(-)
+ drivers/video/logo/Makefile      |   6 +-
+ drivers/video/logo/ppmtodtlogo.c | 408 +++++++++++++++++++++++++++++++
+ 2 files changed, 413 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/video/logo/ppmtodtlogo.c
 
-diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
-index 7f8b04ecf..66bcb37e7 100644
---- a/drivers/video/logo/logo.c
-+++ b/drivers/video/logo/logo.c
-@@ -10,8 +10,10 @@
-  *  Copyright (C) 2003 Geert Uytterhoeven <geert@linux-m68k.org>
-  */
+diff --git a/drivers/video/logo/Makefile b/drivers/video/logo/Makefile
+index 937b37d3b..49954272e 100644
+--- a/drivers/video/logo/Makefile
++++ b/drivers/video/logo/Makefile
+@@ -10,7 +10,11 @@ obj-$(CONFIG_SPU_BASE)			+= logo_spe_clut224.o
  
-+#include <linux/io.h>
- #include <linux/linux_logo.h>
- #include <linux/of.h>
-+#include <linux/of_reserved_mem.h>
- #include <linux/sizes.h>
- #include <linux/slab.h>
- #include <linux/stddef.h>
-@@ -38,6 +40,15 @@ MODULE_PARM_DESC(nologo, "Disables startup logo");
- #define LOGO_DT_CLUT_OFFSET	32
- /* Sanity limit on the image size, a device tree is not a good place for more */
- #define LOGO_DT_MAX_PIXELS	SZ_32M
-+/* "LOGO", little endian, at the start of a handed over memory region */
-+#define LOGO_DT_MAGIC		0x4f474f4c
+ # How to generate logo's
+ 
+-hostprogs := pnmtologo
++hostprogs := pnmtologo ppmtodtlogo
 +
-+struct logo_dt_header {
-+	__le32 magic;
-+	__le32 width;
-+	__le32 height;
-+	__le32 clutsize;
++# Not used by the build itself: converts a user's image into the devicetree
++# node or memory blob the "linux,boot-logo-clut224" binding consumes.
++always-$(CONFIG_LOGO_DT_CLUT224) += ppmtodtlogo
+ 
+ # Create commands like "pnmtologo -t mono -n logo_linux_mono -o ..."
+ quiet_cmd_logo = LOGO    $@
+diff --git a/drivers/video/logo/ppmtodtlogo.c b/drivers/video/logo/ppmtodtlogo.c
+new file mode 100644
+index 000000000..a52c61cec
+--- /dev/null
++++ b/drivers/video/logo/ppmtodtlogo.c
+@@ -0,0 +1,408 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Convert a PPM image into a devicetree boot logo node, or into the binary
++ * blob the "linux,boot-logo-clut224" binding reads from a reserved memory
++ * region.
++ *
++ * Like pnmtologo, this tool does not quantize: the image must already use
++ * at most 224 distinct colours. Reduce it first if needed, for instance:
++ *
++ *	magick logo.png -colors 224 logo.ppm
++ *
++ * The node is emitted under /chosen, where the binding expects it: a logo is
++ * configuration handed over by firmware rather than a description of the
++ * hardware.
++ *
++ * The devicetree output stores plain palette indices; the 32 entry offset
++ * the frame buffer layer reserves for the console is applied by the kernel.
++ */
++
++#include <ctype.h>
++#include <errno.h>
++#include <stdarg.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++
++#define MAX_CLUT_COLORS	224
++#define MAX_PIXELS	(32U * 1024 * 1024)
++#define BLOB_MAGIC	0x4f474f4cU	/* "LOGO", little endian */
++#define BYTES_PER_LINE	12
++
++static const char *programname;
++static const char *filename;
++static const char *outputname;
++static FILE *out;
++
++enum output_type {
++	OUTPUT_DTS,	/* complete overlay */
++	OUTPUT_DTSI,	/* bare node, for inclusion */
++	OUTPUT_BIN,	/* blob for a reserved memory region */
 +};
- 
- static struct linux_logo logo_dt_clut224 = {
- 	.type		= LINUX_LOGO_CLUT224,
-@@ -46,58 +57,41 @@ static struct linux_logo logo_dt_clut224 = {
- static unsigned char *logo_dt_clut;
- static unsigned char *logo_dt_data;
- 
--static int logo_dt_parse(struct device_node *np)
-+/* Reject geometries that cannot describe a sane image before using them */
-+static int logo_dt_check_geometry(u32 width, u32 height, u32 clutsize)
- {
--	unsigned int clutsize, npixels, i;
--	unsigned char *clut, *data;
--	u32 width, height;
--	int len, ret;
--
--	ret = of_property_read_u32(np, "width", &width);
--	if (ret)
--		return ret;
--
--	ret = of_property_read_u32(np, "height", &height);
--	if (ret)
--		return ret;
--
- 	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
- 		return -EINVAL;
- 
--	npixels = width * height;
--
--	len = of_property_count_u8_elems(np, "clut");
--	if (len < 3 || len % 3)
-+	if (!clutsize || clutsize > LOGO_DT_MAX_CLUT)
- 		return -EINVAL;
- 
--	clutsize = len / 3;
--	if (clutsize > LOGO_DT_MAX_CLUT)
--		return -EINVAL;
++
++static enum output_type output_type = OUTPUT_DTS;
++
++/* Placement options, emitted into the node */
++static int opt_centered;
++static char *opt_position;
++static char *opt_offset;
++static const char *opt_rotation;
++
++struct color {
++	unsigned char red;
++	unsigned char green;
++	unsigned char blue;
++};
++
++static unsigned int logo_width;
++static unsigned int logo_height;
++static unsigned char *logo_data;
++static struct color logo_clut[MAX_CLUT_COLORS];
++static unsigned int logo_clutsize;
++
++static void die(const char *fmt, ...)
++{
++	va_list ap;
++
++	va_start(ap, fmt);
++	vfprintf(stderr, fmt, ap);
++	va_end(ap);
++	exit(1);
++}
++
++static void usage(void)
++{
++	die("Usage: %s [options] <filename>\n"
++	    "\n"
++	    "Convert a PPM image into a \"linux,boot-logo-clut224\" node.\n"
++	    "The image must use at most %d distinct colours.\n"
++	    "\n"
++	    "    -o <output>     write to file instead of stdout\n"
++	    "    -t <type>       dts (default), dtsi or bin\n"
++	    "    -c              centre the logo (logo-centered)\n"
++	    "    -p <x>,<y>      logo-position\n"
++	    "    -f <dx>,<dy>    logo-offset\n"
++	    "    -r <rotation>   logo-rotation: cw, ccw, ud or none\n"
++	    "    -h              this help\n",
++	    programname, MAX_CLUT_COLORS);
++}
++
++static unsigned int get_number(FILE *fp)
++{
++	int c;
++	unsigned int val;
++
++	/* Skip leading whitespace */
++	do {
++		c = fgetc(fp);
++		if (c == EOF)
++			die("%s: end of file\n", filename);
++		if (c == '#') {
++			/* Ignore comments 'till end of line */
++			do {
++				c = fgetc(fp);
++				if (c == EOF)
++					die("%s: end of file\n", filename);
++			} while (c != '\n');
++		}
++	} while (isspace(c));
++
++	if (!isdigit(c))
++		die("%s: expected a number\n", filename);
++
++	/* Parse decimal number */
++	val = 0;
++	while (isdigit(c)) {
++		val = 10 * val + c - '0';
++		c = fgetc(fp);
++		if (c == EOF)
++			break;
++	}
++	return val;
++}
++
++static unsigned char get_byte(FILE *fp)
++{
++	int c = fgetc(fp);
++
++	if (c == EOF)
++		die("%s: end of file\n", filename);
++	return c;
++}
++
++static unsigned int find_clut_entry(struct color color)
++{
++	unsigned int i;
++
++	for (i = 0; i < logo_clutsize; i++)
++		if (logo_clut[i].red == color.red &&
++		    logo_clut[i].green == color.green &&
++		    logo_clut[i].blue == color.blue)
++			return i;
++
++	if (logo_clutsize == MAX_CLUT_COLORS)
++		die("%s: more than %d colors, reduce the image first, e.g.\n"
++		    "    magick %s -colors %d out.ppm\n",
++		    filename, MAX_CLUT_COLORS, filename, MAX_CLUT_COLORS);
++
++	logo_clut[logo_clutsize] = color;
++	return logo_clutsize++;
++}
++
++static void read_image(void)
++{
++	unsigned int i, npixels, maxval;
++	int magic, raw;
++	FILE *fp;
++
++	fp = fopen(filename, "rb");
++	if (!fp)
++		die("Cannot open file %s: %s\n", filename, strerror(errno));
++
++	if (fgetc(fp) != 'P')
++		die("%s is not a PPM file\n", filename);
++
++	magic = fgetc(fp);
++	switch (magic) {
++	case '3':
++		raw = 0;
++		break;
++	case '6':
++		raw = 1;
++		break;
++	default:
++		die("%s is not a PPM file (only P3 and P6 are supported)\n",
++		    filename);
++	}
++
++	logo_width = get_number(fp);
++	logo_height = get_number(fp);
++	maxval = get_number(fp);
++	if (maxval != 255)
++		die("%s: maximum color value must be 255\n", filename);
++
++	if (!logo_width || !logo_height)
++		die("%s: zero sized image\n", filename);
++	if ((unsigned long long)logo_width * logo_height > MAX_PIXELS)
++		die("%s: image too large\n", filename);
++
++	npixels = logo_width * logo_height;
++	logo_data = malloc(npixels);
++	if (!logo_data)
++		die("%s\n", strerror(errno));
++
++	for (i = 0; i < npixels; i++) {
++		struct color color;
++
++		if (raw) {
++			color.red = get_byte(fp);
++			color.green = get_byte(fp);
++			color.blue = get_byte(fp);
++		} else {
++			color.red = get_number(fp);
++			color.green = get_number(fp);
++			color.blue = get_number(fp);
++		}
++		logo_data[i] = find_clut_entry(color);
++	}
++
++	fclose(fp);
++}
++
++static void write_bytes(const unsigned char *data, unsigned int len,
++			const char *indent)
++{
++	unsigned int i;
++
++	for (i = 0; i < len; i++) {
++		if (i % BYTES_PER_LINE == 0)
++			fprintf(out, "%s%s", i ? "\n" : "", indent);
++		else
++			fputc(' ', out);
++		fprintf(out, "0x%02x", data[i]);
++	}
++}
++
++static void write_placement(const char *indent)
++{
++	fprintf(out, "%s/* Placement. logo-centered and logo-position are exclusive;\n",
++		indent);
++	fprintf(out, "%s * logo-offset is added after either of the two. */\n",
++		indent);
++
++	fprintf(out, "%s%slogo-centered;\n", indent, opt_centered ? "" : "// ");
++	fprintf(out, "%s%slogo-position = <%s>;\n", indent,
++		opt_position ? "" : "// ", opt_position ? opt_position : "0 0");
++	fprintf(out, "%s%slogo-offset = <%s>;\n", indent,
++		opt_offset ? "" : "// ", opt_offset ? opt_offset : "0 0");
++	fprintf(out, "%s%slogo-rotation = \"%s\";\t/* cw, ccw, ud, none */\n",
++		indent, opt_rotation ? "" : "// ",
++		opt_rotation ? opt_rotation : "ccw");
++}
++
++static void write_node(const char *indent)
++{
++	char subindent[16];
++
++	snprintf(subindent, sizeof(subindent), "%s\t\t", indent);
++
++	fprintf(out, "%scompatible = \"linux,boot-logo-clut224\";\n", indent);
++	fprintf(out, "\n");
++	write_placement(indent);
++	fprintf(out, "\n");
++	fprintf(out, "%swidth = <%u>;\n", indent, logo_width);
++	fprintf(out, "%sheight = <%u>;\n", indent, logo_height);
++	fprintf(out, "\n");
++	fprintf(out, "%sclut = /bits/ 8 <", indent);
++	write_bytes((const unsigned char *)logo_clut, logo_clutsize * 3,
++		    subindent);
++	fprintf(out, ">;\n");
++	fprintf(out, "\n");
++	fprintf(out, "%sdata = /bits/ 8 <", indent);
++	write_bytes(logo_data, logo_width * logo_height, subindent);
++	fprintf(out, ">;\n");
++}
++
++static void write_header_comment(void)
++{
++	fprintf(out, "/*\n");
++	fprintf(out, " * Boot logo generated by ppmtodtlogo from %s\n",
++		filename);
++	fprintf(out, " * %ux%u pixels, %u colours.\n", logo_width, logo_height,
++		logo_clutsize);
++	fprintf(out, " */\n");
++}
++
++static void write_dts(void)
++{
++	fprintf(out, "/dts-v1/;\n/plugin/;\n\n");
++	write_header_comment();
++	fprintf(out, "\n");
++	fprintf(out, "/ {\n");
++	fprintf(out, "\tfragment@101 {\n");
++	fprintf(out, "\t\ttarget-path = \"/chosen\";\n");
++	fprintf(out, "\n");
++	fprintf(out, "\t\t__overlay__ {\n");
++	fprintf(out, "\t\t\tlogo {\n");
++	write_node("\t\t\t\t");
++	fprintf(out, "\t\t\t};\n");
++	fprintf(out, "\t\t};\n");
++	fprintf(out, "\t};\n");
++	fprintf(out, "};\n");
++}
++
++static void write_dtsi(void)
++{
++	write_header_comment();
++	fprintf(out, "\n");
++	fprintf(out, "chosen {\n");
++	fprintf(out, "\tlogo {\n");
++	write_node("\t\t");
++	fprintf(out, "\t};\n");
++	fprintf(out, "};\n");
++}
++
++static void put_le32(unsigned int val)
++{
++	fputc(val & 0xff, out);
++	fputc((val >> 8) & 0xff, out);
++	fputc((val >> 16) & 0xff, out);
++	fputc((val >> 24) & 0xff, out);
++}
++
++static void write_bin(void)
++{
++	put_le32(BLOB_MAGIC);
++	put_le32(logo_width);
++	put_le32(logo_height);
++	put_le32(logo_clutsize);
++	fwrite(logo_clut, 3, logo_clutsize, out);
++	fwrite(logo_data, 1, logo_width * logo_height, out);
++}
++
++int main(int argc, char *argv[])
++{
++	int opt;
++	char *p;
++
++	programname = argv[0];
++
++	while ((opt = getopt(argc, argv, "o:t:cp:f:r:h")) != -1) {
++		switch (opt) {
++		case 'o':
++			outputname = optarg;
++			break;
++		case 't':
++			if (!strcmp(optarg, "dts"))
++				output_type = OUTPUT_DTS;
++			else if (!strcmp(optarg, "dtsi"))
++				output_type = OUTPUT_DTSI;
++			else if (!strcmp(optarg, "bin"))
++				output_type = OUTPUT_BIN;
++			else
++				usage();
++			break;
++		case 'c':
++			opt_centered = 1;
++			break;
++		case 'p':
++			opt_position = optarg;
++			break;
++		case 'f':
++			opt_offset = optarg;
++			break;
++		case 'r':
++			if (strcmp(optarg, "cw") && strcmp(optarg, "ccw") &&
++			    strcmp(optarg, "ud") && strcmp(optarg, "none"))
++				usage();
++			opt_rotation = optarg;
++			break;
++		default:
++			usage();
++		}
++	}
++	if (optind != argc - 1)
++		usage();
++	filename = argv[optind];
++
++	/* "10,20" and "10 20" are both accepted for -p and -f */
++	for (p = opt_position; p && *p; p++)
++		if (*p == ',')
++			*p = ' ';
++	for (p = opt_offset; p && *p; p++)
++		if (*p == ',')
++			*p = ' ';
++
++	read_image();
++
++	if (outputname) {
++		out = fopen(outputname,
++			    output_type == OUTPUT_BIN ? "wb" : "w");
++		if (!out)
++			die("Cannot create file %s: %s\n", outputname,
++			    strerror(errno));
++	} else {
++		out = stdout;
++	}
++
++	switch (output_type) {
++	case OUTPUT_DTS:
++		write_dts();
++		break;
++	case OUTPUT_DTSI:
++		write_dtsi();
++		break;
++	case OUTPUT_BIN:
++		write_bin();
++		break;
++	}
++
++	if (outputname)
++		fclose(out);
++
++	fprintf(stderr, "%s: %ux%u pixels, %u colours\n", filename, logo_width,
++		logo_height, logo_clutsize);
++
 +	return 0;
 +}
- 
--	ret = of_property_count_u8_elems(np, "data");
--	if (ret < 0)
--		return ret;
--	if ((unsigned int)ret != npixels)
--		return -EINVAL;
-+/*
-+ * Take a private copy of an image that has already been range checked, so
-+ * that nothing else can change it under us, and shift the pixels into the
-+ * palette slots the frame buffer layer leaves to the logo.
-+ */
-+static int logo_dt_store(u32 width, u32 height, u32 clutsize,
-+			 const u8 *clut_src, const u8 *data_src)
-+{
-+	unsigned int npixels = width * height;
-+	unsigned char *clut, *data;
-+	unsigned int i;
-+	int ret;
- 
--	clut = kmalloc(len, GFP_KERNEL);
-+	clut = kmemdup(clut_src, clutsize * 3, GFP_KERNEL);
- 	if (!clut)
- 		return -ENOMEM;
- 
--	data = kmalloc(npixels, GFP_KERNEL);
-+	data = kmemdup(data_src, npixels, GFP_KERNEL);
- 	if (!data) {
- 		ret = -ENOMEM;
- 		goto err_free_clut;
- 	}
- 
--	ret = of_property_read_u8_array(np, "clut", clut, len);
--	if (ret)
--		goto err_free_data;
--
--	ret = of_property_read_u8_array(np, "data", data, npixels);
--	if (ret)
--		goto err_free_data;
--
- 	for (i = 0; i < npixels; i++) {
- 		if (data[i] >= clutsize) {
- 			ret = -ERANGE;
-@@ -124,6 +118,111 @@ static int logo_dt_parse(struct device_node *np)
- 	return ret;
- }
- 
-+static int logo_dt_parse_properties(struct device_node *np)
-+{
-+	const u8 *clut, *data;
-+	u32 width, height;
-+	int len, ret;
-+
-+	ret = of_property_read_u32(np, "width", &width);
-+	if (ret)
-+		return ret;
-+
-+	ret = of_property_read_u32(np, "height", &height);
-+	if (ret)
-+		return ret;
-+
-+	len = of_property_count_u8_elems(np, "clut");
-+	if (len < 3 || len % 3)
-+		return -EINVAL;
-+
-+	ret = logo_dt_check_geometry(width, height, len / 3);
-+	if (ret)
-+		return ret;
-+
-+	if (of_property_count_u8_elems(np, "data") != width * height)
-+		return -EINVAL;
-+
-+	clut = of_get_property(np, "clut", NULL);
-+	data = of_get_property(np, "data", NULL);
-+	if (!clut || !data)
-+		return -EINVAL;
-+
-+	return logo_dt_store(width, height, len / 3, clut, data);
-+}
-+
-+/*
-+ * Image handed over by the bootloader in a reserved memory region. Only a
-+ * region the device tree declared is accepted, never a bare address, so the
-+ * kernel can never be pointed at memory it is using for something else, and
-+ * so that a size is known and every access can be bounds checked.
-+ */
-+static int logo_dt_parse_memory_region(struct device_node *np)
-+{
-+	u32 width, height, clutsize;
-+	const struct logo_dt_header *hdr;
-+	struct device_node *mem_np;
-+	struct reserved_mem *rmem;
-+	size_t clutlen, datalen;
-+	const u8 *payload;
-+	void *mem;
-+	int ret;
-+
-+	mem_np = of_parse_phandle(np, "memory-region", 0);
-+	if (!mem_np)
-+		return -ENOENT;
-+
-+	rmem = of_reserved_mem_lookup(mem_np);
-+	of_node_put(mem_np);
-+	if (!rmem)
-+		return -EINVAL;
-+
-+	if (rmem->size < sizeof(*hdr))
-+		return -EINVAL;
-+
-+	mem = memremap(rmem->base, rmem->size, MEMREMAP_WB);
-+	if (!mem)
-+		return -ENOMEM;
-+
-+	hdr = mem;
-+	if (le32_to_cpu(hdr->magic) != LOGO_DT_MAGIC) {
-+		ret = -EINVAL;
-+		goto out_unmap;
-+	}
-+
-+	width = le32_to_cpu(hdr->width);
-+	height = le32_to_cpu(hdr->height);
-+	clutsize = le32_to_cpu(hdr->clutsize);
-+
-+	ret = logo_dt_check_geometry(width, height, clutsize);
-+	if (ret)
-+		goto out_unmap;
-+
-+	clutlen = (size_t)clutsize * 3;
-+	datalen = (size_t)width * height;
-+
-+	/* Everything the header promises has to fit inside the region */
-+	if (sizeof(*hdr) + clutlen + datalen > rmem->size) {
-+		ret = -EINVAL;
-+		goto out_unmap;
-+	}
-+
-+	payload = (const u8 *)(hdr + 1);
-+	ret = logo_dt_store(width, height, clutsize, payload, payload + clutlen);
-+
-+out_unmap:
-+	memunmap(mem);
-+	return ret;
-+}
-+
-+static int logo_dt_parse(struct device_node *np)
-+{
-+	if (of_property_present(np, "memory-region"))
-+		return logo_dt_parse_memory_region(np);
-+
-+	return logo_dt_parse_properties(np);
-+}
-+
- static const struct linux_logo *logo_dt_find(void)
- {
- 	static bool probed;
 -- 
 2.39.5
 
