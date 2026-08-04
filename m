@@ -1,49 +1,53 @@
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39757386C21;
-	Tue,  4 Aug 2026 02:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FACB35838E;
+	Tue,  4 Aug 2026 02:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785810737; cv=none; b=QGUQywTRDbA6EH9Iw1oK8HqbRBYJkFEAftEbeCsOL6GBCLIzwI9EIlP+JsQ45px4kMdsfNunAfejjQ8B8m2qB54IxXjfIvLfvTb7buVbNelO7uNmYAzEEgtvkPDjIALQXA1d3umLJhRzBj+hk97MAh4OZgcNVTdpSEkZ6qb0VKA=
+	t=1785811396; cv=none; b=aqo/vQbgcdGPMJsYkeQ0Yuo0SjOxDSAq8UhwTQ6Fw+wDhZQTOo+BUyw8jrpTVy/kCDd7UrHJL4TGQt6lt1MXXDLkKTxW7tv++g2s6JzojvEWE1oS6JUwypswXW0VwtP9Ggwa2TW5xVFZ4YCW9mzUvGJ8OtJq9E1dkeW/Ut36gCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785810737; c=relaxed/simple;
-	bh=3+ZzUhaF6AALdanGLZfeQIxgJrKqPriGHak63jYH8GU=;
+	s=arc-20240116; t=1785811396; c=relaxed/simple;
+	bh=9KUWNQpzkICGiZIz6RpeJzq6ZNfaxUzX/eYjQny1Brw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PuserJxhANtDAme4YvdaBT8pGmbYfrHxYxt/W+gCqI9/D0V1F9j++Wb88uk0h1hRGAKE5X4x2DXwAwvxRQJ/BE6mHYUmftTwmD8K4d+r+p68Xgupt69/yk9fys8nUqN8C2XgonDvIr2awYEYml5I66XNrJUfDC4JTT8kl6uFuIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=CJ9kDJHF; arc=none smtp.client-ip=156.67.10.101
+	 Content-Type:Content-Disposition:In-Reply-To; b=Uo/b2jUWIP1Pa9eIj5EFyrHwkNDQkkcsDhTFwtczcR0rWlgD7GYF0csVUASlklkvGpjzP73ANCKOGNgPfNjyQM/wckPwyxBhRyCjl4GQGYncKOxpNmCFo7ShNpIVa70BB4I7fPdcN1YVeWUHmrGyj9za5Q3pJMmhn3pAZ05BwwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=HkvcuGbT; arc=none smtp.client-ip=156.67.10.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="CJ9kDJHF"
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="HkvcuGbT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
 	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
 	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Ig4xx+8K879vx7u7CJVZ0beN15tVCP446l2UqWbg3Z4=; b=CJ9kDJHFq2oIDG4n2KGqW9uTer
-	H+13kTcUWkYHnsH/t/QSE2qv7IgOoFy/FaCoCUjfnZfi39TJUfCS4YjiIDtZf1Ew/W26A8y7F5zKj
-	YGxQHACgWIjgTjjyzgvptIM1N6/B6H6XaQk+92pS9+sShoC3uNDNliqiD05b2nwo9MZ0=;
+	bh=5xd/A/k5scoEkiSfkxEsnxNSvX+fTeIItseFvpU0+3U=; b=HkvcuGbT7wWBfvr6qcREZl62zE
+	gPFazdXpsM7+ig4sGAA+An7X07pznvVmjoOpIHcMCugq+/KBJjD6aa7xbG/itZNNKWYObTMUxA/QF
+	VZtic05EpfJy4txj+JVSHDxN7lX60fBPDZCzbtF1RLynmG4gUTj2KGThGOQ4hCLTSg8c=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
 	(envelope-from <andrew@lunn.ch>)
-	id 1wr4wq-00FtZJ-C2; Tue, 04 Aug 2026 04:32:08 +0200
-Date: Tue, 4 Aug 2026 04:32:08 +0200
+	id 1wr57I-00FtfC-Ic; Tue, 04 Aug 2026 04:42:56 +0200
+Date: Tue, 4 Aug 2026 04:42:56 +0200
 From: Andrew Lunn <andrew@lunn.ch>
-To: Artem Shimko <a.shimko.dev@gmail.com>
-Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v5 0/3] Add DAPU Telecom DAP8211R(I) Gigabit
- Ethernet PHY driver
-Message-ID: <94fb1a6e-71d6-42ae-b221-cc03a820d2e0@lunn.ch>
-References: <20260803101734.270821-1-a.shimko.dev@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Liu Changjie <liucj1228@outlook.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 1/6] net: phy: maxio: prepare for more DT properties
+Message-ID: <4d855daa-a426-4f46-985c-181e3b0eb7f1@lunn.ch>
+References: <20260803101452.2993721-1-andre.przywara@arm.com>
+ <20260803101452.2993721-2-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,21 +56,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260803101734.270821-1-a.shimko.dev@gmail.com>
+In-Reply-To: <20260803101452.2993721-2-andre.przywara@arm.com>
 
-> DTS node example:
-> &ethernet_1g_tile {
->   ...
->   phy-mode = "rgmii-rxid";
->   phy-handle = <&phy1>;
->   ...
+On Mon, Aug 03, 2026 at 12:14:47PM +0200, Andre Przywara wrote:
+> The probe routine for the Maxio PHY returns early if the optional
+> maxio,clk-out-frequency-hz property is not found. That prevents looking
+> for other properties.
 > 
->   mdio: mdio {
->     phy1: ethernet-phy@1 {
->       ...
->       compatible = "ethernet-phy-id0008.011b";
->       rx-internal-delay-ps = <1050>;
+> Refactor the routine to handle the property in an if-clause, to allow
+> more actions in the probe routine later.
+> 
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> ---
+>  drivers/net/phy/maxio.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/net/phy/maxio.c b/drivers/net/phy/maxio.c
+> index d2cb23895646..95a2169f25df 100644
+> --- a/drivers/net/phy/maxio.c
+> +++ b/drivers/net/phy/maxio.c
+> @@ -43,18 +43,18 @@ static int maxio_mae0621a_probe(struct phy_device *phydev)
+>  
+>  	ret = device_property_read_u32(dev, "maxio,clk-out-frequency-hz",
+>  				       &frequency);
+> -	if (ret == -EINVAL)
+> -		return 0;
+> -	if (ret)
+> +	if (!ret) {
+> +		if (frequency != 125000000) {
+> +			phydev_err(phydev, "invalid CLKOUT frequency %u\n",
+> +				   frequency);
+> +			return -EINVAL;
+> +		}
+> +
+> +		priv->clk_out_125m = true;
+> +	} else if (ret != -EINVAL) {
+>  		return ret;
 
-Is this a random example, or what you are actually using?
+The normal pattern is to check for errors and return them. So i would
+do this test first.
 
-   Andrew
+ 	ret = device_property_read_u32(dev, "maxio,clk-out-frequency-hz",
+  				       &frequency);
+        if (ret) {
+	   if (ret != -EINVAL)
+	        return ret;
+	} else {
+		if (frequency != 125000000) {
+			phydev_err(phydev, "invalid CLKOUT frequency %u\n",
+				   frequency);
+			return -EINVAL;
+		}
+
+		priv->clk_out_125m = true;
+        }
+
+
+	Andrew
