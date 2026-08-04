@@ -1,176 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7D945A2A4
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 16:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EEB479895;
+	Tue,  4 Aug 2026 16:36:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785861364; cv=none; b=QnqN6RVG72Ik/ewk4Tvkn4/eWgq2+5xuYiPthXFuAWTyCR4IV0o/SO43E9h/R/WAO44OkSDzS1STfxnVclIxNlA7YlAljZ9FiNYu4kW/hyyaz73ASU34MZRvvhMg0LmCbM6JJqm6AWLZ68Jip83FO3RkVTaFCvnUmsSIUPrhjr8=
+	t=1785861374; cv=none; b=BDURYSHr2N11G75Vq1cYmPsKuEnnh4Xjmt38Ql84PeRL6PXThuMuZ3VlkcsvGmxdeOFlDW7i7nQ+ErLbnGS5frEfv1Jnav/WEztlTyvouy0So2DGT48FVO/oUgY9y4OJm+qGoY2XLMfQE2a8m3dIVg6Ong1xru+1pXQNSV0xZlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785861364; c=relaxed/simple;
-	bh=YW7qwUDKeR73p08pfNHJZD0yCw47c84KXFYn+5LIYdQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jy9PeN/Y1dYnspRuhBoIdxREeyASleYYwP9pTvHRFBeQV2U75yxJwqQ5EolUAOlvsQLhsBvRfYvA3EqSZ2RghvGnljuA7ciM8JaO48NL71+rJ/Z5F9L1EJ2DhCAR2/4UwhJs6CTX4L8XD0pZrcd1K4ws2p9NJ8yPZ+Hd2MN2wQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YnGE0ewK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785861374; c=relaxed/simple;
+	bh=1OehUdJ53tVLxlPsRLeAgB9SH2XB7mrQ0auW96D5it8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ts/KeSdY/iMCnaV6BxjeqJonEux9zIeDzuxyXsdPWsaL/WhjbnGRR1j3j9ThanpcZsZ+C2BxjuFstb5NNQBe2XvG/Dbd1DhXtfLptFvH8563lMtDARqMBD02PFmJ2ehpwI/9TTecFJ/g+8l9PqKNAKiGkYJPMH+jFwLzhEbU/FQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ku8aZn8d; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YnGE0ewK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1638A1F000E9;
-	Tue,  4 Aug 2026 16:35:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785861354;
-	bh=A6K14RFCNbKeKOMYOcKe2gdgUzTsJsoiHWC6K+Y8hpM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YnGE0ewKR5tkzu5mq2ovTz2mwm+ddQKBtusLPd+ziiNz+LKye/x4JzFdne8INJnsN
-	 c+J7xlVCiLKoMEUI/UvUVVyFR8YxYfPjeA+EVXNlgrI+1X64LAZb6MK2m6twezt5eA
-	 6mDeqfHyknj5jGnk4iydzuxplVf0fkVa8BlhhSJlxAPmlTBuwDkg1mKZ/LdsafUb1I
-	 666/9b9iRkVU9hbc/FiUhH/ZxKgvXejMllF8sV8V4KPa56dOWKmPL+kYefG46N+XOx
-	 7cG8CYxMGhapgCQ7uhYHiOknkPHa5YYF139xdem/dGY8xNq9eS330QTzjiM7Ob+ICU
-	 L6FWK7rONXKPw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 35/36] pinctrl: airoha: add support of an7563 SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260804160419.3592327-36-mikhail.kshevetskiy@iopsys.eu>
-References: <20260804160419.3592327-1-mikhail.kshevetskiy@iopsys.eu>
- <20260804160419.3592327-36-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 16:35:53 +0000
-Message-Id: <20260804163554.1638A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ku8aZn8d"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=+phEtP839OmAXTAezANS2diupL0Drcp1+juhMBWBlYs=; b=ku8aZn8dwi2K8skwzigc5WZi+F
+	sGbkZQW9yPiF+Kdu3Yoz5X6M2D7aQZZd+Jpd/rZZjFGCN8At0x2aWiGAoj48JVD+ScNKu4nPi1M2f
+	BcwiziDIYhuAMSRGqJWL+W4WWLYMc86R7t2i4gYkpo8uaSszVtJmDGRTzoCM8TpGqz3rBT8kzz0jU
+	/nZyhx9clYVpEAKCzPLeeDhk6fPubdVM5pQfO3uZjMYurcf74js1uVqUizFWNvXjk21BlIBM8/Kro
+	SmpF9fydW3/wZr5b3xHPGM0rXAVgb+XvpViaXHFoTMjL+fnQgb+V31w0aniIm4wyKVEEPtbrtMCwl
+	jpr+p/Vw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wrI7Q-00000002LWG-0afw;
+	Tue, 04 Aug 2026 16:35:56 +0000
+Date: Tue, 4 Aug 2026 09:35:56 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+	Rocky Liao <quic_rjliao@quicinc.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-block@vger.kernel.org,
+	linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+	linux-bluetooth@vger.kernel.org, netdev@vger.kernel.org,
+	daniel@makrotopia.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v9 06/10] block: implement NVMEM provider
+Message-ID: <anIU7FSBT6VMzsf3@infradead.org>
+References: <20260730-block-as-nvmem-v9-0-f72935817dbf@oss.qualcomm.com>
+ <20260730-block-as-nvmem-v9-6-f72935817dbf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730-block-as-nvmem-v9-6-f72935817dbf@oss.qualcomm.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing i2c, spi, and uart configurations to clear GPIO mode bits =
-on standalone pads.
-- [Medium] Missing gpio function support for pins 0-27 prevents restoring t=
-hem to GPIO mode.
---
-
---- Patch [35]: [PATCH v9 35/36] pinctrl: airoha: add support of an7563 SoC=
- ---
-commit 6207c71cb41f704bc923f2a3370df4d4674e76e8
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-
-    pinctrl: airoha: add support of an7563 SoC
-   =20
-    This patch adds support of Airoha an7563 SoC pin controller.
-
-> diff --git a/drivers/pinctrl/airoha/pinctrl-an7563.c b/drivers/pinctrl/ai=
-roha/pinctrl-an7563.c
+On Thu, Jul 30, 2026 at 06:00:36PM +0200, Loic Poulain wrote:
+> On embedded devices using an eMMC it is common that one or more partitions
+> on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPROM
+> data. Allow referencing the partition in device tree for the kernel and
+> Wi-Fi drivers accessing it via the NVMEM layer.
+> 
+> NVMEM is registered for a block device whose OF node describes an NVMEM
+> layout, either via an "nvmem-layout" child or by being a "fixed-layout"
+> node itself (e.g. an eMMC boot partition associated through its mmc-card
+> node).
+> 
+> The NVMEM device is a read-only side channel: the block device stays
+> fully usable, reads are performed with a non-exclusive BLK_OPEN_READ
+> open, and no synchronization is done against concurrent writes to the
+> same region. This is acceptable for the intended use case of write-once,
+> factory-provisioned data.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  block/Kconfig             |  11 +++++
+>  block/Makefile            |   1 +
+>  block/blk-nvmem.c         | 104 ++++++++++++++++++++++++++++++++++++++++++++++
+>  block/blk.h               |   8 ++++
+>  block/genhd.c             |   4 ++
+>  block/partitions/core.c   |   5 +++
+>  include/linux/blk_types.h |   4 ++
+>  7 files changed, 137 insertions(+)
+> 
+> diff --git a/block/Kconfig b/block/Kconfig
+> index 70e4a66d941ff66ecb0ec34f4f7eff7fd1e4be40..4899ad572c71ffdbb62460d57623216254893ddc 100644
+> --- a/block/Kconfig
+> +++ b/block/Kconfig
+> @@ -209,6 +209,17 @@ config BLK_INLINE_ENCRYPTION_FALLBACK
+>  	  by falling back to the kernel crypto API when inline
+>  	  encryption hardware is not present.
+>  
+> +config BLK_NVMEM
+> +	bool "Block device NVMEM provider"
+> +	depends on OF
+> +	depends on NVMEM
+> +	help
+> +	  Allow block devices (or partitions) to act as NVMEM providers,
+> +	  exposing factory-provisioned data such as MAC addresses or Wi-Fi
+> +	  calibration blobs to the drivers that consume them. This is
+> +	  typically used on embedded devices where such data is stored in a
+> +	  dedicated area of an eMMC, instead of a separate EEPROM or OTP.
+> +
+>  source "block/partitions/Kconfig"
+>  
+>  config BLK_PM
+> diff --git a/block/Makefile b/block/Makefile
+> index e7bd320e3d6971a8abf584f5de42776bb54e8216..8200297fbcbab304beb4239d0c33da07011c3ed9 100644
+> --- a/block/Makefile
+> +++ b/block/Makefile
+> @@ -39,3 +39,4 @@ obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= blk-crypto.o blk-crypto-profile.o \
+>  					   blk-crypto-sysfs.o
+>  obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK)	+= blk-crypto-fallback.o
+>  obj-$(CONFIG_BLOCK_HOLDER_DEPRECATED)	+= holder.o
+> +obj-$(CONFIG_BLK_NVMEM)                += blk-nvmem.o
+> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
 > new file mode 100644
-> index 0000000000000..40cbbe90cc464
+> index 0000000000000000000000000000000000000000..05bc35b9b8f373ccb606bdca35d211c41d2764fe
 > --- /dev/null
-> +++ b/drivers/pinctrl/airoha/pinctrl-an7563.c
+> +++ b/block/blk-nvmem.c
+> @@ -0,0 +1,104 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * block device NVMEM provider
+> + *
+> + * Copyright (c) 2024 Daniel Golle <daniel@makrotopia.org>
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * Useful on devices using a whole disk or a partition (e.g. an eMMC boot
+> + * partition) to store MAC addresses, Bluetooth addresses or Wi-Fi
+> + * calibration EEPROM data.
+> + *
+> + * The NVMEM device is a side channel onto a block device that stays fully
+> + * usable. This is somewhat mitigated by opening the device exclusively.
+> + */
+> +
+> +#include <linux/cleanup.h>
+> +#include <linux/device.h>
+> +#include <linux/file.h>
+> +#include <linux/fs.h>
+> +#include <linux/nvmem-provider.h>
+> +#include <linux/nvmem-consumer.h>
+> +#include <linux/of.h>
+> +#include <linux/property.h>
+> +
+> +#include "blk.h"
+> +
+> +static int blk_nvmem_reg_read(void *priv, unsigned int from,
+> +			      void *val, size_t bytes)
+> +{
+> +	struct block_device *bdev = priv;
+> +	struct file *bdev_file;
+> +	loff_t pos = from;
+> +	ssize_t ret;
+> +
+> +	/* open and prevent other exclusive openers */
+> +	bdev_file = bdev_file_open_by_dev(bdev->bd_dev,
+> +					  BLK_OPEN_READ | BLK_OPEN_EXCL,
+> +					  blk_nvmem_reg_read, NULL);
+> +	if (IS_ERR(bdev_file))
+> +		return PTR_ERR(bdev_file);
+> +
+> +	ret = kernel_read(bdev_file, val, bytes, &pos);
+> +	if (ret >= 0 && ret != bytes)
+> +		ret = -EIO;
+> +
+> +	fput(bdev_file);
+> +
+> +	return ret < 0 ? ret : 0;
 
-[ ... ]
+The error handling here is a bit weird as you seem to handle the
+positive/negative values twice.  What about something like this instead?
 
-> +static const char *const gpio_groups[] =3D {
-> +	"gpio28", "gpio29", "gpio30", "gpio31", "gpio32",
-> +	"gpio33", "gpio34", "gpio35", "gpio36", "gpio37"
-> +};
+	bdev_file = bdev_file_open_by_dev(bdev->bd_dev,
+					  BLK_OPEN_READ | BLK_OPEN_EXCL,
+					  blk_nvmem_reg_read, NULL);
+	if (IS_ERR(bdev_file))
+		return PTR_ERR(bdev_file);
+	ret = kernel_read(bdev_file, val, bytes, &pos);
+	fput(bdev_file);
 
-[Severity: Medium]
-Will this prevent restoring pins 0-27 back to GPIO mode if they were config=
-ured
-for alternate functions (like PWM or PON) by the bootloader?
+	if (ret < 0)
+		return ret;
+	if (ret != bytes)
+		return -EIO;
+	return 0;
 
-Since pins 0-27 are omitted from this group and gpio_func_group[], users wo=
-n't
-be able to explicitly request them as "gpio".
+?
 
-[ ... ]
+> +	struct device_node *child __free(device_node) =
+> +			of_get_child_by_name(np, "nvmem-layout");
 
-> +static const struct airoha_pinctrl_func_group mdio_func_group[] =3D {
-> +	{
-> +		.name =3D "mdio",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_PON_MODE,
-> +			GPIO_SGMII_MDIO_MODE_MASK,
-> +			GPIO_SGMII_MDIO_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	},
-> +};
+Please avoid the __cleanups stuff as it doesn't interact well with
+the goto basd cleanups usually used in block drivers.
 
-[Severity: High]
-Does this leave pins 30 and 31 stuck in GPIO mode if the bootloader previou=
-sly
-set I2C_SCL_GPIO_MODE_MASK or I2C_SDA_GPIO_MODE_MASK?
+> +	config.id = NVMEM_DEVID_NONE;
+> +	config.dev = dev;
+> +	config.name = dev_name(dev);
+> +	config.owner = THIS_MODULE;
+> +	config.priv = bdev;
+> +	config.reg_read = blk_nvmem_reg_read;
+> +	config.size = bdev_nr_bytes(bdev);
+> +	config.word_size = 1;
+> +	config.stride = 1;
+> +	config.read_only = true;
+> +	config.root_only = true;
+> +	config.ignore_wp = true;
+> +	config.of_node = np;
 
-It looks like this function doesn't clear those GPIO mode bits when enabling
-MDIO.
+Maybe initialize all the static information at declaration time
+here?
 
-[ ... ]
+> +	bdev->bd_nvmem = nvmem;
 
-> +static const struct airoha_pinctrl_func_group spi_func_group[] =3D {
-> +	{
-> +		.name =3D "spi_quad",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_SPI_CS1_MODE,
-> +			GPIO_SPI_QUAD_MODE_MASK,
-> +			GPIO_SPI_QUAD_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	}, {
-> +		.name =3D "spi_cs1",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_SPI_CS1_MODE,
-> +			GPIO_SPI_CS1_MODE_MASK,
-> +			GPIO_SPI_CS1_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	},
-> +};
+What guards access to this pointer?
 
-[Severity: High]
-Is the "spi" group (pins 32-35) intentionally omitted here?
-
-Without it, there appears to be no way to clear the SPI_*_GPIO_MODE_MASK bi=
-ts
-to restore the base SPI functionality if the bootloader configured these pi=
-ns
-as GPIOs.
-
-[ ... ]
-
-> +static const struct airoha_pinctrl_func pinctrl_funcs[] =3D {
-> +	PINCTRL_FUNC_DESC("pon", pon),
-> +	PINCTRL_FUNC_DESC("sipo", sipo),
-> +	PINCTRL_FUNC_DESC("mdio", mdio),
-> +	PINCTRL_FUNC_DESC("uart", uart),
-> +	PINCTRL_FUNC_DESC("jtag", jtag),
-> +	PINCTRL_FUNC_DESC("pcm", pcm),
-> +	PINCTRL_FUNC_DESC("spi", spi),
-> +	PINCTRL_FUNC_DESC("pnand", pnand),
-> +	PINCTRL_FUNC_DESC("gpio", gpio),
-> +	PINCTRL_FUNC_DESC("pcie_reset", pcie_reset),
-> +	PINCTRL_FUNC_DESC("pwm", pwm),
-> +	PINCTRL_FUNC_DESC("phy1_led0", phy1_led0),
-> +	PINCTRL_FUNC_DESC("phy2_led0", phy2_led0),
-> +	PINCTRL_FUNC_DESC("phy3_led0", phy3_led0),
-> +	PINCTRL_FUNC_DESC("phy4_led0", phy4_led0),
-> +	PINCTRL_FUNC_DESC("phy1_led1", phy1_led1),
-> +	PINCTRL_FUNC_DESC("phy2_led1", phy2_led1),
-> +	PINCTRL_FUNC_DESC("phy3_led1", phy3_led1),
-> +	PINCTRL_FUNC_DESC("phy4_led1", phy4_led1),
-> +};
-
-[Severity: High]
-Does this code completely omit the "i2c" function?
-
-It seems missing from this array, meaning I2C cannot be selected via the de=
-vice
-tree to clear the I2C_SCL/SDA_GPIO_MODE_MASK bits on pins 30 and 31.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804160419.3592=
-327-1-mikhail.kshevetskiy@iopsys.eu?part=3D35
