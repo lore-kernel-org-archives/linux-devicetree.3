@@ -1,82 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D682542A7BF;
-	Tue,  4 Aug 2026 07:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE4242AF92
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:05:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785827121; cv=none; b=iAC7UczcFBgoejP44wE3eNaF9B4U+6+gEPNeQyKQGKexJQeMybKWK3LPfR3ixRt9fiALlZkCBNS9hRCPIuoiDyHeQDJkP6cpguSN4OeL1rN/wdqVjy1phfs3wDk/SaBcVxYmf+fzWJv4MLUAXbz+OjU/fwcnAShEbtNtWxqjNhU=
+	t=1785827121; cv=none; b=YF57X1DgOWdsKEbNRO6Cve1VmvXhqnd/1QBCgzQEqvwlhW7om2a3cukwotc2gx6hxCLX+mp7iztLqIpzuRkznW3EcQbUh9VQmlsVQItCek54qsVl4qvt3WGpMSXvU3knErhE4shYNSfZU50aLzyaeO375N2G4t0lxYeazOuS/MQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785827121; c=relaxed/simple;
-	bh=fZoxxJ4x7NXh0pZaIaM0vmII88o2NUyW4opIw5tEX3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q3RlvszhTRo6x6QSLYDNJ2ugHJVqs7eECK5FfVzGeUa0GBBpu7ujKgPInCim9zadERsXDNfEo08PboNe+9VDCSMR45FkEtaehl9EL3cTT1zIAmWVOpIigpFgcpj8LhmKlIUtneaD9ezHQdVwRFhDul4E5QIofIPeIHDM1BdsFx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KfJPEmk5; arc=none smtp.client-ip=100.103.45.18
+	bh=yKkOBIWDLVzZbrFG3yiQLyXNfyi/iupP2ISmcl3yvxs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=i1VB/Jp0P1A2a//lDNfjxR7As0SrygOp5sEbj8h2mF+yGI9kR0FKmTfXJQtp+Z8dowBn9dQpCgR2pnrQgHwfU0mZnXAmEtNfvz9rp6alEfSyFXhY/r1ddpMY1uXl8RKT8IeOwoFzwOvMm7xA6kr/hPGT42M9Q3QOrz7G8orTKoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j3j3+7q0; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KfJPEmk5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA511F000E9;
-	Tue,  4 Aug 2026 07:05:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785827119;
-	bh=Js87OwqmTpS9sHRBiU0fT8MlwqmYlv79UzB9vD7n/gk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KfJPEmk5lhn7Ry7aZYrcliqPckiu93PDB64UKbTIbbUIZvBwt08XWRI0VARMd+1Ht
-	 TPnghCudxoFv5SZQY30r/cDbHV0U0SaGItHSZD5hX2Ouh/e/8Tl8gBUceB0UWGwbVg
-	 9DyDVEOihqBYO36a3RdSJXCRDyJ5c03ist4Qig2mEkQ9Nm4EzobLLDkBd+dcXB6lAe
-	 KBsheqqiODb8Ci6m5jS2WOGo3B/qbalLq5w7JMq04l+LjZHoB+3MLvYoFLgQKXvgyE
-	 /2YWUeMiMbkSToPRmiYjqDe1fLMZ9lLBbVzOurmOpQPycqfVFZSfcPq0OeELJ64tVD
-	 0QskokzevnlrA==
-Date: Tue, 4 Aug 2026 09:05:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH v3 1/2] dt-bindings: spi: nuvoton,ma35d1-qspi: Allow
- additional GPIO chip selects
-Message-ID: <20260804-smilodon-of-imminent-recreation-aa579b@quoll>
-References: <5769eae0-1b40-419f-8311-0d919bf619fa@sirena.org.uk>
- <20260803074913.1656675-1-cwweng.linux@gmail.com>
- <20260803074913.1656675-2-cwweng.linux@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j3j3+7q0"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38e347638adso4882201a91.0
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 00:05:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785827120; x=1786431920; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aUz1mWBpB/XSD0ZgFsInGJUX8h9hfweN14oEZfYpX44=;
+        b=j3j3+7q0fFi59wJIt2lJipImnOPmmhKt1LXwPGccfMMvwLiEvvz79ibCI9H00nOpHX
+         QTTFhKDbWb7p/kTqzv8VeLTGZJI1EMJobsIL+o0j0r/vcqggKLsBHXr/9WLWpMwndnxI
+         e3Sw76G+oiGDMBVvTKXmjUnI8NYgEKOwe/yl1/NN0ac/6ldakmWNOeSdrbeY/skobZA0
+         ANNMF379tdzlmQyi5dtH6OzuOBwsbKjn8vBG7Mb3Yg/xa5nDwbYpx2S0lPaYs2VFhLuF
+         i6tWVv5RQz5OlxBR1H5f3kTTFs0Uv2io1hXym63tsB4JTFt6/r3x7WejGBRINxfFwMjK
+         8jPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785827120; x=1786431920;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aUz1mWBpB/XSD0ZgFsInGJUX8h9hfweN14oEZfYpX44=;
+        b=bkVz3uKml9Fqo/dqA8Uwk+bzQ9OrxPI2ytlQ36JOhJvtU7A82GD9Es42hAFvQuQjuq
+         SBT+e/0mOoRO1GgFkqoNTnJGbA0jqqUWJt+S/0xpGzvzUZbMs95mweSPFP8a63MjwxUv
+         FghZapR0E1XBEgWX/BvJWhqVTVsKn1R7OE5VnsDSkSsyBk2hmodpi/+8STQyQurvEAtB
+         Bwgx+dNV/eAo5pN9oecr7ikPwqli2yixPe/wE6Y9vOvMjEnEQH9zGncrlpMY9WE+Q99l
+         qvq2T7B+A9jfaSCyOyJGdA4E32EBhvKCpoHXDwor7kSdrzf+oV4CIq3s8lH/m9VgyJ6N
+         pakQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqdgsK53T0PlkTAp+xj5f+bDhMQxyp15EogoCI4lG2sxE1XFdZhz4qRlDWkznKp7ZFibvehgE0ceZ4i@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1rBtvxnJpGty4NwuTaUhAt7OZjhzI/AdOKwJik+d4AbUcQXQn
+	ISEbnYnopW/CqV90K9l5t641e3mcN7mKCD0krn8sAVHD4vvTz5pYgv61
+X-Gm-Gg: AR+sD13seNTqsWgpEtnMjf84OWI0QSUzdVtYGOTiTaHGun33r0ePrqG29YQ0mP7pYlr
+	crl+p4sytghHBEFATgDP+TKUk6mG+VSxe65zbr7tIR3szM4k4RG2gpboFuUT6l3+UU5ZMJF4K0L
+	sexszMsSVE8HgZKlrKtfMD4nLyG7xCng0xG8RqR5FuLyM9IkCGbddXy3RCzwTxShVcMHnTktqai
+	pOzZEZ9Ka2E33YJQYbB0Hi1RJwMrmR+gmRc1bLNpP82BHwZMAH67t/l0WmeI0CbOFu3TCZnNVcL
+	LExIzdX5uRQb9TdMgThycm8gZPGyFoJhKxbat2wmMC4GbsmkYO5/osm8SasVqP1lKs9v4jrFPis
+	H8O04iSwIQL8CmHoCcQOz5ZRgLsL6/M0wZMV41rLbKeAhy0kzaN0DNEcX0ibyVozzA5tLQphxa0
+	6aYAYGeETHzsopXxKg1SyrLPsej+JIFGqK4SMnsMGazeaQC0aajufstC8Bt5+5gY0yFqcLczAWY
+	fqHdefwvc3//Sf3C8dUmDQ5tW4uRK2VgGqXGfayTve8L3M=
+X-Received: by 2002:a17:90b:4a11:b0:38d:dfd1:7a8 with SMTP id 98e67ed59e1d1-38fbc4055bdmr11835563a91.2.1785827120151;
+        Tue, 04 Aug 2026 00:05:20 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38febfd8ff8sm859815a91.4.2026.08.04.00.05.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 00:05:19 -0700 (PDT)
+From: Zi-Yu Chen <zychennvt@gmail.com>
+To: Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Zi-Yu Chen <zychennvt@gmail.com>
+Subject: [PATCH v3 3/3] arm64: dts: nuvoton: Add WDT node for MA35D1 SoC
+Date: Tue,  4 Aug 2026 15:03:51 +0800
+Message-Id: <20260804070351.1846165-4-zychennvt@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260804070351.1846165-1-zychennvt@gmail.com>
+References: <20260804070351.1846165-1-zychennvt@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260803074913.1656675-2-cwweng.linux@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 03, 2026 at 03:49:12PM +0800, Chi-Wen Weng wrote:
-> From: Chi-Wen Weng <cwweng@nuvoton.com>
-> 
-> The MA35D1 QSPI controller provides two native chip selects, but the
-> generic SPI controller binding defines num-cs as the total number of
-> native and GPIO-based chip selects.
-> 
-> Remove the maximum value of two from num-cs so that board device trees
-> can describe additional GPIO chip selects while retaining two as the
-> default chip-select count.
-> 
-> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
-> ---
->  Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-> index 377ccf4fb224..f837367e6d5f 100644
-> --- a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-> +++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-> @@ -30,7 +30,6 @@ properties:
->  
->    num-cs:
->      minimum: 1
-> -    maximum: 2
->      default: 2
+Add Watchdog Timer (WDT) device node to ma35d1.dtsi.
 
-Isn't num-cs the number of native chip selects?
+Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
+---
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index 7228ad4735b5..14fd17cfdc5a 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -82,6 +82,13 @@ soc {
+ 		#size-cells = <2>;
+ 		ranges;
+ 
++		wdt1: watchdog@40440000 {
++			compatible = "nuvoton,ma35d1-wdt";
++			reg = <0x0 0x40440000 0x0 0x100>;
++			interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&clk WDT1_GATE>;
++		};
++
+ 		sys: system-management@40460000 {
+ 			compatible = "nuvoton,ma35d1-reset", "syscon";
+ 			reg = <0x0 0x40460000 0x0 0x200>;
+-- 
+2.34.1
 
