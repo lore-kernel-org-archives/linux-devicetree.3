@@ -1,157 +1,316 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1003331ED1
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9162E346E64;
+	Tue,  4 Aug 2026 07:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785826891; cv=none; b=qriu8ixiX7vBuLtM4HI0+kooEx+HuSgr32+YmIDH95MvrkgTeI1ku3Ax+aGc/Px3dfsPm4wg5uR+DqPkGQWslEM/ohW6DZfVgQ22ltj2NEY0M04GFzilpEKHyZYgnczKlp6D8g4MJN+XG3TJWaBWN63WZ8GNPNnQK7Q1sVanCsc=
+	t=1785827013; cv=none; b=tUcurRl97fVjcK3p9GLwK89mc1LXDy8x5p4nVP8tvV0BgMC3p81U45sI8n2oSecnVqozB+54OOQ2erk+E5xnKbGt4VTYmzXIr2i4/4GxFA2sonoezy2SIJv5aX4fMJQFY9V+SgPRk5aDsXf2kjr6FH6JCv85g4ew0JFwAdTUoLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785826891; c=relaxed/simple;
-	bh=E40TWyP8g+5swBjtV7nKurth8qtxcOC91kEX7DQiYcU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YJpCPPWpaqZyF0GcbT52vWOTzoCouFhcdKP53TiAXC686Lx3/QEK9srhTnSLLi/+Ao2LXkoNaUmcr0eSBEpRF7y/Egz22x8MnIH7JcKNdP4xD2+1oE6wKNVoiILC+2vntvd6vIBZ0ST609BBjQrAPNPB/YOjWijD/l6NarwmCHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H7AMk10Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785827013; c=relaxed/simple;
+	bh=SXl9x3XJdU1MX2NkAIK2lxcRmc4lv4jqCvho6dXu9UQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mqQyyRgjIPyadtmfRAkFYfS9enMytTkhHEEaeS2mF6TA1JbgrMCiNdek+vQmXNyvSDH3n0HVfao8hjdlE3yiE5V0xE8m8Phtrlw0TQfiClQSFD/cLAGuve81Y27NyITVDX6og2s2yPZR5qUNLpaD7zU0LW7Eonhu/ii1ENY+Okc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=W6QE4Bat; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H7AMk10Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5313C1F000E9;
-	Tue,  4 Aug 2026 07:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785826889;
-	bh=Bw7Nkje76KVUciro0+irHsxOGcJcZn4SbiJHeSsE1Vo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H7AMk10ZNe5j1DGJP1UvyA5uImpTP4ffeZPEiUCZRknsS3pKc7r64tiERWmm1MnJR
-	 QJ2HVKB8ZP1A4pGPQ5mE2DqFoIsMhVSiLUrYwbEw08MmqTskshwrbruNG90J6Q3hNm
-	 O/sk9f7ArVeuIlTYOEeqkTWo9JA6tW4RLgIta0KWr7CEq+P4aZSDAveP1Oq44whNJN
-	 Djd+Te3NsZFl1/mKnYABS5EOII49E436CltpdUvYKZeiEfm9aU033NmWU5OoeFe60F
-	 rIQ2yzFZcj24wr3t0+qgu87JS8u34o3lX8mhy+E/TXAnUPn2gWLIyRoy2ZWh2uyfLT
-	 xFWRVdOC+vtgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/6] extcon: qcom-spmi-misc: match PM8xxx USB ID
- platform device
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexandre MINETTE" <contact@alex-min.fr>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804-mainline-send-v1-sending-v5-5-149dd4372ac8@alex-min.fr>
-References: <20260804-mainline-send-v1-sending-v5-0-149dd4372ac8@alex-min.fr>
- <20260804-mainline-send-v1-sending-v5-5-149dd4372ac8@alex-min.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 07:01:28 +0000
-Message-Id: <20260804070129.5313C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="W6QE4Bat"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674180Ne2284489;
+	Tue, 4 Aug 2026 07:03:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=napLm+LZy/p
+	Fr+OnICJl4lqg+etHB8gKz3NM0c79ygg=; b=W6QE4Bat2QewIVOPUe1fEQ7H5+9
+	pq9O1MTPkD6kBT113Iy/NB17NndIkQ3rvHyEuN80KCgEgs5SqlzHEhabxR04jdBT
+	df4zLUUIkZGPwqngGGloPgo5+7EvB3Lyjodobg2ChBurqA66V/clZ6plu8clXLHp
+	ciF0XSqh0zWgL/CV8VS02lKCwKY09NO7NBS9vqojFucoks0hW1gHBLC+JrQCflg8
+	ds6a4VvCKISJ7wZKMk6HK0I98zvGyZNFvmR1EewpIsBFsYW6OkMy1biQDzu2msjH
+	XP2zsymQj6J/fD32Fpk8sqp2RSfPwyRugurzUhRJQdfBJ8Q3O2V0whRIseQ==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fu5hqsbh4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 07:03:20 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67473Fnw031235;
+	Tue, 4 Aug 2026 07:03:17 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fs9vjhjnf-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 07:03:17 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67473F2l031211;
+	Tue, 4 Aug 2026 07:03:17 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 67473GUh031271
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 07:03:16 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 8D239643; Tue,  4 Aug 2026 12:33:14 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: [PATCH v7 6/7] ASoC: qcom: common: add DAI-node TDM slot helpers
+Date: Tue,  4 Aug 2026 12:33:06 +0530
+Message-Id: <20260804070307.117119-7-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com>
+References: <20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA1NCBTYWx0ZWRfX0vAO7myolai3
+ LCsac0vX1dylIqzeZ0X7DvTl/gU0/iAJO/IrZyxAEaD23FT4iGlnm8+6MqS7GxaNL+nWm8Xn5KT
+ OvTuwNSMUPqz+vANPTH3y0gJ6ovyhQM=
+X-Proofpoint-GUID: 2gS99BIckopRDM9O0RjGRJo7IHaZa6Hy
+X-Proofpoint-ORIG-GUID: 2gS99BIckopRDM9O0RjGRJo7IHaZa6Hy
+X-Authority-Analysis: v=2.4 cv=EoniaycA c=1 sm=1 tr=0 ts=6a718eb8 cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8 a=QQzHM_gvdhGi4T2-EgIA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA1NCBTYWx0ZWRfX0BXkWuTxfHZu
+ MMzOY4ltBnCxL/ZbxE3XqiDXg4JltedOPHkaP/FRvVBfg+7F/bL98E/oVjFSFCBN5vEMyUSNcoM
+ 2j7IeQItLRHcH0huYuzROZOTiS/K8jiGBQyRm3l7+VVPUF9RHfXjfwy4EpSRE/UQmm/Pj2wB64z
+ 9Vgt2x9LzvCJldPkFIeOarWRY3tubljR02DYzA+GuEeijWq/we6BB/Dttxwwz+6RocML38d6Tjw
+ VR4fsIRJAf1IB4R+1+k/yfsHr1Scfx3UfUZ0n5wp+rKty7kGimwbpo7Xw3tityjAnhbueg5Avye
+ HelimCaz6nUnVYGLdnRFm5xORgLH3jJxr4kwIYQgair9erCBM3kwhwkPtoQus4yNTWxBd7rwMBo
+ +oNi46pqU3Fiii7iJzrGK/BfzqZ+sYrPYg+ZcHasOxq3HO3uVvZA06grnjP2rMC7FzTP4Gk51zI
+ 2Gx6ab0ez5kj2uEZmnQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_01,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 lowpriorityscore=0
+ bulkscore=0 impostorscore=0 suspectscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040054
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Add common helpers to parse standard dai-tdm-slot-* properties from the
+CPU and codec child nodes of a backend DAI link and apply the result to
+the active DAIs.
 
-Pre-existing issues:
-- [High] Unbalanced IRQ wake state and lost error codes in suspend/resume d=
-ue to overwritten return value.
-- [High] Failure to read ID IRQ line state aborts VBUS detection entirely.
---
+QCOM machine drivers already use qcom_snd_parse_of() to build links from
+DT, but they lacked a shared helper to translate endpoint TDM properties
+into snd_soc_dai_set_tdm_slot() calls. Boards therefore had to carry ad
+hoc parsing or rely on non-standard DT properties.
 
---- Patch [5]: [PATCH v5 5/6] extcon: qcom-spmi-misc: match PM8xxx USB ID p=
-latform device ---
-commit b4c56e1cb1867cf0c94f9ba05c18446ffacc8bd5
-Author: Alexandre MINETTE <contact@alex-min.fr>
+The helpers parse endpoint masks, validate the shared slot count and
+slot width, and program CPU and codec DAIs with the resulting slot
+configuration. A cfg-based apply helper is provided for callers that
+already parsed the DT data and want to avoid a second DT traversal.
 
-extcon: qcom-spmi-misc: match PM8xxx USB ID platform device
+Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+---
+ sound/soc/qcom/common.c | 155 ++++++++++++++++++++++++++++++++++++++++
+ sound/soc/qcom/common.h |  14 ++++
+ 2 files changed, 169 insertions(+)
 
-The PM8xxx MFD registers the PM8921 USB ID detector as a platform device
-named "qcom-pm8xxx-usb-id". Its reused firmware node remains compatible
-with "qcom,pm8921", so it does not match the extcon driver's OF table.
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index f8782e5cfaae..d231024206db 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -23,6 +23,161 @@ static const struct snd_soc_dapm_widget qcom_jack_snd_widgets[] = {
+ 	SND_SOC_DAPM_SPK("DP7 Jack", NULL),
+ };
+ 
++static struct device_node *qcom_snd_get_link_node(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_card *card = rtd->card;
++	struct of_phandle_args args;
++	int ret;
++
++	if (!card->dev || !card->dev->of_node)
++		return NULL;
++
++	for_each_available_child_of_node_scoped(card->dev->of_node, np) {
++		struct device_node *cpu_np __free(device_node) =
++			of_get_child_by_name(np, "cpu");
++
++		if (!cpu_np)
++			continue;
++
++		ret = of_parse_phandle_with_args(cpu_np, "sound-dai", "#sound-dai-cells", 0,
++						 &args);
++		if (ret)
++			continue;
++
++		if (args.np == rtd->dai_link->cpus[0].of_node &&
++		    args.args_count == 1 && args.args[0] == cpu_dai->id) {
++			of_node_put(args.np);
++			return of_node_get(np);
++		}
++
++		of_node_put(args.np);
++	}
++
++	return NULL;
++}
++
++static int qcom_snd_parse_tdm_slot(struct device_node *np,
++				   struct qcom_snd_tdm_slot_cfg *cfg)
++{
++	memset(cfg, 0, sizeof(*cfg));
++
++	return snd_soc_of_parse_tdm_slot(np, &cfg->tx_mask, &cfg->rx_mask,
++					 &cfg->slots, &cfg->slot_width);
++}
++
++static int qcom_snd_normalize_tdm_slots(struct qcom_snd_tdm_slot_cfg *cpu_cfg,
++					struct qcom_snd_tdm_slot_cfg *codec_cfg)
++{
++	unsigned int slots;
++	unsigned int slot_width;
++
++	if (cpu_cfg->slots && codec_cfg->slots && cpu_cfg->slots != codec_cfg->slots)
++		return -EINVAL;
++
++	if (cpu_cfg->slot_width && codec_cfg->slot_width &&
++	    cpu_cfg->slot_width != codec_cfg->slot_width)
++		return -EINVAL;
++
++	slots = cpu_cfg->slots ?: codec_cfg->slots;
++	if (!slots)
++		return 0;
++
++	slot_width = cpu_cfg->slot_width ?: codec_cfg->slot_width;
++	if (!slot_width)
++		return -EINVAL;
++
++	cpu_cfg->slots = slots;
++	codec_cfg->slots = slots;
++	cpu_cfg->slot_width = slot_width;
++	codec_cfg->slot_width = slot_width;
++
++	return 0;
++}
++
++static int qcom_snd_parse_dai_tdm_slots(struct snd_soc_pcm_runtime *rtd,
++					struct qcom_snd_tdm_slot_cfg *cpu_cfg,
++					struct qcom_snd_tdm_slot_cfg *codec_cfg)
++{
++	struct device_node *link_np __free(device_node) = qcom_snd_get_link_node(rtd);
++	int ret;
++
++	if (!link_np)
++		return -EINVAL;
++
++	struct device_node *cpu_np __free(device_node) =
++		of_get_child_by_name(link_np, "cpu");
++	struct device_node *codec_np __free(device_node) =
++		of_get_child_by_name(link_np, "codec");
++	if (!cpu_np || !codec_np)
++		return -EINVAL;
++
++	ret = qcom_snd_parse_tdm_slot(cpu_np, cpu_cfg);
++	if (ret)
++		return ret;
++
++	return qcom_snd_parse_tdm_slot(codec_np, codec_cfg);
++}
++
++int qcom_snd_get_dai_tdm_slots(struct snd_soc_pcm_runtime *rtd,
++			       struct qcom_snd_tdm_slot_cfg *cpu_cfg,
++			       struct qcom_snd_tdm_slot_cfg *codec_cfg)
++{
++	int ret;
++
++	ret = qcom_snd_parse_dai_tdm_slots(rtd, cpu_cfg, codec_cfg);
++	if (ret)
++		return ret;
++
++	return qcom_snd_normalize_tdm_slots(cpu_cfg, codec_cfg);
++}
++EXPORT_SYMBOL_GPL(qcom_snd_get_dai_tdm_slots);
++
++int qcom_snd_apply_dai_tdm_slots_cfg(struct snd_soc_pcm_runtime *rtd,
++				     const struct qcom_snd_tdm_slot_cfg *cpu_cfg,
++				     const struct qcom_snd_tdm_slot_cfg *codec_cfg)
++{
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	struct snd_soc_dai *codec_dai;
++	int i;
++	int ret;
++
++	if (!cpu_cfg->slots)
++		return 0;
++
++	ret = snd_soc_dai_set_tdm_slot(cpu_dai, cpu_cfg->tx_mask, cpu_cfg->rx_mask,
++				       cpu_cfg->slots, cpu_cfg->slot_width);
++	if (ret)
++		return ret;
++
++	for_each_rtd_codec_dais(rtd, i, codec_dai) {
++		ret = snd_soc_dai_set_tdm_slot(codec_dai,
++					       codec_cfg->tx_mask,
++					       codec_cfg->rx_mask,
++					       codec_cfg->slots,
++					       codec_cfg->slot_width);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_snd_apply_dai_tdm_slots_cfg);
++
++int qcom_snd_apply_dai_tdm_slots(struct snd_soc_pcm_runtime *rtd)
++{
++	struct qcom_snd_tdm_slot_cfg cpu_cfg;
++	struct qcom_snd_tdm_slot_cfg codec_cfg;
++	int ret;
++
++	ret = qcom_snd_get_dai_tdm_slots(rtd, &cpu_cfg, &codec_cfg);
++	if (ret)
++		return ret == -EINVAL ? 0 : ret;
++
++	return qcom_snd_apply_dai_tdm_slots_cfg(rtd, &cpu_cfg, &codec_cfg);
++}
++EXPORT_SYMBOL_GPL(qcom_snd_apply_dai_tdm_slots);
++
+ int qcom_snd_parse_of(struct snd_soc_card *card)
+ {
+ 	struct device *dev = card->dev;
+diff --git a/sound/soc/qcom/common.h b/sound/soc/qcom/common.h
+index 48b114eb46a5..c1deac109f24 100644
+--- a/sound/soc/qcom/common.h
++++ b/sound/soc/qcom/common.h
+@@ -9,7 +9,21 @@
+ 
+ #define LPASS_MAX_PORT			(LPI_MI2S_TX_6 + 1)
+ 
++struct qcom_snd_tdm_slot_cfg {
++	unsigned int tx_mask;
++	unsigned int rx_mask;
++	unsigned int slots;
++	unsigned int slot_width;
++};
++
+ int qcom_snd_parse_of(struct snd_soc_card *card);
++int qcom_snd_get_dai_tdm_slots(struct snd_soc_pcm_runtime *rtd,
++			       struct qcom_snd_tdm_slot_cfg *cpu_cfg,
++			       struct qcom_snd_tdm_slot_cfg *codec_cfg);
++int qcom_snd_apply_dai_tdm_slots_cfg(struct snd_soc_pcm_runtime *rtd,
++				     const struct qcom_snd_tdm_slot_cfg *cpu_cfg,
++				     const struct qcom_snd_tdm_slot_cfg *codec_cfg);
++int qcom_snd_apply_dai_tdm_slots(struct snd_soc_pcm_runtime *rtd);
+ int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
+ 			    struct snd_soc_jack *jack, bool *jack_setup);
+ int qcom_snd_dp_jack_setup(struct snd_soc_pcm_runtime *rtd,
+-- 
+2.34.1
 
-Add a platform device ID so the existing extcon driver binds to this
-device and consumes its named USB ID interrupt.
-
-> diff --git a/drivers/extcon/extcon-qcom-spmi-misc.c b/drivers/extcon/extc=
-on-qcom-spmi-misc.c
-> index afaba5685c3dc..e16c109b553e2 100644
-> --- a/drivers/extcon/extcon-qcom-spmi-misc.c
-> +++ b/drivers/extcon/extcon-qcom-spmi-misc.c
-> @@ -204,8 +204,15 @@ static const struct of_device_id qcom_usb_extcon_dt_=
-match[] =3D {
->  };
->  MODULE_DEVICE_TABLE(of, qcom_usb_extcon_dt_match);
-> =20
-> +static const struct platform_device_id qcom_usb_extcon_id[] =3D {
-> +	{ "qcom-pm8xxx-usb-id" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(platform, qcom_usb_extcon_id);
-> +
->  static struct platform_driver qcom_usb_extcon_driver =3D {
->  	.probe		=3D qcom_usb_extcon_probe,
-> +	.id_table	=3D qcom_usb_extcon_id,
->  	.driver		=3D {
->  		.name	=3D "extcon-pm8941-misc",
->  		.pm	=3D &qcom_usb_extcon_pm_ops,
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential problem in the=20
-suspend/resume path that might cause unbalanced IRQ wake disables or leaked=
-=20
-wake_depth refcounts:
-
-drivers/extcon/extcon-qcom-spmi-misc.c:qcom_usb_extcon_suspend() {
-    ...
-	if (device_may_wakeup(dev)) {
-		if (info->id_irq > 0)
-			ret =3D enable_irq_wake(info->id_irq);
-		if (info->vbus_irq > 0)
-			ret =3D enable_irq_wake(info->vbus_irq);
-	}
-
-	return ret;
-}
-
-If enable_irq_wake(info->id_irq) fails, the error code is stored in ret.
-However, if enable_irq_wake(info->vbus_irq) succeeds, it returns 0 and
-overwrites the previous error code in ret.
-
-If this happens, the system will suspend and eventually call
-qcom_usb_extcon_resume(). In the resume path, disable_irq_wake(info->id_irq)
-will be called on an IRQ that was never successfully enabled for wake, which
-triggers a kernel WARN for an unbalanced IRQ wake disable.=20
-
-Conversely, if id_irq succeeds but vbus_irq fails, ret returns an error to
-the PM core. The suspend is aborted, meaning qcom_usb_extcon_resume() is
-skipped for this device. This prevents disable_irq_wake(info->id_irq) from
-being called, permanently leaking the IRQ's wake_depth refcount.
-
-Should the return codes for these two wake IRQs be handled independently?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I also noticed a potential
-logic issue in how cable detection is handled:
-
-drivers/extcon/extcon-qcom-spmi-misc.c:qcom_usb_extcon_detect_cable() {
-    ...
-	if (info->id_irq > 0) {
-		/* check ID and update cable state */
-		ret =3D irq_get_irqchip_state(info->id_irq,
-				IRQCHIP_STATE_LINE_LEVEL, &state);
-		if (ret)
-			return;
-    ...
-}
-
-If reading the ID IRQ line state fails (for instance, due to an SPMI bus
-transaction error), the function returns immediately.=20
-
-Since the VBUS state detection happens after this in the same function,
-returning early completely aborts the independent VBUS detection logic. This
-means USB insertions and removals could be completely missed by the extcon
-driver just because of a read failure on the ID pin line.
-
-Would it be better to let the VBUS detection proceed even if the ID line
-state read fails?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-mainline-s=
-end-v1-sending-v5-0-149dd4372ac8@alex-min.fr?part=3D5
