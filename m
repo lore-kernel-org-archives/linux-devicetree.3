@@ -1,108 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05C5481A9E
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AF746AA85;
+	Tue,  4 Aug 2026 17:12:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785863552; cv=none; b=M23ufhDeTCWzQxqwKDQptRPrgyetkbBf42ThMrqR9DPIvaHBtGytHbdoh5T5HWY+y+lNJ0KRv9M7FYofsJSbC2qwxrDsOkGYsCK50RYUSUiTyOWWnJ6CdPVoumPcaqSJw+UOSj7WwuQlajLkhT9BOXt5azwfsNbg9uD43sa8Jxk=
+	t=1785863564; cv=none; b=YXvEaPdFkRs+QFb2G+5PTry9/z2cvFw8Lrp69iEXNsFoOii9JgOaxqTmqmYUWzj2zx2RtsjRsKme/0k+PNjazd8CVXQQfoXYsFkZjmPvtyMFcWTaKAwUMuqPqu5lXGXPXnfJeJVNDAlT15xuzgWrH7F2L9eNGvRwYSv082zhCDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785863552; c=relaxed/simple;
-	bh=P15mhGTAHN03UUxTt2ICvG5dzMPjnehVnICxKR6Ku34=;
+	s=arc-20240116; t=1785863564; c=relaxed/simple;
+	bh=IV+cODVwN5mY9v3YGDDTgn/T0KQ0IZOa6njsPzY2tVk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=byY4tyn13bKSXb+96UbeSUGZKdQ6hL2ce2bup3Bq1CGvVX8C1YBoE1toJkTkvNZwXaTjU/MDFt8/UgDJKDYLmsbu1g2tfRAbl8qBU4RA92Gq0YrAKlPaSTk1hd9VMUf0D0YatbdFugwSj9W8aMhx5c7IO4W2H5YuVB06UmldeJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L2aPrhJK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hlqr68IFHZjYHluIUM3/PRdUx0GmG05PnqkS/YEhaeFy2de/TRvSZyDKoE0tVEcmdF7HsE0NThX6p9NMkS0PzWWUNZG38Gau6TiFXy6Ds/Lh0KEVJAmJkfCGniz7oY886ylqgXsc/9rP+Ihe0xoV5XI3PZzsT3i1rtfmbZgoTBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRzmQfPf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L2aPrhJK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BF9E1F000E9;
-	Tue,  4 Aug 2026 17:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRzmQfPf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368C01F00A3A;
+	Tue,  4 Aug 2026 17:12:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785863535;
-	bh=doSS1NYhXqXud9rGZz+Q87BCc/R8b0aSLwfe/tMIONw=;
+	s=k20260515; t=1785863551;
+	bh=IV+cODVwN5mY9v3YGDDTgn/T0KQ0IZOa6njsPzY2tVk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L2aPrhJKjqGN6l76GDXQvbZ6r4GvCGy4i/AZiwZU1Ljf4Aq04pVtTmx8iZmSBu0ai
-	 +lXy27B4u5ojv8i/DhBlLTDn7UXxJ/Z4HNshl9SqFdtoJk1cTL5c8zzbtAit/oqnep
-	 mPr+YdXr0hK5mQv2slE15/EDEZ7go6AqojEIHI5boIOJ6PZWbD+SQPzCR2gjV7dmH7
-	 /D1ChOk/ySi0urAB3BEUlyRhk5r7zo3q6C4lu7zCkaWDXgLPt0Is/UcZpECWzYSTgn
-	 8xmxXD37xN5ZX/hdCvCZKtF3Og5nD0sgyrOdwavQ2TfM6+vdlHODVTKScMD+AmTWLi
-	 T63hhfW4U6ZiA==
+	b=bRzmQfPfRhAJmKCAepvqxxqwtzdxf5xr59g2HSFW6o4VYKLjxkUbvyZukApLhplxq
+	 xkeGoTYl3iNxHkzUqAqjRyZ5sw/GYBp7GxO0M+2eWE8fInN+NqTci27bI/jlQ0N+d7
+	 4StdPwHDa76sWA3FZiaEuh/m76L5RxLabsjP/c6/Rh9xHiHMBSSMpYtLyJraW+cB8e
+	 mIewjMjfjK6XcMJNxfbZwozs5g19QqktOJ1C83G8ZRdPpict+KGw9oLFrQtKd9cRRY
+	 XGwJvI+4cn9UnCdlrA6HfmnKbu0EB0dDKyH68vo7oLg5GJqvQK1nhWG+dbuGjBUoyo
+	 IUZd6OUSe0lBg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 09/11] clk: realtek: Add RTD1625-CRT clock
- controller driver
+Subject: Re: [PATCH v3 2/4] ARM: dts: ti: am335x-shc: Remove unused
+ ti,no-init property
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260804163807.1285869-10-eleanor.lin@realtek.com>
-References: <20260804163807.1285869-1-eleanor.lin@realtek.com>
- <20260804163807.1285869-10-eleanor.lin@realtek.com>
+To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260804-ti-omap-rtc-v3-2-ba3bbd8af570@gmail.com>
+References: <20260804-ti-omap-rtc-v3-0-ba3bbd8af570@gmail.com>
+ <20260804-ti-omap-rtc-v3-2-ba3bbd8af570@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 17:12:14 +0000
-Message-Id: <20260804171215.5BF9E1F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 17:12:30 +0000
+Message-Id: <20260804171231.368C01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Nullifying `regmap` in `rtk_clk_remove` introduces a race conditio=
-n that leads to a NULL pointer dereference if the driver is unbound via sys=
-fs.
---
+> The 'ti,no-init' property is a legacy, undocumented boolean property
+> that is entirely unhandled by the rtc-omap driver.
+> Remove this unnecessary property from dts.
+>=20
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 
---- Patch [9]: [PATCH v12 09/11] clk: realtek: Add RTD1625-CRT clock contro=
-ller driver ---
-commit 9b8b892d0fe2cab055b1375b43022988ae2354a2
-Author: Cheng-Yu Lee <cylee12@realtek.com>
-
-clk: realtek: Add RTD1625-CRT clock controller driver
-
-Add support for the CRT (Clock, Reset, and Test) domain clock controller
-on the Realtek RTD1625 SoC. This driver acts as the parent device and
-registers the reset controller as an auxiliary device on the auxiliary bus.
-
-> diff --git a/drivers/clk/realtek/clk-rtd1625-crt.c b/drivers/clk/realtek/=
-clk-rtd1625-crt.c
-> new file mode 100644
-> index 0000000000000..982ef73785ac5
-> --- /dev/null
-> +++ b/drivers/clk/realtek/clk-rtd1625-crt.c
-
-[ ... ]
-
-> +static struct platform_driver rtd1625_crt_driver =3D {
-> +	.probe =3D rtd1625_crt_probe,
-> +	.remove =3D rtk_clk_remove,
-
-[Severity: High]
-Does adding this remove callback and allowing sysfs unbind expose a NULL
-pointer dereference race condition?
-
-Because the clocks are registered using devm_clk_hw_register() in
-rtk_clk_probe(), they are unregistered during devres cleanup, which
-happens after rtk_clk_remove() completes.
-
-Looking at rtk_clk_remove() in clk-rtk-common.c, it explicitly sets the
-regmap to NULL:
-
-    for (int i =3D 0; i < desc->num_clks; i++)
-        desc->clks[i]->regmap =3D NULL;
-
-If a concurrent clock operation occurs (like reading the debugfs
-clk_summary) between rtk_clk_remove() returning and the devres cleanup
-finishing, will CCF invoke the clock callbacks with a NULL regmap and
-cause a kernel panic in regmap_read()?
-
-> +	.driver =3D {
-> +		.name =3D "rtk-rtd1625-crt-clk",
-> +		.of_match_table =3D rtd1625_crt_match,
-> +	},
-> +};
-> +
-> +module_platform_driver(rtd1625_crt_driver)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804163807.1285=
-869-1-eleanor.lin@realtek.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-ti-omap-rt=
+c-v3-0-ba3bbd8af570@gmail.com?part=3D2
+
