@@ -1,83 +1,157 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AEC38C401;
-	Tue,  4 Aug 2026 18:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649F226FA60
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 18:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785866912; cv=none; b=bXUEx7Bb2ITSgObhOFtr04BxS0TJeIUX4V+kUtu6iHDGHO5cDpmKNyJTixAKVBVr92KetgxbYiEhtLNi5Mx5juJz1SKhM0UH611u0Nr0gUcwS3t8xRxAXyfzd4SGOVnpqJwxIudvWv+agCxvJ6dU3n4Q6x2D3t9jBkUQPRb+6YA=
+	t=1785867082; cv=none; b=CmDzzaLHy3MPw29ZBLrgwdt/RJmLWkVkPnYXDqXaXgHwMXbcDPUl04Fpfl+vrkluut7htAVingIYu62cThD8jHsl9wZgqiHFhjc+Ferf6JdJXfQJSOfn89XztoID2zDRQJpOGvb9J4yiPBY+RLW61gWwM2x4CxCXMFDW7djplGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785866912; c=relaxed/simple;
-	bh=AFXKGqywNtt35BVbUbavYl6E98YlXgxG2GHuWS9cNF4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dwyx6t0V/KeMGIQ5/h06ihKnFK/g+Fy7LUS2g+5KraZUIh8sMrpaPXCWkIs/RZyfw+jTQBahe1743hPb7etjGdEHEv5IXeESPQNNQ9AW+PeKinds0c0c4kaCt39lzk39JiQBd0RU6IjxazMCuyVpUS4QnYr2sHUMeDjEjKzYl7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=QKFRQvVv; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785867082; c=relaxed/simple;
+	bh=VoUdY2wbXfgYmIGQ6+DYjO7uNq2p2ALCzG59zvHqoq8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MtZQa+fx72PEIzLPswgPTqv3tEJHlkhNXWDWimP5ZxgQjteuuGyHHc5qSKmW/ph0JPwsRGq3JX/1ARWNHLao+I2hwY0hwOdhjLUjossA/wGvcrBhoeUJVo8vULpQZ8j3EEw5MGrm/tSGThWpWRdeVBGdU4ZxvaYW1iXnu8pbKm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkcdQD2X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="QKFRQvVv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=8kfQfoeExNgnaWTd3IYmnlXLicSQbdbr3t2fr0Mx4mY=; b=QK
-	FRQvVvF5NL4EtRtchB6oA4eRCmDVREx6FctONxJpn/SYnEo1G0gGDA6e+5/4rowycif7vu30Mi6SZ
-	3DIX9yzFJ3+ZEaNefyPhp+jliV32T02QzA3PTLfKPtvp4WI33zqY0pjHqDf4A+B8oH+feBnu4v2Wl
-	THy9dv3k2h3+PEc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wrJYp-00G2CU-1C; Tue, 04 Aug 2026 20:08:19 +0200
-Date: Tue, 4 Aug 2026 20:08:19 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 0/3] net: mdio: support dynamic OF device
- changes
-Message-ID: <2536faa6-0888-47e1-be99-127e098929fa@lunn.ch>
-References: <20260803-submit-mdio-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com>
- <c1c5ce0f-2c65-4c19-a525-cdd2ef33b6e4@lunn.ch>
- <CADvTj4o+B933k4TUshgcvZ4tENDbit3fHEBtwy5ODpsf60osyw@mail.gmail.com>
- <c6f001d6-b9db-4434-8468-4705d62ffdbb@lunn.ch>
- <CADvTj4rA5QaeccDvSP2qrseFKv+7MKhj=pRWdSnNzKKjMCdK6g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkcdQD2X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD0C1F00A3F
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 18:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785867081;
+	bh=FikSavZljZZOAC3I+kpHBOLIYadBEAPg6f3CrNkkcDc=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=MkcdQD2XTs2CHy1GrmSqZx33oVJSb9cBzXys9Br0JLtRXiOv+hCGQti21OQLIP1yA
+	 kZK4EpG9ErpttoY0LXf5/NfIuAI7Yjm6fCsD+8oD6lIXs63mVyR0HwGMGkgon58vX6
+	 NxGp5ze1hy1vlV1DWOosSrFM+5jbLBdFCNAwRxJQo3klcIUFMt94JlQHa5VNYRLNTN
+	 AYD6w2yIP+rl3YsvzIlQQ0astb3SkjMQ94dK5LtZSfsGushbvL38pDhFzvlsR3irJI
+	 XIU6NoZ7Pm7X9re0Mgbu/NXKovXlxgA4KeeT8tovdq3kiIMGzl/el+CQtapVl+noOi
+	 G0UZCENVFJPYQ==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39fa5e3a428so1717901fa.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 11:11:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr4DxHyMBSyIwrIAv4lnvYG7g57tek/2it+94xN6Tfg5HBouDRfbMcazDDrTdTBTeLMmiWs8vScvqyy@vger.kernel.org
+X-Gm-Message-State: AOJu0YytHyQjKdgRyM5Dd4AOQmzNgHY5U6sqb6vIz2KaBLrsHzXE/y0F
+	c50Tjz0VzaNlaM26qP+p4G5nhZ1aETpzJ60YArCU9eYuEXYy4m/TrdH4zTybWcgAk9d+WkVldH5
+	VrMELstaPPwrdAo6PxaPviUzalaAo85Y=
+X-Received: by 2002:a05:651c:b08:b0:38e:8357:c5ae with SMTP id
+ 38308e7fff4ca-39fba35d196mr1683601fa.9.1785867079728; Tue, 04 Aug 2026
+ 11:11:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADvTj4rA5QaeccDvSP2qrseFKv+7MKhj=pRWdSnNzKKjMCdK6g@mail.gmail.com>
+References: <20260721223956.13665-1-andre.przywara@arm.com>
+ <c539e5c4-f21e-49a1-b0e3-d35f42893fc4@arm.com> <CAGb2v67CGcaQmSz_tTbSTQ7dzfCV2+7i5t_34iHKmyU05h-yRQ@mail.gmail.com>
+ <20260803153519.262827-1-juanmanuellopezcarrillo@gmail.com> <CAGb2v64Ty3HkBbb5A=ZL6QUAVD6bugG0hcYykCmh-KUsVwzwRw@mail.gmail.com>
+In-Reply-To: <CAGb2v64Ty3HkBbb5A=ZL6QUAVD6bugG0hcYykCmh-KUsVwzwRw@mail.gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Wed, 5 Aug 2026 02:11:08 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64bTO-uG=QrtVDfHF=qnGtF5LMitagD1zfNEYSAqOzvXQ@mail.gmail.com>
+X-Gm-Features: AUfX_mwiL0nkLH-Wm-w7-N2txYVunL-uAPwAUoIXkwVJGRbj_F5IqUZJ_VioieY
+Message-ID: <CAGb2v64bTO-uG=QrtVDfHF=qnGtF5LMitagD1zfNEYSAqOzvXQ@mail.gmail.com>
+Subject: Re: [PATCH] pinctrl: sunxi: A523: fix voltage withstand encoding
+To: =?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?= <juanmanuellopezcarrillo@gmail.com>
+Cc: andre.przywara@arm.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 04, 2026 at 09:10:30AM -0600, James Hilliard wrote:
-> On Tue, Aug 4, 2026 at 6:54 AM Andrew Lunn <andrew@lunn.ch> wrote:
+On Mon, Aug 3, 2026 at 11:51=E2=80=AFPM Chen-Yu Tsai <wens@kernel.org> wrot=
+e:
+>
+> On Mon, Aug 3, 2026 at 11:37=E2=80=AFPM Juan Manuel L=C3=B3pez Carrillo
+> <juanmanuellopezcarrillo@gmail.com> wrote:
 > >
-> > > > If this was a hat on top of a SBC, with an EEPROM indicating what the
-> > > > hat was, then maybe DT overlays would make sense. But from what you
-> > > > have said, this is a fixed PCB design, nothing hot/cold plugable.
-> > >
-> > > Some H616/H618 boards have the ethernet port on an expansion board:
-> > > http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/2W-expansion-board.html
+> > Hi Andre, Chen-Yu,
 > >
-> > I don't see a list of pins which go across the connector. Does the
-> > MDIO bus go to the expansion board? Is the PHY on the expansion
-> > board. It all looks passive to me.
-> 
-> Pins are listed under "24Pin expansion board interface pin description":
-> https://orangepi.net/wp-content/uploads/2023/10/OrangePi_Zero2w_H618_User-Manual_v1.1.pdf
+> > > So can you please double check this?
+> >
+> > Checked on my Orange Pi 4A (T527, GMAC1, Motorcomm YT8531 PHY). You are=
+ right:
+> > PJ10 is not needed on this board.
+> >
+> > PJ10 function 5 is RGMII1-EPHY-25M, "25 MHz Output for GMAC PHY" in the=
+ A523
+> > manual v1.4. The RGMII1 bus itself is the other 15 pins (PJ0-PJ9, PJ11-=
+PJ15),
+> > which mainline already has. My claim came from a stale comment in my tr=
+ee, from
+> > when I was chasing the dead RX. It is gone now and my rgmii1 group matc=
+hes
+> > sunxi/for-next. The Tested-by I sent on 22 July was already measured on=
+ plain
+> > mainline without PJ10, so what revived RX here was your withstand fix a=
+lone.
+> >
+> > > Those settings differ from what's in mainline. What are the results w=
+ith
+> > > those delays?
+> >
+> > Measured on the same board, DTB-only changes, TCP for 10 s per directio=
+n:
+> >
+> >   A  mine (rgmii-rxid, MAC tx 100 / rx 0, PHY rx 1900 ps)
+> >         TX 0.938-0.940   RX 0.929-0.930 Gbit/s
+> >   B  mainline delays (rgmii-id, MAC tx 0 / rx 300, none on the PHY)
+> >         TX 0.941   RX 0.929 Gbit/s
+> >   C  the Ethernet path exactly as mainline has it
+> >      (B, minus motorcomm,auto-sleep-disabled, minus PJ10)
+> >         TX 0.941   RX 0.929 Gbit/s
+> >
+> > All three saturate the link, with rx_errs, rx_drop, tx_errs and tx_drop=
+ at 0
+> > over roughly 1.6 million packets each. So mine are just other values th=
+at
+> > work, and I am dropping them in favour of mainline's.
+> >
+> > > ethernet on the A523 has other problems. The performance is really ba=
+d
+> > > (even RX), and there are errors or packet drops.
+> >
+> > I do not see that on this board, not even with C, which is mainline's E=
+thernet
+> > DT unmodified. I also checked the YT8531 auto-sleep: the first packet a=
+fter 5,
+> > 10, 20, 30 and 45 s of silence came back in 0.21-0.24 ms, no losses.
+> >
+> > The kernel is my own 6.18-based tree, although stmmac and motorcomm.c a=
+re
+> > stock, and this is one board with one PHY. Chen-Yu, which board and whi=
+ch MAC
+> > are you seeing it on, and how do you measure it? If it is another board=
+ or
+> > GMAC0, I can try to reproduce it here.
+>
+> On my Orange Pi 4A, running iperf3 between it and another Orange Pi 5 Plu=
+s
+> (which has Intel PCIe NICs) as the server:
 
-So just the lines after the PHY, basically the UTP lines without the
-twist.
+Correction, the Orange Pi 5 Plus has Realtek 2.5G NICs, not Intel.
 
-So please stop wasting my time by making invalid points.
-
-   Andrew
+>
+>   - 4A as client: ~180 Mbps
+>   - 4A as client but with reverse transfer (-R): ~520 Mbps
+>
+> Now if I do the same test between the Orange Pi 5 Plus and my virtual mac=
+hine
+> on an AMD AI 370 Pro based NAS, I can saturate the link up close to 2.5 G=
+bps.
+>
+> If I use a H618-based Orange Pi Zero 3 as the client and the Orange Pi 5 =
+Plus
+> as the server:
+>
+>   - Zero 3: ~920 Mbps
+>   - Zero 3 with reverse: ~280 Mbps
+>
+> And I think my Cubie A5E and Avaota A1 fared even worse.
+>
+>
+> Something is definitely off. I don't know what though.
+>
+>
+> ChenYu
