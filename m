@@ -1,68 +1,116 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B610F35DA55;
-	Tue,  4 Aug 2026 12:55:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799523E2740;
+	Tue,  4 Aug 2026 12:55:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785848107; cv=none; b=u/fhlpXYhFhW6GDd4FVCTE74N+cEDg46D34lhocf96DL97I8HGFO/LDWc3y/SEf3UXUIanvUj3nv90Ttr2aTU7Yk8tPDLxTHx/B5h4NiS9hwrr8sbEiHwG5srzNm4aHrrrCazxMtFVr8UqmAPVrrt/hfbQQqqJWk+kZeqHQgJn8=
+	t=1785848145; cv=none; b=m7AB5ib4TPE/9ya/ZFT5RaJ9/ymZebz7/xswNAw+fAQWQbkqaivh3CLY65aciE6ellrbhegg4a3uy64Lt/9KdTyOUI2pCeFf46RME3/pP77Yf4Q7dbw61nkfCrjblHRUd7RKbg3aprWLq5IvBZTpX6xh59fmYV2+TAtbsyNesY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785848107; c=relaxed/simple;
-	bh=v9uZf/K4UlFQAcjvYXyGRvHzQHuBM1nW2X87AA4JBV0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TSIYK2f3QYrVtyHTP+udGn0q4it7QBfGB6kyDH71RdG+wuwjrZG2PBxOxSepPlh9GEJ+abCSv9KbgC+yYBTKAW+IkqTGVLkhh+qquyVrnHAKNHrXfFO3A0HypstgzW2BzQPVS7LcPI9TeQnrkEbv/4z3+trxVPN1pxPCnrvggRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=6Cn1pAy0; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1785848145; c=relaxed/simple;
+	bh=U0XNCwgE529iAqicn2/HvYaG7j0IrWjWmVyu6ke2pv8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eZz0XAY6z7zOD25caBzdc2ATf8lL9m8YRLkPNJDCsSmT2uTVo4jfUDJm5/2uSftAahI1smMDm3aXOLnFZOiIDTljP35McQHjm6UQst7YWT0Y+Mvo0McmuplgbSrZWkI/NbVnaFtk2Sp0U2DV8z99G0Sq08NxaNNn5MTZRj/0UPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iF2oBTHk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="6Cn1pAy0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=HKFoSc4WyjuzV3/KLrCz1zhVhYsYspAY5SPlxV8GVgk=; b=6Cn1pAy0rPFo/yJpQ9BOc/aCmx
-	K+MMUgTqo4AfbyD64CznVJTTiVtUeidb0dVA1BubShVzybhawuk6bwjECm0SKkUZvQy6CJIg9x9LZ
-	5hWo9FIMHfGgN/Gnb5cVD42A4cAvf52dOTjKT91Ns9kFbF2P/RIsf9g4Gtokj2G+9nZk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wrEfV-00FzLN-E0; Tue, 04 Aug 2026 14:54:53 +0200
-Date: Tue, 4 Aug 2026 14:54:53 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v2 0/3] net: mdio: support dynamic OF device
- changes
-Message-ID: <c6f001d6-b9db-4434-8468-4705d62ffdbb@lunn.ch>
-References: <20260803-submit-mdio-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com>
- <c1c5ce0f-2c65-4c19-a525-cdd2ef33b6e4@lunn.ch>
- <CADvTj4o+B933k4TUshgcvZ4tENDbit3fHEBtwy5ODpsf60osyw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iF2oBTHk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3741E1F000E9;
+	Tue,  4 Aug 2026 12:55:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785848140;
+	bh=9JyJ9i6QvV2lZd8/uKxsmu1fM0BkijsD1S531bWDnCI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iF2oBTHk4DcwdEmikw2VWz3UaS75dAR+E+s4RSCqi/E7o9TO8gZzvh+KKfQJlpRPP
+	 ODQktB4fAota8L8HgZ7uvya/rVSgULu/xRlAqyk8QHEIhT58vfUsqsfWMogjnlFJSn
+	 44Yv3/mSEVMsAXXlZW4pIvV+pDEOud2IDm23sidGZV0RptNv8xDd/qp5xogbPnmOA6
+	 97fyLEH3fn7DQT2XcoqYv82x4i0cmH1+Oy4LFWCdrE+W/t9wALpFw9xZah+jET8fR+
+	 cA391CSHZNz1EQx8KSFjQqf++aKpHqmcq9TGYoBr7UVutshB2IoiYeUgHSK67bYHfc
+	 wIz5T+/YUwqSg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/5] thermal/drivers/loongson2: Move thermal_ops to
+ chip_data for SoC scalability
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Binbin Zhou" <zhoubinbin@loongson.cn>
+Cc: mfd@lists.linux.dev, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <7fe74a58c164da2e7a897598142f28df0e5ef0c4.1785829933.git.zhoubinbin@loongson.cn>
+References: <cover.1785829933.git.zhoubinbin@loongson.cn>
+ <7fe74a58c164da2e7a897598142f28df0e5ef0c4.1785829933.git.zhoubinbin@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 12:55:39 +0000
+Message-Id: <20260804125540.3741E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADvTj4o+B933k4TUshgcvZ4tENDbit3fHEBtwy5ODpsf60osyw@mail.gmail.com>
 
-> > If this was a hat on top of a SBC, with an EEPROM indicating what the
-> > hat was, then maybe DT overlays would make sense. But from what you
-> > have said, this is a fixed PCB design, nothing hot/cold plugable.
-> 
-> Some H616/H618 boards have the ethernet port on an expansion board:
-> http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/2W-expansion-board.html
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-I don't see a list of pins which go across the connector. Does the
-MDIO bus go to the expansion board? Is the PHY on the expansion
-board. It all looks passive to me.
+Pre-existing issues:
+- [High] The driver misuses the `clamp()` macro when setting temperature th=
+resholds, failing to bound the requested trip values to the hardware's supp=
+orted range `[-40, 125]`.
+--
 
-	Andrew
+--- Patch [2]: [PATCH v4 2/5] thermal/drivers/loongson2: Move thermal_ops t=
+o chip_data for SoC scalability ---
+commit 1f38b1d9f1db90805ef5765872a4c9de0db11e9c
+Author: Binbin Zhou <zhoubinbin@loongson.cn>
+
+thermal/drivers/loongson2: Move thermal_ops to chip_data for SoC scalability
+   =20
+In preparation for supporting additional Loongson SoCs, this commit
+relocates the thermal zone device operations pointer from the probe
+routine to the per-SoC chip_data structure. This eliminates the need to
+add conditional branches in probe() when a new SoC is introduced.
+
+> diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongs=
+on2_thermal.c
+> index 5f47fa51fb907..1a8ca2cd06f1b 100644
+> --- a/drivers/thermal/loongson2_thermal.c
+> +++ b/drivers/thermal/loongson2_thermal.c
+[ ... ]
+> @@ -160,7 +156,7 @@ static int loongson2_thermal_probe(struct platform_de=
+vice *pdev)
+>  	loongson2_thermal_set(data, 0, 0, false);
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but does loongson2_thermal_set() misuse the
+clamp macro when setting temperature thresholds?
+
+Looking at drivers/thermal/loongson2_thermal.c:loongson2_thermal_set(), the
+arguments to clamp() appear to be in the wrong order:
+
+	/* Set low temperature threshold */
+	loongson2_set_ctrl_regs(data, clamp(-40, low, high), true, enable);
+
+	/* Set high temperature threshold */
+	loongson2_set_ctrl_regs(data, clamp(125, low, high), false, enable);
+
+Because the clamp macro arguments are swapped (using clamp(-40, low, high)
+instead of clamp(low, -40, 125) and clamp(high, -40, 125)), values like a
+high trip point > 155C are not bounded to 125.
+
+If root sets a thermal trip point > 155C via sysfs, adding HECTO (100) to
+156+ results in a value > 255.
+
+When this is written to the 16-bit hardware register, can it overflow into
+bit 8 (the enable bit), overwriting the control state and truncating the
+threshold to an incorrect value?
+
+Could this cause immediate and continuous hardware thermal alarms (IRQ
+storm), rendering the system unusable?
+
+>  	for (i =3D 0; i <=3D LOONGSON2_MAX_SENSOR_SEL_NUM; i++) {
+> -		tzd =3D devm_thermal_of_zone_register(dev, i, data, thermal_ops);
+> +		tzd =3D devm_thermal_of_zone_register(dev, i, data, data->chip_data->t=
+hermal_ops);
+>  		if (!IS_ERR(tzd))
+>  			break;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785829933.gi=
+t.zhoubinbin@loongson.cn?part=3D2
