@@ -1,252 +1,182 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E57416843
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 18:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785868207; cv=pass; b=aHMY3Eef9ZlSb5A61mLmYVDHmK7O3xD/C4vGjAtxCvni+ZqCyB/Zj8wkXnVjbSLIBrXc2oS1wCMu+sqA4IdOFFGVmnvI7pdY7aIIe36TzURwwD4Y3XWJV2tavfIEWw3FWV1XxTMwHmD3wczdNrI/fqfEq45UeDdJ43edJt5Zo7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785868207; c=relaxed/simple;
-	bh=YR/o/LTpemAGDYJOLfPVkvZYIaS6LupInQCMHbfOBQk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DjyMgUukL1f9A7nAx2PUo5SPWBRCVp9zsnNiEqaFDGHS/N/pnthKDKSz5p6/pTqhS1JLmQkMCuKhFqCGyhmpsFgvoUjqb0oGRNrE8cCkHWs2tvtkeF8Hm7esfLOKLF8UdTKgHED4m1HaPG158f0bYdKfPGobiioZC4aOpc73FGI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nVEUrt8h; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE23F40D562
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 18:30:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785868250; cv=none; b=rZO/Jhd6gcFTk58TP+ztoxN4FSKBEJNy33ZZiK4ynvYqEPsTXYAQWR/zIPLdtQ9dIYMeqCkn3JT/cLtC3ikKoceu93x+e2JcAGtpwjVpju4ft/UiASiBwOuSHORrXVCbZXYUhrdPDFSH66oEE1pLuyu4gODvvxcRtp/x/tXIrj8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785868250; c=relaxed/simple;
+	bh=D4Qny+SNB++brDPpEvfKvsrGnVhLNcnYa8NDK/rHLRY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cdgQBC6/toV3e4Kr97syNmxc1nYa92F0ZdMMp/lEa7mde3ekoKyi8FBW5nuBxsbCKtYz6ipUW62TwMgWj8kk7+oGSgS1QeVeiWZ4+/mX/udQ0O/IaT9BI+sLvoCi2RrJ11E7hkaNCKvjefZ6Ta8Yf69cfFfFGGBBVvVyjo7DBxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kvhpaFTF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z1rmr7kK; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nVEUrt8h"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c15b51ba80dso2872166b.2
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 11:30:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785868204; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hT6P0AkRqiZn/e1cd15eywr5Z+OnL0P/4OQASzL8V8Vc2rmAJQnFN+vhn7MVDJUOgZ
-         m03kGkKmBi/bMl6vP6mlXJdouiWK4Qp1QmDSXVGMdgMT7H9bGz/fZwx7HsUKmZrchJnC
-         SUgrRIk8cQNDYfO4BV7nqhbxjukBWl0uAin0l6ZBaIqpwcx9ue9aX4RBbRAjw3Kmh2MD
-         WbXauffc8Qxhmo7fJFueKzxr5RdS/lNB0x9WB+u6uzJmxPQD27/mQiU+A2dJiRX9hFhi
-         dw/MCUOm3/Dzl1bRsR552UyxUFqEBJnJaunWRc4Ebv2M3TXEzr+ACo9jCGKWEy0YuJ1J
-         Z0Vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XGjeFPew3WY1hoWUdVOxW+gqoEqKrPAbmGn8EETaFp0=;
-        fh=9JSYCo8tkNSR1en0m9kVB3B0vNa05J+3PfuWG9Lilak=;
-        b=TYvuydQF4Ee6p8/xqWjqManbsqoloPHz+S9+Z35rI2hqIJ1Pbl7vRoXyoY1ujp8vhZ
-         5RTvWFo5zRAUYdTI4uj3O6cy5JLfdZpZtGuP2NkkbwSzjHC8C4claEnjzG8C1TqTsKd0
-         V0Vsw/sFq4d3lPEjPmME8p7iNV9QGiXdgH0tknJKuywrgdci9wuzX+WmCxTJJ+d1C/QF
-         q6m5q4ewsPWS6nttjr86DEQawOo91P69o1KSkgn2UTqm4wQi994sKkhQiBe0yzRcrqV2
-         jfhAT6FXF72nXcATOmZ8xyEXUKsrMaI9qI/G7OaT2GKDp5/2uLoxzh15dd/MemjjrUcd
-         q/5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kvhpaFTF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z1rmr7kK"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674FfcUq369191
+	for <devicetree@vger.kernel.org>; Tue, 4 Aug 2026 18:30:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=JfC9ELx4BpTN5CFmL3R6Bb9J
+	ryzEWW2TxPGog2BUjdw=; b=kvhpaFTFxP1RHthnXhX0i+WvH2QrqW/+6uAuZmEX
+	9li2N2NO+GBgk+WRuwblBBlCC+j5d8E2pEl7xG32VKgBCYxGeWhu0ynRt7O9S6hD
+	Hgfy7MgcFSZhnXVH6dYqBoL3LyILCsHhKkjpdUAs9my6DMxmG5AlU4ckFKkNVi5G
+	a8Dz4nSOhHqLdY8C1/iMBW71P5Zoo85Bb5/mQf7tHK5anRc7weJcZQJG7Qa8Hky2
+	nQHd+LvHDGw0bCIdPXf22qmbJ/c23A7B5u/BQjQN69xQh6RUjocQffrZn/KE9GAs
+	T3nY6p9CLIbLD/xt4+JcHeTwL3KXHVfWx4+zw36i1Ogp/g==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fug659pvr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 18:30:47 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso110787a91.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 11:30:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785868204; x=1786473004; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1785868247; x=1786473047; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XGjeFPew3WY1hoWUdVOxW+gqoEqKrPAbmGn8EETaFp0=;
-        b=nVEUrt8hJHpt1stGHoiAYCUbZwPi9u5XSS5haDxHedZSAu/S0wbf8T1cQZag4UYeyz
-         f4mJ3gU1Tgg8jBtgq7SUsoBHjCFDZtXGvmAZz+Bw+LRTTGvCHOiFIILiqN7qsqds7V+p
-         PBpxADjYoDKBwnlAli6/SjR5//Ig/qt/4eDMbK135rXnTv96+faT+GD8HO4UnbEuJXP/
-         AaaBbeohpt2xF4/iriteDON64asfErcmISPkbeWKH5qtNqA3A6Sednt4EPABhYVGiD6f
-         1SgEcTkuKtpPY0RqV0T5EzbYk5zRr321ox7vSe067brmcaNXxn6F8tXM8ZNfhtRUhJWj
-         ic/A==
+        bh=JfC9ELx4BpTN5CFmL3R6Bb9JryzEWW2TxPGog2BUjdw=;
+        b=Z1rmr7kKRtfqEtR2cFmBCL3xYHikxCWJNmFZWvr9gBMUVAAsnFSsPYaVFDcLF/zIPu
+         j5noqVbSxCNNRcetGpfoxSXS+E9d64+A5qFDc8EH8I1CFH0JQWWIRE3XG6c2dGwd16is
+         kwcPl89RfrWcTds5us/8dCzo1s5bRlQr8oDZhsToFxm/W4vNfKFXnmoaB2SECpgYURAV
+         grnp3Ke2ypvro3KsgWxc6o3XoInXM0fb9H+qeEDN9hUF2fPXVBK38ff5oUN+Pmku1N63
+         YQqLgTMl4ebrpqPhSxgL3/a2QIGSvZ1IGpacNwl/tCQRQgfC7JnZHSoAOzDGZmkJDdUA
+         Pm0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785868204; x=1786473004;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785868247; x=1786473047;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XGjeFPew3WY1hoWUdVOxW+gqoEqKrPAbmGn8EETaFp0=;
-        b=OdKKiw4kWzBU7w2ybIXq4G9yXl8A+7/U2NILoS4lriPA3h6Qj8bm/fQSVI0PxNQwR3
-         +XPqJNRu3k+wpvYqTJgH/YNz1wapDHbavJrlNB4ugQbsGfBAUHijB5OUADgzvw0JYyFU
-         OfAhD9U4dbL6Vpgv1XUToLi1KejxnAnW7Yld7Gbe7H/Pjbj+V9btBuqBX+BpBvq62iGy
-         /ZBX0yWkbpvdVocRdea1E9QjXMG+vOI3csd2KlKxA+9ZkiLxDqdwyyRVdMzFg/bROoOw
-         OaSNNxcxvjmOocreT4CB763EqdV7HXnXyA72ufx2w+3pMCNzczzdqW5w75ASIF4mTjO2
-         RA+A==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0/cYbEiQh0jVmnysnkpL+RBN7a0axENJMdsKU0bd9voSEbT40qTIE0UiR2uQ7dTaMM8hfWoUA0NSm@vger.kernel.org
-X-Gm-Message-State: AOJu0YydkmBhwYP2nVey/PlWIFv0heWDNI7K53D4Wh4WKag0w9enkkW+
-	Z4CqZSJi4mV+fc9fvaSgFvdfSfzOs1unLCdRO7oltzDiVfSQeXh8NdWMgX56aW2sfKCTN3VMtHX
-	81ya2ZMAifdgMh6A/z5u6kQm7PY54fYw=
-X-Gm-Gg: AR+sD10x3URjtT34jUog+ZiHMXgLBuqCS5RLQaWKJFGcq0BgdXCOfMMPF8LSBjGoT3x
-	3qIzZKT8g3jgD+PIeIiQ9Gp0OMctFg6MpG3F7Jpm7D74u4aekSnXkMCVXYtzMUitlYroH/Fcnr1
-	fmHQFsP9foZIm1xTTeN3tvZwM/bHZNDFWMcBhkiC0jXb/rzxBsDbx7TncC6kWytLrKEAqsIIegg
-	ZXGGpwgHY3M7CgWoCDTXPSw7xTpuJwOk6UOfqkIcRQpT3cZ4QWAQ7gXRrUuu2Db/tZGYbVVm8SZ
-	gU06FXDO9RbZ6R5gG5+XoG0j9vqpGxGU84XXkV8sqhOD3TNBeaihkr5dl1JAupMH6tzYG5P6gZI
-	PA58=
-X-Received: by 2002:a17:907:a0cf:b0:c12:2aef:af2b with SMTP id
- a640c23a62f3a-c2039d63cb3mr13321866b.4.1785868203728; Tue, 04 Aug 2026
- 11:30:03 -0700 (PDT)
+        bh=JfC9ELx4BpTN5CFmL3R6Bb9JryzEWW2TxPGog2BUjdw=;
+        b=dSh42Zu5JiqpCTlxYWft0nEJiNYOtnfVACAMmP1ceEaWx4ef/L4NJA5JlNsRZKc3Bo
+         d76e81fmkIEcZ2i+DIVFHf1IN1Bnz4BUPDj5z4T66txKnDPXjx5n5foavg/Sco4jwJLa
+         qRoZQKQ8wnkB39hbmUVIbiW3lGcgyj9tc/Af2wNfFfGhj7PigQr7e9kg5/4C3Gw29bwU
+         kZIqQcec4OeWvWUwMVyhoWBaGdU5XlLb4d76e0nQKHFD4eq4mBsxRW0PplDo4qVZRU4F
+         KuyYWi4kWzPxyjxR7twltXQ2MwTczItPUW/S9WfNPFpMeUkKQxZMWBp3qKBc+3581ZpF
+         fRjw==
+X-Forwarded-Encrypted: i=1; AHgh+RpeBpgP4BfpwY+I6FWcCGmQFkuplDXS8Q4YWXG7nMyqDmGDHjvFWuUMdioyBZBGGqyvYLiZDdgwt4MO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+HBj9ajrjAsg7mD2ATOpM917BJfzvkSxtKTBDqomDH+dLQjpI
+	rwI6ti8KQRWDOFabo7ISu6FzlsqIeSWEHh6tnmy9sPEfrtEcLSmdfoxS4PQw0LrXGUKjJOf47zB
+	BMa7ZwEwjHbzQMGG+j+ys/nVqh1Uf7m5m8KbPnstN6VRQY1BvZhOt/0xXQ1Zp53Eq
+X-Gm-Gg: AR+sD13/K6y98otMMe9rq3vJ/yrAXmDX9hy6W6/RwxL5G4oDf8Srl2GcTC9TDI+Ga4F
+	FsZvieJBExJteskDBbEoMf51cDFnAtBFqoJaCrFBmqXUojUXUhZDijc6lefW1HFyuxUuYkbt1k/
+	Pbcpc66TEqnyAnxOmYPCcu3ZL62wHX8V5JE50sgbYw0BA/l15IAA8B1bVoJCsDZdYaq/kckMA26
+	2w8yYvxxM15ulw2OOKFsxvAFAEqr5MTZm4TMYO3VQxZsKO1aPgwrQunM6QzCKEnIi2F0bwQ0JWz
+	yeFrRIz6LxqvBGKWgI5T6mx9kftM73Y9IuVQbMaMvAbEXbfpUl6rV03mxb9lJxM+tPPieBMD52b
+	ikQGinx3YbeYgvT+N4XGc9ePaquE=
+X-Received: by 2002:a17:90b:4c89:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-3903c5aefe9mr718453a91.15.1785868246352;
+        Tue, 04 Aug 2026 11:30:46 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c89:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-3903c5aefe9mr718378a91.15.1785868245784;
+        Tue, 04 Aug 2026 11:30:45 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca52d329sm5693013c88.4.2026.08.04.11.30.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 11:30:45 -0700 (PDT)
+Date: Wed, 5 Aug 2026 00:00:38 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Make
+ SDX75, Hawi and Maili MPSS fallback to SM8650
+Message-ID: <20260804183038.blrgjcslwyzj67qg@hu-mojha-hyd.qualcomm.com>
+References: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
+ <anIM8yN-r1wrTErT@baldur>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260726-ti-adpll-v1-1-86f6fc936507@gmail.com> <20260803215059.GA638187-robh@kernel.org>
-In-Reply-To: <20260803215059.GA638187-robh@kernel.org>
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 4 Aug 2026 23:59:51 +0530
-X-Gm-Features: AUfX_mxwSCENiGM3gLSFs_OrQ5dfHB7ft3kTamvikK_i48EKp9jKQ4sMVne1v5s
-Message-ID: <CAOWyW_68A9xKd9nrTM4dZxgdNEypT60WHnwOYow-i99eqcUbvQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: clock: ti,DM814x-ADPLL: Convert to DT schema
-To: Rob Herring <robh@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
-	simona.toaca@nxp.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <anIM8yN-r1wrTErT@baldur>
+X-Proofpoint-ORIG-GUID: UWkdtHGuhB5fsCsRGR4iJVkJ3l5aeX7S
+X-Authority-Analysis: v=2.4 cv=fcydDUQF c=1 sm=1 tr=0 ts=6a722fd7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=lxZvx7qKqtVTtBd41IoA:9 a=CjuIK1q_8ugA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDE0OSBTYWx0ZWRfX0CRx3H9UU935
+ uFPHu5ijdQSMqYo0KwRM2UrhKBT8DWlRza1SntPYpcYr89aFmrItkDEiHtWtQH+cg6N8M0a4iEZ
+ qYFMTavwNBZ7EAQJxfNwuvYFnTwmF3k=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDE0OSBTYWx0ZWRfX2y/TL1D/KYB4
+ oRsHVNtbe/fZmVBXcp0ZwIzd/xa3Z6NZVc5ZjMinufz1svYb/oECbScHRf4ZRqJ63pMSWl8R0wU
+ HLXzLJI7lsSvyu403++X8KE7dW/CTryVFZMYUeymgdyDlUyHWEkrqxKfV1i7goUjB4JcJeupG38
+ P6Px2om+VvpGJj79QJrd44s4MEwz7ebvAdtlteJUzYBLxpZCVqIGCCntP1qHw637FZzS0vwjkV1
+ QUOuKDG3NysP0qB+ACHvQAWGgIDqZpBAZfHAtOyObqII4/PPl2ME0Dy8L54I6020FZoR4Qt4WjV
+ oGlpXH1vgZA/0hGaKrOLah4rtv2/vb/fnxxy81UjyA20A0L7PcbCcXgPySZi89BH2ZJxGA3EK+x
+ 7FdZCGYLyY+lg8pxhjPqmzoZdiegqMxpQhyLBbUhJRR1P0fMZ86QU8c2QaTtQHg5C4lUpvPz3Uz
+ 7W6vx53wsvyK2+XZAng==
+X-Proofpoint-GUID: UWkdtHGuhB5fsCsRGR4iJVkJ3l5aeX7S
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_03,2026-08-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0 adultscore=0
+ bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040149
 
-On Tue, Aug 4, 2026 at 3:21=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
+On Tue, Aug 04, 2026 at 11:11:29AM -0500, Bjorn Andersson wrote:
+> On Mon, Aug 03, 2026 at 11:30:20PM +0530, Mukesh Ojha wrote:
+> > SDX75, Hawi and Maili MPSS are compatible with the SM8650 MPSS as
+> > they share the same set of interrupts, memory regions and power domains.
+> > Rather than describing them as standalone compatibles, model them as
+> > fallbacks to qcom,sm8650-mpss-pas.
+> > 
+> 
+> This will introduce a dt-validation error in
+> arch/arm64/boot/dts/qcom/sdx75.dtsi, which you fix in patch 2.
+
+Right, but it will come at some point if we want to fix this.
+
+> 
+> But while the binding says qcom,sdx75-mpss-pas alone isn't a valid
+> compatible, we support that in the driver, so we're maintaining
+> backwards compatibility with current DT - until someone cleans up the
+> driver to match the contract defined by the binding.
+> 
+> It might be reasonable to accept both of these hiccups, but you need to
+> document the upside of it.
 >
-> On Sun, Jul 26, 2026 at 12:17:47AM +0530, Bhargav Joshi wrote:
-> > Convert the Texas Instruments DM814x ADPLL clock binding to DT schema
-> > format. Add 'clock-output-names' as required which was missing in
-> > legacy binding, as the driver (clk-adpll.c) mandates it and fails
-> > probing if it is missing.
-> >
-> > Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> > ---
-> >  .../devicetree/bindings/clock/ti/adpll.txt         |  39 --------
-> >  .../bindings/clock/ti/ti,dm814-adpll-clock.yaml    | 108 +++++++++++++=
-++++++++
-> >  2 files changed, 108 insertions(+), 39 deletions(-)
+
+Thanks.
+
+> 
+> But if I read this correctly, it seems I merged qcom,hawi-mpss-pas and
+> qcom,maili-mpss-pas prematurely. Based on the commit message in [1] I
+> thought they would fall back to sm8650, but this patch says that was
+> wrong of me - meaning that [1] should have contained a driver change as
+> well. I.e. you didn't test [1], right?
+
+Yes, it was wrong of me. I should have acknowledged Yijie's comments
+publicly, saying it along with the sdx75 fix, and I did that internally with
+him. I did test it against Hawi, but not for Maili, which is what Yijie
+commented to take care of Maili along with Hawi.
+
+> 
+> As I said in the reply to Krzysztof, I have dropped [1] again from my
+> queue.
+
+Sure, will rebase this series accordingly with some documentation updates
+as per your comment on this one.
+
+> 
+> [1] https://lore.kernel.org/all/20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com/
 >
-> > diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-=
-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-cloc=
-k.yaml
-> > new file mode 100644
-> > index 000000000000..7f551dfca030
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/clock/ti/ti,dm814-adpll-clock.y=
-aml
-> > @@ -0,0 +1,108 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/clock/ti/ti,dm814-adpll-clock.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Texas Instruments DM814x ADPLL Clock
-> > +
-> > +maintainers:
-> > +  - Tony Lindgren <tony@atomide.com>
-> > +
-> > +description:
-> > +  The ADPLL is a register-mapped clock generator found on TI DM814x So=
-Cs. It
-> > +  provides multiple output clocks from two or three selectable input c=
-locks and
-> > +  three to four children.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - ti,dm814-adpll-s-clock
-> > +      - ti,dm814-adpll-lj-clock
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  '#clock-cells':
-> > +    const: 1
-> > +
-> > +  clocks:
-> > +    minItems: 2
-> > +    maxItems: 3
-> > +
-> > +  clock-names:
-> > +    minItems: 2
-> > +    maxItems: 3
-> > +
-> > +  clock-output-names:
-> > +    minItems: 3
-> > +    maxItems: 4
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - '#clock-cells'
-> > +  - clocks
-> > +  - clock-output-names
-> > +
-> > +if:
-> > +  properties:
-> > +    compatible:
-> > +      contains:
-> > +        const: ti,dm814-adpll-s-clock
-> > +then:
-> > +  properties:
-> > +    clocks:
-> > +      minItems: 3
-> > +    clock-names:
-> > +      items:
-> > +        - const: clkinp
-> > +        - const: clkinpulow
-> > +        - const: clkinphif
->
-> This can move to the top level and just 'minItems: 3' here.
-yes sure
->
-> > +    clock-output-names:
-> > +      items:
-> > +        - description: dcoclkldo
-> > +        - description: clkout
-> > +        - description: clkoutx2
-> > +        - description: clkouthif
->
-> You don't have to document the clock-output-names.
->
-Got it. I will drop the item descriptions for clock-output-names.
-> > +else:
-> > +  properties:
-> > +    clocks:
-> > +      maxItems: 2
-> > +    clock-names:
-> > +      items:
-> > +        - const: clkinp
-> > +        - const: clkinpulow
->
-> And just 'maxItems: 2' here.
->
-> > +    clock-output-names:
-> > +      items:
-> > +        - description: dcoclkldo
-> > +        - description: clkout
-> > +        - description: clkoutldo
->
-> And drop. Or maybe just 'maxItems: 3'
->
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    adpll@40 {
-> > +        compatible =3D "ti,dm814-adpll-s-clock";
-> > +        reg =3D <0x40 0x40>;
-> > +        #clock-cells =3D <1>;
-> > +        clocks =3D <&devosc_ck &devosc_ck &devosc_ck>;
-> > +        clock-names =3D "clkinp", "clkinpulow", "clkinphif";
-> > +        clock-output-names =3D "481c5040.adpll.dcoclkldo",
-> > +                             "481c5040.adpll.clkout",
-> > +                             "481c5040.adpll.clkoutx2",
-> > +                             "481c5040.adpll.clkouthif";
-> > +    };
-> > +
-> > +  - |
-> > +    adpll@80 {
-> > +        compatible =3D "ti,dm814-adpll-lj-clock";
-> > +        reg =3D <0x80 0x30>;
-> > +        #clock-cells =3D <1>;
-> > +        clocks =3D <&devosc_ck &devosc_ck>;
-> > +        clock-names =3D "clkinp", "clkinpulow";
-> > +        clock-output-names =3D "481c5080.adpll.dcoclkldo",
-> > +                             "481c5080.adpll.clkout",
-> > +                             "481c5080.adpll.clkoutldo";
-> > +    };
->
-> One example is enough.
+
+-Mukesh
