@@ -1,71 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE78730B53A;
-	Tue,  4 Aug 2026 08:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832083; cv=none; b=TGeudhee5byB4vHIyW9Ju+kcexatwAR7JAg7vwDSTuDuBxJ+4mVPOqKjTtwE2k2HXLqqiRd6E0dN+Zx4yldbKLUwoAUEnOtJ20AJFHZE+aj1BcxnjQ0tpyX58DwnbPL/KPQsPA747NXxVmUu1LFZ7LPccSw5vaw8Y8iugS4Uk6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832083; c=relaxed/simple;
-	bh=Jy8MhVmpRBrgpJEVbB4mVg/9TaRNz4Z9JQHBwgbzusY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N5lqziL/nWzSiNiNHFB9FmC1GKnsGovIUZYXxia4dFj3Vzktb0gJkXd7XOwND/KeAOIRbYI30ZdWRccBmYs+FK7worobRDlcBSIs+8Y6JWrDuHvvOgAhCXCTqwiQVe7OxXqHz2sUwEScSYq6BnHQWURbupGgiswiBPU7Xj4C7MU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EfL8d+a0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A287B43B6D4
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 08:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785832174; cv=pass; b=jxZ9j0JxQaFtqxHHZkUcfDO+VqyAHC2Lnp5bfc+nFycH2HZqaLEuURc3dELJyOi7onJLaIAs8SB0dS99IXzrUkpTXcW5QWkMk3BFc7eh2cmYagMFAL+bLZiXIn7Ex7sml0kPLsFTwgJTZHV0qiKB8YErzXAw9pKs2p9QE8OhhGA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785832174; c=relaxed/simple;
+	bh=JbREwa63WRi45t2mfJ3BlRKqeRupdVkcEIbr80t1Rm0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UrIEza3BJ1aeVqy/cXY2iWzGQFAnacNiZDHAgh6cNVB7u0qI+slcXr9RiOqREpzk9cst14nmyZ4Y6OLBJGdfG7EBab3b67FEERZdjxOmkUqLg7fV/1C6n/qeKL+QBAf0vsMdcvI9Ko6NwG6XVB2/rdZJ0oTj8R9x1kAtYlzbWgY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDxYRrbP; arc=pass smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EfL8d+a0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6E981F000E9;
-	Tue,  4 Aug 2026 08:27:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785832075;
-	bh=whF1zVe6y7/APDHkqht7Ez4x9m78Aw/LGPXXXhXclE8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EfL8d+a039pSNiK9B+HVpElg2Y2HYjIVUqVfvSGGi1B/RQrh2JduPDDMaGg/f9Xed
-	 QVyTtsrPoF2hEwHXinl0SU/b9S1egGZokSmhwN8yHa6JOwFvuf0u6OXAOM45k9rYjS
-	 gFpQx8NUIK1VZnh4kmtiXtdtWDwr8ryPiRnItm5cNcAZvs2DiR4tfAWow8LIUO06jD
-	 rpP0xchnApyNxuImqM2kTGVi/Rj9wpSrbjSBI3Nr2BdZtMBTWBsF37bSfdMQdDbGua
-	 nNtQLnAMDCxmNX49hdX0qd4TCViF9wTCPVPWryaVO6alrDlxBLBzfoR6Icf37HZCSK
-	 1kcXpWGeKwddQ==
-Date: Tue, 4 Aug 2026 10:27:51 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dongfang Zhao <dongfang.zhao@oss.qualcomm.com>, Taniya Das <taniya.das@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: clock: qcom: Add Maili Graphics Clock
- Controllers
-Message-ID: <20260804-aromatic-married-ibis-bc5a7e@quoll>
-References: <20260801-maili_gpucc-v1-0-9d8c37bded69@oss.qualcomm.com>
- <20260801-maili_gpucc-v1-1-9d8c37bded69@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDxYRrbP"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-ca957432c7fso3010011a12.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 01:29:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785832172; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l6qy6KuQaBgybpmq7BkP7yIrGkXR8TN8FRBaAg93bUExoxtvxRP7MSYZ28w7iDnWWr
+         2h+lVcaxHomdCzSqdKIG4HS3n3CbOBk/pgGArf9udxdP29iY1kAG1nRhMDbzfCkvIAS2
+         HJqR2KGDyw672Di0tlY0qei0nm0Wog7PSXJ8bHwKH1+637xfM5AfmEwIT2Yuvf3zJYaj
+         ibXDgvh4thmPcXCWfRtxRZW0Be4JQDNvhyScmIra7vtBhE1dWKTs2gXYyHpzbaUl0rN9
+         BHlTqHWvtJP/QrdiiE5fr3DX2HhCrROoikMPfhkfVzlGY3sONj/uHsKRAJkh9A94z2On
+         bhVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KkuWY5Hua0QRTwIBGaEIrRJQVtnuHK0Pb4GBlrZuFaQ=;
+        fh=JrmTkAqSvmhcexhORX+AxVyqu4nVIv2stcSx+BrrOAE=;
+        b=cTi9D/OVyY5pZL6tWrzBUvnYJlzQNe9QlI5ulxM8JL50LoVKZIdDJnLbFBx8HpY3f7
+         9GaIEVWA9kqLHplmPlATiHxU+uKnLaaqCu7msb/LNm4atqemFTRIGClSyTBtF0U2mUP9
+         tAfwDYKHCknEN0fIOepAjcLKyJ7juJ9GFUGz7P0fPgjUNBeKH8Ya+K1bUCaSxQjIZMGy
+         m+WI7SRCRXTfaYqk+E/8kDaPH+rWYiotbepUl9i2MAOh6o+BxkzkXGPHgd3zJIyJFXsU
+         ZV6IRJ2TvEhqSQCJkeO414aRtnsXvq9QVjGOvQqwBxo51IJgtxvZzWqGtCgS58xSVtFs
+         CP0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785832172; x=1786436972; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KkuWY5Hua0QRTwIBGaEIrRJQVtnuHK0Pb4GBlrZuFaQ=;
+        b=QDxYRrbPpM/WFNH8PONYCM1qVqEfAjRsALpx3OruSVLPavLOYA+r+iWoguu1NM6pon
+         dTQNHdI7hpdXhPcggupIhV9A2/CFRTe08mEVHPIKssGnyAzX91kt+L5fRn4v06ewbk8Q
+         BnQS8g6VVpj1MAMLxLuDRqR/fFr3iuJXxvdTdbR+Pr0/e38ZR/9AZaWAr1DW4CYx+ILl
+         ttBHLoYShg+7bLB8SuEloyLQQ489muMwWiKoV1P+zxVaGwDfYvxLRkwJFn6X3+elureM
+         glf6u1QCbjwzNA3NBiXqCt/VeUAvIBNniykG2OFFCeyyPcrI6ooMK22ZcvKKS3R2X6OY
+         JtQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785832172; x=1786436972;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KkuWY5Hua0QRTwIBGaEIrRJQVtnuHK0Pb4GBlrZuFaQ=;
+        b=P8TtUe2BmfmHZlyrzgmjFM4grMeMjMWaPWstoY+T7fJ3wquPbUwoKvyAtmorQXr+1T
+         GzUTWLeDEmSgjX2fp7Ift/wnLG1fZ0IhQ1iaQQ4CfaxuGeDljlzUm1NcnWRh7Ric7nEA
+         MLEhaDSy1mxnBQimBHdvY4xvJ5/i3/GnaNutP+rzOkkkRd85A5SQCukuWY3W2CZ6rxpU
+         v91EizjZ7GCkfsObBI4k+6Oh1/K3wxaZu6wHw0oQRgvP1tB9Qf/R1uscELvl5tK0GOZz
+         e/yte/Xb4TYAgxzSVh9QsNnH/djM7mwvoXg0/mJCrXAU1REvZIJfDWjYc2yN5uTBjbUC
+         LdSQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrn8GcQ7n1r8hh7VREW3/5jgvECfSFaULkRygSX16VrqcTIHu5s1R6GBILZ/xszyBVoHoLMv7ccJd2m@vger.kernel.org
+X-Gm-Message-State: AOJu0YzCdkK4gpCxW+xgKJ98sDlZH0+uu7HMkfJh3M3ihiufh1a+mgrK
+	cnh+lM3g0igRpV4PtlzsMw+0RubB+TKLL7tCg2lHXMPnmKNqzAsruExcnbd4oSbg3Rxm8wE3mtQ
+	pIFGmq4ObUmAcVI1sEXaMYJnrvpskWZI=
+X-Gm-Gg: AR+sD10SgPHT9m3HSqwJBZQB3Vzf49hUPp/3Pumy7nveh8L3UW8zxmf+oBcRn3GPZBR
+	XK1DNRPy557l1H1GDpn4wUVRCx7X5mwqCGGL+ULdDBVaZAOBt0UEqeCFqM1H9Yv0u9SVaPLNokS
+	ETLjnQp2kQXeJoQcgwmn7Px9KoUVV9B94adf94a6tECljJUf8H3VAtT5nYn3ojL0R43TgcbVsof
+	tWD5CTbnd1PwucUSgELUuK9MyFjSY8AEdXluXbEPgLPpViqADCx3XDSzs8Qmm1svDXemsPEhBO2
+	trzowdXmox/t9mmSzLGMt045+MVp7zuK7oQpPrAy18yzi/sEsBOf970=
+X-Received: by 2002:a05:6a00:8d2:b0:845:e2da:91a3 with SMTP id
+ d2e1a72fcca58-84ee480ae81mr12824134b3a.30.1785832171759; Tue, 04 Aug 2026
+ 01:29:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260801-maili_gpucc-v1-1-9d8c37bded69@oss.qualcomm.com>
+References: <20260720095450.1618747-1-shengjiu.wang@oss.nxp.com>
+ <20260720095450.1618747-2-shengjiu.wang@oss.nxp.com> <20260731225930.GA2098187-robh@kernel.org>
+In-Reply-To: <20260731225930.GA2098187-robh@kernel.org>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Tue, 4 Aug 2026 16:29:19 +0800
+X-Gm-Features: AUfX_mwxExGCC8sRpN6-vbVB9v8CNcSex_SykavnhYOluP_E46GIp0w8aQWy9oQ
+Message-ID: <CAA+D8AO1D6GJ8xwuKf797rc41ymTZp2d=LD8GEQALHhdpToCUA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: sound: fsl,imx-asrc: update port binding
+ to support multiple pairs
+To: Rob Herring <robh@kernel.org>
+Cc: shengjiu.wang@oss.nxp.com, lgirdwood@gmail.com, broonie@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com, 
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, 
+	shawnguo@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Xiubo.Lee@gmail.com, nicoleotsuka@gmail.com, 
+	perex@perex.cz, tiwai@suse.com, linuxppc-dev@lists.ozlabs.org, 
+	Shengjiu Wang <shengjiu.wang@nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Aug 01, 2026 at 12:42:45AM +0530, Jagadeesh Kona wrote:
-> Maili gpucc is a derivative of Hawi gpucc with pll0 configuration
-> change, and hence reuses the Hawi gpucc driver with Maili fixup.
-> Maili gxclkctl is the same as Kaanapali gxclkctl and falls back to
-> it. Add the compatibles for the graphics clock controllers on the
-> Qualcomm Maili SoC.
-> 
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/clock/qcom,hawi-gpucc.yaml         | 4 +++-
->  Documentation/devicetree/bindings/clock/qcom,kaanapali-gxclkctl.yaml | 1 +
->  2 files changed, 4 insertions(+), 1 deletion(-)
+On Sat, Aug 1, 2026 at 6:59=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
+>
+> On Mon, Jul 20, 2026 at 05:54:47PM +0800, shengjiu.wang@oss.nxp.com wrote=
+:
+> > From: Shengjiu Wang <shengjiu.wang@nxp.com>
+> >
+> > The i.MX ASRC hardware supports up to three conversion pairs (A, B, C).
+> > The existing binding exposed only a single generic audio-graph port,
+> > which cannot represent the individual pair endpoints.
+> >
+> > Add a ports container that enumerates three named sub-ports:
+> >   port@0 -- pair A
+> >   port@1 -- pair B
+> >   port@2 -- pair C
+> >
+> > Each sub-port references audio-graph-port.yaml as before.
+> >
+> > For backwards compatibility, keep the old single port property but mark
+> > it deprecated. A schema constraint (not: required: [port, ports]) ensur=
+es
+> > that both forms cannot be used at the same time. Update the examples to
+> > show both the new ports form and the deprecated port form.
+> >
+> > No existing upstream DTS file for fsl,imx-asrc uses the previously
+> > documented single 'port' node, so this change does not break any
+> > in-tree device tree.
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  .../bindings/sound/fsl,imx-asrc.yaml          | 78 +++++++++++++++++++
+> >  1 file changed, 78 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml =
+b/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
+> > index 608defc93c1e..18d252722aa8 100644
+> > --- a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
+> > +++ b/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
+> > @@ -78,9 +78,29 @@ properties:
+> >    power-domains:
+> >      maxItems: 1
+> >
+> > +  ports:
+> > +    $ref: /schemas/graph.yaml#/properties/ports
+> > +    properties:
+> > +      port@0:
+> > +        $ref: audio-graph-port.yaml#
+> > +        unevaluatedProperties: false
+> > +        description: port for pair A
+> > +
+> > +      port@1:
+> > +        $ref: audio-graph-port.yaml#
+> > +        unevaluatedProperties: false
+> > +        description: port for pair B
+> > +
+> > +      port@2:
+> > +        $ref: audio-graph-port.yaml#
+> > +        unevaluatedProperties: false
+> > +        description: port for pair C
+> > +
+> >    port:
+> >      $ref: audio-graph-port.yaml#
+> >      unevaluatedProperties: false
+> > +    deprecated: true
+> > +    description: deprecated, use ports instead
+> >
+> >    fsl,asrc-rate:
+> >      $ref: /schemas/types.yaml#/definitions/uint32
+> > @@ -125,6 +145,10 @@ required:
+> >    - fsl,asrc-width
+> >
+> >  allOf:
+> > +  - not:
+> > +      required:
+> > +        - port
+> > +        - ports
+> >    - $ref: dai-common.yaml#
+> >    - if:
+> >        properties:
+> > @@ -188,3 +212,57 @@ examples:
+> >              };
+> >         };
+> >      };
+> > +
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +    #include <dt-bindings/clock/imx6qdl-clock.h>
+> > +    asrc1: asrc@2034000 {
+>
+> Drop unused label.
+>
+> Presumably the existing example uses the deprecated 'port'. If so, just
+> modify it to use ports and drop the deprecated part.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Ok, I will update it in v3.
 
-Best regards,
-Krzysztof
-
+best regards
+shengjiu Wang
