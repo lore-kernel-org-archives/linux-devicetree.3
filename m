@@ -1,124 +1,140 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E963AE18C
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2158048C8A2
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785863165; cv=none; b=cbUaF5ENdoxHrQZA8n2UF1z/bMn5PdgcuAlamiLoG0i5GXfauhnYF67iewT65xWonhOdlVf1NiQHDs7Hac5tBDp5n44CQrYpamT/iOdDlakE7gYjwBCKZpmrlZpwNUUF9tvLEMYXZa/YGmupZSCndtcvGNGsDKMH4+vNzQmPgRc=
+	t=1785863169; cv=none; b=nxC8fwVXEkFvJTH8EpR+JXlrJWAOYSCDY7574q27DNuXMcW1H299zh54Il4yVolWcnT4lL+wao0iV+KwYjACmBQE8yJqD7moULCf2Mi2RP4TUODEVAzpQy8l2g4EpV9/xeoYsnnbNcIFYrbaBNRgsfJd1gUPoLqYs6gIL9U3bv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785863165; c=relaxed/simple;
-	bh=BP5isHWJVSgsQc7eHb27miIKkXny1ILGVxUFS9gjsgw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZRURbMTLJhMNfUQY4pMkcSZrQ15W/OWqn1AgGnQEt8tUL2VE5Ec2MnXUAL93+cutBiJsn0rlt0RZxtsYzfT6smFKMEhOpQw/EsVK+Yc7E0NEY770ohbL/ziqVONHJhPDChgslttumQ/4LODS5lN4phPgDeZG4lGISyLJFxZiKSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5E/1iZF; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785863169; c=relaxed/simple;
+	bh=67LF8obc+HdTUMSojTi+dPpz0NGPpSKq8fetZaOX38U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iGjzs6DUa+FqO15SORgYxNSBrEws0Ljb1K+oan2xEnYxyl4CPb1JHQDDJqPGYYDw7CruU6m4LnvWfnoLDo9rLYl5EU9cVMeNEeVQLDKXcUEaIbNtxcXkFlpBZMufmUfUOrgG4xKMqnvsEsVx0Im8AiNAPMz6HchVgg+KyV8h990=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4bhMvin; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5E/1iZF"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38cfcb507a3so10073a91.0
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 10:05:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785863149; x=1786467949; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VjB+Pa1McUr4XyZZTJgTh82TNmXCDaoM/UdBX+H7SC8=;
-        b=h5E/1iZF9Tmx3U8tEzCB1W5zRqZHVkBs6YsyqX9jlRoPI4Vsq4OO6bAtA7D/4V3puS
-         9n6WidwKBLsKG8K87/us1CZBIgqiLxApVjHzHXqWy8PRJxu1rcVf9VvgSbdQI7pCEDBo
-         RlTA9YqAUya8mLjkV92IvVOSYy/goOTn8D+b6iuxiNhtj4xvxd1nQ/fsKWebrmr3/H4B
-         TGEwPmO0uGFd20V34TyvHLz0YE7NIH7kgG7FfyrfZyAYuQPLFbN67Q2LDqTceP3z/DSd
-         T8zdtk+8KvlWK1bcV/ppnGFyZMopIo/D1QxKg4bCWSt+Mxw/50hGAIIOMLzKvGLbdbNR
-         jWvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785863149; x=1786467949;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VjB+Pa1McUr4XyZZTJgTh82TNmXCDaoM/UdBX+H7SC8=;
-        b=ZEe0loC161z6mbBIPbiv9w/QYTSt/HcxolYFuJwcSeY1Svv6zMTUyb2+pBDu5K6x/o
-         TII7GSjLYQXfR43NITGFbPnsw1LPVJDdairbPDHPzUJVhVTbqLnTT8w9ruzW+9NU8EzZ
-         ETFa4GqcHuFfg16Rk3SkfYEIK5ldAK4rNrmXVw2FHmP5rqPXZFlLCmZBrnwXW1BzPN3I
-         0qBQHf2qnk+Wf48h5QHHC/fhBskmlNVTR389jZRYyYOasLVeADQbDLqVtL8oWtszf/3y
-         5jTghTDSfIbCrfuKEDYucrKLjsmy2o7IAHthTz05IXb2k6JC90gIWnofaZDJTwbU+uly
-         JWOA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq/Y2IHBz2GIRFR0+Y3n/hCDtnNTf6PZA26uxRPTuUfRNrQCJswrqXLnNDvcZoitlyL4s/Si2Hwr1e1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxpiLP86z9mVdO8ZYycS/FiOsLtXbQQq2Qz4qx8JTHnSAtE+YAZ
-	N5GjBSoHMePRuAmib8RACHLrj+5knlZ54co8Xna2TQi4IU9NY1/bqY8X
-X-Gm-Gg: AR+sD12ljO9maAWAhii2g6OX2C49dy659dDKz2YgZt8WA//SlOalXK/jCHSWV4Q6y3W
-	UKI7g5e6OegESlsFn8fvFrm2Ac4yRYC3A5iQTj+3j5Hz8LOdILpabu08sLDcAC4N8vpaiEltOt2
-	BWTwBR/i5wAEZSCBPgjWOg/XmiFX7yfMipAidiSU68PaKzMCMTUj+cEuYce7rJa1FqrAr+pm2Uq
-	qU3l4ptOmcr8QCb9rMemQnujvIHJoQHFT+fdT4qCyqqtuh/jWqtqT3iu2gqjnQn42fO2F1X3bvs
-	71MFG6k/mgIEr1N1LOMC9C1TRrecAvYH9Fa6xeb4SMP+TsmlwcmpUWQ50DcBwR8cdygxI+1zu9r
-	v3BZ4F41lmM2urIr69WuhwsjV1GSmy01IW9XDrsqhxm9faleaG4z6E+4plniN+8tNULP7Rrn3JR
-	z0O0/qnhszVJzNnd5joL5hckfAIShteWB0X6zYXxe78S9swBra3ZUOCuMbSD3zgp9d802CX9I=
-X-Received: by 2002:a17:90b:264b:b0:381:bcfb:e710 with SMTP id 98e67ed59e1d1-3903c64c81cmr451371a91.3.1785863149041;
-        Tue, 04 Aug 2026 10:05:49 -0700 (PDT)
-Received: from [10.15.72.252] ([2409:40c2:5423:e712:2aaf:ae79:67c5:476d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca52d329sm5147124c88.4.2026.08.04.10.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 10:05:48 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 04 Aug 2026 22:35:05 +0530
-Subject: [PATCH v3 1/4] ARM: dts: ti: am57xx-idk-common: Remove unused
- ext-clk-src property
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4bhMvin"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2AE91F00AC4;
+	Tue,  4 Aug 2026 17:05:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785863155;
+	bh=b4D2igZ20H4SOp91/fZluLVcYFnye5U7VU1CHht3iwo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a4bhMvinJb4pITSquR1MGl9UV/FsdFZxZLSU2S8iSL3K9Aqmdtw+yDRDlDmNkt2yg
+	 FE1D4exXNzFQSf3EWa6U74tLsU/N6VzGDocuatC/AEsc1QemLnTJuor4unCWSeVKVX
+	 HYKbZC2hymATuFjNJrwU+ZihTqpL/TUwtpi1q+HYL5lzf7mGs/EkHesvjUblTNueAh
+	 SEOJ0ISb+6L9SPDcuSe6PIOzld7ETUwudAQEepW5mOEnOBurfVAeVG0TWc7vW+EHIY
+	 5RqeVW2CmA1VwFjVdlD9RAv53HWV2Bxkr10JN2yK/TwfXhxlxI/KNq5QJiwmFCA8L2
+	 9tnW5wM5QB9Mg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 10/11] clk: realtek: Add RTD1625-ISO clock
+ controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260804163807.1285869-11-eleanor.lin@realtek.com>
+References: <20260804163807.1285869-1-eleanor.lin@realtek.com>
+ <20260804163807.1285869-11-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 17:05:53 +0000
+Message-Id: <20260804170554.C2AE91F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260804-ti-omap-rtc-v3-1-ba3bbd8af570@gmail.com>
-References: <20260804-ti-omap-rtc-v3-0-ba3bbd8af570@gmail.com>
-In-Reply-To: <20260804-ti-omap-rtc-v3-0-ba3bbd8af570@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Keerthy <j-keerthy@ti.com>, Afzal Mohammed <afzal@ti.com>
-Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org, 
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
- simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785863118; l=818;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=BP5isHWJVSgsQc7eHb27miIKkXny1ILGVxUFS9gjsgw=;
- b=AglLCpt0Ow4mCeWLX0NY9rtIDhK/08WmnqunooL/nv6BacQqxByO9/HQvU1mtVT1ZJN8n7QoA
- FKb0J8AydZ9DB4o0MwIVRocvKlO/ncX/sFRjei1eYxdCCcuUFKTEKfM
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-The 'ext-clk-src' property is a legacy, undocumented boolean property
-that is entirely unhandled by the rtc-omap driver. The driver instead
-determines the clock source natively by checking the presence of the
-"ext-clk" clock via devm_clk_get().
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Remove this unnecessary property.
+New issues:
+- [Medium] The `.suppress_bind_attrs =3D true` flag was not removed, contra=
+dicting the v12 changelog explicitly claiming its removal.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi | 1 -
- 1 file changed, 1 deletion(-)
+Pre-existing issues:
+- [High] Race condition during module teardown leading to NULL pointer dere=
+ference in clock operations.
+--
 
-diff --git a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-index 43e3623f079c..ef4bd554e92b 100644
---- a/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am57xx-idk-common.dtsi
-@@ -445,7 +445,6 @@ &uart3 {
- 
- &rtc {
- 	status = "okay";
--	ext-clk-src;
- };
- 
- &mac_sw {
+--- Patch [10]: [PATCH v12 10/11] clk: realtek: Add RTD1625-ISO clock contr=
+oller driver ---
+commit 5805b8768a6198942f7b7e93baa5ff2d182a3863
+Author: Cheng-Yu Lee <cylee12@realtek.com>
 
--- 
-2.55.0
+clk: realtek: Add RTD1625-ISO clock controller driver
 
+Add support for the ISO (Isolation) domain clock controller on the Realtek
+RTD1625 SoC. This controller manages clocks in the always-on power domain,
+ensuring essential services remain functional even when the main system
+power is gated.
+
+Because the reset controller shares the same register space with this ISO
+clock controller, this driver also acts as the parent device and registers
+the reset controller as an auxiliary device on the auxiliary bus.
+
+> ---
+> Changes in v12:
+> - Replace of_device_get_match_data() with device_get_match_data().
+> - Use module_platform_driver().
+> - Add spaces near {}.
+> - Remove .suppress_bind_attrs and add .remove callback.
+
+[Severity: Medium]
+This isn't a bug, but the v12 changelog mentions removing
+.suppress_bind_attrs, yet it is still present in the driver definition belo=
+w.
+Was this accidentally left in during a rebase?
+
+[ ... ]
+
+> diff --git a/drivers/clk/realtek/clk-rtd1625-iso.c b/drivers/clk/realtek/=
+clk-rtd1625-iso.c
+> new file mode 100644
+> index 0000000000000..6025c148adf83
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-rtd1625-iso.c
+> @@ -0,0 +1,142 @@
+
+[ ... ]
+
+> +static struct platform_driver rtd1625_iso_driver =3D {
+> +	.probe =3D rtd1625_iso_probe,
+> +	.remove =3D rtk_clk_remove,
+
+[Severity: High]
+This is a pre-existing issue, but does setting the .remove callback here
+expose a race condition leading to a NULL pointer dereference during module
+unload?
+
+In rtk_clk_probe(), clocks are registered using devm_clk_hw_register(),
+meaning they are not deregistered from the Common Clock Framework until aft=
+er
+the .remove callback completes.
+
+However, rtk_clk_remove() manually clears the regmap pointer before devres
+has a chance to deregister the clocks:
+
+drivers/clk/realtek/clk-rtk-common.c:rtk_clk_remove() {
+    ...
+	for (int i =3D 0; i < desc->num_clks; i++)
+		desc->clks[i]->regmap =3D NULL;
+    ...
+}
+
+If a concurrent operation (like reading /sys/kernel/debug/clk/clk_summary or
+a consumer calling clk_enable) accesses the clock ops during this window,
+would it dereference the NULL regmap pointer inside regmap_read()?
+
+> +	.driver =3D {
+> +		.name =3D "rtk-rtd1625-iso-clk",
+> +		.of_match_table =3D rtd1625_iso_match,
+> +		.suppress_bind_attrs =3D true,
+> +	},
+> +};
+> +
+> +module_platform_driver(rtd1625_iso_driver);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804163807.1285=
+869-1-eleanor.lin@realtek.com?part=3D10
