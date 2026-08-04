@@ -1,93 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DEA47ECFD;
-	Tue,  4 Aug 2026 16:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF23B484251;
+	Tue,  4 Aug 2026 17:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785862641; cv=none; b=fH8Szt4xsg7JkT0G6QU/JaLqMfSlD/7/2bboANN3bIRfbBp18iwtVo09n4rg77kfrqKsxTUuapZSHds+0I7SR2R7ARJUukJ9YSyd/4dKnIgk6k0aaK2knYbgu2pn28mncE7yQPvyhHMcrAJqmXIdScDWs0MzdRpllKmarftNxTU=
+	t=1785862971; cv=none; b=FbsugSnB16XVp4NGJkmVIr/YHxPZZ6vX0nZ8WkKYj48jD0YDFm7bCOX8bX9AI3HpSMDBV5rY7zvNAiLftFPVoCFYPirO8SZt2RJ4PDF0VnLlrom46zrAwP3OCwPqTIjiZFuLFkKIUNNP4uckoDudcCrQFmf2I0jynSup88B6Uok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785862641; c=relaxed/simple;
-	bh=TmrgEsd767z9qRLdnCKVkxUQeGTSse/SVdU9mQg9Zyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o7OcgeWY86L+KxSEsBT4DrYd0yUMoaYL9bifnGq+sbGDkV+gONjYJIQJUujVY7xLJfTnhUBmt8tySrp89hqQ2ZEaDjRLvzpa99tkemZSFz8lIiHP9LceokaPrn9vhEsQ/MjpnFWSbLi9tBnSmqId95VXHyPHQ9FBxd6as9PkcZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJiX3o69; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785862971; c=relaxed/simple;
+	bh=EE0KrGo5dDzUMJhyrwdjkIQjmw4BM9ksA8M3WP6xW4U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DYTwWBdsHpkWwDRUGoOkJclJpZn9LtI/1qKXWarNacTGizzOQsUiu7kbO3pYNEUXKKU5bjJETkthR8g91x8tCBCB02SuKF5OSF+uKJlhag3feB2xwJ4yrvW96k+XqVh4/MGFfA/CwWVwM7XpmeMOeo4cRupbY7S7ZXmFkxq7Q0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=q4w89P6m; arc=none smtp.client-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJiX3o69"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 710CC1F000E9;
-	Tue,  4 Aug 2026 16:57:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785862626;
-	bh=TmrgEsd767z9qRLdnCKVkxUQeGTSse/SVdU9mQg9Zyc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NJiX3o690xjMm348kEsIL33rbnpq5+mt2PYwoOUCh8C/VevVwEWp+g539xYAjTyp6
-	 l8fAPRQXy2TezE+KKyg4KtJn+1Z9txyixKMxeX9CmimuSBYt1zExwMmp8a+y6QsOMX
-	 55j3MkIeVkqtO1e6SG2OrGRBoWMkLqYsqwzt13rKEznCQyQdcZ+jQcffwi118vGKNY
-	 qkw+XuACvAB3Cze3qmXZcacWQZDX0zB4h8/GzrmCasoKKYFtk+NFWwKP5RHpojI8SH
-	 dZx3cznl66YV0hJdjtDm4dNMzDuJ3FrKzK1xcCQep1A3P2dRi5MDl+QAYNA7MFw0tP
-	 qHcYIyzzeVxlw==
-Date: Tue, 4 Aug 2026 17:56:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org
-Subject: Re: [PATCH v2 07/10] regulator: bd71828: Support ROHM BD73800
-Message-ID: <8844ada9-a7f0-41e4-b7f8-72554800f625@sirena.org.uk>
-References: <cover.1785838584.git.mazziesaccount@gmail.com>
- <f81e7214f9c02fb1a92d12944bc6b8790d5ea6a8.1785838585.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="q4w89P6m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1785862954; x=1786122154;
+	bh=2ljvQGPBoIbMVeNmgr0BUw3iuM3oikMM++hni3E8sCg=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=q4w89P6mOkWTgZIwBUCCjOFGIAmi6kbbyQ6ZlUkpKCxmIyNusjpS00JRhcs9thY8t
+	 rdMrZGsYHGs1/e0M/XXHDDEsuUmSWpn905ll5cjqgXxznfPwN64SsuF8/JSE/RpOpe
+	 p3a1hI2ez6VLhoGXZ9qkymwTcgCdELHgv1wc7eLrUFkEsnDEpgGEWlwPUb78mUUJ8o
+	 6dMxzKZpW6mfpg/Sv8GsXve5Wmk/bj7vyLGUmFtBc/6pNIuksPVpoqsPh5Sszdx8Sz
+	 n8ej1zD8SFwKoHfjh6CL9kIy3AzIUGem071o2eHc/S/XTVeSPSucUPb9zzN5aJalP3
+	 Krw0yIbAmnuuA==
+X-Pm-Submission-Id: 4hF0GD5hVBz1DFF2
+From: Esben Haabendal <esben@geanix.com>
+Subject: [PATCH v3 0/6] iio: light: ltr501: Add ltr329 support
+Date: Tue, 04 Aug 2026 19:02:11 +0200
+Message-Id: <20260804-liteon-ltr329-v3-0-c6b768c7c745@geanix.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nmfFyTMrnsD2kE5O"
-Content-Disposition: inline
-In-Reply-To: <f81e7214f9c02fb1a92d12944bc6b8790d5ea6a8.1785838585.git.mazziesaccount@gmail.com>
-X-Cookie: Biz is better.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Nyw7CIBQFf6VhLYZLSx+u/A/jgra3FlPBAJKap
+ v8u1LjQhctJzsxZiEOr0JFDthCLQTlldIR8l5FulPqCVPWRCWe8ZBUAnZRHo+nkbc4bKnNsgRd
+ Q1GVJonO3OKh5653Ob3aP9oqdT5G0GJXzxj63wwBp92mLn3YAymgOA+MVEyCa4nhBqdW878yNp
+ Hjgf3Ue9R5qOQiBvWzFl76u6wtCLmWa/AAAAA==
+X-Change-ID: 20260711-liteon-ltr329-a3eb12414866
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>, 
+ Maslov Dmitry <maslovdmitry@seeed.cc>, 
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785862947; l=2830;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=EE0KrGo5dDzUMJhyrwdjkIQjmw4BM9ksA8M3WP6xW4U=;
+ b=drKNlsZ3FLE6ojd/wOF6L5LK7TvxLuQgq63ddEHuZfevpWbX2cknQQApFUXf9ezDzV/xUdc9x
+ aFG+4I6yHwLC9yjDqVK7D2y0CLOdEss4yQTqBHkWKweAgLxc605NTKm
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
+The LiteON LTR-329ALS-01 chip is similar to the LTR-303ALS-01, except for
+interrupt support and related registers, which LTR-329ALS-01 does not have.
 
---nmfFyTMrnsD2kE5O
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+Changes in v3:
+- Removed duplicated error message on devm_request_threaded_irq() failure.
+- Added Fixes: and Cc: stable tags to fix for error handling of
+  devm_request_threaded_irq() failure.
+- Added no_irq_support boolean to simplify checking for chip irq support.
+- Moved check for no_irq_support from ltr501_read_intr_prst() and
+  ltr501_write_intr_prst() to callers. Note: event functions are not
+  registered for no_irq_support devices.
+- Moved #include <linux/array_size.h> into its place according to
+  alphabetical sorting order (although the rest is not really wel sorted).
+- Restored alphanumerical ordering of compatible list in bindings
+  documentation.
+- Ordered device arrays and enum values according to alphanumerical sorting
+  order.
+- Link to v2: https://patch.msgid.link/20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com
 
-On Tue, Aug 04, 2026 at 01:22:39PM +0300, Matti Vaittinen wrote:
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
->=20
-> The ROHM BD73800 is a power management IC which integrates 8 BUCKs and 4
-> LDOs. The PMIC has internal state-machine and it can support transitions
-> to RUN, SUSPEND and IDLE states. The LDOs 1 and 3 have two different
-> voltage range configurations that can be set at the manufacturing phase
+Changes in v2:
+- Fixed error handling when irq is defined for a chip that does not support
+  irq, powering the chip down again.
+- Added simlar fix to error handling of devm_request_threaded_irq() error
+  handling, powering the chip down again on failure.
+- Added explicit #include <linux/array_size.h>.
+- Link to v1: https://patch.msgid.link/20260715-liteon-ltr329-v1-0-31f027051594@geanix.com
 
-Acked-by: Mark Brown <broonie@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Nikita Travkin <nikita@trvn.ru>
+To: Maslov Dmitry <maslovdmitry@seeed.cc>
+To: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
---nmfFyTMrnsD2kE5O
-Content-Type: application/pgp-signature; name="signature.asc"
+---
+Esben Haabendal (6):
+      dt-bindings: iio: light: ltr501: Sort compatible enum array
+      dt-bindings: iio: light: ltr501: Add missing ltr303 compatible
+      dt-bindings: iio: light: ltr501: Add ltr329 compatible
+      iio: light: ltr501: Power down chip if request irq fails
+      iio: light: ltr501: Add ltr329 driver support
+      iio: light: ltr501: Fix sorting order of device arrays
 
------BEGIN PGP SIGNATURE-----
+ .../bindings/iio/light/liteon,ltr501.yaml          |   4 +-
+ drivers/iio/light/ltr501.c                         | 117 +++++++++++++--------
+ 2 files changed, 78 insertions(+), 43 deletions(-)
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260711-liteon-ltr329-a3eb12414866
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpyGdsACgkQJNaLcl1U
-h9CM8Qf+MWfx7oT+6ocgVqy6Donw8O1XTUV7GFL8y6DxGifWoicYpMQ5XP0qqIka
-q2wDvBx/o7c3jn6AV/CZLljj9TKRxrnf0f5nz6oVC7Vj+bY1JtVxpXKDeIpCvrBj
-94LJyDTrDMv/eNMn/nx14H0AfmdlT92N6PnYPFThpzB38Q0W7N6j1Y95nP1vyKX9
-dIMCjZ7G1DOYSwq6RnOoZCycXIuK/UBeKWlaTLzTGgfNF0byl5dm0auuU4T6zfBv
-0+TTbG7Idypm1sD40Vn4kG5HHKakajKGstJuq5lDuL49c3AXY0YPqaAwlyDWAhpO
-o2lz3VOLFH3Vw3sO0lu9Gv2I/mXAAg==
-=jP59
------END PGP SIGNATURE-----
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
---nmfFyTMrnsD2kE5O--
