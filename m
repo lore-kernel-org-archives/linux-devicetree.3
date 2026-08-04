@@ -1,157 +1,224 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC42F476051
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEAC43A81B;
+	Tue,  4 Aug 2026 17:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785866199; cv=none; b=TeQcsQoeF5R2+DUBY/wtezRI/gs1QWGnrHcUuWl9gD5LSYbraZ8d5X/WwA8ffDSD7IX1Ml7EwXKXRkQMlJNfN2tBpqQjY8q6uwMqYjWxGAx3tHraWGVuPPmYfUBmmmA8d9AeP2kRqeyenJGlEPgv7QWXAsfYYXhhwiLLTQbdCQs=
+	t=1785866311; cv=none; b=RycwPHg0N4EglQ+7HTtLHAHxarr6B5brVJCKmVZ5KoT3iRK8C8XS+E0JpNDE52xYZWluG/zBW89GeTlmpsXeZYhpM+TZaGUKB3m14l1HUnCzADtLSerAU39P/imy/2zpZ8MpHal5zORmBhbmuBhC82R9EnV/j/xGannLGo5o2UI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785866199; c=relaxed/simple;
-	bh=OuX/C1TtvHCOGmrVIm3mqzAHLgbvc4K8VI0cI+MqO1M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=S9JfCPLt7thFirJF5WtDRfqsXYCRC3qEN/mWL6PtnDXCJN22ni1yJd3o1yXv6lDP1VmaQPI53MlOW012WVbkuVYt9sAqt5ZY8BMAG9SY9p3dQN1Nn6Tq/F2grnaiHtIIYHI8FA6na7ZSGNpv/29Ll7ptlAIj86v0Uz16pLg/kyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=enbAM0/+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SvB3h3Ff; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785866311; c=relaxed/simple;
+	bh=atydJnJbMmN1IHB6MAx18xPFmlJri2Tq4cII64DUqTQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=A5UY4Y5b7cLKc5oczUzjyzA6b8VSAENHRtq6T9zKatRJDd/b7f0+MTTAu5akrFjOku3qvudd2PwNQzSQhqOOAGjo06xE0VBmnDESPzjUcFxQ6cogLc2JK3r2KarqV7FZJgffvY0c3bRfS+VUcFIbe8cQUiYrvh9FfFKR+SOc+4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=FJ2z7ucw; arc=none smtp.client-ip=217.70.178.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="enbAM0/+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SvB3h3Ff"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674FfdiA4057214
-	for <devicetree@vger.kernel.org>; Tue, 4 Aug 2026 17:56:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sEllbW2amjEC6Fq2iKDcJ/pEbGG9Dwld0bfe6YT1m6Q=; b=enbAM0/+7KAK62OZ
-	GdHZhcpSH+V2gELpiyIYQPBNgso4TYVpWNST7F9GpVdmT4YTLPHXmbOwCaLd6+D5
-	cObDTUMxCeqHSFTfQpyEBy3jrYEh0OU4Of0TZvPv/Im/53fENkOa/x2U5+r1j+Xi
-	izc6FCltOUY0mzWuS5drVnmgQ7RnWGq2g4lNXNTqS/OV1rs1jz3KdSjLytTI8NaQ
-	8/PCGCaJUsMJGdifOxLwOVpQzCDD/IOSYq4M7lGVl6gX4rRS1VmF7g20xVho3YVx
-	TymT/LTvNS3DO2vGLmiRDfutwBMTLRDhDpVNyJ6WCD4vYi/5jfFpYprAX1Z6kJ7s
-	Pr6Ssw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fugmghf9s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 17:56:35 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c85798977dcso72311a12.0
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 10:56:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785866194; x=1786470994; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sEllbW2amjEC6Fq2iKDcJ/pEbGG9Dwld0bfe6YT1m6Q=;
-        b=SvB3h3FftsJbWOditUEM4TRb49DIp+Monb7c7O37/GuDV7TaPP2FTY5NDcDgFEFeb3
-         lS7onigr+3pi2lys5McgyPS7fHRs0/UlEADHBbNTwLKhaq7DGqapz03OdZyMoNywK4B+
-         DbTj6xI4/c1bTWOGC7gHs543Qn7Zv/7HQ93weWphj5wjZ7RSVY3ML96lPeuvaMUesbVD
-         kPTmmOzqJN/7uROtpz0HY1ouJ5pmoGUc0ULGg7HUHvEDxsmYuBihyA/XvD2FXnUiddIY
-         1LMDAenpYmwAYwYRTevvk26hCr6EjgqayDxzRpVRh+MxfpQt9RjO1ewWVB9hSsMzI4L+
-         9A2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785866194; x=1786470994;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sEllbW2amjEC6Fq2iKDcJ/pEbGG9Dwld0bfe6YT1m6Q=;
-        b=NVrE3luijmZCj04I4BItVNh5Uo++mNG96yi+C8b3Fm2VacUyaYnHKxj+O0lr7a0gVl
-         vlMJhiCUsFhOB52kzOGmGGMeMhrXH90dKEUFgQ4X7Q1ZbfxXHJv/o6fYA/tr7jwOr4EQ
-         9ucEFnXyfyYYA5kdCc7VEEQ2gMPZNCiZJhpZ6sm7Hu71gsMXNpEVOd2I6TIF9bXu1erx
-         k9cTzAnMWaWvpLOkngi7IEG+m+a+s7IT8nD0BcsTqcUp2w6ayeULvizW4A+ElH+C5sCr
-         ZUFmmJdIX8ijeDtC3OKmkKaIgr77Qdr+ONMtgc6keAgR//qfW7WFsT5aOrwHrbSHkfWa
-         smQw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp9EXo7azXdlz2w//jd+J8jngF3HkP4xWsTIFLtWVKna1T13e0qeeNlPtuBHTrudBdour7wZ1Qzjzc1@vger.kernel.org
-X-Gm-Message-State: AOJu0YzctsFUFSTH2KIOuRZE4+2qyG6NEnDNB0CDm2OE0PvFfGFShOdC
-	ZBlqztjIsCAq27zLxN4R3fH1zRe/hLsIGzEYRtB9ph4r2psVwuqjpz/Edm1BMy0pTzkRC37/LLq
-	LPoj1knLIU7/YE2iB6Jjeivk/RH/TC7qjOsZ7XrRe89WTVmSnAVSuR//7SNBEc9zp
-X-Gm-Gg: AR+sD12aIaec1Ka6Zd4RLe/tqGKaQbBR2NAiaQjpTHdw8BArLzESGsCkZmcOGioSuRg
-	K4s15ipKe0OwZnDT5vnsdKVHpUdiG72eCpq9VWigi4pWZoK+55F5sc8DvTkKv33RbU8TxI9MxA3
-	dUF1ekeRS8D/e7OEiJFXJYePFFuuB+F8/4lbGskbkGrEP/xoyOikAaBX1R1FB+rpcLdlgaccj7Q
-	Hx8w0RtM0epuzt1qqwU5ulTVumm2TSKo3YCgMxmZua6Wxp5uQtAsXNgwOVepDXRYTJtVNMzMjda
-	4lGS1gOLnC5Fkjn6fRH0RMinHw/cZxRe+6+WnFBKy3PNHKK81xoAa9hC+lwuk10jbEnImpbgDpS
-	lV5pGB3vzbetxuHMWbr3XJoq5Vg==
-X-Received: by 2002:a05:6a21:a38c:b0:3bf:a681:a262 with SMTP id adf61e73a8af0-3cb8603af5dmr461191637.38.1785866194519;
-        Tue, 04 Aug 2026 10:56:34 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a38c:b0:3bf:a681:a262 with SMTP id adf61e73a8af0-3cb8603af5dmr461155637.38.1785866194119;
-        Tue, 04 Aug 2026 10:56:34 -0700 (PDT)
-Received: from [192.168.0.195] ([49.204.27.1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3158673be99sm12915825eec.15.2026.08.04.10.56.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Aug 2026 10:56:33 -0700 (PDT)
-Message-ID: <89e7b084-2afa-4841-85ec-51707a6defc8@oss.qualcomm.com>
-Date: Tue, 4 Aug 2026 23:26:26 +0530
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="FJ2z7ucw"
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [IPv6:2001:4b98:dc4:8::226])
+	by mslow3.mail.gandi.net (Postfix) with ESMTP id 9CF0558172C;
+	Tue,  4 Aug 2026 17:41:06 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 0A8833F567;
+	Tue,  4 Aug 2026 17:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1785865264;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zA1ZTubBuh3m9i5h+yCivy1ldfhgN3dZbD7sp/exs4M=;
+	b=FJ2z7ucwdZONwe4K3xXitH+LWNkTlLuEKWcNA/mVKyoevf/qfb1hSM3788i+48I7H7XUbc
+	G5td33ThE+tATPqV5RNgAsI4bbNS9RKoqLhNaQlfOlmeuZkFSqJBByhkY6iUJ2bUyCFIRI
+	0eeHhFyCJNl9sRRxsxBWTlb/cZmrx+nHqblkJ/lno+HbNzeq3ZAtW6zzae1/zaFs0B9x/A
+	xw2SsWxikQ24r/RULNOGMPjzI+1HwFaY0Qo8HeAacr4+nwrrj98JxyAJhWm7z4PrIUMFu3
+	qRw8FLFDIoJXeEWaWTRd7738tnDUSkUJ4PhJ9/pD7u1MmdaBOEURIDSwkAKF/Q==
+From: =?utf-8?q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
+Date: Tue, 04 Aug 2026 19:40:56 +0200
+Subject: [PATCH v2 1/2] w5100: restore GPIO-based link detection
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] clk: qcom: Add Graphics clock controller support on
- Qualcomm Maili SoC
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dongfang Zhao <dongfang.zhao@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260801-maili_gpucc-v1-0-9d8c37bded69@oss.qualcomm.com>
- <20260801-maili_gpucc-v1-2-9d8c37bded69@oss.qualcomm.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <20260801-maili_gpucc-v1-2-9d8c37bded69@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDE0NSBTYWx0ZWRfX4Um2Dzh+Xjts
- 2EK4kXW5U4XuYil3DhKIHCJYqtFRUprQjKPLq/biGRNDVA0nD14akM/9b+VAlVQCve9Pqdik7aR
- m0wCb1Hv5Us/Ekqk3d5ZSKvM9qs3wO7gPQjHfPmGOoe1r6oEN4RzpERQiuL4eN1oY3z4h9G+XWa
- lw4UAUtcT1sLCvPBFiXSGLqYQOuJD1iWKafKd+Pgj81dVWmc4ZtHZ638I94QP6NEq60VGl8OMK2
- BLqhqUh7u5oRfEjz6VTpkRuwIYFchi934wmN29L/BXUB/Y8zSlRPrZBkke93YTIsLihY9D1VRyn
- Pu4r8NEGH2dnkqh3wfRnQOn5TuYs3C/v203SxNnxaX37MpvcucwaitPAGRdhuT+vtJAh5QHZ8sG
- 9FgNUELpZcdPjY5fFCMNyuKYxCA9j1y19WZpwNpZiifdCWL4rYsrsZebBKezcOHaIh5hwdyt4TL
- 6V5CQDSGeWaUMt5q7hw==
-X-Proofpoint-GUID: yCVI9Jmw18pJ5K9s63MrMGEnYNpyc-vh
-X-Proofpoint-ORIG-GUID: yCVI9Jmw18pJ5K9s63MrMGEnYNpyc-vh
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDE0NSBTYWx0ZWRfX234ptKtCa9Cm
- eUhHhxhC43ZDQsd6VwytH/skqtVsUEknlUd7IPIbuBF4MGSIZJUqvKwlw9gzwHsDHjlcpKKg6zY
- umv//+ZcIwO6USZ8sK2PTc3vrrY9wos=
-X-Authority-Analysis: v=2.4 cv=XYC5Co55 c=1 sm=1 tr=0 ts=6a7227d3 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=oJgQA1a84MxBYcMfCYBOLQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=fCNx6FN-KcjCUQZW59UA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-04_03,2026-08-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0 spamscore=0
- clxscore=1015 bulkscore=0 impostorscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040145
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260804-wiznet-link-gpio-v2-1-3b1d0c870f35@marmottus.net>
+References: <20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net>
+In-Reply-To: <20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Cause: dmFkZTGnkLjOAcGhfyOqhLqfnii3rksT32ERFyu9TJrUkdKkXDMFxOf48vSprhQntGYF+VdlnwFWTG7ytlX2ArxPg1VBCUk9wDy7FA+tSGphGNppn0oIm7aJJNOXHMqscWorsGsuHIlED57VnnX+GfaeTzwOi7Sz294CaJgoVFpa/0wXx35mggn9EWya2ADE04T3a8Ir9Y/RwIRSxNvzzs5pfM6+O8o4hLlRuJX+eSkBKEt/GwiysKrjLQpbqx2lePe0VOJL6DZOaSqdtz2C7hao+vdoK7d64i1enIzFKQbYNsFt83IDxoychvuVfkPIPxZwdHxF3ChHlbqUkK5AYn3RlhQelUsiMRu7k4da333V0kjTtXMuy9qVZvDtWPz3OsjQEkbJezQ6gAmAA6z2mk7QIkQ/aaKzlPumriqSELu+/1MwMilzPoZ2kU7m+IujtIhMECU9C32lMcioJ6677B8YIou5FMwnIwR/03AE5vHo2XYJlOWhMsPzGMa9ow7+stGvoAfE4+AyAXBBbSBEuZ0yewAWPf+SNxeWU9NZBVnQ5g6VURjSL83IUmtw0+Sj7boXPOTOOBI5sGpcPix4NHDNRKaq1YqSCfvfKb2yhZngW0ujBPZo6hd2lWrsFQGIm5/iYgXqMQDhJxArIuTmmaatfQib+iYy7xWyOKGXA6xHhZGOGA
+X-GND-State: clean
+X-GND-Score: -100
 
+Commit dacf281771a9 ("w5100: remove unused gpio link detection")
+dropped the link_gpio/link_irq handling on the grounds that no
+devicetree user passed a "link" GPIO at the time.
 
+This isn't a plain revert of that removal. The link GPIO is now
+bound from the device tree link-gpios property using the resource
+managed GPIO descriptors.
 
-On 8/1/2026 12:42 AM, Jagadeesh Kona wrote:
-> Maili gpucc is a derivative of Hawi gpucc with pll0 configuration change.
-> Hence, reuse the Hawi graphics clock controller and extend it for Qualcomm
-> Maili SoC.
-> 
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
->  drivers/clk/qcom/gpucc-hawi.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
+The link IRQ is also requested with devm_request_threaded_irq()
+instead of request_any_context_irq(), so it is released automatically
+on driver removal or probe failure.
 
-Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
+---
+ drivers/net/ethernet/wiznet/w5100.c | 71 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+
+diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
+index 53d8dc642fbd..1410a9fcfa92 100644
+--- a/drivers/net/ethernet/wiznet/w5100.c
++++ b/drivers/net/ethernet/wiznet/w5100.c
+@@ -22,6 +22,7 @@
+ #include <linux/ioport.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
++#include <linux/gpio/consumer.h>
+ 
+ #include "w5100.h"
+ 
+@@ -154,6 +155,7 @@ struct w5100_priv {
+ 	u16 s0_rx_buf_size;
+ 
+ 	int irq;
++	struct gpio_desc *link_gpio;
+ 
+ 	struct napi_struct napi;
+ 	struct net_device *ndev;
+@@ -414,6 +416,16 @@ static void w5100_get_drvinfo(struct net_device *ndev,
+ 		sizeof(info->bus_info));
+ }
+ 
++static u32 w5100_get_link(struct net_device *ndev)
++{
++	struct w5100_priv *priv = netdev_priv(ndev);
++
++	if (priv->link_gpio)
++		return !!gpiod_get_value_cansleep(priv->link_gpio);
++
++	return 1;
++}
++
+ static u32 w5100_get_msglevel(struct net_device *ndev)
+ {
+ 	struct w5100_priv *priv = netdev_priv(ndev);
+@@ -616,6 +628,24 @@ static irqreturn_t w5100_interrupt(int irq, void *ndev_instance)
+ 	return IRQ_HANDLED;
+ }
+ 
++static irqreturn_t w5100_detect_link(int irq, void *ndev_instance)
++{
++	struct net_device *ndev = ndev_instance;
++	struct w5100_priv *priv = netdev_priv(ndev);
++
++	if (netif_running(ndev)) {
++		if (gpiod_get_value(priv->link_gpio) != 0) {
++			netif_info(priv, link, ndev, "link is up\n");
++			netif_carrier_on(ndev);
++		} else {
++			netif_info(priv, link, ndev, "link is down\n");
++			netif_carrier_off(ndev);
++		}
++	}
++
++	return IRQ_HANDLED;
++}
++
+ static void w5100_setrx_work(struct work_struct *work)
+ {
+ 	struct w5100_priv *priv = container_of(work, struct w5100_priv,
+@@ -659,6 +689,14 @@ static int w5100_open(struct net_device *ndev)
+ 	w5100_hw_start(priv);
+ 	napi_enable(&priv->napi);
+ 	netif_start_queue(ndev);
++
++	if (priv->link_gpio) {
++		if (gpiod_get_value_cansleep(priv->link_gpio) != 0)
++			netif_carrier_on(ndev);
++		else
++			netif_carrier_off(ndev);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -678,6 +716,7 @@ static const struct ethtool_ops w5100_ethtool_ops = {
+ 	.get_drvinfo		= w5100_get_drvinfo,
+ 	.get_msglevel		= w5100_get_msglevel,
+ 	.set_msglevel		= w5100_set_msglevel,
++	.get_link		= w5100_get_link,
+ 	.get_regs_len		= w5100_get_regs_len,
+ 	.get_regs		= w5100_get_regs,
+ };
+@@ -751,6 +790,13 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
+ 	priv->ndev = ndev;
+ 	priv->ops = ops;
+ 	priv->irq = irq;
++	priv->link_gpio = devm_gpiod_get_optional(dev, "link", GPIOD_IN);
++	if (IS_ERR(priv->link_gpio)) {
++		err = dev_err_probe(dev, PTR_ERR(priv->link_gpio),
++				    "failed to get link GPIO\n");
++		priv->link_gpio = NULL;
++		goto err_register;
++	}
+ 
+ 	ndev->netdev_ops = &w5100_netdev_ops;
+ 	ndev->ethtool_ops = &w5100_ethtool_ops;
+@@ -803,8 +849,29 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
+ 	if (err)
+ 		goto err_hw;
+ 
++	if (priv->link_gpio) {
++		int link_irq = gpiod_to_irq(priv->link_gpio);
++
++		if (link_irq < 0) {
++			err = dev_err_probe(dev, link_irq,
++					    "No corresponding irq for link gpio\n");
++			goto err_gpio;
++		}
++
++		err = devm_request_threaded_irq(dev, link_irq, NULL,
++						w5100_detect_link,
++						IRQF_TRIGGER_RISING |
++						IRQF_TRIGGER_FALLING |
++						IRQF_ONESHOT,
++						"w5100-link", priv->ndev);
++		if (err < 0)
++			goto err_gpio;
++	}
++
+ 	return 0;
+ 
++err_gpio:
++	free_irq(priv->irq, ndev);
+ err_hw:
+ 	destroy_workqueue(priv->xfer_wq);
+ err_wq:
+@@ -857,6 +924,10 @@ static int w5100_resume(struct device *dev)
+ 		w5100_hw_start(priv);
+ 
+ 		netif_device_attach(ndev);
++
++		if (!priv->link_gpio ||
++		    gpiod_get_value_cansleep(priv->link_gpio) != 0)
++			netif_carrier_on(ndev);
+ 	}
+ 	return 0;
+ }
 
 -- 
-Thanks,
-Taniya Das
+2.55.0
 
