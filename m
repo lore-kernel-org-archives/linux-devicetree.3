@@ -1,188 +1,192 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459C23ABD8D
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 21:08:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32916404BF4
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 21:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785877694; cv=none; b=T5V5M3wM1JAR0u/MvvHIwxnwdPE9RbBG0Xuj4LyXkLoFcCrU5qJy6pFhi1imuwF6EX2EwLApTJp1YaoTODQULgpeknXDzrKn5J6NEW1OwjzM13gHnSPDbLA/V/zW4VlUJHFLGbzDkRDA10zW83v3l7djO4OjgjaMDNbJ8SBR2r0=
+	t=1785877777; cv=none; b=TCYzr1yU4SAtl5egIgI3oZH3T0HGqHtXifoCp2PMOCpHhjxkO/Wzv52euC+9owzgpnuA5EI7tfd631Vs7BZwPROF2VbdBQELLbbBU2UhuenlSYTfZ1AFVr3jO52FvAGqZejwqqsuqXlZ1NmKEMoh9OZJiNbFCxsQjobVu6rHcgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785877694; c=relaxed/simple;
-	bh=o+Ja+74/VYxlyP4DI2QsZjohg37fjjOjbh9SUN7EYOo=;
+	s=arc-20240116; t=1785877777; c=relaxed/simple;
+	bh=H9nqS82m/d22SMD0u7lRelgemI1E4L9pzmRCrgcmTSo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H3POph3XJxSPXdSNJ7bhf1+2Ml+cO9+CoNQDR83KqdTvzZkbciCfBrYHw5d93wWYMHZuBrsIxgGo8f0H32B/8cYdbyQuNEYX48fGoaWYlWWhalec0zEYRlNC0ZrpqrG/Na+sf3ukIaYuRqgGdd/rNTFYcBnjUpXe403mzxUjlhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjfMDq3g; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kSRK6ivFsVJpgTF2KNAswyZIhL0PEzGu16U7LIEVGgC0qt9iTQ4ab9k9Pd2P+0Mk7yq3viNH68vv1/OM3nSvLT0b7EIaZxOF9Zm4w1BzNLDhF5CTdsKAbyI6uz4/blz+np+wNT1+2VETYT5dkwCZnd7rDYLPbwXd14SWZ9aifZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pu9rBH1k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjfMDq3g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5281F000E9;
-	Tue,  4 Aug 2026 21:08:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pu9rBH1k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C979F1F000E9;
+	Tue,  4 Aug 2026 21:09:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785877692;
-	bh=dyQxeLvHZPBPULeFpNhUPh6gqriPr/vtpzGh3phT2fA=;
+	s=k20260515; t=1785877776;
+	bh=QEoNqKl434OcZ9ol7VN+iY+WCGKC5wklOthnlL5AtoA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cjfMDq3gt0pnZe307+Dt0YwLgGjrd/yjvjM9+Q8XpDh0RT2yXAvDMH+Z9j3mAFXxD
-	 Dfi60WSAK4NrrLZgxxxzlQMROqiFLlN48ez7KCM/+xsxiJOs5S3JW8tF3XbAz7LzAH
-	 kIdk1QNwuVpfT2N/t55HSr0s1afJ/aPxjFh0+KtqFqWuayw66OMkWMjoloIpYNpE4l
-	 WZTU3zbRxvz+D/dvkkk2fDuaEm9H+b8tqdvLh+k+RjRbkNcbiM9PjWMeqn1xlxz9Kv
-	 ZNQ1ManJxzUDypBnWp4lOFZqppGWc8FgDEANaYECUGm6EyzLz22z45qXilQcR0cV+2
-	 8umIB1faETYYA==
+	b=Pu9rBH1kiEntXN6r6rePk7bmacoaz7MXBGqkCHADxeTUiYczwKuM7jM4AE+u79+hf
+	 3OlYlDvFFXR0jZzkd2XeDfljEouqPRAeZs4qm0J3Sq3NsQOzzCNlUkOIXX2u7ZAp88
+	 S6eszK+cD3HULtRp3L0bAwV762mtLwfFDV0Bz04E5cm3WscU+GssOjFcGZVD1AqtPp
+	 kW9Lw5P+hLiJHnsWK6U8MO6Xse3e9UzXZ5Z61X4EDauvSwPGwSMi14n1v2SVy/JPN+
+	 JxGhTKSddZ+TMXw9c4rYtY+dTvrSEHSvu1Hkb+5xnH4RyDgyd+XuPLRO27ns+R0Qrr
+	 kLvmsHqTWY8og==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/6] dt-bindings: display: allow the boot logo in a
- reserved memory region
+Subject: Re: [PATCH v2 2/6] video: logo: allow the boot logo to come from
+ the device tree
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Max Pedraza" <maximpedraza@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804225617.264861-5-maximpedraza@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260804225617.264861-3-maximpedraza@gmail.com>
 References: <20260804225617.264861-1-maximpedraza@gmail.com>
- <20260804225617.264861-5-maximpedraza@gmail.com>
+ <20260804225617.264861-3-maximpedraza@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 21:08:12 +0000
-Message-Id: <20260804210812.8A5281F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 21:09:35 +0000
+Message-Id: <20260804210935.C979F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Arbitrary boot logo placement via device tree allows out-of-bounds=
- memory writes in framebuffer drivers.
-- [Medium] The YAML schema enforces contradictory constraints by unconditio=
-nally requiring inline image properties, making the new `memory-region` pro=
-perty impossible to use without failing validation.
-- [Medium] The kernel driver lacks any C implementation to parse or map the=
- newly added `memory-region` property.
-- [Medium] Using `kmalloc` for potentially large image allocations will fai=
-l for sizes exceeding `KMALLOC_MAX_SIZE`.
+- [High] Premature freeing of device tree boot logo memory creates a race c=
+ondition with asynchronous framebuffer probes, leading to a NULL pointer de=
+reference.
+- [Medium] Unbounded kmalloc() allocation for device tree boot logo trigger=
+s a kernel warning and fails for sizes exceeding KMALLOC_MAX_SIZE.
+- [Medium] Silent fallback to searching the device tree root node if the /c=
+hosen node does not exist.
 --
 
---- Patch [4]: [PATCH v2 4/6] dt-bindings: display: allow the boot logo in =
-a reserved memory region ---
-commit 53263fda0e15a2f2d945eb9940e2236f6120727d
+--- Patch [2]: [PATCH v2 2/6] video: logo: allow the boot logo to come from=
+ the device tree ---
+commit f460a2fda249375abd332c49e9ef32c7cd3a3f7b
 Author: Max Pedraza <maximpedraza@gmail.com>
 
-dt-bindings: display: allow the boot logo in a reserved memory region
+video: logo: allow the boot logo to come from the device tree
 
-This commit extends the boot logo device tree binding to support loading
-the image from a reserved memory region. It adds a memory-region property
-as a mutually exclusive alternative to providing the image data inline.
+Add CONFIG_LOGO_DT_CLUT224, which makes fb_find_logo() look for a node
+compatible with "linux,boot-logo-clut224" under /chosen before falling
+back to the logos built into the kernel image.
 
-> Carrying the image in the device tree ties it to the device tree, but the
-> image and where it goes on screen are independent axes of variation. One
-> board sold to several customers wants several device trees that differ in
-> the logo; one customer with several products built on that board wants the
-> same logo placed differently on each panel. The second case would otherwi=
+> diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
+> index 91535f8848da9..7f8b04ecfa987 100644
+> --- a/drivers/video/logo/logo.c
+> +++ b/drivers/video/logo/logo.c
+
+[ ... ]
+
+> +static int logo_dt_parse(struct device_node *np)
+> +{
+> +	unsigned int clutsize, npixels, i;
+> +	unsigned char *clut, *data;
+> +	u32 width, height;
+> +	int len, ret;
+> +
+> +	ret =3D of_property_read_u32(np, "width", &width);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D of_property_read_u32(np, "height", &height);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
+> +		return -EINVAL;
+> +
+> +	npixels =3D width * height;
+> +
+> +	len =3D of_property_count_u8_elems(np, "clut");
+> +	if (len < 3 || len % 3)
+> +		return -EINVAL;
+> +
+> +	clutsize =3D len / 3;
+> +	if (clutsize > LOGO_DT_MAX_CLUT)
+> +		return -EINVAL;
+> +
+> +	ret =3D of_property_count_u8_elems(np, "data");
+> +	if (ret < 0)
+> +		return ret;
+> +	if ((unsigned int)ret !=3D npixels)
+> +		return -EINVAL;
+> +
+> +	clut =3D kmalloc(len, GFP_KERNEL);
+> +	if (!clut)
+> +		return -ENOMEM;
+> +
+> +	data =3D kmalloc(npixels, GFP_KERNEL);
+
+[Severity: Medium]
+Could this allocation trigger a kernel warning (WARN_ON_ONCE_GFP) and fail =
+if
+the device tree provides a valid boot logo larger than KMALLOC_MAX_SIZE?
+LOGO_DT_MAX_PIXELS is 32MB, but kmalloc() without __GFP_NOWARN will warn if
+it exceeds the maximum contiguous allocation size. Does this code need to u=
 se
-> mean duplicating the same image into every device tree.
+kvmalloc() instead, or restrict the size limit to KMALLOC_MAX_SIZE?
+
+> +	if (!data) {
+> +		ret =3D -ENOMEM;
+> +		goto err_free_clut;
+> +	}
+> +
+> +	ret =3D of_property_read_u8_array(np, "clut", clut, len);
+
+[ ... ]
+
+> +static const struct linux_logo *logo_dt_find(void)
+> +{
+> +	static bool probed;
+> +	struct device_node *np;
+> +	int ret;
+> +
+> +	if (probed)
+> +		return logo_dt_data ? &logo_dt_clut224 : NULL;
+> +
+> +	probed =3D true;
+> +
+> +	np =3D of_get_compatible_child(of_chosen, LOGO_DT_COMPATIBLE);
 
 [Severity: Medium]
-Can allocating these large images fail?  Using kmalloc() for potentially
-large image allocations up to the 32MB LOGO_DT_MAX_PIXELS limit will fail
-for sizes exceeding KMALLOC_MAX_SIZE:
+If the device tree lacks a /chosen node, of_chosen will be NULL. In that
+scenario, wouldn't of_get_compatible_child() silently fall back to iterating
+the children of the root node (of_root)? This seems to bypass the strict
+constraint mentioned in the commit message that the node must be located un=
+der
+/chosen.
 
-drivers/video/logo/logo.c:logo_dt_parse() {
-	...
-	data =3D kmalloc(npixels, GFP_KERNEL);
-	if (!data) {
-		ret =3D -ENOMEM;
-		goto err_free_clut;
-	}
-	...
-}
+> +	if (!np)
+> +		return NULL;
+> +
+> +	if (of_device_is_available(np)) {
+> +		ret =3D logo_dt_parse(np);
+> +		if (ret)
+> +			pr_warn("logo: ignoring malformed %pOF node (%d)\n",
+> +				np, ret);
+> +	}
+> +
+> +	of_node_put(np);
 
->=20
-> Let the node point at a reserved memory region filled in by the bootloader
-> instead, so one image can be shared by device trees that differ only in
-> placement. The region starts with a small header carrying a magic number
-> and the geometry, so the kernel can tell a logo from an empty or stale
-> region and bounds check everything against the reservation.
+[ ... ]
 
-[Severity: Medium]
-Is the parsing logic for this feature missing from this patch series?  The
-kernel driver lacks any C implementation to parse or map the newly added
-memory-region property.
-
-In drivers/video/logo/logo.c:logo_dt_parse(), it unconditionally checks
-for the inline properties and returns an error if they are absent, with no
-code to handle the memory-region property:
-
-drivers/video/logo/logo.c:logo_dt_parse() {
-	...
-	ret =3D of_property_read_u32(np, "width", &width);
-	if (ret)
-		return ret;
-	...
-}
+> @@ -32,6 +184,7 @@ static bool logos_freed;
+>  static int __init fb_logo_late_init(void)
+>  {
+>  	logos_freed =3D true;
+> +	logo_dt_free();
 
 [Severity: High]
-Are the placement coordinates actually bounds-checked?  Arbitrary boot
-logo placement via device tree allows out-of-bounds memory writes in
-framebuffer drivers.
+Can this introduce a race condition resulting in a NULL pointer dereference
+or use-after-free for framebuffer drivers that use async probing?
 
-In fb_logo_dt_place(), unvalidated coordinates from the DT are assigned
-to image->dy:
+fb_logo_late_init() executes as a late_initcall_sync during do_initcalls(),
+which happens before async_synchronize_full() guarantees async probes are
+complete. If an async probe caches the logo pointer via fb_find_logo(), and
+then fb_logo_late_init() frees the memory and clears the pointers, the async
+probe might dereference the freed memory later in fb_show_logo().
 
-drivers/video/fbdev/core/fb_logo.c:fb_logo_dt_place() {
-	...
-	image->dx =3D max(dx + p->offset_x, 0);
-	image->dy =3D fb_logo_dt_top(info->var.yres, image->height);
-}
-
-In fb_do_show_logo(), the bounds checks are completely missing for the Y
-axis depending on rotation:
-
-drivers/video/fbdev/core/fb_logo.c:fb_do_show_logo() {
-	...
-	if (rotate =3D=3D FB_ROTATE_UR) {
-		for (x =3D 0;
-		     x < num && image->dx + image->width <=3D info->var.xres;
-		     x++) {
-			info->fbops->fb_imageblit(info, image);
-	...
-}
-
-When fb_imageblit() is called, the driver computes an address using dy,
-which will write far outside the framebuffer limits.
-
-[ ... ]
-
-> diff --git a/Documentation/devicetree/bindings/display/linux,boot-logo-cl=
-ut224.yaml b/Documentation/devicetree/bindings/display/linux,boot-logo-clut=
-224.yaml
-> index a6a2069648359..7aec0cc2d3776 100644
-> --- a/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.y=
-aml
-> @@ -59,6 +59,23 @@ properties:
->        index into the colour lookup table. The property length must be eq=
-ual to
->        width multiplied by height.
-> =20
-> +  memory-region:
-> +    maxItems: 1
-
-[Severity: Medium]
-Will this property always fail validation?  The top-level required list
-permanently mandates width, height, clut, and data.  If a device
-tree node is added using only memory-region, it fails the global
-required check:
-
-Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml:
-required:
-  - compatible
-  - width
-  - height
-  - clut
-  - data
-
-If a node provides both, it fails the oneOf constraint since the subschemas
-become mutually exclusive.
-
-[ ... ]
+>  	return 0;
+>  }
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
-61-1-maximpedraza@gmail.com?part=3D4
+61-1-maximpedraza@gmail.com?part=3D2
