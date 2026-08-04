@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC3244781F;
-	Tue,  4 Aug 2026 10:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B683191BB
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 10:17:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785838552; cv=none; b=hnLuCsGlSXTG7dm54412Ct+OoVz8+TMTdVz6HtaykHfRUeiAdOG5kLWX4qZCLerUqZ0f8QvvNOmTIrUEo1gaa4xySIcWL03O8FJp33Gn2TQa0ZUONiAslIIe9RqBWnCGSaUETtdZiA9R3JYGC87c9k1jdvU0hChwd9uWsQ6daEg=
+	t=1785838678; cv=none; b=C99Z3gN/EYoPvz898sDFd/TVg0rC9pB5/7Wb3qe6ELldqySHjLwOcGv+e7ZFvAk6kcq8Q3pLD5L+P/sePumdzodIeSasDNU0nyCiFCWLiIFqv5FfCed/4vpeEfPW9umSLhsdcxEE47W2XG2r4KhTqz5t8a8qBqGKePzFinMtc4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785838552; c=relaxed/simple;
-	bh=QkMeeuC4aYR5NtBiPr/AMIuNa9VApNayAIEyaiJ06KM=;
+	s=arc-20240116; t=1785838678; c=relaxed/simple;
+	bh=zWkCCsMRzagoh5KeqReWvxEssGrZDQxl1N/u+cbcfAU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KNmtYQ8Lc5KAb2HqDuudfPdlWHWNJP1oeHhKyg301oaB1gSZHiOdEQK/E4kzpxqNaQT7dt1aXLXdqTlWVbJrf1NpsWpRdPAGYlXnUDVrYlBM3Yq0lnTZCReSNa/sgs+QNW94LML+acbZWS9ta7pFDSF+/rOloLHBW2Q+S0NNrSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZoOA2+f; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Lq58sBXqG5egLabhn7qDRf9+XR2ECocHTTR4Wax9YMu5cB7O3sqJ/FrFruxTvHQ1WiWE1mXTr8cxSCacQ33l42lFniPf9nOZLSPnayf2SlpkiIhcymDVp7xwE46LZwKPTkhNZsz7rOZqNXQnxZ/T9Jr2c2/UcxaU2ETC/z8C8Y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7vwMH7j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZoOA2+f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D6B1F000E9;
-	Tue,  4 Aug 2026 10:15:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7vwMH7j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F350A1F000E9;
+	Tue,  4 Aug 2026 10:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785838550;
-	bh=eCCGPUMSRuzwX5Bohm2/D9leG449NdMwyDltjDfaB/0=;
+	s=k20260515; t=1785838677;
+	bh=n2u/BaXQVvuC5mXZNKv9EHY6dsCWs6cD33KIlN/IATo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RZoOA2+fY1W8K9Y4dP5PAljUIfwam/S0qNjMI47VNJPSfzjGdz0RJaD/N1qtqTAvY
-	 3mnszkX4NuymQij5m3jcWen/Smb9E0Pqoor7bt9zPGX/6pk0GQeOJxqO9cbLHEtJnJ
-	 J1a3ghzLSqot5Vy2TePhPXOqEE5kNKnX9QDdUx4ea6RQsM4zKQMw/E5oHFQ1XO07PK
-	 O4zRLcRXdEiAmUfm10Wdqw+HGVTcnI1W8YCS8SZk4JMsMRqtWq6X3eoA5p143F1qoD
-	 U3CdcJV8vzZu1+QLJNBqfHxHDBYlktgXerSCA5c5XerV30K8sUMU0L+4ncUNUs/UdX
-	 9QfKRvmejSShw==
+	b=Q7vwMH7jJxf/8pTghbcQtkwEEbKVUAgfo7SwSPLE1q/Fc59xNQ/hUx9DyuoUqzcsr
+	 Ngfa7eMxKqe8m6FDv/D6BH9t75bG3VrwywUsl4ZEuWhugglBxVvME6d4oFR/DdjjEH
+	 Rb6MJKBPtAdwoi++0Jbi3dMDFsnfc1ur7QY9k8AKVfpWkX7VxWfZjfXGGrUkgSGrNO
+	 3zCbEwwW+nsRO81OS43eZ95HnxV4ARqp2wMfntzG33+dSPQVZkNx2zzEBS1dOOLnAB
+	 dyO93HUoHQh64GtPB6GWQF4Q/OsJQZYWvK4Vp+16ykhcDjaueAbxGwlt17D1xzytou
+	 ZAh9Hsk5DOX1w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params into
- pair/context struct
+Subject: Re: [PATCH net-next v5 3/3] net: phy: add DAPU Telecom DAP8211R(I)
+ Gigabit Ethernet PHY driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: shengjiu.wang@oss.nxp.com
-Cc: robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260804100218.49587-4-shengjiu.wang@oss.nxp.com>
-References: <20260804100218.49587-1-shengjiu.wang@oss.nxp.com>
- <20260804100218.49587-4-shengjiu.wang@oss.nxp.com>
+To: "Artem Shimko" <a.shimko.dev@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260803101734.270821-4-a.shimko.dev@gmail.com>
+References: <20260803101734.270821-1-a.shimko.dev@gmail.com>
+ <20260803101734.270821-4-a.shimko.dev@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 10:15:47 +0000
-Message-Id: <20260804101547.D4D6B1F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 10:17:56 +0000
+Message-Id: <20260804101756.F350A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,120 +47,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Use-After-Free and Write-After-Free due to shared CPU DAI `dma=
-_data` being overwritten by concurrent substreams.
-
-Pre-existing issues:
-- [High] Failed `hw_params` requests cause `hw_free` to unconditionally rel=
-ease a stale pair index, potentially disabling another active stream's hard=
-ware context.
+- [Medium] Incorrect initialization order: RGMII delay settings are written=
+ after the PHY software reset.
+- [Low] Brittle error handling in read_poll_timeout relies on mathematical =
+coincidence of negative error codes.
 --
 
---- Patch [3]: [PATCH v3 3/5] ASoC: fsl_asrc/fsl_easrc: move DMA params int=
-o pair/context struct ---
-commit 4551053ba617a888e5b04cb058570e71617e9706
-Author: Shengjiu Wang <shengjiu.wang@nxp.com>
+--- Patch [3]: [PATCH net-next v5 3/3] net: phy: add DAPU Telecom DAP8211R(=
+I) Gigabit Ethernet PHY driver ---
+commit a53a9ce41047cdc6842142dab15fe0303b0f860a
+Author: Artem Shimko <a.shimko.dev@gmail.com>
 
-ASoC: fsl_asrc/fsl_easrc: move DMA params into pair/context struct
+net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
 
-This patch moves the DMA parameters for transmit and receive paths from
-the shared fsl_asrc structure into the per-pair structure. This aims to
-prevent concurrent stream initializations from overwriting each other's
-addresses and maxburst values. Redundant per-DAI probe callbacks are
-removed as well.
+Adds a new PHY driver for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
+The driver implements extended register access for RGMII delay configuratio=
+n.
 
-> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-> index df4817ae91b18..2755ee57c6a17 100644
-> --- a/sound/soc/fsl/fsl_asrc.c
-> +++ b/sound/soc/fsl/fsl_asrc.c
+> diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/net/phy/dap8211r.c
+
 [ ... ]
-> @@ -781,18 +781,7 @@ static int fsl_asrc_dai_trigger(struct snd_pcm_subst=
-ream *substream, int cmd,
->  	return 0;
->  }
-> =20
-> -static int fsl_asrc_dai_probe(struct snd_soc_dai *dai)
-> -{
-> -	struct fsl_asrc *asrc =3D snd_soc_dai_get_drvdata(dai);
-> -
-> -	snd_soc_dai_init_dma_data(dai, &asrc->dma_params_tx,
-> -				  &asrc->dma_params_rx);
-> -
-> -	return 0;
-> -}
-> -
->  static const struct snd_soc_dai_ops fsl_asrc_dai_ops =3D {
-> -	.probe		=3D fsl_asrc_dai_probe,
->  	.startup	=3D fsl_asrc_dai_startup,
->  	.hw_params	=3D fsl_asrc_dai_hw_params,
->  	.hw_free	=3D fsl_asrc_dai_hw_free,
 
-[Severity: High]
-This is a pre-existing issue, but could a failure in fsl_asrc_dai_hw_params=
-()
-cause problems here in fsl_asrc_dai_hw_free()?
+> +static int dap8211r_config_init(struct phy_device *phydev)
+> +{
 
-If fsl_asrc_request_pair() fails during hw_params (e.g. because no channels
-are available), the ALSA core automatically calls fsl_asrc_dai_hw_free() to
-clean up:
+[ ... ]
 
-	if (pair)
-		fsl_asrc_release_pair(pair);
-
-Since pair->index still retains the stale index of the dummy pair acquired
-and released earlier in fsl_asrc_dma_startup(), this unconditionally releas=
-es
-that index:
-
-	regmap_update_bits(asrc->regmap, REG_ASRCTR,
-			   ASRCTR_ASRCEi_MASK(index), 0);
-
-If another concurrent stream has since acquired that pair index, could this
-abruptly stop its hardware conversion and corrupt its state?
-
-> diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-> index 38f2b7c63133a..64d66420e7ada 100644
-> --- a/sound/soc/fsl/fsl_asrc_dma.c
-> +++ b/sound/soc/fsl/fsl_asrc_dma.c
-> @@ -390,6 +390,20 @@ static int fsl_asrc_dma_startup(struct snd_soc_compo=
-nent *component,
-> =20
->  	runtime->private_data =3D pair;
-> =20
-> +	/*
-> +	 * Point the cpu DAI dma_data at the per-pair params so that
-> +	 * concurrent hw_params calls on different pairs each write to
-> +	 * their own struct and do not race on addr/maxburst.  Use the
-> +	 * per-direction setters so that a concurrent open of the other
-> +	 * direction on the same DAI does not NULL out its pointer.
-> +	 */
-> +	if (tx)
-> +		snd_soc_dai_dma_data_set_playback(snd_soc_rtd_to_cpu(rtd, 0),
-> +						  &pair->dma_params);
-> +	else
-> +		snd_soc_dai_dma_data_set_capture(snd_soc_rtd_to_cpu(rtd, 0),
-> +						 &pair->dma_params);
+> +	set |=3D FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, rx_internal_delay);
+> +	set |=3D FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, tx_internal_delay);
 > +
+> +	ret =3D dap8211r_modify_ext(phydev, DAP8211R_PHY_CON, DAP8211R_PHY_SW_R=
+ST, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Wait for reset self-clear (from low active to high) */
+> +	ret =3D read_poll_timeout(dap8211r_read_ext, val,
+> +				(val & DAP8211R_PHY_SW_RST),
 
-[Severity: Critical]
-Does this code overwrite the shared CPU DAI's dma_data pointer with a
-per-substream dynamically allocated pointer?
+[Severity: Low]
+Should this exit condition explicitly check for val < 0?
 
-Since the CPU DAI is shared across multiple substreams, if this startup
-sequence fails later (e.g. no channels available) and kfree(pair) is called
-in the error path:
+If dap8211r_read_ext() returns a negative error code, this loop currently
+terminates only because negative values in two's complement happen to have
+BIT(15) set. Relying on this coincidence might mask errors if a different
+register or bit is polled in the future.
 
-	if (release_pair)
-		kfree(pair);
+> +				20, 200, false, phydev, DAP8211R_PHY_CON);
+> +	if (ret)
+> +		return ret;
+> +	if (val < 0)
+> +		return val;
+> +
+> +	ret =3D dap8211r_modify_ext(phydev, DAP8211R_RGMII_CON, DAP8211R_RGMII_=
+CONFIG_MASK, set);
 
-Could this leave the CPU DAI with a dangling pointer?
+[Severity: Medium]
+The function's docstring mentions "Software reset to apply settings", but h=
+ere
+the RGMII configuration is written after the reset completes.=20
 
-Similarly, when a stream is closed and fsl_asrc_dma_shutdown() calls
-kfree(pair), does it leave any remaining active streams with a dangling
-pointer in the shared DAI, leading to a use-after-free?
+Does this PHY require the settings to be written before the software reset =
+in
+order to latch them properly?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804100218.4958=
-7-1-shengjiu.wang@oss.nxp.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803101734.2708=
+21-1-a.shimko.dev@gmail.com?part=3D3
