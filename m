@@ -1,205 +1,148 @@
-Received: from out-181.mta1.migadu.com (out-181.mta1.migadu.com [95.215.58.181])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D72544C4EC;
-	Tue,  4 Aug 2026 10:20:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1BA4477FE;
+	Tue,  4 Aug 2026 10:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785838844; cv=none; b=tifRR8OqmcQfSPpf7dZ2QDjTz02KZnVa53I5qeuc+bMY1aMoPimJzj9VO+u5VMEmYkrlhsPHjzpjprHdX2dKDF/LGBqayQgVaEbRSU/0o2ingrzsD0//rsz3/PECoVlaUzRIm+s+Hcqv6daBEVzAAo8YsiNlv8WhZRLrYtVuQMk=
+	t=1785838860; cv=none; b=tA2rtlvFOKawEae56xuBCsSFsfuZ126wV4BdxbwE8BMF3ooF1RfhlDuu/cPR+q+lCPwS5C3qVGUv5fIqfO7aKUnNwkV1pt+WtUmQdN3oXIqIQrwXUa0aM0Kb4U7iN1TJtzrtyXU5WN5xdxAPeFxq+TD7EpavyNVxA6Mffh18yWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785838844; c=relaxed/simple;
-	bh=8U51xgiJ8uLUBMTcobAcJjKtBtoL/dq8oqjF6t/JarU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s0w1NXdazUSVbguKHdCroaocUSjGGIkoA9XGYrUy3eSTLcl7wUhfSjcY6fxggJDX9J9Y1stR54Q8eyHB9dgmqVj82qFJPmMuJyguMYure3gJKLv36ke3HbtwHqB53g73ANyJGIEPn/bB59jbutFBe6TWAyo+ZlZQnIqQP70wslc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=I/xyZYas; arc=none smtp.client-ip=95.215.58.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785838860; c=relaxed/simple;
+	bh=OKIhwTY64GdqC+OHVzOdZZBJkSL2s8IgCRZLfRfX9Cg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bAgRrnt6baSSc1Co0LOR/ndPh7FHHaZSogKiXyiZwmxs1bdlhSDQepkpP4tFM0DfPR039VoDJSLGR6OmsojKYQ1AGtMAEW/bmtQsS4Ix7fEPCbbgK9wU1hM1xPqvg51xg2spWZXVpONYISTySgGbqEK1KEdzJIt1WqPvfZr8/0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I/o6qvBb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="I/xyZYas"
-Date: Tue, 4 Aug 2026 13:20:20 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785838839; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=C5h10Om4GrPRnYSNyOViF/nqPXgZgAQQnPrF7JfdjAk=;
-	b=I/xyZYasKDjz33Qto8XtzBL37h55ZBnO+5Ud/OXntts8OI6zQn8N2AzvLZueIE9C0yM10b
-	aZ6Wu7oJfYfZ2sescVQLY7X73FPOMj+wDIi4ijMWq0yo5BwewA/1WWdtfYnvJoGfrC3PDS
-	Zg9Jf2mYI2qnT6bGjiZp/ZRPVANvxAM=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Matti Vaittinen <matti.vaittinen@linux.dev>
-To: Matti Vaittinen <mazziesaccount@gmail.com>,
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Matti Vaittinen <matti.vaittinen@linux.dev>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org
-Subject: [PATCH v2 01/10] dt-bindings: mfd: common ROHM PMIC properties
-Message-ID: <838486b443af9188410d8b802a818dc0af20ea9d.1785838585.git.mazziesaccount@gmail.com>
-Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
-References: <cover.1785838584.git.mazziesaccount@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I/o6qvBb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AAA21F000E9;
+	Tue,  4 Aug 2026 10:20:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785838859;
+	bh=FLncK/GljeD2xIL3+xX4wvAdLxa0dy53g0Zoy4mAwt8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I/o6qvBbcF1b1ntQhQmPigJF17qPgoFXb/Sw9C1gb9fL+0FUpWLxmiiSdltIK5g2V
+	 F2vQmnzooRgWwbqWLy6lkCMzf1JpN17BgnHv8+XBJz9YC0oiyfSfulYGhgSWWAhppL
+	 UXmznzlW6jZA111CM64roHdemn7muCwFMLyV+nCj1/SkQ6meajL92BNW1dwGesrQhl
+	 cJ0UTTg+NpPhgVyhPlc57TjrVGG0nqIXHQHKTMdvnM0ImoMjkSX4XkHkSEPvC3/pJZ
+	 SoFxd66lJYw7QrhTrYuLbUOapbQl5m/aYaeqAmZfHBCKPscFaHBHGJzLPMylB6FaU9
+	 rWk/SfGEtR4Pg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] ASoC: fsl_asrc: expose individual DAIs per
+ conversion path
+Reply-To: sashiko-reviews@lists.linux.dev
+To: shengjiu.wang@oss.nxp.com
+Cc: robh@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
+In-Reply-To: <20260804100218.49587-5-shengjiu.wang@oss.nxp.com>
+References: <20260804100218.49587-1-shengjiu.wang@oss.nxp.com>
+ <20260804100218.49587-5-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 10:20:55 +0000
+Message-Id: <20260804102058.1AAA21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bO7XywEwPhKvaTcN"
-Content-Disposition: inline
-In-Reply-To: <cover.1785838584.git.mazziesaccount@gmail.com>
-X-Migadu-Flow: FLOW_OUT
 
---bO7XywEwPhKvaTcN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-=46rom: Matti Vaittinen <mazziesaccount@gmail.com>
+Pre-existing issues:
+- [High] Latent use-after-free / state corruption bug triggered by resource=
+ exhaustion: an hw_params error unconditionally releases a hardware pair ac=
+tively used by another stream.
+- [High] Changing Pair A's channel count via a DAI re-configuration instant=
+ly corrupts Pair B's active conversion.
+--
 
-ROHM PMICs keep having similar functionalities from one generation to the
-next. Keeping the device-trees describing these functionalities similar
-helps users because:
-  1. They can re-use existing device-tree properties when switching from
-     one project, using a ROHM PMIC, to next project using newer
-     variant.
-  2. The users can find and re-use examples from old projects - even if
-     they never worked with ROHM PMICs before.
-Similarly, introducing new and different properties for same
-functionality previous variant had, will be adding confusion.
+--- Patch [4]: [PATCH v3 4/5] ASoC: fsl_asrc: expose individual DAIs per co=
+nversion path ---
+commit 958c34d5b39a813baf5b15d76b95e94f278f4bf9
+Author: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Sometimes the existing properties aren't 100% what reviewers would
-prefer. When issues are minor or just cosmetic, changing the existing
-properties is not feasible. Reviewers can't be expected to know which
-properties are new, and which are existing - and this can lead to
-unnecessary review discussion wasting time and energy from everyone.
+ASoC: fsl_asrc: expose individual DAIs per conversion path
 
-Adding a common file for re-used ROHM PMIC properties should make it
-clearly visible that a property is re-used, when a new PMIC binding
-refers to this file instead of (re-)describing all the existing
-bindings. This will also help keeping the common properties identical
-across the variants.
+The patch replaces the single fsl_asrc_dai instance with an array of three
+DAI drivers. This allows up to three independent conversion paths to be
+active at the same time.
 
-Add new file listing commonly used ROHM PMIC properties.
+> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+> index 2755ee57c6a17..a5d6c4c1e9292 100644
+> --- a/sound/soc/fsl/fsl_asrc.c
+> +++ b/sound/soc/fsl/fsl_asrc.c
+> @@ -792,27 +792,76 @@ static const struct snd_soc_dai_ops fsl_asrc_dai_op=
+s =3D {
+[ ... ]
+> -static struct snd_soc_dai_driver fsl_asrc_dai =3D {
+> -	.playback =3D {
+[ ... ]
+> +static struct snd_soc_dai_driver fsl_asrc_dai[] =3D {
+> +	{
+> +		.name =3D "asrc-0",
+[ ... ]
+> +	},
+> +	{
+> +		.name =3D "asrc-1",
+[ ... ]
+> +	},
+> +	{
+> +		.name =3D "asrc-2",
 
-Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+[Severity: High]
+This isn't a bug introduced by this patch, but exposing 3 independent DAIs
+allows multiple streams to run concurrently, making channel exhaustion and
+-EBUSY in hw_params trivially reachable.
 
----
-Revision history:
- v2:
-  - New patch
----
- .../bindings/mfd/rohm,pmic-pins.yaml          | 72 +++++++++++++++++++
- 1 file changed, 72 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mfd/rohm,pmic-pins.ya=
-ml
+If a stream fails inside fsl_asrc_dai_hw_params() due to exhaustion, does
+the cleanup path inadvertently disable another active stream?
 
-diff --git a/Documentation/devicetree/bindings/mfd/rohm,pmic-pins.yaml b/Do=
-cumentation/devicetree/bindings/mfd/rohm,pmic-pins.yaml
-new file mode 100644
-index 000000000000..0d1082804f5a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/mfd/rohm,pmic-pins.yaml
-@@ -0,0 +1,72 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/mfd/rohm,pmic-pins.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ROHM PMICs' OTP configured pin descriptions
-+
-+maintainers:
-+  - Matti Vaittinen <mazziesaccount@gmail.com>
-+
-+description:
-+  Collection of properties which are commonly used to describe various
-+  ROHM PMIC's pins.
-+
-+properties:
-+  rohm,clkout-open-drain:
-+    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmos"
-+      a.k.a "push-pull".
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 1
-+
-+  rohm,pin-clkout:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      The IC has different OTP options to use clkout-pin for different
-+      purposes. Set this property to indicate the OTP variant.
-+
-+      Many of the ROHM ICs have pins, which function can be defined in
-+      OTP. Some of them provide no means to detect the pin configuration
-+      at run-time, leaving software unaware of which features the IC
-+      really has. These properties can be used to inform which pins
-+      provide which functionality. IOW, these properties aren't used to
-+      configure pin, they are used to tell what functionality pins on
-+      this specific IC have.
-+
-+    # Supported functionalities depend on the exact IC model. Following
-+    # values are already defined: gpi, gpo.
-+    # Please, re-use them when adding new ICs.
-+
-+  rohm,pin-fault_b:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      The IC has different OTP options to use fault_b-pin for different
-+      purposes. Set this property to indicate the OTP variant.
-+
-+    # Supported functionalities depend on the exact IC model. Following
-+    # values are already defined: gpi, gpo, faultb, readyind, pwrseq.
-+    # Please, re-use them when adding new ICs.
-+
-+patternProperties:
-+  "^rohm,pin-dvs[0-1]$":
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      The IC has different OTP options to use dvs<X>-pins for different
-+      purposes. Set this property to indicate the OTP variant.
-+    # Supported functionalities depend on the exact IC model. Following
-+    # values are already defined: dvs-input, gpi, gpo, pwrseq.
-+    # Please, re-use them when adding new ICs.
-+
-+  "^rohm,pin-exten([0-1])?$":
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      The IC has an OTP option to use exten -pin(s) for different purposes.
-+      Set this property to indicate the OTP variant.
-+    # Supported functionalities depend on the exact IC model. Following
-+    # values are already defined: gpi, gpo, pwrseq.
-+    # Please, re-use them when adding new ICs.
-+
-+# The schema is expected to be reference by IC schemas, which may introduce
-+# other properties that must be allowed.
-+additionalProperties: true
+Looking at fsl_asrc_dma_startup(), it requests a dummy pair and sets
+pair->index (usually to 0), but does not clear it when released:
+
+sound/soc/fsl/fsl_asrc_dma.c:fsl_asrc_dma_startup() {
+    ...
+    ret =3D asrc->request_pair(1, pair);
+    ...
+    if (pair)
+        fsl_asrc_release_pair(pair);
+}
+
+If hw_params subsequently fails, the ALSA core calls fsl_asrc_dai_hw_free():
+
+sound/soc/fsl/fsl_asrc.c:fsl_asrc_dai_hw_free() {
+    ...
+    if (pair)
+        fsl_asrc_release_pair(pair);
+}
+
+Since pair->index is still 0 from the dummy request, wouldn't this blindly
+disable Pair A, setting asrc->pair[0] =3D NULL and corrupting the global
+channel_avail counter, even if Pair A is actively used by another DAI?
+
+
+[Severity: High]
+This is also a pre-existing issue, but allowing up to three independent
+conversion paths to be active at the same time appears to violate a hardware
+constraint regarding Pair B.
+
+The driver documentation notes that Pair B depends on Pair A:
+
+sound/soc/fsl/fsl_asrc.c:fsl_asrc_request_pair()
+ * It assigns pair by the order of A->C->B because allocation of pair B,
+ * within range [ANCA, ANCA+ANCB-1], depends on the channels of pair A
+
+If Pair A is stopped and restarted with a different channel count while
+Pair B is actively running, what prevents Pair B from being corrupted?
+
+When fsl_asrc_config_pair() updates REG_ASRCNCR to change the ANCA value for
+Pair A, won't Pair B's internal hardware channel offsets immediately shift
+and disrupt its active conversion?
+
+> +		.ops =3D &fsl_asrc_dai_ops,
+>  	},
+>  };
+
 --=20
-2.55.0
-
-
---bO7XywEwPhKvaTcN
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmpxvOQACgkQeFA3/03a
-ocXh+gf/TikZS5vONWYI4gF9eVnIqmQ8PR5sqjNvGaurLgaGgbncjg65witD7KyX
-Wv7a7urQ7qQqD62ud/Kn8+7qrF0k3MJd8ekw6LaZhlft2Va9/i9+dMvHhNzvZWXQ
-PLQzr2fHqYLvt5G2YANUM2NVgrB+T/bLGlMKKlaKdmcVo1MyKKpBtmOvWnY//GKR
-5PzONlLPIGMBdSlVQvAiAsuWx4I87Q0qODX2sEfwkj/s+pmi6iKSWYQYs4zhONQL
-aTxMwaFsc9DfQLtlpgBSW1tKxK56xrnFROyVv1QuGRz/hFGfzIPwRjubWGLMUmZX
-kXPz9wlZhdL3nXRmV6IArcyd8h+yQg==
-=qPF1
------END PGP SIGNATURE-----
-
---bO7XywEwPhKvaTcN--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804100218.4958=
+7-1-shengjiu.wang@oss.nxp.com?part=3D4
