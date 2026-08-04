@@ -1,39 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3122D3D3CE3;
-	Tue,  4 Aug 2026 08:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CD03E715E;
+	Tue,  4 Aug 2026 08:36:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832497; cv=none; b=fJFfcDHywuqK0n49I47LQfw4RoaBxCfLPKlQac/PINMFZ41JXdiZ2MqQJPDEqbjUcdrraGozUSbUJTotATCmtkMiRuoPVW0ZUJEKt/6YPQZDLmb4cyxZsbsO8Hkowlz1rzo/xXsKcCqk8DaQCz3uTu1wxIhYjZE92EILqonvb0o=
+	t=1785832598; cv=none; b=eC8HiqBYOXDGEizM7QwC22B9NZfAuNLWJmXOHk9Fz7hUUYdtQ+/rYWx964IY6Fy+UlXAYIXS74RRqGhgWpI8gd+BoQgnfbVx0hm77hHWCLtPi9n2XCXqddzMYJo6WZzAmZcNgIzs4HDpL1/av9AQyNuUw8koRP59chmbY1qbC2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832497; c=relaxed/simple;
-	bh=n33aot1iA02PZrdQkbeOk2in+ZQPDoHxH9xZHacF1CY=;
+	s=arc-20240116; t=1785832598; c=relaxed/simple;
+	bh=heyr6V9pc5fqm8Pg1u3+bC/7Jv5hFLVtncn8urFynOo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pZOtauUfx4XMbUFe7zQr6iHvHvMbtV25q4y8TrER9pblW/iJ4iTyKCcv9d/n+zvuZTJ3I8myYGDfhVoMUcyV8LMo5CPHNja1zfWY7NKxSqCd5iEbSqU7XhERSAFoDgVyZEjk9VjNbHz9WFCZu+zHXLgmKRU2tJM2jVpgAFWSh68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXGw0K8s; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZIcvEtQHILMirsWijiSSp5xuxeYQHoyc0JQTwhSCvGW9bx9F0HHHX6ctbR6sv+HSkcHUhFb0ZfMiliFX/lIONQMIWdO932/gwyui3Qyn4vTbiEH3JeiZi4m8dn2gSDjP1KQyJaVEk6l8XUNUpGJXgHCtYjA98gdLOFhZ1s74CI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OJR8Twl3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXGw0K8s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFDAA1F000E9;
-	Tue,  4 Aug 2026 08:34:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OJR8Twl3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC9D1F000E9;
+	Tue,  4 Aug 2026 08:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785832495;
-	bh=XR9pVsWP0VRq3VDnLe2LKHb2hlkKIaoXawgZIgHxx2k=;
+	s=k20260515; t=1785832597;
+	bh=64Xq96YRQyhtkBPpcEjutIkSTHiC9n8HlyHblT8xDvo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GXGw0K8s5GD8ECX8MgXandaT10fElf7Mfm2kC3Zcew/Z6DNrvyrc1hxpUTjGYeJvp
-	 F1+cy09NbgPj23vOVlcU08TN1apjVZFRZcetMSnQYOReJXpnN7wLWoLQ9udwq7CxcR
-	 wRn3Ic2FOWgPWpBxb7WI+nlr3KcWl9azQryMdge9xul+bIPoEI4S+OvcajNCLY9SIz
-	 X3zOVp2Uti4EOeu0y2TAn+wEJkV7ZeAbQjGIzrf68wMcWkxFGP6tTVyABUdv19T6wn
-	 TZRwoLRRifFtXXtK+o/0DR9Y4zGgfdLgPp0YKcwkj+tjEOm9kDNibuzz3FvWT4Wqm+
-	 Td6rbfLG97XNg==
-Date: Tue, 4 Aug 2026 10:34:51 +0200
+	b=OJR8Twl3a8iyERK7ubpNDGveorBM2Y3IM55x4JejXbJcTrdYhMIf6iH65+9hAa6Uw
+	 YGaL5g7SvjNymVqJBG3fKYlt9kku341Ca9yfJpV9lAiDKsY83RsZw5AvR2yQjObBq8
+	 PgHoUQfDv89mI+ZvDi5GA8vzjAdAuhx9SGk3xRpp1fk72hx3SFcWB646ihkpKw8d3Y
+	 hWJNoRi7uRwAIcS1B0hpcnj/rOjYj+8UJg1NT9mFa19IWTnpfzA3nw1CIh3USyw332
+	 hOMZeeW0iDik6+AdEHMBcqC/hdYvAg2Y55Ubr5S4Giftgk6lU73wKjGkqJ8jMX8AbX
+	 QeAKO5GneE+xw==
+Date: Tue, 4 Aug 2026 10:36:33 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Yuho Choi <dbgh9129@gmail.com>
-Cc: robh@kernel.org, saravanak@kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] of: Put coreboot node after compatibility check
-Message-ID: <20260804-tricky-malachite-robin-192339@quoll>
-References: <20260802023821.494178-1-dbgh9129@gmail.com>
+To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>
+Subject: Re: [PATCH 01/28] dt-bindings: phy: qcom: Describe QMP USB and UFS
+ PHY vdda-phy/vdda-pll voltages
+Message-ID: <20260804-lemon-malamute-from-nibiru-eeedde@quoll>
+References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
+ <20260803-phy-supply-fix-v1-1-5880630cde3e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,44 +48,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260802023821.494178-1-dbgh9129@gmail.com>
+In-Reply-To: <20260803-phy-supply-fix-v1-1-5880630cde3e@oss.qualcomm.com>
 
-On Sat, Aug 01, 2026 at 10:38:21PM -0400, Yuho Choi wrote:
-> of_find_compatible_node() returns a referenced device node, but
-> EXCLUDED_DEFAULT_CELLS_PLATFORMS used the result only as a boolean and
-> discarded the reference. This leaked a reference each time the
-> address-cells or size-cells warning condition was evaluated on a
-> coreboot system.
+On Mon, Aug 03, 2026 at 08:33:59AM +0200, Manivannan Sadhasivam wrote:
+> The vdda-phy and vdda-pll supplies of the QMP USB and UFS PHYs are
+> frequently swapped in devicetrees, as the naming does not make clear
+> which supply expects which voltage. Document that vdda-phy is around
+> 0.8V and vdda-pll is around 1.2V, with the exact voltage varying per
+> SoC, so that the correct supplies can be assigned.
 > 
-> Use a helper that drops the node reference after checking whether the
-> coreboot node exists.
-> 
-> Fixes: 8600058ba28a7 ("of: Add coreboot firmware to excluded default cells list")
-> Signed-off-by: Yuho Choi <dbgh9129@gmail.com>
+> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Assisted-by: Claude:opus-4-8
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 > ---
->  drivers/of/base.c | 14 +++++++++++++-
->  1 file changed, 13 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/of/base.c b/drivers/of/base.c
-> index 6e7a42dedad3..8d04eaed9805 100644
-> --- a/drivers/of/base.c
-> +++ b/drivers/of/base.c
-> @@ -95,9 +95,21 @@ static bool __of_node_is_type(const struct device_node *np, const char *type)
->  	return !strcmp(match, type);
->  }
->  
-> +static bool of_coreboot_present(void)
-> +{
-> +	struct device_node *np;
-> +	bool found;
-> +
-> +	np = of_find_compatible_node(NULL, NULL, "coreboot");
+>  .../devicetree/bindings/phy/qcom,msm8998-qmp-usb3-phy.yaml   | 10 ++++++++--
+>  .../devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.yaml  | 10 ++++++++--
+>  .../devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml   | 12 +++++++++---
+>  .../bindings/phy/qcom,sc8280xp-qmp-usb3-uni-phy.yaml         | 12 +++++++++---
+>  .../bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml          | 10 ++++++++--
+>  5 files changed, 42 insertions(+), 12 deletions(-)
 
-Code is simple, but could be even simpler with __free. Basically two
-instructions instead of four and no need for this assignment comparison.
-
-> +	found = np != NULL;
-> +	of_node_put(np);
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
