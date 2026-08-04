@@ -1,89 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68474756AC;
-	Tue,  4 Aug 2026 16:10:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3063445629A;
+	Tue,  4 Aug 2026 16:11:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785859848; cv=none; b=XFB9CN+gb1vtz+gi94E9kXfIeECpiAxi56HXs3/0zwg3Et6LGH1rd/wrafqbjVRM8FXma89LjzgCERhbFl8pnj9na4x3KNDgeA03KwtWuAX0QNqrwdP9De7HEjDnk3P9x12wl92AwLx57FZDDCGBdjKMYWBT0bFv00RDgFy5OBg=
+	t=1785859894; cv=none; b=SgIbXEq1N2RhIzX/bdCE0s201pkM/lYhxf9zvN3hnytjBUnqfMHLunOPo+b1Qe+HDQeBYpm/JCG2CQy+0ZZJjZ0LJX3I49SO39stmTl9dN2ffoQ0fP5pSWq/uNX1K59idsSYBKZhAz2lAbvdOV6WAllinFOcBr7XFSR41V2rRL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785859848; c=relaxed/simple;
-	bh=VSEF7OHYOk+wLGuf/rXbUmhHd3XSaZZCZpfTUNONSYY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OnPSAXmUHlrMYnbxUf4f4bYOVhr8yKCPxmo/yDBMKePEcWTmDU+5nRhrkAQtsbEFPKLmB7kjo3ZMKBrr/YSu9NZ0LC5DfsckiStP1nKtSsGMlGvPTzQBCzAJognaREjSkf993sdlwjbXfhdRvIdJn1U0Y0hw0kQji9ZUAUn2BEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kpm+eaqX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785859894; c=relaxed/simple;
+	bh=kBaA9vqZIwgJxdB0pbwJ+Mya1z6kQSG5jatUJeULY8o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MuxShoubw4KAx53g/UzLIfCguccz0J7AMMXONX9J/bsxk7rqysvaWhCZNsgP3EwTWo7lGMr7BlhEsae6zINj3sauBgEekUWb+NDlyAgvPggROkmnGOBhxCI9GlfPKwTHBTY7LFOT6oeDkCG9YFLz7BmQhpqPXzU/IDODBZ0d/pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MBGCC4sX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kpm+eaqX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEAF31F000E9;
-	Tue,  4 Aug 2026 16:10:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MBGCC4sX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7D9C1F000E9;
+	Tue,  4 Aug 2026 16:11:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785859838;
-	bh=XRov15RVAYqIX9x/Y31pHUBq7bssTRXA/aFtNFBwBbA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kpm+eaqXD6/HM/xx8L3QbwJ19Rje41koEtLp8hbpqUg5tJMIQXJY0P6sNPQJG2PPu
-	 GfUWauNga9XCArNeEVY2qsJjPaIyg6pSjO+gjyvvemlly/cbLY0TUTQVg90ENcQjk4
-	 9uo8O2DixxBo0rTsYDXiYEl6JDMTwKgi2lY5DyTOW6fCXKOw9ZvDCxwCKV5icNzTgk
-	 RyoJwhyAVM433od0U1wg5P+CpS6z8I9aCPdm5HsZLhVooRGFQX2fxTpfwd5uXVbBwk
-	 8VMxn4SUPwjdnQFnZ+oImdv1r115Jp21WgG5XmoBt+po6o9ELX08zjp0ZGySBNk89C
-	 hq5bhb9QSQ+Jw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/10] dt-bindings: mfd: fsl,mc13xxx: Use generic
- power-controller schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, lee@kernel.org, mfd@lists.linux.dev
-In-Reply-To: <20260804-mfd-syspower-v1-9-a440783c2e78@nxp.com>
-References: <20260804-mfd-syspower-v1-0-a440783c2e78@nxp.com>
- <20260804-mfd-syspower-v1-9-a440783c2e78@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 16:10:36 +0000
-Message-Id: <20260804161037.AEAF31F000E9@smtp.kernel.org>
+	s=k20260515; t=1785859892;
+	bh=5cRnG4jGKRpBxr2oloTRQwKHT0yuYe7inkzO/pguT7k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MBGCC4sXvzuTY7wExAEXByaeAwV0EdUnP0WTBkBNwfT97ZLqHrPR3JFf3aqAxcbvj
+	 ZmuzuyMyS4jw3CRMlTIbPmdNe1jXqJDerIe1x4D25EHWrhzxaqQCLz2snMJkBbXWQ5
+	 afln5rvcCYeYqLVl1WTdqyrYE1eDWJwX5GxDh0KetDQopLlf7ggc6TMlboVwS0qIgX
+	 mLUBeOE9tiNdL92aX85f/CyZRLDwYTQfIYPYGa7DInWM9Va5OqTP6+VTttcLlJKRPj
+	 1KN5OtTYqsLPlGbTBn6gs0uYYtcfKN+6IxE9zq1I1EEBDCwFqLWX8DVV9mrFDZYDNW
+	 R0aMr8bV2QOeQ==
+Date: Tue, 4 Aug 2026 11:11:29 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Make
+ SDX75, Hawi and Maili MPSS fallback to SM8650
+Message-ID: <anIM8yN-r1wrTErT@baldur>
+References: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260803180021.20368-1-mukesh.ojha@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Broken schema reference to a nonexistent YAML file.
---
+On Mon, Aug 03, 2026 at 11:30:20PM +0530, Mukesh Ojha wrote:
+> SDX75, Hawi and Maili MPSS are compatible with the SM8650 MPSS as
+> they share the same set of interrupts, memory regions and power domains.
+> Rather than describing them as standalone compatibles, model them as
+> fallbacks to qcom,sm8650-mpss-pas.
+> 
 
---- Patch [9]: [PATCH 09/10] dt-bindings: mfd: fsl,mc13xxx: Use generic pow=
-er-controller schema ---
-commit eeab4b123a8fd6063871fdea625f14e773ee0aa4
-Author: Peng Fan <peng.fan@nxp.com>
+This will introduce a dt-validation error in
+arch/arm64/boot/dts/qcom/sdx75.dtsi, which you fix in patch 2.
 
-dt-bindings: mfd: fsl,mc13xxx: Use generic power-controller schema
+But while the binding says qcom,sdx75-mpss-pas alone isn't a valid
+compatible, we support that in the driver, so we're maintaining
+backwards compatibility with current DT - until someone cleans up the
+driver to match the contract defined by the binding.
 
-This commit switches the fsl,mc13xxx binding to use the generic power
-controller schema. It removes the local system-power-controller property
-and references the generic power-controller.yaml file.
+It might be reasonable to accept both of these hiccups, but you need to
+document the upside of it.
 
-> diff --git a/Documentation/devicetree/bindings/mfd/fsl,mc13xxx.yaml b/Doc=
-umentation/devicetree/bindings/mfd/fsl,mc13xxx.yaml
-> --- a/Documentation/devicetree/bindings/mfd/fsl,mc13xxx.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/fsl,mc13xxx.yaml
-[ ... ]
-> @@ -174,6 +172,7 @@ required:
->    - reg
-> =20
->  allOf:
-> +  - $ref: /schemas/power/power-controller.yaml#
 
-[Severity: Low]
-Does the power-controller.yaml schema exist in the tree yet?=20
+But if I read this correctly, it seems I merged qcom,hawi-mpss-pas and
+qcom,maili-mpss-pas prematurely. Based on the commit message in [1] I
+thought they would fall back to sm8650, but this patch says that was
+wrong of me - meaning that [1] should have contained a driver change as
+well. I.e. you didn't test [1], right?
 
-It appears the generic power controller schema remains a legacy=20
-power-controller.txt file in this tree. Adding this reference will cause=20
-make dt_binding_check to fail with a schema reference resolution error=20
-since the referenced YAML file does not actually exist.
+As I said in the reply to Krzysztof, I have dropped [1] again from my
+queue.
 
+[1] https://lore.kernel.org/all/20260713093237.691117-1-mukesh.ojha@oss.qualcomm.com/
+
+Regards,
+Bjorn
+
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  .../bindings/remoteproc/qcom,sm8550-pas.yaml  | 29 +++++++++----------
+>  1 file changed, 14 insertions(+), 15 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> index a062188861ff..f722c55aadf4 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> @@ -18,9 +18,6 @@ properties:
+>      oneOf:
+>        - enum:
+>            - qcom,eliza-cdsp-pas
+> -          - qcom,hawi-mpss-pas
+> -          - qcom,maili-mpss-pas
+> -          - qcom,sdx75-mpss-pas
+>            - qcom,sm8550-adsp-pas
+>            - qcom,sm8550-cdsp-pas
+>            - qcom,sm8550-mpss-pas
+> @@ -49,6 +46,12 @@ properties:
+>        - items:
+>            - const: qcom,sm8750-cdsp-pas
+>            - const: qcom,sm8650-cdsp-pas
+> +      - items:
+> +          - enum:
+> +              - qcom,hawi-mpss-pas
+> +              - qcom,maili-mpss-pas
+> +              - qcom,sdx75-mpss-pas
+> +          - const: qcom,sm8650-mpss-pas
+>  
+>    reg:
+>      maxItems: 1
+> @@ -205,11 +208,9 @@ allOf:
 >    - if:
 >        properties:
 >          compatible:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-mfd-syspow=
-er-v1-0-a440783c2e78@nxp.com?part=3D9
+> -          enum:
+> -            - qcom,hawi-mpss-pas
+> -            - qcom,maili-mpss-pas
+> -            - qcom,sdx75-mpss-pas
+> -            - qcom,sm8650-mpss-pas
+> +          contains:
+> +            enum:
+> +              - qcom,sm8650-mpss-pas
+>      then:
+>        properties:
+>          interrupts:
+> @@ -257,13 +258,11 @@ allOf:
+>    - if:
+>        properties:
+>          compatible:
+> -          enum:
+> -            - qcom,hawi-mpss-pas
+> -            - qcom,maili-mpss-pas
+> -            - qcom,sdx75-mpss-pas
+> -            - qcom,sm8550-mpss-pas
+> -            - qcom,sm8650-mpss-pas
+> -            - qcom,sm8750-mpss-pas
+> +          contains:
+> +            enum:
+> +              - qcom,sm8550-mpss-pas
+> +              - qcom,sm8650-mpss-pas
+> +              - qcom,sm8750-mpss-pas
+>      then:
+>        properties:
+>          power-domains:
+> -- 
+> 2.53.0
+> 
