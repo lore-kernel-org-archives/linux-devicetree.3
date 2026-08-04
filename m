@@ -1,1152 +1,238 @@
-Received: from naesa05.arrow.com (naesa05.arrow.com [216.150.161.26])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F374503E7;
-	Tue,  4 Aug 2026 10:45:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.150.161.26
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785840350; cv=none; b=r6/X6uhFlPXq2bViW9yuOqnS1waQnbbkRWjxsXOAQg99SwHD3kFCEBSeZwseQWZ8ghkYzd8CztqKH04nAPW57Uh2HHsoz+dlTpResbRzgtQMwAIIbBrpz8E8uM5srIDXiTFkAJkOELjhpRCPp22ozd38XjQV7iVzhs35THLMMNE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785840350; c=relaxed/simple;
-	bh=ihOZQ3CROarOys56TGMj0McBmXV08uqEFQOM/pi8Y70=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lVq2OkPjkXTvvAQ/Lj+xs4fvk2OJm8DKrpk9o+bwlfl0Q4/g0ZOMczZcuYJfzlJC+2dh5NA+qnO8moCPjLeU77Da8Apwt3NSTA61GthrGqnIHXsQ3xXA24qMYnkysDS6yxEGBS2Qcs8HaDpU7fIKz6ZkfEMZ4pEQcZezpMR2MSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=IejVL28u; arc=none smtp.client-ip=216.150.161.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536AE4457CC
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 10:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785840921; cv=pass; b=h2F4bf0tTW6tGL8i8F7q3qDTkYvZcS+vcPGmO8eoNXZW69TUUByTkkkRuSPH5MspcbbSL5K1b/gsfUleC2eWoLAieTZBIImBZ66by8Kh9y5VW6KRAZC39gfE91a+kp/lFBidqIfYXgLAD+lx6BpLSHHHvetO0fePTIR5oYGXFHk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785840921; c=relaxed/simple;
+	bh=G1KQ+LVtHy8RC0QnGA0WPBnXR1RfM0037fuPlYYD2aw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Um/6WZ21sxJH2Du2UBYw1BxzPQev8pSppo+w39MrsWOJ9cXDssLk5iXupwm6mpnaSk/8W+We4ANiNUiPpZfoVb4RZIrW8RJNQuhhCuQ3Pk4QTiQnWEYM4JzPI7+eKaMFZIO0j7spvDb84yzBW8ZzrI5bwLc5LzmOy/yN0nB3O20=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y1ns8Tli; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eANkwK9V; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="IejVL28u"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y1ns8Tli";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eANkwK9V"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6748C15q3016238
+	for <devicetree@vger.kernel.org>; Tue, 4 Aug 2026 10:55:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ufWXi06UUaYpOR2ocZYH1DcUH9ePXARaYiL0CTrWXC0=; b=Y1ns8Tliv4Vt8fg5
+	n06OE2tVnaiAXIrrFkxkSoAikEz1oaSN9zNiY9PpxPb+v5DrbwCqyWlx94EfHisS
+	Df9qQSz6yK0RKQk5pbYgpR7GnKWiXvfK8mRjF155XEC8teVY7k1jY+vn72KHAAQJ
+	Cp7P7b0JhzqI0XYwGsLlU8E7FbhnxB6nFz88rju/aALA1fxyzCAVxQgED79DwJ/c
+	yuL/zw/wpd1rzzGnXssQFFQLuGvmQlbDHLsSPaLAiGKIzgf5xB0cR2g6kbs4AU9/
+	ZVXuwBClcQmDZhIW7tN1QtgK4tU6In7ti3nhzaCqHNlDPnsdbu88ivJ1v87yomXa
+	bC3Zhg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fu7271ymh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 10:55:16 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1d30035dso30309961cf.2
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 03:55:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785840916; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sy4CSy4T8xaHMlnIDZIG7XK5fjhmoa5v5LKGsgtpsMJI3VyAFRCfUiix8KsMh+lQEV
+         LkSh0U4tlfxeoF0zrqqiDdxGYnuljTAX0eagf1+m0MZRrOevUdCryyhKqDKvmbICbX9c
+         Kt791k1rPsabDE1EZdLTrFP0Pv4j9h0dxDQE4ydyvbpL1Lgatybg3um6CQS7wOtlkMnx
+         AwNbW8OxAA9bOJJUdujrFGWejZ5nx/SKR0fYPC6sfG7zQOqAjklf6z6oH+NJt2fjz804
+         tEadLwHmA8Gm7fy8c0MyiU2RlnfBOOb8moILDXKihYum0RZ+PlkuaP1SrZ+v6tNpnEzh
+         y2eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ufWXi06UUaYpOR2ocZYH1DcUH9ePXARaYiL0CTrWXC0=;
+        fh=NXS7KLM6PekLsTiZoLL0LgiqkZCTHhKPhuTnBcfioNo=;
+        b=jBmt9v3yx7VPKkiibhbzDcqGKcwCIlrOQVc/3E3r1CNuaG/KGQjLSodptKXwbwqCu8
+         P7oLA2k9zbOe/XSWY6LU18KbkjJgCrgRAv1A5lX4H6gITsJMzFgkXeU7x1MufbjHbxVm
+         BvgcjKPGmy5dbQ8wr9R8OYhYpVIWe7uPdy4g3Hr1GhC3oizKId64aOtCZjFGmbo59Hfj
+         L2+R4GAHwmkJuJvyaGGmJzBmJVHxJB6uPU9XoZQ+MQ1YB2py+ZoITVdjnC7yvfhNtZTR
+         Og99L2rTMofYSMv5I0VIkizSqCcc8eTnU7bSFMmcbNFkId7VdstC+7njH3fd6bjgujfN
+         m1zQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=einfochips.com; i=@einfochips.com; l=20670;
-  q=dns/txt; s=NAESA-Selector1; t=1785840345;
-  x=1817376345;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=cKOjD0kHAgU5hnQRZdLMQ7hlnw3RXR6xgyOmv9GgTBI=;
-  b=IejVL28uB2LtvQANmoCHfJ2jdLLYu8vtiYU+faf/uOcYThoyBBPp2phC
-   lc8BBl7DJM/mPVJvIump1AekdnU6Fsk0eQmyeHU3AKwGJfzwXghlxlfNr
-   1+IifNiluJPLVLkVoMsK/c9LXC9fd/h5w302xJ/k57I/QtBUUVRQCsjfY
-   LxnuELVfexlSAqOZuvqjc8eZ9Xj1o86PYmm2FeQpumDJEOYQ9EY/2Rp2G
-   TsoiObi1WtJLYyDJRuOYy7TRW/15skvO1KcP9UBX4oCX7qIJ3UoLgP8DI
-   SWhI7HVQJcmwOwmMLTwEWRXTaXQ5goIi3+aBXlIa2ZH8b63/C0JlAdR59
-   g==;
-X-CSE-ConnectionGUID: 6Unkz514TGebQf/kWsp1dQ==
-X-CSE-MsgGUID: 2qI+FVTIR2WB3yEXIGk32g==
-X-IronPort-AV: E=Sophos;i="6.25,204,1779170400"; 
-   d="scan'208";a="59629002"
-Received: from unknown (HELO eicahmirelay01.einfochips.com) ([10.100.49.50])
-  by naesa05out.arrow.com with ESMTP; 04 Aug 2026 04:44:37 -0600
-Received: from AHMCPU1888.localdomain ([172.25.5.100]) by eicahmirelay01.einfochips.com with Microsoft SMTPSVC(10.0.20348.1);
-	 Tue, 4 Aug 2026 16:14:31 +0530
-From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Min Lin <linmin@eswincomputing.com>
-Cc: Yulin Lu <luyulin@eswincomputing.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>,
-	Pritesh Patel <pritesh.patel@einfochips.com>
-Subject: [PATCH v3 3/8] riscv: dts: eswin: eic7700: add pinctrl support
-Date: Tue,  4 Aug 2026 16:14:26 +0530
-Message-Id: <20260804104431.1391839-4-pinkesh.vaghela@einfochips.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260804104431.1391839-1-pinkesh.vaghela@einfochips.com>
-References: <20260804104431.1391839-1-pinkesh.vaghela@einfochips.com>
+        d=oss.qualcomm.com; s=google; t=1785840916; x=1786445716; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ufWXi06UUaYpOR2ocZYH1DcUH9ePXARaYiL0CTrWXC0=;
+        b=eANkwK9VzQixu5jQJhu29WNi5zREerRJmRXkAIAqeYQgNMOXjgvA59W9mpGwmq9/OC
+         x6oMtSEm7p3rwk9SpBnltD+vCHoaGlLI4xWmi3uftTmSj5JJKXZbXRHgDRzsZd37GwVS
+         EpXWFSDmzlFj4rn0fFl9JQKDDPZOEnaC6YxWzAXpNteVxFXY+qlR6iZ1gOLtjXkL90aS
+         KSe07vt4r/MSpS+0yg6O7XXj8jOzsm2S5e7/xVdmmi4pt3KCWZFDQJTdRUE9pqXGI9QX
+         kIB6bIPaR7LYmTvdtU185sUaWYtBHGxNy4M51kBes2MSKT2oitJn7T5u+4bX9OkhKg/f
+         IA1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785840916; x=1786445716;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ufWXi06UUaYpOR2ocZYH1DcUH9ePXARaYiL0CTrWXC0=;
+        b=l8CfhpQ9PErTt7VYy1EC5giSdd8U70ceIhmd2QIRyakBgn8W8uBbuCqPD1+UrUEhsw
+         39VqjjzLGFp7entxMvyKIcYTb34MLrMOC5+RmzUQXuQhNCaFT8ku97+8VcoG1x9n0wBQ
+         88ViViK4Q4u3dvirHxJhFAx5IXWB1PfVJZl0LnsKbmlzKPTZ68rDyOVp3qTQqERGgGEu
+         k15ny+sRlc8T8rUvCrm71dejAl1JA7MU2NdbU0jV4APgihb5DfA8BbitR+PGFW41x/NO
+         D6r6YsfcSo6t6cLYVf8qDTMgGNoTS4cGtVc9a31zAuDTlN6onMsdNpriZMoGmY0/p564
+         34Ug==
+X-Forwarded-Encrypted: i=1; AHgh+RrTq98xrutFZDIno3NPTVdmkZ3sPCaN4mVxWGwg46VAJ1D5WxURXMxHcBQvGY6dhUGac1PzNNyrig+p@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx4EXzV4tqrMO2r0JaRRWP6DktlYxtEJETjk43AZxUU192uX4fX
+	mw8vfZL5SZ2Me5Vr/bpAtLM9bQwa8/bT1btNmsKQysCtuSMIZywvD5nF/KMEU4XF4qgwyFC7dyL
+	K1a08MCOLj/Rsj6k7nh334TdMneD1EiJZIovl3bK8w9Xu/rp1EwWg+GzyPuMmrdWuMEiUcdpDuW
+	9yjdCiFTifDkVja517xEM35vGUmGi2Crfv5pej+cU=
+X-Gm-Gg: AR+sD10AvxE0pZVauH6bWke6HvyvNBwBhBvJLXr/tiuJSYOx7Qg8X9FFGSAnRXVhO2Y
+	3qxUdO8IGc1ZYoeqUc5UXdhDhfpnKIECrijCgJsdcpG4JO13exD1jFfwFN0A3L4Dj26XXpo2xTI
+	LJLLD65edCcEbA4aNLCRfuoEcxB/sIdRgKaQxpGOS64nL/YEYu6Wkg2EFzcw==
+X-Received: by 2002:a05:622a:230a:b0:51b:f857:cf82 with SMTP id d75a77b69052e-52b5669e087mr269251071cf.8.1785840915607;
+        Tue, 04 Aug 2026 03:55:15 -0700 (PDT)
+X-Received: by 2002:a05:622a:230a:b0:51b:f857:cf82 with SMTP id
+ d75a77b69052e-52b5669e087mr269250711cf.8.1785840915162; Tue, 04 Aug 2026
+ 03:55:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-OriginalArrivalTime: 04 Aug 2026 10:44:31.0650 (UTC) FILETIME=[3B6AC020:01DD23FE]
+References: <20260729201420.4047677-1-kamal.dasu@broadcom.com> <20260729201420.4047677-2-kamal.dasu@broadcom.com>
+In-Reply-To: <20260729201420.4047677-2-kamal.dasu@broadcom.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Tue, 4 Aug 2026 12:55:04 +0200
+X-Gm-Features: AUfX_my6NQKv03nYfYlqvoSJ9uyhPkd5qHV0OIawzmvKcfyE9Gp_ic94xtc46ow
+Message-ID: <CAPx+jO8G=u-D2saEhzoH7WvLH+TYksbkg7sTH5RdnuZx5gGqtw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/2] dt-bindings: mmc: Extend keep-power-in-suspend
+ beyond SDIO
+To: Kamal Dasu <kamal.dasu@broadcom.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>,
+        Avri Altman <avri.altman@sandisk.com>,
+        Pedro Demarchi Gomes <pedrodemargomes@gmail.com>,
+        Erick Shepherd <erick.shepherd@ni.com>,
+        Adrian Hunter <adrian.hunter@intel.com>, Rob Herring <robh@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA4NiBTYWx0ZWRfXzIVFf9HBJAI8
+ VDSYVZf30XXOUgaFc5mNTQaG1TtvDi0vaaF59NbOPfES1gafuQiTSKFghTBZLDeEzTV9I84BKpe
+ QSSWOqUeTfGBVQv1WEh5P19XCg4R/tM=
+X-Authority-Analysis: v=2.4 cv=Z6Lc2nRA c=1 sm=1 tr=0 ts=6a71c514 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=Q-fNiiVtAAAA:8 a=EUspDBNiAAAA:8
+ a=VTvvGi8E7jVqzfWfbMMA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: iCI-z1g3heTNCr9-MwoooJq53fmvdvO4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA4NiBTYWx0ZWRfXyp+LXQExSdYw
+ cdhUIN1kPoN4y2aS2bpy+2FoY2PKvZe4caV/QlqzCezuGVh/ry8xgotsD53WdLQxnew+7qqika4
+ iw7HvJeADo8BUv5PFaYx78xsybld/NiuobTOSirHXRvjO80Xwe26OGpjioVzDRk/EDa0e1J+YmX
+ yggevLEOUwc00WNN+Xn2H0bcN+7Ve+duwzfqRDEfCN18ict5dLWz3NPTGGeB50fp9isw2t09pFk
+ u8L9RgziZJyqD4LV0ToL83+NGKjP8FG2qI2ds9H8rUkB6zWRMZmQ87K+VtWbAa6S0TJUqdo/45b
+ 3FZtCgkXKkGpQr/gnnqHu36cKSPM0dum21+gxg/Nl6xbEhLRSKj+TOGi8B3WSiomUl6eduv01SI
+ kvEJH9gJAH9rsxbs/vnKe+pPBNWFxdKG5ftjft7fgzx6plqQ7NKwEF6GSsDcPort/zw/Dz+30WY
+ NwisORE9I2vzefYxJvA==
+X-Proofpoint-ORIG-GUID: iCI-z1g3heTNCr9-MwoooJq53fmvdvO4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040086
 
-From: Yulin Lu <luyulin@eswincomputing.com>
+On Wed, Jul 29, 2026 at 10:14=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.co=
+m> wrote:
+>
+> keep-power-in-suspend already documents exactly the requirement
+> needed on (e)MMC platforms where firmware accesses the card directly
+> during resume. Rather than add a separate property describing the
+> same contract, drop its "SDIO only" restriction and document the
+> (e)MMC use case alongside the existing SDIO one.
+>
+> Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+> Changes in v5:
+>   - Added Krzysztof's Reviewed-by.
+>
+> Changes in v4:
+>   - Dropped no-mmc-poweroff-suspend entirely and extended
+>     keep-power-in-suspend instead, per Krzysztof: the two properties
+>     described the same "don't power off across suspend/resume"
+>     contract.
+>
+> Changes in v3:
+>   - Renamed from no-mmc-sleep; dropped S_A_TIMEOUT framing per Ulf.
+>
+> Changes in v2:
+>   - New patch, replacing v1's card-level quirk, per Ulf.
+>
+>  Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml | 7 +++=
++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/mmc/mmc-controller-common.=
+yaml b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> index 3d7195e9461c..f4663b318435 100644
+> --- a/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/mmc-controller-common.yaml
+> @@ -291,7 +291,12 @@ properties:
+>    keep-power-in-suspend:
+>      $ref: /schemas/types.yaml#/definitions/flag
+>      description:
+> -      SDIO only. Preserves card power during a suspend/resume cycle.
+> +      Preserves card power during a suspend/resume cycle. For SDIO,
+> +      this is a request an individual function driver can make at
+> +      runtime via sdio_set_host_pm_flags(). For (e)MMC, it is instead
+> +      a fixed platform characteristic, needed on boards where firmware
+> +      accesses the card directly during system resume, before the
+> +      kernel's own resume path runs.
 
-Add pinctrl node and related pin configuration for EIC7700 SoC
+I realized that I responded to an earlier version yesterday, anyway
+the comment for v4 applies to v5 as well. So in a new version, please
+rephrase the descriptions to mention HW/FW and not software.
 
-Co-developed-by: Pritesh Patel <pritesh.patel@einfochips.com>
-Signed-off-by: Pritesh Patel <pritesh.patel@einfochips.com>
-Signed-off-by: Yulin Lu <luyulin@eswincomputing.com>
-Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
----
- .../dts/eswin/eic7700-hifive-premier-p550.dts | 119 +++
- .../riscv/boot/dts/eswin/eic7700-pinctrl.dtsi | 888 ++++++++++++++++++
- arch/riscv/boot/dts/eswin/eic7700.dtsi        |   5 +
- 3 files changed, 1012 insertions(+)
- create mode 100644 arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
+Moreover, as I said at v3, I don't think re-using
+"keep-power-in-suspend" is sufficient to cover the brcmstb boards.
 
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-index a5c76b14a38f..3101fd90d171 100644
---- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-+++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-@@ -6,6 +6,7 @@
- /dts-v1/;
- 
- #include "eic7700.dtsi"
-+#include "eic7700-pinctrl.dtsi"
- 
- / {
- 	compatible = "sifive,hifive-premier-p550", "eswin,eic7700";
-@@ -18,6 +19,15 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	vcc_1v8: regulator-vcc1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
- };
- 
- &osc {
-@@ -25,10 +35,119 @@ &osc {
- 	clock-output-names = "osc_24m";
- };
- 
-+&gpio0_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio5_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio11_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio14_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio15_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio28_pins {
-+	bias-disable;
-+	input-enable;
-+};
-+
-+&gpio43_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio71_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio74_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio76_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio77_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio79_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio80_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio82_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio84_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio85_pins {
-+	bias-pull-up;
-+	input-disable;
-+};
-+
-+&gpio94_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio106_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&gpio111_pins {
-+	bias-disable;
-+	input-disable;
-+};
-+
-+&pinctrl {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gpio0_pins>, <&gpio5_pins>, <&gpio11_pins>,
-+		    <&gpio14_pins>, <&gpio15_pins>, <&gpio28_pins>, <&gpio43_pins>,
-+		    <&gpio71_pins>, <&gpio74_pins>, <&gpio76_pins>, <&gpio77_pins>,
-+		    <&gpio79_pins>, <&gpio80_pins>, <&gpio82_pins>, <&gpio84_pins>,
-+		    <&gpio85_pins>, <&gpio94_pins>, <&gpio106_pins>, <&gpio111_pins>;
-+	vrgmii-supply = <&vcc_1v8>;
-+};
-+
- &uart0 {
- 	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pins>;
- };
- 
- &uart2 {
- 	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart2_pins>;
- };
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi b/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-new file mode 100644
-index 000000000000..2d655b442982
---- /dev/null
-+++ b/arch/riscv/boot/dts/eswin/eic7700-pinctrl.dtsi
-@@ -0,0 +1,888 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-+/*
-+ * Copyright (c) 2025 Beijing ESWIN Computing Technology Co., Ltd.
-+ *
-+ * ESWIN's EIC7700 SoC pin-mux and pin-config options are listed as
-+ * device tree nodes in this file.
-+ *
-+ * Authors: Yulin Lu <luyulin@eswincomputing.com>
-+ */
-+
-+&pinctrl{
-+	default-pins-grp {
-+		sata_act_led_pins: sata-act-led-pins{
-+			pins = "gpio27";
-+			function = "sata";
-+		};
-+
-+		emmc_led_ctrl_pins: emmc-led-ctrl-pins {
-+			pins = "gpio29";
-+			function = "emmc";
-+		};
-+
-+		sd0_led_ctrl_pins: sd0-led-ctrl-pins {
-+			pins = "gpio34";
-+			function = "sdio";
-+		};
-+
-+		sd1_led_ctrl_pins: sd1-led-ctrl-pins {
-+			pins = "spi1_d2";
-+			function = "sdio";
-+		};
-+
-+		i2c6_pins: i2c6-pins {
-+			pins = "uart1_cts", "uart1_rts";
-+			function = "i2c";
-+		};
-+
-+		i2c7_pins: i2c7-pins {
-+			pins = "uart2_tx", "uart2_rx";
-+			function = "i2c";
-+		};
-+
-+		i2c9_pins: i2c9-pins {
-+			pins = "spi1_d0", "spi1_d1";
-+			function = "i2c";
-+		};
-+
-+		pwm1_pins: pwm1-pins {
-+			pins = "spi1_d3";
-+			function = "pwm";
-+		};
-+
-+		pwm2_pins: pwm2-pins {
-+			pins = "spi1_cs1_n";
-+			function = "pwm";
-+		};
-+
-+		mipi_csi_xtrig0_pins: mipi-csi-xtrig0-pins {
-+			pins = "gpio92";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi_xtrig1_pins: mipi-csi-xtrig1-pins {
-+			pins = "gpio93";
-+			function = "mipi_csi";
-+		};
-+
-+		dual_spi2_pins: dual-spi2-pins {
-+			pins = "spi2_cs0_n", "jtag0_tck", "jtag0_tms", "jtag0_tdi";
-+			function = "spi";
-+		};
-+
-+		quad_spi2_pins: quad-spi2-pins {
-+			pins = "spi2_cs0_n", "spi2_cs1_n", "jtag0_tck", "jtag0_tms",
-+			       "jtag0_tdi", "jtag0_tdo", "gpio5";
-+			function = "spi";
-+		};
-+
-+		gpio1_pins: gpio1-pins {
-+			pins = "jtag0_tck";
-+			function = "gpio";
-+		};
-+
-+		gpio2_pins: gpio2-pins {
-+			pins = "jtag0_tms";
-+			function = "gpio";
-+		};
-+
-+		gpio3_pins: gpio3-pins {
-+			pins = "jtag0_tdi";
-+			function = "gpio";
-+		};
-+
-+		gpio4_pins: gpio4-pins {
-+			pins = "jtag0_tdo";
-+			function = "gpio";
-+		};
-+
-+		gpio6_pins: gpio6-pins {
-+			pins = "spi2_cs0_n";
-+			function = "gpio";
-+		};
-+
-+		gpio7_pins: gpio7-pins {
-+			pins = "jtag1_tck";
-+			function = "gpio";
-+		};
-+
-+		gpio8_pins: gpio8-pins {
-+			pins = "jtag1_tms";
-+			function = "gpio";
-+		};
-+
-+		gpio9_pins: gpio9-pins {
-+			pins = "jtag1_tdi";
-+			function = "gpio";
-+		};
-+
-+		gpio10_pins: gpio10-pins {
-+			pins = "jtag1_tdo";
-+			function = "gpio";
-+		};
-+
-+		gpio12_pins: gpio12-pins {
-+			pins = "spi2_cs1_n";
-+			function = "gpio";
-+		};
-+
-+		gpio13_pins: gpio13-pins {
-+			pins = "mode_set0";
-+			function = "gpio";
-+		};
-+
-+		gpio14_pins: gpio14-pins {
-+			pins = "mode_set1";
-+			function = "gpio";
-+		};
-+
-+		gpio15_pins: gpio15-pins {
-+			pins = "mode_set2";
-+			function = "gpio";
-+		};
-+
-+		gpio16_pins: gpio16-pins {
-+			pins = "mode_set3";
-+			function = "gpio";
-+		};
-+
-+		gpio17_pins: gpio17-pins {
-+			pins = "jtag2_trst";
-+			function = "gpio";
-+		};
-+
-+		gpio18_pins: gpio18-pins {
-+			pins = "i2s0_bclk";
-+			function = "gpio";
-+		};
-+
-+		gpio19_pins: gpio19-pins {
-+			pins = "i2s0_wclk";
-+			function = "gpio";
-+		};
-+
-+		gpio20_pins: gpio20-pins {
-+			pins = "i2s0_sdi";
-+			function = "gpio";
-+		};
-+
-+		gpio21_pins: gpio21-pins {
-+			pins = "i2s0_sdo";
-+			function = "gpio";
-+		};
-+
-+		gpio22_pins: gpio22-pins {
-+			pins = "i2s_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio23_pins: gpio23-pins {
-+			pins = "i2s2_bclk";
-+			function = "gpio";
-+		};
-+
-+		gpio24_pins: gpio24-pins {
-+			pins = "i2s2_wclk";
-+			function = "gpio";
-+		};
-+
-+		gpio25_pins: gpio25-pins {
-+			pins = "i2s2_sdi";
-+			function = "gpio";
-+		};
-+
-+		gpio26_pins: gpio26-pins {
-+			pins = "i2s2_sdo";
-+			function = "gpio";
-+		};
-+
-+		gpio29_pins: gpio29-pins {
-+			pins = "gpio29";
-+			function = "gpio";
-+		};
-+
-+		gpio30_pins: gpio30-pins {
-+			pins = "i2s1_bclk";
-+			function = "gpio";
-+		};
-+
-+		gpio31_pins: gpio31-pins {
-+			pins = "i2s1_wclk";
-+			function = "gpio";
-+		};
-+
-+		gpio32_pins: gpio32-pins {
-+			pins = "i2s1_sdi";
-+			function = "gpio";
-+		};
-+
-+		gpio33_pins: gpio33-pins {
-+			pins = "i2s1_sdo";
-+			function = "gpio";
-+		};
-+
-+		gpio34_pins: gpio34-pins {
-+			pins = "gpio34";
-+			function = "gpio";
-+		};
-+
-+		gpio35_pins: gpio35-pins {
-+			pins = "spi1_cs0_n";
-+			function = "gpio";
-+		};
-+
-+		gpio36_pins: gpio36-pins {
-+			pins = "spi1_clk";
-+			function = "gpio";
-+		};
-+
-+		gpio37_pins: gpio37-pins {
-+			pins = "spi1_d0";
-+			function = "gpio";
-+		};
-+
-+		gpio38_pins: gpio38-pins {
-+			pins = "spi1_d1";
-+			function = "gpio";
-+		};
-+
-+		gpio39_pins: gpio39-pins {
-+			pins = "spi1_d2";
-+			function = "gpio";
-+		};
-+
-+		gpio40_pins: gpio40-pins {
-+			pins = "spi1_d3";
-+			function = "gpio";
-+		};
-+
-+		gpio41_pins: gpio41-pins {
-+			pins = "spi1_cs1_n";
-+			function = "gpio";
-+		};
-+
-+		gpio42_pins: gpio42-pins {
-+			pins = "usb0_pwren";
-+			function = "gpio";
-+		};
-+
-+		gpio43_pins: gpio43-pins {
-+			pins = "usb1_pwren";
-+			function = "gpio";
-+		};
-+
-+		gpio44_pins: gpio44-pins {
-+			pins = "i2c0_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio45_pins: gpio45-pins {
-+			pins = "i2c0_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio46_pins: gpio46-pins {
-+			pins = "i2c1_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio47_pins: gpio47-pins {
-+			pins = "i2c1_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio48_pins: gpio48-pins {
-+			pins = "i2c2_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio49_pins: gpio49-pins {
-+			pins = "i2c2_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio50_pins: gpio50-pins {
-+			pins = "i2c3_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio51_pins: gpio51-pins {
-+			pins = "i2c3_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio52_pins: gpio52-pins {
-+			pins = "i2c4_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio53_pins: gpio53-pins {
-+			pins = "i2c4_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio54_pins: gpio54-pins {
-+			pins = "i2c5_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio55_pins: gpio55-pins {
-+			pins = "i2c5_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio56_pins: gpio56-pins {
-+			pins = "uart0_tx";
-+			function = "gpio";
-+		};
-+
-+		gpio57_pins: gpio57-pins {
-+			pins = "uart0_rx";
-+			function = "gpio";
-+		};
-+
-+		gpio58_pins: gpio58-pins {
-+			pins = "uart1_tx";
-+			function = "gpio";
-+		};
-+
-+		gpio59_pins: gpio59-pins {
-+			pins = "uart1_rx";
-+			function = "gpio";
-+		};
-+
-+		gpio60_pins: gpio60-pins {
-+			pins = "uart1_cts";
-+			function = "gpio";
-+		};
-+
-+		gpio61_pins: gpio61-pins {
-+			pins = "uart1_rts";
-+			function = "gpio";
-+		};
-+
-+		gpio62_pins: gpio62-pins {
-+			pins = "uart2_tx";
-+			function = "gpio";
-+		};
-+
-+		gpio63_pins: gpio63-pins {
-+			pins = "uart2_rx";
-+			function = "gpio";
-+		};
-+
-+		gpio64_pins: gpio64-pins {
-+			pins = "jtag2_tck";
-+			function = "gpio";
-+		};
-+
-+		gpio65_pins: gpio65-pins {
-+			pins = "jtag2_tms";
-+			function = "gpio";
-+		};
-+
-+		gpio66_pins: gpio66-pins {
-+			pins = "jtag2_tdi";
-+			function = "gpio";
-+		};
-+
-+		gpio67_pins: gpio67-pins {
-+			pins = "jtag2_tdo";
-+			function = "gpio";
-+		};
-+
-+		gpio68_pins: gpio68-pins {
-+			pins = "fan_pwm";
-+			function = "gpio";
-+		};
-+
-+		gpio69_pins: gpio69-pins {
-+			pins = "fan_tach";
-+			function = "gpio";
-+		};
-+
-+		gpio70_pins: gpio70-pins {
-+			pins = "mipi_csi0_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio71_pins: gpio71-pins {
-+			pins = "mipi_csi0_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio72_pins: gpio72-pins {
-+			pins = "mipi_csi0_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio73_pins: gpio73-pins {
-+			pins = "mipi_csi1_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio74_pins: gpio74-pins {
-+			pins = "mipi_csi1_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio75_pins: gpio75-pins {
-+			pins = "mipi_csi1_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio76_pins: gpio76-pins {
-+			pins = "mipi_csi2_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio77_pins: gpio77-pins {
-+			pins = "mipi_csi2_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio78_pins: gpio78-pins {
-+			pins = "mipi_csi2_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio79_pins: gpio79-pins {
-+			pins = "mipi_csi3_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio80_pins: gpio80-pins {
-+			pins = "mipi_csi3_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio81_pins: gpio81-pins {
-+			pins = "mipi_csi3_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio82_pins: gpio82-pins {
-+			pins = "mipi_csi4_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio83_pins: gpio83-pins {
-+			pins = "mipi_csi4_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio84_pins: gpio84-pins {
-+			pins = "mipi_csi4_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio85_pins: gpio85-pins {
-+			pins = "mipi_csi5_xvs";
-+			function = "gpio";
-+		};
-+
-+		gpio86_pins: gpio86-pins {
-+			pins = "mipi_csi5_xhs";
-+			function = "gpio";
-+		};
-+
-+		gpio87_pins: gpio87-pins {
-+			pins = "mipi_csi5_mclk";
-+			function = "gpio";
-+		};
-+
-+		gpio88_pins: gpio88-pins {
-+			pins = "spi3_cs_n";
-+			function = "gpio";
-+		};
-+
-+		gpio89_pins: gpio89-pins {
-+			pins = "spi3_clk";
-+			function = "gpio";
-+		};
-+
-+		gpio90_pins: gpio90-pins {
-+			pins = "spi3_di";
-+			function = "gpio";
-+		};
-+
-+		gpio91_pins: gpio91-pins {
-+			pins = "spi3_do";
-+			function = "gpio";
-+		};
-+
-+		gpio92_pins: gpio92-pins {
-+			pins = "gpio92";
-+			function = "gpio";
-+		};
-+
-+		gpio93_pins: gpio93-pins {
-+			pins = "gpio93";
-+			function = "gpio";
-+		};
-+
-+		gpio94_pins: gpio94-pins {
-+			pins = "s_mode";
-+			function = "gpio";
-+		};
-+
-+		gpio95_pins: gpio95-pins {
-+			pins = "gpio95";
-+			function = "gpio";
-+		};
-+
-+		gpio96_pins: gpio96-pins {
-+			pins = "spi0_cs_n";
-+			function = "gpio";
-+		};
-+
-+		gpio97_pins: gpio97-pins {
-+			pins = "spi0_clk";
-+			function = "gpio";
-+		};
-+
-+		gpio98_pins: gpio98-pins {
-+			pins = "spi0_d0";
-+			function = "gpio";
-+		};
-+
-+		gpio99_pins: gpio99-pins {
-+			pins = "spi0_d1";
-+			function = "gpio";
-+		};
-+
-+		gpio100_pins: gpio100-pins {
-+			pins = "spi0_d2";
-+			function = "gpio";
-+		};
-+
-+		gpio101_pins: gpio101-pins {
-+			pins = "spi0_d3";
-+			function = "gpio";
-+		};
-+
-+		gpio102_pins: gpio102-pins {
-+			pins = "i2c10_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio103_pins: gpio103-pins {
-+			pins = "i2c10_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio104_pins: gpio104-pins {
-+			pins = "i2c11_scl";
-+			function = "gpio";
-+		};
-+
-+		gpio105_pins: gpio105-pins {
-+			pins = "i2c11_sda";
-+			function = "gpio";
-+		};
-+
-+		gpio107_pins: gpio107-pins {
-+			pins = "boot_sel0";
-+			function = "gpio";
-+		};
-+
-+		gpio108_pins: gpio108-pins {
-+			pins = "boot_sel1";
-+			function = "gpio";
-+		};
-+
-+		gpio109_pins: gpio109-pins {
-+			pins = "boot_sel2";
-+			function = "gpio";
-+		};
-+
-+		gpio110_pins: gpio110-pins {
-+			pins = "boot_sel3";
-+			function = "gpio";
-+		};
-+
-+		uart3_pins: uart3-pins {
-+			pins = "gpio92", "gpio93";
-+			function = "uart";
-+		};
-+
-+		uart4_pins: uart4-pins {
-+			pins = "spi1_d0", "spi1_d1";
-+			function = "uart";
-+		};
-+
-+		gpio0_pins: gpio0-pins {
-+			pins = "gpio0";
-+			function = "gpio";
-+		};
-+
-+		gpio5_pins: gpio5-pins {
-+			pins = "gpio5";
-+			function = "gpio";
-+		};
-+
-+		gpio11_pins: gpio11-pins {
-+			pins = "gpio11";
-+			function = "gpio";
-+		};
-+
-+		gpio27_pins: gpio27-pins {
-+			pins = "gpio27";
-+			function = "gpio";
-+		};
-+
-+		gpio28_pins: gpio28-pins {
-+			pins = "gpio28";
-+			function = "gpio";
-+		};
-+
-+		gpio106_pins: gpio106-pins {
-+			pins = "gpio106";
-+			function = "gpio";
-+		};
-+
-+		gpio111_pins: gpio111-pins {
-+			pins = "gpio111";
-+			function = "gpio";
-+		};
-+
-+		chip_mode_pins: chip-mode-pins {
-+			pins = "chip_mode";
-+			function = "chip_mode";
-+		};
-+
-+		sdio0_pins: sdio0-pins {
-+			pins = "mode_set0", "mode_set1";
-+			function = "sdio";
-+		};
-+
-+		sdio1_pins: sdio1-pins {
-+			pins = "mode_set2", "mode_set3";
-+			function = "sdio";
-+		};
-+
-+		jtag0_pins: jtag0-pins {
-+			pins = "jtag0_tck", "jtag0_tms", "jtag0_tdi", "jtag0_tdo";
-+			function = "jtag";
-+		};
-+
-+		jtag1_pins: jtag1-pins {
-+			pins = "jtag1_tck", "jtag1_tms", "jtag1_tdi", "jtag1_tdo";
-+			function = "jtag";
-+		};
-+
-+		jtag2_pins: jtag2-pins {
-+			pins = "jtag2_trst", "jtag2_tck", "jtag2_tms", "jtag2_tdi",
-+			       "jtag2_tdo";
-+			function = "jtag";
-+		};
-+
-+		pcie_pins: pcie-pins {
-+			pins = "pcie_clkreq_n", "pcie_wake_n", "pcie_perst_n";
-+			function = "pcie";
-+		};
-+
-+		hdmi_pins: hdmi-pins {
-+			pins = "hdmi_scl", "hdmi_sda", "hdmi_cec";
-+			function = "hdmi";
-+		};
-+
-+		rgmii0_pins: rgmii0-pins {
-+			pins = "rgmii0_clk_125", "rgmii0_txen", "rgmii0_txclk", "rgmii0_txd0",
-+			       "rgmii0_txd1", "rgmii0_txd2", "rgmii0_txd3", "rgmii0_rxclk",
-+			       "rgmii0_rxdv", "rgmii0_rxd0", "rgmii0_rxd1", "rgmii0_rxd2",
-+			       "rgmii0_rxd3", "rgmii0_mdc", "rgmii0_mdio", "rgmii0_intb";
-+			function = "rgmii";
-+		};
-+
-+		rgmii1_pins: rgmii1-pins {
-+			pins = "rgmii1_clk_125", "rgmii1_txen", "rgmii1_txclk", "rgmii1_txd0",
-+			       "rgmii1_txd1", "rgmii1_txd2", "rgmii1_txd3", "rgmii1_rxclk",
-+			       "rgmii1_rxdv", "rgmii1_rxd0", "rgmii1_rxd1", "rgmii1_rxd2",
-+			       "rgmii1_rxd3", "rgmii1_mdc", "rgmii1_mdio", "rgmii1_intb";
-+			function = "rgmii";
-+		};
-+
-+		i2s0_pins: i2s0-pins {
-+			pins = "i2s0_bclk", "i2s0_wclk", "i2s0_sdi", "i2s0_sdo", "i2s_mclk";
-+			function = "i2s";
-+		};
-+
-+		i2s1_pins: i2s1-pins {
-+			pins = "i2s1_bclk", "i2s1_wclk", "i2s1_sdi", "i2s1_sdo", "i2s_mclk";
-+			function = "i2s";
-+		};
-+
-+		i2s2_pins: i2s2-pins {
-+			pins = "i2s2_bclk", "i2s2_wclk", "i2s2_sdi", "i2s2_sdo", "i2s_mclk";
-+			function = "i2s";
-+		};
-+
-+		usb0_pwren_pins: usb0-pwren-pins {
-+			pins = "usb0_pwren";
-+			function = "usb";
-+		};
-+
-+		usb1_pwren_pins: usb1-pwren-pins {
-+			pins = "usb1_pwren";
-+			function = "usb";
-+		};
-+
-+		i2c0_pins: i2c0-pins {
-+			pins = "i2c0_scl", "i2c0_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c1_pins: i2c1-pins {
-+			pins = "i2c1_scl", "i2c1_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c2_pins: i2c2-pins {
-+			pins = "i2c2_scl", "i2c2_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c3_pins: i2c3-pins {
-+			pins = "i2c3_scl", "i2c3_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c4_pins: i2c4-pins {
-+			pins = "i2c4_scl", "i2c4_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c5_pins: i2c5-pins {
-+			pins = "i2c5_scl", "i2c5_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c8_pins: i2c8-pins {
-+			pins = "gpio92", "gpio93";
-+			function = "i2c";
-+		};
-+
-+		i2c10_pins: i2c10-pins {
-+			pins = "i2c10_scl", "i2c10_sda";
-+			function = "i2c";
-+		};
-+
-+		i2c11_pins: i2c11-pins {
-+			pins = "i2c11_scl", "i2c11_sda";
-+			function = "i2c";
-+		};
-+
-+		uart0_pins: uart0-pins {
-+			pins = "uart0_tx", "uart0_rx";
-+			function = "uart";
-+		};
-+
-+		uart1_pins: uart1-pins {
-+			pins = "uart1_tx", "uart1_rx", "uart1_cts", "uart1_rts";
-+			function = "uart";
-+		};
-+
-+		uart2_pins: uart2-pins {
-+			pins = "uart2_tx", "uart2_rx";
-+			function = "uart";
-+		};
-+
-+		fan_pwm_pins: fan-pwm-pins {
-+			pins = "fan_pwm";
-+			function = "pwm";
-+		};
-+
-+		fan_tach_pins: fan-tach-pins {
-+			pins = "fan_tach";
-+			function = "fan_tach";
-+		};
-+
-+		mipi_csi0_pins: mipi-csi0-pins {
-+			pins = "mipi_csi0_xvs", "mipi_csi0_xhs", "mipi_csi0_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi1_pins: mipi-csi1-pins {
-+			pins = "mipi_csi1_xvs", "mipi_csi1_xhs", "mipi_csi1_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi2_pins: mipi-csi2-pins {
-+			pins = "mipi_csi2_xvs", "mipi_csi2_xhs", "mipi_csi2_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi3_pins: mipi-csi3-pins {
-+			pins = "mipi_csi3_xvs", "mipi_csi3_xhs", "mipi_csi3_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi4_pins: mipi-csi4-pins {
-+			pins = "mipi_csi4_xvs", "mipi_csi4_xhs", "mipi_csi4_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		mipi_csi5_pins: mipi-csi5-pins {
-+			pins = "mipi_csi5_xvs", "mipi_csi5_xhs", "mipi_csi5_mclk";
-+			function = "mipi_csi";
-+		};
-+
-+		s_mode_pins: s-mode-pins {
-+			pins = "s_mode";
-+			function = "s_mode";
-+		};
-+
-+		boot_sel0_pins: boot-sel0-pins {
-+			pins = "boot_sel0";
-+			function = "boot_sel";
-+		};
-+
-+		boot_sel1_pins: boot-sel1-pins {
-+			pins = "boot_sel1";
-+			function = "boot_sel";
-+		};
-+
-+		boot_sel2_pins: boot-sel2-pins {
-+			pins = "boot_sel2";
-+			function = "boot_sel";
-+		};
-+
-+		boot_sel3_pins: boot-sel3-pins {
-+			pins = "boot_sel3";
-+			function = "boot_sel";
-+		};
-+
-+		ddr_ref_clk_sel_pins: ddr-ref-clk-sel-pins {
-+			pins = "gpio95";
-+			function = "ddr_ref_clk_sel";
-+		};
-+
-+		lpddr_ref_clk_pins: lpddr-ref-clk-pins {
-+			pins = "lpddr_ref_clk";
-+			function = "lpddr_ref_clk";
-+		};
-+
-+		spi0_pins: spi0-pins {
-+			pins = "spi0_cs_n", "spi0_clk", "spi0_d0", "spi0_d1", "spi0_d2",
-+			       "spi0_d3";
-+			function = "spi";
-+		};
-+
-+		dual_spi1_pins: dual-spi1-pins {
-+			pins = "spi1_cs0_n", "spi1_clk", "spi1_d0", "spi1_d1";
-+			function = "spi";
-+		};
-+
-+		quad_spi1_pins: quad-spi1-pins {
-+			pins = "spi1_cs0_n", "spi1_cs1_n", "spi1_clk", "spi1_d0", "spi1_d1",
-+			       "spi1_d2", "spi1_d3";
-+			function = "spi";
-+		};
-+
-+		spi3_pins: spi3-pins {
-+			pins = "spi3_cs_n", "spi3_clk", "spi3_di", "spi3_do";
-+			function = "spi";
-+		};
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-index b3a230870315..b16e3e28632c 100644
---- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-+++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-@@ -349,6 +349,11 @@ gpioD: gpio-port@3 {
- 			};
- 		};
- 
-+		pinctrl: pinctrl@51600080 {
-+			compatible = "eswin,eic7700-pinctrl";
-+			reg = <0x0 0x51600080 0x0 0x1fff80>;
-+		};
-+
- 		clk: clock-controller@51828000 {
- 			compatible = "eswin,eic7700-clock";
- 			reg = <0x0 0x51828000 0x0 0x300>;
--- 
-2.34.1
+"keep-power-in-suspend" means that the power for the card must be
+preserved during suspend/resume, yet at the moment this is limited to
+SDIO cards. I made some more thinking and below is my suggestion for
+how to move forward.
 
+To be able to describe the brcmstb boards, I suggest we start by
+extending the DT property "keep-power-in-suspend" beyond SDIO, so it
+can be used for any type of card (eMMC/SD/SDIO). This should be a
+separate patch and the first in the series.
+
+On top, I think we need a new DT property, perhaps something along the
+lines of "reset-card-at-resume". In principle, its description should
+say "The HW/FW may have accessed the card during suspend/resume,
+leaving it in an unknown state. Hence, before the card can be used, it
+must be reset."
+
+For the brcmstb boards, we would then need to set both
+"keep-power-in-suspend" and "reset-card-at-resume".
+
+Krzysztof, Kamal, does that make sense to you?
+
+>
+>    wakeup-source:
+>      $ref: /schemas/types.yaml#/definitions/flag
+> --
+> 2.34.1
+>
+
+Kind regards
+Uffe
