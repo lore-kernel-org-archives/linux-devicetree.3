@@ -1,147 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m3289.qiye.163.com (mail-m3289.qiye.163.com [220.197.32.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA002C1584
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 08:33:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CADF33A708;
+	Tue,  4 Aug 2026 08:32:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832382; cv=none; b=ryvLLy0kIYau9VKlz3U4tSIRtsF8xdN+UzEsuIY5HHZAS+xwMAUeNIdmgMQCV6wMJD35MICPyW4cR+Y3z+W57Mjx9EWh+S9Q3EWh8uBJL/AD/QjClnPByL3DBTdrD1xEAUyvNXTpRgSY0ddqAKIeiiT+ErqwO4SnJAkkXV9EjPA=
+	t=1785832383; cv=none; b=vB4vC5NSXYHKmMG4wcc9H+eYlT6tmreMMj63yzIXwpUlDw2Cib0pusuaIfxljWqqLYqNatBrfjYh7GGMlxLfQU9x0mUXx4PiN0iN9FcdEgAKQnxX/D/hW4XA261D1rMx4CBr4uwCzeRrtexSE74wp2xsvVfsS8CqLIavQjkO6jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832382; c=relaxed/simple;
-	bh=AzZr9tZBRDJwWri0B+OfpYXBSdTvJyViu3I8oFsbfyo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ejEAqwzJJAKIDsTQB8VQOmVPbPAr9dQZNk1oQg6bq2V1qNe/wCsebC8oi4eIaS7JZuQldkxBgLi/n1k2bezTs3qitSK21RAWIz9a9JtrNV9wgyo6dpgMgA4dVRVTsqitzbqAHzk2w5UuNFSzFVxiUri1EmcjPkEWYMpHqqHKSxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gPKbM8En; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785832383; c=relaxed/simple;
+	bh=slZ4K7V+nMriYNb7XZV2wvUDmS4S/5MyrbBnw5Yq+Fk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=tp9VW4eOuMcUjF3vSWsLyAPXgfkV73gQdIAKJRyUcAgJqUNH34qzj/aiZxoHgLlgKp/2zD4J7bnNyp4p2irld6mvpUm+9heGTo3JA3PBqAXUuYQIUXqkMUJsIFo4CJWFPF/c0s61fTXL128ELvFquc5U2y9yG5H+LOLja2+Fing=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=SohnfUmi; arc=none smtp.client-ip=220.197.32.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gPKbM8En"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18E31F000E9;
-	Tue,  4 Aug 2026 08:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785832381;
-	bh=UoPwtukJx8129GRH5VGodMVi4wnoaiwSOisNKjH9C74=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gPKbM8EnrxTsz5zDUCnphmvq0rtjfoUIHFYOdlEu24h/LtwpmIEIqPEDTD1/1UujY
-	 CYZozNR7Qtj9MjYJyGh+g6604Whq9aEHIpjGwT3X2zaKP41OmkYzt7Vzcw/O8HmNMa
-	 aZkdr5SOaA1Xo/cjeMMm5ImUXYrzBIiM3eZhjiCUUlegIlPtnh7GuIrWxV94a/MYAI
-	 622hGQ4dQQt8bsUys2amm9D+eMoX5aQTtMaWWVwEilMWBKd/mZ5R/8EAjRCEjc0Gnr
-	 TYchxcmWLCeSmN0F/Gfo8Ue0SebWKsKIEPeVp2wE2CKcODTY/UmtcT3JIdCEfarDHG
-	 MBRr8E3MDogjA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/10] drm/bridge: analogix_dp: Use platform-specific
- HPD detection scheme
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260804081717.741404-8-damon.ding@rock-chips.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="SohnfUmi"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 48b4fff2e;
+	Tue, 4 Aug 2026 16:17:35 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v2 10/10] drm/bridge: analogix_dp: Handle HPD notification from downstream bridge
+Date: Tue,  4 Aug 2026 16:17:17 +0800
+Message-Id: <20260804081717.741404-11-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260804081717.741404-1-damon.ding@rock-chips.com>
 References: <20260804081717.741404-1-damon.ding@rock-chips.com>
- <20260804081717.741404-8-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 08:32:59 +0000
-Message-Id: <20260804083300.D18E31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fcbd97bed03a8kunma7b8cbe762b0fd
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHRpDVhpKTB1NSBkeGBhCTVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=SohnfUmi0MZZEoAoDsZj4vPpj0X0DbQuo4zvxtT26IBgh1dIdNilNr6K5vn773a7/9DDuE9+7RowCZoyy88k4FreVSgDOL4RJO4F7NkhijLqAu4OLzholJq7wh5HuRfyMDm1MCBnf+bXvqoepyUHq8os4msiCivz/uh6DCff1tg=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=ihFySqm5GnqPJHRcWS06V+nd4nWFCQ2/QSaKuoAhvMM=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+When the display pipeline includes a display-connector bridge with
+hpd-gpios configured, the connector's hotplug status is managed by the
+display-connector bridge through its GPIO, not by the Analogix DP
+controller's native HPD. In this configuration, the DP controller's
+internal HPD polling in analogix_dp_detect_hpd() does not reflect the
+actual connection state.
 
-New issues:
-- [High] The 2ms HPD deglitch filter (0xbb80) on Rockchip platforms complet=
-ely filters out valid DP short pulses, breaking link loss detection and PSR.
+Implement the .hpd_notify bridge callback to receive connection status
+updates from downstream bridges. Cache the connection status in a
+connection_notified flag, and use it to short-circuit
+analogix_dp_detect_hpd() when a downstream bridge has already confirmed
+the connection.
 
-Pre-existing issues:
-- [High] The threaded IRQ handler ignores DP_IRQ_TYPE_IRQ_HPD (short pulses=
-), preventing drm_helper_hpd_irq_event() from processing link loss or PSR e=
-vents.
---
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+---
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c   | 16 ++++++++++++++++
+ .../gpu/drm/bridge/analogix/analogix_dp_core.h   |  1 +
+ 2 files changed, 17 insertions(+)
 
---- Patch [7]: [PATCH v2 07/10] drm/bridge: analogix_dp: Use platform-speci=
-fic HPD detection scheme ---
-commit 9400555d3cb8cd686c3464c5b0945a71464ab506
-Author: Damon Ding <damon.ding@rock-chips.com>
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index a5a50b9ab8a7..f0476a60ece3 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -68,6 +68,13 @@ static int analogix_dp_detect_hpd(struct analogix_dp_device *dp)
+ {
+ 	int timeout_loop = 0;
+ 
++	/*
++	 * Trust connection status from downstream bridge (e.g.,
++	 * display-connector with hpd-gpios).
++	 */
++	if (dp->plat_data->next_bridge && dp->connection_notified)
++		return 0;
++
+ 	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
+ 		if (analogix_dp_get_plug_in_status(dp) == 0)
+ 			return 0;
+@@ -1247,6 +1254,14 @@ static void analogix_dp_bridge_atomic_post_disable(struct drm_bridge *bridge,
+ 		DRM_ERROR("Failed to enable psr (%d)\n", ret);
+ }
+ 
++static void analogix_dp_bridge_notify(struct drm_bridge *bridge, struct drm_connector *connector,
++				      enum drm_connector_status status)
++{
++	struct analogix_dp_device *dp = to_dp(bridge);
++
++	dp->connection_notified = (status == connector_status_connected);
++}
++
+ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+@@ -1259,6 +1274,7 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+ 	.attach = analogix_dp_bridge_attach,
+ 	.edid_read = analogix_dp_bridge_edid_read,
+ 	.detect = analogix_dp_bridge_detect,
++	.hpd_notify = analogix_dp_bridge_notify,
+ };
+ 
+ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index bcb5674801a2..cd8a5d52f973 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -169,6 +169,7 @@ struct analogix_dp_device {
+ 	bool			fast_train_enable;
+ 	bool			psr_supported;
+ 	bool			last_bridge_is_panel;
++	bool			connection_notified;
+ 
+ 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+ 
+-- 
+2.34.1
 
-drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
-
-Hotplug detection can be implemented either via HOTPLUG_CHG interrupt, or t=
-he
-combination of PLUG and HPD_LOST interrupts. This patch configures HPD
-deglitch to 2ms and uses HOTPLUG_CHG for hotplug detection on Rockchip
-platforms.
-
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
-/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 608d8d098329c..2399febb539e7 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -721,13 +721,18 @@ static irqreturn_t analogix_dp_irq_thread(int irq, =
-void *arg)
->  {
->  	struct analogix_dp_device *dp =3D arg;
->  	u32 irq_type;
-> +	bool hpd_detected;
-> =20
->  	irq_type =3D analogix_dp_get_irq_type(dp);
->  	if (irq_type)
->  		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
-> =20
-> -	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
-> -	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
-> +	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-> +		hpd_detected =3D irq_type & DP_IRQ_TYPE_HP_CHANGE;
-> +	else
-> +		hpd_detected =3D (irq_type & DP_IRQ_TYPE_HP_CABLE_IN) ||
-> +			       (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT);
-> +
-
-[Severity: High]
-This is a pre-existing issue, but does the calculation of hpd_detected in
-analogix_dp_irq_thread() miss DP_IRQ_TYPE_IRQ_HPD?
-
-It appears that short pulse interrupts (DP_IRQ_TYPE_IRQ_HPD) are ignored in
-this threaded IRQ handler and never propagated to the DRM core via
-drm_helper_hpd_irq_event(). This could cause link loss events to go unhandl=
-ed
-until a physical cable replug.
-
-> +	if (hpd_detected) {
->  		dev_dbg(dp->dev, "Detected cable status changed!\n");
->  		if (dp->drm_dev)
->  			drm_helper_hpd_irq_event(dp->drm_dev);
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/=
-gpu/drm/bridge/analogix/analogix_dp_reg.c
-> index 42463e18f392c..fa8e2f104d6c5 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> @@ -149,8 +149,13 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
->  	writel(0x0, dp->reg_base + ANALOGIX_DP_PKT_SEND_CTL);
->  	writel(0x0, dp->reg_base + ANALOGIX_DP_HDCP_CTL);
-> =20
-> -	writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-> -	writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-> +	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
-> +		writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-> +		writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-
-[Severity: High]
-Will configuring the HPD deglitch filter to 2ms (0xbb80) completely filter
-out valid DP short pulses?
-
-The DP specification requires short pulses to be between 0.5ms and 1.0ms. It
-seems a 2.0ms filter will unconditionally drop them before they can trigger
-an interrupt, potentially breaking link loss recovery and PSR sink events on
-Rockchip platforms.
-
-> +	} else {
-> +		writel(0x5e, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
-> +		writel(0x1a, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
-> +	}
-> =20
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804081717.7414=
-04-1-damon.ding@rock-chips.com?part=3D7
