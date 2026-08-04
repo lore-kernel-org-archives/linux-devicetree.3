@@ -1,178 +1,112 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB0541D223;
-	Tue,  4 Aug 2026 07:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785827016; cv=none; b=du7H1sO7ZAmf34CzfMd74mp2amZWVVk82oWWg+tNwx+Giyz2IbzmyaQ6+DMzoejS6xjwGouSVYUth+R1usjsIVUaH8oJz5YRiHdw7a5eMuEac/sCfeGmIyUElySzd64+9XdmXhDW/QcL9B4NZE1Q2EuI4JtxhjL4TBg1xU443Gs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785827016; c=relaxed/simple;
-	bh=zQDL8eomyEDrk6jn7d+ZOUsOjllNoYmzBg/VqLhKQb0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ppDFikU5R6WCBqTpTSiDQnp8t5Jrwx0EsSBM97X2/66mED/dFNsaCnKmbzjfpT++/XuZiRGHNeli0Ceg3FCz5wPBqVbYuA3kosMevlaE/hyJQHvJPL8tqHP9jli0R7wrXg9tMZPGp6B6unIZ4jT+NPWJgzlC+yrdcratra+P95s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZMHgtrP2; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A82A423A66
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 07:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785827024; cv=pass; b=Og8E4Y2R2QoxMm76PlEBtKNy62Wc5IAHBpkj6cp8SblqIlJ2OUzvB0H9xlXvUA24wpmqpNm837+yNjX0YKdfrsoDRzrohfONmPPU0NXrRwgAjCpqG8ptxff96Nb/vPzNrJ0hgcAdhDonML2vvUe9hmDM0JKj4q8FfZXBzFkkEN4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785827024; c=relaxed/simple;
+	bh=ZNJUk2nRrzObEtviaRtuFIa7gMgn0ltnoTKLXgd9BRI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O//mTBv8Mk6QVN2bLoyBmz8zEMWDBp+qEP1ov0MS4wgJr5MYGhAuGWwZ+LoZAiCvR+OQidv0izh6n3NVw5z4/0SQ9gPgt9ESWPnFVwFzsXyfRpRA7jN45F7c5Fm8dugbvbx46pc0Dln9RhfIwea98P8992InT4UlCgka6+0QnVw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LT3LVSRw; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZMHgtrP2"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67416rUL2027959;
-	Tue, 4 Aug 2026 07:03:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=paZKkGsgZhJGJujVNDa9zqaEHHOqXeEy9qI
-	3N6iPwkw=; b=ZMHgtrP2uNo17iUtkHWUxBfEUkpY7SzzE/mJisea/UyFA8hrIbw
-	M3NO6oywdZ7itIh3ka+chMzXQbiOSuoQvC+XQ39B4fusxkFJV5SwjoywylQ8Oweo
-	Jk3/qPmrlZnLERU4+4WsqxyNoDrE1KLLABCUlbl656HY7wWADU3I6XS0kUYAutO6
-	yTqBAunn4DPwDet1zIJwHzNCUJA7dWLymr1Gd4Tv0uSI9WaQMFYCruGm9Yc3ACiF
-	mgHzC2bP5HYQDQNiZW+A3fQupN2PkBAmYFMAfLD647VVSVMlAcEINj++fuAzGKqe
-	ncALj5qU/HLGDqVHI/eSmV44COCErn9KxJQ==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fu2syhxeu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 07:03:19 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 67473FEp031239;
-	Tue, 4 Aug 2026 07:03:15 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fs9vjhjmm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 07:03:15 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67473F2j031211;
-	Tue, 4 Aug 2026 07:03:15 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 67473F8A031204
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 04 Aug 2026 07:03:15 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
-	id 7184263D; Tue,  4 Aug 2026 12:33:14 +0530 (+0530)
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Subject: [PATCH v7 0/7] ASoC: qcom: add AudioReach TDM backend support
-Date: Tue,  4 Aug 2026 12:33:00 +0530
-Message-Id: <20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LT3LVSRw"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c15ba3a2b4bso501799666b.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 00:03:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785827021; cv=none;
+        d=google.com; s=arc-20260327;
+        b=evdotqzTvyg/GRShvVSL4XD6dj5kU6znh5f8P/Uh5eldTaCzKyaPmDZKXqirULc6KY
+         RtIH+AEx/HqYiiu4wKthUXv6/0zNjZv2kwQBPDNDCWYSG3fZ16FoDWntzPAcDkAMXYUx
+         To8/gQgq58TYdaii/HNIFM0f0iEONYLjvqdtQSxXAx8DIIm3UwkdQssP54/QQfnfgYZl
+         V5v3rgRqgSW/l0p5Focn1uzFnOEl3rWWUitkXjfrRbVhlyZQZqubqYXnL+xhxa3sGIFr
+         Nv+tqeAEoC5ZrYeYMAqS8TfQvf0fFceWBDkr6eMZ67Ru1kMGwafIaRlQWUh53vhvkQ+O
+         a6uA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZNJUk2nRrzObEtviaRtuFIa7gMgn0ltnoTKLXgd9BRI=;
+        fh=NhTuJRjwo5OW1Yi70/yxzH6J2dgqMErf16c20fswDhA=;
+        b=WgGEVo9c3rO1lh5NHw/TBi9WZqpfZ7iKkS+g6FQ8EwAOwdrz2gyFSLcJYFE9C1xSns
+         mgVLbfTdq/G4kdQdB5qAeSCwuG0EDPpyGUEEjEwNr2xu/PgG/UUc3IRXSyXeG+lyATVT
+         KEA6jxC2gO9wF2HRinpjzLGeETbSE4K+tdGPCbwc8gxt+9U+NxG553aK6VIlNx5DzPcN
+         z7IyUIYF4fVTxxNtuDbhzfSRmSlCzIWjaUSAc7sOrh4IdQbM9KgdZ4nC0UswSabfU737
+         X2iRRywtRaNk+oafYgnf0dZKLb5M4dP2bMSJ6Eo+o7prSgctYhunrEBEo+XGIRpZZEX9
+         8v3w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785827021; x=1786431821; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZNJUk2nRrzObEtviaRtuFIa7gMgn0ltnoTKLXgd9BRI=;
+        b=LT3LVSRwj3FxxasrlxM8Wt5MS08zjqoKFznF7CV8qW2SFFidsvrHF17QpCr28yeBKm
+         QxX2nLlAvqzVDtSAdXnnnFYsKTeOKAt3za8op4AUEXFAjcq6SjuAwP4+j8868hMlFUns
+         hT6Q6opFDUskV4+Rsd2X4B+ZaKGobGvDca/FLhnFRTd42CPS5LGPptVwhTVZo4mX9atb
+         nhqA8hY/XFeyEF5ppVSKAEGGybAbwp1eXSM+4/u51kYwYegfXlBLUV3xFNdguM2QOzsv
+         OtsErDKxM9yU9+DZ5jTFpa/6Htd/8SrpZYxUL9U8eWXyNIJzj+CTiuPvmtiZv13TTbk6
+         +LQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785827021; x=1786431821;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZNJUk2nRrzObEtviaRtuFIa7gMgn0ltnoTKLXgd9BRI=;
+        b=ZtEfFd/kSsqT8VMVAD2QTUDIU3uzz3SHjP1+tTcCmTxmUGqvo7Y4YbJfgk+AIMDSoA
+         aq86DiYMkju96NZ0lZpaoAyByYEuqT5hZDhlMZeCQgr0RLgDen9zlDQQnPqg8o0+U5rf
+         6u9IpacCV/xj8MgVuy+a3z5+gBYjq+zbyeLVZl20UiR7tLQeSfPKy/xsEg2wv/BB+L6b
+         LHVW2z6iDWHPJBz3jdFTkbhVYldb7UAj9/v9Neo3TSzL7lbRZbp3Zx8Ot35LA21pHhy5
+         mEkmlG1vjWZIT5aSByI9oTRICxyhdwCP86HIZmUvGji2+HGu33iy8nLPVuFoNHQbe8II
+         4Fxg==
+X-Forwarded-Encrypted: i=1; AHgh+Rodds37BWD3w4lX4M6VSek3ndiL9a42G9xZOc9N3Sctl0r78E0krCC7OTLlzwveI1HFCllZwHZQIc2v@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7gHcw1YiGHHaa2z4i4q4aQCz2TghkQCRDW5rGJbXNpk61iTa5
+	EklhIaGXP6AamIxk9f4/DEPyF8VglhSDou5y3+aHBLxe2sWKpI2yykxoBZ/PZDvVl+24qBrVq58
+	4G4mN928urvxhliz2L0EE04l3Q0/Zg4E=
+X-Gm-Gg: AR+sD12iz4eROe1gAowaIw3ZzbhOvv3g6aRjzOdJu/GDRpaUovy7No4YdaFpIW1bXSJ
+	6/4EjBYjnmWN9JsGUn6M/NLTTYXunrSTzCHsSNL/Q9Pw17UvAZxIgmDl9s/uZBe1N1eEhg3K+O/
+	5ybSu/LE9J2SHEgKIDOZ5vhkQKk/XJ0SbgzdSPj3Qd8INPohPy4L+JxQdGIuCkCZRwDAwqE2Pwd
+	+osGbdmcMaiBYxMcLFzO+X5H9TEWJ760EhykWoG272bYkTHvka2xj1Lk0kp2CdQteRPiwdgc1uf
+	NxfePDrHYuhoou3d6xwbNvXqrFh7Hf69svdZ+sV9yPKsng==
+X-Received: by 2002:a17:907:1610:b0:c07:43ed:1b3e with SMTP id
+ a640c23a62f3a-c1fe7c4b08amr1219576666b.0.1785827021226; Tue, 04 Aug 2026
+ 00:03:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=TIh1jVla c=1 sm=1 tr=0 ts=6a718eb7 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=5LSzgCIJ2aLde3To2nUA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA1NCBTYWx0ZWRfX1ajT8j5t0EUo
- vJNmlvI6PTfNQdQap06+r43L/FLB86VSgiQ1HkxBCVDKe7lcfliCfb8i4N2hWHsTcff+HsFd86D
- hRiHnZlY7qkJpjVFluegT1jK76ZIPhk=
-X-Proofpoint-ORIG-GUID: AsxooYV2oYK9CZtQ8zDqvI7Ii51YpDTM
-X-Proofpoint-GUID: AsxooYV2oYK9CZtQ8zDqvI7Ii51YpDTM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA1NCBTYWx0ZWRfX8+xjCYLW/Hgo
- VTv7Mk+abuOrqeYr5JYB6Et6dQm0xmmsmoLCypxO1LNkeg6kWKDKRQjamrGhCVwmLm6ULn50fy6
- m6/751Rw/rNUr6129Y9i3olw31JaauMisiFuYJyhS0Cl0Umxsi4KkFcDp5uDdnGchQO/fLGxZmp
- neWVpXlwk4YMlFq5x7QQSrG+fKjCTVb7wQcwsPdYJWCg+9Jel2khGQVu/YhzE5L2eqfLzzTl7yn
- p57K/M48FHGER9lGgw28MNYA9nL0rNsb+idHYlqDUGyLA9bUslfaOaXJzPBQFGmcU2u7SDD90uS
- W64WVjtRj8ZeFd7UhcKdnkW/gFFXqVjE/NDicS1TDbNVHmNUbPiYB71IC/R2b+IY3Jx7uxpTnuI
- 3C095c2NHHKbYIY3wM1qVn3OhmiQFqwr3+yfRyRopgW/7NczXCovcAsB+wEnvRBc7Oazs5ZXbgO
- jZ435BKrpAxyA2rT5Uw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-04_01,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 malwarescore=0 spamscore=0
- bulkscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040054
+References: <20260803101734.270821-1-a.shimko.dev@gmail.com> <94fb1a6e-71d6-42ae-b221-cc03a820d2e0@lunn.ch>
+In-Reply-To: <94fb1a6e-71d6-42ae-b221-cc03a820d2e0@lunn.ch>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Tue, 4 Aug 2026 10:03:30 +0300
+X-Gm-Features: AUfX_mzjU-s1fA2NyekVyKJC1mnZ0UCZTD8jrUkpV-OMMlFmqFov532uxYaWRGQ
+Message-ID: <CAOPX746ZFCE1XwXJ1H0gEaBvdvq-4GAiPTKkT-3XvZi0n_f73A@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 0/3] Add DAPU Telecom DAP8211R(I) Gigabit
+ Ethernet PHY driver
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add AudioReach support for LPASS Audio IF based TDM backends and wire it
-up for the sc8280xp machine driver.
+Hi Andrew,
 
-The series first adds topology-driven Audio IF source/sink handling so
-the DSP interface parameters can be described by topology while runtime
-media format and slot configuration still come from the machine driver.
-It then adds TDM DAI operations for q6apm-lpass-dais, exposes the Audio
-IF clock IDs through the q6dsp-lpass-ports binding and q6prm clock
-tables, and introduces common QCOM helpers for parsing standard
-dai-tdm-slot-* properties from backend CPU and codec endpoints.
+On Tue, Aug 4, 2026 at 5:32=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
 
-Finally, sc8280xp uses the common helpers during hw_params to program
-CPU and codec TDM slots, derive the backend bit clock from the active
-PCM parameters, and request the CPU and codec clocks before the stream is
-started.
-
-changes in v7:
-	- Rebased the series on the current ASoC for-7.3 branch.
-	- Fixed build issue by renaming sc8280xp_snd_data pointer field
-	  from snd_soc_common_priv to priv.
-	- Link to v6: https://lore.kernel.org/linux-arm-msm/20260803195624.3606352-1-prasad.kumpatla@oss.qualcomm.com/
-
-changes in v6:
-	- Addressed comments from srini - Provided QAIF Supported types, Removed 
-	  dead code, add kernel doc for ep_frame_duration struct, variable consistent
-	  checks.
-	- Addressed shasiko comments on patch#6, - Distinguish missing TDM configuration
-	  from invalid configuration to avoid masking DT validation errors.
-	- Restore accidentally dropped Reviewed-by tags.
-	- Link to v5: https://lore.kernel.org/linux-arm-msm/20260801054610.4047089-1-prasad.kumpatla@oss.qualcomm.com/
-
-changes in v5:
-	- Addressed comments from Srini - Removed unwanted comments, Define Macros
-	  for frame durations, Updated the logic solts, validate the tx/rx masks.
-	- Link to v4: https://lore.kernel.org/linux-arm-msm/20260712134110.3306763-1-prasad.kumpatla@oss.qualcomm.com/
-
-Changes in v4:
-	- Addressed comments related to bindings from Rob.
-	- Link to v3: https://lore.kernel.org/all/20260707190106.2876465-1-prasad.kumpatla@oss.qualcomm.com/
-
-Changes in v3:
-	- Reusing of tdm-slot.yaml and update the bindings.
-	- Link to v2: https://lore.kernel.org/all/20260630091605.4043426-1-prasad.kumpatla@oss.qualcomm.com/
-
-Changes in v2:
-	- Update AR Module token definitions and validation prefixes.
-	- Reorder module addresses.
-	- Add kernel-doc for `struct param_id_audio_if_intf_cfg`.
-	- Remove unused code and stale comments.
-	- Clean up comments and naming in q6apm-lpass-ports.h.
-	- Add bindings for TDM slots.
-	- Link to v1: https://lore.kernel.org/all/20260610154517.134570-1-prasad.kumpatla@oss.qualcomm.com/
-
-Prasad Kumpatla (7):
-  ASoC: qcom: qdsp6: add topology-driven Audio IF support
-  ASoC: qcom: q6apm-lpass-dais: add TDM DAI operations
-  dt-bindings: sound: qcom,q6dsp-lpass-ports: add Audio IF clocks
-  ASoC: qcom: q6prm: add Audio IF clock IDs
-  dt-bindings: sound: qcom,sm8250: allow TDM slot properties
-  ASoC: qcom: common: add DAI-node TDM slot helpers
-  ASoC: qcom: sc8280xp: add TDM hw_params support
-
- .../bindings/sound/qcom,sm8250.yaml           |  26 +++
- .../sound/qcom,q6dsp-lpass-ports.h            |  29 ++++
- include/uapi/sound/snd_ar_tokens.h            |  93 +++++++++++
- sound/soc/qcom/common.c                       | 155 ++++++++++++++++++
- sound/soc/qcom/common.h                       |  14 ++
- sound/soc/qcom/qdsp6/audioreach.c             |  93 +++++++++++
- sound/soc/qcom/qdsp6/audioreach.h             |  90 ++++++++++
- sound/soc/qcom/qdsp6/q6apm-lpass-dais.c       |  60 +++++++
- sound/soc/qcom/qdsp6/q6prm-clocks.c           |  28 ++++
- sound/soc/qcom/qdsp6/q6prm.h                  |  29 ++++
- sound/soc/qcom/qdsp6/topology.c               | 103 ++++++++++++
- sound/soc/qcom/sc8280xp.c                     |  59 +++++++
- 12 files changed, 779 insertions(+)
-
--- 
-2.34.1
-
+> Is this a random example, or what you are actually using?
+This is actually the configuration we're using on our
+hardware.
+--
+Best regards,
+Artem
