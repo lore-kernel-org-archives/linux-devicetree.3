@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4378541A547;
-	Tue,  4 Aug 2026 06:44:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A488282F25;
+	Tue,  4 Aug 2026 06:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785825881; cv=none; b=aPzT57OgV8zz5useIkqO89Ki1p9NOYXRltU1tCKnGX+oTPPXuUo0kldf+OrzOrpJb46zBOK6A2Wh/wEfE45zejG3MmSNYnPH6TLIRpzdGUY6JAcFYmEQAilVenJ2diGf9J0CVV5exElhkLjSBW/k0yDEdY/H7Tu7zZv0G/Nmdvk=
+	t=1785825944; cv=none; b=VtkNvhq6YcN8MdpjuG/JJTk7otYdP5okOcRjuCprgFNgHMlfNY77uQfodb0XUYLcQJxrCQG4+mrtBC+lI6HICV8sF0ZduNeVREgZ8H0UjruNArpbR3EDBKnfQWfTA6tra5dCrfxFZd4NN8tIo4qZtBm8efwlbT9IAFmd1K0F+lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785825881; c=relaxed/simple;
-	bh=blQdVul0jRWJKVdRYjnlGcJlUpqG0ungF68gS0XGaA4=;
+	s=arc-20240116; t=1785825944; c=relaxed/simple;
+	bh=itYcsS+6k8XUHPn1FcvkQaEbobMkn2EKPuaMgcnN4fo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HKb8HJ6BeeuIHtjQOadWE7dKd/z1gLkP5XKOeVUwjQTpnPyqRHbuSPZ1O4jO0JH7o/eK4lmlrwbyUmDLa6j256xLL1IF77S2Dmz34b8BvDv6o8trlw3B8SE6QlZC0msHfG+H4QmUU5olbz9Ph91xSp30YaF6LZrc/qn62nRWBvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bc+/lsPY; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Kmq4EWtD7a+i137XzKRgHos3hoOS4HIvLHWX/IDMgMgnALznZs528UMWovinioT/tO6IUDNvoRHbsrN0Pt+x7/wQCAUfjox8EYjksZytTmvXsdGEcyb6ZQ7iFR01lJBDa8I5grKJBoLAxBOjHcmYvN6t6thB4Th6Q7ClN/GIsOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfWazx7K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bc+/lsPY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 865C61F000E9;
-	Tue,  4 Aug 2026 06:44:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfWazx7K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6741F000E9;
+	Tue,  4 Aug 2026 06:45:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785825879;
-	bh=nIISJSbW9tQzvtZi2AAbqzB7TfQIoI0ZnCXID/DMNyU=;
+	s=k20260515; t=1785825943;
+	bh=xBzcxpk4py2B+tQZjh/Qj+nIRpHl8bHVX3OCtpBmygo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=bc+/lsPYNzMNFiyIDjzFxadBtytoJzoczBcsXVEUAS/xsAYMbYU9Z91DmgYdY22Pi
-	 YGVLSbDNdkRtrbeSM8hQrWGPjQ6gOIqg1PziBB6ikYrGxp1ro+RpMwyoOnGKfd0G2K
-	 SVfGQJ/Ba/YxR2A+Px7G0fdl9WyahJtEnf9jNXVTTt/Ws6Z8RJF5KqCMKvP/ZWurD1
-	 ALA+FAdB3HUCEfSenjkoHmO2GfGqZMRSi3wupgXpzh7ydEAVghT/dIqIOXVMB8eRRi
-	 Ee/1d0LWg8UTTensLQeNWTxT0c5jfjA51BDNDqPqs4Mf7RMvME9IDYje1Rhq2+ZPom
-	 RIIIv20frU63Q==
-Message-ID: <c29bceeb-cf01-4221-bb8e-a16f998c6e35@kernel.org>
-Date: Tue, 4 Aug 2026 08:44:33 +0200
+	b=WfWazx7KIBqYhkVa6xwICeTBbmUydbCWsw0YPenRPWVW3Hop2J6WbY74y4uyLHWE3
+	 XZCoDTZrw6C7dKFJygErTim2K0cuz2VrwlpHvAR0A++jTX+H4RXzL3rgXOYvABinNV
+	 6Vjlxxewua1sf0DBTE+FjDLfmcsx4kiCPc18kH4eiGk4tRXDSbyK7Dlbfq5LcvzuJ/
+	 zh2crKnw/YLdVqONUmCewGUYkfw6szZEdTJg7SYaG3J0T7qb9ccwmrvm+NorDAw04X
+	 bqgrIOptFCW9ks/GTV8zTnkTW3hL/kuB1z1UCXCq0szcc+wUK0+j1BM8qmAugZgdHY
+	 2HBXYqJF5JTwA==
+Message-ID: <9de52b72-ce95-440e-8178-461157a157d1@kernel.org>
+Date: Tue, 4 Aug 2026 08:45:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: arm-smmu: qcom: add compatible for
- IPQ9650 SoC
-To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- iommu@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260731-ipq9650_smmu_binding-v2-1-143a51c8ffce@oss.qualcomm.com>
- <20260803-therapeutic-coua-of-judgment-5c6cdf@quoll>
- <c3c01f2e-9070-4603-a5b2-9b404ab2b94d@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: rockchip: Add MangoPi M28K
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, heiko@sntech.de,
+ krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ robh@kernel.org
+References: <20260803-fractal-sly-earthworm-2fe241@quoll>
+ <20260804064000.1047278-1-amadeus@jmu.edu.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,64 +88,26 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <c3c01f2e-9070-4603-a5b2-9b404ab2b94d@oss.qualcomm.com>
+In-Reply-To: <20260804064000.1047278-1-amadeus@jmu.edu.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04/08/2026 08:43, Kathiravan Thirumoorthy wrote:
+On 04/08/2026 08:40, Chukun Pan wrote:
+> Hi,
 > 
-> On 8/3/2026 2:54 PM, Krzysztof Kozlowski wrote:
->> On Fri, Jul 31, 2026 at 11:01:26AM +0530, Kathiravan Thirumoorthy wrote:
->>> Add the compatible string for the APPS SMMU present on the Qualcomm
->>> IPQ9650 SoC.
->>>
->>> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
->>> ---
->>> Changes in v2:
->>> - Add the proper constraints - no clocks needed for IPQ9650
->>> - Link to v1: https://patch.msgid.link/20260512-ipq9650_smmu_binding-v1-1-04defdaa140c@oss.qualcomm.com
->>>
->>> To: Will Deacon <will@kernel.org>
->>> To: Robin Murphy <robin.murphy@arm.com>
->>> To: "Joerg Roedel (AMD)" <joro@8bytes.org>
->>> To: Rob Herring <robh@kernel.org>
->>> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
->>> To: Conor Dooley <conor+dt@kernel.org>
->>> Cc: linux-arm-kernel@lists.infradead.org
->>> Cc: iommu@lists.linux.dev
->>> Cc: devicetree@vger.kernel.org
->>> Cc: linux-kernel@vger.kernel.org
->>> ---
->>>   Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
->>>   1 file changed, 2 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
->>> index f2188942f877..ffa33b7f4a96 100644
->>> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
->>> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
->>> @@ -38,6 +38,7 @@ properties:
->>>                 - qcom,eliza-smmu-500
->>>                 - qcom,glymur-smmu-500
->>>                 - qcom,hawi-smmu-500
->>> +              - qcom,ipq9650-smmu-500
->>>                 - qcom,kaanapali-smmu-500
->>>                 - qcom,maili-smmu-500
->>>                 - qcom,milos-smmu-500
->>> @@ -625,6 +626,7 @@ allOf:
->>>                   - qcom,eliza-smmu-500
->>>                   - qcom,glymur-smmu-500
->>>                   - qcom,hawi-smmu-500
->>> +                - qcom,ipq9650-smmu-500
->> This will disallow clocks also for the Adreno one, so confirm that it
->> also does not have clocks.
+>> How did you resolve my comments from v1? You split patches instead of
+>> squashing and removed any explanation I asked for.
 > 
-> IPQ9650 doesn't have Adreno IP. Please let me know if I need to explicit 
-> about it in the commit message or this is fine?
+> My idea is to add an official product link to differentiate them.
+> HINLINK H28K has this link, which I added to the commit message.
+> As for MangoPi, since it's discontinued, there's no product link
+> available. I will include a link to an image of the board in the
+> next patch to show that they are different boards.
+> 
+> Does this solve your problem?
 
-Would be useful but anyway
-
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
+I asked you to squash the patches, to avoid work. Instead, you split the
+patchsets giving us more work.
 
 Best regards,
 Krzysztof
