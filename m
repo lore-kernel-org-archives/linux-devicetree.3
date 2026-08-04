@@ -1,650 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DE244210B;
-	Tue,  4 Aug 2026 08:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB694457D2
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 08:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785833435; cv=none; b=d8oEhEYTix+So/+EIiQt0GjTwpOoSjZbXk5SxUuPji7ueRwBhpywUwowrSRoj7J/1LDiShdECN35h2hcjllKxpALyjxu1fp23EbRhQZQlppVAklxuJDyxuyMlAE6HzFR963dtEQmk/Tp0Ed9PskMatfv2mauE31dThWY4njmDVs=
+	t=1785833553; cv=none; b=LgKpGqAqExrHOdU//o68exV7aGZGeIhJ5Tiybeh5irgDxLGJPIh0ZIW5pNsq/2eWKqGkorLK+g2Yv0ceuKeSYyKcbPXXYDNqct8muyHb8F5Y78ljoM2Kaf5mNPfAgPw604icoKcL0fn5hsTgEgake2zeJb2vB0GfTBWCNEbVWvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785833435; c=relaxed/simple;
-	bh=zncJe6r/h18+nfYVzPgGMVIIqCKBi4jCuRpAH9YRD9M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gLXWBMMAr7CkL+k++Ahio+zr+3i7A4DwYgoIabxrn3cMl92k4OMMpXF93EhiWZ+k9ru/K83I6Jz098tBomT8qXNBD0WFZkyjljXJlv0pdWUsT9Yska6qEdNwoX2HXm+KeapPo+UcbaaDnHZOpyA3SdjvsjI6uBFxqh64e3ffD6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kenwJFqq; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785833553; c=relaxed/simple;
+	bh=AZLLKK2JLXMJ437q0AzZWLhJPqydvuPfLRq4pZPhCmI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UNt9clVgbLH7UJp99c3y8aL53eVoPAgRyF5+hbtVePc7/mPXawVTihLgbSBV5/PTY0jpFmYtwkGOh9EFiGzIMotdBK87l/5rAJlUY7ZFpk8KoNvxfKNtd3O0lcCK9hZrXo5J+Yx6n0PzrRkqhtaMMLgeknias7AlR+EKPgRmEHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NXjVDaU2; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kenwJFqq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 05852C2BCFD;
-	Tue,  4 Aug 2026 08:50:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785833435;
-	bh=zncJe6r/h18+nfYVzPgGMVIIqCKBi4jCuRpAH9YRD9M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kenwJFqqp7L6J2Y2QeWSwL8ttKUWltgS6BnyPTRvb8Z80bRROdEBZWrFlo8Z+XdWO
-	 K+3rzaQJD05g0iyrpBm2R4L0FzN2YolttlJClLRvgipGKt1chVUFYvI/yXc/YzP+od
-	 ZRQ19PwEPkTdkFozxS434ZbZLsepHuTjTa8315Cv3q6v8R15mxmHKkSvzBOQdNcWaP
-	 tURhdz+IrAHGbDL4BiLfcJwBTYlXvioIKnUKA3/zeS4y2X+gg0GblKuzem3M3bdIF4
-	 xSJCChoa4PhDmfoW5yGPXC2tuYj8PZAAGiI47mpPBIzLlOTiG2I8HB7DVYo6gAL6/Z
-	 rsByPcIODH68Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C20C55184;
-	Tue,  4 Aug 2026 08:50:34 +0000 (UTC)
-From: Dumitru Ceclan via B4 Relay <devnull+dumitru.ceclan.analog.com@kernel.org>
-Date: Tue, 04 Aug 2026 11:50:03 +0300
-Subject: [PATCH v14 20/22] staging: media: remove MAX96712 driver
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NXjVDaU2"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38fdeaed181so1800852a91.1
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 01:52:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785833551; x=1786438351; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=06KxuYZYGUvdwJLxO6YakdqqJzGpR3ZKZOXLQyVhILY=;
+        b=NXjVDaU21KR0S5YS7bIwWMiKwAO/24FIRMljpTL1DS0ovROLVGAzPdOVszHQ1x1lJr
+         LpGLRp768Sa3b/82766s4yEpO0GeVeKBmK1QdI5IxtAi3VLFXgEnEbESvhsNI4Qirmav
+         zAK2AXSufUXM+IAaQUo5/YYwKSNuxcjXn+EvhzvhsgnONTGMF3HMoPyMYyCGIKx+Wznq
+         YHm8NiwlTdWl/8ACBUdDa31y96cA+hQU9rK6PkXYMqjzylIoF4cRSyh8gNxSrYObmQ2a
+         2Fcf5q4rvvWrUQAULCgN9vm5Hv6BzKDV9i/EBXTCbVeyhrpImMHVpiWYRWrPjr/6ze7j
+         5X5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785833551; x=1786438351;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=06KxuYZYGUvdwJLxO6YakdqqJzGpR3ZKZOXLQyVhILY=;
+        b=QXeXOCh5f6SRoWEk5eey/36YLi/UfCJmL0xwxKRV7sJNhGaheZhCvm7jGGoPd5Mj0s
+         xuYSM9fCC71HfuGQNV4MRpqnkFOmM8z8Bkt3HY/PO3ANkIR/8uV/cSTeSLERR6C+8Ffg
+         RsHixUmnlHCvVpEGBk0ZeLgYWMm/LY/qtKR4JF/1OhWRQ9TAfrUV/jXwJFF7XWbaPPic
+         UD463GfqaUz9r1V9N0AOm/BnuJCeL+FdyFJ9YIpwhfb2QArk6sj118f1IjN+28DyNUQt
+         slYZkqcalp3nrd0Z3plPDw14R62x+++uPX8oG+pH7pjX9KSD7CnLFAQt2tzEMFAR7lSG
+         G79w==
+X-Forwarded-Encrypted: i=1; AHgh+RouycOy3KVg+RrnWywh5TMvgOZHb5dZESWlx1wazAkzMp483+lLHnIyJGSwmNA6xUQhJWvecKUrH+AR@vger.kernel.org
+X-Gm-Message-State: AOJu0YyhOAVg6cKR/wAo5DI6Qi6GCxrwcL+vjks1zrMGY8vTqHQKZw7i
+	uCbY/fmHFEssom55nh3Jh/QZHIk/V4pyi9SCSVin6HyFaFmM5eFEy7MK
+X-Gm-Gg: AR+sD13mNJ9163WUbdR9bOaolsERSuh964DpO3FFVkznF+rBEklA/sa5JVpcMOWSUpP
+	9GfQALU5U5U9NvWkNtYNECednmcRzG3lMJXPJKQc/KIUV8hU6dI30oJPGUceQIhw0Pd8V1uIGlK
+	huiToumAzKOTS1xFgot0d31Vq94nMhw1BaH/TX2EpR9LRAKDG30u5opVVSVeJN06fyFWOHB5n0n
+	cHBLuQ5yd3Q6imHQnP05yavfJomBEzFdXAttNoik+RtsXrRSBzppHssJA4j+OS8YrnlO4qhxt6b
+	Fht22x72xCqg73ZOZPfLwv18ukr6JDbYeA5Afg0MCUXnn8Z1E9NhxGdExrxozoFJTwCWPZmkQn2
+	3mN/1B0gHBRcPrRgljvYX8qH0kwvJvK0vOJXq5WDEoU9YW5vLvtXhUO1VuhIObHSZIVW6FmDQo2
+	KYTZ/vKMeXXwxFn8KA4XsE6EUb4FvtQtt7Ioi1dCjNinplaSlpwzghoGBCW1Ml/+FDwJAajKA2A
+	AKlfUgNMhvVQQfi1d5PdzhXJqymLuE0d+gvKSBn7/0auAc=
+X-Received: by 2002:a17:90a:e7c4:b0:38f:23d6:b4b4 with SMTP id 98e67ed59e1d1-38fbc5341dcmr12857447a91.22.1785833551137;
+        Tue, 04 Aug 2026 01:52:31 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38febffb36dsm1012000a91.7.2026.08.04.01.52.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 01:52:30 -0700 (PDT)
+From: Zi-Yu Chen <zychennvt@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Zi-Yu Chen <zychennvt@gmail.com>
+Subject: [PATCH v8 0/3] i2c: ma35d1: Add support for MA35D1 I2C controller
+Date: Tue,  4 Aug 2026 16:48:03 +0800
+Message-Id: <20260804084806.1846570-1-zychennvt@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260804-gmsl2-3_serdes-v14-20-763710c884c0@analog.com>
-References: <20260804-gmsl2-3_serdes-v14-0-763710c884c0@analog.com>
-In-Reply-To: <20260804-gmsl2-3_serdes-v14-0-763710c884c0@analog.com>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: mitrutzceclan@gmail.com, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
- Martin Hecht <Martin.Hecht@avnet.eu>, 
- Cosmin Tanislav <demonsingur@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785833430; l=16796;
- i=dumitru.ceclan@analog.com; s=20240313; h=from:subject:message-id;
- bh=5Iri/duF4q7e9ox6uykHXfIv0uT6wAJe7z06mSNj2jg=;
- b=j2oVM9jx+s/6ee8o3A3GzgfGq7uwd07f8K+7gcIqT3bwObu5fizdzZwnh4quJ7B3CzPA92MYp
- tnButoTHCsMDu/9rfnCEfsLdzf33oMsURdlRZCzQHf8Yo/E78hnY9mn
-X-Developer-Key: i=dumitru.ceclan@analog.com; a=ed25519;
- pk=HdqMlVyrcazwoiai7oN6ghU+Bj1pusGUFRl30jhS7Bo=
-X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
- with auth_id=140
-X-Original-From: Dumitru Ceclan <dumitru.ceclan@analog.com>
-Reply-To: dumitru.ceclan@analog.com
 
-From: Cosmin Tanislav <demonsingur@gmail.com>
+This series adds support for the I2C controller found in the Nuvoton
+MA35D1 SoC. The driver supports controller and optional target mode
+and runtime power management.
 
-Remove the staging MAX96712 driver.
-Its functionality has been moved to the MAX96724 driver which makes use
-of the Maxim GMSL2/3 deserializer framework.
+The implementation has been tested on the Nuvoton MA35D1 SOM board.
 
-Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
-Acked-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
----
- MAINTAINERS                               |   1 -
- drivers/staging/media/Kconfig             |   2 -
- drivers/staging/media/Makefile            |   1 -
- drivers/staging/media/max96712/Kconfig    |  13 -
- drivers/staging/media/max96712/Makefile   |   2 -
- drivers/staging/media/max96712/max96712.c | 487 ------------------------------
- 6 files changed, 506 deletions(-)
+Changes in v8:
+	- Remove rpm_put avoid duplicate processing.
+	- Add synchronize_irq wait for interrupt to finish before i2c->target = NULL.
+	- Add ma35d1_i2c_restore_idle() to handle bus errors or spurious interrupts.
+	- Change return types of TRX helper functions to irqreturn_t, returning
+		IRQ_NONE for unhandled status codes.
+	v7: https://lore.kernel.org/r/20260727081859.1737223-1-zychennvt@gmail.com/
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 75ee49bc612b..9577aa8dc4ea 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15733,7 +15733,6 @@ M:	Niklas Söderlund <niklas.soderlund@ragnatech.se>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
--F:	drivers/staging/media/max96712/max96712.c
- 
- MAX96714 GMSL2 DESERIALIZER DRIVER
- M:	Julien Massot <julien.massot@collabora.com>
-diff --git a/drivers/staging/media/Kconfig b/drivers/staging/media/Kconfig
-index 1aa31bddf970..5f532ef4f6ce 100644
---- a/drivers/staging/media/Kconfig
-+++ b/drivers/staging/media/Kconfig
-@@ -30,8 +30,6 @@ source "drivers/staging/media/ipu3/Kconfig"
- 
- source "drivers/staging/media/ipu7/Kconfig"
- 
--source "drivers/staging/media/max96712/Kconfig"
--
- source "drivers/staging/media/meson/vdec/Kconfig"
- 
- source "drivers/staging/media/sunxi/Kconfig"
-diff --git a/drivers/staging/media/Makefile b/drivers/staging/media/Makefile
-index 6f78b0edde1e..f517390f5d43 100644
---- a/drivers/staging/media/Makefile
-+++ b/drivers/staging/media/Makefile
-@@ -2,7 +2,6 @@
- obj-$(CONFIG_VIDEO_ATMEL_ISC_BASE)	+= deprecated/atmel/
- obj-$(CONFIG_INTEL_ATOMISP)     += atomisp/
- obj-$(CONFIG_VIDEO_IMX_MEDIA)	+= imx/
--obj-$(CONFIG_VIDEO_MAX96712)	+= max96712/
- obj-$(CONFIG_VIDEO_MESON_VDEC)	+= meson/vdec/
- obj-$(CONFIG_VIDEO_SUNXI)	+= sunxi/
- obj-$(CONFIG_VIDEO_TEGRA)	+= tegra-video/
-diff --git a/drivers/staging/media/max96712/Kconfig b/drivers/staging/media/max96712/Kconfig
-deleted file mode 100644
-index 93a2d583e90d..000000000000
---- a/drivers/staging/media/max96712/Kconfig
-+++ /dev/null
-@@ -1,13 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
--config VIDEO_MAX96712
--	tristate "Maxim MAX96712 Quad GMSL2 Deserializer support"
--	depends on I2C
--	depends on VIDEO_DEV
--	select V4L2_FWNODE
--	select VIDEO_V4L2_SUBDEV_API
--	select MEDIA_CONTROLLER
--	help
--	  This driver supports the Maxim MAX96712 Quad GMSL2 Deserializer.
--
--	  To compile this driver as a module, choose M here: the
--	  module will be called max96712.
-diff --git a/drivers/staging/media/max96712/Makefile b/drivers/staging/media/max96712/Makefile
-deleted file mode 100644
-index 70c1974ce3f0..000000000000
---- a/drivers/staging/media/max96712/Makefile
-+++ /dev/null
-@@ -1,2 +0,0 @@
--# SPDX-License-Identifier: GPL-2.0
--obj-$(CONFIG_VIDEO_MAX96712) += max96712.o
-diff --git a/drivers/staging/media/max96712/max96712.c b/drivers/staging/media/max96712/max96712.c
-deleted file mode 100644
-index 0751b2e04895..000000000000
---- a/drivers/staging/media/max96712/max96712.c
-+++ /dev/null
-@@ -1,487 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * Maxim MAX96712 Quad GMSL2 Deserializer Driver
-- *
-- * Copyright (C) 2021 Renesas Electronics Corporation
-- * Copyright (C) 2021 Niklas Söderlund
-- */
--
--#include <linux/delay.h>
--#include <linux/i2c.h>
--#include <linux/module.h>
--#include <linux/of_graph.h>
--#include <linux/regmap.h>
--
--#include <media/v4l2-ctrls.h>
--#include <media/v4l2-fwnode.h>
--#include <media/v4l2-subdev.h>
--
--#define DEBUG_EXTRA_REG			0x09
--#define DEBUG_EXTRA_PCLK_25MHZ		0x00
--#define DEBUG_EXTRA_PCLK_75MHZ		0x01
--
--enum max96712_pattern {
--	MAX96712_PATTERN_CHECKERBOARD = 0,
--	MAX96712_PATTERN_GRADIENT,
--};
--
--struct max96712_info {
--	unsigned int dpllfreq;
--	bool have_debug_extra;
--};
--
--struct max96712_priv {
--	struct i2c_client *client;
--	struct regmap *regmap;
--	struct gpio_desc *gpiod_pwdn;
--
--	const struct max96712_info *info;
--
--	bool cphy;
--	struct v4l2_mbus_config_mipi_csi2 mipi;
--
--	struct v4l2_subdev sd;
--	struct v4l2_ctrl_handler ctrl_handler;
--	struct media_pad pads[1];
--
--	enum max96712_pattern pattern;
--};
--
--static int max96712_write(struct max96712_priv *priv, unsigned int reg, u8 val)
--{
--	int ret;
--
--	ret = regmap_write(priv->regmap, reg, val);
--	if (ret)
--		dev_err(&priv->client->dev, "write 0x%04x failed\n", reg);
--
--	return ret;
--}
--
--static int max96712_update_bits(struct max96712_priv *priv, unsigned int reg,
--				u8 mask, u8 val)
--{
--	int ret;
--
--	ret = regmap_update_bits(priv->regmap, reg, mask, val);
--	if (ret)
--		dev_err(&priv->client->dev, "update 0x%04x failed\n", reg);
--
--	return ret;
--}
--
--static int max96712_write_bulk(struct max96712_priv *priv, unsigned int reg,
--			       const void *val, size_t val_count)
--{
--	int ret;
--
--	ret = regmap_bulk_write(priv->regmap, reg, val, val_count);
--	if (ret)
--		dev_err(&priv->client->dev, "bulk write 0x%04x failed\n", reg);
--
--	return ret;
--}
--
--static int max96712_write_bulk_value(struct max96712_priv *priv,
--				     unsigned int reg, unsigned int val,
--				     size_t val_count)
--{
--	unsigned int i;
--	u8 values[4];
--
--	for (i = 1; i <= val_count; i++)
--		values[i - 1] = (val >> ((val_count - i) * 8)) & 0xff;
--
--	return max96712_write_bulk(priv, reg, &values, val_count);
--}
--
--static void max96712_reset(struct max96712_priv *priv)
--{
--	max96712_update_bits(priv, 0x13, 0x40, 0x40);
--	msleep(20);
--}
--
--static void max96712_mipi_enable(struct max96712_priv *priv, bool enable)
--{
--	if (enable) {
--		max96712_update_bits(priv, 0x40b, 0x02, 0x02);
--		max96712_update_bits(priv, 0x8a0, 0x80, 0x80);
--	} else {
--		max96712_update_bits(priv, 0x8a0, 0x80, 0x00);
--		max96712_update_bits(priv, 0x40b, 0x02, 0x00);
--	}
--}
--
--static void max96712_mipi_configure(struct max96712_priv *priv)
--{
--	unsigned int i;
--	u8 phy5 = 0;
--
--	max96712_mipi_enable(priv, false);
--
--	/* Select 2x4 mode. */
--	max96712_write(priv, 0x8a0, 0x04);
--
--	/* TODO: Add support for 2-lane and 1-lane configurations. */
--	if (priv->cphy) {
--		/* Configure a 3-lane C-PHY using PHY0 and PHY1. */
--		max96712_write(priv, 0x94a, 0xa0);
--
--		/* Configure C-PHY timings. */
--		max96712_write(priv, 0x8ad, 0x3f);
--		max96712_write(priv, 0x8ae, 0x7d);
--	} else {
--		/* Configure a 4-lane D-PHY using PHY0 and PHY1. */
--		max96712_write(priv, 0x94a, 0xc0);
--	}
--
--	/* Configure lane mapping for PHY0 and PHY1. */
--	/* TODO: Add support for lane swapping. */
--	max96712_write(priv, 0x8a3, 0xe4);
--
--	/* Configure lane polarity for PHY0 and PHY1. */
--	for (i = 0; i < priv->mipi.num_data_lanes + 1; i++)
--		if (priv->mipi.lane_polarities[i])
--			phy5 |= BIT(i == 0 ? 5 : i < 3 ? i - 1 : i);
--	max96712_write(priv, 0x8a5, phy5);
--
--	/* Set link frequency for PHY0 and PHY1. */
--	max96712_update_bits(priv, 0x415, 0x3f,
--			     ((priv->info->dpllfreq / 100) & 0x1f) | BIT(5));
--	max96712_update_bits(priv, 0x418, 0x3f,
--			     ((priv->info->dpllfreq / 100) & 0x1f) | BIT(5));
--
--	/* Enable PHY0 and PHY1 */
--	max96712_update_bits(priv, 0x8a2, 0xf0, 0x30);
--}
--
--static void max96712_pattern_enable(struct max96712_priv *priv, bool enable)
--{
--	const u32 h_active = 1920;
--	const u32 h_fp = 88;
--	const u32 h_sw = 44;
--	const u32 h_bp = 148;
--	const u32 h_tot = h_active + h_fp + h_sw + h_bp;
--
--	const u32 v_active = 1080;
--	const u32 v_fp = 4;
--	const u32 v_sw = 5;
--	const u32 v_bp = 36;
--	const u32 v_tot = v_active + v_fp + v_sw + v_bp;
--
--	if (!enable) {
--		max96712_write(priv, 0x1051, 0x00);
--		return;
--	}
--
--	/* Set PCLK to 75MHz if device have DEBUG_EXTRA register. */
--	if (priv->info->have_debug_extra)
--		max96712_write(priv, DEBUG_EXTRA_REG, DEBUG_EXTRA_PCLK_75MHZ);
--
--	/* Configure Video Timing Generator for 1920x1080 @ 30 fps. */
--	max96712_write_bulk_value(priv, 0x1052, 0, 3);
--	max96712_write_bulk_value(priv, 0x1055, v_sw * h_tot, 3);
--	max96712_write_bulk_value(priv, 0x1058,
--				  (v_active + v_fp + + v_bp) * h_tot, 3);
--	max96712_write_bulk_value(priv, 0x105b, 0, 3);
--	max96712_write_bulk_value(priv, 0x105e, h_sw, 2);
--	max96712_write_bulk_value(priv, 0x1060, h_active + h_fp + h_bp, 2);
--	max96712_write_bulk_value(priv, 0x1062, v_tot, 2);
--	max96712_write_bulk_value(priv, 0x1064,
--				  h_tot * (v_sw + v_bp) + (h_sw + h_bp), 3);
--	max96712_write_bulk_value(priv, 0x1067, h_active, 2);
--	max96712_write_bulk_value(priv, 0x1069, h_fp + h_sw + h_bp, 2);
--	max96712_write_bulk_value(priv, 0x106b, v_active, 2);
--
--	/* Generate VS, HS and DE in free-running mode. */
--	max96712_write(priv, 0x1050, 0xfb);
--
--	/* Configure Video Pattern Generator. */
--	if (priv->pattern == MAX96712_PATTERN_CHECKERBOARD) {
--		/* Set checkerboard pattern size. */
--		max96712_write(priv, 0x1074, 0x3c);
--		max96712_write(priv, 0x1075, 0x3c);
--		max96712_write(priv, 0x1076, 0x3c);
--
--		/* Set checkerboard pattern colors. */
--		max96712_write_bulk_value(priv, 0x106e, 0xfecc00, 3);
--		max96712_write_bulk_value(priv, 0x1071, 0x006aa7, 3);
--
--		/* Generate checkerboard pattern. */
--		max96712_write(priv, 0x1051, 0x10);
--	} else {
--		/* Set gradient increment. */
--		max96712_write(priv, 0x106d, 0x10);
--
--		/* Generate gradient pattern. */
--		max96712_write(priv, 0x1051, 0x20);
--	}
--}
--
--static int max96712_s_stream(struct v4l2_subdev *sd, int enable)
--{
--	struct max96712_priv *priv = v4l2_get_subdevdata(sd);
--
--	if (enable) {
--		max96712_pattern_enable(priv, true);
--		max96712_mipi_enable(priv, true);
--	} else {
--		max96712_mipi_enable(priv, false);
--		max96712_pattern_enable(priv, false);
--	}
--
--	return 0;
--}
--
--static const struct v4l2_subdev_video_ops max96712_video_ops = {
--	.s_stream = max96712_s_stream,
--};
--
--static int max96712_init_state(struct v4l2_subdev *sd,
--			       struct v4l2_subdev_state *state)
--{
--	static const struct v4l2_mbus_framefmt default_fmt = {
--		.width          = 1920,
--		.height         = 1080,
--		.code           = MEDIA_BUS_FMT_RGB888_1X24,
--		.colorspace     = V4L2_COLORSPACE_SRGB,
--		.field          = V4L2_FIELD_NONE,
--		.ycbcr_enc      = V4L2_YCBCR_ENC_DEFAULT,
--		.quantization   = V4L2_QUANTIZATION_DEFAULT,
--		.xfer_func      = V4L2_XFER_FUNC_DEFAULT,
--	};
--	struct v4l2_mbus_framefmt *fmt;
--
--	fmt = v4l2_subdev_state_get_format(state, 0);
--	*fmt = default_fmt;
--
--	return 0;
--}
--
--static const struct v4l2_subdev_internal_ops max96712_internal_ops = {
--	.init_state = max96712_init_state,
--};
--
--static const struct v4l2_subdev_pad_ops max96712_pad_ops = {
--	.get_fmt = v4l2_subdev_get_fmt,
--	.set_fmt = v4l2_subdev_get_fmt,
--};
--
--static const struct v4l2_subdev_ops max96712_subdev_ops = {
--	.video = &max96712_video_ops,
--	.pad = &max96712_pad_ops,
--};
--
--static const char * const max96712_test_pattern[] = {
--	"Checkerboard",
--	"Gradient",
--};
--
--static int max96712_s_ctrl(struct v4l2_ctrl *ctrl)
--{
--	struct max96712_priv *priv =
--		container_of(ctrl->handler, struct max96712_priv, ctrl_handler);
--
--	switch (ctrl->id) {
--	case V4L2_CID_TEST_PATTERN:
--		priv->pattern = ctrl->val ?
--			MAX96712_PATTERN_GRADIENT :
--			MAX96712_PATTERN_CHECKERBOARD;
--		break;
--	}
--	return 0;
--}
--
--static const struct v4l2_ctrl_ops max96712_ctrl_ops = {
--	.s_ctrl = max96712_s_ctrl,
--};
--
--static int max96712_v4l2_register(struct max96712_priv *priv)
--{
--	long pixel_rate;
--	int ret;
--
--	priv->sd.internal_ops = &max96712_internal_ops;
--	v4l2_i2c_subdev_init(&priv->sd, priv->client, &max96712_subdev_ops);
--	priv->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
--	priv->sd.entity.function = MEDIA_ENT_F_VID_IF_BRIDGE;
--
--	v4l2_ctrl_handler_init(&priv->ctrl_handler, 2);
--
--	/*
--	 * TODO: Once V4L2_CID_LINK_FREQ is changed from a menu control to an
--	 * INT64 control it should be used here instead of V4L2_CID_PIXEL_RATE.
--	 */
--	pixel_rate = priv->info->dpllfreq / priv->mipi.num_data_lanes * 1000000;
--	v4l2_ctrl_new_std(&priv->ctrl_handler, NULL, V4L2_CID_PIXEL_RATE,
--			  pixel_rate, pixel_rate, 1, pixel_rate);
--
--	v4l2_ctrl_new_std_menu_items(&priv->ctrl_handler, &max96712_ctrl_ops,
--				     V4L2_CID_TEST_PATTERN,
--				     ARRAY_SIZE(max96712_test_pattern) - 1,
--				     0, 0, max96712_test_pattern);
--
--	priv->sd.ctrl_handler = &priv->ctrl_handler;
--	ret = priv->ctrl_handler.error;
--	if (ret)
--		goto error;
--
--	priv->pads[0].flags = MEDIA_PAD_FL_SOURCE;
--	ret = media_entity_pads_init(&priv->sd.entity, 1, priv->pads);
--	if (ret)
--		goto error;
--
--	v4l2_set_subdevdata(&priv->sd, priv);
--
--	priv->sd.state_lock = priv->ctrl_handler.lock;
--	ret = v4l2_subdev_init_finalize(&priv->sd);
--	if (ret)
--		goto error;
--
--	ret = v4l2_async_register_subdev(&priv->sd);
--	if (ret < 0) {
--		dev_err(&priv->client->dev, "Unable to register subdevice\n");
--		goto error;
--	}
--
--	return 0;
--error:
--	v4l2_ctrl_handler_free(&priv->ctrl_handler);
--
--	return ret;
--}
--
--static int max96712_parse_dt(struct max96712_priv *priv)
--{
--	struct fwnode_handle *ep;
--	struct v4l2_fwnode_endpoint v4l2_ep = {
--		.bus_type = V4L2_MBUS_UNKNOWN,
--	};
--	unsigned int supported_lanes;
--	int ret;
--
--	ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(&priv->client->dev), 4,
--					     0, 0);
--	if (!ep) {
--		dev_err(&priv->client->dev, "Not connected to subdevice\n");
--		return -EINVAL;
--	}
--
--	ret = v4l2_fwnode_endpoint_parse(ep, &v4l2_ep);
--	fwnode_handle_put(ep);
--	if (ret) {
--		dev_err(&priv->client->dev, "Could not parse v4l2 endpoint\n");
--		return -EINVAL;
--	}
--
--	switch (v4l2_ep.bus_type) {
--	case V4L2_MBUS_CSI2_DPHY:
--		supported_lanes = 4;
--		priv->cphy = false;
--		break;
--	case V4L2_MBUS_CSI2_CPHY:
--		supported_lanes = 3;
--		priv->cphy = true;
--		break;
--	default:
--		dev_err(&priv->client->dev, "Unsupported bus-type %u\n",
--			v4l2_ep.bus_type);
--		return -EINVAL;
--	}
--
--	if (v4l2_ep.bus.mipi_csi2.num_data_lanes != supported_lanes) {
--		dev_err(&priv->client->dev, "Only %u data lanes supported\n",
--			supported_lanes);
--		return -EINVAL;
--	}
--
--	priv->mipi = v4l2_ep.bus.mipi_csi2;
--
--	return 0;
--}
--
--static const struct regmap_config max96712_i2c_regmap = {
--	.reg_bits = 16,
--	.val_bits = 8,
--	.max_register = 0x1f00,
--};
--
--static int max96712_probe(struct i2c_client *client)
--{
--	struct max96712_priv *priv;
--	int ret;
--
--	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
--	if (!priv)
--		return -ENOMEM;
--
--	priv->info = of_device_get_match_data(&client->dev);
--
--	priv->client = client;
--
--	priv->regmap = devm_regmap_init_i2c(client, &max96712_i2c_regmap);
--	if (IS_ERR(priv->regmap))
--		return PTR_ERR(priv->regmap);
--
--	priv->gpiod_pwdn = devm_gpiod_get_optional(&client->dev, "enable",
--						   GPIOD_OUT_HIGH);
--	if (IS_ERR(priv->gpiod_pwdn))
--		return PTR_ERR(priv->gpiod_pwdn);
--
--	gpiod_set_consumer_name(priv->gpiod_pwdn, "max96712-pwdn");
--	gpiod_set_value_cansleep(priv->gpiod_pwdn, 1);
--
--	if (priv->gpiod_pwdn)
--		usleep_range(4000, 5000);
--
--	max96712_reset(priv);
--
--	ret = max96712_parse_dt(priv);
--	if (ret)
--		return ret;
--
--	max96712_mipi_configure(priv);
--
--	return max96712_v4l2_register(priv);
--}
--
--static void max96712_remove(struct i2c_client *client)
--{
--	struct v4l2_subdev *sd = i2c_get_clientdata(client);
--	struct max96712_priv *priv = container_of(sd, struct max96712_priv, sd);
--
--	v4l2_async_unregister_subdev(&priv->sd);
--
--	gpiod_set_value_cansleep(priv->gpiod_pwdn, 0);
--}
--
--static const struct max96712_info max96712_info_max96712 = {
--	.dpllfreq = 1000,
--	.have_debug_extra = true,
--};
--
--static const struct max96712_info max96712_info_max96724 = {
--	.dpllfreq = 1200,
--};
--
--static const struct of_device_id max96712_of_table[] = {
--	{ .compatible = "maxim,max96712", .data = &max96712_info_max96712 },
--	{ .compatible = "maxim,max96724", .data = &max96712_info_max96724 },
--	{ /* sentinel */ }
--};
--MODULE_DEVICE_TABLE(of, max96712_of_table);
--
--static struct i2c_driver max96712_i2c_driver = {
--	.driver	= {
--		.name = "max96712",
--		.of_match_table	= of_match_ptr(max96712_of_table),
--	},
--	.probe = max96712_probe,
--	.remove = max96712_remove,
--};
--
--module_i2c_driver(max96712_i2c_driver);
--
--MODULE_DESCRIPTION("Maxim MAX96712 Quad GMSL2 Deserializer Driver");
--MODULE_AUTHOR("Niklas Söderlund <niklas.soderlund@ragnatech.se>");
--MODULE_LICENSE("GPL");
+Changes in v7:
+	- Disable IRQ before clearing i2c->msg.
+	- Support	CONFIG_PM=n, and simplify runtime PM setup accordingly.
+	- Remove redundant register access in runtime suspend/resume callbacks.
+	- Defer clearing i2c->target until after pm_runtime_put_sync() in ma35d1_unreg_target().
+	- Enable interrupts alongside I2C enable in ma35d1_i2c_reset().
+  v6: https://lore.kernel.org/r/20260720030616.1067660-1-zychennvt@gmail.com/
+
+Changes in v6:
+  - Patch 2 (driver):
+		- Removed dynamic IRQ toggling helpers for simpler interrupt management.
+		Based on Sashiko AI Feedback:
+		- Added zero-length read quirk.
+		- Set i2c->msg to NULL on timeout to avoid use-after-free.
+		- Cleared hardware registers on target unregistration to release the bus.
+		- Protected suspend-path register writes with a spinlock.
+		- Validated clock-frequency to prevent division-by-zero.
+		- Removed incorrect I2C_M_IGNORE_NAK handling.
+		- Corrected a comment typo in the receive data path.		
+  - Patch 3 (dts):
+    - use a generic functional name audio-codec@1a
+  v5: https://lore.kernel.org/r/20260630012106.3616821-1-zychennvt@gmail.com/
+
+Changes in v5:
+  - Patch 2 (driver):
+    - Add spinlock protection for MA35_CTL0 register access.
+    - Add NULL pointer check for i2c->msg in the ISR.
+    - Use devres-managed cleanup (devm_add_action_or_reset) for runtime PM.
+    - Use pm_runtime_force_suspend/resume() for Controller mode 
+      system sleep.
+    - Control I2CEN bit enabling/disabling via runtime PM.
+    - Refactor arbitration lost handling in state machines.
+    - Remove unsupported I2C_FUNC_PROTOCOL_MANGLING flag.
+    - Clean up readl_poll_timeout() parameters, retry loop, and
+      unused macros.
+  v4: https://lore.kernel.org/r/20260610030208.2020275-1-zychennvt@gmail.com/
+
+Changes in v4:
+  - Patch 1 (dt-bindings):
+    - Update example interrupt number.
+  - Patch 2 (driver):
+    - Remove redundant spinlocks and fix 'irq' type to signed.
+    - Fix target address recovery in ma35d1_i2c_reset().
+    - Refactor IRQ handler for multi-msg reads and NACK/IGNORE_NAK.
+    - Fix timeout UAF via explicit IRQ disabling during recovery.
+    - Drop IRQF_SHARED and fix PM paths in probe/unregistration.
+    - Limit suspend/resume wakeup logic to target mode only.
+  - Patch 3 (dts):
+    - Add missing i2c0 node to dtsi.
+    - Switch SoM configuration from i2c1 to i2c2 with updated pinctrl.
+    - Add nau8822 audio codec node under i2c2 on the SoM board.
+    - Drop redundant i2c0 alias and clean up dtsi property ordering.
+  v3: https://lore.kernel.org/r/20260512073953.564323-1-zychennvt@gmail.com/
+
+Changes in v3:
+  - Fix minor DTS formatting issues (whitespace, missing newline)  
+  v2: https://lore.kernel.org/r/20260316063726.41048-1-zychennvt@gmail.com
+
+Changes in v2:
+  - Overall:
+    - Rebase on linux-i2c/i2c-next
+    - Switched terminology from "master/slave" to "controller/target".  
+  - Patch 1 (dt-bindings):
+    - Simplified description and fixed 'reg' size in example.
+  - Patch 2 (driver):
+    - Modernized using devm_*, generic device properties, and FIELD_PREP/GENMASK.
+    - Optimized power management by moving clock control to runtime PM.
+    - Simplified code by removing redundant .remove(), .owner, and inlines.
+    - Added dev_err_probe() and default bus frequency handling.
+  - Patch 3 (dts):
+    - Moved i2c aliases to board dts and reordered nodes alphabetically.
+  v1: https://lore.kernel.org/r/20260302020822.13936-1-zychennvt@gmail.com
+
+Zi-Yu Chen (3):
+  dt-bindings: i2c: nuvoton,ma35d1-i2c: Add MA35D1 I2C controller
+  i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+  arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
+
+ .../bindings/i2c/nuvoton,ma35d1-i2c.yaml      |  63 ++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  20 +
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  72 ++
+ drivers/i2c/busses/Kconfig                    |  13 +
+ drivers/i2c/busses/Makefile                   |   1 +
+ drivers/i2c/busses/i2c-ma35d1.c               | 777 ++++++++++++++++++
+ 6 files changed, 946 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/nuvoton,ma35d1-i2c.yaml
+ create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
 
 -- 
-2.53.0
-
+2.34.1
 
