@@ -1,129 +1,154 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826E34446FD
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 10:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785839942; cv=pass; b=BEfuBw2IyNicDp4cx2lHCRGW9+cM0wVW/0Ri/vPBJrq8LXf6h2vg+wwp5D8gqaoaK5RDxqedBQb2uPHBkl2Y9OFyAZWabFCeOLjHP/SYevdPtK0kkA2J2iWWT9QnLraEXpJluBF68f5ysNyk4id57gNx+D4grA5OC4ZVkvV1tbk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785839942; c=relaxed/simple;
-	bh=YbVdxHiCZY6RHGU7G/bJDm4Z7qaf8FZncpTD9z2Kf1M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qRSdYELSzmUHdRw2Qy+3QsBT6HSuM75MF4MeVngoOz1FmwEsfvQucrFdAcxIelQQLfT4/RinnOLm7hfbKbY9dzmZubkDCDIv5krkCsIRINcjiLf2bnQgtozhVW4U43aT2/Nb6gCkvMSibPhgLV9u8Q+g8BwvpzFxaZpJp7hEdFw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nZXGKBUO; arc=pass smtp.client-ip=209.85.218.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6104446FD
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 10:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785840026; cv=none; b=dLz+N84Xv7VIWz2k8IIhyZhCjCTvC3qCHbsA9ickXEQNU4QrEGZA+HS43F8iguo4fwu7JjOF0ImIVMU3ZxyDPggX0HbeDjvSPntYdIcNcqueg/zHH0tHliEtt4W4IF0PypBr99LhlMpEUyYEQ3nyfbMGqhoCnjwofCol3vE3W18=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785840026; c=relaxed/simple;
+	bh=XjqEhMzVyJidAYNTgfZuzibV+vw4kgTP4iUjr/Y8zwY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BH9Dh8Z8MqoqPF9511V7KeDGNuLxiI5lYkGzzeWZ6imi7KgcLHD4NNy4bH5IqaQB707FZ4NOXrR1CeOrBNoPhxSe+eBmoVcJelhoymPSq819rg9DcTKsW+hzvvBfmHPk6lnNsUEO3ULzyXnMsiCVUu3SeMuniA1rduEunhcdY48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S0+z8yth; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nZXGKBUO"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c15e2dab83eso630287766b.1
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 03:39:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785839939; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ADLnGeZT+aMmaWk8GveDhsni5Dd8RF68jci7J/lY2ll+KJfa3GcNb5gWx7ZVIKwtBS
-         B0Gf4XHmqItD9QrOfxnNEtYUGPRlesffn5WMHjtA2fFAogACXsGrDw48SXTBuCJ8KGmv
-         kJeRMqinemDqcqVDgjp94Aw6wXF57TlkLv+suJbzCvRYELljIfhlzrzitQK+1LIyBNKr
-         Z92UyMg5T8pp0Hg6k7ra8pD4rQJ4U+QpCG9ETJOyQ6kbaT3K+6NVdlQfZc7cqm51gMpo
-         Ctl6R4YHRivkcYSK9blA2yLLIkUPX5mnVHo/pgyWg5lY3xWZ1e+PllVS21FtJtHQBVUi
-         eJ4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YbVdxHiCZY6RHGU7G/bJDm4Z7qaf8FZncpTD9z2Kf1M=;
-        fh=xYA3PWQRJohgCzE2ArRpLtOd2+tqk0H59ZASuvK+9Rs=;
-        b=XNf0PaweFSVVsTnN4ZMLbQuaUlP1COCr1V1oZcSEpMr/cIU4DVq7/E3HmJfSnuRyca
-         AKpC69Vvey/tvZlZP2ljeKLqt1weIAGsTNhUd5HmIN9I7/DhM8fH6Yo6ZVRjbaYVGPJ6
-         STgg+jCEP0j1fGKkCqmKzZ5p+zYC4CPx4mrhW8O3GlCqAOKYFrLOcCALeOqdrvlpL58M
-         qwGCK6k6W/dhxNX9rF/CCiOe9ErkKJBUcvxFrtpAEvteeCAn4uAC1onooiX7B0FMLUr+
-         JM1xA6cxljHR3J+2Qsf9fhHPdFuioEoNt//+CJ67gWZ8SPcLI+Vj6uMBkYiotd2U0OQb
-         rwnA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S0+z8yth"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2caed617615so60329255ad.3
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 03:40:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785839939; x=1786444739; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YbVdxHiCZY6RHGU7G/bJDm4Z7qaf8FZncpTD9z2Kf1M=;
-        b=nZXGKBUODkcamVQ59t9mpb/Q46+LbFfWPUdoCwcBm8SS+f12VFJvpp7dVfi3zZNerw
-         Qqe9kOM4n3RbM41XCzj/UEm5iDXWdp5dm2SJd+iAP/LXdv2F2aUgzBLfdm2RfRRrhP0O
-         j4BJKMegl1hU2qHjE64+d7reWodFdsKd+Jb04KqdIU8sVvKWytpfzJJxgZ2HZAreAnQC
-         gUiXHGs+KBNLUPrRjuZgF+hJq+nJo3fXbihLFtSiNfYB+1E6ikaoAJrFK3V3V04OTJvI
-         KgQbm66mMqOREHlRBWgBfWem0B00ggs9MLYPe6MhR1Z+WJROjBl3AgaDba1QiEXxpvGP
-         6GLQ==
+        d=gmail.com; s=20251104; t=1785840024; x=1786444824; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ezaCKY+/GsZkbyZqG8Ty7NTbyuHDDYUEigB5GN8nxr4=;
+        b=S0+z8ythkAsmZhiqnI6RBEugt9JZ8TpO2f0cqRjmimIwpJER2v4ntX+I5zXarp3sV3
+         pfjzQg/uabrlb/ZZyRR9FaYmjxFo7cyvUFI++Z0iQVLIY7tgMhfdzU1Fjv7c3EpCIXp1
+         72hz+iugC2vHWs7pjSJhRXKiD/BA3y0K81x//7QfZeaT5xkLm8kPh7pxF4lWvG5XDpwj
+         PJRzn9ewafTab5glON0W8dlQFNR/YnKyfCI0+o4UMrfSMi/7S2ygRpFyiGmzb/EtoDN9
+         wNpZPt40pPTKqyddge3NUxJYEtnDJm1ToJuQqUaHYm8lkVfzd9fL3f4qZlciuBAboGdP
+         xdUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785839939; x=1786444739;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YbVdxHiCZY6RHGU7G/bJDm4Z7qaf8FZncpTD9z2Kf1M=;
-        b=dtUbji9k6mRE+f0tFJ6KJLolyUoqfbwVJlW3OVwdiDgEvlwkNbeKt3PrpWGTKdhJNA
-         wKQBAPS22vxxsquNhMAuSeMveZRqHTfitar4YZh4ddrAmB1nkAOxhxQRGZD6Vp9yGmvw
-         eIoMANOhVnhn1FdTJJvyoK8bhMg7Re7L62/FXyOIFxacEhBqJYNNlWGYN63MZQJCd+vj
-         hCgUWxuQZzKkUPKUVo3TwRbKLBC6lHc2NQOi8dI9kWn0Nb0vbWEUaCAEKXkerE2tqcFE
-         9qHdvMKDzsNKigIycrHY0CdBC+7dAI0MzBo8jFW/dkmfri62+Ivl3AlIKiReyjXWesYo
-         1XBQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrCWSv+LuIlaRCGSPBoNrUACHKwEyiCVhmBrQz/0BkI+zd/RUguoIb8rcyu+XxxJTYsas4sB2Z9Gg/N@vger.kernel.org
-X-Gm-Message-State: AOJu0YwAEPFH9OrO3WQpozEwNxpIx6Xt5rtd7rPp1xad19H80poc/N5W
-	tmIH3tuE0kO1hafV/43s1X3s3hCD4WTqm91amEUWEg8drDUbmzIbVXPkQD5aSI6hMvIXVVDjC7M
-	J3LVwbYfS84i1qhjWcvnPtCWN60yOdVApgBLV
-X-Gm-Gg: AR+sD111HT26+1F8Ne6ldTeHrJfZCcCMnIYCPXVQEZw6aD+FRoyFIqPyQ4bvyGhNyu+
-	SVXAjTiRRRWbynkufA53brAfcZqMtC225w8EVugZgfp9OMTPH7kD3+Ux40NQWzCBLzx50Jrc1Tx
-	WC9JMSBZWfOfrE+UvF3NaZOUDtv4FMVRMhJeXNqbMFt7JqfxMDukjsH6tEdw3w142rYtsTLKSIX
-	5RtNa4vxDmMz1/M7tW4i9MkhsJfi8LDM0foWZfKW8wjW5mSptBsKn0CMVxeRha2p0uFCw9hQUA3
-	5XjR2TpjMdrOSVl53cjQVtK5MlOVWZBXo4Lb8H9E6APLJA==
-X-Received: by 2002:a17:907:76fa:b0:c19:fb6e:5ff0 with SMTP id
- a640c23a62f3a-c1fe81a5d9fmr1017103766b.15.1785839938403; Tue, 04 Aug 2026
- 03:38:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785840024; x=1786444824;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ezaCKY+/GsZkbyZqG8Ty7NTbyuHDDYUEigB5GN8nxr4=;
+        b=lZj3BSAsSjqmt57OGVaq2DIb3pyHOeF25VFnpN++rD36nbvZT/k/oph2Y0yob8rf8o
+         D9SbLmXD43Z7OIA2Et1/BXywcehoqaFbCd+YH4iEkD+1xPkcxONwn2GjDJv2bcdjBTpu
+         s47GMwHJNlQuxfKpgq4q5sw3wJ45gwWymamJd4JKtUtoXQAuQbrwYrMRfbx2tHUJPNlS
+         irhidCzL+WRv70SZAtgMQgEjjFSayK4CTM61nbdnS42NjMsdk9pf8ujz4UZ22iE/5+P/
+         WKOcKUpWgfDf/7Elb+mUzEu7BUSlNNfyvjMd1F3RX7wPBDDciVIdFQD6glhX1nOfrD0B
+         4e7A==
+X-Gm-Message-State: AOJu0YyCFvvDIlyNy1Y63ZuVkrJgykzsOIcwzlfVn89VhcuwGaE55ib6
+	reL1Vw+nPTX7zB3Vd0po6+fO6lLTD6uJ7BOqgLahGLHSpI5xla0oJt9LSCgo4BP1
+X-Gm-Gg: AR+sD11GzeyCxggqZhym4kKIKYo8gFKGcVP7jca7uGCBTJ52vgK1LTF5QWpNiNi/Api
+	rWiV2AdbWGABZpt4KlxGXl7oIH3CuqlAMbx9A6pVAr/6AfLjjpIX9PQlfnt+7oMUk+lrwaxyq8p
+	q/4zQOdf5HeVvBCs+j83Ko6blUO9eTrgLAW2mDRMGZhzfwVo78m3xIq4e73lY60xU0bWE2YuXdL
+	4tP+lmUmIkloyPIQOvr1NnOm+zMef7acyY18T09KTpS5eTn8+pwX6EAKOV4tY8vdwDSgMj6sJfu
+	XVNU9PtKHDcIK86UM5/qhTTcdRPHUTq8JYUgpPJ26brM4u1NI0b0eqxKNmiOcTD7LqFx1Dcv1Gm
+	qaA2qgl/z9cki8WaFl2e5TXfpFV6Z4G0zraDVQvoah0MOPCD7g+IU3aIXVF+t2SLZR1h0pYwjd/
+	Rdu3w6j/u2oenZQDVQezicIXSD/RrymUdtrsuMVdcJmNeAwVIfTpxVSAEl5xTDGK4W/xw=
+X-Received: by 2002:a17:903:37c8:b0:2c9:b48c:fdec with SMTP id d9443c01a7336-2d0521ed7afmr130801125ad.12.1785840024104;
+        Tue, 04 Aug 2026 03:40:24 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0a9f9371asm4888905ad.13.2026.08.04.03.40.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 03:40:23 -0700 (PDT)
+Date: Tue, 4 Aug 2026 07:40:19 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
+ LVDS adapter with the 10.1" V2 display
+Message-ID: <ho2mdxntgkxp6uwdosqkazgcl7t524bwrz3vr5vprhbh35xemh@zsfccaotx4q5>
+References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
+ <20260803173705.2268792-2-leoreis.costa@gmail.com>
+ <20260803175122.2C37F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803101734.270821-1-a.shimko.dev@gmail.com>
- <20260803101734.270821-4-a.shimko.dev@gmail.com> <20260804101756.F350A1F000E9@smtp.kernel.org>
-In-Reply-To: <20260804101756.F350A1F000E9@smtp.kernel.org>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Tue, 4 Aug 2026 13:38:46 +0300
-X-Gm-Features: AUfX_mwfcSVcebTIErfjkkWZbedHhg6pzo_BnOzwwfFTZmY6o_KUALSIaBBb6ys
-Message-ID: <CAOPX745iC9w_7=TsO317GK1gBCg1zX-OvMF+oeZZaA6501zZcg@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 3/3] net: phy: add DAPU Telecom DAP8211R(I)
- Gigabit Ethernet PHY driver
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260803175122.2C37F1F000E9@smtp.kernel.org>
 
-On Tue, Aug 4, 2026 at 1:17=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-
+On Mon, Aug 03, 2026 at 05:51:21PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] The compatible string 'ilitek,ili251x' is not documented in any device tree binding schema.
+> --
+> 
+> --- Patch [1]: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to LVDS adapter with the 10.1" V2 display ---
+> commit 73e2dedf7bdfd04739a496a9f0ff1282f074c0ec
+> Author: Leonardo Costa <leonardo.costa@toradex.com>
+> 
+> arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
+> 
+> Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
+> Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
+> Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
+> DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 panel with an
+> ILITEK ILI251x capacitive touch controller.
+> 
+> Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
+> Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> 
+> [ ... ]
+> 
+> > diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
+> > new file mode 100644
+> > index 0000000000000..834f23e75cbc3
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
+> 
+> [ ... ]
+> 
+> > +&i2c_dsi_0 {
+> > +	#address-cells = <1>;
+> > +	#size-cells = <0>;
+> 
+> [ ... ]
+> 
+> > +	touchscreen@41 {
+> > +		compatible = "ilitek,ili251x";
+> 
 > [Severity: Low]
-> Should this exit condition explicitly check for val < 0?
->
-> If dap8211r_read_ext() returns a negative error code, this loop currently
-> terminates only because negative values in two's complement happen to hav=
-e
-> BIT(15) set. Relying on this coincidence might mask errors if a different
-> register or bit is polled in the future.
+> Is this compatible string documented in a device tree binding schema? 
+> 
+> It appears that "ilitek,ili251x" is missing from the binding documentation,
+> which causes dtbs_check warnings during the build.
+> 
+> > +		reg = <0x41>;
+> > +		pinctrl-names = "default";
+> > +		pinctrl-0 = <&pinctrl_gpio_17_dsi_1>, <&pinctrl_gpio_18_dsi_1>;
+> > +		/* Aquila GPIO_17_DSI_1 (AQUILA B42) */
+> > +		interrupt-parent = <&main_gpio0>;
+> > +		interrupts = <12 IRQ_TYPE_EDGE_RISING>;
+> > +		/* Aquila GPIO_18_DSI_1 (AQUILA B43) */
+> > +		reset-gpios = <&main_gpio0 31 GPIO_ACTIVE_LOW>;
+> > +	};
+> > +};
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260803173705.2268792-2-leoreis.costa@gmail.com?part=1
 
-The driver already checks this after read_poll_timeout() returns.
-The check is present and handles negative error values.
+Hello,
 
-> [Severity: Medium]
-> The function's docstring mentions "Software reset to apply settings", but=
- here
-> the RGMII configuration is written after the reset completes.
->
-> Does this PHY require the settings to be written before the software rese=
-t in
-> order to latch them properly?
+To me this seems like a false negative. The binding is present at
+Documentation/devicetree/bindings/input/touchscreen/ilitek,ili210x.yaml:
 
-This was already discussed. The reset is active low and self-clearing;
-RGMII configuration is applied after the reset completes, which is the corr=
-ect
-sequence.
+    properties:
+      compatible:
+        enum:
+          - ilitek,ili210x
+          - ilitek,ili2117
+          - ilitek,ili2120
+          - ilitek,ili251x <--------
 
---
-Best regards,
-Artem
+Running 'make dtbs_check' also gave me no warnings for this overlay.
