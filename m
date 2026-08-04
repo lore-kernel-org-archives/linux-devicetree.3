@@ -1,126 +1,95 @@
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A745448BB4
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 604BD448BB4
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785876192; cv=none; b=KAf/lqCDCsrecjeIsaO2ekRfltPYuaWgrvxgLvlSkXbXt0TjlLyFglXuIwoGgOkA+jHk5wdXKcEXNGsnK8xFB5BU8XPZGyLInkMXbIa70I1KoDs/8y5s+YJsFRu8UppmJiP/URs/zszBH54UASaBwxKTB5Qcz1c7qPpQO/cSn9g=
+	t=1785876291; cv=none; b=ZVlGR4zMCNFlz3P4MnqQsLHellFOZC1EzMSD0IzGn/1FSA9gi1/yxZ3V2FasxcMle3mZhij/6/k3NUwUaDaxlzPXK3w2j4+ATRfeFe1GsjbzYlNaQOtab3PMuYLF9wK6JuE9ma8RWrwrOXbXnpHfeczAdlJ2+ypOvUpgsiqTPe0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785876192; c=relaxed/simple;
-	bh=1lXSScpdCh2doOtCmnBe8+bMbl0qr9639f0hca4r+Xw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WtFNNiIu+fHYWGtDfeov7CIvlO6gXszHn6UNNLrSVC6wXLojOrzoiclIzkCGwQ/YuDzGBBa3On93WMa/832lbbCSj0r1X3ETtpmLPsZT+3HElnQl6PXOOe6f/SjHCBpOZCU91uU6rO9xR1ZisC6PVHoAWoQY1EurJ2hJadqBo+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TYoFeYWj; arc=none smtp.client-ip=209.85.222.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1785876291; c=relaxed/simple;
+	bh=W+iVCW5dZ22YuQLkPtC99InD+p/fgEhFfPar8t+EtGc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mbu3QvdD2Vz6ipqWSSi+bKahKURN43x8QnQGexoDw76o12z4R3CIGnzWkIOq45Q/fOIJrZ0mklV8BRZaDmT2OeDpxFT3wLRhZggSFmAirYYdPC7FytVfQCQMyP7ccOU4EKV28evFGQggaM0sfN+Uxmk+4GCDOH0P1pAi3ez5Y2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gw9YCwXU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TYoFeYWj"
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-96944741eaeso105190241.1
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:43:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785876190; x=1786480990; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1lXSScpdCh2doOtCmnBe8+bMbl0qr9639f0hca4r+Xw=;
-        b=TYoFeYWjPq2EknGD2nC5PAFw0Mu+cyG96xzpXiq23gMTBOQyUkDIPNkx7Byrpw4HaI
-         wJPiZ7Ls3qZRJYOxWIWgcZd2hmPRtpCagJHIgCn+P8e3x/U8EQvU+BuhfoS9f5y+Ai9P
-         JEzJVY4qq1mZkqc3LFqVvR+pIW5mmhDjBTjI4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785876190; x=1786480990;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1lXSScpdCh2doOtCmnBe8+bMbl0qr9639f0hca4r+Xw=;
-        b=LVgu2BJTLTdM6nlTgLwHwDfvmfBZZtEvb8V5k/oTchUDmWEQLbP6Djx9X+PIcm5Efp
-         AZDiTZks5JbiqSSC29e9ZO1SKcfiek/pYvnWMvyDrW0iCWXaSOex207nuKmwYSr92C0y
-         963i8tQMbbIe/naLxo6V0VHrivXE/yID3c++pV4xhF8rE6P31HX30kkaqi/Qmc9WBQ/E
-         6dUM06/P627PPnYscRj1XLU+IG/e85tVJJfPHz5o2o8tLGUHMci6NVKT3qM7SA+/R6uB
-         kIAu8CH2SDArhVOEbi6VSUjMII25IpUaPZzlP+Lg+YscczFepEU2Hsr55eaNAxfXcIai
-         34gw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrg+CHks1AAtTTzUhIGiB3HR2/xkmvfE3zGeca8DU2qtA9dmDeG7yzqqR8Wn/4OR9VatfgeJDrG4/Lo@vger.kernel.org
-X-Gm-Message-State: AOJu0YwTEuAuyRAmgO+Ab0rTZuRG9h93kOQ3a6KRuqsfVZEWnAmZzqcU
-	/2GYcEFnJjPFmINxe0W+DrL1FjIIoQ+AssnKVhC5k6XUDOinxG0hPq0eDajQEqXFSt36ybPtrRn
-	Fi0U=
-X-Gm-Gg: AR+sD13ffi20ygYNtrc/eaSKZ61W29OQ2LHNUwiP+oSv3OWKymPUHW539W1Bh2D+XXD
-	2xfUe/Z2mx43EL39BLaWiwR2JTno/V7DjUkPGgTSTBKZHrBQXoOlein688U5/2kuyZHVJHtPSLU
-	vJhCCLpuDTdCJovCYVyBZSql5UpKVoi+4W0iDpyzqPUwPD6ye6LgwBMqnp+ZxVwXVHyFu3iMHJJ
-	XySB0wF5chWd/Qg8dE6kmpKwHPamY5x/2D0OL3goG2N0ZTugM3bOLXbsNhituAnQ7Yz8O7O/DVG
-	889gJWfJP2wI47I+F1htkTh+ogr8ciQuxAkiNplhpHhuBLFBQ7KA9HXmsl6KANv+5oDF1HSoWJV
-	BcLbVriXdn6W7bBQpClPZOwdIqae590gNrJM6W+TVrq6aJgqFRHRjt6LFNedDOW03nS3XC1Y1Wt
-	XsoBzsMbieFEqTyIhJtLo2IeEXxe6lMpGN0AETbT6oanlqVmAquPYnVUwk0nINU3wNpvZEUele6
-	1+Cv5o1vZZyv9HFAcCzbtjBbbM=
-X-Received: by 2002:a05:6102:4bc2:b0:740:22ba:8a4e with SMTP id ada2fe7eead31-760e8c34ff5mr379030137.6.1785876189663;
-        Tue, 04 Aug 2026 13:43:09 -0700 (PDT)
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com. [209.85.222.50])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-76048763c81sm1008505137.9.2026.08.04.13.43.08
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Aug 2026 13:43:08 -0700 (PDT)
-Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-96944741eaeso105182241.1
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 13:43:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqWsK6oZxA5kWRNU3FwOPE1YkWaryNZoIMs8cCTrtwityvGnTaU5OhL7jlw3/yX+j1i9TzerXoCcei5@vger.kernel.org
-X-Received: by 2002:a05:6102:4487:b0:6cb:d562:b96a with SMTP id
- ada2fe7eead31-760ea94f62cmr396591137.14.1785876187213; Tue, 04 Aug 2026
- 13:43:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gw9YCwXU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03CC61F000E9;
+	Tue,  4 Aug 2026 20:44:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785876290;
+	bh=W+iVCW5dZ22YuQLkPtC99InD+p/fgEhFfPar8t+EtGc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gw9YCwXUt5VyyRDloXWsLfkaoW6VvwDL4Sd+zMb/c+wABFnT8bKRiOcrpd5mogdXa
+	 XSJGBvbk/k5UL9W0D2zav9o9lW+CIoMMeFJ7yGWe8OwRFO3ofGUZNU3cQuWWAUMHr3
+	 aMC/n519MoI10MpsMxN1S3rttsu7hhO7UngM2fHH+WoJcxLWjkKlLYGMWRksWdiZ5o
+	 ibbczKerfoV4lRDbFezS6r/fpnW4Dyjqosv2afZ0EJsirm6KXgwV7+OT6zucNwwd2L
+	 3oQnuGbOyc8nORSSdyEtfFWWPelW1oXqgnS6yyK9FI+HH1F3yG1Y89p4lUkeEr6n0j
+	 X9lbKrV593NCw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: mailbox: Delete old 'mailbox.txt' bindings
+ file
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Douglas Anderson" <dianders@chromium.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260804133801.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid>
+References: <20260804133801.1.I8b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 20:44:48 +0000
+Message-Id: <20260804204450.03CC61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260714222338.2965707-1-dianders@chromium.org>
- <20260714152138.1.I814d768336e8de933580d467140ce340f3d4f55d@changeid> <20260722140214.GA548057-robh@kernel.org>
-In-Reply-To: <20260722140214.GA548057-robh@kernel.org>
-From: Doug Anderson <dianders@chromium.org>
-Date: Tue, 4 Aug 2026 13:42:56 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XN0=C2G+6UHpR5_60hLq7xA69w-gffTd2Rx2im8owBWA@mail.gmail.com>
-X-Gm-Features: AUfX_myGdVfz2qs-Flx3VihVPagrAttZI606YpODeyM2N6LtO42qgj3u1MHJjLI
-Message-ID: <CAD=FV=XN0=C2G+6UHpR5_60hLq7xA69w-gffTd2Rx2im8owBWA@mail.gmail.com>
-Subject: Re: [PATCH 1/7] dt-bindings: mailbox: Don't require #mbox-cells to be 1
-To: Rob Herring <robh@kernel.org>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Joonwon Kang <joonwonkang@google.com>, 
-	Subhash Jadavani <sjadavani@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
-	Lucas Wei <lucaswei@google.com>, Brian Norris <briannorris@chromium.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Deleting `mailbox.txt` without updating references to it in other b=
+inding files leaves dangling, broken documentation references.
+--
 
-On Wed, Jul 22, 2026 at 7:02=E2=80=AFAM Rob Herring <robh@kernel.org> wrote=
-:
->
-> On Tue, Jul 14, 2026 at 03:21:40PM -0700, Douglas Anderson wrote:
-> > Existing mailboxes have #mbox-cells and this makes sense if a mailbox
-> > only exposes one channel. Update the bindings to match.
-> >
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> > I assume this is worth doing (?). As noted [1], mailbox bindings are
-> > already in the core schema, so what's here just provides extra context
-> > and descriptions.
->
-> We should update mbox-consumer.yaml and remove this file instead.
-> There's only a couple of references to it.
->
-> We should either just add missing descriptions to mbox-consumer.yaml or
-> change it to mbox.yaml and add #mbox-cells. The latter would only
-> provide some completeness as we don't have any constraints
-> on #mbox-cells (there's a global max of 8 already).
+--- Patch [1]: [PATCH] dt-bindings: mailbox: Delete old 'mailbox.txt' bindi=
+ngs file ---
+commit 1b70b3f250d6bcf306aca223e0e91c9fb8a20cc2
+Author: Douglas Anderson <dianders@chromium.org>
 
-FWIW, I've posted up both a pull request in git hub to add missing
-descriptions into dt-schema [1] and a patch against the kernel
-repository to delete the old .txt file [2].
+dt-bindings: mailbox: Delete old 'mailbox.txt' bindings file
 
-I'm still waiting for responses to other patches in this series before
-sending a v2. When I send v2 I'll drop this patch from the series so
-we can track it separately. :-)
+This commit deletes the old mailbox.txt device-tree bindings file. The
+documentation contained in the file has been moved to the dt-schema
+repository.
 
-[1] https://github.com/devicetree-org/dt-schema/pull/202
-[2] http://lore.kernel.org/r/20260804133801.1.I8b3ff71c528133e7d6f81fe926fa=
-39e6451d63fd@changeid
+Link: https://lore.kernel.org/r/20260722140214.GA548057-robh@kernel.org [1]
+Link: https://lore.kernel.org/r/dc7a2041-50a4-482e-9930-566bb3fd1e72@kernel=
+.org [2]
+Link: https://lore.kernel.org/r/CAL_JsqKVjQ2m-dzMUENQry-f_YE9QrYSOKoH9CPj1g=
+jj8XkPRA@mail.gmail.com [3]
+Link: https://github.com/devicetree-org/dt-schema/pull/202 [4]
+
+> diff --git a/Documentation/devicetree/bindings/mailbox/mailbox.txt b/Docu=
+mentation/devicetree/bindings/mailbox/mailbox.txt
+> deleted file mode 100644
+> index af8ecee2ac687..0000000000000
+> --- a/Documentation/devicetree/bindings/mailbox/mailbox.txt
+> +++ /dev/null
+> @@ -1,60 +0,0 @@
+> -* Generic Mailbox Controller and client driver bindings
+
+[Severity: Low]
+Does deleting this file leave dangling documentation links in other bindings
+that still reference it?
+
+For example, there are explicit references to mailbox.txt in:
+- Documentation/devicetree/bindings/mailbox/ti,omap-mailbox.yaml
+- Documentation/devicetree/bindings/power/reset/xlnx,zynqmp-power.yaml
+- Documentation/devicetree/bindings/soc/qcom/qcom,aoss-qmp.yaml
+- Documentation/devicetree/bindings/firmware/nvidia,tegra186-bpmp.yaml
+- Documentation/devicetree/bindings/mailbox/allwinner,sun6i-a31-msgbox.yaml
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804133801.1.I8=
+b3ff71c528133e7d6f81fe926fa39e6451d63fd@changeid?part=3D1
