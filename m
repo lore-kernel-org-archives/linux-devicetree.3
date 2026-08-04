@@ -1,253 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881D2468C1D
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785851177; cv=none; b=N53iodBiDqb0tf8tIxbNzGgG9Fmk7AIfebvVXaTuejP2hBF+snl1tZ1Qf//6r8ohP0OXGSE04zf4LpgmKbHi0weJK53Gcw/WPxuMlGffmzGcGbJwoIpjIJfNFn9oWn8d8fmvxDE2xqDWyqU5qtuCqgLs76Yu8qclVhwkDIlCUFY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785851177; c=relaxed/simple;
-	bh=fSRzgDqztTQeG9Xkxb2EaV/SX3i0uOoLFD3om/pVPPk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IyASekGx4senKxQa6xa9xL7wg5W+TlYoqMq/YPqJtPhG0BWurIlYiaEhlOOE8eSHsu5ftNHNye4gV1kVQ8emHicZUN+io+v/rnHOOmGmEpXPiXm1gilyooHBWQ3ysb5fPwMHu7bTM4Ju07R9S6OiTHlzmZd9ixTZ16khfyUPlyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qw2AGBx5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109B6468C28
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785851428; cv=pass; b=MlAqpgIXicJRFINtFyp1GlMAHsZ7ZNuGGDXIkqSaujpg9hO/TXTnk66bZuhizVhEzad74jJ7ftk2hGp0ZyRkxzjBWJxSYjPnj4qZ90jRwsvPNSqVFL3zUuKmmHm7+izyQg2fsKEdxHATXGtJkKm1Ju8Ie26t4yA7CpZc13O5O9g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785851428; c=relaxed/simple;
+	bh=ntiiMJw0n1K5Z7TxjYixtiA9S/kmRkDI1jzXd/0u+98=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ixxo0SZjbTF6qwDoYA5ntGUFkq1/dgNbVkfWj5jVFC6yM7nexeJlPrDGu2gEmbOJLjNUOtH3ImOuBJMph+bgbCV2njpi0MnCU6ihkvn6+OLkgNSLfhJJ6wFIvvr9T6cC9Hi3ALqcPTJ96fUbOIDWhBHGTNnjwlq36o2IhZvodjY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D07u+bpM; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qw2AGBx5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8A21F00A3E;
-	Tue,  4 Aug 2026 13:46:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785851176;
-	bh=bXbuVMz6+Ey5k3SI+GFb0Pd/GYQZL/YGfrz3BnlbOQo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Qw2AGBx5/rsxwpCwNMQfDkXsLYVcTL0EjpDDJCYW4Y8hb66Z7w3jJfTuDN4UpMD09
-	 kq/6JDunaKyE+TTVSKCGjnOO06//AYAIxJbAo36/rAwEQoVO/jXP264aDZ+EkN1xEj
-	 F+I0cc+xHnnMra84YVJr4GwmHT6fhLmTaIzDMXo2kCGUD52kcIsr2KHDGt1F9CV1Ga
-	 5rdakmtdov29i4vkCdeuImQJfIxfaBsuKY7Y3NEZRyYPcykZYZN0WpWBcI9pOUI7jW
-	 fYbgZIRyLeHhn9/RHSLrfaJaqGgEIKOimmRoq4cRhGya3hQBKWwdoyumfbLxJ+i6jK
-	 cZ9Kst1z73jzQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
- driver into two modules
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ariana Lazar" <ariana.lazar@microchip.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260804-mcp47feb02_refactor-v3-1-97f8b81f3628@microchip.com>
-References: <20260804-mcp47feb02_refactor-v3-0-97f8b81f3628@microchip.com>
- <20260804-mcp47feb02_refactor-v3-1-97f8b81f3628@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 13:46:14 +0000
-Message-Id: <20260804134616.1D8A21F00A3E@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D07u+bpM"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a097f5ab95so6184223a12.2
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 06:50:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785851425; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dJGCRHMngAbzbM1xm480ht8X5DBT7syyaQQFbXW30TdmzrEMghqJvJib7DNCULh/In
+         wlXOPogGxFruy7D2lk1INn/cqvEcOXxngX3TjKmrv+N/rrjREVBL0N0n+JXSfbf1Qi4D
+         yXOma/u1Qw7VZ64DrtY476s+NAiO83ME5KV/pXjX68LLYkEMNyNcvStdC/WfovVTOK6G
+         fwsqVV5cgNuuIYXHHeleFe7tKF1R2Xjq5V4DWIOJ7e9BhR29ObmSTpHl8HFwh9++TBFl
+         l8GvZ8KyJdXAkWo/oeML/Yux9CBe+BWJCfYo6rZn89aMIObqEguxGJ3l96GMC6s/8yfI
+         WG8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zPUq4gSDjzsN5XydY66vNAKwQ+iuieDx500MN2oAnCQ=;
+        fh=fn8+1NT2iBi0RE5xFk5cvFg2rtXeqAt2gjmVcclMV7A=;
+        b=keb/yiOs1hnCYNppGRDQt8FLzkUUjXakxtXkJkRZqv8Lya4XleVkyJzvEK/pIOmRkS
+         wbFbq40+Uwm9KIJkQVo02R/jWX1KIja5pG5WRqZlDCICAicaZt5LKYHfqJiG3FSKmOkK
+         fN5ysYN6UYkfsPo+AVcR1r3Jts/m7Re0Ncni43BcCcmJQgLCTZducrJx5NBco0tO3erY
+         gTBbiZA/ypifkHXNhdp+huIH3Eny5gHZEJz3axbWbDtzJXNL0+4JZlbqBEfWmDPatvpW
+         ZxdOjOW45iXlyTTnxPIrM/nzzY39WoKhCuK1twuJWSPEnhj/1kYVt8Ixh7nYNKuLu0/6
+         Xlmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785851425; x=1786456225; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zPUq4gSDjzsN5XydY66vNAKwQ+iuieDx500MN2oAnCQ=;
+        b=D07u+bpMSx46z38z4vp8dB/Fky8rDXkONVwjlbi4YeD6FtHrUmTn1nI5ldJEesSVA/
+         PXb+alcBt6rONyOUh9/7Jqnfy6G/5KWEgk2m2YvG6g01dnSq5D1VQ2TLrieLVbJwgnFx
+         bzSR6Q6Eh6wU7um+3XiyE+VXO7RV2I+QdNVeDsIizJFOY8nZzzADSszyvMVTCvUcLUGp
+         M5yUWNijtcZc/Q7PLoEwm3QxFCd2/AARYvBFksAOtc9sGdinUSWqZ0xGCi6GcCKKhCgm
+         Y1MARARMUJZ3jZCwCmVafi3VnGQs7qP6xD9NpAP3pXgH2CZm5bWPnqq129SjLaGiTguj
+         t7HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785851425; x=1786456225;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zPUq4gSDjzsN5XydY66vNAKwQ+iuieDx500MN2oAnCQ=;
+        b=ooAykrnd8n08nKtOGJXaIEpJjiX6ge4aptWmVGkGeqzkMQ+AmBL13fxW20A9JQCRm+
+         h0fAQ1smUkV2jC12c5mXi2YBu7eHs/lZiT7Yf57Ia7qBrHx4EDItCLdPYigLWE03cDnP
+         O8cAsqIXOOmE+sIPnSj657zS8ozeJSsTCBxBEzDoWNh6FJz959gLeSVUrHIPv/JRUbiW
+         d8wRvUvBXvtzjqKRJr+rpmOkgtFcIHvijHwx26ZIf3rFu3gVYZz6ozoxBFCrloagt4yw
+         yMUrfZprqoShD9jOEfAJf8aqHpQ5NkeIM43ZJleCsdu3kEYq5JygG93qha/ghbSRAs12
+         m0ww==
+X-Forwarded-Encrypted: i=1; AHgh+RqN3hqEWst5xmDC6pLg23jM5X+89Yy/UibPIFJZHcdX2Vmi5jCQgUaToSp2VP4uGIgwFGR1juMI+kHk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1d+Y09vcKtXZd9rDinaBUJB7vm96ClA+R6XpnJ611lrImub9O
+	+sEOk0KD9FkZ2qPC8uX6iLjBWe2AePhnNr3AVhnQ6JQYe2pGUnehbfafNUjc7pEBDDfuk0QckUU
+	myoIv5GyqCwxRhvlhVbvYyBDSkjap0Gg=
+X-Gm-Gg: AR+sD111MW4KG/FCCk4+4TAtTKU1MR3CfiBjjIV8QVDpB18u1LlI3BIGK/8MsYYXu1D
+	unLxEe4O0qXeL/N9c6v8yJ+nBDZSCQoFuC8Ii/1p55dhktD7DBXwcSG//W60tAZIKKPycnn2hK/
+	ei0ET6Jh6Bdhh6VXXO4fCL4QnkdlkcFretbS+Uq+6nieAPmUk2Rt+kAo4zUGVen0Hf9RxKYLzAR
+	TUk7PXQO566MTKittJGUs7+LYT/dGV98VpRRkYRhZRyTbHd3G0FZ1/jE+j/tMDwcBpk5iss0vHA
+	mrgZPZ02GVADDXTVqdFFcFU2ybqWacSwu3GnlIB9dSK4/ceh/g53hekoULbX4SpJfpGLW9bVHNz
+	DM8OMNmSoggB8Vc2VKEGV9TR3bJWkxQ7RSjp9jYIYSDI/ubh9J7uHyyaHjHyVK4hVNlT79MSFx6
+	+6JX2F9/pNoLkCu3OyYr8T1tVXNXGjQJ2vigoetVeJ4GyW1vo7JLX3eBoihE81HrY=
+X-Received: by 2002:a17:907:3e8b:b0:c15:d6c8:2816 with SMTP id
+ a640c23a62f3a-c20239b98bdmr471522866b.27.1785851424918; Tue, 04 Aug 2026
+ 06:50:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260804-mcp47feb02_refactor-v3-0-97f8b81f3628@microchip.com> <20260804-mcp47feb02_refactor-v3-1-97f8b81f3628@microchip.com>
+In-Reply-To: <20260804-mcp47feb02_refactor-v3-1-97f8b81f3628@microchip.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 4 Aug 2026 16:49:48 +0300
+X-Gm-Features: AUfX_mwVvjiXqocsQ2YgwSYQ8gQZ7vg7rt96Z5KqVZBgWRn4HOmKB8EAjeAiNck
+Message-ID: <CAHp75Vcd-A84KxiCsZpv3y=G-WW8H7GpZ2Y2G7BAnGsVL6Vjiw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
+ driver into two modules
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+On Tue, Aug 4, 2026 at 4:30=E2=80=AFPM Ariana Lazar <ariana.lazar@microchip=
+.com> wrote:
+>
+> Prepare the driver for the bus-specific code by refactoring into separate
+> files. The renamed file will contain the common DAC functionality shared =
+by
+> the MCP47FxBy1/2/4/8 I2C and MCP48FxBy1/2/4/8 SPI drivers. The MCP47FEB02
+> driver was refactored into two modules: mcp47feb02-core.c and
+> mcp47feb02-i2c.c in order to prepare the support for SPI MCP48FxBy1/2/4/8
+> DAC family on top of the current implementation.
 
-New issues:
-- [High] Renaming the user-visible Kconfig symbol from `MCP47FEB02` to `MCP=
-47FEB02_I2C` breaks existing kernel configurations.
+...
 
-Pre-existing issues:
-- [High] Failure to initialize `dac_data` during probe causes `store_eeprom=
-` and system suspend to permanently clobber the DAC hardware output state.
-- [High] System suspend and resume clobbers the user-configured channel pow=
-erdown state.
-- [High] Incorrect bitwise shift in hardware gain parsing causes it to alwa=
-ys evaluate to 0.
-- [High] The sysfs store function `store_eeprom_store` returns 0 when given=
- a false value, causing an infinite loop in userspace.
-- [High] The driver unconditionally fails to probe if a channel node in the=
- Device Tree lacks the optional `label` property.
-- [High] Incorrect logic when parsing the hardware powerdown mode desynchro=
-nizes the software state from the hardware.
---
+> +MCP47FEB02_CHIP_INFO(mcp47feb22, 2, 12, false, true);
+> +MCP47FEB02_CHIP_INFO(mcp47feb24, 4, 12, true,  true);
+> +MCP47FEB02_CHIP_INFO(mcp47feb28, 8, 12, true,  true);
 
---- Patch [1]: [PATCH v3 1/3] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C=
- driver into two modules ---
-commit 899388ec468a06591c301218099420c047b4404b
-Author: Ariana Lazar <ariana.lazar@microchip.com>
-Subject: iio: dac: mcp47feb02: refactor MCP47FEB02 I2C driver into two modu=
-les
+You need to add a header for 'true' and 'false'.
 
-This commit prepares the driver for bus-specific code by refactoring the
-MCP47FEB02 driver into separate files. It splits the driver into
-mcp47feb02-core.c and mcp47feb02-i2c.c to support the upcoming SPI
-implementation.
 
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index 657c68e75542e..cc10d43ffd1e8 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -550,8 +550,13 @@ config MCP4728
->  	  will be called mcp4728.
-> =20
->  config MCP47FEB02
-> -	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 DAC driver"
-> +	tristate
+...
 
-[Severity: High]
-Will removing the prompt from MCP47FEB02 break existing kernel configuratio=
-ns?
+> +++ b/drivers/iio/dac/mcp47feb02.h
 
-When users upgrade their kernel and run make oldconfig, their previous
-selection for this symbol will be discarded because it no longer has a prom=
-pt,
-and the new MCP47FEB02_I2C will default to n. This could silently remove the
-DAC driver from existing configurations. The original symbol should probably
-retain the prompt to preserve backward compatibility.
-
-[ ... ]
-> diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02-co=
-re.c
-> similarity index 72%
-> rename from drivers/iio/dac/mcp47feb02.c
-> rename to drivers/iio/dac/mcp47feb02-core.c
-[ ... ]
-> @@ -471,6 +264,8 @@ static ssize_t store_eeprom_store(struct device *dev,=
- struct device_attribute *a
->  	if (!state)
->  		return 0;
-
-[Severity: High]
-This is a pre-existing issue, but does returning 0 here trap userspace in an
-infinite loop?
-
-When a sysfs store function returns 0, it signals to the VFS that 0 bytes w=
-ere
-consumed. This causes standard userspace tools like echo to continuously re=
-try
-the write in a tight loop, which could lead to a local CPU denial of servic=
-e.
-
-[Severity: High]
-This is also a pre-existing issue, but does this function corrupt the DAC
-hardware output state?=20
-
-During driver probe in mcp47feb02_init_ctrl_regs(), the hardware DAC output
-registers are not read into the driver's software cache, leaving=20
-data->chdata[i].dac_data as 0. If a user writes to store_eeprom (or if the
-system suspends), this function will unconditionally write this uninitializ=
-ed 0
-to both the EEPROM and volatile DAC registers, permanently overwriting
-legitimate defaults.
-
-> =20
-> +	guard(mutex)(&data->lock);
+> +/* SPDX-License-Identifier: GPL-2.0+ */
+> +#ifndef __DRIVERS_IIO_DAC_MCP47FEB02_H__
+> +#define __DRIVERS_IIO_DAC_MCP47FEB02_H__
 > +
->  	/*
->  	 * Verify DAC Wiper and DAC Configuration are unlocked. If both are dis=
-abled,
->  	 * writing to EEPROM is available.
+> +#include <linux/bits.h>
 
-[ ... ]
-> @@ -577,18 +372,17 @@ static int mcp47feb02_resume(struct device *dev)
->  	guard(mutex)(&data->lock);
-> =20
->  	for_each_set_bit(ch, &data->active_channels_mask, data->phys_channels) {
-> -		u8 pd_mode;
->  		int ret;
-> =20
->  		data->chdata[ch].powerdown =3D false;
+Not used
 
-[Severity: High]
-This is a pre-existing issue, but does system resume clobber the user-confi=
-gured
-powerdown state?
+> +#include <linux/mutex.h>
 
-By forcing powerdown to false here and writing normal operation mode to the
-hardware, it seems to forcefully wake up all channels. This would silently
-override the user's previously configured sysfs powerdown state for channels
-that were meant to remain off.
+Not used
 
-> =20
->  		ret =3D regmap_write(data->regmap, REG_ADDR(ch), data->chdata[ch].dac_=
-data);
+> +#include <linux/regmap.h>
 
-[ ... ]
-> @@ -1022,7 +816,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb=
-02_data *data)
->  		struct device *dev =3D regmap_get_device(data->regmap);
->  		unsigned int pd_tmp;
-> =20
-> -		data->chdata[i].ref_mode =3D (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTR=
-L_MASK;
-> +		data->chdata[i].ref_mode =3D (vref_ch >> (2 * i)) & MCP47FEB02_CMD_MAS=
-K;
->  		data->chdata[i].use_2x_gain =3D (gain_ch >> i)  & MCP47FEB02_GAIN_BIT_=
-MASK;
+> +#include <linux/regulator/consumer.h>
 
-[Severity: High]
-This is a pre-existing issue, but is the bitwise shift for use_2x_gain
-evaluating the correct bits?
+Not used
 
-Earlier in this function, gain_ch is masked to clear the lower bits, but th=
-is
-evaluates it by shifting by i (0 to 7) instead of 8 + i. Since the LSB is
-evaluated from the explicitly cleared lower byte, won't this cause use_2x_g=
-ain
-to always incorrectly initialize to 0 for all channels?
-
-[ ... ]
-> @@ -1066,7 +860,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb=
-02_data *data)
->  			break;
->  		}
-> =20
-> -		pd_tmp =3D (pd_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
-> +		pd_tmp =3D (pd_ch >> (2 * i)) & MCP47FEB02_CMD_MASK;
->  		data->chdata[i].powerdown_mode =3D pd_tmp ? (pd_tmp - 1) : pd_tmp;
->  		data->chdata[i].powerdown =3D !!(data->chdata[i].powerdown_mode);
-
-[Severity: High]
-This is a pre-existing issue, but does this boolean cast incorrectly assume
-the device is not in powerdown?
-
-When parsing the hardware state, if the DAC is in 1kOhm powerdown mode (whe=
-re
-pd_tmp is 1), powerdown_mode computes to 0. The driver then sets powerdown =
-to
-!!0, evaluating to false. Won't this incorrectly initialize the channel's s=
-tate
-as powered on when it is actually powered down?
-
->  	}
-
-[ ... ]
-> @@ -1091,10 +885,10 @@ static int mcp47feb02_init_ch_scales(struct mcp47f=
-eb02_data *data, int vdd_uV,
->  	return 0;
->  }
-> =20
-> -static int mcp47feb02_probe(struct i2c_client *client)
+> +#include <linux/types.h>
+> +
+> +extern const char * const mcp47feb02_powerdown_modes[];
+> +
+> +/* Macro used for generating chip features structures */
+> +#define MCP47FEB02_CHIP_INFO(_name, _channels, _res, _vref1, _eeprom) \
+> +static const struct mcp47feb02_features _name##_chip_features =3D { \
+> +       .name =3D #_name, \
+> +       .phys_channels =3D _channels, \
+> +       .resolution =3D _res, \
+> +       .have_ext_vref1 =3D _vref1, \
+> +       .have_eeprom =3D _eeprom, \
+> +}
+> +
+> +/**
+> + * struct mcp47feb02_features - chip specific data
+> + * @name: device name
+> + * @phys_channels: number of hardware channels
+> + * @resolution: DAC resolution
+> + * @have_ext_vref1: does the hardware have an the second external voltag=
+e reference?
+> + * @have_eeprom: does the hardware have an internal eeprom?
+> + */
+> +struct mcp47feb02_features {
+> +       const char *name;
+> +       unsigned int phys_channels;
+> +       unsigned int resolution;
+> +       bool have_ext_vref1;
+> +       bool have_eeprom;
+> +};
+> +
+> +extern const struct regmap_config mcp47feb02_regmap_config;
+> +extern const struct regmap_config mcp47fvb02_regmap_config;
+> +
+> +/* Properties shared by I2C and SPI families */
 > +int mcp47feb02_common_probe(const struct mcp47feb02_features *chip_featu=
-res,
-> +			    struct regmap *regmap)
->  {
+res, struct regmap *regmap);
+> +
+> +extern const struct dev_pm_ops mcp47feb02_pm_ops;
 
-[Severity: High]
-This is a pre-existing issue, but does the driver unconditionally fail to p=
-robe
-if a channel node in the device tree lacks a label property?
+Missed header for struct dev_pm_ops definition.
 
-In the probe call chain:
+> +#endif /* __DRIVERS_IIO_DAC_MCP47FEB02_H__ */
 
-mcp47feb02_common_probe()
-  mcp47feb02_parse_fw()
-    fwnode_property_read_string(child, "label", ...)
-
-The driver queries the label property and aborts probe if it is missing. Si=
-nce
-label is canonically an optional property in IIO device tree bindings, enfo=
-rcing
-its presence breaks compatibility and prevents the driver from loading on v=
-alid
-device trees.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-mcp47feb02=
-_refactor-v3-0-97f8b81f3628@microchip.com?part=3D1
+With Best Regards,
+Andy Shevchenko
