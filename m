@@ -1,82 +1,82 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB93D35AC2C
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:11:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087093B47FB
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 12:12:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785845506; cv=pass; b=iBeurXCLXalb/vze09RNK66TcNKkRwVwFSPEjUbQ6WmWao2YueFR3k4aXVNeEat/CJcOo6Z8bK8/RdUv+Rb0ZaxsjeD4LYvvYuqy86cDMCGr3EKHDXyhSlgqaZ3SJ4lxSzC6A5DgCPJxE3fzgPT+mFAjwje69G0Drq5LDi2IVlg=
+	t=1785845551; cv=pass; b=qKkM60q5a9FCckoZvKYj77vFrvsupZAMbSKl0LrcDfeI15RMeqY3emnOxuMn9mSNEVkJh/8TGfJM/QG7Tsw2LCnbcqcAStR3OpI7t5rbt6OP3JYyyrkMogMiMeZVDFNEMZL2LqC6t9Lc9JlIlvMlfB4Da6X91ryrJfObRXZyj9U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785845506; c=relaxed/simple;
-	bh=Vc2K8K3/wO2xt9lWIqY7aV8z8TRWb0/Z/YFUuOsyxKI=;
+	s=arc-20240116; t=1785845551; c=relaxed/simple;
+	bh=mAKg5cSi9W/mdd39Dtr4w6gDmKqq2ZSUQO17r311Jh8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jKJ5hVKhn6+xiPuMl1WxVZlpDmNm+6db8IJZYbwFPnpvAt09ZHVemyLsQRZI43eG2GiOaDiU5kbolE5QHq9T8W6s8/JStXRAUnjTqTPHMYNCJiYYH0cKFNmUmlq25kDuZVDUaF5AlWvOwSsicCuki+oVbrCH5iiHXcEhXPA5D2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WSTeQaj9; arc=pass smtp.client-ip=209.85.208.50
+	 To:Cc:Content-Type; b=d8ITcO71r/c1OA/wc5LUsIXNgunqRpwqMe4fitIol1RaASfOniPuarSsVZTFszj5G3CgBCeBi7JYUQtM69qG7dWfH7w2tmqvj/QkGZKhk+/wS15qW6GgQMaMpsDPvaDOdIUeGdSGreOwCRPvjMeN0vaYui+koUK4pWjHfcGl79Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=S2CcgF/C; arc=pass smtp.client-ip=209.85.208.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WSTeQaj9"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a063d211ebso5656048a12.3
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 05:11:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785845502; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="S2CcgF/C"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-69c1220bd51so6729269a12.3
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 05:12:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785845547; cv=none;
         d=google.com; s=arc-20260327;
-        b=GFYxaIeS9phNK5JEHdGlR8oHJcANsDcp6E7XSU/1otWsaB2WbuJ9u3UTo11yP/tGL7
-         tOUZwyckWEBKomNohMg0F49Z4uy3jAngw9PzN/f3bw1ON5DKQbrz0/Unu1ksCAKM+i22
-         gMwjNZ2BGTHfTM2ZcvWFnvs0obeFG3I0P89McQO3jAcY0rd2omO45ASPNmS7N8grlhY+
-         DRGfXDogyRiMm2iblGsS8oDugcHNBsXRCP007gEm7maRWtR2B10fg66BVtaZy08fOo8n
-         5/fI7An09D23r/uI5aMzSysfVM2c3pjqLcmin43Hic24ApKKD4wowBUiiKpCx9otNZIg
-         OeOA==
+        b=omLMqroJoPSvRYJV0Fu8bJ632fAZ5v81yat5VA7Cv+Q2isCc9FjXhkzPUqDWp63Bf5
+         FK8BGiTxTV91pLx9WjRBo6NmxFJkdzf1RFjot3Cd2gnvl9hoLalnjk50cPjwB92/9qAY
+         nbvoc6hOjxvvfdmoQzQqGZK8mbUq6bREIf25QtyZunYj2QOLXg6U1Ody+03RMK0x9FUX
+         gaw9EQPRw5htuXdR+wdgmSyfdAgXDZ2jg91FQtVP3SrP1A8LtFakq5c/jq0DaZAEjViT
+         aQ00zcv+ym/VUqfBoeI/HVZVPFbPXJhLrlz4CEAl7yDPLKcMGzHzQGMlsF6C8BiQ9SXp
+         90mA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z0BOXxAbTVuGKMQNaanorzcfB9Bd3BBit6YLVIa3kYc=;
-        fh=bmd/785KDQgaUXlbeGcqHsBk3ga62sAJKxI1XVc9v5k=;
-        b=rYav9NesHwyzCYPDtW0+Kn9tkoMyNciCyxIirTXA0NE3ofTgnNnuV8hHIzo2iFdUz1
-         I7/Kk6URmWYC9KEIcyil5yrHYKr92QJt7WsxyjOvr/1/Or9Rs5P2MoIz9e4LI1ZjyTf4
-         wa2e5hMwalZFf1LQqTes8O7IsucmwGUUjjN0J1RpXRhi8Zz9bIibkIEeeX9xjY0FD/0E
-         pKIWVpJ263xQSiuWpLz4kRfdq6bRn5BMZmiTOzl4g/qPv65IMQp9B8Z0k1ahAAOJoLZ3
-         LPyvv0ZIwOXn0VViNq3GaPUh9iXoB/eSGUbI9bUuohXx3Z+q5UtYBAke3pYK73fKXgiF
-         ayiA==;
+        bh=/Ps1gHHJrXc9fjQgxn88Rwh5btQNAsYSwAkouqgeIro=;
+        fh=CDoqR+lhRbA6wFKicBX3n/zRwriXghc6IbpBaFC9W4s=;
+        b=JeqqUU+aPMICJNJq8gAFrc8tirVp2I32f5dEHn470pvzdhQLxmlBlnUVBfqANIZxdr
+         2SDpS35VuRQnAFn6jEiCjhhIsrUdOZRLR8z4NjsftG2WlyFsCnO+CYm862Ktz3onsKv2
+         wIPjdFBSDl9GLlLhuBgpDqctFh1QK2P1+Hl5bH5OnBCWeRC9vmn3x9cQ5I05F0pghPup
+         QoT587CPYj9KMFZeJky+OKCW++GymJ98PTxK7HK2N4UWvBD94QyV7erQS0uiFEqLRRYr
+         R8sXmAdUlZpwySdrL/lZmJFaOMxmL9jjo/Egh4cPgUt84P2n6b1CrDW7ihLM5edHX1IK
+         XQtw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785845502; x=1786450302; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1785845547; x=1786450347; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Z0BOXxAbTVuGKMQNaanorzcfB9Bd3BBit6YLVIa3kYc=;
-        b=WSTeQaj90XqCKBoZlv7SV9OHDQUEqz6sTMi6wDop63SlFs3Ud1BE6IsWQ3VKubdwlX
-         KdfpsOhOXmjdlLbVjQnLlF96zMKI8+VqWBEK7FijvFkvkrsewXGKKFTW3ej5jwKwrjJO
-         jAEU+zydwTcnL8+XJ1v1nykknetjnbN7ZQundPJAL4/AC709aDGipyESJIhJxIxnw/dY
-         Z6voUGFAqnPgtBngyyFlY6vufhfkJQNRLnSdJ7d+inD89uintMlsv4+KeN/JEIV+AUi1
-         8YXLiCeFS1w2boZfIS3gOGStIgMSSQjTPzdpXppVlY/vfNSPc6YiSFoekE59xuEbBWiE
-         C9Kw==
+        bh=/Ps1gHHJrXc9fjQgxn88Rwh5btQNAsYSwAkouqgeIro=;
+        b=S2CcgF/CcbzqTqtpPkShWt0Y3V0s1qlWqb9G4kWJdQ9yxuk9EwOtRyA50P3EzrhwOc
+         3lQ04tqoxhU5AqR5qG57Y7rnGHW18VIR3t59CAaLM19nAPRBLNISJ+JuqRbxxAaTlxnE
+         xypoc4u8w9we+ZqBAzYLKK3dfUlYkQBrPS9gq57WgJ+F+zs3u8jbU35BQdBcyzwk2OGw
+         r6lhl738uAk24piJ3vJtz8kYv2BMbWAjq9duI9FcnlUzuolwgehJP7FuM9Pr9mMZqJOK
+         Z9RsRjN4bqxrbF3ZOEXbpSCvIIPpIw2uF1r41Wjso9qRBhU6XMte1XO+hf21ReDyk5uz
+         V3aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785845502; x=1786450302;
+        d=1e100.net; s=20251104; t=1785845547; x=1786450347;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z0BOXxAbTVuGKMQNaanorzcfB9Bd3BBit6YLVIa3kYc=;
-        b=XYSK/eLJKgPq+GqWc6+FwpxL7bPgzTlAdkn5ak35MPyHtt/NhqauPn4nAO/Vyz7kFK
-         q2hzxDgso1ixuyAZyzqx1vq0Zg398O1M264WNOy6GLFqsAA2rO/gnWBFwqV8pave+kRe
-         wgbAhhxVThqBEAnVZFppL30GgHf7JRnxqC7rO3JJANR4DFgv6Betg8UVwY3isBxTaLMi
-         IbJLgjc06WxSFx5G4uElbKiSP4S7ktUJgrt0wljfJpHFiJH5fRwJnS/oqpzahFukxU7i
-         1O2RJ31yfPgkZScy5auJJLmdXJkNiHeT+LnZblzE5UyydBHKF00A1n0aXEIrMLJIPMC7
-         8U4A==
-X-Forwarded-Encrypted: i=1; AHgh+RoKcc5sYIY7ztSNOm3AolgFQVWNJHTNeKaJQ8ef6PfqPWmIn/K2ha842JerkrLk488ePVbQnVdCfZ2E@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwQMqahN2+FKne+r09AulIW8tVSY6w4rW25xt8zAyyvg3TDAcu
-	SHX32FdN4FnlBC0D1sirWbzkLLHS8NlLZIEaGil1rpI64mkeJK2tI1fRyk2bcSBCK+oE4i25B3/
-	QyXtOQO9Aj9kPsKdctbzmL+ZrPlofhKalC0jIO/tqVg==
-X-Gm-Gg: AR+sD11DXcba8oRaVdJjVwNuVJci6GiUjVlFbSD3+peoHBXU//FWOXCsMAXCYQ2QeuO
-	S/Sx5EczJfHSNjVHjjVJI/bQfF0+0biqscJ01lS+P30fuPhE9e49X+3zSqDSbKVQkRhgTZKUC5g
-	pniyCcX0Z4k/YyQtqRiLoU4uSQr9XSgq/oKPTGrfAp6j8xBO3sj5y7MbJ5Btgj3qRrnhycakAON
-	3x/SckAD/SJNGxBy2fTHgEQIOz9gysRuW7t4FvbUc/jUiWfggRHgYnsVuUFCtpdl3cc9NiBlCW9
-	KYKwEhVLYk/xEsDiI5LFr5ANXLY95rRlXBcvzbFIAU3R8XvtxRabTLz1PuDBjwIJ1+C+s6t7tDJ
-	GYPI=
-X-Received: by 2002:a05:6402:a51b:10b0:6a0:c826:6494 with SMTP id
- 4fb4d7f45d1cf-6a0c82665a7mr6874744a12.17.1785845501833; Tue, 04 Aug 2026
- 05:11:41 -0700 (PDT)
+        bh=/Ps1gHHJrXc9fjQgxn88Rwh5btQNAsYSwAkouqgeIro=;
+        b=icb8d1CGyC2fbvWAx5lbaheqpAVS2t0hwGnOviroVCXpFUHYp8PyMnOLz+AkkxdD4H
+         vFHIkEE0J963kHSCQVU6lXP5H4P1RTXSOV6HZpmj4E06Iug9wY/H2XsR/XA13XKmJyCv
+         KIrQY52kKLQvBZK2hPOLt/Saf3xq+bmd3RX9qDFihM5htejucxGurIddoF5EudHn8KME
+         Plt1hhHJ6zwoqwFgiaGg3F6pKeGgVfwdspRCFEe/qI7nSlhsAQP9vajTkR8uf71eI1M1
+         vmTSJsRlECCkFOTI9SBB22Sm5RBgj4HlG3QZoKEKtK4xFfGhuZnpkq6B5m1HPqcilQVo
+         tnkQ==
+X-Forwarded-Encrypted: i=1; AHgh+RonBcAxOZwhZ8eQYy+SDXdznWJoMoeAocy3Y/hE27dFOgw9eMbzHST7AWrlPi9oxtHBxcWZNxfDny6s@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsL2EQDHkJVeVQh86jE/VvJL01KCYVSsMLoF3SvIGGrblD/G3O
+	PHqq/ctl2uFUvxsxrOLZGfCNTTkjEgD9xwO7Y08ta/nhjQqbjDH7fiGEfkN3T+Wodi2gMaHvlse
+	wbHcVwE26RL0z5e/Ac1caFE3+EcjbjA4S6BxFJ7rf7Q==
+X-Gm-Gg: AR+sD10kMRRjEwS1wEWh1xa3ttRwvDcCNoWG3HB9FdkQQGGpNCXYDLxDNVItU64QoEi
+	8MHyRPWsKxDFDE2oVrqcBtK6DCbg+CeG0Jk6ZhgcztumxsHRMYo2MuwLN+LJ1y7pRFInIH9kNIb
+	4ePVxY3CSsNjlfjGxKsNgJ//FdEtDDL3Au3hpo5eHYaoUTX3Fav/nr/pCwaMgrdkH2T3qfsOmZp
+	BVlPelM95vl7XIVUgwh9dlI7gvQDKA3uWcmu6n028OsJxPjpzR8ObxK68vVUV27NnBdlbXYOb0e
+	oi12uA7rovzo77rjuPtFBQ0cb1su/C88MjvBDCbw9pVfhfXeIjEFXQqKLu+1CNGtb6ymiwyotRf
+	nbG8=
+X-Received: by 2002:a05:6402:5bc7:b0:6a0:f9b2:4d5e with SMTP id
+ 4fb4d7f45d1cf-6a0f9b24eb6mr4339426a12.18.1785845547188; Tue, 04 Aug 2026
+ 05:12:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,14 +84,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260801-b4-dts-coding-style-strict-v2-0-f09a659ab80d@oss.qualcomm.com>
- <20260801-b4-dts-coding-style-strict-v2-6-f09a659ab80d@oss.qualcomm.com>
-In-Reply-To: <20260801-b4-dts-coding-style-strict-v2-6-f09a659ab80d@oss.qualcomm.com>
+ <20260801-b4-dts-coding-style-strict-v2-7-f09a659ab80d@oss.qualcomm.com>
+In-Reply-To: <20260801-b4-dts-coding-style-strict-v2-7-f09a659ab80d@oss.qualcomm.com>
 From: Peter Griffin <peter.griffin@linaro.org>
-Date: Tue, 4 Aug 2026 13:11:28 +0100
-X-Gm-Features: AUfX_mxMUwqUomM84AsdgBn375nan6j7Xy_5FQP7ITXDD-yyX2SPy00_MokSRL4
-Message-ID: <CADrjBPouUvFVLDWwDDS=+1EBfqSqUz1HLKcLPLRyjB++vBy88Q@mail.gmail.com>
-Subject: Re: [PATCH v2 6/8] arm64: dts: google: Align continued properties and
- add missing blank lines
+Date: Tue, 4 Aug 2026 13:12:14 +0100
+X-Gm-Features: AUfX_myz2rIr2To8pMiIrq3ny4dPMR2EiexQ93XXgjZCqitEJdVPlOyQLL_LX4E
+Message-ID: <CADrjBPoaf7-tXMnvQFZ7fV25Lb8R=95PgDqbkjDBDT+XadBfHg@mail.gmail.com>
+Subject: Re: [PATCH v2 7/8] arm64: dts: fsd: Move 'status' to the end to match
+ coding style
 To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Cc: Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -106,12 +106,13 @@ Content-Transfer-Encoding: quoted-printable
 On Sat, 1 Aug 2026 at 16:07, Krzysztof Kozlowski
 <krzysztof.kozlowski@oss.qualcomm.com> wrote:
 >
-> Trivial white-space only changes to adjust to DTS coding style and fix
-> dt-check-style strict warnings like:
+> 'status' property is special, thus DTS coding style expects it to be
+> always the last property preceded with a blank line, as reported by
+> dt-check-style:
 >
->   [required-blank-lines] child node must be preceded by a blank line
->   [continuation-alignment] continuation should align to column 39 (under =
-< or ")
+>   [required-blank-lines] "status" must be preceded by a blank line
+>   [property-order] property 'phy-mode' out of canonical order (should sor=
+t before 'status')
 >
 > Reviewed-by: Andr=C3=A9 Draszik <andre.draszik@linaro.org>
 > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
@@ -119,67 +120,242 @@ On Sat, 1 Aug 2026 at 16:07, Krzysztof Kozlowski
 
 Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
->  arch/arm64/boot/dts/exynos/google/gs101.dtsi | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
+>  arch/arm64/boot/dts/tesla/fsd-evb.dts |  6 ++++--
+>  arch/arm64/boot/dts/tesla/fsd.dtsi    | 24 ++++++++++++++++++++++++
+>  2 files changed, 28 insertions(+), 2 deletions(-)
 >
-> diff --git a/arch/arm64/boot/dts/exynos/google/gs101.dtsi b/arch/arm64/bo=
-ot/dts/exynos/google/gs101.dtsi
-> index edc38f2d1183..bfceea5486f4 100644
-> --- a/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-> @@ -39,12 +39,15 @@ cluster0 {
->                                 core0 {
->                                         cpu =3D <&cpu0>;
->                                 };
+> diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts b/arch/arm64/boot/dts/=
+tesla/fsd-evb.dts
+> index 9ff22e1c8723..73b6a25e0e4d 100644
+> --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
+> +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
+> @@ -65,9 +65,10 @@ codec {
+>  };
+>
+>  &ethernet0 {
+> +       phy-mode =3D "rgmii-id";
 > +
->                                 core1 {
->                                         cpu =3D <&cpu1>;
->                                 };
+>         status =3D "okay";
+>
+> -       phy-mode =3D "rgmii-id";
+>         fixed-link {
+>                 speed =3D <1000>;
+>                 full-duplex;
+> @@ -75,9 +76,10 @@ fixed-link {
+>  };
+>
+>  &ethernet1 {
+> +       phy-mode =3D "rgmii-id";
 > +
->                                 core2 {
->                                         cpu =3D <&cpu2>;
->                                 };
+>         status =3D "okay";
+>
+> -       phy-mode =3D "rgmii-id";
+>         fixed-link {
+>                 speed =3D <1000>;
+>                 full-duplex;
+> diff --git a/arch/arm64/boot/dts/tesla/fsd.dtsi b/arch/arm64/boot/dts/tes=
+la/fsd.dtsi
+> index 5b06e2667b89..214d33ca7177 100644
+> --- a/arch/arm64/boot/dts/tesla/fsd.dtsi
+> +++ b/arch/arm64/boot/dts/tesla/fsd.dtsi
+> @@ -603,6 +603,7 @@ serial_0: serial@14180000 {
+>                                  <&clock_peric PERIC_SCLK_UART0>;
+>                         clock-names =3D "uart", "clk_uart_baud0";
+>                         samsung,uart-fifosize =3D <64>;
 > +
->                                 core3 {
->                                         cpu =3D <&cpu3>;
->                                 };
-> @@ -54,6 +57,7 @@ cluster1 {
->                                 core0 {
->                                         cpu =3D <&cpu4>;
->                                 };
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -616,6 +617,7 @@ serial_1: serial@14190000 {
+>                                  <&clock_peric PERIC_SCLK_UART1>;
+>                         clock-names =3D "uart", "clk_uart_baud0";
+>                         samsung,uart-fifosize =3D <64>;
 > +
->                                 core1 {
->                                         cpu =3D <&cpu5>;
->                                 };
-> @@ -63,6 +67,7 @@ cluster2 {
->                                 core0 {
->                                         cpu =3D <&cpu6>;
->                                 };
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -658,6 +660,7 @@ pwm_0: pwm@14100000 {
+>                         #pwm-cells =3D <3>;
+>                         clocks =3D <&clock_peric PERIC_PWM0_IPCLKPORT_I_P=
+CLK_S0>;
+>                         clock-names =3D "timers";
 > +
->                                 core1 {
->                                         cpu =3D <&cpu7>;
->                                 };
-> @@ -1681,9 +1686,9 @@ usbdrd31: usb@11110000 {
->                         compatible =3D "google,gs101-dwusb3";
->                         ranges =3D <0x0 0x11110000 0x10000>;
->                         clocks =3D <&cmu_hsi0 CLK_GOUT_HSI0_USB31DRD_BUS_=
-CLK_EARLY>,
-> -                               <&cmu_hsi0 CLK_GOUT_HSI0_USB31DRD_I_USB31=
-DRD_SUSPEND_CLK_26>,
-> -                               <&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_A=
-CLK>,
-> -                               <&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_P=
-CLK>;
-> +                                <&cmu_hsi0 CLK_GOUT_HSI0_USB31DRD_I_USB3=
-1DRD_SUSPEND_CLK_26>,
-> +                                <&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_=
-ACLK>,
-> +                                <&cmu_hsi0 CLK_GOUT_HSI0_UASC_HSI0_LINK_=
-PCLK>;
->                         clock-names =3D "bus_early", "susp_clk", "link_ac=
-lk", "link_pclk";
->                         #address-cells =3D <1>;
->                         #size-cells =3D <1>;
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -668,6 +671,7 @@ pwm_1: pwm@14110000 {
+>                         #pwm-cells =3D <3>;
+>                         clocks =3D <&clock_peric PERIC_PWM1_IPCLKPORT_I_P=
+CLK_S0>;
+>                         clock-names =3D "timers";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -681,6 +685,7 @@ hsi2c_0: i2c@14200000 {
+>                         pinctrl-0 =3D <&hs_i2c0_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C0>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -694,6 +699,7 @@ hsi2c_1: i2c@14210000 {
+>                         pinctrl-0 =3D <&hs_i2c1_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C1>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -707,6 +713,7 @@ hsi2c_2: i2c@14220000 {
+>                         pinctrl-0 =3D <&hs_i2c2_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C2>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -720,6 +727,7 @@ hsi2c_3: i2c@14230000 {
+>                         pinctrl-0 =3D <&hs_i2c3_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C3>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -733,6 +741,7 @@ hsi2c_4: i2c@14240000 {
+>                         pinctrl-0 =3D <&hs_i2c4_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C4>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -746,6 +755,7 @@ hsi2c_5: i2c@14250000 {
+>                         pinctrl-0 =3D <&hs_i2c5_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C5>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -759,6 +769,7 @@ hsi2c_6: i2c@14260000 {
+>                         pinctrl-0 =3D <&hs_i2c6_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C6>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -772,6 +783,7 @@ hsi2c_7: i2c@14270000 {
+>                         pinctrl-0 =3D <&hs_i2c7_bus>;
+>                         clocks =3D <&clock_peric PERIC_PCLK_HSI2C7>;
+>                         clock-names =3D "hsi2c";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -789,6 +801,7 @@ i2s_0: i2s@140e0000 {
+>                         pinctrl-names =3D "default";
+>                         pinctrl-0 =3D <&i2s0_bus>;
+>                         #sound-dai-cells =3D <1>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -806,6 +819,7 @@ i2s_1: i2s@140f0000 {
+>                         pinctrl-names =3D "default";
+>                         pinctrl-0 =3D <&i2s1_bus>;
+>                         #sound-dai-cells =3D <1>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -840,6 +854,7 @@ m_can0: can@14088000 {
+>                                  <&clock_peric PERIC_MCAN0_IPCLKPORT_CCLK=
+>;
+>                         clock-names =3D "hclk", "cclk";
+>                         bosch,mram-cfg =3D <0x0 128 64 64 64 64 32 32>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -857,6 +872,7 @@ m_can1: can@14098000 {
+>                                  <&clock_peric PERIC_MCAN1_IPCLKPORT_CCLK=
+>;
+>                         clock-names =3D "hclk", "cclk";
+>                         bosch,mram-cfg =3D <0x0 128 64 64 64 64 32 32>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -874,6 +890,7 @@ m_can2: can@140a8000 {
+>                                  <&clock_peric PERIC_MCAN2_IPCLKPORT_CCLK=
+>;
+>                         clock-names =3D "hclk", "cclk";
+>                         bosch,mram-cfg =3D <0x0 128 64 64 64 64 32 32>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -891,6 +908,7 @@ m_can3: can@140b8000 {
+>                                  <&clock_peric PERIC_MCAN3_IPCLKPORT_CCLK=
+>;
+>                         clock-names =3D "hclk", "cclk";
+>                         bosch,mram-cfg =3D <0x0 128 64 64 64 64 32 32>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -909,6 +927,7 @@ spi_0: spi@14140000 {
+>                         pinctrl-names =3D "default";
+>                         pinctrl-0 =3D <&spi0_bus>;
+>                         num-cs =3D <1>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -927,6 +946,7 @@ spi_1: spi@14150000 {
+>                         pinctrl-names =3D "default";
+>                         pinctrl-0 =3D <&spi1_bus>;
+>                         num-cs =3D <1>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -945,6 +965,7 @@ spi_2: spi@14160000 {
+>                         pinctrl-names =3D "default";
+>                         pinctrl-0 =3D <&spi2_bus>;
+>                         num-cs =3D <1>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -1007,6 +1028,7 @@ ethernet1: ethernet@14300000 {
+>                                     <&eth1_rx_ctrl>, <&eth1_mdio>;
+>                         local-mac-address =3D [00 00 00 00 00 00];
+>                         iommus =3D <&smmu_peric 0x0 0x1>;
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -1026,6 +1048,7 @@ ufs: ufs@15120000 {
+>                         pinctrl-0 =3D <&ufs_rst_n &ufs_refclk_out>;
+>                         phys =3D <&ufs_phy>;
+>                         phy-names =3D "ufs-phy";
+> +
+>                         status =3D "disabled";
+>                 };
+>
+> @@ -1056,6 +1079,7 @@ ethernet0: ethernet@15300000 {
+>                                     <&eth0_rx_ctrl>, <&eth0_mdio>;
+>                         local-mac-address =3D [00 00 00 00 00 00];
+>                         iommus =3D <&smmu_fsys0 0x0 0x1>;
+> +
+>                         status =3D "disabled";
+>                 };
+>         };
 >
 > --
 > 2.53.0
