@@ -1,53 +1,44 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CEB141687A
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 20:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960BA4BCAA9;
+	Tue,  4 Aug 2026 20:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785873990; cv=none; b=Fg87S2umm3Lwo098p7UG4GK2gzVqk93cQgx4excIX4US7xZyDynGhs7HgsekxMpr3TK25wrnzNDmG4y+/0SY3oZmVoE8VeA0FqI1kEYQp14Ydj9d3ymnMtZX8GnUebeZ4hnxupGP/FwS28gCGRONg9bs+FevEk6vMPvysmAIMDA=
+	t=1785874025; cv=none; b=R9PYWD+Z7o0V9y9qir9YuWGbJ4k9NzJ8q3A+/3u5GUBuB0UERq8Kh/dIChOe3kN5Uzbbs7FW6s4JM0eGTNpsgVtViWHv5PBQI6222nUQ0AFm1XN0ahJNnXPOUIwMg3NphweNl+YY4kvwxvv+Qz+kaHz4vK8fAAsC3WtY+ef/IWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785873990; c=relaxed/simple;
-	bh=gD1MfLnCAaFRcWetE3NiZig5k758kytS/smQILHwkGo=;
+	s=arc-20240116; t=1785874025; c=relaxed/simple;
+	bh=uJIEmdk+5dWsifdEdMtV3b80h5V+0B604vcQnosNLgA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KXK7NYOZBC22KW88A1XF4wAashoEWzb5GROPacnQNso14ZdWl4e7pxARm8dUCRdvt377AurTQA4Wys66JF9bkN7BJD8wTet/xYPXB0LSAEX+4GzlKiokoRXxsE+/bbP1zmDDI/is6K+z2bvWPAncYJUS5yDA6s4tapuUt7p61lQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=WiIjDqU0; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=XM2DXIeclWM7KNbALHGt/I/gY2hEjGzWCRpGG1uagaiHMmirf2NlkVGpR6vbWANjwLIRYniIsruV3pbwpRaf0oaYGGVK4g2GNZtVNPubmNkoUepgjiOjcv3ImQoHa9Iiac/Q1bsqHtv9fWeSRbaJsHRIyu/DIVgn2C+SOpazvbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S4SgrOm+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="WiIjDqU0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=wr7q
-	ld4CYOnNrQHlbO9S3jk20nz81d8l7qEVsAvo6So=; b=WiIjDqU0OSJi6rAWvewk
-	ZwxPwNtbYKXnpmQBIn23GQBYqz+FlwdESEodfvc8t/iuW0wP+e0gvpfL1yJIdPtC
-	bPNLXJT8Y6titQhxfi4t+9FqbDkKTN3yQLJN7EBmXL6zgIQUfwBHELHnWhujzBF4
-	erp2RF0ng7khbrg3I9hhd8W6dNRe3K9/SVRpnsnoOjVZjVSqGNGjFmMiEPCnyTDy
-	jUAhmV2Or3qsb8Pkw1/SmncDtFqGApe9ldENlYquED2VKzGrjUciU2ls7G+aWIBt
-	zlyjeowcnbXJItqsbcc3I11DuxpuqGbkCSptQbsaIqHhhlql6igyMFSXdAOsYQqg
-	bQ==
-Received: (qmail 3515143 invoked from network); 4 Aug 2026 22:06:16 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 4 Aug 2026 22:06:16 +0200
-X-UD-Smtp-Session: l3s3148p1@0iryLz5Y1JsujnsQ
-Date: Tue, 4 Aug 2026 22:06:15 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S4SgrOm+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31EAC1F00A3A;
+	Tue,  4 Aug 2026 20:07:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785874024;
+	bh=uJIEmdk+5dWsifdEdMtV3b80h5V+0B604vcQnosNLgA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S4SgrOm+h1U1ESWtkLGqpiyMVDp/4yEcBvcVq7ISQIVT0S2wSYrhToeFxPBU53YfO
+	 9YyT7vbdyJA9yZenxX3iT2nBXlSqOSk7Z0xlrssAxTE2dVWF3Wk6aFEAburi2+Dxhg
+	 gdOGGcqm6xtWLASOA2LfjToDzxEBrDQC9qW6+n/yBEjbV6r4/+4TWgAPuyRsr+wdu1
+	 Y8Uzyb/Eo4ia0DpRZ8aWQ4MvV07PwyQFbnXAUHA/IVQBrICicXz1OpHunXBhhcA6gQ
+	 aeoezdjEr37r+k2zSfpHhj/Ozu6qVbsSjOsgLVYm6Q1OZrCf2p08bDoMh1MPXgFKDh
+	 2oTffIwKSpJxw==
+Date: Tue, 4 Aug 2026 21:06:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Pascal Eberhard <pascal.eberhard@se.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/4] dt-bindings: timer: Add the Renesas RZ/N1 timer
-Message-ID: <anJGNyNxcSAwylK8@ninjato>
-References: <20260721082952.215691-1-herve.codina@bootlin.com>
- <20260721082952.215691-2-herve.codina@bootlin.com>
+	Jerome Neanne <jerome.neanne@baylibre.com>,
+	Paul Cercueil <paul@crapouillou.net>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH 0/2] dt-bindings: regulator: Use generic power-controller
+ schema
+Message-ID: <46ee8825-0845-4455-bf6e-663831ca9e41@sirena.org.uk>
+References: <20260804-regulator-syspower-v1-0-b05af2081184@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,60 +46,41 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="K3YzAXkCWFXIec1c"
+	protocol="application/pgp-signature"; boundary="Cn60xfTGHd5pwIro"
 Content-Disposition: inline
-In-Reply-To: <20260721082952.215691-2-herve.codina@bootlin.com>
+In-Reply-To: <20260804-regulator-syspower-v1-0-b05af2081184@nxp.com>
+X-Cookie: Biz is better.
 
 
---K3YzAXkCWFXIec1c
+--Cn60xfTGHd5pwIro
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jul 21, 2026 at 10:29:47AM +0200, Herve Codina (Schneider Electric)=
- wrote:
-> The Renesas RZ/N1 timer block controller is the controller in charge of
-> timers available in the Renesas RZ/N1 SoCs family.
->=20
-> This controller handles 8 timers:
->  - 6 16-bit timers
->  - 2 32-bit timers
->=20
-> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.co=
-m>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On Tue, Aug 04, 2026 at 10:37:51PM +0800, Peng Fan (OSS) wrote:
+> The generic power-controller.yaml schema has been added to dt-schema,
+> providing a common definition for the `system-power-controller` boolean
+> property. Convert regulator bindings that locally define this property
+> to instead reference the shared schema.
 
-In general:
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-
-One nit:
-
-> +        reg =3D <0x51001000 0x400>;
-
-Isn't 0x400 a bit excessive? The last documented register in my docs is
-0x114, so maybe 0x200 will do above?
-
-
---K3YzAXkCWFXIec1c
+--Cn60xfTGHd5pwIro
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpyRjcACgkQFA3kzBSg
-KbblfRAAp6Zw/Q5+g6+t0gQ6a1Ir0bRwdsP3ZOHD/Xdz/uXcxyOroVwP6+U86jrO
-1UK5H3qTw7Ah07iWEKp9GXk3czVrvrMcAua0G/DhLBXU6E9lu2npWQoVeb4zaSEA
-LOtzNATycySMssxdU08cEWg97/+LMTsGoshphhzkwdLHruD6lwFp4Pd5HKzW6JB/
-phz4mgovybDKS6vl2kIluFpTjKM4JJvwZYSSIIuyGevSHjgcUb1JESUnvT2Qf+23
-jmY9DMMQiKunWeDuS1i1iFXGT8Va8ah2HCqFO/CEAeF64dZ/AAigXbxMcfRMcvLK
-abKi4Y/n1UD1JD9r3JL4MLLVLHiZ5ALsYFSjMI/pIUMLy04O48kdPdcINl/Ims3G
-IFjQxxSqjpIu6S9fc2EUmb06lai4WtHkHryBlltNJd8uKhg4pEPJnwJqoQEFYPqc
-cPXWtsNDPdb3LD4HEYJsAzj0IgRoeG4AQ2BfmhErJuyMWFBlVJZkqbLCRiR0a5CR
-maPdD4OdPxENbV+UBbZCsb1gJxP3uN0oL73Y7Frkm45hWXTkelO7cYR/XKWG9TgE
-bkYM7LR9JLukMahPEm/MAeTT/Ew8ctGRw5YHqDZ225deETZx4VEwNP/bza773KZZ
-Z24UFLUGxF22qp/V6PoVpHJQPbQCnyqaA55436URZD5fvak2zr8=
-=i0mk
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpyRmIACgkQJNaLcl1U
+h9AuVwf+OsejAXvnHhApi/S4bngl/3U7NigiNbaOzoARS76v7/c7NyLoA/tNJKID
+QLhqkOwnBd2TGFD/+W6yG6O1pCFPHKQX90neDdA1qJ1CJS7/ujQY8mNt7uXPoThS
+fhotKmY7Zs+QXDd1+fm16nkUCskqTcThkDZW9KpmA/gbsgQPGTk1NaO93qgijIAq
+W2nYJgwcPmkg0+8dzmyjQ66Dyevbd1w8ixep2ALNxztw1WBAeojAlFoFiFIAm17Z
+vvom6Kd9Ztk77KHgzDeoIAqRMz56xyYsWmFDOHqXt4Ht/C/HxbX1yCqXgo4L4EWm
+sL/Ypvq1F4U0XYu/ziCBPZt63MiiwA==
+=BVhA
 -----END PGP SIGNATURE-----
 
---K3YzAXkCWFXIec1c--
+--Cn60xfTGHd5pwIro--
