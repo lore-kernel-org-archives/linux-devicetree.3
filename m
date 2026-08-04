@@ -1,41 +1,33 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEDA46C4A2;
-	Tue,  4 Aug 2026 14:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7370246D085;
+	Tue,  4 Aug 2026 14:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785855446; cv=none; b=ARg6U4gDu2Vzb4P76Ov8G759APDt4ORcr8qRQwkyigmPi9/5U303TJao1KHppmKbZCH8b0W6sdx2CX8X+WX9W8HGyRwKz6SOehk9FpGkcptrTsVQ3QErfelVhEOIcuSvfSoT/2SDpZAMiq7OP0pTsiVJOPTCWa18JsccEYm46IU=
+	t=1785855468; cv=none; b=UceqM1ycngmTCf4owSkFotGySbC5Jt57hoaOe3LW83997ev8BQ5okt33kyo7TwhVQ8CoyiKCcRpf0XRqmNFHYgLUNY6eawdMgMwl1JlkQnk79PuATYGeu9TCELaFGqhBjX5rGHwpoNMS/gd5oRjrw8xHOfFfMdOepv32MDD2bC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785855446; c=relaxed/simple;
-	bh=9+JcugKN1Hlu595PlrjRezWrWX+ORLZbJpzylyBEuU0=;
+	s=arc-20240116; t=1785855468; c=relaxed/simple;
+	bh=Bxsf/tM/inm4tWB5FckFDrW3RfUJDXeHauOssflYyFk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U8amzVhM8EdkIeGqwClc2CTmb6EGXri1ZZ2LdaVUJOOjCa6r8QiA4vrVWi5+F0QVy4T1zMIgJp/bsofSQbMsomeVaJsW2xDCRkleibQdPlCxPPntbG2ieYh1vz2GZoyWf5flEyuUa5HYeAAVuuQnd0gp2YMZ+gH5Dh0G3G2kzTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=WldYauCm; arc=none smtp.client-ip=212.227.17.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	 In-Reply-To:Content-Type; b=uAZ/ARQJrkmnn+zYBieMdpYrgM1gowkSXWver9pglm3NP1ORY51DLCbD21lTW9kErLaC/kmCPzyQHH6C3uC7wKbvUyYxin9LuaGG3e0QUUO+kt3cUZVXjsZDQAV2FM3Xg4l7CEC2AauXWjmzrzetdyO0mWV/c4Se1OeFGamfDNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LP7eRLHs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="WldYauCm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1785855431; x=1786460231; i=wahrenst@gmx.net;
-	bh=PTJyzc/zMCZOX2O75cjdUrm8CpljF+Yy2jrwQvp1lV4=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=WldYauCmxi4D0Ra6MqhdJlY8rfSP92c2y5prGmQaHsj3UG8zjCIkjKrh3qW3slw+
-	 TBTUk15iHG7M1Fjs9omqBjrg1mEHlZXn+y9fR+2eoS057Ycsbysw1KytXsJQKS2nO
-	 MaSSLJFrj7z8qGv+7wUR9xrDEJdU06H8OnwLA19wikW866Uq8BZpSiTBs044+Xr8T
-	 5rp/r31j2AKFQjSIXKJVHLUlGFZViuVfC9gt6bF4o0mbKDWxmcmJ/eOJ7Os3hedM2
-	 JjhHx5YSthvCv2ZgCVRFyWWtrQ9NysmdqF4hrddBZfrgMMC4smd5prSsxhcEItBz7
-	 +D/yg/ToODp2bil/oQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MVvPJ-1wRaIE05kj-00ONvS; Tue, 04
- Aug 2026 16:57:11 +0200
-Message-ID: <6ed9b2e5-b700-477a-8f6f-cb48c597a111@gmx.net>
-Date: Tue, 4 Aug 2026 16:57:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LP7eRLHs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22341F000E9;
+	Tue,  4 Aug 2026 14:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785855463;
+	bh=Jld8QoXOyiRKxKiV6Ij6KMsJftWjnRzT1IjV73V8qmY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LP7eRLHsIvkuDUhDSJnSpHvpTQWt3F61j6RQKNDy07FNsBlrRb807tlFflrNdton7
+	 XAAWF3/uHfejsdwVyu3UYh8aDyqjiV9O2zxhZvfCtrMSDyKFsbrpiG0qTiiw2QGx8R
+	 XPFIDoWdCpVtWxNEvQXq2SsDvpu22+Uxz/+/bpoyVHbfxrRYUyKK6y1OVB2lbE63no
+	 Hrk0msCy4GNs/mv6QYbsMxzu12Ux4S//vDdVp72Q+ZoHAMC2XUS+kLzNNK40PwsBL7
+	 ETWz6LzTpv+hGaBnabnBVAtquqd+BMSvESxoICuiSRroJ8LH9vbVBfFkUFQXrxe2ZI
+	 AywwE0tVdjK/Q==
+Message-ID: <b99c478d-302b-4c50-8a8b-94aa0f4f7fad@kernel.org>
+Date: Tue, 4 Aug 2026 16:57:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -43,165 +35,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
- compatible
-To: Gregor Herburger <gregor.herburger@linutronix.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260804-bcm2712-d-stepping-compatible-v3-0-1860094486eb@linutronix.de>
- <20260804-bcm2712-d-stepping-compatible-v3-2-1860094486eb@linutronix.de>
+Subject: Re: [PATCH v8 30/35] dt-bindings: pinctrl: airoha: an7583: add olt
+ function/group
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Christian Marangi <ansuelsmth@gmail.com>,
+ Benjamin Larsson <benjamin.larsson@genexis.eu>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Markus Gothe <markus.gothe@genexis.eu>,
+ Matheus Sampaio Queiroga <srherobrine20@gmail.com>
+References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260727174141.664933-31-mikhail.kshevetskiy@iopsys.eu>
+ <20260727-chivalrous-legendary-goat-b9ab93@quoll>
+ <d92137d6-5dde-468a-95ec-3acc506444f9@iopsys.eu>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <20260804-bcm2712-d-stepping-compatible-v3-2-1860094486eb@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:P4hylk2BckQnMYZ8JZKL1DnIWZy/oosvtCUSb34v3gHvWDceUUt
- ToOaWO3e3gFgLOZ+IAJb1ZR4Ztjg5zxfsci6MzRoXPgBkehpYTL7yN2gAvohPeVDfMAKkQ9
- AjpHxp4VRveBWeW+PFzzItsxByJfuVa+j2qsShg2SkhHuseEgkd7l9IzgithR4h+nkeCwUk
- gQEQg2gnXIyP4ebMM2OXA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:yQekX0fCiDQ=;2OmTjpudUngZF7Y+N8hR/X5dIlo
- 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
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <d92137d6-5dde-468a-95ec-3acc506444f9@iopsys.eu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Gregor,
+On 04/08/2026 16:43, Mikhail Kshevetskiy wrote:
+> 
+> On 7/27/26 23:15, Krzysztof Kozlowski wrote:
+>> On Mon, Jul 27, 2026 at 08:41:36PM +0300, Mikhail Kshevetskiy wrote:
+>>> Add support for olt pin function for olt pin group.
+>>>
+>>> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+>>> ---
+>>>  .../bindings/pinctrl/airoha,an7583-pinctrl.yaml        | 10 +++++++++-
+>>>  1 file changed, 9 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
+>>> index 7deb48db52c3a..f016e0da65a57 100644
+>>> --- a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
+>>> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
+>>> @@ -60,7 +60,7 @@ patternProperties:
+>>>            function:
+>>>              description:
+>>>                A string containing the name of the function to mux to the group.
+>>> -            enum: [pon, tod_1pps, sipo, mdio, uart, jtag, pcm, spi,
+>>> +            enum: [pon, olt, tod_1pps, sipo, mdio, uart, jtag, pcm, spi,
+>> You just changed this line in previous patch, no?
+>>
+>> Why binding patches are spread all over instead of properly grouped?
+>> This makes it difficult to review. Please read submitting patches (both documents).
+> 
+> I tried to create a separate binding patch per change. Could you clarify
+> your suggestion?
 
-sorry for my late reply.
+Adding missing functions is one patch, unless there is reason to split.
 
-Am 04.08.26 um 15:13 schrieb Gregor Herburger:
-> The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
-> and in a c Stepping. There are two separate dts files. The
-> bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
-> the d Stepping. The d stepping does not set its own compatible/model
-> string but uses "raspberrypi,5-model-b".
-In case the SoC and not the board has a D stepping, why do just change=20
-the board compatible without the SoC compatible like "brcm,bcm2712-d0"?
->
-> These two steppings are not compatible. Booting with the wrong dtb file
-> causes a crash at boot.
-This sounds like the patch should have a fixes tag?
->
-> Add a compatibles string "raspberrypi,5-model-b-d0" to allow us to
-> distinguish between those two steppings.
->
-> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> ---
->   arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts | 5 +++++
->   1 file changed, 5 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts b/arch/a=
-rm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> index 127be0fc27c22..5a86ad69645c3 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> @@ -3,6 +3,11 @@
->  =20
->   #include "bcm2712-rpi-5-b.dts"
->  =20
-> +/ {
-> +	compatible =3D "raspberrypi,5-model-b-d0", "brcm,bcm2712";
-> +	model =3D "Raspberry Pi 5 d0 Stepping";
-> +};
-> +
->   &gio_aon {
->   	brcm,gpio-bank-widths =3D <15 6>;
->  =20
->
-
+Best regards,
+Krzysztof
