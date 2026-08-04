@@ -1,266 +1,75 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722FA4A33ED
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:51:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6893477981;
+	Tue,  4 Aug 2026 17:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785865909; cv=none; b=KgV+h5uifFKadnA9CK29gJOvIaH9+NpRcUJIKuFp0VnHMyUFI3eR7gNs12PXFXiR/IMgqMm53hiDduoLMc2qdhIfXoF5m/kibQzqJuWAgPdpqUrYeT9qY48BEtj6TYltvTRgvHlJYRawZgoQ9nhY0zWo5kIS6lMPzeV/rcjzJZk=
+	t=1785866085; cv=none; b=JvS7gqFRZ9hvqhNOLvW20n+iXbJcd3menroZmu26DHWUgIovy4zXvhbxMX5xbmJ81BHqfg3p7hfoN6fF0nYt2rnLDFtgUVvKv8bDZB6+A8AA/1SGWFcJVLZMwTy4UDbvfba/AGAbMyH1qY0big9b49cR0g6HY8dLCQ1rfbNwmXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785865909; c=relaxed/simple;
-	bh=s/tzFANLq92I/GWvtIBsPnHI/dgKrIdY84Xt2S+xBUM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=prv5AD0M3SgPy6nUSWnzNQNhFxmTIeWx1d0sMynubvgaOCRPiwRB4mafb4lSmwTR1xHk7RLW5UVkvott25JM5gVYtk5TQAndNsxdh5kNzsaR61sJBT9X59R7pPgMR+7RkaoEswXQvZ6aXhHA4nl90kBFcvpwONqAyuZ45rWTx2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hDICPmfb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cPx2gED9; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785866085; c=relaxed/simple;
+	bh=OfcSOu8nZIpGrxT8OT2GBDyquxb279p8C5l8gAKXVpM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fj+nr++ZrN3O4fuWiyv1S2ZIXG5okkxeZxKtdsBGCZQVQ/NuZ8mlpBUbCHPpxwZNtl0BP3b7TB/SlkxCf/OxKSAZXkspyR3M0F9iQRusHC8fMGr8iQ6UCQpDk77uyWIlcoqXGFXZa2ZKGvyz7LauGnyaTWExk2OH9EefAf/wrTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kjqRJgXP; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hDICPmfb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cPx2gED9"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674H0LAq333203
-	for <devicetree@vger.kernel.org>; Tue, 4 Aug 2026 17:51:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZY/BPGUq3Ubcc1EeSRezLJsNPAz2hAnhtWpk8PGcHQc=; b=hDICPmfb85OQAWxJ
-	HMas3ybpGQiq8vfHcD/9A9Zae+K3CRJhUqIzU6pCD4QIIJztFj9CHzS2htlCsjGC
-	XBa0Zhf+BQW1I86xV1dFHvRJQ4tZDg1FrKre/0fRzdWvUvbEJ+FNihXD7USxLSJR
-	idfkMFZJAJPZL83aPFPP/KcDrWVxD7oOsNQF4AoeafWisW02GSgWOCzMnNV63T/1
-	DhjK6aYAEkDhHeGswc0yOq/uZrlw7zNV9/CIcaGwqSDMPB3qXUmtLdtznWqIezN/
-	+EH9NntWAQ5XIa15JvuqUity6Tq1BLPLvAw237x+DQ8EgsFDUd82nrdTw6RdfrJ/
-	GaevEQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fum3n88fu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 17:51:46 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cea6a46766so2282945ad.0
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 10:51:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785865905; x=1786470705; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZY/BPGUq3Ubcc1EeSRezLJsNPAz2hAnhtWpk8PGcHQc=;
-        b=cPx2gED9gd4YIgluclPSuTuvxXSzRBn+e/TtlYUjC/aUvIVW/3fqwTAWlOS+6lLmqd
-         vqE6i4oLLgzNPXo+L7lN3d3/qAgsFeX5DXgqO1cHWYWIwLwR5i+LrwOiNWtPwuN3zMzi
-         R+zcoQ9C68z5CxjY2FigNU6JOp2ArAk3qcgqR6K4w7VwvQSFuZ07LddVQ23mky5ZRCmW
-         X9binY4G3hn8K/CRiExUlHog97ph21y6nEYFdz7Slw3wWFolvpTPqILqKsHEJ0JdaHOW
-         7Er04AvaXx5gXzdg5nwIzr3HlMR15ro0jxVgqjOCOgdM1qZ1/diOSQV6ePBWTySCE0G1
-         CJdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785865905; x=1786470705;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZY/BPGUq3Ubcc1EeSRezLJsNPAz2hAnhtWpk8PGcHQc=;
-        b=qB3Pxfe0NJDxZpzzkWCNhWf3P02dORSGD3nFgNo+rvyGyblsPY7aES9nif5mKzBRzh
-         sYCniWocwce5wohQg0VpG/JNVxMfSrPnWCaXjEy4zxoeGazTzkKdqiul7PhwXHxnwvUZ
-         EgYIdyBDz5VOruG0KG2r1jRC10AUUfzU/6CJwdXiCyXRZeJDjf4Hfi9iF3k9ekAGgXG1
-         qZ+Ht9qLGNIIVLN0oUCdQR+jAIljndmjaNBUL7xxMgxoKtW2sbd5B/j57JgAf7p7qEws
-         EPROaJqCfw+H/6xswePUbsGODe1qqaduk0gDNqOte+9EJQQxDRPDS+jC4I2QA7NxqPS0
-         ROww==
-X-Forwarded-Encrypted: i=1; AHgh+RqlNnOAaduua2+vcYBZvbc4PvYpBugT0Q8DmPDkvVmbcnta6M8XhPcjUWYashw88egjYI2dQ2/wbsK2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxri0PrrtFWAhtfBA6RXBZ0lbqFxck42ZgWtt3LAtMBxD4Q9SO+
-	53h526BxNKGCMiAWfRaP4LDeAODRxRZe15XmLclGULNu0+m23koxNT05/Yxdlm1+qeYoTfWGnfE
-	t2xNb0GT53eu6myuDNLzfabxgvQpY/LUnzj66Bq05DlZtyW4YZwDRn0wc3MpIezf5
-X-Gm-Gg: AR+sD1054lTKp6ozascYjFtQXjE83g3f7kmRufgnj/8XPWCR+NkQThyWvRzSDtOU58M
-	kHepve1+usgN/YZ9zYxt0oaA3LMPMV+TdM8YQhVBz2baWa5WGhzBR+qlW+56J9CI7ZOQXGhwIGJ
-	nM7vPJddz72L2Bk0MqS2dYPlAIcDgt6hD/PPQm/pRi5P/ob4hP2TFSnanezwh5zYqmZ6VDYjHds
-	OwoGw6eZxxsv6nSOuj8BUO5huWO0oObxHM2Xl5SpuCY8WTU/MlbLOIVIC63Bw4gXNDBOnuVXkrd
-	mMl0lpuM2Bn0srCRSgDh0tOJxZ6gcHZdbH7Vxa2XRXDMcjD+/HUrMeiVKf9IC26FzV1tPr/Oewu
-	rPJw7BJNbsLC7z5ywIY5PCVgW
-X-Received: by 2002:a17:903:17c3:b0:2c9:e86e:aa0a with SMTP id d9443c01a7336-2d0ca165189mr6792555ad.0.1785865905231;
-        Tue, 04 Aug 2026 10:51:45 -0700 (PDT)
-X-Received: by 2002:a17:903:17c3:b0:2c9:e86e:aa0a with SMTP id d9443c01a7336-2d0ca165189mr6792025ad.0.1785865904794;
-        Tue, 04 Aug 2026 10:51:44 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586790e21sm7052108eec.24.2026.08.04.10.51.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 10:51:44 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Tue, 04 Aug 2026 23:20:23 +0530
-Subject: [PATCH v9 10/10] arm64: dts: qcom: eliza: Add support for MM clock
- controllers
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kjqRJgXP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=x5MBfBlaW1q66qx8cS8n8E+6RtEeRIkPWZZYN0nsGQk=; b=kj
+	qRJgXP6xj+9GJOD9Itps12+eL28irrkjAzeIhOojq1NkYj+i5fMJwoJ26Tp+AUdz9UlILVKsWOOUz
+	3RP0t5S8/TLQagQIpIG29sUAINt6fWzRLMsvQnHoUkE/GCM5EunYWYsmMiP0w8Q3W2DHeDlaSgnb2
+	i1NGmvN8odNVZ5w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wrJLR-00G1zN-9b; Tue, 04 Aug 2026 19:54:29 +0200
+Date: Tue, 4 Aug 2026 19:54:29 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Arthur =?iso-8859-1?Q?Cr=E9pin?= Leblond <arthur@marmottus.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] w5100: restore GPIO-based link detection
+Message-ID: <d762ff5f-30ba-42fc-bf58-500f807483ad@lunn.ch>
+References: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260804-eliza-mm-cc-v9-v9-10-39067760dc3c@oss.qualcomm.com>
-References: <20260804-eliza-mm-cc-v9-v9-0-39067760dc3c@oss.qualcomm.com>
-In-Reply-To: <20260804-eliza-mm-cc-v9-v9-0-39067760dc3c@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-ORIG-GUID: QXCInlKAUibGXg76RUGJaLdhT0tR8paX
-X-Authority-Analysis: v=2.4 cv=EvjiaycA c=1 sm=1 tr=0 ts=6a7226b2 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=nFpjIs4uCRy3fSY36ugA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: QXCInlKAUibGXg76RUGJaLdhT0tR8paX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDE0NCBTYWx0ZWRfXyFmpJzbTJ0GJ
- +6dGJlXRR0l4wKpX13b4PRoK6xXegjVtF9XNTaQzn1l4GZWuJNqDORhgGbxbuv0H3cw3QWR+9by
- pksZWhtMXD0VSyJqMoM6/VnP0Fk6VdM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDE0NCBTYWx0ZWRfX02Mlj05w3a8l
- /VW/XC1XpR8nDglcDT6Re2rAeZLRQEKLptDPaHLawSzLOn+sKj0PMcy/NWk1kw/KXilgov3Hpf1
- Dkd5BGob9kZhnuB4eKbnLDIlCIHYnMwZ5EdjYc6OJeB5cKMkko3VoOIYN1v9iD/EgMJ0XrV30A9
- XSzHm/vDY9K07J2FE0Scmn1t9BKeqzU+8rjK+BjdXn4W1nTZKHki51jwP/CtMRX0/yZVcoE6CcX
- oeVTmAT+AKJrkvxyMS7RkgHNUOmTZ05Q4vjGetsnAwDmNZ4yEgi66V7px91E01yl/T4kAHMjgky
- G0VM5V+JPuzpsCUyLmDUEGsy9LA4V9c0ASF7Zb1uKarH1Vab1drfDN1wyWUkfIdCweKxAyRCJn/
- xdQjhHgCOwbRepCacKZ1I6RtIVAj4kVbKADsyCctUvs6vaisZ7z1gzbAdTB+sBtochU0cYEGsXE
- HUqpWJ4ytJoZ7PBwegA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-04_03,2026-08-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- lowpriorityscore=0 suspectscore=0 spamscore=0 bulkscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608040144
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
 
-Add the device nodes for the multimedia clock controllers (cambistmclkcc,
-camcc, videocc, gpucc) for Qualcomm Eliza SoC.
+On Tue, Aug 04, 2026 at 04:38:35PM +0200, Arthur Crépin Leblond wrote:
+> Commit dacf281771a9 ("w5100: remove unused gpio link detection")
+> dropped the link_gpio/link_irq handling on the grounds that no
+> devicetree user passed a "link" GPIO at the time.
+> 
+> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza.dtsi | 76 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 76 insertions(+)
+Hi Arthur
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index 66ea4aaafd73a37303c1875361b7c03f09d58432..e8ff212c295e89bc7d418519d142f1950fbe126d 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -4,9 +4,13 @@
-  */
- 
- #include <dt-bindings/clock/qcom,dsi-phy-28nm.h>
-+#include <dt-bindings/clock/qcom,eliza-cambistmclkcc.h>
-+#include <dt-bindings/clock/qcom,eliza-camcc.h>
- #include <dt-bindings/clock/qcom,eliza-dispcc.h>
- #include <dt-bindings/clock/qcom,eliza-gcc.h>
-+#include <dt-bindings/clock/qcom,eliza-gpucc.h>
- #include <dt-bindings/clock/qcom,eliza-tcsr.h>
-+#include <dt-bindings/clock/qcom,eliza-videocc.h>
- #include <dt-bindings/clock/qcom,rpmh.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/gpio/gpio.h>
-@@ -1787,6 +1791,24 @@ aggre2_noc: interconnect@1700000 {
- 			#interconnect-cells = <2>;
- 		};
- 
-+		cambistmclkcc: clock-controller@1760000 {
-+			compatible = "qcom,eliza-cambistmclkcc";
-+			reg = <0x0 0x01760000 0x0 0x6000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&sleep_clk>,
-+				 <&gcc GCC_CAM_BIST_MCLK_AHB_CLK>;
-+
-+			power-domains = <&rpmhpd RPMHPD_CX>,
-+					<&rpmhpd RPMHPD_MX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
- 		mmss_noc: interconnect@1780000 {
- 			compatible = "qcom,eliza-mmss-noc";
- 			reg = <0x0 0x01780000 0x0 0x7d800>;
-@@ -2893,6 +2915,60 @@ mdss_dp0_out: endpoint {
- 			};
- 		};
- 
-+		gpucc: clock-controller@3d90000 {
-+			compatible = "qcom,eliza-gpucc";
-+			reg = <0x0 0x03d90000 0x0 0xa000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&gcc GCC_GPU_GPLL0_CPH_CLK_SRC>,
-+				 <&gcc GCC_GPU_GPLL0_DIV_CPH_CLK_SRC>;
-+
-+			power-domains = <&rpmhpd RPMHPD_MX>,
-+					<&rpmhpd RPMHPD_CX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		videocc: clock-controller@aaf0000 {
-+			compatible = "qcom,eliza-videocc";
-+			reg = <0x0 0xaaf0000 0x0 0x10000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&bi_tcxo_ao_div2>,
-+				 <&sleep_clk>,
-+				 <&gcc GCC_VIDEO_AHB_CLK>;
-+
-+			power-domains = <&rpmhpd RPMHPD_CX>,
-+					<&rpmhpd RPMHPD_MX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		camcc: clock-controller@ade0000 {
-+			compatible = "qcom,eliza-camcc";
-+			reg = <0x0 0x0ade0000 0x0 0x20000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&sleep_clk>,
-+				 <&gcc GCC_CAMERA_AHB_CLK>;
-+
-+			power-domains = <&rpmhpd RPMHPD_CX>,
-+					<&rpmhpd RPMHPD_MX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
- 		dispcc: clock-controller@af00000 {
- 			compatible = "qcom,eliza-dispcc";
- 			reg = <0x0 0x0af00000 0x0 0x20000>;
+Do you understand the architecture of this device? What exactly is on
+the other end of this GPIO?
 
--- 
-2.34.1
+https://wiznet.io/products/ethernet-chips/w5100
 
+suggests it has an integrated PHY. So why is a GPIO needed to report
+link?
+
+Thanks
+	Andrew
