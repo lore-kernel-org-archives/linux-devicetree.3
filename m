@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E8A47AF6C;
-	Tue,  4 Aug 2026 16:42:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB3F34165B
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 16:44:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785861743; cv=none; b=t7erzetG2wNSSIOp5KSXMH8h8pEoQeObuEKH37rTmJ5FBOt9qcebbxBC6W6abOu9Vmwjjr0dDlF5dwv1aCBRYYlKXSQdnSRD9GsiiDRKrS3oZ4d/+YoFS07kY1+IukH67ao2xCiIo8GjlOunsy4QM5Oz9q+t2RDxfgqp2wpAg0I=
+	t=1785861861; cv=none; b=PKjlzICoz1ykPjaHWxWY0bzIlqaI4EGIleKQxR2abm/WRrpkIRQuq1C4rzz5W61JNqAx8aZMIDw2Qibi8rhLZe3K1CuqcXmFyQtjE1kCt9IcHbE60IsAydW3tUGQI0+U7qzSSgOUGhUBFwSOdj/7ENarwQQk4V2ppI9rOOjGm6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785861743; c=relaxed/simple;
-	bh=wryxQi+q/LXNVpzpfbIVRfWs4LLcIWICs/OobialYyc=;
+	s=arc-20240116; t=1785861861; c=relaxed/simple;
+	bh=bI26sW12DrVbY0oAVvPG98jogMQkqnRYuImRUFmz61I=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ull9cEd709KEXfofgVGjW7kwoum1Whpz+r4VO9kOQ6N4T05i0Bm8avab38lyoAHJrrS1p1WqyhC7DPSF7AoflhmzxA3P/TgdtmeLUY0ZIvFOEA5zJd+ozisl81wg4PR2uCSp/BiMDgP8PUU4zw3SswKWVjUC87kRiT20s076F7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsJcDBYF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=iMC8YM78iBdJc8o84Ib3H9m05EstYnxVvGvALg9d6rQsWrzXHiN02B4C7Mi11OHaHIEY/U87voCQi52u30MoeafCo0ANNu4Vfm5sh+Wr9g0j+kbkRqffzx9bxRGNZG3bVtVRwBZbiXPUGytdtPtK+7Tm1Fy/30LWx97KaXZ5W6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFbtVH2y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsJcDBYF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F87F1F000E9;
-	Tue,  4 Aug 2026 16:42:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFbtVH2y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E7671F000E9;
+	Tue,  4 Aug 2026 16:44:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785861731;
-	bh=SzzabY3hv5enl+59yJfPfSLwZJVnFhepLHEx+QSz73U=;
+	s=k20260515; t=1785861843;
+	bh=8VQoeAn5OZzGWdH4awMsy6Nm5Oc7dIUL34ENiiWH4NA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PsJcDBYFqTlH3WdCXcoIylbAPxmFEDW2EifJZDKK0OwpEkSw8lRzj4vvjy/dmsRNq
-	 HgjK4lRBqM3dRGi8KFb0/rtENctclLlJ5kjqh6/jbS4zsO3S5kSkTjlviKdbazgc3p
-	 q2Gbx8DvByNNORZDPKA+2leRB1L7NZhFEtFMd72jqMz8i6U5zz3coo3U7fSAsTDOTN
-	 F4HyxP8pwaKyKnO0EBZG1qfDrqoKjVaYPiUtgaFXUg77256W13Uj4FT9QRpfaWWqRa
-	 bJIEQnSse2V86JlgG0r7lDawSHmShgnp+QltmwEOYb68B++RXUY0Y5IXhtDxIETbCa
-	 Yngm4E4TBYYzw==
+	b=WFbtVH2yNNhsrcWKH5ZNNA2hoNc6Ny3lesa9PkTna72b9WvLJgVBedSwADb127Ycs
+	 K+EIdiCNCAo1l1fbeWPpBRC3dTHVrJAAxT1IGIbTNhfQx4MqgI4pOIvQiar/1pJJI+
+	 SM/UP+yKRWe+MYg676quRtTcOvmYYRA2fQgBH2sbxIFMQM5yfbcznlClG6R8azKxWE
+	 JJRslUvFa2lKJWtDScrGMpsraYwa3d5aGLtFg8hrFL4zM25qHN15a4Nw1216/B9i9Q
+	 Q1NZZmas6OlDuobMiSXZpw8paqYlM57Q9Lmo+85O272qc6NrCoS8W0+gRqFeSJ0h9p
+	 LtF7lmexGMCXg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/7] arm64: dts: imx8mm: imx8mp: Add legacy board
- DTOs for Data Modul i.MX8M Mini and Plus eDM SBC
+Subject: Re: [PATCH v9 32/36] pinctrl: airoha: add support of en7523 SoC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260804162310.24374-3-marex@nabladev.com>
-References: <20260804162310.24374-1-marex@nabladev.com>
- <20260804162310.24374-3-marex@nabladev.com>
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260804160419.3592327-33-mikhail.kshevetskiy@iopsys.eu>
+References: <20260804160419.3592327-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260804160419.3592327-33-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 16:42:11 +0000
-Message-Id: <20260804164211.8F87F1F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 16:44:02 +0000
+Message-Id: <20260804164403.4E7671F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,59 +46,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Disabling a supply node without removing the consumer's `vin-suppl=
-y` reference causes infinite probe deferral.
+
+Pre-existing issues:
+- [High] Hardware Initialization Failure due to hardcoded EN7581 SCU compat=
+ible string
 --
 
---- Patch [3]: [PATCH v9 3/7] arm64: dts: imx8mm: imx8mp: Add legacy board =
-DTOs for Data Modul i.MX8M Mini and Plus eDM SBC ---
-commit 38e183a549e432bbb19f97500f860bf54f6c111a
-Author: Marek Vasut <marex@nabladev.com>
+--- Patch [32]: [PATCH v9 32/36] pinctrl: airoha: add support of en7523 SoC=
+ ---
+commit 61589d8a38efeb6abcc7cf58f8f68ff7e19a7f82
+Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-arm64: dts: imx8mm: imx8mp: Add legacy board DTOs for Data Modul i.MX8M Min=
-i and Plus eDM SBC
+pinctrl: airoha: add support of en7523 SoC
 
-This commit adds legacy board revision compatibility DT overlays for both=20
-i.MX8M Mini and Plus eDM SBC boards. This adds adjustments to support=20
-legacy board revisions.
+This patch adds support of Airoha en7523 SoC pin controller.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-over=
-lay-edm-sbc-imx8mp-lvds-rev900.dtso b/arch/arm64/boot/dts/freescale/imx8mp-=
-data-modul-edm-sbc-overlay-edm-sbc-imx8mp-lvds-rev900.dtso
+> diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/ai=
+roha/pinctrl-en7523.c
 > new file mode 100644
-> index 0000000000000..427585b78e45d
+> index 0000000000000..91490418e9ab1
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc-overlay-edm=
--sbc-imx8mp-lvds-rev900.dtso
-
+> +++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
+> @@ -0,0 +1,1156 @@
 [ ... ]
-
-> +&reg_panel_bl_supply {
-> +	status =3D "disabled";
+> +static const struct of_device_id airoha_pinctrl_of_match[] =3D {
+> +	{ .compatible =3D "airoha,en7523-pinctrl", .data =3D &pinctrl_match_dat=
+a },
+> +	{ /* sentinel */ }
 > +};
+> +MODULE_DEVICE_TABLE(of, airoha_pinctrl_of_match);
 > +
-> +&reg_panel_bl {
-> +	gpio =3D <&gpio3 0 0>;
-> +};
+> +static struct platform_driver airoha_pinctrl_driver =3D {
+> +	.probe =3D airoha_pinctrl_probe,
 
 [Severity: High]
-Will this cause an infinite probe deferral for the backlight?
+This isn't a bug introduced by this patch, but will this probe succeed on t=
+he
+EN7523 platform?
 
-The supply node reg_panel_bl_supply is being disabled here, but the consume=
-r=20
-node reg_panel_bl inherits vin-supply =3D <&reg_panel_bl_supply>; from the=
-=20
-base DT.=20
+Looking at the shared airoha_pinctrl_probe() function in pinctrl-airoha.c,
+it unconditionally hardcodes the EN7581 SCU compatible string:
 
-Because the status property is ignored during phandle parsing, the regulator
-framework will find the target node but fail to find a registered device fo=
-r=20
-it, returning a permanent -EPROBE_DEFER.=20
+drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_probe() {
+	...
+	map =3D syscon_regmap_lookup_by_compatible("airoha,en7581-chip-scu");
+	if (IS_ERR(map))
+		return PTR_ERR(map);
+	...
+}
 
-Should this also remove the reference via /delete-property/ vin-supply; in=
-=20
-reg_panel_bl?
+Since the EN7523 device tree uses a different compatible string for its SCU,
+won't this lookup fail with -ENODEV and cause the pin controller driver
+initialization to abort?
+
+> +	.driver =3D {
+> +		.name =3D "pinctrl-airoha-en7523",
+> +		.of_match_table =3D airoha_pinctrl_of_match,
+> +	},
+> +};
+> +module_platform_driver(airoha_pinctrl_driver);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804162310.2437=
-4-1-marex@nabladev.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804160419.3592=
+327-1-mikhail.kshevetskiy@iopsys.eu?part=3D32
