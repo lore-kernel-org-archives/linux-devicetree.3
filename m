@@ -1,111 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E38F45D1AB;
-	Tue,  4 Aug 2026 15:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785856293; cv=none; b=OHdfcZxvnT0CbwyI0xUNZYslma+MtFDwxypL9AfMiQrxCSXjL+ruMNdQXxnkrYw2UAPSeiDZ5NLsomRp93xmy+FR4hRRaYC2Vz0E5+4X77jEW20eusq6b3prdiEOihnm7k5mvsUhOA/AtsxEKQrqhmHnHw3oLK+ebWV5Z5SbWvA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785856293; c=relaxed/simple;
-	bh=ixoht4SpoyfZkL3puQ2oIwLJKpGXmXNMZzfX9gUiSaQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o8k0l5Z3rv+DaMjV+IOnq+7YzgWES01GTXxCJmekWbvEJe9T4z/ox/voicn4+sPrBaLazHzhOeY3nHtbBOXEhn3VSnnrI79FqBApFqdl6w2UFcPqhIda/byKL7Q4S96CAJ+2TojiMlZC6bkCGoJu8W5FPgDoUXCMYlcDAbqz/Es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+YGrZft; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A705371049
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 15:12:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785856342; cv=pass; b=bKNZvfKPMzqNXW4OjrnmmV9ZAC2DR551NOnUary3h2yS8fNRNv8vnQqb4BxnfRAbKcwOf6q1jxaQlN0GnaU8ukG5Glg8FYxOV81TLldbwGohvJm5YlWsg3eX3g5OG40DCyEpC6O5HWRwOMpozQCkzir8GqLdqmbDCOXNgyJ/gc4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785856342; c=relaxed/simple;
+	bh=cjSC0VBCJlRsHK9Tnc8vxBqu9ttux07An39HyrNLSeg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Shaiq/NFXzPJOKunKT8wBzXVzxiGcjmU2kUv6t83DxDLfMBwF2l3u7SBXlKay98ZBi/JwC5bjtYrBU2g038Ow00uwq3hYw2L3REI8pqvJvbUuPnCnBWrcRfvzmCIgjSKTmG2Kgc7S9FtsaG2NWL3jwX1gmz7/dvCQPSjr2t5LXM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VjW25G0R; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+YGrZft"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA7B1F000E9;
-	Tue,  4 Aug 2026 15:11:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785856289;
-	bh=ZDneDKrx4RgEqEV1X+ts78qjARSbRc6eis3aZ3hnHhA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D+YGrZft9hy5qQMTzffdmCx08rupW9AMd9vjBUIM+7p74smUxCrkK+BehkzM0zDFO
-	 gA1sLvH9u6jvMJIu/MutggOPZm0tmCjhiddxyDKER0MQQdFfRfwVZmw15NZ4AT9SP8
-	 ZiTH7UNiWlQTsba8PYpM99xoM0FRZpPTupJAA7NWKMtLMdLTvsVoVgDi1Kj9dG/TEP
-	 SURWC2exgVT/VQUnRio+nTqNWLprPdXr2Z9YvZxBjuw+GtuL6T4uuGg/t8BRDArewL
-	 P+jwKMxQYy1JsjOCGe+veeNfFlSFHYm1jFcEUjFQpOq8oFP/frLhrqDw3jKbkwaYkV
-	 EwZbOtlhE0XTQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/10] dt-bindings: mfd: ene-kb[3]930: Use generic
- power-controller schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?UGVuZyBGYW4gKE9TUyk=?= <peng.fan@oss.nxp.com>
-Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, lee@kernel.org
-In-Reply-To: <20260804-mfd-syspower-v1-1-a440783c2e78@nxp.com>
-References: <20260804-mfd-syspower-v1-0-a440783c2e78@nxp.com>
- <20260804-mfd-syspower-v1-1-a440783c2e78@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 15:11:27 +0000
-Message-Id: <20260804151128.3DA7B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VjW25G0R"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c197e7e4e94so803475866b.2
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 08:12:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785856339; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KS+HDxWPATOhIlxuWIeYLq9zY6E9Gae002EsaQeUPeW0XsGC6uSuO3F7hC/Z7KnqdF
+         Ty5LUa8OqhF6jrUCgmIKU70fYe3x5swjkexxu3963BYtx8TqYyuCH4+fjeYpl+2T03fw
+         DUwh+G3mm5mMtkqY5Ma9eGZGZxqnWFwLHvPqq/FP0DRCSpScx3F8re5DZ1NKWEVeS1hb
+         q4/myoXHcwIGt73fEbgQLxB27WOQg/sHQ8k5Z+LayXe8r1umnZQzMqSzy0OQbLKZlKe9
+         pCdoTYBVLiLzTtBZIWs38hXTZDIOr2/HZckuPmwGQgTlEeCsQlqh4ooop9lOCSUGkppH
+         V1GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cjSC0VBCJlRsHK9Tnc8vxBqu9ttux07An39HyrNLSeg=;
+        fh=3IgqSNL8L7ZUBPfSzIpfQDcQMeOOKi/WGrY3OtSpeCA=;
+        b=kIUy7V0HXu5BqGqqSR1YZDh0TTzFeKEgDpWVDwkQuEv0ZF4ErNJU6rpbjn/YGFVB4p
+         AiP/m/lqcT2pfAWkwAYJqdv2rDCHpOgGm2t9I4lFXCO119UvzBmlC6EapnjlKSpKlmGa
+         y43+eSunZm03g5mtOpcoS5E2bhgsfjN5dklliAyu62fGhnWIBin2n/C746AaQkmDNYDN
+         0Kq5Gr0/QKQMRfsgWi+mhxrbmzjeIzvE4P16k+384xbDDOPkJ/OglaocoJq1JAPZjOvj
+         c8s9dEf5rqxkZBxV388XMSkKWBJEadlekeZRX2kSdy6SEyF/2AcZS5iFrBPLxpgqnLpg
+         /XnQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785856339; x=1786461139; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cjSC0VBCJlRsHK9Tnc8vxBqu9ttux07An39HyrNLSeg=;
+        b=VjW25G0Rss6XwUaVtGx04JAmB4gl7fBIZn6eNYltP4JHODs4BZ0gmWmYmYj258T7h7
+         0GOnEO/D67UFkZa0Mg2l5KGVGUoDHbzb8LMQ8P0YbEf1fVmIQxRZ2B8ynluFM1P+Zuhn
+         yCj30Rakomek61pPl2uhSCLeU/WMx1id0v+jwJMwxBH6/VNGkpeSj6vZAbb+fv2zzWHJ
+         0cq6AbQjueKzUSzo9ZaZsO4IS97Be5eWYClpfaJTfJdyidnK5zhrGm1R50Vm/qotpisI
+         MKfd2xjJ6EhXhzt6oWTySIc1i43378aXG+f9SB/d4a3fYxKJKu9JHPncHqWBdU0b434f
+         nYjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785856339; x=1786461139;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cjSC0VBCJlRsHK9Tnc8vxBqu9ttux07An39HyrNLSeg=;
+        b=SvCHH2JakE8M2dPxwNZSMHXU5tLXThSIG/UWKfnLxirVcfMsGL7uxYP8wI7qrK9iJI
+         HctedWh1+kF0h+htockLPmvaVjzrMdZFX+j/2+YJrfHBBFwWMfmdOgkwsBipMq9Fqr3B
+         iysChrONJJRNMShhJHAX5o+sb2ZWEtUVtwRk72uoAIVaP4rALAX5IjyKDoPyuth8OqWZ
+         p63vaRT+BP4uXlLT/QPU/G+DTcKjEFQpGbUf8GFbYGO2697V/9qMfHYBE/ZaeCnHNeQI
+         ax8rTr8yYy8pU6rElISkcdHQy0zvZLhkffOLLWjlZJtLSiawEqnTD8hZRU2YaWzC8/Us
+         cc9w==
+X-Forwarded-Encrypted: i=1; AHgh+RqyoY+tFUvxHgHGQSIx3LrMeoCTB9mvPGbu8hy5C4oUJXeAnfZLwmtLFleV8nsgXGSK4sNChcIZKUx0@vger.kernel.org
+X-Gm-Message-State: AOJu0YzP88ZDnoysnvRffHF8rrsyCg2qWWJTderypHw862OLveXZNRlI
+	6oS2sjvaUOF6hYjJ9nk8j3v5qx++WEleNmsgphULGi3BFQay5tOpzughG+F3Qr8j0iKBWKyX9mN
+	zWutD94pKPlf7eXPHCipmjFxB2jXdQvE=
+X-Gm-Gg: AR+sD12U1qYeFOMr8hhHAcOOqOFjvSwMJrdWS91f/Q+x7l/5GluGkAUFmSjAxx4zxBq
+	SvvzcSNgRrXZs6my3JkfXoq/Ms8IMSWrY+lwHww+L4jdSI6Hlo15WrsXFTC8buUirXnCFJIm5IP
+	B1NghLej7Mkrk0U3g4l53i2TOWExFwIm0pGFtA5EKvhEfGMKnB7qY38CBbI6ToOIdh7T9V9bl6n
+	i0idECrzf8o2RjRzMderSunUXmecwPTbVZXN6mhwVNn9G7f07dmKzJ44mdsIm0H3sTsZ0f/DBJd
+	uh/bf5zaWtjv9DAoLYyRcZuVzeNma5n7o/aAfCvVSFYwU+rmeTpXjV3F
+X-Received: by 2002:a17:907:7283:b0:c1c:4a80:30c4 with SMTP id
+ a640c23a62f3a-c1fe7ea3bf0mr1264423266b.11.1785856338657; Tue, 04 Aug 2026
+ 08:12:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260803101734.270821-1-a.shimko.dev@gmail.com>
+ <94fb1a6e-71d6-42ae-b221-cc03a820d2e0@lunn.ch> <CAOPX746ZFCE1XwXJ1H0gEaBvdvq-4GAiPTKkT-3XvZi0n_f73A@mail.gmail.com>
+ <2ccd6223-dd40-406b-8869-021881755f72@lunn.ch> <CAOPX745w-Hfq1k+H0qLWQjsjY-5bb_9N9sw5LBJ0QM-n4j+D+g@mail.gmail.com>
+ <5ce27e97-bb4a-4f17-a445-16331af0a6f5@lunn.ch>
+In-Reply-To: <5ce27e97-bb4a-4f17-a445-16331af0a6f5@lunn.ch>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Tue, 4 Aug 2026 18:12:07 +0300
+X-Gm-Features: AUfX_mwQsUa4lDAx1alAI_-UYCS_l4QLs7qTpkYy0RJXxYv_OxJOUZPf5jgwV5Y
+Message-ID: <CAOPX7452s9D=m0wS7_zwitYTBLeL5aZ=H66nBWe5eXc=m56CSA@mail.gmail.com>
+Subject: Re: [PATCH net-next v5 0/3] Add DAPU Telecom DAP8211R(I) Gigabit
+ Ethernet PHY driver
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Broken schema reference to non-existent power-controller.yaml
+Hi Andrew,
+
+On Tue, Aug 4, 2026 at 5:41=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+
+> Another things to explain with a comment...
+If you don't mind, I'll simply update the DT binding example to use
+the standard 1950 ps value,
+instead of the platform-specific 1050 ps value. This should avoid
+confusion for other developers. I think it's more appropriate.
+
 --
-
---- Patch [1]: [PATCH 01/10] dt-bindings: mfd: ene-kb[3]930: Use generic po=
-wer-controller schema ---
-commit 7180a65c7f429628f30dced562271d7d6ecc790b
-Author: Peng Fan <peng.fan@nxp.com>
-
-dt-bindings: mfd: ene-kb[3]930: Use generic power-controller schema
-
-Convert the binding to use the generic power-controller schema instead by
-referencing power-controller.yaml and removing the local
-system-power-controller property definition.
-
-> diff --git a/Documentation/devicetree/bindings/mfd/ene-kb3930.yaml b/Docu=
-mentation/devicetree/bindings/mfd/ene-kb3930.yaml
-> index 9b11b6e2bbf74..1847a6d5b22e8 100644
-> --- a/Documentation/devicetree/bindings/mfd/ene-kb3930.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/ene-kb3930.yaml
-> @@ -13,6 +13,9 @@ description: |
->  maintainers:
->    - Lubomir Rintel <lkundrak@v3.sk>
-> =20
-> +allOf:
-> +  - $ref: /schemas/power/power-controller.yaml#
-
-[Severity: Low]
-Does the /schemas/power/power-controller.yaml schema exist in the tree?
-
-If the generic power-controller properties are only defined in a legacy text
-binding (Documentation/devicetree/bindings/power/power-controller.txt) and
-have not yet been converted to YAML, make dt_binding_check will fail because
-this reference cannot be resolved.
-
-Additionally, since unevaluatedProperties is set to false, will removing the
-local system-power-controller property definition cause the example to be
-rejected as having an undocumented property?
-
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/mfd/ene-kb930.yaml b/Docum=
-entation/devicetree/bindings/mfd/ene-kb930.yaml
-> index 02c111def5de5..e0c8abf95bd92 100644
-> --- a/Documentation/devicetree/bindings/mfd/ene-kb930.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/ene-kb930.yaml
-> @@ -13,7 +13,9 @@ description: |
->  maintainers:
->    - Dmitry Osipenko <digetx@gmail.com>
-> =20
-> -$ref: /schemas/power/supply/power-supply.yaml
-> +allOf:
-> +  - $ref: /schemas/power/supply/power-supply.yaml
-> +  - $ref: /schemas/power/power-controller.yaml#
-
-[Severity: Low]
-Similarly, will this reference to a non-existent schema file break
-dt_binding_check validation here?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-mfd-syspow=
-er-v1-0-a440783c2e78@nxp.com?part=3D1
+Best regards,
+Artem
