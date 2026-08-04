@@ -1,137 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7370246D085;
-	Tue,  4 Aug 2026 14:57:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E84945FFB3;
+	Tue,  4 Aug 2026 15:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785855468; cv=none; b=UceqM1ycngmTCf4owSkFotGySbC5Jt57hoaOe3LW83997ev8BQ5okt33kyo7TwhVQ8CoyiKCcRpf0XRqmNFHYgLUNY6eawdMgMwl1JlkQnk79PuATYGeu9TCELaFGqhBjX5rGHwpoNMS/gd5oRjrw8xHOfFfMdOepv32MDD2bC4=
+	t=1785855819; cv=none; b=OcsRVT/ex2uVW+yWm1iZcL1/PF3URNrTgiyNNK1+g4sclTrHv+5D2YFK2pK6Vy2BE0pU34zdclvx8TtsVMN0gCszp8RR8bw+ha/WzO50VKxjtY19u59WSWP0Tb2Wh4BslEY2Fz0PzRpZKs9MPusLZ6AqWxQbxDDSGltoTA39wG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785855468; c=relaxed/simple;
-	bh=Bxsf/tM/inm4tWB5FckFDrW3RfUJDXeHauOssflYyFk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uAZ/ARQJrkmnn+zYBieMdpYrgM1gowkSXWver9pglm3NP1ORY51DLCbD21lTW9kErLaC/kmCPzyQHH6C3uC7wKbvUyYxin9LuaGG3e0QUUO+kt3cUZVXjsZDQAV2FM3Xg4l7CEC2AauXWjmzrzetdyO0mWV/c4Se1OeFGamfDNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LP7eRLHs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785855819; c=relaxed/simple;
+	bh=2d+0kwXSdsVxRQA1h46DYXCp+cmCpVqM8K5MdYotb3g=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=sRihpQuj1ZEVf4DMY1Ico2uwhC1vWdRS+HOmTqni4zoIBrlQ3Ic6flfqaslVxM2WHlI8eAfEj++b5SiivCPJ1YjVhoRc8bmb/k1oA0+qwutvPEZUEJ5CCYfeHL44nPZlOSxI1ezCvtpOIVWyuKhBQ8h8jKRQM8Os1TLRV+kOO2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Iyqh5wpx; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=l2pJH3F2; arc=none smtp.client-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LP7eRLHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22341F000E9;
-	Tue,  4 Aug 2026 14:57:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785855463;
-	bh=Jld8QoXOyiRKxKiV6Ij6KMsJftWjnRzT1IjV73V8qmY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LP7eRLHsIvkuDUhDSJnSpHvpTQWt3F61j6RQKNDy07FNsBlrRb807tlFflrNdton7
-	 XAAWF3/uHfejsdwVyu3UYh8aDyqjiV9O2zxhZvfCtrMSDyKFsbrpiG0qTiiw2QGx8R
-	 XPFIDoWdCpVtWxNEvQXq2SsDvpu22+Uxz/+/bpoyVHbfxrRYUyKK6y1OVB2lbE63no
-	 Hrk0msCy4GNs/mv6QYbsMxzu12Ux4S//vDdVp72Q+ZoHAMC2XUS+kLzNNK40PwsBL7
-	 ETWz6LzTpv+hGaBnabnBVAtquqd+BMSvESxoICuiSRroJ8LH9vbVBfFkUFQXrxe2ZI
-	 AywwE0tVdjK/Q==
-Message-ID: <b99c478d-302b-4c50-8a8b-94aa0f4f7fad@kernel.org>
-Date: Tue, 4 Aug 2026 16:57:34 +0200
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Iyqh5wpx";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="l2pJH3F2"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 5FF15EC0112;
+	Tue,  4 Aug 2026 11:03:27 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 04 Aug 2026 11:03:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1785855806;
+	 x=1785942206; bh=BOKiXsupyStLiWuBcIH5e44U3q/vIZOUOqRAnjcxwn4=; b=
+	Iyqh5wpx04P+KE/eojxZHA28SCH/DUg88rB8QIh9XY2/5UBDiozJiht9f1qHHfuE
+	EAq25jjqt49qcypgRzij+DCT6EN2J/V8S7QpEIGTMrS+5+eQ40kxDzhKZ4znnaYH
+	KmAdKdOXShfxWWoQOvsr0OipQZH9gCaZ0VZUEQAo5m5bWUn7yuMzSh3ZnmYoVdDF
+	yJ8yLKZ2faR2buRIJSn3tTlv5fvBitYcPCmBZRnunD+iDiTS2HkeVzXDHdPfXyMy
+	IKH1pGtiRbp36uhDYeLmYlBSwYkFYLn49zw9YLd3E+PKQVqeOg6ARFWRNUwOn6Rk
+	I5QRxKIGJyLC2G5nqBrmCQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785855806; x=
+	1785942206; bh=BOKiXsupyStLiWuBcIH5e44U3q/vIZOUOqRAnjcxwn4=; b=l
+	2pJH3F29cjoWWydj4iB+qkj/d0hAGcaUj0d78viLZhhwvZyzSURmSsfNtxgt0HNC
+	6gx1yT+EvgyaM//+ooc5p0GhvV/dKBZoOs95MbrMhT2hONN5k1zVAr71MYdhiyYx
+	YDIzVkABKO0o6a4klvatnZ7JX8drMPsEOYUqLBsuUZhUgLWF/51CpyfUHmGeHWZi
+	mCamAkmcKYMyVpORGZKiB3TyEglow9fwkJGtCRTDMXQ4XdiEnQAigmmx4Qho1wdc
+	jRs7ZjCLAXXZXGWqodc3j9Nz0zBMGnOJhVkNow2H3pXhL9n4TZEXtgG90yc98x7D
+	4TKkjyv54y4BcTLaVVCMg==
+X-ME-Sender: <xms:OP9xavON4w3pCsubFI_ysFN5mNitwbXDfb9euIGVwiwxceQFBGh6ZA>
+    <xme:OP9xakyW_sxnQrVx074z87EqMpRl6v3EyI911kN4hJVokghxMsyo4gLK7WK10n6B8
+    2VJV5YbxQFs0NO6L8VDNjh2k5YGO9c_rYakufZ46R6plyP7xD3MOQ>
+X-ME-Proxy-Cause: dmFkZTFPJPzkVrHUNS8tdseR/I2i5GNycvcEuFXnXWAbF4eO2qTbDGR25kQyKDLbuIsHQ2
+    ZLgV5CYHlEU/mDwmjSWtoz6k7iL4VP61k3rYSU3LCwYBRuKes+nlJvgeTc3FH80lcOezB6
+    7De8kIS1ZW1qsx7uA9Pf8urEmM89K5OdNP3k9rsJ60fkeS1noGGiS4rdZPriQd5vYkTaeJ
+    RigP8v3ZgQirfb+AH0vNlegXJ1OWgOhiVdOAH/0IV9fkxgqk+T2h6EaZBqyDUlWvnbZZS0
+    dVuXpA2M3cRVcgJovEk3itZuXhA7J4FgMjPBQYo6w4tyNF5wzwtapZLtwqte/dh51ZAkMb
+    FL3N3gNCpF9Foh7rszEVj/u5ekV8OHdttxU/VRxjITINq4UHLovtIZI41onTMBPRMShkca
+    v2ZZJlFcetRBJ+Y5fnjzxbU3hQstYApj0p39YcbfN4tVOmkixz+uRyOVfvCTOnbs+bAnbn
+    PwmDamjDPux3wNnBMzTaYVjqdxtbpsH3EvIWn6j78sfQht5CET8+s1Lj6ChSwaCqsiQT+5
+    p0kXZU7pMzp+t9pdeHY0LT3bJQ0SsvxJN4Ib5YiXaiUarFMlsNLL4aawNeN8OUiaIN6/vS
+    E6FawL9s3vWQPcvb2Z5hkD0V6Sa3Fe6QO3djgAFXV5XQbw7AJvt2BunHE/gQ
+X-ME-Proxy: <xmx:O_9xavJMyiVYP3X7DLfALGsQeeImGud7V6hnLN0kEDjW5Z-dlAUJ6Q>
+    <xmx:O_9xapitxvV6I_kp0dl6EvnI4qz-IB4Bz8fHGtutyRJyJTDJGAZaUg>
+    <xmx:O_9xaj-bnnqNPz97uI1nu3mEih-Zy1p42CJPY-KzWQgUzJCm2pnvew>
+    <xmx:O_9xamNThNps6ccim6uc2IJbnEgaLOImbf7U2w3HLTGhspoy1avQXA>
+    <xmx:Pv9xarhEqPQPpxeQGTX_wNv1mDT8nUQwUYd4t62GhEkUj5YFrR3erHcc>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 69F1832A0063; Tue,  4 Aug 2026 11:03:20 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 30/35] dt-bindings: pinctrl: airoha: an7583: add olt
- function/group
-To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Christian Marangi <ansuelsmth@gmail.com>,
- Benjamin Larsson <benjamin.larsson@genexis.eu>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
- Markus Gothe <markus.gothe@genexis.eu>,
- Matheus Sampaio Queiroga <srherobrine20@gmail.com>
-References: <20260727174141.664933-1-mikhail.kshevetskiy@iopsys.eu>
- <20260727174141.664933-31-mikhail.kshevetskiy@iopsys.eu>
- <20260727-chivalrous-legendary-goat-b9ab93@quoll>
- <d92137d6-5dde-468a-95ec-3acc506444f9@iopsys.eu>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <d92137d6-5dde-468a-95ec-3acc506444f9@iopsys.eu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AGiDCXf8z4CV
+Date: Tue, 04 Aug 2026 17:02:48 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>,
+ "Andrew Lunn" <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>
+Cc: Netdev <netdev@vger.kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <75937d1b-8ae9-4daa-bc36-08bdf5a6c5a9@app.fastmail.com>
+In-Reply-To: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
+References: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
+Subject: Re: [PATCH] w5100: restore GPIO-based link detection
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 04/08/2026 16:43, Mikhail Kshevetskiy wrote:
-> 
-> On 7/27/26 23:15, Krzysztof Kozlowski wrote:
->> On Mon, Jul 27, 2026 at 08:41:36PM +0300, Mikhail Kshevetskiy wrote:
->>> Add support for olt pin function for olt pin group.
->>>
->>> Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
->>> ---
->>>  .../bindings/pinctrl/airoha,an7583-pinctrl.yaml        | 10 +++++++++-
->>>  1 file changed, 9 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
->>> index 7deb48db52c3a..f016e0da65a57 100644
->>> --- a/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
->>> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml
->>> @@ -60,7 +60,7 @@ patternProperties:
->>>            function:
->>>              description:
->>>                A string containing the name of the function to mux to the group.
->>> -            enum: [pon, tod_1pps, sipo, mdio, uart, jtag, pcm, spi,
->>> +            enum: [pon, olt, tod_1pps, sipo, mdio, uart, jtag, pcm, spi,
->> You just changed this line in previous patch, no?
->>
->> Why binding patches are spread all over instead of properly grouped?
->> This makes it difficult to review. Please read submitting patches (both documents).
-> 
-> I tried to create a separate binding patch per change. Could you clarify
-> your suggestion?
+On Tue, Aug 4, 2026, at 16:38, Arthur Cr=C3=A9pin Leblond wrote:
+> Commit dacf281771a9 ("w5100: remove unused gpio link detection")
+> dropped the link_gpio/link_irq handling on the grounds that no
+> devicetree user passed a "link" GPIO at the time.
+>
+> Signed-off-by: Arthur Cr=C3=A9pin Leblond <arthur@marmottus.net>
 
-Adding missing functions is one patch, unless there is reason to split.
+Hi Arthur,
 
-Best regards,
-Krzysztof
+The patch description could use some more explanation here, and
+a clarification that you don't just bring back the original
+broken code but add devicetree support for it.
+
+>  .../devicetree/bindings/net/wiznet,w5x00.txt       |  8 ++-
+>  drivers/net/ethernet/wiznet/w5100.c                | 84 +++++++++++++=
++++++++++
+>  2 files changed, 89 insertions(+), 3 deletions(-)
+>
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt=20
+> b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
+> index e9665798c4be..e97ce3cb9183 100644
+> --- a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
+> @@ -25,6 +25,7 @@ Optional properties:
+>    According to the w5500 datasheet, the chip allows a maximum of 80=20
+> MHz, however,
+>    board designs may need to limit this value.
+>  - local-mac-address: See ethernet.txt in the same directory.
+> +- link-gpios: a GPIO line used for the link detection interrupt
+>=20
+>=20
+>  Example (for Raspberry Pi with pin control stuff for GPIO irq):
+> @@ -38,13 +39,14 @@ Example (for Raspberry Pi with pin control stuff=20
+> for GPIO irq):
+>  		interrupt-parent =3D <&gpio>;
+>  		interrupts =3D <25 IRQ_TYPE_EDGE_FALLING>;
+>  		spi-max-frequency =3D <30000000>;
+> +		link-gpios =3D <&gpio 4 GPIO_ACTIVE_HIGH>;
+>  	};
+>  };
+
+Ok, so you are using the binding I suggested originally,
+which I think is fine here, but note that Rob asked for
+the binding to be converted to yaml format in
+https://lore.kernel.org/all/20260427145010.GA2502144-robh@kernel.org/
+
+I avoiding touching it by just removing the broken implementation,
+but it would be good if you could do this now.
+
+> +
+> +		priv->link_irq =3D gpiod_to_irq(priv->link_gpio);
+> +		if (priv->link_irq < 0) {
+> +			err =3D priv->link_irq;
+> +			goto err_gpio;
+> +		}
+> +
+> +		err =3D request_any_context_irq(priv->link_irq, w5100_detect_link,
+> +					      IRQF_TRIGGER_RISING |
+> +						      IRQF_TRIGGER_FALLING,
+> +					      link_name, priv->ndev);
+
+I think you can just use a hardcoded link name here, and
+an open-coded gpiod_to_irq(priv->link_gpio) for simplicity. My
+previous version kept this from the original code, but if you
+reintroduce it, you can improve it further (as you did elsewhere
+already)
+
+I would probably also use devm_request_threaded_irq()
+
+> @@ -840,6 +918,7 @@ static int w5100_suspend(struct device *dev)
+>=20
+>  	if (netif_running(ndev)) {
+>  		netif_carrier_off(ndev);
+> +
+>  		netif_device_detach(ndev);
+...
+>  		w5100_hw_close(priv);
+>  	}
+> +
+>  	return 0;
+
+The whitespace changes should not be part of the patch.
+
+     Arnd
