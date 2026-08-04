@@ -1,57 +1,58 @@
-Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC2B39F168;
-	Tue,  4 Aug 2026 14:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5A03F6C50;
+	Tue,  4 Aug 2026 14:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785854650; cv=none; b=ZjPFITwQ+1b5sO9bmnFMlKiUuSvoWfvx/mPJXCPJgLaeBnD2mTqGs5F0Vnd+NH6rOhBWL4ULUemAvmK6tHEhkwl3TOuKR5pKugj6NfG9geOGJxt7sfRlzST5j8g0+PlmVyfyqiATKEWlc9nHisbIoFV0oWC9k4WRdLFhAb2CTAw=
+	t=1785854684; cv=none; b=J3+K9FoRY7zbaooLiNE6GZiIOl0ulm51Wg+noRb/RMwFi0O3rVmbSJIi8gslZcZI5B72CPg9JevLq0r4vq9UIqtL74PQZjB6uB7gIcRfM/KXKa4A/NLHZia7bbgp/ySEYbSEsEeN6NBA5YBs/h8vlhjo5YKZDzy/07oOp0AW5oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785854650; c=relaxed/simple;
-	bh=tRCtExrDNycQl/KAnVn8BjSsdXGk5ty79EyIiX9CMl8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=mlKeBjqg9bzObcY5n8k3+djmdqbKA+GWpCbQx3BuX00P9Icr8H83HhNI2kPnXEjmmPg5VOKHMIkV1vJxcZJnwC6nKWY1KG6eZI6cg/PlzivaGPQ2LVouZwNGV4B3Ozq1Y4/w07jpMx9MXFgy+o1NlCkMYmf8v9pcbufEgbmpkdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=VULEBSCS; arc=none smtp.client-ip=109.224.244.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1785854684; c=relaxed/simple;
+	bh=R8f8i+SMdVFGpfr5nD/l7UbuV0J14/4rlc7Upub887c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qV3aY8AMblOksIQgVw5ORPM6cGDvNq7daoS6ZrrJHAqzE7DEcr4ODAUmaCe9eFb/EGEas4Nfe6gozZpKcgiu5Xh4kf7oQkkn2lK1X4icJXIIHZuJ93eLvBuVRYgGvI1LOyUVE1UokNDBH4XDtQDfhCcZNmJFr1rxzyF9kiGgSww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SGp5NuD0; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="VULEBSCS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1785854645; x=1786113845;
-	bh=3in15dZVLlxJAE+j8ddyRNkSfPjTBhBwJNuRl15WtEo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=VULEBSCSFDmTrYu2ZUZBelXLro7VZZafL6B0A2h0fevCZC0fv30PX3fXioG1wEeBp
-	 8RiE4dNvkqeWqPLc5ZO/1SLi6YKOG4RcY+S/4l+uozkLgKhkcwHYX18RNOV5WjLI1H
-	 vw4G52rvYGYyRRRYJVKBI5JpVxh71iTzziCOO46zbWysHdKW8CM0kXBcGXI0iG252q
-	 d0biXlAldn2KLQBuGL4mlOU290Gcfmy/eOMVGbCmNFDPf5UG5At1bBdwozSDhs9Ve+
-	 TEjVOTlLmoJ1Qa9clOxhXL9iHRHt87ejQnarxpiMaYwL5ISga9Qy2S/7ll+RegKubm
-	 7x50L0rII0tLg==
-X-Pm-Submission-Id: 4hDxBW5qM9z1DDrp
-From: Esben Haabendal <esben@geanix.com>
-To: Nuno =?utf-8?Q?S=C3=A1?= <noname.nuno@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "David Lechner"
- <dlechner@baylibre.com>,  Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>,
-  "Andy Shevchenko"
- <andy@kernel.org>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Nikita Travkin" <nikita@trvn.ru>,  "Maslov Dmitry"
- <maslovdmitry@seeed.cc>,  <linux-iio@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 3/4] iio: light: ltr501: Add ltr329 driver support
-In-Reply-To: <lax5ggtixwejynztwul5brnkciq4gq5scbd4cuoyev2w3hgcti@dflf7hnw4rgq>
-	("Nuno =?utf-8?Q?S=C3=A1=22's?= message of "Wed, 15 Jul 2026 16:25:58
- +0200")
-References: <20260715-liteon-ltr329-v2-0-d18af55edab5@geanix.com>
-	<20260715-liteon-ltr329-v2-3-d18af55edab5@geanix.com>
-	<Q-ueoELrVUGcnBAEpAJE8z7yejEFFfSQBfk5ZeoZgVu4Cf1NwcMQRiRH-cvknalrNQBzoSJDMCG7w56-0MrHVw==@protonmail.internalid>
-	<6vro5bil5b5j72rigujnm5zj4ot56rtwgs4fvn6xydybxpi4rz@vrc6p6bbkl3m>
-	<87ldbcmkr5.fsf@geanix.com>
-	<Ouq1f3XzhZ5grFMyCxC8cEFbB3eSSXdVMwFQWynPlH_OezdqbjGeOQrNu0oM9NcPieYKgzdY-MnZLTFJebC9-g==@protonmail.internalid>
-	<lax5ggtixwejynztwul5brnkciq4gq5scbd4cuoyev2w3hgcti@dflf7hnw4rgq>
-Date: Tue, 04 Aug 2026 16:44:02 +0200
-Message-ID: <87h5laaqtp.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SGp5NuD0"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=ZUW+r4FCY0U+LwKfUl0eF3OjFw9eBKouwZVjhFevUS0=; b=SG
+	p5NuD0aiUnNJjW4FKOYvaYgoP4X/Ix960dvodpnmGbRjCai+YeB/TCF8XaaaudsWFgyHIpAiKTYrh
+	dK6kK5FMbbagl36kF8brz2qoAKbdkDLy24ADVx5bzSs99CAZ1YmIaTsrSEgOrVnOYYNJ4vpg2YGXU
+	l935Tc2gKon+n3k=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wrGNb-00G0KA-Ov; Tue, 04 Aug 2026 16:44:31 +0200
+Date: Tue, 4 Aug 2026 16:44:31 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Andre Przywara <andre.przywara@arm.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Liu Changjie <liucj1228@outlook.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 6/6] arm64: dts: allwinner: a523: x96qpro+: enable
+ Ethernet support
+Message-ID: <f2dc4bbb-ed90-4661-ad5c-f8c51075138e@lunn.ch>
+References: <20260803101452.2993721-1-andre.przywara@arm.com>
+ <20260803101452.2993721-7-andre.przywara@arm.com>
+ <ad2e46d5-53db-49b2-a128-7c54883e18eb@lunn.ch>
+ <CAGb2v64yH+grXMbxg1te6XHt1PxhUc4Jzch_OdUW50tq2Eg1cw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,82 +60,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGb2v64yH+grXMbxg1te6XHt1PxhUc4Jzch_OdUW50tq2Eg1cw@mail.gmail.com>
 
-Nuno S=C3=A1 <noname.nuno@gmail.com> writes:
+On Tue, Aug 04, 2026 at 11:11:04AM +0800, Chen-Yu Tsai wrote:
+> On Tue, Aug 4, 2026 at 10:53 AM Andrew Lunn <andrew@lunn.ch> wrote:
+> >
+> > > +&gmac1 {
+> > > +     clocks = <&ccu CLK_BUS_EMAC1>, <&ccu CLK_MBUS_EMAC1>;
+> > > +     pinctrl-names = "default";
+> > > +     pinctrl-0 = <&rgmii1_pins>;
+> > > +     phy-mode = "rgmii-id";
+> > > +     phy-handle = <&ext_rgmii_phy>;
+> > > +     phy-supply = <&reg_cldo3>;
+> > > +
+> > > +     tx-internal-delay-ps = <200>;
+> > > +     rx-internal-delay-ps = <500>;
+> >
+> > 500ns is quite big. How did you come to this value? Do you have the
+> > schematic & gerber files? Does the lines look unbalanced?
+> 
+> Unit is ps, not ns.
 
-> On Wed, Jul 15, 2026 at 03:43:10PM +0200, Esben Haabendal wrote:
->> Nuno S=C3=A1 <noname.nuno@gmail.com> writes:
->>
->> > On Wed, Jul 15, 2026 at 02:27:25PM +0200, Esben Haabendal wrote:
->> >> This adds support for the LTR-329ALS-01 chip, which is similar to
->> >> LTR-303ALS-01, except for interrupt, which LTR-329ALS-01 chip does not
->> >> have.
->> >>
->> >> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> >> ---
->> >
->> > Hi, I have a small not below. Kind of personal preference though. But
->> > what Joshua mentioned should be addressed. With that:
->> >
->> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
->> >
->> >>  drivers/iio/light/ltr501.c | 33 +++++++++++++++++++++++++++++++++
->> >>  1 file changed, 33 insertions(+)
->> >>
->> >> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
->> >> index 7d045be78c6d..379e57ac5f5b 100644
->> >> --- a/drivers/iio/light/ltr501.c
->> >> +++ b/drivers/iio/light/ltr501.c
->> >> @@ -15,6 +15,7 @@
->> >>  #include <linux/delay.h>
->> >>  #include <linux/regmap.h>
->> >>  #include <linux/regulator/consumer.h>
->> >> +#include <linux/array_size.h> // for ARRAY_SIZE
->> >>
->> >
->> > ...
->> >
->> >>
->> >> +	if (!ltr501_has_irq_support(data->chip_info))
->> >> +		return 0;
->> >> +
->> >>  	if (val < 0 || val2 < 0)
->> >>  		return -EINVAL;
->> >>
->> >> @@ -1257,6 +1270,18 @@ static const struct ltr501_chip_info ltr501_ch=
-ip_info_tbl[] =3D {
->> >>  		.channels =3D ltr301_channels,
->> >>  		.no_channels =3D ARRAY_SIZE(ltr301_channels),
->> >>  	},
->> >> +	[ltr329] =3D {
->> >> +		.partid =3D 0x0A,
->> >> +		.als_gain =3D ltr559_als_gain_tbl,
->> >> +		.als_gain_tbl_size =3D ARRAY_SIZE(ltr559_als_gain_tbl),
->> >> +		.als_mode_active =3D BIT(0),
->> >> +		.als_gain_mask =3D BIT(2) | BIT(3) | BIT(4),
->> >> +		.als_gain_shift =3D 2,
->> >> +		.info =3D &ltr301_info_no_irq,
->> >> +		.info_no_irq =3D &ltr301_info_no_irq,
->> >> +		.channels =3D ltr301_channels,
->> >> +		.no_channels =3D ARRAY_SIZE(ltr301_channels),
->> >
->> > Instead of playing the above game with info vs info_no_irq, an explicit
->> > has_no_irq would probably be better. I mean conceptually if the pointe=
-rs
->> > are the same, it could also mean that both are with IRQ support. With
->> > it, I think it would be safe to leave the .info pointer as NULL as it
->> > would be always overwritten.
->> >
->> > Having said the above, so strong feelings about it so up to you :)
->>
->> Calling it has_irq would avoid double negation. But we would then have
->> to set it to true in most of the entries (all except ltr329 for now).
->
-> Yeps, that=C2=B4s is why I proposed has_no_* :)
+Yes, sorry, wrong units. But still 500ps is very big. You have the PHY
+adding 2ns, due to rgmii-id, and you add another 500ps?
 
-The has_no_irq could also be read as a variable saying if there is an
-irq (pending) right now. For that reason, I will go with no_irq_support
-instead. I hope you agree with that as well :)
-
-/Esben
+       Andrew
