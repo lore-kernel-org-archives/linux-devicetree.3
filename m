@@ -1,136 +1,142 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6133E45FFBE
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533FE45FFD3;
+	Tue,  4 Aug 2026 13:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785850015; cv=none; b=D7yTG55OA9U/6qUQ1EXTUSURY/CxQcX73eW3GapT2C28izzYX3E7L0qUopRFdmk36f9lD+6jHJgfRb1Nwj9Jv2B9DCf+IFv7VINNku1qTxKPf7Idnib7/6zljfemxQeyCkrE5FdKJ/4eLtwWR68fQzKG+gblGkuFNKWrJgtQH5U=
+	t=1785850200; cv=none; b=qkKVeebDxuxYvtjOjfge/3DDdGe4K57Fq8VuaevPFNr7TE3FQHBEuvwjLk+MpKBPLAayhknJScYzyP2WSuUgmQ+4MKKqiogggdLeeG6H+IZak/gNJAZJuBFyiXwkPbO450u27LlgG05F3KAmNTCv2VN39SPlpPbg6I01RP5IoGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785850015; c=relaxed/simple;
-	bh=8785ODvlGI+w88nkKpZGop7jNiOSORDnJDRn/cyEcGE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=B0Jk4TJ4w0RvaPZf5zMFRN4iEYm8nc3zuvqmqnGvOhDQPeM90ZhtvAdgfJs5TT7NN9j/e8y9kE1l3ld4XvNuzlDdWVEp7ff1WvyHodZP12DMKB7E+IWGqz4IwjCulDdmDPHX+ulsbP44nSzijC7RFroEe3Qz8Hu7//LlOZ0nQdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=BqAODNlt; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1785850200; c=relaxed/simple;
+	bh=s4gj4uULZM4dmrLq0Q+BFyrBtz1BVx2bE29MH8NZTbI=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=ZA8ra6wfLX4YK8c1VYjqL3h+fYGVzjLeF7KE3ocv1Y4m9UIB2TQrSK/kV4TiEzYC8Mg/Xro/nAeyamrwmLiU9eg5lr78y4OK7gc4C0dNmRTmSdF7frWs8IgQ9HhWQYM07dhTa4dNfPeCbNiP7gLbtYByWVbS1rveVRlwPX6tzrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=R/4ovfxR; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="BqAODNlt"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1c4c7ddaf6so719008466b.3
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 06:26:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1785850013; x=1786454813; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=duKCsGugrWDv5g2IiTe0pk9T5MutZ42wqjHedhx9GgE=;
-        b=BqAODNltkFtc5BfrZSYsRw5ajvhzbtPK6AqJ2HEvwd3o5ajXy8gg+eN9kKNe4jy81B
-         kj0jiBw8ybvu/4OOyKVYT+93XnWtEKsLDMv2rLf2wrfOopTIKjTxQSyiJUOZG9Ye9kRw
-         Ha1ufOAMXhRcWw0zp+zPCIFy7OwqDQEFQ2vPZo17f3JAYyXOnQmVN4jRE//1/XnwCL5R
-         UjOqRwRolhlQzf1dE0nWDA6O1cHa4u5a9qcmyjGn8pXh9X933JIlJEhrO4fcoeYEooZP
-         gGA6ovFP/n49e9/tDOLDguSOtKbUKJZVySLn+P/V7MWC81E3DW4/iiCIHAPrRdMDeK67
-         RsuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785850013; x=1786454813;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=duKCsGugrWDv5g2IiTe0pk9T5MutZ42wqjHedhx9GgE=;
-        b=R4rRV5dxOnbnZG8bqzupdQIjF28gS2GHbb05zL3I+rU2Vh4UmVFiHqPqiop4FIVz8R
-         DntFXhQwY0BfUXTeEuBFkgu4thW4S+BDhhzf3jVERVXrsa8JMd3hMLOa9heJgL5hU06D
-         Y4SiqIlpwQg6viu5zMRToyQsleroFkx8jtbQ+Ehdu6a2e2Ho8dgPOhgPUTL+wuSj7L5m
-         GjpBB/DuPGVsEm75+g22GDfr7EIeNUeKUH38SHJyNL6yyd8F4NHfOXhsvo+ZR+RGCSbx
-         clEpIJb/uylGSrysAnRJQcuXotNQASAWQuTRevE1B7kzuX55xPIy4eV7s61TEvkP7k+F
-         Sguw==
-X-Forwarded-Encrypted: i=1; AHgh+RpZb1BMRZ0Ze33m96lIOL2zDs5YDbkyOvCBavlvhPoPJ7HWyssNNMoCUdmdy03GsoKOd8ibGEQxXqlK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzy+nvOmS0o6dx0h9ru6mCp88K2Wqukidd1uHNZuKcr+FX2j4ng
-	3ji82Cc+oCq5cJ+hPj+mh2FEO4CTNgiRUK0IxgJM9LsrlvVHDRRnUQ7Ic6llK/Egka0=
-X-Gm-Gg: AR+sD10vVJsO18x2hA+EPn7dQjKrLZpSjF7S7wz7U3+jEAKjtO6M93G2CTWauef763e
-	X9P0otFjMMXoT7CkBQrkXhKuu1RS1/JMXuaBx9ruQW+vLEuvwDffVU0qFJ+IUJCaYDNuOZAI+C4
-	gYn0gm7XqHS4o9vl/IoqVKeOQ/FcGzJS8q95n9Cle9Grj6DnVciGt/8QA+hLzePh9Ydprg2gwvU
-	xxG8qX9M+P+hZaG8w2NG02yt9LQfoDMjLjtTJyPg0fgQi816wek52W4QJK/pXsL6nABimZcbJxM
-	BN6EUp5xb2sFBoPTRb/NLn/IbbHiREqQmtsRW+6tvGPS+SZ+yLA+tV2C/Cx8uffgl5jWxWDfUXu
-	Dg8hY3K6JR7hO1VjI+1fLh2bSQFL8XOyMmGE0rT17nSJ6OLx7T6qpX6WKsCH1nWFEIy2h2sjUA/
-	fIMJfzRwuN0l77N01q2jXeG2hGBAGrP443V8sC+GBvvNhqksgw9MNPk0Sz0BQOsHvMBhLeJk67B
-	P1BTkgknUQX6o91JegIdYQs/UTxMDsOctOAHGQQ71K3
-X-Received: by 2002:a17:906:fe43:b0:c1c:2c32:1163 with SMTP id a640c23a62f3a-c1fe7f4b006mr1435330266b.25.1785850006304;
-        Tue, 04 Aug 2026 06:26:46 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c203644c62fsm9811266b.53.2026.08.04.06.26.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Aug 2026 06:26:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="R/4ovfxR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1785850198; x=1817386198;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=s4gj4uULZM4dmrLq0Q+BFyrBtz1BVx2bE29MH8NZTbI=;
+  b=R/4ovfxRONKPL0Av5RIMdZn5yIudHxsDcl9baFnSPk+pdXVLcpkG4axC
+   Kuxks5vWz/cl7h1z/VdaU8JPyM2QGyMnMJqj43dG6DPb1WcZt8ENDbQZZ
+   ctslLPvJXYbV6o79LyYRH5eGrcdYCM/wA05rAZgg4IfQyYNU6xnJ77MXH
+   jfYuzbnv+VG3Zqif0coRHKA7eX4KeKH1vrdJjNkam8HK+GLKK47rzN2he
+   dtme8vcGb1ts3kv0x7TT/Py3LH214VbGd0QGwRGQbIonaShdq1TnJJXrT
+   5ePfjYi4Mv+n9SuTf5dXEVTzv9yIVQjbihDnHBJkSEw5Hd0Xki4mFinAc
+   w==;
+X-CSE-ConnectionGUID: PdyIKO/KRqmtC5pL79kSSQ==
+X-CSE-MsgGUID: FLM0HkANSveIbciXI2iLmQ==
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
+   d="scan'208";a="61938335"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 04 Aug 2026 06:29:56 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Tue, 4 Aug 2026 06:29:56 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex04.mchp-main.com
+ (10.10.85.152) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Tue, 4 Aug 2026 06:29:53 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Subject: [PATCH v3 0/3] Refactor Microchip MCP47FEB02 I2C driver in
+ separate modules to add support for MCP48FEB02 SPI driver
+Date: Tue, 4 Aug 2026 16:29:46 +0300
+Message-ID: <20260804-mcp47feb02_refactor-v3-0-97f8b81f3628@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 04 Aug 2026 15:26:44 +0200
-Message-Id: <DKG6ZQDKN7L0.3A4YY34C315FN@fairphone.com>
-Cc: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Manivannan
- Sadhasivam" <mani@kernel.org>
-Subject: Re: [PATCH 14/28] arm64: dts: qcom: sm7225-fairphone-fp4: Fix
- swapped USB QMP PHY vdda-phy/vdda-pll supplies
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: <manivannan.sadhasivam@oss.qualcomm.com>, "Bjorn Andersson"
- <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
- <20260803-phy-supply-fix-v1-14-5880630cde3e@oss.qualcomm.com>
-In-Reply-To: <20260803-phy-supply-fix-v1-14-5880630cde3e@oss.qualcomm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAErpcWoC/22NQQ6CMBBFr0JmbU2ZQkFX3sMQU8ZBZgElrSEa0
+ rtbcevy/fn/zQaRg3CEc7FB4FWi+DmDORRAo5sfrOSeGVCj1RZrNdFSNQP3Gm+BB0dPH9Tg2gq
+ 1Y4MtQl4u+SKv3XrtMo8Sc+29P1nLb/rzNWj++tZSacVcn9ga22BPl0koeBplOZKfoEspfQDyn
+ NgaugAAAA==
+X-Change-ID: 20260625-mcp47feb02_refactor-fa8420ae3282
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785850193; l=2975;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=s4gj4uULZM4dmrLq0Q+BFyrBtz1BVx2bE29MH8NZTbI=;
+ b=H7T/YaOMWpzQE9TwnIq5L7B/mHG922Vb2Lax73So9neaGAPoMPkLVJU8xuknZkvSvBVeYdGF0
+ +J4pKxP2O2uACGi7hAg+OdLF+qh495I+I9h6EBrVb0EMVigu2afOU5j
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
-On Mon Aug 3, 2026 at 8:34 AM CEST, Manivannan Sadhasivam via B4 Relay wrot=
-e:
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->
-> The QMP PHY expects the vdda-phy supply to be around 0.88V and the
-> vdda-pll supply to be 1.2V. But these two supplies are swapped for the
-> USB QMP PHY on this board, feeding 1.2V to vdda-phy and 0.9V to
-> vdda-pll.
->
-> Fix it by swapping the two supplies back.
->
-> Fixes: 4cbea668767d ("arm64: dts: qcom: sm7225: Add device tree for Fairp=
-hone 4")
-> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Assisted-by: Claude:opus-4-8
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.=
-com>
-> ---
->  arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm=
-64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> index 23f950067a08..bea82cbc2c88 100644
-> --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> @@ -1247,8 +1247,8 @@ &usb_1_hsphy {
->  };
-> =20
->  &usb_1_qmpphy {
-> -	vdda-phy-supply =3D <&vreg_l22a>;
-> -	vdda-pll-supply =3D <&vreg_l16a>;
-> +	vdda-phy-supply =3D <&vreg_l16a>;
-> +	vdda-pll-supply =3D <&vreg_l22a>;
+Refactor I2C driver implementation into separate modules in order to add
+support for SPI MCP48FxBy1/2/4/8 DAC family on top of the I2C implementation.
+The I2C and SPI devices have the same memory map and supported
+functionalities.
 
-Schematics confirm:
-* VREG_L16A_0P88 <-> VDD_A_USBSSDP_0P9
-* VREG_L22A_1P2 <-> VDD_A_USBSSDP_1P2
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+Changes in v3:
+- renumbering the patch version to include the first patch submision
+- fix review comments device tree binding:
+   - change 'additionalProperties' to unevaluatedProperties
+   - add else branch with spi-max-frequency in the condition which checks
+     if a device has SPI interface
+   - correct SPI address example
+   - add clock polarity and clock phase properties for SPI devices
+   - enumerate I2C devices in lexicographic order from the description section
+   - specify supported SPI modes using dependencies
+- fix review comments driver:
+   - remove unneccesarry libraries and add the missing ones
+   - correct comment typo
+   - return -ENODEV using dev_err_probe() in protocol probe functions
+   - use named initializers
+   - move defines for registers and enums from the header to the core file
+   - add dev_set_drvdata() in probe()
+   - move mutex aquiring from mcp47feb02_write_to_eeprom() to
+     store_eeprom_store()
+   - write correct value into Vref register in resume()
+- Link to v2: https://lore.kernel.org/r/20260723-mcp47feb02_refactor-v1-0-ee59e63672bc@microchip.com
 
-So this also matches.
+v2:
+- include in the same patch series the refactoring of the driver and the
+  support for SPI devices, but in different patches
+- remove changes regarding review comments received not related to the
+  code refactoring
+- first version of the combined refactoring I2C and adding support for SPI
+  driver
+- Link to v1: https://lore.kernel.org/all/20260403-mcp47feb02-fix2-v1-1-da60c773550e@microchip.com
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
+v1:
+- first version which did not separate the refactoring and adding support for
+  SPI devices (into different patches from the same series)
 
-> =20
->  	status =3D "okay";
->  };
+---
+Ariana Lazar (3):
+      iio: dac: mcp47feb02: refactor MCP47FEB02 I2C driver into two modules
+      dt-bindings: iio: dac: add support for MCP48FEB02 SPI
+      iio: dac: add support for Microchip MCP48FEB02
+
+ .../bindings/iio/dac/microchip,mcp47feb02.yaml     | 221 +++++++++++---
+ MAINTAINERS                                        |   5 +-
+ drivers/iio/dac/Kconfig                            |  33 +-
+ drivers/iio/dac/Makefile                           |   4 +-
+ .../iio/dac/{mcp47feb02.c => mcp47feb02-core.c}    | 336 ++-------------------
+ drivers/iio/dac/mcp47feb02-i2c.c                   | 144 +++++++++
+ drivers/iio/dac/mcp47feb02-spi.c                   | 145 +++++++++
+ drivers/iio/dac/mcp47feb02.h                       |  48 +++
+ 8 files changed, 576 insertions(+), 360 deletions(-)
+---
+base-commit: 9c6acc6e6555d34198e45cb0d309569dfbadf929
+change-id: 20260625-mcp47feb02_refactor-fa8420ae3282
+
+Best regards,
+-- 
+Ariana Lazar <ariana.lazar@microchip.com>
 
