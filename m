@@ -1,120 +1,225 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1180432E6E
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 21:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABED3E5A09
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 21:07:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785877662; cv=none; b=fa2WL2IPyUS7ls+SSrG9zXQQfGFi8fMHScKFEeecwZZlXCcARUbfy2AWPKfcfkESrFLRjiU9PCfhaCU+2UwgyzNhpH7H+b9SSLDVXtcfx916q8PDyqXAx8wvP7pVTq8x1xEbWC3RUJAmS2scj5ehZDrt9umSv7aq2zb1MCLi6f8=
+	t=1785877672; cv=none; b=VuvFcc+8K6a8Z6xE9CjNUFtwRr/ZKS3/5vd5qqtvqxfyyIXOe4TdH03sXD1c7nCjNQNVSDzKn1CReD1ehsYtOmb4WGjqOFrxd5rfhJNlOQfQsxmCYaZU17C0PW4k++xHgwvQLOKjXqFFdtUdGuRcBpsRhBwXvNJBt5DIzyqSWlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785877662; c=relaxed/simple;
-	bh=M94F1PqXP2R4azTv5VsBrw3fcVY3YhyrZvCDUpvojig=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=McVppQqnG1A2ghzFSpL/oxWLelnZhzbAZ4Jri5QuMSZnfJU84f10WPhVL0EBLVm9tWKSl7oSs0acOi40IPyzFmQgr6e2aM1vC7+iXWU2RT2v0lCF8io/Rohkf3PPRK38kC+H5f6tzMQ5uBV8PayPQ1vuic2jkF4ZKiH5m7QIAEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s/JyTPzm; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785877672; c=relaxed/simple;
+	bh=x7V8qouuRrUNKBPH2yL04ZwheRbMbA+5PrhpGfuSphs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=G6pWQh9Yg2NmlYgimy5zmNZOAjUdPYwyvl7A/8OreXTrFFVIWCIfcJHR3jszW0ZPebcTnMQytJcAQno9X+SmHbhXDFsvFns7hfq9nbqAsYAgrcFGWP1bA9rtty9ODidwQ++DP5PPk74WQOJyVVLTnrcIZ4t4/UP0w/H9YeaUCUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iChpCThh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s/JyTPzm"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca80d708489so267013a12.1
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 14:07:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785877660; x=1786482460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5VUaS6lIR89fzUXE8jE1kCkmVqVFSCHPmmwJhW/Xieo=;
-        b=s/JyTPzmzEy4CYMFx0MDLuGE+Hz9l9t0GpvdDSsuX6ku14z12aoaDR2OJu60H7O8VP
-         1fl5KymTjLMPLGt4YuDWeSSUZdNkRrIWHhaB2fwnW6LxD33/8HSOxRMuxD36+cIAeSFs
-         oAWrzA2+GfzsqWbs2n5swGClIIwf+vZo48iZgoxXV6+Um2UP1QeHj69XQ68xUcm6E7Zr
-         Dz+nSSlWrsUXfnFYtukGJgoQ4RDl/bNZNIt2MbviTqPz/56gAHTX4OaF62Ipi1qUlPkN
-         rJc//7Le8rHgmUaIxWbz3FO9JAeIRxzpT5Nj4qO5sD//y0RXvFTgzxLJyNXJAhhpoYG+
-         PRQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785877660; x=1786482460;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5VUaS6lIR89fzUXE8jE1kCkmVqVFSCHPmmwJhW/Xieo=;
-        b=JX1+pwhFEyYjcxsuqGQsdBw5NUr46CHkQI1uEpj4goX4hoZZwIpBTKKhu5nsY90KqF
-         2WjPPZEWrGS5r8E0b4rAsTb06HyDzYJoO38zxkRqQegwOi2g41a6MPYNxZAlJw2mERaA
-         9Bt0FVSBkAAiAIxbYLTr5i61izD1BO0a2oLYJ+00y/F9288LjaLDYaRT0mV24A41ZT3z
-         M7gPfQrwCQRf0MR3hBkjYclobt8PP8yVtz8o8vTrNqXuIrdQ+7kHQj+c/6/g1KKR+33G
-         6c0Fz9cPoVFSL7uI6dR2czZZcRxa+oYTaO4YsD6qtKJ8IeDuQT8QS3fClkiLz8zDlUbw
-         ATxQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrn0arpg4KoEshfL+5Yafg2pLmBU2q4GiS4MInzgXwzSfNFfCEgAYzjYbjSMcKZr2Fm66XgBjuCFZuW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyx5kewgqLPi2N+cLFHB6PGMb5kBp5UJJ8sHMiWfjPvVL5UhXY8
-	cAOeO8y8xOl+OuphTeC7vyCMYizKEd2yzryZh/t3+SuJ0m5qYoj5nbs9
-X-Gm-Gg: AR+sD12VasJgrZkOgySOQn04iko7rU43K1TnhGNWGjQfb9kMTy7qq7grWNBmImbXibK
-	TQ+pP0eYMx4+m5Tm5nj1Fq3pAomeuMLJnKbZjNyGwMBuPeQeztsmTUCcoqbfNI6psZid1tH3Xn+
-	zkrO0K7tG7BhKSpfcsx7Lucy1TUC0Wd+GzQ3vih2cGGPiv8Qxtsy7Z12GfM4ArDWvSei4Qtszh2
-	Cfr15ABD6C7PlwS9ziiKbwpG5bTWZp/k1uCQoRErIcJINxqVqogFqYwxdVpq3Uf1rMcGmyV6bE4
-	gTEDfl4ER61b0qUTRHseze8epSch0/mJFQanYocFa6xNOxwPyQSYWYt6r8xtR4K6pqKqpxbqFQP
-	yu6rbMC2xRqusowdr9xK6SmgG+l3Fj2R6/P2EduHkIAtMmUVZqQYkbjVdfHAnJeFhme50J3Fqbw
-	xoAyxEaPTIr6WtVgiATbb6Dp9JP16cdXa5waH7Va3Xn4uNuomkkLxH5ql60+YDeXQKiuDjslEko
-	aBGtZTvSrlOmw==
-X-Received: by 2002:a05:6a20:4320:b0:3c4:3750:2c03 with SMTP id adf61e73a8af0-3cb6c7b71b0mr5878476637.9.1785877660120;
-        Tue, 04 Aug 2026 14:07:40 -0700 (PDT)
-Received: from localhost.localdomain ([12.162.234.74])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca6576b7sm6062339c88.7.2026.08.04.14.07.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 04 Aug 2026 14:07:39 -0700 (PDT)
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-To: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Cc: linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	netdev@vger.kernel.org,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Peter Rosin <peda@lysator.liu.se>,
-	Nam Tran <trannamatk@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [RFC net-next v2 4/6] ptp: ocp: Validate EEPROM board IDs
-Date: Tue,  4 Aug 2026 14:07:35 -0700
-Message-ID: <20260804210735.48116-1-ahmadexp@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <4ef01fa0-969f-4ec0-997b-5f5f3f67e11a@linux.dev>
-References: <20260803205011.1249-1-ahmadexp@gmail.com> <20260803205011.1249-5-ahmadexp@gmail.com> <4ef01fa0-969f-4ec0-997b-5f5f3f67e11a@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iChpCThh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8A91F000E9;
+	Tue,  4 Aug 2026 21:07:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785877670;
+	bh=vf4vi0Tg8+nNVAvQ/zoVGFY2XJ39oqLOnFtarSIHfts=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iChpCThhF5vzXH1Wm5CMgoqQNY8uxImaD8NKUtlYTQxEyavJDdyG8OAKwp9M4EYC7
+	 LZCmcaO3X4rsGvmmFWZIq48IYgTMotKM0OlIfY/as5Pg6FW6xzrevDyBsvPX5kdZsN
+	 ifDY8sZjjtO+tmRw+ZQMFC+w3AxAdlmbK6r3MOo+ryjCqDnrvA9CZgXEYHelPlt3gm
+	 ebBgNwMk15RzsVVDhsR9pc9uWvZBwSVa4XIjyAOz0mB1n34OP7jWmELayMUE4tTbLK
+	 a83VqSfwyzJIRbr3oHSZOrsDj8m+dUnZx4GxynLTSeZIvEeZLSzQVgTtSW82mfAQq8
+	 8EFyQDEmhecrg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/6] fbdev: honour the device tree boot logo
+ placement properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Max Pedraza" <maximpedraza@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260804225617.264861-4-maximpedraza@gmail.com>
+References: <20260804225617.264861-1-maximpedraza@gmail.com>
+ <20260804225617.264861-4-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 21:07:47 +0000
+Message-Id: <20260804210748.BB8A91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Thanks for the review.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Unvalidated device tree coordinates cause out-of-bounds memory acc=
+esses in the framebuffer.
+- [High] DT logo placement logic ignores SMP logo count and extra logos, br=
+eaking centering and overlapping extra logos.
+- [High] fb_logo_dt_reserve() calculates logical console space reservations=
+ using the incorrect physical axis during screen rotation.
+- [High] Overriding logo rotation via device tree breaks the reservation co=
+ordinate space contract with fbcon.
+- [Medium] TOC-TOU initialization race on `read_done` static flag in `fb_lo=
+go_dt_read`.
+--
 
-Agreed, I will use the 12-character Fixes hash and split this safety fix
-from the feature series so it can target net.
+--- Patch [3]: [PATCH v2 3/6] fbdev: honour the device tree boot logo place=
+ment properties ---
+commit bd67300c4f145f9b35c28ceac495f14e402f271d
+Author: Max Pedraza <maximpedraza@gmail.com>
 
-One detail about the suggested snprintf(): the size argument limits writes
-to buf, but a plain %s still scans bp->board_id for a NUL beyond its fixed
-13-byte storage. I reused buf with a precision-bounded conversion instead:
+fbdev: honour the device tree boot logo placement properties
 
-snprintf(buf, sizeof(buf), "%.*s", OCP_BOARD_ID_LEN,
-	 (const char *)bp->board_id);
+A logo supplied by the device tree describes a specific product, so where
+it lands on the panel matters in a way it does not for the built-in Tux.
+Honour the optional "logo-position", "logo-offset", "logo-centered" and
+"logo-rotation" properties of the "linux,boot-logo-clut224" node.
 
-I have reduced this to a standalone net patch containing only the over-read
-fix. I will rebase the remaining R4006 and V9 feature series onto net-next
-after the fix reaches it.
+> diff --git a/drivers/video/fbdev/core/fb_logo.c b/drivers/video/fbdev/cor=
+e/fb_logo.c
+> --- a/drivers/video/fbdev/core/fb_logo.c
+> +++ b/drivers/video/fbdev/core/fb_logo.c
+> @@ -2,12 +2,178 @@
+> =20
+>  #include <linux/fb.h>
+>  #include <linux/linux_logo.h>
+> +#include <linux/of.h>
 
-Thanks,
-Ahmad
+[ ... ]
+
+> +static void fb_logo_dt_read(void)
+> +{
+> +	struct fb_logo_dt_placement *p =3D &fb_logo_dt;
+> +	static bool read_done;
+> +	struct device_node *np;
+> +	const char *rotation;
+> +	u32 val[2];
+> +	int rot;
+> +
+> +	if (read_done)
+> +		return;
+> +
+> +	read_done =3D true;
+> +
+> +	np =3D of_find_compatible_node(NULL, NULL, "linux,boot-logo-clut224");
+
+[Severity: Medium]
+Could this lead to a race condition if called concurrently?
+
+By setting read_done to true before the fb_logo_dt structure is actually
+populated, could another thread see read_done as true and proceed to use an
+uninitialized structure?
+
+[ ... ]
+
+> +/* Top edge of the logo, in the coordinate space the caller works in */
+> +static int fb_logo_dt_top(unsigned int yres, unsigned int logo_height)
+> +{
+> +	struct fb_logo_dt_placement *p =3D &fb_logo_dt;
+> +	int top;
+> +
+> +	if (p->centered)
+> +		top =3D ((int)yres - (int)logo_height) / 2;
+> +	else if (p->has_position)
+> +		top =3D p->y;
+> +	else
+> +		top =3D 0;
+> +
+> +	return max(top + p->offset_y, 0);
+> +}
+
+[Severity: High]
+When the screen is hardware-rotated (for example, CW or CCW), does returning
+the physical Y coordinate here result in a broken reservation geometry?
+
+fb_prepare_logo() needs the reservation height in the logical coordinate sp=
+ace
+of the console. When rotated, the console's logical vertical axis maps to t=
+he
+hardware's horizontal X-axis, but this logic unconditionally uses the physi=
+cal
+Y position (p->y).
+
+> +static void fb_logo_dt_place(struct fb_info *info, struct fb_image *imag=
+e)
+> +{
+> +	struct fb_logo_dt_placement *p =3D &fb_logo_dt;
+> +	int dx;
+> +
+> +	fb_logo_dt_read();
+> +
+> +	if (!p->valid)
+> +		return;
+> +
+> +	if (p->centered)
+> +		dx =3D ((int)info->var.xres - (int)image->width) / 2;
+> +	else if (p->has_position)
+> +		dx =3D p->x;
+> +	else
+> +		dx =3D image->dx;
+> +
+> +	image->dx =3D max(dx + p->offset_x, 0);
+> +	image->dy =3D fb_logo_dt_top(info->var.yres, image->height);
+> +}
+
+[Severity: High]
+Does this logic break the centering of SMP logos and the vertical stacking =
+of
+extra logos?
+
+When rendering multiple logos, fb_show_logo_line() calculates a block-cente=
+red
+X coordinate for the SMP penguins and an accumulated Y coordinate to stack =
+any
+extra logos.
+
+By calculating dx using only a single image->width, this seems to break SMP
+block centering. Additionally, overwriting image->dy with a static position
+forces all subsequent extra logos to render at the exact same vertical posi=
+tion
+causing them to overlap.
+
+[Severity: High]
+Can these unvalidated device tree coordinates cause an out-of-bounds memory
+access in the framebuffer?
+
+fb_logo_dt_place() applies the device tree positions directly to image->dx
+and image->dy without clamping them to the actual screen dimensions.
+
+If a large offset is provided, would fb_do_show_logo() process the unvalida=
+ted
+Y coordinate? For example, in the FB_ROTATE_UR case:
+
+    for (x =3D 0;
+         x < num && image->dx + image->width <=3D info->var.xres;
+         x++) {
+            info->fbops->fb_imageblit(info, image);
+
+The loop checks the X bounds but lacks checks for image->dy + image->height
+against info->var.yres, potentially passing arbitrarily large Y coordinates
+to the driver's fb_imageblit callback.
+
+[ ... ]
+
+> @@ -423,6 +592,8 @@ int fb_prepare_logo(struct fb_info *info, int rotate)
+> =20
+>  	memset(&fb_logo, 0, sizeof(struct logo_data));
+> =20
+> +	rotate =3D fb_logo_dt_rotation(rotate);
+> +
+>  	if (info->flags & FBINFO_MISC_TILEBLITTING ||
+>  	    info->fbops->owner || !fb_logo_count)
+>  		return 0;
+
+[Severity: High]
+Does overriding the caller's rotation parameter here break the coordinate s=
+pace
+agreement with the fbcon subsystem?
+
+The fbcon subsystem calls fb_prepare_logo() with its own console rotation s=
+tate
+and expects the returned reservation height to scale accurately against its
+logical vertical axis. If fb_logo_dt_rotation() overrides this with a
+differing rotation from the device tree, will fbcon incorrectly interpret t=
+he
+resulting reservation height against its differing logical axis?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
+61-1-maximpedraza@gmail.com?part=3D3
