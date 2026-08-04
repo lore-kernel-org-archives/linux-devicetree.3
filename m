@@ -1,90 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09A043BDC4;
-	Tue,  4 Aug 2026 08:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86EC443CE48;
+	Tue,  4 Aug 2026 08:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832654; cv=none; b=hposmlyvGED8VRIVHKl/gObLo0wMGGN8di6pceK04swZT8Yzuq0ibuv2WxSsb/IO/B7Q9zMqt646JCDJlMGJ4CVW14s2G2DJry6IEmRUXYCCvLM2FF7/x/RT2xwHd378WxjLGhX2B7nuUQOf/CJ8j01MkKRSB2KmtW+bAaZ0LyA=
+	t=1785832718; cv=none; b=VvKFx35rUMrlRYx2G+tO4f+234iofOKT7Zf65Oku++0yeZBEjOS1cYklWj55hhNa9Fz2bxZZl4NP7lL83C8gbyp/+qyax+amMW+OscfHBHIOJMJQXCQDVAT4KTFRP0svURHE4EC4SqQMI5GLyoq/rCD4v3N8RlDpmq2AbwKTz8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832654; c=relaxed/simple;
-	bh=Lt76thffd3mZtnsdCnCRHOUu6kFT/MlDL6+XbH1L9KM=;
+	s=arc-20240116; t=1785832718; c=relaxed/simple;
+	bh=uCAR0p7vm5F/wsJJIW7PYRFyldGRRSwYbc2ko0lpazs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E1Q3N7FKA/3oSOD43te7qeUq0hrEDRabivRcj6ZmKzcLrsPHjC4hOlgFiND3Mx1JzWGAORUHYsY87Irm6xCSYGCjDkUtBlR6y71ux7e2YFMi83rpj37icwIZH64hEmn2Izt0Y5oJNr5xVY49Vw38Ckoic8aqLSHYW7PVynDkCBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gtt2kBIh; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lM4saSYwHvaHQugFH4psEC8wicJWdun1lb4GPr3DV66HUDdzz3xLJ114W3ddAvJ7qYSH/IHfP4f6eOaovKQySItqo2x7PB8UZ1AVTwlOOZ/t/4TZY6qlsczL7fPPXyORbxXrj8mUhQaxLN4rMuJ2b2Zg6remZ78Sjssa20CyAsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=1q/hFnrA; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zT4d68oF; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gtt2kBIh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C519D1F000E9;
-	Tue,  4 Aug 2026 08:37:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785832652;
-	bh=/ANnNwuiKBF/aUFgJD9FvGP3u4zzcHHdF0EpQ0x5UgY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Gtt2kBIhV3IyXP1DQGKF2N6rh6iIS22g9uuMsXVt7URhuA5T+0CpX2lrV5HuMDKqj
-	 Yxxj/tLJVdPywodJfjSp89XLs0ftGK4dnDH6Jo+kxPhvuLt7Oa8tdIYb2OxQA37TLx
-	 452MnF2bSu854nnBVJY40Gm7QEEEzku0u5DTVcqYR9qNElthY/bJPzMvCjjmwVR4Uh
-	 03bWlh70gQUHJ2nUTSKzoLlbYEQcbEgAHYgR993YYJ3RZ1yM9dLQwUKKgZzn+K7HUr
-	 m9zGQjx1o2O4lecj6dRSik2sVF9OjwbPakxv4+qWlrP3q7vYRntg7715QHX2mxWuBY
-	 zp5pNnlza8byA==
-Date: Tue, 4 Aug 2026 10:37:29 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	dinguyen@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, 
-	joabreu@synopsys.com, mcoquelin.stm32@gmail.com, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 1/3] dt-bindings: net: snps,dwmac: Add
- snps,pagepool-tx-buf-quirk
-Message-ID: <20260804-proficient-competent-wyvern-30ec60@quoll>
-References: <20260803070513.4657-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260803070513.4657-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="1q/hFnrA";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zT4d68oF"
+Date: Tue, 4 Aug 2026 10:38:25 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785832708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+1e25DepZeRbvIwYwRbIXVPUAS5ZIcSEjcncQ0Lz1j0=;
+	b=1q/hFnrAZKARngwsSSFG1fn+ERHWPeK/Q2PYhSEUIw+JBjXJMalKpB/IRpkA/FczwznZA5
+	00JnC7IybC+zT01et5FF52tsoxpr23aMm0GdTAN8XV0m6OCofsJg9jMKEh4gpf8jGmkv7a
+	MCN6eq5bqP17thiA2c32LsqI2ecbeBxMWvW6BRfRm/095xSGYHP9osD37v6ytY0T32WUQi
+	H9jJ/mARccK3HM2cerNjma2b6w67wRWE5DnhlroKxHoz73fjdXEg+IFFkKnYG7L/nqI2xG
+	/4c36vjIJs1ocrTb//ggW+xOv9+/QtR2uc43+/+qAk2WwoIi3f+AIEMHoScceg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785832708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+1e25DepZeRbvIwYwRbIXVPUAS5ZIcSEjcncQ0Lz1j0=;
+	b=zT4d68oFcXnLYbELnfcG/wL8TM4UP8eCkJ/ZXKy/ykvMWk/pP+KjIs77W+zu3gJH0O8IEA
+	ChFCSfBtI1FyVgDQ==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
+ compatible
+Message-ID: <zl5z6owx4v5kg2ian7twpggekaosrenbhvgjq7fimm5j2ptz4i@ygvudatdkems>
+References: <20260803-bcm2712-d-stepping-compatible-v2-0-803017e4ba7a@linutronix.de>
+ <20260803-bcm2712-d-stepping-compatible-v2-2-803017e4ba7a@linutronix.de>
+ <20260804-unbeatable-fluffy-galago-bfe282@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260803070513.4657-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260804-unbeatable-fluffy-galago-bfe282@quoll>
 
-On Mon, Aug 03, 2026 at 12:05:11AM -0700, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+On Tue, Aug 04, 2026 at 09:48:19AM +0200, Krzysztof Kozlowski wrote:
+> On Mon, Aug 03, 2026 at 02:09:25PM +0200, Gregor Herburger wrote:
+> > The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
+> > and in a c Stepping. There are two separate dts files. The
+> > bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
+> > the d Stepping. The d stepping does not set its own compatible/model
+> > string but uses "raspberrypi,5-model-b".
+> > 
+> > These two steppings are not compatible. Booting with the wrong dtb file
 > 
-> Add a DT flag to enable use of page pool buffers instead of streaming
-> skb buffers for transmit. This avoids IOMMU invalidate wait time on
-> platforms where that cost is high, with the trade-off of copying data
-> from the skb into dma-mapped page pool buffers.
+> Not compatible but...
 > 
-> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-> ---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> > causes a crash at boot.
+> > 
+> > Add a compatibles string "raspberrypi,5-model-b-d0" to allow us to
+> > distinguish between those two steppings.
+> > 
+> > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> > ---
+> >  arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts | 5 +++++
+> >  1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+> > index 127be0fc27c2..11a38cd53401 100644
+> > --- a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+> > +++ b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+> > @@ -3,6 +3,11 @@
+> >  
+> >  #include "bcm2712-rpi-5-b.dts"
+> >  
+> > +/ {
+> > +	compatible = "raspberrypi,5-model-b-d0", "raspberrypi,5-model-b", "brcm,bcm2712";
 > 
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 2449311c6d28..73045511446f 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -545,6 +545,14 @@ properties:
->        Enables the TSO feature otherwise it will be managed by MAC HW capability
->        register.
->  
-> +  snps,pagepool-tx-buf-quirk:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-
-You described the desired Linux feature or behavior, not the actual
-hardware. The bindings are about the latter, so instead you need to
-rephrase the property and its description to match actual hardware
-capabilities/features/configuration etc.
-
-> +      Enable use of page pool buffers instead of streaming buffers for transmit.
-> +      This avoids IOMMU invalidate wait time on platforms where that cost is
-> +      high, with the trade-off of copying data from the skb into dma-mapped
-
+> this tells they are compatible. If compatibility was wrong since the
+> beginning, you do not have to preserve the ABI.
+Ok understood. Will drop the fallback and make it either
+	compatible = "raspberrypi,5-model-b-d0", "brcm,bcm2712";
+or
+	compatible = "raspberrypi,5-model-b", "brcm,bcm2712";
+> 
+> Best regards,
+> Krzysztof
+> 
 Best regards,
-Krzysztof
+-- 
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
+
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
