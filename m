@@ -1,200 +1,219 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011062.outbound.protection.outlook.com [52.101.62.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D1F45D1B2
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785849871; cv=none; b=W4MZaoPkWrzCkxLX2H0/25bhto1yAYwE6RgCqyoO/C4pQfUC4JyG/sKugJQOQeXAIOW3Fog1MW7MCpZ/+JGDCIgSeG4oZzc+1qIKStvLnGRAa7gkxs/wzUhuHtwf//lw++6k9NWR2iA3XlXY8WKmRK/3emAFF+/GDaB6gFaJz50=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785849871; c=relaxed/simple;
-	bh=cjaTBcoabOwGG7jgJNjkjLDDD9yULRtNRmPbeWgSCEI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=CfqfRkFYbt9Y58hRgci51rvcXKoKWdkEPyDGSQvFr/C9ZrM2vmokUT18OC4DPnTC7TJumJ4siUt/o69BC4D1kUcdlaGClB2S+02Uj0of+wrtL9bbN45YKM9hlZxnmbQILnM/5xwI2Q04Noif6Dkr717fYArolCy5YTOFd67MQzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=lbRZSPyk; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0320D3C7689
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 13:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785849968; cv=fail; b=XHKTNoDVsSyxU7fS4GGw4w1KTIDhBKzGbKAfVoFNSDBT2HlVC9mLIDhACNwP+m9Z0aAyjkPA3sGJokpCuMNj7s3rtxWF/8mUd72Pt6i/ioedM/SqkWwwO4GId3Mbbiz1aaN9wHHSGKsIE2+0pNi7PLPW4rerjGQQ15G1HnEwrYI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785849968; c=relaxed/simple;
+	bh=mkZsDbwmikvXsGqpyXt8HXIJ5RgjFm0U/e6Pyer6rnE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hkbW/w999TKxpx/DvgWIg3Pcml01vuFfKrm9PlHaet2YN2xacHSrGWUfUPxjJnn0D7nJj+OQjta6qG44R9rJtaBfmk3SQXhusTWxv/AwmexOBDu7yd++MP+KIm/pLAAA4DH7/adStygjz4BOpzR5sMTXNysOli4YlysaRcTDwXk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com; spf=pass smtp.mailfrom=einfochips.com; dkim=pass (1024-bit key) header.d=einfochips.com header.i=@einfochips.com header.b=B6zRWi8a; arc=fail smtp.client-ip=52.101.62.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="lbRZSPyk"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15ca7a7ca9so449141366b.0
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 06:24:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1785849866; x=1786454666; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DtP+GSoAeum6eUF2aWhaojOmnieDIDYnqy3lkWwdQXM=;
-        b=lbRZSPykyO+/kRB5v0WLzFyRxc5iULFSRxq7WlYe6sBQPX4msKIulUdoTc5uJp/vTf
-         o1ugIMkF6X9CPaCVtzvyk+1BSizwcof91jG5q+gRrVUNMdZNJ8Ewf0yEhPeBvD8qNJ1y
-         +3s/J0XRPiGmFJMBPgSXk36Q3MkPphECkjhbfI8LodIj+JRihepTX5dTjzRtV9gXk7sm
-         8++LuO/C2Xp0YHHRQWebcbP5W2iUmNAhHBQ8OQ4II4+B7hZ9ijf+LQrfpOMWCZTfnGwF
-         viWmPsZ3qcjLpjU/C27yLCQzqmSAEwzXvFOXYnSbJrYrkECfG82MqRD4sqITRgXYN/t2
-         twNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785849866; x=1786454666;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DtP+GSoAeum6eUF2aWhaojOmnieDIDYnqy3lkWwdQXM=;
-        b=KjgvorbMQ+n5Dxjzilupja9RgLFncIlEU4lXMwLCSDcWaqAnqhKpl1p8MJSXy6l9ZN
-         mt5jC41E+9amEW+JmwrNqJQPULCITZfeLQXhEg/m+ieiKugSVIYGTqoY8oPg/EsvW+2E
-         dUZEIMSCLUZM11X6MfTdezC1/0BVjGHhCze893FNMnuH31b3mQPKjJF2VMtGddqVO2PP
-         w+yrwX28D8MqfzZ92qwl/sgMu5dGydyC44sxoWnoJdats90/BFZq0iTT1JK2HkM6Ufg/
-         FoyGZgfhYfw2scNnk6DEbrhHpuGqENDvm2TUqPv0KnO8YkEVs0j0kxu3gy2PxytzZDaq
-         Uhsw==
-X-Forwarded-Encrypted: i=1; AHgh+RqCHaD8zv6iAzQyi2iLZA7HPJUQYWa2vQj2E3pqYsl7RqApKOxTygpSszIkygyC0HmtVTwOdKn2O/sJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPmM1fuW6m4Gg1if0Ev1+YZKbEmWlF28OMsJU0cImE+As2Pjn/
-	xcxrMz40Vt9gpuxy4gX3KGrzoZ82f6nBDlndvD8cO2Z3/1yorx1jT+XQ1xVdS9MrP0qX9ccOnnT
-	C4bhBtrY=
-X-Gm-Gg: AR+sD12qnwMYA2AQZ74G2z3gKILPcZN+VJow9XVbn4WXAO9yIzmvmmVqAI3n9msDN7d
-	fPjIOg6Bs+D9RJMeglkw87ooO7Q5bzXf+gNBydY9HzHCfWHT8YL2l/uHIBmD5UV6nbuSLEOuCBl
-	g57yaHa691PSoCZOyqVY4szFzr9pyWNE3LP+18tBI0vi2rcRXbWB+/MGuxWMImIYq6xx6k5kiwk
-	aXYLljNX88OGU5JzuRJox4B5nMNWYth1M6N6L50ItXGBr7aW6UCxoDz+ZcCh5Sp0HjWZPUXZbiv
-	B6o9OJrd729s4JNKeLT0C3EEMOB+s64j02RB5Q9eEnPuyHsJ6VautTCiTUGnBS3TluaY7mrg4lK
-	JtOUNtpD6JbsTSkinvjN1aJBj59rHpmiuVqGkxMK/0E/OgTMWS93XpIuQjzGuGMMIRBmWB22Cy6
-	keDbwkIw8U2YJXysJv6YykV0QvT6p7Q0FZHubFw1OYK1YSMDr+e0L3eDszC9+4jf7yF4yRoY0d8
-	DAtGlzYPUnE7PbGHd8=
-X-Received: by 2002:a17:907:c28:b0:c1c:3b06:ed19 with SMTP id a640c23a62f3a-c1fe82058dbmr1260652066b.31.1785849866554;
-        Tue, 04 Aug 2026 06:24:26 -0700 (PDT)
-Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c20363e71ddsm8295166b.34.2026.08.04.06.24.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 04 Aug 2026 06:24:26 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=einfochips.com header.i=@einfochips.com header.b="B6zRWi8a"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ncNZCCs1RLIt08JcassQaZCMj2w96vhpfrZclVi1YSTPdZmL+T+YE180zV6tZnIls7OmEwvprqcExPfYewHnsZ09i1qeemRbSJR7PrEa865T+/5GecyXi+UBZ2SvjFeZtYnjgULzQRKJfeXrN9hTUurAx/1J5+5+aS09j4WszWa3KMcAHQHWo9dvgbbGEjvoFEAhsYuc3qD6kGSSoGcf+QZcqMCrgKh9Wm/Vo+ZF0PIah7BBCg6O0mS4uGt2Hw+hw95TWnOSMcFR8JGy+qneiIbgzaKY7vFCsJikSeMuYhp5FsOgzufB3U05AGPlxNtPC4GMnNUNX3ZJFac38i1m/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2brTbRrCj6YAuV17o/CgTqvNX2bG0NgFNwsAShyqypc=;
+ b=jRPmjUkuwAnIWCk9ebW/Jg+C9qX8OY/BhUhLJzDH+cn6BpGqqcBaGZbVQhp/5XVxZlhvXPJ87kFunxb7XKR8LotUsh4t8tHrC+w9fiB7S5tjonfjMtA37AGx/YclksQk+L+OxNaO981p9HSjwSw6sus87Ei3KbNN1J914NaxdTahjdCrQTh1do+LmrboQd+y3CyRfnRC1fuyEOxdwyjHpa/EaETNlh+xrFrhblKPUD17L90DM7BXzOtB4H+BAKrSvnSRJzOuMBLO+frxaQg7/6e6o7uLg1zTJkN5X99yqg4kRKPNGkEn5sdfIAFW5T25l/mEDVHQoVtbAunM5zksrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=einfochips.com; dmarc=pass action=none
+ header.from=einfochips.com; dkim=pass header.d=einfochips.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=einfochips.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2brTbRrCj6YAuV17o/CgTqvNX2bG0NgFNwsAShyqypc=;
+ b=B6zRWi8aNo02OIN63M+hDXfzQNWfPfhHHwLkPGRCeEiPPT06urC4LZZmxDueW24NOD2XGeXRamCWjo6U4Fgc+GZ5mTyXxskFoN1PqX0mtar9dvR0zlM5WjQWtPYOUCCRG0Xpy+qXS16l1dy3Zvju9ExsKLxjPG3oQSW4/SttB58=
+Received: from SJ2PR04MB8896.namprd04.prod.outlook.com (2603:10b6:a03:53e::6)
+ by DS0PR04MB9463.namprd04.prod.outlook.com (2603:10b6:8:1f3::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
+ 2026 13:26:02 +0000
+Received: from SJ2PR04MB8896.namprd04.prod.outlook.com
+ ([fe80::8292:662a:4214:95e0]) by SJ2PR04MB8896.namprd04.prod.outlook.com
+ ([fe80::8292:662a:4214:95e0%4]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
+ 13:26:02 +0000
+From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+To: "sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>
+CC: "robh@kernel.org" <robh@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: Re: [PATCH v3 4/8] dt-bindings: mfd: syscon: add ESWIN EIC7700
+ compatible
+Thread-Topic: [PATCH v3 4/8] dt-bindings: mfd: syscon: add ESWIN EIC7700
+ compatible
+Thread-Index: AQHdJBTLdl29zsq7GEK0VwMsc/o9sw==
+Date: Tue, 4 Aug 2026 13:26:02 +0000
+Message-ID:
+ <SJ2PR04MB88964582060B8F7CCB807C3E83D42@SJ2PR04MB8896.namprd04.prod.outlook.com>
+References: <20260804104431.1391839-1-pinkesh.vaghela@einfochips.com>
+ <20260804104431.1391839-5-pinkesh.vaghela@einfochips.com>
+ <20260804110206.E4BF31F000E9@smtp.kernel.org>
+In-Reply-To: <20260804110206.E4BF31F000E9@smtp.kernel.org>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ActionId=69cc34fd-3647-4938-b50d-bf55b2ba6f93;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ContentBits=0;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Enabled=true;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Method=Standard;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Name=879e395e-e3b5-421f-8616-70a10f9451af;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SetDate=2026-08-04T13:09:28Z;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SiteId=0beb0c35-9cbb-4feb-99e5-589e415c7944;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Tag=10,
+ 3, 0, 1;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=einfochips.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ2PR04MB8896:EE_|DS0PR04MB9463:EE_
+x-ms-office365-filtering-correlation-id: 54bda5ee-3235-43d8-1089-08def22bee02
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|56012099006|10067099003|5023799004|11063799006|4143699003|3023799007|4133799003|6133799003|22082099003|18002099003|55112099003|38070700021;
+x-microsoft-antispam-message-info:
+ KgzL6bd8tDdR/S9Y2YaaBsy+jFwNxkM3iMJeYk/ipLLh9ooyz0sxyxIGETUqt4fgRhvFbReQ+e8hQN189kICCrAbRlpqoluU7Y0yraCiNd0hKEAtUSI6RLB6T6eOXQj0kXnv01iAZowmdvh0V3xYsmm/3LhKnMQYSYNun6OXZqJkmSHRZjuCanr/HOgs340Z7Rt5JJgGg3776AonB0C33WsRFShWhgRQ1stFMVJDzjyuqnujokjn9JykxcF5ycJkMvy9SaybHCY8ATv0atqqj6xx8x3+RMPBzGmgD9tea26Jd1MdGy4S4u/cmJnPH+LZi3W1pE5Rz2Wxbm7o3n2gy01zN11T8ZqBG0+nW+hQyYTAussZ+oEPpQHe02EJbde2MFj18wXVI6GDvoFGtqbGjx2woyiERk8mTKfMTUANdjMTrZPFOJ91Bcyq5ErUGQJ+X2B95ZWPT4pvf+oeYx5YVdkBHU9Lm2KBEMZtoUhildSm8aVSZukSoVNVbnFKDftEgKnH41RDEOHQMAwyQvT3cHFMCDc+cgLx3Wh7LEabsBizsAuvUsV0w6E4BiGk8HKCNP+NlBQcxq9crh0Q/NXZz0YG0e3/0/w4CsjzhTRWpOJC+gjnQ7Whk1o7G6jZZTNFOJT7KV9DBhxz1gJKzTfuqGer0ibV/68Z6j0HhLFI8hzCDIZMUPzlOUsAOqf7Iu5GEKAZG9mlSzmPjHDTL7qh21p8wKg3yH0uTuqu3ntDutE=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR04MB8896.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(56012099006)(10067099003)(5023799004)(11063799006)(4143699003)(3023799007)(4133799003)(6133799003)(22082099003)(18002099003)(55112099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?lA3oP/s7+6uE3SMImT0ize6GpAGQ9FVa0rZHAvFoEzUIsLbPvyVEDkh7Ggur?=
+ =?us-ascii?Q?5MIwzHrx0HxzwVpsjpn1ZsI3Bt4x5kXca/R6TaftjqrCTO8gpSibZ+PCO2gW?=
+ =?us-ascii?Q?aNpTSyNxaZN8wqYeY4wVIgycXgv/AprfnCnPwQ2gaZzYYBRJ6j5rEA2YKXzi?=
+ =?us-ascii?Q?J3/QoVFveXuM8Ciza4RN1PxvlUZ6KlEw4k4HyQT4xBmLyAuMmkr2W1wapMou?=
+ =?us-ascii?Q?Ign9uQX+GsyI1udinb7VA5t6Ed/wkxGVOT3BxUsa2VX79a0lXaxBfMqXeu+h?=
+ =?us-ascii?Q?SLZz5aLHl7RD8Sfy67MPsCLjbaLs14hqtwzr3mUBYIrcqo4cJEDym7hLbkZn?=
+ =?us-ascii?Q?zmu4XxvtYcPwCzU1vEuBHpD/6Xd+FkmO5FblWKPwrMV+lpQ7jw0j4RXdE2YI?=
+ =?us-ascii?Q?0yZgfYXsqac07+ttEZQEUgnTQiCRIsteGC452IuQgbmwjltGStYGqCczVkdz?=
+ =?us-ascii?Q?1Rzhx7eTn8/iBTUK0VC3kiZXWkXMadwTl8NGkZEXmO/mEv8/dumIpFPR2uKr?=
+ =?us-ascii?Q?V+qAMfRJ1jZQFU4ZvOnzbDG1Kmi4XwX9Cn61xk6tfN4QNNZyOhlaiaoewstn?=
+ =?us-ascii?Q?3V+YOYGSJjLg17YDmPbZlPwXWgICbsbeo8BnJB3kY0o3ZPKtxk2raNHlxX2a?=
+ =?us-ascii?Q?lQiM+1IGiguT5F/whRwVGPaaJMAhoIiOSUE3aZY8oishAYqSiPHUJP0CQWab?=
+ =?us-ascii?Q?wPf5KfxlNAkAr2IM6ep/JEBX6f0UhZo/jGTK9CvYwvUpXSTIGfXUuQHgRT9n?=
+ =?us-ascii?Q?YVFTUpn4NC0mwNl4ouD5NTodqUPZnAMhjtiGuCMoySu26iJRwPzYAhOaUFdx?=
+ =?us-ascii?Q?mLUwBmLZN7M/hcq6rXyRDS6jLI6lfZ7kN7L6fjO7VO41CBamH8pzc0NQwfnx?=
+ =?us-ascii?Q?J+km2P3TGJgcdai7wu/461CdbjDezi+KcyMKFbvVuGCkJML2cEfOfuynA+G9?=
+ =?us-ascii?Q?DsiFkmpWxmD0jS8/fPdw+De99Ik2Gu8hr+jW4tYiPeTRAKocMLVxkBDFvMgN?=
+ =?us-ascii?Q?fz3rn/bFokrm0rX+PPanMvOA6iH9W3wQ22SA0lYvdBpD1S91D4AdVlQ24j9b?=
+ =?us-ascii?Q?iEv0fHO9Xkm9T9bdjyG7b0Mx3zzwt3TxiJCkeOQslgWyRZ02mEboD/gUSc/L?=
+ =?us-ascii?Q?4t55L3Seb+R6FocUCM4F36e4lHrsxzRGXilun0Z2Yxt6/7fjO4eRHK/xM2yq?=
+ =?us-ascii?Q?4h65XFeMaJjF4fqgcf42Ms+I7qNd2nwL7MqXXWsGEIJXWz4M0wN4Ha2oFqe1?=
+ =?us-ascii?Q?1NsIqbGNuRYL5OHY9+9RAoIknoPjcaBk8PDXWCSvi1cJT/6a+41xleXdqptJ?=
+ =?us-ascii?Q?mHshLzYSbUuThXbknxwEAD33L/RWrQM/LYYdNyjqO8FAEK3KeuKl2CaA8+ef?=
+ =?us-ascii?Q?9ZjGuJFAneFs39rOYL0ZTbpOfWzrYhGm3es5MSUdrG8L95wTkIMIQK5ivQEM?=
+ =?us-ascii?Q?4FszeHf1pNTvHr/AWW70mG/zxTGqSCbQJ1aZlXrwSMrV9z8tUyYKNjOn/+FZ?=
+ =?us-ascii?Q?JHVZN+yQDoJFeT84zxRfGlnEWI0rDDc36WYO7IjAS9AFhESNhh6TnySl5NgX?=
+ =?us-ascii?Q?76+IGlcQE0k0YKtyudgTApKPA32uex2TisnmtcAWmGVQIG2CDpm+z3C4+f1q?=
+ =?us-ascii?Q?8P6wM6EgUVDFgvncz6cRA/5WOydoS1BMTRLEdSVbsUQYYnuG61gFdBcNTjrH?=
+ =?us-ascii?Q?J4aL2p8fHUfWCjmmvSoHcSWp2EZR+dyM9SPktWy6scaJwGSR5dVbQKbSRaca?=
+ =?us-ascii?Q?sbHI21XmKfTITHaL4RWxYw4AeuIZ83I=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 04 Aug 2026 15:24:24 +0200
-Message-Id: <DKG6XXPVJLYA.25Q0D3P2HY45C@fairphone.com>
-Subject: Re: [PATCH 12/28] arm64: dts: qcom: qcm6490: Fix swapped USB QMP
- PHY vdda-phy/vdda-pll supplies
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: <manivannan.sadhasivam@oss.qualcomm.com>, "Bjorn Andersson"
- <andersson@kernel.org>, "Konrad Dybcio" <konradybcio@kernel.org>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>
-Cc: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>,
- <linux-arm-msm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Manivannan
- Sadhasivam" <mani@kernel.org>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260803-phy-supply-fix-v1-0-5880630cde3e@oss.qualcomm.com>
- <20260803-phy-supply-fix-v1-12-5880630cde3e@oss.qualcomm.com>
-In-Reply-To: <20260803-phy-supply-fix-v1-12-5880630cde3e@oss.qualcomm.com>
+MIME-Version: 1.0
+X-OriginatorOrg: einfochips.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR04MB8896.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 54bda5ee-3235-43d8-1089-08def22bee02
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 13:26:02.3156
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 0beb0c35-9cbb-4feb-99e5-589e415c7944
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FNaAncm/n/7S9o+k8L8Q/VAkAtFJjvr2dk2Cn1l942cs75BBj7Rr4ZGI6yHv8oyBwltkChL5KFlL9DJA6XJdcVkIkdeZhNvfLRnv8fuhiLo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR04MB9463
 
-On Mon Aug 3, 2026 at 8:34 AM CEST, Manivannan Sadhasivam via B4 Relay wrot=
-e:
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
->
-> The QMP PHY expects the vdda-phy supply to be around 0.88V and the
-> vdda-pll supply to be 1.2V. But these two supplies are swapped for the
-> USB QMP PHYs on these boards, feeding 1.2V to vdda-phy and 0.9V to
-> vdda-pll.
->
-> Fix it by swapping the two supplies back.
->
-> Fixes: 9af6a9f32ad0 ("arm64: dts: qcom: Add base qcm6490 idp board dts")
-> Fixes: a319cf4a4b09 ("arm64: dts: qcom: qcm6490: Introduce the Particle T=
-achyon")
-> Fixes: eee9602ad649 ("arm64: dts: qcom: qcm6490: Add device-tree for Fair=
-phone 5")
-> Fixes: 249666e34c24 ("arm64: dts: qcom: add QCM6490 SHIFTphone 8")
-> Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Assisted-by: Claude:opus-4-8
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.=
-com>
-> ---
->  arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts    | 4 ++--
->  arch/arm64/boot/dts/qcom/qcm6490-idp.dts              | 4 ++--
->  arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts | 4 ++--
->  arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts      | 4 ++--
->  4 files changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/ar=
-m64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> index 04cb9230d29f..92a7d80b7fee 100644
-> --- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-> @@ -1502,8 +1502,8 @@ &usb_1_hsphy {
->  };
-> =20
->  &usb_1_qmpphy {
-> -	vdda-phy-supply =3D <&vreg_l6b>;
-> -	vdda-pll-supply =3D <&vreg_l1b>;
-> +	vdda-phy-supply =3D <&vreg_l1b>;
-> +	vdda-pll-supply =3D <&vreg_l6b>;
+Hi Sashiko,
 
-On Fairphone 5 the schematics show:
-* VREG_L1B_0P912 <-> VDD_A_USBSSDP_0_CORE
-* VREG_L6B_1P2 <-> VDD_A_USBSSDP_0_1P2
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s)
+> to consider:
+> - [Medium] The new compatible string 'eswin,eic7700-syscfg' was omitted
+> from the 'select' block's enum list in `syscon.yaml`.
+> - [Low] The commit message description is not capitalized, violating MFD
+> subsystem guidelines.
+> --
+>=20
+> --- Patch [4]: [PATCH v3 4/8] dt-bindings: mfd: syscon: add ESWIN EIC7700
+> compatible --- commit b6fbe8a9c92251f8d7a4c290284000e71004ed87
+> Author: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+>=20
+> dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
+>=20
+> Document ESWIN EIC7700 SoC compatible for syscon registers.
+>=20
+> > dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
+>=20
+> [Severity: Low]
+> This isn't a bug, but should the commit description be capitalized after =
+the
+> subsystem prefix to match MFD subsystem guidelines, perhaps using "Add
+> ESWIN EIC7700 compatible"?
+>=20
+> [ ... ]
+>=20
+> > diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml
+> > b/Documentation/devicetree/bindings/mfd/syscon.yaml
+> > index e228670880631..2bcaaba6948d3 100644
+> > --- a/Documentation/devicetree/bindings/mfd/syscon.yaml
+> > +++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
+> > @@ -175,6 +175,7 @@ properties:
+> >                - cirrus,ep7209-syscon3
+> >                - cnxt,cx92755-uc
+> >                - econet,en751221-chip-scu
+> > +              - eswin,eic7700-syscfg
+>=20
+> [Severity: Medium]
+> Does this new compatible string also need to be mirrored in the select bl=
+ock's
+> enum list earlier in the file?
+>=20
+> If eswin,eic7700-syscfg is omitted from the select list:
+>=20
+>   select:
+>     properties:
+>       compatible:
+>         contains:
+>           enum:
+>             ...
+>             - econet,en751221-chip-scu
+>             - freecom,fsg-cs2-system-controller
+>=20
+> will older tooling like dtschema < 2024.02 fail to select this schema as =
+a
+> fallback, which could silently allow invalid configurations to pass undet=
+ected?
 
-So with the updated bindings description, this makes it fairly clear
-that l1b is vdda-phy-supply and l6b is vdda-pll-supply. I assume all
-other kodiak boards are also wired up that way.
+We rebased this patch to linux-next. Since custom select is dropped in patc=
+h [1],
+we don't need to add this in select.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/com=
+mit/Documentation/devicetree/bindings/mfd/syscon.yaml?h=3Dnext-20260803&id=
+=3D6165900f3922f923bb363d58c2893005d26d1b30
 
-Reviewed-by: Luca Weiss <luca.weiss@fairphone.com>
-
-Sidenote, you could squash the qcm6490, qcs6490 and sc7280 patches into
-a single "kodiak" patch, but keeping them separate also works of course.
-
-Regards
-Luca
-
-> =20
->  	status =3D "okay";
->  };
-> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts b/arch/arm64/boot/d=
-ts/qcom/qcm6490-idp.dts
-> index bdc02260f902..58cce89a0c1c 100644
-> --- a/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcm6490-idp.dts
-> @@ -1141,8 +1141,8 @@ &usb_1_hsphy {
->  };
-> =20
->  &usb_1_qmpphy {
-> -	vdda-phy-supply =3D <&vreg_l6b_1p2>;
-> -	vdda-pll-supply =3D <&vreg_l1b_0p912>;
-> +	vdda-phy-supply =3D <&vreg_l1b_0p912>;
-> +	vdda-pll-supply =3D <&vreg_l6b_1p2>;
-> =20
->  	status =3D "okay";
->  };
-> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts b/arch=
-/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-> index bf18c4852081..17804de03e17 100644
-> --- a/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcm6490-particle-tachyon.dts
-> @@ -839,8 +839,8 @@ &usb_1_hsphy {
->  };
-> =20
->  &usb_1_qmpphy {
-> -	vdda-phy-supply =3D <&vreg_l6b_1p2>;
-> -	vdda-pll-supply =3D <&vreg_l1b_0p912>;
-> +	vdda-phy-supply =3D <&vreg_l1b_0p912>;
-> +	vdda-pll-supply =3D <&vreg_l6b_1p2>;
-> =20
->  	status =3D "okay";
->  };
-> diff --git a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts b/arch/arm6=
-4/boot/dts/qcom/qcm6490-shift-otter.dts
-> index 797f37596bf1..cdaacc09f56c 100644
-> --- a/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcm6490-shift-otter.dts
-> @@ -976,8 +976,8 @@ &usb_1_hsphy {
->  };
-> =20
->  &usb_1_qmpphy {
-> -	vdda-phy-supply =3D <&vreg_l6b>;
-> -	vdda-pll-supply =3D <&vreg_l1b>;
-> +	vdda-phy-supply =3D <&vreg_l1b>;
-> +	vdda-pll-supply =3D <&vreg_l6b>;
-> =20
->  	status =3D "okay";
->  };
-
+Regards,
+Pinkesh
+>=20
+> >                - freecom,fsg-cs2-system-controller
+> >                - fsl,imx93-aonmix-ns-syscfg
+> >                - fsl,imx93-wakeupmix-syscfg
+>=20
+> --
+> Sashiko AI review *
+> https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fsashi=
+k
+> o.dev%2F%23%2Fpatchset%2F20260804104431.1391839-1-
+> pinkesh.vaghela%40einfochips.com%3Fpart%3D4&data=3D05%7C02%7Cpinkesh
+> .vaghela%40einfochips.com%7C0ed0a6e6a57f412e089e08def217d38f%7C0be
+> b0c359cbb4feb99e5589e415c7944%7C1%7C0%7C639214381360842991%7CU
+> nknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAw
+> MCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C
+> &sdata=3D3EBV%2FOCsfYO41uNqK4URl2MK8gMPfGsL80nf3kE1WGs%3D&reser
+> ved=3D0
