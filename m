@@ -1,95 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m3274.qiye.163.com (mail-m3274.qiye.163.com [220.197.32.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCB329BDAA
-	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 11:44:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2D0380FD0;
+	Tue,  4 Aug 2026 11:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785843867; cv=none; b=kWz7dxRtMg8nrqhdgGVK2ZgAen1QbCHyHr3HWZHxPe8KuqLu7ZxF+7E0Gv2HMv7Sa8ATZELjnFdycGy+T12IeodNQyNjHYUs4yCsQaWNe9aoGftEwk4MsRQ/3eNA90D6sJjvcEIP4QLsKfskqjD9akDulnGmlKNUClBTkiZCRJ0=
+	t=1785844018; cv=none; b=aHptBWg3nBU3tXTTnhOT11lxqc3WytHnsvyO+euD7hidpQdtZG7GBOnD0+xlq2TXZIwBVcKO3ew8ydOpfBg1e59kFnMxv4kyttqtl30CIyfzzN7BPzs+pmcpxhwgU3s2W/8E+nSwKJ5YQULZ/Sgdjpr2J00mpe0mQX7Bm82Qs8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785843867; c=relaxed/simple;
-	bh=CgoJUC7Vk+GcE4ChY8fxsDZQgISjCZvs3Z3KUgAt0+I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ltGAtP2dCYcxu2yIJm0xgD2IRTZF0zMjJE7t0RFbtaTUOgFCmSnA91L538nSezGDbVG/GeMpaYXOxWRFobhrEWiF1iuqeq3Pm3U7So6Sey9WSiXhyLYfNLnibtK0yRUAwzxAnAqOij5rA6JlR/5KgA8GTuGS/JRnhKCy3dlUTqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXkWIrNJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785844018; c=relaxed/simple;
+	bh=XZYrTlOoZOnNMAatj1y9IPAWY6YnFF50+CWh+1CscdQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=u2SgzEztG3LUKaUfLdtyUC/pGnBsIYlQKDcr4MGwO7qNTdMT2RwNlU1LF858Fj9vI4AvJNwILjL+aK4kdb4G7CoRHqt6vIhP//D8ykd95ZyUz9r2N4z43gpPjRS8DPvdjq+iKlDqRzfIOLLKAq8Slu0ye/h3s+YKSHW6fYr3RhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=QU7AhU64; arc=none smtp.client-ip=220.197.32.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXkWIrNJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E591F000E9;
-	Tue,  4 Aug 2026 11:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785843865;
-	bh=WofccqT2qapL5ltjIKijxWgOKhvPjQtPJY+1WlPS7rs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QXkWIrNJEKBkOz6JI9qH5FZPya9ygWCeJk/ho9w+C4x+1p2Mcr9jApD8MAV3lFPZM
-	 LmRhTyaFjdlyWW7ztG6hTo3DEFuAh+dkjYkDopGdf7b/neyZskXhRx0/g1V6AilTV/
-	 bWW3DN+TpA0UyrHCQbnJe2fKkVdGnGha6u050AzTjZekDe4JczMnj1nqjhpQwUzpqt
-	 OdC0VXRVTa97/d7h7yLPUcUo3Mb0HQquUB8APCeXpj/CHaSaNesGWIs2ddRv7TBpGB
-	 zdIl7GagtIQUGCm8hct1arZIOm5QT3atuQF4kb9MNhRyEyUQBlyHygnEEpnTz5JB44
-	 JfNFB4yTejyTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 02/17] nvmem: add DEFINE_FREE for nvmem_cell_put
- cleanup
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260804113338.261782-3-varshini.rajendran@microchip.com>
-References: <20260804113338.261782-1-varshini.rajendran@microchip.com>
- <20260804113338.261782-3-varshini.rajendran@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 11:44:24 +0000
-Message-Id: <20260804114425.37E591F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="QU7AhU64"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 48b4ffee5;
+	Tue, 4 Aug 2026 16:17:28 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v2 04/10] drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ bitmask
+Date: Tue,  4 Aug 2026 16:17:11 +0800
+Message-Id: <20260804081717.741404-5-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260804081717.741404-1-damon.ding@rock-chips.com>
+References: <20260804081717.741404-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fcbd9607703a8kunma7b8cbe762b09a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSEhCVhhPHUtCSBpKThkfSlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=QU7AhU643FcCKLOKXHEqJOzu5oal/dDH6dNQ+X1wvu8EnAuxNsO/BdUksmawjrUMcYV6fZKhvA1teQr6rK1wdWpoj0yUHELkS1CjPMy1TKZeU/pTIPIuOI1xzTQVe4JrNCiS4WyA8sGS0aF+UbHkuG4ESRYxToJ4pHjoxHEvxs8=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=wZ3Yx1pvPBwGiqSi0fnx71r627+5/VtLrTsEj4ffKDA=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The `DEFINE_FREE(nvmem_cell_put, ...)` macro is missing from the `C=
-ONFIG_NVMEM=3Dn` fallback block, causing compilation failures for drivers u=
-sing it without NVMEM enabled.
---
+Update analogix_dp_clear_hotplug_interrupts() to take an irq_type
+bitmask argument. Instead of clearing all hotplug interrupt bits
+unconditionally, only clear the interrupt flags corresponding to the
+triggered events.
 
---- Patch [2]: [PATCH v5 02/17] nvmem: add DEFINE_FREE for nvmem_cell_put c=
-leanup ---
-commit 2ebca04f3e1ae39d3b1c1039e736c5e4b6555c85
-Author: Varshini Rajendran <varshini.rajendran@microchip.com>
+Pass the detected IRQ bitmask from the irq thread handler, and use the
+full HPD_IRQ mask during HPD initialization.
 
-nvmem: add DEFINE_FREE for nvmem_cell_put cleanup
+This implements fine-grained pending interrupt clearing logic and
+removes limitations brought by unconditional register writes,
+supporting improved accuracy for HPD event handling.
 
-Add cleanup.h helper for nvmem_cell_put() to enable automatic resource
-cleanup using __free(nvmem_cell_put) annotation.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-> diff --git a/include/linux/nvmem-consumer.h b/include/linux/nvmem-consume=
-r.h
-> index 34c0e58dfa266..35a2ea8b8957b 100644
-> --- a/include/linux/nvmem-consumer.h
-> +++ b/include/linux/nvmem-consumer.h
-[ ... ]
-> @@ -54,6 +55,9 @@ struct nvmem_cell *nvmem_cell_get(struct device *dev, c=
-onst char *id);
->  struct nvmem_cell *devm_nvmem_cell_get(struct device *dev, const char *i=
-d);
->  void nvmem_cell_put(struct nvmem_cell *cell);
->  void devm_nvmem_cell_put(struct device *dev, struct nvmem_cell *cell);
-> +
-> +DEFINE_FREE(nvmem_cell_put, struct nvmem_cell *, if (!IS_ERR_OR_NULL(_T)=
-) nvmem_cell_put(_T))
-> +
+---
 
-[Severity: Low]
-Will this cause compilation failures for drivers using the cleanup when
-CONFIG_NVMEM is disabled?
+Changes in v2:
+- Add separate patch for IRQF_ONESHOT to resolve interrupt mask issues
+  triggered by interrupt preemption.(Sashiko)
+---
+ .../drm/bridge/analogix/analogix_dp_core.c    |  2 +-
+ .../drm/bridge/analogix/analogix_dp_core.h    |  2 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 28 +++++++++++++------
+ 3 files changed, 22 insertions(+), 10 deletions(-)
 
-Since this macro is defined exclusively inside the #if IS_ENABLED(CONFIG_NV=
-MEM)
-block, it appears to be missing from the fallback #else block. Moving it
-outside the #if / #else blocks would make it universally available and prev=
-ent
-build issues when drivers use __free(nvmem_cell_put) without NVMEM enabled.
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 4fe248e66515..603abd940a7c 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -720,7 +720,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
+ 
+ 	irq_type = analogix_dp_get_irq_type(dp);
+ 	if (irq_type)
+-		analogix_dp_clear_hotplug_interrupts(dp);
++		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+ 
+ 	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
+ 	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index c2eba77f9a81..ecb86a6c1fc3 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -194,7 +194,7 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp);
+ void analogix_dp_init_hpd(struct analogix_dp_device *dp);
+ void analogix_dp_force_hpd(struct analogix_dp_device *dp);
+ u32 analogix_dp_get_irq_type(struct analogix_dp_device *dp);
+-void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp);
++void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq_type);
+ void analogix_dp_reset_aux(struct analogix_dp_device *dp);
+ void analogix_dp_init_aux(struct analogix_dp_device *dp);
+ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index f4f859cb2936..024f342da461 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -24,6 +24,11 @@
+ #define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
+ #define INT_STA_MASK		INT_HPD
+ 
++#define HPD_IRQ			(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
++				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
++#define COMMON_INT_4_HPD_IRQ	(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
++				 DP_IRQ_TYPE_HP_CHANGE)
++
+ void analogix_dp_enable_video_mute(struct analogix_dp_device *dp, bool enable)
+ {
+ 	u32 reg;
+@@ -376,18 +381,25 @@ int analogix_dp_init_analog_func(struct analogix_dp_device *dp)
+ 	return 0;
+ }
+ 
+-void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp)
++void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq_type)
+ {
+-	u32 reg;
++	u32 reg = 0;
+ 
+-	if (dp->hpd_gpiod)
++	if (dp->hpd_gpiod || !irq_type)
+ 		return;
+ 
+-	reg = HOTPLUG_CHG | HPD_LOST | PLUG;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
++	if (irq_type & COMMON_INT_4_HPD_IRQ) {
++		if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN)
++			reg |= PLUG;
++		if (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT)
++			reg |= HPD_LOST;
++		if (irq_type & DP_IRQ_TYPE_HP_CHANGE)
++			reg |= HOTPLUG_CHG;
++		writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
++	}
+ 
+-	reg = INT_HPD;
+-	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA);
++	if (irq_type & DP_IRQ_TYPE_IRQ_HPD)
++		writel(INT_HPD, dp->reg_base + ANALOGIX_DP_INT_STA);
+ }
+ 
+ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+@@ -397,7 +409,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+ 	if (dp->hpd_gpiod)
+ 		return;
+ 
+-	analogix_dp_clear_hotplug_interrupts(dp);
++	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
+ 
+ 	reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+ 	reg &= ~(F_HPD | HPD_CTRL);
+-- 
+2.34.1
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804113338.2617=
-82-1-varshini.rajendran@microchip.com?part=3D2
