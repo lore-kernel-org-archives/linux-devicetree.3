@@ -1,119 +1,177 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591A847A0B7;
-	Tue,  4 Aug 2026 17:30:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C76E485CE1
+	for <devicetree@vger.kernel.org>; Tue,  4 Aug 2026 17:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785864644; cv=none; b=slN4MPHpy3TcXUgTRSZibjxIVfuypOvgN3Hb8idOXZZ7ZjambHSVaMuXcvarcwH4OT38Wm0RVxtjAZZbMq+8ZGeke07LxxSeKGnpMTj6CqWjBsmhSXAt9MQbwB9hNVEf9mDB9YEHqyw14AAQkauuL3UTvR2oqJvZGh9MdYXsSjc=
+	t=1785865022; cv=none; b=uhziMi+fuwh0LlMikQ92Wsl6FYxKV6gpYVR55BNN6rKeuWAFFGP4Bv+9jVGquakVX3q6DPxzZxANXUaPiN/0Vmv4rzR0jNkws9u8Nj9GPgxhsKCI9frfWeRD+ZW0K3xGhlJxhKwkrT1IuU0R/t3G6/aU4cURncN38f3kX+qNXCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785864644; c=relaxed/simple;
-	bh=gPN5ohq+ElnkyqoN2bqWqlPIELg6HwK6BJIhnPdujXE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ObblBLQevx9mlWju1kOuOs04kI8hXmRwhEJyD4a3Gi7Wj7OanvH6pTqi8Yt6iKXT/YBFFxGrnLTK8tbZUJMIZNCTpzgGYFVu5QSfHqRTipzyhjBjrPQ+ZuNn/7dACq0lGMrrqICNBSTpuvnE9B3iAkNFU1K31cO5NvuAfXVIKi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WRCSbCj0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785865022; c=relaxed/simple;
+	bh=jjAqszaWmLUVQbeU8+DT9KBhox48FATSmWVOPnQUnJo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=F2cEWAp/JVrzEUOxydBVoNZVJhPGLhSS8CcQFsDewTGO/aWCyHP1x39sf9QStww2OkNL9oobo4BfkzOoSSBMl9kj2ENAv9LYijOhqLbjqdM/I1yGdp42NgvOhiYfEoBggIOjlh39BI3B3n2Neq05t2rNJCMKeze/EoksYQmiiwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SKZwLjIg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WRCSbCj0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484751F000E9;
-	Tue,  4 Aug 2026 17:30:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SKZwLjIg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799FC1F000E9;
+	Tue,  4 Aug 2026 17:36:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785864642;
-	bh=FmbMSXBnTdxS8Bf3zgCzs96igb83r/aC/Ca1iL8RCfw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WRCSbCj030LspXN7pVmNm1HoKGDmFF0RrlKCAmHfFNAnk9XxQI73INtfiNeyUtoX5
-	 vkOJD1PleYPatZTFaxc77hoahjy6Ng03s6UBUIIMZ3M5PpP2DE33lYY6ZRaO19OSvm
-	 bAj7c4iH1JtDTb74aYLX3ttkIJ0eq36nI6yMVrQ6DecZtkIPxuzb1+7taACS2M0iOg
-	 SCovdx8ETvzVT1ltsMG7sMwIbnHYF7c2O4ZMSKk0rP39jpotcZmPEBzorCAIp4r9Ab
-	 lvYc87EJMIkLpgdJHHkQ+t+hDgM8MMCpq4TtHXlq62E+NARerLUz8avBKWOd8XYwHx
-	 pVmsi3MkP2ZCg==
-Date: Tue, 4 Aug 2026 18:30:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chris Morgan <macromorgan@hotmail.com>,
-	Luca Weiss <luca.weiss@fairphone.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] iio: imu: inv_icm42600: drop the whoami check
-Message-ID: <20260804-scarily-hacker-651df3eafea9@spud>
-References: <20260728184351.75015-1-jorijnvdgraaf@catcrafts.net>
- <20260728184351.75015-3-jorijnvdgraaf@catcrafts.net>
- <20260801032310.18f5f16d@jic23-huawei>
+	s=k20260515; t=1785865020;
+	bh=WZLvU8TMiHl2cl6mpOmI2juEgP11OMXEYaKR2VxMy2c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SKZwLjIgPi/u7HAnIFrxFWPVD0zh+7DhydnjOhRB3O1n4ZzJR//oIFJNXH6565h7r
+	 dTwe0XppcJ4AXe+a1BlUrwIMUNg++Tnqpr3OHJERMMsqP5LYk60dotmZSGMLoNX4B+
+	 9qD7js7QnK5T6ec9RYO5xTp3VS9+C2vOdBP0B4djuOEelTNmhJSML+LJBF39yMtz/a
+	 zhNcNVFEjM5R/v9sHcjZRCH7dS0mll0GRkaTfLBZ/kh+t4OTYDpyO/CnHuSXFPmLsK
+	 eqmOGynkABUKkwpLZyH4/cPRfxWwq0gyWtjJz+lvcNFYSfEUo4apgIWbrUTCFREtqB
+	 1Ip4EBr6JOwYQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/6] iio: light: ltr501: Power down chip if request
+ irq fails
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260804-liteon-ltr329-v3-4-c6b768c7c745@geanix.com>
+References: <20260804-liteon-ltr329-v3-0-c6b768c7c745@geanix.com>
+ <20260804-liteon-ltr329-v3-4-c6b768c7c745@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 17:36:58 +0000
+Message-Id: <20260804173659.799FC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="goaxSQJDDMJ3/Lmf"
-Content-Disposition: inline
-In-Reply-To: <20260801032310.18f5f16d@jic23-huawei>
 
---goaxSQJDDMJ3/Lmf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On Sat, Aug 01, 2026 at 03:23:10AM +0100, Jonathan Cameron wrote:
-> On Tue, 28 Jul 2026 20:43:50 +0200
-> Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net> wrote:
->=20
-> > A WHOAMI value differing from the one the compatible implies aborts
-> > probe with -ENODEV, preventing a register-compatible part described
-> > with a fallback compatible from probing at all.
-> >=20
-> > The devicetree compatible is authoritative for which part is fitted:
-> > drop the check, and with it the now-unused whoami definitions. No
-> > warning replaces it, since probing via a fallback compatible is
-> > legitimate use, not a condition to report. This changes the probe
-> > outcome on mismatch for all parts the driver supports.
-> >=20
-> > Tested via a backport to a Fairphone 6 running a 7.1-based kernel: its
-> > ICM-42630 (WHOAMI 0x0C), described with an icm42631 fallback compatible
-> > and matched as icm42631, probes silently, and accelerometer, gyroscope
-> > and temperature reads work.
-> >=20
-> > Suggested-by: Conor Dooley <conor@kernel.org>
-> > Link: https://lore.kernel.org/all/20260722-creature-volley-0f083b904c1d=
-@spud/
-> > Link: https://lore.kernel.org/all/20260728-extradite-yanking-42d918637f=
-61@spud/
-> > Assisted-by: Claude:claude-fable-5
-> > Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
->=20
-> Hi Jorijn,
->=20
-> I'm open to other opinions, particularly from those who are using
-> this driver but I think dropping any form of hint that the device isn't
-> the one we expect is too far when previous we just failed to probe.
+Pre-existing issues:
+- [High] Uninitialized kernel stack memory is leaked to userspace and funct=
+ional behavior is broken on Big Endian architectures due to `regmap_bulk_re=
+ad()` reading into a 4-byte `int`.
+- [Medium] Data race (TOCTOU) on `data->als_contr` and `data->ps_contr` bet=
+ween raw sysfs reads and writes.
+- [Medium] Data race on `data->als_period` and `data->ps_period` between sy=
+sfs event writes and sysfs raw writes.
+--
 
-FWIW, what I don't want is warning or error level printouts, so
-something informational is tolerable to me.
+--- Patch [4]: [PATCH v3 4/6] iio: light: ltr501: Power down chip if reques=
+t irq fails ---
+commit 9f4c589a7c5ec63bde9127853783856ae3e751dd
+Author: Esben Haabendal <esben@geanix.com>
 
->=20
-> We have a lot of drivers that issue such a print and my understanding
-> is that has been useful.  If we want to make it non threatening we could
-> phrase it as something like "Device ID XX is not the YY associate with the
-> FW specified device, probably using a valid fallback compatible".  That
-> would still provide the breadcrumb for anyone seeing an unexpected
-> part change on their device vs the DT.
->=20
+iio: light: ltr501: Power down chip if request irq fails
 
---goaxSQJDDMJ3/Lmf
-Content-Type: application/pgp-signature; name=signature.asc
+This patch updates the error handling in ltr501_probe() when
+devm_request_threaded_irq() fails. It ensures the chip is powered down by
+jumping to the powerdown_on_error label and removes a duplicate error messa=
+ge.
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 7d045be78c6df..b36bd10a02624 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+> @@ -1537,11 +1537,8 @@ static int ltr501_probe(struct i2c_client *client)
+>  						IRQF_ONESHOT,
+>  						"ltr501_thresh_event",
+>  						indio_dev);
+> -		if (ret) {
+> -			dev_err(&client->dev, "request irq (%d) failed\n",
+> -				client->irq);
+> -			return ret;
+> -		}
+> +		if (ret)
+> +			goto powerdown_on_error;
+>  	} else {
+>  		indio_dev->info =3D data->chip_info->info_no_irq;
+>  	}
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCanIhugAKCRB4tDGHoIJi
-0piNAQDB1fNsjsOb10VCF5Kh/TFY/ezsqjVEZ7jG3W4l0kxQqgEA9hmIFRBeAGJQ
-d0iLpIRr6XYKYor/cB+OHwRRaYi5CQE=
-=CaxK
------END PGP SIGNATURE-----
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential problem with
+uninitialized memory when reading data on Big Endian architectures.=20
 
---goaxSQJDDMJ3/Lmf--
+In ltr501_read_thresh():
+
+        int ret, thresh_data;
+        ...
+        ret =3D regmap_bulk_read(data->regmap, LTR501_ALS_THRESH_UP,
+                               &thresh_data, 2);
+        if (ret < 0)
+                return ret;
+        *val =3D thresh_data & LTR501_ALS_THRESH_MASK;
+
+And in ltr501_trigger_handler():
+
+        int ret, psdata;
+        ...
+        ret =3D regmap_bulk_read(data->regmap, LTR501_PS_DATA,
+                               &psdata, 2);
+        if (ret < 0)
+                goto done;
+        scan.channels[j++] =3D psdata & LTR501_PS_DATA_MASK;
+
+Could this leak up to 2 bytes of uninitialized kernel stack memory to users=
+pace
+and result in data loss on Big Endian systems? The regmap_bulk_read() call
+reads 2 bytes into the MSB of the 32-bit int variables and then the code ma=
+sks
+the uninitialized LSBs.
+
+Similarly, in ltr501_write_thresh():
+
+        ret =3D regmap_bulk_write(data->regmap, LTR501_ALS_THRESH_UP,
+                                &val, 2);
+
+Would this write the upper 2 bytes of the 32-bit integer on Big Endian syst=
+ems,
+silently passing incorrect zeroes to the hardware?
+
+[Severity: Medium]
+This is a pre-existing issue, but is there a data race on data->als_contr
+between raw sysfs reads and writes?
+
+In ltr501_read_raw(), data->als_contr is read locklessly:
+
+        i =3D (data->als_contr & data->chip_info->als_gain_mask)
+             >> data->chip_info->als_gain_shift;
+
+While in __ltr501_write_raw(), it performs a non-atomic read-modify-write:
+
+        data->als_contr &=3D ~info->als_gain_mask;
+        data->als_contr |=3D i << info->als_gain_shift;
+
+Can a concurrent read (via sysfs) during a write observe an intermediate
+configuration state, leading to the driver temporarily reporting an incorre=
+ct
+scale factor to userspace?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but is there a data race on
+data->als_period between sysfs event writes and sysfs raw writes?
+
+In ltr501_write_intr_prst():
+
+        mutex_unlock(&data->lock_als);
+        if (ret >=3D 0)
+                data->als_period =3D period;
+
+And in __ltr501_write_raw():
+
+        ret =3D ltr501_write_intr_prst(data, chan->type,
+                                     0, data->als_period);
+
+Does updating data->als_period outside of the mutex lock in
+ltr501_write_intr_prst() leave it unprotected against concurrent event writ=
+ers
+or lockless readers like __ltr501_write_raw()?
+
+Could this lead to stale or inconsistent values being used to configure the
+hardware, potentially setting incorrect sampling frequencies or interrupt
+persistence counts?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-liteon-ltr=
+329-v3-0-c6b768c7c745@geanix.com?part=3D4
