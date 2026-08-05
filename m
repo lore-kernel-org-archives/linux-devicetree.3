@@ -1,158 +1,87 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3393E44EC
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:21:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D533655D7;
+	Wed,  5 Aug 2026 07:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914526; cv=none; b=dIusa4G4tt8s4C1LjbX+JeU4CF3lgK3rX8lxMT07J8BS5xqeVLwmwgjgVejM3qXgkMFR5gEA0GXJZCcjDOxkgS2/E4iMj04Wuj7NCKZbUcTzIDoF30/m4qXfBwFRnkn1I5xSHJesPu5AKom4oAmhoxT+PwuP9qnwkfvfRnnEn+Y=
+	t=1785914791; cv=none; b=l1Lecmy0NSnwol+CTSqv69F8ATp7FL4S5bdmU3Y1mnOB7jkaGF9B1mQc7o48CO3A1vlDPy+UiDQ/D4zQjt379ISN2AkygsPE7IOBnCCbOpG1f28mWec5AdDDOIEKs3nA6dPQq3fnUhfBwMUVWgKH9wI266OJtRarCYs2LjcXktM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914526; c=relaxed/simple;
-	bh=jUwFaC+0P2yB94Vdg7SyUxp9h/AQ9CKGW28W1R05GZo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l7CQGdvdilDvru3SFU4SCl0ixh8eJjYvR1E/T0B1V9Q4mIppIDmGx6lX3Jyc5mJ1I25GzPlveKuQ8RzosWujd/H+HOAQtlOO6e5AKBppyCgiojlM4p1ueSWhXa3IufH1Iq5lr+QXMSDCc91q8XPLoRcj6r6kZLRSLzpERiQ8HIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=Wnnepv6b; arc=none smtp.client-ip=79.135.106.111
+	s=arc-20240116; t=1785914791; c=relaxed/simple;
+	bh=wjvqB3IJjwoVYlpfTDuT7J8G2MSWTTWsKLIOnNAuzTk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lek2eSjotPNeEqzlKx1i3CDyJHlSjkNctOwnOtDBV43KUZ2BuUdc3N+Y69owRKQ8qY7l63dmKq8B6D0jBW5o4NXHjqnLo5PcsZ1CsQUDjI4FRVdCIOQEPhs5/OJaZndEVqj209Wrw2/FYojFSe5gxFvJwhJeZ3dDfk+SbwFA1vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=l1N++3BM; arc=none smtp.client-ip=185.70.43.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="Wnnepv6b"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="l1N++3BM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1785914516; x=1786173716;
-	bh=KjP9SL4ym3Rv1Klf7P/5VjrGwTQDu+KtLGfPry0z3EU=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	s=protonmail3; t=1785914782; x=1786173982;
+	bh=wjvqB3IJjwoVYlpfTDuT7J8G2MSWTTWsKLIOnNAuzTk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Wnnepv6bS9A6q624Vx2d2LqjE5vILNcX6BQ9SvzmMAgfYaWwrvBLjyNUBwhr0rso5
-	 lTeuPqiG1zPeelXOGMZ5hnk0mTd1cMQUecZ7JT1jrlysBwNhfNZhpu28pPTHFdtwGj
-	 sKnXKrJ5A+cnJSMtPsX+mpm3JS82e8A8E+JP4IiE5LYi+ux9Bx2h5Ur3xVVyvhWEFy
-	 8e5nYS9+XkmDTAjxbdqEmIjd8u9ypuZBryAWeHd9/xW+v00pt84Nz1Lqpr7PgrD3BI
-	 OT+EFmfc5F9v2bvpSuVBJdVWxl5YX9uRv+VXe4Q+xVOtKVcH+6OXHrhQ5YSGS7pO4c
-	 nqMFNpq3hAy8A==
-X-Pm-Submission-Id: 4hFMKv4Crvz2Sccj
+	b=l1N++3BMJDl8U+y3hin3J935eAsttWEl/Xxvh6ei9DuxtTNQJ5qaUMjIBQefyiagy
+	 Tp6GAW7wOY3KSx3ydy7AEwoWhDPBuvwlNXR5z2Y/tUzISy7tGDp182/6Q1Bc/pU+eZ
+	 uqz0pgHtDOXnLYQ1R5liCs9Bb0AgxkV7U/zGPKD44TMOvFl89A9p1mA+Q3PGEBwFcj
+	 Vyh+hLdk3/4C/OmpRJZWh0OFc+ovBTWnrvRipIWiG9+Q/U9vdxaWHjen+gPLiY1krl
+	 nZiGN8UFCW2/P9w2YyNtxb+bgfXVVVGNjGDUg74N4x5tgI9fXV9aN/Re2grcfkLjZo
+	 ZiWvE7zQeXztg==
+X-Pm-Submission-Id: 4hFMR03Z0Bz2ScQF
 From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 05 Aug 2026 09:21:38 +0200
-Subject: [PATCH v3 4/4] iio: accel: mma8452: Allow open drain interrupt pin
+To: "Jonathan Cameron" <jic23@kernel.org>
+Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
  configuration
+In-Reply-To: <20260804235400.3f99d3de@jic23-huawei> (Jonathan Cameron's
+	message of "Tue, 04 Aug 2026 23:54:00 +0100")
+References: <aldH3vtk_eKh6oCC@ashevche-desk.local> <87ldbco582.fsf@geanix.com>
+	<Tu8Mavh-mfl8Vv75Oab3vrghtEbTXiYPZ4qhj6RZv8xe5nWKP4lG1KSuJXEQfyKeio7zv9myLbmifMjFTl8juA==@protonmail.internalid>
+	<aleQVYrK9YBoLqGl@ashevche-desk.local> <874ii0misv.fsf@geanix.com>
+	<alefh86sqW-XvLHl@ashevche-desk.local>
+	<J2apVLUJhrI3AOweGpouqGGB0XhxbcqLiWasDpOdm4d2YGgNv8PuE-udUGJZcH0z-V9yyqbjIwMKDdtuam0mp6ya5F6GHUzf6OjRCo0GdaA=@geanix.com>
+	<nnp75d8J8In8paKGfojb_WdiRMfnz84lOlzz_LBKVsxDzR3fG7Y5Mn91q6P4BF2LetfZS7da2SeqGhpiLUOE-A==@protonmail.internalid>
+	<alkgZTnHyvEasMCk@ashevche-desk.local> <877bmtsu1h.fsf@geanix.com>
+	<alpqq3zhSS_iYGJq@ashevche-desk.local>
+	<nlzE8HA1b2C6D9P6L63VNtKUWaXbUTxoJB5c3K4eFLIrEkoV_2CDQNp50cj2ILfMni0Rjz94guWdLadq2ewdHw==@protonmail.internalid>
+	<20260719023035.2380e8df@jic23-huawei> <87tspb63oi.fsf@geanix.com>
+	<RuqoMWPGexWkNKQz7GTa2WKKFTYQ1iZXAYp7Hub1YDdiifvVKmLnOmCuoCUDr_Jk2wulpLH_FGdN7O-TQcKaLQ==@protonmail.internalid>
+	<20260804235400.3f99d3de@jic23-huawei>
+Date: Wed, 05 Aug 2026 09:26:19 +0200
+Message-ID: <87a4r1auzo.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-mma8452-open-drain-v3-4-6149f406a409@geanix.com>
-References: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
-In-Reply-To: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785914502; l=3033;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=jUwFaC+0P2yB94Vdg7SyUxp9h/AQ9CKGW28W1R05GZo=;
- b=4avtW0JoCpFdvBheNNutwqprLktQ6LO6TOdE481O/0ljrBzNzH/8KRNs6BlGsc4Blp/wp/5Om
- hHG/mdBdwGKAS9opmliAD+F+duTbJTn5OgXIjWXx1f5xTcWyGktxDFA
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Type: text/plain
 
-When sharing interrupt line with other chips, the interrupt pin most
-likely needs to be configured in open-drain mode instead of push-pull.
+"Jonathan Cameron" <jic23@kernel.org> writes:
 
-The PP_OD bit in CTRL_REG3 is set when open-drain mode is configured,
-allowing sharing the interrupt line with other devices (with same interrupt
-polarity).
-The IRQF_SHARED flag is added to request_threaded_irq() flags, indicating
-that the interrupt line can be shared with other devices.
+> On Mon, 03 Aug 2026 09:53:01 +0200
+>> >> I'm on vacation, but I disagree on the approach taken in this patch.
+>> >> I leave it to you and Jonathan and others to settle down.
+>> >>
+>> >> Here is my formal NAK (to this form of the patch, as I said, w/o shared
+>> >> support it might be okay to go).
+>>
+>> I would like to find a way to agree on a solution with shared support.
+>
+> Hopefully Andy will be fine with what we have above.
+> I'm fairly sure I talked him into accepting similar in the past ;)
 
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/iio/accel/mma8452.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+I have implemented the changes discussed and submitted v3 of this series
+now. I hope it is better now.
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index 723ca3d9cb96..fa0915530f95 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -81,6 +81,8 @@
- #define  MMA8452_CTRL_REG2_RST			BIT(6)
- #define  MMA8452_CTRL_REG2_MODS_SHIFT		3
- #define  MMA8452_CTRL_REG2_MODS_MASK		0x1b
-+#define MMA8452_CTRL_REG3			0x2c
-+#define  MMA8452_CTRL_REG3_PP_OD		BIT(0)
- #define MMA8452_CTRL_REG4			0x2d
- #define MMA8452_CTRL_REG5			0x2e
- #define MMA8452_OFF_X				0x2f
-@@ -119,6 +121,7 @@ struct mma8452_data {
- 	int sleep_val;
- 	u8 ctrl_reg1;
- 	u8 data_cfg;
-+	bool open_drain;
- };
- 
-  /**
-@@ -647,6 +650,22 @@ static int mma8452_set_power_mode(struct mma8452_data *data, u8 mode)
- 	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
- }
- 
-+static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
-+{
-+	int reg;
-+
-+	reg = i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
-+	if (reg < 0)
-+		return reg;
-+
-+	if (data->open_drain)
-+		reg |= MMA8452_CTRL_REG3_PP_OD;
-+	else
-+		reg &= ~MMA8452_CTRL_REG3_PP_OD;
-+
-+	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
-+}
-+
- /* returns >0 if in freefall mode, 0 if not or <0 if an error occurred */
- static int mma8452_freefall_mode_enabled(struct mma8452_data *data)
- {
-@@ -1667,6 +1686,11 @@ static int mma8452_probe(struct i2c_client *client)
- 			goto disable_regulators;
- 	}
- 
-+	data->open_drain = device_property_read_bool(&client->dev, "drive-open-drain");
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto trigger_cleanup;
-+
- 	data->ctrl_reg1 = MMA8452_CTRL_ACTIVE |
- 			  (MMA8452_CTRL_DR_DEFAULT << MMA8452_CTRL_DR_SHIFT);
- 
-@@ -1688,7 +1712,7 @@ static int mma8452_probe(struct i2c_client *client)
- 		irq_flags = irq_get_trigger_type(client->irq);
- 		if (irq_flags == IRQ_TYPE_NONE)
- 			irq_flags = IRQF_TRIGGER_LOW;
--		irq_flags |= IRQF_ONESHOT;
-+		irq_flags |= IRQF_ONESHOT | IRQF_SHARED;
- 		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
- 					   irq_flags, client->name, indio_dev);
- 		if (ret)
-@@ -1806,6 +1830,10 @@ static int mma8452_runtime_resume(struct device *dev)
- 		return ret;
- 	}
- 
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto runtime_resume_failed;
-+
- 	ret = mma8452_active(data);
- 	if (ret < 0)
- 		goto runtime_resume_failed;
-
--- 
-2.55.0
-
+/Esben
