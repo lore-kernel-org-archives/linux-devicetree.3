@@ -1,107 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAE791B6D08;
-	Wed,  5 Aug 2026 00:36:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029B81B6D08;
+	Wed,  5 Aug 2026 00:38:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785890176; cv=none; b=nfmmRc2aIrSzO4VrzuZrT4OVA+tffpao83SecgWvYvZkyJhK/y2ZzIPpsHILlm0+G47uoiqyj2/oppfH2A3Q9UzgQ/o6Ah1hC6t++oLig/Qd/jNCiS1WqtK9u/k2U4VzQzm4pPgIrUvledJl2FeKBhVAQmfEzXVyoreukflICMY=
+	t=1785890327; cv=none; b=cmI4Zq3wvFk34VhGxmgWVyNavWcX7xI742WV4OZYe2LjWrXE+kulgQ+E8T2PRWKJNepBALzp7DLaqFiFm5xQtxck4Cqd2uYiWTxZffzIkNCpJP96BgiOMDXGHFf33jn+Nm57crYvIsAjVENflWlS+2gdbfL4ILCcT6EuezD+KG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785890176; c=relaxed/simple;
-	bh=OLmxSdjIZG0pbtPOoixqQn2ZoRFzSw2+6m85mzgOU44=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=LvaPzx7DYuwb4jCQZiUdOHAT3hmoi7K8VzjEAHkxwjOHBzsDjG2+oO8T+n3jtWd4Dt32Ew5LG2TY9b0LXwA7QGH/NtGpVTnZwBQHch4KH1vrSJH32nEzaP9c3CytJVPuEw0d8hWpZRkFD9ORhAYMPiEn6XPNz6Z4K425eue4Tq0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzfErMoK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785890327; c=relaxed/simple;
+	bh=ePfLhaYAUCM6ZCNFauWpbuqo7Mh+s/8W/fPF6rUloO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qYo11jNhVkiyM3MESMvMwUh9io/49rmj/MAdCSV5KFcL0SfcW0XesrrINa39ecwnr7hMOjun2KBxpj8iqJH0zejVhMz9WF9m4u+eP5nt+hxkDxXBg0uZvS9L7NYXIynyAQy1Im2/phJK8Q9jp7lrnm3jIMN8l12pt3XTNRfFLDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kOhnKpPB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzfErMoK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324B51F000E9;
-	Wed,  5 Aug 2026 00:36:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kOhnKpPB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24A8B1F000E9;
+	Wed,  5 Aug 2026 00:38:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785890175;
-	bh=7eQ5n/iGpSnvTqj4pTR3mrzSee7O5vh1QLpKl6Bg9h0=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=UzfErMoKx40e2blQeHBXSCWHrkWf3gT/4gPA6Ln90TDRy5NKPRSQqcxXUzzw04hr1
-	 /myqb631zNn+dnijLZJGJP7BXHOJRqfLk0BCpDe+D+MlAMgBLbMpWg60+7zU+IXZjD
-	 m7dumXj0+13Nwgae6uSZnM9GBZyMv7oR4I7MgXoQZXs/9BcYQE2HFIMIRXztOMk14n
-	 uBt7WqVLibUdRfcy+HYtqV+4qTdryt6kXeRL0NtcMz/Miq0eRRwAgNG4xB0DmBDpAQ
-	 oIfxDBLy/5rBqs6/Khh1sV2dcLO4uG5P8iBrVoW7iMzXLP39yjo2aEuZNHroM/xuO6
-	 kWF3YyRd/ibyA==
-Date: Tue, 04 Aug 2026 19:36:14 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1785890325;
+	bh=xwWhxSFvLCrAUwUCJ+/6aXjbM/H8cn7WFr737NnKdX0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kOhnKpPBPhfcceK4xplZklrx2yTbvA7rih4xFdnm1XalpUqizU54/L64dthiGTCU5
+	 x+2ahrHGwJS3RppA1jIDB1obkV4xlwnBDkUgPcyEn8RpUhH3b3KsuTmIAve5CjnS1I
+	 9+TBlimr84GLFij6q672vaNgQRcU2GdOxYRDyDYGuVbtLV0nxWk98NAXcmESw2yGdH
+	 zsHcBFPtGBbNjcWXkoYkYLFY2/v26UC1a6wLHQYb/PD2gA6nykJlV+KEq8IzdxIeBi
+	 r4iEWl4b9p48F6JesS9ozneQ0wxYQ1ugiriXjePPETEiVZ3O0upDEzpSm7Xh9aiPPo
+	 iwecQpkfIdmEQ==
+Date: Wed, 5 Aug 2026 01:38:39 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Varshini Rajendran <varshini.rajendran@microchip.com>
+Cc: <ehristev@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
+ <andy@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
+ <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
+ <srini@kernel.org>, <marcelo.schmitt@analog.com>, <radu.sabau@analog.com>,
+ <joshua.crofts1@gmail.com>, <jorge.marques@analog.com>,
+ <Jonathan.Santos@analog.com>, <jishnu.prakash@oss.qualcomm.com>,
+ <antoniu.miclaus@analog.com>, <duje@dujemihanovic.xyz>,
+ <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 02/17] nvmem: add DEFINE_FREE for nvmem_cell_put
+ cleanup
+Message-ID: <20260805013839.1c4d10f9@jic23-huawei>
+In-Reply-To: <20260804113338.261782-3-varshini.rajendran@microchip.com>
+References: <20260804113338.261782-1-varshini.rajendran@microchip.com>
+	<20260804113338.261782-3-varshini.rajendran@microchip.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- linux-fbdev@vger.kernel.org, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- dri-devel@lists.freedesktop.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- devicetree@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>, 
- linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
- Helge Deller <deller@gmx.de>
-To: Max Pedraza <maximpedraza@gmail.com>
-In-Reply-To: <20260804225617.264861-2-maximpedraza@gmail.com>
-References: <20260804225617.264861-1-maximpedraza@gmail.com>
- <20260804225617.264861-2-maximpedraza@gmail.com>
-Message-Id: <178589017450.2494424.9339926059212534643.robh@kernel.org>
-Subject: Re: [PATCH v2 1/6] dt-bindings: display: add a device tree
- supplied boot logo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Tue, 4 Aug 2026 17:03:23 +0530
+Varshini Rajendran <varshini.rajendran@microchip.com> wrote:
 
-On Wed, 05 Aug 2026 00:56:12 +0200, Max Pedraza wrote:
-> Embedded products frequently need a product specific boot logo. Today the
-> only way to get one is to replace one of the logo_*_clut224.ppm files in
-> the kernel source tree, which bakes the image into the kernel image: a
-> change of branding, or a second product sharing the same board support,
-> requires a separate kernel build.
+> Add cleanup.h helper for nvmem_cell_put() to enable automatic resource
+> cleanup using __free(nvmem_cell_put) annotation.
 > 
-> Add a binding for a "linux,boot-logo-clut224" node, which carries the logo
-> in the same paletted format the built-in CLUT224 logos already use, plus a
-> few optional properties describing where on the screen it is drawn.
+> Use IS_ERR_OR_NULL() since nvmem_cell_get() can return error pointers,
+> and passing an ERR_PTR to nvmem_cell_put() would cause issues.
 > 
-> The palette size is derived from the length of the "clut" property rather
-> than spelled out separately, and "data" holds plain palette indices; the
-> 32 entry offset the frame buffer layer reserves for the console is an
-> implementation detail and is applied by the kernel, not by the binding.
-> 
-> Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
+> Signed-off-by: Varshini Rajendran <varshini.rajendran@microchip.com>
+https://sashiko.dev/#/patchset/20260804113338.261782-1-varshini.rajendran%40microchip.com
+Has a question about whether this should be available when
+!CONFIG_NVMEM
+
+Seems like a reasonable suggestion to me given nvmem_cell_put() is stubbed
+out.
+
+Jonathan
+
 > ---
->  .../display/linux,boot-logo-clut224.yaml      | 131 ++++++++++++++++++
->  MAINTAINERS                                   |   1 +
->  2 files changed, 132 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml
+>  include/linux/nvmem-consumer.h | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-
-My bot found errors running 'make dt_binding_check' on your patch:
-
-yamllint warnings/errors:
-
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/display/linux,boot-logo-clut224.example.dtb: /: 'compatible' is a required property
-	from schema $id: http://devicetree.org/schemas/root-node.yaml
-Documentation/devicetree/bindings/display/linux,boot-logo-clut224.example.dtb: /: 'model' is a required property
-	from schema $id: http://devicetree.org/schemas/root-node.yaml
-Documentation/devicetree/bindings/display/linux,boot-logo-clut224.example.dtb: chosen: 'logo' does not match any of the regexes: '^framebuffer', '^pinctrl-[0-9]+$'
-	from schema $id: http://devicetree.org/schemas/chosen.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260804225617.264861-2-maximpedraza@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+> diff --git a/include/linux/nvmem-consumer.h b/include/linux/nvmem-consumer.h
+> index 34c0e58dfa26..35a2ea8b8957 100644
+> --- a/include/linux/nvmem-consumer.h
+> +++ b/include/linux/nvmem-consumer.h
+> @@ -9,6 +9,7 @@
+>  #ifndef _LINUX_NVMEM_CONSUMER_H
+>  #define _LINUX_NVMEM_CONSUMER_H
+>  
+> +#include <linux/cleanup.h>
+>  #include <linux/err.h>
+>  #include <linux/errno.h>
+>  #include <linux/notifier.h>
+> @@ -54,6 +55,9 @@ struct nvmem_cell *nvmem_cell_get(struct device *dev, const char *id);
+>  struct nvmem_cell *devm_nvmem_cell_get(struct device *dev, const char *id);
+>  void nvmem_cell_put(struct nvmem_cell *cell);
+>  void devm_nvmem_cell_put(struct device *dev, struct nvmem_cell *cell);
+> +
+> +DEFINE_FREE(nvmem_cell_put, struct nvmem_cell *, if (!IS_ERR_OR_NULL(_T)) nvmem_cell_put(_T))
+> +
+>  void *nvmem_cell_read(struct nvmem_cell *cell, size_t *len);
+>  int nvmem_cell_write(struct nvmem_cell *cell, void *buf, size_t len);
+>  int nvmem_cell_read_u8(struct device *dev, const char *cell_id, u8 *val);
 
