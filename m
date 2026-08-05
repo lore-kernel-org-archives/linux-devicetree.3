@@ -1,91 +1,33 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B0542254A;
-	Wed,  5 Aug 2026 10:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785927403; cv=fail; b=s+6Bjs+Hr+kHyL3usX+kBda6Asjrj4eGWy8CyRLXhJxfLajr2gMy0S990o/p/FA0yWyo7xR5TQI9ETdvUu6qQbtrqTJPyyICum9mLcS/bcRaLCJupTe6NTgUhh7840GXb/OhYmy6rXHN32gdJjQ+e+C9gNeStDrfRWX/Gg4GN/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785927403; c=relaxed/simple;
-	bh=CNm9RwAyZBYJuMzxzDtY7/16FaPs7mhE+R6onPvwH6U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=K4++koDGSLFfU4/nTsT4y+ZrbFMNh8LDntDBUyk9n1TfsJs7MAiDzxX2kHRKpT8qth9sEnk/ocOOc3JAX/xW8Dddd0SCe2/NW9aqKRdbpgYM6tpvXxffjNT1/SjHSn+7FiByCw98xh2ksjaXlwuJ3gBRANS0NHs98oFkEuoxrUo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=j7dKGG48; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=lsI5DP7P; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB352418A58;
+	Wed,  5 Aug 2026 11:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785928123; cv=none; b=PDrD/FURRUTNqs3Co/pr+g16QRt9IXXxU1qw/fuS9orX1rVYWFQPXkuCgEYMT9Gg4TPOoMo2N64H1rL+sYrRVyz6LFePhDjCLBwmgfEbh2lOyFwd4MHdC8XBf4tjPoGbU/qkfjupBNpzEGST4OPBIrH43gHw/KFuOLq53cZ3Z4s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785928123; c=relaxed/simple;
+	bh=ghdmEV1nQFz2UkbFOfmAQ52k0blxMMSQKIBtxvDeZWU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fjGlgIyPn1VM/Hk/4QmuzyPGnuxUxqtc/4SypnbKkNjjkEgmcP2GVumwYdIq8OA5BU5To1mrHn16diQwwj4gvSKY6ksNZ/l0ML9V7aBdpLM9UdGg4ZrJ4DIVlwT2O8aj3eOPCuVnEFQ5vS77pwFzyGpheQkRDdGoyyV9BvNLB7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3ahLAl2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="j7dKGG48";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="lsI5DP7P"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6758dbXV1847081;
-	Wed, 5 Aug 2026 05:56:36 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=3qs+wWNgWmnm/OWzkjpZ8KcBSC69ItpZm3fjtjYmK
-	yo=; b=j7dKGG48MTWTK76i2ns3esA6ty2B0UrjrrSPodapNcAqPR/spK/0m2Ywx
-	FuhMjPK0WqTQicXTU84xtrXi3bof9K/bKI2hpfzNH7w6czfhz6vUEmPSUgqf/LjJ
-	uJ6a8tLgeiBEVslE1cd0WuT2mel85MnF+mX8NnmYwEtH6gP+3Iez/OaqpnsBh7tP
-	wiPg/3yRsAxnEw/7IYorsl4or03gRPzuV4LFPcRCjNc0vus8LlmJ4tcQRV0Wqdi5
-	6CjGhqLouX9U8XxIRn/O65mK2tfTGWo/1S4odb1PNo89nOpseUhlddgtflMTB8uy
-	OLPMIutFcYGSe3/1OakFshuxhR7hQ==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011004.outbound.protection.outlook.com [40.107.208.4])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4fuuxtu810-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 05 Aug 2026 05:56:35 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yN9lijEiUCmcFU+YuNs1tE3wdnJmEa67HYUsQ4nWTluFtYs25hvdeDxvCTccPt783sTzR44Q1dlMjRxv5xbSOEkmudVxN0lzyuDyGSv9ZmVmwIMC5TMM3PuC98eRIeLotiLFh0f2XQzqsqCcPvKZvcPu4+PjycfVe5skjCHZZclPVxFlnKSnKZSz3ovJVxDyHbfo/CIAyC0/kW5iHWWbRHi561+I6eiGNxn0DfkRpFc0wqiN43gkVKqe1xETRiq+Mt2Tb2b/tP8zQLEZBG6x2ENqkm1aSRdgXTVvB/ZZI5mmw1lEjeglVLAl+i8b/aHUbL6jjitWITMm7Ek1EuIh8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3qs+wWNgWmnm/OWzkjpZ8KcBSC69ItpZm3fjtjYmKyo=;
- b=t60tN0sBVNvxKBiD2ch4ImUcAl5G5pe5uZPBwRg3DEEU81WpSW6xxCrm/++3Kc3wCx6c5XjQMwkFgknt43biLWM630UGzP/cOtBLPfTYfPpiGpZEFNBsEf3AiJdOrd+VfOTBhH5kbngCx5lMAGGT55/1+QG/dmZLxPZzk27/DmvuHZglbHilO5rO+0SeIf7/NnMadVyUSMt1UnfKTpi5sTQgXOTXsJGo80frU9hcrBHLAuzii0LvqYq/lD7yxiSIFgMrZyHFG1K8cH2pTn6UYwjemQJp7/Y52h1otvflCWgsqTaExc3JrXu9AWnX5vC26xZwuxbK3yZzIaot+GSqrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3qs+wWNgWmnm/OWzkjpZ8KcBSC69ItpZm3fjtjYmKyo=;
- b=lsI5DP7PmVGabkqSwoXLBisKkPvN0SNUg8gsjfniTnKk+ZRTSz92hFYTK3H3BYCR3JHmrspdG6Y7p28JCPiuE9fGLXKuKZICNgqkjnHRvdl0s50gEiHj4UzdOFenfKv1iV4F9miqYzquH9cyZan59wWFlgy3eBl6ahjMcAlW2d4=
-Received: from CH0PR03CA0347.namprd03.prod.outlook.com (2603:10b6:610:11a::26)
- by PH0PR10MB997641.namprd10.prod.outlook.com (2603:10b6:510:386::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Wed, 5 Aug
- 2026 10:56:32 +0000
-Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
- (2603:10b6:610:11a:cafe::8f) by CH0PR03CA0347.outlook.office365.com
- (2603:10b6:610:11a::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
- Aug 2026 10:56:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 10:56:32 +0000
-Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 5 Aug
- 2026 05:56:32 -0500
-Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Wed, 5 Aug
- 2026 05:56:31 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Wed, 5 Aug 2026 05:56:31 -0500
-Received: from [10.24.50.20] (moteen-ubuntu-desk.dhcp.ti.com [10.24.50.20])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 675AuRZU1276885;
-	Wed, 5 Aug 2026 05:56:28 -0500
-Message-ID: <995f20c8-77da-4054-8068-dd580507aa6e@ti.com>
-Date: Wed, 5 Aug 2026 16:26:27 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3ahLAl2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C78A1F000E9;
+	Wed,  5 Aug 2026 11:08:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785928121;
+	bh=JcbUNDZL3+LdfwEtASY4A5d0zJp3Sh4Ls1ARLjrASMQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=A3ahLAl2sGVZeb1JxyfFewkgfWRSX26qcnBAG9Kt9QZQOQWOCsg3LmKUhiYf26uzq
+	 rC28SW23pyMnjbcxgcb+0RQXFcgVoow5Su5m3RYhy0gsrBMEEXEe6zAd+lraYhU4Mj
+	 +1DEFNSdcX6wdBjL1wu+xYXDzXqu7nYPnLPQCF3olkE8gv/ZP4eMzPmYHz4lY8K7fb
+	 OUQQxn3yII3LX39MSuXiaK7Ey9vBaJo8QXEsvr7zXjNE3vBHmDUpUlVjTgMHsxcL4c
+	 AGaszB6tc/JyrdCX/Ehbog46hzZK9z5cG2iTpvN3mq1LI7n6JAXDnv+D9OdLAR+Cmh
+	 e1J32VOenLcsg==
+Message-ID: <dd38875b-1df5-42d2-acc2-98fbe86ce3fa@kernel.org>
+Date: Wed, 5 Aug 2026 13:08:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,122 +35,273 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] arm64: dts: ti: k3-am62a: Set MMC clock pins as
- OUTPUT
-To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>,
-        Vignesh Raghavendra
-	<vigneshr@ti.com>
-CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-References: <20260805004821.416613-1-jm@ti.com>
- <20260805004821.416613-4-jm@ti.com>
+Subject: Re: [PATCH v2 2/2] dt-bindings: net: convert wiznet,w5x00 to YAML
+To: =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net>
+ <20260804-wiznet-link-gpio-v2-2-3b1d0c870f35@marmottus.net>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Moteen Shah <m-shah@ti.com>
-In-Reply-To: <20260805004821.416613-4-jm@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|PH0PR10MB997641:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1d3a96e-3926-4c54-9a30-08def2e035eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|4143699003|3023799007|10067099003|56012099006|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	zFTHY7XHmiIBGJTxMamE0qUxOwOQ44DFHfDW7bWodf0fg/f22W75rTgUzeLzObkys76MCudyGdsmtXGpith4LrxZ3tip9FVLxMe24eartnU3UMX02UXNNgyMmSOz1L6e64ptgPdu6BYJ4RG4ai3xe7DtmKiPkKA6hLg91+6gZqDChEoZS2uQlZYVUpUxia79DwHvvjX4+1DcTY646Ogl9YBqUIqYDnFz/J8KM+z1za7GxR+LH4hvX+crSZKN9LO/ZOGwAD4dJLH3MzbNgSFmwOleLURU4zl7yI2sW1HOiZ9ar+p9jpzRDFL8nsoudnXxXACxstAh9UuOwnp5TEoW+9PGH23pceq19dLD4icfhiIHsQ53sdZ+n5qfX49YcF0yhcIxfbnRQTN3Tv9GHjTt/1tb/6jwzSVxMH4G2H+sLQZMJ5/1XMjabteBm9B8KAcwpafBvO9478v/UYHegqQE9G95aPKvtYVj6cFATBwWKNWQHGW5+v8wIRsfFbdsf+454HHHcpFxb8Y8UmRpPCbRVQ6I4jPPNeVO0Z7lbTxx9RLTK0NO6nNDTpYWsWf2ODMi/sHEgRK+/g4TXOTTg8BEeHyXfsW474Qa6HFKf5Pt7ng9BqWQ7yL8a9sFAGYV05ScFAMrDErcJSUgSiBa/h3JwlTPSByNyrkJ7w0oofEQ7HEBR1mF+UtdGoeNU+L8RxZ2Ibrqbyz5vc3lB6gl6cgL3Q==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(4143699003)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ulzL5DcgDmPZlvQzsglU4bMrJtoYAiqiLVcNo6AySHqq+u9E49qlkOYJ3DWcbMi09MWpM0gaV3EGPNNKaCiirIcDh/EDxnhTxgnwY/erZRNl6pPbvgGya96fRjwxZ5bpHd7hCPbFThOkS5A9eaLXWj/tmtjZWzwGpv/B91hc+33y5lze4KYZYMt7cwogdK0mIKo1VGaSgxgZu8y1TJNrROCEZhk29o0NIAsdGluw2xMOqW5U/yL0IjLdydsMv3LtaldXmcubXSGr8iUcyoia0OvihSBLUwU/vjU3/E+1Gvk+q0kjmRSh7/IUWXuoCTdUGOELp1Zx8Z2OG5lX29gQvddj/WsIgkdcRrOC4/kmeVNUFtbB6u6KGTEkh4vLo7Y3A0hC9wdTfQwI7arfX1AjzipW9r3kutpcc/u+lkp/fsJRCREtKKt0mLwFaZx9C3G5
-X-Exchange-RoutingPolicyChecked:
-	cgvhGu3JxQsHPd7KLwfPzSyXfGhJ11N/p/TPZBtfr68VbNveseKGegOZ2TjxTaytR2OJ2tv1jIQC3vn2guNXnQMEgOpaRJ81NKusoATPPbYANeOG99okY6TDNatQbeTcyfrwyqDqIKBmnvRto8kWBU0vyX7BbtyLicX74D1fZ8RTDu2LuKZvb8QbQhyHHeG8lCWvzvpxX+8A4I9y/XlmHdzP2euTzuPcrhf1/I7M+F6EQO9JfYQ7B7TnfQv7uAmALX7AfsXceBth80NTRV3rV0WEXcTxwIy04S/0PLpM06NOchB84Tvx69Hx3TiwAYoPmzwombM9qAastbTVguaCAg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 10:56:32.3386
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1d3a96e-3926-4c54-9a30-08def2e035eb
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000AD7F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB997641
-X-Proofpoint-ORIG-GUID: ZB9S6dkJ2RAEFyiIVc2WL1dbEUnPzb5S
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA4NyBTYWx0ZWRfX04hBQrcnECdn
- JiixkeAP6XPET5OOdMM4LhA5LZ2k3VBO1zaWxxUTSZwK2g6GPIweRVNxDzlQpQLvtNm/UsTFbMo
- icWTdMVami9gv+KRIV1Pgw50LMRuUbQ=
-X-Proofpoint-GUID: ZB9S6dkJ2RAEFyiIVc2WL1dbEUnPzb5S
-X-Authority-Analysis: v=2.4 cv=fZKdDUQF c=1 sm=1 tr=0 ts=6a7316e3 cx=c_pps
- a=4d7Nl6fXTlayLABBLko2Iw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8
- a=i2YvWbDG3o7-TbIA7CoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA4NyBTYWx0ZWRfXy5apikxu1fNS
- INZ6W44exYh5iHA3YEjtYeAxWE5KJc+IGLYbgqmNPcQ+LJs5mO+KwZULe2gmxOrDhb+k7Moatdi
- DdhJHN0QN2Vro+qH4eyIEW9r2ulrt3SIP+/plbTejpqSZEsyIC8uWWRw6En2KEY2hiFQ/5PU925
- kZQrr+UvIvzcqBlCKaPGTUtfr5qwcSZ/aGfYuG0wZDEIW++hYnp63r2ic4ihE5MKf/QfAgD5cSJ
- PjPGjr4S0oWDDhww2qMi8wbB34PBjKf2WyvYRkyLtrNWoXCHgNX5fVaaGrRBFEgdvv6txTXTu5v
- Trh44Do5pbkgPyKsstk6kAcsclk1BZcxCG+8ouD6gH+txiNNjjDbbnDvnmeEcXP/vOyt0PiDIk+
- ScAP1ZmlxmpiQA4dUc03PstfJW+rXxYzyZfSJZbHsfmBWBjjuLddJNjfWbD2pn2lqiLcz2dzThU
- xZDO8BTi4RdYcWdQQng==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_03,2026-08-04_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 impostorscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608050087
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260804-wiznet-link-gpio-v2-2-3b1d0c870f35@marmottus.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hey Judith,
+On 04/08/2026 19:40, Arthur Crépin Leblond wrote:
+> Convert the Wiznet w5x00 SPI Ethernet controller binding from
+> text to DT schema format.
 
-On 05/08/26 06:18, Judith Mendez wrote:
-> MMC clock pins must be configured as OUTPUT-only per TRM [0] with
-> receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
-> PIN_INPUT to PIN_OUTPUT to match documentation.
+Limited review, to spare you one review cycle, as it was not tested.
 
-I think this patch and the next one should carry a fixes tag.
+Subject: s/YAML/DT schema/
 
-With that for the whole series,
-Reviewed-by: Moteen Shah <m-shah@ti.com>
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Regards,
-Moteen
-> [0] https://www.ti.com/lit/pdf/spruj16 Rev. C: Table 12-257. MMCSDi I/O Signals
->
-> Signed-off-by: Judith Mendez <jm@ti.com>
+> 
+> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
 > ---
->   arch/arm64/boot/dts/ti/k3-am62a7-sk.dts | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
-> index b04636cab71c7..e63c5200a2370 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
-> @@ -328,7 +328,7 @@ AM62AX_IOPAD(0x0b4, PIN_INPUT_PULLUP, 1) /* (K24) GPMC0_CSn3.I2C2_SDA */
->   	main_mmc0_pins_default: main-mmc0-default-pins {
->   		pinctrl-single,pins = <
->   			AM62AX_IOPAD(0x220, PIN_INPUT, 0) /* (Y3) MMC0_CMD */
-> -			AM62AX_IOPAD(0x218, PIN_INPUT, 0) /* (AB1) MMC0_CLK */
-> +			AM62AX_IOPAD(0x218, PIN_OUTPUT, 0) /* (AB1) MMC0_CLK */
->   			AM62AX_IOPAD(0x214, PIN_INPUT, 0) /* (AA2) MMC0_DAT0 */
->   			AM62AX_IOPAD(0x210, PIN_INPUT_PULLUP, 0) /* (AA1) MMC0_DAT1 */
->   			AM62AX_IOPAD(0x20c, PIN_INPUT_PULLUP, 0) /* (AA3) MMC0_DAT2 */
-> @@ -344,7 +344,7 @@ AM62AX_IOPAD(0x1f8, PIN_INPUT_PULLUP, 0) /* (AC2) MMC0_DAT7 */
->   	main_mmc1_pins_default: main-mmc1-default-pins {
->   		pinctrl-single,pins = <
->   			AM62AX_IOPAD(0x23c, PIN_INPUT, 0) /* (A21) MMC1_CMD */
-> -			AM62AX_IOPAD(0x234, PIN_INPUT, 0) /* (B22) MMC1_CLK */
-> +			AM62AX_IOPAD(0x234, PIN_OUTPUT, 0) /* (B22) MMC1_CLK */
->   			AM62AX_IOPAD(0x230, PIN_INPUT, 0) /* (A22) MMC1_DAT0 */
->   			AM62AX_IOPAD(0x22c, PIN_INPUT, 0) /* (B21) MMC1_DAT1 */
->   			AM62AX_IOPAD(0x228, PIN_INPUT, 0) /* (C21) MMC1_DAT2 */
+>  .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 ----------
+>  .../devicetree/bindings/net/wiznet,w5x00.yaml      | 103 +++++++++++++++++++++
+>  2 files changed, 103 insertions(+), 50 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
+> deleted file mode 100644
+> index e9665798c4be..000000000000
+> --- a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
+> +++ /dev/null
+> @@ -1,50 +0,0 @@
+> -* Wiznet w5x00
+> -
+> -This is a standalone 10/100 MBit Ethernet controller with SPI interface.
+> -
+> -For each device connected to a SPI bus, define a child node within
+> -the SPI master node.
+> -
+> -Required properties:
+> -- compatible: Should be one of the following strings:
+> -	      "wiznet,w5100"
+> -	      "wiznet,w5200"
+> -	      "wiznet,w5500"
+> -- reg: Specify the SPI chip select the chip is wired to.
+> -- interrupts: Specify the interrupt index within the interrupt controller (referred
+> -              to above in interrupt-parent) and interrupt type. w5x00 natively
+> -              generates falling edge interrupts, however, additional board logic
+> -              might invert the signal.
+> -- pinctrl-names: List of assigned state names, see pinctrl binding documentation.
+> -- pinctrl-0: List of phandles to configure the GPIO pin used as interrupt line,
+> -             see also generic and your platform specific pinctrl binding
+> -             documentation.
+> -
+> -Optional properties:
+> -- spi-max-frequency: Maximum frequency of the SPI bus when accessing the w5500.
+> -  According to the w5500 datasheet, the chip allows a maximum of 80 MHz, however,
+> -  board designs may need to limit this value.
+> -- local-mac-address: See ethernet.txt in the same directory.
+> -
+> -
+> -Example (for Raspberry Pi with pin control stuff for GPIO irq):
+> -
+> -&spi {
+> -	ethernet@0: w5500@0 {
+> -		compatible = "wiznet,w5500";
+> -		reg = <0>;
+> -		pinctrl-names = "default";
+> -		pinctrl-0 = <&eth1_pins>;
+> -		interrupt-parent = <&gpio>;
+> -		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+> -		spi-max-frequency = <30000000>;
+> -	};
+> -};
+> -
+> -&gpio {
+> -	eth1_pins: eth1_pins {
+> -		brcm,pins = <25>;
+> -		brcm,function = <0>; /* in */
+> -		brcm,pull = <0>; /* none */
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.yaml b/Documentation/devicetree/bindings/net/wiznet,w5x00.yaml
+> new file mode 100644
+> index 000000000000..8f45a5d773fe
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5x00.yaml
+
+Filename: wiznet,w5100.yaml
+
+> @@ -0,0 +1,103 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/wiznet,w5x00.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Wiznet w5x00 SPI Ethernet Controller
+> +
+> +description: |
+> +  This is a standalone 10/100 MBit Ethernet controller with SPI interface.
+> +
+> +  For each device connected to a SPI bus, define a child node within the SPI master node.
+
+This looks unwrapped (see Linux coding style).
+
+> +
+> +allOf:
+> +  - $ref: /schemas/net/ethernet-controller.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - wiznet,w5100
+> +      - wiznet,w5200
+> +      - wiznet,w5500
+> +
+> +  reg:
+> +    description: Specify the SPI chip select the chip is wired to.
+> +    maxItems: 1
+> +    minItems: 1
+
+Drop, please do not invent your own syntax. Look at recently reviewed
+code or example-schema.
+
+> +
+> +  interrupts:
+> +    description:
+> +      Specify the interrupt index within the interrupt controller (referred to
+> +      above in interrupt-parent) and interrupt type. w5x00 natively generates
+> +      falling edge interrupts, however, additional board logic might invert the
+> +      signal.
+> +    maxItems: 1
+> +    minItems: 1
+> +
+> +  pinctrl-names:
+> +    description:
+> +      List of assigned state names, see pinctrl binding documentation.
+> +    enum:
+> +      - default
+> +    minItems: 1
+
+Do not invent own code. Drop
+
+> +
+> +  pinctrl-0:
+> +    description:
+> +      List of phandles to configure the GPIO pin used as interrupt line, see
+> +      also generic and your platform specific pinctrl binding documentation.
+> +    minItems: 1
+> +
+> +  local-mac-address: true
+> +
+> +  spi-max-frequency:
+> +    description:
+> +      Maximum frequency of the SPI bus when accessing the w5500. According to
+> +      the w5500 datasheet, the chip allows a maximum of 80 MHz, however, board
+> +      designs may need to limit this value.
+> +    maximum: 80000000
+> +
+> +  link-gpios:
+> +    description: A GPIO line used for the link detection interrupt.
+> +    maxItems: 1
+
+This wasn't in the original binding and lacks explanation in commit msg.
+Any change done to the binding must be documented with a reason WHY. If
+there is no reason WHY, then maybe you wanted separate commit (although
+each commit should explain WHY).
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - pinctrl-names
+> +  - pinctrl-0
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    /* Example (for Raspberry Pi with pin control stuff for GPIO irq) */
+> +
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        ethernet@0: w5500@0 {
+> +          compatible = "wiznet,w5500";
+> +            reg = <0>;
+> +            pinctrl-names = "default";
+
+Messed indentation.
+
+> +            pinctrl-0 = <&eth1_pins>;
+> +            interrupt-parent = <&gpio>;
+> +            interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
+> +            spi-max-frequency = <30000000>;
+> +            link-gpios = <&gpio 4 GPIO_ACTIVE_HIGH>;
+> +            local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
+> +        };
+> +    };
+> +
+> +    &gpio {
+> +      eth1_pins: eth1_pins {
+> +        brcm,pins = <25 4>;
+> +        brcm,function = <0 0>; /* in */
+> +        brcm,pull = <0 0>; /* none */
+> +    };
+
+Irrelevant node, drop
+
+Best regards,
+Krzysztof
