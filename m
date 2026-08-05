@@ -1,236 +1,209 @@
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010064.outbound.protection.outlook.com [52.101.229.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9491446C0F
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 11:56:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.113
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785930972; cv=none; b=qdSRnmqhr06GH5UA5nBo5oiylp7jOvWLnFt2gEnof1KW1Tmo4zCiFLkZ17wGRLbDIHmmJ1FmF1qy6I6IwvU7q6HWGqi/JTZ+EHMYSkQ4UN3MXFGfyWAVWpSABrfrXiJL591TQfqRm6bdXSVQs5lfM6Cb7fkt1d4T/Ghmfa3nWx8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785930972; c=relaxed/simple;
-	bh=3X/1lVqY+9zNgEXc/kg6B+XvFs/cq8FSVO+5z7oIFDU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=t0R2cIxVNdT1lnUBj6t7yAv2lHWAEqgtSCy2p940ZV7iObg5f7bnBb0qaTz9c/imRNrKpRmU4ApVa0ec6KjoBILJotd8h+6CqCT87dFACqs08ZzFVv2hvtYe3AK2bh5g2dyxwnvJWOZynmbrdQfdKhiwngUTw6CqOX498SL3ojE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=NAtATt9S; arc=none smtp.client-ip=79.135.106.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2744447815;
+	Wed,  5 Aug 2026 11:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.64
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785930980; cv=fail; b=VUUay10FsiZHBurFbr9cGVkanjsGaDAQUzfjCNjFS42l/PvT6zoFYIvkVLd3PRrmWq2146oiFRKDiPmVqlUZWY1DqBllLBpDiXpRuQtpMCovRdXQ9ANVFKtdY4TPZP1ov4upB5/cGVKHX0BLN8ClanBSH7eo8IhJqAnvl7v++lI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785930980; c=relaxed/simple;
+	bh=FRY8dsLB8u7PGcmMbQnEHmM+hlAU6oLDhPrgU+iP6cc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=BE93BF9dMVxrzC8qbX80bHJblFMmM1Bf9w/FQpHdw2LIHY1zq6JUV9yN7knNkZ0ZyQ+BIQnMw7lwoPzHPWRCQYutqpUWghvzP73PAsQ4U3aRhzW82B2ZMWKoQLcwoQDg7x1Rcw2+kJng9Apd8gq4xikEDr56rbYA0jG8zRVmp18=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=g/6RnSAl; arc=fail smtp.client-ip=52.101.229.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="NAtATt9S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1785930958; x=1786190158;
-	bh=ef4IKq/Nf56uy8mZ1Q1ksYePcXwrZuQmrMmAHhPUl5Y=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=NAtATt9SiNAs6AgK/19tSy+T0jW/i/kWDCexImHfrcmbEKsJeRR3USgd0bH0Wl+2G
-	 TDR6LGfVCfZYq46JSCyTZro1FLHmy/IvCALBE28zj/cD3oGdMHMrNvLQeSVu3SY1bl
-	 rwgNGRY5XyPUMh60TxHcHFwsCESrG1RYUtvKymIYsMscJOPPYLhFhedwTBswfCzQa2
-	 oSZmJe5uiPNVMeXFIkyGQkZBFZqi9kGyVccNX545l6GHJXVb5ziNfJDOanepiivMHm
-	 n97BKNBoZ/8NwsrwGsAvqSD1sDeyODfICKuANtscrOirFBV+NE2IrgDZZFedl0RPUV
-	 PrxN53+UpcefA==
-X-Pm-Submission-Id: 4hFTQ50KnXz2Sd3K
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <robh@kernel.org>,
-  <conor+dt@kernel.org>,  <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v3 4/4] iio: accel: mma8452: Allow open drain interrupt
- pin configuration
-In-Reply-To: <20260805074101.BB8AC1F000E9@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Wed, 05 Aug 2026 07:41:01
-	+0000")
-References: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
-	<20260805-mma8452-open-drain-v3-4-6149f406a409@geanix.com>
-	<3CCt4oSYfAV5imS4quqVYLl2kEKTbJA-ytiLMNS_HYVb0p9cXIa87Rmig08wlrwL6qkBEetTqYddmtMWCs5Ijw==@protonmail.internalid>
-	<20260805074101.BB8AC1F000E9@smtp.kernel.org>
-Date: Wed, 05 Aug 2026 13:55:55 +0200
-Message-ID: <875x1obx2s.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="g/6RnSAl"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nFM33tZih79uq7obK+YerTzTen3FQbcSH8gTQwDnLW8Fbxc6rQO+Hzn7c/IQCgID/i0BMH7cw9KDRdiU1F/XX71mn9Kvvik8XL0dM2n1A+KCItJC1gmpCdmKRm87pn9H5++dEL19/RrEHvG3t0dr9OvLb6A+qKMKLkyOCbK1iJqkME07f503bOJbyo/bP/G4jcC3rsR7F967Ept8m4ii7KW1JCOMNJvEG1yWRAGDTmhVVz7VbYwkKxgyOkpgkXD4he8mzVZwX8MqS4rFZB9h7iQTDrdxxD4shQyZyKY4n3HOTama/BLpmDyGn+U9VaTJVSLz9DopDfPgqZjm30kcQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CUyBlb4Y9hTcG80FRldzN2cQRiKlwv5sZ4QJGnQ1MFY=;
+ b=BrJ6QebYH9A/m0XzGeD+amjjWmEnKbAFJmadjz6ZcM0P7A8yzPJ+sOC2oomPHdGHGmJQ9zd1J4R1qtdrzHJ0Kntw0ppSJOOtTeoXDipU1VMcxu4kTWS6+Imk43Va7WWZEgqcNag+MeDmFTDkdudGl/3ezFa16u5BZcvTPuo3AWDDQTX3cskOBKSTmOn2sxwgiJyuFkrq5k8eN+hvkk693X1ugtYVfwNGrVXPrCXDcN1fO51ot7fFL0B3gl6hmXRox5Agm68n520QWyzjJ3vaLUlFhIGpZmDJIujHhk+13cL0GwCkT/5MzfE+ksvBKfFHGbTkFfkyiSz+0LJ1BXYvQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CUyBlb4Y9hTcG80FRldzN2cQRiKlwv5sZ4QJGnQ1MFY=;
+ b=g/6RnSAlEeE75K8xynpXxyZZShLfNffBzK6oY6fvtt6qhtn0Ts0W0NcI5w3ORUHg5Cgw12XO1QXpUZfDM7v17ikS+IOoSCNTrLVv/z48O3vI/tp6gcKWsVWm2teiibUO22wDmIfsnTF4+9x5uWPqmNpzWAN0VdaJ5wOsznat9v4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYWPR01MB10536.jpnprd01.prod.outlook.com (2603:1096:400:29f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
+ 2026 11:56:14 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0292.015; Wed, 5 Aug 2026
+ 11:56:14 +0000
+Date: Wed, 5 Aug 2026 13:55:45 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com, Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	John Madieu <john.madieu.xa@bp.renesas.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] ASoC: dt-bindings: renesas,r9a09g047-sound: Document
+ audio_clkout clock-frequency
+Message-ID: <anMkwfGAW5fBSAEf@tom-desktop>
+References: <20260803132828.3249424-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260803132828.3249424-2-tommaso.merciai.xr@bp.renesas.com>
+ <44c150f6-b04e-4515-ba71-63780c56c38d@kernel.org>
+ <anDNtrL-eL6VUD94@tom-desktop>
+ <8c5f0e53-2515-4744-ac6a-a4c94f2ae2b8@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8c5f0e53-2515-4744-ac6a-a4c94f2ae2b8@kernel.org>
+X-ClientProxiedBy: FR5P281CA0059.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f0::13) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYWPR01MB10536:EE_
+X-MS-Office365-Filtering-Correlation-Id: b332f6d1-fe5c-474e-a014-08def2e88c62
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|52116014|23010399003|366016|1800799024|38350700014|10067099003|11063799006|5023799004|56012099006|4143699003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	YYEPDqsjjaQyf2pqXKbMBvN77OKRgY3msyPs/gVziO4HB8RaBCKdOK3vvNKPLL3Qu3Su5mOi48dDvlxJcmkJaiJmvmENO/TGzdiPVBqHSBY1iQXrx4RFdFWioTCIsXcsNB7CmbUk1CfNKld4/b34iDoGdYf4NjG510KPiyW19jSa8V7/B1DVKPmaTlaHNFTB4ZBCj2bo8xVhImXEj8SGxquATVcghIY6TS2ST+f/w/SPlfxDg0zSk7Xb1fhPvZyfWx7y7/lc2wg+X1VSjpPC8+5jPYjnh3WWhP4Y9XkI6helwsxPeCJXCoa2GbdY7PNGw3RpJb9L2XbLASoQjihiUFX5l5QLhIzfhenAzrSD6zx/aAYwm4cm7eBKvUCHxL31q+TFDx1qyZpFiZojeT5PVrnS44rpqeTtI+R6dJEElHEUuOQnQwTlPz4HoX+PftSU9Q1Xntn14FIzYV7r/XMcpPBYw38FdRaSpEaZYByFFFuUVPWkmGawLb3NyHXwJ9NuRYzORSwClQc8JEibGoAuUQ9oyp74RCoO+oiQB5GZpUhCgHJTHsQQLUYdb/0Vq4b/vzGKkZmn/YivQ2GhiBMz74NpiIy98C/2w2+m2NdsWKeOlUyjBGbNfrZUMSCzHNKMAdezna5eHvJTNSDHshTtmHmt7cMGiNF25SJNBncjsYb2dDkR4iizIyHP6m+Il8QW2LDkzLXPv3Lkc/sAVbVUcTOaSm0B1gT08Z0Ypv6KUKk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(23010399003)(366016)(1800799024)(38350700014)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OLcGnUE4GqbXFWg71XW3gBm6JutQxhwjn52j+HupwoSatw1Nrbvl2IaaYu+A?=
+ =?us-ascii?Q?Oml4ErJk7ME9hvBbECQ0SRRwTXvipHEybb1BXZaqruDLqpJTO4OFubdefZDP?=
+ =?us-ascii?Q?qPxU7eY60U/yiKtP8OErRos+DHX1aGy7mmi1B2wM7gbtLoSJr4Jc+nX447Al?=
+ =?us-ascii?Q?VgWrk3uUE2K6msbZX5GJMJPSfhbfJ1895yZ7bSIZeZaTpFaU4cLiMMyST4bD?=
+ =?us-ascii?Q?7fy1rDkC6s2ooINSWnlqCOI8qLwIpdy6xaIhdHLQ2E1k5G0xhzjzHDzVMZx8?=
+ =?us-ascii?Q?XJBBPXVzdr0SMNYgRa1VK1gZWH5JN8+/AQooIOXQvHWbvAFb5VAakGQozmY2?=
+ =?us-ascii?Q?pEv62vul6whgXo7JjoaKbB5RU3mf98BZCj0fiYgDaK87vUrJ8OaavNmRP4p1?=
+ =?us-ascii?Q?zoLL5F+F7DPeZkiwt1io2wmNFrtmwGVWoEOAGj6rYYnG4iNTBKrsNKrglCK5?=
+ =?us-ascii?Q?aIFXVro7W0zDn73uZZWPhODHm+TaXmbImsWBfJNBW956qCYJQdgO53XKiL7x?=
+ =?us-ascii?Q?sJn8gVncRhFVNyAc6KrZiYjiebkbGLyI44oPQwNo346tFsBU3dZap3U0tITS?=
+ =?us-ascii?Q?vfN1eOwig1DKWxig2FIApzB+WhZ4eA6Cl0mfZYBSU9QJn57iz7BjyBvuRBip?=
+ =?us-ascii?Q?FqAbS7AkUSstt9c6rFmRjVZaF/kLII9zgG3QVGDmzRTQu73GvmctxArHq1EI?=
+ =?us-ascii?Q?VuhJbNiznuETZ9Tv9XbrPkEoy2UFJejSHJvvHZKUM0uJYIE1ERdL/sPz48dP?=
+ =?us-ascii?Q?VkCibmYCDfJbM32afhMxIMhuPXwtojezMsDEgO5hXJHscCIXC/5k4EE+f2Tm?=
+ =?us-ascii?Q?iSgkBmGyJrN7ND8VQOQsMP5J7F+hfh2cqMVNQ6FoLP2ZAr0IUoPw0Io+ByjB?=
+ =?us-ascii?Q?71zbcRQoWSHWok9rmVmTwLKm8gxzcAN0CAlPqFs5PxI8FVQVn5hB5MlcKOnk?=
+ =?us-ascii?Q?SQeBk+oaozDzNrrSrOaTUWBarNiWeoaNp1gLoxCw/ScrwZl4ccAE9Z+yYIXp?=
+ =?us-ascii?Q?CUP/4heisjWQ30SD5thrJ7DhkqlaRW7nbFgf2ojsFQ6ZHdeqvg1FgNNnjsqq?=
+ =?us-ascii?Q?zFzPw5xaAMKbvmaUYV3MTDSR4wA36AZdDSNedJfX6iu9IZ5RLTzVuZst7YF/?=
+ =?us-ascii?Q?zFpQ2KNEV8kPfh26pcGHP/sNU+q+9QO+Y+owdKYZWeGkh6pQvJ/fpRUt/BFt?=
+ =?us-ascii?Q?ajkeVdzWe/OnQ2ipQq3jAXDAM9K9tCp6063GZ9x4JnAJjCcxM6qS0uSkG39y?=
+ =?us-ascii?Q?4M3FDn/h3hiOUFQKaKklJ4lYjB0Qte6nsVunhgz5s293Q7qlT3b7R4Z3qd8d?=
+ =?us-ascii?Q?kgtf1vOIncOUj8UivIMhSEmsHzwrM/bfU2a3fnljMBpULdIy7v2KrPTVEWyV?=
+ =?us-ascii?Q?Y2x+GweVn6SSZqMdTMOtEMzjFKzcusNvTz7TFLWZI+OQO4kUG/y5I1EWaqrY?=
+ =?us-ascii?Q?BG3TvLtyNLq75AgoEEmO/7RNG5QZU/dXxmcNizIU/zcXIfw9P0aQTwyP0CCe?=
+ =?us-ascii?Q?0qV5YDmUidVMz1I16OmZkIglaU4B9a+d93+g88D4flJFiqjYygsaCuWN6tl5?=
+ =?us-ascii?Q?a6EBLR9cnvM+yxil3wTNoWUV/oIZPdWaauQBaKh5yNtm9zWCmSXgqWm++rMT?=
+ =?us-ascii?Q?nDqzNId5jQDPBBrkFOwy5Z70lQxKsC/YU16Gjz0HkKc6IzQLHt2yxOdcMfrq?=
+ =?us-ascii?Q?n5tpYU3/vhYH55LxT53KRHA+vnfEhNMgIcCoUkQLaeLeoRsfxWHiDLkmscJ8?=
+ =?us-ascii?Q?XxE8AJP5DwRNX6TRAzStl0Ab+N5C0Y5tgfzjqr4CIu0cMdN/wnUn?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b332f6d1-fe5c-474e-a014-08def2e88c62
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 11:56:13.8345
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fPlRyEPTvcHrATknza9m3CIdtpf36QtURIQDrpa0Q4Z9Cn8F1Z1s4vcoKo3EVnnTYnM9pWbWeU9DIx1qVvsn2cpDxb7/KhzToMp78pOeNk/JkPXz+LvFJRY0eMlybHEK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10536
 
-<sashiko-bot@kernel.org> writes:
+On Tue, Aug 04, 2026 at 08:20:29AM +0200, Krzysztof Kozlowski wrote:
+> On 03/08/2026 19:19, Tommaso Merciai wrote:
+> > Hi Krzysztof,
+> > Thanks for your review.
+> > 
+> > On Mon, Aug 03, 2026 at 03:32:48PM +0200, Krzysztof Kozlowski wrote:
+> >> On 03/08/2026 15:28, Tommaso Merciai wrote:
+> >>> r9a09g047e57-smarc.dts set clock-frequency for the audio_clkout output,
+> >>> but the binding never declared it, so dtbs_check fails:
+> >>>
+> >>>   sound@13c00000 (renesas,r9a09g047-sound): Unevaluated properties
+> >>>   are not allowed ('clock-frequency' was unexpected)
+> >>
+> >> Maybe the DTS is wrong, because property was rejected? Did you check
+> >> this? You cannot document ABI post-factum if it was rejected.
+> >>
+> >>
+> >>>
+> >>> clock-cells is fixed to 0, so only a single audio_clkout applies.
+> >>>
+> >>> Fixes: a86fd3c20218 ("ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound")
+> >>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> >>> ---
+> >>>  .../devicetree/bindings/sound/renesas,r9a09g047-sound.yaml     | 3 +++
+> >>>  1 file changed, 3 insertions(+)
+> >>>
+> >>> diff --git a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+> >>> index d7fa16554698..6e2b2c93b4b7 100644
+> >>> --- a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+> >>> +++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+> >>> @@ -42,6 +42,9 @@ properties:
+> >>>    "#clock-cells":
+> >>>      const: 0
+> >>>  
+> >>> +  clock-frequency:
+> >>> +    description: for audio_clkout
+> >>
+> >> Incomplete, missing type/ref, constraints.
+> > 
+> > renesas,r9a09g047-sound is handled by sound/soc/renesas/rcar/core.c [1],
+> > and "clock-frequency" is read by rsnd_adg_get_clkout() [2]. The same
+> > property is already documented for R-Car in
+> > Documentation/devicetree/bindings/sound/renesas,rsnd.yaml [3].
+> 
+> But was the property rejected? I am repeating myself...
 
-> Thank you for your contribution! Sashiko AI review found 7 potential issue(s) to consider:
->
-> New issues:
-> - [High] Shared IRQ handler unconditionally accesses I2C bus while the device may be runtime-suspended.
-> - [Medium] Incorrect shared interrupt handling falsely claims unrouted interrupts, masking spurious IRQs.
->
-> Pre-existing issues:
-> - [High] Volatile register context is not fully restored after PM runtime resume.
-> - [High] Unbalanced regulator disable and unpowered I2C access during device removal.
-> - [High] Sysfs callbacks modify cached state and access I2C without a PM runtime reference.
-> - [High] Reference count leak of the IIO trigger device due to unbalanced iio_trigger_get().
-> - [High] The driver ignores the requested IRQ polarity, leading to a hardware/software mismatch.
-> --
->
-> --- Patch [4]: [PATCH v3 4/4] iio: accel: mma8452: Allow open drain interrupt pin configuration ---
-> commit 6358f754e42af1003c7e9459771157fe3985f6bb
-> Author: Esben Haabendal <esben@geanix.com>
->
-> iio: accel: mma8452: Allow open drain interrupt pin configuration
->
-> This patch allows configuring the MMA8452 interrupt pin in open-drain
-> mode. It reads the "drive-open-drain" device property and sets the PP_OD
-> bit in CTRL_REG3. It also adds the IRQF_SHARED flag to allow sharing the
-> interrupt line with other devices.
->
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index 723ca3d9cb96b..fa0915530f953 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->
-> [ ... ]
->
->> @@ -1688,7 +1712,7 @@ static int mma8452_probe(struct i2c_client *client)
->>  		irq_flags = irq_get_trigger_type(client->irq);
->>  		if (irq_flags == IRQ_TYPE_NONE)
->>  			irq_flags = IRQF_TRIGGER_LOW;
->
-> [Severity: High]
-> This is a pre-existing issue, but the driver appears to ignore the requested
-> IRQ polarity.
->
-> While mma8452_probe() retrieves the requested IRQ trigger type to configure
-> the OS handler, does the driver ever set the hardware IPOL bit (bit 1) in
-> CTRL_REG3 to match it?
->
-> The chip defaults to active-low, which might prevent interrupts from being
-> delivered if the platform specifies an active-high interrupt.
+Looking into this further, I found that you already asked to drop this
+property during the v5 review [1].
 
-This is per design. If IPOL bit is set based on the requested IRQ
-polarity, support for system designs with additional hardware changing
-the irq polarity (like a NOT gate) would not be possible.
+Thanks for pointing it out.
 
-If IPOL bit should be configurable, we probably need to add a dedicate
-device-tree binding for it.
+For context: the sound module contains an audio clock generator (ADG) which
+generates an output clock from the external audio clocks and outputs it in
+to the AUDIO_CLKOUT pin, that mostly supply master clock to codec.
 
->> -		irq_flags |= IRQF_ONESHOT;
->> +		irq_flags |= IRQF_ONESHOT | IRQF_SHARED;
->
-> [Severity: High]
-> Does adding IRQF_SHARED here make it possible for the interrupt handler to
-> run while the MMA8452 device is runtime-suspended?
->
-> When another device on the shared line triggers an interrupt,
-> mma8452_interrupt() is invoked and unconditionally reads MMA8452_INT_SRC
-> over I2C:
->
-> mma8452_interrupt()
->     src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
->
-> If the device utilizes runtime PM and powers off its regulators when
-> suspended, would this unpowered I2C access cause transfer failures or lock
-> up the bus?
+"clock-frequency" is array of the possible rates provided by
+AUDIO_CLKOUT to the codec master clock.
+Based on the playback rate it will request either 44.1kHz or 48kHz.
 
-Oh. That does look like a problem.
+I will drop "clock-frequency" property from r9a09g047e57-smarc.dts, where
+AUDIO_CLKOUT output pin is not wired.
 
-I will add a fix for this for v4 of this series. And I will split the
-shared interrupt support into a separate patch, as it is now supposed to
-be usable without open-drain mode also.
+But for boards that populates AUDIO_CLKOUT we need this property,
+Could you suggest how to model this properly?
 
-> [Severity: Medium]
-> Additionally, is the interrupt handler equipped to properly reject spurious
-> interrupts on a shared line?
->
-> With IRQF_SHARED, mma8452_interrupt() will run for other devices'
-> interrupts. It unconditionally checks the DRDY bit:
->
-> mma8452_interrupt()
->     if (src & MMA8452_INT_DRDY) {
->         iio_trigger_poll_nested(indio_dev->trig);
->         ret = IRQ_HANDLED;
->     }
->
-> Since DRDY indicates data is ready even if the DRDY interrupt is not routed
-> to the pin in CTRL_REG4, could this falsely claim unrouted interrupts and
-> mask IRQ storms from a faulty shared line?
+Thanks for your time.
 
-Maybe. I will send a patch with a fix for this when this series is merged.
+[1] https://lore.kernel.org/all/20260417-energetic-practical-frigatebird-5b93ad@quoll/
 
->>  		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
->>  					   irq_flags, client->name, indio_dev);
->>  		if (ret)
->
-> [ ... ]
->
->> @@ -1806,6 +1830,10 @@ static int mma8452_runtime_resume(struct device *dev)
->>  		return ret;
->>  	}
->>
->> +	ret = mma8452_set_interrupt_pin_mode(data);
->> +	if (ret)
->> +		goto runtime_resume_failed;
->> +
->>  	ret = mma8452_active(data);
->
-> [Severity: High]
-> This is a pre-existing issue, but does mma8452_runtime_resume() fully restore
-> the volatile register context after a PM runtime suspend cycle?
->
-> mma8452_runtime_suspend() disables regulators, cutting power to the chip.
-> When resuming, CTRL_REG3 and CTRL_REG1 are restored, but are other volatile
-> registers like DATA_CFG, TRANSIENT_THS, CTRL_REG4/5, and FF_MT_CFG left
-> unconfigured?
->
-> Could this cause the device to lose its sample rate, thresholds, and
-> interrupt routing after the first auto-suspend cycle?
->
-> While reviewing the PM runtime and cleanup paths, a few other pre-existing
-> issues were noticed:
->
-> [Severity: High]
-> This is a pre-existing issue, but does mma8452_remove() safely handle
-> removing a runtime-suspended device?
->
-> mma8452_remove()
->     mma8452_standby(iio_priv(indio_dev));
->     regulator_disable(data->vddio_reg);
->     regulator_disable(data->vdd_reg);
->
-> This unconditionally writes to I2C and disables regulators without
-> guaranteeing the device is in an active PM state via pm_runtime_get_sync().
-> If the device is already runtime-suspended, the regulators were already
-> disabled. Could this double-disable regulators and cause unpowered I2C
-> access?
->
-> [Severity: High]
-> This is a pre-existing issue, but do sysfs callbacks like
-> __mma8452_write_raw() modify cached state and access I2C without a PM
-> runtime reference?
->
-> __mma8452_write_raw()
->     data->ctrl_reg1 &= ~MMA8452_CTRL_DR_MASK;
->     data->ctrl_reg1 |= i << MMA8452_CTRL_DR_SHIFT;
->     ...
->     return mma8452_change_config(data, MMA8452_CTRL_REG1, data->ctrl_reg1);
->
-> If the device is in auto-suspend (regulators off) when user-space writes to
-> sysfs attributes, would the I2C writes fail and corrupt the cached driver
-> state?
+Kind regards,
+Tommaso
 
-
-As I am actually not using runtime PM with this device, I prefer to not
-investigate these 3 issues further for now.
-
-> [Severity: High]
-> This is a pre-existing issue, but is there a reference count leak of the IIO
-> trigger device?
->
-> In mma8452_trigger_setup(), an extra reference is acquired:
->
->     indio_dev->trig = iio_trigger_get(trig);
->
-> However, mma8452_trigger_cleanup() unregisters the trigger but does not
-> appear to drop the reference with iio_trigger_put(). Could this permanently
-> elevate the reference count and prevent the module from being unloaded?
-
-Maybe. But in that case, this is a problem for basically all iio
-drivers, as there are no explicit calls to iio_trigger_put() in any iio
-drivers as of now.
-
-/Esben
+> 
+> Best regards,
+> Krzysztof
