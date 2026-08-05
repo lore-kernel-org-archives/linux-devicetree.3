@@ -1,107 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9763E3DBE;
-	Wed,  5 Aug 2026 07:27:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FF03E3C50
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:27:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914839; cv=none; b=Xfc1pGiGzCGD/FpEurjdSFKc58fsgqITm7XbcOUhK2k5WctzHIR9FXhWS+dYrF+muAdKfX9lsgGhf8yvq8QxTYGmIr/Bc4Zxb+QlxHlpenj3g4/XEznlKffIIu2/+OdkuDPsbi1OZTNRkGcBTyqcTOvZ6enzSzeB5ZVR83t3KKk=
+	t=1785914851; cv=none; b=hWtxmIKs3b+9Li5YJ4bwJqoElt3IivRkPdOVpvKqmoSxwJM18mmTBOQbOgaZG2zNjBwGcPSl/p87NxHGQGdEmZz1ByxQLg8INXKEYglJBB9nzW7VKpBv48PjFhqc226bYppfmGsugy95RmYoxcMiUGNZQhUmJRjTxyuxFaE6w0w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914839; c=relaxed/simple;
-	bh=L5NW7w8CIat8o+dyFFDpruDvc+4azVJURsGvOWaQ3SE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k6YjEgxRchKfMRNohKFBsxB2UjgtYm4Cb2bBjC180h7IdDEyewmm4EXHyuqTRblK4OmwvM+ns/t7iMma7MMK3bHIjaMzKKVlg4DrK7mLbkuJOBv+pv0ok/xu5WB1nEGvwBoL+Y8RmSr3KhSP29foPJZ7mUlxREY1pXtl2FyIjPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obIP7ahI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785914851; c=relaxed/simple;
+	bh=ZrkOfah2AWxX2Byb9D8nL75X7vvqGcC0ILba6IkorXQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=du2++yFMcmnw6W0Rmanyvf0ZW6LUUeV73QE7095r0nZAzK8omIu9s2fD7b/V+/kH+RBot8x4ILQTKr6kRXh+PgFSgra42f+GLdjxOdIuMvaKeWuwGOzLOaloZTrx82eY1Z1ePz4x2kf/ck0324O0Tdor0Q9OGsjqrmnaHn+dqIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kmp3dKrW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obIP7ahI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47ADB1F000E9;
-	Wed,  5 Aug 2026 07:27:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kmp3dKrW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56A121F000E9;
+	Wed,  5 Aug 2026 07:27:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785914837;
-	bh=L5NW7w8CIat8o+dyFFDpruDvc+4azVJURsGvOWaQ3SE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=obIP7ahIvPl7hRIv5YMSrhmKdcwNAYt2y+BNbjBQs+LO+QDPE28CO8Yf0s5loJxTQ
-	 UmUHxDj6bpur03qx5RR9TwuFRRMneOWqWf8ZgvomsBe5v4A+oJbL3knq2fTOD6B8Hw
-	 Db4wIVX03qf8bs19EwBvJk9kvJPLpnociLWqd41GCbDF+5SKuof7SucUppyPwwiWDe
-	 bE31VcvgrozkgdlFoiyor8PfEDVKGLzkNvJHrUL8AYEmlCww3NwLqZBtXl6lVU0Wdk
-	 D0bAltymRCkS2CjSa05wjxDOmmSE9CSJSP2NlKcYAhe2gS2qHo+PoIxDXGD0Ammt2/
-	 hbaUi7aOEWdQA==
-Date: Wed, 5 Aug 2026 09:27:15 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Prathamesh Shete <pshete@nvidia.com>, linusw@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, jonathanh@nvidia.com, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [RESEND V2 1/2] dt-bindings: pinctrl: tegra264: fix DAP2
- DIN/DOUT pin names
-Message-ID: <anLiwXh0JGH_bvKv@orome>
-References: <20260727141121.772110-1-pshete@nvidia.com>
- <20260804-energetic-gracious-python-a6fe54@quoll>
+	s=k20260515; t=1785914849;
+	bh=RRccaX1H44lv9wd4FtNsO6xk209xvOOtVd/Wd9QfG2Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Kmp3dKrWD11ukmGoaYFBnZXfTek7LVTLT3VzewEb18mx1aMCLcxF3lFFkXgI3uWEK
+	 mVEJloYeTb66F5kOBCu48okLXTw2+GK/PphwhOb0DeZ2Nq6pIddrh2v+4m3YiFuGeX
+	 JAxqvfkNc9nyeGN+Xqx7WJS69gy59O+643Hir5OVnbB80+31jxsRNwTT2X6ng2+K1I
+	 wn4TXD5jBOd65+qOzbcI8fWp/KkcllgmDe1riYYcf2j6NQ8Sx3hhE6tW2kGFTLAOb1
+	 VIVGTPF2b3onJ43trn0bcDuxvdE+P2Z/ss6hgkotLp0x4qwnfydFK2z0qYo9IZpUMu
+	 JC+RYlzZh66fQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v5 v5 5/8] pmdomain/rockchip: cycle optional
+ power-domain resets on power-on
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jiaxing Hu" <gahing@gahingwoo.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20260805063826.95682-6-gahing@gahingwoo.com>
+References: <20260805063826.95682-1-gahing@gahingwoo.com>
+ <20260805063826.95682-6-gahing@gahingwoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 07:27:28 +0000
+Message-Id: <20260805072729.56A121F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7dmww3t3gldfvauc"
-Content-Disposition: inline
-In-Reply-To: <20260804-energetic-gracious-python-a6fe54@quoll>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Using dev_err() instead of dev_err_probe() for reset acquisition=
+ leads to spurious boot warnings.
+--
 
---7dmww3t3gldfvauc
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RESEND V2 1/2] dt-bindings: pinctrl: tegra264: fix DAP2
- DIN/DOUT pin names
-MIME-Version: 1.0
+--- Patch [5]: [RFC PATCH v5 v5 5/8] pmdomain/rockchip: cycle optional powe=
+r-domain resets on power-on ---
+commit a3723842ac037cc5513c93510e6b54bd305213be
+Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-On Tue, Aug 04, 2026 at 09:37:14AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, Jul 27, 2026 at 02:11:20PM +0000, Prathamesh Shete wrote:
-> > The DAP2_DIN and DAP2_DOUT pins were listed with swapped ball suffixes:
-> > DAP2_DIN as PV7 and DAP2_DOUT as PW0. On silicon DAP2_DIN is on ball PW0
-> > and DAP2_DOUT is on ball PV7. Correct the pin and drive group names to
-> > dap2_din_pw0 and dap2_dout_pv7.
-> >=20
-> > Fixes: 30a9d5162f25 ("dt-bindings: pinctrl: Document Tegra264 pin contr=
-ollers")
-> > Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
->=20
-> This will break the users and only for fixing naming style? Are you sure
-> it is worth beraking ABI?
+pmdomain/rockchip: cycle optional power-domain resets on power-on
 
-This isn't just fixing the naming style, it's fixing the name of the
-pins as they are referred to in a number of different places. With the
-wrong ball suffix people might easily be confused as to what pin they
-should be using.
+This commit cycles the resets for Rockchip power domains when they are powe=
+red
+on. This clears undefined bus interface states that can cause hangs on devi=
+ces
+like the RK3576 NPU on the first access after a cold power-on.
 
-So yes, I'd consider this a bug fix and worth an ABI break. The ABI
-break is theoretical, too. This pin is currently not listed in any
-upstream DTS files and all of the downstream ones I've seen use the
-corrected suffix already.
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
 
-Thierry
+[ ... ]
 
---7dmww3t3gldfvauc
-Content-Type: application/pgp-signature; name="signature.asc"
+> @@ -857,6 +866,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
+p_pmu *pmu,
+>  	if (error)
+>  		goto err_put_clocks;
+> =20
+> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
+> +	if (IS_ERR(pd->resets)) {
+> +		error =3D PTR_ERR(pd->resets);
+> +		dev_err(pmu->dev, "%pOFn: failed to get resets: %d\n", node, error);
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Could this cause spurious boot warnings if the reset controller hasn't prob=
+ed
+yet?
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpy5c8ACgkQ3SOs138+
-s6F5DA/+IrFkU31Db/Yvs5683Vc1LuVALU/xZKRm37wV4wmbHIZFgh3JYuUyyHuw
-r1MOWNtGDZamdBb75IEmHmGYl9ts0vvBK12A5jTH4hrz2a0KTu/63Ic1jWZmx/tE
-Es8DLhlUNUZVWS3mYv6+YDb0yB9CXa/2klCusLcovv9HjkaZAEZoJ02MHzuy6QVc
-DLWvAzzOVtJV0bDHJfZ8hsWFcwPgmQw12nH6MO7kteb9pcvLi5yHb0CqsW8ku3sM
-iMgap+H3x9ZMrbmBxNL2JGjsQ/dKiVqhFy34j+QLjCvx5GTmLNOShCxh2LGCUfUk
-6b+8dfdLhnrLllInS21g57RR2h1pPuNPu2ppUkXSonZfVDhBSlndcv4/rnNMtl05
-ccPgs7sWSnzyP7E58Mnd1bMHblePWlgUEbLmCjkI/Amzp3AWI+I0t3WVajMvWVIP
-EI9OFnuVys3PEd0I1CH6fJRPk1h6mxqdKdbyjTIUlaaR/5xGH3NK5ga3jY5HmFHg
-wH4Ly95OrehRk/nNwwftG9OnBpSfiBwkPp+4aJsHxw3dT96lWOOMYKhmjA0FnmzI
-EP7Mgwr6Pe3k5lhLIu7VWdrOWCHtxpOcFpUESUdBDiRSlbbRUbozXLrk+LuAllDt
-wf/X0ew6p6LoonVJ56tri3TKcTiGHEl+yeXIZuvkKdQf2+8Y3Hk=
-=58Ro
------END PGP SIGNATURE-----
+When of_reset_control_array_get_optional_exclusive() returns -EPROBE_DEFER,
+dev_err() will log an unconditional error instead of handling the deferral
+silently. Should this use dev_err_probe() to cleanly handle deferred probes
+without adding spam to the kernel log?
 
---7dmww3t3gldfvauc--
+> +		pd->resets =3D NULL;
+> +		goto err_unprepare_clocks;
+> +	}
+> +
+>  	pd->num_qos =3D of_count_phandle_with_args(node, "pm_qos",
+>  						 NULL);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805063826.9568=
+2-1-gahing@gahingwoo.com?part=3D5
