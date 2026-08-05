@@ -1,33 +1,26 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m127162.xmail.ntesmail.com (mail-m127162.xmail.ntesmail.com [115.236.127.162])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CAD3CA4BB;
-	Wed,  5 Aug 2026 04:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDCE35F18B;
+	Wed,  5 Aug 2026 04:42:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.162
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785904881; cv=none; b=GTEGJ/wZSPFRjB6Injmi8bJr/+ZNltBvoDMzLqmmzXqrHGbncN6CdW8FurkERkG9S3940inbvm6L7NOK/vgF+oTiUqpBG9wYRwVpkEAsSccHl2KfAYhCbLNbIMWikREKIMLTf4e/rqXOBvHVSkivttYneUAvYjrIdyn2Ww/T294=
+	t=1785904950; cv=none; b=OdRvhBunOL8CIhfr4SQ3HOyNoMJapxF8KwXnGXGNOdgOK9hlpZ4/t9VYn3+js3tlYWEISoEz6D12PMw4r16OZ0fcy/CbX8C/Ha3xtTLvzuTJqadbqrOJSc7+EcIVrDxqbgLt42MZqbm4IPPTY5u4kiQabn0lJ6spx/OC3/MhjEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785904881; c=relaxed/simple;
-	bh=s40AJqnSS2nUQMj0XkNHWgC2nw875jk0mOQ6JXyH1Ss=;
+	s=arc-20240116; t=1785904950; c=relaxed/simple;
+	bh=q7hM+XGHK8/PLErkzVCGnXgjUq+JjqbhCjb3dYI+FAQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QbIVXJIxSD5kzBPkZUZp0aKpXVPHNuPnVD/lTYX4CE6+KuUsohskV7F+PySfhRYNPuOWyzJ7rM894AE5/sLxiTN1unw6VpWk2nBo/q4r4z65PgBW7KtAnMnW5BikvR97JTz2dC363pTUV4i6b4SZu1UWNbWFpt58SSZ73D0nMtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBs52w2C; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=rwZPR6KvaeqEqJbE716COap6d4ezgYNSn7SCGrbld8FW2EbZlXlUXZ8il3KXp/mu7rZhvoDxVuVb085Tn0nAXFUlfI2UPuO0pJB8ylQ5VkkJsvcwCIn5K+O3UVlbNrUU7EA/iaRdJZi0npAwJzqjuuMb86JrbQLKx4OcHUY3oKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=FgyUEkOS; arc=none smtp.client-ip=115.236.127.162
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBs52w2C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064311F000E9;
-	Wed,  5 Aug 2026 04:41:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785904880;
-	bh=fmohnf+NExslodc8sYpAp9UQ+h99Uy9SYCNVeDX+0lA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fBs52w2Cp47y3AkdwpCin6AnrvtH3ETejSEPLKhsdvqz2uEVH+o1ty1NNpkulxK9k
-	 HKELPb8v8yF7JcrmggOl4A5vIg9+OHXA6m39JPC7nEQms9N5gEM/27XkujWnF+xyZz
-	 5M5mSt80xP25E8rmejfjSczxvElS1mWBW5wVegSskbrzUieRiujClPmuDCFouFT2lx
-	 cYfRPGVuD9N61+lrCHdDRODu75uWQJ9WffeBgcYDI/wLet63N33avssQRT2oE4E7mz
-	 HD4lJUOPeTdgBtIKiaiTukvjmeDhp5s9/VMtddrrJ5RJYP4/0Uhq2vGskxBp5y1AdC
-	 u1sr3dUqwc3Rw==
-Message-ID: <a68056fe-75d1-4ff6-82b0-954ee09183dc@kernel.org>
-Date: Wed, 5 Aug 2026 05:41:14 +0100
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="FgyUEkOS"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 48d284d12;
+	Wed, 5 Aug 2026 12:06:48 +0800 (GMT+08:00)
+Message-ID: <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
+Date: Wed, 5 Aug 2026 12:06:48 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,117 +28,266 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] media: iris: Fix DMA coherency, power-off ordering,
- and frame interval issues
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <VEKY5BOnE_id6Ffw6u5r3P27fJtoDL7JS18ztQULo44427A70oT4o5SEHbD5wM4jJDH1CreNcmSnx_zfLLVi-w==@protonmail.internalid>
- <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
+Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260804081717.741404-1-damon.ding@rock-chips.com>
+ <5609825.iZASKD2KPV@diego>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <5609825.iZASKD2KPV@diego>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fd01a3dc903a8kunm1ce208566a0762
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUtDVkxKH0lPHk8aQk9NQ1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=FgyUEkOSbZ9/Qa2HsnMSqlJTDs3+ieUTOhT9JTG9m353+h07kHDJSkyJkiV1xSGLeuP1ZNOPNhW/UyyKHBrB0s88ZhkpPA9S9N/GUK+Ysde2voUzWUHSAaRZ6kSaywTHvGm6ytkbHBrkYeBqy2xriZHbFkzBzomG2mMnge3r4Gw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=46KglQXmBZaXhQzKYrdlIIgbE5Hkt8Onh1lXOlB0H+Y=;
+	h=date:mime-version:subject:message-id:from;
 
-On 01/08/2026 08:37, Vishnu Reddy wrote:
-> This series fixes a set of issues found in the Qualcomm iris video
-> driver and the venus/kodiak devicetree bindings:
+Hi Heiko,
+
+On 8/5/2026 6:39 AM, Heiko Stübner wrote:
+> Hi Damon,
 > 
-> - The venus devicetree nodes for sc7280-based bindings and the kodiak
->    platform do not declare dma-coherent, which allows the CPU and the
->    video hardware/controller to see stale or inconsistent data in DMA
->    buffers they share. This causes hardware faults on input and
->    corruption of captured output when the client dumps it, observed
->    while testing with some higher resolution clips.
+> Am Dienstag, 4. August 2026, 10:17:07 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>> Display-connector mode (DP connector without HPD GPIO):
+>>
+>>    &edp_out_conn {
+>>        remote-endpoint = <&dp_con_in>;
+>>    };
+>>
+>>    dp-con {
+>>        compatible = "dp-connector";
+>>        label = "DP OUT";
+>>        type = "full-size";
+>>
+>>        port {
+>>            dp_con_in: endpoint {
+>>                remote-endpoint = <&edp_out_conn>;
+>>            };
+>>        };
+>>    };
+>>
+>> Display-connector mode (DP connector with HPD GPIO):
+>>
+>>    dp-con {
+>>        compatible = "dp-connector";
+>>        label = "DP OUT";
+>>        type = "full-size";
+>>        pinctrl-0 = <&edp0_hpd>;
+>>        pinctrl-names = "default";
+>>        hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+>>
+>>        port {
+>>            dp_con_in: endpoint {
+>>                remote-endpoint = <&edp_out_conn>;
+>>            };
+>>        };
+>>    };
+>>
+>> All four configurations detect cable plug/unplug events correctly.
+
+Thanks a lot for your testing and feedback. :-)
+
+It seems my test setup gave me the false impression that those cases 
+worked well.
+
 > 
-> - iris_vpu_power_off_hw() disables the power domain before disabling
->    the associated clocks, reversing the correct power-down order and
->    risking clock-controller access after its power domain is already
->    removed.
-> 
-> - iris_enum_frameintervals() advertised frame intervals as
->    V4L2_FRMIVAL_TYPE_STEPWISE with a fixed step derived from the
->    maximum FPS, which excluded valid framerates that aren't exact
->    divisors of the maximum and broke GStreamer caps negotiation for
->    those framerates. Switching to V4L2_FRMIVAL_TYPE_CONTINUOUS fixes
->    this.
-> 
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
-> Vishnu Reddy (4):
->        dt-bindings: media: qcom,sc7280-venus: Add dma-coherent property
->        arm64: dts: qcom: sc7280: Add dma-coherent property into venus node
->        media: iris: Fix power-off ordering to disable power domain after clocks
->        media: iris: Fix frame interval enumeration for non-divisor framerates
-> 
->   Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml | 5 +++++
->   arch/arm64/boot/dts/qcom/kodiak.dtsi                           | 2 ++
->   drivers/media/platform/qcom/iris/iris_vidc.c                   | 4 ++--
->   drivers/media/platform/qcom/iris/iris_vpu_common.c             | 2 +-
->   4 files changed, 10 insertions(+), 3 deletions(-)
-> ---
-> base-commit: 415606a7be939835db9b0d6b711887586646346d
-> change-id: 20260801-iris-fixes-dma-pseq-fint-8345b2d67e3d
-> 
-> Best regards,
-> --
-> Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> hmm, it wasn't working entirely for me though and was still running into
+> issues when the display was unplugged on boot.
 > 
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Are you seeing this boot‑unplug issue for both scenarios: DP‑connector 
+with HPD‑gpio paired with eDP without HPD‑gpio, and DP‑connector without 
+HPD‑gpio paired with eDP with HPD‑gpio? I.e. it wrongly reports 
+connected even with no display plugged in and proceeds into DRM 
+.atomic_enable()?
+
+> I wiggled around a bit like in the diff below and am now getting correct
+> plug and unplug events.
+
+Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so 
+that plug‑in interrupts can be properly responded to. However GPIO HPD 
+does not require a runtime PM get. I will better separate these two 
+scenarios in the next version.
+
+> 
+> But of course, as the dp-variant of the connector does not provide
+> a "detect" and just the "hpd" functionality, it's missing the initial state.
+> 
+> I'm currently not sure how to find out _if_ a panel is connected on boot.
+> 
+
+Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display‑connector: 
+don't set OP_DETECT for DisplayPorts"), HPD events from DP‑variant 
+connector should be handled by the upstream DP controller. Hence I added 
+analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
+
+As expected, under the bridge‑connector framework, the detect result 
+from Analogix DP should in theory reflect the actual connection status.
+Let's dig into this boot‑time initial‑state issue together.
+
+> 
+> In other review comments:
+> - the bridge could use devm_drm_of_get_bridge() as suggested in
+>    the documentation of drm_of_find_panel_or_bridge(), as that would
+>    remove the separate panel_bridge creation
+> - instead of using plat_data->next_bridge _inside_ the driver
+>    struct drm_bridge has a field next_bridge already.
+
+Great suggestions, I will incorporate them for the next version 
+alongside Sashiko's comments.
+
+Best regards,
+Damon
+
+> 
+> 
+> Heiko
+> 
+> 
+> ------- 8< -------
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 877e1b3ca7525..1388640a27de7 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -43,7 +43,7 @@ static const bool verify_fast_training;
+>   static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
+>   {
+>   	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
+> -	       !dp->force_hpd;
+> +	       !dp->hpd_bridge && !dp->force_hpd;
+>   }
+>   
+>   static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+> @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_device *dp)
+>   	 * Trust connection status from downstream bridge (e.g.,
+>   	 * display-connector with hpd-gpios).
+>   	 */
+> -	if (dp->plat_data->next_bridge && dp->connection_notified)
+> +	if (dp->hpd_bridge && dp->connection_notified)
+>   		return 0;
+>   
+>   	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
+> @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
+>   	 */
+>   	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
+>   		status = connector_status_connected;
+> -
+> -	if (!analogix_dp_detect_hpd(dp))
+> +	else if (!analogix_dp_detect_hpd(dp))
+>   		status = connector_status_connected;
+>   
+> +printk("---> %s status %d\n", __func__, status);
+>   	return status;
+>   }
+>   
+> @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
+>   		goto out_dp_init;
+>   	}
+>   
+> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+>   		enable_irq(dp->irq);
+>   	return 0;
+>   
+> @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
+>   	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
+>   		return;
+>   
+> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+>   		disable_irq(dp->irq);
+>   
+>   	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+> @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_bridge *bridge, struct drm_conn
+>   	struct analogix_dp_device *dp = to_dp(bridge);
+>   
+>   	dp->connection_notified = (status == connector_status_connected);
+> +printk("---> %s connection_notified %d\n", __func__, dp->connection_notified);
+>   }
+>   
+>   static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+> @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
+>   	if (ret && ret != -ENODEV)
+>   		return ret;
+>   
+> +	/*
+> +	 * There is a next link in the chain which is not a panel, we should
+> +	 * expect hotplug-information coming from there.
+> +	 */
+> +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_bridge))
+> +		dp->hpd_bridge = true;
+> +
+>   	return component_add(dp->dev, plat_data->ops);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> index d0fb25e543ea0..ecca3b87b4456 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> @@ -169,6 +169,7 @@ struct analogix_dp_device {
+>   	bool			fast_train_enable;
+>   	bool			psr_supported;
+>   	bool			last_bridge_is_panel;
+> +	bool			hpd_bridge;
+>   	bool			connection_notified;
+>   
+>   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> index ec5950066f838..6f0d642739ffd 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
+>   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+>   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+>   
+> -	if (dp->hpd_gpiod) {
+> +	if (dp->hpd_gpiod || dp->hpd_bridge) {
+>   		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
+>   	} else {
+>   		/*
+> @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+>   {
+>   	u32 reg;
+>   
+> -	if (dp->hpd_gpiod)
+> +	if (dp->hpd_gpiod || dp->hpd_bridge)
+>   		return;
+>   
+>   	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
+> @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp)
+>   	if (dp->hpd_gpiod) {
+>   		if (gpiod_get_value(dp->hpd_gpiod))
+>   			return 0;
+> +	} else if (dp->hpd_bridge) {
+> +		if (dp->connection_notified)
+> +			return 0;
+>   	} else {
+>   		reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+>   		if (reg & HPD_STATUS)
+> 
+> 
+> 
+> 
+> 
+
