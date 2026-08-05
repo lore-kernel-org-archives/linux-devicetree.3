@@ -1,145 +1,256 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157BB38E100
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:28:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A7A3DCD95;
+	Wed,  5 Aug 2026 07:29:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914938; cv=none; b=BVwLXN3prTEI9jjAPyLaHAvbx1Yi35uAmCk3mqKCbF6ari/vp6TquxoORrnA7FKsigVZZOmKdaLlZSa20if6+IbZ3RZpyBsq2ZaGnKLkllgTSqEJeK+uVz/dOlhXYE23opECd1jHPzJzyyLjmQdOd2CyaXJBLhFHWdwXbWUh2sU=
+	t=1785914989; cv=none; b=GP+omS0UtJYn9vlmzQ7HEKthm0muBfabltySaLve9YqWfMbESLtyX+tKbBBZVKzRODPdyD0625hxAdHea72/9Hyc5SzzYbV4SRKaT/bzeL9RH4wX4Hxg8O3uzDIkyq70rD438fBrvCzRCiDEm5tTi58DQo+Jmr3PlzLcXg4x5cU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914938; c=relaxed/simple;
-	bh=rQvgFkUbrZudkPSsoD2D2UC6PW8UQGurH3Eifu8Zr5g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FuKEMp9wcxKeRdsOTUgtP9o1C1UgCQIgptMjpmKSUJfI3i6aLWTc2f5RrvUBccMGlkktPQpbBJBWB42wV2D4YmpqfH5CflS2xKWNP6Zxo8QZthECO7l+QITY9r1Wb4z1m3us0X/yrlC7VTwV9jSaKhbmasfHo/7Mf4iK/P4rptM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=axul6Re8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785914989; c=relaxed/simple;
+	bh=f75pkb7T5/jdu6CFpLTd/bzqMnhk7pQpIT7E9X/CQ0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hB6D81kRKw16NujTrd8Y+O/Fiy7bZrZ5X6oC8xpVbsX5HERD3IYI6e1YTdAS1S9WGWR1gJoTzJ3wUfdAp0AjfWV2L+XPzOxjI9+jBZ2pSCtyhPmVXB8YlSeE0sPE1cm6ng0OWWsAlRbG2EBjI+qlNF6vuv+tQIY0c4p3UsIuOWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VfuCMa2Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axul6Re8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19AD61F000E9;
-	Wed,  5 Aug 2026 07:28:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VfuCMa2Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35E0F1F000E9;
+	Wed,  5 Aug 2026 07:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785914936;
-	bh=qCwl+sy+f/4o6tmmDe0w61GrTxSo1IJpm1qzeCTSVcA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=axul6Re8crwXfP8aEJUI0ylNNyafSeBwfzf7tBkiF/HncutsYpzxiO42+OQ+lOax7
-	 /i8BPG2EuzTubDmsvSSxM9Tt2wpfUNua9UZOvtmGwCgOTWHZl7X1cwDHLcKpwK8v6U
-	 gcihswj/G79lSHcLeJIvfQ1N2ooZ1X7hjKwXd30gWwc0gBozf4nK2CeWR0JkQPoC1E
-	 Ppn1W5ZOg/Wts+FfVTmqqWyaYJvj+plQJWXVgCm1cEyx9w1oBdc0epospaWTmC47QM
-	 pbIM3SV8PMpBjk0BjBAbI/tO6OcwLCemOXGTkWErvjVxR9CoVjKknl8AATxh/MS1rD
-	 O3UmAOaJiM2jg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/3] dt-bindings: iio: dac: Add AD5529R
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260805-ad5529r-driver-v8-2-b41781f5632a@analog.com>
-References: <20260805-ad5529r-driver-v8-0-b41781f5632a@analog.com>
- <20260805-ad5529r-driver-v8-2-b41781f5632a@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 07:28:55 +0000
-Message-Id: <20260805072856.19AD61F000E9@smtp.kernel.org>
+	s=k20260515; t=1785914986;
+	bh=kJXq08sJkug6Mcz5qGLPAxyPM7bBnkDiej3zEpwgtzY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VfuCMa2ZSKpC7x6V3r4+9Q7OvelZRJaKlPLGdse6v7At7B0BQfHZjm68xaWRUeISH
+	 FYcMOx5aVLYwrJkeRLYCRlRRme3pn+edrgFN8umcaH9bNx4D4Xw/0aKcv3f1LKY3G2
+	 vDU9geH1EyduSUlp4DQj7H5IZTrAXSyXJYM78aeqdHybSlw8hbvabPEfAMksFpqkLx
+	 +Z4kkdPrskRmrW6PmQRNucRRvOrlVdE/uUagFA8wOezUrXNxHKcfwPPkeZ3aM+Y9G9
+	 wyLXAB5hS6odKAaIX/8CoV1KTWblG+sr+a20aMJCT8lIEfvup6NUebxEjg10Cd6bNK
+	 NtlH/WP425dkQ==
+Date: Wed, 5 Aug 2026 09:29:42 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Romain Gantois <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 04/10] dt-bindings: net: pcs: add rockchip,rk3568-xpcs
+ binding
+Message-ID: <20260805-stirring-wondrous-mule-faf37d@quoll>
+References: <20260801142244.679437-2-coiaprant@gmail.com>
+ <20260801142244.679437-6-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260801142244.679437-6-coiaprant@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Low] The `default: 0` value for `spi-device-addr` is a scalar integer, w=
-hich violates the underlying `uint32-array` type.
-- [Low] The `spi-cpol` and `spi-cpha` properties are referenced in dependen=
-cies but are omitted from the properties block.
-- [Low] The use of `additionalProperties: false` in the channel node incorr=
-ectly restricts inherited properties from `dac.yaml`.
-- [Low] The `default` annotations inside the `items` array for `output-rang=
-e-microvolt` are ineffective.
---
+On Sat, Aug 01, 2026 at 10:22:28PM +0800, Coia Prant wrote:
+> Add device tree binding documentation for the Synopsys DesignWare
+> XPCS integrated on the Rockchip RK3568 SoC.
+> 
+> The XPCS is accessed over the APB3 bus and internally connected to
+> a Naneng Combo SerDes PHY.  It supports 1000BASE-X, SGMII, and
+> QSGMII modes, with four MII ports.
+> 
+> The binding describes:
+> - Required properties: compatible, reg, clocks, clock-names
+> - Optional properties: phys, phy-names, power-domains
+> - pcs-mii sub-nodes for each MII port (reg 0..3)
 
---- Patch [2]: [PATCH v8 2/3] dt-bindings: iio: dac: Add AD5529R ---
-commit c7fd92093d1e8febbb573957a72221de0c72a60c
-Author: Janani Sunil <janani.sunil@analog.com>
+Irrelevant paragraph. We can read the diff. Drop.
 
-dt-bindings: iio: dac: Add AD5529R
+A nit, subject: drop second/last, redundant "binding". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-buffered voltage output digital-to-analog converter (DAC) with an
-integrated precision reference.
-
-> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b=
-/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> 
+> Signed-off-by: Coia Prant <coiaprant@gmail.com>
+> ---
+>  .../bindings/net/pcs/rockchip-dwxpcs.yaml     | 127 ++++++++++++++++++
+>  1 file changed, 127 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml b/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
 > new file mode 100644
-> index 0000000000000..9c390d460e5ff
+> index 0000000000000..3e3f3a388d822
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> +++ b/Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+> @@ -0,0 +1,127 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/pcs/rockchip-dwxpcs.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Rockchip RK3568 Synopsys DesignWare Ethernet PCS
+> +
+> +maintainers:
+> +  - Coia Prant <coiaprant@gmail.com>
+> +
+> +description: |
+> +  Rockchip RK3568 SoC integrates a Synopsys DesignWare Ethernet Physical
+> +  Coding Sublayer (XPCS).
+> +  The PCS provides an interface between the Media Access Control (MAC)
+> +  and the Physical Medium Attachment (PMA) sublayer through a Media
+> +  Independent Interface (GMII).
+> +
+> +  The XPCS is accessed over the APB3 bus and internally connected to a
+> +  Naneng Combo SerDes PHY.
+> +  It supports 1000BASE-X, SGMII and QSGMII modes.
+> +
+> +  The block contains four MII ports (pcs-mii@0..3) that can be
+> +  individually enabled and routed to one of the Ethernet GMAC controllers
+> +  via the pcs-handle property in the MAC device tree node.
+> +
+> +properties:
+> +  compatible:
+> +    const: rockchip,rk3568-xpcs
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
 
-[ ... ]
+reg is always the second property.
 
-> +  spi-device-addr:
-> +    minItems: 1
-> +    maxItems: 4
+Also, use consistent style of quotes.
+
+> +
+> +  reg:
+> +    description: |
+> +      Base address and size of the XPCS register space mapped over the
+> +      APB3 bus.
+
+Drop description, redundant.
+
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: |
+> +      Clock sources for the XPCS:
+> +      - csr: APB3 bus interface clock (clk_csr_i), required for register
+> +        access.
+> +      - eee: EEE clock (clk_eee_i), required for Energy Efficient
+> +        Ethernet (EEE) operation.
+> +    minItems: 2
+> +    maxItems: 2
+
+No, instead list items with description.
+
+> +
+> +  clock-names:
 > +    items:
-> +      enum: [0, 1, 2, 3]
-> +    default: 0
+> +      - const: csr
+> +      - const: eee
+> +
+> +  phys:
+> +    description: |
 
-[Severity: Low]
-Does this default value need to be an array (e.g., [0]) to conform to the
-uint32-array type defined in spi-peripheral-props.yaml? A scalar value might
-cause schema validation to fail for bindings relying on this default.
+Do not need '|' unless you need to preserve formatting.
 
-[ ... ]
+> +      The phandle of SerDes PHY (Naneng Combo PHY) that provides
+> +      the serial lanes for 1000BASE-X / SGMII / QSGMII.
+> +      The SerDes must be powered on and initialised before any XPCS
+> +      register access.
+> +    maxItems: 1
+> +
+> +  phy-names:
+> +    const: serdes
+> +
+> +  power-domains:
+> +    description: |
+> +      Power domain for the XPCS.
 
-> +      output-range-microvolt:
-> +        description:
-> +          Output voltage range for this channel as [min, max] in
-> +          microvolts.
-> +        oneOf:
-> +          - items:
-> +              - const: 0
-> +                default: 0
-> +              - enum: [5000000, 10000000, 20000000, 40000000]
-> +                default: 5000000
+Drop sentence and |
 
-[Severity: Low]
-Should the default keyword be declared at the property level
-(e.g., default: [0, 5000000]) rather than inside the items elements?=20
+> +      On RK3568 this is typically the PD_PIPE power domain, which also
+> +      supplies the SerDes PHY.
+> +    maxItems: 1
+> +
+> +patternProperties:
+> +  "^pcs-mii@[0-3]$":
 
-It seems the schema tooling will not provide a default value when the
-property is omitted if it is structured this way.
+Why `git grep pcs-mii@` gives me no results? Are you doing this
+similarly to existing devices or is this quite different device than
+every other hardware?
 
-[ ... ]
+> +    type: object
+> +    description: |
 
+Same here
+
+> +      One of the four MII ports of the XPCS.
+> +      The port number is specified by the reg property (0..3).
+
+Drop sentence, redundant. Schema tells that.
+
+> +      The port is linked to an Ethernet MAC controller via the
+> +      pcs-handle property in the MAC's device tree node.
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
+> +        maximum: 3
+> +        description: |
+
+As well
+
+> +          MII port number of PCS.
+> +
+> +      status: true
+
+Nope, do you see anywhere code like this?
+
+> +
 > +    required:
 > +      - reg
 > +
 > +    additionalProperties: false
-
-[Severity: Low]
-Should this be unevaluatedProperties: false instead?
-
-In JSON schema, additionalProperties: false does not see through the $ref to
-dac.yaml. This would cause common DAC channel properties inherited from
-dac.yaml to be erroneously rejected by validation.
-
-[ ... ]
-
-> +dependencies:
-> +  spi-cpha: [ spi-cpol ]
-> +  spi-cpol: [ spi-cpha ]
 > +
-> +allOf:
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
 > +
-> +unevaluatedProperties: false
-
-[Severity: Low]
-Are spi-cpol and spi-cpha missing from the local properties block?
-
-Since they are referenced in dependencies but not explicitly declared, devi=
-ce
-trees configuring SPI Mode 3 might fail static validation due to
-unevaluatedProperties: false not seeing them.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-ad5529r-dr=
-iver-v8-0-b41781f5632a@analog.com?part=3D2
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/rk3568-cru.h>
+> +    #include <dt-bindings/power/rk3568-power.h>
+> +    #include <dt-bindings/phy/phy.h>
+> +
+> +    pcs@fda00000 {
+> +      compatible = "rockchip,rk3568-xpcs";
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +      reg = <0xfda00000 0x200000>;
+> +      clocks = <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+> +      clock-names = "csr", "eee";
+> +      phys = <&combphy2 PHY_TYPE_SGMII>;
+> +      phy-names = "serdes";
+> +      power-domains = <&power RK3568_PD_PIPE>;
+> +
+> +      pcs-mii@0 {
+> +        reg = <0>;
+> +      };
+> +    };
+> -- 
+> 2.47.3
+> 
