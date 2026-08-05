@@ -1,176 +1,136 @@
-Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com [91.218.175.185])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25323E63BE
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:07:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.185
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC7F3E5EF3;
+	Wed,  5 Aug 2026 08:08:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785917252; cv=none; b=TXIFI9UlbCwzeSVeiz1V2VN7QWBJNYdmL8n7+N1xoaKGzUUCc8iOct3Gq9MBZ8+GkhBFr9vpO5qdvNswiInlnQeXHWmCYsFiLFEfoK0C43HsLX9PwMDFl0woiHq4Y1kedbymCiQHyPRVB+QfEO+sWgmmV/svTlTOKrbMMpFR7lA=
+	t=1785917295; cv=none; b=dwAsmK90umE0Qwkp9FxkYL509wzLtkJSM7BJbZLsbnSccpuiYT2J6xT/5sOvgdvq4QZHwCljD76AsM7nRtHlg67JosEz8Cv1BsCxTiYaowYOFJ95pCP9cNyylA/ZAe9PGZZ3lboBgiEOQUMKbwoA8DHFRqTsZV51uVBqeoB2LGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785917252; c=relaxed/simple;
-	bh=D4axoju+KUSHbKKT55FYbu+AaQ9NAG1WMCFmf9Y6+c0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GOMa8wspud1cADOK0JW/hF50ch89TJx8HEzAbApCs84OOARq6i9otkyYVw/a8rc3fBf3PFjGK+eD65WY2SqGZ/VDxzpEjdT+WvzJdNCWgXbCXQllpGcVTFM5vnc4D6RPkDVRtyet6S3a1v4SjxZiLhMwQISbqnei2K/5OcRpXDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ikeaak2v; arc=none smtp.client-ip=91.218.175.185
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785917295; c=relaxed/simple;
+	bh=hpWnV5LS0GblNz9y/FlvFSDIRyY1+QAth4KLt9LSkxg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pVXmc7uKK/tNyywuQU2hcAXVOZgDtteqBqwjXAycM91+yjVAS6BZ3BW+AnrYbjqEOwixXMyRB4Qs6jI3PLWhaLozrEQ8Ud3YIAc6eKnZn3ghTL21q30Mev15S6zBtK+eHyIpnefCGiXp7ZtjqGfni6h9Jl84vW40uwBfntBfcdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMhsEdTl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ikeaak2v"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785917230;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0RyFHAmnxx0/ymhDekWev9I5Arzzmwq8UaZpl1nESOE=;
-	b=Ikeaak2vrD3qJf+KaLdPzn2aI3Ty20b03euVkyMxY/zYnbA+2oCWqs3gOR2Uekow9uhsYE
-	r1nouToSqwzgbWLZ2luegCLd0MG2F3kO5KG4innHraMepnTRrHiwig/BjBB1Rz9P/bKXtC
-	hH6pD6QuxEEH9jVB0GkOG5JZrl/Ak84=
-From: Atish Patra <atish.patra@linux.dev>
-To: Paul Walmsley <pjw@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Anup Patel <anup@brainfault.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Will Deacon <will@kernel.org>,
-	James Clark <james.clark@linaro.org>,
-	Conor Dooley <conor@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v8 05/22] RISC-V: Define indirect CSR access helpers
-Date: Wed,  5 Aug 2026 01:07:06 -0700
-Message-ID: <20260805080706.2895158-1-atish.patra@linux.dev>
-In-Reply-To: <1b20aa77-0f0f-08c7-9439-972983adf709@kernel.org>
-References: <1b20aa77-0f0f-08c7-9439-972983adf709@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMhsEdTl"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 99F7EC19425;
+	Wed,  5 Aug 2026 08:08:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785917294;
+	bh=hpWnV5LS0GblNz9y/FlvFSDIRyY1+QAth4KLt9LSkxg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PMhsEdTlGclZENFHxJlxo5CMm+SwPMSZmOggq17f39z97QCSdkheGuSa+aFQDQ8tB
+	 ZIg4AxiTYEuYDw3IAcWMNDpJapPfoQaxXeMsVVxAe3oNj5ACwf+5pLjHrddDGJ4Pcn
+	 VbZMLc1DyKWFxgzVarh6xOfmGNXKoz9F0f6DEdoH0omlUu0pLE94E1Lzk5PiqnuUxn
+	 5BDy39WTOiEmhRfkApwkLcLjH0mGwqab5xFQP4ukdWxs5nrBNo11iX9g6sFo7Ds5jx
+	 y7Z9OBfQjr8RO/PTTLd9/mHViDOcqiUZXqqCs5HitA88lmki3Utk0j4r2t5J3lXqgI
+	 eCn5a6illaf1g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73970C55822;
+	Wed,  5 Aug 2026 08:08:14 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Wed, 05 Aug 2026 10:06:02 +0200
+Subject: [PATCH v9 1/6] mfd: khadas-mcu: Add per-variant configuration
+ infrastructure and VIM4 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-add-mcu-fan-khadas-vim4-v9-1-75df78710b9e@aliel.fr>
+References: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
+In-Reply-To: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+ mfd@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1883;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=l0O0cD0fiAJBO81t4csvMi2nHXVHt2flC0X0yXFYJns=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ1bR+7TlSTH9bA6391scvfY9sPj+ZvY9kdq+Uhds605FR
+ CfOXfm5o5SFQYyLQVZMkaV/ruWJd5ePnvm6Rz0FZg4rE8gQBi5OAZiIz0lGhhlSAYsrLkzS3X6y
+ OsCsfU22wO947eligi/VU77/mLKBVYeRYerdpsq1a5xWL/CKXOvgJbxZL96NI6lpkXlcYe2aS4/
+ juAA=
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-On 8/4/26 6:39 PM, Paul Walmsley wrote:
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-> Thanks.  These macros seem better implemented as static inline functions.
-> That also nicely aligns the code with what you write in the patch
-> description.
+Some values change per variant, add the structure to manage it.
 
-Unfortunately these can't be functions - the conversion doesn't build once
-anything calls them.
+Add an enum khadas_mcu_type used as value to match.
 
-I applied your version of the header and switched the driver over to the
-csr_indirect_* names. drivers/perf/riscv_pmu_sbi.o builds fine before the
-change, and after it:
+Also introduce khadas_mcu_fan_pdata to pass fan register address, a
+table named levels to get fan-supported levels on the MCU, and the number
+of levels to the fan sub-driver, removing the hardcoded constants.
 
-  CC      drivers/perf/riscv_pmu_sbi.o
-  ./arch/riscv/include/asm/csr_indirect.h:30: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:18: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:30: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:30: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:30: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:42: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:43: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:44: Error: unknown CSR `iregcsr'
-  ./arch/riscv/include/asm/csr_indirect.h:45: Error: unknown CSR `iregcsr'
-  make[4]: *** [scripts/Makefile.build:289: drivers/perf/riscv_pmu_sbi.o] Error 1
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ include/linux/mfd/khadas-mcu.h | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-one error per inlined instantiation: line 18 is csr_indirect_read(), line
-30 csr_indirect_write(), lines 42-45 the four accesses in
-csr_indirect_warl().
+diff --git a/include/linux/mfd/khadas-mcu.h b/include/linux/mfd/khadas-mcu.h
+index a99ba2ed0e4e0..e4044c251b97e 100644
+--- a/include/linux/mfd/khadas-mcu.h
++++ b/include/linux/mfd/khadas-mcu.h
+@@ -70,6 +70,13 @@
+ #define KHADAS_MCU_WOL_INIT_START_REG		0x87 /* WO */
+ #define KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG	0x88 /* WO */
+ 
++/* VIM4 specific registers */
++#define KHADAS_MCU_VIM4_REST_CONF_REG		0x2c /* WO - reset EEPROM */
++#define KHADAS_MCU_VIM4_LED_ON_RAM_REG		0x89 /* WO - LED volatile */
++#define KHADAS_MCU_VIM4_FAN_CTRL_REG		0x8a /* WO */
++#define KHADAS_MCU_VIM4_WDT_EN_REG		0x8b /* WO */
++#define KHADAS_MCU_VIM4_SYS_RST_REG		0x91 /* WO */
++
+ enum {
+ 	KHADAS_BOARD_VIM1 = 0x1,
+ 	KHADAS_BOARD_VIM2,
+@@ -88,4 +95,21 @@ struct khadas_mcu {
+ 	struct regmap *regmap;
+ };
+ 
++/**
++ * struct khadas_mcu_fan_pdata - fan sub-driver configuration
++ * @fan_reg: register address to write the fan level
++ * @levels: table mapping logical cooling-device states to raw fan levels
++ * @nlevels: number of entries in @levels
++ */
++struct khadas_mcu_fan_pdata {
++	unsigned int fan_reg;
++	const unsigned int *levels;
++	unsigned int nlevels;
++};
++
++enum khadas_mcu_type {
++	KHADAS_MCU_GENERIC, /* VIM1/2/3, Edge, Edge-V */
++	KHADAS_MCU_VIM4,
++};
++
+ #endif /* MFD_KHADAS_MCU_H */
 
-The reason is that csr_read()/csr_write() stringify the CSR argument
-straight into the inline asm template:
+-- 
+2.49.0
 
-  #define csr_read(csr)                                         \
-  ({                                                            \
-        register unsigned long __v;                             \
-        __asm__ __volatile__ ("csrr %0, " __ASM_STR(csr)        \
-                              : "=r" (__v) :                    \
-                              : "memory");                      \
-        __v;                                                    \
-  })
 
-so the CSR operand has to be a literal token. With iregcsr as a function
-parameter the template becomes "csrr %0, iregcsr", which the assembler
-has no way to resolve.
-
-This isn't a matter of inlining or of only ever passing constants:
-__ASM_STR() expands in the preprocessor, long before inlining or constant
-propagation, so __ASM_STR(iregcsr) is "iregcsr" regardless of what the
-caller passes or which optimisation level is used. It isn't
-toolchain-specific either - gcc 12, gcc 16 and clang 22 all reject it,
-clang with the more explicit "operand must be a valid system register
-name or an integer in the range [0, 4095]".
-
-The underlying reason is architectural rather than a quirk of the macro:
-csrr/csrw encode the CSR as a 12-bit immediate and there is no
-register-indirect form. Which is of course why Sscsrind exists in the
-first place, but the sireg CSR number itself still has to be an
-immediate. That constraint is also why asm/csr.h keeps all seven
-accessors (csr_read, csr_write, csr_swap, csr_set, csr_clear,
-csr_read_set, csr_read_clear) as macros, with no static inline variant of
-any of them.
-
-The reason for-next is green today is that this patch only adds the
-header. The callers are in patches 12 and 14, which aren't applied yet,
-and an uncalled static inline isn't emitted, so the bad asm never reaches
-the assembler. It breaks as soon as the driver patches land.
-
-The only way to keep a function signature would be a switch with a
-literal CSR in each arm. The driver uses four of the IREG CSRs - CSR_SIREG
-for the counter, CSR_SIREG2 for the hpmevent, and CSR_SIREG4 / CSR_SIREG5
-for the rv32 high halves - so that would mean a four-arm switch in each of
-the three helpers, which seems clearly worse than the macro.
-
-One clarification on your version, since only part of it is a problem: the
-iselbase/iseloff parameters are fine as values - they're data written to
-the literal CSR_ISELECT, not a CSR number. It's specifically iregcsr that
-can't be a variable.
-
-> That also nicely aligns the code with what you write in the patch
-> description.
-
-Fair point, and that mismatch is real - the changelog says "Add a few
-helper functions" while the patch defines macros. Since the macros have to
-stay, I'll fix it from the other side: reword the body to say helper
-macros (matching the subject, which already says "helpers") and add a line
-explaining why they can't be functions, so the next reader doesn't have to
-rediscover it.
-
-> Also, I renamed this file to change the abbreviation "ind" to "indirect",
-> along the lines of this feedback here:
->
->    https://lore.kernel.org/linux-riscv/CAHk-=whhSLGZAx3N5jJpb4GLFDqH_QvS07D+6BnkPWmCEzTAgw@mail.gmail.com/
->
-> This case is even worse since there are already uses of "csr_index" in
-> the codebase, so it's even more unclear what "ind" is supposed to mean.
-
-No objection at all - csr_indirect_* and csr_indirect.h are clearer, and
-the collision with the existing csr_index uses is a good argument on its
-own. (The driver has its own rvpmu_csr_index(), which is exactly the
-confusion you're describing.) I'll use the new names in the driver
-patches.
-
-> Updated patch follows.  Please let me know if you have any objections,
-
-So: renames yes, macros-to-functions no. If 6f1ece4a6691 can still be
-amended, the fix is to keep your rename and restore the macro bodies.
-Happy to send that as a patch if that's easier, or as a fixup on top of
-for-next if the branch has already been published - just let me know which
-you prefer.
-
-Thanks for picking up the earlier patches.
-
---
-Regards,
-Atish
