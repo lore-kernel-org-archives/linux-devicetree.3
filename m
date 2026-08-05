@@ -1,224 +1,337 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6623AFCFA
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 23:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785972592; cv=pass; b=E6mmZ1Doot0oFycmJ6MJJqYisP65LQlS9PMVzBDw8ZC3VI9uAqKapih7e8hH/jtg+/ovgKbYOMCUlEoqtw9dlvkPOjyWeELHBpX/x/QLcPBEo+7amnbwUNmcR2yx0GVYSAyM1kiHjgvyMmDNthvHucxq3RNhpX4Wg5RVzX8vxDE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785972592; c=relaxed/simple;
-	bh=+luMkJtpQe7ID5UVfqLlRQ2UR47TT/rgDyatf9qK8mo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EB1pq/OxXa+JA2IPZqUlb0LNRQD68WH3SWpy6o3p/Zu3s3gvranEW06AHKuOxhIPZc7HWM6yKB9onh2ZhYPpX1+UK2052ksSRX0ptUj2y5qqxGw5o0+z+fK6isGF1B5AMqWsznQnNpNh0Iezd3YgUzLyQIWsecQTnvew2cHNRyc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZEapCQR; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D505A79B;
+	Wed,  5 Aug 2026 23:44:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785973479; cv=none; b=HBNrOzMkjlbsE39PThCpGjVJ4oZc93Zp/0mky/nOQfG1lxF05uR7oNacqp2nRIH4fru4yBFzFGH3zHJMLkeSA5S2XUIwGLupNON6ajv2X0nK0Jhkh1M7lypE0ysj28mnMCezWTdAtydM4kbns+Q5Qa1PaOiosliQp9XAUS2z5wQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785973479; c=relaxed/simple;
+	bh=Lh/QJcMnBYuyuJEhXbEP3c1la/jVbcjYTeDGsN7yN94=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XYzO78KBTEUaN3nkqj/SUZJ+LM2XCJsJmUeDeEcb5CdudsXX2768FlMBBk/o6mVLqKF4nGUI3xxSJyl8PrBEzlTs2mtb+rMmsS/5MO2Um357iTIeSvdqpAqBjedAlR1KfRrcqnNIhgfn1RxS+2GLdbv96evSVWj4Si/3duAiZAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=tD1/w/xj; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZEapCQR"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso2250142a12.3
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 16:29:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785972589; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BNS5NgPJJJKOeW+aBzLzY0x1P0YM4Ub/bwwDnNPkdQsd8L0PmUBUiegGUtnDrR3xhg
-         peVNjXDROsfaOg8NMg2vDNF3R8CLepwfKw+agnEigWMX7PlHK8ScW1j65IRdsChF2yGF
-         9hzJ/Wf1WzT3AYdYoF+mTeY1+Da4QORhZhOQxgneMVrgwIk1wv7eodzqEva+bvVLBgf1
-         HCx6UYuClqHIE50kKHrjiIcEOqoSmdDgXwBgoJG8SaYdNS0UdLeA6y/RsGy51W4nc5hF
-         4Tojl75f9a9GAm0veVHiCnvoObVWgzB5hQfk6RZ+ETyduQGrExDdmDga8d7clCemh6ux
-         5Z8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MTSoKJ2hblhaC6ZNsPcka3G1aJYd4eOopX2GWEssqdE=;
-        fh=x6ESYQaUGRPmTP4ZRzxYdfbv0IGgwF6MCJ5Zs6gs6dY=;
-        b=buZ+/L3jDN1A1N6XknSm3MPgDvtNibG5LkQdW97kBUmv6JWI41+qLWnl1WmA04eImF
-         1aavqSO48ZlLdxNXEpmyZBWQJG47MolTXkUK1hH0MESu9ogxkIMNs34z3T/Ln3iELQRx
-         JSGrADKE9pE6Bq+g69BJAICItdHAZtmIH+L1qpdMaSniyFO2bYVqEDU0D+W2RMwOaHm9
-         114L/Tnh4uapYlaWJM7UacmTlm7aozWe9OGpp9xLm/eftcBqPUlLMjsO11EQr5D8l067
-         59nDPjA4bdKjJC1/Vj+X2TL0nr+sNnKHxE7TTdWaDFuArrJvm3yK0PrpxOIjkyl1dwvI
-         64Aw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785972589; x=1786577389; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MTSoKJ2hblhaC6ZNsPcka3G1aJYd4eOopX2GWEssqdE=;
-        b=dZEapCQRb3FHxW+AwJJ1zk2gF62Z+BFwFnp33qAFqx1o0pVVlhM6VvxJ3hPl9Jtfae
-         /4UR/Z7ajy5pLBxXAK43RHgSSXIgi+Z2QUwOJY0Mi3MQ6msVDHxNDS2qhw0CHWS7HjXA
-         DkLXQoWWlXzrOFODNZ9NUhsXmrVNr/dklBDEt3iWXOJNgRjuVaJijD6mrCZ9+OCtOExG
-         8ePHAcIHb4vq3uzhSRXmVkykxfPSnjJxwag4OgPnICEQRKaD0CGHVJEMiFpY7aSZeBf3
-         bOTv+ETqwZuLYelP9uB73t/7Z10Wt2s8yPX8EkwCn5ugvcA6BvWg+bupn9XkGgINA/9O
-         +p/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785972589; x=1786577389;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MTSoKJ2hblhaC6ZNsPcka3G1aJYd4eOopX2GWEssqdE=;
-        b=OAFSscPogwORbxPXMfC7nR4WWkc1OK/YCT3MePzpf8UaC5NAQXBGRiZbnk6a4tKOR4
-         Bl8UGtmevwpg72xB9M0ZaEwa00qlFieH3MHkKn9DT93NRgNO1UntzhR9mCmEVU0dtlgz
-         CZBXWkxMz99Tz2awid/1KBf6xKd7ams1URmvx5lBNLmQ7EWOMXtNpW6ourO4fqRE6xjv
-         EEZ5IpjWbwa4nVlp14fNw4ptSFZaPewvAgV/LArMm0m8M0EvnbdfppScLRA3YuxsK9RX
-         OTvLk7ztSPXUw1ZlVFaewjkvEMIBQ+au3sQ2YSzi2b8N8NueK2TzGZ2+qFTYa+4RXAFh
-         IoNg==
-X-Forwarded-Encrypted: i=1; AHgh+RqiZL6eGBMxqE2v7z+RXJXTBVNJrm55dmYHMmhOZo+p7blwwaA6Q88mP8WZNyBCBQQ3CqAzVJ+Gp0Zg@vger.kernel.org
-X-Gm-Message-State: AOJu0YxK+XQLGmGG3z1T8qEDQrxbH9wYuY95Pz9TTs26dDtvsDNtsvM5
-	GcQD61thWdU/Et7Q6/M+B0UhZ5uDywfBWYRzy56fVch8yks1sqDayVsgNgBg1Rn+okPv7n6HUIY
-	0YXYk81IMSy581WPshI4CM4V+KnS9/hw=
-X-Gm-Gg: AR+sD13nKrFgfZRz9/VCiVoUWVG+twz9gdVGRIgxRDqmz+rh+7zErtVDJri1V+UXJl9
-	Wyz1v2UMRyTISwHaUPTET6OjpzJbBdjNpkbb45cznRlNStfybiL+sVloH9QeJ7F74aZyIHhzn3p
-	PD12h1RQ+F3QPxH2v8UEnFZ2s4Qgz1BocaoxBJ+na7t9QE2FmqtSH1Om6bYgZ5t+VBJsiQ2E79a
-	bvC5U3iiHWP66UCjm8XxCDOqREas5lLFckAX53TJy9eQzmGxZtG2J5D+WdJlcKTRa9Ha0s6zL3j
-	GNwJIT+9BD+CkfENo17c/RoOnHMuqzaf2bx8xD4CHGop
-X-Received: by 2002:a05:6402:c45:b0:6a0:8885:e6ea with SMTP id
- 4fb4d7f45d1cf-6a14f0c51dfmr5738361a12.6.1785972588952; Wed, 05 Aug 2026
- 16:29:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="tD1/w/xj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=+FwJkaT/hBuV8xYdPramTwYaDQ7VYGl/Z+umXnAoKIs=; b=tD1/w/xj2z8hREey/TfYF1ABO7
+	y21ZLsCTa9wIQC3MOjhRpffUlxzN+wxHTLzvM0j476CRWg6G7JlRDpIzJVuQFOwN5NeIDw2TkUGWz
+	QkqymDXgowR2n5S1HHiOEGA8FiCX1skT2BHosPIv4tdO6+ndfv+nbrxQhzm7c9KoMDRI42vECjcIH
+	0vAvMuBzvvnmB0iHLnKufq20Eb/hcQ58pr16ImBY9wSQjiLINg5KWEtgGqMKrZk8NMQAaMX0jiq/l
+	rN1Yw+qv/uJZZ2ihM0daZxtAEEpVOxHYwVAQ0aaRy1Hkc0s+jOuIl97syFcAj4z4LETom7b3E65rU
+	5xe1M5dQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
+Date: Thu, 06 Aug 2026 01:42:14 +0200
+Message-ID: <7775230.ejJDZkT8p0@diego>
+In-Reply-To: <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
+References:
+ <20260804081717.741404-1-damon.ding@rock-chips.com>
+ <5609825.iZASKD2KPV@diego>
+ <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804225617.264861-1-maximpedraza@gmail.com> <20260805140941.GA495716-robh@kernel.org>
-In-Reply-To: <20260805140941.GA495716-robh@kernel.org>
-From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
-Date: Thu, 6 Aug 2026 03:29:35 +0200
-X-Gm-Features: AUfX_mwz5ayJK-cjMOmnYRs5QzSleK6Vf1I78jG8sHW7TJviplVzPHQLkrOC4xU
-Message-ID: <CAEUXW=HQA7Hwo7m1s5=6mNsbLg3doc4rgg+_+6tTPD2sUxTQdA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] Boot logo supplied by the device tree
-To: Rob Herring <robh@kernel.org>
-Cc: Helge Deller <deller@gmx.de>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-El mi=C3=A9, 5 ago 2026 a las 16:09, Rob Herring (<robh@kernel.org>) escrib=
-i=C3=B3:
-> Why is this linux specific? Don't people want to do a splash screen in
-> u-boot or other firmware?
+Am Mittwoch, 5. August 2026, 06:06:48 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Damon Ding:
+> Hi Heiko,
+>=20
+> On 8/5/2026 6:39 AM, Heiko St=C3=BCbner wrote:
+> > Hi Damon,
+> >=20
+> > Am Dienstag, 4. August 2026, 10:17:07 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Damon Ding:
+> >> Display-connector mode (DP connector without HPD GPIO):
+> >>
+> >>    &edp_out_conn {
+> >>        remote-endpoint =3D <&dp_con_in>;
+> >>    };
+> >>
+> >>    dp-con {
+> >>        compatible =3D "dp-connector";
+> >>        label =3D "DP OUT";
+> >>        type =3D "full-size";
+> >>
+> >>        port {
+> >>            dp_con_in: endpoint {
+> >>                remote-endpoint =3D <&edp_out_conn>;
+> >>            };
+> >>        };
+> >>    };
+> >>
+> >> Display-connector mode (DP connector with HPD GPIO):
+> >>
+> >>    dp-con {
+> >>        compatible =3D "dp-connector";
+> >>        label =3D "DP OUT";
+> >>        type =3D "full-size";
+> >>        pinctrl-0 =3D <&edp0_hpd>;
+> >>        pinctrl-names =3D "default";
+> >>        hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+> >>
+> >>        port {
+> >>            dp_con_in: endpoint {
+> >>                remote-endpoint =3D <&edp_out_conn>;
+> >>            };
+> >>        };
+> >>    };
+> >>
+> >> All four configurations detect cable plug/unplug events correctly.
+>=20
+> Thanks a lot for your testing and feedback. :-)
+>=20
+> It seems my test setup gave me the false impression that those cases=20
+> worked well.
+>=20
+> >=20
+> > hmm, it wasn't working entirely for me though and was still running into
+> > issues when the display was unplugged on boot.
+> >=20
+>=20
+> Are you seeing this boot=E2=80=91unplug issue for both scenarios: DP=E2=
+=80=91connector=20
+> with HPD=E2=80=91gpio paired with eDP without HPD=E2=80=91gpio, and DP=E2=
+=80=91connector without=20
+> HPD=E2=80=91gpio paired with eDP with HPD=E2=80=91gpio? I.e. it wrongly r=
+eports=20
+> connected even with no display plugged in and proceeds into DRM=20
+> .atomic_enable()?
 
-You are right, and I had not questioned the name. Looking at chosen.yaml,
-the split is clear: the "linux," properties are kernel-internal structures
-(initrd, kexec handover, the UEFI memory map), while anything a second
-implementation could reasonably consume has no prefix at all -- bootargs,
-bootsource, stdout-path, kaslr-seed. A boot logo is squarely in the second
-group, and simple-framebuffer, which this sits next to, carries no vendor
-prefix either.
+Yep it's different. The analogix-dp gpio-hpd works correctly,  because the
+analogix driver can do gpiod_get_value() in analogix_dp_get_plug_in_status()
 
-There is a second Linux-ism in there that your question made me notice:
-the 224 in the format. That is 256 minus the 32 palette entries fbcon
-reserves for the console, which means nothing outside Linux. The 32 entry
-offset itself is already applied by the kernel rather than by the binding,
-so it is only the limit that leaks.
+The dp-connector does not, as with the patch you pointed to, it lost
+that ability. So on boot a plugged in display is not detected correctly
+because there won't be a hotplug interrupt.
 
-Rather than guess at the shape you would want, I would rather ask, since
-both the name and the format follow from your answer.
+>=20
+> > I wiggled around a bit like in the diff below and am now getting correct
+> > plug and unplug events.
+>=20
+> Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so=20
+> that plug=E2=80=91in interrupts can be properly responded to. However GPI=
+O HPD=20
+> does not require a runtime PM get. I will better separate these two=20
+> scenarios in the next version.
+>=20
+> >=20
+> > But of course, as the dp-variant of the connector does not provide
+> > a "detect" and just the "hpd" functionality, it's missing the initial s=
+tate.
+> >=20
+> > I'm currently not sure how to find out _if_ a panel is connected on boo=
+t.
+> >=20
+>=20
+> Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display=E2=80=91conne=
+ctor:=20
+> don't set OP_DETECT for DisplayPorts"), HPD events from DP=E2=80=91varian=
+t=20
+> connector should be handled by the upstream DP controller. Hence I added=
+=20
+> analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
+>=20
+> As expected, under the bridge=E2=80=91connector framework, the detect res=
+ult=20
+> from Analogix DP should in theory reflect the actual connection status.
+> Let's dig into this boot=E2=80=91time initial=E2=80=91state issue togethe=
+r.
 
-On the name: dropping the prefix would give something like
-"boot-logo-clut224", or "boot-logo" with the format named by a property.
-Is a bare, unprefixed compatible acceptable here, the way
-simple-framebuffer is, or would you rather see this described some other
-way entirely?
+One idea I had was, is it possible to do a drm_dp_read_dpcd_caps()
+read during bind/... to see if something answers?
 
-On the format, two options that I can see:
+Thanks for all your work
+Heiko
 
-  a) Keep a palette, but allow the full 256 entries, so that the limit
-     Linux applies is a kernel limitation rather than part of the binding.
+> > In other review comments:
+> > - the bridge could use devm_drm_of_get_bridge() as suggested in
+> >    the documentation of drm_of_find_panel_or_bridge(), as that would
+> >    remove the separate panel_bridge creation
+> > - instead of using plat_data->next_bridge _inside_ the driver
+> >    struct drm_bridge has a field next_bridge already.
+>=20
+> Great suggestions, I will incorporate them for the next version=20
+> alongside Sashiko's comments.
+>=20
+> Best regards,
+> Damon
+>=20
+> >=20
+> >=20
+> > Heiko
+> >=20
+> >=20
+> > ------- 8< -------
+> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
+rs/gpu/drm/bridge/analogix/analogix_dp_core.c
+> > index 877e1b3ca7525..1388640a27de7 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> > @@ -43,7 +43,7 @@ static const bool verify_fast_training;
+> >   static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_dev=
+ice *dp)
+> >   {
+> >   	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_=
+gpiod &&
+> > -	       !dp->force_hpd;
+> > +	       !dp->hpd_bridge && !dp->force_hpd;
+> >   }
+> >  =20
+> >   static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+> > @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_=
+device *dp)
+> >   	 * Trust connection status from downstream bridge (e.g.,
+> >   	 * display-connector with hpd-gpios).
+> >   	 */
+> > -	if (dp->plat_data->next_bridge && dp->connection_notified)
+> > +	if (dp->hpd_bridge && dp->connection_notified)
+> >   		return 0;
+> >  =20
+> >   	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
+> > @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *brid=
+ge, struct drm_connector *conne
+> >   	 */
+> >   	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
+> >   		status =3D connector_status_connected;
+> > -
+> > -	if (!analogix_dp_detect_hpd(dp))
+> > +	else if (!analogix_dp_detect_hpd(dp))
+> >   		status =3D connector_status_connected;
+> >  =20
+> > +printk("---> %s status %d\n", __func__, status);
+> >   	return status;
+> >   }
+> >  =20
+> > @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix=
+_dp_device *dp)
+> >   		goto out_dp_init;
+> >   	}
+> >  =20
+> > -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> > +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+> >   		enable_irq(dp->irq);
+> >   	return 0;
+> >  =20
+> > @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm=
+_bridge *bridge)
+> >   	if (dp->dpms_mode !=3D DRM_MODE_DPMS_ON)
+> >   		return;
+> >  =20
+> > -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> > +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+> >   		disable_irq(dp->irq);
+> >  =20
+> >   	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+> > @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_=
+bridge *bridge, struct drm_conn
+> >   	struct analogix_dp_device *dp =3D to_dp(bridge);
+> >  =20
+> >   	dp->connection_notified =3D (status =3D=3D connector_status_connecte=
+d);
+> > +printk("---> %s connection_notified %d\n", __func__, dp->connection_no=
+tified);
+> >   }
+> >  =20
+> >   static const struct drm_bridge_funcs analogix_dp_bridge_funcs =3D {
+> > @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct d=
+rm_dp_aux *aux)
+> >   	if (ret && ret !=3D -ENODEV)
+> >   		return ret;
+> >  =20
+> > +	/*
+> > +	 * There is a next link in the chain which is not a panel, we should
+> > +	 * expect hotplug-information coming from there.
+> > +	 */
+> > +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_br=
+idge))
+> > +		dp->hpd_bridge =3D true;
+> > +
+> >   	return component_add(dp->dev, plat_data->ops);
+> >   }
+> >  =20
+> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drive=
+rs/gpu/drm/bridge/analogix/analogix_dp_core.h
+> > index d0fb25e543ea0..ecca3b87b4456 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> > @@ -169,6 +169,7 @@ struct analogix_dp_device {
+> >   	bool			fast_train_enable;
+> >   	bool			psr_supported;
+> >   	bool			last_bridge_is_panel;
+> > +	bool			hpd_bridge;
+> >   	bool			connection_notified;
+> >  =20
+> >   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/driver=
+s/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> > index ec5950066f838..6f0d642739ffd 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> > @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_d=
+p_device *dp)
+> >   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+> >   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+> >  =20
+> > -	if (dp->hpd_gpiod) {
+> > +	if (dp->hpd_gpiod || dp->hpd_bridge) {
+> >   		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
+> >   	} else {
+> >   		/*
+> > @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device=
+ *dp)
+> >   {
+> >   	u32 reg;
+> >  =20
+> > -	if (dp->hpd_gpiod)
+> > +	if (dp->hpd_gpiod || dp->hpd_bridge)
+> >   		return;
+> >  =20
+> >   	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
+> > @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_=
+dp_device *dp)
+> >   	if (dp->hpd_gpiod) {
+> >   		if (gpiod_get_value(dp->hpd_gpiod))
+> >   			return 0;
+> > +	} else if (dp->hpd_bridge) {
+> > +		if (dp->connection_notified)
+> > +			return 0;
+> >   	} else {
+> >   		reg =3D readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+> >   		if (reg & HPD_STATUS)
+> >=20
+> >=20
+> >=20
+> >=20
+> >=20
+>=20
+>=20
 
-  b) Reuse the simple-framebuffer vocabulary, format =3D "r5g6b5" and so on=
-,
-     with raw pixels.
 
-I lean towards (a), because the palette is what makes carrying the image
-in the device tree viable at all: our own 800x480 logo is 17 KiB paletted
-and 768 KiB raw. But (b) reuses an existing vocabulary instead of adding
-one, and if you prefer it the reserved memory form still covers our case,
-so the in-tree image could go entirely.
 
-I will follow whichever you think is right; I would just rather not
-respin the binding twice.
 
-> What does /options/oem-logo look like? Why can't that be used?
-
-Two reasons, and the second is the real one.
-
-It is fixed at 64x64 monochrome (IEEE 1275-1994), stored in NVRAM. As a
-precedent for "firmware may carry a logo" it is exactly right, which is
-why the binding cites it, but it cannot express a product logo on a
-modern panel.
-
-More importantly, /options is the wrong node for something the kernel
-reads. Its own schema in dt-schema says it is "for passing data into and
-between firmware components" and that "it is ignored by operating
-systems", while /chosen is firmware to OS. So the oem-logo precedent
-argues for the idea and /chosen for the location, which is where Geert
-pointed the node in v2.
-
-> If you are going to put it in memory, why not just draw it into the
-> simple-framebuffer?
-
-I did not know about simplefb, and that is worth saying plainly: this
-started as a patch against 4.19 for a product, simpledrm did not exist
-then (5.14), and I never went looking for what the alternative would be
-today. So thank you for the question.
-
-I spent today testing it on the board rather than arguing about it. The
-result is that it does not work here, and I could not make it work:
-
-  - Added a simple-framebuffer node under /chosen pointing at U-Boot's
-    framebuffer, with the region declared in reserved-memory. simpledrm
-    binds cleanly at 0.62s and registers fb0. Nothing is visible.
-
-  - The panel is dark for that entire window. The backlight is a
-    pwm-backlight owned by the panel, and it is drm_panel_enable() that
-    calls backlight_enable() (drm_panel.c), which only happens at the
-    native driver's modeset, around 2.2s. So for as long as
-    simple-framebuffer is the only driver, there is no light.
-
-  - Forced the backlight on from probe with a local hack to pwm_bl.c, so
-    the panel is lit from about 1s. The image is still not there.
-
-  - Disabled the LCDC target module in the device tree entirely and booted
-    with clk_ignore_unused, so that nothing in Linux touches the
-    controller and it keeps whatever U-Boot left. Still nothing.
-
-  - Repeated all of it with simplefb instead of simpledrm. Same result.
-
-  - Read back the framebuffer memory through fb0 after boot: all zeros.
-
-So the pixels are gone by the time Linux can show them, and I have not
-found what clears them. I can say what it is not: not the choice of
-driver, not the modeset, and not the backlight. Somewhere between U-Boot
-jumping to the kernel and simpledrm probing, this platform stops
-displaying that memory.
-
-One smaller thing I noticed on the way: tilcdc came up as card1 and
-simpledrm stayed on card0, with no conflicting-framebuffer removal
-between them. Two DRM devices with the real one second is not a state I
-would want to ship either.
-
-There is also a case against this that does not depend on our hardware at
-all. U-Boot's Falcon mode boots the kernel straight from SPL, skipping
-U-Boot proper, and display initialisation normally lives in U-Boot proper
-rather than in SPL. On a Falcon boot there is therefore no firmware splash
-to hand over and nothing for a simple-framebuffer node to point at. That is
-not an obscure corner either: Falcon mode exists to shorten boot time,
-which is the same reason one cares about how early the logo appears in the
-first place. A logo the kernel can draw itself works the same way in both
-cases.
-
-I am not claiming the experimental result above generalises. It may well be
-specific to AM335x, or to how our U-Boot hands over. But on the hardware
-this series exists for, a firmware-drawn splash does not survive into the
-kernel, and the logo has to be drawn again once the native driver owns the
-display. That is the gap the series fills, and the reserved memory region
-is what gives the kernel the pixels to do it with.
-
-Max
