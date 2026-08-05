@@ -1,214 +1,187 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C90937AA92
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 03:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785901715; cv=pass; b=V23p4SL9ycLR9y/omcVGlOfo3yQHGPKhMymyqnukiGrBgTsYXVSz8iPh0UUhe/m6fIKjv7cRYKpkm8EoAyp5xDUxfzA93ZIwMbRjBjiivNrkzA6uP+tCFQ57wATPSKmNe9J4X26hTHFDq/RMQHzXry21Y9p7JSNQ0j4appMoA1w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785901715; c=relaxed/simple;
-	bh=BHvihkI6kmpBzFGg7uYlJorfXecbcqoWRyAX68wF1wc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xdl/IaVrj5rhKB7Y/KUQWPbRcERKJJuQsO3+vSCK007c2SeyBCTIwpv/O/41WP+pSfxrqx6cA8V1WM1eBykebdWMsdVtaHPcbf0CKpX6M3g1zkVt2sx20zJEyhDbZm7adVgieUZTqv9Brl3yTzNvKt6iwgsGpCMEvxDoF+bp99M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=LZRqa/Hp; arc=pass smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4ABCEEA8
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 04:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785903580; cv=none; b=H+MZ6l6Q0WDyHlAKljWNYph6cJXYFy3as+gXtaWwxEq7fHX7mydB1HXeYM//EBSdxUXxznoyncAdASa5I5C21UsT3Ypd0Z7n2iGHN81YOm4ewECQywgoJiNUj7Ihj7ODGtw6mwGqVuykRkgTyrBgdTiP32NRWFvoGgCnzZ4LGXA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785903580; c=relaxed/simple;
+	bh=DRwaDH8iXJjotMYKVJBLOYnVJgA2X5Wvi2i/SStygII=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X2Mx9w0xJXCjHOAXyjhNEl+69jHwgI9crvvQSgj00Z01Yzma8ESLNAiRe1aIYLIwW5I1xU3aOySqiWX2N/wmTfKmRdrrrxroWSD2GsvjRz8W/EOFVWyEfD+SOuqE6IcS5Z2hYXMjqlkmjIewhljbAgHCBNgb9QibwXF85p4jhfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KK0OBiug; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="LZRqa/Hp"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-81ed000b507so5630937b3.0
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 20:48:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785901713; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EuZyPm+r0VQ8DCiW5l45YwRALLLyiyjyyCvgsKl4Tbq6f+G56ZcnuCGSIqGCLuzIOT
-         ld8k8yYaX9LafkfeoDecMhuOy8CdTttaF4np8sfxm2l9Ptng4Y4oUHH3jRemN2t+Kb3L
-         Luaip+vPwQ6TJ9rorKVvvDZAVpMdgzJ879DdNlZePGBt7Ng52HeeSMM+ukQdGSrA9wtl
-         GE1ymUIti7rZTN60pNOEirGxfBQHGUP7vX6HQXGw7ZIh24xMQBTffUq9VoOG89uEKTVh
-         NcQF1uV5lImfqmFdWG5kI+DcOyw58q7VdgLKddFhw+9nhB3RDoNgQlViBh+29BauX5ZD
-         GZnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=j/NmALyDnaea82VN1dJT9y4h9uKdhWB1U02N76kyw3U=;
-        fh=MElPAEv8BXkVBQx/DLqvP7PW48NxzGJ/QQqZintNWBE=;
-        b=T25MiD8IvfuYkWphut6XZ6HW2AEa8B6xUS3bFU2cbtEDOZ/MUKFoHcDZ6Ckjzx6G4P
-         m5UkbsGgGg0S0VYdHSKtcQ27kE8TC8gouRVjRINx89vEhL1t7gpjDFTtxTtGDvr1aX14
-         VwL3s9fZxsi4ulgK8y7LrX5VcCMQjAotA4Kz8L+nHVD7F+8TRlL6tPz/QV7/TX1c65Me
-         Nlc2MZQaIXutPl7CGgkJ53W6sxvmIW4XutTkM/0wX4JBF+H+so8LWeuxv4U9fsy2aY9J
-         o+vQyrwxL8jQy/J1tZS16w8PsZQqop+6NLIzM/IK6Mg1RNcuc71205MkOd8/zRKzVFtR
-         wraQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785901713; x=1786506513; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j/NmALyDnaea82VN1dJT9y4h9uKdhWB1U02N76kyw3U=;
-        b=LZRqa/HpR+XR0TmkaZCDly4jOBAfUC9SHoNQjIPUpqcEIjw/MMC4JCanKrKLF92xN9
-         KLYlQA9/VnyfwqE4V9E8vGUdScjh5LtfWPcnxBk0Pz58MXxjXGx/cplO8RG5JmXrIqJp
-         qUrzsNiT4CnjCM6I8UIZrNDXyRewf9SKbsoKo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785901713; x=1786506513;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j/NmALyDnaea82VN1dJT9y4h9uKdhWB1U02N76kyw3U=;
-        b=OoYyU2hTb0CyqGNty1ZasLrrA9nveGw6rTwHDeK8f4ERxJ3uxvv6j16uURw2dVuDH6
-         BFR28JeuYjZp4qQfI1gsJSW8+0gD3pf0GIeRCUiYSwpa7qb9EL1lxBc5dHL+JUE28FCk
-         AGw+NeZ0sE5gcJ6D13S+vN5HK9Mvmi/NnrOG1xKT+FJ2Pvd4qdRDJEUK5XM7Nz/PWrXT
-         NuuC+2PK5Y7Buu6VVV+RoJDM5+S2p9AsfAf40z5SHOmWeGjMOUG51lvK64j0BgargXG7
-         5pbs7V9ivjYldhu3/CFwF2DkyyBJ/Prc0OxzMF7ZZmmgGOxLm+geZWrgcN4Bt44lLUei
-         yzbg==
-X-Forwarded-Encrypted: i=1; AHgh+RqO9+IATsGuVhgoyEDLA1iVqgAs53f8semFNwaOLoh052bwquCm+Ciwd80PXNY9PTz6bL7O36DgBaKO@vger.kernel.org
-X-Gm-Message-State: AOJu0YyWDvvWdn5uJ+obufk+CZJWC6hw8P3A5+WUfsvHg4P7xqqOoZC+
-	hPOOvrz6v4diR/xuTZTKtY2LW4BUJKIp7vcVlsov+RCJ1uMY87F6GyBu62EZc6NyMR1LIh2nmcx
-	2JzRSdqtWvNtyrjr/N6+mAW9A3nKtOQBAG5O07TAD
-X-Gm-Gg: AR+sD10NjtYBbIaLEnFE1R4WCmju0cysNPT2ejrWEBAq3ZTMlo7ShZPAQ7J2eonkBN7
-	i2F0PoaVyyWRi8yy5yCDnvrTNPjeUg8EViXzzCY1eovhq9FpZIMeB0A9UwR0Hfgb8gahKhHWiBx
-	b/vmYfGkR6zGdX+zwyGcCG23xKWcBGp609njegmc8pKqw0evZiauihsFBgHeHnUn6GL4bHyWAYr
-	x+mZQaBFVxaoceHXZ5QC5w0KIs1LTOsfRe2JaNyNNsE6C2ZyihBp5/e+WYH1GZhCjIexI1Jf9px
-	pjrw1OORJnHXBsaQ+iRibg5EFhdJLgZTiPEVLDlwQU2cAyZScB8C67+WGgJTbrWezuZkVglOFbM
-	=
-X-Received: by 2002:a05:690c:9a88:b0:81e:4e5d:484a with SMTP id
- 00721157ae682-82022294eb4mr22113487b3.2.1785901713089; Tue, 04 Aug 2026
- 20:48:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KK0OBiug"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573F41F000E9;
+	Wed,  5 Aug 2026 04:19:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785903578;
+	bh=DOnGoN2Pz8SmwH090ycoTvhGLSYB9iAv9CEUAK2IWr8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KK0OBiugO1GjshU8uM1Z8t1229fvQK/ylzfSupFPnlVT4uNbhV1wlyrsOdlmutUSN
+	 sYl8pnHFgRG44oB0ZjQPk6lFtBET84su/WWbu9a74BKRY9MAmzak6dSHQyat92RRCf
+	 PYHHVkUoGzY6wlpf5BqBeZSNsr13Ya8fv7StluhjIS0eH7uVSgmyvXDgOTHikOnuJk
+	 hhv4ZN8oaYQZkpsL/vkt0TwoJQzeq4BHaHCNgZFdlcyQySadsQj5jf8ZZMCg7pPryA
+	 szhtv/aGdTSzqeWmJEhRr8pfDpgQI/EmLIKNqNkxUBbjgjVCNF2wO9GRocttFEPIx1
+	 lF4onC7xBZvyQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] kexec: add CRASH_ZEROIZE to wipe secrets before
+ kdump
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?SmFuIFNlYmFzdGlhbiBHw7Z0dGU=?= <linux@jaseg.de>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260731154608.153258-3-linux@jaseg.de>
+References: <20260731154608.153258-1-linux@jaseg.de>
+ <20260731154608.153258-3-linux@jaseg.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 04:19:37 +0000
+Message-Id: <20260805041938.573F41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-43-angelogioacchino.delregno@collabora.com>
- <CAL_JsqJXpY8jHEgSHcHz4QZTFEZe8PLbO6vbpxWH4qobs0MPyA@mail.gmail.com>
- <f3837531-2949-4741-a23e-387317485c02@collabora.com> <CAL_JsqLVAQ6uhU0fGK_qnOn1x559ErWSJTKkSjr0z791thwD3w@mail.gmail.com>
-In-Reply-To: <CAL_JsqLVAQ6uhU0fGK_qnOn1x559ErWSJTKkSjr0z791thwD3w@mail.gmail.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 5 Aug 2026 11:48:22 +0800
-X-Gm-Features: AUfX_mymFrVaiYOLaCO3AlvD0Um00IkfLaFRQ7IWTs7XOa8ZsYdcyTa8_6zr7HM
-Message-ID: <CAGXv+5GeYZ_et3bH9Udf=C3f30-zuM1=Z1meU47RnofG0NL+dQ@mail.gmail.com>
-Subject: Re: [PATCH v2 42/46] dt-bindings: display: mediatek: Introduce MT8196
- 2D Sharpness Processor
-To: Rob Herring <robh@kernel.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, chunkuang.hu@kernel.org, 
-	p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com, 
-	jason-jh.lin@mediatek.com, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 5, 2026 at 2:19=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
->
-> On Tue, Jul 28, 2026 at 8:49=E2=80=AFAM AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com> wrote:
-> >
-> > On 7/28/26 15:40, Rob Herring wrote:
-> > > On Tue, Jul 14, 2026 at 6:45=E2=80=AFAM AngeloGioacchino Del Regno
-> > > <angelogioacchino.delregno@collabora.com> wrote:
-> > >>
-> > >> Add documentation for the Two-Dimension Sharpness Processor, or
-> > >> "TDSHP", found in many MediaTek SoCs including MT8196 and its
-> > >> variants.
-> > >>
-> > >> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno=
-@collabora.com>
-> > >> ---
-> > >>   .../mediatek/mediatek,mt8196-tdshp.yaml       | 98 +++++++++++++++=
-++++
-> > >>   1 file changed, 98 insertions(+)
-> > >>   create mode 100644 Documentation/devicetree/bindings/display/media=
-tek/mediatek,mt8196-tdshp.yaml
-> > >>
-> > >> diff --git a/Documentation/devicetree/bindings/display/mediatek/medi=
-atek,mt8196-tdshp.yaml b/Documentation/devicetree/bindings/display/mediatek=
-/mediatek,mt8196-tdshp.yaml
-> > >> new file mode 100644
-> > >> index 000000000000..ccd6a8443443
-> > >> --- /dev/null
-> > >> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt=
-8196-tdshp.yaml
-> > >> @@ -0,0 +1,98 @@
-> > >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > >> +%YAML 1.2
-> > >> +---
-> > >> +$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196=
--tdshp.yaml#
-> > >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >> +
-> > >> +title: MediaTek Display Two-Dimension Sharpness Processor (TDSHP)
-> > >> +
-> > >> +maintainers:
-> > >> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora=
-.com>
-> > >> +
-> > >> +description:
-> > >> +  The MediaTek 2D Sharpness Processor (TDSHP) is responsible for pe=
-rforming
-> > >> +  image sharpness adjustments/enhancements in a display pipeline.
-> > >> +  This hardware block supports adjusting the luma and contour 2d hi=
-stograms,
-> > >> +  frequency weighting, luma-chroma gain and others, with adaptive w=
-eights.
-> > >> +
-> > >> +properties:
-> > >> +  compatible:
-> > >> +    const: mediatek,mt8196-disp-tdshp
-> > >> +
-> > >> +  reg:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +  clocks:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +  power-domains:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +  ports:
-> > >> +    $ref: /schemas/graph.yaml#/properties/ports
-> > >> +
-> > >> +    properties:
-> > >> +      port@0:
-> > >> +        $ref: /schemas/graph.yaml#/properties/port
-> > >> +
-> > >> +      port@1:
-> > >> +        $ref: /schemas/graph.yaml#/properties/port
-> > >> +
-> > >> +    required:
-> > >> +      - port@0
-> > >> +      - port@1
-> > >> +
-> > >> +  trigger-sources:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +required:
-> > >> +  - compatible
-> > >> +  - reg
-> > >> +  - clocks
-> > >> +  - clock-names
-> > >
-> > > This causes a warning.
-> > >
-> > > Seems this is in linux-next already, but no reviews?
-> > >
-> > > Rob
-> >
-> > Wow. No idea how clock-names got into the list of required properties: =
-there is
-> > only one possible clock, and this doesn't need any clock-names at all.
-> >
-> > Same for the resizer binding.
-> > Sorry for the mistake.
->
-> Why is this still in linux-next?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-This is in your dt/next branch, applied 13 days ago. Maybe you applied it
-by mistake?
+New issues:
+- [High] Calling ktime_get() in the panic path after machine_crash_shutdown=
+() can permanently hang the crash transition, preventing kdump from working.
+- [Low] Conditionally exposing a raw notifier list without an API wrapper f=
+orces subsystems to use #ifdef and risks build breaks.
 
+Pre-existing issues:
+- [High] ktime_get_real_seconds() in crash_save_vmcoreinfo() deadlocks on 3=
+2-bit systems if the local CPU interrupted a timekeeping update.
+--
 
-ChenYu
+--- Patch [2]: [PATCH 2/4] kexec: add CRASH_ZEROIZE to wipe secrets before =
+kdump ---
+commit e20f9219f7505b929366dca07a7894f6b666a4b5
+Author: Jan Sebastian G=C3=B6tte <linux@jaseg.de>
+Subject: kexec: add CRASH_ZEROIZE to wipe secrets before kdump
+
+This patch adds a new CRASH_ZEROIZE opt-in atomic notifier chain to scrub
+sensitive secrets before launching a kdump kernel. The zeroization runs late
+in __crash_kexec() after other CPUs are shut down.
+
+> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+> index c1dee3f971a91..685ed8926966d 100644
+> --- a/include/linux/crash_core.h
+> +++ b/include/linux/crash_core.h
+
+[ ... ]
+
+> @@ -34,6 +35,10 @@ static inline void arch_kexec_protect_crashkres(void) =
+{ }
+>  static inline void arch_kexec_unprotect_crashkres(void) { }
+>  #endif
+> =20
+> +#ifdef CONFIG_CRASH_ZEROIZE
+> +extern struct atomic_notifier_head crash_zeroize_notifier_list;
+> +#endif
+> +
+
+[Severity: Low]
+Does exposing this raw notifier list conditionally force subsystems to use
+ifdefs when registering callbacks?
+
+Usually, kernel APIs provide a wrapper (like
+register_crash_zeroize_notifier()) with a static inline no-op for disabled
+configurations to avoid breaking the build.
+
+>  #ifndef arch_crash_handle_hotplug_event
+>  static inline void arch_crash_handle_hotplug_event(struct kimage *image,=
+ void *arg) { }
+>  #endif
+
+[ ... ]
+
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index 4f21fc3b108b8..49192b20dc9f6 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+
+[ ... ]
+
+> @@ -33,6 +34,22 @@
+>  /* Per cpu memory for storing cpu states in case of system crash. */
+>  note_buf_t __percpu *crash_notes;
+> =20
+> +#ifdef CONFIG_CRASH_ZEROIZE
+> +ATOMIC_NOTIFIER_HEAD(crash_zeroize_notifier_list);
+> +EXPORT_SYMBOL_GPL(crash_zeroize_notifier_list);
+> +
+> +static void crash_zeroize(void)
+> +{
+> +	ktime_t zeroize_start =3D ktime_get();
+
+[Severity: High]
+Can calling ktime_get() cause a deadlock here and on completion?
+
+Since crash_zeroize() runs after machine_crash_shutdown() has forcefully
+halted all other CPUs, if any of those halted CPUs were in the middle of a
+timekeeping update and held the tk_core.seq write lock, this loop in
+ktime_get():
+
+kernel/time/timekeeping.c:ktime_get() {
+    ...
+    do {
+        seq =3D read_seqcount_begin(&tk_core.seq);
+        ...
+    } while (read_seqcount_retry(&tk_core.seq, seq));
+    ...
+}
+
+would spin indefinitely, preventing the kdump kernel from booting. Should t=
+his
+use a lockless accessor like ktime_get_mono_fast_ns() instead?
+
+> +
+> +	pr_info("Wiping sensitive secrets...\n");
+> +	atomic_notifier_call_chain(&crash_zeroize_notifier_list, 0, NULL);
+> +	pr_info("Done in %lld us\n", ktime_us_delta(ktime_get(), zeroize_start)=
+);
+> +}
+> +#else
+> +static inline void crash_zeroize(void) { }
+> +#endif /* CONFIG_CRASH_ZEROIZE */
+> +
+
+[ ... ]
+
+> @@ -142,6 +159,7 @@ void __noclone __crash_kexec(struct pt_regs *regs)
+>  			crash_save_vmcoreinfo();
+
+[Severity: High]
+This is a pre-existing issue, but can crash_save_vmcoreinfo() also deadlock
+during a panic?
+
+If a local CPU interrupts a timekeeping update (holding the timekeeper write
+seqcount) via an NMI or hardirq, and then triggers a panic, it will call
+crash_save_vmcoreinfo() which eventually calls ktime_get_real_seconds():
+
+kernel/vmcore_info.c:crash_save_vmcoreinfo() {
+    ...
+    vmcoreinfo_append_str("CRASHTIME=3D%lld\n", ktime_get_real_seconds());
+    ...
+}
+
+On 32-bit platforms, this falls back to reading tk_core.seq, which the local
+CPU already holds for write, leading to an infinite spin and preventing the
+crash dump.
+
+>  			machine_crash_shutdown(&fixed_regs);
+>  			crash_cma_clear_pending_dma();
+>  			crash_zeroize();
+>  			machine_kexec(kexec_crash_image);
+>  		}
+>  		kexec_unlock();
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731154608.1532=
+58-1-linux@jaseg.de?part=3D2
