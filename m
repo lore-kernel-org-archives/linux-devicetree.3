@@ -1,192 +1,301 @@
-Received: from ms1.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC128468C0A
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40E04570C7;
+	Wed,  5 Aug 2026 12:19:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785932175; cv=none; b=Ev0ZwMbSCym/K31PkhrZkKl40y+zsSQZlqmEDZrg89ZG+Yi1LU4v3AW6gw4+WjZr7aUTbyOi/dhtS/Nx6r57sxzDQIYQq/b3XFEBpmGNMKIaL+Hpm/qW+2+IbMTYWWtLuLis6vMkau/tNg+aY4W0KMLCNPRwUx9eHMahKbprf4s=
+	t=1785932401; cv=none; b=fN/Cu/wOv5DqWC9tOn6ooJl2YZxZ+KJ70/R78KGFyAgrmh8huaj/kdLYSKEeMcbiiTTGGDzfOIR27W7kOOvR1Ol0PoEPhjkmeMEnzveHvFkqsWwW6VUziTVmN2VCOYR8U8AbQzS+WfTd7cjlFkktt060ePS6/YAUuM1Xcgge8DM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785932175; c=relaxed/simple;
-	bh=xkD5Yy2r/DtLj+ijpR/sEWj9oStc9GAc2o8L8jYbqW4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JiWv97nv0QxppLH/413G1Olrc2yEZuLwzhLj2FSJlV/ciicxREAR4WXkcBGZOmMGrgToelpNjP2ObcaibqacLj18O99CUgBRWCVvYeVaU3ssuZelOR34exMvvso8lBC8Zdf5Umhlg91jxmME0037gZRT+AnQ+P/XLgFZp45pjWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=C3Y2BTWw; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1785932401; c=relaxed/simple;
+	bh=n6AInd2UM5Fz/RyODQePkESbPRe229VYW34pSvzW73k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fODbx/Bufk+aPAU1az5u67qEXZrXKrMYh2UiPWtKI/T0fiY8pdmZ/wSkM82UgP0DFzIx7LTgtm3qE3E1e3kBpgMayf9C9GFeT1RmS9NKGOjDqIS4CFbPe+0nTPsF2R2mS5Y1NQOqTfb7jTOoqvmzF3N50uVKGa+lnMCBgdMqy8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=BL2iZNnZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Wc9mHTV8; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="C3Y2BTWw"
-X-UUID: 6cfc6fb890c711f181a149c3f3c08161-20260805
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=9vAGUMnrIZqxPt2fO27VyUWPGN/C8Vm6LVqFSR4teUU=;
-	b=C3Y2BTWw5S5eF/0f3Ti9Z8LDa4fMlB20jdZy7jHCm+MxAE86XkuRHltJeg1R3Lefb7wTPlCAEpSXiHNYB85T5FrdEnPrNW8bwRKc5GGTN41b3H+Es7gdEcp0nuenTlQ4L6H6JIWl6R4KE6HVRtVuZMfbSlImKa4Z4fZR9usFImw=;
-X-UUID: 6cfc6fb890c711f181a149c3f3c08161-20260805
-Received: from spmgt1 [(172.20.13.10)] by ms1.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 98501722; Wed, 05 Aug 2026 20:16:02 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.13.160])
-	by spmgt1 (Postfix) with ESMTP id 9BC521A1E1C;
-	Wed,  5 Aug 2026 20:16:02 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id 007C3C600CF; Wed,  5 Aug 2026 20:16:01 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: sashiko-bot@kernel.org
-Cc: conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	nina_kuo@novatek.com.tw,
-	robh@kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	shihpei_hsu@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	Ben Huang <Ben_Huang@novatek.com.tw>
-Subject: Re: [PATCH v5 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller driver
-Date: Wed,  5 Aug 2026 20:13:22 +0800
-Message-Id: <20260805121321.760496-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260804034515.BF09C1F000E9@smtp.kernel.org>
-References: <20260804034515.BF09C1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="BL2iZNnZ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Wc9mHTV8"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id AD3ED1D00169;
+	Wed,  5 Aug 2026 08:19:58 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 05 Aug 2026 08:19:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1785932398; x=1786018798; bh=4Lak8rgV4T
+	BA9As436yfX+HrOfQqXF+XbAta7p0a8HE=; b=BL2iZNnZbiYMJb05UD42YfF9C0
+	sVUJVTAffXnzIXSp07QQ4H6YaSnm5/PPR8np0OjQ8vGHrvr5/dza6Hophvp2kUsO
+	1HehX/r/RH1NHisTpI4yRXpQUbCSufw3MrEXTfInTcFWo3v5odYzy0d5fxsL0t9N
+	ZfBzx0QAxVLGtVuxTejV0fF8UxapSQzK8An1BkqU3B5Yx7bfRBjAknMEGknt417c
+	YS0I90NLBdUdZMHybaqJsnqsK6asKB72OVWQDcDHGHTr/b9XjobWsJu+U74tBhNs
+	41+K4yZJ8w+hMI0wNPPbjJ1yMZzi7iemz0miFSa2m2jM+Mp2LmYyq5GQlMdQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1785932398; x=1786018798; bh=4Lak8rgV4TBA9As436yfX+HrOfQqXF+XbAt
+	a7p0a8HE=; b=Wc9mHTV8RTA6rlj11SYSKx0vebIjjrO0TbBmSNVdQUc+Grj7mEf
+	6RxVzBbmkA15iVex4s6LzVLLSgAQF5fItjdBEiI5zk7gxtc+Se47vkrs59OUXHVd
+	MnrtlabS7rmENpRuPpJx0rukCytKncVvUxIVdy1aL1wr3KQDc6lAzyk8BeXGhpGk
+	deb8oaz1DxlPL3G7DdDWek7UdBb4QTezGvgLYvo/mD2KGr1HeCRnUgSaPo/VeklD
+	t5DKSVIXlAsT3hEYQ/vJVOS29FvTLvtj6l3Fo6gss2G4Nq6rnnZplnMcNP28lI9a
+	McBbXf39Nwydt+p8E8HCWq5J7mbBgNyasZQ==
+X-ME-Sender: <xms:bipzajLxEDZu-eM6UGT6samPD9k-uH0w4p0LLhmjrqMa-yAtc1MLsA>
+    <xme:bipzatgcbEbJ1ibnxtZ5qxbun1h4oEfjwQuAodhw8TC0X4VoG71reAVYQ-BgNJlS1
+    b_p_t999wjc-AyRRzITp4i6As-1G1aHaoJq4fu-MA3P7VCUlgCs3s3K>
+X-ME-Received: <xmr:bipzan95AoJXyfXjS5VOjThoG8944gVNiSN0er5cKgVSnvHmDr9VuSjhIy5oLfNDvfyrU4Quc1sf1P0gTpXoD0d22epczuGmRxM>
+X-ME-Proxy-Cause: dmFkZTFGl6m1+z/PGwm1fKYbGgZqV0gceTmb6U6AhknIfhtlGQ7S5oNeKJD8/Pxi0pzdx9
+    2jMj0eowvjvKIK/03wsZpu64u0/p2tfyWJZPfTpsU+XQOmB19NlB0EAuYY3xsrvj6KXtl8
+    LmlKpJG62gQn6BN22lJCJjMor2+U/WeuhQ2osHRPR/M7v4qcPXPCOqLxryuQEHsrJSx9Ys
+    94xfDsTa+1ghXKPorx2iBXoz3HnlHZyjr6bkCJUNftns5yfzJ0G2IKlaChkU2xIeP6W9oi
+    FN5OJI113y3Of9XTxHyN3y632/VTr/wfedT+2erMGAD1uwRGNLaFCf0tud93hVEesUEDSP
+    ooeU0cGFQPME/+Zg7IGLmpLDGgLzmUpjsvl+YqtdU94VilP/n0m5Z6zQoz4QSM+EHb8U/E
+    oOnLiXxum0g8oiKuvcYbLb7ElMNGu9jT49sV7tu+5kJfcATMVAACGLy53A15nwkWkbXcjZ
+    KLDuJ03kHg9XMr0oxwwYoBzR14sfy2h61MpjktDhwvWxXJZ2jjVtHS9nfoSPAqGavllssA
+    LtJYYiX3FBwjQOm4I+dIPNOmbrsTcsMdkMXXhJLjv/YCEEtrDdkJ/HFJXl+8+B5XZIMOgD
+    AwXoHBl3+fwCZP8dUfRKN1xorIjlBYn9yI+S4dRmYHqy3c9xDJb7751vttNQ
+X-ME-Proxy: <xmx:bipzaqN0txxLDcl7jTuOlatmQQpWh6PjvjZk9UlI7TtyZ1LdYPWYgQ>
+    <xmx:bipzajAmFYbU5RDPU8gmeEqmHHeNKqppE56jv0baOz55WXMZ0IFrHw>
+    <xmx:bipzamOuOvkeqvFWUrss1jnzoukGkxpN2U-qps04d81cvfm2yJg05g>
+    <xmx:bipzaicV2-3J0NisSg6tfeiZCMi5EKl94JW4FfJRQnmMKtg_k8hnmw>
+    <xmx:bipzapuH3B1ubUh1MGFlnSFEBRdwIZQYdR5aIGpE4U2TYG0mERXAvO_p>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 5 Aug 2026 08:19:57 -0400 (EDT)
+Date: Wed, 5 Aug 2026 14:19:56 +0200
+From: Janne Grunau <j@jannau.net>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Alba Mendez <me@alba.sh>
+Subject: Re: [PATCH v4 4/6] spmi: apple: Implement remaining commands
+Message-ID: <20260805121956.GD832571@robin.jannau.net>
+References: <20260805-t603x-spmi-v4-0-c15a12d9a7d1@chaosmail.tech>
+ <20260805-t603x-spmi-v4-4-c15a12d9a7d1@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260805-t603x-spmi-v4-4-c15a12d9a7d1@chaosmail.tech>
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+On Wed, Aug 05, 2026 at 12:11:14PM +0200, Sasha Finkelstein wrote:
+> From: Alba Mendez <me@alba.sh>
+> 
+> Add support for zero write and power management commands
 
-On Tue, 04 Aug 2026 03:45:15 +0000, sashiko-bot@kernel.org wrote:
->> +static irqreturn_t nvt_i2c_isr(int irq, void *dev_id)
->> +{
->> +	struct nvt_i2c_bus *i2c = dev_id;
->> +	struct i2c_msg *msg = i2c->current_msg;
->> +	unsigned int status = nt72676_i2c_readl(i2c, I2C_REG_INTR);
->> +	unsigned int clr = 0;
->> +	int do_complete = 0;
->> +
->> +	if (!(status & I2C_IRQ_FLAG) || !i2c->current_msg)
->> +		return IRQ_NONE;
->
-> [Severity: High]
-> Could this early return cause an interrupt storm if a spurious interrupt
-> fires, or if current_msg is NULL after a timeout? Since it returns
-> IRQ_NONE without writing to the clear register, the level-triggered
-> hardware interrupt might remain asserted indefinitely.
+missing dot at the end of the sentence.
 
-The potential issue of IRQ storm under the condition !i2c->current_msg will
-be fixed by clearing all IRQs.
+> Signed-off-by: Alba Mendez <me@alba.sh>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  drivers/spmi/spmi-apple-controller.c | 114 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------------------------------
+>  1 file changed, 68 insertions(+), 46 deletions(-)
+> 
+> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
+> index 7ebf899edf17..49827e51e93e 100644
+> --- a/drivers/spmi/spmi-apple-controller.c
+> +++ b/drivers/spmi/spmi-apple-controller.c
+> @@ -46,9 +46,9 @@ struct apple_spmi {
+>  	readl_poll_timeout((spmi)->regs + (reg), (val), (cond), \
+>  			   REG_POLL_INTERVAL_US, REG_POLL_TIMEOUT_US)
+>  
+> -static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 saddr, size_t len)
+> +static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 param)
+>  {
+> -	return opc | sid << 8 | saddr << 16 | (len - 1) | (1 << 15);
+> +	return opc | sid << 8 | (u32)param << 16 | (1 << 15);
+>  }
+>  
+>  /* Wait for Rx FIFO to have something */
+> @@ -69,14 +69,14 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
+>  	return 0;
+>  }
+>  
+> -static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> -			 u16 saddr, u8 *buf, size_t len)
+> +static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> +			 u16 param, const u8 *buf, size_t len, u8 *ibuf, size_t ilen)
 
->> +
->> +	if (status & I2C_IRQ_NACK) {
->> +		i2c->error_code = -ENXIO;
->> +		clr |= I2C_IRQ_NACK << 8;
->> +	} else if (status & I2C_IRQ_RX_FULL) {
->
-> [Severity: High]
-> What happens if the hardware asserts I2C_IRQ_CLK_STR_TIMEOUT? The
-> I2C_IRQ_ENABLE_SETTING macro enables this interrupt (bit 12), but it is
-> omitted from this if/else chain. Does this mean it won't be added to
-> the clr variable, leaving it asserted and causing an interrupt storm?
+Instead of two sets of not very distinctive variable names ("buf"/"len",
+"ibuf"/ilen") please use just buf/len and a boolean to indicate whether
+the command is a read or write if you insists of routing all commands
+through a single function. This can be simply added as first condition
+in the "while" iterating over the write/read buffers.
 
-Apologies for loss of handling IRQ I2C_IRQ_CLK_STR_TIMEOUT.
-The flow of I2C_IRQ_CLK_STR_TIMEOUT will be added.
+>  {
+>  	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
+> -	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
+> +	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, param);
+>  	u32 reply, rsp;
+>  	size_t len_read = 0;
+> -	u8 i;
+> +	size_t i = 0, j;
+>  	int ret;
+>  
+>  	if (spmi->prev_fail) {
+> @@ -86,6 +86,14 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  
+>  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+>  
+> +	while (i < len) {
+> +		j = min_t(size_t, sizeof(spmi_cmd), len - i);
+> +		spmi_cmd = 0;
+> +		memcpy(&spmi_cmd, buf + i, j);
+> +		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> +		i += j;
+> +	}
+> +
+>  	ret = apple_spmi_wait_rx_not_empty(ctrl);
+>  	if (ret)
+>  		return ret;
+> @@ -93,7 +101,7 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  	reply = readl(spmi->regs + SPMI_RSP_REG);
+>  
+>  	/* Read SPMI data reply */
+> -	while (len_read < len) {
+> +	while (len_read < ilen) {
+>  		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
+>  			spmi->prev_fail = true;
+>  			dev_err_ratelimited(&ctrl->dev,
+> @@ -101,11 +109,9 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  			return -EIO;
+>  		}
+>  		rsp = readl(spmi->regs + SPMI_RSP_REG);
+> -		i = 0;
+> -		while ((len_read < len) && (i < 4)) {
+> -			buf[len_read++] = ((0xff << (8 * i)) & rsp) >> (8 * i);
+> -			i += 1;
+> -		}
+> +		i = min_t(size_t, sizeof(spmi_cmd), ilen - len_read);
+> +		memcpy(ibuf + len_read, &rsp, i);
+> +		len_read += i;
+>  	}
+>  
+>  	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
+> @@ -113,54 +119,69 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  		spmi->prev_fail = true;
+>  	}
+>  
+> -	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << len) - 1)) {
+> +	if (!ilen && !FIELD_GET(SPMI_REPLY_ACK, reply)) {
+> +		dev_err(&ctrl->dev, "command not acknowledged\n");
+> +		return -EIO;
+> +	}
+> +	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) & ((1 << ilen) - 1)) {
+>  		dev_err(&ctrl->dev, "some frames failed parity check\n");
+>  		return -EIO;
+>  	}
+>  	return 0;
+>  }
+>  
+> -static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> -			  u16 saddr, const u8 *buf, size_t len)
+> +/* Send a raw command with 1..16 input data frames */
+> +static int spmi_raw_cmd_input(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> +			 u16 param, u8 *buf, size_t len)
+>  {
+> -	struct apple_spmi *spmi = spmi_controller_get_drvdata(ctrl);
+> -	u32 spmi_cmd = apple_spmi_pack_cmd(opc, sid, saddr, len);
+> -	u32 reply;
+> -	size_t i = 0, j;
+> -	int ret;
+> -
+> -	if (spmi->prev_fail) {
+> -		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_RSP_REG);
+> -		spmi->prev_fail = false;
+> -	}
+> -
+> -	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> +	return spmi_raw_cmd(ctrl, opc, sid, param, NULL, 0, buf, len);
+> +}
+>  
+> -	while (i < len) {
+> -		j = 0;
+> -		spmi_cmd = 0;
+> -		while ((j < 4) & (i < len))
+> -			spmi_cmd |= buf[i++] << (j++ * 8);
+> +/* Send a raw command with (optional) body and an input ACK */
+> +static int spmi_raw_cmd_ack(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> +			  u16 param, const u8 *buf, size_t len)
+> +{
+> +	return spmi_raw_cmd(ctrl, opc, sid, param, buf, len, NULL, 0);
+> +}
+>  
+> -		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> +static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> +			 u16 saddr, u8 *buf, size_t len)
+> +{
+> +	switch (opc) {
+> +	case SPMI_CMD_EXT_READ:
+> +	case SPMI_CMD_EXT_READL:
+> +		return spmi_raw_cmd_input(ctrl, opc | (len - 1), sid, saddr, buf, len);
+> +	case SPMI_CMD_READ:
+> +		return spmi_raw_cmd_input(ctrl, opc | saddr, sid, saddr, buf, len);
+>  	}
+> +	return -EINVAL;
+> +}
+>  
+> -	ret = apple_spmi_wait_rx_not_empty(ctrl);
+> -	if (ret)
+> -		return ret;
+> -
+> -	reply = readl(spmi->regs + SPMI_RSP_REG);
+> -
+> -	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
+> -		dev_warn(&ctrl->dev, "FIFO has extra data\n");
+> -		spmi->prev_fail = true;
+> +static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> +			  u16 saddr, const u8 *buf, size_t len)
+> +{
+> +	switch (opc) {
+> +	case SPMI_CMD_WRITE:
+> +		return spmi_raw_cmd_ack(ctrl, opc | saddr, sid, buf[0] << 8 | saddr, NULL, 0);
+> +	case SPMI_CMD_ZERO_WRITE:
+> +		return spmi_raw_cmd_ack(ctrl, opc | buf[0], sid, buf[0] << 8 | saddr, NULL, 0);
+> +	case SPMI_CMD_EXT_WRITE:
+> +	case SPMI_CMD_EXT_WRITEL:
+> +		return spmi_raw_cmd_ack(ctrl, opc | (len - 1), sid, saddr, buf, len);
+>  	}
+> +	return -EINVAL;
+> +}
+>  
+> -	if (!FIELD_GET(SPMI_REPLY_ACK, reply)) {
+> -		dev_err(&ctrl->dev, "command not acknowledged\n");
+> -		return -EIO;
+> +static int spmi_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid)
+> +{
+> +	switch (opc) {
+> +	case SPMI_CMD_RESET:
+> +	case SPMI_CMD_SLEEP:
+> +	case SPMI_CMD_SHUTDOWN:
+> +	case SPMI_CMD_WAKEUP:
+> +		return spmi_raw_cmd_ack(ctrl, opc, sid, 0, NULL, 0);
+>  	}
+> -	return 0;
+> +	return -EINVAL;
+>  }
+>  
+>  static int apple_spmi_probe(struct platform_device *pdev)
+> @@ -183,6 +204,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
+>  
+>  	ctrl->read_cmd = spmi_read_cmd;
+>  	ctrl->write_cmd = spmi_write_cmd;
+> +	ctrl->cmd = spmi_cmd;
+>  
+>  	ret = devm_spmi_controller_add(&pdev->dev, ctrl);
+>  	if (ret)
 
->> +	ret = wait_for_completion_timeout(&i2c->msg_complete, i2c->adapter.timeout);
->> +	if (ret == 0) {
->> +		i2c->error_code = -ETIMEDOUT;
->> +		nvt_i2c_reset(i2c);
->> +	}
->> +	if (i2c->error_code)
->> +		dev_err(i2c->dev, "[%s]: write failed (err:%d); SA[0x%X]\n",
->> +			i2c->adapter.name, i2c->error_code, msg->addr);
->> +
->> +	i2c->current_msg = NULL;
->
-> [Severity: High]
-> Can the timeout path race with the interrupt handler here? If the transfer
-> times out, current_msg is set to NULL and the function returns, leading the
-> caller to free the message buffer. If the ISR executes concurrently on another
-> CPU, could it access the freed buffer via current_msg before it gets fully
-> nullified, causing a use-after-free?
+looks good otherwise
 
-Spin lock for current_msg and the interrupt register will be added.
-
->> +static int nvt_i2c_xfer(struct i2c_adapter *adap,
->> +			struct i2c_msg msgs[],
->> +			int num)
->> +{
->> +	struct nvt_i2c_bus *i2c = i2c_get_adapdata(adap);
->> +	int ret = 0, i = 0;
->> +	struct i2c_msg *msg = NULL;
->> +
->> +	nvt_i2c_ctrl_init(i2c);
->> +
->> +	if (num == 2) {
->> +		nvt_i2c_set_subaddr(i2c, &msgs[0]);
->> +		msg = &msgs[1];
->
-> [Severity: High]
-> Is it correct to unconditionally treat the first message of any 2-message
-> transfer as a subaddress write? If a user-space caller sends a 2-message array
-> where the first message is a read, has a length > 4, or targets a different
-> device address, won't this silently drop or misinterpret the first message and
-> only execute the second one?
-
-For the 2-message transfer, the flow of checking msg[0] is a sub-address write and
-with the maximum length of 4 bytes (32 bits) will be added.
-
->> +	ret = nvt_i2c_init(i2c);
->> +	if (ret)
->> +		return ret;
->> +
->> +	/* Setup I2C adapter */
->> +	i2c->adapter.owner = THIS_MODULE;
->> +	i2c->adapter.algo = &nvt_i2c_algo;
->> +	i2c->adapter.dev.of_node = pdev->dev.of_node;
->> +	i2c->adapter.dev.parent = &pdev->dev;
->> +	i2c->adapter.timeout = 3 * HZ;
->> +	strscpy(i2c->adapter.name, dev_name(&pdev->dev), sizeof(i2c->adapter.name));
->> +	i2c_set_adapdata(&i2c->adapter, i2c);
->> +
->> +	ret = i2c_add_adapter(&i2c->adapter);
->> +	if (ret)
->> +		return dev_err_probe(&pdev->dev, ret, "Failed to add adapter\n");
->
-> [Severity: Medium]
-> Does this error path need to disable the hardware interrupts that were
-> enabled earlier in nvt_i2c_init()? Returning directly might leave
-> interrupts enabled on a shared IRQ line.
-
-nvt_i2c_init() will be moved after successful i2c_add_adapter().
-If nvt_i2c_init() fails, no interrupts are enabled and i2c_del_adapter() will be
-called for releasing the adapter resources.
-
->> +
->> +	platform_set_drvdata(pdev, i2c);
->> +
->> +	return 0;
->> +}
->> +
->> +static void nvt_i2c_remove(struct platform_device *pdev)
->> +{
->> +	struct nvt_i2c_bus *i2c = platform_get_drvdata(pdev);
->> +
->> +	nt72676_i2c_writel(I2C_IRQ_DISABLE_SETTING, i2c, I2C_REG_INTR);
->> +	nt72676_i2c_writel(nt72676_i2c_readl(i2c, I2C_REG_CTRL) & ~I2C_ENABLE,
->> +			   i2c, I2C_REG_CTRL);
->> +	i2c_del_adapter(&i2c->adapter);
->
-> [Severity: High]
-> Should the adapter be deleted before disabling the I2C controller hardware?
-> Disabling interrupts and clocks first could break concurrent ongoing
-> transfers or client device removal operations that happen during
-> i2c_del_adapter().
-
-i2c_del_adapter() will be moved before disabling the I2C controller.
-
-
-The issues above will be fixed at the next iteration.
-
-Sincerely,
-Ben Huang
+Janne
