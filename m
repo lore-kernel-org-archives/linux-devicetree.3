@@ -1,139 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4223909BF;
-	Wed,  5 Aug 2026 14:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20AA393DE0
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 14:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785941554; cv=none; b=HBkR5f7HlVyjaJLcQjD/1m2gL5BaqnJliQRNhT5SCrQORyHiT5H+oeGSxkDwyTZmE3Ktcxcwc93XB+b564bIJs97rkmVg0rPWhfqtbM5SuTt7NzIsix0PIocgAxgX54Fwh9vBxNdKbR4dmHvC4SPxBILT5/Qu0iXQzTjUQWqlNQ=
+	t=1785941869; cv=none; b=YiK2PQSb7iID0tzygoLwvQZadN3qBP7pgJL/X5TqxZUq9dw7z3aru61Pi7mmTZcktOUE5WUurMNewnWscpWgwB664k2OS4ztXk0qBAWpXCOiihcuaFR6rSXOwkriXio2griZS8vFQDeGP0sAUj8peQfa5LMqVtQT/RGYC2kNUoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785941554; c=relaxed/simple;
-	bh=V1vMFzvbpOsVqDlP1F4HLLpMA2iy2wrtQgeOlHIvRcQ=;
+	s=arc-20240116; t=1785941869; c=relaxed/simple;
+	bh=auUdmdF5BPs6K3sasWXSTlqxTXnk6OB3PFSBU6ek2kI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UrL4nTPLaMudkgnowJxqSe+IFE9njwZaXkH32LLWvl67nqOklFTN9/hjEffnvlTQDBIkHtx1Qn5EoVUnuqM3bjtNw92Yl62gG7bxfchlcMrUzx52oqRD9WjmWzF8oiUIFdcsfA35jL6rK/14BIwr3gWUxbrGCwC3gpjjrsbCouM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uz8Jmq8v; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gw3E9gXJ27UWtETn6+jo/MgHphCZ+nTpOcnpN7HpumXiEqtcS3jrZwPrcfqN9+Sr5GRyenI4yZRiWSU2pF9fnU9b1Te45AjTwgazvMQmWORA8ZuxfQ/cV0MxeN9o0xzEUMjN+DJP6a5HkpPynt9hHnIMOtKJbHZk32tA6bW6000=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lFBG9s3v; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uz8Jmq8v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66E271F000E9;
-	Wed,  5 Aug 2026 14:52:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785941553;
-	bh=ELhK4rl+r13PV2J/cKV8h4IXQk1HnwLW6SsE62SCcCM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Uz8Jmq8ve7/kkG2FNZKGvCTlvZLhpZJNbpuNuiR00/q4ZAOZwbCJtTDPFum/EvPJr
-	 IoxlHVX9XwcRfu469CsXQXFQAsuPocPub8051e5AERbZ1txkdazoqga4YTZ7XJoSe0
-	 EDSNuYANVeoppZFogTtSFraeg0t0PS+bOzPuSg/ZnQD0xHNAwxrf5j9ZOBOQwBpMmc
-	 4oTVyre+fKRpMkXJdzlrykf1ZF8/lZU9IlLJdCJe45GMhfvEqd3+c3AkmKtIzRezbU
-	 WCKixfhHoJWNTxojv61gU1PhFMm+HYf9Ogy4EKe8MytMpUjB+yCVhZiEIrarY5i3gi
-	 G5X493ZKh+ApQ==
-Date: Wed, 5 Aug 2026 16:52:15 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rahul Samana <rahul.samana@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann <marcel@holtmann.org>, 
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Balakrishna Godavarthi <quic_bgodavar@quicinc.com>, Rocky Liao <quic_rjliao@quicinc.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Bartosz Golaszewski <brgl@bgdev.pl>, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-pm@vger.kernel.org, quic_mohamull@quicinc.com, quic_hbandi@quicinc.com, 
-	quic_anubhavg@quicinc.com
-Subject: Re: [PATCH v2 1/6] dt-bindings: bluetooth: qca: add QCC2072
-Message-ID: <5tkajres2vjkt436teaujcqyc3mjqr65rsfvwhjbmlk3fc3gpt@j6ozyfattae3>
-References: <712f8a14-d2a1-4a90-82f9-05cd694f2658@oss.qualcomm.com>
- <c1875dd6-fe3a-4a69-a6fd-b461c8fba6e4@kernel.org>
- <6d6465bb-47ac-464c-af4e-0ca72325705f@oss.qualcomm.com>
- <8a388310-d3cc-4d02-abb6-0eb98c24cfce@kernel.org>
- <4523441f-498a-4bbd-80f3-97a7a9206c00@oss.qualcomm.com>
- <6e0b9e79-ccd4-4689-9a6b-9b4fc556d5e4@kernel.org>
- <gfhlyvoefcsvtjuxfo75qeham272cc5g2r3npjenzs5esjifiy@ro7dtkpxwizk>
- <8ab6c26f-b648-447c-9fdd-f1424beb44f4@kernel.org>
- <sewfntbhqtj2apfdi4ouan27artvj4lyxqizvinsvzltbofqu2@riuoo3fmczff>
- <768142f0-2638-41f3-a34f-dc80bb99eb7f@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lFBG9s3v"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbe3fed2f58so896897a12.3
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 07:57:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785941867; x=1786546667; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=J4cCWm9J7oW4ALooS0cfmzE8SO2jTvYvrPbMn1sZeYQ=;
+        b=lFBG9s3vLYhuGQ1nFEHICVO6l+7rBSUHtF8bLGWCA94qLxTpFBeh1R91HOJJhnc/a+
+         ClbUax7XohkZm0bBLOodmCLM13+TOmTbDNbe02t4ryxVuB6LAlnlawd81dxD5KGuFecW
+         oOa1T5TLt/YAu+/iKstYKSHfAlPGVYwSBcwNVA+MeMwkfcT6RO49hFphvt5aun3R2TQ8
+         vsZOGFCgxKzNwx571LSi0swiekiPIa8PlYT70dZkZeVxb8ed+YrRToPubzvliF4nIRvf
+         y7O91t+DDTtgTrA1zTcKeH8Z1wk+oQSk0aMvM5D3xc4PhbOfnUJfaNeu54dFxRYplKWF
+         WQTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785941867; x=1786546667;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J4cCWm9J7oW4ALooS0cfmzE8SO2jTvYvrPbMn1sZeYQ=;
+        b=CE32lZI7JWclnwvnjYDQqctpZKeE9oKNBIaVwHIXB95K7MBjXy6QV4q00A4KFpzSsQ
+         dH34uyxQLUbc/P4kjHVKta/TnFQMKTxkI2lQjg+XH9KGKDB4pV4U7y7wj3iM7M9FQG1d
+         GBm/BsmEJwCN9cQtbid0giNJWUGY3HX8COoOykOhZeIcjLoP9mgpfGtGe1QQyuuVx+Pf
+         uQ+X9JrdeVaH2lcutOA3fcsvM+nLPL8Eo82mcVeVb4HN4L48Waa+S07oKix/iuNXXDsB
+         7S9twei6zHFi/ATeN33s3CEZhVoGx8L7T2EB25BLvsriWHQKr+7M14/M5JAoYMe1Qa71
+         4FKQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrxsRvgn1RcA/Ubw32TLKROb40IAmI1tdOej60/D0nxk6Fl3pnanSeAt9xcG1saZpmWhJz5/JRysewG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgFjDN3a0ZiP5MupK4hNb/H/Igp8aycPqoyPyWEpYkykBL1X1m
+	mqNWmVPED+0Km8RDn1SxyJH7rOF+wnexp6m30Gm5nUIQ9k5zy0mBxNkU
+X-Gm-Gg: AR+sD12p3A25wGIyKdvQ3oewKh3GgctccIkoawdSuRSp+ISHc0Q2/stBKlmJhOplel2
+	Yurah+hAib9K1S+vZ6i6wRLuo6WQovdR2PVijTSfm7wqCQoXArW42lm7EHqluC4GXLcCfIWRN03
+	FIvfLZwNRKSsft47ee4EVEWrQxCmT1omxjNNJlxh+YbUT2yt3H4oqng1+gSVLzaE8mu0xXA2SDK
+	eZfvquMsw5OqZKA2NlYuQOy7Ugydf9pVAHetbLj1AQv7Z7dtbpZFJSWzZg7CwNdg7GXqSvx+xzM
+	1AidbMp6MK5eiMF+IusGZRFLSPJ5GdtfhD4L4zFwZJ1M+/s6eUK55NjQym30Wrxav0Olu2sDwlF
+	cGey4dSvPm6uoCjEBRtvMBv6BT8oKd6JschxdIH18MdCursNkiULEWb5BCLEKw+onsOaq23xw8m
+	y/GXH+UQNNXOfL933khDbaGMfrqVU+fWxr5kYO06A6tdmBCHbPPzY/Tf5kjQre+KkglR8q1LrjU
+	Q==
+X-Received: by 2002:a05:6a20:7f99:b0:3bf:49c8:f7b with SMTP id adf61e73a8af0-3cb85e2ae72mr8403324637.13.1785941866629;
+        Wed, 05 Aug 2026 07:57:46 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca6576b7sm13556187c88.7.2026.08.05.07.57.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 07:57:45 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 5 Aug 2026 07:57:45 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Darrick J. Wong" <djwong@us.ibm.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [hwmon-next PATCH v6 1/4] dt-bindings: hwmon: add adi,adt7470
+Message-ID: <d4d9b9f3-960c-4680-9779-74fdfa3f0355@roeck-us.net>
+References: <20260805-adt7470_thermalzone-v6-0-5605a5f95467@gmail.com>
+ <20260805-adt7470_thermalzone-v6-1-5605a5f95467@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <768142f0-2638-41f3-a34f-dc80bb99eb7f@kernel.org>
+In-Reply-To: <20260805-adt7470_thermalzone-v6-1-5605a5f95467@gmail.com>
 
-On Wed, Aug 05, 2026 at 04:36:31PM +0200, Krzysztof Kozlowski wrote:
-> On 05/08/2026 16:12, Manivannan Sadhasivam wrote:
-> > On Wed, Aug 05, 2026 at 02:33:51PM +0200, Krzysztof Kozlowski wrote:
-> >> DT is not representation of internal device driver instantiation mechanism.
-> >>
-> > 
-> > Here, the driver is just creating compatible for a real device. What difference
-> > does it make if the BT node was defined statically in the DT vs created
-> > dynamically? Both nodes do represent a real BT device, not driver's own
-> > representation. And by the time the node was created, the device is physically
-> > attached to the system.
+On Wed, Aug 05, 2026 at 10:15:17AM -0300, Luiz Angelo Daros de Luca wrote:
+> The Analog Devices ADT7470 is a multichannel temperature sensor and
+> PWM fan controller. It supports monitoring up to 10 external
+> temperature sensors and controlling up to 4 fans.
 > 
-> What stops this power sequencing drivers, after more driver patches, the
-> best if being part of some bigger series, to add properties like
-> "linux,name-of-driver-to-bind" or whatever other SW properties?
+> Add the device tree binding documentation for it. This includes
+> support for the thermal framework by defining the "#thermal-sensor-cells"
+> property, and models the fan control lines as PWM channels by
+> defining the "#pwm-cells" property.
 > 
-> This is what happened in that linked thread:
-> https://lore.kernel.org/all/20260326-pci-m2-e-v7-8-43324a7866e6@oss.qualcomm.com/
-> The driver code is adding children under other nodes (references by
-> graph) and it is nowhere documented. Maybe bindings of these other nodes
-> allow it, maybe not. How do you even validate that?
-> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-So the concern is validating the properties that get added dynamically and I get
-that. How about inserting an overlay for the BT node instead of creating the
-node on the fly? Like, drivers/misc/lan966x_pci.dtso
+Applied.
 
-This way, the overlay would be validated against a binding and the driver would
-just be inserting it.
-
-> So answering your question - yes, there is a difference because:
-> 1. DTS we validate but whatever you add to driver code we do not and we
-> cannot,
-> 2. DTS represents hardware but whatever you do in your driver code
-> represents who knows what (maybe hardware, maybe not, can represent
-> anything)
-> 
-> And if you claim "I add hardware in the driver!", I respond - maybe
-> true, maybe not, but look at this crap:
-> https://web.git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=687bfbba5a1cb15cee51519c210141ed1c4b0ec7
-> 
-> Since we DISALLOWED venus-decoder and venus-encoder DT nodes, what did
-> Bryan do? Squeezed via driver code fake disallowed nodes and even gave
-> them compatibles not looking like compatibles, so any regex won't work.
-> 
-> This power sequencing work here has the same problem of sneaking ABI,
-> which I pointed out here:
-> https://lore.kernel.org/all/9cc5af16-d95e-4f10-8b4a-5e29c136079c@kernel.org/
-> 
-> Look at above patch - nothing documents that ABI. The same as Bryan's
-> fake venus-decoder and encore (not only fake but actually rejected). And
-> to avoid ABI-check tools (or incoming tools), this power sequencing code
-> does not even call a "compatible" a "compatible". No, it calls it
-> "driver_data" nicely avoiding detection.
-> 
-> This is terrible practice and I feel like allowing this patch is silent
-> acknowledgment or agreement of such practice.
-> 
-> It's about basic ABI principles - if you have DT ABI, it must be both
-> clear in the drivers code and in DT bindings, instead of obfuscated
-> calling a compatible driver data. If you don't, then this is not DT ABI
-> and you are not allowed to use OF code to instantiate drivers. Use SW
-> nodes or KHO-style whatever else is there.
-> 
-
-I did propose using SW nodes initially, but then it got changed to
-OF_DYNAMIC with review from Andy. But honestly, Andy only mentioned 'DT
-Overlay' [1], and I was the one decided to use OF_DYNAMIC.
-
-- Mani
-
-[1] https://lore.kernel.org/all/aWSwgRiEkT9unYw9@smile.fi.intel.com
-
--- 
-மணிவண்ணன் சதாசிவம்
+Thanks,
+Guenter
