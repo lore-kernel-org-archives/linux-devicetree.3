@@ -1,68 +1,50 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2DE46C830;
-	Wed,  5 Aug 2026 12:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7670A471242;
+	Wed,  5 Aug 2026 12:41:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785933664; cv=none; b=CCNKilH/jK8wRS1HAhXi+FXhv7gpKs3OvCtemgG9dueDWs2sCpKgqAXQov9CuqgeaEZqvFJO/WEB1k+rfA+af58bVKGU/gGqVuFdL5imt2BvJp2JkVZBZFDV6ekuhZ9bCSggWF2FVzX+FgVuZo00j/HYWf1BOA23JPuUthLfcIE=
+	t=1785933667; cv=none; b=FlgLQm1keypEmRSvzwUBEEYkDAJBykEB9mBw6jRZRDUGV28bhK23z6TCB2yH+UtPa1tnfeVjkIulzTpufa3JFGlRBj1szsIcKqqTncDrROiniotfE2nWtcQeX7Awc2UyKKe9tS1+pNemGbohaar2n8J8YX6xEvYfcwQQG67V30k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785933664; c=relaxed/simple;
-	bh=aGqrGLoXLWCR77fzM54CRWcSbftuIKEd6Z/+uJWgrMo=;
+	s=arc-20240116; t=1785933667; c=relaxed/simple;
+	bh=dszTrzLYmlAoLMXba4JfyDPzaho/78IJxDV+E58BXus=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h9BbVUEJufEpf4Eywat9Cr9xqyuseorsVjEMComZwmgOd4FKKTi/CfNIdYCflZJrzTSvyrsyr2BlkzJNsEs/UBOpShYi7+xKz5w+UvWICqYNO/SQ5L3FlQbckgVQcDtQEybLA+hOYFfVyLSFC1rukXQKtS4AJJUGLxzF1ysmXVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CApoL4VN; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=X/SQv+QP6Uef71jezPd93j0w1MXSUGfNSu5dMTlqC+Nyzh73ZAHnypTB0J6WewJ3K29336wHv1E3KWUsSuGpGJFCoVm7QOc5cjAqESx7EXy0Ldo7llj5OhjvCFXgzmg2FWujwLp4cSdZ7lRA7akOEgxivFbKiDj1pnV+WAf3if4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=FPS7fyjI; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CApoL4VN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785933663; x=1817469663;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aGqrGLoXLWCR77fzM54CRWcSbftuIKEd6Z/+uJWgrMo=;
-  b=CApoL4VNyJWPgqipLUc8jdCoFpo5wAa3nDaL2Bum6vAEkLzVW/Q6lh1c
-   KKyqC1Dui3qtHLIv6xZaf7g5bSuP9Gs43zt6ZTyzzVl+wi8+N+u/QeCQi
-   Zo5mD0vLkrNKwNQMtCm1sZj76c6myXPBwrfzPnet/Tzbj2EQOFMeD7htA
-   BY9L9tkB2pygNXbZSQCrEeg182zgX3Dg0/LnjazzsEZ+w6GhsFe0gkoPh
-   lyk5Fdjn7Vdc4Cz0+hAqJrqNSZ7Nd3m1nt+jbhop6/jsqqvo1RfYyadjH
-   HV6urznYmgVxFxghVSYOdOj7LMz06ssm5c8TYfmGT59QpTNl68aC7yhMN
-   Q==;
-X-CSE-ConnectionGUID: N+heEKPoSDOYBTcZFxjekw==
-X-CSE-MsgGUID: +176QpA/QluooDDGpJbiEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="109293677"
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="109293677"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:41:02 -0700
-X-CSE-ConnectionGUID: wzosoJldQVSzkWsOxz6I0Q==
-X-CSE-MsgGUID: 8VuOfVSbSQKWowPXIlo1nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="257499770"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa006.fm.intel.com with ESMTP; 05 Aug 2026 05:40:59 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 2A42E99; Wed, 05 Aug 2026 14:40:58 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="FPS7fyjI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=lgTiJmv4uwpwNRu5pNYdAS50aAZIc/Ys+f5aHnOFOF4=; b=FPS7fyjIKkvknkuuhhMMqYpLyJ
+	/ai0X/1UzvS/lY73hAesMOAosLmBO5UQ69v2rUjomSGocgRijH45WuagHIv+9+8WbSBYEJY7o0Swo
+	QoNL5P6myFZ7AOX51BXMMllWxgQEngdTSD+dIX88jkk8QdjCy4I6249qdDIS5hqH+OE0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wrava-00GARH-F2; Wed, 05 Aug 2026 14:40:58 +0200
 Date: Wed, 5 Aug 2026 14:40:58 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+From: Andrew Lunn <andrew@lunn.ch>
+To: Artem Shimko <a.shimko.dev@gmail.com>
+Cc: netdev@vger.kernel.org, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alyssa Milburn <amilburn@zall.org>
-Subject: Re: [PATCH v2 2/3] usb: typec: tipd: Factor out i2c specifics
-Message-ID: <anMvWrR5E54fPXVV@black.igk.intel.com>
-References: <20260727-tipd-ace3-v2-0-1345957bd635@chaosmail.tech>
- <20260727-tipd-ace3-v2-2-1345957bd635@chaosmail.tech>
- <anMi2q5FmsvE4z8W@black.igk.intel.com>
- <7D31226B-98F2-4DF2-BA47-31CF9B269A7F@chaosmail.tech>
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v6 3/3] net: phy: add DAPU Telecom DAP8211R(I)
+ Gigabit Ethernet PHY driver
+Message-ID: <64da17b5-2ba2-4dcc-9b8b-251b208e555a@lunn.ch>
+References: <20260805085540.452260-1-a.shimko.dev@gmail.com>
+ <20260805085540.452260-4-a.shimko.dev@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,27 +53,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7D31226B-98F2-4DF2-BA47-31CF9B269A7F@chaosmail.tech>
+In-Reply-To: <20260805085540.452260-4-a.shimko.dev@gmail.com>
 
-On Wed, Aug 05, 2026 at 01:57:18PM +0200, Sasha Finkelstein wrote:
-> On Aug 5, 2026, at 13:47, Heikki Krogerus <heikki.krogerus@linux.intel.com> wrote:
-> >> 
-> >> -static const struct regmap_config tps6598x_regmap_config = {
-> >> +const struct regmap_config tps6598x_regmap_config = {
-> >> .reg_bits = 8,
-> >> .val_bits = 8,
-> >> .max_register = 0x7F,
-> >> };
-> >> +EXPORT_SYMBOL_GPL(tps6598x_regmap_config);
-> > 
-> > Don't export that. Just move it to i2c.c
+On Wed, Aug 05, 2026 at 11:55:40AM +0300, Artem Shimko wrote:
+> Add a new PHY driver for the DAPU Telecom DAP8211R(I) Gigabit
+> Ethernet PHY, which is commonly used in enterprise and industrial
+> networking applications.
 > 
-> I use this one in spmi.c too, the regmap configuration is the same,
-> just the backend is different
+> The driver implements extended register access via indirect addressing
+> through corresponding registers, and provides comprehensive device tree
+> support for RGMII delay configuration. The rx-internal-delay-ps and
+> tx-internal-delay-ps properties allow precise tuning of clock delays in
+> 150 ps steps from 0 to 2250 ps.
+> 
+> Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 
-Ah, sorry I missed that.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Thanks,
-
--- 
-heikki
+    Andrew
