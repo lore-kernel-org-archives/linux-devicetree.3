@@ -1,33 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBAB40B0F1;
-	Wed,  5 Aug 2026 09:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B684340F8E9
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:54:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923237; cv=none; b=HUKjf1nnWUaqFgLQwWPlc0h0of+5rFtj59EZlleM926oar0Ar8m/y6V0FEUzGVqB1b4XCqWFlucn947DhgfTxAEPWpbyPEg8TNRUWLRNyBaB1av4f1bw3PyoXJmsj5Oi8xK0B2RFv7MIAkp4nVhX4DemcKqioLPzZh2atkHQnPo=
+	t=1785923677; cv=none; b=kmG1kcujZPoQXeP7mievBLMYOSE56qKnobD3L69pljOIqK/Mg9+kSsVKx60MmsHzpAqSIPCvDoQHznvqNQmcN2MdZrFytdz4Z4k8Q6Z+nyqLpEXSFt3VkD1JqyHJFjY4zEypelcUKMEDbWgmvIxRkO3ghRcmFxI22ptblAcw5GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923237; c=relaxed/simple;
-	bh=u2WANzU6YSAiEga849+fFViPRaXoR5pjR/3+bhbuGv8=;
+	s=arc-20240116; t=1785923677; c=relaxed/simple;
+	bh=w9eYthRmToyVxZHEBUSOSGKXlrScyZ8dVcO5adDWwHM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BJW4kweU4dgNzI6rVrKLbdw6aVS1ZXve8Iuuhq2hm+XU9EdefpfeXnNVdfIMTvnNSFMxVGGZn6WSYy8ODA3rk2NCl6Fpb2Dt3ljd6M2T1+0Fyz58tr8TLrw5ljVpen9BHnXAXmA+egNReifpZL8tBQFW83QRuyvRkxudsPbv2JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tipz/+w7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=KAJAxZWluDnU7MJTZAPRKaee8Iu/rBjCTUTHzDhd/5JsVemK95NDrvtX6Lkd1Cs/gmkLhQMh0OQ4kJdp9XFbWEkn9RPzmWBML0sTEKClqc23HccDwuuWRnXS7YO81XZmOvAysabyVTqYnW51pNsIerUnC0YTQw6UQwBB8oURhVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aSw+Xay2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KzeShA1p; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tipz/+w7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466AE1F00A3A;
-	Wed,  5 Aug 2026 09:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785923232;
-	bh=Q4UlXmYavMMPTdV3/EE/2oxTFGxMyvMaeT+akxakhEU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Tipz/+w7eMvEu1eOhzFRJU4tvsX/j2ZILWx2Rj36uVCjUWzklvaknDh8Cpkm4SYvh
-	 c6fOPUtBGDQks38uY+jq+Am6Lw1FflobwbAc7oWFxYqzM7v6dT30C5alYzUaxtEbMJ
-	 GvEZHQsA2tghVbhFt4uCGifOYPuM+7X9cvg50qr8WAJiQ/qNpz9316gWwJ+AThqEql
-	 45BKTsqlPlONmA94M5knfcQKg5wJvdMexb7pUe03sZ3x+bMar308v9xWhKEGDh5vKU
-	 Nwz7X6e+TivhL5OH/biARZxues1J61WfmSsfg9YVXDpM2Bm+5NfDIEQH+NUzG+ijKu
-	 7lnyHQVhjSiYw==
-Message-ID: <22ad4dab-dbf2-48f4-970f-ea9fc91f1e2b@kernel.org>
-Date: Wed, 5 Aug 2026 11:47:04 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aSw+Xay2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KzeShA1p"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6758dHjR2468138
+	for <devicetree@vger.kernel.org>; Wed, 5 Aug 2026 09:54:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	B3hZqK5iZmM+IAFacrvV9FtvLZQ1PDq+tTYoSKqDnjY=; b=aSw+Xay2CPUd7el+
+	dTcROs9DOZ2B1M0TLjCLjYK3a9u1N8imEmAVD7ZojGmhIkVWOmD+NOsHVcBsD8uV
+	bxeedZgshr1qw5xMnPG9iomtAGOjanMvjngWd1y+EEXQ6FyX9fJCskERERjBUm7f
+	MkOuZ/q3y/jWuJdUmHoLyf4RGkUNIMhTJ01yLu1KWhh5Z1SZ5IJ4LnwbtEDO/dtM
+	nzTSddRE9GYbvBge2x0yPrHyvfbCEA5xHNyXA4ECYlsGM0SY9Z3LqQYUBVr3ZNoH
+	UayD/fyQqMS1JF/suBoSepD4fMSEJncGzolJn5SMXqt8p67dWEyxC5JL3AA0L2LV
+	2H8zHw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fum56kyyh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 09:54:34 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84e048a801dso1142441b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 02:54:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785923674; x=1786528474; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B3hZqK5iZmM+IAFacrvV9FtvLZQ1PDq+tTYoSKqDnjY=;
+        b=KzeShA1piaFrlBSV2XirGUH9Q595Ul50dEzRvTQM76OUs9wh5f4zei+TMMOWz1uaR2
+         xINGOwymBbdIiFFMdFo4JtBbwWzvnJ34nHdIzSbl+HbECTJjwnKt/3WTooaHvIqa3ut4
+         AYC1U68wppy6QDC0/Qm9sVFUeLb32YPZs+CkbbQxrj7ZopXTuxcAuSlaEzo6gpQ8pWZg
+         PuUq7waayKAFRz+VfjUqU6IhUKMteeVpuwFJnGIBJz620r0mgUbuevOfKqQymdjQEmTO
+         Ap4QocvnzBRqPbwOQl4fv/UJW0ycWNW0nWpI+MHoqAtk618fRypnejcsXNsHrsvygV7R
+         n/yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785923674; x=1786528474;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B3hZqK5iZmM+IAFacrvV9FtvLZQ1PDq+tTYoSKqDnjY=;
+        b=qRzD4cCmlAvnznaF1O9C+Hr0lAs4+GY6xQ7r7lGvh29pWjmCYKvQzC+0Hwwj+z3Fes
+         19bYbRbTwJjTApOlZfSqOlE+NwXzIt4DnhrZTpPjZWwekGsZ0oulePvK+QwaYaUEFrGW
+         kvBSch6I0y13D/JhCPzCPwoI30GVxpkRKVWnnEgp3hGu+mPb1vptU4mCIYO14Yo1SYLm
+         YSVNgWgrTW5lANqttG1U/cnoXlEcqnCUNoCs2/zmBIJralYn0u2fUXgnl2bp00vAizEc
+         3Yy0bWUWnNiJi3oeVRZHqhzmTW8oKS+OvmRrFJRpiow5agFVueGgg6E7elo/856oEn3T
+         h6iQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoJ+mcC9MP7QVxkogDAmkbGnHpOxPbNCJxRu8/6IpCExIph9WDhakMDDyrMEjnnVf1ApVs/I4Rrb7X5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yymer1bwJHbMTwfhXw6/dOERrrknl7F9rujk9cT4tV+aVpbCUWs
+	pRpIlLcQ7TA1yjGNhC4cjpunTk+uL/+HqoDz4dsGpvUjGsWwuewukJW4Bq5jyY3DL3QAkkPpuAS
+	MLYfKq30ufhz7oinI7vcW+11V9uPjMyHFrHGakMxTrjIcRUMLwRy1Beo/rRvxyhrJ
+X-Gm-Gg: AR+sD121Wl6tIh27/yZrRnI4P/FX93BkOJ3/Ms0VkaL8EUSRrXOnl/W7AYBtyoYAL6X
+	K/YwpF159Fg+O2pxHOLA7VKnigTrHoZpgt/4hI9ybsTuSytf8krovAl8wx+AsRuAloWf7fCl2/T
+	VpFrazKH/0JdOHRb88fjecuSmGOIgpqyydQ8epjgE3E9pcyhG1i34kLXEcYiYKGZK4SuHl4BsMC
+	q8aA8XI3QFGMRehHLydahKCWXRL+vkvlcjJmjRc2QI6oRRgAp0eq7Ak+UxP7qSBrqfgXQLHyIhc
+	pXXUjEdGCgZnHSYs5zQpV3cpMOXDZMXzMyHr53sH/LTkWpYD9wfvLo830dnsJ2UjLZLNHHDM2vw
+	/o6B4nCN0Q0BnaXpQVech0kCexpYXaK4Ja1NK6kYTormswmQAP4OAyaOdi/wEm/xqK0vti+4uj0
+	o/hMfalABtUVi1
+X-Received: by 2002:a05:6a00:2d8f:b0:848:7552:3d86 with SMTP id d2e1a72fcca58-84f2e009be7mr5504578b3a.23.1785923674369;
+        Wed, 05 Aug 2026 02:54:34 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d8f:b0:848:7552:3d86 with SMTP id d2e1a72fcca58-84f2e009be7mr5504520b3a.23.1785923673869;
+        Wed, 05 Aug 2026 02:54:33 -0700 (PDT)
+Received: from [10.79.116.175] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f2e507ac9sm609173b3a.42.2026.08.05.02.54.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 05 Aug 2026 02:54:32 -0700 (PDT)
+Message-ID: <a23ca81d-e796-433c-a1c7-ab081db05dd7@oss.qualcomm.com>
+Date: Wed, 5 Aug 2026 15:24:29 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,117 +90,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dt-bindings: phy: ti,phy-usb3: document aspcie
- reference clock setting
-To: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, johan@kernel.org,
- rogerq@ti.com, Julian.FRIEDRICH@frequentis.com, upstream+omap@sigma-star.at
-References: <20260804111849.92046-1-david.oberhollenzer@sigma-star.at>
- <20260804111849.92046-3-david.oberhollenzer@sigma-star.at>
- <20260805-uptight-onyx-unicorn-cfd0ce@quoll>
- <5f10e213-2ab3-4309-a01e-5d0f098a5b35@sigma-star.at>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 1/8] dt-bindings: embedded-controller: qcom,hamoa-crd-ec:
+ Add qcom,tsens
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-1-771abd65ee1a@oss.qualcomm.com>
+ <20260728175434.D70901F00A3A@smtp.kernel.org>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <5f10e213-2ab3-4309-a01e-5d0f098a5b35@sigma-star.at>
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+In-Reply-To: <20260728175434.D70901F00A3A@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: zj--TlomPuF_XaZfKfmjFcb-MDK9CX9c
+X-Authority-Analysis: v=2.4 cv=Co+PtH4D c=1 sm=1 tr=0 ts=6a73085a cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=K9zW7NHO5qA8wGy8OVMA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA3OCBTYWx0ZWRfXxda7Ehq0a2ay
+ Qdp+kCEaC+5fWFY+4pB21whknsyaDAtQYvLfMaLY0F3YDYs+SgkNJyzzgMA2i0tXUV1b2cTTMJj
+ C4lcMVKgDirQCPv3FRBQT4uKnCXrCR0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA3OCBTYWx0ZWRfX/q2vTPdDTFo3
+ 4bmm8tQWkO28+Jt7QZnzu0f8Wfc1agOomg0/KABaG2cebNWvqrI8cMZxcgLqmS+hLGDbGcjucS5
+ /awjGJ0ntEr8LshRoKPJRKFvaxisNqUsdqKbxuYMtuIwz1GEHBuPuO3zmYrU2dttAmeJlD6hB7u
+ jYEz61kHbDJmPIfferWrssJn0/5Y3jWh2I1GdFl44fH6YhulZ3Vyvoe4X8R8x5q5oP2Zx5y18Hj
+ 6AjbEvLZwurvgjnvGgiAMdF/cetuc/30pC6Qmn9bb2zusOnOYHWe2LWpxm7907twGrcwjo27lGV
+ lRk7gpZLuaneTNZ37NIiloMi/0Ay0w0WWU9PX/eMEqbCGxDlmDDB+WQ+bTIw9EAOoVTQr+ABhf2
+ QgplAkkWTF3YdDE1oMmSQgX6jiOMpazAmafH+tCK2VNv6pgJHjg8Yxo7Pit8HqEzx+m7Ly8voBN
+ hA2nHNgoCpf7AT5crnw==
+X-Proofpoint-GUID: zj--TlomPuF_XaZfKfmjFcb-MDK9CX9c
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_03,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608050078
 
-On 05/08/2026 10:42, David Oberhollenzer wrote:
-> Hi,
+
+
+On 7/28/2026 11:24 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The custom `qcom,tsens` property encodes a driver-specific software algorithm into Devicetree and redefines standard phandle specifier semantics to avoid standard sensor enumeration.
+> --
 > 
-> On 8/5/26 9:39 AM, Krzysztof Kozlowski wrote:
->>
->> Not a valid naming, missing vendor prefix and syscon looks like
->> Linuxism, since you called it "system control module".
->>
+> --- Patch [1]: [PATCH 1/8] dt-bindings: embedded-controller: qcom,hamoa-crd-ec: Add qcom,tsens ---
+> commit d7c232898faf92bef60389e6c46fc016182bd22a
+> Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
 > 
-> I agree that this is a very vendor specific kluge and I suspected
-> it might need a vendor prefix. However, I ultimately tried to stick
-> to existing conventions.
+> dt-bindings: embedded-controller: qcom,hamoa-crd-ec: Add qcom,tsens
 > 
-> There are 3 more syscon properties defined for this device:
->   - syscon-phy-power
->   - syscon-pllreset
->   - syscon-pcs
-
-These, as the rest of the binding come, from 2015 or even earlier. A lot
-changed during that time. It is a good idea to take recently reviewed
-code as an example. It is a bad idea to take 10 yo code.
-
+> This commit adds the qcom,tsens property to the Hamoa-based boards embedded
+> controller binding. It pairs tsens provider phandles with a count of leading
+> sensor IDs, whose readings are averaged to compute the SoC junction
+> temperature.
 > 
-> None of them have a vendor prefix, all of them use the
-> description "system control module".
+>> diff --git a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
+>> --- a/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
+>> +++ b/Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-ec.yaml
+> [ ... ]
+>> @@ -32,11 +32,40 @@ properties:
+>>    interrupts:
+>>      maxItems: 1
+>>  
+>> +  # A generic "thermal-sensors" phandle only identifies individual sensor
+>> +  # IDs, and thermal zones are a Linux-side grouping of those sensors, not
+>> +  # a devicetree concept the EC cares about. What the driver actually needs
+>> +  # is raw readings from a contiguous range of leading sensor IDs on each
+>> +  # tsens provider, averaged together, so qcom,tsens pairs each provider
+>> +  # phandle with a count instead of enumerating every sensor cell.
+>> +  qcom,tsens:
+>> +    description:
+>> +      List of tsens providers and, for each, the number of leading sensor
+>> +      IDs on that provider whose readings are averaged to compute the SoC
+>> +      junction temperature reported to the EC for fan control. Only
+>> +      applicable for Hamoa based devices.
 > 
-> I take it, the existing properties already break best practices
-> that were established later? Or is there another reason they
-> lack a vendor prefix?
-
-Just add vendor prefix to the new property.
-
+> [Severity: Medium]
+> Does this property encode a driver-specific software algorithm into the
+> device tree? Device tree is strictly designed to describe hardware topology,
+> not software policies like averaging sensor readings.
 > 
->>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->>> +    maxItems: 1
->>> +    items:
->>> +      items:
->>
->> Missing -
->>
-> Likewise, I simply copied from the syscon blocks and made some
-> minor changes. Hence also the identical description. So this is
-> broken for the existing properties as well?
+> By bypassing standard properties like thermal-sensors and redefining the
+> phandle specifier semantics to represent a count rather than enumerating the
+> specific hardware sensor IDs, does this create an incorrectly designed ABI?
+> It might be better to rely on standard hardware enumeration and leave the
+> averaging policy to the software drivers.
+> [ ... ]
+>
 
-Hm, you are right, the syntax was actually correct. I missed maxItems.
+Ack, I'll drop qcom,tsens and switch to standard thermal-sensors, moving
+the averaging logic into the driver where it belongs.
 
-Preferred syntax is for example in
-Documentation/devicetree/bindings/crypto/intel,ixp4xx-crypto.yaml, but
-your code was fine as well.
+-- 
+Best Regards,
+Anvesh
 
-
-
-Best regards,
-Krzysztof
