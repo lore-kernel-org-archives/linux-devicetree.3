@@ -1,164 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B9C46C848
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3493546F6
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:49:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785934150; cv=none; b=NpxPEDESrBGB042O8BrxqIQMtK8xfr7uqxGZoHGrg4Es02B10Mg1bJ5Rs0H+9oUFZ0a6HmoamMiO8HSRz4GWOOHOaB+E5vCvpg6sqa13j1L6AcmiKeADKn+NSxArA52T7pFztFY1X7escRNWio5vdEXb8vcfu9Zltioqhjv6jYk=
+	t=1785934165; cv=none; b=LO2p/m0P0NWoMQFuJkoiAp+b72uy0CjoIG791Wjbz3dAWdvmYN5Xsj836S342dtttNGmCd7NLAnrJtjVlTYqrrI8w5Typ3rRLPU21nZEP2lrshcd8YWnrSrOJ+kLxUkelrF1s4jEzVTXcSOXt0Np85f0gHrAR5zD6gvvMgyDWbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785934150; c=relaxed/simple;
-	bh=9wj5VEE05Op+54W2UUQxxa9q+aQlo/yUYRFz87bQOk0=;
+	s=arc-20240116; t=1785934165; c=relaxed/simple;
+	bh=rIQ1o1woYRx5yuqiMZZ8sy6+kCSg/DMmSalPYsrZ9oY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ba76A262D1o2poP3wGHB5KWHFCY4PlBrw3KjuwRb3Ae2wJ3br5EhtI7WnQcDUCDFSMoKQ7mrMbIbyJufKI6UZLaqRy3Z1CbZlHZAR0Xsk/YgulHG6DZxgNC2afQS5/q6xkoHYy6TyiTrFI7+2MfPsKIoVidNtYXClo8zCZwmG5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lUX0APyh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZQ98PS4lY5RGIPv0Z5KWZ+AKHqXVbjAvA2x5n5WQS8g8noWKL1Osez2yxMRR3SOO7bseeSj5GwIgEu6w8GFbDh9ija6CIcViAnSOb0xN0P5j2808oHXXukJtFt4BhgnRnfvDt/Di6Pfb6e+oRNi+B5WkTBwej42SVD+kHk9q6Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Br6yLajf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lUX0APyh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D4C1F00A3A;
-	Wed,  5 Aug 2026 12:49:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Br6yLajf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7FA1F000E9;
+	Wed,  5 Aug 2026 12:49:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785934147;
-	bh=X3nGZoS4laacRt20dnQz7oJ1/GiPtRTAZx1oceeAF7c=;
+	s=k20260515; t=1785934164;
+	bh=pdMNiSS5a2l0vy52FDXZIXAeDL8hIrePI86ha9eti+Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lUX0APyh693QihBtHIZoU8Hoh2jGAeRDDndO0Djatrrk4+Op2xUYe9Rd/J4RVIzXC
-	 H9K14stqrh5r7vGvmPYawkZHV7UsDj+h0/WE5KpbDSeGeTWhHQs9q85QwqJtB/kM7O
-	 HPtDjTgbSgPSeQeUr8vHrjR3ID8A5R7jS5WKQqX2AebYuI5Z/2PqhqdAmeGRzBBi/5
-	 bwq8X81SKCYvxDSGr0GjX6y51wBHkPDcXh09JkaBF3sHDT0HQNPa2LiLOPfumbo5Gv
-	 AYc01sjNPqGR/prrtE/DKCgvR/LB8uPr1yRHX9RwSpz2hOgCOo2kDL1g3CM7vXdPDX
-	 9ulG258QKP3KQ==
+	b=Br6yLajflGytiezR+/0akzbipD/fv7zD+HcVqPTwip8scO6p8e+rpUcnnv+arPLpF
+	 wS0vPdU9KlWmYm4EGGB5RmS9y9Qd38daQIDukAq2jNXvFpYMX9GZn9OalGrXUWLDiv
+	 /HZTK7bicKWCm6oIFyZwyS+5q2m9g0naeGx42KSqzgOP+uHbKLOxZc0YYoS860Oc7B
+	 /JW58M8ijs3PgypYv5yOj+ih+q+3bNLIDJkN4p/zuP3D2xXlRiS9wkKLNXp6K21epU
+	 niZGztKJjSEec3FjeeF05moYNMEUH6b2Ykkt1ubcCidy5KfWm5RajPaHCQjyQ9jmgs
+	 +6KyyHmx+GKxQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] net: phy: dp83867: support setting output-impedance
+Subject: Re: [PATCH v10 10/36] pinctrl: airoha: fix I2C1 pin mux config for
+ AN7581
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Steffen Trumtrar" <s.trumtrar@pengutronix.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260804-v7-2-topic-dp83867-v1-2-1ca79eb54eef@pengutronix.de>
-References: <20260804-v7-2-topic-dp83867-v1-0-1ca79eb54eef@pengutronix.de>
- <20260804-v7-2-topic-dp83867-v1-2-1ca79eb54eef@pengutronix.de>
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260805123408.3767648-11-mikhail.kshevetskiy@iopsys.eu>
+References: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260805123408.3767648-11-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 12:49:06 +0000
-Message-Id: <20260805124907.38D4C1F00A3A@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 12:49:23 +0000
+Message-Id: <20260805124924.3C7FA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Inverted error check on `of_property_read_u32()` ignores the prope=
-rty when present and causes probe failure or garbage configuration when mis=
-sing.
-- [High] Passing a pointer to a 1-byte variable to a function expecting a 4=
--byte pointer causes a stack buffer overflow.
-- [Medium] Meaningful code and commit message mismatch: nvmem takes highest=
- precedence, not lowest.
+- [Medium] The pinctrl mask enables I2C master mode but fails to explicitly=
+ clear the mutually exclusive I2C slave mode bit, potentially leaving the h=
+ardware in an invalid state.
 --
 
---- Patch [2]: [PATCH 2/2] net: phy: dp83867: support setting output-impeda=
-nce ---
-commit 5d72fffedcf9773506f98861b65736e9f8be835a
-Author: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+--- Patch [10]: [PATCH v10 10/36] pinctrl: airoha: fix I2C1 pin mux config =
+for AN7581 ---
+commit d4a94527c7cabb1267ba3d80a5ef64b6898faf1e
+Author: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
 
-net: phy: dp83867: support setting output-impedance
+pinctrl: airoha: fix I2C1 pin mux config for AN7581
 
-This commit adds support for the ti,output-impedance devicetree binding to
-configure the IO impedance of the DP83867 PHY. It introduces a fallback to
-this new property when nvmem is unavailable.
+The pin mux on GPIOs 1 and 2 on AN7581 supports I2C in master and
+slave mode. When selecting I2C the according bits (bit 13 for master,
+bit 11 for slave) must be set in REG_GPIO_2ND_I2C_MODE. This commit
+fixes the i2c1 pin group to set bits 0 and 13 to set I2C1 master mode by
+default.
 
-> Currently the dp83867 supports setting the io impedance to minimum,
-> maximum, default or a value from a nvmem cell. In situations where there
-> is no backend for a nvmem cell, the value can not be set to anything but
-> minimum, maximum or default.
->=20
-> Add support for the ti,output-impedance binding, allowing to specify the
-> impedance via the devicetree. The existing boolean bindings for minimum
-> and maximum take precedence over this new binding. The nvmem consumer
-> still takes lowest precedence.
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index ee2bd0ee8c40f..2695342adfc76 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -1158,8 +1158,8 @@ static const struct airoha_pinctrl_func_group i2c_f=
+unc_group[] =3D {
+>  		.regmap[0] =3D {
+>  			AIROHA_FUNC_MUX,
+>  			REG_GPIO_2ND_I2C_MODE,
+> -			GPIO_2ND_I2C_MODE_MASK,
+> -			GPIO_2ND_I2C_MODE_MASK
+> +			GPIO_2ND_I2C_MODE_MASK | GPIO_I2C_MASTER_MODE_MODE,
+> +			GPIO_2ND_I2C_MODE_MASK | GPIO_I2C_MASTER_MODE_MODE,
 
 [Severity: Medium]
-Is this commit message accurate regarding the precedence?
+Will this configuration mask leave the mutually exclusive I2C slave mode bit
+set if it was already enabled?
 
-Looking at dp83867_of_init_io_impedance(), it seems the code attempts to
-retrieve the nvmem cell first. If that succeeds, the early return prevents
-any device tree fallback logic from running:
+Because GPIO_I2C_SLAVE_MODE_MODE is omitted from the mask, the slave bit
+won't be explicitly cleared when applying this configuration via
+regmap_update_bits().=20
 
-dp83867_of_init_io_impedance() {
-	cell =3D of_nvmem_cell_get(of_node, "io_impedance_ctrl");
-	if (IS_ERR(cell)) {
-		// DT fallback logic happens here
-		return 0;
-	}
-	...
-}
+If a bootloader had previously enabled slave mode (bit 11), setting master
+mode (bit 13) here without clearing bit 11 could leave both bits set and
+potentially cause the hardware to enter an undefined state.
 
-This would give the nvmem consumer the highest precedence rather than the
-lowest. Could the commit message be clarified?
-
-> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
-> --- a/drivers/net/phy/dp83867.c
-> +++ b/drivers/net/phy/dp83867.c
-
-[ ... ]
-
-> @@ -542,12 +542,19 @@ static int dp83867_of_init_io_impedance(struct phy_=
-device *phydev)
->  						"failed to get nvmem cell io_impedance_ctrl\n");
-> =20
->  		/* If no nvmem cell, check for the boolean properties. */
-> -		if (of_property_read_bool(of_node, "ti,max-output-impedance"))
-> +		if (of_property_read_bool(of_node, "ti,max-output-impedance")) {
->  			dp83867->io_impedance =3D DP83867_IO_MUX_CFG_IO_IMPEDANCE_MAX;
-> -		else if (of_property_read_bool(of_node, "ti,min-output-impedance"))
-> +		} else if (of_property_read_bool(of_node, "ti,min-output-impedance")) {
->  			dp83867->io_impedance =3D DP83867_IO_MUX_CFG_IO_IMPEDANCE_MIN;
-> -		else
-> +		} else if (of_property_read_u32(of_node, "ti,output-impedance", &val))=
- {
-
-[Severity: High]
-Does this condition check for success properly?
-
-The function of_property_read_u32() returns 0 on success and a negative err=
-or
-code on failure. Because of this, the if condition evaluates to true when t=
-he
-property is missing (returning a negative value), and false when it is
-successfully read (returning 0).
-
-This means the driver might use an uninitialized stack value for configurat=
-ion
-and fail the probe if the property is absent, while ignoring the property
-entirely if it is present.
-
-[Severity: High]
-Can this cause a stack buffer overflow?
-
-The variable val is declared as a u8 earlier in dp83867_of_init_io_impedanc=
-e():
-
-dp83867_of_init_io_impedance() {
-	u8 *buf, val;
-	...
-}
-
-However, of_property_read_u32() expects a u32 pointer. Passing a pointer to
-a 1-byte allocation into a function that writes 4 bytes could corrupt adjac=
-ent
-stack memory.
-
-> +			if ((val & DP83867_IO_MUX_CFG_IO_IMPEDANCE_MASK) !=3D val) {
-> +				phydev_err(phydev, "'ti,output-impedance' contents out of range\n");
-> +				return -ERANGE;
-> +			}
-> +			dp83867->io_impedance =3D val;
-> +		} else {
->  			dp83867->io_impedance =3D -1; /* leave at default */
-> +		}
-> =20
->  		return 0;
->  	}
+>  		},
+>  		.regmap_size =3D 1,
+>  	},
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-v7-2-topic=
--dp83867-v1-0-1ca79eb54eef@pengutronix.de?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805123408.3767=
+648-1-mikhail.kshevetskiy@iopsys.eu?part=3D10
