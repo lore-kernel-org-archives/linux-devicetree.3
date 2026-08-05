@@ -1,114 +1,79 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975E9472521;
-	Wed,  5 Aug 2026 13:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3252F7EFF;
+	Wed,  5 Aug 2026 13:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785936749; cv=none; b=MVzlfKokP350L/5lJiZmQ/bu5TuiwL4aHjJTujYW++HiUw9T8qx9Zy/Ksu2Xy8HkrlJz8db+w7MlRBQb0i2gnIXI4HiPrcEnnkIKQCPEWrORwBiiIdboBDYwpzUhPumr2MJGRqY3W9M/9xz+UNeFor5jDjoTTSAQzmzh1X/nLKg=
+	t=1785936808; cv=none; b=c+0inlbYpxVrLb0Hfbn5IY24oKnXZyhgZYPhkkQEKrK+xcdjWZWoLQYIGdJwGO6Qk0BXg7naem+7HgEOaVNo4TjInJ7BbZdTSl2Qgwzv3S3CLsZ8DoPkoodoZl4t+Nox/oABfYq+h6XRGoAgVgkoZeSuYZga/Wpjv2cue1mBTPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785936749; c=relaxed/simple;
-	bh=R2apSWBXSUirB/UtMUlvuAshDxiPYml/uIQKMcnebR8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k72Z3zgY5gtVBLpRlQasK3TCCrFyNE4Z4nnE+/1+/yI0MrMpszSOi12wUsC1KavS93F8fyaFb2tha2lSC4HcFD0dNQVfdz6K1FqTHJ9rVub9kdPoXuAr1YsGxTD+DEMwRFIB7T7VgrRk1+SXOpsY6hjGVCXOCBaI1ZTZzJqSLpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=aCmQdTKj; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=IChQUx3m; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1785936808; c=relaxed/simple;
+	bh=69yf0zdAnKK9f7A/vUKaLcKg4TX8m5jHLbiu5Amisdw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TaZy8GKmhENMFUA8cL5wmxpaKRS9d8K6AWS70AHoNMDJJUAoa2HcD0J5ltcfbUy8uRMbYgZOs5iIinYrzypxrAd969FtyUIywf7Nzq4YpDkbCgOpXAEc+vLhDm9E61OBjBZhRq/CvWUGTei+didnXoNigUqnbAkufs2mN2lIPtE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1AQzhPa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="aCmQdTKj";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="IChQUx3m"
-Date: Wed, 5 Aug 2026 15:32:20 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785936745;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LSUjXyojxYUstOoU9FinVpdu7Ze0HGj9+KlBRZ5mhu0=;
-	b=aCmQdTKjgZ5ZIdy/u1ZI3q75vIhLAgCQAv7pnzle55pQcJ9pznSfvwZVn9YBVO5wHOXPgc
-	ltII/sfKTrtOBkZOR0nTbheo0oT3lYapRs7aXRhckMf23n86gbT4yBfNijwFST7k8zjy7P
-	KIgXa1MBMqXDT0TzeKxQWqjCab/+sq0a/ofFRTqrphx10PbKeqxHum/nyqPxS/YqIqOqnp
-	D66Va+dvRJxDQbVzIwro2mAumYT/dWB9Rn32w+Pw6A1HQPwJ1wjq24TszE8D/eBfmwmASw
-	nh0+m4+ndkYGXNBliP9SCcTE0aE9dF8AvNQE7J7xD+rZD04FR6H7ymo+RSpxbw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785936745;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LSUjXyojxYUstOoU9FinVpdu7Ze0HGj9+KlBRZ5mhu0=;
-	b=IChQUx3mceLkOLFKFrXhguLxKwzQw/5yQTSO8fHoaoeM6abmERCOByyN38BuOwBdmUVJva
-	ZhEs0oInuR1tkrAA==
-From: Benedikt Spranger <b.spranger@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Vasilij Strassheim <v.strassheim@linutronix.de>, Krzysztof Kozlowski
- <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean
- <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, Martin Kaistra
- <martin.kaistra@linutronix.de>
-Subject: Re: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and DSA
- bindings
-Message-ID: <20260805153220.3860b262@mitra>
-In-Reply-To: <590a933f-85af-4eaa-b9ee-be689dc15c69@lunn.ch>
-References: <20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
-	<20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
-	<20260730-loutish-labrador-of-joviality-6e6c79@quoll>
-	<411ec84fd55e152e94ac1f4edba497eac3a5623d.camel@linutronix.de>
-	<590a933f-85af-4eaa-b9ee-be689dc15c69@lunn.ch>
-Organization: Linutronix GmbH
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1AQzhPa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABB81F000E9;
+	Wed,  5 Aug 2026 13:33:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785936807;
+	bh=JvOWEEp0Y8F1/GoT9ZmrQPVhEMWGmtbpF1mDPHwa8Ws=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a1AQzhPaFs4TkZ+MNSP0kSzln0BOWl1+qXNT1DpgK8gpDMo/p5V8XoF2IjIFEzY7x
+	 2vE/wGtxFzdMXH/APWkCxCLZm0LEfBQp8tf4siCB1PWCcJL2B7Ag/y+QXtWDoeyIa1
+	 BTa2EByqZy6JoC7wT7VGhUF2kh5L1yb9LyBKdhYu28iR5p+Zorlx/+wo0JNh5Xoxel
+	 nY83pbllzw4oOiyiP8eMJKs6p3TfAp5KYLVaP8uTs1iiQsKd23MMMDj9LJKm/vDemZ
+	 cPt/3gp8oKJxcomjVq4YVx+DzE3nEn3eA2HwGsnjVv61d6YzVK3N0mkyLapXMj7GIv
+	 b1E05L+XpnArA==
+From: sashiko-bot@kernel.org
+Subject: Re: [hwmon-next PATCH v6 3/4] hwmon: (adt7470) Expose fan control
+ via PWM framework
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luiz Angelo Daros de Luca" <luizluca@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260805-adt7470_thermalzone-v6-3-5605a5f95467@gmail.com>
+References: <20260805-adt7470_thermalzone-v6-0-5605a5f95467@gmail.com>
+ <20260805-adt7470_thermalzone-v6-3-5605a5f95467@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 13:33:26 +0000
+Message-Id: <20260805133326.CABB81F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 3 Aug 2026 18:43:23 +0200
-Andrew Lunn <andrew@lunn.ch> wrote:
+> The ADT7470 features four PWM outputs designed to control fans.
+> Previously, these were only accessible through the legacy hwmon
+> sysfs interface.
+>=20
+> Expose the ADT7470 fan control lines through the generic PWM framework.
+> This allows generic PWM consumers described in Device Tree, such as
+> "pwm-fan", to use the device through the "#pwm-cells" property.  This is
+> particularly necessary for boards where the ADT7470 external temperature
+> sensors are not populated and the chip is used strictly as a fan
+> controller (e.g., Edgecore ECS-2100-52T switches). In such setups,
+> delegating control to the generic PWM subsystem allows the kernel's
+> thermal framework to manage the fans based on unrelated temperature
+> zones, such as internal SoC sensors.
+>=20
+> When a PWM consumer applies a new PWM state, the driver automatically
+> switches the corresponding PWM channel to manual mode so that the
+> requested duty cycle takes effect. The duty cycle specified by the PWM
+> framework is internally converted to the 0-255 scale expected by the
+> hardware registers.
+>=20
+> To prevent conflicting access, the hwmon PWM sysfs attributes are hidden
+> when the device is registered with PWM framework support (i.e. when
+> "#pwm-cells" is present in DT and CONFIG_PWM is reachable).
+>=20
+> Signed-off-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
 
-> If it is not compatible, it needs a different compatible.
-This is quite tricky here - namewise. 
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-> It gets interesting with something you synthesizer, something where
-> there are a number of different synthesise options. How do you define
-> compatible? You might want a very specific compatible, for your
-> synthesise configuration, and a more generic compatible which might
-> work for other synthesise configurations, but maybe not?
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-adt7470_th=
+ermalzone-v6-0-5605a5f95467@gmail.com?part=3D3
 
-SOC-E sells quite a bunch of switch IPs (MES, MRS, NTS to name some).
-As far as we know for now, these different IP cores can be determined
-by reading specific registers, which seem to be on the same spot across
-different IPs. You may wonder about "It seems". Since we have only a
-limited access for information about different IPs, we have examined the
-vendor linux DSA driver and the surrounding configuration software.
-
-So for now the different features can be read out at specific registers
-- an autoconfiguration of the DSA driver is therefor possible. Now to
-the compatible string. The easiest way is to name it after the IP core
-name: MES, MRS or NTS. But that's wishfull thinking:
-
-You can use the MRS IP core an disable all management features. You
-have an unmanaged switch with an MDIO interface. Terefore you can not
-rely on the compatible string and have to verify the feature registers.
-Also you have to switch device trees for different IP cores for no good.
-
-The big plus for this solution is less struggle with the devicetree
-police.
-
-So in fact the compatible string should reflect a register layout
-nessesary to determine the switch IP and configuration. There is no
-such name in the documentation, as we can see so far.
-
-As a suggestion from my side: soce,switch-reg-layout-v1
-
-If this minimal set of registers changes in an incompatible way, the
-version number can be increased.
-
-Regards
-    Bene
