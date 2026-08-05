@@ -1,271 +1,261 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020103.outbound.protection.outlook.com [52.101.69.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2332F7F1C;
-	Wed,  5 Aug 2026 12:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785933242; cv=none; b=m/ugzvcVC2eD00p6BuQiJU7WeBcU9iIyJDW+cV/hM4yIMHEelPN09I/jxd4pdeUOGfcmnbsW0xmPtHC3Ze2HuKGXkfT9M6CBjpc9ZC/doUThxWWU+eBJIXhKSPSG1ehNH7NgNQ84p7Aba/kpCGtsSuwEwbuS7yzW4ZxS2x8A2B0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785933242; c=relaxed/simple;
-	bh=8yWTpkhnKpM634lwFrGrIHnPXohxkjE0F48iMxwAimQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C0LlspgISj2IutewRSX9JhuHSOFbAsRSnKEPCEOz6465js5xtHHDV4nDJ6cDbkV7Wy/noB4DqKf0rk228BINef46Z5E7/sP1SpDKg3Ugnq2l0uoIad43KkB/+khWMZRRE5gbsgmFjbSExE/zTZU1UB3DHBO+J/YzXNbLgd98cVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2Wwd4y9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8E62F290B;
+	Wed,  5 Aug 2026 12:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.103
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785933268; cv=fail; b=UPcEjS67EL5O4hRU4Nge256BkqeBYiQ0j918x5i9874nD0q13PXwairB38DmWc7IVNBmW37pVxptNMuZd+kyv7sJgAGqzeN0RbvsXv3WOX7R+1WXhoKGN14RcUfVJjfwECTcn8zywuEa+Le349tHPI+3v2R+a1bx65tspDOgwzM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785933268; c=relaxed/simple;
+	bh=L35KDYlo207ZtgDNvLQGx3Ez0ZuNn56/JjBIi1hAySw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=UTveZ9GVB3snKgB3g8naywbVHp/4MWK39giPJYepyigiy5uYSWYZGQPC1c72GAi5lsd2wtIfDchK9uGcFUfE4UnpQkNK2+HkG1ctWM1lAbBIMRsEaoZJOosukoPCZMZ5LOV/92wugDs6h3bI3C9Uxc8T1O2W61A47+OOK9/iD/0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iopsys.eu; spf=pass smtp.mailfrom=genexis.eu; dkim=pass (2048-bit key) header.d=iopsys.eu header.i=@iopsys.eu header.b=HnMDuyQ5; arc=fail smtp.client-ip=52.101.69.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iopsys.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=genexis.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2Wwd4y9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39D81F000E9;
-	Wed,  5 Aug 2026 12:33:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785933241;
-	bh=faziCBXSUs4f1fN5QGqJBFJJO8BhYf4C5QWrpWwCjGM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D2Wwd4y9VAlmraPLc9gLm8As/wTO5ULYU6/adndyRCv/NFz1HCcw4aZjl7YybzRDN
-	 qRu9OOQBVslng9u+2HVBmTbM6kYr8UnE3wG9k0Y+lM2DDnLlYLh2gnWBcJS+udIUIC
-	 PxHc2kQmEzunGzwL3I1edbRVFxkunbqvo26dvo568E1jcWYkO2nlqVyWT/hlu/94Jk
-	 HuxD0D/wZ5uty3mGaLMea7pcfbJmpiHZkvDwci/gWduHgPbLA2+S2yTAd/oDx4k//F
-	 jrXqpMiGznlpS45wVJIttU3orJcWZ89WPFLbfcYzwtC5MctFPZyAasIUXqlJmuyrt6
-	 6yk9Gb6udN4HA==
-Message-ID: <8ab6c26f-b648-447c-9fdd-f1424beb44f4@kernel.org>
-Date: Wed, 5 Aug 2026 14:33:51 +0200
+	dkim=pass (2048-bit key) header.d=iopsys.eu header.i=@iopsys.eu header.b="HnMDuyQ5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CyIS4oo7EveapGHM1kNjBkgR11ZWQJ8FSIBypzoqzUCMI3qluy0YjNprQQhbFZG2LQchAlYIzc8GUHm7rR7CcyUnvWJDnEEWMtMQIlG1R1dYNtMnjKiKyYdjk0eWNPWt5kwnVA2+2cLDFOlR6Xps5VD8I1Yc0CGMibq+GZbrhfHJL7L2QKNQHUUifOk5/TyvuWuigf8ztOOtlJaH1Nf7dqKgljcXT6mIE983wLOi8EOhx9ZP6P+sgYzuGrjK3Kh2P+1Z1HMSsJfcxUnALnmVnNPqtHBUvNW28YUe+T6t2sWdNde/oWV7xhv35+R3ETzpSBzQFlIsJ1a/nhQxEm2tNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fy28MP/ucktjPMZa52XCOJOaixlAbqElTFXgi9Aa9kU=;
+ b=JPCkHXi0kkvO9tENfG40Niz6JD0jvV8fvSvGvpjbR3LSNCN8pV5sx7ihADpbDGMw4fdhIdhlPlR5vfSp6OJBJRb3RKLR/KrYBdgv29g0h2+0xgW9Oo3AMdcm5ghwZIomKQekSMlP5XUpGTFPHHAzXkvJydiWzniZZOzqN4o8RE3dCQvReiAEmLXwlgCQ/OjVGxJQphUsdKDQDf0ovgk6oJjtSdABBxY74f3R3z/pSGRSkCpy21hHkQ5GjJjYZpymSFTaRY/q6S7kf1Xw6KOg4bzVwNdwTbIiDrgiA0DIw8bHW25eZE966o6r3HkPyvaD38cDH1QldL4/Uewi34rcCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=genexis.eu; dmarc=pass action=none header.from=iopsys.eu;
+ dkim=pass header.d=iopsys.eu; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iopsys.eu;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fy28MP/ucktjPMZa52XCOJOaixlAbqElTFXgi9Aa9kU=;
+ b=HnMDuyQ5DWu96x+8DvHgsuvDGG5/Fag79vdQ83VS+21W52KkX2lm8mQXUbtNLM8hNbjL1c/9FhYUIQ0Emzljbww4iC9fIMBjlCKpvH0LuKJ7ncU6UQIFcOVViwvnrQXvWvDRAfOaxF91+3uGLJqyK0hyj5xWMcmQcwj/6hw0OX8TrXQPwvXjFSLmmabD859m56nHKfl4CwPiFTRZ4dEb+wVOowDrPZtGTHOwm11/JbMIYyETD7R0AZ/AdnTau3rljPwDJWHIjbPqWUNq1p4uIVNlwnoIqeGW+JvishMrzchDl91fajme7Djpmne8bMxRpdSjBoWUIdSHnhTpdsJYdw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=iopsys.eu;
+Received: from DU2PR08MB10037.eurprd08.prod.outlook.com (2603:10a6:10:49a::20)
+ by PA6PR08MB10830.eurprd08.prod.outlook.com (2603:10a6:102:3d3::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Wed, 5 Aug
+ 2026 12:34:21 +0000
+Received: from DU2PR08MB10037.eurprd08.prod.outlook.com
+ ([fe80::3c7:6d2e:8afe:e4dc]) by DU2PR08MB10037.eurprd08.prod.outlook.com
+ ([fe80::3c7:6d2e:8afe:e4dc%5]) with mapi id 15.21.0292.013; Wed, 5 Aug 2026
+ 12:34:21 +0000
+From: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	Markus Gothe <markus.gothe@genexis.eu>,
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>,
+	Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
+Cc: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Subject: [PATCH v10 00/36] pinctrl: airoha: split on shared and SoC drivers, add more SoCs
+Date: Wed,  5 Aug 2026 15:33:32 +0300
+Message-ID: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0065.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ce::8) To DU2PR08MB10037.eurprd08.prod.outlook.com
+ (2603:10a6:10:49a::20)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: bluetooth: qca: add QCC2072
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rahul Samana <rahul.samana@oss.qualcomm.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann
- <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Bartosz Golaszewski <brgl@bgdev.pl>, linux-arm-msm@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, quic_mohamull@quicinc.com,
- quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
-References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
- <20260727-rb3-industrial-bt-uart-v2-1-2d100f30e202@oss.qualcomm.com>
- <20260731-first-righteous-bear-dd72ed@quoll>
- <712f8a14-d2a1-4a90-82f9-05cd694f2658@oss.qualcomm.com>
- <c1875dd6-fe3a-4a69-a6fd-b461c8fba6e4@kernel.org>
- <6d6465bb-47ac-464c-af4e-0ca72325705f@oss.qualcomm.com>
- <8a388310-d3cc-4d02-abb6-0eb98c24cfce@kernel.org>
- <4523441f-498a-4bbd-80f3-97a7a9206c00@oss.qualcomm.com>
- <6e0b9e79-ccd4-4689-9a6b-9b4fc556d5e4@kernel.org>
- <gfhlyvoefcsvtjuxfo75qeham272cc5g2r3npjenzs5esjifiy@ro7dtkpxwizk>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <gfhlyvoefcsvtjuxfo75qeham272cc5g2r3npjenzs5esjifiy@ro7dtkpxwizk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PR08MB10037:EE_|PA6PR08MB10830:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9072b220-9769-4cf1-2d1b-08def2eddff7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|52116014|376014|23010399003|7416014|366016|921020|38350700014|3023799007|6133799003|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	R1YOXs3cvqFt6Ve0VSzP6vZg9rMzfPeTJLT2nKUOKsfHDHO1BKI42zUUy3LhN00Ejwa5dT4XKvHlndoo+m/TLrx0SiWYsurxIbOasQmfs5eXp/RG+8GGX+q0mF7fra8cjinSSXBmJxk6c2GzPoR+4PqWrF5mGfLQZYYwodc1mA4cYOCenHISXE2AhgVxSXIZPromNMezG9JrL78Dl44qh2nir7QJBg6QwvvyeQORc+ojPIt25XGr2fJg4IcNv+YYtlPtwzvtY0wzSaJ80hHj3xy1GzN5ck8Gd4NnqhY8iOCpgFhF2X3iiImlby2HPT7ciogImA4u/Nz6qZa2A1hqFZPmYqHRvCAFdHLSy+KkSBZbG9R97BDlr70SNPSC1htJJt7o4htM09RmOkaYb7nX7GP4r19+caCb/4ALHFHGBgx15VgsNQ0s2ILe5i7A7FYoRkgMhejaiigW7oDyLoCsm3iN5/N7dQU+rD1KQ5wF8GREFnj7aG6kv4fAm2B0z9Tmg3TFJ5A0jrCsUO9RB0Yqk4rS1ZGZpn3IwJJItx2vMoJ1voxPlOWY7IQUhahz7riORm6JWq1FENaglXTInwFIlsglLeeZCYMcn+ANT7vkf4Za5hZZtclLRW+Xl+P53IoqH25UZzSXs6ZYehB9bxe7bNBo5IH9swLxmX7RACSUsDVKlQCoxPPk6A/BW4i0DEIf
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB10037.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(376014)(23010399003)(7416014)(366016)(921020)(38350700014)(3023799007)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?W0S0KptHaA2pkyMQvTdgasqJrHhNs/2bqEqqBa4Bp80a3t+oqc4OtWUWqjg2?=
+ =?us-ascii?Q?IP6gKx5+hbpF3O/H5jspKN4aewnLCjkTAyJJGvkTMrG4Acb+Q4nwHZ6ez5y9?=
+ =?us-ascii?Q?V5cyukszjpgC60fAVi2ZdWQFF2ZHOypqFinkq1Y0BKF2JZfo92pn1MEi0TbS?=
+ =?us-ascii?Q?CDgha50Zu20Ld+RunRHxvmYlhVY0g4C4PYocOvr5Xjh5jj2hVb5ZFbc60AMA?=
+ =?us-ascii?Q?9YSWMrQYqeG/ZoMeGwtlSn9oOGzd6EGaTUa4QF2ABPU13tFXzWX2rfypEY01?=
+ =?us-ascii?Q?VrmQcOwTYOw+dxSlO9IpZNWEgLr1EESvBEmg7VaHZzYDw7zSNIzHJ0Vidie2?=
+ =?us-ascii?Q?b4lGJ4ZlQSEoRtrs2E7+/b/NC/DAC5RIstROdf1s92D/6brU3yXle0I/9oGQ?=
+ =?us-ascii?Q?zL/KJgVUWTD958iGRsLc6eDsM77ZZnK8uYiORV3FHgxFwPJS6dBbBM/DVke5?=
+ =?us-ascii?Q?J/FJUW+jOOaw2K+QYTcElHm2HPYjHaceBlXsruWOBHcmL3e11Zw26mWCuINS?=
+ =?us-ascii?Q?MXsVxjNbeS8NyanKAMsY/HgqLNXbrmPFYY7Muv779uvbd+dCaay24hQ9icre?=
+ =?us-ascii?Q?7IQJDhw5j8A762va29nKUzEE7//j4tOPV/90RHjPyuWv6VxICyo/PwdwZ2Hz?=
+ =?us-ascii?Q?rRr6YOw8Lk9Pd0oP7+3c8YP0ntgfUjvqJRlvxw2Yl4yLokyfWPEHXKgAZwy4?=
+ =?us-ascii?Q?QkkhAife8EJewk4u3PmaYGhw4iutR2VQ0g5G2wTi0/A/1GQPyouMUpimsCrp?=
+ =?us-ascii?Q?oFqQSZ9OBVoWgTteUOdBWnn4n15g9O/D21Lpta/JmsPF0ghF8RZ3kMwsw9N/?=
+ =?us-ascii?Q?zTVsp5voT7CAx6RoSrN4ZUVI+WIymuMRcrzUWAjAC12PxanBGqppJ/+U+Zt1?=
+ =?us-ascii?Q?SSh72o0lYJuTo09xdFM4W1a2oTCuVDCtlbxWeNE3dsBug+MGj+/ARX3uslS8?=
+ =?us-ascii?Q?nK7WL9CATqJgTtshTeTJLOZKNqIqKkxDibNRwE+zQiVnBM0oGkzO8PR/QB0F?=
+ =?us-ascii?Q?A9w3x0NM6hTZL/EU/9ka00whc/rmj4RXREOsqBrouvHdaP2KEtUW8qqf9yx6?=
+ =?us-ascii?Q?nIHm1pJr6VSp9RTNNGRZw53liPZViSaNlpY1VEdRGbKD5U2kQRoqqwxvR6FY?=
+ =?us-ascii?Q?CA6y3yY+bRhd1lm+wjU2pMsJWK9aVUl+NbSUrygpFrwqSlSwFyUNKfQMmsJP?=
+ =?us-ascii?Q?6i7ozX3hj0lMyGv2DnyqUJRMLVkmiMXG5F1F3QnK5k1iAB8aGPQs/zUySeBC?=
+ =?us-ascii?Q?ElxLxnDuISPP4+G0yM7gpB4SAfVxfmdTKUP2goXWzbSVyBi2eSMcZaS+v+p0?=
+ =?us-ascii?Q?bS6ZkRv7QwOTwAXlLowv6K5/uAwpTaF6dg2SK8klO87KIfYw0FMTS2paZeSG?=
+ =?us-ascii?Q?mOimzNn5g2V+SKzphHp6ZqteKfAP6VWrruv5bSHdOcML3aTuCdySOipHuxp9?=
+ =?us-ascii?Q?0lkrVZIY5c6qZ2NF67Ql6O1C6cHXU0mayORzwORPoijL9lS/sRKl/6jhxvmF?=
+ =?us-ascii?Q?QDQnrT6waDKBNdsjq/kpPkDLk9OwCmr1t2jyzxUOY6hd5BICljyne+qhswmf?=
+ =?us-ascii?Q?R6xOSh3Qx8JFLKXX9Cgtiygc4+BOKCRYjHQ0e2Nn/K3QsOsJUF+TKezv5X43?=
+ =?us-ascii?Q?JZbPdATkRg/ZP79H0+RE15s9QD4y3UDJxGEraqOHD6J1hDKRm9cZKG+FvIte?=
+ =?us-ascii?Q?UTEqHVv9eVV0eze8rTKpz2xXE2svqYkKGrSZbjfVuCo5FkZJVc4WFg0OI2y7?=
+ =?us-ascii?Q?w8ZIuxwH8Zp+iX1XDZIwkKon5ttwZ3M=3D?=
+X-OriginatorOrg: iopsys.eu
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9072b220-9769-4cf1-2d1b-08def2eddff7
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR08MB10037.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 12:34:21.4940
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8d891be1-7bce-4216-9a99-bee9de02ba58
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NxqpcnBmNbnCqC15NgwHedioYrBLp/0iV3AXH26E6y0h9rV4v5T8TN5gU7u49j2nuA6K+IkAGZF+X9nPdwmPNxMA9VHRsrCQIGCh1QXbUBc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR08MB10830
 
-On 05/08/2026 14:09, Manivannan Sadhasivam wrote:
-> On Sat, Aug 01, 2026 at 05:49:53PM +0200, Krzysztof Kozlowski wrote:
->> On 01/08/2026 17:31, Rahul Samana wrote:
->>>
->>>
->>> On 01-08-2026 20:18, Krzysztof Kozlowski wrote:
->>>> On 31/07/2026 17:51, Rahul Samana wrote:
->>>>>
->>>>>
->>>>> On 31-07-2026 20:34, Krzysztof Kozlowski wrote:
->>>>>> On 31/07/2026 16:45, Rahul Samana wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 31-07-2026 15:16, Krzysztof Kozlowski wrote:
->>>>>>>> On Mon, Jul 27, 2026 at 09:15:01PM +0530, Rahul Samana wrote:
->>>>>>>>> QCC2072 can be used on M.2 E-key cards where the card power resources are
->>>>>>>>> described by the pcie-m2-e-connector node. In that setup, the M.2 power
->>>>>>>>> sequencing provider creates the Bluetooth serdev child after matching the
->>>>>>>>> QCC2072 PCI function.
->>>>>>>>>
->>>>>>>>> Integrated non-M.2 designs need board-specific power resources. Document
->>>>>>>>> only the compatible for now and leave those properties to be added with
->>>>>>>>> matching driver support.
->>>>>>>>>
->>>>>>>>> Document the qcom,qcc2072-bt compatible used for QCC2072 Bluetooth
->>>>>>>>> controllers connected over UART.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
->>>>>>>>
->>>>>>>> NAK, exactly same comments as before.
->>>>>>>>
->>>>>>>> Nothing got improved, although what is weird - original SoB is gone, so
->>>>>>>> this is legally dubious work.
->>>>>>>>
->>>>>>>> Best regards,
->>>>>>>> Krzysztof
->>>>>>>>
->>>>>>>
->>>>>>> Hi Krzysztof,
->>>>>>>
->>>>>>> Thanks for the review.
->>>>>>>
->>>>>>> For the binding contents, I tried to capture the current scope in the binding
->>>>>>> description itself. This series supports QCC2072 only as an M.2 E-key card,
->>>>>>> where the card power resources are described by the pcie-m2-e-connector node
->>>>>>> and the M.2 pwrseq provider creates the Bluetooth serdev child.
->>>>>>>
->>>>>>> The binding also says:
->>>>>>>
->>>>>>>   Integrated non-M.2 designs require board-specific power resources. Those
->>>>>>>   properties, together with a static devicetree example, should be added when
->>>>>>>   integrated non-M.2 support is added.
->>>>>>
->>>>>> Bindings must be complete and your driver support is irrelevant here.
->>>>>>
->>>>>> If you claim this is a PCI device thus you do not need any resources,
->>>>>> then the binding is not needed either. PCI devices are enumerable. And
->>>>>> to prove it: look at your DTS. Do you see qcom,qcc2072-bt being used? No.
->>>>>>
->>>>>>>
->>>>>>> We do not currently have an integrated non-M.2 QCC2072 design, so I do not
->>>>>>> have board-specific regulator supplies to document for that topology.
->>>>>>>
->>>>>>> Could you please suggest how you would prefer this binding to be handled for
->>>>>>> the current M.2-only use case? 
->>>>>>
->>>>>> Drop the binding, you do not need it.
->>>>>>
->>>>>> Anyway the problem is that more comments were ignored.
->>>>>>
->>>>>
->>>>> Hi Krzysztof,
->>>>>
->>>>> Just to clarify the reason for adding this binding in v2: 
->>>>> v1 did not add a binding because this series only targets the M.2 use case.
->>>>>
->>>>> I added the minimal binding in v2 because checkpatch reported
->>>>> qcom,qcc2072-bt as an undocumented compatible, and I interpreted the request
->>>>> to fix the checkpatch warnings as requiring this compatible to be documented.
->>>>> I also had the earlier feedback in mind, where the indirect
->>>>> qcom,qcc2072-bt compatible was pushed back because it was undocumented:
->>>>>
->>>>> https://lore.kernel.org/all/20260703-eliza_evk-v1-3-7624440bd76d@oss.qualcomm.com/
->>>>>
->>>>> Based on your clarification here, I will drop the binding patch in v3 and
->>>>> keep qcom,qcc2072-bt only as the pwrseq-created child compatible for this
->>>>> M.2 case.
->>>>
->>>> My previous statement is also valid, please read entire threads.
->>>>
->>>> You cannot have undocumented qcom,qcc2072-bt.
->>>>
->>>> I ask you to drop both, because they are not needed. But feel free to
->>>> prove me wrong, see my first paragraph in the previous reply.
->>>>
->>>>
->>> The PCIe M.2 power sequencing driver, pwrseq-pcie-m2.c, uses
->>> pwrseq_m2_pci_ids to translate the enumerated PCI function into the
->>> Bluetooth compatible used for the generated serdev child.
->>>
->>> For example, WCN7850 maps PCI ID 17cb:1107 to qcom,wcn7850-bt, then hci_qca
->>> matches that compatible to select qca_soc_data_wcn7850.
->>>
->>> For QCC2072, pwrseq-pcie-m2.c matches PCI ID 17cb:1112 and creates the
->>> generated Bluetooth serdev child with compatible "qcom,qcc2072-bt". The
->>> hci_qca driver then matches "qcom,qcc2072-bt" and uses qca_soc_data_qcc2072
->>> as the controller-specific data.
->>
->> The purpose of Devicetree is not to describe Linux internal driver
->> matching. Do not use compatibles for that.
->>
->>
->>>
->>> That match data is needed by hci_qca to select the QCC2072 soc_type,
->>> firmware/NVM naming, calibration handling, and capabilities. Without some
->>> identity being passed from the PCI match to the generated serdev child,
->>> hci_qca cannot distinguish QCC2072 from the other Qualcomm UART Bluetooth
->>> controllers on this path.
->>>
->>> Please correct me if I misunderstood the concern or if you are asking for
->>> this identity to be passed from pwrseq-pcie-m2.c to hci_qca through a
->>> different mechanism.
->>>
->>> I can drop the binding patch, but unless there is a preferred alternative
->>> mechanism, I think we still need the pwrseq-pcie-m2 QCC2072 PCI ID support
->>> from patch 3 so the power sequencing driver can pass the QCC2072 identity
->>> into hci_qca through the generated serdev child:
->>
->> You have plenty of options, starting from what is very common already -
->> driver name used by MFD or aux devices.
->>
-> 
-> It is not just a driver matching problem, but ensuring that we properly describe
-> the BT device in DT. Since the BT interface of the M.2 device is not
+This patchset
+ * fixes more airoha pinctrl issues
+ * split combined driver on common code and several SoC specific drivers
+ * improves an7583 pinctrl support
+ * adds support of en7523 SoC
+ * adds support of an7563 SoC
 
-This device does not exist in DT. This is the problem which started my
-entire investigation and above email.
+The driver split changes are based on Matheus Sampaio Queiroga work.
 
-I am happy to see proofs of it existing in DTS.
+Changes v2:
+ * more issues of airoha pinctrl driver was fixed
+ * SoC specific register addresses, bitfields, macroses were
+   removed from common header and placed to SoC specific file
+ * fixed address of LAN LED mappings registers for en7523 SoC
+ * improves support of an7583 pinctrl
 
-My proof:
-1. copy-paste the compatible (qcom,qcc2072-bt) from the binding.
-2. Open each DTS patch and look for that compatible: no results.
+Changes v3:
+ * improve searching of chip scu regmap necessary for drivers
+   operations
 
+Changes v4:
+ * an7583: add support of OLT pin function
+ * an7581: do a proper fix of pcie_reset pins mux/conf.
 
+Changes v5:
+ * improve description of an7583 i2c pinmux fix
+ * rename an7583 registers to match its an7583 names
+ * add support of an7563 SoC
 
-> discoverable, we are currently using the PCIe IDs of the M.2 device to create
-> the BT node dynamically under UART node using OF_DYNAMIC as proposed in this
-> patch which got merged already [1]. Then we also create the serdev device and
-> allow the existing BT hci_qca driver to probe and make use of the created DT
-> node.
+Changes v6:
+ * fix some of the issues found by
+   https://sashiko.dev/#/patchset/20260622113046.3619139-1-mikhail.kshevetskiy%40iopsys.eu
+ * update device tree binding
+ * add bindings for en7523 and an7563
 
-Your Linux drivers are not supposed to create internal OF for regular
-DT. Please drop that patch. I do not get why that patch was merged
-without any DT approval.
+Changes v7:
+ * a lot of IRQ support fixes, now there is chances that IRQ code is
+   really working
+ * device tree bindings moved to the separate patches
+ * fix some of the issues found by
+   https://sashiko.dev/#/patchset/20260628143733.273651-1-mikhail.kshevetskiy@iopsys.eu
 
-DT is not representation of internal device driver instantiation mechanism.
+Changes v8:
+ * an7581: fix pinconf of i2c_scl/i2c_sda pins
+ * ignore high bit in set_direction/get_direction helpers
+ * minor patch modification
+ * fix some issue found by
+   https://sashiko.dev/#/patchset/20260727074234.3761170-1-mikhail.kshevetskiy@iopsys.eu
+ * add more 'Fixes: commit' lines
+ * add Acked-by Lorenzo Bianconi where it was approved
 
-Best regards,
-Krzysztof
+Changes v9:
+ * fix some issue found by
+   https://sashiko.dev/#/message/20260727174141.664933-5-mikhail.kshevetskiy%40iopsys.eu
+ * take into account openwrt changes created by Daniel Schwierzeck
+ * improve binding patches
+
+Changes v10:
+ * fix en7523 binding issue
+ * improve a bit error handling
+
+Daniel Schwierzeck (3):
+  pinctrl: airoha: fix I2C1 pin mux config for AN7581
+  pinctrl: airoha: fix I2C pin mux config for AN7583
+  pinctrl: airoha: fix AN7583 MDIO pin mux config
+
+Mikhail Kshevetskiy (33):
+  dt-bindings: pinctrl: airoha: en7581: fix misprint in i2s function
+    name
+  dt-bindings: pinctrl: airoha: an7583: fix device tree binding schema
+  pinctrl: airoha: fix mdio bitfield names
+  pinctrl: airoha: an7581: fix pinconf of i2c_scl/i2c_sda pins
+  pinctrl: airoha: an7583: fix I2C0_SDA_PD register bit order
+  pinctrl: airoha: an7581: fix mux/conf of pcie_reset pins
+  dt-bindings: pinctrl: airoha: en7581: allow configuration of
+    pcie_reset pins as gpio or pwm
+  pinctrl: airoha: an7583: fix muxing of non-gpio default pins
+  dt-bindings: pinctrl: airoha: an7583: allow configuration of non-gpio
+    default pins as gpio and pwm
+  pinctrl: airoha: an7583: fix spi group pins
+  pinctrl: airoha: add missed get_direction() function for gpio_chip
+  pinctrl: airoha: add set_direction() helper for gpio_chip
+  pinctrl: airoha: minor improvements
+  pinctrl: airoha: fix getting gpiochip/pinctrl pointers in the IRQ
+    handling code
+  pinctrl: airoha: add missed IRQ resource helpers
+  pinctrl: airoha: fix IRQ mask/unmask code
+  pinctrl: airoha: fix edge-triggered interrupts handling
+  pinctrl: airoha: remove not needed irq_type[] array
+  pinctrl: airoha: statically allocate gpio regs structure
+  pinctrl: airoha: move common definitions to the separate header
+  pinctrl: airoha: split driver on shared code and SoC specific drivers
+  pinctrl: airoha: an7581: remove en7581 prefix from variable names
+  pinctrl: airoha: an7583: remove an7583 prefix from variable names and
+    definitions
+  pinctrl: airoha: an7583: rename registers to match its an7583 names
+  pinctrl: airoha: an7583: add support for npu_uart pinmux
+  pinctrl: airoha: an7583: add support for pon_alt pinmux
+  pinctrl: airoha: an7583: add support for olt pinmux
+  dt-bindings: pinctrl: airoha: an7583: add missed features
+  pinctrl: airoha: add support of en7523 SoC
+  pinctrl: airoha: try to find chip scu node by phandle first
+  dt-bindings: pinctrl: airoha: add support of en7523 pin controller
+  pinctrl: airoha: add support of an7563 SoC
+  dt-bindings: pinctrl: airoha: add support of an7563 pin controller
+
+ .../pinctrl/airoha,an7563-pinctrl.yaml        |  348 +++
+ .../pinctrl/airoha,an7583-pinctrl.yaml        |   59 +-
+ .../pinctrl/airoha,en7523-pinctrl.yaml        |  378 +++
+ .../pinctrl/airoha,en7581-pinctrl.yaml        |   15 +-
+ drivers/pinctrl/airoha/Kconfig                |   42 +-
+ drivers/pinctrl/airoha/Makefile               |    7 +
+ drivers/pinctrl/airoha/airoha-common.h        |  147 +
+ drivers/pinctrl/airoha/pinctrl-airoha.c       | 2664 ++---------------
+ drivers/pinctrl/airoha/pinctrl-an7563.c       | 1115 +++++++
+ drivers/pinctrl/airoha/pinctrl-an7581.c       | 1487 +++++++++
+ drivers/pinctrl/airoha/pinctrl-an7583.c       | 1517 ++++++++++
+ drivers/pinctrl/airoha/pinctrl-en7523.c       | 1157 +++++++
+ 12 files changed, 6454 insertions(+), 2482 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/airoha,an7563-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
+ create mode 100644 drivers/pinctrl/airoha/airoha-common.h
+ create mode 100644 drivers/pinctrl/airoha/pinctrl-an7563.c
+ create mode 100644 drivers/pinctrl/airoha/pinctrl-an7581.c
+ create mode 100644 drivers/pinctrl/airoha/pinctrl-an7583.c
+ create mode 100644 drivers/pinctrl/airoha/pinctrl-en7523.c
+
+-- 
+2.53.0
+
