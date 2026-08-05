@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A8E744CF59
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:01:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D9546EF92
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:01:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785934884; cv=none; b=AST2x1xqJ2ma4Ynk1qpVvftx1O8O4YSkG7eJps2ZZP4LkvNVyywlyg4O9/77spJW0fUCox+RdtLoRhZ39EUH7scuEgsiEqjgENjctmhYUVPX6XzN9xv7fD5aa8UoCXa6Jj3+zoS45Z2pFy4cNGZWJHluFStI8Urdh8mrWqpyY84=
+	t=1785934905; cv=none; b=QCZ4tJzV0n+6jQ/X1XMJ+W7++legisz/YcYKkKu0M/Dnf+/XGQIjqn698RKvykiJJPauqgEpLHm3fsyfdAK8rQjbW+EJQ9OnOuwghsxGqUCDY+Ex1Od95PVpLichWaRn06wj7OK/hMRYILWJJUpk8lzGj0LY3KM+glUVTMQHiPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785934884; c=relaxed/simple;
-	bh=pSqINmizYf8QwzgrWe2ZDf6UOCE19/4vzcN/v98BDhM=;
+	s=arc-20240116; t=1785934905; c=relaxed/simple;
+	bh=rlezwxAsSt/n9sIxHV1KIlUM40FhdP+GvFyZqumk6XA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Bdq2YOtV2vfM7DuAajVrJA9z04VgNhZCVO33z8kN9fkGrXn/7da58iKNaITM09eLUa2cW0i5iMY2fgeryQE0FGVi0Cu4O7rG3yE30clb6pwmHEfvIUAeu+hQuvstz7DiwEDNgeseR2KUtinZXH5dAabhV3av5MP3dQ1QfIPs2Lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d0spzcUm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tKxf+OPXchptS/vWdAYMxmThdB46c/2lUq49cJPcnU7oLt6SEOelssXMI3r+e+x4lWa8gL4XhBYd07SJbGlB3eOqxBDcNoBb9+RrdeJyBbb2rsWnMErLulPTGtIb92TU3IjiMyVIxRB8WF+UG3JMEGp1CWpKYOzSf0Dtx+ZG0eU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3OMT+KZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d0spzcUm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0A51F000E9;
-	Wed,  5 Aug 2026 13:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3OMT+KZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2F91F000E9;
+	Wed,  5 Aug 2026 13:01:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785934882;
-	bh=EwlJao5OOFClE1NS+goqQdPZ5VMFzqw+12Bmn9ISLbs=;
+	s=k20260515; t=1785934904;
+	bh=CjU96llk/prciewblnNRqDg8c3TdiZlDKd9p3knkfBo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d0spzcUmTYiOddivsgLX0IV7YgohqWykm4F+EzHiq8OtXp6MO9mhsS0wCi2DOs2Ud
-	 R3Xg4+ORKSlZ+0yEH9dB4oK9b2RSeXJ4yoEMBEVbdmfj+PjuTmKJsjlQf61DIdyrp/
-	 IR5EDNVHLHe9PW2ZlD+8mLH1PO+8m0LBw8jErQcTSkI9cDwF3PEaQcT5CBvv9V4yqz
-	 LXy9MWRg8boV38qB/gZHegr+wEJC5848q9IGOkiUaKutqa/3mIuG89fZskWcTNFKYn
-	 beRQCqZhXc7cxyFonAjX4r0Y3lundE6//bb1UAUSsSaai4hwGrv2jYfHSxMaWQeGa9
-	 rQXXBDXP+sEjw==
+	b=R3OMT+KZ1V3pj1RoESh+TDHYO55NWx+FS/RokveXgHMBfx20mFkO98VJ+hkIdUU3Y
+	 lXDTJ7Armrvp6hiD7+AUAp+xBlR5rqV47QIMH3I+6EU+GwAQbe+V/BMU4tA7n0Tl9Z
+	 KkYW0LEWjN7lHJupQ/XqkfnSFvOf++iIksRGMdc9qZe+CVzn//bAhzAUEhIqaMLdCP
+	 fH69S20E7lZFAxIB5ZuC0VPW7vngaGN1ypSv5sCenE+zTt554tJ212dZaJavHF/L9P
+	 H78IGP9s11mqRYzbnt98rO30GSOfOctoZ2WDaRmwSK3h4tP82X3aHBNFIV2KfCQEV3
+	 M1zDD0Oe0W6Wg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 18/36] pinctrl: airoha: add missed IRQ resource
- helpers
+Subject: Re: [PATCH v10 06/36] pinctrl: airoha: an7581: fix mux/conf of
+ pcie_reset pins
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260805123408.3767648-19-mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260805123408.3767648-7-mikhail.kshevetskiy@iopsys.eu>
 References: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
- <20260805123408.3767648-19-mikhail.kshevetskiy@iopsys.eu>
+ <20260805123408.3767648-7-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 13:01:21 +0000
-Message-Id: <20260805130121.8C0A51F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 13:01:43 +0000
+Message-Id: <20260805130143.DF2F91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,76 +47,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] The immutable irqchip lacks required calls to `gpiochip_enable_irq=
-()` and `gpiochip_disable_irq()`, breaking pin direction locking.
-
-Pre-existing issues:
-- [High] The custom IRQ handler acknowledges interrupts after executing gen=
-eric_handle_irq(), which can cause lost edge interrupts.
+- [Medium] Missing DT Binding Update for new pinmux function and groups.
+- [Low] Unused macro AIROHA_PINCTRL_GPIO.
 --
 
---- Patch [18]: [PATCH v10 18/36] pinctrl: airoha: add missed IRQ resource =
-helpers ---
-commit 8b10735b561d072460bc6ee2cdf58e36ca203f47
+--- Patch [6]: [PATCH v10 06/36] pinctrl: airoha: an7581: fix mux/conf of p=
+cie_reset pins ---
+commit 54ed88634fb21e810e128e4d6842ad8043183d6b
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: add missed IRQ resource helpers
+pinctrl: airoha: an7581: fix mux/conf of pcie_reset pins
 
-Without hooking .irq_request_resources, gpiolib cannot set
-GPIOD_FLAG_USED_AS_IRQ. This breaks pin direction locking and can allow
-userspace or another driver to reconfigure an active IRQ pin as an output.
+This commit fixes the pin numbering for pcie_reset pins, adjusting them
+from 61-63 to 60-62. It also introduces proper pinmux implementations for
+setting pcie_reset pins as GPIOs or PWM.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
 roha/pinctrl-airoha.c
-> index 9b880fd20a1a0..f3078f9b14a76 100644
+> index ffbc7b3c61812..4be694b8ea778 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -2689,6 +2689,7 @@ static const struct irq_chip airoha_gpio_irq_chip =
-=3D {
->  	.irq_mask_ack =3D airoha_irq_mask,
->  	.irq_set_type =3D airoha_irq_type,
->  	.flags =3D IRQCHIP_SET_TYPE_MASKED | IRQCHIP_IMMUTABLE,
-> +	GPIOCHIP_IRQ_RESOURCE_HELPERS,
+[ ... ]
+> @@ -907,7 +914,8 @@ static const char *const pwm_groups[] =3D { "gpio0", =
+"gpio1",
+>  					  "gpio40", "gpio41",
+>  					  "gpio42", "gpio43",
+>  					  "gpio44", "gpio45",
+> -					  "gpio46" };
+> +					  "gpio46", "gpio47",
+> +					  "gpio48", "gpio49" };
 
-[Severity: High]
-Does adding GPIOCHIP_IRQ_RESOURCE_HELPERS to an immutable irq_chip require
-adding calls to gpiochip_enable_irq() and gpiochip_disable_irq() to the
-unmask and mask callbacks?
+[Severity: Medium]
+Does adding the new gpio47, gpio48 and gpio49 groups to the pwm function
+without updating the device tree binding schema cause dtbs_check validation
+errors?
 
-When .irq_request_resources runs, gpiolib locks the IRQ and sets
-GPIOD_FLAG_IRQ_IS_ENABLED. Because airoha_irq_mask() doesn't call
-gpiochip_disable_irq(), this flag is never cleared. Any attempt to set the
-pin to output while masked will fail with -EIO in gpiod_direction_output().
-
-Should airoha_irq_unmask() call gpiochip_enable_irq(gc, data->hwirq) and
-airoha_irq_mask() call gpiochip_disable_irq(gc, data->hwirq) to properly
-notify gpiolib of the IRQ state?
-
+[ ... ]
+> @@ -1406,6 +1414,45 @@ static const struct airoha_pinctrl_func_group pnan=
+d_func_group[] =3D {
+>  	},
 >  };
 > =20
->  static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
+> +#define AIROHA_PINCTRL_GPIO(gpio, mux_val)			\
+> +	{							\
+> +		.name =3D (gpio),					\
+> +		.regmap[0] =3D {					\
+> +			AIROHA_FUNC_MUX,			\
+> +			REG_GPIO_PON_MODE,			\
+> +			(mux_val),				\
+> +			(mux_val)				\
+> +		},						\
+> +		.regmap_size =3D 1,				\
+> +	}
 
-[Severity: High]
-This is a pre-existing issue, but can acknowledging the interrupt after
-executing generic_handle_irq() cause lost edge interrupts?
+[Severity: Low]
+Is this macro needed? It appears AIROHA_PINCTRL_GPIO is never used in the
+driver, as all configurations rely on the AIROHA_PINCTRL_GPIO_EXT macro
+instead.
 
-Looking at airoha_irq_handler() in the same file:
+[ ... ]
+> @@ -1804,6 +1875,7 @@ static const struct airoha_pinctrl_func en7581_pinc=
+trl_funcs[] =3D {
+>  	PINCTRL_FUNC_DESC("i2s", i2s),
+>  	PINCTRL_FUNC_DESC("emmc", emmc),
+>  	PINCTRL_FUNC_DESC("pnand", pnand),
+> +	PINCTRL_FUNC_DESC("gpio", gpio),
 
-			generic_handle_irq(irq_find_mapping(girq->domain,
-							    offset));
-			regmap_write(pinctrl->regmap,
-				     pinctrl->gpiochip.status[i], BIT(irq));
-
-If a new edge arrives and latches in the hardware register while the action
-executes in generic_handle_irq(), writing BIT(irq) to the W1C status
-register afterwards will clear the newly latched edge without it ever being
-handled.
-
-Is it possible to clear the interrupt status bit before calling
-generic_handle_irq() to avoid missing edge interrupts?
+[Severity: Medium]
+Are there corresponding schema updates in the yaml for the newly introduced
+gpio function? Without them, a user configuring the gpio function in their
+board's device tree might encounter schema validation errors.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805123408.3767=
-648-1-mikhail.kshevetskiy@iopsys.eu?part=3D18
+648-1-mikhail.kshevetskiy@iopsys.eu?part=3D6
