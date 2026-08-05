@@ -1,186 +1,117 @@
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com [95.215.58.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08443E5A18
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:00:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627A93E5A18;
+	Wed,  5 Aug 2026 08:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785916824; cv=none; b=hh3xJOIDzt2X6edKyqlPsBwsfzwbisqcAz7uwRHM+HNOmrnqUeGBVnPQ98VL5XBReD5aESDmq3ezzZVW8naU67HdMfwenClhsO8+jE6x8Z7424rtp8ntWQ2hjQojOKugvYibJxRL32vOgtS+7G3b9gwfVskguPhfynTNoaR/ziM=
+	t=1785916941; cv=none; b=UgSpL+yJUs7Iv8Phw6LPk23JXOOSAhAeMvKhOeAcVUOoemT5l4lqcEE8oZGZqdilIKd4UVCOJBvu+qoQmWbWAXiCRbJodhyaNQyqCoi85AqOmtoTPWrlRk3aFgXW83LidaBR6Rjlflh24ydSzWUxZQkAOJnTrWSJsQ3MteabVZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785916824; c=relaxed/simple;
-	bh=DghxUaFEo4H5drbY0nnJ1+G88E7CNu0hlkt7vJw4M2w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Fmcj3qhVPLWVujy3EJ9SE25Lnj4LRIAFyBYKXqKx1eP5OxxdCGgP9u1oxPUItr1K0HXMZ/MqyKVJFJusgzr796NgdYXxMEs2wuY2pRVxv3aMeXMuuYr68cQk2l0rlzYCG3PEG+jMr9y2uiUexuk3fZomITlK5mT/2fUAGwkoAO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WcAGkTiL; arc=none smtp.client-ip=95.215.58.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785916941; c=relaxed/simple;
+	bh=C0k8nUNIRw4/3PoE2W0aySyjvDoWX9Yc2MyrvV1sdPY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jDm7JbM8Dx/ypYoDxZNgFu0IQxoVlwdy87PCubEE45iLMXRhZwHMK3Ee9AnKMcsP4W+7niD5DRWQ9jIezzgQP2EdPLqZPUXCLGUdmgj2w491fnlcrzu014YDJv6IeyP21w0nJ8uZ2nn3FRJR3EsPsO+R+/CRDmqUrkIB1P6C1I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGLryr5W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WcAGkTiL"
-Message-ID: <920aee80-5297-4d70-a1ea-616976db7f70@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785916819;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=db+v0NPIIndwhHMGIyL/nfOie4gWWsSLJbxQZ/GJglw=;
-	b=WcAGkTiLyA/FOQnCkP705/KPLwXshGh5+z9mBuv6t97IY7n5FtK+a0rGEXw9mvzc/LMO0t
-	YkSKmqCCvu4J//sHlBq/n/KtKAvRPzLH6nDJx+IgjxuEj1IjBqbwH9T/kmrywRIdrcsyov
-	lsStOIycl8jtq/nhm92s03Bq1YXmn/Q=
-Date: Wed, 5 Aug 2026 00:59:45 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGLryr5W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518B11F000E9;
+	Wed,  5 Aug 2026 08:02:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785916940;
+	bh=JC65InYj8KbV2CrHmnR4m698DeAn/dF6O3JG3/Acri8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TGLryr5W/Q/JR4AgSJz9/RoQJDiNTVL59NXQqvxvTP1uUmsX/9Tr1CBFTvTrX+/ss
+	 gVTobmyCvqJ9zgQHHou1yBsi1fxqZEzhOPzeDRWphlJgnAncW2Zza90uv1xJeW9B51
+	 Lr2rleoQ7xrQe2pS6Y76Mqcfp1fUdJRcL3FUDJL8NQ0Q65pc1OznI/iSLwnaYAVBT+
+	 jjA6gS0o3OQW04WXN5QuUZF7iDmMpxjbq1Odx2GJSSohF0mgbjhaMFwhEZ43Prb8Vr
+	 M53/6uthWpQfV6a/Z/RjaaZqDln6/1aI54tHOQXDPfJqybpJ/rt820L5WddsJYSEq/
+	 FLRm1jAmjVUOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v33 6/7] arm64: dts: imx8ulp: add secure enclave node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260805-imx-se-if-v33-6-212e32ff0295@nxp.com>
+References: <20260805-imx-se-if-v33-0-212e32ff0295@nxp.com>
+ <20260805-imx-se-if-v33-6-212e32ff0295@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 08:02:18 +0000
+Message-Id: <20260805080219.518B11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH v8 05/22] RISC-V: Define indirect CSR access helpers
-To: Paul Walmsley <pjw@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rob Herring <robh@kernel.org>, Anup Patel <anup@brainfault.org>,
- Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Ian Rogers <irogers@google.com>,
- Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>,
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
-References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-5-7909f863a645@meta.com>
- <1b20aa77-0f0f-08c7-9439-972983adf709@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <1b20aa77-0f0f-08c7-9439-972983adf709@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
 
-On 8/4/26 5:39 PM, Paul Walmsley wrote:
-> On Wed, 1 Jul 2026, Atish Patra wrote:
-> 
->> From: Atish Patra <atishp@rivosinc.com>
->>
->> The indirect CSR requires multiple instructions to read/write CSR.
->> Add a few helper functions for ease of usage.
->>
->> Signed-off-by: Atish Patra <atishp@rivosinc.com>
-> 
-> Thanks.  These macros seem better implemented as static inline functions.
-> That also nicely aligns the code with what you write in the patch
-> description.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The commit message instructs boards to include `imx8ulp-firmware=
+.dtsi` to provide the `memory-region` and enable the secure enclave, but th=
+is file is completely missing from the patch series and source tree.
+- [Low] The newly added `hsm0: secure-enclave` node lacks the `memory-regio=
+n` property, which will cause `dtbs_check` validation errors for all boards=
+ that include this SoC dtsi but do not explicitly provide it.
+--
 
-I don't think inlining these macros in the following way will work 
-because of the following reason. It won't build once anything calls it.
+--- Patch [6]: [PATCH v33 6/7] arm64: dts: imx8ulp: add secure enclave node=
+ ---
+commit 16318bc9e2bce734d6b1cf3cd835e37f3629b093
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-csr_read()/csr_write() stringify the CSR argument straight into the 
-inline asm template:
+arm64: dts: imx8ulp: add secure enclave node
 
-#define csr_read(csr)                                         \
-({                                                            \
-       register unsigned long __v;                             \
-       __asm__ __volatile__ ("csrr %0, " __ASM_STR(csr)        \
-                             : "=r" (__v) :                    \
-                             : "memory");                      \
-       __v;                                                    \
-})
+This commit adds the EdgeLock Enclave (ELE) secure-enclave node to the
+i.MX8ULP SoC dtsi. The node is kept disabled by default to avoid imposing
+reserved-memory requirements on all boards.
 
-so the CSR operand has to be a literal token. With iregcsr as a function
-parameter the template becomes "csrr %0, iregcsr", which will result in 
-the following compilation error
+> Keep the node disabled in the SoC dtsi so it does not impose a
+> reserved-memory requirement on every board. Boards enable the enclave and
+> provide its memory-region by including imx8ulp-firmware.dtsi.
 
-Error: unknown CSR `iregcsr'
+[Severity: Medium]
+The commit message states that boards should include imx8ulp-firmware.dtsi
+to provide the memory-region and enable the enclave, but is this file
+missing from the patch series and the source tree?
 
-The patch description should be fixed to indicate that these are macros.>
-> Also, I renamed this file to change the abbreviation "ind" to "indirect",
-> along the lines of this feedback here:
-> 
->     https://lore.kernel.org/linux-riscv/CAHk-=whhSLGZAx3N5jJpb4GLFDqH_QvS07D+6BnkPWmCEzTAgw@mail.gmail.com/
-> 
-> This case is even worse since there are already uses of "csr_index" in
-> the codebase, so it's even more unclear what "ind" is supposed to mean.
-> 
+It doesn't seem to be present, which might prevent boards from actually
+following this procedure to enable the enclave.
 
-Agreed on the expanding the abbreviation part and we should change it.
+> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi b/arch/arm64/boot=
+/dts/freescale/imx8ulp.dtsi
+> index c6d1bb9edf388..38233dd74ee33 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
 
-> Updated patch follows.  Please let me know if you have any objections,
-> 
-> 
-> - Paul
-> 
-> From: Atish Patra <atishp@rivosinc.com>
-> 
-> RISC-V: Define indirect CSR access helpers
-> 
-> The indirect CSR requires multiple instructions to read/write CSR.
-> Add a few helper functions for ease of usage.
-> 
-> Signed-off-by: Atish Patra <atishp@rivosinc.com>
-> Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-> Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-> Link: https://patch.msgid.link/20260701-counter_delegation-v8-5-7909f863a645@meta.com
-> [pjw@kernel.org: expand "ind" abbreviation; use static inline functions rather than macros]
-> Signed-off-by: Paul Walmsley <pjw@kernel.org>
-> ---
->   arch/riscv/include/asm/csr_indirect.h | 51 +++++++++++++++++++++++++++
->   1 file changed, 51 insertions(+)
->   create mode 100644 arch/riscv/include/asm/csr_indirect.h
-> 
-> diff --git a/arch/riscv/include/asm/csr_indirect.h b/arch/riscv/include/asm/csr_indirect.h
-> new file mode 100644
-> index 000000000000..3cd6a9059455
-> --- /dev/null
-> +++ b/arch/riscv/include/asm/csr_indirect.h
-> @@ -0,0 +1,51 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#ifndef _ASM_RISCV_CSR_INDIRECT_H
-> +#define _ASM_RISCV_CSR_INDIRECT_H
-> +
-> +#include <linux/types.h>
-> +#include <linux/irqflags.h>
-> +
-> +#include <asm/csr.h>
-> +
-> +static inline unsigned long csr_indirect_read(u16 iregcsr, u32 iselbase, u32 iseloff)
-> +{
-> +	unsigned long __value = 0;
-> +	unsigned long __flags;
-> +
-> +	local_irq_save(__flags);
-> +	csr_write(CSR_ISELECT, iselbase + iseloff);
-> +	__value = csr_read(iregcsr);
-> +	local_irq_restore(__flags);
-> +
-> +	return __value;
-> +}
-> +
-> +static inline void csr_indirect_write(u16 iregcsr, u32 iselbase, u32 iseloff, unsigned long value)
-> +{
-> +	unsigned long __flags;
-> +
-> +	local_irq_save(__flags);
-> +	csr_write(CSR_ISELECT, iselbase + iseloff);
-> +	csr_write(iregcsr, (value));
-> +	local_irq_restore(__flags);
-> +}
-> +
-> +static inline unsigned long csr_indirect_warl(u16 iregcsr, u32 iselbase, u32 iseloff,
-> +					      unsigned long warl_val)
-> +{
-> +	unsigned long __old_val = 0, __value = 0;
-> +	unsigned long __flags;
-> +
-> +	local_irq_save(__flags);
-> +	csr_write(CSR_ISELECT, iselbase + iseloff);
-> +	__old_val = csr_read(iregcsr);
-> +	csr_write(iregcsr, warl_val);
-> +	__value = csr_read(iregcsr);
-> +	csr_write(iregcsr, __old_val);
-> +	local_irq_restore(__flags);
-> +
-> +	return __value;
-> +}
-> +
-> +#endif
+[ ... ]
 
+> @@ -185,6 +185,14 @@ scmi_sensor: protocol@15 {
+>  				#thermal-sensor-cells =3D <1>;
+>  			};
+>  		};
+> +
+> +		hsm0: secure-enclave {
+> +			compatible =3D "fsl,imx8ulp-se-ele-hsm";
+> +			mbox-names =3D "tx", "rx";
+> +			mboxes =3D <&s4muap 0 0>, <&s4muap 1 0>;
+> +			sram =3D <&sram0>;
+> +			status =3D "disabled";
+> +		};
+>  	};
+> =20
+>  	cm33: remoteproc-cm33 {
+
+[Severity: Low]
+Will this incomplete hsm0 node trigger dtbs_check validation errors?
+
+The fsl,imx-se.yaml schema strictly requires a memory-region property for
+the fsl,imx8ulp-se-ele-hsm compatible.
+
+Since dt-validate evaluates all nodes, including those with
+status =3D "disabled", it appears any board including imx8ulp.dtsi that does
+not explicitly supply a memory-region for this node will fail schema
+validation.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-imx-se-if-=
+v33-0-212e32ff0295@nxp.com?part=3D6
