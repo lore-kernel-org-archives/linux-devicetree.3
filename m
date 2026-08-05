@@ -1,63 +1,63 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2713ED109
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:55:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3353F0A9F
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785920150; cv=none; b=u163/01FZPV7NNdfs0Itctn/oAj23kmK7Ec+S8RgPGg5FFPxj130UD3AhpsO1lMgBY+XvE/usUMCppMSloY+cbpcbuMoPpOS2J9sq3J8b/fTAoqxY2cCL20i+H3n0SMssoqhI9+9aZcJ6ZbWonviZ+SeeZa2y28K+tNBroijX8E=
+	t=1785920153; cv=none; b=R5KVgHJcbeobnp5+PVTZv0oNV3ocBrQK6rAt2DUuPrMLXSYohJWhNOVgrNcmYaGTJqrYaDrXYLOn/vMG7YzeDuJE3tpQPcGirWf4kYL4HZlnwXjaY1lS1KlZW8PoIUDF1gmDiAw4hPjGnv7CERjwnYKul9cttohzrAR67KqYhlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785920150; c=relaxed/simple;
-	bh=O872SQ79TPMDbksJwVaEBXDu7e4HtwncX9MRzGeVkKE=;
+	s=arc-20240116; t=1785920153; c=relaxed/simple;
+	bh=tW0EEJSP2N/OF34pPwZQzNlQQa+xvGi3pOcQDAS153k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jHuO8y/3my5WAY6sh/+5kBF03i7zh1yfvpwR3t7V92NmMWK1qoSpMyW87N9UBlwoCWWiQcYDGKIOz0rk8tWVr9ITkygr5Ca0GIsHUjw+FANpaMSDVhJEv0dCYRIRSSvsNhHOicz+37YoANxwFi02WQ1HFdtb4SWRGlG/LS+YTfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aZ3ZeiUr; arc=none smtp.client-ip=209.85.208.182
+	 MIME-Version; b=iNXnZPjiJCn/exObxDya+Umybaf7XS6FHKPmkBSUp+VPzCNKT8t34nsRnhgA7jzgMoziMNMhDDGOIjrk29s1xU3I5bLn06wg3zPpYNph+mHPfN6vqIw5Reaf5tJdWDkNT/TdEPv779fUgbFhaVNufY7ILLSBbrruxajtDEsIf4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IN/TvN+N; arc=none smtp.client-ip=209.85.208.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aZ3ZeiUr"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c9a3acd40so6189291fa.3
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 01:55:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IN/TvN+N"
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-39c7fd21b63so6654801fa.0
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 01:55:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785920147; x=1786524947; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785920148; x=1786524948; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=atrTTnzv9w0bdiLK/lrbhOGNem1ngbHriUvHl3btaxg=;
-        b=aZ3ZeiUrNaiB4Ao6BCd0nndUxmqM3kET782Q7QWSDPuoyPfYJAUsKqd3tRPov2stAr
-         IIMVWMcIeDtyBoWMZ0WAgRx20NafsI5MfPY6YH3LgV99CFXwGSwjB5QSxSYVqYakjAlz
-         nueQp2maFuXBuWr+kOCrPyD3oGfLsh5CL3S3JAspsHQaE9eEngMgdKnr1+clL4cWWDKb
-         Z0oA+8wMFf6YcKNEJvTAB8UZNN7rBQ6PGjjfRJUj+32yN3N85Gv5CNUCmB9aApToj5nD
-         KSu9SGZAqDyTXZ3yBjvrtgUktImMaQH32BjDH55kKmlA+FY4Utm8h28cSfAfS9SKTMBe
-         QtQQ==
+        bh=cns2KhFhDqqBRLDrpH3IaGsRhRYYC7RxIFB7fl+1dVA=;
+        b=IN/TvN+NXiXQzjsqsDjMhAmh7uG+RdKsxGB6JhWkYzuwvlIeZHTsM05K1X/RDNQe1T
+         7gOrYyIdVRvxRoaqaQLrvBrA/AXyfXjH/Az9UmpO/7lYMdQKUIxhUH46X/0BcZxd1XNy
+         ypTtVjRSP28UDgNA/ySuEaBIcy0ooEGMJ+gIPsIGWxUlXjnCXRZRUB8xZ0HaOCXidunw
+         b9BzDmlALjZVV6EV47oWRLWpZS16ZrMOQRUuusLAwZZRSTmAOdk7FBV1xJKQW/JcXRN5
+         XPdYsDx//cFYWVRjTXUUdWPiRo+P0XvQhNj4IFP7sqBSwzVS8jhnhMf4Qb+RrgGqiqKT
+         W89g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785920147; x=1786524947;
+        d=1e100.net; s=20251104; t=1785920148; x=1786524948;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=atrTTnzv9w0bdiLK/lrbhOGNem1ngbHriUvHl3btaxg=;
-        b=BbKUN45XK6w3XNTdKJ7fI9+G8Cq0zTh4A5qgT+3pRmq23XR9fhQrSNKoafGGQi+fJ5
-         VAhO//w6bYb5XO/+SkXuqjOB7EjAtvj7hhK7j+8x601zFXspWVmCVkb2RTH2h2bjvUqD
-         CA8BDVcBfwJoqXKfR0bUlk3/KSeX4ul7kdwRyuGhnEn87nSSv9TVxIh7FnvwVGh4UV2a
-         zWsN8lVpjo4h1jeLnIemNjIDmo4WrIC1pKBHI1zMRaTHdJ7/t8hzOya57a0QYxRHy/gI
-         t+3s9T+Fg/I8o0SKQ+lBV8ZdYoOr8E/QrbMGzGLdlq5r5KNht/cp+S8jwat/SpTVhT6S
-         085A==
-X-Forwarded-Encrypted: i=1; AHgh+Ro6rtENSq7DDrjuXW/x6S2m7+h2w9dJSumArtJqsZpftxi2mulH8JSg76uTbpXSmEEvPsZOCRhK256C@vger.kernel.org
-X-Gm-Message-State: AOJu0YyOZCBY+UhWkvmm0qS+ly1QiyTsP6kS3uax6jQEHNFn0E8fvF8w
-	k5SL0U4PbNrH9VIb76ZP7yVyR1f4vCxqG54zed86lZq79OgKwCoraIkE
-X-Gm-Gg: AR+sD12k1SLkHlzpsnhK/kT9I2daFrhvcyMGaQzowsPssZI/uGDmvUDlxfMpNYxhlcf
-	d1E+KeUor7SrUfr1iFRR3P9iugJlu77Ergclt2jp0t9LqLYLRm0Pk8CwThPkZPZqt/fsMTtfNkt
-	QlmP6HPoZT88BYrRrFDw4na2mI1yAA2LatDLk4t1YfYpUgd8bI0ICK5YbrSwL/3a0PUWndPqU+m
-	9Dv1/ZkRVx/BG9d0ddPBaQTMTXLXqka+l6XXweSUw27WR8WrDVAWxlI+U3opdeaPiDe8X2ykPg0
-	0C09W9zIabbCVGIAHKn4Wad8p10BPn7ZMz05l+TBNfTPmI/Y+h0YdpiVfSDsba464NoCM/bpON3
-	y11IWieNFcUpxxK4AeBBk/E1+Ml5T12onZ+UOOk7xS2HdMNyZLqVWzYn71DW6yN7NwcDtY+BydP
-	a7p6J7GatRo71ySptRB1l/FqSFnSsI9ySWQEs4rg2RLE45Wn9WtO7Au+z2V46z7XrriloGfBze
-X-Received: by 2002:a05:651c:515:b0:39c:628c:15ec with SMTP id 38308e7fff4ca-39fbb20370cmr5409241fa.23.1785920146437;
-        Wed, 05 Aug 2026 01:55:46 -0700 (PDT)
+        bh=cns2KhFhDqqBRLDrpH3IaGsRhRYYC7RxIFB7fl+1dVA=;
+        b=p+dqLqlHTZlpdx2BzuY3pdBhA7VfAPdujbBS6z+6iks+akJIj/9Jv8YvV1MAGkjrM4
+         hMJ/jaqguUKdBDwk7BEQJFAnM4+1flsnQIKQTrqEQTdbPiako9xRgX43CxAP6ldZE27q
+         RkrKKsIr+OhBPww3uRYgVK8eb+4K3tzBk6odIcHqs2UuUqiqeQFaJxuxjKJ8sj89eAFZ
+         26qRvLS93ERqlKNmMOxzrjbiBfAECWPIn1NTkzn6CtblE7179/TPo8CA2EdBhrA9z4Ua
+         VaEvOgUTpWinX1YJN9Bze95Xbik0ySCc2fDr961dWmZVaaJJLBz2/jGpGqBve12LxJXS
+         9DNQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpwmg8nEgzl5OPUj60SjUiF/T9l51+kpMA5Ccb+Y8f/IiWFb2M+ljd5zJxKEyAaQzvJAN7WkMNdJPlg@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywh84rKN9obETgRClFuZHNSDj+PKw1wRHZJ3X1T6Z8QJ+VodcNA
+	RDKMpO8cVnxTCRUYoypuPD2PORy+u13p1bY+A1/vdfh5NTX6nkdu7QAA
+X-Gm-Gg: AR+sD13hS3rRbCZXZZbkiU73EFPTZZ4d8lggKGfMBEz0EgnKEZFXNIUjQT+wGwKeENR
+	dVDcmrshA6tcAA+VrCnqwehubRFz8eKgEg02amYRxFLCtKl9DR3dC7GmU/dRvRzOfgsi/5zk2/p
+	5IrV6RG7DY5ZDyiLpx3ewYYfvKu7Aq0++CJ9K3vmKYCD1q6fKVas0s/ctPkWpDLTVrTpFrVj+R2
+	JmXqZyIEp6+tBiY9F67X4IaI/EPg7Of5ANNbZxDegYJchv86+TODLJ7uP/PVEMsvu009wS3QNzc
+	fBELQQHnQFeO4o7jaBKUg9Y0xDFCgIUL2OGfgGuX8Xedy+l+kB87MTxCeNsAn0SADmtitDHtYrY
+	xMJW7YJ/Ge0euon4umX1DqryUobuQ8lc+abs1hzWyQf0g9hHZsNFRVGzNMf0VjbKR78OVBp9To1
+	1ksYXLK8dT+M3SDB94NZPgaFidyHRPRBTaiuHRw2V1BZ4X7ogBHatZk76241cP3g==
+X-Received: by 2002:a2e:bc07:0:b0:39f:b9d8:b502 with SMTP id 38308e7fff4ca-39fbae27ef5mr6015241fa.7.1785920147852;
+        Wed, 05 Aug 2026 01:55:47 -0700 (PDT)
 Received: from NB-6746.. ([188.243.183.76])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39fb9a152aasm7470471fa.21.2026.08.05.01.55.45
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39fb9a152aasm7470471fa.21.2026.08.05.01.55.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 01:55:46 -0700 (PDT)
+        Wed, 05 Aug 2026 01:55:47 -0700 (PDT)
 From: Artem Shimko <a.shimko.dev@gmail.com>
 To: netdev@vger.kernel.org,
 	Andrew Lunn <andrew@lunn.ch>,
@@ -74,9 +74,9 @@ To: netdev@vger.kernel.org,
 Cc: Artem Shimko <a.shimko.dev@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH net-next v6 2/3] dt-bindings: net: add DAPU Telecom DAP8211R(I) PHY binding
-Date: Wed,  5 Aug 2026 11:55:39 +0300
-Message-ID: <20260805085540.452260-3-a.shimko.dev@gmail.com>
+Subject: [PATCH net-next v6 3/3] net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+Date: Wed,  5 Aug 2026 11:55:40 +0300
+Message-ID: <20260805085540.452260-4-a.shimko.dev@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260805085540.452260-1-a.shimko.dev@gmail.com>
 References: <20260805085540.452260-1-a.shimko.dev@gmail.com>
@@ -88,86 +88,282 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add device tree binding documentation for the DAPU Telecom DAP8211R(I)
-Gigabit Ethernet PHY.
+Add a new PHY driver for the DAPU Telecom DAP8211R(I) Gigabit
+Ethernet PHY, which is commonly used in enterprise and industrial
+networking applications.
 
-The PHY supports TX and RX clock delays in 150 ps steps from 0 to 2250 ps,
-with a default of 1950 ps if not specified.
+The driver implements extended register access via indirect addressing
+through corresponding registers, and provides comprehensive device tree
+support for RGMII delay configuration. The rx-internal-delay-ps and
+tx-internal-delay-ps properties allow precise tuning of clock delays in
+150 ps steps from 0 to 2250 ps.
 
 Signed-off-by: Artem Shimko <a.shimko.dev@gmail.com>
 ---
- .../bindings/net/dptel,dap8211r.yaml          | 62 +++++++++++++++++++
- 1 file changed, 62 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
+ drivers/net/phy/Kconfig    |   9 ++
+ drivers/net/phy/Makefile   |   1 +
+ drivers/net/phy/dap8211r.c | 220 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 230 insertions(+)
+ create mode 100644 drivers/net/phy/dap8211r.c
 
-diff --git a/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml b/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
+diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
+index 099f25dceabb..395bcd35bffa 100644
+--- a/drivers/net/phy/Kconfig
++++ b/drivers/net/phy/Kconfig
+@@ -232,6 +232,15 @@ config CORTINA_PHY
+ 	help
+ 	  Currently supports the CS4340 phy.
+ 
++config DAP8211R_PHY
++	tristate "DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY"
++	depends on OF
++	help
++	  Support for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
++	  This PHY is designed for enterprise and industrial networking
++	  applications, supporting 10/100/1000 Mbps operation. Supports
++	  RGMII interface with configurable TX/RX clock delays.
++
+ config DAVICOM_PHY
+ 	tristate "Davicom PHYs"
+ 	help
+diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
+index de660ae94945..c72f7730e25d 100644
+--- a/drivers/net/phy/Makefile
++++ b/drivers/net/phy/Makefile
+@@ -52,6 +52,7 @@ obj-$(CONFIG_BCM_NET_PHYPTP)	+= bcm-phy-ptp.o
+ obj-$(CONFIG_BROADCOM_PHY)	+= broadcom.o
+ obj-$(CONFIG_CICADA_PHY)	+= cicada.o
+ obj-$(CONFIG_CORTINA_PHY)	+= cortina.o
++obj-$(CONFIG_DAP8211R_PHY)	+= dap8211r.o
+ obj-$(CONFIG_DAVICOM_PHY)	+= davicom.o
+ obj-$(CONFIG_DP83640_PHY)	+= dp83640.o
+ obj-$(CONFIG_DP83822_PHY)	+= dp83822.o
+diff --git a/drivers/net/phy/dap8211r.c b/drivers/net/phy/dap8211r.c
 new file mode 100644
-index 000000000000..4cd0f9730d95
+index 000000000000..0bf770f8ebbb
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/dptel,dap8211r.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/net/phy/dap8211r.c
+@@ -0,0 +1,220 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Driver for the DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY.
++ *
++ * Specifications:
++ *   - IEEE 802.3 10BASE-Te, 100BASE-TX, 1000BASE-T
++ *   - IEEE 802.3az-2010 Energy Efficient Ethernet
++ *   - IEEE 1588 SyncE support
++ *   - RGMII
++ *
++ * Author: Artem Shimko <a.shimko.dev@gmail.com>
++ */
 +
-+title: DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY
++#include <linux/bitfield.h>
++#include <linux/errno.h>
++#include <linux/ethtool.h>
++#include <linux/kernel.h>
++#include <linux/iopoll.h>
++#include <linux/mii.h>
++#include <linux/module.h>
++#include <linux/netdevice.h>
++#include <linux/phy.h>
 +
-+maintainers:
-+  - Artem Shimko <a.shimko.dev@gmail.com>
++#define DAP8211R_PHY_ID			0x0008011B
++#define DAP8211R_PHY_ID_MASK		0xFFFFFFFF
 +
-+description: |
-+  The DAP8211R(I) is a Gigabit Ethernet PHY with RGMII interface,
-+  supporting IEEE 802.3az Energy Efficient Ethernet, IEEE 1588 SyncE,
-+  and an internal packet generator for diagnostics.
++#define DAP8211R_EXT_ADD		0x1E
++#define DAP8211R_EXT_DATA		0x1F
 +
-+  Specifications:
-+    - 10BASE-Te, 100BASE-TX, 1000BASE-T
-+    - RGMII with configurable TX/RX clock delays (150 ps steps, 0-2250 ps)
-+    - IEEE 802.3az-2010 Energy Efficient Ethernet
-+    - IEEE 1588 SyncE support
-+    - Internal packet generator and checker for link diagnostics
++#define DAP8211R_PHY_CON		0xA001
++#define DAP8211R_PHY_SW_RST		BIT(15)
 +
-+allOf:
-+  - $ref: ethernet-phy.yaml#
++#define DAP8211R_RGMII_CON		0xA003
++#define DAP8211R_RGMII_TX_DEL_MASK	GENMASK(3, 0)
++#define DAP8211R_RGMII_RX_DEL_MASK	GENMASK(13, 10)
 +
-+properties:
-+  compatible:
-+    const: ethernet-phy-id0008.011b
++#define DAP8211R_RGMII_CONFIG_MASK	(DAP8211R_RGMII_RX_DEL_MASK | DAP8211R_RGMII_TX_DEL_MASK)
 +
-+  reg:
-+    maxItems: 1
++/*
++ * Hardware reset RX RGMII default delay from the datasheet: 0 * 150ps == 0.00ns
++ * Used when rx-internal-delay-ps is not specified in DT for RGMII mode and
++ * in RGMII_TXID to set rx delay.
++ */
++#define DAP8211R_INITIAL_RX_DEL_VAL	0
 +
-+  rx-internal-delay-ps:
-+    description:
-+      RGMII RX clock delay in picoseconds (0 to maximum).
-+    multipleOf: 150
-+    maximum: 2250
-+    default: 1950
++/*
++ * Hardware reset TX RGMII default delay from the datasheet: 1 * 150ps == 0.15ns
++ * Used when tx-internal-delay-ps is not specified in DT for RGMII mode and
++ * in RGMII_RXID to set tx delay.
++ */
++#define DAP8211R_INITIAL_TX_DEL_VAL	1
 +
-+  tx-internal-delay-ps:
-+    description:
-+      RGMII TX clock delay in picoseconds (0 to maximum).
-+    multipleOf: 150
-+    maximum: 2250
-+    default: 1950
++/*
++ * Default RGMII delay: 13 * 150 == 1.95ns
++ * Used when rx-internal-delay-ps or tx-internal-delay-ps are not specified in DT
++ * for RGMII ID modes to set tx or rx delay.
++ */
++#define DAP8211R_DEFAULT_DEL_SEL	0xD
 +
-+unevaluatedProperties: false
++static const int dap8211r_internal_delay[] = {0, 150, 300, 450, 600, 750, 900,
++					      1050, 1200, 1350, 1500, 1650, 1800,
++					      1950, 2100, 2250};
 +
-+examples:
-+  - |
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++#define DAP8211R_DELAY_SIZE	ARRAY_SIZE(dap8211r_internal_delay)
 +
-+        ethernet-phy@1 {
-+            compatible = "ethernet-phy-id0008.011b";
-+            reg = <1>;
-+            rx-internal-delay-ps = <1950>;
-+            tx-internal-delay-ps = <1950>;
-+        };
-+    };
++/**
++ * dap8211r_read_ext() - Read extended register
++ * @phydev: PHY device structure
++ * @reg: Extended register address
++ *
++ * Reads a PHY extended register using the indirect access method.
++ * The caller must hold the MDIO bus lock.
++ *
++ * Return: Register value on success, or negative error code
++ */
++static int dap8211r_read_ext(struct phy_device *phydev, u16 reg)
++{
++	int ret;
++
++	phy_lock_mdio_bus(phydev);
++	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
++	if (ret < 0)
++		goto out;
++
++	ret = __phy_read(phydev, DAP8211R_EXT_DATA);
++out:
++	phy_unlock_mdio_bus(phydev);
++	return ret;
++}
++
++/**
++ * dap8211r_modify_ext() - Modify extended register bits
++ * @phydev: PHY device structure
++ * @reg: Extended register address
++ * @mask: Bit mask of bits to clear
++ * @set: Bit mask of bits to set
++ *
++ * Modifies a PHY extended register using the indirect access method.
++ * New value = (old value & ~mask) | set.
++ * The caller must hold the MDIO bus lock.
++ *
++ * Return: 0 on success, or negative error code
++ */
++static int dap8211r_modify_ext(struct phy_device *phydev, u16 reg, u16 mask, u16 set)
++{
++	int ret;
++
++	phy_lock_mdio_bus(phydev);
++	ret = __phy_write(phydev, DAP8211R_EXT_ADD, reg);
++	if (ret < 0)
++		goto out;
++
++	ret = __phy_modify(phydev, DAP8211R_EXT_DATA, mask, set);
++out:
++	phy_unlock_mdio_bus(phydev);
++	return ret;
++}
++
++/**
++ * dap8211r_config_init() - Initialize PHY
++ * @phydev: PHY device structure
++ *
++ * Configures the PHY during initialization:
++ * - RGMII delays based on interface mode
++ * - Software reset to apply settings (low active, self clear)
++ *
++ * Return: 0 on success, or negative error code
++ */
++static int dap8211r_config_init(struct phy_device *phydev)
++{
++	u16 set = 0;
++	int ret, val;
++	s32 rx_internal_delay = DAP8211R_INITIAL_RX_DEL_VAL;
++	s32 tx_internal_delay = DAP8211R_INITIAL_TX_DEL_VAL;
++
++	if (!phy_interface_is_rgmii(phydev))
++		return 0;
++
++	if (phydev->interface != PHY_INTERFACE_MODE_RGMII_TXID)
++		rx_internal_delay = phy_get_internal_delay(phydev, dap8211r_internal_delay,
++							   DAP8211R_DELAY_SIZE, true);
++
++	if (phydev->interface != PHY_INTERFACE_MODE_RGMII_RXID)
++		tx_internal_delay = phy_get_internal_delay(phydev, dap8211r_internal_delay,
++							   DAP8211R_DELAY_SIZE, false);
++
++	switch (phydev->interface) {
++	case PHY_INTERFACE_MODE_RGMII:
++		if (rx_internal_delay < 0)
++			rx_internal_delay = DAP8211R_INITIAL_RX_DEL_VAL;
++
++		if (tx_internal_delay < 0)
++			tx_internal_delay = DAP8211R_INITIAL_TX_DEL_VAL;
++		break;
++	case PHY_INTERFACE_MODE_RGMII_RXID:
++		if (rx_internal_delay < 0)
++			rx_internal_delay = DAP8211R_DEFAULT_DEL_SEL;
++		break;
++	case PHY_INTERFACE_MODE_RGMII_ID:
++		if (rx_internal_delay < 0)
++			rx_internal_delay = DAP8211R_DEFAULT_DEL_SEL;
++		fallthrough;
++	case PHY_INTERFACE_MODE_RGMII_TXID:
++		if (tx_internal_delay < 0)
++			tx_internal_delay = DAP8211R_DEFAULT_DEL_SEL;
++		break;
++	default:
++		phydev_err(phydev, "Unsupported interface: %d\n",
++			   phydev->interface);
++		return -EINVAL;
++	}
++
++	set |= FIELD_PREP(DAP8211R_RGMII_RX_DEL_MASK, rx_internal_delay);
++	set |= FIELD_PREP(DAP8211R_RGMII_TX_DEL_MASK, tx_internal_delay);
++
++	ret = dap8211r_modify_ext(phydev, DAP8211R_PHY_CON, DAP8211R_PHY_SW_RST, 0);
++	if (ret)
++		return ret;
++
++	/* Wait for reset self-clear (from low active to high) */
++	ret = read_poll_timeout(dap8211r_read_ext, val,
++				(val & DAP8211R_PHY_SW_RST),
++				20, 200, false, phydev, DAP8211R_PHY_CON);
++	if (ret)
++		return ret;
++	if (val < 0)
++		return val;
++
++	ret = dap8211r_modify_ext(phydev, DAP8211R_RGMII_CON, DAP8211R_RGMII_CONFIG_MASK, set);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
++static struct phy_driver dap8211r_driver[] = {
++	{
++		PHY_ID_MATCH_EXACT(DAP8211R_PHY_ID),
++		.name		= "DAP8211R Gigabit Ethernet",
++		.soft_reset	= genphy_soft_reset,
++		.config_init	= dap8211r_config_init,
++		.read_status	= genphy_read_status,
++		.set_loopback	= genphy_loopback,
++		.config_aneg	= genphy_config_aneg,
++		.suspend	= genphy_suspend,
++		.resume		= genphy_resume,
++	},
++};
++module_phy_driver(dap8211r_driver);
++
++MODULE_DESCRIPTION("DAP8211R Gigabit Ethernet PHY driver");
++MODULE_AUTHOR("Artem Shimko <a.shimko.dev@gmail.com>");
++MODULE_LICENSE("GPL");
++
++static const struct mdio_device_id __maybe_unused dap8211r_tb[] = {
++	{ DAP8211R_PHY_ID, DAP8211R_PHY_ID_MASK },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(mdio, dap8211r_tb);
++
 -- 
 2.43.0
 
