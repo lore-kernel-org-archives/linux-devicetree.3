@@ -1,135 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861F13DDAEC;
-	Wed,  5 Aug 2026 08:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE40C246784;
+	Wed,  5 Aug 2026 08:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785918259; cv=none; b=SHRYewmlkp4xTHujALwBh3O7CvwrdI/J8oznMYniYBb3cxzB5G7NcANbcq/Sc4Z8KoAKNIgcdK553qLwYdw4taAjvZL0Y5C5b6RlvMzHK6LeizL1LS/qIKl0IKUwf+RoRewalcVARgfoy83ziW92u8sgV8MbgjCgFmider9mWDI=
+	t=1785918364; cv=none; b=OB6ZdvDBRzybeWkRlC4l1F/R1UCtJd6P1E/8EYWirjT3Gkj/DBsxukgWOc/pXc+ofAT9EanLx5V3/w9ueU8nIrsny06+XO06kumqX+ZdUKTkiKal/GE3c8BNXHeeN9Bh4B3Q/Jl2tgDnc6jiLMScb6caSEUZbVG1lzze3fmevro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785918259; c=relaxed/simple;
-	bh=EUjYTwtZmE7hh8Q8l73SoVGocXzri3IrlRnWe3NCPtQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VQYVNlpS/oVTCTyrrhmsE20vA3OUhhrKVpVGqX+O42+fpTGUYhZ3RnPwaKEckMMrOeT3igkA2H8/Eq8OAxh3CG5ml16Dh81nSUakpqyw2kDnXxOH9ZfqGyXlPo/yVOb5+10TixleMR4n7oje6TuUu+TKwb27fKixfOJzWwbebvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mV/YHnqW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785918364; c=relaxed/simple;
+	bh=jdNVwwJQY+ckL6kJ8Tj7UyLROjjvMVrs/XkN06eWAYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CPV68LieJ3vPScEM5K7pieiEPVUkmB+F3gLebxn7jW15mo6LYSUWGl0CwVm9kJjtSRvkg7JgvHpud504RKJWNjJwrSjCMIs1HAotRLVMkItih2qU9XsuHIeJ6j8hxBbkLW2wxQUWRw+Ony8ovtzBSZbhh3+6j3a+lCfFaI+0myY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=m8EyoIp0; arc=none smtp.client-ip=217.70.183.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mV/YHnqW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884591F000E9;
-	Wed,  5 Aug 2026 08:24:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785918257;
-	bh=wPXum4rRsqI3wrxTxVfvisoC2MnoQCPXd7IvHdeqxuA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mV/YHnqW2CslUh4q4vQcrTJiclkNqIBbaS0DrxEtru0deO9rw4t+U9VmOR07Q1bfc
-	 ETezp7KMktsz+D7MmtAXYkYgoFMdj+POkcFY75FDRbKgOTKvj3/PH7s9uiphy6mj+0
-	 yv7nW9MgiuZSfY6XgchSMLl18fecanusbRx4c5uTZZCvJQyZ1RcENGmLIGSdmTVQLU
-	 X+SH4LHBv4T0Ztzb5J67RHfRNH1XMPsTQVR3ufQcRiTO2DfmaKkBUpmteLVQbzz3p8
-	 KdytSoMDynYRqksxI2PhD7S+SwVgaYxXyH9mlMKgdDbCgCUNBFnlxOuDkNayveEzk1
-	 qC8EbCaSMPPtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 6/6] arm64: dts: amlogic: t7: khadas-vim4: Add i2c
- MCU fan node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
-Cc: neil.armstrong@linaro.org, devicetree@vger.kernel.org, lee@kernel.org, linux-amlogic@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, mfd@lists.linux.dev
-In-Reply-To: <20260805-add-mcu-fan-khadas-vim4-v9-6-75df78710b9e@aliel.fr>
-References: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
- <20260805-add-mcu-fan-khadas-vim4-v9-6-75df78710b9e@aliel.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 08:24:15 +0000
-Message-Id: <20260805082416.884591F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="m8EyoIp0"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 8BF703EBCA;
+	Wed,  5 Aug 2026 08:25:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1785918359;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NbHmjTmZQfaX9I+BqpADjh7NOh5VxYpTnMMdG04HFtY=;
+	b=m8EyoIp07y7wKl7DCfWzOzX7NoV52LsHfIOJNILlbVSDqfX9xNy1UXEAENyc4qzMmsgoGj
+	hADxdZrZ7MWlFZ0injQ0rIUrXeznn857CPxQGff3zfzFQ30rztdvZuREWzcMYkLqR4uBS3
+	pW6nGEGOz9PB74eSRGpp0SaxCrc7oO50F5YeWpO/+gotQn/z5Tj/Ip2Q8QgugkWZUyuDuD
+	wiOlNTz5S+hZRsTildGlK0+JvaFP8AgsW7ZglQmerSQfY+ZSlyoTE0kmNQ9F4ztXAgFVH2
+	NwWqbweZAjCSVbzywRqr/pn6SIvVf0DWA6XSdhBsxUQE/xoSYDovuu9VDYXJJw==
+Date: Wed, 5 Aug 2026 10:25:52 +0200
+From: Arthur =?utf-8?Q?Cr=C3=A9pin?= Leblond <arthur@marmottus.net>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] w5100: restore GPIO-based link detection
+Message-ID: <anLzkNOBMvn7_0d3@pc-du-fromage>
+References: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
+ <d762ff5f-30ba-42fc-bf58-500f807483ad@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d762ff5f-30ba-42fc-bf58-500f807483ad@lunn.ch>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTGedFxA1DxmVgniXAyrblc2qturyZNzK18xk1YpaSqkwFNCmV3VuwI5rbYnTtaISHoMx9SXNLrcXCFpo4M91UAW8j+taKmaDYl3Ko0aZavlF3INaaA6/j3TXTFEtvHaxha8dVHelnHZHpMQfmKMnqCJRIvzMSE0UA3ONKX2i/Og10ACDNJYKfGRHMzudPLeJBMjNfTLD2wZXjYYTP1fm88njpkuZ0sFhobtXvzgoT8ZcePZtEUMBR0pGdpfOWV0ktbwupD47ljaGluECwD7HE4zrkCrWT8nG+FQh2vXk91Ns0419wj7EFlOI20XN2YCrI8eQuIAXgybFlbXc+EajZDYX7Sovw08pNCDGiHexhAoanzlczxjpjU8gxqIbZej4Lff70zgUdF1mG59wZTEv99bRkEKZ0QdxsV4vwUT9JdBiv4TVbMeS/SjfM7R4g2fQEhVEUWdmPU4d08/n8l0k0IUz2gFfX2urLjTflAAfTNYCli+5HwRKyEh1l/S9m/vdU9rSuNucyauI8+3xVBqNjz2BE06Op1TrbeHTBv6db7hyah+rrACJW89IB4gVETcxEFInd9/WrvTRJLLDpgQPma2MiBwSdcnKCjbRTgvLiwJX22Cl85hem5RqCsqPi0MRAaJ2C3ZQQZj/Fwf+d3sggxqb42lKqhVBArQw8FPVUSyVQ
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The khadas-mcu-fan driver leaks regulator references and enable co=
-unts due to binding devres to the parent device and missing cleanup paths.
---
+On Tue, Aug 04, 2026 at 07:54:29PM +0200, Andrew Lunn wrote:
+>On Tue, Aug 04, 2026 at 04:38:35PM +0200, Arthur Crépin Leblond wrote:
+>> Commit dacf281771a9 ("w5100: remove unused gpio link detection")
+>> dropped the link_gpio/link_irq handling on the grounds that no
+>> devicetree user passed a "link" GPIO at the time.
+>>
+>> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
+>
+>Hi Arthur
+>
+>Do you understand the architecture of this device? What exactly is on
+>the other end of this GPIO?
+>
+>https://wiznet.io/products/ethernet-chips/w5100
+>
+>suggests it has an integrated PHY. So why is a GPIO needed to report
+>link?
+>
+>Thanks
+>	Andrew
 
---- Patch [6]: [PATCH v9 6/6] arm64: dts: amlogic: t7: khadas-vim4: Add i2c=
- MCU fan node ---
-commit 69aa0768107f9fa2d0c3f9c0b9a761cb13f3890b
-Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Hi Andrew,
 
-arm64: dts: amlogic: t7: khadas-vim4: Add i2c MCU fan node
-   =20
-Enable and configure i2c MCU node to get fan working on Khadas VIM4.
-   =20
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+the W5100/W5500 exposes directly a LINKLED pin for the carrier status.
+On my board (RPi), that pin is wired to a GPIO to detect changes on the host
+directly via an interrupt.
 
-> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dt=
-s b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> index c41525a34b721..7d95aadcf6a66 100644
-> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
-> @@ -167,6 +167,19 @@ xtal: xtal-clk {
->  	};
->  };
-> =20
-> +&i2c_m_ao_a {
-> +	status =3D "okay";
-> +	pinctrl-0 =3D <&i2c0_ao_d_pins>;
-> +	pinctrl-names =3D "default";
-> +
-> +	khadas_mcu: system-controller@18 {
-> +		compatible =3D "khadas,vim4-mcu";
-> +		reg =3D <0x18>;
-> +		fan-supply =3D <&vcc5v>;
-
-[Severity: High]
-Does enabling this fan node expose a regulator leak in the khadas-mcu-fan
-driver?
-
-When the driver probes, it appears to attach the regulator resource
-lifecycle to the parent device rather than the child:
-
-drivers/thermal/khadas_mcu_fan.c:khadas_mcu_fan_probe() {
-    ...
-    ctx->power =3D devm_regulator_get(dev->parent, "fan");
-    ...
-}
-
-If devm_thermal_of_child_cooling_device_register() fails, the probe
-function returns without calling regulator_disable():
-
-drivers/thermal/khadas_mcu_fan.c:khadas_mcu_fan_probe() {
-    ...
-    return ret;
-}
-
-Furthermore, the driver struct lacks a .remove callback entirely:
-
-drivers/thermal/khadas_mcu_fan.c:
-static struct platform_driver khadas_mcu_fan_driver =3D {
-    .probe      =3D khadas_mcu_fan_probe,
-    .shutdown   =3D khadas_mcu_fan_shutdown,
-    .driver =3D {
-        .name       =3D "khadas-mcu-fan-ctrl",
-        .pm         =3D &khadas_mcu_fan_pm,
-    },
-    .id_table   =3D khadas_mcu_fan_id_table,
-};
-
-Since devres is attached to dev->parent, the driver core will not
-automatically clean up the regulator when the child device probe fails or
-when the child driver is unbound.=20
-
-Will this cause a monotonically increasing enable count and memory leak
-on the parent device during unbind/rebind cycles?
-
-> +		#cooling-cells =3D <2>;
-> +	};
-> +};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-add-mcu-fa=
-n-khadas-vim4-v9-0-75df78710b9e@aliel.fr?part=3D6
+Arthur
