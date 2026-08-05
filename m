@@ -1,146 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9869736C9CC;
-	Wed,  5 Aug 2026 16:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A994315A
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 16:48:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785948354; cv=none; b=En/to6Taxr+ZYOaFcW+kmlrLNTbzFmIk5/KDyAV+CwtujmkrhxvojZUgspt8eyuWDEwvdgWMXdFN4R/8Y7rGX3kF0IxmNXFZVBkIx5o9j+A7Xkvib+Fgndr87vYnDu/0JDJGTUVAJ7Vr3+PpDxdlOdoOktTHt0rm962hmYdqT54=
+	t=1785948517; cv=none; b=JESDm4PNVSPOe+FCUBryyMLAxvIyqg2Bcg//2ZNYc+GWJTkXKdqfPMtYc6oh/1LhrVxOSilfrEyC3Din1NM1bAN3k/xTUAtVl+GjP7O+4Dlg2P7gpL1FvpGmfdTYL/+Jd1eyb6qYjVg301lueIm5VotIG7l4MJh2iscgF3twZP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785948354; c=relaxed/simple;
-	bh=RfrmJFXn9hifuhN9U65iXd8hJ6oRlGb9FVaO7uhXM/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dUoYEe6GCiJdebzEucle/YI/77CdRj2a6YA5WOqILXgelihvy0mpc1b3f7PwYuJr3m36oaSuL0PynrITMogEppj3GEi59vDFT0k87ecLAK06Qsz6qnpAo9z2vnL/zDE6cj2UKAQt2YCqIvDS3t4bZYcgGgx3K7kCbKDb8zUqkzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bj1peAo7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785948517; c=relaxed/simple;
+	bh=RhK2YzNaAdFsBNuwzgXhz8JaZgpPP3+1u11J8QvAJkA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mkXfZRtaD7kFFdLTinZLZQnoMtVa8lfUsm6vAFK6VHLFQsDPFHgDVESGHpRSLGZ9gQS46AGS8Q8XhbjR9QhpSyPFjLhB6ja/W19P6md68v91mAxigMQAt5x9opat9VsDirnKiOoU8+V4oeED5jBnU8PG9tB9sIZujoMc5CXzRbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ys/PvQzr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kOcWSgv2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bj1peAo7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 724A51F000E9;
-	Wed,  5 Aug 2026 16:45:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785948353;
-	bh=amtVsq3g+Dw4EwN5/hpH2UXi0wrWW/HktWeH6w0iHMo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bj1peAo7tA+zT9IwLwkDUq7ML97g2OF9S6Ia86PcPFXMPAinvx+43wNbzzC2mxkEg
-	 heUjbKIoUW5nYt2v1TEVXNXm7dFZeTOs9CwENvZK6D31InSyPBhfMjsb9RXlcVuH70
-	 QNPshHFf8ZWJkrDX06sDDjRBL65GKtiWHgemmjBAZsJDIoJJ5RRsJY9ry+CwwbCF71
-	 Bwjmz3hzP7OuSTbtbB7WNeYC3MZIkFCVsMpim1ItXZ4/kXWPBN5rW0xymGXwLRaRPH
-	 PzmJPJpQGj3xXVapuMTyS97mLswhNvwUffsnZZZ1MICbSDmdKHGiUanluaaeB3PCJ/
-	 KO+/vQ+uL7DmA==
-Date: Wed, 5 Aug 2026 17:45:48 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>
-Cc: "Sa, Nuno" <Nuno.Sa@analog.com>, "Hennerich, Michael"
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, "Sabau, Radu bogdan" <Radu.Sabau@analog.com>,
- "Schmitt, Marcelo" <Marcelo.Schmitt@analog.com>, "Marques, Jorge"
- <Jorge.Marques@analog.com>, Salih Erim <salih.erim@amd.com>, Matti
- Vaittinen <mazziesaccount@gmail.com>, Jishnu Prakash
- <jishnu.prakash@oss.qualcomm.com>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, linux <linux@analog.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>
-Subject: Re: [PATCH v2 0/4] iio: adc: ade9000: add support for ADE9078
-Message-ID: <20260805174548.4668a844@jic23-huawei>
-In-Reply-To: <CY2PR03MB64993328B3E165CF124F5EF35F9BD32@CY2PR03MB649933.namprd03.prod.outlook.com>
-References: <20260731082951.1228-1-antoniu.miclaus@analog.com>
-	<20260802024406.6147807e@jic23-huawei>
-	<CY2PR03MB64993328B3E165CF124F5EF35F9BD32@CY2PR03MB649933.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ys/PvQzr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kOcWSgv2"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675FV82c3867590
+	for <devicetree@vger.kernel.org>; Wed, 5 Aug 2026 16:48:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=s0x/y82/ZYCWr8KscfSkCm
+	6MtpItQIqFoVaXXVZMU2c=; b=Ys/PvQzrQbbUfPL6Pmb2NmRqBiEYU5N+tNsAxG
+	lHFyhHKTX6XNcByJiyMqbMKqyACvwZbJGGyAReT1NshdQPQEJjZ0zm0j/29tGksS
+	up/5CH9JOc0uC0rRvQOlEofkCSyrRZl30mC+rxifMGV4Z2tLVg+i8jFDPcNjCsmz
+	YtiW0kHAJLGbQXLjNnP2Jj8XsSC7fxZdcNY77WZd0rfs4c+PrybTxX0Wp2C8LUc7
+	jMs439VS34ImuNqOBYUqEZQodImYM9l3tII/pp61DAtY+TyTyVlj+W2OdBLXrtha
+	TNVuTkogXF4OQW4xjU1Pv4LoqjAZ7QZCyiXhcUuJ2pX9NuuA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv5dk17gk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 16:48:34 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cee1ec30f2so14944445ad.3
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 09:48:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785948514; x=1786553314; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=s0x/y82/ZYCWr8KscfSkCm6MtpItQIqFoVaXXVZMU2c=;
+        b=kOcWSgv2QG0YY/ndN0jk+sOU9hvij2ML/I+sQKut77Wfvz4Zcb29WZTbCqu1HIafKa
+         GjcxwSXoXOEqP/G1rb/zPrsysFmUcuEvSaqogj1NlsvUHwebE16X4C7Qg8bhRDKE6tOF
+         diUeQiU81bj4fUaMZfGAi74k1VAJXe81EhTMnRizbGgzzRj0adotLlUR5cXqO8WGPJuH
+         me9omMTAPI3tn9YiTNqwFvX070kRvOLR+Oj18Q1zojWJ/SC1+ljNSidkGNiYmraO/IkT
+         0fdeFugF2USWIDTw6jPg4R3qG0gpKIyaJUbEjBznen6Lq+nW1HcMrWLmXmwbUYda1PwY
+         TzsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785948514; x=1786553314;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=s0x/y82/ZYCWr8KscfSkCm6MtpItQIqFoVaXXVZMU2c=;
+        b=dGhmzRdPOoEiwfe/DAswAJvPy3euCmR2CYl5OV+MTvH37vmE5KMKFXCxj+ibdsYUz3
+         T0EKmQmQgwQXukinF6p+t2iVpsIRemGgozmmEPfQkTXIikwCg/z8Ew3wjwWxeGqReH0i
+         Ll0YqQqNcq7jiODKhVfUYgbMC/FkGyj/uW/0aPZSj+c43vs7RPVpXiwkZHCIE6Dk0EuM
+         sKPtl9yPZ/PFzPIZ3/MgJbTktjAs2ePAs+0LDvU8JID+hfK8AuOCx2912NKdJkfKsx8t
+         n6s3xabm9QCaYqvFqwK+ydBmekVKDsdHnuunWXLUmovCdTMB8zLGN0wXeItYAYjEHJQY
+         HiZg==
+X-Forwarded-Encrypted: i=1; AHgh+RrLmVMwELkmXyQ0+mAsK9xk4GsDUH3yVsaZycQTzETEgiO+dY3PC3EBRWvNf+s5XWssth9ZCiFo/MEj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzN2QaTaKgFjVnvkVzyyHZR0lW6FYEfU7yYZJtNwVVjE1dJl0VQ
+	sPSGb9OZxwfyjmMs/BCQlFxOvPB5UM8Hyem6yHPBkamqfNbpgLzO9IWAFvI/4oggwVufY5RAQhK
+	Iz+EI21H/827U+nuhapyUriYbrQvIvb0jwQahyoIwzcH2uJd5SRJOlXDK/HTKnXZh
+X-Gm-Gg: AR+sD10Qp27Rs5YU9pqK50z0/LThqAlDAHFxFWawTJRUPL5exBwfh9Nz+Xc+qkU0d41
+	wHHt1OlekRIp6qgXKTCPU1/HHd8i8cXSW/vG2dWQVr1hFJGTVN+zWbfBVKJOA1jqkf4OMP1Fhf2
+	APocSGMet/I1JDKtaj0e4JpHVqR5DjVR9rGWFEycr4xmp3hcfj4VZksawt/vP30vhvqh/DNk7Ab
+	SvDY/rlcXx+CR88RqVpxAt4cirVnPuGXvZ09CBu0iL9RMiN95MJZEqe6j59gtex9ul4DlWmy5pp
+	yXnTjYol+TsrGI8zknRMoKcFt6zYJ9vUJJrV4MjPdUfxBn+Wo30GepLFX5Vu5X0XOdXcpYhNnMJ
+	lIsGbYRFIqbZNDj5IHYH339MC8eLHsmk=
+X-Received: by 2002:a17:902:d547:b0:2c9:b8b7:5d1c with SMTP id d9443c01a7336-2d0ca7faee4mr95892915ad.16.1785948513507;
+        Wed, 05 Aug 2026 09:48:33 -0700 (PDT)
+X-Received: by 2002:a17:902:d547:b0:2c9:b8b7:5d1c with SMTP id d9443c01a7336-2d0ca7faee4mr95892365ad.16.1785948513087;
+        Wed, 05 Aug 2026 09:48:33 -0700 (PDT)
+Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa4d986fsm19159465ad.75.2026.08.05.09.48.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 09:48:32 -0700 (PDT)
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Subject: [PATCH 0/2] clk: qcom: gcc-qcs8300: Add support for TSCSS clocks
+Date: Wed, 05 Aug 2026 22:17:12 +0530
+Message-Id: <20260805-qcs8300-tsc-clks-v1-0-e7a5101ed479@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABBpc2oC/x3MSQqAMAxA0atI1gaqBaeriIsaUw2KQyMiiHe3u
+ HyL/x9QDsIKTfJA4EtUtjUiSxOgya0jowzRkJu8MKXN8CCtrDF4KiEts6Lv+7qo/OCotBCzPbC
+ X+1+23ft+FrYslmIAAAA=
+X-Change-ID: 20260731-qcs8300-tsc-clks-fbb968fdac73
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-ORIG-GUID: T3J5RYpskChgYOmnJW4VGJapBQj-1ZSc
+X-Authority-Analysis: v=2.4 cv=Or9/DS/t c=1 sm=1 tr=0 ts=6a736962 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=DcIv4KPYSJKIViMFPNcA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDEzNyBTYWx0ZWRfXziM3Vl7wh1f8
+ YCa6HI/r8Up5k6UPzrLUDLC+cuY92dXcIb02d+XGgexYhhVMU9xerVX8CsnG5osl3ViWIyNcnHC
+ QDJViexbMDmKjPgJF/BGpaZ8BiYbzZJP+M8gyaDUmT/nepFt0X1mlfTEwxgv4gt+IBd170snFsf
+ acLDW8w0dLjv7VgaNal2QKI678qEdMp5dqTAOnH1GxNGErtCRzuQxiPeAJk24ButfWG5VDwSAeY
+ j13/pUXks3MFrZbEHKzYxT0hj450AKY/qYyFVl3UHUrV4TLeN0MA2M8PuHoXBVnytoJE5HBMB4C
+ A6DB+PdjqyfA8qMwOElwbvci2ybApKds+ZldhfYxtV/sQhYUsfxdl7O3WcIiakOAPOI3YDqkJ95
+ Bsggq+Sr0B2SsopXiIAHr7kvFrXeaLN/ZX6zqXuCRFe9LUz2vYeMqEImAlvnVL+gUB7X5AyAWLO
+ Jp4qlXptUf8n8ZcbSiA==
+X-Proofpoint-GUID: T3J5RYpskChgYOmnJW4VGJapBQj-1ZSc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDEzNyBTYWx0ZWRfX8lR9zSlBTDYm
+ LVxdmRlFBvtTfgBui0+MBDjdIhPhvGagmobedIy9FO938RG6QQ43Hyq+aam60moaZrvrfu4Fm4l
+ JVYlc1R6qJEcUL6w+nJglfBM103c0Ss=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_05,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0 bulkscore=0
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050137
 
-On Wed, 5 Aug 2026 11:45:37 +0000
-"Miclaus, Antoniu" <Antoniu.Miclaus@analog.com> wrote:
+This series adds support for the GCC TSCSS clocks required for the
+Timestamp Counter Subsystem (TSCSS) hardware functionality on Qualcomm
+QCS8300 SoC.
 
-> Hi Jonathan,
-> 
-> > -----Original Message-----
-> > From: Jonathan Cameron <jic23@kernel.org>
-> > Sent: Sunday, August 2, 2026 4:44 AM
-> > To: Miclaus, Antoniu <Antoniu.Miclaus@analog.com>
-> > Cc: Sa, Nuno <Nuno.Sa@analog.com>; Hennerich, Michael
-> > <Michael.Hennerich@analog.com>; David Lechner <dlechner@baylibre.com>;
-> > Rob Herring <robh@kernel.org>; Krzysztof Kozlowski <krzk+dt@kernel.org>;
-> > Conor Dooley <conor+dt@kernel.org>; Jonathan Corbet <corbet@lwn.net>;
-> > Shuah Khan <skhan@linuxfoundation.org>; Sabau, Radu bogdan
-> > <Radu.Sabau@analog.com>; Schmitt, Marcelo
-> > <Marcelo.Schmitt@analog.com>; Marques, Jorge
-> > <Jorge.Marques@analog.com>; Salih Erim <salih.erim@amd.com>; Matti
-> > Vaittinen <mazziesaccount@gmail.com>; Jishnu Prakash
-> > <jishnu.prakash@oss.qualcomm.com>; linux-iio@vger.kernel.org; linux
-> > <linux@analog.com>; devicetree@vger.kernel.org; linux-
-> > kernel@vger.kernel.org; linux-doc@vger.kernel.org
-> > Subject: Re: [PATCH v2 0/4] iio: adc: ade9000: add support for ADE9078
-> > 
-> > [External]
-> > 
-> > On Fri, 31 Jul 2026 11:29:46 +0300
-> > Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
-> >   
-> > > The ADE9078 is a polyphase energy metering device from the same family as
-> > > the ADE9000 and is register compatible with it. The main differences
-> > > relevant to the driver are the absence of the on-chip dip/swell detection,
-> > > a lower maximum SPI clock (10 MHz), and slightly different full-scale ADC
-> > > codes.  
-> > 
-> > This looks fine to me, but will need to sit on list until the dt maintainers
-> > have gotten to it.  Sashiko did call out some possible preexisting issues
-> > in the driver.  I haven't looked at them, but if you have some time, it may
-> > be worth a look the power vs interrupt registration one smells plausible.
-> >   
-> Want me to send the fixes in a separate patch or within this series?
+Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+---
+Imran Shaik (2):
+      dt-bindings: clock: qcom,qcs8300-gcc: Add TSCSS clocks and resets
+      clk: qcom: gcc-qcs8300: Add support for TSCSS clocks and resets
 
-Separate should be fine for any preexisting issues.  I'm not going to
-hold this series up waiting for them (assuming we get the dt ack - it's
-listed on their patchwork as Needs Ack so no one has gotten to it yet).
-https://patchwork.kernel.org/project/devicetree/patch/20260731082951.1228-3-antoniu.miclaus@analog.com/
+ drivers/clk/qcom/gcc-qcs8300.c               | 103 +++++++++++++++++++++++++++
+ include/dt-bindings/clock/qcom,qcs8300-gcc.h |   6 ++
+ 2 files changed, 109 insertions(+)
+---
+base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
+change-id: 20260731-qcs8300-tsc-clks-fbb968fdac73
 
-Jonathan
-
-> 
-> > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20260731082
-> > 951.1228-1-
-> > antoniu.miclaus*40analog.com__;IyU!!A3Ni8CS0y2Y!78esTjrnDgvdH9h_Pruv
-> > IpxZPJggP6_ge3-ecPnYKxN8b32xrwH3oUABtFHCRmEGtnicycd5eqRTn7EkeQ$  
-> > >
-> > > This series adds support for the ADE9078 to the existing ade9000 driver.
-> > > It first refactors the driver to move the part-specific values (device
-> > > name, channel table, and full-scale codes) into a chip_info structure
-> > > retrieved via device match data, then adds the new device tree compatible
-> > > and the ADE9078 support itself, and finally updates the documentation.
-> > >
-> > > Changes in v2:
-> > > - move the "respective datasheets" comment wording to avoid churn.
-> > > - use a generic Kconfig title and list the supported parts.
-> > > - duplicate the RMS voltage macro instead of a shared base macro.
-> > >
-> > > v1: https://urldefense.com/v3/__https://lore.kernel.org/linux-  
-> > iio/__;!!A3Ni8CS0y2Y!78esTjrnDgvdH9h_PruvIpxZPJggP6_ge3-
-> > ecPnYKxN8b32xrwH3oUABtFHCRmEGtnicycd5eqTALKwajg$ <FILL-IN-v1-
-> > MESSAGE-ID>/  
-> > >
-> > > Antoniu Miclaus (4):
-> > >   iio: adc: ade9000: introduce chip_info structure
-> > >   dt-bindings: iio: adc: adi,ade9000: add adi,ade9078 compatible
-> > >   iio: adc: ade9000: add support for ADE9078
-> > >   docs: iio: ade9000: document ADE9078 support
-> > >
-> > >  .../bindings/iio/adc/adi,ade9000.yaml         |  30 ++-
-> > >  Documentation/iio/ade9000.rst                 |  28 +--
-> > >  drivers/iio/adc/Kconfig                       |  16 +-
-> > >  drivers/iio/adc/ade9000.c                     | 180 ++++++++++++------
-> > >  4 files changed, 175 insertions(+), 79 deletions(-)
-> > >
-> > >
-> > > base-commit: 0b5e142ced4bcf20532da051934bd694d1bbd470  
-> 
+Best regards,
+-- 
+Imran Shaik <imran.shaik@oss.qualcomm.com>
 
