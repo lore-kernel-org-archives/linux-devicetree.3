@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77ED3470E9B
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:04:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F69747143B
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:04:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785935046; cv=none; b=VA+kpU4ZWNdz4YlAMzxVwpXHKaTDQ2miylg4rbT0KovMZRL5nJuk0gC/p8x8lktFpBfzCbnR9l5dleCW6VyORygxNp939O46HiQsaUxwUYUon2Ze//4bh+CJNOuddJnaeixr/WH45ve1BV1t9KFXZBlZy4hWX2KdAaZXWHKO6cA=
+	t=1785935049; cv=none; b=PYNpX16nk155e1bHtecSeikcbVAI4nUzjiy2kfEwXJXmszyTb4qMcfAa0Vm9oxvWHSHMo7wsNV8VV19hWgA7bJP8HZ3o8jUcyxBDAsnCda9AtcV4ZZH3DNbe1Qqrh8kkVUm+/ZpCcLOSbPWLCyp/u/9sicZqFWh36EIbje/zK5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785935046; c=relaxed/simple;
-	bh=qzZPbDgj3996iDRm1oYbyw+754cdI1Wk/9wo2u/2oH0=;
+	s=arc-20240116; t=1785935049; c=relaxed/simple;
+	bh=4jIhjYHV3kF2jvgfepD19RYojDhnx64j36yfsj4sjis=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jc572pQJwFflGWC+DR2UnybHMy5rUJ9FDejtTgplHHsZJlgp5lUa1/4erGzswhKH+HgZhXNuYYVDzUSSU8zuW9w8QtYF3ggY0Lv2FZ962wGgTB8gbO++sWn25VnqFNMyX0H9Qu6ALt8KrR8kv3NLXsRrAetmbrNOIrSmgybKKnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZWIKElr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rYfY8Xvbv1LnEN3aB+9iJ89jT+y4iL6w87BHRHcwT+WXgCp47iZTqVGzlrrowIsC5Ch3U+8FQTacuhZA5s3WiNz7bqpULOPwpsxUMivtLrOb8qSn1pe3j3wVy7TRef9qSgfXGj5DTC75nk/v0wovbD3wPU7grZ+TQAgM1Sbe0Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IAkKL+ru; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZWIKElr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2D11F000E9;
-	Wed,  5 Aug 2026 13:04:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IAkKL+ru"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4981F00A3A;
+	Wed,  5 Aug 2026 13:04:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785935042;
-	bh=nKRNSok+LBBsVqwpoXlvHX18BS8wh2XQ6Hp6/xyqjWo=;
+	s=k20260515; t=1785935043;
+	bh=xBxreDMpUM9q7LmfY4rdxl9Ci1cLmfRu3zZIcwQUrow=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RZWIKElr9Ea08gkx6uYwUGEP7yRgF2vveGCm4MzIr62raBVlP8WWHodniR+biXP01
-	 lxBrl5F6Siu6hviRvUV+xIwCTgCM5XuJF1OAGFZWyYAPEHjnkI6Pf51sJtemuB4+hH
-	 RnDlHF+uaCQLuQ0ue6jUx2BbAiEsxmcemakHFj4ZTvJ3Hv01gyMWJe75evXfNpXJkm
-	 qrG/MBUGkgQffN9jANYbDiML8kF7PFZBUhvRZmEJp/a78Py8hNaQ+Yvk+QZNzxEH4S
-	 Mn22LtzU25wndJjMJk7+a8NBCcmkihAuECPLOWMUWh8s6G9hWVgh4LrJAD7NVigTTb
-	 zzf/AxcZRAgfQ==
+	b=IAkKL+ru0xSmO7SFEcxLADvdfavAP+wv9qkCV3nf0WNSpZbEm6GpXT/S6bY9tJMcG
+	 wZlcn7cJ/YtYxnhvVIfFHTSt2l0C5EcMKjzQlrW8RJ6j2NfErPolJsLsY35Lzxj8wk
+	 dxMP8eGrg7vUsbFhgOV8aHZGrljmJwtRbrvmgv2MrI6SJ5OAp61ze8MqSgyhkZadIv
+	 UK9kBByWkmbeARxtTez5Tn0UUWeB38dYWeBgpe2zqZ43cHzXiQ0Skl9Vhb4PXcGqGp
+	 niAxOI/OdPRY01sZxawG6hPyVJjwGyrRrX8yudpLF804YIcvbgbar5W49bYx6G4Iaz
+	 fKbGcepxE62pg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 30/36] pinctrl: airoha: an7583: add support for olt
- pinmux
+Subject: Re: [PATCH v10 29/36] pinctrl: airoha: an7583: add support for
+ pon_alt pinmux
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260805123408.3767648-31-mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260805123408.3767648-30-mikhail.kshevetskiy@iopsys.eu>
 References: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
- <20260805123408.3767648-31-mikhail.kshevetskiy@iopsys.eu>
+ <20260805123408.3767648-30-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 13:04:01 +0000
-Message-Id: <20260805130401.CE2D11F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 13:04:02 +0000
+Message-Id: <20260805130403.3E4981F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,70 +47,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `olt` and `pon_alt` pin functions share the same physical pins=
- but do not mutually clear each other's configuration bits, potentially cau=
-sing hardware multiplexing conflicts.
+- [Low] Missing devicetree binding update for the new `pon_alt` pin group
 --
 
---- Patch [30]: [PATCH v10 30/36] pinctrl: airoha: an7583: add support for =
-olt pinmux ---
-commit ce9b28cb0ea433c895d9e6cfad60de0854d4d8c3
+--- Patch [29]: [PATCH v10 29/36] pinctrl: airoha: an7583: add support for =
+pon_alt pinmux ---
+commit e4aace775344077581e730c5d2b97d324007c209
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-Date:   Wed Aug 5 12:34:02 2026 +0000
 
-pinctrl: airoha: an7583: add support for olt pinmux
+pinctrl: airoha: an7583: add support for pon_alt pinmux
 
-Add support for olt pin function for olt pin group.
-
-Signed-off-by: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+This commit adds the pon_alt pin group and enables the pon pin function
+for it.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
 roha/pinctrl-an7583.c
-> index 2e145ef5a224c..031a8b36e0024 100644
+> index dc88cbd8746bb..2e145ef5a224c 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-an7583.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
 
 [ ... ]
 
-> @@ -651,6 +655,19 @@ static const struct airoha_pinctrl_func_group pon_fu=
-nc_group[] =3D {
->  	},
+> @@ -564,7 +567,7 @@ static const struct pingroup pinctrl_groups[] =3D {
+>  	PINCTRL_PIN_GROUP("pcie_reset1", pcie_reset1),
 >  };
 > =20
-> +static const struct airoha_pinctrl_func_group olt_func_group[] =3D {
-> +	{
-> +		.name =3D "olt",
-> +		.regmap[0] =3D {
-> +			AIROHA_FUNC_MUX,
-> +			REG_GPIO_PON_MODE,
-> +			GPIO_OLT_MODE_MASK,
+> -static const char *const pon_groups[] =3D { "pon" };
+> +static const char *const pon_groups[] =3D { "pon", "pon_alt" };
 
-[Severity: High]
-Will this mask configuration leave conflicting bits set if the pins were
-previously configured for pon_alt mode?
+[Severity: Low]
+Is a corresponding update to the devicetree binding schema needed alongside
+this change?
 
-Since the olt and pon_alt functions share the same physical pins (36
-through 40), they appear to be mutually exclusive. When this mux
-configuration is applied, it will set GPIO_OLT_MODE_MASK but won't clear
-GPIO_PON_ALT_MODE_MASK or GPIO_PON_MODE_MASK if they were left set by the
-bootloader or a previous runtime state.
+Looking at the bindings in
+Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.yaml, the
+schema strictly restricts the allowed groups for the pon function:
 
-Should the mask field include GPIO_PON_ALT_MODE_MASK and GPIO_PON_MODE_MASK
-so they are properly cleared when olt is selected?
+          - if:
+              properties:
+                function:
+                  const: pon
+            then:
+              properties:
+                groups:
+                  enum: [pon]
 
-Additionally, does the existing pon_func_group need to be updated so that
-selecting pon or pon_alt clears the newly added GPIO_OLT_MODE_MASK?
-
-> +			GPIO_OLT_MODE_MASK
-> +		},
-> +		.regmap_size =3D 1,
-> +	},
-> +};
-> +
->  static const struct airoha_pinctrl_func_group tod_1pps_func_group[] =3D {
->  	{
->  		.name =3D "pon_tod_1pps",
+Without updating the schema, will dtbs_check fail with validation errors wh=
+en
+developers attempt to use the newly added pon_alt group in their devicetree=
+s?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805123408.3767=
-648-1-mikhail.kshevetskiy@iopsys.eu?part=3D30
+648-1-mikhail.kshevetskiy@iopsys.eu?part=3D29
