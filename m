@@ -1,221 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A992F44AB61;
-	Wed,  5 Aug 2026 11:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4524D453A54;
+	Wed,  5 Aug 2026 12:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931079; cv=none; b=pXTg+VJqKjijFf92MFaSTVa3CeotU5zT/CQaegXENI58r7kMrOVQm67p5QDTK2alaiUToj9/EMjbeIKkpkiAvVOPF6cVcZDxq1Y5N+nh0RcR13Z8M03dZMOho1C62lWtxCqwQsSDvdz2rj7HSfle6QWd/WppE360FYmtDwG8cQI=
+	t=1785931223; cv=none; b=Twz3WLxElfZedunctiNerL0KndXnxXFUvi8yElHXow3duKg8aQSLCpXqkqIUIjnixtDvRDlifjb3fuAVCEufMjAsf/R7N2fQ6OVpUtFmOAsHKsJrgC9tmsFGjrrphMDI/EOd64h3wgwiDygTCCwTh5fd7/gaUq91oBz88jfgRdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931079; c=relaxed/simple;
-	bh=UHU4IviKKpWFYokKdMsjAmQiv5mGCO+4+nEUbGr3LWM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dyA7hp7s7K/yckfsxQ48O5idBdokA14BvDWaboKh0Zx5EmToOQrYEAbkJSTM4G858yXuJlL0Sl+kYlqeS0YvM/2QyXlLB1jHsZfl9nhZKC+LNDx79MfrZI1z7dXrHX3zbVoQxIsqTe/GgXugiCuIMiTaDo8POEulFsjychmcpPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCNoC0aB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785931223; c=relaxed/simple;
+	bh=b7otmni9aoOFzUMCWl9ouWtfFGrnKm33Gjf703uM48U=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SoVcsYi4c7tCq+eP03c7841hGzxoHUEW27SerZy/0vGWO8IKluAAizJjFWgXGrkOy9QGD5lWJVPseuabdj2FheA9UeS1zR2FaRlOxsVgoIhdF0a81mfbnCKPP89q4A2FYqEsISgzfAvOGuWdaGmQqx1DVopA9F1KbTkxphLAXJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=chbGYII/; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCNoC0aB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17631F00A3A;
-	Wed,  5 Aug 2026 11:57:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785931073;
-	bh=LzKqxd0i6BEVMJwOWsnwGsBW9qgV25TXeNg/x8DnPDI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=NCNoC0aBwKQQ4vN1jcy8CSJYbeF5emUvI7D7KMQODwsxdznFfW2sNRbs56EC08hRA
-	 0FrqVT/7JDrgUSqborixN+8H1wy3+LcOwziJJ8pWngUqyYsZkzD9qKJH6vWskesSgw
-	 0VCT3xGB56JW8dLjCgGEjiV3x6iqm7U/zlLUQ/WE0LB/TVULuotrypFLTPK1HZO1BG
-	 wNHhhJRb6bYTDiNpa1OP30WYyrDh3ee3zHz/BxYYfheJ4+d1UDrUewDWT7+xAbLTjv
-	 UsITCXheGiBpecEsbr9z9ttbsv+Efp9KfePQVvTlsADvm+a4LkLPehilXx1syOM3gH
-	 1OHHRimHBnGMw==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Wed, 05 Aug 2026 13:57:24 +0200
-Subject: [PATCH v9 5/5] arm64: tegra: Add PCIe root ports on Tegra264
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="chbGYII/"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6758fLdI413462;
+	Wed, 5 Aug 2026 08:00:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=0OcGq2SbnoRRrbUhk5Gr//V7jXE
+	f3HGk8CL6Z/VO33Y=; b=chbGYII/Opolx6coL6UZS5hLvHgldCWGNp9ZtYUT6R2
+	GhCz2VNCmTEMy/d2VVFS68GyCYbur9lOTbnMiB/TznaD1RT+s4Cxztl7Is/GyHY/
+	AawIX185h4utOwuY7Ki569cR6jpnP+09zlTGuVjD8PSAmfEVkEQnefTH5rjDV6cB
+	J7k0vOxKG+EQnwsV6oV4VhRxKT28aJfYd9IXxSDp7DRCEph/bdpVfJYzfrEEZliD
+	Xvm3sjMhr38h9hUF15lqUR/jo68AoqZueQf0AxTBTvdm3zXF/uaJJTDB2VUu7+QV
+	m6qMc33/qBpaATe2BtyVrooHTix93CNgAdP21AskFiw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fue6wnu4a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 05 Aug 2026 08:00:17 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 675C0Gp4016157
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 5 Aug 2026 08:00:16 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Wed, 5 Aug
+ 2026 08:00:16 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 5 Aug 2026 08:00:16 -0400
+Received: from HYB-b1tGeUj4GP1.ad.analog.com ([10.32.223.86])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 675C049l000726;
+	Wed, 5 Aug 2026 08:00:06 -0400
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Marcelo Schmitt <marcelo.schmitt@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Cosmin Tanislav
+	<cosmin.tanislav@analog.com>, <linux@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Subject: [PATCH 0/2] iio: accel: adxl367: add INT2 interrupt pin support
+Date: Wed, 5 Aug 2026 14:59:50 +0300
+Message-ID: <20260805115952.33894-1-antoniu.miclaus@analog.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-tegra264-pcie-v9-5-fa2ed7350ae1@nvidia.com>
-References: <20260805-tegra264-pcie-v9-0-fa2ed7350ae1@nvidia.com>
-In-Reply-To: <20260805-tegra264-pcie-v9-0-fa2ed7350ae1@nvidia.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
- Michal Simek <michal.simek@amd.com>, Kevin Xie <kevin.xie@starfivetech.com>, 
- Thierry Reding <thierry.reding@kernel.org>, Aksh Garg <a-garg7@ti.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4514; i=treding@nvidia.com;
- h=from:subject:message-id; bh=CsDyWrPyNdz/9ucBVAUZst7qSxttLozNfWGdkMV1Nvk=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqcyUx/fOa7PuCvc4YnEtGLgFX8D2EDNtACsG62
- 7YwhBRcZS+JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCanMlMQAKCRDdI6zXfz6z
- oci7D/97rMzKXZpPGsIfO9xGVdFYBFFpZTHF4fJ2l6bgLRc0RBnj5YtxHpBQIsVjfL3FXAf90YA
- nrMDe1FS/Zee1qi9jA4OCvZ9/WEhA0OA52abu2Acs0FKGauSPn4PI3vKOkhkaOr9DjqTjTSdOFE
- XJLK2w4L6mitimmM/dIobY6EUelz7ZPWF0/WD1953mDOG9NMdkT8fo4pudFu5hZKgaRrfRjcssw
- QIBttqZhPBsagLmcvPYJeU9xGN9YvYJvFwLL0rLNtQ5SwffcGtnXp8GUSLeKo6gcDys5ul9hPR1
- 00lhKsgnl/+B/7AUs6ciQ3LpiQ9oMmOViddKZNCLaedfYYUtr2m4s8MBOd9dww7yZVs05mcmkIN
- VMu9oBmB5R0nuR1Wbl3iQF+pXIVdHkXk90m6UJY1IU4lW/YbuQcdhkSGO23PzKylimG3DoSqMRR
- 8MZ2iST0uM22HjuloglDSin3HBM/4rbKv+PNk7NON6VJwQDNP1XSNMZhefGiyA+/3U/mgJao2jv
- c+EEm9gJITHVZKrFps/XPRnSdW9WlPp4b3noAMdWojqn8Zl+6XknTlVTNaFClZMNdyrugnfynfM
- RtkgtjSBRiUKiyHNcvIAlp2lPOyLTeVXjze7Y23HINAMwsmzuWZrYfUhathqD3cHbh8d0Lyo64X
- 1ZVeuabydndalzw==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=SdzHsPRu c=1 sm=1 tr=0 ts=6a7325d1 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=LHrYOUlWEv7JUqxRrFYA:9
+X-Proofpoint-ORIG-GUID: 9uIPWUTvQ1FC1TAl1sr2SZPe1CC3YLTF
+X-Proofpoint-GUID: 9uIPWUTvQ1FC1TAl1sr2SZPe1CC3YLTF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA5NSBTYWx0ZWRfXw/IcPeyIWYCH
+ i6cQlmVy4GikNFemirlNXMTGGBIBUq71UR3xSK6VfoF3RKPF4xB3yhYnU4fSr6B8DQDELCCFtA9
+ HF7cEowbjwaZecHD7q0GPF10x//GjQzX87AJ1nhHzW6R3UtIUKvOTvTxJ7XJNjzfc2R3sDV1Wb/
+ yk1zpioCeg1uIpaTzRBBxNMqXnK/clnTk2WaQWHQiLvQE/xH3N5YHcFdJ82Sw6bl7TUcn/bEEcT
+ cLls3Bp6R07GY+Pvxs0ZYncYW7YDhjYFXomqaRhUeyUOJ7PdIswUPLZgTcllYEdtkw1ULPuFI4U
+ p4KM+cQgOA6rVEIcQgiqXjnfJ9XdQBFVF1RMTvjde/r7llPDjixYIs2pvec+wH5m7bTND2JwkrN
+ gOPTQPdiJbGIuubJ3GH8/SJN5U8X+/wvkdw8hbzA0kPJ6I40s6Jx8f1cZa+9AzHeGeX4hlIFT4x
+ MEGMkTWg2XVXUrM22Rw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA5NSBTYWx0ZWRfX9sBK2IiutgF1
+ 09arQ8/6f+njYNHwDi8rXjf2zAGcx61aLFnG/91Mmlquj++KfTub97mid0yf8gDQlKzdUZvNHow
+ I1AZQJrzOhlwAEfFPhxvmDmm7eOLIC4qOS7nHZkdZdQczZ+R/niv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_03,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050095
 
-From: Thierry Reding <treding@nvidia.com>
+The ADXL367 has two independent interrupt output pins, INT1 and INT2,
+either of which may be wired to the host. So far the driver hardcoded
+INT1 for all interrupt mappings, so a board that routes only INT2 could
+never receive activity, inactivity or FIFO watermark interrupts.
 
-The bindings have been updated to use the PCIe root port bindings, so
-the nodes for the root ports must be added.
+This series adds an optional interrupt-names device tree property to
+describe which pin ("INT1" and/or "INT2") is connected, and teaches the
+driver to route its interrupt mappings to the matching register
+(INTMAP1_LOWER or INTMAP2_LOWER). When no interrupt-names are present,
+the driver defaults to INT1 to preserve the existing behaviour.
 
-Signed-off-by: Thierry Reding <treding@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra264.dtsi | 66 +++++++++++++++++++++++++++++---
- 1 file changed, 60 insertions(+), 6 deletions(-)
+Antoniu Miclaus (2):
+  dt-bindings: iio: accel: adi,adxl367: add interrupt-names
+  iio: accel: adxl367: add support for INT2 interrupt pin
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-index cf9760c681b1..31bd29df8e46 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-@@ -3562,10 +3562,19 @@ pci@c000000 {
- 			ranges = <0x81000000 0x00 0x84000000 0xd0 0x84000000 0x00 0x00200000>, /* I/O */
- 				 <0x82000000 0x00 0x20000000 0x00 0x20000000 0x00 0x08000000>, /* non-prefetchable memory (128 MiB) */
- 				 <0xc3000000 0xd0 0xc0000000 0xd0 0xc0000000 0x07 0xc0000000>; /* prefetchable memory */
--			bus-range = <0x0 0xff>;
- 
- 			nvidia,bpmp = <&bpmp 0>;
- 			status = "disabled";
-+
-+			pcie@0 {
-+				device_type = "pci";
-+				compatible = "pciclass,0604";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
- 		};
- 
- 		pinmux_main: pinmux@c281000 {
-@@ -4015,10 +4024,19 @@ pci@8400000 {
- 			ranges = <0x81000000 0x00 0x84000000 0xa8 0x84000000 0x00 0x00200000>, /* I/O */
- 				 <0x82000000 0x00 0x28000000 0x00 0x28000000 0x00 0x08000000>, /* non-prefetchable memory */
- 				 <0xc3000000 0xa8 0xc0000000 0xa8 0xc0000000 0x07 0xc0000000>; /* prefetchable memory */
--			bus-range = <0x00 0xff>;
- 
- 			nvidia,bpmp = <&bpmp 1>;
- 			status = "disabled";
-+
-+			pcie@0 {
-+				device_type = "pci";
-+				compatible = "pciclass,0604";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
- 		};
- 
- 		pci@8420000 {
-@@ -4047,10 +4065,19 @@ pci@8420000 {
- 			ranges = <0x81000000 0x00 0x84000000 0xb0 0x84000000 0x00 0x00200000>, /* I/O */
- 				 <0x82000000 0x00 0x30000000 0x00 0x30000000 0x00 0x08000000>, /* non-prefetchable memory */
- 				 <0xc3000000 0xb0 0xc0000000 0xb0 0xc0000000 0x07 0xc0000000>; /* prefetchable memory */
--			bus-range = <0x00 0xff>;
- 
- 			nvidia,bpmp = <&bpmp 2>;
- 			status = "disabled";
-+
-+			pcie@0 {
-+				device_type = "pci";
-+				compatible = "pciclass,0604";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
- 		};
- 
- 		pci@8440000 {
-@@ -4079,10 +4106,19 @@ pci@8440000 {
- 			ranges = <0x81000000 0x00 0x84000000 0xb8 0x84000000 0x00 0x00200000>, /* I/O */
- 				 <0x82000000 0x00 0x38000000 0x00 0x38000000 0x00 0x08000000>, /* non-prefetchable memory */
- 				 <0xc3000000 0xb8 0xc0000000 0xb8 0xc0000000 0x07 0xc0000000>; /* prefetchable memory */
--			bus-range = <0x00 0xff>;
- 
- 			nvidia,bpmp = <&bpmp 3>;
- 			status = "disabled";
-+
-+			pcie@0 {
-+				device_type = "pci";
-+				compatible = "pciclass,0604";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
- 		};
- 
- 		pci@8460000 {
-@@ -4111,10 +4147,19 @@ pci@8460000 {
- 			ranges = <0x81000000 0x00 0x84000000 0xc0 0x84000000 0x00 0x00200000>, /* I/O */
- 				 <0x82000000 0x00 0x40000000 0x00 0x40000000 0x00 0x08000000>, /* non-prefetchable memory */
- 				 <0xc3000000 0xc0 0xc0000000 0xc0 0xc0000000 0x07 0xc0000000>; /* prefetchable memory */
--			bus-range = <0x00 0xff>;
- 
- 			nvidia,bpmp = <&bpmp 4>;
- 			status = "disabled";
-+
-+			pcie@0 {
-+				device_type = "pci";
-+				compatible = "pciclass,0604";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
- 		};
- 
- 		pci@8480000 {
-@@ -4143,10 +4188,19 @@ pci@8480000 {
- 			ranges = <0x81000000 0x00 0x84000000 0xc8 0x84000000 0x00 0x00200000>, /* I/O */
- 				 <0x82000000 0x00 0x48000000 0x00 0x48000000 0x00 0x08000000>, /* non-prefetchable memory */
- 				 <0xc3000000 0xc8 0xc0000000 0xc8 0xc0000000 0x07 0xc0000000>; /* prefetchable memory */
--			bus-range = <0x00 0xff>;
- 
- 			nvidia,bpmp = <&bpmp 5>;
- 			status = "disabled";
-+
-+			pcie@0 {
-+				device_type = "pci";
-+				compatible = "pciclass,0604";
-+				reg = <0x0 0x0 0x0 0x0 0x0>;
-+				bus-range = <0x01 0xff>;
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+			};
- 		};
- 	};
- 
+ .../bindings/iio/accel/adi,adxl367.yaml       | 11 ++++++-
+ drivers/iio/accel/adxl367.c                   | 33 +++++++++++++++++--
+ 2 files changed, 40 insertions(+), 4 deletions(-)
 
 -- 
-2.54.0
+2.43.0
 
