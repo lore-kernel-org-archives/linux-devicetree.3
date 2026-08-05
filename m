@@ -1,293 +1,180 @@
-Received: from mail-m127162.xmail.ntesmail.com (mail-m127162.xmail.ntesmail.com [115.236.127.162])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDCE35F18B;
-	Wed,  5 Aug 2026 04:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.162
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1FA33F5B0
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 05:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785904950; cv=none; b=OdRvhBunOL8CIhfr4SQ3HOyNoMJapxF8KwXnGXGNOdgOK9hlpZ4/t9VYn3+js3tlYWEISoEz6D12PMw4r16OZ0fcy/CbX8C/Ha3xtTLvzuTJqadbqrOJSc7+EcIVrDxqbgLt42MZqbm4IPPTY5u4kiQabn0lJ6spx/OC3/MhjEo=
+	t=1785908128; cv=none; b=vCc9I3+bC2Pe412Y2ygdhx8vRcT/H/A8m00geZBA4iuhJViQCYRPag8TBkGwao16NhI2ho2sn/VNDfojDBFndS24CmBJC5l9aGoz1e+hz3EvEbJxZXlOEwmli2TmDZ/FG1pdP8nKHN+L/B+NsM3Y4UTJqvVvZFsegZptyduMqas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785904950; c=relaxed/simple;
-	bh=q7hM+XGHK8/PLErkzVCGnXgjUq+JjqbhCjb3dYI+FAQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rwZPR6KvaeqEqJbE716COap6d4ezgYNSn7SCGrbld8FW2EbZlXlUXZ8il3KXp/mu7rZhvoDxVuVb085Tn0nAXFUlfI2UPuO0pJB8ylQ5VkkJsvcwCIn5K+O3UVlbNrUU7EA/iaRdJZi0npAwJzqjuuMb86JrbQLKx4OcHUY3oKk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=FgyUEkOS; arc=none smtp.client-ip=115.236.127.162
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1785908128; c=relaxed/simple;
+	bh=tpKX4/6jtyZxGgtiLI/SI+QmTqy1qaVqpcPo2dKFY7A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fxUso/5TBmc293EHxXqqSr54XSXDbQvDJjL0TnAITph01rpbNi6fd8/048ZtFaVMeCBvGFq+UWfxNzPZ1jDv70oL7jmWtwAQXI6XB6acOTz5JRzbbsTmKCFVK99Ufxso5tyoyGEfzld11saA8+XWZfgFNU7H/30E3Ez4IfkgytA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YpcA1oR2; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="FgyUEkOS"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 48d284d12;
-	Wed, 5 Aug 2026 12:06:48 +0800 (GMT+08:00)
-Message-ID: <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
-Date: Wed, 5 Aug 2026 12:06:48 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YpcA1oR2"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ccf2360620so6083535ad.3
+        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 22:35:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785908126; x=1786512926; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wHjVLD0AcaQ6WvBpKZJ61p7P1mggpiUP9AhMb5W7tOo=;
+        b=YpcA1oR2BGeFZE5fmks8+5BsZobKysk6Z4+hd9LLzX67sW2CHmvVsSBTLbwB+6fLo6
+         skVCp+LC3QdRBUoivSnIejvadR8k2tBGZTXNiQ0BSS6Mc284e7pDIbKuysgvFSxEB5hF
+         2jfM7U100FXzHruDd4hB+RrOHSdRJb5TwtBx+VSCslESa1rSb8eID6a+/I5S0Umm2VhQ
+         yDhgnO/iAAoBHPYzzF+UU6omotQILWQXmXnYbJi+cjfipSIlRsz1oonXKohFSEjDYMFk
+         x247nymPOYBdh+dGa6J5czcEoYdT680PMvWWfg124OsnINLKljzF+p+by0zS529gxMZ2
+         Hy0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785908126; x=1786512926;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wHjVLD0AcaQ6WvBpKZJ61p7P1mggpiUP9AhMb5W7tOo=;
+        b=ba8Nrhm7FMLIjaeZmf1Dkc14JKicWNq5ojBbkjkZD6rLieHrXAKQL8XeENTOqejvqi
+         MjUgVcNGKtKs9OrwfrCi5LjNC46IFV/wEo4cBuiDe732sJgXe74JL5i2lDvMg6pv5z9j
+         INYiYYuaNHaybxYJFnpv3qj44aR2Str9fdz3pPIMC++7YJlKHJmpdEZ3gPOKB8NrDyd1
+         XVnpfcvj2UnFoeG4vZq88ac2j9YyExzpCno+WLshYPjTSPUydT48TDvWYPztuWmfaRtU
+         pdI1hK4b1pGKWjg0TXtblBGCOgTdv/3ehrMtuYHy5MinSfzQi4Ueo9Pds3c7PiHdOCHT
+         EnYA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqh0Q8oi1rrTkITvXuC3XymXOFOAH2kM1xCTkmc99AkkDvGur+Bf50kpCiF4Oz8VtxMKWc12/5z/7Nc@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyjqm9mqFmiooGg5EHEqPwt9kM9qNEFjnNRe9TI/PYLdFjDMuUR
+	G0zZ1yr1gBwnSjEIZLyYGlqB7hV/4ghOirfrSgNrThBegyh4NndJmrJC
+X-Gm-Gg: AR+sD10JcQytno0VEkRqjd0i5HPOQzwGBQCNzcQ7Qf9boyjSYDr1S3Aw9UKHVOGGQhJ
+	eOsJtMLtl1vyS3bSeNs1LIyx4kTJ+MwU8wtqX8pc8hP0cFi6u7kRR3bxh15W9pRhZdUwJQYoSVQ
+	PSnCBWlh0KoJcFQiV9AkNkBCQPuG9panoAE0jY/MA5NR9718tGN9ZK0xC1/lH4Q5aYF+z1yqNdr
+	Ph8qsnyVdh4Gnjkv0XNjcR1BjiXeOQfht8O9cKirjbuqmNFzIUqEIP/phaF+ohxi4F/2VbOS0K9
+	RSAHF83bRe87eN2Br5qslFjJqlN2CmH5AcMyfBJXruJIF8ESlBK8lBrbcy0wigIDE2L6KvJ7e3/
+	uktKAmlhVOcTXLgJG1Macy5isnrVL2rpVBalTQyI6FatJ1nHacNzyjA0BMWIwDhD1HFQFj6Vyw0
+	nOx5ZPXuJ7DkQkcNVJyAOCvX0SEfG5CrQ/lWOuU6H+TkPR96iILlwRPTP01YqpH8T2vTAv5OLzp
+	szJPM6FGurPp1j2aeO8iT+RGeakIzuCWrmfUZA=
+X-Received: by 2002:a17:903:2310:b0:2cf:9347:f445 with SMTP id d9443c01a7336-2d0ca757773mr39862825ad.10.1785908126141;
+        Tue, 04 Aug 2026 22:35:26 -0700 (PDT)
+Received: from [127.0.1.1] (61-220-246-151.hinet-ip.hinet.net. [61.220.246.151])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa4c0b1fsm14307245ad.64.2026.08.04.22.35.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 22:35:25 -0700 (PDT)
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Subject: [PATCH v3 0/2] iio: adc: Add support for Texas Instruments
+ ADS112C04
+Date: Wed, 05 Aug 2026 13:38:19 +0800
+Message-Id: <20260805-ti-ads112c04-driver-v3-0-49f436829e01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260804081717.741404-1-damon.ding@rock-chips.com>
- <5609825.iZASKD2KPV@diego>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <5609825.iZASKD2KPV@diego>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9fd01a3dc903a8kunm1ce208566a0762
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUtDVkxKH0lPHk8aQk9NQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=FgyUEkOSbZ9/Qa2HsnMSqlJTDs3+ieUTOhT9JTG9m353+h07kHDJSkyJkiV1xSGLeuP1ZNOPNhW/UyyKHBrB0s88ZhkpPA9S9N/GUK+Ysde2voUzWUHSAaRZ6kSaywTHvGm6ytkbHBrkYeBqy2xriZHbFkzBzomG2mMnge3r4Gw=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=46KglQXmBZaXhQzKYrdlIIgbE5Hkt8Onh1lXOlB0H+Y=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEvMcmoC/23NTQqDMBCG4atI1p2Sv5q0q96jdBHjqANVSyKhR
+ bx7o1Bw4fL9YJ6ZWcRAGNmtmFnARJHGIYc6Fcx3bmgRqM7NJJclN1LDRODqKIT0XEMdKGGACg3
+ aK9fGKs3y5TtgQ59NfTxzdxSnMXy3J0ms69+zh14SwEGbCzaoUVbG3tve0evsx56tXpI7Q4ljQ
+ 2bDuYqL0nrludgby7L8AGmTjrj6AAAA
+X-Change-ID: 20260724-ti-ads112c04-driver-be7e89047834
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Kyle Hsieh <kylehsieh1995@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3838;
+ i=kylehsieh1995@gmail.com; h=from:subject:message-id;
+ bh=tpKX4/6jtyZxGgtiLI/SI+QmTqy1qaVqpcPo2dKFY7A=;
+ b=owEBbQGS/pANAwAKAaWDQrcJVsSBAcsmYgBqcsxNlOomGP7A7aQxwZja9nIdrgBMQAww57c9j
+ 1D/SROaijaJATMEAAEKAB0WIQTJHsaNZOdY+THGqJelg0K3CVbEgQUCanLMTQAKCRClg0K3CVbE
+ gcNOB/9NRKMYHlH8Org+p1hFY1H1nKruaQfdtfZBGifVsNt7aFH3C1GSKftxzb9lL9lLjhKmr7E
+ y1VZhBSnVxn9ib+Z6y5im+isEhlF0B3FgANgCsI6v68wi1OnnPD1AYauvee9O5J5/EiYE6M6TkP
+ 25DHIfgWWKXcElcCt4+fJaSJIvAUF2bwePj0dq4bMb6+J7aLPzmOv9STL0meLGCch5SJAizMKXq
+ M03saOvdzUqolK+p7xIVPJH/2Tucrx69Nls4bkbRa2YmZ4fi+357vf91z9Gu8vfH2DdXhrCmBOa
+ IVlq/eGMt4xjUt42CNT8gJUX1waT9yIQaN5bOoLjjQ+8Ry06
+X-Developer-Key: i=kylehsieh1995@gmail.com; a=openpgp;
+ fpr=C91EC68D64E758F931C6A897A58342B70956C481
 
-Hi Heiko,
+This patch series introduces support for the Texas Instruments ADS112C04
+Analog-to-Digital Converters.
 
-On 8/5/2026 6:39 AM, Heiko Stübner wrote:
-> Hi Damon,
-> 
-> Am Dienstag, 4. August 2026, 10:17:07 Mitteleuropäische Sommerzeit schrieb Damon Ding:
->> Display-connector mode (DP connector without HPD GPIO):
->>
->>    &edp_out_conn {
->>        remote-endpoint = <&dp_con_in>;
->>    };
->>
->>    dp-con {
->>        compatible = "dp-connector";
->>        label = "DP OUT";
->>        type = "full-size";
->>
->>        port {
->>            dp_con_in: endpoint {
->>                remote-endpoint = <&edp_out_conn>;
->>            };
->>        };
->>    };
->>
->> Display-connector mode (DP connector with HPD GPIO):
->>
->>    dp-con {
->>        compatible = "dp-connector";
->>        label = "DP OUT";
->>        type = "full-size";
->>        pinctrl-0 = <&edp0_hpd>;
->>        pinctrl-names = "default";
->>        hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
->>
->>        port {
->>            dp_con_in: endpoint {
->>                remote-endpoint = <&edp_out_conn>;
->>            };
->>        };
->>    };
->>
->> All four configurations detect cable plug/unplug events correctly.
+The ADS112C04 (16-bit) is precision, low-power, delta-sigma ADCs with
+an I2C interface. They feature a flexible input multiplexer supporting
+single-ended and differential measurements, a programmable gain amplifier,
+and an internal voltage reference.
 
-Thanks a lot for your testing and feedback. :-)
+Note: While this chip shares similarities with the ADS112C14 (currently 
+being upstreamed by David Lechner), the register maps and feature sets 
+are sufficiently different to warrant a separate driver. However, the
+DT bindings and channel parsing logic have been aligned with the
+ADS112C14 conventions.
 
-It seems my test setup gave me the false impression that those cases 
-worked well.
+This initial submission provides a minimal feature set (single-shot 
+conversions and basic DRDY interrupt) covering current use cases.
 
-> 
-> hmm, it wasn't working entirely for me though and was still running into
-> issues when the display was unplugged on boot.
-> 
+Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+---
+Changes in v3:
+- dt-bindings: iio: adc: ti,ads112c04:
+  - Resolved dt_binding_check errors by removing redundant $ref for
+    standard unit suffixes and fixing YAML array syntax.
+  - Added full hardware capability descriptions (excitation-channels,
+    excitation-current-nanoamp, burn-out-current-nanoamp,
+    reference-sources) as suggested by David Lechner.
+  - Restricted the reg maximum to 11 and updated the regex to
+    ^channel@[0-9a-b]$ to accurately reflect the 12 possible MUX
+    combinations.
 
-Are you seeing this boot‑unplug issue for both scenarios: DP‑connector 
-with HPD‑gpio paired with eDP without HPD‑gpio, and DP‑connector without 
-HPD‑gpio paired with eDP with HPD‑gpio? I.e. it wrongly reports 
-connected even with no display plugged in and proceeds into DRM 
-.atomic_enable()?
+- iio: adc: ti-ads112c04:
+  - Transitioned all I2C read/write wrappers to use SMBus APIs
+    (i2c_smbus_read_byte_data, i2c_smbus_read_word_data, etc.) to
+    gracefully handle I2C errors, NACKs, and Repeated Starts, addressing
+    feedback from Joshua Crofts and Jonathan Cameron.
+  - Added forward compatibility checks in probe() and parse_channels()
+    using dev_err_probe() to return -EOPNOTSUPP for unimplemented DT
+    properties.
+  - Reverted devm_request_irq() flags to 0 to let the driver inherit the
+    trigger type strictly from the DT, per Jonathan Cameron's advice.
+  - Reduced the data wait timeout to 100ms, reflecting the chip's slowest
+    data rate of 20 SPS.
+  - Fixed #include alphabetical sorting, grouped <linux/iio/*> headers,
+    and added missing headers.
+  - Fixed variable declaration ordering (reverse xmas tree) and updated
+    variable naming to vref_mV (SI unit exception).
+  - Optimized GPIO reset logic using GPIOD_OUT_HIGH.
+- Link to v2: https://lore.kernel.org/r/20260731-ti-ads112c04-driver-v2-0-aab0168c3c01@gmail.com
 
-> I wiggled around a bit like in the diff below and am now getting correct
-> plug and unplug events.
+Changes in v2:
+- Replaced `vref-supply` with `refp-supply` and `refn-supply` to accurately reflect hardware.
+- Refactored the driver to dynamically parse channel configurations and routing from DT child nodes.
+- Modernized the driver using kernel macros.
+- Handled endianness elegantly.
+- Added hardware reset fallback logic.
+- Inherited IRQ trigger type from device tree instead of hardcoding.
+- Fixed a bug where the MUX software cache could desync from hardware if the I2C write failed.
+- Added strict return value checking for all I2C writes during probe.
+- Updated the `i2c_device_id` array to use C99 named initializers.
+- Link to v1: https://lore.kernel.org/r/20260728-ti-ads112c04-driver-v1-0-475efe4e2b78@gmail.com
 
-Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so 
-that plug‑in interrupts can be properly responded to. However GPIO HPD 
-does not require a runtime PM get. I will better separate these two 
-scenarios in the next version.
+---
+Kyle Hsieh (2):
+      dt-bindings: iio: adc: ti,ads112c04: Add binding for ADS112C04
+      iio: adc: ti-ads112c04: Add support for TI ADS112C04
 
-> 
-> But of course, as the dp-variant of the connector does not provide
-> a "detect" and just the "hpd" functionality, it's missing the initial state.
-> 
-> I'm currently not sure how to find out _if_ a panel is connected on boot.
-> 
-
-Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display‑connector: 
-don't set OP_DETECT for DisplayPorts"), HPD events from DP‑variant 
-connector should be handled by the upstream DP controller. Hence I added 
-analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
-
-As expected, under the bridge‑connector framework, the detect result 
-from Analogix DP should in theory reflect the actual connection status.
-Let's dig into this boot‑time initial‑state issue together.
-
-> 
-> In other review comments:
-> - the bridge could use devm_drm_of_get_bridge() as suggested in
->    the documentation of drm_of_find_panel_or_bridge(), as that would
->    remove the separate panel_bridge creation
-> - instead of using plat_data->next_bridge _inside_ the driver
->    struct drm_bridge has a field next_bridge already.
-
-Great suggestions, I will incorporate them for the next version 
-alongside Sashiko's comments.
+ .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 146 +++++++
+ drivers/iio/adc/Kconfig                            |  10 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/ti-ads112c04.c                     | 423 +++++++++++++++++++++
+ 4 files changed, 580 insertions(+)
+---
+base-commit: 4539944e515183668109bdf4d0c3d7d228383d88
+change-id: 20260724-ti-ads112c04-driver-be7e89047834
 
 Best regards,
-Damon
-
-> 
-> 
-> Heiko
-> 
-> 
-> ------- 8< -------
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 877e1b3ca7525..1388640a27de7 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -43,7 +43,7 @@ static const bool verify_fast_training;
->   static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
->   {
->   	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
-> -	       !dp->force_hpd;
-> +	       !dp->hpd_bridge && !dp->force_hpd;
->   }
->   
->   static void analogix_dp_init_dp(struct analogix_dp_device *dp)
-> @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_device *dp)
->   	 * Trust connection status from downstream bridge (e.g.,
->   	 * display-connector with hpd-gpios).
->   	 */
-> -	if (dp->plat_data->next_bridge && dp->connection_notified)
-> +	if (dp->hpd_bridge && dp->connection_notified)
->   		return 0;
->   
->   	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
-> @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
->   	 */
->   	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
->   		status = connector_status_connected;
-> -
-> -	if (!analogix_dp_detect_hpd(dp))
-> +	else if (!analogix_dp_detect_hpd(dp))
->   		status = connector_status_connected;
->   
-> +printk("---> %s status %d\n", __func__, status);
->   	return status;
->   }
->   
-> @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
->   		goto out_dp_init;
->   	}
->   
-> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
-> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
->   		enable_irq(dp->irq);
->   	return 0;
->   
-> @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
->   	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
->   		return;
->   
-> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
-> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
->   		disable_irq(dp->irq);
->   
->   	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
-> @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_bridge *bridge, struct drm_conn
->   	struct analogix_dp_device *dp = to_dp(bridge);
->   
->   	dp->connection_notified = (status == connector_status_connected);
-> +printk("---> %s connection_notified %d\n", __func__, dp->connection_notified);
->   }
->   
->   static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
-> @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
->   	if (ret && ret != -ENODEV)
->   		return ret;
->   
-> +	/*
-> +	 * There is a next link in the chain which is not a panel, we should
-> +	 * expect hotplug-information coming from there.
-> +	 */
-> +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_bridge))
-> +		dp->hpd_bridge = true;
-> +
->   	return component_add(dp->dev, plat_data->ops);
->   }
->   
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-> index d0fb25e543ea0..ecca3b87b4456 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
-> @@ -169,6 +169,7 @@ struct analogix_dp_device {
->   	bool			fast_train_enable;
->   	bool			psr_supported;
->   	bool			last_bridge_is_panel;
-> +	bool			hpd_bridge;
->   	bool			connection_notified;
->   
->   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> index ec5950066f838..6f0d642739ffd 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-> @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
->   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
->   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
->   
-> -	if (dp->hpd_gpiod) {
-> +	if (dp->hpd_gpiod || dp->hpd_bridge) {
->   		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
->   	} else {
->   		/*
-> @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
->   {
->   	u32 reg;
->   
-> -	if (dp->hpd_gpiod)
-> +	if (dp->hpd_gpiod || dp->hpd_bridge)
->   		return;
->   
->   	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
-> @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp)
->   	if (dp->hpd_gpiod) {
->   		if (gpiod_get_value(dp->hpd_gpiod))
->   			return 0;
-> +	} else if (dp->hpd_bridge) {
-> +		if (dp->connection_notified)
-> +			return 0;
->   	} else {
->   		reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
->   		if (reg & HPD_STATUS)
-> 
-> 
-> 
-> 
-> 
+-- 
+Kyle Hsieh <kylehsieh1995@gmail.com>
 
