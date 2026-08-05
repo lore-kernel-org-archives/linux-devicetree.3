@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181EB46D0A5
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:28:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDCC44AB99
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785936541; cv=none; b=HR6JqaBMr18vkWEeiA1vgJbvrPLfvwdoC1bBwOK234CYndy9Wz2QiyYkoobUhJd+to0873K35hV6dJ68h+gJyqhW2kB74eZWcft0F7oc8ovR2GGoupprsy5K7MmlZ/cVALXN5lec3EhgBEZnVwf40vP8c5UOf2oC47P7hPtrffk=
+	t=1785936583; cv=none; b=ltdBiF3Lb713Y4BIDcG7bUkjfkr2RPsYx+BeVeeu1A2lkfv3vzvzV7jSXbgbN1AnkMElchOto5CHY1HHagt01oWGhtDTfzvNKaQiyOkUNMiP7+trybFeXOITuHpEd/hhU7ZEslV4xIaKaiPhLmwdNbqCo3iuTq6NMn+D3eJh9NU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785936541; c=relaxed/simple;
-	bh=CRVl1PguVvKokne+x0U84g4et2PCr5fA1Gx7q9CtcL8=;
+	s=arc-20240116; t=1785936583; c=relaxed/simple;
+	bh=SxP4fLP0KIVhaqnKK7kqSkrPad1GjTUogMIUrTohT+M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U5xu51SJsTA1xNCAvvsDPjOS2HA+1BCTZxTYlkP8UVH/9PljHhKi1/NxOAH1GIZK6a8EnMD3csh3MlqGbIyAf0G8eJDOHcsjD3uz0gXJK0O5UC5vteKoC4QaIEWJPqavO9k7HF8UdjE3TmM1pxqHVyrW1zuURf6yrpv1Xc2hSB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ampynMfc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nLzDYpGLvcQS3kOdItRNoe60A73NYkAUABZJ5/U65M9of5ROdx6uFQRQuiE/jruu97AmZ3A35eQBIkCz1jkrWv2wUY3MolHoalvEA2jgzRg6a3+awdB3Tc5k8A1XYdjjDv6R4q3Q3WoES8pILLLcfYBJIvSUNY7XTC14bOgHSD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1PrYv00; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ampynMfc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6DA1F000E9;
-	Wed,  5 Aug 2026 13:28:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1PrYv00"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8F51F000E9;
+	Wed,  5 Aug 2026 13:29:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785936539;
-	bh=pPl23Ygq5cSyyL8X48W+uRm0wILz843yPKxpk3Rywy8=;
+	s=k20260515; t=1785936582;
+	bh=Bwmv8LcJ0Iy16rLLeyXP3WLi8Qm6aVjZsyK4fkdbWgY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ampynMfcQbwWvVuheCt/cLgdcT33U8xjzZVGdrvhJDXMJl3AuuNhLC9TeAkbTeMrM
-	 6cyU0NMlGtgbSN89hTlOaFl1kQtuep8WP9U5pCBMg+zxgrts+/fCKw1YDu91WWsqW4
-	 yBfVeJx4jMdqNwafuy34zgtz2YP8Ld0wvlK5V30ug0XhHWo36tz9FaxXlZpmTxe21T
-	 JJOgYAM6zEEJn59pw3Oc7Gk8OSx5FSawKghaK785eF4zYZbcKFwE6ayJfDfjccDLoR
-	 Pdwpd1sNCf8yjwCfC8uKUz9DZWgi+ou7BvaFwCyjQEp58DzV7L8+B1bDM8bEmA6WX1
-	 GNy0iIPFtYypA==
+	b=i1PrYv00TKwkoFHgOA1MbAwjZdm71Lu6gDaSYrtTIapfCwZ1R9TKHASjSPllY4l7n
+	 KFDpdiW6o6N2udas3CH55DH8jYw6nmEUQpAbpP7yhMCYrFvgeE4iJszKBcYvptXdFc
+	 L/NIgyx5wGSTCbcCo82+cwbcyjkbbrG9WjM9PCFr0N0/Cg7o9Myc3g0mBN71qfo+3V
+	 nVKpGHdN3gBJ5AT99Fu5u5Eh5B2EV0MEBBSH76FM9p9Fp6L4ezHn3yxcidsN5k3ySf
+	 m3j2kaHEhZDU6NYFpZeQik/l2Qzv3yrPoC7le3nu0o8anlV47SpKUtoQ9J7cS1WQHH
+	 ppt/fNjR2N8gA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 10/12] ARM: dts: aspeed: anacapa: Add LPDB fuse
- monitor GPIO expander
+Subject: Re: [PATCH v4 08/12] ARM: dts: aspeed: anacapa: Enable MCTP and FRU
+ for NIC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Colin Huang" <u8813345@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260805-anacapa-devlop-phase-devicetree-v4-10-5d67e0efa6c5@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260805-anacapa-devlop-phase-devicetree-v4-8-5d67e0efa6c5@gmail.com>
 References: <20260805-anacapa-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com>
- <20260805-anacapa-devlop-phase-devicetree-v4-10-5d67e0efa6c5@gmail.com>
+ <20260805-anacapa-devlop-phase-devicetree-v4-8-5d67e0efa6c5@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 13:28:58 +0000
-Message-Id: <20260805132859.6F6DA1F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 13:29:40 +0000
+Message-Id: <20260805132941.8B8F51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,80 +47,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Meaningful code and commit message mismatch: The patch modifies =
-userspace-visible `gpio-line-names` for existing `gpio@22` and `gpio@24` ex=
-panders on both LPDB and RPDB without documenting these changes.
+- [Medium] Missing Frontend NIC (FE NIC) MCTP and FRU initialization for th=
+e Right Bridge Board (`i2c10mux0ch0`).
 --
 
---- Patch [10]: [PATCH v4 10/12] ARM: dts: aspeed: anacapa: Add LPDB fuse m=
-onitor GPIO expander ---
-commit dcdaa17a966db9099c36ac9d58c5a7e8e75f9c5d
-Author: Rex Fu <rex.fu.amd@gmail.com>
+--- Patch [8]: [PATCH v4 08/12] ARM: dts: aspeed: anacapa: Enable MCTP and =
+FRU for NIC ---
+commit dd43e6fac4e737bcb1c934de5c94c3846795897a
+Author: Andy Chung <Andy.Chung@amd.com>
 
-ARM: dts: aspeed: anacapa: Add LPDB fuse monitor GPIO expander
+ARM: dts: aspeed: anacapa: Enable MCTP and FRU for NIC
 
-This patch adds the PCA9554 GPIO expander for PDB fuse monitor signals on t=
-he
-Anacapa BMC board. It adds definitions under the i2c8 multiplexer for both
-left and right PDBs.
+Add the mctp-controller property to enable frontend NIC management
+via PLDM over MCTP. Also add EEPROM device for NIC FRU and reorder
+the I2C virtual bus index according to the system silkscreen index.
 
-> ARM: dts: aspeed: anacapa: Add LPDB fuse monitor GPIO expander
->   =20
-> Add the PCA9554 GPIO expander for PDB fuse monitor signals.
-
-[Severity: Medium]
-This isn't a bug in the code, but does the commit message fully describe the
-changes in this patch?
-
-The commit message solely claims to "Add LPDB fuse monitor GPIO expander", =
-but
-this patch also adds the RPDB expander and modifies userspace-visible
-gpio-line-names for existing gpio@22 and gpio@24 expanders on both LPDB and
-RPDB.
-
-For example, it renames "RPDB_I2C_TEMP75_U8_ALERT_R_N" to
-"RPDB_I2C_TMP432_U8_ALERT_R_N", and adds new labels like "RPDB_SKU_ID0" and
-"LPDB_VERID_A0".
-
-Could the commit message be updated to reflect these functional hardware la=
-bel
-changes and the addition of the RPDB expander?
-
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts=
- b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
-> index 0eb547ad0ec16..f09dd1abe77d8 100644
-> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
-> @@ -8,6 +8,93 @@ / {
->  	compatible =3D "facebook,anacapa-bmc-dvt", "aspeed,ast2600";
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dt=
+s b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
+> index ff393ad7cdb79..703284721224f 100644
+> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dts
+[ ... ]
+> @@ -55,6 +74,106 @@ eeprom@51 {
+>  	};
 >  };
 > =20
-> +// MB - PDB
-> +&i2c8 {
-> +	i2c-mux@72 {
-> +		i2c8mux0ch0: i2c@0 {
-> +			gpio@22 {
-> +				gpio-line-names =3D
-> +					"RPDB_FAN_FULL_SPEED_R_N", "RPDB_I2C_TMP432_U8_ALERT_R_N",
+> +// R Bridge Board
+> +&i2c10 {
+> +	multi-master;
+> +	mctp@10 {
+> +		compatible =3D "mctp-i2c-controller";
+> +		reg =3D <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
+> +	};
+> +
+> +	i2c-mux@71 {
+> +		/delete-property/ i2c-mux-idle-disconnect;
+> +
 
 [Severity: Medium]
-This is where the undocumented RPDB expander definitions and gpio-line-names
-modifications are introduced in i2c8mux0ch0. Should these be split into a
-separate patch or documented in the commit message?
+Is the Frontend NIC (FE NIC) configuration missing here for the Right Bridge
+Board?
 
-[ ... ]
+The &i2c10 override configures channels 1-4 for the Backend NICs but omits
+channel 0 (i2c10mux0ch0). The Left Bridge Board (&i2c11) includes a Frontend
+NIC on channel 0, and an alias for i2c10mux0ch0 was added in this patch.
 
-> +		i2c8mux0ch1: i2c@1 {
-> +			gpio@22 {
-> +				gpio-line-names =3D
-> +					"LPDB_FAN_FULL_SPEED_R_N", "LPDB_I2C_TEMP75_U8_ALERT_R_N",
+Does i2c10mux0ch0 need to be populated with mctp-controller and the FRU
+EEPROM here?
 
-[Severity: Medium]
-Similarly here for i2c8mux0ch1 in the Left PDB, the patch introduces
-undocumented label additions and modifications to the existing gpio@22 and
-gpio@24 expanders. Should these changes also be mentioned in the commit
-message?
+> +		i2c10mux0ch1: i2c@1 {
+> +			mctp-controller;
+> +			// BE NIC FRU
+> +			eeprom@50 {
+> +				compatible =3D "atmel,24c32";
+> +				reg =3D <0x50>;
+> +			};
+> +		};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-anacapa-de=
-vlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com?part=3D10
+vlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com?part=3D8
