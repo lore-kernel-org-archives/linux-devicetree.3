@@ -1,106 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A964646A5FE
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888A7305699;
+	Wed,  5 Aug 2026 12:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785933898; cv=none; b=VmPK2XNA5MjKn9wKcLdwtsC6vZjiZZzeTtyEGezkEok0gxQFWkdGiCRbUw53H3YjiUFlBAP2juOaIkVHm3bJ2fy/bHZYSdmkVyub1m0PdvEk5B6g7kd5bjSOCXSMW+21AxE22q3MHUvl2MMq7AWtf4mlphZJYQ2RVCABP4l2SOM=
+	t=1785934039; cv=none; b=CAwjpN7Yc0QOfQ5M9d6tFe5iMYKsIpgYhbm9USX9RC6HmhaOY3Y+JFDXLmpBimCI4RsT6axNbg8uta9o79n/9lcziqCIazB8Jjvt22UxIZXVdzfjQVjONEhD/F5wiskQzP09hbJuuRaecDShV8SxDELMgektf6XxlqgVbXDvXc4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785933898; c=relaxed/simple;
-	bh=RggdgY4Q+yk2iJQf8ZWtFTEnt5hmsDtb5A27cebRFNU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VcJ7+ohwth16wuTUca4p4K1gpGlgyppbKnDP++KxlmEnNgo4riSmD0f5I7XfLHiIliZwpK2C5q/NJa97R4ZjAntG6Ca65L09Qsy0tqSD4XyZq+ceyCsC5K8hMla/iegfOOhkxmABQ6v+0lzINUMfgGfNOn6j2LKXdwqA3k/BQ28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HJwsUFhr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785934039; c=relaxed/simple;
+	bh=xf340/v81aD1Z8x2TD+r856jjq9JKRBwe08tRknLpTE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iOTlpTjW8V7KglX0hmXQsc91jmhp8Se9a7LwwXAPc4A+TVQLoipJ+3EZC/fwT8JuaUp6Hjg9eXzdI63zY/QOnSC8PkvNHPyRB0NtLzVX2M4a82JrP+Ha8Iwe/iWhIAalNAqgMqMAb8OqvIU1XI68ZQ8tuNvT6eiiDbIU3DQPdtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=LsPW/uxw; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=SBTtmLSg; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HJwsUFhr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152C61F000E9;
-	Wed,  5 Aug 2026 12:44:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785933897;
-	bh=PhWOY5RLmDaoMmdMBm0PuQwwIPbyWmnX/qIjQ6hyw9o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HJwsUFhr7Ae9AiM+dyHJjSwEKLBCm3/CnuvIVAAwWt2MAYKZ2h0iEq1hTA1/vspjw
-	 X2vtd4u8069a0qb7qvhrCReJ/tj19KnZAuZuhDMF+AHCKyhBG237lfGhHGDdgS683y
-	 trqE+43/1yfSkWLNmizHXQTuatfx6+O+53hdX/1jDPZOfH+B0hFYQA35dLhQsBYrw1
-	 l8hIcPxazbm5bqJn6aRGhAdFla8nQBmyYaeBeNgPbzeUZ5pV3Sd330wykgqxuS/RWB
-	 nGX3qg2jBh9SThtzStY6DyZHMtmyEOb4g7I7KTOA4mkE/J2WWFzcBQM7BavAN2Vozi
-	 N+QwEXq3LodnQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 12/36] pinctrl: airoha: fix AN7583 MDIO pin mux
- config
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260805123408.3767648-13-mikhail.kshevetskiy@iopsys.eu>
-References: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
- <20260805123408.3767648-13-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="LsPW/uxw";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="SBTtmLSg"
+Message-ID: <713da6b8fd1d46964cc51696af5dd60d41895153.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785934036;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0o0HlFz+E041vSU1Aqlu5PMMeBFHuuXFr+YnBTUN1c8=;
+	b=LsPW/uxwEwR7ZxQGMAOChcb4vIFwvw3G+cDUJyn+sBnNBb7ukshmJowZgtmnaD8E82u6vx
+	ZAWaG/7H3sn+CH0N/VXiU2OsiTluhT45CiJLDH+kNgxkj+pLeg0wg9JFtUxDRfgGwmj+tU
+	+FC4iaeOLh00LcGvRk8VqutPmBcEJ1+RAwC9S1bxzAzx8qHJv0ijeCZ8ekfwGS0ABDEFwv
+	8M7llWVDErE/tPeuX0rVYrZgX5+eoXXEZ+00tQW3sS38qaKbkk5fkgXuJO7QLtlglYDLVe
+	EWAEue577Fpl5vumbdIPik+jlHmAsJyPZEJi6zUcl+QhKu3KbZHdieUIcYYS4g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785934036;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0o0HlFz+E041vSU1Aqlu5PMMeBFHuuXFr+YnBTUN1c8=;
+	b=SBTtmLSgrHunueEqxOuBeDh2mSwVSJvzR+QDFxbWM8J49AcEgapiHs1YsKhdCnmNSPpvwI
+	z5i4jKANQqWbpTDQ==
+Subject: Re: [PATCH 3/4] net: dsa: Add support for SoC-e SDSA tags
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>
+Date: Wed, 05 Aug 2026 14:47:15 +0200
+In-Reply-To: <6129c629-370e-4081-89d2-6dbf1a142cd7@lunn.ch>
+References: 
+	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-3-be569dae1b20@linutronix.de>
+	 <df7e7e04-80fc-4b80-9afd-0e9bc14a759f@lunn.ch>
+	 <723a256eb9d5aa64e7037f98eabeeb99257f03f2.camel@linutronix.de>
+	 <6129c629-370e-4081-89d2-6dbf1a142cd7@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 12:44:56 +0000
-Message-Id: <20260805124457.152C61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added `mdio1` pin group is orphaned, completely unmapped =
-to any pin function, and points to pins that actually belong to `i2c1`, mak=
-ing it useless dead code.
---
+On Mon, 2026-08-03 at 18:46 +0200, Andrew Lunn wrote:
+> On Mon, Aug 03, 2026 at 05:37:26PM +0200, Vasilij Strassheim wrote:
+> > On Wed, 2026-07-29 at 19:22 +0200, Andrew Lunn wrote:
+> > > > @@ -98,6 +98,12 @@ config NET_DSA_TAG_EDSA
+> > > > =C2=A0	  Say Y or M if you want to enable support for tagging frame=
+s for the
+> > > > =C2=A0	  Marvell switches which use EtherType DSA headers.
+> > > > =C2=A0
+> > > > +config NET_DSA_TAG_SDSA
+> > > > +	tristate "Tag driver for SoC-e switches using EtherType SDSA head=
+ers"
+> > > > +	help
+> > > > +	  Say Y or M if you want to enable support for tagging frames for=
+ the
+> > > > +	  SoC-e switches.
+> > > > +
+> > >=20
+> > > These entries are sorted, so it probably should be between
+> > > NET_DSA_TAG_RZN1_A5PSW and NET_DSA_TAG_LAN9303.
+> >=20
+> > I will insert it as suggested. To better understand, what is the sort o=
+rder?
+>=20
+> The tristate string.
 
---- Patch [12]: [PATCH v10 12/36] pinctrl: airoha: fix AN7583 MDIO pin mux =
-config ---
-commit 7aba565954d9e66108d9e018ec2a6fd970bf13e4
-Author: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
+I see, thank you. I will keep that in mind in the future.
 
-pinctrl: airoha: fix AN7583 MDIO pin mux config
+>=20
+>     Andrew
 
-This commit fixes the MDIO pin multiplexing configuration for the AN7583 So=
-C.
-It updates the MDIO pins to use the correct indices (53, 54) instead of the
-I2C1 pins. It also corrects the register mask values written by the function
-group.
-
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -724,7 +724,8 @@ static const int an7583_pon_tod_1pps_pins[] =3D { 32 =
-};
->  static const int an7583_gsw_tod_1pps_pins[] =3D { 32 };
->  static const int an7583_sipo_pins[] =3D { 34, 35 };
->  static const int an7583_sipo_rclk_pins[] =3D { 34, 35, 33 };
-> -static const int an7583_mdio_pins[] =3D { 43, 44 };
-> +static const int an7583_mdio_pins[] =3D { 53, 54 };
-> +static const int an7583_mdio1_pins[] =3D { 43, 44 };
-
-[Severity: Low]
-Is this mdio1 pin array intended to be used?
-
-Since pins 43 and 44 are already covered by the I2C1 pins (as noted in the
-commit message), it appears this might just be leftover dead code from
-renaming the original mdio pins rather than an intentionally usable array.
-
-[ ... ]
-
-> @@ -809,6 +810,7 @@ static const struct pingroup an7583_pinctrl_groups[] =
-=3D {
->  	PINCTRL_PIN_GROUP("sipo", an7583_sipo),
->  	PINCTRL_PIN_GROUP("sipo_rclk", an7583_sipo_rclk),
->  	PINCTRL_PIN_GROUP("mdio", an7583_mdio),
-> +	PINCTRL_PIN_GROUP("mdio1", an7583_mdio1),
-
-[Severity: Low]
-Does this mdio1 group need to be mapped to a function to be useful?
-
-As currently implemented, the group is registered here but is completely
-unmapped to any pin function in the driver, which makes it unusable for
-multiplexing.=20
-
-Could this registration be safely removed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805123408.3767=
-648-1-mikhail.kshevetskiy@iopsys.eu?part=3D12
+Vasilij
