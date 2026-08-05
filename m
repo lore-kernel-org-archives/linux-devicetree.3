@@ -1,80 +1,192 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912CD449EA8;
-	Wed,  5 Aug 2026 11:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B595449B20;
+	Wed,  5 Aug 2026 11:57:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931055; cv=none; b=CwCOaFlU0zRko9JuIiHTZH4vKHt6mkuH7Mlc5abvIuZzuba32Hai4oOxFtBO48VmskzJQkw4A2WhPiX6Pa1MFqEWKNAMYzbSWfsjG3ql1mNC28lSEthAunf+lHiIZuNHFwcUuqqTpbjk1ZesF58ojxjJYY99uVAKaAmNpv1XODw=
+	t=1785931061; cv=none; b=HRrjP2pcb3QrEuG+cyl8Fhp7DVOgVCyvIZ96zTeRIC570kKCglasetfzcORbPMyl6Whgyk4rha8OCHnvmN9bX5QvlC8NIlqXG/H3DtHC39FR1Ki2SXb1e2h4/TVzrOQEYhjNrGeogAky/ecqq98dK3ptl+jE5DLhKkSiRGeEX4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931055; c=relaxed/simple;
-	bh=fhVJOI/iWMfAidx5QvrgBKyOQQvEhaR/KBcGi/ST9nI=;
-	h=Content-Type:MIME-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=niJ61cHOCYSv4B2tgAvHNFoG/sZLg3RxaptE9zOF48t2/tbYvq/dRjQ2lgn/1rzETfid6k8nFlqGEI13YVlxgGrKVDxVmPvnAwVZ+Z/15vUO2XFmrkpxn8WOJjsccthZFBQgbmp5cxUAAQ3E64Lo7p7JboGueURZmIN4PkkbaWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=m9M3sVw1; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1785931061; c=relaxed/simple;
+	bh=JxlEQYuD/RMUaMbTTKAWKthJxwX173QM/DF1i5aw3Fs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=s7MG89pbPenoKLbCj44iC2m9dc6O843tEHsgoQlhm/hlixCe2SzOM4cBZQ+92Y7z8HY7fHZuFP7RXN99Y/kH3PelpboqyA1Mf4PrtuzibxZ6WgzzFqxebJFfR5ZvpRbVopvZyIfZ1vtLcmPsd5I6/2+XNf7izm7vGEdzXOyXq+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+bopj1q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="m9M3sVw1"
-Received: by chaosmail.tech (Postfix) id 6801F1C867A;
-	Wed, 05 Aug 2026 11:57:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1785931050;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fhVJOI/iWMfAidx5QvrgBKyOQQvEhaR/KBcGi/ST9nI=;
-	b=m9M3sVw1v0K3H7rD9qC4lQMMiOkiLN1VJEUvTTA06lHKB1t9gAxf9S4Lrpf5NkXDruibn6
-	zJB8GkxwbvCX9e2iQt0EgwvZnl6LwrGtDDd05mY+4wsyoja0w2+pc5TJydTN3QzEEdzF7W
-	4aTavklZlZT+MK5DIkKzTF9p8ma3gvc=
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+bopj1q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54CAB1F000E9;
+	Wed,  5 Aug 2026 11:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785931059;
+	bh=18CzF+TNYcC8Y8fgnqebRv8rsE1KTXFZ483SOTufpbk=;
+	h=From:Subject:Date:To:Cc;
+	b=i+bopj1q3cqmJQTG6AiyH02/P489Dk6RYPRaMU1z5dK6l/zqGlQnOAIAKOJd8DSlD
+	 hjYN7JGqWjGFRY4KWMvWwY1Ac+5b9+oWCwGuW8eA/gdKcfam3ZwYfK7Zy2iz9OfBO/
+	 qQjK2Hb9lFYUcb5AnQfRa0xe+wkL8srhBqM5MfPF6+rKVXFz0mxsfPjEVu9JXkU892
+	 r4v8zQ98oEJv6AyS31ULdt67cLFaizRgVDEAdbU8JWHklj77bMJIJqMx7p5/i+Zxp9
+	 z7pXaZ+r9QuipSCU2CLaqKhTWyDXgSESpmmS5B0mnaW0FeFULCkCBF1Rw8vRN26EH3
+	 Fi6b27PwYvBug==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH v9 0/5] PCI: tegra: Add Tegra264 support
+Date: Wed, 05 Aug 2026 13:57:19 +0200
+Message-Id: <20260805-tegra264-pcie-v9-0-fa2ed7350ae1@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/3] usb: typec: tipd: Factor out i2c specifics
-From: Sasha Finkelstein <k@chaosmail.tech>
-In-Reply-To: <anMi2q5FmsvE4z8W@black.igk.intel.com>
-Date: Wed, 5 Aug 2026 13:57:18 +0200
-Cc: Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Alyssa Milburn <amilburn@zall.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <7D31226B-98F2-4DF2-BA47-31CF9B269A7F@chaosmail.tech>
-References: <20260727-tipd-ace3-v2-0-1345957bd635@chaosmail.tech>
- <20260727-tipd-ace3-v2-2-1345957bd635@chaosmail.tech>
- <anMi2q5FmsvE4z8W@black.igk.intel.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XSS26DMBAG4KtErGvkGb+zyj2qqjIwSdwmQGxCW
+ 0W5e02olLQsukEe5O8fY+ZSJIqBUrFeXYpIY0iha3PhnlZFvfftjlhocl0gR80lRzbQLnrUkvV
+ 1IEaC+4pQNJ6bIps+0jZ83vKeX+Y6nas3qocpZNqxD2no4tet4QjTvjlbgAPNAXiJkNdKMmDDP
+ lCMX2WkJrS7zTvFlg5lF3fFlD3ig85PVFKKEpUBh/x/LR61BqGsUiUap0C6/7W86+WtjJJxhkB
+ I4Jw1ZDftGJrgy7o7zlzduUL9l6vMrfQWROWMa8yC6zvXy+46c2qqeuuNN3ZLC24eOJi/3Ezck
+ /HktNToFtzeuYHF4e307YIUKOsQXfWLX+eZiHQ651Eb5kEpjpSSv43aejXHcsM+/DuFeHpN577
+ v4sBGwPxbKimV2Kqqrp3ZdCmVp7M/5OjjLT+nVz4Rm16EYb1q6XNgPweVufv1G+Sox8TwAgAA
+X-Change-ID: 20260402-tegra264-pcie-e30abe23da07
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+ Michal Simek <michal.simek@amd.com>, Kevin Xie <kevin.xie@starfivetech.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, Aksh Garg <a-garg7@ti.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>, 
+ Manikanta Maddireddy <mmaddireddy@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4444; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=JxlEQYuD/RMUaMbTTKAWKthJxwX173QM/DF1i5aw3Fs=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqcyUrF3AVx3y+b0eqzDZgHBN8bJjaPFZjnLcd+
+ 1B1N5Kx4q2JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCanMlKwAKCRDdI6zXfz6z
+ oQtyEACdiZrGuVJeUEYcnmvcJA8HWr9ZsqT2QOhDX7Rd8O0iJlnrzv53ckk6TcIkVydY24w1rtF
+ 4O+wf/jAZeQdMhcKPBqiliwJxtSMFgO1P3wFr6OHOfo2kHgy5Txnn30iltGHVhvHZBxZfsQL2KH
+ vRNMB3aokcNigA6d0rBQq9v/QhBlSw0uhtOZO/LRO1BGIi4TSfe+PaqWZ+6Jgl7ukc8Ny6AB+fi
+ V+N8fla2lh1rgIsFzDDIZvTpIFOdJv6cGPagG7qItSwIJCbOimoh9hHSN3G7U2u3xYY66UbOHvH
+ rAYQ71dhGJG7fJUHw6YJns5TST25sjHlzhuJ+W6ztsPaDbfHmNGGBFVfHBOp2AnTUdOFDQoNjNj
+ avq+fzfB+c8hQv+jm8QyWXb9W+ZQIE2QvH3AxzcgqjqJeeRmd1/2z/chNoDtF0kkVZZJZ9G7V1y
+ A195MrRwlw4xmbOG60AyrS7xjmFbC3wJlJJ7lyuqhXMtYbxFlt/zQBgjMZn+riw31CRzHcfeSxo
+ hG80ihmAtNt8o6gToD/GbhcViKfMWsHluuQgfB0a8jZTwD9GvUtWWAZTtFbxssB1X/MTBhCfhI8
+ rwZpJSFSZzMuxEd5AriNNuyc3XfFzSjo4FG3d8pE0liRKndE3w22adzmtNVu96Fx2si3sBTzk2W
+ SFFJEU1jKNoOkng==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-On Aug 5, 2026, at 13:47, Heikki Krogerus =
-<heikki.krogerus@linux.intel.com> wrote:
->>=20
->> -static const struct regmap_config tps6598x_regmap_config =3D {
->> +const struct regmap_config tps6598x_regmap_config =3D {
->> .reg_bits =3D 8,
->> .val_bits =3D 8,
->> .max_register =3D 0x7F,
->> };
->> +EXPORT_SYMBOL_GPL(tps6598x_regmap_config);
->=20
-> Don't export that. Just move it to i2c.c
+Hi,
 
-I use this one in spmi.c too, the regmap configuration is the same,
-just the backend is different
+this series adds support for the PCIe controllers found on the Tegra264
+SoC. There are six instances, one of which is for internal purposes only
+and the other five are general purpose.
 
+The first patch tweaks the DT bindings slightly to avoid new DT compiler
+warnings that slipped through because they are now disabled by default
+(-Wno-unit_address_vs_reg). The second patch references PCIe root port
+bindings from the controller bindings, which will allow using the
+standard WAKE# handling, among other things.
 
+Patch 3 introduces the driver for Tegra264 and patch 4 reorders the reg
+and reg-names property entries to match the bindings changes from patch
+1. Finally, patch 6 adds the PCIe root port nodes required by the DT
+binding changes in patch 2.
+
+As previously mentioned, this depends on Krishna's PCIe WAKE# interrupt
+support from here:
+
+    https://lore.kernel.org/all/20260707-wakeirq_support-v12-1-b4453f5bcc97@oss.qualcomm.com/
+
+Since it is only a runtime dependency, the series can be applied
+independently, though.
+
+I can pick up patches 4 and 5 into the Tegra tree, but there should be
+no conflicts, so they should be fine to go in with the rest of the
+patches. Either way works fine for me.
+
+Thanks,
+Thierry
+
+Changes in v9:
+- remove suspend/resume support, it doesn't work on Tegra264 yet
+- use pm_runtime_resume_and_get() instead of pm_runtime_get_sync()
+- drop common wait times patch, it was applied already
+- rename tegra264_pcie_check_ranges() for clarity
+- remove unused header includes
+- Link to v8: https://patch.msgid.link/20260716-tegra264-pcie-v8-0-23e51589229b@nvidia.com
+
+Changes in v8:
+- track hotplug support separately from link up state for clarity
+- remove unneeded controller deinitialization, done by firmware
+- fail probe if the link is down and not hotplug-capable
+- select pinctrl sleep state on suspend for symmetry
+- switch to PCIe root port bindings (new patches)
+- add Reviewed-by and Acked-by tags
+- add err_ prefix to goto labels
+- use generic WAKE# IRQ support
+- Link to v7: https://patch.msgid.link/20260617-tegra264-pcie-v7-0-eae7ae964629@nvidia.com
+
+Changes in v7:
+- fix build dependency on PCI_ECAM
+- remove pre-silicon support code
+- Link to v6: https://patch.msgid.link/20260602-tegra264-pcie-v6-0-edbcfa7a78fe@nvidia.com
+
+Changes in v6:
+- address review comments from Sashiko
+- rebase onto v7.1-rc1, adjust DT bindings patch accordingly
+- Link to v5: https://patch.msgid.link/20260526-tegra264-pcie-v5-0-84a813b979d7@nvidia.com
+
+Changes in v5:
+- address review comments for the PCI driver patch
+- Link to v4: https://patch.msgid.link/20260402-tegra264-pcie-v4-0-21e2e19987e8@nvidia.com
+
+Changes in v4:
+- strip out dependencies that are going in through the ARM SoC tree
+- revert bindings to oneOf construct so that we don't produce new DTC
+  warnings
+- Link to v3: https://patch.msgid.link/20260326135855.2795149-1-thierry.reding@kernel.org
+
+Changes in v3:
+- integrate PCI standard wait times patch into the series to maintain
+  bisectability
+- fix review comments from Mikko
+- Link to v2: https://patch.msgid.link/20260320225443.2571920-1-thierry.reding@kernel.org
+
+Changes in v2:
+- fix an issue with sanity-checking disabled BARs
+- address review comments
+- Link to v1: https://patch.msgid.link/20260319160110.2131954-1-thierry.reding@kernel.org
+
+Thanks,
+Thierry
+
+---
+Thierry Reding (5):
+      dt-bindings: pci: tegra264: Strictly distinguish C0 from C1-C5
+      dt-bindings: pci: tegra264: Switch to PCIe root port bindings
+      PCI: tegra: Add Tegra264 support
+      arm64: tegra: Reorder reg and reg-names to match bindings
+      arm64: tegra: Add PCIe root ports on Tegra264
+
+ .../bindings/pci/nvidia,tegra264-pcie.yaml         | 109 +++--
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           | 114 ++++--
+ drivers/pci/controller/Kconfig                     |  10 +-
+ drivers/pci/controller/Makefile                    |   1 +
+ drivers/pci/controller/pcie-tegra264.c             | 450 +++++++++++++++++++++
+ 5 files changed, 623 insertions(+), 61 deletions(-)
+---
+base-commit: 8306754e0e226390edafb50b0f2c85f7e703077d
+change-id: 20260402-tegra264-pcie-e30abe23da07
+prerequisite-message-id: 20260707-wakeirq_support-v12-1-b4453f5bcc97@oss.qualcomm.com
+prerequisite-patch-id: 0f984d1bf11850bb8f833a26f6945ecf18a9a816
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
 
