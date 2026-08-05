@@ -1,714 +1,786 @@
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA093BBFBA
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 02:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D6130DEA3;
+	Wed,  5 Aug 2026 02:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785896921; cv=none; b=deeTEZzcSS/9cDFlGkLavovvJHJUyo/zyxWwcez7ewCV0Zp2HKffIy1g9L/QtNYDEpJHJghCaZ5kloR5KcmaUqCTHmOmQhmx1CcIuGFJgd72F60pz+pdNGdHaOpHz5H4gFxr6eUkRVCMTtwlxCZB68MMad5OiAFbPfhrKtzk+1o=
+	t=1785896953; cv=none; b=bIvmuBmDJ2w9dGtN9ARuJLrjHqeIIWgcnRqzdz4cI5YzKOrFEuTcKReqwR9KdOUCrteX9yNCuSUzUg9Ev7zKTf7SSRelJsPFrP63fOjvK/az4LvChB0Ap5AK/2Y7/f5Aw1QKuPaZXGBV5mHgV01oUPc2jjBJxZ1AUyLWmNyP77s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785896921; c=relaxed/simple;
-	bh=tHO5yBuqCrRzthf4FCgHKrDW7oQG+8YTZFwaAVI9jHQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=m+Y2hgC4kk5DDyE+6+05rnLXE8ukLG3j2bCHuibNPz8G/ErVURKtbFpjN+l/z/EwtYZLaB+Aj8cCZd5QnZBmlOfKzESOR7DjcRKNmbiqA1Za54aAM+ZjE+LoLBwfqPRmfw9zAsoXUPygn7AhCM/toFf8mRixV8swM04W3Eeg7XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Abhzvfs3; arc=none smtp.client-ip=209.85.210.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785896953; c=relaxed/simple;
+	bh=XMzdKprmN5Bux9FcUQ1TuFRBY0A8WNnJDFUwFqk2gTI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=CpyflbPE4KiT4c9OPZ2z6+43ybrNePini60aenNFu0Bom6tvlkC9n6EpG1A6PAif23WjuIH8QDojQwrMMmAKJ4HkJL3DzkDrVxgRV9fxzwKQrkUWxaH2LtMI0MMb5OHFWBdSqqhcM1ZfNXS5c3zRTjtRcXu/WCg+b2949O8MVt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMey92wV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Abhzvfs3"
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7ee37dc91f5so358686a34.3
-        for <devicetree@vger.kernel.org>; Tue, 04 Aug 2026 19:28:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785896917; x=1786501717; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a7n627btFdgAMk+nFRlo8bZ30B6WMW9WO37DeKOzDqM=;
-        b=Abhzvfs3EqxNzsa3w15az0k8K2bjsQ59VSTzchKtlk+I2Xcg7TjxjEj3g3Ir421RXX
-         /2re7Kv5ZDK+MG+FAI7uY9yyrp06hxqlut0HbWMWg4iFUSNq6+JheQrCVwC5OOK8low9
-         kxLlno22reOql1CHvsQgNQCW74r+kiDbYVWnGDI7jp3bFc0DtWieUSkxFx150SsSP0MF
-         NNo9DyzCzqhv+MmZ1fTwSOjJ486BZdJ2NHNMNXSXk39szCKdkGJYK43M1mnx1GO0kUjc
-         fadBpI9BZAC5/I6Bg+UXaBMivowqq8Sw7M0SONIRmXtLkYkz7KAw5oNzSdHHGMIYiGvK
-         ieRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785896917; x=1786501717;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a7n627btFdgAMk+nFRlo8bZ30B6WMW9WO37DeKOzDqM=;
-        b=IRyhHblflz3XASt+GFPJ+lO+Nca2d/JRixZ5iSL3X3dx3bpdG4LnT/j6v4kaM6csfd
-         oU+T9CBUDpXcP6cQnoE1DR8nP2UbnSs1Iueh4FQqHTsz5TxMCfhROH+6P12kNt9qLZeB
-         FcKZBfbH+nZm4hligSce9efanKsQCRAbI1D52vhIxDg5hc2oge8DYg9Q2jqHNUa7Lsok
-         AD7HzRIiHwxYXIAqVTPm+YIiqijTxyL3CF0dEWmkzoc+41LL7+IvXJwIm0S6a7+hlLNP
-         J2utO2UVmJUlao+wtOt3G4KeimSoxxJVnDZ+PS01LA6q9Hx98545JyNOK/ccyHJhIj3Z
-         PI3A==
-X-Forwarded-Encrypted: i=1; AHgh+Rqc3ZMfIerNLZn9AqHr1VaJq/FYydqZqbX+IGr9OoeKDKLxYAyOAFTaHaM7Zj0eHAlTWabgi+ied1jn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7Q76xb/BVXj5x/ZrdEj+9c5d7tY+uKCljz0wBiAJPZFqE8e4s
-	XWgemH4hhRyaU05Qmj0utmG/Lds90aTVDI19TTZG76lRilNC08Yq6ixw
-X-Gm-Gg: AR+sD11uWlkENyfrmsOhynkY17/w+ZMRWxBycHXOvw/Ear9LdCevigY+Tf5tTzJ37XM
-	o+3auGd23CrZUoTN+Tw6K6SIsPL6VCs4rVqH2RyBpDmUz+0vSyKRaBuvaNWA7DM+b4UBRuRwRus
-	GnZXNe8Mb9xwBeLudiXeBOtbAyXMO0tAScpXm/7gFcl9SUuNiI43rw7ydGdDs4tVTn8fPqKDp1Y
-	CbkorOmfzOqpp+QjPIyHiIEmNjrSUXIMHTLkWtLLJhfKR+fMEV+rofttQPQwUdJAKgJ5kqcLOF5
-	CoGbc1e9whjWKkQmaIhbnELJ8DOtBMFCojZI9bFFiUQ+e7K7G2VyNhavujpf1bQLtoKaK/gRxai
-	S46P8IOzBXyuOjhRm5qTLFtOGtlyqHrTiHn4dJMzTsbAq7zmRmw76a41J3bJ87PM44iWB7WA2pU
-	LLLcpVy53JhpBh/NgtTX+djXnmV2SrSIM4Lfhu1ZFAsJ5j00tHoyZsDsgYOnu9zOXBqwEYU7qgC
-	P+Wul072Zr74uKUA1FGiUM/5yD0o6ZkKPKENhM2rTcJCsrIOzPpmMEoT9ZsE56wnYBsSjYepHh4
-	R/WRKrZZ8XSQqGdju+z4okc92a1gxqyjZ2RNGXc+BlKDWtxo2tGY7l6JBLrRBcwmwsYM7CPmJ9w
-	D0lKlwSH0YUH5VdJX
-X-Received: by 2002:a05:6830:3489:b0:7e9:bf64:b70b with SMTP id 46e09a7af769-7f1e5c2af15mr2626135a34.1.1785896916416;
-        Tue, 04 Aug 2026 19:28:36 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f1df565d37sm2078153a34.16.2026.08.04.19.28.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 19:28:36 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 04 Aug 2026 20:27:06 -0600
-Subject: [PATCH net-next v2 8/8] net: phy: add X-Powers AC200/AC300 EPHY
- driver
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMey92wV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC29B1F000E9;
+	Wed,  5 Aug 2026 02:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785896950;
+	bh=eXGrDXUMERcIvp1Z9BtH2ihtIAx1DTdV1LqUVFhCdDU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=OMey92wVAFWJDRdxuGtdxxSZ9Gbvj8mpbfEAjjHol97vV6hB/SJULbHslo7ivUi3c
+	 W4vVc0J1a+VKT+8v/f+ghm0WYhz7tsDkY+ViGZkXG0nW6EB7iyusNZ8GAXj9+FaeTi
+	 N8FOI80/emvyY/LgvI6HTVbwrGVPIxSWFR0/mCE7NYAVFYvpBN18ZMuVPWGMjy6idA
+	 C41dXipPxn8EsNg0Fe1FEx7DxiKhZ95U7dW2h7WcN83Re8QjbvocTKYwWJV8mOIBP7
+	 jgYJR3vmXs4r8wv1V6M76Rq4ckR4uarob/yForIyrOJw+MJE+P+yij4ulmKfR75IvI
+	 b3xn9q+ivaFPg==
+Date: Tue, 4 Aug 2026 20:29:08 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Atish Patra <atish.patra@linux.dev>
+cc: Jiri Olsa <jolsa@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+    Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, 
+    Anup Patel <anup@brainfault.org>, Namhyung Kim <namhyung@kernel.org>, 
+    Arnaldo Carvalho de Melo <acme@kernel.org>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, Ian Rogers <irogers@google.com>, 
+    Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>, 
+    linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, 
+    linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+    linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
+Subject: Re: [PATCH v8 11/22] RISC-V: perf: Restructure the SBI PMU code
+In-Reply-To: <20260701-counter_delegation-v8-11-7909f863a645@meta.com>
+Message-ID: <150f3f8e-9a94-ecbc-4e1c-e1d1c476f5e9@kernel.org>
+References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com> <20260701-counter_delegation-v8-11-7909f863a645@meta.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260804-submit-acx00-of-dynamic-v1-v2-8-3eef49ff1d8c@gmail.com>
-References: <20260804-submit-acx00-of-dynamic-v1-v2-0-3eef49ff1d8c@gmail.com>
-In-Reply-To: <20260804-submit-acx00-of-dynamic-v1-v2-0-3eef49ff1d8c@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=US-ASCII
 
-The AC200 and AC300 MDIO link endpoints report the same Clause 22
-identifier and use a compatible link-side paged register layout. Their
-identification registers are inaccessible until a package-specific
-control path powers and configures the block.
+Hi Atish,
 
-Add a common PHY driver which matches the firmware-provided identifier
-only when the node also references one X-Powers control device. Validate
-that reference and the AC300 address relationship, defer until the
-provider is bound, and create a managed device link to protect its
-lifetime and order teardown and power management.
+On Wed, 1 Jul 2026, Atish Patra wrote:
 
-When the optional two-bit SID configuration field is present, verify that
-its package-selector bit agrees with the fixed control reference. Use its
-second bit to select the AC300 low-calibration tuning sequence. Omitting
-the field skips package validation and selects the normal sequence.
+> From: Atish Patra <atishp@rivosinc.com>
+> 
+> With Ssccfg/Smcdeleg, supervisor mode can program and access the
+> hpmcounters and events directly, without the SBI PMU extension. The SBI
+> PMU extension is still required for firmware counters. Restructure the
+> existing SBI PMU code so the hpmcounter/event helpers can be shared
+> between the SBI and the counter delegation paths that follow.
+> 
+> The driver, file, module and Kconfig names are intentionally kept
+> unchanged to avoid backport churn and userspace breakage (module listings,
+> udev rules, cmdline options).
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Atish Patra <atishp@rivosinc.com>
 
-Power the control block in reset-default MII mode during PHY probe. Once
-the MAC supplies phydev->interface, pass MII or RMII to the provider
-before the normal PHY soft reset. Program the AC200 link address through
-its provider and let the AC300 provider validate its strapped address.
+Could you write a little bit more about the specific motivation 
+behind these changes?  I see three major themes:
 
-Apply the common vendor analog initialization, with the package-specific
-normal value and the optional AC300 low-calibration sequence. Support the
-board-selected xMII receive-clock inversion and leave MDI/MDI-X in its
-vendor automatic mode. Disable standard and Intelligent EEE initially,
-then restore phylib's standard EEE policy after later resets.
+1. adding _sbi_ to some variable names
 
-Power the package control block down with the PHY and restore the vendor
-configuration on resume. If power-off fails, attempt to restore the PHY
-before returning the original suspend error.
+2. changing "pmu" to "rvpmu" in some function names
 
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/net/phy/Kconfig         |   9 +
- drivers/net/phy/Makefile        |   1 +
- drivers/net/phy/xpowers-acx00.c | 544 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 554 insertions(+)
+3. removing _sbi_ from some function names
 
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index 7535db7f3471..c505ade5955c 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -493,6 +493,15 @@ config XPOWERS_AC300_PHY_CTL
- 	  interface mode, clock and I/O controls through the separate MDIO
- 	  control address.
- 
-+config XPOWERS_ACX00_PHY
-+	tristate "X-Powers AC200/AC300 Ethernet PHY"
-+	depends on OF_MDIO
-+	help
-+	  Enable the Fast Ethernet PHY driver shared by the X-Powers AC200
-+	  and AC300 companion ICs. This driver configures their common MDIO PHY
-+	  registers and uses one statically selected package-control provider for
-+	  power, calibration and interface setup.
-+
- config XILINX_GMII2RGMII
- 	tristate "Xilinx GMII2RGMII converter driver"
- 	help
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index 0c4e40c9a28a..db71f1c2b756 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -102,4 +102,5 @@ obj-$(CONFIG_TERANETICS_PHY)	+= teranetics.o
- obj-$(CONFIG_VITESSE_PHY)	+= vitesse.o
- obj-$(CONFIG_XPOWERS_AC200_PHY_CTL) += xpowers-ac200-ctl.o
- obj-$(CONFIG_XPOWERS_AC300_PHY_CTL) += xpowers-ac300-ctl.o
-+obj-$(CONFIG_XPOWERS_ACX00_PHY)	+= xpowers-acx00.o
- obj-$(CONFIG_XILINX_GMII2RGMII) += xilinx_gmii2rgmii.o
-diff --git a/drivers/net/phy/xpowers-acx00.c b/drivers/net/phy/xpowers-acx00.c
-new file mode 100644
-index 000000000000..f9e6be751252
---- /dev/null
-+++ b/drivers/net/phy/xpowers-acx00.c
-@@ -0,0 +1,544 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * X-Powers AC200/AC300 Ethernet PHY driver
-+ *
-+ * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-+ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/device.h>
-+#include <linux/mdio.h>
-+#include <linux/module.h>
-+#include <linux/nvmem-consumer.h>
-+#include <linux/of.h>
-+#include <linux/of_mdio.h>
-+#include <linux/of_platform.h>
-+#include <linux/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+
-+#include "xpowers-acx00.h"
-+
-+#define ACX00_EPHY_ID				0x00441400
-+
-+#define ACX00_EPHY_CONFIG_VARIANT_AC300		BIT(0)
-+#define ACX00_EPHY_CONFIG_CALIBRATION_LOW	BIT(1)
-+
-+#define ACX00_PAGE_SELECT_REG			0x1f
-+#define ACX00_PAGE_SELECT_MASK			GENMASK(12, 8)
-+#define ACX00_PAGE_0				0
-+#define ACX00_PAGE_1				1
-+#define ACX00_PAGE_2				2
-+#define ACX00_PAGE_6				6
-+#define ACX00_PAGE_8				8
-+
-+#define ACX00_PAGE0_GLOBAL_CONFIG_REG		0x13
-+#define ACX00_PAGE0_XMII_RX_CLOCK_INVERT	BIT(12)
-+#define ACX00_PAGE0_MDI_MODE_MASK		GENMASK(1, 0)
-+#define ACX00_PAGE0_MDI_MODE_AUTO		2
-+
-+#define ACX00_PAGE1_APS_CONTROL_REG		0x12
-+#define ACX00_PAGE1_APS_DISABLED_4S_VALUE	0x4824
-+#define ACX00_PAGE1_UAPS_CONTROL_REG		0x13
-+#define ACX00_PAGE1_UAPS_ENABLE			BIT(15)
-+#define ACX00_PAGE1_INTELLIGENT_EEE_CONTROL_REG	0x17
-+#define ACX00_PAGE1_INTELLIGENT_EEE_ENABLE	BIT(3)
-+
-+#define ACX00_PAGE2_TX_DATA_CONTROL_REG		0x18
-+#define ACX00_PAGE2_10BT_FIR_SELECT_MASK		GENMASK(14, 12)
-+#define ACX00_PAGE2_10BT_FIR_SELECT_DEFAULT	0
-+
-+#define ACX00_PAGE6_ADC_CONTROL_REG		0x10
-+#define ACX00_PAGE6_ADC_CONTROL_LOW_CAL_VALUE	0x5523
-+#define ACX00_PAGE6_AFE_RX_CONTROL_REG		0x13
-+#define ACX00_PAGE6_AFE_RX_CONTROL_VALUE		0xf000
-+#define ACX00_PAGE6_AFE_EQ_RX_DETECT_CONTROL_REG	0x14
-+#define AC200_PAGE6_AFE_EQ_RX_DETECT_VALUE	0x708f
-+#define AC300_PAGE6_AFE_EQ_RX_DETECT_VALUE	0x708b
-+#define ACX00_PAGE6_AFE_EQ_RX_DETECT_LOW_CAL_VALUE 0x7809
-+#define ACX00_PAGE6_TX_LEVEL_REG			0x15
-+#define ACX00_PAGE6_TX_LEVEL_100M_MASK		GENMASK(15, 8)
-+#define ACX00_PAGE6_TX_LEVEL_10M_MASK		GENMASK(7, 0)
-+#define ACX00_PAGE6_TX_LEVEL_VALUE(_100m, _10m) \
-+	(FIELD_PREP(ACX00_PAGE6_TX_LEVEL_100M_MASK, (_100m)) | \
-+	 FIELD_PREP(ACX00_PAGE6_TX_LEVEL_10M_MASK, (_10m)))
-+#define ACX00_PAGE6_TX_LEVEL_DEFAULT_VALUE \
-+	ACX00_PAGE6_TX_LEVEL_VALUE(0x15, 0x30)
-+#define ACX00_PAGE6_TX_LEVEL_LOW_CAL_VALUE \
-+	ACX00_PAGE6_TX_LEVEL_VALUE(0x35, 0x33)
-+
-+#define ACX00_PAGE8_AFE_CONTROL_REG		0x18
-+#define ACX00_PAGE8_AFE_CONTROL_VALUE		0x00bc
-+#define ACX00_PAGE8_AUTO_CAL_CONTROL_REG		0x1d
-+#define ACX00_PAGE8_AUTO_CAL_TX_LEVEL_ADJUST_BYPASS BIT(11)
-+#define ACX00_PAGE8_AUTO_CAL_LOW_CAL_OPAQUE_BITS	0x0044
-+#define ACX00_PAGE8_AUTO_CAL_LOW_VALUE \
-+	(ACX00_PAGE8_AUTO_CAL_TX_LEVEL_ADJUST_BYPASS | \
-+	 ACX00_PAGE8_AUTO_CAL_LOW_CAL_OPAQUE_BITS)
-+
-+/*
-+ * Another integration of this exact-ID PHY documents its digital vendor
-+ * register map, which also matches the observed ACx00 reset values. The ACx00
-+ * analog-page field encodings remain unpublished, so keep those as opaque
-+ * vendor initialization values instead of inventing bit definitions.
-+ */
-+
-+struct acx00_ephy_priv {
-+	struct phy_device *phydev;
-+	struct acx00_ephy_control *control;
-+	bool is_ac300;
-+	bool use_low_calibration_tuning;
-+	bool xmii_rx_clock_inverted;
-+};
-+
-+static int acx00_ephy_read_page(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = __phy_read(phydev, ACX00_PAGE_SELECT_REG);
-+	if (ret < 0)
-+		return ret;
-+
-+	return FIELD_GET(ACX00_PAGE_SELECT_MASK, ret);
-+}
-+
-+static int acx00_ephy_write_page(struct phy_device *phydev, int page)
-+{
-+	return __phy_write(phydev, ACX00_PAGE_SELECT_REG,
-+			   FIELD_PREP(ACX00_PAGE_SELECT_MASK, page));
-+}
-+
-+static int acx00_ephy_control_power_on(struct acx00_ephy_priv *priv)
-+{
-+	return priv->control->power_on(priv->control,
-+				       priv->phydev->mdio.addr);
-+}
-+
-+static int acx00_ephy_control_power_off(struct acx00_ephy_priv *priv)
-+{
-+	return priv->control->power_off(priv->control);
-+}
-+
-+static int acx00_ephy_set_interface(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+
-+	if (phydev->interface == PHY_INTERFACE_MODE_NA)
-+		return 0;
-+	if (phydev->interface != PHY_INTERFACE_MODE_MII &&
-+	    phydev->interface != PHY_INTERFACE_MODE_RMII)
-+		return -EINVAL;
-+
-+	return priv->control->set_interface(priv->control,
-+					    phydev->interface);
-+}
-+
-+static void acx00_ephy_control_release(void *data)
-+{
-+	struct acx00_ephy_priv *priv = data;
-+	int ret;
-+
-+	ret = acx00_ephy_control_power_off(priv);
-+	if (ret)
-+		phydev_warn(priv->phydev,
-+			    "failed to power off control block: %pe\n",
-+			    ERR_PTR(ret));
-+}
-+
-+static struct device *
-+acx00_ephy_find_supplier(struct device_node *control, bool is_ac300)
-+{
-+	struct platform_device *pdev;
-+	struct mdio_device *mdiodev;
-+
-+	if (is_ac300) {
-+		mdiodev = of_mdio_find_device(control);
-+		return mdiodev ? &mdiodev->dev : NULL;
-+	}
-+
-+	pdev = of_find_device_by_node(control);
-+	return pdev ? &pdev->dev : NULL;
-+}
-+
-+static int acx00_ephy_get_control(struct phy_device *phydev,
-+				  struct acx00_ephy_priv *priv)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct acx00_ephy_control *control;
-+	struct device_node *control_node;
-+	struct device *supplier;
-+	struct device_link *link;
-+	const char *compatible;
-+	const char *property;
-+	bool has_ac200;
-+	bool has_ac300;
-+	u32 control_addr;
-+	u32 configuration = 0;
-+	int ret;
-+
-+	has_ac200 = of_property_present(dev->of_node,
-+					"x-powers,ac200-control");
-+	has_ac300 = of_property_present(dev->of_node,
-+					"x-powers,ac300-control");
-+	if (has_ac200 == has_ac300)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "exactly one ACx00 control is required\n");
-+
-+	priv->is_ac300 = has_ac300;
-+	property = has_ac300 ? "x-powers,ac300-control" :
-+			       "x-powers,ac200-control";
-+	compatible = has_ac300 ? "x-powers,ac300-ephy-ctl" :
-+				 "x-powers,ac200-ephy-ctl";
-+	control_node = of_parse_phandle(dev->of_node, property, 0);
-+	if (!control_node)
-+		return dev_err_probe(dev, -EINVAL, "missing %s\n", property);
-+	if (!of_device_is_compatible(control_node, compatible)) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "%s does not reference a %s device\n",
-+				    property, compatible);
-+		goto out_put_node;
-+	}
-+	if (!of_device_is_available(control_node)) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "%s references a disabled device\n",
-+				    property);
-+		goto out_put_node;
-+	}
-+
-+	if (has_ac300) {
-+		ret = of_property_read_u32(control_node, "reg", &control_addr);
-+		if (ret || control_addr != phydev->mdio.addr +
-+					       AC300_EPHY_CONTROL_ADDR_OFFSET) {
-+			ret = dev_err_probe(dev, -EINVAL,
-+					    "AC300 control address does not match reg\n");
-+			goto out_put_node;
-+		}
-+	}
-+
-+	if (device_property_present(dev, "nvmem-cells")) {
-+		ret = nvmem_cell_read_variable_le_u32(dev,
-+						      "configuration",
-+						      &configuration);
-+		if (ret) {
-+			dev_err_probe(dev, ret,
-+				      "failed to read PHY configuration\n");
-+			goto out_put_node;
-+		}
-+
-+		if (!!(configuration & ACX00_EPHY_CONFIG_VARIANT_AC300) !=
-+		    priv->is_ac300) {
-+			ret = dev_err_probe(dev, -EINVAL,
-+					    "configuration does not match control device\n");
-+			goto out_put_node;
-+		}
-+	}
-+
-+	priv->use_low_calibration_tuning =
-+		priv->is_ac300 &&
-+		!!(configuration & ACX00_EPHY_CONFIG_CALIBRATION_LOW);
-+	ret = 0;
-+
-+	supplier = acx00_ephy_find_supplier(control_node, priv->is_ac300);
-+	if (!supplier) {
-+		ret = dev_err_probe(dev, -EPROBE_DEFER,
-+				    "%s device is not registered\n", property);
-+		goto out_put_node;
-+	}
-+
-+	link = device_link_add(dev, supplier, DL_FLAG_AUTOREMOVE_CONSUMER);
-+	if (!link) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "failed to link %s device\n", property);
-+		goto out_put_supplier;
-+	}
-+
-+	/* The managed link keeps the provider and its operations bound. */
-+	device_lock(supplier);
-+	if (!device_is_bound(supplier)) {
-+		ret = -EPROBE_DEFER;
-+	} else {
-+		control = dev_get_drvdata(supplier);
-+		if (!control || !control->power_on || !control->power_off ||
-+		    !control->set_interface)
-+			ret = -EINVAL;
-+		else
-+			priv->control = control;
-+	}
-+	device_unlock(supplier);
-+	if (ret == -EPROBE_DEFER)
-+		ret = dev_err_probe(dev, ret, "%s driver is not ready\n",
-+				    property);
-+	else if (ret)
-+		ret = dev_err_probe(dev, ret,
-+				    "%s driver has invalid control operations\n",
-+				    property);
-+
-+out_put_supplier:
-+	put_device(supplier);
-+out_put_node:
-+	of_node_put(control_node);
-+	return ret;
-+}
-+
-+static int acx00_ephy_disable_eee(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = phy_modify_paged(phydev, ACX00_PAGE_1,
-+			       ACX00_PAGE1_INTELLIGENT_EEE_CONTROL_REG,
-+			       ACX00_PAGE1_INTELLIGENT_EEE_ENABLE, 0);
-+	if (ret)
-+		return ret;
-+
-+	return phy_clear_bits_mmd(phydev, MDIO_MMD_AN, MDIO_AN_EEE_ADV,
-+				  MDIO_EEE_100TX);
-+}
-+
-+static int acx00_ephy_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct acx00_ephy_priv *priv;
-+	int ret;
-+
-+	if (!dev->of_node)
-+		return -ENODEV;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->phydev = phydev;
-+	ret = acx00_ephy_get_control(phydev, priv);
-+	if (ret)
-+		return ret;
-+
-+	priv->xmii_rx_clock_inverted =
-+		device_property_read_bool(dev,
-+					  "x-powers,xmii-rx-clock-inverted");
-+	phydev->priv = priv;
-+	ret = devm_add_action_or_reset(dev, acx00_ephy_control_release, priv);
-+	if (ret)
-+		return ret;
-+
-+	ret = acx00_ephy_control_power_on(priv);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to power on control block\n");
-+
-+	/* Set the hardware default before phylib reads its EEE advertisement. */
-+	ret = acx00_ephy_disable_eee(phydev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to disable EEE\n");
-+
-+	return 0;
-+}
-+
-+static int acx00_ephy_soft_reset(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	ret = acx00_ephy_set_interface(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = acx00_ephy_control_power_on(priv);
-+	if (ret)
-+		return ret;
-+
-+	/* ACx00 can acknowledge reset in power-down without restarting. */
-+	ret = genphy_resume(phydev);
-+	if (ret)
-+		return ret;
-+
-+	return genphy_soft_reset(phydev);
-+}
-+
-+static int acx00_ephy_config_init(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	u16 afe_eq_rx_detect = priv->is_ac300 ?
-+		AC300_PAGE6_AFE_EQ_RX_DETECT_VALUE :
-+		AC200_PAGE6_AFE_EQ_RX_DETECT_VALUE;
-+	u16 tx_level_value = ACX00_PAGE6_TX_LEVEL_DEFAULT_VALUE;
-+	u16 global_config;
-+	int oldpage;
-+	int ret;
-+
-+	global_config = FIELD_PREP(ACX00_PAGE0_MDI_MODE_MASK,
-+				   ACX00_PAGE0_MDI_MODE_AUTO);
-+	if (priv->xmii_rx_clock_inverted)
-+		global_config |= ACX00_PAGE0_XMII_RX_CLOCK_INVERT;
-+
-+	ret = phy_modify_paged(phydev, ACX00_PAGE_0,
-+			       ACX00_PAGE0_GLOBAL_CONFIG_REG,
-+			       ACX00_PAGE0_XMII_RX_CLOCK_INVERT |
-+			       ACX00_PAGE0_MDI_MODE_MASK, global_config);
-+	if (ret)
-+		return ret;
-+
-+	if (priv->is_ac300 && priv->use_low_calibration_tuning) {
-+		afe_eq_rx_detect =
-+			ACX00_PAGE6_AFE_EQ_RX_DETECT_LOW_CAL_VALUE;
-+		tx_level_value = ACX00_PAGE6_TX_LEVEL_LOW_CAL_VALUE;
-+	}
-+
-+	oldpage = phy_select_page(phydev, ACX00_PAGE_1);
-+	if (oldpage < 0)
-+		return oldpage;
-+
-+	ret = __phy_write(phydev, ACX00_PAGE1_APS_CONTROL_REG,
-+			  ACX00_PAGE1_APS_DISABLED_4S_VALUE);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_modify(phydev, ACX00_PAGE1_UAPS_CONTROL_REG,
-+			   ACX00_PAGE1_UAPS_ENABLE, 0);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_modify(phydev, ACX00_PAGE1_INTELLIGENT_EEE_CONTROL_REG,
-+			   ACX00_PAGE1_INTELLIGENT_EEE_ENABLE, 0);
-+	if (ret)
-+		goto out_restore_page;
-+
-+	ret = acx00_ephy_write_page(phydev, ACX00_PAGE_2);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_modify(phydev, ACX00_PAGE2_TX_DATA_CONTROL_REG,
-+			   ACX00_PAGE2_10BT_FIR_SELECT_MASK,
-+			   FIELD_PREP(ACX00_PAGE2_10BT_FIR_SELECT_MASK,
-+				      ACX00_PAGE2_10BT_FIR_SELECT_DEFAULT));
-+	if (ret)
-+		goto out_restore_page;
-+
-+	ret = acx00_ephy_write_page(phydev, ACX00_PAGE_6);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_write(phydev, ACX00_PAGE6_AFE_EQ_RX_DETECT_CONTROL_REG,
-+			  afe_eq_rx_detect);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_write(phydev, ACX00_PAGE6_AFE_RX_CONTROL_REG,
-+			  ACX00_PAGE6_AFE_RX_CONTROL_VALUE);
-+	if (ret)
-+		goto out_restore_page;
-+	if (priv->is_ac300 && priv->use_low_calibration_tuning) {
-+		ret = __phy_write(phydev, ACX00_PAGE6_ADC_CONTROL_REG,
-+				  ACX00_PAGE6_ADC_CONTROL_LOW_CAL_VALUE);
-+		if (ret)
-+			goto out_restore_page;
-+	}
-+	ret = __phy_write(phydev, ACX00_PAGE6_TX_LEVEL_REG, tx_level_value);
-+	if (ret)
-+		goto out_restore_page;
-+
-+	ret = acx00_ephy_write_page(phydev, ACX00_PAGE_8);
-+	if (ret)
-+		goto out_restore_page;
-+	if (priv->is_ac300 && priv->use_low_calibration_tuning) {
-+		ret = __phy_write(phydev, ACX00_PAGE8_AUTO_CAL_CONTROL_REG,
-+				  ACX00_PAGE8_AUTO_CAL_LOW_VALUE);
-+		if (ret)
-+			goto out_restore_page;
-+	}
-+	ret = __phy_write(phydev, ACX00_PAGE8_AFE_CONTROL_REG,
-+			  ACX00_PAGE8_AFE_CONTROL_VALUE);
-+
-+out_restore_page:
-+	ret = phy_restore_page(phydev, oldpage, ret);
-+	if (ret)
-+		return ret;
-+
-+	/* Restore the standard EEE policy retained by phylib across resets. */
-+	return genphy_c45_an_config_eee_aneg(phydev);
-+}
-+
-+static int acx00_ephy_power_on_and_resume(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	ret = acx00_ephy_set_interface(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = acx00_ephy_control_power_on(priv);
-+	if (ret)
-+		return ret;
-+
-+	ret = genphy_resume(phydev);
-+	if (ret) {
-+		acx00_ephy_control_power_off(priv);
-+		return ret;
-+	}
-+
-+	/* Powering off the control block loses the vendor-page state. */
-+	return acx00_ephy_config_init(phydev);
-+}
-+
-+static int acx00_ephy_resume(struct phy_device *phydev)
-+{
-+	return acx00_ephy_power_on_and_resume(phydev);
-+}
-+
-+static int acx00_ephy_suspend(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int resume_ret;
-+	int ret;
-+
-+	ret = genphy_suspend(phydev);
-+	if (ret)
-+		return ret;
-+
-+	ret = acx00_ephy_control_power_off(priv);
-+	if (ret) {
-+		resume_ret = acx00_ephy_power_on_and_resume(phydev);
-+		if (resume_ret)
-+			phydev_warn(phydev,
-+				    "failed to recover from suspend error: %pe\n",
-+				    ERR_PTR(resume_ret));
-+	}
-+
-+	return ret;
-+}
-+
-+static int acx00_ephy_match_phy_device(struct phy_device *phydev,
-+				       const struct phy_driver *phydrv)
-+{
-+	struct device_node *node = phydev->mdio.dev.of_node;
-+
-+	if (!genphy_match_phy_device(phydev, phydrv) || !node)
-+		return 0;
-+
-+	/* RK630 reports the same PHY ID, so require an X-Powers control link. */
-+	return of_property_present(node, "x-powers,ac200-control") ||
-+	       of_property_present(node, "x-powers,ac300-control");
-+}
-+
-+static struct phy_driver acx00_ephy_driver[] = {
-+	{
-+		PHY_ID_MATCH_MODEL(ACX00_EPHY_ID),
-+		.name = "X-Powers AC200/AC300 EPHY",
-+		.match_phy_device = acx00_ephy_match_phy_device,
-+		.probe = acx00_ephy_probe,
-+		.read_page = acx00_ephy_read_page,
-+		.write_page = acx00_ephy_write_page,
-+		.soft_reset = acx00_ephy_soft_reset,
-+		.config_init = acx00_ephy_config_init,
-+		.suspend = acx00_ephy_suspend,
-+		.resume = acx00_ephy_resume,
-+	},
-+};
-+module_phy_driver(acx00_ephy_driver);
-+
-+static const struct mdio_device_id __maybe_unused acx00_ephy_tbl[] = {
-+	{ PHY_ID_MATCH_MODEL(ACX00_EPHY_ID) },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(mdio, acx00_ephy_tbl);
-+
-+MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-+MODULE_DESCRIPTION("X-Powers AC200/AC300 Ethernet PHY driver");
-+MODULE_LICENSE("GPL");
+I'm assuming, maybe incorrectly, that the intent for #1 and #3 is to note 
+that the variables in #1 are specific to SBI interactions, and that the 
+functions in #3 don't use SBI, so shouldn't have SBI in their names.  But 
+not sure what's going on with #2.  Is this just a cosmetic change to 
+disambiguate the generic "pmu" abbreviation?  I see we have a bunch of 
+references to "riscv_pmu", still, that aren't being changed by those 
+patches - should we just use that instead so we don't have a jumble of 
+different prefixes here?  Or is there supposed to be some semantic 
+difference between the two?  In the past, it seems we only used "rvpmu" 
+when struct riscv_pmu was involved; but seems that distinction is no 
+longer applicable after this series.
 
--- 
-2.53.0
 
+thanks, 
+
+- Paul
+
+> ---
+>  drivers/perf/Kconfig         |  14 ++-
+>  drivers/perf/riscv_pmu_sbi.c | 238 +++++++++++++++++++++++++------------------
+>  2 files changed, 150 insertions(+), 102 deletions(-)
+> 
+> diff --git a/drivers/perf/Kconfig b/drivers/perf/Kconfig
+> index ab90932fc2d0..3245bb2969e1 100644
+> --- a/drivers/perf/Kconfig
+> +++ b/drivers/perf/Kconfig
+> @@ -97,13 +97,17 @@ config RISCV_PMU_LEGACY
+>  
+>  config RISCV_PMU_SBI
+>  	depends on RISCV_PMU && RISCV_SBI
+> -	bool "RISC-V PMU based on SBI PMU extension"
+> +	bool "RISC-V PMU based on SBI PMU extension and/or counter delegation"
+>  	default y
+>  	help
+> -	  Say y if you want to use the CPU performance monitor
+> -	  using SBI PMU extension on RISC-V based systems. This option provides
+> -	  full perf feature support i.e. counter overflow, privilege mode
+> -	  filtering, counter configuration.
+> +	  Say y if you want to use the CPU performance monitor on RISC-V based
+> +	  systems. This single driver supports both hardware counter access
+> +	  mechanisms: it uses the counter delegation (Smcdeleg/Ssccfg) ISA
+> +	  extension to program and read the hpmcounters directly in supervisor
+> +	  mode when available, and uses the SBI PMU extension for firmware
+> +	  counters and when counter delegation is not present. This option
+> +	  provides full perf feature support i.e. counter overflow, privilege
+> +	  mode filtering, counter configuration.
+>  
+>  config STARFIVE_STARLINK_PMU
+>  	depends on ARCH_STARFIVE || COMPILE_TEST
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index 5c8924ce1f38..74d934238821 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+> @@ -88,6 +88,8 @@ static const struct attribute_group *riscv_pmu_attr_groups[] = {
+>  static int sysctl_perf_user_access __read_mostly = SYSCTL_USER_ACCESS;
+>  
+>  /*
+> + * This structure is SBI specific but counter delegation also require counter
+> + * width, csr mapping. Reuse it for now.
+>   * RISC-V doesn't have heterogeneous harts yet. This need to be part of
+>   * per_cpu in case of harts with different pmu counters
+>   */
+> @@ -100,7 +102,7 @@ static unsigned int riscv_pmu_irq;
+>  /* Cache the available counters in a bitmask */
+>  static unsigned long cmask;
+>  
+> -static int pmu_event_find_cache(u64 config);
+> +static int sbi_pmu_event_find_cache(u64 config);
+>  struct sbi_pmu_event_data {
+>  	union {
+>  		union {
+> @@ -121,7 +123,7 @@ struct sbi_pmu_event_data {
+>  	};
+>  };
+>  
+> -static struct sbi_pmu_event_data pmu_hw_event_map[] = {
+> +static struct sbi_pmu_event_data pmu_hw_event_sbi_map[] = {
+>  	[PERF_COUNT_HW_CPU_CYCLES]		= {.hw_gen_event = {
+>  							SBI_PMU_HW_CPU_CYCLES,
+>  							SBI_PMU_EVENT_TYPE_HW, 0}},
+> @@ -155,7 +157,7 @@ static struct sbi_pmu_event_data pmu_hw_event_map[] = {
+>  };
+>  
+>  #define C(x) PERF_COUNT_HW_CACHE_##x
+> -static struct sbi_pmu_event_data pmu_cache_event_map[PERF_COUNT_HW_CACHE_MAX]
+> +static struct sbi_pmu_event_data pmu_cache_event_sbi_map[PERF_COUNT_HW_CACHE_MAX]
+>  [PERF_COUNT_HW_CACHE_OP_MAX]
+>  [PERF_COUNT_HW_CACHE_RESULT_MAX] = {
+>  	[C(L1D)] = {
+> @@ -302,7 +304,7 @@ static struct sbi_pmu_event_data pmu_cache_event_map[PERF_COUNT_HW_CACHE_MAX]
+>  
+>  static int pmu_sbi_check_event_info(void)
+>  {
+> -	int num_events = ARRAY_SIZE(pmu_hw_event_map) + PERF_COUNT_HW_CACHE_MAX *
+> +	int num_events = ARRAY_SIZE(pmu_hw_event_sbi_map) + PERF_COUNT_HW_CACHE_MAX *
+>  			 PERF_COUNT_HW_CACHE_OP_MAX * PERF_COUNT_HW_CACHE_RESULT_MAX;
+>  	struct riscv_pmu_event_info *event_info_shmem;
+>  	phys_addr_t base_addr;
+> @@ -313,14 +315,14 @@ static int pmu_sbi_check_event_info(void)
+>  	if (!event_info_shmem)
+>  		return -ENOMEM;
+>  
+> -	for (i = 0; i < ARRAY_SIZE(pmu_hw_event_map); i++)
+> -		event_info_shmem[count++].event_idx = pmu_hw_event_map[i].event_idx;
+> +	for (i = 0; i < ARRAY_SIZE(pmu_hw_event_sbi_map); i++)
+> +		event_info_shmem[count++].event_idx = pmu_hw_event_sbi_map[i].event_idx;
+>  
+> -	for (i = 0; i < ARRAY_SIZE(pmu_cache_event_map); i++) {
+> -		for (j = 0; j < ARRAY_SIZE(pmu_cache_event_map[i]); j++) {
+> -			for (k = 0; k < ARRAY_SIZE(pmu_cache_event_map[i][j]); k++)
+> +	for (i = 0; i < ARRAY_SIZE(pmu_cache_event_sbi_map); i++) {
+> +		for (j = 0; j < ARRAY_SIZE(pmu_cache_event_sbi_map[i]); j++) {
+> +			for (k = 0; k < ARRAY_SIZE(pmu_cache_event_sbi_map[i][j]); k++)
+>  				event_info_shmem[count++].event_idx =
+> -							pmu_cache_event_map[i][j][k].event_idx;
+> +							pmu_cache_event_sbi_map[i][j][k].event_idx;
+>  		}
+>  	}
+>  
+> @@ -336,19 +338,19 @@ static int pmu_sbi_check_event_info(void)
+>  		goto free_mem;
+>  	}
+>  
+> -	for (i = 0; i < ARRAY_SIZE(pmu_hw_event_map); i++) {
+> +	for (i = 0; i < ARRAY_SIZE(pmu_hw_event_sbi_map); i++) {
+>  		if (!(event_info_shmem[i].output & RISCV_PMU_EVENT_INFO_OUTPUT_MASK))
+> -			pmu_hw_event_map[i].event_idx = -ENOENT;
+> +			pmu_hw_event_sbi_map[i].event_idx = -ENOENT;
+>  	}
+>  
+> -	count = ARRAY_SIZE(pmu_hw_event_map);
+> +	count = ARRAY_SIZE(pmu_hw_event_sbi_map);
+>  
+> -	for (i = 0; i < ARRAY_SIZE(pmu_cache_event_map); i++) {
+> -		for (j = 0; j < ARRAY_SIZE(pmu_cache_event_map[i]); j++) {
+> -			for (k = 0; k < ARRAY_SIZE(pmu_cache_event_map[i][j]); k++) {
+> +	for (i = 0; i < ARRAY_SIZE(pmu_cache_event_sbi_map); i++) {
+> +		for (j = 0; j < ARRAY_SIZE(pmu_cache_event_sbi_map[i]); j++) {
+> +			for (k = 0; k < ARRAY_SIZE(pmu_cache_event_sbi_map[i][j]); k++) {
+>  				if (!(event_info_shmem[count].output &
+>  				      RISCV_PMU_EVENT_INFO_OUTPUT_MASK))
+> -					pmu_cache_event_map[i][j][k].event_idx = -ENOENT;
+> +					pmu_cache_event_sbi_map[i][j][k].event_idx = -ENOENT;
+>  				count++;
+>  			}
+>  		}
+> @@ -360,7 +362,7 @@ static int pmu_sbi_check_event_info(void)
+>  	return result;
+>  }
+>  
+> -static void pmu_sbi_check_event(struct sbi_pmu_event_data *edata)
+> +static void rvpmu_sbi_check_event(struct sbi_pmu_event_data *edata)
+>  {
+>  	struct sbiret ret;
+>  
+> @@ -375,7 +377,7 @@ static void pmu_sbi_check_event(struct sbi_pmu_event_data *edata)
+>  	}
+>  }
+>  
+> -static void pmu_sbi_check_std_events(struct work_struct *work)
+> +static void rvpmu_sbi_check_std_events(struct work_struct *work)
+>  {
+>  	int ret;
+>  
+> @@ -386,23 +388,23 @@ static void pmu_sbi_check_std_events(struct work_struct *work)
+>  		return;
+>  	}
+>  
+> -	for (int i = 0; i < ARRAY_SIZE(pmu_hw_event_map); i++)
+> -		pmu_sbi_check_event(&pmu_hw_event_map[i]);
+> +	for (int i = 0; i < ARRAY_SIZE(pmu_hw_event_sbi_map); i++)
+> +		rvpmu_sbi_check_event(&pmu_hw_event_sbi_map[i]);
+>  
+> -	for (int i = 0; i < ARRAY_SIZE(pmu_cache_event_map); i++)
+> -		for (int j = 0; j < ARRAY_SIZE(pmu_cache_event_map[i]); j++)
+> -			for (int k = 0; k < ARRAY_SIZE(pmu_cache_event_map[i][j]); k++)
+> -				pmu_sbi_check_event(&pmu_cache_event_map[i][j][k]);
+> +	for (int i = 0; i < ARRAY_SIZE(pmu_cache_event_sbi_map); i++)
+> +		for (int j = 0; j < ARRAY_SIZE(pmu_cache_event_sbi_map[i]); j++)
+> +			for (int k = 0; k < ARRAY_SIZE(pmu_cache_event_sbi_map[i][j]); k++)
+> +				rvpmu_sbi_check_event(&pmu_cache_event_sbi_map[i][j][k]);
+>  }
+>  
+> -static DECLARE_WORK(check_std_events_work, pmu_sbi_check_std_events);
+> +static DECLARE_WORK(check_std_events_work, rvpmu_sbi_check_std_events);
+>  
+> -static int pmu_sbi_ctr_get_width(int idx)
+> +static int rvpmu_ctr_get_width(int idx)
+>  {
+>  	return pmu_ctr_list[idx].width;
+>  }
+>  
+> -static bool pmu_sbi_ctr_is_fw(int cidx)
+> +static bool rvpmu_ctr_is_fw(int cidx)
+>  {
+>  	union sbi_pmu_ctr_info *info;
+>  
+> @@ -421,10 +423,10 @@ int riscv_pmu_get_event_info(u32 type, u64 config, u64 *econfig)
+>  	case PERF_TYPE_HARDWARE:
+>  		if (config >= PERF_COUNT_HW_MAX)
+>  			return -EINVAL;
+> -		ret = pmu_hw_event_map[config].event_idx;
+> +		ret = pmu_hw_event_sbi_map[config].event_idx;
+>  		break;
+>  	case PERF_TYPE_HW_CACHE:
+> -		ret = pmu_event_find_cache(config);
+> +		ret = sbi_pmu_event_find_cache(config);
+>  		break;
+>  	case PERF_TYPE_RAW:
+>  		/*
+> @@ -509,12 +511,12 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *num_hw_ctr)
+>  }
+>  EXPORT_SYMBOL_GPL(riscv_pmu_get_hpm_info);
+>  
+> -static uint8_t pmu_sbi_csr_index(struct perf_event *event)
+> +static uint8_t rvpmu_csr_index(struct perf_event *event)
+>  {
+>  	return pmu_ctr_list[event->hw.idx].csr - CSR_CYCLE;
+>  }
+>  
+> -static unsigned long pmu_sbi_get_filter_flags(struct perf_event *event)
+> +static unsigned long rvpmu_sbi_get_filter_flags(struct perf_event *event)
+>  {
+>  	unsigned long cflags = 0;
+>  	bool guest_events = false;
+> @@ -535,7 +537,7 @@ static unsigned long pmu_sbi_get_filter_flags(struct perf_event *event)
+>  	return cflags;
+>  }
+>  
+> -static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+> +static int rvpmu_sbi_ctr_get_idx(struct perf_event *event)
+>  {
+>  	struct hw_perf_event *hwc = &event->hw;
+>  	struct riscv_pmu *rvpmu = to_riscv_pmu(event->pmu);
+> @@ -545,7 +547,7 @@ static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+>  	uint64_t cbase = 0, cmask = rvpmu->cmask;
+>  	unsigned long cflags = 0;
+>  
+> -	cflags = pmu_sbi_get_filter_flags(event);
+> +	cflags = rvpmu_sbi_get_filter_flags(event);
+>  
+>  	/*
+>  	 * In legacy mode, we have to force the fixed counters for those events
+> @@ -582,7 +584,7 @@ static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+>  		return -ENOENT;
+>  
+>  	/* Additional sanity check for the counter id */
+> -	if (pmu_sbi_ctr_is_fw(idx)) {
+> +	if (rvpmu_ctr_is_fw(idx)) {
+>  		if (!test_and_set_bit(idx, cpuc->used_fw_ctrs))
+>  			return idx;
+>  	} else {
+> @@ -593,7 +595,7 @@ static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+>  	return -ENOENT;
+>  }
+>  
+> -static void pmu_sbi_ctr_clear_idx(struct perf_event *event)
+> +static void rvpmu_ctr_clear_idx(struct perf_event *event)
+>  {
+>  
+>  	struct hw_perf_event *hwc = &event->hw;
+> @@ -601,13 +603,13 @@ static void pmu_sbi_ctr_clear_idx(struct perf_event *event)
+>  	struct cpu_hw_events *cpuc = this_cpu_ptr(rvpmu->hw_events);
+>  	int idx = hwc->idx;
+>  
+> -	if (pmu_sbi_ctr_is_fw(idx))
+> +	if (rvpmu_ctr_is_fw(idx))
+>  		clear_bit(idx, cpuc->used_fw_ctrs);
+>  	else
+>  		clear_bit(idx, cpuc->used_hw_ctrs);
+>  }
+>  
+> -static int pmu_event_find_cache(u64 config)
+> +static int sbi_pmu_event_find_cache(u64 config)
+>  {
+>  	unsigned int cache_type, cache_op, cache_result, ret;
+>  
+> @@ -623,7 +625,7 @@ static int pmu_event_find_cache(u64 config)
+>  	if (cache_result >= PERF_COUNT_HW_CACHE_RESULT_MAX)
+>  		return -EINVAL;
+>  
+> -	ret = pmu_cache_event_map[cache_type][cache_op][cache_result].event_idx;
+> +	ret = pmu_cache_event_sbi_map[cache_type][cache_op][cache_result].event_idx;
+>  
+>  	return ret;
+>  }
+> @@ -639,7 +641,7 @@ static bool pmu_sbi_is_fw_event(struct perf_event *event)
+>  		return false;
+>  }
+>  
+> -static int pmu_sbi_event_map(struct perf_event *event, u64 *econfig)
+> +static int rvpmu_sbi_event_map(struct perf_event *event, u64 *econfig)
+>  {
+>  	u32 type = event->attr.type;
+>  	u64 config = event->attr.config;
+> @@ -736,7 +738,7 @@ static int pmu_sbi_snapshot_setup(struct riscv_pmu *pmu, int cpu)
+>  	return 0;
+>  }
+>  
+> -static u64 pmu_sbi_ctr_read(struct perf_event *event)
+> +static u64 rvpmu_sbi_ctr_read(struct perf_event *event)
+>  {
+>  	struct hw_perf_event *hwc = &event->hw;
+>  	int idx = hwc->idx;
+> @@ -778,25 +780,25 @@ static u64 pmu_sbi_ctr_read(struct perf_event *event)
+>  	return val;
+>  }
+>  
+> -static void pmu_sbi_set_scounteren(void *arg)
+> +static void rvpmu_set_scounteren(void *arg)
+>  {
+>  	struct perf_event *event = (struct perf_event *)arg;
+>  
+>  	if (event->hw.idx != -1)
+>  		csr_write(CSR_SCOUNTEREN,
+> -			  csr_read(CSR_SCOUNTEREN) | BIT(pmu_sbi_csr_index(event)));
+> +			  csr_read(CSR_SCOUNTEREN) | BIT(rvpmu_csr_index(event)));
+>  }
+>  
+> -static void pmu_sbi_reset_scounteren(void *arg)
+> +static void rvpmu_reset_scounteren(void *arg)
+>  {
+>  	struct perf_event *event = (struct perf_event *)arg;
+>  
+>  	if (event->hw.idx != -1)
+>  		csr_write(CSR_SCOUNTEREN,
+> -			  csr_read(CSR_SCOUNTEREN) & ~BIT(pmu_sbi_csr_index(event)));
+> +			  csr_read(CSR_SCOUNTEREN) & ~BIT(rvpmu_csr_index(event)));
+>  }
+>  
+> -static void pmu_sbi_ctr_start(struct perf_event *event, u64 ival)
+> +static void rvpmu_sbi_ctr_start(struct perf_event *event, u64 ival)
+>  {
+>  	struct sbiret ret;
+>  	struct hw_perf_event *hwc = &event->hw;
+> @@ -816,10 +818,10 @@ static void pmu_sbi_ctr_start(struct perf_event *event, u64 ival)
+>  
+>  	if ((hwc->flags & PERF_EVENT_FLAG_USER_ACCESS) &&
+>  	    (hwc->flags & PERF_EVENT_FLAG_USER_READ_CNT))
+> -		pmu_sbi_set_scounteren((void *)event);
+> +		rvpmu_set_scounteren((void *)event);
+>  }
+>  
+> -static void pmu_sbi_ctr_stop(struct perf_event *event, unsigned long flag)
+> +static void rvpmu_sbi_ctr_stop(struct perf_event *event, unsigned long flag)
+>  {
+>  	struct sbiret ret;
+>  	struct hw_perf_event *hwc = &event->hw;
+> @@ -829,7 +831,7 @@ static void pmu_sbi_ctr_stop(struct perf_event *event, unsigned long flag)
+>  
+>  	if ((hwc->flags & PERF_EVENT_FLAG_USER_ACCESS) &&
+>  	    (hwc->flags & PERF_EVENT_FLAG_USER_READ_CNT))
+> -		pmu_sbi_reset_scounteren((void *)event);
+> +		rvpmu_reset_scounteren((void *)event);
+>  
+>  	if (sbi_pmu_snapshot_available())
+>  		flag |= SBI_PMU_STOP_FLAG_TAKE_SNAPSHOT;
+> @@ -855,7 +857,7 @@ static void pmu_sbi_ctr_stop(struct perf_event *event, unsigned long flag)
+>  	}
+>  }
+>  
+> -static int pmu_sbi_find_num_ctrs(void)
+> +static int rvpmu_sbi_find_num_ctrs(void)
+>  {
+>  	struct sbiret ret;
+>  
+> @@ -866,7 +868,7 @@ static int pmu_sbi_find_num_ctrs(void)
+>  		return sbi_err_map_linux_errno(ret.error);
+>  }
+>  
+> -static int pmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+> +static int rvpmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+>  {
+>  	struct sbiret ret;
+>  	int i, num_hw_ctr = 0, num_fw_ctr = 0;
+> @@ -897,7 +899,7 @@ static int pmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+>  	return 0;
+>  }
+>  
+> -static inline void pmu_sbi_stop_all(struct riscv_pmu *pmu)
+> +static inline void rvpmu_sbi_stop_all(struct riscv_pmu *pmu)
+>  {
+>  	/*
+>  	 * No need to check the error because we are disabling all the counters
+> @@ -907,7 +909,7 @@ static inline void pmu_sbi_stop_all(struct riscv_pmu *pmu)
+>  		  0, pmu->cmask, SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
+>  }
+>  
+> -static inline void pmu_sbi_stop_hw_ctrs(struct riscv_pmu *pmu)
+> +static inline void rvpmu_sbi_stop_hw_ctrs(struct riscv_pmu *pmu)
+>  {
+>  	struct cpu_hw_events *cpu_hw_evt = this_cpu_ptr(pmu->hw_events);
+>  	struct riscv_pmu_snapshot_data *sdata = cpu_hw_evt->snapshot_addr;
+> @@ -951,8 +953,8 @@ static inline void pmu_sbi_stop_hw_ctrs(struct riscv_pmu *pmu)
+>   * while the overflowed counters need to be started with updated initialization
+>   * value.
+>   */
+> -static inline void pmu_sbi_start_ovf_ctrs_sbi(struct cpu_hw_events *cpu_hw_evt,
+> -					      u64 ctr_ovf_mask)
+> +static inline void rvpmu_sbi_start_ovf_ctrs_sbi(struct cpu_hw_events *cpu_hw_evt,
+> +						u64 ctr_ovf_mask)
+>  {
+>  	int idx = 0, i;
+>  	struct perf_event *event;
+> @@ -992,8 +994,8 @@ static inline void pmu_sbi_start_ovf_ctrs_sbi(struct cpu_hw_events *cpu_hw_evt,
+>  	}
+>  }
+>  
+> -static inline void pmu_sbi_start_ovf_ctrs_snapshot(struct cpu_hw_events *cpu_hw_evt,
+> -						   u64 ctr_ovf_mask)
+> +static inline void rvpmu_sbi_start_ovf_ctrs_snapshot(struct cpu_hw_events *cpu_hw_evt,
+> +						     u64 ctr_ovf_mask)
+>  {
+>  	int i, idx = 0;
+>  	struct perf_event *event;
+> @@ -1027,18 +1029,18 @@ static inline void pmu_sbi_start_ovf_ctrs_snapshot(struct cpu_hw_events *cpu_hw_
+>  	}
+>  }
+>  
+> -static void pmu_sbi_start_overflow_mask(struct riscv_pmu *pmu,
+> -					u64 ctr_ovf_mask)
+> +static void rvpmu_sbi_start_overflow_mask(struct riscv_pmu *pmu,
+> +					  u64 ctr_ovf_mask)
+>  {
+>  	struct cpu_hw_events *cpu_hw_evt = this_cpu_ptr(pmu->hw_events);
+>  
+>  	if (sbi_pmu_snapshot_available())
+> -		pmu_sbi_start_ovf_ctrs_snapshot(cpu_hw_evt, ctr_ovf_mask);
+> +		rvpmu_sbi_start_ovf_ctrs_snapshot(cpu_hw_evt, ctr_ovf_mask);
+>  	else
+> -		pmu_sbi_start_ovf_ctrs_sbi(cpu_hw_evt, ctr_ovf_mask);
+> +		rvpmu_sbi_start_ovf_ctrs_sbi(cpu_hw_evt, ctr_ovf_mask);
+>  }
+>  
+> -static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+> +static irqreturn_t rvpmu_ovf_handler(int irq, void *dev)
+>  {
+>  	struct perf_sample_data data;
+>  	struct pt_regs *regs;
+> @@ -1070,7 +1072,7 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+>  	}
+>  
+>  	pmu = to_riscv_pmu(event->pmu);
+> -	pmu_sbi_stop_hw_ctrs(pmu);
+> +	rvpmu_sbi_stop_hw_ctrs(pmu);
+>  
+>  	/* Overflow status register should only be read after counter are stopped */
+>  	if (sbi_pmu_snapshot_available())
+> @@ -1139,13 +1141,55 @@ static irqreturn_t pmu_sbi_ovf_handler(int irq, void *dev)
+>  		hw_evt->state = 0;
+>  	}
+>  
+> -	pmu_sbi_start_overflow_mask(pmu, overflowed_ctrs);
+> +	rvpmu_sbi_start_overflow_mask(pmu, overflowed_ctrs);
+>  	perf_sample_event_took(sched_clock() - start_clock);
+>  
+>  	return IRQ_HANDLED;
+>  }
+>  
+> -static int pmu_sbi_starting_cpu(unsigned int cpu, struct hlist_node *node)
+> +static void rvpmu_ctr_start(struct perf_event *event, u64 ival)
+> +{
+> +	rvpmu_sbi_ctr_start(event, ival);
+> +	/* TODO: Counter delegation implementation */
+> +}
+> +
+> +static void rvpmu_ctr_stop(struct perf_event *event, unsigned long flag)
+> +{
+> +	rvpmu_sbi_ctr_stop(event, flag);
+> +	/* TODO: Counter delegation implementation */
+> +}
+> +
+> +static int rvpmu_find_num_ctrs(void)
+> +{
+> +	return rvpmu_sbi_find_num_ctrs();
+> +	/* TODO: Counter delegation implementation */
+> +}
+> +
+> +static int rvpmu_get_ctrinfo(int nctr, unsigned long *mask)
+> +{
+> +	return rvpmu_sbi_get_ctrinfo(nctr, mask);
+> +	/* TODO: Counter delegation implementation */
+> +}
+> +
+> +static int rvpmu_event_map(struct perf_event *event, u64 *econfig)
+> +{
+> +	return rvpmu_sbi_event_map(event, econfig);
+> +	/* TODO: Counter delegation implementation */
+> +}
+> +
+> +static int rvpmu_ctr_get_idx(struct perf_event *event)
+> +{
+> +	return rvpmu_sbi_ctr_get_idx(event);
+> +	/* TODO: Counter delegation implementation */
+> +}
+> +
+> +static u64 rvpmu_ctr_read(struct perf_event *event)
+> +{
+> +	return rvpmu_sbi_ctr_read(event);
+> +	/* TODO: Counter delegation implementation */
+> +}
+> +
+> +static int rvpmu_starting_cpu(unsigned int cpu, struct hlist_node *node)
+>  {
+>  	struct riscv_pmu *pmu = hlist_entry_safe(node, struct riscv_pmu, node);
+>  	struct cpu_hw_events *cpu_hw_evt = this_cpu_ptr(pmu->hw_events);
+> @@ -1160,7 +1204,7 @@ static int pmu_sbi_starting_cpu(unsigned int cpu, struct hlist_node *node)
+>  		csr_write(CSR_SCOUNTEREN, 0x2);
+>  
+>  	/* Stop all the counters so that they can be enabled from perf */
+> -	pmu_sbi_stop_all(pmu);
+> +	rvpmu_sbi_stop_all(pmu);
+>  
+>  	if (riscv_pmu_use_irq) {
+>  		cpu_hw_evt->irq = riscv_pmu_irq;
+> @@ -1174,7 +1218,7 @@ static int pmu_sbi_starting_cpu(unsigned int cpu, struct hlist_node *node)
+>  	return 0;
+>  }
+>  
+> -static int pmu_sbi_dying_cpu(unsigned int cpu, struct hlist_node *node)
+> +static int rvpmu_dying_cpu(unsigned int cpu, struct hlist_node *node)
+>  {
+>  	if (riscv_pmu_use_irq) {
+>  		disable_percpu_irq(riscv_pmu_irq);
+> @@ -1189,7 +1233,7 @@ static int pmu_sbi_dying_cpu(unsigned int cpu, struct hlist_node *node)
+>  	return 0;
+>  }
+>  
+> -static int pmu_sbi_setup_irqs(struct riscv_pmu *pmu, struct platform_device *pdev)
+> +static int rvpmu_setup_irqs(struct riscv_pmu *pmu, struct platform_device *pdev)
+>  {
+>  	int ret;
+>  	struct cpu_hw_events __percpu *hw_events = pmu->hw_events;
+> @@ -1231,7 +1275,7 @@ static int pmu_sbi_setup_irqs(struct riscv_pmu *pmu, struct platform_device *pde
+>  		goto err;
+>  	}
+>  
+> -	ret = request_percpu_irq(riscv_pmu_irq, pmu_sbi_ovf_handler, "riscv-pmu", hw_events);
+> +	ret = request_percpu_irq(riscv_pmu_irq, rvpmu_ovf_handler, "riscv-pmu", hw_events);
+>  	if (ret) {
+>  		pr_err("registering percpu irq failed [%d]\n", ret);
+>  		irq_dispose_mapping(riscv_pmu_irq);
+> @@ -1313,7 +1357,7 @@ static void riscv_pmu_destroy(struct riscv_pmu *pmu)
+>  		cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
+>  }
+>  
+> -static void pmu_sbi_event_init(struct perf_event *event)
+> +static void rvpmu_event_init(struct perf_event *event)
+>  {
+>  	/*
+>  	 * The permissions are set at event_init so that we do not depend
+> @@ -1327,7 +1371,7 @@ static void pmu_sbi_event_init(struct perf_event *event)
+>  		event->hw.flags |= PERF_EVENT_FLAG_LEGACY;
+>  }
+>  
+> -static void pmu_sbi_event_mapped(struct perf_event *event, struct mm_struct *mm)
+> +static void rvpmu_event_mapped(struct perf_event *event, struct mm_struct *mm)
+>  {
+>  	if (event->hw.flags & PERF_EVENT_FLAG_NO_USER_ACCESS)
+>  		return;
+> @@ -1355,14 +1399,14 @@ static void pmu_sbi_event_mapped(struct perf_event *event, struct mm_struct *mm)
+>  	 * that it is possible to do so to avoid any race.
+>  	 * And we must notify all cpus here because threads that currently run
+>  	 * on other cpus will try to directly access the counter too without
+> -	 * calling pmu_sbi_ctr_start.
+> +	 * calling rvpmu_sbi_ctr_start.
+>  	 */
+>  	if (event->hw.flags & PERF_EVENT_FLAG_USER_ACCESS)
+>  		on_each_cpu_mask(mm_cpumask(mm),
+> -				 pmu_sbi_set_scounteren, (void *)event, 1);
+> +				 rvpmu_set_scounteren, (void *)event, 1);
+>  }
+>  
+> -static void pmu_sbi_event_unmapped(struct perf_event *event, struct mm_struct *mm)
+> +static void rvpmu_event_unmapped(struct perf_event *event, struct mm_struct *mm)
+>  {
+>  	if (event->hw.flags & PERF_EVENT_FLAG_NO_USER_ACCESS)
+>  		return;
+> @@ -1384,7 +1428,7 @@ static void pmu_sbi_event_unmapped(struct perf_event *event, struct mm_struct *m
+>  
+>  	if (event->hw.flags & PERF_EVENT_FLAG_USER_ACCESS)
+>  		on_each_cpu_mask(mm_cpumask(mm),
+> -				 pmu_sbi_reset_scounteren, (void *)event, 1);
+> +				 rvpmu_reset_scounteren, (void *)event, 1);
+>  }
+>  
+>  static void riscv_pmu_update_counter_access(void *info)
+> @@ -1427,7 +1471,7 @@ static const struct ctl_table sbi_pmu_sysctl_table[] = {
+>  	},
+>  };
+>  
+> -static int pmu_sbi_device_probe(struct platform_device *pdev)
+> +static int rvpmu_device_probe(struct platform_device *pdev)
+>  {
+>  	struct riscv_pmu *pmu = NULL;
+>  	int ret = -ENODEV;
+> @@ -1439,7 +1483,7 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+>  	if (!pmu)
+>  		return -ENOMEM;
+>  
+> -	num_counters = pmu_sbi_find_num_ctrs();
+> +	num_counters = rvpmu_find_num_ctrs();
+>  	if (num_counters < 0) {
+>  		pr_err("SBI PMU extension doesn't provide any counters\n");
+>  		goto out_free;
+> @@ -1452,10 +1496,10 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+>  	}
+>  
+>  	/* cache all the information about counters now */
+> -	if (pmu_sbi_get_ctrinfo(num_counters, &cmask))
+> +	if (rvpmu_get_ctrinfo(num_counters, &cmask))
+>  		goto out_free;
+>  
+> -	ret = pmu_sbi_setup_irqs(pmu, pdev);
+> +	ret = rvpmu_setup_irqs(pmu, pdev);
+>  	if (ret < 0) {
+>  		pr_info("Perf sampling/filtering is not supported as sscof extension is not available\n");
+>  		pmu->pmu.capabilities |= PERF_PMU_CAP_NO_INTERRUPT;
+> @@ -1466,17 +1510,17 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+>  	pmu->pmu.attr_groups = riscv_pmu_attr_groups;
+>  	pmu->pmu.parent = &pdev->dev;
+>  	pmu->cmask = cmask;
+> -	pmu->ctr_start = pmu_sbi_ctr_start;
+> -	pmu->ctr_stop = pmu_sbi_ctr_stop;
+> -	pmu->event_map = pmu_sbi_event_map;
+> -	pmu->ctr_get_idx = pmu_sbi_ctr_get_idx;
+> -	pmu->ctr_get_width = pmu_sbi_ctr_get_width;
+> -	pmu->ctr_clear_idx = pmu_sbi_ctr_clear_idx;
+> -	pmu->ctr_read = pmu_sbi_ctr_read;
+> -	pmu->event_init = pmu_sbi_event_init;
+> -	pmu->event_mapped = pmu_sbi_event_mapped;
+> -	pmu->event_unmapped = pmu_sbi_event_unmapped;
+> -	pmu->csr_index = pmu_sbi_csr_index;
+> +	pmu->ctr_start = rvpmu_ctr_start;
+> +	pmu->ctr_stop = rvpmu_ctr_stop;
+> +	pmu->event_map = rvpmu_event_map;
+> +	pmu->ctr_get_idx = rvpmu_ctr_get_idx;
+> +	pmu->ctr_get_width = rvpmu_ctr_get_width;
+> +	pmu->ctr_clear_idx = rvpmu_ctr_clear_idx;
+> +	pmu->ctr_read = rvpmu_ctr_read;
+> +	pmu->event_init = rvpmu_event_init;
+> +	pmu->event_mapped = rvpmu_event_mapped;
+> +	pmu->event_unmapped = rvpmu_event_unmapped;
+> +	pmu->csr_index = rvpmu_csr_index;
+>  
+>  	ret = riscv_pm_pmu_register(pmu);
+>  	if (ret)
+> @@ -1543,14 +1587,14 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+>  	return ret;
+>  }
+>  
+> -static struct platform_driver pmu_sbi_driver = {
+> -	.probe		= pmu_sbi_device_probe,
+> +static struct platform_driver rvpmu_driver = {
+> +	.probe		= rvpmu_device_probe,
+>  	.driver		= {
+>  		.name	= RISCV_PMU_SBI_PDEV_NAME,
+>  	},
+>  };
+>  
+> -static int __init pmu_sbi_devinit(void)
+> +static int __init rvpmu_devinit(void)
+>  {
+>  	int ret;
+>  	struct platform_device *pdev;
+> @@ -1568,20 +1612,20 @@ static int __init pmu_sbi_devinit(void)
+>  
+>  	ret = cpuhp_setup_state_multi(CPUHP_AP_PERF_RISCV_STARTING,
+>  				      "perf/riscv/pmu:starting",
+> -				      pmu_sbi_starting_cpu, pmu_sbi_dying_cpu);
+> +				      rvpmu_starting_cpu, rvpmu_dying_cpu);
+>  	if (ret) {
+>  		pr_err("CPU hotplug notifier could not be registered: %d\n",
+>  		       ret);
+>  		return ret;
+>  	}
+>  
+> -	ret = platform_driver_register(&pmu_sbi_driver);
+> +	ret = platform_driver_register(&rvpmu_driver);
+>  	if (ret)
+>  		return ret;
+>  
+>  	pdev = platform_device_register_simple(RISCV_PMU_SBI_PDEV_NAME, -1, NULL, 0);
+>  	if (IS_ERR(pdev)) {
+> -		platform_driver_unregister(&pmu_sbi_driver);
+> +		platform_driver_unregister(&rvpmu_driver);
+>  		return PTR_ERR(pdev);
+>  	}
+>  
+> @@ -1590,4 +1634,4 @@ static int __init pmu_sbi_devinit(void)
+>  
+>  	return ret;
+>  }
+> -device_initcall(pmu_sbi_devinit)
+> +device_initcall(rvpmu_devinit)
+> 
+> -- 
+> 2.53.0-Meta
+> 
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
+> 
