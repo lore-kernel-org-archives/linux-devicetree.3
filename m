@@ -1,117 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627A93E5A18;
-	Wed,  5 Aug 2026 08:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BEE3E6399
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:03:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785916941; cv=none; b=UgSpL+yJUs7Iv8Phw6LPk23JXOOSAhAeMvKhOeAcVUOoemT5l4lqcEE8oZGZqdilIKd4UVCOJBvu+qoQmWbWAXiCRbJodhyaNQyqCoi85AqOmtoTPWrlRk3aFgXW83LidaBR6Rjlflh24ydSzWUxZQkAOJnTrWSJsQ3MteabVZI=
+	t=1785916995; cv=none; b=GYfkHzKZRiUg3CsugXE0lINXh3CLCeSv4Kkf99xPHGT/Qj3kKZUx6G45OZEB1KcCM0vu8RDBNWAZE2bMVDiDxX0UbrCCvTnXCD2298/3frrnOXQ93Mpjj0H4aNwWflSV02hWNhALrM71aerwSvWSJeXz+vSsxuxmCU7fv8ILQdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785916941; c=relaxed/simple;
-	bh=C0k8nUNIRw4/3PoE2W0aySyjvDoWX9Yc2MyrvV1sdPY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jDm7JbM8Dx/ypYoDxZNgFu0IQxoVlwdy87PCubEE45iLMXRhZwHMK3Ee9AnKMcsP4W+7niD5DRWQ9jIezzgQP2EdPLqZPUXCLGUdmgj2w491fnlcrzu014YDJv6IeyP21w0nJ8uZ2nn3FRJR3EsPsO+R+/CRDmqUrkIB1P6C1I0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGLryr5W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785916995; c=relaxed/simple;
+	bh=754UbD0IZ3ZyfpJxh2pTTxSr7mf9C/gSQTgvqP3EsIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bbq/E8zWYFqGZp3M8KUaIP23WYDBZdWszcwFQ/kvCIX8Vx6gDL9H0axjzW4x2xbAoVBQUeDhF0pra9VXDshTI+YOLHcm+viRykl/Bwg5+6HtSxfMtJ7U51PS4ADuQ9MxJQMoTqY5GlguS3ILay8bYxAJh+FywAJt5tV5DPikVlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nDWtB1o8; arc=none smtp.client-ip=91.218.175.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGLryr5W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518B11F000E9;
-	Wed,  5 Aug 2026 08:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785916940;
-	bh=JC65InYj8KbV2CrHmnR4m698DeAn/dF6O3JG3/Acri8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TGLryr5W/Q/JR4AgSJz9/RoQJDiNTVL59NXQqvxvTP1uUmsX/9Tr1CBFTvTrX+/ss
-	 gVTobmyCvqJ9zgQHHou1yBsi1fxqZEzhOPzeDRWphlJgnAncW2Zza90uv1xJeW9B51
-	 Lr2rleoQ7xrQe2pS6Y76Mqcfp1fUdJRcL3FUDJL8NQ0Q65pc1OznI/iSLwnaYAVBT+
-	 jjA6gS0o3OQW04WXN5QuUZF7iDmMpxjbq1Odx2GJSSohF0mgbjhaMFwhEZ43Prb8Vr
-	 M53/6uthWpQfV6a/Z/RjaaZqDln6/1aI54tHOQXDPfJqybpJ/rt820L5WddsJYSEq/
-	 FLRm1jAmjVUOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v33 6/7] arm64: dts: imx8ulp: add secure enclave node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260805-imx-se-if-v33-6-212e32ff0295@nxp.com>
-References: <20260805-imx-se-if-v33-0-212e32ff0295@nxp.com>
- <20260805-imx-se-if-v33-6-212e32ff0295@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 08:02:18 +0000
-Message-Id: <20260805080219.518B11F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nDWtB1o8"
+Message-ID: <83784ad9-a51d-4c68-af78-f4f3010ba8a0@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785916991;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kSsEJ/sE1Eczg1jKOdFsL+iRe6l4DBX81fNWGZNDqJw=;
+	b=nDWtB1o83TQelmp7M8sA6wsvFikCj5DjJ26GgkJMraqmpL1TeA5hZC+Agy6SthA7GB1ouG
+	9iR9t/GKx3AFNc4xORkrk2aIDnpzXH8NehczDiRacma1KG6EuQO5fE9v+mpQZ6fZcbxz93
+	Qb4aZ5w3aPlvMw2L9+NvjMoO2ew5r8A=
+Date: Wed, 5 Aug 2026 01:03:03 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH v8 00/22] Add Counter delegation ISA extension support
+To: Paul Walmsley <pjw@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Rob Herring <robh@kernel.org>, Anup Patel <anup@brainfault.org>,
+ Namhyung Kim <namhyung@kernel.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Ian Rogers <irogers@google.com>,
+ Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>,
+ linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
+References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
+ <09a2dde3-788b-555e-22ba-2f2582a89524@kernel.org>
+Content-Language: en-US
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Atish Patra <atish.patra@linux.dev>
+In-Reply-To: <09a2dde3-788b-555e-22ba-2f2582a89524@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The commit message instructs boards to include `imx8ulp-firmware=
-.dtsi` to provide the `memory-region` and enable the secure enclave, but th=
-is file is completely missing from the patch series and source tree.
-- [Low] The newly added `hsm0: secure-enclave` node lacks the `memory-regio=
-n` property, which will cause `dtbs_check` validation errors for all boards=
- that include this SoC dtsi but do not explicitly provide it.
---
+On 8/4/26 7:14 PM, Paul Walmsley wrote:
+> Hi Atish,
+> 
+> On Wed, 1 Jul 2026, Atish Patra wrote:
+> 
+>> This series adds the counter delegation extension support. It is based on
+>> very early PoC work done by Kevin Xue and mostly rewritten after that.
+>> The counter delegation ISA extension(Smcdeleg/Ssccfg) actually depends
+>> on multiple ISA extensions.
+> 
+> So as you've probably seen, I've started adding some of the prerequisite
+> ISA support patches from your series to the RISC-V for-next branch.
+> Looks like you're planning to repost the series at least one more time;
 
---- Patch [6]: [PATCH v33 6/7] arm64: dts: imx8ulp: add secure enclave node=
- ---
-commit 16318bc9e2bce734d6b1cf3cd835e37f3629b093
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Yes. There are couple of comments that I need to address and one bug 
+that sashiko found. I will send it tomorrow.
 
-arm64: dts: imx8ulp: add secure enclave node
+> you can either include those patches again, or base it on RISC-V for-next
+> as you wish, but if you include those patches again, please note in your
+> cover letter if you've changed anything.
 
-This commit adds the EdgeLock Enclave (ELE) secure-enclave node to the
-i.MX8ULP SoC dtsi. The node is kept disabled by default to avoid imposing
-reserved-memory requirements on all boards.
+Thanks for queuing the base patches for-next. I will rebase on top of it 
+(except the macro vs inline function patches) and send the whole series 
+again so that it  easier to apply the remaining patches.
 
-> Keep the node disabled in the SoC dtsi so it does not impose a
-> reserved-memory requirement on every board. Boards enable the enclave and
-> provide its memory-region by including imx8ulp-firmware.dtsi.
+> 
+> 
+> thanks,
+> 
+> - Paul
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
 
-[Severity: Medium]
-The commit message states that boards should include imx8ulp-firmware.dtsi
-to provide the memory-region and enable the enclave, but is this file
-missing from the patch series and the source tree?
-
-It doesn't seem to be present, which might prevent boards from actually
-following this procedure to enable the enclave.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi b/arch/arm64/boot=
-/dts/freescale/imx8ulp.dtsi
-> index c6d1bb9edf388..38233dd74ee33 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/imx8ulp.dtsi
-
-[ ... ]
-
-> @@ -185,6 +185,14 @@ scmi_sensor: protocol@15 {
->  				#thermal-sensor-cells =3D <1>;
->  			};
->  		};
-> +
-> +		hsm0: secure-enclave {
-> +			compatible =3D "fsl,imx8ulp-se-ele-hsm";
-> +			mbox-names =3D "tx", "rx";
-> +			mboxes =3D <&s4muap 0 0>, <&s4muap 1 0>;
-> +			sram =3D <&sram0>;
-> +			status =3D "disabled";
-> +		};
->  	};
-> =20
->  	cm33: remoteproc-cm33 {
-
-[Severity: Low]
-Will this incomplete hsm0 node trigger dtbs_check validation errors?
-
-The fsl,imx-se.yaml schema strictly requires a memory-region property for
-the fsl,imx8ulp-se-ele-hsm compatible.
-
-Since dt-validate evaluates all nodes, including those with
-status =3D "disabled", it appears any board including imx8ulp.dtsi that does
-not explicitly supply a memory-region for this node will fail schema
-validation.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-imx-se-if-=
-v33-0-212e32ff0295@nxp.com?part=3D6
