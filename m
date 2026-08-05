@@ -1,182 +1,104 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C6C3E49F2
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91CA3E49E5
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785915044; cv=none; b=RPfAU3qjZjMmg9paJ7Lu3I4m2QrnhMxI5ni4T2+hWjEBvUt1xgpxnAxlGYDItvsVydAE/BQLcg3kvZ+1BrTbJeW5DbaETIwY8wofgYadMW5HPX5JtDmPyUjQzGr/3iD3ecoV1UsJ64tIvxUxxFrs4ziZwxlqH/tE0NrvYu0ZhmY=
+	t=1785915096; cv=none; b=XQIplURM9REX2nanRW8oBzfHgj/dbWYtqojNI9BxFj6ELBVe6NVhuqPBkhJ9PwaA0PlX6YmH8Wbi3BtmRRGbvwlekvZrLaCwOvEGaZg2CRmQ5kS6/L2cZsaMGonmxbDAt/VK/gJ9/1UBiZMc3RD6SrgFPIGf258G5kXF3L9hgcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785915044; c=relaxed/simple;
-	bh=wEZfWF9mvIP9yW6EDmsqiBdPWHv60BpJq/ALeLSUx4I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IiJ3w68qgrUxYno28OEoHLSNSB/tYv1KicsBORsgxUwealcWHtbSleey9SqG7uVc83DCPgIiEbT83UHu073Pr3NLrgccJieJdcatstQLH5sy6I7ung/iYrigeMlU7BG9sYzwqo04esCSEumgVv+mBQRPD5DnegYlWRXvLRpikxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=n2D9a/hP; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785915096; c=relaxed/simple;
+	bh=IiysvxFQKiyMoXV7CQZDMewNBxSpNElHPdU7HZDl/w0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lE6MVfFyOIfYpTNNaTj6245Pn3H2HaAK+F8cVNV67UPCcvOc6WheNIcBoSNooY93bCj/5vTLNk4G0Um2k2MiK5prpKxDGIEns8rKatDoEpUBeyvzYIgd8+y5wAzWooqcd/lGhdFo712NGi35LLH6NcUVgua0v4IG3GP9QP56FSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=YyhD/yUs; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="n2D9a/hP"
-Message-ID: <fc37a0e2-816b-4fde-880b-7b117d462626@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785915038;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C0ogknZifwHUHqlmbzAZ1WlG35CJPpu3eT3NUulJv6o=;
-	b=n2D9a/hPBedAD8LSevbLI9iOrECg0VzUuxk15L+oUg4Gxckz/WqTaOWBOFJKCLi6KMXA/b
-	uFj0HYIgYTn3t2qwRBzFCPEGH0Cl7yQ53K9pWgI3N3k6xhdTweCMlkCpjPEdSyXfzaWwaW
-	gNxMRFTwkwVHxMAa8XdeevrZpFeypyM=
-Date: Wed, 5 Aug 2026 00:30:31 -0700
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="YyhD/yUs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=o83C
+	iKf5urEh1JCoodABYV+o+kUT7HZESetSTfx7yfE=; b=YyhD/yUsLPMc/nolwQlC
+	Xvq6J6VWrKxDzYfjWA49GqiV7CTbDXXY3ZzYgYpH971Z9M1eZCpsC7Rd4KqdZyKJ
+	IbiVNRTvDjZqKzd7m91OfNmQiaUtGUH8LP8bB7Tl1pgNc5CVesogPpRAbifZsPiI
+	WWxCqlPmROdR7giu0BkrNwRvEMb8rTUqh+2SEYbOMrYL4aiMjKyTuGX+NMTyx90c
+	9h776KBIztURXDfy874mNWU86I1EvD2m8/7CH0TXdRP3ZF0V+X8ThsgfHlCwTKzY
+	OsV95+RPof0ZaxR1HH4ax2u8aHITO0ymoXgvaigqWwasKcgtsi1rg9GdMqD/GQ4O
+	xQ==
+Received: (qmail 3669082 invoked from network); 5 Aug 2026 09:31:30 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 5 Aug 2026 09:31:30 +0200
+X-UD-Smtp-Session: l3s3148p1@0nGHwkdY+p4ujnuk
+Date: Wed, 5 Aug 2026 09:31:29 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: "Herve Codina (Schneider Electric)" <herve.codina@bootlin.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Pascal Eberhard <pascal.eberhard@se.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v4 2/4] clocksource/drivers: Add support for the Renesas
+ RZ/N1 timers
+Message-ID: <anLm0fgzm_TanuMS@shikoro>
+References: <20260721082952.215691-1-herve.codina@bootlin.com>
+ <20260721082952.215691-3-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v8 02/22] RISC-V: Add Sxcsrind ISA extension CSR
- definitions
-To: Paul Walmsley <pjw@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rob Herring <robh@kernel.org>, Anup Patel <anup@brainfault.org>,
- Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Ian Rogers <irogers@google.com>,
- Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>,
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
-References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-2-7909f863a645@meta.com>
- <3d1f698c-6b76-5252-4e8f-b61671e309c7@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <3d1f698c-6b76-5252-4e8f-b61671e309c7@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VQ+T736CLi3i+e6U"
+Content-Disposition: inline
+In-Reply-To: <20260721082952.215691-3-herve.codina@bootlin.com>
 
-On 8/4/26 4:35 PM, Paul Walmsley wrote:
-> On Wed, 1 Jul 2026, Atish Patra wrote:
-> 
->> From: Kaiwen Xue <kaiwenx@rivosinc.com>
->>
->> This adds definitions of new CSRs and bits defined in Sxcsrind ISA
->> extension. These CSR enables indirect accesses mechanism to access
->> any CSRs in M-, S-, and VS-mode. The range of the select values
->> and ireg will be define by the ISA extension using Sxcsrind extension.
->>
->> Signed-off-by: Kaiwen Xue <kaiwenx@rivosinc.com>
->> Reviewed-by: Clément Léger <cleger@rivosinc.com>
->> Signed-off-by: Atish Patra <atishp@rivosinc.com>
-> 
-> Thanks.  It's easier for folks to grep and cross-reference if the official
-> RISC-V extension names are used whenever possible, rather than something
-> like Sxcsrind.  Queued the following patch for v7.3.
-> 
 
-Agreed. Thanks!
+--VQ+T736CLi3i+e6U
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> 
-> - Paul
-> 
-> 
-> RISC-V: Add Smcsrind and Sscrind ISA extension CSR definitions
-> 
-> From: Kaiwen Xue <kaiwenx@rivosinc.com>
-> 
-> This adds definitions of new CSRs and bits defined in the Smcsrind and
-> Sscrinq ISA extensions. These CSRs enable the indirect CSR accesses
-> mechanism to access any indirect CSRs in M-, S-, and VS-mode. The
-> range of the select values and ireg will be defined by the ISA
-> extension that are based on the Smcsrind and Sscsrind extensions.
-> 
-> Signed-off-by: Kaiwen Xue <kaiwenx@rivosinc.com>
-> Reviewed-by: Clément Léger <cleger@rivosinc.com>
-> Signed-off-by: Atish Patra <atishp@rivosinc.com>
-> Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-> Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-> Link: https://patch.msgid.link/20260701-counter_delegation-v8-2-7909f863a645@meta.com
-> [pjw@kernel.org: clean up the patch description; use official RISC-V extension names]
-> Signed-off-by: Paul Walmsley <pjw@kernel.org>
-> ---
->   arch/riscv/include/asm/csr.h |   30 ++++++++++++++++++++++++++++++
->   1 file changed, 30 insertions(+)
-> 
-> diff --git a/arch/riscv/include/asm/csr.h b/arch/riscv/include/asm/csr.h
-> index 31b8988f4488..7f09e54a0f9a 100644
-> --- a/arch/riscv/include/asm/csr.h
-> +++ b/arch/riscv/include/asm/csr.h
-> @@ -347,6 +347,12 @@
->   /* Supervisor-Level Window to Indirectly Accessed Registers (AIA) */
->   #define CSR_SISELECT		0x150
->   #define CSR_SIREG		0x151
-> +/* Supervisor-Level Window to Indirectly Accessed Registers (Sscsrind) */
-> +#define CSR_SIREG2		0x152
-> +#define CSR_SIREG3		0x153
-> +#define CSR_SIREG4		0x155
-> +#define CSR_SIREG5		0x156
-> +#define CSR_SIREG6		0x157
->   
->   /* Supervisor-Level Interrupts (AIA) */
->   #define CSR_STOPEI		0x15c
-> @@ -394,6 +400,14 @@
->   /* VS-Level Window to Indirectly Accessed Registers (H-extension with AIA) */
->   #define CSR_VSISELECT		0x250
->   #define CSR_VSIREG		0x251
-> +/*
-> + * VS-Level Window to Indirectly Accessed Registers (H-extension with Sscsrind)
-> + */
-> +#define CSR_VSIREG2		0x252
-> +#define CSR_VSIREG3		0x253
-> +#define CSR_VSIREG4		0x255
-> +#define CSR_VSIREG5		0x256
-> +#define CSR_VSIREG6		0x257
->   
->   /* VS-Level Interrupts (H-extension with AIA) */
->   #define CSR_VSTOPEI		0x25c
-> @@ -436,6 +450,12 @@
->   /* Machine-Level Window to Indirectly Accessed Registers (AIA) */
->   #define CSR_MISELECT		0x350
->   #define CSR_MIREG		0x351
-> +/* Machine-Level Window to Indirectly Accessed Registers (Smcsrind) */
-> +#define CSR_MIREG2		0x352
-> +#define CSR_MIREG3		0x353
-> +#define CSR_MIREG4		0x355
-> +#define CSR_MIREG5		0x356
-> +#define CSR_MIREG6		0x357
->   
->   /* Machine-Level Interrupts (AIA) */
->   #define CSR_MTOPEI		0x35c
-> @@ -498,6 +518,11 @@
->   # define CSR_IEH		CSR_MIEH
->   # define CSR_ISELECT	CSR_MISELECT
->   # define CSR_IREG	CSR_MIREG
-> +# define CSR_IREG2	CSR_MIREG2
-> +# define CSR_IREG3	CSR_MIREG3
-> +# define CSR_IREG4	CSR_MIREG4
-> +# define CSR_IREG5	CSR_MIREG5
-> +# define CSR_IREG6	CSR_MIREG6
->   # define CSR_IPH		CSR_MIPH
->   # define CSR_TOPEI	CSR_MTOPEI
->   # define CSR_TOPI	CSR_MTOPI
-> @@ -523,6 +548,11 @@
->   # define CSR_IEH		CSR_SIEH
->   # define CSR_ISELECT	CSR_SISELECT
->   # define CSR_IREG	CSR_SIREG
-> +# define CSR_IREG2	CSR_SIREG2
-> +# define CSR_IREG3	CSR_SIREG3
-> +# define CSR_IREG4	CSR_SIREG4
-> +# define CSR_IREG5	CSR_SIREG5
-> +# define CSR_IREG6	CSR_SIREG6
->   # define CSR_IPH		CSR_SIPH
->   # define CSR_TOPEI	CSR_STOPEI
->   # define CSR_TOPI	CSR_STOPI
-> 
-> 
-> _______________________________________________
-> linux-riscv mailing list
-> linux-riscv@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-riscv
 
+> +		if (irq_disabled)
+> +			irq_set_status_flags(timer->ced.irq, IRQ_NOAUTOEN);
+
+I just got a buildbot report that the above line needs 'irq.h' to be
+included. But I wonder if we can't skip it with:
+
+	flags = IRQF_TIMER;
+	if (irq_disabled)
+		flags |= IRQF_NO_AUTOEN;
+
+> +		ret = devm_request_irq(dev, timer->ced.irq, rzn1_timer_interrupt,
+> +				       IRQF_TIMER, timer->ced.name, timer);
+
+and use 'flags' here?
+
+
+--VQ+T736CLi3i+e6U
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmpy5s0ACgkQFA3kzBSg
+KbbLKA//WcVbwVkGuPRc8bj8aREUVY3FfdcHNy3nNdDGt8HRld15CrU/hCnYEjq+
+R6WvTF79CmECfIFbtPka4EXS8TGuElUrrwgUrehuXXPZ39C9B3u9YEggepoEvZiu
+aFLU/1sFmXcnEn+3DtSDVtv3Y5W2zW61j7BU45+Y/5SkxFE+7lqTNgCAIzeX77g9
+w7ZLj0qWw4/nS9cJ0zHFebToXV3xR0nwMte5ZEgrSKSI11wECOOgX9VKbV2Sav/J
+gVs6BFnTQSQrcb0dR3CvON2KRwodbQLrYKeqdIdZpd/TEPaGZh45QENnIiTxvGQ7
+AgkdkANS2WYbazST2VpjGF7A4mn+GYl8uAGz9VM67z/p8H8w8JJbtETSFoHV2QAW
+UyECY/4fHLz/gaisX0zFP1ciAiCrgTGcYxl+nAANuTKfWwP/wvC8tsdzXLSrL/ol
+AW8dI2WqAh1PCHiEhlommo572JFU4iD+EUgeOMDlK15LlQ6PbMO7g30ZCmUsCYS+
+/S+4UY9v5miCEYWRbEf2nwccFfL39ybYgdv5idl3HSWfcNNdh9I+Wtp+hq6W9nwv
+3WJ7QymrsCrLAFroV5V2hm3IHtp7ymrP46hlNziBO8Tkv/Zh5ZUr/qIq3KCOyZKD
+AgtEb1s7pkkEsvrmN6/lV8MHo7ZBppi6/S4K2JXeWa55Ir7ZrwI=
+=h0pA
+-----END PGP SIGNATURE-----
+
+--VQ+T736CLi3i+e6U--
