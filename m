@@ -1,63 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532D33E3140;
-	Wed,  5 Aug 2026 07:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C3393E44EC
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:21:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914526; cv=none; b=D+YohqqTsrFFihr8Cm/O+tBgQ3G+aikg28GobI+7r8gpu9E6Tu+gyRy6fk00k7/sJjY7/l+M30G68Gl3zLdH+d4Pkfm3xYlrbxSRyPTQNP1GjvPGRqVfHsWykULJUlEZcYFHBaYOKJFEHQCbnWw7tXxvq+ZUk9Sy7UlHP+AovGE=
+	t=1785914526; cv=none; b=dIusa4G4tt8s4C1LjbX+JeU4CF3lgK3rX8lxMT07J8BS5xqeVLwmwgjgVejM3qXgkMFR5gEA0GXJZCcjDOxkgS2/E4iMj04Wuj7NCKZbUcTzIDoF30/m4qXfBwFRnkn1I5xSHJesPu5AKom4oAmhoxT+PwuP9qnwkfvfRnnEn+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785914526; c=relaxed/simple;
-	bh=ZWdnDNWUgz1RZt1QrbsHwbfDAv8WKKMDpvC134bHx+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uhALU21/GPerXYWZAZwQmj6RZ/8JlW3LZkZob6+bDT2z2QpQM8eSH6pxkHmdxxn9OKJ5F1E0pmHAHJrtU3PMgyYlWSguhf2jh+tHqgOSlfyBGRlLoEifZwoBRq/eoBY7q+8K6Kpyy6zRmMWJUEggAoJfk7jXshivTw9DSkU0BSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SNMtOmDb; arc=none smtp.client-ip=100.103.45.18
+	bh=jUwFaC+0P2yB94Vdg7SyUxp9h/AQ9CKGW28W1R05GZo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=l7CQGdvdilDvru3SFU4SCl0ixh8eJjYvR1E/T0B1V9Q4mIppIDmGx6lX3Jyc5mJ1I25GzPlveKuQ8RzosWujd/H+HOAQtlOO6e5AKBppyCgiojlM4p1ueSWhXa3IufH1Iq5lr+QXMSDCc91q8XPLoRcj6r6kZLRSLzpERiQ8HIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=Wnnepv6b; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SNMtOmDb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99271F000E9;
-	Wed,  5 Aug 2026 07:22:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785914523;
-	bh=UhXMBPrI6xyKgwv/Cdo64nXosd6ylTy7jcgGsAbM7IE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SNMtOmDbcY5mDj06AJKz04vBSa77xPwy4HZWGPMClSs/iir58R6wqDPN/LmG4l252
-	 sPz9uBSokG6Rn7lZisDEiakQnZzyxGMg2cVHUb8IcvmeRj3knUq0nlmGmfTZMKTOQ7
-	 fnH4Xu4HNnZyPj6u2rCAQw2YWmKGbRWfZv/4YklC9Nr5Y6kzZo5rWiYN9LcqxnrEQ0
-	 gAaC3c9NqgNnkPeWtDUZUBAZT344cefJAXdxq0TUTaY1Qm3HXpHstIPGa4VM13ZdtL
-	 67/nC2zP1AOhxBMVZAaamr8Yrbzm7e700pubrRPsLb4q/j4WtdtVlWux4Ia8UE/W9m
-	 C/RHp8pHPqZMw==
-Date: Wed, 5 Aug 2026 09:22:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: arm: rockchip: Add MangoPi M28K
-Message-ID: <20260805-robust-holistic-bullmastiff-63cc58@quoll>
-References: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
- <20260801080018.3220034-2-amadeus@jmu.edu.cn>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="Wnnepv6b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1785914516; x=1786173716;
+	bh=KjP9SL4ym3Rv1Klf7P/5VjrGwTQDu+KtLGfPry0z3EU=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Wnnepv6bS9A6q624Vx2d2LqjE5vILNcX6BQ9SvzmMAgfYaWwrvBLjyNUBwhr0rso5
+	 lTeuPqiG1zPeelXOGMZ5hnk0mTd1cMQUecZ7JT1jrlysBwNhfNZhpu28pPTHFdtwGj
+	 sKnXKrJ5A+cnJSMtPsX+mpm3JS82e8A8E+JP4IiE5LYi+ux9Bx2h5Ur3xVVyvhWEFy
+	 8e5nYS9+XkmDTAjxbdqEmIjd8u9ypuZBryAWeHd9/xW+v00pt84Nz1Lqpr7PgrD3BI
+	 OT+EFmfc5F9v2bvpSuVBJdVWxl5YX9uRv+VXe4Q+xVOtKVcH+6OXHrhQ5YSGS7pO4c
+	 nqMFNpq3hAy8A==
+X-Pm-Submission-Id: 4hFMKv4Crvz2Sccj
+From: Esben Haabendal <esben@geanix.com>
+Date: Wed, 05 Aug 2026 09:21:38 +0200
+Subject: [PATCH v3 4/4] iio: accel: mma8452: Allow open drain interrupt pin
+ configuration
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260801080018.3220034-2-amadeus@jmu.edu.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-mma8452-open-drain-v3-4-6149f406a409@geanix.com>
+References: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
+In-Reply-To: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
+ Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785914502; l=3033;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=jUwFaC+0P2yB94Vdg7SyUxp9h/AQ9CKGW28W1R05GZo=;
+ b=4avtW0JoCpFdvBheNNutwqprLktQ6LO6TOdE481O/0ljrBzNzH/8KRNs6BlGsc4Blp/wp/5Om
+ hHG/mdBdwGKAS9opmliAD+F+duTbJTn5OgXIjWXx1f5xTcWyGktxDFA
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-On Sat, Aug 01, 2026 at 04:00:17PM +0800, Chukun Pan wrote:
-> The MangoPi M28K is a dual-gigabit SBC developed by Widora based
-> on the RK3528 SoC. Add devicetree binding documentation for it.
-> 
-> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-> ---
->  Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+When sharing interrupt line with other chips, the interrupt pin most
+likely needs to be configured in open-drain mode instead of push-pull.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The PP_OD bit in CTRL_REG3 is set when open-drain mode is configured,
+allowing sharing the interrupt line with other devices (with same interrupt
+polarity).
+The IRQF_SHARED flag is added to request_threaded_irq() flags, indicating
+that the interrupt line can be shared with other devices.
 
-Best regards,
-Krzysztof
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+ drivers/iio/accel/mma8452.c | 30 +++++++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+index 723ca3d9cb96..fa0915530f95 100644
+--- a/drivers/iio/accel/mma8452.c
++++ b/drivers/iio/accel/mma8452.c
+@@ -81,6 +81,8 @@
+ #define  MMA8452_CTRL_REG2_RST			BIT(6)
+ #define  MMA8452_CTRL_REG2_MODS_SHIFT		3
+ #define  MMA8452_CTRL_REG2_MODS_MASK		0x1b
++#define MMA8452_CTRL_REG3			0x2c
++#define  MMA8452_CTRL_REG3_PP_OD		BIT(0)
+ #define MMA8452_CTRL_REG4			0x2d
+ #define MMA8452_CTRL_REG5			0x2e
+ #define MMA8452_OFF_X				0x2f
+@@ -119,6 +121,7 @@ struct mma8452_data {
+ 	int sleep_val;
+ 	u8 ctrl_reg1;
+ 	u8 data_cfg;
++	bool open_drain;
+ };
+ 
+  /**
+@@ -647,6 +650,22 @@ static int mma8452_set_power_mode(struct mma8452_data *data, u8 mode)
+ 	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
+ }
+ 
++static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
++{
++	int reg;
++
++	reg = i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
++	if (reg < 0)
++		return reg;
++
++	if (data->open_drain)
++		reg |= MMA8452_CTRL_REG3_PP_OD;
++	else
++		reg &= ~MMA8452_CTRL_REG3_PP_OD;
++
++	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
++}
++
+ /* returns >0 if in freefall mode, 0 if not or <0 if an error occurred */
+ static int mma8452_freefall_mode_enabled(struct mma8452_data *data)
+ {
+@@ -1667,6 +1686,11 @@ static int mma8452_probe(struct i2c_client *client)
+ 			goto disable_regulators;
+ 	}
+ 
++	data->open_drain = device_property_read_bool(&client->dev, "drive-open-drain");
++	ret = mma8452_set_interrupt_pin_mode(data);
++	if (ret)
++		goto trigger_cleanup;
++
+ 	data->ctrl_reg1 = MMA8452_CTRL_ACTIVE |
+ 			  (MMA8452_CTRL_DR_DEFAULT << MMA8452_CTRL_DR_SHIFT);
+ 
+@@ -1688,7 +1712,7 @@ static int mma8452_probe(struct i2c_client *client)
+ 		irq_flags = irq_get_trigger_type(client->irq);
+ 		if (irq_flags == IRQ_TYPE_NONE)
+ 			irq_flags = IRQF_TRIGGER_LOW;
+-		irq_flags |= IRQF_ONESHOT;
++		irq_flags |= IRQF_ONESHOT | IRQF_SHARED;
+ 		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
+ 					   irq_flags, client->name, indio_dev);
+ 		if (ret)
+@@ -1806,6 +1830,10 @@ static int mma8452_runtime_resume(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	ret = mma8452_set_interrupt_pin_mode(data);
++	if (ret)
++		goto runtime_resume_failed;
++
+ 	ret = mma8452_active(data);
+ 	if (ret < 0)
+ 		goto runtime_resume_failed;
+
+-- 
+2.55.0
 
