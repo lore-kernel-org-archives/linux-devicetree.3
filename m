@@ -1,146 +1,522 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6FE2F290B;
-	Wed,  5 Aug 2026 12:31:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5685F2F290B;
+	Wed,  5 Aug 2026 12:31:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785933066; cv=none; b=jh+6ynLZMiHKGF2s6NMf7h81VKQWVjvcIjBZu+uTSrAnP8NtdYbkDquMbdhtbRssUJjJ0k7rmkTZQbRMB1OydZE/R+eJIJzoALfqUOwBpTiemMxNkpz/b827YmLLFgR16K9RlFTT2fy0eMafeiVXqNDZAcZqtgcqOfw/xJKhXQ8=
+	t=1785933100; cv=none; b=SVYGc/Y07jiyBwg7VGgf1Ndv6iAzjzCk7KVghHhMq3gVw4onNKMPpdDsQUDgSN3DBhiZ5X1LeIFBpdTueGV+VX8X82LpyePuDSz3Fl9kdYVbf9K43A+ljwrwdtaCcF2fBIqwHNg5cI9f03rAMbBRtB1Pem+60OZGWf4HlRUZxCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785933066; c=relaxed/simple;
-	bh=uQrm73y9iNjOO0chxJZlI/N2DKQp/q2nEH6mnO9nB7U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=i94GdFtvWRb8AtOfxHuURlsbDhF6FZz+dws9xyBwxigWB09tn30QySb4V3CKLFQOUT5pfqBqVlKlM3yXrEtc8jM5DZ9Db3efgdlwoYdWr3LCaOOcRRKYOtZSVGPSuC/T1E5lUJ7LqmlnvW2d90eqqrFCsDL0MtOMHZIAiDRgWZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i0A9oBAm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785933100; c=relaxed/simple;
+	bh=oDfKmIkAsCXHnHQU3VfKxb3Nj8gtVwi1Dc3/Q8WhvVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bd/MB8FNV8mTQaKXn+Mvde7krpiR0E3RL3YzyRsNblsZ+VU22jF3SgY3UoloDGAv1J0GaZ2jHillHG8Y+ZrHSxKwAy1PUh83zAG5dsPFge3Eb6tytF8hbZ4TyG6hjm3zCwDFd/iUY1e6ou94nmhJ+n6eVzkMKo3DWdybjO3XZfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IYjRF4t9; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i0A9oBAm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42E0E1F000E9;
-	Wed,  5 Aug 2026 12:31:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785933065;
-	bh=IpYEi/QHGjO2h6TtGpVfJnEJpazUMItfoHKFhho3Wg8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i0A9oBAm1Uqb/EQNM4Uaw9e1LEMBCP86dacYygDn0LUetHyBfL5AKF7nBRl5hEPQS
-	 Xs9KoMEyJ3vKWRxu9yHSkn1tCgAU9wI5E3uz8hAmf2xyJtc0UUXJfksAA18gV4H+So
-	 6LWtETpKXJmvJ+o2SpR/yU8bnRoTbrjSkcIq/OneTbGPa7u2X5TX4YE2DX6j5Zz1LR
-	 kKSraEuHlPGlWGEAZVeI8CzjrLJKrWSYJPAF5T/IPNz3ruRFf9e1KNI4DW7sQWoucZ
-	 AskRjyC15jyCxZ7eqIhBmDTMzDihbwt+QyJhegc9c6O8u0eNwMiDDaD3G/lW6JpSe7
-	 bMyjVvvkkAzVg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/6] serial: 8250_aspeed_vuart: add
- aspeed,ast2600-vuart compatible string
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?R3LDqWdvaXJlIExheWV0?= <gregoire.layet@9elements.com>
-Cc: lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <56aa0a5e26ea76e4f9a27ed059d2b05bec9cffa5.1785932211.git.gregoire.layet@9elements.com>
-References: <cover.1785932211.git.gregoire.layet@9elements.com>
- <56aa0a5e26ea76e4f9a27ed059d2b05bec9cffa5.1785932211.git.gregoire.layet@9elements.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 12:31:04 +0000
-Message-Id: <20260805123105.42E0E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IYjRF4t9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785933098; x=1817469098;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oDfKmIkAsCXHnHQU3VfKxb3Nj8gtVwi1Dc3/Q8WhvVY=;
+  b=IYjRF4t9AH1nLigAiy6ryuWJ/LgWhjbrWs85q2dXrdSjclX4NRrBBgwv
+   1XvjGnuW4s2sc8ocuC4l9Q9QfnPkLwj7iQBOWfBiy2VqyVQUgg0PP8lCI
+   qRRfKNFRzpUlAo5mkR9Ta+UOIbwnCn+rEw+t7A//TVLTvB3KF+C7HGG2t
+   KLe8lsbktK61cwTgwIveTKZNRXbW4N3/AjWCGyZDxS4SPsqcB4ZOZgFeQ
+   NWcu6nvODbNmm97vbTXZXszPhbArl+UWEgi8jEng9rtp0SI7TwZbxlhHM
+   dKH8VenzNbkhl09ReOfWr0Q8oJWCRE+IatofO1u8mHMn/97e7UdXVRHAA
+   g==;
+X-CSE-ConnectionGUID: CK7TWCc/QoGZbeAQLUZN4g==
+X-CSE-MsgGUID: XG+Q2rSrRNKVtx2S2nNnkg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97099246"
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="97099246"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:31:38 -0700
+X-CSE-ConnectionGUID: KxGgxjlXQgOEzFW1wjq1Hw==
+X-CSE-MsgGUID: g3tSiUKJTv6+E3AzM7RiUQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
+   d="scan'208";a="257934055"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa010.fm.intel.com with ESMTP; 05 Aug 2026 05:31:35 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id CF32A99; Wed, 05 Aug 2026 14:31:33 +0200 (CEST)
+Date: Wed, 5 Aug 2026 14:31:33 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Amber Kao <amber.kao@ite.com.tw>
+Cc: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Bling Chiang <Bling.Chiang@ite.com.tw>,
+	Eric Su <Eric.Su@ite.com.tw>, Doreen Lin <doreen.lin@ite.com.tw>
+Subject: Re: [PATCH v6 2/2] usb: typec: ucsi: Add ITE IT8851/IT8853 Type-C PD
+ controller driver
+Message-ID: <anMtJTcWKt1z86Ih@black.igk.intel.com>
+References: <20260731-ucsi-itepd-v6-0-d25ae12b181f@ite.com.tw>
+ <20260731-ucsi-itepd-v6-2-d25ae12b181f@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731-ucsi-itepd-v6-2-d25ae12b181f@ite.com.tw>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Fri, Jul 31, 2026 at 06:02:04PM +0800, Amber Kao wrote:
+> Add a UCSI driver for the ITE IT8851 and IT8853 I2C-based USB Type-C
+> Power Delivery controllers.
+> The controller signals UCSI through a shared interrupt line; events are
+> read and acknowledged via vendor-specific registers, and
+> UCSI events are forwarded to the UCSI core.
+> 
+> Add the driver file to the MAINTAINERS entry.
+> 
+> Cc: Yaode Fang <Yaode.Fang@ite.com.tw>
+> Cc: Jeson Yang <jeson.yang@ite.com.tw>
+> Cc: Bling Chiang <Bling.Chiang@ite.com.tw>
+> Cc: Eric Su <Eric.Su@ite.com.tw>
+> Cc: Doreen Lin <doreen.lin@ite.com.tw>
+> Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
+> ---
+>  MAINTAINERS                         |   1 +
+>  drivers/usb/typec/ucsi/Kconfig      |  10 +
+>  drivers/usb/typec/ucsi/Makefile     |   1 +
+>  drivers/usb/typec/ucsi/ucsi_itepd.c | 364 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 376 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ec0eeea79b9e..1e76e299e6c3 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -13727,6 +13727,7 @@ R:	Yaode Fang <Yaode.Fang@ite.com.tw>
+>  L:	linux-usb@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/usb/ite,it8851.yaml
+> +F:	drivers/usb/typec/ucsi/ucsi_itepd.c
+>  
+>  IVTV VIDEO4LINUX DRIVER
+>  M:	Andy Walls <awalls@md.metrocast.net>
+> diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
+> index 87dd992a4b9e..0f10dac9b34b 100644
+> --- a/drivers/usb/typec/ucsi/Kconfig
+> +++ b/drivers/usb/typec/ucsi/Kconfig
+> @@ -104,4 +104,14 @@ config UCSI_HUAWEI_GAOKUN
+>  	  To compile the driver as a module, choose M here: the module will be
+>  	  called ucsi_huawei_gaokun.
+>  
+> +config UCSI_ITEPD
+> +	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
+> +	depends on I2C
+> +	help
+> +	  This driver enables UCSI support on platforms that expose an
+> +	  ITE IT8851/IT8853 Type-C Power Delivery controller over an I2C interface.
+> +
+> +	  To compile the driver as a module, choose M here: the module
+> +	  will be called ucsi_itepd.
+> +
+>  endif
+> diff --git a/drivers/usb/typec/ucsi/Makefile b/drivers/usb/typec/ucsi/Makefile
+> index c7e38bf01350..0903a1fd486b 100644
+> --- a/drivers/usb/typec/ucsi/Makefile
+> +++ b/drivers/usb/typec/ucsi/Makefile
+> @@ -28,3 +28,4 @@ obj-$(CONFIG_UCSI_PMIC_GLINK)		+= ucsi_glink.o
+>  obj-$(CONFIG_CROS_EC_UCSI)		+= cros_ec_ucsi.o
+>  obj-$(CONFIG_UCSI_LENOVO_YOGA_C630)	+= ucsi_yoga_c630.o
+>  obj-$(CONFIG_UCSI_HUAWEI_GAOKUN)	+= ucsi_huawei_gaokun.o
+> +obj-$(CONFIG_UCSI_ITEPD)		+= ucsi_itepd.o
+> diff --git a/drivers/usb/typec/ucsi/ucsi_itepd.c b/drivers/usb/typec/ucsi/ucsi_itepd.c
+> new file mode 100644
+> index 000000000000..a639b3d32535
+> --- /dev/null
+> +++ b/drivers/usb/typec/ucsi/ucsi_itepd.c
+> @@ -0,0 +1,364 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2025-2026, ITE. All Rights Reserved
+> + *
+> + */
+> +#include <linux/bits.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/slab.h>
+> +#include <linux/unaligned.h>
+> +
+> +#include "ucsi.h"
+> +
+> +#define ITEPD_UCSI_VERSION_REG	0x80
+> +#define ITEPD_UCSI_CCI_REG	0x84
+> +#define ITEPD_UCSI_MSG_IN_REG	0x88
+> +#define ITEPD_UCSI_CONTROL_REG	0x98
+> +
+> +#define ITEPD_VENDOR_WC_INT	0xbc
+> +#define ITEPD_VENDOR_INT	0xbd
+> +#define ITEPD_ALERT_VDM_EVENT	BIT(0)
+> +#define ITEPD_ALERT_UCSI_EVENT	BIT(1)
+> +
+> +#define ITEPD_MSG_IN_MAX_LEN	0x28
+> +
+> +#define ITEPD_EVENT_NONE	0
+> +#define ITEPD_EVENT_UCSI	1
+> +#define ITEPD_EVENT_VDM		2
+> +
+> +struct itepd {
+> +	struct i2c_client *client;
+> +	struct ucsi *ucsi;
+> +	struct mutex i2c_lock;		/* Serializes I2C accesses */
+> +	struct mutex event_lock;	/* Serializes event processing (IRQ vs poll) */
+> +	struct mutex received_lock;	/* Protects cci and msg_in */
+> +	u8 msg_in[ITEPD_MSG_IN_MAX_LEN];
+> +	u32 cci;
+> +};
+> +
+> +static u8 ucsi_itepd_get_len(u32 cci)
+> +{
+> +	if (cci & UCSI_CCI_COMMAND_COMPLETE)
+> +		return UCSI_CCI_LENGTH(cci);
+> +	return 0;
+> +}
+> +
+> +static int itepd_read_reg(struct itepd *itepd, u8 reg, void *data, u32 len)
+> +{
+> +	struct i2c_client *client = itepd->client;
+> +	struct i2c_msg msg[2] = {
+> +		{
+> +			.addr	= client->addr,
+> +			.flags	= 0,
+> +			.len	= 1,
+> +			.buf	= &reg,
+> +		},
+> +		{
+> +			.addr	= client->addr,
+> +			.flags	= I2C_M_RD,
+> +			.len	= len,
+> +			.buf	= data,
+> +		}
+> +
+> +	};
+> +	int ret;
+> +
+> +	mutex_lock(&itepd->i2c_lock);
+> +	ret = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
+> +	mutex_unlock(&itepd->i2c_lock);
+> +	if (ret < 0) {
+> +		dev_err_ratelimited(&client->dev, "reg 0x%02x read failed: %d\n",
+> +				    reg, ret);
+> +		return ret;
+> +	}
+> +
+> +	return ret == ARRAY_SIZE(msg) ? 0 : -EIO;
+> +}
+> +
+> +static int itepd_write_reg(struct itepd *itepd, u8 reg, const void *data, u32 len)
+> +{
+> +	struct i2c_client *client = itepd->client;
+> +	u8 buf[sizeof(u64) + 1];
+> +	struct i2c_msg msg[1] = {
+> +		{
+> +			.addr	= client->addr,
+> +			.flags	= 0,
+> +			.len	= len + 1,
+> +			.buf	= buf,
+> +		}
+> +	};
+> +	int ret;
+> +
+> +	if (len > sizeof(buf) - 1)
+> +		return -EINVAL;
+> +
+> +	buf[0] = reg;
+> +	memcpy(&buf[1], data, len);
+> +
+> +	mutex_lock(&itepd->i2c_lock);
+> +	ret = i2c_transfer(client->adapter, msg, 1);
+> +	mutex_unlock(&itepd->i2c_lock);
+> +	if (ret < 0) {
+> +		dev_err_ratelimited(&client->dev, "reg 0x%02x write failed: %d\n",
+> +				    reg, ret);
+> +		return ret;
+> +	}
+> +
+> +	return ret == 1 ? 0 : -EIO;
+> +}
+> +
+> +static int itepd_process_event(struct itepd *itepd, u32 *cci)
+> +{
+> +	u8 msg_in[ITEPD_MSG_IN_MAX_LEN] = {};
+> +	__le32 le_cci;
+> +	u8 event, ack;
+> +	u8 len = 0;
+> +	int err = 0;
+> +	int ret;
+> +
+> +	mutex_lock(&itepd->event_lock);
 
-Pre-existing issues:
-- [High] Probe error paths leak the registered 8250 port and timer, leading=
- to a use-after-free when devres cleans up.
-- [High] Early sysfs exposure in probe allows userspace to trigger a NULL p=
-ointer dereference before drvdata is set.
-- [High] Late sysfs removal during device remove allows userspace to access=
- unmapped IO memory.
---
+guard(mutex)(&itepd->event_lock);
 
---- Patch [2]: [PATCH v5 2/6] serial: 8250_aspeed_vuart: add aspeed,ast2600=
--vuart compatible string ---
-commit 513026908b64cd69b7d61f618f21a1466256a146
-Author: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
+> +	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &event, sizeof(event));
+> +	if (ret)
+> +		goto out_unlock;
+> +
+> +	event &= ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT;
+> +	if (!event) {
+> +		mutex_lock(&itepd->received_lock);
+> +		*cci = itepd->cci;
+> +		mutex_unlock(&itepd->received_lock);
+> +		ret = ITEPD_EVENT_NONE;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (event & ITEPD_ALERT_UCSI_EVENT) {
+> +		err = itepd_read_reg(itepd, ITEPD_UCSI_CCI_REG, &le_cci,
+> +				     sizeof(le_cci));
+> +		if (!err) {
+> +			*cci = le32_to_cpu(le_cci);
+> +			len = min_t(u8, ucsi_itepd_get_len(*cci),
+> +				    sizeof(msg_in));
+> +			if (len)
+> +				err = itepd_read_reg(itepd,
+> +						     ITEPD_UCSI_MSG_IN_REG,
+> +						     msg_in, len);
+> +		}
+> +	}
+> +
+> +	ack = event;
+> +	ret = itepd_write_reg(itepd, ITEPD_VENDOR_WC_INT, &ack, sizeof(ack));
+> +	if (ret)
+> +		goto out_unlock;
+> +
+> +	if (err) {
+> +		ret = err;
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (event & ITEPD_ALERT_UCSI_EVENT) {
+> +		mutex_lock(&itepd->received_lock);
+> +		itepd->cci = *cci;
+> +		memset(itepd->msg_in, 0, sizeof(itepd->msg_in));
+> +		memcpy(itepd->msg_in, msg_in, len);
+> +		mutex_unlock(&itepd->received_lock);
+> +		ret = ITEPD_EVENT_UCSI;
+> +	} else {
+> +		mutex_lock(&itepd->received_lock);
+> +		*cci = itepd->cci;
+> +		mutex_unlock(&itepd->received_lock);
+> +		ret = ITEPD_EVENT_VDM;
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&itepd->event_lock);
+> +	return ret;
+> +}
+> +
+> +static int ucsi_itepd_read_version(struct ucsi *ucsi, u16 *version)
+> +{
+> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
+> +	__le16 le_version;
+> +	int ret;
+> +
+> +	ret = itepd_read_reg(itepd, ITEPD_UCSI_VERSION_REG, &le_version,
+> +			     sizeof(le_version));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*version = le16_to_cpu(le_version);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ucsi_itepd_read_cci(struct ucsi *ucsi, u32 *cci)
+> +{
+> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
+> +
+> +	mutex_lock(&itepd->received_lock);
 
-serial: 8250_aspeed_vuart: add aspeed,ast2600-vuart compatible string
+guard(mutex)(&itepd->received_lock);
 
-Make the driver compatible with the ast2600-vuart.
-Enable specific configuration for the AST2600.
+> +	*cci = itepd->cci;
+> +	mutex_unlock(&itepd->received_lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ucsi_itepd_poll_cci(struct ucsi *ucsi, u32 *cci)
+> +{
+> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
+> +	int ret;
+> +
+> +	ret = itepd_process_event(itepd, cci);
+> +	return ret < 0 ? ret : 0;
+> +}
+> +
+> +static int ucsi_itepd_read_message_in(struct ucsi *ucsi, void *val, size_t val_len)
+> +{
+> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
+> +
+> +	mutex_lock(&itepd->received_lock);
 
-> diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/se=
-rial/8250/8250_aspeed_vuart.c
-> index 26fc0464f1cc2..6afa2f4057e1b 100644
-> --- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
-> +++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
-> @@ -560,6 +560,7 @@ static void aspeed_vuart_remove(struct platform_devic=
-e *pdev)
->  static const struct of_device_id aspeed_vuart_table[] =3D {
->  	{ .compatible =3D "aspeed,ast2400-vuart" },
->  	{ .compatible =3D "aspeed,ast2500-vuart" },
-> +	{ .compatible =3D "aspeed,ast2600-vuart" },
+Ditto.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but adding this compatible string
-exposes the AST2600 device to a pre-existing resource leak in the driver's
-probe error path:
+> +	memcpy(val, itepd->msg_in, min(val_len, sizeof(itepd->msg_in)));
+> +	mutex_unlock(&itepd->received_lock);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ucsi_itepd_async_control(struct ucsi *ucsi, u64 command)
+> +{
+> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
+> +	__le64 le_cmd = cpu_to_le64(command);
+> +
+> +	if (UCSI_COMMAND(command) == UCSI_PPM_RESET) {
+> +		mutex_lock(&itepd->received_lock);
+> +		itepd->cci = 0;
+> +		mutex_unlock(&itepd->received_lock);
+> +	}
+> +
+> +	return itepd_write_reg(itepd, ITEPD_UCSI_CONTROL_REG, &le_cmd,
+> +			       sizeof(le_cmd));
+> +}
+> +
+> +static const struct ucsi_operations ucsi_itepd_ops = {
+> +	.read_version		= ucsi_itepd_read_version,
+> +	.read_cci		= ucsi_itepd_read_cci,
+> +	.poll_cci		= ucsi_itepd_poll_cci,
+> +	.read_message_in	= ucsi_itepd_read_message_in,
+> +	.sync_control		= ucsi_sync_control_common,
+> +	.async_control		= ucsi_itepd_async_control,
+> +};
+> +
+> +static irqreturn_t itepd_irq_process(struct itepd *itepd)
+> +{
+> +	u32 cci;
+> +	int ret;
+> +
+> +	ret = itepd_process_event(itepd, &cci);
+> +	if (ret == ITEPD_EVENT_NONE)
+> +		return IRQ_NONE;
+> +
+> +	if (ret < 0)
+> +		return IRQ_HANDLED;
+> +
+> +	if (ret == ITEPD_EVENT_UCSI)
+> +		ucsi_notify_common(itepd->ucsi, cci);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static irqreturn_t itepd_irq_thread_fn(int irq, void *data)
+> +{
+> +	struct itepd *itepd = data;
+> +
+> +	return itepd_irq_process(itepd);
+> +}
+> +
+> +static int itepd_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct itepd *itepd;
+> +	u32 cci;
+> +	int ret;
+> +
+> +	if (client->irq <= 0)
+> +		return dev_err_probe(dev, -ENODEV, "no IRQ provided\n");
+> +
+> +	itepd = devm_kzalloc(dev, sizeof(*itepd), GFP_KERNEL);
+> +	if (!itepd)
+> +		return -ENOMEM;
+> +
+> +	itepd->client = client;
+> +	mutex_init(&itepd->i2c_lock);
+> +	mutex_init(&itepd->event_lock);
+> +	mutex_init(&itepd->received_lock);
+> +	i2c_set_clientdata(client, itepd);
+> +
+> +	itepd->ucsi = ucsi_create(dev, &ucsi_itepd_ops);
+> +	if (IS_ERR(itepd->ucsi))
+> +		return dev_err_probe(dev, PTR_ERR(itepd->ucsi),
+> +				     "ucsi_create failed\n");
+> +
+> +	ucsi_set_drvdata(itepd->ucsi, itepd);
+> +
+> +	ret = request_threaded_irq(client->irq, NULL, itepd_irq_thread_fn,
 
-drivers/tty/serial/8250/8250_aspeed_vuart.c:aspeed_vuart_probe() {
-    ...
-err_sysfs_remove:
-	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
-	return rc;
-}
+devm_request_threaded_irq()?
 
-The err_sysfs_remove error path fails to call serial8250_unregister_port()
-and timer_delete_sync() before returning an error, leaking resources that h=
-old
-a dangling pointer to the devres-freed vuart structure.
+> +				   IRQF_ONESHOT, dev_name(dev), itepd);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "request_threaded_irq failed\n");
+> +		goto out_ucsi_destroy;
+> +	}
+> +
+> +	ret = itepd_process_event(itepd, &cci);
+> +	if (ret < 0)
+> +		dev_warn(dev, "initial event processing failed: %d\n", ret);
+> +
+> +	ret = ucsi_register(itepd->ucsi);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "failed to register UCSI\n");
+> +		goto out_free_irq;
+> +	}
+> +
+> +	return 0;
+> +
+> +out_free_irq:
+> +	free_irq(client->irq, itepd);
+> +out_ucsi_destroy:
+> +	ucsi_destroy(itepd->ucsi);
+> +	return ret;
+> +}
+> +
+> +static void itepd_remove(struct i2c_client *client)
+> +{
+> +	struct itepd *itepd = i2c_get_clientdata(client);
+> +
+> +	ucsi_unregister(itepd->ucsi);
+> +	free_irq(client->irq, itepd);
+> +	ucsi_destroy(itepd->ucsi);
+> +}
+> +
+> +static const struct of_device_id itepd_of_match_table[] = {
+> +	{ .compatible = "ite,it8851" },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, itepd_of_match_table);
+> +
+> +static const struct i2c_device_id itepd_id_table[] = {
+> +	{ "ucsi_itepd", 0 },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(i2c, itepd_id_table);
+> +
+> +static struct i2c_driver itepd_driver = {
+> +	.driver = {
+> +		.name = "ucsi_itepd",
+> +		.of_match_table = itepd_of_match_table,
+> +	},
+> +	.probe = itepd_probe,
+> +	.remove = itepd_remove,
+> +	.id_table = itepd_id_table,
+> +};
+> +module_i2c_driver(itepd_driver);
+> +
+> +MODULE_AUTHOR("Jeson Yang <jeson.yang@ite.com.tw>");
+> +MODULE_DESCRIPTION("UCSI driver for ITE IT8851 and IT8853 Type-C PD controllers");
+> +MODULE_LICENSE("GPL");
+> 
+> -- 
+> 2.53.0
 
-Could this lead to a use-after-free when devres cleans up?
-
-[Severity: High]
-This is also a pre-existing issue, but there is a race condition with early
-sysfs exposure during probe:
-
-drivers/tty/serial/8250/8250_aspeed_vuart.c:aspeed_vuart_probe() {
-    ...
-	rc =3D sysfs_create_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
-    ...
-	platform_set_drvdata(pdev, vuart);
-    ...
-}
-
-The sysfs group is created and exposed to userspace early in the probe
-function, creating a race window before platform_set_drvdata() is called at
-the end.
-
-If userspace reads a sysfs attribute (like sirq) during this window, the
-handler will call dev_get_drvdata() and receive NULL. Can this allow
-userspace to trigger a NULL pointer dereference before drvdata is set?
-
-[Severity: High]
-This is a pre-existing issue as well, but there appears to be a use-after-u=
-nmap
-vulnerability in the remove function:
-
-drivers/tty/serial/8250/8250_aspeed_vuart.c:aspeed_vuart_remove() {
-    ...
-	serial8250_unregister_port(vuart->line);
-	sysfs_remove_group(&vuart->dev->kobj, &aspeed_vuart_attr_group);
-}
-
-The underlying 8250 port is unregistered and unmapped before the sysfs
-interface is removed.
-
-If userspace accesses a sysfs attribute concurrently in the window before t=
-he
-sysfs group is removed, can this result in an access violation on the now
-unmapped vuart->port->port.membase?
-
->  	{ },
->  };
->  MODULE_DEVICE_TABLE(of, aspeed_vuart_table);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785932211.gi=
-t.gregoire.layet@9elements.com?part=3D2
+-- 
+heikki
