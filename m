@@ -1,144 +1,156 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9005C3EE1E0
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 15:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC755456E1E
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 15:40:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785943728; cv=none; b=J8TR6N9PTla+xuLeLIrMu7HMqJh24KD8n6f1D6Q8RVjM0aPMVob5PUPM57in4l6xy0RlE++SeLcY5ejjjCZjtQMyGUNhNNUNdFegv0kI3ftP8f8NbOF3FV09E5dT1iqOru9/nbKkAgQu0Ngew57AxFo5Fxz0VDUGfndIDam75d0=
+	t=1785944463; cv=none; b=AMuIsmb3mzEalGJm2R0M6HBEfHDv9qYlpccSnJfXQxkUyegw4jZAnQ5vg+gZ6k+fgkqYsEmmZAbefMSyNUq+9Cfu1/G6yuTpaHb2vrfBRPLd8YV1tBem3iTlwEGbYANHekw1ea3QujrUIRUQBaCXRY3PHF2YLdWLfunsQgHPM7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785943728; c=relaxed/simple;
-	bh=oH2c8xWhA5Y/hqX4HJqULRl3t01Uj0jNPXPaDNXdyuQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rjUYmoIK3yFUL4zEqSjj90nSvhrjqaqWVjRXnRG4AZRMGIJgutYz7QQWp5eCwuPw38PnwKDXYS7SOCVonX5PxRRsIKsDNi6R7LowG/hO4DeA25HoTu6u9G4qrAnj8giQJWAzAp0RHNlkviqJsIL5SK+AW4G0PJom5Cbbj3iX/a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LZfdeFy6; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785944463; c=relaxed/simple;
+	bh=c6gtlii0Hlc5iLPLxbfcf5ReUdI5F5PwvewPW+lwblE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ol6eab5I6BJDZ4tAS7+Yr0kGAYOML6gn16iJ43pwrS67pTf9HO9dtGFGcthQkpN8LXULbJPnHV2mLrwfWs3WbYw71BP1OA/eRCCZhEhSJr4hglubyfzecV6oyY/BICikPG1pTiTQSji7aIBUVaotg8w4gttU/QtmKT1eu9CMyPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gy+0XPbi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LZfdeFy6"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cc97653887so13753685ad.1
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 08:28:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785943718; x=1786548518; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=euAjj5v9spvVbU87SbKkRLVKZRVH/7mzRMaCk1Nylks=;
-        b=LZfdeFy6e9ND3qJKbIIkYw0YGvae7xSh4uVjpBGp0vFfxWV/KEXZ+iztIuEwbhBwf/
-         4FFSnY3P8dj9fOyhMQV6NCHLX/dD6j+MZqpX5vt33cIkFYMVtBuckg3FJW8U268pzRnl
-         JuymIi2QykgTao4hza5orlEu1GN09MdM4RAhSXdxVkxJQwqwPeAd9AO6T4SvfVHPYPFj
-         jmEAnD5uAy0NDF2sd5Z1Aq9+LKSKMCXuNBH5PQfE3AZlbTaq58ar0W+hTfFNLOiSoMH0
-         XvLUL3VJQXR+PQVFuSvCa3/aS/3t1uSzf+xz75a5nv3+Ze7VHWnmTlaSLGdWxjQUXG0+
-         Wbfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785943718; x=1786548518;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=euAjj5v9spvVbU87SbKkRLVKZRVH/7mzRMaCk1Nylks=;
-        b=AYuz3XLSSnN0UqGBk0DC9BarIuhVJ0zjgWeUdILV1tvTC8fHntv7dPk1ljjLf3R6Ku
-         +z5B2qv62WK6w3XKy/M50WowBs4JPrlY13T3zbvNpBWl0MpqBahvVbOzNsJXDndcAPUq
-         5hQgwnVbW15Zqm7kQHukdxd7IocXr0T2g6StwkE75Bik5uCJ58J/F+euPq9x+CGQLq33
-         YGp1K6l1bXIdeLCMz/lgatQyxUKoMt4UHi+D/CIOd4+YQkOMDwigAAlSYXBi1D9ci0yK
-         NgRbZw7QXatocw81urgWQkFoGcHfPCbqW5JRsfYWcrRArVEbKMLbHs+loVz8t7I/Y3kY
-         eOBg==
-X-Forwarded-Encrypted: i=1; AHgh+RpCJLsM/dwwd6377mK2swE2fgvJh557+twcNSjtwQJxJuGkRBM4Zbxa4A1Kh3tGfDmH5oW/82Gf9dx5@vger.kernel.org
-X-Gm-Message-State: AOJu0YyccSw0DSIAGkfcff7cZGlqwbn2EGwSj6M+o+H24euTYNy3LRAw
-	cSo+GOOjeIqudV31fHxpSl5zS40Rnnqq0Yn0RcblQmGfFarJr8ykwk5C0d4eYQ==
-X-Gm-Gg: AR+sD11tLtaSsVm1oOKcRuiX6QaoQgVSJbLfa2cngjsgbYogYBghH4/o2718GDZOW0G
-	B1U9CCvkf8dNBG6tW/+m+CttfeSr3C1rXhANTgxqoYflOTrexeP4KyQnmIVE5xpIDCx7FPebbS/
-	eWpgaNyPe0g4TPapv4cadkpPQRtLjWDa/mvafFKZ1EqGktW0KIj7GZxt0Moyn7w0MAdhluKzVev
-	6RVO/zl8L7Jozv0QDSyZsy3YwNQefcJbI0MaqadlQQQvK3faGHGHSLF/enEldFdTzmAmWWiz3wy
-	4DkpQWCzUI3iSTRxMBmLdQEInb+RG2cigkyPDztw/JLQnoUBV4osT+AnZlAR+0tUHvmAOZlOH5m
-	NyDA244HtsSIxpcovC0Az+CpYQkE+AY2iM7kE+9MHFW23cWZclZ/lf3S3blAfgmHp3OnM4BwcQB
-	th7hzmAQgD/s+RsS3uMqpxoBwMx4zCvgOx7Qg6zZTwe6tIH0D6tqpT8oAr+a98Co8gwmbhl9OqJ
-	BTsgXykz7iuU/9evb5XL1RzR9GSMgrNDr2hRA==
-X-Received: by 2002:a17:90b:274d:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-3903c534d46mr9263643a91.4.1785943717871;
-        Wed, 05 Aug 2026 08:28:37 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903f5ab7a4sm2000388a91.2.2026.08.05.08.28.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 Aug 2026 08:28:37 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <23453025-34e6-4e8e-804a-7e0a36a32abd@roeck-us.net>
-Date: Wed, 5 Aug 2026 08:28:36 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gy+0XPbi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 667791F000E9;
+	Wed,  5 Aug 2026 15:40:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785944454;
+	bh=9ihG8NQy+HfmBrLEaMR9Q4weVEEo7LW9J7KofcyNGuw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gy+0XPbim5IE5FAeta9Tge0u8ptKXK4D37Qtpsx6yYN7UF1C2vb2weaUPCdjWB33H
+	 nVK0G38BsXQT5EqTWgGF4koQimtipWEqpOls7FNBo6yjCcgfRekNtkpHOG6GTK8JKN
+	 u+UtPLbrhtMS6g7KTSBYWLv+pSGV+3oAAq8WOguNa03Nj0J2FPtgYSTrzajdHxFIIU
+	 oDhtx9IGtP9mHEAn6Yb4c0Y146riusew0Q/oa1EL/ZluliMgR4qy+qWDXJpbcoyj07
+	 27bb92+civZmU9wLziseEAv5NDV78F4TnJFNyhQTKLR4/7bb5bEHzKrCc4uMrEcDlz
+	 sU1gF9bxwfEBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Geert Uytterhoeven" <geert+renesas@glider.be>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <89e6a71b35703f10e12f520af1f389b5f40f4b35.1785941595.git.geert+renesas@glider.be>
+References: <cover.1785941595.git.geert+renesas@glider.be>
+ <89e6a71b35703f10e12f520af1f389b5f40f4b35.1785941595.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 15:40:53 +0000
+Message-Id: <20260805154054.667791F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] hwmon: (pmbus/tps25990): Add TPS1689 support
-To: sashiko-reviews@lists.linux.dev, Stoyan Bogdanov <sbogdanov@baylibre.com>
-Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org
-References: <20260805090400.2059006-1-sbogdanov@baylibre.com>
- <20260805090400.2059006-4-sbogdanov@baylibre.com>
- <20260805092026.A43961F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260805092026.A43961F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 8/5/26 02:20, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Incorrect scaling, missing boundary clamping, and unsigned wrap-around for TPS1689 PMBUS_VIN_OV_FAULT_LIMIT cause severely corrupted limits and bitfield overflows.
-> - [High] The shared 8-bit warning limit write paths treat PMBus direct values as unsigned, breaking all warning limits for TPS1689.
-> - [Medium] Missing scale adaptation for PSC_CURRENT_OUT in tps25990_probe leads to output current readings being off by a factor of 1000.
-> - [Low] The intermediate expression in the read path for PMBUS_VIN_OV_FAULT_LIMIT unconditionally underflows in unsigned arithmetic, violating subsystem guidelines.
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The attach_dev callback hardcodes index 0 when parsing the 'power-=
+domains' property, breaking support for devices with multiple power domains.
+- [High] Unprotected access to the provider's private data (`priv`) outside=
+ `r8a78000_mdlc_lock` in `r8a78000_mdlc_attach_dev` leads to a potential Us=
+e-After-Free.
+--
 
-Please address these issues.
+--- Patch [4]: [PATCH v3 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver =
+---
+commit 72c0935c5567aec22a55250554e605471b44c678
+Author: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Thanks,
-Guenter
+pmdomain: renesas: Add R-Car X5H MDLC driver
 
+This commit adds a minimal Module Controller driver for the R-Car X5H SoC. =
+It
+currently supports always-on power domains along with dummy module clocks a=
+nd
+resets for the serial console.
+
+> diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/=
+renesas/r8a78000-mdlc.c
+> new file mode 100644
+> index 0000000000000..5c8acead7cff9
+> --- /dev/null
+> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+
+[ ... ]
+
+> +static int r8a78000_mdlc_attach_dev(struct generic_pm_domain *domain,
+> +				    struct device *dev)
+> +{
+> +	struct device_node *np =3D dev->of_node;
+> +	struct r8a78000_mdlc_priv *priv;
+> +	struct of_phandle_args pd_spec;
+> +	const struct mod_map *map;
+> +	unsigned int id;
+> +	int ret;
+> +
+> +	ret =3D of_parse_phandle_with_args(np, "power-domains",
+> +					 "#power-domain-cells", 0, &pd_spec);
+
+[Severity: High]
+Does this hardcode the index to 0 when parsing the power-domains property?
+
+If a consumer device specifies multiple power domains in its device tree
+and the MDLC domain is not the first one, the genpd framework calling
+r8a78000_mdlc_attach_dev() will still parse index 0. Would this result
+in an unmatched node pointer, causing attach_dev to erroneously reject
+the attachment with -ENODEV?
+
+Could the module ID validation perhaps be performed inside
+r8a78000_genpd_xlate() instead, where the exact spec is readily available
+without needing to parse the device tree again?
+
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (pd_spec.args_count !=3D 2) {
+> +		of_node_put(pd_spec.np);
+> +		return -EINVAL;
+> +	}
+> +
+> +	scoped_guard(mutex, &r8a78000_mdlc_lock) {
+> +		hlist_for_each_entry(priv, &r8a78000_mdlc_list, link) {
+> +			if (priv->np =3D=3D pd_spec.np)
+> +				break;
+> +		}
+> +	}
+> +
+> +	if (!priv) {
+> +		dev_err(dev, "%s: MDLC %pOF not found\n", __func__, pd_spec.np);
+> +		of_node_put(pd_spec.np);
+> +		return -ENODEV;
+> +	}
+> +
+> +	id =3D pd_spec.args[1];
+> +	of_node_put(pd_spec.np);
+> +
+> +	map =3D mod_map_find(priv->mod_map, id);
+
+[Severity: High]
+Can this lead to a use-after-free on the priv pointer?
+
+The scoped_guard block above locates the priv pointer but releases
+r8a78000_mdlc_lock as soon as the block ends.=20
+
+If the MDLC provider probe fails later (e.g. in devm_reset_controller_regis=
+ter)
+or is unbound, devres unwinds and calls r8a78000_mdlc_unlink() to remove pr=
+iv
+from the list, then frees it.
+
+If a consumer attaches to the singleton domain and races with this unbind,
+could it dereference priv->mod_map here after priv has already been freed?
+
+> +	if (!map) {
+> +		dev_err(dev, "Unknown module 0x%x\n", id);
+> +		return -ENOENT;
+> +	}
+> +
+> +	dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785941595.gi=
+t.geert+renesas@glider.be?part=3D4
