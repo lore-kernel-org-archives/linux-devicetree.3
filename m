@@ -1,522 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5685F2F290B;
-	Wed,  5 Aug 2026 12:31:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0376B1EBFE0;
+	Wed,  5 Aug 2026 12:33:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785933100; cv=none; b=SVYGc/Y07jiyBwg7VGgf1Ndv6iAzjzCk7KVghHhMq3gVw4onNKMPpdDsQUDgSN3DBhiZ5X1LeIFBpdTueGV+VX8X82LpyePuDSz3Fl9kdYVbf9K43A+ljwrwdtaCcF2fBIqwHNg5cI9f03rAMbBRtB1Pem+60OZGWf4HlRUZxCA=
+	t=1785933206; cv=none; b=q+G/XqbDYhBnEJ4/jUk1/MyoHX2dyuu3OB5Zg4O4zvf3+Xvs6E5Mpeplsj2vW7hj+WK2C973IE99YcsFO2TJqCnSP0mgoF1qW7qSExMtAlbaCj2+b0uBDgULOYDn1Awzbx3SRbNpqyW9wxT5kFae8yA4umXkeA5XaxCJcsDvEjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785933100; c=relaxed/simple;
-	bh=oDfKmIkAsCXHnHQU3VfKxb3Nj8gtVwi1Dc3/Q8WhvVY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bd/MB8FNV8mTQaKXn+Mvde7krpiR0E3RL3YzyRsNblsZ+VU22jF3SgY3UoloDGAv1J0GaZ2jHillHG8Y+ZrHSxKwAy1PUh83zAG5dsPFge3Eb6tytF8hbZ4TyG6hjm3zCwDFd/iUY1e6ou94nmhJ+n6eVzkMKo3DWdybjO3XZfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IYjRF4t9; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785933206; c=relaxed/simple;
+	bh=H20TEOr8WCIL2ThNrmGj7PNLUvjXBcsVP6l+E5+N+oE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Wza6KH/MoIEf7FN0AVrx2K/jaDu2MNtDSEYm+7T9a+WT8w4Pwv/lD92DkRlseW8PGWzflAbFV8ul4XyUGy0DzRYa1wRjFWu4eRpSOKFSivRykm3eSqsj+b0R8vHfHr6aS8B5no4l/h+NvPAgnyvKDFXKYkx/5yQlY1NKRWWs0FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qmvKfrIs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/qrb+Blv; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IYjRF4t9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785933098; x=1817469098;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oDfKmIkAsCXHnHQU3VfKxb3Nj8gtVwi1Dc3/Q8WhvVY=;
-  b=IYjRF4t9AH1nLigAiy6ryuWJ/LgWhjbrWs85q2dXrdSjclX4NRrBBgwv
-   1XvjGnuW4s2sc8ocuC4l9Q9QfnPkLwj7iQBOWfBiy2VqyVQUgg0PP8lCI
-   qRRfKNFRzpUlAo5mkR9Ta+UOIbwnCn+rEw+t7A//TVLTvB3KF+C7HGG2t
-   KLe8lsbktK61cwTgwIveTKZNRXbW4N3/AjWCGyZDxS4SPsqcB4ZOZgFeQ
-   NWcu6nvODbNmm97vbTXZXszPhbArl+UWEgi8jEng9rtp0SI7TwZbxlhHM
-   dKH8VenzNbkhl09ReOfWr0Q8oJWCRE+IatofO1u8mHMn/97e7UdXVRHAA
-   g==;
-X-CSE-ConnectionGUID: CK7TWCc/QoGZbeAQLUZN4g==
-X-CSE-MsgGUID: XG+Q2rSrRNKVtx2S2nNnkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="97099246"
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="97099246"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 05:31:38 -0700
-X-CSE-ConnectionGUID: KxGgxjlXQgOEzFW1wjq1Hw==
-X-CSE-MsgGUID: g3tSiUKJTv6+E3AzM7RiUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="257934055"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa010.fm.intel.com with ESMTP; 05 Aug 2026 05:31:35 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id CF32A99; Wed, 05 Aug 2026 14:31:33 +0200 (CEST)
-Date: Wed, 5 Aug 2026 14:31:33 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Amber Kao <amber.kao@ite.com.tw>
-Cc: Jeson Yang <jeson.yang@ite.com.tw>, Yaode Fang <Yaode.Fang@ite.com.tw>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Bling Chiang <Bling.Chiang@ite.com.tw>,
-	Eric Su <Eric.Su@ite.com.tw>, Doreen Lin <doreen.lin@ite.com.tw>
-Subject: Re: [PATCH v6 2/2] usb: typec: ucsi: Add ITE IT8851/IT8853 Type-C PD
- controller driver
-Message-ID: <anMtJTcWKt1z86Ih@black.igk.intel.com>
-References: <20260731-ucsi-itepd-v6-0-d25ae12b181f@ite.com.tw>
- <20260731-ucsi-itepd-v6-2-d25ae12b181f@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qmvKfrIs";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/qrb+Blv"
+Message-ID: <55070c3f0b462f35e63b55fdd0e7576da8bc28a2.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785933202;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QDQ1YQA2fBCCU7uNqL+Ag6rcDt5K/CUxZluHvSxZ9XA=;
+	b=qmvKfrIs8c8PLsqGMeeh4P/33hOwAext5cdKYkyGDxq8aZ4hhWfZbJFFDi6Xx91GR/lyDh
+	Zf1i6KC2194632tCb2UXPRzSIRKGuQOiXkWJAVQB6C10Wf3h7p3mhW/mV4ehP/KInt/xu9
+	fbFVWk2jA510GGz8tyOA9OxzH/jtki2rUIfqWAULDMN7kVtu7ZI1+F/uMQlHwqEGjVXKA6
+	OaSoImspuXXXtZN52eX1j7rPF8grvjP589pl3EKK51uMI8kg7lCIDLWa5GtxBXkUDUM62H
+	s94wwlQVBRyvLlvsEmkfhyfJ2lBdgeWamS+t4mHLjRnZxdsfgz18rTcbEajK9g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785933202;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QDQ1YQA2fBCCU7uNqL+Ag6rcDt5K/CUxZluHvSxZ9XA=;
+	b=/qrb+Blv2qzuJ5F2QY3mlxupqOsw843SOsQBJA7wrePpnm+YWMPulHuCfTIEsGlol/H3NZ
+	nHhNAZeeNgvR6VDg==
+Subject: Re: [PATCH 2/4] dt-bindings: net: dsa: Add SoC-e switch IP and DSA
+ bindings
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>
+Date: Wed, 05 Aug 2026 14:33:21 +0200
+In-Reply-To: <604ff3d4-2a66-4086-80d3-ce838773b9ed@lunn.ch>
+References: 
+	<20260729-devel-vstrassheim-soce-dsa-ml-v1-0-be569dae1b20@linutronix.de>
+	 <20260729-devel-vstrassheim-soce-dsa-ml-v1-2-be569dae1b20@linutronix.de>
+	 <879a1366-872d-4bad-8bec-fa8a7ee82dab@lunn.ch>
+	 <cc7b7a56557d30be86097640a26f455d7262ff4b.camel@linutronix.de>
+	 <604ff3d4-2a66-4086-80d3-ce838773b9ed@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731-ucsi-itepd-v6-2-d25ae12b181f@ite.com.tw>
 
-On Fri, Jul 31, 2026 at 06:02:04PM +0800, Amber Kao wrote:
-> Add a UCSI driver for the ITE IT8851 and IT8853 I2C-based USB Type-C
-> Power Delivery controllers.
-> The controller signals UCSI through a shared interrupt line; events are
-> read and acknowledged via vendor-specific registers, and
-> UCSI events are forwarded to the UCSI core.
-> 
-> Add the driver file to the MAINTAINERS entry.
-> 
-> Cc: Yaode Fang <Yaode.Fang@ite.com.tw>
-> Cc: Jeson Yang <jeson.yang@ite.com.tw>
-> Cc: Bling Chiang <Bling.Chiang@ite.com.tw>
-> Cc: Eric Su <Eric.Su@ite.com.tw>
-> Cc: Doreen Lin <doreen.lin@ite.com.tw>
-> Signed-off-by: Amber Kao <amber.kao@ite.com.tw>
-> ---
->  MAINTAINERS                         |   1 +
->  drivers/usb/typec/ucsi/Kconfig      |  10 +
->  drivers/usb/typec/ucsi/Makefile     |   1 +
->  drivers/usb/typec/ucsi/ucsi_itepd.c | 364 ++++++++++++++++++++++++++++++++++++
->  4 files changed, 376 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index ec0eeea79b9e..1e76e299e6c3 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -13727,6 +13727,7 @@ R:	Yaode Fang <Yaode.Fang@ite.com.tw>
->  L:	linux-usb@vger.kernel.org
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/usb/ite,it8851.yaml
-> +F:	drivers/usb/typec/ucsi/ucsi_itepd.c
->  
->  IVTV VIDEO4LINUX DRIVER
->  M:	Andy Walls <awalls@md.metrocast.net>
-> diff --git a/drivers/usb/typec/ucsi/Kconfig b/drivers/usb/typec/ucsi/Kconfig
-> index 87dd992a4b9e..0f10dac9b34b 100644
-> --- a/drivers/usb/typec/ucsi/Kconfig
-> +++ b/drivers/usb/typec/ucsi/Kconfig
-> @@ -104,4 +104,14 @@ config UCSI_HUAWEI_GAOKUN
->  	  To compile the driver as a module, choose M here: the module will be
->  	  called ucsi_huawei_gaokun.
->  
-> +config UCSI_ITEPD
-> +	tristate "UCSI Interface Driver for ITE IT8851/IT8853"
-> +	depends on I2C
-> +	help
-> +	  This driver enables UCSI support on platforms that expose an
-> +	  ITE IT8851/IT8853 Type-C Power Delivery controller over an I2C interface.
-> +
-> +	  To compile the driver as a module, choose M here: the module
-> +	  will be called ucsi_itepd.
-> +
->  endif
-> diff --git a/drivers/usb/typec/ucsi/Makefile b/drivers/usb/typec/ucsi/Makefile
-> index c7e38bf01350..0903a1fd486b 100644
-> --- a/drivers/usb/typec/ucsi/Makefile
-> +++ b/drivers/usb/typec/ucsi/Makefile
-> @@ -28,3 +28,4 @@ obj-$(CONFIG_UCSI_PMIC_GLINK)		+= ucsi_glink.o
->  obj-$(CONFIG_CROS_EC_UCSI)		+= cros_ec_ucsi.o
->  obj-$(CONFIG_UCSI_LENOVO_YOGA_C630)	+= ucsi_yoga_c630.o
->  obj-$(CONFIG_UCSI_HUAWEI_GAOKUN)	+= ucsi_huawei_gaokun.o
-> +obj-$(CONFIG_UCSI_ITEPD)		+= ucsi_itepd.o
-> diff --git a/drivers/usb/typec/ucsi/ucsi_itepd.c b/drivers/usb/typec/ucsi/ucsi_itepd.c
-> new file mode 100644
-> index 000000000000..a639b3d32535
-> --- /dev/null
-> +++ b/drivers/usb/typec/ucsi/ucsi_itepd.c
-> @@ -0,0 +1,364 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2025-2026, ITE. All Rights Reserved
-> + *
-> + */
-> +#include <linux/bits.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/slab.h>
-> +#include <linux/unaligned.h>
-> +
-> +#include "ucsi.h"
-> +
-> +#define ITEPD_UCSI_VERSION_REG	0x80
-> +#define ITEPD_UCSI_CCI_REG	0x84
-> +#define ITEPD_UCSI_MSG_IN_REG	0x88
-> +#define ITEPD_UCSI_CONTROL_REG	0x98
-> +
-> +#define ITEPD_VENDOR_WC_INT	0xbc
-> +#define ITEPD_VENDOR_INT	0xbd
-> +#define ITEPD_ALERT_VDM_EVENT	BIT(0)
-> +#define ITEPD_ALERT_UCSI_EVENT	BIT(1)
-> +
-> +#define ITEPD_MSG_IN_MAX_LEN	0x28
-> +
-> +#define ITEPD_EVENT_NONE	0
-> +#define ITEPD_EVENT_UCSI	1
-> +#define ITEPD_EVENT_VDM		2
-> +
-> +struct itepd {
-> +	struct i2c_client *client;
-> +	struct ucsi *ucsi;
-> +	struct mutex i2c_lock;		/* Serializes I2C accesses */
-> +	struct mutex event_lock;	/* Serializes event processing (IRQ vs poll) */
-> +	struct mutex received_lock;	/* Protects cci and msg_in */
-> +	u8 msg_in[ITEPD_MSG_IN_MAX_LEN];
-> +	u32 cci;
-> +};
-> +
-> +static u8 ucsi_itepd_get_len(u32 cci)
-> +{
-> +	if (cci & UCSI_CCI_COMMAND_COMPLETE)
-> +		return UCSI_CCI_LENGTH(cci);
-> +	return 0;
-> +}
-> +
-> +static int itepd_read_reg(struct itepd *itepd, u8 reg, void *data, u32 len)
-> +{
-> +	struct i2c_client *client = itepd->client;
-> +	struct i2c_msg msg[2] = {
-> +		{
-> +			.addr	= client->addr,
-> +			.flags	= 0,
-> +			.len	= 1,
-> +			.buf	= &reg,
-> +		},
-> +		{
-> +			.addr	= client->addr,
-> +			.flags	= I2C_M_RD,
-> +			.len	= len,
-> +			.buf	= data,
-> +		}
-> +
-> +	};
-> +	int ret;
-> +
-> +	mutex_lock(&itepd->i2c_lock);
-> +	ret = i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
-> +	mutex_unlock(&itepd->i2c_lock);
-> +	if (ret < 0) {
-> +		dev_err_ratelimited(&client->dev, "reg 0x%02x read failed: %d\n",
-> +				    reg, ret);
-> +		return ret;
-> +	}
-> +
-> +	return ret == ARRAY_SIZE(msg) ? 0 : -EIO;
-> +}
-> +
-> +static int itepd_write_reg(struct itepd *itepd, u8 reg, const void *data, u32 len)
-> +{
-> +	struct i2c_client *client = itepd->client;
-> +	u8 buf[sizeof(u64) + 1];
-> +	struct i2c_msg msg[1] = {
-> +		{
-> +			.addr	= client->addr,
-> +			.flags	= 0,
-> +			.len	= len + 1,
-> +			.buf	= buf,
-> +		}
-> +	};
-> +	int ret;
-> +
-> +	if (len > sizeof(buf) - 1)
-> +		return -EINVAL;
-> +
-> +	buf[0] = reg;
-> +	memcpy(&buf[1], data, len);
-> +
-> +	mutex_lock(&itepd->i2c_lock);
-> +	ret = i2c_transfer(client->adapter, msg, 1);
-> +	mutex_unlock(&itepd->i2c_lock);
-> +	if (ret < 0) {
-> +		dev_err_ratelimited(&client->dev, "reg 0x%02x write failed: %d\n",
-> +				    reg, ret);
-> +		return ret;
-> +	}
-> +
-> +	return ret == 1 ? 0 : -EIO;
-> +}
-> +
-> +static int itepd_process_event(struct itepd *itepd, u32 *cci)
-> +{
-> +	u8 msg_in[ITEPD_MSG_IN_MAX_LEN] = {};
-> +	__le32 le_cci;
-> +	u8 event, ack;
-> +	u8 len = 0;
-> +	int err = 0;
-> +	int ret;
-> +
-> +	mutex_lock(&itepd->event_lock);
+On Mon, 2026-08-03 at 18:35 +0200, Andrew Lunn wrote:
+> > There are synthesis options for various management interfaces. MDIO and
+> > MMIO are two of them. I only have one variant for the memory-mapped
+> > version. For v2, I'll discard everything else and update the
+> > documentation accordingly.
+>=20
+> Please take a look at the DSA drivers which support multiple
+> interfaces.
 
-guard(mutex)(&itepd->event_lock);
+Thank you for the tip. I think hellcreek and lantiq can serve as
+examples. Both are also synthesized switches. Like hellcreek, I will
+keep only one interface in the next version.
 
-> +	ret = itepd_read_reg(itepd, ITEPD_VENDOR_INT, &event, sizeof(event));
-> +	if (ret)
-> +		goto out_unlock;
-> +
-> +	event &= ITEPD_ALERT_VDM_EVENT | ITEPD_ALERT_UCSI_EVENT;
-> +	if (!event) {
-> +		mutex_lock(&itepd->received_lock);
-> +		*cci = itepd->cci;
-> +		mutex_unlock(&itepd->received_lock);
-> +		ret = ITEPD_EVENT_NONE;
-> +		goto out_unlock;
-> +	}
-> +
-> +	if (event & ITEPD_ALERT_UCSI_EVENT) {
-> +		err = itepd_read_reg(itepd, ITEPD_UCSI_CCI_REG, &le_cci,
-> +				     sizeof(le_cci));
-> +		if (!err) {
-> +			*cci = le32_to_cpu(le_cci);
-> +			len = min_t(u8, ucsi_itepd_get_len(*cci),
-> +				    sizeof(msg_in));
-> +			if (len)
-> +				err = itepd_read_reg(itepd,
-> +						     ITEPD_UCSI_MSG_IN_REG,
-> +						     msg_in, len);
-> +		}
-> +	}
-> +
-> +	ack = event;
-> +	ret = itepd_write_reg(itepd, ITEPD_VENDOR_WC_INT, &ack, sizeof(ack));
-> +	if (ret)
-> +		goto out_unlock;
-> +
-> +	if (err) {
-> +		ret = err;
-> +		goto out_unlock;
-> +	}
-> +
-> +	if (event & ITEPD_ALERT_UCSI_EVENT) {
-> +		mutex_lock(&itepd->received_lock);
-> +		itepd->cci = *cci;
-> +		memset(itepd->msg_in, 0, sizeof(itepd->msg_in));
-> +		memcpy(itepd->msg_in, msg_in, len);
-> +		mutex_unlock(&itepd->received_lock);
-> +		ret = ITEPD_EVENT_UCSI;
-> +	} else {
-> +		mutex_lock(&itepd->received_lock);
-> +		*cci = itepd->cci;
-> +		mutex_unlock(&itepd->received_lock);
-> +		ret = ITEPD_EVENT_VDM;
-> +	}
-> +
-> +out_unlock:
-> +	mutex_unlock(&itepd->event_lock);
-> +	return ret;
-> +}
-> +
-> +static int ucsi_itepd_read_version(struct ucsi *ucsi, u16 *version)
-> +{
-> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
-> +	__le16 le_version;
-> +	int ret;
-> +
-> +	ret = itepd_read_reg(itepd, ITEPD_UCSI_VERSION_REG, &le_version,
-> +			     sizeof(le_version));
-> +	if (ret)
-> +		return ret;
-> +
-> +	*version = le16_to_cpu(le_version);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ucsi_itepd_read_cci(struct ucsi *ucsi, u32 *cci)
-> +{
-> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
-> +
-> +	mutex_lock(&itepd->received_lock);
+> You probably want a MMIO driver which creates a regmap, and passes it
+> to the core driver. A future MDIO driver can create a regmap and pass
+> it to the core driver.
+>=20
+> The DT binding should be similarly structured, a .yaml file for the
+> core, and a .yaml for the MMIO wrapper.
 
-guard(mutex)(&itepd->received_lock);
+I think that once I have implemented all the suggestions made so far, a
+single DT binding with a .yaml file should be enough. Just like in the
+two examples mentioned.
 
-> +	*cci = itepd->cci;
-> +	mutex_unlock(&itepd->received_lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ucsi_itepd_poll_cci(struct ucsi *ucsi, u32 *cci)
-> +{
-> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
-> +	int ret;
-> +
-> +	ret = itepd_process_event(itepd, cci);
-> +	return ret < 0 ? ret : 0;
-> +}
-> +
-> +static int ucsi_itepd_read_message_in(struct ucsi *ucsi, void *val, size_t val_len)
-> +{
-> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
-> +
-> +	mutex_lock(&itepd->received_lock);
+>=20
+> 	Andrew
 
-Ditto.
-
-> +	memcpy(val, itepd->msg_in, min(val_len, sizeof(itepd->msg_in)));
-> +	mutex_unlock(&itepd->received_lock);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ucsi_itepd_async_control(struct ucsi *ucsi, u64 command)
-> +{
-> +	struct itepd *itepd = ucsi_get_drvdata(ucsi);
-> +	__le64 le_cmd = cpu_to_le64(command);
-> +
-> +	if (UCSI_COMMAND(command) == UCSI_PPM_RESET) {
-> +		mutex_lock(&itepd->received_lock);
-> +		itepd->cci = 0;
-> +		mutex_unlock(&itepd->received_lock);
-> +	}
-> +
-> +	return itepd_write_reg(itepd, ITEPD_UCSI_CONTROL_REG, &le_cmd,
-> +			       sizeof(le_cmd));
-> +}
-> +
-> +static const struct ucsi_operations ucsi_itepd_ops = {
-> +	.read_version		= ucsi_itepd_read_version,
-> +	.read_cci		= ucsi_itepd_read_cci,
-> +	.poll_cci		= ucsi_itepd_poll_cci,
-> +	.read_message_in	= ucsi_itepd_read_message_in,
-> +	.sync_control		= ucsi_sync_control_common,
-> +	.async_control		= ucsi_itepd_async_control,
-> +};
-> +
-> +static irqreturn_t itepd_irq_process(struct itepd *itepd)
-> +{
-> +	u32 cci;
-> +	int ret;
-> +
-> +	ret = itepd_process_event(itepd, &cci);
-> +	if (ret == ITEPD_EVENT_NONE)
-> +		return IRQ_NONE;
-> +
-> +	if (ret < 0)
-> +		return IRQ_HANDLED;
-> +
-> +	if (ret == ITEPD_EVENT_UCSI)
-> +		ucsi_notify_common(itepd->ucsi, cci);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static irqreturn_t itepd_irq_thread_fn(int irq, void *data)
-> +{
-> +	struct itepd *itepd = data;
-> +
-> +	return itepd_irq_process(itepd);
-> +}
-> +
-> +static int itepd_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct itepd *itepd;
-> +	u32 cci;
-> +	int ret;
-> +
-> +	if (client->irq <= 0)
-> +		return dev_err_probe(dev, -ENODEV, "no IRQ provided\n");
-> +
-> +	itepd = devm_kzalloc(dev, sizeof(*itepd), GFP_KERNEL);
-> +	if (!itepd)
-> +		return -ENOMEM;
-> +
-> +	itepd->client = client;
-> +	mutex_init(&itepd->i2c_lock);
-> +	mutex_init(&itepd->event_lock);
-> +	mutex_init(&itepd->received_lock);
-> +	i2c_set_clientdata(client, itepd);
-> +
-> +	itepd->ucsi = ucsi_create(dev, &ucsi_itepd_ops);
-> +	if (IS_ERR(itepd->ucsi))
-> +		return dev_err_probe(dev, PTR_ERR(itepd->ucsi),
-> +				     "ucsi_create failed\n");
-> +
-> +	ucsi_set_drvdata(itepd->ucsi, itepd);
-> +
-> +	ret = request_threaded_irq(client->irq, NULL, itepd_irq_thread_fn,
-
-devm_request_threaded_irq()?
-
-> +				   IRQF_ONESHOT, dev_name(dev), itepd);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "request_threaded_irq failed\n");
-> +		goto out_ucsi_destroy;
-> +	}
-> +
-> +	ret = itepd_process_event(itepd, &cci);
-> +	if (ret < 0)
-> +		dev_warn(dev, "initial event processing failed: %d\n", ret);
-> +
-> +	ret = ucsi_register(itepd->ucsi);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to register UCSI\n");
-> +		goto out_free_irq;
-> +	}
-> +
-> +	return 0;
-> +
-> +out_free_irq:
-> +	free_irq(client->irq, itepd);
-> +out_ucsi_destroy:
-> +	ucsi_destroy(itepd->ucsi);
-> +	return ret;
-> +}
-> +
-> +static void itepd_remove(struct i2c_client *client)
-> +{
-> +	struct itepd *itepd = i2c_get_clientdata(client);
-> +
-> +	ucsi_unregister(itepd->ucsi);
-> +	free_irq(client->irq, itepd);
-> +	ucsi_destroy(itepd->ucsi);
-> +}
-> +
-> +static const struct of_device_id itepd_of_match_table[] = {
-> +	{ .compatible = "ite,it8851" },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, itepd_of_match_table);
-> +
-> +static const struct i2c_device_id itepd_id_table[] = {
-> +	{ "ucsi_itepd", 0 },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(i2c, itepd_id_table);
-> +
-> +static struct i2c_driver itepd_driver = {
-> +	.driver = {
-> +		.name = "ucsi_itepd",
-> +		.of_match_table = itepd_of_match_table,
-> +	},
-> +	.probe = itepd_probe,
-> +	.remove = itepd_remove,
-> +	.id_table = itepd_id_table,
-> +};
-> +module_i2c_driver(itepd_driver);
-> +
-> +MODULE_AUTHOR("Jeson Yang <jeson.yang@ite.com.tw>");
-> +MODULE_DESCRIPTION("UCSI driver for ITE IT8851 and IT8853 Type-C PD controllers");
-> +MODULE_LICENSE("GPL");
-> 
-> -- 
-> 2.53.0
-
--- 
-heikki
+Thanks,
+Vasilij
