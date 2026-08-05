@@ -1,168 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AC944E64D;
-	Wed,  5 Aug 2026 12:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0ED45C6F8;
+	Wed,  5 Aug 2026 12:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931841; cv=none; b=iIL4YB7CPRoLRWVLHwhX4bNYuhNingY+RDgv39VCIGLt/0PcJfGeabcj584LmUZraEDoNbrpyrYjwHW4pDravssPaJG0Sql/AUTRQ35GqoMARh3hcANcVndJ+mu1FOecclxEXSOyCUEbckS/4jqZ4/ezrGgP4G9gbZyrAxP3ZXc=
+	t=1785932026; cv=none; b=YvIgq7E6JSG45eoKdi516+94XVf49h/Y/zT3VdN6AOoFsG1+ysL0IX7QYFD4sDcaz21jmLrvSl/ImHss/oAloVFkKYfbTBnG2DmLhBSW4L3LGXfd27cnlqeWM4EDbVlCuVGalEwtU9a80LI+Y1sxRN5gfyD+eP33EPj47utQxjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931841; c=relaxed/simple;
-	bh=5pIJIfV+YR+q4i/R4IIkolPMtahW+WPpCxE6tYVcJjY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R0/nrkeE/zy99OWcd8QvbshzBhNzU5unUXsoumRRF6LXX16ahrskuByumojQK3RGoja8fH6O+TuQ4KBkM4egHiuG+e0/ROJesTIg1VjaT4vDQmYiD5ljfphu90SNzespEXyJLXqf8S5+81B9EgfbRI/PYko9sE3bRd4jL/YJXyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nigI4Ktz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nigI4Ktz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79921F00A3A;
-	Wed,  5 Aug 2026 12:10:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785931840;
-	bh=+4esMFML0iy9g6QkQqMeLsJKf4UvPTNVHdBJSi2Jyco=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nigI4KtzigSqFAicAA8+1oLa6xCNIBgmM30vn6C/K0kl/wXPS1lcYjqq7tHUa5kR2
-	 lUDWk8PAouXNECGxjN9vyIEhXCWJ3xRa7kjSq4nBjGXc7Xioxk1iHSoeScvaOv9fC+
-	 JlyzhNg1aMtYr1CspxSU92nqLNI7lYPr9qXK6uHBXf8HC1Q2Vs347fO0rSNB+dmUt/
-	 0pGp0+zTrymq80naLIHjsW4eccSwEw4TqJ3KIWWiYDTgOYWW374uLddKVgnsVSN4Ft
-	 rWNa/VtlofEAXADgdM9ZUyZKNIiHWuYMkBHxehxOOz05AX/QVnahI+sOTHvbva9+Ne
-	 uFOZWSPy6ggHA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/5] PCI: tegra: Add Tegra264 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805-tegra264-pcie-v9-3-fa2ed7350ae1@nvidia.com>
-References: <20260805-tegra264-pcie-v9-0-fa2ed7350ae1@nvidia.com>
- <20260805-tegra264-pcie-v9-3-fa2ed7350ae1@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1785932026; c=relaxed/simple;
+	bh=qPmUCOr+9MGj4dzFyL2caBXocsNG0nEiU8hCXK/8ZJI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=m8Wm5c9Ova60eic98CWxmW1g3rEpPXNHSR9N38Pi6JbuqzSkrAN/wLxFjLsE8rRIXmIrAcjEzDHNKKQ2Fmsf/yo9dVikjivjGr+HLYuojHD0JZqeWnVvsLBnCjSvI6cEpGQXlzSK/6u4fD0rVteu62hGvp8KsV3dSyd9D0qoTRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0AF8D201281;
+	Wed, 05 Aug 2026 14:13:41 +0200 (CEST)
+Message-ID: <58c85258b5c3aaa4bf26dbcdb7eea01549864a08.camel@pengutronix.de>
+Subject: Re: [RFC PATCH v5 v5 5/8] pmdomain/rockchip: cycle optional
+ power-domain resets on power-on
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net,
+ heiko@sntech.de, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ joro@8bytes.org, 	will@kernel.org, robin.murphy@arm.com, ulfh@kernel.org,
+ ogabbay@kernel.org, 	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com, 
+	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 05 Aug 2026 14:13:40 +0200
+In-Reply-To: <20260805063826.95682-6-gahing@gahingwoo.com>
+References: <20260805063826.95682-1-gahing@gahingwoo.com>
+	 <20260805063826.95682-6-gahing@gahingwoo.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 12:10:38 +0000
-Message-Id: <20260805121039.A79921F00A3A@smtp.kernel.org>
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The driver incorrectly accesses the ECAM window via `pcie->cfg->wi=
-n` to read the root port configuration space, causing an out-of-bounds heap=
- read on 32-bit platforms.
-- [High] The driver incorrectly uses the Negotiated Link Width (NLW) to set=
- interconnect bandwidth for hotplug-capable ports when the link is down, pe=
-rmanently setting it to 0.
---
-
---- Patch [3]: [PATCH v9 3/5] PCI: tegra: Add Tegra264 support ---
-commit af63006f768e2991e49a48de9855ea58d20662ed
-Author: Thierry Reding <treding@nvidia.com>
-
-    PCI: tegra: Add Tegra264 support
-   =20
-    Add a driver for the PCIe controller found on NVIDIA Tegra264 SoCs. The
-    driver is very small, with its main purpose being to set up the address
-    translation registers and then creating a standard PCI host using ECAM.
-
-> diff --git a/drivers/pci/controller/pcie-tegra264.c b/drivers/pci/control=
-ler/pcie-tegra264.c
-> new file mode 100644
-> index 0000000000000..e0c5b9d0d20bf
-> --- /dev/null
-> +++ b/drivers/pci/controller/pcie-tegra264.c
-[ ... ]
-> +static void tegra264_pcie_icc_set(struct tegra264_pcie *pcie)
-> +{
-> +	u32 value, speed, width;
-> +	int err;
+On Mi, 2026-08-05 at 18:38 +1200, Jiaxing Hu wrote:
+> Some Rockchip domains come out of power-on with their bus interface in
+> an undefined state. On the RK3576 NPU this shows up as a hang on the
+> first access after a cold power-on; the vendor kernel cycles the
+> domain's resets at this point and that clears it.
+>=20
+> Take the domain node's resets if it has any, and pulse them between
+> releasing idle and restoring QoS. The resets are optional, so domains
+> that do not declare any behave exactly as before.
+>=20
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  drivers/pmdomain/rockchip/pm-domains.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>=20
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index e1857f878..82051f600 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -19,6 +19,7 @@
+>  #include <linux/of_clk.h>
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+> +#include <linux/reset.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/mfd/syscon.h>
+> @@ -103,6 +104,7 @@ struct rockchip_pm_domain {
+>  	struct clk_bulk_data *clks;
+>  	struct device_node *node;
+>  	struct regulator *supply;
+> +	struct reset_control *resets;
+>  };
+> =20
+>  struct rockchip_pmu {
+> @@ -688,6 +690,13 @@ static int rockchip_pd_power(struct rockchip_pm_doma=
+in *pd, bool power_on)
+>  		if (pd->info->delay_us)
+>  			udelay(pd->info->delay_us);
+> =20
+> +		/* Optional: some domains need their resets cycled after power-on. */
+> +		if (pd->resets) {
+> +			reset_control_assert(pd->resets);
+> +			udelay(10);
+> +			reset_control_deassert(pd->resets);
+> +		}
 > +
-> +	value =3D readw(pcie->ecam + XTL_RC_PCIE_CFG_LINK_STATUS);
-> +	speed =3D FIELD_GET(PCI_EXP_LNKSTA_CLS, value);
-> +	width =3D FIELD_GET(PCI_EXP_LNKSTA_NLW, value);
-> +
-> +	value =3D Mbps_to_icc(width * PCIE_SPEED2MBS_ENC(pcie_link_speed[speed]=
-));
+>  		rockchip_pmu_restore_qos(pd);
+>  	}
+> =20
+> @@ -857,6 +866,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
+p_pmu *pmu,
+>  	if (error)
+>  		goto err_put_clocks;
+> =20
+> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
 
-[Severity: High]
-Will this permanently set the interconnect bandwidth to 0 for hotplug-capab=
-le
-ports if the link is initially down?
+Why is this using of_reset_control_array_get_optional_exclusive()
+instead of devm_reset_control_array_get_optional_exclusive() when pd is
+allocated with devm_kzalloc()?
 
-When the link is down, the Negotiated Link Width (NLW) is 0, which means
-the bandwidth value will be calculated as 0. Since the generic pciehp driver
-handles hotplug but doesn't know about this driver's specific interconnect
-bandwidth requirements, it appears there is no way to dynamically increase
-the bandwidth later when a device is actually inserted.
+> +	if (IS_ERR(pd->resets)) {
+> +		error =3D PTR_ERR(pd->resets);
+> +		dev_err(pmu->dev, "%pOFn: failed to get resets: %d\n", node, error);
 
-Should this read the Maximum Link Width and Speed from PCI_EXP_LNKCAP
-instead of PCI_EXP_LNKSTA to properly reserve bandwidth for a hotplug slot?
+dev_err_probe() to avoid printing on -EPROBE_DEFER.
 
-> +
-> +	/*
-> +	 * We don't want to error out here because a boot-critical device
-> +	 * could be connected to this root port. Failure to set the bandwidth
-> +	 * request may have an adverse impact on performance, but it is not
-> +	 * generally fatal, so we opt to continue regardless so that users
-> +	 * get a chance to fix things.
-> +	 */
-> +	err =3D icc_set_bw(pcie->icc_path, value, value);
-[ ... ]
-> +static int tegra264_pcie_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	pcie->cfg =3D pci_ecam_create(dev, res, bus->res, &pci_generic_ecam_ops=
-);
-> +	if (IS_ERR(pcie->cfg)) {
-> +		err =3D dev_err_probe(dev, PTR_ERR(pcie->cfg),
-> +				    "failed to create ECAM\n");
-> +		goto err_put_pm;
-> +	}
-> +
-> +	bridge->ops =3D (struct pci_ops *)&pci_generic_ecam_ops.pci_ops;
-> +	bridge->sysdata =3D pcie->cfg;
-> +	pcie->ecam =3D pcie->cfg->win;
 
-[Severity: High]
-Can this cause an out-of-bounds heap read on 32-bit platforms?
-
-In pci_ecam_create(), per_bus_mapping is enabled by default on 32-bit builds
-(!IS_ENABLED(CONFIG_64BIT)). When per_bus_mapping is active, the win member
-of struct pci_config_window aliases to winp (an array of pointers) because
-they are defined in a union.
-
-By assigning pcie->ecam =3D pcie->cfg->win here, the driver stores a pointer
-to this heap array. Later, when the driver attempts to access the root port
-configuration space:
-
-tegra264_pcie_link_up()
-    u16 value =3D readw(pcie->ecam + XTL_RC_PCIE_CFG_LINK_STATUS);
-
-will this read arbitrary heap memory as if it were MMIO?
-
-> +
-> +	tegra264_pcie_init(pcie);
-> +
-> +	/*
-> +	 * Fail if the link isn't up and doesn't support hotplug, no device
-> +	 * will ever be able to be added on this bus.
-> +	 */
-> +	if (!pcie->link_up && !pcie->supports_hotplug) {
-> +		err =3D dev_err_probe(pcie->dev, -ENODEV,
-> +				    "PCIe #%u link is down and not hotplug-capable, turning off\n",
-> +				    pcie->ctl_id);
-> +		tegra264_pcie_power_off(pcie);
-> +		goto err_free_ecam;
-> +	}
-> +
-> +	err =3D pci_host_probe(bridge);
-> +	if (err < 0) {
-> +		dev_err_probe(dev, err, "failed to register host\n");
-> +		goto err_free_ecam;
-> +	}
-> +
-> +	return 0;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-tegra264-p=
-cie-v9-0-fa2ed7350ae1@nvidia.com?part=3D3
+regards
+Philipp
