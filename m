@@ -1,90 +1,103 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BDC3D79E9;
-	Wed,  5 Aug 2026 20:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85623BED4F;
+	Wed,  5 Aug 2026 21:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785963595; cv=none; b=rWHBqdmKsoIMq2Edhkpj1HiCfW52wwIixBVqQMKJo6r9kbfxLVKiIpe39uvVOugKTiCsRhP0DBu6ibC+M82BAHfZR5sI6NkkoPTYzJYKxiFED7QEoyPFeZxOsAeF79CzIltuWnHq4GQtaTGvveMYQFn97OkcbB0wfeOFPZjLydc=
+	t=1785964264; cv=none; b=tKf1hYWQIfxV5JKOmiI7qc6xCP5p1tLAb4ey2y6pbrYUHkUEnXWgUQh+iDyqdQwA/bXxBkhVGVt2kqzM67OjrqiAtXXrTzcM8K36EQlCKZ0wBdvjplXGOcZ1D7L9myYVoEiShDkNWYcWL/PG6/wXS/kTMZLjry/Xw7s0TcanVq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785963595; c=relaxed/simple;
-	bh=YJMVQYM6oEb0xsAMlLHjVGDoFhJSzkW6jN6zlawxu2M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lC1REFX8xAIUz7x7sSAogf/w0wufEHqeViBhBV9G4fTAAnbNjt5GK84e33yY4S5MFnDyeMHo+yufjL1QvH5XXO8RKPSVjCN2H+Ej+s4btlyhQNPerDtFhJgEz424Q9xWUD9JMHIH9i1VDuGXxnNR/CHwYRs0FmNeHdmWq0YAaJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=EIAN45Gi; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1785964264; c=relaxed/simple;
+	bh=u2MzKtUhXWoW5pNBBqbaSR33sJx/OJ3sbg2J3tK5LC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ozZVQx0SMsAN7JwQyhBVfwtkkA7gLD/qTWZ0tj0SmNw7c0NYzAYu1Hw6MCCkLRn+VCmrahy54Anh6mxHPGcH9HSxMsXUaI12S0/fovXmJzcpWLbo4zm6PQPIm00gclbQK8iYJT/k8+nG1GTlw6Ko4tmZ82nyRUkdFLLT1+SDTtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kPmWNwcW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="EIAN45Gi"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Y917TBfw+rB1/3romxdRxldqdx84UlilNMdHySMnM80=; b=EIAN45GiU5Uqm/bzqShmqTP193
-	QkB/VD0SmLktjmYTukSxuWly1l8Q3qeaUWuW6KgpglE3DKG+kjtyAUNyeWsEaQRdXlslow9gK31kx
-	f5/DqNBs1ZqslCso1XekG15s1SnXlDWhfw7KZAXmLCAFpVq22dTiJsDKNBll+MSzLcCmn92aB8UV7
-	Y3Ek76NJA6V5UrMSo/aT0i9Cxn45NHgzJXlTyoNFcRZJLpjiMotNfnW7CBVN54myIN/k7PLaLFVbN
-	ioy2K46s61mD/EZjS97PnM0qS5Q25UzyDhhZ9JYE/gxEbdbuJ8JbV0sGkWNFC8Kfjl0QiOA5/XrcR
-	rLUV8zrA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Simon Glass <sjg@chromium.org>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Fabio Estevam <festevam@nabladev.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kPmWNwcW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33ECD1F000E9;
+	Wed,  5 Aug 2026 21:10:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785964255;
+	bh=HOnt+mlWKgahltXJogjp3RXlb2gzBmZSb7vGUrLlr+o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kPmWNwcW/a2+GTDqsCuxybRSLYK6rygLIowK+o0tF6OmRIvWaNJFyQlgRrlA5qrGA
+	 JOnog+xabydNVu+zWzJ8mYUplnfwQgNCiY+LYcVCAVh1qhGKoR21iIZ2TZbVvtHyqT
+	 63kK8kw7vKw/RGInQxfznoDxEE4Tu7GyeeohwD1T5DmLgIkkR5SAYzT3SBUbYgivy2
+	 iejUl19x0hiCewezJHsaPH2HmGfd1A00NmrmOhizhB2oOzr7m2bxV5/hhIYPRxqVcR
+	 PRoPOd6RK7IoPLBX8B7/pZDWwT3WnifvHhx5xJQ5TY4Umf8PH2Az2E1LcTaq09IJQp
+	 G760Lb+L5rFpA==
+Date: Wed, 5 Aug 2026 16:10:54 -0500
+From: Rob Herring <robh@kernel.org>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Joseph Chen <chenjh@rock-chips.com>,
+	Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+	Julien Panis <jpanis@baylibre.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Alexander Kurz <akurz@blala.de>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	Jonas Karlman <jonas@kwiboo.se>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Albert Aribaud <albert.u.boot@aribaud.net>,
-	Brian Masney <bmasney@redhat.com>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Conor Dooley <conor+dt@kernel.org>,
-	FUKAUMI Naoki <naoki@radxa.com>,
-	Jeffy Chen <jeffy.chen@rock-chips.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Yao Zi <ziyao@disroot.org>,
-	huang lin <hl@rock-chips.com>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v3 0/6] Add support for the Rockchip RV1106 and RV1103
-Date: Wed,  5 Aug 2026 22:59:16 +0200
-Message-ID: <178596355286.2517015.614227776699371944.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260729133609.3465563-1-sjg@chromium.org>
-References: <20260729133609.3465563-1-sjg@chromium.org>
+	linux-samsung-soc@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH 00/10] dt-bindings: mfd: Use generic power-controller
+ schema
+Message-ID: <20260805211054.GA1783131-robh@kernel.org>
+References: <20260804-mfd-syspower-v1-0-a440783c2e78@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804-mfd-syspower-v1-0-a440783c2e78@nxp.com>
 
-
-On Wed, 29 Jul 2026 07:35:47 -0600, Simon Glass wrote:
-> This series adds initial support for the Rockchip RV1106, a Cortex-A7
-> SoC aimed at IP cameras, and its RV1103 package variant, together with
-> the Luckfox Pico Mini B, a small and widely available RV1103 board.
+On Tue, Aug 04, 2026 at 10:16:35PM +0800, Peng Fan (OSS) wrote:
+> The generic power-controller.yaml schema has been added to dt-schema[1],
+> providing a common definition for the `system-power-controller` boolean
+> property. Convert MFD bindings that locally define this property to
+> instead reference the shared schema.
 > 
-> The series follows the structure of the recently merged RV1103B
-> support. The clock driver is ported from the vendor kernel and is the
-> work of Elaine Zhang. As with the RV1103B, no resets are exposed yet
-> and the CPU pvtpll is initialised but not calibrated.
+> The common change across all patches is:
+>  - Add a $ref to /schemas/power/power-controller.yaml#
+>  - Remove the local `system-power-controller` property definition
+>  - Switch from additionalProperties to unevaluatedProperties
 > 
-> [...]
+> This is a pick of patches 2-11 from [2], rebased to linux-next/master,
+> no changes. Patch 1 (the generic power-controller.yaml schema itself)
+> is dropped since it has already been picked up by dt-schema.
+> 
+> [1] https://github.com/devicetree-org/dt-schema/pull/187
+> [2] https://lore.kernel.org/all/177523251875.1559844.9690289848283345069.b4-ty@b4/
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> Peng Fan (10):
+>       dt-bindings: mfd: ene-kb[3]930: Use generic power-controller schema
+>       dt-bindings: mfd: ti,tps65910: Use generic power-controller schema
+>       dt-bindings: mfd: rockchip,rk8x: Use generic power-controller schema
+>       dt-bindings: mfd: ricoh,rn5t618: Use generic power-controller schema
+>       dt-bindings: mfd: netronix,ntxec: Use generic power-controller schema
+>       dt-bindings: mfd: ti,twl: Use generic power-controller schema
+>       dt-bindings: mfd: ti,tps6594: Use generic power-controller schema
+>       dt-bindings: mfd: rohm,bd71828-pmic: Use generic power-controller schema
+>       dt-bindings: mfd: fsl,mc13xxx: Use generic power-controller schema
+>       dt-bindings: mfd: samsung,s2mpg10-pmic: Use generic power-controller schema
 
-Applied, thanks!
+Can we hold off on this until at least the next cycle. This change 
+effectively bumps the minimum version of dtschema. While 
+power-controller.yaml is added to dtschema, it is not yet in a released 
+version. I'm not all that sure these changes are much improvement given 
+it is a single boolean.
 
-[1/6] dt-bindings: clock: rockchip: Add RV1106 CRU support
-      commit: 713e4d54ff7369b8118f91e98a008220d60b2a5f
-[2/6] clk: rockchip: Add clock controller for the RV1106
-      commit: b520d056f2619972ad09ced2985b534bba4f9599
-
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+Rob
