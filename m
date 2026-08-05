@@ -1,114 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFFC3ED10F;
-	Wed,  5 Aug 2026 08:08:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024EE3EBF16;
+	Wed,  5 Aug 2026 08:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785917298; cv=none; b=m+kp4AaLuURVcItjHcYVL15qIpXilPthaUVtUo+GqGJOXh4P1CxRsKFv7o0aSU/2ujBLfbg0VfU3qPmbHyaP3t6PXVnSvY8acocWDGwAFNS0e5ug33v7L8xI8YgdSOuwG5s0vJNLaT5zfe8X0XaHptapwoL81/PqF4kee3cE/xY=
+	t=1785917362; cv=none; b=Qr/AVM4LsZd9aHrvH5OLMjreMOcgkDKiqRuKdGVSxZiAW0kt4UC/OiNI6f6EeeEIsLXf5NbaWRwXrSTdgUNckMGqhoifQkzalDXVYhhALOzMomeW2Gi8TSnzeSLi6uueugy4QEbfBayKFZB1luGILCw4TqdgmAr/8sTU8tnZS4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785917298; c=relaxed/simple;
-	bh=OuEeieU+V6Hv70haVoj7A7lwMd9n5Nm96UZgZOqvhug=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l1BN3iVz8O0hJdlV+/z6vOgnVAA0blQBvNUjU0DOr8un8tXctDo3vMIG6+Gbf30exDHZjvHwc2PPq7HJXEOj9JozA6VK9+jXtfm/n6AjoP9FPu2DzgMu51vJW6/00yEyKTXp2rpedDNBLqDhl1dVLzJSe9Bb+J8VBa8gzIKK8hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J6ZKiTUa; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785917362; c=relaxed/simple;
+	bh=BaP5MQ2b8F1T71B/ahRWRTdp7D2yKiT7wHC4hMSKylQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kxGckG9K2PMCg9Dnpe54uexvLwd6vhxF0RF2kHQAzLn6jv/4mz686CX4ZxWivmwg7KTXvZo03e2DzaHwiuxuSmENWOwnSW4OhaL17RMLqxJJRSM1dJyrXa/6w7MHXYNmXIFmapfsbW/LYHvsbdRu7Oulo7W+pEGWOS/fXwfs57A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrgUjgFz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J6ZKiTUa"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D2DA0C2BD04;
-	Wed,  5 Aug 2026 08:08:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785917294;
-	bh=OuEeieU+V6Hv70haVoj7A7lwMd9n5Nm96UZgZOqvhug=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=J6ZKiTUaeGgKG2ecyhMMYNtnPpwKKd9MMphy2Hk0OgoC6ypeTb4Xi0xa8Dkis6djT
-	 fyu+zf62AABIfywssljTNaYIl0LVGCzApH2fIveoQVSdnU5iRc9Qa/jcz1vBVP+Gxr
-	 GcYcbDy1DLFY6S2s0AHQ6pepVcdvrbg9Dhxdd69LKPVJ8wZfgCcW0r1MFEDfRuxRT9
-	 sp0U+LiJeA+bGVqTuVZc1g8tVY80TDmr/DSV5JLCnOOuMgr6uCyGgPUWG2kyz48Vke
-	 aenlfcwdfVNfnWKN2QHIkBKFmj4TcRSYgWVSwU0M7g2FO9/ivr1GD1oHL8jywyNORr
-	 ClhPeOukFt1mw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF979C55174;
-	Wed,  5 Aug 2026 08:08:14 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Wed, 05 Aug 2026 10:06:06 +0200
-Subject: [PATCH v9 5/6] arm64: dts: amlogic: t7: Add i2c controller node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrgUjgFz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564DD1F000E9;
+	Wed,  5 Aug 2026 08:09:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785917353;
+	bh=FfJYjS3Tgfd5knjKSrToEha/hbj3QAY/09GoUzGBNEE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YrgUjgFz6IKH0TH8sihHHhES9NjadCrklLRbf0hzQQ7zGYXFV8QOHMaOIrkZUMh5v
+	 rqVZhXPsoDjnzfoOEKG06De2lXxKveCdZ3WHuBP43NlflDexHoj5Q9EM4IM9DNNSlM
+	 9NdnIxgT581t572Q2UPUXoRfxEoQKcP11tGNJKsrp4MQeqTeEFCepgg7d2LoYQ8/dD
+	 BJd2XpzqDzDaFXLO6u8x8H/JvhC/FqTHF5iRuq7+sXE6DcZAL05KvRvs85Wpv5WtKW
+	 41WGmn95glnBYsQt4Ipnc0jrX9SODJRZ8neWDWr22f8k3awDo54L2XsMW4gNhW//AN
+	 m8ebOZV1RbOQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v33 3/7] firmware: imx: add driver for NXP EdgeLock
+ Enclave
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260805-imx-se-if-v33-3-212e32ff0295@nxp.com>
+References: <20260805-imx-se-if-v33-0-212e32ff0295@nxp.com>
+ <20260805-imx-se-if-v33-3-212e32ff0295@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 08:09:12 +0000
+Message-Id: <20260805080913.564DD1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-add-mcu-fan-khadas-vim4-v9-5-75df78710b9e@aliel.fr>
-References: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
-In-Reply-To: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Beniamino Galvani <b.galvani@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
- mfd@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1224;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=aLYRKhvnbuah+/DuOuT+PfGuc1jyAXlae73BAxIufCo=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ1bR++xD0lozJ/qybzkrnOm85vwtL0MDGeZzn5Rf1M9jN
- b59I0W+o5SFQYyLQVZMkaV/ruWJd5ePnvm6Rz0FZg4rE8gQBi5OAZjITwlGhnle+1bf3SDsa6g1
- I8/Vyadl95H3G+8LWbJ/jHxX/PqBoTwjw7aULVsvn88Usbq17S6jnnL+kv8aUZ327RMaVO1k/WT
- TOAA=
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Freeing the DMA buffer in ele_get_info_cleanup() after a timeout c=
+auses a DMA-after-free vulnerability, as the firmware may still be executin=
+g and could write to the freed memory.
+- [High] Using an interruptible wait in internal kernel transactions causes=
+ false probe and suspend failures when signals are pending.
+--
 
-Add the T7 i2c controller node used by the Khadas VIM4
-for MCU communication.
+--- Patch [3]: [PATCH v33 3/7] firmware: imx: add driver for NXP EdgeLock E=
+nclave ---
+commit 8655b5144179916d5552e9b237b931d4b3001788
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-Use amlogic,meson-axg-i2c as fallback compatible.
+firmware: imx: add driver for NXP EdgeLock Enclave
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Add MU-based communication interface for secure enclave.
+The secure enclave FW communicates with Linux over single or multiple
+dedicated messaging unit(MU) based interface(s). Existing on i.MX SoC(s)
+like i.MX8ULP, i.MX93, i.MX95 etc.
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index c3dc479b137de..0f48e23077e99 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -724,6 +724,16 @@ pwm_ao_cd: pwm@60000 {
- 				status = "disabled";
- 			};
- 
-+			i2c_m_ao_a: i2c@76000 {
-+				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
-+				reg = <0x0 0x76000 0x0 0x48>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				interrupts = <GIC_SPI 330 IRQ_TYPE_EDGE_RISING>;
-+				clocks = <&clkc_periphs CLKID_SYS_I2C_AO_A>;
-+				status = "disabled";
-+			};
-+
- 			sd_emmc_a: mmc@88000 {
- 				compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
- 				reg = <0x0 0x88000 0x0 0x800>;
+> diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/e=
+le_base_msg.c
+> new file mode 100644
+> index 0000000000000..724f6e913ce79
+> --- /dev/null
+> +++ b/drivers/firmware/imx/ele_base_msg.c
+> @@ -0,0 +1,282 @@
 
--- 
-2.49.0
+[ ... ]
 
+> +static void ele_get_info_cleanup(struct se_if_priv *priv, u32 *buf, dma_=
+addr_t d_addr,
+> +				 size_t size)
+> +{
+> +	if (priv->mem_pool)
+> +		gen_pool_free(priv->mem_pool, (unsigned long)buf, size);
+> +	else
+> +		dma_free_coherent(priv->dev, size, buf, d_addr);
+> +}
+> +
+> +int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
+> +{
 
+[ ... ]
+
+> +	ret =3D ele_msg_send_rcv(priv, tx_msg, ELE_GET_INFO_REQ_MSG_SZ, rx_msg,
+> +			       ELE_GET_INFO_RSP_MSG_SZ);
+> +	if (ret < 0) {
+> +		ele_get_info_cleanup(priv, get_info_data, get_info_addr, get_info_len);
+
+[Severity: High]
+If ele_msg_send_rcv() times out and returns -ETIMEDOUT, is it safe to
+immediately free the DMA buffer by calling ele_get_info_cleanup()?=20
+
+Since the external EdgeLock Enclave firmware is not halted on a timeout,
+couldn't it eventually complete the transaction and write the response payl=
+oad
+into this freed memory, causing a DMA-after-free memory corruption?=20
+
+> +		return ret;
+> +	}
+> +
+> +	ret =3D se_val_rsp_hdr_n_status(priv, rx_msg, ELE_GET_INFO_REQ,
+> +				      ELE_GET_INFO_RSP_MSG_SZ, true);
+> +	if (ret < 0) {
+> +		ele_get_info_cleanup(priv, get_info_data, get_info_addr, get_info_len);
+> +		return ret;
+> +	}
+
+[ ... ]
+
+> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
+_common.c
+> new file mode 100644
+> index 0000000000000..bc08ea2dcd87d
+> --- /dev/null
+> +++ b/drivers/firmware/imx/ele_common.c
+> @@ -0,0 +1,492 @@
+
+[ ... ]
+
+> +int ele_msg_rcv(struct se_if_priv *priv, struct se_clbk_handle *se_clbk_=
+hdl)
+> +{
+> +	bool is_rsp_wait_with_timeout =3D false;
+> +	bool wait_uninterruptible =3D false;
+> +	unsigned long remaining_jiffies;
+> +	unsigned long deadline_jiffies;
+> +	unsigned long flags;
+> +	int ret;
+> +
+> +	remaining_jiffies =3D msecs_to_jiffies(SE_RCV_MSG_DEFAULT_TIMEOUT_MS);
+> +	if (se_clbk_hdl =3D=3D &priv->waiting_rsp_clbk_hdl) {
+> +		is_rsp_wait_with_timeout =3D true;
+> +		deadline_jiffies =3D jiffies + remaining_jiffies;
+> +	}
+> +
+> +	do {
+> +		if (is_rsp_wait_with_timeout) {
+> +			unsigned long now =3D jiffies;
+> +
+> +			if (time_after_eq(now, deadline_jiffies)) {
+> +				/* Deadline hit: fence hung FW, like the ret=3D=3D0 path. */
+> +				spin_lock_irqsave(&se_clbk_hdl->clbk_rx_lock, flags);
+> +				se_clbk_hdl->rx_msg =3D NULL;
+> +				if (!completion_done(&se_clbk_hdl->done))
+> +					atomic_set(&priv->fw_busy, 1);
+> +				spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
+> +				ret =3D -ETIMEDOUT;
+> +				break;
+> +			}
+> +			remaining_jiffies =3D deadline_jiffies - now;
+> +		}
+> +
+> +		if (wait_uninterruptible)
+> +			ret =3D wait_for_completion_timeout(&se_clbk_hdl->done,
+> +							  remaining_jiffies);
+> +		else
+> +			ret =3D wait_for_completion_interruptible_timeout(&se_clbk_hdl->done,
+> +									remaining_jiffies);
+
+[Severity: High]
+Since ele_msg_rcv() uses an interruptible wait by default for all=20
+transactions, what happens to internal kernel transactions if a signal is=20
+pending?
+
+If a fake signal is sent by the PM freezer during suspend, or a user sends=
+=20
+SIGINT during modprobe, won't this abort the wait with -ERESTARTSYS?
+
+> +		if (ret =3D=3D -ERESTARTSYS) {
+> +			/*
+> +			 * Record that a signal was observed, then continue waiting non-
+> +			 * interruptibly until the response arrives or the timeout
+> +			 * expires. The caller can surface the interruption to userspace
+> +			 * after the protocol transaction is brought back to a
+> +			 * synchronized state.
+> +			 */
+> +			if (is_rsp_wait_with_timeout &&
+> +			    READ_ONCE(se_clbk_hdl->rx_msg)) {
+> +				WRITE_ONCE(se_clbk_hdl->signal_rcvd, true);
+> +				wait_uninterruptible =3D true;
+> +				continue;
+> +			}
+> +			break;
+> +		}
+
+[ ... ]
+
+> +int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_s=
+z,
+> +		     void *rx_msg, int exp_rx_msg_sz)
+> +{
+
+[ ... ]
+
+> +	err =3D ele_msg_rcv(priv, &priv->waiting_rsp_clbk_hdl);
+> +
+> +	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
+> +		/*
+> +		 * Signal was deferred until the FW/kernel protocol resynchronized.
+> +		 * On success report -ERESTARTSYS for the interrupted wait; the
+> +		 * command is not re-sent. Keep real errors like -ETIMEDOUT.
+> +		 */
+> +		if (err > 0)
+> +			err =3D -ERESTARTSYS;
+> +		priv->waiting_rsp_clbk_hdl.signal_rcvd =3D false;
+> +		dev_dbg(priv->dev, "Err[0x%x]:Interrupted by signal.", err);
+> +	}
+
+Since ele_msg_send_rcv() explicitly converts the successful return back to=
+=20
+-ERESTARTSYS when a signal was received, could this cause spurious device=20
+initialization or power management failures for callers that are not tied t=
+o=20
+a restartable syscall?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-imx-se-if-=
+v33-0-212e32ff0295@nxp.com?part=3D3
