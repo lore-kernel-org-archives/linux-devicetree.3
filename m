@@ -1,106 +1,139 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568A037755A
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 18:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E393D565F;
+	Wed,  5 Aug 2026 18:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785955676; cv=none; b=XCragm76b6G+JiQoOjOl8D1DvX+HGYL0eWWHt62EcX6wU2hCtZIr7JS4TmHHUq3oxrdIehZh6gN229uBMfgLfabyqbxIL7QsgXBADzrBok5ShaAt9YpR/eb2bmRGsmLVhUGryBipGhGhjBN0Z3OHfn2o4wMULEVtYes5jsA32fU=
+	t=1785956091; cv=none; b=CvB9opAQiGyTf0ZTJW4Mtu/UPjY56ECs7XSDMlSv3gqGXIB0totk7KFdkcENo8ALaObFVl02PzBlvZM+3hs2pZMGPxtJaLCvCp8g2mXCdijuHbBAxSYoLNZZM3ThskGZjSBf20DjdiDWmnYS0PD5vKrqlfzGToI3jL1MSeegTQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785955676; c=relaxed/simple;
-	bh=XumjtvdYNUTjuJIkdsqEWpFTPQsUekL49pxS9GwogpM=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:MIME-Version; b=NY7odiAOaXeC2VmrwjXjVe3kAOJgKyBZEc7Ye4/32oRP8j53OgYMFb3Tx0sGPFyNWXuKVCNe6VCLjN0QfT/i+Zt93iEx4uKXe2NDYkjsWKqMu2a6UZGmHvafg/UI1XD3bFqRdlVTWOTgP9G/5PplbqqOv6wr0fzVWRAkJjhlVJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=O5jB32+M; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1785956091; c=relaxed/simple;
+	bh=N9ueinDu7+yNBWtXLB4wmzJ9pMLslPpieTw27NjT0FY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=KVrB977v2iUD1WEWU+JRu0emw5+UADvjh+W0iqfcaFG2npuU6W0RCFPGPgQJyKQe2/fy95mmm73ZvMzycIL1C+joIBvnRkQ4AFdG+e2pOZ67c1m+XrE64jMExm6eRoJji6MvApfFJME1FpaxTArEZgw0aNpkP7m+aCO9dXTGDcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C0Kz/AYm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="O5jB32+M"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbb7926836eso1017757a12.3
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 11:47:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1785955674; x=1786560474; darn=vger.kernel.org;
-        h=mime-version:references:in-reply-to:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XumjtvdYNUTjuJIkdsqEWpFTPQsUekL49pxS9GwogpM=;
-        b=O5jB32+MhEMXauPgRJRNTEDwUiqYQkPcKcNOSPAZTNPlWN+F8Eb1xmNhjHgGouZ5TU
-         FIU9R4n+nOGpM3GzrV1nBZxmNoDmNDa2bW08+rfkyoeci1TSOVuwDDamL1AYcgmvkIiO
-         83BnuN75ESt7yj3wi3HVVdeCu968QwLWJOo3TaqWV4AOR0ZaeSqN6yitY3VlW5FCoLIo
-         Y/XXEzRyX7YE193fldICA/hReZBbc21JHdo/iF1j/cp17/OtzK1WjHKxJcmw/r7T+aCq
-         gXcFAGPHyPsPn2D+sMMnWdHWSkV3UFddeOQ7CGMPna93VFnO9QiCZjgg1PZXOEHO+KbA
-         RlMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785955674; x=1786560474;
-        h=mime-version:references:in-reply-to:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XumjtvdYNUTjuJIkdsqEWpFTPQsUekL49pxS9GwogpM=;
-        b=tDMO7PPLpsbqbNTOxhT9BetuFGxoWzhmVKbxND6Kl2Gz4bmfWLlfktCtK0D2O5jtyj
-         yzOB6KPj89dtu4a5Frcla42A9tRSxZsOcBomZe5Dk8q34LZ75rr9437h6LtAC06Wumyr
-         E/YAWtmyhkA6iQQbECkhrbmlZkGtAvIeRTuk8r2qUbRZI8FiJ50skIxc98nHHz28rIMr
-         w/lNv4oMG6OmRIPKCCIyR17jEiiGBzjhDVC57H5y9gYGm9vs2QMkslC8ZgOmwsAHOAEO
-         ogCPXEEuIuFWLx6Ssui6yUTn3Pn7lfbwEp8xWUGBGGyt9a0mvRgQKk98kcifMKSd/s4a
-         RQNQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrH+PqdVtV7eJZKJry/8fyWsAe62LDd7ckmLKSkoFhAzUoCMMsKtfOH80RdnuHqCnDqdjZew4wU11v+@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQOn8jMHtUxAK/MiF3roSgNA7DOWLPWgaUrK14uWd4vzmz3uOf
-	TFv7GqKikA43W0yJfdDk7vCn/iH4J55Vbesy424bDDQ9c5VCSqLlp+9n9Amg7vV7COc=
-X-Gm-Gg: AR+sD11ivgANAU6j1KUHV+ZR98Ly+jV2fyi7QqDMrcQbflaVzQ6DUgB2UneWyac5SS3
-	M6Gch9Mh0Ndof2OUyZ4z9S3qWx+r7ZVpmCKwfdOK7Z7GQQH6KROf5x6z0DxPeRLRqPDrjvzAUPM
-	Y0PxowIClfvn+HIigXjXVKj479rKixQIYkjHxsvn9sIte4Z/AZvIcrxZwITU0FRHxqQM6FX3Fq1
-	P8sT5jU8zJqS7EgrTBu0lgLmZRLJE6uHzotW4bW/Zf9zUIDoJTSkkI89cc6r5s/iuUg+UEL3eJK
-	P8UHk1sWz34N8Ga0HONVePenqUMNmxWbMQhXB1L4SheqjzlBGtrUWYi3I5ZofxPdr58sR7Ncljc
-	GJ5Qh1MbpeikPwL4wlmVIdoRR6HBcQ6MDCv8daZbIDPYF6ih3bjc5DMNis+0GNQ8Kl48pVqAcni
-	+a7X1tsrUJZBmNYJ2sNy328aVzD9HLk2TudYWaY9FpuE2aXQuLFKHri13HFxgwjoA8me95yMI=
-X-Received: by 2002:a05:6a20:6a08:b0:3c3:a9e1:a819 with SMTP id adf61e73a8af0-3cb85f44592mr10042387637.24.1785955674588;
-        Wed, 05 Aug 2026 11:47:54 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315863fd2b3sm20434536eec.7.2026.08.05.11.47.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 Aug 2026 11:47:54 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 05 Aug 2026 11:47:53 -0700
-Message-Id: <DKH8G5UIHT8H.25XKJIEKX4XTQ@nexthop.ai>
-Cc: <robh@kernel.org>, <saravanak@kernel.org>, <frowand.list@gmail.com>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 5/9] of/overlay: don't keep a negative id in ovcs->id
- on idr_alloc() failure
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: "Geert Uytterhoeven" <geert@linux-m68k.org>
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CAMuHMdUG0RH6sFpBxp-dXw4S8kdS0oyyCL=wzKE=TkheWQAs=w@mail.gmail.com>
-References: <20260722-nh-of-alias-overlay-v5-0-2abe2bb9cdbc@nexthop.ai> <20260722-nh-of-alias-overlay-v5-5-2abe2bb9cdbc@nexthop.ai> <CAMuHMdUG0RH6sFpBxp-dXw4S8kdS0oyyCL=wzKE=TkheWQAs=w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0Kz/AYm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C259C1F000E9;
+	Wed,  5 Aug 2026 18:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785956087;
+	bh=LZFgktKwDepiLJ2wPxJe5QgCEqoGd2XF3OANmnNyJgI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=C0Kz/AYmxT/OnCfSlVLghSdaaDWTgsFLSNNPkhWLjyL8GZNtXeMtxEVfnCjeSZXJy
+	 YybQzXRgTaoeNIJkZ2nVU+b3Tlj7IAnZdHs+9/ayNPYxOc6ReFkubyT09326N7OPdW
+	 mziOxpsjXk1rqwEWAskVX8sU6IDrSen8yFF5M9qRcGet9MjOwTbtVcNYSqFDr1TNA4
+	 LCt4FenzirOQVgUKEIDpimJFAJC2i0+yfJSTV57JnuHujHh1vwMytbJTaL+Sx+vu/G
+	 y/o1GXTayoPj8T0mnhTe6/CaIJXLmcgagqrRM/gj8+B99BJma7A0Bz0LK8I67rmZkB
+	 VCHNJSWclcntQ==
+Date: Wed, 5 Aug 2026 12:54:42 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Drew Fustini <fustini@kernel.org>
+cc: Adrien Ricciardi <aricciardi@baylibre.com>, 
+    Alexandre Ghiti <alex@ghiti.fr>, Atish Kumar Patra <atishp@rivosinc.com>, 
+    Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
+    Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, 
+    Chen Pei <cp0613@linux.alibaba.com>, 
+    Conor Dooley <conor.dooley@microchip.com>, 
+    Conor Dooley <conor+dt@kernel.org>, 
+    Dave Hansen <dave.hansen@linux.intel.com>, 
+    Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>, 
+    Gong Shuai <gong.shuai@sanechips.com.cn>, Gong Shuai <gsh517@gmail.com>, 
+    guo.wenjia23@zte.com.cn, James Morse <james.morse@arm.com>, 
+    =?ISO-8859-2?Q?Kornel_Dul=EAba?= <mindal@semihalf.com>, 
+    Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
+    Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, 
+    Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, 
+    Peter Newman <peternewman@google.com>, 
+    =?ISO-8859-2?Q?Radim_Kr=E8m=E1=F8?= <rkrcmar@ventanamicro.com>, 
+    Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
+    Samuel Holland <samuel.holland@sifive.com>, 
+    Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+    Tony Luck <tony.luck@intel.com>, Vasudevan Srinivasan <vasu@rivosinc.com>, 
+    Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, 
+    yunhui cui <cuiyunhui@bytedance.com>, 
+    Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, 
+    linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+    x86@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+    linux-doc@vger.kernel.org
+Subject: Re: [PATCH v6 3/8] riscv: Add support for srmcfg CSR from Ssqosid
+ extension
+In-Reply-To: <20260729-dfustini-atl-sc-cbqri-dt-v6-3-7c22b05d461b@kernel.org>
+Message-ID: <3b6dd35e-dabb-3cb0-547f-0c8a0b035e1a@kernel.org>
+References: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org> <20260729-dfustini-atl-sc-cbqri-dt-v6-3-7c22b05d461b@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-On Wed Aug 5, 2026 at 1:26 AM PDT, Geert Uytterhoeven wrote:
-> (Alternatively, free_overlay_changeset() could check for a
-> strict-positive id)
->
-> However, I am wondering if this is the right fix?
->
-> All error cases above just return an error code, without doing
-> any cleanup. Failing to allocate an ID doesn't add any extra state...
->
-> > goto err_free_ovcs;
->
-> ... so shouldn't this just be changed to "goto out_unlock" instead?
+Hi,
 
-ovcs itself is already allocated at that point, and out_unlock does
-not free it, so that would leak the kzalloc. Going through
-free_overlay_changeset() is intentional: it copes with a partially
-initialized ovcs (the cset.entries.next check, the id check, and
-notify_state =3D=3D OF_OVERLAY_INIT from kzalloc) and frees the struct.
+On Wed, 29 Jul 2026, Drew Fustini wrote:
 
-Your alternative is nicer though: the next revision makes
-free_overlay_changeset() treat only a strict-positive id as
-registered and drops the reset at the error site. Added your
-Suggested-by.
+> Add support for the srmcfg CSR defined in the Ssqosid ISA extension.
+> The CSR contains two fields:
+> 
+>   - Resource Control ID (RCID) for resource allocation
+>   - Monitoring Counter ID (MCID) for tracking resource usage
+> 
+> Requests from a hart to shared resources are tagged with these IDs,
+> allowing resource usage to be associated with the running task.
+> 
+> Add a srmcfg field to thread_struct with the same format as the CSR.
+> The context-switch path writes the field to the CSR, and
+> resctrl_arch_set_closid_rmid() updates it when a task is assigned to a
+> resctrl control or monitoring group.
+> 
+> A per-cpu cpu_srmcfg_default holds the default srmcfg for each CPU, set
+> by resctrl_arch_set_cpu_default_closid_rmid() on CPU group assignment.
+> On context switch, RCID and MCID inherit from the CPU default
+> independently: a task whose thread RCID field is zero takes the CPU
+> default's RCID, and likewise for MCID.
 
-Thanks,
-Abdurrahman
+Thanks, queued for v7.3, but with one change (below):
+
+> diff --git a/arch/riscv/include/asm/qos.h b/arch/riscv/include/asm/qos.h
+> new file mode 100644
+> index 000000000000..cf19e8438bb9
+> --- /dev/null
+> +++ b/arch/riscv/include/asm/qos.h
+> @@ -0,0 +1,74 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _ASM_RISCV_QOS_H
+> +#define _ASM_RISCV_QOS_H
+> +
+> +#include <linux/percpu-defs.h>
+> +
+> +#ifdef CONFIG_RISCV_ISA_SSQOSID
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/cpufeature.h>
+> +#include <linux/sched.h>
+> +
+> +#include <asm/csr.h>
+> +#include <asm/hwcap.h>
+> +
+> +/* cached value of srmcfg csr for each cpu */
+> +DECLARE_PER_CPU(u32, cpu_srmcfg);
+> +
+> +/* default srmcfg value for each cpu, set via resctrl cpu assignment */
+> +DECLARE_PER_CPU(u32, cpu_srmcfg_default);
+> +
+> +static inline void __switch_to_srmcfg(struct task_struct *next)
+> +{
+> +	u32 thread_srmcfg, default_srmcfg;
+> +
+> +	thread_srmcfg = READ_ONCE(next->thread.srmcfg);
+
+What is the intent of the READ_ONCE() here?  
+
+I've dropped it from what's been queued for now.  If it's really 
+needed, please let us know why.
+
+
+thanks,
+
+- Paul
