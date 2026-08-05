@@ -1,129 +1,145 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499F03E2751;
-	Wed,  5 Aug 2026 07:27:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157BB38E100
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914866; cv=none; b=n6il86O/jui8hl+WqnsovGUo2xZwL4diOfTJ2Pt0yC9my4+E/Pc6jG8lVeadQ+BVeSQhF3L5mt1DG4GC4Mo5KgrUO6dwBZVqhjPSTBeH+8y2GYtFvLHffzgTRs6E9Qz16GR1f2MMhDRnqr33YrwwvjcM0SVtt0rjWX1NgFlVrKQ=
+	t=1785914938; cv=none; b=BVwLXN3prTEI9jjAPyLaHAvbx1Yi35uAmCk3mqKCbF6ari/vp6TquxoORrnA7FKsigVZZOmKdaLlZSa20if6+IbZ3RZpyBsq2ZaGnKLkllgTSqEJeK+uVz/dOlhXYE23opECd1jHPzJzyyLjmQdOd2CyaXJBLhFHWdwXbWUh2sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914866; c=relaxed/simple;
-	bh=/THlU54KUko1Cw/ErGgDQYX/dRBeRks7OihaDRRj1Kc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W6zyPjDEuibcrvtV6UgWGWoPgmxGGqOcunQRUOUesQ2KGZpG0WZ1+X9v79nNg7Ps1lrijVS1d4J/efliVGt+aJ5A+9xJtJvzo81N7HWyLeF+a/Ta+yqhE++plSSXqm9bcWwWuFSyzgSC1lPlho7CNiKORt+UajSpKUuRIbceURY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yEayGdda; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fkzURMFP; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1785914938; c=relaxed/simple;
+	bh=rQvgFkUbrZudkPSsoD2D2UC6PW8UQGurH3Eifu8Zr5g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FuKEMp9wcxKeRdsOTUgtP9o1C1UgCQIgptMjpmKSUJfI3i6aLWTc2f5RrvUBccMGlkktPQpbBJBWB42wV2D4YmpqfH5CflS2xKWNP6Zxo8QZthECO7l+QITY9r1Wb4z1m3us0X/yrlC7VTwV9jSaKhbmasfHo/7Mf4iK/P4rptM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=axul6Re8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yEayGdda";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fkzURMFP"
-Date: Wed, 5 Aug 2026 09:27:41 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1785914863;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JRnmSwfePuxjzp3S3366V2iKuGTS0E5jGJbo3/yzTqY=;
-	b=yEayGddaDKi2zac0rvSRmjjvtr1lIAegfo0pQUMXWYmEfWWGeLMLxxSFzkYq9+QyNN+bsJ
-	ACYgn6vC4qdJK/LQHJHd6qgOmecgYZg3tuKadXmFaLntp+3bntqmrmWp3YHcYPrSx4MkYq
-	KUIYmTBkyo5ODeoHXPokddunWa0qXSjgT5JBWhTxv12cVAdxZOUihsTaAj1YxR9MRLE7Sh
-	faQJ6rGQMqHwvXpZ/QWtLsV6XYMMVKk+JAXVv6Ig6Wvd3xOHvEcI7mkK87PfCPzhGRD1Nx
-	KaFz5ndvZ0fGWBSe76bLcx8V+d/Wkg1OcXDfH3BCp7czsobPSD4Rs2ATRXvTRg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1785914863;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JRnmSwfePuxjzp3S3366V2iKuGTS0E5jGJbo3/yzTqY=;
-	b=fkzURMFPZeNTOuzVlxu4KF2sqGwU73Oo0MmvEOCYJNKxGa44uyEPBf59FbH1Kc4MBchImb
-	bL2YR40YTXln9pAA==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>, devicetree@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
- compatible
-Message-ID: <vv6ufnanks27moditlav2ebaub6m5te5tag3m6qv5l65cm25iw@i7m54od3wz4k>
-References: <20260804-bcm2712-d-stepping-compatible-v3-0-1860094486eb@linutronix.de>
- <20260804-bcm2712-d-stepping-compatible-v3-2-1860094486eb@linutronix.de>
- <6ed9b2e5-b700-477a-8f6f-cb48c597a111@gmx.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="axul6Re8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19AD61F000E9;
+	Wed,  5 Aug 2026 07:28:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785914936;
+	bh=qCwl+sy+f/4o6tmmDe0w61GrTxSo1IJpm1qzeCTSVcA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=axul6Re8crwXfP8aEJUI0ylNNyafSeBwfzf7tBkiF/HncutsYpzxiO42+OQ+lOax7
+	 /i8BPG2EuzTubDmsvSSxM9Tt2wpfUNua9UZOvtmGwCgOTWHZl7X1cwDHLcKpwK8v6U
+	 gcihswj/G79lSHcLeJIvfQ1N2ooZ1X7hjKwXd30gWwc0gBozf4nK2CeWR0JkQPoC1E
+	 Ppn1W5ZOg/Wts+FfVTmqqWyaYJvj+plQJWXVgCm1cEyx9w1oBdc0epospaWTmC47QM
+	 pbIM3SV8PMpBjk0BjBAbI/tO6OcwLCemOXGTkWErvjVxR9CoVjKknl8AATxh/MS1rD
+	 O3UmAOaJiM2jg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/3] dt-bindings: iio: dac: Add AD5529R
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Janani Sunil" <janani.sunil@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260805-ad5529r-driver-v8-2-b41781f5632a@analog.com>
+References: <20260805-ad5529r-driver-v8-0-b41781f5632a@analog.com>
+ <20260805-ad5529r-driver-v8-2-b41781f5632a@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 07:28:55 +0000
+Message-Id: <20260805072856.19AD61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6ed9b2e5-b700-477a-8f6f-cb48c597a111@gmx.net>
 
-On Tue, Aug 04, 2026 at 04:57:09PM +0200, Stefan Wahren wrote:
-> Hi Gregor,
-> 
-> sorry for my late reply.
-> 
-> Am 04.08.26 um 15:13 schrieb Gregor Herburger:
-> > The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
-> > and in a c Stepping. There are two separate dts files. The
-> > bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
-> > the d Stepping. The d stepping does not set its own compatible/model
-> > string but uses "raspberrypi,5-model-b".
-> In case the SoC and not the board has a D stepping, why do just change the
-> board compatible without the SoC compatible like "brcm,bcm2712-d0"?
-> > 
-You mean changing both compatible strings? Like this:
-	compatible = "raspberrypi,5-model-b-d0", "brcm,bcm2712-d0";
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Low] The `default: 0` value for `spi-device-addr` is a scalar integer, w=
+hich violates the underlying `uint32-array` type.
+- [Low] The `spi-cpol` and `spi-cpha` properties are referenced in dependen=
+cies but are omitted from the properties block.
+- [Low] The use of `additionalProperties: false` in the channel node incorr=
+ectly restricts inherited properties from `dac.yaml`.
+- [Low] The `default` annotations inside the `items` array for `output-rang=
+e-microvolt` are ineffective.
+--
 
-Don't know actually. Have not found an example for something like this in the
-tree. I prefer it actually like it is. Would like to hear the opinion of an
-devicetree maintainer about this.
+--- Patch [2]: [PATCH v8 2/3] dt-bindings: iio: dac: Add AD5529R ---
+commit c7fd92093d1e8febbb573957a72221de0c72a60c
+Author: Janani Sunil <janani.sunil@analog.com>
 
-> > These two steppings are not compatible. Booting with the wrong dtb file
-> > causes a crash at boot.
-> This sounds like the patch should have a fixes tag?
-Yes can add one.
-> > 
-> > Add a compatibles string "raspberrypi,5-model-b-d0" to allow us to
-> > distinguish between those two steppings.
-> > 
-> > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> > ---
-> >   arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts | 5 +++++
-> >   1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> > index 127be0fc27c22..5a86ad69645c3 100644
-> > --- a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> > +++ b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
-> > @@ -3,6 +3,11 @@
-> >   #include "bcm2712-rpi-5-b.dts"
-> > +/ {
-> > +	compatible = "raspberrypi,5-model-b-d0", "brcm,bcm2712";
-> > +	model = "Raspberry Pi 5 d0 Stepping";
-> > +};
-> > +
-> >   &gio_aon {
-> >   	brcm,gpio-bank-widths = <15 6>;
-> > 
-> 
+dt-bindings: iio: dac: Add AD5529R
 
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+buffered voltage output digital-to-analog converter (DAC) with an
+integrated precision reference.
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
+> diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml b=
+/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> new file mode 100644
+> index 0000000000000..9c390d460e5ff
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
 
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+[ ... ]
+
+> +  spi-device-addr:
+> +    minItems: 1
+> +    maxItems: 4
+> +    items:
+> +      enum: [0, 1, 2, 3]
+> +    default: 0
+
+[Severity: Low]
+Does this default value need to be an array (e.g., [0]) to conform to the
+uint32-array type defined in spi-peripheral-props.yaml? A scalar value might
+cause schema validation to fail for bindings relying on this default.
+
+[ ... ]
+
+> +      output-range-microvolt:
+> +        description:
+> +          Output voltage range for this channel as [min, max] in
+> +          microvolts.
+> +        oneOf:
+> +          - items:
+> +              - const: 0
+> +                default: 0
+> +              - enum: [5000000, 10000000, 20000000, 40000000]
+> +                default: 5000000
+
+[Severity: Low]
+Should the default keyword be declared at the property level
+(e.g., default: [0, 5000000]) rather than inside the items elements?=20
+
+It seems the schema tooling will not provide a default value when the
+property is omitted if it is structured this way.
+
+[ ... ]
+
+> +    required:
+> +      - reg
+> +
+> +    additionalProperties: false
+
+[Severity: Low]
+Should this be unevaluatedProperties: false instead?
+
+In JSON schema, additionalProperties: false does not see through the $ref to
+dac.yaml. This would cause common DAC channel properties inherited from
+dac.yaml to be erroneously rejected by validation.
+
+[ ... ]
+
+> +dependencies:
+> +  spi-cpha: [ spi-cpol ]
+> +  spi-cpol: [ spi-cpha ]
+> +
+> +allOf:
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> +
+> +unevaluatedProperties: false
+
+[Severity: Low]
+Are spi-cpol and spi-cpha missing from the local properties block?
+
+Since they are referenced in dependencies but not explicitly declared, devi=
+ce
+trees configuring SPI Mode 3 might fail static validation due to
+unevaluatedProperties: false not seeing them.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-ad5529r-dr=
+iver-v8-0-b41781f5632a@analog.com?part=3D2
