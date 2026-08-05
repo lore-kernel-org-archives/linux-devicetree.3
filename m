@@ -1,91 +1,132 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE40C246784;
-	Wed,  5 Aug 2026 08:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057CE3E51F9
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785918364; cv=none; b=OB6ZdvDBRzybeWkRlC4l1F/R1UCtJd6P1E/8EYWirjT3Gkj/DBsxukgWOc/pXc+ofAT9EanLx5V3/w9ueU8nIrsny06+XO06kumqX+ZdUKTkiKal/GE3c8BNXHeeN9Bh4B3Q/Jl2tgDnc6jiLMScb6caSEUZbVG1lzze3fmevro=
+	t=1785918421; cv=none; b=spmk84NgknjByxXo07mkSMGQOkZpu8CY2Tcd3Awrz+7hBrlaWHCqEmiT42aZolL1G7G6h/1hR9s2+K9TEJ1Ka0qzMljyE16gMFmWHXv7gV5q4iXuqQBmwwnUdhiqXLLHKXKxINxe+4gZKoydC6EwLxb3YscxsLmixlgtDlbWR38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785918364; c=relaxed/simple;
-	bh=jdNVwwJQY+ckL6kJ8Tj7UyLROjjvMVrs/XkN06eWAYs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CPV68LieJ3vPScEM5K7pieiEPVUkmB+F3gLebxn7jW15mo6LYSUWGl0CwVm9kJjtSRvkg7JgvHpud504RKJWNjJwrSjCMIs1HAotRLVMkItih2qU9XsuHIeJ6j8hxBbkLW2wxQUWRw+Ony8ovtzBSZbhh3+6j3a+lCfFaI+0myY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=m8EyoIp0; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="m8EyoIp0"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 8BF703EBCA;
-	Wed,  5 Aug 2026 08:25:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1785918359;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NbHmjTmZQfaX9I+BqpADjh7NOh5VxYpTnMMdG04HFtY=;
-	b=m8EyoIp07y7wKl7DCfWzOzX7NoV52LsHfIOJNILlbVSDqfX9xNy1UXEAENyc4qzMmsgoGj
-	hADxdZrZ7MWlFZ0injQ0rIUrXeznn857CPxQGff3zfzFQ30rztdvZuREWzcMYkLqR4uBS3
-	pW6nGEGOz9PB74eSRGpp0SaxCrc7oO50F5YeWpO/+gotQn/z5Tj/Ip2Q8QgugkWZUyuDuD
-	wiOlNTz5S+hZRsTildGlK0+JvaFP8AgsW7ZglQmerSQfY+ZSlyoTE0kmNQ9F4ztXAgFVH2
-	NwWqbweZAjCSVbzywRqr/pn6SIvVf0DWA6XSdhBsxUQE/xoSYDovuu9VDYXJJw==
-Date: Wed, 5 Aug 2026 10:25:52 +0200
-From: Arthur =?utf-8?Q?Cr=C3=A9pin?= Leblond <arthur@marmottus.net>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] w5100: restore GPIO-based link detection
-Message-ID: <anLzkNOBMvn7_0d3@pc-du-fromage>
-References: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
- <d762ff5f-30ba-42fc-bf58-500f807483ad@lunn.ch>
+	s=arc-20240116; t=1785918421; c=relaxed/simple;
+	bh=F4tps98pt30x+F5pSzHz1Af/S5a0VJt4BpfewzDtf/E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qp60+rvaQARmNploWFkZ0XxSt5Bg8rmMeRW15LKT1dpu5r1EIUMxSCdltXmHDyJUveo8SWl1hTnmIqPgmlV+qDqkGcF9+HR1u9mDaNyMw0xo15ezw501/E6loBSvlluoJ00pgr9oXyJltGGYE422uH2BbeLA6v343eyYNUZ9gDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-73791ee3612so339110137.1
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 01:26:59 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785918419; x=1786523219;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wNePd+4ZCAAsdt4HAVjJh/fqaPl8ns3nSA+3DnSa5Us=;
+        b=U4lgxD4xLir44FKA6Uxt6BCmmXYbkuIE+KNNq2D8pceA2xIp2BJcej0Rp5/ONn6JA9
+         blkPbUWAjARlxya1jsi2vZ2V6UgfV/kUQAZ91zl4HIGrAGNf4GcJLOSZjQ1HR8W24fdT
+         5ylL7Vv4lRTbn/DlxSRiiLPmfMfbHoYJe506voYpx4BiXiMDypr4SJRJ/2j8YlauKUxE
+         CJfnUSArgw4Mx1fx1sQesx8XkWr8hv3G1u2U8b427hNVko/JqoFVLmE0LIeNde2x9SQH
+         VFB9PmKuoLTLqDMIjPyOGKDIvqFID4QzvI4PFCRuyVe0HbJufDihGUoksEtN3JvFcSJf
+         1VfA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9FfwYBL6R7PkmS+0IsBeFw+JlJp1d5Yy+xPSAgBKRB1lQUDhBMpwi7TxxzYPSkxjHjyH5ZxvOOgTq@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEjRzU+ia83wrIrxo1jUy5Lovb7LNWh4KINsAV6DVHxg3+hIh8
+	uC/27eOra9iSkOVaG9dpqkIjdKm3B+evowBs4TbMUT5Th6NI1OuLbH7sBTQZkFwx
+X-Gm-Gg: AR+sD11bk7C/aRSKqA5PWX+Mbvxey9Tw4w9eO+JOysz0nPu7nDMZGfz0gDhXs7pMIAj
+	SoCTKYPj7ndvmzb9wYmseqf0b45CWHPSZAoRIc2u0NOHUR1k0dcPOTkZSd1keAtGu5W6U81Qsm7
+	1u+ypoxXyo7X/Tjiswqu0AaBtKbRYXtPQ65SxYyiCct8z6fPlvAa27WoSBkFhxZ7WEYGYvYRP7X
+	vPbWKFZ5mu6qMb1Bk5Snun4B2yK6l7Qz+Gvrf94qriB0X3+POO9ouycBsM0+0DtAmMkUEZaeChP
+	lAyUkoPkAMFEFApb7MR4LFge2lqjhU7iRojD/fBwSsq3stloCUoCC39+kLqEM4cClLLBa8P8wKM
+	qoH0VTvKL/0AF2DajeVM91XWQTXPvTaMDIJ50e8vj2kZe7kw894jAvegBYsNJBS3RrJf7NZPl/6
+	xAa1i1ep6PeZwhwGzee9ntqw4pPbHdv3Ko99l68OWOywj06niJxFKnAxaWY6sivanJDM6k42ld0
+	dSLzAEViUca+tYVLBpH3pL+BOgHA/h7kJpI
+X-Received: by 2002:a05:6102:6444:b0:737:2ce5:7b2d with SMTP id ada2fe7eead31-760e9d4a87cmr1511481137.9.1785918418920;
+        Wed, 05 Aug 2026 01:26:58 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-760450312a1sm1785984137.2.2026.08.05.01.26.58
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 05 Aug 2026 01:26:58 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-74ad03fa605so366045137.0
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 01:26:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rrytpn2RLuuStmj3wA1OI/tdz75nWXil5FNGDR/IJdBen0ny4uoxGziObTlKAmcqeO0AE0jiWAGaCgK@vger.kernel.org
+X-Received: by 2002:a05:6102:32d3:b0:6c5:d55d:c093 with SMTP id
+ ada2fe7eead31-760e8720f3cmr1372767137.8.1785918418007; Wed, 05 Aug 2026
+ 01:26:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d762ff5f-30ba-42fc-bf58-500f807483ad@lunn.ch>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTGedFxA1DxmVgniXAyrblc2qturyZNzK18xk1YpaSqkwFNCmV3VuwI5rbYnTtaISHoMx9SXNLrcXCFpo4M91UAW8j+taKmaDYl3Ko0aZavlF3INaaA6/j3TXTFEtvHaxha8dVHelnHZHpMQfmKMnqCJRIvzMSE0UA3ONKX2i/Og10ACDNJYKfGRHMzudPLeJBMjNfTLD2wZXjYYTP1fm88njpkuZ0sFhobtXvzgoT8ZcePZtEUMBR0pGdpfOWV0ktbwupD47ljaGluECwD7HE4zrkCrWT8nG+FQh2vXk91Ns0419wj7EFlOI20XN2YCrI8eQuIAXgybFlbXc+EajZDYX7Sovw08pNCDGiHexhAoanzlczxjpjU8gxqIbZej4Lff70zgUdF1mG59wZTEv99bRkEKZ0QdxsV4vwUT9JdBiv4TVbMeS/SjfM7R4g2fQEhVEUWdmPU4d08/n8l0k0IUz2gFfX2urLjTflAAfTNYCli+5HwRKyEh1l/S9m/vdU9rSuNucyauI8+3xVBqNjz2BE06Op1TrbeHTBv6db7hyah+rrACJW89IB4gVETcxEFInd9/WrvTRJLLDpgQPma2MiBwSdcnKCjbRTgvLiwJX22Cl85hem5RqCsqPi0MRAaJ2C3ZQQZj/Fwf+d3sggxqb42lKqhVBArQw8FPVUSyVQ
+References: <20260722-nh-of-alias-overlay-v5-0-2abe2bb9cdbc@nexthop.ai> <20260722-nh-of-alias-overlay-v5-5-2abe2bb9cdbc@nexthop.ai>
+In-Reply-To: <20260722-nh-of-alias-overlay-v5-5-2abe2bb9cdbc@nexthop.ai>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 5 Aug 2026 10:26:46 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUG0RH6sFpBxp-dXw4S8kdS0oyyCL=wzKE=TkheWQAs=w@mail.gmail.com>
+X-Gm-Features: AUfX_mzkBTUJ-FXSnXyEdREDuwr6z66OMwhD5VFVLs8a5iUa42Krc5qoQokN0N0
+Message-ID: <CAMuHMdUG0RH6sFpBxp-dXw4S8kdS0oyyCL=wzKE=TkheWQAs=w@mail.gmail.com>
+Subject: Re: [PATCH v5 5/9] of/overlay: don't keep a negative id in ovcs->id
+ on idr_alloc() failure
+To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Frank Rowand <frowand.list@gmail.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Aug 04, 2026 at 07:54:29PM +0200, Andrew Lunn wrote:
->On Tue, Aug 04, 2026 at 04:38:35PM +0200, Arthur Crépin Leblond wrote:
->> Commit dacf281771a9 ("w5100: remove unused gpio link detection")
->> dropped the link_gpio/link_irq handling on the grounds that no
->> devicetree user passed a "link" GPIO at the time.
->>
->> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
->
->Hi Arthur
->
->Do you understand the architecture of this device? What exactly is on
->the other end of this GPIO?
->
->https://wiznet.io/products/ethernet-chips/w5100
->
->suggests it has an integrated PHY. So why is a GPIO needed to report
->link?
->
->Thanks
->	Andrew
+Hi Abdurrahman,
 
-Hi Andrew,
+Thanks for your patch!
 
-the W5100/W5500 exposes directly a LINKLED pin for the carrier status.
-On my board (RPi), that pin is wired to a GPIO to detect changes on the host
-directly via an interrupt.
+On Thu, 23 Jul 2026 at 05:26, Abdurrahman Hussain
+<abdurrahman@nexthop.ai> wrote:
+> of_overlay_fdt_apply() stores the idr_alloc() return value in
+> ovcs->id before checking it. On failure the stored id is negative and
+> the error path runs free_overlay_changeset(), whose "if (ovcs->id)"
+> check passes: idr_remove() is called with a negative id and
+> list_del() runs on ovcs->ovcs_list, which is not initialized until
+> after the id allocation. An allocation failure at that point
+> dereferences NULL.
 
-Arthur
+Nice catch!
+
+>
+> Reset ovcs->id to 0 before taking the error path.
+>
+> Fixes: 61b4de4e0b38 ("of: overlay: minor restructuring")
+> Assisted-by: Claude:claude-fable-5 [Claude Code]
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+
+> --- a/drivers/of/overlay.c
+> +++ b/drivers/of/overlay.c
+> @@ -1038,6 +1038,8 @@ int of_overlay_fdt_apply(const void *overlay_fdt, u32 overlay_fdt_size,
+>         ovcs->id = idr_alloc(&ovcs_idr, ovcs, 1, 0, GFP_KERNEL);
+>         if (ovcs->id <= 0) {
+>                 ret = ovcs->id;
+> +               /* free_overlay_changeset() treats a set id as registered */
+> +               ovcs->id = 0;
+
+(Alternatively, free_overlay_changeset() could check for a
+strict-positive id)
+
+However, I am wondering if this is the right fix?
+
+All error cases above just return an error code, without doing
+any cleanup. Failing to allocate an ID doesn't add any extra state...
+
+>                 goto err_free_ovcs;
+
+... so shouldn't this just  be changed to "goto out_unlock" instead?
+
+>         }
+>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
