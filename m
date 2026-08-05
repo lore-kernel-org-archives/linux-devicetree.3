@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E7346D573
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:57:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75DC4399C4
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:57:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785934677; cv=none; b=rTG6Qt6mjb4Rn49n5q91obg9npRwHTmJTYGUqdIfLWIuvlWtFZCF8SMgi2ABjTRvhPh4FeB82jQTTGuLhIcB7lHmLQeBZLDLnqxAa0JDmyIG4H+WuWeQBfPi2GyJXE+mB3tiyAAGPr6CqBQSBJjpidmPMIu8GGihEYTWqEEoP/8=
+	t=1785934677; cv=none; b=hrjwdDz1V4vQQlGaq4CRxZ3e2NiOBvMfNYkAfo41hgJCfipFjQ9Lucdsk4+qfMbcLsLMktGfftgN8tfFZjcbiIBxrCnLf7bej0vBEkDlHJHKHFXk+gDxx3/fkk1OOIF0RI0WhE/qD/D4tJLOkPh6gZIF01ZEBOnU7wa1UjvkYBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785934677; c=relaxed/simple;
-	bh=KMkh3gxtyWEkOgLRfwqFzDhYWd/wS1bV2q0OUBnwZx0=;
+	bh=1+otrgwOpmeE6Od/gRkFxz6J4yLXjbeGELibuZJlhWo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dUHyEDJnPSV/oOLUpfgG3Mif91LGKpw0v8GZ0yFlReOoMrjFnQQ+GenbqbkZyZD8cquIb9GNEu5pw2sEnOK7SLZ6Tn7AQpCamGNayuu3veBU3KbPZniCY0tZ4aozHeuSosk0ja5DdOzwDYd5ag7S8vaJLzLiBQr9zooGIF4YNtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c3l+iaFp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=uzNaRM+8Snf9NRLJlAN9QIkjwCRK7ut9eBMmNGBmEtYZpyot2fM12fyVPhvz78UuYm+aFCN2XqmsjVwtAQkqXil4ZKNRcyfnUi4RVQYtI84ePV6Cd/kPP5xXwLCBko4dbLoa/vpig3947xfTVnoepAmmwxB7Ax6w01gwwgyFhgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmFc224z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c3l+iaFp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1161F000E9;
-	Wed,  5 Aug 2026 12:57:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmFc224z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F6D51F00A3E;
+	Wed,  5 Aug 2026 12:57:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785934675;
-	bh=UHbovGeAwxr8u34ZR+ujkfdUnvuPLG92tabwZwN3GfI=;
+	s=k20260515; t=1785934676;
+	bh=2NQ783My2xDV8q9DO17q6L2F88wUOiMRSZfa1PItUpQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c3l+iaFpTZvnQ+92viyEM2CXGHcv90FgBQ3qDRKlhw5u/fawtziJFhWvRYpPXTlEy
-	 bFYXSbe4o9Wq4e8UoKzIkYRHuBgRtzk1pzOdEA2/Fp7mNownN9eFwp+PXYschn0z6G
-	 COfEPHA3IBXcxLea6PPo7Y1aXanfmI7VwtdS8A1eMWWM8PsZcRFWuqKCnnr08mFSxS
-	 JWpK0Duku/iI4m2jh6R0A6Thu9VyTbfdyA5fyxlXcSzEGGoEGJ8o63LO1PzAa9hsJY
-	 f2TmAK85gA0vM4kTEJIQ/JNN1k9tbEWvCxdIabaJwxDJWG1b2YD1fWqhpCTojj+g4y
-	 qdD67s8L+Ty5Q==
+	b=WmFc224zLIag6JWJpEgu7cUaF0opHVffToXApn9MKSw8PvsVZbw35zcyG+SZAQuDu
+	 9nCB9j/dorz45kKC3dT/BM+07qpzaRv+sGDvLb9XAL3BoeHyiH324rFvFR/DyXWlO+
+	 VW4BCvTP4iHx5Sz+Vci/f3/BFlYbcILyJvDIqa6XuKuBi1YhzMDrlK8emqpEXQS6CN
+	 VWF/JoIdGD87e4XcPqg/ZuH05ejbp28FjhGwTVoRCAHliidpMPkidfHFuNebi0BEs6
+	 UESYemE2oX4EwYk4+5nhj8jXuQTn8ST9+qp/3MfDs+mUGp98fWXgVUzMmxwayvWfLK
+	 URrT/fR8c4mRA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 21/36] pinctrl: airoha: remove not needed irq_type[]
- array
+Subject: Re: [PATCH v10 11/36] pinctrl: airoha: fix I2C pin mux config for
+ AN7583
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260805123408.3767648-22-mikhail.kshevetskiy@iopsys.eu>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260805123408.3767648-12-mikhail.kshevetskiy@iopsys.eu>
 References: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
- <20260805123408.3767648-22-mikhail.kshevetskiy@iopsys.eu>
+ <20260805123408.3767648-12-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 12:57:54 +0000
-Message-Id: <20260805125755.3D1161F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 12:57:55 +0000
+Message-Id: <20260805125756.1F6D51F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,65 +47,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The irqchip callbacks (airoha_irq_unmask, airoha_irq_mask, airoha_=
-irq_ack) call regmap functions which take a spinlock while running under th=
-e raw_spinlock_t of the irq descriptor, leading to lock nesting violations =
-on non-RT (with PROVE_RAW_LOCK_NESTING) and deadlocks/sleeping-in-atomic on=
- PREEMPT_RT.
+- [Medium] Missing Devicetree Binding Update for AN7583 'i2c0' pin group
 --
 
---- Patch [21]: [PATCH v10 21/36] pinctrl: airoha: remove not needed irq_ty=
-pe[] array ---
-commit c04f7b2c079eefe11ed72d70dd01520d657ba1d1
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+--- Patch [11]: [PATCH v10 11/36] pinctrl: airoha: fix I2C pin mux config f=
+or AN7583 ---
+commit e28587d243bbc4921ed81a1b0233d819959a9116
+Author: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
 
-pinctrl: airoha: remove not needed irq_type[] array
+pinctrl: airoha: fix I2C pin mux config for AN7583
 
-The irq_type[] array inside airoha_pinctrl_gpiochip structure is not
-actually necessary. This commit removes it and uses the trigger type
-from struct irq_data instead.
+This commit adds dedicated I2C pin groups and function groups for AN7583.
+It introduces new groups to support both i2c0 and i2c1 because both busses
+share pins with GPIO.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
 roha/pinctrl-airoha.c
+> index 2695342adfc76..7de07d002d05f 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -896,6 +896,7 @@ static const char *const uart_groups[] =3D { "uart2",=
+ "uart2_cts_rts", "hsuart",
+>  					   "hsuart_cts_rts", "uart4",
+>  					   "uart5" };
+>  static const char *const i2c_groups[] =3D { "i2c1" };
+> +static const char *const an7583_i2c_groups[] =3D { "i2c0", "i2c1" };
 
-[ ... ]
+[Severity: Medium]
+Will this addition cause device tree validation failures?
 
-> @@ -2628,7 +2626,7 @@ static void airoha_irq_mask(struct irq_data *data)
->  	u8 index =3D data->hwirq / AIROHA_REG_GPIOCTRL_NUM_PIN;
->  	u32 mask =3D GENMASK(2 * offset + 1, 2 * offset);
-> =20
-> -	if (data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type))
-> +	if (data->hwirq >=3D AIROHA_NUM_PINS)
->  		return;
-> =20
->  	regmap_clear_bits(pinctrl->regmap, gpiochip->level[index], mask);
+Looking at Documentation/devicetree/bindings/pinctrl/airoha,an7583-pinctrl.=
+yaml,
+the schema strictly limits the "i2c" function's valid groups to only "i2c1":
 
-[Severity: High]
-This is a pre-existing issue, but does calling regmap functions here cause a
-lock nesting violation?
+          - if:
+              properties:
+                function:
+                  const: i2c
+            then:
+              properties:
+                groups:
+                  enum: [i2c1]
 
-The IRQ subsystem invokes callbacks like airoha_irq_mask(),
-airoha_irq_unmask(), and airoha_irq_ack() while holding desc->lock, which i=
-s a
-raw_spinlock_t. Inside these callbacks, the code calls regmap_clear_bits() =
-and
-regmap_write() on pinctrl->regmap.
+If a user specifies function =3D "i2c" and groups =3D "i2c0" in a board dev=
+ice
+tree, it will fail dtbs_check schema validation, despite being valid and
+supported by the updated driver.
 
-Syscon regmaps default to a standard spinlock_t. Acquiring a spinlock_t whi=
-le
-holding a raw spinlock can lead to lockdep warnings on non-RT kernels, and
-sleeping in atomic context or deadlocks on PREEMPT_RT where spinlock_t beco=
-mes
-a sleepable lock.
-
-Could this regmap be configured to use a raw spinlock, or could these regis=
-ter
-accesses be handled outside the raw spinlock context?
+Should the device tree binding document be updated alongside this change to
+allow the new "i2c0" group?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805123408.3767=
-648-1-mikhail.kshevetskiy@iopsys.eu?part=3D21
+648-1-mikhail.kshevetskiy@iopsys.eu?part=3D11
