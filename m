@@ -1,165 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B013D6688;
-	Wed,  5 Aug 2026 20:50:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533AD3CFF73;
+	Wed,  5 Aug 2026 20:51:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785963048; cv=none; b=Cn1tS2ZhDe90yupMRIUy0qH1MLmBCFGmZZjmY59oEpOpZbeUQ4UC1VugYJEXh3Gc9I3GbwCxD+WWzttVt0sNtGGlrFY79FIhjo8piJQwLtzWh6nebzWNw9mHOaD/Nxq6u4OQDM+rqXvfhbVZ68BfKbGTSCjfo2xPOihvOrQuWpQ=
+	t=1785963113; cv=none; b=QSrMe4Tf3KqW/hNAGS4e5YPH8V3/pezKwoJuWo+DEpd88UWPnH1GoOy8NSn8lhDBswdd/3GThCFZgPie2ukhQhrkqHSZn2YSztMAsQdnEmea2LJ3z3llgxhEhuyhpIfCh+SbwlF96Njgg2BfD2bqIst3L7DzL55Vct4agumIRBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785963048; c=relaxed/simple;
-	bh=x9RLYW+/E4PHjhuGD/U1f9/icKaLT4GvUvpvF58YiEs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YNsgMXsoNEuOjVsB/qGJVyoKP4zGyA68CbfVFGbgq7Zb2OUvFusUesSnRV97z7yMFm2YqJuiBw1NmdlW0Ryab5DEMrxP5zm0GYsqVfcLy7gTCBrQIT7Z9f1W6bjR0tGgIVoWrILqTDSaoPE25D0uAJ/p14w0OycmVtMuViw/cUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WncqtGrp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785963113; c=relaxed/simple;
+	bh=nSDv6gsYU/zE/ra5Y7FbphgIXT3Dv2ggh9xnaji/iqQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rvcO1XNhIE47+8Ft+c9n4U6uKDnxt/KWNqaZcuiFEEUfjf+gM+LffKFv6Zs0GNvy8wm+vNAGtT36bA4xlXMYeUuJdAHBdi72LVTExJ4d7F8NIfNPMHnLMQPgLLS3njWlLOpW52UoK5kWVepqiMRdVp4tQrbx/MtFxVhtTzEpuYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Osl062HF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WncqtGrp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C741F00A3A;
-	Wed,  5 Aug 2026 20:50:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Osl062HF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9F3A1F000E9;
+	Wed,  5 Aug 2026 20:51:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785963046;
-	bh=G++DbwSiUfVLHD8mc41VhyTUG03Wep5oKHw2pOGnKgU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WncqtGrpdC8Yzn9eLoX3ZVFiSW7ZWrIypm/oqVAUoMefWs1UPjmWxM3x+2zq+J27m
-	 QAaJKWgrC+pc4ItCtATBZGIvZZrwpXng00pybpJntvEJYmXvgZ9p7NqjkBqkl5FnTo
-	 t/JORJItzPpYup5zcO1wRpN9nr2FCW86cVBBicnkWy+CvOsKU9kTsx27kiOetB41fG
-	 PbtwipVRsCwF1w+1w9/1PjF3C4AIHga265v98pk1LTcqGoOKpX8ZLOlrNxMz4ZB4fc
-	 emJwqwAHRPoOj+8cf4oJJZFBzvuZ44W1PSubucX148xBnAonhoMTD7TZWc9bk8SWBW
-	 AFlV0iC3h0Itw==
-Date: Wed, 5 Aug 2026 13:50:44 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v6 3/8] riscv: Add support for srmcfg CSR from Ssqosid
- extension
-Message-ID: <anOiJHmU24Lpbizi@x1>
-References: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org>
- <20260729-dfustini-atl-sc-cbqri-dt-v6-3-7c22b05d461b@kernel.org>
- <3b6dd35e-dabb-3cb0-547f-0c8a0b035e1a@kernel.org>
+	s=k20260515; t=1785963112;
+	bh=eki0lefN3M9oEKKaIqzHxa+VXo1saiYqEzzNKI5+fjE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Osl062HFS47jMFLo0qsAj5oY6h6E7o7pU/wVQ8tpltaOnJbwR6stN3Q+fsQorbRFC
+	 dpR0w+EHpoQxRg/FS7ecrHINzxRrhAul34wAmlzPMcjstS4ttNG6cUq5tLuNAcwBf8
+	 tSpskp8R/6ZgorPRXtdw8dyD1JSiatJofnCelsVS9qG24LQKZaz5to2G1kNdhny+mm
+	 l8+4Y+kbiWOMBAbzk6aqFFe/6f1T1NsW02RdBST7BKoVbTRQN2/Xfp+mW+0Ta5PZsi
+	 juEy9ba4ipmStyLqb4TkzfwOBndoY4GtY5OBwUepwcsMb55rRjTJllU9WNSN8WosIu
+	 RFXK/vAp1ZanQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] rtc: s35390a: Add pinctrl
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst" <markus.probst@posteo.de>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org
+In-Reply-To: <20260805-rtc_s35390a_int1-v3-4-e836faba3e25@posteo.de>
+References: <20260805-rtc_s35390a_int1-v3-0-e836faba3e25@posteo.de>
+ <20260805-rtc_s35390a_int1-v3-4-e836faba3e25@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 20:51:48 +0000
+Message-Id: <20260805205149.E9F3A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3b6dd35e-dabb-3cb0-547f-0c8a0b035e1a@kernel.org>
 
-On Wed, Aug 05, 2026 at 12:54:42PM -0600, Paul Walmsley wrote:
-> Hi,
-> 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The driver initiates I2C communication with the hardware before ho=
+noring the required Power-On Circuit (POC) delay, violating the initializat=
+ion sequence.
+- [High] The pinctrl driver cannot parse device tree pin configuration node=
+s because it is missing the `dt_node_to_map` callback.
+- [High] Reading the `STATUS1` register to check or clear pending alarms in=
+advertently clears the alarm flags for both pins, causing lost wakeup event=
+s.
+- [Medium] The driver introduces a hard dependency on `CONFIG_PINCTRL`, bre=
+aking existing kernel configurations.
+--
 
-> On Wed, 29 Jul 2026, Drew Fustini wrote:
-> 
-> > Add support for the srmcfg CSR defined in the Ssqosid ISA extension.
-> > The CSR contains two fields:
-> > 
-> >   - Resource Control ID (RCID) for resource allocation
-> >   - Monitoring Counter ID (MCID) for tracking resource usage
-> > 
-> > Requests from a hart to shared resources are tagged with these IDs,
-> > allowing resource usage to be associated with the running task.
-> > 
-> > Add a srmcfg field to thread_struct with the same format as the CSR.
-> > The context-switch path writes the field to the CSR, and
-> > resctrl_arch_set_closid_rmid() updates it when a task is assigned to a
-> > resctrl control or monitoring group.
-> > 
-> > A per-cpu cpu_srmcfg_default holds the default srmcfg for each CPU, set
-> > by resctrl_arch_set_cpu_default_closid_rmid() on CPU group assignment.
-> > On context switch, RCID and MCID inherit from the CPU default
-> > independently: a task whose thread RCID field is zero takes the CPU
-> > default's RCID, and likewise for MCID.
-> 
-> Thanks, queued for v7.3, but with one change (below):
-> 
-> > diff --git a/arch/riscv/include/asm/qos.h b/arch/riscv/include/asm/qos.h
-> > new file mode 100644
-> > index 000000000000..cf19e8438bb9
-> > --- /dev/null
-> > +++ b/arch/riscv/include/asm/qos.h
-> > @@ -0,0 +1,74 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +#ifndef _ASM_RISCV_QOS_H
-> > +#define _ASM_RISCV_QOS_H
-> > +
-> > +#include <linux/percpu-defs.h>
-> > +
-> > +#ifdef CONFIG_RISCV_ISA_SSQOSID
-> > +
-> > +#include <linux/bitfield.h>
-> > +#include <linux/cpufeature.h>
-> > +#include <linux/sched.h>
-> > +
-> > +#include <asm/csr.h>
-> > +#include <asm/hwcap.h>
-> > +
-> > +/* cached value of srmcfg csr for each cpu */
-> > +DECLARE_PER_CPU(u32, cpu_srmcfg);
-> > +
-> > +/* default srmcfg value for each cpu, set via resctrl cpu assignment */
-> > +DECLARE_PER_CPU(u32, cpu_srmcfg_default);
-> > +
-> > +static inline void __switch_to_srmcfg(struct task_struct *next)
-> > +{
-> > +	u32 thread_srmcfg, default_srmcfg;
-> > +
-> > +	thread_srmcfg = READ_ONCE(next->thread.srmcfg);
-> 
-> What is the intent of the READ_ONCE() here?  
-> 
-> I've dropped it from what's been queued for now.  If it's really 
-> needed, please let us know why.
-> 
-> 
-> thanks,
-> 
-> - Paul
+--- Patch [4]: [PATCH v3 4/5] rtc: s35390a: Add pinctrl ---
+commit f348aaf86d41faa0c844cc513c01b349d5a5d4e3
+Author: Markus Probst <markus.probst@posteo.de>
+Subject: rtc: s35390a: Add pinctrl
 
-Thanks for queuing this patch. It is okay to leave out the READ_ONCE()
-since only Patches 1-3 are being applied.
+Allow configuration of pin functions, including keeping previous config,
+disabling output, waking up, and minute periodical interrupt. Fallback to
+previous behavior if not configured.
 
-The READ_ONCE() is meant to pair with the WRITE_ONCE() in
-resctrl_arch_set_closid_rmid(), which comes in patch 5. RCID and MCID
-share the srmcfg csr, and resctrl can update thread.srmcfg from another
-hart while this task is switched in.
+> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+> index 01def82318731..4e0374129a4ed 100644
+> --- a/drivers/rtc/Kconfig
+> +++ b/drivers/rtc/Kconfig
+> @@ -668,6 +668,7 @@ config RTC_DRV_RC5T619
+> =20
+>  config RTC_DRV_S35390A
+>  	tristate "Seiko Instruments S-35390A"
+> +	depends on PINCTRL
 
-Without READ_ONCE(), the compiler may reload the field between the zero
-test and the two FIELD_GET() calls, so thread_srmcfg could end up with
-RCID from the old value and MCID from the new one. arm64 MPAM uses
-READ_ONCE() here for the same reason for mpam_get_regval() in
-arch/arm64/include/asm/mpam.h
+[Severity: Medium]
+Since the kernel pinctrl subsystem provides dummy stubs when CONFIG_PINCTRL=
+ is
+disabled, should this be a hard dependency? This will prevent building the
+driver on platforms without pinctrl support, breaking existing configuratio=
+ns.
 
-Thanks,
-Drew
+> diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
+> index 575bb256eb258..d63bdeff8cdbc 100644
+> --- a/drivers/rtc/rtc-s35390a.c
+> +++ b/drivers/rtc/rtc-s35390a.c
+[ ... ]
+> @@ -343,33 +343,35 @@ static int s35390a_rtc_set_alarm(struct device *dev=
+, struct rtc_wkalrm *alm)
+[ ... ]
+> +	err =3D s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts)=
+);
+> +	if (err < 0)
+> +		return err;
+> +
+> +	/* clear pending interrupt (in STATUS1 only), if any */
+> +	err =3D s35390a_get_reg(s35390a, S35390A_CMD_STATUS1, &tmp, sizeof(tmp)=
+);
+> +	if (err < 0)
+> +		return err;
+
+[Severity: High]
+Since reading STATUS1 acts as a clear-on-read for both INT1 and INT2 interr=
+upt
+flags, won't this unconditional read wipe out any pending interrupts for the
+other pin?
+
+[ ... ]
+> @@ -453,13 +528,181 @@ static int s35390a_nvmem_write(void *priv, unsigne=
+d int offset, void *val,
+[ ... ]
+> +	case S35390A_FUNC_WAKEUP:
+> +		flag =3D group =3D=3D 0 ? S35390A_INT1_MODE_ALARM : S35390A_INT2_MODE_=
+ALARM;
+> +		if ((buf & mask) !=3D flag) {
+> +			buf =3D (buf & ~mask) | S35390A_INT_MODE_NOINTR;
+> +			break;
+> +		}
+> +
+> +		err =3D s35390a_read_status(s35390a, &status1);
+
+[Severity: High]
+Similarly, if s35390a_pinctrl_set_mux() is called twice during initializati=
+on
+(once for each pin), won't the first call to s35390a_read_status() clear the
+flags for both pins, causing the second call to lose any pending wakeup eve=
+nt?
+
+[ ... ]
+> +static const struct pinctrl_ops s35390a_pinctrl_ops =3D {
+> +	.get_groups_count =3D s35390a_pinctrl_get_groups_count,
+> +	.get_group_name =3D s35390a_pinctrl_get_group_name,
+> +	.get_group_pins =3D s35390a_pinctrl_get_group_pins,
+> +};
+
+[Severity: High]
+Is this struct missing the dt_node_to_map callback (e.g.,
+pinconf_generic_dt_node_to_map_all)? Without it, the pinctrl subsystem will=
+ fail
+with -ENODEV during pinctrl_dt_to_map(), which ignores any custom pin
+multiplexing requested via device tree.
+
+[ ... ]
+> @@ -493,39 +741,16 @@ static int s35390a_probe(struct i2c_client *client)
+[ ... ]
+> +	err =3D s35390a_disable_test_mode(s35390a);
+> +	if (err < 0) {
+> +		dev_err(dev, "error disabling test mode\n");
+> +		return err;
+> +	}
+[ ... ]
+> +	err =3D devm_pinctrl_register_and_init(dev, &s35390a_pinctrl_desc, s353=
+90a, &pctl);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "pinctrl register failed\n");
+> +
+> +	err =3D pinctrl_enable(pctl);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "pinctrl enable failed\n");
+[ ... ]
+> +	err =3D s35390a_read_status(s35390a, &status1);
+> +	if (err < 0) {
+> +		dev_err(dev, "error resetting chip\n");
+> +		return err;
+> +	}
+
+[Severity: High]
+Does moving the s35390a_read_status() call to later in the probe sequence v=
+iolate
+the Power-On Circuit delay?
+
+The s35390a_disable_test_mode() and pinctrl_enable() calls both trigger I2C
+communication. If the hardware is still in the 0.5-second POC delay period,
+communicating with it before checking the POC flag in s35390a_read_status()
+might lead to I2C bus hangs or silent failures on cold boot.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-rtc_s35390=
+a_int1-v3-0-e836faba3e25@posteo.de?part=3D4
