@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCB5238C36
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 23:02:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E731A3F5BC5
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 23:06:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785970978; cv=none; b=sIXqhz1xRHCjqqnmv6dQK/RWHtZBSa8iMRIhEwyRpsvzbhtEApi5fZbKgYuFywDVBzNNHZDudGue/wEZcP8CPvaGKaZ6cJ7EOfMVeTA3L08/eH58F2EQSztm9idXHS/EJ4Y3tMh1bxY/qOoer6GasEYXN7efRZ7C7uC05ajLhYM=
+	t=1785971176; cv=none; b=KyiCfMadA0NRzZ45jixhc6vjuY+3cEx+/J1O3QODCodEqlwtiN4SRVlPuskxBuQpl46FCA8NyFxSQxHpe8F0BTqWPtdzGJaIQc7Hna7hytKk4njhhCYiuhtlbp+8AIAh3tdpgcxLS0jXJdoY6qTfylIU6SLgnUPK60txv077JHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785970978; c=relaxed/simple;
-	bh=8YrQhZrbUex0bTLdSI4xF+7c9P2EWm44vYMXtXHNxd0=;
+	s=arc-20240116; t=1785971176; c=relaxed/simple;
+	bh=LDpstRU26Uo0UhLOf+DW/ksIqaNhEyuLMHNMDZvBgEw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JXWMcOP1TiV05wrW9cNhGqlVFoY52taqDXjlZgMICF0LL9yyTjHS0kZvac4sqMPFbJlB8RkJoA0aZuYj/ZiSHdFkKYbfZtmq6oPbNj4dFTZlmQp+Yz/Ezzxw8Nmg5Zp7/XGKczHE+tboghccyBv6m9muJ8JJMTJ7iULsXDAzOiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GC+16zec; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jhZQZ7flKGH3F2IpPDDLPem0WMD4ufhgxlBdY0DH02dHEQf5kLA4+p0zHRQydp9xBDRgd1B9ArM8ZysdrdFFmsVj2AVQrPuea05AacFVoj0IFHLyv5NoodCIha/lk4yJem/50ZSF1Zg+wy0GL0KNN+N03fbQAmy74rSvPIN58hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jl68Fm+V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GC+16zec"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41AA61F000E9;
-	Wed,  5 Aug 2026 23:02:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jl68Fm+V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 521AC1F000E9;
+	Wed,  5 Aug 2026 23:06:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785970976;
-	bh=GW6PinTeV86Lo9qumCbnlmHZHc11X2eQHIxVjAS93vU=;
+	s=k20260515; t=1785971174;
+	bh=wxxteWKlXMt8O2AfB76u1LLOqG/GE4mlfh8/E7+j1bs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GC+16zecaZSdiLe4f6dcFvPWojbY7LVw+Zxg3RZUSzfMOkPb+GRkV5d6iPcbWuEu6
-	 qONE7jbIth8j/NS9DfCB+orfKaKOpkKEfnb4d7z4CuRqN39V+yv0kpM1p9JCVlgZI8
-	 Nt4DnEnKkPQpOoBTWi57Kcbp5dAwEZzSE5Ot4x2xs293HevvZaIZPOqX3VoF7Nr0QJ
-	 SFyr8keoAYiSwer3o2+SqW7Xb9+VVo3VEvXQX74lhnQFXGk87J8d8He0FUroXbCElN
-	 jYFNkjvpx4pDAQUavVyAe6JU0f0qE3BICyzyLj6GgaRTd0SjLOyirubjxoxcc0oQlM
-	 CVq+gBEquJwDw==
+	b=Jl68Fm+VrFXJDXUGPIqf1EH5qrMGojXR+JRSrSK4uLenSVMDewjzpo9vu4OMypAPY
+	 CcP7ysZfj3QAUNCd8NNVn751YctUtCbounC1NClhORp0mSZZYbfAM18b03d/9d4c1v
+	 YiyHzJxSOkPuCxWeJzAw/R3Cub9nxUWpOjUSht2E0V+RruZBiYYuTe3UmqJXouCCih
+	 yYN5o7iQZtq+iNS8e/wf3RQ2v/Br6h/F0u7tKNonFzNSgsFED3kt4jGRnuD04RfTdC
+	 /7IBA5pCnbtGuKY3QNjxhs0sHJWnMUi4hvh3C6VT34/ONjoc7XPOCVYcmUPCfz3m9x
+	 c6aH/zuWrL9vA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] arm64: dts: ti: k3-am62: Set MMC clock pins as
+Subject: Re: [PATCH v3 2/4] arm64: dts: ti: k3-am62a: Set MMC clock pins as
  OUTPUT
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Judith Mendez" <jm@ti.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805225438.464184-4-jm@ti.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260805225438.464184-3-jm@ti.com>
 References: <20260805225438.464184-1-jm@ti.com>
- <20260805225438.464184-4-jm@ti.com>
+ <20260805225438.464184-3-jm@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 23:02:55 +0000
-Message-Id: <20260805230256.41AA61F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 23:06:13 +0000
+Message-Id: <20260805230614.521AC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,83 +49,57 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Medium] The patch incompletely applies a required hardware fix for AM62x=
- SoCs. While it updates MMC clock pins to PIN_OUTPUT to comply with the AM6=
-2x TRM (RXACTIVE =3D 0) on TI evaluation boards and Beagle boards, it misse=
-s several third-party AM62x device trees (e.g., Toradex Verdin, PHYTEC phyC=
-ORE/phyBOARD, and TQ-Systems). This leaves these boards in violation of the=
- SoC hardware specification, which requires the receiver to be disabled.
+- [High] Incomplete fix for AM62A TRM MMC clock pin configuration, missing =
+the phyCORE-AM62A SOM.
 --
 
---- Patch [3]: [PATCH v3 3/4] arm64: dts: ti: k3-am62: Set MMC clock pins a=
-s OUTPUT ---
-commit 139fe185686919a76207d40e04e2f122da9dca42
+--- Patch [2]: [PATCH v3 2/4] arm64: dts: ti: k3-am62a: Set MMC clock pins =
+as OUTPUT ---
+commit b38183ead6a0951c2fe280be51beca049f7e3062
 Author: Judith Mendez <jm@ti.com>
 
-arm64: dts: ti: k3-am62: Set MMC clock pins as OUTPUT
+arm64: dts: ti: k3-am62a: Set MMC clock pins as OUTPUT
 
-This commit updates the device trees for TI evaluation and Beagle boards
-to configure MMC clock pins as OUTPUT-only. This complies with the AM62x
-TRM requirement to keep the receiver disabled (RXACTIVE =3D 0).
+This commit updates the device tree for the AM62A7-SK board to configure the
+MMC clock pins as output-only. This matches the TRM requirement to disable
+the receiver.
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62-lp-sk.dts b/arch/arm64/boot/d=
-ts/ti/k3-am62-lp-sk.dts
-> index dfd65c00f5b95..7fd508f4eddf1 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62-lp-sk.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am62-lp-sk.dts
-> @@ -86,7 +86,7 @@ main_mmc0_pins_default: main-mmc0-default-pins {
->  		bootph-all;
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts b/arch/arm64/boot/dt=
+s/ti/k3-am62a7-sk.dts
+> index 826fff38cfb77..9b120cd9b0c37 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+> +++ b/arch/arm64/boot/dts/ti/k3-am62a7-sk.dts
+> @@ -324,7 +324,7 @@ AM62AX_IOPAD(0x0b4, PIN_INPUT_PULLUP, 1) /* (K24) GPM=
+C0_CSn3.I2C2_SDA */
+>  	main_mmc0_pins_default: main-mmc0-default-pins {
 >  		pinctrl-single,pins =3D <
->  			AM62X_IOPAD(0x220, PIN_INPUT, 0) /* (V3) MMC0_CMD */
-> -			AM62X_IOPAD(0x218, PIN_INPUT, 0) /* (Y1) MMC0_CLK */
-> +			AM62X_IOPAD(0x218, PIN_OUTPUT, 0) /* (Y1) MMC0_CLK */
+>  			AM62AX_IOPAD(0x220, PIN_INPUT, 0) /* (Y3) MMC0_CMD */
+> -			AM62AX_IOPAD(0x218, PIN_INPUT, 0) /* (AB1) MMC0_CLK */
+> +			AM62AX_IOPAD(0x218, PIN_OUTPUT, 0) /* (AB1) MMC0_CLK */
 
-[Severity: Medium]
-This is a pre-existing issue, but this patch seems to miss several third-pa=
-rty
-AM62x boards that also leave the MMC clock pins incorrectly configured as
-PIN_INPUT.
+[Severity: High]
+This is a pre-existing issue, but since you are fixing the TRM MMC clock pin
+configuration for the AM62A, should we also fix the same violation on the
+phyCORE-AM62A SOM?
 
-Should these device trees also be updated to comply with the hardware
-specification and prevent potential signal integrity issues?
+In arch/arm64/boot/dts/ti/k3-am62a-phycore-som.dtsi in main_mmc0_pins_defau=
+lt:
 
-For example, the Toradex Verdin leaves MMC0_CLK configured with PIN_INPUT:
+        main_mmc0_pins_default: main-mmc0-default-pins {
+                pinctrl-single,pins =3D <
+                        AM62AX_IOPAD(0x220, PIN_INPUT_PULLUP, 0) /* (Y6) MM=
+C0_CMD */
+                        AM62AX_IOPAD(0x218, PIN_INPUT_PULLDOWN, 0) /* (AB7)=
+ MMC0_CLK */
 
-arch/arm64/boot/dts/ti/k3-am62-verdin.dtsi:pinctrl_sdhci0() {
-    ...
-    AM62X_IOPAD(0x218, PIN_INPUT,        0) /* (AB1) MMC0_CLK  */
-    ...
-}
+The MMC0_CLK pin there retains the receiver-enabled PIN_INPUT_PULLDOWN sett=
+ing
+instead of being updated to PIN_OUTPUT as required by the TRM. Can this cau=
+se
+signal integrity issues or MMC bus errors on that board?
 
-The PHYTEC phyCORE and phyBOARD-Lyra boards use PIN_INPUT_PULLDOWN:
-
-arch/arm64/boot/dts/ti/k3-am62-phycore-som.dtsi:main_mmc0_pins_default() {
-    ...
-    AM62X_IOPAD(0x218, PIN_INPUT_PULLDOWN, 0) /* (AB1) MMC0_CLK */
-    ...
-}
-
-arch/arm64/boot/dts/ti/k3-am62x-phyboard-lyra.dtsi:main_mmc1_pins_default()=
- {
-    ...
-    AM62X_IOPAD(0x234, PIN_INPUT_PULLDOWN, 0) /* (B22) MMC1_CLK */
-    ...
-}
-
-The TQ-Systems boards also leave them configured with PIN_INPUT:
-
-arch/arm64/boot/dts/ti/k3-am625-tqma62xx.dtsi:main_mmc0_pins() {
-    ...
-    AM62X_IOPAD(0x218, PIN_INPUT, 0)
-    ...
-}
-
-arch/arm64/boot/dts/ti/k3-am625-tqma62xx-mba62xx.dts:main_mmc1_pins() {
-    ...
-    AM62X_IOPAD(0x234, PIN_INPUT, 0)
-    ...
-}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805225438.4641=
-84-1-jm@ti.com?part=3D3
+84-1-jm@ti.com?part=3D2
