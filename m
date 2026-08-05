@@ -1,103 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FF03E3C50
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499F03E2751;
+	Wed,  5 Aug 2026 07:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914851; cv=none; b=hWtxmIKs3b+9Li5YJ4bwJqoElt3IivRkPdOVpvKqmoSxwJM18mmTBOQbOgaZG2zNjBwGcPSl/p87NxHGQGdEmZz1ByxQLg8INXKEYglJBB9nzW7VKpBv48PjFhqc226bYppfmGsugy95RmYoxcMiUGNZQhUmJRjTxyuxFaE6w0w=
+	t=1785914866; cv=none; b=n6il86O/jui8hl+WqnsovGUo2xZwL4diOfTJ2Pt0yC9my4+E/Pc6jG8lVeadQ+BVeSQhF3L5mt1DG4GC4Mo5KgrUO6dwBZVqhjPSTBeH+8y2GYtFvLHffzgTRs6E9Qz16GR1f2MMhDRnqr33YrwwvjcM0SVtt0rjWX1NgFlVrKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914851; c=relaxed/simple;
-	bh=ZrkOfah2AWxX2Byb9D8nL75X7vvqGcC0ILba6IkorXQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=du2++yFMcmnw6W0Rmanyvf0ZW6LUUeV73QE7095r0nZAzK8omIu9s2fD7b/V+/kH+RBot8x4ILQTKr6kRXh+PgFSgra42f+GLdjxOdIuMvaKeWuwGOzLOaloZTrx82eY1Z1ePz4x2kf/ck0324O0Tdor0Q9OGsjqrmnaHn+dqIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kmp3dKrW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785914866; c=relaxed/simple;
+	bh=/THlU54KUko1Cw/ErGgDQYX/dRBeRks7OihaDRRj1Kc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W6zyPjDEuibcrvtV6UgWGWoPgmxGGqOcunQRUOUesQ2KGZpG0WZ1+X9v79nNg7Ps1lrijVS1d4J/efliVGt+aJ5A+9xJtJvzo81N7HWyLeF+a/Ta+yqhE++plSSXqm9bcWwWuFSyzgSC1lPlho7CNiKORt+UajSpKUuRIbceURY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yEayGdda; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=fkzURMFP; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kmp3dKrW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56A121F000E9;
-	Wed,  5 Aug 2026 07:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785914849;
-	bh=RRccaX1H44lv9wd4FtNsO6xk209xvOOtVd/Wd9QfG2Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kmp3dKrWD11ukmGoaYFBnZXfTek7LVTLT3VzewEb18mx1aMCLcxF3lFFkXgI3uWEK
-	 mVEJloYeTb66F5kOBCu48okLXTw2+GK/PphwhOb0DeZ2Nq6pIddrh2v+4m3YiFuGeX
-	 JAxqvfkNc9nyeGN+Xqx7WJS69gy59O+643Hir5OVnbB80+31jxsRNwTT2X6ng2+K1I
-	 wn4TXD5jBOd65+qOzbcI8fWp/KkcllgmDe1riYYcf2j6NQ8Sx3hhE6tW2kGFTLAOb1
-	 VIVGTPF2b3onJ43trn0bcDuxvdE+P2Z/ss6hgkotLp0x4qwnfydFK2z0qYo9IZpUMu
-	 JC+RYlzZh66fQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v5 v5 5/8] pmdomain/rockchip: cycle optional
- power-domain resets on power-on
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260805063826.95682-6-gahing@gahingwoo.com>
-References: <20260805063826.95682-1-gahing@gahingwoo.com>
- <20260805063826.95682-6-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 07:27:28 +0000
-Message-Id: <20260805072729.56A121F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yEayGdda";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="fkzURMFP"
+Date: Wed, 5 Aug 2026 09:27:41 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1785914863;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JRnmSwfePuxjzp3S3366V2iKuGTS0E5jGJbo3/yzTqY=;
+	b=yEayGddaDKi2zac0rvSRmjjvtr1lIAegfo0pQUMXWYmEfWWGeLMLxxSFzkYq9+QyNN+bsJ
+	ACYgn6vC4qdJK/LQHJHd6qgOmecgYZg3tuKadXmFaLntp+3bntqmrmWp3YHcYPrSx4MkYq
+	KUIYmTBkyo5ODeoHXPokddunWa0qXSjgT5JBWhTxv12cVAdxZOUihsTaAj1YxR9MRLE7Sh
+	faQJ6rGQMqHwvXpZ/QWtLsV6XYMMVKk+JAXVv6Ig6Wvd3xOHvEcI7mkK87PfCPzhGRD1Nx
+	KaFz5ndvZ0fGWBSe76bLcx8V+d/Wkg1OcXDfH3BCp7czsobPSD4Rs2ATRXvTRg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1785914863;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JRnmSwfePuxjzp3S3366V2iKuGTS0E5jGJbo3/yzTqY=;
+	b=fkzURMFPZeNTOuzVlxu4KF2sqGwU73Oo0MmvEOCYJNKxGa44uyEPBf59FbH1Kc4MBchImb
+	bL2YR40YTXln9pAA==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>, devicetree@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
+ compatible
+Message-ID: <vv6ufnanks27moditlav2ebaub6m5te5tag3m6qv5l65cm25iw@i7m54od3wz4k>
+References: <20260804-bcm2712-d-stepping-compatible-v3-0-1860094486eb@linutronix.de>
+ <20260804-bcm2712-d-stepping-compatible-v3-2-1860094486eb@linutronix.de>
+ <6ed9b2e5-b700-477a-8f6f-cb48c597a111@gmx.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6ed9b2e5-b700-477a-8f6f-cb48c597a111@gmx.net>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Using dev_err() instead of dev_err_probe() for reset acquisition=
- leads to spurious boot warnings.
---
+On Tue, Aug 04, 2026 at 04:57:09PM +0200, Stefan Wahren wrote:
+> Hi Gregor,
+> 
+> sorry for my late reply.
+> 
+> Am 04.08.26 um 15:13 schrieb Gregor Herburger:
+> > The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
+> > and in a c Stepping. There are two separate dts files. The
+> > bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
+> > the d Stepping. The d stepping does not set its own compatible/model
+> > string but uses "raspberrypi,5-model-b".
+> In case the SoC and not the board has a D stepping, why do just change the
+> board compatible without the SoC compatible like "brcm,bcm2712-d0"?
+> > 
+You mean changing both compatible strings? Like this:
+	compatible = "raspberrypi,5-model-b-d0", "brcm,bcm2712-d0";
 
---- Patch [5]: [RFC PATCH v5 v5 5/8] pmdomain/rockchip: cycle optional powe=
-r-domain resets on power-on ---
-commit a3723842ac037cc5513c93510e6b54bd305213be
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+Don't know actually. Have not found an example for something like this in the
+tree. I prefer it actually like it is. Would like to hear the opinion of an
+devicetree maintainer about this.
 
-pmdomain/rockchip: cycle optional power-domain resets on power-on
+> > These two steppings are not compatible. Booting with the wrong dtb file
+> > causes a crash at boot.
+> This sounds like the patch should have a fixes tag?
+Yes can add one.
+> > 
+> > Add a compatibles string "raspberrypi,5-model-b-d0" to allow us to
+> > distinguish between those two steppings.
+> > 
+> > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> > ---
+> >   arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts | 5 +++++
+> >   1 file changed, 5 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+> > index 127be0fc27c22..5a86ad69645c3 100644
+> > --- a/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+> > +++ b/arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts
+> > @@ -3,6 +3,11 @@
+> >   #include "bcm2712-rpi-5-b.dts"
+> > +/ {
+> > +	compatible = "raspberrypi,5-model-b-d0", "brcm,bcm2712";
+> > +	model = "Raspberry Pi 5 d0 Stepping";
+> > +};
+> > +
+> >   &gio_aon {
+> >   	brcm,gpio-bank-widths = <15 6>;
+> > 
+> 
 
-This commit cycles the resets for Rockchip power domains when they are powe=
-red
-on. This clears undefined bus interface states that can cause hangs on devi=
-ces
-like the RK3576 NPU on the first access after a cold power-on.
+-- 
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
 
-[ ... ]
-
-> @@ -857,6 +866,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
-p_pmu *pmu,
->  	if (error)
->  		goto err_put_clocks;
-> =20
-> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
-> +	if (IS_ERR(pd->resets)) {
-> +		error =3D PTR_ERR(pd->resets);
-> +		dev_err(pmu->dev, "%pOFn: failed to get resets: %d\n", node, error);
-
-[Severity: Medium]
-Could this cause spurious boot warnings if the reset controller hasn't prob=
-ed
-yet?
-
-When of_reset_control_array_get_optional_exclusive() returns -EPROBE_DEFER,
-dev_err() will log an unconditional error instead of handling the deferral
-silently. Should this use dev_err_probe() to cleanly handle deferred probes
-without adding spam to the kernel log?
-
-> +		pd->resets =3D NULL;
-> +		goto err_unprepare_clocks;
-> +	}
-> +
->  	pd->num_qos =3D of_count_phandle_with_args(node, "pm_qos",
->  						 NULL);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805063826.9568=
-2-1-gahing@gahingwoo.com?part=3D5
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
