@@ -1,531 +1,202 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFCE5435539;
-	Wed,  5 Aug 2026 11:47:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2F54457BF;
+	Wed,  5 Aug 2026 11:55:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785930466; cv=none; b=gmvcHCv41J3kZOk7cSTvAJB2SC4a21BOt5oiGYw+9w2XFqu5q13fWYjiIwbPanrV2da0JDhX9J+SrhjIgBI6L3DyYuqjfi/8hbnMNYIUyJQ5WRNqhlE+pu10D7uQoCOStkcB7Iyb5fvtzpxB87yxqNDQ5LmKzhB+cLhAhG5YL0M=
+	t=1785930959; cv=none; b=SWcPZWNz7NjmU6+8hIN53oyeJ7GeRNAMvw7Q9CorIKqIrJiji/RGH3xtscWADCi5YelMqZpiQYtF+9g855V83+yftw6K2P24O1gOBWEppBZ/v0LCZcagrIQu8UFKHhxPLegc9PjMeQVfCa76greOd3vTC4PhsmSQUjbaQqbyF8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785930466; c=relaxed/simple;
-	bh=GHEQA7zE2Q7m0lCPj2/Gzzf6Dy30RMpWXQ1Kz2fOrjA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cdqua3FE5ntBg4QMhIpbhJw2jSTbG10ix5RefU8x5YqyrHYCIIRmIACI8r6tTEF7YLF1tvAD1v1F1XwoTQaEYV5FPKs55Qu9z1SH1D2hL50SbVizawl4eEfMwj6WJQDUWvGWh/0jBAbuRJr6uKzy9pnlaZ5RYzt+NFUUqI1PhVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=la5iqx/S; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785930959; c=relaxed/simple;
+	bh=PuvatULjLLCwVq4JOSwBdj5XkSr3uOourNzXJrcGFMs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kX79Xy2BpIGoRVCgYFo5HJeJnNMoU2fNwjpnsdxnGsovhp97i1Fg6H9Mh9Djfqdjtm682W2LOn59neCrKPkOc1VzHtMdP4G567sy2PtKHFD6WabpPaUzQQl7+auKXpYZ8jSNS0FAg+b595a3lxDA/VjvwfwGOuyNMFQX7QmoT3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=HXK+th6U; arc=none smtp.client-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="la5iqx/S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785930464; x=1817466464;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GHEQA7zE2Q7m0lCPj2/Gzzf6Dy30RMpWXQ1Kz2fOrjA=;
-  b=la5iqx/SV9vj7JVQPTUnYvZ6/k3Bg08i6d8MwM7T/ax5E+lhWqhgKLpn
-   NfSF/pmGBJwPZin4Y2sexOLPJFVCWBHx9FE1e/8BFngM88yo7iFxWQ4ms
-   4gaD5P5zUashThpSat5UORiwQ2XT9g8MhscUiGD/Nw+B7mB8OrO5YRBsG
-   bAIK+BLXakBINJmV0aa2ViBADx2jPS+0sxrtBvKMTioFJc2JKnXGJM5ZG
-   sP160YTvqMtjglMeNkQjJTESWiEiycvopEgGy7n8qQ634MYQIgbI6tBJj
-   4Ha298BUIJPeLa172ZrlBOaRw65YG9PZP+KtkWG0cyuxNbT8XFS5JNW3b
-   w==;
-X-CSE-ConnectionGUID: 9dvkXQ/5STaAE5LentCqgA==
-X-CSE-MsgGUID: BSW+p0n5RVqsGPMBE7Klng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="90385036"
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; 
-   d="scan'208";a="90385036"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 04:47:43 -0700
-X-CSE-ConnectionGUID: mW0NGWteQ6WLVnKOlmafdQ==
-X-CSE-MsgGUID: BKtAXhwDT+m59ThNsdWdSQ==
-X-ExtLoop1: 1
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa003.fm.intel.com with ESMTP; 05 Aug 2026 04:47:40 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id AB16999; Wed, 05 Aug 2026 13:47:38 +0200 (CEST)
-Date: Wed, 5 Aug 2026 13:47:38 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alyssa Milburn <amilburn@zall.org>
-Subject: Re: [PATCH v2 2/3] usb: typec: tipd: Factor out i2c specifics
-Message-ID: <anMi2q5FmsvE4z8W@black.igk.intel.com>
-References: <20260727-tipd-ace3-v2-0-1345957bd635@chaosmail.tech>
- <20260727-tipd-ace3-v2-2-1345957bd635@chaosmail.tech>
+	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="HXK+th6U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
+	s=s31663417; t=1785930955; x=1786535755; i=wahrenst@gmx.net;
+	bh=xyn0/zo5abhYeN1I+2ncTS3pb7HZnYOjOXqR9vMc8Yw=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=HXK+th6UYEjcnUJ832qfBpSYrUv4XfJEGG+eynSON5jFEU2vWOemy7E+HmMCm8nD
+	 kxq1+hhvPWMXuHhUrQf+f9i1yivewvTjCvIWffRdAf+RQeQQjnej2a8hCQ5dfutMr
+	 DMe8xNLKlEsE0gIBlWFFvOUfrBltOvVc2KSaEet2HgbXIYFXhYEyqcfJWNUZ/x75C
+	 mShdVxcgnD95XTTPLVARcGbzIJ2yzVf7HgTsLMDcn1AHOKVEesA17zq/h9s+JJ+7g
+	 RGr7SJy/9IoJWA7P7XGeecI57vmYzkLZoWWAZQyjsk8UKCfLfVBJDXpKj2s4SEKmq
+	 pbmLJ7/T4C/RmDotAw==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MNKlu-1wXKaH1l2g-00M6vp; Wed, 05
+ Aug 2026 13:55:55 +0200
+Message-ID: <ddcb0d9a-2dd4-4808-84db-caf6ea64b48e@gmx.net>
+Date: Wed, 5 Aug 2026 13:55:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727-tipd-ace3-v2-2-1345957bd635@chaosmail.tech>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
+ compatible
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
+ Scott Branden <sbranden@broadcom.com>, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Peter Robinson <pbrobinson@gmail.com>
+References: <20260804-bcm2712-d-stepping-compatible-v3-0-1860094486eb@linutronix.de>
+ <20260804-bcm2712-d-stepping-compatible-v3-2-1860094486eb@linutronix.de>
+ <6ed9b2e5-b700-477a-8f6f-cb48c597a111@gmx.net>
+ <vv6ufnanks27moditlav2ebaub6m5te5tag3m6qv5l65cm25iw@i7m54od3wz4k>
+Content-Language: en-US
+From: Stefan Wahren <wahrenst@gmx.net>
+Autocrypt: addr=wahrenst@gmx.net; keydata=
+ xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
+ IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
+ NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
+ JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
+ TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
+ f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
+ V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
+ aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
+In-Reply-To: <vv6ufnanks27moditlav2ebaub6m5te5tag3m6qv5l65cm25iw@i7m54od3wz4k>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:AD+EXz3HZ8+XNZvklB2NKOnFtYokSZgB8Ajz3xo1c52Pex6J14j
+ VqQDmZg8ypL5t7QSyE0ZjfYDjmD0527ED0glvlcoZlgbsQxjC1Xa2FPexC3lDGYbfOmKFo1
+ pK5Xna1HmtLPpKcgO7dj9XUIqkdmb9MgZ/mTllqb5Tro0uVcmba/F8axEjXoYB4cd4w2mJB
+ x7hoVPyuK10thUEpy7r1w==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:j3QViNrZ+mo=;FKpbzLxuQrtPEC2jrJihu0lSZuU
+ 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
+ TUUvoqIrlErTLE07o/MOY4kYp2G94RrcBgc8o=
 
-Hi,
+Hi Gregor,
 
-Sorry to keep you waiting.
+drop Eric and add Peter.
 
-On Mon, Jul 27, 2026 at 06:09:29PM +0200, Sasha Finkelstein wrote:
-> From: Alyssa Milburn <amilburn@zall.org>
-> 
-> Make the core driver more bus-agnostic to prepare for SPMI variants of
-> the tipd chip
-> 
-> Signed-off-by: Alyssa Milburn <amilburn@zall.org>
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> ---
->  drivers/usb/typec/tipd/Kconfig    |   8 ++++--
->  drivers/usb/typec/tipd/Makefile   |  11 ++++---
->  drivers/usb/typec/tipd/core.c     | 224 ++++++++++++++++++++++-------------------------------------------------------------------------------------------------------------------------
->  drivers/usb/typec/tipd/i2c.c      | 104 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  drivers/usb/typec/tipd/tps6598x.h | 114 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  5 files changed, 265 insertions(+), 196 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tipd/Kconfig b/drivers/usb/typec/tipd/Kconfig
-> index b82715293072..c87cbe6109ca 100644
-> --- a/drivers/usb/typec/tipd/Kconfig
-> +++ b/drivers/usb/typec/tipd/Kconfig
-> @@ -1,9 +1,13 @@
-> +config TYPEC_TPS6598X_CORE
-> +	tristate
-> +	select USB_ROLE_SWITCH
-> +	select POWER_SUPPLY
-> +
->  config TYPEC_TPS6598X
->  	tristate "TI TPS6598x USB Power Delivery controller driver"
->  	depends on I2C
-> -	select POWER_SUPPLY
->  	select REGMAP_I2C
-> -	select USB_ROLE_SWITCH
-> +	select TYPEC_TPS6598X_CORE
->  	help
->  	  Say Y or M here if your system has TI TPS65982 or TPS65983 USB Power
->  	  Delivery controller.
+Am 05.08.26 um 09:27 schrieb Gregor Herburger:
+> On Tue, Aug 04, 2026 at 04:57:09PM +0200, Stefan Wahren wrote:
+>> Hi Gregor,
+>>
+>> sorry for my late reply.
+>>
+>> Am 04.08.26 um 15:13 schrieb Gregor Herburger:
+>>> The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
+>>> and in a c Stepping. There are two separate dts files. The
+>>> bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts f=
+or
+>>> the d Stepping. The d stepping does not set its own compatible/model
+>>> string but uses "raspberrypi,5-model-b".
+>> In case the SoC and not the board has a D stepping, why do just change =
+the
+>> board compatible without the SoC compatible like "brcm,bcm2712-d0"?
+> You mean changing both compatible strings? Like this:
+> 	compatible =3D "raspberrypi,5-model-b-d0", "brcm,bcm2712-d0";
+I just want to mention that your explanation doesn't match to your=20
+changes. The first compatible represent the whole board (RPi 5) and the=20
+second one represent only the SoC (BCM2712). Since the SoC is different=20
+according your explanation, i would expect the SoC compatible needs to=20
+be changed. And in case the SoC changes, also the board won't be=20
+compatible anymore, correct?
 
-Looks better now.
+Usually we try to avoid to model different SoC steppings in the device=20
+tree, because this introduce a lot of redundancy. But it seems that the=20
+differences are signifcant here.
 
-> diff --git a/drivers/usb/typec/tipd/Makefile b/drivers/usb/typec/tipd/Makefile
-> index aa439f80a889..c741bf44f52f 100644
-> --- a/drivers/usb/typec/tipd/Makefile
-> +++ b/drivers/usb/typec/tipd/Makefile
-> @@ -1,6 +1,9 @@
->  # SPDX-License-Identifier: GPL-2.0
-> -CFLAGS_trace.o			:= -I$(src)
-> +CFLAGS_trace.o				:= -I$(src)
->  
-> -obj-$(CONFIG_TYPEC_TPS6598X)	+= tps6598x.o
-> -tps6598x-y			:= core.o
-> -tps6598x-$(CONFIG_TRACING)	+= trace.o
-> +obj-$(CONFIG_TYPEC_TPS6598X_CORE)	+= tps6598x-core.o
-> +tps6598x-core-y				:= core.o
-> +tps6598x-core-$(CONFIG_TRACING)		+= trace.o
-> +
-> +obj-$(CONFIG_TYPEC_TPS6598X)		+= tps6598x.o
-> +tps6598x-y				:= i2c.o
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index d5ee0af9058b..aadadfdc6ed1 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
-> @@ -9,7 +9,6 @@
->  #include <linux/i2c.h>
->  #include <linux/acpi.h>
->  #include <linux/gpio/consumer.h>
-> -#include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/power_supply.h>
->  #include <linux/regmap.h>
-> @@ -92,31 +91,6 @@ struct tps6598x_rx_identity_reg {
->  	struct usb_pd_identity identity;
->  } __packed;
->  
-> -/* TPS_REG_USB4_STATUS */
-> -struct tps6598x_usb4_status_reg {
-> -	u8 mode_status;
-> -	__le32 eudo;
-> -	__le32 unknown;
-> -} __packed;
-> -
-> -/* TPS_REG_DP_SID_STATUS */
-> -struct tps6598x_dp_sid_status_reg {
-> -	u8 mode_status;
-> -	__le32 status_tx;
-> -	__le32 status_rx;
-> -	__le32 configure;
-> -	__le32 mode_data;
-> -} __packed;
-> -
-> -/* TPS_REG_INTEL_VID_STATUS */
-> -struct tps6598x_intel_vid_status_reg {
-> -	u8 mode_status;
-> -	__le32 attention_vdo;
-> -	__le16 enter_vdo;
-> -	__le16 device_mode;
-> -	__le16 cable_mode;
-> -} __packed;
-> -
->  /* Standard Task return codes */
->  #define TPS_TASK_TIMEOUT		1
->  #define TPS_TASK_REJECTED		3
-> @@ -143,81 +117,6 @@ static const char *const modes[] = {
->  /* Unrecognized commands will be replaced with "!CMD" */
->  #define INVALID_CMD(_cmd_)		(_cmd_ == 0x444d4321)
->  
-> -struct tps6598x;
-> -
-> -struct tipd_data {
-> -	irq_handler_t irq_handler;
-> -	u64 irq_mask1;
-> -	size_t tps_struct_size;
-> -	void (*remove)(struct tps6598x *tps);
-> -	int (*register_port)(struct tps6598x *tps, struct fwnode_handle *node);
-> -	void (*unregister_port)(struct tps6598x *tps);
-> -	void (*trace_data_status)(u32 status);
-> -	void (*trace_power_status)(u16 status);
-> -	void (*trace_status)(u32 status);
-> -	int (*apply_patch)(struct tps6598x *tps);
-> -	int (*init)(struct tps6598x *tps);
-> -	int (*switch_power_state)(struct tps6598x *tps, u8 target_state);
-> -	bool (*read_data_status)(struct tps6598x *tps);
-> -	int (*reset)(struct tps6598x *tps);
-> -	int (*connect)(struct tps6598x *tps, u32 status);
-> -};
-> -
-> -struct tps6598x {
-> -	struct device *dev;
-> -	struct regmap *regmap;
-> -	struct mutex lock; /* device lock */
-> -	u8 i2c_protocol:1;
-> -
-> -	struct gpio_desc *reset;
-> -	struct typec_port *port;
-> -	struct typec_partner *partner;
-> -	struct usb_pd_identity partner_identity;
-> -	struct usb_role_switch *role_sw;
-> -	struct typec_capability typec_cap;
-> -
-> -	struct power_supply *psy;
-> -	struct power_supply_desc psy_desc;
-> -	enum power_supply_usb_type usb_type;
-> -
-> -	int wakeup;
-> -	u32 status; /* status reg */
-> -	u32 data_status;
-> -	u16 pwr_status;
-> -	struct delayed_work	wq_poll;
-> -
-> -	const struct tipd_data *data;
-> -};
-> -
-> -struct cd321x_status {
-> -	u32 status;
-> -	u32 pwr_status;
-> -	u32 data_status;
-> -	u32 status_changed;
-> -	struct usb_pd_identity partner_identity;
-> -	struct tps6598x_dp_sid_status_reg dp_sid_status;
-> -	struct tps6598x_intel_vid_status_reg intel_vid_status;
-> -	struct tps6598x_usb4_status_reg usb4_status;
-> -};
-> -
-> -struct cd321x {
-> -	struct tps6598x tps;
-> -
-> -	struct tps6598x_dp_sid_status_reg dp_sid_status;
-> -	struct tps6598x_intel_vid_status_reg intel_vid_status;
-> -	struct tps6598x_usb4_status_reg usb4_status;
-> -
-> -	struct typec_altmode *port_altmode_dp;
-> -	struct typec_altmode *port_altmode_tbt;
-> -
-> -	struct typec_mux *mux;
-> -	struct typec_mux_state state;
-> -
-> -	struct cd321x_status update_status;
-> -	struct delayed_work update_work;
-> -	struct usb_pd_identity cur_partner_identity;
-> -};
-> -
->  static enum power_supply_property tps6598x_psy_props[] = {
->  	POWER_SUPPLY_PROP_USB_TYPE,
->  	POWER_SUPPLY_PROP_ONLINE,
-> @@ -1087,11 +986,12 @@ static int tps6598x_check_mode(struct tps6598x *tps)
->  	return -ENODEV;
->  }
->  
-> -static const struct regmap_config tps6598x_regmap_config = {
-> +const struct regmap_config tps6598x_regmap_config = {
->  	.reg_bits = 8,
->  	.val_bits = 8,
->  	.max_register = 0x7F,
->  };
-> +EXPORT_SYMBOL_GPL(tps6598x_regmap_config);
+In case this suggestion break something, this needs further explanation=20
+in the patch.
 
-Don't export that. Just move it to i2c.c
-
->  static int tps6598x_psy_get_online(struct tps6598x *tps,
->  				   union power_supply_propval *val)
-> @@ -1738,27 +1638,13 @@ static void cd321x_remove(struct tps6598x *tps)
->  	cancel_delayed_work_sync(&cd321x->update_work);
->  }
->  
-> -static int tps6598x_probe(struct i2c_client *client)
-> +int tipd_init(struct tps6598x *tps)
->  {
-> -	const struct tipd_data *data;
-> -	struct tps6598x *tps;
->  	struct fwnode_handle *fwnode;
->  	u32 status;
->  	u32 vid;
->  	int ret;
->  
-> -	data = i2c_get_match_data(client);
-> -	if (!data)
-> -		return -EINVAL;
-> -
-> -	tps = devm_kzalloc(&client->dev, data->tps_struct_size, GFP_KERNEL);
-> -	if (!tps)
-> -		return -ENOMEM;
-> -
-> -	mutex_init(&tps->lock);
-> -	tps->dev = &client->dev;
-> -	tps->data = data;
-> -
->  	tps->reset = devm_gpiod_get_optional(tps->dev, "reset", GPIOD_OUT_LOW);
->  	if (IS_ERR(tps->reset))
->  		return dev_err_probe(tps->dev, PTR_ERR(tps->reset),
-> @@ -1766,23 +1652,12 @@ static int tps6598x_probe(struct i2c_client *client)
->  	if (tps->reset)
->  		msleep(TPS_SETUP_MS);
->  
-> -	tps->regmap = devm_regmap_init_i2c(client, &tps6598x_regmap_config);
-> -	if (IS_ERR(tps->regmap))
-> -		return PTR_ERR(tps->regmap);
-> -
->  	if (!device_is_compatible(tps->dev, "ti,tps25750")) {
->  		ret = tps6598x_read32(tps, TPS_REG_VID, &vid);
->  		if (ret < 0 || !vid)
->  			return -ENODEV;
->  	}
->  
-> -	/*
-> -	 * Checking can the adapter handle SMBus protocol. If it can not, the
-> -	 * driver needs to take care of block reads separately.
-> -	 */
-> -	if (i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-> -		tps->i2c_protocol = true;
-> -
->  	if (tps->data->switch_power_state) {
->  		ret = tps->data->switch_power_state(tps, TPS_SYSTEM_POWER_STATE_S0);
->  		if (ret)
-> @@ -1816,7 +1691,7 @@ static int tps6598x_probe(struct i2c_client *client)
->  	 * with existing DT files, we work around this by deleting any
->  	 * fwnode_links to/from this fwnode.
->  	 */
-> -	fwnode = device_get_named_child_node(&client->dev, "connector");
-> +	fwnode = device_get_named_child_node(tps->dev, "connector");
->  	if (fwnode)
->  		fw_devlink_purge_absent_suppliers(fwnode);
->  
-> @@ -1842,14 +1717,14 @@ static int tps6598x_probe(struct i2c_client *client)
->  			goto err_unregister_port;
->  		ret = tps->data->connect(tps, status);
->  		if (ret)
-> -			dev_err(&client->dev, "failed to register partner\n");
-> +			dev_err(tps->dev, "failed to register partner\n");
->  	}
->  
-> -	if (client->irq) {
-> -		ret = devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> +	if (tps->irq) {
-> +		ret = devm_request_threaded_irq(tps->dev, tps->irq, NULL,
->  						tps->data->irq_handler,
->  						IRQF_SHARED | IRQF_ONESHOT,
-> -						dev_name(&client->dev), tps);
-> +						dev_name(tps->dev), tps);
->  	} else {
->  		dev_warn(tps->dev, "Unable to find the interrupt, switching to polling\n");
->  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
-> @@ -1860,13 +1735,12 @@ static int tps6598x_probe(struct i2c_client *client)
->  	if (ret)
->  		goto err_disconnect;
->  
-> -	i2c_set_clientdata(client, tps);
->  	fwnode_handle_put(fwnode);
->  
->  	tps->wakeup = device_property_read_bool(tps->dev, "wakeup-source");
-> -	if (tps->wakeup && client->irq) {
-> -		devm_device_init_wakeup(&client->dev);
-> -		enable_irq_wake(client->irq);
-> +	if (tps->wakeup && tps->irq) {
-> +		devm_device_init_wakeup(tps->dev);
-> +		enable_irq_wake(tps->irq);
->  	}
->  
->  	return 0;
-> @@ -1887,15 +1761,14 @@ static int tps6598x_probe(struct i2c_client *client)
->  
->  	return ret;
->  }
-> +EXPORT_SYMBOL_GPL(tipd_init);
->  
-> -static void tps6598x_remove(struct i2c_client *client)
-> +void tipd_remove(struct tps6598x *tps)
->  {
-> -	struct tps6598x *tps = i2c_get_clientdata(client);
-> -
-> -	if (!client->irq)
-> +	if (!tps->irq)
->  		cancel_delayed_work_sync(&tps->wq_poll);
->  	else
-> -		devm_free_irq(tps->dev, client->irq, tps);
-> +		devm_free_irq(tps->dev, tps->irq, tps);
->  
->  	if (tps->data->remove)
->  		tps->data->remove(tps);
-> @@ -1910,29 +1783,26 @@ static void tps6598x_remove(struct i2c_client *client)
->  	if (tps->reset)
->  		gpiod_set_value_cansleep(tps->reset, 1);
->  }
-> +EXPORT_SYMBOL_GPL(tipd_remove);
->  
-> -static int __maybe_unused tps6598x_suspend(struct device *dev)
-> +int tipd_suspend(struct tps6598x *tps)
->  {
-> -	struct i2c_client *client = to_i2c_client(dev);
-> -	struct tps6598x *tps = i2c_get_clientdata(client);
-> -
->  	if (tps->wakeup) {
-> -		disable_irq(client->irq);
-> -		enable_irq_wake(client->irq);
-> +		disable_irq(tps->irq);
-> +		enable_irq_wake(tps->irq);
->  	} else if (tps->reset) {
->  		gpiod_set_value_cansleep(tps->reset, 1);
->  	}
->  
-> -	if (!client->irq)
-> +	if (!tps->irq)
->  		cancel_delayed_work_sync(&tps->wq_poll);
->  
->  	return 0;
->  }
-> +EXPORT_SYMBOL_GPL(tipd_suspend);
->  
-> -static int __maybe_unused tps6598x_resume(struct device *dev)
-> +int tipd_resume(struct tps6598x *tps)
->  {
-> -	struct i2c_client *client = to_i2c_client(dev);
-> -	struct tps6598x *tps = i2c_get_clientdata(client);
->  	int ret;
->  
->  	ret = tps6598x_check_mode(tps);
-> @@ -1946,25 +1816,22 @@ static int __maybe_unused tps6598x_resume(struct device *dev)
->  	}
->  
->  	if (tps->wakeup) {
-> -		disable_irq_wake(client->irq);
-> -		enable_irq(client->irq);
-> +		disable_irq_wake(tps->irq);
-> +		enable_irq(tps->irq);
->  	} else if (tps->reset) {
->  		gpiod_set_value_cansleep(tps->reset, 0);
->  		msleep(TPS_SETUP_MS);
->  	}
->  
-> -	if (!client->irq)
-> +	if (!tps->irq)
->  		queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
->  				   msecs_to_jiffies(POLL_INTERVAL));
->  
->  	return 0;
->  }
-> +EXPORT_SYMBOL_GPL(tipd_resume);
->  
-> -static const struct dev_pm_ops tps6598x_pm_ops = {
-> -	SET_SYSTEM_SLEEP_PM_OPS(tps6598x_suspend, tps6598x_resume)
-> -};
-> -
-> -static const struct tipd_data cd321x_data = {
-> +const struct tipd_data tipd_cd321x_data = {
->  	.irq_handler = cd321x_interrupt,
->  	.irq_mask1 = APPLE_CD_REG_INT_POWER_STATUS_UPDATE |
->  		     APPLE_CD_REG_INT_DATA_STATUS_UPDATE |
-> @@ -1982,8 +1849,9 @@ static const struct tipd_data cd321x_data = {
->  	.switch_power_state = cd321x_switch_power_state,
->  	.connect = cd321x_connect,
->  };
-> +EXPORT_SYMBOL_GPL(tipd_cd321x_data);
-
-There shouldn't be need to export these either. You can add a
-variant flag member to struct tps6598x for now, and pick the correct
-data for example from a lookup table.
-
-Ideally IMO each variant would be handled in its own file. But that
-would require a bit more refactoring of course.
-
-> -static const struct tipd_data tps6598x_data = {
-> +const struct tipd_data tipd_tps6598x_data = {
->  	.irq_handler = tps6598x_interrupt,
->  	.irq_mask1 = TPS_REG_INT_POWER_STATUS_UPDATE |
->  		     TPS_REG_INT_DATA_STATUS_UPDATE |
-> @@ -2000,8 +1868,9 @@ static const struct tipd_data tps6598x_data = {
->  	.reset = tps6598x_reset,
->  	.connect = tps6598x_connect,
->  };
-> +EXPORT_SYMBOL_GPL(tipd_tps6598x_data);
->  
-> -static const struct tipd_data tps25750_data = {
-> +const struct tipd_data tipd_tps25750_data = {
->  	.irq_handler = tps25750_interrupt,
->  	.irq_mask1 = TPS_REG_INT_POWER_STATUS_UPDATE |
->  		     TPS_REG_INT_DATA_STATUS_UPDATE |
-> @@ -2018,33 +1887,8 @@ static const struct tipd_data tps25750_data = {
->  	.reset = tps25750_reset,
->  	.connect = tps6598x_connect,
->  };
-> -
-> -static const struct of_device_id tps6598x_of_match[] = {
-> -	{ .compatible = "ti,tps6598x", &tps6598x_data},
-> -	{ .compatible = "apple,cd321x", &cd321x_data},
-> -	{ .compatible = "ti,tps25750", &tps25750_data},
-> -	{}
-> -};
-> -MODULE_DEVICE_TABLE(of, tps6598x_of_match);
-> -
-> -static const struct i2c_device_id tps6598x_id[] = {
-> -	{ .name = "tps6598x", .driver_data = (kernel_ulong_t)&tps6598x_data },
-> -	{ }
-> -};
-> -MODULE_DEVICE_TABLE(i2c, tps6598x_id);
-> -
-> -static struct i2c_driver tps6598x_i2c_driver = {
-> -	.driver = {
-> -		.name = "tps6598x",
-> -		.pm = &tps6598x_pm_ops,
-> -		.of_match_table = tps6598x_of_match,
-> -	},
-> -	.probe = tps6598x_probe,
-> -	.remove = tps6598x_remove,
-> -	.id_table = tps6598x_id,
-> -};
-> -module_i2c_driver(tps6598x_i2c_driver);
-> +EXPORT_SYMBOL_GPL(tipd_tps25750_data);
->  
->  MODULE_AUTHOR("Heikki Krogerus <heikki.krogerus@linux.intel.com>");
-> -MODULE_LICENSE("GPL v2");
-> -MODULE_DESCRIPTION("TI TPS6598x USB Power Delivery Controller Driver");
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("TI TPS6598x USB Power Delivery Controller Core Functions");
-
-Thanks,
-
--- 
-heikki
+Best regards
