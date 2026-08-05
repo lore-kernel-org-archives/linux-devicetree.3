@@ -1,206 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846FA400964;
-	Wed,  5 Aug 2026 09:40:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97B2403AEB
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:43:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785922836; cv=none; b=LTjm2cxk+SpW7C7BHEEw03bPFQbKpxEhuHJ2R/eJUeJjt+92U/GvXOQjuO1pwNkTuOzNxrDcH1FbR8Vk3wNrhT+jls29hs5q6sQcx71uydcXkwEZ8qpT90HZbBVGebfZBDqQWCl6illpLMmiitXOV7m5KLsGqJuYxCQLwBgD4mg=
+	t=1785923016; cv=none; b=Mau06LuAs2hkkylC26mWktebpuQuHGIkju4gwCZKbbB0D678pnpOj8WK+UDRbwbWczNLv85CXk02gelhlxl7nIV1nekMoVXvVGS4tjOWaPzJ6fUKC6BKcD71Sz6tnFbp6OyR8ub5qDmVu0ewnR8wGNjVf6Phwa8B+Yaj34w96v4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785922836; c=relaxed/simple;
-	bh=O6+Bx6KOhVXMWbsfHv+7ROQbeGIvqHrj6dGp8hhJUnA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aU/au0Qud2P4Wh3twtq26sHUoBQfcXd5eRUVlTr52VDFTmP8Br8JyfFF1mSlFTwrysyYN1uSW8/ZcvTgN01lALxouhQxp87Yd/UhXfKxZHyA5UVvrsGsKVAbyxlxIa4FcJo6h3b1MzZxkokzuQWxjMQEUddFmikWxbV1odnlR24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AIIUALs1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785923016; c=relaxed/simple;
+	bh=kzl3LjyJT/cJK/tPZUC90cNqEiloCIZi3VNBGZx0Tq8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MBh79BjbEHtUzP3BXRbiCa+/UHBmyexpIalLRAjy2rcHmKLqsHrd2l+Eioat4kbOSwsSFCps/zUIzY+ftqHhth8lYKirRPpjdKH4Onue0X3PR9scdLFRIxX9aqsfMjB1La3XevbZNHZLg7WThXC4PXCt/D92Sp1ABPoFflBp5J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCQO3DcH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AIIUALs1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F97E1F000E9;
-	Wed,  5 Aug 2026 09:40:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCQO3DcH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2241F00ADE
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:43:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785922832;
-	bh=lUZ2ba8/2yVvVlO7KN6Zd/036UJgd2P+dBikC+yycLQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AIIUALs1D79gc1gmwL6nqUGZjpDlIkYmjnUQPuvw3UGMLLweRiqu2n58jBMo8I4jI
-	 VDdhG/wU644Fp793YQLh253ik6fjwhIUtK/xV6cQcrMhEI2aw6DIKtoRFeBXahS9GR
-	 xZK1rApuZV2W8Z8LEoE196WM9TuPwbjEWsYVfUGfF994BkQQkhucgdIXNvgdaK7Df9
-	 x/2lmsiwnBLNXRMMN5wIqTeYmk4xJ+0qApznQSnxPiiS8JBa3p7W23GuL5qJEkQrGd
-	 hlVa87BQLEvw4Peom+/AFHIPsOP8znjPhvMtjSH3Tw8ABkXpUOUJ2sUs8nrsRWuthQ
-	 15mqGUrZEPMqw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Troy Mitchell" <troy.mitchell@linux.dev>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805-ctl2301-v3-4-b86c75d1c552@linux.dev>
-References: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
- <20260805-ctl2301-v3-4-b86c75d1c552@linux.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 09:40:31 +0000
-Message-Id: <20260805094031.9F97E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1785923015;
+	bh=SEWTlYII+fUiWyq0/uoUuvMRCEnuw1WDu85hQtFf3VU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hCQO3DcHzM5OwFzJnbxCc2BtoLhw84uSoJObv3WWEU7S50MmdZ/m0h/kpMLpomsIO
+	 SHwkAonZkmpeNs4n1vGFjGYqPTabxNG2V78pvT5KM3YmgyZBu+XGJAsH9Xiq2O5jgG
+	 a/oZVC3RA4DecqBaChbrmb6g+N51leP985+bZauNXJXuYxMpP3W8clSwPgx602uDwu
+	 vvXCQr2IJg5DNuBosmJBZ3hB91HztVMPDWRpsF+pdJJ9J+FsEsJvU+3/IXZeFbgdro
+	 J7MTm7DVaKJEML/Az29fBr6BINps/uyUYpGh2IKF4qMkNwxVd7cDBfoVZEQdLL7N4p
+	 CgqA70cgOZbQA==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a15d54ac95so879572a12.0
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 02:43:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqJvrRDYneAAAC0RM15roM+wpALFhmgPH+epk4oceWhR6E/PxzBJRgX9pFDhMb3R52b18IudXUv3o3M@vger.kernel.org
+X-Gm-Message-State: AOJu0YzMKy0DWKfzJtmW/TjgT9OoTMNyEHSy97p/ySNWJj8sKMYcIYwz
+	0ZkMVzYDDiP8X10Yo5M0OYZzWhwbMLBB8uQuFsoByL4sWup3a0NaE9QQmTcikK+KoAa3UPnu6ct
+	gzCrtK+qeNjgiTwTr6yUFVvnKe25GsMg=
+X-Received: by 2002:a05:6402:5406:b0:6a0:567c:c2fe with SMTP id
+ 4fb4d7f45d1cf-6a14f28888fmr2928147a12.20.1785923013927; Wed, 05 Aug 2026
+ 02:43:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <cover.1785829933.git.zhoubinbin@loongson.cn>
+In-Reply-To: <cover.1785829933.git.zhoubinbin@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 5 Aug 2026 17:43:58 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H43c5OWGfE+XepeMbwJvE1US1VapxSTYOh4W77pbRLdXQ@mail.gmail.com>
+X-Gm-Features: AUfX_myJZvZcsFRImM9vvMYUz6MxKvw7tjGf7bRkBFSUuLm8GX_22dr9CRByV7g
+Message-ID: <CAAhV-H43c5OWGfE+XepeMbwJvE1US1VapxSTYOh4W77pbRLdXQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] thermal: loongson2: Add support for
+ Loongson-2K0300 SoC
+To: Binbin Zhou <zhoubinbin@loongson.cn>
+Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Yinbo Zhu <zhuyinbo@loongson.cn>, zhanghongchen <zhanghongchen@loongson.cn>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Lee Jones <lee@kernel.org>, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing Kconfig dependency causes undefined reference to devm_ther=
-mal_of_cooling_device_register.
-- [Medium] Missing lock around 16-bit variable read in show_local_temp8.
-- [Medium] Handling of I2C write errors in pwm1_freq_store permanently desy=
-nchronizes the driver's software state from the hardware state.
---
+For the whole series:
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
 
---- Patch [4]: [PATCH v3 4/6] hwmon: (lm63) Add Sensylink CTF2301 support -=
---
-commit 951fc5c354ae91e1c67e85c453464f893528203b
-Author: Troy Mitchell <troy.mitchell@linux.dev>
-
-hwmon: (lm63) Add Sensylink CTF2301 support
-
-Add Sensylink CTF2301 support to the LM63 driver. CTF2301 follows
-the LM63-style temperature, tachometer, and PWM register layout,
-while using a 12-bit local temperature register and requiring the
-ALERT/TACH pin to be configured for tachometer input.
-
-Register an optional thermal cooling device when the device tree
-node provides #cooling-cells.
-
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index 2bfbcc033d599..abb1af8664fb3 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -1501,10 +1501,10 @@ config SENSORS_LM63
->  	depends on I2C
-
-[Severity: High]
-Could this lead to a linker error if the user configures the kernel with
-CONFIG_THERMAL=3Dm and CONFIG_SENSORS_LM63=3Dy?
-
-CONFIG_THERMAL_OF is a boolean, so it can be enabled even when the thermal
-subsystem is built as a module. If the driver is built-in, the IS_ENABLED
-check in lm63_probe evaluates to true, causing the built-in driver to call
-devm_thermal_of_cooling_device_register from the modular thermal_sys.
-
-Should there be a dependency like depends on THERMAL || THERMAL=3Dn here to
-prevent this configuration?
-
-[ ... ]
-
-> diff --git a/drivers/hwmon/lm63.c b/drivers/hwmon/lm63.c
-> index e2a429e579ac1..3887f02b924d1 100644
-> --- a/drivers/hwmon/lm63.c
-> +++ b/drivers/hwmon/lm63.c
-
-[ ... ]
-
-> @@ -512,35 +573,55 @@ static ssize_t pwm1_freq_store(struct device *dev,
-> =20
->  	if (slow_clock)
-> -		data->config_fan |=3D 0x08;
-> +		config_fan |=3D 0x08;
->  	else
-> -		data->config_fan &=3D ~0x08;
-> -	i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN, data->config_fan=
-);
-> -	i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-> +		config_fan &=3D ~0x08;
-> +	ret =3D i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-> +	if (ret)
-> +		goto unlock;
-> +	ret =3D i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN,
-> +					config_fan);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	data->config_fan =3D config_fan;
-> +	data->pwm1_freq =3D pfr;
-> +	data->pwm_highres =3D !slow_clock && pfr =3D=3D 8 &&
-> +				(config_enhanced & 0x10);
-> +unlock:
->  	mutex_unlock(&data->update_lock);
-
-[Severity: Medium]
-Is it possible for the hardware state to desynchronize from the software
-state if an I2C error occurs here?
-
-If a user writes to the pwm1_freq sysfs attribute and the first I2C write
-succeeds, but the second fails, the function aborts early via goto unlock.
-Because the internal data structure is only updated at the end of the
-function, the early abort leaves the hardware updated while the software
-caches remain unmodified.
-
-Would it be safer to update the software state incrementally as the writes
-succeed, or revert the hardware state on failure?
-
-[ ... ]
-
-> @@ -555,6 +636,11 @@ static ssize_t show_local_temp8(struct device *dev,
->  {
->  	struct sensor_device_attribute *attr =3D to_sensor_dev_attr(devattr);
->  	struct lm63_data *data =3D lm63_update_device(dev);
-> +
-> +	if (data->kind =3D=3D ctf2301)
-> +		return sprintf(buf, "%d\n", TEMP12_FROM_REG(attr->index ?
-> +				       data->temp1_max : data->temp1_input));
-> +
-
-[Severity: Medium]
-Does this lockless read introduce a data race?
-
-The 16-bit variables data->temp1_max and data->temp1_input are read here
-without holding data->update_lock. However, these values are updated under
-the lock in set_temp8 when a user concurrently modifies the temperature
-limit via sysfs.
-
-Could this result in a torn read or reading partially updated state, causing
-an incorrect temperature limit to be reported to user-space?
-
->  	return sprintf(buf, "%d\n", TEMP8_FROM_REG(data->temp8[attr->index]));
->  }
-
-[ ... ]
-
-> @@ -1273,11 +1519,26 @@ static int lm63_probe(struct i2c_client *client)
->  	if (data->kind =3D=3D lm96163) {
->  		data->groups[groups++] =3D &lm63_group_temp2_type;
->  		data->groups[groups++] =3D &lm63_group_extra_lut;
-> +	} else if (data->kind =3D=3D ctf2301) {
-> +		data->groups[groups++] =3D &lm63_group_extra_lut;
->  	}
-> =20
->  	hwmon_dev =3D devm_hwmon_device_register_with_groups(dev, client->name,
->  							   data, data->groups);
-> -	return PTR_ERR_OR_ZERO(hwmon_dev);
-> +	if (IS_ERR(hwmon_dev))
-> +		return PTR_ERR(hwmon_dev);
-> +
-> +	if (IS_ENABLED(CONFIG_THERMAL_OF) &&
-> +	    of_property_present(dev->of_node, "#cooling-cells")) {
-> +		cdev =3D devm_thermal_of_cooling_device_register(dev, 0,
-> +							       client->name,
-> +							       data,
-> +							       &lm63_cooling_ops);
-
-[Severity: High]
-Could calling devm_thermal_of_cooling_device_register without a proper Kcon=
-fig
-dependency cause undefined references during the build?
-
-As noted above, if CONFIG_THERMAL=3Dm and CONFIG_SENSORS_LM63=3Dy, this pat=
-h will
-be reached by a built-in driver trying to resolve a symbol exported by a
-loadable module.
-
-> +		if (IS_ERR(cdev))
-> +			return PTR_ERR(cdev);
-> +	}
-> +
-> +	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-ctl2301-v3=
--0-fd4b8ffb5b0d@linux.dev?part=3D4
+On Tue, Aug 4, 2026 at 8:41=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.cn>=
+ wrote:
+>
+> Hi all:
+>
+> This patch series adds thermal zone support for the Loongson-2K0300 SoC.
+>
+> The Loongson-2K0300's thermal sensor is generally compatible with the
+> existing Loongson-2K series, but it features several key differences:
+> 1. It has an independent CPU ID register for reading chip version
+> information.
+> 2. The raw temperature output field has been extended from 8 bits to 11
+> bits.
+> 3. The temperature calculation formula has been updated to incorporate a
+> correction factor based on the version information.
+>
+> To ensure robustness on older hardware revisions, a fallback mechanism
+> is included: if the calculated temperature falls outside the valid range
+> (-55 TO 125),  the driver falls back to a simpler calculation and prints
+> a warning.
+>
+> The patches have been validated on the Loongson-2K0300 development board.
+>
+> Thanks.
+> Binbin
+>
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D
+> V4:
+>  - Rebase on linux-mfd/for-mfd-next;
+> Patch (3/5):
+>  - Remove the `compatible` adding to the `select` node.
+>
+> Link to V3:
+> https://lore.kernel.org/all/cover.1785480242.git.zhoubinbin@loongson.cn/
+>
+> V3:
+> Patch (2/5):
+>  - New patch for moving thermal_ops to chip_data;
+> Patch (3/5):
+>  - Correct spelling errors;
+> Patch (4/5):
+>  - Add Acked-by from Conor, thanks;
+> Patch (5/5):
+>  - Keep loongson2_thermal_data->chip_data as const, and use
+>    data->flags as the private data.
+>  - Renmae LOONGSON2_THSENS_OUT_10B_MASK ->
+>    LOONGSON2_THSENS_OUT_11B_MASK;
+>
+> Link to V2:
+> https://lore.kernel.org/all/cover.1784619512.git.zhoubinbin@loongson.cn/
+>
+> V2:
+> Patch (1/4):
+>  - New patch form Sashiko;
+> Patch (2/4):
+>  - New patch for adding chipid syscon compatible;
+> Patch (3/4):
+>  - Use `loongson,chipid` phandle replace reg property;
+> Patch (3/4):
+>  - Refact `calib_offset` calculate routing;
+>  - Add LS2K0300_OLD_FUSE_FLAG flag.
+>
+> Link to V1:
+> https://lore.kernel.org/all/cover.1783670011.git.zhoubinbin@loongson.cn/
+>
+> Binbin Zhou (5):
+>   thermal/drivers/loongson2: Correct thermal sensor registration loop
+>   thermal/drivers/loongson2: Move thermal_ops to chip_data for SoC
+>     scalability
+>   dt-bindings: mfd: syscon: Allow syscon compatible for Loongson-2K0300
+>     chip id
+>   dt-bindings: thermal: loongson,ls2k-thermal: Add compatible for
+>     Loongson-2K0300
+>   thermal/drivers/loongson2: Add support for Loongson-2K0300
+>
+>  .../devicetree/bindings/mfd/syscon.yaml       |   1 +
+>  .../thermal/loongson,ls2k-thermal.yaml        |  73 +++++++++---
+>  drivers/thermal/loongson2_thermal.c           | 110 ++++++++++++++++--
+>  3 files changed, 156 insertions(+), 28 deletions(-)
+>
+>
+> base-commit: b1eb3de64d02cec71b419b9918d1697797fa156d
+> --
+> 2.52.0
+>
