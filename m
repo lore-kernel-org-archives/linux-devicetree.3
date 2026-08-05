@@ -1,105 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91073EC6A0
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB041DE8BF
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:06:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785935174; cv=none; b=fZVrqhimNAr6HNMX/DvG4q5PYRsabFF5wwJeFOUsBp3wlGhHvmtoV3BO/eVVsZ30G85O0ni32zN7lsmqDhffhpYtkYKXKgFqR5u1Ha32uxaCBA+C0E2MNMts2Cyu08cWP/b106Cc6i4SymGhISX4N1FiI8xRnYOxw2GSQNUO+Z4=
+	t=1785935175; cv=none; b=FPl7uLjLU3i6TdEHrMjMUffmeaILFGVyLwZStSjsM9aUdV+pFJNzXgqns62niKiuwhJfFd+TAQd5mCHz0Uez7+Gft+f7BxBtKTsy7Zm1bdN9hitYIn3wol/rIS39u9naPgiEy9s9jCzum20JgnnCdUzy2bsDQRKeh9EPEu5LelE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785935174; c=relaxed/simple;
-	bh=gP9C2DAUGUG2Y0kBmOOiq/VwjNbTj0HzTGTFSwW6aeQ=;
+	s=arc-20240116; t=1785935175; c=relaxed/simple;
+	bh=QJO5Ck8CRxiBR5vGuESsLRPpM4HpxSmN6roiyTthWOw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gJ0L++V3DEZesVykX0voVjcqriHEw/tiw7iyQjkOFbrzol/TcQdeWjoNBOgD5rQpF3Cj5iSBJ9FEeGnNIzdMEZvFmnYYm4AeaHh1devBwJzJG2gcam/ysMdgiFs6Cv5X1OjXb9KG/+jQpJSuQNQ2+0KOxjuspd/HsjsijhXUNbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNG7Efmc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=T+hJxGNa/bsL7njbSnqPolrT94WiHwwMX4uLpA5bKu1/OPY/CYpvK9t1sfl+/5GamSq37OFPvv1/WNM6HKQEwfjtWnzxQjJOghwQYK3jy7RtJYasNtb2f+C7NqmVpsBQvwk5CJFt+SWAlckUlAEVIfhlmMLnH5oMZ/3ufV9Pkl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FyMD2ExF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNG7Efmc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3831F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FyMD2ExF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8ED1F00A3D;
 	Wed,  5 Aug 2026 13:06:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785935173;
-	bh=s3aNKVGV4KH8uAI445MCwGmvwXx/L728ss41SccJ/nE=;
+	s=k20260515; t=1785935174;
+	bh=nLF5EBeOIfiK21IwaaV28ksu86QoUZIJsoJTGJTnvmA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CNG7EfmcVdFvSzJgE08JPZwROkgGm8Arlh58mAVGc3LCAzmr6uV4uO0GtlcaBMzIX
-	 Rem9Ie35zXU2qIEW1Norcv2F0jRVxpTK9d3qBDiS9PN+oppr6Occ1sWmJyswE2tYf3
-	 NedB7hq/dnw2uweSUctyQd4ywdBo8kmDSGqoMQN37DZoLYU0E4PlMpIfCzEZGwv3RH
-	 mPd1OGQxxbrrcGoWnS0+kd0oIV5ochSnno1AprCZK++SY4TICLDQjORyRWeHu6cYyo
-	 pfIwYw1n8SVEXnpAOsjSe4cLn2W+9DzHRHtcYFh55tXn9LrfXLe1O+f+nDPYxATdGC
-	 dFAHAcsrD1sFQ==
+	b=FyMD2ExFtTskLP8Q67tzeOPnMhzgGLqjdwElzFUXm0CDiEgg3f60XdabqnO433rF0
+	 F+LEPxWficWIT5KlYUfVybtTLOW/1lANqk3sx7NDlgz9r3pQJWkLgUyq4KTMp4k9y5
+	 3yOw24NDseEpcVQT9+QpQudLNXmTdOy+d6SzIKnPy0NxAQyPrzopdanyfwDkgKhiHh
+	 bIJTxB84PQAcRNffWN6vfKvuXjrHWe9Bvy39GIlD4wA8w/UBiZwXqADfBy/E8GFK6B
+	 wmZUOPrrxsRkqA/dnbB1Iu2b+S9N7B7Px4wmTbjtCY9O9/GRiTB9ebPYi6+tTKHP9n
+	 fG1ASNngeMXBQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 33/36] pinctrl: airoha: try to find chip scu node by
- phandle first
+Subject: Re: [PATCH v10 34/36] dt-bindings: pinctrl: airoha: add support of
+ en7523 pin controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805123408.3767648-34-mikhail.kshevetskiy@iopsys.eu>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260805123408.3767648-35-mikhail.kshevetskiy@iopsys.eu>
 References: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
- <20260805123408.3767648-34-mikhail.kshevetskiy@iopsys.eu>
+ <20260805123408.3767648-35-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 13:06:12 +0000
-Message-Id: <20260805130613.1B3831F00A3A@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 13:06:13 +0000
+Message-Id: <20260805130613.DD8ED1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Valid error codes (such as -EPROBE_DEFER or -ENOMEM) from the phan=
-dle lookup are clobbered by the fallback path, causing permanent probe fail=
-ure.
+- [Low] Missing label for phandle reference in device tree example
+- [Low] Usage of deprecated integer assignment for `drive-open-drain` in ex=
+ample
 --
 
---- Patch [33]: [PATCH v10 33/36] pinctrl: airoha: try to find chip scu nod=
-e by phandle first ---
-commit 1b07c88ba2b60a6919f3a1d6b55003a4983e9897
+--- Patch [34]: [PATCH v10 34/36] dt-bindings: pinctrl: airoha: add support=
+ of en7523 pin controller ---
+commit 09684fda82523cf1b5b0d87b6f829c268435150a
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: try to find chip scu node by phandle first
+dt-bindings: pinctrl: airoha: add support of en7523 pin controller
 
-This commit updates the Airoha pinctrl driver to search for the chip SCU
-regmap using a phandle first. It falls back to the SoC-specific compatible
-string if the phandle lookup fails.
+This patch adds device tree binding schema for Airoha EN7523 SoC pin
+controller.
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -792,9 +792,12 @@ int airoha_pinctrl_probe(struct platform_device *pde=
-v)
->  	if (IS_ERR(pinctrl->regmap))
->  		return PTR_ERR(pinctrl->regmap);
-> =20
-> -	map =3D syscon_regmap_lookup_by_compatible("airoha,en7581-chip-scu");
-> -	if (IS_ERR(map))
-> -		return PTR_ERR(map);
-> +	map =3D syscon_regmap_lookup_by_phandle(pdev->dev.of_node, "airoha,chip=
--scu");
-> +	if (IS_ERR_OR_NULL(map)) {
-> +		map =3D syscon_regmap_lookup_by_compatible(data->chip_scu_compatible);
-> +		if (IS_ERR(map))
-> +			return PTR_ERR(map);
+> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.=
+yaml
+> new file mode 100644
+> index 0000000000000..599f80e94432b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,en7523-pinctrl.yaml
 
-[Severity: High]
-Does this overwrite valid error codes like -EPROBE_DEFER or -ENOMEM from the
-initial phandle lookup in airoha_pinctrl_probe()?
+[ ... ]
 
-If syscon_regmap_lookup_by_phandle() correctly defers and returns
--EPROBE_DEFER, the code enters the fallback path. If the newer device tree
-omits the legacy compatible string, syscon_regmap_lookup_by_compatible()
-will return -ENODEV.
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    pinctrl {
+> +      compatible =3D "airoha,en7523-pinctrl";
+> +
+> +      interrupt-parent =3D <&gic>;
+> +      interrupts =3D <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +      gpio-controller;
+> +      #gpio-cells =3D <2>;
+> +
+> +      interrupt-controller;
+> +      #interrupt-cells =3D <2>;
+> +
+> +      gpio-ranges =3D <&pinctrl 0 12 30>;
 
-Since the fallback error is returned, the original -EPROBE_DEFER is dropped,
-turning a transient probe deferral into a permanent probe failure. Could we
-propagate the original error instead if it is something other than a missing
-property?
+[Severity: Low]
+Will this example fail dt_binding_check compilation? The gpio-ranges
+property references the &pinctrl phandle, but there is no pinctrl: label
+defined on the root node in this example.
 
-> +	}
-> =20
->  	pinctrl->chip_scu =3D map;
+> +
+> +      pcie1-rst-pins {
+> +        conf {
+> +          pins =3D "pcie_reset1";
+> +          drive-open-drain =3D <1>;
+
+[Severity: Low]
+Does this use a deprecated integer assignment? The generic pincfg-node.yaml
+schema typically expects the boolean flag drive-open-drain; rather than
+assigning a value.
+
+> +        };
+> +      };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805123408.3767=
-648-1-mikhail.kshevetskiy@iopsys.eu?part=3D33
+648-1-mikhail.kshevetskiy@iopsys.eu?part=3D34
