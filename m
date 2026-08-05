@@ -1,217 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6403515E6
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:41:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785915663; cv=none; b=Xve3s7ER11AhWii1e9vtNJkxSq++SKFqNKgMXszlUOQKTBbP02u1Jh0IrOtrmTzTNq4IAiK6LSmHklu7DC1qITOJayUHRQ6/pIv5TUrJH2xRs3gkOnrAxqJVmpm7U+N/2kG5WE6QMYKkUPK8L6HQS/KxjyUbMCugF3HTfvMD9uo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785915663; c=relaxed/simple;
-	bh=NnNdTKca/p5BWUKCrIC/yl7YkYtvzTuz7hoK7eNl2tc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XtXc2qUhWGC61z08BRfxyWEFtDL3p+RKP8svcIOpZYx7ZnAXg2EOWb+qDujKkDKjBqUjEPAeXPR4xSk4wfMns0PqMdeVrLZ+eFEDlYbr/borlsNQsAAphGpRYJcZSVyoeORN7kgJ8RsK1gBUQ4y2acMSNnghwMQH469TRC3q7Cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrYtVfpR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDC13E315E
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785915725; cv=pass; b=Rp2oRcUm23I8odLeDdosMoUoKsZ9MFjvTCRwpKPYCgQsnwb2wFWhr3P012NajQoZscMDCqYfM3iRSyXRfPTOy8Rd4rW+Ovqkwdwkd+2Sg0vpuAYyXISJ1bE6M28bEscOI80YyrjGBgnrqy0QJGpOF/ql2fjr+kM+CLAwLf/LXvI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785915725; c=relaxed/simple;
+	bh=AswoXktvAEUZ20MhH+7Es3c6Uxz+yoTQifNNp5Zbtqw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LKV1038JdYD5JyVWPPEfvuSYYaCLyP00j6DH5TTFKjB6uYjk7DFAdzL4o5jmuhkvnVWm7TXcECwUBpyMMrpc/yX221/c0lEbYibLnmICSVY443mCPuC7/XwY3jgHS/r6RU2V/7lC9o4TLOvUsu5D5/zSb35ScYEKEpDL/mc2l3k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jVBM1ocm; arc=pass smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrYtVfpR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8AC1F000E9;
-	Wed,  5 Aug 2026 07:41:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785915662;
-	bh=jo7erI5uclSWFbTdEEgDBQFscfowIYWY888K2eJC7uU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PrYtVfpRr4xQOVTj6ArAdpkGRYF3JrTZp9rSQw+EoKzrOyqbTMBC8UzqxhEUS7pEy
-	 vMyPJOH8mTaoZNANJ9QK+gVYu4mTwWyIHPz1ELv+i8tmirgPxuf03TbYJ8rdLEaxqY
-	 Dcs6QhBZAXF0jZKrNgd7H03ym2wHoq7h1Cg3s+Qtcboo6BpbfPzsfCEXVFFrFqtAAD
-	 xwcIF5Q4G99s61ptxSbGFcOAIgfT105jUaH7jPicP2uWFRYEDtBI3eRpCgvqSD+IkA
-	 a4TjsRCxILkSyct6BeFsGSdY2GemIkqNxiRIIPEogRbh6YqjnLy4MG54utOqya5Ftk
-	 LjnMMpXaoQP+g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] iio: accel: mma8452: Allow open drain interrupt
- pin configuration
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805-mma8452-open-drain-v3-4-6149f406a409@geanix.com>
-References: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
- <20260805-mma8452-open-drain-v3-4-6149f406a409@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 07:41:01 +0000
-Message-Id: <20260805074101.BB8AC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jVBM1ocm"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aeb24c0807so541074e87.0
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 00:42:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785915722; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HqW6stXcLQ07pVz5U5vstyzMw9GAqDx6GuKlMMHyQjuoe2PT4TlD2MixCzEgkHw0tG
+         nYDQF3oi5o7ZtvPkWjlAFRrUBuh9wwneh7ICeBkMc/6sRxRnK/UBaSgrAlEYddGTc+7z
+         gOr+vZ42k8vW3Hfo9hR07QNlnqEmiUN4VbEVGc38qEwP0REj3uVbXPMl5IIkIAjj5xOY
+         4H/xyaKDQ9kD1CES7jtrYmdb4aY1lIlIbu4wPBa+LULhjTWlhAYjB9oWiIOAiNvmtP3r
+         oxDxtQN4+8GjT2T06DuZVRoYqDX7cy3WENxY00x/JZjxs98ieKQ/Wfyj+YRhmPsNcPkk
+         HMfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EGMmfuIwdnIVm/Rp/G4jSIrqN3Z/dLwwZ2hEaeu7tYk=;
+        fh=r3j22Yn3xvpAZ0zRVnViUbWShZsATJYEkJzxgFmhwZ8=;
+        b=MZ+P38oBnstML6gj2414BEgHuwZCneLWr43QKYQQdTBs/gxUeCpxLoLpK6n5QPp6tP
+         eeokEY2ap8zk0H8C9NikZOhv51/oGeiQoLy8YfIu9uvC4SxTtLOIW7aUYZRkCgiDckiF
+         Wo28vv7nH75w7JCdVM1p1gvCjqg6P6pAOCFP0hzfZd6ALAlpOWJ3+qyDrb7g+cKDj489
+         wg2/OP7tv1DAYQ54Dm9HJ2yWfHi3Ueyun7Ad5SEqO/mvtoqucvqgtqF6U9baOj37mYk2
+         m3/rJXomGZshDAB7Nh5HS53ymab81NbFSboQTQdXTk+mzRn+2E/nePAyWTXhFF6m3e+t
+         1rZw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785915722; x=1786520522; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EGMmfuIwdnIVm/Rp/G4jSIrqN3Z/dLwwZ2hEaeu7tYk=;
+        b=jVBM1ocmK4rMsJgs2Res7nw3bcjwpalVLOzwifWKLqIJr06wnl8it3I0tJtRavb/TU
+         AfvgTDcRR49CM19vVtpcr+3Oa2+53SDM3Fl5YOdcD3dJ7ta4LZBDy6indCnUYSVSNh4q
+         GaR8IPakAMaoZ4zocKeWjLLEtUkIwAvIgee8WTvpWKx/eruyurBGvOc+zzch7+PK5sAh
+         hGCdTO72jwQmimd6F3rtssqdJR0FphodLza/KabkFRGMVR4D8eGLZI8pSj4vLw/pHvbP
+         xMtMP354MBFFJoVexzWnYsi3W5GQ6nySwxLSRRfZV7Ilr9LIsmThKz3HqpEAcbMycAwl
+         wfrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785915722; x=1786520522;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EGMmfuIwdnIVm/Rp/G4jSIrqN3Z/dLwwZ2hEaeu7tYk=;
+        b=cIBwZwLe1G+1IE5J5teNat5AppckZowB8T12jQ9JsXiRYQj643eHDHNn++NMQw6SNK
+         YA/6+N/qmEPXHQCeQbZy7zjlfcmD+e/XSVMpTXbY6stgdx8MJe+0nWhrdAqtbUOeEyT7
+         LK2E5hyL5M6v4P3d9+qF0oo6DMyVxWADialNWIYOXxa5uhSW67OHIZGyY9IBmL9QFLh8
+         H+/GMRnKYBkbP58FVMELbvQKyw7b0fKrEUGXmn8vVif4IMJj3+gcYSJeMkXXr6upk09J
+         otH2T5QXigHlqXKrxOWZcqpYW3YAYJ4HDKKYUC1XSbxB1xVSBxFAKr4d1s8WFpiHI97h
+         gBQA==
+X-Forwarded-Encrypted: i=1; AHgh+RpF9SdMj+FBc/OlKb0+RKOqZr+m886EHcXm4u+Fnhc3f0MucXD5FMeB2PLfU1zzLfGpwvucaYFT/CbM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5G/gjtnsqVK7HWiE5AFNgh2/8K+TdolQJ3DSgCb7R+27xPzdr
+	3Bx9zCjm+REzcSPnpLf+chIgwOKXDiAtwq/tLcznTHOuspKzTpm7rvQCkbEvlto4ZJiy+oihagQ
+	cMo88LNrd+YUto79z1/PsBi0vnJuzcyU=
+X-Gm-Gg: AR+sD1218P6TWHyXI0g9n0+akiReKfPmvdC8hnL3dtgocN1pMEHLQkp7+Sa2YDUnC8f
+	0P8zd5hEEjAvUgCyBGwtx1jhkgGRVvHcz9ioqCUZLnnMsFEHKxyRn/GVfKmxHnOYAAqjviXCox7
+	S7sB69r0HNoMShxhfoLThF+Cf2Qktf+s5klqY5gFStGZkT55n5yUpprZyAH+KARevbZ8X3Fco0x
+	g1Xkf7c8bA56w3HPjbobUB4lf0tZREIMUfFmPIBmyyCM0Nmb6e73ZGe/a4GihFGLfagoFgIdwe3
+	kuSEwGUq2x3g7XPuY4+JrNP0SiRUclDdqjkiRee472GAIg==
+X-Received: by 2002:a05:6512:6683:20b0:5b0:1359:3dd4 with SMTP id
+ 2adb3069b0e04-5b2f4b88af4mr447689e87.5.1785915721814; Wed, 05 Aug 2026
+ 00:42:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260805-ti-ads112c04-driver-v3-0-49f436829e01@gmail.com>
+ <4841976e-ca36-45c0-a853-75c647bf8a79@kernel.org> <a225f41f-b13d-427a-b0ca-734267a8cc3f@kernel.org>
+In-Reply-To: <a225f41f-b13d-427a-b0ca-734267a8cc3f@kernel.org>
+From: Kyle Hsieh <kylehsieh1995@gmail.com>
+Date: Wed, 5 Aug 2026 15:44:49 +0800
+X-Gm-Features: AUfX_mxwdY-FKRMg8LEDhx1tXYC8rPUI9XX82Z14K8p3oblYz1SQiIPB91b8PwA
+Message-ID: <CAF7HswN1JicdLv4DLBV_baELq2heSedsGKvwWb7KvTUm7NkcFQ@mail.gmail.com>
+Subject: Re: [PATCH v3 0/2] iio: adc: Add support for Texas Instruments ADS112C04
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+On Wed, Aug 5, 2026 at 2:46=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.org=
+> wrote:
+>
+> On 05/08/2026 08:43, Krzysztof Kozlowski wrote:
+> > On 05/08/2026 07:38, Kyle Hsieh wrote:
+> >> This patch series introduces support for the Texas Instruments ADS112C=
+04
+> >> Analog-to-Digital Converters.
+> >>
+> >> The ADS112C04 (16-bit) is precision, low-power, delta-sigma ADCs with
+> >> an I2C interface. They feature a flexible input multiplexer supporting
+> >> single-ended and differential measurements, a programmable gain amplif=
+ier,
+> >> and an internal voltage reference.
+> >>
+> >> Note: While this chip shares similarities with the ADS112C14 (currentl=
+y
+> >> being upstreamed by David Lechner), the register maps and feature sets
+> >> are sufficiently different to warrant a separate driver. However, the
+> >> DT bindings and channel parsing logic have been aligned with the
+> >> ADS112C14 conventions.
+> >>
+> >> This initial submission provides a minimal feature set (single-shot
+> >> conversions and basic DRDY interrupt) covering current use cases.
+> >>
+> >> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> >> ---
+> >> Changes in v3:
+> >> - dt-bindings: iio: adc: ti,ads112c04:
+> >>   - Resolved dt_binding_check errors by removing redundant $ref for
+> >>     standard unit suffixes and fixing YAML array syntax.
+> > Yet you still decided NOT TO TEST it before sending.
+>
+> Although after further looking this could be using properties added in
+> iio tree, thus bot's report about failure.
+>
+> Well, if that is the case, that's unfortunate because if previous
+> versions were not tested by you, this one cannot be tested by the bot,
+> thus I look at this one as also untested.
+>
+> Best regards,
+> Krzysztof
+Hi Krzysztof,
 
-New issues:
-- [High] Shared IRQ handler unconditionally accesses I2C bus while the devi=
-ce may be runtime-suspended.
-- [Medium] Incorrect shared interrupt handling falsely claims unrouted inte=
-rrupts, masking spurious IRQs.
+Thank you for the review and for following up in your second email.
+I would like to clarify that I did indeed test v3 locally with `make
+dt_binding_check`
+before submitting, and it passed without any warnings on my end.
 
-Pre-existing issues:
-- [High] Volatile register context is not fully restored after PM runtime r=
-esume.
-- [High] Unbalanced regulator disable and unpowered I2C access during devic=
-e removal.
-- [High] Sysfs callbacks modify cached state and access I2C without a PM ru=
-ntime reference.
-- [High] Reference count leak of the IIO trigger device due to unbalanced i=
-io_trigger_get().
-- [High] The driver ignores the requested IRQ polarity, leading to a hardwa=
-re/software mismatch.
---
+As you accurately pointed out in your follow-up, the CI bot failure
+appears to be
+a cross-tree dependency issue.  I apologize for not explicitly noting
+this IIO tree
+dependency in the cover letter to prevent the bot's confusion.
 
---- Patch [4]: [PATCH v3 4/4] iio: accel: mma8452: Allow open drain interru=
-pt pin configuration ---
-commit 6358f754e42af1003c7e9459771157fe3985f6bb
-Author: Esben Haabendal <esben@geanix.com>
+I have also just updated my local `dtschema` tool directly from the
+devicetree-org
+GitHub master branch, and running `make dt_binding_check` on my tree still
+completes silently with zero errors.
 
-iio: accel: mma8452: Allow open drain interrupt pin configuration
-
-This patch allows configuring the MMA8452 interrupt pin in open-drain
-mode. It reads the "drive-open-drain" device property and sets the PP_OD
-bit in CTRL_REG3. It also adds the IRQF_SHARED flag to allow sharing the
-interrupt line with other devices.
-
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index 723ca3d9cb96b..fa0915530f953 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-
-[ ... ]
-
-> @@ -1688,7 +1712,7 @@ static int mma8452_probe(struct i2c_client *client)
->  		irq_flags =3D irq_get_trigger_type(client->irq);
->  		if (irq_flags =3D=3D IRQ_TYPE_NONE)
->  			irq_flags =3D IRQF_TRIGGER_LOW;
-
-[Severity: High]
-This is a pre-existing issue, but the driver appears to ignore the requested
-IRQ polarity.
-
-While mma8452_probe() retrieves the requested IRQ trigger type to configure
-the OS handler, does the driver ever set the hardware IPOL bit (bit 1) in
-CTRL_REG3 to match it?
-
-The chip defaults to active-low, which might prevent interrupts from being
-delivered if the platform specifies an active-high interrupt.
-
-> -		irq_flags |=3D IRQF_ONESHOT;
-> +		irq_flags |=3D IRQF_ONESHOT | IRQF_SHARED;
-
-[Severity: High]
-Does adding IRQF_SHARED here make it possible for the interrupt handler to
-run while the MMA8452 device is runtime-suspended?
-
-When another device on the shared line triggers an interrupt,
-mma8452_interrupt() is invoked and unconditionally reads MMA8452_INT_SRC
-over I2C:
-
-mma8452_interrupt()
-    src =3D i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
-
-If the device utilizes runtime PM and powers off its regulators when
-suspended, would this unpowered I2C access cause transfer failures or lock
-up the bus?
-
-[Severity: Medium]
-Additionally, is the interrupt handler equipped to properly reject spurious
-interrupts on a shared line?
-
-With IRQF_SHARED, mma8452_interrupt() will run for other devices'
-interrupts. It unconditionally checks the DRDY bit:
-
-mma8452_interrupt()
-    if (src & MMA8452_INT_DRDY) {
-        iio_trigger_poll_nested(indio_dev->trig);
-        ret =3D IRQ_HANDLED;
-    }
-
-Since DRDY indicates data is ready even if the DRDY interrupt is not routed
-to the pin in CTRL_REG4, could this falsely claim unrouted interrupts and
-mask IRQ storms from a faulty shared line?
-
->  		ret =3D request_threaded_irq(client->irq, NULL, mma8452_interrupt,
->  					   irq_flags, client->name, indio_dev);
->  		if (ret)
-
-[ ... ]
-
-> @@ -1806,6 +1830,10 @@ static int mma8452_runtime_resume(struct device *d=
-ev)
->  		return ret;
->  	}
-> =20
-> +	ret =3D mma8452_set_interrupt_pin_mode(data);
-> +	if (ret)
-> +		goto runtime_resume_failed;
-> +
->  	ret =3D mma8452_active(data);
-
-[Severity: High]
-This is a pre-existing issue, but does mma8452_runtime_resume() fully resto=
-re
-the volatile register context after a PM runtime suspend cycle?
-
-mma8452_runtime_suspend() disables regulators, cutting power to the chip.
-When resuming, CTRL_REG3 and CTRL_REG1 are restored, but are other volatile
-registers like DATA_CFG, TRANSIENT_THS, CTRL_REG4/5, and FF_MT_CFG left
-unconfigured?
-
-Could this cause the device to lose its sample rate, thresholds, and
-interrupt routing after the first auto-suspend cycle?
-
-While reviewing the PM runtime and cleanup paths, a few other pre-existing
-issues were noticed:
-
-[Severity: High]
-This is a pre-existing issue, but does mma8452_remove() safely handle
-removing a runtime-suspended device?
-
-mma8452_remove()
-    mma8452_standby(iio_priv(indio_dev));
-    regulator_disable(data->vddio_reg);
-    regulator_disable(data->vdd_reg);
-
-This unconditionally writes to I2C and disables regulators without
-guaranteeing the device is in an active PM state via pm_runtime_get_sync().
-If the device is already runtime-suspended, the regulators were already
-disabled. Could this double-disable regulators and cause unpowered I2C
-access?
-
-[Severity: High]
-This is a pre-existing issue, but do sysfs callbacks like
-__mma8452_write_raw() modify cached state and access I2C without a PM
-runtime reference?
-
-__mma8452_write_raw()
-    data->ctrl_reg1 &=3D ~MMA8452_CTRL_DR_MASK;
-    data->ctrl_reg1 |=3D i << MMA8452_CTRL_DR_SHIFT;
-    ...
-    return mma8452_change_config(data, MMA8452_CTRL_REG1, data->ctrl_reg1);
-
-If the device is in auto-suspend (regulators off) when user-space writes to
-sysfs attributes, would the I2C writes fail and corrupt the cached driver
-state?
-
-[Severity: High]
-This is a pre-existing issue, but is there a reference count leak of the IIO
-trigger device?
-
-In mma8452_trigger_setup(), an extra reference is acquired:
-
-    indio_dev->trig =3D iio_trigger_get(trig);
-
-However, mma8452_trigger_cleanup() unregisters the trigger but does not
-appear to drop the reference with iio_trigger_put(). Could this permanently
-elevate the reference count and prevent the module from being unloaded?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-mma8452-op=
-en-drain-v3-0-6149f406a409@geanix.com?part=3D4
+Best regards,
+Kyle Hsieh
