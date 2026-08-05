@@ -1,313 +1,101 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com [91.218.175.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973B73E557B
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474673E557B
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:26:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785921957; cv=none; b=cAKqS+NQUhyXbiesC3NQPXf0wDtxU8BP35FTPfWlcMCBRX25cv1y8IegKSlRrADD9j0q85dJDNvnJ7nOnotL5/pM2YRrxuXK6+d6bWToRR1KT+1kqmN5X/118kszoDuKNDpn+Xb5egehs5W5nE2YARWUON84nO8nUqHpNdSvCl0=
+	t=1785921981; cv=none; b=H2B7FoWVZEy6z9lDtk3DoWk15ZaAYliShBbI6TRRDPFY3gMPhX80ixKqxfkQWMx3mq/OEPrdMDGFdL4m/X7CzUhV5LBARWSoBIPV0nkXpKV8lURJfezdrfUkdwnnsHVitVKY1S2FByKryBsyZp74feOvompXx4aGsxac98iJYT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785921957; c=relaxed/simple;
-	bh=2NwZzpybEGpqABX8oI+T7CowolrWBdADRnQKLxaF244=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=F6TsZStgySv32ZTXPT+MIlVbYl8NazwYFDnSxN21A0pEYaeUKySZ88OZfNY8zHeFESwYjWG35MARB78cZy7jU+fkTiAcqvm45xea35q2NdW01R7XC+GyEY0eE3f/LJFeY7hyZG6mI3RX4KmMJ0Ev/34VskVmXG8rTDVNwq0Yju0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=by5G2Gx6; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785921981; c=relaxed/simple;
+	bh=5PcQb4tYPqg14LJCgWYmntExBwf8V8dZAlN+M5P1nEg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 In-Reply-To:References; b=AebeuAhC5ibtP/Q57Ahvy1Q8ELez2D45mkvtE8qlczS5Jwsf5LdSsLzP6EdRsJTnWN9pCmLEx7Fgpo8ub5Tp544lbmd+pfrOLdpCVF88X6MWSXyGQgbsfe/HSl3ORWM+rPgY2+52jZmrGNgxATrcMrN2nSleppntaqnMKafeveI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mmg7s7OU; arc=none smtp.client-ip=91.218.175.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="by5G2Gx6"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495590dde14so7676895e9.0
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 02:25:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785921954; x=1786526754; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8k2s2VnaAHk68oU/LZH7jtw6dj5ASex+T2rhuCCV/P4=;
-        b=by5G2Gx62CZCKggTwwPH86eGNhIpGhUDFVAtweCFMhDeH5QCOqvOnegwS1ulpfVB0W
-         IT6CXZXJbjYbFB69zOJjhNnCI7ScdZ6q7EeoFguft0+tMKTN/6Wl3esQgoHoL65RLID9
-         f+DiMmtDKnHo5vKawfe2SpNCkiQWLTiGfA0jNN/sPVmrvaUqmObgHTCyZRH6xzvxwg59
-         hUVtc1DzFH8jRhoh+YSetns3LRoaBu7vi8qaJMWO0FtPeQBYi7P5kmjeM51AcJIJ6p4h
-         kBJZsulcmaytrG2jL4XnRqri24USb+NmM5aojsfRUxyJFCHZENOiSTR2en1w4UB3z9xP
-         U+nw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785921954; x=1786526754;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8k2s2VnaAHk68oU/LZH7jtw6dj5ASex+T2rhuCCV/P4=;
-        b=FbXnFo362eIv+mn1lLoSYQ8yc76qCHuuvsCarDuGFRotOWWKSlEZVnX4Ms2pWZ13FA
-         MCO8jYgZB7QPPFDje9F8416h8nGAJaFN3AvlQEorQWashRDZd8noVTzsLI2ORerZ/ebP
-         OuNcp8sJ1BEfhgSy5fa49uAfSc87AJ2RqqeueDEJdAEJr9zPOQv23F18bdUqvKUaiPfx
-         mEYNQegwGeE5RWWpn5VwJZYtuSRnpdwyB2yaQGDZx70n7hyvFB/XUqfpEGSaKD0PoMMF
-         qFHdG0ksAolntAeucPmT1WNDlFDXhj+y0tXZnIDu4ndc78GIYmQO3U0TImgPP3FrTcJd
-         yAtw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8U/hkF+B+565J+Pt+QX/16getejJ2nQgrrC848gh6vk7aWlgfw0woNrCkV2y3q4Kfj/YRm99qikdr@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3JnyS7jgAF/koxjQizQr1SHjjfash8BaxUyP6k5BN/GLJkjAK
-	FiEBmb+YHsOKJoPgKTVR9MxMEce3Uy635gS+fQaDVThzpkNILO6bldJVATu71xv8MuE=
-X-Gm-Gg: AR+sD13Z1FpQ+a7MRZgYAO9CBGcamYMUhkOB5SAbmpivDGuNigsflLFEnJNUPEqbe4P
-	EuFlgmO4ThPnp6qfnD1rkJV9e2zSk5f9JHcPci6AUTTXjehXZHaE7PbWYBinyrqTxPvHlJnM+JY
-	yybvHeAr3hy9heh6C+qe6fPZw1t+ed18J1D7ZhMkCVIpHDOAscikHtlV2r6YukyOdo8GS9wpp3r
-	HSgeWH9K26RsQbaASxjQd0sHQfsSou0O68zsToZRNRIVPur4PtmuH7JqrpYmehCjyc5EXnJ9lZ2
-	lsd8QY1CmLT3dbTmuO+wb3VQbSKqiojkaX18zToFDgCA8UShh+OtOvSFDdo1M1ygh796Wf8/IiE
-	OXbRfy8A7wzVdcNASEASZ1TKLlGi+awg0RT+8ctwD79JsEV8mL+KxrfXzS9pcaIbG77DLMqzC8S
-	qtel1t7H/JlfHeL7RPvi3uvismFeJ9qaEOeZaR2VyRStTipkK3sxhJ55JwHrOdCaje/BQj3QMpO
-	7lgbg+lYluET+oKkL2dqKzucI9oiXwa35voLK6ZxqbNdpjsO9pXBSg=
-X-Received: by 2002:a05:600c:8b35:b0:499:4d4b:be2b with SMTP id 5b1f17b1804b1-4994e7d2bb5mr52122365e9.16.1785921953693;
-        Wed, 05 Aug 2026 02:25:53 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:b524:aa27:5120:b778? ([2a01:e0a:106d:1080:b524:aa27:5120:b778])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4994dfcc6acsm68421745e9.3.2026.08.05.02.25.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 Aug 2026 02:25:53 -0700 (PDT)
-Message-ID: <5231dd3d-18f4-461c-985d-64a7720d62c9@linaro.org>
-Date: Wed, 5 Aug 2026 11:25:52 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mmg7s7OU"
+X-Mailbox-Line: From troy.mitchell@linux.dev  Wed Aug  5 02:03:29 2026
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785921977;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3rrXLP9Gl/9+kZEGTyeSXg9dLTosBnnAR6frYAqGISA=;
+	b=mmg7s7OUrs8f++wIQHtt4bS88b+gf2Fb5ZOGsALIL/+YjBk9Q0HDdkbGDBgwRHFoTC4BBE
+	Q4wDPhHufV2nJ+03ZfdVuq+RKy0kQKmpHAIK4X77TBbjXx2obMOZERzEQTXmt8msVNketb
+	6M7Kh7GC2+tJDy7HLgD2a8McH/2/EQM=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Wed, 05 Aug 2026 02:00:55 -0700
+Subject: [PATCH v3 5/6] riscv: dts: spacemit: Add K3 I2C6 pinctrl state
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v15 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260730-x1e-csi2-phy-v15-0-f284131de1fa@linaro.org>
- <20260730-x1e-csi2-phy-v15-2-f284131de1fa@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260730-x1e-csi2-phy-v15-2-f284131de1fa@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-ctl2301-v3-5-b86c75d1c552@linux.dev>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-doc@vger.kernel.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=997;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=5PcQb4tYPqg14LJCgWYmntExBwf8V8dZAlN+M5P1nEg=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlFv0/OuPKbp8ltCf9Pr8pPZ+yOhGxRVOe89e2qXGXU6
+ 3V8H65odJSyMIhxMciKKbJ0P+DZVuATZVsgUOgLM4eVCWQIAxenAEzEwpDhn16eQy/n2j0yHLvF
+ Xq1XXTG5JeBufIOCj1WacGPNFMNd7Qx/uMU5ervlfkxmudd/9ucMi1+3dl90j2fZtPS5o8hFp72
+ r2QA=
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+In-Reply-To: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
+References: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
+X-Migadu-Flow: FLOW_OUT
 
-On 7/30/26 14:02, Bryan O'Donoghue wrote:
-> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-> existing CAMSS CSI PHY init sequences are imported in order to save time
-> and effort in later patches.
-> 
-> The following devices are supported in this drop:
-> "qcom,x1e80100-csi2-phy"
-> 
-> In-line with other PHY drivers the process node is included in the name.
-> Data-lane and clock lane positioning and polarity selection via newly
-> amended struct phy_configure_opts_mipi_dphy{} is supported.
-> 
-> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
-> DPHY is supported.
-> 
-> In porting some of the logic over from camss-csiphy*.c to here its also
-> possible to rationalise some of the code.
-> 
-> In particular use of regulator_bulk and clk_bulk as well as dropping the
-> seemingly useless and unused interrupt handler.
-> 
-> The PHY sequences and a lot of the logic that goes with them are well
-> proven in CAMSS and mature so the main thing to watch out for here is how
-> to get the right sequencing of regulators, clocks and register-writes.
-> 
-> The register init sequence table is imported verbatim from the existing
-> CAMSS csiphy driver. A follow-up series will rework the table to extract
-> the repetitive per-lane pattern into a loop.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->   MAINTAINERS                                        |  10 +
->   drivers/phy/qualcomm/Kconfig                       |  15 +
->   drivers/phy/qualcomm/Makefile                      |   5 +
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 385 +++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 460 +++++++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  97 +++++
->   6 files changed, 972 insertions(+)
-> 
+Add the K3 I2C6 pinctrl state used by boards that route I2C6 to pads 7
+and 8. Use a 25 mA drive strength, which is supported for both K3 IO
+voltage domains, and leave board-specific IO voltage selection to board
+files.
 
-<snip>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-> +
-> +	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-> +	if (!IS_ERR(phy_provider))
-> +		dev_dbg(dev, "Registered MIPI CSI2 PHY device\n");
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index 3ee1471f3798..e50f3e4b5536 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -78,6 +78,17 @@ gmac1-phy-0-pins {
+ 		};
+ 	};
+ 
++	/omit-if-no-ref/
++	i2c6_1_cfg: i2c6-1-cfg {
++		i2c6-1-pins {
++			pinmux = <K3_PADCONF(7, 6)>,	/* i2c6 scl */
++				 <K3_PADCONF(8, 6)>;	/* i2c6 sda */
++
++			bias-pull-up = <0>;
++			drive-strength = <25>;
++		};
++	};
++
+ 	/omit-if-no-ref/
+ 	i2c8_cfg: i2c8-cfg {
+ 		i2c8-pins {
 
-
-Small nit, since the bindings doesn't specify the phy-cells, the xlate here
-is useless since only used by of_phy_get()
-
-I would suggest passing NULL or a dummy function returning ERR_PTR(-ENODEV)
-
-
-> +
-> +	return PTR_ERR_OR_ZERO(phy_provider);
-> +}
-> +
-> +static const struct of_device_id phy_qcom_mipi_csi2_of_match_table[] = {
-> +	{ .compatible	= "qcom,x1e80100-csi2-phy", .data = &mipi_csi2_dphy_4nm_x1e },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, phy_qcom_mipi_csi2_of_match_table);
-> +
-> +static struct platform_driver phy_qcom_mipi_csi2_driver = {
-> +	.probe		= phy_qcom_mipi_csi2_probe,
-> +	.driver = {
-> +		.name	= "qcom-mipi-csi2-phy",
-> +		.of_match_table = phy_qcom_mipi_csi2_of_match_table,
-> +	},
-> +};
-> +
-> +module_platform_driver(phy_qcom_mipi_csi2_driver);
-> +
-> +MODULE_DESCRIPTION("Qualcomm MIPI CSI2 PHY driver");
-> +MODULE_AUTHOR("Bryan O'Donoghue <bod@kernel.org>");
-> +MODULE_LICENSE("GPL");
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> new file mode 100644
-> index 0000000000000..7e55ae0073704
-> --- /dev/null
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> @@ -0,0 +1,97 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + *
-> + * Qualcomm MIPI CSI2 CPHY/DPHY driver
-> + *
-> + * Copyright (C) 2025 Linaro Ltd.
-> + */
-> +#ifndef __PHY_QCOM_MIPI_CSI2_H__
-> +#define __PHY_QCOM_MIPI_CSI2_H__
-> +
-> +#include <linux/phy/phy.h>
-> +
-> +#define CSI2_MAX_DATA_LANES	4
-> +#define CSI2_DEFAULT_CLK_LANE	7
-
-As discussed offline, I don't think the clock lane is as index 7, but is the bit to enable the
-dedicated (unnumbered) clock lane as the register define suggests:
-
- > +#define CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE	BIT(7)
-
-So the question occurs on how to define the clock-lanes with the "combo/split mode"
-where a specific data lane is transformed as clock lane, we would need to describe
-this clock lane but what would be the index of the dedicated clock lane we pass into clock-lanes ?
-
-So perhaps you should remove support of clock-lane entirely for now and just use the dedicated lock lane,
-and define this when implementing the "combo/split mode" support.
-
-Neil
-
-> +
-> +struct mipi_csi2phy_lane {
-> +	u8 pos;
-> +	u8 pol;
-> +};
-> +
-> +struct mipi_csi2phy_lanes_cfg {
-> +	struct mipi_csi2phy_lane data[CSI2_MAX_DATA_LANES];
-> +	struct mipi_csi2phy_lane clk;
-> +};
-> +
-> +struct mipi_csi2phy_stream_cfg {
-> +	s64 link_freq;
-> +	u8 num_data_lanes;
-> +	struct mipi_csi2phy_lanes_cfg lane_cfg;
-> +};
-> +
-> +struct mipi_csi2phy_device;
-> +
-> +struct mipi_csi2phy_hw_ops {
-> +	void (*hw_version_read)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	void (*reset)(struct mipi_csi2phy_device *csi2phy_dev);
-> +	int (*lanes_enable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			    struct mipi_csi2phy_stream_cfg *cfg);
-> +	void (*lanes_disable)(struct mipi_csi2phy_device *csi2phy_dev,
-> +			      struct mipi_csi2phy_stream_cfg *cfg);
-> +};
-> +
-> +struct mipi_csi2phy_lane_regs {
-> +	const s32 reg_addr;
-> +	const s32 reg_data;
-> +	const u32 delay_us;
-> +	const u32 param_type;
-> +};
-> +
-> +struct mipi_csi2phy_device_regs {
-> +	const struct mipi_csi2phy_lane_regs *init_seq;
-> +	const int lane_array_size;
-> +	const u32 common_regs_offset;
-> +};
-> +
-> +struct mipi_csi2_genpd {
-> +	const char *name;
-> +	bool scaled;
-> +};
-> +
-> +struct mipi_csi2phy_soc_cfg {
-> +	const struct mipi_csi2phy_hw_ops *ops;
-> +	const struct mipi_csi2phy_device_regs reg_info;
-> +
-> +	const char ** const supply_names;
-> +	const unsigned int num_supplies;
-> +
-> +	const char ** const clk_names;
-> +	const unsigned int num_clk;
-> +
-> +	const struct mipi_csi2_genpd *genpds;
-> +	const unsigned int num_genpds;
-> +};
-> +
-> +struct mipi_csi2phy_device {
-> +	struct device *dev;
-> +	u8 phy_mode;
-> +
-> +	struct phy *phy;
-> +	void __iomem *base;
-> +
-> +	struct clk_bulk_data *clks;
-> +	struct clk *timer_clk;
-> +	u32 timer_clk_rate;
-> +
-> +	struct regulator_bulk_data *supplies;
-> +	struct dev_pm_domain_list *pd_list;
-> +
-> +	const struct mipi_csi2phy_soc_cfg *soc_cfg;
-> +	struct mipi_csi2phy_stream_cfg stream_cfg;
-> +
-> +	u32 hw_version;
-> +};
-> +
-> +extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e;
-> +
-> +#endif /* __PHY_QCOM_MIPI_CSI2_H__ */
-> 
+-- 
+2.55.0
 
