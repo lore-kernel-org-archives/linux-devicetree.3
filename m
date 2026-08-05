@@ -1,154 +1,200 @@
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11021096.outbound.protection.outlook.com [52.101.52.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00ABC3FC5AF
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 10:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785925415; cv=none; b=UDQ9lbaXhE5RLz6aE6MBoubBtOiCbWWHdZsw2bEY3ccKTqSu1xsFJrmFer3BQqyj/YQIPju24gAV/Adc06esH47nDmGUhe6SF3v671OSUWKyHxLHLZnp5x0cG6jkw54P7nO42pmh9pkSerz5GXpswKeSFFuh5G8VTMuf+UIRkSU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785925415; c=relaxed/simple;
-	bh=MNBCiyRVJBWwyLo46fhbnJxQDnbhqm48d5QW6tS/BvI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MxJ0ktx47T89gjhaAYQqAA6BsJBBiG8guczWZS67rWcwTrDI9S1jOdnMhcrw5eXGgrw3D3CBrimdGNt9efz9MZ0UUIGO+5YlvZra4GD8k1KNwVlbtfKigTS/lSoeNda0G6rjYdfbk7AFdVNjmSSxWTaC62Q56HjYIIr3bEB8kmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E0LiO6Ur; arc=none smtp.client-ip=74.125.227.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345A17081E;
+	Wed,  5 Aug 2026 10:23:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785925422; cv=fail; b=Fd4OkBemjLUrLdS5rueNHjkqQOvi+WlRauI/qI0f8G5EgjrNGwPAmyoswJaq8hM6HJBmOJCra0GBDlGKkuJYyB2eNuNd8jC24O8E4Jtj6cWXvyIi179BeFWlN4rcE5aBU11o10gfJzsixqRnxEnmhcB07EPE3iFC7znGjEzQzRg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785925422; c=relaxed/simple;
+	bh=/4GhuAHbk26VtGZplbxH5JicCvkkBc3QZ9GH5wV/Ouc=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=L2KUB57wtDHbl7MPVyneDN5qhuGNlA1C6MPAaYl0NRH8e6Ny/5PYx9356TUGX9s+GKJa7at38VQvz1GP+lNMI4ue/TOHKWS9im2+oHR5V6V38wl41ujs/spQvlXGh8Wf1o7jY7IDnEHBF8x7lLwoANC0vcmTtQZ9BwZjWb59Lgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=MVhiju4w; arc=fail smtp.client-ip=52.101.52.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E0LiO6Ur"
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2ccc2e84048so5455225ad.1
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 03:23:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785925413; x=1786530213; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vO1bJHbRfOP8vBxDtH6pPbXfTPk6rLQoUJA1fYN2SbY=;
-        b=E0LiO6Ur3IN6aWlIrCG6lLeLC4RWhVUPr9GKkKrj8mtKhCpu6CRoJaV/4aCbCRPcIx
-         w9FroKeLwqKT7E3TGg9v26dqR8IpnDBpsj9a92hDKd7bD1WlHXb70LOCFZ3t6XAOg8No
-         gv2oQBeQqtCl28EEZPBC7xhws85H1kHR5WcxVV4rGAd97dePbgct1wSioANIOeHjMj71
-         LM5xKjKf6Wo4FrkFduwkCcwyEaipdkOd6JP2UoYy041OpDJSyCZV23gzP4resHgJnVUd
-         f6VRqTzNAtZdjIL3a5+t5lSMDduFxWoUOB4hoolcdq8WAcI5tnIpSlk5ETb6KcWytp34
-         OzUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785925413; x=1786530213;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vO1bJHbRfOP8vBxDtH6pPbXfTPk6rLQoUJA1fYN2SbY=;
-        b=bVT596QrddYBT9PkGHBBrjaXJFMaB9udm+oVakUR4IAlZsHsYOarb5eDTYvKrGQCx4
-         sq1ZnCKF819o/FMxbR0dN/joAk4Q+uKES7aD4t6V7Chcid9gFcCml8swavNk4UT5fdWa
-         EK3OlMhxLC9lW2axnZeFB4rKVxHcXOSwiP6T+1p+/DoRuMuVEFC/2jm9P3ksEvXmSOc9
-         +eaZOISgcho1MaG0ulEvTxAVtCURKwcjbPwE1g1J9zOjFDY+Y3TJDTaLT5L3BhujbRWh
-         1GSC0FE6ynoiHsn4A2PjnGym9r/pIXoUkEcxaaz0E2Adg/snWgJ2zs4avkClAFwnDDt/
-         r6zw==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1ppEiHd8JFlW/kOmjtDyhfdnCfzvNNsGkupP+nidvx7CyRwUSJ9t5Ef1lBZlnoJ6HoEsXH1IgaUI1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxuHJVlZ3l/LvdR9vkLZLCtu50Zn+fqsonOUoogMX7yOfoqig1i
-	fciDc6GJI7GVV916LCqHn/ClFccfLRGUMEkkNCAjSbmQU2txARMhjRSc
-X-Gm-Gg: AR+sD10o/qDd4LnJj51FgKUusJBe6WH1gGECqwpq0uFmLroFASr1OfJpP2r2lSYtCUf
-	pxSp7uAxqB/i/w56riIPWfiKQsn1Kqx5WWohZuqTWU5wYfD0Lwnwl/bL4FpXHoPQAJoxM4+UxrV
-	LKQyUmsD0SPOnYXt1R4nY0sBTjMaFRpv0bypp65gxgnI87vxhTICLeENRtn7oSLaiG08LDY0iMS
-	HLwCfVMcqo18R9p7gC/rh1uC61Q4TTwi+IQxXAn8g1OT9MgmE38gE8O7xkkveTx/1JisYc5vDnZ
-	PbfJCR+p8IV7OKs0DeGw+wdgHOWAwGwWi2Zek+/3SB6seqdsrtM57igwi9k1u1lPJE5mZZflUyQ
-	5zXEah5y0JU+wVn7JRgv3Y7TilLp3DzyYmoFGEja3PrFgbur/osCuHTsZd/mp+pdP2VFNdfyjLO
-	0VGpI82Yi3s4UlTJ+fRi6Z91PQPLkNbzSWazcZxhJZtMPfvfdr8txSlqOTcq1MW98NLm0=
-X-Received: by 2002:a05:6a21:697:b0:3c3:c3fb:2473 with SMTP id adf61e73a8af0-3cb85e736ecmr7337088637.20.1785925413235;
-        Wed, 05 Aug 2026 03:23:33 -0700 (PDT)
-Received: from DESKTOP-M0MLFVC.localdomain ([165.99.41.147])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586401627sm17560983eec.10.2026.08.05.03.23.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 03:23:32 -0700 (PDT)
-From: Shehryar Ahmad <shehryar.amd@gmail.com>
-To: jic23@kernel.org
-Cc: nuno.sa@analog.com,
-	Michael.Hennerich@analog.com,
-	dlechner@baylibre.com,
-	andy@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shehryar Ahmad <shehryar.amd@gmail.com>
-Subject: [PATCH] dt-bindings: iio: accel: adi,adis16201: add adis16203 compatible
-Date: Wed,  5 Aug 2026 15:22:24 +0500
-Message-ID: <20260805102224.3547-1-shehryar.amd@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="MVhiju4w"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bRdaByS7reppe2mVDnd8LtigFIIQ7BrSyeJcDVazcEVy6U0d8Rh5NFX8ZkuhxMgS7nfbQoKwurbgQXV7moj5cmN7M8jru79oMZ9N7EUBp+5dl+8xIo+J3Bcqcv7SpuGBBskvj8i77OAhuEL++HMI5Ic5a9qDKHf75FrPI7k83pTj7Nt+7JD/4cY6Pq+/TtUS1dsuiBRpgPSJx7K3qs4u6loR1Be98GaixUhkGLMABU8gwX/X6gGif54DHNgPaw8YPQKsQIunKOqx97+75SJzwt2mMRJw37VgJXabTiisA6JlNW/dE/mWHF8Q0UIaUsy1nnR7PmcxL3rpEv26Hgg0BA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IfUuSqMcBrhIqZsMEZy/hqlXl/538+C0w++qv/Jl03g=;
+ b=cxSzXVYW9AyInGnx4LTMGeBeQmQqgQkNWPPg2dYt9jagWKqfOCQCGLjr8FkfrMW7i4S60kc16x1u4nuVeb9HHujhw9JYEUQGNd6UjrVFve0PyNQowMupcVwPZ8s5OL46lRVHR7mVzPVt3x7Pw7IDwp5lqx5GL4wZCepMlM3QhUIm9Obw3nw1zVKyAyWTDnzzIhmTAoTK7m/P7vgNAFyIrLcS4oOaKOSzcf8Rh+Bj4r5MYJK1g4rUvEhyKz6GamzCoOmIAhWgjZ8Z4b9oS9V1HD/VoOM87sVkBHDqI8zHzUVbQaUMWNyi78Zb2UJf/2NoImY651lfd9UyIiowWX/Mpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IfUuSqMcBrhIqZsMEZy/hqlXl/538+C0w++qv/Jl03g=;
+ b=MVhiju4wb5N5f6Ej+l5NDBFdopKudpfBPLq2a5Gtgz+lVYqQ+D2C6McHXTlCirsNpAfdFUomlBrS8WiaNU4ShXHCUeMryNwtUGmYszy5jm605zEUmUtL8YvUbOjm4XEStM9I+1yfz6r0jOBte2D+Kj3jJVjASajHsqDKgyxmog2Cal4Xvr7k1812DfA2qji0A+eKnWcENgttvjqbz8bC+N/lgtEdt6HMhHPUZSZrkWhxOeNm+aQbjYybxuU7eohtBE293Jj80jviAzcIw+A9KzFXwKubL9jzVX3a1WKZFoQqi7dmuT8+c1ifR7ojwMvfv7FzthcRpz0/U3KUVp7ERw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
+ SAWPR18MB988335.namprd18.prod.outlook.com (2603:10b6:806:4e0::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Wed, 5 Aug
+ 2026 10:23:38 +0000
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0292.015; Wed, 5 Aug 2026
+ 10:23:37 +0000
+Message-ID: <e9fb5dd2-3fd5-4dba-b26d-c47abe6885a5@axiado.com>
+Date: Wed, 5 Aug 2026 12:23:32 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: gpio: Add Axiado SGPIO controller
+To: Krzysztof Kozlowski <krzk@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
+ Swark Yang <syang@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+ SriNavmani A <srinavmani@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260729-axiado-ax3000-sgpio-controller-v2-0-976f4ed11438@axiado.com>
+ <20260729-axiado-ax3000-sgpio-controller-v2-1-976f4ed11438@axiado.com>
+ <986fac76-3bcd-4523-a902-701027aff1bf@kernel.org>
+Content-Language: en-GB
+From: Petar Stepanovic <pstepanovic@axiado.com>
+In-Reply-To: <986fac76-3bcd-4523-a902-701027aff1bf@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0178.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::7) To DM4PR18MB4144.namprd18.prod.outlook.com
+ (2603:10b6:5:38b::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|SAWPR18MB988335:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32a8e2ba-9333-4615-dd48-08def2db9cc1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|921020|6133799003|22082099003|18002099003|3023799007|56012099006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	ZbZakDdeqfY8ja4VIp/CVkdNVck55eTRcmwQxetNj7wY2HTL/oTmcX6JGWTK+Xdm2y7I3ns+N3bBbHT2jlVTrlQnkoEM2u5s0p2gMv9eMAcG37LvGE7j950hb8LodAWPMNV+3oc0yUpFK7VedhdTq6hhlwv0d+j45VaauKIpQwadt8/TdGo719pN332umSYIIH9x8r3VlO6RVg4CpAsx1x4kSYWZ7B42l1dAWgjRp7CsD2UQiBxl3pTvEHCmoIpalyuk2teBGz1TFBqbAEV2KAZrruf+Sgc67ZSVA800QHALI90iOimQ8YK264hz59xWWxPBq5lZfX7zPfZK9V2qHWHIbdb2dHYsB/PDdgJfmgZjqnzKy15NFpwfAIZzt9x7HdFoIif9pd0OuX47VLRuGao53Z2MVAy3zdSTquj53a1uD4EoaccBW8nro5dkstw7YjFlxEvEVEEIRubL5WVjuKr+OxDo0euBMjeGj1UMkdmO0XkLFUNS/TMbTcExemSQciHIj5Q8RqrpJn7OJy4saTnbEUxe5rYE3rq3xmrAJE2LgHrnBF59Dj0omNQnQhyiVbHzLPyvf1aQphJ7Zbhb9J8J2+0hsTHlc/H8OJ/eUCPD7S+Lz+YoWSe0NvYXuuAOE3ozdGugjKQK5t9kNRtqL2zIO62hw0Wo18HBblXFtc7cgMdJaLsUeGw7J0if3OXq6qoeU3PnA3oIAZDlm19Pfg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(921020)(6133799003)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WVNOa2VTZDBMRUo2Y1diS09nU3ZOa1RZVyt3RGFlZFRUN1ljK25WN1ZYbDQ5?=
+ =?utf-8?B?bUI1V2xNbmJWc0dnZkR4RWlQR2o5SUdUcnR4WU5oK3lzOGV2MEoxZUFESDBH?=
+ =?utf-8?B?bml1VThObzM0T0c3dThBZUxBVm8vdlB0S282RitJVnh5UlBJdFVZNGhXbWlF?=
+ =?utf-8?B?eXZBdnlxaWxkL3p3Q29hZC80L2xVeDBBM2R0YUdiM2JrczJVWnNFQnJDZkpk?=
+ =?utf-8?B?STNUOXZSOGI3cThUMElzblRyYVM5eGNiRjRHQnFwbTRMdHdyOTIvN01yNElQ?=
+ =?utf-8?B?eDd3cjlQNEVqaHZWRU43VVFaVjJMa3lTZ1pOSlJ5MUk0RzFpby92RWtBWHpw?=
+ =?utf-8?B?djFzNDUzQWxYK3dlM20rdUcycnNnekZPY0N4SFl0UXBjbVJqVThNR2Zudnd3?=
+ =?utf-8?B?c0tVS2NzNDBMQlNXaFRjQTB2Mlhlblp1K1FEQUJrdG5sYzBvUnJxUVZaMWQ5?=
+ =?utf-8?B?dWxxb1I2OW9HMzlickVwL3JQenZuK09WelZNSm1ZUURsMzd1MzVEQlJWTm1X?=
+ =?utf-8?B?bldaYStpdSt6cG5nT0gvdWpFa3BHU2pZbjNnNXE0dVJLWDYrcFR0S2ZRYURZ?=
+ =?utf-8?B?YkNYWGpudkI0M21tc1NmS21SeTllYXZ4Zld1UlpYTjMzWXlCaEw3V09Sd2hn?=
+ =?utf-8?B?OHVjQ2g3WUpPaThqOHdXM3kyS2c1S09sMFBqRTFiTHlwUGNPR2lLYkdML3NE?=
+ =?utf-8?B?YmQ4eElTcmYxMkszS3dxYkZPcnI5QWZpMmpaL1RnQjFZZHdTS04vd1lZOHl2?=
+ =?utf-8?B?RmNUOTY2SDNEWWFxRHNNMmg5OGkrbFNzODVWNVNGZjM3VzlDZGd3OXJDQ21t?=
+ =?utf-8?B?eFRLZWoyQzR5UHYrbDRaNGI5bzI3L0FYRTVBWFBqMjNvUHN3MFZXT3M1Q1Qw?=
+ =?utf-8?B?cEthQzN4YnljZndSNUFWTHEyY1c2V1VLakpMMTNwL3NMOWpEMTloYkEvS3pz?=
+ =?utf-8?B?UzB5S0lFTHkrTzZMY3RUM2pjYWViOTVLZ2ZIcVFHdjk2L1JHVzlNaTA3dmtE?=
+ =?utf-8?B?NWRPRzRPblgrZzYxeXlSU0hNb0UrRUFCYVc1UE1Zcng3QXQ2ZUpBMHZOcXlF?=
+ =?utf-8?B?Q3ovanJSYzdNemZWR0NLOGZYaXRQNXF2czN2bEt4eHhxT245czhaRW1EenFU?=
+ =?utf-8?B?N0QzbnlNREtLQ0xqVW1LZkdoaWNWVm4zSEFyNzhnMEx6cXJWTjEwc1BSY3h4?=
+ =?utf-8?B?MHVZYWxIekcwUDhvd3p0TDU3U08wa2IyNVA2NkVqb1hwdG05MFpCZjhTK0dw?=
+ =?utf-8?B?bXZMR1RBRmh1a08rU2VkSWFkN3A3c0tjVml0MzFOMXZWTWEzNWtBemNhdHJ3?=
+ =?utf-8?B?MjRNcFZYcGdvRHNXTmRKTFRqSzN1LytkU3dlMHZQeTJhbDc0YjU5OWFjYjZE?=
+ =?utf-8?B?a1NBdWVBMng2SU5rQTVkeHZOR05abGRWUGhhNDdxbjQyZ2RZcGc1aWtSajlJ?=
+ =?utf-8?B?SDVmTlByeW5sOGF6cTYyNzBZaktkR1pSVEplV2l3NDlTS05SeitiQnNvUSsv?=
+ =?utf-8?B?OHZxUkFzUm9WWDVkQk9VNE1wYUl2amlOWXp0MFVNYnlTcTZSUGh3ckpadjVa?=
+ =?utf-8?B?cG5LSnlUdit4ZUxQeDNTVWNrRVpEaUtkeXFoeUphMmFVaWhMcFc3NmUxVThN?=
+ =?utf-8?B?Y2c4aVQ0UTdyaUgvZ25va0x4WGtWWEdMamtlQVhLSUJONWlDekhaakcwQS96?=
+ =?utf-8?B?RXNSUE1ZbkE4d0gydHowdUpTZFVMRjBkLzZ4MHNKdG1DMFNtOTU5OHZWUjJm?=
+ =?utf-8?B?dUZKclVMZGJCaEFJRU96QmhNeGk4Y0pxQS9jdVd2b0lUNW85SU5yOXRJSHgy?=
+ =?utf-8?B?RDNpSGxhNHVoTkMxaFk0ckJCa2o4UUFQeHoyWlNUOUk5VlB6QjdwajBzVFlo?=
+ =?utf-8?B?MGs4bFZSWjhvZkZ3SWxGSFhZTmhaSFAyakN3ZmxrT2xXVHJSdXhlcy9wSzVh?=
+ =?utf-8?B?bERZTkRHWFlTek9RT0hzQ21PeXhPbm0rdzQwTUd2bFVuYVBOTjVSZkZaRDZL?=
+ =?utf-8?B?UUM2eS9pbnNYMWNVdXRKemVEQ2JYQjVXeG9pUitWUTB2eVh3Z2dlc2FFOWhq?=
+ =?utf-8?B?bEcrRXNhVzZ5eWNaSDdNeE1EQTlyMVIvcUFDOC9wY3lWem9taDdJVEVXWSto?=
+ =?utf-8?B?UnBLSTY5T3g2QnE0RWtXa2Q0eS9GeHFVRERneVNDV3Erdjd4SXFwcGhWYXNr?=
+ =?utf-8?B?c3FieUkza1UwanFiK0haWml0SUhxTHkrZVVNWTJLTHdrN0hlU0RTaTNHZnV3?=
+ =?utf-8?B?YmxmMnZhYXVwWVhVOGZaR2cxWlFDUHQ3MXhxRmJQYUFqK05ZWk9qdzNDeFJ6?=
+ =?utf-8?B?OGt0dWlwbkpZQlphMGZYU2N0TU1ZT2Jha2Q3NUkxSEtDMTE0Qm8xRmpoYUVy?=
+ =?utf-8?Q?TKpv6lGQxBeAmvfo=3D?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32a8e2ba-9333-4615-dd48-08def2db9cc1
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 10:23:37.7888
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xepJeYjUYd1leyk8cJe3SIghsQf/EKvBcq1hKLdIoI56ClIuUGNqFKDdcoe9WNbqVAMEkUyOdedO3wn2VPjkGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR18MB988335
 
-The ADIS16203 has the same external interface as the already
-documented ADIS16201/ADIS16209, for the properties covered by this
-binding (compatible/reg, the DIO-based interrupt pin, and VDD
-supply), verified by datasheets Table 5, Pin Function Descriptions,
-in the respective Analog Devices datasheets. Some Auxiliary pins
-differ (e.g. adis16209 marks a few pins DNC where adis16201/adis16203
-use them as AUX COM), but these are not represented in this binding.
-Add adis16203 to the existing enum rather than creating a separate
-file.
 
-Tested with checkpatch.pl --strict and dt_binding_check; both pass
-with no warnings.
+On 7/29/2026 10:03 AM, Krzysztof Kozlowski wrote:
+> On 29/07/2026 09:02, Petar Stepanovic wrote:
+>> ...
+>>
+>> +
+>> +  bus-frequency:
+>> +    description: SGPIO shift clock frequency in Hz
+>> +    minimum: 1
+> Such property is not allowed. Why you cannot calculate it automatically?
+|bus-frequency| specifies the required SGPIO shift-clock frequency, not the
+input APB clock frequency.
 
-Three prior attempts to document this part are visible on the
-mailing list, all as separate files, each redirected toward this
-existing binding approach instead: Saalim Quadri, March 2025 [2],
-and Sheng Kun Chang, April 2026 [3]. See below for Jonathan
-Cameron's earlier, related attempt [1].
+Although the divider can be calculated automatically, the desired output
+frequency cannot be determined from the APB clock alone. Similar to the I2C
+bus frequency, the SGPIO communication speed is a board-level parameter that
+must be selected to meet the timing requirements of the connected target
+devices.
 
-A richer version adding reset-gpios and a second interrupt
-(interrupt-names: dio0/dio1) was proposed by Jonathan Cameron in
-2023 [1]. I tested the same additions locally for all three
-parts; checkpatch and dt_binding_check both pass. It is not
-included here, as it hasn't been verified against any real board
-dts file, and none in-tree currently reference adis16201,
-adis16203, or adis16209. Can send that as a follow-up if
-wanted.
+Different external SGPIO devices and board designs may require different
+shift-clock frequencies because of device timing limits and signal-integrity
+constraints.
 
-Link: https://patchwork.ozlabs.org/project/devicetree-bindings/patch/20230129155602.740743-13-jic23@kernel.org/
-Link: https://lore.kernel.org/all/5390c973-6a92-4de8-b00a-cd62af347ccb@kernel.org/
-Link: https://lore.kernel.org/all/20260402-fair-wakeful-okapi-3c6dba@quoll/
+The upstream ASPEED SGPIO binding uses the same approach: it provides the
+APB clock through |clocks| and uses |bus-frequency| to select the required
+SGPIO communication rate. The driver then calculates the corresponding
+divider.
 
-Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
----
- .../devicetree/bindings/iio/accel/adi,adis16201.yaml        | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Is there a preferred generic property or another mechanism that should be
+used for selecting the SGPIO shift-clock frequency?
 
-diff --git a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-index b6ba7ad1..3ce5fb1b 100644
---- a/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-+++ b/Documentation/devicetree/bindings/iio/accel/adi,adis16201.yaml
-@@ -4,21 +4,23 @@
- $id: http://devicetree.org/schemas/iio/accel/adi,adis16201.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
--title: ADIS16201 Dual Axis Inclinometer and similar
-+title: ADIS16201 Inclinometer and similar
- 
- maintainers:
-   - Jonathan Cameron <Jonathan.Cameron@huawei.com>
- 
- description: |
--  Two similar parts from external interface point of view.
-+  Three similar parts from external interface point of view.
-   SPI interface.
-     https://www.analog.com/en/products/adis16201.html
-+    https://www.analog.com/en/products/adis16203.html
-     https://www.analog.com/en/products/adis16209.html
- 
- properties:
-   compatible:
-     enum:
-       - adi,adis16201
-+      - adi,adis16203
-       - adi,adis16209
- 
-   reg:
--- 
-2.43.0
+>> ...
+>>
+>> +
+>> +  ngpios:
+>> +    description:
+>> +      Number of SGPIO positions. Each position provides one input GPIO and
+>> +      one output GPIO.
+>> +    enum: [128, 512]
+>> +
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          const: axiado,ax3000-sgpio
+>> +    then:
+>> +      properties:
+>> +        ngpios:
+>> +          const: 128
+> else what? 3005 has 512? Then these are implied by compatible, no?
+
+No, the exact number of GPIOs is not implied by the compatible string.
+AX3000 supports any valid number of GPIOs up to 128, while AX3005 supports
+any valid number up to 512, depending on the target configuration.
+
+The current binding and driver incorrectly restrict |ngpios| to the fixed
+values 128 and 512. I will remove this restriction and update the next
+version to enforce the appropriate maximum for each compatible.
+
+Best regards,
+Petar
 
