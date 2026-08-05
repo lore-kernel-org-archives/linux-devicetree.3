@@ -1,41 +1,37 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F03B3A6B82
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 19:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB843DCD80;
+	Wed,  5 Aug 2026 19:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785958369; cv=none; b=FsR5WqyKH6ywBE+6AmxTHC5NaRe4pPkH+6SxnVkltRRseIN6RXeFWD6ubvO7juxi4zRQwbgJLwJB6C18x+xdeYAkZZyxN+52tbX9zTq6+yG3VWli4v5mtHxTvE9glW9LgWHkJITjWDTwcoFo3WcEkQGD3t6vaw9Ni7nUSZGvqwc=
+	t=1785959701; cv=none; b=nwNQvXrjcnufVe/9JfMQoV8SXoKRWv12mgBGgdI+UT32x5AQGTZq9UEbxNopJHY/G3HQL7bCBTQD0Z+AAfAY5oXK+r75RrUDuqCoGjyC6zRz94wWJucL2dGEO2iDrrysVcGm5zcc+Vfx0R2PchB6y/KRA6x/ESB9OVG81BUO8Ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785958369; c=relaxed/simple;
-	bh=6wArxx1l8Hm9Dqx4mugbk8wsFGsXoxVI7ksSr89OEeg=;
+	s=arc-20240116; t=1785959701; c=relaxed/simple;
+	bh=EtE9eBuVezPblX0lgqzOCYUHC4jeotEPNRBqwukfnu8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J1TvGdVI/QrLv59kV+MT6/0sOLTPyKzMue6/ra+otHyD8ftyWu5ArcOdcvb9ETBXBM3yxYQ5YO2XEXo5YAhiwZNE49mrQCN9TSiPPp7UZBcuEkZGaWzZvWQ7VlwdP6MbNGXDf6UmVG37h9vlCH1wiD0jRk6uvaeNRvtuCLQdgUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=EgVyNUWA; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	 In-Reply-To:To:Cc; b=okEDrGuZ0XN4/+fTAl5O/xvCLKQMt7nXA28RUB+PEGVzOEJOrbGfwM3n+FzlSkzZU2bN7Ct1dcwzUTHTFiqdGZIsvGcdYeY61ZlS7SImh335/6MwgzGzwCYDwQn2HCJQtQIO/9N9lCFSmrivgSyWzbnERt4SjDJZIEApqWOU3d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=FRVNGm6v; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=I3AsTJO+; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="EgVyNUWA"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id D3CF7240029
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 21:32:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1785958350;
-	bh=/IrZMEnYMWz3cHmLNm2dkUh37mtplEA3JG88ye8+6jg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=EgVyNUWAgSNI7TGxiW5Er63huSy6ETJH1XVOF/S0PNJH8zbnR5Vk4pekALIPE7vLN
-	 nZU8BE6zUAHgqPSqZE/41YWgd5g8G6jzbbJYdq5Z7HHDxN/HvWeH6sr8yaStGWMcEP
-	 ql5hr0ccS3lfdHSTUM8e/+Db+vBzWx+YLu0eqIiPlE5LRPQ1Do4V5blf7T1jbAM1RB
-	 aeDsl+9pVi2Jg43ClgThj+/PBQTQj4K6r8agN1r5752ZZ3JgeSiJDprCJ5nsKYE4lM
-	 STyOkwUnVyYUAelism7pMeeigkEJFsTSGALFowyj5RmfqL3ZumCz4+5AUo6rIIcVtV
-	 9BZQ4uWyO6G+A==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hFgXr4lJpz6twf;
-	Wed,  5 Aug 2026 21:32:28 +0200 (CEST)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Wed, 05 Aug 2026 19:32:29 +0000
-Subject: [PATCH v3 3/5] rtc: s35390a: Fix alarm not disabling
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="FRVNGm6v";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="I3AsTJO+"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1785959686; bh=R9UWx9HDr2ao7NFufthBQo0
+	JmWAgNGvgsDSNwDq7BuU=; b=FRVNGm6v2EwZRHcO/OIzYRoonQw/EsF+RiilhWFbStSVV8Kwao
+	bW0cFdiRcaPCNBwhDVC5FprJpBz4R8PnaXDXuyWwoEp6UCL9WXUQrosBSUbpl/ff7CZONu5MCfF
+	BCWLP4n0GbZaRa6dGypFVupgRVorJtWb2M22zF4aq7oUdWHWgnTmK4woSvtQiikEoLWwDR5jO/g
+	WpU2zwo2eirs2xnHGCUD5eQVj4vQuptuRvnkqUktvN1g7Ge+F7umfQ3sazXFtq4avM13grAOlhP
+	UbuBuO9Llqat/85PlE4UUr/6EzVJmNZCPHBGkeVTjMP4cdqQ3B/6ZDBTZ90TfkydxbA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1785959686; bh=R9UWx9HDr2ao7NFufthBQo0
+	JmWAgNGvgsDSNwDq7BuU=; b=I3AsTJO+4ziQ+zoEbnl3gRWy9ga6umuyn55YD9njxFMAA3GxAp
+	suGtG3GLz6kRBND+Yw9NitXX5ksDiwmw00Bw==;
+From: Danila Tikhonov <danila@mainlining.org>
+Date: Wed, 05 Aug 2026 22:54:24 +0300
+Subject: [PATCH 1/4] dt-bindings: media: i2c: Add Sony IMX471 CMOS Image
+ Sensor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,137 +40,160 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-rtc_s35390a_int1-v3-3-e836faba3e25@posteo.de>
-References: <20260805-rtc_s35390a_int1-v3-0-e836faba3e25@posteo.de>
-In-Reply-To: <20260805-rtc_s35390a_int1-v3-0-e836faba3e25@posteo.de>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+Message-Id: <20260805-imx471-v1-1-7be79f539ed8@mainlining.org>
+References: <20260805-imx471-v1-0-7be79f539ed8@mainlining.org>
+In-Reply-To: <20260805-imx471-v1-0-7be79f539ed8@mainlining.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
- Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Michael Langer <michael.brainbug.langer@googlemail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1828;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=6wArxx1l8Hm9Dqx4mugbk8wsFGsXoxVI7ksSr89OEeg=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqc4/G8UFEgIUIj1dxW5fXqz5P2FhwjmUfsNPzG
- L3BQP87DfyJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCanOPxhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JkMQ//VUG7xlXHpcWrxeNCe/jaspdRDOeVzi8
- ptENaq5YFWo4i2dsiIfEizlEusdgLNg1RfF0qlTfJ35L2c0ZAfJe54i2feKJOLInHMlCluHh/ia
- wpJG6RVDIGEP4slQQYd0jNU8VQuQYhG28ckK879WdcMFAH0DgAWidxWRT7c50znjTfWVoIFfA86
- d+oommVuI+d0y2Gl588xQmsfJDXr3YJNdwZLS5x5RZ4ir16FWCte4bk80iP4SeL6W66I3ENGUxe
- EdP1K2gBYorQYWm7YKBpUeEDrvT7YPM9RKE3OxM8l+ZvJRHUGY50ltpz9FjaCeMtPhPk5cbltx0
- jfPySCcF+AIFYijQ2RlRSlIxcqVqWVqMbhvwln8GeywNVhyucCKqdqQA+UKVk9z+7tme4+1m6eP
- 3VGUOiHlLyTjJGyyw+k2JmZHMx2tB4M8jdDDMJeolSgDycDihbTY85m8c3m2/Y+0nD4gldA+7zU
- KdCk+Pwmn0iD0lVRzkfumWlmYrgB6YeZg4gYLqt+srxXFeQ7Ccv6in03L65D8om2z1mNtQd+HIW
- FAyCS+VpGpqfwB/CTksG1ekYOY2QPTZM2auaH7A2VtT1ry8iQmGgywS6108afBIGOo6CsMlQRp5
- F//zqehHOwsp7AAScuiQzWsqsV1kO8Zm/x8yAd9/lfGh4CiUY/VA=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+ Conor Dooley <conor+dt@kernel.org>, Kate Hsuan <hpa@redhat.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>, 
+ Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Danila Tikhonov <danila@mainlining.org>
+X-Mailer: b4 0.15.2
 
-Implement alarm_irq_enable callback.
+Document the Sony IMX471 CMOS Image Sensor.
 
-Fixes: 542dd33a4925 ("drivers/rtc/rtc-s35390a.c: add wakealarm support for rtc-s35390A rtc chip")
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
+Signed-off-by: Danila Tikhonov <danila@mainlining.org>
 ---
- drivers/rtc/rtc-s35390a.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
+ .../devicetree/bindings/media/i2c/sony,imx471.yaml | 123 +++++++++++++++++++++
+ 1 file changed, 123 insertions(+)
 
-diff --git a/drivers/rtc/rtc-s35390a.c b/drivers/rtc/rtc-s35390a.c
-index 4cfe7034c516..575bb256eb25 100644
---- a/drivers/rtc/rtc-s35390a.c
-+++ b/drivers/rtc/rtc-s35390a.c
-@@ -270,6 +270,24 @@ static int s35390a_rtc_read_time(struct device *dev, struct rtc_time *tm)
- 	return 0;
- }
- 
-+static int s35390a_rtc_alarm_irq_enable(struct device *dev, unsigned int enabled)
-+{
-+	struct s35390a *s35390a = dev_get_drvdata(dev);
-+	u8 sts;
-+	int err;
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
+new file mode 100644
+index 000000000000..9c6c7c55746f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx471.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	if (enabled)
-+		sts = S35390A_INT2_MODE_ALARM;
-+	else
-+		sts = S35390A_INT2_MODE_NOINTR;
++title: Sony IMX471 CMOS Image Sensor
 +
-+	err = s35390a_set_reg(s35390a, S35390A_CMD_STATUS2, &sts, sizeof(sts));
-+	if (err < 0)
-+		return err;
++maintainers:
++  - Danila Tikhonov <danila@mainlining.org>
 +
-+	return 0;
-+}
++description: |-
++  The Sony IMX471 is a diagonal 5.822 mm (Type 1/3.09) 16-megapixel
++  back-illuminated stacked CMOS active pixel image sensor with a 4656 x 3496
++  active pixel array and 1.0 um square pixels. It uses a Quad Bayer color filter
++  array, is programmable through an I2C interface, and outputs image data
++  through MIPI CSI-2.
 +
- static int s35390a_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
- {
- 	struct i2c_client *client = to_i2c_client(dev);
-@@ -410,11 +428,12 @@ static int s35390a_rtc_ioctl(struct device *dev, unsigned int cmd,
- }
- 
- static const struct rtc_class_ops s35390a_rtc_ops = {
--	.read_time	= s35390a_rtc_read_time,
--	.set_time	= s35390a_rtc_set_time,
--	.set_alarm	= s35390a_rtc_set_alarm,
--	.read_alarm	= s35390a_rtc_read_alarm,
--	.ioctl          = s35390a_rtc_ioctl,
-+	.read_time		= s35390a_rtc_read_time,
-+	.set_time		= s35390a_rtc_set_time,
-+	.set_alarm		= s35390a_rtc_set_alarm,
-+	.read_alarm		= s35390a_rtc_read_alarm,
-+	.alarm_irq_enable	= s35390a_rtc_alarm_irq_enable,
-+	.ioctl			= s35390a_rtc_ioctl,
- };
- 
- static int s35390a_nvmem_read(void *priv, unsigned int offset, void *val,
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx471
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: External input clock (19.2 MHz)
++    maxItems: 1
++
++  vana-supply:
++    description: Analog power supply (2.8 V)
++
++  vdig-supply:
++    description: Digital core power supply (1.05 V)
++
++  vif-supply:
++    description: I/O interface power supply (1.8 V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++          link-frequencies:
++            maxItems: 1
++            items:
++              const: 200000000
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vana-supply
++  - vdig-supply
++  - vif-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,camcc-sc7280.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camf_imx471: camera@1a {
++            compatible = "sony,imx471";
++            reg = <0x1a>;
++
++            vana-supply = <&vreg_camf_vana_2p8>;
++            vdig-supply = <&vreg_camf_vdig_1p1>;
++            vif-supply = <&vreg_cam_vio_1p8>;
++
++            clocks = <&camcc CAM_CC_MCLK0_CLK>;
++            assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
++            assigned-clock-rates = <19200000>;
++
++            reset-gpios = <&tlmm 20 GPIO_ACTIVE_LOW>;
++            pinctrl-0 = <&cam_mclk0_default>;
++            pinctrl-names = "default";
++
++            orientation = <0>;
++            rotation = <270>;
++
++            port {
++                camera_imx471_ep: endpoint {
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <200000000>;
++                    remote-endpoint = <&csiphy0_ep>;
++                };
++            };
++        };
++    };
++...
 
 -- 
-2.54.0
+2.55.0
 
