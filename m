@@ -1,110 +1,111 @@
-Received: from out-186.mta1.migadu.com (mta1.migadu.com [37.59.57.117])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B1A2F9D98
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.59.57.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D76D3F44C8;
+	Wed,  5 Aug 2026 09:27:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785921996; cv=none; b=rt/UpIRdIvREAMXWoVtHDwcLBh6gqkdjNG+zH5bvKS61q3+336jXeU5f+Zimv5TANj2cH0VlVjKJgIsMJeakEu5seNu32csoxPUdsqlBQxFSjrlYzrWVyNg0vuEdc6lSwd7Hv2pgd5DgNHXYU+j8bwafKlIQbpJKiHeAl9LfcZM=
+	t=1785922061; cv=none; b=KnsKyCnUjT1lzMt2SiTS7Kzz5DYfzbvJRTP8cEoxKwyD6e5KOVkjuIeUiNzNDbuCJM0kinJBec8X+b+LZ2303s/E8ZM7AgQl+8/ym66DVfwSHdjETyJVzu/qJthwcRjRy1vB6I0VdCttnkzu60CiCD2uoz0FNHiWr+Qa2pDubNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785921996; c=relaxed/simple;
-	bh=qkSmO+AW5LxoIXLT9GpKbrSpSAJky3A3GfHMGrIZGak=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 In-Reply-To:References; b=bQsz84gFj41PQ5IiOyO7xl5gPnBaM9BA65tNVj2HgsKZfAUewgL6KZsNr1bXqbAcO97SDT0FBa7bvrVjdpzKqLfyVqHJqsbKSEjYhF9RTaqehWjiKAXNdjevTT1ojuaVGTvMjXZXKCnOYLPv5epmhkyjEKSUOuXfJiitO1fd8/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JLV2tluV; arc=none smtp.client-ip=37.59.57.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785922061; c=relaxed/simple;
+	bh=y3FqSCko/0H9ZX0vEJ5fsur/cyR2J2iXaMLOVfNNXMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j1b+HCFfQJvzwuGzPh6swUl3Sk1eHSuup9Jb0uEyDLNmRR2CLNfYOP/MonUFtFVYfDfOwAxzPrIFc8ZeQWv/a29L5BxXZQM03ViGjccXBfagrp9BtanAqRf6mucICW7gSXD0nZ4/xOKdKNA7j/6qBPq4WCiXXQe64OvVNFLXjTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AEE3+sSj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JLV2tluV"
-X-Mailbox-Line: From troy.mitchell@linux.dev  Wed Aug  5 02:03:29 2026
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785921992;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MLkmEy2Qv+au8QUwUsCORU0DDXMr6v1e63PHv69jpg4=;
-	b=JLV2tluVrP6L0K5Jqph3/Gm/ExTCIV44fuCHhLO6HNBThduiWBloGup1CWZZLBRMR4Tg7M
-	XW7X7+DyCyR4zqYr1++Sw5BfHZIqckZKMmoSpKuKiGYGyQjUkh79l4IEeKsTDQnhm7sdNA
-	zldW6xzW+GK4+pK0nl6yc2yVLmL+UzA=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Wed, 05 Aug 2026 02:00:56 -0700
-Subject: [PATCH v3 6/6] riscv: dts: spacemit: Add CTF2301 on K3 CoM260
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AEE3+sSj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A56481F000E9;
+	Wed,  5 Aug 2026 09:27:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785922060;
+	bh=MGt90FqzvVBCCX/PKCv1AfMDhaliT6/jxtK26dwI8Q0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AEE3+sSja9CzFs5dFvOz5bHE3t9dKwYI1IhM6Pqd5hMthx8YVFo3JK5syrdX2h3kc
+	 lwY6c6C7pqLGi8n/CtU6ul1ho7SNG/DBDQbD30+N61F7YYmvFDGrY45mvmOQoVpU9H
+	 ANchu7HfhGGqoJqNKdkP7e1vN1EQLrSP/Gz4wiEi02k6b+nujBci++FXmTRkVEbm7e
+	 ggav7tS4haMyxUJa2Q+Of3M0m6SQe70bS9H5lhQ8J7RfNiYApX2i5FscN2KVv18hcs
+	 DwNwvWXda3Jj3X+058ShT5EOpUVFnYPlzU/Il/EmShlTzFpGPavl7oHuG0Gliq1wTa
+	 U9Dl+bAJJfubQ==
+Message-ID: <c2c7f1e5-928d-44d9-8d2c-d524ff9b2488@kernel.org>
+Date: Wed, 5 Aug 2026 10:27:36 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
+ <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260730-x1e-csi2-phy-v15-0-f284131de1fa@linaro.org>
+ <20260730-x1e-csi2-phy-v15-2-f284131de1fa@linaro.org>
+ <bvTM1Qk4lhMrA_ef4wyNGq-vxE4NFBKjArCkKPKeReqosp0H4UL2De68Lur4L7Q_HA_hbgs1Dpw4clKAEh0YxQ==@protonmail.internalid>
+ <5231dd3d-18f4-461c-985d-64a7720d62c9@linaro.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <5231dd3d-18f4-461c-985d-64a7720d62c9@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-ctl2301-v3-6-b86c75d1c552@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1093;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=qkSmO+AW5LxoIXLT9GpKbrSpSAJky3A3GfHMGrIZGak=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlFv0/xi1+72ZxzvK+hfKn9jQixffu/FCqt9bfYfWpb2
- Syn7cpMHaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABOp5mRkmKCxsWlS90G2GNMP
- e+W1Ps39ciVb1lz9/3PttjfGQVuPpDH895CwkJwi7+Zj3Jp5bG/Wf/v3z1auFtutkuLfluZm+nQ
- ZHwA=
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-In-Reply-To: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
-References: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
-X-Migadu-Flow: FLOW_OUT
 
-Enable I2C6 on the K3 CoM260 module and describe the Sensylink
-CTF2301 temperature sensor and fan controller at address 0x4c.
+On 05/08/2026 10:25, Neil Armstrong wrote:
+> So perhaps you should remove support of clock-lane entirely for now and just use the dedicated lock lane,
+> and define this when implementing the "combo/split mode" support.
 
-Set the I2C6 pin power source in the board-level pinctrl node
-because the IO rail voltage is board-specific.
+Yeah, I think I favour that, it seems like a discussion we should have 
+when solving multiple input lanes.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+thx.
+
 ---
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-index a38d7b738258..95a60fbb411f 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
-@@ -26,6 +26,25 @@ reg_5v_sys: regulator-5v-sys {
- 	};
- };
- 
-+&pinctrl {
-+	i2c6-1-cfg {
-+		i2c6-1-pins {
-+			power-source = <3300>;
-+		};
-+	};
-+};
-+
-+&i2c6 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c6_1_cfg>;
-+	status = "okay";
-+
-+	temperature-sensor@4c {
-+		compatible = "sensylink,ctf2301";
-+		reg = <0x4c>;
-+	};
-+};
-+
- &i2c8 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c8_cfg>;
-
--- 
-2.55.0
-
+bod
