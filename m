@@ -1,135 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E9C3E315E;
-	Wed,  5 Aug 2026 07:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FB53E316F;
+	Wed,  5 Aug 2026 07:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914501; cv=none; b=nNFKcTFVB0vYCa4pmQw72S3i75Ie1pwUHasGhV2q6WJDkuX9bkrgv8H7MlXawG0JFBC/DQ+le7+cFWM0RmosyZ74/Z8XghTdbCRFyAA8PHIiIocxLxiwN+D0c2wFkp20iI8zcFPkpQ2PazrJtGmH4FSMYJcaGYqa0KJhEuHq3/M=
+	t=1785914514; cv=none; b=jfFao0cTWi4VzEu2rWOdz5QWHKMvv5QbLdJeGkt3PZIaBFjUBIic2AkwR2oi2G3GrOd8Mi5Bau+eLURBpWB4xOs5QfKv+5TuMRM60duNYdKy5Avkt+ezOjrgaX0tHryE0K1AOY0uIBofkWKkuqAmJAhaLYkD8qfmd8k7LDd/Fok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914501; c=relaxed/simple;
-	bh=4xXbWTtC/7UGZN2BXVjiO/BZNeH5ESPefA0/PdFdxAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N7IVzyWmlTa6odyXSOLJi1E/U56CZAXDFjNQUyQ6LA2h19vCSl0EIEWST05ldOzX9+NTj2TjmYoCUV2cpgHPQwJhKInwH5PJBSb8hPUfmBFoCa8gimDWCIMix0Dd1Pqkrp7elfWCTL7RPx6mVxUKJcf4vtRfyjGkDZquCbyycbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnMKQb5g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785914514; c=relaxed/simple;
+	bh=yRGJz5Ns5hgNujExrbtlKUm19YHk5OPVvmy6zVCRj5o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NX3L/YaRiNSazOKJJsQQ4BEUYSxyd+8s8MC2KrfOyKrAVkOT3iHrTYHuOr/bmqQTIx7IwAIqCskFVwVyzePjdB3dAIjOc1UZ1AsBtw71V/LrOo1CebUhIGuVXQEdW88BNjE6AGALSKiT5fOB8rekQ8qtehCI1jbSRwFoOSCcy8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=Rw4NzZ5U; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnMKQb5g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99EDC1F000E9;
-	Wed,  5 Aug 2026 07:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785914500;
-	bh=cdK8AKWPPhEwUaQW7Dxg4qsOc242eUKSg7dv/RpWNH0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AnMKQb5grAjIrRzRANKpLl4LWF5Axk1uByKzp1TuCorI/OV0dfKrV+S5wcM7YuIsK
-	 JBWx5gvWO6NnpQuUOY6hLobCWOZFCc2tGZK4OW8jL7HhNH6Nj7Wlc3Xm45/gwqSFC1
-	 jZOdILr7uaYVNPEympm1RVDVA9tTs0tsT7DLoGVNoyTLGAqX2t962EFKDG2sNbEuBQ
-	 yxcELEgxstI5MSR5NwpP8BZp/pFJV9EUjvmaRNKzMIo8lLMxmTsD8dPuXHfxco7tNj
-	 WL8dNJd2KZ1Jtx4ptCrivyz5id+MawmU07MX06PXPkKVlN+njo0RNILat1mmtmPm6H
-	 wEtSGBJerDydA==
-Date: Wed, 5 Aug 2026 09:21:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Stanimir Varbanov <stanimir.varbanov@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org, 
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, Daniel J Blueman <daniel@quora.org>
-Subject: Re: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add
- context bank subnodes
-Message-ID: <20260805-hulking-woodpecker-from-wonderland-15b7c0@quoll>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="Rw4NzZ5U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail3; t=1785914506; x=1786173706;
+	bh=uRVjIsqJHLgJG5ZR83GK+k8CP9bWR62gC1u2mXYmTgA=;
+	h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Rw4NzZ5U0KiVEWfglHXB47uf9rabapqN+YGP+toka2q34GYgZScrA1Dv3LHGXXVXe
+	 tuQGlpUBOJ+rGlmrWvck3aHGVtLPM7sCVMCjMFWjylD1Wvga65q78gviyuMi0QfNhm
+	 /noOViiNZioOVYajSe+f+BMhrZkh1TcKakBSCVKasnJRUwOoJkZJ8f0XnMrcFaX83t
+	 Tg/stcR4NYYaX5fIu1tFJE3cky03cEeQldfP50SYKWKlM2Ckp+0ADp5vHMjJGl2HSy
+	 EuSKkzVNQWJ2GXqOOPS+omdEXJ9oGB9zimJr7uCw+54DtjqnhxUeOR8F5eyXKUAH1I
+	 Br/cmd004AIbg==
+X-Pm-Submission-Id: 4hFMKg2nwrz1DFF2
+From: Esben Haabendal <esben@geanix.com>
+Subject: [PATCH v3 0/4] io: accel: mma8452: Allow open drain interrupt pin
+ configuration
+Date: Wed, 05 Aug 2026 09:21:34 +0200
+Message-Id: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNQQ6DIBCF4asY1qUBZES76j2aLhBQZyEYaIiN8
+ e5Fd02adPm/ZL7ZSHIRXSK3aiPRZUwYfIn6UhEzaT86irY0EUwAk4zTedatBEHD4jy1UaOnLQe
+ ljOS1AkPK4RLdgOuJPp6lJ0yvEN/nj8yP9eAapjj84jKnjPbcWqGlZKZh99Fpj+vVhJkcXhb/D
+ VGMDnrXDTBI1cGXse/7B+xar6j5AAAA
+X-Change-ID: 20250401-mma8452-open-drain-81577c41375c
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
+ Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
+Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Joshua Crofts <joshua.crofts1@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785914502; l=2339;
+ i=esben@geanix.com; s=20240523; h=from:subject:message-id;
+ bh=yRGJz5Ns5hgNujExrbtlKUm19YHk5OPVvmy6zVCRj5o=;
+ b=yhw4BKXPQiryFwRHIOLRU5Y4kIXXtXltWvCj7yDwEmHNjFHK9a3kH/HEGbcQhGefMHXzPW1at
+ YlOvmABxFLmA0rYvip2ILftUCnG2A6tCDVUjwcv4C5aDOFLLv6NsaIz
+X-Developer-Key: i=esben@geanix.com; a=ed25519;
+ pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-On Fri, Jul 31, 2026 at 11:52:17PM +0530, Vikash Garodia wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> is restricted to use 0-600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream in
-> one IOMMU domain sharing one IOVA allocator, so nothing keeps a
-> non-pixel buffer above 600 MB. Once an allocation lands below that
-> boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> Reference qcom,venus-common.yaml, which describes the per-stream context
-> bank subnodes, and drop "iommus" from the required list. The common
-> schema accepts either the flat "iommus" or the "non-pixel" and "pixel"
-> subnode pair, so device trees that have not been converted still
-> validate.
-> 
-> Update the example to the subnode form, which also picks up the two
-> supporting properties the subnodes need on the parent video-codec node,
-> '#address-cells' and '#size-cells' of 2 and an empty "dma-ranges". Both
-> are described in the common schema change.
-> 
-> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Tested-by: Daniel J Blueman <daniel@quora.org>
+Extend the mma8452 driver with support for configuration of the
+interrupt line in open-drain mode, which is needed for hardware designs
+where the interrupt line is shared with other chips.
 
-Also not a valid tag.
+Adding drive-open-drain property to mma8452 device-tree node for such
+designs to enable switching pin configuration to open-drain mode.
 
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+---
+Changes in v3:
+- Reordered patches, swapping #2 and #3.
+- Always add IRQF_SHARED flag.
+- New patch to change it so IQRF_TRIGGER_LOW flag is only added when no
+  trigger type is set by firmware.
+- Link to v2: https://patch.msgid.link/20260715-mma8452-open-drain-v2-0-95be9f5f4795@geanix.com
 
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/qcom,sm8550-iris.yaml    | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 0400ca1bff05dcef6b742c3fbf77e38adca9f280..3d8ff5677bd4fb7f3619a95b1c5f6f9eaf39b32c 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> @@ -98,10 +98,10 @@ required:
->    - interconnect-names
->    - resets
->    - reset-names
-> -  - iommus
->    - dma-coherent
->  
->  allOf:
-> +  - $ref: qcom,venus-common.yaml#
->    - if:
->        properties:
->          compatible:
-> @@ -177,12 +177,24 @@ examples:
->          resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
->          reset-names = "bus";
->  
-> -        iommus = <&apps_smmu 0x1940 0x0000>,
-> -                 <&apps_smmu 0x1947 0x0000>;
->          dma-coherent;
->  
->          operating-points-v2 = <&iris_opp_table>;
->  
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
+Changes in v2:
+- Commit message of patch 2 updated.
+- Operator precedence bug fixed in flags argument to
+  request_threaded_irq().
+- Always check return value of mma8452_set_interrupt_pin_mode(), and just
+  check for non-zero value.
+- Added new patch with optimization of struct mma8452_data ordering.
+- Link to v1: https://patch.msgid.link/20260715-mma8452-open-drain-v1-0-b1dd2a440c60@geanix.com
 
-Drop both
+To: Jonathan Cameron <jic23@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Martin Kepplinger <martink@posteo.de>
+To: Sean Nyekjaer <sean@geanix.com>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+To: Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Esben Haabendal (4):
+      dt-bindings: iio: accel: mma8452: Add drive-open-drain
+      iio: accel: mma8452: Optimize struct mm8452_data member orders
+      iio: accel: mma8452: Only apply trigger type when not set by firmware
+      iio: accel: mma8452: Allow open drain interrupt pin configuration
+
+ .../devicetree/bindings/iio/accel/fsl,mma8452.yaml |  6 +++
+ drivers/iio/accel/mma8452.c                        | 44 +++++++++++++++++++---
+ 2 files changed, 45 insertions(+), 5 deletions(-)
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20250401-mma8452-open-drain-81577c41375c
 
 Best regards,
-Krzysztof
+--  
+Esben Haabendal <esben@geanix.com>
 
