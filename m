@@ -1,36 +1,37 @@
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com [91.218.175.186])
+Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020EA357D08
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE8D3F65EF
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785921129; cv=none; b=hqMUjT4eNHKJQlpzOR8K0LgSnwmkwsh6PoTJCd0cBcD/i5cLBV6OeyRdkIIT0JOPCiFDKYe2YtslBRQUAnWf/BNBtcLEL+sLZuubkleuURE1JARJ9ihozzMZ3OC8VyjncIz75hK9r+DirUHvPv80lbU484FEx5bcK4XmztVzvns=
+	t=1785921140; cv=none; b=Bfzdy4Rva1k003Jq2z+nkis+2LvzuEOQHpEMNQtFaKv1Ij4+03hRFJ5NZpIxwp7iit/LbU6IonCt0fYdlhNnqklFcYbxp0g2kH3VEG8Myo3AC/hA7EMDms7TwshoY4ampzTzfsOPp2GxrbbNN4Xp7j3j+t40TYOldUiu3KWznto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785921129; c=relaxed/simple;
-	bh=Po1kGrx5EeIEP6xmiLoDE4sxhUkiA/m5kFmOQAaZHUc=;
+	s=arc-20240116; t=1785921140; c=relaxed/simple;
+	bh=h66UPDPeq+8SOvsZ43XgQtxGhVgtvhOir6wqRjV7WNo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 In-Reply-To:References; b=HOsbUMcZTSoHS1yKPLn/YefngnpQesiY8+d8VFnH56hUBUrPDV7/n5yYngRQ1posZm7IP5cz1LI9UINMVqDk1EYu/FWPy5lAI6CpQFXQYmSMaDb7JUkfTXJmdXwjWLiu1QAD4qP5Bkg7auHUUQxEGVpo+ionwLPQ+TKmZfaDdD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o+Ch8Hg7; arc=none smtp.client-ip=91.218.175.186
+	 In-Reply-To:References; b=ov+MylwvSTn8UoWg6mJZR4+crpUqiVUPH5nZjtDeMBzslJ/lpRtwVUXFAOzc+jtQmMJD+C0R2R4CBiEYLY6smZser581WSvIraiw9Lp8XFp7rIilBdlNWt9XIdpBvu7INSYMtmbJ2MEWyXA22n3QddSeLNOUzDZVi0B4pCi5Q3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kbc/jtXm; arc=none smtp.client-ip=95.215.58.188
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o+Ch8Hg7"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kbc/jtXm"
 X-Mailbox-Line: From troy.mitchell@linux.dev  Wed Aug  5 02:03:29 2026
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785921115;
+	t=1785921136;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sLTSEYfRh/OPcBA2Yh6WL4PX3iP/fJj9kbntKv+PhPk=;
-	b=o+Ch8Hg7SEZ6tA+UIYwDO52d3OZ9y/06osXf/k6PR3UuHaTecNDho4mX25T4NUOqMV4Anm
-	WUVsMQza4qeIUedeKKaRWvUOGXyxWUuU3Q97Cqu5G5uB1ddh4w2/AdpLxb620Ikik5Szll
-	pNngT6WaDxwc6pDwtbLfCp78MuG9Tfg=
+	bh=G+eLp8JoAcY18XlukudBlKohBC6kmbzaMQpheqGUCy0=;
+	b=kbc/jtXmsOdMN40duYfR2NlYVPVt2NoCKYS9iVo1vS3NaDkjpluMNE3j7GEvhr5iVWuc47
+	WbyxdubwTpLnbOsjt3z+h/wzQHlk4zOec72h4kXYSJIpNDpy9rE6Skdq82qhLjVzvqhd9o
+	bLWaOrfoT36hwrhUK1cn/DqsvhSQeGQ=
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Wed, 05 Aug 2026 02:00:51 -0700
-Subject: [PATCH v3 1/6] dt-bindings: vendor-prefixes: Add Sensylink
+Date: Wed, 05 Aug 2026 02:00:52 -0700
+Subject: [PATCH v3 2/6] dt-bindings: hwmon: Move LM63 family to a dedicated
+ binding
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-ctl2301-v3-1-b86c75d1c552@linux.dev>
+Message-Id: <20260805-ctl2301-v3-2-b86c75d1c552@linux.dev>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
  Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -50,40 +51,110 @@ Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
  linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
  linux-doc@vger.kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=874;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3063;
  i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=Po1kGrx5EeIEP6xmiLoDE4sxhUkiA/m5kFmOQAaZHUc=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlFv4/IX02XPafwbUus3LGUd1XNzBd4Wc4sXlrj0rRde
- afOU/c9HaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABOxy2T4Z/zqaLj+oQvmq1YI
- lSmqKqb5ME59stOveMXy5jXqbfcOODIyrLj3ebGu91Gz5mLR32wLni7wrpjgV3FSNPGpVSif+BN
- /fgA=
+ bh=h66UPDPeq+8SOvsZ43XgQtxGhVgtvhOir6wqRjV7WNo=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlFv48q63R871W9ILZk0cnFQZ6P4hW8MxMuzQy5oMwt/
+ UXy5hXTjlIWBjEuBlkxRZbuBzzbCnyibAsECn1h5rAygQxh4OIUgIn8tWH4w/13ie3xJub0NRJ8
+ wZau+WkzXPiObZn1NYphW/zWUxV3HjIyrDmp5MfQLfVN8vxruUVyu0PKhM21NH0Ofpd6HtnpK9/
+ MBwA=
 X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
  fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 In-Reply-To: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
 References: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
 X-Migadu-Flow: FLOW_OUT
 
-Add the vendor prefix for Sensylink Microelectronics.
+Move the National Semiconductor LM63, LM64, and LM96163 compatibles out
+of trivial-devices.yaml and into a dedicated binding. Describe their
+integrated fan control and preserve the optional interrupt used by the
+ALERT output. Permit use as thermal cooling devices via #cooling-cells.
 
-Link: https://en.sensylink.com/
 Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/hwmon/national,lm63.yaml   | 53 ++++++++++++++++++++++
+ .../devicetree/bindings/trivial-devices.yaml       |  6 ---
+ 2 files changed, 53 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 396044f368e7..22d0d26f1bbd 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1467,6 +1467,8 @@ patternProperties:
-     description: Sensirion AG
-   "^sensortek,.*":
-     description: Sensortek Technology Corporation
-+  "^sensylink,.*":
-+    description: Sensylink Microelectronics Technology Co., Ltd.
-   "^sercomm,.*":
-     description: Sercomm (Suzhou) Corporation
-   "^sff,.*":
+diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+new file mode 100644
+index 000000000000..f2e0993cfbef
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+@@ -0,0 +1,53 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/national,lm63.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: LM63-compatible temperature sensors with integrated fan control
++
++maintainers:
++  - Guenter Roeck <linux@roeck-us.net>
++
++description: |
++  The LM63 family provides local and remote temperature monitoring together
++  with fan speed monitoring and PWM fan control. Supported devices include
++  the National Semiconductor LM63, LM64 and LM96163.
++
++allOf:
++  - $ref: hwmon-common.yaml#
++
++properties:
++  compatible:
++    enum:
++      - national,lm63
++      - national,lm64
++      - national,lm96163
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  "#cooling-cells":
++    const: 2
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        temperature-sensor@4c {
++            compatible = "national,lm63";
++            reg = <0x4c>;
++            #cooling-cells = <2>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 435c4baab436..aa62d245464c 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -364,16 +364,10 @@ properties:
+           - mps,mp9945
+             # Murata D1U74T-W power supply unit
+           - murata,d1u74t
+-            # Temperature sensor with integrated fan control
+-          - national,lm63
+-            # Temperature sensor with integrated fan control
+-          - national,lm64
+             # Temperature sensor
+           - national,lm95235
+             # Temperature sensor
+           - national,lm95245
+-            # Temperature sensor with integrated fan control
+-          - national,lm96163
+             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
+           - national,lm80
+             # Serial Interface ACPI-Compatible Microprocessor System Hardware Monitor
 
 -- 
 2.55.0
