@@ -1,170 +1,196 @@
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7728546A61C
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C01469855;
+	Wed,  5 Aug 2026 12:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931379; cv=none; b=azsJn3L5C2ASs2KYNAK/stKW2riseN2NsMDM/KyW3leDuhCGinG8u2rXB6xWaj+26wED+1Kz1jn+WJvmeizk24mlyDhSHWhe307/dP2/ZZvWECDCWvziZvdHbT2FArBl9yV54QGSEAVyPU62CmmS4lwlyhtAZHpBvptfTunxx/8=
+	t=1785931389; cv=none; b=q8MmWlM0GCx9RsOSfBcVbd388kiRKGN2NB3z6is15pY0bg3AJ+R1GZDai0j/x/hXH7V/gJ12kLbMFYiJZv5+Vku0xn9XztLcQosGB+z94rFx8j/3+9lfgWZ9sPj2rGSLYf03g5ZBTb24Okmx0lUXEqca71YzjQdoSpXoVct/qrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931379; c=relaxed/simple;
-	bh=mWDkhCDQt28Rzz6I2tZE/YSz/t9DgfeaNNfvuTOIjvM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=acKAFTWC2Nbjg0eu4sVjUHAfek4zLdHx/INoD1uS4rXGvm/EvHtW9L3ccDi0WoboS5Equ3AiaKiNSLu+5mZxQA8T+iprneqQNAWvlWMnW5VSe2WvqpMoVkakpe2+dqyb/8roQ9MYe4G9l9557U0xR9QvaiDmMdx26Qz4AGPTSWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-73720e58dafso377275137.1
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 05:02:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785931374; x=1786536174;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Cmx7yQpz7FXmZJPiqLpJPoIkgxVuzO0p+i85ObW18Pk=;
-        b=NZ4ZTZiZucMVp6ZYDY0XzZ6lo8RkQ3UeiYH7LRUD/a7C9/4KNIlnt4oOtIQsKpsRAw
-         6kWXomv0/9kyB2saJZeQFVAxzBkC1xxmZQ+1UOpnxHpoD0q+pgXTsJAGIeg7JtyCnGhq
-         Ejk88p2cFmMvPvE632fbCjWVhHj8IVfvsFcNlZY+u0L4QDnM83a+/n/dTc/VP0ViiFkm
-         Cs0dOoJBubshOulTF6uCSWsX/Ho8WwzhPE8s/0u4lt8ff2XBkNLwNTBhBLMTjZpCY5QA
-         kA0BUDHCxNqeA0qWVfLIpqNgr+GZJRvDpuMRl9PzW6hCya5aL6E+e0FgnMrKQnQ45ZP0
-         /ERg==
-X-Forwarded-Encrypted: i=1; AHgh+RpTSisxU1AEbExQ4SrdLmnwelC66EcWqStHA8VmYJZdwko4Algxn5Ck6W6GMt3p97ZI4HkftvPPMEyI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxdok9gXyCTSkjslE9YOAyyW+z4poPvbtaGMxmz2Cyv9iWJXYkC
-	R+FQfpTpVdawSuzll5LJEWWEXf5R4/KjiKmbwXqTEU2DiKuLEVJEblEPZyLJBymE
-X-Gm-Gg: AR+sD101iFxSj5gfx/ruDjKDBf6nB9SyLCq8j0TlFNAWzUuKPBVMMGgr0W702Seb2WN
-	QIlHXChEltK6sNhgynIvzK/6yY29er3UCGRUD87ziaj3SDXubur9Y8YV8+sPpx+7HaMIPXtokY3
-	ShdhzW9TMhdRo2ffyjIoHHlsUS//vLrVYjOYoNaJxnzEJK0XFhMgEhtAa+45ZvK8j//d+ErciAj
-	NfvHvl4QNgYx0lmcbLBX6DDrZ7sWKWUwJe7iE4QPGX8oyCtJvZvuxWHT4+qoXUdDP23rTvGeaAT
-	LzcZx+7rSr6aRpQNMJMz22LLsRLIUoyem/s0Ppqkb5YJlkEykI7ssptlDhriFyQirZA5MDib9Is
-	ckrgyWpdYEpPPllZIUtwBl30RUTKe1PKQUGno5cw3YReXJW1T8K0hpezuGnQUhaFfDWeLlsdiob
-	vxlGdJjC288Bto7GmOzzMDp6ZON+souTXet8HQ0p4LuzizCTzQTOei1C+wrPGBOxevey+5fBEEh
-	GKD5u05ljdrlDZnLwoobTXpw1kasqDG1jVwkIEm
-X-Received: by 2002:a05:6102:1491:b0:739:a2d:9621 with SMTP id ada2fe7eead31-760e8934d04mr1854884137.13.1785931373810;
-        Wed, 05 Aug 2026 05:02:53 -0700 (PDT)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com. [209.85.221.175])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-76048764defsm1951942137.8.2026.08.05.05.02.53
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 Aug 2026 05:02:53 -0700 (PDT)
-Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-5bfb5e20a90so619121e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 05:02:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rqu3Gp+mv0w9hMOWzBfnCnGPJKDnEbdAbROuYDJ9vCNg+Ae1R63tfkHS5ta49V8KH/+cLdTBsBDEtbd@vger.kernel.org
-X-Received: by 2002:a05:6122:289c:b0:5bd:fc23:c9d1 with SMTP id
- 71dfb90a1353d-5c3d9162104mr906798e0c.6.1785931373330; Wed, 05 Aug 2026
- 05:02:53 -0700 (PDT)
+	s=arc-20240116; t=1785931389; c=relaxed/simple;
+	bh=OdYRaC/qpe1yKVok5AVHaZjA8ETlrp8Vz8PPwgBjsYs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A2sVIvOzy5/M8FKsU/cRi0B44bkp5GnnyLpj5CUL0s9ypVB5itP6ruQHWsnznTD6VliNaHaMGWluyA9AjRR8dr8AKNRefIiC7QPbfFHYOVaTbBoRsGuWs9U2st+zQSFzUGQuGLcQKmRMUjXClEsnTXuR0FgM6xbTdBZF56YEHC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=MqZrTq0s; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aZEVagpj; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="MqZrTq0s";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aZEVagpj"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 98A637A0095;
+	Wed,  5 Aug 2026 08:03:05 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Wed, 05 Aug 2026 08:03:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1785931385; x=1786017785; bh=PPhr6H8ZdU
+	/MHCnKebIax2RGkJS686HYO8sySsT9xiQ=; b=MqZrTq0scsFN8DnQLEpYRQG+6F
+	YC0pszK0Gwm2qoGbQ8+NQ3kqvudznPePPtlKJm7JxqOwGq/76rMJ0yPW8XvdwE8p
+	aoRuNA9z2HcKG0ceY2R8ysIg2RUZ2DaBWL84MjuZxIMe0ujfti3KOH52MJ+5JWAv
+	KMuIaj3FWYBk9T/AtOmiZ6bDMPpRlVNlSKN4BV6JGvb2FayXW0B1h+dOj5LPw+aE
+	4+vuIW1KP5bJj2Nrj8DbN0CTf9tKKErn/ZHOrg9AXjS03j/dicSSApFvZ7/6H9mT
+	XZVnUbgSry8n00oY+iYqRARe9PYBfq6sdk0nDtO066I0famg1qmUe9DKhVqw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1785931385; x=1786017785; bh=PPhr6H8ZdU/MHCnKebIax2RGkJS686HYO8s
+	ySsT9xiQ=; b=aZEVagpjVhc+tHNl1yfUZF6OuQD8iSgZl+7e7iipFLXf76Ycb4Q
+	mIUyw9Lg8/G/JijUC7FGogHRiYTt0kWrrlMM1g+UarMHMVQrbOunvpR8nDJqU4eZ
+	YfqZcPUK0+ZSxwltMtaz+O1jP55z5tGYsYJHbaSCYltkhFBIHk/R1saAzP1qURyK
+	G/zDxe0IMLL6kXa7HKGG4vwnMmUJh5VxZJ/0cS9hk4GiBAgCiy+cu3GMg+7lcMI+
+	oWZbpBWCjPIs0+sJNtCtADxoHbhjLUHkENBTQAcD+2036/CzVjWqcyYHSa05uJ/r
+	Myh6abT0pQi3MJ4CaHVtcJTtWFymOKbNzow==
+X-ME-Sender: <xms:eSZzam5lQZvSGt8SxXkTmdCN60uEv2I2IHKrE0iU8PGE6nVOp4ZnFA>
+    <xme:eSZzamSCyxOIcLN1XyaaPwCnkQRcvSx5RuV0nzcqEBhTUYOtOu9YCLKWLEHBYYr95
+    NBeGt9e0FCBPV7jDyWrzueCvP2WFkXJs9T7MKKOuONS47IHQAxxsdKo>
+X-ME-Received: <xmr:eSZzaht-7K3TnGIOZOG1whN4GgsuzpsDfvj-OsTPwjAq36kJX5NDHY2kjIqgLE-zvQsDQTgu5yZo8e0Lty9wBdZx5RK7CijOJqE>
+X-ME-Proxy-Cause: dmFkZTFzQAZjvT8uGrnf9aXjsofQwQIv8kp/LpTrCaaU0lhPsDKs8dpieNzT4ps0wh7nXM
+    wocmT9MaEq6MexFe/RB/X13u6I4JVUkMIkyHr3csyFicrqXOpAAb+EGB3d/Qman5ZYDe/T
+    HNld/CQdkSUD6deXbptt7PpVbLMMXJ9hGWM0dTBlZStJoRgNW7Umye10tBfQmCsuvjHVWB
+    Vf9nkXksiGk/Xr58qPEvZrErei1Jr8DXYO9dHgt1MA0/p6vphv35DYiv0+bLjq8TwjiWbN
+    gFBeJoVXf3NAHdWnNjnQu+hmcLCUi3YOJgy+AIwzWngLPT8c7BxQ3ZPNINF/H9fsbsouY7
+    60xYdPQKytEVw5iu8HpVcIP7v3gGEeFyqk7dTGHkpo6Rd7uHyvUI33aYFvakVEqoyVXkkJ
+    9ZUTBOmHMlS5rutovCtYzKf01n4suW+Gk8+eaIc5AwxGctkmK7J64lMP0U71nalePrhrvJ
+    rW7/7NdsoH1wFD1Dvb0j6mxV4y93ezZpbjZuNJADev5MzzbkKzX1ApGLJV2qkyH1jw3hfm
+    TRgu+/cmXvOlYurVY4L5921fdzt5tVZCfrLTT/87LMP8cLuT4Hq0ruxbMxFkXWiqGIalVg
+    3xqqJ5m6R7Eip3+gpyxNw0JP8CyLArKknlbCwvKw6qFiUEo89e9nJhNXCAxg
+X-ME-Proxy: <xmx:eSZzag-TT5dDi3lguvz4aVVayAQKnFCuVNVAkwsc_r00TJ-2MxCm1Q>
+    <xmx:eSZzaiwivxdiKt2zmZl3LGeFmCIX6F-Ap41AtMJdNsosHA6q5og_9w>
+    <xmx:eSZzaq9gT4s1M4VLtzs_yNF3CUTy2sFUKgA4LmotvvyS4W3gdl8sVQ>
+    <xmx:eSZzaoNH6_6VQTvwo9qV37VbnbA9mEVu19yfluHAv48m0t1LrjxHxg>
+    <xmx:eSZzare96bhtBVSer_3qQPMTyIpm0zOOJzRKgNT5AvGnpFf3v1rcyPAJ>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 5 Aug 2026 08:03:04 -0400 (EDT)
+Date: Wed, 5 Aug 2026 14:03:02 +0200
+From: Janne Grunau <j@jannau.net>
+To: Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, Alba Mendez <me@alba.sh>
+Subject: Re: [PATCH v4 2/6] spmi: apple: Validate FIFO state
+Message-ID: <20260805120302.GB832571@robin.jannau.net>
+References: <20260805-t603x-spmi-v4-0-c15a12d9a7d1@chaosmail.tech>
+ <20260805-t603x-spmi-v4-2-c15a12d9a7d1@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803132828.3249424-1-tommaso.merciai.xr@bp.renesas.com>
- <20260803132828.3249424-2-tommaso.merciai.xr@bp.renesas.com>
- <44c150f6-b04e-4515-ba71-63780c56c38d@kernel.org> <anDNtrL-eL6VUD94@tom-desktop>
- <8c5f0e53-2515-4744-ac6a-a4c94f2ae2b8@kernel.org> <anMkwfGAW5fBSAEf@tom-desktop>
-In-Reply-To: <anMkwfGAW5fBSAEf@tom-desktop>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 5 Aug 2026 14:02:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVzvnz-XrgJ2+UrAA-Gj6XjAnz9Q0HqrNCuVQF3+v9X-g@mail.gmail.com>
-X-Gm-Features: AUfX_mzB7HlYXBn_cNKB7rJbOxNdM-zSKxAmP2nWd-xohS9mCBFdbwcKjfIe5vk
-Message-ID: <CAMuHMdVzvnz-XrgJ2+UrAA-Gj6XjAnz9Q0HqrNCuVQF3+v9X-g@mail.gmail.com>
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: renesas,r9a09g047-sound: Document
- audio_clkout clock-frequency
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, tomm.merciai@gmail.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	John Madieu <john.madieu.xa@bp.renesas.com>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260805-t603x-spmi-v4-2-c15a12d9a7d1@chaosmail.tech>
 
-Hi Tommaso,
+On Wed, Aug 05, 2026 at 12:11:12PM +0200, Sasha Finkelstein wrote:
+> From: Alba Mendez <me@alba.sh>
+> 
+> Check for data before reading the body of a reply, and check for
+> end of data afterwards.
+> 
+> Signed-off-by: Alba Mendez <me@alba.sh>
+> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> ---
+>  drivers/spmi/spmi-apple-controller.c | 29 +++++++++++++++++++++++++++++
+>  1 file changed, 29 insertions(+)
+> 
+> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
+> index 376cf682c43e..4d5356bf9bbf 100644
+> --- a/drivers/spmi/spmi-apple-controller.c
+> +++ b/drivers/spmi/spmi-apple-controller.c
+> @@ -21,7 +21,9 @@
+>  #define SPMI_STATUS_REG 0
+>  #define SPMI_CMD_REG 0x4
+>  #define SPMI_RSP_REG 0x8
+> +#define SPMI_ACT_REG 0xa4
+>  
+> +#define SPMI_ACT_FIFO_FLUSH BIT(0)
+>  #define SPMI_RX_FIFO_EMPTY BIT(24)
+>  
+>  #define REG_POLL_INTERVAL_US 10000
+> @@ -29,6 +31,7 @@
+>  
+>  struct apple_spmi {
+>  	void __iomem *regs;
+> +	bool prev_fail;
+>  };
+>  
+>  #define poll_reg(spmi, reg, val, cond) \
+> @@ -49,6 +52,7 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
+>  
+>  	ret = poll_reg(spmi, SPMI_STATUS_REG, status, !(status & SPMI_RX_FIFO_EMPTY));
+>  	if (ret) {
+> +		spmi->prev_fail = true;
+>  		dev_err(&ctrl->dev,
+>  			"failed to wait for RX FIFO not empty\n");
+>  		return ret;
+> @@ -67,6 +71,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  	u8 i;
+>  	int ret;
+>  
+> +	if (spmi->prev_fail) {
+> +		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_RSP_REG);
+> +		spmi->prev_fail = false;
+> +	}
+> +
+>  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+>  
+>  	ret = apple_spmi_wait_rx_not_empty(ctrl);
+> @@ -78,6 +87,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  
+>  	/* Read SPMI data reply */
+>  	while (len_read < len) {
+> +		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
+> +			dev_err_ratelimited(&ctrl->dev,
+> +					    "FIFO lacks reply data, controller stuck?\n");
+> +			return -EIO;
+> +		}
+>  		rsp = readl(spmi->regs + SPMI_RSP_REG);
+>  		i = 0;
+>  		while ((len_read < len) && (i < 4)) {
+> @@ -86,6 +100,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  		}
+>  	}
+>  
+> +	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
+> +		dev_warn(&ctrl->dev, "FIFO has extra data\n");
+> +		spmi->prev_fail = true;
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> @@ -97,6 +116,11 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  	size_t i = 0, j;
+>  	int ret;
+>  
+> +	if (spmi->prev_fail) {
+> +		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_RSP_REG);
+> +		spmi->prev_fail = false;
+> +	}
+> +
+>  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+>  
+>  	while (i < len) {
+> @@ -115,6 +139,11 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+>  	/* Discard */
+>  	readl(spmi->regs + SPMI_RSP_REG);
+>  
+> +	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
+> +		dev_warn(&ctrl->dev, "FIFO has extra data\n");
+> +		spmi->prev_fail = true;
+> +	}
+> +
+>  	return 0;
+>  }
 
-On Wed, 5 Aug 2026 at 13:56, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> On Tue, Aug 04, 2026 at 08:20:29AM +0200, Krzysztof Kozlowski wrote:
-> > On 03/08/2026 19:19, Tommaso Merciai wrote:
-> > > Hi Krzysztof,
-> > > Thanks for your review.
-> > >
-> > > On Mon, Aug 03, 2026 at 03:32:48PM +0200, Krzysztof Kozlowski wrote:
-> > >> On 03/08/2026 15:28, Tommaso Merciai wrote:
-> > >>> r9a09g047e57-smarc.dts set clock-frequency for the audio_clkout output,
-> > >>> but the binding never declared it, so dtbs_check fails:
-> > >>>
-> > >>>   sound@13c00000 (renesas,r9a09g047-sound): Unevaluated properties
-> > >>>   are not allowed ('clock-frequency' was unexpected)
-> > >>
-> > >> Maybe the DTS is wrong, because property was rejected? Did you check
-> > >> this? You cannot document ABI post-factum if it was rejected.
-> > >>
-> > >>
-> > >>>
-> > >>> clock-cells is fixed to 0, so only a single audio_clkout applies.
-> > >>>
-> > >>> Fixes: a86fd3c20218 ("ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound")
-> > >>> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > >>> ---
-> > >>>  .../devicetree/bindings/sound/renesas,r9a09g047-sound.yaml     | 3 +++
-> > >>>  1 file changed, 3 insertions(+)
-> > >>>
-> > >>> diff --git a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > >>> index d7fa16554698..6e2b2c93b4b7 100644
-> > >>> --- a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > >>> +++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
-> > >>> @@ -42,6 +42,9 @@ properties:
-> > >>>    "#clock-cells":
-> > >>>      const: 0
-> > >>>
-> > >>> +  clock-frequency:
-> > >>> +    description: for audio_clkout
-> > >>
-> > >> Incomplete, missing type/ref, constraints.
-> > >
-> > > renesas,r9a09g047-sound is handled by sound/soc/renesas/rcar/core.c [1],
-> > > and "clock-frequency" is read by rsnd_adg_get_clkout() [2]. The same
-> > > property is already documented for R-Car in
-> > > Documentation/devicetree/bindings/sound/renesas,rsnd.yaml [3].
-> >
-> > But was the property rejected? I am repeating myself...
->
-> Looking into this further, I found that you already asked to drop this
-> property during the v5 review [1].
->
-> Thanks for pointing it out.
->
-> For context: the sound module contains an audio clock generator (ADG) which
-> generates an output clock from the external audio clocks and outputs it in
-> to the AUDIO_CLKOUT pin, that mostly supply master clock to codec.
->
-> "clock-frequency" is array of the possible rates provided by
-> AUDIO_CLKOUT to the codec master clock.
-> Based on the playback rate it will request either 44.1kHz or 48kHz.
->
-> I will drop "clock-frequency" property from r9a09g047e57-smarc.dts, where
-> AUDIO_CLKOUT output pin is not wired.
->
-> But for boards that populates AUDIO_CLKOUT we need this property,
-> Could you suggest how to model this properly?
+Reviewed-by: Janne Grunau <j@jannau.net>
 
-Isn't this output the single clock output of the sound module's clock
-provider (#clocks-cells = <0>)? Hence can't the consumer driver set
-the clock rate?
-
-If the consumer driver cannot set the clock rate, but depends on a
-fixed clock rate, it can configure this in DT using assigned-clocks
-and assigned-clock-rates, right?
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Janne
