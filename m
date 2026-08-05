@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CFBC355057;
-	Wed,  5 Aug 2026 21:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01ED634AB19;
+	Wed,  5 Aug 2026 21:18:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785964585; cv=none; b=g+zlzzyK5azGVUAsypPIXdsizmRPFd+Jeh9dhcgY/Lvwu3DSxJ1XwplCnM1Dily5ngEBsvXKR3KK2U/XiywaLknRf96W1nP48ONsUSe4te7JX1Wp3UXVYKW2hWeMzu10vlklHDznJf8ExF/1XbvYa5H2XOozQMhCxeH0JVqxq2k=
+	t=1785964687; cv=none; b=N/UuJPH//1IX4MmuaiBqzDpfSIYe0YVfXd2/hVJUtVO1ENpeXFKQRWK7NLc5h1l5AExIKNjDQomjrGkOyAMJ69uIjwzxZ/oXBUKSvdn7A9kpnniJj4djSadwG0h8UoK8OfR3quYqg9nc7pLT9jW/rxDlPoXJJ731xG0aKxxv8WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785964585; c=relaxed/simple;
-	bh=y5/zlUnzS+NmhJldVLybMEPPspy5u7ElHIzvKXIveig=;
+	s=arc-20240116; t=1785964687; c=relaxed/simple;
+	bh=4GLvRlLi4q8Grvdog0DaP2fDBRcmhDzccrZBZ3fJK8Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bray1wDlo8hOmqBxJHKP/DToqE7++sfy2MaU6HYX5j7JD6wPcVbu4mrkyIGP4e66BM2gWfHBXCz/YVSuI368eq4gtv00WzGBVoJXZUsaOXp9tJ5zG+pfqP9/aYml+ts21v0BdvUSEP1Sp0iziIcVR0p8JMrrtGfnkdK4uO7tmu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aYvh5spa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mI79Zhf9iZt6zhmXagE+g2ltzFFs128zsUYawudlcBg/MeVyCuMjWt3JDhDKkIIh1dKjtqZ9UnsbiE6d6fqDr7k59FeWeeXtaQHmSSFpG/I2JNG8YXmAwkxynWpJE/KrZzX4ek49dWQ5NyS91pw/QiQhzaIJePlUSOb88V6NvHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzVDeWf6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aYvh5spa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885991F000E9;
-	Wed,  5 Aug 2026 21:16:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzVDeWf6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C68B41F000E9;
+	Wed,  5 Aug 2026 21:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785964570;
-	bh=qi6DaOHm8fU+Zc2dzygRVTocGyvXu5pObFA60wyLq6A=;
+	s=k20260515; t=1785964678;
+	bh=Ih4CY4loRfiDz+HhU7oDKDGbRZnNGt6ynExU5jVOQBU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aYvh5spa9bGgp1SVDTQhbA4J0tdbbaEC+avBx9eARGO7ik0Xpta/R//sLAVul+22W
-	 bc19JMah5RhKxOg2fufX4ZPioFa0AFMwn0zr61zzNAIetJqU267cfTEhRY452rvzRg
-	 06UhlCdC6k2LasomBpMOSUgk5xfCg/Vn2Bw4JouFSO9VruDMttoirE7wOKGDqzj+SP
-	 oA14qm/bie/a7UVQ/XILl73Y20+GqubeHUTQZecW8At8plLV9IPYfNGD81AofBXdSW
-	 YutVfJRXbTw+46YVvoClGnDCOlKufx+Ln6mcwrASTx53TWpmdGofWEv+AdIW6rWSt1
-	 eBOjDd+Nx3M9A==
-Date: Wed, 5 Aug 2026 16:16:09 -0500
+	b=XzVDeWf6pBGX46ux0XWzaR8sUPE3l7vCwP55FklFMecTN44+0Ah6S/TLsZNfrRu6r
+	 oDW7mfS/iEqRCyUEus4B8pNr8yp6YOYVjoLpzn2FDy3hlbKYgwzDmd5bsze7Vd26Pe
+	 wGHU01WyAQSi/NRZHGvmEkFMuJ5O8HIUWDRYGUdxEH2wK5GpQaitb4kTC34fm4h2FY
+	 eynjndQUG0sR0lHqjZn4ARVtfESDDY8LFSie9e7VEiy5gPANKSQGDWET8yPSSDKnLN
+	 uWKTan2BlBozUDvj6Tz6BfbRjsTY2mbAJ0ivIsGs7ToMPzDtFQrdM7aJsBOIjr24Bp
+	 7tv4M0bdkWNgw==
+Date: Wed, 5 Aug 2026 16:17:57 -0500
 From: Rob Herring <robh@kernel.org>
 To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jerome Neanne <jerome.neanne@baylibre.com>,
-	Paul Cercueil <paul@crapouillou.net>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH 1/2] dt-bindings: regulator: ti,tps65219: Use generic
+Cc: alexandre.belloni@bootlin.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, paul@crapouillou.net,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH] dt-bindings: rtc: ingenic,rtc: Use generic
  power-controller schema
-Message-ID: <20260805211609.GA1796517-robh@kernel.org>
-References: <20260804-regulator-syspower-v1-0-b05af2081184@nxp.com>
- <20260804-regulator-syspower-v1-1-b05af2081184@nxp.com>
+Message-ID: <20260805211716.GA1799400-robh@kernel.org>
+References: <20260804144553.2518722-1-peng.fan@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,22 +45,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260804-regulator-syspower-v1-1-b05af2081184@nxp.com>
+In-Reply-To: <20260804144553.2518722-1-peng.fan@oss.nxp.com>
 
-On Tue, Aug 04, 2026 at 10:37:52PM +0800, Peng Fan (OSS) wrote:
+On Tue, Aug 04, 2026 at 10:45:53PM +0800, Peng Fan (OSS) wrote:
 > From: Peng Fan <peng.fan@nxp.com>
 > 
 > Convert the binding to use the generic power-controller schema instead by
 > referencing power-controller.yaml and removing the local
 > `system-power-controller` property definition.
 > 
-> Acked-by: Mark Brown <broonie@kernel.org>
+> Acked-by: Paul Cercueil <paul@crapouillou.net>
 > Signed-off-by: Peng Fan <peng.fan@nxp.com>
 > ---
->  Documentation/devicetree/bindings/regulator/ti,tps65219.yaml | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
+> 
+> V1:
+>  The power-controller.yaml has been merged in dt-schema, so
+>  resend this patch picked from link [1]. A-b tag is kept, since
+>  no changes.
+>  [1] https://lore.kernel.org/all/20260316-power-controller-v1-5-92c80e5e1744@nxp.com/
 
-These need to wait a cycle. The dtschema dependency is not even in a 
-release yet.
+This needs to wait a cycle as the dtschema dependency is not yet in a 
+release.
 
 Rob
