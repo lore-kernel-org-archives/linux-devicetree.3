@@ -1,87 +1,136 @@
-Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D533655D7;
-	Wed,  5 Aug 2026 07:26:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4AE3E3C50
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 07:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914791; cv=none; b=l1Lecmy0NSnwol+CTSqv69F8ATp7FL4S5bdmU3Y1mnOB7jkaGF9B1mQc7o48CO3A1vlDPy+UiDQ/D4zQjt379ISN2AkygsPE7IOBnCCbOpG1f28mWec5AdDDOIEKs3nA6dPQq3fnUhfBwMUVWgKH9wI266OJtRarCYs2LjcXktM=
+	t=1785914818; cv=none; b=E8Ryohk/Sc+HKHdyx6stfk1LRLUSC2vJvrgQ/ORygtzdoJMumEf0r5oSghbr5QW5GmY9BdEV44RgOk97oto9ypUtgIgfLa5yZN56COLzJdolA7A+rTayh0d2yPQHchLBDb7OiUQ5bKQ0kHeibYWTEW5LFzb+p74xSSjt1sn6Nkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914791; c=relaxed/simple;
-	bh=wjvqB3IJjwoVYlpfTDuT7J8G2MSWTTWsKLIOnNAuzTk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lek2eSjotPNeEqzlKx1i3CDyJHlSjkNctOwnOtDBV43KUZ2BuUdc3N+Y69owRKQ8qY7l63dmKq8B6D0jBW5o4NXHjqnLo5PcsZ1CsQUDjI4FRVdCIOQEPhs5/OJaZndEVqj209Wrw2/FYojFSe5gxFvJwhJeZ3dDfk+SbwFA1vQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=l1N++3BM; arc=none smtp.client-ip=185.70.43.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1785914818; c=relaxed/simple;
+	bh=asK73d7GfDyhVd78GqzGQPrvU1ODMVZuA2la3QyxruQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PJZm4yfGbLvbnqqTKNG+bihycgZ+afNa+o6LuqSiwxWUy7dJs4C22Cuvs+CaMd0jSeuHCUG53HCRtfveex3b1Slk0UwSV+izJshNJc5QXvjmSpKnMUAnODKBDOPZmt2YvOe+0jekPZasbqTYQXWNvMIEzXtarRaDCLWW47TJTDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at; spf=pass smtp.mailfrom=sigma-star.at; dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b=cn1gS2z/; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigma-star.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="l1N++3BM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1785914782; x=1786173982;
-	bh=wjvqB3IJjwoVYlpfTDuT7J8G2MSWTTWsKLIOnNAuzTk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=l1N++3BMJDl8U+y3hin3J935eAsttWEl/Xxvh6ei9DuxtTNQJ5qaUMjIBQefyiagy
-	 Tp6GAW7wOY3KSx3ydy7AEwoWhDPBuvwlNXR5z2Y/tUzISy7tGDp182/6Q1Bc/pU+eZ
-	 uqz0pgHtDOXnLYQ1R5liCs9Bb0AgxkV7U/zGPKD44TMOvFl89A9p1mA+Q3PGEBwFcj
-	 Vyh+hLdk3/4C/OmpRJZWh0OFc+ovBTWnrvRipIWiG9+Q/U9vdxaWHjen+gPLiY1krl
-	 nZiGN8UFCW2/P9w2YyNtxb+bgfXVVVGNjGDUg74N4x5tgI9fXV9aN/Re2grcfkLjZo
-	 ZiWvE7zQeXztg==
-X-Pm-Submission-Id: 4hFMR03Z0Bz2ScQF
-From: Esben Haabendal <esben@geanix.com>
-To: "Jonathan Cameron" <jic23@kernel.org>
-Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/2] iio: accel: mma8452: Allow open drain interrupt pin
- configuration
-In-Reply-To: <20260804235400.3f99d3de@jic23-huawei> (Jonathan Cameron's
-	message of "Tue, 04 Aug 2026 23:54:00 +0100")
-References: <aldH3vtk_eKh6oCC@ashevche-desk.local> <87ldbco582.fsf@geanix.com>
-	<Tu8Mavh-mfl8Vv75Oab3vrghtEbTXiYPZ4qhj6RZv8xe5nWKP4lG1KSuJXEQfyKeio7zv9myLbmifMjFTl8juA==@protonmail.internalid>
-	<aleQVYrK9YBoLqGl@ashevche-desk.local> <874ii0misv.fsf@geanix.com>
-	<alefh86sqW-XvLHl@ashevche-desk.local>
-	<J2apVLUJhrI3AOweGpouqGGB0XhxbcqLiWasDpOdm4d2YGgNv8PuE-udUGJZcH0z-V9yyqbjIwMKDdtuam0mp6ya5F6GHUzf6OjRCo0GdaA=@geanix.com>
-	<nnp75d8J8In8paKGfojb_WdiRMfnz84lOlzz_LBKVsxDzR3fG7Y5Mn91q6P4BF2LetfZS7da2SeqGhpiLUOE-A==@protonmail.internalid>
-	<alkgZTnHyvEasMCk@ashevche-desk.local> <877bmtsu1h.fsf@geanix.com>
-	<alpqq3zhSS_iYGJq@ashevche-desk.local>
-	<nlzE8HA1b2C6D9P6L63VNtKUWaXbUTxoJB5c3K4eFLIrEkoV_2CDQNp50cj2ILfMni0Rjz94guWdLadq2ewdHw==@protonmail.internalid>
-	<20260719023035.2380e8df@jic23-huawei> <87tspb63oi.fsf@geanix.com>
-	<RuqoMWPGexWkNKQz7GTa2WKKFTYQ1iZXAYp7Hub1YDdiifvVKmLnOmCuoCUDr_Jk2wulpLH_FGdN7O-TQcKaLQ==@protonmail.internalid>
-	<20260804235400.3f99d3de@jic23-huawei>
-Date: Wed, 05 Aug 2026 09:26:19 +0200
-Message-ID: <87a4r1auzo.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b="cn1gS2z/"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so6127365e9.2
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 00:26:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=sigma-star.at; s=google; t=1785914813; x=1786519613; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=twTeQfheFVdLzfrMuJjB8uMdt+x4381kwqcX7wxLE60=;
+        b=cn1gS2z/B/fkZ1qvKRtRONb0jARDWo3nLzWUB2LWROPHl/aj9ljyVZeXpkiR8YEsf0
+         SpiM4/VgfWyO4arBG1XfSvwcKKFIa2RvbnQKDpuk2NLAZq8PmEUMyrqWp4UQD3fSOGm8
+         MZV5P6kI8ILnT1bAqyynupng+BhvO/Q4b255wNm+WswwRZJGnPT3wCbP3T6KrIg8n2mh
+         u4vu1ci/+SKmXWQdeZygULvdtVemPSDE3FTB2etyzhiu8jTDyidPr6F+gPh4ga1BNn/x
+         SSYt3KjkUu/LUiQl0JYs40ue9xpGiaQblPcGB3DYPihJpq6xF3QJu22nfgXpc6nYpaoA
+         uqVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785914813; x=1786519613;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=twTeQfheFVdLzfrMuJjB8uMdt+x4381kwqcX7wxLE60=;
+        b=nVLiwRm9pd0Azr72yfY+RslJH+HLlV/7zgmTaYWmchN1yrqhze9MQcMVaJny6bKN0v
+         wOmQVM9Vob6wrcZNdDis3K6TJ5szHvES5rZIvWUTDePoTQEQsHZ5Ytxl8DtUwvJLe6kV
+         KTxEYQFhOMe8YNK2GYcY1gDM6CKkjklyEUXY474iDHCgs62mcbpXIq2gSfThnFlEABcX
+         U5n3CTaya+iopt1Pv7AImCfb4sYwmJ7Cog3tgIDhr7bfLXNKFVlPI/K8G0MPRIWcOCQW
+         o6bKK9QGh5k207bPe2o10i5mr2yAhhgMgHR6fPHueKKypfK+PIKTkepgJoIFmE+aGbXJ
+         SRxA==
+X-Forwarded-Encrypted: i=1; AHgh+RrmLUrpE+pyb7POLo5bEK43M3eFJCsoSsMHvqB3YTGaQCucSOx0+QR83bA9r2u1Qt7MntbsNmjJQYwb@vger.kernel.org
+X-Gm-Message-State: AOJu0YwtJXVVKrmjpq/e3CmCbOTCPd3AQ2APw8WvhxIA8obZCoRVXLrL
+	fpcRD6CSYUrZmou+sLa/wngevD3Qw4Sa1IAKTvplLU//YxEF/JMJ7i4w19hYRpmelNg=
+X-Gm-Gg: AR+sD13QKhaxFseUDhJq0Pv3rPuOQk5HE2AG1TQxjchxcn67t3VxU8T5rEPn8XE49el
+	p+qIf2FP3H59i2mgmpb7cDZZnsqEsnGIt9C028kfFFoDscmE6VKc7brmxN0Lqrd6svP0FbsldtJ
+	AdL9GUtKIZxcrO92dNmoBJoxTTFbLqu1EhBXOD3HUpPSb26D3bm+vWZjg6ErgV7Rfr2NOF4pr2M
+	HzcLRy1ZI03uSrJFnWmeyHOMQ1v/Y9UwMYVn+6RhhlkcvdhYmfDji1+I7Mpb/F8tMyoHi3z/VBC
+	CNdyBGOMYbN7IfCb8mn+YpqVoTnpLM7gNs2UXf7NLvNQ8BiwI4jWb3zZOoGOyO+Kwn1/KYJOoCN
+	ZlrYWM8J0oaXIRJxVj/RsOmj2xGdA//wt4t7YoshuPI5r4EeSs8Vdqvw7W3A6QD1SEuDxXluptx
+	8u2bYRo1OUG2AOl9vvqUsyxIl8HDP64L1e2Kc9LZNFatUlXcWdFeZigvY6sZG5alQ46Or/V40OB
+	3Q2w9v2Of4=
+X-Received: by 2002:a05:600c:3589:b0:493:c845:bc20 with SMTP id 5b1f17b1804b1-4994e79ab0emr51987475e9.4.1785914813464;
+        Wed, 05 Aug 2026 00:26:53 -0700 (PDT)
+Received: from [10.115.255.165] ([82.150.214.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49949fcb345sm153939695e9.6.2026.08.05.00.26.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 05 Aug 2026 00:26:53 -0700 (PDT)
+Message-ID: <a88bbbb3-2a6b-4b2b-85ec-479d3ba5299a@sigma-star.at>
+Date: Wed, 5 Aug 2026 09:26:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] phy: ti: ti-pipe3: allow configuring ACSPCIe TX/RX
+ mode
+To: sashiko-reviews@lists.linux.dev
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com,
+ robh@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org
+References: <20260804111849.92046-1-david.oberhollenzer@sigma-star.at>
+ <20260804111849.92046-2-david.oberhollenzer@sigma-star.at>
+ <20260804112702.497CF1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+In-Reply-To: <20260804112702.497CF1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-"Jonathan Cameron" <jic23@kernel.org> writes:
+Hi,
 
-> On Mon, 03 Aug 2026 09:53:01 +0200
->> >> I'm on vacation, but I disagree on the approach taken in this patch.
->> >> I leave it to you and Jonathan and others to settle down.
->> >>
->> >> Here is my formal NAK (to this form of the patch, as I said, w/o shared
->> >> support it might be okay to go).
->>
->> I would like to find a way to agree on a solution with shared support.
->
-> Hopefully Andy will be fine with what we have above.
-> I'm fairly sure I talked him into accepting similar in the past ;)
+On 8/4/26 1:27 PM, sashiko-bot@kernel.org wrote:
+>> +
+>> +	regmap = syscon_regmap_lookup_by_phandle_args(np,
+>> +						      "syscon-acspcie-tx-rx",
+>> +						      2, args);
+>> +	if (IS_ERR(regmap)) {
+>> +		dev_warn(phy->dev, "can't get syscon-acspcie-tx-rx\n");
+>> +		return -EINVAL;
+> 
+> [Severity: High]
+> Does this code inadvertently break probe deferral?
+> 
+> If the syscon provider is not yet ready, syscon_regmap_lookup_by_phandle_args()
+> will return -EPROBE_DEFER.
 
-I have implemented the changes discussed and submitted v3 of this series
-now. I hope it is better now.
+It will not. syscon_regmap_lookup_by_phandle_args() internally wraps
+of_parse_phandle_with_fixed_args(), the implementation of which can
+either return -EINVAL or -ENODEV.
 
-/Esben
+The only additional error path in syscon_regmap_lookup_by_phandle_args()
+also returns -ENODEV. At worst, this will mask -ENODEV as -EINVAL.
+
+> 
+>> +	if (phy->mode == PIPE3_MODE_PCIE) {
+>> +		ret = ti_pipe3_acspcie_tx_rx_mode(phy);
+>> +		if (ret)
+>> +			dev_warn(dev, "failed to set ACSPCIe TX/RX mode\n");
+>> +	}
+>> +
+>>   	ret = ti_pipe3_get_pll_base(phy);
+> > Is it intentional that the error returned from ti_pipe3_acspcie_tx_rx_mode()
+> is ignored?
+
+Yes, I tried to following established convention by modeling the implementation
+after other drivers that need to set syscon register bits during probe.
+
+For instance, the dra7 pcie driver. See: dra7xx_pcie_unaligned_memaccess() or
+dra7xx_pcie_configure_two_lane(). Those follow the same structure,
+returning -EINVAL on lookup failure or the result from regmap_update_bits().
+
+Where the setting is optional, a warning is issued on failure, but the probe
+then simply continues.
+
+Thanks,
+
+David
+
