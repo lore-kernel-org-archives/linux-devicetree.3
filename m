@@ -1,150 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97B2403AEB
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:43:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D772D403EA0;
+	Wed,  5 Aug 2026 09:44:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785923016; cv=none; b=Mau06LuAs2hkkylC26mWktebpuQuHGIkju4gwCZKbbB0D678pnpOj8WK+UDRbwbWczNLv85CXk02gelhlxl7nIV1nekMoVXvVGS4tjOWaPzJ6fUKC6BKcD71Sz6tnFbp6OyR8ub5qDmVu0ewnR8wGNjVf6Phwa8B+Yaj34w96v4=
+	t=1785923070; cv=none; b=QgOPnw6OUivlRHDhCGRq+ek/rHEiAEH9kQzPvi2rcI10p8doKfv3wE8ldEIcfysgwTxG11Y0B0Ax0kYpWPBXnCzDAgwWlVPrWfn1qQIx79EH1LQnaRbQEDwuv5BoAqXrbAZZlKNic7qMpxhUL1UIrlDPOe9pnGe+CQs+7hWYIG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785923016; c=relaxed/simple;
-	bh=kzl3LjyJT/cJK/tPZUC90cNqEiloCIZi3VNBGZx0Tq8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MBh79BjbEHtUzP3BXRbiCa+/UHBmyexpIalLRAjy2rcHmKLqsHrd2l+Eioat4kbOSwsSFCps/zUIzY+ftqHhth8lYKirRPpjdKH4Onue0X3PR9scdLFRIxX9aqsfMjB1La3XevbZNHZLg7WThXC4PXCt/D92Sp1ABPoFflBp5J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCQO3DcH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785923070; c=relaxed/simple;
+	bh=JpUpg6pBYE59cria0Nsx4NjW4BZpnViIeVnstnAJCWU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RtIKaBYaj/tGN3cEQUcCmLKqMl3a6IQhYnXieYzndDFlTBZRlRAp4EyoF+yP5ZxyFF2ir72DmK1guYN9CggR1i1BqjPMpvuzeF8D/Lldd08qrXcOBCN5JEHcqbOisn9AKj6h9u9HgB/uOA4vSxRM0U0Z3DCPv8Mhy2vRtTHX0B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=WpUfOyxU; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCQO3DcH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2241F00ADE
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:43:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785923015;
-	bh=SEWTlYII+fUiWyq0/uoUuvMRCEnuw1WDu85hQtFf3VU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hCQO3DcHzM5OwFzJnbxCc2BtoLhw84uSoJObv3WWEU7S50MmdZ/m0h/kpMLpomsIO
-	 SHwkAonZkmpeNs4n1vGFjGYqPTabxNG2V78pvT5KM3YmgyZBu+XGJAsH9Xiq2O5jgG
-	 a/oZVC3RA4DecqBaChbrmb6g+N51leP985+bZauNXJXuYxMpP3W8clSwPgx602uDwu
-	 vvXCQr2IJg5DNuBosmJBZ3hB91HztVMPDWRpsF+pdJJ9J+FsEsJvU+3/IXZeFbgdro
-	 J7MTm7DVaKJEML/Az29fBr6BINps/uyUYpGh2IKF4qMkNwxVd7cDBfoVZEQdLL7N4p
-	 CgqA70cgOZbQA==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a15d54ac95so879572a12.0
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 02:43:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqJvrRDYneAAAC0RM15roM+wpALFhmgPH+epk4oceWhR6E/PxzBJRgX9pFDhMb3R52b18IudXUv3o3M@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMKy0DWKfzJtmW/TjgT9OoTMNyEHSy97p/ySNWJj8sKMYcIYwz
-	0ZkMVzYDDiP8X10Yo5M0OYZzWhwbMLBB8uQuFsoByL4sWup3a0NaE9QQmTcikK+KoAa3UPnu6ct
-	gzCrtK+qeNjgiTwTr6yUFVvnKe25GsMg=
-X-Received: by 2002:a05:6402:5406:b0:6a0:567c:c2fe with SMTP id
- 4fb4d7f45d1cf-6a14f28888fmr2928147a12.20.1785923013927; Wed, 05 Aug 2026
- 02:43:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="WpUfOyxU"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6758fMQg413574;
+	Wed, 5 Aug 2026 05:44:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=4WPSCb6+vNzQEfakDFWEQHhz0zA
+	KSp5niYQF0ZwJWpo=; b=WpUfOyxU9axwj2RRJZTktG02lFurvvYwJagrYHHRmGJ
+	5ytgTXWXCe9v0MZ8ck/By6qujSb4A2lTI9jQ048LdKXqTLbh2Lfl37AXNUXQC4oX
+	/L5n4tWlUEkCdM7T9qOc7dSn+KcqX8zv2l9pKroeySD7Gv754WWA+jH5CmmLzotJ
+	O586gJgcg7TshKPhXLOofkbfjvjaarEQmvplPQotwIxZGruEQzVjFUyO3ldSyzVC
+	s8BoxpwFVMCmFXF/mdcPHM5jBhY7zgrQoqLqHdWIhoLfr3ihpF2WEpWgHWTpvD/j
+	4DTsfOtokgPSP/i2Z+zUqRy35p6LCNVMykHF33LwCtg==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4fue6wnc92-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 05 Aug 2026 05:44:24 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6759iMRK004988
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 5 Aug 2026 05:44:23 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 5 Aug 2026 05:44:22 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 5 Aug 2026 05:44:22 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 5 Aug 2026 05:44:22 -0400
+Received: from HYB-li3PrmDPxTz.ad.analog.com (HYB-li3PrmDPxTz.ad.analog.com [10.48.65.201])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6759iBgH028984;
+	Wed, 5 Aug 2026 05:44:13 -0400
+From: Andrei Stancovici <andrei.stancovici@analog.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        "David
+ Lechner" <dlechner@baylibre.com>,
+        Andy Shevchenko <andy@kernel.org>, "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>,
+        Liam Beguin <liambeguin@gmail.com>, <linux@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+CC: Andrei Stancovici <andrei.stancovici@analog.com>
+Subject: [PATCH 0/3] iio: adc: add LTC2499 features support
+Date: Wed, 5 Aug 2026 12:41:26 +0300
+Message-ID: <20260805094135.11762-1-andrei.stancovici@analog.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785829933.git.zhoubinbin@loongson.cn>
-In-Reply-To: <cover.1785829933.git.zhoubinbin@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 5 Aug 2026 17:43:58 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H43c5OWGfE+XepeMbwJvE1US1VapxSTYOh4W77pbRLdXQ@mail.gmail.com>
-X-Gm-Features: AUfX_myJZvZcsFRImM9vvMYUz6MxKvw7tjGf7bRkBFSUuLm8GX_22dr9CRByV7g
-Message-ID: <CAAhV-H43c5OWGfE+XepeMbwJvE1US1VapxSTYOh4W77pbRLdXQ@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] thermal: loongson2: Add support for
- Loongson-2K0300 SoC
-To: Binbin Zhou <zhoubinbin@loongson.cn>
-Cc: Binbin Zhou <zhoubb.aaron@gmail.com>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Yinbo Zhu <zhuyinbo@loongson.cn>, zhanghongchen <zhanghongchen@loongson.cn>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@linaro.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Lee Jones <lee@kernel.org>, 
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=SdzHsPRu c=1 sm=1 tr=0 ts=6a7305f8 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gM_vYgSqSg-Sw1jdCGIA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: 6_J2YAandXO6cS0uaLaYLpJnCKj0EEm3
+X-Proofpoint-GUID: 6_J2YAandXO6cS0uaLaYLpJnCKj0EEm3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA3NyBTYWx0ZWRfX5IZW48n79ck3
+ FN/CjWgijiin3iI7lQyZ4vh8vrnlJIUZZrDmRQpYb46kS1WMeXt8lw8DhjcQxiF8uJF4BLPuK32
+ rup6tnsqnZRbKAR+UvWY0dbEJSZOIv/7Ilk5OH1EC81QJUZNwkD1agSFJcFy2R45NV8OfYPW+l2
+ 0IMBCyR5iYNEIvhxT6ZWAyHpfcWxAb6vfznxBsw5JOqcAUvCtcPA/F4fyFk7SsoQ5xtnkHPkxp3
+ GowMxJgOGH2xtrmCtG2ekXsrxoqypw92T4rPQb56ljk5jYJwfUvd79/G6qk4wEXKSe0xPXcqB0F
+ gvo6yivR1HIWCRXuQsfA5FhaBVCPYveknQKNEioMyIzOlK4e7NevU/CChPuCxJnf9tZUjyFVYPC
+ 1zfzTra/rc8dqxgxOXwQCzrQK9awkFAdkN20bynh2DgoYpFaFSa33CJ2Elj5eqOs3oYtWrRek5y
+ Y4BvIPbwxHWyk1Jmn9Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA3NyBTYWx0ZWRfX2Fw5vUrXwrG4
+ SzvtuxwCM8a2JQnDwiQ+phcH4LxglnvToizFKRnSpNnyjsFeCmdWtXuuMhZbkNNFBPu+VerqYr7
+ xZm23+HNaxMH2wUsavBCLguVese7MFrola1RykbO+uM/cjcdFHON
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_03,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 spamscore=0 phishscore=0 suspectscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050077
 
-For the whole series:
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+This series adds LTC2499 support on top of the existing LTC2497 driver.
 
-On Tue, Aug 4, 2026 at 8:41=E2=80=AFPM Binbin Zhou <zhoubinbin@loongson.cn>=
- wrote:
->
-> Hi all:
->
-> This patch series adds thermal zone support for the Loongson-2K0300 SoC.
->
-> The Loongson-2K0300's thermal sensor is generally compatible with the
-> existing Loongson-2K series, but it features several key differences:
-> 1. It has an independent CPU ID register for reading chip version
-> information.
-> 2. The raw temperature output field has been extended from 8 bits to 11
-> bits.
-> 3. The temperature calculation formula has been updated to incorporate a
-> correction factor based on the version information.
->
-> To ensure robustness on older hardware revisions, a fallback mechanism
-> is included: if the calculated temperature falls outside the valid range
-> (-55 TO 125),  the driver falls back to a simpler calculation and prints
-> a warning.
->
-> The patches have been validated on the Loongson-2K0300 development board.
->
-> Thanks.
-> Binbin
->
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D
-> V4:
->  - Rebase on linux-mfd/for-mfd-next;
-> Patch (3/5):
->  - Remove the `compatible` adding to the `select` node.
->
-> Link to V3:
-> https://lore.kernel.org/all/cover.1785480242.git.zhoubinbin@loongson.cn/
->
-> V3:
-> Patch (2/5):
->  - New patch for moving thermal_ops to chip_data;
-> Patch (3/5):
->  - Correct spelling errors;
-> Patch (4/5):
->  - Add Acked-by from Conor, thanks;
-> Patch (5/5):
->  - Keep loongson2_thermal_data->chip_data as const, and use
->    data->flags as the private data.
->  - Renmae LOONGSON2_THSENS_OUT_10B_MASK ->
->    LOONGSON2_THSENS_OUT_11B_MASK;
->
-> Link to V2:
-> https://lore.kernel.org/all/cover.1784619512.git.zhoubinbin@loongson.cn/
->
-> V2:
-> Patch (1/4):
->  - New patch form Sashiko;
-> Patch (2/4):
->  - New patch for adding chipid syscon compatible;
-> Patch (3/4):
->  - Use `loongson,chipid` phandle replace reg property;
-> Patch (3/4):
->  - Refact `calib_offset` calculate routing;
->  - Add LS2K0300_OLD_FUSE_FLAG flag.
->
-> Link to V1:
-> https://lore.kernel.org/all/cover.1783670011.git.zhoubinbin@loongson.cn/
->
-> Binbin Zhou (5):
->   thermal/drivers/loongson2: Correct thermal sensor registration loop
->   thermal/drivers/loongson2: Move thermal_ops to chip_data for SoC
->     scalability
->   dt-bindings: mfd: syscon: Allow syscon compatible for Loongson-2K0300
->     chip id
->   dt-bindings: thermal: loongson,ls2k-thermal: Add compatible for
->     Loongson-2K0300
->   thermal/drivers/loongson2: Add support for Loongson-2K0300
->
->  .../devicetree/bindings/mfd/syscon.yaml       |   1 +
->  .../thermal/loongson,ls2k-thermal.yaml        |  73 +++++++++---
->  drivers/thermal/loongson2_thermal.c           | 110 ++++++++++++++++--
->  3 files changed, 156 insertions(+), 28 deletions(-)
->
->
-> base-commit: b1eb3de64d02cec71b419b9918d1697797fa156d
-> --
-> 2.52.0
->
+It includes:
+- a small binding title correction for LTC2499,
+- the LTC2499 internal temperature channel,
+- the LTC2499 2x conversion speed mode exposed via sampling_frequency.
+
+Validation performed on Raspberry Pi 4 hardware with an DC1012A-A board:
+- temperature raw/scale/offset read correctly,
+- voltage channels remain sane after temperature reads,
+- sampling_frequency 1x/2x switching works,
+- pyadi-iio LTC2499 validation passed.
+
+Andrei Stancovici (3):
+  dt-bindings: iio: adc: lltc,ltc2497: add LTC2499 to title
+  iio: adc: ltc2497: add LTC2499 internal temperature channel
+  iio: adc: ltc2497: add 2x conversion speed mode
+
+ .../bindings/iio/adc/lltc,ltc2497.yaml        |   2 +-
+ drivers/iio/adc/ltc2497-core.c                | 221 +++++++++++++++++-
+ drivers/iio/adc/ltc2497.c                     |  37 +++
+ drivers/iio/adc/ltc2497.h                     |  36 ++-
+ 4 files changed, 284 insertions(+), 12 deletions(-)
+
+-- 
+2.43.0
+
