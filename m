@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1C93F9294
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 10:37:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F423A3FDBE2
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 10:38:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785926251; cv=none; b=LrGmJmNmoJWFSNmHWer6v+O+G8Yu8he2o1Jzyzv+a5RhpCzcfcPumuh+Zr6qH+LvJO/G8EosA1kK8SodSOot1LMAprCEM4n6g/HDaDHxPfdSqHjBu2/pHZnlKLlCHJu1cztOxf5nrEdZsXlxUCh605dcfQK34RJydobW3Rc8aUY=
+	t=1785926332; cv=none; b=B/p4jiL1KhRnzI9hzt64dL0kzk4XtWWCjEtkl5p6A72x3wPmw4o54/zyINNgOEcA5fXgoHqIh53a+FJCuERXjdvbciRHpftWpmtLiKqnr+4U3qpJru4eDEyXJsMdHMr2Izszur59FwtmMLP4VNTpxnT9Vvrjx9+XWONMrrLgrzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785926251; c=relaxed/simple;
-	bh=dGVxECQsr2QA3MERJioY2OUW5S3HwyuZLFMhXVAVIWQ=;
+	s=arc-20240116; t=1785926332; c=relaxed/simple;
+	bh=CChB/wVrXrdoqOtyDL4lTy27YOi1TPtXtMZnmPESIQA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=q+Q9Mu6oZR0LcVZje4GtLObu2lnWqeqCpy/h8FJVUZHLvlXwebQz4GsJDJyvNw1sAU+6r9rXli7+U9uSZucm8PpRYl/Y2VzrH/xE3r2cTLRBgY6tFx7trYMhxsQIEewJq7UzjQKmz0C1X5AmBcB9Xp1KOXlomvP5uvtpngl+nwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=faDPyxLn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ucHyyFIuSAPqCJHeIKc37uljzpAAdzCAefMK6yOA2Ij82YVkKopGlN+/x4Kr2dhMZCUYw39+lgreu3H4orXVZd70AS4T0HSLdw1Iexj+eEkqSOhj9YLEGlwMYOvJJaWb7wxEpEOgmcrIiEbCmYOgg6uhEpcm7jZ/pl+lTeUlqSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YdzWLvlO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="faDPyxLn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5482A1F00A3A;
-	Wed,  5 Aug 2026 10:37:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YdzWLvlO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50EFC1F000E9;
+	Wed,  5 Aug 2026 10:38:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785926249;
-	bh=yEFpFPoGnshV9TDJGI0hDL2UqoOZTWVxrrbhcOknNVk=;
+	s=k20260515; t=1785926330;
+	bh=JTcjtf11NmTpVTUSWpKDhAoAOqaEySFPuX+jw9MA7gk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=faDPyxLnsO4HxIFR5BLdDMOvlUOJXIar+bLqeZtpiY+nxgBXD/oKIkCIpMGBIMbGF
-	 7cbaB/akVngYCw8NEesLd1bhUxz8wxnsj7wzggnORueLmfcofiE3YOQx/U8AVLGJ6O
-	 LxCSRDLSG77YkqzNZVbcAZumHWHsoKVkyMlmM+pEU7qzi3u71AyjHZJBhvF2ncabH3
-	 tDK5KZ0SJFxqtzUS38Noa9brory6vZTdyBa2tp4ywo674/lpkxOgrcfVJWJYjoX5VT
-	 O4KCC5LnxjmhIBP1uykEvnQJF5u1iUz2qPJdemvi/BBKSczG29ebUdQVIzncrgMkLx
-	 ELfBKIZ8kAZSA==
+	b=YdzWLvlOjDzWEeWhXG+swJuSiISK3WAUy3Bv5YDh5JLRhV/BnhTbFPKDdL7ILAXqs
+	 eIBEygBNslttyU0D4u0KGJLVqkEtSbzY8/tETHBgYRMFUzPUcaMieybTZZaWZPF2wL
+	 XGxRRM/x3OGAiiZZxNfQnELK2hGC1qgWjJHHGuvhKqu+SwQ9VZtBm85ETF4YmpS4BE
+	 BWh2rYAKdLEprIZ6pn6jTZaUGZ7AE/VskTUYJ5T/wD01+WSTiZdFGPxJr0QCVhNZAy
+	 vLSvWgoFdfzwldKLesE/jpyqd0L+NvfA1fMHR7jqlIBfh7M5fw5cIkBwrhSHA/zipi
+	 pRdXj4hKNPBdA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] arm64: dts: qcom: fix PURWA/HAMOA IOT SOM
+Subject: Re: [PATCH v3 1/4] dt-bindings: arm: qcom: fix PURWA/HAMOA IOT SOM
  compatibles
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Yuanjie Yang" <yuanjie.yang@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260805-hamoa-come-v3-v3-2-20463c43eae1@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260805-hamoa-come-v3-v3-1-20463c43eae1@oss.qualcomm.com>
 References: <20260805-hamoa-come-v3-v3-0-20463c43eae1@oss.qualcomm.com>
- <20260805-hamoa-come-v3-v3-2-20463c43eae1@oss.qualcomm.com>
+ <20260805-hamoa-come-v3-v3-1-20463c43eae1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 10:37:28 +0000
-Message-Id: <20260805103729.5482A1F00A3A@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 10:38:49 +0000
+Message-Id: <20260805103850.50EFC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,93 +47,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Removing existing device tree board compatible strings breaks back=
-ward compatibility with bootloaders and userspace.
+- [Critical] Renaming device tree compatible strings in the YAML schema wit=
+hout updating the corresponding device tree (.dts) files breaks schema vali=
+dation and ABI.
 --
 
---- Patch [2]: [PATCH v3 2/4] arm64: dts: qcom: fix PURWA/HAMOA IOT SOM com=
-patibles ---
-commit 13bd2c46e7d398444043412a0d95ccdf1938980f
+--- Patch [1]: [PATCH v3 1/4] dt-bindings: arm: qcom: fix PURWA/HAMOA IOT S=
+OM compatibles ---
+commit 86746ff462577b3f827d2ec7f0eb293389e741dc
 Author: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 
-arm64: dts: qcom: fix PURWA/HAMOA IOT SOM compatibles
+dt-bindings: arm: qcom: fix PURWA/HAMOA IOT SOM compatibles
 
-This commit updates the compatible strings for Hamoa and Purwa IoT SOMs to
-match their official IQ product names. It removes the undocumented
-hamoa-iot-som and purwa-iot-som strings from the DTS files.
+This commit updates the compatible strings for the Hamoa and Purwa IoT
+SOM platforms in the device tree bindings. It renames hamoa-iot-som to
+iq-x7181-evk-som and purwa-iot-som to iq-x5121-evk-som to match the
+official hardware documentation.
 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot=
-/dts/qcom/hamoa-iot-evk.dts
-> index 9fa86bb6438ec..b807079a5ee22 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-[ ... ]
-> @@ -6,12 +6,12 @@
->  /dts-v1/;
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentat=
+ion/devicetree/bindings/arm/qcom.yaml
+> index ff8a35df7862d..f244f547d5114 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -1220,7 +1220,7 @@ properties:
+>        - items:
+>            - enum:
+>                - qcom,hamoa-iot-evk
+> -          - const: qcom,hamoa-iot-som
+> +          - const: qcom,iq-x7181-evk-som
+
+[Severity: Critical]
+Does replacing this compatible string break device tree schema validation f=
+or
+existing boards?
+
+Since the corresponding device tree files still use the old compatible
+string, running make dtbs_check will report that qcom,hamoa-iot-som is
+undefined. For example, in arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts:
+
+	compatible =3D "qcom,hamoa-iot-evk", "qcom,hamoa-iot-som", "qcom,x1e80100";
+
+Also, does removing a deployed compatible string without retaining backwards
+compatibility break the device tree ABI for existing bootloaders?
+
+>            - const: qcom,x1e80100
 > =20
->  #include <dt-bindings/leds/common.h>
-> -#include "hamoa-iot-som.dtsi"
-> +#include "iq-x7181-evk-som.dtsi"
->  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> =20
->  / {
->  	model =3D "Qualcomm Technologies, Inc. Hamoa IoT EVK";
-> -	compatible =3D "qcom,hamoa-iot-evk", "qcom,hamoa-iot-som", "qcom,x1e801=
-00";
-> +	compatible =3D "qcom,hamoa-iot-evk", "qcom,iq-x7181-evk-som", "qcom,x1e=
-80100";
-
-[Severity: High]
-Does removing the qcom,hamoa-iot-som compatible string break backward
-compatibility for existing bootloaders or userspace tools?
-
-Since device tree bindings are generally considered a stable ABI once
-released, older bootloaders and userspace scripts (like fwupd or systemd)
-identifying the board via qcom,hamoa-iot-som might fail to recognize the
-hardware after this update.
-
-Should the new IQ product string be added while keeping the old string
-as a fallback?
-
->  	chassis-type =3D "embedded";
-> =20
->  	aliases {
+>        - items:
 
 [ ... ]
 
-> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/boot=
-/dts/qcom/purwa-iot-evk.dts
-> index ad503beec1d3d..d2963af1d762d 100644
-> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-[ ... ]
-> @@ -6,12 +6,12 @@
->  /dts-v1/;
-> =20
->  #include <dt-bindings/leds/common.h>
-> -#include "purwa-iot-som.dtsi"
-> +#include "iq-x5121-evk-som.dtsi"
->  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> =20
->  / {
->  	model =3D "Qualcomm Technologies, Inc. Purwa IoT EVK";
-> -	compatible =3D "qcom,purwa-iot-evk", "qcom,purwa-iot-som", "qcom,x1p421=
-00";
-> +	compatible =3D "qcom,purwa-iot-evk", "qcom,iq-x5121-evk-som", "qcom,x1p=
-42100";
+> @@ -1235,7 +1235,7 @@ properties:
+>        - items:
+>            - enum:
+>                - qcom,purwa-iot-evk
+> -          - const: qcom,purwa-iot-som
+> +          - const: qcom,iq-x5121-evk-som
 
-[Severity: High]
-Similarly, does the complete removal of qcom,purwa-iot-som here violate
-the stable device tree ABI policy?
+[Severity: Critical]
+Will replacing this compatible string also break schema validation for the
+Purwa IoT EVK board?
 
-Bootloaders and userspace tools relying on the previous string will no long=
-er
-recognize the board.
+Similar to the Hamoa board, arch/arm64/boot/dts/qcom/purwa-iot-evk.dts still
+uses the old string:
 
->  	chassis-type =3D "embedded";
-> =20
->  	aliases {
+	compatible =3D "qcom,purwa-iot-evk", "qcom,purwa-iot-som", "qcom,x1p42100";
+
+>            - const: qcom,x1p42100
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-hamoa-come=
--v3-v3-0-20463c43eae1@oss.qualcomm.com?part=3D2
+-v3-v3-0-20463c43eae1@oss.qualcomm.com?part=3D1
