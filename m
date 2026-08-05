@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06F33E6392;
-	Wed,  5 Aug 2026 08:08:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E94E3EDE72;
+	Wed,  5 Aug 2026 08:08:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785917295; cv=none; b=rGk487BMGF6cSNjwKAr5avn9mIPHgmf5dJcxwGIik/rH6p7m/lqexDDTQ7aIvKBeNXk9Y7Dx+v4OgLeZOJIRE4Ny7cnfJww1/lN/N+tZ5sVjrItGQeSOf8ZHmS9uwfnPqdenVhAcn8TQWZwpMM1jVyQxluDA04c7S0JaecyMwYw=
+	t=1785917298; cv=none; b=OicVvKvh+4cJOSHH1s5VoPk8jKsFFIxGG/xjK3qYTbz4b9cLDi7ZwjCNLDCS6U3qczu5CmuOw66k2cHFHVr5om5uqxWSkY95v6nAhg3HaTMwHZ9WEcRGuNL7YulxFnl5619d585T2re6MDahrZMbjXxpIr73mh9fEW185vBnAHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785917295; c=relaxed/simple;
-	bh=NpJ68cAdxRTul9v+KRzPMyOhGoHG7IvwOK7cj3TZ7Fk=;
+	s=arc-20240116; t=1785917298; c=relaxed/simple;
+	bh=eto8+h/MaXkAsviCHPdmpQdT7c0Kfi4t066koHw6hAo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OBKH16O4073DhnnhQ09TG4mr82r0R6ze9FxdkZtm90zkWEjFF53T4yQeBM7pSqLixLdv1WHMN8+blkXA0V59Z6eCIeZXFs+86qAN42c0neeyUJpL36Xk5t3qRggRByxSQompXfPFv3uUdW9p1GtaO0F395duf9OYptszn9DiE78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tWUfbIex; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=epVu9TesTdgbii39h3z7Eg4KQellZ9MsMHm/acWmPidqPEkmRPlT61TJz/RLSDieh6/huuPX/i6DfkIwXyrmgc7fvk1x6HQNmELq0v+yvnc9axm4TlB6VoUGPwbloHAqYf/04J/7sV2Q4ssxx0cG/s9qOs6F30kJUjChrwSJOqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZolXATy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tWUfbIex"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A9C30C4AF0F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZolXATy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E231AC32782;
 	Wed,  5 Aug 2026 08:08:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785917294;
-	bh=NpJ68cAdxRTul9v+KRzPMyOhGoHG7IvwOK7cj3TZ7Fk=;
+	bh=eto8+h/MaXkAsviCHPdmpQdT7c0Kfi4t066koHw6hAo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=tWUfbIexIerufb8STyJWs4Aq2r6Qc4Q5tzhfh56tE34PfHT+3fE0/9saMvQv8LO6l
-	 eBW7UdT1NV9tIcbQGIdxinDmIjzcvhxT5OHYTM/ydPJEiMGgJy1LXR+f/ASBRhr4K7
-	 D5E6ngA/hH5q5TAoCaM1WNe+u6zYUmXQR4MNhF/i/VqP7vMa8/BxScDTEJzULQfmfG
-	 dOhFRXc3uxgfqqQ587yAWF/CJCuNsutC4eNpFOUiY5CXpcxTm6RtM+LeM0t9iLjVBc
-	 8NCbyE5zf6A77h8aQHAkGLnJivKtvPVSlNqfmETnh9WKPYZZhJrBu5yVSNccieDEVq
-	 h18jhDwIvluww==
+	b=OZolXATyrJE/yc5j9XDI8jBSHdrWTGLmmgRxfQWnYKzLCsatgjHNH1KpeZL2D4ewB
+	 HKfHfqF4IZtZt4WAhlzDqyLtS/TP6b4qy8O1NS9ejoQ8QVxgV/+GJOHyMfJYB1SVUu
+	 8YilUj2OMTkmuoSyqemdqYMqPB/5jjeAuFiW4P49PbWFqWZLBLVgcwmXjmyGM3xTl5
+	 K32PszTCLvOXi9O87R8wv8v1IIPl2MmKugtACwug3KxSn5azq2/aCn0/BsgcYG56JN
+	 BA0tOuxoc+RwLF7bDeSGk1uDwctPqf6aGsoNx93kfgLb0hRoeFQUUEayQBh2DqNZFN
+	 qOmmyvS5mG7FA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88F1FC56201;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1039C55822;
 	Wed,  5 Aug 2026 08:08:14 +0000 (UTC)
 From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Wed, 05 Aug 2026 10:06:03 +0200
-Subject: [PATCH v9 2/6] mfd: khadas-mcu: Use MFD_CELL_* macros for cell
- declarations
+Date: Wed, 05 Aug 2026 10:06:07 +0200
+Subject: [PATCH v9 6/6] arm64: dts: amlogic: t7: khadas-vim4: Add i2c MCU
+ fan node
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-add-mcu-fan-khadas-vim4-v9-2-75df78710b9e@aliel.fr>
+Message-Id: <20260805-add-mcu-fan-khadas-vim4-v9-6-75df78710b9e@aliel.fr>
 References: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
 In-Reply-To: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
 To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
@@ -59,13 +59,13 @@ Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
  mfd@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1351;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1095;
  i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=EC3QR4h1VRMR/TQsGWmFoDDKLNA1VXSGTQljiGJtTRI=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ1bR+3SpD/YLLt7ud07237FLfMGJDW9iksPyeoyrnbVu3
- tE9/Eevo5SFQYyLQVZMkaV/ruWJd5ePnvm6Rz0FZg4rE8gQBi5OAZjICT1GhqafE1RV6qae2btL
- cP7Psga2t1UXr53IU++OWGItMc/Y3YqRYeFrJw7Xj16PnrO2zXrAYnW/w+yxa6pnY1Ha1SuPpe0
- j2AE=
+ bh=Z7uWC5BzI9Wq+imS2bvYjb9eymbusN6NdD/vEPC6HdE=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ1bR+5yHyto2astO3/kw1/dqzha+RROvV16YyDx9hWHh3
+ UMLM7t/dJSyMIhxMciKKbL0z7U88e7y0TNf96inwMxhZQIZwsDFKQAT2fWKkWFq9/knovZf5xSk
+ uPXkth9M3d9wXPcjd7l33M2bB5PbVHkYGRZ0u7/SyPl64DfbhY199kr/jzeWFPX/ypr/eaHrOZv
+ GVYwA
 X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
  fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
 X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
@@ -75,42 +75,39 @@ Reply-To: linux-kernel-dev@aliel.fr
 
 From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-Convert khadas_mcu_fan_cells[] and khadas_mcu_cells[] to use the
-MFD_CELL_NAME() helper macro instead of open-coding the struct
-mfd_cell initialisers. While at it, make both arrays const since
-they are never modified after initialisation.
+Enable and configure i2c MCU node to get fan working on Khadas VIM4.
 
-This is a pure cleanup with no functional change, done in
-preparation for a subsequent patch which will need to attach
-platform_data to the fan cell.
-
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
- drivers/mfd/khadas-mcu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts      | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
-index ba981a7886921..0e74efe14f367 100644
---- a/drivers/mfd/khadas-mcu.c
-+++ b/drivers/mfd/khadas-mcu.c
-@@ -75,13 +75,13 @@ static const struct regmap_config khadas_mcu_regmap_config = {
- 	.cache_type	= REGCACHE_MAPLE,
+diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+index c41525a34b721..7d95aadcf6a66 100644
+--- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
++++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+@@ -167,6 +167,19 @@ xtal: xtal-clk {
+ 	};
  };
  
--static struct mfd_cell khadas_mcu_fan_cells[] = {
-+static const struct mfd_cell khadas_mcu_fan_cells[] = {
- 	/* VIM1/2 Rev13+ and VIM3 only */
--	{ .name = "khadas-mcu-fan-ctrl", },
-+	MFD_CELL_NAME("khadas-mcu-fan-ctrl"),
- };
- 
--static struct mfd_cell khadas_mcu_cells[] = {
--	{ .name = "khadas-mcu-user-mem", },
-+static const struct mfd_cell khadas_mcu_cells[] = {
-+	MFD_CELL_NAME("khadas-mcu-user-mem"),
- };
- 
- static int khadas_mcu_probe(struct i2c_client *client)
++&i2c_m_ao_a {
++	status = "okay";
++	pinctrl-0 = <&i2c0_ao_d_pins>;
++	pinctrl-names = "default";
++
++	khadas_mcu: system-controller@18 {
++		compatible = "khadas,vim4-mcu";
++		reg = <0x18>;
++		fan-supply = <&vcc5v>;
++		#cooling-cells = <2>;
++	};
++};
++
+ &pwm_ab {
+ 	status = "okay";
+ 	pinctrl-0 = <&pwm_a_pins>;
 
 -- 
 2.49.0
