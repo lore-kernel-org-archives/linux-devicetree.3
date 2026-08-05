@@ -1,754 +1,247 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADE4409298
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 10:34:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785926069; cv=pass; b=qgLa2WJoBAb7gwU4bqDjCgX7Lbwc7aLiEE3wfwbVx4B2PZHULhhsMhHZDa7i+FjUmtKp5pVAaPI1ZFkDIGusm6E5FScFyTfMQE0vpP/eR2WV3bcNqCLeK6R0kfpsaAObWbCSejSdcv3jNvac+7gvxhgzUcyPahi/sbP6mXwTbNc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785926069; c=relaxed/simple;
-	bh=Vhy8cV8EI/l/lIB/gGfnYPZ2c9UniQpeOER/tvC2fmw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G0p+8hfupYGgyrnKn+bUsUDxV85T8krdVhXTg7CAVhWleDr4EqmOodOdeH8Zmt/+O4d2+OK74NRvwSxVl2yAcO50NlzXmuXNPrTsZwCoxx+O42oL/niv/qGWyoCduIlkHJitFYJQ1C5wNVvKAcCP45ldwBXCmkkewPeTGsvVjuo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PG3fcCWm; arc=pass smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9935A3ED5A6;
+	Wed,  5 Aug 2026 10:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785926236; cv=none; b=H8GO1pkDOBkUgWevVwTIoCCiZVYvVDCLzJuDzb+vz3ZFUSoui53LlzcwEGnQkwrTQ4mvHLzi42xK7OnPk31fxOxmFU5xad7QAiY740UgqxalSuXoZ4Nsos2ojdQgXKCx1/KmtyQZCqpcYTIvwAw9Mx2vb0aUg353Cu10pB/Au8Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785926236; c=relaxed/simple;
+	bh=6j74S3cLexqcLITvrHeMVBeyygoGrT/agJwd49sR8a4=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=BxDK3c5v/vDo2gi0qVvAsj/VQclg+ZeepFG/sQrpoH3942q6e7lmZ+AzaF7dVUfCbF/O8OET1q7vcUrz8EIqyf0syMJtTTW2SmqVkBqeZ5vV8CL5UuW8K+HNcpejj0VpZoDdux8mHLjcN9xRH5r75PnFt1NliMd1fNLp2bmjRzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJepDiKe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PG3fcCWm"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-81ffd419846so554657b3.1
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 03:34:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785926065; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gbv9oiBCOWJDqN/GFanGRy8Gg3XsE53QkCXQBnFoi+D1oSYiD/1Ae1MbfLK0/YTEcD
-         xJeOd5XjJg7Mnc/CVzhOkG+Xxj8uBzxGMfyNLPO2i8QMubkJFtXWLJzW7WUDYI4l0oUI
-         j1aH+mV/rOnIiubLdRF5ShRTB8mDaDecRa+Wg5WNTCDVAOj20fyWsKLv1RRCX9kkNz0z
-         QY0Fg0noCL0j4jWkxWUo7GVgJrhoGQK6o1Ph7d0EVh++oWoJombkxvkHGD9ZFoRRr4Hb
-         Rxw/C+ge//YEseG9A1vP1yHrlno5bSmtxbXmC+ZwAat3BvGOEXqhV2miBn2QV4UFsmAY
-         r3RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CYipmvy8BI8I1Qtw+TSNrjC+oqcUlujhn8ixrQDKmwc=;
-        fh=CX7lOK6+oJ170nCkZKedHLCjpT4jylrq3YC5BjUCwbc=;
-        b=OfTmX0VzBwYERUzFk7r+qscyJ32w3iIlSL1VvtCpi/hevlnM0AS8jnVOhzTCSkY/p9
-         A4eK4sSzn8aa/yhu00zbbZJTHFE8rou+381YLEOkYNcim3IvFPOqXjVLJyQHzGZHvTS6
-         jA2qRImbaFhf4degxG03h3ZDSG4VMf0BR43RHipK7E9awSVrCGU220CPWfzbKApKITj/
-         3brIYI2QauCrpNLceytDaaKF+avly+R7hkhByP4b/xO3CX60PIjOCMnymCmdECnWFtAZ
-         2eqDxvtgD87VHbyu/RUrJ2mcbe4QYqBiLr4uCyesIuDxNuMYw8PWQMMkLXuD96lxaMbf
-         n7bQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785926065; x=1786530865; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CYipmvy8BI8I1Qtw+TSNrjC+oqcUlujhn8ixrQDKmwc=;
-        b=PG3fcCWmgG4k/TwosXuhpAgoK7noOiVixpXgdC/Qs9xdukc4tAK3D1Eh0TBREa4WbK
-         NJeuMh5aZwjeDD0HQHvlaOp9DRzgh2KUPuyuX9tbY7o7k1ong6tmUU1lVJYD3ZhuYYzn
-         Cv4muaPfwJL7hCqZKWL1d7H8Fi4KUvczidX+N/BmIz8+gCbD8tbpj/g9P3a2z/v28KvN
-         rzxKPND5Zd8G8b5dbzHoL/Sasu8CXdE40mXGmgx/DLCJxXlf2zYFVC02OWNwI+32Glz5
-         TlP/2ota5J4GxB46Dt+hQy1W289JWIRFjJmew1rQuq4m0mqCFXZ/Y0z46zgWfP30Fq+p
-         i3nQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785926065; x=1786530865;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CYipmvy8BI8I1Qtw+TSNrjC+oqcUlujhn8ixrQDKmwc=;
-        b=Y1+dTMfmhUHjVzDKinVbtkKfNfUV6g1x8B54uEnX1LOG/GifknOd8gukqDRxT9DGci
-         nfeRojPDQEH7JI38k6awlJ8V1MZ23y8+8l7xSaDNrOGFAfNvW6l90/6BKdZOxi8chgCi
-         GglVn5B9xwlDQLRdFUxGWH9xXxBq1cRve3b70x7Y6VVXvKRKuFDp7MdeKGk8VCfnuahq
-         CYgR9AGVYIny6/tiVORJlZwogCfuyzpqGlWCQwLaVAe8XwiQSFTuRMZr3mqXekvOMWhJ
-         wLJDj0Ph0XKHffdOhM0M90NQyEBg+s2pYlu+pyT1YVYgImO+UugPOew7Un9T2BCo/hps
-         vVvQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpynaXuEK1xeOPhIuOU9hFBpprlGtsIlNtbmiQIP23+zkrqoA2NhbjMOGt2sH+DcMvrhDYaoqEFSccO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJ5cftsa8S7co6riwwAxG+yqt0ULC0ZTeJTvA1iVciNtn91e0g
-	FWdZgHIf5DFlLspaMUoGE6PVIJEtWVx9+G4+q0Z3qfcCQkXjEazaz5cd1rz4ESFmtvHsPbcPuis
-	eX5fuH2sEJIDvynZ6CV71sd2A0eHp1rU=
-X-Gm-Gg: AR+sD12qbbDtN5BuQX5SD1Dtiu6cuR1K2RXvHRBurAdArKLi0h9YtIvP+hMxWfjjRAX
-	jDuoAQ5caFgwq+QQC8Kjoq5vEp3IKECBqRiS6uGxG8gl0hkdTyQUd/8uUjrtqQua6UJ/KIX2PQQ
-	rI5w8Ljjz28cmSTnVMMTJl9Bg3EBXCjlj9KkzPgIiAMWpWFw2XkDwWyKJ/q8P0tdIevS3uP1Unz
-	9nDKu9owrMQqcWVAh8ZA28CvWzuMm6qucKlPiJd1/FS7jHQ5P1q+mUo3iCR8gLrNIqwweae6yaS
-	Q1I98xuYjyKrcbT6NYB1vY6QfvuMjf2nH42JAVhQznagQyVzUzl+zgkMQ35aHdLF441EZ7aiuhI
-	XlgMHV9BTrNdpvw==
-X-Received: by 2002:a05:690c:1b:b0:80d:6405:d23c with SMTP id
- 00721157ae682-8201bc5158cmr34391067b3.1.1785926065045; Wed, 05 Aug 2026
- 03:34:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJepDiKe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382451F000E9;
+	Wed,  5 Aug 2026 10:37:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785926235;
+	bh=OAxwhBYIO95KtDIaoXuab1su0SLSJjFZiFHG87J7N2Q=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=BJepDiKe+Sd7spZkhxuxchfNjxKGkO5940nQaPLmacy37k8Os0H2vbNZEv880R3f6
+	 8LG8UaWuZ0VbfEzFqjzEa/fr2/X4bFjX3UV0zJGyZNt9q9STu6vhsA4NDJUQFI/Mbv
+	 A6qayWRIbLRZOrAXRkJNZOfdeE2MWoZh5HxOUnVaYPQVZmYac9gVVnC3PMqcKs9420
+	 6HfsAHmnQuZ7eYdiAKo+7W+IdRr2SStKs2U/RNp4p17pVcLuh7q/SRh2WGyYtJQj5Z
+	 nCuNXKsB3hdDGoslSTZP1H8M+lCXcxUjv1HBEZTijhjXHVNeTsSUG4x9ih0GhEPOT4
+	 hiW5jp+q7lNYw==
+Message-ID: <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
+Date: Wed, 5 Aug 2026 12:37:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805063826.95682-1-gahing@gahingwoo.com> <20260805063826.95682-7-gahing@gahingwoo.com>
-In-Reply-To: <20260805063826.95682-7-gahing@gahingwoo.com>
-From: Igor Paunovic <royalnet026@gmail.com>
-Date: Wed, 5 Aug 2026 12:34:13 +0200
-X-Gm-Features: AUfX_mzyPDhGmiDec-KsNNkLfKKPmkeYrGC3VryYdOeTV2b_-URDIRYfaxH-rU4
-Message-ID: <CAEWPSH7wFn1Y0P+1nJJiqNcp4V12Eo6kojaFt1tSau3tp-OKQQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v5 v5 6/8] accel/rocket: add RK3576 NPU (RKNN) support
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, 
-	robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de, 
-	ogabbay@kernel.org, zhangqing@rock-chips.com, alchark@flipper.net, 
-	chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, iommu@lists.linux.dev, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <20260805-dark-voracious-jacamar-6aae4c@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260805-dark-voracious-jacamar-6aae4c@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jiaxing,
+On 05/08/2026 09:21, Krzysztof Kozlowski wrote:
+> On Fri, Jul 31, 2026 at 11:52:16PM +0530, Vikash Garodia wrote:
+>> The VPU issues DMA through several SMMU streams, and the hardware does
+>> not give every stream the same addressable range. The non-pixel stream
+>> is restricted to use 0-600MB of IOVA space, while the pixel stream can
+>> address the full range:
+>>     +-----------------------------------------------------------+
+>>     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>>     | 0x25800000 - 0xe0000000                                   |
+>>     +-----------------------------------------------------------+
+>>     | pixel stream addressable range (0 - 3.5 GB)               |
+>>     | 0x00000000 - 0xe0000000                                   |
+>>     +-----------------------------------------------------------+
+>> A single "iommus" property on the video-codec node puts every stream in
+>> one IOMMU domain sharing one IOVA allocator, so nothing keeps a
+>> non-pixel buffer inside the low 600 MB. Once an allocation lands below
+>> that boundary the hardware faults, which shows up as unhandled SMMU page
+>> faults and spontaneous reboots:
+>> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+>>
+>> Describe each stream as its own context bank subnode instead, so that
+>> each can be associated with the IOVA range its stream can actually
+>> reach. This limitation applies to every VPU generation, so add the
+>> subnodes to the common schema rather than to each SoC schema
+>> individually. "video-firmware" moves here from qcom,sc7180-venus.yaml
+>> for the same reason; it is the same kind of node and was already
+>> duplicated per-SoC.
+>> Adding the subnodes requires two supporting properties on the parent
+>> video-codec node:
+>> - '#address-cells' and '#size-cells', both fixed at 2. These do not
+>>    describe registers on the codec node. They set the cell widths
+>>    used when a reserved-memory node names one of these subnodes in an
+>>    "iommu-addresses" entry: of_translate_dma_region() reads the
+>>    address/size cell counts from the parent of the phandle target, not
+>>    from the reserved-memory node. Pinning both to 2 lets a subnode be
+>>    referenced with a full 64-bit IOVA base and length, and keeps the
+>>    encoding identical across SoCs, whose buses vary between 1 and 2
+>>    cells.
+>> - "dma-ranges", empty "dma-ranges" states the intended translation:
+>>    the subnode DMA address space maps 1:1 into the parent's, so an IOVA
+>>    reservation written against a subnode needs no offset applied.
+>>    of_translate_one() treats an empty "dma-ranges" as exactly that
+>>    identity mapping.
+>>
+>> The parent's "iommus" is kept as an alternative via "oneOf", so
+>> platforms that have not been converted to subnodes still validate. New
+>> platforms should use the subnode form.
+>>
+>> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
+>> Cc: stable@vger.kernel.org
+>> Tested-by: Daniel J Blueman <daniel@quora.org>
+> 
+> Not a valid tag.
+> 
+> 
+> 
+> 
+>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>> ---
+>>  .../bindings/media/qcom,sc7180-venus.yaml          | 15 -------
+>>  .../bindings/media/qcom,venus-common.yaml          | 51 ++++++++++++++++++++++
+>>  2 files changed, 51 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
+>> index b21bed314848480b82153e49602f0b19e08e7335..bfd8b1ad473128c974bce84639cb0aff59d8c2cc 100644
+>> --- a/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
+>> +++ b/Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml
+>> @@ -91,21 +91,6 @@ properties:
+>>      deprecated: true
+>>      additionalProperties: false
+>>  
+>> -  video-firmware:
+>> -    type: object
+>> -    additionalProperties: false
+>> -
+>> -    description: |
+>> -      Firmware subnode is needed when the platform does not
+>> -      have TrustZone.
+>> -
+>> -    properties:
+>> -      iommus:
+>> -        maxItems: 1
+>> -
+>> -    required:
+>> -      - iommus
+>> -
+>>  required:
+>>    - compatible
+>>    - power-domain-names
+>> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+>> index 59a3fde846d2196ab1e4588eb396012ba6860712..ccae41bed757bf3d9518cd4afe4565f043b45166 100644
+>> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+>> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+>> @@ -47,6 +47,50 @@ properties:
+>>      minItems: 1
+>>      maxItems: 4
+>>  
+>> +  dma-ranges: true
+>> +
+>> +  '#address-cells':
+>> +    const: 2
+>> +
+>> +  '#size-cells':
+>> +    const: 2
+> 
+> Above do not look valid. You do not describe the addressing of some
+> other device node (not a child) here. You describe that addressing in
+> that other device node's parent.
 
-A few things on this patch. The first two are coordination and a small
-inconsistency; the three after them come from reading the new poll and
-probe paths rather than from the bench, and none of them are reachable
-on RK3588, so I cannot put a measurement behind them.
+As we talked offline, these are actually needed for dma-ranges, but I am
+honestly confused whether we are representing this correct.
 
-First, coordination. 6/8 still carries the four clks[].id assignments,
-and the commit message still describes the RK3588 path as keeping its
-existing behaviour unchanged. That hunk is the standalone fix I have in
-flight:
+dma-ranges tell how this bus - so venus/iris - performs DMA translation
+in respective to parent. Address/size-cells are obviously also needed if
+this is a bus with addressing.
 
- https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026=
-@gmail.com/
+But there are no children with addressing, thus what sort of bus would
+it be?
 
-which carries your Reviewed-by and a Tested-by from Sidong Yang, and is
-waiting on Tomeu. Your v3 cover flagged the overlap; v4 and v5 do not,
-and I assume that was an editing casualty rather than a decision. If the
-standalone lands first, this hunk will not apply cleanly, so it may be
-worth either noting the dependency in the cover again or dropping the
-hunk here and rebasing on it. Tomeu is the one who has to sequence the
-two, so it is probably best said where he will look for it.
+It looks to me that having here both:
+1. dma-ranges + address/size-cells
+2. children without bus addressing
+is some sort of abuse of the DT syntax. It is allowed, but does not
+really represent hardware.
 
-Second, a real if currently harmless inconsistency. This patch moves the
-reset acquisition to soc->num_resets, which is 1 on RK3576:
+IOW, dma-ranges alone feels okay, although unusual, and it states proper
+DMA translation for this bus. If you add address/size-cells, it means
+this bus HAS addressing and thus YOU MUST use addressing.
 
-  -    err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev,
-  -                            ARRAY_SIZE(core->resets),
-  +    err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev,
-  +                            core->soc->num_resets,
+If my understanding is correct, then solution would be to add addressing
+to the children (so unit address and "reg" property) or drop
+address/size-cells as Rob pointed out. [1]
 
-but rocket_core_reset() still asserts and deasserts
-ARRAY_SIZE(core->resets), which stays 2:
+If kernel disagrees with the latter, then kernel is wrong, IMO.
 
-  void rocket_core_reset(struct rocket_core *core)
-  {
-      reset_control_bulk_assert(ARRAY_SIZE(core->resets), core->resets);
-      udelay(10);
-      reset_control_bulk_deassert(ARRAY_SIZE(core->resets), core->resets);
-  }
+[1] https://lore.kernel.org/all/20260716165434.GA290489-robh@kernel.org/
 
-On RK3576 that walks resets[1], which was never acquired. It is benign
-today because the reset core returns 0 for a NULL rstc, so it is not a
-bug report. But it is the kind of thing that stops being benign the
-moment someone adds a NULL check or a WARN, and given that patch 5 has
-just made the reset path load bearing for the behaviour you are chasing,
-I would rather it read soc->num_resets in both places.
 
-Third, and this is the one I would most like you to check, because I
-cannot run it: poll_dying is a one-way latch. rocket_job_fini() sets it
-
-    if (core->soc->poll_completion)
-        WRITE_ONCE(core->poll_dying, true);
-
-and nothing ever clears it. rocket_job_init() re-initialises the rest of
-the poll state on the same struct, but not that field:
-
-    INIT_WORK(&core->poll_work, rocket_poll_work_fn);
-    hrtimer_setup(&core->poll_timer, rocket_poll_timer_fn, CLOCK_MONOTONIC,
-              HRTIMER_MODE_REL);
-    atomic_set(&core->poll_active, 0);
-
-Across the whole series the flag has exactly three appearances: the
-declaration in rocket_core.h, the write above, and the read in
-rocket_poll_work_fn().
-
-That matters because struct rocket_core can outlive a bind. rocket_probe()
-hands rocket_device_init() the shared facade device rather than its own
-pdev:
-
-    rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
-
-and rocket_device_init() allocates the core array on it:
-
-    rdev->cores =3D devm_kcalloc(dev, num_cores, sizeof(*rdev->cores),
-GFP_KERNEL);
-
-drm_dev is the "rknn" platform device registered in rocket_register().
-It never binds a driver, so its devres list is only released at module
-exit. Unbinding one core while another stays bound therefore leaves rdev
-and that array alive and untouched, and the rebinding core is handed the
-same struct rocket_core back. The driver already concedes this:
-rocket_core_fini() has to clear core->iommu_group by hand, and that line
-only makes sense because the struct survives the unbind.
-
-On RK3576 the poll is the only completion path, so a core that comes
-back with poll_dying still set never retires anything through it.
-rocket_poll_work_fn() takes job_lock, reads the flag and returns before
-the OPERATION_ENABLE and INTERRUPT_CLEAR writes and before
-rocket_job_next_locked(), so done_fence is never signalled, the IOMMU
-group is never detached and the runtime PM reference is never dropped.
-Every job on that core then ends in the 500 ms drm_sched timeout and a
-core reset instead, which is also the path that walks resets[1] from the
-point above.
-
-Now the part that I think explains why your unbind/rebind test is clean
-and this is still there. 8/8 enables only rknn_core_0 on the ROCK 4D,
-"the driver binds one core per node and the second core is left to
-whoever can test it", so num_cores is 1 and every unbind on that board is
-the last one. rocket_remove() then takes
-
-    if (rdev->num_cores =3D=3D 0) {
-        rocket_device_fini(rdev);
-        rdev =3D NULL;
-    }
-
-and the next probe re-runs rocket_device_init(), which devm_kcalloc()s a
-fresh, zeroed core array. The struct the rebinding core gets is a
-different one, with poll_dying false. So your result is right and
-honestly reported; the latch just is not reachable in that
-configuration. It needs both rknn_core_0 and rknn_core_1 enabled, which
-7/8 already ships the nodes for, and an unbind of one while the other
-stays bound:
-
-    echo 27708000.npu > /sys/bus/platform/drivers/rocket/unbind
-    echo 27708000.npu > /sys/bus/platform/drivers/rocket/bind
-
-followed by inference on a freshly opened fd, since the scheduler list is
-built at open time. Unbinding both cores and rebinding both will not show
-it either, for the same reason the single core case does not: that path
-reallocates rdev and the array from scratch.
-
-I should disclose that my own in-flight 2/2, "keep core slots stable
-across unbind and rebind", is what would make this deterministic. Today
-the rebinding core takes index rdev->num_cores, so which struct it lands
-in depends on the unbind order; with that patch it always reclaims its
-own just-fini'd slot, which is exactly the one rocket_job_fini() latched.
-I would rather it were fixed here than found after both land. One line
-next to the existing atomic_set() in rocket_job_init() covers it:
-
-    WRITE_ONCE(core->poll_dying, false);
-
-Init side rather than fini side, so a slot left dirty by a failed probe
-is covered as well. RK3588 is unaffected either way, since
-poll_completion is false there and the flag is never written.
-
-Fourth, still in rocket_job_fini() and connected to the above: the flag
-is written without job_lock but read under it, and cancel_work_sync()
-comes after hrtimer_cancel(). A poll_work that has already passed the
-check inside job_lock can therefore go on to rocket_job_next_locked() ->
-rocket_job_hw_submit() and run
-
-    hrtimer_start(&core->poll_timer, ns_to_ktime(RK3576_POLL_INTERVAL_NS),
-              HRTIMER_MODE_REL);
-
-after hrtimer_cancel() has already returned. cancel_work_sync() then
-waits for that worker and returns with the timer armed. fini returns,
-rocket_core_fini() and rocket_remove() return, devres unmaps the register
-windows, and roughly a millisecond later the timer fires into
-rocket_pc_readl(core, INTERRUPT_RAW_STATUS). That is the property the
-comment above the flag claims, "a job running now cannot re-arm the timer
-behind the cancel", and I do not think the code has it yet.
-
-Taking job_lock around the WRITE_ONCE would close it: any worker past the
-check holds the lock, so fini waits behind it, and every later one
-observes the flag. Reordering the two cancels alone only narrows the
-window, since the timer callback is what queues the work.
-
-Fifth, an error path. The new attach sits after rocket_job_init():
-
-    err =3D rocket_job_init(core);
-    if (err) {
-        iommu_group_put(core->iommu_group);
-        core->iommu_group =3D NULL;
-        return err;
-    }
-
-+    if (core->soc->multi_power_domain) {
-+        struct dev_pm_domain_list *pd_list;
-+
-+        err =3D devm_pm_domain_attach_list(dev, NULL, &pd_list);
-+        if (err < 0)
-+            return dev_err_probe(dev, err,
-+                         "failed to attach NPU power domains\n");
-+    }
-
-By that point rocket_job_init() has taken two things devres does not own,
-core->reset.wq from alloc_ordered_workqueue() and core->sched from
-drm_sched_init(), which allocates its own submit workqueue as well, plus
-the iommu_group reference that the branch immediately above is careful to
-put. The new return unwinds none of them; every other failure after
-rocket_job_init() goes through rocket_core_fini(). -EPROBE_DEFER is the
-realistic case here, and it retries, so it repeats.
-
-Moving the attach up, above core->iommu_group =3D iommu_group_get(dev),
-makes the bare return correct and also attaches the domains before the
-IRQ and the scheduler exist, which reads better anyway.
-
-And a nit: the forward declaration
-
-    static void rocket_job_handle_irq(struct rocket_core *core);
-
-has no user. Between it and the definition are rocket_poll_timer_fn(),
-rocket_job_next_locked() and rocket_poll_work_fn(), none of which call
-it, and the only caller, rocket_job_irq_handler_thread(), sits below the
-definition. A leftover from the earlier shape where the poll work called
-handle_irq() directly, I think.
-
-Igor
-
-On Wed, Aug 5, 2026 at 8:39=E2=80=AFAM Jiaxing Hu <gahing@gahingwoo.com> wr=
-ote:
->
-> The RK3576 carries the same RKNN block as the RK3588, with two cores
-> instead of three and a few platform differences:
->
->  - the CBUF (convolution buffer) has its own clock domain, so the core
->    needs six clocks rather than four;
->  - the BIU reset moved into the power domain, leaving one reset here;
->  - the NPU spans two power domains, and a device with more than one is
->    skipped by the driver-core single-domain auto-attach, so the list has
->    to be attached explicitly;
->  - the DPU completion interrupt is armed exactly as on RK3588 but never
->    reaches the GIC. The completion is visible in INTERRUPT_RAW_STATUS,
->    so sample that from an hrtimer rather than wait for an interrupt that
->    does not come. The interrupt stays armed, so if it ever does arrive
->    the normal handler finalises the job first.
->
-> Select all of that from of_device_id match data so the RK3588 path keeps
-> its existing counts and behaviour unchanged.
->
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> ---
->  drivers/accel/rocket/rocket_core.c   |  26 +++++-
->  drivers/accel/rocket/rocket_core.h   |  20 ++++-
->  drivers/accel/rocket/rocket_device.c |   4 +
->  drivers/accel/rocket/rocket_drv.c    |  22 ++++-
->  drivers/accel/rocket/rocket_job.c    | 121 ++++++++++++++++++++++++---
->  5 files changed, 176 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
-cket_core.c
-> index b3b2fa9ba..e08288c8c 100644
-> --- a/drivers/accel/rocket/rocket_core.c
-> +++ b/drivers/accel/rocket/rocket_core.c
-> @@ -8,6 +8,7 @@
->  #include <linux/err.h>
->  #include <linux/iommu.h>
->  #include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/reset.h>
->
-> @@ -21,14 +22,22 @@ int rocket_core_init(struct rocket_core *core)
->         u32 version;
->         int err =3D 0;
->
-> +       /* RK3576 moves the BIU reset into its power domain and takes onl=
-y srst_a. */
->         core->resets[0].id =3D "srst_a";
->         core->resets[1].id =3D "srst_h";
-> -       err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_S=
-IZE(core->resets),
-> +       err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, core->s=
-oc->num_resets,
->                                                     core->resets);
->         if (err)
->                 return dev_err_probe(dev, err, "failed to get resets for =
-core %d\n", core->index);
->
-> -       err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks=
-);
-> +       core->clks[0].id =3D "aclk";
-> +       core->clks[1].id =3D "hclk";
-> +       core->clks[2].id =3D "npu";
-> +       core->clks[3].id =3D "pclk";
-> +       /* RK3576 clocks the CBUF separately; the compute path stalls wit=
-hout these. */
-> +       core->clks[4].id =3D "aclk_cbuf";
-> +       core->clks[5].id =3D "hclk_cbuf";
-> +       err =3D devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
->         if (err)
->                 return dev_err_probe(dev, err, "failed to get clocks for =
-core %d\n", core->index);
->
-> @@ -65,6 +74,19 @@ int rocket_core_init(struct rocket_core *core)
->                 return err;
->         }
->
-> +       /*
-> +        * RK3576 spans two power domains, and a multi-domain device is s=
-kipped
-> +        * by the driver-core single-domain auto-attach, so attach the li=
-st here.
-> +        */
-> +       if (core->soc->multi_power_domain) {
-> +               struct dev_pm_domain_list *pd_list;
-> +
-> +               err =3D devm_pm_domain_attach_list(dev, NULL, &pd_list);
-> +               if (err < 0)
-> +                       return dev_err_probe(dev, err,
-> +                                            "failed to attach NPU power =
-domains\n");
-> +       }
-> +
->         pm_runtime_use_autosuspend(dev);
->
->         /*
-> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/ro=
-cket_core.h
-> index f6d738285..205ff070d 100644
-> --- a/drivers/accel/rocket/rocket_core.h
-> +++ b/drivers/accel/rocket/rocket_core.h
-> @@ -6,6 +6,7 @@
->
->  #include <drm/gpu_scheduler.h>
->  #include <linux/clk.h>
-> +#include <linux/hrtimer.h>
->  #include <linux/io.h>
->  #include <linux/mutex_types.h>
->  #include <linux/reset.h>
-> @@ -27,16 +28,25 @@
->  #define rocket_core_writel(core, reg, value) \
->         writel(value, (core)->core_iomem + (REG_CORE_##reg) - REG_CORE_S_=
-STATUS)
->
-> +/* Per-SoC differences, selected by the of_device_id match data. */
-> +struct rocket_soc_data {
-> +       unsigned int num_clks;          /* clk_bulk count: 4 base, 6 with=
- CBUF */
-> +       unsigned int num_resets;        /* reset_bulk count: 2 base, 1 on=
- RK3576 */
-> +       bool multi_power_domain;        /* device spans more than one PM =
-domain */
-> +       bool poll_completion;           /* completion IRQ never reaches t=
-he GIC */
-> +};
-> +
->  struct rocket_core {
->         struct device *dev;
->         struct rocket_device *rdev;
-> +       const struct rocket_soc_data *soc;
->         unsigned int index;
->
->         int irq;
->         void __iomem *pc_iomem;
->         void __iomem *cna_iomem;
->         void __iomem *core_iomem;
-> -       struct clk_bulk_data clks[4];
-> +       struct clk_bulk_data clks[6];
->         struct reset_control_bulk_data resets[2];
->
->         struct iommu_group *iommu_group;
-> @@ -52,6 +62,14 @@ struct rocket_core {
->                 atomic_t pending;
->         } reset;
->
-> +       struct hrtimer poll_timer;
-> +       struct work_struct poll_work;
-> +       atomic_t poll_active;
-> +       unsigned int poll_ticks;
-> +       unsigned int poll_seq;
-> +       unsigned int poll_work_seq;
-> +       bool poll_dying;
-> +
->         struct drm_gpu_scheduler sched;
->         u64 fence_context;
->         u64 emit_seqno;
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
-rocket_device.c
-> index 46e6ee1e7..bfb00f967 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
-> @@ -31,6 +31,10 @@ struct rocket_device *rocket_device_init(struct platfo=
-rm_device *pdev,
->                 if (of_device_is_available(core_node))
->                         num_cores++;
->
-> +       for_each_compatible_node(core_node, NULL, "rockchip,rk3576-rknn-c=
-ore")
-> +               if (of_device_is_available(core_node))
-> +                       num_cores++;
-> +
->         rdev->cores =3D devm_kcalloc(dev, num_cores, sizeof(*rdev->cores)=
-, GFP_KERNEL);
->         if (!rdev->cores)
->                 return ERR_PTR(-ENOMEM);
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> index 8bbbce594..7f7dfa374 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -176,6 +176,7 @@ static int rocket_probe(struct platform_device *pdev)
->
->         rdev->cores[core].rdev =3D rdev;
->         rdev->cores[core].dev =3D &pdev->dev;
-> +       rdev->cores[core].soc =3D of_device_get_match_data(&pdev->dev);
->         rdev->cores[core].index =3D core;
->
->         rdev->num_cores++;
-> @@ -213,8 +214,23 @@ static void rocket_remove(struct platform_device *pd=
-ev)
->         }
->  }
->
-> +static const struct rocket_soc_data rk3588_soc_data =3D {
-> +       .num_clks =3D 4,
-> +       .num_resets =3D 2,
-> +       .multi_power_domain =3D false,
-> +       .poll_completion =3D false,
-> +};
-> +
-> +static const struct rocket_soc_data rk3576_soc_data =3D {
-> +       .num_clks =3D 6,
-> +       .num_resets =3D 1,
-> +       .multi_power_domain =3D true,
-> +       .poll_completion =3D true,
-> +};
-> +
->  static const struct of_device_id dt_match[] =3D {
-> -       { .compatible =3D "rockchip,rk3588-rknn-core" },
-> +       { .compatible =3D "rockchip,rk3588-rknn-core", .data =3D &rk3588_=
-soc_data },
-> +       { .compatible =3D "rockchip,rk3576-rknn-core", .data =3D &rk3576_=
-soc_data },
->         {}
->  };
->  MODULE_DEVICE_TABLE(of, dt_match);
-> @@ -240,7 +256,7 @@ static int rocket_device_runtime_resume(struct device=
- *dev)
->         if (core < 0)
->                 return -ENODEV;
->
-> -       err =3D clk_bulk_prepare_enable(ARRAY_SIZE(rdev->cores[core].clks=
-), rdev->cores[core].clks);
-> +       err =3D clk_bulk_prepare_enable(rdev->cores[core].soc->num_clks, =
-rdev->cores[core].clks);
->         if (err) {
->                 dev_err(dev, "failed to enable (%d) clocks for core %d\n"=
-, err, core);
->                 return err;
-> @@ -260,7 +276,7 @@ static int rocket_device_runtime_suspend(struct devic=
-e *dev)
->         if (!rocket_job_is_idle(&rdev->cores[core]))
->                 return -EBUSY;
->
-> -       clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rd=
-ev->cores[core].clks);
-> +       clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev-=
->cores[core].clks);
->
->         return 0;
->  }
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> index bb77b6bf0..28845ac4e 100644
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-> @@ -7,6 +7,7 @@
->  #include <drm/drm_file.h>
->  #include <drm/drm_gem.h>
->  #include <drm/rocket_accel.h>
-> +#include <linux/hrtimer.h>
->  #include <linux/interrupt.h>
->  #include <linux/overflow.h>
->  #include <linux/iommu.h>
-> @@ -21,6 +22,15 @@
->
->  #define JOB_TIMEOUT_MS 500
->
-> +/*
-> + * RK3576 arms the same DPU completion as RK3588, but the interrupt neve=
-r
-> + * reaches the GIC. The completion itself is visible in INTERRUPT_RAW_ST=
-ATUS,
-> + * so sample that instead. The tick cap bounds jobs that never raise it =
-at all,
-> + * which is the same open problem as the wrong inference results.
-> + */
-> +#define RK3576_POLL_INTERVAL_NS        1000000LL       /* 1 ms */
-> +#define RK3576_POLL_MAX_TICKS  8
-> +
->  static struct rocket_job *
->  to_rocket_job(struct drm_sched_job *sched_job)
->  {
-> @@ -151,6 +161,14 @@ static void rocket_job_hw_submit(struct rocket_core =
-*core, struct rocket_job *jo
->
->         rocket_pc_writel(core, OPERATION_ENABLE, PC_OPERATION_ENABLE_OP_E=
-N(1));
->
-> +       if (core->soc->poll_completion) {
-> +               core->poll_ticks =3D 0;
-> +               core->poll_seq++;
-> +               atomic_set(&core->poll_active, 1);
-> +               hrtimer_start(&core->poll_timer, ns_to_ktime(RK3576_POLL_=
-INTERVAL_NS),
-> +                             HRTIMER_MODE_REL);
-> +       }
-> +
->         dev_dbg(core->dev, "Submitted regcmd at 0x%llx to core %d", task-=
->regcmd, core->index);
->  }
->
-> @@ -341,25 +359,87 @@ static struct dma_fence *rocket_job_run(struct drm_=
-sched_job *sched_job)
->         return ERR_PTR(ret);
->  }
->
-> +static void rocket_job_handle_irq(struct rocket_core *core);
-> +
-> +static enum hrtimer_restart rocket_poll_timer_fn(struct hrtimer *timer)
-> +{
-> +       struct rocket_core *core =3D container_of(timer, struct rocket_co=
-re, poll_timer);
-> +       u32 raw;
-> +
-> +       if (!atomic_read(&core->poll_active))
-> +               return HRTIMER_NORESTART;
-> +
-> +       core->poll_work_seq =3D core->poll_seq;
-> +
-> +       raw =3D rocket_pc_readl(core, INTERRUPT_RAW_STATUS);
-> +       if ((raw & (PC_INTERRUPT_RAW_STATUS_DPU_0 | PC_INTERRUPT_RAW_STAT=
-US_DPU_1)) ||
-> +           ++core->poll_ticks >=3D RK3576_POLL_MAX_TICKS) {
-> +               atomic_set(&core->poll_active, 0);
-> +               schedule_work(&core->poll_work);
-> +               return HRTIMER_NORESTART;
-> +       }
-> +
-> +       hrtimer_forward_now(timer, ns_to_ktime(RK3576_POLL_INTERVAL_NS));
-> +       return HRTIMER_RESTART;
-> +}
-> +
-> +/* Start the job's next task, or retire it. Caller holds job_lock. */
-> +static void rocket_job_next_locked(struct rocket_core *core)
-> +{
-> +       lockdep_assert_held(&core->job_lock);
-> +
-> +       if (!core->in_flight_job)
-> +               return;
-> +
-> +       if (core->in_flight_job->next_task_idx < core->in_flight_job->tas=
-k_count) {
-> +               rocket_job_hw_submit(core, core->in_flight_job);
-> +               return;
-> +       }
-> +
-> +       iommu_detach_group(NULL, iommu_group_get(core->dev));
-> +       dma_fence_signal(core->in_flight_job->done_fence);
-> +       pm_runtime_put_autosuspend(core->dev);
-> +       core->in_flight_job =3D NULL;
-> +}
-> +
-> +static void rocket_poll_work_fn(struct work_struct *work)
-> +{
-> +       struct rocket_core *core =3D container_of(work, struct rocket_cor=
-e, poll_work);
-> +
-> +       pm_runtime_mark_last_busy(core->dev);
-> +
-> +       scoped_guard(mutex, &core->job_lock) {
-> +               /*
-> +                * The interrupt can land while this work is queued, reti=
-re the job
-> +                * and start the next task. poll_seq only moves under job=
-_lock, in
-> +                * hw_submit, so comparing it here says whether that happ=
-ened. Doing
-> +                * it outside the lock would leave the window open rather=
- than close
-> +                * it, and this work would then submit a task on top of a=
- live one.
-> +                */
-> +               if (READ_ONCE(core->poll_dying) || core->poll_work_seq !=
-=3D core->poll_seq)
-> +                       return;
-> +
-> +               rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-> +               rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-> +
-> +               rocket_job_next_locked(core);
-> +       }
-> +}
-> +
->  static void rocket_job_handle_irq(struct rocket_core *core)
->  {
-> +       if (core->soc->poll_completion) {
-> +               atomic_set(&core->poll_active, 0);
-> +               hrtimer_cancel(&core->poll_timer);
-> +       }
-> +
->         pm_runtime_mark_last_busy(core->dev);
->
->         rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
->         rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
->
->         scoped_guard(mutex, &core->job_lock)
-> -               if (core->in_flight_job) {
-> -                       if (core->in_flight_job->next_task_idx < core->in=
-_flight_job->task_count) {
-> -                               rocket_job_hw_submit(core, core->in_fligh=
-t_job);
-> -                               return;
-> -                       }
-> -
-> -                       iommu_detach_group(NULL, iommu_group_get(core->de=
-v));
-> -                       dma_fence_signal(core->in_flight_job->done_fence)=
-;
-> -                       pm_runtime_put_autosuspend(core->dev);
-> -                       core->in_flight_job =3D NULL;
-> -               }
-> +               rocket_job_next_locked(core);
->  }
->
->  static void
-> @@ -460,6 +540,10 @@ int rocket_job_init(struct rocket_core *core)
->         int ret;
->
->         INIT_WORK(&core->reset.work, rocket_reset_work);
-> +       INIT_WORK(&core->poll_work, rocket_poll_work_fn);
-> +       hrtimer_setup(&core->poll_timer, rocket_poll_timer_fn, CLOCK_MONO=
-TONIC,
-> +                     HRTIMER_MODE_REL);
-> +       atomic_set(&core->poll_active, 0);
->         spin_lock_init(&core->fence_lock);
->         mutex_init(&core->job_lock);
->
-> @@ -501,8 +585,23 @@ int rocket_job_init(struct rocket_core *core)
->
->  void rocket_job_fini(struct rocket_core *core)
->  {
-> +       /*
-> +        * Stop the poll from starting hardware work before tearing anyth=
-ing
-> +        * down: it submits the next task, and drm_sched_fini() does not =
-wait
-> +        * for work already queued. Cancel after the scheduler is gone, s=
-o a
-> +        * job running now cannot re-arm the timer behind the cancel.
-> +        */
-> +       if (core->soc->poll_completion)
-> +               WRITE_ONCE(core->poll_dying, true);
-> +
->         drm_sched_fini(&core->sched);
->
-> +       if (core->soc->poll_completion) {
-> +               atomic_set(&core->poll_active, 0);
-> +               hrtimer_cancel(&core->poll_timer);
-> +               cancel_work_sync(&core->poll_work);
-> +       }
-> +
->         cancel_work_sync(&core->reset.work);
->         destroy_workqueue(core->reset.wq);
->  }
-> --
-> 2.43.0
->
+Best regards,
+Krzysztof
