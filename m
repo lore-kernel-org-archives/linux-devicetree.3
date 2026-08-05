@@ -1,129 +1,106 @@
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+Received: from out-171.mta1.migadu.com (mta1.migadu.com [37.59.57.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8393F6C25;
-	Wed,  5 Aug 2026 09:12:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6303F6618
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:12:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.59.57.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785921143; cv=none; b=Leas0+f9gnXXmpLN6qNk6rmHbtQDYj0BaRLhQpy40TTnkLW61FDkjPIrvlv/Ru7RqiTWN5Q5E6gqhQQ9zDqfhTqU7NCRdU11Rrrd95AGIqUO1haCKHfpzpxf0S+CifVxlr0C41nKVKOWKE6de0lzsEmsDg7DsZ6faqHwBGSxNDg=
+	t=1785921169; cv=none; b=t+sHv6LwQTebS0fbBUwJGnMyhT6nNWgAWimalmIf7KK9cbHjAp/Its6EpYMqn3BuSZ/VwMxVbqOS9q+jeQmMA+BVqOnZmSvsn2ExrFS3WZ6Pq6QeW6NJQCpgDLiGiNtQqox6djYebe8fP2csYxf4MzKUmGQk2ngvYoJv+dCJ+K0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785921143; c=relaxed/simple;
-	bh=u37wlO03RM1fb9m5qn6oHyq/lyBft4YJSHG1hALPj60=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=UoNy4p4mOg/xnKVx7uMpU7qbpEGkfhhe0QJ4ZSRar1S6qqvkYJ2oIa5jf8IYAQ/rXOHf52/1MIQE9tBY3H7POexCDZGrEDsBtYj6Lgu4xiw6G6judtEPhObr3JM6GBLHbaZibiHePKM8awIvIDx9gKkCUFQd5NvxxY37o/VEq0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=GhyrrZTe; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jx8us0cj; arc=none smtp.client-ip=103.168.172.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1785921169; c=relaxed/simple;
+	bh=KCvIoqp/+fM+IQnsjqs168omOMWHR2iMmUGZC2CmXlo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 In-Reply-To:References; b=LfSfnVg+WyXw2ed/9Hg8IYU+0dkd5CjWW1zx9IgxlVfwEEu48EWHxXw5zdedVE/iNC0QQ5Djqj9eCPJwVXC0MZZ5yDtfDxxfLFzygC1xZjrtaDyIW1OrvPAy1XIoQSGyPhqVzywzI88FecGEgJBJsQD19iILqguw0ITlMqo/qAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=c+kkjdwI; arc=none smtp.client-ip=37.59.57.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="GhyrrZTe";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jx8us0cj"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 4CAF51400096;
-	Wed,  5 Aug 2026 05:12:20 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 05 Aug 2026 05:12:21 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785921139;
-	 x=1786007539; bh=MHTLEg29LKoWbwxmX+ebrTjEqEV+f6dnJqTwwTHldlM=; b=
-	GhyrrZTeNPAmI1EprCyugjhFhDh6YJ6tRgIKOk5nkd3Kvc+5LHuWFqGrfz6LRt2Z
-	pRCaq/zEGOF/TW7GQT3vNW5eaemBNRpGaSzM1nSRKZCo/sAlIopE3rCdNLUYYmaM
-	6I2+jwL+cMDUdUC1/LkEF+a+ZCxF2ez4UegKYYfk0fl/KW2a6Ibj3cgW78nPmsql
-	lP1vydCd35AqBRweWjMQMtaBHZFpf/CJAfmKQ9oC8+0iuhpTVe11tVBcP/gSaSZL
-	q5OJpH3c+6agUNiy6r3tWmn3ULsT+dob8i05E4PobfI56zPY2/GJLfrRcgCYGUup
-	nQGAZ5yLHAjRZ8Ut8bys4A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785921139; x=
-	1786007539; bh=MHTLEg29LKoWbwxmX+ebrTjEqEV+f6dnJqTwwTHldlM=; b=j
-	x8us0cj+qrTYGcws1oZTm6yvMVac66mWz9myRZ9ABgvadQ3GTJ3bt1ahXK5hd9Lw
-	VxWzfPisY6H4Dwl1hDv3/YMMp+HSZXDQbQtjk52JZgSgHToLuOrdmCB+p8TFFEeH
-	0f6xeCH9jWy3CJgvk3FpTJud28k8QLGqyfcvmfgqOtSMD9etXMYrvNplDIDaQ2/e
-	DnUFk0Fh2A4r+Oig2EzfG5gEVVpeT5LzKlIfDTqekpdxixdsd5feLJA2qq/ZYDrW
-	jJLM17GD/VS2Z9lz48o/NKf/xtf3CerwYkpmRsrJUIBcJJh9Njr/6sXlFRZFb/B0
-	Gm6mRqL3DVwUcNpkVm3rA==
-X-ME-Sender: <xms:bf5yai9n8EcA9u7tb72RZRq1vE2a2uqemPzmD8pPhqBpIg7NvWdNag>
-    <xme:bf5yatj88lp34dcjTelyKhxjDr2xBZtVbbFK1lLY8AGn1-sJGuA71zs98MuVzfGh_
-    5chzv7U0aocYo529HbGRWyMGTt1Wr14d2yGVxD94nNS1qesF3Euho0>
-X-ME-Proxy-Cause: dmFkZTGYQzPiS+6CAGJ80ElOgofc6XxvNhr7dDCV7m30Gh0DCcBzJTf4Xg1dXtUvR8MB7m
-    UA9b+gvFVgKZGldYEKMqEjtETe22S8gmYBXUK2IfUukNLyfo2FEkXhivUSiKke4jNHpA3N
-    Vo9zpmQf4Re/dS1lCdUB5mlaLEb0sG1GT9zMfIbyZ3AbscTKzUOG/BOFaqSjzPyD4y4d8I
-    Rh6rP7UnTtAd8cVOO+3WqjqA/JQCtEMKRCwNQf//KKwDU9X6u7JM9v/7wrI5fwCI30BcTt
-    7spZ9DV/2G7TZruWxDNvv9j+R8kRpfgXbIqOHMsLCS1ZuYj9y2j4Xzdse5LTNAFkWY7RFX
-    LE7nk1YmlO2bdUgc/L6Vkk8PyaYInihj3VblXxtKHhi1MOXxjhX9jo7LbvVmTOXS6m94Pj
-    dgkigpS7bC44LujTUB4va6ABVdWjG7ZDEE+7TZQLBbpS9gOdgRGrfZGYiWfQWdy8frOjCy
-    6gww/MvAbLoVTybV0Znq/ru5D/V9fm2RTxxAOysAb3YUQh7wgmb1FCpDyvXgpRho4Da7zl
-    Imc29lUb8DYYca1f0rTaGTE5zo81r+lIVP5IsF5ZMis4JCiuF1sdE9f/+01e1Yd6JhoSOp
-    zflJKxtrUhMNz3NWnpSI7IWBnRo/GDHeIYMOEAk0t8JMnEJIXrjhw60j3Gxw
-X-ME-Proxy: <xmx:cP5yakNNl2UbZWHp4iBgii9WT4E4l88692G9iwLHzQHwNNx2m8mxFA>
-    <xmx:cP5yauoKYCKhqWnolj0rU-IpoxkqjIvFLxPkNXAI4BLdta4VzSMa6Q>
-    <xmx:cP5yaj4v4q9LoNoEdoCqbqFONe7M5IumR-KrFPId3j9Go4y47pSK6A>
-    <xmx:cP5yauEYaJuBVmjVk3Hb2IFKyRjzEBMSZicIo1n-fUseInGwnf8Biw>
-    <xmx:c_5yajnSQaNFB0L8iWruYr99rn6USmqjK7YnQmx9OtKmkONWRXJ_tzCm>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 59DDD32A0062; Wed,  5 Aug 2026 05:12:13 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="c+kkjdwI"
+X-Mailbox-Line: From troy.mitchell@linux.dev  Wed Aug  5 02:03:29 2026
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1785921165;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HbQVqT/KW/L2AONpoOSIbgjQbA7VEc8vzMKs12aCiiQ=;
+	b=c+kkjdwIqbVfFxu5b8ro6mxkFsKpVCFP/K0BBKmrToaTBWxqd5IxRQ6JnCqJRIW/Ns6+K+
+	A8YE8aIu+c68TnirlX+MYh+iSjSJp21dnvoGOD6BJGyXGAiWCY+2uV8eKLpFr4azEjVzKg
+	cPZE69px5B8R1WLXlmCpcK/9QPe015c=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Wed, 05 Aug 2026 02:00:53 -0700
+Subject: [PATCH v3 3/6] dt-bindings: hwmon: Add Sensylink CTF2301
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AGiDCXf8z4CV
-Date: Wed, 05 Aug 2026 11:11:53 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>,
- "Andrew Lunn" <andrew@lunn.ch>
-Cc: "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, Netdev <netdev@vger.kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <5d9c865e-a9a2-4756-a27b-a5af60ef3bad@app.fastmail.com>
-In-Reply-To: <anLzkNOBMvn7_0d3@pc-du-fromage>
-References: <20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net>
- <d762ff5f-30ba-42fc-bf58-500f807483ad@lunn.ch>
- <anLzkNOBMvn7_0d3@pc-du-fromage>
-Subject: Re: [PATCH] w5100: restore GPIO-based link detection
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-ctl2301-v3-3-b86c75d1c552@linux.dev>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+ linux-doc@vger.kernel.org
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1614;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=KCvIoqp/+fM+IQnsjqs168omOMWHR2iMmUGZC2CmXlo=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFlFv49Jyy4J7RW49X6lXrfHiUgn5Tun06RlN9Wo3D1b/
+ vjtqUr2jlIWBjEuBlkxRZbuBzzbCnyibAsECn1h5rAygQxh4OIUgIlodDIyrH23UO/fzT0ij1hf
+ 3tbyiJLZcaRuZbXVyvn1exZz6m15sIyR4fjcvdVLns5MMmR/fuNXgvj+D3kFVXtd5zZprTGdptP
+ mwwIA
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+In-Reply-To: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
+References: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
+X-Migadu-Flow: FLOW_OUT
 
-On Wed, Aug 5, 2026, at 10:25, Arthur Cr=C3=A9pin Leblond wrote:
-> On Tue, Aug 04, 2026 at 07:54:29PM +0200, Andrew Lunn wrote:
->>
->>https://wiznet.io/products/ethernet-chips/w5100
->>
->>suggests it has an integrated PHY. So why is a GPIO needed to report
->>link?
->
-> the W5100/W5500 exposes directly a LINKLED pin for the carrier status.
-> On my board (RPi), that pin is wired to a GPIO to detect changes on th=
-e host
-> directly via an interrupt.
+Add the Sensylink CTF2301 temperature sensor and fan controller to the
+LM63 family binding. The chip follows the LM63 register model and can
+provide a thermal cooling device when #cooling-cells is present.
 
-The datasheet says
+Do not provide a national,lm63 fallback because the CTF2301 is not fully
+compatible with LM63. It uses different conversion-rate encodings,
+extended local-temperature registers, additional fan lookup table
+entries, and device-specific PWM and ALERT/TACH configuration. An older
+LM63 driver would therefore not operate the device correctly.
 
-   LINKLED O 66 Link LED
-      Active low in link state indicates a good status for
-      10/100M.
-      It is always ON when the link is OK and it flashes
-      while in a TX or RX state.
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ Documentation/devicetree/bindings/hwmon/national,lm63.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-which sounds like this is not a great way to do it, since any
-data transfer would drop the link status. Are you sure the
-gpio line as you connect it actually only reports link status
-and not RX/TX? Which chip/revision specifically are you using?
+diff --git a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+index f2e0993cfbef..4c8d0a15fbd1 100644
+--- a/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
++++ b/Documentation/devicetree/bindings/hwmon/national,lm63.yaml
+@@ -12,7 +12,8 @@ maintainers:
+ description: |
+   The LM63 family provides local and remote temperature monitoring together
+   with fan speed monitoring and PWM fan control. Supported devices include
+-  the National Semiconductor LM63, LM64 and LM96163.
++  the National Semiconductor LM63, LM64 and LM96163, and the Sensylink
++  CTF2301.
+ 
+ allOf:
+   - $ref: hwmon-common.yaml#
+@@ -23,6 +24,7 @@ properties:
+       - national,lm63
+       - national,lm64
+       - national,lm96163
++      - sensylink,ctf2301
+ 
+   reg:
+     maxItems: 1
 
-With the W5300 driver (now removed) that was trying to use the
-link gpio, the LINKLED description in the datasheet is different
-and does not mention flashing, so on that one, the gpio link
-interrupt was more likely to actually work.
+-- 
+2.55.0
 
-      Arnd
