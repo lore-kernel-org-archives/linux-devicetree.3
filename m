@@ -1,137 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B6A3E5EF6
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 22:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D32C3E316B;
+	Wed,  5 Aug 2026 22:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785969485; cv=none; b=R5X2dUApXy0p/EJcxjLATUetDj9kF9FlsJBBNLMtQtp6g421WqkbcA4VqUAJbDi/vxr8XhqzgvZ5L21ivWFFuryyhWlaQ9zUD2o5h5VPxMBD3F8bqKmOB+xkEHxE3FlVCnq0/x2sLkH7pGWwVCWR60zmvJAadL6pscWz0aI31Ts=
+	t=1785969539; cv=none; b=S/Z4oL6NnebxiVr8voMurqNrI8uqxml9yeuPPGNZJzlCNGs3WsJCTCwnHNYPEddg6yrzDU/guWPAKDVy55CwAknqHy/1HmyCW1FMPF2Qu7K4S+w7I6+XaPWMviBB7o3/8XaueT1ME4/N1fbMvfQeuqsiShkIQEm9PERw+PJS1VU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785969485; c=relaxed/simple;
-	bh=dZuiH5tOO8w2ZGg7bJwDy8IQ6pWzvvHlLgXpLTTPU2o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JBx9mIOcNT+u1uT583cMlAVUQsvew0Gsh2utKuLwc+w9fnq5yzOeXmKA9XssAYVDGZQ+VA2n59NBES8qnKoE/U4XYLV+EWEC01DjZnhnwtjFlo3Cn3F87u+lobEAGxSxj1UnZJmTjf9gYHj/GdC5Y2LkUxKUh1IkMpKTeoek7vM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PIB1fKYS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785969539; c=relaxed/simple;
+	bh=fysVipfONh/x9yJFLNjTer3RjlXeynbaGnDOhvC9ZS8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nHTOy/so3RaIqEVrFXMRU42KiwAX880HcbmEf3GDwn4jOd6de4K24Xq7J9xYYQ4VTiwOIoZOb66EqJCcNzhtIM1qRweejdTm6TGmL06igs2gJ9KIdt1kMfxC0XG+nvD+E/ZlDDD4vIBXC1ZAbwNXngU2v/5H89aPbPUaZyL7uqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Csf9NuPU; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PIB1fKYS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544C81F000E9;
-	Wed,  5 Aug 2026 22:38:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785969484;
-	bh=v8adGSpzuAq78yC7+P3vtMYeP7yhpIaVr6X6Y4jTok8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PIB1fKYSCZffcZZg64udrFND44pzQQb3swNhbEigKIpvQMuY/J6BD38+MCQuzFfvS
-	 +Ft6cjP40nxcNM0qXy70SLk1Bz88PbTtZLwmUB4WpzxhHRUDZ4Db9YALDdTU5thkhM
-	 SVvBuxvBK97Q3CQxsPpn+kqOrpnFivicZ1x7MDYybelyyQgAeMGwZ/YsFWSBTd+4y6
-	 QpxBjuqj7+PuzhQfc1micVMPhggec4V5B7A7z+T6gDncWJUbBTMCfX0nPBHLRwH0cD
-	 6/+lMmgSsJ1R5uOefeoJZdC0ipKbkaeIbsJP7h37v6CbNcy88wKZqQrX5VXSXI/gwm
-	 CflKSl8iIJfNA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/3] mmc: core: Honor keep-power-in-suspend and
- reset-card-at-resume for (e)MMC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kamal Dasu" <kamal.dasu@broadcom.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260805222500.2567801-4-kamal.dasu@broadcom.com>
-References: <y> <20260805222500.2567801-1-kamal.dasu@broadcom.com>
- <20260805222500.2567801-4-kamal.dasu@broadcom.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 22:38:03 +0000
-Message-Id: <20260805223804.544C81F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Csf9NuPU"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hFlgx2py8zMlH2;
+	Thu, 06 Aug 2026 00:38:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1785969533;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uS+RCfKyjG2UtT4+awjQRyRPyTMRZoUZeNGtWmbYJPA=;
+	b=Csf9NuPUw00gLrfyzQpMvzedX0iF5woxs6AsivUK3fODBr/XLypjdeQgDq8UMF1Dw3DMHD
+	QdWCzMYs/AXDgbmp6veIJWmlwG6QzhimzwxZPPEL4qwtLzMdDMut47kb180pVf2WAY3HhA
+	G7l0lspMaE/nrnKj1Mwr46i+vKiy/worVbkZCCo/8L7UARVc1mfRXr8UZzb70vNN4R0xow
+	m1vnQZHcQ/91YoSRewdVdBQRCK8IX6sYjNA788Sxh856Xk7Zs+3Msm27FXAFGdQfOz1Y4Q
+	YI/QyD9et2mr5rQcu5tvxm2CubXt2BwFtcAu2/cj2ffCA+AeWKeN8LPDAX0DJw==
+Message-ID: <0124d3a3-81dc-44ce-88a2-9426c65ac46c@mailbox.org>
+Date: Thu, 6 Aug 2026 00:38:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH v3 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Ulf Hansson <ulfh@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <cover.1785941595.git.geert+renesas@glider.be>
+ <89e6a71b35703f10e12f520af1f389b5f40f4b35.1785941595.git.geert+renesas@glider.be>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <89e6a71b35703f10e12f520af1f389b5f40f4b35.1785941595.git.geert+renesas@glider.be>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: a370a64fff6b4dfe338
+X-MBO-RS-META: 355w3c5a4crihgw76irh7wwwrs3zhmwk
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The fast-path in `_mmc_suspend()` for `MMC_POWEROFF_SUSPEND` sets =
-the suspended state but leaves the card powered on. If a shutdown, undervol=
-tage, or unbind event occurs while the card is runtime-suspended, the pre-e=
-xisting early exit (`if (mmc_card_suspended(host->card)) goto out;`) causes=
- the function to return immediately. This bypasses the critical `mmc_powero=
-ff_notify()` (which sends `EXT_CSD_POWER_OFF_LONG`) and `mmc_power_off()`, =
-directly violating the commit message's claim that these events "still need=
- the normal power-off path".
---
+On 8/5/26 5:20 PM, Geert Uytterhoeven wrote:
 
---- Patch [3]: [PATCH v7 3/3] mmc: core: Honor keep-power-in-suspend and re=
-set-card-at-resume for (e)MMC ---
-commit 50bf6f999dd980cb9368096f4fc9122b882d9a42
-Author: Kamal Dasu <kamal.dasu@broadcom.com>
+Hello Geert,
 
-mmc: core: Honor keep-power-in-suspend and reset-card-at-resume for (e)MMC
+[...]
 
-This patch introduces support for keep-power-in-suspend and
-reset-card-at-resume in the core (e)MMC suspend/resume paths. It adds a
-fast-path in _mmc_suspend() that leaves the card powered on if these
-capabilities are set, and a corresponding reset block in _mmc_resume().
+> +DEFINE_MDLC_RESET_WRAPPER(reset)
+> +DEFINE_MDLC_RESET_WRAPPER(assert)
+> +DEFINE_MDLC_RESET_WRAPPER(deassert)
+> +DEFINE_MDLC_RESET_WRAPPER(status)
+> +
+> +static const struct reset_control_ops r8a78000_mdlc_reset_ops = {
+> +	.reset = r8a78000_mdlc_reset,
+> +	.assert = r8a78000_mdlc_assert,
+> +	.deassert = r8a78000_mdlc_deassert,
+> +	.status = r8a78000_mdlc_status,
+> +};
 
-Link: https://lore.kernel.org/r/20260413180551.3683969-1-florian.fainelli@b=
-roadcom.com/
+Please keep the list sorted alphabetically.
 
-> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> index 05444ecf3909f..62cc009f2a2bf 100644
-> --- a/drivers/mmc/core/mmc.c
-> +++ b/drivers/mmc/core/mmc.c
+> +static int r8a78000_mdlc_attach_dev(struct generic_pm_domain *domain,
+> +				    struct device *dev)
+> +{
+> +	struct device_node *np = dev->of_node;
+> +	struct r8a78000_mdlc_priv *priv;
+> +	struct of_phandle_args pd_spec;
+> +	const struct mod_map *map;
+> +	unsigned int id;
+> +	int ret;
+> +
+> +	ret = of_parse_phandle_with_args(np, "power-domains",
+> +					 "#power-domain-cells", 0, &pd_spec);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	if (pd_spec.args_count != 2) {
+> +		of_node_put(pd_spec.np);
 
-[ ... ]
+Maybe some "goto error" fail path which does of_node_put() wouldn't hurt 
+here, since the of_node_put() is duplicated in here multiple times.
 
-> @@ -2157,6 +2157,33 @@ static int _mmc_suspend(struct mmc_host *host, enu=
-m mmc_poweroff_type pm_type)
->  			goto out;
->  	}
-> =20
-> +	/*
-> +	 * Keep the card powered across an actual suspend; shutdown, unbind
-> +	 * and undervoltage still need the normal power-off path below,
-> +	 * since they aren't guaranteed a subsequent _mmc_resume().
-> +	 *
-> +	 * Check pm_caps, not pm_flags: unlike SDIO, (e)MMC has no
-> +	 * per-function driver to request this via
-> +	 * sdio_set_host_pm_flags(), so it's a fixed platform trait here.
-> +	 *
-> +	 * Require MMC_CAP2_RESET_AT_RESUME too: without it, _mmc_resume()
-> +	 * has no way to bring the host back to a state mmc_init_card() can
-> +	 * use, since mmc_power_up() no-ops when power_mode is already
-> +	 * MMC_POWER_ON. Keeping power without also resetting at resume is
-> +	 * not a safe combination for this driver.
-> +	 */
-> +	if (pm_type =3D=3D MMC_POWEROFF_SUSPEND &&
-> +	    (host->pm_caps & MMC_PM_KEEP_POWER) &&
-> +	    (host->caps2 & MMC_CAP2_RESET_AT_RESUME)) {
-> +		if (!mmc_host_is_spi(host))
-> +			err =3D mmc_deselect_cards(host);
-> +		if (!err) {
-> +			host->pm_flags |=3D MMC_PM_KEEP_POWER;
-> +			mmc_card_set_suspended(host->card);
-> +		}
-> +		goto out;
+> +		return -EINVAL;
 > +	}
+> +
+> +	scoped_guard(mutex, &r8a78000_mdlc_lock) {
+> +		hlist_for_each_entry(priv, &r8a78000_mdlc_list, link) {
+> +			if (priv->np == pd_spec.np)
+> +				break;
+> +		}
+> +	}
+> +
+> +	if (!priv) {
+> +		dev_err(dev, "%s: MDLC %pOF not found\n", __func__, pd_spec.np);
+> +		of_node_put(pd_spec.np);
+> +		return -ENODEV;
+> +	}
+> +
+> +	id = pd_spec.args[1];
+> +	of_node_put(pd_spec.np);
+> +
+> +	map = mod_map_find(priv->mod_map, id);
+> +	if (!map) {
+> +		dev_err(dev, "Unknown module 0x%x\n", id);
+> +		return -ENOENT;
+> +	}
+> +
+> +	dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
+> +	return 0;
+> +}
 
-[Severity: High]
-Does this fast-path interact incorrectly with the early exit at the top of
-_mmc_suspend()?
+[...]
 
-If the host is configured with MMC_PM_KEEP_POWER and MMC_CAP2_RESET_AT_RESU=
-ME,
-and the eMMC enters runtime suspend, this fast-path marks the card as suspe=
-nded
-but intentionally leaves the power on.
+> +static int r8a78000_mdlc_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *np = dev->of_node;
+> +	struct r8a78000_mdlc_priv *priv;
+> +	const struct mdlc_info *info;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	ret = r8a78000_genpd_always_on_singleton(dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	info = of_device_get_match_data(dev);
+> +	if (!info)
+> +		return -ENODEV;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->dev = dev;
+> +	priv->np = np;
+> +
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return -ENODEV;
+> +
+> +	for (; info->base; info++) {
+> +		if (info->base == res->start)
+> +			break;
+> +	}
+> +
+> +	if (!info->base) {
+> +		dev_dbg(dev, "Unsupported MDLC instance 0x%pa\n", &res->start);
 
-If a subsequent system shutdown, unbind, or undervoltage event occurs,
-_mmc_suspend() will be called again. However, since mmc_card_suspended()
-is now true, the function will hit the early exit:
+return dev_err_probe() might be more appropriate here, even if that 
+would be more chatty until the support for various MDLC nodes lands.
 
-	if (mmc_card_suspended(host->card))
-		goto out;
+Some dev_info_probe() would be even better, but we don't have that.
 
-Will this bypass mmc_poweroff_notify() and mmc_power_off() entirely,
-despite the comment indicating that shutdown, unbind, and undervoltage
-still need the normal power-off path?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805222500.2567=
-801-1-kamal.dasu@broadcom.com?part=3D3
+[...]
