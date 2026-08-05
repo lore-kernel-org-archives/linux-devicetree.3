@@ -1,191 +1,261 @@
-Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com [91.218.175.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 839AF3C9EE4
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CB13ED109
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 08:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785919971; cv=none; b=sKdQHiEwgiMaTn97HE+V8ahZIyw8LAFJp3wAGiwIAXznE0tQr8S9JKCzb+vcEKuo5B8gXuiNGyXtAFpiuUnkOBMnacy7TqSl75d7wV36ho0Bs+8ZjnhmBPmslJ6RYDz379m8ipFIMBthRh2g7KwdoOu38C6PylSJ+8zjjiDaseU=
+	t=1785920148; cv=none; b=klZd0HsCrK5KB9M2NJExg3bXf287YtVIyQb4pIW2qB1a2WwFH1UOKBtn0Bl1r8DH+6k0BKNZ6oIGxcX+nkxtbDW864rGzZ1VvJ7UmpnWV/RK562HvfbvWtVX/hdSzzJhH+CxuP1LZjPRqrXbdwz09/gGiWW0cIz8TP1V5Hq6x98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785919971; c=relaxed/simple;
-	bh=ti+K/qbCna4x73H0nCznzAUBC54xgxZKhZFl+GDk1OU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=loHfaFyUs1bVI76MIJSmIs9b0Dh9rSc+lFpoxKKOLd35kg+xFK5GuVJA28cdFxcIL4T9oQ+liZxw7vQTNbvxa8WBI7KzPvKk7AT9Djnh3Bs8DJOnFNrCNmbW99TeAy9jzBN9MlI66SqzNMr0MtZFDtUQtcHp1FksOkSIjXxeSZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GYNze0Ra; arc=none smtp.client-ip=91.218.175.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1785920148; c=relaxed/simple;
+	bh=AxcKTep58zD42ThWIjeqxn3/2xUzVtRG8RNmD3PcLxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=trLa+KWRHySTjLSYguuhOLgPV4usg7/zNeGBmFnjCmHzxud8VOBR7m3jX11VChxYwkTFEMCAtnQ8kBt2KsyJGtlve3SLHXV1eSmpZYjXPsSmRh/yFKn8so+0tih5LoKF/iOeZeKFt5UoATUuQ0q9eXKjjD+ZajDNy0130Xw3LVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gskVshpD; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GYNze0Ra"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785919957;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=tscwLloeuHeKikv6fxJbnoM9flEfp8SS4g24wd5euO8=;
-	b=GYNze0RahhxKiAKCnWOf5DUhFtL4MN1/rXEkFj4CpwYvjAtpGWHtosDWYTuhlPx0mhGmxS
-	tDrTF3vgFyJz7SDTfJl+sVy1jhQyvKOypS5i7QHbfBvf361zVDr4ZUCGXgqVtS0I2y9V06
-	stwlVOjSOnkrL4feWV2TDFW0hy0ByX4=
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Subject: [PATCH v3 0/6] hwmon: (lm63) Add Sensylink CTF2301 support
-Date: Wed, 05 Aug 2026 01:52:14 -0700
-Message-Id: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gskVshpD"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39c7ce122c7so6990981fa.2
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 01:55:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785920144; x=1786524944; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zZi5geWwmUjwL4iM+G3RESSIvS9NP5v+JPOUVTxODL4=;
+        b=gskVshpDLyI5tj9E4BNoCN4f5WWM2Pgy1pYZ3ntLSS74H2PvAncDqT9+7MDsfdO0su
+         VWCas9ZSX5G8iilN/SrC5YXPK2lIKOdVCjnoZseFMouwCS1lhsn4eDEazrGymKUEWelQ
+         rahBmN+Q8zgypT8/7UEQ5Sh+l1DlQLFvoK8Wia22XPupmsDI/QsFZSjWbR0r+hAVvBJT
+         a+gcPsxzYB6u190iWkjthdjacfTAkYjN7rx8LRW3gSHz6MRzccXw6F7/pf2FKTNsfL9E
+         tr64RNCFKtBNFtEGdod5IvGG51DwKiygOUgw+sPofgUhEHqWGe/SW2VVcDu8g7icu1Pd
+         szxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785920144; x=1786524944;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zZi5geWwmUjwL4iM+G3RESSIvS9NP5v+JPOUVTxODL4=;
+        b=LXiZZUdS+rMx/HxoBaDBtsMREcXDFJRMY7uJbgH7aOHVYjYeqU1unc1dWpCzZyhu4A
+         2IL9CwHJlWMvYNbXvJySay0ZFZEOkI0yGl9OK64y1ViIbJPMVRQVtOdYUMrXfePjxjBh
+         u4HPGSw736uQbKHBIM8eIKbtSrmmVkUUHdeZ5bjCaz9+uyHeJpbkUoZ28veis1nU/V5J
+         +atPr/q4LhnhsnQVY7SFm5pmcxgb9GpKTBnXBkFvNIGZbWh0U5KHtuAXg7TgxedzlvnW
+         4qOpUxQKl3W69UyN0MJPPIkaOj7Pas1VAsROIWPXWG2ZjmeUEEW0Ol7iXpA7UhIt0h+x
+         QOug==
+X-Forwarded-Encrypted: i=1; AHgh+RqfjfOpl0922fiRirSxQ3flwZXoduUiD3XtsU61R+AaqBRi74OhTWFVWvWyc2ou6yMbIdkIuFC92AdL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxcZbYwsPxtKqt7TVpY6w6iPpbB7I7o3lssI6FmA64t5Lfnt92R
+	8MgphKWDmi3FsoNGSuFtdQO2Ak6rMIUY5fxm9nEp7YBTiOz+2IqrKAVu
+X-Gm-Gg: AR+sD13a1Y2Ja+xnh0vTG5N27otwozrzDoGepRjBJUhx+ZK3QiQRxD5agRwqZ2x0dOr
+	4Fmqvx2pvQHkIzrIffnhtbzPQNsBjhfJMxoZUraIAp/DtDoLfeW86JjfWZYCS/lZR5gbQ0tonaE
+	uBI5KzT7N/NVEz/Av9rJ280yCNnbIJQClALgKvF2+6ENBxRKCmFiIwvrTrz1QLg3xq9lBdWT75p
+	+vZqpTf2bPYW/oyF066TVOcNcSiNqe8w75Lpxp/g2Kr8/xnHzIfrYKcOzMc88boaYzttniEXwLp
+	rek+uI12lymUgu6hfBE/A8Vi2PVhkoA/T1Ije8e+g/pLP/W46GzFnKU3jxM1+WQfaIGMSe2n3qO
+	QeODKrazaM942vYoo+G/naoESEe9lwqqCyCtJiwAY2jI37HPn5feJzCv51N57vkyOhTWYqngFoF
+	CBlOtq/AwX0YS9ZEDhmoFApZjIKxkEPI0+8LsBWXwCg/cDq6gPpathjtr7bRHAvw==
+X-Received: by 2002:a05:651c:551:b0:39e:b3b2:e947 with SMTP id 38308e7fff4ca-39fbb225458mr5782181fa.11.1785920143628;
+        Wed, 05 Aug 2026 01:55:43 -0700 (PDT)
+Received: from NB-6746.. ([188.243.183.76])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39fb9a152aasm7470471fa.21.2026.08.05.01.55.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 01:55:43 -0700 (PDT)
+From: Artem Shimko <a.shimko.dev@gmail.com>
+To: netdev@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Artem Shimko <a.shimko.dev@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH net-next v6 0/3] Add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+Date: Wed,  5 Aug 2026 11:55:37 +0300
+Message-ID: <20260805085540.452260-1-a.shimko.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WMwQqDMBAFf0VybkqyiUZ76n+UHjRu6oKoJDZYx
- H9vFEoLPc7jzawsoCcM7JKtzGOkQOOQQJ0yZrt6eCCnNjEDAbmoZMHt3IMSkgsti0YYZaEULL0
- nj46Wo3S7J+4ozKN/HeEo9/W/EVOGVwaNLbUDq821p+G5nFuMbG9E+HiFMCC/HiQPXe4apaE0U
- P9627a9ASv2mTHWAAAA
-X-Change-ID: 20250916-ctl2301-0416b073c280
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org, Jean Delvare <jdelvare@suse.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6020;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=ti+K/qbCna4x73H0nCznzAUBC54xgxZKhZFl+GDk1OU=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlFPw+uYPNY+yps5fcU89ayj+5WF92dPyXN7qt+EVfTX
- Lj+/INHHaUsDGJcDLJiiizdD3i2FfhE2RYIFPrCzGFlAhnCwMUpABOJ0mNkmBsqECB8ZVLBj74C
- pXWH5n3ecmja8alPchfejvCeLjkhxo6RYUu2y83Cr8e3ya9danf4g5aX+hyfwIkWMzezLrytuPZ
- jACMA
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 
-Sensylink CTF2301 is a system-level thermal management solution chip.
+Hello,
 
-The CTF2301 is an I2C/SMBus compatible device featuring:
-  - One local temperature sensor with +/-0.5 degree C accuracy and
-    0.0625 degree C resolution.
-  - One remote temperature sensor for external diode-connected
-    transistors, offering +/-1 degree C accuracy and 0.125 degree C
-    resolution (temperature range: -40 degree C to +125 degree C).
-  - An integrated PWM fan controller capable of operating in two modes:
-      1. Direct-DCY: Open-loop direct duty cycle control.
-      2. Auto-Temp: Closed-loop automatic fan speed control based on
-         measured temperature.
-  - A 1-channel fan speed monitor (TACH input) for RPM measurement.
+This series adds support for the DAPU Telecom DAP8211R(I) Gigabit
+Ethernet PHY, commonly used in enterprise and industrial networking
+applications. The PHY supports 10/100/1000 Mbps operation with RGMII
+interface and includes features such as IEEE 802.3az Energy Efficient
+Ethernet, IEEE 1588 SyncE.
 
-As Guenter pointed out on v1, the CTF2301 register map is a near match
-for the LM63/LM96163 family (local and remote temperature, tachometer and
-PWM fan control), so this version drops the standalone ctf2301 driver
-and instead adds CTF2301 as a new chip type in the existing lm63 driver.
-This reuses the shared temperature, limit, alarm and PWM handling instead
-of duplicating it.
+The driver implements extended register access via indirect addressing
+(registers 0x1E/0x1F) and provides comprehensive device tree support
+for RGMII delay configuration. The rx-internal-delay-ps and
+tx-internal-delay-ps properties allow precise tuning of clock delays
+in 150 ps steps from 0 to 2250 ps.
 
-The CTF2301-specific differences are handled on top of lm63: 12-bit local
-temperature input and high-limit values, nine conversion rates, 12
-fan-control lookup table entries, and optional 22.5 kHz high-resolution
-PWM. When no IRQ is described, the shared ALERT/TACH pin is configured as
-a tachometer input. The LM63 family can also register as a thermal cooling
-device when the device tree provides the #cooling-cells property.
+This PHY is used on the NDA platform with 1G Ethernet tile and has
+been tested on that hardware with successful link establishment and
+RGMII delay tuning.
 
-The required SpacemiT I2C controller clock series has been merged but is
-not yet included in an rc release:
-https://lore.kernel.org/all/20260508-k1-i2c-ilcr-v7-0-8c2dde5c3ed5@linux.spacemit.com/
+$ make dt_binding_check DT_SCHEMA_FILES=dptel,dap8211r.yaml
+  SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+  CHKDT   ./Documentation/devicetree/bindings
+  LINT    ./Documentation/devicetree/bindings
+  STYLE   ./Documentation/devicetree/bindings
+  DTEX    Documentation/devicetree/bindings/net/dptel,dap8211r.example.dts
+  DTC [C] Documentation/devicetree/bindings/net/dptel,dap8211r.example.dtb
+$ yamllint Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
+$ grep -i "dap8211r" Documentation/devicetree/bindings/processed-schema.json
+    "http://devicetree.org/schemas/net/dptel,dap8211r.yaml": {
+        "$filename": "/home/a-shimko/patchwork/linux/Documentation/devicetree/bindings/net/dptel,dap8211r.yaml",
+        "$id": "http://devicetree.org/schemas/net/dptel,dap8211r.yaml#",
+        "title": "DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY",
 
-Apply that series before testing this series on K3. Without it, the I2C
-controller cannot generate an accurate 400 kHz SCL clock and CTF2301
-accesses may fail.
+Working with xgmac.
 
-Tested on a SpacemiT K3 CoM260 by booting an initramfs and verifying the
-CTF2301 probe. Temperature, tachometer, PWM, and conversion-rate behavior
-were checked against direct I2C register accesses and the datasheet.
+Board side:
 
-Datasheet:
-https://www.sensylink.com/upload/1/net.sensylink.portal/1689557281035.pdf
+$ arping -I eth0 192.168.5.100
+ARPING 192.168.5.1 from 192.168.5.100 eth0
+Unicast reply from 192.168.5.1 [board.mac.addr]  8.543ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  3.295ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  4.301ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  4.096ms
+Unicast reply from 192.168.5.1 [board.mac.addr]  2.872ms
+...
 
-Register description:
-https://github.com/TroyMitchell911/ctf2301-datasheet
+Unfortunately, there is a dependence on the axibus speed here
+$ iperf3 -c 192.168.5.1
+Connecting to host 192.168.5.1, port 5201
+[  5] local 192.168.5.100 port 58936 connected to 192.168.5.1 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  7.88 MBytes  65.8 Mbits/sec    0    150 KBytes
+[  5]   1.00-2.00   sec  8.50 MBytes  71.4 Mbits/sec    0    165 KBytes
+[  5]   2.00-3.00   sec  8.25 MBytes  69.2 Mbits/sec    0    165 KBytes
+[  5]   3.00-4.01   sec  8.50 MBytes  71.1 Mbits/sec    0    165 KBytes
+[  5]   4.01-5.00   sec  8.38 MBytes  70.3 Mbits/sec    0    165 KBytes
+[  5]   5.00-6.00   sec  8.50 MBytes  71.5 Mbits/sec    0    165 KBytes
+[  5]   6.00-7.01   sec  8.62 MBytes  72.0 Mbits/sec    0    174 KBytes
+[  5]   7.01-8.00   sec  8.62 MBytes  72.8 Mbits/sec    0    174 KBytes
+[  5]   8.00-9.00   sec  8.62 MBytes  72.2 Mbits/sec    0    174 KBytes
+[  5]   9.00-10.04  sec  8.62 MBytes  69.9 Mbits/sec    0    174 KBytes
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-10.04  sec  84.6 MBytes  70.7 Mbits/sec    0 sender
+[  5]   0.00-10.12  sec  84.8 MBytes  70.3 Mbits/sec receiveriperf Done.
 
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
-Changes in v3:
-- Add the Sensylink website link to the vendor-prefix commit.
-- Preserve the optional interrupt from the trivial-devices binding.
-- Explain in the commit message of patch 3/6 why CTF2301 cannot use
-  national,lm63 as a fallback compatible.
-- Check both bytes of CTF2301 local temperature values before caching them.
-- Use the schema-valid 25 mA drive strength for the K3 I2C6 pins.
-- Link to v2: https://patch.msgid.link/20260721-ctl2301-v2-0-ef5fb342872a@linux.dev
+$ ethtool -t eth0
+...
+The test extra info:
+ 1. MAC Loopback                 0
+ 2. MAC Loopback (diff. queues)  0
+ 3. PHY Loopback                 0
+...
 
-Changes in v2:
-- Replace the standalone CTF2301 driver with a new lm63 chip type, as
-  suggested by Guenter, reusing the existing temperature, limit, alarm,
-  tachometer, PWM, and automatic fan-control paths.
-- Add the temperature thresholds, alarms, and automatic fan-control lookup
-  table support which were missing from the v1 driver.
-- Handle CTF2301-specific 12-bit local temperature values, nine conversion
-  rates, 12 lookup table entries, shared ALERT/TACH pin, and optional
-  22.5 kHz high-resolution PWM.
-- Propagate SMBus failures from lm63 initialization and write paths.
-- Add optional thermal cooling-device support for the LM63 family using
-  the existing manual PWM control path.
-- Move the National LM63-family compatibles from trivial-devices.yaml to a
-  dedicated binding which permits #cooling-cells.
-- Add CTF2301 to the LM63-family binding instead of keeping the standalone
-  schema from v1. Do not declare #cooling-cells on K3 CoM260 yet because
-  the board has no thermal consumer.
-- Fix the binding errors reported by Rob by using a plain compatible string
-  and wrapping the description.
-- Document CTF2301 support in the lm63 hwmon documentation and provide the
-  detailed register description used for review.
-- Add the K3 CoM260 I2C6 pinctrl state and CTF2301 device node for hardware
-  testing.
-- Link to v1: https://lore.kernel.org/r/20250916-ctl2301-v1-0-97e7c84f2c47@linux.dev
+ELP side:
+...
+17:29:11.974973 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:12.975199 ARP, Request who-has ELP tell 192.168.5.100, length 46
+17:29:12.975217 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:13.975022 ARP, Request who-has ELP tell 192.168.5.100, length 46
+17:29:13.975035 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:14.974837 ARP, Request who-has ELP tell 192.168.5.100, length 46
+17:29:14.974849 ARP, Reply ELP is-at elp.mac.addr(oui Unknown), length 28
+17:29:15.975026 ARP, Request who-has ELP tell 192.168.5.100, length 46
+...
 
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-To: Paul Walmsley <pjw@kernel.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>
-To: Albert Ou <aou@eecs.berkeley.edu>
-To: Alexandre Ghiti <alex@ghiti.fr>
-To: Yixun Lan <dlan@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
-Cc: spacemit@lists.linux.dev
-Cc: linux-doc@vger.kernel.org
+Accepted connection from 192.168.5.100, port 58932
+[  5] local 192.168.5.1 port 5201 connected to 192.168.5.100 port 58936
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-1.00   sec  7.12 MBytes  59.7 Mbits/sec
+[  5]   1.00-2.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   2.00-3.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   3.00-4.00   sec  8.38 MBytes  70.3 Mbits/sec
+[  5]   4.00-5.00   sec  8.50 MBytes  71.3 Mbits/sec
+[  5]   5.00-6.00   sec  8.38 MBytes  70.3 Mbits/sec
+[  5]   6.00-7.00   sec  8.62 MBytes  72.4 Mbits/sec
+[  5]   7.00-8.00   sec  8.62 MBytes  72.3 Mbits/sec
+[  5]   8.00-9.00   sec  8.62 MBytes  72.4 Mbits/sec
+[  5]   9.00-10.00  sec  8.62 MBytes  72.4 Mbits/sec
+[  5]  10.00-10.12  sec   896 KBytes  62.3 Mbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  5]   0.00-10.12  sec  84.8 MBytes  70.3 Mbits/sec receiver
 
----
-Troy Mitchell (6):
-      dt-bindings: vendor-prefixes: Add Sensylink
-      dt-bindings: hwmon: Move LM63 family to a dedicated binding
-      dt-bindings: hwmon: Add Sensylink CTF2301
-      hwmon: (lm63) Add Sensylink CTF2301 support
-      riscv: dts: spacemit: Add K3 I2C6 pinctrl state
-      riscv: dts: spacemit: Add CTF2301 on K3 CoM260
+DTS node example:
+&ethernet_1g_tile {
+  ...
+  phy-mode = "rgmii-rxid";
+  phy-handle = <&phy1>;
+  ...
 
- .../devicetree/bindings/hwmon/national,lm63.yaml   |  55 +++
- .../devicetree/bindings/trivial-devices.yaml       |   6 -
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- Documentation/hwmon/lm63.rst                       |  22 ++
- arch/riscv/boot/dts/spacemit/k3-com260.dtsi        |  19 +
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi       |  11 +
- drivers/hwmon/Kconfig                              |   8 +-
- drivers/hwmon/lm63.c                               | 414 +++++++++++++++++----
- 8 files changed, 453 insertions(+), 84 deletions(-)
----
-base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-change-id: 20250916-ctl2301-0416b073c280
+  mdio: mdio {
+    phy1: ethernet-phy@1 {
+      ...
+      compatible = "ethernet-phy-id0008.011b";
+      rx-internal-delay-ps = <1950>;
+      ...
+    };
+  };
+};
 
+Thank you!
+
+--
 Best regards,
---  
-Troy Mitchell <troy.mitchell@linux.dev>
+Artem Shimko
+
+ChangeLog:
+  v5 --> v6
+    - Rename vendor prefix from dapu to dptel
+    - Update DT binding filename to dptel,dap8211r.yaml
+    - Add clarifying comments for hardware reset defaults in driver
+    - Update rx-internal-delay-ps example in cover letter
+  v4 --> v5
+    - Add Guangdong Dapu to vendor-prefixes
+    - Remov unimplemented features from Kconfig help text
+    - Fix inconsistent handling of RGMII delay properties
+    - Add hardware-specified initial delay values for RX (0) and TX (1)
+  v3 --> v4
+    - Drop dapu,tx-inverted-clk (vendor-specific property removed)
+    - Fix driver behavior in relation to rgmii modes
+    - Apply software reset before RGMII register writes
+  v2 --> v3
+    - Use phy_get_internal_delay() for delay validation and selection
+    - Add poll timeout for reset using read_poll_timeout()
+  v1 --> v2
+    - Drop debugfs interface
+    - Simplify RGMII delay reading logic using of_property_read_u32()
+    - Fix missing newline at end of dapu,dap8211r.yaml (yamllint error)
+    - Simplify delay property description in DT binding
+    - Rename tx-inverted-clk to dapu,tx-inverted-clk (vendor prefix)
+    - Replace enum with multipleOf + maximum for delay validation
+    - Fix compatible string and tx-internal-delay-ps value in example
+    - Remove rounding logic, return -EINVAL for unsupported delay values
+    - Respect DT delay properties for all RGMII modes
+    - Add polling for self-clearing reset bit instead of fixed sleep
+    - Remove unused packet generator macros (DAP8211R_PKGC5 and related)
+
+
+Artem Shimko (3):
+  dt-bindings: vendor-prefixes: add Guangdong Dapu Telecom Co., Ltd.
+  dt-bindings: net: add DAPU Telecom DAP8211R(I) PHY binding
+  net: phy: add DAPU Telecom DAP8211R(I) Gigabit Ethernet PHY driver
+
+ .../bindings/net/dptel,dap8211r.yaml          |  62 +++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/net/phy/Kconfig                       |   9 +
+ drivers/net/phy/Makefile                      |   1 +
+ drivers/net/phy/dap8211r.c                    | 220 ++++++++++++++++++
+ 5 files changed, 294 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/dptel,dap8211r.yaml
+ create mode 100644 drivers/net/phy/dap8211r.c
+
+-- 
+2.43.0
 
