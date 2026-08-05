@@ -1,167 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E72946DFF4
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 12:59:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EE73DAAB4
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 13:01:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785934765; cv=none; b=sbJyxL3Lz5BZQBUvOEnekXKTFYYDyrI4g1LCAdgDN4aoBTwMT2e1AWvpF49Z82z7F9HKQDza1vc+JCleN86ZScHA5ud1sJffzYmmzqfsCs9O0G5bOYKc7gd52OHv1q4TYTYeJwQC7mOzCLpwM1J+0UDUkpDJPmrO9lvyMI4Bc68=
+	t=1785934867; cv=none; b=XS+5KmGGLL31Zdg51R8KNE2jHhamqSG145h7z3mHw/F5r8gpqZRFn/iP+eh8TUbrH7cEXu1mA/0RM7tTB9WFENOtQNHpN5WTj6aje79SSTbH0YotEs8nb1RK7CRBC2OFiLkFF8Vy564sx0f150Xdgz5JlA0N85vdUq9E5LTms4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785934765; c=relaxed/simple;
-	bh=MlPYHZAzGvOGzbQ5yGv0D0s5fS7aSZFRiS9LyZL1ri4=;
+	s=arc-20240116; t=1785934867; c=relaxed/simple;
+	bh=y0K9KcUkftJ6BZ/YqmFB849OpGfViZCU93FoRyOHO8k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cf0qZsXVXgX5ODhV9YmuZMQjwOE/vEzWU0uhsW88rKDx/oVTy3XW0aEF/j31p0WJTYm2n6+wDnmKUnoseIBD0TpF2MGQdRsBBDNzDp9CWfyLaU6gdG6fzeiva5musQEZOqpClNGJefkFadkLAxC53Pz6brsINVnKa4w09L5enUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RnUd96Dv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=j66d8JR3HN9fSH9MvKYG4YP/obzgc6JTU91eey5Rxg0ByVVOuGqRi/LDyqXA0D2FLKFolUm8Zf14M8pzUql9bgJw70QNw8JENO59xUyVE8qxcWtX7xEUjJHBnNFVBaGrId/bPEa9P8fqTbAFNF7DlEXC1yg5FyxBjYSfN+AY+pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLePcri2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RnUd96Dv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C10A41F000E9;
-	Wed,  5 Aug 2026 12:59:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLePcri2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1CFA1F000E9;
+	Wed,  5 Aug 2026 13:01:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785934764;
-	bh=n+Ot68UtktGU8tLyKtSRnGHB9wWeEI+k9bjOjjU4rE8=;
+	s=k20260515; t=1785934865;
+	bh=UjExM+ZHlNsLl9LIZxD0REZLBViaUAvBvQzjrPBSXa8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RnUd96Dv58XxrKkVDII6vQ/2wFWEz8gctgfFEex61dTHkyz0vqpqgquNaoavwkou4
-	 vCTw7yFj1r1TRPyvtfH8yExE7vW5ArDFUD8u8xE1KWJVVuLBjKvap369aRQYFHdQsc
-	 5NQ+TFIkW8vq2Ql4ESoJwigq77abvxX7S7kG5WX/wqV9XxIoZEqFrSlPdREZYk63iN
-	 zR/4DWkBzGTxBOQH66rV0blDW2ILx6eLZAmPHylxtueKLJDwlE5QEtzgcmyfaFzg2S
-	 w5KSiHn+zv0PQv5fQ6rXPxaFy+YrTMsMzQhJaufcsqujfZlg34aUNbHAK+hbRG/MFw
-	 GZrd8Jq3pTI+Q==
+	b=RLePcri24LwbOHRDsBFFG3PC1zbQ4Nz5Abj1zF/qrjcbfhdsWePeTOZKBdR/mU8Ka
+	 9rTF3RUpqrPRqXSa/0L2s2Hx6JGvCNuwpIX6tAr2WkQVdFnvJKBRNit0EPTdwPCzY8
+	 3MMozJo1xAdc5ni0xt7kNI8fly1bEk0uORaIHQAfXkM3+VjlQCz+KVkp1PlPz8Ho33
+	 Am5CZjio5UTc3PmTR2vX3sCa3vRtKSkYy0tQB3VUz6Ed1m85z8So4P0GjhlZiSRDXu
+	 E5PhJeQiJE65y2CVKpSAqUD6qiaK3YST+f5wYP0RXj/I99O9txOE5WJWcYi4UiLFjj
+	 aiqlExeslDnlg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 22/36] pinctrl: airoha: statically allocate gpio
- regs structure
+Subject: Re: [PATCH v10 19/36] pinctrl: airoha: fix IRQ mask/unmask code
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260805123408.3767648-23-mikhail.kshevetskiy@iopsys.eu>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260805123408.3767648-20-mikhail.kshevetskiy@iopsys.eu>
 References: <20260805123408.3767648-1-mikhail.kshevetskiy@iopsys.eu>
- <20260805123408.3767648-23-mikhail.kshevetskiy@iopsys.eu>
+ <20260805123408.3767648-20-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 12:59:23 +0000
-Message-Id: <20260805125923.C10A41F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 13:01:05 +0000
+Message-Id: <20260805130105.A1CFA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [Low] The statically allocated `airoha_gpiochip_regs` structure is not ma=
-rked as `const`.
-
 Pre-existing issues:
-- [High] Redundant clearing of the interrupt status bit in `airoha_irq_hand=
-ler` creates a race condition for edge-triggered interrupts, potentially ca=
-using them to be lost.
-- [High] Interrupt handler is requested before the gpiochip is fully initia=
-lized, creating a window for a Use-After-Free of the irqdomain during devic=
-e teardown.
+- [High] The driver incorrectly uses `handle_simple_irq` for all interrupts=
+, leading to interrupt storms for level-triggered interrupts. Additionally,=
+ the interrupt handler clears the interrupt status register after executing=
+ the specific IRQ handler, creating a race condition where edge-triggered i=
+nterrupts can be lost. Finally, the irq_chip lacks a proper `.irq_ack` call=
+back.
+- [High] The IRQ callbacks and chained handler invoke regmap operations on =
+a syscon regmap that uses a sleepable `spinlock_t`. On PREEMPT_RT, this cau=
+ses an `rt_mutex` to be acquired in hardirq context and while holding a `ra=
+w_spinlock_t`, leading to a Wait-Type Nesting violation and a 'sleeping in =
+atomic context' BUG.
 --
 
---- Patch [22]: [PATCH v10 22/36] pinctrl: airoha: statically allocate gpio=
- regs structure ---
-commit 9c7301e7610a12f2a7f33d437ec5e58ef02929f3
+--- Patch [19]: [PATCH v10 19/36] pinctrl: airoha: fix IRQ mask/unmask code=
+ ---
+commit 97f2ae6176e0b5295c8894fb1446d64bc5196ae8
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Subject: pinctrl: airoha: fix IRQ mask/unmask code
 
-pinctrl: airoha: statically allocate gpio regs structure
-
-This commit refactors the Airoha pinctrl driver to collect all GPIO register
-arrays into a single statically allocated structure. The driver is updated
-to reference this new structure via a pointer, simplifying the gpiochip set=
-up.
+This commit updates the IRQ mask and unmask functions to correctly call
+gpiochip_disable_irq() and gpiochip_enable_irq() when using
+IRQCHIP_IMMUTABLE. This ensures gpiolib sets the GPIOD_FLAG_IRQ_IS_ENABLED
+bit, allowing gpiod_direction_output() to realize when a pin is actively
+used as an interrupt.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
 roha/pinctrl-airoha.c
-> index 8e418f27fd8bc..e8d5252b17f30 100644
+> index f3078f9b14a76..4859fcebac7de 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-> @@ -339,6 +350,15 @@ static const u32 irq_edge_regs[] =3D {
->  	REG_GPIO_INT_EDGE3
->  };
+> @@ -2595,6 +2595,7 @@ static void airoha_irq_unmask(struct irq_data *data)
+>  	if (WARN_ON_ONCE(data->hwirq >=3D ARRAY_SIZE(gpiochip->irq_type)))
+>  		return;
 > =20
-> +static struct airoha_gpiochip_regs airoha_gpiochip_regs =3D {
+> +	gpiochip_enable_irq(gc, irqd_to_hwirq(data));
 
-[Severity: Low]
-Could this structure be marked as const? It appears to only serve as a
-read-only lookup table of pointer arrays, so marking it const would move
-it to the read-only .rodata section.
+[Severity: High]
+This is a pre-existing issue, but does airoha_irq_unmask() safely interact
+with the regmap?
 
-> +	.data =3D gpio_data_regs,
-> +	.dir =3D gpio_dir_regs,
-> +	.out =3D gpio_out_regs,
-> +	.status =3D irq_status_regs,
-> +	.level =3D irq_level_regs,
-> +	.edge =3D irq_edge_regs,
-> +};
-> +
+The core IRQ subsystem calls airoha_irq_unmask() while holding the raw
+irq_desc spinlock with interrupts disabled. However, this function invokes
+regmap operations (e.g., regmap_update_bits()) on a syscon regmap that uses
+a sleepable spinlock_t (which becomes an rt_mutex on PREEMPT_RT).
+
+Can this cause a 'sleeping in atomic context' BUG and Wait-Type Nesting
+violation on PREEMPT_RT kernels?
+
+>  	switch (gpiochip->irq_type[data->hwirq]) {
+>  	case IRQ_TYPE_LEVEL_LOW:
+>  		val =3D val << 1;
+
 [ ... ]
-> @@ -2698,7 +2708,7 @@ static irqreturn_t airoha_irq_handler(int irq, void=
- *data)
+
+> @@ -2629,6 +2630,7 @@ static void airoha_irq_mask(struct irq_data *data)
 > =20
->  			generic_handle_domain_irq(girq->domain, offset);
->  			regmap_write(pinctrl->regmap,
-> -				     pinctrl->gpiochip.status[i], BIT(irq));
+>  	regmap_clear_bits(pinctrl->regmap, gpiochip->level[index], mask);
+>  	regmap_clear_bits(pinctrl->regmap, gpiochip->edge[index], mask);
+> +	gpiochip_disable_irq(gc, irqd_to_hwirq(data));
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but does this regmap_write() to clear the sta=
-tus
-bit create a race condition for edge-triggered interrupts?
+This isn't a bug introduced by this patch, but does the IRQ configuration
+in airoha_pinctrl_add_gpiochip() handle level and edge interrupts correctly?
 
-The core IRQ subsystem already clears the hardware interrupt status bit bef=
-ore
-invoking the flow handler via airoha_irq_ack(). If a new edge-triggered
-interrupt arrives on the same pin while generic_handle_domain_irq() is
-executing, the hardware will latch the new event.
+The driver unconditionally uses handle_simple_irq for all interrupts:
 
-Would clearing the status bit a second time here wipe out the newly latched
-interrupt before it can be processed?
+drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_add_gpiochip() {
+    ...
+	girq->handler =3D handle_simple_irq;
+    ...
+}
 
-> +				     pinctrl->gpio_regs->status[i], BIT(irq));
->  		}
->  		handled |=3D !!status;
->  	}
-> @@ -2719,8 +2729,7 @@ static const struct irq_chip airoha_gpio_irq_chip =
-=3D {
->  static int airoha_pinctrl_add_gpiochip(struct airoha_pinctrl *pinctrl,
->  					struct platform_device *pdev)
->  {
-> -	struct airoha_pinctrl_gpiochip *chip =3D &pinctrl->gpiochip;
-> -	struct gpio_chip *gc =3D &chip->chip;
-> +	struct gpio_chip *gc =3D &pinctrl->gpiochip;
+Because handle_simple_irq fails to mask the interrupt while it is being
+processed, won't this lead to an infinite interrupt storm for
+level-triggered interrupts?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a use-after-free
-risk during device teardown based on the initialization order in this funct=
-ion?
+Additionally, does airoha_irq_handler() drop edge interrupts?
 
-Further down in airoha_pinctrl_add_gpiochip(), devm_request_irq() is called
-before devm_gpiochip_add_data():
+drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_handler() {
+    ...
+		for_each_set_bit(irq, &status, AIROHA_PIN_BANK_SIZE) {
+			u32 offset =3D irq + i * AIROHA_PIN_BANK_SIZE;
 
-	err =3D devm_request_irq(dev, irq, airoha_irq_handler, IRQF_SHARED,
-				dev_name(dev), pinctrl);
-	if (err) {
-		dev_err(dev, "error requesting irq %d: %d\n", irq, err);
-		return err;
-	}
+			generic_handle_irq(irq_find_mapping(girq->domain,
+							    offset));
+			regmap_write(pinctrl->regmap,
+				     pinctrl->gpiochip.status[i], BIT(irq));
+		}
+    ...
+}
 
-	return devm_gpiochip_add_data(dev, gc, pinctrl);
+The interrupt status register is cleared after generic_handle_irq() returns.
+If a second edge arrives during generic_handle_irq(), won't this clear
+operation drop it permanently?
 
-Since devres cleans up in reverse order, devm_gpiochip_add_data() will be
-undone first, destroying the irq domain while the shared interrupt handler
-remains active. If a shared interrupt fires during this window,
-airoha_irq_handler() will pass a freed girq->domain to
-generic_handle_domain_irq().
-
-Should devm_request_irq() be called after devm_gpiochip_add_data() to ensure
-safe teardown?
-
->  	struct gpio_irq_chip *girq =3D &gc->irq;
->  	struct device *dev =3D &pdev->dev;
->  	int irq, err;
+Also, airoha_irq_handler() acquires the same sleepable syscon regmap lock
+in hardirq context when calling regmap_read() and regmap_write(). Will this
+also cause a 'sleeping in atomic context' BUG on PREEMPT_RT?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805123408.3767=
-648-1-mikhail.kshevetskiy@iopsys.eu?part=3D22
+648-1-mikhail.kshevetskiy@iopsys.eu?part=3D19
