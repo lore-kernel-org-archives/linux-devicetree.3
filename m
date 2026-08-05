@@ -1,196 +1,63 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5C01469855;
-	Wed,  5 Aug 2026 12:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC552463B72;
+	Wed,  5 Aug 2026 12:05:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785931389; cv=none; b=q8MmWlM0GCx9RsOSfBcVbd388kiRKGN2NB3z6is15pY0bg3AJ+R1GZDai0j/x/hXH7V/gJ12kLbMFYiJZv5+Vku0xn9XztLcQosGB+z94rFx8j/3+9lfgWZ9sPj2rGSLYf03g5ZBTb24Okmx0lUXEqca71YzjQdoSpXoVct/qrI=
+	t=1785931544; cv=none; b=CuLaAZbvyAkMU0Y13NujgIZ0tS53HWhHxzHibDZ7JtOtCLKBAap2De02EFBzkMe2/XPMC2X8cGE6A2hRyRfVAdHmPnjS6yWXsCoqmTeqz6ADLS1VVJe0R8Qobsai74Fff9EWVWNxk52A8C+EU/mnJTMOdEYpOBm1++gr01theKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785931389; c=relaxed/simple;
-	bh=OdYRaC/qpe1yKVok5AVHaZjA8ETlrp8Vz8PPwgBjsYs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A2sVIvOzy5/M8FKsU/cRi0B44bkp5GnnyLpj5CUL0s9ypVB5itP6ruQHWsnznTD6VliNaHaMGWluyA9AjRR8dr8AKNRefIiC7QPbfFHYOVaTbBoRsGuWs9U2st+zQSFzUGQuGLcQKmRMUjXClEsnTXuR0FgM6xbTdBZF56YEHC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=MqZrTq0s; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aZEVagpj; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	s=arc-20240116; t=1785931544; c=relaxed/simple;
+	bh=6Q6y9LwDG2aUAjLzPGo2TtWgBTC4OyrSWfWdRYVKaY8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WscU12Crsc9sphUKQ8uaTNCc76oVUzMtggLdcfxTli7YgF2BGwJcNUOu4Fh63oLjMZNE5RR6AZs3a2yaE3typYmAFN1To/cgdVWloKcjx3yZvOrklF41F13bF5PajLTGcbW3ujkEv7gOdhtW+Rl2GV7yZC/VVFe9kZVvFMast+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hoNGHxnk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="MqZrTq0s";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aZEVagpj"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 98A637A0095;
-	Wed,  5 Aug 2026 08:03:05 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Wed, 05 Aug 2026 08:03:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1785931385; x=1786017785; bh=PPhr6H8ZdU
-	/MHCnKebIax2RGkJS686HYO8sySsT9xiQ=; b=MqZrTq0scsFN8DnQLEpYRQG+6F
-	YC0pszK0Gwm2qoGbQ8+NQ3kqvudznPePPtlKJm7JxqOwGq/76rMJ0yPW8XvdwE8p
-	aoRuNA9z2HcKG0ceY2R8ysIg2RUZ2DaBWL84MjuZxIMe0ujfti3KOH52MJ+5JWAv
-	KMuIaj3FWYBk9T/AtOmiZ6bDMPpRlVNlSKN4BV6JGvb2FayXW0B1h+dOj5LPw+aE
-	4+vuIW1KP5bJj2Nrj8DbN0CTf9tKKErn/ZHOrg9AXjS03j/dicSSApFvZ7/6H9mT
-	XZVnUbgSry8n00oY+iYqRARe9PYBfq6sdk0nDtO066I0famg1qmUe9DKhVqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1785931385; x=1786017785; bh=PPhr6H8ZdU/MHCnKebIax2RGkJS686HYO8s
-	ySsT9xiQ=; b=aZEVagpjVhc+tHNl1yfUZF6OuQD8iSgZl+7e7iipFLXf76Ycb4Q
-	mIUyw9Lg8/G/JijUC7FGogHRiYTt0kWrrlMM1g+UarMHMVQrbOunvpR8nDJqU4eZ
-	YfqZcPUK0+ZSxwltMtaz+O1jP55z5tGYsYJHbaSCYltkhFBIHk/R1saAzP1qURyK
-	G/zDxe0IMLL6kXa7HKGG4vwnMmUJh5VxZJ/0cS9hk4GiBAgCiy+cu3GMg+7lcMI+
-	oWZbpBWCjPIs0+sJNtCtADxoHbhjLUHkENBTQAcD+2036/CzVjWqcyYHSa05uJ/r
-	Myh6abT0pQi3MJ4CaHVtcJTtWFymOKbNzow==
-X-ME-Sender: <xms:eSZzam5lQZvSGt8SxXkTmdCN60uEv2I2IHKrE0iU8PGE6nVOp4ZnFA>
-    <xme:eSZzamSCyxOIcLN1XyaaPwCnkQRcvSx5RuV0nzcqEBhTUYOtOu9YCLKWLEHBYYr95
-    NBeGt9e0FCBPV7jDyWrzueCvP2WFkXJs9T7MKKOuONS47IHQAxxsdKo>
-X-ME-Received: <xmr:eSZzaht-7K3TnGIOZOG1whN4GgsuzpsDfvj-OsTPwjAq36kJX5NDHY2kjIqgLE-zvQsDQTgu5yZo8e0Lty9wBdZx5RK7CijOJqE>
-X-ME-Proxy-Cause: dmFkZTFzQAZjvT8uGrnf9aXjsofQwQIv8kp/LpTrCaaU0lhPsDKs8dpieNzT4ps0wh7nXM
-    wocmT9MaEq6MexFe/RB/X13u6I4JVUkMIkyHr3csyFicrqXOpAAb+EGB3d/Qman5ZYDe/T
-    HNld/CQdkSUD6deXbptt7PpVbLMMXJ9hGWM0dTBlZStJoRgNW7Umye10tBfQmCsuvjHVWB
-    Vf9nkXksiGk/Xr58qPEvZrErei1Jr8DXYO9dHgt1MA0/p6vphv35DYiv0+bLjq8TwjiWbN
-    gFBeJoVXf3NAHdWnNjnQu+hmcLCUi3YOJgy+AIwzWngLPT8c7BxQ3ZPNINF/H9fsbsouY7
-    60xYdPQKytEVw5iu8HpVcIP7v3gGEeFyqk7dTGHkpo6Rd7uHyvUI33aYFvakVEqoyVXkkJ
-    9ZUTBOmHMlS5rutovCtYzKf01n4suW+Gk8+eaIc5AwxGctkmK7J64lMP0U71nalePrhrvJ
-    rW7/7NdsoH1wFD1Dvb0j6mxV4y93ezZpbjZuNJADev5MzzbkKzX1ApGLJV2qkyH1jw3hfm
-    TRgu+/cmXvOlYurVY4L5921fdzt5tVZCfrLTT/87LMP8cLuT4Hq0ruxbMxFkXWiqGIalVg
-    3xqqJ5m6R7Eip3+gpyxNw0JP8CyLArKknlbCwvKw6qFiUEo89e9nJhNXCAxg
-X-ME-Proxy: <xmx:eSZzag-TT5dDi3lguvz4aVVayAQKnFCuVNVAkwsc_r00TJ-2MxCm1Q>
-    <xmx:eSZzaiwivxdiKt2zmZl3LGeFmCIX6F-Ap41AtMJdNsosHA6q5og_9w>
-    <xmx:eSZzaq9gT4s1M4VLtzs_yNF3CUTy2sFUKgA4LmotvvyS4W3gdl8sVQ>
-    <xmx:eSZzaoNH6_6VQTvwo9qV37VbnbA9mEVu19yfluHAv48m0t1LrjxHxg>
-    <xmx:eSZzare96bhtBVSer_3qQPMTyIpm0zOOJzRKgNT5AvGnpFf3v1rcyPAJ>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 08:03:04 -0400 (EDT)
-Date: Wed, 5 Aug 2026 14:03:02 +0200
-From: Janne Grunau <j@jannau.net>
-To: Sasha Finkelstein <k@chaosmail.tech>
-Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, Alba Mendez <me@alba.sh>
-Subject: Re: [PATCH v4 2/6] spmi: apple: Validate FIFO state
-Message-ID: <20260805120302.GB832571@robin.jannau.net>
-References: <20260805-t603x-spmi-v4-0-c15a12d9a7d1@chaosmail.tech>
- <20260805-t603x-spmi-v4-2-c15a12d9a7d1@chaosmail.tech>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hoNGHxnk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CAB1F000E9;
+	Wed,  5 Aug 2026 12:05:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785931543;
+	bh=6Q6y9LwDG2aUAjLzPGo2TtWgBTC4OyrSWfWdRYVKaY8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hoNGHxnkFLoL+EQx67vYhJja9dGs11d8F34pxFMHP1cSTDum8X0aw0zYbnr5f8Jpi
+	 Uy5YYWELT/OYHI3FKqd00/2y+iN02xQOqDPoA0S284+b3uYWozno66CCdI7DUgvWNy
+	 GWQ3WkysfXOPUL7lu3jFLFBtjZgLrIcwCIKHrAh1HKYz4eSotKy4m13nsm5LDPlJfl
+	 65PPEPrcT7d7LCJ+QB1Me91T+OGzBpsDZXpJOMfedsikv3ffEilJ9tTSByd6EZ21kK
+	 PoOkd9B19bT1C1tdWw3OAcC/aeTs/pZlDUgsSTT+w5kM6W3xWHPS3FAQKAkC0KXInl
+	 bJz+52vmMn2YA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 4/5] arm64: tegra: Reorder reg and reg-names to match
+ bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260805-tegra264-pcie-v9-4-fa2ed7350ae1@nvidia.com>
+References: <20260805-tegra264-pcie-v9-0-fa2ed7350ae1@nvidia.com>
+ <20260805-tegra264-pcie-v9-4-fa2ed7350ae1@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 12:05:42 +0000
+Message-Id: <20260805120543.29CAB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260805-t603x-spmi-v4-2-c15a12d9a7d1@chaosmail.tech>
 
-On Wed, Aug 05, 2026 at 12:11:12PM +0200, Sasha Finkelstein wrote:
-> From: Alba Mendez <me@alba.sh>
-> 
-> Check for data before reading the body of a reply, and check for
-> end of data afterwards.
-> 
-> Signed-off-by: Alba Mendez <me@alba.sh>
-> Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
-> ---
->  drivers/spmi/spmi-apple-controller.c | 29 +++++++++++++++++++++++++++++
->  1 file changed, 29 insertions(+)
-> 
-> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-> index 376cf682c43e..4d5356bf9bbf 100644
-> --- a/drivers/spmi/spmi-apple-controller.c
-> +++ b/drivers/spmi/spmi-apple-controller.c
-> @@ -21,7 +21,9 @@
->  #define SPMI_STATUS_REG 0
->  #define SPMI_CMD_REG 0x4
->  #define SPMI_RSP_REG 0x8
-> +#define SPMI_ACT_REG 0xa4
->  
-> +#define SPMI_ACT_FIFO_FLUSH BIT(0)
->  #define SPMI_RX_FIFO_EMPTY BIT(24)
->  
->  #define REG_POLL_INTERVAL_US 10000
-> @@ -29,6 +31,7 @@
->  
->  struct apple_spmi {
->  	void __iomem *regs;
-> +	bool prev_fail;
->  };
->  
->  #define poll_reg(spmi, reg, val, cond) \
-> @@ -49,6 +52,7 @@ static int apple_spmi_wait_rx_not_empty(struct spmi_controller *ctrl)
->  
->  	ret = poll_reg(spmi, SPMI_STATUS_REG, status, !(status & SPMI_RX_FIFO_EMPTY));
->  	if (ret) {
-> +		spmi->prev_fail = true;
->  		dev_err(&ctrl->dev,
->  			"failed to wait for RX FIFO not empty\n");
->  		return ret;
-> @@ -67,6 +71,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  	u8 i;
->  	int ret;
->  
-> +	if (spmi->prev_fail) {
-> +		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_RSP_REG);
-> +		spmi->prev_fail = false;
-> +	}
-> +
->  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
->  
->  	ret = apple_spmi_wait_rx_not_empty(ctrl);
-> @@ -78,6 +87,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  
->  	/* Read SPMI data reply */
->  	while (len_read < len) {
-> +		if (readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY) {
-> +			dev_err_ratelimited(&ctrl->dev,
-> +					    "FIFO lacks reply data, controller stuck?\n");
-> +			return -EIO;
-> +		}
->  		rsp = readl(spmi->regs + SPMI_RSP_REG);
->  		i = 0;
->  		while ((len_read < len) && (i < 4)) {
-> @@ -86,6 +100,11 @@ static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  		}
->  	}
->  
-> +	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
-> +		dev_warn(&ctrl->dev, "FIFO has extra data\n");
-> +		spmi->prev_fail = true;
-> +	}
-> +
->  	return 0;
->  }
->  
-> @@ -97,6 +116,11 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  	size_t i = 0, j;
->  	int ret;
->  
-> +	if (spmi->prev_fail) {
-> +		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_RSP_REG);
-> +		spmi->prev_fail = false;
-> +	}
-> +
->  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
->  
->  	while (i < len) {
-> @@ -115,6 +139,11 @@ static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
->  	/* Discard */
->  	readl(spmi->regs + SPMI_RSP_REG);
->  
-> +	if (!(readl(spmi->regs + SPMI_STATUS_REG) & SPMI_RX_FIFO_EMPTY)) {
-> +		dev_warn(&ctrl->dev, "FIFO has extra data\n");
-> +		spmi->prev_fail = true;
-> +	}
-> +
->  	return 0;
->  }
+> From: Thierry Reding <treding@nvidia.com>
+>=20
+> The ECAM region cannot be the first entry in the "reg" property, because
+> in that case the unit-address wouldn't match the first entry. The order
+> of the nodes can also not be changed to match the ECAM entry because the
+> ECAM region is global and outside of any of the control busses.
+>=20
+> Acked-by: Manivannan Sadhasivam <mani@kernel.org>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 
-Reviewed-by: Janne Grunau <j@jannau.net>
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Janne
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-tegra264-p=
+cie-v9-0-fa2ed7350ae1@nvidia.com?part=3D4
+
