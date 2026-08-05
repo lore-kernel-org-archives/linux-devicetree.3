@@ -1,101 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com [203.205.221.240])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3925146AF08
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 16:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4EC38D3EE;
+	Wed,  5 Aug 2026 17:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785949198; cv=none; b=ciOMeeYLp54/IHSBKQg/OkDuCN9NMtYwa/apjlSTec8bh8GV9WvJPQ7FtT3P720SnEvmgV+ID16465nOnjPOYEZ1iHyYszW+jJYxcjUG17taixMlH8wgSOwXoN+cHrGE9oNc2g74fc74ROnCFSxH4zGAxiQADxSVLzSNWaTOVKI=
+	t=1785949269; cv=none; b=VQebdC4rBhT8ny55BL69pdwWhZJepnmDya+PrNmYEaRTPwvaLbgaey444UKmou8L5Sgk8Cxg5a1fJSsrWOpHWaLkkAQNUMlNp4EX315ThNx1hK13HfP58kudtOK89OrP4ol0a8RmKWdtlSz5JTHCyhQYY0wy6DgiBvSmbaqnLXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785949198; c=relaxed/simple;
-	bh=/ONCVpNpGnmcdUtwuQzySOzv+qZ/4Xk4PYGNPzLBvjw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PzQusm3r818d8zZ5z+YwOMNIelkFO1yI+0SKFJ/P7Slt6893DxPTPbAR6OA+lLXEKQVicpivNeva95s9Mve5EF7BFx+Hukuml/3jLO7kvtH5Z+5rsypGx6sFJxyfUyFjoxxprhIsiDvB6Kw+Cnzb97LL/BuD3WXYI7r47uP+vIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPFNrwNX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785949269; c=relaxed/simple;
+	bh=wYKOBudt0uhQ3hJOEGm1KHcZCUuKNg4bZ1AwVf8XBWE=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=H1GLTlozoIxiJfCWx5JIJ/ETxSi95CoEFA7E7KOic2mo4rUqCkVhxgB1ATh2uIMjboVO8UgbmRoEVLYCnUWZ4BiQPcxKFBfCy0E66Qkklo9SXzE/jFErJ7LenGyJBwEd6gmtwESMo3oFaguQ3PHYiwHfGflnR2RI0I61Kz4s3Cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ugsHNFWP; arc=none smtp.client-ip=203.205.221.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPFNrwNX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B2E31F000E9;
-	Wed,  5 Aug 2026 16:59:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785949196;
-	bh=DGmInPbDPLX7Ekvw/2VNvRzdyve4Uxy+HI6ale8QgNU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PPFNrwNXFAGyIu18jUOqfvqbiOvsa/K3/yy77OC06e1K+ft3YJWGvkYso8nkMkIYX
-	 aqHANseTHQ0i3MbnuJbHt3VATQp2YjBaBlyh9cHRmR0ugSKvifN7Jv/QN4KeZQhjOc
-	 QgDuWOEFP6YO7aBzEXbXjRGwr6wb2c6sXDu5OnXTpprYcLO4m+uxI1ZOYfNP4sUiRt
-	 jRcWoje4F76VlrYS1fELeL62jzGff5s1AvXAAeOIr8vGKPyOQ5aJAQNSACWTWjLXFQ
-	 8dYbj3g7KJ0QchtOnOBbFXUc69TP9YEgr2Wl0VrtqudvMoYGSYeIjWYwCbi13c7dMx
-	 PlUWwQ7/faNJg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 4/4] crypto: spacc - Add SPAcc Kconfig and Makefile
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260805164815.249328-5-pavitrakumarm@vayavyalabs.com>
-References: <20260805164815.249328-1-pavitrakumarm@vayavyalabs.com>
- <20260805164815.249328-5-pavitrakumarm@vayavyalabs.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 16:59:55 +0000
-Message-Id: <20260805165956.5B2E31F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ugsHNFWP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1785949258; bh=wYKOBudt0uhQ3hJOEGm1KHcZCUuKNg4bZ1AwVf8XBWE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ugsHNFWPAIscm8a3y/n2BQkKjk8USJ2RMdLkl8G6GcMDaCj6SpWs22yjwq0UfSc68
+	 MAdiX44qP6KUwEOHGV/7+1s7AEWAXrBoV+W0XUVV/mIZa6BA9lRAqmsZyEOSU1DiBg
+	 DZ1f1/Aim536xan7vM3/fw4zrOXoeDiyktfPs1RY=
+Received: from AERO17.taila7786d.ts.net ([112.43.117.189])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 37ACA63; Thu, 06 Aug 2026 01:00:55 +0800
+X-QQ-mid: xmsmtpt1785949255t5zhr05ms
+Message-ID: <tencent_CF663AE8A4E2ACE4EB5E5E40198C8E893305@qq.com>
+X-QQ-XMAILINFO: MhK4DKsBP06idkYQZ1KmLE8p3prVyjyv0JplOFvX2T6BtmXXyI4Q7StkqzY0DS
+	 I2ExgAdxdm5CARZQQHh2DI/85FxfxOtkA2z6lh7L6iyKte5O16OFWwUjDh/UsizimVmdaSGNsKEk
+	 u700aQJ4Sx4nuTcUZlJflX2qxKFgXwYxhxxhWphXsHL2h9ZKdf16q5tkF7NV7LeXob8MIqxVEct8
+	 fju6lWUhkXaMIlZ+aT+4ooOE74+v7CMe5v5oTc8TFWOYCh3S1S/Nd4zU5pEw3yCYICqlZkcmPvjr
+	 9ZTE6ZmwEUKTk1ckvJ8QJGlPOael3dBS2ATy4JZwzKhtxXmsmLSwyA/pQW2wav12zKuTL3wNJ9vN
+	 l2NCAnttTROnusPa4smvyBv4sZWLPBRBvhBwvTpVzEzZqO+6BQtK5hF7mzz0PIVYSdjBeVJaWJ88
+	 rCs9GLLM00ukW4EUi2Y7+9Y4SsRjGAfwwwje0hUXbf1b9pGye27sjMzKY99CQRGfk3nSy4AGtGTb
+	 f7nO3xU32mmVjIKdqhy6zyK42jZo9oXaOVnH3QbNQcfBZwvMVbwTW1FMwKvDmIuXppfeFHGDHBDe
+	 Hw4RY85VKFsWiGnExSFvh+qLY3On86zpjMSc4ZhIbQTbVnRvgwsi/Ka/tWkOjxpThOSvj4zfYEn1
+	 S3zvhAYCeZvCKVV6c4WyH2Kb9mw7Ryllv0KJreIRo3xTWU1qD08v7vK8sBq8nCXAUS++4ymS1PWQ
+	 3GsBOPk4PW31zqwLHwBE/ZET0FtVyXMsnLgFC2Ego5fjtSRarjsPrpprXaT+gPf5IzUyzkvfjlPe
+	 QHJ5Vhlq1TtJ4BAVeSklvM+7vGrJMaugjxdlq17PXAKs60SesKArbgr/7k5h8hemBFjVkeQ4FurV
+	 hxPreVGkHm4ZeXl2VcKtK8djnStZhC3TOJ5Y/lG7cYbrICagfWvc+CwL5wY4pvF1eZWA7suj7TNk
+	 8yXJQVfm3ue0AHChwS7dknnTYdcPUbL22H9rxPOLF09vFHj/cmGVZk5DixqLoVvOYq/NTu55QbpT
+	 OWfB4Q3rdBlgPtri02II4NtsvEJbIqDCYPNbroZqz2CQhimtDDXwmkxceeZGk=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Pufan Jin <2254650260@qq.com>
+To: Jimmy Hon <honyuenkwun@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: Enable the NPU on LubanCat 4
+Date: Thu,  6 Aug 2026 01:00:54 +0800
+X-OQ-MSGID: <20260805170054.143528-1-2254650260@qq.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CALWfF7Ly=o85=ZQ3Laewe5VwW6agHLvqqSPKFDzcf75UWYnP4g@mail.gmail.com>
+References: <CALWfF7Ly=o85=ZQ3Laewe5VwW6agHLvqqSPKFDzcf75UWYnP4g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing `select CRYPTO_SHA3` dependency for SPAcc ahash support.
---
+On Wed, Aug 5, 2026 at 11:48 AM Jimmy Hon <honyuenkwun@gmail.com> wrote:
+> As you mentioned here, the power domain will control the regulator. So
+> please remove the regulator-always-on from the regulator.
 
---- Patch [4]: [PATCH v20 4/4] crypto: spacc - Add SPAcc Kconfig and Makefi=
-le ---
-commit 4e5d1fffdbede78b50849c59ea51d64c31455d5c
-Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+You are right, thanks. always_on makes _regulator_disable() skip its
+last-user branch, so the regulator_disable() that pd_npu issues never
+reaches the hardware and the rail stays up regardless.
 
-crypto: spacc - Add SPAcc Kconfig and Makefile
+Dropped in v2 and retested: the three cores still probe and
+regulator_summary shows vdd_npu_s0 back at a use count of zero while the
+NPU is idle, so nothing pins the rail any more.
 
-This commit introduces the Kconfig and Makefile for the new dwc_spacc
-Security Protocol Accelerator driver. It wires up the build system entries
-and configuration options for various SPAcc features.
+Same change commit de5b39d16318 ("arm64: dts: rockchip: Remove
+workaround that prevented Turing RK1 GPU power regulator control") made
+for vdd_gpu_s0. I did not add a Fixes: tag, since pd_npu had no
+domain-supply before this patch and so there was nothing for always_on
+to block.
 
-> diff --git a/drivers/crypto/dwc-spacc/Kconfig b/drivers/crypto/dwc-spacc/=
-Kconfig
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/crypto/dwc-spacc/Kconfig
-> @@ -0,0 +1,64 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config CRYPTO_DEV_SPACC
-> +	tristate "Support for dwc_spacc Security Protocol Accelerator"
-> +	depends on HAS_DMA
-> +	depends on HAS_IOMEM
-> +	select CRYPTO_ENGINE
-> +	select CRYPTO_HASH if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_SHA1 if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_MD5 if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_SHA256 if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_SHA512 if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_HMAC if CRYPTO_DEV_SPACC_HASH
+Pufan
 
-[Severity: Medium]
-Is a select for CRYPTO_SHA3 missing here?
-
-The SPAcc driver implements hardware acceleration for SHA-3 algorithms and
-requires the software SHA-3 algorithms as fallbacks. If CONFIG_CRYPTO_SHA3
-is not enabled, the driver's probe sequence will fail to find the fallback
-and silently skip registering the SHA-3 hardware acceleration algorithms.
-
-> +	select CRYPTO_CMAC if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_XCBC if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_AES if CRYPTO_DEV_SPACC_HASH
-> +	select CRYPTO_SM4_GENERIC if CRYPTO_DEV_SPACC_HASH
-> +	default n
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805164815.2493=
-28-1-pavitrakumarm@vayavyalabs.com?part=3D4
