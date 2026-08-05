@@ -1,307 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB352418A58;
-	Wed,  5 Aug 2026 11:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0C742B731
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 11:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785928123; cv=none; b=PDrD/FURRUTNqs3Co/pr+g16QRt9IXXxU1qw/fuS9orX1rVYWFQPXkuCgEYMT9Gg4TPOoMo2N64H1rL+sYrRVyz6LFePhDjCLBwmgfEbh2lOyFwd4MHdC8XBf4tjPoGbU/qkfjupBNpzEGST4OPBIrH43gHw/KFuOLq53cZ3Z4s=
+	t=1785929255; cv=none; b=LdIUMxBaJpMFRZdXdnSwB+u4G+1vEinhAGR2tKEsTkfbmFamA3jbZM+/uNGBWNWPmGA7K3K/UYkMekcfpdmpbM7xPw3YB+tqSF9AUtZym3j8rD/FXGaOcYNnqwLVxKkt9RTaJ4boHcD/RTom9oNlAHJFth7JH7zXIEiwtQmm1MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785928123; c=relaxed/simple;
-	bh=ghdmEV1nQFz2UkbFOfmAQ52k0blxMMSQKIBtxvDeZWU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fjGlgIyPn1VM/Hk/4QmuzyPGnuxUxqtc/4SypnbKkNjjkEgmcP2GVumwYdIq8OA5BU5To1mrHn16diQwwj4gvSKY6ksNZ/l0ML9V7aBdpLM9UdGg4ZrJ4DIVlwT2O8aj3eOPCuVnEFQ5vS77pwFzyGpheQkRDdGoyyV9BvNLB7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3ahLAl2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785929255; c=relaxed/simple;
+	bh=T+99mWPksof2VSF3gzUyZ6wZ7TeXqjB/x+jzl1QEcYA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ZL3hK3QIuMgh7TcNQF2klSkfkiRcZpFebOEuUCX9KpRTdz+RMYyd4MbxNqxpKTlaK/5F0t8gBSWTHv52dxrCCQi5S1BU6QBm8nD5SxPVSE7C+evdBMoFSVrLBLZl5GRpuN2d4LDsgg5DyO4v24LBX/Qrnxw193L5rNUF0KnKzI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YuBszU+Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DyefGaAy; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3ahLAl2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C78A1F000E9;
-	Wed,  5 Aug 2026 11:08:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785928121;
-	bh=JcbUNDZL3+LdfwEtASY4A5d0zJp3Sh4Ls1ARLjrASMQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=A3ahLAl2sGVZeb1JxyfFewkgfWRSX26qcnBAG9Kt9QZQOQWOCsg3LmKUhiYf26uzq
-	 rC28SW23pyMnjbcxgcb+0RQXFcgVoow5Su5m3RYhy0gsrBMEEXEe6zAd+lraYhU4Mj
-	 +1DEFNSdcX6wdBjL1wu+xYXDzXqu7nYPnLPQCF3olkE8gv/ZP4eMzPmYHz4lY8K7fb
-	 OUQQxn3yII3LX39MSuXiaK7Ey9vBaJo8QXEsvr7zXjNE3vBHmDUpUlVjTgMHsxcL4c
-	 AGaszB6tc/JyrdCX/Ehbog46hzZK9z5cG2iTpvN3mq1LI7n6JAXDnv+D9OdLAR+Cmh
-	 e1J32VOenLcsg==
-Message-ID: <dd38875b-1df5-42d2-acc2-98fbe86ce3fa@kernel.org>
-Date: Wed, 5 Aug 2026 13:08:35 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YuBszU+Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DyefGaAy"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6758dDZW2128941
+	for <devicetree@vger.kernel.org>; Wed, 5 Aug 2026 11:27:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=UF1gKpY5yyAe5I/iG7Uzh3
+	Si/u9kz5pXI2mpXVTlwrI=; b=YuBszU+Q2GGkLleuuVYsLWqt7uiRs0nh1indmW
+	6HN6WUKF0+d4vHJiaSHKUJzz430kAfHQprsztRrqbGZlOIKjNRmBQbp/0C3wUa9x
+	bSPQWzL7WrodC8G00U6MOTr5vgPLmX6jYJzB2Wjb6QfCGq6y88qSRieIQwMyQv0F
+	R40PRo+oeSMcMO3AtCLORMudrXa+z+5ITRQ9OHJ6ds8DUC24kWOS574Hrws5eO9P
+	l8tNPSBVLTisQz8flLyVyW7h5Ti9uuJsJmfoTfMz4XZ+YgzCg+CN2A4+J6oUHGmM
+	2lddPzSbDPbPfzxi8/9nluflKVvG8yJY1VTO72Fi0WMtseYQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv1qg8qfh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 11:27:32 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84eee2147ffso1192181b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 04:27:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785929252; x=1786534052; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UF1gKpY5yyAe5I/iG7Uzh3Si/u9kz5pXI2mpXVTlwrI=;
+        b=DyefGaAyVAKDM4So7AXCSiX+mJPfDdCAB+pEh7X86ykKKmL+fwzFWBZAd0NchfjfaY
+         R/0eZUMdmce0fKcASXeV4M2e59nC2QGwmGtrJE+7mRtOYl5GQUnsVl0BopIk/l3+Qn+N
+         1miJ63rijWfuuLYdI/0dhoFlh5+DHAW/S6qUZOABC5RKZb2r7zVV+LBsas9I+sF0YX91
+         iSnWE4L4ayecv/GVESvnoByX+Zvknarf4T2d2ZdqPmYf+lJ7L+8hznLPuOXK0ECkXwf0
+         Gpr4YBszKx2gzSJw/0/xpK7boTWpkB6+7uj1MyEc8obdC+QbFECCrWTCV3KoK7ZcQLI3
+         AQGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785929252; x=1786534052;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=UF1gKpY5yyAe5I/iG7Uzh3Si/u9kz5pXI2mpXVTlwrI=;
+        b=Tic1iMnq6OxDGTcwpEfDWtUy+FZUNhYYIVBERginrcsd5QD1CXuHjPdvlT10FzesQ/
+         fJm8pXlYajdUntYKkRhO8lkG976lZoXhHzQplp/d0yXpbkcmSpe2t8v4SuD+lBzFap0H
+         HiRmKo1tFL4eZU4MmGTdxPNUCgxci7sPjlncBycoVuwvDfzpSB21xS54Mkjpqq0kJIGx
+         YTHN1NT4fEJEM03XcEsgrSTKYXbPe8SiGC0bx8PPyScjSJVuEk5JzxVRGEHlK0ubCnWq
+         Hns+7GiBS/BS8IM+a5fahG4Tn5AgFMv/hqvOGBFkYTdbmEU0vXygF24nEU5gzhYWrtiH
+         fWnw==
+X-Forwarded-Encrypted: i=1; AHgh+RpOA+v/yRoMZvMAVJiayo+zH6grBwOfHqMIxJ7HCAzLeMHleZJm+/8ze831ibgXgSlCbOiNMagfZ/SO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw24NdjpuYKPW4lAir33NMwcDovfKJSgfsbRCJq9Qim4RPboL2j
+	tq8jbuEWlEF6KvGVCOaVphSjwrLUDA+XUlINvNVS/ix6gOPGl1TYHKW6ru2x7p7v4ouQlyrZlsi
+	wmGKYxEMX+1o3/y8jE8lvTpeUcR8aDe6jFzwBylrAPBld13wqTOoctQsGkJNzIXoIbSjJuhwN
+X-Gm-Gg: AR+sD10C+GOFq+8tQ5X+xUZmxmJovNf+YMxZBpkTqRCXi/pxGa9FBWr5ZXr9HCHBNtG
+	VrLpJmXdeAtlsOq1NFzkc6xU3wcwPSY3VB3wF4f8b0qxSPOOb3d9T729/ah+0g3xzjOKotKDAnd
+	c0d7uEI/2NtKVrOdWnmzZ/0f1Ll2Rzhqqndrnxr+XG4XZg5QFd+I7btI7vgdzTqdZLyVgZQdUHI
+	QgE1JGo7W+gJZq07WlGWvhSttOvaCmp6Kp5Nf+ftYJjYdjWGIeSbEwbXvAyIIh6i59Lg7nBlw3Z
+	QGjVEEHXkqadC6DjB0k1HuB0/OuFLDdvxWYr5bFA/+neY9qQR7a9u0U2GDS8IFu0bnP0f4/9464
+	/rGUUiZyVO+nJQ6d0q2oyZYIJGadNwcvBDwg6
+X-Received: by 2002:a05:6a00:a226:b0:848:2a55:7110 with SMTP id d2e1a72fcca58-84f2e13b00emr6267227b3a.36.1785929252141;
+        Wed, 05 Aug 2026 04:27:32 -0700 (PDT)
+X-Received: by 2002:a05:6a00:a226:b0:848:2a55:7110 with SMTP id d2e1a72fcca58-84f2e13b00emr6267185b3a.36.1785929251659;
+        Wed, 05 Aug 2026 04:27:31 -0700 (PDT)
+Received: from hu-vdadhani-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f2e2c5eeasm710197b3a.7.2026.08.05.04.27.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 04:27:30 -0700 (PDT)
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Date: Wed, 05 Aug 2026 16:57:23 +0530
+Subject: [PATCH] arm64: dts: qcom: talos-evk-som: Add firmware-name to
+ QUPv3 nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] dt-bindings: net: convert wiznet,w5x00 to YAML
-To: =?UTF-8?Q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net>
- <20260804-wiznet-link-gpio-v2-2-3b1d0c870f35@marmottus.net>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260804-wiznet-link-gpio-v2-2-3b1d0c870f35@marmottus.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-talos-evk-qupv3-firmware-name-v1-1-3ebd5e5578bd@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIABoec2oC/yXMwQ6CMAwA0F8hPdtkDDTqrxgPZXRalQErTBLCv
+ zv1+C5vBeUorHAuVoicRKUPGeWuAHencGOUNhussQdzNHuc6NUrcnriOA+pQi+xe1NkDNQx2qr
+ 2htypaV0J+Rgie1l+/+X6t87Ng930TWHbPj8RpJ+BAAAA
+X-Change-ID: 20260805-talos-evk-qupv3-firmware-name-234f0ac9bdc1
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785929248; l=1389;
+ i=viken.dadhaniya@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=T+99mWPksof2VSF3gzUyZ6wZ7TeXqjB/x+jzl1QEcYA=;
+ b=g6xav5QRNJzsJZJciMYZOeFDNm+ALlbwVW0fHyiVv26tR5lN934qZUmHm02RUjA9dtj5JmthP
+ qVs1I4q5LmcDTj7ImQZcc3ejvZmIutK4I+EDf2t231koxBteazAo6tv
+X-Developer-Key: i=viken.dadhaniya@oss.qualcomm.com; a=ed25519;
+ pk=C39f+LOIGhh/02LQpT46TsUSXRvBn9qXC8Xb26KJ44Y=
+X-Authority-Analysis: v=2.4 cv=I+hVgtgg c=1 sm=1 tr=0 ts=6a731e24 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=8rlZebuS5uYMG-XfLoEA:9 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-ORIG-GUID: y7sytGtUHd9oG47VdUZegMFN7Y-rhavG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA5MSBTYWx0ZWRfX2z8DJh9sCyYl
+ 4VgMT4k8mkd3oV+6H/hn33hifCRiF/3OVsXA5yhjVftScwT7ydmeDBwq4rMWPEGRlgdfQzTp0Gg
+ RD7SK45qGwEGmlT6dMOAbrnsb45fS3aWQqhwdvAQ5GweiTxW3w5mUYSwH/TtgA12cgLGKekW+9W
+ IcrLrsFYJj52+Ln3vPoykb1Ah6Pi2FQbZEiG3wr03Aifb1at4YVwEjQ1L0bPvq4ZIeEsD1AHWek
+ 0JfSN2oqbGWNJjy//UFngoMHyJo9KZMiJYD0hKQbeMtKEWqXZRo4v3T08XPxolUv1anK0nq/E3o
+ Kjl0cjgqY9CF+19K2jsvTG1yPH6KYkC5eLSRkY3u8njOCumqlHNIfGJxsKELOU7AcouU/rQNxwR
+ Ajdv79KFsMhwNh0ZXY0y8hIz0O6PZpMH7pycef7qwqGPIrSenHXMrkDcTXGuopneLG0eOhBlPIl
+ 4YoNhZF2s1BFPvxKiog==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA5MSBTYWx0ZWRfX0UxhfZXMBQu0
+ 3LEI87/R51igRk0aT4nAQyEw3kPFEPZ8ebvigaj21AUK/YefTvYzXxldo1JA51VRjK0wjoxlFR5
+ SuDDEn+57JF9ggT+XYCD15wxbnRo1eE=
+X-Proofpoint-GUID: y7sytGtUHd9oG47VdUZegMFN7Y-rhavG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_03,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050091
 
-On 04/08/2026 19:40, Arthur Crépin Leblond wrote:
-> Convert the Wiznet w5x00 SPI Ethernet controller binding from
-> text to DT schema format.
+Traditionally, firmware loading for Serial Engines (SE) in the QUP hardware
+of Qualcomm SoCs has been managed by TrustZone (TZ). While this approach
+ensures secure SE assignment and access control, it limits flexibility for
+developers who need to enable various protocols on different SEs.
 
-Limited review, to spare you one review cycle, as it was not tested.
+Add the firmware-name property to QUPv3 nodes in the device tree to enable
+firmware loading from the Linux environment. Handle SE assignments and
+access control permissions directly within Linux, removing the dependency
+on TrustZone.
 
-Subject: s/YAML/DT schema/
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/talos-evk-som.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+diff --git a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
+index a057a7271480..8bed53a8bd76 100644
+--- a/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/talos-evk-som.dtsi
+@@ -411,10 +411,14 @@ usb2_en: usb2-en-state {
+ };
+ 
+ &qupv3_id_0 {
++	firmware-name = "qcom/qcs615/qupv3fw.elf";
++
+ 	status = "okay";
+ };
+ 
+ &qupv3_id_1 {
++	firmware-name = "qcom/qcs615/qupv3fw.elf";
++
+ 	status = "okay";
+ };
+ 
 
-> 
-> Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
-> ---
->  .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 ----------
->  .../devicetree/bindings/net/wiznet,w5x00.yaml      | 103 +++++++++++++++++++++
->  2 files changed, 103 insertions(+), 50 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt b/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
-> deleted file mode 100644
-> index e9665798c4be..000000000000
-> --- a/Documentation/devicetree/bindings/net/wiznet,w5x00.txt
-> +++ /dev/null
-> @@ -1,50 +0,0 @@
-> -* Wiznet w5x00
-> -
-> -This is a standalone 10/100 MBit Ethernet controller with SPI interface.
-> -
-> -For each device connected to a SPI bus, define a child node within
-> -the SPI master node.
-> -
-> -Required properties:
-> -- compatible: Should be one of the following strings:
-> -	      "wiznet,w5100"
-> -	      "wiznet,w5200"
-> -	      "wiznet,w5500"
-> -- reg: Specify the SPI chip select the chip is wired to.
-> -- interrupts: Specify the interrupt index within the interrupt controller (referred
-> -              to above in interrupt-parent) and interrupt type. w5x00 natively
-> -              generates falling edge interrupts, however, additional board logic
-> -              might invert the signal.
-> -- pinctrl-names: List of assigned state names, see pinctrl binding documentation.
-> -- pinctrl-0: List of phandles to configure the GPIO pin used as interrupt line,
-> -             see also generic and your platform specific pinctrl binding
-> -             documentation.
-> -
-> -Optional properties:
-> -- spi-max-frequency: Maximum frequency of the SPI bus when accessing the w5500.
-> -  According to the w5500 datasheet, the chip allows a maximum of 80 MHz, however,
-> -  board designs may need to limit this value.
-> -- local-mac-address: See ethernet.txt in the same directory.
-> -
-> -
-> -Example (for Raspberry Pi with pin control stuff for GPIO irq):
-> -
-> -&spi {
-> -	ethernet@0: w5500@0 {
-> -		compatible = "wiznet,w5500";
-> -		reg = <0>;
-> -		pinctrl-names = "default";
-> -		pinctrl-0 = <&eth1_pins>;
-> -		interrupt-parent = <&gpio>;
-> -		interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
-> -		spi-max-frequency = <30000000>;
-> -	};
-> -};
-> -
-> -&gpio {
-> -	eth1_pins: eth1_pins {
-> -		brcm,pins = <25>;
-> -		brcm,function = <0>; /* in */
-> -		brcm,pull = <0>; /* none */
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5x00.yaml b/Documentation/devicetree/bindings/net/wiznet,w5x00.yaml
-> new file mode 100644
-> index 000000000000..8f45a5d773fe
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/wiznet,w5x00.yaml
-
-Filename: wiznet,w5100.yaml
-
-> @@ -0,0 +1,103 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/wiznet,w5x00.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Wiznet w5x00 SPI Ethernet Controller
-> +
-> +description: |
-> +  This is a standalone 10/100 MBit Ethernet controller with SPI interface.
-> +
-> +  For each device connected to a SPI bus, define a child node within the SPI master node.
-
-This looks unwrapped (see Linux coding style).
-
-> +
-> +allOf:
-> +  - $ref: /schemas/net/ethernet-controller.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - wiznet,w5100
-> +      - wiznet,w5200
-> +      - wiznet,w5500
-> +
-> +  reg:
-> +    description: Specify the SPI chip select the chip is wired to.
-> +    maxItems: 1
-> +    minItems: 1
-
-Drop, please do not invent your own syntax. Look at recently reviewed
-code or example-schema.
-
-> +
-> +  interrupts:
-> +    description:
-> +      Specify the interrupt index within the interrupt controller (referred to
-> +      above in interrupt-parent) and interrupt type. w5x00 natively generates
-> +      falling edge interrupts, however, additional board logic might invert the
-> +      signal.
-> +    maxItems: 1
-> +    minItems: 1
-> +
-> +  pinctrl-names:
-> +    description:
-> +      List of assigned state names, see pinctrl binding documentation.
-> +    enum:
-> +      - default
-> +    minItems: 1
-
-Do not invent own code. Drop
-
-> +
-> +  pinctrl-0:
-> +    description:
-> +      List of phandles to configure the GPIO pin used as interrupt line, see
-> +      also generic and your platform specific pinctrl binding documentation.
-> +    minItems: 1
-> +
-> +  local-mac-address: true
-> +
-> +  spi-max-frequency:
-> +    description:
-> +      Maximum frequency of the SPI bus when accessing the w5500. According to
-> +      the w5500 datasheet, the chip allows a maximum of 80 MHz, however, board
-> +      designs may need to limit this value.
-> +    maximum: 80000000
-> +
-> +  link-gpios:
-> +    description: A GPIO line used for the link detection interrupt.
-> +    maxItems: 1
-
-This wasn't in the original binding and lacks explanation in commit msg.
-Any change done to the binding must be documented with a reason WHY. If
-there is no reason WHY, then maybe you wanted separate commit (although
-each commit should explain WHY).
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - pinctrl-names
-> +  - pinctrl-0
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    /* Example (for Raspberry Pi with pin control stuff for GPIO irq) */
-> +
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    spi {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        ethernet@0: w5500@0 {
-> +          compatible = "wiznet,w5500";
-> +            reg = <0>;
-> +            pinctrl-names = "default";
-
-Messed indentation.
-
-> +            pinctrl-0 = <&eth1_pins>;
-> +            interrupt-parent = <&gpio>;
-> +            interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
-> +            spi-max-frequency = <30000000>;
-> +            link-gpios = <&gpio 4 GPIO_ACTIVE_HIGH>;
-> +            local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
-> +        };
-> +    };
-> +
-> +    &gpio {
-> +      eth1_pins: eth1_pins {
-> +        brcm,pins = <25 4>;
-> +        brcm,function = <0 0>; /* in */
-> +        brcm,pull = <0 0>; /* none */
-> +    };
-
-Irrelevant node, drop
+---
+base-commit: 9a4cdc958dd79fc6c3b20b51a10debec6ca09fec
+change-id: 20260805-talos-evk-qupv3-firmware-name-234f0ac9bdc1
 
 Best regards,
-Krzysztof
+--  
+Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+
