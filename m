@@ -1,849 +1,322 @@
-Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976A13B14AA
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 09:23:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785921795; cv=none; b=OyJUS5LF0DFiHlVjgZr2MqaROubJX76Vcq1p/uIWH+68CZgoiM+brRvqrb0o4+c82Yw1omo4nyZ1NQMyu6/sF99TqJLxgIED2mQvn824tTBXFOMvlBUmh47JySPHw2t0EFa6Z9ikDbLY4OAOOEm6oyuGKMTs26l3TITmyl8/yTI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785921795; c=relaxed/simple;
-	bh=kY/QoUdgZNYjfIPGfsETwouKvftR76s0B6QSb0H3FZ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 In-Reply-To:References; b=pe3k/Hyum3vO0OsqXMRRXuMtmfSNPDcMyUHbmAlQ7q4tcuNtARnwC6gkb8nQ+xZkySVlpjBspXtzKyu5XFpe/l+8AnQsHFoUt4Me9HL4VO5IVess8ImJhpXOQVUnStUnHnFx3tbHhQ8RyZTb2gNbTlb5RpLyTCWwGAhJVRr8BQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AgsioQ+5; arc=none smtp.client-ip=91.218.175.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392453E00BE;
+	Wed,  5 Aug 2026 09:23:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=185.132.183.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785921817; cv=fail; b=YUlpsQfyhjKWBeCh+ZkCFuOjncpb4KmvxdKwJB8PjNxGDwf0AfB9iRyeeFZX09sQRth1HeHihAHkxP6iEqt59jSxDd80kI0ZIymEhy1zy9yQNA2cen4AsSQmpXbrZWgMvV2AIG6hx4mWNiMQr4r8mOq8Wi4r0oHtx21ykp+XIZk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785921817; c=relaxed/simple;
+	bh=w/nT1yADyJwJT3oM4sea1FF51/Ii91Dxpp2QjRe8ArQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=IJWFwQspSz2cO3T28pirM9m9gYrdIY3RaaD8B7VkRpqZaTfsvbi9Zf86EjpswsDHxHScSw0ql0CRt4LqnhqGbG/K91WXq4jEne2hzikuXWwtO/PXOex4c2G+sJs9PFA63Mm9elvDMiT1E70S3OSCxZGP3YEbB9UUhmYTjN/3dFg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=B3hpTqY2; arc=fail smtp.client-ip=185.132.183.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AgsioQ+5"
-X-Mailbox-Line: From troy.mitchell@linux.dev  Wed Aug  5 02:03:29 2026
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1785921780;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x42nUNNMuLAfz7j4uWBeWVYXbdwTnuaXKqmzF2jPQQ8=;
-	b=AgsioQ+5ouSDldWwpNhlXcovMmMA5QNbQyjaTkZAV4ybH9iHR9N6tecBr8JWMAynXkHv5w
-	O8lIY3QKE/6xRj6jJbT13K/R86s1i5tbnQ0u8v32IL//ypLpPpTfjyTkxnrYgBrykkRwll
-	J5GGawUmX7mgk9xyK0HIez2qasrabfI=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Troy Mitchell <troy.mitchell@linux.dev>
-Date: Wed, 05 Aug 2026 02:00:54 -0700
-Subject: [PATCH v3 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
+	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="B3hpTqY2"
+Received: from pps.filterd (m0209325.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6758dvJX1829577;
+	Wed, 5 Aug 2026 09:23:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=p1; bh=Bo7afWz
+	TjwGX1yISF0w4FfCZcyVFNcmH4zdI88TMuvo=; b=B3hpTqY2NiI1bwDLfKXSZVl
+	LWExb6pbccc3EAIG7oR9ukBehcRGJVdMvCILcnWIS8ecS3Edm8MFIH2B0uiMIFKt
+	cu+PtYeBPRiyJ8yhnPdZbfutxeJPdQT5uAUBoQr/15dzuVIaSbVXNy49FTch2P5I
+	9MW9Y/my+QhZVXaE+pmLHXsDIkUy6SH+x0jRDu5syhsx31fPCT7N+gIEi94FTWe9
+	cmU97gf5p6ZqdFIVXyVN8m5TduudlmLkm2++UfSp/TGqNJTnxbw7mASDoJykX1ZC
+	0JNHqlUAhdgI+KZOgdlxobulccIs5Q+DdPOKRgbGXRjngnZ9sZ3lRRUtzolaNrw=
+	=
+Received: from tyvp286cu001.outbound.protection.outlook.com (mail-japaneastazon11011047.outbound.protection.outlook.com [52.101.125.47])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4fs61vvpss-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Wed, 05 Aug 2026 09:23:11 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q1EthR3jQiLxvce1K5v9NvAfs1PsNAlrEIlkKQdhvVGsqqAk3xwLw/x41WJ664kUH1hlSK27lb1WSoimq35dzqX5irJmqpj+gBz9dPsBt2UPGsQK+DbGJuGcLQtul7aygOHuFKqt1/L9Hqh1ZZQTw0403a0tt9f5qygXmhW84xn1yj/3s4vry6dQnrPYnqMKnYG3HVBLjLW1FgEdi73ZDL2dFprD4tnM0C1Ne0ICSSTtouLAQEuRMRwrH+2Aa8n3PfFcWBjFxsAAeJeOGCrE9+g41KBzveQcE55dML1ZK0+0mERSGu/wdeHBlqY6Mfrat3voSy9ivr6G2vqMlimqiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Bo7afWzTjwGX1yISF0w4FfCZcyVFNcmH4zdI88TMuvo=;
+ b=OtASsWQKgvBCluxkRtVT2X4EdQzyK3ckSO0KVRXd1sZaw6aTc+yq3I5eddv3DDhGyICNlJOf0lLv7gX1e7A6JzWChMaPmPzS1rPp5VdCbYFLrhVwR+Ju6Zm6ZU4KuFNPOWVHpOC3WGLJrhnTotQhyTBxbOPTKcmT3QsNYT3Tzn9MwHXasAZlTUg5oDng/IbNLfxmmbZKyV5iMRaPreXXS3t2QoNaSk0XMeUrROFx5ynmPBhiKH7ny5iPVZW6DDy951ZT4aP1PCFcGcjUyOEnbRA9f4CqtNKfvqlFU5E5Zh/PMj7wP1HLwBUIKjXCL86P02qs3V9ifQKLLiU/e+oK6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=sony.com; dmarc=pass action=none header.from=sony.com;
+ dkim=pass header.d=sony.com; arc=none
+Received: from TY6PR01MB17839.jpnprd01.prod.outlook.com
+ (2603:1096:405:348::15) by TYWPR01MB7329.jpnprd01.prod.outlook.com
+ (2603:1096:400:c6::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
+ 2026 09:23:01 +0000
+Received: from TY6PR01MB17839.jpnprd01.prod.outlook.com
+ ([fe80::7155:ce29:dca3:29b0]) by TY6PR01MB17839.jpnprd01.prod.outlook.com
+ ([fe80::7155:ce29:dca3:29b0%6]) with mapi id 15.21.0292.015; Wed, 5 Aug 2026
+ 09:23:01 +0000
+From: "Lachlan.Michael@sony.com" <Lachlan.Michael@sony.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: "mchehab@kernel.org" <mchehab@kernel.org>,
+        "sakari.ailus@linux.intel.com"
+	<sakari.ailus@linux.intel.com>,
+        "hverkuil+cisco@kernel.org"
+	<hverkuil+cisco@kernel.org>,
+        "laurent.pinchart@ideasonboard.com"
+	<laurent.pinchart@ideasonboard.com>,
+        "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+        "robh@kernel.org" <robh@kernel.org>,
+        "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+        "conor+dt@kernel.org"
+	<conor+dt@kernel.org>,
+        "kieran.bingham@ideasonboard.com"
+	<kieran.bingham@ideasonboard.com>,
+        "jai.luthra@ideasonboard.com"
+	<jai.luthra@ideasonboard.com>,
+        "Ryuichi.Tadano@sony.com"
+	<Ryuichi.Tadano@sony.com>,
+        "Kengo.Hayasaka@sony.com"
+	<Kengo.Hayasaka@sony.com>,
+        "Bird, Tim" <Tim.Bird@sony.com>,
+        "Kazumi.A.Sato@sony.com" <Kazumi.A.Sato@sony.com>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] media: i2c: Add Sony IMX908 image sensor driver
+Thread-Topic: [PATCH 2/2] media: i2c: Add Sony IMX908 image sensor driver
+Thread-Index: AQHdH8lhE8SDcEsoKkihTzyT2JdkmbaFxp4AgAlv1zg=
+Date: Wed, 5 Aug 2026 09:23:01 +0000
+Message-ID:
+ <TY6PR01MB17839831F80F2EABFF940ED8B92D32@TY6PR01MB17839.jpnprd01.prod.outlook.com>
+References: <20260730021525.166811-1-lachlan.michael@sony.com>
+ <20260730021525.166811-3-lachlan.michael@sony.com>
+ <20260730-ruddy-tricky-wildebeest-ec9e46@quoll>
+In-Reply-To: <20260730-ruddy-tricky-wildebeest-ec9e46@quoll>
+Accept-Language: ja-JP, en-US
+Content-Language: ja-JP
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17839:EE_|TYWPR01MB7329:EE_
+x-ms-office365-filtering-correlation-id: 2d2daced-94c0-4470-1316-08def2d32552
+x-ld-processed: 66c65d8a-9158-4521-a2d8-664963db48e4,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|10070799003|22082099003|18092099006|18002099003|11063799006|56012099006|4143699003|38070700021|6133799003|10067099003;
+x-microsoft-antispam-message-info:
+ BhwslIt+JjHduGg9fUtS/YiVhW4HTW8Puf7zUgOOzH3HuL0aE0TW7sTPDY/20WTVAk3BV+NM2nNxT9RgnxXI1kBx7Ik356hJTnYsGY06rUJLxCjKt8X6+pO+sLSe8cms6vCp138QRHExyXLOc/beBEgTQrS3sE3IYndaqdYHsy+cQ8k/K8waU8AgXGDdrDthqd92Np+9LVechuzgmq3YMRhvQZLvSXCaWb305HZxor7N39OIVj0RQFgDat0keJ45jye20xbgRvNwakUNyKhHd3yPlXSst0AVjEBxD40T2RY6fzz2cCYXlxXjSuNeNViFIJNsVUTTFmrJv65c1xW/JpBJhHgqugg9IFdefcxNug0mPsZIPFdJMqS4086ntJsn7KhqcTM6t9T+eAdlkyrUgI5m6bCLuAcGUFyr7Pe25kLh0ff3IyzNzY2sezDMhQwSF5kDHRVqLMlkTTEJYPkHSyxPlfO5yM+TBsifQf64Py4+2U3pBoZ2oOq/vK3thidmkAXqAV/axqh5TPOhF80V2gA6T9BEAHaWxzA7qgH7NJVkQj0XrSSB53odqoXDbhtPoRKRQeP7XgASxJw7Xzcw0rJS06z2nUDuhAZMeaCJpUbaTgJ45RTZ5aBAfSv4gkW5rTjtx2eKopGncHs6+zyNMSXvEHfiDI7rXPPwJvdBeBNqKESWOE8Ep4lpl7RNBg3m3AjieWcqvnnnHBBbT4DX4rmx0xJvszGNEsrpGKGb95g=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17839.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(10070799003)(22082099003)(18092099006)(18002099003)(11063799006)(56012099006)(4143699003)(38070700021)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?Eu5U+m+yM5xiG01pTGLthRIK2GqzL2igE3/xdoPBlDxVAXzj+Y3UAdzsvI?=
+ =?iso-8859-1?Q?8zFH7N0F9pmf/4KX0vPRgDj4mOVyEYbsXe3FZSMLexx6g9zRra60Zb99gE?=
+ =?iso-8859-1?Q?XS7J7135VN/hvu0LRiEaguH/c1sgfoO+ZoH+vd0kIQlkhiy6o52JqyJqjC?=
+ =?iso-8859-1?Q?S4Ou50+ux923MGQrSX2qqSLFZPhrgw73e69Zoef6lbz1ytXXj3LUIt1QOw?=
+ =?iso-8859-1?Q?hJIXaWc1D1HEP83uZH3QN+9iOWpwoy3Cl/YwXhCxDh9VUCMvqKfwV317F9?=
+ =?iso-8859-1?Q?dviCKVOKP/jgI6ZC3tT3jfoQThrvVLEifoxHa82gKZY2GT8EXly8+zg3iT?=
+ =?iso-8859-1?Q?8aFnn1dtHC+aJolYAOVImoOhn9Vc9OdcZNQ9dKVcpax0wUSF6Q2BbIEbtJ?=
+ =?iso-8859-1?Q?aUZWIA/8V3oLs0dxjMUtvxNNw/uxe01mNAvvcchTuo8bAKJc1QLo6b65sb?=
+ =?iso-8859-1?Q?A9gkaoa+lcSYxwVsgZCeYDOrahGDD5IDQCETUzWUVGafctPOj8Bi4iOBSH?=
+ =?iso-8859-1?Q?469Jknh5wqMqi6cg8fSYTZ7WKj8XQZRTNJawpHzUPuNJgc+vaLw2hM0EWe?=
+ =?iso-8859-1?Q?hh2Cg/sP87GU2MB/j37lHJ2rbaCbXowNtzCOeCElj0qYxqapTSj1OWEvTO?=
+ =?iso-8859-1?Q?wHM3vlQxl5tir3HMmjBZsPXw94xMXebSTf50tAx81ksJWxDb5+NUCDqyVG?=
+ =?iso-8859-1?Q?3fa1RkqoxRmt/JksqBoc1f3VPjjptyfk1npfHQzjMIi9rknYVEhWKid4UL?=
+ =?iso-8859-1?Q?7DZ9WZJg0mvkitPgCMSY8JLhPcz6BYgM4Selz15u754dDYJ6Y2EQfWwzYr?=
+ =?iso-8859-1?Q?iBsOjlC1V9z3LHPDmmmv3OgI2U/y1AQikIAgBBVAFmyyyXaFN92C6wERJx?=
+ =?iso-8859-1?Q?lyylfzWOJEjrYN8EMz10koEweJGtypd+AbqhjNSeKDk5/vytTiNDBuj41s?=
+ =?iso-8859-1?Q?lqsHNLOll5p5mI2HehwlGJR7N1a2T4PPUxp9sA+xF13w946TGrTV1+NuMQ?=
+ =?iso-8859-1?Q?oHLSdLjllZKemdp2S6F5rdCQi/yxaylzrMxFgVHvkFJHo2o0FcGuGT/rXy?=
+ =?iso-8859-1?Q?xMgwkTr+x7m+5cQ5gtIO4bTAxUPXiTQtdYDyiXLSXLr1iphzrcmPj0gI7V?=
+ =?iso-8859-1?Q?lIiMNYYyQWp0unDdDFNKtaS/0EDAJPVsIADp5ncjDUY4M7fmmnWuJMB5Ar?=
+ =?iso-8859-1?Q?ZbcxiMWAaPPKM7ZxemnyeBHi8Dd3lPVlPOaq95yVg/9x65DWyfdsSt9X5A?=
+ =?iso-8859-1?Q?7ZaPx5w26DpIC21G0ycXkHRygcH+b16sOLh37DXxloSL0gsDO8q+pnSsfW?=
+ =?iso-8859-1?Q?j6WZTNJA2OIluamySIJAnO2qvhKEmJb2ltf6RHrPqwkzKalNIGyMLVSwHl?=
+ =?iso-8859-1?Q?NHsPRV5PaVAY+4q4oE6wpq3a4DfSTzipIl0SLSh1q8+1YDQ9cWrCbwJe5l?=
+ =?iso-8859-1?Q?vCXR4zkqnCDld+mp0EHXzA3NKjjEdRlTcnf0ONOBgYiITu6WMnQMNt7xQg?=
+ =?iso-8859-1?Q?OHlGOjnw55nIM8Nf0EF+X7vAgAJtSbCDylN+mgMBbr+SpER3xyj6I78ZWu?=
+ =?iso-8859-1?Q?T5AsAH6XvX+gDvlkigQXlhvab8kqDfiQo0ihlShcolP3VH23ArO3ZDABFf?=
+ =?iso-8859-1?Q?2Xzasi2Lm3fw0rIJHEQTI95RJyHYoJyCREhbP2FsTudCzznbkt0EWchWW/?=
+ =?iso-8859-1?Q?frkX6JeJGCnwi1gZr03SFVZwsXDgOhMGfBYc/LSyzGvRx+I5t729DCg/Nh?=
+ =?iso-8859-1?Q?QccL9KpGDBVuJoCZSX/LILSuGcuMwK5qxCal4eLgr8QKJ0cTcnZoyJtuWD?=
+ =?iso-8859-1?Q?jI5+qq1RdxBy1ODdtGIpZapAktoFVEQQT12Wkqx9sqi3a6NZVZYF?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-ctl2301-v3-4-b86c75d1c552@linux.dev>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: Troy Mitchell <troy.mitchell@linux.dev>, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org, 
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
- linux-doc@vger.kernel.org, Jean Delvare <jdelvare@suse.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=25765;
- i=troy.mitchell@linux.dev; h=from:subject:message-id;
- bh=kY/QoUdgZNYjfIPGfsETwouKvftR76s0B6QSb0H3FZ8=;
- b=owGbwMvMwCU2g/N9w09jE33G02pJDFlFv09MuXggTzTW9Wfr0kXv9695/8tK3WL/XIuLuw6bN
- /75znVWuaOUhUGMi0FWTJGl+wHPtgKfKNsCgUJfmDmsTCBDGLg4BWAiCukMfyU/nriz8eWZbi8z
- OynWDwz5/BWPRUQE1tinls9v45pqOIeR4eS2M7ZMU358mX5m+aetlx5NV7uWtWHbnW2yVr7zGbZ
- cvcwCAA==
-X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
- fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
-In-Reply-To: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
-References: <20260805-ctl2301-v3-0-fd4b8ffb5b0d@linux.dev>
-X-Migadu-Flow: FLOW_OUT
+X-Exchange-RoutingPolicyChecked:
+	tE1C/B2wsccvg+q9h7YrLBSay2zA+a5i20xbhsyOqLguW+qhJlJAmtpmO21bDFU+mlOYYvnoL1o6D10dKINs7RULnat2DwZutJNBwOLzlcblsNgh64BmHDQDHy15OrTXbVfS/yYADwq0467YPRNRwtLu7nSbSqt97K6uFKPLmz83eVQVMS8Q23Nc6E6GMrnfn2HFfDJYIlkR9sz4cYWWp7LTm0auAeLAel3fhUe8SlVWSFbC3382okirTB7CUWjtHEXUS/SvQSF5Ps7nk2matM+rGtTowpezvY4KlnVMBspXK9GPHOPI3rJmfG+bXbCObK7lqAvXnZAT95LkabOScw==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	cDQzJALXCdmSg14Vz8qnPwzBy4gX7/8/YslZs7U8dr9Ae354XNHtZcO5gLvYmN6yfIZYvEuDB9wy3T/iaOKtaWKU8oqHch/DbAGy63V6VYV7vF41nkj5MfFysP3G8VfZYZ/e8m4N0nai7BNChCBxbYyA2AJ2GpwY8Pc9GskYykuk5WilY+BtAVZqw7QHT8Zpoe7YiyLmr4uVdMRGr3guDzDAH8brK8ThMOtNDZYllhJbRGLf50amh+Zu0LP16FlFx66tlKl3rYyb5jbM3kt/g+A2UcUrBsexJfEhrTZPjls9IXUGKmShoQdr8cdDmXSdgGLSBydwcPqP8qHuA457dNGoarTUs1tuy7nZw1XbsoiHK89O9EFE86yNvETugrX47Es/X1BZjGOpN9ODYZB779CCyT0e+vPUtvn+cO2ukgTPAveARHOdA288GbQ5bOHM9FpL6s5BglrQfhfNbytoMY3avtanMiO9er2aqjH/Oj1UT6z6FdffePJAOqWnrGHqrFmROWAlGK63mbsiDJMMNYsFC8ca2muGNsBDTmBYzyWTwNhaGCNJamVwGxeuI+QamtrDw/XB6AOye6UNTVRy+8anjc7zdQUcdStKTle4NJlyPSXP8bap4XErRBg3G8vz
+X-OriginatorOrg: sony.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17839.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d2daced-94c0-4470-1316-08def2d32552
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2026 09:23:01.0837
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 66c65d8a-9158-4521-a2d8-664963db48e4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mZjASasvu6koE31rwVSe3XeeGdvwoLC4wNGQpyX8+1PkiuGc2TQkE7hJ8LgZJtK73Tu+uMxwS4Pfe1mgYiy60pSMXtlISLgP/KOmdWkZtik=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB7329
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA3NCBTYWx0ZWRfXyYCm4DA2fBjq
+ YMW/4UDi5KJypZiDzk4iao2Werwl1JLbWOYK4K877ksQyoU4sChXT+9VXYbHTc8uFNMmp94WM9l
+ 8/VRmHIeVXwtCzonHNoSUJVUWTvjYrCCrPmenab8nb1Xb1Hxr40w
+X-Authority-Analysis: v=2.4 cv=F/lnsKhN c=1 sm=1 tr=0 ts=6a7300ff cx=c_pps
+ a=r7f8du3VfM+zdyvCaOKVSA==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=Sv0fKeRqtYgA:10 a=7j0FZ4iXMVMA:10 a=xR56lInIT_wA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22 a=FGjXJT7Bex8XaPnzAX5M:22
+ a=68tjd57L9Bkg64VecrUA:9 a=wPNLvfGTeEIA:10
+X-Proofpoint-ORIG-GUID: qxN9y5lxZj3K5LA61QHSJAhnPBQoF8Rd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA3NCBTYWx0ZWRfX2QHAj41pU+qc
+ DxPMmWGWuaFTEFXtifKBoH8tv+d3MsWIkhkMcAXHvw10WhjpIJIAr+2JnVinl77SRNoXeLj5+f8
+ LxOpx57YakMFbe7PaoGawWsmXjrnF4jrhja7ArricGcoZF5VKbLGoNm0sGewia5vEt29iACgs3c
+ qCSnBHrlaSgXethqxMO6+4FbHFJCruyN6ltr+Nc/AFyYpcMz81sfJbS65tfA6YB3acyCGm3hXzM
+ MHwfdFhp/aRjWlHz6fmH9HxQIiJ+a4jAm+fWYquHhLye/uBXwqcLyBD99Iag2cI7AA4WbmsPTYl
+ oO5lwjucyx/3T/327VMLw+rM46E2nsFAdx/QP/1Apnj1sJH5xcFaC1rQZ9wqpgO8z7oLijIlmbZ
+ L5rb4uedgrWQILJCzLYYJd5zDJm0IOPN92xZPSTY8SI+Td0J8VbJ19lXWVj42hCpuTtL3tVbelS
+ 9ENq3Dd5EX5yOlOaZmw==
+X-Proofpoint-GUID: qxN9y5lxZj3K5LA61QHSJAhnPBQoF8Rd
+X-Sony-Outbound-GUID: qxN9y5lxZj3K5LA61QHSJAhnPBQoF8Rd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_03,2026-08-04_02,2025-10-01_01
 
-Add Sensylink CTF2301 support to the LM63 driver. CTF2301 follows
-the LM63-style temperature, tachometer, and PWM register layout,
-while using a 12-bit local temperature register and requiring the
-ALERT/TACH pin to be configured for tachometer input.
-
-Register an optional thermal cooling device when the device tree
-node provides #cooling-cells, allowing thermal zones to control
-the fan through the existing PWM path without changing behavior
-for existing LM63-family users.
-
-Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
----
- Documentation/hwmon/lm63.rst |  22 +++
- drivers/hwmon/Kconfig        |   8 +-
- drivers/hwmon/lm63.c         | 414 +++++++++++++++++++++++++++++++++++--------
- 3 files changed, 366 insertions(+), 78 deletions(-)
-
-diff --git a/Documentation/hwmon/lm63.rst b/Documentation/hwmon/lm63.rst
-index 9e27367d7405..c40bd0dfe591 100644
---- a/Documentation/hwmon/lm63.rst
-+++ b/Documentation/hwmon/lm63.rst
-@@ -33,6 +33,16 @@ Supported chips:
- 
- 	       http://www.national.com/pf/LM/LM96163.html
- 
-+  * Sensylink CTF2301
-+
-+    Prefix: 'ctf2301'
-+
-+    Addresses scanned: none
-+
-+    Datasheet: https://www.sensylink.com/upload/1/net.sensylink.portal/1689557281035.pdf
-+
-+    Register description: https://github.com/TroyMitchell911/ctf2301-datasheet
-+
- 
- Author: Jean Delvare <jdelvare@suse.de>
- 
-@@ -62,6 +72,8 @@ value have to be masked out. The value is still 16 bit in width.
- 
- All temperature values are given in degrees Celsius. Resolution is 1.0
- degree for the local temperature, 0.125 degree for the remote temperature.
-+The CTF2301 local temperature input and limit have a resolution of 0.0625
-+degree.
- 
- The fan speed is measured using a tachometer. Contrary to most chips which
- store the value in an 8-bit register and have a selectable clock divider
-@@ -93,3 +105,13 @@ support these GPIO lines at present.
- The LM96163 is an enhanced version of LM63 with improved temperature accuracy
- and better PWM resolution. For LM96163, the external temperature sensor type is
- configurable as CPU embedded diode(1) or 3904 transistor(2).
-+
-+The CTF2301 is register-compatible with the LM63 family and provides 12 fan
-+control lookup table entries. It supports 8-bit PWM resolution when configured
-+for a 22.5 kHz PWM frequency.
-+
-+Device tree nodes may declare ``#cooling-cells`` to register the fan controller
-+with the thermal framework. The cooling state is mapped to the existing
-+``pwm1`` range from 0 to 255. The driver keeps the current automatic or manual
-+fan control mode during probe and switches to manual control when the thermal
-+framework first requests a cooling state.
-diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-index 2bfbcc033d59..abb1af8664fb 100644
---- a/drivers/hwmon/Kconfig
-+++ b/drivers/hwmon/Kconfig
-@@ -1501,10 +1501,10 @@ config SENSORS_LM63
- 	depends on I2C
- 	help
- 	  If you say yes here you get support for the National
--	  Semiconductor LM63, LM64, and LM96163 remote diode digital temperature
--	  sensors with integrated fan control.  Such chips are found
--	  on the Tyan S4882 (Thunder K8QS Pro) motherboard, among
--	  others.
-+	  Semiconductor LM63, LM64, LM96163, and Sensylink CTF2301
-+	  remote diode digital temperature sensors with integrated fan
-+	  control. Such chips are found on the Tyan S4882 (Thunder K8QS
-+	  Pro) motherboard, among others.
- 
- 	  This driver can also be built as a module. If so, the module
- 	  will be called lm63.
-diff --git a/drivers/hwmon/lm63.c b/drivers/hwmon/lm63.c
-index e2a429e579ac..3887f02b924d 100644
---- a/drivers/hwmon/lm63.c
-+++ b/drivers/hwmon/lm63.c
-@@ -35,13 +35,14 @@
- #include <linux/mutex.h>
- #include <linux/of.h>
- #include <linux/sysfs.h>
-+#include <linux/thermal.h>
- #include <linux/types.h>
- 
- /*
-  * Addresses to scan
-  * Address is fully defined internally and cannot be changed except for
-  * LM64 which has one pin dedicated to address selection.
-- * LM63 and LM96163 have address 0x4c.
-+ * LM63, LM96163, and CTF2301 have address 0x4c.
-  * LM64 can have address 0x18 or 0x4e.
-  */
- 
-@@ -70,6 +71,9 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- #define LM63_REG_LOCAL_TEMP		0x00
- #define LM63_REG_LOCAL_HIGH		0x05
- 
-+#define CTF2301_REG_LOCAL_TEMP_LSB	0x15
-+#define CTF2301_REG_LOCAL_HIGH_LSB	0x06
-+
- #define LM63_REG_REMOTE_TEMP_MSB	0x01
- #define LM63_REG_REMOTE_TEMP_LSB	0x10
- #define LM63_REG_REMOTE_OFFSET_MSB	0x11
-@@ -94,6 +98,7 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- 
- #define LM63_PWM_BASE_FAST_HZ		180000
- #define LM63_PWM_BASE_SLOW_HZ		700
-+#define LM63_MAX_PWM			255
- 
- #define LM63_MAX_CONVRATE		9
- 
-@@ -121,6 +126,9 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- 							    127000), 1000)
- #define TEMP8U_TO_REG(val)	DIV_ROUND_CLOSEST(clamp_val((val), 0, \
- 							    255000), 1000)
-+#define TEMP12_FROM_REG(reg)	DIV_ROUND_CLOSEST((s16)(reg) * 1000, 256)
-+#define TEMP12_TO_REG(val)	DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
-+							     127937) * 256, 1000)
- #define TEMP11_FROM_REG(reg)	((reg) / 32 * 125)
- #define TEMP11_TO_REG(val)	(DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
- 							     127875), 125) * 32)
-@@ -132,7 +140,11 @@ static const unsigned short normal_i2c[] = { 0x18, 0x4c, 0x4e, I2C_CLIENT_END };
- #define UPDATE_INTERVAL(max, rate) \
- 			((1000 << (LM63_MAX_CONVRATE - (rate))) / (max))
- 
--enum chips { lm63, lm64, lm96163 };
-+enum chips { lm63, lm64, lm96163, ctf2301 };
-+
-+static const unsigned int ctf2301_update_intervals[] = {
-+	20000, 10000, 4902, 2463, 1000, 615, 307, 154, 107
-+};
- 
- /*
-  * Client data (each client gets its own)
-@@ -164,6 +176,8 @@ struct lm63_data {
- 			   1: local high limit
- 			   2: remote critical limit
- 			   3-14: lookup table */
-+	s16 temp1_input; /* local input for chips with extended resolution */
-+	s16 temp1_max; /* local limit for chips with extended resolution */
- 	s16 temp11[4];	/* 0: remote input
- 			   1: remote low limit
- 			   2: remote high limit
-@@ -229,6 +243,7 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 	struct lm63_data *data = dev_get_drvdata(dev);
- 	struct i2c_client *client = data->client;
- 	unsigned long next_update;
-+	int msb, lsb;
- 
- 	mutex_lock(&data->update_lock);
- 
-@@ -254,10 +269,30 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 		data->pwm1[0] = i2c_smbus_read_byte_data(client,
- 				LM63_REG_PWM_VALUE);
- 
--		data->temp8[0] = i2c_smbus_read_byte_data(client,
--				 LM63_REG_LOCAL_TEMP);
--		data->temp8[1] = i2c_smbus_read_byte_data(client,
--				 LM63_REG_LOCAL_HIGH);
-+		if (data->kind == ctf2301) {
-+			msb = i2c_smbus_read_byte_data(client,
-+						       LM63_REG_LOCAL_TEMP);
-+			lsb = i2c_smbus_read_byte_data(client,
-+						       CTF2301_REG_LOCAL_TEMP_LSB);
-+			if (msb >= 0 && lsb >= 0) {
-+				data->temp8[0] = msb;
-+				data->temp1_input = ((u16)(u8)msb << 8) | lsb;
-+			}
-+
-+			msb = i2c_smbus_read_byte_data(client,
-+						       LM63_REG_LOCAL_HIGH);
-+			lsb = i2c_smbus_read_byte_data(client,
-+						       CTF2301_REG_LOCAL_HIGH_LSB);
-+			if (msb >= 0 && lsb >= 0) {
-+				data->temp8[1] = msb;
-+				data->temp1_max = ((u16)(u8)msb << 8) | lsb;
-+			}
-+		} else {
-+			data->temp8[0] = i2c_smbus_read_byte_data(client,
-+								  LM63_REG_LOCAL_TEMP);
-+			data->temp8[1] = i2c_smbus_read_byte_data(client,
-+								  LM63_REG_LOCAL_HIGH);
-+		}
- 
- 		/* order matters for temp2_input */
- 		data->temp11[0] = i2c_smbus_read_byte_data(client,
-@@ -277,7 +312,7 @@ static struct lm63_data *lm63_update_device(struct device *dev)
- 				| i2c_smbus_read_byte_data(client,
- 				  LM63_REG_REMOTE_OFFSET_LSB);
- 
--		if (data->kind == lm96163)
-+		if (data->kind == lm96163 || data->kind == ctf2301)
- 			data->temp11u = (i2c_smbus_read_byte_data(client,
- 					LM96163_REG_REMOTE_TEMP_U_MSB) << 8)
- 				      | i2c_smbus_read_byte_data(client,
-@@ -367,6 +402,41 @@ static ssize_t set_fan(struct device *dev, struct device_attribute *dummy,
- 	return count;
- }
- 
-+static int lm63_pwm_from_reg(struct lm63_data *data, u8 reg)
-+{
-+	if (data->pwm_highres)
-+		return reg;
-+
-+	return reg >= 2 * data->pwm1_freq ?
-+	       LM63_MAX_PWM :
-+	       (reg * LM63_MAX_PWM + data->pwm1_freq) / (2 * data->pwm1_freq);
-+}
-+
-+static u8 lm63_pwm_to_reg(struct lm63_data *data, unsigned long val)
-+{
-+	val = clamp_val(val, 0, LM63_MAX_PWM);
-+
-+	if (data->pwm_highres)
-+		return val;
-+
-+	return (val * data->pwm1_freq * 2 + LM63_MAX_PWM / 2) / LM63_MAX_PWM;
-+}
-+
-+static int lm63_write_pwm(struct lm63_data *data, int nr, unsigned long val)
-+{
-+	struct i2c_client *client = data->client;
-+	u8 reg = nr ? LM63_REG_LUT_PWM(nr - 1) : LM63_REG_PWM_VALUE;
-+	u8 regval = lm63_pwm_to_reg(data, val);
-+	int ret;
-+
-+	ret = i2c_smbus_write_byte_data(client, reg, regval);
-+	if (ret)
-+		return ret;
-+	data->pwm1[nr] = regval;
-+
-+	return 0;
-+}
-+
- static ssize_t show_pwm1(struct device *dev, struct device_attribute *devattr,
- 			 char *buf)
- {
-@@ -376,12 +446,7 @@ static ssize_t show_pwm1(struct device *dev, struct device_attribute *devattr,
- 	int pwm;
- 
- 	mutex_lock(&data->update_lock);
--	if (data->pwm_highres)
--		pwm = data->pwm1[nr];
--	else
--		pwm = data->pwm1[nr] >= 2 * data->pwm1_freq ?
--		       255 : (data->pwm1[nr] * 255 + data->pwm1_freq) /
--		       (2 * data->pwm1_freq);
-+	pwm = lm63_pwm_from_reg(data, data->pwm1[nr]);
- 	mutex_unlock(&data->update_lock);
- 
- 	return sprintf(buf, "%d\n", pwm);
-@@ -392,11 +457,9 @@ static ssize_t set_pwm1(struct device *dev, struct device_attribute *devattr,
- {
- 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 	struct lm63_data *data = dev_get_drvdata(dev);
--	struct i2c_client *client = data->client;
- 	int nr = attr->index;
- 	unsigned long val;
- 	int err;
--	u8 reg;
- 
- 	if (!(data->config_fan & 0x20)) /* register is read-only */
- 		return -EPERM;
-@@ -405,15 +468,11 @@ static ssize_t set_pwm1(struct device *dev, struct device_attribute *devattr,
- 	if (err)
- 		return err;
- 
--	reg = nr ? LM63_REG_LUT_PWM(nr - 1) : LM63_REG_PWM_VALUE;
--	val = clamp_val(val, 0, 255);
--
- 	mutex_lock(&data->update_lock);
--	data->pwm1[nr] = data->pwm_highres ? val :
--			(val * data->pwm1_freq * 2 + 127) / 255;
--	i2c_smbus_write_byte_data(client, reg, data->pwm1[nr]);
-+	err = lm63_write_pwm(data, nr, val);
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return err ? err : count;
- }
- 
- static ssize_t pwm1_enable_show(struct device *dev,
-@@ -486,7 +545,9 @@ static ssize_t pwm1_freq_store(struct device *dev,
- 	struct lm63_data *data = dev_get_drvdata(dev);
- 	struct i2c_client *client = data->client;
- 	unsigned long val, pfr_fast, pfr_slow, err_fast, err_slow, pfr;
-+	u8 config_fan;
- 	bool slow_clock;
-+	int config_enhanced = 0;
- 	int ret;
- 
- 	ret = kstrtoul(buf, 10, &val);
-@@ -512,35 +573,55 @@ static ssize_t pwm1_freq_store(struct device *dev,
- 
- 	mutex_lock(&data->update_lock);
- 	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG_FAN);
--	if (ret < 0) {
--		mutex_unlock(&data->update_lock);
--		return ret;
--	}
--	data->config_fan = ret;
-+	if (ret < 0)
-+		goto unlock;
-+	config_fan = ret;
- 
--	if (!(data->config_fan & 0x20)) { /* register is read-only */
--		mutex_unlock(&data->update_lock);
--		return -EPERM;
-+	if (!(config_fan & 0x20)) { /* register is read-only */
-+		ret = -EPERM;
-+		goto unlock;
- 	}
- 
--	if (data->kind == lm96163) {
--		ret = i2c_smbus_read_byte_data(client, LM96163_REG_CONFIG_ENHANCED);
--		if (ret < 0) {
--			mutex_unlock(&data->update_lock);
--			return ret;
-+	if (data->kind == lm96163 || data->kind == ctf2301) {
-+		ret = i2c_smbus_read_byte_data(client,
-+					       LM96163_REG_CONFIG_ENHANCED);
-+		if (ret < 0)
-+			goto unlock;
-+		config_enhanced = ret;
-+
-+		if (data->kind == ctf2301) {
-+			if (!slow_clock && pfr == 8)
-+				config_enhanced |= 0x10;
-+			else
-+				config_enhanced &= ~0x10;
-+			ret = i2c_smbus_write_byte_data(client,
-+							LM96163_REG_CONFIG_ENHANCED,
-+							config_enhanced);
-+			if (ret)
-+				goto unlock;
- 		}
--		data->pwm_highres = !slow_clock && pfr == 8 && (ret & 0x10);
- 	}
- 
- 	if (slow_clock)
--		data->config_fan |= 0x08;
-+		config_fan |= 0x08;
- 	else
--		data->config_fan &= ~0x08;
--	i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN, data->config_fan);
--	i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-+		config_fan &= ~0x08;
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_PWM_FREQ, pfr);
-+	if (ret)
-+		goto unlock;
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG_FAN,
-+					config_fan);
-+	if (ret)
-+		goto unlock;
-+
-+	data->config_fan = config_fan;
- 	data->pwm1_freq = pfr;
-+	data->pwm_highres = !slow_clock && pfr == 8 &&
-+				(config_enhanced & 0x10);
-+unlock:
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return ret ? ret : count;
- }
- 
- /*
-@@ -555,6 +636,11 @@ static ssize_t show_local_temp8(struct device *dev,
- {
- 	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 	struct lm63_data *data = lm63_update_device(dev);
-+
-+	if (data->kind == ctf2301)
-+		return sprintf(buf, "%d\n", TEMP12_FROM_REG(attr->index ?
-+				       data->temp1_max : data->temp1_input));
-+
- 	return sprintf(buf, "%d\n", TEMP8_FROM_REG(data->temp8[attr->index]));
- }
- 
-@@ -595,6 +681,23 @@ static ssize_t set_temp8(struct device *dev, struct device_attribute *devattr,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
-+	if (data->kind == ctf2301 && nr == 1) {
-+		temp = TEMP12_TO_REG(val);
-+		err = i2c_smbus_write_byte_data(client, LM63_REG_LOCAL_HIGH,
-+						temp >> 8);
-+		if (!err)
-+			err = i2c_smbus_write_byte_data(client,
-+							CTF2301_REG_LOCAL_HIGH_LSB,
-+							temp & 0xf0);
-+		if (!err) {
-+			data->temp8[nr] = temp >> 8;
-+			data->temp1_max = temp;
-+		}
-+		mutex_unlock(&data->update_lock);
-+
-+		return err ? err : count;
-+	}
-+
- 	switch (nr) {
- 	case 2:
- 		reg = LM63_REG_REMOTE_TCRIT;
-@@ -611,10 +714,12 @@ static ssize_t set_temp8(struct device *dev, struct device_attribute *devattr,
- 		reg = LM63_REG_LUT_TEMP(nr - 3);
- 		temp = lut_temp_to_reg(data, val);
- 	}
--	data->temp8[nr] = temp;
--	i2c_smbus_write_byte_data(client, reg, temp);
-+	err = i2c_smbus_write_byte_data(client, reg, temp);
-+	if (!err)
-+		data->temp8[nr] = temp;
- 	mutex_unlock(&data->update_lock);
--	return count;
-+
-+	return err ? err : count;
- }
- 
- static ssize_t show_temp11(struct device *dev, struct device_attribute *devattr,
-@@ -788,11 +893,40 @@ static ssize_t temp2_crit_hyst_store(struct device *dev,
-  * Set conversion rate.
-  * client->update_lock must be held when calling this function.
-  */
--static void lm63_set_convrate(struct lm63_data *data, unsigned int interval)
-+static unsigned int lm63_update_interval(struct lm63_data *data, u8 rate)
-+{
-+	if (data->kind == ctf2301)
-+		return ctf2301_update_intervals[min_t(unsigned int, rate,
-+					ARRAY_SIZE(ctf2301_update_intervals) - 1)];
-+
-+	return UPDATE_INTERVAL(data->max_convrate_hz, rate);
-+}
-+
-+static int lm63_set_convrate(struct lm63_data *data, unsigned int interval)
- {
- 	struct i2c_client *client = data->client;
--	unsigned int update_interval;
--	int i;
-+	unsigned int update_interval, error, best_error = ~0U;
-+	unsigned int best = 0;
-+	unsigned int i;
-+	int ret;
-+
-+	if (data->kind == ctf2301) {
-+		for (i = 0; i < ARRAY_SIZE(ctf2301_update_intervals); i++) {
-+			error = abs_diff(interval, ctf2301_update_intervals[i]);
-+			if (error < best_error) {
-+				best_error = error;
-+				best = i;
-+			}
-+		}
-+
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE,
-+						best);
-+		if (ret)
-+			return ret;
-+		data->update_interval = ctf2301_update_intervals[best];
-+
-+		return 0;
-+	}
- 
- 	/* Shift calculations to avoid rounding errors */
- 	interval <<= 6;
-@@ -804,8 +938,12 @@ static void lm63_set_convrate(struct lm63_data *data, unsigned int interval)
- 		if (interval >= update_interval * 3 / 4)
- 			break;
- 
--	i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE, i);
-+	ret = i2c_smbus_write_byte_data(client, LM63_REG_CONVRATE, i);
-+	if (ret)
-+		return ret;
- 	data->update_interval = UPDATE_INTERVAL(data->max_convrate_hz, i);
-+
-+	return 0;
- }
- 
- static ssize_t update_interval_show(struct device *dev,
-@@ -829,10 +967,10 @@ static ssize_t update_interval_store(struct device *dev,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
--	lm63_set_convrate(data, clamp_val(val, 0, 100000));
-+	err = lm63_set_convrate(data, clamp_val(val, 0, 100000));
- 	mutex_unlock(&data->update_lock);
- 
--	return count;
-+	return err ? err : count;
- }
- 
- static ssize_t temp2_type_show(struct device *dev,
-@@ -997,6 +1135,75 @@ static DEVICE_ATTR_RO(alarms);
- 
- static DEVICE_ATTR_RW(update_interval);
- 
-+static int lm63_get_max_state(struct thermal_cooling_device *cdev,
-+			      unsigned long *state)
-+{
-+	*state = LM63_MAX_PWM;
-+
-+	return 0;
-+}
-+
-+static int lm63_get_cur_state(struct thermal_cooling_device *cdev,
-+			      unsigned long *state)
-+{
-+	struct lm63_data *data = cdev->devdata;
-+	int ret;
-+
-+	mutex_lock(&data->update_lock);
-+	ret = i2c_smbus_read_byte_data(data->client, LM63_REG_PWM_VALUE);
-+	if (ret < 0)
-+		goto unlock;
-+
-+	data->pwm1[0] = ret;
-+	*state = lm63_pwm_from_reg(data, data->pwm1[0]);
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+
-+	return ret < 0 ? ret : 0;
-+}
-+
-+static int lm63_set_cur_state(struct thermal_cooling_device *cdev,
-+			      unsigned long state)
-+{
-+	struct lm63_data *data = cdev->devdata;
-+	int config_fan;
-+	int ret;
-+
-+	if (state > LM63_MAX_PWM)
-+		return -EINVAL;
-+
-+	mutex_lock(&data->update_lock);
-+	config_fan = i2c_smbus_read_byte_data(data->client,
-+					      LM63_REG_CONFIG_FAN);
-+	if (config_fan < 0) {
-+		ret = config_fan;
-+		goto unlock;
-+	}
-+	data->config_fan = config_fan;
-+
-+	if (!(config_fan & 0x20)) {
-+		config_fan |= 0x20;
-+		ret = i2c_smbus_write_byte_data(data->client,
-+						LM63_REG_CONFIG_FAN,
-+						config_fan);
-+		if (ret)
-+			goto unlock;
-+		data->config_fan = config_fan;
-+	}
-+
-+	ret = lm63_write_pwm(data, 0, state);
-+unlock:
-+	mutex_unlock(&data->update_lock);
-+
-+	return ret;
-+}
-+
-+static const struct thermal_cooling_device_ops lm63_cooling_ops = {
-+	.get_max_state = lm63_get_max_state,
-+	.get_cur_state = lm63_get_cur_state,
-+	.set_cur_state = lm63_set_cur_state,
-+};
-+
- static struct attribute *lm63_attributes[] = {
- 	&sensor_dev_attr_pwm1.dev_attr.attr,
- 	&dev_attr_pwm1_enable.attr,
-@@ -1079,8 +1286,8 @@ static const struct attribute_group lm63_group_extra_lut = {
-  * On LM63, temp2_crit can be set only once, which should be job
-  * of the bootloader.
-  * On LM64, temp2_crit can always be set.
-- * On LM96163, temp2_crit can be set if bit 1 of the configuration
-- * register is true.
-+ * On LM96163 and CTF2301, temp2_crit can be set if bit 1 of the
-+ * configuration register is true.
-  */
- static umode_t lm63_attribute_mode(struct kobject *kobj,
- 				   struct attribute *attr, int index)
-@@ -1090,7 +1297,8 @@ static umode_t lm63_attribute_mode(struct kobject *kobj,
- 
- 	if (attr == &sensor_dev_attr_temp2_crit.dev_attr.attr
- 	    && (data->kind == lm64 ||
--		(data->kind == lm96163 && (data->config & 0x02))))
-+		((data->kind == lm96163 || data->kind == ctf2301) &&
-+		 (data->config & 0x02))))
- 		return attr->mode | S_IWUSR;
- 
- 	return attr->mode;
-@@ -1165,29 +1373,48 @@ static int lm63_detect(struct i2c_client *client,
-  * Ideally we shouldn't have to initialize anything, since the BIOS
-  * should have taken care of everything
-  */
--static void lm63_init_client(struct lm63_data *data)
-+static int lm63_init_client(struct lm63_data *data)
- {
- 	struct i2c_client *client = data->client;
- 	struct device *dev = &client->dev;
- 	u8 convrate;
-+	int ret;
- 
--	data->config = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG1);
--	data->config_fan = i2c_smbus_read_byte_data(client,
--						    LM63_REG_CONFIG_FAN);
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG1);
-+	if (ret < 0)
-+		return ret;
-+	data->config = ret;
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONFIG_FAN);
-+	if (ret < 0)
-+		return ret;
-+	data->config_fan = ret;
- 
- 	/* Start converting if needed */
- 	if (data->config & 0x40) { /* standby */
- 		dev_dbg(dev, "Switching to operational mode\n");
- 		data->config &= 0xA7;
--		i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
--					  data->config);
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
-+						data->config);
-+		if (ret)
-+			return ret;
- 	}
- 	/* Tachometer is always enabled on LM64 */
- 	if (data->kind == lm64)
- 		data->config |= 0x04;
-+	if (data->kind == ctf2301 && !client->irq && !(data->config & 0x04)) {
-+		dev_dbg(dev, "Configuring ALERT/TACH pin for tachometer input\n");
-+		data->config |= 0x04;
-+		ret = i2c_smbus_write_byte_data(client, LM63_REG_CONFIG1,
-+						data->config);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	/* We may need pwm1_freq before ever updating the client data */
--	data->pwm1_freq = i2c_smbus_read_byte_data(client, LM63_REG_PWM_FREQ);
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_PWM_FREQ);
-+	if (ret < 0)
-+		return ret;
-+	data->pwm1_freq = ret;
- 	if (data->pwm1_freq == 0)
- 		data->pwm1_freq = 1;
- 
-@@ -1200,25 +1427,38 @@ static void lm63_init_client(struct lm63_data *data)
- 	case lm96163:
- 		data->max_convrate_hz = LM96163_MAX_CONVRATE_HZ;
- 		data->lut_size = 12;
--		data->trutherm
--		  = i2c_smbus_read_byte_data(client,
--					     LM96163_REG_TRUTHERM) & 0x02;
-+		ret = i2c_smbus_read_byte_data(client, LM96163_REG_TRUTHERM);
-+		if (ret < 0)
-+			return ret;
-+		data->trutherm = ret & 0x02;
-+		break;
-+	case ctf2301:
-+		data->lut_size = 12;
- 		break;
- 	}
--	convrate = i2c_smbus_read_byte_data(client, LM63_REG_CONVRATE);
--	if (unlikely(convrate > LM63_MAX_CONVRATE))
-+	ret = i2c_smbus_read_byte_data(client, LM63_REG_CONVRATE);
-+	if (ret < 0)
-+		return ret;
-+	convrate = ret;
-+	if (data->kind == ctf2301 &&
-+	    convrate >= ARRAY_SIZE(ctf2301_update_intervals))
-+		convrate = ARRAY_SIZE(ctf2301_update_intervals) - 1;
-+	else if (unlikely(convrate > LM63_MAX_CONVRATE))
- 		convrate = LM63_MAX_CONVRATE;
--	data->update_interval = UPDATE_INTERVAL(data->max_convrate_hz,
--						convrate);
-+	data->update_interval = lm63_update_interval(data, convrate);
- 
- 	/*
--	 * For LM96163, check if high resolution PWM
-+	 * For LM96163 and CTF2301, check if high resolution PWM
- 	 * and unsigned temperature format is enabled.
- 	 */
--	if (data->kind == lm96163) {
--		u8 config_enhanced
--		  = i2c_smbus_read_byte_data(client,
--					     LM96163_REG_CONFIG_ENHANCED);
-+	if (data->kind == lm96163 || data->kind == ctf2301) {
-+		u8 config_enhanced;
-+
-+		ret = i2c_smbus_read_byte_data(client,
-+					       LM96163_REG_CONFIG_ENHANCED);
-+		if (ret < 0)
-+			return ret;
-+		config_enhanced = ret;
- 		if (config_enhanced & 0x20)
- 			data->lut_temp_highres = true;
- 		if ((config_enhanced & 0x10)
-@@ -1239,6 +1479,8 @@ static void lm63_init_client(struct lm63_data *data)
- 	dev_dbg(dev, "PWM output active %s, %s mode\n",
- 		(data->config_fan & 0x10) ? "low" : "high",
- 		(data->config_fan & 0x20) ? "manual" : "auto");
-+
-+	return 0;
- }
- 
- static const struct i2c_device_id lm63_id[];
-@@ -1246,9 +1488,11 @@ static const struct i2c_device_id lm63_id[];
- static int lm63_probe(struct i2c_client *client)
- {
- 	struct device *dev = &client->dev;
-+	struct thermal_cooling_device *cdev;
- 	struct device *hwmon_dev;
- 	struct lm63_data *data;
- 	int groups = 0;
-+	int ret;
- 
- 	data = devm_kzalloc(dev, sizeof(struct lm63_data), GFP_KERNEL);
- 	if (!data)
-@@ -1263,7 +1507,9 @@ static int lm63_probe(struct i2c_client *client)
- 		data->temp2_offset = 16000;
- 
- 	/* Initialize chip */
--	lm63_init_client(data);
-+	ret = lm63_init_client(data);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to initialize device\n");
- 
- 	/* Register sysfs hooks */
- 	data->groups[groups++] = &lm63_group;
-@@ -1273,11 +1519,26 @@ static int lm63_probe(struct i2c_client *client)
- 	if (data->kind == lm96163) {
- 		data->groups[groups++] = &lm63_group_temp2_type;
- 		data->groups[groups++] = &lm63_group_extra_lut;
-+	} else if (data->kind == ctf2301) {
-+		data->groups[groups++] = &lm63_group_extra_lut;
- 	}
- 
- 	hwmon_dev = devm_hwmon_device_register_with_groups(dev, client->name,
- 							   data, data->groups);
--	return PTR_ERR_OR_ZERO(hwmon_dev);
-+	if (IS_ERR(hwmon_dev))
-+		return PTR_ERR(hwmon_dev);
-+
-+	if (IS_ENABLED(CONFIG_THERMAL_OF) &&
-+	    of_property_present(dev->of_node, "#cooling-cells")) {
-+		cdev = devm_thermal_of_cooling_device_register(dev, 0,
-+							       client->name,
-+							       data,
-+							       &lm63_cooling_ops);
-+		if (IS_ERR(cdev))
-+			return PTR_ERR(cdev);
-+	}
-+
-+	return 0;
- }
- 
- /*
-@@ -1288,6 +1549,7 @@ static const struct i2c_device_id lm63_id[] = {
- 	{ .name = "lm63", .driver_data = lm63 },
- 	{ .name = "lm64", .driver_data = lm64 },
- 	{ .name = "lm96163", .driver_data = lm96163 },
-+	{ .name = "ctf2301", .driver_data = ctf2301 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, lm63_id);
-@@ -1305,6 +1567,10 @@ static const struct of_device_id __maybe_unused lm63_of_match[] = {
- 		.compatible = "national,lm96163",
- 		.data = (void *)lm96163
- 	},
-+	{
-+		.compatible = "sensylink,ctf2301",
-+		.data = (void *)ctf2301
-+	},
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, lm63_of_match);
-
--- 
-2.55.0
-
+=0A=
+Dear Krzysztof,=0A=
+=0A=
+Thank-you for your review.=0A=
+=0A=
+<snip>=0A=
+=0A=
+On Thu, Jul 30, 2026 at 11:15:25AM +0900, Lachlan Michael wrote:=0A=
+>> +	msleep(24); /* Regulator stabilization after standby cancel. */=0A=
+>> +=0A=
+>> +	ret =3D cci_read(imx->cci, IMX908_REG_TYPE_ID, &val, &err);=0A=
+>> +	if (ret || err)=0A=
+>> +		return ret ? ret : err;=0A=
+>> +=0A=
+>> +	chip_id =3D val;=0A=
+>> +	dev_info(imx->dev, "IMX908 chip ID: 0x%04x\n", chip_id);=0A=
+>=0A=
+>Drivers should be silent on success. Drop or dev_dbg.=0A=
+=0A=
+I will dev_dbg in v2.=0A=
+=0A=
+>> +	if (chip_id !=3D IMX908_CHIP_ID) {=0A=
+>> +		dev_err(imx->dev, "Unexpected chip ID 0x%04x (expected 0x%04x)\n",=0A=
+>> +			chip_id, IMX908_CHIP_ID);=0A=
+>> +		return -ENXIO;=0A=
+>> +	}=0A=
+>> +=0A=
+>> +	/* Set to standby mode */=0A=
+>> +	ret =3D cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN, NUL=
+L);=0A=
+>> +	if (ret)=0A=
+>> +		dev_err(imx->dev, "failed to enter standby state: %d\n", ret);=0A=
+>> +=0A=
+>> +	return 0;=0A=
+>> +}=0A=
+>> +=0A=
+>> +static int imx908_probe(struct i2c_client *client)=0A=
+>> +{=0A=
+>> +	struct imx908 *imx;=0A=
+>> +	int ret;=0A=
+>> +=0A=
+>> +	/* Allocate Memory */=0A=
+>=0A=
+>Really?=0A=
+=0A=
+I will review all comments for the v2 submission and remove / reword them t=
+o be=0A=
+more in line with the kernel style. =0A=
+=0A=
+>> +	imx =3D devm_kzalloc(&client->dev, sizeof(*imx), GFP_KERNEL);=0A=
+>> +	if (!imx)=0A=
+>> +		return dev_err_probe(&client->dev, -ENOMEM,=0A=
+>> +				 =A0 =A0 "failed to allocate IMX908 device structure\n");=0A=
+>> +	imx->dev =3D &client->dev;=0A=
+>> +=0A=
+>> +	/* Initialize V4L2 subdevice */=0A=
+>=0A=
+>Obvious.=0A=
+=0A=
+Will remove in v2.=0A=
+=0A=
+>> +	v4l2_i2c_subdev_init(&imx->sd, client, &imx908_subdev_ops);=0A=
+>> +	imx->sd.internal_ops =3D &imx908_internal_ops;=0A=
+>> +=0A=
+>> +	/* Register access initialization. Set 2-byte (16-bit) addresses */=0A=
+>> +	imx->cci =3D devm_cci_regmap_init_i2c(client, 16);=0A=
+>> +	if (IS_ERR(imx->cci))=0A=
+>> +		return dev_err_probe(&client->dev, PTR_ERR(imx->cci),=0A=
+>> +				 =A0 =A0 "CCI regmap init failed\n");=0A=
+>> +=0A=
+>> +	/* Get mandatory input clock from DT (INCK) */=0A=
+>=0A=
+>Obvious.=0A=
+=0A=
+Will remove in v2.=0A=
+=0A=
+>> +	imx->xclk =3D devm_clk_get(imx->dev, "xclk");=0A=
+>> +	if (IS_ERR(imx->xclk))=0A=
+>> +		return dev_err_probe(imx->dev, PTR_ERR(imx->xclk), "xclk\n");=0A=
+>> +=0A=
+>> +	/* Get clock frequency and check against acceptable HW values */=0A=
+>> +	imx->xclk_freq =3D clk_get_rate(imx->xclk);=0A=
+>> +	ret =3D imx908_get_inck_sel(imx);=0A=
+>> +	if (ret)=0A=
+>> +		return ret;=0A=
+>> +=0A=
+>> +	/* GPIO reset acquisition */=0A=
+>=0A=
+>Please drop obvious comments. Can devm_gpiod_get_optional() be anything=0A=
+>else than GPIO reset acquisition? No.=0A=
+>=0A=
+>Redundant comments bloat the code and make it more difficult to actually=
+=0A=
+>spot important things.=0A=
+=0A=
+Understood. =0A=
+=0A=
+>> +	imx->reset_gpio =3D devm_gpiod_get_optional(imx->dev, "reset",=0A=
+>> +						 =A0GPIOD_OUT_HIGH);=0A=
+>> +=0A=
+>> +	if (IS_ERR(imx->reset_gpio))=0A=
+>> +		return dev_err_probe(imx->dev, PTR_ERR(imx->reset_gpio),=0A=
+>> +				 =A0 =A0 "reset gpio\n");=0A=
+>> +=0A=
+>> +	/* Link to power supplies */=0A=
+>> +	ret =3D imx908_get_regulators(imx);=0A=
+>> +	if (ret)=0A=
+>> +		return dev_err_probe(&client->dev, ret,=0A=
+>> +				 =A0 =A0 "regulator get failed\n");=0A=
+>> +=0A=
+>> +	/* Parse Device Tree endpoint */=0A=
+>=0A=
+>Obvious=0A=
+=0A=
+:-)=0A=
+=0A=
+>> +	ret =3D imx908_parse_fwnode(imx);=0A=
+>> +	if (ret)=0A=
+>> +		return dev_err_probe(&client->dev, ret,=0A=
+>> +				 =A0 =A0 "device tree parse failed\n");=0A=
+>> +=0A=
+>> +	/* Power on IMX908 image sensor */=0A=
+>=0A=
+>What if imx908_power_on() does power off of the sensor?=0A=
+=0A=
+Will remove these comments for v2.=0A=
+=0A=
+>> +	ret =3D imx908_power_on(imx);=0A=
+>> +	if (ret)=0A=
+>> +		return dev_err_probe(&client->dev, ret, "power-on failed\n");=0A=
+>> +=0A=
+>> +	/* Read IMX908 device ID */=0A=
