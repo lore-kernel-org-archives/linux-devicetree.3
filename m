@@ -1,70 +1,71 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE16357CE9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70EC3CF05D
 	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 17:49:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785952166; cv=none; b=TC7xlwVV02IJEkhTnlMpRP3+4XIZrGBaOJxfSdvifpN6NhD/PFqUZmHGyu+glKHOfVHri9wGFy1qjXOSCF5Qprgfz8B54cSOS+SZ8mNxN1xXIAicX69rsuLXmkiHMHXqxQYuYBygg6bU0EgwvW803IAmx9jDxeuN01LHYnuLRlc=
+	t=1785952166; cv=none; b=j0Tgii7V4sDFZQhq4kKUgk1/AG7QIR4Sm8nEgduzZNRs3CTypY8y31/qsz08pp2k8fBP+BKrf5WtI4VvnhmPep690u8bd150BpRcZsjcLrvruW6Y8IyTDeVhNsjS5LH5DSwxn8sME0ztLGR/FBovZ+V9b7wI4xfJ1uqwA718KDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785952166; c=relaxed/simple;
-	bh=o98xVnT4COBnJxZ45bEwmqBnJwG6CT6AcnhDd8BkxQg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZdhWl9FUHecWXfx4MUdz9v+5eci/srl7FYoPT0EfRLwzn6lOOlBztHKmH1unGPkX7jrCC8xQrR+QeNWiqD5n8AszrfY0MErextxhaGW+xU57NotU4atejWvp2eVIQcTrYjoQfRclpSrKlKPMEtxKr8bY+tV5pHDMGOm9xEjuQiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TUCiRPiV; arc=none smtp.client-ip=209.85.160.45
+	bh=X5btDcfQTdSHcpvlsmHeLvFsZZ7Fot+driL4QSWR/S8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WE1LKEA2gI4eZ7Ujy/lN7rmg0GYPKxFpGc3cHwhLl7b8Zu9k61dSluE9uuEBcdelu43wMPSP5LtWYSdBc9yRxE1t7ptuhHc28MnzkukazOuv8vsQ6/ympVHVVyls0TqhwYA5XCac13bhSfNc13gjA45EPHt07pnHodHuy+zKtys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y+acojAo; arc=none smtp.client-ip=209.85.160.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TUCiRPiV"
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-43ccd4f6f6eso732269fac.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y+acojAo"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-4472500e25fso510411fac.1
         for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 10:49:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785952162; x=1786556962; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=IBQGTYyJQQ4o4r7qxnQpfIdQ0TE9l2pOB0fNSGOzrYM=;
-        b=TUCiRPiVdekIH0Sc7xVG5u9VYStmuoDhB0gTeM9vuJYlf+dqXsfI+SpfH/j+V7gMr8
-         jwNuVDsCnxyt4y3uUnD+xDchDx0JzfA2KIFBEwqoVACNq50NLzZGp7vUChc+7BSfAiz0
-         AferY7DnvffpBeURNF6ao+nLi8yvSry7P03DGSa1mCZQl/Pb9NvdvhJjSC1xfbxDBkoL
-         xUenLjnhq1ZqKKCGfA5/aBbAGWirk5ePbKX1YHwI3j0exUlAwd7jR3C3LCPl2Bq+so0Q
-         0H4T3V+4HxSYD1sUtp2TztYzaMfZlYX0qhTxLpxADnRhhN+8QKPvSgCKoMXWRt4Pv1g2
-         46nw==
+        d=gmail.com; s=20251104; t=1785952164; x=1786556964; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RNdkQ7aeXS5MjicAGAJeJZ2Ggh2c8nR9nvPFAS2N1c8=;
+        b=Y+acojAor+hsyzhnx5PUipQaOk8Spjy42Z38oRQxRawJ+d3a89RdkO3H6WOBA/dHmx
+         S9W9WTqz2qx/6gYNsFq2BrHImbpKFybzE9r4WPbtG2UWDtK6337jnxWdRsDXOLz0/iC2
+         SPtKuym/NDpLZ3SzkpAWdWESZP1UCjNxu6cXaaj5teYsPyrwxdK0g7Vr9tVQJG2oUuX1
+         quHsluiVvS5V4wapN1c1YOrua7wic4IHthZX+CeEVjTOCzJzM8ZOqG8qDDoV3ebUOBUN
+         xkxXnAG1YRS7DN11hSkraNrJsUMxPZp0us/L2RbCfdLh8YuHEQh/Bw3iJWzVEi+KucNO
+         SVdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785952162; x=1786556962;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IBQGTYyJQQ4o4r7qxnQpfIdQ0TE9l2pOB0fNSGOzrYM=;
-        b=VDEZYuFtL0hLpGqQXJVdl/hs63HaeHOKaElxJIPEcZspOeOqfYjBn0+fPEeB3mvE4F
-         EiTsPyMmXutyuoK/1bTJ6JXfSqrflmkkU3ziJrCbB+nrGdAT3wLktuOKnjy12KODJLCF
-         /Y6Gsirl7gmeVJWi366Pf7ptDAmKPc8ztCPxc9QS67Aj5n2IaToZlajQQ+yiDnLJOa1i
-         rm5OxawXju8oAidvY+4tIJbY5YOQluunxlkTAyky1Xo8b5x3xg63/bMiZCnbZlflvvK4
-         3VfqXtgrKNq4nUGcAAJ8vzytqecBlEV4JvbQ5+9YiATZGu2Hl0xMC3nf+xmHouaWvu7m
-         Rhkw==
-X-Forwarded-Encrypted: i=1; AHgh+RoFZmO9JRVplXRlLutwWddi7gwelU15cZswVE6uOFVnlDHGLDPM6eHaoIhQXYx1wfQrPtUZC1SF9upk@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQcdhfjR1pDFzrWCX8D5wny3VFIOrohGTvql4kjAz9bL02F3+2
-	zq7FoAESc3HTQLGPgDrneLjyN25DMRVMb9itql4NuUFaurRXCvbgN1Kr
-X-Gm-Gg: AR+sD13y/pZgkXNsKhjqnXzrlvRqRqRGEMcBb9mGe0/Ooh1fdb1/3b3QG5kWvut4wW/
-	bTMvPC3XcHDFU2qiGRU49wJL3UeTvViYTJsuECtY0cqnktub/CsSbhxfhQva4Zl7XUweJaEx54U
-	qnL9WN8ulNMyiB5uurx4dURhutfwV3g2QPofo+73BS2yOzvxVhCHKsqktQWYp/gjU90rVOSHajJ
-	5nCvq5ZkRpYKOEBZ28q+hkc0ziEfzG5PS7rW/8HgeQR6sOrpm5Ual9lI21StSSsiAaVq42j3C1Q
-	Wrw23R+HjDlJOcSsh9w4p9TNT9Ru8xd0iJio3YlywV0JsPRUytN8KlSLHSiISGeGvdQKD0xKMal
-	R2LmDnSZV2K0o7hHJF3ufTrW+HxvxO0EdBW3d03OgJgte4IeS2Sn7FELjHu4HfNwKAuA9jHEVHY
-	6EUvrx9AAecMyysojlyzUpWL3c9ifPa9WAbqaQxjINRZVKcdDVD3T/wVBED8N8dXJ66W9tLUyFR
-	T9D9Ggkqt9uRWrhzD7ljKGYgHDorkPB0iOHF9hVdsPUoM/mT+tGszi+/b2Vt2mYDmSfveSuzsGy
-	JhNgNYyzScQ0vnF0ZmidJDylx0nclWF/quBkmwOa2JjWcs0XE3tPRlWFK64oXT5EVXwsnh3xp0f
-	2QUo+WWGD1pWo8Jw/
-X-Received: by 2002:a05:6871:60f:b0:43b:bb18:affd with SMTP id 586e51a60fabf-4599eb7d3e1mr4455586fac.8.1785952162103;
-        Wed, 05 Aug 2026 10:49:22 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785952164; x=1786556964;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RNdkQ7aeXS5MjicAGAJeJZ2Ggh2c8nR9nvPFAS2N1c8=;
+        b=hHJzPdY3dCN0QSvkM8hnY1fGXCkv5q8/vWIrY+IeP8afsjjlTtAE35+8wjRU07iLL9
+         7CHnaylPW1P/tQjzCimJ06ICw4lTLyuboeKTc3A400NvWC9owfUTiT8DPfYbaEokC5Vo
+         s1VMCpGVgwrD76D1tMs+KZVJu5FeceAF8vn5D/Ra5gGcs0KCT3p0l88o/kGB3tpQ2dvS
+         EIV43KCaVadIKMlA+sp5SUVB6P5afz8Li0psdamcXoRSVGrqF7fmQTiEVSC0B4CWqQLi
+         90ELxCBKwSR0rU9v1TCaduQds8b9iZflpMZ1RLZv1TBGOyyZKXH5d9LcL3QBSe+5oFfN
+         hz8w==
+X-Forwarded-Encrypted: i=1; AHgh+RrPrtZGP/40L2TRP7cHHWcqD6X0aRVwtzi1lCXQQaBwHRru0QRN+zb1QSvY2Tl9jOSVXJ8DlVqvWD/H@vger.kernel.org
+X-Gm-Message-State: AOJu0YytmdG1DuZZJ3CnIrp3w3cHToY5r3kAcTR+QD46dJK8urgJmVX/
+	BXlWm7/t3l2BPxHHqnSAL77yYUFnslf/fyBC26szsTIvJ1XFk7qLpE78
+X-Gm-Gg: AR+sD12y/a6dGGVE69pDSaJ+MIDhsn+1lVUlGf8i4TgEPY2q5pve7HbW4wBQllmPw2+
+	D9Igqfhd8YFZM5BN2z4yFFqROls6Pjc9HHfKJ1Xha/6cACpj8gN/PZqSzmr+lAL8+0U3loqfFdJ
+	hkWYeNqyV9fZLNejSHuS+aEZTmWMEwaMUi6lm1pus2BIpBn38BExEEcH8mmYCQ8IbzqlhN0NMuY
+	2n8e61WFBeLnK/UPSK8SppUG0auLFldHOkfqAtWHhzjmh2s/3SPv0OM1dUobkdAyxRtpfkn5jgS
+	iCgtF1lkbvIk2d3HDp/2JT24Pps4ql/HCf0qTS3lOWE+lUmrYRmxUWoCn39p9z3L7GbUT5AF2Kq
+	w5HZ3Fn1ih1ypTNoY4+LRdJEvI8Mywb59nOefr9XP2ocRmrbPsWTPpoZaGMZvM8NPyfDh3gp6AV
+	NdCmXX59g46c9I6YRh8NY3wDDfRxhqpiLmc4F9+iEBds6KmhDA/FACg5f4/kXEKE0d9IfuWQjWC
+	VfbVl2e0GDVhCY3JAPR/b5M0ymjXoypjPiVXEAdqDDQyoWEWNEmB6wF91iO1DY1FnmFQ7ra3583
+	Xg/qCVA+UCj1ogI/DUQZckFKiICjmWoyOhpeXzUJzbDmpF7Glsj3LwTpceSuT4qCdwKIoVszKDl
+	QLO28jVUHS3fUglVH
+X-Received: by 2002:a05:6870:a40c:b0:456:3973:5a89 with SMTP id 586e51a60fabf-4599eda5c51mr4077499fac.8.1785952163618;
+        Wed, 05 Aug 2026 10:49:23 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4599dd615ecsm3281704fac.0.2026.08.05.10.49.20
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4599dd615ecsm3281704fac.0.2026.08.05.10.49.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 10:49:20 -0700 (PDT)
+        Wed, 05 Aug 2026 10:49:22 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH net-next v3 0/4] net: mdio: support dynamic OF device
- changes
-Date: Wed, 05 Aug 2026 11:49:11 -0600
-Message-Id: <20260805-submit-mdio-of-dynamic-v2-v3-0-16f3cc893b0e@gmail.com>
+Date: Wed, 05 Aug 2026 11:49:12 -0600
+Subject: [PATCH net-next v3 1/4] net: phy: cache MDIO bus owner before
+ dropping PHY reference
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,11 +74,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OzQ6CMBCEX8Xs2TWl/AiefA/DobQF1tjWtJVAC
- O9uwRcwmctkdr6dFYL2pAPcTit4PVEgZ5PJzyeQo7CDRlLJA2e8YjXLMXw6QxGNIoeuR7VYYUj
- ixLFhZcWkyMqmayD13173NB/sB1gd0eo5QvtLEuapZdzR++1IITq/HDMmfjT++JjEsK/rIuvzj
- Bfqeh+MoNdFOgPttm1fSLe4v94AAAA=
-X-Change-ID: 20260803-submit-mdio-of-dynamic-v2-90560ca159b9
+Message-Id: <20260805-submit-mdio-of-dynamic-v2-v3-1-16f3cc893b0e@gmail.com>
+References: <20260805-submit-mdio-of-dynamic-v2-v3-0-16f3cc893b0e@gmail.com>
+In-Reply-To: <20260805-submit-mdio-of-dynamic-v2-v3-0-16f3cc893b0e@gmail.com>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
  Russell King <linux@armlinux.org.uk>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -89,117 +88,85 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-MDIO buses enumerate firmware children only when the bus is registered. A
-later devicetree overlay or status transition is ignored, unlike on I2C and
-SPI buses. Supporting live reconfiguration also means that population and
-removal can race address scanning, PHY attachment and bus teardown.
+phy_attach_direct() and phy_detach() cache the MDIO bus pointer, drop their
+PHY device reference, and then read bus->owner. If the put releases the PHY
+during concurrent teardown, the cached pointer does not itself keep the
+parent bus alive.
 
-This is generic OF_DYNAMIC support for MDIO buses. It contains no
-Allwinner H616 or X-Powers AC200/AC300-specific behavior and does not
-depend on either platform; H616 hardware was used only as the runtime
-test platform.
+Cache the module pointer before dropping the PHY reference. The existing
+module reference protects the cached pointer whenever the MDIO bus and
+network device have different owners.
 
-Patch 1 fixes an existing lifetime bug exposed while auditing those races:
-PHY attach and detach paths cache the MDIO bus but read its owner after
-dropping their PHY device reference. Cache the owner before that lifetime
-boundary.
-
-Patch 2 factors fixed-address child registration and legacy PHY scanning
-into helpers shared by initial and dynamic population.
-
-Patch 3 serializes MDIO device-map changes, reserves addresses while
-registration is in progress, publishes devices only after registration
-completes, routes lockless map readers through the ordered accessor, and
-coordinates scans, attachment, removal and bus teardown. Firmware removal
-is exclusive with registration, scanning and other firmware changes.
-Dynamically removed PHY devices remain pinned until bus teardown,
-preserving the borrowed-pointer convention of mdiobus_get_phy(); generic
-MDIO devices can be released normally because their lookup API takes a
-reference.
-
-Patch 4 adds the OF reconfiguration notifier. It supports fixed-address
-PHYs and generic MDIO devices, scanned PHY addresses, and Ethernet PHY
-packages. It preflights overlay removal before firmware nodes disappear
-and refuses removal of attached or in-flight PHYs, including while another
-MDIO map operation is still completing.
-
-Build-tested on net-next under W=1 with arm64 defconfig, x86_64
-allmodconfig under GCC and Clang, and minimal arm64 configurations covering
-CONFIG_OF_DYNAMIC=n and CONFIG_OF_DYNAMIC=y with CONFIG_OF_OVERLAY=n. No
-warning was emitted from a changed file. Runtime-tested on Allwinner H616
-hardware from SD with 100 notifier-driven add/remove cycles for a
-fixed-address generic MDIO device; rejection of an out-of-range fixed
-address without device creation; 20 complete MAC/MDIO teardown and
-recreation cycles with link recovery; another 50 notifier-driven cycles
-after bus recreation; successful removal of an unrelated non-MDIO overlay;
-and successful link traffic after testing.
-
+Fixes: ec988ad78ed6 ("phy: Don't increment MDIO bus refcount unless it's a different owner")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v3:
-- add a preparatory fix for MDIO bus-owner lifetime handling
-- make teardown take a device reference and honor removal ownership
-- use one checked callback for normal and dynamic internal removal
-- publish map entries only after device registration completes
-- route the remaining direct map reader through mdiobus_get_phy()
-- retire only PHY devices which have a borrowed-pointer lookup API
-- make firmware removal exclusive with registration, scanning and other
-  firmware changes
-- preserve existing error handling while propagating package population
-  conflicts
-- allow global overlay removal to ignore unrelated nodes and absent MDIO
-  buses
-- annotate the recursive notifier lock owner accesses for KCSAN
-- avoid an OF/MDIO lock inversion during overlay preflight
-- refuse overlay removal while another MDIO map change is active
-- propagate removal-transaction conflicts from the OF notifier
-- do not treat malformed fixed addresses as addressless PHYs
-- rebase onto current net-next
-- Link to v2: https://patch.msgid.link/20260803-submit-mdio-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com
+ drivers/net/phy/phy_device.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
 
-Changes in v2:
-- split the generic MDIO work from the ACx00 series
-- rebase onto current net-next
-- move touched declarations to function scope for netdev style
-- Link to v1: https://patch.msgid.link/20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 94b2e85e00a3..d65f28dd5773 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -1752,7 +1752,7 @@ static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
+ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+ 		      u32 flags, phy_interface_t interface)
+ {
+-	struct mii_bus *bus = phydev->mdio.bus;
++	struct module *bus_owner = phydev->mdio.bus->owner;
+ 	struct device *d = &phydev->mdio.dev;
+ 	struct module *ndev_owner = NULL;
+ 	int err;
+@@ -1764,7 +1764,7 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+ 	 */
+ 	if (dev)
+ 		ndev_owner = dev->dev.parent->driver->owner;
+-	if (ndev_owner != bus->owner && !try_module_get(bus->owner)) {
++	if (ndev_owner != bus_owner && !try_module_get(bus_owner)) {
+ 		phydev_err(phydev, "failed to get the bus module\n");
+ 		return -EIO;
+ 	}
+@@ -1900,8 +1900,8 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+ 	d->driver = NULL;
+ error_put_device:
+ 	put_device(d);
+-	if (ndev_owner != bus->owner)
+-		module_put(bus->owner);
++	if (ndev_owner != bus_owner)
++		module_put(bus_owner);
+ 	return err;
+ }
+ EXPORT_SYMBOL(phy_attach_direct);
+@@ -1917,6 +1917,7 @@ void phy_detach(struct phy_device *phydev)
+ {
+ 	struct net_device *dev = phydev->attached_dev;
+ 	struct module *ndev_owner = NULL;
++	struct module *bus_owner;
+ 	struct mii_bus *bus;
+ 
+ 	if (phydev->devlink) {
+@@ -1972,17 +1973,15 @@ void phy_detach(struct phy_device *phydev)
+ 	/* Assert the reset signal */
+ 	phy_device_reset(phydev, 1);
+ 
+-	/*
+-	 * The phydev might go away on the put_device() below, so avoid
+-	 * a use-after-free bug by reading the underlying bus first.
+-	 */
++	/* The PHY and its parent bus may be released by put_device() below. */
+ 	bus = phydev->mdio.bus;
++	bus_owner = bus->owner;
+ 
+ 	put_device(&phydev->mdio.dev);
+ 	if (dev)
+ 		ndev_owner = dev->dev.parent->driver->owner;
+-	if (ndev_owner != bus->owner)
+-		module_put(bus->owner);
++	if (ndev_owner != bus_owner)
++		module_put(bus_owner);
+ }
+ EXPORT_SYMBOL(phy_detach);
+ 
 
-To: Andrew Lunn <andrew@lunn.ch>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-To: Russell King <linux@armlinux.org.uk>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Florian Fainelli <f.fainelli@gmail.com>
-To: Richard Cochran <richardcochran@gmail.com>
-To: Rob Herring <robh@kernel.org>
-To: Saravana Kannan <saravanak@kernel.org>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-
----
-James Hilliard (4):
-      net: phy: cache MDIO bus owner before dropping PHY reference
-      net: mdio: factor out OF child registration helpers
-      net: mdio: make device map changes hotplug-safe
-      net: mdio: support dynamic OF device changes
-
- drivers/net/mdio/of_mdio.c          | 514 +++++++++++++++++++++++++++++++++---
- drivers/net/phy/mdio_bus.c          |  14 +-
- drivers/net/phy/mdio_bus_provider.c | 147 ++++++++---
- drivers/net/phy/mdio_device.c       | 236 +++++++++++++++--
- drivers/net/phy/mscc/mscc_ptp.c     |   6 +-
- drivers/net/phy/phy_device.c        | 118 ++++++---
- drivers/net/phy/phylib-internal.h   |   4 +-
- include/linux/mdio.h                |   4 +-
- include/linux/phy.h                 |  20 ++
- 9 files changed, 923 insertions(+), 140 deletions(-)
----
-base-commit: a23b36233d4103def55dc8cf65698106d0bd1e62
-change-id: 20260803-submit-mdio-of-dynamic-v2-90560ca159b9
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
