@@ -1,35 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993F1377A88;
-	Wed,  5 Aug 2026 19:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFD732E6BC
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 19:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785956446; cv=none; b=rGa6b8YTclC050eylR6z1ZrKqqGxJtIQsepY9hnUteyQ984YwxVsT72vNlaEdm6IGGPRwhihyHwWi00LnkQ3a6V3/Gby2jYOMQaNH53I23TnVMqibwnQOxNlbJfByujjoI1W3cCYPFeucPH8OCqQ7PsBfemc61u4+riLRzPps2k=
+	t=1785956467; cv=none; b=UoBQ/B1/97tAqQuRW7bcGIL77y0KMLRMcXaqn4ctAozb/mSWhI5VXdJ6flpeGOwxtD5BzUfbBxwp1Ab/6byzQ+t5srXpvYNTeGruYcLazu8HIXyKFhBme6x5WyBWJr1iWbaQvT0VQUFLVOKc5t7syF3yFA5tYlq0onKnWy5iW+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785956446; c=relaxed/simple;
-	bh=wUDMwDCj/hgH0HlkYKasSuvAU9tVV0SdKHtXSyl1Ixw=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=IX/66G7ExDA7JaChBp6fcBih3SHmOekBxqpOuS0FLs9lDlkzXcETsQAtwsrtJ0SEbGnnr6ytMS8R32/PRr1kBBY7nd8sMO6PeFDMvfoY/lCP1qr/hizoNo3bi9WvQaGO1ma4mypPUOYYdSeceP4ko1B8SsoIs7rVGRrYY7B8Rh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EglE+9Ls; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785956467; c=relaxed/simple;
+	bh=YEqM3jlAE4iGEPPbDOWq7T7UoHO7+oz59bOb0F9ROg4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TJ5LbM4KHFK6eXnsfdEAHitzFp0WImMy/t6XDzEl2Wg26SvmA9hBE7JC7t3sP7UU6d3Fj1yEduyCPpBS1Uh7tuFUnulljXWfOSN248Knh+X0YdmC8GGKZ7KLKmCCsu/O4W9frpur6zArypWSUb1Nx4midhVluzuImIeBsqqSTyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ue/g+0Y/; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EglE+9Ls"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D8B1F00A3D;
-	Wed,  5 Aug 2026 19:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785956445;
-	bh=wMYZA8AlNf6gM6blefRnFi0tolDoOtoUkOg6Cmqg2aw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=EglE+9LsA5r4LSKWNFGFi14ZsG2EApotl29OUDOp5NhSnIXJq65XBDLFDh5v65Yq2
-	 UlUetjdKKn4pWe+h82SDIUsFQIL5wGiULklf1b2DOK4jnYis/cQLzyiJ26idib/el5
-	 GhUBq64SuCW8mgp6O+rZOxNj+8JPYFNQpATNJXP2otMDZz3FvQ6+DBbyzOg4MJkdBr
-	 GwewxRculi6CFeluwVrI4dPY+jMC2Q+yQ5Diti73SKpeD/8DVFgwfMfpJ+BW46hrHc
-	 UVQY74Vw31ZEE0ZmzHAfp5geBZUrn4yDoJvijbtBuffaYVo3QeEQsZ1VnPe1VntRZH
-	 N76Iiq7Uqf20Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56933392FFC3;
-	Wed,  5 Aug 2026 19:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ue/g+0Y/"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38e08baf860so1306653a91.2
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 12:01:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785956465; x=1786561265; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lY8ZEQ2hlKG5xfE4pkvXblb/dffG7Wh4lNbHjY9KfTc=;
+        b=Ue/g+0Y/wWfosiAw6o5Q8XhdM6ouKauEmitYecOMVyeAVrOcFzBCvv1biVWIJpNuiv
+         a+zLdrXTPM7DiQYWBqhcmagB96laAky/TSdxzvpBiA+HVdXop2NbxlxLNBuZ3pfOvePM
+         vJ128W0Z6nh0iWnMAkc7rzHHohHM1DjxuLs4JER0g3IO6xNeTJnJ5XWDhoAZ69eIn3LV
+         gO9i+iub02nBzHeldqO+8orJsXAgNiJeijyFyqQSDujWof6LFeWIY/OmnVJrRsrGzGBh
+         Rk5rr2pkuI6HhomcuWN3Ptmw39c7uLQQRaE9IPXPyzFH4n79l8db0zEyf9DXYPKVQhzg
+         +Vdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785956465; x=1786561265;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lY8ZEQ2hlKG5xfE4pkvXblb/dffG7Wh4lNbHjY9KfTc=;
+        b=fuiDdylkP2Tpig8ldyaWZUpqyUB09AkSGd/QmYieQy0YrhBGegbax6yN/wWXx4gsw0
+         tgY0hgLOAJxqX+9KbLr/XSNCaDLn/xQevpwveUSt0PdvXmYlIbcDNv5F/WTePkX69VX0
+         Me6PB6eqV/Et/Wkn49I2iLJdrth48D3ybk4YHDUIFLc0xqOT9W+CyTqC4DK84iJmaQ5E
+         C2pJmioF7IqcrLMdlJyDAF1p0kQIFQK0lp99ZH6INvI5ITobaObTp3rmXmMjb5FdQb3c
+         xvF5Um5kUCNVNs03UbXu/Mqgf1MnacZqr2YhLe4dg/eC/MDJDhUXIUKSAMaObzM0eCA8
+         pLKg==
+X-Gm-Message-State: AOJu0YzbONuypVLHrHlNz90VSqzdYZn32xX3OWYFV9di3kPnelHg4ubS
+	RRz2HQb4Mkc/KmC/u3WoKdgb+tnR/uJTC6Ai6W9lO3v2myvjTdD5PNUmtMJS2g==
+X-Gm-Gg: AR+sD12NsndglHCWNssTwwAO9zCAoFe7UDTXxc5XMRRTuoYcGGJGrwgf6o4CNmH1psc
+	fWBfM88KGds/wVbS3huz2EpmJPWvksgGGhKrQiAKOn5ArqF2fssKiUmvbVmq45jB8byUY4Ngsv9
+	HN8w/wRbo6BSGRx2m9ON408si13xj4Pds2RHVdEbLRxvFeuBpBmRSzpSNvmef6fgvzyaLOYjehe
+	aVwPe+hMm/MDu1ZZGA1j3KBB5E/F3S6bhsHx7eYsWbMwQ037KEoP0kKWy9I3R6z7ndHfg94/04D
+	UB04nYWnBbVQSVOv3wcAA+dHn0fcij99nU67F657/yJROcNU2BTelGImDo2fhSBcT57Xsh4Ay7D
+	osmBWiaflehn9/SCCrj2umvJUEN+XgTjDHUkdXQnngodgygHyCDW3Ljoy2/eOdVaxISWGlpGHOP
+	w/TlJEayj5LKQQA49GJ4GRmyT6NyCHZQaqWXY6zXhOlJuvZowPUOmawxTGI46qYJ5G8EozX9uaO
+	0pc89Et9LuQn7/i1OgGY5K+41wa5bhh9PaRAJGlXIxecnCnzgUZ8LI9fOY6yNHIx3Uh5X7YC0VE
+	KCabtkyJQS5WsORBIwGW9piikltuNtaIAE/RHw==
+X-Received: by 2002:a17:90b:46:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-3903c5363a5mr10200520a91.6.1785956465025;
+        Wed, 05 Aug 2026 12:01:05 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903d183dadsm2136925a91.0.2026.08.05.12.01.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 12:01:03 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: BCM5301X: AC56U: set WAN MAC from nvram
+Date: Wed,  5 Aug 2026 12:01:01 -0700
+Message-ID: <20260805190101.6773-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,68 +79,87 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v6 0/8] riscv: Add Ssqosid and initial CBQRI resctrl
- support
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <178595640491.488016.3217391264979488942.git-patchwork-notify@kernel.org>
-Date: Wed, 05 Aug 2026 19:00:04 +0000
-References: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org>
-In-Reply-To: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org>
-To: Drew Fustini <fustini@kernel.org>
-Cc: linux-riscv@lists.infradead.org, aricciardi@baylibre.com, alex@ghiti.fr,
- atishp@rivosinc.com, atish.patra@linux.dev, babu.moger@amd.com,
- ben.horgan@arm.com, bp@alien8.de, cp0613@linux.alibaba.com,
- conor.dooley@microchip.com, conor+dt@kernel.org, dave.hansen@linux.intel.com,
- Dave.Martin@arm.com, fenghuay@nvidia.com, gong.shuai@sanechips.com.cn,
- gsh517@gmail.com, guo.wenjia23@zte.com.cn, james.morse@arm.com,
- mindal@semihalf.com, krzk+dt@kernel.org, liu.qingtao2@zte.com.cn,
- zhiwei_liu@linux.alibaba.com, palmer@dabbelt.com, pjw@kernel.org,
- peternewman@google.com, rkrcmar@ventanamicro.com, reinette.chatre@intel.com,
- robh@kernel.org, samuel.holland@sifive.com, bigeasy@linutronix.de,
- tony.luck@intel.com, vasu@rivosinc.com, ved@rivosinc.com,
- liwei1518@gmail.com, cuiyunhui@bytedance.com,
- zhangzhanpeng.jasper@bytedance.com, linux-kernel@vger.kernel.org,
- x86@kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- linux-doc@vger.kernel.org
 
-Hello:
+The WAN MAC is offset by 1. Set in dts to avoid having to handle this in
+userspace.
 
-This series was applied to riscv/linux.git (for-next)
-by Paul Walmsley <pjw@kernel.org>:
+nvram size found from a random bootlog online.
 
-On Wed, 29 Jul 2026 18:11:27 -0700 you wrote:
-> [NOTE: only patches 4 and 8 are different in v6]
-> 
-> This series adds initial RISC-V QoS support: the Ssqosid extension [1]
-> (srmcfg CSR), the CBQRI controller interface [2] integrated with resctrl
-> [3], and a DT-based platform driver for cache controllers. It has been
-> tested on both the Tenstorrent Ascalon Shared Cache controller and a QEMU
-> implementation [4].
-> 
-> [...]
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 55 +++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
-Here is the summary with links:
-  - [v6,1/8] dt-bindings: riscv: Add Ssqosid extension description
-    (no matching commit)
-  - [v6,2/8] riscv: Detect the Ssqosid extension
-    (no matching commit)
-  - [v6,3/8] riscv: Add support for srmcfg CSR from Ssqosid extension
-    https://git.kernel.org/riscv/c/3cfa79f25467
-  - [v6,4/8] riscv_cbqri: Add capacity controller probe and allocation device ops
-    (no matching commit)
-  - [v6,5/8] riscv_cbqri: resctrl: Add cache allocation via capacity block mask
-    (no matching commit)
-  - [v6,6/8] riscv: Enable resctrl filesystem for Ssqosid
-    (no matching commit)
-  - [v6,7/8] dt-bindings: riscv: Add binding for CBQRI controllers
-    (no matching commit)
-  - [v6,8/8] riscv_cbqri: Add CBQRI capacity allocation platform driver
-    (no matching commit)
-
-You are awesome, thank you!
+diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+index c80ac16ad949..df59136b076c 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+@@ -25,6 +25,15 @@ memory@0 {
+ 		      <0x88000000 0x08000000>;
+ 	};
+ 
++	nvram@1c080000 {
++		compatible = "brcm,nvram";
++		reg = <0x1c080000 0x180000>;
++
++		et0macaddr: et0macaddr {
++			#nvmem-cell-cells = <1>;
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -92,3 +101,49 @@ button-wps {
+ &usb3_phy {
+ 	status = "okay";
+ };
++
++&gmac0 {
++	nvmem-cells = <&et0macaddr 0>;
++	nvmem-cell-names = "mac-address";
++};
++
++&srab {
++	status = "okay";
++
++	ports {
++		port@0 {
++			label = "lan1";
++		};
++
++		port@1 {
++			label = "lan2";
++		};
++
++		port@2 {
++			label = "lan3";
++		};
++
++		port@3 {
++			label = "lan4";
++		};
++
++		port@4 {
++			label = "wan";
++
++			nvmem-cells = <&et0macaddr 1>;
++			nvmem-cell-names = "mac-address";
++		};
++
++		port@5 {
++			label = "cpu";
++		};
++
++		port@7 {
++			status = "disabled";
++		};
++
++		port@8 {
++			status = "disabled";
++		};
++	};
++};
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
