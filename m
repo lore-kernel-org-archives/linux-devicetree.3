@@ -1,100 +1,63 @@
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70E73E3DAB;
-	Wed,  5 Aug 2026 07:21:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532D33E3140;
+	Wed,  5 Aug 2026 07:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914520; cv=none; b=Tr7vXwjKQUpV5zgUO5u1ZIjigtmGuXiSbxkSIdUWJMhTT/WS6XG7+DssGOe9KukUMqltYS4jZ16QkClup4jnzrE+G4J4/dJ6EgEuYgrbZ44phK4YNSWpFMCP1tmbliXQYkJ0hlhGFwgY4c13WVJTxyV2gtkwbMmCREpSAjHgI3Y=
+	t=1785914526; cv=none; b=D+YohqqTsrFFihr8Cm/O+tBgQ3G+aikg28GobI+7r8gpu9E6Tu+gyRy6fk00k7/sJjY7/l+M30G68Gl3zLdH+d4Pkfm3xYlrbxSRyPTQNP1GjvPGRqVfHsWykULJUlEZcYFHBaYOKJFEHQCbnWw7tXxvq+ZUk9Sy7UlHP+AovGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914520; c=relaxed/simple;
-	bh=Asys/l5kf2kl/oT8Duj+DEFHKiFbbacSeXHFVUJ7pOU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WzEA3ai5duJY6YWN9K3T2vuNcPRW+grkLs6YLAHpPBuBAODo5dQcFfbpkj21B/nGnIK7LSY5n7BL7lzDt5bhCXhgISuahHfF+rmsHhA1Tq2PibptvLHrHYXZF3l84e9WE2NI0kVwsl/sknlNghiXIYn2iWGe8xelbmB5pXH+NR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=uBrFROoK; arc=none smtp.client-ip=185.70.43.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1785914526; c=relaxed/simple;
+	bh=ZWdnDNWUgz1RZt1QrbsHwbfDAv8WKKMDpvC134bHx+A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uhALU21/GPerXYWZAZwQmj6RZ/8JlW3LZkZob6+bDT2z2QpQM8eSH6pxkHmdxxn9OKJ5F1E0pmHAHJrtU3PMgyYlWSguhf2jh+tHqgOSlfyBGRlLoEifZwoBRq/eoBY7q+8K6Kpyy6zRmMWJUEggAoJfk7jXshivTw9DSkU0BSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SNMtOmDb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="uBrFROoK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail3; t=1785914514; x=1786173714;
-	bh=5Q+k7JiM1qH6orV/XcRPs5qMQAeInl+Ds1EHW53hz4w=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=uBrFROoKIh44UDftQXW/Pw1yzme1qRzvTNnWeT67aNoNv9gVJb8ieHFJOgZkBVY7k
-	 69Sc+PLI9w5nKrpmd+xEljAD4zLaDCxH0fBzNd9i6MG0DbvfKG9VB1abSCxnhd2gUx
-	 wLNTcmUAcTxoZRc2pYxhPXwZFK1O7yHoiu7b84YVppwYZOdvb6CKcmRGCbipY57h3P
-	 gGaMAn4NaSAI+oKevwUVpkReYKyDlDIYlke0F5fc2E+abDOM6l7s8CNmSVzQmq+eIr
-	 km5y6IDaj7UlV1WwHBR+1ecRY3zZv2FzTdvUYLxhsDsmeezOfDsYOQ1mNTfFseH7El
-	 eoGOth/doCh7Q==
-X-Pm-Submission-Id: 4hFMKp2LsNz2ScQJ
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 05 Aug 2026 09:21:37 +0200
-Subject: [PATCH v3 3/4] iio: accel: mma8452: Only apply trigger type when
- not set by firmware
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SNMtOmDb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99271F000E9;
+	Wed,  5 Aug 2026 07:22:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785914523;
+	bh=UhXMBPrI6xyKgwv/Cdo64nXosd6ylTy7jcgGsAbM7IE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SNMtOmDbcY5mDj06AJKz04vBSa77xPwy4HZWGPMClSs/iir58R6wqDPN/LmG4l252
+	 sPz9uBSokG6Rn7lZisDEiakQnZzyxGMg2cVHUb8IcvmeRj3knUq0nlmGmfTZMKTOQ7
+	 fnH4Xu4HNnZyPj6u2rCAQw2YWmKGbRWfZv/4YklC9Nr5Y6kzZo5rWiYN9LcqxnrEQ0
+	 gAaC3c9NqgNnkPeWtDUZUBAZT344cefJAXdxq0TUTaY1Qm3HXpHstIPGa4VM13ZdtL
+	 67/nC2zP1AOhxBMVZAaamr8Yrbzm7e700pubrRPsLb4q/j4WtdtVlWux4Ia8UE/W9m
+	 C/RHp8pHPqZMw==
+Date: Wed, 5 Aug 2026 09:22:00 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: arm: rockchip: Add MangoPi M28K
+Message-ID: <20260805-robust-holistic-bullmastiff-63cc58@quoll>
+References: <20260801080018.3220034-1-amadeus@jmu.edu.cn>
+ <20260801080018.3220034-2-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-mma8452-open-drain-v3-3-6149f406a409@geanix.com>
-References: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
-In-Reply-To: <20260805-mma8452-open-drain-v3-0-6149f406a409@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785914502; l=1248;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=Asys/l5kf2kl/oT8Duj+DEFHKiFbbacSeXHFVUJ7pOU=;
- b=GbB5Yg4/bZpQt+FVA4wu9FPpLFXk4pq5Uwpa33GJ0jro5+2T63obCOfkMA0pARP8a2ufAAcpx
- ZNqCo9VFXotBcAcsZqascIPFHv0YZPdqOS96ZfMDbDdaAwsQZ3mOPQV
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260801080018.3220034-2-amadeus@jmu.edu.cn>
 
-Instead of unconditionally overriding the trigger type, it is better to
-only apply a default when no trigger type is set by firmware. This should
-be reasonably backward compatible, and should only potentially cause
-problems if systems exist where firmware specifies an incorrect trigger
-type. With a bit of luck, there are no such systems.
+On Sat, Aug 01, 2026 at 04:00:17PM +0800, Chukun Pan wrote:
+> The MangoPi M28K is a dual-gigabit SBC developed by Widora based
+> on the RK3528 SoC. Add devicetree binding documentation for it.
+> 
+> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+> ---
+>  Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
 
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/iio/accel/mma8452.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index f645a5c6fd1c..723ca3d9cb96 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -1683,9 +1683,14 @@ static int mma8452_probe(struct i2c_client *client)
- 		goto trigger_cleanup;
- 
- 	if (client->irq) {
-+		unsigned long irq_flags;
-+
-+		irq_flags = irq_get_trigger_type(client->irq);
-+		if (irq_flags == IRQ_TYPE_NONE)
-+			irq_flags = IRQF_TRIGGER_LOW;
-+		irq_flags |= IRQF_ONESHOT;
- 		ret = request_threaded_irq(client->irq, NULL, mma8452_interrupt,
--					   IRQF_TRIGGER_LOW | IRQF_ONESHOT,
--					   client->name, indio_dev);
-+					   irq_flags, client->name, indio_dev);
- 		if (ret)
- 			goto buffer_cleanup;
- 	}
-
--- 
-2.55.0
+Best regards,
+Krzysztof
 
