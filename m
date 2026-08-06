@@ -1,197 +1,141 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7711444E642
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5FF143F4A0
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786011773; cv=none; b=svrFakwJ0RNp46KF6CzqDtZ+kyyb6dISEiI5kvy858j3he8DVRraXtlUAJ6W9+bxGb73UOurZCGUI9/FAvvhSN+4suB5iCK1w8LDF6yaWzazJ+BcNMf/I9ZfDE4WS938RK1ykQqwzaT4xJfgwg8IeolW/HMRnjFI5zAeNZU9pd8=
+	t=1786011839; cv=none; b=QHQKlTXuIFcgbfTyi9b+m2WfxJoyHZYaq76O0rdInh2XbiQuea1IO4LmTMu/uWe6VHhblssBuRJDoX7M3tiNnE48Iyvr8fob4z9gvI+GAwD4LlIbVuyphOAz8fefYzd+hcdNx2CCRpocUS6Luvgpy7NIowSQE3M8Uyu7cCXMAlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786011773; c=relaxed/simple;
-	bh=gfkMS6eWCk5oR6ED6A/K8/atxPuQQfqZSoybnWP6lv4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bGmZesH8B86Ug7X1emsAS1vYoc26+r36AdtMli0dZf5+428Mxbi+1DBOmGy8NoAM5KO/aJsKYAQQ+RLaUi3xh2upYPXcTFntNIBN0CQYsmCXHCPsmpiJRp6cLx2wjZHbkjOPc4fgeEecTvqKAiEq6iiapZIydHpTPsxWMmn7iV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kwDaPTy/; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786011839; c=relaxed/simple;
+	bh=CZsDSrcaiTvSIheMyinNq2aemmTQtFQ9gs3bFdr3kNo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rLc3sOnZgjcUuNMa1gCn6xgZG1nS2lxZoncz8gqqhcdSoUxuBNd3RcxPeDJz53vVtS3CtXcJCda5g+T9sh2wtcl4c8Nm9YT2VboBabsL91b+p3t8G4PFIuBdZdiKSEay4EEHCkcr/XTWqeJPqd39tv3GYwf8AGTv+m22oVsts84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8f+YTYi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kwDaPTy/"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so4386645e9.1
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 03:22:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786011768; x=1786616568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8zgSk0cJL2xA/gsDWtUjojCnhT9i9FEuOvZpCrKndJo=;
-        b=kwDaPTy/4cr+bRkijQ2dnJPwIwhrL2Tmpa7EhrL1T9F+bverapLdV4vThRhwb4swDX
-         p4MG6KV11I1ObzxE9wy1oxn45SX/LyofyJDiG8JX0qDVRmEK701lpYhXXa/twPk0fFUS
-         hOrz2WpHv1ptq4SDWb6Tofx6uw+hg7onSPMGZ4RCco1p5fEN8DIdkiGrzchY5K5uAQ+4
-         lz/hNUoG8RHZ5PRZrER+5qlnYbN9qhfD7V7dZKvGN9XuUxL2dFON30oCZoVQt/s2Ns6H
-         99vUPQx4QSsq7oRLgWqfpkABvRzgHRyfTdLtQEXKdRAYCIGLBYPUjBOMY/NBXH3g4B8O
-         cIjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786011768; x=1786616568;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8zgSk0cJL2xA/gsDWtUjojCnhT9i9FEuOvZpCrKndJo=;
-        b=Obv/ymUdJvAC0er0QKgtclberg2EHdPKSX7HDvmnJpVX7Nha2xdvTqQqO20J5qNCIB
-         f1yl/KYHQY9tNUNVReuLi965ehRdJp3aKNZKGJFBRUZcjgoGGPh5aan5mEsDZl/MTvbQ
-         e7Do2RxVbNvqoS+e2YVEJxMyICA6SSMJp9rKfyBCul8f7rQgje4PxYPQZm22BPcaYq9L
-         lHa1jAChhRMI2yWi9AYCAmMqBufe5aISNsTcIJ+vjWB6GpEk5YCtqL7jzuVXLVNzG1qg
-         I5+3dzo11hZWtLP4JCtua9xGBV0nmhJIEJzM1w9x289zmsILDv5ql5goM3QvYQ3n4Vbm
-         Gtjg==
-X-Forwarded-Encrypted: i=1; AHgh+RqjRgBXf0ivH/EUcLnXdrZp6VbmOhT8EmSHwP2Qzacg+fgbkZ3YIeElX6II3swzX+Mqi4ERMd+r2/LS@vger.kernel.org
-X-Gm-Message-State: AOJu0YwK32QjyqompJiXHanZBccvMJyQD36spXr/bD5kJeX+30FDsW2a
-	Usf+pRPfwfUd7TdX7t33iqYjyU9z5d4ftG7+utEe3PRuy+uer7Zk09wjQLT8KA==
-X-Gm-Gg: AR+sD109tozkPa6XPUhx/O3E54UPmD/52YW7YaGceH3lyYezY2vU5GiQB4a6sHiurKL
-	LOb/PZXSXnfD4btpjeZJhnQ21Q5iXW8zSJN0eowmQ1uTSF42393gDG2/OPs7TF52B6kK8yxXlqi
-	o9LWqbQNv1DAIL/iq5ozEK1N7yRM3Bj23I6Hx5dGCUSoCqPQK2ZgnpN1HByd6vzxZVzSUEORb74
-	PEUe6q2khXskrx8xt8PzNkyux+i1RXR28MOIWiqvjvfFcCn1OeHLGG7yjEOuwmRS/DIPMYqZh7z
-	ZZhH5Q5QJZVB6KrF6zrvjgrGZNQhLTu3KaXJwR3ziDFNHsCcaCaSmKpdRaZfNYtAa3fXrFq5V0y
-	hu+C6Z1gRP6SKBmuiUyMu1nFL2uaZgLLZTsy1pFwQChKr+ryNd6DquSqF87YhElHdxzXZjYYgUJ
-	GoPyekt+g8I7yX/rxVzEN4wZY4moYJLOfT94g89LEe6qljKBWyOlaSk+I4EUsBbFqUDQT1lqKln
-	kbzTLPmGtRk
-X-Received: by 2002:a05:600c:4ed1:b0:498:1577:e11a with SMTP id 5b1f17b1804b1-49952ef4740mr63833245e9.5.1786011768349;
-        Thu, 06 Aug 2026 03:22:48 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:a173:17cc:14ec:8d1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b183b2sm5634553f8f.24.2026.08.06.03.22.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 03:22:48 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v6 10/10] arm64: dts: renesas: r9a08g046l48-smarc: Add USB2.0 support
-Date: Thu,  6 Aug 2026 11:22:29 +0100
-Message-ID: <20260806102236.149159-11-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260806102236.149159-1-biju.das.jz@bp.renesas.com>
-References: <20260806102236.149159-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8f+YTYi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4F31F000E9;
+	Thu,  6 Aug 2026 10:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786011837;
+	bh=NGsAtR31D/NO7cbpGKHUhCXulgjr/Ip1qyjyXHq/wOo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=L8f+YTYiwPS6PDak6a7EExlPx2pmevzZLEcG0v5UiShRWhYZbALmGy6HWt8f3u4s2
+	 vRRIijq5bgDPYz+Ylijw0x8+XOft4QAFz2ChV2bsk+sacxWO2OXuLsXZVaRbGnm+p+
+	 oRzgTrxoUmjw5DbpSTocHCAOORSZPhuXkdOij6H+hNX1Z4GFvf8d0P5/RacB0AjDKK
+	 buTB+iVPXrMrx2GYw9xRv6TQaQputgKk6CQweF9mrexunhwUzwAxB0amjcjHht2YkK
+	 Y40nXyD2CmcMV1c0iJGZDXPEBH/k9nxUrhuSPQWESep5LkZtqM31p6l+qSGZWZtZL3
+	 LSrW675UIXkgw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
+ target activity
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-2-c363a9b5df69@oss.qualcomm.com>
+References: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com>
+ <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-2-c363a9b5df69@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 10:23:56 +0000
+Message-Id: <20260806102357.6A4F31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The probe function incorrectly handles errors from devm_gpiod_get_=
+index_optional(), breaking probe deferral.
+- [High] A race condition between spi_geni_transfer_one() and geni_spi_isr(=
+) can leave the target readiness GPIO stuck permanently asserted.
+- [Medium] The target readiness GPIO is toggled per spi_transfer rather tha=
+n per spi_message, causing spurious dropouts mid-transaction.
+--
 
-Enable USB2.0 on the RZ/G3L SMARC board (r9a08g046l48-smarc).
+--- Patch [2]: [PATCH 2/2] spi: qcom-geni: Use GPIO to notify master of SPI=
+ target activity ---
+commit c41b3184af4cdb8d8cf0321da6d2ab29ec44d0c2
+Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
+spi: qcom-geni: Use GPIO to notify master of SPI target activity
 
-Port 0 (ehci0, ohci0, usb2_phy0) is configured as OTG with
-usb0_pins pinmux (USB20_OVRCUR, USB20_VBUSEN) and usb0_vbus_otg
-as the VBUS supply. Port 1 (ehci1, ohci1, usb2_phy1) is configured
-as host-only with usb1_pins pinmux (USB21_OVRCUR, USB21_VBUSEN),
-usb1_vbus_otg as the VBUS supply, and renesas,no-otg-pins set to
-indicate no OTG pin routing. The phyrst USB PHY reset controller is
-also enabled.
+This commit adds support for an optional GPIO to signal target availability
+to the SPI master in the GENI SPI controller driver. The GPIO is asserted
+when a transfer begins and deasserted upon completion, abort, or timeout.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v5->v6:
- * No change.
-v4->v5:
- * No change.
-v3->v4:
- * No change.
-v2->v3:
- * No change.
-v1->v2:
- * Updated commit description.
----
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 49 +++++++++++++++++++
- 1 file changed, 49 insertions(+)
+> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
+> index 6566975eb24f2..6083725a20aa4 100644
+> --- a/drivers/spi/spi-geni-qcom.c
+> +++ b/drivers/spi/spi-geni-qcom.c
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 96cc7ee46a6a..b189ae8e808d 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -87,6 +87,16 @@ vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
- #endif
- };
- 
-+&ehci0 {
-+	dr_mode = "otg";
-+	status = "okay";
-+};
-+
-+&ehci1 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
- &i2c2 {
- 	pinctrl-0 = <&i2c2_pins>;
- 	pinctrl-names = "default";
-@@ -138,6 +148,20 @@ &keys {
- #endif
- };
- 
-+&ohci0 {
-+	dr_mode = "otg";
-+	status = "okay";
-+};
-+
-+&ohci1 {
-+	dr_mode = "host";
-+	status = "okay";
-+};
-+
-+&phyrst {
-+	status = "okay";
-+};
-+
- &pinctrl {
- 	audio_clk_pins: audio-clock {
- 		pinmux = <RZG3L_PORT_PINMUX(H, 4, 6)>, /* AUDIO_CLK_B */
-@@ -259,6 +283,16 @@ ssi0_pins: ssi0 {
- 			 <RZG3L_PORT_PINMUX(H, 2, 9)>, /* SSIF0_RCK */
- 			 <RZG3L_PORT_PINMUX(H, 3, 9)>; /* SSIF0_TXD */
- 	};
-+
-+	usb0_pins: usb0 {
-+		pinmux = <RZG3L_PORT_PINMUX(3, 0, 12)>, /* USB20_OVRCUR */
-+			 <RZG3L_PORT_PINMUX(3, 1, 12)>; /* USB20_VBUSEN */
-+	};
-+
-+	usb1_pins: usb1 {
-+		pinmux = <RZG3L_PORT_PINMUX(3, 4, 12)>, /* USB21_OVRCUR */
-+			 <RZG3L_PORT_PINMUX(3, 5, 12)>; /* USB21_VBUSEN */
-+	};
- };
- 
- #if SW_SER0_PMOD
-@@ -330,3 +364,18 @@ &ssi0 {
- 	status = "okay";
- };
- #endif
-+
-+&usb2_phy0 {
-+	pinctrl-0 = <&usb0_pins>;
-+	pinctrl-names = "default";
-+	vbus-supply = <&usb0_vbus_otg>;
-+	status = "okay";
-+};
-+
-+&usb2_phy1 {
-+	pinctrl-0 = <&usb1_pins>;
-+	pinctrl-names = "default";
-+	vbus-supply = <&usb1_vbus_otg>;
-+	renesas,no-otg-pins;
-+	status = "okay";
-+};
--- 
-2.43.0
+[ ... ]
 
+> @@ -938,8 +943,12 @@ static int spi_geni_transfer_one(struct spi_controll=
+er *spi,
+>  	if (mas->cur_xfer_mode =3D=3D GENI_SE_FIFO || mas->cur_xfer_mode =3D=3D=
+ GENI_SE_DMA) {
+>  		ret =3D setup_se_xfer(xfer, mas, slv->mode, spi);
+>  		/* SPI framework expects +ve ret code to wait for transfer complete */
+> -		if (!ret)
+> +		if (!ret) {
+> +			if (spi->target && mas->target_gpio)
+> +				gpiod_set_value(mas->target_gpio, 1);
+
+[Severity: High]
+Does asserting the GPIO here introduce a race condition?
+
+setup_se_xfer() unlocks mas->lock before returning. If the SPI master
+immediately clocks data, the transfer could complete on the hardware and
+trigger geni_spi_isr() on another CPU.
+
+geni_spi_isr() would then deassert the GPIO to 0 before this thread
+asserts it to 1, leaving the GPIO permanently stuck asserted and breaking
+the handshake protocol for subsequent transfers.
+
+[Severity: Medium]
+Is the target readiness GPIO toggled per spi_transfer instead of per
+spi_message here?
+
+If a multi-transfer message is processed, this will cause the signal to
+drop between fragments when geni_spi_isr() sets the GPIO to 0, potentially
+causing the master to incorrectly interpret it as a target abort or failure.
+
+>  			ret =3D 1;
+> +		}
+> +
+>  		return ret;
+>  	}
+
+[ ... ]
+
+> @@ -1131,8 +1144,16 @@ static int spi_geni_probe(struct platform_device *=
+pdev)
+>  	init_completion(&mas->rx_reset_done);
+>  	spin_lock_init(&mas->lock);
+> =20
+> -	if (spi->target)
+> +	if (spi->target) {
+>  		spi->target_abort =3D spi_geni_target_abort;
+> +		mas->target_gpio =3D devm_gpiod_get_index_optional(dev, "device", 0,
+> +								 GPIOD_OUT_LOW);
+> +		if (IS_ERR(mas->target_gpio)) {
+> +			dev_err(dev, "Failed to request GPIO: %ld\n",
+> +				PTR_ERR(mas->target_gpio));
+> +			mas->target_gpio =3D NULL;
+> +		}
+> +	}
+
+[Severity: High]
+Could this error handling block probe deferral?
+
+If the GPIO provider has not probed yet, devm_gpiod_get_index_optional()
+will return -EPROBE_DEFER. By catching this error and setting
+mas->target_gpio to NULL, the driver will silently continue without the
+requested GPIO instead of deferring the probe.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-use_gpio_t=
+o_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com?p=
+art=3D2
