@@ -1,492 +1,195 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD0B142901C;
-	Thu,  6 Aug 2026 09:38:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5E643B48C
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786009138; cv=none; b=D6/ETt4GlIvEuMqFQBzsajxanu3gkMN4EZv/kPAJOM+75b6Km1CxSu2VVz1zKOXPw2vu55iskUAOxXmwz/xCP5r2YX0CikwrpM+guhlVd+e222weUL12g30XOQF+wWFKSrxk4pfgW+c2iEKWbefFY+eBjeRpv9zVx2HIp/INyMQ=
+	t=1786009143; cv=none; b=YmGsYAlfwGUXlzEe47FtJTH7v8Abt3shYkguXS5fJTUQ3POPWaz3SoP/eQumJ0uuSi+G+WhvHx/WH6i/12gv3y8kXSVkSjUdcsWNi9dfNAPAjY5Urz/KcxepyMqCylaE3Z8jsjAWwpLTLITH21Ljeq1e4ki0PyhNYjNTsif04+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786009138; c=relaxed/simple;
-	bh=HY5Fy031JtM2PSsYNYX9D2GuowSKUn49gHA2tIz2RJQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FRWE350MeoGcuGMQnZ/KPoMDvrnPJSO0xDgtjOD96PA/q1NMpCRVe9KcW9oqt6vmVODLkjmuB0N6hQ/owqm5Ks2pbveclU/3s/fX2xo3MlB8GSIWHR3rclwD/04ML5gExaI7myFgiLEZYCeyd9d70PIc6hz71L5Er/29CWZz6UY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=Qao5UvfD; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1786009143; c=relaxed/simple;
+	bh=gVvsa7tBtajcXlHf9HVwBk4OkHDFarWt7NmNDscKBKU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lL0TzT/XacEkNdOLSnmSX+HFLm8dY77+P5PvfO8JI/hkB7DEeXO3SXzArVoJtnF94BV6y3v4lo9aqOLFc2Ll4qTAKYtzDajoauSuUOrqHilzvATYOpPbIiONliRvT+TwwqeK1eqopTYaIUrnu8H1NjpfS6DBgUi99HOru9WyY2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GCe5QUh3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="Qao5UvfD"
-Received: by chaosmail.tech (Postfix) id AA5EC1C87FD;
-	Thu, 06 Aug 2026 09:38:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1786009134;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=n5SsuLa8LggpWk7yay3m8vfJCzxTRPosuSpiq8d/IBA=;
-	b=Qao5UvfDG9C0phboMZ5/kFfWSwKEWOby01n0sVatlInThTBkr8tEXI4AY52lax+hBhiUPc
-	PC4BqvMr5jn5Ib+NJyroLn5RQ5mkUwhQAcRWIlyB5dcDSUSXce0buRKEV/xgc+ijPwV7OQ
-	2nOONEDRKsNk1hlb6hetvyU5TnOWTPc=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Thu, 06 Aug 2026 11:37:22 +0200
-Subject: [PATCH v4 3/3] usb: typec: tipd: Add sn201202x support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GCe5QUh3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ACA71F000E9;
+	Thu,  6 Aug 2026 09:39:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786009140;
+	bh=hZUt084qEQo+w7aN/Zx/Cbv6AbKmXa93Zu15LSEPZAQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GCe5QUh3yJVP6V43bo3khxqco57jDY0rRJroffBmymU1p2SYjuQGunzefGxeT0UeH
+	 mtwrkIirrmmotzyvRn4zzbpnnzbkqmWmpxznRrZudDbtjm26NTOkab1zPW1XKot0qE
+	 qabsrNGlUXDNZHMuhAueIqMoWAPffwOcHz2WhKUiY3pBrU0B4/Jg+p64OrmdPAtdqc
+	 Tp/UKBGJsLBusxNMKmKdtYmhI13J3jf4UakeYDoAXPwbFGxvkt6Bs5GMcPef5m83Og
+	 T2KRB/j2hJYX5phr9EkqzRjgY6nHv5QSCemJxCa5Fy37+72GccFMaX+IYv9RPg5uVY
+	 fOOFXqrDN76Og==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/5] clk: socfpga: agilex72: add clock manager driver
+ for Agilex72
+Reply-To: sashiko-reviews@lists.linux.dev
+To: evon.chiam@altera.com
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
+References: <cover.1786006669.git.evon.chiam@altera.com>
+ <97675c0efd40a9407b6b1a1941cc73b73dd45d39.1786006669.git.evon.chiam@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 09:38:59 +0000
+Message-Id: <20260806093900.6ACA71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-tipd-ace3-v4-3-79855b150914@chaosmail.tech>
-References: <20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech>
-In-Reply-To: <20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>, 
- Alyssa Milburn <amilburn@zall.org>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786009131; l=12184;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=HY5Fy031JtM2PSsYNYX9D2GuowSKUn49gHA2tIz2RJQ=;
- b=fYnM1qObwQnK0ZG0g2LfD4VrGYyhNO6EHhqRdFZgFKFVdPAVbbyodIdjDcNbfjUK+alKxrjug
- tgergvXEJ3HC0gaSs44N1mH+DIjhtlqp4sXE/LCgLveUv9XkN33X5B8
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-Add support for sn201202x (aka ACE3), a tipd variant that uses a very
-similar register map, that is exposed over a "logical register"
-interface on the SPMI bus.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Critical] The `struct clk_init_data init` variable is declared on the st=
+ack without zero-initialization, leaving fields like `parent_data` and `par=
+ent_hws` containing uninitialized garbage.
+- [High] The `gateclk_ops` structure lacks `.enable`, `.disable`, and `.is_=
+enabled` callbacks, rendering software clock gating completely non-function=
+al.
+- [High] Independent clocks `dma_0_core_clk` and `dma_0_hs_clk` are registe=
+red with the exact same hardware gate register and bit, leading to uncoordi=
+nated hardware state changes.
+- [High] Probe error paths leak `kzalloc_obj` memory and leave non-devm clo=
+cks registered with the CCF, containing dangling `__iomem` pointers that le=
+ad to Use-After-Free.
+--
 
-Co-developed-by: Alyssa Milburn <amilburn@zall.org>
-Signed-off-by: Alyssa Milburn <amilburn@zall.org>
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- MAINTAINERS                       |   1 +
- drivers/usb/typec/tipd/Kconfig    |  12 ++++++
- drivers/usb/typec/tipd/Makefile   |   3 ++
- drivers/usb/typec/tipd/core.c     |  20 ++++++++++
- drivers/usb/typec/tipd/spmi.c     | 300 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- drivers/usb/typec/tipd/tps6598x.h |   9 +++++
- 6 files changed, 345 insertions(+)
+--- Patch [3]: [PATCH 3/5] clk: socfpga: agilex72: add clock manager driver=
+ for Agilex72 ---
+commit fb18cfcc77d7e1e9f2bfe18c6b8c94bdd0fbad23
+Author: Chiam, Evon <evon.chiam@altera.com>
+Subject: clk: socfpga: agilex72: add clock manager driver for Agilex72
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b2819ca62e0c..821932703b60 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2641,6 +2641,7 @@ F:	drivers/soc/apple/*
- F:	drivers/spi/spi-apple.c
- F:	drivers/spmi/spmi-apple-controller.c
- F:	drivers/usb/dwc3/dwc3-apple.c
-+F:	drivers/usb/typec/tipd/spmi.c
- F:	drivers/video/backlight/apple_dwi_bl.c
- F:	drivers/watchdog/apple_wdt.c
- F:	include/dt-bindings/interrupt-controller/apple-aic.h
-diff --git a/drivers/usb/typec/tipd/Kconfig b/drivers/usb/typec/tipd/Kconfig
-index c87cbe6109ca..8177f860f89d 100644
---- a/drivers/usb/typec/tipd/Kconfig
-+++ b/drivers/usb/typec/tipd/Kconfig
-@@ -14,3 +14,15 @@ config TYPEC_TPS6598X
- 
- 	  If you choose to build this driver as a dynamically linked module, the
- 	  module will be called tps6598x.ko.
-+
-+config TYPEC_SN201202X
-+	tristate "TI SN201202x USB Power Delivery controller support"
-+	depends on SPMI
-+	select TYPEC_TPS6598X_CORE
-+	help
-+	  Say Y here to enable support for SN201202x, a TPS6598x variant
-+	  that uses SPMI as a host bus, and is found on Apple devices starting
-+	  from the M3 series.
-+
-+	  If you choose to build this driver as a dynamically linked module, the
-+	  module will be called sn201202x.ko.
-diff --git a/drivers/usb/typec/tipd/Makefile b/drivers/usb/typec/tipd/Makefile
-index c741bf44f52f..6f5ebc1e1a5f 100644
---- a/drivers/usb/typec/tipd/Makefile
-+++ b/drivers/usb/typec/tipd/Makefile
-@@ -7,3 +7,6 @@ tps6598x-core-$(CONFIG_TRACING)		+= trace.o
- 
- obj-$(CONFIG_TYPEC_TPS6598X)		+= tps6598x.o
- tps6598x-y				:= i2c.o
-+
-+obj-$(CONFIG_TYPEC_SN201202X)		+= sn201202x.o
-+sn201202x-y				:= spmi.o
-diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-index a3b946f5aaf0..d0966cdd7c1e 100644
---- a/drivers/usb/typec/tipd/core.c
-+++ b/drivers/usb/typec/tipd/core.c
-@@ -1885,10 +1885,30 @@ static const struct tipd_data tipd_tps25750_data = {
- 	.connect = tps6598x_connect,
- };
- 
-+static const struct tipd_data tipd_sn201202x_data = {
-+	.irq_handler = cd321x_interrupt,
-+	.irq_mask1 = APPLE_CD_REG_INT_POWER_STATUS_UPDATE |
-+		     APPLE_CD_REG_INT_DATA_STATUS_UPDATE |
-+		     APPLE_CD_REG_INT_PLUG_EVENT,
-+	.tps_struct_size = sizeof(struct sn201202x),
-+	.remove = cd321x_remove,
-+	.register_port = cd321x_register_port,
-+	.unregister_port = cd321x_unregister_port,
-+	.trace_data_status = trace_cd321x_data_status,
-+	.trace_power_status = trace_tps6598x_power_status,
-+	.trace_status = trace_tps6598x_status,
-+	.init = cd321x_init,
-+	.read_data_status = cd321x_read_data_status,
-+	.reset = cd321x_reset,
-+	.switch_power_state = cd321x_switch_power_state,
-+	.connect = cd321x_connect,
-+};
-+
- const struct tipd_data *tipd_hw_variants[] = {
- 	[TIPD_VARIANT_CD321X] = &tipd_cd321x_data,
- 	[TIPD_VARIANT_TPS6598X] = &tipd_tps6598x_data,
- 	[TIPD_VARIANT_TPS25750] = &tipd_tps25750_data,
-+	[TIPD_VARIANT_SN201202X] = &tipd_sn201202x_data,
- };
- EXPORT_SYMBOL_GPL(tipd_hw_variants);
- 
-diff --git a/drivers/usb/typec/tipd/spmi.c b/drivers/usb/typec/tipd/spmi.c
-new file mode 100644
-index 000000000000..15976d15d9bc
---- /dev/null
-+++ b/drivers/usb/typec/tipd/spmi.c
-@@ -0,0 +1,300 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/interrupt.h>
-+#include <linux/of_device.h>
-+#include <linux/of_irq.h>
-+#include <linux/regmap.h>
-+#include <linux/spmi.h>
-+
-+#include "tps6598x.h"
-+
-+#define tps_to_sn(tps) container_of_const((tps), struct sn201202x, cd.tps)
-+
-+static int regmap_sn201202x_select_reg(struct spmi_device *sdev, u8 reg)
-+{
-+	int err;
-+	u8 val;
-+	bool warned = false;
-+	int attempts = 5;
-+	struct tps6598x *tps = spmi_device_get_drvdata(sdev);
-+	struct sn201202x *sn = tps_to_sn(tps);
-+
-+	if (reg >= 0x80) {
-+		WARN_ON(1);
-+		return -EINVAL;
-+	}
-+	reinit_completion(&sn->select_completion);
-+	err = spmi_register_zero_write(sdev, reg);
-+	if (err)
-+		return err;
-+
-+	if (!wait_for_completion_timeout(&sn->select_completion, msecs_to_jiffies(100)))
-+		return -ETIMEDOUT;
-+
-+	while (--attempts) {
-+		err = spmi_register_read(sdev, 0, &val);
-+		if (err)
-+			return err;
-+		if (val == (reg | 0x80)) {
-+			if (!warned) {
-+				dev_warn(tps->dev,
-+					 "Got interrupt but selection not complete?\n");
-+				warned = true;
-+			}
-+			msleep(20);
-+			continue;
-+		}
-+		if (val == reg)
-+			return 0;
-+		return -EIO;
-+	}
-+
-+	return -EIO;
-+}
-+
-+static int regmap_sn201202x_read(void *context,
-+				 const void *reg, size_t reg_size,
-+				 void *val, size_t val_size)
-+{
-+	int err;
-+	unsigned int offset = 0x20;
-+	size_t len;
-+	u8 addr;
-+
-+	if (reg_size != 1) {
-+		WARN_ON(1);
-+		return -EINVAL;
-+	}
-+	if (val_size > 0x40) {
-+		WARN_ON(1);
-+		return -EINVAL;
-+	}
-+
-+	addr = *(u8 *)reg;
-+
-+	err = regmap_sn201202x_select_reg(context, addr);
-+	if (err)
-+		return err;
-+
-+	while (val_size) {
-+		len = min_t(size_t, val_size, 16);
-+		err = spmi_ext_register_read(context, offset, val, len);
-+		if (err)
-+			return err;
-+		offset += len;
-+		val += len;
-+		val_size -= len;
-+	}
-+
-+	return 0;
-+}
-+
-+static int regmap_sn201202x_write(void *context, const void *data,
-+				  size_t count)
-+{
-+	int err = 0;
-+	unsigned int offset = 0xa0;
-+	size_t len;
-+	u8 addr;
-+
-+	if (count < 1) {
-+		WARN_ON(1);
-+		return -EINVAL;
-+	}
-+
-+	addr = *(u8 *)data;
-+	data += 1;
-+	count -= 1;
-+
-+	if (count > 0x40) {
-+		WARN_ON(1);
-+		return -EINVAL;
-+	}
-+
-+	err = regmap_sn201202x_select_reg(context, addr);
-+	if (err)
-+		return err;
-+
-+	while (count) {
-+		len = min_t(size_t, count, 16);
-+		err = spmi_ext_register_write(context, offset, data, len);
-+		if (err)
-+			return err;
-+		offset += len;
-+		data += len;
-+		count -= len;
-+	}
-+
-+	return err;
-+}
-+
-+static irqreturn_t sn201202x_irq(int irq, void *data)
-+{
-+	struct completion *c = data;
-+
-+	complete(c);
-+	return IRQ_HANDLED;
-+}
-+
-+static const struct regmap_bus regmap_sn201202x = {
-+	.read				= regmap_sn201202x_read,
-+	.write				= regmap_sn201202x_write,
-+	.reg_format_endian_default	= REGMAP_ENDIAN_NATIVE,
-+	.val_format_endian_default	= REGMAP_ENDIAN_NATIVE,
-+};
-+
-+static struct regmap *__devm_regmap_init_sn201202x(struct spmi_device *sdev,
-+						   const struct regmap_config *config,
-+						   struct lock_class_key *lock_key,
-+						   const char *lock_name)
-+{
-+	return __devm_regmap_init(&sdev->dev, &regmap_sn201202x, sdev, config,
-+				  lock_key, lock_name);
-+}
-+
-+#define devm_regmap_init_sn201202x(dev, config)				\
-+	__regmap_lockdep_wrapper(__devm_regmap_init_sn201202x, #config,	\
-+				dev, config)
-+
-+static const struct of_device_id sn201202x_of_match[] = {
-+	{ .compatible = "apple,sn201202x", (void *)TIPD_VARIANT_SN201202X},
-+	{}
-+};
-+
-+static int sn201202x_probe(struct spmi_device *device)
-+{
-+	const struct of_device_id *match;
-+	const struct tipd_data *data;
-+	struct sn201202x *sn;
-+	struct tps6598x *tps;
-+	int irq_select, irq_sleep, irq_wake;
-+	int ret;
-+
-+	match = of_match_device(sn201202x_of_match, &device->dev);
-+	if (!match)
-+		return -EINVAL;
-+	data = tipd_hw_variants[(enum tipd_hw_variant)match->data];
-+
-+	sn = devm_kzalloc(&device->dev, data->tps_struct_size, GFP_KERNEL);
-+	if (!sn)
-+		return -ENOMEM;
-+	sn->sdev = device;
-+	tps = &sn->cd.tps;
-+
-+	mutex_init(&tps->lock);
-+	tps->dev = &device->dev;
-+	tps->data = data;
-+
-+	tps->irq = of_irq_get_byname(device->dev.of_node, "irq");
-+	if (tps->irq < 0)
-+		return tps->irq;
-+	irq_select = of_irq_get_byname(device->dev.of_node, "select");
-+	if (irq_select < 0)
-+		return irq_select;
-+	irq_sleep = of_irq_get_byname(device->dev.of_node, "sleep");
-+	if (irq_sleep < 0)
-+		return irq_sleep;
-+	irq_wake = of_irq_get_byname(device->dev.of_node, "wake");
-+	if (irq_wake < 0)
-+		return irq_wake;
-+
-+	init_completion(&sn->select_completion);
-+	init_completion(&sn->sleep_completion);
-+	init_completion(&sn->wake_completion);
-+
-+	ret = devm_request_irq(&device->dev, irq_select, sn201202x_irq,
-+			       0, NULL, &sn->select_completion);
-+	if (ret)
-+		return ret;
-+	ret = devm_request_irq(&device->dev, irq_sleep, sn201202x_irq,
-+			       0, NULL, &sn->sleep_completion);
-+	if (ret)
-+		return ret;
-+	ret = devm_request_irq(&device->dev, irq_wake, sn201202x_irq,
-+			       0, NULL, &sn->wake_completion);
-+	if (ret)
-+		return ret;
-+
-+	spmi_device_set_drvdata(device, tps);
-+	tps->regmap = devm_regmap_init_sn201202x(device, &tps6598x_regmap_config);
-+	if (IS_ERR(tps->regmap))
-+		return PTR_ERR(tps->regmap);
-+
-+	ret = spmi_command_wakeup(device);
-+	if (ret)
-+		return ret;
-+	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies(100)))
-+		return -ETIMEDOUT;
-+
-+	ret = tipd_init(tps);
-+	if (ret)
-+		spmi_command_sleep(device);
-+	return ret;
-+}
-+
-+static void sn201202x_remove(struct spmi_device *device)
-+{
-+	struct tps6598x *tps = spmi_device_get_drvdata(device);
-+	struct sn201202x *sn = tps_to_sn(tps);
-+
-+	tipd_remove(tps);
-+	spmi_command_sleep(sn->sdev);
-+}
-+
-+static int __maybe_unused sn201202x_resume(struct device *dev)
-+{
-+	struct tps6598x *tps = dev_get_drvdata(dev);
-+	struct sn201202x *sn = tps_to_sn(tps);
-+	int err;
-+
-+	reinit_completion(&sn->wake_completion);
-+	err = spmi_command_wakeup(sn->sdev);
-+	if (err)
-+		return err;
-+	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies(100)))
-+		return -ETIMEDOUT;
-+	return tipd_resume(tps);
-+}
-+
-+static int __maybe_unused sn201202x_suspend(struct device *dev)
-+{
-+	struct tps6598x *tps = dev_get_drvdata(dev);
-+	struct sn201202x *sn = tps_to_sn(tps);
-+	int err;
-+
-+	err = tipd_suspend(tps);
-+	if (err)
-+		return err;
-+	reinit_completion(&sn->sleep_completion);
-+	err = spmi_command_sleep(sn->sdev);
-+	if (err)
-+		goto out_resume;
-+	if (!wait_for_completion_timeout(&sn->sleep_completion, msecs_to_jiffies(100)))
-+		dev_err(dev, "Waiting for sleep complete irq timed out");
-+
-+	return 0;
-+
-+out_resume:
-+	tipd_resume(tps);
-+	return err;
-+}
-+
-+MODULE_DEVICE_TABLE(of, sn201202x_of_match);
-+
-+static const struct dev_pm_ops sn201202x_pm_ops = {
-+	SET_SYSTEM_SLEEP_PM_OPS(sn201202x_suspend, sn201202x_resume)
-+};
-+
-+static struct spmi_driver sn201202x_driver = {
-+	.driver = {
-+		.name = "sn201202x",
-+		.pm = &sn201202x_pm_ops,
-+		.of_match_table = sn201202x_of_match,
-+	},
-+	.probe = sn201202x_probe,
-+	.remove = sn201202x_remove,
-+};
-+module_spmi_driver(sn201202x_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("TI SN201202x USB Power Delivery Controller Driver");
-diff --git a/drivers/usb/typec/tipd/tps6598x.h b/drivers/usb/typec/tipd/tps6598x.h
-index 073a6c597986..2a0910328eb3 100644
---- a/drivers/usb/typec/tipd/tps6598x.h
-+++ b/drivers/usb/typec/tipd/tps6598x.h
-@@ -278,6 +278,7 @@ enum tipd_hw_variant {
- 	TIPD_VARIANT_CD321X,
- 	TIPD_VARIANT_TPS6598X,
- 	TIPD_VARIANT_TPS25750,
-+	TIPD_VARIANT_SN201202X,
- 	TIPD_VARIANT_MAX,
- };
- 
-@@ -382,6 +383,14 @@ struct cd321x {
- 	struct usb_pd_identity cur_partner_identity;
- };
- 
-+struct sn201202x {
-+	struct cd321x cd;
-+	struct completion select_completion;
-+	struct completion sleep_completion;
-+	struct completion wake_completion;
-+	struct spmi_device *sdev;
-+};
-+
- extern const struct tipd_data *tipd_hw_variants[];
- extern const struct regmap_config tps6598x_regmap_config;
- 
+This commit adds a new clock manager driver to support the Altera Agilex72
+platform.
 
--- 
-2.55.0
+> diff --git a/drivers/clk/socfpga/clk-agilex72.c b/drivers/clk/socfpga/clk=
+-agilex72.c
+> new file mode 100644
+> index 0000000000000..e350d8a9bb4d9
+> --- /dev/null
+> +++ b/drivers/clk/socfpga/clk-agilex72.c
 
+[ ... ]
+
+> +static const struct clk_ops gateclk_ops =3D {
+> +	.recalc_rate =3D agilex72_gate_clk_recalc_rate,
+> +	.get_parent  =3D agilex72_gate_get_parent,
+> +};
+
+[Severity: High]
+Are the .enable, .disable, and .is_enabled callbacks intentionally missing
+here?
+
+Without these hooks, clk_enable() and clk_disable() calls will return
+success without actually writing to the hardware gate registers, leaving the
+physical clock ungated or gated incorrectly.
+
+[ ... ]
+
+> +	{ AGILEX72_DMA_0_CORE_CLK, "dma_0_core_clk", lsp_main_parent,
+> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_DMA_0_HS_CLK, "dma_0_hs_clk", lsp_mp_parent,
+> +	  1, 0xd0, 15, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_DMA_1_CORE_CLK, "dma_1_core_clk", lsp_main_parent,
+> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
+> +	{ AGILEX72_DMA_1_HS_CLK, "dma_1_hs_clk", lsp_mp_parent,
+> +	  1, 0xd0, 16, 0, 0, 0, 0, 0, 0 },
+
+[Severity: High]
+Will mapping independent clocks to the exact same hardware gate register
+and bit cause uncoordinated state changes?
+
+The dma_0_core_clk and dma_0_hs_clk both map to register 0xd0, bit index 15.
+Because they are registered as entirely distinct clk_hw instances, if
+two consumer paths enable both clocks and one path later disables its clock,
+the reference count for that specific clock drops to 0. This clears bit 15,
+instantaneously cutting off the clock for the other active consumer.
+
+The same conflict appears to occur for dma_1_core_clk and dma_1_hs_clk on
+bit 16.
+
+[ ... ]
+
+> +static struct clk_hw *
+> +agilex72_register_pll(const struct agilex72_pll_clock *clks,
+> +		      void __iomem *base, void __iomem *pll_base)
+> +{
+> +	struct clk_hw *hw_clk;
+> +	struct agilex72_pll *pll_clk;
+> +	struct clk_init_data init;
+> +	const char *name =3D clks->name;
+> +	int ret;
+
+[Severity: Critical]
+Does this leave the init structure partially uninitialized on the stack?
+
+Because init is not zero-initialized, fields like parent_data and parent_hws
+might contain uninitialized stack memory. When passed to clk_hw_register(),
+the clock framework might check these garbage values and attempt to derefer=
+ence
+them.
+
+This same pattern appears in agilex72_register_periph(),
+agilex72_register_cnt_periph(), and agilex72_register_gate().
+
+[ ... ]
+
+> +static struct clk_hw *
+> +agilex72_register_gate(const struct agilex72_gate_clock *clks,
+> +		       void __iomem *regbase)
+> +{
+> +	struct clk_hw *hw_clk;
+> +	struct agilex72_gate_clk *socfpga_clk;
+> +	struct clk_init_data init;
+> +	int ret;
+> +
+> +	socfpga_clk =3D kzalloc_obj(*socfpga_clk);
+> +	if (!socfpga_clk)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	socfpga_clk->hw.reg =3D regbase + clks->gate_reg;
+> +	socfpga_clk->hw.bit_idx =3D clks->gate_idx;
+
+[Severity: High]
+If the gateclk_ops are updated to use standard gate operations, will this
+cause a null pointer dereference?
+
+The hw.lock spinlock assignment for struct clk_gate is missing here.
+
+[ ... ]
+
+> +	clk_data->clk_data.hws[AGILEX72_USB31_REF_CLK] =3D
+> +		devm_clk_hw_register_fixed_factor(dev, "usb31_ref_clk",
+> +						  "usb31_suspend_clk", 0, 1, 1);
+> +	if (IS_ERR(clk_data->clk_data.hws[AGILEX72_USB31_REF_CLK]))
+> +		return dev_err_probe(dev,
+> +			PTR_ERR(clk_data->clk_data.hws[AGILEX72_USB31_REF_CLK]),
+> +			"failed to register clock usb31_ref_clk\n");
+
+[Severity: High]
+Does this error path leak memory and leave dangling clock registrations
+if devm_clk_hw_register_fixed_factor() fails?
+
+The earlier clocks are allocated with kzalloc_obj() and registered using
+clk_hw_register(NULL, ...), which bypasses automatic devres cleanup. If this
+returns an error, devres will automatically unmap the MMIO resources, but
+the clocks remain registered.
+
+If a tool like debugfs clk_summary attempts to access the still-registered
+clocks, the framework will invoke driver callbacks that read from the unmap=
+ped
+memory, resulting in a synchronous external abort. Could we add proper
+unregister calls on the error path, or use devm_clk_hw_register() for all
+clocks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786006669.gi=
+t.evon.chiam@altera.com?part=3D3
