@@ -1,312 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BB734BA24
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 04:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD258381AE4
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 04:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785989345; cv=none; b=J47Zaw9BQ/gQdEBY63vKI6IKCqbIDG9FtedXaPCONdgT8tTl68KG4OxWjkXpGm7lOLs5B2NmwzDVT7Izr99mAS81ZN3sVWEygzUVs/0383UHzyUzGiYf7A0jdkc4pw6284U123sjN8OFXtCHD2/tpTywHuFcxoAknxfgGla+U1w=
+	t=1785990599; cv=none; b=lU0cpE0KUwA1DDembKU6ZyPSM0vFVc2cY3UcbvMWPL5z4lVWhW4Pz8OQVYGlQoRXxLzU4aRAqp1wny3IsMGIKV4HY6o4IC/dhtj9BZGyDT7XXHgq1JxTbPXwrqmnymJ+ODu2aUA2wdm8YYNcvACY6fAgijjpq/VlYAXDDYsUTzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785989345; c=relaxed/simple;
-	bh=v393h4pX6K7Y1vBQ4qndTD4AqXlr+yLQjlyIXbBR9yc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=esdODqZpXYNMcTkxANc60oboMExVjj2o1cmLQwYryLibdxATxGbt5doC15NEuZg9HCqzZBMHGrIxZSBsStDWsKzglfwmPWpmAfpuNqK8K9YL9y2HZ2rsGbqkZhR+dXc8TNtSII6X35BQEqoEvwqFMOF1wsDxuFRgSACujCHAFZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aun1fzvU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785990599; c=relaxed/simple;
+	bh=Du4Hbj28uQ8JJYIXnXrB+2yxbx8ntIi8t57UVqDBFe8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hfvQLDVrXF8yS/Xknc/j6PH07hfBzdlhYYt8KsW2QEalc/XpFv+wZqn2fVPfaCfwEG9BOaPNVbYtAuZFwFBzcvx3f/eHLTB5cMpr2M70NL8gVDw2K+ZHdr6spWlKK93gSp1ZtqCRWff37QsT2BzE4cRF2Z4pweMVE9Dw0qzo1DM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VuzhkvvN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FGvZGIQR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aun1fzvU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55EAC1F000E9;
-	Thu,  6 Aug 2026 04:09:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785989343;
-	bh=CqAiNLw6+gauEd+kTfquyhoRbVS1FVJhYDTFeKTBu1U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Aun1fzvUBXGAteT5cllDetJ1uEMRXrWPIXq5n3EeK7t51s814aIXL3egFDNc6fz8G
-	 +Y86AMGWx8GBqgTlZbXH1BskNR3JoPPbQsglr9grQBl8kvc74hbizh9oFtsBSNt819
-	 Mo4n+f/8jRbM40RS4o3TGq5hR8U9VxCUUW29ZtOpX5UKsHcvHuhUd9N5p/Ik1C+LPz
-	 ntykGCs+pnJgVsp57qXnUmvOnQUJzDTuBYQ+vvrfDp2kqxMS0L5f6lfR0NOw68WSCt
-	 +4Ixh+Kgr0e9lsIBNzBvKly0qFe61aPbKqyYPKhsiKec/tBFaend9myWEgXd9EG0QZ
-	 XqbaR1SaTfRWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/3] i2c: nt72676: Add Novatek NT72676 I2C controller
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: nina_kuo@novatek.com.tw
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806035632.777782-3-nina_kuo@novatek.com.tw>
-References: <20260806035632.777782-1-nina_kuo@novatek.com.tw>
- <20260806035632.777782-3-nina_kuo@novatek.com.tw>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 04:09:02 +0000
-Message-Id: <20260806040903.55EAC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VuzhkvvN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FGvZGIQR"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6763x1Sn482471
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 04:29:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	9xOdMFThIiIZBHNtAytYWHqK1fLwO2OnGzkdEI36ESw=; b=VuzhkvvNyy4VH/OY
+	uWLpUR+1qYHaqf0+zQbM9t27Z2NzBfEFIRqdEe32vAPbTIuy8PYoeD9SGVOGMwKf
+	4BGTaR3pn0KIaOfudSWnjXztsNVvJBg3VZKDTSNglbTOFGxCSGhSxFv5vx3iCE6z
+	b5c+RBKdNWzOvlOVT1PWOtspDlhNRDjWYNU0NJtWqYxki7GYq7OsMvTgrWDvjr+6
+	mqbRTam+h2VtKMlDyK9TfI07KGbYegijszvwdnO3k9WjghYtD/081ihq/ZSc2t/K
+	/u0vt301nBkjlbQiTX5REmxD9vJhNeglISOMeXoFpk+trCg5qQFAZSHGLHWeGIG5
+	Avk6Sg==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvjueg32g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 04:29:56 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c96b4f58ddcso1447464a12.3
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 21:29:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785990596; x=1786595396; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9xOdMFThIiIZBHNtAytYWHqK1fLwO2OnGzkdEI36ESw=;
+        b=FGvZGIQRqVrO9ObzvEBbsVQI+v9tsWydd4sZXkfMk5hg9WzrATq9Gp/oEnnZ7otaeB
+         /FmvGLVRXnb0QHJuxwaA/k8OUOYgOU39zKkfa0GM3E/5LhJid/gDlq0UjrS4bV2Fzw6D
+         j7vFJEdyIP8ApNv/Op3wzyIKUy8tZdAidvE/oXQgoTOP1Bo44jLZC8WgFOar8ZMt8tkH
+         70of8lRFDH/cZoan02e6mqEeoPu+pyv+1DlWph78sG/4N1sVMeCb31IE1gD7t0T+UUyl
+         ZWDUSz+nQm5OuE19OcmsLwGGmbgwCUWQtvLpP/E0cpNrPF7ct49sjki7MT4WBFGQ6rYe
+         hGHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785990596; x=1786595396;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9xOdMFThIiIZBHNtAytYWHqK1fLwO2OnGzkdEI36ESw=;
+        b=mYzy5K2tFj+ZrRY1zM1FK42sR6l6lwzWu1QC2Fq4A8khtSbo7CerBSaamSSocydzlp
+         X45teTrwLvasarwabfmwHgVt7MCzCkICpjnQi7Ep4kWtm+gtGr8v3bMGrVH70/Q8HXRD
+         POSMWH58x09rX4taSVAmYHGYz7f72yQM5JpG161p1u6IwFWG3TgNcd/H9AZ4bwq8zM0Z
+         mxqknKEVLQ/XmwZRkb6v7qI7J1kuu1F/WFlle+rzkwj5MtIYtRhaBUnzMvaw/wS24BSq
+         cd2M3GpCyDlzRNBlu9KmY3JVG6YctkfUQGfG7gGJPq2+s2H11Ux3refcJK1I+iO1P8RG
+         OcsQ==
+X-Gm-Message-State: AOJu0Yw5SZqFC8FRT6tHrDARpblFVZvBsZy0CodCIm379uCTP2b8P1WE
+	/WGZIpFa+WbKWHXzYPCbvm/wTlMhBN5jL8vX9AzCz+QE0TwadK0gNQY54GA+TIxDZY9AI1le7XA
+	SQFRNDJDEBFKYo9YinZBc/MyYRkd3tP8x4wjDfCWVVx6p4zc9p4s+8oNo8pf9KMq8
+X-Gm-Gg: AR+sD10apUquUPp7tEisYNJc/0rydpte1gYq4ik830FO1qGCV0nOMRa6jmUIvhUAHtK
+	bCcEM26OJNwFlDLrFSyqKTBtl+te8hIuEK95ajiYY5AlQWj/MK5RBEJuUjY0eh4SPSiSiR60FWO
+	uSxEiobUjsddD7h8bhzix2fwujOZOIYK6nvd8Fn0y0Us+Rbg7tBu37ypHIVkjaKlX1qZRv/ozMe
+	+HXBXHvgMUbTO1WNK0hWWk61xD3M5mJItoRN52oCOrzTdSkPfBZzGnRIwy++9ySJ9Y4GdK1GA5Y
+	73rrmAr8pBQ8F79Z+cTJ5+b7juItuXd586fNTgx/UvnRvlgBbpyaUtSTcUTaAVxpVAabeCFr6C+
+	Va8WA6GOBXQPJfxtlQOjwAI6kqrmKL5jzgALS6FeS2QPqrDWT39/JFK8BT0Jci6EGrqVB5QgOwZ
+	+MTdncXkK1/NAm
+X-Received: by 2002:a05:6a20:2589:b0:3bf:a0e5:999f with SMTP id adf61e73a8af0-3cb85e9415cmr13011395637.22.1785990596238;
+        Wed, 05 Aug 2026 21:29:56 -0700 (PDT)
+X-Received: by 2002:a05:6a20:2589:b0:3bf:a0e5:999f with SMTP id adf61e73a8af0-3cb85e9415cmr13011371637.22.1785990595745;
+        Wed, 05 Aug 2026 21:29:55 -0700 (PDT)
+Received: from [10.79.116.175] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3158673bb38sm24013042eec.14.2026.08.05.21.29.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 05 Aug 2026 21:29:54 -0700 (PDT)
+Message-ID: <f7ef45d6-c530-410b-a66a-22411d5d9815@oss.qualcomm.com>
+Date: Thu, 6 Aug 2026 09:59:51 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] arm64: dts: qcom: x1p42100-crd: Add qcom,tsens for EC
+ fan thermal management
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+References: <20260728-ec_add_more_commands-v1-0-771abd65ee1a@oss.qualcomm.com>
+ <20260728-ec_add_more_commands-v1-7-771abd65ee1a@oss.qualcomm.com>
+ <20260728182653.8F6841F00A3A@smtp.kernel.org>
+Content-Language: en-US
+From: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+In-Reply-To: <20260728182653.8F6841F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aNzAb79m c=1 sm=1 tr=0 ts=6a740dc5 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=wO-kaS73QcRLlypTDvoA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: FVM8zta0Atgylq0s977xrRDXJ7y-303f
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDAzMCBTYWx0ZWRfX4BCS+WDi3EgV
+ cxdUyfAvzQLpoMy/j8OWzMlPEpfAs24esq6PDlAjjaIq7Ex2rIF6AURoHnGLyl0Ihl0VDqCF4Th
+ qewv9DXR0irPD8bK8PUSN85N5oJ/wqnC0mCky5ub95BsI0vBMUNJlwdbUvyBSGQDeGOtMKeMz+5
+ dHbHblISZs1iHiqLaUIoX/syYc8Bzu0B9JQ6NOjTL7s0KzfixMUgDU2keeLZQNdlq00UPMwzMVZ
+ eaSmdq/PSCwVwWUBvrsLxNGoAfqVt39SrS0NIWhqh0eThi/cysx+QT53Gg9PCf8iWNKKxHzfxaJ
+ /VADvRgyxyRVllJc0nrG5GBINYMePWvhBVhwI5IN3FZHhc15U3MQJKBwP7T+7Cw2cvfiKyBa3jk
+ TCg88flBGbR9P7MQQZ5zTCXCmBlt0Pd/nQB2G8vRwfJvwqujoFlBHPPzJovrHtJ0ouXUN5ltUnk
+ /3VeT5DZfsrl9d3uafg==
+X-Proofpoint-ORIG-GUID: FVM8zta0Atgylq0s977xrRDXJ7y-303f
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDAzMCBTYWx0ZWRfX0Jpcoaz9Xskz
+ /6sO4UKM5srhndiS+0qaFimMafk8CcyOFxWPV9SrEzbSvOqgB1vdL6dfrfMroxE55yZdlPhvRKT
+ XO40E69gel5z5eKGrkuzmy4qaYeP5Aw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608060030
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] The driver incorrectly rejects or silently drops valid 2-message I=
-2C transfers instead of falling back to standard sequential processing.
-- [High] Dereferencing `i2c->comp_data` immediately after `of_device_get_ma=
-tch_data()` crashes the kernel on non-Device-Tree platforms.
-- [High] Operation flags and address bits in `I2C_REG_CTRL` are not cleared=
- between messages, corrupting multi-message transfers.
-- [High] The driver requests a shared IRQ before initializing the hardware =
-and performing the STBC ownership switch.
-- [High] A timeout races with the ISR calling `complete()`, causing subsequ=
-ent I2C transfers to falsely complete immediately.
-- [High] Unprotected read-modify-write on `I2C_REG_INTR` in the ISR races w=
-ith controller initialization, permanently disabling hardware interrupts.
-- [Medium] Racy read-modify-write on shared syscon register.
-- [Medium] The driver rejects 0-length messages but fails to advertise the =
-`I2C_AQ_NO_ZERO_LEN` quirk.
---
 
---- Patch [2]: [PATCH v6 2/3] i2c: nt72676: Add Novatek NT72676 I2C control=
-ler driver ---
-commit d2fac04a827f176bd9abae1b40ac427895796aa5
-Author: Ben Huang <Ben_Huang@novatek.com.tw>
 
-    i2c: nt72676: Add Novatek NT72676 I2C controller driver
-   =20
-    This driver performs the fundamental read/write functions as an I2C
-    controller and supports Standard-mode and Fast-mode.
-    Default operation is Standard-mode.
+On 7/28/2026 11:56 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] The `embedded-controller@76` node is instantiated in `x1p42100-crd.dts` without essential base properties (`compatible`, `reg`, `interrupts`), resulting in devicetree compiler warnings and driver binding failure.
+> --
+> 
+> --- Patch [7]: [PATCH 7/8] arm64: dts: qcom: x1p42100-crd: Add qcom,tsens for EC fan thermal management ---
+> commit 6a0028e3f0e9078f36aed5052ae5c17e337676ff
+> Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> 
+> arm64: dts: qcom: x1p42100-crd: Add qcom,tsens for EC fan thermal management
+> 
+> This commit adds the qcom,tsens property to the embedded-controller node in
+> the x1p42100-crd device tree for fan thermal management.
+> 
+>> diff --git a/arch/arm64/boot/dts/qcom/x1p42100-crd.dts b/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
+>> index 7ed4116b95904..b46b67c5e4366 100644
+>> --- a/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
+>> +++ b/arch/arm64/boot/dts/qcom/x1p42100-crd.dts
+> 
+> [ ... ]
+> 
+>> +&i2c5 {
+>> +	embedded-controller@76 {
+>> +		qcom,tsens = <&tsens2 11>;
+>> +	};
+>> +};
+> 
+> [Severity: High]
+> Does declaring the embedded-controller@76 node here create a new, incomplete
+> node?
+> 
+> Since this node isn't defined in the included base files, it appears to be
+> missing the required "compatible" and "reg" properties. Will this lead to a
+> devicetree compiler warning about a unit name without a reg property, and
+> prevent the qcom-hamoa-ec driver from binding?
+>
 
-> diff --git a/drivers/i2c/busses/i2c-nt72676.c b/drivers/i2c/busses/i2c-nt=
-72676.c
-> new file mode 100644
-> index 0000000000000..b675097676805
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-nt72676.c
-> @@ -0,0 +1,728 @@
+No that node's already fully defined with compatible and reg in
+x1-crd.dtsi, which this file includes, looks like the bot just didn't
+pick up on that. Anyhow, I'll switch this to use the ec label instead of
+redeclaring the node under &i2c5.
 
-[ ... ]
+-- 
+Best Regards,
+Anvesh
 
-> +static int nvt_i2c_stbc_auth(struct nvt_i2c_bus *i2c)
-> +{
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	if (!i2c->comp_data->stbc_i2c)
-> +		return 0;
-> +
-> +	ret =3D regmap_write(i2c->stbc_regmap, STBC_REG_PSWD, STBC_PSWD_DATA1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_write(i2c->stbc_regmap, STBC_REG_PSWD, STBC_PSWD_DATA2);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_write(i2c->stbc_regmap, STBC_REG_KEYPASS, STBC_KEYPASS_E=
-NABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_read(i2c->stbc_regmap, STBC_REG_I2C_SWITCH, &val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	val |=3D STBC_AGPIO_SWITCH_TO_CPU;
-> +	return regmap_write(i2c->stbc_regmap, STBC_REG_I2C_SWITCH, val);
-
-[Severity: Medium]
-Could a concurrent modification by another driver to this shared syscon
-register be silently overwritten here? Should this use regmap_update_bits()
-instead to ensure the read and write are atomic?
-
-[ ... ]
-
-> +static int nvt_i2c_init(struct nvt_i2c_bus *i2c)
-> +{
-> +	if (i2c->comp_data->stbc_i2c) {
-> +		int ret =3D nvt_i2c_stbc_auth(i2c);
-> +
-> +		if (ret) {
-> +			dev_err(i2c->dev, "[%s] STBC authentication failed, ret =3D %d\n",
-> +				i2c->adapter.name, ret);
-> +			return ret;
-> +		}
-> +	}
-> +	nvt_i2c_set_clk(i2c);
-> +	nt72676_i2c_writel(I2C_BUF_LITTLE_ENDIAN, i2c, I2C_REG_PINGPONG);
-> +	nt72676_i2c_writel(I2C_IRQ_ENABLE_SETTING | I2C_IRQ_CLEAR_ALL,
-> +			   i2c, I2C_REG_INTR);
-
-[Severity: High]
-Could writing the interrupt enable bits without holding i2c->lock race with
-the ISR? If the ISR runs concurrently (since the IRQ is shared and requested
-earlier), it could read the register before this write and write it back
-afterward, permanently clearing the enable bits.
-
-[ ... ]
-
-> +static irqreturn_t nvt_i2c_isr(int irq, void *dev_id)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D dev_id;
-> +	unsigned int status, clr =3D 0;
-> +	struct i2c_msg *msg;
-> +	int do_complete =3D 0;
-> +
-> +	spin_lock(&i2c->lock);
-> +	status =3D nt72676_i2c_readl(i2c, I2C_REG_INTR);
-> +	/* IRQ from other I2C, ignored */
-> +	if (!(status & I2C_IRQ_FLAG)) {
-> +		spin_unlock(&i2c->lock);
-> +		return IRQ_NONE;
-> +	}
-> +
-> +	msg =3D i2c->current_msg;
-> +	if (!msg) {
-> +		status &=3D ~I2C_IRQ_FLAG;
-> +		status |=3D I2C_IRQ_CLEAR_ALL;
-> +		nt72676_i2c_writel(status, i2c, I2C_REG_INTR);
-> +		spin_unlock(&i2c->lock);
-> +		return IRQ_HANDLED;
-> +	}
-
-[ ... ]
-
-> +	nt72676_i2c_writel(status | clr, i2c, I2C_REG_INTR);
-> +	spin_unlock(&i2c->lock);
-> +	if (do_complete)
-> +		complete(&i2c->msg_complete);
-
-[Severity: High]
-Could this complete() call outside the spinlock race with the start of a
-new transfer? If a previous transfer times out and cleans up, a delayed
-interrupt might execute this and complete() right after reinit_completion()
-is called for the next transfer, causing the new transfer to falsely succee=
-d.
-
-[ ... ]
-
-> +static int nvt_i2c_check_msg(const struct i2c_msg *msg)
-> +{
-> +	if (!msg || !msg->buf || !msg->len || msg->len > MAX_MSG_SIZE)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Does rejecting 0-length messages here require setting I2C_AQ_NO_ZERO_LEN in
-the adapter quirks? Standard I2C clients might expect 0-length messages to
-work unless the quirk is explicitly advertised.
-
-[ ... ]
-
-> +static int nvt_i2c_write(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
-> +{
-> +	int ret, offset =3D 0, write_bytes, fifo_num;
-> +	const unsigned char *buf =3D msg->buf;
-> +	unsigned int ctrl_mask;
-> +	unsigned long flags;
-
-[ ... ]
-
-> +	ctrl_mask =3D nt72676_i2c_readl(i2c, I2C_REG_CTRL);
-> +	ctrl_mask |=3D (((msg->addr << 1) << 8) | I2C_ENABLE |
-> +			I2C_CLOCK_DUTY_ENABLE | I2C_CLOCK_STRETCH_ENABLE |
-> +			I2C_MASTER_CLK_STRETCH_ENABLE | I2C_TRIGGER);
-> +	nt72676_i2c_writel(ctrl_mask, i2c, I2C_REG_CTRL);
-
-[Severity: High]
-Does this OR new flags into I2C_REG_CTRL without clearing previous flags or
-addresses? In a multi-message transfer, could a read followed by a write
-leave I2C_READ_OPERATION set, causing the write to execute as a read?
-
-[ ... ]
-
-> +static int nvt_i2c_read(struct nvt_i2c_bus *i2c, struct i2c_msg *msg)
-> +{
-> +	unsigned int ctrl_mask;
-> +	unsigned long flags;
-> +	int ret;
-
-[ ... ]
-
-> +	ctrl_mask =3D nt72676_i2c_readl(i2c, I2C_REG_CTRL);
-> +	ctrl_mask |=3D (((msg->addr << 1) << 8) | I2C_ENABLE |
-> +			I2C_REPEAT_ENABLE | I2C_READ_OPERATION |
-> +			I2C_CLOCK_DUTY_ENABLE | I2C_CLOCK_STRETCH_ENABLE |
-> +			I2C_MASTER_CLK_STRETCH_ENABLE | I2C_TRIGGER);
-> +	nt72676_i2c_writel(ctrl_mask, i2c, I2C_REG_CTRL);
-
-[Severity: High]
-Similarly, does this need to mask out previous operation and address bits
-from the register to prevent corruption from earlier messages?
-
-[ ... ]
-
-> +static int nvt_i2c_xfer(struct i2c_adapter *adap,
-> +			struct i2c_msg msgs[],
-> +			int num)
-> +{
-> +	struct nvt_i2c_bus *i2c =3D i2c_get_adapdata(adap);
-> +	struct i2c_msg *msg =3D NULL;
-> +	int ret =3D 0, i =3D 0;
-> +
-> +	nvt_i2c_ctrl_init(i2c);
-> +
-> +	if (num =3D=3D 2) {
-> +		if (!nvt_i2c_set_subaddr(i2c, msgs, num))
-> +			return -EOPNOTSUPP;
-> +
-> +		msg =3D &msgs[1];
-> +		if (msg->flags & I2C_M_RD)
-
-[Severity: High]
-If nvt_i2c_set_subaddr() fails to match the hardware optimization criteria,
-should this fall back to standard sequential processing instead of failing
-the entire transfer with -EOPNOTSUPP?
-
-Also, if msgs[0].len is 0, nvt_i2c_set_subaddr() returns true from its else
-block. Does this cause the driver to silently skip processing msgs[0] and
-only process msgs[1]?
-
-[ ... ]
-
-> +static int nvt_i2c_parse_dts(struct nvt_i2c_bus *i2c)
-> +{
-> +	struct device *dev =3D i2c->dev;
-> +	struct device_node *np =3D dev->of_node;
-> +	int ret;
-> +
-> +	i2c->comp_data =3D of_device_get_match_data(dev);
-> +
-> +	/* read DTS(novatek,stbc-syscon) for STBC I2C */
-> +	if (i2c->comp_data->stbc_i2c) {
-
-[Severity: High]
-Since the driver depends on OF || COMPILE_TEST, it can be built and probed
-without a Device Tree. If probed without DT, of_device_get_match_data()
-will return NULL. Does dereferencing i2c->comp_data immediately here
-cause a kernel crash on those platforms?
-
-[ ... ]
-
-> +static int nvt_i2c_probe(struct platform_device *pdev)
-> +{
-> +	struct nvt_i2c_bus *i2c;
-> +	int ret;
-
-[ ... ]
-
-> +	ret =3D devm_request_irq(&pdev->dev, i2c->irq, nvt_i2c_isr,
-> +			       IRQF_SHARED | IRQF_TRIGGER_HIGH, dev_name(&pdev->dev), i2c);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "[%s] devm_request_irq fail\n",
-> +				     dev_name(&pdev->dev));
-> +
-> +	ret =3D nvt_i2c_init(i2c);
-
-[Severity: High]
-If the requested IRQ is shared and triggers immediately, the ISR will try
-to read I2C_REG_INTR. For devices needing stbc_i2c, does accessing these
-registers before nvt_i2c_init() switches hardware ownership to the CPU
-result in a synchronous external abort or bus hang?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806035632.7777=
-82-1-nina_kuo@novatek.com.tw?part=3D2
