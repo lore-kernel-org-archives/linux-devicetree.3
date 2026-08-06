@@ -1,205 +1,122 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE95429026
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:22:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519C53EEAC2
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786008180; cv=none; b=ckxd8YqJhDpg7Xb4AD/qfyes8xtG+/rBiXHqKg4cMx/TX4i6dHg7BSZbblDdav7sEjUyQn9O1ZGHVM5+Lf2Rw2p/kXEdJyKBq/h3Aeexa0lG9WETJ6U5RbBoC87bOsa6f297SJZgSXBfUBg9Us4T7AwBs5MX3TAMpoMhn8urRpM=
+	t=1786008218; cv=none; b=gQimVLEn6+tahB8Zmitv6JsG+qAQgZ4+IRsFJ95lOOigCVCS++ulOgfk+0LVm3EwhcGok2Z88bSlwVhpu1ZiMTSznNsdHYZ9wEzfpsgFSxn7K5C/nVEWgAn4DNE/6uAOTMbhpe0dZ+SaAmDpVjOQ5QJnPWvcIQcEcOWmhw8+EHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786008180; c=relaxed/simple;
-	bh=dpY6Lb66UiiSVLUiNY/tDg0sHUc2lJJLguZEJbr1MoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C98x2lMAKQxzbDJeFdl8jS8RRoj8Dv2h7unZQnAQxrBSlZdXq0Zr/iK4Hb/TaNdgv6rWvDkfm/293yV/6Yu7msc+APIl8gymOTGsZTrjCGTsKrV3FNPoGSSb8sy8zdDhznVgo3r4WGXyRvZ3CBZDGB9k1KBaNBaXfYnwAxmsv+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hZ7bYg+J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zw/u7Kuh; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786008218; c=relaxed/simple;
+	bh=AESytNUizgGxpRjVnxhOin9qUUoSDsXeKoY93IMJNBM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AdZg+enNHFoW6oPDbqP/TvbYK7EMO25p3eikFX+ZkO0UtNU3uaqF8PrKnRUN0alE3YT07je0AySnvJEIUca2e3AATXLPrnS+WSgrnl9yn/jU6Bbevm1Cm5A0SG2ftuGKbIT4cERn7JR//J0YAWk77CBs8rAMM1BQ9VzU+MRyBZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWuHe5fM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hZ7bYg+J";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zw/u7Kuh"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67694DbV1518808
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 09:22:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pqaJOMuddBQhzL/ghmNiBYFo
-	sxA6nA8z5MJRgKzN+OQ=; b=hZ7bYg+J44WePbSRKs3FnHZFEgbIN/jkIDqJ8XQC
-	+L08M/+kxTzNBjfrMG4Sy8404IJu57fv7SKb08ehY0Q14n0P1gowFrGTwkHXlfNv
-	KxlFBdj/yd0kAV9a/U62UTrpHs49QIWX7TsbzxlDKhHkGR+GWTzgAx4ogVzK4Tg9
-	lnOJ9Rck66Yn5duz94gHvJY4No1f3WWakYjmYZE+TisaVTX98JXKsxPpsX8pChGC
-	Jw+NbTtnvR0GaZuSvdjx3nFw2nwOG+i5fH5nn9IFs7h3oIkATwxak3y6lne8xq4D
-	ej+1YvK6FCJsGxjlRRC3NnUUcuwFKvNbDMN5IYra9SY+Jw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvntngfnn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:22:58 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-904ee4473a8so17475106d6.2
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 02:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786008178; x=1786612978; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pqaJOMuddBQhzL/ghmNiBYFosxA6nA8z5MJRgKzN+OQ=;
-        b=Zw/u7KuhXGABA03ihjje+ZbK7UL5ET2arwuIhIFXuQkYggHOLXF1q+t+tUXiAcXVaN
-         WvLhYKxYr99ceDt+LNwmiYkhED4s9IlNK8jcc3oqFCVAarXtADzOYzC8FKIToolKKQ6y
-         mTki/GaJA6h0cF9ECUSygQrQrmxlOCG8ZsgDrygrkBgx5eqkmocJjPy6f7SrKDvmyS5E
-         y3Mqd8siuMLIvATn/wgykqxu2PW/h5RrbcHP3dpmF0QQMD/fPdP3bGFGj0r7GwKfKGbu
-         XRsa9J/nRnmfi+F6+bEriLKv0Rn6RZftGsdAN20hFG6HUVTNbW8nSxXE7a63aKsU+G6S
-         wPSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786008178; x=1786612978;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pqaJOMuddBQhzL/ghmNiBYFosxA6nA8z5MJRgKzN+OQ=;
-        b=JdR4gojl/Z7tKj5cFgCa6cYsjnPqfURJObB9yqCrbCrh1lY4o2PaTrEiUYoqHOfu8C
-         NyxGCKBHRzhEuEP9um1UpKibhmIH/DKE8tbaoPR013Q0qzGVTzeKtooT22bqAyC3s8NW
-         DGiiumlt4VuDGJec60lbA3YDxyOhaBfR/do7E6vaAVE9A3Q9pyiOzC+KlnZKwkf/pkTv
-         z7D5Q+aaMA8Awri+e138CMhnmeP6OxbWxuYO5K5LcxRGX97c6wG2IYYYBN/cQOmibBKp
-         wYkfP6Dno/sWaZO5Q4OX6+7JAX/3y+329bJKgIoXmZjDzb+mL/nxVv5cU87orEkA+Phb
-         PQSA==
-X-Forwarded-Encrypted: i=1; AHgh+RpU/uhTOTbik1nNwdEaF+U6VBdspvw9/qpf9yEp+XkAbOJkWIn2DHR2t6gp7bKVHY8CUekBUHhZEows@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmCVRqIqXucZWMAM5cG/tqSzrSmJSCsVvZHAZaPf84MA4mFyVo
-	ziXSdXBBwz3EecZ3qp5qMc1E/mJo5Pw78opNiNH8OQy0dlRDw8P+YkA0FY41J+Q2yU3oVHRsMuZ
-	pVA31cSavR1Ez+q5Tj8UV9nyqBYNbALUkwR0DoXXib0Ht7MlCXqUwSibnqmuzG4aS
-X-Gm-Gg: AR+sD13VFG4cr+RSIILObP9oxbNzOHbO36cxtHeqM8wJ9XrBeHcpUyeDy0JSx+QeF//
-	tpK0zit2OSisUV3r1oEBLXOftfbPwEmgnMMq1EuVm8BbCo82rrKyjlsThgCVZ/bDL68f8dHh0GC
-	FYbxWb70xNDtxEyVh8vLXJDCgGPU7ykv+CASQkzJceTRnUJuua294m1jWdiNIOWzyKOUSFYa8py
-	58t78VgQWCbLQUOxO9qQy1ghMfaQmgsFiRQuDi9qC83FPK9rceeiI3JIP0DAznLNiWc1ZN0mpb3
-	qKlTjC2x4SkxqOlJ22VEentV2ZMxoZovc21sA11csYy6aNf7wekfum+pXVpJs/v7OCZC+aR/nLr
-	d+d8GelrTLr/OHXsmyvHT67rFm32fOmnvrNS3Yc39+sjel5yygdTPkXHsF3+GLTjdcvyRvsUfug
-	UWhjPA6nD4ynCKCw==
-X-Received: by 2002:a05:622a:4811:b0:51c:22c5:daee with SMTP id d75a77b69052e-52ce6133c6bmr146671761cf.29.1786008177463;
-        Thu, 06 Aug 2026 02:22:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:4811:b0:51c:22c5:daee with SMTP id d75a77b69052e-52ce6133c6bmr146671171cf.29.1786008176819;
-        Thu, 06 Aug 2026 02:22:56 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39fb9a51048sm14086691fa.36.2026.08.06.02.22.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 02:22:55 -0700 (PDT)
-Date: Thu, 6 Aug 2026 12:22:52 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
-        Daniel J Blueman <daniel@quora.org>
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context
- bank subnodes to common schema
-Message-ID: <zqpgl3esozn4dgnm7remmwmquxasyc4qpyh3fgcdfblmn2xe3g@vhp5umdahvmi>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <20260805-dark-voracious-jacamar-6aae4c@quoll>
- <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
- <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
- <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWuHe5fM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0A91F000E9;
+	Thu,  6 Aug 2026 09:23:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786008217;
+	bh=8jVDrVajaf3Q6ojKRQKvsGo0JTZIg7xIbONaFgu9klc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fWuHe5fMovB8OQqFLoFNpDogd83eEBQ2ng+Nhiwcj1Gba4X5CMqOe/vv/nvxu6Nvf
+	 vandKfOC24yC/l4Jto5chRFfeB9HO4RkIUsfkvO1IQ5MSqC3uQi/4a3/fiG7ADA5FD
+	 +VACWtZ7HDmQ2eqOCvpbLp6qiINUObppYp/Z0hJAZv2TOC7Lg8vmha9tsJAWVdXnUL
+	 FNeIuo7bCQfDeCbnOmlKtuGH2UfiWnCAAZMnV/R9vhFLx1JsQLqnp6frSqIdVCTUGf
+	 l10xFhUy4bYsa8rw+xmy89HHv3TzhtvZ73juhFUOjwcLeWcAQlaeiJ2swKIIqQGrNm
+	 ATqmWJOFPQxAw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 14/17] ARM: dts: microchip: sama7d65: add otpc node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260806074024.531259-15-varshini.rajendran@microchip.com>
+References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
+ <20260806074024.531259-15-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 09:23:36 +0000
+Message-Id: <20260806092336.DD0A91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA3MiBTYWx0ZWRfX4LJh9UNiw/Es
- jBq1Y2hhv80Kbabid2fNBStF3NOSEyr/qebtTJXiu8POia+68E1/G4cJs2txzb4F4zG2dlJPzi4
- JgI2xF0A3/5B9I0f3Tz/suHW/lNjR0LWPrbea9meBUVzToMtsT0TdjAwGErpf+hg6RGEVeryY2j
- Nidp/Mo9PMU6m2h+SqDy/6OfVIau9SkkxHrQ8u6lWpKRfuYs0NVDPdjJ+UwPPqrr2IYx2xxuO/M
- mgnM83jJ+gVLelyU+Y/8KlQd3PLWfXpXi/lzvNPgdCXbFMl4kgDUw+7FXraCCOP+WFX8I2LihnN
- 7cgdBqLu0Hf7uPu7ZflV+M9EmG+lyZatmIJSTefRsSl2aZ+QjZ42hMsfTv8WwZLyK6ZWUTMTLHe
- /Sfzch6FHc5NnyMDo2EdrLkUcRi2tAgN4JZLQ+f5nh7J4t/CNMWj6NA/CXBV/jsugwVV7ARkOtZ
- KnF20LxQpKcTR0LykHg==
-X-Proofpoint-ORIG-GUID: AyFc91JRMNVbv6J-7pwxXu2LI93WCYxj
-X-Proofpoint-GUID: AyFc91JRMNVbv6J-7pwxXu2LI93WCYxj
-X-Authority-Analysis: v=2.4 cv=LpKiDHdc c=1 sm=1 tr=0 ts=6a745272 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=4vcYjQK5CgZr8qocVmwA:9
- a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA3MiBTYWx0ZWRfX6JYQ9IvvEPVJ
- sGd8IUwErDUq8o6D6+7ulpTwaKdzauXq5rMNqvlKMeVTQ07XSSTBajaAesJYBR5smUrWphIL/aU
- FgWu819TG63W74kHJCH4av1+QH6oO20=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 spamscore=0
- phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060072
 
-On Thu, Aug 06, 2026 at 11:11:09AM +0200, Krzysztof Kozlowski wrote:
-> On 06/08/2026 10:46, Dmitry Baryshkov wrote:
-> > 
-> >> dma-ranges tell how this bus - so venus/iris - performs DMA translation
-> >> in respective to parent. Address/size-cells are obviously also needed if
-> >> this is a bus with addressing.
-> >>
-> >> But there are no children with addressing, thus what sort of bus would
-> >> it be?
-> >>
-> >> It looks to me that having here both:
-> >> 1. dma-ranges + address/size-cells
-> >> 2. children without bus addressing
-> >> is some sort of abuse of the DT syntax. It is allowed, but does not
-> >> really represent hardware.
-> >>
-> >> IOW, dma-ranges alone feels okay, although unusual, and it states proper
-> >> DMA translation for this bus. If you add address/size-cells, it means
-> >> this bus HAS addressing and thus YOU MUST use addressing.
-> >>
-> >> If my understanding is correct, then solution would be to add addressing
-> >> to the children (so unit address and "reg" property) or drop
-> >> address/size-cells as Rob pointed out. [1]
-> > 
-> > Doesn't dma-ranges require address/size cells? In the end, how can you
-> 
-> I think it does not require, at least how I understood the DT spec,
-> unless you provide actual addresses to the property.
-> 
-> IOW, this requires address/size-cells:
-> 	dma-ranges = <0 0 0 0 0x10 0>;
-> 
-> > specify the DMA address if the device doesn't have addressing at all (or
-> > MMIO-style addressing)?
-> 
-> Yeah, that's why having here children without bus addressing is
-> confusing. I would interpret it that, children are not on MMIO bus, thus
-> the venus/iris is some sort of proprietary bus with no mapping between
-> parent MMIO and children nodes.
-> 
-> If there is no mapping, then we do not have 'ranges' property. But I
-> could imagine that such no-mapping bus still provides access to system RAM?
-> 
-> Actually this feels like a huge stretch, so I tend to think that the
-> only reasonable option is to have children with MMIO, which would make
-> it explicit: Venus/iris is a bus which provides translation of both MMIO
-> and DMA addresses to the parent.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The temperature calibration cell is defined but not linked to th=
+e ADC node, leaving the temperature sensor feature disabled.
+- [Low] The patch includes the `microchip,sama7g5-otpc.h` header but does n=
+ot use its macros.
+--
 
-But there are no separate addresses for those subnodes. Would you prefer
-them to duplicate the addresses of the parent node? Or would the
-'ranges' be enough?
+--- Patch [14]: [PATCH v6 14/17] ARM: dts: microchip: sama7d65: add otpc no=
+de ---
+commit 82cd7693b0c9ba34b6386bb02bb96ebcefa462e6
+Author: Varshini Rajendran <varshini.rajendran@microchip.com>
+Subject: ARM: dts: microchip: sama7d65: add otpc node
 
-Or, thinking about it, if Venus / Iris have 32-bit addressing, then
-dma-range should probably define the limited DMA range.
+This commit adds the OTPC (One Time Programmable Controller) node to the
+SAMA7D65 device tree. It also includes the nvmem layout and the definition
+for the temperature calibration cell.
 
--- 
-With best wishes
-Dmitry
+> diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dt=
+s/microchip/sama7d65.dtsi
+> index c35f27615bc49..aac2e22d96cb3 100644
+> --- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
+> +++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
+> @@ -15,6 +15,7 @@
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  #include <dt-bindings/interrupt-controller/irq.h>
+>  #include <dt-bindings/mfd/at91-usart.h>
+> +#include <dt-bindings/nvmem/microchip,sama7g5-otpc.h>
+
+[Severity: Low]
+Is this dt-bindings header inclusion necessary?=20
+
+The macros defined in this header do not appear to be used, as the newly
+added otpc node relies exclusively on direct hex values for its registers
+rather than using the macros.
+
+[ ... ]
+
+> @@ -1111,6 +1112,21 @@ ddr3phy: ddr3phy@e3804000 {
+>  			reg =3D <0xe3804000 0x1000>;
+>  		};
+> =20
+> +		otpc: efuse@e8c00000 {
+> +			compatible =3D "microchip,sama7d65-otpc", "microchip,sama7g5-otpc", "=
+syscon";
+> +			reg =3D <0xe8c00000 0x100>;
+> +
+> +			nvmem-layout {
+> +				compatible =3D "fixed-layout";
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <1>;
+> +
+> +				temperature_calib: calib@41435354 {
+> +					reg =3D <0x41435354 0x2c>;	/* Temp calib data packet TAG */
+> +				};
+
+[Severity: Medium]
+Should the existing ADC node be updated to reference this new temperature
+calibration cell?
+
+Without linking this new cell to the ADC node (adc@e1000000) using the
+nvmem-cells and nvmem-cell-names properties, the ADC driver
+at91-sama5d2_adc.c will return -ENOENT when attempting to call
+nvmem_cell_get().
+
+This causes the driver to silently skip registering the temperature channel
+during probe, leaving the sensor disabled and this new calibration data
+unreferenced.
+
+> +			};
+> +		};
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806074024.5312=
+59-1-varshini.rajendran@microchip.com?part=3D14
