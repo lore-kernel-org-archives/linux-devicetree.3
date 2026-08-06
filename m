@@ -1,177 +1,274 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA32471D1E
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 11:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A05547255C
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 11:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786016647; cv=none; b=ILb/38x0zncpGG+yJ/iXj5lvaDz14Rb5wZ6EcQLuVGPdmdzrlrnc/feJga33qPC/gnN5aJY/C3j6YJSPBY62Jyo73wDamulAY9Gyhr7pB+juiewIS/ivk0e08rwA06YJqCObU1ovmQjB1iezwj28b3uTR9uh/Ng+UkaqWG8NIAc=
+	t=1786016655; cv=none; b=r65pSvUrAOZV9JUY55HHKdg8vbHI/jdI0LYmnfPeHIFrXitVwJnPru63EJS6E4hcmnJEO0zTbNb4KKrd+1ja1Nm9Ji5ZEx6kYEgJshYgew8WUNUH++1rh+L5QJrxMtTsb8elrbt1VxtsJ3UZZ29ueV+gZ7p4mSQAsmwONBdzss8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786016647; c=relaxed/simple;
-	bh=j/S6abc75+JZPBROHdk31qLGWHY3Rl99vme1C2vDIrY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ma5xtzZDf4l/9MAEBSH5hFaRIofIxHSIC0KSPDdaOsfdV4vokxZhllNVlLEtorlnNzAXIXTIyImoRgGa62JkNlP+5Yhoiak6b5UYhKGMQbBD7FuCWo6dDP1JJDsmbfAKez4dIbRHogjIxDbzBrha6raOKmnKPs4GUQUDlWJyvUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BQP6JtB+; arc=none smtp.client-ip=74.125.227.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786016655; c=relaxed/simple;
+	bh=flYHAsWqMe1Nmyeu2IpHX/mwqnQXdwl3hGTsXJ2UJ48=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=T4OS9Z1SB5F8/9PRv+zdoi85Riicav2s4V0I6i/fSm5IzrW6Yrt59bBlheq8LXui40Ji+Avjr96yUGFfcfEHFVeKwAqwa7vJOyDus1z9Y3Vk3DHGBhT7XfY+a23H7wdrpItjzxL2nMj94JYmDFPNbIrnGtqZ7otUrlfu711d5ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gU1zl93T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JCRUKGYW; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BQP6JtB+"
-Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2cabe9335f1so11408375ad.0
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 04:44:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gU1zl93T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JCRUKGYW"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769ng201534128
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 11:44:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d0AxWTtHAl5qkJ2pTsdEn68dPe4XsoapBpxQmFo5neA=; b=gU1zl93T5jCPbr4l
+	WWDj6gLTvCdJ1/v3Kg4SoiYFe1kkyr2Uw9VdsrcLyFn1L0TjhuN7Ct+bgBTeAHjZ
+	Oo49azSly12MgP+aCDlGxbvPUagbj/ilFPcq6+cKPkwLeUP2vLT6vWWv/sf4gmA3
+	n05h17rfRKGTDJzyj6utN++DbL15bUT/gklwxPzubmvjsOYRsdeuuZbfXxfSDlIw
+	BLKbfiA22ABZOp3I6Ci7k7ty7j/SKqlLegiyDi+4q8NOX6/ncBGQXdQBfz3EqRIJ
+	kRYccDBvl047G6ukb53H+U/fSYhRpSr+mzBwanqvAR6aBVVMCWo6f0pnQ7Qi80we
+	enCZuw==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvn8ps9vn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 11:44:12 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-848d21bbb55so3683890b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 04:44:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786016646; x=1786621446; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EyfrZ3wQF4g0LWnFW0d1CGkXt97BWDIcYKvRjJiHXes=;
-        b=BQP6JtB+GjYJUYHtLwphiy2ml2w7bLk6txlOlCK8bi0e7+YiHnqNwq36xf3bWT89E1
-         oQkIsOAknEZWT3oJM2zL4PHBY6DC7gfbYHiWGlc6I7+AR5Z5yIYPDqPFZF9FziEkc55M
-         LZiSum15OM1mT6pBH9YQqWh5A/Co1K47RmfQZ0bwiYkAJbJbDNr4NdqjQm5Cwkhzkpvr
-         +GuST9Lo7VOniwB6V+LkwzQvN0CEBNDl6AS6KkSNJ6H1lqBncyoZ4tIt5sYhbn5jDQxS
-         cS6ph/hJRF2uiRxTj9/wL02UEjJ5+NNtEXK1NUxCvwARbB1cJv0tcnm9nojXv/AfQgVx
-         6J+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786016646; x=1786621446;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1786016651; x=1786621451; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EyfrZ3wQF4g0LWnFW0d1CGkXt97BWDIcYKvRjJiHXes=;
-        b=kPPuqwXyFa/962p3Y5+Enx/E2/5tEuaoNZ0BHzSM24YEjb3y6w5fCZdWMw6v0cpatb
-         h8crWhbZRglaP4/vnL2xwZYhl2+eW2aVQdga3SUQuJpsW+hSofRiYw6F5LAcZWzg4wvm
-         ClvSnAZMThSdOVIGdZaTbpqQPh4BIJ9fMoI/+kYMv7H2EpBEZ2+VaVc1JvPEutsCdIyq
-         nq7nkvzjK7fduFu86taKlJfDxvSojiEsukwukgAeLfJ45yaUIeiZcgtXnISutjhOJWn8
-         9+XpuS1S4x9ZFP90OCQUt0O8Ejtshgnxnx3W1yAJxM5R0Iu36QhZtn8Vv0+y3a6xEcA4
-         g8hw==
-X-Forwarded-Encrypted: i=1; AHgh+RqNp8/doZQI6yOGuYER3aNO8FzD5kK+ERNvdzieZWVu96QaFJnw5MJcN+kxxikDtrZrnAeMsD7uDdSa@vger.kernel.org
-X-Gm-Message-State: AOJu0YyzJfP2LHciAwWfEs4y7cSEqdM6S1Jbf27Hg4rmQaFpGl92lqXv
-	5qxjYbNrFI3obB3NcjzkrUjOylMEaNqBxKoC3KWjEAnOaiLG25S1awXtdIuO+9ZRoT7zQw==
-X-Gm-Gg: AR+sD13TqutI0EYkOZ5zvfvXicloc6XnZ728Ou1G6Sico1O8HmF6r8bLnp/j9x6BSIh
-	bE9DQNFLVXOWWX+T1M80EjDCUIoN71yWFTZfcf3pqMSQL/SF+0ItMlm5zwXj04GFaNbkLO8l2SN
-	5Bt7cflLc8K19CeR8H30dUtjFx+Mmo0BFPfOetQJGVfVoe6jUeN0aQCc2S1TBCicX9YF5pG9s0L
-	4UD9ftNwWnwnfHA7BysukzIQLoGrIyG0MRogdJEsiNN4SJSg3juWgyTZDJb8E5/jWNo1oL8bBTt
-	AM7dciFeO3NxNeVbtdpX2v64f+Qzlsvk9FsZAOY4zgowBsx7D4tQDA1iiQZ5iEK4An0lCymphYb
-	HSCT5iJ4KLXx3sx/2W9Q07MWD2MpcZ2upqJ35VFCTT7a1fUdTNvwhWMOMt/RlTqwjYrh8ihccH9
-	lb9jIRU/AmoL/1OaRmm6IQwp8rL2uHDYQIl9zRrsS/qaWAiw1njPi38qdBCRrMojyMhca2
-X-Received: by 2002:a17:903:2d1:b0:2cc:90aa:8787 with SMTP id d9443c01a7336-2d0ca7b54e0mr179744585ad.6.1786016645667;
-        Thu, 06 Aug 2026 04:44:05 -0700 (PDT)
-Received: from [10.125.112.20] ([210.184.73.204])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa4b9605sm29985845ad.58.2026.08.06.04.44.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 04:44:04 -0700 (PDT)
-Message-ID: <232d382a-832a-4fd3-9184-3346944a4a8a@gmail.com>
-Date: Thu, 6 Aug 2026 19:43:59 +0800
+        bh=d0AxWTtHAl5qkJ2pTsdEn68dPe4XsoapBpxQmFo5neA=;
+        b=JCRUKGYWtWQGm8NuStg7uhqctboeGjzdo9/JQlOT8bAWltQTwVki6RM3tJ/uoYPncE
+         LlnJ3o7cJbhudjnY6J6NrtBLdGXlzu7cxyG5GPoAqI8lnejmMijP2yBwCCVZYYJxy4KF
+         GqSX2jqmwifRMJtXJRVuK7r/jHH95QEocnqHTukTVLf1mi2VwJQm4DB/tIe4SdCV8Tg2
+         jTIkZng+gvGkc3hTznSwGfV92qBW/CxjxvHLIIXpkjZW6u4VEDHcqEKb2JZQVXxo6pHZ
+         EXZZsYn14gZb9FnuszQSgvVGBybZSf5c7cjcigQ9Hn/VH9r3rsfJ7jlkSHMdqtKczOvx
+         pMJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786016651; x=1786621451;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d0AxWTtHAl5qkJ2pTsdEn68dPe4XsoapBpxQmFo5neA=;
+        b=NVA3SPUvRveWSpTqHZdP5BtdJuvBXIgpGvsme9P4du0nAZTsH3UWXZr7kKTlQuLZQl
+         8XFGXAhR8D3uWGg+iljA+RaeRaG33LMrJuFMXjl6IyUYsjbzRhJoASlnXV0Du7z3UlXl
+         uS2N9baM+1EqbyAptohTIgi1++LHo/Ca14HoHGO5OdZ27uJYzc6x9hwhWylV6zg1+Yy1
+         XqqT3FzbbTnF6C00CT3dRkIZDkd/RapiwRFlZJtlDxf2niprK07uBsibEFGJdkGrS/kX
+         UeazmOAwAqBAOM61ySfFLnJ/gSiiTMKEz/xRyfrUo8IT0bEO46SM6ssTwMdF02pv10Zp
+         ZKCw==
+X-Forwarded-Encrypted: i=1; AHgh+RqKALLFjVFzCYQxhC1MCXiCXJQRhwPfIqcFOHw4+UCAuyHWiI92RJvykNFrpE0j2VoQsBXosfCbNHHM@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx5wAt61TJaMiuOvjxPTCqem+Ptp1cxjJh0yesuoLD1XcJc0EDY
+	OnPgVwMp1JxRpyt8iddkGSEk6YN9LK4PFPV5sgMsfWKgWR16/XZr/xMB9rrI5HVrYBcpx04//jG
+	UHlcTTOFoonwfIHAT8/Ryyl3fN2p0kmYDmtyvNUj3bqcsbtIA2wXjfZsF4yn5POTrF5/QnMxy
+X-Gm-Gg: AR+sD12dj6iybqje/hZQLFbv+HUzrDeaPCfFCFmX+NbL8hnScwOn5T10XyiIJ/ovFMD
+	YFMTF21h++jU3/VyRt7RCRWqC0XTdaxRtERiIDrdXRRq+/AIt9SltQmvVJsTctfvPOxoW6hwIah
+	Yu67wlZZOQmrGPojFVWNH98vi2PiuSb4KBivGbEyPOhVnRdB80uuYoY/O3hHnQsI5q+4FdeKfRc
+	M0gpZft1jvAFcK2BSpfC3kUeYVxvYf5JNbXmBXui0zOsRKHQDIsL3nUHjCK3C3rkXJ3eYeWs9TY
+	O13le5/O2eqsY+5zvwSjqymAUS4qK9AD7tWRSQgmrtOtodD8Mx5izpj/LjKjsFdDImINHZncY6l
+	Xj7Bp7/FqA48iisnZPHn3iycSmw8FoJo=
+X-Received: by 2002:a05:6a00:278b:b0:848:7b92:8e74 with SMTP id d2e1a72fcca58-84f2e0dc994mr17478216b3a.39.1786016651274;
+        Thu, 06 Aug 2026 04:44:11 -0700 (PDT)
+X-Received: by 2002:a05:6a00:278b:b0:848:7b92:8e74 with SMTP id d2e1a72fcca58-84f2e0dc994mr17478151b3a.39.1786016650815;
+        Thu, 06 Aug 2026 04:44:10 -0700 (PDT)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f456b75dcsm1234756b3a.34.2026.08.06.04.44.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 04:44:10 -0700 (PDT)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Date: Thu, 06 Aug 2026 17:13:29 +0530
+Subject: [PATCH v7 4/5] arm64: dts: qcom: shikra-cqm-cqs-evk-imx577-camera:
+ Add DT overlay
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/8] memblock: introduce MEMBLOCK_NODUMP flag
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260806093519.2907771-1-chenwandun1@gmail.com>
- <20260806093519.2907771-2-chenwandun1@gmail.com>
- <20260806095112.DC81E1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <20260806095112.DC81E1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260806-shikra-camss-review-v7-4-c7360fd6a5ac@oss.qualcomm.com>
+References: <20260806-shikra-camss-review-v7-0-c7360fd6a5ac@oss.qualcomm.com>
+In-Reply-To: <20260806-shikra-camss-review-v7-0-c7360fd6a5ac@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-i2c@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org,
+        Suresh Vankadara <quic_svankada@quicinc.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786016613; l=3728;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=flYHAsWqMe1Nmyeu2IpHX/mwqnQXdwl3hGTsXJ2UJ48=;
+ b=+NRK1V2w+DTmTUaqLRTPFAq3rJUHzPs3aeOzAqPyrR6crfUEjHKjnWNHtpZDXgE59xenOHx7W
+ pkS6MLmq8lxCjt43CH3uX1Fyd1Z/uKB4H6voc8q1+28zPel/UfHnlq9
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA5MiBTYWx0ZWRfXxs829T2fs8y3
+ 4Kegla7zc8oml/qt91DR5FPzZeU8JuFrO1WttXBdQAJuepdNlgwLOLzPdLtQAnylGv1F9F82Yq+
+ 6FIx6TJpl4KQdd4J76dX6KBEiyW/NhU=
+X-Authority-Analysis: v=2.4 cv=RPeD2Yi+ c=1 sm=1 tr=0 ts=6a74738c cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=OGCdAuOInqFJiNoUztwA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: 6jMeY4KSlfGsyaNAwQ2uJKNRvgcu_Ch1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA5MiBTYWx0ZWRfXzStAnF8hPCWo
+ rGpzZ+oNL8kUmrwB9MSsy1HdN+MXlhSACl68obgob8PQyBm1+xc6igIkUOxEiVxAG9MFT5EI8Nk
+ HxaVxbQmAW4fvisFaiDcQT8EocHrb5GK/tUZygmRs0hgUKfOmJTPmPSoO5QcFcV3GTbZNHqzh4q
+ 1D+HMUcaqrVrn9Z0kNxgSC62WF3Xa0ziHX3iIeppuDyZpWnTZaDbgXvROOjuCyPoKoXbY+yCGI+
+ YEpotCDE5cRC7oAiVLEs3F2Q1OcE6a6clYBX+MJzxkujKcH4rbrQUE70NCqepWLNN5xkhlpjTQ2
+ MbIYyIIdfqfIjXpORDnh6lLeobSVYfXBjfeNkeHBG482TAWRS2UuxRUzHHenU6A2ZlP+j16xwVu
+ kNbhgDmrTQEudLtokg5GeR2L+0XG0cgcktiwKu1ClSdw5ZBPCxg400MkcPsdbvZKoo4NxbLuLy0
+ 4LUuXKScMCRDRAAR7vA==
+X-Proofpoint-ORIG-GUID: 6jMeY4KSlfGsyaNAwQ2uJKNRvgcu_Ch1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ adultscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060092
 
+Shikra CQM and CQS are retail variants sharing the same PM4125 PMIC
+and identical camera supply rails. The only difference between them
+is the integrated modem on CQM, which does not affect camera hardware.
 
+Add a shared overlay for optional IMX577 integration via CSIPHY1,
+used by both CQM and CQS EVK boards.
 
-On 8/6/26 17:51, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] The patch completely omits the filtering logic required to exclude MEMBLOCK_NODUMP regions from kdump vmcores.
-> - [Medium] The MEMBLOCK_NODUMP flag extends the flagname array but leaves an uninitialized hole for MEMBLOCK_RSRV_HUGETLB, leading to a NULL format argument.
-> --
-> 
-> --- Patch [1]: [PATCH v5 1/8] memblock: introduce MEMBLOCK_NODUMP flag ---
-> commit b30a0bfd2a4e00657ccc3f49bdfa4a7ca5fdfa1d
-> Author: Wandun Chen <chenwandun@lixiang.com>
-> 
-> memblock: introduce MEMBLOCK_NODUMP flag
-> 
-> Add MEMBLOCK_NODUMP to mark regions that should be excluded from kdump vmcores.
-> The flag is meant for reserved memory that carries no data useful for crash
-> analysis. Subsequent patches wire this up for /reserved-memory and
-> /memreserve/ entries.
-> 
->> diff --git a/mm/memblock.c b/mm/memblock.c
->> index 9ce86349a29fa..79231634c25b0 100644
->> --- a/mm/memblock.c
->> +++ b/mm/memblock.c
->> @@ -1204,6 +1204,21 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
->>  				    MEMBLOCK_KHO_SCRATCH);
->>  }
->>  
->> +/**
->> + * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
->> + * @base: the base phys addr of the region
->> + * @size: the size of the region
->> + *
->> + * Mark the region as not to be included in crash dumps.
->> + *
->> + * Return: 0 on success, -errno on failure.
->> + */
->> +int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
->> +{
->> +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
->> +				    MEMBLOCK_NODUMP);
->> +}
->> +
-> 
-> [Severity: High]
-> Is it intentional that the filtering logic for this new flag was omitted?
-> 
-> Without updating should_skip_region() in this file to filter out regions
-> marked with MEMBLOCK_NODUMP, the flag appears to have no functional effect.
-> 
-> When architecture kdump setup iterates over memory ranges (e.g., using
-> for_each_mem_range()) to build the crash dump list, these regions will still
-> be included because should_skip_region() does not know to skip them.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile                  |  6 ++
+ .../dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso | 79 ++++++++++++++++++++++
+ 2 files changed, 85 insertions(+)
 
-Not correct, will handle MEMBLOCK_NODUMP flag in patch8.
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 1c86e7e98f55d539f5292816ce06c9a46bd4904c..03ed24afad5795b49848a2548c0facdc9f3e7115 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -339,6 +339,12 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
++
++shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
++shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-cqs-evk-imx577-camera.dtbo
++
++dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
+diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso
+new file mode 100644
+index 0000000000000000000000000000000000000000..3a481d972cd27a2a324d96d8f47c161e11ea54f3
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/shikra-cqm-cqs-evk-imx577-camera.dtso
+@@ -0,0 +1,79 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/clock/qcom,shikra-gcc.h>
++#include <dt-bindings/gpio/gpio.h>
++
++&camss {
++	vdd-csiphy-1p2-supply = <&pm4125_l5>;
++	vdd-csiphy-1p8-supply = <&pm4125_l13>;
++
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@1 {
++			reg = <1>;
++
++			csiphy1_ep: endpoint {
++				data-lanes = <0 1 2 3>;
++				remote-endpoint = <&imx577_ep1>;
++			};
++		};
++	};
++};
++
++&cci {
++	status = "okay";
++};
++
++&cci_i2c1 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	camera@1a {
++		compatible = "sony,imx577";
++		reg = <0x1a>;
++
++		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
++		pinctrl-0 = <&cam_mclk1_default &cam1_reset_default>;
++		pinctrl-names = "default";
++
++		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
++		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
++		assigned-clock-rates = <24000000>;
++
++		/*
++		 * avdd and dvdd are supplied by on-board regulators on the
++		 * IMX577 module from the connector's 3.3 V rail; they are
++		 * not SoC-controlled. dovdd (1.8 V) powers the carrier board
++		 * level-shifter that translates CCI I2C and reset lines
++		 * between the SoC and the connector.
++		 */
++		dovdd-supply = <&pm4125_l15>;
++
++		port {
++			imx577_ep1: endpoint {
++				link-frequencies = /bits/ 64 <600000000>;
++				data-lanes = <1 2 3 4>;
++				remote-endpoint = <&csiphy1_ep>;
++			};
++		};
++	};
++};
++
++&tlmm {
++	cam1_reset_default: cam1-reset-default-state {
++		pins = "gpio33";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++};
 
-> 
-> [ ... ]
-> 
->> @@ -2886,6 +2901,7 @@ static const char * const flagname[] = {
->>  	[ilog2(MEMBLOCK_RSRV_NOINIT)] = "RSV_NIT",
->>  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
->>  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
->> +	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
->>  };
->>  
->>  static int memblock_debug_show(struct seq_file *m, void *private)
-> 
-> [Severity: Medium]
-> Will this expansion of the array leave a NULL pointer hole for the
-> MEMBLOCK_RSRV_HUGETLB flag?
-> 
-> Prior to this patch, the max index was 6. MEMBLOCK_RSRV_HUGETLB is bit 7,
-> which safely fell back to printing "UNKNOWN". 
-> 
-> Adding MEMBLOCK_NODUMP (bit 8) expands the array size to 9. Due to designated
-> initialization, index 7 becomes NULL.
-> 
-> When memblock_debug_show() prints a region with MEMBLOCK_RSRV_HUGETLB set,
-> it will read the NULL pointer and pass it to seq_printf():
-> 
->     if (reg->flags & (1U << j)) {
->         seq_printf(m, "%s\n", flagname[j]);
->         break;
->     }
-
-This is indeed an issue, but it was not introduced by this patch.
-A separate patch will be sent to fix it.
-
-> 
-> While seq_printf() will safely print "(null)", this will break out of the
-> printing loop early and omit any other flags. Could MEMBLOCK_RSRV_HUGETLB
-> be added to the array as well to avoid this hole?
-> 
+-- 
+2.34.1
 
