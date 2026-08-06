@@ -1,88 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5532F378D8D;
-	Thu,  6 Aug 2026 17:35:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D9838837B
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 17:36:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786037729; cv=none; b=kgmqSeSRKF57pAzOXAMnZZYtj4x6vWBEHuIjS+tisVywyV62QkPr+FswtNP1DfVctQ//Whs/hHrvo5czc0PlZlIE+7Ae0MdaYvJwzluiP6gl79SuKZjdj/8WEmVyGCwU3Jzwh7bXR5mX7/HJvxIMHNg7rO7tFDVZ7XIMAjoLhpo=
+	t=1786037773; cv=none; b=vDwWiGGwR+MSZUDwjf3T2xgELPIMiSWDIp9bKF1NmtvDaz+P+P1VKqpGG4lxEZxu/aNwo2lTSi5thsTvvHntfwtl1yR4b7bZlVyhAzBFX9d3SdoilAi2WY1Lp0Pv61NkA3c7BdI06NXKPeKYK6iOAnNnENUMg7TAcFSJPhcf2o0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786037729; c=relaxed/simple;
-	bh=bjyWqP082uW2zjdVhQPed5q9qptP9hubeufn7A91vM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ToL7dvFe7Q9Y2gC52Wr8znbK9cjR40YQElz89EVx9nDhG38qag6QYvCdrsEAXeWRP60Wrui6Vz9+C21XLfxYu8CwJApHbHL0i7yCZx1ihwEQyz3ikMghnbIRh99GBC5YIRXHcmFz77onnCocPn7AzjFzvtVPzFuW2JCCuzclwzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7mhEBv4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786037773; c=relaxed/simple;
+	bh=Ec5kTxAFUL2q6723fbf9uMAdiQfAhh91XzHXaO/TiWs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oau+6jnVy4OGf2Ay1wpY29TMy5Yz8bo4uI/EQqLm/lSCoCaB3sFj12vojhQvhmm7RFm9sWAskzeshkqaDBd6yn/HtcaPnxVIm3Ws5XrSVsD7douILTxB9/l43roju8o96nN8qSjrnv8mh6XVkw09LBl0xIwp2fk3rBvLESOIQyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TJjJTpuY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7mhEBv4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C81D1F000E9;
-	Thu,  6 Aug 2026 17:35:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TJjJTpuY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0807C1F000E9;
+	Thu,  6 Aug 2026 17:36:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786037728;
-	bh=bjyWqP082uW2zjdVhQPed5q9qptP9hubeufn7A91vM8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R7mhEBv4GlnqUARFRcYztxAiknGqrEnXl6/umXd43AIWFqfQD33op7z3THTMYYu0R
-	 EWoR+s1jAzpfsaNrxZVjHA1hjPDnwf5jWdvkYjDIT9eYYofFCbeaJScR26Ht9u3rgD
-	 zZ/rH2WW+MuwFT67mqyAiFDgEY71V1hrC07cBEogUSgngVkiod6kROgsE82JqG7uKl
-	 npjwWX++GYdXJEx+LPeGKt/JK0j7pasIZw3SUmiZ5IuWZZLlOBL97aWT1sQ2ze7uWN
-	 yTJpKEU2DrzNLnGYYrAcK61hVWZt2qq6AnzlWKUWOVo1oyys7Z9hehcIMAjtosonfg
-	 KqCW9E17pS9VQ==
-Date: Thu, 6 Aug 2026 18:35:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Cc: konrad.dybcio@oss.qualcomm.com, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	chandana.chiluveru@oss.qualcomm.com,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: spi: qcom-geni: Document device-gpios
- property
-Message-ID: <57719877-b8d8-4df0-acce-2c4faf5a5899@sirena.org.uk>
-References: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com>
- <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-1-c363a9b5df69@oss.qualcomm.com>
+	s=k20260515; t=1786037772;
+	bh=0RKZVfuZa99jY3AirSYoCBLlGcBW84Q07fUWGbKux70=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TJjJTpuY8vKMUL1H/kQ+/L/EBslis/rE/4fU7PfoE+6wb1dvMWAKm+6c9ouIyMJn0
+	 01WayQBYC08rq9uyGrslJhkMl30a9xgd38o2bVX/Njn3wIwIPfbYCDvsLERZi3Pvh+
+	 X7+mzQuF+aBqnyOgc+myw7b/B8uort5negzzyvv5dkst9eApYmnMXm2BjLGdVa4SHk
+	 +fE1Leu1und623TDdeqk3xNLtxgq6BqSwMdeaxc8t51U3CZHdqLiUKlZHtutfnn/kv
+	 H/PAer/cmFWmLfsUSDH7MK4N3pFyVHNjHfGWEt1gnW3OYFc9Ou+ELVjdNPZIoQO2JI
+	 FAJYETd49199g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect
+ resource lifetimes in bind callback
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 17:36:11 +0000
+Message-Id: <20260806173612.0807C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="D3Ywr3u5KIx2uVgC"
-Content-Disposition: inline
-In-Reply-To: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-1-c363a9b5df69@oss.qualcomm.com>
-X-Cookie: Colors may fade in time.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Use-After-Free and -EBUSY on re-bind due to missing drm_bridge_det=
+ach in component unbind.
+--
 
---D3Ywr3u5KIx2uVgC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--- Patch [2]: [PATCH v11 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect=
+ resource lifetimes in bind callback ---
+commit 8317a23524c759645b1aec330e9a401578a81a81
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-On Thu, Aug 06, 2026 at 03:43:44PM +0530, Praveen Talari wrote:
-> When operating in SPI target (slave) mode, the GENI SPI controller can
-> use an external GPIO to notify the SPI master about the target's
-> active state.
+drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
+ack
 
-> Document the optional device-gpios property for the qcom,spi-geni-qcom
-> and qcom,sa8255p-geni-spi bindings, restricted to spi-slave nodes.
+This commit moves the bridge allocation and resource requests from the bind
+callback to the probe callback using a new dw_dp_probe() helper. It also
+disables the IRQ in the detach callback to prevent spurious interrupts.
 
-This seems a lot like the ready-gpios property we have for some other
-drivers?
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 
---D3Ywr3u5KIx2uVgC
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 60feb3d1e14bb..d7945f7fe9f05 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp0xdoACgkQJNaLcl1U
-h9AmjAf8DFobBtyJkc4myDuBlSsbDbDMNgPu6Amo/ZmriQp82FZxsRWnqey4lajp
-n5YGYkNLlEXmKqlRwJTc7px1MLaBGo7+fP7+KTsxkk6jcvY6R9a/xziePBM0RwDG
-01oxXuWWKOihZjQEaP13CynG2q8loP4YiSIKPld2R7N8JBWDFJxq6iDYcPOJpRYi
-9/e+vwt2hl1lwZvRtTCjneWcBKcPEGyKscVnp4kHntSxV05g3W4coohdFXUx9IAy
-9RwyFT3T1+pzuUP7KUYn+lgOUi/N4HKnpTCslUfu4TOY7yxWEkFwdZN1DWWs8bQy
-+iKlw9GXsfXz4t/PTeyGZ2ZJ+pUSrg==
-=Zubi
------END PGP SIGNATURE-----
+> @@ -1982,6 +1988,18 @@ static const struct regmap_config dw_dp_regmap_con=
+fig =3D {
+>  	.rd_table =3D &dw_dp_readable_table,
+>  };
+> =20
+> +int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+> +{
+> +	return drm_bridge_attach(encoder, &dp->bridge, NULL, DRM_BRIDGE_ATTACH_=
+NO_CONNECTOR);
+> +}
+> +EXPORT_SYMBOL_GPL(dw_dp_bind);
+> +
+> +void dw_dp_unbind(struct dw_dp *dp)
+> +{
+> +	/* nothing to do as bridge is detached automatically */
+> +}
+> +EXPORT_SYMBOL_GPL(dw_dp_unbind);
 
---D3Ywr3u5KIx2uVgC--
+[Severity: High]
+Since the bridge allocation was moved to probe using devm, the bridge
+structure now outlives the component bind/unbind cycle. If the bridge is
+not explicitly detached here, does this cause issues during re-bind?
+
+Specifically, if we unbind and re-bind the component, won't
+drm_bridge_attach() in dw_dp_bind() return -EBUSY because the bridge is
+still attached to the old encoder?
+
+Additionally, can this cause a use-after-free on driver removal? If the
+platform driver is removed while a DRM file descriptor is kept open, devm
+will free the dp structure. When the file descriptor is eventually closed,
+DRM core will call dw_dp_bridge_detach():
+
+static void dw_dp_bridge_detach(struct drm_bridge *bridge)
+{
+	struct dw_dp *dp =3D bridge_to_dp(bridge);
+
+	disable_irq(dp->irq);
+	cancel_work_sync(&dp->hpd_work);
+	...
+}
+
+Since dp was already freed by devm, will accessing dp->irq and dp->hpd_work
+here crash? Should this unbind function explicitly call drm_bridge_detach()
+to prevent both the re-bind failure and the use-after-free?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
+w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D2
