@@ -1,205 +1,162 @@
-Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11022120.outbound.protection.outlook.com [52.101.53.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBDD332EA0;
-	Thu,  6 Aug 2026 03:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785988603; cv=none; b=PRLkSG36YvHAw6EU6m/+9Jy3EZCEd6NsjkxnFzg84V//PJDZmXybJJM6EQmRBAU+dYP7tBlk0vWLmHAh39xdmit49N+Zq0cxq+lTC8g4yrMZGew1goYROGXsUx1W7fHd5S+biJyyMnsOxv8dXaeQccgBmRpZpU9mBFWBNGpe72Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785988603; c=relaxed/simple;
-	bh=BkAo3RbN/RulgsrymMoFBy5/coL9SKTd+r42jXja35c=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TzSMTbImmHnXEf7KQpL9sZq9HllxBvtc8GBxmefxrIcXEo1iKePnZVo8F1mpoYUMOKSdugLdNCoWvdd14cJxPym9yMKQy9/lbmECkzku0XJ6+pnWuJNeuOiSpoz7Y2ZlvKwDg3xLtVYZvIIg7WhRpu+oYudFuv3wGe5RAu+U44o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=vNNDN0Iu; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB21217B50A;
+	Thu,  6 Aug 2026 03:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.120
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785988645; cv=fail; b=BwqhUxfMiTekzonMPxY7txZUTfxLChWI1UYiTfhuZW5EeXpMtObR1OUTY2rTjn//yH8EmhPNw2F2UniU+UU+ArwaYtt85sBG+Y4CvZ6NF7hSoCAagNx/Xy54Eml51ypo73LMZ/GpUqRdrm1UgkfYnwYWaxizuln/hvUTn/R02wY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785988645; c=relaxed/simple;
+	bh=pRjYt/eisFXwLiuZh1z8cGD5a9M68WOdz6QynsZEYcs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hx8POHjnq1sUK0olMwdcsLcmkyxVd5EJvsWWmAKPMS7MXPoL0ExGbTUhzlKFik4i6oogSyiZjqwHGJypzwH1VQ6AgONlRpwa7IUs4fNnuhEDpq3OMjZPgalfNUygl7CdJIycRjjahdJ+NlicK22ezK66TDRiFZKMOlyckwaVEtY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=mckyGRrm; arc=fail smtp.client-ip=52.101.53.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="vNNDN0Iu"
-X-UUID: d0b1892a914a11f1b694ffd7d3467620-20260806
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From; bh=gb2Sa/4rr46Md0Xb1ja6pKNPtsoCRPzkXPOD37y46Nc=;
-	b=vNNDN0IuUuRHyO/s3s66Jf14QYvT5CalE/rMdkQLPAQhL+z+zd8mmxX7VnGnIcFru9xJCt9TwVcULgaawgpaqHsEJLlr+MnGlI0WUJ7owbJ2YUiIrGrvVxkURRqzwdPVtFPd+0E86Yqrr4UklSz34+GGf8Ya0DtPQNc54VCKL30=;
-X-UUID: d0b1892a914a11f1b694ffd7d3467620-20260806
-Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 1827132; Thu, 06 Aug 2026 11:56:34 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.13.160])
-	by spmgt1 (Postfix) with ESMTP id 111851A1E1C;
-	Thu,  6 Aug 2026 11:56:34 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id 6D781C600CF; Thu,  6 Aug 2026 11:56:32 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: andi.shyti@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: ben_huang@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	shihpei_hsu@novatek.com.tw
-Subject: [PATCH v6 0/3] i2c: Add Novatek NT72676 SoC I2C controller
-Date: Thu,  6 Aug 2026 11:56:29 +0800
-Message-Id: <20260806035632.777782-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="mckyGRrm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eg9e4tNfszkkRK1Etn4RAbNmxeAYyGmzfBOgnQnOzNuIEjm3AQiBI40urksaf5Z8iEUVbL6Rc+wCjhsS36OANthJ+PIyVQ0w9uJ74ZIOfKOsyH7ud55kHkwGt08eTBwwPoszwTSlp3WTVOMdBkUQq/Cf+UNrawshra8dWRDRp6UCYj1NtDJTRw1hCGdkBkZUnd/v5E3X9+Lsl3L+rWg1G7zXor4bKEsb5+3Y0gd2jewKe3IIIXObyGHOLOM3wJo4tmHPmINLh1qu9I0SB4yF0CFGi+9cG8KI+zDjTBLc3m1P+kRZKGY2EUsT7jwbVTIGoCA4OJ+CghqUqXkucCPGpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hyedjqAtkvOOa6HSVw0LvM7gWqSuqXgSNnPbFxsVf18=;
+ b=yMvkFEU5AtzKsqPb6/6pz6itYczqD5FcFU7bJR4ZTPZiNASu8UEFmZStJ4pVoqm3slAdHvKm+sRKRbr4Y+kamiJAWYc1HhT8RRvTPW/chaCeSC11uQ6y8Sa4ZwhctVPQ1fvU9UpEue4sBRHE6VHZrD+0Mz074pbUfE7b6MQn5EgSbiFqRnQI2PniciHfRhVrh94WiPbB/rnNoBU778Q7C0R8KaTW1pv9DoSs7IJReo259q6BxlsctT/XnvYA3aZ0hh4gb0QlFqqk37cq9yr9zFwWl37fuXwQnUyel/8LxGd2uTBNBQr9oLQ4Sdp76PGQBoWpwSI/s7LIsflia48DYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hyedjqAtkvOOa6HSVw0LvM7gWqSuqXgSNnPbFxsVf18=;
+ b=mckyGRrmhzu7q0PjPQG/41Yq/L8HY7olaMrU0vhjaG7Hb8lGyHDJQiB1jBo+YJ93tQIt28Ldn1+toeEwWeMVBNh5nllAhdbhLcfDy+L36iNjR8X7ptTQWVWwu77bk6DciOf4Nq5QBnP/sbXL6SePw8lYmx2lpBWeRf9a1bexiIDHam4J6ToZxietDbjiGZaqrAz7yQ9Va2WKd0ul3H9uSrtS7T6g46SVMjOA3QPf0M2H5k9+34on9AGfCQIzEXMEjHbpbvDV2pLwK2MHqHd24moWoCz7qS6vhny+gx3XV79ibi56yWj2+6wdU6Zjcf7/QbVUVrtYFxJGkv4qCGGeIQ==
+Received: from SN7PR04CA0209.namprd04.prod.outlook.com (2603:10b6:806:126::34)
+ by CO6PR18MB3793.namprd18.prod.outlook.com (2603:10b6:5:345::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
+ 2026 03:57:19 +0000
+Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
+ (2603:10b6:806:126:cafe::94) by SN7PR04CA0209.outlook.office365.com
+ (2603:10b6:806:126::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.20 via Frontend Transport; Thu, 6
+ Aug 2026 03:57:19 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
+ via Frontend Transport; Thu, 6 Aug 2026 03:57:19 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTPS id 9F05E4157BE1;
+	Wed,  5 Aug 2026 20:57:18 -0700 (PDT)
+From: Swark Yang <syang@axiado.com>
+Date: Wed, 05 Aug 2026 20:55:07 -0700
+Subject: [PATCH] dt-bindings: gpio: cdns: keep AX3000 compatible in enum
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-ax3005-gpio-keep-enum-follow-up-v1-1-9155fc19b631@axiado.com>
+X-B4-Tracking: v=1; b=H4sIAJoFdGoC/x2NzQqDMBAGX0X23IVt/MH0VUoPYj91UZOQYBXEd
+ zf0NMxl5qSEqEj0Kk6K+GlS77I8HwX1U+dGsH6zkxHTSCs1d0cpGWNQzzMQGG5befDL4nfeAlf
+ Smr6xtrSoKFdCxKDH//D+XNcN7DRp53EAAAA=
+X-Change-ID: 20260805-ax3005-gpio-keep-enum-follow-up-4082c69939e4
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jan Kotas <jank@cadence.com>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Swark Yang <syang@axiado.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1643; i=syang@axiado.com;
+ h=from:subject:message-id; bh=pRjYt/eisFXwLiuZh1z8cGD5a9M68WOdz6QynsZEYcs=;
+ b=owGbwMvMwCHWlWK8+EozbyzjabUkhqwSNomgn08k9VanbTv3OF3nP5OUWGXeAWmJpyuPlaqeO
+ H40POFARykLgxgHg6yYIstXnW/5J3O173XuXVkKM4eVCWQIAxenAEzkEDPDf/8wax4X/d5T+5au
+ v7D7WsmGmdq16gLP9HY2791wZ8lao1xGhr/Tpv7a9VZA/uv+uctn9s5aqth4+vrbHMnIG7tf1Ju
+ e28UDAA==
+X-Developer-Key: i=syang@axiado.com; a=openpgp;
+ fpr=F52CF66FC96D2BDE89BDA9758A6433A3D4830D5D
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|CO6PR18MB3793:EE_
+X-MS-Office365-Filtering-Correlation-Id: 281c9b63-f016-4a78-ee19-08def36ecff7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|82310400026|1800799024|36860700016|13003099007|56012099006|10067099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	8ul7CBUzr433EIswAm9JTRaSMdvlJ4SiKiGcf5uYLa/nSKgfnp8NKA+O/rNo7gACg54t4b2ZRjVzaEV4iWYN7llMivjQWePwI8jy2/EmigGgIycTRCbOFKjJVpJ+frBsKxm+U1YlbPMCg+4npitfHM6tHPNKoLHlLaBjG2PZKs/SZQiBDUR6pwG9VVfzo5a3uFsLFFtUrL3RngKzREJcPVVQ+0tEUXMxV6cnDO4nJ7rQ4+vcoTeNsSlxQyH+jVlFwSHiZxDp8ffbzjtJkaEw54lrvSsH0mHnOJ8f7IDkHoS9wFaDdf0n07q7x/RcQDGbu9ilebbj4e+yWzf1cxKqq/Cc1jIRNbds+DWnoYeKD8Slmj2g0yM3a+VjL9pbyuxeoPa0PDGAY1jNV/F1GmzIAY81loyCS50hDzm1gIZNnIZwpuCcom1jlWMVTZrf3IcU56M2B78VnyWNUb2LxcHaThuqa18/LRGOqyz6uhT5AzHfUp/6sd8umWvWyq0lc7PPY9EY1LqOtKfPPX7BBRVKzl4ZIBze/OZOQMLFoT2s78OhUDaqL7XvaDbG3PuuDnGERmSXAaYJVhfWe5dGIByx6P8zlTiJ2jU7HrzE+tbtmuFwj+rv+biazXvwcmhEIrih3nUtp61WOfZNXz0jmQ+owSJrKpwTn5N5ZdFAFfPIV/5nvDexgNO9NDbAaIogCfN4mN1maFhVkUkr0cNg3ttK+Q==
+X-Forefront-Antispam-Report:
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(82310400026)(1800799024)(36860700016)(13003099007)(56012099006)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	xeXP+muhRwV5xy9IR7GsW5j+UmR9ColYvN3Sezs4V+m0ksbCiMTlCGKc0ioTGzHwnfAhBynz9QO6idLG42JXfQnJoFe0ZA4NYdN0I4VECS6U0k4otov+sTfAqvk2171S5pPHjl2QyixLJjGfprL072ESxcQxKxGU1+7ysmQa78KoqyBAsF1ESDhLrRkfy5lC+rgH9NAKqfSZEy2ckFLdyJRseTIVLC5PPwdD/UjR7BCZd3i79vJ45SLWQgHrslguSIaQb9U/fWRdj9EHnTTdAtYlquu+yHpAzfsbzhUqskkQNfvRlujAb5JBO31wWVKPIZJtf93IZLmYAzBr9cTHAga2B2SsGIXcmTwj1t9OT9IlmV7s4+mmS+fg5e+X9QmKSYDasPpHknCrcXrElwRcZAGrcltJRgrBWHHi2OU1enlkhPR7DVBppHBDb83eORXs
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 03:57:19.3051
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 281c9b63-f016-4a78-ee19-08def36ecff7
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003F63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR18MB3793
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+Commit e8a40b356688 ("dt-bindings: gpio: cdns: add Axiado AX3005
+GPIO variant") replaced the existing single-entry enum for the AX3000
+compatible with a const.
 
+Keep the existing enum form as requested during review. This is a
+formatting-only change with no effect on schema validation.
 
-This patch series adds support for the I2C bus controllers on
-Novatek NT72676 SoC.
+Suggested-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Link:
+https://lore.kernel.org/all/20260717-prudent-indefinable-labradoodle-fcaa9e@quoll/
 
-NT72676 SoC provides two I2C controller variants:
+Signed-off-by: Swark Yang <syang@axiado.com>
+---
+This is a follow-up to commit e8a40b356688
+("dt-bindings: gpio: cdns: add Axiado AX3005 GPIO variant").
 
-- Generic I2C controller
-  - Accessible only by the host CPU
-  - Driven by a 96 MHz AHB clock
+The existing single-entry enum for AX3000 was unintentionally changed
+to a const. Restore the original representation as requested during
+review.
+---
+ Documentation/devicetree/bindings/gpio/cdns,gpio.yaml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-- STBC I2C controller
-  - Accessible by either the host CPU or STBC (Standby Controller)
-  - Driven by a 12 MHz STBC clock
-  - Requires STBC authentication before CPU access
-
-The controller driver implements the fundamental I2C read/write
-operations and supports Standard-mode and Fast-mode.
-
-The input clock rates of the two controller variants are fixed by
-hardware integration and are not configurable. There is currently
-no clock provider driver available for NT72676 SoC, therefore the
-driver uses compatible-specific clock rate data instead of the common
-clock framework.
-
-This series was tested with concurrent I2C read/write operations on
-two I2C buses for 1,000,000 iterations on NT72676 SoC.
-No errors or data corruption were observed.
+diff --git a/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml b/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml
+index 7eacf5af6554..ee3519eba2c2 100644
+--- a/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml
++++ b/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml
+@@ -14,7 +14,8 @@ properties:
+     oneOf:
+       - const: cdns,gpio-r1p02
+       - items:
+-          - const: axiado,ax3000-gpio
++          - enum:
++              - axiado,ax3000-gpio
+           - const: cdns,gpio-r1p02
+       - items:
+           - const: axiado,ax3005-gpio
 
 ---
-v6:
-  - Add a Reviewed-by tag to PATCH 1/3, where novatek,nt72676-i2c.yaml
-    is not changed
-  - From Sashiko AI's review of i2c-nt72676.c in PATCH 2/3:
-    - Fix potential interrupt storm in the IRQ handler
-    - Add IRQ handling for I2C_IRQ_CLK_STR_TIMEOUT interrupt
-    - Add a spinlock for the synchronization of current_msg and
-      interrupt register control
-    - Check the first message type is a sub-address write and with the
-      maximum length of 4 bytes (32 bits)
-    - Interrupt registers would be cleared if failed to
-      i2c_add_adapter()
-    - Move i2c_del_adapter() before disabling I2C controller
+base-commit: 6435d21cbd42fea6c66dfd4cfef7d58b9612497e
+change-id: 20260805-ax3005-gpio-keep-enum-follow-up-4082c69939e4
 
-v5:
-  https://lore.kernel.org/lkml/20260804033419.693819-1-nina_kuo@novatek.com.tw/T/#t
-
-  From Krzysztof's review:
-  - In novatek,nt72676-i2c.yaml:
-    - Remove '|' in description
-    - Add `clock` property
-
-  From internal review:
-  - In i2c-nt72676.c:
-    - Use dev_err_probe() for errors in probing
-    - Modify coding styles
-
-v4:
-  https://lore.kernel.org/lkml/20260730072529.492398-1-nina_kuo@novatek.com.tw/T/#t
-
-  From Krzysztof's review:
-  - Replace all occurrences of "726xx" with "72676"
-  - Reorganize the patch series
-  - In novatek,nt72676-i2c.yaml:
-    - Correct the order of entries
-    - Change the compatible string of generic I2C to
-      "novatek,nt72676-i2c"
-    - Add the compatible string of STBC I2C as
-      "novatek,nt72676-stbc-i2c"
-    - Remove `novatek,hwmods` custom property
-  - In i2c-nt72676.c:
-    - Use dev_err() and dev_info() for driver messages
-    - Remove unnecessary logs
-    - Add different compatible data to "novatek,nt72676-i2c" and
-      "novatek,nt72676-stbc-i2c"
-    - Replace platform_get_resource() and devm_ioremap_resource() with
-      devm_platform_ioremap_resource()
-    - Remove definition of owner under nvt_i2c_driver
-    - Register this driver with module_platform_driver()
-
-  From internal review:
-  - Modify commit messages
-  - In novatek,nt72676-i2c.yaml:
-    - Add description about the I2C controllers on Novatek NT72676 SoC
-    - Add `novatek,stbc-syscon` custom property for STBC authentication
-    - Modify the examples for generic I2C and STBC I2C
-  - In i2c-nt72676.c:
-    - Add nt72676_i2c_writel() and nt72676_i2c_readl() wrappers for
-      register access
-    - Modify definitions of the I2C registers for both generic I2C and
-      STBC I2C use
-    - Use BIT() and GENMASK() for register bit definitions
-    - Use regmap to access STBC syscon registers for authentication
-      before CPU access
-
-v3:
-  https://lore.kernel.org/lkml/20260715073443.147490-1-Nina_Kuo@novatek.com.tw/T/#t
-
-  - Only remove attached HTML messages, no code is modified.
-
-v2:
-  https://lore.kernel.org/lkml/20260714094145.84387-1-Nina_Kuo@novatek.com.tw/T/#t
-
-  From Krzysztof's review of novatek,nt726xx-i2c.yaml:
-  - Explicitly specify the unique compatibles "novatek,nt72600-i2c" for
-    Novatek NT726xx SoCs
-  - Modify `maxItems` as 1 for both `reg` and `interrupts` properties
-  - Modify description and allowed values for `clock-frequency`
-    property
-  - Remove `minItems` for `novatek,hwmods` custom property
-  - Rename, fix wrong type definition and add more description for
-    `novatek,stbc-controllable` custom property
-  - Remove `bus-enable` custom property
-  - Add an example for dtsi declaration
-
-  From Sashiko AI's review of i2c-nt726xx.c:
-  - Remove flows related to `bus-enable` custom property
-  - Add default value 100000 (100 kHz) of `clock-frequency` property
-    to prevent from divide-by-zero panic
-  - Add flows for handling ioremap() in nvt_i2c_use_case_feature()
-  - Remove I2C_FUNC_SMBUS_QUICK functionality due to unsupported handling
-    of 0-byte messages
-  - Add flows of disabling IRQs in nvt_i2c_suspend() and nvt_i2c_remove()
-  - Add of_node_get() to release the reference to device tree node in
-    nvt_i2c_remove()
-
-v1:
-  https://lore.kernel.org/lkml/20260604060411.355675-1-SP_ISW1_AT@novatek.com.tw/T/#t
-
-Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
-Signed-off-by: Nina Kuo <Nina_Kuo@novatek.com.tw>
-
-
-Ben Huang (3):
-  dt-bindings: i2c: Add Novatek NT72676 I2C controller
-  i2c: nt72676: Add Novatek NT72676 I2C controller driver
-  MAINTAINERS: Add entry for Novatek NT72676 I2C controller driver
-
- .../bindings/i2c/novatek,nt72676-i2c.yaml     |  90 +++
- MAINTAINERS                                   |   7 +
- drivers/i2c/busses/Kconfig                    |  10 +
- drivers/i2c/busses/Makefile                   |   1 +
- drivers/i2c/busses/i2c-nt72676.c              | 728 ++++++++++++++++++
- 5 files changed, 836 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/i2c/novatek,nt72676-i2c.yaml
- create mode 100644 drivers/i2c/busses/i2c-nt72676.c
-
+Best regards,
 -- 
-2.40.1
+Swark Yang <syang@axiado.com>
 
