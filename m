@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E473427F82
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:48:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36AE3F823F
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:48:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786013287; cv=none; b=HU+8/0e5C2/IhIrKQf5B8SUJDT10Q7BQwpyzxQWImN265rYYIMk19oq5/px+s8tNx84rxSQQQ4eohmXFvoHfl6bvEL1ZjhvciFmMXM8Et5kfnsMzXZJTGPobvCgYop8J5i6jmFxgw2Si2Fdt02iALIBDIUPjvFjhzWV4bLgytmY=
+	t=1786013313; cv=none; b=GEGCGE9f+qtMwghBM0yJLJsXIAOehOx5RRwye99RKtb0UwEKuxZIb2b9YufVh/xQHtz1EaE9Fgq5Z8s5Re/den0julAY1RYYa0Eu2waKZddZHJkVBjl6WTgrz3REGJNsScJ1NFo78veVk6y6rZtMzVqagWuRBgJBw8Pkua9fuoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786013287; c=relaxed/simple;
-	bh=jAmZo8qMeNe6EM9XUIleu557pCqReOOdyWRUWOavMxo=;
+	s=arc-20240116; t=1786013313; c=relaxed/simple;
+	bh=9O7/0wgVqKuUYQAV63Qe/yCRxvNnYOXOeVEgfaaSDDY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=b6wq7eIirGRm4C5/ja4BICtkgqMckJp+4Cc5tb/djyItvJajz3KIo/S1iL6e02KB5nst/UHaJpWVJp5fFFKA66wT3ggZMcSsAqhlzaJW2OylPOKoWpUn3Wa2zKexkt5vI04AZ+SovtzowFhsL35VX5haTcOvyP1Hd2LlOHztfLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYxL+8Y3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RLeXODe1YYXI+u/NJhrdktTn3W04Eyi/rzL7V7nQLfVMve2LQgCRAXYKrO4aw3GamlBid3yMK02lyazQ/WQx+PYjOCw+U0sIZa82mj9Tgzl6QagAfVpi2h6bu+5tZ8ypdXiPEoWFsETfnylyEkpBSee+JRAh56ZIRqRJw+S+I+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpFgRc9J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYxL+8Y3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B9181F000E9;
-	Thu,  6 Aug 2026 10:48:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpFgRc9J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E99B01F000E9;
+	Thu,  6 Aug 2026 10:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786013284;
-	bh=eeTckUPtxcLF55Cbb1Z8tBtqNbZFaw40dB+0uGaOIF4=;
+	s=k20260515; t=1786013311;
+	bh=teJI8boehtw22mx3R3zA6FT/LH5GlSCbjxjfNA/fSZE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PYxL+8Y3e30jrfY3Mz/IMLLSH5Bc8Jn4X8xv57T7Mk/bK8Ws++weEb/FU1ad5UXCy
-	 q/7hLu1LMjMNVew09jv8V+b1AnxkAJFycHgs5iQ3DVosLxpu8ey7GzGmGlpXLfTtuF
-	 uEnU2Csf+IJXePzsqZJy4aBKT0huQ2eQx41ztEZkGoragl7+y3+Y+3R7/c5ISRhWOu
-	 Q/eFn0zQq+ouGlTZ8veyjzjkN+S7LsEwkvaLn6m0y6o4G8ITJmrhuaU9KDtyTfeeS6
-	 A0IFuBC8eSIfW2zz/2qQ6n/C+NfnPGF+gAJwEQhVpGj8lmwEmoLjqEm+Mj83mFxhYP
-	 oogq00EfbOygg==
+	b=UpFgRc9JAycmyBzvVpVh7JEfIj3SVhcJI98lkzROKWizmTWrJc2qzALRkABV8ETf7
+	 T4sDZ6oL0OcVs3kI1oodciBIzvgxHFGLWU4s0hvOgEqa+PiZj+AQ3OOXlpgUCaV50I
+	 NpGsF9EeE6R4PnyychJ6uMlo8n46poxy74Q9GzjRM8fF8BrNipn366dvVbFPQW+6dJ
+	 2q0TpZA0PP2+gOUbHtVyC0LtnFwtlAihevE3NPzWfC83x2PGbjl2vDDatCmIv/TYkc
+	 IIw9EO2Who4xhYUxF7xkzT563fjJav+0Jv8kFdibJCmC57oHpmPvLHLjfTwqun4UQw
+	 4zgrOs1OnCl+Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 10/10] arm64: dts: renesas: r9a08g046l48-smarc: Add
- USB2.0 support
+Subject: Re: [PATCH v10 06/10] dt-bindings: clock: qcom: Add support for
+ CAMCC for Eliza
 Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260806102236.149159-11-biju.das.jz@bp.renesas.com>
-References: <20260806102236.149159-1-biju.das.jz@bp.renesas.com>
- <20260806102236.149159-11-biju.das.jz@bp.renesas.com>
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260806-eliza-mm-cc-v9-v10-6-6ba52dd14343@oss.qualcomm.com>
+References: <20260806-eliza-mm-cc-v9-v10-0-6ba52dd14343@oss.qualcomm.com>
+ <20260806-eliza-mm-cc-v9-v10-6-6ba52dd14343@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 10:48:03 +0000
-Message-Id: <20260806104804.7B9181F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 10:48:30 +0000
+Message-Id: <20260806104830.E99B01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,70 +47,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Port 0 is configured as OTG but uses host-only pinmux assignments,=
- omitting the OTG_ID and VBUS detection pins.
-- [High] The `hsusb` (USB 2.0 peripheral controller) is not enabled, which =
-breaks the intended USB OTG (dual-role) functionality on Port 0.
+- [Medium] The binding imposes a strict 3-item `clocks` array constraint wh=
+ich conflicts with the typical hardware requirements of the newly added `qc=
+om,eliza-cambistmclkcc` variant.
+- [Medium] The schema incorrectly inherits a strict requirement for `#reset=
+-cells` from `qcom,gcc.yaml#` and applies it to the `qcom,eliza-cambistmclk=
+cc` variant, which does not provide resets.
 --
 
---- Patch [10]: [PATCH v6 10/10] arm64: dts: renesas: r9a08g046l48-smarc: A=
-dd USB2.0 support ---
-commit 1cbadfb3da8608db303bdf06f3c33654c1b1550b
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+--- Patch [6]: [PATCH v10 06/10] dt-bindings: clock: qcom: Add support for =
+CAMCC for Eliza ---
+commit edf279fa3bffce90685bc341e0addff553a7d4e2
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-arm64: dts: renesas: r9a08g046l48-smarc: Add USB2.0 support
-   =20
-Enable USB2.0 on the RZ/G3L SMARC board (r9a08g046l48-smarc). Port 0
-(ehci0, ohci0, usb2_phy0) is configured as OTG and Port 1 is configured
-as host-only. The phyrst USB PHY reset controller is also enabled.
+dt-bindings: clock: qcom: Add support for CAMCC for Eliza
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/ar=
-m64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> @@ -71,6 +71,16 @@ codec_dai: codec {
->  #endif
->  };
+This commit adds the compatible strings and dt-bindings headers for the
+Eliza camera and camera BIST clock controllers to the existing Milos
+camcc binding. It also enforces the '#power-domain-cells' requirement
+for the camera clock controller.
+
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yam=
+l b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+> index c4aba40e316ca..0655cea72524e 100644
+> --- a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+> +++ b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+[ ... ]
+>  properties:
+>    compatible:
+> -    const: qcom,milos-camcc
+> +    enum:
+> +      - qcom,eliza-cambistmclkcc
+> +      - qcom,eliza-camcc
+> +      - qcom,milos-camcc
 > =20
-> +&ehci0 {
-> +	dr_mode =3D "otg";
-> +	status =3D "okay";
-> +};
+>    clocks:
+>      items:
 
-[Severity: High]
-Port 0 is explicitly configured for OTG, which requires both a host
-controller and a peripheral controller. However, the device tree for the
-RZ/G3L SoC appears to lack the hsusb peripheral controller node.
+[Severity: Medium]
+Is this global clocks array constraint too strict for the new BIST variant?
 
-If the PHY attempts to switch to peripheral mode when a device cable is
-attached, will this silently fail to operate in device mode because there
-is no USB gadget controller instantiated to handle the traffic?
+The base schema currently restricts the clocks property to exactly 3 specif=
+ic
+items. Do BIST clock controllers like qcom,eliza-cambistmclkcc use the exact
+same 3 clocks, or do they require a different set and number (e.g., AHB, TC=
+XO,
+TCXO_AO, SLEEP)?
 
-[ ... ]
-
-> @@ -181,6 +205,16 @@ ssi0_pins: ssi0 {
->  			 <RZG3L_PORT_PINMUX(H, 2, 9)>, /* SSIF0_RCK */
->  			 <RZG3L_PORT_PINMUX(H, 3, 9)>; /* SSIF0_TXD */
->  	};
-> +
-> +	usb0_pins: usb0 {
-> +		pinmux =3D <RZG3L_PORT_PINMUX(3, 0, 12)>, /* USB20_OVRCUR */
-> +			 <RZG3L_PORT_PINMUX(3, 1, 12)>; /* USB20_VBUSEN */
-> +	};
-
-[Severity: High]
-This pinmux defines the OTG port configuration, but it seems to omit the
-OTG_ID and VBUS detection pins. Since renesas,no-otg-pins is not
-specified for usb2_phy0 later in the patch, the PHY driver expects
-hardware role detection based on the ID pin.
-
-Without the OTG_ID pin configured, can the physical PHY accurately detect
-role changes? Could leaving this unconfigured cause the pin state to float,
-preventing role switching entirely or causing spurious role changes that
-break USB functionality?
+Should there be a conditional if-then block to override the clocks array
+constraints for qcom,eliza-cambistmclkcc so validation doesn't fail when the
+actual clocks used by the hardware are provided?
 
 [ ... ]
+> @@ -47,6 +54,15 @@ required:
+> =20
+>  allOf:
+>    - $ref: qcom,gcc.yaml#
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: qcom,eliza-cambistmclkcc
+
+[Severity: Medium]
+Does this inheritance from qcom,gcc.yaml# inadvertently force a
+#reset-cells requirement on the qcom,eliza-cambistmclkcc variant?
+
+The referenced qcom,gcc.yaml schema unconditionally requires the
+#reset-cells property. By including it here globally, the new BIST controll=
+er
+inherits this requirement.=20
+
+However, looking at the newly added header for this variant:
+
+include/dt-bindings/clock/qcom,eliza-cambistmclkcc.h:
+/* CAM_BIST_MCLK_CC clocks */
+#define CAM_BIST_MCLK_CC_MCLK0_CLK                              0
+#define CAM_BIST_MCLK_CC_MCLK0_CLK_SRC                          1
+...
+
+The controller only defines clocks and has no reset indices.
+
+Could this cause device tree validation to fail for the new variant unless
+authors add a dummy #reset-cells property?
+
+Would it be better to make the $ref: qcom,gcc.yaml# inclusion conditional f=
+or
+compatibles that actually provide resets, or perhaps split the BIST control=
+ler
+into a separate YAML schema?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806102236.1491=
-59-1-biju.das.jz@bp.renesas.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-eliza-mm-c=
+c-v9-v10-0-6ba52dd14343@oss.qualcomm.com?part=3D6
