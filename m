@@ -1,44 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F3F3CF1FF;
-	Thu,  6 Aug 2026 12:09:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1C3479869
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 12:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786018199; cv=none; b=IieC1n+nSjXSmyU88hiU3zzbGjB9XB6G7jPY3zQ9yjoE2m2ScKS+HLmgdT0WrRV5nKoZdzxOJyrNzm/yC+aFYPAZf1I4nRSRdS/Wh+IELw/lCgYK+D/CWEvmPRm2kwXbvgfzR10o+ZDXHb5v2EuOCeVhQcmBBWYh1kbmh/WfzdE=
+	t=1786018225; cv=none; b=OW1BfrU27cXjdn+iPNeX5vAendfcTlkC2AY3trlYPtx7BjnsNN9VcXtvjKsKyy8b6QqwTlGJ2NVTlQPueBDHkXJp+Qxbq//BMt2Muhu7Lu+iQ9uaYFbueLw5y5zaN/AyC1TfSV2WLi2XfSRqGh1T7ngSwsu63rE8XOz5EGGw51M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786018199; c=relaxed/simple;
-	bh=8eMdNLplMc4wquSFwOnFkbyTTnDl2cjLETwVZQOs4RU=;
+	s=arc-20240116; t=1786018225; c=relaxed/simple;
+	bh=epfdEmdQWF1LXChrd7bCh2YxTWsAOg+WkUubgRu4MNk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PBy/+VPr8UCcAPZjA3llQf1nVugIpKZY0MPr0gfd3PbtkKJcYIqZgGuHrAyA6cxUxJtADGFEisnU4rLBXr8Ncb5mlIvLRJ656AsZilb89ELuqSohJvIg3Tw2qOlFup5PhO6rsR/UOkzXwil2WKYIts/YDwkAKjmi3pXOHJ7Krj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a9/Dlzgl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=E0tk6dwFKpCajbZXtFYaE+NFM8YcOWteHmyI/15xVg9mHkQrmHDI5/P5derDua4ubkqEY87bHHbz/kA7zlhtnmLmjwJK71IQqcrMM6xkbimKKLBCe/nQHTiGqWG6kWW9nW4osocNcS4reAVfmHgMeSzppbD1NkDgW+HwdByCa1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R+hgvKNJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F+0Iy3y5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a9/Dlzgl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3743F1F000E9;
-	Thu,  6 Aug 2026 12:09:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786018197;
-	bh=zFhddiou2mQ23sYxI+N3Pfc26Nu52CLpFpYLOfA9UH4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a9/Dlzgl5e9tW0AVNbJ11vcqIoNF/baDGnll6+3CrqzNZUERv6RwsHg9Oly+aEAHl
-	 QbNzsQF0L41I6xHYztn9fLaaxAv29ZUJ/F0lGIV+3afptvAhEB93LPM77z8W2uLhUK
-	 PdPuBCswWC/5gugnxLhQ3113QvodZLhaaIFlWEUU3m8EimMC5WLMV8DILr+l3L5Q20
-	 Tl4/b94V4thZ0InrGCKGSfaNXnEdFmcT2hxXtd1JFjvyOLSyVktm2K3/bIYq3biqrt
-	 QSkSTY+9Kh5dwEUxyDLxcpPxMZoC6kzd920OMCXY0ZtMax5q1Sl00viy1OH0iE4uQG
-	 5eAJxACtl7pCA==
-Date: Thu, 6 Aug 2026 13:09:52 +0100
-From: Lee Jones <lee@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/5] mfd: axp20x: Add support for AXP318W PMIC
-Message-ID: <20260806120952.GA2869284@google.com>
-References: <20260717-axp318-regulator-v4-0-50aff97084dd@baylibre.com>
- <20260717-axp318-regulator-v4-2-50aff97084dd@baylibre.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R+hgvKNJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F+0Iy3y5"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769o5Fq1627565
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 12:10:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=rEBv5mbQUcmm8dCs+CeVZBi1
+	W0eLFbJkEKta6P6jcRM=; b=R+hgvKNJFn/qo6+lLddsRTcAHQIOHY/RCzW82gto
+	/AlTj5Omt20bsLW/TOfBZMHVcEfZkis7bC1XwME2vl2BvebK9nQgb0UhB3oQ3y6k
+	QkryNJtAn0iNxdgKBgHGrogLlSrtIxqJHrZGR/pG01BC4PADEQJoEFWp0UZXBAGC
+	adFDJ1mV6QZVGP7GBfilAl5dbXLE2zOZl0CxFYQBrXYL6gYCXZ+lAHMosY0hYu4+
+	BRlWBsfIY4vX3IRuRtAUNGWhGwwtR+pZrNWtEGCl5GshVHkhWcTO0yWJUlk3Jdy1
+	H55FLsbjZmiDqAew3t9NeFI1SZKldklHD907u9qstCEN4w==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvntnh7aw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 12:10:23 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5174a236220so20065431cf.3
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 05:10:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786018222; x=1786623022; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rEBv5mbQUcmm8dCs+CeVZBi1W0eLFbJkEKta6P6jcRM=;
+        b=F+0Iy3y5C0+Rvj1drv6puE2w4U3pxcwOHTsuL0xcj6kuK/PkiruHwfnsnMgsVnrpWk
+         CWxWQU9Kq09j71tlpEQFSZZNG7JTeSbkvAq7CCmutf0gzt8RxS2rhaAq0xCcMZl6ux9I
+         u2iZwh9Kwk35PX9xSbOwgksy5RbwTB/PkcqvG9a0O/AesrptpSJHK8SDiPI54k+rk4Y2
+         OWmMVpKYD8YsA2W8XvI1aie5bbdnet2al5ox74OnTF/VyxI99LCvicxevHI0GUPAHzzN
+         TlkUYJwbiGwJz45x8AAzp42dzIn/ImXPA9tBj/KlovHJYlPegCSQs8u2Yvr1fKPs4wHT
+         /2lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786018222; x=1786623022;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rEBv5mbQUcmm8dCs+CeVZBi1W0eLFbJkEKta6P6jcRM=;
+        b=J4ba1qgkKAqNtUyZZha6ksvt/hWEoEvwWiQGSLTzBRiddFSiHo+3cee/sRSBFTkC/4
+         RTiE6m9jPIeK8M4txAT0rLDNIngD2my65QQegNDv8s184e5Ijy2BKK7isnmg0eZ2LF92
+         oQriyLQ9YcRckobl6+WbnAh2DQEq58P8jCP5IsSps95kCgBgcemHUSrwjwCDMha2Rp1y
+         gFrFsFz8I9JHB03FrtW1i/Yql4GjBKM7Gn07AH/cI6KJhR9O8xQP9wkl4mqDJEIAn+X0
+         n98M/kwWYFY6GGKsYjWpGONG4jICOyKUVOiWo2C8iiqrahVAJHR00xZCTR56dTo5XGlW
+         2mJw==
+X-Forwarded-Encrypted: i=1; AHgh+RqYec9mJts0TcTUYKC7gqdXwzeTEaUx1LYqZ4OTQEFr/6Zu/vBbsKFax851mcHm7XK2T7R5mKQy+lnH@vger.kernel.org
+X-Gm-Message-State: AOJu0YzgC2dywkhKINtQSAf1LK32K9R5DoAK0wAqdzIyJetFzrvVrwJR
+	ftEMgLIVRWcaBYZHYFpx8KPL1SOQmfSJXWalYaKbcoE4Fjq4c3bo/rPmQ64BmXf38kpqkDwYiZU
+	m7gnXAJESMJo9TYjzfMwIuT5e8heJvbmp/BLYKe0Op413ib58eMLcScqX3+wufOvS
+X-Gm-Gg: AR+sD11+pjWgu8BFvj6hN17HZaFuH+f+eWe6lZ9kzyOQBqFT09W6zVpU4KUvnBQdroZ
+	YEq5W3bzJKHhbWqi5AQ4jjkQ3v+t8DFP2R6qkTSfUxEtVBH8lnJL43bgp0OFJydAzgHmXBdxgJd
+	TOcsNrJjZ2kaqOLesr0fmP7byGHC0RLg6nE6qsT+uOVU3FdtrVNURQXL9o+NxUlT6ydZf2PkzZ6
+	fIqKnCI/2CnHmTrGGILqiigrzzLCLOCGFCMKztx6+6mMjIud+tjAxmrVzgbv3rjy3Yi7Q6JiOav
+	ayj7HPzEby+DHQGDvt8PFZ7lywbP82u7fhPZbbth1M2Sg7YtkTDtDGqMKXD4vu1Da4RvoGnKRNO
+	SVIj8yYyjKwS3+J3MV99pfsvK8wJ8zYhcpEYTjJfRAaevcvBEmO715tPXRLnEqR9R7LzZAllbNO
+	NLUrH2pUZRS1ixtg==
+X-Received: by 2002:a05:622a:1ccc:b0:51c:9b44:c59e with SMTP id d75a77b69052e-52ce60d3fd2mr155473601cf.22.1786018221990;
+        Thu, 06 Aug 2026 05:10:21 -0700 (PDT)
+X-Received: by 2002:a05:622a:1ccc:b0:51c:9b44:c59e with SMTP id d75a77b69052e-52ce60d3fd2mr155472761cf.22.1786018221498;
+        Thu, 06 Aug 2026 05:10:21 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2f62af4d9sm675938e87.49.2026.08.06.05.10.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 05:10:20 -0700 (PDT)
+Date: Thu, 6 Aug 2026 15:10:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+        Daniel J Blueman <daniel@quora.org>
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context
+ bank subnodes to common schema
+Message-ID: <dpyynzha2vkpbzmhspeinfe3yhl5j76vrtlf5vhf4dbm3tluzh@36qp6slwsfsq>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <20260805-dark-voracious-jacamar-6aae4c@quoll>
+ <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
+ <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
+ <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
+ <zqpgl3esozn4dgnm7remmwmquxasyc4qpyh3fgcdfblmn2xe3g@vhp5umdahvmi>
+ <9921567d-4b3a-43b6-bf5e-eb0e92102e34@kernel.org>
+ <npojagmk7x24wpbqcmzg4mijscqz63aluh6lj5uaciztzl53wl@ld342uighqaa>
+ <d0dfd058-f0a0-41e3-a7ad-89eccd0571cb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,330 +121,171 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260717-axp318-regulator-v4-2-50aff97084dd@baylibre.com>
+In-Reply-To: <d0dfd058-f0a0-41e3-a7ad-89eccd0571cb@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA5NSBTYWx0ZWRfX7I0Onp6oW2Cs
+ z5J3uLZ9SxIAJJf8vL7Gy6Zl4F0o/EPpXqNcSvNm3T5W6SkeuGEFXsa2fcGlynm9vmt+rCjQq0b
+ yDcENZdZgbGS0Hr08l/38Y/qvVZFKksfdWKZ3TsMnClN6p/KLF96kur17/Xwi3bqg1ueDYvOfnY
+ FqWMw4Z7mbvHYcnSmg6RS4V0Kj8eioz7UP0o4W88QhBqNhYwNpVsEMCNL5TQrzX3f4Zg7fZOQw2
+ KkgqJE1klmBAvj1/TaL1A42rQcfgWVShm9JnIu48VhxT3z8hZFa8IzW0qngGBU3l0heWGqIPxF2
+ 3EbynJYR5W3gpTtd1xh9X+2Jmt4ZnhyR/9ezDvqYyBjHnzumF1ggcSKkiRxWtXdkQ3KzeqrcDoB
+ IUF0V/PgyiXQ3ODV7Gim4KB/jFwApr9veIGbcqfKirGc3/DvrE1I7VOI9Ttcid33OuKtSBzB6el
+ ADWTXu8C5zVhCG4gynw==
+X-Proofpoint-ORIG-GUID: yHi5YQfSqRqdps8yQNxh9fgw9C2i9Z5k
+X-Proofpoint-GUID: yHi5YQfSqRqdps8yQNxh9fgw9C2i9Z5k
+X-Authority-Analysis: v=2.4 cv=LpKiDHdc c=1 sm=1 tr=0 ts=6a7479af cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=9BINTe81hO8Yagh1QJMA:9
+ a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA5NSBTYWx0ZWRfXxZLNA1S/1KwR
+ 9+X4+u28YLR37NfL2FBFLP9AyXXXaExGR0w8rKdqTpI/5u9xY19gCTV/OTWkWyUARt1WckMIr/N
+ 2jShK9tOZD2PumxoDlT1MISnZImtg7U=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 spamscore=0
+ phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060095
 
-/* Sashiko Automation: Issues Found (2 Findings) */
-
-Please explain or fix these Sashiko reviews.
-
-On Fri, 17 Jul 2026, Jerome Brunet wrote:
-
-> From: Andre Przywara <andre.przywara@arm.com>
+On Thu, Aug 06, 2026 at 05:26:51PM +0530, Vikash Garodia wrote:
 > 
-> The AXP318W is a PMIC chip produced by X-Powers, it can be connected to
-> an I2C bus.
+> On 8/6/2026 4:05 PM, Dmitry Baryshkov wrote:
+> > On Thu, Aug 06, 2026 at 11:36:45AM +0200, Krzysztof Kozlowski wrote:
+> > > On 06/08/2026 11:22, Dmitry Baryshkov wrote:
+> > > > On Thu, Aug 06, 2026 at 11:11:09AM +0200, Krzysztof Kozlowski wrote:
+> > > > > On 06/08/2026 10:46, Dmitry Baryshkov wrote:
+> > > > > > 
+> > > > > > > dma-ranges tell how this bus - so venus/iris - performs DMA translation
+> > > > > > > in respective to parent. Address/size-cells are obviously also needed if
+> > > > > > > this is a bus with addressing.
+> > > > > > > 
+> > > > > > > But there are no children with addressing, thus what sort of bus would
+> > > > > > > it be?
+> > > > > > > 
+> > > > > > > It looks to me that having here both:
+> > > > > > > 1. dma-ranges + address/size-cells
+> > > > > > > 2. children without bus addressing
+> > > > > > > is some sort of abuse of the DT syntax. It is allowed, but does not
+> > > > > > > really represent hardware.
+> > > > > > > 
+> > > > > > > IOW, dma-ranges alone feels okay, although unusual, and it states proper
+> > > > > > > DMA translation for this bus. If you add address/size-cells, it means
+> > > > > > > this bus HAS addressing and thus YOU MUST use addressing.
+> > > > > > > 
+> > > > > > > If my understanding is correct, then solution would be to add addressing
+> > > > > > > to the children (so unit address and "reg" property) or drop
+> > > > > > > address/size-cells as Rob pointed out. [1]
+> > > > > > 
+> > > > > > Doesn't dma-ranges require address/size cells? In the end, how can you
+> > > > > 
+> > > > > I think it does not require, at least how I understood the DT spec,
+> > > > > unless you provide actual addresses to the property.
+> > > > > 
+> > > > > IOW, this requires address/size-cells:
+> > > > > 	dma-ranges = <0 0 0 0 0x10 0>;
+> > > > > 
+> > > > > > specify the DMA address if the device doesn't have addressing at all (or
+> > > > > > MMIO-style addressing)?
+> > > > > 
+> > > > > Yeah, that's why having here children without bus addressing is
+> > > > > confusing. I would interpret it that, children are not on MMIO bus, thus
+> > > > > the venus/iris is some sort of proprietary bus with no mapping between
+> > > > > parent MMIO and children nodes.
+> > > > > 
+> > > > > If there is no mapping, then we do not have 'ranges' property. But I
+> > > > > could imagine that such no-mapping bus still provides access to system RAM?
+> > > > > 
+> > > > > Actually this feels like a huge stretch, so I tend to think that the
+> > > > > only reasonable option is to have children with MMIO, which would make
+> > > > > it explicit: Venus/iris is a bus which provides translation of both MMIO
+> > > > > and DMA addresses to the parent.
+> > > > 
+> > > > But there are no separate addresses for those subnodes. Would you prefer
+> > > 
+> > > There might be some or maybe these should be the addresses of DMA?
+> > > 
+> > > > them to duplicate the addresses of the parent node? Or would the
+> > > > 'ranges' be enough?
+> > > 
+> > > I made mistake earlier - 'dma-ranges' without values is not described in
+> > > DT spec explicitly, but should be treated as 'ranges' without values,
+> > > thus direct mapping from parent to the child.
+> > 
+> > Documentation/devicetree/bindings/iommu/iommu.txt:
+> > 
+> >    An empty "dma-ranges" property means that there is a 1:1 mapping from
+> >    IOMMU to memory.
+> > 
+> > > 
+> > > So it also requires address/size-cells, just like 'dma-ranges =
+> > > <mapping>'. And dtc checks/reports that.
+> > > 
+> > > I think therefore now that the binding is unusual (because no bus
+> > > addresses of children) but actually correct.
+> > > 
+> > > > 
+> > > > Or, thinking about it, if Venus / Iris have 32-bit addressing, then
+> > > > dma-range should probably define the limited DMA range.
+> > > 
+> > > That's another point which I also raised to Vikash already - mapping
+> > > should be restricted to 32-bit if this is how the child devices operate.
+> > 
+> > Souds so. Then we need a non-empty dma-ranges.
+> > 
+> > 
 > 
-> It has a large number of regulators: 9(!) DCDC buck converters, and 28
-> LDOs, also some ADCs, interrupts, and a power key.
+> based on this discussion, below works for schema check and dtc
 > 
-> Describe the regmap and the MFD bits, along with the registers exposed
-> via I2C only. This covers the regulators and interrupts for now.
-> Advertise the device using the new compatible string.
+> schema:
+>   '#address-cells':
+>     const: 1
 > 
-> We use just "318" for the internal identifiers, for easier typing and
-> less churn, but use "318W" for anything externally visible. If something
-> else other than the "AXP318W" shows up, that's an easy change then.
+>   '#size-cells':
+>     const: 1
 > 
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
->  drivers/mfd/axp20x-i2c.c   |  2 ++
->  drivers/mfd/axp20x.c       | 78 +++++++++++++++++++++++++++++++++++++++++
->  include/linux/mfd/axp20x.h | 86 ++++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 166 insertions(+)
+>   dma-ranges:
+>     maxItems: 1
+
+If this works, then LGTM.
+
 > 
-> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-> index 5c93136f977e..4e4ebfc78525 100644
-> --- a/drivers/mfd/axp20x-i2c.c
-> +++ b/drivers/mfd/axp20x-i2c.c
-> @@ -65,6 +65,7 @@ static const struct of_device_id axp20x_i2c_of_match[] = {
->  	{ .compatible = "x-powers,axp221", .data = (void *)AXP221_ID },
->  	{ .compatible = "x-powers,axp223", .data = (void *)AXP223_ID },
->  	{ .compatible = "x-powers,axp313a", .data = (void *)AXP313A_ID },
-> +	{ .compatible = "x-powers,axp318w", .data = (void *)AXP318_ID },
->  	{ .compatible = "x-powers,axp323", .data = (void *)AXP323_ID },
->  	{ .compatible = "x-powers,axp717", .data = (void *)AXP717_ID },
->  	{ .compatible = "x-powers,axp803", .data = (void *)AXP803_ID },
-> @@ -83,6 +84,7 @@ static const struct i2c_device_id axp20x_i2c_id[] = {
->  	{ "axp221" },
->  	{ "axp223" },
->  	{ "axp313a" },
-> +	{ "axp318w" },
->  	{ "axp717" },
->  	{ "axp803" },
->  	{ "axp806" },
-> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-> index 679364189ea5..c8aeebd01bbc 100644
-> --- a/drivers/mfd/axp20x.c
-> +++ b/drivers/mfd/axp20x.c
-> @@ -42,6 +42,7 @@ static const char * const axp20x_model_names[] = {
->  	[AXP223_ID] = "AXP223",
->  	[AXP288_ID] = "AXP288",
->  	[AXP313A_ID] = "AXP313a",
-> +	[AXP318_ID] = "AXP318W",
->  	[AXP323_ID] = "AXP323",
->  	[AXP717_ID] = "AXP717",
->  	[AXP803_ID] = "AXP803",
-> @@ -218,6 +219,31 @@ static const struct regmap_access_table axp313a_volatile_table = {
->  	.n_yes_ranges = ARRAY_SIZE(axp313a_volatile_ranges),
->  };
->  
-> +static const struct regmap_range axp318_writeable_ranges[] = {
-> +	regmap_reg_range(AXP318_DCDC_OUTPUT_CONTROL1, AXP318_IRQ_STATE4),
-> +	regmap_reg_range(AXP318_SHUTDOWN_CTRL, AXP318_TEMP_ADC_H_EN),
-> +	regmap_reg_range(AXP318_DIE_TEMP_ADC_H_EN, AXP318_DIE_TEMP_ADC_H_EN),
-> +	regmap_reg_range(AXP318_GPADC_H_EN, AXP318_GPADC_H_EN),
-> +	regmap_reg_range(AXP318_GPIO_CTRL, AXP318_WDOG_CTRL),
-> +};
-> +
-> +static const struct regmap_range axp318_volatile_ranges[] = {
-> +	regmap_reg_range(AXP318_IRQ_EN1, AXP318_IRQ_STATE4),
-> +	regmap_reg_range(AXP318_POWER_REASON, AXP318_SHUTDOWN_REASON),
-> +	regmap_reg_range(AXP318_TEMP_ADC_H_EN, AXP318_GPADC_L),
-> +	regmap_reg_range(AXP318_GPIO_INPUT, AXP318_GPIO_INPUT),
-> +};
-> +
-> +static const struct regmap_access_table axp318_writeable_table = {
-> +	.yes_ranges = axp318_writeable_ranges,
-> +	.n_yes_ranges = ARRAY_SIZE(axp318_writeable_ranges),
-> +};
-> +
-> +static const struct regmap_access_table axp318_volatile_table = {
-> +	.yes_ranges = axp318_volatile_ranges,
-> +	.n_yes_ranges = ARRAY_SIZE(axp318_volatile_ranges),
-> +};
-> +
->  static const struct regmap_range axp717_writeable_ranges[] = {
->  	regmap_reg_range(AXP717_PMU_FAULT, AXP717_MODULE_EN_CONTROL_1),
->  	regmap_reg_range(AXP717_MIN_SYS_V_CONTROL, AXP717_BOOST_CONTROL),
-> @@ -447,6 +473,15 @@ static const struct regmap_config axp313a_regmap_config = {
->  	.cache_type = REGCACHE_MAPLE,
->  };
->  
-> +static const struct regmap_config axp318_regmap_config = {
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.wr_table = &axp318_writeable_table,
-> +	.volatile_table = &axp318_volatile_table,
-> +	.max_register = AXP318_WDOG_CTRL,
-> +	.cache_type = REGCACHE_MAPLE,
-> +};
-> +
->  static const struct regmap_config axp323_regmap_config = {
->  	.reg_bits = 8,
->  	.val_bits = 8,
-> @@ -663,6 +698,28 @@ static const struct regmap_irq axp313a_regmap_irqs[] = {
->  	INIT_REGMAP_IRQ(AXP313A, DIE_TEMP_HIGH,		0, 0),
->  };
->  
-> +static const struct regmap_irq axp318_regmap_irqs[] = {
-> +	INIT_REGMAP_IRQ(AXP318, DCDC8_V_LOW,		0, 7),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC7_V_LOW,		0, 6),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC6_V_LOW,		0, 5),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC5_V_LOW,		0, 4),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC4_V_LOW,		0, 3),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC3_V_LOW,		0, 2),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC2_V_LOW,		0, 1),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC1_V_LOW,		0, 0),
-> +	INIT_REGMAP_IRQ(AXP318, PEK_RIS_EDGE,		1, 6),
-> +	INIT_REGMAP_IRQ(AXP318, PEK_FAL_EDGE,		1, 5),
-> +	INIT_REGMAP_IRQ(AXP318, PEK_LONG,		1, 4),
-> +	INIT_REGMAP_IRQ(AXP318, PEK_SHORT,		1, 3),
-> +	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV2,	1, 2),
-> +	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV1,	1, 1),
-> +	INIT_REGMAP_IRQ(AXP318, DCDC9_V_LOW,		1, 0),
-> +	INIT_REGMAP_IRQ(AXP318, GPIO3_INPUT,		2, 6),
-> +	INIT_REGMAP_IRQ(AXP318, GPIO2_INPUT,		2, 5),
-> +	INIT_REGMAP_IRQ(AXP318, GPIO1_INPUT,		2, 4),
-> +	INIT_REGMAP_IRQ(AXP318, WDOG_EXPIRE,		3, 0),
-> +};
-> +
->  static const struct regmap_irq axp717_regmap_irqs[] = {
->  	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL2,		0, 7),
->  	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL1,		0, 6),
-> @@ -884,6 +941,17 @@ static const struct regmap_irq_chip axp313a_regmap_irq_chip = {
->  	.num_regs		= 1,
->  };
->  
-> +static const struct regmap_irq_chip axp318_regmap_irq_chip = {
-> +	.name			= "axp318w_irq_chip",
-> +	.status_base		= AXP318_IRQ_STATE1,
-> +	.ack_base		= AXP318_IRQ_STATE1,
-> +	.unmask_base		= AXP318_IRQ_EN1,
-> +	.init_ack_masked	= true,
-> +	.irqs			= axp318_regmap_irqs,
-> +	.num_irqs		= ARRAY_SIZE(axp318_regmap_irqs),
-> +	.num_regs		= 4,
-> +};
-> +
->  static const struct regmap_irq_chip axp717_regmap_irq_chip = {
->  	.name			= "axp717_irq_chip",
->  	.status_base		= AXP717_IRQ0_STATE,
-> @@ -1061,6 +1129,10 @@ static struct mfd_cell axp313a_cells[] = {
->  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
->  };
->  
-> +static const struct mfd_cell axp318_cells[] = {
-> +	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
-
-[Severity: Medium]
-Does this hardcoded cell ID of 1 violate the MFD subsystem guidelines?
-
-If multiple AXP devices with hardcoded IDs of 1 (such as the AXP313a and
-AXP318W) are instantiated on the same system, could they both attempt to
-register a platform device named axp20x-regulator.1, resulting in a fatal
--EEXIST failure?
-
-Should this use PLATFORM_DEVID_AUTO instead?
-
-
-> +};
-> +
->  static struct mfd_cell axp717_cells[] = {
->  	MFD_CELL_NAME("axp20x-regulator"),
->  	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
-> @@ -1313,6 +1385,12 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
->  		axp20x->regmap_cfg = &axp313a_regmap_config;
->  		axp20x->regmap_irq_chip = &axp313a_regmap_irq_chip;
->  		break;
-> +	case AXP318_ID:
-> +		axp20x->nr_cells = ARRAY_SIZE(axp318_cells);
-> +		axp20x->cells = axp318_cells;
-> +		axp20x->regmap_cfg = &axp318_regmap_config;
-> +		axp20x->regmap_irq_chip = &axp318_regmap_irq_chip;
-> +		break;
-
-[Severity: High]
-Is AXP318_ID missing from the switch statement in axp20x_power_off()?
-
-When the system attempts to power off, axp20x_power_off() is called. If
-AXP318_ID is not handled in the switch statement there, will it fall through
-to the default case and select AXP20X_OFF_CTRL (0x32) instead of the correct
-AXP318_SHUTDOWN_CTRL (0x52)?
-
-Could this failure to shut down the PMIC corrupt the state of the CLDO4
-regulator by writing the power-off command to AXP318_CLDO4_CONTROL (which
-is also 0x32)?
-
-
->  	case AXP323_ID:
->  		axp20x->nr_cells = ARRAY_SIZE(axp313a_cells);
->  		axp20x->cells = axp313a_cells;
-> diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
-> index b352661d99a1..c1f9dc06387a 100644
-> --- a/include/linux/mfd/axp20x.h
-> +++ b/include/linux/mfd/axp20x.h
-> @@ -19,6 +19,7 @@ enum axp20x_variants {
->  	AXP223_ID,
->  	AXP288_ID,
->  	AXP313A_ID,
-> +	AXP318_ID,
->  	AXP323_ID,
->  	AXP717_ID,
->  	AXP803_ID,
-> @@ -116,6 +117,69 @@ enum axp20x_variants {
->  #define AXP313A_IRQ_STATE		0x21
->  #define AXP323_DCDC_MODE_CTRL2		0x22
->  
-> +#define AXP318_DCDC_OUTPUT_CONTROL1	0x10
-> +#define AXP318_DCDC_OUTPUT_CONTROL2	0x11
-> +#define AXP318_DCDC1_CONTROL		0x12
-> +#define AXP318_DCDC2_CONTROL		0x13
-> +#define AXP318_DCDC3_CONTROL		0x14
-> +#define AXP318_DCDC4_CONTROL		0x15
-> +#define AXP318_DCDC5_CONTROL		0x16
-> +#define AXP318_DCDC6_CONTROL		0x17
-> +#define AXP318_DCDC7_CONTROL		0x18
-> +#define AXP318_DCDC8_CONTROL		0x19
-> +#define AXP318_DCDC9_CONTROL		0x1a
-> +#define AXP318_LDO_OUTPUT_CONTROL1	0x20
-> +#define AXP318_LDO_OUTPUT_CONTROL2	0x21
-> +#define AXP318_LDO_OUTPUT_CONTROL3	0x22
-> +#define AXP318_LDO_OUTPUT_CONTROL4	0x23
-> +#define AXP318_ALDO1_CONTROL		0x24
-> +#define AXP318_ALDO2_CONTROL		0x25
-> +#define AXP318_ALDO3_CONTROL		0x26
-> +#define AXP318_ALDO4_CONTROL		0x27
-> +#define AXP318_ALDO5_CONTROL		0x28
-> +#define AXP318_ALDO6_CONTROL		0x29
-> +#define AXP318_BLDO1_CONTROL		0x2a
-> +#define AXP318_BLDO2_CONTROL		0x2b
-> +#define AXP318_BLDO3_CONTROL		0x2c
-> +#define AXP318_BLDO4_CONTROL		0x2d
-> +#define AXP318_BLDO5_CONTROL		0x2e
-> +#define AXP318_CLDO1_CONTROL		0x2f
-> +#define AXP318_CLDO2_CONTROL		0x30
-> +#define AXP318_CLDO3_CONTROL		0x31
-> +#define AXP318_CLDO4_CONTROL		0x32
-> +#define AXP318_CLDO5_CONTROL		0x33
-> +#define AXP318_DLDO1_CONTROL		0x34
-> +#define AXP318_DLDO2_CONTROL		0x35
-> +#define AXP318_DLDO3_CONTROL		0x36
-> +#define AXP318_DLDO4_CONTROL		0x37
-> +#define AXP318_DLDO5_CONTROL		0x38
-> +#define AXP318_DLDO6_CONTROL		0x39
-> +#define AXP318_ELDO1_CONTROL		0x3a
-> +#define AXP318_ELDO2_CONTROL		0x3b
-> +#define AXP318_ELDO3_CONTROL		0x3c
-> +#define AXP318_ELDO4_CONTROL		0x3d
-> +#define AXP318_ELDO5_CONTROL		0x3e
-> +#define AXP318_ELDO6_CONTROL		0x3f
-> +#define AXP318_IRQ_EN1			0x40
-> +#define AXP318_IRQ_EN2			0x41
-> +#define AXP318_IRQ_EN3			0x42
-> +#define AXP318_IRQ_EN4			0x43
-> +#define AXP318_IRQ_STATE1		0x48
-> +#define AXP318_IRQ_STATE2		0x49
-> +#define AXP318_IRQ_STATE3		0x4a
-> +#define AXP318_IRQ_STATE4		0x4b
-> +#define AXP318_POWER_REASON		0x50
-> +#define AXP318_SHUTDOWN_REASON		0x51
-> +#define AXP318_SHUTDOWN_CTRL		0x52
-> +#define AXP318_TEMP_ADC_H_EN		0x65
-> +#define AXP318_TEMP_ADC_L		0x66
-> +#define AXP318_DIE_TEMP_ADC_H_EN	0x67
-> +#define AXP318_GPADC_H_EN		0x69
-> +#define AXP318_GPADC_L			0x6a
-> +#define AXP318_GPIO_CTRL		0x70
-> +#define AXP318_GPIO_INPUT		0x71
-> +#define AXP318_WDOG_CTRL		0x77
-> +
->  #define AXP717_ON_INDICATE		0x00
->  #define AXP717_PMU_STATUS_2		0x01
->  #define AXP717_BC_DETECT		0x05
-> @@ -819,6 +883,28 @@ enum axp313a_irqs {
->  	AXP313A_IRQ_PEK_RIS_EDGE,
->  };
->  
-> +enum axp318_irqs {
-> +	AXP318_IRQ_DCDC1_V_LOW,
-> +	AXP318_IRQ_DCDC2_V_LOW,
-> +	AXP318_IRQ_DCDC3_V_LOW,
-> +	AXP318_IRQ_DCDC4_V_LOW,
-> +	AXP318_IRQ_DCDC5_V_LOW,
-> +	AXP318_IRQ_DCDC6_V_LOW,
-> +	AXP318_IRQ_DCDC7_V_LOW,
-> +	AXP318_IRQ_DCDC8_V_LOW,
-> +	AXP318_IRQ_DCDC9_V_LOW,
-> +	AXP318_IRQ_DIE_TEMP_HIGH_LV1,
-> +	AXP318_IRQ_DIE_TEMP_HIGH_LV2,
-> +	AXP318_IRQ_PEK_SHORT,
-> +	AXP318_IRQ_PEK_LONG,
-> +	AXP318_IRQ_PEK_FAL_EDGE,
-> +	AXP318_IRQ_PEK_RIS_EDGE,
-> +	AXP318_IRQ_GPIO1_INPUT = 20,
-> +	AXP318_IRQ_GPIO2_INPUT,
-> +	AXP318_IRQ_GPIO3_INPUT,
-> +	AXP318_IRQ_WDOG_EXPIRE = 24,
-> +};
-> +
->  enum axp717_irqs {
->  	AXP717_IRQ_VBUS_FAULT,
->  	AXP717_IRQ_VBUS_OVER_V,
 > 
-> -- 
-> 2.47.3
+> Now in the schema examples, soc is added to match the reg/dma-ranges of
+> parent (iris)
 > 
+>   examples
+>      soc {
+>           #address-cells = <2>;
+>           #size-cells = <2>;
+> 
+>           video-codec@aa00000 {
+>             compatible = "qcom,sm8550-iris";
+>             reg = <0x0 0x0aa00000 0x0 0xf0000>;
+> 
+> DTS
+> 
+> iris {
+> ....
+>   #address-cells = <1>;
+>   #size-cells = <1>;
+>   dma-ranges = <0x0 0x0 0x0 0xe0000000>;
+> 
+>   iris_non_pixel: non-pixel {
+> 	iommus = <&apps_smmu 0x1940 0x0>;
+> 	memory-region = <&iris_resv>;
+>   };
+> 
+>   pixel {
+> 	iommus = <&apps_smmu 0x1947 0x0>;
+>   };
+> 
+> Please review if anything is missed out.
+> 
+> Regards,
+> Vikash
 
 -- 
-Lee Jones
+With best wishes
+Dmitry
