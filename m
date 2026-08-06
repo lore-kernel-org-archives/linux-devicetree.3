@@ -1,133 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257F226C385;
-	Thu,  6 Aug 2026 13:16:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7380D27AC31;
+	Thu,  6 Aug 2026 13:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786022200; cv=none; b=tm937dy4X1W+zaFvCVo0WcLt3xKnDdecxEDBWVNfc+EJ994G1opxjka22cIbprFyI6l4ms0Abi1EI6Mhyhu3BcxVobxu+LJziHiJz7iy8AD0WMDxsaEi8XVyejzzrqIG2D2Dtg1yExxrkbT0dyO2PEMCqKfuC/fLq64TqnVrru0=
+	t=1786022252; cv=none; b=aXU1Mfa+QNU8RnCMxFanBKLvHF+sa8TfhOWrAe/XdYpC498euwQrZbM8dMfFr9ZjcQdhQwDtKC2K+A3EXJVq2mkkq7Wz8VZZSoJf4AfyEBMSchUSeatEAj/pEvqHGjbp+Vhmj/LfomA4Vd4JpJ/7slNKcwDmWiCdWIAi63vFJBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786022200; c=relaxed/simple;
-	bh=gtYXydAMBAKg593kaElUjKb/G08Lqn4qoJ/UEL29VC8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IixDQ4hf4lgCBVj62ysWrirfLQQSKR9VOBuRUTOLzHCykXZ5zX/k63E1KiNZqysgzJYLParR9CyQo0VEusMxzPy/lAI0co3reZxN8RNl2xAivFkO9vRSHGBonYPS4C+Ini+i6U2QFibNqYbgaH2la/wIM17Y7CXMBEVomDL7Inc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OYTTH2YZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OYTTH2YZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54DAA1F000E9;
-	Thu,  6 Aug 2026 13:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786022194;
-	bh=8O3Jm/KCpUxHmdI56AF1wTxRqOJCMDI/5j9/Q6443Ro=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OYTTH2YZ95hRG04hyNETNtpBAmuqnutIGsr5526ph4/Spdpox8qylIrZLTN2uJeBJ
-	 v6OAiOPKkmABiofnuehJ9uheHaIhy99SVgixWZkBUyUc9/4tmUcXoOIcri5X5/G2YD
-	 zj6/fCqjKXrLbJuL7JOHgFKZZKwN9mbs4H9cfEImkJQC4VjC/HiJAaUYyQ+DNouog6
-	 uevVcXkGTmcu/rmvNKUgidInV3RVrEPw8CD7UN9FMBqSMYCT0ZXfCgP2TxMJhjM8ti
-	 tdzuY4Lmjf5fOxwo6R3fOk3huIa7nmHtCD0tA4V8JEPvXIpYtdGB2Ql7SLIO3UdBpP
-	 MMgcU7pcNIdmA==
-Date: Thu, 6 Aug 2026 08:16:33 -0500
-From: Rob Herring <robh@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>,
-	Prasad Bolisetty <pbolisetty@axiado.com>,
-	Guenter Roeck <linux@roeck-us.net>,
+	s=arc-20240116; t=1786022252; c=relaxed/simple;
+	bh=B25rwJEYgGda4a7EaZDPEq2OElxi9m/ffGnyXjLopqk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HK+m6JWM5w0me7WDb36Dv/Od1UgMWD9HgkdJ0va/y64x52X+7aOAf7EyucKs5M8ou02nqekMdV3pHOKZD/CpfF0QMYx9BUJeZFtr+soEkjc9EdUnCY67Od7nfSubhNWTWcP9V+nensy0URkfUYDym8Lg+WiWlhPJoLoURVSvZ5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2B1B6200F4F;
+	Thu, 06 Aug 2026 15:17:19 +0200 (CEST)
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wrxyJ-000664-0I;
+	Thu, 06 Aug 2026 15:17:19 +0200
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+	Yi Zhang <zhanyi@qti.qualcomm.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Tzu-Hao Wei <twei@axiado.com>,
-	Karthikeyan Mitran <kmitran@axiado.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: add Axiado AX3000 and AX3005 PWM
- fan controller
-Message-ID: <20260806131633.GA30560-robh@kernel.org>
-References: <20260806-axiado-ax3000-pwm-fan-v1-0-f6db4cf2166b@axiado.com>
- <20260806-axiado-ax3000-pwm-fan-v1-1-f6db4cf2166b@axiado.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Marek Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
+	Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
+	venkata.valluru@oss.qualcomm.com,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Subject: [PATCH 0/7] Fixes for lt9211c
+Date: Thu,  6 Aug 2026 15:17:08 +0200
+Message-ID: <20260806131715.508557-1-p.zabel@pengutronix.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
+References: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-axiado-ax3000-pwm-fan-v1-1-f6db4cf2166b@axiado.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 06, 2026 at 02:01:29AM -0700, Petar Stepanovic wrote:
-> Add a Devicetree binding for the PWM fan controller found on the
-> Axiado AX3000 and AX3005 SoCs.
-> 
-> The controller measures fan speed using a hardware tachometer block.
-> Fan speed is controlled through a PWM signal supplied by an external
-> PWM controller.
-> 
-> Add a MAINTAINERS entry for the binding.
-> 
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> ---
->  .../bindings/hwmon/axiado,ax3000-pwm-fan.yaml      | 68 ++++++++++++++++++++++
->  MAINTAINERS                                        |  8 +++
->  2 files changed, 76 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
-> new file mode 100644
-> index 000000000000..a985f49bbdcd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/axiado,ax3000-pwm-fan.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Axiado AX3000 and AX3005 PWM Fan Controller
-> +
-> +maintainers:
-> +  - Petar Stepanovic <pstepanovic@axiado.com>
-> +  - Akhila Kavi <akavi@axiado.com>
-> +  - Prasad Bolisetty <pbolisetty@axiado.com>
-> +
-> +description:
-> +  The Axiado AX3000 and AX3005 fan controllers use a hardware tachometer
-> +  block to measure fan speed. Fan speed is controlled through a PWM signal
-> +  supplied by an external PWM controller.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: axiado,ax3000-pwm-fan
-> +      - items:
-> +          - const: axiado,ax3005-pwm-fan
-> +          - const: axiado,ax3000-pwm-fan
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  pwms:
-> +    maxItems: 1
-> +    description:
-> +      PWM specifier used to control fan speed.
-> +
-> +  pulses-per-revolution:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 1
-> +    default: 2
-> +    description:
-> +      Number of tachometer pulses generated per fan revolution.
+With these fixes
 
-This is a property of a fan, not the fan controller. The fan(s) should 
-be represented as child node(s) under this device. Use the common fan 
-binding, fan-common.yaml. See other bindings using it.
+Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Rob
+on RK3576 with a 1080p60 panel @ 148.5 MHz.
+
+Feel free to squash any of these into v7.
+
+regards
+Philipp
+
+Oleksij Rempel (1):
+  drm/bridge: lt9211: Enable DSI burst mode for LT9211C
+
+Philipp Zabel (6):
+  drm/bridge: lt9211: drop delayed work
+  drm/bridge: lt9211: fix regmap_write error handling
+  drm/bridge: lt9211: use regmap_write_bits
+  drm/bridge: lt9211: reuse lt9211_configure_timing in
+    lt9211c_configure_timing
+  drm/bridge: lt9211: combine equal branches
+  drm/bridge: lt9211: use devm_drm_bridge_add and drop lt9211_remove
+
+ drivers/gpu/drm/bridge/lontium-lt9211.c | 189 ++++++++----------------
+ 1 file changed, 61 insertions(+), 128 deletions(-)
+
+-- 
+2.47.3
+
