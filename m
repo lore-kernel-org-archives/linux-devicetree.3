@@ -1,163 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788334334B1
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 22:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6438E4302E1
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 22:34:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786055642; cv=none; b=oVjxBAe3krIK4yifzJ7/72+r9f07SOqb/9sTytC1zxA0LccaajxJfRynwAXWrKP+1P/4/c4taqasbkZ7F0Ttcp8o84n4EyZc6WRw6gsApGpuJRbBTZgIDF6HSJ6dB69gg+UwXm3bROjiggPN5WkohJ0rRdKelTV8XXp5Z8bs+g4=
+	t=1786055653; cv=none; b=j520/eVpxDNIPT+anybzEoaHOjT6+ZGM4hg6d65ef/DbCzd/Cgyz7+eSBNCg5DrmNE/tRoHkUkYh3gzjjpaf5kPJNhTng5L4dXqxBOKoq8TV7+drNPaHueveqlWANprUhEMobe/vTqS3jlsZb7at/KiVPj55OCfA/mbsqJyJT0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786055642; c=relaxed/simple;
-	bh=pIpIqo8xcJk5eVdkX0oKfusgNfcblRDhrLnLYSuSq5U=;
+	s=arc-20240116; t=1786055653; c=relaxed/simple;
+	bh=ZBZm08QVpH0oqCZncL8xgf2SHX4iDj0+MP0kF7e4A3Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YRab7GzQOaX4cgGni9H6qUXAOCRXzemdsmC66/qfjjNpRUkosN+gLr5lsKo+FHtPxv1DhfZZ/QD/WmTptlLwyGu389mqTsebLFa1614BUVk4/Y+H5AmAVS+07VyLyYZEZTL1a0SlBg33x+s91JDLvKNz0UB2F1UYt5QsXzAE4Ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iD6XK1DX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jaUHRjHq//V4hk4ilQ2g2WPbO9ghLK2QEyxgqseByGYkpaygUMeDqvxqU6ChAmLEbJvnbiS0cvPNG2MR/WessS01HRRJJsG+hIp9rGKrglHZYAcoa+PHNxiCeldhAMA43FZE/xmol4Ulpce23A0BLA/wB9GcsRFI9ZR/JYkrx6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnCbnIn+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iD6XK1DX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73151F000E9;
-	Thu,  6 Aug 2026 22:33:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnCbnIn+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520541F000E9;
+	Thu,  6 Aug 2026 22:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786055639;
-	bh=ay0KQof2H4KKh7Dok+6LrTItL5QQZXVMbbZpcs8FZv0=;
+	s=k20260515; t=1786055650;
+	bh=Mn9ZAA/aSOcuDVI3IMa+ukPpHlsyNhWM/EiAkXtH2wE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iD6XK1DXbJV9/EwZDECCiBDIm3gqgmEAM3TcLu/a0VhGEdGGEM8dv8nyRyDO99nzR
-	 MSYCnbUkfToz/8E9T0CUGWdvhFDljFsmg/7qEH1X3hz7uTRFldR70/COpTHKAarOJ7
-	 Aqx92FIh5rzHd86PFzZQcdAm1z3r34S1sdtAUyTPMcpLeox/Xg5SinBiqSelV7NZcb
-	 dmXy4/aS7PTlFdZetnriECwGogFctGr2pm4N6V7j8PpQJ2ncKR0wQIfa2lxauWMKnT
-	 q2jNFv4PQrv9gxQAoXkid8g1ttLY/WVcaJFNTY0j/ErBzXs7fbyF16rQs56/TCG2bO
-	 ix+YWiJ8X8h0Q==
+	b=GnCbnIn+7u7MG4OfXrIHrZVxn35iqhlTXcq0FUX3QQMSJgMKqJ1iTrQ9X+Y5HZxTV
+	 ah3hdXaCeq4lf3j83YMeTOjHg8Y8NMawyBXgD0q1+637vJFsFRs07YYYNkVl8kasWc
+	 hDcf3AfehdkOwDgYr9Ox1EkQWFdfIeIBq8M5KoHdi4gU8F2PWv6MFQsQW9Gr7o/UWl
+	 F+Vik84uiH2yt1mWXdcYMcLHl4lneZR1I+O1pd/HcN7k3VOwcv3EQfBMDJlWqazYtF
+	 NZSkK2fczZ0JF5RvNOcu9kwpEJFW87hMGixR98oGvtARV71DhVTS70FdTDO0/KvzT1
+	 F0OK8VJr1sT+w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 34/37] pinctrl: airoha: add support of en7523 SoC
+Subject: Re: [PATCH v11 36/37] dt-bindings: pinctrl: airoha: add support of
+ an7563 pin controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260806220615.4078303-35-mikhail.kshevetskiy@iopsys.eu>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260806220615.4078303-37-mikhail.kshevetskiy@iopsys.eu>
 References: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
- <20260806220615.4078303-35-mikhail.kshevetskiy@iopsys.eu>
+ <20260806220615.4078303-37-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 22:33:58 +0000
-Message-Id: <20260806223358.E73151F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 22:34:09 +0000
+Message-Id: <20260806223410.520541F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Missing open-drain configuration array causes runtime `-EINVAL` pr=
-obe failures
-
-Pre-existing issues:
-- [High] Hardcoded SCU compatible string causes probe failure on EN7523
+- [Low] The device tree binding example uses a deprecated integer assignmen=
+t for the boolean `drive-open-drain` property.
 --
 
---- Patch [34]: [PATCH v11 34/37] pinctrl: airoha: add support of en7523 So=
-C ---
-commit 923709aee684a9571b7d6f8e6ecdbaff7482d40d
+--- Patch [36]: [PATCH v11 36/37] dt-bindings: pinctrl: airoha: add support=
+ of an7563 pin controller ---
+commit 19964a175dff853355fc62b6f1ae7edafb571f45
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: add support of en7523 SoC
+dt-bindings: pinctrl: airoha: add support of an7563 pin controller
 
-This patch adds support of Airoha en7523 SoC pin controller.
+This commit introduces the device tree binding schema for the Airoha
+AN7563 SoC pin controller.
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-en7523.c b/drivers/pinctrl/ai=
-roha/pinctrl-en7523.c
+> diff --git a/Documentation/devicetree/bindings/pinctrl/airoha,an7563-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/airoha,an7563-pinctrl.=
+yaml
 > new file mode 100644
-> index 0000000000000..91490418e9ab1
+> index 0000000000000..6d186ebe4a41b
 > --- /dev/null
-> +++ b/drivers/pinctrl/airoha/pinctrl-en7523.c
+> +++ b/Documentation/devicetree/bindings/pinctrl/airoha,an7563-pinctrl.yaml
 
 [ ... ]
 
-> +static const struct airoha_pinctrl_match_data pinctrl_match_data =3D {
-> +	.pinctrl_name =3D KBUILD_MODNAME,
-> +	.pinctrl_owner =3D THIS_MODULE,
-> +	.pins =3D pinctrl_pins,
-> +	.num_pins =3D ARRAY_SIZE(pinctrl_pins),
-> +	.grps =3D pinctrl_groups,
-> +	.num_grps =3D ARRAY_SIZE(pinctrl_groups),
-> +	.funcs =3D pinctrl_funcs,
-> +	.num_funcs =3D ARRAY_SIZE(pinctrl_funcs),
-> +	.confs_info =3D {
-> +		[AIROHA_PINCTRL_CONFS_PULLUP] =3D {
-> +			.confs =3D pinctrl_pullup_conf,
-> +			.num_confs =3D ARRAY_SIZE(pinctrl_pullup_conf),
-> +		},
-> +		[AIROHA_PINCTRL_CONFS_PULLDOWN] =3D {
-> +			.confs =3D pinctrl_pulldown_conf,
-> +			.num_confs =3D ARRAY_SIZE(pinctrl_pulldown_conf),
-> +		},
-> +		[AIROHA_PINCTRL_CONFS_DRIVE_E2] =3D {
-> +			.confs =3D pinctrl_drive_e2_conf,
-> +			.num_confs =3D ARRAY_SIZE(pinctrl_drive_e2_conf),
-> +		},
-> +		[AIROHA_PINCTRL_CONFS_DRIVE_E4] =3D {
-> +			.confs =3D pinctrl_drive_e4_conf,
-> +			.num_confs =3D ARRAY_SIZE(pinctrl_drive_e4_conf),
-> +		},
-> +	},
-> +};
-
-[Severity: High]
-Does this miss the open-drain configuration array (AIROHA_PINCTRL_CONFS_PCI=
-E_RST_OD)?
-
-The EN7523 device tree binding explicitly defines open-drain configurations
-for pcie_reset pins. If a consumer device requests open-drain configuration,
-the pinctrl core will try to apply it.
-
-Because this confs_info array omits AIROHA_PINCTRL_CONFS_PCIE_RST_OD,
-airoha_pinctrl_get_conf_reg() will return NULL, causing airoha_pinctrl_set_=
-conf()
-to return -EINVAL:
-
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_set_conf() {
-    ...
-    reg =3D airoha_pinctrl_get_conf_reg(confs_info->confs,
-                                      confs_info->num_confs,
-                                      pin);
-    if (!reg)
-        return -EINVAL;
-    ...
-}
-
-Since the pinctrl core treats -EINVAL as a fatal error (unlike -ENOTSUPP),
-will this permanently fail the pin configuration and abort the consumer
-device's probe?
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    pinctrl {
+> +      compatible =3D "airoha,an7563-pinctrl";
 
 [ ... ]
 
-> +static struct platform_driver airoha_pinctrl_driver =3D {
-> +	.probe =3D airoha_pinctrl_probe,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> +      pcie1-rst-pins {
+> +        conf {
+> +          pins =3D "pcie_reset1";
+> +          drive-open-drain =3D <1>;
 
-[Severity: High]
-This isn't a bug introduced by this patch, but will this probe succeed on
-EN7523?
+[Severity: Low]
+This isn't a bug, but should this example use the standard boolean flag for=
+mat?
 
-Looking at airoha_pinctrl_probe() in pinctrl-airoha.c, the SCU compatible
-string is currently hardcoded:
+According to the core pincfg-node schema, assigning a uint32 value like <1>
+to drive-open-drain is deprecated. It could be written simply as
+drive-open-drain; to avoid propagating deprecated syntax into downstream
+device trees and triggering dt_binding_check warnings.
 
-drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_pinctrl_probe() {
-    ...
-    map =3D syscon_regmap_lookup_by_compatible("airoha,en7581-chip-scu");
-    ...
-}
+> +        };
+> +      };
 
-If the EN7523 device tree correctly uses its own SCU compatible (e.g.,
-"airoha,en7523-chip-scu") instead of the EN7581 string, will the lookup fail
-and abort the probe for the entire SoC?
-
-> +	.driver =3D {
-> +		.name =3D "pinctrl-airoha-en7523",
-> +		.of_match_table =3D airoha_pinctrl_of_match,
-> +	},
-> +};
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806220615.4078=
-303-1-mikhail.kshevetskiy@iopsys.eu?part=3D34
+303-1-mikhail.kshevetskiy@iopsys.eu?part=3D36
