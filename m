@@ -1,122 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com [91.218.175.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519C53EEAC2
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7549A2DC357
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786008218; cv=none; b=gQimVLEn6+tahB8Zmitv6JsG+qAQgZ4+IRsFJ95lOOigCVCS++ulOgfk+0LVm3EwhcGok2Z88bSlwVhpu1ZiMTSznNsdHYZ9wEzfpsgFSxn7K5C/nVEWgAn4DNE/6uAOTMbhpe0dZ+SaAmDpVjOQ5QJnPWvcIQcEcOWmhw8+EHk=
+	t=1786008242; cv=none; b=jA2Xwelqb3G+KPVflqHZSnEvKylkA5V25PM3zxmq1CSa52p3OTQGOdtxJSxjLU6W5YqXvIdDrTmdaZ+4I+VdtTiras0ambdFViFYcr5oilPLBfNWzKl9pjXqr7D/VpcLGro5z5Ivn1XW3WMhzLTnCMBL4259JULQmOnax/5XkTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786008218; c=relaxed/simple;
-	bh=AESytNUizgGxpRjVnxhOin9qUUoSDsXeKoY93IMJNBM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AdZg+enNHFoW6oPDbqP/TvbYK7EMO25p3eikFX+ZkO0UtNU3uaqF8PrKnRUN0alE3YT07je0AySnvJEIUca2e3AATXLPrnS+WSgrnl9yn/jU6Bbevm1Cm5A0SG2ftuGKbIT4cERn7JR//J0YAWk77CBs8rAMM1BQ9VzU+MRyBZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fWuHe5fM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786008242; c=relaxed/simple;
+	bh=2Bux34acxbkkdsfc7hWzKdEN3DqFCaMDm99n6apUicc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=AGdaPtV1JHXrbjOJ/+lY4pzT4Qq8QOAlNrQ21SBld1fJUtbRrDRMse/ITg325LENzoSTAy/dHyeMSwskAWqKWsqkHO9jmNNk0/fimeiN8gVJdqY68mgrgH3px3FC8qaq1YrPrbl8YbP6TMVPtu/pm0ZnMQr4AOyGFkbDOQ/blBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=aUsX59P/; arc=none smtp.client-ip=91.218.175.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fWuHe5fM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0A91F000E9;
-	Thu,  6 Aug 2026 09:23:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786008217;
-	bh=8jVDrVajaf3Q6ojKRQKvsGo0JTZIg7xIbONaFgu9klc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fWuHe5fMovB8OQqFLoFNpDogd83eEBQ2ng+Nhiwcj1Gba4X5CMqOe/vv/nvxu6Nvf
-	 vandKfOC24yC/l4Jto5chRFfeB9HO4RkIUsfkvO1IQ5MSqC3uQi/4a3/fiG7ADA5FD
-	 +VACWtZ7HDmQ2eqOCvpbLp6qiINUObppYp/Z0hJAZv2TOC7Lg8vmha9tsJAWVdXnUL
-	 FNeIuo7bCQfDeCbnOmlKtuGH2UfiWnCAAZMnV/R9vhFLx1JsQLqnp6frSqIdVCTUGf
-	 l10xFhUy4bYsa8rw+xmy89HHv3TzhtvZ73juhFUOjwcLeWcAQlaeiJ2swKIIqQGrNm
-	 ATqmWJOFPQxAw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 14/17] ARM: dts: microchip: sama7d65: add otpc node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806074024.531259-15-varshini.rajendran@microchip.com>
-References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
- <20260806074024.531259-15-varshini.rajendran@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 09:23:36 +0000
-Message-Id: <20260806092336.DD0A91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="aUsX59P/"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1786008236;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dA4vidVbXhTuIp9QqxNa6zPIHYzqdAruYLG2CSq3Ubg=;
+	b=aUsX59P/Rs0XtXz+pr6ZpDN3xLg2qhYYUcMwU5i5B/YJXki/xjKg/RXiIOPHD3m9wiyjvm
+	jjtHnKM1QWosaYFlpMX5nDchtabNJlbdbH7CS3g+9D2C9VSszWthR0ltCUX05RcmR4QMZ/
+	Xi0EOCqNBIStnzsROASC+WnMZmvfFI1x/8NpxUBVi1nbEflvD/gkv8vGZvdE3TsPPWwZXS
+	CjIV1ID7V6Fmx2Y3YC7X6gKgc9XTIS+8wMAGg2lykgDGb3mM1ENs3gD1WilT84k7Zw+lJc
+	7xdWzeqKxtFOe6gcU83DyeYCC7mrKZAkOp8H2qiDv6OHqQk0mQNkCccyFW6EDg==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 06 Aug 2026 11:23:39 +0200
+Message-Id: <DKHR2P0XJF0B.OY937NT39DR7@cknow-tech.com>
+Cc: <royalnet026@gmail.com>, <alchark@flipper.net>,
+ <chaoyi.chen@rock-chips.com>, <diederik@cknow-tech.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
+ <iommu@lists.linux.dev>, <linux-pm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH v6 3/9] dt-bindings: iommu: rockchip: allow the
+ RK3576 NPU MMU clock set
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Jiaxing Hu" <gahing@gahingwoo.com>, <tomeu@tomeuvizoso.net>,
+ <heiko@sntech.de>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <joro@8bytes.org>, <will@kernel.org>,
+ <robin.murphy@arm.com>, <ulfh@kernel.org>, <p.zabel@pengutronix.de>,
+ <ogabbay@kernel.org>, <zhangqing@rock-chips.com>
+References: <20260806063413.350184-1-gahing@gahingwoo.com>
+ <20260806063413.350184-4-gahing@gahingwoo.com>
+In-Reply-To: <20260806063413.350184-4-gahing@gahingwoo.com>
+X-Migadu-Flow: FLOW_OUT
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The temperature calibration cell is defined but not linked to th=
-e ADC node, leaving the temperature sensor feature disabled.
-- [Low] The patch includes the `microchip,sama7g5-otpc.h` header but does n=
-ot use its macros.
---
+On Thu Aug 6, 2026 at 8:34 AM CEST, Jiaxing Hu wrote:
+> The RK3576 NPU MMUs need more than aclk and iface. With only those two
+> enabled the MMU accepts reads but silently drops register writes: a
+> DTE_ADDR value written from the power domain, while the domain clocks
+> are still on, reads back correctly, and the write rk_iommu_resume() does
+> microseconds later does not land at all. The vendor DT names the CBUF
+> clocks as that MMU's interface clocks and its driver keeps every NPU
+> clock on for as long as the device is powered.
+>
+> The driver side of this is already upstream, commit 841363ebb508
+> ("iommu/rockchip: Take all DT clocks"), which switched rk_iommu to
+> devm_clk_bulk_get_all(). Widen the schema to match so those nodes can
+> be described. minItems stays at 2, so every existing devicetree, which
+> all carry exactly aclk and iface, is unaffected.
 
---- Patch [14]: [PATCH v6 14/17] ARM: dts: microchip: sama7d65: add otpc no=
-de ---
-commit 82cd7693b0c9ba34b6386bb02bb96ebcefa462e6
-Author: Varshini Rajendran <varshini.rajendran@microchip.com>
-Subject: ARM: dts: microchip: sama7d65: add otpc node
+I agree with all remarks Sashiko made wrt this patch:
+https://sashiko.dev/#/patchset/20260805063826.95682-1-gahing%40gahingwoo.co=
+m?part=3D3
 
-This commit adds the OTPC (One Time Programmable Controller) node to the
-SAMA7D65 device tree. It also includes the nvmem layout and the definition
-for the temperature calibration cell.
+Now every MMU with "rockchip,rk3568-iommu", "rockchip,rk3588-iommu" or
+"rockchip,rk3576-iommu" is allowed to have a minimum of 2 clocks, instead
+of having exactly 2 clocks. That does not sound desirable.
 
-> diff --git a/arch/arm/boot/dts/microchip/sama7d65.dtsi b/arch/arm/boot/dt=
-s/microchip/sama7d65.dtsi
-> index c35f27615bc49..aac2e22d96cb3 100644
-> --- a/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> +++ b/arch/arm/boot/dts/microchip/sama7d65.dtsi
-> @@ -15,6 +15,7 @@
->  #include <dt-bindings/interrupt-controller/arm-gic.h>
->  #include <dt-bindings/interrupt-controller/irq.h>
->  #include <dt-bindings/mfd/at91-usart.h>
-> +#include <dt-bindings/nvmem/microchip,sama7g5-otpc.h>
-
-[Severity: Low]
-Is this dt-bindings header inclusion necessary?=20
-
-The macros defined in this header do not appear to be used, as the newly
-added otpc node relies exclusively on direct hex values for its registers
-rather than using the macros.
-
-[ ... ]
-
-> @@ -1111,6 +1112,21 @@ ddr3phy: ddr3phy@e3804000 {
->  			reg =3D <0xe3804000 0x1000>;
->  		};
+Cheers,
+  Diederik
+>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  .../devicetree/bindings/iommu/rockchip,iommu.yaml         | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml =
+b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+> index 6ce41d11f..a3cedcaaa 100644
+> --- a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
+> @@ -42,14 +42,22 @@ properties:
+>      minItems: 1
 > =20
-> +		otpc: efuse@e8c00000 {
-> +			compatible =3D "microchip,sama7d65-otpc", "microchip,sama7g5-otpc", "=
-syscon";
-> +			reg =3D <0xe8c00000 0x100>;
-> +
-> +			nvmem-layout {
-> +				compatible =3D "fixed-layout";
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <1>;
-> +
-> +				temperature_calib: calib@41435354 {
-> +					reg =3D <0x41435354 0x2c>;	/* Temp calib data packet TAG */
-> +				};
+>    clocks:
+> +    minItems: 2
+>      items:
+>        - description: Core clock
+>        - description: Interface clock
+> +      - description: Compute clock, RK3576 NPU MMUs only
+> +      - description: Convolution buffer core clock, RK3576 NPU MMUs only
+> +      - description: Convolution buffer interface clock, RK3576 NPU MMUs=
+ only
+> =20
+>    clock-names:
+> +    minItems: 2
+>      items:
+>        - const: aclk
+>        - const: iface
+> +      - const: npu
+> +      - const: aclk_cbuf
+> +      - const: hclk_cbuf
+> =20
+>    "#iommu-cells":
+>      const: 0
 
-[Severity: Medium]
-Should the existing ADC node be updated to reference this new temperature
-calibration cell?
 
-Without linking this new cell to the ADC node (adc@e1000000) using the
-nvmem-cells and nvmem-cell-names properties, the ADC driver
-at91-sama5d2_adc.c will return -ENOENT when attempting to call
-nvmem_cell_get().
-
-This causes the driver to silently skip registering the temperature channel
-during probe, leaving the sensor disabled and this new calibration data
-unreferenced.
-
-> +			};
-> +		};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806074024.5312=
-59-1-varshini.rajendran@microchip.com?part=3D14
