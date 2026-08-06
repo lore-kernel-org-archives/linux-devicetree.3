@@ -1,108 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B2242BC36;
-	Thu,  6 Aug 2026 22:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA43499F14
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 22:20:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786054731; cv=none; b=dpLKSa69DNzh+I8JNGreL4jjB6fOO0SbQQxYASlQy1r6agh9yEhkB3lBQTqiUN6YXjRntlQ9fAFQgCQtYnxs01aR/9RDWXjiwyGMf0S7X26Dq9XU7ixO+Crgs1To7bAcKIovsrftkZIxAThbsDvhoKChImpJ4e3r+mzT/2V6BGs=
+	t=1786054837; cv=none; b=Upgf30IRoQ4MyC+w3QXLA0hU+PRwP1r/Fv1FwFa/55c7yhKvMuqe+a+9PfOXRHv5ApHjNyI/1w2EJU+sCw2qmR6rqT85/17ekpvDRO5LywJTp1tVmE4rmb4CmqHoqUXzldFhoAfb4mafJAb4xMpMv81jXzCGr+aqw+XBNdsmXP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786054731; c=relaxed/simple;
-	bh=LQIsGtEGbmjyEedPF3KPCBla1mVRaZ7NjQYIuuWPAgc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cUTUmO9/021S2P3nUI4blfMYjSARRncWEvp4m4ZQQCNEVAD9srtD61bJ8JgGdZiD8tJQABHJkKR/E77aFhQyGeSBFduHguU4XeHBDClCn5PbFIp0Qp5frvBaHnNZL1H1o/D+wQilBsfGcLzmzRJXuPiHAJS1gpdErFKiRVFvLjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jVdfLyhA; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786054837; c=relaxed/simple;
+	bh=HlRIrhduT3KFOD7VpoGoA1IJexyyddj6bd194NgMorw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ptl7BkoKEfF45MfVQrc5GY2iFKXsDPwkqYU1UHLKKUcikrLJwsosz0+bIsot8ys2Xx73W+PUgCH0yYlZSHqF+VMKmEL5gAUvZlwqGNukbSuyviC+rOsRnlNzxSP4GkqP1QM/0kPOH41O4bHaW6HmhRYP8Qkg0FdjfRUT1iXDF9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f90LJNxl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jVdfLyhA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786054729; x=1817590729;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=LQIsGtEGbmjyEedPF3KPCBla1mVRaZ7NjQYIuuWPAgc=;
-  b=jVdfLyhAeKCthS70/0NPyhdd1TkdW2unMXTDxBmB7O/8oDE2oT/K/od+
-   LXNNa2NzHa0gn267jJ/0zi48v7ene4A8s/dR4DS22xbu/eCj+D+0F5xCy
-   lhQqTBWzP62wZmE3vxICg11BiivlLVES0wyi1+3+evWACmHNdjmGjjS8y
-   tYPnd1x5fZf/i6gpvLfXpPYaq3s6qg0Lu47j/3mTleF+679w5EKzJetW1
-   XWnDBkmwXmigw5p3RjIBee1PJ3+iWlZDJQOqjMJq2e+beL2kEW4WcWtoq
-   Zk8jm1iGb8xITK9rj3cteExf6nw0fd4eRFp5VC++RN+Fg4Yua4ww0Tzz0
-   w==;
-X-CSE-ConnectionGUID: wn+JUoulSPOz6YsF2kUExA==
-X-CSE-MsgGUID: kOmMuQ6WSGSUeU/JgtybEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="98171518"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
-   d="scan'208";a="98171518"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 15:18:49 -0700
-X-CSE-ConnectionGUID: lHhH0hubRGaBW7e+wQ0MrQ==
-X-CSE-MsgGUID: 4YXb9YJ1Ti+cJ0oZbFsUDA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
-   d="scan'208";a="255982319"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.50])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 15:18:44 -0700
-Date: Fri, 7 Aug 2026 01:18:42 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	John Ogness <john.ogness@linutronix.de>,
-	Peng Zhang <zhangpeng.00@bytedance.com>,
-	Jacques Nilo <jnilo@free.fr>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Gerhard Engleder <eg@keba.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>
-Subject: Re: [PATCH v2 2/2] serial: 8250: Add Airoha SoC UART and HSUART
- support
-Message-ID: <anUIQroijnwmCs69@ashevche-desk.local>
-References: <20260724183007.188172-1-ansuelsmth@gmail.com>
- <20260724183007.188172-3-ansuelsmth@gmail.com>
- <6ade8574-1ba6-3a9a-e1ab-4f0ce9c1d8ab@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f90LJNxl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989621F000E9;
+	Thu,  6 Aug 2026 22:20:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786054835;
+	bh=YQyYEvv2fB0v/GHeGzcIIL7hoOFyo9FjahnV/hf6S8w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=f90LJNxl2r9+wkteU+cVyA8hXlQTw2lIqLTNPUvUBgsId400a8arWAxHN510Yu85A
+	 copvuio7Br1eRyv0TribEY1XMbZVBfbiIJR/UuD96ztpVu8+obn8Ke2t3HbwM3u1aJ
+	 xvuM8DVI5eNWnIXpxKnMBArfxCZkRDaVWV/WYc+vBaw+Adfx1WagxS2xQbdaR+Kso3
+	 hhtInwyhUiCREcqnvd2MYQ3FL99G5GzkUofkZXdnk5+36Ut+p+3ERFDtvSVZu8MML0
+	 mYzkRNwMBOYYSspx75UZYOHH+vwPTnF6FY/Xg2RtZGZ/E4GbmcckaQig5N+cAZuvr7
+	 R3kOuUnZeFSgw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 10/37] pinctrl: airoha: fix I2C1 pin mux config for
+ AN7581
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260806220615.4078303-11-mikhail.kshevetskiy@iopsys.eu>
+References: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
+ <20260806220615.4078303-11-mikhail.kshevetskiy@iopsys.eu>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 22:20:34 +0000
+Message-Id: <20260806222035.989621F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6ade8574-1ba6-3a9a-e1ab-4f0ce9c1d8ab@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Jul 27, 2026 at 11:51:01AM +0300, Ilpo Järvinen wrote:
-> On Fri, 24 Jul 2026, Christian Marangi wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Setting I2C1 to master mode fails to explicitly clear the mutual=
+ly exclusive I2C slave mode bit, risking hardware conflicts.
+--
 
-...
+--- Patch [10]: [PATCH v11 10/37] pinctrl: airoha: fix I2C1 pin mux config =
+for AN7581 ---
+commit b286eed89799e719b07da2fdf90f3f9a8f22ef3b
+Author: Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
 
-> > +static const struct of_device_id airoha_8250_dt_ids[] = {
-> 
-> Add include for of_device_id.
-> 
-> I think linux/of.h is the one you want here, as it will be including the 
-> new linux/device-id/of.h.
+pinctrl: airoha: fix I2C1 pin mux config for AN7581
 
-platform_device.h covers it.
+This commit updates the i2c1 pin group configuration to enable I2C1 master
+mode by default on the AN7581. It adds the master mode bit to the regmap
+update for REG_GPIO_2ND_I2C_MODE.
 
-> > +	{ .compatible = "airoha,en7523-uart" },
-> > +	{ .compatible = "airoha,an7581-hsuart" },
-> > +	{ },
-> > +};
+> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
+roha/pinctrl-airoha.c
+> index ee2bd0ee8c40f..2695342adfc76 100644
+> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
+> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+> @@ -1158,8 +1158,8 @@ static const struct airoha_pinctrl_func_group i2c_f=
+unc_group[] =3D {
+>  		.regmap[0] =3D {
+>  			AIROHA_FUNC_MUX,
+>  			REG_GPIO_2ND_I2C_MODE,
+> -			GPIO_2ND_I2C_MODE_MASK,
+> -			GPIO_2ND_I2C_MODE_MASK
+> +			GPIO_2ND_I2C_MODE_MASK | GPIO_I2C_MASTER_MODE_MODE,
+> +			GPIO_2ND_I2C_MODE_MASK | GPIO_I2C_MASTER_MODE_MODE,
 
--- 
-With Best Regards,
-Andy Shevchenko
+[Severity: Medium]
+Does this mask need to include GPIO_I2C_SLAVE_MODE_MODE to ensure the slave
+mode bit is explicitly cleared?
 
+If a bootloader leaves the hardware in slave mode before the kernel boots,
+could omitting GPIO_I2C_SLAVE_MODE_MODE from the mask result in both master
+and slave mode bits being set simultaneously, potentially causing a hardware
+conflict on the I2C bus?
 
+>  		},
+>  		.regmap_size =3D 1,
+>  	},
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806220615.4078=
+303-1-mikhail.kshevetskiy@iopsys.eu?part=3D10
