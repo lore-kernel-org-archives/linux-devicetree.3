@@ -1,141 +1,145 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CF93CC7CA
-	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 23:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785971712; cv=none; b=byyRsR80qjWcmmxj2+pWHOx8VrhxjgG/VA9foJL0O5STPkC3a53Vbk27XHgJonVWojHVQ5VgOzdBu6U7k/wxkZ+BqGM/v8PWomYN6oBi4nQN1vO37lCzS/FN1Z3gZ0Jhutt/s01zn6X+/rl0UWhNlibXpUQEnDxky6Te9dEf/Ks=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785971712; c=relaxed/simple;
-	bh=pPy1CLEmf7LQ7+VRVpU1PtPWWfqP1ERTf8ceNSl1ajA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GwcDXY/jVnm2jMdMCerIebHOFIMWvaJte/dQF699kTG8s+30PMcu8wf9XX7MAShEhJ8G7cLCq5V9p5cHm7RN6MBj1lw+hn7u88qXnvBfZRPBx3vm7E3sabV/JD1bT002toKXjkNKnTXtJ+aTakcmxq7gosGmZYHuskOjl0wZ5KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=N/oOBORM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=F8Jo17SD; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932233D9050
+	for <devicetree@vger.kernel.org>; Wed,  5 Aug 2026 23:20:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785972023; cv=pass; b=CX34yIBiSQj5lsXO3jyFgc4hccrxE/an/kwtJGH2+yb9TIzB+7DJ9gUnD5yF/IBtm2x/5cEx1tfYqbZyoXcItFndz+YDrI6z4RXhqmDSKlwBOIIbPApKWz2sUoQM40gJtYeeGJtQGA4F90oJjq//HVi4tvzKarCVFbU3zIOh4LQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785972023; c=relaxed/simple;
+	bh=jmKV0c/Se8u8yIt0ZvgkJGPo9dNxUWC90XubqPM7Phs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pY2/6UROOhxzmeweFFFx7ZM61OQT7tKWSsj28QY5qYg/FlSDU0J6yswOTHCC8P1XrdnB1bjErdmNWob+pDOm09EGe/hFyxb04pzCjqNAcgVrUIKVobl5L2HZBPtb//G/UYWvvassXpmiPclOrpUNmKXm1SCBg94t1DArgbhi40Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hpjWlL69; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N/oOBORM";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="F8Jo17SD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785971710;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jX93A5wJoAu0JKunu6l9UvEvI322kw4iodDAJblYaVI=;
-	b=N/oOBORM4PlQmbm597RKRqYlJBIIN5Ur9+XKAuOJgSGryOTmssuX1hEIClWZXf2bAI9XWm
-	e0a6KvcuBKjjuJMRmOl90DZQnKrSk4bJY3MYOnZB+Rjte9rt/iCaQ3ezNtL18xXvVR7FtD
-	pV1uYQzeoqGiQQLopY6cFD7ujm9hUJY=
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-625-ivoZurCEMYePRLSzrRzkCA-1; Wed, 05 Aug 2026 19:15:09 -0400
-X-MC-Unique: ivoZurCEMYePRLSzrRzkCA-1
-X-Mimecast-MFC-AGG-ID: ivoZurCEMYePRLSzrRzkCA_1785971708
-Received: by mail-yw1-f198.google.com with SMTP id 00721157ae682-81f0b6bb02dso41459867b3.3
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 16:15:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hpjWlL69"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso1272777a12.0
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 16:20:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785972018; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G6+pM8bxpfVrrpFwN/1N/XrnRwZG63Oua1ChAEmfe+GGaDHkMPnXOyk3ruH8wN7K9y
+         Y//hy1eqK/XkXi9RynSPCIqVU42NuEJh47i/V9/h7L308/XnKay5Rjvv9ik3F8fuqTIQ
+         QpXdD9jgUwHzNiUKMmwMzlGfECcgPSveg/oZb8pwbB0pxuKMuWlutRbCcLO6jkDHJMpf
+         CYTCIRpYfO6Zftunk0zZnhkuJiO79euivsYadsD54vjbtTWY3dBNb+fRCF4PfIXGfeVC
+         VzQu6L/c98xWLNoLQFCXWm+zdcCwEN0a3dNRFKnAV0Vaoe9oUwo+Gv+BntH6Dhn1fbpK
+         fwnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=2BGPSf6QpIXJkxFb1vWvogj5MGQC0tI4OVE79dWp2GQ=;
+        fh=7FbfR0KdmLuukytcmhGnhUQLp3dPsEXPGB7LRjOTzYM=;
+        b=B7pRw9L8hlPVrB6j1S0CfedsbbFU2tMnEUN7dYNR1R5q88dS0pw1E09twVdVO/LM0H
+         slfflizteYZlAVhUFMZ68/22O2ikybaIOAAOZQFDWyYxnivDOBZ4BEsJeLcoslkJWVQ/
+         XpmyJ1GnK+1RSuuigkEuXGA25P58n9fddqzNlUaMwvVXg4lFNtOFfzXfmFTInmNnH1XJ
+         Yo5dh5MBY3Hl8WmsdN+f2p4H2ZZZmg60DipIlXwfnvqN982OAlVRJs/k8PB6ICJlIe0V
+         C+DOzGSCJ0a1BL/Z5ZnE3ZR653eiDKO9xbHS9jLCl9+jYkGBTz6Q55sO1Uzne9oU9qKq
+         udRA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785971708; x=1786576508; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785972018; x=1786576818; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jX93A5wJoAu0JKunu6l9UvEvI322kw4iodDAJblYaVI=;
-        b=F8Jo17SDBJ9LGkb3UFsUAzLadXVbtuk8yVWoTH7FeT2k3a1gvxnyMk5oHOehOsJOxM
-         WJ/VQHKueUebSVx/JFRVpNvsbu4iPpAldG5IDpCJX9Q21cb70qW6vn1zNG5Zq/ZWKmQ4
-         DrdBB2eJkQfhqEPddS+ZDcYw+2/urpYSp9UerrDTr5651AGmPLiB3gVdkq9IuXWRLJoi
-         zCWyZD2swSgyersBHuQ2EJ7bd22Tt4Jw2BFaJ//iWJzDa1NZsq3ussKTHIoc9egR+gvo
-         iuJeH9S/48PncBYzzVkxf1kd4FLn5dJwimUN+AgdJSdroqevErY5mOtgExtQVCePKS0F
-         dD7A==
+        bh=2BGPSf6QpIXJkxFb1vWvogj5MGQC0tI4OVE79dWp2GQ=;
+        b=hpjWlL69af9NYuq09BB4fDqIuoO5RQrP4pZJ3LAw9euMyIinTo/OOWBiXzv7OYpQmd
+         LmOMRIV6GtNFGr/BjP6G/XR4ONTXOE5oKkty00gfjjOX3BvIPawzWAzyITeIQ3Tti2ec
+         S4OFvAM2Hi2Sr4i1J8djF46ki88Oz8ebUsiJX7rxA1/cRqB1LeQiDx5iGn/N0pn4gJqu
+         +xsdVsow/GIceuXREJUsxisRc/KKvtScZKciFZW5XSucBUiiVF7KBgKoGWSMfnrMT6aM
+         oToCvcpvKE9UWdbKKEpXnkYhrbvDoRD5oraoaGgf47UZQKPgxANe5NZDJpPQi9gc9qkj
+         OE9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785971708; x=1786576508;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1785972018; x=1786576818;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=jX93A5wJoAu0JKunu6l9UvEvI322kw4iodDAJblYaVI=;
-        b=sDlzid1FDZ8wAoIFk4H0+UtP+bPkWGa3vi5pMm4ZJHQa8yGsH5KpSZURUZTJnmmxGR
-         S+Pwc+rPosUKDB+XzT69pHziA8pQ0qryyHFyMaukAswOWYvhdjwrOJEZKAJmCRyskyNU
-         bxXUeg063EGKSs794lFdHMQmn9DcQHA5Kz3I4gke95VG148g7WjKufrVhEBtvFCZ2jXE
-         1jxW7tUOLX0z2v6gcq4hAZ3B+z7K8W3g8qTv3kpmOYwSnhXvUsvYH2OUuk2RaqwfpvU3
-         7CoydvERKyApFl4q8tLNxlyKI9/soBWG39dk3ExzzhPLdLTh+mz2OllnE7nNMKTYp074
-         OG0A==
-X-Forwarded-Encrypted: i=1; AHgh+RoV7Y5jkIuyN/cifTc2+3Kb8+JsOmszQ021OM0jhmEUfW+WDJbTwUMKbhtcb4R6CVNQDl4Yn6ikzc+m@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFuPBEXQ0XD1jAwcTeqnm0xNUIO+jQIu/pZjRoBR2Y7R3dN1N4
-	d2P6ydqiXZlmYYWwBzWo9Q4L0q++ma87CMy9avsW15H8urS67zwkmtWkpSEesfs4+OxuAbvbX9A
-	WpdeOsQwYpRQQQZ94IPQolYYIeiqzog1Fn4RALz6TawO6jzZF3Xnqt8/uU+AJPdk=
-X-Gm-Gg: AR+sD12+fQ910EHiKeDNjkR4WApEsDKMayJlm3Sx9s7GirN3CJ3KAJ4Ebvtlokk8qvj
-	/+RsvEEHVRU1Z+AE5TyykEb7OWjNA5nivlYT9Wwsp16sEQKvdGehSgXVDwLPuaA83GZctBvZUZm
-	jldtmNy6ICpPcA/d+Dk0845h55g/d2FE5AUw2mUjVxo4ZQFD/4EJwB14Z1An0IhA2tLDRrDuYXZ
-	tbJv5ElQjrGWoGB0xuyWpt8fdLf4cQ1wVXP3anFmUSwfpYY0pNeIf5Mez/EyhcBmu0nHcWvHI7Z
-	F3YwvPfptG0WDPdN1Uhlcpbk11pQttt/g4S42igKF8EIVx83c12iwJubrbU3UZyA94xpaUgDO45
-	JU29DNNNa6bmWY+CQdiKRTNBpb+zdddW9QnQ=
-X-Received: by 2002:a05:690c:4882:b0:80d:c9d9:e1a9 with SMTP id 00721157ae682-820229a0978mr60602527b3.27.1785971708340;
-        Wed, 05 Aug 2026 16:15:08 -0700 (PDT)
-X-Received: by 2002:a05:690c:4882:b0:80d:c9d9:e1a9 with SMTP id 00721157ae682-820229a0978mr60601867b3.27.1785971707809;
-        Wed, 05 Aug 2026 16:15:07 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-820134a9e21sm29018917b3.42.2026.08.05.16.15.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 16:15:07 -0700 (PDT)
-Date: Wed, 5 Aug 2026 19:15:04 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v9 05/12] clk: zte: Add Clock registration infrastructure
-Message-ID: <anPD-I9GDyOZSDO7@redhat.com>
-References: <20260802-zx29clk-v9-0-d05530d85d28@gmail.com>
- <20260802-zx29clk-v9-5-d05530d85d28@gmail.com>
- <anC72Cf1zKcLYWlC@redhat.com>
- <ky2t5IqOTfWMdfZsXE91Gg@gmail.com>
+        bh=2BGPSf6QpIXJkxFb1vWvogj5MGQC0tI4OVE79dWp2GQ=;
+        b=jhBbXNOixPKfRuQadE7qAJm7wozBl0xxbMlaWIcSCQiCkR5qUs/X8gT/ln+1CpBhGf
+         wZXMyaBU2OUHrWpCVaDaZbACDYrnFH7LrJcI73/ZPqHD0TgxXroJxVT9O04fnOTcTEx+
+         ihmz0QLR9pXMpTS0iTtROzL3eM5QYoFEi1f3/Iw77MKnFvqhIjy9nCf8PCfcYE4/2ymJ
+         qJzIt14CqjAwPvE2fghu3sD2drMf9y/2EGOMsmajTV4xNjERa2l93kaQuLjNg6DilzH1
+         k/3/6bjSU4ixaKxZ3a1ABdVkREdr0afsvOaaLavlUsaOoxI9wTENs5GMutEeVwQbZ3n2
+         RivA==
+X-Forwarded-Encrypted: i=1; AHgh+RphRHDyBmTKxqACuN0KEKd33sxxzUkU2Taf2fJwPL1F0b9fgaw0hTRBWeflU2jDt56jQtHJlzcHgias@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywh/7BAKBP5I5foF0D6xis1CeUGORrDrejhw8e9+jo4bmu3bNBl
+	MSOhqc3os3nJNuVIPK4Id1GJ/MV+ulRtJ5UtZkARGff9eJi2Pa7yGfwSll0isM5VeI80A3e65qR
+	ffnawwBmZJuDOf/UzEaBUU8+dNv5GN8A=
+X-Gm-Gg: AR+sD12FcIRBdyqYPeh44a+/XDJwcSbjlXyixZdkgOhWT8vJy55697bKYmxIfmYUi+e
+	g57gc2iac0opCyCWInq1d4roNt8LLGhliqB/eNUEZdZqtGPItRiUbgfOZjbyjc7wHdExaqF+g2t
+	6XxVWsaN18FEewWGRACQflJDMjYHHGNUQsios/rQcSafxcPeP+y80sNzqNwOOxnOGAdfq2zgYJu
+	AX0Jz0dd21sn8v74agNhfWRFeQbecFK3DwvuE7riXCT/+gyLBdOra1ASRKrS901DLOln/EmEPfB
+	omDLZSvLbfmTYUA5doyDgpjGXxRGBg3R1Rkx0z/nsj9D
+X-Received: by 2002:a05:6402:2353:b0:6a0:fa22:c1b1 with SMTP id
+ 4fb4d7f45d1cf-6a14f14def6mr6034923a12.19.1785972017604; Wed, 05 Aug 2026
+ 16:20:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ky2t5IqOTfWMdfZsXE91Gg@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+References: <20260804225617.264861-1-maximpedraza@gmail.com>
+ <20260804225617.264861-2-maximpedraza@gmail.com> <178589017450.2494424.9339926059212534643.robh@kernel.org>
+In-Reply-To: <178589017450.2494424.9339926059212534643.robh@kernel.org>
+From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
+Date: Thu, 6 Aug 2026 03:20:03 +0200
+X-Gm-Features: AUfX_mzOCZNsmfcLq2dg0NuiT9kjwjgP0rCcSAmpyZFQYuYenYCm_iNS5xusMIQ
+Message-ID: <CAEUXW=GWjTSoa6iRcA=AsP1xkKdud_rwYvgqXahmzHBYZDPYyA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: add a device tree supplied
+ boot logo
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-fbdev@vger.kernel.org, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	dri-devel@lists.freedesktop.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	devicetree@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Helge Deller <deller@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Stefan,
+> Documentation/.../linux,boot-logo-clut224.example.dtb: /: 'compatible'
+> is a required property
+> Documentation/.../linux,boot-logo-clut224.example.dtb: /: 'model' is a
+> required property
 
-On Mon, Aug 03, 2026 at 08:48:18PM +0300, Stefan Dösinger wrote:
-> I have a long-standing question about tristate/module support for drivers like 
-> this: I don't think the driver can realistically be unloaded. I have been 
-> testing driver unloading by removing the UART clocks from the DT (otherwise 
-> the clock driver is busy) and marking all clocks critical (otherwise 
-> unloading/unbinding will shut down the UART (and more) and lock me out of the 
-> system).
-> 
-> I have made it tristate because from early research into clock driver state of 
-> the art I gathered it was desired, even for drivers necessary for fundamental 
-> operation [0]. Did I understand this correctly? It also uncovered some linking 
-> errors that weren't obvious when compiling the driver into the kernel.
+Fixed in v3: the example now declares compatible and model on the root
+node, the way the simple-framebuffer example does.
 
-Leave it as a tristate since that's how most clk drivers are built. Also
-think about this from the standpoint from the perspective of a generic
-distro like Fedora or Debian. Support for lots of SoCs will be enabled
-in the kernel configuration. Some SoCs that may be deemed to be not as
-popular for that distro may have their clk drivers compiled as modules.
-(We at least do that in Fedora -- can't speak to Debian.) That way they
-are available if needed, however the generic kernel image doesn't have
-a huge number of built in clk drivers. Some more popular SoCs where the
-distro may run will have these drivers set to built in to help with boot
-speed.
+> Documentation/.../linux,boot-logo-clut224.example.dtb: chosen: 'logo'
+> does not match any of the regexes: '^framebuffer', '^pinctrl-[0-9]+$'
 
-Brian
+This one cannot be fixed in the binding: chosen.yaml allows only
+^framebuffer under /chosen, so any node this binding describes is
+rejected wherever it appears. I have opened a pull request against
+dt-schema adding '^logo$' alongside it:
 
+  https://github.com/devicetree-org/dt-schema/pull/204
+
+It mirrors how framebuffer is handled: the entry is just "true", with the
+contents validated by this binding through the compatible string. The
+pattern is anchored because the node carries no reg and so has no unit
+address, and the binding pins the name with $nodename: const: logo. If the
+naming changes as a result of your other question, the pull request follows
+it; it is one line.
+
+With that applied, a full 'make dt_binding_check' is clean for this
+schema. Without it, the third error above stands, so this series depends
+on that pull request.
+
+I did not see any of the three locally because I had been running with
+DT_SCHEMA_FILES set, which leaves root-node.yaml and chosen.yaml out of
+the processed schema entirely. Your message says exactly that; I should
+have read it before rather than after. Running it unset now.
+
+> The base for the series is generally the latest rc1. A different
+> dependency should be noted in *this* patch.
+
+Noted. The base is Linus' master, currently v7.2-rc6, at Helge's request:
+v1 went out based on a stable release and did not apply to any tree he
+uses, so he asked for git head. v3 carries a base-commit: trailer from
+git format-patch --base= so the exact commit is recorded in the series.
+Happy to rebase onto rc1 if you would rather have that.
+
+Max
