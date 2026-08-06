@@ -1,129 +1,145 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90633484221
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 16:17:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEC22C3261;
+	Thu,  6 Aug 2026 16:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786033076; cv=none; b=rdFzt53RkVBipcX8uNLZSmTMCdbpwPaCIixRsjIMOmrxNu1fnaX3rtEJjxEkEP6B1y5jOz5RA3yGY+9EKS2A0KFma8YPDbHIwjQHTfcP6AQUFx7IEXaL2zWhlk9PjBiiB2kv8HNd/NRpdC639AeaLxY9vYdmRwHtwKQAFBbZiyM=
+	t=1786033307; cv=none; b=rjwpZ8GyRGAxyRgz/nEBmJ2rRfh1kp0h79spXzh3yKfLTpYN/ubaFobsHiJ+QGW7frtVPDlStmOdxD9x429xtpsJ5LNBkBhWh9njyOMQGtk7baOPo2ht+yVYRAY/3fTMDkEY7d82yDqTGE1ZhqJSM7QY605qRsSQnRX0mVjNnNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786033076; c=relaxed/simple;
-	bh=h8+2Erq/wSaXTLvVyIseCSe6KFN1jiUdb+sF2rTDb44=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WnauNWHd8IhqRgz9dGFdwfqakP+WqQnsZ/EqEPLdExFXDkeES6JKjArJc8gW6SUaPuR9MJf83+vKQNiCs0a9Bt4acH1LoOQEgPqa7Wf89Y29Vn2kaQQJUX7DzfIA51a5cJ5y7sMTKNPJJH6ZA3myh8S0MrLDw1LsK3OR8o1n8TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Gnij0g2r; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1786033307; c=relaxed/simple;
+	bh=9OQRYxnEbL1vlfwxgT977i1AfPRqWf0vi68WNMX/Mqo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jChrveXNMxV/hMpr3En8w+WuF1MAw9PO1jZORwpLKLhVy3Pj2BoI20kvB2SY8rlnTNFvAiVFlraTvVhSccf4z19frr4qsO+z8usy+LAZSFN8VodTDUAlwBF2Mz+zyzU8Oi7Z6L5qZVDsahSLvr+8OL3aiYw1UEbzSlHZl/tLEOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aalAEn7r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Gnij0g2r"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47f71156e1aso1110294f8f.3
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:17:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786033067; x=1786637867; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s2TkJw4qV4dMHeSE8n4BR00N5vqDbN8wATqN3VEnGD4=;
-        b=Gnij0g2rgQCYJ4K8bhohuTLp1zuzsMr7Dl/FiNfDF2pUb67J+eVu+Hs+X9q4kuYooG
-         hYImAFmk0ljJDhSJeSbUv5BFB+97pG24smURdsDQMJnk2QN0R5z5RaWxB6h7s3JQesTQ
-         Ls8vUZ09o5SvRojlWEiPoFOT1loBs8ozHCCZVNi96lpby1kFVMjNS19BaRLm91XccJYK
-         Vi1WZ+QFJpdHl+3AVxVobCDaj/R2QgbI1yLDjZrxjcKt7xP2nDlFe6CkKLZhrVhyGR+E
-         d75qxl3YYzX3qXs7AL5JJtRX74iTticGoH72VFRnxYKKtknDbp2GlI4W5CkoD8BEjKjG
-         wSdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786033067; x=1786637867;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s2TkJw4qV4dMHeSE8n4BR00N5vqDbN8wATqN3VEnGD4=;
-        b=q3LrGlbftQyw8gGXtkdzvOuvMGrT39k4VBSU7AHqh9hnnSfgkxLgNG3VjJruLcTiq/
-         W+LmgTidZfcq67mXDheHek8WufZ5H/kr/kvCoFs2tCgzm1/QKfU2HnzlKdRfeqoA6uGH
-         +kfyd2iNhTX7PJeiCrepWmvD8OThXHXyH0tTrZZIAIM61KdQZ3x5fORpGkeZVXlvDE8l
-         EfRefcb6hD5Ml0629ZmfCZKrHhdvsSkRdKytxlxzXv1lOhpfPuy39eSsBGzlmBi3XpN7
-         WbyY+nliaL1si8LtmwmCt9JSSD+NuB1DqfAxROAiq1D0GNzaNn9ljtw8hvt5/NsBD5im
-         w/pw==
-X-Forwarded-Encrypted: i=1; AHgh+RpsCWl61lWvknOZfsm4SLu8tcEVF6yOYmrzmApzVVjs/aLDo9xRLO0aXHG2ruSiLzYPlhb26YdBbw0r@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy6HU3kUITAJ5lAjhJtHS3a/PSn38tScyX0N3gDleZSQe5zV3Ta
-	ULjzB6lFHxDUmFxMPmEQPPb233WPJ5fOoY+hNZDdmdYip16Xt2Xa4kn/H8w02IK6SdA=
-X-Gm-Gg: AR+sD11ayK44SyDNSainGlXzAEZHtQS7Ti7oejobliGQzZAKFK0GmIbWDXKGXY0qj5J
-	Vm1bg1w3+mhf/s7A3e23bdes/nSEU9EM56HfFdqKDL/CTmCGUs7esEHGLDiitV4JKNtrsYjDtIo
-	UEv5cWC/oCtRxYFG9N1Rr+aE/SbwdPQnewN9dNwnDTADlQwImaneYkghPYkDbIOTzdrrgoHq20x
-	zTWPrzJmw2OvSRs1K+xiN4h866Vdfh05XuSYdbZlJTDVSh49sbKSc3D1w9os6xln9hOam2FUv46
-	OJqW5vF3UX12IkL9vXRVk76eNMMZ94l4FaRM1v7GWguGhIDyzlTSj8UulPqggoYtjOv+An0qqzC
-	dG75KkmzzC6B/CrcKGVBsMfghgPO/xLbhNedArKqbfyumc+4PLqPWv465h7GaO43XzF/057S/dw
-	E5piwWxb2J5bmxG/CWzg6RJg8pAXrc7rqnZARf6J8w1zjd3uShllBscEGahS5kzEOmaHkHtnAoI
-	w==
-X-Received: by 2002:a5d:6f0a:0:b0:47f:8a1c:54d8 with SMTP id ffacd0b85a97d-47fec502df3mr23870212f8f.3.1786033067170;
-        Thu, 06 Aug 2026 09:17:47 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.115.165])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b32487sm6964879f8f.34.2026.08.06.09.17.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 09:17:46 -0700 (PDT)
-Message-ID: <43327fb2-0085-4d86-b408-8723d852c258@linaro.org>
-Date: Thu, 6 Aug 2026 17:17:45 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aalAEn7r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3844E1F00A3A;
+	Thu,  6 Aug 2026 16:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786033305;
+	bh=9OQRYxnEbL1vlfwxgT977i1AfPRqWf0vi68WNMX/Mqo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aalAEn7rNUlyRJPV20BjL3yI3iPPN+js6kl4wiCICluf+ZHpYklDJI/OsH7/3ARg6
+	 6B8o11hfV2IPUN3Qq6QJmnNjXQC+59EpEP5WYdtoDSed9abq3u+doW4SPm6/oDr3T7
+	 WWaEaKql5HntTfMkY72NHSwnnY6fX/u97XSO3ci0teM4TfzFOTv5O8ebSGlHprBcY8
+	 llw1LEhloYGFMqTMz6BQvN3SKr+VR2DwYRLKw1W8OM9fFn1tKTbaycRrBHNmPXt+oU
+	 fLBXBy6hbmtPaffVx6Jj94F/NzDmzVT6Qs46zlC7UEKdcgz0I0lIyGDW38wbRt4aCm
+	 UPYrrB9vJfAAQ==
+Date: Thu, 6 Aug 2026 18:21:43 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+Message-ID: <anSyU_-zArFch-an@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+ <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] phy: rockchip-samsung-dcphy: factor MIPI D-PHY
- power on/off into helpers
-To: jason98166@gmail.com, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
- <Ji-6adk9LJbP87Y7X6SfOcAyVnGpO4dbHk0lBikX3NGAPz3dynWpvL8QjkVM3G3jEnwTrTV0p7nOqBxPRaH0MQ==@protonmail.internalid>
- <20260726-dcphy-rx-v1-v2-2-cf9cc34a412a@gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260726-dcphy-rx-v1-v2-2-cf9cc34a412a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4gmnekg7ar3gl7m6"
+Content-Disposition: inline
+In-Reply-To: <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
 
-On 26/07/2026 15:55, Jason Yang via B4 Relay wrote:
->   static int samsung_mipi_dcphy_power_on(struct phy *phy)
->   {
->   	struct samsung_mipi_dcphy *samsung = phy_get_drvdata(phy);
-> @@ -1368,7 +1376,7 @@ static int samsung_mipi_dcphy_power_on(struct phy *phy)
-> 
->   	switch (samsung->type) {
->   	case PHY_TYPE_DPHY:
-> -		return samsung_mipi_dphy_power_on(samsung);
-> +		return samsung_mipi_dphy_tx_power_on(samsung);
->   	default:
->   		/* CPHY part to be implemented later */
->   		return -EOPNOTSUPP;
-> @@ -1383,16 +1391,11 @@ static int samsung_mipi_dcphy_power_off(struct phy *phy)
-> 
->   	switch (samsung->type) {
->   	case PHY_TYPE_DPHY:
-> -		samsung_mipi_dphy_lane_disable(samsung);
-> -		break;
-> +		return samsung_mipi_dphy_tx_power_off(samsung);
->   	default:
->   		/* CPHY part to be implemented later */
->   		return -EOPNOTSUPP;
->   	}
-> -
-> -	samsung_mipi_dcphy_pll_disable(samsung);
-> -
-> -	return 0;
->   }
 
-This looks a bit funny.
+--4gmnekg7ar3gl7m6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+MIME-Version: 1.0
 
-Do you have an int method() {} with a final path that returns no value ?
+On Wed, Jul 08, 2026 at 04:49:31PM -0700, T.J. Mercier wrote:
+> On Wed, Jul 1, 2026 at 9:09=E2=80=AFAM Thierry Reding <thierry.reding@ker=
+nel.org> wrote:
+> >
+> > From: Thierry Reding <treding@nvidia.com>
+> >
+> > There is no technical reason why there should be a limited number of CMA
+> > regions, so extract some code into helpers and use them to create extra
+> > functions (cma_create() and cma_free()) that allow creating and freeing,
+> > respectively, CMA regions dynamically at runtime.
+> >
+> > The static array of CMA areas cannot be replaced by dynamically created
+> > areas because for many of them, allocation must not fail and some cases
+> > may need to initialize them before the slab allocator is even available.
+> > To account for this, keep these "early" areas in a separate list and
+> > track the dynamic areas in a separate list.
 
-Tooling/compilers will definitely and rightly complain about that.
+Huh... going over this thread again I could've sworn that I had replied
+to this before, but I can't find any evidence of any reply.
 
----
-bod
+> Hi, It looks like you'll also need to update the CMA dma-buf heap's
+> add_cma_heaps init function so that it adds all the CMA areas, not
+> just the early ones.
+
+I would actually rather not do that. The case that we need this for is
+creating a special purpose dma-buf heap that's composed of multiple CMA
+areas. These areas must not be used by anyone else. Exposing these to
+the CMA dma-buf heap would allow anyone to allocate from individual
+chunks and throw off the accounting that we need to do in order to keep
+the protected memory from working correctly.
+
+Besides, given the dynamic nature of this means that the CMA dma-buf
+heap might already have probed when these dynamic CMA areas are added.
+So we would either need to have some way of notifying the CMA dma-buf
+heap of newly created areas or we might end up with an incomplete set
+of registered heaps.
+
+If you really insist, I could look into this, but I think it's actually
+a nice feature that the CMA dma-buf heap only registers these "early"
+areas and exposes them.
+
+Thierry
+
+--4gmnekg7ar3gl7m6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0tJQACgkQ3SOs138+
+s6Hx2A/+LyXBkYE0i4vOlsqA/Ydjj8c8/300xmhsRpFbwbpF3gTAquepUhv4ccLk
+pn6s3oOPckjHUjgqi17LCjM+dbGIQRiXZ5sHHuq69DOmSq6K43pvPWC9DQE3kICK
+i05UEwUTy2GyHSp229X6bMmMKYyl4WW9pde+bHXFO3IBdszOFd76qxdMqtl3agOv
+kfgnaTJezzmgsC1qP4etPKCdwHkxCcCO+r/IUp5vm8tuot9r3ZmBeyeLcSaboN0D
+RP21XS13WS+QLN/rZAXyBAVhrpNrTBOcQcI5CYrTXnDFkJYeQJEkd5ugPi/q2wr4
+KM8oHddCYYYHQyIEOG7pFcNGhonqPopbSVLN/BwII0fbmJXppQrdPyR4B3ZzsZzI
+51eP67NZSMCtnEqOeaqKYc629FRTyBsrMWfEhmHu19hAJb/p9PvkqxCIR+TlebSt
+HbuYY8JUEbz4Ck0Cb9FHGHsuYwsYkSKVpy0CpXnqkYEayTLU7dEHHpoKyTtS5Wvz
+w8fNZPuvXMWffnb1L+4nblBj2VNkJCSUvr3ZcgU0H6PlqcES02A5W6ectwCN/2R2
+STUcZd3vK2dFxCKRPHOx5+YyienQ9dBUapH7HwK01V0SFwh9m58TpMKmacD+y7vU
+Ns4RBrD6r3h3Ua+YybzB1+b9dqB8U4mzDp9x92jAksifc9ZHH5Y=
+=/fYh
+-----END PGP SIGNATURE-----
+
+--4gmnekg7ar3gl7m6--
