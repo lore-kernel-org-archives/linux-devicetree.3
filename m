@@ -1,82 +1,82 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCCE47F2ED
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 16:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B173D47CC97
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 16:13:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786032801; cv=none; b=uH+BTlrNOy9+Agez4Sa7JlGTHflyJylXj3FG4wYadKYZg9IMI68plhOSF8I4ix7Um3yWnDy4xn5wdLjQehKdS9TV2AXHUsQmZxfFc6cRr5hzTifp0rXbRN17riS1SPB9Rnz1FSzREL6MxW4zjnrg4rjGBFVovz1u5Hq9duZFMKk=
+	t=1786032811; cv=none; b=eCAw7HgSkQ9P40Qfx6xEPCs+eVHW1pLK2aJv+BqbAttRlumtjuyp3bs2wSdA8/sA9JvsnBz7YHuMV3OlR0C5mmSZCOJP/nVkenAcwGqR4SQhWCESt7QSAm5JKzV0uA30SWzhvmia2B9Ohanh/PoJPvCQcxt9SchbMMh3afA7/iQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786032801; c=relaxed/simple;
-	bh=Ao4k8UCAQ63pTsAXW+nwl6jaANXflQZYV4NF+HzDpas=;
+	s=arc-20240116; t=1786032811; c=relaxed/simple;
+	bh=5PeyoTECQ66Iqyyoy9iYlx9GtWsQf+y6hV+Ddu5GYAc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=j6CetDuGtTOQp97imTWkCKEw6ADbZSnacdkxNa79LNBcSiqQjdqTzRPfJeItfaHA7AThCKkvEwnJmhTNgGhf1PKzm+g7Bihqh5OfgT0pzVmQDifiQb/bu8aP9ML5h4sO9rAmZ7aEuKudAn/DRf7UjQbIfb9GGndYO50684662sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gB/OLAD8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ECz3tHyW; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=baApIoT5lGq4/TY8iaPM9y8pwxwFiCN8y21JC0o2esZ4NUXCASP260ldISWvmeF3m8r/gdreGlSS2x78u/GtBXds9aCJij02SX6r9A3RONmQ4DgcKclXKjvwAH9IsRXy4rNh0vyD1NkHUpYK9ti2i01FuhRvKi723GA0byk/jIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nRwK+Osb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gvf+mx3C; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gB/OLAD8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ECz3tHyW"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676EmNlq1553304
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 16:13:19 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nRwK+Osb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gvf+mx3C"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676G60E32144656
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 16:13:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=Tx+tU+JavHm
-	9jlJKkOPRaMWM/yiGuddWBQeSbrpsom8=; b=gB/OLAD8jCO7oDNFB1DvjJBwl7K
-	6mwSy9f9tI8GsZeBzOko+RXYNLzeXRHylhpUBjGU/ziir5WXfhkyJfoQM0AqoCXl
-	L0cNBsN0u+03ArxdXD00QGiBUjEMKUb5Lzl0bNGwRQJF9Hb5RDC22Y/Buu8yRTJL
-	Jg4BUEU78jUwfX6W/pN/MxV+1nlWdKKMtQbeJfizRTQp65lbDOYUhuEZpvhFsEEN
-	t1w/v0Lq4P+1z/3h7PrNCDsrpfQNn/EbME8FpdU/mKuxTJF9JerZ62BycFYetUoZ
-	uMK8FYGcAooTpMKzNuWMn7YA6fwFV6hLRPjecTQkBhYXBCdvMSBQL+Zc8lg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvv5b0mh8-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=j3yTiCd5w6P
+	Lx2rBgGNNwifxet4nzymC6R6SBfaIrOI=; b=nRwK+Osb4DDTr1qw/kiuuCOd77C
+	IzQAz225o4NVXFBQ7JRM7lVuXGSMLtuJwP/gsJK+7hyep2XXG+c0ZhTSPMj2eOFa
+	E4wGLqkY28mm/Klm9kooRWdU3LDEBi/fxaNzbiL7hyLB1iiKkWhZJjW2R8DGlnn+
+	5eGYU5Dw0vdyB1THsuIGP8wnuZGLuLOLRz1IG9N7zogq7UFA1jO9TxqMHhVKDaAy
+	bxhAJIsGiBYNoZ4WSizNJ2mXBgnlE45Avk5AsZTjKEHtnpPJkQuOadvPGh0fd/lW
+	kkj5gwa597jwNQf0cVIma7WScTYeFTWqgvoTzWSxDHmATpE+GEN7M+nzPDA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvwg98246-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 16:13:19 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb20f82a0eso2819996a12.0
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:13:19 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 16:13:27 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cd01a14e81so33847545ad.1
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:13:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786032799; x=1786637599; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1786032807; x=1786637607; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Tx+tU+JavHm9jlJKkOPRaMWM/yiGuddWBQeSbrpsom8=;
-        b=ECz3tHyWiwYwDEjasSuGGxIIwtRRtxN//y3FgrhzSMvn85R4tPfjXDcHptiwcuU5XB
-         lDOlbmULcMBMHKXoz2JU9PFgUrHnlRmX5yhoZpo0v4irSV6cADpqGTAlmwSMe/qF+hti
-         H806E9VtA0yK5eWrnZYO0F0cJEuCX1vN4UiKvKQOeKjQ9koNPBnxcJcJmSY8qf1HK121
-         hJfr8nFFfSHbUbbgphCzDp7NafM+VzaOWVv5cilJ96V/i4kwxzT+jMLbdT1fwj9fT8Ee
-         y0FxvzQQqoRR3CiNa3d4tEiUCXY/WOpA2OGic+RwJbMspYXk1kQrNqU2VRpPU8jDH51J
-         acgg==
+        bh=j3yTiCd5w6PLx2rBgGNNwifxet4nzymC6R6SBfaIrOI=;
+        b=gvf+mx3CI3M6ihKQEhxnNXPHmvgQg9ZwcZ6t4/C+YQAI7k0ASUS0CQ4q4K1rBnq0t1
+         nUNv2lHimnDefjmpOWzzN099a5mayiy62+Ytq9ZncnnVgJRLgywm5kg4zOtYg0KwNxXg
+         S8uG0fCOipSduPkq4/0noi10fhi/tPskNo4LBfgiu2sfC2Oli54bwkhQDW4Ee4QQYEho
+         hAeNaHin9EhUj2lK2tgI0kBcVR5gT3HjElbT+k3wLcjyDot7u13U0k5gtEW1nr6gaQr0
+         vlme5sQMvFPrwR5DbnUiXqCCKLsz7cPs2RvQv4A7kSPgwwn6P99vpXABZA6KUELWCNBK
+         HSiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786032799; x=1786637599;
+        d=1e100.net; s=20251104; t=1786032807; x=1786637607;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Tx+tU+JavHm9jlJKkOPRaMWM/yiGuddWBQeSbrpsom8=;
-        b=NtEx+wTbKncpvf7aPDTFi04QMjkdYE6abKpO8E2sLwYUwIyFOuZ4o3LY8liKYhB/0v
-         S7mDWzoYwzD30CAy3Av1LFgUlxLvsMfTqx7JJvLlyOIJOX56pn3BgXK2K++sbxzktN6U
-         TScHV/x2IDooWq0Yflvtj5G2fMmu+kxLp1AUpLu6IB2+APEPgJghyEOWy4UV9xXKN9Vz
-         z3W6cBbgrQt6b2UbG89XTsifoNgkeATisvl3pb0sFeSwZz8t2Bdnrgt9ILL7UzDT7f11
-         B/lpidsnznkvUWCtdoG1eOgHztGXN+tqcVvMo/EiEDLE384cufVS/H1xx5Zj9plwehyy
-         J3jA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9xZ2jqFflcQAlwsA+CpAcyR99h6f9i0PygH3h0oaBK3B8u4GgblZd6umvMIucY9pNge1RpeSBMibR@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy9zY3SwjmEQ2V1TIHqWUsYPABiX6YT6Cw2Q1rrsn4mJrzpLVcg
-	PGOLFLe4FZ8ZQO9KglO1DSqT+R9OWxoH+0bqaorJ3QVTPdeivLvKXTkj/EsCMHHfrdmTnI83uKI
-	yMbSCWFGfCF9AJiV5FZbgDyDSB72scSOd/iKEqlXIX/CkpXs2XeE4eeZKr8Xo6PS5
-X-Gm-Gg: AR+sD1384N35gkEoXjntbwwHTFbblok1j4DwGpHIGupriyvlv8YvZdvsfcmM4233Nzr
-	V/dhfQKo17GkLfQllWEp66ZsQzSSRN8jEzPwgL+7TLNcYnuXkvANl+/i5zJiHXnFa1L65kktRU+
-	1oJgcfPc2DRUb5aR71d5SySO/HIbjvtpZZTR7GPuU2VQkPcHfjjFTvA0x7skiBElCmbO6jzWi6a
-	6vnPM/YdpOpHevcR81C02sOv+LoBICqDle4QDmYNbC00NDtE0W11QS0/Smj2nAqPaphSN6GptWk
-	Y5TxYKfBhvXAlh4NHv9INSIiRlCd0XF0JFwRdQ/9iiNT/Apye4crJCvwjjttgc7VMk1VT097i5+
-	auEwIC0+E3d5dci1m/fw98BCZNoDw3SPZ
-X-Received: by 2002:a05:6a20:72a4:b0:3bf:9142:ba3a with SMTP id adf61e73a8af0-3cb85ef7460mr18750418637.26.1786032798817;
-        Thu, 06 Aug 2026 09:13:18 -0700 (PDT)
-X-Received: by 2002:a05:6a20:72a4:b0:3bf:9142:ba3a with SMTP id adf61e73a8af0-3cb85ef7460mr18750338637.26.1786032798360;
-        Thu, 06 Aug 2026 09:13:18 -0700 (PDT)
+        bh=j3yTiCd5w6PLx2rBgGNNwifxet4nzymC6R6SBfaIrOI=;
+        b=I0zG18uq+JA0Z514xPTCBmUFAfKUUqxTJ80mZtAQpohMKG7p1peh21U+hrtZSsvTpC
+         aPGKdUpMMYdqECHYfVlsoqOzHRy7coMH/6MsWOsII1TFZiF/RsoiL4iXfzcWeIEfPAgA
+         CxP8k256nPlTbc0YMoSgBIbhr56uxCtWhHpzkAeAdTBfRQxzkTR8LWiHguSQV75WrTMl
+         y7M0NvUHyj1wkyIWaYg5gAabw14qpw96ZXpaEj/GtzyQfntKNa3IDVuHWF1L7o/G1pZ/
+         6PrQnZnzqi5XXVXZs3ZPHKR9kw6ywsi02L0lB9xycoM141kZVvxCEhM9V+H5EUZTlp3W
+         MY8Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqrTkd71khWiVggg4uHzEX4DJEIsfV8F/2NYT0EEl9Noe3Jdk9jwv6S6/H3ixEtKmGm1G1ZhkQOsmED@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzq3JXWB4+cxlUkwdJjZJwFeTdrx3IbWRVZFXGvOm9QGTcrKAQ3
+	dpHy3F9Y7SPw+OKyOwlbrZetA1UV63YERyRmCdgdmMyZeBq4AIKdNyWr60nJWbU1m2yP2VSQdq+
+	zdjnaZaHdxuvnXRRbwRNv7RZ4oXpHdsgxjUBpAfcsVqj3CkXSkQhP+nCdxjuAP1h0
+X-Gm-Gg: AR+sD11hy4FgH57mLAlVb405fiOCCKRjp8UuubgpY3Ap+FNIQ17grWdm3ZmvIosvx3s
+	cCgviMmCaBcxf2XX8OfnnkoIEJwRVTWVjMhYgmxc+77iTHSzgR6ftNNfIt94+16X2xfvuNa8xkV
+	4Z9SaWdWc3zxGU00JlDHnzUf9n6ydOjGr1Y7WkPdCn/WYc+uZzcXreVMTmnyp+la94CKvGPAfQS
+	Cyni7trBnBCE5z6rKtMrAa5HEbArCJiJYqm8x2ES/W6JYaoies38g5TInQbOcVHoJVdC+MtWTPJ
+	lnMm04EGAhjwxYEmmr1xxlIq5036vDmS34KHxHDxShIE9NxXo5DYadOAf+opDiul3RmBecJsBU8
+	7Rihj/xdzI4GV/bdaryuiwmuJ7EC8lcBu
+X-Received: by 2002:a17:90b:5683:b0:381:26f:8f05 with SMTP id 98e67ed59e1d1-3903c5380f7mr15941414a91.3.1786032806938;
+        Thu, 06 Aug 2026 09:13:26 -0700 (PDT)
+X-Received: by 2002:a17:90b:5683:b0:381:26f:8f05 with SMTP id 98e67ed59e1d1-3903c5380f7mr15941347a91.3.1786032806380;
+        Thu, 06 Aug 2026 09:13:26 -0700 (PDT)
 Received: from hu-pkambar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315863b761asm43074546eec.1.2026.08.06.09.13.12
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315863b761asm43074546eec.1.2026.08.06.09.13.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 09:13:17 -0700 (PDT)
+        Thu, 06 Aug 2026 09:13:25 -0700 (PDT)
 From: palash.kambar@oss.qualcomm.com
 To: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
         krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
@@ -86,11 +86,10 @@ To: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
 Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com,
-        Palash Kambar <palash.kambar@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v6 1/2] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add Hawi UFS PHY compatible
-Date: Thu,  6 Aug 2026 21:43:00 +0530
-Message-Id: <20260806161301.1010876-2-palash.kambar@oss.qualcomm.com>
+        Palash Kambar <palash.kambar@oss.qualcomm.com>
+Subject: [PATCH v6 2/2] phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
+Date: Thu,  6 Aug 2026 21:43:01 +0530
+Message-Id: <20260806161301.1010876-3-palash.kambar@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260806161301.1010876-1-palash.kambar@oss.qualcomm.com>
 References: <20260806161301.1010876-1-palash.kambar@oss.qualcomm.com>
@@ -101,64 +100,341 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEyNiBTYWx0ZWRfX2P8QLk3wSMKI
- 5OPVmLZzUtwsm1haYjhObgCHbG1YjOVMmW29bib8IjFA2BSPVM70BAwSgVUmWeWSyvd5rw1A1cP
- FDqoOQ1XT8t2RgMfY6WLCd8vp5E5sB0mTBapmzDKVRP0ENPJzoUBnVDoECCDiH+ZK9h95N3C+Qz
- 4aNVvPzbNTri714+0KPvCCDTLk4AVkxMn216lkq8GyR3K66EivFfrq49yPR+Jotf6K6G4amkiXJ
- g1k+vXnlzZ8D1M7R83BhWWNjeO8fJdbqs+CMLbu29g0TdTrQNzpLaLvu60OYfbpYHYab/I1pRbd
- siraDe1pwbwk38KzQjPSIz7L/NOns0EeA7kiUwYUKIXVtdl7zGwqMFaLTGzWdTWdxKneinI3jad
- a0W5y5I9fjgVuCUJeaV4UJwcrav75UC7S/pST4HoKUyFfIyOHmdw1IMOrLlk8Kw7IksmEBm6X2u
- 3ZkajEGj9YInIm4N1Sg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEyNiBTYWx0ZWRfX77dAqcKGo4of
- ubu6jqFyqNESGdJR4fxAf8BYQIK6xydUNoAtICPQmtHTZBP7sC3ng8kf0nhRRarE/Mm+tH5vi7v
- tiirzq+2+y0k54HyMtzQL2X6NYl3UbY=
-X-Proofpoint-GUID: xr859kzvPDd9_AhjWYhabHXaKvZQFh6x
-X-Authority-Analysis: v=2.4 cv=W4gIkxWk c=1 sm=1 tr=0 ts=6a74b29f cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEyNiBTYWx0ZWRfX+iwtqsABR3My
+ XRGEwslXrpBe63O4YGyDo/7u+rhly9ZK4cPYQO9Co6UnTTmg4UxmTCOsu+M3AXaOeBOqofJaTXW
+ AWGXKmyzeV9wP1kmURFqdHCw1GYY/gQ=
+X-Authority-Analysis: v=2.4 cv=HLLz0Itv c=1 sm=1 tr=0 ts=6a74b2a7 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=VwQbUJbxAAAA:8 a=MMZtLZuhhDi3SW52_uAA:9 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: xr859kzvPDd9_AhjWYhabHXaKvZQFh6x
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=VwQbUJbxAAAA:8 a=C2KyqtCk6L2573COy70A:9 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: hMbW4bin5Xwbq2HBKIs0m5RD3IV1wb2h
+X-Proofpoint-GUID: hMbW4bin5Xwbq2HBKIs0m5RD3IV1wb2h
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEyNiBTYWx0ZWRfX12ukoE7fSig4
+ vGYN3qVADygoRmrhTsGThhdcMrkv/zcWTwVRdKDG6t866lQCkLA3TY13G7sJzk5qrvujbPYritE
+ np8596UkZSWGsREpEteLX3kTaDIi89RI8jLEPsEWgtn81uaEk6C9Yx7sw1f2Wvp9mL9l80l/f27
+ OCXk2JZGwB+BQ0Dt+bDs9CBbDvVjeU7ae7+LSbz70w8jlw3IVcXdQq+g/b09HKg4kIUjYImsSFz
+ x6Vy1mnBpLJcGKlrUryTzXtme7uwQek0u68Qd0pmIf9rpuNdCgyw5NItMhGiTUvW0RcA4+yA3YE
+ MbRnNpnWgv4nFsR0M00HIpwdUhGk1iwQ0J1F+F3gHoJs2jfb+m8mtmUyMwzYtLWGT7fyRye7Mmd
+ yJahGANp+2fxFdbiTX9uJ/94+DOPjGq1gZ74o7wSoTH9p1zUMbLuPmlgyb3CAkiiAZuA1J7rWRa
+ M72l9MQiW2YWAUZbISg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-06_01,2026-08-05_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 phishscore=0 impostorscore=0 spamscore=0 malwarescore=0
+ suspectscore=0 malwarescore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 adultscore=0 clxscore=1015 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060126
 
 From: Palash Kambar <palash.kambar@oss.qualcomm.com>
 
-Document QMP UFS PHY compatible for Hawi SoC.
+Add the init sequence tables and config for the UFS QMP phy found in
+the Hawi SoC.
 
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Palash Kambar <palash.kambar@oss.qualcomm.com>
 ---
- .../devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml      | 2 ++
- 1 file changed, 2 insertions(+)
+ .../phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h    |  24 +++
+ .../qualcomm/phy-qcom-qmp-qserdes-com-v8.h    |  13 +-
+ .../phy-qcom-qmp-qserdes-txrx-ufs-v8.h        |  37 +++++
+ drivers/phy/qualcomm/phy-qcom-qmp-ufs.c       | 139 ++++++++++++++++++
+ 4 files changed, 212 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-index b2c5c9a375a3..4efe40c0dc97 100644
---- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-ufs-phy.yaml
-@@ -38,6 +38,7 @@ properties:
-               - qcom,kaanapali-qmp-ufs-phy
-           - const: qcom,sm8750-qmp-ufs-phy
-       - enum:
-+          - qcom,hawi-qmp-ufs-phy
-           - qcom,milos-qmp-ufs-phy
-           - qcom,msm8996-qmp-ufs-phy
-           - qcom,msm8998-qmp-ufs-phy
-@@ -108,6 +109,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - qcom,hawi-qmp-ufs-phy
-               - qcom,milos-qmp-ufs-phy
-               - qcom,msm8998-qmp-ufs-phy
-               - qcom,sa8775p-qmp-ufs-phy
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
+new file mode 100644
+index 000000000000..e0e73ac88e8a
+--- /dev/null
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2026, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef QCOM_PHY_QMP_PCS_UFS_V7_H_
++#define QCOM_PHY_QMP_PCS_UFS_V7_H_
++
++/* Only for QMP V7 PHY - UFS PCS registers */
++#define QPHY_V7_PCS_UFS_PHY_START			0x000
++#define QPHY_V7_PCS_UFS_POWER_DOWN_CONTROL		0x004
++#define QPHY_V7_PCS_UFS_SW_RESET			0x008
++#define QPHY_V7_PCS_UFS_PCS_CTRL1			0x01c
++#define QPHY_V7_PCS_UFS_PLL_CNTL			0x028
++#define QPHY_V7_PCS_UFS_TX_LARGE_AMP_DRV_LVL		0x02c
++#define QPHY_V7_PCS_UFS_TX_HSGEAR_CAPABILITY		0x060
++#define QPHY_V7_PCS_UFS_RX_HSGEAR_CAPABILITY		0x094
++#define QPHY_V7_PCS_UFS_LINECFG_DISABLE			0x140
++#define QPHY_V7_PCS_UFS_RX_SIGDET_CTRL2			0x150
++#define QPHY_V7_PCS_UFS_READY_STATUS			0x16c
++#define QPHY_V7_PCS_UFS_TX_MID_TERM_CTRL1		0x1b8
++#define QPHY_V7_PCS_UFS_MULTI_LANE_CTRL1		0x1c0
++
++#endif
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v8.h b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v8.h
+index d8ac4c4a2c31..a3432fa6e38e 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v8.h
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-com-v8.h
+@@ -1,6 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ /*
+- * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
++ * Copyright (c) 2026, The Linux Foundation. All rights reserved.
+  */
+ 
+ #ifndef QCOM_PHY_QMP_QSERDES_COM_V8_H_
+@@ -71,5 +71,16 @@
+ #define QSERDES_V8_COM_ADDITIONAL_MISC			0x1b4
+ #define QSERDES_V8_COM_CMN_STATUS			0x2c8
+ #define QSERDES_V8_COM_C_READY_STATUS			0x2f0
++#define QSERDES_V8_COM_PLL_IVCO_MODE1			0xf8
++#define QSERDES_V8_COM_CMN_IETRIM			0xfc
++#define QSERDES_V8_COM_CMN_IPTRIM			0x100
++#define QSERDES_V8_COM_VCO_TUNE_CTRL			0x13c
++#define QSERDES_V8_COM_ADAPTIVE_ANALOG_CONFIG		0x268
++#define QSERDES_V8_COM_CP_CTRL_ADAPTIVE_MODE0		0x26c
++#define QSERDES_V8_COM_PLL_RCCTRL_ADAPTIVE_MODE0	0x270
++#define QSERDES_V8_COM_PLL_CCTRL_ADAPTIVE_MODE0		0x274
++#define QSERDES_V8_COM_CP_CTRL_ADAPTIVE_MODE1		0x278
++#define QSERDES_V8_COM_PLL_RCCTRL_ADAPTIVE_MODE1	0x27c
++#define QSERDES_V8_COM_PLL_CCTRL_ADAPTIVE_MODE1		0x280
+ 
+ #endif
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
+new file mode 100644
+index 000000000000..1adc6dbc68a0
+--- /dev/null
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
+@@ -0,0 +1,37 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (c) 2026, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef QCOM_PHY_QMP_QSERDES_TXRX_UFS_V8_H_
++#define QCOM_PHY_QMP_QSERDES_TXRX_UFS_V8_H_
++
++#define QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_TX		(0x34)
++#define QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_RX		(0x38)
++#define QSERDES_UFS_V8_TX_LANE_MODE_1				(0x80)
++#define QSERDES_UFS_V8_RX_UCDR_FO_GAIN_RATE2			(0x1bc)
++#define QSERDES_UFS_V8_RX_UCDR_FO_GAIN_RATE4			(0x1c4)
++#define QSERDES_UFS_V8_RX_UCDR_SO_GAIN_RATE4			(0x1dc)
++#define QSERDES_UFS_V8_RX_EQ_OFFSET_ADAPTOR_CNTRL1		(0x2c8)
++#define QSERDES_UFS_V8_RX_UCDR_PI_CONTROLS			(0x1e4)
++#define QSERDES_UFS_V8_RX_OFFSET_ADAPTOR_CNTRL3			(0x2d0)
++#define QSERDES_UFS_V8_RX_UCDR_FASTLOCK_COUNT_HIGH_RATE4	(0x120)
++#define QSERDES_UFS_V8_RX_UCDR_FASTLOCK_FO_GAIN_RATE4		(0xd4)
++#define QSERDES_UFS_V8_RX_UCDR_FASTLOCK_SO_GAIN_RATE4		(0xec)
++#define QSERDES_UFS_V8_RX_VGA_CAL_MAN_VAL			(0x288)
++#define QSERDES_UFS_V8_RX_EQU_ADAPTOR_CNTRL4			(0x2b0)
++#define QSERDES_UFS_V8_RX_MODE_RATE_0_1_B4			(0x324)
++#define QSERDES_UFS_V8_RX_MODE_RATE4_SA_B7			(0x3b4)
++#define QSERDES_UFS_V8_RX_MODE_RATE4_SA_B9			(0x3bc)
++#define QSERDES_UFS_V8_RX_MODE_RATE4_SB_B7			(0x3e0)
++#define QSERDES_UFS_V8_RX_MODE_RATE4_SB_B9			(0x3e8)
++#define QSERDES_UFS_V8_RX_MODE_RATE5_SA_B7			(0x40c)
++#define QSERDES_UFS_V8_RX_MODE_RATE5_SA_B9			(0x414)
++#define QSERDES_UFS_V8_RX_MODE_RATE5_SB_B7			(0x438)
++#define QSERDES_UFS_V8_RX_MODE_RATE5_SB_B9			(0x440)
++#define QSERDES_UFS_V8_RX_UCDR_SO_SATURATION			(0xf4)
++#define QSERDES_UFS_V8_RX_TERM_BW_CTRL0				(0x1ac)
++#define QSERDES_UFS_V8_RX_DLL0_FTUNE_CTRL			(0x498)
++#define QSERDES_UFS_V8_RX_SIGDET_CAL_TRIM			(0x4d0)
++
++#endif
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+index 0f4ad24aa405..d4aca22c181e 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+@@ -29,9 +29,11 @@
+ #include "phy-qcom-qmp-pcs-ufs-v4.h"
+ #include "phy-qcom-qmp-pcs-ufs-v5.h"
+ #include "phy-qcom-qmp-pcs-ufs-v6.h"
++#include "phy-qcom-qmp-pcs-ufs-v7.h"
+ 
+ #include "phy-qcom-qmp-qserdes-txrx-ufs-v6.h"
+ #include "phy-qcom-qmp-qserdes-txrx-ufs-v7.h"
++#include "phy-qcom-qmp-qserdes-txrx-ufs-v8.h"
+ 
+ /* QPHY_PCS_READY_STATUS bit */
+ #define PCS_READY				BIT(0)
+@@ -84,6 +86,13 @@ static const unsigned int ufsphy_v6_regs_layout[QPHY_LAYOUT_SIZE] = {
+ 	[QPHY_PCS_POWER_DOWN_CONTROL]	= QPHY_V6_PCS_UFS_POWER_DOWN_CONTROL,
+ };
+ 
++static const unsigned int ufsphy_v7_regs_layout[QPHY_LAYOUT_SIZE] = {
++	[QPHY_START_CTRL]		= QPHY_V7_PCS_UFS_PHY_START,
++	[QPHY_PCS_READY_STATUS]		= QPHY_V7_PCS_UFS_READY_STATUS,
++	[QPHY_SW_RESET]			= QPHY_V7_PCS_UFS_SW_RESET,
++	[QPHY_PCS_POWER_DOWN_CONTROL]	= QPHY_V7_PCS_UFS_POWER_DOWN_CONTROL,
++};
++
+ static const struct qmp_phy_init_tbl milos_ufsphy_serdes[] = {
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYSCLK_EN_SEL, 0xd9),
+ 	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CMN_CONFIG_1, 0x16),
+@@ -1307,6 +1316,11 @@ static const struct regulator_bulk_data sm8750_ufsphy_vreg_l[] = {
+ 	{ .supply = "vdda-pll", .init_load_uA = 18300 },
+ };
+ 
++static const struct regulator_bulk_data hawi_ufsphy_vreg_l[] = {
++	{ .supply = "vdda-phy", .init_load_uA = 324000 },
++	{ .supply = "vdda-pll", .init_load_uA = 27000 },
++};
++
+ static const struct qmp_ufs_offsets qmp_ufs_offsets = {
+ 	.serdes		= 0,
+ 	.pcs		= 0xc00,
+@@ -1325,6 +1339,15 @@ static const struct qmp_ufs_offsets qmp_ufs_offsets_v6 = {
+ 	.rx2		= 0x1a00,
+ };
+ 
++static const struct qmp_ufs_offsets qmp_ufs_offsets_v7 = {
++	.serdes		= 0,
++	.pcs		= 0x0400,
++	.tx		= 0x2000,
++	.rx		= 0x2000,
++	.tx2		= 0x3000,
++	.rx2		= 0x3000,
++};
++
+ static const struct qmp_phy_cfg milos_ufsphy_cfg = {
+ 	.lanes			= 2,
+ 
+@@ -1845,6 +1868,119 @@ static const struct qmp_phy_cfg sm8750_ufsphy_cfg = {
+ 
+ };
+ 
++static const struct qmp_phy_init_tbl hawi_ufsphy_serdes[] = {
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_SYSCLK_EN_SEL, 0xd9),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_CMN_CONFIG_1, 0x16),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_HSCLK_SEL_1, 0x11),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_HSCLK_HS_SWITCH_SEL_1, 0x00),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_LOCK_CMP_EN, 0x01),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_LOCK_CMP_CFG, 0x60),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_IVCO, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_IVCO_MODE1, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_CMN_IETRIM, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_CMN_IPTRIM, 0x20),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_VCO_TUNE_MAP, 0x04),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_VCO_TUNE_CTRL, 0x40),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_ADAPTIVE_ANALOG_CONFIG, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_DEC_START_MODE0, 0x41),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_CP_CTRL_MODE0, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_RCTRL_MODE0, 0x18),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_CCTRL_MODE0, 0x14),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_CP_CTRL_ADAPTIVE_MODE0, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_RCCTRL_ADAPTIVE_MODE0, 0x18),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_CCTRL_ADAPTIVE_MODE0, 0x14),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_LOCK_CMP1_MODE0, 0x7f),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_LOCK_CMP2_MODE0, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE1_MODE0, 0x92),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x1e),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_DEC_START_MODE1, 0x4c),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_CP_CTRL_MODE1, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_RCTRL_MODE1, 0x18),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_CCTRL_MODE1, 0x14),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_CP_CTRL_ADAPTIVE_MODE1, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_RCCTRL_ADAPTIVE_MODE1, 0x18),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_PLL_CCTRL_ADAPTIVE_MODE1, 0x14),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_LOCK_CMP1_MODE1, 0x99),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_LOCK_CMP2_MODE1, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE1_MODE1, 0xbe),
++	QMP_PHY_INIT_CFG(QSERDES_V8_COM_BIN_VCOCAL_CMP_CODE2_MODE1, 0x23),
++};
++
++static const struct qmp_phy_init_tbl hawi_ufsphy_tx[] = {
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_TX_LANE_MODE_1, 0x0c),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_TX, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_TX_RES_CODE_LANE_OFFSET_RX, 0x17),
++};
++
++static const struct qmp_phy_init_tbl hawi_ufsphy_rx[] = {
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_FO_GAIN_RATE2, 0x0c),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_FO_GAIN_RATE4, 0x0c),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_SO_GAIN_RATE4, 0x04),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_EQ_OFFSET_ADAPTOR_CNTRL1, 0x14),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_PI_CONTROLS, 0x07),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_OFFSET_ADAPTOR_CNTRL3, 0x0e),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_FASTLOCK_COUNT_HIGH_RATE4, 0x02),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_FASTLOCK_FO_GAIN_RATE4, 0x1c),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_FASTLOCK_SO_GAIN_RATE4, 0x06),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_VGA_CAL_MAN_VAL, 0x8e),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_EQU_ADAPTOR_CNTRL4, 0x0f),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE_0_1_B4, 0xb8),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE4_SA_B7, 0x66),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE4_SA_B9, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE4_SB_B7, 0x66),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE4_SB_B9, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE5_SA_B7, 0x66),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE5_SA_B9, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE5_SB_B7, 0x66),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_MODE_RATE5_SB_B9, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_UCDR_SO_SATURATION, 0x1f),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_TERM_BW_CTRL0, 0xfa),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_DLL0_FTUNE_CTRL, 0x30),
++	QMP_PHY_INIT_CFG(QSERDES_UFS_V8_RX_SIGDET_CAL_TRIM, 0x77),
++};
++
++static const struct qmp_phy_init_tbl hawi_ufsphy_pcs[] = {
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_TX_MID_TERM_CTRL1, 0x43),
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_PCS_CTRL1, 0x42),
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_TX_LARGE_AMP_DRV_LVL, 0x0f),
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_RX_SIGDET_CTRL2, 0x68),
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_MULTI_LANE_CTRL1, 0x02),
++};
++
++static const struct qmp_phy_init_tbl hawi_ufsphy_g5_pcs[] = {
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_PLL_CNTL, 0x3b),
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_TX_HSGEAR_CAPABILITY, 0x05),
++	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_RX_HSGEAR_CAPABILITY, 0x05),
++};
++
++static const struct qmp_phy_cfg hawi_ufsphy_cfg = {
++	.lanes			= 2,
++
++	.offsets		= &qmp_ufs_offsets_v7,
++	.max_supported_gear	= UFS_HS_G5,
++
++	.tbls = {
++		.serdes		= hawi_ufsphy_serdes,
++		.serdes_num	= ARRAY_SIZE(hawi_ufsphy_serdes),
++		.tx		= hawi_ufsphy_tx,
++		.tx_num		= ARRAY_SIZE(hawi_ufsphy_tx),
++		.rx		= hawi_ufsphy_rx,
++		.rx_num		= ARRAY_SIZE(hawi_ufsphy_rx),
++		.pcs		= hawi_ufsphy_pcs,
++		.pcs_num	= ARRAY_SIZE(hawi_ufsphy_pcs),
++	},
++
++	.tbls_hs_overlay[0] = {
++		.pcs		= hawi_ufsphy_g5_pcs,
++		.pcs_num	= ARRAY_SIZE(hawi_ufsphy_g5_pcs),
++		.max_gear	= UFS_HS_G5,
++	},
++
++	.vreg_list		= hawi_ufsphy_vreg_l,
++	.num_vregs		= ARRAY_SIZE(hawi_ufsphy_vreg_l),
++	.regs			= ufsphy_v7_regs_layout,
++};
++
+ static void qmp_ufs_serdes_init(struct qmp_ufs *qmp, const struct qmp_phy_cfg_tbls *tbls)
+ {
+ 	void __iomem *serdes = qmp->serdes;
+@@ -2259,6 +2395,9 @@ static int qmp_ufs_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id qmp_ufs_of_match_table[] = {
+ 	{
++		.compatible = "qcom,hawi-qmp-ufs-phy",
++		.data = &hawi_ufsphy_cfg,
++	}, {
+ 		.compatible = "qcom,milos-qmp-ufs-phy",
+ 		.data = &milos_ufsphy_cfg,
+ 	}, {
 -- 
 2.34.1
 
