@@ -1,47 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F187248424F;
-	Thu,  6 Aug 2026 16:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628B827BF93;
+	Thu,  6 Aug 2026 16:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786033569; cv=none; b=XNA2h/9F8Oc/hMcEYgCunn5WreRBVT7MnUSV4/skMRUBSQv9GFaOxH1+ACp6UpNjW0UsdTI7FomSg9OC1VqNq9LuxB95pEAYDsrJ1mUbbhrnWvZzqk/3Xt2KptGs7+0o07jys7bEOuF3nr/C9T3whcPwzRWHdr5069VjRWGrYhs=
+	t=1786033575; cv=none; b=OVMFIKSat/GVJNGd1vlhzbojHb4MbMEVNlh0AWQ0yzniNnlWO6gSC6X9LOBdtWAWJ3J8Ln6zrHAL/03MYYwQcv1FMm4nZ2zB3TwhNhYlkDJxEc4fn24vePVhtwU4A7L2GmjQSd6d7uWMggGcUhpUJrSqhHmXP3NIHR/VEYamwos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786033569; c=relaxed/simple;
-	bh=lVkxD3h2L8G6Ew2ANCawZcaGf2X4CBFd14jw8oWESvU=;
+	s=arc-20240116; t=1786033575; c=relaxed/simple;
+	bh=vp3HeyBsKm5QM4/gsd7Sj5jvC9ezIp8qQvyYAsqqfX4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=UYTLcq244GQ94n8Hgu1km1kfKU1Ct7lLQaglKXJHSEYtVEvjMuOkHQBGv4vsoOUgfYfXfiCPvBx6X++GjwbWvi+NgaImKhLyf9jTN64l3Gq9SIedmMk7IzeZ2PdfhtvR+LxfrufxzlxsJyWO5LJkSwpS/WPmcEWGFiyW7RTSYKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PJ7dB3Gt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=TTw63OPfXtGqjuGRgmFf8A2wRsXOnOKXyufDTUnbBna05wcRw3wiATZ8BLPqyiTZxB4UBRNhf/O9anF2ZeYxpID6l9/tPvJMQcxsRXyfCjIWSE6xJhQMXQNieHE6fTeimYe3gGOi6/alQcIDRr8Uks6D1QYbvYjrFMu7bjSbyTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yo1YvEtl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PJ7dB3Gt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC181F00A3D;
-	Thu,  6 Aug 2026 16:26:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yo1YvEtl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D0C1F000E9;
+	Thu,  6 Aug 2026 16:26:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786033567;
-	bh=l/pqGQLUylj7fu7Xe5MGl6jQ1rwT8sb60LmR8+ITD/g=;
+	s=k20260515; t=1786033573;
+	bh=FKkPZaVYoltg/L8op3kBjttnUeSwREqYX0CaIydI8ow=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=PJ7dB3GtqowHGBiohYKQOlEo7WTFAenWvnKz8dzGJmgm2Ebo+vi2nn8Y6jJA84Nh8
-	 WYHgBwiva7wY7w6MccMqJph9pvrMZoSx6BxgjKfCQCGJ1eFxGTD+nlG/GUq34fUxy8
-	 l5Om8YmPqABr0H3z+oTj7YgtAEvXf1p2DY7e73D9tLfx+CsOSHFgvo01SAYlowr4eW
-	 yEkjCai8jUgRnpsxwaooyX+cJV4cr7vAWmcTIdPenb5H/oU/DUs4s//SYqhg/6mlLN
-	 Cm1NW+/USJUIZZBSXtsEzwXhl7R2W2povEfP5ZskDPo3Wu4JU/moN/pdFDo9wXt2l5
-	 b6yRjBvKeXHVg==
+	b=Yo1YvEtlsSycfv4PyQF/qZI7okNOuWjDJ4W4tB3NbkJALUqICb3yHIaoxuxpo3ZEU
+	 DiPf8Kk9ydFEK5BRVNVo3c4hKYCKIcuZUr4jnZQTp7mBo0NxCSnl++Tfnl0cnxeLfI
+	 /CHdZ4c5LGB/UNEvZHM5ALOHiqzLdY/W7JrWJpVL2jc6QMYRSbHHvj3jrPD8LSzuaE
+	 a54ehei8mxy/pLchdt5QJbqQQW22uWWpo8JdR56ldN5yWolP5hRvtNlSQqtsdBGp4k
+	 Qzqu8TbWgdoZxZYbX41RBlxg/QP3knQhX/45Mw3UpNG3HiCGVN5InNKk6l/f6oPiSi
+	 sHmciL2c0GLwA==
 From: Vinod Koul <vkoul@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+To: Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Wesley Cheng <quic_wcheng@quicinc.com>, 
- Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org
-In-Reply-To: <20260803091441.3040830-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260803091441.3040830-1-mukesh.ojha@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v4 0/4] phy: qcom: Introduce USB support for
- Hawi
-Message-Id: <178603356377.674490.863643484295472251.b4-ty@kernel.org>
-Date: Thu, 06 Aug 2026 21:56:03 +0530
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Mark Brown <broonie@kernel.org>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju <biju.das.au@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, 
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260806102236.149159-1-biju.das.jz@bp.renesas.com>
+References: <20260806102236.149159-1-biju.das.jz@bp.renesas.com>
+Subject: Re: (subset) [PATCH v6 00/10] Add RZ/G3L USB2.0 host support
+Message-Id: <178603356779.674490.693458204654739135.b4-ty@kernel.org>
+Date: Thu, 06 Aug 2026 21:56:07 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,21 +58,29 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.13.0
 
 
-On Mon, 03 Aug 2026 14:44:37 +0530, Mukesh Ojha wrote:
-> This series adds USB PHY support for the Hawi SoC. It documents the
-> QMP USB3-DP combo PHY and M31 eUSB2 PHY bindings, adds the Hawi
-> compatible to the DWC3 USB binding, and adds the PHY initialization
-> sequences to the qmp-combo driver.
+On Thu, 06 Aug 2026 11:22:19 +0100, Biju wrote:
+> This patch series aims to add USB2.0 host support for the RZ/G3L SMARC
+> EVK. The RZ/G3L USB PHY block is similar to RZ/G3S, but each port
+> has an OTG controller, unlike RZ/G3S, which has an OTG controller only on
+> port 1. This series migrates regulator driver to use id-table so there
+> is hard dependency between reset driver and regulator driver.
 > 
+> Merge strategy:
+>   An Ack/Rb tag from Regulator Maintainer for patch#1 and #5.
+>   Patch #1,#2,#3,#4,#5 - Reset subsystem
+>   Patch #5,#6,#7 - PHY subsystem
+>   Patch #8,#9 - Renesas SoC
+> 
+> [...]
 
 Applied, thanks!
 
-[1/4] dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy: Add Hawi QMP PHY
-      commit: 19d8eca1be11bc5782f9d292d88f96ebf0cdbe7f
-[2/4] dt-bindings: phy: qcom,m31-eusb2-phy: Document M31 eUSB2 PHY for Hawi
-      commit: 7abc2c575d5b5d67349caf73509f069e6bf7445a
-[4/4] phy: qualcomm: qmp-combo: Add support for Hawi SoC
-      commit: eca0e717aab1cc90eb0b7d8c3e8aa63ca89962a5
+[06/10] dt-bindings: phy: renesas,usb2-phy: Document RZ/G3L PHY bindings
+        commit: e6c3be558da06062a6a6fcbb8d33986832db3d60
+[07/10] phy: renesas: phy-rcar-gen3-usb2: Add RZ/G3L support
+        commit: 881f6b6f4ccdbdd6b856a574445694bb1f56d79e
+[08/10] phy: renesas: phy-rcar-gen3-usb2: Fix devm action registration for disabled VBUS regulator
+        commit: 49c9b71b45081e5e5eeb507a2d6edb80d332dc59
 
 Best regards,
 -- 
