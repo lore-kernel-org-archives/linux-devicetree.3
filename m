@@ -1,195 +1,202 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013007.outbound.protection.outlook.com [40.107.159.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5EF3B101D;
-	Thu,  6 Aug 2026 01:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785978676; cv=none; b=Mn4PPc12ttA458TihWZxjPYL+kLFH4nvV2uD56mfOmLnMSPKSqxeOh4WOgVaXzdpARBpLJh7/Fb5/6TMFEI85Xua+GKH7CTdGsD1TuhmuVdx7zTgwv6JvorP0ceuaMtf6ZzWEbjH/o9An6YwvDkBp/wgy8L2trwdhGvhmnC1OPE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785978676; c=relaxed/simple;
-	bh=oRV13ajJMybdu1gFOPJqV+43C361lx0ENCeC4lK+y+k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BzcsoIFjOwBDOoLC6XlzLTlo6Q2Hu6RplGPeecNI5UPYFh6JY3dm/zatSlxZ2PkEJJxj5vMuIwKe/Z8uLmzuumh7dJuZHXwjMwXK6ujGJxr/nVYF24Few68BmNjbUV6BmOV0oKMsYxLLFAZjId46UtR+O4ssnZwTFPV/0R3/2No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IguMuiAy; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ACF63A9615;
+	Thu,  6 Aug 2026 01:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785978704; cv=fail; b=qU1otrnUQuFQ2BCdnGp+bghypYWCtis6k++rWqc+X05ftNCEzewgKe8ImBMkqsuuiumYKPRXsVEYUkf7Sae6dHS+4EWITti09KptK+se68eEuYeMbznDmUq9yD2c6uW47lHdfh6tzQNecl2BddKYGlLDfEMsmVAY3RKiY8X7B9I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785978704; c=relaxed/simple;
+	bh=aFFPIlhAeIROChDRf9VvJSrmIhQ9beqVeJ6/+GqtZ20=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=s/cO6MQ/va2KtFH2G63SQ9CJUEhqPzVt7WYvQd5hxvwQt7uA1v7Lh2Yb/NBL2528Fp5Gnoa32IFd7rm/7libB7Ysj15G7fxNA7at3+0/kSYjH7jtJ9WPKSaaZ1QFhY+bX1WE9fK9IkMqm28mHMu/JMy5nuW2+nvOCBpBOsRlxpQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=ZeXrHmv/; arc=fail smtp.client-ip=40.107.159.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IguMuiAy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF6F1F00A3A;
-	Thu,  6 Aug 2026 01:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785978675;
-	bh=ebcYUBcFLfg9nDkh4dHoaZmcNdoWLmFjyaOtz0zXD5o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IguMuiAyhG8IOo2R/UFDnVXjFj3LrMcZa6RltFLpoo9I07bW5WaR03yFHvgmxhZPz
-	 ByMr5REITTXklZRgE2UyVWJPOc6s1cyr3oDl8iyS4lSOTOBdNAhok0kpPdau4RoTLl
-	 +htpcSkc6k8iMO3dvkrTRdsPckRdCTVB8AKJsn+KMnfFvpUCE81NpYHdQCGuCoNjwV
-	 8sNrxDLsuJ9//q9aiLOZH2hIkel31yw/QK4Rp5br22AneRmog6j+nXj+nFAxJn/Fkj
-	 F8RR+4bvgrdqxJIpjZ4VHQC+ke1q5t+xMEHRD/qLqfYEPRkR9hCSRhP/zbQTaCLjO2
-	 vZzd0xXcuCyIw==
-From: Jakub Kicinski <kuba@kernel.org>
-To: jelonek.jonas@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	o.rempel@pengutronix.de,
-	kory.maincent@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	daniel@makrotopia.org,
-	bjorn@mork.no,
-	sander@svanheule.net
-Subject: Re: [PATCH net-next v11 4/4] net: pse-pd: realtek-pse-mcu: add UART transport
-Date: Wed,  5 Aug 2026 18:11:13 -0700
-Message-ID: <20260806011113.1855680-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260802100114.720594-5-jelonek.jonas@gmail.com>
-References: <20260802100114.720594-5-jelonek.jonas@gmail.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="ZeXrHmv/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v0RV3CjxU0pmzb0VXQSBkSD6+3ufKtTNIRbo4/T8WNBxMoRcy59nMENdjT31uaXde4ohVD6shpG/RDUwfkpV0vdGrJMtrTRzK/zoSy577wpQX8vVDkVBW/mZOynSRVeSmn2diGKQwhFJUdpdtbieiYlwuHZkyDwgd5TZfVMZ02c2dBIWixWVVeXPdllFeKRI1C0clZidXUGWsPMlj/oRlM/3/qVLwASTyCHc23xMN9hkl1VBDvCXOVE89qHcLaxVDE9TvLFdRXaNUiknQ3N8mHzHBXKZkW2WYTQcX6RICSj0taFE9fkvDqhiqGHqtYzHa0veKJpze9EGhAJuUnzDCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bal3DF24tEuv9v68Mv6uRMQC+Qszsii4odcMK59YhOg=;
+ b=m3A9xL0Xtrk+AODLrBfFfZiRnwR1fCe2oQ9JaXsK5l1QZDNYr11k1vE6N92TC0W7BZLDYiir9Qr3nnc4kVea9Te7iDtQb+FOVHemqHEH8M08nerzf2qB+b3Lz/LzeITjJz01QZa0wqNOQP7D+EQL30lb6riL9zgoMAkqBVD6lv2oNLM4vpl66L4gD/x2QxGB4Hg631SufhGeDKREDJBA1CRKy/NQM2b5f1DzpX6LEQnnrGc9vljO75VlE7lU3LG5mcw+bwJG/6ygBh4PuSJKVlx95xU9oU9c4Bc1eTtEu9SJwvK2Q01KTyP3l7DYWd1RfYhG+VFmhcgS7SImRiTUaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bal3DF24tEuv9v68Mv6uRMQC+Qszsii4odcMK59YhOg=;
+ b=ZeXrHmv/t7CM2Zgq4NRGup87ajrWTVvo8j3f55hPc1Rb2u9fHNJ3d4AofhrpHe44p45rZW6af3riEgk7ErvkopXPZRH2MPBxUrg/ySPg9aoM5dESudacV3P+zTBlBabkHaEL9Cp1fqqVy7BQsCHKidxZugSqHZE58XmVYz15q3VT07wXudGctoloJY4vBdcLJnKmv5rwj98AAQvgoW4zVwE1AdoVBmThVh7RWdlVXhNw5NsQQV1WqkyjIDXx0yzJVvggjdBSwE8AWk29a76+WtP5X0FtnLgkHjEUBdMvQfHwtOtigURH9UeBCxXK9Fh85YVlv66d5eqTnufkb6FrHQ==
+Received: from MRWPR04MB12330.eurprd04.prod.outlook.com (2603:10a6:501:7f::23)
+ by VI0PR04MB12008.eurprd04.prod.outlook.com (2603:10a6:800:317::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 01:11:38 +0000
+Received: from MRWPR04MB12330.eurprd04.prod.outlook.com
+ ([fe80::ca22:f8c8:6aca:7889]) by MRWPR04MB12330.eurprd04.prod.outlook.com
+ ([fe80::ca22:f8c8:6aca:7889%6]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 01:11:38 +0000
+From: Peng Fan <peng.fan@nxp.com>
+To: Rob Herring <robh@kernel.org>, "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+CC: Lee Jones <lee@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, Dmitry
+ Osipenko <digetx@gmail.com>, Shree Ramamoorthy <s-ramamoorthy@ti.com>, Heiko
+ Stuebner <heiko@sntech.de>, Joseph Chen <chenjh@rock-chips.com>, Chris Zhong
+	<zyw@rock-chips.com>, Zhang Qing <zhangqing@rock-chips.com>, Sebastian
+ Reichel <sebastian.reichel@collabora.com>, Andreas Kemnade
+	<andreas@kemnade.info>, =?iso-8859-1?Q?Jonathan_Neusch=E4fer?=
+	<j.neuschaefer@gmx.net>, Julien Panis <jpanis@baylibre.com>, Matti Vaittinen
+	<mazziesaccount@gmail.com>, Alexander Kurz <akurz@blala.de>,
+	=?iso-8859-1?Q?Andr=E9_Draszik?= <andre.draszik@linaro.org>,
+	"mfd@lists.linux.dev" <mfd@lists.linux.dev>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-rockchip@lists.infradead.org"
+	<linux-rockchip@lists.infradead.org>, "linux-samsung-soc@vger.kernel.org"
+	<linux-samsung-soc@vger.kernel.org>
+Subject: RE: [PATCH 00/10] dt-bindings: mfd: Use generic power-controller
+ schema
+Thread-Topic: [PATCH 00/10] dt-bindings: mfd: Use generic power-controller
+ schema
+Thread-Index: AQHdJBwqZOYUhgeTo0eopaQW6T3HuraP9ZQAgABCsEA=
+Date: Thu, 6 Aug 2026 01:11:38 +0000
+Message-ID:
+ <MRWPR04MB12330DBC8F268BBD1118883FC88D22@MRWPR04MB12330.eurprd04.prod.outlook.com>
+References: <20260804-mfd-syspower-v1-0-a440783c2e78@nxp.com>
+ <20260805211054.GA1783131-robh@kernel.org>
+In-Reply-To: <20260805211054.GA1783131-robh@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MRWPR04MB12330:EE_|VI0PR04MB12008:EE_
+x-ms-office365-filtering-correlation-id: 838e7d8c-41f8-4827-a91e-08def357aa9a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|19092799006|22082099003|18002099003|11063799006|56012099006|4143699003|3023799007|38070700021|10067099003;
+x-microsoft-antispam-message-info:
+ B3o3TiTYfeW35zbv46bUt2isnbu/C2IqSMOKXNlR9jqQeHEJk0u29KtaxK+GCGGU0NfKfvu6uo8tyGKNwIoRlUus3iozgXLNW3uk8kg8J21MuIAOGXpKwO+DN7+dgCh6jTk4h3csSXBXZFQrJSw+hiqSGAcbi4haIQxixIvfQPUSPviA4Sy+5I4truMfcNEBfco5X5ww3UU62w5zr1Yzw7Q+uTvOzkyctXcDFy05BtOqJn0rv5V/dN2uW30+mo2mZvUPIdiT8IZbPufGSlruFmYjroGRwmouF8ABsaMzWfrKnZ76P5yCYZEMVs473qeUkzQr/fwb6LMOTdaq51C0R7XnvSWIFIufoRhq446OIvp9eNeWWjk1fnrTJItrJrE7S6YVJFGoB4368nJ/0kWQVNWpamOj+vuZ9w21jhVBpmX0JK6fbB87G9AQtKAPPQ5LqS6rQPUutD7oQWOh5fZSeDTDXT1PcYWw2ff2FfzicyxmUpB/BZTkY3AA00ft4io3IenVbFnscCAhJAqfWXUEmg0bIZILELbomieeVAY7chMaBdevp93F4UH9a/YHdAup8mXi2PDUaOrmhef5aiYabbFc1WU42UwdVmcbf+oe1hAAPTUhLiFGpT7ymx7yMsHH4ira4Zujm21qR7DS85+968+Uk+5pcH79j0yt8MG+a2TBU5PyvthHU8zgUwQ5qmpa5W+fL/mNWV0Q7n9M2k3wiPVxC1fBD2gaSQh0DQD2aSU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MRWPR04MB12330.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(19092799006)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(3023799007)(38070700021)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?908SaPwrspzDur6huYhdKZG12K9YmfVcq49kkUVaqg2LU0tfeToW57tMdt?=
+ =?iso-8859-1?Q?zzBBMlotiCixQAm10hEbZLAoxrVYd3D8H6wFwKmPjzvPzvscMrKaZkdEAP?=
+ =?iso-8859-1?Q?8yv/CrzVTDQLFAjYG7f89m2y1AVR+H+J76mADnPW9thzSv6n6q1VMHR2QE?=
+ =?iso-8859-1?Q?vxXZn69eqOgoBGFKbm2csY/SeLXKwB1Ubae844MQXVfPijxfMLlfsmFEl0?=
+ =?iso-8859-1?Q?73wn403zunNz3ZxjMyew9Sp02pA8xZGRvI7jEHRC0h7GveCn2K1POaAwBV?=
+ =?iso-8859-1?Q?uSmV91HpY78FF2v4LAW5nfhnX0yqAZ56hdKXDhKwwcP/PFyvXEK/wEr4tH?=
+ =?iso-8859-1?Q?T4w5gWgIjpoCsKT9lCX6Gvku7YLUmBpKOhzTdCvRgTBraLdpkX+YrB0BaJ?=
+ =?iso-8859-1?Q?nIIYSy8f6PrzqV1wOB4a3VhFMfcpRRMp9jffk8X+HWZdG2YpOeWKWTciji?=
+ =?iso-8859-1?Q?wb0flAAh7yILYCMPO/BWD1czJ2VqYZHlSmWUFCKZRKZN0qWH7koTrujqHU?=
+ =?iso-8859-1?Q?lEGDIP9Stf2ipQSzvzp2Rjk63rnWBqryYZHuv8Bhd6gKGJMVhAR+lqOJ7o?=
+ =?iso-8859-1?Q?flXOHmmDjKSA5zHizL5Q3lCOsGZljS/Z+KVCzKkC7uiuirTUCF3RM098UL?=
+ =?iso-8859-1?Q?4AAhRu7Ou3jWHeiUlEo5Wjvsu909TmMYtXVbFYIoswCMF/wUH8o3GGzK5m?=
+ =?iso-8859-1?Q?jy937YCDhFAOARSDhg0bgMd2tpZJoxVHYMQqQ7UzA4aG2UGR4SVM5JPiTy?=
+ =?iso-8859-1?Q?LnpaWU7fBZ1dl2UGu8RSBrz8zl5T77qCNMU0wWa9g4BEVBM4Eb14r1ALyx?=
+ =?iso-8859-1?Q?YEXYfEPleQhvnhVyAKJbKnBEp9pIQIUZavl83P5O7Sy4napYyeVGejiLXx?=
+ =?iso-8859-1?Q?/rHzRB57fmp/Q+jta21vdWpcSV0ZIeJ6gEklNLPpLMjz1ez4Mp2BfHvAFY?=
+ =?iso-8859-1?Q?Nwnxssm5UE/b6FUVpAA+k0KTB8yCxdWzx0YV951m5ybDcOLt+eT0jrx/nU?=
+ =?iso-8859-1?Q?f2JA8Q3xmAD3MsVBrrLsCdjQuii6dMCMeYomYfGurGf9g3amLrhKd71Uzc?=
+ =?iso-8859-1?Q?gbEJpGcX2VwyxpSEVUNf9VfVv24A9KYU2nd2xgjdra4Kwu4Mf0zy8DNa6W?=
+ =?iso-8859-1?Q?HoeKxdJN7ig/eVdklrEcKs6vf6A8+Is2/W1OIYXob9mbjtfgnCgyKcez+Q?=
+ =?iso-8859-1?Q?xbq5b/Za+WaJ4VbekOBIM/eA6Wm5O43i2EVyI+21hYdLuusSGd52+36SXd?=
+ =?iso-8859-1?Q?9gAGzZkS5KpcV8uk8u+DY9f+Gc4Ahk64DURpe6Z8qH3IKcqb2GnWXrHltj?=
+ =?iso-8859-1?Q?OoSOgbLwIThh1I8ECKAKtTXWueKBtOdag4c8jJSFRO84ahX1fRvMfQUByO?=
+ =?iso-8859-1?Q?sKWkFvRus0Kdg9gRIjMbvfbK/NZxl1cGTS8dWrr5Pyvhy0SWWZn4oiezDM?=
+ =?iso-8859-1?Q?KLzy1gXFh+U4Kao7X3zsOX+AweTWV5hhGkk/s92SDKq2PoLcsmhpcZoRxo?=
+ =?iso-8859-1?Q?L6CgMmjzG9V/dSwdCWt7HXyFPH+fPNUJhdcsFntEqxQbr2PelomyFOTBJK?=
+ =?iso-8859-1?Q?SwUhvPWrZiRqSKBobgIjJBWWCkmjXgXRvitY3w+KuZ5vXpfYYiNJS6H/fl?=
+ =?iso-8859-1?Q?HIXazrj5vyrJLgOGwY2O/R9oHakd6/DDbYYf5DngT7SE7OqzVC70nWWz2h?=
+ =?iso-8859-1?Q?mMEVFk+UlqDOdKq24SYxxdK4MUTOLiFwkVrJT4vGErgaiqL3uPLwgXErNB?=
+ =?iso-8859-1?Q?6RwsO7ew3cXPAzNCLsp/NPB2Y7RCzOkyTQ1E9MlUcXrBqk?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MRWPR04MB12330.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 838e7d8c-41f8-4827-a91e-08def357aa9a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2026 01:11:38.2799
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GlWCekUsKJj7gWhT68C85utAHqVrfTCVHOb7hoeipG6tnP67n6kxk6Y4dzFP72H0X2tDonimHxnVVL4IBwbiYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12008
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: pse-pd: realtek-pse-mcu: add UART transport
+Hi Rob,
 
-This adds a serdev (UART) transport for the Realtek PSE MCU core, with
-send/recv callbacks that exchange the 12-byte frames and an asynchronous
-receive_buf callback. The baud rate defaults to 19200 and can be overridden
-with the "current-speed" property.
+> Subject: Re: [PATCH 00/10] dt-bindings: mfd: Use generic power-
+> controller schema
+>=20
+> On Tue, Aug 04, 2026 at 10:16:35PM +0800, Peng Fan (OSS) wrote:
+> > The generic power-controller.yaml schema has been added to
+> > dt-schema[1], providing a common definition for the
+> > `system-power-controller` boolean property. Convert MFD bindings
+> that
+> > locally define this property to instead reference the shared schema.
+> >
+> > The common change across all patches is:
+> >  - Add a $ref to /schemas/power/power-controller.yaml#
+> >  - Remove the local `system-power-controller` property definition
+> >  - Switch from additionalProperties to unevaluatedProperties
+> >
+> > This is a pick of patches 2-11 from [2], rebased to linux-next/master,
+> > no changes. Patch 1 (the generic power-controller.yaml schema itself)
+> > is dropped since it has already been picked up by dt-schema.
+> >
+> >
+> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> > ---
+> > Peng Fan (10):
+> >       dt-bindings: mfd: ene-kb[3]930: Use generic power-controller
+> schema
+> >       dt-bindings: mfd: ti,tps65910: Use generic power-controller
+> schema
+> >       dt-bindings: mfd: rockchip,rk8x: Use generic power-controller
+> schema
+> >       dt-bindings: mfd: ricoh,rn5t618: Use generic power-controller
+> schema
+> >       dt-bindings: mfd: netronix,ntxec: Use generic power-controller
+> schema
+> >       dt-bindings: mfd: ti,twl: Use generic power-controller schema
+> >       dt-bindings: mfd: ti,tps6594: Use generic power-controller
+> schema
+> >       dt-bindings: mfd: rohm,bd71828-pmic: Use generic power-
+> controller schema
+> >       dt-bindings: mfd: fsl,mc13xxx: Use generic power-controller
+> schema
+> >       dt-bindings: mfd: samsung,s2mpg10-pmic: Use generic
+> > power-controller schema
+>=20
+> Can we hold off on this until at least the next cycle.=20
 
-> diff --git a/drivers/net/pse-pd/realtek-pse-mcu-uart.c b/drivers/net/pse-pd/realtek-pse-mcu-uart.c
-> new file mode 100644
-> index 0000000000000..9baa17d8d31fa
-> --- /dev/null
-> +++ b/drivers/net/pse-pd/realtek-pse-mcu-uart.c
-> @@ -0,0 +1,164 @@
+Sure.=20
 
-[ ... ]
+This change
+> effectively bumps the minimum version of dtschema. While power-
+> controller.yaml is added to dtschema, it is not yet in a released version=
+.
+> I'm not all that sure these changes are much improvement given it is a
+> single boolean.
 
-> +/*
-> + * No framing is done here: a glitched frame costs one transaction, then
-> + * the next _send re-frames from rx_len 0. Resync works by returning count
-> + * (not take), dropping any overflow so serdev keeps no leftover to bleed
-> + * into the next frame.
-> + */
-> +static size_t rtpse_mcu_uart_receive(struct serdev_device *serdev,
-> +				     const u8 *buf, size_t count)
-> +{
-> +	struct rtpse_mcu_uart *ctx = serdev_device_get_drvdata(serdev);
-> +	size_t take;
-> +
-> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
-> +		take = min(count, sizeof(ctx->rx_buf) - ctx->rx_len);
-> +		if (take) {
-> +			memcpy(ctx->rx_buf + ctx->rx_len, buf, take);
-> +			ctx->rx_len += take;
-> +			if (ctx->rx_len == sizeof(ctx->rx_buf))
-> +				complete(&ctx->rx_done);
-> +		}
-> +	}
-> +
-> +	/* consume all to avoid desync/misalignment */
-> +	return count;
-> +}
+If you prefer, I could drop the patchset.
 
-[ ... ]
+Thanks,
+Peng.
 
-> +static int rtpse_mcu_uart_send(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req)
-> +{
-> +	struct rtpse_mcu_uart *ctx = to_rtpse_mcu_uart(pse);
-> +	int written;
-> +
-> +	/* clear any leftover rx state before transmitting */
-> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
-> +		reinit_completion(&ctx->rx_done);
-> +		ctx->rx_len = 0;
-> +	}
-
-[ ... ]
-
-> +static int rtpse_mcu_uart_recv(struct rtpse_mcu_ctrl *pse,
-> +			       const struct rtpse_mcu_msg *req,
-> +			       struct rtpse_mcu_msg *resp)
-> +{
-> +	struct rtpse_mcu_uart *ctx = to_rtpse_mcu_uart(pse);
-> +
-> +	if (!wait_for_completion_timeout(&ctx->rx_done, RTPSE_MCU_UART_RX_TIMEOUT))
-> +		return -ETIMEDOUT;
-> +
-> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
-> +		if (ctx->rx_len != sizeof(*resp))
-> +			return -EIO;
-> +
-> +		memcpy(resp, ctx->rx_buf, sizeof(*resp));
-> +	}
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Should rtpse_mcu_uart_recv() apply rtpse_mcu_resp_is_final() before
-accepting a frame?  The req argument is unused here, so the first complete
-12-byte frame becomes the transaction result no matter what it contains.
-
-realtek-pse-mcu.h describes one of those frames as transient:
-
-  /*
-   * MCU status opcodes (seen on the Gen1 dialect; Gen2 never emits them).
-   * INCOMPLETE/BAD_CSUM are terminal; NOT_READY is transient.
-   */
-  #define RTPSE_MCU_OPCODE_NOT_READY		0xff	/* -EAGAIN  */
-
-and the I2C transport keeps polling until the acceptance predicate holds,
-so a NOT_READY frame never escapes the transaction:
-
-  drivers/net/pse-pd/realtek-pse-mcu-i2c.c:rtpse_mcu_i2c_smbus_recv() {
-	for (tries = 0; tries < RTPSE_MCU_I2C_MAX_TRIES; tries++) {
-		...
-		if (ret == RTPSE_MCU_MSG_SIZE && rtpse_mcu_resp_is_final(req, resp))
-			return 0;
-	}
-	return -ETIMEDOUT;
-  }
-
-With the UART transport, a NOT_READY frame is copied into resp and
-rtpse_mcu_do_xfer() turns it into an error for the caller:
-
-  drivers/net/pse-pd/realtek-pse-mcu-core.c:rtpse_mcu_do_xfer() {
-	case RTPSE_MCU_OPCODE_NOT_READY:
-		return -EAGAIN;
-  }
-
-Is any runtime caller prepared for that?  The only place -EAGAIN is retried
-is the probe-time boot loop in rtpse_mcu_discover(); the pse_controller_ops
-paths propagate it, so an ethtool PSE get/set would fail.
-
-Note that "realtek,pse-mcu-gen1" is in rtpse_mcu_uart_of_match[], which is
-the dialect documented as emitting these status opcodes.
-
-Can the real reply also be lost in that case?  Once rx_len is 12 the
-receive callback computes take == 0 and drops the following bytes; if they
-instead arrive after the next rtpse_mcu_uart_send() has reset rx_len to 0
-(the core only sleeps RTPSE_MCU_RESPONSE_MS = 25 ms between send and recv),
-they are consumed as the next transaction's response and rejected by:
-
-  if (resp->opcode != req->opcode ||
-      resp->seq_num != req->seq_num ||
-      resp->checksum != rtpse_mcu_checksum((u8 *)resp, RTPSE_MCU_MSG_SIZE - 1))
-	return -EBADMSG;
-
-failing a second consecutive operation.
-
-Would it make sense to loop on wait_for_completion_timeout() against a
-remaining-time budget until rtpse_mcu_resp_is_final(req, resp) holds?  As
-written only the first frame is waited for, leaving most of the
-RTPSE_MCU_RESPONSE_MAX_MS (1000 ms) receive budget unused.
+>=20
+> Rob
