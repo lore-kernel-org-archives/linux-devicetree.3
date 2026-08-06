@@ -1,171 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC6847AF66;
-	Thu,  6 Aug 2026 15:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D254C3B813D
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 15:35:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786030335; cv=none; b=YYVkaEY6zlsyMWjLSatAQqGepFQGKShbzNY0+OeoPs38OHJFBlC+dLBpnCUqPVrD0kfU3JsVkewgDpC0DbeBCzEeY63dRWgwNVv1cIcHODIkZcMGxlcUfRzCjRtMzRDzrYRuPn5wNjrmCGT+YcnwpDdFVM+S+DnNxUvUQIat068=
+	t=1786030503; cv=none; b=LO8Vdhh9wB4M8s5UrInkuvp+se/ZewNEEXN7kgcMSDlcSzJxBrVuZqRwv0mCt/Pp8UOIK2YwdBifbLVq3PtHNGqNQ27K16Tc32JPLrWFaUZH1LsCWD3/dExNtKhzWHgcGYVeRaxfaC9CTijob2NpVfqVbtd7mHLtIN8PfI3DcC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786030335; c=relaxed/simple;
-	bh=auYto+B9cYKZDXql4FWRJ7vRrBr+5unK57ePWQE13rE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ddUKkEnvbXhLn1o77gkseQB81ScV9MFZmTamZsxgTRe1XLFRTa34jwog84F23c3aGF/j0yXswaOSxwFlb89i09dOBXCHVYE3/c+VBiU5Bs4QaMZ76Q/fPJ1m8EFYNigIHOfl7KDdCYoajyUrJEM5BLrv8YZilSrrmU0N9QbZcZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+fvyxBy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786030503; c=relaxed/simple;
+	bh=I82qCAapuq5q4XLsdlrx/cBUqFtHqRFuOYioPzImCLw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QVKi52/NJ6Rv0QnKhh7/rNOXtdTTxb113kW8HXDs8GvsG0Fbvkiqy7CBIkNSkCix0dMgZzMzhARCB59ifNMLKzl5zMOcttOdVU19t/3Yd7JMwnEAmcf0MdpPC1M1+s194+qSk12gy4uYRuZ2u72f/sRpYaa+KnPHielaAs6V63o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dnNuNjR6; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+fvyxBy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AE2C1F00A3A;
-	Thu,  6 Aug 2026 15:32:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786030334;
-	bh=AZSZPzON7ucEjZ9c+7oaRZh+ub6oqa+CVuEDyGespbM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b+fvyxByaDjz2DlM4029QCo37jD6N/G6amWNS0pnoEPmOWqb3BXt6p0mT8PEKCI2d
-	 EBKROd/dJQ3b5U3eoKcId9a3UpAl85hA+ZvUpCCvTqLiNSGPV3vPvaeVt7QkWdmoum
-	 A1IXr+VTkIlHZx0a11Jj7IYo519BaVJIZL9D1YWC4GzGtoDhE+UA48YP3OlU+xEnO+
-	 NjeHwuNJf4BhJK5lQ0UpjmZzCtQQ5L4qBv3j3SCcIs6wURoBPLmHoO+Uhqf2p7Hh4D
-	 z4cSsIv32MlfgfOAQ8zwzsLk+HGjfArNkQLPVQBQZHjdFND1320To+TmOqZDGNyzM/
-	 al0c4GfCZmoOg==
-Date: Thu, 6 Aug 2026 21:02:09 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v8 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY driver
-Message-ID: <anSo-TRpqVm_T_Y1@vaman>
-References: <20260730-glymur_linkmode_0731-v8-0-a455265ad8bf@oss.qualcomm.com>
- <20260730-glymur_linkmode_0731-v8-2-a455265ad8bf@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dnNuNjR6"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-c966b9ee9cbso1589142a12.1
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 08:35:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786030501; x=1786635301; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bbrmQ+GhkVEYubpdUNjaSBaIV7BvrLU3vULivoHV6Ks=;
+        b=dnNuNjR6V3XOnbyCTm2mqXFwVpmNxbMVGxQjowCGYR4n6HR8Sgn0f3S76rauk3SXVv
+         JnqKC9ArrZNFoTNVZv0pkrbp/33CjNcILlPwjWY7+qdJHCbe+3r6xPpJ3xaP8xEeHP1i
+         9pJG5bQU/cVdj1MfnKePWqItT0AJNXd90b5BLSbR0vMHxA4yLMEb3h3vYB3Fj/9JYpNg
+         6Z4eBeoi486nHpV8HIRHIR15PWoGCtsDLfhEsZKWP9+1RSFocQvEmueWbbBJ6WzzQ/Aa
+         pzoZ9Z+1/3aJDobjrmZyWUkTLbsqU5zDHzrslSM3uGmmp3N2ktPq6THN7JBzf/VWFkQD
+         STSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786030501; x=1786635301;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bbrmQ+GhkVEYubpdUNjaSBaIV7BvrLU3vULivoHV6Ks=;
+        b=VwzxIfME322G3uqFGxwob9B3Y7pIYSfKl6adCaaRIIxjtZbnUJrkwy3gqJMgQULAP3
+         ORdWlmi7A65p30y5fRaXEapZfXG1Z3cCtKdzviiSIe1Kcc0D91NqN3+UXm1XsGPZqVQf
+         QFG5qhkEgKVIE6lqAlSYjiGlppLayVPQaWlWw9Vv5mcCXGo2Ko3Qarc3a+6rZ9FkUXs9
+         ICM6nTT9WdBgnwS6wTNUD/jtrHEjnn1ou6MQBTdYfn46Kqw6et67u2W8zK0gMTYd+/Ey
+         rm0BxVteYowMliLE/ORO1uyDgHjoQrGSEeHXBzBKlLhG9q81CG6wDhq34G5NGn2ImCsx
+         kpXw==
+X-Forwarded-Encrypted: i=1; AHgh+Rpp8/hlEqri2kqU3ly6uwTqY1WaV/uMN1a7k4H3mhXhFgPi2JcVvQrsTx3vdq0K+SQVclgzutqrhYaH@vger.kernel.org
+X-Gm-Message-State: AOJu0YyGDuGiz8b9sBF2yo5WS4Amz3yO4XgNKrwlR/vNm3oDQcNskMu0
+	rMKvaMHFIOE86cqbkQ0psA7X/1d16rKKU7OnpgRZsIYhQTmXkSdid73v
+X-Gm-Gg: AR+sD11dHOWEkgf7CayIfPSmdh0q5y0j5Cjb0lRNl01x/jkhAg6pumDizyWbCQGwy5d
+	7dJg8tquL3LI1vD1n9B5mz2dmj9o/V6oNDGV5BVBHsXLz/nBrlzaIztzW0cKXtAAiYG076k6ilS
+	zt0SnF+KMGpzVwaleF/beh7pEuzbYBo0BtCy3svsOcrT2DPW+9BmURqaAgycDgUvOnud4eFGO6O
+	POJHyvh10tHJYg4f6Q7TzpGXXwtzuI4bX7CqTkUtf0MwWdZVP72R2LPxERnaCvIvQl16pFM5bvX
+	Hab2NyGWOj7CF24maj6P1g/ad2r3D2EkN08ZgnDDYO58qyszO+I7pyanO0XrPwtkn658hytwTeJ
+	HtPx+8j2fAm7O1LKIxTSxbsCN6wxf2ywHytHTveeo7sSgueWx/dlH9wEKPAQoxImzPIfbWO23s+
+	HpZb94o54wZsgj14kfCjdU9DbOU9bfZUi6OfcDd8vs5q9QYGIWlHiOkiwS5heTC4I/u89MM39TF
+	/ka2W5U3arG5B70/8dk0fD/okjM0ow7cYegpQ==
+X-Received: by 2002:a05:6a21:9992:b0:3bf:b68f:4685 with SMTP id adf61e73a8af0-3cb85f43e7cmr17944621637.23.1786030500875;
+        Thu, 06 Aug 2026 08:35:00 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586777bcfsm42980668eec.21.2026.08.06.08.34.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 08:35:00 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <d027eec5-ca83-4aba-a3c1-4724c77df0dc@roeck-us.net>
+Date: Thu, 6 Aug 2026 08:34:58 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730-glymur_linkmode_0731-v8-2-a455265ad8bf@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwmon: add Axiado AX3000 and AX3005 PWM fan
+ controller driver
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+ Tzu-Hao Wei <twei@axiado.com>, Karthikeyan Mitran <kmitran@axiado.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260806-axiado-ax3000-pwm-fan-v1-0-f6db4cf2166b@axiado.com>
+ <20260806-axiado-ax3000-pwm-fan-v1-2-f6db4cf2166b@axiado.com>
+ <anRaB--HAHoWFkDo@monoceros>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <anRaB--HAHoWFkDo@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 30-07-26, 22:13, Qiang Yu wrote:
-> Some QMP PCIe PHY hardware blocks support multiple link topologies (e.g.
-> x8 or x4+x4) selected via a TCSR register. The existing single-instance
-> QMP PCIe PHY driver has no way to model this: it assumes a single cfg per
-> DT node and instantiates exactly one PHY.
+On 8/6/26 03:04, Uwe Kleine-König wrote:
+
+> If there is a hwmon lock that serializes calls to hwmon_ops::read and
+> hwmon_ops::write, .pwm_lock isn't needed. (Unless I miss something,
+> please double check. Also I'm unsure if there is such a hwmon
+> serialization.)
 > 
-> Add a dedicated driver for this class of PHY. Match data carries a
-> per-mode cfg table; qmp_pcie_multiphy_probe() reads the current link
-> mode from the TCSR register pointed to by "qcom,link-mode", looks up the
-> corresponding cfg array, and instantiates one qmp_pcie per sub-PHY
-> required by that link mode, registering the clock and #phy-cells = <1> phy
-> providers so consumers can address individual sub-PHYs by index.
-> 
-> The driver inherits the phy setting and link-mode programmed by firmware,
-> so only the no_csr reset is used and no phy setting tables are provided.
-> 
-> Add the first match data and compatible, qcom,glymur-qmp-gen5x8-pcie-phy,
-> for the Glymur Gen5 PCIe PHY that can bifurcate into two x4 links or
-> operate as a single x8 link.
-> 
-> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> ---
->  drivers/phy/qualcomm/Kconfig                      |  11 +
->  drivers/phy/qualcomm/Makefile                     |   1 +
->  drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c | 744 ++++++++++++++++++++++
->  3 files changed, 756 insertions(+)
-> 
-> diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
-> index 60a0ead127fa..8d45820bc84a 100644
-> --- a/drivers/phy/qualcomm/Kconfig
-> +++ b/drivers/phy/qualcomm/Kconfig
-> @@ -77,6 +77,17 @@ config PHY_QCOM_QMP_PCIE
->  	  Enable this to support the QMP PCIe PHY transceiver that is used
->  	  with PCIe controllers on Qualcomm chips.
->  
-> +config PHY_QCOM_QMP_PCIE_MULTIPHY
-> +	tristate "Qualcomm QMP PCIe Multi PHY Driver"
-> +	depends on PCI || COMPILE_TEST
-> +	select GENERIC_PHY
-> +	default PHY_QCOM_QMP
 
-Can you please drop this. Let the respective config select it
+In hwmon_attr_show(), hwmon_attr_show_string(), and hwmon_attr_store():
 
-> +
-> +static struct clk_hw *qmp_pcie_multiphy_clk_hw_get(struct of_phandle_args *clkspec,
-> +						    void *data)
+	guard(mutex)(&hwdev->lock);
 
-please align this to preceding open braces. I think this might look
-neater:
-static struct clk_hw *
-qmp_pcie_multiphy_clk_hw_get(struct of_phandle_args *clkspec, void *data)
+Guenter
 
-> +{
-> +	struct qmp_pcie_multiphy *qmp_data = data;
-> +	unsigned int idx = 0;
-> +
-> +	if (clkspec->args_count)
-> +		idx = clkspec->args[0];
-> +
-> +	if (idx < (unsigned int)qmp_data->num_pipe_outputs)
-> +		return &qmp_data->pipe_out_clks[idx].hw;
-> +
-> +	return ERR_PTR(-EINVAL);
-> +}
-> +
-> +static int qmp_pcie_multiphy_register_clocks(struct device *dev,
-> +					      struct device_node *np,
-> +					      struct qmp_pcie_multiphy *qmp_data)
-
-please align these two to preceding open braces
-
-
-> +static int qmp_pcie_probe_phy(struct qmp_pcie *qmp, struct device_node *np,
-> +			      struct phy **out_phy)
-> +{
-> +	int ret;
-> +
-> +	ret = qmp_pcie_get_mmio(qmp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = qmp_pcie_clk_init(qmp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = qmp_pcie_reset_init(qmp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = qmp_pcie_vreg_init(qmp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = qmp_pcie_pd_init(qmp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	*out_phy = devm_phy_create(qmp->dev, np, &qmp_pcie_phy_ops);
-> +	if (IS_ERR(*out_phy))
-> +		return PTR_ERR(*out_phy);
-> +
-> +	phy_set_drvdata(*out_phy, qmp);
-> +
-> +	return 0;
-> +}
-> +
-> +
-
-Two empty lines, please drop one
-
--- 
-~Vinod
