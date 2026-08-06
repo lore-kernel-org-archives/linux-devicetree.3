@@ -1,333 +1,349 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991A4435521
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:45:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27FF2FF672
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:46:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786009557; cv=none; b=KUnbJks2Pg6zra9bug9MnlaOMOIz2u5W8zdP2ha/mcQTTgs8aGwA9AUT3bGBOwmrAgJrWqYl0TBQrx1+QJPTd9NxDUvFU7wKURy+1lXJu6Q0a4anmQW3DzmGhMvyoGZK6DwLmIXDN20YyqgxJKp3xifPXJugirY721XGNexG0sU=
+	t=1786009588; cv=none; b=hyXBBzwj07KVyG6V0Q3ub1ChnUzhtJCqFoGVv0Oag8uYPuwX4kbUXe6Z8fVY+I8otY21TzG96k6PjIP6bw54mM730Mtz7N8tMdFGYau82QSjGQGgTpC8SBImFLyeP5GY/E5mil7q/wGI+KfHEN+MDvM8uFWJXC9w8fbwC1cwaE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786009557; c=relaxed/simple;
-	bh=i5sUnHPTwyStnAfKhrt5vgiqlIDOIt5vQzGaS6+eoTQ=;
+	s=arc-20240116; t=1786009588; c=relaxed/simple;
+	bh=8KTb7+iMsX4KT3oWr52mniQBL1iMEhkYYzrG7UaGxK4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rpzr7zbijyryErE3mMXh7MOrdYL3gZqS7Po1kSp28z1L7+XXg/G/vYm+TNhDpAUAyoig9fT78lcbr2gU+IB++G7syvgsykFglH9S4G2pNKzJztVDdFvYIn/qRL0wZKiuQMeo3GEgjNIu9lCw/suefr90VDLQOWHg3+6XArj2Xdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBUXBkHB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=EktQfeQrnh4ITWGBrliCAl/jC0c+Y/lPx0MkuGRfX+i+RU60smylXNuiTyPHcsfVW8H1XnS0jCml47zjsF0DH7XxLlV6odipS0vJKw192ryLEMs3GQXQ3z6kRzZw0yYz4KmLPsNTae0IpNsC+MfOVypbbvzkc/lTKCanDtHUbYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+G/Xbgk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBUXBkHB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0161F00A3A;
-	Thu,  6 Aug 2026 09:45:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+G/Xbgk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B0F71F000E9;
+	Thu,  6 Aug 2026 09:46:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786009555;
-	bh=YLipMrm5pTnU/LnlCxvqoxJeLbp34f/sXqAyahB6jjo=;
+	s=k20260515; t=1786009586;
+	bh=0kdpO+RpauvbCT5f9Ul3xxqpzi1106+szWwyor9MAic=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IBUXBkHBOKd+ieHgLDnh83eRhhgUl71VZHYTeUCoWVW9n+gPRIqyYHaTHIIVBneef
-	 X5itJgECardH/hdg0J85qEC8F2QagI0LbE2YU8MuC74j2KAytm5+3tbKqRIRVq1n9L
-	 ZcnUbnD2h98BOAAgfV5xGPhsCtYibMu6quHxy18OEHUrDRL983DJNqka5QEpZF2j3N
-	 n+Frk46zvJbtdKTnU59AHlD774UsdG2jUcG837FsKOkxe6CVnIvAskJJ5MtBxje8bG
-	 iqbOx+2elCvEnOq2EV4X3HRsU9l188RDrnLBE8EOdVpWt1dGrwe44ZpI7wLJO+p2d3
-	 ISUtAp4qgioGA==
+	b=P+G/XbgksHxCPLMoyLyx1Xuk72zRSO3FAxV22u8mLHq+y97SN1H3jTtUmsumODvD/
+	 Ml9t0+7v7z5WatOCxdWUNnqxZsQDHJB0ac60/xokBbxyugtXehndvaQd0xlk7g/lgQ
+	 IWZUk0TltPZZyt3yS4jkW57zeSJ975yTU9D8VehvC9aa/d/Wl812eGCAwIfKgVWcIj
+	 4sch7bgncYhjjmJkWs8GVWs3/t29p2dNCmI7ez2IL63xbtw48y5y8GZH2C77WmL6eS
+	 QtcM/ZcIEve751rzJLqdqcwAEettO6yXMQNlW3XJGXEBWtAfI/AXo+s6KlVtjAWzpI
+	 wErL7Q2ouf97g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 06/10] clk: ambarella: add CV75 CCU driver
+Subject: Re: [PATCH v2 07/10] pinctrl: ambarella: add Ambarella pin
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Long Zhao" <longzhao@ambarella.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806-longzhao-upstream-cv75-v2-v2-6-6b09707c5fe9@ambarella.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260806-longzhao-upstream-cv75-v2-v2-7-6b09707c5fe9@ambarella.com>
 References: <20260806-longzhao-upstream-cv75-v2-v2-0-6b09707c5fe9@ambarella.com>
- <20260806-longzhao-upstream-cv75-v2-v2-6-6b09707c5fe9@ambarella.com>
+ <20260806-longzhao-upstream-cv75-v2-v2-7-6b09707c5fe9@ambarella.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 09:45:53 +0000
-Message-Id: <20260806094554.CB0161F00A3A@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 09:46:25 +0000
+Message-Id: <20260806094626.4B0F71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
-- [High] `do_div()` is incorrectly used on `unsigned long` variables, causi=
-ng stack memory corruption on 32-bit architectures.
-- [High] The generic divider implementation contains logic bugs that cause =
-it to check the wrong bit for status, fail to disable clocks, and corrupt d=
-ivider values.
-- [High] A zero or invalid parent rate causes a fatal divide-by-zero panic =
-during PLL parameter calculation.
-- [High] Infinite loop in `amb_pll_calc_params` when `parent_rate` is small=
-er than the maximum post-divider.
-- [Medium] `amb_pll_calc_params` omits static `fsdiv` and `fsout` dividers =
-from its rational target approximation, resulting in incorrect rates.
-- [Medium] `amb_pll_set_rate` fails to apply `pre_scaler` and `post_scaler`=
- to target calculations, breaking rate configurations.
-- [Medium] Stale hardware register read causes the incorrect VCO range to b=
-e selected for fractional PLL modes.
-- [Medium] Integer PLL rates are unnecessarily restricted to coarse multipl=
-es of `parent_rate / 2`.
+- [High] Improper devres cleanup ordering leaves the GPIO chip with a destr=
+oyed IRQ domain, leading to Use-After-Free.
+- [High] Inconsistent enforcement of hsm_domain_id access restrictions for =
+IOMUX registers causes bus faults.
+- [High] The device tree node pointer is assigned to bank->gc.fwnode withou=
+t taking a reference, leading to a Use-After-Free.
+- [High] Calling regmap_update_bits() while holding a raw_spinlock_t causes=
+ a lock nesting bug on PREEMPT_RT.
+- [High] Performing regmap accesses in _noirq power management callbacks ca=
+uses lockdep BUGs on PREEMPT_RT.
+- [Medium] Improper register restoration order during resume causes glitche=
+s on GPIO output pins and pull resistors.
+- [Medium] amb_pinctrl_suspend_noirq overwrites GPIO_IE_OFFSET with irq_wak=
+e_mask, disabling IRQF_NO_SUSPEND interrupts.
+- [Medium] The driver fails to properly handle clk_au_dedicated_pin on devi=
+ce trees with non-contiguous GPIO banks.
+- [Medium] amb_gpio_irq_enable unconditionally forces the pin direction to =
+INPUT, breaking open-drain output IRQs.
 --
 
---- Patch [6]: [PATCH v2 06/10] clk: ambarella: add CV75 CCU driver ---
-commit 3c34aa8f15f802b4bcbd9606eec16b27a37dd8d9
+--- Patch [7]: [PATCH v2 07/10] pinctrl: ambarella: add Ambarella pin contr=
+oller ---
+commit e1626036cbd93218655297fbd8b45ae82567717d
 Author: Long Zhao <longzhao@ambarella.com>
 
-clk: ambarella: add CV75 CCU driver
+pinctrl: ambarella: add Ambarella pin controller
+   =20
+Add the Ambarella pinmux/GPIO controller driver used by CV75.
 
-This commit adds a minimal Ambarella clock controller driver for the CV75 S=
-oC,
-providing core PLL, bus, and UART clocks required for early console bring-u=
-p.
-
-> diff --git a/drivers/clk/ambarella/ccu_mux_div.c b/drivers/clk/ambarella/=
-ccu_mux_div.c
-> new file mode 100644
-> index 0000000000000..33430506f8ed1
+> diff --git a/drivers/pinctrl/pinctrl-ambarella.c b/drivers/pinctrl/pinctr=
+l-ambarella.c
+> index 0000000000000..bb79e06c4160f 100644
 > --- /dev/null
-> +++ b/drivers/clk/ambarella/ccu_mux_div.c
+> +++ b/drivers/pinctrl/pinctrl-ambarella.c
+
 [ ... ]
-> +static unsigned long amb_div_recalc_rate(struct clk_hw *hw,
-> +					 unsigned long parent_rate)
-> +{
-> +	struct amb_div *div =3D to_amb_div(hw);
-> +	unsigned long rate;
-> +	u32 val;
-> +
-> +	regmap_read(div->map, div->offset, &val);
-> +
-> +	if (val & BIT(div->width))
-> +		return 0;
+
+> @@ -462,13 +462,13 @@ static int amb_pinconf_set(struct pinctrl_dev *pctl=
+dev, unsigned int pin,
+>  	bank =3D gpio_bank->hw_id;
+>  	offset =3D pin - gpio_bank->pin_base;
+> =20
+>  	raw_spin_lock_irqsave(&soc->lock, flags);
+>  	for (i =3D 0; i < num_configs; i++) {
+>  		config =3D configs[i];
+>  		param =3D pinconf_to_config_param(config);
+>  		arg =3D pinconf_to_config_argument(config);
+> =20
+>  		switch (param) {
+>  		case PIN_CONFIG_BIAS_DISABLE:
+>  			regmap_update_bits(soc->pull_regmap,
+>  					   soc->data->pull_en[bank], BIT(offset), 0);
 
 [Severity: High]
-Does this check the correct bit? The code checks BIT(div->width) directly
-against the raw register value before shifting it by div->shift. If
-div->shift is non-zero, this evaluates the wrong hardware bit.
+The syscon regmaps use a standard spinlock_t internally, which maps to a
+sleepable rt_mutex on PREEMPT_RT.=20
 
-> +
-> +	val >>=3D div->shift;
-> +	val &=3D clk_div_mask(div->width);
-> +
-> +	rate =3D divider_recalc_rate(hw, parent_rate, val, NULL,
-> +				   div->flags, div->width);
-> +	if (div->fix_divider)
-> +		do_div(rate, div->fix_divider);
+Since raw_spin_lock_irqsave(&soc->lock, flags) is held, does calling
+regmap_update_bits() here trigger a "sleeping in atomic context" BUG
+on PREEMPT_RT?
 
-[Severity: High]
-Can this cause a stack buffer overflow on 32-bit architectures? The do_div
-macro expects a 64-bit u64 pointer. Because this driver can be built for
-32-bit targets via COMPILE_TEST, unsigned long is 32 bits on those systems.
-Passing a 32-bit variable causes the macro to write 64 bits, overwriting
-adjacent stack memory.
-
-> +
-> +	return rate;
-> +}
-> +
-> +static int amb_div_determine_rate(struct clk_hw *hw,
-> +				  struct clk_rate_request *req)
-> +{
 [ ... ]
-> +	req->rate =3D scaled.rate;
-> +	req->best_parent_rate =3D scaled.best_parent_rate;
-> +	req->best_parent_hw =3D scaled.best_parent_hw;
-> +	if (div->fix_divider)
-> +		do_div(req->rate, div->fix_divider);
 
-[Severity: High]
-Could this corrupt the adjacent fields in the clk_rate_request struct? The
-do_div macro writes 64 bits to req->rate, which is an unsigned long and
-thus only 32 bits on 32-bit builds.
+> @@ -746,13 +746,13 @@ static int amb_gpio_direction_output(struct gpio_ch=
+ip *gc, unsigned int pin, int
+>  	writel_relaxed(data | BIT(pin), bank->base + GPIO_DIR_OFFSET);
+> =20
+>  	raw_spin_unlock_irqrestore(&soc->lock, flags);
+> =20
+>  	return 0;
+>  }
+> =20
+>  /* gpiolib gpio_to_irq callback function */
+>  static int amb_gpio_to_irq(struct gpio_chip *gc, unsigned int pin)
+>  {
+>  	struct amb_gpio_bank *bank =3D gpiochip_get_data(gc);
+> =20
+>  	return irq_create_mapping(bank->domain, pin);
+>  }
 
-> +
-> +	return 0;
-> +}
-> +
-> +static int amb_div_set_rate(struct clk_hw *hw, unsigned long rate,
-> +			    unsigned long parent_rate)
-> +{
-> +	struct amb_div *div =3D to_amb_div(hw);
-> +	int val, mask;
-> +
-> +	if (div->fix_divider)
-> +		rate *=3D div->fix_divider;
-> +
-> +	if (!rate) {
-> +		val =3D BIT(div->width);
-> +	} else {
-> +		val =3D divider_get_val(rate, parent_rate, NULL,
-> +				      div->width, div->flags);
-> +		if (val < 0)
-> +			return val;
-> +	}
-> +
-> +	mask =3D (div->flags & CLK_DIVIDER_ONE_BASED) ?
-> +		clk_div_mask(div->width + 1) : clk_div_mask(div->width);
-> +
-> +	regmap_update_bits(div->map, div->offset, mask << div->shift,
-> +			   val << div->shift);
-
-[Severity: High]
-Can this prevent the clock from being disabled? The update mask for
-zero-based dividers uses clk_div_mask(div->width), which excludes
-BIT(div->width). When setting a rate of 0, val evaluates to BIT(div->width),
-but it gets masked out here, silently leaving the clock enabled with a zero
-divider.
-
-> +
-> +	if (!(div->flags & CLK_DIVIDER_ONE_BASED)) {
-> +		regmap_update_bits(div->map, div->offset, BIT(0), BIT(0));
-> +		regmap_update_bits(div->map, div->offset, BIT(0), 0);
-> +	}
-
-[Severity: High]
-Will toggling BIT(0) directly on the register corrupt the actual divider
-field if div->shift is 0?
-
-> diff --git a/drivers/clk/ambarella/ccu_pll.c b/drivers/clk/ambarella/ccu_=
-pll.c
-> new file mode 100644
-> index 0000000000000..1293836e222e5
-> --- /dev/null
-> +++ b/drivers/clk/ambarella/ccu_pll.c
 [ ... ]
-> +static int amb_pll_determine_rate(struct clk_hw *hw,
-> +				  struct clk_rate_request *req)
-> +{
-> +	struct amb_pll *pll =3D to_amb_pll(hw);
-> +	unsigned long half_refclk =3D req->best_parent_rate / 2;
-> +
-> +	if (pll->frac_mode)
-> +		return 0;
-> +
-> +	if (!half_refclk)
-> +		return 0;
+
+> @@ -1181,24 +1181,24 @@ static int amb_gpio_register(struct amb_pinctrl_s=
+oc_data *soc)
+> =20
+>  		bank->domain =3D irq_domain_add_linear(to_of_node(bank->gc.fwnode),
+>  						    bank->gc.ngpio,
+>  						    &amb_gpio_irq_domain_ops,
+>  						    bank);
+>  		if (!bank->domain)
+>  			return dev_err_probe(soc->dev, -ENODEV,
+>  					     "GPIO%u: failed to create irqdomain\n",
+>  					     i);
+> =20
+>  		rval =3D devm_gpiochip_add_data(soc->dev, &bank->gc, bank);
+>  		if (rval) {
+>  			irq_domain_remove(bank->domain);
+>  			bank->domain =3D NULL;
+>  			return dev_err_probe(soc->dev, rval,
+>  					     "GPIO%u: gpiochip registration failed\n",
+>  					     i);
+>  		}
+> =20
+>  		writel_relaxed(0xffffffff, bank->base + GPIO_ENABLE_OFFSET);
+>  		writel_relaxed(0x00000000, bank->base + GPIO_AFSEL_OFFSET);
+>  		writel_relaxed(0x00000000, bank->base + GPIO_MASK_OFFSET);
+> =20
+>  		irq_set_irq_type(bank->irq, IRQ_TYPE_LEVEL_HIGH);
+>  		irq_set_chained_handler_and_data(bank->irq,
+>  						 amb_gpio_handle_irq, bank);
+> =20
+>  		rval =3D devm_add_action_or_reset(soc->dev,
+>  					       amb_gpio_irq_cleanup, bank);
 
 [Severity: High]
-If the best parent rate is 0 or 1, half_refclk evaluates to 0, returning 0
-(success). Doesn't this allow a 0 parent rate to reach amb_pll_set_rate,
-which then calls amb_pll_calc_params and triggers a divide-by-zero panic?
+The devres cleanup action amb_gpio_irq_cleanup() is registered after the
+gpiochip is added. Since devres actions execute in reverse order, the IRQ
+domain will be destroyed before the gpiochip is removed.
 
-> +
-> +	req->rate =3D roundup(req->rate, half_refclk);
-> +
-> +	return 0;
-> +}
+Could this leave the gpiochip with a NULL bank->domain during unbind,
+causing a use-after-free if amb_gpio_to_irq() is called?
+
+[ ... ]
+
+> @@ -841,13 +841,13 @@ static void amb_gpio_irq_enable(struct irq_data *da=
+ta)
+> =20
+>  	offset =3D irqd_to_hwirq(data);
+> =20
+>  	gpiochip_enable_irq(gc, offset);
+> =20
+>  	raw_spin_lock_irqsave(&soc->lock, flags);
+> =20
+>  	val =3D readl_relaxed(gpio_base + GPIO_DIR_OFFSET);
+>  	val &=3D ~(0x1 << offset);
+>  	writel_relaxed(val, gpio_base + GPIO_DIR_OFFSET);
 
 [Severity: Medium]
-Does this artificially restrict the integer PLL solver? By forcibly rounding
-up the requested frequency to multiples of parent_rate / 2, this prevents
-the framework from utilizing the fine-grained post-divider (sout) inside
-amb_pll_calc_params to generate precise integer ratios.
+The gpiolib core supports open-drain outputs as interrupt sources. Will
+unconditionally clearing the direction bit here force the pin to be an
+input, breaking any open-drain output IRQs?
 
-> +static int amb_pll_calc_params(struct amb_pll *pll, unsigned long rate,
-> +			       unsigned long parent_rate, u32 ctrl2_val,
-> +			       u32 *intp, u32 *sdiv, u32 *sout,
-> +			       u32 *vcodiv, u32 *fsdiv, u32 *fsout)
-> +{
-[ ... ]
-> +	max_numerator =3D min(128UL, max_numerator);
-> +	if (!max_numerator)
-> +		return -EINVAL;
-> +
-> +	max_denominator =3D AMB_PLL_MAX_SOUT;
-> +	rate_tmp =3D rate;
-> +	rational_best_approximation(rate_tmp, parent_rate, max_numerator,
-> +				    max_denominator, &intp_ul, &sout_ul);
-
-[Severity: Medium]
-Should the rate approximation factor in the static fsdiv and fsout dividers?
-The rational_best_approximation is called assuming the output rate
-relationship is solely parent_rate * intp / sout. Because the true hardware
-equation includes fsdiv and fsout, omitting them from the target ratio
-approximation results in incorrectly calculated parameters.
-
-> +
-> +	while (parent_rate * *fsdiv * intp_ul * *sdiv / *fsout / sout_ul >
-> +	       rate) {
-> +		unsigned long resolution =3D parent_rate / AMB_PLL_MAX_SOUT;
-> +
-> +		if (rate_tmp <=3D resolution)
-> +			return -EINVAL;
-> +
-> +		rate_tmp -=3D resolution;
+> =20
+>  	for (i =3D 0; i < 3; i++) {
+>  		val =3D readl_relaxed(iomux_base + IOMUX_OFFSET(bank->hw_id, i));
+>  		val &=3D ~(0x1 << offset);
+>  		writel_relaxed(val, iomux_base + IOMUX_OFFSET(bank->hw_id, i));
+>  	}
 
 [Severity: High]
-Is there a risk of an infinite loop here if parent_rate is very low? If
-parent_rate is less than AMB_PLL_MAX_SOUT (16), resolution truncates to 0.
-Subtracting 0 leaves rate_tmp unchanged, causing the loop condition to
-evaluate as permanently true.
+The driver restricts IOMUX register access in amb_pinmux_set_altfunc()
+to only the safety domain (hsm_domain_id =3D=3D 0).
 
-> +		rational_best_approximation(rate_tmp, parent_rate,
-> +					    max_numerator, max_denominator,
-> +					    &intp_ul, &sout_ul);
-> +	}
+Does this loop bypass that check? Can unprotected writes here trigger a bus
+fault on platforms where hsm_domain_id !=3D 0?
+
 [ ... ]
-> +static int amb_pll_set_rate(struct clk_hw *hw, unsigned long rate,
-> +			    unsigned long parent_rate)
-> +{
-> +	struct amb_pll *pll =3D to_amb_pll(hw);
+
+> @@ -996,9 +996,9 @@ static int amb_gpio_parse_dt(struct amb_pinctrl_soc_d=
+ata *soc)
+>  			if (soc->banks[i].hw_id =3D=3D hw_id)
+>  				return dev_err_probe(soc->dev, -EINVAL,
+>  						     "%pOF: duplicate GPIO bank\n",
+>  						     np);
+>  		}
+> =20
+>  		bank =3D &soc->banks[soc->bank_num];
+>  		bank->soc =3D soc;
+>  		bank->pin_base =3D args.args[1];
+>  		bank->hw_id =3D hw_id;
+>  		bank->gc.ngpio =3D args.args[2];
+>  		bank->gc.fwnode =3D of_fwnode_handle(np);
+
+[Severity: High]
+The for_each_available_child_of_node_scoped() loop automatically drops the
+reference to the np node when it goes out of scope.
+
+Will assigning it to bank->gc.fwnode without taking an additional reference
+via of_node_get() lead to a use-after-free later?
+
 [ ... ]
-> +	ret =3D amb_pll_calc_params(pll, rate, parent_rate, ctrl2_val,
-> +				  &intp, &sdiv, &sout, &vcodiv, &fsdiv,
-> +				  &fsout);
+
+> @@ -1300,9 +1300,9 @@ static int amb_pinctrl_probe(struct platform_device=
+ *pdev)
+>  	for (i =3D 0; i < soc->bank_num; i++) {
+>  		unsigned int pin;
+> =20
+>  		for (pin =3D soc->banks[i].pin_base;
+>  		     pin < soc->banks[i].pin_base + soc->banks[i].gc.ngpio;
+>  		     pin++)
+>  			clear_bit(pin, soc->used);
+>  	}
+> =20
+>  	if (soc->data->clk_au_dedicated_pin >=3D gpio_pins &&
+>  	    soc->data->clk_au_dedicated_pin < AMBA_MAX_PINS)
+>  		clear_bit(soc->data->clk_au_dedicated_pin, soc->used);
 
 [Severity: Medium]
-Should this adjust the requested rate and parent_rate using the hardware
-pre_scaler and post_scaler? Unlike amb_pll_recalc_rate which reads these
-scalers from hardware registers, amb_pll_set_rate passes the raw rate and
-parent_rate directly into amb_pll_calc_params, which will configure the PLL
-clocks to incorrect frequencies.
+If the device tree contains sparse, non-contiguous GPIO banks, the dedicated
+pin might fall into a "hole" (a missing bank) that has an ID less than
+the highest pin ID returned by amb_gpio_pins_end(soc).
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (soc_data->ctrl2_val)
-> +		regmap_write(pll->map, reg[CTRL2_OFFSET], soc_data->ctrl2_val);
-> +
-> +	ctrl_val =3D ((intp - 1) & 0x7f) << 24;
-> +	ctrl_val |=3D ((sdiv - 1) & 0xf) << 12;
-> +	ctrl_val |=3D ((sout - 1) & 0xf) << 16;
-> +	if (soc_data->pll_version >=3D 2) {
-> +		ctrl_val |=3D vcodiv =3D=3D 2 ? soc_data->vcodiv_val : 0;
-> +		ctrl_val |=3D fsdiv =3D=3D 2 ? soc_data->fsdiv_val : 0;
-> +		ctrl_val |=3D fsout =3D=3D 2 ? soc_data->fsout_val : 0;
-> +	}
-> +
-> +	regmap_write(pll->map, reg[CTRL_OFFSET], ctrl_val);
-> +	regmap_write(pll->map, reg[FRAC_OFFSET], 0);
-> +
-> +	old_rate =3D amb_pll_recalc_rate(hw, parent_rate) * pll->fix_divider;
-> +	rate_tmp =3D old_rate > rate ? 0 : rate - old_rate;
-> +	if (rate_tmp && pll->frac_mode) {
-> +		u64 dividend, divider;
-> +
-> +		dividend =3D (u64)rate_tmp * sout * fsout;
-> +		dividend <<=3D 32;
-> +		divider =3D (u64)sdiv * fsdiv * parent_rate;
-> +		frac_val =3D DIV_ROUND_CLOSEST_ULL(dividend, divider);
-> +		regmap_write(pll->map, reg[FRAC_OFFSET], frac_val);
-> +		ctrl_val |=3D CTRL_FRAC_MODE;
-> +	}
-> +
-> +	if (soc_data->pll_version >=3D 2) {
+If this happens, will gpio_pins incorrectly skip this dedicated pin, leaving
+it marked busy and preventing it from being suspended?
+
 [ ... ]
-> +	} else {
-> +		u32 fvco_mhz, range;
-> +
-> +		fvco_mhz =3D amb_pll_calc_vco(pll, parent_rate) / 1000000UL;
+
+> @@ -1390,15 +1390,15 @@ static int amb_pinctrl_suspend_noirq(struct devic=
+e *dev)
+>  	struct amb_pinctrl_soc_data *soc =3D dev_get_drvdata(dev);
+>  	u32 bank, hw, i;
+> =20
+>  	for (i =3D 0; i < soc->bank_num; i++) {
+>  		hw =3D soc->banks[i].hw_id;
+> =20
+>  		regmap_read(soc->pull_regmap, soc->data->pull_en[hw], &soc->pm[i].pull=
+[0]);
+>  		regmap_read(soc->pull_regmap, soc->data->pull_dir[hw], &soc->pm[i].pul=
+l[1]);
+> =20
+>  		regmap_read(soc->ds_regmap, soc->data->ds0[hw], &soc->pm[i].ds[0]);
+
+[Severity: High]
+The amb_pinctrl_suspend_noirq() callback executes with hardirqs disabled.
+Will reading the syscon regmaps here attempt to acquire a sleepable rt_mutex
+on PREEMPT_RT, triggering a "sleeping in atomic context" BUG?
+
+>  		regmap_read(soc->ds_regmap, soc->data->ds1[hw], &soc->pm[i].ds[1]);
+>  		if (soc->data->have_ds2)
+>  			regmap_read(soc->ds_regmap, soc->data->ds2[hw], &soc->pm[i].ds[2]);
+> =20
+>  		soc->pm[i].iomux[0] =3D readl_relaxed(soc->iomux_base + IOMUX_OFFSET(h=
+w, 0));
+>  		soc->pm[i].iomux[1] =3D readl_relaxed(soc->iomux_base + IOMUX_OFFSET(h=
+w, 1));
+>  		soc->pm[i].iomux[2] =3D readl_relaxed(soc->iomux_base + IOMUX_OFFSET(h=
+w, 2));
+
+[Severity: High]
+Similar to amb_gpio_irq_enable(), is this missing a check to ensure
+hsm_domain_id =3D=3D 0? Could these IOMUX reads trigger a bus fault in
+non-safety domains?
+
+[ ... ]
+
+> @@ -1404,9 +1404,9 @@ static int amb_pinctrl_suspend_noirq(struct device =
+*dev)
+>  		soc->pm[i].is =3D readl_relaxed(soc->banks[i].base + GPIO_IS_OFFSET);
+>  		soc->pm[i].ibe =3D readl_relaxed(soc->banks[i].base + GPIO_IBE_OFFSET);
+>  		soc->pm[i].iev =3D readl_relaxed(soc->banks[i].base + GPIO_IEV_OFFSET);
+>  		soc->pm[i].ie =3D readl_relaxed(soc->banks[i].base + GPIO_IE_OFFSET);
+>  		soc->pm[i].mask =3D readl_relaxed(soc->banks[i].base + GPIO_MASK_OFFSE=
+T);
+>  		writel_relaxed(0xffffffff, soc->banks[i].base + GPIO_MASK_OFFSET);
+>  		soc->pm[i].data =3D readl_relaxed(soc->banks[i].base + GPIO_DATA_OFFSE=
+T);
+> =20
+>  		if (soc->banks[i].irq_wake_mask)
+>  			writel_relaxed(soc->banks[i].irq_wake_mask,
+>  				       soc->banks[i].base + GPIO_IE_OFFSET);
 
 [Severity: Medium]
-Does amb_pll_calc_vco() use a stale hardware register read to determine the
-VCO frequency? The CTRL_FRAC_MODE bit is enabled in the local ctrl_val
-variable above, but not yet written to the hardware register. When
-amb_pll_calc_vco() reads the register directly, it misses the uncommitted
-fractional change, which can lead to the driver selecting the wrong
-VCO_RANGE boundary.
+The generic IRQ core already masks non-wake interrupts during suspend,
+leaving wake and IRQF_NO_SUSPEND interrupts enabled.
 
-> +		for (range =3D 0; range < ARRAY_SIZE(soc_data->vco_range);
-> +		     range++) {
-> +			if (fvco_mhz > soc_data->vco_range[range])
-> +				break;
-> +		}
-> +		range =3D ARRAY_SIZE(soc_data->vco_range) - range - 1;
+Does unconditionally overwriting GPIO_IE_OFFSET with the irq_wake_mask here
+unintentionally disable any configured IRQF_NO_SUSPEND interrupts?
+
+[ ... ]
+
+> @@ -1452,9 +1452,9 @@ static int amb_pinctrl_resume_noirq(struct device *=
+dev)
+>  		if (soc->data->have_ds2)
+>  			regmap_write(soc->ds_regmap, soc->data->ds2[hw], soc->pm[i].ds[2]);
+> =20
+>  		writel_relaxed(soc->pm[i].iomux[0], soc->iomux_base + IOMUX_OFFSET(hw,=
+ 0));
+>  		writel_relaxed(soc->pm[i].iomux[1], soc->iomux_base + IOMUX_OFFSET(hw,=
+ 1));
+>  		writel_relaxed(soc->pm[i].iomux[2], soc->iomux_base + IOMUX_OFFSET(hw,=
+ 2));
+> =20
+>  		writel_relaxed(soc->pm[i].afsel, soc->banks[i].base + GPIO_AFSEL_OFFSE=
+T);
+>  		writel_relaxed(soc->pm[i].dir, soc->banks[i].base + GPIO_DIR_OFFSET);
+>  		/* Expose DATA writes while restoring the saved GPIO state. */
+>  		writel_relaxed(0xffffffff,
+>  			       soc->banks[i].base + GPIO_MASK_OFFSET);
+>  		writel_relaxed(soc->pm[i].data,
+>  			       soc->banks[i].base + GPIO_DATA_OFFSET);
+
+[Severity: Medium]
+The direction is restored before the data is written back. If a pin is
+configured as an output driving HIGH, will setting its direction to output
+while the data register still holds a default 0 momentarily drive the pin
+LOW, causing a hardware glitch during resume?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-longzhao-u=
-pstream-cv75-v2-v2-0-6b09707c5fe9@ambarella.com?part=3D6
+pstream-cv75-v2-v2-0-6b09707c5fe9@ambarella.com?part=3D7
