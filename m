@@ -1,203 +1,270 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6028531F983
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 05:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A5937F32F;
+	Thu,  6 Aug 2026 06:34:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785995541; cv=none; b=IysnB8f8WzIOZQNVhf46ZeNnqHGpOWXxVrLUQZsZPtxDg6SetMtOApa5VvwwyX7yZwRiJVfEPsmIVrPtx2rXH09M/i/4y6zOONc6I33i+eWSFLnrO4HRTzbG9+0eqrBNEgV3xr+yf2qB7oURDJOhGvyUHTIoBEVvYlhPAzwYUIw=
+	t=1785998080; cv=none; b=FV1FUeUWaRuOpCAu87wmo9P/kAyldKJE5nYzIarJrnJTQ8um4FyW95D5E4C+82OVMHXiXxfr1eXbVYTInd/BAxMa4JQCKcGjxFGtPN5hAldHhKMQSLnDiRk80R+uNDblTHFJ6HZOCOlCP1F0bvRk5YytV3ZzGbbDr/tLZYGhuyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785995541; c=relaxed/simple;
-	bh=e+C4aZy523RIhd5n5NQNX/1B/86k5JmgV5gafuEnX/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bDniCsHBBso4bc33WK/3ZzqZlRmyCRlIjaRwOmcLHo9xvwhm7b4yghK5m85IWF61S5bWhNfexaVeNar1jFBdxHg/ZMS2SCJ/t+pd0z5SETaDb9zkg6li70N+zisWtkwHNC2kA46gfYBbExKrIAtE7cJWU2NuSXvGTitXiIesK3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nf+jecq1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IcOT5I+K; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785998080; c=relaxed/simple;
+	bh=KVYrqPyufOpg5hPXDIEHkBwkJDRwO7549xsn4SMIIBU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D6jX4jtZE8FVqHIXzjB4qaPo42LcAauRHVCAMDNY3sl/fSl/j5rDHTZBh5648IAHudnqhUiMBq6xUzQ+eTj8BK0nOUmOuShKfpSDu9YYA0MtGmWrpmaRuHNm+Pa9FoGVdD8mpUac+888kIViCOdNMPQBQcF7XhLM0j1LR2o5m1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=bg3ms/vL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=FBhrQnrT; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nf+jecq1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IcOT5I+K"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6763wnTn1070883
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 05:52:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oeKHvlvTKqPpnFbSU3MA6x+vArE6ZN14UcQL+UlWc9Y=; b=nf+jecq1x4vefev7
-	702Suf/gEnE3e3OA6u5GeSYAnRPQTYxMigqX7fFZvoNZxGqEym4/F0hUT2ZZmHq2
-	c6Lc56rlP5T3hu2nuU12ssadeY/XdHCJks6fxI+2+rnzJQDs13xvivQxS5rGCF81
-	38naJ/MEUQuZWtNENiPAnNP0DhPNdF44FowUR/LM64ijgBbS4xsRGF+Bzgb09uZA
-	IRhVxmmND5g0Pqn7UjVT99n5NlyrPKIDmU5voptG2Aqsiexxim8HMiAUDwM0c18J
-	476EoUEQmtOZ8lZiv/n9Taxc4vl9NNcSMLlqvBohaoqMkRWzyijdsMpyPxnZRoaW
-	xEymkQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvjud0c36-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 05:52:17 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92ea24a2db9so211096585a.0
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 22:52:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785995537; x=1786600337; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oeKHvlvTKqPpnFbSU3MA6x+vArE6ZN14UcQL+UlWc9Y=;
-        b=IcOT5I+KAnmc29/gzC44qVULJVhBcRZ5E9pq+K9FJxS5Y7eAnk6Sp3Pq2trf1YzbLf
-         MFHeoEYteSFGFAIWWDczzuNPCqrztxvl0Hvd7cO7fQIFTwlrhRxLz+48yI2avXQ9cEb2
-         6PhHnVUWjgsXSLCrOl3x9t83Du56aFsbQKPydzGC7N82zHkzznbZuazdobevN2T84Fxu
-         Jdhd1O19zVS7CbxHPtJw29w92mYWgkO58gsOzrmk6qgO4MlWvC5F+tDuXer9LuqwPkZH
-         CjLN4JUE/RMAjQ7UDMOr95flfl798kV2B0XE1vU5V2OXiGBlskZUcNubwjFIBPDveCnN
-         KEQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785995537; x=1786600337;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oeKHvlvTKqPpnFbSU3MA6x+vArE6ZN14UcQL+UlWc9Y=;
-        b=QYNp4FkcYf5YnrMH4zdX1Hd+dB3zMsH1arQz0I8yO/bgIMYjIK61RfY777CXvCNg6m
-         mBKu6OCTZcbHrnMT1FiammdQl/4qnP4OHikmu+ArSbQzszl6kRJR3nzB+DgMOox10QIO
-         F3WHWunK+KXYCctTFlAC2EWJK/EiEnWNIg3EQGj6Mvx8A+AHYXDfFjF6rOVSYEyPkzkm
-         uikjFWB6aSKOUhc/fvpfiJyPXdopfVLj4xe1Ct5jN9/HTEP/nR9Os+Aje0Wyz4Tqxl1V
-         Mn97G4pmU6/Bh5Mvaa4S5qeMpowoAaKuuS7hgBDQmHgnYH6n5WTbbyb1IS9NFEXIyzkl
-         XGQQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp9yCG+ioq7BiAan4K7jVLFnsnkZ7YL3fsBK9jOoDarmuZteT2+xRZ6Y2vUJ/2uqdGAQeduibpJYc98@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQLiz3aSM7oyM0Jgf8rmVtFHEwYyfbN47BMN115V49j+7vrUr7
-	EAIJDEJYwhuCLEbIYOoXUL2ndn/bSifdW+sknqh+g4CDSJoMVCDG20eSTp6lKTKyBSlw653HXeg
-	KdesbOehZ8XzfyGTtYMnETwL5RDe3dANrF0aQwHo8J02rwA+qvfVZLtCEHDKigWZHbQxMCmPv
-X-Gm-Gg: AR+sD10yzgBkNqYGYwWKFppy3Maq9ieUyI9g//riDevaUa0urlrxm1IsXTe7CwzHcOd
-	XZH0x5W5z5lE5uFjsaPzX665L2UhqLxd1ORaE96pno+Y+M9TBSHmpjv7e40r6poIyv92XSLznA3
-	3QXtRSBYq17XCfXaUnKE5ejE2dq5eoeO0g6Ei6+kO0+7NOcbyZzKiKhxA7ACeEhygk2OEwlUem0
-	QCEaFJf4xZBEt8YGgaozGfmCTvEiW9mUjz0otMrNzsi7L7BHUseSPDD0fMrf6N2qJWYnHKCYcXJ
-	ApMeZIi12CUOj7Y5Hey+r2ft35/eDUd8AMKST4RemjWrnQbtj9J5LXDYhZzfEp4kfTw1VqOlJ4G
-	/riFqS5LEwsAEIldnUC0+fZBe+NwITfHozSGLcQxLKRf5jCK5h2kPRQ/vvAi7Pjc=
-X-Received: by 2002:a05:622a:1dca:b0:52b:4e1f:940e with SMTP id d75a77b69052e-52ce5f446cbmr124017681cf.1.1785995537343;
-        Wed, 05 Aug 2026 22:52:17 -0700 (PDT)
-X-Received: by 2002:a05:622a:1dca:b0:52b:4e1f:940e with SMTP id d75a77b69052e-52ce5f446cbmr124017441cf.1.1785995536839;
-        Wed, 05 Aug 2026 22:52:16 -0700 (PDT)
-Received: from YUANJIEY2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9087ff9d720sm44340536d6.4.2026.08.05.22.52.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 22:52:16 -0700 (PDT)
-Date: Thu, 6 Aug 2026 13:52:10 +0800
-From: yuanjiey <yuanjie.yang@oss.qualcomm.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: arm: qcom: fix PURWA/HAMOA IOT SOM
- compatibles
-Message-ID: <anQhCksBK0Aa7i8w@YUANJIEY2.ap.qualcomm.com>
-References: <20260805-hamoa-come-v3-v3-0-20463c43eae1@oss.qualcomm.com>
- <20260805-hamoa-come-v3-v3-1-20463c43eae1@oss.qualcomm.com>
- <20260805103850.50EFC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="bg3ms/vL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="FBhrQnrT"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.stl.internal (Postfix) with ESMTP id 579E913000EF;
+	Thu,  6 Aug 2026 02:34:26 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 06 Aug 2026 02:34:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1785998066; x=1786001666; bh=WSeRlIA5Sd
+	4FCItBLnsznm3GS1h2rGfm16awuLijcas=; b=bg3ms/vLyGS4vT1yRb58p2xUkW
+	8X2Ixumvxr0yELZ6WR7CTDAgyoscswE2dj1RKZvJ5hjutVSKYPUEy++N8ySsSUTT
+	uOf3XkkAAYTMFX4FWkQKqSTLAcqjqWvOHYW9Y0/dH4D3gVIavDOR5cHWdMcrvDzb
+	VxiTUIJlmJOsW6oCjkezIKFJyW4WvYGlNeVg1wWHft0dWkHq9j1cV6tUBKlAREWm
+	X1gmHZ8t83pR3h4BOht0zScS20LL+LGX/4kEvCetpzQ4ZaHEbgD6DRQ91yKQG3FB
+	amUVSYRj/S209cluLW/c926BpmpEk11Ar+17KBUZlZ5SCO3zYngW1joVPPbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1785998066; x=1786001666; bh=WSeRlIA5Sd4FCItBLnsznm3GS1h2rGfm16a
+	wuLijcas=; b=FBhrQnrT2IzjQonVo7aUiGGgYjOQ4+eQWkCdLzhPxDtcVpQxJpi
+	4XMBdoP5vU4iSQQ4K3NqE+fMExdoYqBttWAkMHAtNjmCd/qxqreZDQizwq/IxqHI
+	LdrDH+cYoxtTERUMaCAzGOwPwT7rFzZvHakOJiF8FrJq5PmdyUWWMNKL90LhX3Cy
+	54CXyorT5uk1mJ58BxlsS0TWZJDN/DcrqvRpoVoSDTYESXF7RUXGL8VT0pxER/0n
+	lMVbIQ6vsMaWuoS0nIaSqgytnjha9Eb1pMrnMLO+1CTUlMT5MRwo0SvH6bXwaTmQ
+	psBb5hMIUMwcX/mYGlNmfUiz6lHoCZju6iw==
+X-ME-Sender: <xms:8Cp0avb1Z_PLKwQ5EEc---ZgHUmvl7WQat8C6J7zprE0rn4bTWquRg>
+    <xme:8Cp0aqjsqHWH-oj2esQ7vklbFWOSuIWolEIjPd6bXsO9ek6YTrdZRjq6377kpEvxk
+    95zuHs9ms2l_DITu9dFdR2mb3w-yGzSSuc6PtacdAUvaPjMEEmvOLo>
+X-ME-Received: <xmr:8Cp0atz_teCKRqj2EmI4YA3Vl6k7DrkqtmRe_-owVEB_1BdLMy4PIXpZe2Kdeh3wHayybq9yCQ>
+X-ME-Proxy-Cause: dmFkZTGE4Xd+9meY9rRbuBUyQ7sniRPlO54i5Ys7ZGpTP1VMCIYapgnis742HSC8dwJH4K
+    WjPUgaWYIHTqsLYhBuKq5Cg/33t/aKtaaS+gR4mSIGWvOlz0mdE09jbXYQmtXEs1JBlYuV
+    nc0loYOIQ2F6eSeh7DHbMo5ew2dSMI4uuwTsQs0hMmc3WQfv9Qxjvd9i9eaA/uaM7VhIU6
+    BhyZL5NXQHYEKDTgdQu6QMo3dTGoascX3Gl3yscGRv2vx3Gqyyne77saABoq+u1Ta99BUg
+    LhOTwfkTa1Fx1T1x4HOy6Pf60PZl/uibT+Uzr7nHsYf3quL+pv35hNGOUJF9Tib2DqJlOZ
+    vmoQdqrJaXaJmKvGUUQxGOycQd0F0dmVn2YhbWkE7syxSdJQEwIpL67TCkV+LHMkCQINWo
+    iSN5lyi39xO/jVXcQR4UkP0zJNEZcObBw6/ysnO/B9jXwBDMphSpIr3vL2kI+V6z8c0WGJ
+    LOQKOeD+S2Q4sZhGtEj9ddToDVQimWRmrqlXyvjwMcgRKEq3KzyhTaUR2AwobJ5yAXd8Ud
+    ladB1HkVJXQwvXe7FNdp/NrDRiEgBTvJa5JCjlSnpYQFkJVGJNxUvDgxpblB9F7cpvQmGQ
+    bj2yagxW0tKbn++SEmpTNCrTnjBLMmKzXZSZyH8V7z891tKIbKJ/R5bFOnHg
+X-ME-Proxy: <xmx:8Cp0au8zimsND9e7FRwhSfQ3r-KMyYeFIfOerFiD6aXgxDG9TsBF0Q>
+    <xmx:8Cp0aqyH0xO3YS9VVZ8mvgCad1O6McfW8F0Yt1R8cfFnJLbaFQ-FfA>
+    <xmx:8Cp0avVB9BC8vcLeSWsUBQBCS_6aYwuyHZUC-oBZBbfTFPnXunY9-Q>
+    <xmx:8Cp0alaQivMEvF8T1aa1Foe4c3A3ZGTl9UKck94JNaeSC7dZTA5O9g>
+    <xmx:8ip0aoNsEnccCQSHC7Qp8sC5fMjJl_UJIl887biK6VfZ68lnjXZda5w0>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 6 Aug 2026 02:34:16 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	alchark@flipper.net,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH v6 0/9] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Thu,  6 Aug 2026 18:34:04 +1200
+Message-ID: <20260806063413.350184-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260805103850.50EFC1F000E9@smtp.kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA0MiBTYWx0ZWRfX/QR7QxuOD8cC
- k1WWLgCFK9JZCqnXTEeZLzIVlFcpH7qrhAj8xe/6hawsfHOv2eRQUCkZ19ZT9arMzoVIUL3kYrX
- ofD650w9XjM4g6pA/OdAVAepYq3PJEKnzv9+VDVLSq/jXXvpsZvK4QVlxHUPxk9KiH57bbPfyg+
- lwvLdzASiizy8mViLJ0hwVEQJdRVucYkQnznLwcRyCO5QqwbEBba62W2UNOQOoBxzkMgxCrvOsg
- QF0UISyY7CXaEODzdGFJsSSf5c+rNaKXMPJfiQV0NQY4eEWhf4+7yu7RCDbKQBLHwuH7KT5REBT
- K1zyPyvkKP0mBSF2HplTBptOp158GgNncRRDfWu1xcugICETokIonsmRsgGbftyt2m05P2D35EG
- euAgow/mAE8DIXX635ul2HOK89LV9cFdc0ac2BagePaIObnrnhVH+4YKhpynEnlnSp0rquhOgyU
- SKiEvVFRdRFlPP+LpXQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA0MiBTYWx0ZWRfX9LZrDIYopN7O
- epOxS1gOW/JqDVfW7SJywcoAHeuvX1YlBG7fcFoxC6AaJRRD4WFn700C/hkLSBXiMp1amldDkYM
- 230vNAfexQauwz829S9v/TRJ7EtUa/M=
-X-Proofpoint-GUID: dk2GIImn-KVFPMxbbOVQYd8FnGjqWPwx
-X-Proofpoint-ORIG-GUID: dk2GIImn-KVFPMxbbOVQYd8FnGjqWPwx
-X-Authority-Analysis: v=2.4 cv=DeInbPtW c=1 sm=1 tr=0 ts=6a742111 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=8nJEP1OIZ-IA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=zW8xuOFVkWB4YR5bbQsA:9
- a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10 a=NFOGd7dJGGMPyQGDc5-O:22
- a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- spamscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060042
 
-On Wed, Aug 05, 2026 at 10:38:49AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Critical] Renaming device tree compatible strings in the YAML schema without updating the corresponding device tree (.dts) files breaks schema validation and ABI.
-> --
-> 
-> --- Patch [1]: [PATCH v3 1/4] dt-bindings: arm: qcom: fix PURWA/HAMOA IOT SOM compatibles ---
-> commit 86746ff462577b3f827d2ec7f0eb293389e741dc
-> Author: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
-> 
-> dt-bindings: arm: qcom: fix PURWA/HAMOA IOT SOM compatibles
-> 
-> This commit updates the compatible strings for the Hamoa and Purwa IoT
-> SOM platforms in the device tree bindings. It renames hamoa-iot-som to
-> iq-x7181-evk-som and purwa-iot-som to iq-x5121-evk-som to match the
-> official hardware documentation.
-> 
-> > diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> > index ff8a35df7862d..f244f547d5114 100644
-> > --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> > +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> > @@ -1220,7 +1220,7 @@ properties:
-> >        - items:
-> >            - enum:
-> >                - qcom,hamoa-iot-evk
-> > -          - const: qcom,hamoa-iot-som
-> > +          - const: qcom,iq-x7181-evk-som
-> 
-> [Severity: Critical]
-> Does replacing this compatible string break device tree schema validation for
-> existing boards?
-> 
-> Since the corresponding device tree files still use the old compatible
-> string, running make dtbs_check will report that qcom,hamoa-iot-som is
-> undefined. For example, in arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts:
-> 
-> 	compatible = "qcom,hamoa-iot-evk", "qcom,hamoa-iot-som", "qcom,x1e80100";
-> 
-> Also, does removing a deployed compatible string without retaining backwards
-> compatibility break the device tree ABI for existing bootloaders?
-> 
-> >            - const: qcom,x1e80100
-> >  
-> >        - items:
-> 
-> [ ... ]
-> 
-> > @@ -1235,7 +1235,7 @@ properties:
-> >        - items:
-> >            - enum:
-> >                - qcom,purwa-iot-evk
-> > -          - const: qcom,purwa-iot-som
-> > +          - const: qcom,iq-x5121-evk-som
-> 
-> [Severity: Critical]
-> Will replacing this compatible string also break schema validation for the
-> Purwa IoT EVK board?
-> 
-> Similar to the Hamoa board, arch/arm64/boot/dts/qcom/purwa-iot-evk.dts still
-> uses the old string:
-> 
-> 	compatible = "qcom,purwa-iot-evk", "qcom,purwa-iot-som", "qcom,x1p42100";
-> 
-> >            - const: qcom,x1p42100
+Based on Igor Paunovic's "[PATCH v2] accel/rocket: request the core
+clocks by name", which is waiting on Tomeu and which v5 was carrying a
+duplicate of:
 
-Patch 1 fix binding qcom.yaml compatible , and Patch 2 fix dts
-compatible. So the issue does not occur when Patch 1 and Patch 2
-are merged together.
+  https://lore.kernel.org/linux-rockchip/20260729130743.128876-1-royalnet026@gmail.com/
 
-Thanks,
-Yuanjie
+That duplication was the coordination problem Igor raised on v5. Basing
+on it rather than re-adding the same hunk removes it, and it makes the
+patch split below fall out cleanly.
 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260805-hamoa-come-v3-v3-0-20463c43eae1@oss.qualcomm.com?part=1
+Tested on a Radxa ROCK 4D, on next-20260730.
+
+Changes in v6
+-------------
+
+  * accel/rocket: the enablement is split in two, as Diederik de Haas
+    asked for and Igor seconded with the observation that v5's 6/8 no
+    longer applied on a tree carrying the clocks fix. 6/9 is preparation
+    only, the soc_data plumbing and the bulk counts, with RK3588 keeping
+    four clocks and two resets. 7/9 is the RK3576 enablement.
+
+  * accel/rocket: poll_dying was a one-way latch. rocket_job_fini() set
+    it and nothing cleared it, while struct rocket_core survives an
+    unbind whenever another core stays bound, so a rebinding core would
+    never retire anything through the poll again. rocket_job_init() now
+    clears it. Found by Igor, who also explained why the ROCK 4D test
+    could not have caught it: with one core enabled every unbind is the
+    last one and the core array is reallocated.
+
+  * accel/rocket: rocket_core_reset() still used ARRAY_SIZE(core->resets)
+    after acquisition moved to soc->num_resets, so on RK3576 it walked a
+    reset that was never acquired. Benign, since the reset core accepts a
+    NULL rstc, but patch 5 has just made this path load bearing. Also
+    from Igor. It is in 6/9 with the rest of the count changes.
+
+  * accel/rocket: the two register writes in rocket_job_handle_irq() were
+    outside job_lock while hw_submit() writes OPERATION_ENABLE inside it,
+    so the completion's zero could land after a submit's one and stop a
+    task that had just started. They are under the lock now. This is the
+    only behaviour change 6/9 makes to RK3588.
+
+  * accel/rocket: the poll work now skips its register writes when no job
+    is in flight. Unlike an interrupt it has no hardware condition to
+    ack, and with the job already retired by the interrupt path the
+    device can have autosuspended underneath it.
+
+  * accel/rocket: where both completion paths are live, a completion
+    whose submit the other path has already retired no longer goes on to
+    start a further task. v5 checked this only on the poll side, which
+    left the mirror case open.
+
+  * pmdomain/rockchip: dev_err_probe() for the reset acquisition, as
+    Philipp Zabel asked.
+
+Philipp, on the other half of that: every devm_reset_control_* variant
+resolves against dev->of_node, and these resets are on the power-domain
+child node rather than the PMU's own node, so the devm form would take
+them from the wrong node. The clocks a few lines above use the same
+of_*() and manual-put pattern for the same reason. Happy to add a
+devm_add_action_or_reset() instead if you would rather the lifetime were
+devres managed.
+
+Igor, thank you for the RK3588 characterisation and for running the
+per-core unbind and rebind. Everything in v6 that came from your review
+is above. The completion path changed again, so it needs another look
+rather than a carried tag.
+
+Verified on hardware with every debug knob off: the NPU probes with the
+two domain list and no attach failure, a convolution submitted after a
+fresh resume is byte exact against the CPU reference, and unbind and
+rebind is clean with no warning. Every patch in the series builds on its
+own.
+
+I have deliberately stopped quoting the "runs byte exact N times in a
+row" figure I used in earlier cover letters. See below: that test could
+not distinguish a recomputation from an untouched buffer, and it was
+measuring the latter.
+
+What is still wrong
+-------------------
+
+The failure is much narrower than I have been describing it, and most of
+what I said about it in v3 through v5 was reading an artefact.
+
+I had been reporting that a single convolution is byte exact, that
+re-running the same one is byte exact every time, and that what fails is
+loading a different configuration after it. The first part is true. The
+rest was a stale buffer.
+
+Every one of those "re-runs byte exact" measurements fed the same input
+each time, so a correct recomputation and an output buffer that nothing
+had touched since the first submit look identical. Feeding the same model
+a different input and checksumming the output BO in place separates them:
+
+  A(input X), first submit of the session   correct, crc32 20a556ae
+  A(input Y), no reset in between           wrong,   crc32 20a556ae
+  A(input Y), after a runtime resume        correct, crc32 dda67317
+
+The third line moves the checksum, so it does see the block's writes. The
+second does not move it, with the same configuration loaded and only the
+input data different. The second submit does not write its output at all.
+
+So the shape is: only the first submit after a reset computes. Everything
+after it is a no-op that leaves the output buffer holding whatever was
+there before. "A works, B fails, A works again" needs no configuration
+story: A computes, B is a no-op and its freshly zeroed buffer reads back
+as the zero point, and A again is a no-op returning A's old result.
+
+That also settles the question Igor raised on v5, and not in favour of
+what I claimed there. His alternative was that the block never stops
+executing the resident configuration and writes to the previous task's
+addresses, which would look the same from the failing job's own buffers.
+With the watched buffer latched rather than followed, the resident job's
+output is unchanged across the failing submit. It writes nothing anywhere.
+
+Two corrections to the record, both mine:
+
+  * v5 said the failing submit "computes byte exact from a buffer full of
+    0xdeadbeef" after its regcmd was corrupted. It does not compute. The
+    narrower statement survives, that a repeat submit does not re-read its
+    regcmd, because it does not read anything.
+
+  * v3 and v4 said the failing job "writes out a zero point surface" and I
+    read that as the MAC producing nothing. Nothing was ever measured
+    about the MAC. The buffer is simply never written, and a zeroed shmem
+    page plus the +0x80 that teflon applies on readback is 128.
+
+The ping-pong lead from the v3 thread stays retired, and so does the
+configuration-load framing that replaced it. The question is now why the
+block accepts exactly one task per reset. That is narrower than anything
+I have had before, it matches the interrupt behaviour already in this
+series, and it means the userspace side was never involved.
+
+One incidental register fact, in case it means something to someone:
+PC_BASE_ADDRESS reads back 0x00000000 immediately after being written, on
+every submit.
+
+I used Claude Opus 5 to trim this series out of my debugging tree and
+generate the diffs.
+
+Jiaxing Hu (9):
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: allow the RK3576 NPU MMU clock set
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  accel/rocket: select the per-core clock and reset counts from match data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../devicetree/bindings/iommu/rockchip,iommu.yaml  |   8 ++
+ .../bindings/npu/rockchip,rk3588-rknn-core.yaml    |  47 ++++++-
+ .../bindings/power/rockchip,power-controller.yaml  |   8 ++
+ arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts    |  10 ++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi           |  80 ++++++++++-
+ drivers/accel/rocket/rocket_core.c                 |  26 +++-
+ drivers/accel/rocket/rocket_core.h                 |  20 ++-
+ drivers/accel/rocket/rocket_device.c               |   4 +
+ drivers/accel/rocket/rocket_drv.c                  |  22 ++-
+ drivers/accel/rocket/rocket_job.c                  | 149 +++++++++++++++++++--
+ drivers/pmdomain/rockchip/pm-domains.c             |  71 +++++++---
+ 11 files changed, 396 insertions(+), 49 deletions(-)
+
+--
+2.43.0
