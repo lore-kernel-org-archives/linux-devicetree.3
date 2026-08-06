@@ -1,188 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31E92F9D98
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:59:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5484334C1;
+	Thu,  6 Aug 2026 10:04:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786010381; cv=none; b=IPjc6ob+Q0gcGJUtcHL2Fw5lGh9CVfWRyVj657b50kxFVuL5Wf7twdIQs+fTJdjvnN8HhzcWZPjIIlkLc3fyZmktZlOYGj61J7+SIOWodSwBGL4OGW3xgm6+aDR8HFupJbB/mSyIH7FBybvnGxRON/eArd9oHhfI2uL0mk9fP9k=
+	t=1786010678; cv=none; b=WRQRaHhM6+zGr+Dq4jGhd9yXQIS5DkxeDDmw8DFi/MO/Twvx8QwVUU8O/wYr817UH7qFp6LW/0SY0i2PPbg7Hq7TcVio07b0tdRQPX7iO4ez27C74Sl1hAaXSUotn1QJP27m1VlVe2Cg4hhkMxnPS81AM/KNGspTcEsKikZ5Css=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786010381; c=relaxed/simple;
-	bh=vMxX5WHHFmRAbnkBivvIpN9jWCdgwZsmUMVTFLRirFo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dyMKQ4W8wWTC4Gwlwo6iCqrM+kg6v3jZdCQFzvw7Edhbj3rMB7OQD36tUHGtRmVFwFxVxNh68/aL8GbPltpTCCsv9VzQlgj52MQxcgB61ycRMILK5E4F9Vduj1MLiTn4maxGNKCEd7uTi1K8fynGpquAEtmAfPMWD/gvQ0bIYTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5xrtbQS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786010678; c=relaxed/simple;
+	bh=g8N09sQ7+n26z20HOBNc7m22lVupQdaAjZNvoBGpEgU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XJUl7mzd/hCyX08AoegB1/hLU3C9JTI+9rxYZVSPua62ko3pxhbo/GqI+npBeZULUh89Uh5dkmrq4jqwnMJuiI+vyg8UsjkW7MEdpA+SxpuicY4BCANVyf0dXnAn+9we4V/1rwh0JUQpbUAbX35LMZN8o9ASZpY4HNe7Qo9gXaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9wHswZn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5xrtbQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894331F000E9;
-	Thu,  6 Aug 2026 09:59:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9wHswZn"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D742E1F00A3A;
+	Thu,  6 Aug 2026 10:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786010379;
-	bh=ae9Ck/o/64W7GZBu3tt/3v87l9CqkYkyF1uIg4y/fmE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T5xrtbQSby5ON2CmvJ0Y8aEr+VJkNdedB0LdTF2a63Gt5w9Wpbv5sIep/EXooDHf0
-	 nxvwxT4aaGFtsOMMXyTkmjeTBJIpc40TVQ9h/e/sQJ0ADZ6gvCUFx6brzE8Zi8gnCX
-	 LmMMm45I/RlOK406LH8ohIc7YQjLdmrxV3QYT+tywmK42Q1Gi/6Qh7Ph2SVNodHJLq
-	 qP4bdH2Z48YPNDxp4wS8BpaZ4PXdL1Rmo1EGIWWy1MqLXaAdvAGQ2tHZrNqAzKST2C
-	 z4DrS+M5dvVnRWU0//tX++Uxx0iwIaEK79CnR6TwmASJ0NV8BIUtUvnJ0c58KlW/sB
-	 dOWyU1ri2Sqkw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] usb: typec: tipd: Factor out i2c specifics
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806-tipd-ace3-v4-2-79855b150914@chaosmail.tech>
-References: <20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech>
- <20260806-tipd-ace3-v4-2-79855b150914@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 09:59:39 +0000
-Message-Id: <20260806095939.894331F000E9@smtp.kernel.org>
+	s=k20260515; t=1786010676;
+	bh=EvfjZC9+BJl+tHW2HeH5B1q6/FvCkYz1fIW9Dc4GRXE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=l9wHswZnH0VZ5WnJ6vBhnNGe69jlToiJUhWX/SkuYWp0Y6UpqTNKsrcHlLkQxf2jO
+	 LhCywSbWq8veEc+5eCv4IRTK6zEjheTIclipwzEsawbLel0BJrW0UU4Rqk7AfvFh77
+	 euq0TZeZfTwiEX4nT6Z+0UaD1KLcbsN9Grs0br1dTgJIIHuF74VgLmnodD9e/9hD/7
+	 buG4fCodh9tcOqM8e5LDOaXmmcyAn4zsdSGioQXMLEs//5X1mn81Mp3rQ7eS6xmtig
+	 FhXyWBgdNBhdnOgRkhr46HUox+C5TlnykN9oP1of1z4ZuH4uTZwem3sTBStzx86dw8
+	 oGzxNPVbOix6g==
+Date: Thu, 6 Aug 2026 12:04:33 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>, 
+	Prasad Bolisetty <pbolisetty@axiado.com>, Guenter Roeck <linux@roeck-us.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>, Tzu-Hao Wei <twei@axiado.com>, 
+	Karthikeyan Mitran <kmitran@axiado.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 2/2] hwmon: add Axiado AX3000 and AX3005 PWM fan
+ controller driver
+Message-ID: <anRaB--HAHoWFkDo@monoceros>
+References: <20260806-axiado-ax3000-pwm-fan-v1-0-f6db4cf2166b@axiado.com>
+ <20260806-axiado-ax3000-pwm-fan-v1-2-f6db4cf2166b@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="phnqktoz57ccllis"
+Content-Disposition: inline
+In-Reply-To: <20260806-axiado-ax3000-pwm-fan-v1-2-f6db4cf2166b@axiado.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the probe error =
-path fails to cancel delayed work queues (`wq_poll` and `update_work`) when=
- returning an error, leading to a use-after-free.
-- [High] This problem wasn't introduced by this patch, but the suspend and =
-resume functions blindly call disable_irq() and enable_irq_wake() on IRQ 0 =
-if wakeup is enabled but no IRQ is present.
---
+--phnqktoz57ccllis
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/2] hwmon: add Axiado AX3000 and AX3005 PWM fan
+ controller driver
+MIME-Version: 1.0
 
---- Patch [2]: [PATCH v4 2/3] usb: typec: tipd: Factor out i2c specifics ---
-commit 5612453a5a25a0abc22f1c5e791d782754b002b9
-Author: Alyssa Milburn <amilburn@zall.org>
+On Thu, Aug 06, 2026 at 02:01:30AM -0700, Petar Stepanovic wrote:
+> +#define PWM_MAX	255
 
-usb: typec: tipd: Factor out i2c specifics
-   =20
-Make the core driver more bus-agnostic to prepare for SPMI variants of
-the tipd chip.
+That define has a name that looks much more generic than it actually is.
+Please call it AX_TACH_PWM_VAL_MAX or something similar.
 
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index d5ee0af9058b9..a3b946f5aaf0a 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
+> [...]
+> +static int axiado_pwm_fan_read(struct device *dev, enum hwmon_sensor_types type,
+> +			       u32 attr, int channel, long *val)
+> +{
+> +	struct axiado_pwm_fan_ctx *ctx = dev_get_drvdata(dev);
+> +
+> +	switch (type) {
+> +	case hwmon_pwm:
+> +		if (attr != hwmon_pwm_input)
+> +			return -EOPNOTSUPP;
+> +
+> +		scoped_guard(mutex, &ctx->pwm_lock)
+> +			*val = ctx->pwm_value;
 
-[ ... ]
+If there is a hwmon lock that serializes calls to hwmon_ops::read and
+hwmon_ops::write, .pwm_lock isn't needed. (Unless I miss something,
+please double check. Also I'm unsure if there is such a hwmon
+serialization.)
 
-> @@ -1842,14 +1716,14 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
->  			goto err_unregister_port;
->  		ret =3D tps->data->connect(tps, status);
->  		if (ret)
-> -			dev_err(&client->dev, "failed to register partner\n");
-> +			dev_err(tps->dev, "failed to register partner\n");
->  	}
-> =20
-> -	if (client->irq) {
-> -		ret =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
-> +	if (tps->irq) {
-> +		ret =3D devm_request_threaded_irq(tps->dev, tps->irq, NULL,
->  						tps->data->irq_handler,
->  						IRQF_SHARED | IRQF_ONESHOT,
-> -						dev_name(&client->dev), tps);
-> +						dev_name(tps->dev), tps);
->  	} else {
->  		dev_warn(tps->dev, "Unable to find the interrupt, switching to polling=
-\n");
->  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
-> @@ -1860,13 +1734,12 @@ static int tps6598x_probe(struct i2c_client *clie=
-nt)
->  	if (ret)
->  		goto err_disconnect;
+> [...]
+> +static const struct of_device_id axiado_pwm_fan_match[] = {
+> +	{ .compatible = "axiado,ax3000-pwm-fan" },
+> +	{ },
 
-[Severity: High]
-This isn't a bug introduced by this patch, but if tipd_init() encounters an
-error after scheduling the polling delayed work, will this jump to
-err_disconnect without cancelling the work?
+No trailing , after the list terminator please.
 
-If a device lacks an IRQ and falls back to polling mode, but
-tps->data->connect() fails, the wq_poll delayed work is queued but ret
-remains non-zero. The function then jumps to the err_disconnect path, which
-lacks a call to cancel_delayed_work_sync(&tps->wq_poll) or
-cancel_delayed_work_sync(&cd321x->update_work).
+> +};
+> +MODULE_DEVICE_TABLE(of, axiado_pwm_fan_match);
+> +
+> +static struct platform_driver axiado_pwm_fan_driver = {
+> +	.probe		= axiado_pwm_fan_probe,
+> +	.shutdown	= axiado_pwm_fan_shutdown,
+> +	.driver	= {
+> +		.name		= "axiado-pwm-fan",
+> +		.pm		= pm_sleep_ptr(&axiado_pwm_fan_pm),
+> +		.of_match_table	= axiado_pwm_fan_match,
+> +	},
+> +};
+> +
+> +module_platform_driver(axiado_pwm_fan_driver);
 
-Can this lead to a potential use-after-free when the work executes later on
-freed memory?
+Typically `module_platform_driver` follows the struct platform_driver
+without a newline.
 
-[ ... ]
+> +MODULE_AUTHOR("Axiado Corporation");
+> +MODULE_DESCRIPTION("Axiado PWM fan controller driver");
+> +MODULE_LICENSE("GPL");
+> +
 
-> @@ -1910,29 +1782,26 @@ static void tps6598x_remove(struct i2c_client *cl=
-ient)
->  	if (tps->reset)
->  		gpiod_set_value_cansleep(tps->reset, 1);
->  }
-> +EXPORT_SYMBOL_GPL(tipd_remove);
-> =20
-> -static int __maybe_unused tps6598x_suspend(struct device *dev)
-> +int tipd_suspend(struct tps6598x *tps)
->  {
-> -	struct i2c_client *client =3D to_i2c_client(dev);
-> -	struct tps6598x *tps =3D i2c_get_clientdata(client);
-> -
->  	if (tps->wakeup) {
-> -		disable_irq(client->irq);
-> -		enable_irq_wake(client->irq);
-> +		disable_irq(tps->irq);
-> +		enable_irq_wake(tps->irq);
+Trailing newline at end of file.
 
-[Severity: High]
-This is a pre-existing issue, but does this check safely handle misconfigur=
-ed
-devices?
+Best regards
+Uwe
 
-If a device is configured via Device Tree with the wakeup-source property b=
-ut
-lacks an interrupts property, tps->irq will be 0, but tps->wakeup will
-evaluate to true.=20
+--phnqktoz57ccllis
+Content-Type: application/pgp-signature; name="signature.asc"
 
-During tipd_suspend(), the code checks tps->wakeup without validating
-tps->irq, blindly invoking disable_irq(0) and enable_irq_wake(0). Could
-disabling IRQ 0 inadvertently disable essential system interrupts like the
-system timer, leading to system freezes or panics during suspend?
+-----BEGIN PGP SIGNATURE-----
 
->  	} else if (tps->reset) {
->  		gpiod_set_value_cansleep(tps->reset, 1);
->  	}
-> =20
-> -	if (!client->irq)
-> +	if (!tps->irq)
->  		cancel_delayed_work_sync(&tps->wq_poll);
-> =20
->  	return 0;
->  }
-> +EXPORT_SYMBOL_GPL(tipd_suspend);
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp0XC8ACgkQj4D7WH0S
+/k6CtggAqc2SkaT/74paCQn8c06aLqh+ZQkQt9kOhzsh+nqXBbzoUpyzYVbZ1qKf
+KljBTvQZl662s+bADLObfOmJraNBFmm4geuKju1SwTtb4306Vq9YyVCz1QNSlcVz
+IGmVDdNGZFpIOa9TpCH6yxDwpSZG0NS6s7AphknUn7pROhVDFGgPAKuU99SxGicj
+63kSmknKODrbwIQZNPNQcVGHHwMzbHL8s/cY5KOxhHir6ZcjnL8qeuKVMagPeI1b
+4o4/N2UiUDomVIp3Uyj3R2sUBzN+TjtbM+KWQKGfPQZEWanKRDdoo06r2w4yJkdd
+p3w5vHhYuCUQi44Swaz41xcqITW3sA==
+=Mni6
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> @@ -1946,25 +1815,22 @@ static int __maybe_unused tps6598x_resume(struct =
-device *dev)
->  	}
-> =20
->  	if (tps->wakeup) {
-> -		disable_irq_wake(client->irq);
-> -		enable_irq(client->irq);
-> +		disable_irq_wake(tps->irq);
-> +		enable_irq(tps->irq);
-
-[Severity: High]
-This is a pre-existing issue, but similar to tipd_suspend() above, could th=
-is
-blindly invoke disable_irq_wake(0) and enable_irq(0) if tps->irq is missing
-but wakeup is enabled?
-
->  	} else if (tps->reset) {
->  		gpiod_set_value_cansleep(tps->reset, 0);
->  		msleep(TPS_SETUP_MS);
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-tipd-ace3-=
-v4-0-79855b150914@chaosmail.tech?part=3D2
+--phnqktoz57ccllis--
