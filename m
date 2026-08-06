@@ -1,152 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20447311C07
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 17:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5532F378D8D;
+	Thu,  6 Aug 2026 17:35:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786037642; cv=none; b=dlmwsqURDVn+8E8hMq3zu8FM1GwL+AT05C12vA0U1nHSlZ+Byr3Wkyy2BC2UjihoP2/rjIQQYIIjsM3x3vTlFRvUREiBdBvLrd/XFLQGdmNIr5IFMNex4hQcE94AUBkHlahNRl8Q2K3KxqKxIdgrWYHA+MRp4KPdRV742VHg9Lk=
+	t=1786037729; cv=none; b=kgmqSeSRKF57pAzOXAMnZZYtj4x6vWBEHuIjS+tisVywyV62QkPr+FswtNP1DfVctQ//Whs/hHrvo5czc0PlZlIE+7Ae0MdaYvJwzluiP6gl79SuKZjdj/8WEmVyGCwU3Jzwh7bXR5mX7/HJvxIMHNg7rO7tFDVZ7XIMAjoLhpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786037642; c=relaxed/simple;
-	bh=LDcKhah52Mq8Rv+RRubVjAwh6esj9+905oQbwMLvYoA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k8sPnTOwsmW7+1WboHUBN6GCPmiZBoRNPBTtqb6lLIsQhWvOpOJDEHlwYoeJ+WDIM0IPXxds18JGUScHUUcq6Y8V3hGcyMUahihB4+9mGbG7nG1of27dNHcmoDuKAgjy2YBW5KK68JAdC1A/P7ivuR6pVbBQFvIQbai5J6KNMMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g5jJ5m9G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786037729; c=relaxed/simple;
+	bh=bjyWqP082uW2zjdVhQPed5q9qptP9hubeufn7A91vM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ToL7dvFe7Q9Y2gC52Wr8znbK9cjR40YQElz89EVx9nDhG38qag6QYvCdrsEAXeWRP60Wrui6Vz9+C21XLfxYu8CwJApHbHL0i7yCZx1ihwEQyz3ikMghnbIRh99GBC5YIRXHcmFz77onnCocPn7AzjFzvtVPzFuW2JCCuzclwzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7mhEBv4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g5jJ5m9G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CBB41F000E9;
-	Thu,  6 Aug 2026 17:34:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7mhEBv4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C81D1F000E9;
+	Thu,  6 Aug 2026 17:35:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786037640;
-	bh=axcjxoSREeS5VB7wx97hgdvzpChrofsLAJMy2BbsmyY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g5jJ5m9GcDRQmX939ylSvmXntbQ4L1F5u6+pXYkbORKuZynDpsGYzNck1s+GBjxwo
-	 LFFVbgruoIs7u5U80T1Zu/x56p0Whiuedq//kUSjkUqDJArBRW6l5alEWceW5BGRKX
-	 gkaMJdj0hDM9qpznBkU1qmKLFxo71xY46gE3aCL1NxttP0+lSYv1p5kEAuVJYklicV
-	 iPUjchEYJaFwRyRIX+tBePMn1gLLLDrxK0ecL2j30mAvswUc0pBrMGhzRUkDFU87Re
-	 Y5OpwDwWpcri7CPlza8tiZaV2UTiK1o8x5KzSiV8kkhjuuuH197Xk9T4O3F58xcRwZ
-	 En1J1WD1zG15Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 04/21] drm/bridge: synopsys: dw-dp: Document missing
- reset line deassert
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-4-0d508505f383@collabora.com>
-References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-4-0d508505f383@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 17:33:59 +0000
-Message-Id: <20260806173400.5CBB41F000E9@smtp.kernel.org>
+	s=k20260515; t=1786037728;
+	bh=bjyWqP082uW2zjdVhQPed5q9qptP9hubeufn7A91vM8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R7mhEBv4GlnqUARFRcYztxAiknGqrEnXl6/umXd43AIWFqfQD33op7z3THTMYYu0R
+	 EWoR+s1jAzpfsaNrxZVjHA1hjPDnwf5jWdvkYjDIT9eYYofFCbeaJScR26Ht9u3rgD
+	 zZ/rH2WW+MuwFT67mqyAiFDgEY71V1hrC07cBEogUSgngVkiod6kROgsE82JqG7uKl
+	 npjwWX++GYdXJEx+LPeGKt/JK0j7pasIZw3SUmiZ5IuWZZLlOBL97aWT1sQ2ze7uWN
+	 yTJpKEU2DrzNLnGYYrAcK61hVWZt2qq6AnzlWKUWOVo1oyys7Z9hehcIMAjtosonfg
+	 KqCW9E17pS9VQ==
+Date: Thu, 6 Aug 2026 18:35:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: konrad.dybcio@oss.qualcomm.com, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	chandana.chiluveru@oss.qualcomm.com,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: spi: qcom-geni: Document device-gpios
+ property
+Message-ID: <57719877-b8d8-4df0-acce-2c4faf5a5899@sirena.org.uk>
+References: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com>
+ <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-1-c363a9b5df69@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="D3Ywr3u5KIx2uVgC"
+Content-Disposition: inline
+In-Reply-To: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-1-c363a9b5df69@oss.qualcomm.com>
+X-Cookie: Colors may fade in time.
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Missing completion reinitialization causes spurious AUX transfer s=
-uccesses
-- [High] HPD event state overwrite race drops hotplug events
---
+--D3Ywr3u5KIx2uVgC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---- Patch [4]: [PATCH v11 04/21] drm/bridge: synopsys: dw-dp: Document miss=
-ing reset line deassert ---
-commit 34c619c6d4754597f7c81d207e5acfe482e8b36d
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+On Thu, Aug 06, 2026 at 03:43:44PM +0530, Praveen Talari wrote:
+> When operating in SPI target (slave) mode, the GENI SPI controller can
+> use an external GPIO to notify the SPI master about the target's
+> active state.
 
-drm/bridge: synopsys: dw-dp: Document missing reset line deassert
+> Document the optional device-gpios property for the qcom,spi-geni-qcom
+> and qcom,sa8255p-geni-spi bindings, restricted to spi-slave nodes.
 
-This patch adds a comment explaining why the driver avoids using automatica=
-lly
-deasserting reset controls. Unbinding the device with the reset line deasse=
-rted
-can cause the SoC to hang if the shared power-domain is still active. The
-current reset handling remains unchanged.
+This seems a lot like the ready-gpios property we have for some other
+drivers?
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 21d60e89126f0..52e3b37259a69 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+--D3Ywr3u5KIx2uVgC
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does dw_dp_aux_transfer()
-miss a completion reinitialization?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp0xdoACgkQJNaLcl1U
+h9AmjAf8DFobBtyJkc4myDuBlSsbDbDMNgPu6Amo/ZmriQp82FZxsRWnqey4lajp
+n5YGYkNLlEXmKqlRwJTc7px1MLaBGo7+fP7+KTsxkk6jcvY6R9a/xziePBM0RwDG
+01oxXuWWKOihZjQEaP13CynG2q8loP4YiSIKPld2R7N8JBWDFJxq6iDYcPOJpRYi
+9/e+vwt2hl1lwZvRtTCjneWcBKcPEGyKscVnp4kHntSxV05g3W4coohdFXUx9IAy
+9RwyFT3T1+pzuUP7KUYn+lgOUi/N4HKnpTCslUfu4TOY7yxWEkFwdZN1DWWs8bQy
++iKlw9GXsfXz4t/PTeyGZ2ZJ+pUSrg==
+=Zubi
+-----END PGP SIGNATURE-----
 
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_aux_transfer() {
-...
-	regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
-
-	status =3D wait_for_completion_timeout(&dp->complete, timeout);
-...
-}
-
-If a previous AUX transfer times out, wait_for_completion_timeout() returns=
- 0
-without decrementing the completion's done counter. If the hardware later
-generates an interrupt, the IRQ handler calls complete(&dp->complete).
-
-Will the next call to dw_dp_aux_transfer() immediately pass its
-wait_for_completion_timeout() without actually waiting for the new command =
-to
-complete?=20
-
-This could lead to reading stale or invalid hardware status.
-
-[Severity: High]
-This is a pre-existing issue, but is there a hotplug event state overwrite =
-race
-between dw_dp_handle_hpd_event() and dw_dp_hpd_work()?
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_handle_hpd_event() {
-...
-	if (value & HPD_IRQ) {
-		dev_dbg(dp->dev, "IRQ from the HPD\n");
-		dp->hotplug.long_hpd =3D false;
-		regmap_write(dp->regmap, DW_DP_HPD_STATUS, HPD_IRQ);
-	}
-
-	if (value & HPD_HOT_PLUG) {
-		dev_dbg(dp->dev, "Hot plug detected\n");
-		dp->hotplug.long_hpd =3D true;
-		regmap_write(dp->regmap, DW_DP_HPD_STATUS, HPD_HOT_PLUG);
-	}
-...
-}
-
-If a long HPD event occurs, long_hpd is set to true and work is scheduled.
-If a short HPD event occurs before the workqueue runs, the interrupt handler
-overwrites long_hpd to false and calls schedule_work(), which coalesces with
-the pending work.
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_hpd_work() {
-...
-	if (!long_hpd) {
-		if (dw_dp_needs_link_retrain(dp)) {
-			ret =3D dw_dp_link_retrain(dp);
-			if (ret)
-				dev_warn(dp->dev, "Retrain link failed\n");
-		}
-	} else {
-		drm_helper_hpd_irq_event(dp->bridge.dev);
-	}
-...
-}
-
-When the work finally executes, it sees long_hpd =3D=3D false and fails to =
-call
-drm_helper_hpd_irq_event().=20
-
-Can this drop hotplug events, leaving userspace unaware of display connecti=
-ons?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
-w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D4
+--D3Ywr3u5KIx2uVgC--
