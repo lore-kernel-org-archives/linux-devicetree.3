@@ -1,124 +1,73 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF78332E728
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 03:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542AF282F20;
+	Thu,  6 Aug 2026 03:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785987006; cv=none; b=r6MDGxwvJrt/JeBVGONp8bYoMRwdeDf15eQofAX9kHznrEa/pd3RSzMMTd8FDdKxPNSDXzjPQDYSg/SgUBJIlrPZw+ZVmR7wFmilvAJzuPK86tfRWBvEU8QMA9YpLFYyiyD6pcfE7OGK+q5PB2DwlcxXbVwcrvQlm8egecxhc04=
+	t=1785987510; cv=none; b=AEtg4XAcrHNtVRxti7rj+/Y7W5tc4LpKhBakNPtwa/f40jcJJvJBfpbXKe9asR58aK+D2U7Aifw9PilMTbZ2W1YuYWaQToYGKblWCpmkN3fd9I1/dQEgchfJiCcEuLXydI1bfYRBMpMmt6VF8oDwEvAmCphEgjcu/YUNFu+pLY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785987006; c=relaxed/simple;
-	bh=nmzijyFbb0U1VQ8qXzk5PkUoP5TirGh/vCj/nSrmjng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d988JJUQz9LPZb5MVI98z6bSeIZCE5qlWIBJrcRK6VTwTbPqWeVVCuXGrMGKxYDAvc52pPQHsxwG198O2aHWdL3v3mzUt41qFyzp3PLWPXk+jDfoczxKdhzgMWZwzgqFVE8bADsFeiI3yoH+Xg4oqAFj2RIK8mlIV4efzH5qQgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sklbchRm; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785987510; c=relaxed/simple;
+	bh=CZD2fLYy+JZvIuw8RaJ0fPRTTeYol11buYqkI4IjKJg=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U3fgtqauz1kY5btJpfaKom9d/zJvJaoh9GJacPnq0sFcfqXmXqUxTgmhFLlQEAWC3EMmzzmEuK2IrEufE6m8gxWmAJ48HaPPlt1zQwMFBZeAI6yBrnmJjb+55V4kcRaFxtAO7vRu+x8Sp3LLQ3fk6Rtv79unG65HrXdHk8elJSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BILbr089; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sklbchRm"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso2046033a91.2
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 20:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785987004; x=1786591804; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YAXCryH4oh6nQIKuZN3/aiZHSgXb6KFeGAGvPh2FRm4=;
-        b=sklbchRmY1BtxRHPUBUCe2jgycVLSdItAxWpGKB2H/kB8bMMb68PyQi1k9UfEfyN5c
-         6rGwQ3sYKL+rQrDRwFd+KeUGW9i5J+VIKFbzMwRlJPqnmqZUBhj7PDYPQnln/zZ7ARzV
-         vpDki3zOMAHWkiTn4KK8n38jTINGT4lL+SY7qxrSDlX6NFCNSPwdi4jE2vjcrYV5uh0u
-         sNnwa8D1UuqFkt1hRHL7IMa8Eg51fJeoOJUpOxaJceGvqATQfhwZxz4JQMyDUGitkVXw
-         v1RTC9igUz42d9aRExkAoQe4aTh/HYOeXY+UBLART6oPCVCO6ylpVwSCl3hmV0fkPD3S
-         mxeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785987004; x=1786591804;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YAXCryH4oh6nQIKuZN3/aiZHSgXb6KFeGAGvPh2FRm4=;
-        b=V7hJKvV0Lfn4atbZ9MHcEmmBMrdld6ksc3sLrmkVCMenpF00QsEe5S1PBWaZIQLMyG
-         FRjuIsLfP2rWRhEdi7iirpth9AqNhoYYk0FYQSEt/puHPEbN6XY2NJDcjgbx2id19Dbg
-         fGmxS1xXO7ox6M3AF7/mfVY5n0INft6hxjqGtqOFzsrvZ91LVOiNE8YdCIgrwdhocgKd
-         W8wIChrH+fMb5FApaRpHRWM6DqbjhlSXlgxlse85JwfbmqMeTIpBVh1S8WbCgV/gS6Hg
-         s6c2dREzKcxrKjNblgivBHt3r/Gu66TQkmnBnrvfMRp/x0Z0fJ55PKe/av8WFCuKMIh2
-         cO7Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rqu+K+CIezrwb8uttnieN5rFGAqN45D09jsoQAXt8rvdMLffv6xXRJsZkV08QTiJYKE4Q/7RFX1uaD2@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwOv30nSm4ioo1aoTk2y+WCmBGlieEhvI5uoj0xNLlQFHe8JMn
-	zEJ6yQ/Ekpqw4sfT6zm+DFu34hMDCdP/sL2AuWw1iPtCOxchrPgjFzlF
-X-Gm-Gg: AR+sD11LV/4O+Dcm2ArkgRNDNM16MgaIVEk/1g+R+J2TXYrw4ObCeWa9uZ8SLd16biY
-	mw2v8mhyReqvfDa1+l33mS0MZ2VX9w1TTbIf1yAPXRccx4lUgQW5+G03jAFHPhXzpwrzDnh20Kj
-	qdXemAIR25dwWpcJMVcmjNcPfbfbXJRFbGXxk17xDlC624D/bKsBECH4Kad7vOf1iKLK3eSvQmm
-	jQuizLXwEqelffgv9ZdRaqFlAT2VRAW34ovJ4zKmBAuUpi5Hz69pJfZF+tcjGPGEatZJ79bF2fA
-	OELsgJc/potlcaP9huViei34XAMD2HEgllX2fwXbis6+9w4VLe2tZejo1A5YrSzd/zMLpdRiFes
-	e+SskiRc6GtyovTJQjxaCyHpmR+ig/I23g+cmicpvmwUyPUu82sBFeThptTxG2Bni1/rjF6rduE
-	Wi1e4R7sK86Pa4hZqNzjzSn1qLSUpi3Y7vSUv5MOGYlB5GQ2jACbx2SMTPVpp8GwWkChRXXef7k
-	3HkdY6mm09vhj5VmD/aa63BnR9mWOiJlw1w+Gk=
-X-Received: by 2002:a17:90b:3f43:b0:38f:57f3:4dc6 with SMTP id 98e67ed59e1d1-3903c6798bdmr13404230a91.21.1785987004218;
-        Wed, 05 Aug 2026 20:30:04 -0700 (PDT)
-Received: from [172.20.10.2] (114-137-35-218.emome-ip.hinet.net. [114.137.35.218])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903d2f9a9fsm2451155a91.1.2026.08.05.20.29.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 Aug 2026 20:30:03 -0700 (PDT)
-Message-ID: <4bde20c7-2496-8122-7e0c-4fd986a59232@gmail.com>
-Date: Thu, 6 Aug 2026 11:27:43 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BILbr089"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA7C1F000E9;
+	Thu,  6 Aug 2026 03:38:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785987509;
+	bh=cBoiD3UwaMAXmdjVDF6b0NCkZrKukBc8VfE7Nh4Nz90=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=BILbr089B5EelOBerH9RbPZsF2cxqaqtCd7PtO5dxK1mB+stj0NPBSU5R8X+LPEFd
+	 qiGrI27/h1CMYO3U9mzUPUOlv9Wk97yAxSj+9DlUPSuiegBQCWHZUvPooXxZuC+82i
+	 wViulUCK8e1r24tNn86mSzZcS14/o15wmTpBuavMeCQQiTOgBlPcmE98/YqESk19HA
+	 VZDcnuUEDqvadEsCe+7SH7+nxqzUtEx3tpv1wAp1LCMinM1QEbOxJxyEMWMN9M8HND
+	 jyLuWoqxQXLFmuX5MH2pxa40+ErmQgim+aAzQqRJ3YoGlEkBIokXsQnCoT8qEyTNhy
+	 17wKT6Fn6E1Dw==
+Date: Thu, 6 Aug 2026 03:38:26 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>,
+	Avri Altman <avri.altman@sandisk.com>,
+	Bart Van Assche <bvanassche@acm.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Jennifer Berringer <jberring@redhat.com>,
+	linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] Add UFS Host driver support for SpacemiT K3 SoC
+Message-ID: <20260806033826-GKM76518@kernel.org>
+References: <20260725-08-k3-ufs-support-v2-0-45036a2a2418@kernel.org>
+ <amdyzkFplQqJvMl1@aurel32.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v7 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-To: Mark Brown <broonie@kernel.org>
-Cc: Neo Chang <YLCHANG2@nuvoton.com>, lgirdwood@gmail.com, perex@perex.cz,
- robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org, kchsu0@nuvoton.com,
- sjlin0@nuvoton.com
-References: <20260804032951.1069901-1-YLCHANG2@nuvoton.com>
- <20260804032951.1069901-3-YLCHANG2@nuvoton.com>
- <479efa04-2c02-4b5d-8fdd-e3d4c6e49c4f@sirena.org.uk>
- <7691eac8-5798-c1b5-5ffd-19c780b69a3f@gmail.com>
- <fe60dbe2-0626-4d52-8be3-62445a35ddaf@sirena.org.uk>
-Content-Language: en-US
-From: YLCHANG2 <neo.chang70@gmail.com>
-In-Reply-To: <fe60dbe2-0626-4d52-8be3-62445a35ddaf@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <amdyzkFplQqJvMl1@aurel32.net>
 
+Hi Aurelien,
 
-On 8/5/26 18:30, Mark Brown wrote:
-> On Wed, Aug 05, 2026 at 05:03:01PM +0800, YLCHANG2 wrote:
->> On 8/4/26 23:58, Mark Brown wrote:
->>> On Tue, Aug 04, 2026 at 11:29:51AM +0800, Neo Chang wrote:
->>>> +	switch (clk_id) {
->>>> +	case NAU8360_CLK_ID_INT:
->>> Usually we don't have a lot of fine grained control of the internal
->>> clock dividers of the device, things are a lot easier when the device
->>> just figures out what it needs based on it's input clocks.
->> To make sure I understand: Should we remove the internal clock IDs from
->> set_sysclk and handle clock configurations automatically inside the codec
->> driver?
-> That's ideal.
->
->> Does this mean we should avoid configuring them via the machine driver
->> entirely? If so, what is the preferred way to handle clock fallback when
->> playback stops or MCLK is absent
->> (e.g., via PCM shutdown hooks or DAPM events)?
-> What do you mean by clock fallbacks here?  Presumably there's some clock
-> still running, if that's the only one running it's reasonable for the
-> device to switch over to it.
-Hi Mark,
+On 17:01 Mon 27 Jul     , Aurelien Jarno wrote:
+> > change-id: 20260605-08-k3-ufs-support-c8b308e415e2
+> 
+> Thanks for this new version. Patches 2 and 3 are:
+> 
+> Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+> 
+I forgot to update v3 with your Tested-by tags, but the notable
+changes were the error checking added, which should be safe..
 
-After further internal discussion with the team, we prefer to keep 
-NAU8360_CLK_ID_INT in set_sysclk purely
-for clock source switching to maintain consistency with other Nuvoton 
-drivers (e.g., nau8824, nau8825).
-In the v8 patch, I will remove all fine-grained clock divider 
-configurations from nau8360_dsp_hw_clk and nau8360_dig_sys_clk,
-leaving them to only handle source switching.
-Is this approach acceptable?
-
+-- 
+Yixun Lan (dlan)
