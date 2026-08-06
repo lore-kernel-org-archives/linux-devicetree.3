@@ -1,122 +1,376 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 274FF389116;
-	Thu,  6 Aug 2026 12:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F3F3CF1FF;
+	Thu,  6 Aug 2026 12:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786018018; cv=none; b=sZ0HvjXp8kO3yA+1bLfcxNU505cFcy5GguX8K2j09aWzYQ15ESAxqwYOSrwW4fkShNfmPl7hwWSPxIQlCFQDVvFThFQqkMnj1+nebw+cShBHomJzSTIEvVgDOQj0MR+ZKzly0ry5hFkRE9joOfk0juL6ItQC8AR/vZ7mlNeRMHI=
+	t=1786018199; cv=none; b=IieC1n+nSjXSmyU88hiU3zzbGjB9XB6G7jPY3zQ9yjoE2m2ScKS+HLmgdT0WrRV5nKoZdzxOJyrNzm/yC+aFYPAZf1I4nRSRdS/Wh+IELw/lCgYK+D/CWEvmPRm2kwXbvgfzR10o+ZDXHb5v2EuOCeVhQcmBBWYh1kbmh/WfzdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786018018; c=relaxed/simple;
-	bh=r9VGBxwF+J0VJMXe/vi44fLPtflZtoQXoDHaJyHXsjc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jDuKHlWM6OuaM3HfksdvXZ80jEqANy0NArJySAhKiWrnUeILIlKd83NUEjTSfQW0DeEW09YJx4RFPR3N+K1W0XY0mBIFMOrE4Zi9zsiWVwgP/x2YyHtILBS7/eQjQGf6Hl4X6vdL4VX2oLqA6RPVrl3fj5nfXcJtITAi+cyUaVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GGKJmMit; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786018199; c=relaxed/simple;
+	bh=8eMdNLplMc4wquSFwOnFkbyTTnDl2cjLETwVZQOs4RU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PBy/+VPr8UCcAPZjA3llQf1nVugIpKZY0MPr0gfd3PbtkKJcYIqZgGuHrAyA6cxUxJtADGFEisnU4rLBXr8Ncb5mlIvLRJ656AsZilb89ELuqSohJvIg3Tw2qOlFup5PhO6rsR/UOkzXwil2WKYIts/YDwkAKjmi3pXOHJ7Krj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a9/Dlzgl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GGKJmMit"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F033153B;
-	Thu,  6 Aug 2026 05:06:52 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F0A133F632;
-	Thu,  6 Aug 2026 05:06:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786018016; bh=r9VGBxwF+J0VJMXe/vi44fLPtflZtoQXoDHaJyHXsjc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GGKJmMity6kCF4wZUNnHzGepGcdf1SaRohZ8rLzLYO1VxTi0fZmOhXFOXJnUb1Vf9
-	 okW11psOZ0rMszXq//5a61um/a4XDtFh74fuswTOVdDdoe608hYchCJ1BUTHAAGX9F
-	 dklFELZc0aOaNaGHxF0c2x8fqfYoTiYtoz3VBiSY=
-Message-ID: <3c39665b-5fe0-4015-ae96-c97e0ce8e9c2@arm.com>
-Date: Thu, 6 Aug 2026 14:06:47 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a9/Dlzgl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3743F1F000E9;
+	Thu,  6 Aug 2026 12:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786018197;
+	bh=zFhddiou2mQ23sYxI+N3Pfc26Nu52CLpFpYLOfA9UH4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a9/Dlzgl5e9tW0AVNbJ11vcqIoNF/baDGnll6+3CrqzNZUERv6RwsHg9Oly+aEAHl
+	 QbNzsQF0L41I6xHYztn9fLaaxAv29ZUJ/F0lGIV+3afptvAhEB93LPM77z8W2uLhUK
+	 PdPuBCswWC/5gugnxLhQ3113QvodZLhaaIFlWEUU3m8EimMC5WLMV8DILr+l3L5Q20
+	 Tl4/b94V4thZ0InrGCKGSfaNXnEdFmcT2hxXtd1JFjvyOLSyVktm2K3/bIYq3biqrt
+	 QSkSTY+9Kh5dwEUxyDLxcpPxMZoC6kzd920OMCXY0ZtMax5q1Sl00viy1OH0iE4uQG
+	 5eAJxACtl7pCA==
+Date: Thu, 6 Aug 2026 13:09:52 +0100
+From: Lee Jones <lee@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Andre Przywara <andre.przywara@arm.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/5] mfd: axp20x: Add support for AXP318W PMIC
+Message-ID: <20260806120952.GA2869284@google.com>
+References: <20260717-axp318-regulator-v4-0-50aff97084dd@baylibre.com>
+ <20260717-axp318-regulator-v4-2-50aff97084dd@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC/RFT 0/2] net: stmmac: Add support for Allwinner A733
- GMAC210
-To: Jerome Brunet <jbrunet@baylibre.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Maxime Ripard <mripard@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20260731-allwinner-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260731-allwinner-a733-gmac-support-v1-0-d0a8732bfa82@baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260717-axp318-regulator-v4-2-50aff97084dd@baylibre.com>
 
-Hi,
+/* Sashiko Automation: Issues Found (2 Findings) */
 
-On 7/31/26 18:30, Jerome Brunet wrote:
-> The A733 GMAC210 is a DesignWare MAC 5.20 with an Allwinner glue close to
-> the A523 GMAC200 already supported by dwmac-sun55i, but with a few
-> significant differences:
-> 
->   * The glue configuration registers are a dedicated MMIO region of the
->     controller instead of a syscon register.
->   * That region is inside the controller reset domain, so the reset must be
->     released before the configuration is written, and must not be asserted
->     again afterwards or the configuration is lost.
->   * The DMA channels have their own interrupt lines.
->   * A PTP reference clock and an AHB reset are needed.
->   * The controllers do not require a power domain (AFAIK).
->   * The TX clock delay value is 5 bits wide instead of 3, split over 2
->     register fields.
-> 
-> The DT changes for the A733 and the Cubie A7A board are not part of this
-> series and will be sent separately through the sunxi tree.
-> 
-> Tested on a Cubie A7A, RGMII with an external PHY on GMAC0.
-> 
-> Full disclosure: at the moment there is a problem with EEE/LPI while
-> testing on the Cubie A7A. If the device stays in LPI mode long enough, the
-> link sometimes (but not always) goes down, coming back up when the device
-> exits LPI mode.
+Please explain or fix these Sashiko reviews.
 
-I saw that the MAXIO PHY *vendor* driver disables exactly those two 
-modes, so is this maybe more of a PHY problem?
+On Fri, 17 Jul 2026, Jerome Brunet wrote:
 
-Cheers,
-Andre
-
+> From: Andre Przywara <andre.przywara@arm.com>
 > 
-> I'm currently working around the problem by adding the following
-> properties to the PHY node:
+> The AXP318W is a PMIC chip produced by X-Powers, it can be connected to
+> an I2C bus.
 > 
-> 	eee-broken-100tx;
-> 	eee-broken-1000t;
+> It has a large number of regulators: 9(!) DCDC buck converters, and 28
+> LDOs, also some ADCs, interrupts, and a power key.
 > 
+> Describe the regmap and the MFD bits, along with the registers exposed
+> via I2C only. This covers the regulators and interrupts for now.
+> Advertise the device using the new compatible string.
+> 
+> We use just "318" for the internal identifiers, for easier typing and
+> less churn, but use "318W" for anything externally visible. If something
+> else other than the "AXP318W" shows up, that's an easy change then.
+> 
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 > Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 > ---
-> Jerome Brunet (2):
->        dt-bindings: net: sun8i-emac: Add A733 GMAC210 compatible
->        net: stmmac: Add support for Allwinner A733 GMAC210
+>  drivers/mfd/axp20x-i2c.c   |  2 ++
+>  drivers/mfd/axp20x.c       | 78 +++++++++++++++++++++++++++++++++++++++++
+>  include/linux/mfd/axp20x.h | 86 ++++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 166 insertions(+)
 > 
->   .../bindings/net/allwinner,sun8i-a83t-emac.yaml    | 130 +++++++++++++++---
->   drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c | 145 ++++++++++++++++++---
->   2 files changed, 242 insertions(+), 33 deletions(-)
-> ---
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> change-id: 20260731-allwinner-a733-gmac-support-163bde10c152
+> diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
+> index 5c93136f977e..4e4ebfc78525 100644
+> --- a/drivers/mfd/axp20x-i2c.c
+> +++ b/drivers/mfd/axp20x-i2c.c
+> @@ -65,6 +65,7 @@ static const struct of_device_id axp20x_i2c_of_match[] = {
+>  	{ .compatible = "x-powers,axp221", .data = (void *)AXP221_ID },
+>  	{ .compatible = "x-powers,axp223", .data = (void *)AXP223_ID },
+>  	{ .compatible = "x-powers,axp313a", .data = (void *)AXP313A_ID },
+> +	{ .compatible = "x-powers,axp318w", .data = (void *)AXP318_ID },
+>  	{ .compatible = "x-powers,axp323", .data = (void *)AXP323_ID },
+>  	{ .compatible = "x-powers,axp717", .data = (void *)AXP717_ID },
+>  	{ .compatible = "x-powers,axp803", .data = (void *)AXP803_ID },
+> @@ -83,6 +84,7 @@ static const struct i2c_device_id axp20x_i2c_id[] = {
+>  	{ "axp221" },
+>  	{ "axp223" },
+>  	{ "axp313a" },
+> +	{ "axp318w" },
+>  	{ "axp717" },
+>  	{ "axp803" },
+>  	{ "axp806" },
+> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+> index 679364189ea5..c8aeebd01bbc 100644
+> --- a/drivers/mfd/axp20x.c
+> +++ b/drivers/mfd/axp20x.c
+> @@ -42,6 +42,7 @@ static const char * const axp20x_model_names[] = {
+>  	[AXP223_ID] = "AXP223",
+>  	[AXP288_ID] = "AXP288",
+>  	[AXP313A_ID] = "AXP313a",
+> +	[AXP318_ID] = "AXP318W",
+>  	[AXP323_ID] = "AXP323",
+>  	[AXP717_ID] = "AXP717",
+>  	[AXP803_ID] = "AXP803",
+> @@ -218,6 +219,31 @@ static const struct regmap_access_table axp313a_volatile_table = {
+>  	.n_yes_ranges = ARRAY_SIZE(axp313a_volatile_ranges),
+>  };
+>  
+> +static const struct regmap_range axp318_writeable_ranges[] = {
+> +	regmap_reg_range(AXP318_DCDC_OUTPUT_CONTROL1, AXP318_IRQ_STATE4),
+> +	regmap_reg_range(AXP318_SHUTDOWN_CTRL, AXP318_TEMP_ADC_H_EN),
+> +	regmap_reg_range(AXP318_DIE_TEMP_ADC_H_EN, AXP318_DIE_TEMP_ADC_H_EN),
+> +	regmap_reg_range(AXP318_GPADC_H_EN, AXP318_GPADC_H_EN),
+> +	regmap_reg_range(AXP318_GPIO_CTRL, AXP318_WDOG_CTRL),
+> +};
+> +
+> +static const struct regmap_range axp318_volatile_ranges[] = {
+> +	regmap_reg_range(AXP318_IRQ_EN1, AXP318_IRQ_STATE4),
+> +	regmap_reg_range(AXP318_POWER_REASON, AXP318_SHUTDOWN_REASON),
+> +	regmap_reg_range(AXP318_TEMP_ADC_H_EN, AXP318_GPADC_L),
+> +	regmap_reg_range(AXP318_GPIO_INPUT, AXP318_GPIO_INPUT),
+> +};
+> +
+> +static const struct regmap_access_table axp318_writeable_table = {
+> +	.yes_ranges = axp318_writeable_ranges,
+> +	.n_yes_ranges = ARRAY_SIZE(axp318_writeable_ranges),
+> +};
+> +
+> +static const struct regmap_access_table axp318_volatile_table = {
+> +	.yes_ranges = axp318_volatile_ranges,
+> +	.n_yes_ranges = ARRAY_SIZE(axp318_volatile_ranges),
+> +};
+> +
+>  static const struct regmap_range axp717_writeable_ranges[] = {
+>  	regmap_reg_range(AXP717_PMU_FAULT, AXP717_MODULE_EN_CONTROL_1),
+>  	regmap_reg_range(AXP717_MIN_SYS_V_CONTROL, AXP717_BOOST_CONTROL),
+> @@ -447,6 +473,15 @@ static const struct regmap_config axp313a_regmap_config = {
+>  	.cache_type = REGCACHE_MAPLE,
+>  };
+>  
+> +static const struct regmap_config axp318_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.wr_table = &axp318_writeable_table,
+> +	.volatile_table = &axp318_volatile_table,
+> +	.max_register = AXP318_WDOG_CTRL,
+> +	.cache_type = REGCACHE_MAPLE,
+> +};
+> +
+>  static const struct regmap_config axp323_regmap_config = {
+>  	.reg_bits = 8,
+>  	.val_bits = 8,
+> @@ -663,6 +698,28 @@ static const struct regmap_irq axp313a_regmap_irqs[] = {
+>  	INIT_REGMAP_IRQ(AXP313A, DIE_TEMP_HIGH,		0, 0),
+>  };
+>  
+> +static const struct regmap_irq axp318_regmap_irqs[] = {
+> +	INIT_REGMAP_IRQ(AXP318, DCDC8_V_LOW,		0, 7),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC7_V_LOW,		0, 6),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC6_V_LOW,		0, 5),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC5_V_LOW,		0, 4),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC4_V_LOW,		0, 3),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC3_V_LOW,		0, 2),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC2_V_LOW,		0, 1),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC1_V_LOW,		0, 0),
+> +	INIT_REGMAP_IRQ(AXP318, PEK_RIS_EDGE,		1, 6),
+> +	INIT_REGMAP_IRQ(AXP318, PEK_FAL_EDGE,		1, 5),
+> +	INIT_REGMAP_IRQ(AXP318, PEK_LONG,		1, 4),
+> +	INIT_REGMAP_IRQ(AXP318, PEK_SHORT,		1, 3),
+> +	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV2,	1, 2),
+> +	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV1,	1, 1),
+> +	INIT_REGMAP_IRQ(AXP318, DCDC9_V_LOW,		1, 0),
+> +	INIT_REGMAP_IRQ(AXP318, GPIO3_INPUT,		2, 6),
+> +	INIT_REGMAP_IRQ(AXP318, GPIO2_INPUT,		2, 5),
+> +	INIT_REGMAP_IRQ(AXP318, GPIO1_INPUT,		2, 4),
+> +	INIT_REGMAP_IRQ(AXP318, WDOG_EXPIRE,		3, 0),
+> +};
+> +
+>  static const struct regmap_irq axp717_regmap_irqs[] = {
+>  	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL2,		0, 7),
+>  	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL1,		0, 6),
+> @@ -884,6 +941,17 @@ static const struct regmap_irq_chip axp313a_regmap_irq_chip = {
+>  	.num_regs		= 1,
+>  };
+>  
+> +static const struct regmap_irq_chip axp318_regmap_irq_chip = {
+> +	.name			= "axp318w_irq_chip",
+> +	.status_base		= AXP318_IRQ_STATE1,
+> +	.ack_base		= AXP318_IRQ_STATE1,
+> +	.unmask_base		= AXP318_IRQ_EN1,
+> +	.init_ack_masked	= true,
+> +	.irqs			= axp318_regmap_irqs,
+> +	.num_irqs		= ARRAY_SIZE(axp318_regmap_irqs),
+> +	.num_regs		= 4,
+> +};
+> +
+>  static const struct regmap_irq_chip axp717_regmap_irq_chip = {
+>  	.name			= "axp717_irq_chip",
+>  	.status_base		= AXP717_IRQ0_STATE,
+> @@ -1061,6 +1129,10 @@ static struct mfd_cell axp313a_cells[] = {
+>  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
+>  };
+>  
+> +static const struct mfd_cell axp318_cells[] = {
+> +	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
+
+[Severity: Medium]
+Does this hardcoded cell ID of 1 violate the MFD subsystem guidelines?
+
+If multiple AXP devices with hardcoded IDs of 1 (such as the AXP313a and
+AXP318W) are instantiated on the same system, could they both attempt to
+register a platform device named axp20x-regulator.1, resulting in a fatal
+-EEXIST failure?
+
+Should this use PLATFORM_DEVID_AUTO instead?
+
+
+> +};
+> +
+>  static struct mfd_cell axp717_cells[] = {
+>  	MFD_CELL_NAME("axp20x-regulator"),
+>  	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+> @@ -1313,6 +1385,12 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
+>  		axp20x->regmap_cfg = &axp313a_regmap_config;
+>  		axp20x->regmap_irq_chip = &axp313a_regmap_irq_chip;
+>  		break;
+> +	case AXP318_ID:
+> +		axp20x->nr_cells = ARRAY_SIZE(axp318_cells);
+> +		axp20x->cells = axp318_cells;
+> +		axp20x->regmap_cfg = &axp318_regmap_config;
+> +		axp20x->regmap_irq_chip = &axp318_regmap_irq_chip;
+> +		break;
+
+[Severity: High]
+Is AXP318_ID missing from the switch statement in axp20x_power_off()?
+
+When the system attempts to power off, axp20x_power_off() is called. If
+AXP318_ID is not handled in the switch statement there, will it fall through
+to the default case and select AXP20X_OFF_CTRL (0x32) instead of the correct
+AXP318_SHUTDOWN_CTRL (0x52)?
+
+Could this failure to shut down the PMIC corrupt the state of the CLDO4
+regulator by writing the power-off command to AXP318_CLDO4_CONTROL (which
+is also 0x32)?
+
+
+>  	case AXP323_ID:
+>  		axp20x->nr_cells = ARRAY_SIZE(axp313a_cells);
+>  		axp20x->cells = axp313a_cells;
+> diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
+> index b352661d99a1..c1f9dc06387a 100644
+> --- a/include/linux/mfd/axp20x.h
+> +++ b/include/linux/mfd/axp20x.h
+> @@ -19,6 +19,7 @@ enum axp20x_variants {
+>  	AXP223_ID,
+>  	AXP288_ID,
+>  	AXP313A_ID,
+> +	AXP318_ID,
+>  	AXP323_ID,
+>  	AXP717_ID,
+>  	AXP803_ID,
+> @@ -116,6 +117,69 @@ enum axp20x_variants {
+>  #define AXP313A_IRQ_STATE		0x21
+>  #define AXP323_DCDC_MODE_CTRL2		0x22
+>  
+> +#define AXP318_DCDC_OUTPUT_CONTROL1	0x10
+> +#define AXP318_DCDC_OUTPUT_CONTROL2	0x11
+> +#define AXP318_DCDC1_CONTROL		0x12
+> +#define AXP318_DCDC2_CONTROL		0x13
+> +#define AXP318_DCDC3_CONTROL		0x14
+> +#define AXP318_DCDC4_CONTROL		0x15
+> +#define AXP318_DCDC5_CONTROL		0x16
+> +#define AXP318_DCDC6_CONTROL		0x17
+> +#define AXP318_DCDC7_CONTROL		0x18
+> +#define AXP318_DCDC8_CONTROL		0x19
+> +#define AXP318_DCDC9_CONTROL		0x1a
+> +#define AXP318_LDO_OUTPUT_CONTROL1	0x20
+> +#define AXP318_LDO_OUTPUT_CONTROL2	0x21
+> +#define AXP318_LDO_OUTPUT_CONTROL3	0x22
+> +#define AXP318_LDO_OUTPUT_CONTROL4	0x23
+> +#define AXP318_ALDO1_CONTROL		0x24
+> +#define AXP318_ALDO2_CONTROL		0x25
+> +#define AXP318_ALDO3_CONTROL		0x26
+> +#define AXP318_ALDO4_CONTROL		0x27
+> +#define AXP318_ALDO5_CONTROL		0x28
+> +#define AXP318_ALDO6_CONTROL		0x29
+> +#define AXP318_BLDO1_CONTROL		0x2a
+> +#define AXP318_BLDO2_CONTROL		0x2b
+> +#define AXP318_BLDO3_CONTROL		0x2c
+> +#define AXP318_BLDO4_CONTROL		0x2d
+> +#define AXP318_BLDO5_CONTROL		0x2e
+> +#define AXP318_CLDO1_CONTROL		0x2f
+> +#define AXP318_CLDO2_CONTROL		0x30
+> +#define AXP318_CLDO3_CONTROL		0x31
+> +#define AXP318_CLDO4_CONTROL		0x32
+> +#define AXP318_CLDO5_CONTROL		0x33
+> +#define AXP318_DLDO1_CONTROL		0x34
+> +#define AXP318_DLDO2_CONTROL		0x35
+> +#define AXP318_DLDO3_CONTROL		0x36
+> +#define AXP318_DLDO4_CONTROL		0x37
+> +#define AXP318_DLDO5_CONTROL		0x38
+> +#define AXP318_DLDO6_CONTROL		0x39
+> +#define AXP318_ELDO1_CONTROL		0x3a
+> +#define AXP318_ELDO2_CONTROL		0x3b
+> +#define AXP318_ELDO3_CONTROL		0x3c
+> +#define AXP318_ELDO4_CONTROL		0x3d
+> +#define AXP318_ELDO5_CONTROL		0x3e
+> +#define AXP318_ELDO6_CONTROL		0x3f
+> +#define AXP318_IRQ_EN1			0x40
+> +#define AXP318_IRQ_EN2			0x41
+> +#define AXP318_IRQ_EN3			0x42
+> +#define AXP318_IRQ_EN4			0x43
+> +#define AXP318_IRQ_STATE1		0x48
+> +#define AXP318_IRQ_STATE2		0x49
+> +#define AXP318_IRQ_STATE3		0x4a
+> +#define AXP318_IRQ_STATE4		0x4b
+> +#define AXP318_POWER_REASON		0x50
+> +#define AXP318_SHUTDOWN_REASON		0x51
+> +#define AXP318_SHUTDOWN_CTRL		0x52
+> +#define AXP318_TEMP_ADC_H_EN		0x65
+> +#define AXP318_TEMP_ADC_L		0x66
+> +#define AXP318_DIE_TEMP_ADC_H_EN	0x67
+> +#define AXP318_GPADC_H_EN		0x69
+> +#define AXP318_GPADC_L			0x6a
+> +#define AXP318_GPIO_CTRL		0x70
+> +#define AXP318_GPIO_INPUT		0x71
+> +#define AXP318_WDOG_CTRL		0x77
+> +
+>  #define AXP717_ON_INDICATE		0x00
+>  #define AXP717_PMU_STATUS_2		0x01
+>  #define AXP717_BC_DETECT		0x05
+> @@ -819,6 +883,28 @@ enum axp313a_irqs {
+>  	AXP313A_IRQ_PEK_RIS_EDGE,
+>  };
+>  
+> +enum axp318_irqs {
+> +	AXP318_IRQ_DCDC1_V_LOW,
+> +	AXP318_IRQ_DCDC2_V_LOW,
+> +	AXP318_IRQ_DCDC3_V_LOW,
+> +	AXP318_IRQ_DCDC4_V_LOW,
+> +	AXP318_IRQ_DCDC5_V_LOW,
+> +	AXP318_IRQ_DCDC6_V_LOW,
+> +	AXP318_IRQ_DCDC7_V_LOW,
+> +	AXP318_IRQ_DCDC8_V_LOW,
+> +	AXP318_IRQ_DCDC9_V_LOW,
+> +	AXP318_IRQ_DIE_TEMP_HIGH_LV1,
+> +	AXP318_IRQ_DIE_TEMP_HIGH_LV2,
+> +	AXP318_IRQ_PEK_SHORT,
+> +	AXP318_IRQ_PEK_LONG,
+> +	AXP318_IRQ_PEK_FAL_EDGE,
+> +	AXP318_IRQ_PEK_RIS_EDGE,
+> +	AXP318_IRQ_GPIO1_INPUT = 20,
+> +	AXP318_IRQ_GPIO2_INPUT,
+> +	AXP318_IRQ_GPIO3_INPUT,
+> +	AXP318_IRQ_WDOG_EXPIRE = 24,
+> +};
+> +
+>  enum axp717_irqs {
+>  	AXP717_IRQ_VBUS_FAULT,
+>  	AXP717_IRQ_VBUS_OVER_V,
 > 
-> Best regards,
-> --
-> Jerome
-> 
+> -- 
+> 2.47.3
 > 
 
+-- 
+Lee Jones
