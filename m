@@ -1,44 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A82382F23;
-	Thu,  6 Aug 2026 00:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D2C3A2E33;
+	Thu,  6 Aug 2026 00:39:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785976760; cv=none; b=X4uMw2v5DJYYi8zchHbdDpHYzeX0xiT2qF6XpNSz/bIyYYAMymg23JhOBwvunpq7ea3tprUrgTgnedBrb3iBNxqPBCVFionGzZapSR5Vf1RmBBqua90syBt/g8rvcm1BsFvsJxKEh1B+faMH+yqmDjR3e5Q4EVammthtqYqpY1g=
+	t=1785976762; cv=none; b=AVAYx9OjRnszjaupidQt4f1ez0hF/MRgweQlSvEufK8PISed1ZOeIXYC/qa72i8HlQT3UeumaPJDbmuhhH9dUHTcWJoMIOa3wP+rF7s+cvCHnyL/T6RaeWXJxm92ioLPNarIEOY4mvtCpHJypxPna4oj5EVRzJWJjENxZ8oaX+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785976760; c=relaxed/simple;
-	bh=YtwSpdUg10a+Zh7F9mpv53UF1+K0mBdt/GcnkH2c5S0=;
+	s=arc-20240116; t=1785976762; c=relaxed/simple;
+	bh=oRTwAEvsdtAdQ3xeWlEgRs01pA0QwvbbaxWZXaVnR4M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vEetDdoIsGasjwBAgImyjvx7V3mXEWeZqwRxRab8trxamICdXI0/08M3IJqpt7beG/XmwTovxUosRtRCZIqmoG8wYNYm7fjoFbWs6ieLDOnhvCPeqZ48LXvCW3mnS7nsl0nwbfS5TDxz7PpTZtDlZCmFyEI74daB87/ixOTdfLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YrSVKIBs; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=teIImunHJF4tL8XraABEZg2r1pxAHb6xw+Q33d5uO5t5MzYw4v23muXWi+PvkVpYTjYUNBCY0XXFDAfORBd0fRWyE3MvgO5EkEABgqrESyZoh7Ks07WCJYlYa+CrgXper+P4izAxtJHpuf/BXWgJVyPH9/WVS/2K7+wGOq+6pl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mti+hVE4; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YrSVKIBs"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mti+hVE4"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1785976751;
-	bh=YtwSpdUg10a+Zh7F9mpv53UF1+K0mBdt/GcnkH2c5S0=;
+	bh=oRTwAEvsdtAdQ3xeWlEgRs01pA0QwvbbaxWZXaVnR4M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YrSVKIBsL3UAzH4iyqz9towasTAvvNikfrQYgw6Mp0B4DlEX57dwv45xO6+8oFzLV
-	 Ok3YpkEa9os6EDtYgzN/E8bfRUfgA3kNsr/BpR+92XCe0zPTYUkX7RdyDPz/+DAOV9
-	 KGjWdrwZTj2l2yKhVERsOwkaHM1xduPP+IgZ4vV/5pkck60B74lBXetKDufPi7GquE
-	 3nsJtD4VX0L8l75aRTkwIvU0X8FzgEqJPawf0vyArzlXSoTDjEQ2of2mDb9EQuaZZk
-	 6OrC14seQ2yQVchynAU4Xy82EKtT3Tl6aSGOQIM89BUTlbkEEiiL3Mk2FHMa62VSxK
-	 ob4WH8hVgio/A==
+	b=mti+hVE4xihzZGsOpdyWAc35hBFpGC4GNche6SQCNQB9MQ37SQtrVJNsGa9Vbnkb/
+	 sgs3t16YWfj7fwk1YbUg0RAsUcuIcLFA/c8/65F2aqEYPUwC7yLEpKvG1wxjo0z0SS
+	 koGxpQy9ibKA50PN9J/cIbs1DXY4493eGYt4WXVSoi8Fu2tRNwdecGEOKEcvdTBqIy
+	 Y4Qx8mdXYNdIbEihoEsLf91JUefddCSS4NcRoDGLhRg6aMQEuuPHDPc3BZFDCoaHyc
+	 PqLy/0HB1KIgZc+ydBboiVrXLl0zwObaIguqMDoFVNyLou/5doYJ6LnQaOfc4WaMqp
+	 wkKceqO2/rUcg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3402F17E07C0;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 819AE17E082A;
 	Thu, 06 Aug 2026 02:39:11 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 8F68A480035; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
+	id 9CA7E480055; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 02:39:12 +0200
-Subject: [PATCH v10 06/21] drm/bridge: synopsys: dw-dp: Fix AUX transfer
- timeout race condition
+Date: Thu, 06 Aug 2026 02:39:21 +0200
+Subject: [PATCH v10 15/21] drm/rockchip: dw_dp: Add runtime PM support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +46,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v10-6-d84a26c303d6@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v10-15-d84a26c303d6@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -71,78 +70,86 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2162;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2058;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=YtwSpdUg10a+Zh7F9mpv53UF1+K0mBdt/GcnkH2c5S0=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz162dHmPHSH5OwKJMuULkSdkV4R/oh1Wwa
- hHaP8SVhQj8yYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9etAAoJENju1/PI
- O/qak4MP/ihUzR/v3EZRGp9uA69x1hROIypOCp8djBQxs6Yt4oFJL64X1GbAVno1vaHfatvAzoN
- Z50MD/jofo01ZVO7ykVvkPggQwv6XeDJYw29rkCAHOaIemxmGXkVIZ3Dx33ecZ9OEyeCLmoQt0v
- K/BXg84DM7SwRHf05UDY4r+N4RV74xX26UfmBK5xpHHObsTWt8oIxwLRh8m9T/2xDA0ysm+UwU0
- 7F4XXUXe/wrVK9bKxel/a4wFObGsWhD1qCouX6kIzcxXX2phFLlhiqoMRpX/YxbMQTPZP60xXTZ
- Gaf20e2imPi0HBvad84ldOWwM/lfDuUCn1N/hFWVG5JNlbUVu0bCHYId33SROgNF6kVf9vz236u
- guPnJAFAMf7QKmT9jt3bD/fOIyudzxtmE1z86belUZ0zgNNUZ2wA3+11BbFHNCC6V4QwgWjYr8c
- AH/0Tpm1BF/1mzMS32ehpQKH3b1pL2A+qscl1QqoQptSVC42hrmuFc+CZunDANbZsPEpgRL8AT3
- 3PqH24414R70Z1MbuyQCmION/70nNrSNranGhD/++9dxUccEBhKsg0oAizJup0hrX2nvIs/7nLv
- EZK2hwgYBwXo84ZTHXW+zCdGCSBfs219SxNnYCs5KZad6OW7SbFUgKgUSck49RK26h9XXnrQwcj
- Z3W/QEiRhT247o0JIpWgn4A==
+ bh=oRTwAEvsdtAdQ3xeWlEgRs01pA0QwvbbaxWZXaVnR4M=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz166DLPUJ2TM/Iv6OumBgfJmR621XrspIw
+ 4iJod88cNEXEIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9euAAoJENju1/PI
+ O/qabGQP/0JgDru7s3ZwEPfU7kp3JeBjFVITtlI54T1bYYYYEpMLoV0NDwsH0Zzat9/4mFqwoKY
+ HO4ZvHRJxKTanRujoieloXrcZvx3MVgnwbioXtmtJQh0QWfiiYC6im0N2zEhnI4ewPpRkVOxQvW
+ 7FiMl/rcY36p+MS9oIOKBSZtRQIEpTGrp7PbumbUEerLWBsGB6vxb90JwhSSXxsY4peCAvgFcVc
+ DKLASIS+gnfYhR4gQ64ZhmK11zQm4cr/EmvrBfN3qPmycx5CMjwlW8ULMo6+VlaM1TirFBsILeq
+ BkBF7m6hzoFPwb4RxceoQqhm6M67sCHS3OJ3HWi1IoUEIrqWI1ssIbopR2IGcUWKk5ubBMn3cmc
+ N+B77EP7h98QW12diuKjqhyoKyc/7+ohHiacEp+eeIbbff8MuSolwtTPea5Bc6AovvfDDKCOYj+
+ tf+RNMSbAf3629q1J4cjbb99nXgaVQ4wvPbRMCHgfUE7hhLU9swms65o+5QkAOrrewg8dSPcHSz
+ 1JqOGotMiI1CvP+1bSmG/dDoVtLPgf6giUKFEZDZICWMbhheEery09b//Yi12CJxKFzUywm1UT3
+ nKkpPMOOcp6p83AdMB1SLslmvLCnsD4sF5Sko6/xV/BVDt9AW0ITlg+0Z46lM0QHMqHkjOX4ASM
+ GPFgQ9CMWvva39xDf+04l/Q==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The DP AUX transfer method uses a completion triggered by an interrupt,
-which can timeout. If the function runs into the timeout and the
-interrupt fires afterwards, the following DP aux transfer completion
-would trigger immediately without waiting for the interrupt. This in
-turn means the next one would also be broken and so on.
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
-Fix this potential issue by re-initializing the completion directly
-before sending the AUX command.
-
-As this is racy (the interrupt might arrive between the completion
-re-init and the new command being programmed), also reset the AUX
-controller on timeouts and synchronize pending interrupts to gurantee
-that there are no pending AUX transfers when the dw_dp_aux_transfer()
-returns.
-
-Due to lack of a sink, which generates AUX timeouts, this change is
-effectively untested.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 7bd4befd84c8..f82330640380 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1466,6 +1466,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	if (WARN_ON(msg->size > 16))
- 		return -E2BIG;
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index ffcfb887d0d2..770ab042a187 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -12,6 +12,7 @@
+ #include <linux/mfd/syscon.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/videodev2.h>
  
-+	reinit_completion(&dp->complete);
+@@ -231,6 +232,7 @@ static int dw_dp_rockchip_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dp->vo_grf))
+ 		return PTR_ERR(dp->vo_grf);
+ 
++	plat_data->autosuspend_delay = 500;
+ 	plat_data->max_link_rate = plat_data_const->max_link_rate;
+ 	plat_data->pixel_mode = plat_data_const->pixel_mode;
+ 	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
+@@ -253,6 +255,24 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+ }
+ 
++static int dw_dp_rockchip_runtime_suspend(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
 +
- 	switch (msg->request & ~DP_AUX_I2C_MOT) {
- 	case DP_AUX_NATIVE_WRITE:
- 	case DP_AUX_I2C_WRITE:
-@@ -1492,6 +1494,12 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	status = wait_for_completion_timeout(&dp->complete, timeout);
- 	if (!status) {
- 		dev_err(dp->dev, "timeout waiting for AUX reply\n");
-+		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
-+				   AUX_RESET, FIELD_PREP(AUX_RESET, 1));
-+		usleep_range(10, 20);
-+		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
-+				   AUX_RESET, FIELD_PREP(AUX_RESET, 0));
-+		synchronize_irq(dp->irq);
- 		return -ETIMEDOUT;
- 	}
- 
++	return dw_dp_runtime_suspend(dp->base);
++}
++
++static int dw_dp_rockchip_runtime_resume(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++
++	return dw_dp_runtime_resume(dp->base);
++}
++
++static const struct dev_pm_ops dw_dp_pm_ops = {
++	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_resume, NULL)
++};
++
+ static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
+ 	.num_ctrls = 2,
+ 	.ctrl_ids = {0xfde50000, 0xfde60000},
+@@ -287,5 +307,6 @@ struct platform_driver dw_dp_driver = {
+ 	.driver = {
+ 		.name = "dw-dp",
+ 		.of_match_table = dw_dp_of_match,
++		.pm = pm_ptr(&dw_dp_pm_ops),
+ 	},
+ };
 
 -- 
 2.53.0
