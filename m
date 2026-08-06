@@ -1,142 +1,263 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D927224BBEB
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 22:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D8224BBEB;
+	Thu,  6 Aug 2026 22:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786055840; cv=none; b=hbvUezM82saFTjWvGtOtPLWYZHd+wZQJHw4INnRuCIJyXLe8/Gnm4jvniwRiUfAKgmWiYrKoMiXMzMzeUDZFw6U8PnhUctXN/zDvgLYFVZcPuyw8S/+Noc8yq/9s7QisKr0ecnvsz0RCrOD4VhOYo/5HQF88G7XfXzfVStnI6Hc=
+	t=1786056848; cv=none; b=DM6sAMXtasg7gvL2wsfMOgYU1nXrC35yVlkFtIIh8erdBcCJh2JBkN1kT0gpw5NKouJjg98KY+SGg8qpfqXHUGUuYgrJWaBPtUhe+HVNgYraHRaiYElrtv5+cgTfDZtVo6X1davGuxQ5v9As9A0ItNNpZsqP9m2vLfWxeiDf2nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786055840; c=relaxed/simple;
-	bh=pZj8iebXIslIGTtjRKD4zjYGLSXY1ZFM5SjkS+1y2Ms=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EYO9oSMBsKU+dNf71DVNzx/IyUhaDuCxF+EtXhnqtk2ICjo+XX6AhcocvRVBMXFVxiD7BQ77YYtif3vbC28h8PiOPzLvukao3a9utyAiMoRok1Pis9y6DF3phk8+KeA5jRhIYMZ0Fpg5sXSp6rA85yTb3Ubrd0aaeomJ3LdAy2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdf2RpZ+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786056848; c=relaxed/simple;
+	bh=INJpg97Vjdcs97i99S7lop3sy0oLpvOAASnWJelOOj8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RLBEPhw+mChg7GWmeZSONX4EFhmYthyq9a41MrX7MxpB9Vi/JQRpFlxO1iFFCrKB5P4lgPWaPZyUlGXUv7piPlgapSEWRLyDM0VBAq/hI6f9gk2xsj72DmnUAP3aOC4Xw3VfrwUYm69yXygIqo7Mhs40xliThXpW2+8X+1UbW60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jZQ3qRHb; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdf2RpZ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0353E1F000E9;
-	Thu,  6 Aug 2026 22:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786055838;
-	bh=RvRcqzsjQPSw+gYzT4Q4IHEP91bgquFqmTkHDjGNW8I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hdf2RpZ+JagWQRkzH9UOr1KCj9JCMr866NA/Eq9FWTKgQ6xdZbc0+1L6V0E2O6H73
-	 KvFGYOng2j+zsS43T9hwSQfgYf7AE79Ur1JI4dvOWgRmprDn5pzNcfFF3qhmCo9xT6
-	 i+kvLes2QzQEefil8s+8HJrkhZ2X4S8DOoZp+SdDJggmqx9hDc0Mu48RC8bX68/OLA
-	 1PwSW0G16SJlN0koI/SQ07rNrV2ZGr9g9eRbJ34Rn0ituk5Zwdkb1sJiaOaO53C2by
-	 LITMwqwQxS2K78Mo+4ncFUI21F/0bmcbLW3eS1yDE6mDz19+HqskluNG8pKu4vwChE
-	 J7Hq+SVVvVhpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 25/37] pinctrl: airoha: split driver on shared code
- and SoC specific drivers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806220615.4078303-26-mikhail.kshevetskiy@iopsys.eu>
-References: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
- <20260806220615.4078303-26-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 22:37:16 +0000
-Message-Id: <20260806223718.0353E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jZQ3qRHb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786056846; x=1817592846;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=INJpg97Vjdcs97i99S7lop3sy0oLpvOAASnWJelOOj8=;
+  b=jZQ3qRHbG6etle5Rp81n5aQgy8rBevRUSul5yNgmTEdijy40X5xEAa4W
+   VFYBQ1utaiRmQX1Mk4QEsBQy3gCjrzs7Ajoo8gEgkZLIfAvrMCReIcwRB
+   oTyqZMtozz+KPPOLk2g0xWPIQMFLYfBhl6Jux2ytnRRRuXmPBEk7yL9an
+   N29xCJB/R9LaOECgufjFueolBmbCM2Ze3iJOHsxfSmJVejnI6oZZTMuhr
+   hCPKQSJtoofMrGzTz9i1lbZqSD0Msr/TUcdJfAtqEuRkRza2cUUpAA/HD
+   Grce5lAKmFPXDbBRfT60smq55StFIkjqvSKszpR2pPYT4/g7+yPI4Ktv3
+   A==;
+X-CSE-ConnectionGUID: xoKKad50RXGTaUD1/sQC/Q==
+X-CSE-MsgGUID: sfd5xSYiRoC3LsGvKYWQ+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="97314357"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="97314357"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 15:54:04 -0700
+X-CSE-ConnectionGUID: iZUZ07JeRnCwI7fuIv19kQ==
+X-CSE-MsgGUID: sjrwq9tNSayCMc3WOYPdWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="262854063"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.50])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 15:53:59 -0700
+Date: Fri, 7 Aug 2026 01:53:57 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	John Ogness <john.ogness@linutronix.de>,
+	Peng Zhang <zhangpeng.00@bytedance.com>,
+	Jacques Nilo <jnilo@free.fr>,
+	Rong Zhang <rongrong@oss.cipunited.com>,
+	Gerhard Engleder <eg@keba.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] serial: 8250: Add Airoha SoC UART and HSUART
+ support
+Message-ID: <anUQhbuHSDRs04bq@ashevche-desk.local>
+References: <20260724183007.188172-1-ansuelsmth@gmail.com>
+ <20260724183007.188172-3-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260724183007.188172-3-ansuelsmth@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Fri, Jul 24, 2026 at 08:30:06PM +0200, Christian Marangi wrote:
+> Add support for Airoha AN7523 UART and AN7581 HSUART.
+> 
+> These implement a standard 16550 UART with only some custom logic
+> for baud rate handling.
 
-New issues:
-- [Medium] Undocumented Feature Additions / Silent Fixes
+I tried not to clash with Ilpo's review (all he said is still applicable here).
 
-Pre-existing issues:
-- [High] Race Condition leading to Use-After-Free during teardown
-- [High] Race Condition in IRQ handler dropping edge interrupts
-- [High] Lock nesting violation on PREEMPT_RT due to syscon regmap operatio=
-ns in atomic context
---
+...
 
---- Patch [25]: [PATCH v11 25/37] pinctrl: airoha: split driver on shared c=
-ode and SoC specific drivers ---
-commit 43427b8e37815dccb451d5575c676158386beaf8
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
-pinctrl: airoha: split driver on shared code and SoC specific drivers
+> +#define XINDIV_CLOCK		20000000
 
-This patch refactors the Airoha pinctrl driver by splitting the combined
-source file into shared common code and SoC-specific drivers. It extracts
-the pin controller and GPIO logic into a common file and creates separate
-driver files for the AN7581 and AN7583.
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-an7583.c b/drivers/pinctrl/ai=
-roha/pinctrl-an7583.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/pinctrl/airoha/pinctrl-an7583.c
-> @@ -0,0 +1,1476 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-[ ... ]
-> +static const int pon_pins[] =3D { 15, 16, 17, 18, 19, 20 };
-> +static const int pon_alt_pins[] =3D { 36, 37, 38, 39, 40 };
-> +static const int olt_pins[] =3D { 36, 37, 38, 39, 40 };
-> +static const int pon_tod_1pps_pins[] =3D { 32 };
+20 * HZ_PER_MHZ
 
-[Severity: Medium]
-The commit message describes this patch purely as a structural split of the
-combined driver into shared and SoC-specific parts. However, this appears
-to add new functional features like the pon_alt and olt pin groups for
-AN7583.
+(should include units.h)
 
-Could the commit message be updated to mention these functional additions,
-or should they be split into a separate feature patch?
+...
 
-[Severity: High]
-This is a pre-existing issue, but while looking at the initialization
-flow in airoha_pinctrl_add_gpiochip() in
-drivers/pinctrl/airoha/pinctrl-airoha.c:
+> +static const struct airoha_8250_clk_div_info airoha_clk_div_info[] = {
+> +	{ .div = 10, .mask = BIT(2) },
+> +	{ .div = 4, .mask = BIT(1) },
+> +	{ .div = 2, .mask = BIT(0) },
+> +};
 
-	err =3D devm_request_irq(dev, irq, airoha_irq_handler, IRQF_SHARED,
-				dev_name(dev), pinctrl);
-	if (err) {
-		...
-	}
+The (reversed) array of integers should suffice.
 
-	return devm_gpiochip_add_data(dev, gc, pinctrl);
+static const unsigned int airoha_clk_divs[] = { 2, 4, 10 };
 
-Does requesting the shared IRQ before adding the gpiochip create an
-inverted cleanup order?
+See below for more.
 
-Since devres cleans up in reverse, the gpiochip (and its irq_domain) would
-be freed before the IRQ is released.
+...
 
-If the shared interrupt fires during this window, could the handler
-dereference a freed irq_domain pointer?
+> +static void airoha_set_divisor(struct uart_port *port, unsigned int baud,
+> +			       unsigned int quot, unsigned int quot_frac)
+> +{
+> +	const struct airoha_8250_clk_div_info *clk_div_info;
+> +	struct uart_8250_port *up = up_to_u8250p(port);
+> +	u32 xindiv_clk;
+> +	u64 xyd_x, nom;
 
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential race condition
-in drivers/pinctrl/airoha/pinctrl-airoha.c:airoha_irq_handler():
+> +	int i;
 
-	generic_handle_domain_irq(girq->domain, offset);
-	regmap_write(pinctrl->regmap,
-		     pinctrl->gpio_regs->status[i], BIT(irq));
+Not used outside of the loop, define it there.
 
-Since the interrupt status was already acknowledged inside the flow
-handler before generic_handle_domain_irq() returns, does this second
-unconditional regmap_write() risk silently clearing newly latched edge
-interrupts that arrived in the meantime?
+> +	/* Set DLAB to access the baud rate divider registers (BRDH, BRDL) */
+> +	serial_port_out(port, UART_LCR, up->lcr | UART_LCR_DLAB);
+> +
+> +	/* Set baud rate calculation defaults (BRDIV ([BRDH,BRDL]) to 1) */
+> +	serial_port_out(port, UART_AIROHA_BRDL, UART_BRDL_20M);
+> +	serial_port_out(port, UART_AIROHA_BRDH, UART_BRDH_20M);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but I observed a potential
-locking violation on PREEMPT_RT systems in the irqchip callbacks
-like airoha_irq_mask() and airoha_irq_ack() in pinctrl-airoha.c:
+The above three calls repeat serial8250_do_set_divisor(), don't they?
 
-	regmap_clear_bits(pinctrl->regmap, gpio_regs->level[index], mask);
+	/* Set baud rate calculation defaults (BRDIV ([BRDH,BRDL]) to 1) */
+	serial8250_do_set_divisor(port, baud, 1);
 
-Since these callbacks execute with the raw_spinlock_t irq_desc->lock held,
-and the syscon MMIO regmap operations use a sleepable spinlock_t, will
-this cause a lock nesting violation?
+> +	/*
+> +	 * Calculate XYD_x and XINCLKDR register by searching
+> +	 * through a table of crystal_clock divisors.
+> +	 */
+> +	nom = baud * XYD_Y;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806220615.4078=
-303-1-mikhail.kshevetskiy@iopsys.eu?part=3D25
+> +	for (i = 0 ; i < ARRAY_SIZE(airoha_clk_div_info) ; i++) {
+> +		clk_div_info = &airoha_clk_div_info[i];
+> +		xindiv_clk = XINDIV_CLOCK / clk_div_info->div;
+
+	for (unsigned int i = ARRAY_SIZE(airoha_clk_div_info) - 1; i >= 0; i--) {
+		xindiv_clk = XINDIV_CLOCK / BIT(i);
+
+Also variant (but may be a little bit confusing)
+
+	for (unsigned int i = ARRAY_SIZE(airoha_clk_div_info); i; i--) {
+		xindiv_clk = XINDIV_CLOCK / BIT(i - 1);
+
+> +		xyd_x = div_u64(nom, xindiv_clk) * 16;
+> +
+> +		/* For the HSUART xyd_x needs to be scaled by a factor of 2 */
+> +		if (port->type == UART_PORT_AIROHA_HS)
+> +			xyd_x /= 2;
+> +
+> +		if (xyd_x < XYD_Y)
+> +			break;
+> +	}
+> +
+> +	serial_port_out(port, UART_AIROHA_XINCLKDR, clk_div_info->mask);
+> +	serial_port_out(port, UART_AIROHA_XYD,
+> +			FIELD_PREP(UART_AIROHA_XYD_X, xyd_x) |
+> +			FIELD_PREP(UART_AIROHA_XYD_Y, XYD_Y));
+
+> +	/* Restore normal register access. */
+> +	serial_port_out(port, UART_LCR, up->lcr);
+
+Hmm... do you really need this? It doesn't seem required (at least for many
+other 8250 compatible devices).
+
+> +}
+
+...
+
+> +static int airoha_8250_probe(struct platform_device *pdev)
+> +{
+> +	struct uart_8250_port uart = { };
+> +	struct device *dev = &pdev->dev;
+> +	struct airoha_8250_priv *priv;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +	if (!res)
+> +		return dev_err_probe(dev, -EINVAL, "invalid address\n");
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	uart.port.dev = dev;
+> +	if (device_is_compatible(dev, "airoha,an7581-hsuart"))
+> +		uart.port.type = UART_PORT_AIROHA_HS;
+> +	else
+> +		uart.port.type = UART_PORT_AIROHA;
+
+> +	uart.port.flags = UPF_BOOT_AUTOCONF | UPF_FIXED_PORT |
+> +			  UPF_FIXED_TYPE | UPF_IOREMAP;
+
+> +	uart.port.set_divisor = airoha_set_divisor;
+> +	uart.port.get_divisor = airoha_get_divisor;
+> +	uart.port.mapbase = res->start;
+> +	uart.port.mapsize = resource_size(res);
+
+> +	ret = uart_read_and_validate_port_properties(&uart.port);
+
+I'm not sure about 'validate' as only one or two drivers use it. Just double
+check that this is indeed what you want (read the kernel-doc for that function
+carefully, it's not that trivial, unfortunately).
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = serial8250_register_8250_port(&uart);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	priv->line = ret;
+> +	platform_set_drvdata(pdev, priv);
+> +
+> +	return 0;
+> +}
+
+...
+
+> +static const struct of_device_id airoha_8250_dt_ids[] = {
+> +	{ .compatible = "airoha,en7523-uart" },
+> +	{ .compatible = "airoha,an7581-hsuart" },
+> +	{ },
+
+No comma in the terminator.
+
+> +};
+
+...
+
+> +static struct platform_driver airoha_8250_driver = {
+> +	.driver = {
+> +		.name = "8250_airoha",
+> +		.of_match_table = airoha_8250_dt_ids,
+> +	},
+> +	.probe = airoha_8250_probe,
+> +	.remove = airoha_8250_remove,
+> +};
+
+> +
+
+Drop this redundant blank line.
+
+> +module_platform_driver(airoha_8250_driver);
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
