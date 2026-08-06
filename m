@@ -1,157 +1,156 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013009.outbound.protection.outlook.com [52.101.83.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070082E54D1;
-	Thu,  6 Aug 2026 19:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85674494815;
+	Thu,  6 Aug 2026 19:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786044713; cv=pass; b=qV9Xhy19DSTnk2zDo7n18rKef4rRxQy6MOjN811DuQWFh/+NeiW4t/xW2/cUXLXVavnVAj1aXN+x/SRFkTei3NpGXezlwekqlrvwbAArBSDZXSEHdB9GTICfEtiTpQiNZdc9bejGAeJ0rrD53j3+2xFF/VfechN2w+nOJoSNQb4=
+	t=1786045285; cv=fail; b=hxrqjtKrw7OuCemwd3XrMWy/Yw8z1I9A0XK1bctQh9rhySNog53SFhb+Yi5ZKwC7Ypr+xK/H4Fg57taM1Mbp4XcTKzceTYyIs4xbN1BJNr0mLnw+txkRzDyauD4cjGUWDUkHqJ6YmFPuiXIKvQ+JAM5DoaUEMCdbSUQSzCSRvC4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786044713; c=relaxed/simple;
-	bh=wSx2PHsXXPRUc5CoAh3zS5bdEivdseHmyBR9wGmrgWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TapVRYdIZvck7LJOChgFxqmbuDKycgSVZEehu0VC34kZT6sz/caYGIGXCmH2b44U3qCI5vm4KObWTA7s5cU5Z4AVuvr+VjVlc8nFo/pbiFErVcdTHwYiJ6Wq2+xpE6yhrnyj1w899rY0uwVmnpwF7CgUy+zl+N3UnJpAQuWFEFs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=aoxkuusv; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1786045285; c=relaxed/simple;
+	bh=evawNXbFNiZTQallDTIAwxuK7r3E7Xkb5KNJlMU9LvI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EmRKWpLrWnKrZKaSunNCTALZ8RohALakaNSsoEIuyk5FH1BiTEfTRNOB9OYw1bV0U8Dg1CjWgwcDGQssZ2+ivqmIoDhcZW0fmKKVrVNBQcs0rvGfsAxQwAMScqVxGHiY4uHs7ZhrLASIkNkieGqUI1JgmrqfOKXVmpO2eMzcGYg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Tw3gG0r4; arc=fail smtp.client-ip=52.101.83.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="aoxkuusv"
-ARC-Seal: i=1; a=rsa-sha256; t=1786044688; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QbhQQK5Qr76DMi6yS8H3nY4dOLEyEBRXaMEeVxntkQIlfvcEAMpu+Zjdo/1pW9LPZfnMzBgzOZnGA2EjOrNSd3urmvMX1f/bS7fGn7Vi1IM5YZGBZsVg7t4VLGEjQJzD3BYQzK8ssM+lZpUMTAxuULrGbQT5TVuregrX8L591aE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1786044688; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KRFUt8vbxGVxS0Eb12cKI5Ku5Kct0AiAebJDdp3PYHI=; 
-	b=fLgLLitrnam1I91DwCOjV6gsXQGusQsm31qwkKELJ4t/9A5SjJ5xZHHYkWCGyBkttJL2rdzzUr0ctHf8RefWlMQJgRJ1ASu0TYItnjWwQ5I5bWcjskudyEzFJXTo/X02z/Om4NkTH2dOf7PcG6BOJI+1s9yaj6S1QeEQqQPlFA8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786044688;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=KRFUt8vbxGVxS0Eb12cKI5Ku5Kct0AiAebJDdp3PYHI=;
-	b=aoxkuusvivCzLAruUdGcjh8VDqDYVW6szKx2tBXsgvEVUbHn89bXjJrdfm0t87K7
-	dKpsttje4k1J99rqBbEdy12KoFKyy0CRNWIitGKiz/wxCqx1sjPTMK81QXwmeozq7oA
-	nHYS66ymcTuRxEvh9risAfgz/lQv0iMwe49Et6nQ=
-Received: by mx.zohomail.com with SMTPS id 1786044685919282.93021641986775;
-	Thu, 6 Aug 2026 12:31:25 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id AA8951808BD; Thu, 06 Aug 2026 21:31:20 +0200 (CEST)
-Date: Thu, 6 Aug 2026 21:31:20 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: jason98166@gmail.com, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] phy: rockchip-samsung-dcphy: factor MIPI D-PHY
- power on/off into helpers
-Message-ID: <anTgZiqnol4226Le@venus>
-References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
- <Ji-6adk9LJbP87Y7X6SfOcAyVnGpO4dbHk0lBikX3NGAPz3dynWpvL8QjkVM3G3jEnwTrTV0p7nOqBxPRaH0MQ==@protonmail.internalid>
- <20260726-dcphy-rx-v1-v2-2-cf9cc34a412a@gmail.com>
- <43327fb2-0085-4d86-b408-8723d852c258@linaro.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Tw3gG0r4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eK3D+Dl8aWdDkCimIP5HYCOajANePux7TmiP9XbQGPaShDTl60L5OUO3XIzS44cWcB7Qu0cJR40E1TiqOmp8ok/+NsYvWutjOGfHC5mbHc9gqo6VEerk2EuV5w0UZVwPwL/pZQSl4gWNG909iuUf3SsAltsIEgCVeld1uHxF74gTm5WAcXTgjC7sTb5Ef+4tTV16kTYQGXJUeoo36jW7yGlybV0h3SsBLgDQrrbdL3/gFsDnh/r1HAFZmCsGhhcSLSMFFJ+DT27UPFp4sY5J5rs+q/K4xsp32w55nH/LWTsZLO+2OSv95tbsWzgv4D6LSHvBmdcCjDjrn4FozxXpqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ouoXfkrGcnJ36julu2lleZ+xEbFRuDF/Cs3+Y8rxPO4=;
+ b=XR1YewXmfDOA8xzqD9kRpa9+Ii53zRWNAjTNF+RFtHWrrQdi1D9N4HEM5GNEV7bnTLxyr9u8qKt3UtPd3WuRy8krt5PkB1ahfwUn5b/6hTGJGylcJzOJc7EKLj2PVj1UU/esUW5yjXM7sWLoMVlUbeav67LH+a4e/ZcXd5v61h9bfQy3Zt14BcGXe2iNjSHkY/8UYIGmTcUZ3RYC+TCrS+97atoDyvkbl43Fgujv83ECs7gCFyAKh9OLjT6kQFqlCnLrEo2xd9DSctwj8WCKUc2oiX+RFl0vqwWrGbV3Tjv1Vzvp1QZG0LFzmlJnfMda5RygxaB4vz3j7fh/QFJLAQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ouoXfkrGcnJ36julu2lleZ+xEbFRuDF/Cs3+Y8rxPO4=;
+ b=Tw3gG0r4pLaFl0gGbj0Rd+05mynTBEpdcVFQF/6WEJPbpRPaPS4H3vq6yXG+FDiM00jgTdoPo1l2mlHnCfoNxjtLaCNE4xfc/tJ/edSS9HtVuRIGBfECMCEgnGIZJI+UcQVJRFiTgUmN5B2yiQDH8SPE7GL2VXal+CtDTvU6tvqAjKfm5VSmLrfbVklJQ57M+uUSlQXicRne6TqLKsucp3A/wYOWPCndprcQczzRKaamm3pu+WPgWQ977wBoAP8Czlm2itnzwyg9xaGdGuIbIUcMXRIQiXqnvIbNjuwaG7jG0pAweRqLi/UM3167cMp4L7YsPnbRPGMQNIZH1krZDw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV2PR04MB11191.eurprd04.prod.outlook.com (2603:10a6:150:27b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 19:41:19 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 19:41:19 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Xu Yang <xu.yang_2@nxp.com>
+Subject: Re: [PATCH 0/2] arm64: dts: imx8qm: add smmu information for usb and add hsic usb port
+Date: Thu,  6 Aug 2026 15:41:11 -0400
+Message-ID: <178604519571.419724.9506069993534290890.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com>
+References: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8P220CA0051.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:2d9::34) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qplt4v54nyb6hmut"
-Content-Disposition: inline
-In-Reply-To: <43327fb2-0085-4d86-b408-8723d852c258@linaro.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.26.37
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV2PR04MB11191:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4007f4cb-7ecc-43af-c5d8-08def3f2afef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|19092799006|22082099003|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	avvEJZoGJTOpQUbQCsreFh4Q/FZlZHYt7xH63rHx+YHUYqNyYKqvogryDNGBYKlshiTczqFc3o7O/2XtEa+ewof60yupWksmc7yI2WfTwpOLkFk+pNiA1llovTMnexQqdlu/lQAREC3wzQX+ZmFxDoqhHlClewWEC3EqqOZLqp3F7DCmVvkEpu8Yr7aDcfnXv17gKShbxsQPUomMRVVc1Kf2Qb8kjC6I9FlVrrPoKFaZ8ofj1kaBDF/ylrN1qUQs0O/UTXWKirSfQAom4Jzgq867yF4xfr+o0waIj2JBeXYhs1Vj5D+f9spCP6InnoEwBRHdLTPdSMI13fVZZ46Ge90q/le4vPGzGI1OtOwap4Rq4H8+C25S8i5UcHtZR6eXgdx7BuK2WTpiVkJKhLwqbQuOwE+NBwK4DyJ+OzDPkPUkLenn7sdFevHUYl38JW9lR0YETKwPL1bUd5hVsthWFqZ34Snofz0Qdtyp1edLSdtZDyyHmqrBWHXvUaXuAPTp5psXb1Mg8l0SwS0dEhu2xguCRInhFtsd7H4vkzHZP9V545TCi0YQwZqSChpDGzo9hZm2s0bfIflamS5AMjcf47iDWmHXu6o7eey1iQqpCxe3nHeFLY4HzFTReBNKe9UH8Sg9FxnOdXTeSNapFtTWTx/qjDv/ueYjqGM3ppqboks=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(19092799006)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SjdtNVA4Z2g4S05Ga29zZ0xjK1pVYWkxcytMcFZ3SFhLVHVzajg5YlM2bHNl?=
+ =?utf-8?B?TUVTYnVTVHhuQ2hFMnM3UThOSUlFeElrbHpaNG1USjFxVWNPL0JDR2s5SndX?=
+ =?utf-8?B?NkFWdFdUQW5tbFRYc0VxUTR4OGU2SE9JTmtQYmpkcFJNQjRYL2FTUmRlV3Zh?=
+ =?utf-8?B?ZHNxTDJWOE5GQTZwM2FaeVl6ZmxQUFIwWXN3bDc1aWJoeUJzUTc2NW9Ednla?=
+ =?utf-8?B?bjV5SVpyTnJJWDlrN1I5ZEhYMUlzenhWbnc0SFBEWGVlQjdjK2VJaElQUEdt?=
+ =?utf-8?B?bk1nbzEzZE5SUkU5cVMrUVQ3MC9yYnlFMnBNVjFEWEd3dG9pTDJOZnJXUDA3?=
+ =?utf-8?B?TG10UzBYalprZG94RDFCdDAwS1dNMldIQVpId3BEcWhPcVlDbDczM2pYVjEz?=
+ =?utf-8?B?ajI4NWJFaWNUNlZLRlV3QmdOVUJ2ai96NXNTUzk0ZFVHaGsxN0lSajR2eDU1?=
+ =?utf-8?B?aEZVblNZYmVtUERiVFliWkZVSFRIU2ZiR3JDb0VXTW9yVEhsOS95bVlrcEpn?=
+ =?utf-8?B?OFZ5UG1ISVBoMXFZNTArNkFHSytxUWhkNnJkV1o5MXptNk1ydmhoWEhranFt?=
+ =?utf-8?B?YkZQdkgzY09VRFJid1ZTbXVDd3JXV29LQkE5bEFocW9ZU3R4akhCYUdGQXAz?=
+ =?utf-8?B?WkY5amIyLzJPM3RQQXd2VFZ3ZmRpQldGYmc3eUxqaTk0b3RmZ0txNWY3ZW5N?=
+ =?utf-8?B?bjh4KzVGak1Gb3I2M2wrR1ZsRnZDa1gzKzJyYWkzRmRNU0cvekpLTEVER1BM?=
+ =?utf-8?B?TXlyZGNhWHNaZmxrSTNLYkkvZ1RGbkRaWkZhVWcvZnVCampVVGZRU0FsdUNG?=
+ =?utf-8?B?WWFBN3czMGVPMExCUnV0YnZIcHhHNk5zb0FHVkpEVEtETGYvSS9mSDdUZlB1?=
+ =?utf-8?B?amVXalNzekdkYWxLOVVOMjNmZ09kcTl2eHJDN2cvQmxCSnBJZUZoN1cxeGZF?=
+ =?utf-8?B?QmxrQURVWjJXKzNKSUlEV1hFd3c1Tzl2a3lSTlVkU1BRWGdUNXNLOGd5dXAx?=
+ =?utf-8?B?SkcwNWFWT2NySHdCVzAzdUFweXdUSzFGazBOeHV4TlBJWmhmVWNhSTk1NUph?=
+ =?utf-8?B?SDZLTzI3Q2tUUDB0QWljdUd6ME9KdGo1bEU2VWUvRmFUTUVaeG00RjMvZklS?=
+ =?utf-8?B?c3R1TSt4YkNhR0hLVGNUMjJsSUZDcHdOZjNBT2IrbUNnZ0Y1eTVvTWFPZWs1?=
+ =?utf-8?B?TFNyMGVxRjJya21XSmUxRVh3bjhrRzJXa0ZOWldiem5EeFV0amp0OGNWbHBj?=
+ =?utf-8?B?RGgxTkVMZjBjYjc2K0ozT1M2eHJlRE01NXhXbFVYR3hBV1VoSDBFOS9DQ2xi?=
+ =?utf-8?B?OFAxa2JXdllLZno0SGFXaW5KTk9TYnNqSGxjeUFEL1oxalVtVTJ1YlRZR2xr?=
+ =?utf-8?B?bFNqNXptYmc4ZkdPTHkyVzdKZUNDMUd4MXVBZnRHVDFneHJUZlBnVTBkVkJG?=
+ =?utf-8?B?ejdpYTYxcDZORXNvenVlc0UrWVJZZXZjOGttb3ZUYmtJcFZLK0Jkbk9qZ1py?=
+ =?utf-8?B?S21xK0xqR1BsYkZaQzhic3lSVWtFUTd0Sk5VajJzZE5RT3RhOW1oY2x0UWh0?=
+ =?utf-8?B?bnZIOWI1bHVFTjF2NHZDMC93YWd0Tk5GcDZvK3VmZlBBdzMvb2hWVStWUVlM?=
+ =?utf-8?B?OTU4WWl6ZWpGdEl3Ynd3eFU2ZmhtQWROQ2hrOENpOXVsbUhoMHNyLzk0cTRW?=
+ =?utf-8?B?emNzbEZ6MWtpR1lVb2I0K0V2Rjd0bFI1ZUttUkdCelFLVkwyNXZDckZOS1Ja?=
+ =?utf-8?B?c2xBMVJtQ2w1U2Vmc0UrYlZkcXF3NFQ2WklLcmNDa0tGbENwME4rcTY2Sk1O?=
+ =?utf-8?B?WEpzaEgxTWN5L2wrcWtLdzBMVTd2OFZRK2N1bFBzdXRGQ0tIT0pWbDZwaGQ3?=
+ =?utf-8?B?UnhxRFQvZFExWlp5Ujhlb0MzSVFkOGVCTmVkZWpvQ2JmVDV6ZTRzOU5HSEg2?=
+ =?utf-8?B?YWJWaU1YdUhKNDNjVnM5WmlVSzNNbGowbkhZNXBhZGRUYUo2WXhwMjFSbXZW?=
+ =?utf-8?B?Z1lmVzN0YWFJdzdhbDJZbGVrUnpob3I2ZnhNL0VZTVdKeWpGakJNRUJVcjFG?=
+ =?utf-8?B?N1k2QVVSNmlZSUg3UkpZdSsxbDJzdWJVL29VbFUva0YydHZTV2dwS2dGMzhE?=
+ =?utf-8?B?RUZUeWNjSTNKT0FObXJ5b1R5TnR1a3l0czN5Zk4yb2NwbG5SOERlZm15Y09R?=
+ =?utf-8?B?ajR3NmtWaGJkUkgxNkV4OUp1YXh5anQ5aXdyTytWQU02ZlJSeEJ6cjhwTTdJ?=
+ =?utf-8?B?TmRzQU9TaHFWS2NMZlAxWjVKR29ydFRhcm13V00vSXg1b25SK2hZbjhsdFBJ?=
+ =?utf-8?B?eWo2bDhNKzJVaU1CRHo1bVRxQis3TUgvTmNiYTYranNKM1VHWDBhSlNDcy96?=
+ =?utf-8?Q?8pkM6RDfoRjHQtguyEafGO6MdFZD7OieT8OzI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4007f4cb-7ecc-43af-c5d8-08def3f2afef
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 19:41:19.4908
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: goSwfC3MjYLTVOMH0q4zRnD0fgUzig2GnytNGdXJSWXgRLjLerVzzfyTbDtHdqBa5uD3KzuLzayPXVVBIuLlhin5mkRXLdusrXgJ91cHsV52C+PAPvPBZMiixyH7ngJY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11191
+
+From: Frank Li <Frank.Li@nxp.com>
 
 
---qplt4v54nyb6hmut
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/4] phy: rockchip-samsung-dcphy: factor MIPI D-PHY
- power on/off into helpers
-MIME-Version: 1.0
+On Mon, 20 Jul 2026 17:10:32 -0400, Frank.Li@oss.nxp.com wrote:
+> Add smmu information for usb and add hsic usb port.
 
-Hi,
+Applied to imx/dt64-intend, thanks!
 
-On Thu, Aug 06, 2026 at 05:17:45PM +0100, Bryan O'Donoghue wrote:
-> On 26/07/2026 15:55, Jason Yang via B4 Relay wrote:
-> >   static int samsung_mipi_dcphy_power_on(struct phy *phy)
-> >   {
-> >   	struct samsung_mipi_dcphy *samsung =3D phy_get_drvdata(phy);
-> > @@ -1368,7 +1376,7 @@ static int samsung_mipi_dcphy_power_on(struct phy=
- *phy)
-> >=20
-> >   	switch (samsung->type) {
-> >   	case PHY_TYPE_DPHY:
-> > -		return samsung_mipi_dphy_power_on(samsung);
-> > +		return samsung_mipi_dphy_tx_power_on(samsung);
-> >   	default:
-> >   		/* CPHY part to be implemented later */
-> >   		return -EOPNOTSUPP;
-> > @@ -1383,16 +1391,11 @@ static int samsung_mipi_dcphy_power_off(struct =
-phy *phy)
-> >=20
-> >   	switch (samsung->type) {
-> >   	case PHY_TYPE_DPHY:
-> > -		samsung_mipi_dphy_lane_disable(samsung);
-> > -		break;
-> > +		return samsung_mipi_dphy_tx_power_off(samsung);
-> >   	default:
-> >   		/* CPHY part to be implemented later */
-> >   		return -EOPNOTSUPP;
-> >   	}
-> > -
-> > -	samsung_mipi_dcphy_pll_disable(samsung);
-> > -
-> > -	return 0;
-> >   }
->=20
-> This looks a bit funny.
->=20
-> Do you have an int method() {} with a final path that returns no value ?
->=20
-> Tooling/compilers will definitely and rightly complain about that.
+[1/2] arm64: dts: imx8qm-ss-conn: add usbotg3 iommu information
+      commit: 239bf457d81dda8a71d7cae04bcb745e4efba1ee
+[2/2] arm64: dts: imx8qm-ss-conn: Add HSIC usb@5b0e0000 node
+      commit: 372a7e2aa11037d02a39323f2c3273c9557f148a
 
-int function() {
-    ...
-
-    switch(foo) {
-    case 42:
-        return 1;
-    default:
-        return 0;
-    }
-    /* cannot be reached */
-}
-
-Greetings,
-
--- Sebastian
-
---qplt4v54nyb6hmut
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp04QQACgkQ2O7X88g7
-+pr/lg//Ra9D/4mEe+23YNBGY2KkyTz3Kh/UKQ6OxYCuYq6/KXl3KXhmcfxSrMCw
-LAY8oiDCpyYprafpHYgPB8D4G6QF1hM9jvnljK5tdlvVWl5iMnhNL7keps/ulLWV
-8V9D84pJ3mQFwsyJw4f9AwuncrQDF8jULin/bnmypnMx9pP3mGgs3xDKT0jERvnq
-CKWMvbQ2qjG6PA5uTV+79VAwEi9ymTwFoJQ4wtD24f1CGf3YAXdiUwfUTRLfbk8y
-tHHUvlo0egFImbXOiHF1WloCw+xmB9Wj6GOItvyHiYn/zLmxACC3PaqYN3UNZToC
-dIKms9WG9QGmNFiVeTBWlI0UOXFI74pF64MTsGvyBL2KB1cGnMmgX1/bV7LZaMWx
-uOM14+SPi1qeixksaFXvXGCA+mnMj5TrCrZ9jSfjdWFah4qbWgBDdQx8k6BvJlIa
-nrl+OYUi7gqIs5G7I7REMKl8Iv6VIwEwJ2otkuPvmBDMYgKiVrgVqdQACW3f46Nw
-8ZCrOd64PS6YmkTBhbbMLl8Xgdpdcp2O3Z0Fm/Xjj4YcCAM2gOmqzpzfddjC/hy1
-pITrCjZx28c28rZADa4qX2M/ajJ6YchOv7JOFKg383BS2VbspNQY+B1qIa87xmDi
-lBygOAkvPexuGQ9ceVc1NSshAG/Ks/hyggKgMqNiE9UjfY58ixc=
-=OkYa
------END PGP SIGNATURE-----
-
---qplt4v54nyb6hmut--
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
