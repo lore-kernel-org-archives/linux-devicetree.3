@@ -1,56 +1,53 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8359C2ED16D;
-	Thu,  6 Aug 2026 15:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F4147D476;
+	Thu,  6 Aug 2026 15:35:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786030517; cv=none; b=KHokbPNDCb6d1AY5GcLX7KLzQIcBhx+fY8H6P59fpvysbN3TCWohPxf8l0hnKNaVjnlgYztS+vqz8QA8qWvEnCbaBE1r5BrPAg1CoVSqDqI0w/30gCm01laju2PaM0pvxjHnzBWakhrUNQXuNXFljtPrn74UBpNBzCGOcvtrLUc=
+	t=1786030557; cv=none; b=tDaMA0xYDAy7ASRhveTKk2ELxBoAqTyptJvYlYhuaooKD9x32nDp36oAxeG247Z7k2e6lrV7+wi4KjpCbaK4NymDoh+HoOTXMm8b0JZwj5qhvNEYkZlGEvESiblX1javLRlXXhTs4saw6Msk62eJRR+80wmLSCzKH6tGNro4o2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786030517; c=relaxed/simple;
-	bh=f3zoXMAS9RW/51VlO+vmE3g3gPvyQ282BzGpTGSOBFg=;
+	s=arc-20240116; t=1786030557; c=relaxed/simple;
+	bh=fFxgJcWusbH/m4Oy6vnnF1m2DBfp1xfE9fOkfw5DR9k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ya/fuY6JFNDJRMT8gkUQ1ozG9Z3ZxGJKIKjfEVOeaZrs3knCbG6Ju8jlAM10zzMZC24JTtgRbcZYGWuzJ4TJAx7XCcvu27ZN9Yq+rUoGK3qUO2SG6NHpKi1YQV2+zSZR6eOh/fNbC36rVk4FzpjKPmAm2j+SNxVNRpkClgcFG48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=vdans2AT; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=e89PEgNSxU/x+X+2kxbDwrsL800FzaCQ3UjUBoZh/TmMk0VGhbv6DO9XbtQT5RD5+mQcuTrIUrO9xLqt+RwIIZB3TrhEZ6nwELLamVtEC5KlPXN9VtsKAJ+00Bb9nF/ytXKtOzKo8pUVLq00/tStmJm2x9e0TRx27MuHNUB1s6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTvH/wTS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="vdans2AT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Um4uJwo+61l9GQN7tUL4p/zVg0Gt+NRXDv5tuKIKmEQ=; b=vdans2ATBx1kHlHX57PnR7H1qP
-	l8PCQORhQNtfePVFE5UZim+QOhx2Yf/4keMRCfwOirKo8X66sDIuvK0fhrTU3xKYm5BswFwkF6O0v
-	mAOHtYcpKlOPfNJ/xUeSEFtZRQdh/EHpay1t23tUX1Q+DjSWZ54ty7/3Uz33WqBhzP+A=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1ws07Y-00GOuS-5E; Thu, 06 Aug 2026 17:35:00 +0200
-Date: Thu, 6 Aug 2026 17:35:00 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTvH/wTS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0BE1F000E9;
+	Thu,  6 Aug 2026 15:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786030556;
+	bh=rTALtVCTWiqqvu2b5JHcdJ0kQIZASw+ob8p+ahO3JL8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fTvH/wTS3GJdsfzZSBY8DNgaOPK8tS0wAVq6u4Ri99+UQNrVgSC0win7XrCqGcdBn
+	 LfH+MjLuTxBTL0anHAud5qifSlhxn6C7S//Y9ukufU8AOxMhSO3DwQA8TLx/tndKzn
+	 jsta7oksmM2CoBwh0QwB130sKtxn8ILRg7A7fwqDZk9GXHwipYqxhAUVjJwBUwUeeC
+	 7wYZdRcp/OE8BRgsSS/bG2rCDntdMTtW2RxpPPqNzxlxLcIvdHIgYOQ7kHa+KFstP1
+	 F0Ttg7FtNheDGfudK53BzDbJRkHU3dNbEA3KOiDYbtw8uU8nl6FOhsu29yvNZ9aC+0
+	 JiA7p8DV0tVnw==
+Date: Thu, 6 Aug 2026 21:05:52 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ahmad Fatoum <a.fatoum@pengutronix.de>,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v1 2/2] net: dsa: realtek: rtl83xx: add support
- for enabling supplies
-Message-ID: <f2260b02-621f-4b92-aade-85c403a8839d@lunn.ch>
-References: <20260806140239.3518906-1-o.rempel@pengutronix.de>
- <20260806140239.3518906-3-o.rempel@pengutronix.de>
- <9181f24b-cd5e-46c8-8e57-cbf309ac1a98@lunn.ch>
- <anSj34TOZxYiG_ai@pengutronix.de>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Ronak Raheja <ronak.raheja@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 3/4] dt-bindings: usb: qcom,snps-dwc3: Add Hawi
+ compatible
+Message-ID: <anSp2EbXtakSWvmq@vaman>
+References: <20260803091441.3040830-1-mukesh.ojha@oss.qualcomm.com>
+ <20260803091441.3040830-4-mukesh.ojha@oss.qualcomm.com>
+ <anReh4gzTjkD4u7c@vaman>
+ <xd7gii4lmzv5xm2xylt53lnp7l5clerjxrei5cdu24mbdktzaf@do5ozmvodv3w>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -59,45 +56,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <anSj34TOZxYiG_ai@pengutronix.de>
+In-Reply-To: <xd7gii4lmzv5xm2xylt53lnp7l5clerjxrei5cdu24mbdktzaf@do5ozmvodv3w>
 
-On Thu, Aug 06, 2026 at 05:10:23PM +0200, Oleksij Rempel wrote:
-> On Thu, Aug 06, 2026 at 04:12:44PM +0200, Andrew Lunn wrote:
-> > > +static const char *const rtl8365mb_supplies[] = {
-> > > +	"avddh", "avddl", "dvddio", "dvddio1", "dvddl", "pllvddl", NULL,
-> > > +};
-> > > +
+On 06-08-26, 17:24, Manivannan Sadhasivam wrote:
+> On Thu, Aug 06, 2026 at 03:44:31PM +0530, Vinod Koul wrote:
+> > On 03-08-26, 14:44, Mukesh Ojha wrote:
+> > > From: Ronak Raheja <ronak.raheja@oss.qualcomm.com>
+> > > 
+> > > Document the Synopsys DWC3 USB controller found on the Hawi platform.
 > > 
-> > > +static int rtl83xx_enable_supplies(struct device *dev,
-> > > +				   const char *const *supplies)
-> > > +{
-> > > +	int i, ret, count = 0;
-> > > +
-> > > +	for (i = 0; supplies && supplies[i]; i++) {
-> > > +		ret = devm_regulator_get_enable_optional(dev, supplies[i]);
-> > > +		if (ret == -ENODEV)
-> > > +			continue;
-> > > +		if (ret)
-> > > +			return dev_err_probe(dev, ret, "failed to enable %s supply\n",
-> > > +					     supplies[i]);
-> > > +		count++;
-> > > +	}
-> > > +
+> > This one fails on phy/next :-(
 > > 
-> > I've never used it, i've no idea if it is applicable, but there does
-> > appear to be _bulk_ calls in the regulator API, maybe which is similar
-> > to the clk _bulk_ API?
 > 
-> Ack, in the first iteration of this patch we was using
-> devm_regulator_bulk_get_enable(). But it would print warnings on
-> existing boards without regulators in devicetree. Currently there are no
-> bulk helpers with _optional regulators, so I reworked it to hand made
-> optional bulk support.
+> This one is supposed to go through USB tree. Too bad that cover letter didn't
+> talk about it, but it should've been sent separately in the first place...
 
-static inline int __must_check clk_bulk_get_optional(struct device *dev,
-static inline int __must_check devm_clk_bulk_get_optional(struct device *dev,
-static inline int __must_check devm_clk_bulk_get_optional_enable(struct device *dev,
+Yeah my bad as well. I should have checked.
 
-If clk has them, maybe regulators should as well?
+Good news 1,2,4 applies :-)
+Should be in pipes after my builder finishes... Later tonight
 
-   Andrew
+-- 
+~Vinod
