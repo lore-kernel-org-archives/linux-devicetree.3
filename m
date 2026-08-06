@@ -1,146 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A053D9557
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:57:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7761435521;
+	Thu,  6 Aug 2026 09:58:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786010224; cv=none; b=iV0HcqLbRD0EPU/S9BWnFIZVAiDU/7oQxSaE55ql1viX8h/mP6RtD8xPLvO+2iIOQ0jxIcKikqazwfO2yGQ77yQi53raiQz6SN6P3TO/zzuXklpJazKVjd0BcLToD0uYLr42rWXfbuGsNfGlhRkCuTCnc3eJ4/2V+w+kwOqZ6GA=
+	t=1786010321; cv=none; b=kFRydjKbP5ntXoAOl6Koo/zxm6zRx/0vp1Q2fPRNvA8f0G6yQ2cH5YyEhPpJGRWSje/OOtHSQDJH6E7bgH/fWCEEUjCfSAP6LUjZoUfm+Ixcf+eMwWxqkrzGGr4XHU5PXRO7tmLvFEExeU4i0Pqekx/E8vDcjFRfkoME0M/UrOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786010224; c=relaxed/simple;
-	bh=uIH2dG6sYAEpRbM3u+3ImTFH9s6EMI1P6LlnHlb8Wvw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JPgAHD9E6ZhU0qhsDSJNd1dq52RK0E9W3C5AmF/9FhtrvFeBb1Cm3poxsydJO6HERrP6fua+wVefcZ1EwYTVo+CC5S/vxLInNunJrscDo3bb+1h+53tw0mQRiNj3Mb1JvSEODPqJz7Qn0iJ5qximIU36ainV4xEVEgQI1t5iwt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvcQ1jI0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786010321; c=relaxed/simple;
+	bh=POeg5jwEznM+nSF2ja/oLrzsx1+D6Zmem18Z0osZC68=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MEgFkRQFajTWsaf1fIJk2xUXHMoYnYqBLDHoxgSph4afdlVijKGO8pVmlcYiipJg55g+30c4lgoE09ys4rrr4n7ATwNZMLlZKnhDF8uGAxW8OQ6AOz51wlHnKKnwPF+icczYPOhiv85mJiM8acllHR/yvYlaFhW3Ekoud6ULoLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fIuM7wsP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvcQ1jI0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADFA11F000E9;
-	Thu,  6 Aug 2026 09:57:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fIuM7wsP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D641C1F000E9;
+	Thu,  6 Aug 2026 09:58:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786010222;
-	bh=B2jswFXfJ+EJJ9Jdy37EnqrOGZk+/tRLW9FZmJZUTTY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CvcQ1jI0bl3xlJq6xrWIcfMb9akOKDTL3U8HyWmrEPE59H7LlQ9vpTl7jPqKf6QEV
-	 9n0tLXis57vc4YWNgXSxK2kEPMeNkohFO5LXJvKy3gLtG/+QRnyhWCnS9UtVoFZ9D7
-	 LLcLPfA/NATINSopxbP/GSmRwaZzZfw2wolSwDn1JJxnsZDEq0Y6AqykQTRSbm74ph
-	 N06D+y8qmbVbZGves0bygb/w2eig3B+ULgjjAVJXLsflDNZ8r1wp6+i12y7pVU0vDy
-	 StJMTAFgeb4o54yHQXu4s5lVLHYYKH2dJrwc1gGc5I/WQaBv39YWNSeTaBHgX0MRDv
-	 Kxk4FGXrr7b0Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/8] of: reserved_mem: mark /memreserve/ entries as
- MEMBLOCK_NODUMP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806093519.2907771-5-chenwandun1@gmail.com>
-References: <20260806093519.2907771-1-chenwandun1@gmail.com>
- <20260806093519.2907771-5-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 09:57:00 +0000
-Message-Id: <20260806095702.ADFA11F000E9@smtp.kernel.org>
+	s=k20260515; t=1786010317;
+	bh=pkzvNC1TpNINpbPU32Gkd46Wsjq47StGFC64m/d6gaw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fIuM7wsPvqfvrlN+TS7LXNso06F9B0nEXopJZDWQkvntICRaNWXr0QaFT2/D7D42R
+	 pXknPv9+Ye8tzJ8elFJvX6BNmdA1/J6Owaj9vM/RxNZjwSUnLTWMPzijqqNp/VRtkJ
+	 1QVzlDUK0Ch45SP3YDx6KDFGHEYDh9GRGtpQYhjGSvSYF8kbBmisRU2gXXH+mBP9NY
+	 fuUV3704BhNAiaBxJpzAhincSfgWRvqyh5405W4bTl+qFxERqku4Tfvp8hkLbeBUNt
+	 PfWx/L9r+GuV4I5lNL1iv+XVB7le3apILBPHR+/XMdXlt5/6mSGPlDYJKYW/ZsZtOu
+	 ksqHzmOGjRN+w==
+Message-ID: <03c1b493-8296-4818-b00a-70a51cf5e39f@kernel.org>
+Date: Thu, 6 Aug 2026 11:58:31 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: clock: agilex: mark mpu_l2ram_clk deprecated
+To: genevieve.chan@altera.com, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: linux driver reviews <linux-drivers-review@altera.com>
+References: <20260727094926.1124-1-genevieve.chan@altera.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260727094926.1124-1-genevieve.chan@altera.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] 64-bit FDT memreserve base and size values bypass overlap checks d=
-ue to type mismatch and implicit truncation to 32-bit.
-- [High] The overlap check between the memreserve region and dumpable reser=
-ved memory regions fails due to 32-bit arithmetic overflow.
---
+On 27/07/2026 11:49, genevieve.chan@altera.com wrote:
+> From: Genevieve Chan <genevieve.chan@altera.com>
+> 
+> Preliminary documentation referred to mpu_l2ram_clk, but that clock is
+> now mpu_ccu_clk and is already represented by AGILEX_MPU_CCU_CLK.
+> Keep AGILEX_MPU_L2RAM_CLK as a legacy ABI-preserved ID (do not use in
+> new DTs) and mark clock ID 42 as reserved/unused so it is not reused,
+> keeping all existing clock IDs stable for DT ABI compatibility.
+> 
+Why are you Cc-ing non-functional addresses like
+"<linux-drivers-review@altera.com>"?
 
---- Patch [4]: [PATCH v5 4/8] of: reserved_mem: mark /memreserve/ entries a=
-s MEMBLOCK_NODUMP ---
-commit 224ae2a2bcff895e0e857319035a55e95d869a02
-Author: Wandun Chen <chenwandun@lixiang.com>
+This bounces!
 
-of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
-   =20
-The /memreserve/ entries are memory reservations made by the bootloader
-or firmware, their contents are not needed for kernel crash analysis,
-so mark them MEMBLOCK_NODUMP to have kdump omit them from the vmcore.
+"Your message to linux-drivers-review@altera.com couldn't be delivered."
 
-Entries that overlap a dumpable region (such as CMA) are left unmarked,
-because the pages of a dumpable region may carry crash-relevant data.
-
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index f38d11df6f152..f0683b5d77b30 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-[ ... ]
-> @@ -251,6 +251,38 @@ static void __init __rmem_check_for_overlap(void)
->  	}
->  }
-> =20
-> +void __init fdt_mark_memreserve_nodump(void)
-> +{
-> +	u64 base, size;
-> +	int n;
-> +	const void *fdt =3D initial_boot_params;
-> +
-> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-> +		return;
-> +
-> +	if (!fdt)
-> +		return;
-> +
-> +	for (n =3D 0; ; n++) {
-> +		int i;
-> +
-> +		if (fdt_get_mem_rsv(fdt, n, &base, &size))
-> +			break;
-> +		if (!size)
-> +			break;
-> +
-> +		for (i =3D 0; i < reserved_mem_count; i++) {
-> +			struct reserved_mem *rmem =3D &reserved_mem[i];
-> +
-> +			if (rmem->dumpable && base < rmem->base + rmem->size &&
-> +			    rmem->base < base + size)
-
-[Severity: High]
-Does this overlap check suffer from a 32-bit arithmetic overflow?
-
-Both rmem->base and rmem->size are phys_addr_t. On 32-bit systems, their
-addition evaluates as a 32-bit operation. If a dumpable memory region exten=
-ds
-exactly to the end of the 32-bit address space, rmem->base + rmem->size cou=
-ld
-overflow and wrap to 0.
-
-The wrapped value 0 would then be zero-extended to u64 for the comparison
-against the u64 base. The comparison base < 0ULL will always evaluate to fa=
-lse,
-causing the overlap check to silently fail and incorrectly mark the memrese=
-rve
-as MEMBLOCK_NODUMP.
-
-> +				break;
-> +		}
-> +		if (i =3D=3D reserved_mem_count)
-> +			memblock_mark_nodump(base, size);
-
-[Severity: High]
-Could this implicitly truncate the 64-bit base and size values to 32-bit?
-
-The base and size variables are u64, but memblock_mark_nodump() expects 32-=
-bit
-phys_addr_t parameters on 32-bit systems without PAE.
-
-If an FDT contains a memory reservation with a base address above 4GB, the
-64-bit value passes the overlap check above but gets implicitly truncated h=
-ere.
-This modifies the truncated 32-bit address instead, completely bypassing the
-overlap check for the address actually being modified, and could erroneously
-mark valid dumpable memory regions as MEMBLOCK_NODUMP.
-
-> +	}
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806093519.2907=
-771-1-chenwandun1@gmail.com?part=3D4
+Best regards,
+Krzysztof
