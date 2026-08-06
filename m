@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03A322F7445;
-	Thu,  6 Aug 2026 10:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629F43C585B
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786013408; cv=none; b=VBL+tvaHmjo2sjgIjjy+gDWNfzCjsao7TxLOEmJ7ijprfkspcUB9ZrlIVs+mOczenZ0ZWSjM349Xlw+jmgkfv4pn3t+6UtBU8+qlWsKya5mjEKRKsGxUzNqA3+NVZsL+HOmA0nDQ9O/dua0uE+NPmAM4xHZaAis/wJMUy3rlOSo=
+	t=1786013534; cv=none; b=D3Afvxb19ilT74OhAZYTjuXk4q1bW3ajbGB8QtIw/S145ham0R/jXgjfn/EtxceBhvfYf6nEfqvoiQWwA33a+5N1jt7ZnBu8Ag8Op9baSOLOBSlLu6vV1x2sWG1UFbwA7dja4h8LCPerUtxt05oHED2saZjEeeGosnFlESyCEbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786013408; c=relaxed/simple;
-	bh=zeiuelYk+6GIluS5LQVFyMUGXRKFB9i7x8Co9e8lEZI=;
+	s=arc-20240116; t=1786013534; c=relaxed/simple;
+	bh=pG3nTZWIqo0Akp9Sulb7iX4hmqwWP/CuYA0lfOGOYc0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f5Axw+nZ9SvEDH7dfzmTpYL4ExIQBGhEchcCf6UyJYOJ7T/XPRETY2cgc8vmtjxoZrPHaItBRRVLDKQG5lkpIe+msYH6aFhxfu6CoxNco1lhsprexVChAGxerBg4TlWNFqGOTBwN+IbkjK8uvhhekMh3mlbfCaru2I5IgRiEYc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fucOWUXo; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=FL1ntwkk12Yw349uxSyH/USVeuKr5tB1eZPbudhdAK9AGp4Go6qxzmoN0GN2jOG3WF01xQT0ir951ezMsMCu/f5PbbHXINmDlACgAoWTj+ifoY39E6oxazIRChsID80FoyP1dfQj8tmK8MTZrqDA6V8LPvo1jOZh9Cw06HTVktk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TN7C9A2G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S9YQjjG8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fucOWUXo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06C61F000E9;
-	Thu,  6 Aug 2026 10:50:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786013406;
-	bh=eJz4gaO6R9U9qpj6z5LcqbnA10j62bx1m9/uXd4gt2w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fucOWUXoCrajXetVFk+wyY62AOr3/Tcdi9odaQD8KD1sAcCskHuyEnzUgakB6Ddxe
-	 IG+2rkiITQRnj6NIhc+GyqHB1hAsidvN9q5By7uRQSvNUC5oc6utJZPyBgsdbk6seZ
-	 sBGdgXoAiajLggxOnDB5WmkondFQjcEVNb3irE4vTLlZ4iY9W7cY/bRtpA1W2XkGJ/
-	 NjRNuQj0PJP1BUZzXSxApQprOCx4O3bvgQiPkjL3tmIL+tUoqGgEC/Ql/C2oGtwXg9
-	 XIF8Z7m/8u3qv/icM22irxYgELOm6y27IbXK6ksmGNnwWgC1oJ6SSn7syoSOcB85JB
-	 xwI5Wz3hWD+bg==
-Message-ID: <995779b4-925a-48a1-9288-930e0a10b7c5@kernel.org>
-Date: Thu, 6 Aug 2026 11:50:01 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TN7C9A2G";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S9YQjjG8"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769ncAX1580570
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 10:52:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZA1oEgRFCJzqGhqDxYrY00E+txiTv+g+wlBr6oIblSU=; b=TN7C9A2Gfdz2+qXl
+	YoG1tIrU+lOBQY3+H34BKsB7wR2D1n8tHybk7U4lRC2t6s9yqRnk4GY/HVLuPyq8
+	UsVUYd/A3vnAmBHXNNSVk8k6gyds0Bfys+zhEI5ClLyFT098E7HoNRghTqahrzTR
+	O9IEJV+ZnAvjgZcohuklwFylucH0+G22L9K74dcCdYUYzTRSQgapVrzEXOezGLn5
+	c0WSkOYvUrA+IGWLOvJAfHJzPTGASSXSUmjzfppxNoz3l0NtJr72ZAWyQipeP86a
+	0J5OEHPEaKYlGTqzuC1hhResJKntqWC1f70P4dmbJynfjjiDbhNsCfZQdeU2hFaa
+	lz4+zA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvmrjh61r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 10:52:12 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfa4e4684bso52527425ad.2
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 03:52:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786013531; x=1786618331; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZA1oEgRFCJzqGhqDxYrY00E+txiTv+g+wlBr6oIblSU=;
+        b=S9YQjjG8mPyECB4ltcJeZyHH8WgVTNLtm3QydenKOEopxatmlMYnM1hpwfIh09TnsG
+         bH/vVcDGGgsm+msdJrByJFdIvDAlSRymGm+ee84Ci3yGfNv6gmtotDe1eCE4cNoNg97/
+         KPSMYSlWBpoBh+4hbLnsjQ2YV6J+xROvlxyodOgyPDgRJM+ga/NndY923eR8FuGvV9QR
+         6OXCXdDp3ZQr2sbhtV/qY8IvenwCjKz6xlh4D0tDBqcweg8+fiMakPY46ZGEVbcVJxVy
+         iBK31pbM7daDlbkGrBzTeNbUUPmI5j9IAOFznfN+ugiQIZ+J6YLC1Wa8G0dU/Lqk46X5
+         vZrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786013531; x=1786618331;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZA1oEgRFCJzqGhqDxYrY00E+txiTv+g+wlBr6oIblSU=;
+        b=iTJZ31WT4WZCAMiJJ9A/LwdnPmfIIr9A2k/FrMZGoQ7F3xR0kaxtPTibnNXcbNZ2g6
+         wTC3Jt1ZGRlyD+V9v7rzA+xgXKUqD4L07WP5rUBTEz/pwe91fqLyrH4VAYFbw94BoQ2V
+         GVt6Z6UKKim0rXTgTRiEt4kKT0F5QOKjItEg0Mvt8Amlmi6RrAQ64Ajjji2KH+iOk0wK
+         dgR2LXteMnqKm6m9dalYnjUK5A0/U+VkXvv56j1YG0k0FcqW36lctiTiAFBbYB4Oo2OR
+         ut82cGQsh7GyJ9nIv9qsQqEWeju0pdojlkQIYm4B0qvBJKcg6OSM2ycgwLE3FjAOOcZl
+         +5Hw==
+X-Forwarded-Encrypted: i=1; AHgh+RpE3yDT1t0oig8MbRs6pdpKvBhsTPo0/oR0Xxy5B3WFJDUThqSHvqZiPe3/ioyQOP6iAxhothU5DzOl@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiPLsS3sTBFrmclQlPGS7Y9e/RzunCNp5iUV75uT1gdCPEyx9n
+	tHAjSnTdAtqG+3PzBSE2VlzwVrmsYsSM24IjM0+uOlQGN6tLIwNmgKzmn1Y+wgPBHj0RelOXFee
+	+OEEDcKBPXPp9E4lXtMSFLUf3o9hqpHt9s3FXOsfn7Pi/PXIuvfkwJ33QeADrfkBy
+X-Gm-Gg: AR+sD134vq7xIlQufNPr/MdQ0zjIglSZrP/RzE5oNLpS0uV+LVvygA5oYLUXqWQbu9O
+	wetd4RKuVqEN4B0H4ykRPcEicSrmAMDLKzdgMN2Yh+Rjqh8oA2SADJvMZcTdkdcIsUWm5AHPHeH
+	76fiepJr6meRYrnzkgSDwxyzEyIKb9HDSRaMzMZnIMngedjgeDwJaVI+quVKbOvWjYPAwaeZNuG
+	AMU7H1wbl7YObbNjMKCDUPCaEonbHZGp5gs7giXLw/eMcENso9OLTondlWB1ggnxx/izcJE27wJ
+	6DuY/Ts7J8Wf8RKTSx9O9O9Ic6qIsKrbEXIoT3LHByFTu5wf2Q/vy+2i/MixZVEFTezc1xbA3Jc
+	aEQzV7sDP0A59erYnSGIwGUlVkWMPLlwp
+X-Received: by 2002:a17:902:f546:b0:2cc:aa36:c046 with SMTP id d9443c01a7336-2d0ca77ece3mr148064475ad.14.1786013531423;
+        Thu, 06 Aug 2026 03:52:11 -0700 (PDT)
+X-Received: by 2002:a17:902:f546:b0:2cc:aa36:c046 with SMTP id d9443c01a7336-2d0ca77ece3mr148064125ad.14.1786013530978;
+        Thu, 06 Aug 2026 03:52:10 -0700 (PDT)
+Received: from [10.217.217.28] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa4930e1sm29469905ad.41.2026.08.06.03.52.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 03:52:10 -0700 (PDT)
+Message-ID: <bc1096de-94c8-4713-88cb-5b9e96b5419b@oss.qualcomm.com>
+Date: Thu, 6 Aug 2026 16:22:02 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,148 +89,106 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
- Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <689580d1-8169-41cf-a954-927e10135700@kernel.org>
- <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
- <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
- <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
- <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
- <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
- <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
- <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
- <72b267c5-6490-453a-9900-b196d1cfc5f8@linaro.org>
- <2tWmEJ8s0nm8efbgvq24Zwo1vkuH4Na_gC6stCr9_O1A9k9JcA2-TFN5qziPoORYrCKyDgjscvGyO64HI6qVqQ==@protonmail.internalid>
- <72b4edc0-dc80-484d-a2b0-88ea11ae001e@kernel.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <72b4edc0-dc80-484d-a2b0-88ea11ae001e@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH 1/7] dt-bindings: iio: adc: Add support for QCOM PMIC5
+ Gen4 ADC
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+        =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-iio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        Anjelique Melendez <anjelique.melendez@oss.qualcomm.com>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Priyansh Jain <priyansh.jain@oss.qualcomm.com>
+References: <20260731-pmic5_gen4_adc-v1-0-9c49b2eea6f9@oss.qualcomm.com>
+ <20260731-pmic5_gen4_adc-v1-1-9c49b2eea6f9@oss.qualcomm.com>
+ <20260803004940.0277c0ac@jic23-huawei>
+Content-Language: en-US
+From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+In-Reply-To: <20260803004940.0277c0ac@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=VNPtWdPX c=1 sm=1 tr=0 ts=6a74675c cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=IlOKGWYkYrl9SAkidhAA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: 25dzkeM9n0kCjSuKE2pgfgmYdcH9nLse
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA4NSBTYWx0ZWRfXyDjWXwcnFrLF
+ e3GqSHkCr3MkCbwP3eJoXx6vHwllL2887/9hHfiH35X74Kj/qr+iR6uGfzm0AtWqp6kW767Nlx/
+ 2c54MvCbPPam+KnUQleywRnW+SLSPyQ=
+X-Proofpoint-GUID: 25dzkeM9n0kCjSuKE2pgfgmYdcH9nLse
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA4NSBTYWx0ZWRfX0Hoty6b8OXPd
+ lWZeJh0BjnybYfuBtKecAw4ES9PT/KF44kmw9lF65Ahr3s+wj1MoyeGuydUuJmXN1gu8MPQ5F0r
+ oGzYwCrB2h97JUuEVEOoD6q5xTcjTLMspWM522w3kauqOkdCZikQnImaaz0DLQo+fXvBmcEDV2t
+ Bnxhs63SSR9H3YiIfvaH3vBfgE+3+Wh9Rwafz04AlOKnaXj04rF4tReeGdYV+AfGZSwLvhE66Pn
+ 47HjFbD5GjDJgSVlv5coaBKsd4/t8WPwxtzOP8nYJqoinr1+SLRt6e+DoL8dSAoBl6QxS05boF8
+ 5vIUKK/SZU8QWHayj8wMiQOvJpK0aMmverdU5sINdOp46XpBWycrvuQh1Pf/+yToQJiTQelA/eh
+ AaI3qzxDfnAMFpnT1uMhDEqTCZrFZXyCA5h9Db0WhYgZUWLhZCdkRBZcg7arnzehsQXYCcRrxY7
+ 1oYRjVnIMDYRuyz/IKw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060085
 
-On 06/08/2026 11:32, Krzysztof Kozlowski wrote:
->> Yes -master.
->>
->> My issue is how long this will take. Several kernel cycles and the
->> debate is ongoing.
->>
->> Daneil's fix has not been applied which means the replicable system bug
->> is out there in the wild, not addressed.
->>
->> Daniel's fix could have been applied and rolled out to all users in
->> mainline and consequently stable.
->>
->> Instead another architectural level fix is still under discussion, which
->> is of no value to end users whose systems can reset in the meantime.
->>
->> Its just not responsible behaviour. So I feel both of these drivers need
->> to be marked as BROKEN unless/until a fix lands.
->>
->> I'm hoping the vidc team will come up with something else.
-> I did not object taking a known fix for the problem for the mainline
-> kernel, regardless if the fix is optimal or not. I only objected the
-> reason of taking patches because of something in stable kernels or
-> making backports easier or whatever other semi-expressed reason, which
-> is not the mainline-kernel reason.
+Hi Jonathan,
+
+On 8/3/2026 5:19 AM, Jonathan Cameron wrote:
+> On Fri, 31 Jul 2026 23:36:14 +0530
+> Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
 > 
-> Best regards,
-> Krzysztof
+>> PMIC5 Gen4 ADC is similar to PMIC5 Gen3 ADC, with several changes made for
+>> improved performance, mostly at the hardware level. The main differences are
+>> increased ratiometric conversion resolution (from 14 bits to 16 bits) and
+>> increased bit field width for PMIC SID (to allow communication with an
+>> increased number of PMICs, supported on latest SoCs).
+> 
+> Hi Jishnu,
+> 
+> The mixed case is enough of a surprise (to me least) that I'd expect
+> there to either be more discussion here or for it to be handled first
+> as a dt binding patch to allow for v4 channels on v3 hardware.
+> 
 
-I'm all in favour of rolling out Daniel's fix.
+If I understand your comment correctly, you mean I should either add a
+description of the mixed cases in the commit message, or split the
+patch - one patch to add the new compatible and one to add the new
+channel properties ?
 
-I don't want to propose BROKEN but at the same time the timeline on this 
-demands action:
+I think it's slightly better to add details in the commit message
+and keep the changes in a single patch. What do you think ?
 
-- Sub-nodes proposed around December ?
-   Which means the system resetting bug was known
-   and understood but not promoted as a bug requiring
-   resolution as it should have been.
+Thanks,
+Jishnu
 
-   Fine people make mistakes, that's life, lessons learned.
 
-- Daniel's fix posted.
-   Not endorsed or rolled out. Its not "perfect" but
-   it is certainly "good enough".
-
-- Now more debate on sub-nodes
-   I'm all in favour of that but NOT at the expense
-   of replicable bugs from real users.
-
-TBH, when I start to lay out the timeline on this, I get annoyed. It 
-seems to me qcom has understood this bug for nearly six months more ? 
-and mainline is still waiting on a resolution.
-
-So I'll leave it up to the vidc people to decide. But some kind of 
-deadline needs to be put on this.
-
-Close of business GMT Friday - either something mergable lands for 
-sub-nodes or we replicate Daniel's fix to all platforms. Failing both, I 
-will have no choice but to set both drivers to BROKEN.
-
-Stability has to come first.
-
----
-bod
+> That would provide a place for a description of why that is necessary and
+> then the following gen4 dt-bindings patch with gen3 channels would seem
+> like a natural extension.
+> 
+> Other than that this seems fine to me.
+> 
+> Jonathan
+> 
+>>
+>> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+>> ---
+>>  .../bindings/iio/adc/qcom,spmi-adc5-gen3.yaml      | 47 +++++++++++++++++++++-
+>>  1 file changed, 46 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml b/Documentation/devicetree/bindings/iio/adc/qcom,spmi-adc5-gen3.yaml
