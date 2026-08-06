@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DAF3EB0E7;
-	Thu,  6 Aug 2026 08:04:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1059A3033FB;
+	Thu,  6 Aug 2026 08:05:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786003473; cv=none; b=XF9fjFLul558kHjjQghi0uYkOh4m+fiKtQtp+lt/t2xgotRmxW2WGOEuVAD0s+rqaPKxPjLH1IlGgAg5bozgoaprFT3WNdoxQzw5UNMRbIZLL3pO0eCNsVn6m0Vato6UETTxTKgcGMLe+PIqyyTFrGCbdr7Jfpmyu1iN/V8p5ls=
+	t=1786003506; cv=none; b=t+AEjvZarwz7oAFTDW5wkodFsdKXGQ2PkWOXHFW5JlYoaPFsQziUZjBu79rPSUzn3Y+717/nUfA3S0ugSrFBSYXcioMv2b6XoWEpoRh8JT8OBSbkkWOp6GwARWBXvsdtHnA2wM/0jS+WTgDZ023ANNnphIRa+NSdtwxwHEH+a9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786003473; c=relaxed/simple;
-	bh=/Pl5nQN3HE77o2ahvWRJeyXsWv1+acQaWNHUbgoRBO8=;
+	s=arc-20240116; t=1786003506; c=relaxed/simple;
+	bh=4KWQHoL5+rSbXn+UpnIdj8hoktkcddXrOLykFml7kGE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tiNlUAWN8pR53Pn7ll5u+YqxZRijsVVw0HDw3sPuSvU+k6MNVUMz+5xes9nIQdiztHm1p90xgBspkj3t8CLecw4yYcR4t6SiRc0h5w4W0rbck8JkmyBfT+N75gdfGO8z8Dl8LJH2Dal5R9IG4wB6MW08jJhYODqJQabOxbk4HSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4NgQO8Z; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=TnnJL6aqZxsBZmilwklBpyYWsW25GcurKUn2Cgslqya/FhwiamfdNum0ZSf4ec8VfrIi0V1dwxJIWdrR1LcjEVzSWiqbmnkdPaibiKF/nUIOw12iP3uQRsosc3b7tS/xJkVE3QIHSoP2qUN4XVuw0sJLgF1EHwfVqWlcAVm13K0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTq/jvqM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4NgQO8Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097F81F00A3D;
-	Thu,  6 Aug 2026 08:04:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTq/jvqM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94C7E1F000E9;
+	Thu,  6 Aug 2026 08:05:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786003467;
-	bh=ZW/JGrz5OFsg8wBorPQ+SPx/P/cxGfxTHqpna7iFxkY=;
+	s=k20260515; t=1786003504;
+	bh=XfQvgRfl7wqQjJ5CVHhdNguT8+WuejQa1yZhxYKOG7A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D4NgQO8Z0iwCT/ON6xG76n56frfkl8t4zK1ojffOQ+UQPnEx/60p8pQm36BK77nnh
-	 XvS4ncMXApI2phTveINWzZlgFsW4NriQY8LzHpVGIAYGaalFIDbYtc1Ry5xGaBfHvQ
-	 R0Gfc0yTrPLciylaD637N1gJnwqgxzLRPlhg8+0jJXrCoq2EL156Q6GjgJ8/Y24TF6
-	 JO3OdYvOA/YDd/Ty4+08LZMiyqdgwLwlt1jUBWm6jO9IpPgXYlG3yDDgZNBCWDcm6J
-	 PTCV8LqTikYB8Z8IIk8+VNmW/KFcS6YSz91t5Kev98XOQv7pNcS208TwxyqOBlUnTQ
-	 GoFuE5/E+YRmw==
-Date: Thu, 6 Aug 2026 10:04:23 +0200
+	b=WTq/jvqMBnpig0fWyI1nWdYp5n7Rr4my8R7F0SLIAhj1UKax7W5TiCCvqsxEOrYp5
+	 OriMML/qJPD3ZvP67HDyrIAGnIH7qKEnvK9Vyd+1ejF5qsV7UEnI8kS76XOXuPsDyN
+	 kR2qTNgcHVtnguGGG6tNEc2C6A35reTdU4o48AvHTdfPFJZhoiYolDkQN6mSxWvmZk
+	 eF9QrspcbMbzhFPZD32AtvE2xis9oX8cxUMxa5aWY+Ybbjp65J+ngSzPbbraEuBuop
+	 v7bFv0adCNj2k7w5pXHlF3Teh2cqrBMzCkBATJjMcJilStgqjtOYCga5koz+1uq84h
+	 m7ut8wMH3PN/A==
+Date: Thu, 6 Aug 2026 10:05:00 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
 Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
@@ -34,11 +34,10 @@ Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
 	dmitry.baryshkov@oss.qualcomm.com, abel.vesa@oss.qualcomm.com, krzysztof.kozlowski@oss.qualcomm.com, 
 	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	tingwei.zhang@oss.qualcomm.com
-Subject: Re: [PATCH v3 1/4] dt-bindings: arm: qcom: fix PURWA/HAMOA IOT SOM
- compatibles
-Message-ID: <20260806-angelic-translucent-shellfish-3307c8@quoll>
+Subject: Re: [PATCH v3 3/4] dt-bindings: arm: qcom: Add Advantech SOM-DB5830
+Message-ID: <20260806-notorious-strategic-mongrel-15506d@quoll>
 References: <20260805-hamoa-come-v3-v3-0-20463c43eae1@oss.qualcomm.com>
- <20260805-hamoa-come-v3-v3-1-20463c43eae1@oss.qualcomm.com>
+ <20260805-hamoa-come-v3-v3-3-20463c43eae1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,30 +46,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260805-hamoa-come-v3-v3-1-20463c43eae1@oss.qualcomm.com>
+In-Reply-To: <20260805-hamoa-come-v3-v3-3-20463c43eae1@oss.qualcomm.com>
 
-On Wed, Aug 05, 2026 at 06:30:00PM +0800, Yuanjie Yang wrote:
-> The compatible strings for the Hamoa and Purwa IoT SOM platforms do not
-> match the naming used in the official hardware documentation.
+On Wed, Aug 05, 2026 at 06:30:02PM +0800, Yuanjie Yang wrote:
+> Document the device tree binding for the Advantech SOM-DB5830 board based
+> on the Qualcomm X1E80100 SoC.
 > 
-> The documentation identifies these SOMs using their IQ product names
-> rather than hamoa-iot-som or purwa-iot-som style names. In particular,
-> there are no SOM products documented with the names:
+> The platform consists of an Advantech SOM-6820 system-on-module (SoM)
+> mounted on an Advantech SOM-DB5830 carrier board. The SOM integrates an
+> IQ X7181 EVK SiP containing the Qualcomm X1E80100 SoC and its supporting
+> components.
 > 
->   - hamoa-iot-som
->   - purwa-iot-som
-> 
-> Update the compatible strings to use the correct SOM names as described
-> in the hardware documentation:
-> 
->   - hamoa-iot-som -> iq-x7181-evk-som
->   - purwa-iot-som -> iq-x5121-evk-som
-> 
-> This aligns the DT compatible strings with the official product naming
-> and documentation.
+> Signed-off-by: Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
-These are already released, so marketing reasons are not enough to
-change the ABI.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
