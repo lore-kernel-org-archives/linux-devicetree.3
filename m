@@ -1,43 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2AED483BDD;
-	Thu,  6 Aug 2026 17:02:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D62E48A2A9;
+	Thu,  6 Aug 2026 17:02:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035759; cv=none; b=uqgwbRdVvC0B4yhLZZZ3v1XVb13mVIvVtiByx4xRxyoh8gGaNK2GT2bf8XjAy3lgXHBxEUaHiIq0ChZJHkhSi4i/AYgig3GMxbfWfPeyzNVyXrGD0m4fft/zXN8vyoJNMGv9qcjJ5WEwoAiqrcWnrd4wr0Nj9vH6cSMzYKRBr9k=
+	t=1786035760; cv=none; b=T+2S45U92ZTlPOzseu0XMNFnw6Ut0+sw/sVfmBE8xQrM5wotLNHMRs1j28G7IeR1zEiXDwMQ2fJ5kkR3l01dsfUkI0jAK1R2yaLCUBE4BX1pZsbDsKqhZ0EvHD5/XHRYcwnNrkadXV9+nEmb+tZF42abCj0W5NYcdCTvZnOWXmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035759; c=relaxed/simple;
-	bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
+	s=arc-20240116; t=1786035760; c=relaxed/simple;
+	bh=z3MvIWasYELAai6HO3er+8XiHnoakmXomvsc7NcTsdk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OEf6xwys5+/wNHvN0DgPptdwL7LupkkAOWwoGYqL37450Z2DAly67nEmFNwtLNo4U9LQT3RALrE3U87pelhUmBpCULZB+e/JTcxKVLpJQGW8FKpF3ghbQt3wNk+wzEMKCNof43WBUcTkFuJiWoYMYmZ/FYJ8uMI3moqnjtEU/kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=YKszsNd5; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=eR+6qxx0IofIfqxdjcngLyI406KDXLuHkfZazqb6iI263IX5vVezNV7+iNUrnipdX4AAbNERZVOAvCOzOSw4o4FGOxef4as5G9F3Dn+Fg5lvI2pkusyZOFbNdCMapfpvQjsCGG/AbTGePuUM7XaRwIM0uExjleWhlMZ0dUePido=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=RI9OHvEv; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="YKszsNd5"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="RI9OHvEv"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1786035746;
-	bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
+	s=mail; t=1786035745;
+	bh=z3MvIWasYELAai6HO3er+8XiHnoakmXomvsc7NcTsdk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YKszsNd57LBFMgg6RmSH7eBUG2J9Uy+T2nVzGghiQxr2m8TI3qzAimrUcm36m/blw
-	 B8310f5slxWUyW+QNKSBZMMmEFWxObZooZFDVHsZZW4ONy8ahTLpLU/ZWkgBGaImPG
-	 iXFf0+eyAxPD8zpcsfGrNmrrTiwJpVCvPs/2pIyZd263YXrjmBvCtMQKrl26+u3Vot
-	 bUkAoFJw+VM6TxdguWhnbSJjUXJkgtkVLy3EWjimc9gzQFVLK2/SS9/CcsjMcz0nLv
-	 CSLBiwe3A5T5s/JjvSe9852nYf5JmblFPLmMfE7a+ill59DpH4oIJrL1C6u/r52RI5
-	 DBgekpEJqsnHw==
+	b=RI9OHvEvhVNX9locRwSkziAadcxYiqTyGBD6spHUiqTTGhnV9AGVKXv3invUW9QB0
+	 JU9ps3D4b9XSQcZ9Fe3RQuPR/t4gV+LQ64Yoagqy06KPqbU3fZxjxpSh+UXlwsRTVG
+	 wQXlCF2zycM6LNydLeKffrZw3bgrG2BqPD+l0F8LExAGg79JpPPi5yleNbDpt0xQas
+	 lvj31PJG0u2Ai5u7dVIn8oFbfcrAEQeA2/2Z/vtmsvUSSQgvV6IeaFzKLQzmlmLJZ+
+	 T6RKagkVyaSpVJqFQiJDASjideJEVrUjO3vUxgPVXhDVr0pWQYeAFHbL0q9fqOkUdO
+	 gu/MxIC8JGYCw==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B12FE17E11EA;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 954E017E107E;
 	Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 08163480048; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+	id F34ED480031; Thu, 06 Aug 2026 19:02:24 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:17 +0200
-Subject: [PATCH v11 11/21] drm/bridge: Add out-of-band HPD notify handler
+Date: Thu, 06 Aug 2026 19:02:11 +0200
+Subject: [PATCH v11 05/21] drm/bridge: synopsys: dw-dp: Add missing mutex
+ cleanups on module removal
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-11-0d508505f383@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-5-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -70,86 +71,56 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2377;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1166;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viBOEovsgmLL5J734CoosVWpih7btQnop
- 6iZAdW40N1SCYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qaa2oP/16SxJH80ZYkQowF/nlkGFrxxMQOlgFEm0DjslvzLev47fpfsc4tX6dB+JXaJOs28XX
- qXC6Y4Jg0guyLJSrtma+VeE1NWg060sPCE1Dc1TWprnNXKbMEi+ir8vbBUc3NYSi/nrIo66b4gH
- 6WXRjZ/dO3UBzB6iHqp+EEQt2liZEPhU1nEIqspzj1RTKWHhjlGsZGxNFPDrLzCTddTUKlv+NNH
- cWM1EWE/qEh4twvwNdiHzzP0gfIQA6fLSA7oYREs52C6HLji7AgiZtsAPxKGKQ5o0Zc0o2lNmcs
- GGNc7OZ1yKTtuFkv+rDNlJocoJI/pDvqOBFjSPUmIO3Z6vwD3ywrY21+JBZOePWy4nfKUB+k+FE
- yYOakRWvLlqa/q8YUzuz7Igh5ext+t9d17aRNCwB0U3BJXIk20fohVfeg61zjktbI4gyoOeIGNl
- Jmy95ooJ6ptqJvThbt7zLpNwcgnJ0vGivJ9kDuDs+zsLMa2eP90LaEJHGnu5x4VFGFDxwpo/72u
- v/X3qzPyATJLS/zTzXZKB4p79HXyR6qBRaKBzqb0ExGJwC8qFSi2jZl5yMY8w8KfphYMFT6HwmG
- O0CXOvJ7fcWreaF0WG1FPykDdvi9mpb1ydAdAlJRdOSBNK6Fr8J8j2AV199SzgLgbSGY+C20B+z
- PJ+qQR7+sCEnEd6xLr2s3Wg==
+ bh=z3MvIWasYELAai6HO3er+8XiHnoakmXomvsc7NcTsdk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viBW6sz1S0JiZrIACnfpwmyyq09ddK444
+ lv/NdCZw4Ct/4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qa+JwP/jmE3uFPI8XGt2YYAv04xx6V8D36pd/Cq4rb96Jgt5SrU/fz9MI8bc54IZoPSHea3sG
+ TnXmqpwxnnVP3WZ+J8s6puJPBPF92tSwtmDbdEOeZIwMscYs5miNOXvVBMxbaIbsoQdj+hZp3qJ
+ RN4A7WpYppvTJC4MSfAvDYP9s6ubZeiQo8hyux5F7ZCxlTqAYSYYyAv/sMYoFxEmsw/6mgcrXlY
+ SfLnoFSDKjKiLJgnohF3ouJWVDeM0uPeQJrNgxrPCk5HaIFbajP1B4/bndDKiKVZdsEuSm8FA4K
+ bUZwIqi+k9ajw6yc1Xc3Sk2AUKtp8pW/ejNKDU1JtBgpVDhsOGZg2yMMO/wWGAHhjuqj/sJ+5Kc
+ m40N70Ex2rk+4n8/PZ8VEL8BdSI6S/vLAfx42oufkZNwbZQAOlk6EToHDVWdGi0FD1I6uwrpjD/
+ X9Ce4LNFA/0fLqY5zV7VL2XsO+ZOjxA2oM98UGQ3ffZ+xLLiCbP6iNDKMp6so69r6eLGFPh8Hfs
+ AuLtrYVRw9obu2fnZqZRBk8Tu+AontANWZKRYOGXYUIAIutbDSKTBFMA5WXMc1RhCo9f22Zx7UU
+ ScZxr2EcTou/eJCX7QwZ6pjMkfmuoHYv4SPnSgGGMIQlWBmPfszWuUHhmW4c+zjm6lQOG86n/DG
+ A0pWmKMnjJvHe35aJqsIuMg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-For DP bridges, that can be used for DP AltMode, it might be necessary
-to enforce HPD status. There is an existing ->oob_hotplug_event() on
-the DRM connector, but it currently just calls into hpd_notify().
+The driver is currently missing to fully clean up after itself. Ensure
+that the mutex is cleaned up.
 
-As DP bridge drivers usually also implement .detect and that also
-generates calls into hpd_notify, this is a bad place to force the
-HPD status as the follow-up detect call might force it off again
-resulting in all follow-up calls to the detection routine also
-failing.
-
-Avoid this by having a dedicated function for OOB events.
-
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
- include/drm/drm_bridge.h                       | 14 ++++++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..632cc3ae3b54 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 52e3b37259a6..b1856418f441 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -2040,10 +2040,13 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 	dp->pixel_mode = plat_data->pixel_mode;
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
  
-+	/* Notify all bridges in the pipeline of hotplug events. */
-+	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
-+		if (bridge->funcs->oob_notify)
-+			bridge->funcs->oob_notify(bridge, connector, status);
-+	}
+-	mutex_init(&dp->irq_lock);
+ 	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
+ 	init_completion(&dp->complete);
+ 
++	ret = devm_mutex_init(dev, &dp->irq_lock);
++	if (ret)
++		return ERR_PTR(ret);
 +
- 	drm_bridge_connector_handle_hpd(bridge_connector, status);
- }
- 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 58fff047f43b..713652fca033 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
- 	 */
- 	void (*hpd_disable)(struct drm_bridge *bridge);
- 
-+	/**
-+	 * @oob_notify:
-+	 *
-+	 * Notify the bridge of out of band hot plug detection.
-+	 *
-+	 * This callback is optional, it may be implemented by bridges that
-+	 * need to be notified of display connection or disconnection for
-+	 * internal reasons. One use case is to force the DP controllers HPD
-+	 * signal for USB-C DP AltMode.
-+	 */
-+	void (*oob_notify)(struct drm_bridge *bridge,
-+			   struct drm_connector *connector,
-+			   enum drm_connector_status status);
-+
- 	/**
- 	 * @hdmi_tmds_char_rate_valid:
- 	 *
+ 	res = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(res))
+ 		return ERR_CAST(res);
 
 -- 
 2.53.0
