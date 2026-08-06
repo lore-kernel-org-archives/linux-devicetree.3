@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB468448399
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 14:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF0913957E
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 14:38:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786027123; cv=none; b=KzoTPViBP1PlkolnEpFF7tNRd1owAbl8+DgCq2q+NnE8TxFtXzJ16i/T85Eo0q/q7ZhqJw2MIqRpTrR3vCDdnW26QqKrYYxTHP0T95qPJoDmtVaaCaAOEg2dc2fpOFanIeqWBZyUwF9rOqJnbJCJUtoxKRxRx4r/2xMn4M1Yucw=
+	t=1786027123; cv=none; b=gyV5ovyjU5eOB1V1klhaLirWl9G2vnoPX48bqGl4J0SKZI1zTmxXMRf7UMCNfQ4eIjXbTinf63miz+pItuOmJHGQVoEREkz/Z5L4A09RHZA2jXdhKf2f2yDTmM4v/KC+S/Vg9U8wweDbjsg8wNdNwWO3/Gf1VWkyxwHZrBpGuYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786027123; c=relaxed/simple;
-	bh=eRcDRCd04VweTPQBOPikn5XJ/oJyJpXMCJq6iYr7UHc=;
+	bh=3YtPqnRidCFsUt84NYMqlOsoawkh50P+QZ3rVrDJXfY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sqHgUFGgDbXlV6zLI8jPXg/X+VqD7ZpcAJxgy/29gzk2PdoFQExwZ6AusqIfof71lTEFvnslcv2PYItBSs3z0QodmyTc1u84i7Umi0yUwJ89zVggzYtAinHN/nDYJfXN40BaP36/hiCNUZ26t9YfV+VEpsW3MBGw/SUKlDQMuqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HCwh2Azi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ufmudA+151CDFFFYzLN2nDGub6RnfnLtHtQpWb8npVSbD23AkGpUloJtWX3LOm+6pzpPO/MejNyUSwch7Ov4+yKJndSo/2aD1OI9fvJjGpjXghLYgptuXwGK8SAXki4noNIwi+BCD6aOAitFJTZ2SDZKKS6XKPov+UshToDhhpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WW7nvC/x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HCwh2Azi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38D871F00A3D;
-	Thu,  6 Aug 2026 14:38:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WW7nvC/x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC321F00A3E;
+	Thu,  6 Aug 2026 14:38:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786027121;
-	bh=Qon8zKcmDAnw6RWIR4/gwkDIt87hnHpXJIzkm9WMbGM=;
+	s=k20260515; t=1786027122;
+	bh=6mZiAukBjNX7anUhBVDoDdFmZ+q7k0AP0QH2lGb2M7w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HCwh2AzikDaftvZIFlG6GYcPZV557c/gMG1F4wDVwOmI+t00FQ3122/+2dV4i2CHz
-	 mGcRSLzKQwve5A1JHdIVVdYmagDEsqry0nn0ZXMCOO27NBh8Y2PdF9Vid8t5NmIlhB
-	 6EZfoeCLLWFRPFQ3Df0uZbsDUhSs8drlgxXyMKciEJPbCIhHzzqjvCK7wJjSaxQ9OE
-	 5nANTbk7ezgVOvKVhS6H65849ZAR80kUg2LQUPa2rbVc/h4OmHHMX+5V0RPOCs3z07
-	 nx56S8Z/4MFxmviB/nwBoVyTB05uwH0l1TqfuugmEsrXyspyBEeElsYm6AkFwCrvtF
-	 0Nd+YjILPZHVA==
+	b=WW7nvC/xMACxcir0kNgd+pKEhWhqs7v2FnzfwmSy+33OaOoO9+6upO7TcIWYxpjAO
+	 pIPtMQJok715BrDtoIHvPKciEl2sKrfpCcHku7I4CskRBLe27GCzH3Ze/3U16+jGMz
+	 51bJVFpa1rKicVK0sXp7BZZgm7DmwD0Yv56kGa3JuNyLJWidx7FH/CZbtZ9CvI8sXF
+	 7WRAOCDmpDiShHZsbhpo+zrQ9jn5z8nlAHQCFLWRpATwQzEg9DtsnH66T0hNwu8xYP
+	 nlD1lWP5Wo2mPltS1twboRYZ9k7wqyfyrDT41B+qJlXrqWz2FJ2aJHycFHaxy//JHj
+	 ls4pQgM8XnJkQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 6/9] net: dsa: lan9645x: add vlan support
+Subject: Re: [PATCH net-next v11 8/9] net: dsa: lan9645x: add mdb management
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-6-007ebc983a0a@microchip.com>
+In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-8-007ebc983a0a@microchip.com>
 References: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
- <20260805-dsa_lan9645x_switch_driver_base-v11-6-007ebc983a0a@microchip.com>
+ <20260805-dsa_lan9645x_switch_driver_base-v11-8-007ebc983a0a@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 14:38:40 +0000
-Message-Id: <20260806143841.38D871F00A3D@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 14:38:41 +0000
+Message-Id: <20260806143842.3AC321F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,108 +46,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Code Fix needed in lan9645x_port_vlan_filtering to explicitly igno=
-re the NPI port, preventing REW_TAG_CFG corruption.
-
-Pre-existing issues:
-- [High] The MAC table dump function `lan9645x_mact_dsa_dump` acquires a sl=
-eepable mutex and performs sleep-polling within an atomic RCU read-side cri=
-tical section.
+- [Medium] Duplicate CPU packet delivery on IP multicast MDB matches
+- [Low] Inverted teardown sequence between MAC and MDB initialization
 --
 
---- Patch [6]: [PATCH net-next v11 6/9] net: dsa: lan9645x: add vlan suppor=
-t ---
-commit 7eb00c9a8e8dbdc6e13b0734d6fc7a8d54af0360
+--- Patch [8]: [PATCH net-next v11 8/9] net: dsa: lan9645x: add mdb managem=
+ent ---
+commit c8677da78fd630673d16e31ac732c8854e853dbe
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
-Subject: net: dsa: lan9645x: add vlan support
 
-This commit adds VLAN support for VLAN-aware and VLAN-unaware bridges.
-VID 4095 is reserved for standalone ports and VID 0 is used for
-VLAN-unaware bridge ports to isolate their FDB domains.
+net: dsa: lan9645x: add mdb management
+
+Add support for dsa mdb callbacks. L2 multicast and IP multicast is
+handled differently. IP multicast stores the port group mask inline in
+the mac table. L2 multicast points to a PGID index, which encodes the
+port group mask.
 
 > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
 /net/dsa/microchip/lan9645x/lan9645x_main.c
+> index af158d4461aee..fc604edb309b9 100644
 > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> @@ -70,6 +70,7 @@ static void lan9645x_teardown(struct dsa_switch *ds)
+>  	destroy_workqueue(lan9645x->owq);
+>  	lan9645x_npi_port_deinit(lan9645x, lan9645x->npi);
+>  	lan9645x_mac_deinit(lan9645x);
+> +	lan9645x_mdb_deinit(lan9645x);
+
+[Severity: Low]
+In lan9645x_setup(), lan9645x_mac_init() is called before lan9645x_mdb_init=
+().
+However, lan9645x_teardown() and the err_mac path destroy these in the forw=
+ard
+order (lan9645x_mac_deinit() followed by lan9645x_mdb_deinit()).
+
+Since lan9645x_mac_deinit() destroys mact_lock, could calling it before
+lan9645x_mdb_deinit() cause a use-after-destroy if MDB cleanup ever needs to
+take mact_lock?
+
 [ ... ]
-> @@ -576,11 +580,52 @@ static void lan9645x_port_bridge_leave(struct dsa_s=
-witch *ds, int port,
-[ ... ]
-> +static int lan9645x_port_vlan_filtering(struct dsa_switch *ds, int port,
-> +					bool enabled,
-> +					struct netlink_ext_ack *extack)
-> +{
-> +	struct lan9645x *lan9645x =3D ds->priv;
-> +	struct lan9645x_port *p;
-> +
-> +	p =3D lan9645x_to_port(lan9645x, port);
-> +	p->vlan_aware =3D enabled;
-> +	lan9645x_vlan_port_apply(p);
 
-[Severity: High]
-Does this code inadvertently apply standard VLAN configurations to the NPI
-(CPU) port?
-
-When the bridge's VLAN filtering state changes, the DSA core propagates the
-change to all ports in the bridge tree, including the CPU port. Here,
-lan9645x_port_vlan_filtering() unconditionally executes
-lan9645x_vlan_port_apply() which proceeds to modify the egress tagging.
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drivers=
-/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_mdb.c b/drivers/=
+net/dsa/microchip/lan9645x/lan9645x_mdb.c
+> new file mode 100644
+> index 0000000000000..ea37bb660273c
 > --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_mdb.c
 [ ... ]
-> +static void
-> +lan9645x_vlan_port_apply_egress(struct lan9645x_port *p,
-> +				struct lan9645x_vlan_port_info *info)
+> +static int lan9645x_mdb_update_dest(struct lan9645x *lan9645x,
+> +				    struct lan9645x_mdb_entry *mdb_entry,
+> +				    enum macaccess_entry_type type,
+> +				    struct lan9645x_pgid_entry *new_pgid,
+> +				    u16 new_ports)
 > +{
-[ ... ]
-> +	lan_rmw(REW_TAG_CFG_TAG_TPID_CFG_SET(3) |
-> +		REW_TAG_CFG_TAG_CFG_SET(tag_cfg),
-> +		REW_TAG_CFG_TAG_TPID_CFG |
-> +		REW_TAG_CFG_TAG_CFG,
-> +		lan9645x, REW_TAG_CFG(p->chip_port));
+> +	unsigned char mac[ETH_ALEN] __aligned(2);
+> +	struct lan9645x_pgid_entry *old_pgid;
+> +	int err, pgid_index;
+> +	bool cpu_copy;
+> +
+> +	old_pgid =3D mdb_entry->pgid;
+> +	lan9645x_mdb_encode_mac(mac, mdb_entry->mac, new_ports, type);
+> +	cpu_copy =3D !!(new_ports & BIT(lan9645x->num_phys_ports));
 
-[Severity: High]
-Is it safe to rewrite the egress tag configuration for the NPI port here?
+[Severity: Medium]
+For IP multicast entries, the port mask is stored inline in the high bytes =
+of
+the MAC address via lan9645x_mdb_encode_mac().
 
-Writing the dynamically evaluated egress tag configuration to the
-REW_TAG_CFG register erases the mandatory LAN9645X_TAG_DISABLED
-configuration that is normally set during CPU port initialization.
+Because new_ports includes the CPU port bit, the hardware will forward the
+packet to the CPU port according to the inline mask. The code also sets the
+MAC_CPU_COPY bit via cpu_copy.
 
-If IFH extraction and packet rewriting conflict, a pushed VLAN tag could
-overwrite the end of the extraction header with the top 4 bytes of the DMAC,
-breaking CPU traffic. Should lan9645x_port_vlan_filtering() explicitly
-ignore the NPI port?
+If the hardware acts on both the inline port mask and the MAC_CPU_COPY bit,
+will this result in duplicate packets being delivered to the CPU?
 
-[Severity: High]
-This is a pre-existing issue, but does the MAC table dump function sleep
-while holding rcu_read_lock()?
+Should the CPU port bit be stripped from the new_ports mask before encoding=
+ it
+into the MAC address, similarly to how it is stripped from L2 multicast PGID
+entries in lan9645x_mdb_pgid_entry_get()?
 
-A user-space request to dump the Forwarding Database (e.g., via
-bridge fdb show) invokes the netlink rtnl_fdb_dump() handler. This handler
-takes rcu_read_lock() and iterates over devices, calling ndo_fdb_dump().
-DSA passes this down to the driver's lan9645x_mact_dsa_dump().
-
-Inside the RCU critical section, the driver acquires mact_lock (a sleepable
-mutex) and uses lan9645x_mac_wait_for_completion() to poll the hardware,
-which uses a regmap poll with a non-zero sleep interval:
-
-drivers/net/dsa/microchip/lan9645x/lan9645x_mac.c:lan9645x_mact_dsa_dump() {
-	...
-	mutex_lock(&lan9645x->mact_lock);
-	...
-	err =3D lan9645x_mac_wait_for_completion(lan9645x, &maca);
-	...
-}
-
-Could this trigger a "scheduling while atomic" kernel panic or cause a
-deadlock?
+> +	pgid_index =3D PGID_INDEX(new_pgid);
+> +
+> +	/* For IP multicast, the hardware lookup uses the DMAC
+> +	 * (01:00:5E:.. / 33:33:..) as the (mac, vid) key, not the encoded mac.
+> +	 * Therefore, this CMD_LEARN will atomically rewrite the existing
+> +	 * hardware entry. We intentionally do not do a forget before learn
+> +	 * sequence, as that would not be atomic, and leave a forwarding gap.
+> +	 */
+> +	err =3D lan9645x_mact_learn_cpu_copy(lan9645x, pgid_index, mac,
+> +					   mdb_entry->vid, type, cpu_copy);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-dsa_lan964=
-5x_switch_driver_base-v11-0-007ebc983a0a@microchip.com?part=3D6
+5x_switch_driver_base-v11-0-007ebc983a0a@microchip.com?part=3D8
