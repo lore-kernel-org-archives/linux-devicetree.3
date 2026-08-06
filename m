@@ -1,141 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5FF143F4A0
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBC643D4F8
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786011839; cv=none; b=QHQKlTXuIFcgbfTyi9b+m2WfxJoyHZYaq76O0rdInh2XbiQuea1IO4LmTMu/uWe6VHhblssBuRJDoX7M3tiNnE48Iyvr8fob4z9gvI+GAwD4LlIbVuyphOAz8fefYzd+hcdNx2CCRpocUS6Luvgpy7NIowSQE3M8Uyu7cCXMAlw=
+	t=1786011881; cv=none; b=faUVioDciT1BfO5T/6Kl89J/LTTxgU9NvTzQye6DsSUDnpzpWSC4bfozPRqq9ewXG3LzAvNWjWom6C7YGZQhQJsTuiX+kpYdhoniFVanQofty1hb7qf6qieW7705gibbCn8kG+B1mdFyM6LOPsdqJqfWfeJLnXokrt9X6dlPnR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786011839; c=relaxed/simple;
-	bh=CZsDSrcaiTvSIheMyinNq2aemmTQtFQ9gs3bFdr3kNo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rLc3sOnZgjcUuNMa1gCn6xgZG1nS2lxZoncz8gqqhcdSoUxuBNd3RcxPeDJz53vVtS3CtXcJCda5g+T9sh2wtcl4c8Nm9YT2VboBabsL91b+p3t8G4PFIuBdZdiKSEay4EEHCkcr/XTWqeJPqd39tv3GYwf8AGTv+m22oVsts84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8f+YTYi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786011881; c=relaxed/simple;
+	bh=Y/BfzcHBW1+/hTfe8NWTi/nlFyz3lih/XK9O4ky6nXQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TJ0DvKDPbAXu8aB6qg/yK1c4t1ArSaGntD1+bA+Bc/zPkYpgZfTdD2CTjgVUO1B+zt6lGEjhe674+LH1eRC6jWZaNxgsOK9RCJ3zgbDAAi4IK4bB01BW3fJAg0LQpdd0sVmxmNNzrXIh47mE0c2/dhuTa+Qg2r2LMzJp+oOJf+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vJX5unF+; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8f+YTYi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4F31F000E9;
-	Thu,  6 Aug 2026 10:23:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786011837;
-	bh=NGsAtR31D/NO7cbpGKHUhCXulgjr/Ip1qyjyXHq/wOo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L8f+YTYiwPS6PDak6a7EExlPx2pmevzZLEcG0v5UiShRWhYZbALmGy6HWt8f3u4s2
-	 vRRIijq5bgDPYz+Ylijw0x8+XOft4QAFz2ChV2bsk+sacxWO2OXuLsXZVaRbGnm+p+
-	 oRzgTrxoUmjw5DbpSTocHCAOORSZPhuXkdOij6H+hNX1Z4GFvf8d0P5/RacB0AjDKK
-	 buTB+iVPXrMrx2GYw9xRv6TQaQputgKk6CQweF9mrexunhwUzwAxB0amjcjHht2YkK
-	 Y40nXyD2CmcMV1c0iJGZDXPEBH/k9nxUrhuSPQWESep5LkZtqM31p6l+qSGZWZtZL3
-	 LSrW675UIXkgw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] spi: qcom-geni: Use GPIO to notify master of SPI
- target activity
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-2-c363a9b5df69@oss.qualcomm.com>
-References: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com>
- <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-2-c363a9b5df69@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 10:23:56 +0000
-Message-Id: <20260806102357.6A4F31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vJX5unF+"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-472326ca506so1369951f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 03:24:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1786011878; x=1786616678; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ufo/CJ3ncCi7FHgGFSyE4mS7SJGms4hMqbby60EAfSo=;
+        b=vJX5unF+o+L9Usnc99MdKQh4Zsp+lQ4ru1UyOoK98FsV0FqMmqf5gFqv5h+bYV5F2K
+         GDVnM2uu7CPu9Dlx8iBfbun2T3G3Y8sBWdifVWM+bics8QewLZ16Hgyg1G11sSdzi9QF
+         ZxVsyQ3Cqbs29GuftgkjO3PC+ZaqhvztBrWhw8LC5drldcQzE06EBWktd2lGKlrQfp7E
+         hWhuNtRBB3eP0dahzW7VgdGNFpkGW8f/2b6dOMlXqnjYWdpvJzCSiFBw3n99xnc9mxB5
+         ZQZv8z/HDFJVWoS2hxL9r1w2dyj7yf3M1heYh1rYPfEjoJBmQIFmAfq4OPkw9M3V5v4s
+         scEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786011878; x=1786616678;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ufo/CJ3ncCi7FHgGFSyE4mS7SJGms4hMqbby60EAfSo=;
+        b=T/yKYzWGPrtJI2DIX9WrnN5XbiTiOxOuJmKJ+Tcp8iFDWK7rtSspEwNllcp14YAJRf
+         v6/cwvO90DuFGKuD5JcybYZzjkPeisiHeX9eSJICEqkFItbj0KulvamNHsRiG8TBIcE/
+         s54mg667eDjwA+reG/hdJVaLAc3mNUCe5Mh8kx3ofhhSIwrwOBGH89CeA3XPmd5o6wpH
+         cnuc8p5y0l7zu++30Dvxkg9E2jRBlc+JPUpNU1ncavwKBc93vS/NlVsG+5bTtHSXfAnE
+         7m0CupEBP43b+ulfizOSF/qq9vQipz9c9NYuLbzySN0n061IazG5ZhjkG7XrMsgZf9RR
+         jRJA==
+X-Forwarded-Encrypted: i=1; AHgh+RogdBhoCgPgOch8x1jj0cVaBGxYNKABTA/hRjfxfEKXD4sFO2C2S1eoSpamdSXn0c762T9jIMVgKTa8@vger.kernel.org
+X-Gm-Message-State: AOJu0YxGqXJybSMHAmVajjDKMzqWKkJihebnAzTDD8YzPXhZDi8b9SIu
+	S//eYAwL3zFLsxza679jJO/cmV9bJXxQPAPfnbxqElnsxK9tMswCHa53eAMUfo3yXhY=
+X-Gm-Gg: AR+sD11ZRjR+rjwElpMj/TrMVLfyR9MCnGpUEMJjV+BvOBRIZ1kh3v8k5kSETQnAxIP
+	LoZLlTuNqhBHkae0arQyhZe0sU8mh1VqB7ZLI7ALSB2cLA5ndUG74ihV0JLGHo2qx3EpGap1EX3
+	iPEoLrnpdPVrLbsCybXxr5P5rpSkfUIZp/BGDywmrIoWpKOl6nU8ZIwsaeycTn/mQx4BYPJ4vOy
+	SGZy8ZjwQMHlOTH9MLXGzGh5/zWpaAK7PqXgNa0jhu5qnw8XXrt8wdY6AAha9TW5YeswLKeIFN/
+	qggcfRXmm+fCpTd2jCpiAB7AAVIei8bGf69O9aHml2yEVPzGX5RIeAmWQeUa7f0q5P55uYCLRNy
+	4d9JkLDRpJ+SV5DZLxm0rW8II7uHDdUxiOmPFurQ79Dv92GydwH3PNeM9V4AKyQJ86i9ebGYEFn
+	U4uyBnnTHK+geDfAADD7m5qfOfCru8evTA4j5IGPc3EcVxPmR+khI1Xq40eFBCJ9dFAfmAhLIVv
+	A==
+X-Received: by 2002:a5d:6a4e:0:b0:47f:8fc9:6eaa with SMTP id ffacd0b85a97d-47fec4edc2amr17986324f8f.8.1786011878436;
+        Thu, 06 Aug 2026 03:24:38 -0700 (PDT)
+Received: from [192.168.0.101] ([109.76.115.165])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47ff7b250cfsm5060906f8f.28.2026.08.06.03.24.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 03:24:38 -0700 (PDT)
+Message-ID: <72b267c5-6490-453a-9900-b196d1cfc5f8@linaro.org>
+Date: Thu, 6 Aug 2026 11:24:36 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Krzysztof Kozlowski <krzk@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <689580d1-8169-41cf-a954-927e10135700@kernel.org>
+ <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
+ <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
+ <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
+ <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
+ <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
+ <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
+ <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The probe function incorrectly handles errors from devm_gpiod_get_=
-index_optional(), breaking probe deferral.
-- [High] A race condition between spi_geni_transfer_one() and geni_spi_isr(=
-) can leave the target readiness GPIO stuck permanently asserted.
-- [Medium] The target readiness GPIO is toggled per spi_transfer rather tha=
-n per spi_message, causing spurious dropouts mid-transaction.
---
+On 06/08/2026 11:14, Krzysztof Kozlowski wrote:
+> On 06/08/2026 12:07, Bryan O'Donoghue wrote:
+>> I tend to think - absent an obvious an immediately applicable fix these
+>> two drivers must be marked BROKEN, the alternative is to apply Daniel's
+>> fix and then live with the results for the bindings.
+>>
+>> Since the DT schema change is still under debate - what alternative is
+>> there ?
+>>
+>> I'm not far off sending that patch now myself because I'm not seeing
+>> urgency on fixing this and TBH that's pissing me off.
+>>
+>> As a user of a system, I expect resonsible and honest behaviour wrt to
+>> bugs, not architecture astronauty while my system can still reset
+>> despite perfectly functional fixes being available.
+>>
+>> Great you want to do sub-nodes in DT. Not great, that's not agreed yet,
+>> even more not great - the venus stuff isn't even on the list.
+>>
+>> Please indicate what should be done for -stable this week else both of
+>> these drivers need to be marked BROKEN.
+> 
+> Nothing should be done for stable. Or rather: you can do whatever you
+> wish for the stable, because we discuss here mainline, not stable kernel.
+> 
+> There is no problem here "devices running stable kernel are affected"
+> which we are solving.
+> 
+> The only problem we are solving is "devices running mainline kernel are
+> affected". Fix this one and stable will follow.
+> 
+> Best regards,
+> Krzysztof
 
---- Patch [2]: [PATCH 2/2] spi: qcom-geni: Use GPIO to notify master of SPI=
- target activity ---
-commit c41b3184af4cdb8d8cf0321da6d2ab29ec44d0c2
-Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
-spi: qcom-geni: Use GPIO to notify master of SPI target activity
+Yes -master.
 
-This commit adds support for an optional GPIO to signal target availability
-to the SPI master in the GENI SPI controller driver. The GPIO is asserted
-when a transfer begins and deasserted upon completion, abort, or timeout.
+My issue is how long this will take. Several kernel cycles and the 
+debate is ongoing.
 
-> diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 6566975eb24f2..6083725a20aa4 100644
-> --- a/drivers/spi/spi-geni-qcom.c
-> +++ b/drivers/spi/spi-geni-qcom.c
+Daneil's fix has not been applied which means the replicable system bug 
+is out there in the wild, not addressed.
 
-[ ... ]
+Daniel's fix could have been applied and rolled out to all users in 
+mainline and consequently stable.
 
-> @@ -938,8 +943,12 @@ static int spi_geni_transfer_one(struct spi_controll=
-er *spi,
->  	if (mas->cur_xfer_mode =3D=3D GENI_SE_FIFO || mas->cur_xfer_mode =3D=3D=
- GENI_SE_DMA) {
->  		ret =3D setup_se_xfer(xfer, mas, slv->mode, spi);
->  		/* SPI framework expects +ve ret code to wait for transfer complete */
-> -		if (!ret)
-> +		if (!ret) {
-> +			if (spi->target && mas->target_gpio)
-> +				gpiod_set_value(mas->target_gpio, 1);
+Instead another architectural level fix is still under discussion, which 
+is of no value to end users whose systems can reset in the meantime.
 
-[Severity: High]
-Does asserting the GPIO here introduce a race condition?
+Its just not responsible behaviour. So I feel both of these drivers need 
+to be marked as BROKEN unless/until a fix lands.
 
-setup_se_xfer() unlocks mas->lock before returning. If the SPI master
-immediately clocks data, the transfer could complete on the hardware and
-trigger geni_spi_isr() on another CPU.
+I'm hoping the vidc team will come up with something else.
 
-geni_spi_isr() would then deassert the GPIO to 0 before this thread
-asserts it to 1, leaving the GPIO permanently stuck asserted and breaking
-the handshake protocol for subsequent transfers.
-
-[Severity: Medium]
-Is the target readiness GPIO toggled per spi_transfer instead of per
-spi_message here?
-
-If a multi-transfer message is processed, this will cause the signal to
-drop between fragments when geni_spi_isr() sets the GPIO to 0, potentially
-causing the master to incorrectly interpret it as a target abort or failure.
-
->  			ret =3D 1;
-> +		}
-> +
->  		return ret;
->  	}
-
-[ ... ]
-
-> @@ -1131,8 +1144,16 @@ static int spi_geni_probe(struct platform_device *=
-pdev)
->  	init_completion(&mas->rx_reset_done);
->  	spin_lock_init(&mas->lock);
-> =20
-> -	if (spi->target)
-> +	if (spi->target) {
->  		spi->target_abort =3D spi_geni_target_abort;
-> +		mas->target_gpio =3D devm_gpiod_get_index_optional(dev, "device", 0,
-> +								 GPIOD_OUT_LOW);
-> +		if (IS_ERR(mas->target_gpio)) {
-> +			dev_err(dev, "Failed to request GPIO: %ld\n",
-> +				PTR_ERR(mas->target_gpio));
-> +			mas->target_gpio =3D NULL;
-> +		}
-> +	}
-
-[Severity: High]
-Could this error handling block probe deferral?
-
-If the GPIO provider has not probed yet, devm_gpiod_get_index_optional()
-will return -EPROBE_DEFER. By catching this error and setting
-mas->target_gpio to NULL, the driver will silently continue without the
-requested GPIO instead of deferring the probe.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-use_gpio_t=
-o_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com?p=
-art=3D2
+---
+bod
