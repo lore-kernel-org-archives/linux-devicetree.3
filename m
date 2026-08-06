@@ -1,280 +1,394 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E097748F837
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:12:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7864F38757B
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:12:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786047134; cv=none; b=o+N9rW/6SYGlwJWdVNAfRDmk1XGLSjlzxZDzpdfIjz5xUzS3MatKsJuP2tELFE/YsogsOtVwnR+VbH8MCpnw/Xdz2g+vB2aZP6Iqg3P2piO9rEFueWoWDhc/6Q9owpxIKb1G+OoifDYhMO8/OWKnvYNu3aqD6FL3u1gjdCqSzIY=
+	t=1786047167; cv=none; b=lVceFpzYinBy/0ex4mB2nGLcTT/MxEZOxmwh5iVxI++dtcfNi3FNe7t85eChKUGgLUFwdYlZ7+mneCssGB1VeLe5ee8oQRvwXlR9/otongaVmBWOJrln9UqLBKZXF3eCTDDAJWzMfTRH3tz1IqntcMaC/IrLtEupUK6Wb55Rpjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786047134; c=relaxed/simple;
-	bh=+FgDoACLSZ+PUC38ZRtj235KDCKliDDpP230oYeNCKI=;
+	s=arc-20240116; t=1786047167; c=relaxed/simple;
+	bh=IFQ+ydRkePuYTG1U/66BEp92nkrvv0T/Az1lDxC288M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P+TCvAO0hFpU/JIIvZ62r9PjjJYtkge8MdTCbk0Z8CMtiZeuVVsIRh7WkALjQuay+3hNDaa+iTjjJwmleTTcRjo7oEXuAAlKx2TPpcMCM4AjYFvB0XY7RRcs8C6U3o2/ItL3JXIQr0gQgyTi+h1k7dS1wXtI2MYO1xZKHhZkXgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kc/e/J+U; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LBXH8OyUyX9QXhcyQq/H1ZkgEMEi1c/Mx5LNcZIv62cp8Zt9rAEectyqPgqo8umDuWPwTB/hKXA62Ir8DhrI727rdg56TTrZ+abiBIUoQ71CYNRJuLdSNQ+8+PMISgzcTCNitZUTn/9mgHHnvqC/L1IbpUWMnqodyw/5qWyw300=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVRP/l2L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kc/e/J+U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160F11F00A3A;
-	Thu,  6 Aug 2026 20:12:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVRP/l2L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12BEE1F000E9;
+	Thu,  6 Aug 2026 20:12:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786047126;
-	bh=9T+LHZeu/apo+SaaxlkBQIEy/z4T2vBawZ+9w7oUwLU=;
+	s=k20260515; t=1786047162;
+	bh=6JTMeDu8keIPm1jJBSfT9IWC2FeYykkLp1LIP70P45A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kc/e/J+UaYT2ogZrsrfCAb30R41gdol2ecq+a2XrOyu3ahC+7UCCS4CEgbGwb7u+2
-	 EvO09YW4fUjJIGH/5Zw6jhvwfM7JPcOym0xJ/CHPXe11UIZT+8mUhrANj6IuDMnqW3
-	 UZuWCoMpRZ5bMDds+9LnXtS6MhRQ46MAyAoNTOJzXKcBi1jOI4yxmxy0X50xQmtbyr
-	 mHnlw46QQkcMcgmrQ5Tg8VrY999/cFXYMNxx2DJ2J9XGHJvXNGphe8RSa+wj+0w/cu
-	 w9Q96CBFoTKZatzAeFy5FQg0258MemtGZL4Y7i6hKz+2afDd1pWJuSB8DrnZ5YCaM0
-	 sah9iW6P0uOJg==
+	b=MVRP/l2LgzzdZPLvOywbFvVj3bxpBmlPcTyQ4wR0rGnL1Uid8TFmgeGFhtZRiKyNY
+	 5oyUfPdcDr2JekpTn4thpDtha6NrTuFQ4ArVc9uHVFuWtsRM8TXd/frIBpCom76L4f
+	 aDfA38EGmE+mdlMPms3Rkp4Gl3LORWd5je6onFK8v/NDyVo3KOret+5Xi9NKIN97fs
+	 +KxKMDijmEaasskE6ZBnsORsgpMwC1/4Zjt9pXDzb7RcvZPMdRcDegE/mX+QjWh3N0
+	 sthntunyymrV+HGEPti3s2ICsZeZn4EorFGjZ+BY8QOpktH3/wut1C8VY9Vyo9r5fx
+	 +yUG/0/GzEp6A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+Subject: Re: [PATCH v3 10/19] crypto: cmh - add ChaCha20-Poly1305
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806195519.2703224-5-skrishnamoorthy@rambus.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260806195519.2703224-11-skrishnamoorthy@rambus.com>
 References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
- <20260806195519.2703224-5-skrishnamoorthy@rambus.com>
+ <20260806195519.2703224-11-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 20:12:05 +0000
-Message-Id: <20260806201206.160F11F00A3A@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 20:12:41 +0000
+Message-Id: <20260806201242.12BEE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Integer overflow in `cmh_hash_finup()` leads to undersized all=
-ocation and heap buffer overflow.
-- [High] Driver attempts to linearize entire scatterlists with `kmalloc()`,=
- breaking the crypto API for large payloads.
-- [High] Unaligned DMA mapping of an embedded structure member causes cache=
-line tearing.
-- [High] SHAKE algorithms incorrectly use a `block_size` of 1, bypassing th=
-e hardware holdback logic.
-- [High] Algorithm registration unconditionally assumes HC cores are presen=
-t, leading to a fatal divide-by-zero.
-- [Medium] Transient errors in `cmh_hash_update()` silently corrupt the req=
-uest's holdback state.
-
-Pre-existing issues:
-- [High] Transaction manager thread is started before its 'running' flag is=
- set, potentially causing immediate exit.
+- [High] The Poly1305 driver dynamically allocates memory chunks for ahash =
+requests which are permanently leaked when a request is aborted, re-initial=
+ized, or imported, leading to an unbounded memory leak and Denial of Servic=
+e (OOM).
+- [High] The driver maps an unaligned memory offset for DMA and shares a ca=
+cheline with frequently CPU-mutated fields, violating architecture cachelin=
+e alignment rules.
+- [High] The driver allocates huge contiguous buffers (up to 1MB) using `km=
+alloc` without `__GFP_NOWARN` in potentially atomic contexts, which will re=
+liably trigger page allocation failures.
 --
 
---- Patch [4]: [PATCH v3 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash -=
---
-commit cd0a896498edd93a15534bfd2d7287f9465b9b18
+--- Patch [10]: [PATCH v3 10/19] crypto: cmh - add ChaCha20-Poly1305 ---
+commit 736bbd76828dea383bcdcc54143a0030ecd02a41
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
+crypto: cmh - add ChaCha20-Poly1305
 
-This commit registers ahash algorithms for SHA-2, SHA-3, and SHAKE families
-using the CMH hash core. It implements incremental hardware updates, hardwa=
-re
-state save/restore across requests, and zero-copy from virtual buffers.
+Register ChaCha20-Poly1305 AEAD and ChaCha20 skcipher algorithms
+using the CMH CCP core (core ID 0x18).  Also registers the Poly1305
+ahash for standalone use.
 
-> diff --git a/drivers/crypto/cmh/cmh_hash.c b/drivers/crypto/cmh/cmh_hash.c
-> new file mode 100644
-> index 0000000000000..2a9a3c6a69855
+> diff --git a/drivers/crypto/cmh/cmh_ccp.c b/drivers/crypto/cmh/cmh_ccp.c
+> index 0000000000000..babf6ffe6ff09
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_hash.c
-> @@ -0,0 +1,888 @@
+> +++ b/drivers/crypto/cmh/cmh_ccp.c
+
 [ ... ]
-> +	{
-> +		.hc_algo     =3D HC_ALGO_SHAKE128,
-> +		.digest_size =3D CMH_SHAKE128_DIGEST_SIZE,
-> +		.block_size  =3D 1,    /* XOF: no meaningful block for crypto API */
+
+> @@ -175,34 +175,34 @@ static int cmh_ccp_crypt(struct skcipher_request *r=
+eq, u32 ccp_op)
+>  	struct crypto_skcipher *tfm =3D crypto_skcipher_reqtfm(req);
+>  	struct cmh_ccp_tfm_ctx *tctx =3D crypto_skcipher_ctx(tfm);
+>  	struct cmh_ccp_reqctx *rctx =3D skcipher_request_ctx(req);
+>  	struct vcq_cmd cmds[CMH_CCP_MAX_PAYLOAD];
+>  	u64 key_ref;
+>  	u32 keylen;
+>  	struct core_dispatch d;
+>  	s32 target_mbx;
+>  	u32 core_id;
+>  	u32 idx;
+>  	int ret;
+>  	gfp_t gfp;
+> =20
+>  	if (tctx->key.mode =3D=3D CMH_KEY_NONE)
+>  		return -ENOKEY;
+> =20
+>  	if (!req->cryptlen)
+>  		return 0;
+> =20
+>  	/* Limit linearisation buffers to avoid large allocations. */
+>  	if (req->cryptlen > SZ_1M)
+>  		return -EINVAL;
+> =20
+>  	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+>  	      GFP_KERNEL : GFP_ATOMIC;
+> =20
+>  	memset(rctx, 0, sizeof(*rctx));
+>  	rctx->cryptlen =3D req->cryptlen;
+> =20
+>  	/* Linearise input from scatterlist */
+>  	rctx->in_buf =3D kmalloc(req->cryptlen, gfp);
 
 [Severity: High]
-Does setting the block size to 1 here cause the hardware holdback logic to =
-be
-bypassed?
+Does this code risk triggering reliable page allocation failures?
 
-In cmh_hash_update(), the holdback checks:
-    if (total_avail < block_size) { ... }
+In cmh_ccp_crypt() (drivers/crypto/cmh/cmh_ccp.c), since cryptlen can be up=
+ to
+1MB, calling kmalloc() with GFP_ATOMIC for high-order allocations is highly
+susceptible to memory fragmentation and will fail frequently.=20
 
-Since the block size is 1, this condition fails for any non-empty input. Co=
-uld
-this force the hardware to process unaligned byte counts instead of bufferi=
-ng
-them to the required rate alignment?
+Since __GFP_NOWARN is not used, these failures will also spam the kernel log
+with stack traces, causing a denial of service.
 
-> +		.alg_name    =3D "shake128",
-> +		.drv_name    =3D "rambus-cmh-shake128",
-> +	},
 [ ... ]
-> +struct cmh_hash_reqctx {
-> +	const struct cmh_hash_alg_info *info;
-> +	int    error;
-> +	u32    hw_started;      /* non-zero after first HW submission */
-> +	u32    buf_len;         /* bytes in holdback buf[] */
-> +	u32    has_checkpoint;  /* non-zero if checkpoint[] valid */
-> +	/* DMA state for current async operation */
-> +	dma_addr_t ckpt_dma;   /* RESTORE input */
-> +	dma_addr_t save_dma;   /* SAVE output (update only) */
-> +	dma_addr_t data_dma;   /* UPDATE input */
-> +	dma_addr_t digest_dma; /* FINAL output (final/digest only) */
-> +	u8    *save_buf;       /* SAVE output buffer */
-> +	u8    *data_buf;       /* linearised data for DMA */
-> +	u32    data_len;       /* bytes in data_buf */
-> +	u8    *digest_buf;     /* digest output buffer */
-> +	u8     buf[CMH_HASH_MAX_BLOCK]; /* holdback for partial block */
-> +	u8     checkpoint[HC_CONTEXT_SIZE]; /* HC context from last SAVE */
+
+> diff --git a/drivers/crypto/cmh/cmh_ccp_aead.c b/drivers/crypto/cmh/cmh_c=
+cp_aead.c
+> index 0000000000000..df5482179bdc4
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_ccp_aead.c
+
+[ ... ]
+
+> @@ -235,36 +235,36 @@ static int cmh_ccp_aead_crypt(struct aead_request *=
+req, u32 ccp_op)
+>  	struct crypto_aead *tfm =3D crypto_aead_reqtfm(req);
+>  	struct cmh_ccp_aead_tfm_ctx *tctx =3D crypto_aead_ctx(tfm);
+>  	struct cmh_ccp_aead_reqctx *rctx =3D aead_request_ctx(req);
+>  	struct vcq_cmd cmds[CMH_CCP_AEAD_MAX_PAYLOAD];
+>  	u64 key_ref;
+>  	u32 keylen, authsize, cryptlen;
+>  	struct core_dispatch d;
+>  	s32 target_mbx;
+>  	u32 core_id;
+>  	u32 idx;
+>  	int ret;
+>  	gfp_t gfp;
+> =20
+>  	if (tctx->key.mode =3D=3D CMH_KEY_NONE)
+>  		return -ENOKEY;
+> =20
+>  	authsize =3D tctx->authsize;
+> =20
+>  	if (ccp_op =3D=3D CCP_OP_ENCRYPT) {
+>  		cryptlen =3D req->cryptlen;
+>  	} else {
+>  		if (req->cryptlen < authsize)
+>  			return -EINVAL;
+>  		cryptlen =3D req->cryptlen - authsize;
+>  	}
+> =20
+>  	/*
+>  	 * HW uses a proprietary LLI scatter-gather format that is
+>  	 * incompatible with struct scatterlist, so the payload is
+>  	 * linearised into contiguous buffers for DMA.  Cap total
+>  	 * size to prevent excessive memory consumption.
+>  	 */
+>  	if ((u64)cryptlen + req->assoclen > SZ_1M)
+>  		return -EINVAL;
+> =20
+>  	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+>  	      GFP_KERNEL : GFP_ATOMIC;
+> =20
+>  	memset(rctx, 0, sizeof(*rctx));
+>  	rctx->cryptlen =3D cryptlen;
+>  	rctx->assoclen =3D req->assoclen;
+>  	rctx->authsize =3D authsize;
+>  	rctx->encrypting =3D (ccp_op =3D=3D CCP_OP_ENCRYPT);
+> =20
+>  	/*
+>  	 * rfc7539esp: the last ivsize (8) bytes of the AAD region are the
+>  	 * IV/nonce, not actual associated data.  Subtract them so HW only
+>  	 * authenticates the real AAD.
+>  	 */
+>  	if (crypto_aead_ivsize(tfm) =3D=3D CCP_ESP_IV_SIZE) {
+>  		if (rctx->assoclen < CCP_ESP_IV_SIZE)
+>  			return -EINVAL;
+>  		rctx->assoclen -=3D CCP_ESP_IV_SIZE;
+>  	}
+> =20
+>  	/* Linearise AAD */
+>  	if (rctx->assoclen > 0) {
+>  		rctx->aad_buf =3D kmalloc(rctx->assoclen, gfp);
+>  		if (!rctx->aad_buf)
+>  			return -ENOMEM;
+>  		scatterwalk_map_and_copy(rctx->aad_buf, req->src,
+>  					 0, rctx->assoclen, 0);
+>  		rctx->aad_dma =3D cmh_dma_map_single(rctx->aad_buf,
+>  						   rctx->assoclen,
+>  						    DMA_TO_DEVICE);
+>  		if (cmh_dma_map_error(rctx->aad_dma)) {
+>  			ret =3D -ENOMEM;
+>  			goto out_free_aad;
+>  		}
+>  	}
+> =20
+>  	/* Linearise input */
+>  	if (cryptlen > 0) {
+>  		rctx->in_buf =3D kmalloc(cryptlen, gfp);
 
 [Severity: High]
-Is there a risk of cacheline tearing during DMA mapping here?
+Does this face the same allocation failure risk as in cmh_ccp_crypt()?
 
-The checkpoint array is embedded within struct cmh_hash_reqctx without expl=
-icit
-alignment constraints. When cmh_hash_update() invokes cmh_dma_map_single() =
-on
-this member, could flushing or invalidating the buffer corrupt adjacent fie=
-lds
-that share the same cacheline?
+In cmh_ccp_aead_crypt() (drivers/crypto/cmh/cmh_ccp_aead.c), with allocatio=
+ns
+up to 1MB and GFP_ATOMIC context, high-order memory allocations could fail=
+=20
+easily and produce large stack trace spam without __GFP_NOWARN.
 
-> +	struct vcq_cmd packed[CMH_HASH_MAX_PACKED];
-> +};
 [ ... ]
-> +static int cmh_hash_update(struct ahash_request *req)
-> +{
+
+> diff --git a/drivers/crypto/cmh/cmh_ccp_poly.c b/drivers/crypto/cmh/cmh_c=
+cp_poly.c
+> index 0000000000000..0f783a98d54de
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_ccp_poly.c
+
 [ ... ]
-> +	/*
-> +	 * Linearise: holdback prefix + full blocks from scatterlist.
-> +	 * full_len is user-controlled and can exceed KMALLOC_MAX_SIZE for a
-> +	 * single large update; __GFP_NOWARN avoids splatting the page
-> +	 * allocator on an oversized request.
-> +	 */
-> +	rctx->data_buf =3D kmalloc(full_len, gfp | __GFP_NOWARN);
-> +	if (!rctx->data_buf)
-> +		return -ENOMEM;
+
+> @@ -62,14 +62,14 @@
+>   */
+>  struct cmh_poly_tfm_ctx {
+>  	u8  key[POLY1305_KEY_SIZE];
+>  	dma_addr_t rkey_dma;
+>  	dma_addr_t skey_dma;
+>  	u32 keylen;
+>  	bool has_key;
+>  	spinlock_t         chunk_lock;  /* protects all_chunks */
+>  	struct list_head   all_chunks;  /* orphan-safe chunk tracking */
+>  };
 
 [Severity: High]
-Can this memory allocation fail deterministically for valid large payloads?
+Can this structure layout cause data corruption on non-cache-coherent=20
+architectures?
 
-The kernel crypto ahash API is expected to handle arbitrarily large
-scatterlists. By attempting to linearize the entire operation into a single
-physically contiguous buffer, could this fail for payloads exceeding the
-maximum kmalloc size and break subsystems that rely on large streams?
-
-> +
-> +	if (rctx->buf_len > 0)
-> +		memcpy(rctx->data_buf, rctx->buf, rctx->buf_len);
-[ ... ]
-> +	/* Move tail to holdback */
-> +	if (tail_len > 0) {
-> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
-> +			memcpy(rctx->buf, req->svirt + from_src,
-> +			       tail_len);
-> +		else
-> +			scatterwalk_map_and_copy(rctx->buf, req->src,
-> +						 from_src, tail_len,
-> +						 0);
-> +	}
-> +	rctx->buf_len =3D tail_len;
-> +	rctx->data_len =3D full_len;
-> +
-> +	/* Allocate SAVE output buffer */
-> +	rctx->save_buf =3D kzalloc(HC_CONTEXT_SIZE, gfp);
-> +	if (!rctx->save_buf) {
-> +		ret =3D -ENOMEM;
-> +		goto err_free;
-> +	}
-
-[Severity: Medium]
-Could a memory allocation failure here permanently corrupt the internal hash
-holdback state?
-
-The tail data is copied to rctx->buf and rctx->buf_len is updated prior to
-allocating save_buf. If this allocation or the subsequent DMA mapping fails,
-the function returns early with an error, discarding the previous holdback
-prefix data. Should the internal state mutation be deferred until all
-allocations succeed?
+In struct cmh_poly_tfm_ctx (drivers/crypto/cmh/cmh_ccp_poly.c), the key arr=
+ay=20
+is mapped for DMA. Since it shares a cacheline with chunk_lock and all_chun=
+ks,=20
+CPU modifications to these fields could be lost or corrupted during DMA cac=
+he=20
+clean/invalidate operations.
 
 [ ... ]
-> +static int cmh_hash_finup(struct ahash_request *req)
-> +{
-[ ... ]
-> +	data_len =3D rctx->buf_len + req->nbytes;
 
-[Severity: Critical]
-Can this integer addition wrap around for extremely large payloads?
-
-Unlike cmh_hash_update(), which explicitly checks for overflow, this functi=
-on
-lacks validation. If data_len overflows, it would result in a small memory
-allocation followed by a massive out-of-bounds copy operation below.
-
-> +
-> +	if (data_len =3D=3D 0)
-> +		return cmh_hash_submit_final(req, NULL, 0);
-> +
-> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
-> +	      GFP_KERNEL : GFP_ATOMIC;
-> +
-> +	data_buf =3D kmalloc(data_len, gfp | __GFP_NOWARN);
-> +	if (!data_buf)
-> +		return -ENOMEM;
+> @@ -144,32 +144,32 @@ static int cmh_poly_setkey(struct crypto_ahash *tfm=
+, const u8 *key,
+>  			   unsigned int keylen)
+>  {
+>  	struct cmh_poly_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
+> =20
+>  	/* Poly1305: exactly 32 bytes (r[16] + s[16]) */
+>  	if (keylen !=3D POLY1305_KEY_SIZE)
+>  		return -EINVAL;
+> =20
+>  	/* Unmap old key DMA if re-keying */
+>  	if (tctx->has_key) {
+>  		cmh_dma_unmap_single(tctx->rkey_dma, CCP_POLY_KEY_SIZE,
+>  				     DMA_TO_DEVICE);
+>  		cmh_dma_unmap_single(tctx->skey_dma, CCP_POLY_KEY_SIZE,
+>  				     DMA_TO_DEVICE);
+>  	}
+> =20
+>  	memcpy(tctx->key, key, POLY1305_KEY_SIZE);
+>  	tctx->keylen =3D POLY1305_KEY_SIZE;
+> =20
+>  	/*
+>  	 * Pre-map both key halves for DMA.  The key buffer lives in
+>  	 * the tfm context and is stable until exit_tfm() or re-setkey.
+>  	 */
+>  	tctx->skey_dma =3D cmh_dma_map_single(tctx->key + CCP_POLY_KEY_SIZE,
+>  					    CCP_POLY_KEY_SIZE,
+>  					     DMA_TO_DEVICE);
 
 [Severity: High]
-Similar to cmh_hash_update(), does linearizing the entire buffer with
-kmalloc() break the crypto API contract for large scatterlists?
+Does this break architecture alignment rules?
 
-> +
-> +	if (rctx->buf_len > 0)
-> +		memcpy(data_buf, rctx->buf, rctx->buf_len);
-> +
-> +	if (req->nbytes > 0) {
-> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
-> +			memcpy(data_buf + rctx->buf_len,
-> +			       req->svirt, req->nbytes);
+In cmh_poly_setkey() (drivers/crypto/cmh/cmh_ccp_poly.c), mapping tctx->key=
+ + 16
+(CCP_POLY_KEY_SIZE) means the buffer offset isn't ARCH_DMA_MINALIGN aligned.
+
 [ ... ]
-> +int cmh_hash_register(void)
-> +{
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	for (i =3D 0; i < CMH_HASH_ALG_COUNT; i++) {
-[ ... ]
-> +		ret =3D crypto_register_ahash(alg);
+
+> @@ -245,15 +245,15 @@ static void cmh_poly_fb_forward(struct ahash_reques=
+t *req,
+>  				struct cmh_poly_reqctx *rctx)
+>  {
+>  	if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+>  		poly1305_update(&rctx->fb_state, req->svirt, req->nbytes);
+>  	else
+>  		cmh_poly_fb_feed_sg(&rctx->fb_state, req->src, req->nbytes);
+>  }
+> =20
+>  static int cmh_poly_init(struct ahash_request *req)
+>  {
+>  	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
+> =20
+>  	memset(rctx, 0, sizeof(*rctx));
+>  	INIT_LIST_HEAD(&rctx->chunks);
+>  	return 0;
+>  }
 
 [Severity: High]
-Does this algorithm registration cause a divide-by-zero during testing if
-the hardware lacks HC cores?
+Does this leak any chunks accumulated in a previous update call?
 
-Algorithms are registered unconditionally here. When the crypto framework
-allocates an algorithm for testing, cmh_core_select_instance() performs a
-modulo by ct->num_instances. If the device tree safely omits HC cores, could
-this crash during boot or driver probe?
+In cmh_poly_init() (drivers/crypto/cmh/cmh_ccp_poly.c), if this function or=
+=20
+cmh_poly_import() is called on an active request, the memset() overwrites t=
+he=20
+rctx->chunks list head, silently orphaning any existing chunks and leaking=
+=20
+memory.
 
 [ ... ]
 
-This isn't a bug introduced by this patch, but looking at cmh_tm_init() in
-drivers/crypto/cmh/cmh_txn.c:
-
-cmh_tm_init() {
-    ...
-    tm.thread =3D kthread_run(cmh_tm_thread, NULL, "cmh_tm");
-    if (IS_ERR(tm.thread)) {
-        ...
-    }
-
-    WRITE_ONCE(tm.running, true);
-    ...
-}
+> @@ -262,35 +262,35 @@ static int cmh_poly_update(struct ahash_request *re=
+q)
+>  {
+>  	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
+>  	struct cmh_poly_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
+>  	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
+>  	struct cmh_poly_chunk *chunk;
+>  	gfp_t gfp;
+>  	int ret;
+> =20
+>  	if (!req->nbytes)
+>  		return 0;
+> =20
+>  	/* Already handed off to the library: forward directly (O(1) mem). */
+>  	if (rctx->switched) {
+>  		cmh_poly_fb_forward(req, rctx);
+>  		return 0;
+>  	}
+> =20
+>  	/*
+>  	 * Exceeding the HW input cap: switch to the Poly1305 library
+>  	 * (replaying the buffered chunks) rather than failing, then
+>  	 * forward this update.
+>  	 */
+>  	if (req->nbytes > POLY_MAX_DATA - rctx->total_len) {
+>  		ret =3D cmh_poly_switch_to_fb(req);
+>  		if (ret)
+>  			goto err_free_chunks;
+>  		cmh_poly_fb_forward(req, rctx);
+>  		return 0;
+>  	}
+> =20
+>  	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+>  	      GFP_KERNEL : GFP_ATOMIC;
+>  	chunk =3D kmalloc(sizeof(*chunk) + req->nbytes, gfp);
+>  	if (!chunk) {
+>  		ret =3D -ENOMEM;
+>  		goto err_free_chunks;
+>  	}
+> =20
+>  	chunk->len =3D req->nbytes;
+>  	if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+>  		memcpy(chunk->data, req->svirt, req->nbytes);
+>  	else
+>  		scatterwalk_map_and_copy(chunk->data, req->src,
+>  					 0, req->nbytes, 0);
+>  	list_add_tail(&chunk->list, &rctx->chunks);
+>  	spin_lock_bh(&tctx->chunk_lock);
+>  	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
+>  	spin_unlock_bh(&tctx->chunk_lock);
 
 [Severity: High]
-Could the transaction manager thread exit immediately upon creation?
+Does this leak memory if the request is closed by userspace before final() =
+is=20
+called?
 
-Because kthread_run() synchronously starts and schedules cmh_tm_thread,
-the new thread could check the tm.running flag before the parent thread
-executes WRITE_ONCE(tm.running, true), observing it as false and exiting
-permanently.
+In cmh_poly_update() (drivers/crypto/cmh/cmh_ccp_poly.c), if an unprivilege=
+d=20
+local attacker uses AF_ALG to hash data, calls update(), and then closes th=
+e=20
+socket, the crypto ahash API has no .freereq callback to clean up.=20
+
+The chunks allocated here will be orphaned and remain on tctx->all_chunks=20
+indefinitely until the TFM is destroyed, leading to an unbounded memory lea=
+k=20
+and system OOM.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806195519.2703=
-224-1-skrishnamoorthy@rambus.com?part=3D4
+224-1-skrishnamoorthy@rambus.com?part=3D10
