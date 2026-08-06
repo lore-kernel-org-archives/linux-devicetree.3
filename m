@@ -1,89 +1,65 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013039.outbound.protection.outlook.com [52.101.83.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D24348095D;
-	Thu,  6 Aug 2026 15:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E11547B435
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 16:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.39
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786031949; cv=fail; b=SHWN6lkauGfFZdfWDQ82eeUa6zOIu6iqM+dAsyRPTxd4s42bnVOPuWcHq/wW9CozbH6sMddjQv5soBBD6oYyrWkKmVidaLSuieT2c6OFsN2o90pSPrYflKhPruRqCl/LpvWoAzrCPZAiedaeVLimPL5A7R0J50bcGLJ2wQNV980=
+	t=1786032499; cv=fail; b=R0fb7+qhl+N+/2DyJEY90kN1nNbRAyASZzx9sxmut3GG/mWFVP0Kvzs9tjSZNuusZXskPJ3HyR5OHjvdQq/UY/agQCj5TeEKvCBMJuaoS9yqR74T5XqbaBiHAr5Dnp2qbZ0jpQOQA1+acGE9R4vm6t1OXTxHgcLm93g7YSzYF5E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786031949; c=relaxed/simple;
-	bh=tg6JNIrrEXsm+09Cj7FQ8ngrKneWJz0fdmIg/oj3NXw=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=tuuPqBcYJYM2ozQlnMNmtgQ5GZ77lI5BOqVKGxA53cYeiLGJpjYZhG7gkjnJh894Ak6H9WAhItUQGVTGCQduhBCqwoUrXcfAYpVqpHk7iIMeYEpcNo6SBq+NzOPv7SQQ0BVpozXEP8wQv2ABEt3Zfs1/HVf6WgBsBp8has+ogU4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=kPOIFjg0; arc=fail smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1786032499; c=relaxed/simple;
+	bh=gHZtJaPfbx7kwCbx5WBe61mR5FU65oB9IOAZyF5GTdE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=FIYWzRdd0R3fWIGguLCbMcy1Jb12sn4LlbniWCptta9wP7/+JMRq86bn8mbfDLJz7braI9ri0rbAgq3DwdgpXoh7aPDzxJymyU/NWyYhst4TzIte3LFlRyC4o+r07XC/u0/qoqZNu7gusTz8B+YNcvsDqWDo5mn+QO9dwf/9ntg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=OHYspa1f reason="signature verification failed"; arc=fail smtp.client-ip=52.101.83.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="kPOIFjg0"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676EqeE83342632;
-	Thu, 6 Aug 2026 11:58:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=hCS73
-	bxlVv0X+fBB3ujMBihLij/HaIqhCtJEyBCZz5M=; b=kPOIFjg0Dr+H/CcDVvTFW
-	bAkEqLEIYxSbdiU5sbj9/ZF4JfYf8JDCqVGfFeiplQnRJMTI6aHrkscIVe1ut98q
-	0E3cZXw7YQgqbGrW8jAvphQR/rF9LfBKdvazj6iw9AoX7awLPAW7v0N4qdphuHHO
-	Zf7LbQft4dO4PkNmL4/91l9fmqq3vZRepR89oeG6TCH4gICpdF2Q3jIsIIxdOMLo
-	gQC0p+jDRWOtiirGiPJ8swhUZccV0HsCogon3IlDsRY+iM+uqDIC8+k/28tVJAlW
-	EzY9rLMrDLBi8LM77SYv8T8V9K/tGQynoXcjLLcLrfP3p2+1z7+DriS62dYztyII
-	Q==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azon11011061.outbound.protection.outlook.com [40.107.208.61])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4fvuvyrfj3-2
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 11:58:56 -0400 (EDT)
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="OHYspa1f"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ggfujfh24Dl+TC/uRz1/Quj87JH76AF4fYwmXGMEjmgQM3kq9L6NGR9Am28trkZW32s4PV+LnnLEy8nf1sk3ohJa9Hg1VQxxGDi4OoLeOCvDYB82+5JL5hfasKx9fhBjt0dtX8TMfrVkgXwqmKGZWkNSSsGLTDvv3XnIyplnuWAYpLx5FhAHLM4TCH5xCsxj95CyiwifdGTYArXxgkQH6QSQP09ZiN3mdSocdrc7vw5X0LFeTnX3vU7I04FmJmeq1Nuff4CRqk0aCyW4J0l9gsRlroDDLLf+X7rQM5XdgKp8kwF5ObNOCV+bFEblLLUpL+2S0seF4MDkydZ+Va8TXQ==
+ b=zPpl1P5/pqowz54HBsEyeR5Jif6hofADaYmf135XT7sMPU9HDYfwli3VnX7NME547dydHGgKRoTg2zvHHZJr9pE5XSzQj1stRYfGcH+esiNquSnpOjNCFzmekklVvcZL7TGgHw6yPOAYrhXyu/mreskUa5NEgORTPjUP8q2iEJBIPu4B5e49vAO5rcOjU9QH3C0nDWvpMXOZ+7vmxW2EFHWi9H+W0l+pqyOr+NmcB/ioeopRD3AoK6r1SUIpfWBK2TeOE4Q83BqgzG3ayscBX2MDMC1RRMKKhu4aqN8zQydn68XWVJ+AOLJ7y+9tm6+SxCz0JwJb3h4O0+ezzE0HGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hCS73bxlVv0X+fBB3ujMBihLij/HaIqhCtJEyBCZz5M=;
- b=oD0N6/pUdOhTDKsNL01ec9uJCgXGp8vH5B27y0O9MHBRvGZRPrW5EGcia8G6aX76/uFKtA7RXaA4ydmyE5Co05ep+WOZgG6HVoKUpVboGQvyJgD9HF8ScOCCzeYSdo1SG0tlXEuv42YBHUszQvLYMeUqE+Av9jPXMHfPisVzM+LH8hertWJe0mMw4hlAGv18+4B3q6LICAwZ8t5/4uFmveQdu6A67WIIMNuNNuv6i0eETa2K/yrTKio0V7xmzD7ok5bzkz0+5hhmR4uv3uKv0srsO7y7cOIb54Ej1pi8NBVzWlpEUOFPQry1bTYA7HdN8ElUtdhhGd3ESxixIh+3Rw==
+ bh=h+dZ6FFnp5BWziFpM6x84pHwMPVY9mXeh5pu546du+g=;
+ b=rqvcVUUV0Cy/zfUN9SZIfE12Y/lhoEfnuJHZVzR2CdvKGxlHy1bC1Vr7icrZhieCYkogm/TYB/icLEB1Ae9QVCtU6Sd2plpX8R2FdWVNhl5GR35bboI50vQGOS3XhsRKkR2kHrAahT4FAev0ARbhQC2eaMtFzQiPf/09THD8fvdlHeUtgx8dE8BhEyqNJH7alJHVNVdeSl7PwPqXEf0z7Nk+hPvqkSYQ2Hez1cWIJKW+yF46bwUGNH8XpBIJ5URXqq1XSNeE3dsLJmeKyfPPxmD2xVvUWcOzjLtzZkR95ldbznxY0Zh4M4lu9k8lVC6QcmITvzhTR+CBIW5w4A5cSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=analog.com; dmarc=pass action=none header.from=analog.com;
- dkim=pass header.d=analog.com; arc=none
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com (2603:10b6:a03:28a::17)
- by MW4PR03MB6346.namprd03.prod.outlook.com (2603:10b6:303:11d::16) with
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h+dZ6FFnp5BWziFpM6x84pHwMPVY9mXeh5pu546du+g=;
+ b=OHYspa1fKh3qk+0TtahmYnggdXKyR3Maxjv33tGjT3XTSJ35cNXPJlnmZ7x3bdIy1TfSL+QpgO9kInOYDHVCSp3i/SgQ13P9sr4I47CUbd4J0q8IZexYczfYego9J5FyTb3+odMQ7IrXUTrMN3dLn/h2c+gZjB/L1/E7DpgkEteTAaiSR3TJzPm3BfouAXqqLVgxTmw0RN7qKjgnvtCKlSzo9J/4niZYPY9p1XKssY5GQwGi31e5/fU/vACRu6c63s+E4LPOROvKNlNUw0HIa6R5AfTTS5m+6z65WdRcTJ9sYrHfT1qAePrcec+la9PTXuRpUgklHdRrDaKOJ5uVMQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8148.eurprd04.prod.outlook.com (2603:10a6:20b:3e9::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Thu, 6 Aug
- 2026 15:58:53 +0000
-Received: from SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a]) by SJ0PR03MB5469.namprd03.prod.outlook.com
- ([fe80::2a19:76b2:e731:8c5a%6]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
- 15:58:53 +0000
-Content-Type: text/plain; charset="utf-8"
+ 2026 16:08:14 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 16:08:14 +0000
+Date: Thu, 6 Aug 2026 11:08:07 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: pankaj.gupta@oss.nxp.com, Frank.Li@kernel.org, conor+dt@kernel.org,
+	robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+Subject: Re: [PATCH v35 3/7] firmware: imx: add driver for NXP EdgeLock
+ Enclave
+Message-ID: <anSxZxLFoybigjZ8@SMW015318>
+References: <20260806-imx-se-if-v35-0-11b25bb308ef@nxp.com>
+ <20260806-imx-se-if-v35-3-11b25bb308ef@nxp.com>
+ <20260806111724.61CEE1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 2/2] iio: accel: adxl367: add support for INT2
- interrupt pin
-From: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        Marcelo Schmitt <marcelo.schmitt@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Cosmin Tanislav <cosmin.tanislav@analog.com>, linux@analog.com,
-        linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-In-Reply-To: <20260805115952.33894-3-antoniu.miclaus@analog.com>
-References: <20260805115952.33894-1-antoniu.miclaus@analog.com>
- <20260805115952.33894-3-antoniu.miclaus@analog.com>
-Date: Thu, 06 Aug 2026 16:59:55 +0100
-Message-Id: <178603199582.1212536.12747445371339172232.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786031998; l=652;
- i=nuno.sa@analog.com; s=20231116; h=from:subject:message-id;
- bh=tg6JNIrrEXsm+09Cj7FQ8ngrKneWJz0fdmIg/oj3NXw=;
- b=RlaWiexEx9jmN06p8ZxMo848Xpsi+3OYWK7sJXWzEHmZp+iSNk15DvgH9ZlQQoHu5GP9i3PVr
- DlTvC98y/kQCxzMhLYr5uRLFfcS0kZTflJnSUgbv+cfx98cva+I8EUF
-X-Developer-Key: i=nuno.sa@analog.com; a=ed25519;
- pk=3NQwYA013OUYZsmDFBf8rmyyr5iQlxV/9H4/Df83o1E=
-X-ClientProxiedBy: MR1P264CA0217.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:56::16) To SJ0PR03MB5469.namprd03.prod.outlook.com
- (2603:10b6:a03:28a::17)
+In-Reply-To: <20260806111724.61CEE1F00A3A@smtp.kernel.org>
+X-ClientProxiedBy: PH5P222CA0010.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,114 +67,216 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB5469:EE_|MW4PR03MB6346:EE_
-X-MS-Office365-Filtering-Correlation-Id: f53086ae-47b5-49e1-5a67-08def3d39d23
-X-LD-Processed: eaa689b4-8f87-40e0-9c6f-7228de4d754a,ExtAddr
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8148:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97591e16-7ed0-4b41-da8b-08def3d4eb88
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|56012099006|11063799006|10067099003|4143699003|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|23010399003|19092799006|1800799024|376014|5023799004|11063799006|56012099006|10067099003|6133799003|18002099003|3023799007|22082099003|4143699003|13003099007;
 X-Microsoft-Antispam-Message-Info:
- 48nm2e/VDLN97f5Oh8okBQ4j6499LaA/bE5NrhcTJFfNWoRup5YU7kFjE/LeAv2qE+c4i43FG7G89fr7S/OQxuOkRYpczv09cw+N7pBZdOIbQW6iWeg8tSrs4uJRt02qJB68NGbGs9q360GGO2joGyBbdmYFn+jFtq30RljI13tPMTLBsXG1AXu/bYWqkfvS2JEXT2hgWUkGwthUoULDkN4NORIRDzDkIsqbC9ezfAf+qZhn0E6djhb4jXrrX5Eh7qYgd4zQ512dJOhHH8BlbZzSQCVtPcyF7ohYDdv0EtHYh58HlWFOOQkinbUN3UJcZlZ83TZ7KgM13OgFCs0P1pWTGveNjyhm9teZvhJ49l7iQbXtf69sOe8n3R6s1cHkkWriCD6GoHf3b/dOiwIOUpRPIe5DUWyJk17zCtmQ9kBC3i+KWUaD+5HJZdMbSCb2DDQ74XRDZ8gIKtESdwEsNAHXgYpcpdRejkLNRw0ddlfrgP01or2PYT6u+IhHycG4wLRzvOs0HpByhLy9oVGJ0whenKPuAZGBvWOae51I4zvoQ0DRFJ5+jQplV71oc3eEm0Bev7s305JMAPUMNcAZBFR02lgXRAeLjquGIjTeDZ088UTsbx9RLuEaga6Fbo7TbIVDsRo7c40CpLLSKkDn8wn3cb0Raz7+Jb3+WI1IfEc=
+	KWGkxyoxHdVBmJEVGdjfXRCEAJ/2hx0hZWMLny3QW+dy7Si6WDhzUy3ME9v19Bth0mcMWYEq6jNnkPwICswlEdR10NkiG/BrD3AKSKlDbOdeY9g9B1IvWLEc8sWth3H6jgvXxKABPp6aURV5a/D53W9cpyOnDA7AnfE55nMnU33p0R8sqA7dovQi4y7HhBCeL3wiYBPDzzpiTiytbeEArx/RevqUNqFFC44KX1TF08zEp7B1EbjxK69LiORehVXVW5zw4SelJf9gAI4818whJa/rXrThjezu2oY6VZ1CIUwqZ7dq4dk90GsAtgWiyFtO16BrmK7hYV1PsKwLEWx3vQCj/pCuRdhgrG0Z4fWE5xsDmW6RGlHcpUaRV16h+/KTL2019oaghK79HV4eb8Ep26Y0gEeTIf3/A1RBG5IuVvfwPga00LakOAg1BKroAr3F4EBbhITdapZod4eaVnV5HpK0tS4PLSKILQK6AsDluI2DFoTHVY7rNOXMzyo2jh1/3zRTeKDcbCjghCdHmkTmk1db8Ml+EQVn/xwYAIzy1GVjcHuS4MXHo6Eaa5j1gOvY9AeSlcYwaD7OlMuYi2lX5Wo5gTdwfpAzmG7ESgiQ7R4=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5469.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(56012099006)(11063799006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(1800799024)(376014)(5023799004)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(3023799007)(22082099003)(4143699003)(13003099007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?utf-8?B?c1FRL1hkQUFLeXltWmF5akN0TkhTSEdtaUJjQWVpZXdoN0NHMmp4RGxwUVl5?=
- =?utf-8?B?R3R3ZEhrWktQZVA1T3ZSVWpyUjNnZ0E4TmFWWVV1cFJVMjB5SEpjQVhxMTM5?=
- =?utf-8?B?UGt1MWkvb3hlQmJlWDdMeFg5eWFPWmhpNklrVitnbWV3K3V4eExtMHFqbUJi?=
- =?utf-8?B?YndzOXl1OEtvYzUzVFVxUDVPelozMDc4dDBtUzAwdHBSNFM4WnBhMnExeHU1?=
- =?utf-8?B?SUYxaXpjRUJrVmpQdXhOalRQaGNjUi9iZXpUdzNTSjM5eXFIYkE3N2kzTzZm?=
- =?utf-8?B?SDVhZU5ydWYrU0hXRHowdmhyOG5Fc0NkdFlMTXRsejZQb2J2Q1FiMHJ3QmJx?=
- =?utf-8?B?NkFuWjlHNHJTdFNXN1J5S2orYkYzRGRVbExuOEs1RlA2OFFKNW1HbnR5Q1I4?=
- =?utf-8?B?MmtFajE5dFQ0QUJrV3VCU0RmWWp3OVhUb2xudVBDcEI2Sm9COEExMUJZa0xP?=
- =?utf-8?B?Q0VhL3pqTDF2djBQeHZzUTJXblRIcUZMcE5IaEVQUis5QlVxYTFiTWwvWFpB?=
- =?utf-8?B?TDVHVFQrVkk1dmtqZC8vRHhwcDFIeldBVFBQTmxFYWszU1haZyt3MHpoZkcz?=
- =?utf-8?B?Z3Vsb2hFTm5BQUIxZHF6TUFiTHE4Q0IxeW5pU3JpRGIzWlRMcm95L1pDMS8w?=
- =?utf-8?B?YitNb0pjV1lNcmxkeit0aTZWckwzMGNwY2xsVUJqbzlKTkF0RzBPS0swMlNL?=
- =?utf-8?B?NkZQVi9seE1ja1JCZ0J2dmkzaGVUbUQ5Y3M5a0NLKzZJV0Y0MldjV2lJelNK?=
- =?utf-8?B?WDlIUmdjZTFzQS9rVDlJQ20yY1VyM0t5RGZUWlJkWWNlTzI4ejBnMWg4WjZG?=
- =?utf-8?B?STR0bE5NSXZJR3hGMkVCUUV3SGN4UFlKWVRKb0ljL1o4T05hV1JFSUhrTFVy?=
- =?utf-8?B?aXIxbVBwWElXdDFrNDRpNWxONEdtUDRDZmRPS05WWTRldldaRW9acmd4NUps?=
- =?utf-8?B?NEQ5WHlUaG50NHFlNDA0dFRLN0RVd3Ayd1JCK0JUaTkzNTUwNUgzWEwxenpn?=
- =?utf-8?B?NCtQcGhhUXRORXp0dThFS1l1ZHQyK0VyYVRPaE8vTkxvQzR4Sm51WDFqRkFs?=
- =?utf-8?B?ejlPdWk2OTNodFV6QUFndGc5ZFVJQ1hDY2FBaEw5MG9xUjlnM2lkdlhYNlA2?=
- =?utf-8?B?dndRY1NyVmhSSWU5ZlQ2R0V1L1JvVmsrcTJDb2k3SmNCVWhETU1YUk9DZnZC?=
- =?utf-8?B?bklLc3RBa1FWclNNU0hWTnhLaVZJOFVrSVg2T29yMnBId1grTk55MWxEVVRF?=
- =?utf-8?B?Vlh5WnlDUXFCN2R2ODFsd1lNdmx0MnAyS2NuRFVvNEhHRTQ1TzQrRTR6UDFl?=
- =?utf-8?B?a0RpaWxxbHhUUnNvV1hJSWF5KytzTEFldE5DN3d2OWpZRzgrWW5SUHRSbzJB?=
- =?utf-8?B?RFBZZmJTMWo1U0lMb3Z4ak1keHRaMXM5cGIxY0dXbEpyN3NWekF1ZExFYVg2?=
- =?utf-8?B?MTJhU1h4VjBKVUxCYTUwZEFNaGlwTEE3UU9rcG1nSnFDUWpZcEphbzZMV1g4?=
- =?utf-8?B?TTNCeW5odERTS05BUWIvRUU0cjhwTUFsMjdRcjFPV3NFOGRkU0w0QlBjSU9F?=
- =?utf-8?B?Z2FYRmZyeW1td1MzWmxmU2JIMm1rTWNYWWJ2UkU5QWpaQ2thTGlSR0NuaFYy?=
- =?utf-8?B?Q2VBZXpMN0NQNHJMTW1YL1dXQVJ6c1NmSmNTbVdXa0FHTTd2M2phUUNhMzdB?=
- =?utf-8?B?WXNZTnhLT3RPYkFIdm9zeURYTDZXd245R1hMZXB3RXYrVGZacFNJMWZWMHN2?=
- =?utf-8?B?dUlJNnVUK3lSWE9mQWQzc3EyMG5oeWZSOUdpMzZpYm1rUng4cVZpK0pNSCth?=
- =?utf-8?B?dkdTQWVBdzNxTVNUcDlLUlBnODRSeEhxeU5QdHZvSFUwT3JmSmlSbk9kc1hM?=
- =?utf-8?B?Yk9wNlVvRnVjWmZnYTNvRE5LTENQUkYxTFZjREh6OEhZN2JEV3dNM0k0THlP?=
- =?utf-8?B?Q0hQWkNQVXFqTktIbHZsV1RYbGpxK2hUbDR3VlhFZXk3QktIbGVUa2N3YURW?=
- =?utf-8?B?MmtyQk42bU42R25Hbm1qV3ljdFY3RUtmS1k3M2NOMGwyMkhETFVhMlZPa1Bw?=
- =?utf-8?B?QjR5UGs3bWNKa3pLbXI3N2JibzFOK1krblJlMzVGbXNjRG5CMjU3ZzNrN2li?=
- =?utf-8?B?QmozM1hBemcrYjc1S3dYUFYwSlNnNkllM1J5RjE5WW8zYkZJbmd2cGFHVmcz?=
- =?utf-8?B?dXZ4V0tVaHVrVG96SFh0UFZQVGRUU0lKa1RCK2ZqdVdtdWo2V2JTTFNneU44?=
- =?utf-8?B?MXI1endMN0s5UHBjOXBlc0JKZGcxa2V4Kzd1TkRIRGZSM0xrSFVmYi9IRnE1?=
- =?utf-8?B?eGM5R3hRdTcrMEwxdkZKL09EaEZEWW9hWXp2bVFlWDVuaXR0WDBXdz09?=
-X-Exchange-RoutingPolicyChecked:
-	doDEluCnYQI1OiJ6WtYBYUDIzdp0K/CCaYM/tyBsMfPggs6+9E8bM2yB840TpnQUturp4+XmLXGFOQX94nk5fJSFspStKTO198n1h3bqcr0NAjrSlZoXb5w934sMS1+RpHTnxvucekQ3rnqoeCgCy4YCseK2ZOe29IekARhGx/kg/Y0PPepL9+jSGK7MsamGtBCggKfZA9hE7mPpyJfHezWMWvlqS1v6vbFo1IhPk0eJcRdvvotalQlnhbb49RHVYho14PqHQNmJrNzsaIWVOq4v6SlXQSFDREu/x4u10JcSM1vWNZ4wO9CbOwOE4uwhReDq5WeWIPW9TFQqcLOweA==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f53086ae-47b5-49e1-5a67-08def3d39d23
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5469.namprd03.prod.outlook.com
+	=?iso-8859-1?Q?FJ5DrSMyJwKKPGOjMRZUEdFk3io0aPZnmu/ebLLpCIpHbpHqV2vnyxGNjE?=
+ =?iso-8859-1?Q?l5AGRxDuPhAm180dExEy8a3/ZMKAsBCOuIIqVv4oi6docTvZLVIgsm5OXN?=
+ =?iso-8859-1?Q?QFiRo0PEzTURtMD5c2Yuay9IfIjUDw0aFM1M7RSSBZAmy2/EtrxJQljmoO?=
+ =?iso-8859-1?Q?zZoqQWAP05e0/PW5Agi5Gt8T9pzrOviizIZK1Fe/HilStOU32uhzXNDmpJ?=
+ =?iso-8859-1?Q?zUtwgA65pKE7peOb3WEYAtqc5gELp52hGgJbAHAVZS1E1bK51Fes/V0tAj?=
+ =?iso-8859-1?Q?oYmKQoLtp7NmsQGHdxQrteTGd6605uAsjgVG9gjVs04fKNuP2/0xZiNc/6?=
+ =?iso-8859-1?Q?AtuCqjGBq+7bLnpR411617TqJ7ZgHN428V8GnKtpUB5Rjjp2HJthynlFMd?=
+ =?iso-8859-1?Q?EPvYViMKrw5kzVrtPnBBI9z97KlyH5xh9h4qputn3OBnmUmsRUvsEtn802?=
+ =?iso-8859-1?Q?dd6MWs6aLnSshFaj2U3ucRT3WT9Gu7u2UhjpyD3qxOhUUwHm90r6FdDj2w?=
+ =?iso-8859-1?Q?v9dWl6XD1JvbwAb9CpBtW6WS4WS5UkJ4BQ3+tSoRAxYrtjeys36a8P5TnA?=
+ =?iso-8859-1?Q?gM9QSWgy2MkwCisHxYEVFhiv9W3xpimUKE+ajSecTks2Rh9fS0CP5uWh93?=
+ =?iso-8859-1?Q?AvPrTZuviXtGXfUT/r2Gf1YEjqviEr4gJ4KcQlrH+8IfRAMXI5O0rg56k3?=
+ =?iso-8859-1?Q?WGD5LqCDwNAlKp+4IVvYWz6Nefm2izb9z/VrATsvX9GsoCZBciROcC6Pbw?=
+ =?iso-8859-1?Q?woHzRp24SdFeEY+mRkTtUdsGh/CM6nE06v/P2XoB9bOHw18Et7d+2rjmaD?=
+ =?iso-8859-1?Q?MjmqywW3QIpVBu7wKyrPuZgxSEPl2PPsKQCsDK9JF41yndvFlyLLR4mUqi?=
+ =?iso-8859-1?Q?6v2LwbGn/1yQPpGJnB20nRBs1PQW4AH3kQ5ASZEOWUMoYLRKTNPLeF3Mil?=
+ =?iso-8859-1?Q?ZmNcnneIwyz7x8PC0zE2vyXFP5QUiJ5iTmRturOi4oL0s73kt/mxmJiEis?=
+ =?iso-8859-1?Q?wGq8GW5mi+EijxXkIle89U3zNxcAI/UfFREi+OrTPYEOgixw660iyHIQDk?=
+ =?iso-8859-1?Q?UBMpDY/NDLGDV/nsbCodq+TH/KdVCtHxQgM08QNxerlNp11Rp2xfYgE59R?=
+ =?iso-8859-1?Q?bMrelBmvoa44xQeEiqArBAaIuhcDxsECvmaHpH3ikTtXV8aY8091g4w4LS?=
+ =?iso-8859-1?Q?013FgG7BG43JRBqSL8EVaV2vgfKZMeoBRmOAi0pGO8R5sTU3wXjBa3b5b/?=
+ =?iso-8859-1?Q?XT12OxcTEdQwY3789vFC/7+6haB1wmGbC0wN9MudVRd3eEhbza3wyHSVXF?=
+ =?iso-8859-1?Q?Gqi0RO/ViZXATvfB2S98pvQQ0cYImqMbhI4vJH3lyJQ0SLQXDT+2cOE2E+?=
+ =?iso-8859-1?Q?2wLnd3YqQI5dLU37V7hTEqZCl5L2CzGh6nCQtBxsbvKl7ekK4vWnTHsllj?=
+ =?iso-8859-1?Q?cvmwkBWdczWHxequw1bnysnZxfTXLssknldipPOp8Snb9NzZv8TsKwQcVK?=
+ =?iso-8859-1?Q?7Xx/0vBsRbdHLhZlOMooYew9G1frzABi5c7fx57OW3vV2YPzaCWpkJkPcK?=
+ =?iso-8859-1?Q?9G3yZQMZOclCpiU0oD/UxBtcQ2FkD8j2bawd1gVFo/KFvQXb2JQmzZqtUo?=
+ =?iso-8859-1?Q?tOiswbnks+yntvnYjwOeV0vMzCuBL97z/pzdc7BeEAd0oOmkeekM+41RYX?=
+ =?iso-8859-1?Q?4NBgmUKRKTcS2p6wlXIoaegXYe+Ex3xAIV2a8FLNlSzzp/hpiauZBBIQn6?=
+ =?iso-8859-1?Q?7RWweQx+bflhLKYS/a2OpbrqC4Ba4aD82DXOh0GgWzM1TLD19t53bZM549?=
+ =?iso-8859-1?Q?IdLfGjNLOqA1rJS0LuavCHcg6LzBfbEyvLA4QLUV/lPD9P0tO/H3?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97591e16-7ed0-4b41-da8b-08def3d4eb88
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 15:58:53.4354
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 16:08:14.6674
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9+Ba14cT0p548hvnmBdCnSitDzIPUsVSBYYQXOnCFQHTZUrU9Evn9xE7LaggXa2Dweu9rrkhZza17s/EtLSs3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6346
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEyMyBTYWx0ZWRfX4B5QV2lvo988
- yxB3Dh51x1m9Olf6s0mXPA6/5//IiWmHkFGS2x2YVCQH8ATGWEr7RlXiJo1pAq99YeCvXQxm+94
- K6fXesiQsNQkstMa4TjuJbQSPsPVv6BP1+B5HCLirCNygjDhvMO4iJJyB8yXtitxLm/OUhI/ALr
- ykNF2NfmfbhlqpgLq4XslwDyu709JTNKs2RysAe16/ysZFi27H/NpKHtJ5ISIGahkUT4lo717dj
- ko4Rmn9iSVtg4AUmWBm/n5wgJixP1axJJKGWLeoB2Y+qxcUuAYAhuFvpNbGIMqs3dBXHE0zJzWM
- 9mLwO7UXJmv9P5bqdhzDznNntJIVQmlldt8LNCFMbEeMsnqCIhgjfHeyZ9QXb4D7ZlnuqliJi1o
- 8F2zMvlYFKhLC85/3dCJm/CtI31zCO330WJx9wgWIG8XvanOgIAL5TiYaMwAzhkX5pRVyo6PHi/
- cFtbcv4wJk7Hi+/HPNA==
-X-Proofpoint-GUID: 8jUqhtOS5qzrFrlfAG2weSYmD77gaoHc
-X-Proofpoint-ORIG-GUID: 8jUqhtOS5qzrFrlfAG2weSYmD77gaoHc
-X-Authority-Analysis: v=2.4 cv=JsjBas4C c=1 sm=1 tr=0 ts=6a74af40 cx=c_pps
- a=Ul8IY3gNdN0J7lfmD5e20A==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22
- a=gAnH3GRIAAAA:8 a=WImR_lWV1cPRWLqsFJ4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEyMyBTYWx0ZWRfX46NzMZzEHYUs
- cNicBjG54zH+TO8VGAVDNscmtoVMlvj+mKcvs8Q9gesDY09Yn2854TL6B+b6K0UluJjBXkWUgpf
- onU9orSnfJXaBvtWRet9sa5IiSeh2wTTT0wckl4lZWdsOXlrpmfQ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-06_01,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0 suspectscore=0 bulkscore=0 phishscore=0
- lowpriorityscore=0 priorityscore=1501 spamscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608060123
+X-MS-Exchange-CrossTenant-UserPrincipalName: TWVo5oIn+IEvn1TAVLSSb7gqwIxEBaFSlQwEiU/HrY4TB/wUhyPVyS+o4WALZvfTKSxVsurKuQBLRlr8THsYMaY9zXs8Gtl2c7ZnOxskwXCsjjrhfUgITNDkgA5sBT4t
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8148
 
-On Wed, 05 Aug 2026 14:59:52 +0300, Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
-> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
-> index 8c3de11a10a3..229974478d10 100644
-> --- a/drivers/iio/accel/adxl367.c
-> +++ b/drivers/iio/accel/adxl367.c
-> @@ -1482,6 +1507,8 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
->  	if (ret)
->  		return ret;
->  
-> +	irq = adxl367_get_int_line(st, irq);
+On Thu, Aug 06, 2026 at 11:17:23AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> - [High] The DMA buffer used for get_info is freed prematurely upon a timeout, allowing the enclave firmware to corrupt memory when it completes the transaction.
+> - [High] Allocating memory with GFP_KERNEL during the PM suspend/resume phases can cause system deadlocks.
+> - [Medium] A successfully completed firmware command is incorrectly reported as interrupted (-ERESTARTSYS), introducing a replay vulnerability.
+> - [Medium] se_restore_imem_state() ignores validation failure and returns success even if the IMEM state is bad.
+> - [Medium] Multi-byte fields in struct dev_info are populated via DMA by little-endian hardware but are accessed as native integers by the driver.
+> --
+>
+> --- Patch [3]: [PATCH v35 3/7] firmware: imx: add driver for NXP EdgeLock Enclave ---
+> commit 357109d983ad738d0dc813242f9d555c6b2d561c
+> Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+>
+> firmware: imx: add driver for NXP EdgeLock Enclave
+>
+> This commit adds the MU-based communication interface for the NXP EdgeLock
+> secure enclave, enabling messaging between the Linux kernel and the enclave
+> firmware on i.MX SoC platforms.
+>
+> Link: https://sashiko.dev/#/patchset/20260121-imx-se-if-v32-0-c5222df51cc2@nxp.com?part=3
+>
+> > --- /dev/null
+> > +++ b/drivers/firmware/imx/ele_base_msg.c
+> [ ... ]
+> > +static void ele_get_info_cleanup(struct se_if_priv *priv, u32 *buf, dma_addr_t d_addr,
+> > +				 size_t size)
+> > +{
+> > +	if (priv->mem_pool)
+> > +		gen_pool_free(priv->mem_pool, (unsigned long)buf, size);
+> > +	else
+> > +		dma_free_coherent(priv->dev, size, buf, d_addr);
+> > +}
+>
+> [Severity: High]
+> If the ele_msg_send_rcv() transaction times out, the hardware might still
+> process the command and DMA the response payload later. Since this cleanup
+> function unconditionally frees the DMA buffer back to the pool or system,
+> could a delayed hardware response silently corrupt whatever kernel data is
+> subsequently allocated at this physical address?
+>
+> [ ... ]
+> > +int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
+> > +{
+> > +	dma_addr_t get_info_addr = 0;
+> > +	void *get_info_data = NULL;
+> > +	u32 get_info_len;
+> > +	int ret = 0;
+> > +
+> > +	if (!priv)
+> > +		return -EINVAL;
+> > +
+> > +	memset(s_info, 0x0, sizeof(*s_info));
+> > +
+> > +	struct se_api_msg *tx_msg __free(kfree) =
+> > +		kzalloc(ELE_GET_INFO_REQ_MSG_SZ, GFP_KERNEL);
+>
+> [Severity: High]
+> Can this allocation cause a deadlock during system suspend?
+>
+> During system suspend, se_suspend() calls se_save_imem_state(), which invokes
+> ele_get_info(). Using GFP_KERNEL here and for the DMA buffer below can trigger
+> direct memory reclaim. If the reclaim process waits on I/O or swapping while
+> underlying storage devices are already suspended, will the system hang?
+>
+> [ ... ]
+> > --- /dev/null
+> > +++ b/drivers/firmware/imx/ele_base_msg.h
+> [ ... ]
+> > +struct dev_info {
+> > +	u8  cmd;
+> > +	u8  ver;
+> > +	u16 length;
+> > +	u16 soc_id;
+> > +	u16 soc_rev;
+> > +	u16 lmda_val;
+> > +	u8  ssm_state;
+> > +	u8  dev_atts_api_ver;
+> > +	u8  uid[MAX_UID_SIZE];
+> > +	u8  sha_rom_patch[DEV_GETINFO_ROM_PATCH_SHA_SZ];
+> > +	u8  sha_fw[DEV_GETINFO_FW_SHA_SZ];
+> > +};
+>
+> [Severity: Medium]
+> Since these multi-byte fields are populated directly via DMA from the NXP
+> enclave firmware (which uses little-endian format), will they be read
+> incorrectly on big-endian architectures?
+>
+> For instance, get_se_soc_info() directly accesses s_info->d_info.soc_rev
+> without any byte-swapping, which might yield an invalid version number on
+> big-endian systems. Should these be defined as __le16 instead?
+>
+> [ ... ]
+> > --- /dev/null
+> > +++ b/drivers/firmware/imx/ele_common.c
+> [ ... ]
+> > +int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_sz,
+> > +		     void *rx_msg, int exp_rx_msg_sz)
+> > +{
+> [ ... ]
+> > +	err = ele_msg_rcv(priv, &priv->waiting_rsp_clbk_hdl);
+> > +
+> > +	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
+> > +		/*
+> > +		 * Signal was deferred until the FW/kernel protocol resynchronized.
+> > +		 * On success report -ERESTARTSYS for the interrupted wait; the
+> > +		 * command is not re-sent. Keep real errors like -ETIMEDOUT.
+> > +		 */
+> > +		if (err > 0)
+> > +			err = -ERESTARTSYS;
+>
+> [Severity: Medium]
+> Does this unintentionally convert a successful firmware transaction into an
+> error?
+>
+> When a wait is interrupted by a signal, ele_msg_rcv() continues waiting
+> uninterruptibly. When the firmware finally responds successfully, err will
+> be positive. By overwriting this success with -ERESTARTSYS, won't this
+> cause the kernel to silently replay the syscall from userspace? For
+> non-idempotent operations, executing the command twice could corrupt enclave
+> state.
+>
+> [ ... ]
+> > +int se_restore_imem_state(struct se_if_priv *priv, struct se_imem_buf *imem)
+> > +{
+> [ ... ]
+> > +	/*
+> > +	 * After importing IMEM, check if IMEM state is equal to 0xCA
+> > +	 * to ensure IMEM is fully loaded and
+> > +	 * ELE functionality can be used.
+> > +	 */
+> > +	ret = ele_get_info(priv, &s_info);
+> > +	if (ret) {
+> > +		dev_err(priv->dev, "Failed to get info from ELE.");
+> > +		return ret;
+> > +	}
+> > +	imem->state = s_info.d_addn_info.imem_state;
+> > +
+> > +	if (s_info.d_addn_info.imem_state == ELE_IMEM_STATE_OK)
+> > +		dev_dbg(priv->dev, "Successfully restored IMEM.");
+> > +	else
+> > +		dev_err(priv->dev, "Failed to restore IMEM.");
+> > +
+> > +	return ret;
+> > +}
+>
+> [Severity: Medium]
+> If the IMEM state is bad (not ELE_IMEM_STATE_OK), the code logs an error
+> but still returns the success code (ret = 0) from the preceding ele_get_info()
+> call. Does this hide the hardware failure from the power management subsystem
+> and leave the enclave in a non-functional state after a system resume?
 
-On top of Sashiko's points (which do make sense), I'm not sure why we
-return irq in adxl367_get_int_line() which seems to be just the same we
-passed to it?
+This one make sense, should return failure.
 
--- 
-Nuno Sรก <nuno.sa@analog.com>
+Frank
+
+>
+> --
+> Sashiko AI review ท https://sashiko.dev/#/patchset/20260806-imx-se-if-v35-0-11b25bb308ef@nxp.com?part=3
