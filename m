@@ -1,121 +1,198 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7554DA528
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEFC49482F
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:07:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786046813; cv=none; b=bKGblUBYBza4axjTonRTitFmQzKYupk70si/xwrMqtgQi+KWGtAXz5dowSu8/r2cG5b3vcCy131iKDGmy27ELqfuz0fbOKT9uWimNalJxAXXGqy9YmCG711LoZmeNXePF3fxs4QXzbYPTMyY08p8MW3IJMSPyr0ta6LcvXdUVLc=
+	t=1786046850; cv=none; b=tSuZbkIVOSgPmaecZdaigVwdrgyPzC4XtZC2UWgqEix9pro0euxKjesFAD8VhAC8ZFkSG9nJ9uBfU7fsLsSAs16xhxJZQ+LV6EgVQ3N7eIb1oLOHnRkJyOEJfAHCQZm23wyEUJ9ZtANBJhSGqGbVNtySYGF7Ls75SEkhRpyOLBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786046813; c=relaxed/simple;
-	bh=vFZPKNs2dl6VZZjgQFQ8qk9/Wk/ihKsiXb9wColFe9I=;
+	s=arc-20240116; t=1786046850; c=relaxed/simple;
+	bh=AXwyUFPNZyEb3B4FIXEKYxa8f446s3tYOi6InSU8EQY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PIkG0YVQjTyS+0YLuhIA42slkdlJlS9O1MUnPJsThZMV4/PW3lTjwoZEvYF0WgSo96z/R5kcvB3yhqZi9/oAHZkOjH9DSIsYzJop+nbc0GpKsTJ3G19OSMAdvcn6CN/VGYoEsomtuma+HBAixtRmNH+lLzM31kkkn3s3Txr+i3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e1lN9SF4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VYvY7do2NqoDTPQYIPPSRYt0uPVet5Ci85Rkhov5uZhTJPT90Y9pdMAhPTRHmivjezOyu4rdq4Nyu1TzqQkK8aP5q2nn4ki/A/bAMjnWqWlAwkCmcNDrCjkHTbrs0NHN0hxVnvrD5u6sOagmOOWVf4UNjWocXc3vQtIkN2UV65I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwkyOjqX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e1lN9SF4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB60D1F000E9;
-	Thu,  6 Aug 2026 20:06:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwkyOjqX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B661F000E9;
+	Thu,  6 Aug 2026 20:07:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786046802;
-	bh=gfYydA0ckdJVE2ssQsTstUJRYAANnT4legrYNlIQj/c=;
+	s=k20260515; t=1786046838;
+	bh=XbP787BcVsyUYZqfiTqpQ1HzWnej+2GXghnjGeW/4LA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e1lN9SF49XjmVQKU5uMkLDc4FmTAwlILfQpfXuDwoxVZSTlS1Y+5tcWM18t1ll4zV
-	 wLUv+7TEEKAbZFGq+5qsvW5KAa5sO0+iv4+5RubJZhrcmR3/Y7dD26kJxHsLxEd6+q
-	 Stb3pGANNOkQJ4KTQ7daZyeME5/LSCvcN0ju3hzs2TneLbHaXbGTTZcirZafXA7HyN
-	 A/75gd3lDAWkEmTRsUMLLpYtRPcCH+MeSUh+u9eNy3atDVfvgPz9oNSUs4xzTlXA0E
-	 Bwvfl/T/YQHlvA53DnwAQSp4OteTMKhomYKpry47o7SrOZh7Y+KmdqtXJXAWYLMfma
-	 wiT5BuF8Qb9uA==
+	b=cwkyOjqX5lP6ezM8iDu5+3EJVHHulO/JuJPfUK5/k4AeKRegRJt0BZqJ8zPvr6jfO
+	 ecAylW4NrBdlT2cfN9VvVXAWF7dn37xXsNvDmu0hwIjmXkaM2mUqkAyrDJUzmxBTJK
+	 oGB1GKbXOmmggbBqcqBIlpdlwOQqc7FZmspkdLRESBhMqy2GYOdJQnwAKdEbTLB+Zf
+	 tsUJdxDrwwJegjZ7xcsY8QWPolneF3L14miVj1viEvrruosfnUHsSglzjHfHybQ4/5
+	 l8LktjMMDHh2RgWNu7gYdP5sQVfmhXkcvZUMB971/xJyGny3csNpXXyk0ZBA9FnDlN
+	 HLM4Jz/3SGEwA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] arm64: dts: exynos7870-j6lte: add Sharp
- GP2AP070S proximity sensor
+Subject: Re: [PATCH v3 07/19] crypto: cmh - add SM3 ahash
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807-gp2ap070s-v4-3-74f6a67b6272@disroot.org>
-References: <20260807-gp2ap070s-v4-0-74f6a67b6272@disroot.org>
- <20260807-gp2ap070s-v4-3-74f6a67b6272@disroot.org>
+To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260806195519.2703224-8-skrishnamoorthy@rambus.com>
+References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
+ <20260806195519.2703224-8-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 20:06:41 +0000
-Message-Id: <20260806200641.EB60D1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 20:07:17 +0000
+Message-Id: <20260806200718.29B661F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] The devicetree node `i2c-proximity` uses the software bit-banged=
- `i2c-gpio` driver, but its pinctrl node `i2c_proxm_bus` explicitly configu=
-res the pins to the hardware I2C controller's alternate function instead of=
- GPIO mode.
+- [Critical] Integer overflow in `cmh_sm3_finup` computing `data_len` leads=
+ to an undersized allocation and a massive out-of-bounds heap write.
+- [High] The driver calls `cmh_dma_map_single()` directly on `rctx->checkpo=
+int`, which is embedded in the request context, violating the prohibition a=
+gainst mapping stack memory for DMA.
+- [High] The driver linearizes arbitrarily large ahash updates into a singl=
+e contiguous `kmalloc` buffer, violating the scatterlist API intent and fai=
+ling predictably for large inputs.
+- [Low] The module comment incorrectly claims `.digest()` is a zero-copy op=
+eration.
 --
 
---- Patch [3]: [PATCH v4 3/3] arm64: dts: exynos7870-j6lte: add Sharp GP2AP=
-070S proximity sensor ---
-commit c0b785824301e0a2b3734b066c904e45cdad7f77
-Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+--- Patch [7]: [PATCH v3 07/19] crypto: cmh - add SM3 ahash ---
+commit 05a69da6cc020cf57376f4d81b53eb2fda358e00
+Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-arm64: dts: exynos7870-j6lte: add Sharp GP2AP070S proximity sensor
+crypto: cmh - add SM3 ahash
+   =20
+Register the SM3 ahash algorithm using the CMH SM3 core (core ID
+0x05).  Supports incremental update/finup/final and export/import.
 
-The commit adds a Sharp GP2AP070S proximity sensor to the exynos7870-j6lte
-device tree. It connects the sensor via a GPIO-driven I2C bus and provides
-necessary regulator supplies.
+> diff --git a/drivers/crypto/cmh/cmh_sm3.c b/drivers/crypto/cmh/cmh_sm3.c
+> new file mode 100644
+> index 0000000000000..37a66cb1508ff
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_sm3.c
+> @@ -0,0 +1,676 @@
+[ ... ]
+> + *   .finup()  -> linearise holdback + new data, then final path
+> + *   .digest() -> INIT + UPDATE + FINAL + FLUSH (single-shot, zero-copy)
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts b/arch/arm64=
-/boot/dts/exynos/exynos7870-j6lte.dts
-> index de30d0970336f..dd493138fed6e 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts
-> +++ b/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts
-> @@ -73,6 +73,35 @@ key-volup {
->  		};
->  	};
-> =20
-> +	i2c-proximity {
-> +		compatible =3D "i2c-gpio";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&i2c_proxm_bus>;
-> +
-> +		sda-gpios =3D <&gpf4 3 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-> +		scl-gpios =3D <&gpf4 2 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+[Severity: Low]
+This isn't a bug, but the comment claims .digest() is a zero-copy
+operation. Since cmh_sm3_digest() delegates to cmh_sm3_finup() which
+allocates and copies memory, should this documentation be updated to
+reflect the actual implementation?
 
 [ ... ]
+> +static int cmh_sm3_update(struct ahash_request *req)
+> +{
+[ ... ]
+> +	/*
+> +	 * full_len is user-controlled and can exceed KMALLOC_MAX_SIZE for a
+> +	 * single large update; __GFP_NOWARN avoids splatting the page
+> +	 * allocator on an oversized request.
+> +	 */
+> +	rctx->data_buf =3D kmalloc(full_len, gfp | __GFP_NOWARN);
 
-> @@ -579,6 +624,12 @@ bt_enable: bt-enable-pins {
->  		samsung,pin-pud =3D <EXYNOS_PIN_PULL_DOWN>;
->  	};
-> =20
-> +	i2c_proxm_bus: i2c-proxm-bus-pins {
-> +		samsung,pins =3D "gpf4-3", "gpf4-2";
-> +		samsung,pin-function =3D <EXYNOS_PIN_FUNC_3>;
+[Severity: High]
+Does this linearize arbitrarily large ahash updates into a single
+contiguous buffer?
 
-[Severity: Medium]
-Is it intentional to configure these pins to the hardware I2C controller
-alternate function (EXYNOS_PIN_FUNC_3) while using the software bit-banged
-i2c-gpio driver?
+For large inputs (e.g., from IMA, dm-verity, or AF_ALG), this could fail
+with -ENOMEM when full_len exceeds KMALLOC_MAX_SIZE or if memory is
+fragmented.
 
-During device probe, the pinctrl framework will route the pins to the hardw=
-are
-I2C controller.
+Is it possible to chunk the updates or natively walk the scatterlist
+instead of performing this large contiguous allocation?
 
-This contradicts the bit-banged I2C design and creates a window where the p=
-ins
-are driven by the hardware controller before the GPIO framework eventually
-overrides the pin multiplexing.
+[ ... ]
+> +	rctx->ckpt_dma =3D DMA_MAPPING_ERROR;
+> +	if (rctx->has_checkpoint) {
+> +		rctx->ckpt_dma =3D cmh_dma_map_single(rctx->checkpoint,
+> +						    SM3_CONTEXT_SIZE,
+> +						     DMA_TO_DEVICE);
 
-If the hardware controller isn't powered or properly initialized, could this
-cause the pins to float or drive the bus incorrectly, leading to I2C bus
-glitches?
+[Severity: High]
+Can this cause a panic or data corruption if the request context is
+allocated on the stack?
 
-> +		samsung,pin-pud =3D <EXYNOS_PIN_PULL_NONE>;
-> +	};
+When callers use AHASH_REQUEST_ON_STACK, rctx->checkpoint will reside on
+the stack. Mapping stack memory for DMA violates DMA API rules, which
+triggers a panic on architectures with CONFIG_VMAP_STACK=3Dy.
+
+Should the checkpoint buffer be allocated separately?
+
+[ ... ]
+> +static int cmh_sm3_submit_final(struct ahash_request *req,
+> +				u8 *data_buf, u32 data_len)
+> +{
+[ ... ]
+> +	rctx->ckpt_dma =3D DMA_MAPPING_ERROR;
+> +	if (rctx->has_checkpoint) {
+> +		rctx->ckpt_dma =3D cmh_dma_map_single(rctx->checkpoint,
+> +						    SM3_CONTEXT_SIZE,
+> +						     DMA_TO_DEVICE);
+
+[Severity: High]
+Similar to cmh_sm3_update(), does this improperly map the potentially
+stack-allocated rctx->checkpoint for DMA during finalization?
+
+[ ... ]
+> +static int cmh_sm3_finup(struct ahash_request *req)
+> +{
+> +	struct cmh_sm3_reqctx *rctx =3D ahash_request_ctx(req);
+> +	u32 data_len;
+> +	u8 *data_buf;
+> +	gfp_t gfp;
 > +
+> +	if (rctx->error)
+> +		return rctx->error;
+> +
+> +	data_len =3D rctx->buf_len + req->nbytes;
+
+[Severity: Critical]
+Does this computation have an integer overflow risk?
+
+If a caller provides a large req->nbytes value from userspace via the
+AF_ALG socket interface, rctx->buf_len + req->nbytes could wrap around
+a 32-bit boundary.
+
+Unlike cmh_sm3_update(), there is no explicit overflow check here before
+the addition.
+
+> +
+> +	if (data_len =3D=3D 0)
+> +		return cmh_sm3_submit_final(req, NULL, 0);
+> +
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	data_buf =3D kmalloc(data_len, gfp | __GFP_NOWARN);
+
+[Severity: High]
+Similar to cmh_sm3_update(), this linearizes the input into a single
+contiguous buffer. Could this fail with -ENOMEM for large valid inputs?
+
+> +	if (!data_buf)
+> +		return -ENOMEM;
+> +
+> +	if (rctx->buf_len > 0)
+> +		memcpy(data_buf, rctx->buf, rctx->buf_len);
+> +
+> +	if (req->nbytes > 0) {
+> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+> +			memcpy(data_buf + rctx->buf_len,
+> +			       req->svirt, req->nbytes);
+> +		else
+> +			scatterwalk_map_and_copy(data_buf + rctx->buf_len,
+> +						 req->src, 0,
+> +						 req->nbytes, 0);
+
+[Severity: Critical]
+If data_len overflows during the earlier addition, could this result in
+allocating an undersized buffer, followed by an out-of-bounds heap write
+when copying req->nbytes of data here?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-gp2ap070s-=
-v4-0-74f6a67b6272@disroot.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806195519.2703=
+224-1-skrishnamoorthy@rambus.com?part=3D7
