@@ -1,202 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918193AA4E2;
-	Thu,  6 Aug 2026 16:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F24A47A88A
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 16:13:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786032552; cv=none; b=dl2yEACu4yXb/PNidDl3ZfSz+Q9kkKorr2vGPgNWfmbrPopVgKoZfU/N3IzEqwcaaUkSmlyA12dADUsq6widAtjXlc6x1s47uq2d4HzRHeWoSXoI4pv1czxLYNqSII3VSw+IdddIDBq9/SFiDPNklGW99oALiRVg2gaDvPcyj3g=
+	t=1786032795; cv=none; b=JRAgzq5AKZQhEjrDdU+AMhswbGNl2HjMiP48GxrejUbCh/AmwJTTutjNakdjMHVcK3LHiF0k/cSM7t7mmJtWoW7ipiTQAFIAS+C4hnMa8w+7IYSqCx8b5vaPxPPyqA8j/UwFiesXtpe4MbCggTOYoRo0XI8G0bQZtTILpOa5dqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786032552; c=relaxed/simple;
-	bh=J1mmhRLKDxaELj7616F3jLYF/axUtWF1l/JEzzjmppo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KZc0h6Ey93RKvXjo7szZouQSPCVLcsOx5DJesSSHhTCcYv4BcIvB7hJOWxaGmurYV1wSrzLD2EzrEj/zEyZRYh3UbGH218x7CczU2r9/jBy8BYIdzoFZjqSQaUIEMBPWXCRurlJUgGd+WNa9gWZRN3/goyvgVasf5G3tu2VE5XU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKNEIVai; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786032795; c=relaxed/simple;
+	bh=xM7II/8CoN5Sya9W2Fo/+4FjhIIp2ycNWN33ZSTrQZM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tN6TpZZbKXAkyvD/raXdQIt0cInoRlh1/uQV7cQ/e2lFicxMtUT2A/lCQu8n/89zPfgtVSKONtmUGA+8DozEQaN/XFuOSByr2djSwNSAygAqZEm4o6Sq0F5KTmh6hKZp2NhS19rbryGA75HamC+SHL5Ur30sI5zXidBsWXZnpPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NgSgspHZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eCD+VH0e; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKNEIVai"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4651F00A3E;
-	Thu,  6 Aug 2026 16:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786032551;
-	bh=J1mmhRLKDxaELj7616F3jLYF/axUtWF1l/JEzzjmppo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kKNEIVaiVH4wrn5oHK5ajPxUnFHB9+4/A/1LvM/uKTkDc0Tv9t57ZG0ITr9wXU8Xp
-	 dM7Cy6hGgHbZ/yeYTfWQ71Y57HgqRdmv1eKN2HCcuSEE4ilC3CtyGNaMO6veI78U67
-	 YcMqItiqFW5t/eUfTLQayfOrEOELuT08s9jUqHMsWIlKuGRS7h4T2GXPWrf4X6w2Zv
-	 tNNgofe3iP7rxX22Z7nlivDoSEEfrD+/jWedR6As/aEKkVkXWpqV8mSDDYNCbarkZ1
-	 SVWiBIPcCxOreaWD7DyyAbxr2eCgQZMraKPZN7mkuyWcqW1KUCi9T1+4s4zx6S89Zo
-	 2vOjrgZWIe6og==
-Date: Thu, 6 Aug 2026 18:09:08 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
-	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-Message-ID: <anSuYvj1JU5K8xUO@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
- <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
- <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
- <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
- <ak_E4UxfnFJywJa7@orome>
- <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NgSgspHZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eCD+VH0e"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676Ene632276923
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 16:13:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=s6nt1Vjx1KtpZs9U6I3iMDg0ZKhLxL+ifZQ
+	JTIvRzMs=; b=NgSgspHZQ1n3OZ4TnRkI/CfSyKY9VbPTpf+0K3LB0SlbZkYsii4
+	8dZQR4MeeVG1FSE70O3puUuWnfmE4GIZlANk9gOFR56RdaafCJ65mYZ8G8SgaLsf
+	B4XI6xIgBn7n2iAtbT1LV2tuzm+vjKrmSxmiaNFwVhglvgOsttcC/wZtjIEpHHVI
+	2wLDXflrewmToPcgx28jGmTwVub5+d2qVlJdmLdt3R4ILSnNNzpewDZG1YHTvbwO
+	0KO+LzvAUHDQK65Z8gq6WpyjR0OXn/VLgdxqJTy+JzMxDOB+iwTS/UwaAHqsR7cf
+	A0Xrdzf7wywdPrPOEgMhBZOpn52YzZGNswQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvmrjjt9k-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 16:13:12 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cfe48ca1efso33750875ad.0
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:13:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786032791; x=1786637591; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s6nt1Vjx1KtpZs9U6I3iMDg0ZKhLxL+ifZQJTIvRzMs=;
+        b=eCD+VH0emoyMoflBWD7zd9VSh+V8FMZ25K2XLo5H9DcsNiYGzBuO4Hv3MZE1QlVVe3
+         7ZskaWAw0aM7Hc0oGR9eHUqKsB4NcbvebREEj+SWnC2BxDfvf4eQsPdoXJzx7TyCucBY
+         pL6EdlrugArDSlR7UTwpb47Qjoo3639wmwMKqNe6fW1RKAoqjWAv3mle79cygU7TOOJ+
+         shavYB61Ea6oknDdLBVt/1Pd6Hes4eZ9PxZm0KsLsLHwpF5niag9J+K0bHjstUA5aPjR
+         LWzOCPSyXnbRGnztjYYoTtbDgzrngRcqmEvofxnd3rsYCg08CybVXtN68OHr4br19VQI
+         8lVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786032791; x=1786637591;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s6nt1Vjx1KtpZs9U6I3iMDg0ZKhLxL+ifZQJTIvRzMs=;
+        b=NtjrEGxZOhxiBE83M/4xDJ35CecCUbNsNlCgZlBtmYFWVoCq+nShB4OkEQfkSknUxM
+         xlf9pZrRB3dIcTJ/v92PIhLCey70tc59JZRd+1097x9EeVl0CDZxcqVQ8YH6c0gKCInW
+         El/gJ0PPpdpcYUrj+VM/GG/E1Didlyo9EyzBOlc72R+qNik3Rhk/txaw9uSLk5LMU83q
+         2Z4Pf/2twyDSkHJLouvOXXJ+5YMuUQRAbeue3CUDqeCWoceVIRuBs29VSj1wUgj3SVE9
+         uVj+84IRG23f57KfnTu6oQyVatPr1xEIpmInB9nTW5ktpZJpDiJJU3tVEb3a1yBekwOJ
+         6RAw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp0bwisWgFz/NKYZ4ac9kYRdMDwJN6uKg6TECuaIndgmm606cpDyPNqzYgcmpjvxgFRUkrbtT1+OJmg@vger.kernel.org
+X-Gm-Message-State: AOJu0YxKvEufACaWIGs4ztbiNWY82rSgRWrIDtSBOAYRiU5LkpZdS4yP
+	fv4c8N64kCxjzz2Bp4vhYTAM4phcTQEb/Ct1XuuiLOV0WQMpVcTm7OB8AcxJsViRoHvb4brHfGy
+	i3r0gwBV3ZdscL47DlNuN8csVqOd8fxmHO4UAFC2FTe/Xhk+rZP/QbJui4MyHdVOP
+X-Gm-Gg: AR+sD106CvkQml0oPQ9jIXCO7COl5p38QJUpoxZKJXfoM6uRKjtZ64T7sxiefvFVtTM
+	7AcM/CtAF0eMNw06M7vHxtzlIGjSD6g7vUFntk1DalkHEl/h0P6H7258YPJPGxKleYErthJPvQ0
+	Wn4tpDUAY6JcnErLH/U7cSFL1RcXKdXrLja1H6wbMcxWeVkp3FJ5+u0hY2kKvBjedOY5sY8ow/m
+	K/HqL2OeUAAw4VNh1hJKB3EMqii63xe4JSYXejbYqzeaVgaTsuSvKwMJiVCe5e+6bVd74gM0qI/
+	KlEX5n6kdNRx/NY9vekVqZ11BWcD7dpshspn8mXz8YXCo/xi88FOasJ92UivHp214bnkFIDNhsb
+	f5x+iO7rybnTtkPxTImc+1NT+mVAfnX/9
+X-Received: by 2002:a17:903:1986:b0:2c2:be43:39bc with SMTP id d9443c01a7336-2d0ca9feeb1mr208862295ad.22.1786032791475;
+        Thu, 06 Aug 2026 09:13:11 -0700 (PDT)
+X-Received: by 2002:a17:903:1986:b0:2c2:be43:39bc with SMTP id d9443c01a7336-2d0ca9feeb1mr208861555ad.22.1786032791000;
+        Thu, 06 Aug 2026 09:13:11 -0700 (PDT)
+Received: from hu-pkambar-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315863b761asm43074546eec.1.2026.08.06.09.13.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 09:13:10 -0700 (PDT)
+From: palash.kambar@oss.qualcomm.com
+To: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org,
+        alim.akhtar@samsung.com, bvanassche@acm.org, andersson@kernel.org,
+        dmitry.baryshkov@oss.qualcomm.com, abel.vesa@oss.qualcomm.com,
+        luca.weiss@fairphone.com
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com,
+        Palash Kambar <palash.kambar@oss.qualcomm.com>
+Subject: [PATCH v6 0/2] Add Hawi UFS PHY and Controller support
+Date: Thu,  6 Aug 2026 21:42:59 +0530
+Message-Id: <20260806161301.1010876-1-palash.kambar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="awe2ln3pvo2iqnm5"
-Content-Disposition: inline
-In-Reply-To: <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=VNPtWdPX c=1 sm=1 tr=0 ts=6a74b298 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=wRtOOnJjwWicnHpPwtUA:9 a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: 9lkNYgbrAc4AH36rdGnL7ST_JByCWu1e
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDEyNiBTYWx0ZWRfX3F0uAGDjpqfH
+ XS9i12QPSBEzt+Khl0WBPQXx6ugYN0xthHlEBJ/yWknlL3q/SkrNun4T0ydZ3vK+QwphpRGRPZB
+ NXVpOlcVG4PjtpcqXQTU7+jd3EaQ27k=
+X-Proofpoint-GUID: 9lkNYgbrAc4AH36rdGnL7ST_JByCWu1e
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDEyNiBTYWx0ZWRfXzIlGJRfc1YAM
+ 0XdH9NdFeuJVCAPmfOfZWgKko5gYRpy6UNvAdl4eN6ezux2UGLrLiWqcNkjvgQDXTEpoC7Eh9w2
+ kb8xV9aoaPPL9D1Km7wgUPz1JoDjYOHm3PplQdZgXaYP+n29VNNeVIsdYX5QbTAgvUzCmqnE0lu
+ RR8/r03Pdq0KPabalQDL0EK7IIXQ5bJiLEC1dtUMxE60ACc3ou8u+DsSN2j83AXAgY/0HXRo9uv
+ HftbQp6PkiSMFkEzT5+pnzWeFnzazyYeUkSFn8Bpdv353Pa62vtqDDEfoSvl9pFDRIRKXORCBMm
+ rkkam5FHudz7F06ac1ARzHHkq7EGo+QYsgk62KdvQWOoALbsIUmpzKxJjX8gyCBdCQ618Ceaw0J
+ 2XZRcm53e01T4GBgU2i5S6gm+Ify9WjHo0pn00aRw8zOZw/UCIQFH/9m3avBveI//5uSeVUJoAJ
+ gMqXt7ljm2l7aMfrQ5w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-06_01,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ spamscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060126
 
+From: Palash Kambar <palash.kambar@oss.qualcomm.com>
 
---awe2ln3pvo2iqnm5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-MIME-Version: 1.0
+This series introduces devicetree binding documentation and PHY
+initialization support required to enable UFS on this platform.
 
-On Thu, Jul 16, 2026 at 12:43:56PM +0200, Marek Szyprowski wrote:
-> On 09.07.2026 17:59, Thierry Reding wrote:
-> > On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
-> >> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
-> >>> On 7/7/26 12:02, Marek Szyprowski wrote:
-> >>>> On 01.07.2026 18:08, Thierry Reding wrote:
-> >>>>> From: Thierry Reding <treding@nvidia.com>
-> >>>>>
-> >>>>> There is no technical reason why there should be a limited number o=
-f CMA
-> >>>>> regions, so extract some code into helpers and use them to create e=
-xtra
-> >>>>> functions (cma_create() and cma_free()) that allow creating and fre=
-eing,
-> >>>>> respectively, CMA regions dynamically at runtime.
-> >>>> Well, the technical reason for not creating cma regions dynamically =
-at
-> >>>> runtime is that on some architectures (like 32bit ARM) the early fix=
-up
-> >>>> for the region is needed to make it functional for DMA.
-> >>> Can you point me at the code that does that? Thanks!
-> >> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in=C2=A0
-> >> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappin=
-gs for
-> >> the CMA reserved region in linear map are remapped with 4k pages inste=
-ad
-> >> of the 1M sections, so later, it will be=C2=A0possible to alter the ma=
-ppings and
-> >> change them to coherent when needed (altering 1M sections is not possi=
-ble,
-> >> because each process has it's own level-1 array even for the kernel li=
-near
-> >> mapping).
-> >>
-> >>
-> >>
-> >> However, in the use case in this patchset the reserved region is only =
-shared
-> >> with buddy allocator by using the CMA infrastructure, not registered t=
-o the
-> >> regular DMA-mapping API, so it would work fine. I'm not convinced that=
- this
-> >> is the right API to use for this though.
-> > Are you saying you're not convinced that CMA is the right API to use for
-> > this? Or something else?
-> I read this again and indeed CMA seems to be right solution. I only wonder
-> why do You want to create the CMA areas dynamically? Imho it would work=
-=C2=A0if
-> You just create large enough CMA area on boot, what would automatically
-> share the memory with buddy allocator and then allocate dynamic VPR regio=
-ns
-> with cma_alloc(), potentially unmapping or marking the allocated region as
-> reserved in linear kernel mapping to avoid any potential speculative acce=
-ss
-> to the protected memory.
+  1. Devicetree binding documentation for the QMP UFS PHY
+     used on Qualcomm Hawi.
+  2. Initialization sequence tables and configuration required
+     for the QMP UFS PHY on Hawi SoC.
 
-Hi Marek,
+---
+changes from V1
+1) Addressed Dmitry's comments to fix versioning for PCS and qserdes.
+2) Addressed Mani's comments and fixed missed compatible string and
+   binding name correction.
 
-sorry for missing your reply earlier.
+changes from V2
+1) Addressed Dmitry's comments to remove whitespace and stray line.
 
-The reason why we want to create the CMA areas dynamically is because we
-want to split the secure memory into multiple areas. And the size and
-number of these areas may need to vary, so I didn't want to have to rely
-on rebuilding kernels with different numbers of maximum CMA areas
-depending on the chunk size that we choose.
+changes from V3:
+1) Addressed Vinod's comment on missing macros.
+2) Binding patch for UFS controller has been merged, so removed here.
 
-The reason why we need to split up the protected memory into multiple
-CMA areas is that allocation patterns can create holes within a CMA
-area. For the VPR memory, however, we must ensure that there aren't any
-holes within the protected region because it is specified using a single
-base address and a size. So there is one contiguous region that can be
-marked protected.
+changes from V4:
+1) Rebased code to tip.
 
-If we were to use a single CMA area, we could get holes within an area
-that is marked protected and once the pages are returned to the buddy
-allocator with cma_release(), something else could be attempting to
-access it and cause an error because it is still protected.
+change from V5:
+1) Addressed Vinod's comment to fix register offset formatting to 
+   use lowercase hexadecimal values.
 
-The only way to make sure we get a single, resizable and contiguous
-region is by using multiple CMA areas and allocating the entire area
-once our allocations need to expand into that new area. So we're not in
-fact using much of the CMA infrastructure and actually need to duplicate
-some of it. We primarily need it for the page migration and reclaim
-functionality.
+Palash Kambar (2):
+  dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add Hawi UFS PHY
+    compatible
+  phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
 
-> In both cases You will probably won't need the DMA-mapping API on top of
-> it, although it might be even possible to partially use with by
-> registering custom dma_ops for the devices using the protected region
-> (assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
-> allocations).
+ .../phy/qcom,sc8280xp-qmp-ufs-phy.yaml        |   2 +
+ .../phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h    |  24 +++
+ .../qualcomm/phy-qcom-qmp-qserdes-com-v8.h    |  13 +-
+ .../phy-qcom-qmp-qserdes-txrx-ufs-v8.h        |  37 +++++
+ drivers/phy/qualcomm/phy-qcom-qmp-ufs.c       | 139 ++++++++++++++++++
+ 5 files changed, 214 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-pcs-ufs-v7.h
+ create mode 100644 drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-ufs-v8.h
 
-Yeah, I don't think we want the DMA API on top at all. The allocator has
-special needs, like clustered allocations to minimize fragmentation and
-keeping as few chunks activated as possible. We also want to avoid
-resize operations because they can be quite heavy depending on system
-load.
+-- 
+2.34.1
 
-Thierry
-
---awe2ln3pvo2iqnm5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0saEACgkQ3SOs138+
-s6HmUQ//RyPTgx2QiCZkziDzWhQ8YjQ9J8KlwiQnyLspOz+Na5x6bslbOl/AuuBd
-DCTC8+y/ax94aG30aB0SctUZLtHriGHwevA3J9hm/CfR1K72DsjLSDnkqujE5h7B
-QxLJyl9wyqStgOfJEl6PwA8H9VbDkdJNHJlmpFzeki7a5QHQR28b+FyoWOZGGutC
-YKiDlqpqQk1rs9d8WQ4M5w6JiRmImAI9YcoFP36b36oPf6/DziGOYjqCO6k9o1GI
-pKj8EV6as2MTKoCdsuwHiQo/f2gQfyquJF+yK6m62NZy6wyr1ceed6jmCoIcuuh6
-NKDs1AUWYdLhOVod22LHwn8GCjaDRkYHuUNgRtVrz5BgUuVUW/EmVieF/7BeRpna
-HZ+uWPa09LwQq0ma8cRTNEQykq4zhVKxshPlVGeFuRJqIQ7C3ba/4UCWEDtT4Dlj
-udGkgC059nR72DiCjPnQ40LV5naHw+dIkTt7uS2rh/xRih0ZW5bTc1ex3KvVq2H+
-wtjVSehARwHbIzU3ijuk3iNDaGRYZS99YYB5NjULlXGFeldz0M4qj8L/Gu684Kt0
-c0DFGObvF6isiTZgfuIwCNEEURIKdOut/DpqvFXcAmaAYvwvko7EPo4xwigfSapd
-63yY0m3zfV1lefYdShI86wkQ8t4KSbU6Vhoh/A0AUNc1mcNqir8=
-=PD/g
------END PGP SIGNATURE-----
-
---awe2ln3pvo2iqnm5--
