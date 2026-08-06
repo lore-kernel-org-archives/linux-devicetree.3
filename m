@@ -1,151 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8764302ED
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 22:28:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17ED842C4F8
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 22:29:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786055301; cv=none; b=JyE59DND15p5InhkdOqqnpnN37C3xV1oKN7quCn33NJ7u/dMPh5c3ix0YT+/mbuh40hR8hNkdWI2WcTNtryKe6pm8HOI9TSzbQ+dvt+v/8SWACJNq8l4zaOBMw5OOYSGCWfzYH/ld0nti3HvTdJfy4nRsGjIeu3c6mbWCnyEj+I=
+	t=1786055352; cv=none; b=soMkA3yU1GDUF4GDe/YD67zqTwuL4KSWDBT2dbfyw0YMn5cyGtt8Ry4TmUJgI+mRp6ZnIhNnfu2R1TK6xdHxWN5B7PWo0DPrRhmynLeFub45ZGyOY6Dmixtqt3wcV3Dg44uj/Lb3UE5p2uORLYTTpBBe2M7fI/reU1YDX8l+rXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786055301; c=relaxed/simple;
-	bh=35mC7czCe20CoA+gBCU/gYTcl9LEXvpJ65V654kPGEY=;
+	s=arc-20240116; t=1786055352; c=relaxed/simple;
+	bh=gKAhHtPoGJZfRnmGM3F3kD2oF2AgZyV0dR0hxpc4MXI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kFoW5ZpoAcwMWjBYF+ptUqFMflZLlgvOeu6zeTgtQ7pGC0LugGcQfIwt0PVPPYkpFBQtNjsf3roH2u2icpURuxhBH64pMvkPA0HXE3KWPspdT1H8uQxbgSZXOXbTy8HwTviPE6M42zGIiqZ+XmX/GrtnDYeWi9vTud7OyqthRPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AN5GwtWk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OGGq+pgsRMQ3vTG9U5N3Bdpnv/Yub+EFDLON3tPklUsNlqzIPN5fKTry27Qfhogk3YNYvhlh8tAlJK9fJAChNefv3XJlQoYsU9ChzDoolZBeJ0HYV2Xl6ZNvxnAdUW2M6R5i6uJo2XZVmsyoPNkfeNe8LGDjM5baefhxR4mztE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDQPiUil; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AN5GwtWk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815161F00A3A;
-	Thu,  6 Aug 2026 22:28:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDQPiUil"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E84B21F000E9;
+	Thu,  6 Aug 2026 22:29:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786055293;
-	bh=euoKcPr/UtJdyIvhSIb4Hb4OQTZPTDktea3kyaMMmfQ=;
+	s=k20260515; t=1786055350;
+	bh=jPczrUcW96CTor1ZlMjzdBFm2jh6wGi4fM70q7vgf4s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AN5GwtWk3s+aIDS5zcFSpHPfmCuo4chh3/T07heyEBxBXb+a0OeZDJESKujgrm5lJ
-	 xYrCTVuZ2hcZftwBFd6IQeb5f/URbwCPYzR23FEcDO3SDYkcgZQS+4y3mrIG9JV9Oz
-	 gKJH6jU83OFxoqQT5n6YejxMeYr8IKJQ1Ls1ulCo9WeP+XnR8EVo2fzwzbU3SdcU7b
-	 SPiL8vqd/nia0GDkel9j2glELICueuRnLI2Gy+I/8SICMD/WrVwZDZwxawBtKMoTJz
-	 R6fAGWLYi7Tb94K5A4dScafkAnMKITc499L93hXh2vwm5wVf3zTnCZoo2mbrKHCxbx
-	 a6xXcOHFjkBJg==
+	b=HDQPiUilJIur+ccMAyutzEoSfJKY3z5364bzHzebkdOBgnam7qf/MyT0lFQZGksTB
+	 64txPVKVp1pC3nCoNQ8HWCOlWBjFWC+uWq+jqU5np/YPgUniL8fRNyKqLuQk3c8ebp
+	 qHoXZcJcOqlmchuCAvG3ryjL7ACmQaqvF7Twn1v1cFu2bFeXIyHcWBxiQOTOrpy4zZ
+	 ue38nSCtteOqrrekZg/I/wbDwlIv5mK8TsgaSciJ4dEVWM4BLQEsXw+h64qidZ9YIX
+	 kUTABRXWjzEbFMAV6O97IwnBUQj7TvKgO5aP8w+V7Mnrms3qDSXRcQe4POq70pdmWX
+	 DBjDA+Dnq8JLg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 16/37] pinctrl: airoha: add set_direction() helper
- for gpio_chip
+Subject: Re: [PATCH v11 35/37] pinctrl: airoha: try to find chip scu node by
+ phandle first
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806220615.4078303-17-mikhail.kshevetskiy@iopsys.eu>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260806220615.4078303-36-mikhail.kshevetskiy@iopsys.eu>
 References: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
- <20260806220615.4078303-17-mikhail.kshevetskiy@iopsys.eu>
+ <20260806220615.4078303-36-mikhail.kshevetskiy@iopsys.eu>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 22:28:12 +0000
-Message-Id: <20260806222813.815161F00A3A@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 22:29:09 +0000
+Message-Id: <20260806222909.E84B21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The newly added `airoha_gpio_get_direction` and `airoha_gpio_set_d=
-irection` helpers introduce a fatal NULL pointer dereference if pin configu=
-rations are applied during `pinctrl_enable`.
+- [High] The fallback logic unconditionally catches all errors from syscon_=
+regmap_lookup_by_phandle(), overwriting transient errors like -EPROBE_DEFER.
+- [Low] Unnecessary use of IS_ERR_OR_NULL() for an API that exclusively ret=
+urns an ERR_PTR on failure.
 --
 
---- Patch [16]: [PATCH v11 16/37] pinctrl: airoha: add set_direction() help=
-er for gpio_chip ---
-commit e29fc714c63ce8cf69a2d201c9cfc30258714834
+--- Patch [35]: [PATCH v11 35/37] pinctrl: airoha: try to find chip scu nod=
+e by phandle first ---
+commit 85429d10727580a9500263e5a9986ffdc51aa04d
 Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
 
-pinctrl: airoha: add set_direction() helper for gpio_chip
-
-This patch adds a set_direction() helper for the gpio_chip abstraction and
-refactors existing functions to use it, intending no functional changes.
+pinctrl: airoha: try to find chip scu node by phandle first
+   =20
+The commit updates the probe function to first search for the chip scu
+regmap using a phandle. It falls back to using the SoC specific compatible
+string on failure.
 
 > diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
 roha/pinctrl-airoha.c
-> index df1694296046c..e4ccf357df892 100644
+> index 134c57a54b963..153dd825c18c4 100644
 > --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
 > +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
-
-[ ... ]
-
-> @@ -2539,12 +2539,42 @@ static int airoha_gpio_get_direction(struct gpio_=
-chip *chip, unsigned int gpio)
->  	return val & mask ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
->  }
+> @@ -792,9 +792,12 @@ int airoha_pinctrl_probe(struct platform_device *pde=
+v)
+>  	if (IS_ERR(pinctrl->regmap))
+>  		return PTR_ERR(pinctrl->regmap);
 > =20
-> +static int airoha_gpio_set_direction(struct gpio_chip *chip, unsigned in=
-t gpio,
-> +				     bool input)
-> +{
-> +	struct airoha_pinctrl *pinctrl =3D gpiochip_get_data(chip);
+> -	map =3D syscon_regmap_lookup_by_compatible("airoha,en7581-chip-scu");
+> -	if (IS_ERR(map))
+> -		return PTR_ERR(map);
+> +	map =3D syscon_regmap_lookup_by_phandle(pdev->dev.of_node, "airoha,chip=
+-scu");
+> +	if (IS_ERR_OR_NULL(map)) {
+
+[Severity: Low]
+Does syscon_regmap_lookup_by_phandle() ever return NULL? It looks like
+this API exclusively returns either a valid regmap pointer or an ERR_PTR.
+Could this just use IS_ERR() instead?
 
 [Severity: High]
-Will this result in a NULL pointer dereference during device probe if pinct=
-rl
-hogs are defined?
+Does this introduce a regression where the fallback unconditionally catches
+-EPROBE_DEFER?
 
-If the device tree defines hogs, they are applied when pinctrl_enable() is
-called during probe. Looking at airoha_pinctrl_probe():
+If syscon_regmap_lookup_by_phandle() returns -EPROBE_DEFER because the
+syscon node is not yet ready, the code falls back to
+syscon_regmap_lookup_by_compatible().
 
-airoha_pinctrl_probe() {
-	...
-	err =3D pinctrl_enable(pinctrl->ctrl);
-	...
-	return airoha_pinctrl_add_gpiochip(pinctrl, pdev);
-}
+If the device tree uses the new phandle format and lacks the legacy
+compatible string, the fallback will return -ENODEV. This overwrites the
+-EPROBE_DEFER from the initial lookup and permanently aborts the probe.
 
-When pinctrl_enable() executes, it ends up calling the newly modified
-airoha_pinmux_set_direction(), which delegates to airoha_gpio_set_direction=
-().
+Should the code explicitly check for -EPROBE_DEFER and return it before
+falling back?
 
-At this stage, airoha_pinctrl_add_gpiochip() has not yet run, meaning
-devm_gpiochip_add_data() hasn't been called, and chip->gpiodev is still NUL=
-L.
-
-Because gpiochip_get_data() dereferences chip->gpiodev->data, can this lead
-to a crash on boot? Could the pinctrl context be derived using container_of=
-()
-instead, or perhaps the gpiochip could be registered before enabling pinctr=
-l?
-
-> +	u32 mask, index;
-> +	int err;
-
-[ ... ]
-
-> @@ -2761,27 +2791,13 @@ static int airoha_pinmux_set_direction(struct pin=
-ctrl_dev *pctrl_dev,
->  					unsigned int p, bool input)
->  {
->  	struct airoha_pinctrl *pinctrl =3D pinctrl_dev_get_drvdata(pctrl_dev);
-> -	u32 mask, index;
-> -	int err, pin;
-> +	int pin;
+> +		map =3D syscon_regmap_lookup_by_compatible(data->chip_scu_compatible);
+> +		if (IS_ERR(map))
+> +			return PTR_ERR(map);
+> +	}
 > =20
->  	pin =3D airoha_convert_pin_to_reg_offset(pctrl_dev, range, p);
->  	if (pin < 0)
->  		return pin;
-> =20
-> -	/* set output enable */
-> -	mask =3D BIT(pin % AIROHA_PIN_BANK_SIZE);
-> -	index =3D pin / AIROHA_PIN_BANK_SIZE;
-> -	err =3D regmap_update_bits(pinctrl->regmap, pinctrl->gpiochip.out[index=
-],
-> -				 mask, !input ? mask : 0);
-> -	if (err)
-> -		return err;
-> -
-> -	/* set direction */
-> -	mask =3D BIT(2 * (pin % AIROHA_REG_GPIOCTRL_NUM_PIN));
-> -	index =3D pin / AIROHA_REG_GPIOCTRL_NUM_PIN;
-> -	return regmap_update_bits(pinctrl->regmap,
-> -				  pinctrl->gpiochip.dir[index], mask,
-> -				  !input ? mask : 0);
-> +	return airoha_gpio_set_direction(&pinctrl->gpiochip.chip, pin, input);
->  }
+>  	pinctrl->chip_scu =3D map;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806220615.4078=
-303-1-mikhail.kshevetskiy@iopsys.eu?part=3D16
+303-1-mikhail.kshevetskiy@iopsys.eu?part=3D35
