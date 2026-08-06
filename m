@@ -1,315 +1,280 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE71744E046
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E097748F837
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:12:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786047106; cv=none; b=Tdhn1Ou42yJ5Z5CSEDyUMOlDKA5/QATi9h2Cp1DUpEOa+cu7+q7hcBoWK7cnmC230XUl/nLhKLspltxCbGOuXm/vCnkApsMSoi+9jX+9sFyzrCzq25ggMHD6PlEW0l6LQdj0N1kQtvh2VbvgosBynTgYXVuQBx5OipOaJMGdnX4=
+	t=1786047134; cv=none; b=o+N9rW/6SYGlwJWdVNAfRDmk1XGLSjlzxZDzpdfIjz5xUzS3MatKsJuP2tELFE/YsogsOtVwnR+VbH8MCpnw/Xdz2g+vB2aZP6Iqg3P2piO9rEFueWoWDhc/6Q9owpxIKb1G+OoifDYhMO8/OWKnvYNu3aqD6FL3u1gjdCqSzIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786047106; c=relaxed/simple;
-	bh=iBV296Cf/bF1l4zKqm3XDyO1r/OCo8hHmpGBDYKMsyw=;
+	s=arc-20240116; t=1786047134; c=relaxed/simple;
+	bh=+FgDoACLSZ+PUC38ZRtj235KDCKliDDpP230oYeNCKI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BzrCfiiiUtjVqWgPS+nd6Xq6cj2aoK41Rp580yw5Z3LvzqhZ5bEtP7dSoHg2zo47BHiQ7fip7ooyYplZqeFVtlIUuALojeGP52qmOlN8RaFdafg04xEloB3pu8JWvbUra3O0SEugH+DSS2nnYeQRrFIN9ucxVaUsNJyodbQ/sjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UwDPctXv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=P+TCvAO0hFpU/JIIvZ62r9PjjJYtkge8MdTCbk0Z8CMtiZeuVVsIRh7WkALjQuay+3hNDaa+iTjjJwmleTTcRjo7oEXuAAlKx2TPpcMCM4AjYFvB0XY7RRcs8C6U3o2/ItL3JXIQr0gQgyTi+h1k7dS1wXtI2MYO1xZKHhZkXgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kc/e/J+U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UwDPctXv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64EB71F000E9;
-	Thu,  6 Aug 2026 20:11:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kc/e/J+U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160F11F00A3A;
+	Thu,  6 Aug 2026 20:12:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786047104;
-	bh=kGGDgEoNPh6Y68fz5a04HSU4UxI72txWSQ0NEwsR2Ck=;
+	s=k20260515; t=1786047126;
+	bh=9T+LHZeu/apo+SaaxlkBQIEy/z4T2vBawZ+9w7oUwLU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UwDPctXvVCavxVLF/AV4qlcyQAsurcJelf7it/KfYaEdpZ2Mm0aM/BZbMnj7ZqoNS
-	 A7JTpmij7wkE9KdENbm0Jexibs2zfFNHVQ/AX//BlUlxgJJ928R8/LJ3ZRH7hAKyyo
-	 jNVXrL+MlbhR597KA/34yluhb0m3ltpqLIY09kmvjDQM+WcMWuiMAHRIKrqfLksb3U
-	 Px6J4ND7Tbhkuvhv/G0hxn7R7QI8MFurbZhf0Db09mg5F9tfG9L/tJD9mi+FLOC2RG
-	 x6PenUm/58W6mzSl50QSgC5/X2oY9iVo3VwzuLsxdH8T6Jqy/KBYcwJfjYubWjoXth
-	 vnZiItW2h2sRA==
+	b=Kc/e/J+UaYT2ogZrsrfCAb30R41gdol2ecq+a2XrOyu3ahC+7UCCS4CEgbGwb7u+2
+	 EvO09YW4fUjJIGH/5Zw6jhvwfM7JPcOym0xJ/CHPXe11UIZT+8mUhrANj6IuDMnqW3
+	 UZuWCoMpRZ5bMDds+9LnXtS6MhRQ46MAyAoNTOJzXKcBi1jOI4yxmxy0X50xQmtbyr
+	 mHnlw46QQkcMcgmrQ5Tg8VrY999/cFXYMNxx2DJ2J9XGHJvXNGphe8RSa+wj+0w/cu
+	 w9Q96CBFoTKZatzAeFy5FQg0258MemtGZL4Y7i6hKz+2afDd1pWJuSB8DrnZ5YCaM0
+	 sah9iW6P0uOJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/19] crypto: cmh - add core platform driver
+Subject: Re: [PATCH v3 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806195519.2703224-3-skrishnamoorthy@rambus.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260806195519.2703224-5-skrishnamoorthy@rambus.com>
 References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
- <20260806195519.2703224-3-skrishnamoorthy@rambus.com>
+ <20260806195519.2703224-5-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 20:11:43 +0000
-Message-Id: <20260806201144.64EB71F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 20:12:05 +0000
+Message-Id: <20260806201206.160F11F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [Critical] Unconditional algorithm registration leads to a division by ze=
-ro crash if the requested hardware core is not present.
-- [High] Arming the transaction timeout timer after ringing the hardware do=
-orbell creates a race condition leading to an orphaned timer and kernel pan=
-ic on module unload.
-- [High] Synchronous VCQ submission returns `-ETIMEDOUT` without transferri=
-ng DMA buffer ownership to an orphan callback, leading to DMA memory corrup=
-tion.
-- [High] A TOCTOU race in `cmh_tm_submit_sync_tmo()` reading `msg->actual_m=
-bx` allows bypassing the hardware ABORT command, leading to DMA use-after-f=
-ree.
-- [High] Driver teardown and suspend routines abandon in-flight transaction=
-s without halting the hardware, causing DMA writes into freed memory.
-- [High] Synchronous submission timeout logic issues a blind ABORT which ma=
-y incorrectly stop an unrelated transaction, leaving the timed-out transact=
-ion in the hardware queue.
-- [High] Watchdog-initiated FLUSH recovery races with the Transaction Manag=
-er, allowing new VCQs to be submitted to an actively flushing mailbox.
-- [Medium] The response handler fails to probe if mailboxes share an interr=
-upt line, breaking the shared IRQ path.
-- [Medium] Missing bounds check on embedded VCQ headers causes an out-of-bo=
-unds read of kernel heap memory during multi-VCQ dispatch.
+
+New issues:
+- [Critical] Integer overflow in `cmh_hash_finup()` leads to undersized all=
+ocation and heap buffer overflow.
+- [High] Driver attempts to linearize entire scatterlists with `kmalloc()`,=
+ breaking the crypto API for large payloads.
+- [High] Unaligned DMA mapping of an embedded structure member causes cache=
+line tearing.
+- [High] SHAKE algorithms incorrectly use a `block_size` of 1, bypassing th=
+e hardware holdback logic.
+- [High] Algorithm registration unconditionally assumes HC cores are presen=
+t, leading to a fatal divide-by-zero.
+- [Medium] Transient errors in `cmh_hash_update()` silently corrupt the req=
+uest's holdback state.
+
+Pre-existing issues:
+- [High] Transaction manager thread is started before its 'running' flag is=
+ set, potentially causing immediate exit.
 --
 
---- Patch [2]: [PATCH v3 02/19] crypto: cmh - add core platform driver ---
-commit c465b95a1402d4dad19cb4fdc8839741bcef0196
+--- Patch [4]: [PATCH v3 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash -=
+--
+commit cd0a896498edd93a15534bfd2d7287f9465b9b18
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
-Subject: crypto: cmh - add core platform driver
 
-This commit adds the core platform driver for the Rambus CryptoManager Hub
-hardware accelerator. It provides mailbox interface management, transaction
-handling, threaded IRQ completions, and device tree parsing.
+crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
 
-> diff --git a/drivers/crypto/cmh/cmh_main.c b/drivers/crypto/cmh/cmh_main.c
-> --- a/drivers/crypto/cmh/cmh_main.c
-> +++ b/drivers/crypto/cmh/cmh_main.c
-> @@ -215,8 +215,8 @@ static int cmh_probe(struct platform_device *pdev)
->  	/* Register hash algorithms with the kernel crypto API */
->  	ret =3D cmh_hash_register();
->  	if (ret)
->  		goto err_hash_register;
+This commit registers ahash algorithms for SHA-2, SHA-3, and SHAKE families
+using the CMH hash core. It implements incremental hardware updates, hardwa=
+re
+state save/restore across requests, and zero-copy from virtual buffers.
 
-[Severity: Critical]
-Can this unconditional algorithm registration lead to a division by zero
-crash? If the underlying hardware core is physically absent, its
-num_instances remains 0. If userspace requests an operation via AF_ALG, it
-will eventually call cmh_core_select_instance() which performs a modulo
-by num_instances.
-
-> diff --git a/drivers/crypto/cmh/cmh_rh.c b/drivers/crypto/cmh/cmh_rh.c
-> --- a/drivers/crypto/cmh/cmh_rh.c
-> +++ b/drivers/crypto/cmh/cmh_rh.c
-> @@ -462,11 +462,11 @@ static void cmh_rh_watchdog_fn(struct timer_list *t)
->  [ ... ]
->  					cmh_reg_write32(MBX_COMMAND_FLUSH,
->  							base,
->  							R_MBX_COMMAND);
->  					cmh_rh_poke_tail(base);
->  					cmh_rh_drain_mbx(i, -EIO);
+> diff --git a/drivers/crypto/cmh/cmh_hash.c b/drivers/crypto/cmh/cmh_hash.c
+> new file mode 100644
+> index 0000000000000..2a9a3c6a69855
+> --- /dev/null
+> +++ b/drivers/crypto/cmh/cmh_hash.c
+> @@ -0,0 +1,888 @@
+[ ... ]
+> +	{
+> +		.hc_algo     =3D HC_ALGO_SHAKE128,
+> +		.digest_size =3D CMH_SHAKE128_DIGEST_SIZE,
+> +		.block_size  =3D 1,    /* XOF: no meaningful block for crypto API */
 
 [Severity: High]
-Does this watchdog-initiated flush sequence race with the transaction
-manager? Because this runs in a timer context, it immediately drains the
-mailbox without waiting for the hardware flush to complete.=20
+Does setting the block size to 1 here cause the hardware holdback logic to =
+be
+bypassed?
 
-This wakes the TM thread, which sees empty queue pointers and selects the
-actively flushing mailbox as available, allowing new VCQs to be submitted
-while the hardware is still flushing. Could this corrupt the mailbox ring
-state? (The same sequence is also present in cmh_rh_force_drain_mbx).
+In cmh_hash_update(), the holdback checks:
+    if (total_avail < block_size) { ... }
 
-> @@ -840,11 +840,11 @@ static int cmh_rh_resolve_irqs(struct cmh_config *c=
-fg)
->  {
->  [ ... ]
->  	for (i =3D 0; i < cfg->mbx_count; i++) {
->  		rh.irqs[i] =3D cfg->mailboxes[i].irq;
->  		dev_dbg(cmh_dev(), "rh: MBX%u -> IRQ %d\n", i, rh.irqs[i]);
->  	}
-> =20
->  	rh.nirqs =3D cfg->mbx_count;
->  	return 0;
->  }
-> =20
->  int cmh_rh_init(struct cmh_config *cfg)
->  {
->  [ ... ]
->  		unsigned long irqflags =3D (rh.nirqs =3D=3D 1 && cfg->mbx_count > 1)
->  					  ? IRQF_SHARED : 0;
+Since the block size is 1, this condition fails for any non-empty input. Co=
+uld
+this force the hardware to process unaligned byte counts instead of bufferi=
+ng
+them to the required rate alignment?
+
+> +		.alg_name    =3D "shake128",
+> +		.drv_name    =3D "rambus-cmh-shake128",
+> +	},
+[ ... ]
+> +struct cmh_hash_reqctx {
+> +	const struct cmh_hash_alg_info *info;
+> +	int    error;
+> +	u32    hw_started;      /* non-zero after first HW submission */
+> +	u32    buf_len;         /* bytes in holdback buf[] */
+> +	u32    has_checkpoint;  /* non-zero if checkpoint[] valid */
+> +	/* DMA state for current async operation */
+> +	dma_addr_t ckpt_dma;   /* RESTORE input */
+> +	dma_addr_t save_dma;   /* SAVE output (update only) */
+> +	dma_addr_t data_dma;   /* UPDATE input */
+> +	dma_addr_t digest_dma; /* FINAL output (final/digest only) */
+> +	u8    *save_buf;       /* SAVE output buffer */
+> +	u8    *data_buf;       /* linearised data for DMA */
+> +	u32    data_len;       /* bytes in data_buf */
+> +	u8    *digest_buf;     /* digest output buffer */
+> +	u8     buf[CMH_HASH_MAX_BLOCK]; /* holdback for partial block */
+> +	u8     checkpoint[HC_CONTEXT_SIZE]; /* HC context from last SAVE */
+
+[Severity: High]
+Is there a risk of cacheline tearing during DMA mapping here?
+
+The checkpoint array is embedded within struct cmh_hash_reqctx without expl=
+icit
+alignment constraints. When cmh_hash_update() invokes cmh_dma_map_single() =
+on
+this member, could flushing or invalidating the buffer corrupt adjacent fie=
+lds
+that share the same cacheline?
+
+> +	struct vcq_cmd packed[CMH_HASH_MAX_PACKED];
+> +};
+[ ... ]
+> +static int cmh_hash_update(struct ahash_request *req)
+> +{
+[ ... ]
+> +	/*
+> +	 * Linearise: holdback prefix + full blocks from scatterlist.
+> +	 * full_len is user-controlled and can exceed KMALLOC_MAX_SIZE for a
+> +	 * single large update; __GFP_NOWARN avoids splatting the page
+> +	 * allocator on an oversized request.
+> +	 */
+> +	rctx->data_buf =3D kmalloc(full_len, gfp | __GFP_NOWARN);
+> +	if (!rctx->data_buf)
+> +		return -ENOMEM;
+
+[Severity: High]
+Can this memory allocation fail deterministically for valid large payloads?
+
+The kernel crypto ahash API is expected to handle arbitrarily large
+scatterlists. By attempting to linearize the entire operation into a single
+physically contiguous buffer, could this fail for payloads exceeding the
+maximum kmalloc size and break subsystems that rely on large streams?
+
+> +
+> +	if (rctx->buf_len > 0)
+> +		memcpy(rctx->data_buf, rctx->buf, rctx->buf_len);
+[ ... ]
+> +	/* Move tail to holdback */
+> +	if (tail_len > 0) {
+> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+> +			memcpy(rctx->buf, req->svirt + from_src,
+> +			       tail_len);
+> +		else
+> +			scatterwalk_map_and_copy(rctx->buf, req->src,
+> +						 from_src, tail_len,
+> +						 0);
+> +	}
+> +	rctx->buf_len =3D tail_len;
+> +	rctx->data_len =3D full_len;
+> +
+> +	/* Allocate SAVE output buffer */
+> +	rctx->save_buf =3D kzalloc(HC_CONTEXT_SIZE, gfp);
+> +	if (!rctx->save_buf) {
+> +		ret =3D -ENOMEM;
+> +		goto err_free;
+> +	}
 
 [Severity: Medium]
-Will this logic ever allow the shared IRQ path to be active? Because
-cmh_rh_resolve_irqs() unconditionally sets rh.nirqs to cfg->mbx_count,
-the condition for IRQF_SHARED evaluates to false.=20
+Could a memory allocation failure here permanently corrupt the internal hash
+holdback state?
 
-This prevents probe on platforms where mailboxes share an interrupt line,
-as the second request_threaded_irq() call will fail with -EBUSY.
+The tail data is copied to rctx->buf and rctx->buf_len is updated prior to
+allocating save_buf. If this allocation or the subsequent DMA mapping fails,
+the function returns early with an error, discarding the previous holdback
+prefix data. Should the internal state mutation be deferred until all
+allocations succeed?
 
-> diff --git a/drivers/crypto/cmh/cmh_txn.c b/drivers/crypto/cmh/cmh_txn.c
-> --- a/drivers/crypto/cmh/cmh_txn.c
-> +++ b/drivers/crypto/cmh/cmh_txn.c
-> @@ -263,11 +263,11 @@ void cmh_txn_finish(struct transaction_obj *txn, in=
-t error)
->  {
->  	int old;
-> =20
->  	old =3D atomic_cmpxchg(&txn->state, TXN_INFLIGHT, TXN_COMPLETE);
-> =20
->  	/* Dequeue the timer if still pending; drop timer ref if we did */
->  	if (timer_delete(&txn->timeout_timer))
->  		txn_put(txn);
-
-[Severity: High]
-Could this timer cleanup logic race with the timer setup in submit_vcq()?
-
-If the hardware completes the VCQ instantly after the doorbell is rung
-but before mod_timer() is called, cmh_txn_finish() will be called while
-the timer is not yet pending. As a result, timer_delete() returns 0 and
-leaves the timer reference.=20
-
-The TM thread then resumes and arms the timer on the already popped
-transaction, creating an orphaned timer that can trigger a kernel panic
-on module unload.
-
-> @@ -472,11 +472,11 @@ struct core_dispatch cmh_core_select_instance(enum =
-cmh_core_type type)
->  {
->  	struct core_type_info *ct;
->  [ ... ]
->  	ct =3D &core_types[type];
->  	idx =3D (u32)atomic_inc_return(&ct->next_instance) % ct->num_instances;
+[ ... ]
+> +static int cmh_hash_finup(struct ahash_request *req)
+> +{
+[ ... ]
+> +	data_len =3D rctx->buf_len + req->nbytes;
 
 [Severity: Critical]
-Does this modulo operation cause a division by zero crash if the
-hardware core is physically absent? Since algorithm registrations in
-cmh_probe() happen unconditionally, userspace can request an operation
-for an absent core, leaving num_instances at 0 here.
+Can this integer addition wrap around for extremely large payloads?
 
-> @@ -682,11 +682,11 @@ static int submit_vcq(struct command_msg *msg, u32 =
-mbx_idx)
->  {
->  [ ... ]
->  		if (num_vcqs =3D=3D 1) {
->  			vcq_cmds =3D msg->vcq_count;
->  		} else {
->  			const struct vcq_hdr *hdr =3D
->  				(const struct vcq_hdr *)&cmds[offset].hwc;
->  			vcq_cmds =3D hdr->cmds;
->  		}
-> =20
->  		copy_size =3D vcq_cmds * sizeof(struct vcq_cmd);
->  		if (copy_size > stride_bytes) {
+Unlike cmh_hash_update(), which explicitly checks for overflow, this functi=
+on
+lacks validation. If data_len overflows, it would result in a small memory
+allocation followed by a massive out-of-bounds copy operation below.
 
-[Severity: Medium]
-Is a bounds check needed here to prevent an out-of-bounds read? For a
-multi-VCQ message, hdr->cmds is read from the array to determine the
-copy_size.=20
-
-Without verifying that the accumulated offset + vcq_cmds does not exceed
-msg->vcq_count, a malformed array could cause the driver to read past the
-end of the msg->vcq_data allocation.
-
-> @@ -782,11 +782,11 @@ static int submit_vcq(struct command_msg *msg, u32 =
-mbx_idx)
->  	/* Ring doorbell: advance tail by number of VCQs submitted */
->  	cmh_reg_write32(tail + num_vcqs, mbx->reg_base, R_MBX_QUEUE_TAIL);
-> =20
->  	/* Arm per-request timeout after doorbell (async only) */
->  	if (msg->timeout_jiffies)
->  		mod_timer(&txn->timeout_timer,
->  			  jiffies + msg->timeout_jiffies);
+> +
+> +	if (data_len =3D=3D 0)
+> +		return cmh_hash_submit_final(req, NULL, 0);
+> +
+> +	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
+> +	      GFP_KERNEL : GFP_ATOMIC;
+> +
+> +	data_buf =3D kmalloc(data_len, gfp | __GFP_NOWARN);
+> +	if (!data_buf)
+> +		return -ENOMEM;
 
 [Severity: High]
-This appears to be the other side of the timer race condition noted
-earlier. Could arming the timer after ringing the doorbell create a
-window where the hardware completes the command before the timer is
-armed, leading to the orphaned timer issue?
+Similar to cmh_hash_update(), does linearizing the entire buffer with
+kmalloc() break the crypto API contract for large scatterlists?
 
-> @@ -1067,11 +1067,11 @@ void cmh_tm_cleanup(void)
->  {
->  [ ... ]
->  				old =3D atomic_cmpxchg(&txn->state,
->  						     TXN_INFLIGHT,
->  						     TXN_COMPLETE);
->  				if (txn->complete) {
->  					if (old =3D=3D TXN_INFLIGHT)
->  						txn->complete(txn->completion_data,
->  							      -ECANCELED);
-
-[Severity: High]
-Does abandoning in-flight transactions here cause DMA writes into freed
-memory? The transactions are force-completed with -ECANCELED and their
-callers will proceed to free the DMA buffers.=20
-
-However, no ABORT or FLUSH command is issued to halt the hardware
-execution, meaning the engine will eventually DMA its output to the
-freed memory. The same pattern exists in cmh_tm_quiesce().
-
-> @@ -1433,11 +1433,11 @@ int cmh_tm_submit_sync_tmo(struct vcq_cmd *vcq_cm=
-ds, u32 vcq_count,
->  			   u32 num_vcqs, s32 target_mbx,
->  			   unsigned long timeout_hz)
->  {
->  [ ... ]
->  		if (cmh_tm_try_cancel_command(msg)) {
->  [ ... ]
->  		} else {
->  			/*
->  			 * TM has dequeued msg and the VCQ is in-flight.
->  			 * Issue MBX_COMMAND_ABORT to force-stop the VCQ;
->  [ ... ]
->  			s32 abrt_mbx =3D READ_ONCE(msg->actual_mbx);
-> =20
->  			if (abrt_mbx >=3D 0 &&
->  			    (u32)abrt_mbx < tm.cfg->mbx_count) {
->  				dev_warn(cmh_dev(),
->  					 "tm: aborting mbx[%d] cmd=3D0x%08x\n",
->  					 abrt_mbx, msg->command_id);
->  				cmh_rh_abort_mbx((u32)abrt_mbx);
->  			}
+> +
+> +	if (rctx->buf_len > 0)
+> +		memcpy(data_buf, rctx->buf, rctx->buf_len);
+> +
+> +	if (req->nbytes > 0) {
+> +		if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
+> +			memcpy(data_buf + rctx->buf_len,
+> +			       req->svirt, req->nbytes);
+[ ... ]
+> +int cmh_hash_register(void)
+> +{
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i =3D 0; i < CMH_HASH_ALG_COUNT; i++) {
+[ ... ]
+> +		ret =3D crypto_register_ahash(alg);
 
 [Severity: High]
-Is there a Time-of-Check to Time-of-Use race here that bypasses the
-hardware abort? If the TM thread has dequeued the message but is
-delayed before writing msg->actual_mbx, READ_ONCE() returns -1. The
-waiter skips sending the ABORT and returns -ETIMEDOUT, freeing the DMA
-buffers while the TM thread resumes and submits the command to the
-hardware.
+Does this algorithm registration cause a divide-by-zero during testing if
+the hardware lacks HC cores?
 
-Additionally, could this blind abort terminate the wrong transaction?
-The ABORT command stops the operation at the head of the mailbox queue.
-If this timed-out transaction is queued behind a slow operation, this
-aborts the slow operation instead, leaving this transaction in the
-hardware queue to eventually corrupt freed memory.
+Algorithms are registered unconditionally here. When the crypto framework
+allocates an algorithm for testing, cmh_core_select_instance() performs a
+modulo by ct->num_instances. If the device tree safely omits HC cores, could
+this crash during boot or driver probe?
 
->  [ ... ]
->  			left =3D wait_for_completion_timeout(&sync->done,
->  							   5 * HZ);
->  			if (!left) {
->  				/*
->  				 * ABORT did not complete within 5 s -- HW
->  				 * is wedged.  The eSW may still be writing
->  				 * to DMA buffers owned by the caller, so we
->  				 * cannot let the caller free them.  Transfer
->  				 * ownership to the sync_ctx orphan mechanism;
->  [ ... ]
->  				dev_err(cmh_dev(),
->  					"tm: abort timeout (5s) cmd=3D0x%08x - DMA buffers orphaned\n",
->  					msg->command_id);
->  			}
->  			cmh_sync_ctx_put(sync);  /* drop waiter ref */
->  			command_msg_put(msg);    /* drop waiter ref on msg */
->  		}
->  		return -ETIMEDOUT;
->  	}
+[ ... ]
+
+This isn't a bug introduced by this patch, but looking at cmh_tm_init() in
+drivers/crypto/cmh/cmh_txn.c:
+
+cmh_tm_init() {
+    ...
+    tm.thread =3D kthread_run(cmh_tm_thread, NULL, "cmh_tm");
+    if (IS_ERR(tm.thread)) {
+        ...
+    }
+
+    WRITE_ONCE(tm.running, true);
+    ...
+}
 
 [Severity: High]
-Does returning -ETIMEDOUT here without transferring DMA buffer ownership
-lead to memory corruption? When this expires, the caller unmaps and
-frees the DMA buffers.=20
+Could the transaction manager thread exit immediately upon creation?
 
-However, the function does not attach an orphan_cb to the sync context
-here. If the hardware is merely slow rather than fully wedged, it will
-eventually complete and DMA its output into the now-freed memory.
+Because kthread_run() synchronously starts and schedules cmh_tm_thread,
+the new thread could check the tm.running flag before the parent thread
+executes WRITE_ONCE(tm.running, true), observing it as false and exiting
+permanently.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806195519.2703=
-224-1-skrishnamoorthy@rambus.com?part=3D2
+224-1-skrishnamoorthy@rambus.com?part=3D4
