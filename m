@@ -1,80 +1,158 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC803B5E19;
-	Thu,  6 Aug 2026 14:40:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B86470E8C;
+	Thu,  6 Aug 2026 14:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786027249; cv=none; b=hKux3UvDgClNEr6tHEThzAIb9dPXdF8RCphg1iY5XH2O+ubg4Oew+at7fyl/CPNTYGxjwvhAHTeybuINqp1mGbCaSsubAODZwrenTyYCI8KHYKj+erRN7HL5DwJz4dbPH/G/5rQ1U+fpWGD7zObvUi003kOroeICNkSuWUT5t4Y=
+	t=1786027337; cv=none; b=FKaIsTVn+DQisZwsVh5NpALuxz5SGhTDsQeZjhLo2tUn5/kTlcdCnlchSL+wMbuWUcQFLMuPKm/YurXtmUDV3MLQhnt0ukpIva7eHEDadavarFNOvnR5qrFeV3jE8wdU7WolJglZVpx6jzSXGjaKoQP1m3Ls7YTaB7LWOZMMcvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786027249; c=relaxed/simple;
-	bh=CeIRW8ADMGG+CUlfrMknEhjQlOhIKs8Ld2QehrBSDH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ikW6xZ7doPOimRj67l+hUD1DCWtOpYt+YC0K8WFsr6tJGRjHgp+9xW6dmh3t0oNCwPWBRoeL4scEfyz5y1fSnDqKZlnVe6G3OpuyrQhcIDzmGoyMyeGepw/CNwu+Mc9j5V0F8uos1MngLg1WvIILdiK8Bm2jeXL2ue6cwnKgNsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=whXNjc2u; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1786027337; c=relaxed/simple;
+	bh=7qPtf+dB83YTFh0o6ZSXj4jJr/gA9nOPdArEdRH9Lz8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ImRP0ihazHwPAQxrYNNPjgudQccvlK4AvoT1hqIcyJEvCnSjXZW29IwIkoI6I0iW3XpfbC4fxsTBMSz5JeYFhN+3cxRXVG8UWWkJVfA57Js0L6f5XflsYYZdDBL00jXXRigwrMI6ChgJmC/p4sPKjvwXLgsAdQU7jY26IQ/Hl60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ShjpXVaW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="whXNjc2u"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=FZIEzN2V2JqjGXOQM9wZT4ytUqP9hz4ZNtjjZVESahM=; b=whXNjc2ucP2u5Ow+eZETz+en0+
-	bm7YJhpm2Vmh9ZlHytuQIpEb22PB7PBNlEo4Dsso+seWS96A4vfhgaH3AH+2i8f4mvPtg5esLvBVs
-	9vt8EXEsu0zvu6UxxCFU5iLUqiECzPAJXNOJWIOHera45DHSMr6AS2VupOOJQgLW0uroACAibh6tA
-	5VVuAQaqDitKveo+TK0bbCN1Jt8dfd6QnAeyqWEHkWzx7/Q6ML7kMiEjkjZF1sQlSEJDQe/x72DVF
-	I0vSS9e3r7RUgcWdL7jXplqevUE5AZZb+BjIGPMx6GX6K38K3LTRG4/WSINe5sDCKQeFIHEavt7vv
-	VLZ0BHwg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Lee Jones <lee@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Samuel Holland <samuel@sholland.org>, linux-rockchip@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, Pavel Machek <pavel@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: (subset) [PATCH 2/4] dt-bindings: vendor-prefixes: Add techvision
-Date: Thu, 06 Aug 2026 16:40:42 +0200
-Message-ID: <7021768.R56niFO833@diego>
-In-Reply-To: <20260806143849.GP2869284@google.com>
-References:
- <20260711192842.845048-3-samuel@sholland.org> <1954916.R1toDxpfAE@diego>
- <20260806143849.GP2869284@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ShjpXVaW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF861F000E9;
+	Thu,  6 Aug 2026 14:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786027335;
+	bh=fOR/7ZIZFzT7PizU/ULMAdcAyu4l6xZI1kylL9/mhA4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ShjpXVaWhyWMwozYwsvB127NkAEoKCpxqkDFoj+m/78O4DN2PKv3kxu/w5Ds7ozw+
+	 5useUrM58DH3OI71ToGxv0wFOXJomeZE9VZq7EGDzPHUyH9MN6qqUPe72k4NREbvDg
+	 OLM+DMz44iq+uanT5XYUa/B3mbiZ+H4l/Dl4rzSpZYkwulnwkP7NSg4eq0/t+WWV80
+	 WgVvSEUQtBQI+Ssb//Z52k8vaRIlLbySTBTWb5da+MMORVxnlPyazstqNJcLr688XK
+	 sVPxqpHlRokiCsUPG+JT72vZK9gcP9tb41xbceplLfGZQT0bcMDzJzIxXIwU0yUpLV
+	 b3UBFpqgOIPHg==
+Date: Thu, 6 Aug 2026 15:42:10 +0100
+From: Lee Jones <lee@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, lgirdwood@gmail.com,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: Re: [PATCH 3/3] mfd: cs42l43: Add support for new cs42l44 variant
+Message-ID: <20260806144210.GQ2869284@google.com>
+References: <20260708140039.1993489-1-ckeepax@opensource.cirrus.com>
+ <20260708140039.1993489-4-ckeepax@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708140039.1993489-4-ckeepax@opensource.cirrus.com>
 
-Am Donnerstag, 6. August 2026, 16:38:49 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Lee Jones:
-> On Wed, 29 Jul 2026, Heiko St=C3=BCbner wrote:
->=20
-> > Hi Lee,
-> >=20
-> > Am Donnerstag, 16. Juli 2026, 12:41:59 Mitteleurop=C3=A4ische Sommerzei=
-t schrieb Lee Jones:
-> > > On Sat, 11 Jul 2026 14:28:26 -0500, Samuel Holland wrote:
-> > > > Techvision Intelligent Technology Co., Ltd[1] aka Shenzhen Huiwei
-> > > > Intelligent Technology Co., Ltd[2] is a manufacturer of single-board
-> > > > computers.
-> > >=20
-> > > Applied, thanks!
-> > >=20
-> > > [2/4] dt-bindings: vendor-prefixes: Add techvision
-> > >       commit: f0e0417373ca55d07cba596e8afe081c078843ad
-> >=20
-> > I can't find neither patch1 nor patch2 in neither the LEDs git nor
-> > linux-next. Is there a git push missing somewhere?
->=20
-> I pushed this a while ago.  Let me know if you still can't find it.
+On Wed, 08 Jul 2026, Charles Keepax wrote:
 
-all good now ... it appeared a day or two after that mail on git.kernel.org
+> The cs42l44 is a cost optimised variant of cs42l43b. Add basic support
+> for this new device.
+> 
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> ---
+>  drivers/mfd/cs42l43-i2c.c        |  2 ++
+>  drivers/mfd/cs42l43-sdw.c        |  1 +
+>  drivers/mfd/cs42l43.c            | 18 ++++++++++++------
+>  include/linux/mfd/cs42l43-regs.h |  1 +
+>  4 files changed, 16 insertions(+), 6 deletions(-)
 
+Doesn't apply anymore, sorry.  Please rebase.
 
-Heiko
+> diff --git a/drivers/mfd/cs42l43-i2c.c b/drivers/mfd/cs42l43-i2c.c
+> index bd9752d2cfc34..1af878c7a20b4 100644
+> --- a/drivers/mfd/cs42l43-i2c.c
+> +++ b/drivers/mfd/cs42l43-i2c.c
+> @@ -59,6 +59,7 @@ static int cs42l43_i2c_probe(struct i2c_client *i2c)
+>  static const struct of_device_id cs42l43_of_match[] = {
+>  	{ .compatible = "cirrus,cs42l43", .data = (void *)CS42L43_DEVID_VAL },
+>  	{ .compatible = "cirrus,cs42l43b", .data = (void *)CS42L43B_DEVID_VAL },
+> +	{ .compatible = "cirrus,cs42l44", .data = (void *)CS42L43B_DEVID_VAL },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, cs42l43_of_match);
+> @@ -68,6 +69,7 @@ MODULE_DEVICE_TABLE(of, cs42l43_of_match);
+>  static const struct acpi_device_id cs42l43_acpi_match[] = {
+>  	{ .id = "CSC4243", .driver_data = CS42L43_DEVID_VAL },
+>  	{ .id = "CSC2A3B", .driver_data = CS42L43B_DEVID_VAL },
+> +	{ .id = "CSC4244", .driver_data = CS42L43B_DEVID_VAL },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(acpi, cs42l43_acpi_match);
+> diff --git a/drivers/mfd/cs42l43-sdw.c b/drivers/mfd/cs42l43-sdw.c
+> index 6ccfdcd3f6698..81dd19df53685 100644
+> --- a/drivers/mfd/cs42l43-sdw.c
+> +++ b/drivers/mfd/cs42l43-sdw.c
+> @@ -184,6 +184,7 @@ static int cs42l43_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *
+>  static const struct sdw_device_id cs42l43_sdw_id[] = {
+>  	SDW_SLAVE_ENTRY(0x01FA, 0x4243, (void *)CS42L43_DEVID_VAL),
+>  	SDW_SLAVE_ENTRY(0x01FA, 0x2A3B, (void *)CS42L43B_DEVID_VAL),
+> +	SDW_SLAVE_ENTRY(0x01FA, 0x4244, (void *)CS42L43B_DEVID_VAL),
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(sdw, cs42l43_sdw_id);
+> diff --git a/drivers/mfd/cs42l43.c b/drivers/mfd/cs42l43.c
+> index 33479ddd539a6..d6027fa4de705 100644
+> --- a/drivers/mfd/cs42l43.c
+> +++ b/drivers/mfd/cs42l43.c
+> @@ -959,6 +959,7 @@ static void cs42l43_boot_work(struct work_struct *work)
+>  {
+>  	struct cs42l43 *cs42l43 = container_of(work, struct cs42l43, boot_work);
+>  	unsigned int devid, revid, otp;
+> +	bool valid_id;
+>  	int ret;
+>  
+>  	ret = cs42l43_wait_for_attach(cs42l43);
+> @@ -973,19 +974,24 @@ static void cs42l43_boot_work(struct work_struct *work)
+>  
+>  	switch (devid) {
+>  	case CS42L43_DEVID_VAL:
+> +		valid_id = (cs42l43->variant_id == CS42L43_DEVID_VAL);
+> +		break;
+>  	case CS42L43B_DEVID_VAL:
+> -		if (devid != cs42l43->variant_id) {
+> -			dev_err(cs42l43->dev,
+> -				"Device ID (0x%06x) does not match variant ID (0x%06lx)\n",
+> -				devid, cs42l43->variant_id);
+> -			goto err;
+> -		}
+> +	case CS42L44_DEVID_VAL:
+> +		valid_id = (cs42l43->variant_id == CS42L43B_DEVID_VAL);
+>  		break;
+>  	default:
+>  		dev_err(cs42l43->dev, "Unrecognised devid: 0x%06x\n", devid);
+>  		goto err;
+>  	}
+>  
+> +	if (!valid_id) {
+> +		dev_err(cs42l43->dev,
+> +			"Device ID (0x%06x) does not match variant ID (0x%06lx)\n",
+> +			devid, cs42l43->variant_id);
+> +		goto err;
+> +	}
+> +
+>  	ret = regmap_read(cs42l43->regmap, CS42L43_REVID, &revid);
+>  	if (ret) {
+>  		dev_err(cs42l43->dev, "Failed to read rev: %d\n", ret);
+> diff --git a/include/linux/mfd/cs42l43-regs.h b/include/linux/mfd/cs42l43-regs.h
+> index 68831f113589d..4c00ceae8b461 100644
+> --- a/include/linux/mfd/cs42l43-regs.h
+> +++ b/include/linux/mfd/cs42l43-regs.h
+> @@ -1183,6 +1183,7 @@
+>  
+>  /* CS42L43B VARIANT REGISTERS */
+>  #define CS42L43B_DEVID_VAL					0x0042A43B
+> +#define CS42L44_DEVID_VAL					0x00042A44
+>  
+>  #define CS42L43B_DECIM_VOL_CTRL_CH1_CH2				0x00008280
+>  #define CS42L43B_DECIM_VOL_CTRL_CH3_CH4				0x00008284
+> -- 
+> 2.47.3
+> 
 
-
+-- 
+Lee Jones
