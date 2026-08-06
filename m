@@ -1,124 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BE013957E
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 14:38:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DB13CF678
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 14:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786027117; cv=none; b=nm1QmUwWOb6utrmgbaJA/blojtkCH5tkjCK4V8/l0hcbhuCBNz3ex/x98TcjqQEQBX948j1Cz1zWC0VcGRssxIMac3UOY83z0HmRkYdfkcZJDOmwS0AnNFWjHCXkyFPi4SIUMTi3xuUwYqfENc+DPrazYE9KlazFXsQZ7aOcxXg=
+	t=1786027119; cv=none; b=I7E15zmw5GH0Ek5stOvr9We+n+R01NhHU6IT+Cla5PucbYH4OUOFbN3enPs6aQtIDk33Ru5RLG2oU6gHUEQkl1J1WYE9WZcMHc6mwUGCuAbb0qViZm3JOSlt5mYfqymPOYjg+qyrZCQgAAGBPFAVKToNNHdRb+EY7ChZRJXJVtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786027117; c=relaxed/simple;
-	bh=PNO3NC+bc3FY8EcysDClYNcHuVAfBXY9DK9gFr6lCFs=;
+	s=arc-20240116; t=1786027119; c=relaxed/simple;
+	bh=ryowZGZC6de3xf0thrSsQTy2fUWjOZjHpiVuGr11+NY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EYEuST0eC0g0jkSdpAHqiejXNGHo3aciPDZu5tByn0KK3TITXojns+M2VjYIc9VdkKpy+yEPYNpx1Tz2U1AjTuKs3ez3g/a8+L52gjio+s9lkYMX0AVCTTMdr+G20Ox8FbBp4hnnMW4cviEYwQNboJQqgpIvX3OG6hx1B5TlsGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aaB3G2Qm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=I78lkHmbrbqUpqYhCxRqF4rF7osly2s0kIbIr3xEKvG+Dg1DYMhOfLH4QKucGflkJXD6eWSdiTZqyxqk72WziJ/P2VfA1GioQaBcEr7CENlKbR6fpa3nnlF4mEyuvexbG18X7VzEHvjSqNbTb5UT/DVjiNXviB2iYFQCKgPG8XU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YK6dPdkO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aaB3G2Qm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A7E1F000E9;
-	Thu,  6 Aug 2026 14:38:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YK6dPdkO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F095A1F00A3A;
+	Thu,  6 Aug 2026 14:38:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786027115;
-	bh=Qc8TBmyWtkdurlD0GvI8ut6mseRaTlKBUjaISbRcX/Y=;
+	s=k20260515; t=1786027117;
+	bh=eL4PPqnUJjaYr1sW91h8XnyDx4G6gl7cLy4qdXomaQY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aaB3G2QmGForma65RTCL3WgY8Y8EIL9RKwL1ncbgX4PYSMWKZWdv24iEUeEF5R5mo
-	 sW/po1p+4xY2S0nTy1tdBzztGgtXbCGgQEwZrOq0cmc70SbpE7iRlGifTLVHYH95sN
-	 PUqXcIzXurT+DqFMShV2sGsUPSXfjMEEfCt33RyM2Z2PDaBibDVc404Bzn+Xhl9Jkc
-	 vXg6Y1Z5Qc7OiUWVWTaNLj67HUtU+y6DduVDYbBjb51nbD2egs2Q8NvQXwwTiZzlCZ
-	 qMlzN6CLI/ktf391gmKTmj2hLR/ovimV45YQRBzVicweHGF2G1CN9gcMI94OVojlUz
-	 Tp7GNq1KUTE1g==
+	b=YK6dPdkOaYfsadriUcBBnVJDLDjRceTdds+pQ2eJBWRZAGlfwoALcLSDeYwk0y7gX
+	 DDHIVmrqK+arIPbtLZQ+bkLyZ2AapVxOTYSfm9Xq/lMLQgGZUNk3qvXaBctsA/3PQg
+	 QgsvyGtWHgECSDDvSSmL21QMqoCGA2AIZTIMDWKsxvwJleGqQy0p6DKdpBIJEHhguH
+	 NrMwObRpcL+Z2a+I0ECLzoy4BflhjQoDE/ax4GKQgjZx71z6Hl4YkgMhImj3ExdTOu
+	 hTFbanIDIH10jM4Ockvnjn0f/H3+yVEyblayTo1JonT0Pr63W/TIjOJNeCxfbHF420
+	 B38X6SjLhNL5Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 1/9] net: dsa: add tag driver for LAN9645X
+Subject: Re: [PATCH net-next v11 2/9] dt-bindings: net: lan9645x: add
+ LAN9645X switch bindings
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-1-007ebc983a0a@microchip.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-2-007ebc983a0a@microchip.com>
 References: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
- <20260805-dsa_lan9645x_switch_driver_base-v11-1-007ebc983a0a@microchip.com>
+ <20260805-dsa_lan9645x_switch_driver_base-v11-2-007ebc983a0a@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 14:38:34 +0000
-Message-Id: <20260806143835.53A7E1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 14:38:36 +0000
+Message-Id: <20260806143836.F095A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The tag driver drops hardware-accelerated VLAN tags on transmit, l=
-eading to switch misclassification and double tagging.
+- [Medium] The schema lacks an `mdio` node definition while setting `uneval=
+uatedProperties: false` at the root, which inadvertently prevents instantia=
+tion of the integrated PHYs referenced in the example.
+- [Medium] Invalid constraint and usage of RGMII internal delay properties =
+in combination with `phy-mode =3D "rgmii"`.
 --
 
---- Patch [1]: [PATCH net-next v11 1/9] net: dsa: add tag driver for LAN964=
-5X ---
-commit 97f24952991b201e3d0f1948d98e9534914b9db3
+--- Patch [2]: [PATCH net-next v11 2/9] dt-bindings: net: lan9645x: add LAN=
+9645X switch bindings ---
+commit 36eb3256c1e8bdeb280de04a105905650e50438f
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
 
-net: dsa: add tag driver for LAN9645X
+dt-bindings: net: lan9645x: add LAN9645X switch bindings
 
-This commit introduces a new DSA tag driver for the LAN9645X switch family,
-using an NPI port for CPU connection. It supports prepending a 28-byte
-internal frame header (IFH) on injection and handling a long prefix on
-extraction.
+Add bindings for LAN9645X switch. We use a fallback compatible for the
+smallest SKU microchip,lan96455s-switch.
 
-> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
+> diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,lan96455=
+s-switch.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,lan9645=
+5s-switch.yaml
 > new file mode 100644
-> index 0000000000000..6a33216c7792f
+> index 0000000000000..043fb48922b41
 > --- /dev/null
-> +++ b/net/dsa/tag_lan9645x.c
+> +++ b/Documentation/devicetree/bindings/net/dsa/microchip,lan96455s-switc=
+h.yaml
+> @@ -0,0 +1,111 @@
+[ ... ]
+> +        properties:
+> +          rx-internal-delay-ps:
+> +            const: 2000
+> +
+> +          tx-internal-delay-ps:
+> +            const: 2000
+
+[Severity: Medium]
+Is it intended to restrict the rx-internal-delay-ps and tx-internal-delay-ps
+properties to exactly 2000?
 
 [ ... ]
-
-> +static void lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
-> +					struct net_device *br,
-> +					u32 *vlan_tci, u32 *tag_type)
-> +{
-> +	struct vlan_ethhdr *hdr;
-> +	u16 proto, tci;
+> +required:
+> +  - compatible
+> +  - reg
+> +  - ethernet-ports
 > +
-> +	if (!br || !br_vlan_enabled(br)) {
-> +		*vlan_tci =3D 0;
-> +		*tag_type =3D LAN9645X_IFH_TAG_TYPE_C;
-> +		return;
-> +	}
-> +
-> +	hdr =3D (struct vlan_ethhdr *)skb_mac_header(skb);
-> +	br_vlan_get_proto(br, &proto);
-> +
-> +	if (skb_headlen(skb) >=3D VLAN_ETH_HLEN &&
-> +	    ntohs(hdr->h_vlan_proto) =3D=3D proto) {
-> +		vlan_remove_tag(skb, &tci);
-> +		*vlan_tci =3D tci;
-> +	} else {
-> +		rcu_read_lock();
-> +		br_vlan_get_pvid_rcu(br, &tci);
-> +		rcu_read_unlock();
-> +		*vlan_tci =3D tci;
-> +	}
+> +unevaluatedProperties: false
 
-[Severity: High]
-Does this code drop hardware-accelerated VLAN tags on transmit?
+[Severity: Medium]
+Since the switch has integrated PHYs, will users need to define them in an
+mdio node to correctly resolve the phy-handle references?
 
-When the network stack transmits a frame through the DSA user port with a
-hardware-accelerated VLAN tag, the tag is stored out-of-band in skb->vlan_t=
-ci.
+If so, won't this unevaluatedProperties: false at the root level reject the
+device tree, as the mdio node is not defined in the properties block or
+inherited from dsa.yaml?
 
-By only checking the inline Ethernet header, ntohs(hdr->h_vlan_proto) will
-evaluate to the inner network protocol (like IPv4) instead of ETH_P_8021Q.
-This causes the check to fail and fall back to using the bridge PVID instead
-of extracting the existing out-of-band VLAN tag.
+[ ... ]
+> +            ethernet-port@7 {
+> +                reg =3D <7>;
+> +                phy-mode =3D "rgmii";
+> +                ethernet =3D <&cpu_host_port>;
+> +                rx-internal-delay-ps =3D <2000>;
+> +                tx-internal-delay-ps =3D <2000>;
 
-Because the out-of-band tag is ignored and never removed from the socket
-buffer, will the conduit driver eventually insert the original VLAN tag into
-the payload, resulting in a double-tagged frame on the wire?
+[Severity: Medium]
+Can this combination of phy-mode =3D "rgmii" and a 2000ps internal delay be=
+ used
+here?
 
-> +
-> +	*tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
-> +					     LAN9645X_IFH_TAG_TYPE_C;
-> +}
+According to the ethernet controller bindings, phy-mode =3D "rgmii" implies
+the delay is implemented on the PCB. Adding a 2000ps internal MAC delay on
+top of this might result in a double delay.
+
+If the hardware has fixed internal delays, should this use
+phy-mode =3D "rgmii-id" instead?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-dsa_lan964=
-5x_switch_driver_base-v11-0-007ebc983a0a@microchip.com?part=3D1
+5x_switch_driver_base-v11-0-007ebc983a0a@microchip.com?part=3D2
