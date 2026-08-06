@@ -1,172 +1,190 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79813ED12B
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:24:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EDB34E74D
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:25:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786047874; cv=none; b=LYnLInP8J7fTUghVWayJON6ydtMFmtK37aZgRTNlLOobiVYbaZPVaqs9t3sJiVUHx9jHHqIQG8MdUiQLuGqJdy6tNtwddrYyF/SYv4nb3YMt9i+y8FFiz9kt0P8XbU6RfodvqFnFiPw8FkcXXm3UfUzO8MmC8cvhqVSgzGZjuY4=
+	t=1786047915; cv=none; b=SV0QC1GRKq73gSOcg8jE4WQUqAFpfipUZ9zo3QYOaPCKNztspsUbv0zzRog1tlrrkSBYm8Wy7uoKqjL36cN2mSEhw1KovtBeQwI1dfG+EZ8OuX1EwyVEeIF5BcDocSFJ0eCJyn1CwMEqMT+GVXkP5cbxonGzkbT68cixiqdYrUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786047874; c=relaxed/simple;
-	bh=c0TQCCoETpaQBkYWPev3xKQdPwVoyMTZvt3/Z2IaMmQ=;
+	s=arc-20240116; t=1786047915; c=relaxed/simple;
+	bh=sjkoEtjJXrbpVmsmAIGsEBnmUKpVayaIi+OtqvA8VN0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=e9eK7v7Sr2rNQBSKeo+vYTgUx9FSwxdzplPUdfwyO7oxwvIyud/pmb1sisqbXdoilx8UKCYrSvhRZUjsJljic7QM0hp48AcHQkiGOEwYGElLjXK+nsUfYzphT0QRFeV0nFMZVE952JERtbCQpNyVH9e5igjJmcjbhqASwksWTvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFTBmrnp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RfMXvhC4kAkLjpIDkXofztJhLKe5NHMxya7EUrZ0pd3V57TN0yhT7C+F4YQOcLBDjUdPOaw53H6Jh7TyqpdiZhb5yHNJz5ReWTniyyhq3i/D9a5KZPCacmz2Uk+/2fCx60NZqhVfWvcBNaGQ//7NFYJErmW7ayNmZXYdptY9aXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LKJ9aEoJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFTBmrnp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 781AE1F00A3E;
-	Thu,  6 Aug 2026 20:24:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LKJ9aEoJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34DB71F000E9;
+	Thu,  6 Aug 2026 20:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786047871;
-	bh=IHB/1/RcunUOBU2d1mDfo7ar+RfsbbCMDOvYfnpVFZA=;
+	s=k20260515; t=1786047913;
+	bh=zvhMSCKiM7gKLIB57q7WK6hDQ+YNcagJPd/+S58s7Gk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cFTBmrnp3LovEDT0M3RMXtNWbkObzLG8Txr8XyywPvfsCwbs5mGTV/cOjBYgUMMA6
-	 DQNsIvDvg7VtGYRHYwEvbLBNTayTAWKi/RCKZUMRE9y8yBiiFmYLm555depMGZFaNn
-	 VAVW2xdn3Jeu+jTCx1gNiz4pbnDpM5C3EqoC0Ho17xa9j0h6VUvdsneE9KoY4V77hY
-	 DxCiY4G9p7F47667DYK2UZ/RZOxM0N0RJrY2/1B8yFUJYEAvhJ1GeH+i8WOMqBpuTF
-	 6Vo5XS8UFyQsiqu0dcbSAVjAhH48JFepJqu25FW1vVZ7x1iP6acj+JPJhntSJ1sSNK
-	 ejQHQ3H9bwQeA==
+	b=LKJ9aEoJ761Luj7s2wXES++JVKCMmfkCM498bwKeYBSO2aGb4L8Ie3AVCIXU878ea
+	 vBfKnX5SSYFO2qOVqLSF4YtW2uEG36seW24vyfHgkPBXnn2YWPXALaTcEWVApCypow
+	 eiA7I0sVJjoFUNpF962HV22FM4MQRQgIdCSrYqQ0Y7fDCw6W5JhXuJZPQJ8vdeG06g
+	 r2nG7CFFW4VVYHraNyghnl/pjCs4tB0VfdefdDiISW059T2AzgWO28M6LV+FN4zyAF
+	 wjdctaQ6tnJ2PMWeSBDp/YtzplGshboqw+3VQtrrESjx5SpTnVK3zYAsHkv+ileZ8b
+	 5S87xQYbUdMkQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 15/19] crypto: cmh - add ML-KEM/ML-DSA (QSE)
+Subject: Re: [PATCH v3 17/19] Documentation: ioctl: add CMH ioctl
+ documentation and register 'J'
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806195519.2703224-16-skrishnamoorthy@rambus.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260806195519.2703224-18-skrishnamoorthy@rambus.com>
 References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
- <20260806195519.2703224-16-skrishnamoorthy@rambus.com>
+ <20260806195519.2703224-18-skrishnamoorthy@rambus.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 20:24:31 +0000
-Message-Id: <20260806202431.781AE1F00A3E@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 20:25:11 +0000
+Message-Id: <20260806202513.34DB71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Critical] The driver unconditionally unmaps and frees DMA bounce buffers=
- when hardware transactions time out, risking severe memory corruption if t=
-he hardware is wedged.
-- [High] The ML-DSA sign and verify operations explicitly reject zero-lengt=
-h messages, violating FIPS 204 and breaking software fallback compatibility.
+- [High] UAPI Architecture Anti-Pattern: Bypassing standard cryptographic s=
+ubsystems with a massive custom ioctl interface.
+- [High] Privilege Separation and Access Control Violation in device node.
+- [Medium] Misleading UAPI Naming in SM2 ECDH Hash struct leads to API misu=
+se.
+- [Medium] Hardware Error Management Anti-Pattern: Exposing read-to-clear e=
+rror state directly to user-space.
 --
 
---- Patch [15]: [PATCH v3 15/19] crypto: cmh - add ML-KEM/ML-DSA (QSE) ---
-commit 7381e2595560d52e928536b3ed32c1907a27b36c
+--- Patch [17]: [PATCH v3 17/19] Documentation: ioctl: add CMH ioctl docume=
+ntation and register 'J' ---
+commit dcc392785ff594e59facfd1248a64d489fc2a2fd
 Author: Alex Ousherovitch <aousherovitch@rambus.com>
 
-crypto: cmh - add ML-KEM/ML-DSA (QSE)
+Documentation: ioctl: add CMH ioctl documentation and register 'J'
 
-Register ML-KEM (Kyber) and ML-DSA (Dilithium) algorithms using
-the CMH QSE core (core ID 0x09). ML-KEM is ioctl-only (keygen,
-encaps, decaps). ML-DSA is registered as a sig algorithm with
-priority 5001 to override the kernel's verify-only mldsa
-implementation at priority 5000.
+This commit adds documentation for the /dev/cmh_mgmt misc device ioctls
+used by the Rambus CryptoManager Hub (CMH) hardware crypto accelerator. It
+covers key management, derivation, public-key cryptography, post-quantum
+cryptography, and hardware management. It also registers the ioctl magic
+number 'J' (0x4A) in ioctl-number.rst.
 
-> diff --git a/drivers/crypto/cmh/cmh_pqc_mldsa.c b/drivers/crypto/cmh/cmh_=
-pqc_mldsa.c
+> diff --git a/Documentation/userspace-api/ioctl/cmh_mgmt.rst b/Documentati=
+on/userspace-api/ioctl/cmh_mgmt.rst
 > new file mode 100644
-> index 0000000000000..8f9bdf67aea24
+> index 0000000000000..d17a77975df6c
 > --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_pqc_mldsa.c
+> +++ b/Documentation/userspace-api/ioctl/cmh_mgmt.rst
 
 [ ... ]
 
-> +static int cmh_mldsa_sign(struct crypto_sig *tfm,
-> +			  const void *src, unsigned int slen,
-> +			  void *dst, unsigned int dlen)
-> +{
-
-[ ... ]
-
-> +	if (dlen < sig_size)
-> +		return -EINVAL;
-> +	if (!slen || slen > ML_DSA_MAX_MLEN)
-> +		return -EINVAL;
+> +Introduction
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +The ``/dev/cmh_mgmt`` character device provides user-space access to key
+> +management, key derivation, public-key, and post-quantum cryptographic
+> +operations on the CryptoManager Hub (CMH) hardware accelerator.
+> +
+> +The device is created by the ``cmh`` kernel module as a ``misc_device``.
+> +All operations are synchronous -- the ioctl blocks until the hardware
+> +completes.  Opening the device requires ``CAP_SYS_ADMIN``.
 
 [Severity: High]
-Does this break compatibility by rejecting zero-length messages? FIPS 204
-allows for empty messages, and rejecting them here could prevent the signin=
-g of
-valid empty messages. Since the hardware driver overrides the software
-fallback, this would break the capability kernel-wide.
+Could the global permission check on the device node create a privilege
+escalation regression?
+
+Looking at cmh_mgmt_open() in drivers/crypto/cmh/cmh_mgmt.c:
+
+    if (!capable(CAP_SYS_ADMIN))
+        return -EPERM;
+
+If an administrator opens /dev/cmh_mgmt and delegates the file descriptor
+to an unprivileged process for cryptographic data-plane operations, the
+lack of per-ioctl capability checks means that process can escalate its
+access to invoke system management operations like DRBG_CONFIG or EAC_READ.
+
+Alternatively, if delegation is not used, this structure forces standard
+applications to run as root just to access the crypto hardware.
 
 [ ... ]
 
-> +	ret =3D cmh_tm_submit_sync_mbx(vcq, QSE_VCQ_CMDS_MIN, 1,
-> +				     dd.mbx_idx);
-> +	if (!ret) {
-> +		/* Sync bounce buffer so CPU sees the DMA-written signature */
-> +		cmh_dma_sync_for_cpu(sig_dma, sig_size, DMA_FROM_DEVICE);
-> +		memcpy(dst, sig_buf, sig_size);
-> +		ret =3D sig_size;
-> +	}
+> +CMH_IOCTL_SM2_ECDH_HASH
+> +~~~~~~~~~~~~~~~~~~~~~~~~
 > +
-> +out_unmap:
-> +	if (!cmh_dma_map_error(sig_dma))
-> +		cmh_dma_unmap_single(sig_dma, sig_size, DMA_FROM_DEVICE);
-> +	if (!cmh_dma_map_error(m_dma))
-> +		cmh_dma_unmap_single(m_dma, slen, DMA_TO_DEVICE);
+> +Derive the shared key from the shared point and ZA digests.
 > +
-> +out_free:
-> +	kfree(sig_buf);
-> +	kfree(m_buf);
-> +	return ret;
-> +}
+> +:Direction: ``_IOWR``
+> +:Number: 0x35
+> +:Argument: ``struct cmh_ioctl_sm2_ecdh_hash``
+> +
+> +::
+> +
+> +  struct cmh_ioctl_sm2_ecdh_hash {
+> +      __u32 version;
+> +      __u32 __reserved;
+> +      __u64 peer_id_digest;    /* ptr to Z_A -- initiator's digest (32B)=
+ */
+> +      __u64 id_digest;         /* ptr to Z_B -- responder's digest (32B)=
+ */
 
-[Severity: Critical]
-If cmh_tm_submit_sync_mbx() times out and returns an error, does this code
-unconditionally unmap and free the DMA bounce buffers?
+[Severity: Medium]
+Will this struct naming lead to API misuse and silent protocol failures?
 
-If the hardware is wedged and a timeout occurs, freeing the memory here cou=
-ld
-leave the hardware DMA engine with a dangling physical address that it might
-still write to later, leading to memory corruption.
+The names peer_id_digest and id_digest naturally imply relative ownership,
+but the documentation requires absolute protocol ordering. If a developer
+implements the initiator role using the uapi struct fields as named, they
+must pass their own digest as peer_id_digest, which contradicts the naming.
 
 [ ... ]
 
-> +static int cmh_mldsa_verify(struct crypto_sig *tfm,
-> +			    const void *src, unsigned int slen,
-> +			    const void *digest, unsigned int dlen)
-> +{
+> +Hardware Management ioctls
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> +
+> +CMH_IOCTL_EAC_READ
+> +-------------------
+> +
+> +Read and clear the hardware Error and Alarm Controller registers.
 
 [ ... ]
 
-> +	if (slen !=3D sig_size)
-> +		return -EINVAL;
-> +	if (!dlen || dlen > ML_DSA_MAX_MLEN)
-> +		return -EINVAL;
+> +The eSW atomically reads and clears the registers on each call.
+> +Successive reads show only new events since the last read.
+
+[Severity: Medium]
+Does exposing read-to-clear error state directly to user-space risk silent
+loss of hardware error events?
+
+Looking at cmh_mgmt_eac_read() in drivers/crypto/cmh/cmh_mgmt.c:
+
+    vcq_add_eac_read(&vcq[1], rsp_dma, sizeof(*rsp));
+
+The driver unconditionally fetches and clears the state from hardware
+without multiplexing or caching it for other listeners. If multiple
+processes, or a daemon and a debugging tool, invoke the EAC_READ ioctl,
+each caller steals events from the others, preventing reliable error
+monitoring or telemetry.
+
+[ ... ]
+
+> +Relationship to the in-kernel crypto API
+> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> +
+> +The main reason these operations are exposed as ioctls, rather than
+> +through the standard in-kernel crypto API, is the CMH datastore key
+> +model: an ioctl can operate on a *datastore-referenced* (hardware-held)
 
 [Severity: High]
-Similar to cmh_mldsa_sign(), does this incorrectly reject valid zero-length
-verification requests?
+Does bypassing standard cryptographic subsystems introduce a fragmentation
+regression for the user-space ecosystem?
 
-[ ... ]
-
-> +	ret =3D cmh_tm_submit_sync_mbx(vcq, QSE_VCQ_CMDS_MIN, 1, d.mbx_idx);
-> +
-> +out_unmap:
-> +	if (!cmh_dma_map_error(pk_dma))
-> +		cmh_dma_unmap_single(pk_dma, pk_size, DMA_TO_DEVICE);
-> +	if (!cmh_dma_map_error(m_dma))
-> +		cmh_dma_unmap_single(m_dma, dlen, DMA_TO_DEVICE);
-> +	if (!cmh_dma_map_error(sig_dma))
-> +		cmh_dma_unmap_single(sig_dma, sig_size, DMA_TO_DEVICE);
-> +
-> +out_free:
-> +	kfree(pk_buf);
-> +	kfree(m_buf);
-> +	kfree(sig_buf);
-> +	return ret;
-> +}
-
-[Severity: Critical]
-Could a timeout from cmh_tm_submit_sync_mbx() cause these buffers to be fre=
-ed
-while the hardware might still perform a DMA read from them later?
+By bypassing standard kernel abstractions like AF_ALG or the keys subsystem
+in favor of a vendor-specific uapi, this approach commits the kernel to
+permanently maintaining a massive set of custom ioctls and requires
+applications to implement vendor-specific code instead of relying on
+standard interfaces.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806195519.2703=
-224-1-skrishnamoorthy@rambus.com?part=3D15
+224-1-skrishnamoorthy@rambus.com?part=3D17
