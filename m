@@ -1,108 +1,135 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1729C423EAC
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786007198; cv=pass; b=WyCqTVbHJe33sqkxVuiX2Nq+1KiO6YogZ2N0/StlrY2x1RuDDEcBqeYFOvucEwU8Mfq/YOYzfB+ygd1OvL+bCuqWUVTKCV4+1JmFCvI+jn2igpLoaVJrozNc8XggNhNJlBdeXu598LcmxixPeRS5AyeiD2L6x+QfHnhvhFlAgwA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786007198; c=relaxed/simple;
-	bh=7crgwx/ciSJ3YxNEg04ALNNE/ZCRr2ZUG8UeoFiokmY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZcOV3IGnYw4K1HNrfxDyzEi8qQuMIQt0ZwuAtVIYtgPANgOWKa4DGBff2socmlg8xiHq8+dznc+evfk4SY6+ELwYrlHl6mJxsluyrvyZ/Fu1+zs5iOL2ahU9p+IEbULeXhoKg5W2xn0rxL2zpE9GFQ0LaKWMr//7IJLTa1Ck6Wo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ESlfHpwe; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3F6424643
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786007244; cv=none; b=QIG+oqGMKwlxWBNIBi9dTAwaFmSc6i3lBanzbsjBFO3iz5nApitEmYLEfltQkG+H0hsQQ0DZTBUMiMFctqOvbOcsKlO93uEUlkWSoGzR+w34gWEjIP+tw1u28gjZNdoNdyrnpqK9lV1OecEKmssyW9yHwkw1rA8tfrCsD1pJRdY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786007244; c=relaxed/simple;
+	bh=N2UIDeaa01X7nyEC844NJAzySmXQlEoD30wwkj/4s8U=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hn7HkRTE4DbTh0/tZpFREMYVRENR8n0A/ZNuAQlZQ+ocQgUTJJHai98iFB9VRgs3zElHq+oe9rwGlfjfs9/uJEzkpRyCxy72udgFnqL/YWXiScTGYQ0F5q3Mw3GH69Ds8mYwPIBZJbRwxvCxdlq+dmvXw5kDFi50iRGP+gI4opM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PEZiqu9N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ESlfHpwe"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a10b20634fso3485674a12.3
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 02:06:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786007195; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GI9llxAmSa476sfBvdqKTARy08/96MgZB9ZX+DpHbBq1NE6LU9BiUanvHHAymonoBA
-         npaVmkPB8C48xCuCHdsXVXAg988QEHuWEaMEcNP6fe7K6VtIxEzJWE5My/7tSGrmLaAN
-         Mg+ZPuUWnfHUQEzfV4Y1+O2qQT/GvBrOyrzleXPdGg7wNeUAP2On4XbF2Xn18AFpbSDY
-         ym9yXuCsw2USb7MBI3NHvyGM3nCtmndcKJswVhv2vnCPkPQyeSL0xd2pmjdzmXAupYS6
-         nr/l+7lmwYNiOMaRefz7lpEX1mjcZWKqXHXg0YHFoo8BipjM0eHcGgRJDMZt1z9yJTGO
-         tbrA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7crgwx/ciSJ3YxNEg04ALNNE/ZCRr2ZUG8UeoFiokmY=;
-        fh=53qvJawqK0TJTsq+MaD47KBMEtgXQmC582XHmZ7TrbI=;
-        b=EoHn8igQWjkqdSG0lR0o8DeKqaqlS0Z/WELAsProU/Yac15ooEX+ZyZugSQGYzI/iG
-         nJpW/b6xN9S3sAH1teIgAyyWNwiZPDBxhx+OiO1JcIvWhHeq2zLWo0EcKU2SXg+XNc5n
-         ggzTaCgsERAyomNr0f1oHG1WRKwxmpAGAhiXisNBQslIXrM595IvSkg2wKnradnl7bH5
-         Op0TI/HEOrFD4nk/p/BMgx0uGo5UO1IiOFlm+afjBiY0MQxu/MXleFiIvCHx3edP0vat
-         BKx89YEWO8sNXzTERS6qxCSBMcFEpplw8BTn+BQd+cHuPJlV7fs0a3K1ScjPS6T6A4i9
-         Du8A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786007195; x=1786611995; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7crgwx/ciSJ3YxNEg04ALNNE/ZCRr2ZUG8UeoFiokmY=;
-        b=ESlfHpweoAFkkq+NJ9ZzScAMpwRE323ryTkcuz6okG9uHvu6HUW0fjfELV4ngkAkcF
-         uT04ZrVyIwoL4Ini4xtt6Q5CLIIB2n1KHbUKdVeszgHDWTJp29ZtkvJVkxSeB+1N5QYM
-         TmLxacwueOIK8HsVvWDagHo3pOaLSyVc3ohmpi2riHDoEPky7jWpkGmn2JPOO2S+uYLo
-         zlCgnXMW480a71/jnPPQfiovMp51L53xBQElyw5IjAKOjGCMMQge0oYbe0CIcGUOs8R2
-         6hhmdI+FlDt6xvBRtc8ZjvFUL+gbzsaKyOoQIK7ltSpX/mkyQxcul9KnU7KNXy+oksXU
-         TCxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786007195; x=1786611995;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7crgwx/ciSJ3YxNEg04ALNNE/ZCRr2ZUG8UeoFiokmY=;
-        b=ARnv+SGV3EFR9sUhx6Ck7SjOZLg4VKv2O7w/UiAx0GGEgVuAZiV1KZSASiQm2704Yu
-         tns5OV3kOKDA0PN7m+lVCQhSqqpaDmuai2NmDeJR2erDjDE5p5a1C5A17hgRzrIHl8ag
-         F5cDbDlg0UgN9AGhV2cNO1VdYnM72XRHsqr8jWcTAXy1tw+cM+rw1NGqaB91Vrgjq7Lt
-         SyJpdaN1dLEGfl5q/kcowE3iJd/CPs7YV23fG2KZAm6O9PMEPMMDv4yCQPw0GDIeVFeB
-         pDNIQBn6eBzMCbgEQFRsktOF+bkaasZ9uvnZPsZL5/1QSPbReNEYKSvzXoflpHPPG4Ue
-         r0Hg==
-X-Gm-Message-State: AOJu0YysTbJj1Fcn0DGNjGY6B8EdJWMNM5stmxABq8FkME2WVI2Exl+Q
-	sdf/JQKyDnKgIXqWykRuPN1xC8FDSoIy9XZYhIpEPKBhK7pkmcDmTU5pakzdaJstyXyCTG6Xk+s
-	xuwKglUUM2O383gvVUMTaeuObdkBgZfs=
-X-Gm-Gg: AR+sD13B7Kss/CD2fjf9TAyv/s5tEB77WO23Jc7R150DPOA4lKXBQzdqnH7vk7aNiPO
-	QJLGG7Gsc6qJIh94ezLh5/alS6Ap9wUcvePA9MbhpTAm2P2kTNP2DkiPlvkEdgiWXfcof0TM19o
-	K9vAFcop5sPIwXRXeJ3Wh09/Xl45TFz0TVLIe4f5LyMa2W5hBN697I2RLxnzpz95lhGHSSytQ0w
-	FdNNVU3kI4b/Bi+b2xqLg2qZsjtY1iOrruiB3vVJZ/+96uKg8Xwy69Gn8BVf/DZV2lWpQNnLLY/
-	AWlfhqOya3hS12O+/hKcf2RdxkghzWjOm4kM/C0k6kAMdQ==
-X-Received: by 2002:a17:907:1b24:b0:c12:8b1c:454f with SMTP id
- a640c23a62f3a-c2039c0264bmr718944366b.2.1786007194846; Thu, 06 Aug 2026
- 02:06:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PEZiqu9N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1B8A1F000E9;
+	Thu,  6 Aug 2026 09:07:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786007243;
+	bh=ts9Ogp0DEFsY+F9cABPzhrkGrp/DCGG6eWuoaICZQmc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PEZiqu9NNF4f/5Pkg0in4m8DQBDyqJXGiWMeelkgzlHP1NjRTxAORapd7Cdipvjz1
+	 U/0JuZ3cJw0H2cX1oIHcZoj1KwejJpcQvOihh1lzuA446O39T6EnjlbinzIS9f9dU0
+	 /vtybyL3++8+4klY9jp96gdwG+AXHglREBnwEUxrFjSTtvvNcCFhDuddJhNbwyGm4S
+	 nwgc2cib4cVBCuS6zmemH4o0Zns0BukV6BHB3xt33BtlTi7NAeMRWaxY5UDW4Y3ifZ
+	 xSxiP6A+p8Na6eKtEzZOumB6+BUSyuT+0Kopyod4KXP3hFwW41Xi/jRW305hsoHz/E
+	 EYpWQ5x61sjnA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 04/17] iio: adc: at91-sama5d2_adc: rework temp
+ calibration layout handling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varshini Rajendran" <varshini.rajendran@microchip.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260806074024.531259-5-varshini.rajendran@microchip.com>
+References: <20260806074024.531259-1-varshini.rajendran@microchip.com>
+ <20260806074024.531259-5-varshini.rajendran@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 09:07:22 +0000
+Message-Id: <20260806090722.C1B8A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260805085540.452260-1-a.shimko.dev@gmail.com>
- <20260805085540.452260-4-a.shimko.dev@gmail.com> <20260806085705.319D61F00A3A@smtp.kernel.org>
-In-Reply-To: <20260806085705.319D61F00A3A@smtp.kernel.org>
-From: Artem Shimko <a.shimko.dev@gmail.com>
-Date: Thu, 6 Aug 2026 12:06:24 +0300
-X-Gm-Features: AUfX_mywS_-Ap5-a--PJds67KA2ZnUqnVz73jHQni1dDTkW7W1PRCoPmEm1NfiU
-Message-ID: <CAOPX745QvyfneEwr4aHCCF6xqYzfH5UTDg0LyBWTC13vVro9qw@mail.gmail.com>
-Subject: Re: [PATCH net-next v6 3/3] net: phy: add DAPU Telecom DAP8211R(I)
- Gigabit Ethernet PHY driver
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 6, 2026 at 11:57=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
-> Should dap8211r_modify_ext() for DAP8211R_RGMII_CON be called before
-> triggering DAP8211R_PHY_SW_RST so the PHY latches the new delay values?
-
-This was already discussed. The reset is active low
-and self-clearing; RGMII configuration is written after the reset
-completes, which is the correct sequence. Verified on hardware many times.
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incomplete implementation and potential endianness mismatch for =
+temperature calibration tag validation.
 --
-Best regards,
-Artem
+
+--- Patch [4]: [PATCH v6 04/17] iio: adc: at91-sama5d2_adc: rework temp cal=
+ibration layout handling ---
+commit 65bb1c4cb4dea2cd195d1f4ea57709e80f9fb56a
+Author: Varshini Rajendran <varshini.rajendran@microchip.com>
+Date:   Thu Aug 6 07:40:11 2026 +0000
+
+    iio: adc: at91-sama5d2_adc: rework temp calibration layout handling
+
+This commit extends support to handle different temperature calibration lay=
+outs.
+It introduces a structure to describe indexes for calibration factors and
+scaling details, preparing the driver to handle SoC-specific differences.
+
+> diff --git a/drivers/iio/adc/at91-sama5d2_adc.c b/drivers/iio/adc/at91-sa=
+ma5d2_adc.c
+> index 09390f082fc48..82db8f2f4db03 100644
+> --- a/drivers/iio/adc/at91-sama5d2_adc.c
+> +++ b/drivers/iio/adc/at91-sama5d2_adc.c
+
+[ ... ]
+
+> @@ -444,6 +445,27 @@ static const struct at91_adc_reg_layout sama7g5_layo=
+ut =3D {
+>  #define at91_adc_writel(st, reg, val)					\
+>  	writel_relaxed(val, (st)->base + (st)->soc_info.platform->layout->reg)
+> =20
+> +/* Temperature calibration tag "ACST" in ASCII */
+> +#define AT91_TEMP_CALIB_TAG_ACST	0x41435354
+> +
+
+[Severity: Medium]
+This macro is defined here but doesn't seem to be used anywhere in this pat=
+ch.=20
+
+Also, if it were used directly for a u32 comparison against a memory buffer,
+would it cause an endianness mismatch? On Little-Endian systems (like
+SAMA5/SAMA7), reading the ASCII string "ACST" into a u32 would result in
+0x54534341 rather than 0x41435354.
+
+> +/**
+> + * struct at91_adc_temp_calib_layout - temperature calibration packet la=
+yout
+> + * @tag_idx:	index of Packet tag in the NVMEM cell buffer
+> + * @p1_idx:	index of FT1_TEMP, equivalent to P1 in the NVMEM cell buffer
+> + * @p4_idx:	index of FT1_VPAT, equivalent to P4 in the NVMEM cell buffer
+> + * @p6_idx:	index of FT2_VBG, equivalent to P6 in the NVMEM cell buffer
+> + * @min_len:	minimum number of u32 words expected in the NVMEM cell buff=
+er
+> + * @p1_scale:	scaling factor applied to P1 to convert to millicelcius
+> + */
+> +struct at91_adc_temp_calib_layout {
+> +	unsigned int tag_idx;
+> +	unsigned int p1_idx;
+> +	unsigned int p4_idx;
+> +	unsigned int p6_idx;
+> +	unsigned int min_len;
+> +	struct u32_fract p1_scale;
+> +};
+
+[ ... ]
+
+> @@ -2270,20 +2297,23 @@ static int at91_adc_temp_sensor_init(struct at91_=
+adc_state *st,
+>  		return dev_err_probe(dev, PTR_ERR(buf),
+>  				     "Failed to read calibration data!\n");
+> =20
+> -	if (len < AT91_ADC_TS_CLB_IDX_MAX * sizeof(*buf)) {
+> +	if (len < layout->min_len * sizeof(*buf)) {
+
+[Severity: Medium]
+The commit message mentions adding a layout structure to describe the index
+of the tag, but the tag validation using layout->tag_idx and
+AT91_TEMP_CALIB_TAG_ACST appears to be omitted here. Was this check
+unintentionally left out?
+
+>  		dev_err(dev, "Invalid calibration data!\n");
+>  		return -EINVAL;
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806074024.5312=
+59-1-varshini.rajendran@microchip.com?part=3D4
