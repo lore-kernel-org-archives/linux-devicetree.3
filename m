@@ -1,28 +1,28 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27E0330B32;
-	Thu,  6 Aug 2026 13:17:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F92137923;
+	Thu,  6 Aug 2026 13:17:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786022261; cv=none; b=YZwcVp0dv19xLgNcvoqIIkiBH1zV1Pdzwwqqd5QDDoy3p7qsMykQC2nAmmUf/zj4+p98195QqDslkA7drj6SRxmR96PB3JbwDtPfWsjAOyGIPjH6jgWPyDtpvtJetsjMciXFVrXUKUeB/hiLg30O7OPoIoIjqsCBegcZ308kTV4=
+	t=1786022263; cv=none; b=flUsBTOQXT+XhxMfU4j+sUHD03cRVbY+tJaml3IgmfbGG8WAQbkA6dJVsvbPS8gjZVs6FtEhT3bqI4vC/zOPCxmuX91NUSyZ6AVxZx5WeSOA1uGISOZxi+bMDWQH8B5YWCTiaXzz0U3s1yYP02YaVuTW8J//ep193xZazJiEquM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786022261; c=relaxed/simple;
-	bh=n5B9tVKJ9XbAPRDOXrC5ulZ3YFXjS2zIeKx4NxRxJFM=;
+	s=arc-20240116; t=1786022263; c=relaxed/simple;
+	bh=NjoYzYoJpK0n170py9EhMhQQr1rTjRMeYddlAE3lJGg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M8qjDMiukRsaNzLTy19T0bT+J/LJ2Gerte4mgdeSVoa/HPj2xxKUnhL+6Y3W8zDZeoS74S5rMwaqxKZIbHSsrx3tEtArxjqW0fSIKDMcXsmqWVQABrGY+q6+MVpd4bkr04clPi0c9eRW6emP3SVONRIhQX2CAvpkFcDnIaRD0RQ=
+	 MIME-Version; b=Aq4L2va6SX5jeYL1KfIMyb+3N1+PluWcwzBhRmsXbpJOTfNDUbbOdfyHua8szCQeFmx737trCPOs7tYH9jl8Ls0MxdynlmgD5C6+YOIP8MPR8T9XFaqTkRWYBaZ8StXV9h2yD+sRlWouG0Foy4j0rlBXpw8Js0Zc/XZXtYumDnY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D1CC4202122;
-	Thu, 06 Aug 2026 15:17:27 +0200 (CEST)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C25D0200FDB;
+	Thu, 06 Aug 2026 15:17:26 +0200 (CEST)
 Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wrxyR-000664-2V;
-	Thu, 06 Aug 2026 15:17:27 +0200
+	id 1wrxyQ-000664-2C;
+	Thu, 06 Aug 2026 15:17:26 +0200
 From: Philipp Zabel <p.zabel@pengutronix.de>
 To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
 	Yi Zhang <zhanyi@qti.qualcomm.com>,
@@ -49,11 +49,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
 	venkata.valluru@oss.qualcomm.com,
 	Jessica Zhang <jesszhan0024@gmail.com>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
 	Philipp Zabel <p.zabel@pengutronix.de>
-Subject: [PATCH 7/7] drm/bridge: lt9211: Enable DSI burst mode for LT9211C
-Date: Thu,  6 Aug 2026 15:17:15 +0200
-Message-ID: <20260806131715.508557-8-p.zabel@pengutronix.de>
+Subject: [PATCH 5/7] drm/bridge: lt9211: combine equal branches
+Date: Thu,  6 Aug 2026 15:17:13 +0200
+Message-ID: <20260806131715.508557-6-p.zabel@pengutronix.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260806131715.508557-1-p.zabel@pengutronix.de>
 References: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
@@ -66,34 +65,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oleksij Rempel <o.rempel@pengutronix.de>
+Combine two branches that set the predivider to the same value.
 
-Enable the MIPI_DSI_MODE_VIDEO_BURST flag to produce stable LVDS output
-on RK3576. In non-burst mode, the bridge produces a horizontally
-unstable image on this platform.
-
-Tested with: AUO G185HAN01.0 dual-link LVDS panel via LT9211C bridge
-
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
 ---
- drivers/gpu/drm/bridge/lontium-lt9211.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/lontium-lt9211.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/bridge/lontium-lt9211.c
-index c82f7ee7134c..e34ee288e466 100644
+index 5e5601551658..14afffcb2e4a 100644
 --- a/drivers/gpu/drm/bridge/lontium-lt9211.c
 +++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
-@@ -1399,7 +1399,8 @@ static int lt9211_host_attach(struct lt9211 *ctx)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
+@@ -993,10 +993,7 @@ static int lt9211c_configure_tx(struct lt9211 *ctx, bool jeida, bool bpp24,
+ 		phy_clk = (u32)(mode->clock * 7);
  
- 	if (ctx->chip_type == LT9211C) {
--		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM;
-+		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+			MIPI_DSI_MODE_LPM;
- 	} else {
- 		dsi->mode_flags =
- 			MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+ 	/* 0x8231: prediv sel */
+-	if (mode->clock < 20000) {
+-		val = 0x28;
+-		pre_div = 1;
+-	} else if (mode->clock < 40000) {
++	if (mode->clock < 40000) {
+ 		val = 0x28;
+ 		pre_div = 1;
+ 	} else if (mode->clock < 80000) {
 -- 
 2.47.3
 
