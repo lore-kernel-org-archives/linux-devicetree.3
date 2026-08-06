@@ -1,160 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD08544AB9A
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 14:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B98F3CF678
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 14:38:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786027122; cv=none; b=LMzXu7MCGqRmkDq8c3i667hdXnSZFKFvsrjt19J1pUTxlFmayfWFmO2C89songyoanX6cYLBu6hHNW84gueBS0cePf+zPdI7VImnpnM9w/RZlq7sjXMZvcci5mfsS7WQDO7s6S1Z9IaBiQiy/kXFITjccoxah/ELERZseWlEnHk=
+	t=1786027122; cv=none; b=oAFeIAwp2sFL84dt7TwGAa1e9Y+wxbjCI6iayGfuYY8stOyPnoHKU6YpfiDjlJc2zpeC+sVhTWSS5y/PT8tLp9XHtbX5tX+BibIpj6pvOMNqgTIYtD9YL5thjQLyDR5nIWGJ+prCL077UkemLvggxkFO5g5dubjOjRSH4EWO4As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786027122; c=relaxed/simple;
-	bh=pvq6kJH2GZ+7/ReKI9OWAZGmyJr3oMWcm3Y5ZT3ZA5o=;
+	bh=2E9EqnXxArvlzoj5rXvcXBQj1icqrtrKovwhJWCgMy4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kbE81yW0somzlWs3dJr8G88CdlOBHLpI4UFGVGlkEfBtko7LZViOyu9v3nHUFS7z5eBgqLsgiw9yiGzTW5X30vhcUM+VGnZqzkTEwaYTlRkz3obvkZ/PT75XNtHrlFK/Oia2cs/VpXeVLb/L/zeyd1OuWv3eeVGFzg0Gr1/pcZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lwfVF045; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YYDq2T78Lw+TnuxCtLt3MihuQa4PCqDZbcwKUp0srtp1LKS2nivZyAHRXYzn/Z6jm0w/9AwspTGqUWOGKMki2Rdm9G4yOCMZqCGpGo0hsOK56Wj10ktF5ZVj7pd4a/O7dfs3ArwVo0agwn0pFBcKganaqmOKbO75MITtpUP6Ekw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XEAO1ZCf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwfVF045"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91801F000E9;
-	Thu,  6 Aug 2026 14:38:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEAO1ZCf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00FCC1F00A3A;
+	Thu,  6 Aug 2026 14:38:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786027118;
-	bh=DQZX4Y13ap5I5IttCAVZciuJAWACdse+/k21URXQR+g=;
+	s=k20260515; t=1786027120;
+	bh=lf2cQbX0CboNL0SavEL2yve359kSktCznK7AdhnwGQI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lwfVF045XQxm1+R94FBxV+AVbsGt3rapb6VbnjkKJh9CBrOWoxeXcRHJc+66cx8Pb
-	 FEHL1QE1Epb+RykGn1gEPesMkVcddAGgdhE5DRBLJx6P71Xq0Fh0VkIle4z6610diT
-	 BA0Gk80N3SNc5IzSoLE0guIlvzFpwIECnpCHygMHatGdaS5S94bCpXe7RUTs0ezWM/
-	 LZJozG8jpmbtJ1xalXB0sDubgLN1qCuqbLZ+UTodUCmJ/q7X80mdI4fyMhAjdfouAk
-	 j1NMFg9vPFn5pNAPwqwi96OkLnbvblh0JQ0vMWPVlr3x5UsXu6tSIr1u3UV5xjUIaa
-	 JzvWQ+hWsNqjQ==
+	b=XEAO1ZCf+pbEBXB8sHspea3+EwhUTib0d+apy7hlWjDaqCabJQag+2t9g14+pG1C5
+	 Z1iNc/QDyEDIygz0+HMX4qNx+UCD1zbHwetOmTa2KyYLyKmo1VMBHlg89I1z7BLJ9m
+	 3ylhPQ/q346PA3j62j5E6RnX/9XYztE1jO1haBOmSs3RGCGIDCF5XFKH8ICBLC8M/e
+	 CEGcew5Q4pyxccDo5VXfEXsDeZ8L1DoaFblUUNh7jPAflLVmTgqwqyCpBk1GMS1CZU
+	 c0HetPAjYNyi1Jbh+kOdP0385B/eGY0y5oPy1ZPGxyM8IX6v1R7XMOSj0DMv4XEdwj
+	 uiIJOvo0ioaXQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 4/9] net: dsa: lan9645x: add basic dsa
- driver for LAN9645X
+Subject: Re: [PATCH net-next v11 5/9] net: dsa: lan9645x: add bridge support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-4-007ebc983a0a@microchip.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260805-dsa_lan9645x_switch_driver_base-v11-5-007ebc983a0a@microchip.com>
 References: <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
- <20260805-dsa_lan9645x_switch_driver_base-v11-4-007ebc983a0a@microchip.com>
+ <20260805-dsa_lan9645x_switch_driver_base-v11-5-007ebc983a0a@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 14:38:37 +0000
-Message-Id: <20260806143838.A91801F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 14:38:39 +0000
+Message-Id: <20260806143840.00FCC1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Standalone ports drop all normal data plane traffic destined for t=
-he CPU because the CPU port module is missing from the source port forwardi=
-ng masks (PGID_SRC) and the flooding masks (PGID_UC, PGID_MC).
-- [Medium] Pause frame start watermark (PAUSE_START) exceeds the port's max=
-imum allowed memory (ATOP) for jumbo frames, breaking flow control and caus=
-ing silent tail drops.
+- [High] Hardware learning is not disabled when a port leaves a bridge, cau=
+sing cross-port FDB pollution that breaks software bridging/routing for sta=
+ndalone ports.
 --
 
---- Patch [4]: [PATCH net-next v11 4/9] net: dsa: lan9645x: add basic dsa d=
-river for LAN9645X ---
-commit dd8bddd9c4ac1f2dbff1feda2560552c682fa913
+--- Patch [5]: [PATCH net-next v11 5/9] net: dsa: lan9645x: add bridge supp=
+ort ---
+commit f959003f0679008432479a15ff4b25747ede3826
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
-Date:   Wed Aug 5 14:34:52 2026 +0000
 
-    net: dsa: lan9645x: add basic dsa driver for LAN9645X
-   =20
-    Add the LAN9645X basic DSA driver with initialization, parent regmap
-    requests, port module initialization for NPI, CPU ports and front ports,
-    and phylink integration for MAC side configuration.
+    net: dsa: lan9645x: add bridge support
 
+Add support for hardware offloading of the bridge. We support a single
+bridge device.
+
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
+/net/dsa/microchip/lan9645x/lan9645x_main.c
+> index b253813518c20..c145d28ffbb99 100644
 > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 [ ... ]
-> +static int lan9645x_setup(struct dsa_switch *ds)
+> @@ -282,6 +305,282 @@ static void lan9645x_port_phylink_get_caps(struct d=
+sa_switch *ds, int port,
+[ ... ]
+> +static void lan9645x_port_bridge_leave(struct dsa_switch *ds, int port,
+> +				       struct dsa_bridge bridge)
 > +{
-[ ... ]
-> +	/* Disable bridging by default */
-> +	for (int p =3D 0; p < lan9645x->num_phys_ports; p++) {
-> +		lan_wr(0, lan9645x, ANA_PGID(PGID_SRC + p));
+> +	struct lan9645x *lan9645x =3D ds->priv;
+> +	struct lan9645x_port *p;
 > +
-> +		/* Do not forward BPDU frames to the front ports and copy them
-> +		 * to CPU
-> +		 */
-> +		lan_wr(ANA_CPU_FWD_BPDU_CFG_BPDU_REDIR_ENA,
-> +		       lan9645x, ANA_CPU_FWD_BPDU_CFG(p));
-> +	}
-[ ... ]
-> +	/* Multicast to all front ports */
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MC));
+> +	p =3D lan9645x_to_port(lan9645x, port);
 > +
-> +	/* IP multicast to all front ports */
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV4));
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_MCIPV6));
+> +	mutex_lock(&lan9645x->fwd_domain_lock);
 > +
-> +	/* Unicast to all front ports */
-> +	lan_wr(front_ports, lan9645x, ANA_PGID(PGID_UC));
-
-[Severity: High]
-Does this configuration drop normal data plane traffic intended for the CPU=
- on
-standalone ports? Setting the source forwarding mask (PGID_SRC) to 0 for all
-user ports seems to block them from forwarding frames to any destination,
-including the NPI or CPU port module.
-
-Furthermore, deriving front_ports from dsa_user_ports(ds) excludes the CPU
-port from the flooding masks. Should the CPU port be included in the source
-forwarding and flooding masks to ensure host traffic is not blackholed?
-
-> --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_port.c
-[ ... ]
-> +void lan9645x_port_set_tail_drop_wm(struct lan9645x *lan9645x)
-> +{
-> +	int shared_per_port;
-> +	struct dsa_port *dp;
+> +	lan9645x->bridge_mask &=3D ~BIT(p->chip_port);
 > +
-> +	/* Configure tail dropping watermark */
-> +	shared_per_port =3D
-> +		lan9645x->shared_queue_sz / (lan9645x->num_phys_ports + 1);
+> +	/* Last port leaving clears bridge dev */
+> +	if (!lan9645x->bridge_mask)
+> +		lan9645x->bridge =3D NULL;
 > +
-> +	/* The total memory size is divided by number of front ports plus CPU
-> +	 * port.
-> +	 */
-> +	dsa_switch_for_each_available_port(dp, lan9645x->ds)
-> +		lan_wr(lan9645x_wm_enc(shared_per_port), lan9645x,
-> +		       SYS_ATOP(dp->index));
-[ ... ]
-> +int lan9645x_port_set_maxlen(struct lan9645x *lan9645x, int port, size_t=
- sdu)
-> +{
-> +	struct lan9645x_port *p =3D lan9645x_to_port(lan9645x, port);
-> +	int maxlen =3D sdu + ETH_HLEN + ETH_FCS_LEN;
-[ ... ]
-> +	/* Set Pause WM hysteresis */
-> +	lan_rmw(SYS_PAUSE_CFG_PAUSE_STOP_SET(lan9645x_wm_enc(4 * maxlen)) |
-> +		SYS_PAUSE_CFG_PAUSE_START_SET(lan9645x_wm_enc(6 * maxlen)),
-> +		SYS_PAUSE_CFG_PAUSE_START |
-> +		SYS_PAUSE_CFG_PAUSE_STOP,
-> +		lan9645x,
-> +		SYS_PAUSE_CFG(p->chip_port));
+> +	__lan9645x_port_set_host_flood(lan9645x);
+> +	lan9645x_update_fwd_mask(lan9645x);
 > +
-> +	return 0;
+> +	mutex_unlock(&lan9645x->fwd_domain_lock);
 > +}
 
-[Severity: Medium]
-Will jumbo frames hit the tail drop watermark before triggering flow contro=
-l?
+[Severity: High]
+Does this code need to clear p->learn_ena when a port leaves the bridge?
 
-The tail drop watermark (SYS_ATOP) in lan9645x_port_set_tail_drop_wm() appe=
-ars
-to be statically set to around 16KB. However, PAUSE_START dynamically scales
-with maxlen (6 * maxlen) in lan9645x_port_set_maxlen().
+When a port is removed from the hardware bridge, its learning state incorre=
+ctly
+remains enabled. If this port and another port are later added to a software
+bridge (for example, if the hardware only supports one offloaded bridge), t=
+he
+DSA core transitions the standalone port to BR_STATE_FORWARDING.
 
-For MTUs larger than roughly 2.7KB, PAUSE_START will exceed SYS_ATOP. Could
-this cause the port to silently drop frames because it hits the tail drop
-limit before ever reaching the threshold to emit pause frames?
+Because p->learn_ena was not cleared during bridge leave, the call to
+lan9645x_port_bridge_stp_state_set() will incorrectly re-enable hardware
+learning for the standalone port:
+
+	learn_ena =3D (state =3D=3D BR_STATE_LEARNING ||
+		     state =3D=3D BR_STATE_FORWARDING) && p->learn_ena;
+
+	lan_rmw(ANA_PORT_CFG_LEARN_ENA_SET(learn_ena), ...
+
+This causes the port to learn MAC addresses into the shared HOST_PVID FDB u=
+sed
+by standalone ports. When the other software-bridged port (which expects to
+send unknown unicast traffic to the CPU) receives traffic for a MAC dynamic=
+ally
+learned by this port, the hardware resolves the destination.=20
+
+However, since PGID_SRC for standalone ports is 0, the packet is silently
+dropped in hardware instead of being forwarded to the CPU, breaking network
+connectivity for the fallback software bridge.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-dsa_lan964=
-5x_switch_driver_base-v11-0-007ebc983a0a@microchip.com?part=3D4
+5x_switch_driver_base-v11-0-007ebc983a0a@microchip.com?part=3D5
