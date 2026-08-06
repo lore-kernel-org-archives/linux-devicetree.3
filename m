@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70ED7385D6A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E225385515;
 	Thu,  6 Aug 2026 00:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785976758; cv=none; b=UzFe4eoDZnDIkZZjDLbZvMzjifabtvOdKX4RXcr5RDzG/4V2ee6h7miiSjFy9i6TIOzcG+h1UB3/yicw8QeXXO0Tlz9/Cmw+HKt4UgpXBnEZn5S434Mkhp4mF3rwIRFTbWICNbY4nJlACoRzn/z9eUsTuaYsU00UyMoWGv8Ojfs=
+	t=1785976758; cv=none; b=CQ0OJR5Hx1MI0XPfCv1QSh+OePcrBDxKFNwGZu0sRIVpoKN+Cq78H/B7t5rhpQDf0v3mRCjguoj+m47L9a8Jy49oMc4OxEh3IXt90XI2uUK/0fluIb9i27NT5xC7hbwR4Uu5BfWiCD9++pTKRx9supNHgQEVwZTkckcLCf9UVhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785976758; c=relaxed/simple;
-	bh=9FpV3bb9Yf8xHPTcxEl1re2wN0q3D7uWMoett4BthOc=;
+	bh=fcI6NxAi0w9kYs3KWpEoGjJ9DJV5ajPSR9SnFAY0JFY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=roy2TehQA9HVidIRXPpGI7KZQMTR7v93yRXC7wcNbTLYgsvkhZ1HCoMLBJOivPxoEoXxIlcnaXi0GWAIcc8hjahNwDbf4n9ejpNwTV/IT9QmJouNDzRZwM/qIBwkiadsLzXljGkW/TZAN4z97MvPp1iJbgZIYuKbn/PDmIU4ntA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mguQgjGm; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=Mz26AR3EOY20sSyvL0SWMLWzsSTCby5itbFLKXv3cjHTI69RAJA/h0ozvdwXcZ5NYZ+teg0DKin5zRjSXM+aAx9Yt12eKgbYS35d0IGpZ9SHta58QK48eTvrVLJvR+Nen3TxZa8a14ByfvEadAOOc6auIKdMvJbM0uwZDOvq1lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=ZCouqlUo; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mguQgjGm"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="ZCouqlUo"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1785976751;
-	bh=9FpV3bb9Yf8xHPTcxEl1re2wN0q3D7uWMoett4BthOc=;
+	bh=fcI6NxAi0w9kYs3KWpEoGjJ9DJV5ajPSR9SnFAY0JFY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=mguQgjGmYeyZbzDZHA9Yh1SLVEHzr69GNCUncsHiEUgT3fUKr8Jm09gyeLG2knvoO
-	 PpwWsUtBlsJvCA+si9lh+F5z37LLjn5FWa0jM6OFTyNTQFJcwXs3y5EX2yQ2JIwY6T
-	 yDqJNdfm2gGqMW/bV8aBYIwJg4G2GUBAR5KO5JnSlZdEEbrrlOrtdCeP9KwRdELsWb
-	 YPcGVHJFgRqip1ZZyZBVTGS3IyZ3GJsfRK91DJ/4oWz7VA/sGX5tITwaawFlXtZf85
-	 f4nJK2xR/dEVXrjBguSNCpXM42TFsikf4CDnzo6FXVmgiYwtHamjSjtqQ8cUjvl9rk
-	 5HOk01SS2wKmQ==
+	b=ZCouqlUon+4oPxndlT3o5V1GekpaWkg/1cR+oRr5ipN4dFEeBNQ318Y6oML7rKMWb
+	 6HGRi4aFlnE2AeUgHBHhMM7Rc3kYZBZRhZkO68sFeRS5P0ZF+qHX+fiEx5ik9chnuY
+	 xlE3NQzajJGa4El2CRytKPaGeWTEVPCR2JywjN+MqrKNi6pFJ8f4/pE3n2BoweJ/IU
+	 pt81XtNyKbqhVEnE0DjDW0nyEPSqufsVXm/ice/vqNy/Uo4EbxihnvpZUC1rPdEMmR
+	 VHNl+BT6bAFcKDSoUcJbrphySrj/68HzvpjKQSXtFsIyHQEBTaTme9QwnNUU3seC5P
+	 e1z2/Zk1Suz0A==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4802517E07EF;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 42DDF17E07DC;
 	Thu, 06 Aug 2026 02:39:11 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 957A8480047; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
+	id 9409548003D; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 02:39:16 +0200
-Subject: [PATCH v10 10/21] drm/bridge: synopsys: dw-dp: Add follow-up
- bridge support
+Date: Thu, 06 Aug 2026 02:39:15 +0200
+Subject: [PATCH v10 09/21] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v10-10-d84a26c303d6@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v10-9-d84a26c303d6@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -73,106 +73,109 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2690;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3804;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=9FpV3bb9Yf8xHPTcxEl1re2wN0q3D7uWMoett4BthOc=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz166l8Qx4il2hZc+l9xFnjgOZyqG1wg0CB
- v+yNeUO1cKD+okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9euAAoJENju1/PI
- O/qazyMQAIhAmg7+0ZYXGv0P1r5+bX/faYShLMUu4zd14bDEZHkUC3qDcV4FTco/1z4haxN3U/+
- QwrfUTg6+013T5lBS7Cshyfz+aRiA2AKDGISFuI21StD1W9m8omi/OW9WQcwL2RWXoGOY8RoCCW
- eTPm0xKtkhXoZQIZUcbnbQ0pSLPbrZTl2WmrC1/H/6MJ+y5OjpfMVt9/qyru5zcVnd30pEPZKXR
- sPaCaei3r0E2b2GTxRVY/0N4n5U9ntkF2U2iwA09XOe2NLtqnhpYZcf0L95jhCxuKOwp05PcS2h
- 6j9IIz/9KGgWEkWQvlauKVG5FzkHkgZf1O4lB+a8sgG7gxT4WkHrmD+8wQ0TNK0iLSSHTrZETme
- 33jKu+oaBgP6hA2BMpcSNxtIap/lDBwAFwwdeHkmY3wsuwzADRFEIzO7Y9uv/d0bkTuOtRXpvtL
- RxW3Tx6VmN7vtctTDbUbiPuVwIXKsvsxxTBsSan9bNCHuCMT6FoBMb24fOmQ7XAjPEbp4QNbQ7w
- /5GhfNh+TaL1Sr1IMsBtPc5mDyoM+FcV4jJxCZXgZOF3NFx7ac61/+o+WALlwkU4ImYdzPPa2tw
- HvyW6JiMu3tq+eMzrvqpYd8MRg6wT8uv6uDk1adOf6OG1pVwjQlUufItebFFLfsrPTTcUSq7lzi
- LWQ2KikgdjTMapAPs/zYygQ==
+ bh=fcI6NxAi0w9kYs3KWpEoGjJ9DJV5ajPSR9SnFAY0JFY=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz1653pQP0kGVVseMikIvI0y2JwzOOmNQiZ
+ 0kYQSoffk4274kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9euAAoJENju1/PI
+ O/qa2gUP+wbkCNF37pnGW0Y1321xnOCnpa4hjp9MyvDns9J9eMSb0ZmmN7FHQXWwA2e/enUjQcb
+ mxcX/TSDGfc71A2Wj0ZcOiVaXs6q9buW5I6XNmfook1LzWMkbfhKD4Merlo91rEa72btrnJH2br
+ midg9+aAwsbp3tyrsPJ9LHBSjIfHHapjo3cjD0/AXwXBseV713s6s1zz1LxW8i/GS3UKeA8QBnY
+ N1LnYxklUnlQ9V9NBUmopGuhQWBt3IQ97HWAL9+eGcygZSIm4vSg7zorayuZF0rQxXyD0esUyHY
+ tpUnkJVMNLowKRVslxS9MmcelygGAcu6Zkb7lCw2mWvWJluIz1nDyzsbjjB/egFEsScFNw/OyFY
+ aQi8BaAv6VHW9qo7ddZpvW1iCvbruQZXxYRK8ncuyte+1q/vbaOlM01lNDfwkoGGfaDWM7XLXm4
+ Ot/4881z3eutuaeWjzKT/AI/XwdSK0ssCNWtl2isxNLYzkQZNSzmv2YnXgudu7jJkNd4W49E9W7
+ X9Jiozj5T4ACf1wtwO8RReHXlJfEQ7h6A/3d4PLExiS6EOvB9FyWT8Tj7LTeuTLdYGkxtm/Idsm
+ esTIVGRGjz6rV4AJVjUzPuRmlDB3veo78VVOgjiL7bT4xNulesHORRaszGoiyQM7knyYq/PvnES
+ oSQDmwhq0Bv4a2LPq5IU3Mg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Add support to use USB-C connectors with the DP altmode helper code on
-devicetree based platforms. To get this working there must be a DRM
-bridge chain from the DisplayPort controller to the USB-C connector.
-E.g. on Rockchip RK3576:
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead. For decent support of this, two areas are changed:
 
-root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-bridge[0]: dw_dp_bridge_funcs
-        refcount: 7
-        type: [10] DP
-        OF: /soc/dp@27e40000:rockchip,rk3576-dp
-        ops: [0x47] detect edid hpd
-bridge[1]: drm_aux_bridge_funcs
-        refcount: 4
-        type: [0] Unknown
-        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
-        ops: [0x0]
-bridge[2]: drm_aux_hpd_bridge_funcs
-        refcount: 5
-        type: [10] DP
-        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
-        ops: [0x4] hpd
+1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
+   using the negotiated input format.
 
-It's fine to fatally error out when there is no follow-up bridge
-as the Rockchip Designware Displayport controller is the only
-user of the bridge helper and has the port marked as required
-in its binding.
+2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
+   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
+   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
+   upstream encoder negotiate the best mutually supported format.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 106978544cdf..ce5bf9f107cd 100644
+index bd05ae9b044a..106978544cdf 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -330,6 +330,8 @@ struct dw_dp {
- 	struct dw_dp_plat_data plat_data;
- 	u8 pixel_mode;
- 
-+	struct drm_bridge *next_bridge;
-+
- 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
- };
- 
-@@ -1893,8 +1895,28 @@ static int dw_dp_bridge_attach(struct drm_bridge *bridge,
- 		goto err_disable_irq;
- 	}
- 
-+	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-+	if (IS_ERR(dp->next_bridge)) {
-+		ret = PTR_ERR(dp->next_bridge);
-+		dev_err(dev, "failed to get follow-up bridge: %d\n", ret);
-+		goto err_unregister_dp_aux;
-+	}
-+
-+	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret) {
-+		dev_err(dev, "Failed to attach next bridge: %d\n", ret);
-+		goto err_put_next_bridge;
-+	}
-+
- 	return 0;
- 
-+err_put_next_bridge:
-+	drm_bridge_put(dp->next_bridge);
-+
-+err_unregister_dp_aux:
-+	drm_dp_aux_unregister(&dp->aux);
-+
- err_disable_irq:
- 	disable_irq(dp->irq);
- 	cancel_work_sync(&dp->hpd_work);
-@@ -1905,6 +1927,7 @@ static void dw_dp_bridge_detach(struct drm_bridge *bridge)
+@@ -1537,6 +1537,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
  {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
  	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1547,7 +1548,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
  
-+	drm_bridge_put(dp->next_bridge);
- 	drm_dp_aux_unregister(&dp->aux);
- 	disable_irq(dp->irq);
- 	cancel_work_sync(&dp->hpd_work);
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = bridge_state->input_bus_cfg.format;
++
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
+@@ -1829,6 +1833,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 	return output_fmts;
+ }
+ 
++static u32 *
++dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
++				       struct drm_bridge_state *bridge_state,
++				       struct drm_crtc_state *crtc_state,
++				       struct drm_connector_state *conn_state,
++				       u32 output_fmt,
++				       unsigned int *num_input_fmts)
++{
++	/*
++	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
++	 * the bus format. In that case, advertise all formats supported by the
++	 * DP link so the upstream encoder can negotiate the best match.
++	 */
++	if (output_fmt == MEDIA_BUS_FMT_FIXED)
++		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
++							       bridge_state,
++							       crtc_state,
++							       conn_state,
++							       num_input_fmts);
++
++	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
++							 crtc_state, conn_state,
++							 output_fmt,
++							 num_input_fmts);
++}
++
+ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
+ {
+ 	struct dw_dp_bridge_state *state;
+@@ -1886,7 +1916,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+-	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
++	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
+ 	.atomic_check = dw_dp_bridge_atomic_check,
+ 	.mode_valid = dw_dp_bridge_mode_valid,
 
 -- 
 2.53.0
