@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94B52477985;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DFA480DC9;
 	Thu,  6 Aug 2026 17:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035755; cv=none; b=RyBsWRa5ceCi+rSb3H95sPtLjF8qLZEKeSF+f4/ggPDm+Qw6I2hNjvqfodsl94wp32vjjg3mX2EMyKqJKnDH7a5iWjhSfOVGl5ddaj++Q4mYuJdyFt3ZTw9bu5NyOKW53B3QtXi8ym+58yt16Iu5ut4yJ3Zht+7LIxPwsTgnhLc=
+	t=1786035756; cv=none; b=kVD+YutNkHWpgB8g7YzbefTQ1Z0veQbIDDSJTXgLn2F7mvre8jQJgm6yOF/Nk8wmXISUTEWeBPw1cOk9YZE1lh2BSsn2aUeUF/UmP98ssNpddADHhC/Rb/qwtrsb8dsnlXFDkljT4riqB05dlU4GA5nBTOVLTH8EnV4l33HWU10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035755; c=relaxed/simple;
-	bh=ZiVqmaGM3+H99exZj4TcN/QyJvPS1u6+KkUwem6kKEk=;
+	s=arc-20240116; t=1786035756; c=relaxed/simple;
+	bh=+kI5bMPxmKszrrlmZRhrrwGKt5vlPS+riQK99NPB3wM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LSUFBbKAh6ekhyK/Ekl+YhePb1oVf2iBPcCmk4rUHlW4ABKK8H5Hkk4FQpgtJLVfjPV6NLFXIu4T54cKIyWFgXQ8zshGPxJwbmX/z598abhwMpjccgWToGabZ7anip8HUJiu97t6V5kFuEbgUkgWFup89MKbiW7vDFJIhW/qM9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=C3EMcZAq; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=Nn1Ul+UhQI8LL3tYmvl4adcjf1ItJo3uMg1mtd9jGxJTSo3Mx0mU0NrI0XZToM/SbqrR5M31wbZMRqL29PL0QYrru5uulQPkSTFU5mOCwjgwv53PYmfdHEC6a2X/iqoVdOygwxhfHyplyzFxQ5BrUFWAph5ifpytXmOFLFf6MDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Wxigxzgj; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="C3EMcZAq"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Wxigxzgj"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1786035745;
-	bh=ZiVqmaGM3+H99exZj4TcN/QyJvPS1u6+KkUwem6kKEk=;
+	bh=+kI5bMPxmKszrrlmZRhrrwGKt5vlPS+riQK99NPB3wM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=C3EMcZAqreml5h3m2Ml6fRxe0X3k2bu3WHtdMH1W1676QUWC/QS/6mj+CD0EiOjmM
-	 kzuE23Ch1ZPIOrSbtrLGPvsgdTFk6ItWtfOYR0prJG0mu0zezTW3YRPhU6zCtYTsRN
-	 b8Qolru8aAodz8ZjB8gwWGxlwaA8qAKTy8EjN6cboeI6+V5fwvKxAgI0V6tfDruFhE
-	 U1nJrf/q4S9cnK1qvSXl5aNaZBhfrQKsgfLciPXlPoX1LS8IfmZamq3GLKMN+lcvAf
-	 wRBeKZnXqQim2IywvifE3EyizY6Wkp1+s4VfFEvgj9rTOg3bFUo4PVQ/2ym8e+fQhb
-	 ZWiynw57noV4A==
+	b=WxigxzgjOEdfvfqAUaBwr6+cyQ6UbZVB+m1NJdTljCFDthWNj+6F7izNFE7t76Lmf
+	 GNiBWBXI1GlruQVzEoavgsdmu1xgW+VuMZ10sn1sDrVLAkf0ZDPKJcb46DpM6DXbHt
+	 Fh/wZZ7MhSYlydpB+Gt/xqxPUn0gXTX9GhsD9DJhkEUumAPGaWJnc9nvmtDc2EKlwK
+	 YZb0+EeYUzeupaYGOxGKOFUxz6sOSojijfV0T7tif6hPmIBLN4od7frV9SR8OcDwSZ
+	 Ht14q/m4HoWNXplMpJoB53mGkGkqnNZlT6RfBM0EEoe16N+tyFOPv2vVnlhJds45Ca
+	 +BJ1ISUR/fb9Q==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 4675717E0B39;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 43E1B17E0967;
 	Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id F02D248002F; Thu, 06 Aug 2026 19:02:24 +0200 (CEST)
+	id EE235480028; Thu, 06 Aug 2026 19:02:24 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:09 +0200
-Subject: [PATCH v11 03/21] drm/bridge: synopsys: dw-dp: Fix error handling
- for DP link enablement
+Date: Thu, 06 Aug 2026 19:02:07 +0200
+Subject: [PATCH v11 01/21] drm/bridge: synopsys: dw-dp: Register DP AUX on
+ bridge attach
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-3-0d508505f383@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-1-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -74,96 +74,141 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2301;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3652;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=ZiVqmaGM3+H99exZj4TcN/QyJvPS1u6+KkUwem6kKEk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viD9wrbCV2uQtPhobuEDk+7q82oZiJ99N
- Q6StU0enFhCb4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qaeU4QAJejIz6YLbMl0+CJgjTL2X6u+TxIhEyh+NgWc+eLf9io6OPqZPWPNbSsrlKEofdAdrz
- LAmseWMGIPoQmvbyV7Q5JeqjLUzDufRBEtBOF33/2U2fGaU9RhZtho+p0Scw5e+L5bDnKvOkkYM
- oBb9e+2i+3ZlpB4TyjWZG3257Bq9NwaK4UBtUUdiiPgkarf2EjPyn755NZw8f//vGWnrQOwo/yW
- aFVZawEj/H4MGtO2HoR933ZOBbBk55Nju33ef69kZxHYL5ceVP1FxSIQYtQeCFmuSyOkpnhta/q
- /bRGQh2a4R59s0o421VpiNEARfcCndmhjUx1Z+KNiPt8ekn5V17OUht58bVfQOcKpTY1DOmjkiL
- CytknU1u3Fk7dkbyVGb3vjWzwlt0nO9yEIwc3RKhcTfbzNbntHCj8q+FTOKtWoSj/BBN8ekkxqF
- ClVxWbyH0pCqW0UUWU5DmiGS2ZH6Fk6WA5JpidaFqDQxV5Humr//WOIWv4iLhiQb/3IVid+q+xX
- zLwjOlxpQqRrpa2Hfrr9A9mAzH/MNzJullIxIEi1qzp+9l3pjyFiaKAyYvwy7mVoKSzo8fGit3/
- dd6RUHbKy9CaVI0Ji/clU+xned40y9yoA9VWUw/5TRCr8iSRmYBOc9DlvLn3jdiHhzCO38O0jfC
- MLiOpMFTtBm8y0wiT/B4/gA==
+ bh=+kI5bMPxmKszrrlmZRhrrwGKt5vlPS+riQK99NPB3wM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viBYkgS88JgmurQUGfLsz3jzVSPVwXMCo
+ P6PYTyUraqu5IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qaEXUP/jdESHAMkmrA1PyAGWyGAvXRq3YiB2TCBK2nj9h/dJ8r4xNwjYJAuu8dpHzT2bX3C2d
+ rowDBu2Sfa6RI9R5rR/RW/fJ+6qENWPGq/zDL31coEbm6tg7zH1M/ABoR/g1Nx8YCWE5sNvvhxt
+ K225pHGo7Jaen25f1F8jvwLJ5nV9VU+Fy+PrNmvq6aVdWJ3Y4Le2sYWF2Xik63rpnN9dZu7j0S+
+ gcpnXDJXtGY2fg2ybFJ9XtTzhJuy9krIRdn1UUTOLX38SKQznSoiz+T64g1fHjbJO9BrX8PL6vy
+ GVjKBdb52FVLql8ck2tXZwGJV70l9Sb5O4ALSQHig+I1n2BtIPfoNGYp3FGh4mwPolJsMISlxsz
+ 3sSEmmyR3XsfjIPp3UarYpTs/4DjwR1Ifq3s6zehNZjUWXJ6GTIOLusmaVUseHshuOmWbMo8kVc
+ JXtKt+4ir+iaXRxB0A7E/pxrakurSrtRgXEKwjjChMWEzQ3aryg5KMOI8jAdxlC2rqDtHNk0C5v
+ nETw9sI4V5frhBf8v73HbSdEemuGYC7oF6KjPqf/R7xlPiQDeucUdggc88MVZgTHRaw4lUNioDf
+ 9N+fRn8/Rylt1btr9uIo16pS/iutoeB6rM/5Ko3bjx/TQP+7jxABuO0vBdnDHWF25DocnWHYE7D
+ T0rul8ij23C5JMU8tpxI4dA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-dw_dp_link_disable() may be called in atomic mode disable even when
-dw_dp_link_enable() (or an earlier step) failed during atomic mode
-enable as there is no error tracking. This would result in broken PHY
-power state.
-
-This is fixed by introducing a new enabled state in the link structure
-to ensure the link disabling only happens if it has been properly
-enabled in the first place.
-
-The patch also adds missing error handling in dw_dp_link_enable()
-itself to ensure the link enablement becomes an atomic operation.
+Unregister the DP AUX device at the right spot as documented in the
+drm_dp_aux_register() function description. This helps that it is
+only accessed when the DRM device is ready and the bridge is powered
+and initialized (further fixes are required for that).
 
 Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 55 +++++++++++++++++++++------------
+ 1 file changed, 35 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index d7945f7fe9f0..21d60e89126f 100644
+index 8b8529e1723c..60feb3d1e14b 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -280,6 +280,7 @@ struct dw_dp_link {
- 	unsigned char revision;
- 	unsigned int rate;
- 	unsigned int lanes;
-+	bool enabled;
- 	u8 sink_count;
- 	u8 vsc_sdp_supported;
- 	struct dw_dp_link_caps caps;
-@@ -1615,6 +1616,9 @@ static void dw_dp_link_disable(struct dw_dp *dp)
+@@ -1813,7 +1813,36 @@ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_b
+ 	return &state->base;
+ }
+ 
++static int dw_dp_bridge_attach(struct drm_bridge *bridge,
++			       struct drm_encoder *encoder,
++			       enum drm_bridge_attach_flags flags)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++	struct device *dev = dp->dev;
++	int ret;
++
++	dp->aux.dev = dev;
++	dp->aux.drm_dev = encoder->dev;
++	dp->aux.name = dev_name(dev);
++	dp->aux.transfer = dw_dp_aux_transfer;
++
++	ret = drm_dp_aux_register(&dp->aux);
++	if (ret)
++		dev_err(dev, "Aux register failed: %d\n", ret);
++
++	return ret;
++}
++
++static void dw_dp_bridge_detach(struct drm_bridge *bridge)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++
++	drm_dp_aux_unregister(&dp->aux);
++}
++
+ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
++	.attach = dw_dp_bridge_attach,
++	.detach = dw_dp_bridge_detach,
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+@@ -2043,20 +2072,10 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	dp->aux.dev = dev;
+-	dp->aux.drm_dev = encoder->dev;
+-	dp->aux.name = dev_name(dev);
+-	dp->aux.transfer = dw_dp_aux_transfer;
+-	ret = drm_dp_aux_register(&dp->aux);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Aux register failed\n");
+-		return ERR_PTR(ret);
+-	}
+-
+ 	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "Failed to attach bridge\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	dw_dp_init_hw(dp);
+@@ -2064,37 +2083,33 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 	ret = phy_init(dp->phy);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "phy init failed\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	ret = devm_add_action_or_reset(dev, dw_dp_phy_exit, dp);
+ 	if (ret)
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 
+ 	dp->irq = platform_get_irq(pdev, 0);
+ 	if (dp->irq < 0) {
+ 		ret = dp->irq;
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	ret = devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+ 					IRQF_ONESHOT, dev_name(dev), dp);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "failed to request irq\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return dp;
+-
+-unregister_aux:
+-	drm_dp_aux_unregister(&dp->aux);
+-	return ERR_PTR(ret);
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_bind);
+ 
+ void dw_dp_unbind(struct dw_dp *dp)
  {
- 	struct dw_dp_link *link = &dp->link;
- 
-+	if (!link->enabled)
-+		return;
-+
- 	if (dw_dp_hpd_detect(dp))
- 		drm_dp_link_power_down(&dp->aux, dp->link.revision);
- 
-@@ -1624,6 +1628,7 @@ static void dw_dp_link_disable(struct dw_dp *dp)
- 
- 	link->train.clock_recovered = false;
- 	link->train.channel_equalized = false;
-+	link->enabled = false;
+-	drm_dp_aux_unregister(&dp->aux);
++	/* nothing to do */
  }
- 
- static int dw_dp_link_enable(struct dw_dp *dp)
-@@ -1636,10 +1641,22 @@ static int dw_dp_link_enable(struct dw_dp *dp)
- 
- 	ret = drm_dp_link_power_up(&dp->aux, dp->link.revision);
- 	if (ret < 0)
--		return ret;
-+		goto err_phy_power_off;
- 
- 	ret = dw_dp_link_train(dp);
-+	if (ret < 0)
-+		goto err_link_power_down;
-+
-+	dp->link.enabled = true;
- 
-+	return 0;
-+
-+err_link_power_down:
-+	drm_dp_link_power_down(&dp->aux, dp->link.revision);
-+	dw_dp_phy_xmit_enable(dp, 0);
-+
-+err_phy_power_off:
-+	phy_power_off(dp->phy);
- 	return ret;
- }
+ EXPORT_SYMBOL_GPL(dw_dp_unbind);
  
 
 -- 
