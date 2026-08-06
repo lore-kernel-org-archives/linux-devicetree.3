@@ -1,93 +1,69 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F92137923;
-	Thu,  6 Aug 2026 13:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399A430274D;
+	Thu,  6 Aug 2026 13:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786022263; cv=none; b=flUsBTOQXT+XhxMfU4j+sUHD03cRVbY+tJaml3IgmfbGG8WAQbkA6dJVsvbPS8gjZVs6FtEhT3bqI4vC/zOPCxmuX91NUSyZ6AVxZx5WeSOA1uGISOZxi+bMDWQH8B5YWCTiaXzz0U3s1yYP02YaVuTW8J//ep193xZazJiEquM=
+	t=1786022559; cv=none; b=rDxzYdTXFzYPYLmn7VjJiYRuiNs137gzEC5Oc++quwGf9rysb7m0SN+15qBuWAfzCYkfQPCdYjqRjomRKf+pcjnurrShL2cm6vpI2sdhcVVcJJ06GOT0rcfFMg+CsJoJW94pttlrPt4qpSkJk6qJfoK3u6Zj3BEVswALwUv6BuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786022263; c=relaxed/simple;
-	bh=NjoYzYoJpK0n170py9EhMhQQr1rTjRMeYddlAE3lJGg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Aq4L2va6SX5jeYL1KfIMyb+3N1+PluWcwzBhRmsXbpJOTfNDUbbOdfyHua8szCQeFmx737trCPOs7tYH9jl8Ls0MxdynlmgD5C6+YOIP8MPR8T9XFaqTkRWYBaZ8StXV9h2yD+sRlWouG0Foy4j0rlBXpw8Js0Zc/XZXtYumDnY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C25D0200FDB;
-	Thu, 06 Aug 2026 15:17:26 +0200 (CEST)
-Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wrxyQ-000664-2C;
-	Thu, 06 Aug 2026 15:17:26 +0200
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
-	Yi Zhang <zhanyi@qti.qualcomm.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Marek Vasut <marex@denx.de>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
-	Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
-	venkata.valluru@oss.qualcomm.com,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Subject: [PATCH 5/7] drm/bridge: lt9211: combine equal branches
-Date: Thu,  6 Aug 2026 15:17:13 +0200
-Message-ID: <20260806131715.508557-6-p.zabel@pengutronix.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260806131715.508557-1-p.zabel@pengutronix.de>
-References: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
- <20260806131715.508557-1-p.zabel@pengutronix.de>
+	s=arc-20240116; t=1786022559; c=relaxed/simple;
+	bh=3mDhapA//cgyK5W3iYLN+67BA52+ATVQ+g800Monzlk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=AEtojWtux9ZGl8U6lkMtg3GRiE6UevHcD2O+PpGGfebKodWHvLW6KeJbLC3F/Jz+aD2dWQP8Sgn68fJyuaMnP68K7L+z15AgJxiqYzcb3s1BRVLAAIIoyzny3I8YdgUOKJqRkiwLx6diHQ5k+DLcjQhV0EueCbUHRXKSHjIsSxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8/OnvO5; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8/OnvO5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CADB1F000E9;
+	Thu,  6 Aug 2026 13:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786022554;
+	bh=pcM3zdhwG0lL8+JjtHEptuOJnNm6vBj3zLpYYw+ddU4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=T8/OnvO5ueBaRDSRAZkO48/nOPN8k8UaVYcLqne7i26Fc3wUkS6oGKSSDBPdDH47g
+	 aKs8KNlEMpVa5y9/KK7LqHAY5FqhOaVcFvcs2RUxcQ+v+q0Px9bpnMJ9cDcxVGaK3x
+	 HO9eTniLQH83fzwenLO118mkaCQwhneqbEVqHnDb0Kkgu5/GnU4oMYzQaJZyrj3r0z
+	 mWY/phQB7A8thexxeSfOjh1g4YSxy8TbUhc0urTrgNlghM8LHtmx5zgUOAaI9+evNy
+	 JDohb4cvrAqSlwMLKW/HyNfWbmtrWcY9NjumWfmIhIPP+mg5Q5fC5gzckWHJ979GhL
+	 AdI6c+FDbof/g==
+From: Lee Jones <lee@kernel.org>
+To: linux-arm-msm@vger.kernel.org, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: David Collins <david.collins@oss.qualcomm.com>, 
+ Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, 
+ Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, linux-input@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260804-qcom-spmi-haptics-v5-2-77128ebbdd2d@oss.qualcomm.com>
+References: <20260804-qcom-spmi-haptics-v5-2-77128ebbdd2d@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 2/3] dt-bindings: mfd: qcom,spmi-pmic:
+ Document haptics device
+Message-Id: <178602255123.2917765.7426706813083510078.b4-ty@b4>
+Date: Thu, 06 Aug 2026 14:22:31 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Combine two branches that set the predivider to the same value.
+On Tue, 04 Aug 2026 23:18:13 -0700, Fenglin Wu wrote:
+> Some of the Qualcomm SPMI PMIC has haptics device in it, add it in the
+> device list.
 
-Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
----
- drivers/gpu/drm/bridge/lontium-lt9211.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Applied, thanks!
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/bridge/lontium-lt9211.c
-index 5e5601551658..14afffcb2e4a 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9211.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
-@@ -993,10 +993,7 @@ static int lt9211c_configure_tx(struct lt9211 *ctx, bool jeida, bool bpp24,
- 		phy_clk = (u32)(mode->clock * 7);
- 
- 	/* 0x8231: prediv sel */
--	if (mode->clock < 20000) {
--		val = 0x28;
--		pre_div = 1;
--	} else if (mode->clock < 40000) {
-+	if (mode->clock < 40000) {
- 		val = 0x28;
- 		pre_div = 1;
- 	} else if (mode->clock < 80000) {
--- 
-2.47.3
+[2/3] dt-bindings: mfd: qcom,spmi-pmic: Document haptics device
+      commit: f5071235a1621fc8c8f6c513252028b0858faa9c
+
+--
+Lee Jones [李琼斯]
 
