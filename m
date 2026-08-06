@@ -1,114 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2786E42CB18
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 22:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B2242BC36;
+	Thu,  6 Aug 2026 22:18:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786054693; cv=none; b=Dp//jJ7EK7etcXT61XiNQ1VzR2rubaBRL/3xpj7R3TCMO9LzdIXvucg9Fx6oZiFX1K7C2czHfig89+D1JyzASl/P/TtNtFeqKNcaowXDlZVAJjG1Ku7UlSOO86r1/lJozccchrXYWYuV2onidFyu5kd981bPyRF5o9rwtdv4+qI=
+	t=1786054731; cv=none; b=dpLKSa69DNzh+I8JNGreL4jjB6fOO0SbQQxYASlQy1r6agh9yEhkB3lBQTqiUN6YXjRntlQ9fAFQgCQtYnxs01aR/9RDWXjiwyGMf0S7X26Dq9XU7ixO+Crgs1To7bAcKIovsrftkZIxAThbsDvhoKChImpJ4e3r+mzT/2V6BGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786054693; c=relaxed/simple;
-	bh=9X2kqmMHopSLMQWXML2utmh32bt0+F/ccqFLqmKX3y4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C4aXDSH6LiBWlcWNqEyMaVC00CKPML47qKNU14zBa5EJ7rj+9rEBnFDa+QBBjDPZk8YZKauKl30L27U66u1W6r3+ZtZRDePGNYSAuo2lQuaoBKIxSs6P0Ku4yEC53BOJkfyPWrwe+UAyu2oOjjOs6KaW6DF+v6OHed7ruyLGaNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RB7Cmwhd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786054731; c=relaxed/simple;
+	bh=LQIsGtEGbmjyEedPF3KPCBla1mVRaZ7NjQYIuuWPAgc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cUTUmO9/021S2P3nUI4blfMYjSARRncWEvp4m4ZQQCNEVAD9srtD61bJ8JgGdZiD8tJQABHJkKR/E77aFhQyGeSBFduHguU4XeHBDClCn5PbFIp0Qp5frvBaHnNZL1H1o/D+wQilBsfGcLzmzRJXuPiHAJS1gpdErFKiRVFvLjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jVdfLyhA; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RB7Cmwhd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110851F000E9;
-	Thu,  6 Aug 2026 22:18:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786054689;
-	bh=3c6dmcWJbZVH67mzuIZDnM7ucTVnkXHDUz8r2CNzGh8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RB7Cmwhdk4JiyklJsRMCfypJSQhHhFnJunc3QKE/PJXxj125B197sZfvY72kQCPap
-	 hPmCjh1CN6pILmCSflh+NTsWRckqruggpyNzYPKlseFu7kDrHf7z/kXTGyW+aN7QwG
-	 5FaZI/r5u8tiUD3UWa6rKEtb7zbeEPCz8O0XXfsQw6e9I2y7Y+GfJYcaIsvpYfnAnd
-	 jYY/EuABDGBDI7K6D/W8sgW48cMiPOUzkBv/MFAAtWotHRTaSmF9RFtpqec5NnNRea
-	 LjmgquTjZSxiskI1KCXUrlb+S9m+mRtNHIMp+kQVgbHEOWtw9lCYh5n94kfWP0L+++
-	 RC4y8yJchxWBQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 04/37] pinctrl: airoha: an7581: fix pinconf of
- i2c_scl/i2c_sda pins
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikhail Kshevetskiy" <mikhail.kshevetskiy@iopsys.eu>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806220615.4078303-5-mikhail.kshevetskiy@iopsys.eu>
-References: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
- <20260806220615.4078303-5-mikhail.kshevetskiy@iopsys.eu>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 22:18:08 +0000
-Message-Id: <20260806221809.110851F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jVdfLyhA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786054729; x=1817590729;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=LQIsGtEGbmjyEedPF3KPCBla1mVRaZ7NjQYIuuWPAgc=;
+  b=jVdfLyhAeKCthS70/0NPyhdd1TkdW2unMXTDxBmB7O/8oDE2oT/K/od+
+   LXNNa2NzHa0gn267jJ/0zi48v7ene4A8s/dR4DS22xbu/eCj+D+0F5xCy
+   lhQqTBWzP62wZmE3vxICg11BiivlLVES0wyi1+3+evWACmHNdjmGjjS8y
+   tYPnd1x5fZf/i6gpvLfXpPYaq3s6qg0Lu47j/3mTleF+679w5EKzJetW1
+   XWnDBkmwXmigw5p3RjIBee1PJ3+iWlZDJQOqjMJq2e+beL2kEW4WcWtoq
+   Zk8jm1iGb8xITK9rj3cteExf6nw0fd4eRFp5VC++RN+Fg4Yua4ww0Tzz0
+   w==;
+X-CSE-ConnectionGUID: wn+JUoulSPOz6YsF2kUExA==
+X-CSE-MsgGUID: kOmMuQ6WSGSUeU/JgtybEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="98171518"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="98171518"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 15:18:49 -0700
+X-CSE-ConnectionGUID: lHhH0hubRGaBW7e+wQ0MrQ==
+X-CSE-MsgGUID: 4YXb9YJ1Ti+cJ0oZbFsUDA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="255982319"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.50])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 15:18:44 -0700
+Date: Fri, 7 Aug 2026 01:18:42 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	John Ogness <john.ogness@linutronix.de>,
+	Peng Zhang <zhangpeng.00@bytedance.com>,
+	Jacques Nilo <jnilo@free.fr>,
+	Rong Zhang <rongrong@oss.cipunited.com>,
+	Gerhard Engleder <eg@keba.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-serial <linux-serial@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] serial: 8250: Add Airoha SoC UART and HSUART
+ support
+Message-ID: <anUIQroijnwmCs69@ashevche-desk.local>
+References: <20260724183007.188172-1-ansuelsmth@gmail.com>
+ <20260724183007.188172-3-ansuelsmth@gmail.com>
+ <6ade8574-1ba6-3a9a-e1ab-4f0ce9c1d8ab@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6ade8574-1ba6-3a9a-e1ab-4f0ce9c1d8ab@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Mon, Jul 27, 2026 at 11:51:01AM +0300, Ilpo Järvinen wrote:
+> On Fri, 24 Jul 2026, Christian Marangi wrote:
 
-Pre-existing issues:
-- [High] The macro definitions for AN7583_I2C1_SCL_PD_MASK and AN7583_I2C1_=
-SDA_PD_MASK are swapped compared to their PU, E2, and E4 counterparts, resu=
-lting in a cross-configuration of pulldown settings for AN7583 I2C1 pins.
---
+...
 
---- Patch [4]: [PATCH v11 04/37] pinctrl: airoha: an7581: fix pinconf of i2=
-c_scl/i2c_sda pins ---
-commit fc9a8553da742d5b51b742208157bbf029a89fdf
-Author: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+> > +static const struct of_device_id airoha_8250_dt_ids[] = {
+> 
+> Add include for of_device_id.
+> 
+> I think linux/of.h is the one you want here, as it will be including the 
+> new linux/device-id/of.h.
 
-pinctrl: airoha: an7581: fix pinconf of i2c_scl/i2c_sda pins
+platform_device.h covers it.
 
-Pinconfs of i2c_sda/i2c_scl pins are swapped, this needs to be fixed.
+> > +	{ .compatible = "airoha,en7523-uart" },
+> > +	{ .compatible = "airoha,an7581-hsuart" },
+> > +	{ },
+> > +};
 
-> diff --git a/drivers/pinctrl/airoha/pinctrl-airoha.c b/drivers/pinctrl/ai=
-roha/pinctrl-airoha.c
-> index 4d0b76f270300..817d51141fed1 100644
-> --- a/drivers/pinctrl/airoha/pinctrl-airoha.c
-> +++ b/drivers/pinctrl/airoha/pinctrl-airoha.c
+-- 
+With Best Regards,
+Andy Shevchenko
 
-[ ... ]
 
-> @@ -2078,8 +2078,8 @@ static const struct airoha_pinctrl_conf an7583_pinc=
-trl_pulldown_conf[] =3D {
-
-[Severity: High]
-This is a pre-existing issue, but since you are fixing the I2C pin
-configurations here, could there be a similar mismatch in the AN7583 I2C1
-pulldown definitions?
-
-Looking at drivers/pinctrl/airoha/pinctrl-airoha.c, the macro definitions
-for the AN7583 I2C1 pulldown masks are swapped compared to their pullup, E2,
-and E4 counterparts:
-
-#define AN7583_I2C1_SDA_PD_MASK			BIT(16)
-#define AN7583_I2C1_SCL_PD_MASK			BIT(15)
-
-These swapped masks are then used in the an7583_pinctrl_pulldown_conf
-array:
-
-static const struct airoha_pinctrl_conf an7583_pinctrl_pulldown_conf[] =3D {
-    ...
-	PINCTRL_CONF_DESC(43, REG_I2C_SDA_PD, AN7583_I2C1_SCL_PD_MASK),
-	PINCTRL_CONF_DESC(44, REG_I2C_SDA_PD, AN7583_I2C1_SDA_PD_MASK),
-    ...
-}
-
-Does this cause a hardware misconfiguration where setting a pulldown on the
-I2C1 SCL pin erroneously configures the pulldown on the SDA pin, and vice=20
-versa, potentially causing bus lockups?
-
->  static const struct airoha_pinctrl_conf en7581_pinctrl_drive_e2_conf[] =
-=3D {
->  	PINCTRL_CONF_DESC(0, REG_I2C_SDA_E2, UART1_TXD_E2_MASK),
->  	PINCTRL_CONF_DESC(1, REG_I2C_SDA_E2, UART1_RXD_E2_MASK),
-> -	PINCTRL_CONF_DESC(2, REG_I2C_SDA_E2, I2C_SDA_E2_MASK),
-> -	PINCTRL_CONF_DESC(3, REG_I2C_SDA_E2, I2C_SCL_E2_MASK),
-> +	PINCTRL_CONF_DESC(2, REG_I2C_SDA_E2, I2C_SCL_E2_MASK),
-> +	PINCTRL_CONF_DESC(3, REG_I2C_SDA_E2, I2C_SDA_E2_MASK),
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806220615.4078=
-303-1-mikhail.kshevetskiy@iopsys.eu?part=3D4
