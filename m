@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81EB48CD7E;
-	Thu,  6 Aug 2026 17:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DE748AE00;
+	Thu,  6 Aug 2026 17:02:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035765; cv=none; b=W+ca4yD3KErphikfB4aBr6GKeO7O1hzfmBgiucfz7qxaqtALl29mHe4rpzYF4ss7q6KCLupFntnRxzTfjgffH4JoFtgaGbCGf4WCEV2xAac/iCBMM5RaSFOihZDb1qzX3/BfVTNjmDOddc9tvyfm2C9EUzcUsX4y2HkrWSZaPPY=
+	t=1786035765; cv=none; b=HutJwlZvtBYqmQ+zhhBoPthRX11YcyWiWtvyyAm/2H8MO9ADnz8d4kOjYrJwTNVW7Dce5qkQSqLXqvdQ5kYBzfFHTCR8jI3XSelIIuBVVDgJDW7z6LIsQ0lE/dQXibwcvSDFbKwESaMPDZYuDQDIs5kjNMUMDfeVsUB7PuHKLAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786035765; c=relaxed/simple;
-	bh=jaeHYjvxDvN5MYMlI1b+NKWwckplfWJLIL504dhs+48=;
+	bh=HJ4BFYGE+BpWSg5pZ0L+h8cPm9Opa0kg25ZJyYX3+8o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ilPfBfiI1lIWcC25M5yheKRzOL5fi0jNUQjTBHrD4aNTedl+LwBfaMGRBV9wsujmpKAvDEwgn1MLxEI/MHI/alsPrX9+xzVCDUu+KjdkysjySLnjXrsrx9Bg/qfDONGk1Lll8TmhZWFoccfGn4h1If3gSgnoGXSHooXBDTh9rC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CJI4LHmA; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=KtqaZsy+gCfO8xVmaEBDtw6BLBPTAY2/upOSPyhHCy/Niwmm7QpgnUwita5OdQgt+KlU+qfcCDMraINKCduGfzALg6S628qtBhQmhxWzlu7hF4KlPQKm4ku/HZU1vnj0/F1LkbuS5oVasogLwIr3nh7JqIPbsOC0JBqHm05Ipqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=BDGHBD4s; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CJI4LHmA"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="BDGHBD4s"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1786035746;
-	bh=jaeHYjvxDvN5MYMlI1b+NKWwckplfWJLIL504dhs+48=;
+	bh=HJ4BFYGE+BpWSg5pZ0L+h8cPm9Opa0kg25ZJyYX3+8o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=CJI4LHmArxM/Fcq7RYQsrMfnzKu4bD+Lk4GP2TokKl/b8eyFpMKbfEi/xFGOixFnd
-	 vvYApO+AeAEXJ0vGomyX4D+pTnTx0wIVEBp6Pw+wqNnwDdMwkZoHgWib20PeniFHkP
-	 1EmbQH6psgu5odrh6YNqShbEy5Axogb52mA/b7v6i/2bSfzZljiSfAf6xArhVF/Yo9
-	 oTkNNY4vhbiVHPH+6GngyEXezlnCAh4UQrer3wuvBU9Z3CkyTpQY1JdpTI+qoNGucq
-	 e1uw0JFn+UDwUhzsYBmhYQZn1Linvj9moLzHNF8AAbMAt/+q2NiwscLaPQixdt+90y
-	 RlBCBnaqUpePQ==
+	b=BDGHBD4svxhT6TLZPCNKHZQ21TQdz7sAqGDBo9nZbEaP/Rm9PKzMv+9+4jlH+EI4P
+	 sbUT6T9naqBl2xRVqGOqvT5vUQsqqgNmvjSpIpfDCVx0zJ1qKL7iCl/aTX7k8e0613
+	 M86pXTB87PcxmWQwa46RU+koT6mUTzs/fpZ5RSFWW6e8KkDKYkRNMfw3P+mDg4LaYW
+	 eHhEaEFwZS9prK80/4vHOR0tPfZ5H5Z7rM62M1lstzpMN/r2dm0Apq4FP4+rWxca+T
+	 l+eaWZ1Yhlf9JRSjKWkQwwZDAb3tDs1warnr+Ojr85tx5MPGYiTU3iX01lHqSU4uJ4
+	 mrPWnFX1ssfEQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E720417E125C;
-	Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 06BF017E12A2;
+	Thu, 06 Aug 2026 19:02:26 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0F76E480061; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+	id 13FB0480065; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:22 +0200
-Subject: [PATCH v11 16/21] drm/bridge: synopsys: dw-dp: Protect
- sdp_reg_bank from concurrent access
+Date: Thu, 06 Aug 2026 19:02:25 +0200
+Subject: [PATCH v11 19/21] drm/bridge: synopsys: dw-dp: Use regmap_set_bits
+ in dw_dp_send_sdp
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-16-0d508505f383@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-19-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -73,98 +73,57 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2378;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1255;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=jaeHYjvxDvN5MYMlI1b+NKWwckplfWJLIL504dhs+48=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viA2wGszaznDWsbGdZj82hZjJEvwWXdzJ
- rmcRsQKkag9hIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qaO6sP/joabeMEXY/hL4a9DczVI2MyXnBUbrRfhKigTFzS+WJbBjU5wbrZzLj+PYYsI+AvaaO
- YPtkGmO0R8b2sauIMnTKG00SOY0BqDC2QlC+u9ckPU79xYvcMsxsYNnt1Agfah71ckd3JX4GLTD
- bBK/bP2osq11LiQvVF5pe0USN1eGtFgJuaDf3BtBH8k9oBNwd+hGiM3A7XLKxSgjZVdZiPUpE+9
- 4cZ2IHyDBwZuko3umw06FhymOg+m8vDRVlMwaRAtpK648b/B6GB/cj8ByuZSQajHRvBs5D6BpDd
- PeZeJxRljhjyfn4GLIj+WWPcNCSyFfuRntlX8f17oln7iyclflwDZl3Pbwm6NWPXn+9J+/Eb02/
- 4PRpOkat3jnCyNm2/Pubx3xJAlDn2wwbul4bhXqzBmzAsV00GjSyWf77bFzGl44yavrbUF6868v
- WNIbifV6DWH6GbScEsaond91GWiGh1M2HWk95giksiLIP0LXuhbI2uzwT69Carjr7f9vvBIfSvv
- CjJpb++p7bukrJrVT99VFKwuldKuurm1Muod7HUKN/F43r5AdVR5zUMg7NW5A1ji2DjldpVc85i
- hhwXu/KrSYsD7FbRKTtA0MfCf0rXQbcuhXOsPMEUXSvddRInRuALLF9N76inNqRjanC0enSXDPR
- fDE4O1bi2jRAOlMNCvyEzEg==
+ bh=HJ4BFYGE+BpWSg5pZ0L+h8cPm9Opa0kg25ZJyYX3+8o=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viBeQd4T3g+Pzh1w/HSWJWhpMgYegO+Iy
+ +9eatZnJLF9lokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qaLTEP/jVCr7EepydxLo/fMD/IdC1O0pgOGN9qsBbUljW+VAJ/GsyuKlQrhzvOXjBdaqJBOAG
+ EE2kyD2KlLdPNd7RXU70h7NthOt/H3oiIA5rtRZsaXzGbGmnhT+kxNIKiEORLHQnK4iQQ/WSN9l
+ LpH/bVfKyWJv49sDL8B0iLb0FS4YasU0LjK/nlhZoKizqZmJ3u59ZtqJq2bpz5ZnijRhrK7IQFe
+ M37ZouER21fd/0esH0V8up7JkPk9lJGfNpgP0tR0X5tjFs8UXEr0rgP53ykJS3Lb0o9O8IFr/S6
+ bnusAf+i38UEJF1APuGlW8eaArlJ8j228zcDip58D0DekagNGE+SHW+CVFbSeEQR33+u1tLt0VP
+ uw84JdCBJ/mNpvx5P/mHkCpptCSH87GQxRBLqF/u9i9gb1u82WJR1lMYxTbMEP0dC1PY4n7nAjY
+ 30/yfHuUTktTH6Sdb41x6yP4neBpyKR512ppIEiyM5NVhkq/VWR1ZLtqWF5Oi+Ij9k5TAJvFDJV
+ DE+j3QIIUiyMwX6W4erupPzOe1aMIdFaurTNufu1UBTMXaiOOQf2mo5YCCMWRiVn5YGC+RE/T30
+ U1+1ZqrSd0BdandxE191wmQQ59I3gC4TAZMxW+hPXEK/xlf7Eqp9qr1K3S3SzhPSbCPokskxATE
+ PHLtFwpn42sgWaLKTvv0oEw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Right now sdp_reg_bank is only used during atomic enable/disable and
-thus there is no risk of two threads accidently claiming the same bit.
+Simplify dw_dp_send_sdp() a little bit by making use of
+regmap_set_bits.
 
-This changes once more SDP users (like audio support) are added, so
-introduce a mutex to protect concurrent access to the bitmap.
+No functional change intended.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 31f944e143ea..31495a813e40 100644
+index 39e21524a965..b610abf76ef7 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -323,6 +323,8 @@ struct dw_dp {
- 	struct dw_dp_hotplug hotplug;
- 	/* Serialize hpd status access */
- 	struct mutex irq_lock;
-+	/* Serialize sdp_reg_bank access */
-+	struct mutex sdp_lock;
+@@ -1070,14 +1070,12 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 			     FIELD_PREP(SDP_REGS, get_unaligned_le32(payload)));
  
- 	struct drm_dp_aux aux;
+ 	if (sdp->flags & DW_DP_SDP_VERTICAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
+-				   EN_VERTICAL_SDP << nr,
+-				   EN_VERTICAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++				EN_VERTICAL_SDP << nr);
  
-@@ -1048,11 +1050,13 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 	u32 reg;
- 	int i, nr;
+ 	if (sdp->flags & DW_DP_SDP_HORIZONTAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
+-				   EN_HORIZONTAL_SDP << nr,
+-				   EN_HORIZONTAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++				EN_HORIZONTAL_SDP << nr);
  
--	nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
--	if (nr < SDP_REG_BANK_SIZE)
--		set_bit(nr, dp->sdp_reg_bank);
--	else
--		return -EBUSY;
-+	scoped_guard(mutex, &dp->sdp_lock) {
-+		nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+		if (nr < SDP_REG_BANK_SIZE)
-+			set_bit(nr, dp->sdp_reg_bank);
-+		else
-+			return -EBUSY;
-+	}
- 
- 	reg = DW_DP_SDP_REGISTER_BANK + nr * 9 * 4;
- 
-@@ -1709,7 +1713,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
- 	}
- 
--	set_bit(0, dp->sdp_reg_bank);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		set_bit(0, dp->sdp_reg_bank);
- 
- 	ret = dw_dp_link_enable(dp);
- 	if (ret < 0) {
-@@ -1753,7 +1758,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 
- 	dw_dp_video_disable(dp);
- 	dw_dp_link_disable(dp);
--	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
- 	dw_dp_reset(dp);
- 	pm_runtime_put_autosuspend(dp->dev);
+ 	return nr;
  }
-@@ -2227,6 +2233,10 @@ int dw_dp_probe(struct dw_dp *dp)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(dev, &dp->sdp_lock);
-+	if (ret)
-+		return ret;
-+
- 	res = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(res))
- 		return PTR_ERR(res);
 
 -- 
 2.53.0
