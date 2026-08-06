@@ -1,1006 +1,167 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011020.outbound.protection.outlook.com [52.101.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040EE4DB553
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786049849; cv=none; b=hgR0c6NYbRZ3w15QWlbMegFUazjKCjbnbr0emAqVM4EaxEVxGQsu9n6LR2/GLJP2usbpgEiGGg+vG5XI+T90neYrIPoAkI3b03axi9Yn7QR83rzjMiVfGPj+ACxtAwEhlGBWj2v5DcHHew3zapQWjZ19wokAMpcJpLs6zVudxQQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786049849; c=relaxed/simple;
-	bh=x+MRZH90hm65VMG3ngwkdI5VIRnbua7WatjVs6iBRyA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q8qzCbp1lM02NxQ7c+LMI72eeODMkgmW31HM44TYUQzmiXoFb792Q/l352Z/Th9CAyICesEoLq/jFwGfSY/Aup8bOOJh+GlRrhxqLg9oMmkCpEKowJ3CuDrvt1meR14AtcRMBF4AUrjoMNULcyzPmuPk53BkHB6OdOuUaMT5h90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JSR7VIbz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OwUsBD+v; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DEDC377ED7;
+	Thu,  6 Aug 2026 21:01:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786050068; cv=fail; b=Ow1XYNSOqtvf5FT1o5I2WeUn4D8o4zAX6fUD7LuhWNddqSpRoahUsabjY3+uEKQ0WyDMdhOaY/46lxuCI91jrxa9rNJEVF/R+tAHSc8EFrvT/6VWp9tG9Yl1cZTXH+a1S6KmZO7Niq8qgeQV5gNx2lGzh7QRyFKWMpVhXEvwpXE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786050068; c=relaxed/simple;
+	bh=xbLQt5wtJgymX7HRTKWa0OyzGhijTQIk3t/KhFqfLr0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=H/gBjo/aBB3dWDZ4CG84b7CpkDjpgQqGACvNEqZsEx9ZAhLTdqv2l1ZuY3prCn+CadD9BheLOPkVEn/EcLnGezxfa5VHgMan/iVLZ50fEqBu2X6byCqhr2lsCGobzlBmq9Ypq9Ms13/96+R1EDyTDP8vAxtbRRX6hbtZX708e7o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=UpSyN7wx; arc=fail smtp.client-ip=52.101.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JSR7VIbz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OwUsBD+v"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676IHpUS3909140
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 20:57:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Y+8TrZkpEFnhn5F2E3bQ04hIXxyfTiO/aiemUcJ2Jhc=; b=JSR7VIbzRzT15uBK
-	S383/jyHn8yH40NEGN9pZ/arTZd2bXwCgQsYi29JzpT1h3Sa7BV5uGj/2DzLrJs5
-	LD8i+Vk4gHU3l0U2rXQkHaxIiFHBbzCXxjZ15bOg3m9xN5tNjFnUkylukbkH4mxe
-	gmRGZNJzwWFqFtaH4S7zyQSgt8SG2O9iFdWgqT4Axy07g12y1sek3/xQ0XwQjKPA
-	UhNwMkwRtbIvG0xrRCGQbGUW7SKB5CYEZiY3Xs+Y0uaFN+dh0bxh39LiESX6Tdtb
-	pVX1Pg+yTdWtm6LCcPxjJLZEMkl+e1GxJM7yDVcNI7uHv3OJ8Y1XFjq4drpJCwS5
-	PFINWw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6r8qyk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 20:57:20 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-c89704da8c7so3781986a12.0
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 13:57:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786049837; x=1786654637; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y+8TrZkpEFnhn5F2E3bQ04hIXxyfTiO/aiemUcJ2Jhc=;
-        b=OwUsBD+vV39AXNi0IBuKsOfkyZrS6CPKqZQRKiKLl/9i5T9x8ir07RPW/UOJvg8Raq
-         JX1aIVIQDdqTKOTfgdjPWZxTP784fpabfp+G2Wpv46D0Nhch3Ligb5SNnG4N0fMjTFCx
-         F95WvEhLNsmTmX/ZvYUKHxMuC/E8jCIknCEXnTsO6kfRNjNZ72+vvHCyUTmiy3+kL9VY
-         Bld0PKG5AWcHIBljBi0sx4no4Icl2O83lNZLAyrSLHb1qWYRpTGjlezARw0hItx3gyHN
-         Yd5ZXrIKNQyzgr+US8UFriw8eskSbEEAQpjpFUU8mgmElUIXc1pPxpPmSDQMLOzldi3d
-         NxuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786049837; x=1786654637;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y+8TrZkpEFnhn5F2E3bQ04hIXxyfTiO/aiemUcJ2Jhc=;
-        b=lHLu4hU3UijSUhZg9IqmVJqn1ewEYKQD8yk0nNsC9E2gFvXpi+w2XCslk084qfZyOk
-         7az3Qn273buZaZkhaZN311v0v9B06I8qHZkxgA5dxX4JOy6cF86u4B36gEVbA3PX8EqF
-         TNcSlKnNA/Yb/T02gQriqaWJA61Ylv7GNktLNqYp5RDZbB54kBr4v1NvH7eU85DVUElM
-         1/314HfNg5LbkJzXZDHKTgy7Pe+lYAQIAmHNGd7g1z+l9eEo2LJ6dsVMBKB17w8+AG08
-         tYGXP3Clpc9fUZwFG9RldfbkcdxA/KM+IePOOdB+B+0R5MUngqBJMY2+VcJUdhcHRjSO
-         sL6g==
-X-Forwarded-Encrypted: i=1; AHgh+RrOalQV7sek+K3Bf+SQlKQBFckBtqN90UJDtMl0VYvf6YMfnjeeRcdSxOgP09odsz14tuvnE8isvuQg@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBnLjRI2KNGpiVj+fQuX1Dln4WWWoqJ1EpUkm0CKhGZNMCd/LB
-	jeJPy4Ogn3iHA1cGn8Rx7Cuc+vi+XgL8Fmwp7lbNnWlHVaThcnsTm9C5vn5GDpDbiAvKhozksQ4
-	IBuI9yd/m/lfAygsp44txsU5fzMCrO1ZJXhH61tmSjs7wgtKsxK+ZfyILuDZXue30
-X-Gm-Gg: AR+sD10eOWJWFB7rqi41NYzPBN1n4kxxMleDwIYzFv3+CMXByCXmEPKUXMNtqRwfMtO
-	SrlSmuOPOyqTYwRDsRG1M5m1is8aP3rcUTrjumwB9Qr2hLUedhkQbRnMkjH5rpb+Ki3SaaQ0Too
-	c2E8T8SItDO5tyut/D7+SDk/nyXH3Kyv14DNCk6ZYSy8jzpf+D+Dmkc8+sbc1H1Z6PyXq0MDvpi
-	660Uobx/baVogj1UTyREodGAxcSMUUECpGStDtZ3ef/f5sEbbMKgaiA9GfYV9iNHxBCLn6d+hX1
-	UJTi0ki1NfFA5+WVmp8w2Q+2OAy0qdzhwviHSYiPOKE25dEF2TkkFYivhsCB041d4pVaQ4GI+5I
-	O7eGzipxoI9AQMOnNecet6aaAYJsfqQ==
-X-Received: by 2002:a05:6a21:a04:b0:3bf:9aa9:b2a4 with SMTP id adf61e73a8af0-3cb85ef91f7mr22475888637.20.1786049836736;
-        Thu, 06 Aug 2026 13:57:16 -0700 (PDT)
-X-Received: by 2002:a05:6a21:a04:b0:3bf:9aa9:b2a4 with SMTP id adf61e73a8af0-3cb85ef91f7mr22475844637.20.1786049836235;
-        Thu, 06 Aug 2026 13:57:16 -0700 (PDT)
-Received: from hu-kamalw-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bc667f1csm116641eec.12.2026.08.06.13.57.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 13:57:15 -0700 (PDT)
-From: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-Date: Fri, 07 Aug 2026 02:26:31 +0530
-Subject: [PATCH 2/2] rtc: qcom: rtc-glink: Add PMIC GLINK RTC driver and
- extend pmic_glink
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="UpSyN7wx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mwlTETfmuOyHxFsirsTCljGaA2XFaK5NC0sEt0daoq/3Uvl7RcyAtqkd4EpkDKZVynRNsB+tjlGA/ISVBX+9wr5X3Ud6knPch2HBDkw4yi1DZtJTy9KgULBEcjyuZnWSlUHcHuneZtqefgSb3IYs0HZ1cipGVmX8ZOo+ccXw9XEp621rChwnW/jr7ex4K3QYnaKk1oky+IOV8iqWYTSvFy3YsKQ8uZfucnUXcI7IqIPqkxdQ2t1samweC2ftnCUVrL3Lc+a5JjJBuRNrFenzmXtdXi5JL9shOsAZacmkioHSThEKuaY8gLb5pVQIcCnscPVGAeCNAO/9NaiHL6oMzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Utr3CRu7ej/khpw+hQjWz4ereXZh33JyRbqebvIcnes=;
+ b=WqQG1SEDIDvoSEMt4CrM8pcb6gEXSAMFalaOvlggapWiC4Pjnn0Vn153jBwAFyk01fKhWwRbGoa3Km74sodT8AAL08TyQIDvNai7KAn+GFPa3/pvoXbb5DNdLyYFRCQ9iN6ZCb63vmasbh/ZsFm0/5f67fC5D971w4OLq8KmsxQ5dFeXgeEg5tTzLwirnWnRJshY7fuo+xHUf3N6sM4emiaxMECHd459CXpwoSjJCvhllWA8wHYxAzBzjW0nYt5lEvYgOYm8reLX7Uu4U8/Xgjuhg1K7/2df9cdFtNjJTJoRn7GecMajcDaehvmpSjEbtFMoaQ9kGa3LsfPxHODBlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Utr3CRu7ej/khpw+hQjWz4ereXZh33JyRbqebvIcnes=;
+ b=UpSyN7wxLe5XOfPCvmm79+fxIXDWkyidDFMSMklxbXTxKbsSa5Iz4e2cAPQbkc+gma8MrJAsYZTjsTig1vEsWB9pAuIEOilaikjdZ3xwkt1PEp585gJqQ5IjtidpO6c6hhC+4URHGgO0UfPnc/OSCFhthzY+0Yxj6xNaKmY+d6eBKgRR0SSHPuZT50RM+ZKLRlYVXHiT7hphOkl20ctEJUZP3O+IbcqGqYDn93vKsCARU86d58tp3ARiXGwopdeGW7qTRs1q53aZ+/5fOFod2ZiFe7g38vkw2TKYQZ9vnclEhQ81sTQ1rOVPkJqrrmyruGLkKxFlSmYwIv0YIsNgYQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB12266.eurprd04.prod.outlook.com (2603:10a6:150:311::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
+ 2026 21:01:02 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 21:01:02 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Liu Ying <victor.liu@nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] arm64: dts: Support a DPI panel on i.MX91 9x9 QSB board
+Date: Thu,  6 Aug 2026 17:00:54 -0400
+Message-ID: <178604995851.481285.5004537431605002058.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260729-imx91-9x9-qsb-panel-v1-0-4d22fac95e24@nxp.com>
+References: <20260729-imx91-9x9-qsb-panel-v1-0-4d22fac95e24@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR18CA0016.namprd18.prod.outlook.com
+ (2603:10b6:806:f3::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-rtc-glink-cleanup-v1-2-7801e4d69c4f@oss.qualcomm.com>
-References: <20260807-rtc-glink-cleanup-v1-0-7801e4d69c4f@oss.qualcomm.com>
-In-Reply-To: <20260807-rtc-glink-cleanup-v1-0-7801e4d69c4f@oss.qualcomm.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Raj Aryan <raryan@qti.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786049822; l=27044;
- i=kamal.wadhwa@oss.qualcomm.com; s=20260406; h=from:subject:message-id;
- bh=x+MRZH90hm65VMG3ngwkdI5VIRnbua7WatjVs6iBRyA=;
- b=b26gKlvoKWedxgtbnzFyDLsh8w6B6PLbRXDTIk++NukeEvlVhsfKVVlTglRiBQbYyeUuK6l2y
- 2fUC9bRLUeKAPkVGz26vAVfhFFTeSJmn5wR3wrxjKz/by5JYOcTr0ZE
-X-Developer-Key: i=kamal.wadhwa@oss.qualcomm.com; a=ed25519;
- pk=ylH1NxUZkBpYsmww89g6zVxpS0q8qthtzcORkYxn/Ag=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDE2MyBTYWx0ZWRfXzzgUh8jh/ZhO
- cgvDZtGNRqQUQnhdnHXmSSiXA4Kt38MQtRmT6vxxQR27i6RzVSbtI8x1+43BE0j47Tr2HIjre6q
- hHdSpYEX6Ox6a+cIUCZin5WLuXyR4/3ZrR0HCisbDPYeN1cAEPkW+yCXjaFDRU6zMXN6gCQYw+/
- 3p82BH1zlgyy+VC9KgQ+ARHFV9OGEdOqSS3JXqtyGh0lvNrwi0fYiyKU3t1+XvLcxbA6v7WRNsA
- Q4FYZQahpetbcYkmUHqyGZvJW1SoB40MeXB/vmqg9UCPy0ytrXCPjsrawGMG/RFgdBTLAYAnF+e
- +VIRSm/ePGx5vxGkqMo93Fb/dnXCCuogSaS9U338IJ5O8/AOiPa0ad0OyapNbwQbXmRjm+dEE3U
- w1WC3tq9HOU1sLCM0/VfX6XVSWZxzYr2PCjaJnxMc1qHYNGEjPMcRtk1j+Psv2oS2L3VLDlcLmR
- XXaRBD+/g9beeHbI0KA==
-X-Authority-Analysis: v=2.4 cv=HPXz0Itv c=1 sm=1 tr=0 ts=6a74f530 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=aiWOJFc-Rkiic33xYCEA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: vMHOljcvaYyFHp2gzA3FCQJUCU_8xVoB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDE2MyBTYWx0ZWRfX33LdtlO/Ot+W
- 6PiM3ap+KieHnTXdF/dumo/kwhirO5Wq4wS8Sru9zRceSwx47GNmoj4MrgW0ab1TzESbjOhLTQC
- SPXGWkjXldfiuFY9fI54Lv3PVsOw2IE=
-X-Proofpoint-GUID: vMHOljcvaYyFHp2gzA3FCQJUCU_8xVoB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-06_02,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 adultscore=0 spamscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608060163
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB12266:EE_
+X-MS-Office365-Filtering-Correlation-Id: 683fb92d-1d7d-47c2-0b24-08def3fdd28e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|7416014|376014|11063799006|56012099006|10067099003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	52iUHCLdjLN/UXPq3mlrThmNuq8yFgwLsZ9suSRpBI/pi+yWexeIuCWmoo5+EUfSIi2Ff7Xm8wZGadvQvtt5zVF0vKCmbnseicJyPwXTsi6G7Mr4eq6isDCncjXo5VAq1JJMgF7VRB5sDSdOfcKTVn0RRWeUrO7dgga/fIIqpRmSsIdfxqI9ZEHeLlvhngHo6JTmPUNj6qQm/6VCo5TB4PSZ1CLNjo1wgzQK308bs4+B17E75ik19HmpmQco8gFXVYehWxkBWahjsjiuE+ubA+5MFZHK6BIHWDsC1WPeKWndYUMjZjSRNzAUg6OEB16+kXGLjQ1OxMjk0zFOaq9YqTfKslqk3Z/9yUXkFEJ7U6yAb6WsjbwL+mx+nvxAyv0dKO1aVpjACe2udINliAWXsoor2wpjmoXhPtxkYFCWQtRr0cx9qTAitqW9NV42zsKkUZomh9yrcyZHYKE8LAoW21IQQKq+PzJhm2VrajuOnC5tr6ZmoVKbB11LShWxfwOOI7h7PjRB0c40Y3rL0mo4uQ0So4OCh1O8Bj9E+Lnh5COYePuGSxquqpVQbM+hBmSDNY7nHhvBEOXFSeMgao0/0ZNOuHv5ftVrFzwunkriWZ0I0ve1+npyDgRNKOWslI+6OwcQeIi1blZYcALUmyfXOeQBQGUmIch4ddvx9uBQl2w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(7416014)(376014)(11063799006)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MWVIM0ljRWtSRnRIM0dRK3ZlK3pNOWdzQzR1bTlCRS95TjRLc0xQdUhSQVdh?=
+ =?utf-8?B?ZHVNTmxMMTFSYWVRajZrSXc5MDRzcFp3M29FUXRObWhPV3YwWlpsQnZtWWM5?=
+ =?utf-8?B?SWx1TFRFYytxOU5SZ1N3L3o2UlFJVWZQM2VEV0VKaDBzcmV1RWNyM3NVUms1?=
+ =?utf-8?B?NXJkVFgxejZkTlJEdHJWS0Fqb3p6dzB6NVBFUnZ4Tkd3ZHlXejBwSFRoL0Na?=
+ =?utf-8?B?WTZndlZ3TXZYRFgrMXVWNXFoZFFLUjYydGY3T0dTc1BBRFVlcXZTTURHZWpm?=
+ =?utf-8?B?MGxmM3BtdGFGTmRKcUlyUWcvZDZ6ekx0K0Q4TkVpN3NLOUgySjdlSjNEMEFJ?=
+ =?utf-8?B?WUNUcTMrVmc2TlpsNzlnMjJST0E5QjdQTjY1REpoTUkxaEx5TFdxZlY5QTFX?=
+ =?utf-8?B?bkdZanJSaFY1TGpBNkhQMUpLZ1FpM3lLNEQvQlNkWlFXbTRsbklEcW9CVkNJ?=
+ =?utf-8?B?NVNtK0xzcG1lQkdHR0xTekVXNFhiWGNFTy9IMVNhOC9JOHpLVyswaUp3Nmli?=
+ =?utf-8?B?REdCaWg5YkFXRFR6U0Q5czE3Rkc4MUl2N1pvTHYwK3JiQlQyLyt1bCtybXBl?=
+ =?utf-8?B?QUFkUWM0L1V2dDFvQk42UG9JSEFXNnFYczNtSCtRSWIwdmFiSVdxSlN4WDlW?=
+ =?utf-8?B?bzdOblV3Q0dZK3ErNTNkanMzNDRiRkVtbW5EUlVDWmZkei80UyswM2ZVWFpp?=
+ =?utf-8?B?WTVhUjdVeGFaZXIzd1BjbVcydXArVlVyaGpUS3FUeks5Wk53SWRTQk5IdFA4?=
+ =?utf-8?B?MFdJbFFVM1NqWWwzN2hROExJWDQ0MFg1VDBhaUhpOU82d3A2TTZreTZkb1RR?=
+ =?utf-8?B?SGhqR2FyQXU5Y3NvN2tCR21nWHBKMC9mNUVqUHNubWMzWlN0ck9lR254OUZG?=
+ =?utf-8?B?cDk1SkkrYWVPREJOTjFjektxR1RaUjVNTzBlc0crc3Z4bkJzZEYxM2VMRUxr?=
+ =?utf-8?B?UmVrVHdpcHBTZGE1UDNtamNXUzZxcjRBTm4rSG1zcXVpRkhXNkxkRnA2MjVN?=
+ =?utf-8?B?UEhWK09sdDZ0ZEpTMGJteXVqT0JFRERhckZ2YjlGM3lac0JHVkFsNEZYcWFj?=
+ =?utf-8?B?ZW96bjNRU0lkbHJaMkJWU3E2WFh1OWs2M3loWlVLUjg1cnRqdzFsVjJHckk4?=
+ =?utf-8?B?d0ZidUNYaWNka2MzTC9nKzRNdFZLUGJyU3FOM2FLRlMyWloranBzeWZoV29X?=
+ =?utf-8?B?Zk51M09aajcwVjVJR01PV1pDSGxTMUl2R2Q0WHBjc1g2R3AvbW8xV0VpZ1VD?=
+ =?utf-8?B?TG9kdGllck04c2lWODdUaFhZSnVVbi9XdFRBZ0RJVjl0M1VlaGI3dGZEY0lW?=
+ =?utf-8?B?S0Zwb2l2dnZvcCtNUERFVDRxN3hZSTNaUXp4R2M1NUlaeGFhUGtyQ2NmQ0FX?=
+ =?utf-8?B?TG1LZFhDOTRKM2tJeDhob0dVRWhrODBCMWtNL2NjYVdCM3Z0cjRyaCtRYnZS?=
+ =?utf-8?B?a1V0eW5uUGhqd1ZuNXdlVHNMamRDTUhFam9oSzRudVNBN05GcjdTdU1YTSt4?=
+ =?utf-8?B?a1ZjbTY3Y0lkSUx6ZTI2ZmVlbmRSQVJpMmkwcENZRmFRNU9VaE9OYUxzRmgz?=
+ =?utf-8?B?bkZxTHErZ3ROYW1Gd2RhN0dNQlhrTko1SWJlRnkvSEpVdFJrNFp3dmdWTFFo?=
+ =?utf-8?B?ckYyRm9RV0IzZ1gyc0YvZjVKcHNOaEt2K2hXQnh0TjJlOGtOOVMvZFRKMDJ5?=
+ =?utf-8?B?N2NJRE1uK2sxUzludnZKV3BGNS92b08rUzIvWitJdEo4YTMvZ0VBY3krQXJK?=
+ =?utf-8?B?QU5KbEZVVVdhbkxpQzZIcmw5NHN2K2lyZ3U4WXRyWllIUFhlMGI0TjN5K2ow?=
+ =?utf-8?B?K1BUNDFXOXQwVEZka0Z2dHJ0MFZqNXlDbjdoWlZ3OEhaL3haSWxPa21KVFFp?=
+ =?utf-8?B?SVhtS1gvSXVqWnJYcUlyaVBqTzNqck5JSFBqbC9QV2dIaVF5M0dLM0V2ZmZY?=
+ =?utf-8?B?Mi9NczhxajdtczdnZlEyMnYzcGprMWJQWTlmWERoRkZ0ZC9rdDNESTN1NGVP?=
+ =?utf-8?B?K01jRkVycFJJaWlnNHpDZWRORjd6Z3JhY3FWY2RsMnU3blM0MzdjcG1UNXZv?=
+ =?utf-8?B?cGpFaXkrbVU3eU4zaFpoQ25BcGh1ZzFVQWhXS3dyUWZiTWRIbjNRR3ZyZjVj?=
+ =?utf-8?B?a3BGUlJNcnZPcXdaRkhxbkY3VlRrS3BGTG0zMTZXR0kzVWNFMXMwTWYyaStH?=
+ =?utf-8?B?cGRaNjVRUE5Oak5VZTErSGgrZkJBUnQyYmdFcVBMSWJMOXdZZ2QvTWRMbEVW?=
+ =?utf-8?B?Z3BhME9RdlRudnVMWmphZ2dTNlpWOVNPak1qaUhVZEgvbWZSNG5MV21jc1gz?=
+ =?utf-8?B?SGxUVWlXSTRqYlp1YURKdnVWQndDK3lqbGNZNmp4R2NwcHRKVDBYcGMxbVp4?=
+ =?utf-8?Q?c0NxQJbwsy3Wy38RGZ8vb0araGtNurj3uuaPJ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 683fb92d-1d7d-47c2-0b24-08def3fdd28e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 21:01:01.9802
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3lJlTFGLisnjglDXfOv+CjKCKWmeZXCeIePhdEH5nvg8Kc3ZGEbSteXbNxyLCN51zXZgNZRemgZZWGfcz3Z1QLgWRPF5pu0ls7uIiyuIjOhrsFywE6VDtgDB4epApvOg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12266
 
-Add a new RTC driver that communicates with the PMIC firmware over
-the GLINK transport layer. The driver supports reading time and
-alarm functionality via GET_PROPERTY and SET_PROPERTY opcodes.
+From: Frank Li <Frank.Li@nxp.com>
 
-Time is read via GET_PROPERTY (opcode 0x62) using QCOM_RTC_GLINK_TIME
-property (0x00). Alarm set and enable are handled via SET_PROPERTY
-(opcode 0x63) using QCOM_RTC_GLINK_ALARM and QCOM_RTC_GLINK_ALARM_ENABLE
-properties respectively.
 
-GET_PROPERTY and SET_PROPERTY responses share the same firmware message
-layout, with the firmware echoing back the property value. Both opcodes
-are handled by a common callback path accordingly.
+On Wed, 29 Jul 2026 17:36:26 +0800, Liu Ying wrote:
+> This patch series adds tianma,tm050rdh03 DPI panel on i.MX91 9x9 QSB.
+> It's a panel module which can be connected with i.MX91 9x9 QSB via
+> a 40-pin connector and is same as the panel that can be connected
+> with i.MX93 9x9 QSB(already supported by upstream kernel with
+> imx93-9x9-qsb-tianma-tm050rdh03.dtso).  Add a DT overlay for this panel.
+>
+> Patch 1 adds compatible string "nxp,imx91-pdfc" to imx91.dtsi.
+> Patch 2 assigns i.MX91 media_{axi,apb}_root clock parents/rates.
+> Patch 3 adds a DT overlay for this panel.
+>
+> [...]
 
-Also extend pmic_glink to register the RTC as a PMIC GLINK client and
-add PMIC GLINK RTC client support for glymur.
+Applied to imx/dt64-indend, thanks!
 
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Raj Aryan <raryan@qti.qualcomm.com>
-Signed-off-by: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
----
- MAINTAINERS                         |   7 +
- drivers/rtc/Kconfig                 |  10 +
- drivers/rtc/Makefile                |   1 +
- drivers/rtc/rtc-qcom-glink.c        | 690 ++++++++++++++++++++++++++++++++++++
- drivers/soc/qcom/pmic_glink.c       |  22 +-
- include/linux/soc/qcom/pmic_glink.h |   1 +
- 6 files changed, 730 insertions(+), 1 deletion(-)
+[1/3] arm64: dts: imx91: Override dpi_bridge's compatible string
+      commit: f3b58de70f408cb8cdc6b22ccafbd940a939b7ca
+[2/3] arm64: dts: imx91: Assign media_{axi,apb}_root clock parents/rates
+      commit: 244b541761379dedf1381a80cf9ab509481f3a0b
+[3/3] arm64: dts: imx91-9x9-qsb: Add tianma,tm050rdh03 panel
+      commit: f3a5c5e1cca363dd27e96c1735d7213671eac7fe
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5f178a5ff026..752cf667b8ad 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22505,6 +22505,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
- F:	drivers/power/supply/qcom_smbx.c
- 
-+QUALCOMM PMIC GLINK RTC DRIVER
-+M:	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-+L:	linux-rtc@vger.kernel.org
-+L:	linux-arm-msm@vger.kernel.org
-+S:	Maintained
-+F:	drivers/rtc/rtc-qcom-glink.c
-+
- QUALCOMM PPE DRIVER
- M:	Luo Jie <jie.luo@oss.qualcomm.com>
- L:	netdev@vger.kernel.org
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 01def8231873..3ac39704b2e1 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -1836,6 +1836,16 @@ config RTC_DRV_PM8XXX
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called rtc-pm8xxx.
- 
-+config RTC_DRV_QCOM_GLINK
-+	tristate "Qualcomm PMIC GLINK RTC"
-+	depends on QCOM_PMIC_GLINK
-+	help
-+	  Say Y here to enable support for the RTC exposed by the PMIC
-+	  over the GLINK transport on Qualcomm platforms.
-+
-+	  This driver can also be built as a module. If so, the module
-+	  will be called rtc-qcom-glink.
-+
- config RTC_DRV_TEGRA
- 	tristate "NVIDIA Tegra Internal RTC driver"
- 	depends on ARCH_TEGRA || COMPILE_TEST
-diff --git a/drivers/rtc/Makefile b/drivers/rtc/Makefile
-index 0347645b021f..8215a1fc29fb 100644
---- a/drivers/rtc/Makefile
-+++ b/drivers/rtc/Makefile
-@@ -73,6 +73,7 @@ obj-$(CONFIG_RTC_DRV_FM3130)	+= rtc-fm3130.o
- obj-$(CONFIG_RTC_DRV_FSL_FTM_ALARM)	+= rtc-fsl-ftm-alarm.o
- obj-$(CONFIG_RTC_DRV_FTRTC010)	+= rtc-ftrtc010.o
- obj-$(CONFIG_RTC_DRV_GENERIC)	+= rtc-generic.o
-+obj-$(CONFIG_RTC_DRV_QCOM_GLINK) += rtc-qcom-glink.o
- obj-$(CONFIG_RTC_DRV_GOLDFISH)	+= rtc-goldfish.o
- obj-$(CONFIG_RTC_DRV_HID_SENSOR_TIME) += rtc-hid-sensor-time.o
- obj-$(CONFIG_RTC_DRV_HYM8563)	+= rtc-hym8563.o
-diff --git a/drivers/rtc/rtc-qcom-glink.c b/drivers/rtc/rtc-qcom-glink.c
-new file mode 100644
-index 000000000000..611f06a3cc5c
---- /dev/null
-+++ b/drivers/rtc/rtc-qcom-glink.c
-@@ -0,0 +1,690 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+#include <linux/auxiliary_bus.h>
-+#include <linux/completion.h>
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/property.h>
-+#include <linux/rtc.h>
-+#include <linux/slab.h>
-+#include <linux/soc/qcom/pdr.h>
-+#include <linux/soc/qcom/pmic_glink.h>
-+#include <linux/timekeeping.h>
-+#include <linux/workqueue.h>
-+
-+#define RTC_GLINK_SET_PROPERTY		0x63
-+#define RTC_GLINK_GET_PROPERTY		0x65
-+#define RTC_GLINK_GET_RTC_TICKS		0x67
-+#define RTC_GLINK_GET_REAL_TIME		0x68
-+#define RTC_GLINK_SET_REAL_TIME		0x69
-+#define RTC_GLINK_ALARM_EXPIRED		0x6A
-+
-+enum qcom_rtc_glink_properties {
-+	QCOM_RTC_GLINK_TIME = 0,
-+	QCOM_RTC_GLINK_ALARM_TIME,
-+	QCOM_RTC_GLINK_ALARM_ENABLE,
-+};
-+
-+struct qcom_rtc_glink_msg {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			property;
-+	__le32			value;
-+};
-+
-+struct qcom_rtc_glink_generic_req {
-+	struct pmic_glink_hdr	hdr;
-+};
-+
-+struct qcom_rtc_glink_status_resp {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			return_status;
-+};
-+
-+struct qcom_rtc_glink_ticks_resp {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			return_status;
-+	__le32			rtc_ticks;
-+};
-+
-+struct qcom_rtc_glink_real_time_resp {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			return_status;
-+	__le32			real_time_data[4];
-+};
-+
-+struct qcom_rtc_glink_set_real_time_req {
-+	struct pmic_glink_hdr	hdr;
-+	__le32			real_time_data[4];
-+};
-+
-+struct qcom_rtc_glink {
-+	struct device		*dev;
-+	struct pmic_glink_client *client;
-+	struct rtc_device	*rtc;
-+
-+	/* Serializes requests: only one may be in flight at a time */
-+	struct mutex		lock;
-+	struct completion	ack;
-+	struct work_struct	alarm_work;
-+
-+	/* Protects service_up and request_pending across callback contexts */
-+	spinlock_t		state_lock;
-+	bool			service_up;
-+	bool			request_pending;
-+
-+	int			error;
-+	u32			resp_value;
-+	u32			offset;
-+	struct rtc_time		resp_tm;
-+	bool			resp_valid;
-+	bool			allow_set_time;
-+};
-+
-+static int qcom_rtc_glink_request(struct qcom_rtc_glink *rtc_glink,
-+				  void *data, size_t len)
-+{
-+	unsigned long flags;
-+	unsigned long left;
-+	int ret;
-+
-+	/*
-+	 * Reinit the completion before request_pending becomes visible to
-+	 * qcom_rtc_glink_pdr_tify(), so a concurrent SSR down-transition
-+	 * can't complete() a stale completion that gets wiped out by
-+	 * reinit_completion() right after.
-+	 */
-+	reinit_completion(&rtc_glink->ack);
-+	rtc_glink->error = 0;
-+	rtc_glink->resp_valid = false;
-+
-+	spin_lock_irqsave(&rtc_glink->state_lock, flags);
-+	if (!rtc_glink->service_up) {
-+		spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+		return -ECONNRESET;
-+	}
-+	rtc_glink->request_pending = true;
-+	spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+
-+	ret = pmic_glink_send(rtc_glink->client, data, len);
-+	if (ret < 0) {
-+		spin_lock_irqsave(&rtc_glink->state_lock, flags);
-+		rtc_glink->request_pending = false;
-+		spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+		return ret;
-+	}
-+
-+	left = wait_for_completion_timeout(&rtc_glink->ack, HZ);
-+	spin_lock_irqsave(&rtc_glink->state_lock, flags);
-+	rtc_glink->request_pending = false;
-+	spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+	if (!left)
-+		return -ETIMEDOUT;
-+
-+	return rtc_glink->error;
-+}
-+
-+static int qcom_rtc_glink_set_property(struct qcom_rtc_glink *rtc_glink,
-+				       u32 property, u32 value)
-+{
-+	struct qcom_rtc_glink_msg msg = {
-+		.hdr.owner = cpu_to_le32(PMIC_GLINK_OWNER_RTC),
-+		.hdr.type = cpu_to_le32(PMIC_GLINK_REQ_RESP),
-+		.hdr.opcode = cpu_to_le32(RTC_GLINK_SET_PROPERTY),
-+		.property = cpu_to_le32(property),
-+		.value = cpu_to_le32(value),
-+	};
-+	int ret;
-+
-+	dev_dbg(rtc_glink->dev,
-+		"TX opcode=0x%x property=%u value=%u\n",
-+		RTC_GLINK_SET_PROPERTY, property, value);
-+	mutex_lock(&rtc_glink->lock);
-+	ret = qcom_rtc_glink_request(rtc_glink, &msg, sizeof(msg));
-+	mutex_unlock(&rtc_glink->lock);
-+	return ret;
-+}
-+
-+static int qcom_rtc_glink_get_property(struct qcom_rtc_glink *rtc_glink,
-+				       u32 property, u32 *value)
-+{
-+	struct qcom_rtc_glink_msg msg = {
-+		.hdr.owner = cpu_to_le32(PMIC_GLINK_OWNER_RTC),
-+		.hdr.type = cpu_to_le32(PMIC_GLINK_REQ_RESP),
-+		.hdr.opcode = cpu_to_le32(RTC_GLINK_GET_PROPERTY),
-+		.property = cpu_to_le32(property),
-+	};
-+	int ret;
-+
-+	dev_dbg(rtc_glink->dev,
-+		"TX opcode=0x%x property=%u\n",
-+		RTC_GLINK_GET_PROPERTY, property);
-+	mutex_lock(&rtc_glink->lock);
-+	ret = qcom_rtc_glink_request(rtc_glink, &msg, sizeof(msg));
-+	if (!ret) {
-+		if (!rtc_glink->resp_valid)
-+			ret = -EIO;
-+		else
-+			*value = rtc_glink->resp_value;
-+	}
-+	mutex_unlock(&rtc_glink->lock);
-+	return ret;
-+}
-+
-+static int qcom_rtc_glink_get_ticks(struct qcom_rtc_glink *rtc_glink,
-+				    u32 *ticks)
-+{
-+	struct qcom_rtc_glink_generic_req msg = {
-+		.hdr.owner = cpu_to_le32(PMIC_GLINK_OWNER_RTC),
-+		.hdr.type = cpu_to_le32(PMIC_GLINK_REQ_RESP),
-+		.hdr.opcode = cpu_to_le32(RTC_GLINK_GET_RTC_TICKS),
-+	};
-+	int ret;
-+
-+	dev_dbg(rtc_glink->dev, "TX opcode=0x%x\n", RTC_GLINK_GET_RTC_TICKS);
-+	mutex_lock(&rtc_glink->lock);
-+	ret = qcom_rtc_glink_request(rtc_glink, &msg, sizeof(msg));
-+	if (!ret) {
-+		if (!rtc_glink->resp_valid)
-+			ret = -EIO;
-+		else
-+			*ticks = rtc_glink->resp_value;
-+	}
-+	mutex_unlock(&rtc_glink->lock);
-+	return ret;
-+}
-+
-+static int qcom_rtc_glink_get_real_time(struct qcom_rtc_glink *rtc_glink,
-+					struct rtc_time *tm)
-+{
-+	struct qcom_rtc_glink_generic_req msg = {
-+		.hdr.owner = cpu_to_le32(PMIC_GLINK_OWNER_RTC),
-+		.hdr.type = cpu_to_le32(PMIC_GLINK_REQ_RESP),
-+		.hdr.opcode = cpu_to_le32(RTC_GLINK_GET_REAL_TIME),
-+	};
-+	int ret;
-+
-+	dev_dbg(rtc_glink->dev, "TX opcode=0x%x\n", RTC_GLINK_GET_REAL_TIME);
-+	mutex_lock(&rtc_glink->lock);
-+	ret = qcom_rtc_glink_request(rtc_glink, &msg, sizeof(msg));
-+	if (!ret) {
-+		if (!rtc_glink->resp_valid)
-+			ret = -EIO;
-+		else
-+			*tm = rtc_glink->resp_tm;
-+	}
-+	mutex_unlock(&rtc_glink->lock);
-+	return ret;
-+}
-+
-+static int qcom_rtc_glink_set_real_time(struct qcom_rtc_glink *rtc_glink,
-+					struct rtc_time *tm)
-+{
-+	struct qcom_rtc_glink_set_real_time_req msg = {};
-+	u32 w0, w1;
-+	int ret;
-+
-+	w0 = ((tm->tm_year + 1900) & 0xffff) |
-+	     (((tm->tm_mon + 1) & 0xff) << 16) |
-+	     ((tm->tm_mday & 0xff) << 24);
-+	w1 = (tm->tm_hour & 0xff) |
-+	     ((tm->tm_min & 0xff) << 8) |
-+	     ((tm->tm_sec & 0xff) << 16) |
-+	     (1U << 24);
-+	msg.hdr.owner = cpu_to_le32(PMIC_GLINK_OWNER_RTC);
-+	msg.hdr.type = cpu_to_le32(PMIC_GLINK_REQ_RESP);
-+	msg.hdr.opcode = cpu_to_le32(RTC_GLINK_SET_REAL_TIME);
-+	msg.real_time_data[0] = cpu_to_le32(w0);
-+	msg.real_time_data[1] = cpu_to_le32(w1);
-+	msg.real_time_data[2] = 0;
-+	msg.real_time_data[3] = 0;
-+	dev_dbg(rtc_glink->dev,
-+		"TX opcode=0x%x data=%08x %08x\n",
-+		RTC_GLINK_SET_REAL_TIME, w0, w1);
-+	mutex_lock(&rtc_glink->lock);
-+	ret = qcom_rtc_glink_request(rtc_glink, &msg, sizeof(msg));
-+	mutex_unlock(&rtc_glink->lock);
-+	return ret;
-+}
-+
-+static int qcom_rtc_glink_get_time(struct qcom_rtc_glink *rtc_glink,
-+				   struct rtc_time *time)
-+{
-+	u32 ticks;
-+	int ret;
-+
-+	ret = qcom_rtc_glink_get_real_time(rtc_glink, time);
-+	if (!ret)
-+		return 0;
-+	dev_warn(rtc_glink->dev, "0x68 failed (%d), falling back\n", ret);
-+
-+	ret = qcom_rtc_glink_get_ticks(rtc_glink, &ticks);
-+	if (!ret) {
-+		rtc_time64_to_tm((time64_t)ticks + rtc_glink->offset, time);
-+		return 0;
-+	}
-+
-+	ret = qcom_rtc_glink_get_property(rtc_glink, QCOM_RTC_GLINK_TIME,
-+					  &ticks);
-+	if (!ret && ticks != U32_MAX) {
-+		rtc_time64_to_tm((time64_t)ticks + rtc_glink->offset, time);
-+		return 0;
-+	}
-+
-+	dev_err(rtc_glink->dev, "all time sources failed\n");
-+	return -EIO;
-+}
-+
-+static int qcom_rtc_glink_set_time(struct qcom_rtc_glink *rtc_glink,
-+				   struct rtc_time *time)
-+{
-+	time64_t t = rtc_tm_to_time64(time);
-+	u32 ticks;
-+	int ret;
-+
-+	if (!rtc_glink->allow_set_time)
-+		return -EOPNOTSUPP;
-+
-+	ret = qcom_rtc_glink_set_real_time(rtc_glink, time);
-+	if (ret)
-+		dev_warn(rtc_glink->dev, "0x69 failed (%d)\n", ret);
-+
-+	ret = qcom_rtc_glink_set_property(rtc_glink, QCOM_RTC_GLINK_TIME, (u32)t);
-+	if (ret)
-+		return ret;
-+
-+	ret = qcom_rtc_glink_get_ticks(rtc_glink, &ticks);
-+	if (!ret && ticks != U32_MAX) {
-+		rtc_glink->offset = (u32)t - ticks;
-+	} else {
-+		dev_warn(rtc_glink->dev, "no tick source for offset\n");
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+static int qcom_rtc_glink_set_alarm_en(struct qcom_rtc_glink *rtc_glink,
-+				       int enabled)
-+{
-+	return qcom_rtc_glink_set_property(rtc_glink,
-+					   QCOM_RTC_GLINK_ALARM_ENABLE,
-+					   enabled);
-+}
-+
-+static int qcom_rtc_glink_set_alarm(struct qcom_rtc_glink *rtc_glink,
-+				    struct rtc_wkalrm *alarm)
-+{
-+	time64_t alarm_t = rtc_tm_to_time64(&alarm->time);
-+	struct rtc_time now_tm;
-+	time64_t now_real, secs_until_alarm;
-+	u32 fw_current, fw_alarm;
-+	int ret;
-+
-+	ret = qcom_rtc_glink_get_time(rtc_glink, &now_tm);
-+	if (ret)
-+		return ret;
-+	now_real = rtc_tm_to_time64(&now_tm);
-+	secs_until_alarm = alarm_t - now_real;
-+	dev_dbg(rtc_glink->dev,
-+		"set_alarm: now_real=%lld alarm_t=%lld delta=%lld\n",
-+		now_real, alarm_t, secs_until_alarm);
-+	if (secs_until_alarm < 0)
-+		return -EINVAL;
-+	if (secs_until_alarm > U32_MAX)
-+		return -ERANGE;
-+
-+	ret = qcom_rtc_glink_get_property(rtc_glink, QCOM_RTC_GLINK_TIME,
-+					  &fw_current);
-+	if (ret)
-+		return ret;
-+	if (fw_current == U32_MAX)
-+		fw_current = 0;
-+	fw_alarm = fw_current + (u32)secs_until_alarm;
-+	dev_dbg(rtc_glink->dev,
-+		"set_alarm: fw_current=%u fw_alarm=%u\n",
-+		fw_current, fw_alarm);
-+
-+	ret = qcom_rtc_glink_set_alarm_en(rtc_glink, 0);
-+	if (ret)
-+		return ret;
-+
-+	ret = qcom_rtc_glink_set_property(rtc_glink,
-+					  QCOM_RTC_GLINK_ALARM_TIME, fw_alarm);
-+	if (ret)
-+		return ret;
-+
-+	return qcom_rtc_glink_set_alarm_en(rtc_glink, alarm->enabled);
-+}
-+
-+static int qcom_rtc_glink_get_alarm(struct qcom_rtc_glink *rtc_glink,
-+				    struct rtc_wkalrm *alarm)
-+{
-+	u32 fw_alarm_time, fw_current, alarm_en;
-+	struct rtc_time now_tm;
-+	time64_t now_real, secs_until_alarm, alarm_real;
-+	int ret;
-+
-+	ret = qcom_rtc_glink_get_property(rtc_glink,
-+					  QCOM_RTC_GLINK_ALARM_TIME,
-+					  &fw_alarm_time);
-+	if (ret)
-+		return ret;
-+
-+	ret = qcom_rtc_glink_get_property(rtc_glink, QCOM_RTC_GLINK_TIME,
-+					  &fw_current);
-+	if (ret)
-+		return ret;
-+
-+	ret = qcom_rtc_glink_get_property(rtc_glink,
-+					  QCOM_RTC_GLINK_ALARM_ENABLE,
-+					  &alarm_en);
-+	if (ret)
-+		return ret;
-+	if (fw_current == U32_MAX)
-+		fw_current = 0;
-+
-+	ret = qcom_rtc_glink_get_time(rtc_glink, &now_tm);
-+	if (ret)
-+		return ret;
-+	now_real = rtc_tm_to_time64(&now_tm);
-+	secs_until_alarm = (time64_t)fw_alarm_time - (time64_t)fw_current;
-+	alarm_real = now_real + secs_until_alarm;
-+	dev_dbg(rtc_glink->dev,
-+		"get_alarm: now_real=%lld fw_current=%u fw_alarm=%u delta=%lld\n",
-+		now_real, fw_current, fw_alarm_time, secs_until_alarm);
-+	rtc_time64_to_tm(alarm_real, &alarm->time);
-+	alarm->enabled = !!alarm_en;
-+	return 0;
-+}
-+
-+static void qcom_rtc_glink_alarm_work(struct work_struct *work)
-+{
-+	struct qcom_rtc_glink *rtc_glink =
-+		container_of(work, struct qcom_rtc_glink, alarm_work);
-+	int ret;
-+
-+	ret = qcom_rtc_glink_set_alarm_en(rtc_glink, 0);
-+	if (ret)
-+		dev_err(rtc_glink->dev,
-+			"failed to disable alarm after expiry (%d)\n", ret);
-+	rtc_update_irq(rtc_glink->rtc, 1, RTC_IRQF | RTC_AF);
-+}
-+
-+static void qcom_rtc_glink_callback(const void *data, size_t len, void *priv)
-+{
-+	struct qcom_rtc_glink *rtc_glink = priv;
-+	const struct pmic_glink_hdr *hdr = data;
-+	unsigned long flags;
-+	bool pending;
-+
-+	if (len < sizeof(*hdr))
-+		return;
-+
-+	dev_dbg(rtc_glink->dev,
-+		"RX opcode=0x%x type=0x%x owner=0x%x len=%zu\n",
-+		le32_to_cpu(hdr->opcode), le32_to_cpu(hdr->type),
-+		le32_to_cpu(hdr->owner), len);
-+
-+	if (le32_to_cpu(hdr->opcode) == RTC_GLINK_ALARM_EXPIRED) {
-+		dev_info(rtc_glink->dev, "alarm expired\n");
-+		schedule_work(&rtc_glink->alarm_work);
-+		return;
-+	}
-+
-+	/*
-+	 * Hold state_lock across the pending check and the response fields
-+	 * below: qcom_rtc_glink_pdr_notify() writes the same error/resp_*
-+	 * fields under this lock when it force-completes a request on an
-+	 * SSR down-transition, and the two must not race. Dropping the
-+	 * response here if !pending also covers requests that already
-+	 * timed out or were aborted; qcom_rtc_glink_request() will call
-+	 * reinit_completion() again before this response could be mistaken
-+	 * for a later request's.
-+	 */
-+	spin_lock_irqsave(&rtc_glink->state_lock, flags);
-+	pending = rtc_glink->request_pending;
-+
-+	if (!pending) {
-+		spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+		dev_dbg(rtc_glink->dev,
-+			"dropping stale response opcode=0x%x\n",
-+			le32_to_cpu(hdr->opcode));
-+		return;
-+	}
-+
-+	switch (le32_to_cpu(hdr->opcode)) {
-+	case RTC_GLINK_GET_PROPERTY:
-+		fallthrough;
-+	case RTC_GLINK_SET_PROPERTY: {
-+		const struct qcom_rtc_glink_msg *msg = data;
-+
-+		if (len < sizeof(struct pmic_glink_hdr) + sizeof(__le32)) {
-+			rtc_glink->error = -EINVAL;
-+			break;
-+		}
-+		rtc_glink->resp_value = le32_to_cpu(msg->property);
-+		rtc_glink->resp_valid = true;
-+		rtc_glink->error = 0;
-+		dev_dbg(rtc_glink->dev, "ACK opcode=0x%x resp_value=%u\n",
-+			le32_to_cpu(hdr->opcode), rtc_glink->resp_value);
-+		break;
-+	}
-+
-+	case RTC_GLINK_GET_RTC_TICKS: {
-+		const struct qcom_rtc_glink_ticks_resp *resp = data;
-+
-+		if (len < sizeof(*resp)) {
-+			rtc_glink->error = -EINVAL;
-+			break;
-+		}
-+		if (le32_to_cpu(resp->return_status)) {
-+			rtc_glink->error = -EIO;
-+			break;
-+		}
-+		rtc_glink->resp_value = le32_to_cpu(resp->rtc_ticks);
-+		rtc_glink->resp_valid = true;
-+		rtc_glink->error = 0;
-+		dev_dbg(rtc_glink->dev, "ACK opcode=0x%x ticks=%u\n",
-+			RTC_GLINK_GET_RTC_TICKS, rtc_glink->resp_value);
-+		break;
-+	}
-+
-+	case RTC_GLINK_GET_REAL_TIME: {
-+		const struct qcom_rtc_glink_real_time_resp *resp = data;
-+		u32 w0, w1;
-+
-+		if (len < sizeof(*resp)) {
-+			rtc_glink->error = -EINVAL;
-+			break;
-+		}
-+		if (le32_to_cpu(resp->return_status)) {
-+			rtc_glink->error = -EIO;
-+			break;
-+		}
-+		w0 = le32_to_cpu(resp->real_time_data[0]);
-+		w1 = le32_to_cpu(resp->real_time_data[1]);
-+		rtc_glink->resp_tm.tm_year = (w0 & 0xffff) - 1900;
-+		rtc_glink->resp_tm.tm_mon = ((w0 >> 16) & 0xff) - 1;
-+		rtc_glink->resp_tm.tm_mday = (w0 >> 24) & 0xff;
-+		rtc_glink->resp_tm.tm_hour = w1 & 0xff;
-+		rtc_glink->resp_tm.tm_min = (w1 >> 8) & 0xff;
-+		rtc_glink->resp_tm.tm_sec = (w1 >> 16) & 0xff;
-+		rtc_glink->resp_valid = true;
-+		rtc_glink->error = 0;
-+		dev_dbg(rtc_glink->dev,
-+			"ACK opcode=0x%x %04d-%02d-%02d %02d:%02d:%02d\n",
-+			RTC_GLINK_GET_REAL_TIME,
-+			rtc_glink->resp_tm.tm_year + 1900,
-+			rtc_glink->resp_tm.tm_mon + 1,
-+			rtc_glink->resp_tm.tm_mday,
-+			rtc_glink->resp_tm.tm_hour,
-+			rtc_glink->resp_tm.tm_min,
-+			rtc_glink->resp_tm.tm_sec);
-+		break;
-+	}
-+
-+	case RTC_GLINK_SET_REAL_TIME: {
-+		const struct qcom_rtc_glink_status_resp *resp = data;
-+
-+		if (len < sizeof(*resp)) {
-+			rtc_glink->error = -EINVAL;
-+			break;
-+		}
-+		rtc_glink->error = le32_to_cpu(resp->return_status) ? -EIO : 0;
-+		dev_dbg(rtc_glink->dev, "ACK opcode=0x%x status=%u\n",
-+			RTC_GLINK_SET_REAL_TIME,
-+			le32_to_cpu(resp->return_status));
-+		break;
-+	}
-+
-+	default:
-+		spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+		dev_warn(rtc_glink->dev,
-+			 "unhandled RX opcode=0x%x len=%zu\n",
-+			 le32_to_cpu(hdr->opcode), len);
-+		return;
-+	}
-+
-+	spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+	complete(&rtc_glink->ack);
-+}
-+
-+static void qcom_rtc_glink_pdr_notify(void *priv, int state)
-+{
-+	struct qcom_rtc_glink *rtc_glink = priv;
-+	unsigned long flags;
-+	bool up = (state == SERVREG_SERVICE_STATE_UP);
-+
-+	spin_lock_irqsave(&rtc_glink->state_lock, flags);
-+	rtc_glink->service_up = up;
-+	if (!up && rtc_glink->request_pending) {
-+		rtc_glink->error = -ECONNRESET;
-+		rtc_glink->resp_valid = false;
-+		complete(&rtc_glink->ack);
-+	}
-+	spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-+}
-+
-+static int qcom_rtc_glink_read_time(struct device *dev, struct rtc_time *tm)
-+{
-+	return qcom_rtc_glink_get_time(dev_get_drvdata(dev), tm);
-+}
-+
-+static int qcom_rtc_glink_set_time_dev(struct device *dev, struct rtc_time *tm)
-+{
-+	return qcom_rtc_glink_set_time(dev_get_drvdata(dev), tm);
-+}
-+
-+static int qcom_rtc_glink_read_alarm(struct device *dev,
-+				     struct rtc_wkalrm *alrm)
-+{
-+	return qcom_rtc_glink_get_alarm(dev_get_drvdata(dev), alrm);
-+}
-+
-+static int qcom_rtc_glink_set_alarm_dev(struct device *dev,
-+					struct rtc_wkalrm *alrm)
-+{
-+	return qcom_rtc_glink_set_alarm(dev_get_drvdata(dev), alrm);
-+}
-+
-+static int qcom_rtc_glink_alarm_irq_enable(struct device *dev,
-+					   unsigned int enabled)
-+{
-+	return qcom_rtc_glink_set_alarm_en(dev_get_drvdata(dev), enabled);
-+}
-+
-+static const struct rtc_class_ops qcom_rtc_glink_rtc_ops = {
-+	.read_time = qcom_rtc_glink_read_time,
-+	.set_time = qcom_rtc_glink_set_time_dev,
-+	.read_alarm = qcom_rtc_glink_read_alarm,
-+	.set_alarm = qcom_rtc_glink_set_alarm_dev,
-+	.alarm_irq_enable = qcom_rtc_glink_alarm_irq_enable,
-+};
-+
-+static const struct of_device_id qcom_rtc_glink_of_variants[] = {
-+	{ .compatible = "qcom,glymur-pmic-glink" },
-+	{}
-+};
-+
-+static int qcom_rtc_glink_probe(struct auxiliary_device *adev,
-+				const struct auxiliary_device_id *id)
-+{
-+	struct device *dev = &adev->dev;
-+	struct qcom_rtc_glink *rtc_glink;
-+
-+	if (!of_match_device(qcom_rtc_glink_of_variants, dev->parent))
-+		return -ENXIO;
-+
-+	rtc_glink = devm_kzalloc(dev, sizeof(*rtc_glink), GFP_KERNEL);
-+	if (!rtc_glink)
-+		return -ENOMEM;
-+
-+	rtc_glink->dev            = dev;
-+	rtc_glink->allow_set_time = device_property_read_bool(dev->parent,
-+							      "allow-set-time");
-+
-+	mutex_init(&rtc_glink->lock);
-+	spin_lock_init(&rtc_glink->state_lock);
-+	init_completion(&rtc_glink->ack);
-+	INIT_WORK(&rtc_glink->alarm_work, qcom_rtc_glink_alarm_work);
-+	dev_set_drvdata(dev, rtc_glink);
-+
-+	rtc_glink->client = devm_pmic_glink_client_alloc(dev,
-+							 PMIC_GLINK_OWNER_RTC,
-+							 qcom_rtc_glink_callback,
-+							 qcom_rtc_glink_pdr_notify,
-+							 rtc_glink);
-+	if (IS_ERR(rtc_glink->client))
-+		return dev_err_probe(dev, PTR_ERR(rtc_glink->client),
-+				     "failed to allocate glink client\n");
-+
-+	pmic_glink_client_register(rtc_glink->client);
-+
-+	device_init_wakeup(dev, true);
-+
-+	rtc_glink->rtc = devm_rtc_allocate_device(dev);
-+	if (IS_ERR(rtc_glink->rtc))
-+		return dev_err_probe(dev, PTR_ERR(rtc_glink->rtc),
-+				     "failed to allocate RTC device\n");
-+
-+	rtc_glink->rtc->ops      = &qcom_rtc_glink_rtc_ops;
-+	rtc_glink->rtc->range_min = 0;
-+	rtc_glink->rtc->range_max = U32_MAX;
-+
-+	return devm_rtc_register_device(rtc_glink->rtc);
-+}
-+
-+static void qcom_rtc_glink_remove(struct auxiliary_device *adev)
-+{
-+	struct qcom_rtc_glink *rtc_glink = dev_get_drvdata(&adev->dev);
-+	/*
-+	 * Nothing left to arm alarm_work after this returns: the glink
-+	 * client (and its callback/pdr_notify) is torn down by devm after
-+	 * .remove() returns, and rtc_update_irq() below still targets a
-+	 * live devm-managed rtc device.
-+	 */
-+	cancel_work_sync(&rtc_glink->alarm_work);
-+}
-+
-+static const struct auxiliary_device_id qcom_rtc_glink_id_table[] = {
-+	{ .name = "pmic_glink.rtc-glink" },
-+	{}
-+};
-+
-+MODULE_DEVICE_TABLE(auxiliary, qcom_rtc_glink_id_table);
-+
-+static struct auxiliary_driver qcom_rtc_glink_driver = {
-+	.name = "qcom_pmic_rtc_glink",
-+	.id_table = qcom_rtc_glink_id_table,
-+	.probe = qcom_rtc_glink_probe,
-+	.remove = qcom_rtc_glink_remove,
-+};
-+
-+module_auxiliary_driver(qcom_rtc_glink_driver);
-+MODULE_DESCRIPTION("Qualcomm PMIC GLINK RTC driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/soc/qcom/pmic_glink.c b/drivers/soc/qcom/pmic_glink.c
-index 3042261578aa..7ee70a31ba15 100644
---- a/drivers/soc/qcom/pmic_glink.c
-+++ b/drivers/soc/qcom/pmic_glink.c
-@@ -21,6 +21,7 @@ enum {
- 	PMIC_GLINK_CLIENT_BATT = 0,
- 	PMIC_GLINK_CLIENT_ALTMODE,
- 	PMIC_GLINK_CLIENT_UCSI,
-+	PMIC_GLINK_CLIENT_RTC,
- };
- 
- struct pmic_glink_data {
-@@ -40,6 +41,7 @@ struct pmic_glink {
- 	struct auxiliary_device altmode_aux;
- 	struct auxiliary_device ps_aux;
- 	struct auxiliary_device ucsi_aux;
-+	struct auxiliary_device rtc_aux;
- 
- 	/* serializing client_state and pdr_state updates */
- 	struct mutex state_lock;
-@@ -341,6 +343,12 @@ static int pmic_glink_probe(struct platform_device *pdev)
- 			goto out_release_altmode_aux;
- 	}
- 
-+	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_RTC)) {
-+		ret = pmic_glink_add_aux_device(pg, &pg->rtc_aux, "rtc-glink");
-+		if (ret)
-+			goto out_release_ps_aux;
-+	}
-+
- 	if (pg->data->charger_pdr_service_name && pg->data->charger_pdr_service_path) {
- 		service = pdr_add_lookup(pg->pdr, pg->data->charger_pdr_service_name,
- 					 pg->data->charger_pdr_service_path);
-@@ -358,6 +366,9 @@ static int pmic_glink_probe(struct platform_device *pdev)
- 	return 0;
- 
- out_release_aux_devices:
-+	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_RTC))
-+		pmic_glink_del_aux_device(pg, &pg->rtc_aux);
-+out_release_ps_aux:
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_BATT))
- 		pmic_glink_del_aux_device(pg, &pg->ps_aux);
- out_release_altmode_aux:
-@@ -384,11 +395,20 @@ static void pmic_glink_remove(struct platform_device *pdev)
- 		pmic_glink_del_aux_device(pg, &pg->altmode_aux);
- 	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_UCSI))
- 		pmic_glink_del_aux_device(pg, &pg->ucsi_aux);
-+	if (pg->data->client_mask & BIT(PMIC_GLINK_CLIENT_RTC))
-+		pmic_glink_del_aux_device(pg, &pg->rtc_aux);
- 
- 	guard(mutex)(&__pmic_glink_lock);
- 	__pmic_glink = NULL;
- }
- 
-+static const struct pmic_glink_data pmic_glink_glymur_data = {
-+	.client_mask = BIT(PMIC_GLINK_CLIENT_BATT) |
-+		       BIT(PMIC_GLINK_CLIENT_ALTMODE) |
-+		       BIT(PMIC_GLINK_CLIENT_UCSI) |
-+		       BIT(PMIC_GLINK_CLIENT_RTC),
-+};
-+
- static const struct pmic_glink_data pmic_glink_adsp_data = {
- 	.client_mask = BIT(PMIC_GLINK_CLIENT_BATT) |
- 		       BIT(PMIC_GLINK_CLIENT_ALTMODE) |
-@@ -404,7 +424,7 @@ static const struct pmic_glink_data pmic_glink_soccp_data = {
- };
- 
- static const struct of_device_id pmic_glink_of_match[] = {
--	{ .compatible = "qcom,glymur-pmic-glink", .data = &pmic_glink_soccp_data },
-+	{ .compatible = "qcom,glymur-pmic-glink", .data = &pmic_glink_glymur_data },
- 	{ .compatible = "qcom,kaanapali-pmic-glink", .data = &pmic_glink_soccp_data },
- 	{ .compatible = "qcom,pmic-glink", .data = &pmic_glink_adsp_data },
- 	{}
-diff --git a/include/linux/soc/qcom/pmic_glink.h b/include/linux/soc/qcom/pmic_glink.h
-index 7cddf1027752..11031b06b810 100644
---- a/include/linux/soc/qcom/pmic_glink.h
-+++ b/include/linux/soc/qcom/pmic_glink.h
-@@ -11,6 +11,7 @@ struct pmic_glink_client;
- #define PMIC_GLINK_OWNER_BATTMGR	32778
- #define PMIC_GLINK_OWNER_USBC		32779
- #define PMIC_GLINK_OWNER_USBC_PAN	32780
-+#define PMIC_GLINK_OWNER_RTC		32784
- 
- #define PMIC_GLINK_REQ_RESP		1
- #define PMIC_GLINK_NOTIFY		2
-
--- 
-2.43.0
-
+Best regards,
+--
+Frank Li <Frank.Li@nxp.com>
