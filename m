@@ -1,162 +1,199 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11022120.outbound.protection.outlook.com [52.101.53.120])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB21217B50A;
-	Thu,  6 Aug 2026 03:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.120
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785988645; cv=fail; b=BwqhUxfMiTekzonMPxY7txZUTfxLChWI1UYiTfhuZW5EeXpMtObR1OUTY2rTjn//yH8EmhPNw2F2UniU+UU+ArwaYtt85sBG+Y4CvZ6NF7hSoCAagNx/Xy54Eml51ypo73LMZ/GpUqRdrm1UgkfYnwYWaxizuln/hvUTn/R02wY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785988645; c=relaxed/simple;
-	bh=pRjYt/eisFXwLiuZh1z8cGD5a9M68WOdz6QynsZEYcs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hx8POHjnq1sUK0olMwdcsLcmkyxVd5EJvsWWmAKPMS7MXPoL0ExGbTUhzlKFik4i6oogSyiZjqwHGJypzwH1VQ6AgONlRpwa7IUs4fNnuhEDpq3OMjZPgalfNUygl7CdJIycRjjahdJ+NlicK22ezK66TDRiFZKMOlyckwaVEtY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=mckyGRrm; arc=fail smtp.client-ip=52.101.53.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEEB302146
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 04:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785989024; cv=none; b=hjB3uQKF0kIMBiXvQ3vcDxdYBBXpEzTcjSEaEIQ0B9lsivcue2EA1zj8OsoV8tB8sfG9eSbEi0zU/bs2G9Zm9Qgo2i6Zgzoxiy3dCL4a6Vd+7d8seYAG0bQYhYscoowQC+2fALj/Tk4XsOd213nqrli6bNRYQyi9eAqmq0Hj4bI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785989024; c=relaxed/simple;
+	bh=+7b4BRslRQYf2WVkRsiagi0bUagaJFsaLU0PG2NOj28=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jpott/PvWb8ORAY1f/Bqe398iedV9Fq/i/awnUWdSjo8iJGA7mKFpe/ynpT1HIo8qOETvusiic/R6tRtAn7i+LbYx/XRFDn80LeGvYKc9qRPEjQzCFQ4gbSPciWWmWU0BTSlaNyOnh3EJM192uZzHrISo0ytrMQrngYwlAdgjB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bjuubFun; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bbAFlwn3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="mckyGRrm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eg9e4tNfszkkRK1Etn4RAbNmxeAYyGmzfBOgnQnOzNuIEjm3AQiBI40urksaf5Z8iEUVbL6Rc+wCjhsS36OANthJ+PIyVQ0w9uJ74ZIOfKOsyH7ud55kHkwGt08eTBwwPoszwTSlp3WTVOMdBkUQq/Cf+UNrawshra8dWRDRp6UCYj1NtDJTRw1hCGdkBkZUnd/v5E3X9+Lsl3L+rWg1G7zXor4bKEsb5+3Y0gd2jewKe3IIIXObyGHOLOM3wJo4tmHPmINLh1qu9I0SB4yF0CFGi+9cG8KI+zDjTBLc3m1P+kRZKGY2EUsT7jwbVTIGoCA4OJ+CghqUqXkucCPGpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hyedjqAtkvOOa6HSVw0LvM7gWqSuqXgSNnPbFxsVf18=;
- b=yMvkFEU5AtzKsqPb6/6pz6itYczqD5FcFU7bJR4ZTPZiNASu8UEFmZStJ4pVoqm3slAdHvKm+sRKRbr4Y+kamiJAWYc1HhT8RRvTPW/chaCeSC11uQ6y8Sa4ZwhctVPQ1fvU9UpEue4sBRHE6VHZrD+0Mz074pbUfE7b6MQn5EgSbiFqRnQI2PniciHfRhVrh94WiPbB/rnNoBU778Q7C0R8KaTW1pv9DoSs7IJReo259q6BxlsctT/XnvYA3aZ0hh4gb0QlFqqk37cq9yr9zFwWl37fuXwQnUyel/8LxGd2uTBNBQr9oLQ4Sdp76PGQBoWpwSI/s7LIsflia48DYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
- dmarc=none action=none header.from=axiado.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hyedjqAtkvOOa6HSVw0LvM7gWqSuqXgSNnPbFxsVf18=;
- b=mckyGRrmhzu7q0PjPQG/41Yq/L8HY7olaMrU0vhjaG7Hb8lGyHDJQiB1jBo+YJ93tQIt28Ldn1+toeEwWeMVBNh5nllAhdbhLcfDy+L36iNjR8X7ptTQWVWwu77bk6DciOf4Nq5QBnP/sbXL6SePw8lYmx2lpBWeRf9a1bexiIDHam4J6ToZxietDbjiGZaqrAz7yQ9Va2WKd0ul3H9uSrtS7T6g46SVMjOA3QPf0M2H5k9+34on9AGfCQIzEXMEjHbpbvDV2pLwK2MHqHd24moWoCz7qS6vhny+gx3XV79ibi56yWj2+6wdU6Zjcf7/QbVUVrtYFxJGkv4qCGGeIQ==
-Received: from SN7PR04CA0209.namprd04.prod.outlook.com (2603:10b6:806:126::34)
- by CO6PR18MB3793.namprd18.prod.outlook.com (2603:10b6:5:345::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
- 2026 03:57:19 +0000
-Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
- (2603:10b6:806:126:cafe::94) by SN7PR04CA0209.outlook.office365.com
- (2603:10b6:806:126::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.20 via Frontend Transport; Thu, 6
- Aug 2026 03:57:19 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
- smtp.mailfrom=axiado.com; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
- designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
- client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
-Received: from smtp.corp.axiado.com (64.62.143.114) by
- SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
- via Frontend Transport; Thu, 6 Aug 2026 03:57:19 +0000
-Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
-	by smtp.corp.axiado.com (Postfix) with ESMTPS id 9F05E4157BE1;
-	Wed,  5 Aug 2026 20:57:18 -0700 (PDT)
-From: Swark Yang <syang@axiado.com>
-Date: Wed, 05 Aug 2026 20:55:07 -0700
-Subject: [PATCH] dt-bindings: gpio: cdns: keep AX3000 compatible in enum
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bjuubFun";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bbAFlwn3"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675Napod1354120
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 04:03:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=sv84S83jXs/3SGgrPZsdMKfP
+	XRfW980yK0Ut+W9DtSY=; b=bjuubFunDQvK6cqB//flAfp0LjqFIFdYwJiG0XQr
+	Bz8FMQvnOqfBQvtgOU33qg0tUnF5caP8sfP5pdfQTSf1qtq6ycWVAq8guwEP7DbX
+	YmfVm8sSIZYrLWE6rCZzEpYuuK8XaiB8QKGJpO7KPJb3DdAchonOvGmxTRQ6uSrn
+	5YIyssXqOiWucnTE7ONrKVcBPPCYM3vFvDGc6NTbKwU13UkKCh8+pIRR0pS4PpYJ
+	J+atr4gIYIvtjGTKGmiLC5uykuBiCRcXkF/bvjOnEspFIuhOZLHF7CH6p8qTINT2
+	R8BkKVsm1tSpzY98xzLT1HRJLZhsQIr0YUhbEg75Fuj3oQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv9dmj606-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 04:03:41 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ccb6f6a3f4so8803415ad.1
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 21:03:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785989021; x=1786593821; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sv84S83jXs/3SGgrPZsdMKfPXRfW980yK0Ut+W9DtSY=;
+        b=bbAFlwn3nz34DMZnHz40vUvf6WpJv0cS/VktYk0WidKWUlOr/7mOYLl6uG3NTvsgU5
+         xkKGH3hZR5uwg5eDiN4580I+EqlnQlNxxM9F81sXmEbT0D5vUTv3YK07LObkLiAh1K7d
+         ZI73HxIq7rf9eIB9Bd0kw0f44U7eo2ZP9r1zky584rQTVXzO2UbGPsUqIGOZTizEVGeC
+         iE6B1x2gwalqj2ZX/dbTcOuu/ZLBdNuDtOWLpiOnc+C3/rAvR2kKWx8Qq2nOK1lJJvOv
+         xfQ1Ls2KyZp/CK7G3st+hNlo0ZBG8lEn8xKXEn8FHEReU92IWfH2a8dFVSvVhLBnVVFj
+         FTIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785989021; x=1786593821;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sv84S83jXs/3SGgrPZsdMKfPXRfW980yK0Ut+W9DtSY=;
+        b=T2oo5Eck+vX/oQCBngXczAz5RkpnsaxMUs4BwgTSjBdKCti+pSJgce1rV5X7A1VuaP
+         CBAzth8JaMl81j/DysMm8SNGFvVED1LnVi524nNoaA6ESXT8iYrDoLQhwhtaJrotR/uD
+         XkssiwXBdFyS2cgSipZQ2yuCTrt42ZCk2faLSA4QdQ8O7AwixAlb+SeHtzQFEVyjxjp0
+         l2Nb7KRJndAqtCBIt5yzNDB9sWqYUXZybXLDBJROvbYSDEryoNdNE+SUkxPa1d+GbshA
+         oFvfkGQRl9IYxDZLS7QKK/RIz39bULoSuMhNTYp6iqbp47wGENt0Il/AB4fHY+jj28bf
+         N8Hg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+i7+RELM/rknMCUtEfl1bdGftR+KhqUP6S5/HGEg+XAL/BNxKmsDQCkW7n7bCH3PhpZmfJOP/RrkI@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw2aCQHe8813fFddM38Dsv+nNKQbPrbYrCZk67Djhk6NrMcKX8x
+	7tf3Etog64GObDfecqRlDvNFHhYbwO5/VCt9cKHL2+VW/4ZKaWFyclHeKavcjxXoLwAPhyfKQL5
+	QTVTgKhL+UIAM7E7wq1sQwpIU7R1dFpOZrlyaAccfV4C8HnSo7ZTG8Puuvd3QNOMX
+X-Gm-Gg: AR+sD13DgO5v/OavVNt9EAowANocvbI0nqRJWf7HohhHyBd9fpDPDprvGxjw5DqjeZE
+	+tRIhi8ZmwQIgZaxke7bhqoTqEz15VtNX8+pWjuGxtljv1MYbi+qZn1dzwDVTCEvQ0ctxYc+6Ea
+	jRLnQJifcS3RN/8l4/r8WL1e9as7AEEJSiLqb0/rj+aiL9U4Fg38p/WslRfLNcWFrQmcpZY0AE5
+	kN9+RiHnvNRHg/DJXWa5AKKudIY5NQBCHPxmINCBCfXvXGJzWL09hPDP6KV/crqqM4ZB6p3K4EV
+	mFl17hvztG6RMwKZM+DrCaz/TKEAvhczfqWDg/9Sb7XqCSt86/kTFNH2LDfgCLZu0eWsb58Gq1L
+	d600m4xFaU+WX3XNxF/AWGB7NZ+gEU3MK9eHIWt7v05k=
+X-Received: by 2002:a17:903:38c4:b0:2ce:a6a4:451b with SMTP id d9443c01a7336-2d0f1c130bamr45789385ad.11.1785989021179;
+        Wed, 05 Aug 2026 21:03:41 -0700 (PDT)
+X-Received: by 2002:a17:903:38c4:b0:2ce:a6a4:451b with SMTP id d9443c01a7336-2d0f1c130bamr45788875ad.11.1785989020705;
+        Wed, 05 Aug 2026 21:03:40 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315863b0a9csm29547574eec.2.2026.08.05.21.03.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 21:03:40 -0700 (PDT)
+Date: Thu, 6 Aug 2026 12:03:34 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v8 3/6] arm64: dts: qcom: Add device tree for Nord
+ Embedded variant
+Message-ID: <anQHloaFBnipM4r7@QCOM-aGQu4IUr3Y>
+References: <20260729010022.875799-1-shengchao.guo@oss.qualcomm.com>
+ <20260729010022.875799-4-shengchao.guo@oss.qualcomm.com>
+ <a8fece75-153e-4461-8c04-d26b332b16b6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-ax3005-gpio-keep-enum-follow-up-v1-1-9155fc19b631@axiado.com>
-X-B4-Tracking: v=1; b=H4sIAJoFdGoC/x2NzQqDMBAGX0X23IVt/MH0VUoPYj91UZOQYBXEd
- zf0NMxl5qSEqEj0Kk6K+GlS77I8HwX1U+dGsH6zkxHTSCs1d0cpGWNQzzMQGG5befDL4nfeAlf
- Smr6xtrSoKFdCxKDH//D+XNcN7DRp53EAAAA=
-X-Change-ID: 20260805-ax3005-gpio-keep-enum-follow-up-4082c69939e4
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jan Kotas <jank@cadence.com>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Swark Yang <syang@axiado.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1643; i=syang@axiado.com;
- h=from:subject:message-id; bh=pRjYt/eisFXwLiuZh1z8cGD5a9M68WOdz6QynsZEYcs=;
- b=owGbwMvMwCHWlWK8+EozbyzjabUkhqwSNomgn08k9VanbTv3OF3nP5OUWGXeAWmJpyuPlaqeO
- H40POFARykLgxgHg6yYIstXnW/5J3O173XuXVkKM4eVCWQIAxenAEzkEDPDf/8wax4X/d5T+5au
- v7D7WsmGmdq16gLP9HY2791wZ8lao1xGhr/Tpv7a9VZA/uv+uctn9s5aqth4+vrbHMnIG7tf1Ju
- e28UDAA==
-X-Developer-Key: i=syang@axiado.com; a=openpgp;
- fpr=F52CF66FC96D2BDE89BDA9758A6433A3D4830D5D
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|CO6PR18MB3793:EE_
-X-MS-Office365-Filtering-Correlation-Id: 281c9b63-f016-4a78-ee19-08def36ecff7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|82310400026|1800799024|36860700016|13003099007|56012099006|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	8ul7CBUzr433EIswAm9JTRaSMdvlJ4SiKiGcf5uYLa/nSKgfnp8NKA+O/rNo7gACg54t4b2ZRjVzaEV4iWYN7llMivjQWePwI8jy2/EmigGgIycTRCbOFKjJVpJ+frBsKxm+U1YlbPMCg+4npitfHM6tHPNKoLHlLaBjG2PZKs/SZQiBDUR6pwG9VVfzo5a3uFsLFFtUrL3RngKzREJcPVVQ+0tEUXMxV6cnDO4nJ7rQ4+vcoTeNsSlxQyH+jVlFwSHiZxDp8ffbzjtJkaEw54lrvSsH0mHnOJ8f7IDkHoS9wFaDdf0n07q7x/RcQDGbu9ilebbj4e+yWzf1cxKqq/Cc1jIRNbds+DWnoYeKD8Slmj2g0yM3a+VjL9pbyuxeoPa0PDGAY1jNV/F1GmzIAY81loyCS50hDzm1gIZNnIZwpuCcom1jlWMVTZrf3IcU56M2B78VnyWNUb2LxcHaThuqa18/LRGOqyz6uhT5AzHfUp/6sd8umWvWyq0lc7PPY9EY1LqOtKfPPX7BBRVKzl4ZIBze/OZOQMLFoT2s78OhUDaqL7XvaDbG3PuuDnGERmSXAaYJVhfWe5dGIByx6P8zlTiJ2jU7HrzE+tbtmuFwj+rv+biazXvwcmhEIrih3nUtp61WOfZNXz0jmQ+owSJrKpwTn5N5ZdFAFfPIV/5nvDexgNO9NDbAaIogCfN4mN1maFhVkUkr0cNg3ttK+Q==
-X-Forefront-Antispam-Report:
-	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(82310400026)(1800799024)(36860700016)(13003099007)(56012099006)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xeXP+muhRwV5xy9IR7GsW5j+UmR9ColYvN3Sezs4V+m0ksbCiMTlCGKc0ioTGzHwnfAhBynz9QO6idLG42JXfQnJoFe0ZA4NYdN0I4VECS6U0k4otov+sTfAqvk2171S5pPHjl2QyixLJjGfprL072ESxcQxKxGU1+7ysmQa78KoqyBAsF1ESDhLrRkfy5lC+rgH9NAKqfSZEy2ckFLdyJRseTIVLC5PPwdD/UjR7BCZd3i79vJ45SLWQgHrslguSIaQb9U/fWRdj9EHnTTdAtYlquu+yHpAzfsbzhUqskkQNfvRlujAb5JBO31wWVKPIZJtf93IZLmYAzBr9cTHAga2B2SsGIXcmTwj1t9OT9IlmV7s4+mmS+fg5e+X9QmKSYDasPpHknCrcXrElwRcZAGrcltJRgrBWHHi2OU1enlkhPR7DVBppHBDb83eORXs
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 03:57:19.3051
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 281c9b63-f016-4a78-ee19-08def36ecff7
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00003F63.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR18MB3793
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a8fece75-153e-4461-8c04-d26b332b16b6@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=TJR1jVla c=1 sm=1 tr=0 ts=6a74079e cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=HMi4NH7v85-LoBnzSNwA:9 a=CjuIK1q_8ugA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: L6R7DHGgkrJXKWOpTxPv8ILoH0ZfI5x_
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDAyNyBTYWx0ZWRfX6AkvqADK+7oM
+ sujwZxZyPmK1HC5IIGjE8MhiJ6TCD2AEzCysuLhXkwgWyZlhbxZiRPbeniC91J1YCI1vj8FOtF0
+ DkXNRmEWVjUM09v99diWxQH4A7m8WBM=
+X-Proofpoint-ORIG-GUID: L6R7DHGgkrJXKWOpTxPv8ILoH0ZfI5x_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDAyNyBTYWx0ZWRfX6RJ2YltcTwOg
+ Lbxn2NKvKxNt5Onb3dp4Qj3t2/7pEcOfhTysERZPatPgyyDTrzfIwmTiWlzHABEzkmcUoNjhPSF
+ D6/2WX2NXn4vJTsnrMUD3bG0hM9wwb95f7EbgFp1roouWjRFwzGwOE93yATsrmMsne4hfKPbhra
+ 23z6CUb3c8nDThwCVjljXWhPyMP+aCJf1+P+gtPrdFDYeX55H7Izu3MTTkkxy/jb9LUq2T+9XDm
+ 5nj/JVwEa/KM+uRyJfSXPnvigEyefGLnvxaqzaCxupfS5kapMEPTf1rh+pF9fWnyd6xbPMi2iPW
+ jjWIrIZOu6zKnUsTcQsO6a1pdBaogsj1IbQnQj/1o8cMw0txP7o7jPK3T1kbMVpxBN/LFTuh2Rq
+ 4982DYDkBx7kqDpynHLKghHn9qh5y+AcZeP4bYcIC7j6I24364dr2u6conSnk+0X+HawktnUb6R
+ ub6WQGXR9j7PbsuqQhA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060027
 
-Commit e8a40b356688 ("dt-bindings: gpio: cdns: add Axiado AX3005
-GPIO variant") replaced the existing single-entry enum for the AX3000
-compatible with a const.
+On Wed, Aug 05, 2026 at 11:38:00AM +0530, Mukesh Savaliya wrote:
+> 
+> 
+> On 7/29/2026 6:30 AM, Shawn Guo wrote:
+> > Unlike the GearVM variant, Nord Embedded variant has platform resources
+> > (clocks, regulators, powerdomains, pins, etc.) directly controlled by
+> > the operating system. Add a separate dtsi file extending the existing
+> > top-level nord.dtsi with nodes representing these peripherals as well as
+> > describing how they are wired up with the already defined components.
+> > 
+> > Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> >   arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 1726 +++++++++++++++++++
+> >   1 file changed, 1726 insertions(+)
+> >   create mode 100644 arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> > new file mode 100644
+> > index 000000000000..032d384f6eb3
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> > @@ -0,0 +1,1726 @@
+> > +// SPDX-License-Identifier: BSD-3-Clause
+> > +/*
+> > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> > + */
+> > +
+> > +#include <dt-bindings/clock/qcom,nord-gcc.h>
+> > +#include <dt-bindings/clock/qcom,nord-negcc.h>
+> > +#include <dt-bindings/clock/qcom,nord-nwgcc.h>
+> > +#include <dt-bindings/clock/qcom,nord-segcc.h>
+> > +#include <dt-bindings/clock/qcom,nord-tcsrcc.h>
+> > +#include <dt-bindings/clock/qcom,rpmh.h>
+> > +#include <dt-bindings/interconnect/qcom,icc.h>
+> > +#include <dt-bindings/interconnect/qcom,nord-rpmh.h>
+> > +#include <dt-bindings/power/qcom-rpmpd.h>
+> > +#include <dt-bindings/soc/qcom,rpmh-rsc.h>
+> > +
+> > +#include "nord.dtsi"
+> > +
+> 
+> [...]
+> 
+> > +
+> > +	qup_uart17_default: qup-uart17-default-state {
+> > +		pins = "gpio152", "gpio153";
+> Can we add all 4-wires including RTS, CTS so default usecase for Bluetooth
+> with can be served ?
 
-Keep the existing enum form as requested during review. This is a
-formatting-only change with no effect on schema validation.
+Hi Mukesh,
 
-Suggested-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Link:
-https://lore.kernel.org/all/20260717-prudent-indefinable-labradoodle-fcaa9e@quoll/
+Thank you for the comment!
 
-Signed-off-by: Swark Yang <syang@axiado.com>
----
-This is a follow-up to commit e8a40b356688
-("dt-bindings: gpio: cdns: add Axiado AX3005 GPIO variant").
+I can see that UART17 (including CTS/RTS) is used for Bluetooth on both
+Ride and RRD reference boards. So your suggestion makes sense.
 
-The existing single-entry enum for AX3000 was unintentionally changed
-to a const. Restore the original representation as requested during
-review.
----
- Documentation/devicetree/bindings/gpio/cdns,gpio.yaml | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Since the series unfortunately missed 7.3 merge window, I will send v9
+to include CTS/RTS as suggested.
 
-diff --git a/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml b/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml
-index 7eacf5af6554..ee3519eba2c2 100644
---- a/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml
-+++ b/Documentation/devicetree/bindings/gpio/cdns,gpio.yaml
-@@ -14,7 +14,8 @@ properties:
-     oneOf:
-       - const: cdns,gpio-r1p02
-       - items:
--          - const: axiado,ax3000-gpio
-+          - enum:
-+              - axiado,ax3000-gpio
-           - const: cdns,gpio-r1p02
-       - items:
-           - const: axiado,ax3005-gpio
-
----
-base-commit: 6435d21cbd42fea6c66dfd4cfef7d58b9612497e
-change-id: 20260805-ax3005-gpio-keep-enum-follow-up-4082c69939e4
-
-Best regards,
--- 
-Swark Yang <syang@axiado.com>
-
+Shawn
