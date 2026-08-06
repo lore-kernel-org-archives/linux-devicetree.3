@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624D841D120
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:56:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A053D9557
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:57:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786010170; cv=none; b=NDXzEZdLRMEfMDWw+FIp7IqXy1Ksa+8eBYKIvys6vdSBaBKK7nhq56eKLgEXmijf/Ew668qmWa5OH56yuLXP0d6DTrxUsLOPwbJaCsAHfDbn/fuXwW/2VIOH/NcnGHt3OnpOw1Vd1+8aZwTrQj38a8LhjKL5Ff27duv0LYi4VYo=
+	t=1786010224; cv=none; b=iV0HcqLbRD0EPU/S9BWnFIZVAiDU/7oQxSaE55ql1viX8h/mP6RtD8xPLvO+2iIOQ0jxIcKikqazwfO2yGQ77yQi53raiQz6SN6P3TO/zzuXklpJazKVjd0BcLToD0uYLr42rWXfbuGsNfGlhRkCuTCnc3eJ4/2V+w+kwOqZ6GA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786010170; c=relaxed/simple;
-	bh=ZmR8porvAdRb5Wn6N3UsNg06/E7lQoP7vjlvZOvC+KQ=;
+	s=arc-20240116; t=1786010224; c=relaxed/simple;
+	bh=uIH2dG6sYAEpRbM3u+3ImTFH9s6EMI1P6LlnHlb8Wvw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ka7jRssQDpTjqpQknbQimVULCUCpDiIvIeZuHGoIdUhudBi8v5dwbESnwM76iaaBXFgH6JpCoHfZnL5cSOc8OniTquVM5ni06JBvxwDLt+NzrKDgsbYEDUurwgc3vjkGWi94PvF9hP2NvhNYpLnfmtLkhUlk7yQgYMQS87If1nE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cyX2iUie; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JPgAHD9E6ZhU0qhsDSJNd1dq52RK0E9W3C5AmF/9FhtrvFeBb1Cm3poxsydJO6HERrP6fua+wVefcZ1EwYTVo+CC5S/vxLInNunJrscDo3bb+1h+53tw0mQRiNj3Mb1JvSEODPqJz7Qn0iJ5qximIU36ainV4xEVEgQI1t5iwt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvcQ1jI0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cyX2iUie"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21E131F00A3A;
-	Thu,  6 Aug 2026 09:56:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvcQ1jI0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADFA11F000E9;
+	Thu,  6 Aug 2026 09:57:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786010165;
-	bh=38DuWsFhptZ9n1O8cP/NhUbkIzkLPlXN0qsuBDssR0Q=;
+	s=k20260515; t=1786010222;
+	bh=B2jswFXfJ+EJJ9Jdy37EnqrOGZk+/tRLW9FZmJZUTTY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cyX2iUiedbgCAzEUGi3dJamd+jpAuvgRw8TA/9UH4kdLkJCz+J7L/MPoPViSHAE7n
-	 vaVCYhk7O2wEdXUauqAmsnFZpvm8PBCT+yMfzAE6V3s1fOHN8JVCTgMaAZi+UEVMUF
-	 CDQOT79MITijbUvzlTq5WCe8dS1n1zxXxKFm7nA6p0l/Q6EnzmCxl04qCONVM7VaiT
-	 655Ziu71vebfeRuHmYfptTzzD/HjzIg5mfNQ2wTklls/w8Kww+aAjHU7BcT/lCj55N
-	 JLshkULH8j9yjc/vbBK7LGHl2xd5GuR+XF/NoX6NR/bJFujEtJi0DOqp+y17qvsLe4
-	 8wo7M/4SAkecw==
+	b=CvcQ1jI0bl3xlJq6xrWIcfMb9akOKDTL3U8HyWmrEPE59H7LlQ9vpTl7jPqKf6QEV
+	 9n0tLXis57vc4YWNgXSxK2kEPMeNkohFO5LXJvKy3gLtG/+QRnyhWCnS9UtVoFZ9D7
+	 LLcLPfA/NATINSopxbP/GSmRwaZzZfw2wolSwDn1JJxnsZDEq0Y6AqykQTRSbm74ph
+	 N06D+y8qmbVbZGves0bygb/w2eig3B+ULgjjAVJXLsflDNZ8r1wp6+i12y7pVU0vDy
+	 StJMTAFgeb4o54yHQXu4s5lVLHYYKH2dJrwc1gGc5I/WQaBv39YWNSeTaBHgX0MRDv
+	 Kxk4FGXrr7b0Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/8] crash_core: fold duplicated memblock arch hooks
- into the weak default
+Subject: Re: [PATCH v5 4/8] of: reserved_mem: mark /memreserve/ entries as
+ MEMBLOCK_NODUMP
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260806093519.2907771-7-chenwandun1@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260806093519.2907771-5-chenwandun1@gmail.com>
 References: <20260806093519.2907771-1-chenwandun1@gmail.com>
- <20260806093519.2907771-7-chenwandun1@gmail.com>
+ <20260806093519.2907771-5-chenwandun1@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 09:56:04 +0000
-Message-Id: <20260806095605.21E131F00A3A@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 09:57:00 +0000
+Message-Id: <20260806095702.ADFA11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,100 +47,100 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Leftover unused `#include <linux/memblock.h>` in `arch/riscv/kernel=
-/machine_kexec_file.c`.
-
-Pre-existing issues:
-- [High] A time-of-check to time-of-use (TOCTOU) race condition in `crash_p=
-repare_headers()` allows an out-of-bounds array write and Use-After-Free (U=
-AF) during concurrent memory hotplug.
+- [High] 64-bit FDT memreserve base and size values bypass overlap checks d=
+ue to type mismatch and implicit truncation to 32-bit.
+- [High] The overlap check between the memreserve region and dumpable reser=
+ved memory regions fails due to 32-bit arithmetic overflow.
 --
 
---- Patch [6]: [PATCH v5 6/8] crash_core: fold duplicated memblock arch hoo=
-ks into the weak default ---
-commit 1003e078862f2080b60e5f21352f7989a4d125c2
+--- Patch [4]: [PATCH v5 4/8] of: reserved_mem: mark /memreserve/ entries a=
+s MEMBLOCK_NODUMP ---
+commit 224ae2a2bcff895e0e857319035a55e95d869a02
 Author: Wandun Chen <chenwandun@lixiang.com>
 
-crash_core: fold duplicated memblock arch hooks into the weak default
+of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
+   =20
+The /memreserve/ entries are memory reservations made by the bootloader
+or firmware, their contents are not needed for kernel crash analysis,
+so mark them MEMBLOCK_NODUMP to have kdump omit them from the vmcore.
 
-arm64, loongarch and riscv open-code the same memblock walk in
-arch_get_system_nr_ranges() and arch_crash_populate_cmem(). Move it into
-the __weak defaults in kernel/crash_core.c and delete the arch copies.
+Entries that overlap a dumpable region (such as CMA) are left unmarked,
+because the pages of a dumpable region may carry crash-relevant data.
 
-> diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/m=
-achine_kexec_file.c
-> index 808e872f40634..fdc6695e85882 100644
-> --- a/arch/riscv/kernel/machine_kexec_file.c
-> +++ b/arch/riscv/kernel/machine_kexec_file.c
-> @@ -37,32 +37,6 @@ int arch_kimage_file_post_load_cleanup(struct kimage *=
-image)
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index f38d11df6f152..f0683b5d77b30 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+[ ... ]
+> @@ -251,6 +251,38 @@ static void __init __rmem_check_for_overlap(void)
+>  	}
 >  }
 > =20
->  #ifdef CONFIG_CRASH_DUMP
-
-[Severity: Low]
-This isn't a bug, but can we also drop the #include <linux/memblock.h>
-from arch/riscv/kernel/machine_kexec_file.c?
-
-The patch successfully relocates all memblock usage out of the riscv file,
-and the include was correctly dropped for arm64 and loongarch, but it looks
-like it was missed here.
-
-> -unsigned int arch_get_system_nr_ranges(void)
-> -{
-
-[ ... ]
-
-> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-> index 2b36aa9fade06..77285ae3ce600 100644
-> --- a/kernel/crash_core.c
-> +++ b/kernel/crash_core.c
-
-[ ... ]
-
-> +int __weak arch_crash_populate_cmem(struct crash_mem *cmem)
+> +void __init fdt_mark_memreserve_nodump(void)
 > +{
-> +	phys_addr_t start, end;
-> +	u64 i;
+> +	u64 base, size;
+> +	int n;
+> +	const void *fdt =3D initial_boot_params;
 > +
-> +	for_each_mem_range(i, &start, &end) {
-> +		cmem->ranges[cmem->nr_ranges].start =3D start;
-> +		cmem->ranges[cmem->nr_ranges].end =3D end - 1;
-> +		cmem->nr_ranges++;
-> +	}
+> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
+> +		return;
+> +
+> +	if (!fdt)
+> +		return;
+> +
+> +	for (n =3D 0; ; n++) {
+> +		int i;
+> +
+> +		if (fdt_get_mem_rsv(fdt, n, &base, &size))
+> +			break;
+> +		if (!size)
+> +			break;
+> +
+> +		for (i =3D 0; i < reserved_mem_count; i++) {
+> +			struct reserved_mem *rmem =3D &reserved_mem[i];
+> +
+> +			if (rmem->dumpable && base < rmem->base + rmem->size &&
+> +			    rmem->base < base + size)
 
 [Severity: High]
-This is a pre-existing issue, but does this loop risk an out-of-bounds array
-write during concurrent memory hotplug?
+Does this overlap check suffer from a 32-bit arithmetic overflow?
 
-The loop unconditionally writes to cmem->ranges and increments the index
-without verifying bounds against cmem->max_nr_ranges.
+Both rmem->base and rmem->size are phys_addr_t. On 32-bit systems, their
+addition evaluates as a 32-bit operation. If a dumpable memory region exten=
+ds
+exactly to the end of the 32-bit address space, rmem->base + rmem->size cou=
+ld
+overflow and wrap to 0.
 
-In crash_prepare_headers(), the code sequentially counts the regions,
-allocates memory, and then calls arch_crash_populate_cmem():
+The wrapped value 0 would then be zero-extended to u64 for the comparison
+against the u64 base. The comparison base < 0ULL will always evaluate to fa=
+lse,
+causing the overlap check to silently fail and incorrectly mark the memrese=
+rve
+as MEMBLOCK_NODUMP.
 
-	max_nr_ranges =3D arch_get_system_nr_ranges();
-	if (!max_nr_ranges)
-		return -ENOMEM;
+> +				break;
+> +		}
+> +		if (i =3D=3D reserved_mem_count)
+> +			memblock_mark_nodump(base, size);
 
-	cmem =3D alloc_cmem(max_nr_ranges);
-	if (!cmem)
-		return -ENOMEM;
+[Severity: High]
+Could this implicitly truncate the 64-bit base and size values to 32-bit?
 
-	ret =3D arch_crash_populate_cmem(cmem);
+The base and size variables are u64, but memblock_mark_nodump() expects 32-=
+bit
+phys_addr_t parameters on 32-bit systems without PAE.
 
-Since neither kexec_file_load nor these functions hold the memory hotplug
-read lock (get_online_mems()), couldn't memblock.memory be modified
-concurrently between the check and the use? If regions are added or split,
-this loop would write past the allocated array size.
+If an FDT contains a memory reservation with a base address above 4GB, the
+64-bit value passes the overlap check above but gets implicitly truncated h=
+ere.
+This modifies the truncated 32-bit address instead, completely bypassing the
+overlap check for the address actually being modified, and could erroneously
+mark valid dumpable memory regions as MEMBLOCK_NODUMP.
 
-> +	return 0;
+> +	}
 > +}
->  int __weak arch_crash_exclude_ranges(struct crash_mem *cmem) { return 0;=
- }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806093519.2907=
-771-1-chenwandun1@gmail.com?part=3D6
+771-1-chenwandun1@gmail.com?part=3D4
