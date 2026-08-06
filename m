@@ -1,191 +1,182 @@
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D42376A04
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 07:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786002471; cv=pass; b=FLwXYhH/PkiVw1Qp6Lw1LbL+L3Z5vonZRf+rOZqowpfpqIgnZPtfSHAwo7eyApGc0u3ZySweide70ZQMSh6Y/hQ5ZmDIa1PYrkVbNAggLeiAB1xLw2qNEJ84zY+c9k+Ef7N1ZC39PD4nuqN/uvi5WSEBPy5WErHkNRuRytRnji4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786002471; c=relaxed/simple;
-	bh=1Gc0o+/7RvPrQBeYe64Gfdce9NN9vPNc/pfa+Tldbcs=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8223DB33C
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 07:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786002614; cv=none; b=BvhFGTjxV1ZNS/F8NMg2GMVj0BcFObo+NBSBolrJnNXLuZKDNefIfIp+pg+I8lyU0lXFaAMy/n4mSQkvaETJPv6cifrvFJa4vmP6av+gCumI9oRDL89A+M7k8fwccY5tKhtdy4mtwoI931glUlSfWSNzN+NFJbs6rChJOTAp8jA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786002614; c=relaxed/simple;
+	bh=BRzW2/OT2/0yKrT1p+N+QYbs30oY2P+WH549plD4BDA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hLSyCajSwNG4oFCwU25a+bnRg+2RCmdjt7AWcJMPZ8TlhnHE8M55RsvVIoSG8Qh5yyg05d2rNuo2tIhvWRI6DCea69uU9s1B6CcS0cjkup8gawMHSsfs6T03fSKJW7/xrGZD3D7d2cVMeSJ4ZLqKIsRWao9ed7s1C+nqDPsyx/I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K3P3RVN9; arc=pass smtp.client-ip=209.85.217.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 To:Cc:Content-Type; b=JWeBlYDXB9Kxsd7GlG2QcQ/0IVwE4cYhaka29VRk/BTUvGhXaF+g9JhiKuUYQElIC2JdCtYDJz07ECgZXg+B1mQylnz5cP822p84fh1Ec+BflkG+1axP40bHWhZE7FGO60rM1esD2h3nEdgvOThbeMD+X1nJaSCRlcyob8YGMyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K3P3RVN9"
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-754acc61e10so692972137.2
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 00:47:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786002469; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KlMhdyi05zpcnfAx+joRVYHiHEY49Cb6kjcvxC1dhOeP1kC/FXnd7qC8NXNpFgvJ7P
-         IRR/JYzp2ISJMgSnAW1iI1IJaHvs1DuMaJ56h9EoeKWxuJniIog5PcKOlOzwC/BScdEa
-         9xeViJ6dHSFtJI1+6QNFrAG6IcAGlLNU84Z3GW+auX+JLYUhPpM8MGORttU4gmjMhxJk
-         eTTQPKLjmhp6UvmlvBGiILQNL15rcXSkwvwqkv85HLTbolldmiHzHuwQSNJrTJT1zJAp
-         TkDTKAvChmFEnNqIcXpvQa5Mjj6ADQgzoF0YuchXlw7nV3fffy2vJ5/AhEk7Ly8Jlox6
-         /LJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tl7NIfRHqSjM0Xzgd5QQB63n5RUmzjWP9DBfv9ASzSc=;
-        fh=AjryljslK9JyU+uti7ys/gfnnfJReJz8rrAi2KmFcz4=;
-        b=Bylub+YEDoaWZsDo2LB04XDSBYHBvoD9jVBXAvJZSpQTT1J126WPk95TdIjicfmKb9
-         6PDkYxkKWShDrt+fkBdh8Og0wGPJxoFrzsFmcuriYO6UdDjrZMCC/HpsLWPrjP7Y8c2Q
-         zIZ/YR904PP53unXBqFKHHVRy33LuX5+aM2CpyuOZcKtf9v9P0bw3XwLObDKlBT73U5k
-         qpfd53VvldGcOSOnarFj5N4bOlc/sH0iaiZ+nwGPQBtiNCpL6eqcPNuvgfHAic7B6AQ5
-         L7EzOtyjPTgiAOtOeIxebgQrdxdgK27LFwxPANrbwn9N/XlrBXp8s7PPf4KvGRjEm4+Z
-         R/SQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786002469; x=1786607269; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tl7NIfRHqSjM0Xzgd5QQB63n5RUmzjWP9DBfv9ASzSc=;
-        b=K3P3RVN9lwJQc9hNahuglGNs0Af6oDJ2JDYLy26Sdkgo/lCUFtSgXHQDkwoFGP/bhI
-         ZCKg7C+ZcsGN7Gg4VuLy0HvNphLoQ/U0PIezTvJtpFMK7yOQ5El2wph5wse+m9YN5eC7
-         WYILYLhx9NxgF211yQdDaGZ+XxJJTxLd9C7vLIH0cu/23/zbThefGVD94YO6U3y9fpYB
-         Shp8VJchWt4DAhlxJ3IwJzpqP/ViGxgqLpc8HG3/zZbVle9Il0HFk9ctEY+3AOWzoVJp
-         jwh3BNJkVNVGVa+fqvQUXrkL1rysewPk0o99ydRBzIJWjtblK92qtQmH3/5Cg+f8j/FB
-         HzKQ==
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5bf959b820cso1279389e0c.3
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 00:50:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786002469; x=1786607269;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tl7NIfRHqSjM0Xzgd5QQB63n5RUmzjWP9DBfv9ASzSc=;
-        b=nbUWR2Vx1fO87Myomg6APbKadFuuG/plPo4fiZcYcKl5xtWn4Y2+OUgBzPVj4TcD8u
-         c4UrBvjcvWtsYzxyXcGmWElcvdiYqn1r9qBDh1HElryMcQO0wSB860KPIbYa0VajctWJ
-         xZvvo2TGSKP59Tz9kBTwNw4tNlx7uFQL208NXt0I42IT70nhvW3qi3qunMMoQjt5WKDT
-         GRtDkrFOURzhCzDEMikPi+kilsiUD4UKr6nyghNnLafVP6b3taZu0e9jyrfBcY4gQ17J
-         sq3jE+knEhEjW7l4hGsFmhRq2X8yI5hKJ5BPBz5IbufkIxDCvk1Ql0F0dRmDZ8ontfmw
-         9X3A==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2/KnB+HGM2ecgT8XQDGTd9MxLLh+dm5l0tnYuA1hZ8+1jMT8DbOOAya80jQqF6VJoWbXhKDDdk0xk@vger.kernel.org
-X-Gm-Message-State: AOJu0YzK0IpJwUDUIC1tPWnnWF20CoHhmUf8JCrFcexteXnz3rCu1kMK
-	oiLL9FqgpwPxGiFo77gxqRuGHBXABWBX/eJWqsbIwSZFXU9TYhGkNUQgcHubamITVqICOjze+0r
-	4oKu+BDUFz0RodddkKxtGrJfTvhbwMy8vXVMJ
-X-Gm-Gg: AR+sD13m0PB1pMe1Qel3Gmf7wsBtpNOd16WtGHo1N+XgxhzVQ24jD6oncQXMOALj8xD
-	rKxO+CiNa6DjInKn1thJxN5QltrFpOIq3UDwhqeke6ytNpeKAdWEatD5k8fSq569OqdxOElfnY8
-	ZRWUAUqCQUtcWeohBzEnyiW7g3xTHzrLqGY9IxYUsF/5Lo2EVWtuu48adhDLNTwTKKba9B3dD73
-	KcRu/zYX/ICSqQB5qLDXlSwsNPg7HoBRctp5YAz6pYtZ6VPdHb8xXlIrxFfz1/+gBzPb4aN5GmG
-	8qE0eQSzkmknjWmFaRp0aLCYvqgP6vEKg5pwIzszbxgN4zhRlaiAYaJM4A==
-X-Received: by 2002:a05:6102:3f89:b0:74c:7fd8:73eb with SMTP id
- ada2fe7eead31-760e67c876dmr4030855137.1.1786002468676; Thu, 06 Aug 2026
- 00:47:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786002611; x=1786607411;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Bw0q5d56LIKtFiT6Te7rkJ4Ur/ITs2O5UDLJ3AFpiL0=;
+        b=MytcVBtVLmvxm2sTBBRZkqxtYuYhi3a5ntk6RVPp0qTCzAz7bbozh+gfEo8TWw/XNY
+         oieY5349XjDGmI7F1ARlQpu2TOQ3VEj/RsQHTKyCeWjC826psN2xmA/tx/FsDIjaYI+W
+         APTGZDddmx8evTEKRC2ZOCdt0+n6qH2cPbVxhTMJLb9CppTPSsgSRuqUWN9LKhPuSrIB
+         TnzTia314lnyjHk/oRCo1McbPHGQNRENCQ9Fi/0yDsyS4klHtEYwTYzTRIWbYAyD/qlp
+         G4pm360Zy4CwfVg1C7ImtIBZUBeKYurgd4pWpIuOUQzx6fFMg5KQ/3KIT1W+VlcWhB/7
+         W2bg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrd4QGl6BRQVD5lRUEbw6OnozDB1597DMSwaXmTO+auy+iTM2u1JLvE9y4F0MB7TISGsc+BlHUdPfiJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YwxCdk6J3EautJqL4zmdu/AyorfkI0DqmGgHPsQHw/0qQ59GsQO
+	/GdZQo03MynG2KgBIJTcz9Z7eEcTEbjkGgZ0HhLziKD1W8LpuccOOpeHCMz4cGTG
+X-Gm-Gg: AR+sD13Xb7JO9B23s/fcclO45I2GhPUZJw4ztbY0U92a0gS/I1IwSfMVpOQy+EhZ8J2
+	F50Io0eAu6cGGD/cA/IGe4WWaDK3nvezoy6lVLx1nqQiPNNOsYWlTJAKFf5F7671YI23xlw08Ua
+	DXgNEtEU9K/26h2s/+ALt6N8FyoyrRNtEHmGx5NIXC1CQF74fJTmi4HluvPtY4roRqIqtkDQadH
+	TDeUW/iqyltv/OaHP3rDEhTO7HvLkKbzFPK6LDeLzmadmgL8v6iGBcc4EyPv+7Y+Hg9PovpsL+K
+	kTVivYZDY8TapC4j6jNWQSESIFdyCR4LoV9jLbrPedM23/xY22qkNrFb9oJdtFTWDuHEEmFuAFw
+	nTCfrk1TftIZp7W7V/VEp2Q63JWo86x1gVWqihf31aI2DeJkQqJsfpntG/a91RjvddIBomLxkza
+	a34g7USQDJpLGuU2lSveayaezR8m6I4fk5xi4OIVm3VYsfhpQGEjGuJajsH5UwSZFI0a83fHI7c
+	0qo/xiEymf+8+I9Czv08C+D+w==
+X-Received: by 2002:a05:6122:1c85:b0:5bd:8c84:59aa with SMTP id 71dfb90a1353d-5c3d9162e78mr1888849e0c.8.1786002610647;
+        Thu, 06 Aug 2026 00:50:10 -0700 (PDT)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c3d050f8c1sm2900627e0c.2.2026.08.06.00.50.10
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 00:50:10 -0700 (PDT)
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-73a442f7cd3so1147587137.3
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 00:50:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqIW8R72yAUExjqLsPp3f7ScyHlU2XhfKNPtyeTxlWn84lQcZ8yMHBt7WVVDUc4IbSkXXp1O9I0/5fq@vger.kernel.org
+X-Received: by 2002:a05:6102:5788:b0:74c:7fd8:73f5 with SMTP id
+ ada2fe7eead31-760e7bec35amr3810486137.6.1786002610083; Thu, 06 Aug 2026
+ 00:50:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805-anacapa-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com>
- <20260805-anacapa-devlop-phase-devicetree-v4-2-5d67e0efa6c5@gmail.com> <20260805131843.451FC1F000E9@smtp.kernel.org>
-In-Reply-To: <20260805131843.451FC1F000E9@smtp.kernel.org>
-From: Colin Huang <u8813345@gmail.com>
-Date: Thu, 6 Aug 2026 15:47:37 +0800
-X-Gm-Features: AUfX_my7Auoq_NqzDivFDUdXsU2FHDJP1N9mmdPbEYLWdTv0eXwWmA3dM5aeCwI
-Message-ID: <CAPBH0A9Op2U7THS6APB+oMvRJQp28sAU9+NaUTFoxLpDfEQBRg@mail.gmail.com>
-Subject: Re: [PATCH v4 02/12] ARM: dts: aspeed: anacapa: Add EVT1 devicetree
- and point wrapper to it
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <cover.1785941595.git.geert+renesas@glider.be> <89e6a71b35703f10e12f520af1f389b5f40f4b35.1785941595.git.geert+renesas@glider.be>
+ <0124d3a3-81dc-44ce-88a2-9426c65ac46c@mailbox.org>
+In-Reply-To: <0124d3a3-81dc-44ce-88a2-9426c65ac46c@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 6 Aug 2026 09:49:58 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXHPjzCidCkfyF0c9fndAmAte1DuhxGZt=WY=_jxpwU+Q@mail.gmail.com>
+X-Gm-Features: AUfX_mxDCMXWQzEKQw-oHDEPLKfBz2gF2hlxdZi1vAhDPfXSN6ZVQ5LCO1qQ5aA
+Message-ID: <CAMuHMdXHPjzCidCkfyF0c9fndAmAte1DuhxGZt=WY=_jxpwU+Q@mail.gmail.com>
+Subject: Re: [PATCH v3 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<sashiko-bot@kernel.org> =E6=96=BC 2026=E5=B9=B48=E6=9C=885=E6=97=A5=E9=80=
-=B1=E4=B8=89 =E4=B8=8B=E5=8D=889:18=E5=AF=AB=E9=81=93=EF=BC=9A
+Hi Marek,
+
+Thanks for your comments!
+
+On Thu, 6 Aug 2026 at 00:38, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> On 8/5/26 5:20 PM, Geert Uytterhoeven wrote:
+> > +DEFINE_MDLC_RESET_WRAPPER(reset)
+> > +DEFINE_MDLC_RESET_WRAPPER(assert)
+> > +DEFINE_MDLC_RESET_WRAPPER(deassert)
+> > +DEFINE_MDLC_RESET_WRAPPER(status)
+> > +
+> > +static const struct reset_control_ops r8a78000_mdlc_reset_ops = {
+> > +     .reset = r8a78000_mdlc_reset,
+> > +     .assert = r8a78000_mdlc_assert,
+> > +     .deassert = r8a78000_mdlc_deassert,
+> > +     .status = r8a78000_mdlc_status,
+> > +};
 >
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
-> - [Medium] The wrapper Device Tree file includes a `.dts` file directly i=
-nstead of a `.dtsi` and drops the generic board compatible string.
-> - [Low] The commit message ends with an incomplete sentence.
-> --
+> Please keep the list sorted alphabetically.
+
+This matches the order in which the members of struct reset_control_ops
+are defined.
+
+> > +static int r8a78000_mdlc_attach_dev(struct generic_pm_domain *domain,
+> > +                                 struct device *dev)
+> > +{
+> > +     struct device_node *np = dev->of_node;
+> > +     struct r8a78000_mdlc_priv *priv;
+> > +     struct of_phandle_args pd_spec;
+> > +     const struct mod_map *map;
+> > +     unsigned int id;
+> > +     int ret;
+> > +
+> > +     ret = of_parse_phandle_with_args(np, "power-domains",
+> > +                                      "#power-domain-cells", 0, &pd_spec);
+> > +     if (ret < 0)
+> > +             return ret;
+> > +
+> > +     if (pd_spec.args_count != 2) {
+> > +             of_node_put(pd_spec.np);
 >
-> --- Patch [2]: [PATCH v4 02/12] ARM: dts: aspeed: anacapa: Add EVT1 devic=
-etree and point wrapper to it ---
-> commit 0f5bca30c4e664b3bfec688906a2d297fbe5f884
-> Author: Colin Huang <u8813345@gmail.com>
->
-> ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper to it
->
-> This commit introduces an EVT1 development-phase devicetree for the Faceb=
-ook
-> Anacapa BMC. It updates the top-level wrapper DTS to include the EVT1
-> hardware revision file.
->
-> > A dedicated EVT1 DTS is added for revision-specific hardware while
-> > keeping a single, Anacapa entrypoint used by the build and deployment
-> > flow. The top-level aspeed-bmc-facebook-anacapa.dts
->
-> [Severity: Low]
-> This isn't a bug, but it looks like this sentence ends abruptly. Could th=
-e
-> rest of the thought be included in the commit message?
->
-If I need to send v5, I will provide more message.
+> Maybe some "goto error" fail path which does of_node_put() wouldn't hurt
+> here, since the of_node_put() is duplicated in here multiple times.
 
-> > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts b=
-/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-> > index 1fddf3a5d1383..209eef65cedbc 100644
-> > --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-> > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa.dts
-> > @@ -1,1079 +1,4 @@
-> >  // SPDX-License-Identifier: GPL-2.0-or-later
-> >
-> > -/dts-v1/;
-> > -#include "aspeed-g6.dtsi"
-> > -#include <dt-bindings/gpio/aspeed-gpio.h>
-> > -#include <dt-bindings/i2c/i2c.h>
-> > +#include "aspeed-bmc-facebook-anacapa-evt1.dts"
-> >
-> > -/ {
-> > -     model =3D "Facebook Anacapa BMC";
-> > -     compatible =3D "facebook,anacapa-bmc", "aspeed,ast2600";
->
-> [Severity: Medium]
-> Does this change unintentionally break the device tree ABI for bootloader=
-s or
-> userspace tooling that might rely on the generic compatible string?
-
-Thanks for the review.
-
-The removal of the generic "facebook,anacapa-bmc" compatible is
-intentional.
-
-The EVT1, EVT2 and DVT boards are treated as distinct
-development-phase hardware revisions and are expected to use their
-own revision-specific compatible strings. We checked the kernel tree
-and did not find any in-tree drivers matching on the generic
-"facebook,anacapa-bmc" compatible.
-
-We therefore prefer to keep the current compatible hierarchy and
-schema definition rather than adding the generic compatible as a
-fallback.
-
-Regarding the DTS include structure, the use of DTS includes is
-intentional and models the hardware revision inheritance used by the
-Anacapa platform (EVT1 -> EVT2 -> DVT).
-
-
+I'd rather keep it like this, as of_node_put() must not be called in all
+error paths.  Moreover, SCMI remapping will add more error paths,
+and multiple fail* labels.
 
 >
-> By including a .dts file directly instead of a shared .dtsi and replacing=
- the
-> wrapper's contents entirely, the generic "facebook,anacapa-bmc" compatibl=
-e
-> string is dropped. The resulting device tree blob will now only present t=
-he
-> "facebook,anacapa-bmc-evt1" string, which might cause downstream failures=
- if
-> environments expect the generic identifier. Device tree conventions also
-> typically recommend keeping shared components in .dtsi files rather than
-> including another top-level .dts.
+> > +             return -EINVAL;
+> > +     }
+> > +
+> > +     scoped_guard(mutex, &r8a78000_mdlc_lock) {
+> > +             hlist_for_each_entry(priv, &r8a78000_mdlc_list, link) {
+> > +                     if (priv->np == pd_spec.np)
+> > +                             break;
+> > +             }
+> > +     }
+> > +
+> > +     if (!priv) {
+> > +             dev_err(dev, "%s: MDLC %pOF not found\n", __func__, pd_spec.np);
+> > +             of_node_put(pd_spec.np);
+> > +             return -ENODEV;
+> > +     }
+> > +
+> > +     id = pd_spec.args[1];
+> > +     of_node_put(pd_spec.np);
+> > +
+> > +     map = mod_map_find(priv->mod_map, id);
+> > +     if (!map) {
+> > +             dev_err(dev, "Unknown module 0x%x\n", id);
+> > +             return -ENOENT;
+> > +     }
+> > +
+> > +     dev_dbg(dev, "Ignoring HW module 0x%x\n", id);
+> > +     return 0;
+> > +}
 >
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-anacapa-=
-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com?part=3D2
+> [...]
+>
+> > +static int r8a78000_mdlc_probe(struct platform_device *pdev)
+> > +{
+
+> > +     if (!info->base) {
+> > +             dev_dbg(dev, "Unsupported MDLC instance 0x%pa\n", &res->start);
+>
+> return dev_err_probe() might be more appropriate here, even if that
+> would be more chatty until the support for various MDLC nodes lands.
+
+Indeed, it would be very chatty, and may confuse users, that's why
+I used dev_dbg().  We can revisit that later.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
