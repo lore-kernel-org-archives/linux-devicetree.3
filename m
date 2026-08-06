@@ -1,55 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADFA423EB1
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 21:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB1B40A92E
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 21:48:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786052878; cv=none; b=R7cv8iD9hp8W2whGjJQhsNktWamTKGWudR1rwNS+hMGWNOaEVyWOc4OXbSnOSwWkwfMXqhJop6npolYOnt9Ys/0CZxrLN2e8Ht4Sl9OXXHoSqCE1rFykcBquWHF2O2Eqadd8Sg20ezX/5UsxCM66oZ3sPCIqZsHbrykBydFdvU0=
+	t=1786052904; cv=none; b=RdTG7oLPBx9uIH3Q5UbQTpbcZ/GLi7DIesz8CzR1YRmnL6XPgPz2RY57tXaU9I92ef2EL4Tk26gHkaOXAkAhiyeJTpLyqNV4LZcSeMAwrPZgR9Twg/GZI2kXJQVzFIStAGriKSHysjhpvUZBSqPDPtHInEt5lmhVIBD/Gr63SzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786052878; c=relaxed/simple;
-	bh=CaL5TsSLfvCa3cDrJz+Yqsek3VoUcRNh2Kv16NL3Z3g=;
+	s=arc-20240116; t=1786052904; c=relaxed/simple;
+	bh=k98Bm3UVj63zhBkI6wrLRs31kagMcbh6IIHVpgl9C9I=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bCdLSNgY7cGtXqP+KraLtmzzEKZNehg8gFPxEADl7CIG8zwu66z+CpyIi/lwt7Cj+YBDZp/4ykPiD4JSLpkkgnCyl2ru1KqLEY9899R/RcLjiEhoanI/T4IF7w9CLEB4TRWP8HA95fyzzVz904nZwlDGnGH8IfGvsuFhRcqeto8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DvzzFU1m; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=Qx043zR+eOCa2CxRFmbU4bfLHaN/qAFXBTMrPACToO4ZHGh7YJun7yorSUGCKQLrzbkbjsHEm6gDuVfEPDIKY7kMnYOXVc3/rAklJ+ZRuke1igXQ0qVVfG+8uZ2jDKTuPSS9ow7BakFNTEyxxniAE2SEtFm/zuBqnIEWhagw/4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZpYDe6Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DvzzFU1m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A81D1F00ACA
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 21:47:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZpYDe6Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C00321F00ACA
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 21:48:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786052875;
-	bh=CaL5TsSLfvCa3cDrJz+Yqsek3VoUcRNh2Kv16NL3Z3g=;
+	s=k20260515; t=1786052902;
+	bh=k98Bm3UVj63zhBkI6wrLRs31kagMcbh6IIHVpgl9C9I=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DvzzFU1miAzRlp6j+eonbpWh4X3cQF4Zf8ip3ufvQ056MS4NxAMMUIyeGkwdJAZ69
-	 tnWU83SVFGofvLZezJWkkYcyDPssUsh5ziJinzY6FngfG8/eOco/4j1nVt+Mu9VbPc
-	 1cTKWylUBgVTX+o7jN/ew0TiL+qRW7BCEVonYxSpka7MpB4z5ilP2ZhA6odZx/10+0
-	 S+M+b9JrsmwxtOODIRmsvl4OJqtmCCptpYEzTe9VCKZmbrhXDNMkZq9LcxFkXz9XG9
-	 5PIgyCFnc1PtfbnEOOyg3n884tTdcZXJ8+DLi03HFUg+fThk2yob00qliKrCmvCdc7
-	 B+SazV4W95Pzg==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b013aa02b2so1610662e87.0
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 14:47:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqBOzKr5XUwvcUvGvS8g0HdyXv8N16h0v2CLT4Iht+045ovYAO3gqN8HYDUlaa5SlNoslWxYwa5O8Jr@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbGvEY4qDuAcA3ePc0HQmJMv9hNJjxT76HJgit3PDFrDmvPz+X
-	yhqMJ3EITuiyR353bYk11aa8F98kIzzFwuMm6f1EkcaFsrbeAxI+OWRNseDAWaqsdTz9nxic6oD
-	D66N9AfBZwUy56ew0nADWUSJRiKIGFVo=
-X-Received: by 2002:a05:6512:39d3:b0:5b2:e178:4088 with SMTP id
- 2adb3069b0e04-5b2fe39cd5amr1905632e87.4.1786052874207; Thu, 06 Aug 2026
- 14:47:54 -0700 (PDT)
+	b=EZpYDe6Y09zCCXpN79/31AcVJo1mTu5+KlgNXNu1nO9T8ME5xBs+xOCwu2kJYyDNq
+	 AFoueH4i+5m20TmQ8UhUsb6S34nC3xzbZXjQQBedCkO7VXQ0JGApbQFt5AEqz1im9Z
+	 YEn86hIzdqJGM66CRu2YwULVcbzGym3tJeG8450gwHjbBSxexcQhBFvW24q2d4z22I
+	 EMrp88ISe/41f9TF82IaTXPW3l8DCBfdJeOCwos0Vw03sK+L9l62G0EKmpSzJgzCrN
+	 OdoN8LXDxNTXs3GCbpesu08QZGWAWGJmTNNvDEpJcrigd6wk5t5D9ivoWOjecwMsfP
+	 ypxdTz0T56cqg==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b2a3166398so2651789e87.3
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 14:48:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoCrrnJtFVBnBz4yRR9RkAZkCcDNjmBY8gX7P/p6NxkRqWUxynL5xBj9BFm6NwWE0pT7QKt7ejLW6Io@vger.kernel.org
+X-Gm-Message-State: AOJu0YydkhHjz4XFl7YGL0QDM6PPzegBK+yt7wBZ4Ig55VTyyqPqGQwB
+	pOnXdD947vd5yuEKAxQdr8i6dbwlZj9ICGyM2ipIJWLWOWlk8+vxuaUZz+F4yg9WWlvdPERCNpo
+	hfYwLg71Jy4qthPXYelwaY5e1lYroHfU=
+X-Received: by 2002:a05:6512:3e17:b0:5ae:c454:3746 with SMTP id
+ 2adb3069b0e04-5b303b7e6abmr663601e87.43.1786052901560; Thu, 06 Aug 2026
+ 14:48:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727141121.772110-1-pshete@nvidia.com>
-In-Reply-To: <20260727141121.772110-1-pshete@nvidia.com>
+References: <20260727141121.772110-1-pshete@nvidia.com> <20260727141121.772110-2-pshete@nvidia.com>
+In-Reply-To: <20260727141121.772110-2-pshete@nvidia.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 6 Aug 2026 23:47:41 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=b8B2YVB3dHkPLOYDxiffaST+CgbYy50aaQ1mPFyM-6A@mail.gmail.com>
-X-Gm-Features: AUfX_mytEg4ToHSuhGJgiTmxeaRsRUFU0bYKV21UeLQlt-Z3TQER_mVGqT2sPSY
-Message-ID: <CAD++jL=b8B2YVB3dHkPLOYDxiffaST+CgbYy50aaQ1mPFyM-6A@mail.gmail.com>
-Subject: Re: [RESEND V2 1/2] dt-bindings: pinctrl: tegra264: fix DAP2 DIN/DOUT
- pin names
+Date: Thu, 6 Aug 2026 23:48:08 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkY-r8QYT0_tr=CDKxqG7HdOmuxgBL3F-Y3KmR6iLbqSg@mail.gmail.com>
+X-Gm-Features: AUfX_mwK_CyqtR9BVNeQ0f9t4vpa0IHqx6BW4oYdJSBTHObHrEw4GFinTFYQ7Ow
+Message-ID: <CAD++jLkY-r8QYT0_tr=CDKxqG7HdOmuxgBL3F-Y3KmR6iLbqSg@mail.gmail.com>
+Subject: Re: [RESEND V2 2/2] pinctrl: tegra264: fix DAP2 DIN/DOUT pin assignment
 To: Prathamesh Shete <pshete@nvidia.com>
 Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
 	thierry.reding@kernel.org, jonathanh@nvidia.com, linux-gpio@vger.kernel.org, 
@@ -61,13 +60,24 @@ Content-Transfer-Encoding: quoted-printable
 On Mon, Jul 27, 2026 at 4:11=E2=80=AFPM Prathamesh Shete <pshete@nvidia.com=
 > wrote:
 
-> The DAP2_DIN and DAP2_DOUT pins were listed with swapped ball suffixes:
-> DAP2_DIN as PV7 and DAP2_DOUT as PW0. On silicon DAP2_DIN is on ball PW0
-> and DAP2_DOUT is on ball PV7. Correct the pin and drive group names to
-> dap2_din_pw0 and dap2_dout_pv7.
+> The dap2_din and dap2_dout pin groups were given swapped ball suffixes:
+> DAP2_DIN was described as ball PV7 and DAP2_DOUT as ball PW0. On silicon
+> DAP2_DIN is on ball PW0 (mux register 0x6050, drive register 0x6054) and
+> DAP2_DOUT is on ball PV7 (mux register 0x6058, drive register 0x605c),
+> as reflected by the board pinmux.
 >
-> Fixes: 30a9d5162f25 ("dt-bindings: pinctrl: Document Tegra264 pin control=
-lers")
+> Because the ball suffixes were swapped, the groups were also assigned the
+> wrong primary mux functions (dap2_din -> I2S2_SDATA_OUT and dap2_dout ->
+> I2S2_SDATA_IN), routing the I2S2 data-in and data-out signals to the wron=
+g
+> pins and breaking DAP2 audio.
+>
+> Rename the groups to dap2_din_pw0 and dap2_dout_pv7 and give each pad its
+> correct function (dap2_din_pw0 -> I2S2_SDATA_IN, dap2_dout_pv7 ->
+> I2S2_SDATA_OUT). The register offsets are already correct and are left
+> unchanged. This matches the board pinmux.
+>
+> Fixes: c98506206912 ("pinctrl: tegra: Add Tegra264 pinmux driver")
 > Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
 
 Patch applied!
