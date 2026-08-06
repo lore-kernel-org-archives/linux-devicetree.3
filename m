@@ -1,295 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B523DA7C8;
-	Thu,  6 Aug 2026 21:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F62E3DA7EC;
+	Thu,  6 Aug 2026 21:11:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786050576; cv=none; b=miw6oDBOOvJQuDTkzXFqY304aX0v81NonBsmBtwxB3O81DR9T4SCxNS0CUXsXzP/ff7wYbBpAzL2WGkUDZ+fcHNvFe7/BThp+CWRnq29B09s/myVO43+WMW3a+KTU/Qi62owYI13eLXwqJ60gKBci7VV1+XeEUtn2OmRZP1utsQ=
+	t=1786050713; cv=none; b=isr6dYljLPLWcZC71//x4lGWkO9l+sleoRwwMK59qu5r77wmbbqjf/1g3fDI6rJj9NKjnS5YV5Scmiec5pXQWFUz10eOFpPP/T2tO39yO82YP1wuze+0nBjy4H3H0daPMu8o28vBTPJu6ObGvw2JpSZH1NvQyGTItfg7YRnniQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786050576; c=relaxed/simple;
-	bh=elTvhaU8FxNDhGNur77coL/Ik5EZflp2hH6GRxBXZhA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UO2cJg4GKbwrIDKlMSrxMmSxFghGiIFiRmheYIy39TPFKnSSz7Y8VAvJ4dNDZzebrQAoXcToc8kjY+SsvCmjdusAtSnQ06ev8Zv9DqMG22SHa8Hmw8NA967hDvvVfnklPlzATZo3XlqNEOFSPFbC7OyD6gCpI/08KxKa+mJIMUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U9Cn+D1K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786050713; c=relaxed/simple;
+	bh=x2rQb314pR3Vm2MohHbZ7PSj9MuzwmuxbVUnDp2wV/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nzJZ5naLOoMTgHvddvAdnUOBlTLrTDDoLq4D+Z1uX7lY4RcEdbkfBqnYbnnCkwd+Pi7l7l4ZShXLR+gcM/uNpCWFfVyCbLWoed7b5x7Pp28m8TAJYJWmS+QuY2u5k2ow45xCIBwtUu6JsEOIiwWUVN7bmv+ni5JB20DD5kXpmF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K9l1qych; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U9Cn+D1K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 485441F000E9;
-	Thu,  6 Aug 2026 21:09:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786050574;
-	bh=vqbnknkMqb7T4jVlLTLG6e7fJnj9Z5+0ElZmMjErQ3U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U9Cn+D1Kcj91EEf8sNOi/U0c57AgCwoVNGxLkoYi14E2HElDvXZNiABje0ghe+62n
-	 ixHu0z7bleLwv6FANCxORmpva4dsfJil/H3RyPyo8DXidQA9iMgUQR2zTGC9jHGcja
-	 6DzPbl3uu7Ui5r095uKo+6pdakfJ9gSaqT8NDHmIleJlx18oP7hHPe16ounLQLmoQ8
-	 Cnp6xrXtdCsiUddi5u4se+WayESQdwUo5fWZNvIRyTiBN4kxLCsybdobV6ZGj/o5MW
-	 3RUEFXCAYECWngGUQ2YyBA1MSRS+ojeF6DAoGCiFX3vCg3d8p8HOhhsIF+g/osWD2Z
-	 7Na19aXvhHnrg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] rtc: qcom: rtc-glink: Add PMIC GLINK RTC driver and
- extend pmic_glink
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kamal Wadhwa" <kamal.wadhwa@oss.qualcomm.com>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20260807-rtc-glink-cleanup-v1-2-7801e4d69c4f@oss.qualcomm.com>
-References: <20260807-rtc-glink-cleanup-v1-0-7801e4d69c4f@oss.qualcomm.com>
- <20260807-rtc-glink-cleanup-v1-2-7801e4d69c4f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 21:09:33 +0000
-Message-Id: <20260806210934.485441F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K9l1qych"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786050712; x=1817586712;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=x2rQb314pR3Vm2MohHbZ7PSj9MuzwmuxbVUnDp2wV/E=;
+  b=K9l1qychFf/Io4OPUAF0hU1KR9/Us8QxH1495P/LvO0AHxpEH163aOLo
+   G8XdboKGpidmwgtJSc7BJvlnbCWkTowZxFYsKOZOE3aHZvCxcY3rx0F6G
+   H1vURNQK7CI7ymxiBpGX+Z//Pl1sxNiel2el780Z6lfjgps+LEeME+byc
+   KpiB9xM5JyNgpu8aqEcjin4IkwSFBH1/fmfeu/zxJvoFx9Gu4gTwDc9K4
+   5p93W6g1ssoxLfKorEGmpSe1dRmB7GmUfXOBJ5X3JyFwpRgrHEZuZeRjY
+   Edw47lAwmvUDB5IPECrlN5NVRrkW4iicmf7e0hNCVq6r48wxtOgsJrh0A
+   w==;
+X-CSE-ConnectionGUID: N+dnxA+tQf6ioJ0EfiG4YQ==
+X-CSE-MsgGUID: W2jS63i7S+OI9pNw0fkszg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86508136"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="86508136"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 14:11:51 -0700
+X-CSE-ConnectionGUID: 8f1Y5hePR2qrjrvUVj0c9A==
+X-CSE-MsgGUID: zqfIlHQORmGL0STo0ZidtA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="262275447"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.50])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 14:11:48 -0700
+Date: Fri, 7 Aug 2026 00:11:45 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Kim Seer Paller <kimseer.paller@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] iio: dac: ad3530r: add support for AD5710R/AD5711R
+Message-ID: <anT4kb1dZbYY7UzA@ashevche-desk.local>
+References: <20260721-iio-ad5710r-upstream-v2-0-324949dc72da@analog.com>
+ <20260721-iio-ad5710r-upstream-v2-4-324949dc72da@analog.com>
+ <20260724232659.269b610a@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260724232659.269b610a@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Racy cancellation of alarm_work and incorrect devres teardown orde=
-r causes Use-After-Free on driver unbind and probe failure.
-- [High] The callback extracts the property ID instead of the property valu=
-e for GET_PROPERTY responses, returning the property ID as the time or alar=
-m value.
-- [High] A timeout in `qcom_rtc_glink_request` leaves the request-response =
-state machine out of sync, allowing late firmware responses to hijack subse=
-quent requests.
-- [High] Corrupted time and alarm calculations via contradictory fallback u=
-sage of QCOM_RTC_GLINK_TIME and implicit 64-bit integer promotion.
---
+On Fri, Jul 24, 2026 at 11:26:59PM +0100, Jonathan Cameron wrote:
+> On Tue, 21 Jul 2026 16:47:13 +0800
+> Kim Seer Paller <kimseer.paller@analog.com> wrote:
 
---- Patch [2]: [PATCH 2/2] rtc: qcom: rtc-glink: Add PMIC GLINK RTC driver =
-and extend pmic_glink ---
-commit 453a7a32b4bd6fbb186e249935eb4448bc3ddd38
-Author: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-Subject: rtc: qcom: rtc-glink: Add PMIC GLINK RTC driver and extend pmic_gl=
-ink
+...
 
-Add a new RTC driver that communicates with the PMIC firmware over the
-GLINK transport layer. It supports reading time and alarm functionality via
-GET_PROPERTY and SET_PROPERTY opcodes.
+> > +static ssize_t ad5710r_get_dac_powerdown(struct iio_dev *indio_dev,
+> > +					 uintptr_t private,
+> > +					 const struct iio_chan_spec *chan,
+> > +					 char *buf)
+> > +{
+> > +	struct ad3530r_state *st = iio_priv(indio_dev);
+> > +	unsigned int reg_offset, ch_in_reg, reg, mode, mask;
+> > +	int ret;
+> > +
+> > +	reg_offset = chan->channel / AD3530R_CH_PER_REG;
+> > +	ch_in_reg = chan->channel % AD3530R_CH_PER_REG;
+> > +	reg = AD3530R_OUTPUT_OPERATING_MODE_0 + reg_offset;
+> > +	mask = AD3530R_OP_MODE_CHAN_MSK(ch_in_reg);
+> > +
+> > +	ret = regmap_read(st->regmap, reg, &mode);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return sysfs_emit(buf, "%d\n", !!(mode & mask));
+> 
+> For consistency with the prep below, perhaps field_get() is appropriate here
+> rather than !! trickery.
 
-> diff --git a/drivers/rtc/rtc-qcom-glink.c b/drivers/rtc/rtc-qcom-glink.c
-> new file mode 100644
-> index 0000000000000..611f06a3cc5ca
-> --- /dev/null
-> +++ b/drivers/rtc/rtc-qcom-glink.c
-> @@ -0,0 +1,690 @@
-[ ... ]
-> +static int qcom_rtc_glink_request(struct qcom_rtc_glink *rtc_glink,
-> +				  void *data, size_t len)
-> +{
-> +	unsigned long flags;
-> +	unsigned long left;
-> +	int ret;
-[ ... ]
-> +	left =3D wait_for_completion_timeout(&rtc_glink->ack, HZ);
-> +	spin_lock_irqsave(&rtc_glink->state_lock, flags);
-> +	rtc_glink->request_pending =3D false;
-> +	spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
+FYI: we have regmap_test_bits().
 
-[Severity: High]
-If wait_for_completion_timeout() expires, request_pending is cleared. If a
-new request is immediately made, request_pending becomes true again.
+> > +}
 
-Could a late firmware response to the previous request arrive and be
-mistakenly accepted for the new request, since the callback lacks
-transaction ID or opcode validation?
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +	if (!left)
-> +		return -ETIMEDOUT;
-> +
-> +	return rtc_glink->error;
-> +}
-[ ... ]
-> +static int qcom_rtc_glink_get_time(struct qcom_rtc_glink *rtc_glink,
-> +				   struct rtc_time *time)
-> +{
-> +	u32 ticks;
-> +	int ret;
-[ ... ]
-> +	ret =3D qcom_rtc_glink_get_property(rtc_glink, QCOM_RTC_GLINK_TIME,
-> +					  &ticks);
-> +	if (!ret && ticks !=3D U32_MAX) {
-> +		rtc_time64_to_tm((time64_t)ticks + rtc_glink->offset, time);
 
-[Severity: High]
-QCOM_RTC_GLINK_TIME is set as an absolute time in qcom_rtc_glink_set_time().
-
-Does adding rtc_glink->offset to it here in the fallback path result in an
-incorrect time calculation (Absolute Time + (Absolute Time - Uptime))?
-
-Also, since rtc_glink->offset is a u32, will a negative 32-bit offset be
-zero-extended rather than sign-extended when computing
-(time64_t)ticks + rtc_glink->offset?
-
-> +		return 0;
-> +	}
-> +
-> +	dev_err(rtc_glink->dev, "all time sources failed\n");
-> +	return -EIO;
-> +}
-[ ... ]
-> +static int qcom_rtc_glink_get_alarm(struct qcom_rtc_glink *rtc_glink,
-> +				    struct rtc_wkalrm *alarm)
-> +{
-> +	u32 fw_alarm_time, fw_current, alarm_en;
-> +	struct rtc_time now_tm;
-> +	time64_t now_real, secs_until_alarm, alarm_real;
-> +	int ret;
-[ ... ]
-> +	ret =3D qcom_rtc_glink_get_time(rtc_glink, &now_tm);
-> +	if (ret)
-> +		return ret;
-> +	now_real =3D rtc_tm_to_time64(&now_tm);
-> +	secs_until_alarm =3D (time64_t)fw_alarm_time - (time64_t)fw_current;
-
-[Severity: High]
-By casting these 32-bit firmware times to time64_t before subtracting, do we
-lose the 32-bit modulo arithmetic?
-
-If the hardware counters wrap, will this produce a large negative delta
-instead of the correct positive duration?
-
-> +	alarm_real =3D now_real + secs_until_alarm;
-> +	dev_dbg(rtc_glink->dev,
-> +		"get_alarm: now_real=3D%lld fw_current=3D%u fw_alarm=3D%u delta=3D%lld=
-\n",
-> +		now_real, fw_current, fw_alarm_time, secs_until_alarm);
-> +	rtc_time64_to_tm(alarm_real, &alarm->time);
-> +	alarm->enabled =3D !!alarm_en;
-> +	return 0;
-> +}
-[ ... ]
-> +static void qcom_rtc_glink_callback(const void *data, size_t len, void *=
-priv)
-> +{
-> +	struct qcom_rtc_glink *rtc_glink =3D priv;
-> +	const struct pmic_glink_hdr *hdr =3D data;
-> +	unsigned long flags;
-> +	bool pending;
-> +
-> +	if (len < sizeof(*hdr))
-> +		return;
-> +
-> +	dev_dbg(rtc_glink->dev,
-> +		"RX opcode=3D0x%x type=3D0x%x owner=3D0x%x len=3D%zu\n",
-> +		le32_to_cpu(hdr->opcode), le32_to_cpu(hdr->type),
-> +		le32_to_cpu(hdr->owner), len);
-> +
-> +	if (le32_to_cpu(hdr->opcode) =3D=3D RTC_GLINK_ALARM_EXPIRED) {
-> +		dev_info(rtc_glink->dev, "alarm expired\n");
-> +		schedule_work(&rtc_glink->alarm_work);
-
-[Severity: High]
-Does this handle the RTC_GLINK_ALARM_EXPIRED opcode and call schedule_work()
-unconditionally?
-
-If the driver is actively tearing down, could this run after the device is
-freed due to the devres teardown order?
-
-> +		return;
-> +	}
-[ ... ]
-> +	switch (le32_to_cpu(hdr->opcode)) {
-> +	case RTC_GLINK_GET_PROPERTY:
-> +		fallthrough;
-> +	case RTC_GLINK_SET_PROPERTY: {
-> +		const struct qcom_rtc_glink_msg *msg =3D data;
-> +
-> +		if (len < sizeof(struct pmic_glink_hdr) + sizeof(__le32)) {
-> +			rtc_glink->error =3D -EINVAL;
-> +			break;
-> +		}
-> +		rtc_glink->resp_value =3D le32_to_cpu(msg->property);
-
-[Severity: High]
-For GET_PROPERTY responses, does this assign the property ID (e.g., 0 for
-time, 1 for alarm) to resp_value instead of the actual data in msg->value?
-
-Also, the bounds check only validates 16 bytes (sizeof hdr + sizeof
-property). Does this need to validate 20 bytes to safely access msg->value?
-
-> +		rtc_glink->resp_valid =3D true;
-> +		rtc_glink->error =3D 0;
-> +		dev_dbg(rtc_glink->dev, "ACK opcode=3D0x%x resp_value=3D%u\n",
-> +			le32_to_cpu(hdr->opcode), rtc_glink->resp_value);
-> +		break;
-> +	}
-[ ... ]
-> +	default:
-> +		spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-> +		dev_warn(rtc_glink->dev,
-> +			 "unhandled RX opcode=3D0x%x len=3D%zu\n",
-> +			 le32_to_cpu(hdr->opcode), len);
-> +		return;
-> +	}
-> +
-> +	spin_unlock_irqrestore(&rtc_glink->state_lock, flags);
-> +	complete(&rtc_glink->ack);
-
-[Severity: High]
-Is it safe to call complete() after dropping state_lock?
-
-Could this create a race window where a preempted callback completes a newly
-issued request prematurely?
-
-> +}
-[ ... ]
-> +static int qcom_rtc_glink_probe(struct auxiliary_device *adev,
-> +				const struct auxiliary_device_id *id)
-> +{
-> +	struct device *dev =3D &adev->dev;
-> +	struct qcom_rtc_glink *rtc_glink;
-[ ... ]
-> +	rtc_glink->client =3D devm_pmic_glink_client_alloc(dev,
-> +							 PMIC_GLINK_OWNER_RTC,
-> +							 qcom_rtc_glink_callback,
-> +							 qcom_rtc_glink_pdr_notify,
-> +							 rtc_glink);
-> +	if (IS_ERR(rtc_glink->client))
-> +		return dev_err_probe(dev, PTR_ERR(rtc_glink->client),
-> +				     "failed to allocate glink client\n");
-> +
-> +	pmic_glink_client_register(rtc_glink->client);
-> +
-> +	device_init_wakeup(dev, true);
-> +
-> +	rtc_glink->rtc =3D devm_rtc_allocate_device(dev);
-> +	if (IS_ERR(rtc_glink->rtc))
-
-[Severity: High]
-The GLINK client is registered before the RTC device is allocated.
-
-If devm_rtc_allocate_device() fails, or during driver unbind, the GLINK
-client remains active while devres unwinds. Could this allow firmware to
-trigger qcom_rtc_glink_callback() on a freed rtc_glink structure?
-
-> +		return dev_err_probe(dev, PTR_ERR(rtc_glink->rtc),
-> +				     "failed to allocate RTC device\n");
-[ ... ]
-> +static void qcom_rtc_glink_remove(struct auxiliary_device *adev)
-> +{
-> +	struct qcom_rtc_glink *rtc_glink =3D dev_get_drvdata(&adev->dev);
-> +	/*
-> +	 * Nothing left to arm alarm_work after this returns: the glink
-> +	 * client (and its callback/pdr_notify) is torn down by devm after
-> +	 * .remove() returns, and rtc_update_irq() below still targets a
-> +	 * live devm-managed rtc device.
-> +	 */
-> +	cancel_work_sync(&rtc_glink->alarm_work);
-
-[Severity: High]
-Since the GLINK client is managed by devm and hasn't been unregistered yet,
-could an incoming ALARM_EXPIRED firmware message re-queue alarm_work
-immediately after this cancel_work_sync() completes?
-
-This might lead to a use-after-free when devres subsequently frees the
-memory.
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-rtc-glink-=
-cleanup-v1-0-7801e4d69c4f@oss.qualcomm.com?part=3D2
