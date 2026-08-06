@@ -1,184 +1,162 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3A6420497
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 08:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C84C3DDAE4
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 08:58:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786006680; cv=none; b=QSdlv3I0C4hAF4G8KlH8ylHpo/LTK22vX9Mml3HoOUDiIU6CPFbCLQT0QE35FHqMQJ6cG5h01X4VaOIFkURTOeLLjcepL7yei/CUYfLsVAdVLlyLuEW7LNcHKWGKgpQZtLN7BvF/TWGOM2UHSXBi0+DP+lFcy2p2yQU1cwZt8dg=
+	t=1786006729; cv=none; b=XSt2fAJMA1Ie/Fdq95tgXf+0a2rT0au7BG/lOExFIoLin7FyKJC10k2Wf/Jor6jLw3BJcllXpVhVxteng/yIxGhiJILl3Ar/wupueekboeQhBBtx0AhqCcgws5hUXJAiLi1KyVjMpxF/uyrr7yRom5NIz5sEhmTX2tOjXKdPpF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786006680; c=relaxed/simple;
-	bh=Fen3/2fyT2nxbdI13z08g7FVfDpoYlq5UkDkITq/4Jk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WHqQKMJW9jU+rXX/ozkOzjLOGI3NVGo2c+p/P6nG7tHjDEXZOF3FDWJO7V7OGlviLqUibiSTjJy4RBRjEEt2El6TK2t+M5Up3GPFnpEIS5+q9lKdHFzEWtqty8Bx/pRxTp3OJQEqyA+oSw9zzyrKI6tY1MbqfG2VuuSJnJh4/Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fSfCm16V; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YTQjWbvi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fSfCm16V";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YTQjWbvi"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6767ZEeF4063447
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 08:57:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=PCJUwbsaRK8wt4Wj9xYnHB0Y
-	srg8kjvYnURoW+3/53I=; b=fSfCm16VZCzZ2bf0yNVxPw7fUGC+28UxiwmIa0IJ
-	dWBz4jBpmhtmXUN8xgX5IKqakbZKFMhcoPmLUmpPF/Sz84gXSxZG/yAZp9BiKEYA
-	JlqMEVQcxG5QMcc/cstYOjzBMkThmhV/aQHV3aSWppV1IrmGs+qkLfSJfo43qZFc
-	IssRE3U8Fdz8wNb6wI0Z3ZVE0gaXPvHHRI5OcdLUML49YyRWeNf6d8N69G5K3cPj
-	HNmocnGVzCfgFuTLTHhpzTwXqItDBQ9rPWyFFApXpN34xwyLNDG8zNeKiumjB0yV
-	hO6NdWjze5fM4+8sQFaVqLRCEfavKSBYuSlqZOTMlfMeQA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv5x5mj6p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 08:57:58 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c0f0a0760so31832501cf.2
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 01:57:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786006677; x=1786611477; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PCJUwbsaRK8wt4Wj9xYnHB0Ysrg8kjvYnURoW+3/53I=;
-        b=YTQjWbvi9KckHe6ZKqD99AMl00vbi05+UzVlSWqlGgQ5+gxO+XHS67jMh8uES0j0KY
-         9PbbiqGktg07iXnbceqhJoy7vrCmX6LsjTfHr180lXNl6HnJjWdiky5xG8ukTpT1Do/6
-         /GdVB2uLrYMTjHHPxwLCrRxUK7+XHsneGBUdDOfoals8VhwbPyqX0CDRWYPiFcEVN4UK
-         EkPFVqy8uraYY4RZMyKKPqg21mTw0d5+73beCPxnjULBLYZvbegJ0CLRy4EaFpvqaMPl
-         kO1RkzJ9iBnU78zDqNmvzkEpIDb2fwtKmuARTEJkehY3pKWv1e9inpaV6jBbL8h1CgtU
-         WKMA==
+	s=arc-20240116; t=1786006729; c=relaxed/simple;
+	bh=Wp5Awetz8x1lkJd7iV42zxvDh1yQD5wNbmheE5eZ5No=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qnLMsCR5lihv0JZfKDPxlQROw10udFS9lamxG6LMzsTu/b8sOeBp+kJvtC+SD3FgwRNf00Rlv6drq67gFZcJVhhz+qApec0539yQrwVqDvR0OYMfBQbHLowdhAyksvWTg8FGMoTFDt0myFNtlJ7f1Zx4ayqJAeuWYPbYHKgqshk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-74ace427b29so516752137.1
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 01:58:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786006677; x=1786611477;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PCJUwbsaRK8wt4Wj9xYnHB0Ysrg8kjvYnURoW+3/53I=;
-        b=ICqhkjhsGl5LpqEEThOSZ6jXR0jzz4DMCNBdRT9G2wlIK3KxQrg9rbyEXJiryTCL4u
-         siPSuU68cWNXIfp173kZyMMW20W8UiODbktyVks1/qzB8B4M+mhG64WMHPC3oVYEjOa0
-         DQ/SUvhtOmjf5Ci+Y/Qwb/jD3eAeliBCKqKHZq4dUvlj6Q261JeNPY6XhjUahTzROpDN
-         4EWZfEx5AgSDj/8Wo+8dHNBT1yAKAR8+RRCC8IO4o1LAILH10zuMU4PASHG//S0I//rs
-         K5/ePFKy7Twam2R29152/AgjPwSv4455bsNCCdqdYbysTjzguimn5V1NqKXHTfkqODQV
-         2FIg==
-X-Forwarded-Encrypted: i=1; AHgh+RpQAGo2vqU9qi/KIhyaS2hQPfdNdbEJpmniBtdlXwbLHMyMT+RluuMQdbi+RB799ha6m6Sz5J3sLVLu@vger.kernel.org
-X-Gm-Message-State: AOJu0YxyovUh8VuA480/iCOs1VfnJqrCaY2doJwId+wAfk/s3qu/aTn/
-	vJjruOMeNgUruS4qrsq4DDiH2r8cGwOcxgnTkOpnPJMpR3Yi8zlDleVLz0n1GnBlkk6rMXssR4W
-	I0xVu8W7UOXskGFe8v5jo47IsYR92fRSiUz6ek/gVVp+q9rI+hc31f5Tx05xT1nEk
-X-Gm-Gg: AR+sD129LFr8tc2j4VMGDRYUapOX2zyfVOmxSirTTKVXi1xRtlE7OrCWPbR1q48bHd7
-	RAwixuzTde8lKhL4Cn+COwzytrCSGEzTz1ebv3ehIqVEw+6SdxXgQptvHIhFdNGtLspOj9VcVxU
-	K9KqC99l0YdviURHhmFPlSrKbVPvVCH47FoKG1SNdDrIYSt4HjYTBiIn/K8+dETTitFjY9loecS
-	0UkNbF8RznEnVSPvM9wWIpmmpkZfXn0LFC1McnJJZzpOGhOy9ALLOZCoOED2Xk9Yd4MHg9ZBWoW
-	ldmT1TzYs1znoZZEKth3uxwWwEZWBqLBBhRtlTUDvcUJ4B69FeKu7QWFP2SCR81TUtCb3sFvL+a
-	evKnR4ZUdG9cG7pPr0pO4tN+qZL3ugopSjlRZa6ABKIUSLmWxZlRnWt5CPKyZ9FVZUsBOAlvCtF
-	S+v7uIcDnnE6/BvA==
-X-Received: by 2002:a05:622a:58c4:b0:51c:1027:34d4 with SMTP id d75a77b69052e-52ce6007ef1mr155713481cf.11.1786006677302;
-        Thu, 06 Aug 2026 01:57:57 -0700 (PDT)
-X-Received: by 2002:a05:622a:58c4:b0:51c:1027:34d4 with SMTP id d75a77b69052e-52ce6007ef1mr155713081cf.11.1786006676781;
-        Thu, 06 Aug 2026 01:57:56 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2f6236405sm602068e87.6.2026.08.06.01.57.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 01:57:55 -0700 (PDT)
-Date: Thu, 6 Aug 2026 11:57:53 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Daniel J Blueman <daniel@quora.org>
-Subject: Re: [PATCH v2 04/12] media: iris: Add helper to create a context
- bank device
-Message-ID: <o6s5kezlsbe6z53jbsezeixp2wfrmwmvwda67t6chf57jnbm3x@ta5hktzs7mdf>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-4-da52b5228dbd@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1786006726; x=1786611526;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y/Tg3lEpqdaiPRfyjPgi2cmAvw9BxKYOOcBoKp4sZn8=;
+        b=D3KF1TBz8peES3Ic5LYhVmz1XLwZA3sjpFga0StZJl2LphtTFZAuVzwqty2YL1x7mv
+         oYh0EGIA7jg33Z9B/vwmeJ6dCif62mdQdkWGSbDiJnH+VH/UHU0B//Mng8CNrROraD0z
+         qeMlz/4lpmQwjKuHPZKgXuWqb+DViVscmCDkrMIIm8t1XciYf7niI5DTWM7VbaFmKRxc
+         SgNvYsYfxSyxs1HR8ZtOpnsnSoxumDLHyNvncGxFsQluqp0t1yGegZ4BhyRpLkrjF0lm
+         cSXtsEZbwMFbAXVeMet5ARkuaGdMUNefJapc4OjeoSilSimJr4dB8RtQQpdYXAhDKq8c
+         GQyg==
+X-Forwarded-Encrypted: i=1; AHgh+RoQYrEpv3fXLZhVVM3ukUIGWZ89W11cSZ0DjwfkH4plniVe7F8KQZKJqM8T9MPxPfoWdouL92b49fOf@vger.kernel.org
+X-Gm-Message-State: AOJu0YxE9rvqPkRuYgeN7vceTDdpceGu4VfLByePICMrodxVDI4J+jvV
+	UndmfVPMQ/79tIw03ELDp4H9EkELmYMKqozJx+HOlQelWoLiQkBb8mzsx7Ie4pe2
+X-Gm-Gg: AR+sD11Wl6k9Lx9vaK54K4kjwAfCzJzG5S4usRJYKHmAdbFKCcMFq7gjAyAM9YW5H6x
+	iM2iAU/LffBGF9PUYcmxI174RtJCtJEJmSrr7Xc00bd0a0FlMQWpouTHAMgumCYUTXoxtY5uYSp
+	k68iz0D8uHVEX05BU0GbHl+ke2IS8nS2DXKX8GtxgEDYVMf7USlyLSocQITXMhutASz2HV/f49w
+	Srp7Cxg7cotLV7Mkur39c7TrUVgqZnQK3RGADNfxGJ1BxlDswD7tm2BUCjQK7zvvnDc7Dzcj+az
+	gRlmtj+lcxtUj7glvUM+vKUg4U0N56W9BFkzsbSRxXgonV+HCvK0sXznx2qxhiw2QjSYuceBFVV
+	G5EpTXPDB1rZ9A5nrSIl0FLkpAhmAElDy0d05Nq4oF4AnZCI4bn3EYc2h53Pf301Qya5jhynxJw
+	2Mi+H2sWRD0HUX+xZ1McACksOaVzed+dATEOCWq8zJ4zt0OsHProBdieeUGQqyy9HLQLJYCVJz2
+	ougqDIKJQ2nP0L50Nt+PizdlA==
+X-Received: by 2002:a05:6102:2b83:b0:745:31e9:f3d9 with SMTP id ada2fe7eead31-760e6acb0eamr3229995137.1.1786006725824;
+        Thu, 06 Aug 2026 01:58:45 -0700 (PDT)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7604555edc4sm3421386137.6.2026.08.06.01.58.44
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 01:58:45 -0700 (PDT)
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-75e2905c09aso290416137.2
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 01:58:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpoER2y1O2uS2+SYtepbd2rMZjoB7Fubx42EXdgZfOL8tCiyHAlr6HILAZ2uieB2kJ/0/BoGxEb/YVd@vger.kernel.org
+X-Received: by 2002:a05:6102:374e:b0:739:626d:4473 with SMTP id
+ ada2fe7eead31-760e3698c49mr3173857137.0.1786006724650; Thu, 06 Aug 2026
+ 01:58:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-4-da52b5228dbd@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA2OSBTYWx0ZWRfXxUE6ufuAKK3H
- D5WrquZa5cmAYUmzWz+L6aK22cpOrkzqezZ6uVcUbImFCVpluhLDXIduafcITeLdpaIfSSLfF0Q
- isDavMVc5WqwVxKLlHaPvfx/m6ZBnzwMDQL3mt3qwC5zRNaw2/GHhWTHftO/DIE0vKy37ADzX0O
- rCYd8fKJxBrhmGaJ5fitP2hjuIVU7iSvjcnt2YrjIkyNOSmJ31+dFYp9GN4TtfGlv6atVMEFRro
- x1p+01tDfmhIHgi3x7k/kBNP9dQA1L2UpiLErDy2NLCJpgzTaoUGEF7LwTqM4f9ZszHTo0V4ui/
- mE8sTrJqFHIQTjDWqJY9PiUAtQ3U+LRHv+DGtSIaDB2px5nz4DcmqhA7GS5TIHZECHH0b07mQN1
- /3sa4sMJNrF2ntqdnH7Pv5bFLU/ouMn9Unr5m+JGXss6//gV3AVrk6brqoWbwnD1SYvUUm/Pqq/
- KfcmU/Nsx3NzZW/qo5g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA2OSBTYWx0ZWRfX6nVgLULQy24+
- qvk9l7TDm1ppeamsmzFdniKbw2mgL82ESf9ov+KMzdPFVW8Cq1BOa40pSfREMgGoMIzObciuoEf
- Azvl+9mRnGcC5gxv3mLltpJfOefRpOc=
-X-Proofpoint-GUID: J0AlJb9HQ298GBri5KH4FRbZ4w5pY3oA
-X-Authority-Analysis: v=2.4 cv=cIbQdFeN c=1 sm=1 tr=0 ts=6a744c96 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=t9ty7G3lAAAA:8 a=dO4OCG3WZ7AYuUZzn_0A:9 a=CjuIK1q_8ugA:10
- a=dawVfQjAaf238kedN5IG:22 a=CsAS6f0m0zARWR-uHzm3:22
-X-Proofpoint-ORIG-GUID: J0AlJb9HQ298GBri5KH4FRbZ4w5pY3oA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- impostorscore=0 bulkscore=0 clxscore=1015 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060069
+References: <cover.1785941595.git.geert+renesas@glider.be> <89e6a71b35703f10e12f520af1f389b5f40f4b35.1785941595.git.geert+renesas@glider.be>
+ <7c30baacac8c75037f32c0ac3099a6107cbec38b.camel@pengutronix.de>
+In-Reply-To: <7c30baacac8c75037f32c0ac3099a6107cbec38b.camel@pengutronix.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 6 Aug 2026 10:58:32 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdX3mUVq5HAOcoLxf8_=ALKe_j-0uSTTORA_KyiOq1Bgiw@mail.gmail.com>
+X-Gm-Features: AUfX_mwUZKZac7nMaa-VOsxeMPj2DizVJUU-sXiHc_DXR1wX8yJ0IgF-oPKqM3c
+Message-ID: <CAMuHMdX3mUVq5HAOcoLxf8_=ALKe_j-0uSTTORA_KyiOq1Bgiw@mail.gmail.com>
+Subject: Re: [PATCH v3 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, devicetree@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Jul 31, 2026 at 11:52:19PM +0530, Vikash Garodia wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> is restricted to use 0-600MB of IOVA space, while the pixel stream can
-> address the full range. A stream can only be confined to its range if it
-> has an IOMMU domain of its own, and the IOMMU core attaches a domain per
-> struct device, so each stream needs its own device.
-> Add iris_create_cb_dev(), which looks up a named child of the iris node
-> and registers it as a platform device parented to the iris core. The
-> child's fwnode is handed to platform_device_register_full() so the OF
-> core applies that subnode's "iommus" property and the new device gets
-> its own IOMMU domain. The DMA mask comes from platform data, and the
-> segment size and boundary are capped at 32 bits to match the addressing
-> the VPU performs.
-> Return NULL when the named child is absent, so callers can treat a
-> device tree without context bank subnodes as a supported configuration
-> rather than an error.
-> Backports are intended since the first DTS of 8550 binding schema.
+Hi Philipp,
 
-What does this mean in the commit message?
+On Thu, 6 Aug 2026 at 10:13, Philipp Zabel <p.zabel@pengutronix.de> wrote:
+> On Mi, 2026-08-05 at 17:20 +0200, Geert Uytterhoeven wrote:
+> > Add a minimal Module Controller driver for the R-Car X5H (R8A78000) SoC.
+> > For now this just supports the always-on power domains, and dummy module
+> > clocks and resets for the serial console (which is enabled by the boot
+> > loader).
+> >
+> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > ---
+> > v3:
+> >   - Replace <linux/mod_devicetable.h> by more specific
+> >     <linux/device-id/of.h> in v7.2-rc2,
+> >   - Add a comment to document only always-on domains are supported,
+> >   - Consistently use /* sentinel */ for zero sentinels,
+> >   - Drop trailing commas from sentinels,
+> >
+> > v2:
+> >   - Spin off from "pmdomain: renesas: Add R-Car X5H MDLC SCMI remapping
+> >     driver",
+> >   - Add default support not using SCMI,
+> >   - Drop all SCMI remapping support,
+> >   - Document use of -1 as a sentinel,
+> >   - Rename struct r8a78000_mdlc_info to mdlc_info,
+> >   - Print HW IDs in hexadecimal,
+> >   - Reduce log level for unsupported MDLC instances from warn to dbg,
+> > ---
+> >  drivers/pmdomain/renesas/Kconfig         |   4 +
+> >  drivers/pmdomain/renesas/Makefile        |   1 +
+> >  drivers/pmdomain/renesas/r8a78000-mdlc.c | 330 +++++++++++++++++++++++
+> >  drivers/soc/renesas/Kconfig              |   1 +
+> >  4 files changed, 336 insertions(+)
+> >  create mode 100644 drivers/pmdomain/renesas/r8a78000-mdlc.c
+> >
+> > diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+> > new file mode 100644
+> > index 0000000000000000..5c8acead7cff9bdd
+> > --- /dev/null
+> > +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
+> > @@ -0,0 +1,330 @@
+> [...]
+> > +#define DEFINE_MDLC_RESET_WRAPPER(op)                                            \
+> > +     static int r8a78000_mdlc_ ## op(struct reset_controller_dev *rcdev, \
+> > +                                     unsigned long id)                   \
+> > +     {                                                                   \
+> > +             struct r8a78000_mdlc_priv *priv = rcdev_to_priv(rcdev);     \
+> > +                                                                         \
+> > +             dev_dbg(priv->dev, "%s: Ignoring\n", __func__);             \
+> > +             return 0;                                                   \
+> > +     }
+> > +
+> > +DEFINE_MDLC_RESET_WRAPPER(reset)
+> > +DEFINE_MDLC_RESET_WRAPPER(assert)
+> > +DEFINE_MDLC_RESET_WRAPPER(deassert)
+> > +DEFINE_MDLC_RESET_WRAPPER(status)
+> > +
+> > +static const struct reset_control_ops r8a78000_mdlc_reset_ops = {
+> > +     .reset = r8a78000_mdlc_reset,
+> > +     .assert = r8a78000_mdlc_assert,
+> > +     .deassert = r8a78000_mdlc_deassert,
+> > +     .status = r8a78000_mdlc_status,
+>
+> Are .reset and .status needed by any consumers?
+> I'd leave them -ENOTSUPP otherwise.
 
-> 
-> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
+.reset is used by a variety of R-Car drivers.
+.status is used by the R-Car I2C and PCIe drivers.
 
-How can driver fix the DT?
+So both will be used later.
 
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Tested-by: Daniel J Blueman <daniel@quora.org>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_resources.c | 28 +++++++++++++++++++++++
->  drivers/media/platform/qcom/iris/iris_resources.h |  1 +
->  2 files changed, 29 insertions(+)
-> 
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-With best wishes
-Dmitry
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
