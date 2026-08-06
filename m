@@ -1,87 +1,87 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E66F40A934
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:52:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD2043BDAA
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 10:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786013548; cv=none; b=bTJHl3WhZC2AHGaaTB1LFVIsI01wd216sqna+NTjNNCkj9idg1ILxlslqqU4tDQYZ+u5odIrgbepNp0W3vHjxERI559dEmNa+S37Ei77A7iMo0lypiX2SB55vsy5fm+lhuMSOwYzZM2xGGpQGOMGeh6nS02Dy5ZbmNJyGyxiqeA=
+	t=1786013568; cv=none; b=As/nHEeJhn73ANa8hVxTOfyB8TQ+pKMYzZEcOBJiaB5P76NI/M+iESD5L2b1BK07MkIaJsh5nAHtRrNIdLlydnpqJgWHg4sowmLztFoSJyYcdYympiPvutUImxLFfPq/25X9c13uWX9RMYLb9aMlowT5vHhQSdJKvVD14SqTYKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786013548; c=relaxed/simple;
-	bh=tlTja6nbTiauvKmBRC89RbOJfEA1QZo/psktct0Oh4Y=;
+	s=arc-20240116; t=1786013568; c=relaxed/simple;
+	bh=S14CCXsvZKcoB+hqjG0/+YwP1JERAdUsRwYB9FkJGyQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LDiT7G/id6r/Gw4HcUI09zLebODIiPFJbfxuLR0n47dIXNm1UhgfDxW5JfTRg/MzLSKlSUkEQBNyOd9+DJJTk89B7d4ZsdSgjI5BxrN1BW4SloBSdLA/Gg5uSjnpXQ0HnH6eu/K5Z46QWVUxHTbbDFuAr68jDNGu27ozgMOsNAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Dl+J8mHG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cYH9KR7d; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=Z7Yj05EXfVXV+MhlMxRN/5Ls/dCKbtGmTFlkx9PRr54HttMdbeTX8MhFzlyEY4P2HH5ArE/nl2xkvauSb+iPU2nHyQjtuxJLkZ0wb/n0OxCI3pR/j7snDfaMhw5m5c9TVZLKUMSbwc6ylM+rENezCekTXInQo2WHTUwgFno+RrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n0NCDN/y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LSZuO5/a; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dl+J8mHG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cYH9KR7d"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769nhft1871354
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 10:52:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n0NCDN/y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LSZuO5/a"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769oCWs1877166
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 10:52:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+wLC3JrqPrga4mftfDdK7ZIOuX0Tj0HbnIJy7FTAR/o=; b=Dl+J8mHGVqFDuNNh
-	S1U5wutZ432RAuGYiGIdX8n7RU0XrUSWmVr8noPgajWKO5i8eqc0ouZGcK4E4JuB
-	md7oS4ky5MjJLDeZ20NH82dmicPHuGVI8sm1y91RpX4hktR0tX9rj3malX91ISwR
-	VidU1XEZJ9akJ41etgLrOWEREpktdSHytTu59htI/zp+it6JBoZdwxtNc1Hi73Kc
-	jdgMXilB57mpGp9o0aFK0MUuDSqo12RNt8DF29bPrWXwVaofEK9Z4WvxfQIckNJI
-	n6NnZeNScElKaHeMdX9cJybF5pFDsOpcAsXN4qJWL8BG2YaYi5syLZp0XpyQJsm/
-	AYhOuQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvjud1mr0-1
+	P9wCDFhEDVTTIuhNLpqSgqnjSFrcAIQqWwJdGdfxngk=; b=n0NCDN/y4q+yVtss
+	WfR8OPnwOU4MQH4vqe+FwO0TUO/Af2unPwR53vW+Zm0FT+8Ku826Fo0YR1I5NSIN
+	RZR7iTS7ew8/g1Hxjf3fsL8Ogd12xGLqssGg8/geL6G/iw4qFvmhguTeFvTZi0mb
+	7NpPEOf/L+W5TQ1x9w9nvmehOuHEtHKuZLMx5WZq7+lGkGU1GHv6I3uCGc3HlrSz
+	EOXRkv0ZzbrkydWWxSg4O6Be3OBWde3ASFhL0KJxxMnmbDggItxS1ucn04rwZS7W
+	B8TYJ1BBJaDdlFwh9ah9NKxz1J1ZqUKZ0ICQQPYFjH9sP0cOmEDSU+uyt8mEqBsM
+	Mzhg6Q==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvjuchn95-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 10:52:24 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cd01a14e81so29810445ad.1
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 03:52:24 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 10:52:45 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-848544a8496so2376859b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 03:52:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786013544; x=1786618344; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1786013564; x=1786618364; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+wLC3JrqPrga4mftfDdK7ZIOuX0Tj0HbnIJy7FTAR/o=;
-        b=cYH9KR7diWWHYEYD9PlWZycF0yj9vXYhEDgy45PVzHgxUXzG7lRTiQQKX2i37mMJSV
-         dOne+8bLLxg5mlSZCQnNzZ3dea1AbwiNSW/suCPPFrn2dWUt3WGMLGhVI3kc9QYs1w+Y
-         uyKkptPIKIZBbQ+KaMaX+TP7OOjHtMLhUnIfCkIziHZLL5IA8cnbeClqrFBc5pl998JS
-         UCRXn8mP3KXIfplwyEBTMGOpDjdYnU3bPDN52wOYEqARelFgqKexsmAy2Y9KanVqj+Ze
-         1O1fho1b09LrV0xTOFHwbv0K4NVPk/W1uWg6G8tLVHsbo3ssqYhOVuyLpmakWWdGgmt/
-         oEEw==
+        bh=P9wCDFhEDVTTIuhNLpqSgqnjSFrcAIQqWwJdGdfxngk=;
+        b=LSZuO5/amZE36TM/mmIp2cpELXlFAOa+7TbT2hZ6NwIowTYtY7tMevd0pcQA9U+31B
+         ttMyEbEdPuw8JRVO6o071OPE6WxYAZmpcXxjHsGzLtJsJxXfaqmmv+mpxczEEdeXqtl6
+         dAH9OmDMx4LOAQazeXvFQ0cJMi+tRcdDCozdXOudL5S/HHDV/Nu+N50ASTNBzlzD1rj7
+         Pf15NLC9iioGp5HHoNEosIKqyK0ql9haYdsAvmP5QsINmgskZLZOa5p7jYO3OCeKm7ue
+         iptuGdkK/RLtpt5RK0GLsKKyT0vBVYqM42gG6HDUMMc17HrIl2pafGtYPZ9ldXzdaFk/
+         urww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786013544; x=1786618344;
+        d=1e100.net; s=20251104; t=1786013564; x=1786618364;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+wLC3JrqPrga4mftfDdK7ZIOuX0Tj0HbnIJy7FTAR/o=;
-        b=ETk3c9GA/YRZcb+LhLrKAzB26yCa3YM23PJ1b8w8+Lu38TJhqXQnnJoE3f5yxzKXtp
-         GyvbojNoDPAyTLTLpoaJn92gBRu1yspVajVJAB0vu6QtorCACV8crR09tneQTMUZkJVx
-         qWxfeaQs9Do/gsrEXNeFmun85Q2+rWD3WhUPle5460ofczE6CCAtz56LIQ78UnWhD55d
-         2yKhitHE2hLL7AlzPQTSRwyEemd732C1wNS92O5k9lLAeFyslfocMz4gaMV1pSJBUAxe
-         b+cxEOO7qEL/tw/v7QCcWw2rrxjvrqJrqVRb5jetYneCS0S8NIYiuDPzfBJcIKBUMhWo
-         c/7g==
-X-Forwarded-Encrypted: i=1; AHgh+RqJ/IhxoB6i6IKoOw8kQGCmWbuB2bM4bCEuFACJbh4x0LapVejC7yzstsO6HVdEPED3Sf+DZ8G0KL7X@vger.kernel.org
-X-Gm-Message-State: AOJu0YxFgs9NEBp/AGIDqqka8kL71SH3EBtcPfiEqMDPDxL/S9FEQ00i
-	7PTxyDMtQfAmgn8x40+PrO3oaONvHS3rRuOK2qTw3JDV7FGR0kTMuano9mDs6KbIIVLzeyKTGTm
-	3tpoAi/xEP+oW6mqBfdYApUPwfk1gzw9YFXnuuU1g5y421IRAXXcgfqhWS7jKkAu+
-X-Gm-Gg: AR+sD12/CwX58UQopXpZBCtIQqDE3iI6AUWQVZ/obl/KkQw9t0hcBqZHQ6Mxp6KoHD7
-	zUnuzH6mWkygk++qR+qyX/Eev/x263WjonOpeuRfbrbdpy/NlzTxba6l0jS72jcdLUNkjKLkhso
-	nqGxf4ylTRftcVbAuLQWdm9YdtEEIWDrl6/VV/gw55WQQlNIj7srdqq5ePjXMhbmuNnFPqvTcPW
-	5dZvFY5Db7lDvrQ40rkvqnUutQSuLxMLp4ZUts7TTZ01IOc8vRXQ8dLTLExXE8WK6t2W1zSMgdQ
-	1hmi8/c7ZLmTRZhQY58GYOSUbFbpYU5unFOdokPZEa0pZ9Bx1pgWM0QLgiOJwtCJfddUi//dqw9
-	pTXl10+VMWkdwW1M3JFLNv8hhJM+0V1A5
-X-Received: by 2002:a17:902:d581:b0:2cf:a108:7605 with SMTP id d9443c01a7336-2d0ca75b37cmr176329785ad.11.1786013543834;
-        Thu, 06 Aug 2026 03:52:23 -0700 (PDT)
-X-Received: by 2002:a17:902:d581:b0:2cf:a108:7605 with SMTP id d9443c01a7336-2d0ca75b37cmr176329365ad.11.1786013543359;
-        Thu, 06 Aug 2026 03:52:23 -0700 (PDT)
+        bh=P9wCDFhEDVTTIuhNLpqSgqnjSFrcAIQqWwJdGdfxngk=;
+        b=SAXB9iaizm0BSv02i38ZCIdmU+U7hE2XN3u1g3IbujLFRdPfIdOxbH1ehfnCPVBsJh
+         JnZeJrfk8E2kHQbf2R7vw2T5tv2DCLudGTk4ljsFlhVTuLGMjB8Il3yB/iwTBlHc9yu1
+         pkB1R00yATLUeK6KudSPN3KPFDW2inKx55xj2n0w6OwOiUCxP6Quu2UChph37k31QHnY
+         uQ2wZDM5Vqo9dsvwS5Q6Ohchnf3Gpc/wFIUCxoIYmMC4M0GFJboje8KrWjkbbS3J6U4a
+         JMLj1U8OadX8ckfGYvqJs8sIkNV2/ZLc6VOy4u7piRml4suHBwGU5EZC5c37Pz//mBZr
+         58Zg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpr2T1F33xfnHFq99MtI2srRmCP6kcmzr4Ioqg0XLmkH/SrqR4EmoOUAlvmfnK+PvH66RQSqf9lITl6@vger.kernel.org
+X-Gm-Message-State: AOJu0YyqsYAvWs5PCVx+dlbeavNZH4UHg56fMJ+Ms+hFxDuow7cPV3Ua
+	eReyvvLs/SOXz5mdPUogs/8ZSwXQ+7te1hQch8qomxa59T+1cYanbU5nXTxE8ypmWjW003gdig1
+	0YdgYzh7NUuyfQLq8xacGGdmBhJtoTYTMI6ncytIyeWXRU8P7uljBPVvrkUyyVKsH
+X-Gm-Gg: AR+sD10bvx+PR5iKdfyORgkeOIXJaZTzOfl7GIzsovIFiFrtuC4Cuv9qbTxG4073srB
+	qBnTgm+VahTUFSf3ta0UuHpu7LJ+c4+0chkiD4N2GeV8k4p5xZoztfAB5+V4frQBso2XirZAQaO
+	a1AUDvz8Sbq/nJoEBFe1Bv2xj5tOlBQaKCB1GggPERsHzBwFTmP8qTcNQU6Yv1uZeudDghdqSFx
+	JBj5UgQXdCmzj9P1D8cpDLjuI1hFYRT+ZBicKxVQwVjGrfq0Bs8s1PRVYH9VxQ8QpK3WmPYxnD1
+	rBaLFe8Uye8VDy32R0hJsw2WMk6Qzo2u77yxpROJjHwAXIrTrL35eyn6m0fQpftv2yNyFz4fayd
+	HoIZpzE6EfTKgUNNMb1KnJB048suGallx
+X-Received: by 2002:a05:6a00:240d:b0:847:7a61:e68e with SMTP id d2e1a72fcca58-84f4febe965mr490074b3a.31.1786013564180;
+        Thu, 06 Aug 2026 03:52:44 -0700 (PDT)
+X-Received: by 2002:a05:6a00:240d:b0:847:7a61:e68e with SMTP id d2e1a72fcca58-84f4febe965mr490026b3a.31.1786013563745;
+        Thu, 06 Aug 2026 03:52:43 -0700 (PDT)
 Received: from [10.217.217.28] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0aa4930e1sm29469905ad.41.2026.08.06.03.52.16
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f45bc9b32sm1179448b3a.58.2026.08.06.03.52.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 03:52:22 -0700 (PDT)
-Message-ID: <a98d90bd-aa9d-4af3-aa54-3a34300070d4@oss.qualcomm.com>
-Date: Thu, 6 Aug 2026 16:22:16 +0530
+        Thu, 06 Aug 2026 03:52:43 -0700 (PDT)
+Message-ID: <752aaae3-10bf-4714-bfef-e075ce30604c@oss.qualcomm.com>
+Date: Thu, 6 Aug 2026 16:22:35 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] iio: adc: qcom-spmi-adc5-gen3: Add support for QCOM
- PMIC5 Gen4 ADC
+Subject: Re: [PATCH 3/7] thermal: qcom: qcom-spmi-adc-tm5-gen3: Add support
+ for QCOM PMIC5 Gen4 ADC
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>,
         =?UTF-8?Q?Nuno_S=C3=A1?=
@@ -111,54 +111,54 @@ Cc: David Lechner <dlechner@baylibre.com>,
         Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
         Priyansh Jain <priyansh.jain@oss.qualcomm.com>
 References: <20260731-pmic5_gen4_adc-v1-0-9c49b2eea6f9@oss.qualcomm.com>
- <20260731-pmic5_gen4_adc-v1-2-9c49b2eea6f9@oss.qualcomm.com>
- <20260803011400.1fb6c93a@jic23-huawei>
+ <20260731-pmic5_gen4_adc-v1-3-9c49b2eea6f9@oss.qualcomm.com>
+ <20260803011709.31cf83f2@jic23-huawei>
 Content-Language: en-US
 From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-In-Reply-To: <20260803011400.1fb6c93a@jic23-huawei>
+In-Reply-To: <20260803011709.31cf83f2@jic23-huawei>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA4NSBTYWx0ZWRfXyvTah2VBQE+h
- qG5kRFurHb1GtRFjgDkywn9cL6jSlWrfpbyD/cOHKQhUHTV1yKVzGjTRYAbWkcT443qXVgQzSk0
- YEX/YoBGoyyAoHH9enFlae0X5fgzEOCsDusYMGY+8UVi8nxzUPTk08UvbsEnWs1Q3xSdm2DZIC3
- 2Lj+FZCdZ9PjRZgnl54ynEvSDOkn6FpiPPl65t36NynH4xgAfhAOlCqHn7mEBHueAkgXvw4z4WJ
- hzpauzZPcuhYIP0E4mniyC40Hlqk25FZqWwS6LZEUNu4wR5GDcPWRJxHuJyTcBVDzU5k2sVY1uX
- zpRpIoj8cuPdFZW+mgrNMoekhRlbQBIltaf7ijOzTZ0ZTZZ3Py9bpuVzJiIKIglaRuJG/yU/XkK
- 4rAT1mKqwG/IPKbK3QEiQMT40GnYwYF1RRNopEZu5d/KLu9kOYxkvcYZYk7crqo+fNxwEkLxy4Z
- E0jkm7mPyr3W0KHQV0g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA4NSBTYWx0ZWRfX6pNzGoicqDtt
- /DhH1OYE9GNMvWfOTYEtRC079gubyMtYmvl2n6Z0bdQTMLyELw/1sIaAcbbxVdBOMBcyPmezue4
- jQUSaxgFUuu6sDDRk5+oTt7OAvGCMjc=
-X-Proofpoint-GUID: 1wYSci4xdAM_JlRNZEc0iALZ7zuJ8lru
-X-Proofpoint-ORIG-GUID: 1wYSci4xdAM_JlRNZEc0iALZ7zuJ8lru
-X-Authority-Analysis: v=2.4 cv=DeInbPtW c=1 sm=1 tr=0 ts=6a746768 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA4NSBTYWx0ZWRfX6iX98oWV+jQk
+ TorcZWi0gUrphRbpfeeQ0/AHaMr/Wn13nf4HWjm+vSQLbnPSpkPNbKBCeODwjjB2DGnhWw0r14A
+ HS/pHob4Tr3yFGiBQ1LM3354oZtS2jk=
+X-Proofpoint-GUID: ZAxERBusA0_frKV0D57Flo8b0SoGbk2k
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA4NSBTYWx0ZWRfX9ZvV7yWOWOZV
+ YHgLXEPQjYA2fjONbuY3hmVoB6N6G31AZ2uAj+7FOip4arrxUztw0VIpfNFkpYlPPbBhNRXuGlf
+ Y8bKMC7Lii1deTWaCegTHsQaLyB5h2hwyNQp74JCjLvz0d/mMRdDNMheM78uI4ZZ6d6h2J7nyrd
+ osNy2/JVhE//zIUgXyz9nmEcVATutsDrPSKm5CghGJdTiCbLGkAJWIeM0nAZFZA6LvcShnsMlXR
+ jGNHT/ymZH5mEqEb89QHs+KYKONn74AbANbMBLvlET2wXxkPb1e2Hc6ZWP4rTLlbKfSCgXwnBNu
+ kFKmcfHqsRwiwLokV4Hj7YDHlM2bC5xFe/GNAn2M0EuKdRjihhzqNrZf58+AFFkUzdqq20Fw7wg
+ 59mE8oSl8miDmafq6NsqXKiilWnN429N4D0xVS9MwnPdLnQBsbWrQqMAxkJV0ImVpQRHQAe1aOy
+ ustfAKjiUmvzEqHnh4w==
+X-Authority-Analysis: v=2.4 cv=Mo1iLWae c=1 sm=1 tr=0 ts=6a74677d cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=sIB6b2e8xc4MCbZFZ_AA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=VLISa07izfuZ2-VxH8gA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-ORIG-GUID: ZAxERBusA0_frKV0D57Flo8b0SoGbk2k
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- spamscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060085
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 adultscore=0
+ malwarescore=0 bulkscore=0 clxscore=1015 suspectscore=0 spamscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608060085
 
 Hi Jonathan,
 
-On 8/3/2026 5:44 AM, Jonathan Cameron wrote:
-> On Fri, 31 Jul 2026 23:36:15 +0530
+On 8/3/2026 5:47 AM, Jonathan Cameron wrote:
+> On Fri, 31 Jul 2026 23:36:16 +0530
 > Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
 > 
 >> PMIC5 Gen4 ADC is similar to PMIC5 Gen3 ADC, with several changes made
 >> for improved performance, mostly at the hardware level.
 >>
 >> One significant software change is that ratiometric conversion resolution
->> has been increased from 14 bits to 16 bits, so the maximum value of
->> these measurements needs to be updated for Gen4. Add a new scaling
->> function for thermistor channels which use this type of conversion.
+>> has been increased from 14 bits to 16 bits. Add a reverse scaling function
+>> for Gen4 ADC thermistor channels.
 >>
 >> In the latest PMIC arbiter version (v8), there can be up to 4 buses
 >> under the PMIC arbiter and 32 PMICs under each bus. In order to
@@ -167,206 +167,47 @@ On 8/3/2026 5:44 AM, Jonathan Cameron wrote:
 >> and the bits for SID are extended from 4 to 5 bits, in the SID
 >> register. Add support for this.
 >>
->> In addition, it is possible that the master PMIC has ADC of one generation
->> and it needs to communicate with another PMIC with ADC of a different
->> generation.
-> 
-> "Possible" sounds a bit hypothetical.  Can we state this actually happens
-> on some devices?
-
-Considering existing upstream platforms, this is applicable for SM8750. I'll
-mention this in the next version of the series.
-
-> 
->> Add new DT properties "qcom,adc5-gen3" and "qcom,adc5-gen4",
->> to distinguish Gen3 channels under a Gen4 master and Gen4 channels
->> under a Gen3 master respectively, to ensure that their conversions are handled
-> 
-> This line got a bit long. Wrap at 75 chars for commit message.
-> 
->> correctly.
->>
 >> Co-developed-by: Anjelique Melendez <anjelique.melendez@oss.qualcomm.com>
 >> Signed-off-by: Anjelique Melendez <anjelique.melendez@oss.qualcomm.com>
 >> Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
->> ---
->>  drivers/iio/adc/qcom-spmi-adc5-gen3.c         | 165 +++++++++++++++++++-------
->>  drivers/iio/adc/qcom-vadc-common.c            |  32 +++++
->>  include/linux/iio/adc/qcom-adc5-gen3-common.h |  44 ++++++-
->>  include/linux/iio/adc/qcom-vadc-common.h      |   4 +
->>  4 files changed, 195 insertions(+), 50 deletions(-)
->>
->> diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
->> index c68c6c5f6aca..810d25b665b1 100644
->> --- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
->> +++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
->> @@ -86,7 +86,9 @@ int adc5_gen3_write(struct adc5_device_data *adc, unsigned int sdam_index,
->>  }
->>  EXPORT_SYMBOL_NS_GPL(adc5_gen3_write, "QCOM_SPMI_ADC5_GEN3");
->>  
->> -static int adc5_gen3_read_voltage_data(struct adc5_chip *adc, u16 *data)
->> +static int adc5_gen3_read_voltage_data(struct adc5_chip *adc,
->> +				       struct adc5_channel_common_prop *prop,
->> +				       u16 *data)
->>  {
->>  	u8 rslt[2];
->>  	int ret;
->> @@ -99,8 +101,10 @@ static int adc5_gen3_read_voltage_data(struct adc5_chip *adc, u16 *data)
->>  	*data = get_unaligned_le16(rslt);
->>  
->>  	if (*data == ADC5_USR_DATA_CHECK) {
-> This feels backwards.   We first check for the top bit being
-> set then check whether we care if it is set or not.  I think
-> checking if we should look at it first makes more sense.  Also
-> shorter max line length:
+> Hi Jishnu, Anjelique
 > 
-> 	if (!(prop->generation == ADC5_GEN4 && prop->cal_method == ADC5_RATIOMETRIC_CAL)) {
-> 		if (*data == ADC5_USR_DATA_CHECK) {
-> 	...	
+> Code looks fine, but I just wanted to check.  What happens if
+> for some reason the patch before ends up in a tree and this one doesn't
+> Do we read the wrong temperatures given 'bus' isn't specified?
+> 
 
-I thought it was more efficient to have the check like this because
-there may be several channels satisfying the longer if() check for Gen4
-ratiometric channels, but the chance of *data being exactly equal to
-the error value ADC5_USR_DATA_CHECK is lower generally. So if I reverse
-the checks as you suggested, the outer if() check would pass for every
-read done on a channel which is not both Gen4 and ratiometric, which
-seems inefficient for an error check.
+Actually from what I see, patches 2 and 3 need to go in together, else
+there would be a compilation error in one driver. This is because patch 2
+replaces two macros, which are used in both the IIO and thermal drivers:
 
-What do you think, should I make any changes here?
+ADC5_GEN3_SID_MASK -> ADC5_GEN4_SID_MASK
+ADC5_GEN3_V_CHAN -> ADC5_GEN4_V_CHAN
+
+It looks like I missed checking for bisectability, sorry about that.
+
+To avoid this, I'll add the new macros in patch 2 and remove the
+old ones in a separate new patch after patch 3.
 
 
-> 
->>  
->> +static const struct adc5_channels adc5_gen4_chans_pmic[ADC5_MAX_CHANNEL] = {
->> +	[ADC5_GEN4_OFFSET_REF]		= ADC5_CHAN_VOLT(0,
->> +						SCALE_HW_CALIB_DEFAULT)
-> 
-> Probably just go long on these lines and I'm not sure there is enough benefit to
-> forcing the alignment though if you really want to it will be more useful with
-> them on a single line.
+To answer your question once bisectability is fixed:
 
-Sure, I'll keep these on single lines.
+The changes in this TM file affect the flow in the .set_trips() call, which
+is used for setting high/low temperature thresholds. The .get_temp() is
+not affected, as it directly calls into the main ADC driver using the
+exported function adc5_gen3_get_scaled_reading(). 
 
-> 
-> 	[ADC5_GEN4_OFFSET_REF] = ADC5_CHAN_VOLT(0, SCALE_HW_CALIB_DEFAULT)
-> ...
-> 
-> 	[ADC5_GEN4_AMUX5_GPIO_100K_PU] = ADC5_CHAN_TEMP(0, SCALE_HW_CALIB_THERM_100K_PU_GEN4)
-> 
-> Obviously it has been there a while, but having the comma inside ADC_CHAN() macro
-> ends up making this look a little odd.
-> 
-> 
->> +	[ADC5_GEN4_1P25VREF]		= ADC5_CHAN_VOLT(0,
->> +						SCALE_HW_CALIB_DEFAULT)
->> +	[ADC5_GEN4_VPH_PWR]		= ADC5_CHAN_VOLT(1,
-> 
->> +
->> +static const struct of_device_id adc5_match_table[] = {
->> +	{
->> +		.compatible = "qcom,spmi-adc5-gen3",
->> +		.data = &adc5_gen3_data_pmic,
->> +	},
->> +	{
->> +		.compatible = "qcom,spmi-adc5-gen4",
->> +		.data = &adc5_gen4_data_pmic,
->> +	},
->> +	{ }
->> +};
->> +MODULE_DEVICE_TABLE(of, adc5_match_table);
-> 
-> Why has this moved?  I'm not seeing any new references to adc5_match_table
-> before where it was before.
-
-I think I moved it with the adc5_data structs by mistake, I'll
-move it back.
-
-> 
->> diff --git a/drivers/iio/adc/qcom-vadc-common.c b/drivers/iio/adc/qcom-vadc-common.c
->> index b03cf584b165..cb23d0d178c7 100644
->> --- a/drivers/iio/adc/qcom-vadc-common.c
->> +++ b/drivers/iio/adc/qcom-vadc-common.c
-> 
->> @@ -341,6 +345,8 @@ static const struct qcom_adc5_scale_type scale_adc5_fn[] = {
->>  					qcom_vadc7_scale_hw_calib_die_temp},
->>  	[SCALE_HW_CALIB_PM5_CHG_TEMP] = {qcom_vadc_scale_hw_chg5_temp},
->>  	[SCALE_HW_CALIB_PM5_SMB_TEMP] = {qcom_vadc_scale_hw_smb_temp},
->> +	[SCALE_HW_CALIB_THERM_100K_PU_GEN4] = {
->> +					qcom_adc5_gen4_scale_hw_calib_therm},
-> 
-> I don't mind if you want to go a little past 80 chars to avoid doing this sort
-> of line break that just makes things harder to read.
-> 
->>  };
->>  
->>  static int qcom_vadc_map_voltage_temp(const struct vadc_map_pt *pts,
->> @@ -556,6 +562,32 @@ static int qcom_vadc7_scale_hw_calib_therm(
->>  	return 0;
->>  }
->>  
->> +static int qcom_adc5_gen4_scale_hw_calib_therm(
->> +				const struct u32_fract *prescale,
->> +				const struct adc5_data *data,
->> +				u16 adc_code, int *result_mdec)
->> +{
->> +	s64 resistance = adc_code;
->> +	int ret, result;
->> +
->> +	if (adc_code >= RATIO_MAX_ADC5_GEN4)
->> +		return -EINVAL;
->> +
->> +	/* (ADC code * R_PULLUP (100Kohm)) / (full_scale_code - ADC code)*/
->> +	resistance *= R_PU_100K;
->> +	resistance = div64_s64(resistance, RATIO_MAX_ADC5_GEN4 - adc_code);
->> +
->> +	ret = qcom_vadc_map_voltage_temp(adcmap7_100k,
->> +					 ARRAY_SIZE(adcmap7_100k),
->> +					 resistance, &result);
-> 
-> 	ret = qcom_vadc_map_voltage_temp(adcmap7_100k, ARRAY_SIZE(adcmap7_100k),
-> 					 resistance, &result);
-> 
-> is under 80 chars anyway. 
-> 
->> +	if (ret)
->> +		return ret;
->> +
->> +	*result_mdec = result;
->> +
->> +	return 0;
->> +}
->> +
->>  static int qcom_vadc_scale_hw_calib_volt(
->>  				const struct u32_fract *prescale,
->>  				const struct adc5_data *data,
->> diff --git a/include/linux/iio/adc/qcom-adc5-gen3-common.h b/include/linux/iio/adc/qcom-adc5-gen3-common.h
->> index 39cbfcbdb101..5d8e38350827 100644
->> --- a/include/linux/iio/adc/qcom-adc5-gen3-common.h
->> +++ b/include/linux/iio/adc/qcom-adc5-gen3-common.h
->> @@ -40,7 +40,8 @@
->>  
->> +enum adc_generation {
->> +	ADC5_GEN3 = 0,
-> 
-> Does the value matter anywhere?  If not just leave it unspecified.
-> If it does matter because it actually gets written to hardware somewhere
-> I'm missing then set GEN4 as well.
-
-It looks like the value does not really matter, I'll
-leave it unspecified.
-
-I'll also address your other comments in the next patch series.
+For the specific situation you mentioned - temperature reading for Gen4
+channels using get_temp() would work correctly with patch 2 in place, but
+setting high/low thresholds would go wrong for all Gen4 channels as the
+conversion formula is different. Bus index not being specified would
+also cause errors for configuring channels on bus numbers other than 0.
 
 Thanks,
 Jishnu
 
 
-> 
->> +	ADC5_GEN4,
->> +};
->> +
-> 
-> Thanks,
-> 
+
 > Jonathan
+> 
 
