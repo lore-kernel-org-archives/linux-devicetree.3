@@ -1,246 +1,94 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C12447807
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 12:20:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3AE347C6
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 12:21:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786018849; cv=none; b=Nxs7P42Ux+Z0ELJOFCahLOFbX9YJbmKRQAbujeC5ogwkle3DKnNuVVEoOD8bzUKvO8plONqKZbhl0UrhZc20o7sM154FCcUAGfDm+amXbKAfWi0rItj3sgxoA+2OZliUDJNnT4y+VkI6/0gVnz5v37pd9rpuxroTTpGaK8l8DnA=
+	t=1786018872; cv=none; b=ha0sTjiQBAiRQvkvuOl2K53aHi3mn+QbHkZD3CE98BQPF4e4W4/4QqBlXfaP1x6s+DY3qH0IR9ruokFEfQabZ/IorTtdGgkdqsTSN8O9q70ae8+hnPFL86obWG6f+4HxZPrbyS9vrWz8EKDCeZfKnoq4oVkQevGYBVXosFHaEqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786018849; c=relaxed/simple;
-	bh=RS3C84zKt1qq0aaaidnCnRiiJL9eVJxfoeDku28sdxk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ku8sjCtBy3Z0SQeKHC1DNJT8dXzCZDoqjdqkDae7I1PI6aLqukaaMes0BYDD1wQuNvwJo9J8X3b1IPHKvOBRY9AcWBSfKxiIP8Vnow7utCOwclcctQTvDCq6JJKgpPd/uqASyNfdNvp4a2/cmYm2Y6Jddz7yAtGvYzFtVw7qE94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Dcuesrv4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GpBoTG9v; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786018872; c=relaxed/simple;
+	bh=278Oqrh95ZHdhSSPl/WfwNn34+VJTP/zfU6M4DO2BOM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cetl0OCL3K6LtGewQcW+pUqKAxcqOdT3jOfRlttwQYZn5eAruXVXI0ht8QP/5IGK0ifs/2lRhIMLuI8jGDLJjFZs+bKsEb9wJC/KvzukllpZRFSjlQvKsu3cIDtnWMD8dBpx5vDH6GpuhPbuv/lN0juVI93sSoD5eIROKaYRRug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=av8arzGZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Dcuesrv4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GpBoTG9v"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769neaR1625694
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 12:20:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Eljm1/P+9MgDZV0CFSNfFsR1xVwLZeqXgh6wNKhw2sE=; b=Dcuesrv4mj8CFY2y
-	zD/nwEOJ2bniig+eoWI4chT67FkzSp0OVmJmddOA84A1hbgW9aDBO8booTQkRPfi
-	EVp4H4dwPrzjuUJpgZX1ahfAwTJby8cvKNqmQJ6W4ImT1ibx6M6J2rqKszNwK5uL
-	EWU1QLX26DrDADhy0baceOBDcmlaxKVj+fJhgaVhf8U9pS7YxbIvRQhNPIzEqXUV
-	R06U0yk1FPVANeUeaZ3Vy7McLVqz4b3OLFslTaCnxBFDD6GHgOqklWJO0owmwhdV
-	fEhPhaUq5F9QpSwGRr/okN4RO9UnWDmq0NK0LurjXxaQdtCq6uGhHJ6EW3aB6NuY
-	rPd26Q==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvntnh8rr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 12:20:46 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-ca8aee88725so3014863a12.3
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 05:20:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786018846; x=1786623646; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Eljm1/P+9MgDZV0CFSNfFsR1xVwLZeqXgh6wNKhw2sE=;
-        b=GpBoTG9vkDVoT9Wyf65DsPfDDrecAjBHKm9zGyWDVtIP31WaZn469BmKZLdW93uad4
-         dhp8gyXWKu6zWJ2Ctsoc3ObhZonbwzFLU/ozX4rQUwCbBwnzVdNUCJnludgyNAJzAafZ
-         pLAWZ4inzxEYsMFH28dPUWZbN7tV+yxleAsbPC2U/byoUOiMEuXvgxJftElowNXT3lqr
-         bAdmGM79mt/NMNNoI0JBwkzBfGhzuzKRQKqHzqTfC8G3jmeRzXk9kP2uOkYNe7FWUYQ0
-         zqaGScyuSo1yGEUdj4RScXowL4xMW/EhdmqrzlOCjG/xlXgJK41TA3yh9aNoG/bETjbG
-         hpng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786018846; x=1786623646;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Eljm1/P+9MgDZV0CFSNfFsR1xVwLZeqXgh6wNKhw2sE=;
-        b=dn/5363EBqXNbC9onfVBny9SZIdDX+ctPoUJZqATcj6i+j/8DGJPvWfXbVAB2csvS6
-         vbBcSnlczzczvbhaudh0jTMDgl260g7/NaIbEhzs8YdOKXxvmePMnzBUztIfySwqKFTO
-         +wErOcuW2NkaScnSNEt4spA51/cVi3zz0V0wLlmm1pJ2WMpArR0+LsGoIlaTPmLvQ80S
-         tA4Dd2GLju6zKFMXpi05xOewLC+iscyUxF9XO7dWWddcTE++KecscaguJr3k1CkPuCn5
-         2c9tx5b5yey9jUZlTav/Vcl/X34Dn2ZMb2f7YinIvomp35T6WE+miCRCW74cUmwH16w2
-         MlDw==
-X-Forwarded-Encrypted: i=1; AHgh+RqFpZvXVfgEWbiCrWRt3yjGWMV2VF0N4apRJ/XcDxNRj4mFwp+GrLuMXouo7k3MA3toJqh3YhlHHRHt@vger.kernel.org
-X-Gm-Message-State: AOJu0YwYmWroyZs3AbfnxaoX45H3+N9LX9lLXVIB/swdmFJipvLcpKsd
-	A4zyY8zTWuF3bggwY/MxYZWofoyIdGEjmPXVI/5SdyRUFeYwW0UX1jnRzZP1JF9GTMGBjyvbFT7
-	zbM5bDiNPMAaOhh2mJ8w5EcHsDl9OJv1J9boHQW0TDM5myrCbd6qTGbVa2HIK/aST
-X-Gm-Gg: AR+sD11TXxGUkzrPZyUykU+O4cE5JODpEL812qrukd/zTT7IKFYgTmCzAeTH8jMW4v7
-	W9pemUb3eZRjMLac2kHw+CXgOsFEDj2GPIn+CR7CpGLZODGUvmVeCPou8LgPz4cn8O6w6/1o+bB
-	8V52pvHw9geeFhMkg0TLkK7U8TaZ/uByqNPuQTlqfVSjLCvKcXZHFCnXpYRLffj56vx7Kvy85mk
-	Y6zrcG5LOYsZOGpAojIy60tR74XQ5IeDy8F7zUwUr6fofuOA0vU1PX6leVQEyivCfRZEdpSwJb5
-	Z90TXLd2Slw2lhH6erZ0mxXQ0lvtVj3ZxW5kN0o+JcAAI7Xgl3FvUhE/Y6ui+3BRxj3gUbWz/Vs
-	2a8f6U2uAxG0qaVdIFhCW/QrJL67UDjZuioc=
-X-Received: by 2002:a05:6a21:b97:b0:3bf:b8d8:8296 with SMTP id adf61e73a8af0-3cb85ea6f84mr17196157637.26.1786018846308;
-        Thu, 06 Aug 2026 05:20:46 -0700 (PDT)
-X-Received: by 2002:a05:6a21:b97:b0:3bf:b8d8:8296 with SMTP id adf61e73a8af0-3cb85ea6f84mr17196066637.26.1786018845827;
-        Thu, 06 Aug 2026 05:20:45 -0700 (PDT)
-Received: from [192.168.0.173] ([183.83.142.146])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315863b76cfsm26785838eec.4.2026.08.06.05.20.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 05:20:45 -0700 (PDT)
-Message-ID: <353172fa-8acf-4055-a777-021177761fcc@oss.qualcomm.com>
-Date: Thu, 6 Aug 2026 17:50:36 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="av8arzGZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CACA1F000E9;
+	Thu,  6 Aug 2026 12:21:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786018870;
+	bh=MbGo03OqzMjGAufgPRA8QpdanjEOWEP60yh4SGXPkhI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=av8arzGZvyHr0w8lVYJiolUYNa4j4KSNFRW4fhzpxNMLbJQNtthtb8R+rxzc+PKvj
+	 inoB4+cBPxrVemM8sT69PrhXDeuxQ0WzsWtnpMPHg5qJjNYtdVbBfQq3hSJ7V2tsC1
+	 J8EgFu1AFw2CMs1DmBn88XcoKSYWVvfdbWTBLN1MAiO1dPEvIOzz9kVhb+eCeRlwcB
+	 mIFbhV5cHeAQ7/M24zx0H3dG6a3fCpjBIFQwyy4TxtZlFe5VineJLdXSdT3CGtG66d
+	 57y4CGYMQjpfSlg/0qV346hiOhxGR9xQksLwwVMewZjMx1zZD3TWbtUhkDfFkFiyVU
+	 Ki29+qGj6UDkA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: rockchip: Fix the BT clock-names on
+ rk3399-hugsun-x99
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fabio Estevam" <festevam@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260806121039.16967-1-festevam@gmail.com>
+References: <20260806121039.16967-1-festevam@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 12:21:09 +0000
+Message-Id: <20260806122110.5CACA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>,
-        stable@vger.kernel.org, Daniel J Blueman <daniel@quora.org>
-References: <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
- <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
- <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
- <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
- <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
- <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
- <72b267c5-6490-453a-9900-b196d1cfc5f8@linaro.org>
- <2tWmEJ8s0nm8efbgvq24Zwo1vkuH4Na_gC6stCr9_O1A9k9JcA2-TFN5qziPoORYrCKyDgjscvGyO64HI6qVqQ==@protonmail.internalid>
- <72b4edc0-dc80-484d-a2b0-88ea11ae001e@kernel.org>
- <995779b4-925a-48a1-9288-930e0a10b7c5@kernel.org>
- <nht5phhqatbc35rh4l4r5lbf5bytgb2zmesv433zjscs5ye7rs@6y4bczl23nao>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <nht5phhqatbc35rh4l4r5lbf5bytgb2zmesv433zjscs5ye7rs@6y4bczl23nao>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA5NiBTYWx0ZWRfX2t1et7nHoLVw
- txQi4HsIO5JuDEFXFJSwhchNS1is7hcEVPpkzEKLw+RmiAnZhLKAFdy+RKqq/T9WCk3Fxjx7/IU
- Ag60Bj24aDYhLP07d2JMnascDWCsXkWU7iFexdRDwSEcaBw0DuSEAiY1Fa8GxIZymUD6mCiRgmp
- ShPe2GBkEJR52b7qHuFcC339TKbH/3VPPrT6xpMEAzRxj/WBQGRlRpMRrE55SBSG22prZieeVmt
- FH5rFb74Kj1aU5YPDanV9s32UFP9Bbh49+/B82rmhS298/eVUZjbe9s83Hut6U33owCq/+VKJjF
- 3/eM902u49+DIKh5j5RFQupUwhbaaz2kwqI1bf4nxKxN+/y5GtteXp8awWZy03XLewq1Z/bTrN3
- 7La62dG+VKug8ds8rBwD0OGC55Xfh6AWBcNEGKsTNjFhmHazzpEMIaQTCLw9nO4SFX6pgK2kfgb
- p/q9Tz2npArqfJbPP4g==
-X-Proofpoint-ORIG-GUID: 4v670jMwQmh8V_8uIv4cE4OG0e2GhhdV
-X-Proofpoint-GUID: 4v670jMwQmh8V_8uIv4cE4OG0e2GhhdV
-X-Authority-Analysis: v=2.4 cv=LpKiDHdc c=1 sm=1 tr=0 ts=6a747c1e cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=eVbXwf39F0J6/s7D6zfB/A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=2vOZiK0QeDry3nFfGDsA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA5NiBTYWx0ZWRfXwXQKLS/A2pNP
- fYlffd2aL+43vXPxj0z1NBDqCV4Yg5nzPB3Rfx4zR6vSjbXkEmScO5OrWSrUCboZ1QOdYgACaCR
- awPTLBO22ttsXdR4e8Y3BS29X7vWiTw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 bulkscore=0 spamscore=0
- phishscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060096
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incorrect DT clock-name misrepresents a 32.768kHz LPO clock as a hi=
+gh-frequency txco clock, bypassing driver rate enforcement.
+--
 
-On 8/6/2026 4:44 PM, Dmitry Baryshkov wrote:
-> On Thu, Aug 06, 2026 at 11:50:01AM +0100, Bryan O'Donoghue wrote:
->> On 06/08/2026 11:32, Krzysztof Kozlowski wrote:
->>>> Yes -master.
->>>>
->>>> My issue is how long this will take. Several kernel cycles and the
->>>> debate is ongoing.
->>>>
->>>> Daneil's fix has not been applied which means the replicable system bug
->>>> is out there in the wild, not addressed.
->>>>
->>>> Daniel's fix could have been applied and rolled out to all users in
->>>> mainline and consequently stable.
->>>>
->>>> Instead another architectural level fix is still under discussion, which
->>>> is of no value to end users whose systems can reset in the meantime.
->>>>
->>>> Its just not responsible behaviour. So I feel both of these drivers need
->>>> to be marked as BROKEN unless/until a fix lands.
->>>>
->>>> I'm hoping the vidc team will come up with something else.
->>> I did not object taking a known fix for the problem for the mainline
->>> kernel, regardless if the fix is optimal or not. I only objected the
->>> reason of taking patches because of something in stable kernels or
->>> making backports easier or whatever other semi-expressed reason, which
->>> is not the mainline-kernel reason.
->>>
->>> Best regards,
->>> Krzysztof
->>
->> I'm all in favour of rolling out Daniel's fix.
-> 
-> The biggest problem with it is that it looks like a hotfix or a hack
-> rather than a proper description / solution. From this PoV we will land
-> the fixes for all the boards in mainline and then fix the same issue
-> _again_.
+--- Patch [1]: [PATCH 1/2] arm64: dts: rockchip: Fix the BT clock-names on =
+rk3399-hugsun-x99 ---
+commit 9f58538cc4607e21e187cba8faf882820a368c05
+Author: Fabio Estevam <festevam@gmail.com>
 
-I would call it as un-optimal than a hack, and certainly i can say it 
-would *not* have to be patched again. Its simple enough that it applies 
-one reserve region to all, instead of applying it selectively to 
-specific stream.
+arm64: dts: rockchip: Fix the BT clock-names on rk3399-hugsun-x99
 
-> 
->> I don't want to propose BROKEN but at the same time the timeline on this
->> demands action:
-> 
-> I think this might be a solution, which everybody dislikes, but in the
-> end it is true (for both drivers).
-> 
->> - Sub-nodes proposed around December ?
->>    Which means the system resetting bug was known
->>    and understood but not promoted as a bug requiring
->>    resolution as it should have been.
->>
->>    Fine people make mistakes, that's life, lessons learned.
->>
->> - Daniel's fix posted.
->>    Not endorsed or rolled out. Its not "perfect" but
->>    it is certainly "good enough".
->>
->> - Now more debate on sub-nodes
->>    I'm all in favour of that but NOT at the expense
->>    of replicable bugs from real users.
->>
->> TBH, when I start to lay out the timeline on this, I get annoyed. It seems
->> to me qcom has understood this bug for nearly six months more ? and mainline
->> is still waiting on a resolution.
->>
->> So I'll leave it up to the vidc people to decide. But some kind of deadline
->> needs to be put on this.
+This commit updates the clock-names property for the Bluetooth node on
+the rk3399-hugsun-x99 board to fix a dt-schema warning. It changes the
+name from ext_clock to txco.
 
-let me post Daniel's patch as fixes, and then the sub node patches can 
-continue separately and drop the fixes tag from sub node patches. I 
-would be patching both venus and iris.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts b/arch/ar=
+m64/boot/dts/rockchip/rk3399-hugsun-x99.dts
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-hugsun-x99.dts
+> @@ -703,7 +703,7 @@ &uart0 {
+>  	bluetooth {
+>  		compatible =3D "brcm,bcm43438-bt";
+>  		clocks =3D <&rk808 1>;
+> -		clock-names =3D "ext_clock";
+> +		clock-names =3D "txco";
 
->>
->> Close of business GMT Friday - either something mergable lands for sub-nodes
->> or we replicate Daniel's fix to all platforms. Failing both, I will have no
->> choice but to set both drivers to BROKEN.
->>
->> Stability has to come first.
->>
->> ---
->> bod
-> 
+[Severity: Low]
+Should this clock be named lpo instead of txco?
 
-Regards,
-Vikash
+The clock source <&rk808 1> is the PMIC's rtc_clko_wifi output, which
+is a fixed 32.768kHz clock. According to the Bluetooth architecture and
+brcm,bluetooth.yaml, a 32.768kHz clock represents the Low Power Oscillator
+(lpo), while txco is typically reserved for high-frequency reference clocks
+(like 26MHz or 37.4MHz).
+
+If it is named txco, does the hci_bcm driver misclassify it and leave
+its internal lpo_clk reference NULL? This would bypass the driver's
+explicit 32kHz rate enforcement via clk_set_rate(dev->lpo_clk, 32768).
+
+>  		device-wakeup-gpios =3D <&gpio2 RK_PD2 GPIO_ACTIVE_HIGH>;
+>  		host-wakeup-gpios =3D <&gpio0 RK_PA4 GPIO_ACTIVE_HIGH>;
+>  		shutdown-gpios =3D <&gpio0 RK_PB1 GPIO_ACTIVE_HIGH>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806121039.1696=
+7-1-festevam@gmail.com?part=3D1
