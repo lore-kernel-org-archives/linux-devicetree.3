@@ -1,99 +1,104 @@
-Received: from relay5-d.mail.gandi.net (relay5-d.mail.gandi.net [217.70.183.197])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FEC47ACFD;
-	Thu,  6 Aug 2026 15:00:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970A61EFFB7;
+	Thu,  6 Aug 2026 15:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786028437; cv=none; b=nZ7/045hwKYTzSHWVmbNob0JG5T0RAOmmu4VfNXrrEXwhfUj9GXPEdZ7HDDyfGKu02j2T2lMn5qs+JaYTAZGY3iS1A78eyxylYhMx9W0eTFFR0HYZLjHtzROSfXEOo/O3GswSS3bKLeZ5obDU2MCrHbXQrTmS5DK4gQpI+fVmG8=
+	t=1786029032; cv=none; b=nxtfrqifNJAbi6YBSlWzn3i6h7/pJeingVV7gmUVUNRot5Z5P+zIraTjtqTJ5ETtNyPFETSKPNPBayNj7gkGY5FJS91trMsRkdIqeup5eBCOBEJbKOpqB9nXQybKA/IvMnw/hpn0gW2yG1/u2sup2ovtJQ0zbpXs7SdgoWan3bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786028437; c=relaxed/simple;
-	bh=uBBYMoJ4BxsVlp5cY1rbRF0sQIE12on96iPK64kgI78=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FCmQ/VjsC1soqmNJ4k8ZXvSep+fkaiNmnCHJlroIqOPtXcroB2P3xsg2F4sfeC4+3bRdQ1Djz/2nlb1mHL8/P8+cAUeQwruECRL0NF8XRptP/+L4QDJsGt/gH1pRBKPkkvbSoY04DeDUgj6DRHnyke792j2UdxP//k2Rg+SEIUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=Laso9TJn; arc=none smtp.client-ip=217.70.183.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="Laso9TJn"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 0A9A53ECF7;
-	Thu,  6 Aug 2026 15:00:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1786028421;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ndgS6gnOTOGCHQ4/bgAHvlK16ze3UjOG4fDbcLDpDNc=;
-	b=Laso9TJnBZEN+5uRemAac9bCAh4OB9VK3bxp7e8eGn3leA+ODMorUwcictsHgRlfApNxTa
-	feXbskhqr7IRPcsx552Ppp81v4DQq4kUKYu8GGi5VSge1pc3Hzwh+eWZe44eCMetoeRS+l
-	4zqUxCbe/mq2TMuJOT5CfyGfbEmu/g9kJmpHbirLtPBMQZD0sDTk6x5EF22O3NVNVSbpHG
-	NPyHzQMJlLNtvGcqwiKHDTvT65luCrXeVRm8X6RCbXfhbjlRHQaFQM6oWgwAWBFKbHHFIs
-	wuD8693ZgOngfL7jRJ1yni8rEwpJgoJZ0mMVzoxhcVV20Xo1vvHBdKngjwatYw==
-From: =?utf-8?q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
-Date: Thu, 06 Aug 2026 17:00:01 +0200
-Subject: [PATCH net-next v3 2/3] dt-bindings: net: wiznet,w5100: add
- link-gpios
+	s=arc-20240116; t=1786029032; c=relaxed/simple;
+	bh=B063e6v+aYj73BAHYqQupIaLxCNisgxVYNeVE/oX0cQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e4Rn2XVBMSOncH44JGlOjXe9irLmdCmTNi6MrhYP54e/R4xr+Kdih85ISQKFTwWV6XKgZpmDMT1CmkCy8Jcto1NeoWyi1MXWGEorDfdzHcc1c0sBRuBLJ+wrLWAxTEKYqpXcRHYZiWXssG3Jz4jWRv33kZk6o0Jb2uEiZzGrsrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 752F020127A;
+	Thu, 06 Aug 2026 17:10:23 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wrzjj-0006xx-1F;
+	Thu, 06 Aug 2026 17:10:23 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wrzjj-0000000Fu3X-0zU1;
+	Thu, 06 Aug 2026 17:10:23 +0200
+Date: Thu, 6 Aug 2026 17:10:23 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ahmad Fatoum <a.fatoum@pengutronix.de>,
+	Alvin =?utf-8?Q?=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
+	kernel@pengutronix.de, linux-kernel@vger.kernel.org,
+	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v1 2/2] net: dsa: realtek: rtl83xx: add support
+ for enabling supplies
+Message-ID: <anSj34TOZxYiG_ai@pengutronix.de>
+References: <20260806140239.3518906-1-o.rempel@pengutronix.de>
+ <20260806140239.3518906-3-o.rempel@pengutronix.de>
+ <9181f24b-cd5e-46c8-8e57-cbf309ac1a98@lunn.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260806-wiznet-link-gpio-v3-2-532d4a143805@marmottus.net>
-References: <20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net>
-In-Reply-To: <20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?Arthur_Cr=C3=A9pin_Leblond?= <arthur@marmottus.net>
-X-Mailer: b4 0.15.2
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: -100
-X-GND-Cause: dmFkZTE+WcSggV5zCp8g8eT5E/JolsF24Rl9OX9pXx8yvsvxSceOKMXWcUHCvd4FGfevv8symVzCRbUUPKuWQJrU0JMpZ4BXbtbyj1f/j+clyQ1HGu2c46H5js9LJVJE8KA3BBxdUe9a053FvnuCrnM8aIzoCoaPGF6fkS7JkXplNhcPhSwG3KxHsexsKkHwH9U2A2bYSfs14ahqkakWTVvmMuOCCFFLlhTynsi9SmUPAc4HsxDK8ORsAeHen5Pzi8iDuFMwsE40c16a2c+1FGEvCTezP8A4oNhT1kFysW4RXvpJKfxZdizPrIkk3wC80Bsw8Yr7m4qqwKsIByUhvFuQ1N9PMepZo0ov+3CmmlaEWj9dk/ITyzJZC+3R+fcjN1d/du4fCf+OR1wt6fJceVh3gcJlSumxPz70683FSkrMZ4BeVnAp6RTQoC1URC0MJqPCWfRAsysMqpsz5ds6U/clO9fn7QZIB6z2YpX9MiAFDOAbVJTVPveGbbcbwqDN7F11N5K0DPS34i4oUfgGDeIBOqDa7GxAdf92EBa5u0YnQ4nLOn0BAZkZYMDUlzkDfxGQlUItibMQreQ3I4LzUtBLrmYiAUlYtSlVBIKM+aITVOkCxMbOea9iLxO5It0foVrTqFW8AWju4Rlbx4Hw3WXQ6SLBm9mD2j8EWh7OShdUxdJA6w
-X-GND-State: clean
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9181f24b-cd5e-46c8-8e57-cbf309ac1a98@lunn.ch>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Add the link-gpios property which describes an optional GPIO line that
-can be wired to the LINKLED pin of the w5500 as an interrupt to detect
-link status changes.
+On Thu, Aug 06, 2026 at 04:12:44PM +0200, Andrew Lunn wrote:
+> > +static const char *const rtl8365mb_supplies[] = {
+> > +	"avddh", "avddl", "dvddio", "dvddio1", "dvddl", "pllvddl", NULL,
+> > +};
+> > +
+> 
+> > +static int rtl83xx_enable_supplies(struct device *dev,
+> > +				   const char *const *supplies)
+> > +{
+> > +	int i, ret, count = 0;
+> > +
+> > +	for (i = 0; supplies && supplies[i]; i++) {
+> > +		ret = devm_regulator_get_enable_optional(dev, supplies[i]);
+> > +		if (ret == -ENODEV)
+> > +			continue;
+> > +		if (ret)
+> > +			return dev_err_probe(dev, ret, "failed to enable %s supply\n",
+> > +					     supplies[i]);
+> > +		count++;
+> > +	}
+> > +
+> 
+> I've never used it, i've no idea if it is applicable, but there does
+> appear to be _bulk_ calls in the regulator API, maybe which is similar
+> to the clk _bulk_ API?
 
-Signed-off-by: Arthur Crépin Leblond <arthur@marmottus.net>
----
- Documentation/devicetree/bindings/net/wiznet,w5100.yaml | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-index 641c9ddbde9e..cebf437ad3c4 100644
---- a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-+++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
-@@ -35,6 +35,12 @@ properties:
-       however, board designs may need to limit this value.
-     maximum: 80000000
- 
-+  link-gpios:
-+    description:
-+      An optional GPIO line that can be wired to the LINKLED pin of the w5500
-+      as an interrupt to detect link status changes.
-+    maxItems: 1
-+
- required:
-   - compatible
-   - reg
-@@ -60,6 +66,7 @@ examples:
-             pinctrl-0 = <&eth1_pins>;
-             interrupt-parent = <&gpio>;
-             interrupts = <25 IRQ_TYPE_EDGE_FALLING>;
-+            link-gpios = <&gpio 24 GPIO_ACTIVE_LOW>;
-             spi-max-frequency = <30000000>;
-             local-mac-address = [ a0 b0 c0 d0 e0 f0 ];
-         };
+Ack, in the first iteration of this patch we was using
+devm_regulator_bulk_get_enable(). But it would print warnings on
+existing boards without regulators in devicetree. Currently there are no
+bulk helpers with _optional regulators, so I reworked it to hand made
+optional bulk support.
 
 -- 
-2.55.0
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
