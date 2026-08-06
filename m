@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827A738E8BE
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 05:35:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACFC392C36
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 05:35:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785994508; cv=none; b=Ozgf/tAQs25ZR7PL6aWsPgNhj39yME8M1hrsZoj+nroU8JvlRfnv1pU1YKOsPMUHeqVqQDQXhPdtudXL8luPTs2s5OINZKpRYn2QHa6OReVgbYrBqOOPhpbPy8ikGhHAH5MIuOog1LtgbXkQk1rc/MpVhP5Wyx965sBYYpByRSA=
+	t=1785994511; cv=none; b=NRHWOflsOHJOEUiIMVpi0DHmS5GRJ77dm6HdfZ/teEMGksp0hURaVWGAQhPSCFFC4Q0MVw/30vtxwoBz5N2FBmqVLSHgwG8r7G/sGVN1DLL9iDErcCbep/UsReIzKof8LUQEvysW9Pw49bmcx0WaMod7hG1YS/Jc+PbrowdddEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785994508; c=relaxed/simple;
-	bh=ihdFPILNani3Ibkuu+huHpL8xJf5HkOPsUpioh5t6jk=;
+	s=arc-20240116; t=1785994511; c=relaxed/simple;
+	bh=YMgrQDt6n8SBtCnXboK/aTC4ySe+AkmpAZwiO0FOb8I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lLGAetx+VJ9UpnMUQBtxBoDnu8vnCrli4rj0wjV5OCsNYiFrqEtxlwhod2N1p6XPRFYqyz284ezZk6uRMo1QaOoSqT1Yb8f/bszUXL2SA2axrpuQte76S8elq0IXYy+6BRrGTxewWRqRzMli1BN+IvBgEpBRos0UcTwtrJ781y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OUYO7qw0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C47symXR; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=AMzxMF1wi0Rc/BC7HqvXuO72ZIMIoq9HSR5+QyZ29pnUTQ3rJtnhVvtnAm3Czns1VR3wVYjRFM+dTFDiptn5KrkXE3m3hxnCYU7l/x7057+RykTGSD7IAWU9S24DB4y8weO5SmVTnirgr7Atrk2XNZ8+2Y4TMvUkIrJNbwGoB64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=et8BMUbY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ofs/VoEX; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OUYO7qw0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C47symXR"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675NbBR63701710
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 05:35:05 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="et8BMUbY";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ofs/VoEX"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675NcIOp269752
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 05:35:07 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Eq9O/ZH/lB+RqlHtKACGCAmmelni54lJd8E5ukY2rx8=; b=OUYO7qw0WAU15UXa
-	MWxAM0mJrZ/5kpvi8mV+KNpL0HaRwfSi90c2H5oT2xQxcGqw4CxfGF6dTmSkZ8IA
-	5WOzuWLnDzLEqSZFEAlt0H96DJlsIXclxr4EIsCQhGVAhsGe3K/CSDtpO5cgG+Ly
-	zN1hPBOyjTwtg+cjEmuEaNQ8g/uoJ9UDyQn/rUZZ5bx8O1CEPhVoFDF+M8Alr96o
-	0FcpnzgEqvKFW91qMxN8gdyPE30EN3rphK1nKOdRcq/WbdPNEjkmUnWpLY1nv0a8
-	o1JjGQo+i6rGtonVnhI4j3PR1JQtgYo3ZNmctyvByDzTYXrocCM3Gh7iUlNXao4l
-	m2YOoA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv9f5afkh-1
+	qJt+V3ieDZ+MqBm9jPgM7ZiDX5wmpvQnMbQUd+p0318=; b=et8BMUbYPB0Nu6kE
+	a6nGviH+WhRYyigytzfz1nhMDVbunHujbpoO6wEWy3Bry1LO6AYilXz/mjFkFR/i
+	nl2X2uw9pYt80wG5/pPN9ozc69Gg9Nzg7Ek+pQTw5bfZOlVOm6lr6rnY7U+KPyAQ
+	ljIJs0tsZda5C/v02PLGIwV141n1X5+aV04hiY32gtR+hhnB1NkUHjSvshaR12Ws
+	IUKH0vaRStg1CITMf5XIUK/Y3DaJ1YXOnjvepfLkyjluLGXE82IWX2vcWnAKDHtr
+	pA5gNnEYkB4moiuxtksWGx0PlVrQM1lPcJ+OymxPUGMenbXb7PcYzGchqD+fzHsh
+	RsWIMw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv3w6c8ey-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 05:35:05 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cca3673560so29111895ad.1
-        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 22:35:05 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 05:35:07 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso22164705ad.0
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 22:35:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785994505; x=1786599305; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785994507; x=1786599307; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Eq9O/ZH/lB+RqlHtKACGCAmmelni54lJd8E5ukY2rx8=;
-        b=C47symXREox5NXEcJsPSrA/artEhNecSuHLjLllwFzYKPjb3VXE4RoSaiDMnXJKdWg
-         7Xzz24lDe6yq/Tgt6biXdpyVobWO6WIKLfI+uXMaq1wHRBRpYSgDjXJtfV0A/BL3A+iu
-         JadTTFxMKTzVcqzXEAwTV2Ls3W1smqUa6zcNXPhgSD0KHA8h7mnIjNSbZLbIvMvjIR6V
-         UIwX2QdbPVmJ/81XDcU6IgTZji3ptQSmmhncJ30zuHwy2XLQvCIQzt8ak/jYLuzsKOpN
-         LIyOUfYgYp5UQNE0uZkKzZjhHOpjS5RHMJT7xzbBvNBdQwS/9ZkawYZNC3i5MwcDFk+r
-         a9Lg==
+        bh=qJt+V3ieDZ+MqBm9jPgM7ZiDX5wmpvQnMbQUd+p0318=;
+        b=Ofs/VoEXP5IjDK2MTklnndaXPDoXRBVRliIQd4YsBRqLy13nUxNRwPczrkQIBc8kZP
+         5/ISEjqSR5KXLxQfAMNYHcYhfxcBWI/xwDhrXIFnkeVnXy/Vtwnw1QUjPsWfaOPrp9vY
+         CPBNMjmURT/YSuKNZ4HCJ/a7RZ1UwspvcCz8ZMDU+k5wNRTQPUK1T9qvzty0hK+cbWMg
+         kkvB5kyniYJg1Fh7Z8O3XLRc8PM+XB8N7etOqIbOv8WbBCoYBAhTFns7iQ5ERru7HRuf
+         +T8Uk4289cYF6/DteaHKTY9V5lajS6kVUFFI1AiHEfOM0Qhivg9EjCNLLw7IYSsmq6a1
+         60Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785994505; x=1786599305;
+        d=1e100.net; s=20251104; t=1785994507; x=1786599307;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Eq9O/ZH/lB+RqlHtKACGCAmmelni54lJd8E5ukY2rx8=;
-        b=jyrSVh8Xgtzm3LtoJ0ut1ATcOGMgStrPkeaLD+kqAowFRfYrEw2UxgRm+YIGTkIaTG
-         BgrU+d9AvA+Dz8nG12Cmvcxv7r/qSGZnbymvQBvM41cYnrEKrk03HHr/x0w/5LY2ewrB
-         KiNmbxXUXSno/3RtJ3O4Ml8uhgT7R4LtRQ46zzCbI20B0ZemqqIIX5nZ107LZIT6o/Y0
-         Tnyb5JCAM4N2qYeFGVcybIYWQV2dBIID1LWOX3w0CfchyfkusVeKvXl+onR8yWZ1qZ9Q
-         XzBoFvqxJ9J06DZ1Klu3MVKadY2OoubyaX9A/BHrWDBu41nINgGs2yevUNr5RhzJQUvz
-         hqqg==
-X-Forwarded-Encrypted: i=1; AHgh+RrsMKn3w5trm8KKABHQPcQCC6N4fuunRYqkYBiyVfxa0VNZ97ij27WfYGyvWcIxWyyDI+lvZOLUoIow@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywk2xHMqlOVuUdnDGrODIT5MIGWJFRv1DDgVyClvZTOvfK7H/s4
-	4OIO2I7F87G1XGP4hPrw0Y4XZRdXokTqqO0U520U/h7hK82cEsITvjDznODi1Dx8GsrKDHwBsx0
-	nlo0GdpY5XBDosMRJTRDcIUU12uNPp4WB07ElSAWjXvoM6kRuSBR9Q1lDkhbKI89f
-X-Gm-Gg: AR+sD13J0GxjUnrR/v40ljl/vCDVnW0XYnmqNJB4WtpsZwFhHUGJdR35YFfo5c9er6v
-	Z5Px8JwI/3OVEuKQaUU28MB+nwlZLtqVZXoFuIbEMcX56SuAczSywE+SfsaqrgEEJrvCjo95F7e
-	dDCLLe9v5fvd/6tMHrSwYERLUPDTp3qvQaeHVQv5OEtsAAGfPhWZirxjoaW1vvBnGOHUTIbqJ2h
-	FBENRWPljvXf2x0566T6PtCtwa2cLUkA5byIcSjLTspnHiS5UHL5ha742fQg5gJfGKj/VNH3YB7
-	+BTNJkq02rYLglg9obw8gLoz4glnbuZlXNz3W0+6XNBkuQruIZ9YjuI/16P5qerShnT57xxEOlE
-	mCOP6XM7lI7ZB6oqahl5KQyE9WZcJM0PxUQRxSySmoNGyHf0=
-X-Received: by 2002:a17:902:ea01:b0:2c9:bf82:dd11 with SMTP id d9443c01a7336-2d0ca71b505mr129757045ad.7.1785994504940;
-        Wed, 05 Aug 2026 22:35:04 -0700 (PDT)
-X-Received: by 2002:a17:902:ea01:b0:2c9:bf82:dd11 with SMTP id d9443c01a7336-2d0ca71b505mr129756595ad.7.1785994504505;
-        Wed, 05 Aug 2026 22:35:04 -0700 (PDT)
+        bh=qJt+V3ieDZ+MqBm9jPgM7ZiDX5wmpvQnMbQUd+p0318=;
+        b=BbvwldsBArVNjAYmoObjiiWlR9807/wn7lUOL6x1TAVGORxwAku0KMK2pIAfVl5ZwB
+         8VC2p66J+NY9gNWHz0ORJ49y9+IY4JO2Gzfuw9+FpXjj2gbD2xqB04O6JrAW5AxK0Il1
+         +2yl2LQcVCa1Z7cVvfH54Zm0UxmFQjWJonOzWKwRwoFaOFBhWcfSzZUeSaqOFSIULrI/
+         V9FvGCkILaG2cWYhQht0XepvnNE+dNIUfRSknIxv5eDZ6sT2+DLjh6nv22AT/kJ061rO
+         P5E/4W8ZR3F9m1YO3phTc3eNNLWrunaHuF3bcjWnB9nNwZefy5qC14Oze3yMYdaqjpoA
+         JV1g==
+X-Forwarded-Encrypted: i=1; AHgh+Rpz7K7vQrtQ8SqQf9KmOSGn8LoXDMDa+doUD0vTk+UX9CmBDOsnnvdyLR2jrnZL8sDc7aIPB2J69aHF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx96XPVmg9GWXHidOq2E0uc/0dkpxVzJWeLwJrUI/OjceuLzcjp
+	wMvHIIJ3f0xqt0Orgj3xMY56DW1gxD9aeX8ozz+qnaOO6WoGEHmEimMcXQx9fb7Zh3pKQ/tpDne
+	cp4S8cigRP0m+W4NPz0LEkJyoazp3TxHvv3nhZDmJjKwYTn74Ga3tOvmeMQeAxmGU
+X-Gm-Gg: AR+sD10/AP6vt8qwXaOBYZntt/OKuLyHNhW07oHZYDf6gLCEJbwfHwOweSzG5vakcbv
+	ZXSAlNrf/IzdaF8ff6LQJcEEdSy4HQwurFbq+Ca+2jEmY2ImiCADCAg57JtxvhWqHcJjVKyhQzr
+	YPAsRHTm+0zxuJSvrQCKW/ydU8og3tKUmdbMTP8dnwMV3zbnZHahMHazWLda+G+pBJHMcH/aODh
+	3jN0YnvkXJJ0Ucx1s6XPVslMhxdfWjbu2D4QLN7MU7FoRNXmBZ+Bf7GqnEYzdLyGfW1Sib07oJQ
+	vRcyXPwIUHA5QJ2fzscBdGgZWYLAGkkHF7pGGFf7570x8sOxHlYBm+M/t13JTwCLWszXRGUVX90
+	qS/O5PdW/l8bctKHDY5OR8IBTl8W4gegft10oW4m101gfE8c=
+X-Received: by 2002:a17:902:e852:b0:2ca:10c6:f69b with SMTP id d9443c01a7336-2d0ca7b54ebmr123141985ad.5.1785994506336;
+        Wed, 05 Aug 2026 22:35:06 -0700 (PDT)
+X-Received: by 2002:a17:902:e852:b0:2ca:10c6:f69b with SMTP id d9443c01a7336-2d0ca7b54ebmr123141295ad.5.1785994505754;
+        Wed, 05 Aug 2026 22:35:05 -0700 (PDT)
 Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0a9f8fee7sm25780085ad.16.2026.08.05.22.35.03
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d0a9f8fee7sm25780085ad.16.2026.08.05.22.35.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 22:35:03 -0700 (PDT)
+        Wed, 05 Aug 2026 22:35:05 -0700 (PDT)
 From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Date: Wed, 05 Aug 2026 22:34:56 -0700
-Subject: [PATCH v2 2/3] clk: qcom: tcsrcc-x1e80100: Migrate to clk_ref
- helper
+Date: Wed, 05 Aug 2026 22:34:57 -0700
+Subject: [PATCH v2 3/3] arm64: dts: qcom: hamoa/purwa: Add QREF regulator
+ supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-hamoa_tcsr_qref_0805-v2-2-4f1cfb1fcab2@oss.qualcomm.com>
+Message-Id: <20260805-hamoa_tcsr_qref_0805-v2-3-4f1cfb1fcab2@oss.qualcomm.com>
 References: <20260805-hamoa_tcsr_qref_0805-v2-0-4f1cfb1fcab2@oss.qualcomm.com>
 In-Reply-To: <20260805-hamoa_tcsr_qref_0805-v2-0-4f1cfb1fcab2@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -104,435 +104,679 @@ To: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+        Qiang Yu <qiang.yu@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785994500; l=12460;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785994500; l=26246;
  i=qiang.yu@oss.qualcomm.com; s=20250513; h=from:subject:message-id;
- bh=ihdFPILNani3Ibkuu+huHpL8xJf5HkOPsUpioh5t6jk=;
- b=V0Om/cpGLWkI5B2ZQcSkMpE7izK/rgjLwJpE8ZGHdSZQ//re9TnsWhawKhor3KzgWiIxqSjpG
- ounkgfmzt4CDFbp4RIgrd8jYNL8adJcnbSoubOk3vVw4eh0Jg0M8w2I
+ bh=YMgrQDt6n8SBtCnXboK/aTC4ySe+AkmpAZwiO0FOb8I=;
+ b=AaqoLMON+Hs03PNggPrumYIc/O36dY63RZ5URsxGQDf6fb8euIXzS6UgEJg+L44hq2axlknuB
+ /XXzAhHnsDPAiDXLTkpUB+eBJC9nnnmj6YHGxwb74ZSOlIAhPaZ1ANV
 X-Developer-Key: i=qiang.yu@oss.qualcomm.com; a=ed25519;
  pk=Rr94t+fykoieF1ngg/bXxEfr5KoQxeXPtYxM8fBQTAI=
-X-Proofpoint-GUID: -YrpHZW-V21OapjGHs6-Wo5RUh-HBxP2
-X-Proofpoint-ORIG-GUID: -YrpHZW-V21OapjGHs6-Wo5RUh-HBxP2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA0MCBTYWx0ZWRfX6MJIUDRVd5Ix
- whDnfAiQfy5I0PhCYFBYfWWckzifmGVb5PcATxnh+SHBUyuh6fjtik8B4TMQHm0t7t6PLhyvNWk
- L/7tFzVlJOKGE4GlR2elgP9irxauFiU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA0MCBTYWx0ZWRfX1DYhatxVOUhe
- SDe8jtIRYa8hURYUn/qfRzLfXgHsFWOcINboi2L0qb1Bq6jw7fcYxio8liONH6w9l0k6mgIdoK0
- x/3L7eRHp+tdDYiT3j897GwenkxHzl/6lG/xrsCPohdrqSfusgkEeArbpDENTuaUEQa5qPxubKJ
- nSqwpqkdfQTZsRFeBP3Ha60pXS1YDWqSpJH2yFE+3kVbkLETXhJefLjinHMB3JIjG8iIFCkDBFh
- mSW+HZidVuCwz85MYw6ss5atKCK8cqegtDlPY4yhdGgg7puF0fC4sArluW1qyBrAqMy3AT4wN5O
- VGkhDTFQnitO91DNSLHFCg8krIxdui6ZqtXv1V6XhfQewN3bgk3fRLMtig2FKAmU2V3TLn0nEPb
- CVumLz5gzkBJM1iLnUQO4W7ouUUzIFRDpVXww03NClXifWi6bVSU4Qt+TwLEe8FUYUNCO4vzt+O
- yrb7g799U2huO9f1jdQ==
-X-Authority-Analysis: v=2.4 cv=d4bFDxjE c=1 sm=1 tr=0 ts=6a741d09 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-GUID: 3Ra1xV8-jHaST32WoDE9L3BSAUC-51xO
+X-Proofpoint-ORIG-GUID: 3Ra1xV8-jHaST32WoDE9L3BSAUC-51xO
+X-Authority-Analysis: v=2.4 cv=a48AM0SF c=1 sm=1 tr=0 ts=6a741d0b cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=48_MYvKuBCZC4ZtyZX0A:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=4vDcivUYQOVtOqHL04gA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA0MCBTYWx0ZWRfX9z1ErqJknQ54
+ NFDcjGPDW6SXVq03Lykg45Y0zwX2RvxxNK0jHos0urhwKCaGy+Rgxeuls2KgPmdO1bnsgkss2gx
+ iFjO4fq4tcpHoZGWUZHk04PNfnMvfEg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA0MCBTYWx0ZWRfX/IFY4z9gQzOZ
+ XT6/WHXRsWpajw7e2RZRqg31U0wsgYdHF8p5Hw+I3KSp5Qp5ytJ39xXTEQY6LTUDcV8SHX6E4iR
+ C/TOSTD1iszoSpw8n+wCvxYiirXMgYwYbiU8g3KPm69tcVN0aFfbBcCbwqOMw4hrQGkgciTq6qk
+ ZMLgtbW9CV1GtSeExTfV0CjDWQmvSkuWcVehTx9z+22rsFcTFzCsne1vVYZ1qZHSQR7mq2V2URC
+ YnnU9HzzBI0sqEEcdBGcPLqviOS3GbXuu0oTgZprv2hixCZMPTaZ5FkDYimAmqfdIb+nxdWGTVJ
+ 1Ho7BGUrm19F/3qrCc4SCG369hI0fXJ/Xs4NXixCeb5l6HWf76MnFC/9jpyJYlvyn97YAdmNJfv
+ Rsd12So77UPdjpPORZyi7g8QICwq5LL6e0Y7D2uv5JS4HlOb2M8EO6j4B3O3ESXODwcwefzvjZA
+ HhJlkIOkxtAXsphrwVw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 impostorscore=0 adultscore=0 priorityscore=1501
+ impostorscore=0 clxscore=1015 suspectscore=0 spamscore=0 phishscore=0
+ adultscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060040
 
-Replace local clk_branch-based clkref definitions with descriptor-based
-registration via qcom_clk_ref_probe().
+Wire up the LDO supplies required by the QREF and refgen blocks on Purwa
+and Hamoa boards. Purwa's QREF topology is same as Hamoa's, so it reuses
+the same qcom,x1e80100-tcsr compatible and supply set rather than needing
+a dedicated one.
 
-This keeps the x1e80100 driver focused on clock metadata and reuses
-common runtime logic for regulator handling, enable/disable sequencing,
-and OF provider wiring.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
 ---
- drivers/clk/qcom/tcsrcc-x1e80100.c | 335 +++++++++++++------------------------
- 1 file changed, 113 insertions(+), 222 deletions(-)
+ arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi         | 21 +++++++++++++++++++++
+ .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts   | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi         | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi  | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi   | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-crd.dtsi                | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi         | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi    | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi   | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1e001de-devkit.dts        | 21 +++++++++++++++++++++
+ .../dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi     | 21 +++++++++++++++++++++
+ .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts      | 21 +++++++++++++++++++++
+ .../dts/qcom/x1e80100-honor-magicbook-art-14.dts    | 21 +++++++++++++++++++++
+ .../boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts   | 21 +++++++++++++++++++++
+ .../dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts     | 21 +++++++++++++++++++++
+ .../boot/dts/qcom/x1e80100-microsoft-romulus.dtsi   | 21 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/x1e80100-qcp.dts           | 21 +++++++++++++++++++++
+ .../boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts  | 21 +++++++++++++++++++++
+ .../boot/dts/qcom/x1p42100-microsoft-sp12in.dts     | 21 +++++++++++++++++++++
+ 19 files changed, 399 insertions(+)
 
-diff --git a/drivers/clk/qcom/tcsrcc-x1e80100.c b/drivers/clk/qcom/tcsrcc-x1e80100.c
-index 0b05c27b619b..ad1f6be83a53 100644
---- a/drivers/clk/qcom/tcsrcc-x1e80100.c
-+++ b/drivers/clk/qcom/tcsrcc-x1e80100.c
-@@ -5,252 +5,141 @@
-  */
- 
- #include <linux/clk-provider.h>
-+#include <linux/clk/qcom.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
- 
- #include <dt-bindings/clock/qcom,x1e80100-tcsr.h>
- 
--#include "clk-branch.h"
--#include "clk-regmap.h"
--#include "common.h"
--#include "reset.h"
--
--enum {
--	DT_BI_TCXO_PAD,
-+static const char * const x1e80100_tcsr_tx1_rpt0_rx0_regulators[] = {
-+	"vdda-refgen0-0p9",
-+	"vdda-refgen0-1p2",
-+	"vdda-qreftx1-0p9",
-+	"vdda-qreftx1-1p2",
-+	"vdda-qrefrpt0-0p9",
-+	"vdda-qrefrx0-0p9",
+diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi b/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
+index 9c5e77df0054..c035bc890f36 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/hamoa-iot-som.dtsi
+@@ -478,6 +478,27 @@ &remoteproc_cdsp {
+ 	status = "okay";
  };
  
--static struct clk_branch tcsr_edp_clkref_en = {
--	.halt_reg = 0x15130,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15130,
--		.enable_mask = BIT(0),
--		.hw.init = &(const struct clk_init_data) {
--			.name = "tcsr_edp_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
--	},
-+static const char * const x1e80100_tcsr_tx1_rpt1_rx1_regulators[] = {
-+	"vdda-refgen0-0p9",
-+	"vdda-refgen0-1p2",
-+	"vdda-qreftx1-0p9",
-+	"vdda-qreftx1-1p2",
-+	"vdda-qrefrpt1-0p9",
-+	"vdda-qrefrx1-0p9",
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>; /* TPM LP & INT */
+ 
+diff --git a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+index bfb7cea56df9..4c77c51768ab 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
++++ b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+@@ -902,6 +902,27 @@ wcd_tx: codec@0,3 {
+ 	};
  };
  
--static struct clk_branch tcsr_pcie_2l_4_clkref_en = {
--	.halt_reg = 0x15100,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15100,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_pcie_2l_4_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
--	},
-+static const char * const x1e80100_tcsr_tx1_rpt12_rx2_regulators[] = {
-+	"vdda-refgen0-0p9",
-+	"vdda-refgen0-1p2",
-+	"vdda-qreftx1-0p9",
-+	"vdda-qreftx1-1p2",
-+	"vdda-qrefrpt1-0p9",
-+	"vdda-qrefrpt2-0p9",
-+	"vdda-qrefrx2-0p9",
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>,  /* SPI11 (TPM) */
+ 			       <76 4>,  /* SPI19 (TZ Protected) */
+diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi b/arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi
+index fb2dcbc7c393..bbcc03dc7f7c 100644
+--- a/arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi
++++ b/arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi
+@@ -476,6 +476,27 @@ &remoteproc_cdsp {
+ 	status = "okay";
  };
  
--static struct clk_branch tcsr_pcie_2l_5_clkref_en = {
--	.halt_reg = 0x15104,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15104,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_pcie_2l_5_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
--	},
-+static const char * const x1e80100_tcsr_tx0_rpt3_rx3_regulators[] = {
-+	"vdda-refgen2-0p9",
-+	"vdda-refgen2-1p2",
-+	"vdda-qreftx0-0p9",
-+	"vdda-qreftx0-1p2",
-+	"vdda-qrefrpt3-0p9",
-+	"vdda-qrefrx3-0p9",
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>; /* TPM LP & INT */
+ 
+diff --git a/arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi b/arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi
+index 48c4ad648354..57c306047d7a 100644
+--- a/arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-asus-vivobook-s15.dtsi
+@@ -1036,6 +1036,27 @@ &smb2360_1_eusb2_repeater {
+ 	vdd3-supply = <&vreg_l14b_3p0>;
  };
  
--static struct clk_branch tcsr_pcie_8l_clkref_en = {
--	.halt_reg = 0x15108,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15108,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_pcie_8l_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
--	},
-+static const char * const x1e80100_tcsr_tx0_rpt4_rx4_regulators[] = {
-+	"vdda-refgen2-0p9",
-+	"vdda-refgen2-1p2",
-+	"vdda-qreftx0-0p9",
-+	"vdda-qreftx0-1p2",
-+	"vdda-qrefrpt4-0p9",
-+	"vdda-qrefrx4-0p9",
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <44 4>, /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi b/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
+index 66d566808f58..da6ecd4a1452 100644
+--- a/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-asus-zenbook-a14.dtsi
+@@ -1272,6 +1272,27 @@ wcd_tx: codec@0,3 {
+ 	};
  };
  
--static struct clk_branch tcsr_usb3_mp0_clkref_en = {
--	.halt_reg = 0x1510c,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x1510c,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_usb3_mp0_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
--	},
-+static const struct regmap_config tcsr_cc_x1e80100_regmap_config = {
-+	.reg_bits = 32,
-+	.reg_stride = 4,
-+	.val_bits = 32,
-+	.max_register = 0x2f000,
-+	.fast_io = true,
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p9>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p9>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>,  /* SPI11, TZ Protected */
+ 			       <90 1>;	/* Unknown, TZ Protected */
+diff --git a/arch/arm64/boot/dts/qcom/x1-crd.dtsi b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
+index 9602d65c8b3d..8bd58f194f82 100644
+--- a/arch/arm64/boot/dts/qcom/x1-crd.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
+@@ -1528,6 +1528,27 @@ right_tweeter: speaker@0,1 {
+ 	};
  };
  
--static struct clk_branch tcsr_usb3_mp1_clkref_en = {
--	.halt_reg = 0x15110,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15110,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_usb3_mp1_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
-+static const struct qcom_clk_ref_desc * const tcsr_cc_x1e80100_clk_descs[] = {
-+	[TCSR_EDP_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_edp_clkref_en",
-+		.offset = 0x15130,
-+		.regulator_names = x1e80100_tcsr_tx0_rpt3_rx3_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx0_rpt3_rx3_regulators),
- 	},
--};
--
--static struct clk_branch tcsr_usb2_1_clkref_en = {
--	.halt_reg = 0x15114,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15114,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_usb2_1_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
-+	[TCSR_PCIE_2L_4_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_pcie_2l_4_clkref_en",
-+		.offset = 0x15100,
-+		.regulator_names = x1e80100_tcsr_tx1_rpt1_rx1_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx1_rpt1_rx1_regulators),
- 	},
--};
--
--static struct clk_branch tcsr_ufs_phy_clkref_en = {
--	.halt_reg = 0x15118,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15118,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_ufs_phy_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
-+	[TCSR_PCIE_2L_5_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_pcie_2l_5_clkref_en",
-+		.offset = 0x15104,
-+		.regulator_names = x1e80100_tcsr_tx1_rpt12_rx2_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx1_rpt12_rx2_regulators),
- 	},
--};
--
--static struct clk_branch tcsr_usb4_1_clkref_en = {
--	.halt_reg = 0x15120,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15120,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_usb4_1_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
-+	[TCSR_PCIE_8L_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_pcie_8l_clkref_en",
-+		.offset = 0x15108,
-+		.regulator_names = x1e80100_tcsr_tx1_rpt0_rx0_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx1_rpt0_rx0_regulators),
- 	},
--};
--
--static struct clk_branch tcsr_usb4_2_clkref_en = {
--	.halt_reg = 0x15124,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15124,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_usb4_2_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
-+	[TCSR_USB3_MP0_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_usb3_mp0_clkref_en",
-+		.offset = 0x1510c,
-+		.regulator_names = x1e80100_tcsr_tx1_rpt0_rx0_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx1_rpt0_rx0_regulators),
- 	},
--};
--
--static struct clk_branch tcsr_usb2_2_clkref_en = {
--	.halt_reg = 0x15128,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x15128,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_usb2_2_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
-+	[TCSR_USB3_MP1_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_usb3_mp1_clkref_en",
-+		.offset = 0x15110,
-+		.regulator_names = x1e80100_tcsr_tx1_rpt0_rx0_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx1_rpt0_rx0_regulators),
- 	},
--};
--
--static struct clk_branch tcsr_pcie_4l_clkref_en = {
--	.halt_reg = 0x1512c,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x1512c,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "tcsr_pcie_4l_clkref_en",
--			.parent_data = &(const struct clk_parent_data){
--				.index = DT_BI_TCXO_PAD,
--			},
--			.num_parents = 1,
--			.ops = &clk_branch2_ops,
--		},
-+	[TCSR_USB2_1_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_usb2_1_clkref_en",
-+		.offset = 0x15114,
-+		.regulator_names = x1e80100_tcsr_tx0_rpt3_rx3_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx0_rpt3_rx3_regulators),
-+	},
-+	[TCSR_UFS_PHY_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_ufs_phy_clkref_en",
-+		.offset = 0x15118,
-+		.regulator_names = x1e80100_tcsr_tx1_rpt12_rx2_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx1_rpt12_rx2_regulators),
-+	},
-+	[TCSR_USB4_1_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_usb4_1_clkref_en",
-+		.offset = 0x15120,
-+		.regulator_names = x1e80100_tcsr_tx0_rpt4_rx4_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx0_rpt4_rx4_regulators),
-+	},
-+	[TCSR_USB4_2_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_usb4_2_clkref_en",
-+		.offset = 0x15124,
-+		.regulator_names = x1e80100_tcsr_tx0_rpt3_rx3_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx0_rpt3_rx3_regulators),
-+	},
-+	[TCSR_USB2_2_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_usb2_2_clkref_en",
-+		.offset = 0x15128,
-+		.regulator_names = x1e80100_tcsr_tx0_rpt3_rx3_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx0_rpt3_rx3_regulators),
-+	},
-+	[TCSR_PCIE_4L_CLKREF_EN] = &(const struct qcom_clk_ref_desc) {
-+		.name = "tcsr_pcie_4l_clkref_en",
-+		.offset = 0x1512c,
-+		.regulator_names = x1e80100_tcsr_tx0_rpt4_rx4_regulators,
-+		.num_regulators = ARRAY_SIZE(x1e80100_tcsr_tx0_rpt4_rx4_regulators),
- 	},
--};
--
--static struct clk_regmap *tcsr_cc_x1e80100_clocks[] = {
--	[TCSR_EDP_CLKREF_EN] = &tcsr_edp_clkref_en.clkr,
--	[TCSR_PCIE_2L_4_CLKREF_EN] = &tcsr_pcie_2l_4_clkref_en.clkr,
--	[TCSR_PCIE_2L_5_CLKREF_EN] = &tcsr_pcie_2l_5_clkref_en.clkr,
--	[TCSR_PCIE_8L_CLKREF_EN] = &tcsr_pcie_8l_clkref_en.clkr,
--	[TCSR_USB3_MP0_CLKREF_EN] = &tcsr_usb3_mp0_clkref_en.clkr,
--	[TCSR_USB3_MP1_CLKREF_EN] = &tcsr_usb3_mp1_clkref_en.clkr,
--	[TCSR_USB2_1_CLKREF_EN] = &tcsr_usb2_1_clkref_en.clkr,
--	[TCSR_UFS_PHY_CLKREF_EN] = &tcsr_ufs_phy_clkref_en.clkr,
--	[TCSR_USB4_1_CLKREF_EN] = &tcsr_usb4_1_clkref_en.clkr,
--	[TCSR_USB4_2_CLKREF_EN] = &tcsr_usb4_2_clkref_en.clkr,
--	[TCSR_USB2_2_CLKREF_EN] = &tcsr_usb2_2_clkref_en.clkr,
--	[TCSR_PCIE_4L_CLKREF_EN] = &tcsr_pcie_4l_clkref_en.clkr,
--};
--
--static const struct regmap_config tcsr_cc_x1e80100_regmap_config = {
--	.reg_bits = 32,
--	.reg_stride = 4,
--	.val_bits = 32,
--	.max_register = 0x2f000,
--	.fast_io = true,
--};
--
--static const struct qcom_cc_desc tcsr_cc_x1e80100_desc = {
--	.config = &tcsr_cc_x1e80100_regmap_config,
--	.clks = tcsr_cc_x1e80100_clocks,
--	.num_clks = ARRAY_SIZE(tcsr_cc_x1e80100_clocks),
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <44 4>, /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
+index d6de4da02dcd..dd466aac10f2 100644
+--- a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
+@@ -1301,6 +1301,27 @@ right_tweeter: speaker@0,1 {
+ 	};
  };
  
- static const struct of_device_id tcsr_cc_x1e80100_match_table[] = {
-@@ -261,7 +150,9 @@ MODULE_DEVICE_TABLE(of, tcsr_cc_x1e80100_match_table);
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>,  /* SPI11 (TPM) */
+ 			       <76 4>,  /* SPI19 (TZ Protected) */
+diff --git a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
+index 02708f23a865..224474678ed2 100644
+--- a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
+@@ -1284,6 +1284,27 @@ wcd_tx: codec@0,3 {
+ 	};
+ };
  
- static int tcsr_cc_x1e80100_probe(struct platform_device *pdev)
- {
--	return qcom_cc_probe(pdev, &tcsr_cc_x1e80100_desc);
-+	return qcom_clk_ref_probe(pdev, &tcsr_cc_x1e80100_regmap_config,
-+				  tcsr_cc_x1e80100_clk_descs,
-+				  ARRAY_SIZE(tcsr_cc_x1e80100_clk_descs));
- }
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <44 4>, /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+index 7559557610ed..9f677319a0e0 100644
+--- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
+@@ -1107,6 +1107,27 @@ right_spkr: speaker@0,1 {
+ 	};
+ };
  
- static struct platform_driver tcsr_cc_x1e80100_driver = {
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>, /* SPI (TPM) */
+ 			       <238 1>; /* UFS Reset */
+diff --git a/arch/arm64/boot/dts/qcom/x1e001de-devkit.dts b/arch/arm64/boot/dts/qcom/x1e001de-devkit.dts
+index 2e38402e2c14..9ccfaaa3065e 100644
+--- a/arch/arm64/boot/dts/qcom/x1e001de-devkit.dts
++++ b/arch/arm64/boot/dts/qcom/x1e001de-devkit.dts
+@@ -1193,6 +1193,27 @@ wcd_tx: codec@0,3 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>; /* SPI (TPM) */
+ 
+diff --git a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+index 5d49df41be02..d172d8eb52c6 100644
+--- a/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1e78100-lenovo-thinkpad-t14s.dtsi
+@@ -1382,6 +1382,27 @@ wcd_tx: codec@0,3 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <44 4>, /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+index ce7b10ea89b6..ed812cf349dc 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+@@ -1069,6 +1069,27 @@ &smb2360_1_eusb2_repeater {
+ 	vdd3-supply = <&vreg_l14b_3p0>;
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p9>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p9>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>,  /* SPI11 (TPM) */
+ 			       <76 4>,  /* SPI19 (TZ Protected) */
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts b/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+index b70c1e094bbf..603f6d7717f3 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-honor-magicbook-art-14.dts
+@@ -1066,6 +1066,27 @@ right_tweeter: speaker@0,1 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <44 4>; /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+index beb1475d7fa0..0ddec7b4a473 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
+@@ -1347,6 +1347,27 @@ right_tweeter: speaker@0,1 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <44 4>, /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts b/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
+index f95b1f9f439d..ac4e7943c608 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
+@@ -1248,6 +1248,27 @@ right_tweeter: speaker@0,1 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p9>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p9>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <28 4>, /* Unused */
+ 			       <44 4>, /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
+index 28342cb84ded..47018bb4e7ec 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
+@@ -1322,6 +1322,27 @@ wcd_tx: codec@0,3 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <44 4>, /* SPI (TPM) */
+ 			       <238 1>; /* UFS Reset */
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-qcp.dts b/arch/arm64/boot/dts/qcom/x1e80100-qcp.dts
+index 8afbac349cc9..8c41ff76c68e 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-qcp.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-qcp.dts
+@@ -1177,6 +1177,27 @@ wcd_tx: codec@0,3 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <33 3>, /* Unused */
+ 			       <44 4>, /* SPI (TPM) */
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts b/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
+index 9e6f679758a9..c2946cfebaf0 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
++++ b/arch/arm64/boot/dts/qcom/x1p42100-lenovo-thinkbook-16.dts
+@@ -1325,6 +1325,27 @@ wcd_tx: codec@0,3 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <72 2>; /* Secure EC I2C connection (?) */
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts b/arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
+index 0314b2246cdb..edcb6b99a384 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
++++ b/arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
+@@ -968,6 +968,27 @@ right_spkr: speaker@0,1 {
+ 	};
+ };
+ 
++&tcsr {
++	vdda-qrefrpt0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrpt1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrpt3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrpt4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qrefrx0-0p9-supply = <&vreg_l3c_0p8>;
++	vdda-qrefrx1-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx2-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-qrefrx3-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qrefrx4-0p9-supply = <&vreg_l1d_0p8>;
++	vdda-qreftx0-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx0-1p2-supply = <&vreg_l2j_1p2>;
++	vdda-qreftx1-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-qreftx1-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen0-0p9-supply = <&vreg_l3i_0p8>;
++	vdda-refgen0-1p2-supply = <&vreg_l3e_1p2>;
++	vdda-refgen2-0p9-supply = <&vreg_l3j_0p8>;
++	vdda-refgen2-1p2-supply = <&vreg_l2j_1p2>;
++};
++
+ &tlmm {
+ 	gpio-reserved-ranges = <34 2>, /* Unused */
+ 			       <44 4>; /* SPI (TPM) */
 
 -- 
 2.34.1
