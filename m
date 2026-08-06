@@ -1,211 +1,198 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C05D4398E7
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:52:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AC54343E1
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786009964; cv=none; b=ZEo+sf7MGth88naus4qUHGOEhh94NevM0a5QiMLR5T2NxwM9x0A/DBsGZkFqTXpNxX9WbkACDtW0X/NlWloMI3ovOq3c3zwIX9uFFOBUh8xQmxsR93tXGpOPK4Xou+aql+RcdbMJjB1g1POGJgJeD0fCGEkS8vLEXIgdPskJB1E=
+	t=1786010168; cv=none; b=lN5nuiamjv0at37jbVEnkAOUWiSBto5x55jBopwnRNnIhzpW2bgPftMvXlZ2m9Wr7BV5ojA7yK2qowNco23kErpFD2gpbX5cBhULrLrZL70a5XYW2iAUFK8QNqJ35JMLX+bUvEQXLyTeaOL4cbk39CDLkQpDYs+qIFg2GECDkQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786009964; c=relaxed/simple;
-	bh=gRUha24JKDyYXQuYod1ckbZURT/+JZRsMXtQhQkCg9A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AZjbWojwP2qDIT9d4cPxxcLqXFVH2Ymnk2I/Ek6VvxvOMInU1OTr6pyzVZb+owFKsAsVd/4Of2vBRIHwrpfu5eZcxCv913LqMeMeuzdkbW8qGuCY+OS5A5tKhcOOj6o1XvVIWgqIxqpSJtaCRPXCIknsNxOfoqCMEJ2kW3S0wIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E6jMlumV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JYD88+ek; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786010168; c=relaxed/simple;
+	bh=Vgyc1TQbWhgmrptluwH6PVVKXWUYwYmRD3Qm/7J4lo8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HPYPVtjBmHHzaFIm71Y+W2S0wHiw8tGidfKt6HX46Cb7UD7WoAolrs3s9WmBC8rxcIc9Qx3y/IGCJEBC6Iqh183OY66REzcRQ+I1bsjs/fXlR3qtWClUp71LtIFXibL8wnLGeYALmq5VwunBkMFbI5ttWHJa9DmbLLbmJ+5tguI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DFuxKNKm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E6jMlumV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JYD88+ek"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769ncnq1308822
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 09:52:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LIidbOLK7YUH8s7JFWhLKurGYVJCaqUu4CJdXBld3+8=; b=E6jMlumVYbMKyvpr
-	Bt+kkZWLKXs74BeVc1MMiS+OGhLn/hGQ2+DE5t64a78ohB+YXaJKd34UszQXqVb6
-	pWvFJCiCQwCpyFzr9nQjLXs+bI7NwZFJzLnBOriPaBrspqNnUeBlsjt4LHvvzAtt
-	cKUkpx4BwOfe9VyVOdZjWU319Zt6ZZ4QddJ1NXo2TT9t6pehELXDj7pBAjAhtGUf
-	H1CYBKabn0z73M7SDJvGq361TkfH1DfMqeZv6GSlgCWsaaetkRExFyj7PI6W/xTB
-	qqF7edmtv5NCe2r6ZWX8KxtZR2EZohOL8G/hHZRUIK7kCapszHxRqWAu4wEGeaxx
-	K7N7lg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvp728gss-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:52:37 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38dde0df80bso2847202a91.3
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 02:52:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786009956; x=1786614756; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LIidbOLK7YUH8s7JFWhLKurGYVJCaqUu4CJdXBld3+8=;
-        b=JYD88+ekvcKX6ZzRiZFyS6P1KYI+EgxzHKSnW9vEnwUcmWAwWqR5zcf/NvBJJFOyP7
-         Qj61NzboFI8A5+zWjrbe+smEblGmbyq9Di2kLH+MDSbJ871JfsVwihOSHh1ZEMKX6HtM
-         jeSsQK39atYUQ/VxihLPvYYsgFRG7nW1AbtMy0QGQqjrTM9VhXMnY+BRd3AO9ZLkFDYe
-         liXYtLNOxivOp2v5ngaKAoloBaDlR0WfUNXTZUr6rCLFRCR7TI0CviJDisFAIRhDW7EO
-         +LAEyOXMOnOlwilCkPJxohl0brFt8PHNL4W8QdAsO4yJ2VqD4r12OhsVQ6PVDfQXS0Qc
-         FjFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786009956; x=1786614756;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LIidbOLK7YUH8s7JFWhLKurGYVJCaqUu4CJdXBld3+8=;
-        b=M+uykFkLLL6RI5fKfq3xwgjKWqahtpxsI4eCVSsgo7LPJaoJqegb/GaSseNRVQr/nd
-         WvmS3d6PaZNB0S1xqH+pG00GjJNoThF1bq/k7mGIy29BTMBQP7WSXmAr3RvjjBqkTLHf
-         gaKwmRPyT0TtPzWpPP/hILs3Bf6eUUutvU9340qA6/LTN6HXhSiKYnA6EgTNDeGgEfyw
-         8LHjp0SRWudmwIq9xbyeCUyB4Uf1Q133Y3RSQSgE1FWIMieJYsxRVjEbDbH6PVzfd/jb
-         366JsX1Gntg8zntWTjc70bw1Kpf057YyjDgeyKat20YesVcm9s4benWTyrvl0nxyrZM3
-         51yg==
-X-Forwarded-Encrypted: i=1; AHgh+Rqh5cKDUSOpcM+uvaoeRUd++Q1UEYFHWy/XFRw8y+74qSVxte4TEBpuw0gUUL6/kTZphU50i3bGoeb6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzj7zlOy9M9jCzXIYVSdpH9nIqUJUQLovlqtQ/rdOCKnp78HMxD
-	b/CubSQyoor79Od6Ne8hryNWqJGDjFKKRJQfA71NSxyFa7dDU33M47XarSkweEnxleAk8sjzlix
-	6paGsnZlfb3teP4scnHF+/cTD9wRTdWQj1uUDSYia98e3eFURi4EXbR3lsTbLk9xG
-X-Gm-Gg: AR+sD10sdwcFdUseEsXAaYO/penLPATdFHJgKBmPkr5W8xDsrjsV5vPjJt5329Xtv7i
-	ouvBQ9e8dIv++Nj8Cp5yJEMIjW00frRzqEk4sPQdbLJi0LWvcFkqKRBOokxYfRu6NkW6xZt3eFm
-	pPvemmGY2oQT60iVMm3q9O2keujefWQrMV3GLWS/2KJOzCPkLHvMCo31Tou4BVZcPptiRCDPY7C
-	AyAzvXZogDQcKbEk2N1dwayL5RoU4Jm4qR+nREXymz9Izk/+W5OnC0MwY2uX3NyiLxZE8S5FBUi
-	M8qiYJcQZ6G2N3HjBXtDMmbjpgYiQMaHduu5LbTyTSQIT61YgF1qzQoI+CSyk3BzZ2/cRRkwd3D
-	3k/NsoqXUwBaDhXKhSNNcMLa29z+7gUYvitc=
-X-Received: by 2002:a17:90b:264b:b0:380:71eb:4014 with SMTP id 98e67ed59e1d1-3903c5b2c25mr14455529a91.15.1786009956053;
-        Thu, 06 Aug 2026 02:52:36 -0700 (PDT)
-X-Received: by 2002:a17:90b:264b:b0:380:71eb:4014 with SMTP id 98e67ed59e1d1-3903c5b2c25mr14455492a91.15.1786009955604;
-        Thu, 06 Aug 2026 02:52:35 -0700 (PDT)
-Received: from [192.168.0.173] ([183.83.142.146])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca6482e7sm23033859c88.6.2026.08.06.02.52.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 02:52:35 -0700 (PDT)
-Message-ID: <d6207874-630f-445d-8d1d-3a30ba8f41dd@oss.qualcomm.com>
-Date: Thu, 6 Aug 2026 15:22:26 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DFuxKNKm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F2B1F000E9;
+	Thu,  6 Aug 2026 09:56:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786010164;
+	bh=GuZqQhNINc+LCkKRvuLN2KY3G2bvK2e205BUU8yBISA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DFuxKNKmTrrLCU0XckgJ4IFyji4kRQN4gTg6auNbjJVw0XrZYe9wRB8+5MyYmRPHJ
+	 x99aCmWdo45o9xxc53gI+hnMl9+rFaKqa1KVv87RkEjyVOtNKoK3PISoJkACtvxKKo
+	 AtgJpDvQmJz8foGxsqiFKPpIwAFlTRA264iEKHDrVYlfaYO8ZlStMlm0QhDmu9O6xL
+	 nI/elPB1x5/Zu9BBmKNolUuq9zUnx8U5boxvLyInfQpYIMG7BYG7pLy5epjsAJLD5F
+	 CmlS2wdSmanzU4Rx93AA6fuJQMaSBu1Z9ENRl3jKz+6J6cLn/A1yc1epZxe6oCLeKl
+	 9qAg/BNzrMYXQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/3] usb: typec: tipd: Add sn201202x support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sasha Finkelstein" <k@chaosmail.tech>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260806-tipd-ace3-v4-3-79855b150914@chaosmail.tech>
+References: <20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech>
+ <20260806-tipd-ace3-v4-3-79855b150914@chaosmail.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 09:56:03 +0000
+Message-Id: <20260806095604.54F2B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio
- <konrad.dybcio@oss.qualcomm.com>,
-        stable@vger.kernel.org, Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <xusr4efn5dmsvcs2hl5vg3t7ctqbbchnbdx3mx6km5s7s3se23@mzzqs54lp46l>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <xusr4efn5dmsvcs2hl5vg3t7ctqbbchnbdx3mx6km5s7s3se23@mzzqs54lp46l>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: lXuQSx9KD2glmIsX2QLUUWyX3DJghAjv
-X-Authority-Analysis: v=2.4 cv=JYCMa0KV c=1 sm=1 tr=0 ts=6a745965 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=eVbXwf39F0J6/s7D6zfB/A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=e5mUnYsNAAAA:8 a=LxpaqNrMlFw5iMcKExUA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA3NiBTYWx0ZWRfX7sINA5wnHVNT
- Un5LSASuPrHai7P7FGI2OCuk4YHaJnN9xPb7L+BXlO7YMEewbrb55d7t8YxG7ujf9Rz7mnXmHk7
- xxW4i331bpLXfBHnzR8On9H9tDDt8B6tG0untbJfFDukRWraTb3OEzt7O4ObspqWLmZx97vV14l
- 6412cgr3CEOD8U5rL+YkGC+rfCVk1xB41KXts4JuxWjsXnHovtAxkiLh3rLfH3Qd77Mq1AyktKL
- /CcYEiq7nX0VkG/rQ205xP9dq2HqyYZQCTvp6DSPTAFgUdviHO4GbkOa/bDvDjodd2hoUspoeT1
- 4Eu69B5H50zg9z6zrJzkcR28RzaMYvSPwc6bAqvskLjG0Oesqnr+lfxADUoeIwU6K+OTpvYG7VH
- rlT+9GxQGQ8JRPYD7WmT7KV1OT5+Ij5j4GJPtItn4wuZpbzMZHJD1YA2girkNaMpiNcD66gg6o3
- LaTPbwn0Uzy7GpQKjHQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA3NiBTYWx0ZWRfXzHgUFM8mznRk
- o8MiUBIy6XInZpMpxh33kFabrrjBvzRYl5/gD/GtJ7M7u4wJS2S1mpBGWRnWqt3Vh9ETIEb/slr
- NSMkdca92Fn65x/SyVdn7uGAeLJsGd0=
-X-Proofpoint-GUID: lXuQSx9KD2glmIsX2QLUUWyX3DJghAjv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 phishscore=0 adultscore=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060076
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
+New issues:
+- [High] The suspend and resume handlers send SPMI sleep and wakeup command=
+s directly to the hardware without acquiring `tps->lock` or the regmap lock=
+, racing with concurrent I/O.
+- [Low] The driver calls `devm_request_irq()` with a `NULL` `devname` param=
+eter for the select, sleep, and wake interrupts, breaking interrupt debuggi=
+ng.
+- [Low] Missing `depends on POWER_SUPPLY` for `CONFIG_TYPEC_SN201202X` caus=
+es a build failure.
 
-On 8/6/2026 2:19 PM, Dmitry Baryshkov wrote:
-> On Fri, Jul 31, 2026 at 11:52:16PM +0530, Vikash Garodia wrote:
->> The VPU issues DMA through several SMMU streams, and the hardware does
->> not give every stream the same addressable range. The non-pixel stream
->> is restricted to use 0-600MB of IOVA space, while the pixel stream can
->> address the full range:
->>      +-----------------------------------------------------------+
->>      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->>      | 0x25800000 - 0xe0000000                                   |
->>      +-----------------------------------------------------------+
->>      | pixel stream addressable range (0 - 3.5 GB)               |
->>      | 0x00000000 - 0xe0000000                                   |
->>      +-----------------------------------------------------------+
->> A single "iommus" property on the video-codec node puts every stream in
->> one IOMMU domain sharing one IOVA allocator, so nothing keeps a
->> non-pixel buffer inside the low 600 MB. Once an allocation lands below
->> that boundary the hardware faults, which shows up as unhandled SMMU page
->> faults and spontaneous reboots:
->> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
->>
->>   
->> +  dma-ranges: true
->> +
->> +  '#address-cells':
->> +    const: 2
->> +
->> +  '#size-cells':
->> +    const: 2
-> 
-> This would conflict with the 32-bit addressed Venus nodes (and it will
-> also break examples). So both should be just 'true'
+Pre-existing issues:
+- [High] Delayed works (`cd321x->update_work` and `tps->wq_poll`) are not c=
+ancelled on the `tipd_init()` error paths, leading to a Use-After-Free.
+--
 
-With "true", i see following comment from sashiko (when ran locally)
+--- Patch [3]: [PATCH v4 3/3] usb: typec: tipd: Add sn201202x support ---
+commit bad42a3c130cfb056927239566528c115c728126
+Author: Sasha Finkelstein <k@chaosmail.tech>
 
-Without a const constraint, a device tree could specify #address-cells = 
-<1> or a non-empty dma-ranges, and it would silently pass schema 
-validation. The DT bindings guidelines also recommend that cell-count 
-properties have a const constraint matching the hardware.
+usb: typec: tipd: Add sn201202x support
 
-> 
->>   
->> +oneOf:
->> +  - required:
->> +      - iommus
->> +  - required:
->> +      - non-pixel
->> +      - pixel
-> 
-> - #address-cells
-> - #size-cells
-> - dma-ranges
-> 
->> +
->>   additionalProperties: true
->>
->> -- 
->> 2.34.1
->>
-> 
+This commit adds support for the sn201202x (ACE3) controller. It is a tipd
+variant that exposes a logical register interface over the SPMI bus.
 
+> diff --git a/drivers/usb/typec/tipd/Kconfig b/drivers/usb/typec/tipd/Kcon=
+fig
+> --- a/drivers/usb/typec/tipd/Kconfig
+> +++ b/drivers/usb/typec/tipd/Kconfig
+> @@ -14,3 +14,15 @@ config TYPEC_TPS6598X
+> =20
+>  	  If you choose to build this driver as a dynamically linked module, the
+>  	  module will be called tps6598x.ko.
+> +
+> +config TYPEC_SN201202X
+> +	tristate "TI SN201202x USB Power Delivery controller support"
+> +	depends on SPMI
+> +	select TYPEC_TPS6598X_CORE
+
+[Severity: Low]
+Can this lead to a build failure when TYPEC_SN201202X is built into the ker=
+nel
+and POWER_SUPPLY is built as a module?
+
+TYPEC_TPS6598X_CORE uses power supply APIs, so if this symbol selects
+TYPEC_TPS6598X_CORE without also depending on POWER_SUPPLY, it could cause
+unresolved symbols during linking.
+
+[ ... ]
+> diff --git a/drivers/usb/typec/tipd/spmi.c b/drivers/usb/typec/tipd/spmi.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/usb/typec/tipd/spmi.c
+[ ... ]
+> +static int sn201202x_probe(struct spmi_device *device)
+> +{
+[ ... ]
+> +	init_completion(&sn->select_completion);
+> +	init_completion(&sn->sleep_completion);
+> +	init_completion(&sn->wake_completion);
+> +
+> +	ret =3D devm_request_irq(&device->dev, irq_select, sn201202x_irq,
+> +			       0, NULL, &sn->select_completion);
+
+[Severity: Low]
+Is it intentional to pass NULL as the devname parameter for the select, sle=
+ep,
+and wake interrupts here? Passing NULL causes these interrupts to be displa=
+yed
+as (null) in /proc/interrupts and tracepoints, which might break interrupt
+debugging tools.
+
+[ ... ]
+> +	ret =3D spmi_command_wakeup(device);
+> +	if (ret)
+> +		return ret;
+> +	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies=
+(100)))
+> +		return -ETIMEDOUT;
+> +
+> +	ret =3D tipd_init(tps);
+> +	if (ret)
+> +		spmi_command_sleep(device);
+> +	return ret;
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but does tipd_init() fail to cancel the delay=
+ed
+works on its error paths?
+
+If the driver is in polling mode, tipd_init() queues tps->wq_poll:
+
+	if (tps->irq) {
+		...
+	} else {
+		...
+		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
+		queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
+				   msecs_to_jiffies(POLL_INTERVAL));
+	}
+
+	if (ret)
+		goto err_disconnect;
+
+If connect() failed earlier and ret is set, or if another error occurs, it
+jumps to err_disconnect and returns an error without cancelling the queued
+delayed works. When probe fails, devres will free the tps structure,
+potentially leaving a use-after-free when the work executes.
+
+[ ... ]
+> +static int __maybe_unused sn201202x_resume(struct device *dev)
+> +{
+> +	struct tps6598x *tps =3D dev_get_drvdata(dev);
+> +	struct sn201202x *sn =3D tps_to_sn(tps);
+> +	int err;
+> +
+> +	reinit_completion(&sn->wake_completion);
+> +	err =3D spmi_command_wakeup(sn->sdev);
+
+[Severity: High]
+Do the suspend and resume handlers race with concurrent regmap I/O?
+
+Since the system workqueue is not freezable, cd321x->update_work can run
+concurrently with sn201202x_suspend() and sn201202x_resume(). Sending SPMI
+sleep or wakeup commands directly to the hardware without acquiring tps->lo=
+ck
+or the regmap lock could allow these commands to interleave with active
+multi-register regmap transactions, potentially corrupting the bus state.
+
+[ ... ]
+> +static int __maybe_unused sn201202x_suspend(struct device *dev)
+> +{
+> +	struct tps6598x *tps =3D dev_get_drvdata(dev);
+> +	struct sn201202x *sn =3D tps_to_sn(tps);
+> +	int err;
+> +
+> +	err =3D tipd_suspend(tps);
+> +	if (err)
+> +		return err;
+> +	reinit_completion(&sn->sleep_completion);
+> +	err =3D spmi_command_sleep(sn->sdev);
+
+[Severity: High]
+Could the SPMI sleep command here also interleave with an active regmap
+transaction if the update work executes concurrently?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-tipd-ace3-=
+v4-0-79855b150914@chaosmail.tech?part=3D3
