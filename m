@@ -1,257 +1,154 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013060.outbound.protection.outlook.com [40.93.196.60])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2745243302C;
-	Thu,  6 Aug 2026 09:25:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786008347; cv=fail; b=VItmuOBnLA2WTo7eZqgv8H9I7tJE8BhDjUVdQyNuLl+g4ThILptSc1KhzQ9J8YWnTLraipxmoSiGOW4kGymkJb0mbmMFV9JIe4PlNZORMhXHpoLCEHQ8SgYauzu+0wngBvBiaQuDgRrXb3bZDUq9/bhfhBWgZwNNRP9VmlqX/Uo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786008347; c=relaxed/simple;
-	bh=Ks8rVHBKbm+kgTfQvmOMExD3pCtIa4Ha/LZ4z8tlXZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bAfOpbi+Dgo83h0ewLcoGPX5oW5JiXyvbmTnXYzAyDT6WrfV5JDGMa6TdVryRW/cwmXkx93j3StAwjWF5bwWEs8hCW4OM5CaYZhEZThpfvMVP7Lh0i7tIDMdp+Pm00v5CV9HqJ5v/5jmT5np1AUsyLogVaHY7RRjzm+LWERCCgY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=YX7hiKF9; arc=fail smtp.client-ip=40.93.196.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2393E9F60
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:30:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786008634; cv=none; b=UZ23Hevo7YEfHYr9gecQ0P3ftEBF6sreq7OMDeefwigxTzHovRiKaCLjqHUBTTrJ8Mw5moMxkfMebdajuyMLKUBLKiY1BX4D1bT3EmuSBRFfMjAXRWgHtbJh6ieyZgfHkZ8KhrgJZLfC+TcmqiG7DaxhyzaF82SNvEutbjmDdO0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786008634; c=relaxed/simple;
+	bh=JhF9EmqILUf+L0nuX1tHuBe1NXfMGY1V4yo/37P2x0A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PAPaqZvlAD9A3ZH4QRPfMpVk2ShazBXkvhf1jd2DX7oSRDZpZjH2wo3UneCJ/oRfWvfzX1B8ZV/PUjLX3s+8X0YVJpbUEwDNFUHbgK0IZhG0j3dVBb0aTUfR2uPdABKKba8tq7iQ3e4C2XX65zOtMb6pJ9tBGRhmn42G1Qi6HXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KuXqbLlg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bbg3SUnZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="YX7hiKF9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CQqBpsLbiYVSNYjEhU4VpPXyhqXCtMoV22p7rczuXqvfhGm0qKK40DN4x2MJd+ISHkFAa4ivWD2DsbycvyMkonXnu5qOTsQ7gAYPgj9qo/8ONT58NhRggwfTmCGUHlD8vkFhnvjWyZieg/V7MYhMydOX4jQeyfjlLmqt8XZVSYLKQpB50FbPSvPpLpks3GEa5pcUQtj9yERXn2wDPD2ckRDvpgMBxc8IsSZnXJFZLtDI7jiDU0XQbyfhs8f33bFYtHGkbIQDm9zhWrhWfLqGypOPgyyRDMnT52QHiwFquaMHM64wCA44fensLmDHZJPlAVKtqiNuKd7AKr3DnwcsVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AV4Ulrm8jnxDoBndvE97zLHQbpkh1wyJP53NajXmZVM=;
- b=PbL0NBbG0e+6/FPnrU1hPDsVJUBwW8PpTLKwmeX6hvKDIfgcwFxCJDEGLE8AcKvOEe0gz8bmZh9C3jfL3kSqdxkQThwdYCuzEFfp3edckJ93BzkOKGAxRK6Zd71PE85rnncTvTkRCW8uLdCrR6glfinG7nkb201RLvfxmSbUzWesBrzdBrTsi49sy/HZRdqM4ZPiaYNnvnYXMyu8ccPDGJ8hmQDfOOkE0XbDRbUEzYd0x0gsMRYOM5ms20GsKM/VJuhZQPkj1HW+sixDwJo2L+ShXjV91pARbs9+K2SEeckLApBlRcqclP/Q1MMh6hHm+ma+lZaR0E0+LoMYu7Bc2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AV4Ulrm8jnxDoBndvE97zLHQbpkh1wyJP53NajXmZVM=;
- b=YX7hiKF94wD3NWYPlmOpa5eyxBF9OMHU1JDzJIvQnmdYQi0o8dxGJKOx11m0KFvG5As10TLvDaehvV9nBAKVza1va7rO+1w1IJ7jcGPDKV/GfdC7Wfuk6BVF802BwlPAJc2uVZeogRBtd0sXOq4HzX4Yym60vnIeT2dJmB6ZuV6GjS6fA7No1AHvkSG/WRkmldO6h1ttLfBLAGny3nG5jhnFv0fIQM2JMihRLnizruEiYiEUfYqMKQhzQXApl+OtuNRa/5KMJ5lSLVmhW3osY91dP122GwqPuSneEc9OWq25PZTN9A3AG3lTBV0cnv/tX1CSkyBoSKQvgtbsg+Pq3Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com (2603:10b6:5:39c::23)
- by CH2PR03MB5285.namprd03.prod.outlook.com (2603:10b6:610:9c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
- 2026 09:25:42 +0000
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b]) by DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b%4]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
- 09:25:42 +0000
-From: evon.chiam@altera.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Lothar Rubusch <l.rubusch@gmail.com>,
-	Ng Tze Yee <tzeyee.ng@altera.com>,
-	Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>,
-	Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
-	Brian Masney <bmasney@redhat.com>,
-	devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5/5] arm64: dts: altera: agilex72: add clock manager support
-Date: Thu,  6 Aug 2026 17:25:05 +0800
-Message-ID: <394c5838c535f939361da220ad94c9aec7fea973.1786006669.git.evon.chiam@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <cover.1786006669.git.evon.chiam@altera.com>
-References: <cover.1786006669.git.evon.chiam@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR03CA0027.namprd03.prod.outlook.com
- (2603:10b6:a03:33a::32) To DM4PR03MB6192.namprd03.prod.outlook.com
- (2603:10b6:5:39c::23)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KuXqbLlg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bbg3SUnZ"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67694whQ2618504
+	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 09:30:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=CBB0LkAbyS99ycMnXEmjA2Yw
+	5k60EnyvQkBRK6doMHQ=; b=KuXqbLlgAPFu7qU5Ma+mOyO3YAtkguXfdT2yXG/i
+	O4vjmzD8xsKtQhvw3qfXZYdOBaO0ZbKn853xvZC+DEd99CoI8EzKvFSDfiB60VaN
+	eYawluzA6xjI3O9tMVYqS13yPnHTWXcsgD70FNSfAyBrnwMNQqGipxFw2r2rlOl4
+	DUhl3s97vY8feuTR9FY64Rh/uOlFjvRx80iuee2TKWtK67w9BUSrNchulhdVzgMQ
+	lcQlgwaVrfUAeiq6/Ebb8aDVKII4bPmqtAcx5MC641nWSqAktwSGUyaozNPYBb1w
+	W3dIfu6AQ0s1fFAYzzbbwAWyL0fGh2zZYS8iZCy/iz2Z/A==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv9dmkf4g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:30:32 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51ebdfceddcso21346651cf.3
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 02:30:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786008632; x=1786613432; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CBB0LkAbyS99ycMnXEmjA2Yw5k60EnyvQkBRK6doMHQ=;
+        b=bbg3SUnZi01QMBChBvQZld9G3QcNM1mTTdgFj9qAv9YjBGq9RcIg2G43FRfPKokNki
+         3+o+UItwPRZ4p63hSOsuprLDzSvUaVS7nSbX3JtHu4j0iXDiX5tkBSJuQupDEPKU+koN
+         ahoBpCcF4j/tz1Uv60ZyGKBKNzHiz5waC2fXGrsaIRUEmbheM5ppGM1mj9Gi/r/X1bao
+         hOIozBpAAqYriIB8igr9Ly2G3Qkfgjcv9yjbqBEPSyv7ysEr0kTizy6KdVwvvUBPHeEC
+         6n4Rbqlo7rftafs1p/5y1xpXXMp7NNl1OgEFj/UWL4jSISOR25TEweGWZVX1F72m6tlu
+         N5fQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786008632; x=1786613432;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CBB0LkAbyS99ycMnXEmjA2Yw5k60EnyvQkBRK6doMHQ=;
+        b=OJ1EWGqif8XrGiV3vFvOsm4e4PuOw8duD6X/jb6UzZZonzIf4M+kYt67O6hmjScC7Z
+         hdS+uhLRAsL0KeJwH/8CuM/noaFG8fs4MSkdumi/wKYBUqus1AQs67S7ocxRdt4emQw+
+         1GwGdYp4W8h7RiEX2cms/8DQM8jLCUR2rRSye8/oU1Q4PGbBlwPpnr33J65O6tgzcj1F
+         XhOBf53vlmMd56DJcnZvgSsYs3NQFUL0XigNv2JBmcOTS6JNkKTWuIwYQvjI7/IIireG
+         HBHgbENLIDStyNwDulylFLk8e08Qv6Vbk5dOAV66ChOJYOJB57B+oPM9oMZ9t3bd9HDi
+         7RDg==
+X-Forwarded-Encrypted: i=1; AHgh+RrRbwiCZeYIPrp1fany+3PHfNhbh7ag+kLlLhAwkjwJCen3ABN04o5ySTpqkAR3+a2EXL+m4Nh/kx5a@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkW0L410oKeRzgRhtfWa09uHapu7rYxoQoCvJvoO8OrWqiD8f2
+	G2SMUSDOM2tJGhiZissrg05lHj9Yu6vSa6AG5cWRkgm7rVVCjkwWtKT3YOGvLMxu492CEqv0aA6
+	qKqGUhIQHa5012zQHAMdckEtsbGTy94Hk/15F8Y3wv43vZSkmv9vm78YdM9K/Y+mUhwmJH+HN
+X-Gm-Gg: AR+sD12wwsEABJFfhu5vyRoXmAYQrOam2OwjA8N3OmQcwjsPdphVyoNqD9p98UCzHJR
+	bxHagb360MLkEC4qWFK5eZV+nO7804eElZnJhcS5SiK5rD66W4S51ErFNoGVve/ZrlHYM9V3uOt
+	lSYQVjzLGrP6QMnxw0MhTb1mcFrpPozeGiEp1wKSs/r4q5jCTcjTSEljkNprxEDCH8ONtRd4FyN
+	R2gwFIZyY82FrgwlaPmIsMCObDbIg+jBVZCCpFalEMHVFq23l40gFObPbiiMHDRY11ZryS5zzTr
+	wTHBfVO9GzlpCnq4FM3iEKm5/0LYsyvBd6VNML5VlfIynx/tEHlYG9CVF75uTBTlSAOMAQNRpYo
+	ebaeYVOX7YbGmGJyi+MvetsqW4bXiGPcmR4uW43s/Zc1+a/i2SP3Pg7ykGNppEZ7Go5OKv5WRuo
+	BP8pQd8cPiNs8KgQ==
+X-Received: by 2002:a05:622a:124d:b0:51c:1241:3b09 with SMTP id d75a77b69052e-52ce61cbc9fmr150684901cf.39.1786008631861;
+        Thu, 06 Aug 2026 02:30:31 -0700 (PDT)
+X-Received: by 2002:a05:622a:124d:b0:51c:1241:3b09 with SMTP id d75a77b69052e-52ce61cbc9fmr150683791cf.39.1786008631130;
+        Thu, 06 Aug 2026 02:30:31 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2f6235e88sm609809e87.11.2026.08.06.02.30.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 02:30:29 -0700 (PDT)
+Date: Thu, 6 Aug 2026 12:30:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Radu Rendec <radu@rendec.net>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/3] irqchip/qcom-pdc: Add purwa compatible for PDC
+ secondary mode
+Message-ID: <6yqu2hranp442yqwauvvfa2tbbx7zg2riq4dvwuvzf53ywnjze@u22iowcilcu5>
+References: <20260806-purwa-pdc-v4-0-62467f4b4ddc@oss.qualcomm.com>
+ <20260806-purwa-pdc-v4-2-62467f4b4ddc@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6192:EE_|CH2PR03MB5285:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ff602e7-a8bd-452a-9d2d-08def39caf6b
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|56012099006|11063799006|10067099003|18002099003|55112099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	LABcBKg0O1snwKp6FS82yL7pXE9Cap4cvpNbOeO18PbGpxJmE5BH9JKtWtLMJhYuRAofxrJZy7xL2TNuBYZ463bdszXz2GW+vfrmtp9f5MKzCqkfVaX4vZXFDYGTZpF92vjqT7BvJpY9TZYqmIF2YeStNU6rWkjc9EnYrqYesM2ZDosEyhjyT2ulFVVT0+LrRw6IOoe6dRVQJyBXZsATVSCoooiSsGQ1u8VxS5v7X0srTF25AFata5g2ltRaEkQdAX7jdCygdsw5SAxk2cdKd5815pyCaCZH29xfMt0zFHdCXZLgkVBZieGbM42eSpb4MHQ5mBxulPt+Wqd4uTg4I84YiyLJ6W+fw554gavU7IQXELUL5bGkK0yvMd1h9I2iTrHvJZCyjU/2TS9DJeV2LdbEdE/Sx9aOjMiwFhCPtxbPiMywsbRP/tkibo7oEBp/FxrviJm2QAS/tiK8zmPnesxJw2c1TcDsj8Ce/0tNYmLbXI5byBeI5PM8scAo3I0wLPh6lpIixMMyumtI+zUNGLU70Y5CGiTnnicbI1BN2oRiqRMC9jWljIcuQYrgIuqX9sQ5bT1O7QqiByEtqR7MRXH6Ll2MdSuyW5mi6r8iY1MP3ey674GDW54YM9JndqR0lmM9I7QMKSj7Lyk/MoUU5mdFiI7Whnh0MB8tUB3Nqsg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6192.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(55112099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QlNcN8hlc5/CYPQry4bI4rp4M3KmjcjQKXfaQI3JNO4enZkAgVc1qfZGI81/?=
- =?us-ascii?Q?bvr/DouW5rBikcFqFSxQuqVV/dE9ODV5LSHgHH1wqNVtjM50wVUES1794bGt?=
- =?us-ascii?Q?Jq+1oMe046LwKRkakqp3DlUqYtMCZIzItFu4lPMKzVBtiHaDZVmkezVmkfHo?=
- =?us-ascii?Q?x6ju1kHzryAHJZn5RNGIJCXkGOXZZNpkz95Yd1gtx88pJXXQ4qNoYlSmys2k?=
- =?us-ascii?Q?rDe6quPpDUdHGmsHrYHt6gRGXd4vIcs+ajgnisikR4kufUdJqnDYtSzL0Ef0?=
- =?us-ascii?Q?c1asrMCMDB3mWBw0S4wxAy3izNrlhmr8CSZHxba14YnI2LlvK/xnkDXqgBqd?=
- =?us-ascii?Q?s32MSP4jbQuzCgHdpKR1r3yf24juX+c2q/llRidMDrxspapmapg5HB2uww7z?=
- =?us-ascii?Q?VTeXS5VfJYnPXXxZ3o9tWR2uKig1HQM6Cc9BzmwSlmVy/KBFwoqaeLfGaiCB?=
- =?us-ascii?Q?y2ZuZiHo/awogxP2BUwnlzs/123lsmwMy6VwXpJR/NAfmTOFvpd9se2rJJcM?=
- =?us-ascii?Q?ILqnLvhTjfnusHUFoFpeJgoDidQqIcWqSgcDpRVdTOnvMntxJaekYfZ1TgiH?=
- =?us-ascii?Q?8/sWqSQvZjoMZIaP21RQRpwwLaUKhhACeEM3ArlJFe2csl6f8Jgo9wuqkWxX?=
- =?us-ascii?Q?pXh/xZT7fWopnRXRCyPaypjhVQdfIFOjEsNUPoc36AeNZytkU/lzsBR8Rsvo?=
- =?us-ascii?Q?SBt1CF4xnJllWFp8WW0K3ni28pMctc7kRCqIrFbBRUHiDp5OKF7fwTvrULPE?=
- =?us-ascii?Q?JiuFlznnKV6nGpI7eypc6Nlv1LQCDE0TG3ec1I4/2s/N5dKykDCniKMJAo/E?=
- =?us-ascii?Q?tPYa45n2GX4J18N/Qk59VqNH9uZm9zz+G75OhgDguReUDHrVifBw+67HJBpe?=
- =?us-ascii?Q?2gWMnGvrDB6vzsohAoUbAQjNzstVl8YKYjLbH0NbpBg9qDx86MoTCRdv1lSw?=
- =?us-ascii?Q?zg6mFcI7b1pgtR+eZvzCpY+/caDwG9D9wYNk/wgM0x+jCj74m3LDEyAVe28l?=
- =?us-ascii?Q?OtC61FUbn6bakRg7p1bJlOBqPvWiJETdYf261/KEFfV5qk+PhUvvawKQBGGd?=
- =?us-ascii?Q?w1P9C5GaqI3tG0u6HxZ3Zr+1/G+WYgFtndnGUvCwUl6bhSjcW1vXvMWhU+sD?=
- =?us-ascii?Q?sjF+79zHZOcelSMgDC4FWRNe+qgLfc42h5mzhZCI76U6N5n+m1VVlRGWdSmE?=
- =?us-ascii?Q?Ylwvw8omC9ID0IemhgML8iaTmnMH8v0dOdGoQu5qblUpkqQ9o0tswjPRd1v4?=
- =?us-ascii?Q?7FrVajdcwterdRThh7bgKJBZB2bQCAs9xWG2Y2139o/uRSVMxHvU7cjuxn4O?=
- =?us-ascii?Q?9GFyx0jqT0pH4VZPOELPiF8oAHEE2AM0a9qJ2/XjqY6kNU/N8bOuT4oAV7gE?=
- =?us-ascii?Q?ngSeuxBzykDrEnOjgdIc6cHgNVozDmGBQvukcb1ZUb1Nex11dJADoIej4FQU?=
- =?us-ascii?Q?9IPECRmwoIiVhleGJKYqOnFSMlv84czZhO+1E9hCrC8x+eXxzhqqm+HZgBr6?=
- =?us-ascii?Q?M0RBjtwAgLENjQVwbkWdBooVBZG1Djc2JsigHFjxcRveFGIfk2GnOF7qmnDe?=
- =?us-ascii?Q?VTTU4wWM0z23okRKKZUC5uqLFD3BriJ7C7EjWsKbNK5hbnOjgBTarlNHbs4V?=
- =?us-ascii?Q?QjZY8BF9XR29csImYCc0Rw7Zq35Il4YoVTurl2xWDyqeCwOfFuByqe0OjPo9?=
- =?us-ascii?Q?BC3Wnu0lOqee/BrukKzMWTiqiRUgHBeZwp4RvQqDsOyISF4Jdr7TPvcdXoI7?=
- =?us-ascii?Q?7+4vrX4TqA=3D=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ff602e7-a8bd-452a-9d2d-08def39caf6b
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6192.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 09:25:41.9650
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DVaaOzn18+YVXCtrF+IUSkXGC2A99U3vzT/Q8AwWf00shbBf4Mz5W+quKawrtVYqPavR1fHMwlldldmMfRLJ+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5285
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806-purwa-pdc-v4-2-62467f4b4ddc@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=TJR1jVla c=1 sm=1 tr=0 ts=6a745438 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=b8JVUCK1TJT_bdoyVbAA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: -3HPafKZQDzeh_2kyJPWYL2K43-J9IeX
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA3MyBTYWx0ZWRfXyw9HSD+vSu+1
+ xB1W28iJD7dYlhiRz3RIedpdaIqX6liSpJir3qA8ejCe68gVx6zLhb9v97LRoGN6hi8cEzH7QBH
+ 2ybSfT403ZCDs/kAZxeDzkTMS9Qd1Nw=
+X-Proofpoint-ORIG-GUID: -3HPafKZQDzeh_2kyJPWYL2K43-J9IeX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA3MyBTYWx0ZWRfXxY3VbOokoBUT
+ +bA8xsVWg+lLeyItP+iEyEgWCKLFh8YHuy2CP/yOxyZVqQvtYGl97WSlDX1IU2hAm9x5jrbXHIv
+ SXTIK1GCstF3YAPP34IjfIwZMbo/Ar/jPVc3v2n3w3bgE9bafvPhdQ8NTVKKXPN0n0ct2T/mwzf
+ ZXwz/AxXFJaVcKBB4y45kv/smp9chXMrhymw0x32BPOII2Z28dVWVuPQXPUI/Ffg/8r7RcffNX4
+ pt/YGrlU7zq8m2maFDM7pxybCefcrNwNx1+gaC/Cq4ollnEWvAQBW8zAUj/x7KQWcEc+ywYpY95
+ qtjuQ2xkbmxwbqXYDBAgvRt9Do6eR0bcAegL2uLqFfkEr98bJ7HXB+ZsgtN2iVTC5cOgN+CHhxB
+ mgwrDdGFZie7FvbuMZs9aZE/Fr/5A/gT+62zDw1wG30i7ZHB5FfPeYnzb67DxZKYMsiodxILQ0s
+ nv/DTogqs09hyCAaRRQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060073
 
-From: "Chiam, Evon" <evon.chiam@altera.com>
+On Thu, Aug 06, 2026 at 02:26:28PM +0530, Maulik Shah wrote:
+> X1P42100 (Purwa) and X1E80100 (Hamoa) shares the same PDC and windows
+> firmware sets the PDC to secondary mode for X1P42100 too. Add support
+> to reset the PDC to pass through mode using qcom_scm_io_writel() similar
+> to X1E80100.
+> 
+> Make sure x1e_quirk to workaround a hardware bug is set only for X1E80100
+> as X1P42100 have this fixed in silicon.
+> 
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> ---
+>  drivers/irqchip/qcom-pdc.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
 
-Add the Agilex72 clock manager node and input reference clocks, and
-wire the UART clocks through the clock manager instead of a fixed
-clock. Set the SoCDK board-specific input clock frequencies.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
----
- .../boot/dts/altera/socfpga_agilex72.dtsi     | 46 +++++++++++++++++--
- .../dts/altera/socfpga_agilex72_socdk.dts     | 12 +++++
- 2 files changed, 54 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex72.dtsi b/arch/arm64/boot/dts/altera/socfpga_agilex72.dtsi
-index 354c775f577b..dfc0cfce3d8c 100644
---- a/arch/arm64/boot/dts/altera/socfpga_agilex72.dtsi
-+++ b/arch/arm64/boot/dts/altera/socfpga_agilex72.dtsi
-@@ -5,6 +5,7 @@
- /dts-v1/;
- #include <dt-bindings/interrupt-controller/arm-gic.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/clock/altr,agilex72-clkmgr.h>
- 
- / {
- 	compatible = "altr,socfpga-agilex72";
-@@ -64,11 +65,38 @@ cpu3: cpu@300 {
- 		};
- 	};
- 
-+	/* Clock tree 5 main sources */
- 	clocks {
--		uart_clk: uart-clk {
-+		cb_intosc_div2_clk: cb-intosc-div2-clk {
-+			#clock-cells = <0>;
- 			compatible = "fixed-clock";
-+			clock-frequency = <0>;
-+		};
-+
-+		cb_intosc_div10_clk: cb-intosc-div10-clk {
- 			#clock-cells = <0>;
--			clock-frequency = <125000000>;
-+			compatible = "fixed-factor-clock";
-+			clocks = <&cb_intosc_div2_clk>;
-+			clock-mult = <1>;
-+			clock-div = <5>;
-+		};
-+
-+		f2s_free_clk: f2s-free-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <0>;
-+		};
-+
-+		osc1: osc1 {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <0>;
-+		};
-+
-+		sdm_xspi_clk: sdm-xspi-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <200000000>;
- 		};
- 	};
- 
-@@ -133,13 +161,23 @@ ocram: sram@0 {
- 			#size-cells = <1>;
- 		};
- 
-+		clkmgr: clock-controller@915c000 {
-+			compatible = "altr,agilex72-clkmgr";
-+			reg = <0x915c000 0x1000>,
-+			      <0x915e000 0x1000>,
-+			      <0x915f000 0x1000>,
-+			      <0x9160000 0x1000>;
-+			reg-names = "clkmgr", "gppll0", "gppll1", "gppll2";
-+			#clock-cells = <1>;
-+		};
-+
- 		uart0: serial@9038000 {
- 			compatible = "snps,dw-apb-uart";
- 			reg = <0x9038000 0x100>;
- 			interrupts = <GIC_SPI 108 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
- 			reg-io-width = <4>;
--			clocks = <&uart_clk>;
-+			clocks = <&clkmgr AGILEX72_LSP_SP_CLK>;
- 			status = "disabled";
- 		};
- 
-@@ -149,7 +187,7 @@ uart1: serial@9039000 {
- 			interrupts = <GIC_SPI 109 IRQ_TYPE_LEVEL_HIGH>;
- 			reg-shift = <2>;
- 			reg-io-width = <4>;
--			clocks = <&uart_clk>;
-+			clocks = <&clkmgr AGILEX72_LSP_SP_CLK>;
- 			status = "disabled";
- 		};
- 	};
-diff --git a/arch/arm64/boot/dts/altera/socfpga_agilex72_socdk.dts b/arch/arm64/boot/dts/altera/socfpga_agilex72_socdk.dts
-index 0959850cff66..697e694db603 100644
---- a/arch/arm64/boot/dts/altera/socfpga_agilex72_socdk.dts
-+++ b/arch/arm64/boot/dts/altera/socfpga_agilex72_socdk.dts
-@@ -22,6 +22,18 @@ memory@80000000 {
- 	};
- };
- 
-+&cb_intosc_div2_clk {
-+	clock-frequency = <500000000>;
-+};
-+
-+&osc1 {
-+	clock-frequency = <100000000>;
-+};
-+
-+&f2s_free_clk {
-+	clock-frequency = <100000000>;
-+};
-+
- &uart0 {
- 	status = "okay";
- };
 -- 
-2.43.7
-
+With best wishes
+Dmitry
