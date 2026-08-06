@@ -1,229 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F3F339386;
-	Thu,  6 Aug 2026 03:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF78332E728
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 03:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785985981; cv=none; b=Fuoeo4CyMujWRChsd7FfRHb81dYwRWj8gy6usmN84a0Cj7aXZ26JEvvyQNK+fnMP3fszRBNzxdUTQ+0gj0nN8ddw8PynWuTZSO0ylnjuWMjuTqWa9FD6ribBUibV5LJ2gPuJrWi96GbfQ9JBFTE7gqiWHXzokKwnF2Tq15j+nos=
+	t=1785987006; cv=none; b=r6MDGxwvJrt/JeBVGONp8bYoMRwdeDf15eQofAX9kHznrEa/pd3RSzMMTd8FDdKxPNSDXzjPQDYSg/SgUBJIlrPZw+ZVmR7wFmilvAJzuPK86tfRWBvEU8QMA9YpLFYyiyD6pcfE7OGK+q5PB2DwlcxXbVwcrvQlm8egecxhc04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785985981; c=relaxed/simple;
-	bh=uRqUYKe3CaKtrulB6twHExRdf1/JDJSf7M3O+KRp8bw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hvXEKqlNroFsWfL7fBnzZ+j4t/7xJSzH9WgqysqiUuJ7VxfArHJSF2butVLoyiZOorC+Oyey3zW/tPwZPEnFsWYfhqRzYH7K5KZIPww3vq6nmEQQAIcTd5pH5JZF2RXhCy27syx/M+bt/bLxG4kfj+N4+e9nbRNTDCOmXKSAZ58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JJ91bZx4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785987006; c=relaxed/simple;
+	bh=nmzijyFbb0U1VQ8qXzk5PkUoP5TirGh/vCj/nSrmjng=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d988JJUQz9LPZb5MVI98z6bSeIZCE5qlWIBJrcRK6VTwTbPqWeVVCuXGrMGKxYDAvc52pPQHsxwG198O2aHWdL3v3mzUt41qFyzp3PLWPXk+jDfoczxKdhzgMWZwzgqFVE8bADsFeiI3yoH+Xg4oqAFj2RIK8mlIV4efzH5qQgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sklbchRm; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JJ91bZx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01EF91F000E9;
-	Thu,  6 Aug 2026 03:12:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785985979;
-	bh=usgIrmbCsM95d284eA2JBn9yLxogCNh6rPtWzi6fYsQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JJ91bZx4firDa0OJsXOg8up2fI2R3qQ5YqGnH90zJPUYuiMRc0sNx++xl14uARGOA
-	 0BA2XC/OsV7vvuhQQZbalE3GuFj8qpXfTLZgHqx27JeKVKpptx6XGlWeWL2iUvGlJk
-	 sY+IlXrggNe62lFENE+X5ClYlo1gu/MPzx4ZKwr440ZIXmQ1EOkXnDgO1uCHypxw8r
-	 533NYB562SqUYL2HTA09Y1/EYbfgQY2rvryTh44sRy7FIqECNWGLCMWpi9CjmI0piM
-	 dCES/u4YeVf9CIretfSDzXCMgEHcdk/v0a0jtRuuzQvLi6BuGYZAl/fVXGQKEJ8E//
-	 GkMLsN/Eu2djw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] riscv: dts: spacemit: k3: Add UFS support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yixun Lan" <dlan@kernel.org>
-Cc: conor+dt@kernel.org, linux-scsi@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806-08-k3-ufs-support-v3-3-037fb322acdb@kernel.org>
-References: <20260806-08-k3-ufs-support-v3-0-037fb322acdb@kernel.org>
- <20260806-08-k3-ufs-support-v3-3-037fb322acdb@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 03:12:57 +0000
-Message-Id: <20260806031259.01EF91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sklbchRm"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso2046033a91.2
+        for <devicetree@vger.kernel.org>; Wed, 05 Aug 2026 20:30:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785987004; x=1786591804; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YAXCryH4oh6nQIKuZN3/aiZHSgXb6KFeGAGvPh2FRm4=;
+        b=sklbchRmY1BtxRHPUBUCe2jgycVLSdItAxWpGKB2H/kB8bMMb68PyQi1k9UfEfyN5c
+         6rGwQ3sYKL+rQrDRwFd+KeUGW9i5J+VIKFbzMwRlJPqnmqZUBhj7PDYPQnln/zZ7ARzV
+         vpDki3zOMAHWkiTn4KK8n38jTINGT4lL+SY7qxrSDlX6NFCNSPwdi4jE2vjcrYV5uh0u
+         sNnwa8D1UuqFkt1hRHL7IMa8Eg51fJeoOJUpOxaJceGvqATQfhwZxz4JQMyDUGitkVXw
+         v1RTC9igUz42d9aRExkAoQe4aTh/HYOeXY+UBLART6oPCVCO6ylpVwSCl3hmV0fkPD3S
+         mxeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785987004; x=1786591804;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YAXCryH4oh6nQIKuZN3/aiZHSgXb6KFeGAGvPh2FRm4=;
+        b=V7hJKvV0Lfn4atbZ9MHcEmmBMrdld6ksc3sLrmkVCMenpF00QsEe5S1PBWaZIQLMyG
+         FRjuIsLfP2rWRhEdi7iirpth9AqNhoYYk0FYQSEt/puHPEbN6XY2NJDcjgbx2id19Dbg
+         fGmxS1xXO7ox6M3AF7/mfVY5n0INft6hxjqGtqOFzsrvZ91LVOiNE8YdCIgrwdhocgKd
+         W8wIChrH+fMb5FApaRpHRWM6DqbjhlSXlgxlse85JwfbmqMeTIpBVh1S8WbCgV/gS6Hg
+         s6c2dREzKcxrKjNblgivBHt3r/Gu66TQkmnBnrvfMRp/x0Z0fJ55PKe/av8WFCuKMIh2
+         cO7Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rqu+K+CIezrwb8uttnieN5rFGAqN45D09jsoQAXt8rvdMLffv6xXRJsZkV08QTiJYKE4Q/7RFX1uaD2@vger.kernel.org
+X-Gm-Message-State: AOJu0YxwOv30nSm4ioo1aoTk2y+WCmBGlieEhvI5uoj0xNLlQFHe8JMn
+	zEJ6yQ/Ekpqw4sfT6zm+DFu34hMDCdP/sL2AuWw1iPtCOxchrPgjFzlF
+X-Gm-Gg: AR+sD11LV/4O+Dcm2ArkgRNDNM16MgaIVEk/1g+R+J2TXYrw4ObCeWa9uZ8SLd16biY
+	mw2v8mhyReqvfDa1+l33mS0MZ2VX9w1TTbIf1yAPXRccx4lUgQW5+G03jAFHPhXzpwrzDnh20Kj
+	qdXemAIR25dwWpcJMVcmjNcPfbfbXJRFbGXxk17xDlC624D/bKsBECH4Kad7vOf1iKLK3eSvQmm
+	jQuizLXwEqelffgv9ZdRaqFlAT2VRAW34ovJ4zKmBAuUpi5Hz69pJfZF+tcjGPGEatZJ79bF2fA
+	OELsgJc/potlcaP9huViei34XAMD2HEgllX2fwXbis6+9w4VLe2tZejo1A5YrSzd/zMLpdRiFes
+	e+SskiRc6GtyovTJQjxaCyHpmR+ig/I23g+cmicpvmwUyPUu82sBFeThptTxG2Bni1/rjF6rduE
+	Wi1e4R7sK86Pa4hZqNzjzSn1qLSUpi3Y7vSUv5MOGYlB5GQ2jACbx2SMTPVpp8GwWkChRXXef7k
+	3HkdY6mm09vhj5VmD/aa63BnR9mWOiJlw1w+Gk=
+X-Received: by 2002:a17:90b:3f43:b0:38f:57f3:4dc6 with SMTP id 98e67ed59e1d1-3903c6798bdmr13404230a91.21.1785987004218;
+        Wed, 05 Aug 2026 20:30:04 -0700 (PDT)
+Received: from [172.20.10.2] (114-137-35-218.emome-ip.hinet.net. [114.137.35.218])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3903d2f9a9fsm2451155a91.1.2026.08.05.20.29.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 05 Aug 2026 20:30:03 -0700 (PDT)
+Message-ID: <4bde20c7-2496-8122-7e0c-4fd986a59232@gmail.com>
+Date: Thu, 6 Aug 2026 11:27:43 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v7 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
+ amplifier
+To: Mark Brown <broonie@kernel.org>
+Cc: Neo Chang <YLCHANG2@nuvoton.com>, lgirdwood@gmail.com, perex@perex.cz,
+ robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, alsa-devel@alsa-project.org, kchsu0@nuvoton.com,
+ sjlin0@nuvoton.com
+References: <20260804032951.1069901-1-YLCHANG2@nuvoton.com>
+ <20260804032951.1069901-3-YLCHANG2@nuvoton.com>
+ <479efa04-2c02-4b5d-8fdd-e3d4c6e49c4f@sirena.org.uk>
+ <7691eac8-5798-c1b5-5ffd-19c780b69a3f@gmail.com>
+ <fe60dbe2-0626-4d52-8be3-62445a35ddaf@sirena.org.uk>
+Content-Language: en-US
+From: YLCHANG2 <neo.chang70@gmail.com>
+In-Reply-To: <fe60dbe2-0626-4d52-8be3-62445a35ddaf@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Failure to enter HIBERN8 state is ignored before forcibly powering=
- down the M-PHY.
-- [High] Missing DME attributes configuration for TX lane 1 and inconsisten=
-t MIB selector usage.
-- [Medium] The retrieved connected TX lanes value is silently discarded.
-- [Low] Redundant and ineffective call to `ufshcd_vops_phy_initialization`.
-- [Low] The device tree references an undefined clock macro `CLK_APMU_UFS_R=
-EFCLK`, which causes a Device Tree compilation failure.
---
 
---- Patch [3]: [PATCH v3 3/3] riscv: dts: spacemit: k3: Add UFS support ---
-commit 7b2ecae3ba0ff920d65fce0475cce3fc5045f08d
-Author: Yixun Lan <dlan@kernel.org>
-Subject: riscv: dts: spacemit: k3: Add UFS support
+On 8/5/26 18:30, Mark Brown wrote:
+> On Wed, Aug 05, 2026 at 05:03:01PM +0800, YLCHANG2 wrote:
+>> On 8/4/26 23:58, Mark Brown wrote:
+>>> On Tue, Aug 04, 2026 at 11:29:51AM +0800, Neo Chang wrote:
+>>>> +	switch (clk_id) {
+>>>> +	case NAU8360_CLK_ID_INT:
+>>> Usually we don't have a lot of fine grained control of the internal
+>>> clock dividers of the device, things are a lot easier when the device
+>>> just figures out what it needs based on it's input clocks.
+>> To make sure I understand: Should we remove the internal clock IDs from
+>> set_sysclk and handle clock configurations automatically inside the codec
+>> driver?
+> That's ideal.
+>
+>> Does this mean we should avoid configuring them via the machine driver
+>> entirely? If so, what is the preferred way to handle clock fallback when
+>> playback stops or MCLK is absent
+>> (e.g., via PCM shutdown hooks or DAPM events)?
+> What do you mean by clock fallbacks here?  Presumably there's some clock
+> still running, if that's the only one running it's reasonable for the
+> device to switch over to it.
+Hi Mark,
 
-Add UFS Host Controller support for SpacemiT K3 SoC, and enable
-it both on Pico-ITX and CoM260-IFX boards.
+After further internal discussion with the team, we prefer to keep 
+NAU8360_CLK_ID_INT in set_sysclk purely
+for clock source switching to maintain consistency with other Nuvoton 
+drivers (e.g., nau8824, nau8825).
+In the v8 patch, I will remove all fine-grained clock divider 
+configurations from nau8360_dsp_hw_clk and nau8360_dig_sys_clk,
+leaving them to only handle source switching.
+Is this approach acceptable?
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k3.dtsi
-> index 19fc9b49668ed..cee1569608ea2 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> @@ -469,6 +469,28 @@ usb2_phy: phy@c0a20000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		ufshc: ufshc@c0e00000 {
-> +			compatible =3D "spacemit,k3-ufshc";
-> +			reg =3D <0x0 0xc0e00000 0x0 0x40000>;
-> +			clocks =3D <&syscon_apmu CLK_APMU_UFS_ACLK>,
-> +				 <&syscon_apmu CLK_APMU_UFS_REFCLK>;
-
-[Severity: Low]
-Does this reference an undefined clock macro?
-
-The device tree references CLK_APMU_UFS_REFCLK, but this macro appears to be
-undefined. Will this cause a compilation failure when building the device t=
-ree?
-
-[ ... ]
-
-> diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-space=
-mit.c
-> new file mode 100644
-> index 0000000000000..94942ea27fb7d
-> --- /dev/null
-> +++ b/drivers/ufs/host/ufs-spacemit.c
-> @@ -0,0 +1,687 @@
-
-[ ... ]
-
-> +static int ufs_spacemit_uniprov1p6_init(struct ufs_hba *hba)
-> +{
-> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
-
-[ ... ]
-
-> +		/* TX HB8_TIME CAP */
-> +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x64 },
-> +		{ UIC_ARG_MIB_SEL(0x000F, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1)), 0x64 },
-> +		/* RX HB8_TIME CAP */
-> +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x64 },
-> +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x64 },
-> +		/* TX EQ 3DB */
-> +		{ UIC_ARG_MIB_SEL(0x00CD, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),  0x5 },
-
-[Severity: High]
-Are we missing the TX EQ 3DB configuration for lane 1 here?
-
-The device tree specifies lanes-per-direction =3D <2>, but this DME attribu=
-te
-is only configured for TX lane 0. Could this leave lane 1 with undefined or
-default parameters and prevent successful 2-lane initialization?
-
-[ ... ]
-
-> +static int ufs_spacemit_link_startup_post_change(struct ufs_hba *hba)
-> +{
-> +	/* Add 0xe8 make UFS2.1 run GEAR3 + 2Lane@409M */
-> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
-> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x97 },
-> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0xd7 },
-> +		{ UIC_ARG_MIB_SEL(0xe8, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)), 0x17 },
-
-[Severity: High]
-Is the DME configuration for TX lane 1 missing?
-
-Similar to ufs_spacemit_uniprov1p6_init(), attribute 0xe8 is explicitly
-targeting only lane 0. Does lane 1 also need to be configured for 2-lane mo=
-de?
-
-> +		{ UIC_ARG_MIB(DL_AFC0REQTIMEOUTVAL), UFS_DL_AFC0REQTIMEOUTVAL_MAX },
-> +	};
-> +	u32 tx_lanes;
-> +	int err;
-> +
-> +	err =3D ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
-> +	if (err < 0)
-> +		return err;
-> +
-> +	return ufs_spacemit_get_connected_tx_lanes(hba, &tx_lanes);
-
-[Severity: Medium]
-Is the retrieved tx_lanes value meant to be used?
-
-The value of tx_lanes is populated by ufs_spacemit_get_connected_tx_lanes()
-but is then silently discarded when returning. Should this value be verified
-against the configuration?
-
-[ ... ]
-
-> +static void ufs_spacemit_post_hibern8(struct ufs_hba *hba, enum uic_cmd_=
-dme cmd)
-> +{
-> +	static const struct ufshcd_dme_attr_val setup_attrs[] =3D {
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x84 },
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x84 },
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x80 },
-> +		{ UIC_ARG_MIB_SEL(0xf1, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x80 },
-> +		{ UIC_ARG_MIB(0xdd), 0x57 },
-> +		{ UIC_ARG_MIB(0xdd), 0xd7 },
-> +		{ UIC_ARG_MIB(0xe8), 0x57 },
-> +		{ UIC_ARG_MIB(0xe8), 0xd7 },
-> +	};
-> +
-> +	if (cmd =3D=3D UIC_CMD_DME_HIBER_ENTER) {
-> +		ufs_spacemit_check_hibern8(hba);
-> +
-> +		ufs_spacemit_dme_set(hba, setup_attrs, ARRAY_SIZE(setup_attrs));
-> +
-> +		/* Power down M-PHY */
-> +		ufshcd_writel(hba, 0x0, UFS_PHY_MNG_BASE + UFS_MPHY_PU_CTRL);
-
-[Severity: High]
-Should we check the return value of ufs_spacemit_check_hibern8(hba) before
-powering down the M-PHY?
-
-If the HIBERN8 check times out and returns -ETIMEDOUT, the error is ignored
-and the driver unconditionally powers down the PHY. Can this cause a bus lo=
-ckup
-or hardware error if the M-PHY isn't actually in the HIBERN8 state?
-
-[ ... ]
-
-> +static int ufs_spacemit_init(struct ufs_hba *hba)
-> +{
-> +	int err =3D 0;
-> +	struct device *dev =3D hba->dev;
-> +	struct ufs_spacemit_host *host;
-> +	struct reset_control *rst;
-> +
-> +	host =3D devm_kzalloc(dev, sizeof(*host), GFP_KERNEL);
-> +	if (!host)
-> +		return -ENOMEM;
-> +
-> +	rst =3D devm_reset_control_get_exclusive_deasserted(dev, NULL);
-> +	if (IS_ERR(rst))
-> +		return dev_err_probe(dev, PTR_ERR(rst), "Failed to get reset control\n=
-");
-> +
-> +	host->hba =3D hba;
-> +	ufshcd_set_variant(hba, host);
-> +	ufs_spacemit_advertise_quirks(hba);
-> +
-> +	err =3D ufshcd_vops_phy_initialization(host->hba);
-> +	return err;
-> +}
-
-[Severity: Low]
-Is this call to ufshcd_vops_phy_initialization() effective?
-
-ufs_hba_spacemit_vops does not define the phy_initialization callback, so
-the wrapper function will silently return 0. Does this need to be called he=
-re,
-or is it redundant since the real PHY initialization occurs in
-ufs_spacemit_link_startup_pre_change()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-08-k3-ufs-=
-support-v3-0-037fb322acdb@kernel.org?part=3D3
