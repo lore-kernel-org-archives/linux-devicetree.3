@@ -1,394 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011047.outbound.protection.outlook.com [52.101.65.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7864F38757B
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 20:12:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786047167; cv=none; b=lVceFpzYinBy/0ex4mB2nGLcTT/MxEZOxmwh5iVxI++dtcfNi3FNe7t85eChKUGgLUFwdYlZ7+mneCssGB1VeLe5ee8oQRvwXlR9/otongaVmBWOJrln9UqLBKZXF3eCTDDAJWzMfTRH3tz1IqntcMaC/IrLtEupUK6Wb55Rpjg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786047167; c=relaxed/simple;
-	bh=IFQ+ydRkePuYTG1U/66BEp92nkrvv0T/Az1lDxC288M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LBXH8OyUyX9QXhcyQq/H1ZkgEMEi1c/Mx5LNcZIv62cp8Zt9rAEectyqPgqo8umDuWPwTB/hKXA62Ir8DhrI727rdg56TTrZ+abiBIUoQ71CYNRJuLdSNQ+8+PMISgzcTCNitZUTn/9mgHHnvqC/L1IbpUWMnqodyw/5qWyw300=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVRP/l2L; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20C444A41A;
+	Thu,  6 Aug 2026 20:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786047339; cv=fail; b=iktTBpp/cEO/2Z0Tsp88NjUjs/i2beLUh2RpVKQc5eXkhP96AxG70RnYaKPJCm+xZlBit/sag/zCNAN2ThGSR7F9JAiI53XXat5aJe/1G/UTHSv4wvTIKY+eCIxz05LeGA//eTAVVANWbDuyhNAIY9NeJaTByUnqpfa4V1w3Cso=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786047339; c=relaxed/simple;
+	bh=XhNi6T2dRoCu2L6QxQLb8B6temTkZFRg01fQtwFhz0A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Yi0p2u8Cvo6prLIe6uTLJrKVSkshBdiUUpO+ekt8gTM7JzXDUJ1Y6cGhPAZPNg+omqwBhQuwMZFyoftyc7uYGCAj+PqWp0ljm2QgXsmnWnkBVqBZkEHVwOd8YXdoc31VRSSBh12JHRFdM5uiSWwYfd6/dvRd5Pb12UpW9MSoH8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZB4uxF02; arc=fail smtp.client-ip=52.101.65.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVRP/l2L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12BEE1F000E9;
-	Thu,  6 Aug 2026 20:12:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786047162;
-	bh=6JTMeDu8keIPm1jJBSfT9IWC2FeYykkLp1LIP70P45A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MVRP/l2LgzzdZPLvOywbFvVj3bxpBmlPcTyQ4wR0rGnL1Uid8TFmgeGFhtZRiKyNY
-	 5oyUfPdcDr2JekpTn4thpDtha6NrTuFQ4ArVc9uHVFuWtsRM8TXd/frIBpCom76L4f
-	 aDfA38EGmE+mdlMPms3Rkp4Gl3LORWd5je6onFK8v/NDyVo3KOret+5Xi9NKIN97fs
-	 +KxKMDijmEaasskE6ZBnsORsgpMwC1/4Zjt9pXDzb7RcvZPMdRcDegE/mX+QjWh3N0
-	 sthntunyymrV+HGEPti3s2ICsZeZn4EorFGjZ+BY8QOpktH3/wut1C8VY9Vyo9r5fx
-	 +yUG/0/GzEp6A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/19] crypto: cmh - add ChaCha20-Poly1305
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Saravanakrishnan Krishnamoorthy" <skrishnamoorthy@rambus.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260806195519.2703224-11-skrishnamoorthy@rambus.com>
-References: <20260806195519.2703224-1-skrishnamoorthy@rambus.com>
- <20260806195519.2703224-11-skrishnamoorthy@rambus.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 20:12:41 +0000
-Message-Id: <20260806201242.12BEE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZB4uxF02"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=viSuJ95Zfgnhe6/wIanXPM0OzL4qL0RUbE3fDtou2gKTeDpeadDfE8U3YnfGXjD1g2XqjOAYg9cFp72pAeuo3anL6N5Hgz94GRYUJ5f+o7fx+IASsq0GBOOFxTVJtJ9kH0PbZ28zcoocEkBLn7oTNZ+9JVmHqGw0k7YqUPh2Zog4nO8rB0VfRHhff4U/xprhV9Q+WEBljs7Phw4v6Cdi4GxPdS5ey8Dj+l2JaAjW9PIQUt6aYSqfdyJgA+yRJo03TDLrbuxzjOFWjxYCj6pxj0h5sbzKuh7MV1atLEDCO129HAh06neUpL+qLj8HKzQiPDeFc7qkbwgEb4mHlt87ZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R0yP1Zjok3tLlEm52tZNyGBw3jeanj8TUEoDgGjAgVw=;
+ b=BfM2KG2qHQ1dBIyFRwyq0k6/eeinh5fz9VSGwvFZVgiThWjK5xOcUdi4z0jiS9i0xUCEYl918rdsDjSpwOesxy3lh+GzwpQ/o0DojdJs87ShWQmo2nhL1D3vn4GoxK3LjGuHxZODx30594747f4ifQzg/y9ykfAWIxtami8GOjEu0eydrgFz720X1UaWdfGUlWnRc31aELUtqfgqVq5N/ga9RygH42ds3nMk6eswbp09UgBBoFp+RixhMp7piW1oEjYelDMcJWQmfO6I1qbo42kt9rshtrn5VBY0Wf+SJdYjzr+WCU1SVjcqIurgjS9iZjAQsHtnyCPC2j6Yx3igYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R0yP1Zjok3tLlEm52tZNyGBw3jeanj8TUEoDgGjAgVw=;
+ b=ZB4uxF02IeAkR2mwn5Yef8uNpEz8Z7LQT2kQwzbmfnUerWJlw940mJ6p0Yz9CMM0WQ9ovOOlVtFmJTq2HnzAKaibeW71kq0T9mU0Avq6L4B4RAFFe81QLMEeI5hylnDbmF5ucPxXvMiITqSqsCGK8racGFEzZy3zkvCLLCMCDXB9VJdkF/TAX7L2M5jau4cy15U2uT9fbbWKOOxMxfXQdZN2M4fM7hrO/6rZg9VZmoIb7hl1MmrVHZXhZrazhs3a2LnImpEnRNC5JNwm6e9hYfDDnMxgvqrgtZ05b5RJpjSoxlRtBevAK8cyT9HEPZVvQia7jq/rvHyUDDus2H/3aA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM8PR04MB7348.eurprd04.prod.outlook.com (2603:10a6:20b:1db::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 20:15:09 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 20:15:05 +0000
+From: Frank.Li@oss.nxp.com
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Ye Li <ye.li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>,
+	Dong Aisheng <aisheng.dong@nxp.com>,
+	Joy Zou <joy.zou@oss.nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: (subset) [PATCH v2 0/3] regulator: handle regulator late cleanup race with PM suspend
+Date: Thu,  6 Aug 2026 16:14:57 -0400
+Message-ID: <178604727298.445929.15032768759800271000.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260731-b4-regulator-pf01-v2-0-a406c8737fdb@oss.nxp.com>
+References: <20260731-b4-regulator-pf01-v2-0-a406c8737fdb@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH8PR20CA0019.namprd20.prod.outlook.com
+ (2603:10b6:510:23c::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7348:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c670861-dad3-4d4b-2fa2-08def3f767c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|19092799006|23010399003|11063799006|56012099006|10067099003|6133799003|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	m+7EfFAZ+DHPNwqIsfunNf2CcBkWH1imPPczduRnsx79xsTFko54E2A3L67rihy1wa6RYA9gySMfpCS5MGm12STe2rosgs8ZVY9DqUTwhCdWkdDJAC6twQswFxSE+nTCYXoaoXv3PZXTL4YLb/qy2HUZGaUxe3A5Ha6l+wcMjBTkYnHy7rZ1XfqYwachJIey//FJQnAjUOAJL3k759xvZXfXv5MSQ9ilqTf8ip7jiO73kNxF0tc53RkAD4VH1MPiTlrHjTb8wkoP43wkE9YFihS7yYEaqZc+Hb4UT8Y0/wST5Vcas9svjaWQzivBrLZde2chkW9EJrKLA3hvFSpz41gonHJ8mT2L1HlKAGsMhNkMtfMTq0Z83HSGuj4UBIJ/0G5wR6z2O6TI3ALPWJ5lQw7GKGnmAYUuXBgdrdsNfHlHErg2KVjhB3xyKHz47wY/3vopi5nrAiCm9AwD8KFhwr8PWmVp0dx9/Ccmkix6ARh7yfsVWooacF8MTaTPJU8EuQ0hSdVR+v06DS9Lw4dmmOyNdkXpMmc/cuafondnNnkFNjJK/OKlUHeLnd5oXkCmZlRCB2dBC+k/eSobzZ5jm1vEWnMUrBe0PG/N3SH5Qr8aSPmDHWPqqnuLY8/D2AKCSw29sjRPJ06pCjBjHgUmvS0KPnoanV1FmuKWVOvvYTSLInKb8UhTXylE07zLjARn2H1Bvh9FOg+eCBENofrS9A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(19092799006)(23010399003)(11063799006)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eUFwMXp4VTZCSHB4N2lPUE9kSWh4SlNUZURxeUVrV1hOTGptdEFOU29sSlFh?=
+ =?utf-8?B?RnRRZ1d1QUtVK1Rpa09hRDAvN09NaEdDNFVxbjJ3MmJ3N3Q3dXNmU1Q4WHhB?=
+ =?utf-8?B?dmdyanlUaS9tVi9XUDZianE3MUJsMHc0RFNLSnpDN1pid1N0VHVKWVBoRHBV?=
+ =?utf-8?B?Qkx2YTBOL0ZLKzZjRWlHZmFhL2xnZUhjbVJtSC9XZnBQWUxxTUdtME15bnF4?=
+ =?utf-8?B?T2V1YlZMTk55R2ZJK2ZiTld3OW5lV2hJM3VUSFVCSU8vUnovYU5jVTVZa1Vy?=
+ =?utf-8?B?cytFajZZQ3FNd000U3RDYWtZdGpkOHdqb21kM3NVVHdOT1JOY2FHZkpDNkRK?=
+ =?utf-8?B?aVY5bXREcGFMVTFudEVQQ1hZVFNqRGJUV0Qzdi9Lak1lWGFidmk2bGJvM0w0?=
+ =?utf-8?B?bEV2eDBUVVNjOTgySSt2MTRqZE9NbUVJbVFoTWMybHh5Zm9Yamc3VG5sR3Vx?=
+ =?utf-8?B?MzBGM21ZSS8rL091K3JaRXU0ckp6dUM3RlovNThLZGY5RVArc1VPNjc2cnc3?=
+ =?utf-8?B?UUEvQXc3V3JIdlRaSGFQa1U3NW9aR1BzVVN5amVIcU5YMGhSNzdYWUVMMUdk?=
+ =?utf-8?B?dTdJdEJxQ09UeWxmbGY1VVZoYUVGbUIxUzMyU1ZsTFN5dlkzQTNrSkhXVmNV?=
+ =?utf-8?B?TENZU21kdzIyM3pjQUZPKzRUeWhWYU5yakVpdktnUk5hVG5hTmFINU5HWG5G?=
+ =?utf-8?B?Y3Vvb0hPdGZFcEZVMTlTano3UXhpZmRtYmU5Y1pFRFNmU2QxbXlLOTNtRXZo?=
+ =?utf-8?B?R0F1RnFXbSt3dHA1cEsxWlcvaElhTmsrQnNIRzRPdFRwc3lUSVlkVThuREFj?=
+ =?utf-8?B?Y1dXR3cwY1NibFdvUEk2S3ZkKzh5RWtVY0tzVDdDNjB3NmlxYW4xUjh4UW9w?=
+ =?utf-8?B?WEtOSktTQ0hiVHBwV0hYNjJobFFkNGNlUC95NEhQTFRZelZ0eEhSZVZTRXUw?=
+ =?utf-8?B?U05MaVJWSnZLQ05SNkVXSFpJQ1ZmcFg5YWtZalpSZ0pMMHI0VndWS0d1NU5r?=
+ =?utf-8?B?a1B6RXZGYWFRYTViaEM3ejVORlkrdTV6K1MyaVdOcmk0R25JWkY4TkVQcCtK?=
+ =?utf-8?B?T0NGZFVTUXpmMHB6MDVHZEU0OExnUXdkNmlWQ2I0bGgvbzB2RGg3V3JGcVk5?=
+ =?utf-8?B?am5yTG9GZENKd2ZEcVA2eXZVcXAzb25SWkxrWDVYVUhjV3orVVZlMEZSd2Zh?=
+ =?utf-8?B?VTNVU0ZWeHNuenQ3L3BiSzdTemFETFh3ZVNTa1d0eEhuUWVMRmtmNytzbEdr?=
+ =?utf-8?B?OTBucGJuSHloaDNkSWxuNll0WnZrTkNkUytsdlg4Ryt6QVM5TC9YbU9LMWY2?=
+ =?utf-8?B?dlozZnRKSzhiYVFhbnZDZWxDTk1iQTU2aGtQT1dYNXU1bkxoY3J5TERBVmpD?=
+ =?utf-8?B?V1RQYXpWYi9HZXAwK3AraHlkWnR3a1RWUkQ1bEhXOGc1Q0xVZGdTWXVJaWtK?=
+ =?utf-8?B?a1hocWlQQyswQVNMK3N5YnJ1N0VyUWp1NGMrWGcrU1hJc01pVVJ1YngyaElW?=
+ =?utf-8?B?UExzc01zQ0Y0ZmUvRGRwRkhkVFZXRmJSa0RKSXpsekZZYmlhd3ZvTWplTE8w?=
+ =?utf-8?B?cmpvWDVPbHM3MFV3YmF1TkRwWmFCZXpFa2J5NG9ZR001WWpaQ3ZzZUI5VFNO?=
+ =?utf-8?B?QjhnQm5XOEV1ODk5WjRtMnhkMTl2RHJIMXFraFVyMHl1by9Va0lWV3Q0U0dz?=
+ =?utf-8?B?S2lGSHFpS2tVV292bkV4c3B2M3JuSWxFY1VoM1FDOFRuaDBRZjYvV0M5T1Nl?=
+ =?utf-8?B?UUszVkltcjRFTFVRQjdnOG5PZmJ0UHVFOGpOM1gzaEZUL282Zy8yM2dtWnE5?=
+ =?utf-8?B?a2QvOFYxRFIrUDBLUVJqWEY1VXpISk1ZNzJOZ3BGeStlSUpGaXFMaTltem5n?=
+ =?utf-8?B?bmdvR3JMVWQrVTRzMzRzcmRIaGtTZjcxRW5MU3NQM2hEZE4rRDZQQ1A4R3dQ?=
+ =?utf-8?B?UGFRRXR1ditJeDRRMVBLRklDSDNIekcxNE1rb0Q4REkrSE4zWUFjVXdBTUJj?=
+ =?utf-8?B?ayswUzJRaW1MbytTdVlpT1czNHZ1ZmdSa3J3MkQ2RDVEcTRxWGVMVW4zb0FM?=
+ =?utf-8?B?VVZqc3haWjJGMndkUTdaSHE3YWpvL2xObGtWc0c0UW52eFM3QVVSMlBnYTVr?=
+ =?utf-8?B?aTFHRHFQZkVlK2FpWFNHdzdDeDBWbGVvSWovanU1b1ltSm4yNTB5U2JhZFBN?=
+ =?utf-8?B?Y2kzY1IvRE5rMHRGTzJhWWhMVGlwWUhVdTczQTViSld6QXo1eXdQZDk0RFFK?=
+ =?utf-8?B?MkRTZ3NBU0M5N3V4MnRCL0I5bkM2dElsQ1dPckdPb0ROcyttbjEva3lhcmpF?=
+ =?utf-8?B?U3U4ek81c21hQVo0bUtEdnFtS0VJS0QzazdEQVY4eGdCeExwZndBTHJKNFNv?=
+ =?utf-8?Q?Fi6zi/Xat82ijlUcjHbcSSCWMVW4TU7q4t7l5?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c670861-dad3-4d4b-2fa2-08def3f767c5
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 20:15:05.8363
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: huFe5JmPk8eRcjcs4GaHkHg+vwE1MmyNq5smbG+BhdCAwR2mv17iP6m0ZudvCP740wglgiNA90kp/J+BpIFTyAxEuZFkfuHTJw4CFl+sAai07NqvJ6THF+mvhFbvz32h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7348
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] The Poly1305 driver dynamically allocates memory chunks for ahash =
-requests which are permanently leaked when a request is aborted, re-initial=
-ized, or imported, leading to an unbounded memory leak and Denial of Servic=
-e (OOM).
-- [High] The driver maps an unaligned memory offset for DMA and shares a ca=
-cheline with frequently CPU-mutated fields, violating architecture cachelin=
-e alignment rules.
-- [High] The driver allocates huge contiguous buffers (up to 1MB) using `km=
-alloc` without `__GFP_NOWARN` in potentially atomic contexts, which will re=
-liably trigger page allocation failures.
+From: Frank Li <Frank.Li@nxp.com>
+
+
+On Fri, 31 Jul 2026 18:21:42 +0800, Joy Zou wrote:
+> The regulator_init_complete_work fires ~30s after boot to disable
+> unused regulators via I2C. When this work races with PM suspend, the
+> I2C adapter may already be suspended, causing a -ESHUTDOWN warning
+> dump.
+>
+> This series addresses the race and adds proper suspend power
+> management for unused LDO regulators.
+>
+> [...]
+
+Applied to imx/dt64-indend, thanks!
+
+[3/3] arm64: dts: imx8mq-evk: add regulator-off-in-suspend for VGEN1/VGEN6
+      commit: 806ce18b1a6d8c514b174439e7ad462ca88f55d8
+
+Best regards,
 --
-
---- Patch [10]: [PATCH v3 10/19] crypto: cmh - add ChaCha20-Poly1305 ---
-commit 736bbd76828dea383bcdcc54143a0030ecd02a41
-Author: Alex Ousherovitch <aousherovitch@rambus.com>
-
-crypto: cmh - add ChaCha20-Poly1305
-
-Register ChaCha20-Poly1305 AEAD and ChaCha20 skcipher algorithms
-using the CMH CCP core (core ID 0x18).  Also registers the Poly1305
-ahash for standalone use.
-
-> diff --git a/drivers/crypto/cmh/cmh_ccp.c b/drivers/crypto/cmh/cmh_ccp.c
-> index 0000000000000..babf6ffe6ff09
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_ccp.c
-
-[ ... ]
-
-> @@ -175,34 +175,34 @@ static int cmh_ccp_crypt(struct skcipher_request *r=
-eq, u32 ccp_op)
->  	struct crypto_skcipher *tfm =3D crypto_skcipher_reqtfm(req);
->  	struct cmh_ccp_tfm_ctx *tctx =3D crypto_skcipher_ctx(tfm);
->  	struct cmh_ccp_reqctx *rctx =3D skcipher_request_ctx(req);
->  	struct vcq_cmd cmds[CMH_CCP_MAX_PAYLOAD];
->  	u64 key_ref;
->  	u32 keylen;
->  	struct core_dispatch d;
->  	s32 target_mbx;
->  	u32 core_id;
->  	u32 idx;
->  	int ret;
->  	gfp_t gfp;
-> =20
->  	if (tctx->key.mode =3D=3D CMH_KEY_NONE)
->  		return -ENOKEY;
-> =20
->  	if (!req->cryptlen)
->  		return 0;
-> =20
->  	/* Limit linearisation buffers to avoid large allocations. */
->  	if (req->cryptlen > SZ_1M)
->  		return -EINVAL;
-> =20
->  	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
->  	      GFP_KERNEL : GFP_ATOMIC;
-> =20
->  	memset(rctx, 0, sizeof(*rctx));
->  	rctx->cryptlen =3D req->cryptlen;
-> =20
->  	/* Linearise input from scatterlist */
->  	rctx->in_buf =3D kmalloc(req->cryptlen, gfp);
-
-[Severity: High]
-Does this code risk triggering reliable page allocation failures?
-
-In cmh_ccp_crypt() (drivers/crypto/cmh/cmh_ccp.c), since cryptlen can be up=
- to
-1MB, calling kmalloc() with GFP_ATOMIC for high-order allocations is highly
-susceptible to memory fragmentation and will fail frequently.=20
-
-Since __GFP_NOWARN is not used, these failures will also spam the kernel log
-with stack traces, causing a denial of service.
-
-[ ... ]
-
-> diff --git a/drivers/crypto/cmh/cmh_ccp_aead.c b/drivers/crypto/cmh/cmh_c=
-cp_aead.c
-> index 0000000000000..df5482179bdc4
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_ccp_aead.c
-
-[ ... ]
-
-> @@ -235,36 +235,36 @@ static int cmh_ccp_aead_crypt(struct aead_request *=
-req, u32 ccp_op)
->  	struct crypto_aead *tfm =3D crypto_aead_reqtfm(req);
->  	struct cmh_ccp_aead_tfm_ctx *tctx =3D crypto_aead_ctx(tfm);
->  	struct cmh_ccp_aead_reqctx *rctx =3D aead_request_ctx(req);
->  	struct vcq_cmd cmds[CMH_CCP_AEAD_MAX_PAYLOAD];
->  	u64 key_ref;
->  	u32 keylen, authsize, cryptlen;
->  	struct core_dispatch d;
->  	s32 target_mbx;
->  	u32 core_id;
->  	u32 idx;
->  	int ret;
->  	gfp_t gfp;
-> =20
->  	if (tctx->key.mode =3D=3D CMH_KEY_NONE)
->  		return -ENOKEY;
-> =20
->  	authsize =3D tctx->authsize;
-> =20
->  	if (ccp_op =3D=3D CCP_OP_ENCRYPT) {
->  		cryptlen =3D req->cryptlen;
->  	} else {
->  		if (req->cryptlen < authsize)
->  			return -EINVAL;
->  		cryptlen =3D req->cryptlen - authsize;
->  	}
-> =20
->  	/*
->  	 * HW uses a proprietary LLI scatter-gather format that is
->  	 * incompatible with struct scatterlist, so the payload is
->  	 * linearised into contiguous buffers for DMA.  Cap total
->  	 * size to prevent excessive memory consumption.
->  	 */
->  	if ((u64)cryptlen + req->assoclen > SZ_1M)
->  		return -EINVAL;
-> =20
->  	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
->  	      GFP_KERNEL : GFP_ATOMIC;
-> =20
->  	memset(rctx, 0, sizeof(*rctx));
->  	rctx->cryptlen =3D cryptlen;
->  	rctx->assoclen =3D req->assoclen;
->  	rctx->authsize =3D authsize;
->  	rctx->encrypting =3D (ccp_op =3D=3D CCP_OP_ENCRYPT);
-> =20
->  	/*
->  	 * rfc7539esp: the last ivsize (8) bytes of the AAD region are the
->  	 * IV/nonce, not actual associated data.  Subtract them so HW only
->  	 * authenticates the real AAD.
->  	 */
->  	if (crypto_aead_ivsize(tfm) =3D=3D CCP_ESP_IV_SIZE) {
->  		if (rctx->assoclen < CCP_ESP_IV_SIZE)
->  			return -EINVAL;
->  		rctx->assoclen -=3D CCP_ESP_IV_SIZE;
->  	}
-> =20
->  	/* Linearise AAD */
->  	if (rctx->assoclen > 0) {
->  		rctx->aad_buf =3D kmalloc(rctx->assoclen, gfp);
->  		if (!rctx->aad_buf)
->  			return -ENOMEM;
->  		scatterwalk_map_and_copy(rctx->aad_buf, req->src,
->  					 0, rctx->assoclen, 0);
->  		rctx->aad_dma =3D cmh_dma_map_single(rctx->aad_buf,
->  						   rctx->assoclen,
->  						    DMA_TO_DEVICE);
->  		if (cmh_dma_map_error(rctx->aad_dma)) {
->  			ret =3D -ENOMEM;
->  			goto out_free_aad;
->  		}
->  	}
-> =20
->  	/* Linearise input */
->  	if (cryptlen > 0) {
->  		rctx->in_buf =3D kmalloc(cryptlen, gfp);
-
-[Severity: High]
-Does this face the same allocation failure risk as in cmh_ccp_crypt()?
-
-In cmh_ccp_aead_crypt() (drivers/crypto/cmh/cmh_ccp_aead.c), with allocatio=
-ns
-up to 1MB and GFP_ATOMIC context, high-order memory allocations could fail=
-=20
-easily and produce large stack trace spam without __GFP_NOWARN.
-
-[ ... ]
-
-> diff --git a/drivers/crypto/cmh/cmh_ccp_poly.c b/drivers/crypto/cmh/cmh_c=
-cp_poly.c
-> index 0000000000000..0f783a98d54de
-> --- /dev/null
-> +++ b/drivers/crypto/cmh/cmh_ccp_poly.c
-
-[ ... ]
-
-> @@ -62,14 +62,14 @@
->   */
->  struct cmh_poly_tfm_ctx {
->  	u8  key[POLY1305_KEY_SIZE];
->  	dma_addr_t rkey_dma;
->  	dma_addr_t skey_dma;
->  	u32 keylen;
->  	bool has_key;
->  	spinlock_t         chunk_lock;  /* protects all_chunks */
->  	struct list_head   all_chunks;  /* orphan-safe chunk tracking */
->  };
-
-[Severity: High]
-Can this structure layout cause data corruption on non-cache-coherent=20
-architectures?
-
-In struct cmh_poly_tfm_ctx (drivers/crypto/cmh/cmh_ccp_poly.c), the key arr=
-ay=20
-is mapped for DMA. Since it shares a cacheline with chunk_lock and all_chun=
-ks,=20
-CPU modifications to these fields could be lost or corrupted during DMA cac=
-he=20
-clean/invalidate operations.
-
-[ ... ]
-
-> @@ -144,32 +144,32 @@ static int cmh_poly_setkey(struct crypto_ahash *tfm=
-, const u8 *key,
->  			   unsigned int keylen)
->  {
->  	struct cmh_poly_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
-> =20
->  	/* Poly1305: exactly 32 bytes (r[16] + s[16]) */
->  	if (keylen !=3D POLY1305_KEY_SIZE)
->  		return -EINVAL;
-> =20
->  	/* Unmap old key DMA if re-keying */
->  	if (tctx->has_key) {
->  		cmh_dma_unmap_single(tctx->rkey_dma, CCP_POLY_KEY_SIZE,
->  				     DMA_TO_DEVICE);
->  		cmh_dma_unmap_single(tctx->skey_dma, CCP_POLY_KEY_SIZE,
->  				     DMA_TO_DEVICE);
->  	}
-> =20
->  	memcpy(tctx->key, key, POLY1305_KEY_SIZE);
->  	tctx->keylen =3D POLY1305_KEY_SIZE;
-> =20
->  	/*
->  	 * Pre-map both key halves for DMA.  The key buffer lives in
->  	 * the tfm context and is stable until exit_tfm() or re-setkey.
->  	 */
->  	tctx->skey_dma =3D cmh_dma_map_single(tctx->key + CCP_POLY_KEY_SIZE,
->  					    CCP_POLY_KEY_SIZE,
->  					     DMA_TO_DEVICE);
-
-[Severity: High]
-Does this break architecture alignment rules?
-
-In cmh_poly_setkey() (drivers/crypto/cmh/cmh_ccp_poly.c), mapping tctx->key=
- + 16
-(CCP_POLY_KEY_SIZE) means the buffer offset isn't ARCH_DMA_MINALIGN aligned.
-
-[ ... ]
-
-> @@ -245,15 +245,15 @@ static void cmh_poly_fb_forward(struct ahash_reques=
-t *req,
->  				struct cmh_poly_reqctx *rctx)
->  {
->  	if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
->  		poly1305_update(&rctx->fb_state, req->svirt, req->nbytes);
->  	else
->  		cmh_poly_fb_feed_sg(&rctx->fb_state, req->src, req->nbytes);
->  }
-> =20
->  static int cmh_poly_init(struct ahash_request *req)
->  {
->  	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
-> =20
->  	memset(rctx, 0, sizeof(*rctx));
->  	INIT_LIST_HEAD(&rctx->chunks);
->  	return 0;
->  }
-
-[Severity: High]
-Does this leak any chunks accumulated in a previous update call?
-
-In cmh_poly_init() (drivers/crypto/cmh/cmh_ccp_poly.c), if this function or=
-=20
-cmh_poly_import() is called on an active request, the memset() overwrites t=
-he=20
-rctx->chunks list head, silently orphaning any existing chunks and leaking=
-=20
-memory.
-
-[ ... ]
-
-> @@ -262,35 +262,35 @@ static int cmh_poly_update(struct ahash_request *re=
-q)
->  {
->  	struct crypto_ahash *tfm =3D crypto_ahash_reqtfm(req);
->  	struct cmh_poly_tfm_ctx *tctx =3D crypto_ahash_ctx(tfm);
->  	struct cmh_poly_reqctx *rctx =3D ahash_request_ctx(req);
->  	struct cmh_poly_chunk *chunk;
->  	gfp_t gfp;
->  	int ret;
-> =20
->  	if (!req->nbytes)
->  		return 0;
-> =20
->  	/* Already handed off to the library: forward directly (O(1) mem). */
->  	if (rctx->switched) {
->  		cmh_poly_fb_forward(req, rctx);
->  		return 0;
->  	}
-> =20
->  	/*
->  	 * Exceeding the HW input cap: switch to the Poly1305 library
->  	 * (replaying the buffered chunks) rather than failing, then
->  	 * forward this update.
->  	 */
->  	if (req->nbytes > POLY_MAX_DATA - rctx->total_len) {
->  		ret =3D cmh_poly_switch_to_fb(req);
->  		if (ret)
->  			goto err_free_chunks;
->  		cmh_poly_fb_forward(req, rctx);
->  		return 0;
->  	}
-> =20
->  	gfp =3D req->base.flags & CRYPTO_TFM_REQ_MAY_SLEEP ?
->  	      GFP_KERNEL : GFP_ATOMIC;
->  	chunk =3D kmalloc(sizeof(*chunk) + req->nbytes, gfp);
->  	if (!chunk) {
->  		ret =3D -ENOMEM;
->  		goto err_free_chunks;
->  	}
-> =20
->  	chunk->len =3D req->nbytes;
->  	if (req->base.flags & CRYPTO_AHASH_REQ_VIRT)
->  		memcpy(chunk->data, req->svirt, req->nbytes);
->  	else
->  		scatterwalk_map_and_copy(chunk->data, req->src,
->  					 0, req->nbytes, 0);
->  	list_add_tail(&chunk->list, &rctx->chunks);
->  	spin_lock_bh(&tctx->chunk_lock);
->  	list_add_tail(&chunk->tfm_node, &tctx->all_chunks);
->  	spin_unlock_bh(&tctx->chunk_lock);
-
-[Severity: High]
-Does this leak memory if the request is closed by userspace before final() =
-is=20
-called?
-
-In cmh_poly_update() (drivers/crypto/cmh/cmh_ccp_poly.c), if an unprivilege=
-d=20
-local attacker uses AF_ALG to hash data, calls update(), and then closes th=
-e=20
-socket, the crypto ahash API has no .freereq callback to clean up.=20
-
-The chunks allocated here will be orphaned and remain on tctx->all_chunks=20
-indefinitely until the TFM is destroyed, leading to an unbounded memory lea=
-k=20
-and system OOM.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806195519.2703=
-224-1-skrishnamoorthy@rambus.com?part=3D10
+Frank Li <Frank.Li@nxp.com>
