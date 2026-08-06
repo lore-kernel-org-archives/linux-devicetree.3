@@ -1,154 +1,105 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2393E9F60
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:30:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 983613EAC61
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:33:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786008634; cv=none; b=UZ23Hevo7YEfHYr9gecQ0P3ftEBF6sreq7OMDeefwigxTzHovRiKaCLjqHUBTTrJ8Mw5moMxkfMebdajuyMLKUBLKiY1BX4D1bT3EmuSBRFfMjAXRWgHtbJh6ieyZgfHkZ8KhrgJZLfC+TcmqiG7DaxhyzaF82SNvEutbjmDdO0=
+	t=1786008829; cv=none; b=prXkLQZgbLiDDhJJYjlaKOfjw3z0fzRj8UM4l4rUfuRyNSwkEDwuAIjWdUO3lzGPfo4cld6DxHy0bEIKtB2ZIdkHlqY6uJpHYu2nF6PpBo7P0G+/WVihJRxjbOkOtULtXRtQKo7bVbdjswPQYi0BxiY8tcfms6yCtD1kjnt2aQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786008634; c=relaxed/simple;
-	bh=JhF9EmqILUf+L0nuX1tHuBe1NXfMGY1V4yo/37P2x0A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PAPaqZvlAD9A3ZH4QRPfMpVk2ShazBXkvhf1jd2DX7oSRDZpZjH2wo3UneCJ/oRfWvfzX1B8ZV/PUjLX3s+8X0YVJpbUEwDNFUHbgK0IZhG0j3dVBb0aTUfR2uPdABKKba8tq7iQ3e4C2XX65zOtMb6pJ9tBGRhmn42G1Qi6HXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KuXqbLlg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bbg3SUnZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786008829; c=relaxed/simple;
+	bh=iIDciSgbECrgdF3SO2+r3qm/qCnx813s3Up6Oz7OyNg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BTui2eHpfvqmDEvdfH076K+XhNh5o6x+lD3sg+jkTSLPIwwVDjR82V2zndtP1btuHVKSkwb7L836XcclgQvYbcIiOOasjaKlGuQuIepjyN+BW167+zUBmyC8lKFAb6PsJ8asFltKq1AvrHMCqOxU5WeXDmiAtkJhjhdxRMFApRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJt2dl5y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KuXqbLlg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bbg3SUnZ"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67694whQ2618504
-	for <devicetree@vger.kernel.org>; Thu, 6 Aug 2026 09:30:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=CBB0LkAbyS99ycMnXEmjA2Yw
-	5k60EnyvQkBRK6doMHQ=; b=KuXqbLlgAPFu7qU5Ma+mOyO3YAtkguXfdT2yXG/i
-	O4vjmzD8xsKtQhvw3qfXZYdOBaO0ZbKn853xvZC+DEd99CoI8EzKvFSDfiB60VaN
-	eYawluzA6xjI3O9tMVYqS13yPnHTWXcsgD70FNSfAyBrnwMNQqGipxFw2r2rlOl4
-	DUhl3s97vY8feuTR9FY64Rh/uOlFjvRx80iuee2TKWtK67w9BUSrNchulhdVzgMQ
-	lcQlgwaVrfUAeiq6/Ebb8aDVKII4bPmqtAcx5MC641nWSqAktwSGUyaozNPYBb1w
-	W3dIfu6AQ0s1fFAYzzbbwAWyL0fGh2zZYS8iZCy/iz2Z/A==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv9dmkf4g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 09:30:32 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51ebdfceddcso21346651cf.3
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 02:30:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786008632; x=1786613432; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CBB0LkAbyS99ycMnXEmjA2Yw5k60EnyvQkBRK6doMHQ=;
-        b=bbg3SUnZi01QMBChBvQZld9G3QcNM1mTTdgFj9qAv9YjBGq9RcIg2G43FRfPKokNki
-         3+o+UItwPRZ4p63hSOsuprLDzSvUaVS7nSbX3JtHu4j0iXDiX5tkBSJuQupDEPKU+koN
-         ahoBpCcF4j/tz1Uv60ZyGKBKNzHiz5waC2fXGrsaIRUEmbheM5ppGM1mj9Gi/r/X1bao
-         hOIozBpAAqYriIB8igr9Ly2G3Qkfgjcv9yjbqBEPSyv7ysEr0kTizy6KdVwvvUBPHeEC
-         6n4Rbqlo7rftafs1p/5y1xpXXMp7NNl1OgEFj/UWL4jSISOR25TEweGWZVX1F72m6tlu
-         N5fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786008632; x=1786613432;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CBB0LkAbyS99ycMnXEmjA2Yw5k60EnyvQkBRK6doMHQ=;
-        b=OJ1EWGqif8XrGiV3vFvOsm4e4PuOw8duD6X/jb6UzZZonzIf4M+kYt67O6hmjScC7Z
-         hdS+uhLRAsL0KeJwH/8CuM/noaFG8fs4MSkdumi/wKYBUqus1AQs67S7ocxRdt4emQw+
-         1GwGdYp4W8h7RiEX2cms/8DQM8jLCUR2rRSye8/oU1Q4PGbBlwPpnr33J65O6tgzcj1F
-         XhOBf53vlmMd56DJcnZvgSsYs3NQFUL0XigNv2JBmcOTS6JNkKTWuIwYQvjI7/IIireG
-         HBHgbENLIDStyNwDulylFLk8e08Qv6Vbk5dOAV66ChOJYOJB57B+oPM9oMZ9t3bd9HDi
-         7RDg==
-X-Forwarded-Encrypted: i=1; AHgh+RrRbwiCZeYIPrp1fany+3PHfNhbh7ag+kLlLhAwkjwJCen3ABN04o5ySTpqkAR3+a2EXL+m4Nh/kx5a@vger.kernel.org
-X-Gm-Message-State: AOJu0YxkW0L410oKeRzgRhtfWa09uHapu7rYxoQoCvJvoO8OrWqiD8f2
-	G2SMUSDOM2tJGhiZissrg05lHj9Yu6vSa6AG5cWRkgm7rVVCjkwWtKT3YOGvLMxu492CEqv0aA6
-	qKqGUhIQHa5012zQHAMdckEtsbGTy94Hk/15F8Y3wv43vZSkmv9vm78YdM9K/Y+mUhwmJH+HN
-X-Gm-Gg: AR+sD12wwsEABJFfhu5vyRoXmAYQrOam2OwjA8N3OmQcwjsPdphVyoNqD9p98UCzHJR
-	bxHagb360MLkEC4qWFK5eZV+nO7804eElZnJhcS5SiK5rD66W4S51ErFNoGVve/ZrlHYM9V3uOt
-	lSYQVjzLGrP6QMnxw0MhTb1mcFrpPozeGiEp1wKSs/r4q5jCTcjTSEljkNprxEDCH8ONtRd4FyN
-	R2gwFIZyY82FrgwlaPmIsMCObDbIg+jBVZCCpFalEMHVFq23l40gFObPbiiMHDRY11ZryS5zzTr
-	wTHBfVO9GzlpCnq4FM3iEKm5/0LYsyvBd6VNML5VlfIynx/tEHlYG9CVF75uTBTlSAOMAQNRpYo
-	ebaeYVOX7YbGmGJyi+MvetsqW4bXiGPcmR4uW43s/Zc1+a/i2SP3Pg7ykGNppEZ7Go5OKv5WRuo
-	BP8pQd8cPiNs8KgQ==
-X-Received: by 2002:a05:622a:124d:b0:51c:1241:3b09 with SMTP id d75a77b69052e-52ce61cbc9fmr150684901cf.39.1786008631861;
-        Thu, 06 Aug 2026 02:30:31 -0700 (PDT)
-X-Received: by 2002:a05:622a:124d:b0:51c:1241:3b09 with SMTP id d75a77b69052e-52ce61cbc9fmr150683791cf.39.1786008631130;
-        Thu, 06 Aug 2026 02:30:31 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2f6235e88sm609809e87.11.2026.08.06.02.30.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 02:30:29 -0700 (PDT)
-Date: Thu, 6 Aug 2026 12:30:28 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Radu Rendec <radu@rendec.net>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 2/3] irqchip/qcom-pdc: Add purwa compatible for PDC
- secondary mode
-Message-ID: <6yqu2hranp442yqwauvvfa2tbbx7zg2riq4dvwuvzf53ywnjze@u22iowcilcu5>
-References: <20260806-purwa-pdc-v4-0-62467f4b4ddc@oss.qualcomm.com>
- <20260806-purwa-pdc-v4-2-62467f4b4ddc@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJt2dl5y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC7421F000E9;
+	Thu,  6 Aug 2026 09:33:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786008828;
+	bh=hmtQG9egTMopcqqu08MkETz8jaJvgMsgY2mH4rnrHJA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LJt2dl5yDnLCD1twMW8qMdKrOg+WI9R2lpyojuNO7kpCmxNYxm5dWQ78ORFkRf5yH
+	 CrnFuVJTk2UByFUulDFWVlqPc/N5Hhzl7+ZoH/A9adv86lYkSu6tQ3fm4G6qaiVKb0
+	 Cc4sKNAby/2AF1yDD8kijtxPoilYnisZhEjjMErX42DCAagy6LY4e2qFKXXbowyL7p
+	 JaGi9bA0eq5MEhCfM4g2QqtgUDrIWMDyGq6C8yqDDa1+TDmEcTCRN9NfB9QedYcOfw
+	 5xi5i/2LzYjey8Y4HQ/nLPp0w16hOia4Du8ebVbQ/RMYbM4jKdDmJwEZD3d55hFVKp
+	 V4jusGr4Ps9PQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: arm: altera: fix Agilex72 compatible
+ vendor prefix
+Reply-To: sashiko-reviews@lists.linux.dev
+To: evon.chiam@altera.com
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <b467b990e5290a2eccaedff826968a50fb51100a.1786006669.git.evon.chiam@altera.com>
+References: <cover.1786006669.git.evon.chiam@altera.com>
+ <b467b990e5290a2eccaedff826968a50fb51100a.1786006669.git.evon.chiam@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 09:33:47 +0000
+Message-Id: <20260806093347.EC7421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-purwa-pdc-v4-2-62467f4b4ddc@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=TJR1jVla c=1 sm=1 tr=0 ts=6a745438 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=b8JVUCK1TJT_bdoyVbAA:9 a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: -3HPafKZQDzeh_2kyJPWYL2K43-J9IeX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA3MyBTYWx0ZWRfXyw9HSD+vSu+1
- xB1W28iJD7dYlhiRz3RIedpdaIqX6liSpJir3qA8ejCe68gVx6zLhb9v97LRoGN6hi8cEzH7QBH
- 2ybSfT403ZCDs/kAZxeDzkTMS9Qd1Nw=
-X-Proofpoint-ORIG-GUID: -3HPafKZQDzeh_2kyJPWYL2K43-J9IeX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA3MyBTYWx0ZWRfXxY3VbOokoBUT
- +bA8xsVWg+lLeyItP+iEyEgWCKLFh8YHuy2CP/yOxyZVqQvtYGl97WSlDX1IU2hAm9x5jrbXHIv
- SXTIK1GCstF3YAPP34IjfIwZMbo/Ar/jPVc3v2n3w3bgE9bafvPhdQ8NTVKKXPN0n0ct2T/mwzf
- ZXwz/AxXFJaVcKBB4y45kv/smp9chXMrhymw0x32BPOII2Z28dVWVuPQXPUI/Ffg/8r7RcffNX4
- pt/YGrlU7zq8m2maFDM7pxybCefcrNwNx1+gaC/Cq4ollnEWvAQBW8zAUj/x7KQWcEc+ywYpY95
- qtjuQ2xkbmxwbqXYDBAgvRt9Do6eR0bcAegL2uLqFfkEr98bJ7HXB+ZsgtN2iVTC5cOgN+CHhxB
- mgwrDdGFZie7FvbuMZs9aZE/Fr/5A/gT+62zDw1wG30i7ZHB5FfPeYnzb67DxZKYMsiodxILQ0s
- nv/DTogqs09hyCAaRRQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 priorityscore=1501 phishscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060073
 
-On Thu, Aug 06, 2026 at 02:26:28PM +0530, Maulik Shah wrote:
-> X1P42100 (Purwa) and X1E80100 (Hamoa) shares the same PDC and windows
-> firmware sets the PDC to secondary mode for X1P42100 too. Add support
-> to reset the PDC to pass through mode using qcom_scm_io_writel() similar
-> to X1E80100.
-> 
-> Make sure x1e_quirk to workaround a hardware bug is set only for X1E80100
-> as X1P42100 have this fixed in silicon.
-> 
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
-> ---
->  drivers/irqchip/qcom-pdc.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] Destructive removal of device tree compatible strings breaks A=
+BI and schema validation.
+--
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+--- Patch [1]: [PATCH 1/5] dt-bindings: arm: altera: fix Agilex72 compatibl=
+e vendor prefix ---
+commit 7bb728799feb3a9be3367a121312b26bbd930632
+Author: Chiam, Evon <evon.chiam@altera.com>
 
+dt-bindings: arm: altera: fix Agilex72 compatible vendor prefix
 
--- 
-With best wishes
-Dmitry
+Altera has separated from Intel. Update the Agilex72 SoC and board
+compatible strings to use the Altera vendor prefix instead of intel.
+
+> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Document=
+ation/devicetree/bindings/arm/altera.yaml
+> index 3030cf46fe74c..2ab53cade2fe4 100644
+> --- a/Documentation/devicetree/bindings/arm/altera.yaml
+> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
+> @@ -119,8 +119,8 @@ properties:
+>        - description: Agilex72 boards
+>          items:
+>            - enum:
+> -              - intel,socfpga-agilex72-socdk
+> -          - const: intel,socfpga-agilex72
+> +              - altr,socfpga-agilex72-socdk
+> +          - const: altr,socfpga-agilex72
+
+[Severity: Critical]
+Does replacing these compatible strings completely rather than retaining the
+older strings as deprecated break the ABI for existing bootloaders or
+firmware?
+
+Also, will this omission cause validation failures during make dtbs_check?
+
+Looking at the tree, arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi still
+uses the removed string:
+
+arch/arm64/boot/dts/intel/socfpga_agilex72.dtsi:
+
+    / {
+        compatible =3D "intel,socfpga-agilex72";
+
+and arch/arm64/boot/dts/intel/socfpga_agilex72_socdk.dts also continues to
+use the removed strings:
+
+arch/arm64/boot/dts/intel/socfpga_agilex72_socdk.dts:
+
+    / {
+        model =3D "Altera SoCFPGA Agilex72 SoCDK";
+        compatible =3D "intel,socfpga-agilex72-socdk", "intel,socfpga-agile=
+x72";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786006669.gi=
+t.evon.chiam@altera.com?part=3D1
