@@ -1,153 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1E438911B
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 05:13:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99C3346E6D
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 05:14:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785993190; cv=none; b=AvXlN2uVeyq4xVZu1s86rtLmLW0vBjK41Q6zUF6V6nJQp0KR4TUKB7rCYWipcRP26pZKI7qavtPhEjQTdw0GFJ359cBl77DK2c4ITzeECgdHYeOwcK9ZS4HZOer1u/UFd+rwB50EUGM5hQt78WfKN2drQYpCj2KGEJp6roM8USg=
+	t=1785993282; cv=none; b=bd9VVxuEoRCggTTxtJ95+wbXmuODxCZBfUXf8PhYVXuW55HcBjcsd2WGT3CWeAmAkylnCL1ltSb1Lrg8RDAyfj/6A3j6htmWwTnx69xbhTjIOsD3sdsgX8MqyX5UEctFO4kbLOyGI9IppBsXqDSvuXipb8pFML1E+VJqQ6WWfhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785993190; c=relaxed/simple;
-	bh=hX2ArTgNsmUNyYIY803qaQALLJNdFLWHGkIX/hlHVtw=;
+	s=arc-20240116; t=1785993282; c=relaxed/simple;
+	bh=W6fiLxelsG4dJVR7kD9oO1SIfm/O3D8v4/BiuyhxOkc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LlnmiuP+uXUl7hC2s+2ILtOIBxBkcb3mb3H0WQyofGopFUeILiASIO1Rftz700cTHAxIvJeU14YaKBLD0RKiLGZM7HhNTufSo39f5ePp/03GeIl0f4Yo5WZmVoq0ClhdDnoe9tum1bojoV3vGEEWqFfN6IsNAej65rIg9eUbfjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ss8h9rfo; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=H5I7wG/bpUCvnezWcqJM5BWGCFCX1vbq9yF7RyYwSq/Bj25OQRgcZxE9OjG9jnqPiVFx7rWLg7XLOa0WqgDPH+KwfNH+eHqCusY1510lXGkQ0POFFf/d2MmogRu8WAtP5e7b/+//prUpI7J1F7D4dV/Mm6j2nxUVM8Xmv4VaQPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgN8XUX4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ss8h9rfo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0167F1F000E9;
-	Thu,  6 Aug 2026 05:13:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgN8XUX4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 549081F000E9;
+	Thu,  6 Aug 2026 05:14:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785993189;
-	bh=ANuSI285WlBA5gQKWQ2tmcaLIzbBlHrG/+/amCAUFEo=;
+	s=k20260515; t=1785993280;
+	bh=3JE6wBEYz7A/fQJZr6PHnWNyxDsOSYnRdGhv7lya7Iw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ss8h9rfoMisFNEBIZICjJVD891Cd4yqLVJ9sb4WHxN8vHaTXv5340RI1OrbWZbyRL
-	 qdQbirHJvtmxOpgLw03/9dGsueqdaWr8t4pbGKu9iTXOMipfab+x5Kjygr9nNf3SUs
-	 Q0yACn0SrvQLHWoiCvb62dFwj4bD83YyirvY/KbxEV8colMLE8ID5htsY0CFyNRGY6
-	 s/LFGU/+ZAxi9q2negRqiNYfKb+6rCXT3QXKlQX5plOebscLgJ3pmnfpuK72oxwVr8
-	 kklB/1yWNvk6oZFZ3T2uDjq2UkQrsivoIIoLgCj4vBAJsKdF8vhr5ujmzLFUZOzLnw
-	 +9Y8WcrbiLEUQ==
+	b=HgN8XUX4R2s6wesFdcueItqgpS+LzBHoqO0pN2A+/l4SsW9ffWK+Wr6y5PFOo0tYd
+	 s9TViBki3T/Y2iYL8ih+a6lFyGL7tjbHAkA/wY2lb8FaELz9YdcRpSbKLNyQQFmnHx
+	 XAos96WuA0/WpX6HorjXu37CSRsn0FxY6kIAJzJmHXLMEtai8/yGhCNJBA/A6/g3Ka
+	 M3WIXlZTYphOnaj2TLd3XziGkdUbhdWOS9jS5wnqtjoXN1dgGGzioICGYFiYYaUb5D
+	 OC0f5DyAxzhXBNNv2JP8pO2hyq1hHcfKHj4C9NW/Z400UwHWJGFkTqfIuBRKEeEx0y
+	 +BC70hTsRWCvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-Car
- Gen5 DWC3 xHCI USB controller glue
+Subject: Re: [PATCH v2 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
+ Gen5 DWC3 xHCI USB controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260806050422.324435-2-marek.vasut+renesas@mailbox.org>
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260806050422.324435-1-marek.vasut+renesas@mailbox.org>
 References: <20260806050422.324435-1-marek.vasut+renesas@mailbox.org>
- <20260806050422.324435-2-marek.vasut+renesas@mailbox.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 05:13:08 +0000
-Message-Id: <20260806051309.0167F1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 05:14:39 +0000
+Message-Id: <20260806051440.549081F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The Renesas R-Car Gen5 glue register initialization performed duri=
-ng probe is not restored during system or runtime resume, leading to silent=
- hardware state loss after a suspend cycle.
+- [High] The compatible string list does not include the generic 'snps,dwc3=
+' fallback required for the generic platform driver to probe.
+- [Medium] The flat DWC3 controller binding fails to reference the common D=
+WC3 schema and incorrectly uses `additionalProperties: false`, which explic=
+itly rejects standard DWC3 and USB properties.
+- [Low] The `phy-names` property uses a scalar `enum` on an array type, whi=
+ch causes a JSON schema type mismatch.
 --
 
---- Patch [2]: [PATCH v2 2/2] usb: dwc3: dwc3-generic-plat: Add Renesas R-C=
-ar Gen5 DWC3 xHCI USB controller glue ---
-commit 211fb3fb7a52e528bcd297e2261a315030e4d2c9
-Author: Thanh Quan <thanh.quan.xn@renesas.com>
+--- Patch [1]: [PATCH v2 1/2] dt-bindings: usb: dwc3: Document Renesas R-Ca=
+r Gen5 DWC3 xHCI USB controller ---
+commit 4cc09ce41f0476bc2f778f2624aafad6ed1dfffc
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-usb: dwc3: dwc3-generic-plat: Add Renesas R-Car Gen5 DWC3 xHCI USB controll=
-er glue
+dt-bindings: usb: dwc3: Document Renesas R-Car Gen5 DWC3 xHCI USB controller
 
-This commit extends the generic DWC3 platform driver to support the Renesas
-R-Car Gen5 glue logic. It adds platform-specific initialization for the
-glue registers based on the maximum speed property.
+This commit introduces the device tree binding documentation for the Renesa=
+s=20
+R-Car Gen5 DWC3 USB controller. It specifies the properties required for th=
+e=20
+glue logic and the controller itself, using a flat binding approach.
 
-> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3=
--generic-plat.c
-> index ca69ac0eb07ce..518bb40d1372c 100644
-> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
-> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
+> diff --git a/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3=
+.yaml b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+> new file mode 100644
+> index 0000000000000..9f48f90d6df85
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
+> @@ -0,0 +1,79 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/renesas,rcar-gen5-dwc3.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Renesas R-Car Gen5 DWC3 xHCI USB controller
+> +
+> +maintainers:
+> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: renesas,r8a78000-dwc3
+> +      - const: renesas,rcar-gen5-dwc3
+
+[Severity: High]
+Is the generic snps,dwc3 fallback required in this compatible string list?
+
+The commit message notes this is a flat binding for the generic platform
+driver, but omitting the mandatory snps,dwc3 fallback restricts the schema
+to exactly these two items.
+
+Without the generic fallback, the generic DWC3 driver in
+drivers/usb/dwc3/core.c will not recognize the Renesas-specific compatible
+string. This regression will cause the USB controller to silently fail to
+probe when booting with this schema.
 
 [ ... ]
 
-> @@ -71,6 +71,52 @@ static int dwc3_eic7700_init(struct dwc3_generic *dwc3=
-g)
->  	return 0;
->  }
-> =20
-> +static int dwc3_renesas_rcar_gen5_init(struct dwc3_generic *dwc3g)
-> +{
-> +	struct device *dev =3D dwc3g->dev;
-> +	struct platform_device *pdev =3D to_platform_device(dev);
-> +	const char *maximum_speed;
-> +	bool use_usb3_flow;
-> +	void __iomem *glue;
-> +	int ret;
+> +  phys:
+> +    maxItems: 1
 > +
-> +	glue =3D devm_platform_ioremap_resource_byname(pdev, "glue");
-> +	if (IS_ERR(glue))
-> +		return PTR_ERR(glue);
-> +
-> +	ret =3D of_property_read_string(dev->of_node, "maximum-speed", &maximum=
-_speed);
-> +	if (ret)
-> +		return dev_err_probe(dev, -ENODEV, "Failed to determine maximum speed\=
-n");
-> +
-> +	use_usb3_flow =3D !strcmp(maximum_speed, "super-speed-plus") ||
-> +			!strcmp(maximum_speed, "super-speed");
-> +
-> +	/*
-> +	 * The datasheet describes initialization procedure without full
-> +	 * information about the registers. Therefore, the source code is
-> +	 * based on the bare metal code shared by the board team.
-> +	 */
-> +	writew(0x211, glue + 0x26);
-> +
-> +	/* USB3 does not need additional register programming. */
-> +	if (use_usb3_flow)
-> +		return 0;
-> +
-> +	writew(0x11, glue + 0x81c);
-> +	writew(0x0, glue + 0x81a);
-> +	writew(0x1, glue + 0x802);
-> +
-> +	usleep_range(10000, 20000);
-> +
-> +	writew(0x0, glue + 0x802);
-> +	writew(0x1, glue + 0x2a);
-> +	writew(0x1, glue + 0x81a);
+> +  phy-names:
+> +    enum: [ usb2-phy, usb3-phy ]
 
-[Severity: High]
-Does this code lose the glue register state across power management suspend
-and resume cycles?
+[Severity: Low]
+Will applying a scalar enum directly to the phy-names property cause a JSON
+schema type mismatch during validation?
 
-Looking at dwc3_generic_resume() in the same file, the generic resume handl=
-er
-reenables clocks and calls dwc3_pm_resume(), but it lacks any mechanism to
-invoke platform-specific glue re-initialization (such as a resume callback =
-in
-struct dwc3_generic_config).
+Because phy-names is typed as a string-array by the core device tree schema=
+s,
+limiting its items with a direct enum implies the array itself must identic=
+ally
+match one of the string elements. This type mismatch introduces a regression
+leading to validation errors during dt_binding_check.
 
-Since these stateful MMIO registers are configured exactly once during
-dwc3_renesas_rcar_gen5_init() and never restored upon resume, it seems the =
-USB
-controller glue registers will silently lose their state when the power dom=
-ain
-is cycled during system suspend or runtime PM suspend.
+Should this be defined using items: enum: [ usb2-phy, usb3-phy ] instead?
 
-Will this cause USB functionality (especially the USB2 flow) to break upon
-wake?
+[ ... ]
+
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - interrupts
+> +  - maximum-speed
+> +  - phys
+> +  - phy-names
+> +  - power-domains
+> +  - resets
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+By setting additionalProperties to false without a reference to the core DW=
+C3
+schema, are we blocking all standard DWC3 and USB properties?
+
+If a device tree attempts to use standard DWC3 properties like
+snps,dis_u2_susphy_quirk or usb-role-switch, the schema validation phase
+(dt_binding_check) will reject them because only explicitly listed properti=
+es
+are allowed.
+
+Could a reference like $ref: snps,dwc3.yaml# be missing here to allow the
+flat binding to accept generic properties?
 
 > +
-> +	usleep_range(10000, 20000);
-> +
-> +	return 0;
-> +}
-> +
+> +examples:
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806050422.3244=
-35-1-marek.vasut+renesas@mailbox.org?part=3D2
+35-1-marek.vasut+renesas@mailbox.org?part=3D1
