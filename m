@@ -1,154 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 750EC383C86;
-	Thu,  6 Aug 2026 16:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9464A442100;
+	Thu,  6 Aug 2026 17:02:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786035399; cv=none; b=oi/pKUEHwhgRYWPM13HKN61IT/3c0KLiU955uan9xgiSP6skKHk5hG1hcvNJQNGsae2IJvjr5y/YFp89JLcVxVzsQuMifKKxZeN8VCFYuJ1Hw9Ps7nuuH4CM5nvWW0yHQE24THrn9zjZmVpaknGpz8KsUn8rUR/33Yr1zdHMan8=
+	t=1786035755; cv=none; b=u9ZmPW9V3eost4aXbXiJISW6VWLyAl+TywCUXWeuefrgOWXQdRBDZPL79ZdA8jjv5y+0ojRyjOEkOd9eYtH7NQcqVDYWtx0rZSCmEnIQWB3QREFoc8gua+6s2y87hTPURdcCBwWEzoIVJA3SS5Dsaxt4avghUI6Wy0O+FWhizsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786035399; c=relaxed/simple;
-	bh=mvu9oFVZY3scZvFiz5+udASeKQJTWYRmGxaG8mQ/DQM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S5GTCJdaCcQovNpkDVzkE8qRTFlJG88Tt2coQu7K07H9QUnoohWzi/DZBZs+BHgnllqDQs9QQQ2iBFeDSsEnnungb5BgO0bnPWqLNgEbXu7xr4Oi29uMzeP/b2wTQrSObDxCTpy0L6lNJpH20m4G0s0Bonu4/82mJAroxhMgiLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJHvE8Ue; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786035755; c=relaxed/simple;
+	bh=rc2RzDgpPH5o2b0zMeMdVVBwWMU2wvQAig61MwLzEiI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=A16+Ma4PxGibzS1nuLuTVQks08ja69tsQ45ER5zUobKmASX1xjwp2eLpc10cNbU51uzt0k+Q7Xz/jGTrI60NjqxKZEmhPDhHu5Eumo0rpmz8ezSzM31crVRRe34gvPfE5/KlcoT4/NTxLmsvSCPmLA+S0qwybljh/PSIgqPuMgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=b3U4Nl6c; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJHvE8Ue"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E41A1F000E9;
-	Thu,  6 Aug 2026 16:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786035398;
-	bh=jQalDzxS4F0x5EYDYWJ38lpm4ErORvj/HvawwC8RNU8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CJHvE8UeK6g0Q/nkJVrZ9dMbRr+2R73DUYQ/u1NZ7K4hkbHErHBlCaBVTVe36Bn/K
-	 GqG+nGhxejIUCO8fN/5zNCwxBNB5U3jPogsqFntzDEw535k+k/mC751zHZDcrWdVVe
-	 jeFbrgorWskrjs/qXGO0+AEKEGRNoXOKOacNZ5y9yjKI+8mBkkoAuD916+5TPet16q
-	 JrmkMvKNxxg1i0UBSbOfa53IBoC7CbbJRM+YV6Efq8HWux+I78aeuforPUwlnH5z8s
-	 43XsUO2PMgGHf/Yi5RiHZiHcxWm7bcbZVrJwLe2xdAADUd7EwUo2B3k/MKuQAwhmMP
-	 dEbUogmm/m9fQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
-Reply-To: sashiko-reviews@lists.linux.dev
-To: palash.kambar@oss.qualcomm.com
-Cc: vkoul@kernel.org, linux-scsi@vger.kernel.org, neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org
-In-Reply-To: <20260806161301.1010876-3-palash.kambar@oss.qualcomm.com>
-References: <20260806161301.1010876-1-palash.kambar@oss.qualcomm.com>
- <20260806161301.1010876-3-palash.kambar@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 16:56:37 +0000
-Message-Id: <20260806165637.8E41A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="b3U4Nl6c"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1786035745;
+	bh=rc2RzDgpPH5o2b0zMeMdVVBwWMU2wvQAig61MwLzEiI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=b3U4Nl6c+AeRUP/1MKzyrGBPaqcmq8XgT5CbHXpys4p1fgsUCUg9GWxEsoWo/9TpQ
+	 W6T4lMIY/AosQH5WbvMHpxlCAVakxxTakPzAgEXn9dT6fplV74iBi9TJv9pBv8zPQt
+	 mzxEb84hnl58f8t4GB/rgHf5spRja5w0ToApQgNRNQqGWN1N7ZNMF8aW9wkhYDYvjx
+	 fQDl5+6bJJ/FbQ4bRkZLmS7FCCezsv3BB9eTu8+u5RfFiWyQwVL5zFS1OQp9RFvSw9
+	 yxLV3sJK6oMLF9dhgkCS6YVPVe6czdz6akD+yntzOvWAgLroL3mIVXRqRdemg/BiwW
+	 rqjITrI/hftBA==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 482E517E0F83;
+	Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id F1B02480030; Thu, 06 Aug 2026 19:02:24 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 06 Aug 2026 19:02:10 +0200
+Subject: [PATCH v11 04/21] drm/bridge: synopsys: dw-dp: Document missing
+ reset line deassert
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-4-0d508505f383@collabora.com>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1609;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=rc2RzDgpPH5o2b0zMeMdVVBwWMU2wvQAig61MwLzEiI=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viDr4+NxDx8KwqSZwqspKCl31BaCO23/t
+ GBa3Dx6nqomkokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qaj+sP/2YoP9r+VyQViNtrzlwAZePbVge3GnDl6TfX2LdjmQUJ/FxLiiH/Wjdwax/dGHeSVC/
+ KjxWit02cp8y2bO9DF1zEbwxM+2Cc/Q/mlFbw/NIvTyyrfw+vFVfgLokxqJn+7B+8MURkPQL9TV
+ mkTRpMj44BIY9dO0Q5GHGE1TFWBhTaE7W14uHwOKq5EwtxdHBzO/EKoBzxgrk+HidPZSdyXzZwb
+ 87rro5R2kg6oTwJtiacbALGJ/7cFnML2Pacyd/mYK1ih3ooglx2wq3yxxduYDGTPNisFKVV2nJ4
+ fFW1CNTRdASdxcvxhdWS2fw0FbCEeQID+SChYCTlHxawFLO+Bt9Qcd8cDRmxiouWjS4UBQb7lJD
+ pJWxg0QaGNc0DclD6bZmQ62WYQGoB11UQO9hzG5BOGVoHNzoQQN/C+SqlcaZ8HTHRucZr88sOuB
+ Ssp8qApgCQNftyk7tiIovux01RwMoEqVS+Xfjt73uhJa4utEfQegDBWNtiBWbisQAc6NHlXltG2
+ cG9+ruj3ILFkoGI8DhoUaXRSpgwFzdJ8ajFAMKJY1Keoik44+Pn1hY2CL6eLZ5Wc2w97Y5B8chm
+ 6shYSyyN5coP3MIe/NAOw4nGikCpyFYQxRCL3HZkpEiavXWBBj+ULbtK5qVRyj3sx2PGTwh8Smr
+ SYPMOxptmxLLbWUYixysqPQ==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing configuration overlay for UFS Gear 4 in Hawi UFS PHY
---
+If the driver uses devm_reset_control_get_exclusive_deasserted() instead
+of devm_reset_control_get() and thus automatically deasserts during
+probe, the SoC will hang when the device is unbound.
 
---- Patch [2]: [PATCH v6 2/2] phy: qcom-qmp-ufs: Add UFS PHY support on Haw=
-i ---
-commit 69d2ab29b4fbd3a27d861c7619c3a546898758d6
-Author: Palash Kambar <palash.kambar@oss.qualcomm.com>
+This does not happen, when runtime PM is being used (not yet supported
+in mainline), which suggests the power-domain involved requires this reset
+line to be deasserted.
 
-phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
+Even with runtime PM there is no gurantee that the power-domain is
+disabled as it is shared. Considering the power-domain does not have
+the reset dependency described in DT, document the problem but leave
+things in the current state until a better solution is found as the
+reset line is deasserted by default on all supported platforms.
 
-This patch adds the init sequence tables and configuration for the UFS QMP
-PHY found in the Hawi SoC.
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualco=
-mm/phy-qcom-qmp-ufs.c
-> index 0f4ad24aa4058..d4aca22c181e4 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 21d60e89126f..52e3b37259a6 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -2090,6 +2090,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 		return ERR_CAST(dp->hdcp_clk);
+ 	}
+ 
++	/*
++	 * This reset line is deasserted by default; asserting it hangs the SoC if the
++	 * related power-domain is still active.
++	 */
+ 	dp->rstc = devm_reset_control_get(dev, NULL);
+ 	if (IS_ERR(dp->rstc)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->rstc), "failed to get reset control\n");
 
-[ ... ]
+-- 
+2.53.0
 
-> @@ -1845,6 +1868,119 @@ static const struct qmp_phy_cfg sm8750_ufsphy_cfg=
- =3D {
-> =20
->  };
-> =20
-> +static const struct qmp_phy_init_tbl hawi_ufsphy_serdes[] =3D {
-
-[ ... ]
-
-> +static const struct qmp_phy_init_tbl hawi_ufsphy_g5_pcs[] =3D {
-> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_PLL_CNTL, 0x3b),
-> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_TX_HSGEAR_CAPABILITY, 0x05),
-> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_RX_HSGEAR_CAPABILITY, 0x05),
-> +};
-> +
-> +static const struct qmp_phy_cfg hawi_ufsphy_cfg =3D {
-> +	.lanes			=3D 2,
-> +
-> +	.offsets		=3D &qmp_ufs_offsets_v7,
-> +	.max_supported_gear	=3D UFS_HS_G5,
-> +
-> +	.tbls =3D {
-> +		.serdes		=3D hawi_ufsphy_serdes,
-> +		.serdes_num	=3D ARRAY_SIZE(hawi_ufsphy_serdes),
-> +		.tx		=3D hawi_ufsphy_tx,
-> +		.tx_num		=3D ARRAY_SIZE(hawi_ufsphy_tx),
-> +		.rx		=3D hawi_ufsphy_rx,
-> +		.rx_num		=3D ARRAY_SIZE(hawi_ufsphy_rx),
-> +		.pcs		=3D hawi_ufsphy_pcs,
-> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_pcs),
-> +	},
-> +
-> +	.tbls_hs_overlay[0] =3D {
-> +		.pcs		=3D hawi_ufsphy_g5_pcs,
-> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_g5_pcs),
-> +		.max_gear	=3D UFS_HS_G5,
-> +	},
-
-[Severity: High]
-Does this configuration need a fallback overlay for Gear 4?
-
-Looking at qmp_ufs_get_gear_overlay(), if the UFS controller negotiates Gea=
-r 4
-(or lower) with the connected UFS device, it will return -EINVAL because the
-only overlay provided here has max_gear =3D UFS_HS_G5:
-
-	for (idx =3D NUM_OVERLAY - 1; idx >=3D 0; idx--) {
-		max_gear =3D cfg->tbls_hs_overlay[idx].max_gear;
-
-		/* Skip if the table is not available */
-		if (max_gear =3D=3D 0)
-			continue;
-
-		/* Direct matching, bail */
-		if (qmp->submode =3D=3D max_gear)
-			return idx;
-
-		/* If no direct matching, the lowest gear is the best matching */
-		if (max_gear < floor_max_gear) {
-			ret =3D idx;
-			floor_max_gear =3D max_gear;
-		}
-	}
-
-	return ret;
-
-Without an overlay where max_gear < 5, it fails to find a fallback. If the
-overlay fails to apply, critical hardware configurations like
-QPHY_V7_PCS_UFS_PLL_CNTL and the HSGEAR capabilities are omitted since they
-are only present in the G5 overlay and not in the base hawi_ufsphy_pcs tabl=
-e.
-
-Will this cause UFS link failure and render the storage unusable for any ge=
-ar
-below G5?
-
-> +
-> +	.vreg_list		=3D hawi_ufsphy_vreg_l,
-> +	.num_vregs		=3D ARRAY_SIZE(hawi_ufsphy_vreg_l),
-> +	.regs			=3D ufsphy_v7_regs_layout,
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806161301.1010=
-876-1-palash.kambar@oss.qualcomm.com?part=3D2
