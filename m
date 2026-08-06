@@ -1,177 +1,179 @@
-Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71263AFB0C;
-	Thu,  6 Aug 2026 19:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786045767; cv=none; b=jXcEgX6NG4VtGKKUZzQcQbZHm2gB8Bi/HhK7enU83AN+YoNjtFMDXe3U8eI6Pb9Bf22zOuWof0EKtsogETvEvaxlJH3hwydf9X3tMPNFzU52zxmRwWp2b++NM2du/ZMfl4t+dkrRNlnRRyM7qe0/fB8v5k57qyq4KduCA63bSNo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786045767; c=relaxed/simple;
-	bh=HOw79g3ooG6NNzkyYSEvjfgfmCBbxswKnKtrHqLTX78=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nPQEDsCYkh46ZrHGL/krmmszvyJ4b0WyxcKfUzk7q1plRYJAzMsbsO/aaEXylZ0r4x/yNF884FyHdZ6pLji1H4KO0wMpTcz/UgazscQlqnoJMEOqzUWxryfZtBFDovSga4gqf1Hujvn2IF13wpygbZuMFAeJc3+XwYwBTFga6e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=CQViigoh; arc=none smtp.client-ip=178.21.23.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B6A494836;
+	Thu,  6 Aug 2026 19:53:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786045985; cv=fail; b=s6+023gmjgJRYAMSMh4hq/+wL4dbiBgYlkm/Rl7/32b6bObibN0TsJ6QdWdmSNxdLzrJnzrsfXqF7aobF53XtPaRkCTqWR1thws5IOgqGWoIgsHzyMcyuWihb9ubFRbpjymkm1dMbQtUEeIKj/S5eW4+ht+mTaYNpUrMyKE4Uz0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786045985; c=relaxed/simple;
+	bh=woTW+tZoWh4qvYWVLCuDhLm+dytu6A5XqtIgFYkO3wc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a+5W5B9ppz3TB2oyE4spoGyD5UORgnkL2A8Nmo3ov4AhjfxivvKQUWXifM7jlz3NVNy1ye9LUgR+BKfGX68O+rgN1jgQuoPBuN67fDwKZosRqE1eWhovFwsKZ38EaMLq1aRCb7YlZK6KHWw1xQ3MFFd2IML7y7SsRYHxYMlFU78=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=JNFHEa74; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=hTjWh3hQ; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="CQViigoh"
-Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id 752B541912;
-	Thu, 06 Aug 2026 21:49:14 +0200 (CEST)
-X-Virus-Scanned: SPAM Filter at disroot.org
-Received: from layka.disroot.org ([127.0.0.1])
- by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 0eZVW6ZCSgtJ; Thu,  6 Aug 2026 21:49:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1786045753; bh=HOw79g3ooG6NNzkyYSEvjfgfmCBbxswKnKtrHqLTX78=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CQViigoh1Wj77XqViuITPP0uHfgEnK9TNml11c6Ts3lTlvg1xSNhnuAVswN8r0Wgj
-	 VsYmzBXJEmCFqZGI1iV9yN2pjaqwNGSL+2RRWakxEToMXP2wiIdvC8S/F5Xf49/GqW
-	 /vyXD91CzLpzzW3H6RpHYb8fxVOtXPmkJsp3Ko4EDCWUCURKFME5eTp43vn5bZ9aFO
-	 z1QDPdoXuH45RzXQ+jQv+7S6gEvAuxeDs0lxyZLdl0IYW1s2KNF2pHaNVqVVEwxT3i
-	 Y6VU1QYzc13+aGGmXWa7R7uHyZVf4TV94NFvUduO8Cqj+DHTJq8BQ4SwdYq7Q2e2AY
-	 p65AvPOm0dqkA==
-From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Date: Fri, 07 Aug 2026 01:18:43 +0530
-Subject: [PATCH v4 3/3] arm64: dts: exynos7870-j6lte: add Sharp GP2AP070S
- proximity sensor
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="JNFHEa74";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="hTjWh3hQ"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 676ICFCt594052;
+	Thu, 6 Aug 2026 14:52:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=7a6WfPSpSGt+4
+	a6+q38EsZfeWsqAC+mE89HqWTZQHgs=; b=JNFHEa74AMMZ8SpRa/xwXY9nnm0dJ
+	8fbV/C0Dw0Bb4XYwVxhgDNEnNtfBjtbnS7rSy/OxK+16BxCs+DagTwrdPkY+OnAe
+	QdCltwEweR/eKp1bSum2Z0k6OLmdueO8QI+r8y9sK4d4lVuY9IM3fQG/osnBN6lO
+	qpynUcmeSi+vGDVvJrDBmRhvIabLzPfBvWIyKfplCO15iUHcx4StcTM6wQ9IYH31
+	946jWFo1VeWAC6s1FWCKWr83Dx1OkfqqaZ9IVjMi/37wtU3apN784Mkn6etADS/Z
+	BXDRHG4JjS6+wDndF2LE2nSQPgmcF71WykbHd1qpyiLZpfoWeDU4hMHbQ==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013032.outbound.protection.outlook.com [40.93.201.32])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fvs73c36g-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 06 Aug 2026 14:52:48 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TSkVV/n6uu6hZM0LJGJ9g+MDCUOzzAN9WuJhMNJgtHgZIseM1UzqOc/Kxn1cnsUSV1F3joMA384+dTSyFW6RbYtEFcUSgC/X17i21aUUGC1AXazmIBACA7FGJpHWYRIUx+ODb7qFriklHVJ/IMTB5IdSj+49s92RaW+q+w4cjMGrB1K8oRey/c6pmQ2Y9vZ9EHsbP7IcjuO66JgoVSnu/nva4ICDXCThLII/QCCS7bDLThes4hZuoMa1SET3ca6kvrUJTnzRZcKnsW0st/vc7Q/rwP3w/OJvn39JI5prNmDFQEoIpdCeQJZdpEHr2GAT4YhHvgr0mRjd+JV95SG87Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7a6WfPSpSGt+4a6+q38EsZfeWsqAC+mE89HqWTZQHgs=;
+ b=spiCb64JcBARvDrwPKJ0is2hRfTR4RvbDKUBfNfyz729eKp3wsmiF8vAoePLvtSmGJtsTWYVdA+CT6XcQVXSadvdUAhZ+hxl9eZTkGz4Fq68wGdJgklWgiDCvrFtPSat0V5Z2dxNRBrPt2iVh7qWzat5oynT2pWjP5+eoRGgIyqWjsLxLAXIQR/hmhaEIv2hPyPxgx7etO42Ftti1O9c46fPTuQ5FuSgfFbxy76vVk2Q/0htvJ/UfxUt/seiVXQeiK8eVQgIWtym5f69qHAK+F4uZSEQOlukwPZqBS1CTLzQ1pksYGv3/W8o7g2o1lrOANManYDgUW59YrraNnAgOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7a6WfPSpSGt+4a6+q38EsZfeWsqAC+mE89HqWTZQHgs=;
+ b=hTjWh3hQBtUJo8fnC38adYEyaKOkdvS2qPEVntsANrYv8KExAGFGmKeflXCLW9syJZ4kWI6GzYAicU3KUt+GbIjzYWrSRB3HLqEJMpJ/7qqpap4EdQskfvXR589q4dkOudvDK6W9TYg5oamdTPZM9KE9Bgzt13AQn+2rhGpAciQ=
+Received: from BN9PR03CA0955.namprd03.prod.outlook.com (2603:10b6:408:108::30)
+ by CH0PR10MB5147.namprd10.prod.outlook.com (2603:10b6:610:c2::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Thu, 6 Aug
+ 2026 19:52:43 +0000
+Received: from BN1PEPF00006003.namprd05.prod.outlook.com
+ (2603:10b6:408:108:cafe::49) by BN9PR03CA0955.outlook.office365.com
+ (2603:10b6:408:108::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.17 via Frontend Transport; Thu, 6
+ Aug 2026 19:52:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ BN1PEPF00006003.mail.protection.outlook.com (10.167.243.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Thu, 6 Aug 2026 19:52:43 +0000
+Received: from DLEE205.ent.ti.com (157.170.170.85) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 6 Aug
+ 2026 14:52:43 -0500
+Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE205.ent.ti.com
+ (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 6 Aug
+ 2026 14:52:42 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE209.ent.ti.com
+ (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 6 Aug 2026 14:52:42 -0500
+Received: from judy-hp.dhcp.ti.com (judy-hp.dhcp.ti.com [128.247.81.105])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 676JqgLN3900552;
+	Thu, 6 Aug 2026 14:52:42 -0500
+From: Judith Mendez <jm@ti.com>
+To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>,
+        Vignesh Raghavendra
+	<vigneshr@ti.com>
+CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH 0/2] Fix MCU watchdog comments
+Date: Thu, 6 Aug 2026 14:52:40 -0500
+Message-ID: <20260806195242.669491-1-jm@ti.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-gp2ap070s-v4-3-74f6a67b6272@disroot.org>
-References: <20260807-gp2ap070s-v4-0-74f6a67b6272@disroot.org>
-In-Reply-To: <20260807-gp2ap070s-v4-0-74f6a67b6272@disroot.org>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Kaustabh Chakraborty <kauschluss@disroot.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00006003:EE_|CH0PR10MB5147:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdec2407-51d6-4633-1b64-08def3f447e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Gx7tSdh8A9xNhzxPK8sAUVx9YQ2QZGxsa9bujoOWg9Jw1sRq24dOGWqs2QIJmGIHFtfWeUI9eM9vbZG+sNloCQQods277fFdToxn8nfnREI38Usf6q6IjADdD2IN90brnz92wGmbJ6SR8NpXrlcyVTgxSDEXk7VfRMtCSonPE9y5XskkeVvBcY0FCYnh+BBNmCektN+TkaaRWGV9EOsTq7GVHJyB/LVonAjOSXEruoR+s3uoRWRk/mp3QFb09IANQvG6qZliKAhEAWF0SYPPvc3KAcQ5/E/obER49x7Su0368a5/CTP0eSkR1DbXTMVS1pErGnqiazdY5UKmhirMpMJtE5TUxMmIk2bJrP5M+4r1WiIqvQNJs5zf8ZewI9i6Ow06YVGtTp3JoJdu5jGPgR74liPcSBpiDTyNLkk4KoRAqXrDoojn8SywUg1bMr1kC5pJ/lREYCu2A9vOYSq4V3PmI9V1X2mvn86L2Or1PH8n1QHUwcZgzg4g/KZmpxuUiwcm9AAxM0MH2eSQ2IJCzTha1H7UyA8gy6U5gQtjeNihQ9EjOnnF9+dPjGQVYMBug7/gQa5tbnjzmE9x2VmqD082y6LBPMq9/h7KxR889pDD3xIrpzfiLXO4I/10uxv4YjmfOTHqJ3IdxDRKR8/NIE0JFPkVXGjRb/3T38IktMlUyqB3dTYVkehev2rASPKtSJYTweHiNq5YWMLnYR2akQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bPz/pWRpbnpp7Cx5H88+4ErlrHU00m7DyM2x+r0kL+qgMCGqCrq5MWgRX29koeBoN+lQRjvhPg4VOyf8X/tiBQQ/XDVNDQOsYdBg81R4T8hzExRhfyRhUdYKaE/0GZGa86z44fmnRmjlPl8FnAxInvl9m+GYAWpsZw9LZV3rJu5yyg+7L+0eeq4RX/Hj6HCabD4ajmJqg7mNK55W8+bXnYZxkxGhH6RT4krm2G83okXN5p3o0bw0aa2t6KBpWUb4zKlEozScUIniCXPJNSA8NvOCM33rIY9B4C7CUCG+mjnHyJu0W3NdT9u6hR6zD6/esUXyVGornPd3GhZQtq4bhYWE/qWt2ldiiUG0eOB25j3aH0uo8Y50JpuYCVvkDALBDcJP2paM7OSXp3Nr/HUgDUPwdOJh1hYLnAnqh5iEm4KRcOjyM6VYw6A5b4FcopvX
+X-Exchange-RoutingPolicyChecked:
+	qGqCUk652XIZs4hEy7vk+Za7kMLoZSNpITbJIf/eqvgLbLZAVjvE46pfFt81H5SYVe/e063LS+Bdwa4zWxPosIOsBiDTAe+hYgdw3VzCrh77PBpwe8mh66zmll8glH/8blZxI28zGt+J0Nc2FQUkhN7IXMmad8S/IHsomHm6GOq6hGffqDO1qW0/LGpLN4ivvUFiq+SLaZTLlyBW0HN9NNAJLrCVjwA+P/Z1QExJIyatQdv9l+vdFT0dJnhfGaXjKscnRezH3tFrZKnrVjuklXcABNnIXtvAkJ1A5367ppc2g7BNqGVZwabfbYZ2vrJVdPuvPkbH+K64f8lV97BihA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 19:52:43.5535
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdec2407-51d6-4633-1b64-08def3f447e2
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00006003.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB5147
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDE1NSBTYWx0ZWRfX/7c3v6xWD415
+ 80RjIFeo6225VJR3Ve0SraTF+PIvBqYTtaCz2euEY/ClI8wjs9xVDLBsUDEICdq/TkfQvQNVvwn
+ 6Gio5fdFTziZQP+90E64DsvS1ml9ewQRVZGDf2K5zjleiB7TVbY129BJqnnK06gfgv4AqutHP5K
+ aiRXjfr2qfQISTN77l8Z1G3tme01HPeybdOIH7FD7G3PpJoglQTro669QdVslBwZVa2Hi1Yndbc
+ l4I+sd9GhD5NtV/paUu7I2ZbnTtt7Gny6jJevjSYyONPUbfC1d0wL9CLO3I5stOARKfMhmdBfSE
+ lDs8PggRnpbuC8ULjEKbQNb22M75ndg7mXTcGYwZYq5O51E5JtR4wSdcZrusCY++CG2aGzgr8BX
+ qlR/qBDBa3wpdGgvB3Fi9oHH7/QWYZAvWNZRbOpBfBHAz1zy8gbPyNJO8xaY6ONSRoWEpicBZMC
+ 18FgrUSto1MUZqiVCUQ==
+X-Proofpoint-ORIG-GUID: foAe2fTFu4OZeH_mMjdXBvq_eDuYJU2i
+X-Proofpoint-GUID: foAe2fTFu4OZeH_mMjdXBvq_eDuYJU2i
+X-Authority-Analysis: v=2.4 cv=dtfrzVg4 c=1 sm=1 tr=0 ts=6a74e610 cx=c_pps
+ a=SPERBzkolnWMWDQhIvzwLw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Sv0fKeRqtYgA:10 a=s63m1ICgrNkA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=WWNFJacJDIQllWfqAOMA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDE1NSBTYWx0ZWRfX9a0Dx7xgNrSh
+ YcQtV5fu0iPdoy+1StwAoQYDOgVGcXEhuc/vcJWv7E+C33G67TpIghRB/81JmcNdDereIbA3FIw
+ HLMDSevOwtPD90uhNHx18jlKsnxKEQE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-06_02,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1015 phishscore=0 spamscore=0 malwarescore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608060155
 
-The Sharp GP2AP070S is a proximity sensor, which is connected to a
-GPIO-driven I2C line. Define the devicetree node for the sensor.
+The MCU watchdog nodes have incorrect comments about being tightly
+coupled with M4 cores. There are no M4 cores in the MCU domains for
+AM62PX and AM62Ax devices so fix the comment accordingly.
 
-The sensor requires two voltage supplies, one of which is from the
-primary regulator bank of the device, while the other one is controlled
-by the GPIO. Add a regulator wrapping over the concerned GPIO so as to
-feed it to the sensor node.
+This is a non-functional fix purely, for documentation purposes.
 
-Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
----
- arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts | 55 ++++++++++++++++++++++++-
- 1 file changed, 53 insertions(+), 2 deletions(-)
+Judith Mendez (2):
+  arm64: dts: ti: k3-am62a-mcu: Fix watchdog comment
+  arm64: dts: ti: k3-am62p-j722s-mcu: Fix watchdog comment
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts b/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts
-index de30d0970336..dd493138fed6 100644
---- a/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts
-+++ b/arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts
-@@ -73,6 +73,35 @@ key-volup {
- 		};
- 	};
- 
-+	i2c-proximity {
-+		compatible = "i2c-gpio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&i2c_proxm_bus>;
-+
-+		sda-gpios = <&gpf4 3 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+		scl-gpios = <&gpf4 2 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+
-+		i2c-gpio,delay-us = <2>;
-+
-+		proximity@39 {
-+			compatible = "sharp,gp2ap070s";
-+			reg = <0x39>;
-+			interrupt-parent = <&gpa0>;
-+			interrupts = <5 IRQ_TYPE_EDGE_BOTH>;
-+
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&proxm_irq>;
-+
-+			vdd-supply = <&vdd_fixed_proxm>;
-+			vled-supply = <&vdd_ldo33>;
-+
-+			proximity-near-level = <500>;
-+		};
-+	};
-+
- 	memory@40000000 {
- 		device_type = "memory";
- 		reg = <0x0 0x40000000 0x3d800000>,
-@@ -94,6 +123,16 @@ vdd_fixed_mmc2: regulator-fixed-mmc2 {
- 		enable-active-high;
- 	};
- 
-+	/* proximity: vdd */
-+	vdd_fixed_proxm: regulator-fixed-proxm {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_fixed_proxm";
-+		regulator-max-microvolt = <3300000>;
-+		regulator-min-microvolt = <3300000>;
-+		gpio = <&gpd2 3 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
- 	reserved-memory {
- 		#address-cells = <2>;
- 		#size-cells = <1>;
-@@ -354,13 +393,12 @@ vdd_ldo32: ldo32 {
- 				regulator-ramp-delay = <12000>;
- 			};
- 
-+			/* proximity: vled */
- 			vdd_ldo33: ldo33 {
- 				regulator-name = "vdd_ldo33";
- 				regulator-min-microvolt = <3300000>;
- 				regulator-max-microvolt = <3300000>;
- 				regulator-ramp-delay = <12000>;
--				regulator-boot-on;
--				regulator-always-on;
- 			};
- 
- 			/* touchscreen: vdd */
-@@ -556,6 +594,13 @@ pmic_irq: pmic-irq-pins {
- 		samsung,pin-drv = <EXYNOS5433_PIN_DRV_FAST_SR4>;
- 	};
- 
-+	proxm_irq: proxm-irq-pins {
-+		samsung,pins = "gpa0-5";
-+		samsung,pin-function = <EXYNOS_PIN_FUNC_EINT>;
-+		samsung,pin-pud = <EXYNOS_PIN_PULL_NONE>;
-+		samsung,pin-drv = <EXYNOS5433_PIN_DRV_FAST_SR1>;
-+	};
-+
- 	touch_irq: touch-irq-pins {
- 		samsung,pins = "gpa0-6";
- 		samsung,pin-function = <EXYNOS_PIN_FUNC_EINT>;
-@@ -579,6 +624,12 @@ bt_enable: bt-enable-pins {
- 		samsung,pin-pud = <EXYNOS_PIN_PULL_DOWN>;
- 	};
- 
-+	i2c_proxm_bus: i2c-proxm-bus-pins {
-+		samsung,pins = "gpf4-3", "gpf4-2";
-+		samsung,pin-function = <EXYNOS_PIN_FUNC_3>;
-+		samsung,pin-pud = <EXYNOS_PIN_PULL_NONE>;
-+	};
-+
- 	wlan_enable: wlan-enable-pins {
- 		samsung,pins = "gpd3-6";
- 		samsung,pin-function = <EXYNOS_PIN_FUNC_OUTPUT>;
+ arch/arm64/boot/dts/ti/k3-am62a-mcu.dtsi              | 2 +-
+ arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 -- 
 2.54.0
