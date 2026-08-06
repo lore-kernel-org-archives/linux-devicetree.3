@@ -1,44 +1,44 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72602340286;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9055E3446C0;
 	Thu,  6 Aug 2026 00:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785977191; cv=none; b=PNRQvcTOUnjCct9pcCUkj4rqOzPW/RHda7vGPFOsqcge20f7EPjLLo2482fbhyTVeqe7lZ8zJW28oWnNNmxUOhjjKsrFlFIPyb/zZf22IAtNaa38kkjzOQcU153nrz3TxI6elkI2BEZoSuHppaK5KxmoBiJNHsVmdKpyJCMSR80=
+	t=1785977191; cv=none; b=hKS7mvPQfatK+yiG+60ro+JCawqLQG0MYnwHtZlaJYaW42B+DvG2KFw3cYgEZG9RGgQAwUY8HnsefqvlWRVmd0lo29ccpsV3xFay49O4DLIR71Yq3+30P/+7DE93Z5LDOwObrA11U0HE5DVA59bTcTGLq/ScfNQyIgCzLzcBEgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785977191; c=relaxed/simple;
-	bh=PLIm9h3gU4IggjgGaEHpfMBzz245EqybIu7YjjboNDo=;
+	bh=evmVzWSmkMNe11q/nd1T6eZIDF68HR1dZx3DTB4BQwA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TFzCPXcb/KpcDF3FO1P4A70hy6/ZJx5bqS9+VvKuG1K3thkU3qSa5bfVA/8WlnTE6Qh1YChr5N341OAJSB8PvfnF7XuNKO5G7yzGESqdp6QudCogJggntO5xZ2Qnj5b51V4mebkFYvMTfKyEGN0zCoX3ZI61DBHzx2/4giN78xs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MSxKjM+Z; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=K3lyVP+eHTnctaQijbjONT/fMWDweh0oKzq7q6HNNG1njIzfs/7ojKqBW8Yvwr8zGdyvbH4YMS4QahbNx5Xp/MF50rpXu3dcK3jK6VDeQ/r3SiDbNMvMrr9VPaPYAtFStKGNPKV+TiW67DEKOKkZTgVR5aOjLD2Q55oJB1K296U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=nR3fWOYP; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MSxKjM+Z"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="nR3fWOYP"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1785977188;
-	bh=PLIm9h3gU4IggjgGaEHpfMBzz245EqybIu7YjjboNDo=;
+	bh=evmVzWSmkMNe11q/nd1T6eZIDF68HR1dZx3DTB4BQwA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=MSxKjM+Zj8f6fX5Mn4ekbP5WyFd7LifwnVoOy1wZLoqkXrCWJopTinNIVXhFReSLQ
-	 PJVUZWx4tXinacyU7NYN0L7I1Pc4MPh2t0UiSZw2rPrPRlW7j42l8XCgkq4TUnRy88
-	 6c9G5DnRt8a4XW42gE5SpRgrRBUXk0t5vwx6MpGBAzjZ5kgevTcp+Us92wIRSPceC5
-	 LtERCjv+pcIMjCU1KAipuyRTPmaUXtbgH3yixBFT0sZ9RTs9GcuzkIJiOEtOZyMJzg
-	 PX4trX7oJzBYGgZKSgHrtIeoUqLDFb3HSRJ0VugZfbV0obGhOKDGU3r1i89q5C2sFa
-	 p5VMbB3a8W6ag==
+	b=nR3fWOYP8JmhzPqpY2p9KAi/8cCBBskSykgUGM21zrqtoRShqsXVhy9dbxgmb0Lo+
+	 UCeH7nG/PK6Am5p/Qtf/GxwbryBVLE+5ZXjyS0TF2ZXNwOepDq3rerl1GMN6ok1EEq
+	 LhHDlhYtoUuyRq2vCU0tNbGRJEtYMrJLhJaqEEEKhlbNNfGqPfLAao8otTCMPzUWNs
+	 cUwJG634yCW/6+0ANNYvlZig0rDDcWRlacd/R5cjtd3rK/8I1ycT9a+KpFxwebjhVn
+	 IBw8xoK/6HCHSKfAN/3BC0xK43Qf6ua8I+m9zCPAAKrORGpLAMt986e7Z5F90Tc6Ml
+	 5up9DwwjNSYCg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 69FF217E0739;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6BE3D17E075D;
 	Thu, 06 Aug 2026 02:46:28 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 9F889480062; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
+	id A1005480064; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 02:39:23 +0200
-Subject: [PATCH v10 17/21] drm/bridge: synopsys: dw-dp: Drop useless
- reservation of first slot
+Date: Thu, 06 Aug 2026 02:39:24 +0200
+Subject: [PATCH v10 18/21] drm/bridge: synopsys: dw-dp: Clear only enabled
+ SDPs on atomic disable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,7 +47,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v10-17-d84a26c303d6@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v10-18-d84a26c303d6@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -73,54 +73,108 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1300;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2746;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=PLIm9h3gU4IggjgGaEHpfMBzz245EqybIu7YjjboNDo=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz165fHEm38M1E4PGMvPdA5LMMZG45yzMr4
- UNc8Lgzt2ywr4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9euAAoJENju1/PI
- O/qaEsUP/jNVsxtUZOdin7EbfNqYp6bck6y7Hii2pXq9dghhqfUiFIiWzb+nHX/Es/sK6pvxou5
- f/u9yDjbCb+OdcdQhr8OGT1vq0VSOPGc9k6sHE8/vnUbbH+pHJaUy8JZvKuIGh0+dNTtE5d9AAN
- o/iVzwZhJdBQOqNGSCQoX3wCd7Fe7dNoavQ706FrIG4g5qQ2yB725377aokFU8u+ChGau4BJ010
- O1nMLY8Deer2W7ykFp8LNGVbxCmR1RSfjaULqWvIDO7iPvPujAco3pbrD+q+a2NH31WZkyp57n+
- x7YLOU47zu2D3dT7UuG78rvDV9iI60HywtjkYRBwU5bAHKRtkkAI07Nc0YRm48OQ2kkpZ5o2rp+
- NDVS4y97/Ad3AVrX0K6qWuABLSKn3oJ0jdSdZHdNYMTEDEcMnUpyjtKityQwuK2MUeL2XpV52qX
- zloMziO5r6InSXFfWY+da5e/UAG3k8khtWBiM/eYIw7IbFihr322tknqS2sLiUolagCUrOxO7j3
- 7+Rdm2NZImiwXDiJYVNp0J1dM1aZbMgaDaZHYuJj3DKTvmmW+xNwZFMV2tO2Ul2HY07xqjx2CX/
- +93hSi/LTLftp1uUe2Tft/8OeWufniUqqbdm3FlT01HxYWeGtp9Vf5i0p8cDIsd5wkSsLqAdVim
- LbPM9tjJ/o3udjHN8cUg7Qg==
+ bh=evmVzWSmkMNe11q/nd1T6eZIDF68HR1dZx3DTB4BQwA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz1651f5GFzi7tbG0ij9UawtlVcYuwUkTjU
+ jPRQjqO83tCU4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9euAAoJENju1/PI
+ O/qaY5IP/A3Aqr8ezypgIi8N3zCYHRywRMuOuZjrF8xT4BHuktmrAkkj1/90sqlaUxzK8mc33rF
+ SXksu2aBXDg7lAPDGmWJ+q51mve7IEXagbc+ceD/6H7iCmn2FG0xf6OWvjM08KLYvWf1Dn7zb/g
+ //eswcUI5VvbotKlDprYNrQhDS0Ewxk6JnprMaXUEV+heZvSeSbUm2kOw1wfxUzj+49g/N81etV
+ jcl2WaCUqX0DiU+Am7Dmd599icEw7nPNDKkK7lCt8V7cqNzB/DCUTzfjba50bnI30ZcR+KeEiUK
+ a1mnD7ESH5q7VaSMuaLSFWfVIiN6EfaSr3JvGHcYyXTj3jpZMvEdVUmFwwshXLi8p6dNn6qYF4d
+ +L49GA3fexLzPNr508a+A0uU2fOWAzK8m4c4KzJRZOzkwX8ZGSTMZsK4mmR47WAJMmXKwy0+4rB
+ Y82yQ7aVraRbNUIkcnH17/3IKEOist//j3J9Dk4ahb9LBXhRHGyhiTipb9NBPNKIFqDN6vHVEYy
+ 2nS6TfAVSYP7foyZH7GJKs+0apWR5kfyQ3M7p6flmZ87BCdueMu5i6qGnkTcHqNH86PD6aZnDp2
+ GaJr0BdaMUKIiZx0aGcxg12aH6bkuxLPtQwG5ReS/BXWEtkSDfLwQydUQWxce7GcUSFsLeBAvuz
+ 09u52Ix8/J0pkUO1wm3orvw==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-The origin of this reservation is unclear, but it is a problem in the
-atomic_enable code since it potentially races with the audio SDP
-reservation once that feature is added. I suppose it was either meant to
-be bitmap_zero(), but that is obviously not needed (and would also be a
-problem for audio support) or some left-over development code before the
-VSC SDP slot was allocated automatically.
+dw_dp_bridge_atomic_disable() bulk-cleared the whole SDP register bank
+allocation bitmap via bitmap_zero() resulting in the loss of all
+tracking information. This results in a slot potentially being handed
+out again by dw_dp_send_sdp(), which is still considered to be held
+by the previous owner. Then the previous owner might free up the wrong
+SDP later on.
 
-From my tests SDP slot 0 works fine and can be used. If SDP slot 0
-really needs to be reserved for some reason, the bit should be set in
-the probe function to ensure there are no race conditions.
+Instead of bulk clearing the tracking information, the new
+implementation only clears the SDPs actually configured during
+dw_dp_bridge_atomic_enable() instead of the entire bank. The
+introduced functionality for that will also be used by the to-be-added
+audio infrastructure.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index a63fe1fc0969..425bfcd3a37d 100644
+index 425bfcd3a37d..2883922af969 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1712,9 +1712,6 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
- 	}
+@@ -337,6 +337,7 @@ struct dw_dp {
  
+ 	struct drm_bridge *next_bridge;
+ 
++	int vsc_sdp_nr;
+ 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
+ };
+ 
+@@ -1078,7 +1079,19 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 				   EN_HORIZONTAL_SDP << nr,
+ 				   EN_HORIZONTAL_SDP << nr);
+ 
+-	return 0;
++	return nr;
++}
++
++static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
++{
++	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++			  EN_VERTICAL_SDP << nr);
++
++	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++			  EN_HORIZONTAL_SDP << nr);
++
++	scoped_guard(mutex, &dp->sdp_lock)
++		clear_bit(nr, dp->sdp_reg_bank);
+ }
+ 
+ static int dw_dp_send_vsc_sdp(struct dw_dp *dp)
+@@ -1396,7 +1409,7 @@ static int dw_dp_video_enable(struct dw_dp *dp)
+ 			   FIELD_PREP(VIDEO_STREAM_ENABLE, 1));
+ 
+ 	if (dw_dp_video_need_vsc_sdp(dp))
+-		dw_dp_send_vsc_sdp(dp);
++		dp->vsc_sdp_nr = dw_dp_send_vsc_sdp(dp);
+ 
+ 	return 0;
+ }
+@@ -1754,8 +1767,12 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 
+ 	dw_dp_video_disable(dp);
+ 	dw_dp_link_disable(dp);
 -	scoped_guard(mutex, &dp->sdp_lock)
--		set_bit(0, dp->sdp_reg_bank);
--
- 	ret = dw_dp_link_enable(dp);
- 	if (ret < 0) {
- 		dev_err(dp->dev, "failed to enable link: %d\n", ret);
+-		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
++
++	if (dp->vsc_sdp_nr >= 0) {
++		dw_dp_clear_sdp(dp, dp->vsc_sdp_nr);
++		dp->vsc_sdp_nr = -1;
++	}
++
+ 	dw_dp_reset(dp);
+ 	pm_runtime_put_autosuspend(dp->dev);
+ }
+@@ -2341,6 +2358,8 @@ int dw_dp_probe(struct dw_dp *dp)
+ 	if (ret)
+ 		return ret;
+ 
++	dp->vsc_sdp_nr = -1;
++
+ 	bridge = &dp->bridge;
+ 	bridge->of_node = dev->of_node;
+ 	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
 
 -- 
 2.53.0
