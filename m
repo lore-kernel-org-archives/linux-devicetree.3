@@ -1,121 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AC33DD51D;
-	Thu,  6 Aug 2026 07:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786003097; cv=none; b=sXrGN0eAa18otJw+KjXO33Svjo3dW+xTUhiPVVnuB+D5O7vWk8XgKS/Tfny8VPpd1fFdYL39wcIoTRlXpVJljJ2zepZ6E6VDp18a1PDnkkoPGy2fzPMS16FeCoOBvf17zSf1R/Fkc4+S1RRB88boVpPPQiXFCk+OBAQRhYqTdtI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786003097; c=relaxed/simple;
-	bh=OegLx0qSHX3UH5wrC3GfRMU/qZjZ0AhaehBnJMvmk0c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hJP2nDPzdCZHM5NIPvdCY465qYA7lNK+19ebvxmazcehr4MWeKNgouBXht/hPV4Hsb27Wh8/X9ZQ6t6dkYwGl2tshDE4XAs56ZKUCOmlle2zNQ3ts1jqMZyt9NqxHZ505CbccRurruDyyEvVoAJhiqIXgrw/K1Hk/HVa7cVBGFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LsP4Smd9; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4BE38DC4A
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 07:59:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786003163; cv=pass; b=rdZ9ZAPOfqoZBhYYPXNhESJO2dqZUW2f/Cs1pz+VBy6uE9d+gT62BdrBFi1qswx+RzaX1Y32dOmJbrG0B7wJGSVI4HI6LfRl7pJgGo+myTsNT27JVEqHHwPp1sCnHWMsVEYnvOYf/gK1Pu9gscv6snTY0/7CRhdy+N8W9juCSmA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786003163; c=relaxed/simple;
+	bh=CZqe83CdbrlQPi6FPgQSJvI2rkWIn+KuZ+8/6Lb2N88=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P/5hcUtFGd0f4VEa50Xso3PmhB84CbEvcyUZLuM2UfkVruUpi0CdSB8jKXzdCOCjfq3iC3Ta4kiVyikL7iz9RPdGK6+Zaf2B0EZYVXvGT917Gbs4TqjJO0nql+s1KDixAA0FKMIQ6Mt7lAvZPAotXjCKk7ZyhFl18GgK8SGpMhk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=afSJoFJo; arc=pass smtp.client-ip=209.85.221.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LsP4Smd9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B80E1F000E9;
-	Thu,  6 Aug 2026 07:58:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786003096;
-	bh=fd84wAkGkI+TSfmqSMarAq4/qXYSh+gCQPRQbA98KBc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LsP4Smd9QfumG0gMhbOSO6/vav+jZF3xDdViQU2IfnX22RyNKbF1V0obrD+znvOiE
-	 7MEIJcPL7V22TtyzqlNLnJ17T9Vo609eamlil3Iv1PUHrmiqooS7tLRW11pZMU015T
-	 nxTswbtxemeUDp0BC2TZI6QSToLqLsvgPirjEPSf+jvnykfj030JF19gnLaSVr7YmA
-	 52V/FV2SDbL+9Amvk2KBj+s7mqRhL3g2X6CrKJV0cHGW0eSZRWeX7YMH1vrX1W6JaF
-	 AcTTSj8o00FrN+5F30tQeiNqLVopH041gDW5T8Axd1q8MOu9YuklCYocAWurZD6r4W
-	 Bi5OrAGOPjNXA==
-Message-ID: <3daf5a61-c6ab-4e89-b74e-7f9bfc751c45@kernel.org>
-Date: Thu, 6 Aug 2026 09:58:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="afSJoFJo"
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5c2dbaf828eso658409e0c.0
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 00:59:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786003161; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WmHajEEuPAzowLRWxeWWZ2FWVPp/YM+0LfRH5Yys2SocEnww7n8jPgSquvDj8eV3DB
+         FeLpG4w06earo50aHK0btDeMXBKWCE3D25h2xgII9i0IJYafwBouhbIFKdP3ZSO0S8wG
+         yWCv34HFfSuYry3p/UmEoCMNXdDadv7bAtdekcb9yBLB0VPFduzkVsFzeRXyxrgG7tub
+         qfE8cIQE6JsIBfmStOQshISRy6R2K6TLBj3mGh3GUUS4NI2iTzgThH3ya9ErACiozrWO
+         1FZkgHb2qzSloxIdNOaeM/Ql2fiG/nwu2lHCY0zXpzoagE7p6HtDAaeGpWsAGoZ3uvCE
+         MPaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=59YY+DXL2yyj7pyfiGeJfPdqCY+fQlQZUi24hVUCSOk=;
+        fh=53qvJawqK0TJTsq+MaD47KBMEtgXQmC582XHmZ7TrbI=;
+        b=TBqFJRGpySqWSIkU6sL2402ywfEdQJV7Iso06h0dhZ65IVzoTQ/zar3nnbdx6EVDfr
+         C0EPXxb06FLqfB4zeCI2otViA2M3XHrKMgnzDUqdPYzU/KGLTDc8DpUY2n2ghXpCrr9u
+         XACgIdf9upAE50qIBW10lR0hWXsjTg277JG4kKhKY/mLa3pxUgNEmTli5QvAuIvmbsnR
+         I5dL6HYMWy2oTDOaUCiXu/8W5ejK+5O9MacykoaoP7Aqj89fM3ogsD07jDZQT162nMsx
+         AZDYRu7gGnwEkrwtkxgfrzlbkngzwttDl3qz3AynoWs6NRbLnU1Dt9grG0lryixxBTfZ
+         hV5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786003161; x=1786607961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=59YY+DXL2yyj7pyfiGeJfPdqCY+fQlQZUi24hVUCSOk=;
+        b=afSJoFJoIkxqE17p4QHqSQ0OV5UM5J9U29f+0xW9SGWCrV/JQ8yiMnLd/JbxKKDI8l
+         kUC44o7RacdeJBXzfYpTKUGPMzlttD6UNtHJsPv7i5kKLrC1V+1oL0+4yrtnMBrzIpO8
+         hJ0T7NCqCId4i+TyOjKm7p+YTnbXewKWrTxCqqTWUAly0y8uCxYsZAJ0ihhCbpxfAMJw
+         4/JVaY74aY6gXhWckL2zUQZ/2NIxEWqURJHuqHjHTs3p+lSFnbLarPsQm1O5PySWUSD3
+         Pr1r4OricXuaQCZ8+Sw9J0v7h0S2/RS5I46VzKZr3g9Ocg2sXeuX/eroTFrH1Bgl3Xs4
+         3TzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786003161; x=1786607961;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=59YY+DXL2yyj7pyfiGeJfPdqCY+fQlQZUi24hVUCSOk=;
+        b=XlwIRD1ZeLDgaDRWsCadw6f35my581KkOaS9C8lFgjJAES2SxyaqmqjC4wmp3XFsCZ
+         xwnmT6IbpV/E1I8NCrhKsmBZDMNxVw0IYM2MtES49JgJevv1OW8aGQMKl8guMywyeQF8
+         WAQwcTRp035U0U8Ig3FCO1CVsXEaNIRYdpwzpcGACE9CN67feNW2CeO4fMHY3+8+irB5
+         x3tNeadCKXyQr3wYkAUswfXCB+vGoYnrtEBTA5eYdVxQkkpBxLeIVhBm+0yD25jlJcDi
+         r4TPnErNPlYWYU/2vz4otbEYiw7AT9ggQhM25lKapQTfHLHD7E2HyeeypSadDa6tJAPh
+         HRMA==
+X-Gm-Message-State: AOJu0YxdwVucl6rrCDCC9Miqb6UKKwwEehwyM09r7QvlUKhGHtdAhQ/1
+	Wmtu3S9IvkNfkaJl2SEsm6k9IyRpLVNYlT9NMyNgXcZY5C8IOebkr+YGnYqqPkLIjKvPELdfHAv
+	oLzP0kLLjrHVjpBgpe8KtyuoVZ3vwkFg=
+X-Gm-Gg: AR+sD10qE7d9NqNaVulnHbSLbKpLUBL0gZkxrG0E9luDTeCQcSKDCnbbrrJRYul9Mxf
+	oxhCI7VMVsXd0ezjcM+fbuxBjsU1UfBt0lislV9se5VHpWjd44k1YYwtj5og3aBCJRCHhnUvRmo
+	LpK8S6GOXESKEnhOp5sltZt+U1j+8vwQOMPpCGInDum0THFxn3PeJfAXHJcSX+6Ntu3qrC7XwTA
+	zGLxYd5RTjNHtdLU6EELLF8h4eXEz+E2YfkSDNqPvbZAYk2jdQY0Nm56qYiVHYcdh5woqAPQZ3t
+	du7AEhiulBE/H93kVxtx7fhWtSGcJUdekPQPfdJtSsSmVvXmPvPVkpSaOw==
+X-Received: by 2002:a05:6102:4b08:b0:739:4fa1:50af with SMTP id
+ ada2fe7eead31-760e6aca466mr3111728137.2.1786003160956; Thu, 06 Aug 2026
+ 00:59:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: clock: agilex: mark mpu_l2ram_clk deprecated
-To: "Chan, Genevieve" <genevieve.chan@altera.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- linux driver reviews <linux-drivers-review@altera.com>
-References: <20260727094926.1124-1-genevieve.chan@altera.com>
- <20260804-excellent-electric-yak-d2de63@quoll>
- <6fc29749-67ff-4754-91ee-4f8021d76254@altera.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <6fc29749-67ff-4754-91ee-4f8021d76254@altera.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260805-anacapa-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com>
+ <20260805-anacapa-devlop-phase-devicetree-v4-10-5d67e0efa6c5@gmail.com> <20260805132859.6F6DA1F000E9@smtp.kernel.org>
+In-Reply-To: <20260805132859.6F6DA1F000E9@smtp.kernel.org>
+From: Colin Huang <u8813345@gmail.com>
+Date: Thu, 6 Aug 2026 15:59:10 +0800
+X-Gm-Features: AUfX_mzuaNQ0eCcXnJkxAnzIOeQjXhrujNKvSlE_ciN8OvZiMygiEuyy-Lxy2UE
+Message-ID: <CAPBH0A_AtoLWYQ2TCXc_AhcgTreOppK8=to+hn-SX7kkwtPs4g@mail.gmail.com>
+Subject: Re: [PATCH v4 10/12] ARM: dts: aspeed: anacapa: Add LPDB fuse monitor
+ GPIO expander
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 06/08/2026 09:43, Chan, Genevieve wrote:
->>> +/* 42 - reserved/unused */
->>
->> How IDs can be reserved? These are implemented by drivers (abstract IDs
->> not used by hardware), so how driver could reserve it?
->>
->> Best regards,
->> Krzysztof
->>
-> You are right. These IDs are DT clock specifier indices (provider one-cell ABI), not hardware IDs. The clk driver registers clocks into hws[id]; unused indices remain -ENOENT.
-> 
-> ID 42 was never defined in the original Agilex binding (EMAC0=41, EMAC1=43). The comment was placed to only documents that historical hole so we do not renumber later IDs. It is not a hardware reservation — it is for ABI hygiene.
-> 
-> Happy to reword to something clearer, e.g. /* 42 never assigned; do not renumber */, or drop the comment if preferred.
-> 
+<sashiko-bot@kernel.org> =E6=96=BC 2026=E5=B9=B48=E6=9C=885=E6=97=A5=E9=80=
+=B1=E4=B8=89 =E4=B8=8B=E5=8D=889:29=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Meaningful code and commit message mismatch: The patch modifie=
+s userspace-visible `gpio-line-names` for existing `gpio@22` and `gpio@24` =
+expanders on both LPDB and RPDB without documenting these changes.
+> --
+>
+> --- Patch [10]: [PATCH v4 10/12] ARM: dts: aspeed: anacapa: Add LPDB fuse=
+ monitor GPIO expander ---
+> commit dcdaa17a966db9099c36ac9d58c5a7e8e75f9c5d
+> Author: Rex Fu <rex.fu.amd@gmail.com>
+>
+> ARM: dts: aspeed: anacapa: Add LPDB fuse monitor GPIO expander
+>
+> This patch adds the PCA9554 GPIO expander for PDB fuse monitor signals on=
+ the
+> Anacapa BMC board. It adds definitions under the i2c8 multiplexer for bot=
+h
+> left and right PDBs.
+>
+> > ARM: dts: aspeed: anacapa: Add LPDB fuse monitor GPIO expander
+> >
+> > Add the PCA9554 GPIO expander for PDB fuse monitor signals.
+>
+> [Severity: Medium]
+> This isn't a bug in the code, but does the commit message fully describe =
+the
+> changes in this patch?
+>
+> The commit message solely claims to "Add LPDB fuse monitor GPIO expander"=
+, but
+> this patch also adds the RPDB expander and modifies userspace-visible
+> gpio-line-names for existing gpio@22 and gpio@24 expanders on both LPDB a=
+nd
+> RPDB.
+>
+> For example, it renames "RPDB_I2C_TEMP75_U8_ALERT_R_N" to
+> "RPDB_I2C_TMP432_U8_ALERT_R_N", and adds new labels like "RPDB_SKU_ID0" a=
+nd
+> "LPDB_VERID_A0".
+>
+> Could the commit message be updated to reflect these functional hardware =
+label
+> changes and the addition of the RPDB expander?
+If I need to send v5 I will update the commit message.
 
-
-Please wrap your responses.
-
-Comment is simply not needed.
-
-Best regards,
-Krzysztof
+>
+> > diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.d=
+ts b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
+> > index 0eb547ad0ec16..f09dd1abe77d8 100644
+> > --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
+> > +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-dvt.dts
+> > @@ -8,6 +8,93 @@ / {
+> >       compatible =3D "facebook,anacapa-bmc-dvt", "aspeed,ast2600";
+> >  };
+> >
+> > +// MB - PDB
+> > +&i2c8 {
+> > +     i2c-mux@72 {
+> > +             i2c8mux0ch0: i2c@0 {
+> > +                     gpio@22 {
+> > +                             gpio-line-names =3D
+> > +                                     "RPDB_FAN_FULL_SPEED_R_N", "RPDB_=
+I2C_TMP432_U8_ALERT_R_N",
+>
+> [Severity: Medium]
+> This is where the undocumented RPDB expander definitions and gpio-line-na=
+mes
+> modifications are introduced in i2c8mux0ch0. Should these be split into a
+> separate patch or documented in the commit message?
+>
+> [ ... ]
+>
+> > +             i2c8mux0ch1: i2c@1 {
+> > +                     gpio@22 {
+> > +                             gpio-line-names =3D
+> > +                                     "LPDB_FAN_FULL_SPEED_R_N", "LPDB_=
+I2C_TEMP75_U8_ALERT_R_N",
+>
+> [Severity: Medium]
+> Similarly here for i2c8mux0ch1 in the Left PDB, the patch introduces
+> undocumented label additions and modifications to the existing gpio@22 an=
+d
+> gpio@24 expanders. Should these changes also be mentioned in the commit
+> message?
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-anacapa-=
+devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com?part=3D10
