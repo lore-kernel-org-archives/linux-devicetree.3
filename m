@@ -1,162 +1,231 @@
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com [209.85.217.45])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C84C3DDAE4
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 08:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C203D952F
+	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 08:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786006729; cv=none; b=XSt2fAJMA1Ie/Fdq95tgXf+0a2rT0au7BG/lOExFIoLin7FyKJC10k2Wf/Jor6jLw3BJcllXpVhVxteng/yIxGhiJILl3Ar/wupueekboeQhBBtx0AhqCcgws5hUXJAiLi1KyVjMpxF/uyrr7yRom5NIz5sEhmTX2tOjXKdPpF4=
+	t=1786006761; cv=none; b=Xjg7SphMDTAODkN6OBPsbaC+jwLwO3b5STPMpHqBIJ81H+d+WL+A8P8yu/pCaa0lFhDWuFedGheAlVunIkegseAZWdalB7cXicbe2Djyol7f5ua4daPXXjIsnh1xb7/EQOhijxcI2lgzqaZkGBatxaVG8Jge46/XmeC93EEnIQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786006729; c=relaxed/simple;
-	bh=Wp5Awetz8x1lkJd7iV42zxvDh1yQD5wNbmheE5eZ5No=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qnLMsCR5lihv0JZfKDPxlQROw10udFS9lamxG6LMzsTu/b8sOeBp+kJvtC+SD3FgwRNf00Rlv6drq67gFZcJVhhz+qApec0539yQrwVqDvR0OYMfBQbHLowdhAyksvWTg8FGMoTFDt0myFNtlJ7f1Zx4ayqJAeuWYPbYHKgqshk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1786006761; c=relaxed/simple;
+	bh=tSqEaRM2ebFk2nKl+gKUP1h1uQs0qRbsnPfzQv4EBAQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i0J/rkNe/uUMIMP4Ma6LZbBuKpU48FoSLrv1f7fPBKTVVrvB68Bz/RQV+hkMx4aKce14R6thaXgLSkXQNhKbhd8WpR7nR0N5TOHQV/4H2+GqR+k8VmYA6l+zf8OH3u3bjL/n1fFDtKBUEG9l8us9bsR35E0qiQcC3JM6jNLDKPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ClFggOA5; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-74ace427b29so516752137.1
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 01:58:46 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ClFggOA5"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so20308105e9.2
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 01:59:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786006758; x=1786611558; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hz7p/0R4cazLeloER7BY4ptZVwcivZ0VzPNuNCtZ/qY=;
+        b=ClFggOA5VeV+wJ0KDDuSHBfqMzOMX13n9J2PD9XsXFDDifKmgsyWcaa3shROWdkMv2
+         igbivjHGU3gPxsVa1WoCGZJmj7Bez3w9yD7b9Ri0OUddhbdI2sHW+SxQ21zj8jAnnalk
+         OpPuvKUeWEFSVvnww/xfFFU6T770xWMMxY6B0a7lRB8KJ3NFb3/bDZHIj7jVK8bNVifN
+         4ooX5otxzH4Rums/yznOZEnAywZ0Y3Ivqex/4JdI9ohiB/B8FjKoDgcjRai5o/+34Htk
+         alKcrvAtLvo4RqCAUkVuhc6A4y4Bw7iFowjqBBKQ3VzXnzDyAVptXkEccdIZYTyCbSgQ
+         mSIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786006726; x=1786611526;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Y/Tg3lEpqdaiPRfyjPgi2cmAvw9BxKYOOcBoKp4sZn8=;
-        b=D3KF1TBz8peES3Ic5LYhVmz1XLwZA3sjpFga0StZJl2LphtTFZAuVzwqty2YL1x7mv
-         oYh0EGIA7jg33Z9B/vwmeJ6dCif62mdQdkWGSbDiJnH+VH/UHU0B//Mng8CNrROraD0z
-         qeMlz/4lpmQwjKuHPZKgXuWqb+DViVscmCDkrMIIm8t1XciYf7niI5DTWM7VbaFmKRxc
-         SgNvYsYfxSyxs1HR8ZtOpnsnSoxumDLHyNvncGxFsQluqp0t1yGegZ4BhyRpLkrjF0lm
-         cSXtsEZbwMFbAXVeMet5ARkuaGdMUNefJapc4OjeoSilSimJr4dB8RtQQpdYXAhDKq8c
-         GQyg==
-X-Forwarded-Encrypted: i=1; AHgh+RoQYrEpv3fXLZhVVM3ukUIGWZ89W11cSZ0DjwfkH4plniVe7F8KQZKJqM8T9MPxPfoWdouL92b49fOf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxE9rvqPkRuYgeN7vceTDdpceGu4VfLByePICMrodxVDI4J+jvV
-	UndmfVPMQ/79tIw03ELDp4H9EkELmYMKqozJx+HOlQelWoLiQkBb8mzsx7Ie4pe2
-X-Gm-Gg: AR+sD11Wl6k9Lx9vaK54K4kjwAfCzJzG5S4usRJYKHmAdbFKCcMFq7gjAyAM9YW5H6x
-	iM2iAU/LffBGF9PUYcmxI174RtJCtJEJmSrr7Xc00bd0a0FlMQWpouTHAMgumCYUTXoxtY5uYSp
-	k68iz0D8uHVEX05BU0GbHl+ke2IS8nS2DXKX8GtxgEDYVMf7USlyLSocQITXMhutASz2HV/f49w
-	Srp7Cxg7cotLV7Mkur39c7TrUVgqZnQK3RGADNfxGJ1BxlDswD7tm2BUCjQK7zvvnDc7Dzcj+az
-	gRlmtj+lcxtUj7glvUM+vKUg4U0N56W9BFkzsbSRxXgonV+HCvK0sXznx2qxhiw2QjSYuceBFVV
-	G5EpTXPDB1rZ9A5nrSIl0FLkpAhmAElDy0d05Nq4oF4AnZCI4bn3EYc2h53Pf301Qya5jhynxJw
-	2Mi+H2sWRD0HUX+xZ1McACksOaVzed+dATEOCWq8zJ4zt0OsHProBdieeUGQqyy9HLQLJYCVJz2
-	ougqDIKJQ2nP0L50Nt+PizdlA==
-X-Received: by 2002:a05:6102:2b83:b0:745:31e9:f3d9 with SMTP id ada2fe7eead31-760e6acb0eamr3229995137.1.1786006725824;
-        Thu, 06 Aug 2026 01:58:45 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7604555edc4sm3421386137.6.2026.08.06.01.58.44
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1786006758; x=1786611558;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hz7p/0R4cazLeloER7BY4ptZVwcivZ0VzPNuNCtZ/qY=;
+        b=LpIRfRj24RPIelfmsdwQh6oPaayhXjhSCyEp/9axiVRxzClgle60JmnExhWHy9hISe
+         mSam7EmNGvPxUKoXakOmmcA/0m1qvoRNgjvycWNCmG/e7bCxUnQvidlM2u1fB3TMEwZB
+         8ZhjxI1XpchvOJp4vM4+obU+ldczyEALjliUd1gVNTyWgB0a4TX2bLuIeXmwQq1WWpRK
+         SURRhTQl6N4zR+XFQMbEtGIib/yIYpVnWcNrinyJ2E7c2fzILsw53jMzKsD9rnE6XBpC
+         a7cOOUdsP+SWw9vaxpyXW0sn43iivtFBp96lIHO/dDR1ckcWYyGso2O7bimHE5hJ7vd7
+         XyfQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqXlX13uJ6sU5t8fKBPRo8265W0Zh6WHgLah9SBtg1vbzLfGn9mSddeRtamzQm8ueP4Sfy8B/WquFUf@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXGRjxp5aT8T7nx+rLMkyWZc5s4O0iopLi/r1rQc6qjzeKv4by
+	CkYJITUlLIbOaCtTJH6Ory2xkltUKHaF32MthxyhgJHKC23FQFCIaRDu
+X-Gm-Gg: AR+sD12v9lZVkklqbAgvN7Y6iSxpr96ELbND2wUt3L1lFhCjgvcgYh4BUCMz3j6dbZY
+	avmceRmDGWr4naQEikiGWLiKosFVyt7/AUdbbTSGAAWCtTjVtIgCjPQUCsFXXkVuihebA8MZ/+g
+	Z5CAGusil7tuDzcsXlWMQRlQdeBIF3/PYIacMXWDkOCOnW4yUfIWPP733789hGltLh49Tc5CxpV
+	Nkh1yWQ9sQZZKFI3Rl5BVsSXEsih9BQVyuIcmEWywu45CNB9J2A4LzHaPxOK/MRioW7YXfbn3vx
+	GKCgQy6H0e2Zw4rIim+ugdXUASoda7KzlVjSD6vXcxtAlhqm8rdkojEvcU38Ud5JI7C4DmJBDoW
+	baM5YyDBbgTu0YAAsD2EFMWIWQmC561jiEqDwXZttdLjdkuMZVeojwHqnjITnF8MMWhPgbl+zNW
+	1fqY5dxcr6HQoCv0LgTmVmuenpmOG/kGU4qqpFig0kPJpus+eEdgraXhjzpX6HHq8ElPcJwEPKd
+	tlFWrQITUQiFT67TeufR641Ozd7pMXkOHET6+3KXaUm1JKpsuhaAQQtCoHX2Ik=
+X-Received: by 2002:a05:600c:4f82:b0:495:4cb8:42b9 with SMTP id 5b1f17b1804b1-4994e7112a3mr155421725e9.4.1786006757817;
+        Thu, 06 Aug 2026 01:59:17 -0700 (PDT)
+Received: from ?IPV6:2001:9e8:f131:1d01:8da1:260c:d732:9394? ([2001:9e8:f131:1d01:8da1:260c:d732:9394])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499541b525dsm57140085e9.0.2026.08.06.01.59.16
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 01:58:45 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-75e2905c09aso290416137.2
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 01:58:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpoER2y1O2uS2+SYtepbd2rMZjoB7Fubx42EXdgZfOL8tCiyHAlr6HILAZ2uieB2kJ/0/BoGxEb/YVd@vger.kernel.org
-X-Received: by 2002:a05:6102:374e:b0:739:626d:4473 with SMTP id
- ada2fe7eead31-760e3698c49mr3173857137.0.1786006724650; Thu, 06 Aug 2026
- 01:58:44 -0700 (PDT)
+        Thu, 06 Aug 2026 01:59:17 -0700 (PDT)
+Message-ID: <32bed9c5-3ee9-4e95-9f6f-a0b2c36a9354@gmail.com>
+Date: Thu, 6 Aug 2026 10:59:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785941595.git.geert+renesas@glider.be> <89e6a71b35703f10e12f520af1f389b5f40f4b35.1785941595.git.geert+renesas@glider.be>
- <7c30baacac8c75037f32c0ac3099a6107cbec38b.camel@pengutronix.de>
-In-Reply-To: <7c30baacac8c75037f32c0ac3099a6107cbec38b.camel@pengutronix.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 6 Aug 2026 10:58:32 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX3mUVq5HAOcoLxf8_=ALKe_j-0uSTTORA_KyiOq1Bgiw@mail.gmail.com>
-X-Gm-Features: AUfX_mwUZKZac7nMaa-VOsxeMPj2DizVJUU-sXiHc_DXR1wX8yJ0IgF-oPKqM3c
-Message-ID: <CAMuHMdX3mUVq5HAOcoLxf8_=ALKe_j-0uSTTORA_KyiOq1Bgiw@mail.gmail.com>
-Subject: Re: [PATCH v3 4/6] pmdomain: renesas: Add R-Car X5H MDLC driver
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v11 4/4] net: pse-pd: realtek-pse-mcu: add UART
+ transport
+Content-Language: en-US
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, daniel@makrotopia.org, bjorn@mork.no,
+ sander@svanheule.net
+References: <20260802100114.720594-5-jelonek.jonas@gmail.com>
+ <20260806011113.1855680-1-kuba@kernel.org>
+From: Jonas Jelonek <jelonek.jonas@gmail.com>
+In-Reply-To: <20260806011113.1855680-1-kuba@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Philipp,
 
-On Thu, 6 Aug 2026 at 10:13, Philipp Zabel <p.zabel@pengutronix.de> wrote:
-> On Mi, 2026-08-05 at 17:20 +0200, Geert Uytterhoeven wrote:
-> > Add a minimal Module Controller driver for the R-Car X5H (R8A78000) SoC.
-> > For now this just supports the always-on power domains, and dummy module
-> > clocks and resets for the serial console (which is enabled by the boot
-> > loader).
-> >
-> > Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > ---
-> > v3:
-> >   - Replace <linux/mod_devicetable.h> by more specific
-> >     <linux/device-id/of.h> in v7.2-rc2,
-> >   - Add a comment to document only always-on domains are supported,
-> >   - Consistently use /* sentinel */ for zero sentinels,
-> >   - Drop trailing commas from sentinels,
-> >
-> > v2:
-> >   - Spin off from "pmdomain: renesas: Add R-Car X5H MDLC SCMI remapping
-> >     driver",
-> >   - Add default support not using SCMI,
-> >   - Drop all SCMI remapping support,
-> >   - Document use of -1 as a sentinel,
-> >   - Rename struct r8a78000_mdlc_info to mdlc_info,
-> >   - Print HW IDs in hexadecimal,
-> >   - Reduce log level for unsupported MDLC instances from warn to dbg,
-> > ---
-> >  drivers/pmdomain/renesas/Kconfig         |   4 +
-> >  drivers/pmdomain/renesas/Makefile        |   1 +
-> >  drivers/pmdomain/renesas/r8a78000-mdlc.c | 330 +++++++++++++++++++++++
-> >  drivers/soc/renesas/Kconfig              |   1 +
-> >  4 files changed, 336 insertions(+)
-> >  create mode 100644 drivers/pmdomain/renesas/r8a78000-mdlc.c
-> >
-> > diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> > new file mode 100644
-> > index 0000000000000000..5c8acead7cff9bdd
-> > --- /dev/null
-> > +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> > @@ -0,0 +1,330 @@
-> [...]
-> > +#define DEFINE_MDLC_RESET_WRAPPER(op)                                            \
-> > +     static int r8a78000_mdlc_ ## op(struct reset_controller_dev *rcdev, \
-> > +                                     unsigned long id)                   \
-> > +     {                                                                   \
-> > +             struct r8a78000_mdlc_priv *priv = rcdev_to_priv(rcdev);     \
-> > +                                                                         \
-> > +             dev_dbg(priv->dev, "%s: Ignoring\n", __func__);             \
-> > +             return 0;                                                   \
-> > +     }
-> > +
-> > +DEFINE_MDLC_RESET_WRAPPER(reset)
-> > +DEFINE_MDLC_RESET_WRAPPER(assert)
-> > +DEFINE_MDLC_RESET_WRAPPER(deassert)
-> > +DEFINE_MDLC_RESET_WRAPPER(status)
-> > +
-> > +static const struct reset_control_ops r8a78000_mdlc_reset_ops = {
-> > +     .reset = r8a78000_mdlc_reset,
-> > +     .assert = r8a78000_mdlc_assert,
-> > +     .deassert = r8a78000_mdlc_deassert,
-> > +     .status = r8a78000_mdlc_status,
+
+On 06.08.26 03:11, Jakub Kicinski wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: pse-pd: realtek-pse-mcu: add UART transport
 >
-> Are .reset and .status needed by any consumers?
-> I'd leave them -ENOTSUPP otherwise.
+> This adds a serdev (UART) transport for the Realtek PSE MCU core, with
+> send/recv callbacks that exchange the 12-byte frames and an asynchronous
+> receive_buf callback. The baud rate defaults to 19200 and can be overridden
+> with the "current-speed" property.
+>
+>> diff --git a/drivers/net/pse-pd/realtek-pse-mcu-uart.c b/drivers/net/pse-pd/realtek-pse-mcu-uart.c
+>> new file mode 100644
+>> index 0000000000000..9baa17d8d31fa
+>> --- /dev/null
+>> +++ b/drivers/net/pse-pd/realtek-pse-mcu-uart.c
+>> @@ -0,0 +1,164 @@
+> [ ... ]
+>
+>> +/*
+>> + * No framing is done here: a glitched frame costs one transaction, then
+>> + * the next _send re-frames from rx_len 0. Resync works by returning count
+>> + * (not take), dropping any overflow so serdev keeps no leftover to bleed
+>> + * into the next frame.
+>> + */
+>> +static size_t rtpse_mcu_uart_receive(struct serdev_device *serdev,
+>> +				     const u8 *buf, size_t count)
+>> +{
+>> +	struct rtpse_mcu_uart *ctx = serdev_device_get_drvdata(serdev);
+>> +	size_t take;
+>> +
+>> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
+>> +		take = min(count, sizeof(ctx->rx_buf) - ctx->rx_len);
+>> +		if (take) {
+>> +			memcpy(ctx->rx_buf + ctx->rx_len, buf, take);
+>> +			ctx->rx_len += take;
+>> +			if (ctx->rx_len == sizeof(ctx->rx_buf))
+>> +				complete(&ctx->rx_done);
+>> +		}
+>> +	}
+>> +
+>> +	/* consume all to avoid desync/misalignment */
+>> +	return count;
+>> +}
+> [ ... ]
+>
+>> +static int rtpse_mcu_uart_send(struct rtpse_mcu_ctrl *pse, const struct rtpse_mcu_msg *req)
+>> +{
+>> +	struct rtpse_mcu_uart *ctx = to_rtpse_mcu_uart(pse);
+>> +	int written;
+>> +
+>> +	/* clear any leftover rx state before transmitting */
+>> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
+>> +		reinit_completion(&ctx->rx_done);
+>> +		ctx->rx_len = 0;
+>> +	}
+> [ ... ]
+>
+>> +static int rtpse_mcu_uart_recv(struct rtpse_mcu_ctrl *pse,
+>> +			       const struct rtpse_mcu_msg *req,
+>> +			       struct rtpse_mcu_msg *resp)
+>> +{
+>> +	struct rtpse_mcu_uart *ctx = to_rtpse_mcu_uart(pse);
+>> +
+>> +	if (!wait_for_completion_timeout(&ctx->rx_done, RTPSE_MCU_UART_RX_TIMEOUT))
+>> +		return -ETIMEDOUT;
+>> +
+>> +	scoped_guard(spinlock_irqsave, &ctx->rx_lock) {
+>> +		if (ctx->rx_len != sizeof(*resp))
+>> +			return -EIO;
+>> +
+>> +		memcpy(resp, ctx->rx_buf, sizeof(*resp));
+>> +	}
+>> +	return 0;
+>> +}
+> [Severity: Medium]
+> Should rtpse_mcu_uart_recv() apply rtpse_mcu_resp_is_final() before
+> accepting a frame?  The req argument is unused here, so the first complete
+> 12-byte frame becomes the transaction result no matter what it contains.
+>
+> realtek-pse-mcu.h describes one of those frames as transient:
+>
+>   /*
+>    * MCU status opcodes (seen on the Gen1 dialect; Gen2 never emits them).
+>    * INCOMPLETE/BAD_CSUM are terminal; NOT_READY is transient.
+>    */
+>   #define RTPSE_MCU_OPCODE_NOT_READY		0xff	/* -EAGAIN  */
+>
+> and the I2C transport keeps polling until the acceptance predicate holds,
+> so a NOT_READY frame never escapes the transaction:
+>
+>   drivers/net/pse-pd/realtek-pse-mcu-i2c.c:rtpse_mcu_i2c_smbus_recv() {
+> 	for (tries = 0; tries < RTPSE_MCU_I2C_MAX_TRIES; tries++) {
+> 		...
+> 		if (ret == RTPSE_MCU_MSG_SIZE && rtpse_mcu_resp_is_final(req, resp))
+> 			return 0;
+> 	}
+> 	return -ETIMEDOUT;
+>   }
+>
+> With the UART transport, a NOT_READY frame is copied into resp and
+> rtpse_mcu_do_xfer() turns it into an error for the caller:
+>
+>   drivers/net/pse-pd/realtek-pse-mcu-core.c:rtpse_mcu_do_xfer() {
+> 	case RTPSE_MCU_OPCODE_NOT_READY:
+> 		return -EAGAIN;
+>   }
+>
+> Is any runtime caller prepared for that?  The only place -EAGAIN is retried
+> is the probe-time boot loop in rtpse_mcu_discover(); the pse_controller_ops
+> paths propagate it, so an ethtool PSE get/set would fail.
+>
+> Note that "realtek,pse-mcu-gen1" is in rtpse_mcu_uart_of_match[], which is
+> the dialect documented as emitting these status opcodes.
+>
+> Can the real reply also be lost in that case?  Once rx_len is 12 the
+> receive callback computes take == 0 and drops the following bytes; if they
+> instead arrive after the next rtpse_mcu_uart_send() has reset rx_len to 0
+> (the core only sleeps RTPSE_MCU_RESPONSE_MS = 25 ms between send and recv),
+> they are consumed as the next transaction's response and rejected by:
+>
+>   if (resp->opcode != req->opcode ||
+>       resp->seq_num != req->seq_num ||
+>       resp->checksum != rtpse_mcu_checksum((u8 *)resp, RTPSE_MCU_MSG_SIZE - 1))
+> 	return -EBADMSG;
+>
+> failing a second consecutive operation.
+>
+> Would it make sense to loop on wait_for_completion_timeout() against a
+> remaining-time budget until rtpse_mcu_resp_is_final(req, resp) holds?  As
+> written only the first frame is waited for, leaving most of the
+> RTPSE_MCU_RESPONSE_MAX_MS (1000 ms) receive budget unused.
 
-.reset is used by a variety of R-Car drivers.
-.status is used by the R-Car I2C and PCIe drivers.
+Fixed in next version - uart_recv() now loops wait_for_completion_timeout()
+against the remaining budget until resp_is_final(req, resp) holds, dropping
+non-final frames (transient NOT_READY, or a stale frame from a prior
+timeout), so it uses the full RESPONSE_MAX_MS and no longer surfaces a
+transient frame as the transaction result.
 
-So both will be used later.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Regards,
+Jonas
