@@ -1,140 +1,91 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153BF311C2D
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 18:34:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D122EEE7C;
+	Thu,  6 Aug 2026 18:34:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786041257; cv=none; b=CKOIvIe6sLlMyMkS+RFl8l6e1pdVwVCwEVxVSLYDAVj6/ZcdY2lwtdcpM8uFJHqSN9zilmk0Jn2MyaqX/aoI21jJv/hpHQcipqBEqN6T2Qju2qAJ91vNvA9wRaLEHWSxboLCZVavDY7rDvcpvIYV0ZDgjStVl8sk2XqpRUPwurU=
+	t=1786041282; cv=none; b=Lr/luWfHmnVwVb7OWhIOcmDuq/VEgdOf0/wiC7eQ2gQh05yf/VOiuWGiX41apYHTcqbXPfUsrFwBJ97ZuQakrZGyc+qM/SbmFSrZbsdKvvx3lesZnaNfXu8Ae91/stkBF03BMbiMWocBzt65IaAU5UHt4gCl3gTil4Gb+HundpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786041257; c=relaxed/simple;
-	bh=G8P+y1KOAQ0sMjU5M458bgZf/2vH+0bbDZyvKEz7PMM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lNaOyUhPYdmgeTKFAssoU2c/7zx506MQxZIC2ssYfHS9r9dZBoyq0Z3keCGdT5bNMdTp+RYJqoms05Mc7mECLxhFXTHA5UpDN5rPQvVej8Kb/cEbBP6jpFjD7m5YbgRb5Kk3MdbOc17Jec68vKR6wLeWG9JzU+cRqCJHNawnz7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RhkJQEfC; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786041282; c=relaxed/simple;
+	bh=mDCPSzh6rMRjDZZdVvq+/wEd+AVZYVPO4Jz2cpunOJs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IcLfG4mvqXXLadERuZtdlGCjCopjyZxKyS6W0xsFFkdh6Sn+OfDDLguLqckG5MD72ZWHXadyf1Cz1qncjjPj26bkdTw+ros7GU0gvJRHVBRdpcxtwl//643nSNdFubFeVM9NBaC0JJeDSE0onopSunKJkau6RiYwOGXIZ6FckZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlYXFqW/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RhkJQEfC"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso16563795e9.1
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 11:34:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786041254; x=1786646054; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=guNARlXxkuof9kUROgwrVcSK0CxwVUDL/WVDz9p8+W8=;
-        b=RhkJQEfC77AnaZIMXknRUwo26arwiU+N4Z4KiZ6YFqxMOsRyupxt0klaXQZIdOoXOL
-         FxE+YtFSP/cMeCiK8NktJzsgllRWFO5hvt9cLfNI2bQXkBYtv+xrZiH7EDjGbpt0D3PO
-         nZpSSklMZy44dhxljIYlgN/bELnSjrIPJOeDaRti8XiTDHxfs4BpCOP2xUE1IIpVSe2B
-         /3n8d9fiR9/us8xg4txow/dmDGJxTyTCbRHeAB2+2X13hFIqwGGII2oIj4WDamsyhZCf
-         kqJCkz1Vil6MV/hJoWgY9m73n/c6dFcmBQM7KAZ7bE0RsDrf3EnUm5KGEFJamHYjLi1m
-         o1Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786041254; x=1786646054;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=guNARlXxkuof9kUROgwrVcSK0CxwVUDL/WVDz9p8+W8=;
-        b=ZtOCGh9z72xfpPbxPzno81w9koVaSfRAYWD5/zFNVIBIsCIQJRET3T9+hBqzdaLPTr
-         Hizt9WAAmPsp0IfcIaKH+a6SSA48QjOZ5dxMWmJt/CWgtMYFTuSkzXhU39+6UPht/wAy
-         CP82eMVsAf/5TgSJmHpY6GUBKFLNRTncIRJJMb/6iGV8VMD8ibWKnQASHwS1ZdFGCGLk
-         o5Pl2L7iwfnzBShcyDS0YNAqEldvf8bH2xk46Bd+ULt62Xdg9K0SppyLO++cfOeZgo6p
-         9qcZJleRfpHcVk79V2rEYUz6T4DJvQcCBfbjGUgL4ZnBRUayKlNlHK3Lc+lM6FaGCrmQ
-         nNKw==
-X-Forwarded-Encrypted: i=1; AHgh+RqYwLSpU8EToBGqCFWKd5Io1Pjqd8l0ly8twcUVefEeu60GS7lmgBIDCWBroRuoByRsHD4jUfZIEktk@vger.kernel.org
-X-Gm-Message-State: AOJu0YzzpZsBVybVpJ6zUihLuatwqT0eYMrZzHTKewwA92O06AP5U4Zy
-	0C3sQoeCzHvBkUEb/xCbl4/M6DwD44DsP8VMyaqO1yaVY9nXrLCTG7lC
-X-Gm-Gg: AR+sD12a63WeuCi/kOZmPGAICm0xMM9KedSvTU6Qs8zGvBlweX04wGRxtGLmqpwN6LO
-	Gf4TYEqHj1b1GRxYOWw2czKXlGY+5zPceFu53CKphWk9R/hZZPCldqtaKslZlZ57RKklEzmx4Zu
-	mGDwCaMJxTt5t/qM0ZdwS+ro2lP1mKagaWLwgaSlJJg3DLf/NO7lgOXbfTtdA5UZ7DEIVRnn+Bi
-	0yBn8JKm/c33OQ7cqXfS9r4ZU9YWDs1dCzleiBGc6idGWBEgaGFcp1Z0vpOsPKat/p+QMQ6AJMr
-	Ko3RQSHwpI5yMVy4yqfJsGkWGQgJ5WFItzjUBIjb1Sa6jHaq+h0gZm2q9cMmuK1QGTxrwz7Hxpn
-	2AfETe/Esbo481wnPg2+dLgOTk0hzZZ3Eo25dT+rT3Wah3KWEzktLvfYuOx0AAMegrjGOSteHE2
-	pH6dOnSG90Ui6qA1bslpiDSZNRQrtvUyt0AssNiwur55c4ARIfGji8rtPU921DwFccu+Cvc2P/W
-	KY=
-X-Received: by 2002:a05:600c:8b17:b0:498:14d3:562f with SMTP id 5b1f17b1804b1-4994e7cb3efmr202318785e9.15.1786041254074;
-        Thu, 06 Aug 2026 11:34:14 -0700 (PDT)
-Received: from silicon.doe.home ([197.250.226.68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995c7a3d1dsm14165e9.3.2026.08.06.11.34.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 11:34:13 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: sashiko-reviews@lists.linux.dev, Lee Jones <lee@kernel.org>
-Cc: vkoul@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev,
- olteanv@gmail.com, conor+dt@kernel.org, neil.armstrong@linaro.org,
- linux-phy@lists.infradead.org, robh@kernel.org
-Subject:
- Re: [PATCH v8 04/12] mfd: zx297520v3: Add a clock and reset MFD driver
-Date: Thu, 06 Aug 2026 21:33:54 +0300
-Message-ID: <MiZ40QjqRtKW-pfFo_ZCYQ@gmail.com>
-In-Reply-To: <20260806143103.GN2869284@google.com>
-References:
- <20260727-zx29clk-v8-0-7a107b00f1dd@gmail.com>
- <20260727184155.2F0A61F000E9@smtp.kernel.org>
- <20260806143103.GN2869284@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlYXFqW/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 880AC1F000E9;
+	Thu,  6 Aug 2026 18:34:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786041281;
+	bh=mDCPSzh6rMRjDZZdVvq+/wEd+AVZYVPO4Jz2cpunOJs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mlYXFqW/QSTKwZ08+7MMf2SChseEHoSG/ppVw6Lb0jqmLqM2bvf2VWBgRYbJdbMGA
+	 Pv//9uUmYYtrDsIEOfPg/uOUJkrTDO3ndEayupNxM0tq6luhc/k+KDlo9smsgBwIL0
+	 x5qiaYAFTguR+IDK3zRNBCX4l0lAJ9OH2WYt3Q6LXL7pjxKqetFSktfQtLWF4EYowv
+	 T7lbEsjKWoDaR9Otz0WT+x0NBooPWTyr90HJpQ/HltBnG/Tn0crwQSuCcvPN6O+g0W
+	 buR9dmgXuuTMVVNUKBPXNxlaYgOmL9GS0COo322oK8thf5HtQaOoNeozEK00NLqPNE
+	 A8Y7Jd/G1AVnQ==
+Date: Thu, 6 Aug 2026 19:34:35 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: konrad.dybcio@oss.qualcomm.com, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	chandana.chiluveru@oss.qualcomm.com,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: spi: qcom-geni: Document device-gpios
+ property
+Message-ID: <65e5ead6-6159-4660-a699-db46fb4caf17@sirena.org.uk>
+References: <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-0-c363a9b5df69@oss.qualcomm.com>
+ <20260806-use_gpio_to_notify_master_of_spi_target_activity-v1-1-c363a9b5df69@oss.qualcomm.com>
+ <57719877-b8d8-4df0-acce-2c4faf5a5899@sirena.org.uk>
+ <3594bbdd-e457-4a88-9e37-7acf0f3d87d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartbZ2Luvy9Smq4ikTWC0Dxgg";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SiavI59hKZmQToq+"
+Content-Disposition: inline
+In-Reply-To: <3594bbdd-e457-4a88-9e37-7acf0f3d87d2@oss.qualcomm.com>
+X-Cookie: Brain fried -- Core dumped
 
---nextPartbZ2Luvy9Smq4ikTWC0Dxgg
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: sashiko-reviews@lists.linux.dev, Lee Jones <lee@kernel.org>
-Subject:
- Re: [PATCH v8 04/12] mfd: zx297520v3: Add a clock and reset MFD driver
-Date: Thu, 06 Aug 2026 21:33:54 +0300
-Message-ID: <MiZ40QjqRtKW-pfFo_ZCYQ@gmail.com>
-In-Reply-To: <20260806143103.GN2869284@google.com>
-MIME-Version: 1.0
 
-Hi Lee,
+--SiavI59hKZmQToq+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Am Donnerstag, 6. August 2026, 17:31:03 Ostafrikanische Zeit schrieb Lee 
-Jones:
-> This is correct.  You must not pass one device registration's (MFD) data
-> through another (OF).  Use a defined integer instead and match in a
-> switch() statement.  There are lots of examples of this.
+On Thu, Aug 06, 2026 at 11:47:46PM +0530, Praveen Talari wrote:
+> On 06-08-2026 23:05, Mark Brown wrote:
 
-That's what I did in Version 9 of the patchset here: https://lore.kernel.org/
-linux-arm-kernel/20260802-zx29clk-v9-4-d05530d85d28@gmail.com/
+> > This seems a lot like the ready-gpios property we have for some other
+> > drivers?
 
-Though I did run afoul of the naming rule (my enum has "MFD" in it, which 
-kinda has the implementation detail that the driver is an MFD driver baked 
-into it), so I'll address that in v10.
+> Yes, you're right. The intention was the same when I added this property.
 
-Cheers,
-Stefan
---nextPartbZ2Luvy9Smq4ikTWC0Dxgg
+> Would you prefer that I use the ready-gpios property instead?
+
+Yes, we should have a consistent name.
+
+--SiavI59hKZmQToq+
 Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmp005IbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoi2E4QAKy9v/glfkTD822DgZKq
-qPzYOORWeaxqfAwwJsjuLkZsEMRDinOZMU6NjOgjam5gH6xFW24xOdsdphnttZCS
-PuzRThxDv3kudLgQFG9NA5k2dZ3DVolJBolbNDCrNSCby86zJB/PQo2i0rQe5Y5I
-KjnY1/NfOu9eZsQjIYdUSGibnKLebz3FdY/KrwrobpWranqBBXTG2PYZPxtOaTsL
-NvpHuzg5X9VdwBMStJGMqowPrGawDzbtS4/P3AWfVrLA9hcLsleni9Dopendlpnk
-AyEniQSQ7SnicAeFnutaZfD4q/E+RpaFJejoCmeOnOdDcnJ7SbH0mEoHQqjlz5TJ
-hJDo5PBAjLZ3DmD/qOiXFN7UhvMHtDxUEm6jA/UKmOuu/yFQ1zVIO6z8Y3mqYwBY
-qDNXuOZ8UN8eZvC9kWDZ8phcVejRJt/YdRG9WNEkZO9pGH0kIxjBWvRcYYgTBWhY
-2U0CBCr3lyEtcfsbOL56eJwLbHZinU9zj+B0S60UGEK7frgR//3mGufSaT/szW9H
-e1aZAdEiLN677Bmm1DkW+NE16K+QcB6/U1pLyoj+HHhXdOvigOLTZk5wLHBIMBqA
-GmEvS+6BcwK/7xy3hGobS4ZMCUbjgyUi8QJaUaTi5k0P6NtQzaxyzmDalcrKWIIq
-sCzkCfPHIvDsbbnLIO8Xd2SP
-=1FP0
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp007sACgkQJNaLcl1U
+h9BJpAf/ZvGuYNR8ph5K8AGotwW2rlx7waIg8MPC1X1bxqDn/t2eAWWUD64p5int
+QWQ0OGGLCytnx5gsxV0pz4jXVS/tlJ7bJ5Ef9UFmbGGBt7bHgo0X2w0bEtJ+WkdM
+FWmyqRh85QVGe+Q5rXM8ViIeU5Pwc3cXjq98r9lJB2pFN1zp30I5oaWWq2URYioc
+3xPlB9MvB9kZ52+mEYMCAvZuIiv2H3id7JOPXQnRvSF0DWjCuSQsQUkkW/M5B3++
+0P1GLnqJFK14yMxsVax7FNMaIM4eSVuCmBGTT7Qzr9uTyG0GPGROppNCrQJu+vq+
+l8kg3YrD0VKjYUjSrwbbnI8Ntf9B7w==
+=u2l8
 -----END PGP SIGNATURE-----
 
---nextPartbZ2Luvy9Smq4ikTWC0Dxgg--
-
-
-
+--SiavI59hKZmQToq+--
