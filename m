@@ -1,198 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b7-smtp.messagingengine.com (flow-b7-smtp.messagingengine.com [202.12.124.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33AC54343E1
-	for <devicetree@vger.kernel.org>; Thu,  6 Aug 2026 09:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157E9424D57;
+	Thu,  6 Aug 2026 09:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786010168; cv=none; b=lN5nuiamjv0at37jbVEnkAOUWiSBto5x55jBopwnRNnIhzpW2bgPftMvXlZ2m9Wr7BV5ojA7yK2qowNco23kErpFD2gpbX5cBhULrLrZL70a5XYW2iAUFK8QNqJ35JMLX+bUvEQXLyTeaOL4cbk39CDLkQpDYs+qIFg2GECDkQU=
+	t=1786010168; cv=none; b=Ov4bqE6f5uDrIgW2oOJKAg19thVSecYvkKCAyKfhxDP2eT7dvTqm6z4wrMPf+zRq59LxTIBuR7BDJS2oJ7R+2k3SOA/ZDpWNT/3bJ80ouXfyBpb/6aozYTUG6I/5l4VtfWqbbpllRQ6BVkzPawl9AoA/6rMDHdc7/xxSOoNUeUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786010168; c=relaxed/simple;
-	bh=Vgyc1TQbWhgmrptluwH6PVVKXWUYwYmRD3Qm/7J4lo8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HPYPVtjBmHHzaFIm71Y+W2S0wHiw8tGidfKt6HX46Cb7UD7WoAolrs3s9WmBC8rxcIc9Qx3y/IGCJEBC6Iqh183OY66REzcRQ+I1bsjs/fXlR3qtWClUp71LtIFXibL8wnLGeYALmq5VwunBkMFbI5ttWHJa9DmbLLbmJ+5tguI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DFuxKNKm; arc=none smtp.client-ip=100.103.45.18
+	bh=qxr00s83vJNyr/uHKm204LYU2CSFNRD+vQQ1pSxB/JA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BJZ6PbjPyfkJYWbY6W3auYgXziyaOG18weTEgECIpFS3Uz6amLayZt7YMy0XAKCXgmxM4bphCxjISNuztbGREv6AIxx5wVEu6KoLx9rXfBnVZNhgcgTlKp00vJ4C7S6Kz3V8xtgnh3/m+xScZ8+D7by0Ew11vd13NkqdP2lbPBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=YsXLvlWh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fgRxnaWn; arc=none smtp.client-ip=202.12.124.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DFuxKNKm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F2B1F000E9;
-	Thu,  6 Aug 2026 09:56:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786010164;
-	bh=GuZqQhNINc+LCkKRvuLN2KY3G2bvK2e205BUU8yBISA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DFuxKNKmTrrLCU0XckgJ4IFyji4kRQN4gTg6auNbjJVw0XrZYe9wRB8+5MyYmRPHJ
-	 x99aCmWdo45o9xxc53gI+hnMl9+rFaKqa1KVv87RkEjyVOtNKoK3PISoJkACtvxKKo
-	 AtgJpDvQmJz8foGxsqiFKPpIwAFlTRA264iEKHDrVYlfaYO8ZlStMlm0QhDmu9O6xL
-	 nI/elPB1x5/Zu9BBmKNolUuq9zUnx8U5boxvLyInfQpYIMG7BYG7pLy5epjsAJLD5F
-	 CmlS2wdSmanzU4Rx93AA6fuJQMaSBu1Z9ENRl3jKz+6J6cLn/A1yc1epZxe6oCLeKl
-	 9qAg/BNzrMYXQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] usb: typec: tipd: Add sn201202x support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806-tipd-ace3-v4-3-79855b150914@chaosmail.tech>
-References: <20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech>
- <20260806-tipd-ace3-v4-3-79855b150914@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 09:56:03 +0000
-Message-Id: <20260806095604.54F2B1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="YsXLvlWh";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fgRxnaWn"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.stl.internal (Postfix) with ESMTP id 5F3391300290;
+	Thu,  6 Aug 2026 05:56:03 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Thu, 06 Aug 2026 05:56:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1786010163; x=
+	1786013763; bh=Hk5pDzV8LlRqCkk9aD2kVsGM1I+df21fePiYEfh2vC0=; b=Y
+	sXLvlWh2ZAKEZQbW5GYzkbQz38Y77eMpXhBpHzKoFP6Lo5dKRHyrlXr+ojb6wXST
+	n0gnEVpLXww8wUnFq8PAwbnOkHMip+Ly486OzFf85X0LULur1iLcjiT6Bh+3j/xR
+	R1SEcygIWtJcO5eArp9I/4AY5XMs/KtuVZ9uiGDvbOHzVSy/TdAR/45Mi9IPDxls
+	hGGTuUSmpsjs+68bHd8zbOEwdtw0YlPhGW3u2mAvAN1vqTw+KAMv1jGFXBnqv6P4
+	pjNHA+Y7/A7qEt+MTWcnFE0Y2bMmcGt+EGjFA+vLykiwThS5IITEjYKRbAdFx8I/
+	2RoOmghx1r/FnaLhFUcTQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1786010163; x=1786013763; bh=H
+	k5pDzV8LlRqCkk9aD2kVsGM1I+df21fePiYEfh2vC0=; b=fgRxnaWnMyveS1aXO
+	LjyxkQvlwukS0nrsYJrW86z0bKTxvrlI3X3na6OvG1caBb0sw5qKuVMTs0M+BGmc
+	2e5iAUasBvybW4Q3qlP3+mXgkpPRboLfwugPWTGNiQcC6qGjcJM3nksZDUVxrB2v
+	DEDT41AQlrOwc1O6Hys6SnHM4lmSTDX/8GS1o0Q9gaPfXY17GOyIG9SsihHjK2z2
+	i66wvziKLpOYffjwFS+l2Jz12LfIuXhqiFGuhXHObw3unoz4oXhKJ6eYknNAhKgh
+	HppF4WRDpS5+ufKw6KiOoKeqlYuK2Vel0/fYW2ECZiwWQpMzXyNTtCEiMK+ri2CI
+	keRng==
+X-ME-Sender: <xms:Mlp0ahS0yFPqV1DSkJ01rc_N8Nlb8Mh4K6XLjD4Vwm6bwjVzCK5Aqg>
+    <xme:Mlp0avp7gNVjSKDp4RJAF7xJDKQ0kXIyXdu-o3JGr2CEe5Wz7AXLjoNjU8v361IQQ
+    VMIsbdqVV_Pc8YyK2lUAw1EydPAfpsDa8btk-oveNlXdk6mLMfJ>
+X-ME-Received: <xmr:Mlp0avat26AMe5XEEB0D4mW8NMHpnj9Wu67efEZXmZx4J2HKR1WrG16OfZz3_-BTq5FnTNMIEQ>
+X-ME-Proxy-Cause: dmFkZTEwXjC8I/Apl6hZLAV8DofRZjARxHMzyBPZWfubTPbduEkENL3KBYf+BUJyXx3o1H
+    pohUIUznaqX7Fjr2lTk141FubMEVNnW5UMIuAi4J+njPSv/GG64EL2ET2Hgv347vEiQ3jc
+    KA0wugH9OtAy5ThKMtJS4rzVpp7fazWBBvvGSAaUJ/31Su1HTwA6ygKr329Xzd68/cfp/r
+    kUtih/tfoUuoXMiAlMz4P8El5uMHxKkC1uSTp9CIRwChyeiZFIqFoe0r9cbHs0y91twdaj
+    Ye8UZk8LuQZRgkNIKQp73lZNC19WmkBF37P4XI+j4jl1i7G99ToDHprnGUuph2QJtzRqhk
+    Y/xPeL3aF8NCvUAvbvOzrzZeJFY1DHMXKBPl5POz6R00Vq+rFf8y2F1dCrc9xkjPe7YfPZ
+    MjOxbmc0B5RRhOVoDZJsojJH79Y8knd2ukTaprVv1CJdGpf9/6JpqCv6nvRMe9n9QODaHA
+    Q+1gcsIdDf99agQbM218bGomKOlbXyVQJD/sUEyfT7eypXbzLpHMsTL8FMqfBeRJeU/vgl
+    SXyboeM44NX5RtS1p7+f+mwt7m/oVdEecoNVB4zu/bNgjjZwh24UsPNqSCE0LkkkpjyoXi
+    I52UEBI8XitE2CGOb0uoTffZzjGEuXBj+CKbrmmBfT6/QNoAja0KieikT1Lg
+X-ME-Proxy: <xmx:Mlp0aqRkn2pPE_-1_Gk6aKPEOvIxpvqZV_DT80w1B6u9jjBpMCp1pA>
+    <xmx:Mlp0atcYjaJmkcAgm5FI8QtorqjulkfFcdmBT0IbeJ7Rhg-RFIQJWA>
+    <xmx:Mlp0apmnC6Y0QLAUtxDLe_jhr_w0OD87HpgqAcktESrYlnLSGPL-0Q>
+    <xmx:Mlp0aiiLAdb0nEdrZ2TqARrl0VQSgN4lZ0BhgFK5YJ7skMXdwp4vbw>
+    <xmx:M1p0asBF4N3AsCWRS2JEJAFlWx9N7kdh1VpOIOmmYA_aW2bjq4YRkhS5>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 6 Aug 2026 05:55:54 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: diederik@cknow-tech.com,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	tomeu@tomeuvizoso.net
+Cc: royalnet026@gmail.com,
+	alchark@flipper.net,
+	chaoyi.chen@rock-chips.com,
+	iommu@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [RFC PATCH v6 3/9] dt-bindings: iommu: rockchip: allow the RK3576 NPU MMU clock set
+Date: Thu,  6 Aug 2026 21:55:51 +1200
+Message-ID: <20260806095551.368456-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <DKHR2P0XJF0B.OY937NT39DR7@cknow-tech.com>
+References: <20260806063413.350184-1-gahing@gahingwoo.com> <20260806063413.350184-4-gahing@gahingwoo.com> <DKHR2P0XJF0B.OY937NT39DR7@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hi Diederik,
 
-New issues:
-- [High] The suspend and resume handlers send SPMI sleep and wakeup command=
-s directly to the hardware without acquiring `tps->lock` or the regmap lock=
-, racing with concurrent I/O.
-- [Low] The driver calls `devm_request_irq()` with a `NULL` `devname` param=
-eter for the select, sleep, and wake interrupts, breaking interrupt debuggi=
-ng.
-- [Low] Missing `depends on POWER_SUPPLY` for `CONFIG_TYPEC_SN201202X` caus=
-es a build failure.
+> Now every MMU with "rockchip,rk3568-iommu", "rockchip,rk3588-iommu" or
+> "rockchip,rk3576-iommu" is allowed to have a minimum of 2 clocks, instead
+> of having exactly 2 clocks. That does not sound desirable.
 
-Pre-existing issues:
-- [High] Delayed works (`cd321x->update_work` and `tps->wq_poll`) are not c=
-ancelled on the `tipd_init()` error paths, leading to a Use-After-Free.
---
+You are right, and it is worse than sounding undesirable, it actually
+happens. I gave an RK3588 NPU MMU a bogus third clock and v6's schema
+accepted it without a word. That is a real loss of coverage for every
+existing Rockchip IOMMU and I should not have sent it that way.
 
---- Patch [3]: [PATCH v4 3/3] usb: typec: tipd: Add sn201202x support ---
-commit bad42a3c130cfb056927239566528c115c728126
-Author: Sasha Finkelstein <k@chaosmail.tech>
+Fixed for v7 the way you and the bot suggest, with a compatible of its
+own:
 
-usb: typec: tipd: Add sn201202x support
+  compatible = "rockchip,rk3576-npu-iommu", "rockchip,rk3568-iommu";
 
-This commit adds support for the sn201202x (ACE3) controller. It is a tipd
-variant that exposes a logical register interface over the SPMI bus.
+and an allOf that pins each side:
 
-> diff --git a/drivers/usb/typec/tipd/Kconfig b/drivers/usb/typec/tipd/Kcon=
-fig
-> --- a/drivers/usb/typec/tipd/Kconfig
-> +++ b/drivers/usb/typec/tipd/Kconfig
-> @@ -14,3 +14,15 @@ config TYPEC_TPS6598X
-> =20
->  	  If you choose to build this driver as a dynamically linked module, the
->  	  module will be called tps6598x.ko.
-> +
-> +config TYPEC_SN201202X
-> +	tristate "TI SN201202x USB Power Delivery controller support"
-> +	depends on SPMI
-> +	select TYPEC_TPS6598X_CORE
+  if compatible contains rockchip,rk3576-npu-iommu
+    then clocks/clock-names minItems: 5
+    else clocks/clock-names maxItems: 2
 
-[Severity: Low]
-Can this lead to a build failure when TYPEC_SN201202X is built into the ker=
-nel
-and POWER_SUPPLY is built as a module?
+so the NPU MMUs are required to carry all five and everything else is
+back to exactly two. Checked in both directions: the three clock RK3588
+node is rejected again, an NPU MMU with only aclk and iface is rejected,
+and every rockchip dtb in the tree validates clean.
 
-TYPEC_TPS6598X_CORE uses power supply APIs, so if this symbol selects
-TYPEC_TPS6598X_CORE without also depending on POWER_SUPPLY, it could cause
-unresolved symbols during linking.
+No driver change goes with it. rk_iommu matches only "rockchip,iommu"
+and "rockchip,rk3568-iommu", and the fallback stays, so the new string
+is documentation only.
 
-[ ... ]
-> diff --git a/drivers/usb/typec/tipd/spmi.c b/drivers/usb/typec/tipd/spmi.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/usb/typec/tipd/spmi.c
-[ ... ]
-> +static int sn201202x_probe(struct spmi_device *device)
-> +{
-[ ... ]
-> +	init_completion(&sn->select_completion);
-> +	init_completion(&sn->sleep_completion);
-> +	init_completion(&sn->wake_completion);
-> +
-> +	ret =3D devm_request_irq(&device->dev, irq_select, sn201202x_irq,
-> +			       0, NULL, &sn->select_completion);
+The name is the part I am least sure of. Everything else in that binding
+ends in -iommu, which is why I did not use -mmu to pair with the
+rknn-core node it belongs to. Happy to change it if Heiko or Krzysztof
+prefer something else.
 
-[Severity: Low]
-Is it intentional to pass NULL as the devname parameter for the select, sle=
-ep,
-and wake interrupts here? Passing NULL causes these interrupts to be displa=
-yed
-as (null) in /proc/interrupts and tracepoints, which might break interrupt
-debugging tools.
+Thanks for catching it.
 
-[ ... ]
-> +	ret =3D spmi_command_wakeup(device);
-> +	if (ret)
-> +		return ret;
-> +	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies=
-(100)))
-> +		return -ETIMEDOUT;
-> +
-> +	ret =3D tipd_init(tps);
-> +	if (ret)
-> +		spmi_command_sleep(device);
-> +	return ret;
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but does tipd_init() fail to cancel the delay=
-ed
-works on its error paths?
-
-If the driver is in polling mode, tipd_init() queues tps->wq_poll:
-
-	if (tps->irq) {
-		...
-	} else {
-		...
-		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
-		queue_delayed_work(system_power_efficient_wq, &tps->wq_poll,
-				   msecs_to_jiffies(POLL_INTERVAL));
-	}
-
-	if (ret)
-		goto err_disconnect;
-
-If connect() failed earlier and ret is set, or if another error occurs, it
-jumps to err_disconnect and returns an error without cancelling the queued
-delayed works. When probe fails, devres will free the tps structure,
-potentially leaving a use-after-free when the work executes.
-
-[ ... ]
-> +static int __maybe_unused sn201202x_resume(struct device *dev)
-> +{
-> +	struct tps6598x *tps =3D dev_get_drvdata(dev);
-> +	struct sn201202x *sn =3D tps_to_sn(tps);
-> +	int err;
-> +
-> +	reinit_completion(&sn->wake_completion);
-> +	err =3D spmi_command_wakeup(sn->sdev);
-
-[Severity: High]
-Do the suspend and resume handlers race with concurrent regmap I/O?
-
-Since the system workqueue is not freezable, cd321x->update_work can run
-concurrently with sn201202x_suspend() and sn201202x_resume(). Sending SPMI
-sleep or wakeup commands directly to the hardware without acquiring tps->lo=
-ck
-or the regmap lock could allow these commands to interleave with active
-multi-register regmap transactions, potentially corrupting the bus state.
-
-[ ... ]
-> +static int __maybe_unused sn201202x_suspend(struct device *dev)
-> +{
-> +	struct tps6598x *tps =3D dev_get_drvdata(dev);
-> +	struct sn201202x *sn =3D tps_to_sn(tps);
-> +	int err;
-> +
-> +	err =3D tipd_suspend(tps);
-> +	if (err)
-> +		return err;
-> +	reinit_completion(&sn->sleep_completion);
-> +	err =3D spmi_command_sleep(sn->sdev);
-
-[Severity: High]
-Could the SPMI sleep command here also interleave with an active regmap
-transaction if the update work executes concurrently?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-tipd-ace3-=
-v4-0-79855b150914@chaosmail.tech?part=3D3
+Cheers,
+Jiaxing
