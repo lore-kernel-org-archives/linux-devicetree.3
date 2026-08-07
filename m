@@ -1,175 +1,142 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9363286417;
-	Fri,  7 Aug 2026 20:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22A3F43F8BE
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:29:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786134595; cv=none; b=iPqjL+Ryt3bVRzG+W/ojX7BOBe+XJqPSDKNNLU0UPQ938qtOj3kZ0bfBcPbOIbvglPIRyg90apGW53pgaMxhIxrOiyl2yrc1Lgig2xlt57YHb7PwHFguf3p5Ppt7cARHRm6IZOgpMsmOWvvWcwJ+7dVfml5Y4GkaoxbrnhFuIRY=
+	t=1786134595; cv=none; b=GHDGwQwX1zXzYysxfA6U3ER3OVh5E+v5b77EWSAQAKbn+/8IsdkZQ+SRSpotySc16s7D8tX49rWpKMG4PxLs8F5QqMUHhqHgdvbc199zjVq88vB6/4A2Ufmg7XaxaqSNwqsA3Yzkbrz6qAIBaQ8zKt3o5JLoeNISdYxceYzg9tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786134595; c=relaxed/simple;
-	bh=NsitSfXsMS9ffT+WvRKiKOP306p6mPq9jGcWlsdsl6Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XuJSNRGK755TI7Rg67O10a0blckK2glvjZnr8gDBwQf7S8aj5IcTAfjbYOnhgUJFk/r7EhqVndxnjA22iUZsEgNn6EnMPjwiKAr1J7AhrmGBQkrqhHqwuOQYebtg8KYFs2RQtk1QFAR9PAk8Tti19UsfrrObJufGnBwBS7B4FF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=nnZaubo+; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	bh=7kcrtJ8j+vZ43z9CeSYPxhIzZu+b2hH+4cPJzBtMKDc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FVAbz4t0MiV+m90910MF5soi9jWQ/xNxfHkhjTUeQUMGirWTvhWleYYGh5WrobTEgc6TD7rgiX290VcWW/wYkzzpmGcjBSS9FxZKnImgaX5Hb7039PTCZbzvW8Ck/zeP5NLDx5B/WcJGxptIr+JnKdbf3KxhVnebQhM7Nads1O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epuk1vKE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="nnZaubo+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=PIHw7SQVAKmO/CF3aTj88vDKj9Fbv2YT5iL9r3v/6gk=; b=nnZaubo+qGbNFhPk1qB4bX9CNX
-	P7DYuEWfgUElFgfyJVnIHCJCrNhy/nkwqVHAMIH8GcUFO2uIw6kc+TbWsy/CeDSDSFGZYQrYEVFo5
-	lzdFrDoTt75WoTu6H1ojmAaIsxA3BtU1b+RQYSOx5YtZoYrMlDKtBfS8s4yN/OrFCmzgiRIYnclh8
-	3QoLsaffdwPsY4Wze0sDk5Kx8TEzAcknOorA7AXrZIbq8JkOPE46xLqyXg4tQf6Z3lwShfwNp3+3m
-	AW9ARhRtTwv+3SdzE30es7GkxiYijfv6M4bhhzcSsPL4aj+/XaBtzDVhXl1LgQC7g9UCsJ70E2FG5
-	whZZPhKw==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wsRCI-00000008j3e-2Vn1;
-	Fri, 07 Aug 2026 20:29:42 +0000
-Message-ID: <235c60e9-f19a-4336-a569-ddf5e5462fe5@infradead.org>
-Date: Fri, 7 Aug 2026 13:29:41 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epuk1vKE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3B461F000E9
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:29:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786134593;
+	bh=7BBfG8gvn0wfloVrzuTpVHpGFkIlfRzmb5mJzr8wSag=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=epuk1vKEGC+zHT3nl1aPSBAD7SbaHJazafahrinpKdTNt+/S8xNx7Wl5EP4wQSlPH
+	 i+GLDIaK/omzo/fXpCf4yQ/7dYVbCzldnCznd6rcXs+mlBESJ19DJlLgqXVcATWFN4
+	 v1v5EF91OaKRvor/jyiNCgNno/f0R67Zb7PmTSg0HDXAVX6UatWBsi6uhv46sOxOUM
+	 0/7TJMvCOZUlgq3P9pEee1jM6TVgVZTLHULAaAQmYwtnP+F/QCrwvusqdOSni0fUdC
+	 ra383EpRZsCRbi5EkTgrO3Wuamp4AXtGUdpXPNwLklUo8MOYCxynpxLQbJGOxU/Ko7
+	 owYx0QvcfSFjQ==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-39c95395230so35840561fa.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:29:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqRecU9wPUol2IaakFG1T8kFuw2aPDiyQGP4r4Pg1q6ILfoT/UhjMkq5YlW3qIvF4XBE4yKppxE9KPJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvCLgzWa6T+uBNESCzExm8pLP8WUJmOms2PYWp4xY2BTdfRShL
+	OpfUM8OyWY8uBaGJm8A0OE+GoY7PaLZl3ItEmHy4xSgcSTkJyerY7by8lfqZbsXY4NHcPEtd7Ku
+	OKL8YVPXWNqlTJ/qnUf9Gh+iW/Cfb+GA=
+X-Received: by 2002:a05:651c:b12:b0:39c:6fad:2bc4 with SMTP id
+ 38308e7fff4ca-39fdf4c8d15mr7787011fa.16.1786134592653; Fri, 07 Aug 2026
+ 13:29:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v11 03/12] net: pcs: implement Firmware node
- support for PCS driver
-To: Christian Marangi <ansuelsmth@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit
- <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
- Philipp Zabel <p.zabel@pengutronix.de>, Nathan Chancellor
- <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- llvm@lists.linux.dev
-Cc: Daniel Golle <daniel@makrotopia.org>
-References: <20260807131301.192060-1-ansuelsmth@gmail.com>
- <20260807131301.192060-4-ansuelsmth@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260807131301.192060-4-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1785838584.git.mazziesaccount@gmail.com> <9774b8d6663ea55b1682b32f825ec5689be3e1d8.1785838585.git.mazziesaccount@gmail.com>
+In-Reply-To: <9774b8d6663ea55b1682b32f825ec5689be3e1d8.1785838585.git.mazziesaccount@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 7 Aug 2026 22:29:40 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmatJFfqhNWfgx=qUW2fEwuatxmJR7NyJLAv45LfLHZnw@mail.gmail.com>
+X-Gm-Features: AUfX_myHYbPtrP3S5L3hInuuhbJn2ygvTZZS9m3nHbXN6_wSEyPEOm43kiA3AKw
+Message-ID: <CAD++jLmatJFfqhNWfgx=qUW2fEwuatxmJR7NyJLAv45LfLHZnw@mail.gmail.com>
+Subject: Re: [PATCH v2 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-rtc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi--
+Hi Matti,
 
-On 8/7/26 6:12 AM, Christian Marangi wrote:
-> Implement the foundation of Firmware node support for PCS driver.
-> 
+thanks for your patch!
 
-> 
-> Co-developed-by: Daniel Golle <daniel@makrotopia.org>
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  drivers/net/pcs/Kconfig          |   6 +
->  drivers/net/pcs/Makefile         |   1 +
->  drivers/net/pcs/pcs.c            | 240 +++++++++++++++++++++++++++++++
->  include/linux/pcs/pcs-provider.h |  65 +++++++++
->  include/linux/pcs/pcs.h          |  75 ++++++++++
->  5 files changed, 387 insertions(+)
->  create mode 100644 drivers/net/pcs/pcs.c
->  create mode 100644 include/linux/pcs/pcs-provider.h
->  create mode 100644 include/linux/pcs/pcs.h
-> 
+On Tue, Aug 4, 2026 at 12:23=E2=80=AFPM Matti Vaittinen
+<matti.vaittinen@linux.dev> wrote:
 
 
-Please address these warnings:
-
-WARNING: ../include/linux/pcs/pcs-provider.h:39 function parameter 'pp' not described in 'fwnode_pcs_del_provider'
-WARNING: ../include/linux/pcs/pcs-provider.h:39 Excess function parameter 'fwnode' description in 'fwnode_pcs_del_provider'
-WARNING: ../include/linux/pcs/pcs-provider.h:62 expecting prototype for fwnode_pcs_add_provider(). Prototype was for devm_fwnode_pcs_add_provider() instead
-
-> diff --git a/include/linux/pcs/pcs-provider.h b/include/linux/pcs/pcs-provider.h
-> new file mode 100644
-> index 000000000000..5df48022bc6e
-> --- /dev/null
-> +++ b/include/linux/pcs/pcs-provider.h
-> @@ -0,0 +1,65 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +#ifndef __LINUX_PCS_PROVIDER_H
-> +#define __LINUX_PCS_PROVIDER_H
+> +static int bd73800gpio_get(struct gpio_chip *chip, unsigned int offset)
+> +{
+> +       struct bd73800_gpio *data =3D gpiochip_get_data(chip);
+> +       struct bd73800_gpio_pin_cfg *pin =3D &data->pin[offset];
+> +       int ret, val;
 > +
-> +struct fwnode_pcs_provider;
+> +       /* Only pins configured as GPI via OTP can have their status read=
+ */
+> +       if (pin->state !=3D BD73800_PIN_GPI) {
+> +               dev_dbg(data->dev, "pin %d (%x) not input. State %d\n", o=
+ffset,
+> +                       pin->mask, pin->state);
+> +               return -EINVAL;
+> +       }
 > +
-> +/**
-> + * fwnode_pcs_simple_get - Simple xlate function to retrieve PCS
-> + * @pcsspec: reference arguments
-> + * @data: Context data (assumed assigned to the single PCS)
-> + *
-> + * Returns: the PCS pointed by data.
-> + */
-> +struct phylink_pcs *fwnode_pcs_simple_get(struct fwnode_reference_args *pcsspec,
-> +					  void *data);
+> +       ret =3D regmap_read(data->regmap, BD73800_REG_INT_5_SRC, &val);
+> +       if (ret)
+> +               return ret;
 > +
-> +/**
-> + * fwnode_pcs_add_provider - Registers a new PCS provider
-> + * @fwnode: Firmware node
-> + * @get: xlate function to retrieve the PCS
-> + * @data: Context data
-> + *
-> + * Register and add a new PCS provider to the global providers list
-> + * for the firmware node. The relevant PCS from the PCS provider
-> + * is retrieved from the passed xlate function.
-> + *
-> + * Returns: A pointer to the registered PCS provider on success, or
-> + * an ERR_PTR() encoded error code on failure.
-> + */
-> +struct fwnode_pcs_provider *
-> +fwnode_pcs_add_provider(struct fwnode_handle *fwnode,
-> +			struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-> +						   void *data),
-> +			void *data);
+> +       return val & pin->mask;
+> +}
 > +
-> +/**
-> + * fwnode_pcs_del_provider - Removes a PCS provider
-> + * @fwnode: Firmware node
-> + */
-> +void fwnode_pcs_del_provider(struct fwnode_pcs_provider *pp);
+> +static int bd73800gpo_set(struct gpio_chip *chip, unsigned int offset,
+> +                         int value)
+> +{
+> +       struct bd73800_gpio *data =3D gpiochip_get_data(chip);
+> +       struct bd73800_gpio_pin_cfg *pin =3D &data->pin[offset];
 > +
-> +/**
-> + * fwnode_pcs_add_provider - Registers a new PCS provider
-> + * @dev: Device of the PCS provider
-> + * @fwnode: Firmware node
-> + * @get: xlate function to retrieve the PCS
-> + * @data: Context data
-> + *
-> + * Register and add a new PCS provider to the global providers list
-> + * for the firmware node. The relevant PCS from the PCS provider
-> + * is retrieved from the passed xlate function. While at that, it
-> + * also associates the device with the PCS provider using devres.
-> + * On driver detach, release function is invoked on the devres data,
-> + * then, devres data is freed.
-> + *
-> + * Returns: A pointer to the registered PCS provider on success, or
-> + * an ERR_PTR() encoded error code on failure.
-> + */
-> +struct fwnode_pcs_provider *
-> +devm_fwnode_pcs_add_provider(struct device *dev, struct fwnode_handle *fwnode,
-> +			     struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-> +							void *data),
-> +			     void *data);
+> +       if (pin->state !=3D BD73800_PIN_GPO) {
+> +               dev_dbg(data->dev, "pin %d (%d) not output. State %d\n",
+> +                       offset, pin->mask, pin->state);
 > +
-> +#endif /* __LINUX_PCS_PROVIDER_H */
+> +               return -EINVAL;
+> +       }
+> +
+> +       if (value)
+> +               return regmap_set_bits(data->regmap, BD73800_REG_GPO_OUT,
+> +                                      pin->mask);
+> +
+> +       return regmap_clear_bits(data->regmap, BD73800_REG_GPO_OUT, pin->=
+mask);
+> +}
 
-thanks.
+These can probably be handled by the latest version of gpio-regmap
+helpers (the version in linux-next).
 
--- 
-~Randy
+We now support both input-only and output-only in gpio-regmap.
 
+Latest <linux/gpio/regmap.h>:
+
+ * @fixed_direction_mask:
+ *                      (Optional) Bitmap representing the GPIO lines that
+ *                      make use of the @fixed_direction_output list to
+ *                      enforce direction of the GPIO. If this is NULL
+ *                      and @fixed_direction_output is defined, ALL GPIOs
+ *                      are assumed to be fixed direction (out or in).
+ * @fixed_direction_output:
+ *                      (Optional) Bitmap representing the fixed direction =
+of
+ *                      the GPIO lines. Useful when there are GPIO lines wi=
+th a
+ *                      fixed direction mixed together in the same register=
+.
+
+It seems you can set up the fixed_direction_output mask from OTP
+and just use the library, right?
+
+Yours,
+Linus Walleij
