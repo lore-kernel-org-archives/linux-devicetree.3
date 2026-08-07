@@ -1,248 +1,224 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011041.outbound.protection.outlook.com [52.101.65.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECFD930BF6B
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 16:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786121848; cv=none; b=QolERAkV4j1cIi86D35Z5eui7khrmreH7o4z2f8O9qSuxS0zJPZ6jh6e2aT27joYcEpKJuSThdvHuUpqOvzeoHbub/DnLL1p3H03CQu8sCRe09VNJAi8KYSBXKz2/a+4MRxvFuTGoCABlBkKSujrguJtt86mtdm28Rc8RAoG3fc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786121848; c=relaxed/simple;
-	bh=vPc6vf6UpiLlXJoEYCa/uwMx3ESspZKnGUeVSaDznCE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TOBpecQfCiJ4/mmDLiPzoU4yJSkXpmsxsyMR6CJ+JUb0WBhEvgT/o0+j65EmTF11iNnLRAxwlvth74supfikqZy0OV78xv2eHZyugMqSJ8sZ037d6VHLikIWGRWgJALiTix+VXnPTWXpN8h++KE3h7AoAh5I7AoOA7xGD70YBGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2022323c37so453694666b.0
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 09:57:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786121843; x=1786726643;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=zddzVVYS9F5PpJp+klwF/9jEg03r8YZTMRZfUZl45Bg=;
-        b=sa+avOyMjlwOt8HN7MRAuqZ995oaNOfPN3VchXAu+hNFKF5onbtbWWwLoCoPekYHa3
-         //EmNZ6btEWFfB6GJmwLH7VHq99yVcSWNp3UScxbK7OG77+ucKlXEJrLYCarX44eFDRP
-         vNKgsCz0N66QwR7U1PpmQWsm1ja6Nwcyh91TLx0TiWmWuDKMFL8UUN1qu1skkz5i0y2t
-         z0Zxq8r0hoYNu8AjBBwE6U5YEPM6WB6WwmdbWu4f+mSsqtjioDOBZJtlTD/PiXimr1No
-         e16YNQ4E3nP9YkSdQL3EK3a0RNOuL6lm1oeB3BSOE0cpmmAt2ilG1SPWB5bcCl0BWsWP
-         g7Ww==
-X-Forwarded-Encrypted: i=1; AHgh+RqfvSOjrdF4CYQgTuX8b3QsVyxONNMxIacmNvX7kpdA0zunzzhQFFIQSo1pVrXfIKx3mBVuFzmt0Ae4@vger.kernel.org
-X-Gm-Message-State: AOJu0YyXOEfs6YJGhPCCqi9Bk4ErOiDPdySabqU+1DVonZQJc+ZWANTN
-	ToqxjNpxnTxXMTTJIKtLAfXfNG1PkzVGNMO+Jk4ojb5yOcuqmz52nkEpUdMQcdi3d1E=
-X-Gm-Gg: AR+sD10Da/0BGqEGclgMfhCBkmPvx8jB0ueKgTYbov3jRIUfbb1hayFDF8FsGPq5Nhv
-	0pXm3Chq96RLaKbd1FUTxki3q3fZC+Xp9mBLXaxoolnK/6tdqODDxDRhraI9ryz82PsToMWDC+n
-	zptgXDv56/8xytDsOrfTMPhkt9BKr3ndlFb9DnikqRCHR3RKnUl050I/Qc2Jguz9TIdeyJ7Wrou
-	S9p30+eNaXnygVDCzPPYa0375w1uw7BThk2iwDzsCGsP4H2f4O2ktey3ocq0V3aDEjvB03c8rue
-	LKixWAQSY+pVAJ9gmgNYsjdI1qnh4q2Xr9YCr1bKl8SjKD6RwEX7+mVcsRskJjjQl44O1f7Rqdn
-	kYdllOQEPrmoW//oKxQrth3sSaaHaQaaUAGJnZEA+1FucjkzJ/puAkQz7So+4JoEROjJgz5xooA
-	RiJYmipbyAFlho9JQxYdDH6/U42tAmfmxxX/eqw4YD8Q05R0Ec9FzScmKwsDVRRFFrGcOyUaJ63
-	74p2fthiDm/+01AewVcBTOEpfjAejomptkV
-X-Received: by 2002:a17:907:c04:b0:c1d:fb83:9394 with SMTP id a640c23a62f3a-c207339a850mr516740766b.24.1786121842527;
-        Fri, 07 Aug 2026 09:57:22 -0700 (PDT)
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com. [209.85.208.52])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2080c910d1sm76633066b.38.2026.08.07.09.57.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 09:57:20 -0700 (PDT)
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a1a546a6bbso2926778a12.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 09:57:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrRDz9CwCR+F/G+cj9Ln+2YWNQx4ZWkg0ACnAU6XYRUlgA+E3jZ+2Sdq8K/C9wDDRG2F1B9MatQM4Mx@vger.kernel.org
-X-Received: by 2002:a05:6402:444a:b0:6a0:a4ce:1b8e with SMTP id
- 4fb4d7f45d1cf-6a1b49ea41emr5538936a12.0.1786121839381; Fri, 07 Aug 2026
- 09:57:19 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD74E30BF6B
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:06:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786122410; cv=fail; b=lncEocHu7+R/E5Gh40e888cRz6/BqIG+GprG5n3DAZi2dkSdr56j0x4IZXOnQCLn1y+cK/mNH+zGd7QBI9MRHB7DnWu+nNTLQjtcWsJAZNQRor/JnwVWsFQ5HxiAZHKPXOBZPPFWDibGhHgvtG3YOgYhgoTmKRhYP/n1pTwMUs0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786122410; c=relaxed/simple;
+	bh=ASTaUCIxt6qYTwkha1EiYQtKAhclqZuUWQZBDgiqgpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ElFhXH3k5DkdAeBewETgTy4PfpmYqkB/fxrDSH19/qAkJnKz5RbPZ3izoqODBmW7B0PprUVOhVjsHMgLJfWcVgqLSydgDIGiwzP9zSEHwwva9yw4MPGRP9V2bOlf+i52XLxogaoCt/vFNR+evEG9pJNSsah+DzG14zDQYg9NEgE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=JAVJcFDy reason="signature verification failed"; arc=fail smtp.client-ip=52.101.65.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="JAVJcFDy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pdjFV9XwLTelf2oqtt4UA8WB8kwAe8QgMM+HsQjRZhdpNZiIoeTo1GgfXnvt+Dos+2IaPyo54cfJuq6S6zEawxZgkjy8dpGqR4guQd38l6hcZrwbesonjWw0WJLn2ihqmXmS00JjDj1OBlWVxvNpOANLsL/bbogh+mw2epXAirOFktJYMEyoPg3TYo3UbbbiJlyWcsyfVoQU7u4qmDUM/wAapR95V1RgGq79p4zGAvnlO61QTSWA2t6AxZi2RcOTEY2/a83OSyedZgl/kKILdFoHS0lCQuro1xTiF42fE0v/KNduxQP8RaRYr4OsU/xa4+i7i7UH279ksl9nq0JQuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1rUjjP1d0ECgtlDQRmKSWC3JaF4qNeIhqRA3XgPW/Kg=;
+ b=CcyHogzut/X+v93df/mBieEdlod2O6g26VVO46bNB2ySYes9kxut6Ot7ouerpK+ASDGdx6le5zmYx1RPU5hun1vpvgXZ6TNlNmQzJHarJUls74Aet7+NNmAtg/BztiA8mPjZSKGpBLdckj6rGyKDAG7k/s7sZP3tZNqmun3JbmVmWqixzjEFSLFwWpliuSNAOCJDkTXXtvdqTkqZaAG3gzEmBmfbvKr7VtnvCRORfCxCyxWPTu1PF3cvMGGrDJrUy8ZwUw+9+pqTRxYsBn5mLP1RHA1RRf+ikBJRNI0StwLI391GGDAvt8oRc0MBswnY9Vh8ImGRuZzYb8S+SPC8hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1rUjjP1d0ECgtlDQRmKSWC3JaF4qNeIhqRA3XgPW/Kg=;
+ b=JAVJcFDyMJgvtIYFrZOeJr/IwNk4MzDD4DIQ4sk+lw0xYpIxbXDB9IlsBjCcINwwX19FQj3AHdheBu7RXKf17DbekmMQSHTl59n5xX/zWxQUyp4gGEKxbT6H4MiSxjp/5uEoGR8J4UMLZJQl6nZnAEZ2qTtuLYc6oySQHxpi9BAo3IkOMgElR4sr++ehf+BIZDZ2/bUDeICBoaAPoElxWJfBXhOfA80KB6vjgxeNwaL+AcdLrgzQr0GkebAXORdUDGy2vsSOhfxUyQxzSEgX8om02FFdH0ENgcVspq414nyQ3jY7Q6L8T8QB3kTTz4xFLl+j0bRJZBiOk9Fmx4tXQQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB7188.eurprd04.prod.outlook.com (2603:10a6:208:192::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Fri, 7 Aug
+ 2026 17:06:45 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.018; Fri, 7 Aug 2026
+ 17:06:45 +0000
+Date: Fri, 7 Aug 2026 12:06:37 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Rudi Heitbaum <rudi@heitbaum.com>, imx@lists.linux.dev,
+	devicetree@vger.kernel.org, conor+dt@kernel.org,
+	Frank.Li@kernel.org, robh@kernel.org
+Subject: Re: [PATCH 5/5] arm64: dts: imx8mq-phanbell: Enable the rt5645
+ analog audio
+Message-ID: <anYQnd1jW2ecFq_n@SMW015318>
+References: <cover.1786107925.git.rudi@heitbaum.com>
+ <54ab90ba6c05b38c6561e0ea732d487da9443f1e.1786107926.git.rudi@heitbaum.com>
+ <20260807141524.179AB1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260807141524.179AB1F00A3A@smtp.kernel.org>
+X-ClientProxiedBy: SA9PR10CA0027.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::32) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1783505329.git.geert+renesas@glider.be> <20260715-greedy-ocelot-of-feminism-5be3bf@sudeepholla>
-In-Reply-To: <20260715-greedy-ocelot-of-feminism-5be3bf@sudeepholla>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 7 Aug 2026 18:57:06 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXD5eMuLBJWqLAt93M=8pSooBOFQ-H9jBM98N8HUwbRTA@mail.gmail.com>
-X-Gm-Features: AUfX_mwo4EKqALTJkUcOqfKJfKUYp7ByWT2RwJWKEGja2YdKTdPuto8-gpxkDXo
-Message-ID: <CAMuHMdXD5eMuLBJWqLAt93M=8pSooBOFQ-H9jBM98N8HUwbRTA@mail.gmail.com>
-Subject: Re: [PATCH v2 00/10] R-Car X5H Ironhide CPG/MDLC SCMI remapping support
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Cristian Marussi <cristian.marussi@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Kevin Hilman <khilman@baylibre.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, arm-scmi@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB7188:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67ee5199-8626-4fbb-b780-08def4a6425a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|19092799006|366016|1800799024|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	nKXtwpe2G4Ekbxkjrq7f4AfeiKOw38D2f1f2Xdx1Eu51esJX8xtikMfZCM/ad/HodIUCewcP2tb7Y+dxKYTqixjWaN497zijCk5lGWy1wk3d8dhMLgZJ624EIE4wB1OkfqM2dh2YgNyPSQTwMtCG02hK2qOhAE1Pd80eyDj9rL0wA6fETIrblQ3odp/l4dxoT3ZUFZCv3eUy1nIU1/4GVsG6VyqzBeecCgmPA6LfSgu7xSFdPzNIT4En12Tt/gwLQPQIOkrexhJ8hq+mqFWphAZskRQZElrmfgePE+o9o0/D5l+LQLRxeQmuL56/hJZAerhxyOv1NipUbTx9KVfQSH1MqILbf43WMkHWGV/dsgcJcQaYdUCLpgmKzd681yHRsQPvo06JsuVG/AzM32+zN2Hfx2yKzQFtTDS4NbgJ6iLGUWoAN5QlS5c8+Q3EwWD4XF2ByxK/P1+MnvrYzRj8MpFGnyF/yEtIdYSyd7HXdIW0iqsRkZzlmA+tJEwjXg3cpbmsZl8Md2XLD60M6jIJsuYZ36hvNEOav1Rnc9nQ1Cx+ShRM7h7pXOATi+DgtVn1Sh1NcWoWSv9OdBYkuoVwXQs15UKdtQfMaBmm9n4XnvQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(19092799006)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?W2aaiQF78w7zwSIU9e1j3o8hlaJRP3keRvsVv9TYpme/M/f1ypZqa9kH6U?=
+ =?iso-8859-1?Q?pA3GDn0RQjXn+GydA3ofoNOdvXj9421i+w/JKFYqISFrRPcnYhW9xoF8w5?=
+ =?iso-8859-1?Q?B83ioNNIk5wEw2TEoItOLuYhTd3/sQk270ClVoWVeUYMWKV+TJZ3SwPCko?=
+ =?iso-8859-1?Q?nNZZApLXDPx8HI1NRQu90LQFErhBrz/YFF+OeFsIwngbMh65UuygNGtECC?=
+ =?iso-8859-1?Q?y6/PecxLaojj3SMtQJUwsPJn4vLFGwuPyoitykwIxJ/JEJ1DV8vjpvdz4p?=
+ =?iso-8859-1?Q?Dr54pNzZxmywrCWA+UOL4kb68BHVva/q+Tk83dasieRTcFzLiNlobbHY99?=
+ =?iso-8859-1?Q?Zaa6mHl0UVnWv2Z2Aa8LVnq5CXhX3b40dIrKp7ihpZM/wl6LMIMC9KPBGf?=
+ =?iso-8859-1?Q?MiCYvz3YfNxEAGTHOw3WjDDVUdBKGbI1FMB2gsvM0vr7MC5ou6ecNvVvHW?=
+ =?iso-8859-1?Q?CBGZP0bHDpw1uybBh4RkvXxmhp2dLj/3VyRqatmWBIJ4bdOnnDNel43X4M?=
+ =?iso-8859-1?Q?AO7AGevb6ZOsWxeW3QnZZ9zmOHVn3zRSWs2WtCDetLHA5TxmKAQ9NbhYJ3?=
+ =?iso-8859-1?Q?QzaB4QzgU+UIE8fAR2tfLGvkscFAz5jUUpPoBLdT5HEyvdBgKMshehTLRQ?=
+ =?iso-8859-1?Q?KYFtvtPKzbtAaRYExFSY0xaAVu7fzmNoFFTMY26m+vtmn2UAyTt4EztNmy?=
+ =?iso-8859-1?Q?attFF22Gy6+9RW+rOaB9x91WNx+4sSuJzwrng9eU80LbeImXowtF/9CCp4?=
+ =?iso-8859-1?Q?Yd8q+VK32zBfWmH5imz141rBYaXhmr/wavNzwX1iaFDHnt5XilL9YJvo+y?=
+ =?iso-8859-1?Q?UgJlErMNz+bIKzowUoLemJVLnCN90d9NHF7UPaxR55o/dH5e6A4gFzM/cg?=
+ =?iso-8859-1?Q?O5djpEiL8j2P42aCsC5YQYNOPThYiUD8hnivP25BYT4W0Fl1LidFQxgZ+K?=
+ =?iso-8859-1?Q?0B2AiC0vwUCQo0UM9N1hnNOVIQg+WBLjcfqJeHaL5h4r7rX4zde3ZTsMil?=
+ =?iso-8859-1?Q?B1unA2Kab7TvXSsmfSWGw2iGhbRZfWeBum2hEdY33673CeOCe/FQGBiyhD?=
+ =?iso-8859-1?Q?Oq35612BIbdz39AoOoLdDOMYnvaVU7vdcQk6rud/qnHl7r4BZYTYoxlaRq?=
+ =?iso-8859-1?Q?ewK0zPA+g1VoUL0ozVEq14uwNiZf0glKUe/xS6YOR/1oONm0fCYddtQcGx?=
+ =?iso-8859-1?Q?Q5zPh8gnkL9xiOGbank7j3eW2nKKsXKXBpynnTvmhGFOQARlAQFMoxFEXs?=
+ =?iso-8859-1?Q?CmdKOWg6a7N3MGrkSizhGQy1b2buYLre1j4+Wqy3xHSulRB9FS373QR384?=
+ =?iso-8859-1?Q?DDM+Eft7dSRvgYyOc12Ib96eHjV+3FE35/328j1+S72+HIsxhTEhIkAdBc?=
+ =?iso-8859-1?Q?iFlpNVCdeoO7VqZS4mM2JPL3d2NSHxFET8erem89pSjNj7q+pwi+7h1KdA?=
+ =?iso-8859-1?Q?iz6wFITjJzgnO2445XuFu6dl3K2FIimccIm0Wwex9Zv/gJ6mRjKHTkct+4?=
+ =?iso-8859-1?Q?0LMcTcm5xsHaL5YjQJ2fclMZNoPrTmcV1kSJPwhcWQxdmqEK4UGgyKQCpz?=
+ =?iso-8859-1?Q?3o0C/5dDUzXH5MAc2Cwfo5BdgN42tLfKy8+2EV2EA8/0k31Wh8j2W0yh+M?=
+ =?iso-8859-1?Q?eDEvd9b0tFbp46LiFB/kNGlDKj0ykowGO60wlVavw2w3xsDr6jVc5bK4i9?=
+ =?iso-8859-1?Q?/y86YmlfYtH3icDlK0uofHVX/FzK2lFalEyV0nlIqLrYytRGsjaWTTzPuR?=
+ =?iso-8859-1?Q?9dkWL6bIukE7fD2/QKi3rGt+TUh99w0S6WGfDSYfYcU+jgfbLTWXytF7KA?=
+ =?iso-8859-1?Q?IK0/DFkhBprAoKYgIlkU9mCU5jBMQhf87dEJ2KmwaOafJ3UuNXmz?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67ee5199-8626-4fbb-b780-08def4a6425a
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 17:06:45.1203
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f67IthwNi+PKutbeH90dk+vIPZM4TaVhtprM7c0dX7KlDVRHTxeX0rQNOJrtf1/uLajJtpFXFFybEnYOp0wKQmNWCbHIws/JS6tWA36T0gdGvkwaJUinfVrs5iBb48Tz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7188
 
-Hi Sudeep,
-
-On Fri, 17 Jul 2026 at 10:05, Sudeep Holla <sudeep.holla@kernel.org> wrote:
-> On Wed, Jul 08, 2026 at 12:16:18PM +0200, Geert Uytterhoeven wrote:
-> > TL;DR:
-> >
-> >     Describe hardware in DT, and perform the mapping to SCMI in Linux.
-> >
-> > The Renesas R-Car X5H-based Ironhide board is the first Renesas
-> > SoC/board combination that implements the ARM System Control and
-> > Management Interface (SCMI).
-> >
-> > This means Linux can no longer perform various system operations (e.g.
-> > clock, power domain, and reset control) by accessing the hardware
-> > directly.  Instead, these operations are abstracted according to various
-> > SCMI sub-protocols, and Linux has to send messages to an SCMI-compliant
-> > firmware running on a System Control Processor (SCP).
-> > More specifically, the R-Car X5H SCP FW SCMI controls access to:
-> >   1. Core clocks and module clocks,
-> >   2. Module resets,
-> >   3. Power domains,
-> >   4. System power.
-> > The latter is not relevant for this discussion.
-> >
-> > Using SCMI also has an impact on the board DTS: besides the addition of
-> > a firmware/scmi node with protocol-specific subnodes, devices using
-> > SCMI-abstracted system resources now have to refer to these resources
-> > using resource specifiers containing phandles to the SCMI protocol
-> > subnodes, and firmware-specific object IDs[1].
-> >
-> > Unfortunately we encountered several issues with this:
-> >   - The clock, reset, and power domain IDs are not stable by design,
-> >     causing DT incompatibilities.
-> >     SCMI requires that the ID space exposed to an agent (i.e. Linux)
-> >     starts at zero and is contiguous.  Hence any change in system
-> >     partitioning (Application CPU core vs. Realtime CPU core,
-> >     virtualization, ...) may mean a renumbering of all SCMI IDs,
-> >     implying a massive change to the DT.
+On Fri, Aug 07, 2026 at 02:15:22PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] Incomplete DAPM routing for the external Headphone Microphone breaks headset recording.
+> - [High] Using `system-clock-direction-out` without an explicit clock misconfigures the Audio PLL and breaks audio playback.
+> - [Low] Missing required regulator supply properties `avdd-supply` and `cpvdd-supply` in the `rt5645` codec node.
+> --
 >
-> Yes it is well known fact. But where this is a feature or limitation
-> is debatable. Why would SCP firmware churn and re-number or re-assign
-> a differ domain ID everytime it is updated is questionable to me.
-
-For an actual product, I tend to agree. But even then there might be
-a need to reconsider partitioning during the long (e.g. automotive ;-)
-lifetime, e.g. to counter a new attack vector.
-
-For a development platform, the situation is different: the same board
-will be used for various use cases, with different partitioning of
-responsibilities, and will run various firmware versions.
-
-> >   - There may be different SCP firmware lineages, e.g. proprietary and
-> >     certified variants, and FLOSS variants,
+> --- Patch [5]: [PATCH 5/5] arm64: dts: imx8mq-phanbell: Enable the rt5645 analog audio ---
+> commit c3b167f1c120ceab271f952ec9169de906983534
+> Author: Rudi Heitbaum <rudi@heitbaum.com>
 >
-> No sure if I understand the issue here.
-
-Safety-critical products may require certified firmware, which may
-be completely different from what is generally available.
-
-> >   - SCMI features may differ across firmware versions,
+> arm64: dts: imx8mq-phanbell: Enable the rt5645 analog audio
 >
-> Again, features must be discoverable that is the advantage of DT vs this
-> firmware interface, so not sure what is the issue in this matter.
+> The board has an rt5645 on i2c3 driving the 3.5 mm headphone jack, its
+> microphone and two on-board DMICs, fed by sai2.
 >
-> >   - SCMI may abstract the hardware in a different way, requiring changes
-> >     in (possibly existing) DT bindings and drivers to support the same
-> >     hardware with and without SCMI:
-> >       - E.g. the number of SCMI clocks inputs to a hardware block may
-> >       differ from the actual hardware,
-> >       - E.g. hardware clock inputs may be abstracted as SCMI power
-> >       domains (or vice versa), like on Qualcomm SA8255P[2].
+> > diff --git a/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts b/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts
+> > index 2d134eefb7659..b819e644fa54e 100644
+> > --- a/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts
+> > +++ b/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts
+> > @@ -46,6 +46,41 @@ fan: gpio-fan {
+> >  		pinctrl-0 = <&pinctrl_gpio_fan>;
+> >  		status = "okay";
+> >  	};
+> > +
+> > +	sound-analog {
+> > +		compatible = "simple-audio-card";
 >
-> True, the moment SCMI like interface is used in OSPM, the firmware
-> description hides real h/w details and provide what firmware thinks
-> OSPM must view hardware as(how VMMs virtualise things for VMs, firmware
-> can have similar effect with such interfaces).
-
-So you end up with multiple compatible values for the same hardware
-blocks, depending on direct hardware access or SCMI, and on the
-actual firmware.
-What is the policy for naming such compatible values?  How many
-different DT bindings are we willing to support for the same hardware?
-What about driver changes? Maintenance of all these drivers?
-
-> >     Experience has taught that not describing the hardware in DT may
-> >     lead to major issues later.
-
-E.g. one may miss one internal clock input when describing a device in
-DT, where control of the clock turns out to be critical for a specific
-hardware feature?
-
-> OK, that's interesting. But the whole point with these interfaces is to
-> hide those, so just don't use such abstraction interface if you want the
-> hardware to be described as is to the OSPM.
-
-How do you fix it when everything is hidden, e.g. behind a single
-virtual clock?
-
-> >   - SCMI does not support the concept of a clock domain, so existing
-> >     drivers can no longer rely on Runtime PM, but need to be changed to
-> >     manage functional clocks explicitly,
+> [ ... ]
 >
-> Not sure what that means, you mean clock protocol is not good enough to
-> model the h/w clock domains on your platform ? If so, you are welcome to
-> improve the specification.
-
-It is common on embedded SoCs (e.g. TI, Rockchip, Renesas) to not only
-have power domains that can be powered down, but also a clock domain:
-a clock controller provides a common way to put a hardware module into
-standby mode by gating its clock inputs.
-
-In Linux PM Domains, the following callbacks are used:
-  - generic_pm_domain.power_{on,off}(), to power a power domain on/off,
-  - generic_pm_domain.dev_ops.{start,stop}(), to start/stop a device
-    inside a power domain.
-Both are handled automatically through Runtime PM
-(pm_runtime_{resume_and_get,put}(dev)), so drivers don't need to care
-about the intricate details.
-
-However, for this to work, the PM Domain needs to know which clocks are
-meant for module standby.  Without this knowledge, individual drivers
-must control these module clocks explicitly.  During the last two
-decades, lots of drivers have been converted from explicit module clock
-control to Runtime PM, and reversing this would IMHO be a step backward.
-
-I already posted patches before [1] to add support for clock domains
-using a quirk.  Without a quirk, the SCMI clock protocol should be
-extended to advertize whether a clock is intended for power-management
-of a hardware module.  One way to handle this, the SCMI CLOCK_ATTRIBUTES
-could be extended with a new flag in the returned attributes as I
-pointed out in the cover letter of that series.
-
-> >   - U-Boot IPL (Initial Program Loader) needs a proper hardware
-> >     description in DT, not using SCMI.
+> > +		simple-audio-card,routing = "Headphone Jack", "HPOL",
+> > +					    "Headphone Jack", "HPOR",
+> > +					    "Headphone Mic", "micbias1",
+> > +					    "DMIC L1", "Internal Mic",
+> > +					    "DMIC R1", "Internal Mic";
 >
-> I am going to ignore that.
+> [Severity: High]
+> Is there a missing route here to connect Headphone Mic to a codec input pin,
+> such as IN1P or IN2P?
+>
+> Without this route, will ALSA DAPM see the microphone as a dead end, failing
+> to power up the codec's ADC and breaking headset microphone recording?
+>
+> > +
+> > +		/*
+> > +		 * 32 bit slots regardless of the sample width. sai2 divides its
+> > +		 * 24.576 MHz root by an even integer only, so a 24 bit frame at
+> > +		 * 48 kHz would ask for 2.304 MHz, a ratio of 10.67.
+> > +		 */
+> > +		sound_analog_cpu: simple-audio-card,cpu {
+> > +			sound-dai = <&sai2>;
+> > +			system-clock-direction-out;
+>
+> [Severity: High]
+> By specifying system-clock-direction-out here without an explicit clocks or
+> system-clock-frequency property, does this cause simple-card to fall back to
+> the child node's first clock (IMX8MQ_CLK_SAI2_IPG at 133MHz)?
 
-And of course we like the DT used by U-Boot (IPL or not) to be as close
-as possible to the DT used by Linux.
+Is it true?
 
-Thanks, and have a nice weekend!
+>
+> If so, simple_init_dai() will set the Audio PLL to 133MHz during probe.
+> Because fsl_sai_set_dai_sysclk() blocks clock changes once playback starts
+> (when sai->mclk_streams > 0), the PLL remains stuck at 133MHz.
+>
+> Will this cause fsl_sai_hw_params() to fail to derive valid BCLK dividers
+> from 133MHz, breaking audio playback completely?
+>
+> > +			dai-tdm-slot-num = <2>;
+> > +			dai-tdm-slot-width = <32>;
+> > +		};
+>
+> [ ... ]
+>
+> > @@ -272,6 +307,18 @@ &i2c3 {
+> >  	pinctrl-names = "default";
+> >  	pinctrl-0 = <&pinctrl_i2c3>;
+> >  	status = "okay";
+> > +
+> > +	rt5645: audio-codec@1a {
+> > +		compatible = "realtek,rt5645";
+> > +		reg = <0x1a>;
+> > +		pinctrl-names = "default";
+>
+> [Severity: Low]
+> Are the avdd-supply and cpvdd-supply properties required for this codec node?
+>
+> Will omitting them cause device tree schema validation (dtbs_check) to fail?
 
-[1] Series "[PATCH/RFC 0/9] R-Car X5H Ironhide pure SCMI proof-of-concept"
-  - "[PATCH/RFC 4/9] firmware: arm_scmi: Add a flag for power-management clocks"
-  - "[PATCH/RFC 5/9] clk: scmi: Add scmi_clk_is_pm_clk()"
-  - "[PATCH/RFC 6/9] dt-bindings: firmware: arm,scmi: Document arm,clock-domain"
-  - "[PATCH/RFC 7/9] pmdomain: arm: scmi: Add clock domain support"
-  - "[PATCH/RFC 8/9] firmware: arm_scmi: quirk: Handle power
-management clocks on R-Car X5H"
-https://lore.kernel.org/all/cover.1781171705.git.geert+renesas@glider.be/
+Please check this also
 
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Frank
+>
+> > +		pinctrl-0 = <&pinctrl_hp_det>;
+> > +		#sound-dai-cells = <0>;
+> > +		interrupt-parent = <&gpio5>;
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1786107925.git.rudi@heitbaum.com?part=5
