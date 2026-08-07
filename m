@@ -1,120 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SY8PR01CU002.outbound.protection.outlook.com (mail-australiaeastazon11020143.outbound.protection.outlook.com [52.101.150.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914DA4746AD
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786109201; cv=none; b=kBaWbnS1knIoXaaP/ALOkGmMaAYQmT9/ODELRul/l3VNfMJ5u42BHchpYLMk+qf9xBNZz6LzZ4o/Xp82x722K2PLU2lnQWZI7O8f/yxLRU+qWph3z5C/dA9fP+gP9zuS+igaQp4bixXxkRWCRLePRUR5dBSzaCTeYeO3t030WOs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786109201; c=relaxed/simple;
-	bh=JUPgL6R1jVVEeGgYN8KMu/Lfsk6Hb9Gr2t6Zu5etbwY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JN2TexCIYBqoG3eSXRHU/lrBFZ/cJPmP++ODXVVJNLKvWNY9PBfENq0hxQBVjCDHIgJqTeQwUDNNnWa2tvOroBDPmDA2fRUFi41P6B7b0fSE1DRR+El0BGqhOdG8qN8hW/PYqk+Z2J+pyiqQK0V7mDHsB7jq5JAE7udUNrLWqXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CyyK6Mqa; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CyyK6Mqa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5D11F000E9;
-	Fri,  7 Aug 2026 13:26:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786109197;
-	bh=36ayfx+aWwqBE5P3GRF9Oe04zLW5PXCzQFiO7lfu1qs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CyyK6Mqao7XhdLRG/hfFKeio+XopHMbNk0Z9eYW+vYBgd0IZQMD7aOTMHvvrJLmV0
-	 YM1kB6VEsAiQdBsygGca4J8+rsiwLIOXveCgl6jn8Ibfbw36jfScx7/7G20nAHS8Bv
-	 BaNALfWZqQsCERbH1XXxNEM0bJ1yiFA3ntD5xOL9b6S46eF52xTNR8KRYSXt/BtYdU
-	 Z9zQCf+6lKc6TL8wG1r0JSidIYFVhkvQbfjrU2JeEdPQpx7rotYY1U6vFQw44pgTxd
-	 Vsrt+qOl2cRH+x7Dx8yEFeLAI0tgmABiErNpG+gDnFlX4afg8WXHTfMvdvX0/3X6ro
-	 oBSiIEOdIY6dw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 11/22] dt-bindings: media: i2c: max96714: add
- support for MAX96714R
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-11-7212e9e5156a@analog.com>
-References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
- <20260807-gmsl2-3_serdes-v15-11-7212e9e5156a@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 13:26:35 +0000
-Message-Id: <20260807132636.CD5D11F000E9@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CFD476CD5;
+	Fri,  7 Aug 2026 13:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.150.143
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786109423; cv=fail; b=GCexZe4hHnpjWjaFSbvP+cadNfRlq06PnAblrGYhPKb7BFYlVLr3NpIOMTeE+J3vCAYQxm6geX87Unqy7XjX4CtIrrzS5/8IAAt0lULsNlYa0waV65nUzis/O+EoNDbqoOiKm2lySnJfyyy3H0JVdg9h5ZzZ5xwuWthhYOUKkEw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786109423; c=relaxed/simple;
+	bh=UBtsLWK4eBzCBx+DAtThHjtQ82eisC8TaTd4PPf7tHI=;
+	h=Date:From:To:Cc:Subject:Message-ID:Content-Type:
+	 Content-Disposition:MIME-Version; b=iqAAUs1lAghZHbypIwvEPqpOU//Fpur/Yll22++0VlLa05lgeTH66JB2hZLSwWCqWfkkCvMEIaX12VYbH2UTifcLjxCq0SY8tTKgGgOzo/BW5LHRNI6FMa4XiLkgfybuoLUV5D3kMHxPrQKeRilQtCF8yzUZC4MQYdHcaxP3klE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com; spf=pass smtp.mailfrom=heitbaum.com; arc=fail smtp.client-ip=52.101.150.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=heitbaum.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BxzJDXwoy2mOQWloZ8nC9ena9D0nr2V7ovuEu6L6yebOJzg5KEnoC77kivHdeL2l05h77hI65QD4rpX/ZVdcGfdcS/pSSG7VVT/Rr2EXNIlRcu0md3m2zkEGPeTfggiKhXpGXbouJpO0uEmYofYud8B4lLHpYoarE89jCPS/4OpkFxh8Qx7vzsVNOAxX6qR+OgzFfZKphwpOJjmUQZBHlzuNTjn+et7eb4Db8AGPD94ey7mw6925ESnstHNPZyNfqSM2bpps+9ZXe1HNb8i/7iJSBs7GLl9ZlCc3BVIIr+vkf5U4UWWo8a8i/TI1DGLevhg2xMEtqbqT4h0wuHPAAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G26ZVU+BExKSSTnsg3O7iG0H7cNY3/+3zbp8geVmPqo=;
+ b=pUaObitbZ1Zx5oSjqwOtVZHlxXybrxMLuMJBrpHqNiTC4R53agmJMzukkLy7BSprTb6mgNXFd3pJx30O3d9dVpTXYSq5FvEEN/eBCije7d3O6cf734csl4++yxCORcPQXQ5IAt+jgfi59H+Aop874+ACOYLCj45SfMJ/NTO8/TO1q6rm2aC3nKRCuoemBrtFYTlIC90pXoG//hI2zDDBJAUBm4CustwddDtW1o2cKBaVOdTJduvv26q91+dRQlBTU8oQ/0dnBE01vFuaiIoGykpmJwl9qFX4sOg7vJnINgljHcQB1t+Pd6gkYaicOP/OcxVqBTdB5qsS1gaamZJzJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
+ dkim=pass header.d=heitbaum.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=heitbaum.com;
+Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
+ by SY7P282MB3978.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:1ed::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
+ 2026 13:30:13 +0000
+Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ ([fe80::21b6:91f8:614d:1fdd%4]) with mapi id 15.21.0292.022; Fri, 7 Aug 2026
+ 13:30:12 +0000
+Date: Fri, 7 Aug 2026 13:29:50 +0000
+From: Rudi Heitbaum <rudi@heitbaum.com>
+To: imx@lists.linux.dev
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	rudi@heitbaum.com
+Subject: [PATCH 0/5] arm64: dts: imx8mq-phanbell: Google Coral Dev Board
+ enablement
+Message-ID: <cover.1786107925.git.rudi@heitbaum.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-ClientProxiedBy: MEWP282CA0188.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:220:1d6::16) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:279::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|SY7P282MB3978:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc11dc3e-6868-4ad2-bb14-08def488023c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|5023799004|10067099003|3023799007|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	lGQyu77BbvICmLDmzCrW2p9gvvWeMFgXX+o6jyY2kDUwn6WkT+PPf63XpMnH8a0UhEp3Q9AzRNSm24XgmRVzYb4lgd5oA19zR22DMTBujKNJPm1Q/Sxw6uWOj+7RPJ+pBMFIDRCNczC1fo6WqHxZfoTGsHiTi4rM+pT50n+InwqfRwJXGG/QQCIMHSya1JMuChvVG9U2pmkIiB5KV63RIo4IpKue0kyZGCmBAVzjx0Hoxj4I7Nhn1Fyu2if/Ocd/jk9dMsb5v09L4FqU7apJZTPhKlfiZ8wck9LaNiPIgi9HMyxOhn8seeP+fn0jpt/7avU8OILG9kO2wVNDhpzidayQGvYFwNEsJ7pt4Nt6WMkmTB0a6YtTcSohm0FiMh93D3ABRMUZr4L1ySQbIoIhF7KFcTwXzaH/QCXMb608Xzco5l/1hMI9wFL6i7K8EqKkEOTAJCZIkSYhhHqCLsTtQBxxLIDFoLZUfO5oOxV/PCBFQU9jFeFK28hffUHly7tHA9M+eaIryTL+gt2osFM4R4GAz9o5acxaqHXL/MbnJ0o/hoioEqY9NlroQcWY2drhOBawaGt3orM9+Jz+0kQrEFKgs/GwnmjKty/+0mH+rkl2otTa4Xz91CJSbzm9xlu5g05Tz+Cj0OU9T5Kr1+KXd4glKzV5b07xbA7jhCfJj+0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(5023799004)(10067099003)(3023799007)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NrQC8M2qTEM34WznL8MqTbH5a9BJciIrIfj2XMwigxXdNU6Ju6xj8iecg8Yw?=
+ =?us-ascii?Q?oAN+gDh2d2eOMz/HXDqnnSjDumTa01fhI2K9eLCXn83mdjO9ssJ4NE8P1vcr?=
+ =?us-ascii?Q?xSeHB48v4VoTaIAjIGBsyLnZHiOWZG22GHwDpmKcGp/9ll9PKwLX97NRduMf?=
+ =?us-ascii?Q?p6pTzyApqcF+pl0YgrjrM2FVoj5PV1P3FjSS/E4GAgGgokcq2pwlqc2NFffZ?=
+ =?us-ascii?Q?iBlhxTf/JdqTuf9QBO1V+N0gPUtAqYfDisGA1Hp8zcpgy0YA7nM+7VUWce8n?=
+ =?us-ascii?Q?gTgCm69nXFF9dR+nn06wiILLMmDi5iX3oivJGZYJLcTSHOITL4KKDjmXr36o?=
+ =?us-ascii?Q?6DyllQrNAvit/LPGKK9DsJ14x85+CmGZCI7ZFR8AAIG0jFtbPzujlhiFm8n4?=
+ =?us-ascii?Q?ACtBO3UOyhECjLIJXrnK55qaXKhYNMoCRRzAm8/Lm8ublT7Ha0QgSAC54Rrf?=
+ =?us-ascii?Q?b9uzPiNcsG4SzpuJZ+e2NMxkxo+gYUX0ab4LrV5vHHMsgGjd4D/cQRo4eaSt?=
+ =?us-ascii?Q?7ldIn61oSqKcliLHvNMiA4Q+Wkg2NkvKdtT7lzvbpK8jm2vHNDfTGRTEQxXb?=
+ =?us-ascii?Q?EAXnVQqOEN8KoNIf0nzp5huwuR7soryqpFjpfJUVSSpHXDGrpNi2JI3JWYB9?=
+ =?us-ascii?Q?rLJ6L5A1cxKjooCh8hBrMsILlxEndqW9o77Tr+44xZCKkycTC+Hrw3IE+U/V?=
+ =?us-ascii?Q?fuwkuIwbs6wjDFKa4rmWe01HkmKMN/mGFsa0qZBs5u9db87YTGRifNoKzJOl?=
+ =?us-ascii?Q?R3JP3vvodEPAyEiiLdVhUFFOAJdc73pNdX5wpXVqCd9sl1o9J1vh1xRyGtNW?=
+ =?us-ascii?Q?LBsjaTTwOUWQlQpzzApfxTbKsMVXN9aVGSdPtqEfh6GDYQvcMpXoGs9m6KEj?=
+ =?us-ascii?Q?hWyReLMXBF8X33kMP7HygTqY/F4Q1KPY0JTs84p6Xpe34gM4liMMlnZJ67dO?=
+ =?us-ascii?Q?R8CpicY1ZZ7T6+5+qwVmhxr90IUp6MV7jcAYHo7+qQJdHj3kQ2P9vHXtQEr/?=
+ =?us-ascii?Q?NkaRxvppGK0FciExqBlNSY0A8Kan423ng0n6Q8JjMCsrwssQdGAySYKpDC0M?=
+ =?us-ascii?Q?luva+aRKL9hK3wCQPO7YsVy+FH1Qs9JK6tDXny1v4fqpuaK5mb8wu4BA/ToA?=
+ =?us-ascii?Q?9sG1lOuaXGYAktoe8nksnTWKt+op+VumTd+2Vk3CmruUSWBh8l846//27lL1?=
+ =?us-ascii?Q?i2xXNVm8ptmfDlSGIojiH7kKYiqsFGYg0GPMFuDx67CSPIjV2QMvwyFqBDn2?=
+ =?us-ascii?Q?9lhwxuLdLkfYwYFzPyA7TEk48xqRgSYK4O+5cO3ie35xl1PIILlNA7pYJtoh?=
+ =?us-ascii?Q?vnqKTziC2Y7LG3cxghpqSTELQEzVpnxGyXod/j76AjJ7yIQRApADWV8Ve/kQ?=
+ =?us-ascii?Q?wd4UVi9nw/kJJ2gUGyLd0obBNSecOWaEeyiDDEsxpUzKk4nhosK2WJd0LLvj?=
+ =?us-ascii?Q?YvQ9aYcbAr0nsgNwonRrhzUzr+n371+Zo8XmWiIhmLTwq+8Y4PkP/3AkLY13?=
+ =?us-ascii?Q?ezDrx5peon05/bSoc7T0Tlo7B4SK/cZee7v+T341HgNyVKQgfnnnK9FMzCdJ?=
+ =?us-ascii?Q?8UoHHGD1laB/2kQf4bBhe02Qv5qD6aKGqzJ9/IVKRuZhHY4BhD8jDYGWe+hu?=
+ =?us-ascii?Q?w3e8qPToY2h1irnIXlNkTa5XrCsHi+9Sr+i8m+5RJMhFdcALApZfKtlFbAq2?=
+ =?us-ascii?Q?gfFiK1J8qnifVa+5N6daf7mhXC0OxjEKXIheTSUV91RkE+GC?=
+X-OriginatorOrg: heitbaum.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc11dc3e-6868-4ad2-bb14-08def488023c
+X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 13:30:12.4649
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yjzNcm0W79EC3lcHLlRu4yQv3RlJGndIlhvTL4AbANoo3mQzA455jLZGs+xwaqbpcSnb7o7SUQuzUaoYIW9m/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7P282MB3978
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+imx8mq-phanbell.dts describes very little of the Google Coral Dev Board
+beyond the essentials. This series fixes two defects that affect the board
+as it stands today, then adds the i2c buses, the 32 kHz reference clock pad
+and the analog audio.
 
-Pre-existing issues:
-- [High] Unchecked `v4l2_subdev_state_get_format` dereference in `max96714_=
-apply_patgen_timing` leading to NULL pointer dereference and kernel oops.
---
+Patches 1 and 2 are bug fixes and stand on their own:
 
---- Patch [11]: [PATCH v15 11/22] dt-bindings: media: i2c: max96714: add su=
-pport for MAX96714R ---
-commit c4bf3be89835d23de9ff33f00865d0fa24fed633
-Author: Cosmin Tanislav <demonsingur@gmail.com>
+  - BUCK3 feeds the GPU rail and is the only regulator on the board that is
+    neither always-on nor claimed by a consumer, so the regulator core
+    switches it off when it finishes initialising and the board dies about
+    thirty seconds into the boot.
 
-dt-bindings: media: i2c: max96714: add support for MAX96714R
+  - The cpu_alert1 cooling map hardcodes an upper state of 2, which does
+    not exist on a part whose speed grade provides only two operating
+    points. The bind is rejected with -EINVAL and the trip ends up with no
+    cooling device at all.
 
-This commit adds device tree binding support for the MAX96714R, a lower
-capability variant of the MAX96714. It operates at a fixed 3Gbps rate in
-the forward direction.
+Patches 3 to 5 are enablement. Patch 5 depends on SND_SOC_RT5645 becoming
+user selectable, which is "ASoC: rt5645: Make the Kconfig symbol user
+selectable", queued in broonie/sound (for-7.2) and not yet in mainline. The
+devicetree applies and builds without it; the codec simply cannot be
+enabled until that lands.
 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96714.y=
-aml b/Documentation/devicetree/bindings/media/i2c/maxim,max96714.yaml
-> index 3ace50e11921b..ec6a91c4a51c0 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/maxim,max96714.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96714.yaml
-[ ... ]
-> @@ -31,6 +33,7 @@ properties:
->        - items:
->            - enum:
->                - maxim,max96714
-> +              - maxim,max96714r
->            - const: maxim,max96714f
-> =20
->    reg:
+Producing sound from the analog card also needs "ASoC: rt5645: Perform the
+initial jack detect at probe", posted separately to ASoC. Nothing performs
+the initial jack detect for a card described with simple-audio-card, so a
+headphone already in the socket at boot is never noticed and the output is
+silent. That is a codec driver fix rather than a devicetree one, hence the
+separate posting.
 
-[Severity: High]
-This is a pre-existing issue, but while looking at the corresponding driver
-for this device, I noticed a potential NULL pointer dereference that could
-be triggered by userspace:
+Deliberately not included: pcie0 and pcie1 need the i.MX8MQ PCIe REF_CLK
+source selection to be made conditional, which is a separate series still
+in review, and the Bluetooth half of the QCA6174 depends on that in turn.
 
-drivers/media/i2c/max96714.c:max96714_enable_streams() {
-    ...
-	if (!priv->enabled_source_streams)
-		max96714_enable_tx_port(priv);
+Tested on a Coral Dev Board on 7.2-rc6: buck3 stays up and the board boots
+reliably, both thermal trips bind and throttling engages, the codec probes
+on i2c3, and the headphone jack plays 44.1 kHz and 48 kHz.
 
-	ret =3D max96714_apply_patgen(priv, state);
-    ...
-}
+Rudi Heitbaum (5):
+  arm64: dts: imx8mq-phanbell: Keep the GPU rail on
+  arm64: dts: imx8mq-phanbell: Do not hardcode a cooling state that may
+    not exist
+  arm64: dts: imx8mq-phanbell: Enable i2c2 and i2c3
+  arm64: dts: imx8mq-phanbell: Mux the 32 kHz reference clock pad
+  arm64: dts: imx8mq-phanbell: Enable the rt5645 analog audio
 
-If userspace sets a custom routing table via VIDIOC_SUBDEV_S_ROUTING with a
-source stream greater than 0 (and no stream 0), sets a test pattern via
-VIDIOC_SUBDEV_S_CTRL, and enables streams for that stream,
-max96714_apply_patgen() will be called unconditionally.
+ .../boot/dts/freescale/imx8mq-phanbell.dts    | 124 +++++++++++++++++-
+ 1 file changed, 123 insertions(+), 1 deletion(-)
 
-This in turn invokes max96714_apply_patgen_timing(), which attempts to fetch
-the format for the source pad:
 
-drivers/media/i2c/max96714.c:max96714_apply_patgen_timing() {
-    ...
-	struct v4l2_mbus_framefmt *fmt =3D
-		v4l2_subdev_state_get_format(state, MAX96714_PAD_SOURCE);
-	const u32 h_active =3D fmt->width;
-    ...
-}
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+-- 
+2.53.0
 
-Because v4l2_subdev_state_get_format() implicitly defaults to stream 0, cou=
-ld
-the lookup return NULL since stream 0 doesn't exist in the user-configured
-state in this scenario, resulting in a kernel oops when dereferencing
-fmt->width?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-gmsl2-3_se=
-rdes-v15-0-7212e9e5156a@analog.com?part=3D11
