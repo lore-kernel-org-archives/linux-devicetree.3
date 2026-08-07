@@ -1,172 +1,153 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011043.outbound.protection.outlook.com [40.107.130.43])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE5842882B;
-	Fri,  7 Aug 2026 16:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786119840; cv=fail; b=OgDlCsQdOekbvjcS5juOh8TYBXc37AZDEuWgLfLt2RVksBGLe4GsiGoFI0OSvxLrCeK6Jc1U51EIwk2YFEqx9okfbHbmgmFliZRz/VlH7A4Eug+QsrnhhivqIEO2BlG6qa6Nk+NEBCdPGD/HmiHLSeL6jxxn2ttrkorsVy7bdFY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786119840; c=relaxed/simple;
-	bh=DxdFpdvsJ58Ks0XykMguB+ICb4vcJ4w+xooO4m8XbIM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=BGPqDA5gFYoTFPRyFs8GIRzJtdIElfNgpg3kjARfl5mJZ2yH6GlQilvTfb6bgOXzV1LA4DgFjR/Xwo7qwt5FjSqVKZdL4KXD5rNVHQvgOM101/p4s/6TOfywERANR+qgEb7D+yRW41ZM7Mq6RNJ91ItaJz48jkIjylHwZxU8tlo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=X+cQ1Ewv; arc=fail smtp.client-ip=40.107.130.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2E242882B;
+	Fri,  7 Aug 2026 16:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786119848; cv=none; b=WVz1+U7mJybuydHue8vI5vdSTDK9sYAv5b5uNa+TvauAqziNC57wKsc9VHkn5R+L7Kv+WS9NupL296hyaE+ukVwIy0OvMrFgSQuD3GuTTKipnxUcoeCtOa4CffKNVfYT2Tov8l7uijJxIxYn7pqJtmhAhCcHTDMupuLXAyTQ+QQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786119848; c=relaxed/simple;
+	bh=HJmelZBkGJ3fs60a9AFTN5SU/MTv4T95mVU514g09d4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EQvYiAnGHzNoPLML93QTOR5difhsA7h6bdEwOEN34ZEWVBwytRioOgH/QTLnERksAJGgI62j+VhO3FC73+1luFvx9VHEjAfgQd/yG1JwuwhTwotYFLWOo8IQ4LhtuA+UT7wcZ0zr6P7WuWAx3tND/fI2UKw8Qa77LKd8rC1rWrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LukuwJoB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="X+cQ1Ewv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=piBYzYY4r6r0puctCXt+VUR6BMKpE4obtZ4HChG+ZYvreGViUKiuGzEdk7FzEkj5hxPwytntyzmmiGGaJT/Kkt5I6vMKpPYaKNDQJdeRdJLtDm+pYoNptLCJnj3JkP0wXNxGd+pArBdjWGvsI+v+BRlHyM7iPwR4PG6lcEvOtUREBVyCxSvEqJNM9UItOwHvcq/3pGQAQGMY1iyX2x3TGxP2Ew/AmRtOLBtBWQKTKVKIsY+ydlZk/poxHfFok2+uQ1kNKkQHBMdLaLg8nWMwsH/1NQazJtU/IAgRG5403EdtzfTbbzFXHJDR7DoxTJH3XDnX/WuBAw5HHIWSIqxDPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SgkojS5UxZQMrx78frFPOQCePO1vletpZ7ezviDziF0=;
- b=MxYLiX72louOBoNn0knKAlZlj8yEdQ+HXDFFBbrc2DXYRcF4MyLayNTp+AvEA0eNX8Q/dhv0z37nfFWRrAMvgbjwl+mhKYToOgBykV5o7VKYXeA0fVsW6ov/TN1s433Q03la6YXGZF9EjBc7JNsQE7Jihi+4xw0OMk2n/P4PmS8FYlTletyVTGMWgpdzyC8iCW0XV9r1Vi0PT/KJgEQ0OSo6b7Z9SQTirgMf2ibJvrSiglFcLxklG+zFnXbdSYxWowrUGPvzR6Z2HoR1IhvVdU37fG6T313eZ+R5QWZGSAcOfkXdvXQ39sGCZ13xR5Qib3u0I9DjsLtGJ12lAh1vKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SgkojS5UxZQMrx78frFPOQCePO1vletpZ7ezviDziF0=;
- b=X+cQ1Ewv7WakwBewpfpY6Nptt14PJJ2L5Vw033sORfMcAtnBJw8aqiI55aOi/FomMJ45wlN61TmHQmeDgUZYRgiicVsMHE3hk/2YADoSrsivFVR1NcHmOaSgn2UjlXqms+yNxy/7z8PO0edmPClVRgh8GpEkQl1YrEr5kSFed2TwEyMdYskpCfFdPI+YtdCrdS0RH/1n4ayzJVAzHj/MiWAPx7ql/YDt00LQFNkSN5VouJPcyYObIYnQL17EksGf3Yjb7phTf1R1x1g0hlT/qEAs6FUuDVvcz5O4ryRQ0mrj8b4mQBS2/tsM7OGQtQ0+E07BIpQzwjAUbOz03yZxMg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU2PR04MB9068.eurprd04.prod.outlook.com (2603:10a6:10:2f3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Fri, 7 Aug
- 2026 16:23:54 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.018; Fri, 7 Aug 2026
- 16:23:53 +0000
-Date: Fri, 7 Aug 2026 11:23:43 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LukuwJoB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E011F000E9;
+	Fri,  7 Aug 2026 16:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786119846;
+	bh=JpK2GRoQzXcryb8G9EYVZqijm6DNJokoOliHq07rgC8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LukuwJoBKFNiyI/39Ka9P3qQM1VQJHQlTb0dvdfRUJtLNMU2EFD87WyQY058kY5t6
+	 5cfijZWM1VxIpsZSpX/5OU03Zfz59FRfbgwjr43sOuJybafMDWkVh8zkffT8y4mBGh
+	 UCWLBg5e+DV7qaiqCdMhBbArItG30ozebJeuaYY7oc1Lw5mj/Sw/5C3rMMHzvatQ9d
+	 Lpcv8GrM0RQxFCod2/QuFp6/hpi/PnrHNXyKH98Hgn1GttfdT7ImIPDNkvCUuq6oLK
+	 JE8ZpgpQunNOsKHT13IViOgHd7nT1gX1Sxqk7n6Xwe9+Bx5OP1FS7Sbch05EwOz6zp
+	 lFRUOXou+0HxA==
+Date: Fri, 7 Aug 2026 11:24:05 -0500
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Pascal EBERHARD <pascal.eberhard@se.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com
-Subject: Re: [PATCH v5 4/7] clk: Improve a couple of comments
-Message-ID: <anYGjwh_nRiQAsxO@SMW015318>
-References: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com>
- <20260807-schneider-v7-2-rc1-eip201-upstream-v5-4-8785f9531cf0@bootlin.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-4-8785f9531cf0@bootlin.com>
-X-ClientProxiedBy: SA0PR11CA0084.namprd11.prod.outlook.com
- (2603:10b6:806:d2::29) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+	Mansur Alisha Shaik <mansur@codeaurora.org>,
+	Andy Gross <andy.gross@linaro.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Stephen Boyd <sboyd@codeaurora.org>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	Pierre-Hugues Husson <phhusson@freebox.fr>,
+	Marc Gonzalez <mgonzalez@freebox.fr>,
+	cros-qcom-dts-watchers@chromium.org,
+	Matthias Kaehlcke <mka@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Aniket Masule <amasule@codeaurora.org>,
+	Malathi Gottam <quic_mgottam@quicinc.com>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Jonathan Marek <jonathan@marek.ca>,
+	Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+	Renjiang Han <quic_renjiang@quicinc.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range
+ for Iris
+Message-ID: <20260807162405.GA896590-robh@kernel.org>
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
+ <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB9068:EE_
-X-MS-Office365-Filtering-Correlation-Id: 520e6a73-0031-4e94-e82e-08def4a045ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|19092799006|7416014|23010399003|56012099006|18002099003|22082099003|4143699003|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	s5EDj7eEHqSpzo9fSJ5xbLJ/WhFuY/tdJxPgswTp+nlxBvBf8CsGD4VqWwx+V+TUuNWIDtEMCOtALAioeQejSeqRWOCBjCLjmpreJ77JCInY94y1GQfd2Er37bCbSM+kU52IcpGaUOoNb9EN7y+ryUWJvfX9yHUH7gleZDjFGLmKZUO1/KuP0A1bgkVXm6xrvXrVjn6T2JQhYM2SaDxXcOWuNhOoD9lu3K+w71/ZMhpTrti78zmcYrVkvtxirHaGIyPIuxIw+68M8x7HTO/MZNQIYIipuA+Fe6b9ztMpF9fAVMMgmimESn3zCnHPAjtWme5emLbcxCSmglbmSf0n6upMVdy1Yff8/23nVFyMz/EdYd5YinwBP+B/13GvNU94tYkNpp+t5l/v2sctUmoQC+bOKTclXHyTL4n8AFYBgTniZoImwRP2FLXoxUbIl1wa6LjFiT4ysj32dLQKafq8HwV5aCaNHEmOPqisGuWzWL8lNNHpYq4aVepujDMbK++EgexQipTEfOXUYtzjCWqKCUfS016J2xNiOkJF6nFrORD4KQOTx8P++BBRxyHWBSToVEgt54FAoL+9PF5Gk4QkGsqAbsObzLJ2ovu3orz+V1exshzRysTf5tgJZVwTVXOm8u+KvqIMVPA6VTf5zm/itn3/OqV26kJ6PlkbXq6GV5E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(19092799006)(7416014)(23010399003)(56012099006)(18002099003)(22082099003)(4143699003)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qkTYcpUUdt/g9n9hpMtlp92G+RSIUj25X+8qIKd3kLWakv+mmAJTZtICr1l9?=
- =?us-ascii?Q?OLx5OdEgkP481cNrI7j+OzNzSqZ1agwjtt+zFdDFfHYQ4M06V2znhQOx1C2Z?=
- =?us-ascii?Q?kBfNo+qkOoJoTYzfyqppBCCIFe5LSELtYRxb5ivX/pvSFTJctG2knBdjNKs1?=
- =?us-ascii?Q?sDrxngxMxFDVakbhsTkSbLKa5BuHV0gXlUNqdnyJSQzyfzKaWZ5+8QVZTwon?=
- =?us-ascii?Q?CMFsfPR9MQGrE7pziGyXdprrBHdD7JpBe8dbQsUUGYoOZEkcrGJ2/CEjr1zx?=
- =?us-ascii?Q?TMVKpYHmYoQ8GEYe8e2FDGj/pmd7SjNJUeFgTEFuzlcX8jQ2YXjisozUR9wI?=
- =?us-ascii?Q?oPBnYVvwEyALpBHHfw2Gjl9K66ijMO3EpcKT6WWDuF7RyMQGQuLQzKhrzW0/?=
- =?us-ascii?Q?GMTBpF7CBiCGmfLj3YceTi/hP5IngVyBtjbcodqxYz4Xdvx6hXWi8oSV+xGt?=
- =?us-ascii?Q?wXNy2roTFNtCkpMfLptFH/NI45f+O70a7RG294u380DH/GVGbJOczxMV0AA6?=
- =?us-ascii?Q?6Llq/RmSMz7GEJyrsunU80YHjMNRAOJhbVgGwnj24LYAvBZUHXxkMhUyREmH?=
- =?us-ascii?Q?hePiO7rJJykAyDUvgcxf8humMum14ErdPLPKvkyiIiDg+eMW8+TeYIGpm6VQ?=
- =?us-ascii?Q?vPcDEIzAES88M3qxFx7hEt1vJ+c7yySHGlU8Jy6lSwTYFdhUusSDjnKlPEw0?=
- =?us-ascii?Q?aDB82aUoxngVkM6LwvJuOtGVfDFugyqJnxvmMOEzXxIhsaj8fsOcWIR1BYug?=
- =?us-ascii?Q?eWWCTtsuh3sGVj5VMJY+NMzpwXnTPbFkZFOg1QKlh/rulwEwqJVn5G3mNgWz?=
- =?us-ascii?Q?L0qBxVcM3UIpDekOYrU5Ne80NXGpvDY/aailK4Q0CApvRBCACYy9yRVUyp61?=
- =?us-ascii?Q?CVqFvb6u9Vn/OJD0TrpvuFHedoHjakh4sqZDa6iBHdsJ19CMoxsuUL9Ob9ss?=
- =?us-ascii?Q?Hl1/u6kejhBumlFa/n/rV4lE7MPuXfJebcdLy9rbU16pfqyVNaQ36nlK2hGZ?=
- =?us-ascii?Q?fYbUdyF/ENxIR1MKLWrlvaQWwhOvy2I8OV6HIJifjkjePJB/5p6tDFi7azkI?=
- =?us-ascii?Q?mYrf3m/4l58EYG2JmpyteMrd+0Z+0weHUHXvtIqjbSifAU852NKRQx8izfC/?=
- =?us-ascii?Q?nxP0lOvjCVHXM5jCxgYy2O4d+hk3zbS3bT4vGscyDD6Symf32Q1aADlccDqY?=
- =?us-ascii?Q?b7GcHkN3S/WWfn5G5kIps2nP/veTr1oEXEHU8IKfYU6M7cqVu27IXiuRa+3+?=
- =?us-ascii?Q?DgtR/3eSo0kAmiq3iLnfoRZribmDpzSADVCNMjknIXxulp0UC1Gqp1IIsCDG?=
- =?us-ascii?Q?ZuWlz4Uph8uGY2J/DI4yNKKY5kR8BAKDPebxBOSNj/AgEIgF0ZOhcw6XLnVL?=
- =?us-ascii?Q?ubE+mHuYKFirxGP7viZpFIFavfZ7vwJ/B+nQhWhd/OAl55jNUxLa/y9bR4a2?=
- =?us-ascii?Q?Mplws52e/JPfK1xoWosl4Kj0QYlK25hQiUe1npaUQOR28jrvCQ+ypyCj75ZK?=
- =?us-ascii?Q?2uZn88jAAQMOcF6+Gs4+OTddIRQv5UmNRQwzApmZ+A8gGJlsJFzsHI14psFr?=
- =?us-ascii?Q?+4E9YGTlwjBDJsYkfU353ORUCRq+xBnmezin+IDKqRxg/e2flHozqkZCEV66?=
- =?us-ascii?Q?WyrraDxj+Ty85QdBVB7Dzvy38ui0tNWILRIdhCn2O6lJbzPsYZDaHcdjqrhr?=
- =?us-ascii?Q?Ha/iV7gZwz+rDqGhD3GqVXg7cuI7LDFsLSFl+NYvJaP5CJphMWVR11ngqvXK?=
- =?us-ascii?Q?cvbwUjUxgHbgaRXvTK3P1a6q0U329aM0o07Rue9Qp7LUKjJ39aep?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 520e6a73-0031-4e94-e82e-08def4a045ac
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 16:23:53.8846
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EnicHshFZ7MOIJJ2RDPyPwX0plhVkRN4XgfmPkng95GMXJmSZyV5BgWEns3vXqLKGXpjJQNRyT0UKxRyHgrlAKW2JceCAiEZdjr74ww5boRTzstEuAWL8dFRS9W+Unkw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9068
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
 
-On Fri, Aug 07, 2026 at 05:24:05PM +0200, Miquel Raynal (Schneider Electric) wrote:
-> Avoid mentioning the function names directly in the comments, it makes
-> them easily out of sync with the rest of the code. Use a more generic
-> wording.
->
-> Suggested-by: Stephen Boyd <sboyd@kernel.org>
-> Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
-> Reviewed-by: Brian Masney <bmasney@redhat.com>
-> ---
+On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
+> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
+> > From: Daniel J Blueman <daniel@quora.org>
+> > 
+> > On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
+> > below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
+> > into that range, from any other stream id would triggers unhandled SMMU
+> > page faults that cause spontaneous device reboots. This is readily
+> > reproduced with one or more browser tabs driving multiple concurrent
+> > video decode streams.
+> > 
+> > Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
+> > and reference it from the Iris node so the IOMMU layer keeps DMA
+> > allocations above that boundary.
+> > 
+> > Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+> > Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > ---
+> >  arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
+> >  1 file changed, 12 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> > index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
+> > --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> > @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
+> >  			hwlocks = <&tcsr_mutex 3>;
+> >  			no-map;
+> >  		};
+> > +
+> > +		/*
+> > +		 * The Iris VPU reserves IOVA below 0x25800000 (600MB),
+> > +		 * primarily for non-pixel buffers using different Stream IDs.
+> > +		 * DMA into that range triggers unhandled SMMU faults and
+> > +		 * spontaneous reboots, so reserve it to keep IOMMU
+> > +		 * allocations above this boundary.
+> > +		 */
+> > +		iris_iova: iris-iova {
+> > +			iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
+> > +		};
+> >  	};
+> >  
+> >  	qup_opp_table_100mhz: opp-table-qup100mhz {
+> > @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> >  			interconnect-names = "cpu-cfg",
+> >  					     "video-mem";
+> >  
+> > -			memory-region = <&video_mem>;
+> > +			memory-region = <&video_mem>, <&iris_iova>;
+> 
+> I don't like the idea of this series, because it _again_ doesn't tell us
+> the truth about the hardware. This typicall ends up with bigger problems
+> later on, when it starts to affect other bits and pieces.
+> 
+> I don't want to NAK it, but I'd strongly ask to reconsider it.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I think this is an abuse of /reserved-memory. reserved-memory is 
+reserved *physical* memory. Reserved IOVA is a property on top of that. 
+I'm surprised this passes validation. If it does, I may go fix that.
 
->  drivers/clk/clk.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 08874cf9b561..7d63d81ebc09 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -5202,7 +5202,7 @@ static int of_parse_clkspec(const struct device_node *np, int index,
->  		/*
->  		 * For named clocks, first look up the name in the
->  		 * "clock-names" property.  If it cannot be found, then index
-> -		 * will be an error code and of_parse_phandle_with_args() will
-> +		 * will be an error code and the OF phandle parser will
->  		 * return -EINVAL.
->  		 */
->  		if (name)
-> @@ -5275,7 +5275,7 @@ of_clk_get_hw_from_clkspec(struct of_phandle_args *clkspec)
->   *
->   * This function looks up a struct clk from the registered list of clock
->   * providers, an input is a clock specifier data structure as returned
-> - * from the of_parse_phandle_with_args() function call.
-> + * from the OF phandle parser.
->   */
->  struct clk *of_clk_get_from_provider(struct of_phandle_args *clkspec)
->  {
->
-> --
-> 2.54.0
->
+Rob
