@@ -1,134 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43FF3B6C19;
-	Fri,  7 Aug 2026 04:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C933B3C1B;
+	Fri,  7 Aug 2026 05:00:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786078528; cv=none; b=AXY732g795J43zdgSXUhD51f9TtkYXvDnRTERykQfM56dEvwcdZaJZJfybY0WBXek4oXsMpda8nBazZkhZh3Ufn9VLy46vJmLW01Kn5cZiku8P+7sGZZcoFWNlLQdmjkB4kzzELkc/EZxVFYNtGHQROh86nYu5PmlbkKQpnVkog=
+	t=1786078822; cv=none; b=RdIphajXdYI9Yz/c4rem0qp7nYWtZnjyMCaEdrhx7BMaPuQuOZT42OEXrhbEspcW989Rdclffmw/XkhCRIPQ7yd1lFomU83h1DrKLYojKQ91djVA/hgwBTUU8jd9XfoFD0dk04XbrQ6KhLswdYQCf75Rprp8allDWEis18QL5jc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786078528; c=relaxed/simple;
-	bh=AZaZVM6U5Wblexss9C9y018h8IfNafsVnuFUX2CqF78=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SfFRRm38wDM2q2taRHToLYYCA8Sa9NKu/vpiqrJr80syO+IKzXtwnJsDj5VgNdzvEpyiYnZAulwUEcdHOWN0w/U8T0E+8UNkgwKFdQkLi1TZrieUpaPFWlTZozkClki78vU51TxPx2En7PpEtYP1nk8U24wzORrkAVcaRMyIs+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AF+B5seu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786078822; c=relaxed/simple;
+	bh=h/cSfziJ7Etc+O2MjXGaY1B2O98aVIDqVTpo6Yb7x4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N+AcQbXQcxFRmxAt4/W7DHu5LCv2wDsALHa60k1qcdw+Aytxgys59kpDd2R3byoT8ueG4sgbFm63l3BRNw9O+B/nIXlR2AvcGJtLfb3Ex+koyj8qH5TjMirpY8JrByZWAxOj2jzLD3zOdJdNuelPKAV3qfeH1UtvNqDlp+kLaSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c+22CknR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AF+B5seu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B8481F000E9;
-	Fri,  7 Aug 2026 04:55:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c+22CknR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA95D1F000E9;
+	Fri,  7 Aug 2026 05:00:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786078518;
-	bh=DWs1mspI1CnGk99IBw6lOLX2WZCwuPDL161wc/XFOuc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AF+B5seudublb+L05VIu1YDWXkkjxP+NCRp6k2SLBEy9Ztt9Z2ev6mNAIZLturuRC
-	 keId2a7B5o2+lG7MCGDjAMf16i6b9Gs+hieZ8ShYOr5OofDPDbDS9JGqzOwDNtjCxm
-	 xL0n/v7CNlUJtv1AkDL8CtimItzKxo1mHkUhAssBgDBW/uLDmdo640cSDbmoSxuSwW
-	 mVr4K3xjYDQnve5HcpNuiDZTRd07cHevbKgM4oaLXBiYz8SrjcfpknbMNAcjb9jQkb
-	 uuhgxwHAysW2w8CnqGCg8KjBPyUvCccnLBkFbilXJLniIk4koJpZoxkJYQT45EvDnM
-	 T9j7GFE00ywcw==
-Message-ID: <e0704a22-6a21-4f8f-b1a7-ae200bdbcfae@kernel.org>
-Date: Fri, 7 Aug 2026 06:55:11 +0200
+	s=k20260515; t=1786078814;
+	bh=g+D3AJQFvhPRzkoa0tC39NTBMn/lH/wnQoRYJfVrN6E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c+22CknR52MxQ5QmipW9AJNvWJIzeZdLGQCZLx6zwxqeuCX5PKIkyExW9XMCx6eS5
+	 kkJW7HMJjTwxIsA/8W6bi0t6KmrQvTVIXnj5X7sAN2FqiK5afxmDaHfZJA2SkgYrXz
+	 fpleSr2++RNZvTBkaYOvMRgbwvfy5lMk+Z/TZouyTfmtGF2HNQO0qxmOU3kqza/GU1
+	 H7JGB595GwmKjuZ+2xo1AN5BBiLIAE9uzaIsYTxjdpq5nr4ffSQ6Ll5dMlZEylCIN7
+	 fHnse4Osb0H9v47evb60F/x3EV4MejEDkogg/96oi8znWlINaLlUU1Ku6N0fPXFJnI
+	 dKi0sxURLxtyg==
+Date: Fri, 7 Aug 2026 06:59:53 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Wasim Nazir <wasim.nazir@oss.qualcomm.com>, 
+	Mohd Ayaan Anwar <quic_mohdayaa@quicinc.com>, Umang Chheda <umang.chheda@oss.qualcomm.com>, 
+	Yijie Yang <quic_yijiyang@quicinc.com>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/6] Fix regulator voting for the Qualcomm SGMII
+ SerDes PHY
+Message-ID: <efu6xalzkpim3cu2r4mkzksseviqrxqmpmblm24r3ip6bwt3dh@nqntulmbkgwa>
+References: <20260804-b4-sgmiieth_serdes_regulator-v2-0-c4bc688177dd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] serial: 8250: Add Airoha SoC UART and HSUART
- support
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Christian Marangi <ansuelsmth@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Benjamin Larsson <benjamin.larsson@genexis.eu>,
- John Ogness <john.ogness@linutronix.de>,
- Peng Zhang <zhangpeng.00@bytedance.com>, Jacques Nilo <jnilo@free.fr>,
- Rong Zhang <rongrong@oss.cipunited.com>, Gerhard Engleder <eg@keba.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Randy Dunlap <rdunlap@infradead.org>,
- Binbin Zhou <zhoubinbin@loongson.cn>, Lubomir Rintel <lkundrak@v3.sk>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org
-References: <20260724183007.188172-1-ansuelsmth@gmail.com>
- <20260724183007.188172-3-ansuelsmth@gmail.com>
- <anUQhbuHSDRs04bq@ashevche-desk.local>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <anUQhbuHSDRs04bq@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260804-b4-sgmiieth_serdes_regulator-v2-0-c4bc688177dd@oss.qualcomm.com>
 
-On 07. 08. 26, 0:53, Andy Shevchenko wrote:
-> On Fri, Jul 24, 2026 at 08:30:06PM +0200, Christian Marangi wrote:
->> +	/*
->> +	 * Calculate XYD_x and XINCLKDR register by searching
->> +	 * through a table of crystal_clock divisors.
->> +	 */
->> +	nom = baud * XYD_Y;
+On Tue, Aug 04, 2026 at 12:57:56AM +0530, Mohd Ayaan Anwar wrote:
+> This is a long overdue v2 of the original patch series which tried to
+> address a SerDes power-up failure observed on the QCS8300 Ride board
+> using the phy-qcom-sgmii-eth driver. After going through a rabbit hole
+> of hardware schematics and power data, I now have a fuller picture of
+> this IP.
 > 
->> +	for (i = 0 ; i < ARRAY_SIZE(airoha_clk_div_info) ; i++) {
->> +		clk_div_info = &airoha_clk_div_info[i];
->> +		xindiv_clk = XINDIV_CLOCK / clk_div_info->div;
+> The Qualcomm SGMII SerDes PHY (used in Lemans and Monaco SoCs) is
+> powered by two voltage rails. The schematics call them vdda-0p9 and
+> vdda-1p2, so that's what we follow in the series. Additionally, the
+> 0.9V regulator draws a peak current of 46 mA and the 1.2V regulator
+> draws a peak current of 15 mA.
 > 
-> 	for (unsigned int i = ARRAY_SIZE(airoha_clk_div_info) - 1; i >= 0; i--) {
-
-Due to unsignedness, isn't this a lopp for ever?
-
-> 		xindiv_clk = XINDIV_CLOCK / BIT(i);
+> If both rails are not enabled, we see the original issue where the
+> SerDes calibration times out:
 > 
-> Also variant (but may be a little bit confusing)
-
-But a little bit more correct :).
-
-> 	for (unsigned int i = ARRAY_SIZE(airoha_clk_div_info); i; i--) {
-> 		xindiv_clk = XINDIV_CLOCK / BIT(i - 1);
+>   qcom-dwmac-sgmii-phy 8909000.phy: QSERDES_COM_C_READY_STATUS timed-out
+>   qcom-ethqos 23040000.ethernet eth0: __stmmac_open: Serdes powerup failed
 > 
+> Currently, the DT nodes across affected boards incorrectly describe
+> only a single regulator via the generic 'phy-supply' property (and in
+> some cases point to the wrong rail entirely). Moreover, the driver does
+> not set the proper current loads and just relies on an enable vote.
+> 
+> This series corrects this by:
+> 
+>   1. Fixing the DT binding to describe both named supplies.
+>   2. Fixing all affected board DTS to use the correct vdda-0p9-supply
+>      and vdda-1p2-supply properties.
+>   3. Adding bulk regulator support to the PHY driver so it enables both
+>      supplies and sets the proper current loads.
+> 
+> The patches are sequenced to maintain bisectability. With the driver
+> change, the PHY framework will continue to vote for the regulator
+> described by 'phy-supply'. The DT changes which follow then remove
+> 'phy-supply' in favour of 'vdda-0p9' and 'vdda-1p2'.
+> 
+> Testing:
+> This series was tested on the following Lemans and Monaco based boards.
+>   1. Lemans IQ-9075 EVK with the IFP+ Mezzanine attach (dual GMAC +
+>  QCOM SGMII SerDes + QCA8081 PHY)
+>   2. Lemans QCS9100 Ride (dual GMAC + QCOM SGMII SerDes + AQR115C PHY)
+>   3. Monaco IQ-8275 EVK (single GMAC + QCOM SGMII SerDes + QCA8081 PHY)
+>   4. Monaco QCS8300 Ride (dual GMAC + QCOM SGMII SerDes + AQR115C PHY)
+> To conclusively test the new regulator voting, I tested builds with all
+> the other consumers of the regulators disabled from the DTS to ensure
+> that the phy-qcom-sgmii-eth driver held the only vote.
+> 
+> Changes since v1:
+>   - Fixed the DT bindings to describe the actual SerDes PHY hardware,
+>     which actually has two supplies rather than only one - Krzysztof.
+>   - Use regulator_bulk_* APIs to properly set the current loads of the
+>     two supplies - Konrad.
+>   - Fixed Lemans board DTS files that incorrectly voted for vreg_l5a;
+>     the correct rails per the power diagram are vreg_l4a (0.9V) and
+>     vreg_l1c (1.2V).
+>   - Link to v1: https://lore.kernel.org/linux-arm-msm/20251124-sgmiieth_serdes_regulator-v1-0-73ae8f9cbe2a@oss.qualcomm.com/T/#m0b93e06a0d6a09c4c1b65c500b475958ed5e288d.
+> 
+> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-thanks,
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+
+- Mani
+
 -- 
-js
-suse labs
+மணிவண்ணன் சதாசிவம்
