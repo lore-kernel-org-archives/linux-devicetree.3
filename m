@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAFFDF59;
-	Fri,  7 Aug 2026 00:05:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520C23FFD;
+	Fri,  7 Aug 2026 00:06:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786061141; cv=none; b=PsmXGzXeY8MuqQNLdCoH/Nzqt96uhYXYRoWvGkRMA5XUar7C8i0zkA0b1Ck1Tc/mmVwrYdQhKuMSdFltLZEVwGbKFr1GJli5zR5gbWy0duI48NiJ2DXVgkmUNKa5nnf6+rCpeFV4GRCrMqE+LOAC7KA7voz2U8gur7gSi8n1tzo=
+	t=1786061189; cv=none; b=CgKz6KaLoBV3kHom52dUHey3TsloluZuRvey9eY6UcQVNopzL7I7UuPZiVcmfVOwNIH+JRoCk7z+0me1FW+6Apf3s8/urhJ5sxPq1/gQ30uQn/f/wOGJ2njZL5kBSYotrSi1mBrOc9YlQKY5GFtvcnZ5bYr2YHP3S3uAEnGXAQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786061141; c=relaxed/simple;
-	bh=I75MAs14r4+ww5JcUSJgVXgTy1R5j2l+3ETeMyD04n8=;
+	s=arc-20240116; t=1786061189; c=relaxed/simple;
+	bh=dgCqVgCL2YUsylvejkb1/6GhZ0n3bHar5/vRZPPkPJw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b0qu/4RpSPH/PVlsw/AUO9WTHoCSZJhnjDDp7z+sqtB5ZyfELFuLneKtzHXNfhq0B4eOh/SQ7ulCF/7qSgChiD+3W5F98SreXDeZu67yd3CEq2NvugSJ2m07fE14tW7jm2vitgkf7b2cXOZJVh9w8YQNSv+M66qxPuEV0AtJNpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TI4eQCuy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nyjnzaI+SVyilSjIfq7KD44dJZmGSsdmPyVVXtXpUBBaxgMWCzJmMLNdK91OTmDs7oD9YzFP4WyanUjMCn65KkmNNwctf2y8jdLtzvXkTovGPFXd1MyF5ub1EIMAxe8Arn3vB9zLqEr5NJlByqGLWKEgI0U6GQolQxXf5HE/bPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S8NLKLYf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TI4eQCuy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE4D1F000E9;
-	Fri,  7 Aug 2026 00:05:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S8NLKLYf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3357E1F000E9;
+	Fri,  7 Aug 2026 00:06:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786061140;
-	bh=B6VSDlLfexYURqNVnQp1Z+bN7HzipN3TVJK0yQNfyqQ=;
+	s=k20260515; t=1786061187;
+	bh=0cj5fEfLhvjq0e9WfHToXmikm3XkbGVNNCsETUZN5FM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TI4eQCuy774qTt/BACc94tLOQilLYfMiXu5Y4K0ow7eM1ObvG4A0+ayY7ChhwiLlh
-	 O3akTaynPXjHXtMePWc82UXLfCmNkkS+czL7h/+pjLsN/5ROVTTkOb3kQ9AINbxyjC
-	 VUCNyerUkf69iHIzA03R8tqfwm1KFSkmUHqxcgMkWqjUBc2RIprCNEuTU8E4AdI0Bn
-	 Fpa6EkAirTHfOSoCfXZo7DkOtv7Hd8C8Y4YWx8sj1Z0h8cufJngUzjeZWU6Km1BWmb
-	 ucOcZhjhSHpIoMkD2y1q3sGX6xWHo9+Zom4W9Z4etzsSwPIAvBs0WiGRpRuLWe9X1n
-	 UNSq31Uc3lBFw==
-Date: Thu, 6 Aug 2026 19:05:37 -0500
+	b=S8NLKLYf6t3nEAPiilVzEqo2lQjBCQcFn0jKTduv5+519GtN4rfs67kG62KBCSBK/
+	 IKcPuUm94sfJTp4pEjpip1nKWWHBB1MlXoXCoWWPbtJ6TPLcmbyokwW3mkRU4VfAZE
+	 p0pFFcRwkymZMm1vdUeykAOMe3J/hIh1Ggco10C7DY97NeatgwOsEetG7a5UkXbPlv
+	 shc10cYaPJP+uOIxIyGRnk3JIXSpdh/yZ4AbPv8o4OLcnngzIew3poduip56wfWzvN
+	 nvftP+Axh3ISvc1zBN1ttQXiO8w/Tr8LAkT6olmv/z7fa7fv9pl8eoSZpVa/5SY7Ub
+	 0QA5gZf06uTXg==
+Date: Thu, 6 Aug 2026 19:06:24 -0500
 From: Bjorn Andersson <andersson@kernel.org>
 To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
 Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -34,11 +34,11 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	venkata.valluru@oss.qualcomm.com, vishnu.saini@oss.qualcomm.com, 
 	Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: hamoa-iot-evk: Add eDP display
+Subject: Re: [PATCH 2/2] arm64: dts: qcom: purwa-iot-evk: Add eDP display
  overlay
-Message-ID: <anUgxo3BPt74Wx7K@baldur>
+Message-ID: <anUhYybtYglbk2kD@baldur>
 References: <20260806-edp_overlay_for-next-v1-0-c3aebbc81f38@oss.qualcomm.com>
- <20260806-edp_overlay_for-next-v1-1-c3aebbc81f38@oss.qualcomm.com>
+ <20260806-edp_overlay_for-next-v1-2-c3aebbc81f38@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,56 +47,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260806-edp_overlay_for-next-v1-1-c3aebbc81f38@oss.qualcomm.com>
+In-Reply-To: <20260806-edp_overlay_for-next-v1-2-c3aebbc81f38@oss.qualcomm.com>
 
-On Thu, Aug 06, 2026 at 10:01:20PM +0530, Anand Tiwari wrote:
+On Thu, Aug 06, 2026 at 10:01:21PM +0530, Anand Tiwari wrote:
 > Move the eDP panel configuration and related power, backlight, and pinctrl
 > nodes into a separate overlay. Keep the base DTB suitable for headless
 > variants and provide a composite DTB for headed variants.
-
-To quote:
-https://docs.kernel.org/process/submitting-patches.html#describe-your-changes
-
-"""
-Describe your problem. Whether your patch is a one-line bug fix or 5000
-lines of a new feature, there must be an underlying problem that
-motivated you to do this work. Convince the reviewer that there is a
-problem worth fixing and that it makes sense for them to read past the
-first paragraph.
-"""
-
-In fact, I'm not even able to guess what the problem you're fixing here.
-
-Regards,
-Bjorn
-
 > 
+
+Why?
+
 > Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
 > ---
 >  arch/arm64/boot/dts/qcom/Makefile               |   3 +
->  arch/arm64/boot/dts/qcom/hamoa-iot-evk-edp.dtso | 126 ++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts      | 107 --------------------
+>  arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso | 126 ++++++++++++++++++++++++
+>  arch/arm64/boot/dts/qcom/purwa-iot-evk.dts      | 107 --------------------
 >  3 files changed, 129 insertions(+), 107 deletions(-)
 > 
 > diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 1c86e7e98f55..bb0da34983c8 100644
+> index bb0da34983c8..fc954da58402 100644
 > --- a/arch/arm64/boot/dts/qcom/Makefile
 > +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -20,6 +20,9 @@ dtb-$(CONFIG_ARCH_QCOM)	+= glymur-asus-zenbook-a16-ux3607oa.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= glymur-crd.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
+> @@ -165,6 +165,9 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
 >  
-> +hamoa-iot-evk-edp-dtbs	:= hamoa-iot-evk.dtb hamoa-iot-evk-edp.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk-edp.dtb
+> +purwa-iot-evk-edp-dtbs	:= purwa-iot-evk.dtb purwa-iot-evk-edp.dtbo
+> +dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk-edp.dtb
 > +
->  hamoa-iot-evk-el2-dtbs	:= hamoa-iot-evk.dtb x1-el2.dtbo
+>  purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
 >  
->  dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk-el2.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk-edp.dtso b/arch/arm64/boot/dts/qcom/hamoa-iot-evk-edp.dtso
+>  dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk-el2.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso b/arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso
 > new file mode 100644
 > index 000000000000..759d05342627
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk-edp.dtso
+> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso
 > @@ -0,0 +1,126 @@
 > +// SPDX-License-Identifier: BSD-3-Clause
 > +/*
@@ -224,10 +210,10 @@ Bjorn
 > +		bias-disable;
 > +	};
 > +};
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> index 9fa86bb6438e..78cefd5391b1 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts
+> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
+> index ad503beec1d3..6dde925025dd 100644
+> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
 > @@ -19,16 +19,6 @@ aliases {
 >  		serial1 = &uart14;
 >  	};
@@ -242,10 +228,10 @@ Bjorn
 > -		pinctrl-names = "default";
 > -	};
 > -
->  	clocks {
->  		mcp2518fd_osc: clock-40000000 {
->  			compatible = "fixed-clock";
-> @@ -213,38 +203,6 @@ pmic_glink_ss2_con_sbu_in: endpoint {
+>  	wcd938x: audio-codec {
+>  		compatible = "qcom,wcd9385-codec";
+>  
+> @@ -205,38 +195,6 @@ pmic_glink_ss2_con_sbu_in: endpoint {
 >  		};
 >  	};
 >  
@@ -284,7 +270,7 @@ Bjorn
 >  	vreg_nvme: regulator-nvme {
 >  		compatible = "regulator-fixed";
 >  
-> @@ -974,44 +932,6 @@ &mdss_dp2_out {
+> @@ -962,44 +920,6 @@ &mdss_dp2_out {
 >  	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
 >  };
 >  
@@ -329,7 +315,7 @@ Bjorn
 >  &pcie3_port0 {
 >  	vpcie12v-supply = <&vreg_pcie_12v>;
 >  	vpcie3v3-supply = <&vreg_pcie_3v3>;
-> @@ -1140,19 +1060,6 @@ led@2 {
+> @@ -1128,19 +1048,6 @@ led@2 {
 >  };
 >  
 >  &pmc8380_3_gpios {
@@ -349,7 +335,7 @@ Bjorn
 >  	pm_sde7_aux_3p3_en: pcie-aux-3p3-default-state {
 >  		pins = "gpio8";
 >  		function = "normal";
-> @@ -1181,13 +1088,6 @@ usb0_pwr_1p15_reg_en: usb0-pwr-1p15-reg-en-state {
+> @@ -1169,13 +1076,6 @@ usb0_pwr_1p15_reg_en: usb0-pwr-1p15-reg-en-state {
 >  	};
 >  };
 >  
@@ -363,10 +349,10 @@ Bjorn
 >  &pmk8550_pwm {
 >  	status = "okay";
 >  };
-> @@ -1357,13 +1257,6 @@ ec_int_n_default: ec-int-n-state {
->  		bias-disable;
->  	};
+> @@ -1326,13 +1226,6 @@ right_tweeter: speaker@0,1 {
+>  };
 >  
+>  &tlmm {
 > -	edp_reg_en: edp-reg-en-state {
 > -		pins = "gpio70";
 > -		function = "gpio";
