@@ -1,369 +1,521 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520C23FFD;
-	Fri,  7 Aug 2026 00:06:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B474B049E;
+	Fri,  7 Aug 2026 00:28:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786061189; cv=none; b=CgKz6KaLoBV3kHom52dUHey3TsloluZuRvey9eY6UcQVNopzL7I7UuPZiVcmfVOwNIH+JRoCk7z+0me1FW+6Apf3s8/urhJ5sxPq1/gQ30uQn/f/wOGJ2njZL5kBSYotrSi1mBrOc9YlQKY5GFtvcnZ5bYr2YHP3S3uAEnGXAQM=
+	t=1786062499; cv=none; b=lr87W29SfEzB8Pzmyrx3PLQDHGbJHoagwX3r12Jy5VR+1kcaHy5M/YNpHU9Q0wU5XHAQRcDwqZH448GAydwaua2aNUl6CeacW2MQ5cQ/bbWnGyO41F267nmR/ySd0jNi2HJwDdRqwNxDr6I6lenth+K8RUbfQd/ht5AuhDCuov8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786061189; c=relaxed/simple;
-	bh=dgCqVgCL2YUsylvejkb1/6GhZ0n3bHar5/vRZPPkPJw=;
+	s=arc-20240116; t=1786062499; c=relaxed/simple;
+	bh=fAgGaE7Bge7S6Gvxnw+mbjQTtNJx336SuDBx1Mmjl5o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nyjnzaI+SVyilSjIfq7KD44dJZmGSsdmPyVVXtXpUBBaxgMWCzJmMLNdK91OTmDs7oD9YzFP4WyanUjMCn65KkmNNwctf2y8jdLtzvXkTovGPFXd1MyF5ub1EIMAxe8Arn3vB9zLqEr5NJlByqGLWKEgI0U6GQolQxXf5HE/bPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S8NLKLYf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GvvEVYBKZ1drmDhyNuy75r+3v8eNlTvJ1WVJvDrB/dIeKMidWIaabchCM8RzqvHrZjDxM/F4T+38Zj3w0Uy8C/qgIfGuUX99gf/iOSHDoDf4M2uH4EqOU8wxkFY7Z0hYW4mlZogSA/zLUPUJ4pt32FL6dLmu+kh9aBTngkkqriw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rg+TQJFY; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S8NLKLYf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3357E1F000E9;
-	Fri,  7 Aug 2026 00:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786061187;
-	bh=0cj5fEfLhvjq0e9WfHToXmikm3XkbGVNNCsETUZN5FM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S8NLKLYf6t3nEAPiilVzEqo2lQjBCQcFn0jKTduv5+519GtN4rfs67kG62KBCSBK/
-	 IKcPuUm94sfJTp4pEjpip1nKWWHBB1MlXoXCoWWPbtJ6TPLcmbyokwW3mkRU4VfAZE
-	 p0pFFcRwkymZMm1vdUeykAOMe3J/hIh1Ggco10C7DY97NeatgwOsEetG7a5UkXbPlv
-	 shc10cYaPJP+uOIxIyGRnk3JIXSpdh/yZ4AbPv8o4OLcnngzIew3poduip56wfWzvN
-	 nvftP+Axh3ISvc1zBN1ttQXiO8w/Tr8LAkT6olmv/z7fa7fv9pl8eoSZpVa/5SY7Ub
-	 0QA5gZf06uTXg==
-Date: Thu, 6 Aug 2026 19:06:24 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	venkata.valluru@oss.qualcomm.com, vishnu.saini@oss.qualcomm.com, 
-	Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: purwa-iot-evk: Add eDP display
- overlay
-Message-ID: <anUhYybtYglbk2kD@baldur>
-References: <20260806-edp_overlay_for-next-v1-0-c3aebbc81f38@oss.qualcomm.com>
- <20260806-edp_overlay_for-next-v1-2-c3aebbc81f38@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rg+TQJFY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786062496; x=1817598496;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=fAgGaE7Bge7S6Gvxnw+mbjQTtNJx336SuDBx1Mmjl5o=;
+  b=Rg+TQJFYj96zOcSGq1E3WwPKphcI6n0RuOFaEa/poLkg6vLpF+lYSu/B
+   XTs1yjJT6uzNq2ABVaftiqGJbncwIH9RoGk+j0qecnSfF6ddUn3L2Jhvy
+   uE2uBFNUtePuXhEYMkIO5AADEvEIy4us7wIyTFZM5uOChNU/rSrkC+rbK
+   cvs88SExvnYvu0dKUM/KwLl0ek74ee15ApPTnlYK2MHfjFhxi8BmDJK5D
+   Wqt6RDYT2K/b8tsj2Tw0DRilD7vleNakHKdd0KLZW1LCrcnKyS5tIj+JN
+   r2db+v8d/19op6GXFWTlhWedku/J157tqpYGV0C7km1AzNhbOEnCqkc2m
+   Q==;
+X-CSE-ConnectionGUID: /YGsjPOXTFO19Tb+3X+PgA==
+X-CSE-MsgGUID: EAQ8Qv7lQAGBENwDRqHaAQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86698543"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="86698543"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 17:28:16 -0700
+X-CSE-ConnectionGUID: VdCM8yGyT0GEhqCkxTkFiQ==
+X-CSE-MsgGUID: bX2hfQQfS9yLhbIgVnb5zw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
+   d="scan'208";a="266088332"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.50])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 17:28:10 -0700
+Date: Fri, 7 Aug 2026 03:28:08 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v2 4/7] iio: adc: Add AD7768 IIO Driver support
+Message-ID: <anUmmKFMEJyc5tW7@ashevche-desk.local>
+References: <20260806-ad7768-driver-v2-0-027ac5e2a641@analog.com>
+ <20260806-ad7768-driver-v2-4-027ac5e2a641@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260806-edp_overlay_for-next-v1-2-c3aebbc81f38@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260806-ad7768-driver-v2-4-027ac5e2a641@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Aug 06, 2026 at 10:01:21PM +0530, Anand Tiwari wrote:
-> Move the eDP panel configuration and related power, backlight, and pinctrl
-> nodes into a separate overlay. Keep the base DTB suitable for headless
-> variants and provide a composite DTB for headed variants.
-> 
+On Thu, Aug 06, 2026 at 05:41:23PM +0200, Janani Sunil wrote:
+> Add support for AD7768 4/8 channel,simultaneous sampling Sigma-Delta
+> ADCs. The driver supports configurable decimation filters, per-channel
+> conversion delay, VCM regulation, runtime PM and IIO backend data
+> capture.
 
-Why?
+Can you split this to the basic minimum + patch per feature?
 
-> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile               |   3 +
->  arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso | 126 ++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/purwa-iot-evk.dts      | 107 --------------------
->  3 files changed, 129 insertions(+), 107 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index bb0da34983c8..fc954da58402 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -165,6 +165,9 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
->  
-> +purwa-iot-evk-edp-dtbs	:= purwa-iot-evk.dtb purwa-iot-evk-edp.dtbo
-> +dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk-edp.dtb
+1.7k LoC is too much for a review, the usual size is ~750±150 per patch.
+Here sounds like 3+ patches.
+
+...
+
+> +#define   AD7768_PICO_PER_SEC			1000000000000ULL
+
+Don't we have this in time.h (beneath it somewhere)?
+
+...
+
+> +struct ad7768_freq_config {
+> +	unsigned int freq;
+
+freq_Hz?
+
+> +	unsigned int dec_rate;
+> +};
+
+...
+
+> +struct ad7768_avail_freq {
+> +	unsigned int n_freqs;
+> +	int freqs[MAX_FREQ_PER_MODE];
+
+Negative frequency?
+
+> +	struct ad7768_freq_config freq_cfg[MAX_FREQ_PER_MODE];
+> +};
+
+...
+
+> +struct ad7768_state {
+> +	struct spi_device *spi;
+> +	struct regmap *regmap;
+
+One of them seems redundant. Is regmap created out from &spi->dev?
+
+> +	struct mutex lock; /* Protects device register access and configuration */
+> +	struct clk *mclk;
+> +	unsigned int datalines;
+> +	enum ad7768_power_modes power_mode;
+> +	const struct ad7768_chip_info *chip_info;
+> +	struct ad7768_avail_freq avail_freq[AD7768_NUM_POWER_MODES];
+> +	unsigned int n_freqs;
+> +	int freqs[AD7768_MAX_FREQS];
+> +	unsigned int chn_mode[AD7768_MAX_CHANNEL];
+> +	unsigned int ch_freq[AD7768_MAX_CHANNEL];
+> +	u64 ch_convdelay_ps[AD7768_MAX_CHANNEL];
+> +	enum ad7768_filter_type ch_filter[AD7768_MAX_CHANNEL];
+> +	struct iio_backend *back;
+> +	struct regulator_dev *vcm_rdev;
+> +	unsigned int avdd1_uv;
+
+_uV
+
 > +
->  purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
->  
->  dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk-el2.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso b/arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso
-> new file mode 100644
-> index 000000000000..759d05342627
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk-edp.dtso
-> @@ -0,0 +1,126 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+> +	__be16 d16 __aligned(IIO_DMA_MINALIGN);
+> +};
+
+...
+
+> +static const unsigned int ad7768_vcm_voltage_table[] = {
+> +	0, 1650000, 2500000, 2140000
+
+In this case, keep trailing comma.
+
+> +};
+
+...
+
+> +static int ad7768_vcm_is_enabled(struct regulator_dev *rdev)
+> +{
+> +	struct ad7768_state *st = rdev_get_drvdata(rdev);
+> +	unsigned int val;
+> +	int ret;
 > +
-> +/dts-v1/;
-> +/plugin/;
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&st->spi->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
 > +
-> +#include <dt-bindings/gpio/gpio.h>
+> +	ret = regmap_read(st->regmap, AD7768_REG_GENERAL_CONFIG, &val);
+> +	if (ret)
+> +		return ret;
 > +
-> +&{/} {
-> +	backlight: backlight {
-> +		compatible = "pwm-backlight";
-> +		pwms = <&pmk8550_pwm 0 5000000>;
-> +		enable-gpios = <&pmc8380_3_gpios 4 GPIO_ACTIVE_HIGH>;
-> +		power-supply = <&vreg_edp_bl>;
-> +
-> +		pinctrl-0 = <&edp_bl_en>, <&edp_bl_pwm>;
-> +		pinctrl-names = "default";
-> +	};
-> +
-> +	vreg_edp_3p3: regulator-edp-3p3 {
-> +		compatible = "regulator-fixed";
-> +
-> +		regulator-name = "VREG_EDP_3P3";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +
-> +		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 = <&edp_reg_en>;
-> +		pinctrl-names = "default";
-> +
-> +		regulator-boot-on;
-> +	};
-> +
-> +	vreg_edp_bl: regulator-edp-bl {
-> +		compatible = "regulator-fixed";
-> +
-> +		regulator-name = "VBL9";
-> +		regulator-min-microvolt = <3600000>;
-> +		regulator-max-microvolt = <3600000>;
-> +
-> +		gpio = <&pmc8380_3_gpios 10 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +
-> +		pinctrl-0 = <&edp_bl_reg_en>;
-> +		pinctrl-names = "default";
-> +
-> +		regulator-boot-on;
-> +	};
+> +	return !(val & AD7768_GEN_CONFIG_VCM_PD);
+
+regmap_test_bits() ?
+
+> +}
+
+...
+
+> +static const int ad7768_dec_rate[MAX_FREQ_PER_MODE] = {
+> +	32, 64, 128, 256, 512, 1024
+
+Even in the very same page you have inconsistent approach. Make sure your code
+is consistent in every aspect. Two+ people wrote the driver?
+
 > +};
 > +
-> +&mdss_dp3 {
-> +	/delete-property/ #sound-dai-cells;
+> +static const int ad7768_mclk_div[3] = {
+> +	32, 8, 4
+> +};
 > +
-> +	pinctrl-0 = <&edp0_hpd_default>;
-> +	pinctrl-names = "default";
+> +static const unsigned int ad7768_available_datalines[] = {
+> +	1, 2, 8,
+> +};
 > +
-> +	status = "okay";
+> +static const unsigned int ad7768_4_available_datalines[] = {
+> +	1, 4,
+> +};
 > +
-> +	aux-bus {
-> +		panel {
-> +			compatible = "edp-panel";
+> +static const u8 ad7768_chan_map[] = {
+> +	0, 1, 2, 3, 4, 5, 6, 7,
+> +};
 > +
-> +			backlight = <&backlight>;
-> +			power-supply = <&vreg_edp_3p3>;
+> +static const u8 ad7768_4_chan_map[] = {
+> +	0, 1, 4, 5,
+> +};
+
+...
+
+> +static int ad7768_set_power_mode(struct ad7768_state *st, unsigned int mode);
+
+Can forward decl be avoided?
+
+...
+
+> +static u8 ad7768_all_channels_mask(const struct ad7768_state *st)
+> +{
+> +	u8 mask = 0;
+> +	unsigned int ch;
 > +
-> +			port {
-> +				edp_panel_in: endpoint {
-> +					remote-endpoint = <&mdss_dp3_out>;
-> +				};
-> +			};
-> +		};
+> +	for (ch = 0; ch < st->chip_info->num_channels; ch++)
+
+	for (unsigned int ch = 0; ch < st->chip_info->num_channels; ch++)
+
+> +		mask |= ad7768_channel_mask(st, ch);
+> +
+> +	return mask;
+> +}
+
+...
+
+> +static int ad7768_regmap_read(void *context, const void *reg_buf,
+> +			      size_t reg_size, void *val_buf, size_t val_size)
+> +{
+> +	struct spi_device *spi = context;
+> +	struct ad7768_state *st = spi_get_drvdata(spi);
+> +	u8 *data_val = val_buf;
+> +	unsigned int reg;
+> +	int ret;
+> +	struct spi_transfer t[] = {
+> +		{
+> +			.tx_buf = &st->d16,
+> +			.len = 2,
+> +			.cs_change = 1,
+> +		}, {
+> +			/*
+> +			 * The second transfer clocks out the readback data, so
+> +			 * we must provide dummy TX bytes while receiving the
+> +			 * response. The device ignores MOSI in this phase, so
+> +			 * reuse st->d16 for both TX and RX.
+> +			 */
+> +			.tx_buf = &st->d16,
+> +			.rx_buf = &st->d16,
+> +			.len = 2,
+> +		},
 > +	};
-> +};
 > +
-> +&mdss_dp3_out {
-> +	data-lanes = <0 1 2 3>;
-> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +	reg = *(const u8 *)reg_buf;
 > +
-> +	remote-endpoint = <&edp_panel_in>;
-> +};
+> +	st->d16 = cpu_to_be16(AD7768_SPI_READ_CMD |
+> +			      FIELD_PREP(AD7768_SPI_REG_MASK, reg));
+
+be16_replace_bits() ?
+
+> +	ret = spi_sync_transfer(spi, t, ARRAY_SIZE(t));
+> +	if (ret)
+> +		return ret;
 > +
-> +&mdss_dp3_phy {
-> +	vdda-phy-supply = <&vreg_l3j_0p8>;
-> +	vdda-pll-supply = <&vreg_l2j_1p2>;
+> +	*data_val = FIELD_GET(AD7768_SPI_DATA_MASK, be16_to_cpu(st->d16));
+
+be16_get_bits()?
+
+> +	return ret;
+> +}
+
+...
+
+> +static int ad7768_read_calib_value(struct ad7768_state *st,
+> +				   unsigned int base_reg, unsigned int *val)
+> +{
+> +	u8 data[3];
+> +	int ret;
 > +
-> +	status = "okay";
-> +};
+> +	guard(mutex)(&st->lock);
 > +
-> +&pmc8380_3_gpios {
-> +	edp_bl_en: edp-bl-en-state {
-> +		pins = "gpio4";
-> +		function = "normal";
-> +		power-source = <1>;
-> +		input-disable;
-> +		output-enable;
-> +	};
+> +	ret = regmap_bulk_read(st->regmap, base_reg, data, ARRAY_SIZE(data));
+> +	if (ret)
+> +		return ret;
 > +
-> +	edp_bl_reg_en: edp-bl-reg-en-state {
-> +		pins = "gpio10";
-> +		function = "normal";
-> +	};
-> +};
+> +	*val = (data[0] << 16) | (data[1] << 8) | data[2];
+
+get_unaligned_be24()
+
+> +	return 0;
+> +}
+
+> +static int ad7768_write_calib_value(struct ad7768_state *st,
+> +				    unsigned int base_reg, unsigned int val)
+> +{
+> +	int ret;
 > +
-> +&pmk8550_gpios {
-> +	edp_bl_pwm: edp-bl-pwm-state {
-> +		pins = "gpio5";
-> +		function = "func3";
-> +	};
-> +};
+> +	if (val > AD7768_CALIB_REG_MSK)
+> +		return -EINVAL;
 > +
-> +&pmk8550_pwm {
-> +	status = "okay";
-> +};
+> +	guard(mutex)(&st->lock);
 > +
-> +&tlmm {
-> +	edp_reg_en: edp-reg-en-state {
-> +		pins = "gpio70";
-> +		function = "gpio";
-> +		drive-strength = <16>;
-> +		bias-disable;
-> +	};
-> +};
-> diff --git a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-> index ad503beec1d3..6dde925025dd 100644
-> --- a/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/purwa-iot-evk.dts
-> @@ -19,16 +19,6 @@ aliases {
->  		serial1 = &uart14;
->  	};
->  
-> -	backlight: backlight {
-> -		compatible = "pwm-backlight";
-> -		pwms = <&pmk8550_pwm 0 5000000>;
-> -		enable-gpios = <&pmc8380_3_gpios 4 GPIO_ACTIVE_HIGH>;
-> -		power-supply = <&vreg_edp_bl>;
-> -
-> -		pinctrl-0 = <&edp_bl_en>, <&edp_bl_pwm>;
-> -		pinctrl-names = "default";
-> -	};
-> -
->  	wcd938x: audio-codec {
->  		compatible = "qcom,wcd9385-codec";
->  
-> @@ -205,38 +195,6 @@ pmic_glink_ss2_con_sbu_in: endpoint {
->  		};
->  	};
->  
-> -	vreg_edp_3p3: regulator-edp-3p3 {
-> -		compatible = "regulator-fixed";
-> -
-> -		regulator-name = "VREG_EDP_3P3";
-> -		regulator-min-microvolt = <3300000>;
-> -		regulator-max-microvolt = <3300000>;
-> -
-> -		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
-> -		enable-active-high;
-> -
-> -		pinctrl-0 = <&edp_reg_en>;
-> -		pinctrl-names = "default";
-> -
-> -		regulator-boot-on;
-> -	};
-> -
-> -	vreg_edp_bl: regulator-edp-bl {
-> -		compatible = "regulator-fixed";
-> -
-> -		regulator-name = "VBL9";
-> -		regulator-min-microvolt = <3600000>;
-> -		regulator-max-microvolt = <3600000>;
-> -
-> -		gpio = <&pmc8380_3_gpios 10 GPIO_ACTIVE_HIGH>;
-> -		enable-active-high;
-> -
-> -		pinctrl-0 = <&edp_bl_reg_en>;
-> -		pinctrl-names = "default";
-> -
-> -		regulator-boot-on;
-> -	};
-> -
->  	vreg_nvme: regulator-nvme {
->  		compatible = "regulator-fixed";
->  
-> @@ -962,44 +920,6 @@ &mdss_dp2_out {
->  	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
->  };
->  
-> -&mdss_dp3 {
-> -	/delete-property/ #sound-dai-cells;
-> -
-> -	pinctrl-0 = <&edp0_hpd_default>;
-> -	pinctrl-names = "default";
-> -
-> -	status = "okay";
-> -
-> -	aux-bus {
-> -		panel {
-> -			compatible = "edp-panel";
-> -
-> -			backlight = <&backlight>;
-> -			power-supply = <&vreg_edp_3p3>;
-> -
-> -			port {
-> -				edp_panel_in: endpoint {
-> -					remote-endpoint = <&mdss_dp3_out>;
-> -				};
-> -			};
-> -		};
-> -	};
-> -};
-> -
-> -&mdss_dp3_out {
-> -	data-lanes = <0 1 2 3>;
-> -	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
-> -
-> -	remote-endpoint = <&edp_panel_in>;
-> -};
-> -
-> -&mdss_dp3_phy {
-> -	vdda-phy-supply = <&vreg_l3j_0p8>;
-> -	vdda-pll-supply = <&vreg_l2j_1p2>;
-> -
-> -	status = "okay";
-> -};
-> -
->  &pcie3_port0 {
->  	vpcie12v-supply = <&vreg_pcie_12v>;
->  	vpcie3v3-supply = <&vreg_pcie_3v3>;
-> @@ -1128,19 +1048,6 @@ led@2 {
->  };
->  
->  &pmc8380_3_gpios {
-> -	edp_bl_en: edp-bl-en-state {
-> -		pins = "gpio4";
-> -		function = "normal";
-> -		power-source = <1>;
-> -		input-disable;
-> -		output-enable;
-> -	};
-> -
-> -	edp_bl_reg_en: edp-bl-reg-en-state {
-> -		pins = "gpio10";
-> -		function = "normal";
-> -	};
-> -
->  	pm_sde7_aux_3p3_en: pcie-aux-3p3-default-state {
->  		pins = "gpio8";
->  		function = "normal";
-> @@ -1169,13 +1076,6 @@ usb0_pwr_1p15_reg_en: usb0-pwr-1p15-reg-en-state {
->  	};
->  };
->  
-> -&pmk8550_gpios {
-> -	edp_bl_pwm: edp-bl-pwm-state {
-> -		pins = "gpio5";
-> -		function = "func3";
-> -	};
-> -};
-> -
->  &pmk8550_pwm {
->  	status = "okay";
->  };
-> @@ -1326,13 +1226,6 @@ right_tweeter: speaker@0,1 {
->  };
->  
->  &tlmm {
-> -	edp_reg_en: edp-reg-en-state {
-> -		pins = "gpio70";
-> -		function = "gpio";
-> -		drive-strength = <16>;
-> -		bias-disable;
-> -	};
-> -
->  	eusb3_reset_n: eusb3-reset-n-state {
->  		pins = "gpio6";
->  		function = "gpio";
-> 
-> -- 
-> 2.54.0
-> 
+> +	ret = regmap_write(st->regmap, base_reg,
+> +			   FIELD_GET(AD7768_CALIB_REG_MSB_MSK, val));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_write(st->regmap, base_reg + 1,
+> +			   FIELD_GET(AD7768_CALIB_REG_MID_MSK, val));
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_write(st->regmap, base_reg + 2,
+> +			    FIELD_GET(AD7768_CALIB_REG_LSB_MSK, val));
+
+Can you prepare value and use bulk write? Probably you want
+put_unaligned_be24().
+
+> +}
+
+...
+
+> +static int ad7768_set_clk_divs(struct ad7768_state *st,
+> +			       unsigned int freq)
+> +{
+> +	unsigned int mclk, dclk, dclk_div, i;
+> +	struct ad7768_freq_config f_cfg = {};
+> +	unsigned int chan_per_doutx;
+> +
+> +	mclk = clk_get_rate(st->mclk);
+> +
+> +	chan_per_doutx = st->chip_info->num_channels / st->datalines;
+> +	if (!chan_per_doutx)
+> +		return -EINVAL;
+> +
+> +	for (i = 0; i < st->avail_freq[st->power_mode].n_freqs; i++) {
+> +		f_cfg = st->avail_freq[st->power_mode].freq_cfg[i];
+> +		if (freq == f_cfg.freq)
+> +			break;
+> +	}
+> +
+> +	if (i == st->avail_freq[st->power_mode].n_freqs)
+> +		return -EINVAL;
+> +
+> +	dclk = f_cfg.freq * AD7768_SAMPLE_SIZE * chan_per_doutx;
+> +	if (dclk > mclk)
+> +		return -EINVAL;
+> +
+> +	/* Set dclk_div to the nearest power of 2 less than the original value */
+> +	dclk_div = DIV_ROUND_CLOSEST_ULL(mclk, dclk);
+
+_ULL for sure?! Please, use 32-bit arithmetics for 32-bit values (yes, 32-bit,
+they never be 64 in real life).
+
+> +	if (dclk_div > AD7768_MAX_DCLK_DIV)
+> +		dclk_div = AD7768_MAX_DCLK_DIV;
+> +	else if (dclk_div > 0 && hweight32(dclk_div) != 1)
+> +		dclk_div = 1 << (fls(dclk_div) - 1);
+
+rounddown_pow_of_two() ?
+
+> +	return regmap_update_bits(st->regmap, AD7768_REG_INTERFACE_CFG,
+> +				  AD7768_INTERFACE_CFG_DCLK_DIV_MSK,
+> +				  AD7768_INTERFACE_CFG_DCLK_DIV_MODE(dclk_div));
+> +}
+
+...
+
+> +static bool ad7768_freq_supported(const struct ad7768_state *st,
+> +				  unsigned int mode, unsigned int freq)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < st->avail_freq[mode].n_freqs; i++) {
+
+	for (unsigned int i = 0; i < st->avail_freq[mode].n_freqs; i++) {
+
+> +		if (freq == st->avail_freq[mode].freq_cfg[i].freq)
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+> +static bool ad7768_freq_supported_in_any_mode(const struct ad7768_state *st,
+> +					      unsigned int freq)
+> +{
+> +	unsigned int mode;
+> +
+> +	for (mode = 0; mode < AD7768_NUM_POWER_MODES; mode++) {
+
+Ditto.
+
+> +		if (ad7768_freq_supported(st, mode, freq))
+> +			return true;
+> +	}
+> +
+> +	return false;
+> +}
+
+...
+
+> +static int ad7768_set_lowest_noise_mode(struct ad7768_state *st,
+> +					const unsigned long *scan_mask)
+> +{
+> +	unsigned int channel;
+> +	unsigned int mode;
+> +
+> +	/*
+> +	 * The output data rate ranges overlap between the power modes. At a
+> +	 * common ODR, the faster mode has lower noise, so prefer the fastest
+> +	 * mode that supports every enabled channel.
+> +	 */
+> +	for (mode = AD7768_NUM_POWER_MODES; mode-- > 0;) {
+
+	unsigned int mode = AD7768_NUM_POWER_MODES;
+	...
+	while (mode--) {
+
+> +		for (channel = 0; channel < st->chip_info->num_channels; channel++) {
+> +			if (test_bit(channel, scan_mask) &&
+> +			    !ad7768_freq_supported(st, mode, st->ch_freq[channel]))
+> +				break;
+> +		}
+> +
+> +		if (channel == st->chip_info->num_channels)
+> +			return ad7768_set_power_mode(st, mode);
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+
+...
+
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +
+> +	if (!freq)
+> +		return -EINVAL;
+> +
+> +	if (!ad7768_freq_supported_in_any_mode(st, freq))
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&st->lock);
+
++ blank line here.
+
+> +	st->ch_freq[ch] = freq;
+> +
+> +	return 0;
+
+...
+
+> +static int ad7768_get_freq_cfg(struct ad7768_state *st, unsigned int freq,
+> +			       struct ad7768_freq_config *f_cfg)
+> +{
+> +	unsigned int i;
+
+Embed into for-loop.
+
+> +	for (i = 0; i < st->avail_freq[st->power_mode].n_freqs; i++) {
+> +		*f_cfg = st->avail_freq[st->power_mode].freq_cfg[i];
+> +		if (freq == f_cfg->freq)
+> +			return 0;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+
+...
+
+> +static void ad7768_filter_wait(const unsigned int *mode_freq,
+> +			       const enum ad7768_filter_type *mode_filter,
+> +			       const bool *mode_used)
+> +{
+> +	unsigned long t_settle_us = 0;
+> +	unsigned int mode;
+> +
+> +	for (mode = 0; mode < AD7768_NUM_CHANNEL_MODES; mode++) {
+> +		unsigned long t_mode_us;
+
+Hmm... Are you sure about the type? Shouldn't it be always 64-bit (or 32-bit)?
+
+> +		unsigned int settling_samples;
+> +
+> +		if (!mode_used[mode] || !mode_freq[mode])
+> +			continue;
+> +
+> +		if (mode_filter[mode] == AD7768_FILTER_TYPE_SINC5)
+> +			settling_samples = AD7768_SINC5_SETTLING_SAMPLES;
+> +		else
+> +			settling_samples = AD7768_WIDEBAND_SETTLING_SAMPLES;
+> +
+> +		t_mode_us = DIV_ROUND_UP_ULL((u64)settling_samples *
+> +					     USEC_PER_SEC,
+> +					     mode_freq[mode]);
+> +		t_settle_us = max(t_settle_us, t_mode_us);
+> +	}
+> +
+> +	if (t_settle_us)
+> +		fsleep(t_settle_us);
+> +}
+
+...
+
+I stopped here as this is too much and unreviewable bulk.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
