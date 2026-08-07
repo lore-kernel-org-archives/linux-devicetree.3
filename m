@@ -1,162 +1,565 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3044E38D3F2
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 16:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786120561; cv=none; b=rWCqdM/GMWM2Lpnb5m/5X7oTTwWv3q3PwXhYgFyTlkMMtqhbxFb5uviJmrVLzsVQDmHPRdrO7ZZjDe0CXdeHCxPRbe2IUKvpLexC8yKTHH0WvwlP7MmPGWIcpW/UcGfJuxafims8N+DyR92usweszW7w0C3XyagzL+jyWg2Xj7s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786120561; c=relaxed/simple;
-	bh=l3hdS9oe9Ob+4L9fKQcTwy3SCLCh+xyP2FBqvgiDKM4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BQh1f7bE3QaV74kL3fBlwR7CykoFviqXj7OO3SVNl7BFTWuMO8lPwIN+eeQ7s6hiTwTp1m/Z6wgvX4I82q35JBeSXwnFXZaYkCmC7mgc6U4osOLGyR7mI6zCT8SV6Z6cKowgwM2urlJE18zcycIyEXffnspyAcYBwWJoWmbXJSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Tohd4Yxt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Iz9hO/ns; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2387A4746D1
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 16:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786120680; cv=pass; b=qz4qrQCxYkHb1j2/rG+RFBKO+yCq9qZmgAmA3JUJ9bubxRGkTQAK+ot6AS+oJacX1PwieFx2o3SmOgbkcYKghJx/77OxqU66Ee4iAIOCHVirn91ZtjcySwOMciS23KuyHvJXZG3NJl1KOu665t474EihxF/mmcWuVKuoQ4e3LHI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786120680; c=relaxed/simple;
+	bh=bKab244VEDPlvyVrMp17u8ULViq2ZDX2in+cVZc7nbI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hGf6qLWJh4fWCMrfUY3IVwafvcJ6UQRPcYTirAUW7eAjGSkpTHl3gHPu2R4kbAMpfGB/JWuGf8NTmhPi9qBt4sS1pTOfXQRcgn/XHxLqWB8TTLsf39lbAb71Twt29Pc0JWZM0tetx1do5yp+MeFnOUshdwkL2KQv9KqmPXE1Ws0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XjxRllzj; arc=pass smtp.client-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tohd4Yxt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Iz9hO/ns"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 677GOjcg1225013
-	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 16:35:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	d+Xo/yZ5cGMlbYz002VO3p0ZTjgmFWg9wox9uQ63vQM=; b=Tohd4Yxth6neuGnz
-	w31V+xTFArIbZEGGdN4jnsHFKxWrVvquuELTRpTTT3mUSSDGduNAU5zcQ/x4gW6N
-	NcDWOo7wiiZYPmMx8Dya0Zuw6lXY1U10o9DoWOiHHqg0j8eDIGxvtGO4VETSc/2K
-	6DchYFMTeWokQdfLSnfNpyRgXmo3SOAIrc+wdfrxq9ePYcQgblDlSP5XmYovOIhM
-	mK5zAsg+Su+ZqUjPAuvW8O3gaQgnWFrFAtrzeU95zUynA8HzlTogkOLKrglqzDyM
-	q9LEXn15m4U9932ScFRX+K/E0US8eKdIgPh7gQTiJyDYmNSZZtjSio5kyQUY0UCg
-	iiDDHg==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwgem8r0g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 16:35:57 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38ec0f510a9so7798023a91.2
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 09:35:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XjxRllzj"
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso4541004a12.3
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 09:37:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786120675; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PBz2FDcvwHBS7lRboFghvn5iF9hlpIegr1aUwOmm/xax1Ds5WsR1Oo1l6bpvPBW8qE
+         je60esHmSOiXrZt88ClHr/cr9+K8uf0cWAF33K5pZVa/EUlwyjdqYz4W6eOOpFFum2YD
+         ypAlFsrx0+IRLuJ/BZAb6+SM3lssiubK7pdiYlLlRX1ijpq3/bQHimn8fdKN5YB9s4w1
+         AVb5U6/OsqKou8dpW09oOSVZz3Q6doPjR7ue/6qjcksay6sNrk/XeBox8UJLzKVTdxWk
+         mQkMhs0u46WiYTe+YjaIPMv/QmYOeDsBZpUIxZfi3d8QHvq18RXtcDpX7zide4/fc3t+
+         oOcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yi6S+LhgjcgA9+XOyVFjsUkTbWiytoaZWeD42xfjOIs=;
+        fh=k3MgyS6pMvxxucML465tBT4/FIJe+SeoSa3RtBxG76o=;
+        b=NhYgFauK14hLTkE/KVIdd6fLbqOnsAP8OiyjsIDCKKZZ4bUFLCMQXwLOjDsBA3vbf/
+         rQylQHxJKaCErfVwp5yPOU3OHvq7elCWA2d1Efrwupb4sxXiZPx5cjUx4PBMgfnrLYSu
+         R7p4zlNcIFHQ5Om+gMfqVZfQNDV4icG9YuMDla0jz8sUKYDh6DikDdbbS/Pv90f73IJr
+         MRzVuEvlpIezTeMrMZL5JgAjbdmCgLtMCXlBsYkWZfb5oDkf7HlNYpKdG36FasvG+Cjz
+         IY36EFRyZkJ/pqO2EVHuuaXk2C2E6PLHDLapf4TAhKCRi3OoqcYPLM91weYOO2kmbuv0
+         wSkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786120557; x=1786725357; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d+Xo/yZ5cGMlbYz002VO3p0ZTjgmFWg9wox9uQ63vQM=;
-        b=Iz9hO/nstuFUwO8+l1bJ14Q7S/1yKvyQTgCBj3T94eSmQL1/aVhSy53Rnlfbafp9Bu
-         2la1wxCC5tEiVn28fez19HKRdjWGiBJqn4VARxFHjqLtMH59jO0xxDno5OXni+YpIe3B
-         GVjyom3OXcGByaTEopsX7OAp5KPcy+nYB8gorS2a8QPJZBqNV+D8/8fns6dUZ2QsxtZW
-         hJyO2e0zEUb1CltJgjOSiB/cm97UQ6HBtgR2/ptdISrEQhWlWa9tcvay7k12hvp0booS
-         7jXxt2Zj4nAxqzQJ5yWD3kcHr5WFuc4s4ynJdfoKMjpUblQpPe1QUW5/TeaJ2GGxBjIy
-         CqLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786120557; x=1786725357;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1786120675; x=1786725475; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d+Xo/yZ5cGMlbYz002VO3p0ZTjgmFWg9wox9uQ63vQM=;
-        b=jK1ygl1HGxZilrPFM4LuVIEXecOSIhEkM9SBIblngpmSBbGccR9gBjDmYWUpmsom0h
-         VC8FYC3+lQbsg3x7448xZiXWpVm+aJlgWBgvy51GaW5NqQD0oIfym0PV2oWRtVC25NpK
-         P82r9n87Q8q2x63E+3N3qr0JobJMjzrBnn0iTb7BeA+f3lQkyi0/od/rd4lBt2Y95o51
-         GaJ+XcTlD1Kmwpi6WSBrwOdCejiBQFk2cteZMNOWCGlvkPXXLhFpkyPiO774rgv9ufBy
-         8TDl1mgODtSzBa9JLl2ilAFXQ2ZC+NMMG3jqtx/u37ncIw0MGZ6yVbopT9j8eUO1XmMm
-         UflA==
-X-Forwarded-Encrypted: i=1; AHgh+RrA58C2l+P/kOBVfyPnYybzK0RYgzK1KDCyXb1QHIuc9G3BX1WHUW9AB1Tcfiiu4zehIRbMrGdqhTEK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyp6I7SQl7GBMmp1Pu6TiZgCx8XH3Z9zVbd4/w7v4vKzW0/Xa9M
-	KUjllg11b3AO1Gq5qU8ufvYcTRpDY5INM63/1GWPnqnf9+uge/lBXe9Uhzb1/rA66BRVELTq9kB
-	Uey54uRv2q3YcQx+twrJyK2ZNf4GYjKzWFJ0HqOhMYHhtj2LLfuv9lRSdzRZVfkTQ
-X-Gm-Gg: AR+sD10+qiUwtRzsLxoXmYZKCFqng3IMu6O99SHO6OydncUr7xLQKQMfqhiXYOXGyaU
-	RA8wrqG4Fgp6gx2jbhqEttp0xlOJMHvkTvweG8sLyC8W7AZ7h2ACA8i6267G/U25r7TE7Z2Xd1T
-	kFg2VITcVR7E+LNQExkVoktB7lHOuiCh0mV3NeJP87GcRCkZEimgY2flaFUohhnWIRAMg332YF4
-	GJJ3ai06mBUIzuMg7SO0hFmiRzeqafzM+7CmdT4B3gszJZQ0govMXcq5mjq8WBBB4BXWEGZUuUT
-	UEm40+OIy5ZorL6eXc6qex9sFtQfRyIn3xQNXWHpLB9wQeD3JQT/Spv2vhL32P/kDI/kz3p2P1T
-	P1toZ0ciZcC9i53Whfuxdlq/z7CEj19gCSNCHNM5saH1MF3JLPRWN1ZXAE+sYCSBpNjB1McPe2O
-	9NLb2Eg8EUBPA=
-X-Received: by 2002:a05:6a20:4322:b0:3c3:b57b:6285 with SMTP id adf61e73a8af0-3cbc01b4a9bmr5152108637.13.1786120556902;
-        Fri, 07 Aug 2026 09:35:56 -0700 (PDT)
-X-Received: by 2002:a05:6a20:4322:b0:3c3:b57b:6285 with SMTP id adf61e73a8af0-3cbc01b4a9bmr5152063637.13.1786120556447;
-        Fri, 07 Aug 2026 09:35:56 -0700 (PDT)
-Received: from hu-mdalam-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bebde2e6sm8918689eec.21.2026.08.07.09.35.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 09:35:56 -0700 (PDT)
-From: Md Sadre Alam <md.alam@oss.qualcomm.com>
-Date: Fri, 07 Aug 2026 22:05:33 +0530
-Subject: [PATCH v2 3/3] arm64: dts: qcom: ipq5332-rdp-common: Enable quad
- SPI mode for SPI-NAND
+        bh=yi6S+LhgjcgA9+XOyVFjsUkTbWiytoaZWeD42xfjOIs=;
+        b=XjxRllzjCXglajg282PnyzHFhrwbggyv9cYPxnEhM8I5/A2SALT9eQqWyC48AMZpzt
+         +Plc7AN8UjZmAgKm1Dfxm+x7B38BYEk0xRrLpEupptKKAyOtib60+jCVS7Z4evJdcT+D
+         4ytSg2lpD2FEsSzrASipFMuiECOnbEZrVURBVg56TIt784T0rKqphIx3KQrH+akd2Iw0
+         rWNFgvOJZ/BKrluiMIrRPnyJvsgaiWyo2N8MWzQH0G3XdhKsmQLTDcjfQEG/qZtqQKjL
+         8g7uH9ZKZ27a2RKWOvRMglRYidSLVIkC4gtVwKRkRLlSstEOMcXKs39Ww4ITPfAlghfI
+         VP7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786120675; x=1786725475;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yi6S+LhgjcgA9+XOyVFjsUkTbWiytoaZWeD42xfjOIs=;
+        b=OljwC7SIC5QF0Gd3gRFZiIQfN05NRCEmkc8Dkhg7Oir7dVhkfaKWGPwq9RUpk/umBY
+         5pmpW2+8VwBnGrEutYRIRMLIksuaVh5XzdNA/shNvY9wqBjicuNEuQ7FXI6CKmkGl+Lu
+         /9VuJziSMrqPmndr8x7r5gXU/iLf/g7pkwVRtHWitXvPVVLX8autMIU49Rl8YOBUmqy6
+         udtBr37Y4EzrziKBlNn7GN6zaSFq5OrjgY9mb5Il8qh4tZKuK3mORcL84EEtHRMQsbZW
+         wKYVGxHJiGOjIe7nt5lWvBGsYGBzgFA4TesUR+73twF4BYNFMkefDKfF1KNiOvhOqWjS
+         fMGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrgLbp/2fsYJ3KX/JxamDKPyzoGb4wRlI6sw2yC0SaWCxOWAnj3QOKfVVts6eikDTskTUujdVRMzwjV@vger.kernel.org
+X-Gm-Message-State: AOJu0YwjUcMQBUZqD4f7TFaY/ca//NlbEKEPUh6wt5MajpFhrDWoTi2X
+	AUYo5/XaDeXhYHDP6gN7gcBIQJB72rBl7tf/omYxiIqZLecWWwmcBxxWKUgfKJuQBqok6/QfHri
+	J/k08RqekspfFC1dhHVTbZJEeQyGG9riu4rUvxksFrA==
+X-Gm-Gg: AR+sD11BQyKYWIulvWXhnTVJ79/mG+dvV0hg4ruWvDrIdNcpjyqogB45TCHDr4FimD4
+	66ozjus/wYWeZoivJE69PU4XPIhzFXHkAFpGOhtOMTJL2rFdmAZqxYGYRJGvb7kY5d6sC923yDo
+	CEJpRctRfhVWL2mKukLfk+vBdPM4ud5evvJPJGHNThA5ci9iFFWTxvY48wyktmBrbTKZlpGAE14
+	uHHKTyQ+uMI/Nv8p3RhC56NacfLjREhTkLXmfp6dpMgtHV33fDo29opnhdastJWVpfgZA2a4LbD
+	DbEVGHLPBDvryr0HMF+Mx9FLwWa7SD1HZJsVvSE39ljBt3GRe846lvVh9Q2uH6CaSK8JVaUsRaf
+	4kGEcnfr+maaYfQ==
+X-Received: by 2002:a05:6402:52cb:b0:6a1:b4ff:b755 with SMTP id
+ 4fb4d7f45d1cf-6a1b4ffc544mr5248788a12.5.1786120675288; Fri, 07 Aug 2026
+ 09:37:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-quad_dts-v2-3-6f578d4152b7@oss.qualcomm.com>
-References: <20260807-quad_dts-v2-0-6f578d4152b7@oss.qualcomm.com>
-In-Reply-To: <20260807-quad_dts-v2-0-6f578d4152b7@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Md Sadre Alam <md.alam@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-ORIG-GUID: oAwsaiUV-puHJI43KHn8UY9TG2vuR3iO
-X-Proofpoint-GUID: oAwsaiUV-puHJI43KHn8UY9TG2vuR3iO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDEyOSBTYWx0ZWRfX+h+nM3rUIini
- 9SVf/SIT711AwugJyd1A5fBbuuOhbKlvop8jiq4PenxYwFkF4uNRefOwX6vAgZIVLtP3u0V0SBl
- 9COR1HMHVLvUOlAvS3SfnPluOGTETxk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDEyOSBTYWx0ZWRfX1g7FVzHPjHBa
- gMKVWBLzS14M/NkIoE3NcnIUQKXpx3HYsS6k/csHPVvnpcCqG7a1Lj8pRLisDa6Bilhp73kV7EM
- 94H+0ks4jdPjnDtfSILVKWQvlrSAc5B8XMbM8I1d2GgsQrMVewTOiO1X0Q26WfoqMT8FLIR1jHy
- smjjN9up3h1wXQ8oQTKzJzLtwEGnPwfwmIWCnS1H3lKRS3Z57XNmcYYen1PFfR0rEvC3FoP5Hrp
- ixwGlmjmSLC/0MO5s+VLkEBiMjETViZYiJx4qitl+3a3tpa44qU7uCYIt+Uo7vj/rdftgRjSGy6
- fxIq+ma8I0e2AU9T03f+9HBvkuepyqUaK19EmKAl0offvOS00U1RgPxGJemqGsZEQiv9dvAA0FT
- KlrJKHNaoNRgbYrG1tsqopJCPRt4UuAELU6kgHOUrQogyl98N7IXxTL529/50X7jirf+FP3j8ny
- Ub4m0HGKjqAg7B4b9vw==
-X-Authority-Analysis: v=2.4 cv=X9Ni7mTe c=1 sm=1 tr=0 ts=6a76096d cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=QrhUAEvljbRiGgZU1AMA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_03,2026-08-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 phishscore=0 malwarescore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 impostorscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070129
+References: <CGME20260728115251epcas5p19aaf5fc01e0f847bc2adcec67bebda3a@epcas5p1.samsung.com>
+ <20260728121111.2077860-1-raghav.s@samsung.com> <20260728121111.2077860-4-raghav.s@samsung.com>
+In-Reply-To: <20260728121111.2077860-4-raghav.s@samsung.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 7 Aug 2026 17:37:42 +0100
+X-Gm-Features: AUfX_mzWb0mS1p3X663f5ZFYdlb3fzqWWtfaTaduhwXCltjHvOuaujfltkwZGPY
+Message-ID: <CADrjBPrBMea9kmYG-=0w=gA6xZYk1+1uFNvjqJUeNXeRaxaHZA@mail.gmail.com>
+Subject: Re: [PATCH 03/13] clk: samsung: exynos8855: add block top and peric
+ clock support
+To: "raghav.s" <raghav.s@samsung.com>
+Cc: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com, 
+	alim.akhtar@samsung.com, mturquette@baylibre.com, sboyd@kernel.org, 
+	bmasney@redhat.com, robh@kernel.org, conor+dt@kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, hajun.sung@samsung.com, is.gandhi@samsung.com, 
+	ts.amit@samsung.com, pokala.reddy@samsung.com
+Content-Type: text/plain; charset="UTF-8"
 
-The SPI-NAND device on the IPQ5332 RDP supports 4-bit data transfers, but
-the device tree does not describe the bus width, so transfers use the
-default single-bit mode.
+Hi Raghav,
 
-Set spi-rx-bus-width and spi-tx-bus-width to 4 to enable quad read and
-write transfers and improve SPI-NAND throughput.
+Thanks for your patch, it's great to see more Exynos SoC support being
+upstreamed.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Md Sadre Alam <md.alam@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/ipq5332-rdp-common.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+On Tue, 28 Jul 2026 at 12:52, raghav.s <raghav.s@samsung.com> wrote:
+>
+> Register compatible and cmu_info data to support clocks.
+> CMU_TOP & CMU_PERIC, these provide clocks for TOP & PERIC
+>
+> Signed-off-by: raghav.s <raghav.s@samsung.com>
+> ---
+>  drivers/clk/samsung/Makefile         |   1 +
+>  drivers/clk/samsung/clk-exynos8855.c | 420 +++++++++++++++++++++++++++
+>  2 files changed, 421 insertions(+)
+>  create mode 100644 drivers/clk/samsung/clk-exynos8855.c
+>
+> diff --git a/drivers/clk/samsung/Makefile b/drivers/clk/samsung/Makefile
+> index b3c4ef4e0dbf..29a11f5de121 100644
+> --- a/drivers/clk/samsung/Makefile
+> +++ b/drivers/clk/samsung/Makefile
+> @@ -28,6 +28,7 @@ obj-$(CONFIG_EXYNOS_ARM64_COMMON_CLK) += clk-exynos8895.o
+>  obj-$(CONFIG_EXYNOS_ARM64_COMMON_CLK)  += clk-exynos990.o
+>  obj-$(CONFIG_EXYNOS_ARM64_COMMON_CLK)  += clk-exynosautov9.o
+>  obj-$(CONFIG_EXYNOS_ARM64_COMMON_CLK)  += clk-exynosautov920.o
+> +obj-$(CONFIG_EXYNOS_ARM64_COMMON_CLK)  += clk-exynos8855.o
+>  obj-$(CONFIG_EXYNOS_ARM64_COMMON_CLK)  += clk-gs101.o
+>  obj-$(CONFIG_EXYNOS_ACPM_CLK)          += clk-acpm.o
+>  obj-$(CONFIG_S3C64XX_COMMON_CLK)       += clk-s3c64xx.o
+> diff --git a/drivers/clk/samsung/clk-exynos8855.c b/drivers/clk/samsung/clk-exynos8855.c
+> new file mode 100644
+> index 000000000000..93528f0077a4
+> --- /dev/null
+> +++ b/drivers/clk/samsung/clk-exynos8855.c
+> @@ -0,0 +1,420 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (c) 2026 Samsung Electronics Co., Ltd.
+> + * Author: Raghav Sharma <raghav.s@samsung.com>
+> + *
+> + * Common Clock Framework support for Exynos 8855 SoC.
+> + */
+> +
+> +#include <linux/clk-provider.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include <dt-bindings/clock/samsung,exynos8855.h>
+> +
+> +#include "clk.h"
+> +#include "clk-exynos-arm64.h"
+> +
+> +/* NOTE: Must be equal to the last clock ID increased by one */
+> +#define CLKS_NR_TOP                     (FOUT_MMC_PLL_DIV2 + 1)
+> +#define CLKS_NR_PERIC                   (CLK_GOUT_USI_PERIC_IPCLKPORT_PCLK + 1)
+> +
+> +/* ---- CMU_TOP --------------------------------------------------------- */
+> +
+> +/* Register Offset definitions for CMU_TOP (0x13900000) */
+> +/* PLL */
+> +#define PLL_LOCKTIME_PLL_SHARED0                            0x8
+> +#define PLL_LOCKTIME_PLL_SHARED1                            0x10
+> +#define PLL_LOCKTIME_PLL_SHARED2                            0x18
+> +#define PLL_LOCKTIME_PLL_MMC                                 0x20
+> +#define PLL_LOCKTIME_PLL_SHARED3                            0x28
+> +#define PLL_LOCKTIME_PLL_SHARED4                            0x38
+> +#define PLL_CON0_PLL_MMC                                    0x1c0
+> +#define PLL_CON3_PLL_MMC                                    0x1cc
+> +#define PLL_CON0_PLL_SHARED0                                0x100
+> +#define PLL_CON3_PLL_SHARED0                                0x10c
+> +#define PLL_CON0_PLL_SHARED1                                0x140
+> +#define PLL_CON3_PLL_SHARED1                                0x14c
+> +#define PLL_CON0_PLL_SHARED2                                0x180
+> +#define PLL_CON3_PLL_SHARED2                                0x18c
+> +#define PLL_CON0_PLL_SHARED3                                0x200
+> +#define PLL_CON3_PLL_SHARED3                                0x20c
+> +#define PLL_CON0_PLL_SHARED4                                0x280
+> +#define PLL_CON3_PLL_SHARED4                                0x28c
+> +
+> +/* MUX */
+> +#define CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_NOC                 0x1078
+> +#define CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_MMC_CARD            0x107c
+> +#define CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_IP                  0x1080
+> +
+> +/* DIV */
+> +#define CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_NOC                 0x1878
+> +#define CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_MMC_CARD            0x187c
+> +#define CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_IP                  0x1880
+> +
+> +static const unsigned long top_clk_regs[] __initconst = {
+> +       PLL_LOCKTIME_PLL_MMC,
+> +       PLL_LOCKTIME_PLL_SHARED0,
+> +       PLL_LOCKTIME_PLL_SHARED1,
+> +       PLL_LOCKTIME_PLL_SHARED2,
+> +       PLL_LOCKTIME_PLL_SHARED3,
+> +       PLL_LOCKTIME_PLL_SHARED4,
+> +       PLL_CON0_PLL_MMC,
+> +       PLL_CON3_PLL_MMC,
+> +       PLL_CON0_PLL_SHARED0,
+> +       PLL_CON3_PLL_SHARED0,
+> +       PLL_CON0_PLL_SHARED1,
+> +       PLL_CON3_PLL_SHARED1,
+> +       PLL_CON0_PLL_SHARED2,
+> +       PLL_CON3_PLL_SHARED2,
+> +       PLL_CON0_PLL_SHARED3,
+> +       PLL_CON3_PLL_SHARED3,
+> +       PLL_CON0_PLL_SHARED4,
+> +       PLL_CON3_PLL_SHARED4,
+> +       CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_NOC,
+> +       CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_MMC_CARD,
+> +       CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_IP,
+> +       CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_NOC,
+> +       CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_MMC_CARD,
+> +       CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_IP,
+> +};
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5332-rdp-common.dtsi b/arch/arm64/boot/dts/qcom/ipq5332-rdp-common.dtsi
-index 3bbf748f2e5c..6f5b193a204b 100644
---- a/arch/arm64/boot/dts/qcom/ipq5332-rdp-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5332-rdp-common.dtsi
-@@ -141,5 +141,7 @@ flash@0 {
- 		nand-ecc-engine = <&qpic_nand>;
- 		nand-ecc-strength = <4>;
- 		nand-ecc-step-size = <512>;
-+		spi-rx-bus-width = <4>;
-+		spi-tx-bus-width = <4>;
- 	};
- };
+You are missing many registers for the CMU from the top_clk_regs array
+and only exposing the registers for the gates/mux/div etc you are
+exposing to CCF. When the CMU's power domain is turned off/on (maybe
+not for top, but for peric and others) the suspend/resume callbacks
+won't restore the state for any of the missing registers. In such a
+senario the system will likely hang because all the gates/divs/mux etc
+that aren't exposed to CCF will rely on the CMU being in automatic
+mode from the bootloader.
 
--- 
-2.34.1
+In the next version please add all the CMU registers so that state
+isn't lost during suspend/resume (this applies to the other CMUs being
+added as well).
 
+> +
+> +static const struct samsung_pll_clock top_pll_clks[] __initconst = {
+> +       PLL(pll_4313, FOUT_SHARED0_PLL, "fout_shared0_pll", "oscclk",
+> +           PLL_LOCKTIME_PLL_SHARED0, PLL_CON3_PLL_SHARED0, NULL),
+> +       PLL(pll_4313, FOUT_SHARED1_PLL, "fout_shared1_pll", "oscclk",
+> +           PLL_LOCKTIME_PLL_SHARED1, PLL_CON3_PLL_SHARED1, NULL),
+> +       PLL(pll_4313, FOUT_SHARED2_PLL, "fout_shared2_pll", "oscclk",
+> +           PLL_LOCKTIME_PLL_SHARED2, PLL_CON3_PLL_SHARED2, NULL),
+> +       PLL(pll_4313, FOUT_SHARED3_PLL, "fout_shared3_pll", "oscclk",
+> +           PLL_LOCKTIME_PLL_SHARED3, PLL_CON3_PLL_SHARED3, NULL),
+> +       PLL(pll_4313, FOUT_SHARED4_PLL, "fout_shared4_pll", "oscclk",
+> +           PLL_LOCKTIME_PLL_SHARED4, PLL_CON3_PLL_SHARED4, NULL),
+> +       PLL(pll_4313, FOUT_MMC_PLL, "fout_mmc_pll", "oscclk",
+> +           PLL_LOCKTIME_PLL_MMC, PLL_CON3_PLL_MMC, NULL),
+> +};
+> +
+> +/* List of parent clocks for Muxes in CMU_TOP */
+> +PNAME(mout_shared0_pll_p) = { "oscclk", "fout_shared0_pll" };
+> +PNAME(mout_shared1_pll_p) = { "oscclk", "fout_shared1_pll" };
+> +PNAME(mout_shared2_pll_p) = { "oscclk", "fout_shared2_pll" };
+> +PNAME(mout_shared3_pll_p) = { "oscclk", "fout_shared3_pll" };
+> +PNAME(mout_shared4_pll_p) = { "oscclk", "fout_shared4_pll" };
+> +PNAME(mout_mmc_pll_p) = { "oscclk", "fout_mmc_pll" };
+> +
+> +PNAME(mout_clkcmu_peric_noc_p)            = { "dout_shared0_div2", "dout_shared0_div3",
+> +                                               "dout_shared1_div2", "dout_shared1_div3",
+> +                                               "dout_shared2_div2", "dout_shared2_div3",
+> +                                               "fout_mmc_pll_div2", "dout_shared3_div3"};
+> +PNAME(mout_clkcmu_peric_mmc_card_p)       = { "oscclk", "dout_shared0_div2",
+> +                                               "fout_mmc_pll_div1", "dout_shared1_div2",
+> +                                               "dout_shared2_div2", "dout_shared2_div3",
+> +                                               "dout_shared3_div2", "dout_shared3_div3"};
+> +PNAME(mout_clkcmu_peric_ip_p)            = { "dout_shared0_div4", "dout_shared1_div4"};
+> +
+> +static const struct samsung_mux_clock top_mux_clks[] __initconst = {
+> +       MUX(MOUT_SHARED0_PLL, "mout_shared0_pll", mout_shared0_pll_p,
+> +           PLL_CON0_PLL_SHARED0, 4, 1),
+> +       MUX(MOUT_SHARED1_PLL, "mout_shared1_pll", mout_shared1_pll_p,
+> +           PLL_CON0_PLL_SHARED1, 4, 1),
+> +       MUX(MOUT_SHARED2_PLL, "mout_shared2_pll", mout_shared2_pll_p,
+> +           PLL_CON0_PLL_SHARED2, 4, 1),
+> +       MUX(MOUT_SHARED3_PLL, "mout_shared3_pll", mout_shared3_pll_p,
+> +           PLL_CON0_PLL_SHARED3, 4, 1),
+> +       MUX(MOUT_SHARED4_PLL, "mout_shared4_pll", mout_shared4_pll_p,
+> +           PLL_CON0_PLL_SHARED4, 4, 1),
+> +       MUX(MOUT_MMC_PLL, "mout_mmc_pll", mout_mmc_pll_p,
+> +           PLL_CON0_PLL_MMC, 4, 1),
+> +       MUX(CLKCMU_MOUT_PERIC_NOC, "mout_clkcmu_peric_noc",
+> +           mout_clkcmu_peric_noc_p, CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_NOC, 0, 3),
+> +       MUX(CLKCMU_MOUT_PERIC_MMC_CARD, "mout_clkcmu_peric_mmc_card",
+> +           mout_clkcmu_peric_mmc_card_p, CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_MMC_CARD, 0, 3),
+> +       MUX(CLKCMU_MOUT_PERIC_IP, "mout_clkcmu_peric_ip",
+> +           mout_clkcmu_peric_ip_p, CMU_TOP_CLK_CON_MUX_CLKCMU_PERIC_IP, 0, 1),
+> +};
+> +
+> +static const struct samsung_div_clock top_div_clks[] __initconst = {
+> +       DIV(CLKCMU_DOUT_PERIC_NOC, "dout_clkcmu_peric_noc",
+> +           "mout_clkcmu_peric_noc", CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_NOC,
+> +           0, 4),
+> +       DIV(CLKCMU_DOUT_PERIC_MMC_CARD, "dout_clkcmu_peric_mmc_card",
+> +           "mout_clkcmu_peric_mmc_card", CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_MMC_CARD,
+> +           0, 10),
+> +       DIV(CLKCMU_DOUT_PERIC_IP, "dout_clkcmu_peric_ip",
+> +           "mout_clkcmu_peric_ip", CMU_TOP_CLK_CON_DIV_CLKCMU_PERIC_IP,
+> +           0, 4),
+> +
+> +};
+> +
+> +static const struct samsung_fixed_factor_clock top_fixed_factor_clks[] __initconst = {
+> +       FFACTOR(DOUT_SHARED0_DIV1, "dout_shared0_div1",
+> +               "mout_shared0_pll", 1, 1, 0),
+> +       FFACTOR(DOUT_SHARED0_DIV2, "dout_shared0_div2",
+> +               "mout_shared0_pll", 1, 2, 0),
+> +       FFACTOR(DOUT_SHARED0_DIV3, "dout_shared0_div3",
+> +               "mout_shared0_pll", 1, 3, 0),
+> +       FFACTOR(DOUT_SHARED0_DIV4, "dout_shared0_div4",
+> +               "mout_shared0_pll", 1, 4, 0),
+> +       FFACTOR(DOUT_SHARED1_DIV1, "dout_shared1_div1",
+> +               "mout_shared1_pll", 1, 1, 0),
+> +       FFACTOR(DOUT_SHARED1_DIV2, "dout_shared1_div2",
+> +               "mout_shared1_pll", 1, 2, 0),
+> +       FFACTOR(DOUT_SHARED1_DIV3, "dout_shared1_div3",
+> +               "mout_shared1_pll", 1, 3, 0),
+> +       FFACTOR(DOUT_SHARED1_DIV4, "dout_shared1_div4",
+> +               "mout_shared1_pll", 1, 4, 0),
+> +       FFACTOR(DOUT_SHARED2_DIV1, "dout_shared2_div1",
+> +               "mout_shared2_pll", 1, 1, 0),
+> +       FFACTOR(DOUT_SHARED2_DIV2, "dout_shared2_div2",
+> +               "mout_shared2_pll", 1, 2, 0),
+> +       FFACTOR(DOUT_SHARED2_DIV3, "dout_shared2_div3",
+> +               "mout_shared2_pll", 1, 3, 0),
+> +       FFACTOR(DOUT_SHARED2_DIV4, "dout_shared2_div4",
+> +               "mout_shared2_pll", 1, 4, 0),
+> +       FFACTOR(DOUT_SHARED3_DIV1, "dout_shared3_div1",
+> +               "mout_shared3_pll", 1, 1, 0),
+> +       FFACTOR(DOUT_SHARED3_DIV2, "dout_shared3_div2",
+> +               "mout_shared3_pll", 1, 2, 0),
+> +       FFACTOR(DOUT_SHARED3_DIV3, "dout_shared3_div3",
+> +               "mout_shared3_pll", 1, 3, 0),
+> +       FFACTOR(DOUT_SHARED3_DIV4, "dout_shared3_div4",
+> +               "mout_shared3_pll", 1, 4, 0),
+> +       FFACTOR(DOUT_SHARED4_DIV1, "dout_shared4_div1",
+> +               "mout_shared4_pll", 1, 1, 0),
+> +       FFACTOR(DOUT_SHARED4_DIV2, "dout_shared4_div2",
+> +               "mout_shared4_pll", 1, 2, 0),
+> +       FFACTOR(DOUT_SHARED4_DIV3, "dout_shared4_div3",
+> +               "mout_shared4_pll", 1, 3, 0),
+> +       FFACTOR(DOUT_SHARED4_DIV4, "dout_shared4_div4",
+> +               "mout_shared4_pll", 1, 4, 0),
+> +       FFACTOR(FOUT_MMC_PLL_DIV1, "fout_mmc_pll_div1",
+> +               "mout_mmc_pll", 1, 1, 0),
+> +       FFACTOR(FOUT_MMC_PLL_DIV2, "fout_mmc_pll_div2",
+> +               "mout_mmc_pll", 1, 2, 0),
+> +
+> +};
+> +
+> +static const struct samsung_cmu_info top_cmu_info __initconst = {
+> +       .pll_clks               = top_pll_clks,
+> +       .nr_pll_clks            = ARRAY_SIZE(top_pll_clks),
+> +       .mux_clks               = top_mux_clks,
+> +       .nr_mux_clks            = ARRAY_SIZE(top_mux_clks),
+> +       .div_clks               = top_div_clks,
+> +       .nr_div_clks            = ARRAY_SIZE(top_div_clks),
+> +       .fixed_factor_clks      = top_fixed_factor_clks,
+> +       .nr_fixed_factor_clks   = ARRAY_SIZE(top_fixed_factor_clks),
+> +       .nr_clk_ids             = CLKS_NR_TOP,
+> +       .clk_regs               = top_clk_regs,
+> +       .nr_clk_regs            = ARRAY_SIZE(top_clk_regs),
+> +};
+> +
+> +static void __init exynos8855_cmu_top_init(struct device_node *np)
+> +{
+> +       exynos_arm64_register_cmu(NULL, np, &top_cmu_info);
+> +}
+> +
+> +/* Register CMU_TOP early, as it's a dependency for other early domains */
+> +CLK_OF_DECLARE(exynos8855_cmu_top, "samsung,exynos8855-cmu-top",
+> +              exynos8855_cmu_top_init);
+> +
+> +/* ---- CMU_PERIC --------------------------------------------------------- */
+> +
+> +/* Register Offset definitions for CMU_PERIC (0x15400000) */
+> +#define CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_IP_USER            0x600
+> +#define CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_MMC_CARD_USER      0x610
+> +#define CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_NOC_USER           0x620
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_I2C                    0x1000
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_UART_DBG               0x1004
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI00                  0x1008
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI01                  0x100c
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI02                  0x1010
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI03                  0x1014
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI04                  0x1018
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI09_USI_OIS          0x101c
+> +#define CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI10_USI_OIS          0x1020
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_NOCP                   0x1800
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_UART_DBG               0x1804
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI00_USI              0x1808
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI01_USI              0x180c
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI02_USI              0x1810
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI03_USI              0x1814
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI04_USI              0x1818
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI09_USI_OIS          0x181c
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI10_USI_OIS          0x1820
+> +#define CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI_I2C                0x1824
+> +#define CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_CMU_PERIC_IPCLKPORT_PCLK    0x2004
+> +#define CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_SYSREG_PERIC_IPCLKPORT_PCLK 0x2060
+> +#define CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_UART_DBG_IPCLKPORT_PCLK     0x2064
+> +#define CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_USI00_USI_IPCLKPORT_PCLK    0x206c
+> +
+> +static const unsigned long peric_clk_regs[] __initconst = {
+> +       CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_IP_USER,
+> +       CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_MMC_CARD_USER,
+> +       CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_NOC_USER,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_I2C,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_UART_DBG,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI00,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI01,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI02,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI03,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI04,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI09_USI_OIS,
+> +       CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI10_USI_OIS,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_NOCP,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_UART_DBG,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI00_USI,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI01_USI,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI02_USI,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI03_USI,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI04_USI,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI09_USI_OIS,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI10_USI_OIS,
+> +       CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI_I2C,
+> +       CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_CMU_PERIC_IPCLKPORT_PCLK,
+> +       CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_SYSREG_PERIC_IPCLKPORT_PCLK,
+> +       CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_UART_DBG_IPCLKPORT_PCLK,
+> +       CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_USI00_USI_IPCLKPORT_PCLK,
+> +};
+> +
+> +/* List of parent clocks for Muxes in CMU_PERIC */
+> +PNAME(mout_clkcmu_peric_ip_user_p) = { "oscclk", "dout_clkcmu_peric_ip" };
+> +PNAME(mout_clkcmu_peric_mmc_card_user_p) = { "oscclk", "dout_clkcmu_peric_mmc_card" };
+> +PNAME(mout_clkcmu_peric_noc_user_p) = { "oscclk", "dout_clkcmu_peric_noc" };
+> +PNAME(mout_clkcmu_peric_i2c_p) = { "oscclk", "mout_clkcmu_peric_ip_user" };
+> +PNAME(mout_clkcmu_peric_uart_dbg_p) = { "oscclk", "mout_clkcmu_peric_ip_user" };
+> +PNAME(mout_clkcmu_peric_usi0n_p) = { "oscclk", "mout_clkcmu_peric_ip_user" };
+> +PNAME(mout_clkcmu_peric_usi09_usi_ois_p) = { "oscclk", "mout_clkcmu_peric_ip_user" };
+> +PNAME(mout_clkcmu_peric_usi10_usi_ois_p) = { "oscclk", "mout_clkcmu_peric_ip_user" };
+> +
+> +static const struct samsung_mux_clock peric_mux_clks[] __initconst = {
+> +       MUX(CLK_MOUT_PERIC_IP_USER, "mout_clkcmu_peric_ip_user",
+> +           mout_clkcmu_peric_ip_user_p, CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_IP_USER, 4, 1),
+> +       MUX(CLK_MOUT_PERIC_MMC_CARD_USER, "mout_clkcmu_peric_mmc_card_user",
+> +           mout_clkcmu_peric_mmc_card_user_p, CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_MMC_CARD_USER,
+> +               4, 1),
+> +       MUX(CLK_MOUT_PERIC_NOC_USER, "mout_clkcmu_peric_noc_user",
+> +           mout_clkcmu_peric_noc_user_p, CMU_PERIC_PLL_CON0_MUX_CLKCMU_PERIC_NOC_USER, 4, 1),
+> +       MUX(CLK_MOUT_PERIC_I2C, "mout_clkcmu_peric_i2c",
+> +           mout_clkcmu_peric_i2c_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_I2C, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_UART_DBG, "mout_clkcmu_peric_uart_dbg",
+> +           mout_clkcmu_peric_uart_dbg_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_UART_DBG, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_USI00, "mout_clkcmu_peric_usi00",
+> +           mout_clkcmu_peric_usi0n_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI00, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_USI01, "mout_clkcmu_peric_usi01",
+> +           mout_clkcmu_peric_usi0n_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI01, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_USI02, "mout_clkcmu_peric_usi02",
+> +           mout_clkcmu_peric_usi0n_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI02, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_USI03, "mout_clkcmu_peric_usi03",
+> +           mout_clkcmu_peric_usi0n_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI03, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_USI04, "mout_clkcmu_peric_usi04",
+> +           mout_clkcmu_peric_usi0n_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI04, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_USI09_USI_OIS, "mout_clkcmu_peric_usi09_usi_ois",
+> +           mout_clkcmu_peric_usi09_usi_ois_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI09_USI_OIS, 0, 1),
+> +       MUX(CLK_MOUT_PERIC_USI10_USI_OIS, "mout_clkcmu_peric_usi10_usi_ois",
+> +           mout_clkcmu_peric_usi10_usi_ois_p, CMU_PERIC_CLK_CON_MUX_CLK_PERIC_USI10_USI_OIS, 0, 1),
+> +};
+> +
+> +static const struct samsung_div_clock peric_div_clks[] __initconst = {
+> +       DIV(CLK_DOUT_PERIC_NOCP, "dout_clkcmu_peric_nocp",
+> +           "mout_clkcmu_peric_noc_user", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_NOCP,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_UART_DBG, "dout_clkcmu_peric_uart_dbg",
+> +           "mout_clkcmu_peric_uart_dbg", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_UART_DBG,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI00_USI, "dout_clkcmu_peric_usi00_usi",
+> +           "mout_clkcmu_peric_usi00", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI00_USI,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI01_USI, "dout_clkcmu_peric_usi01_usi",
+> +           "mout_clkcmu_peric_usi01", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI01_USI,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI02_USI, "dout_clkcmu_peric_usi02_usi",
+> +           "mout_clkcmu_peric_usi02", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI02_USI,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI03_USI, "dout_clkcmu_peric_usi03_usi",
+> +           "mout_clkcmu_peric_usi03", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI03_USI,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI04_USI, "dout_clkcmu_peric_usi04_usi",
+> +           "mout_clkcmu_peric_usi04", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI04_USI,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI09_USI_OIS, "dout_clkcmu_peric_usi09_usi_ois",
+> +           "mout_clkcmu_peric_usi09_usi_ois", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI09_USI_OIS,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI10_USI_OIS, "dout_clkcmu_peric_usi10_usi_ois",
+> +           "mout_clkcmu_peric_usi10_usi_ois", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI10_USI_OIS,
+> +           0, 4),
+> +       DIV(CLK_DOUT_PERIC_USI_I2C, "dout_clkcmu_peric_usi_i2c",
+> +           "mout_clkcmu_peric_i2c", CMU_PERIC_CLK_CON_DIV_CLK_PERIC_USI_I2C,
+> +           0, 4),
+> +};
+> +
+> +static const struct samsung_gate_clock peric_gate_clks[] __initconst = {
+> +       /* System will hang if this critical clock is gated */
+> +       GATE(CLK_GOUT_CMU_PERIC_IPCLKPORT_PCLK, "gout_cmu_peric_ipclkport_pclk",
+> +            "dout_clkcmu_peric_nocp",
+> +            CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_CMU_PERIC_IPCLKPORT_PCLK,
+> +            21, CLK_IS_CRITICAL, 0),
+
+Rather than use manual clock gating in the Linux driver, add have to
+add CLK_IS_CRITICAL / CLK_IGNORE_UNUSED flags, I would suggest putting
+the CMU in automatic mode from the beginning. Support for automatic
+clock gating was recently added for gs101 in
+https://lore.kernel.org/lkml/20251222-automatic-clocks-v7-0-fec86fa89874@linaro.org/
+so it should be straightforward to do. I noticed another SoC clock
+driver was posted recently that had it enabled as well. The advantage
+is you then don't need to boot with clk_ignore_unused kernel command
+line, and all the unused clocks in the system will be automatically
+gated, saving power. Additionally with the CMU in auto mode, it is
+then also easier to expose all the gates to CCF (as you don't need to
+worry about experimenting with CLK_IS_CRITICAL / CLK_IGNORE_UNUSED
+flags). Also when you dump /sys/kernel/debug/clk/clk_summary you get a
+complete view of the clock tree of the SoC.
+
+> +       GATE(CLK_GOUT_SYSREG_PERIC_IPCLKPORT_PCLK, "gout_sysreg_peric_ipclkport_pclk",
+> +            "dout_clkcmu_peric_nocp",
+> +            CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_SYSREG_PERIC_IPCLKPORT_PCLK,
+> +            21, 0, 0),
+> +       /* System will hang if this critical clock is gated */
+> +       GATE(CLK_GOUT_UART_DBG_PERIC_IPCLKPORT_PCLK, "gout_uart_dbg_peric_ipclkport_pclk",
+> +            "dout_clkcmu_peric_uart_dbg",
+> +            CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_UART_DBG_IPCLKPORT_PCLK,
+> +            21, CLK_IS_CRITICAL, 0),
+
+For gs101 we used a name mangling scheme for the Linux clock names
+which removed some of the repetitive strings like _IPCLKPORT from the
+Linux clock name string. The intention was to keep the register offset
+macro matching the datasheet, but the Linux clock name could be
+mangled to be more human readable.
+
+I suggest for exynos8855 you follow the same clock name mangling
+strategy, so we keep some consistency for the clock names on newer
+Exynos SoCs. So far we haven't encountered any clashes by doing this.
+The clock name mangling strategy is mentioned in clk-gs101 (I pasted
+relevant bit below)
+
+/*
+ * Register name to clock name mangling strategy used in this file
+ *
+ * Replace PLL_CON0_PLL            with CLK_MOUT_PLL and mout_pll
+ * Replace CLK_CON_MUX_MUX_CLKCMU  with CLK_MOUT_CMU and mout_cmu
+ * Replace CLK_CON_DIV_CLKCMU      with CLK_DOUT_CMU and dout_cmu
+ * Replace CLK_CON_DIV_DIV_CLKCMU  with CLK_DOUT_CMU and dout_cmu
+ * Replace CLK_CON_GAT_CLKCMU      with CLK_GOUT_CMU and gout_cmu
+ * Replace CLK_CON_GAT_GATE_CLKCMU with CLK_GOUT_CMU and gout_cmu
+ *
+ * For gates remove _UID _BLK _IPCLKPORT and _RSTNSYNC
+ */
+
+Also IIRC some of the gs101 commits contain the regex's used which may
+be useful.
+
+Thanks,
+
+Peter
