@@ -1,169 +1,146 @@
-Received: from SY8PR01CU002.outbound.protection.outlook.com (mail-australiaeastazon11020143.outbound.protection.outlook.com [52.101.150.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CFD476CD5;
-	Fri,  7 Aug 2026 13:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.150.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786109423; cv=fail; b=GCexZe4hHnpjWjaFSbvP+cadNfRlq06PnAblrGYhPKb7BFYlVLr3NpIOMTeE+J3vCAYQxm6geX87Unqy7XjX4CtIrrzS5/8IAAt0lULsNlYa0waV65nUzis/O+EoNDbqoOiKm2lySnJfyyy3H0JVdg9h5ZzZ5xwuWthhYOUKkEw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786109423; c=relaxed/simple;
-	bh=UBtsLWK4eBzCBx+DAtThHjtQ82eisC8TaTd4PPf7tHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:Content-Type:
-	 Content-Disposition:MIME-Version; b=iqAAUs1lAghZHbypIwvEPqpOU//Fpur/Yll22++0VlLa05lgeTH66JB2hZLSwWCqWfkkCvMEIaX12VYbH2UTifcLjxCq0SY8tTKgGgOzo/BW5LHRNI6FMa4XiLkgfybuoLUV5D3kMHxPrQKeRilQtCF8yzUZC4MQYdHcaxP3klE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com; spf=pass smtp.mailfrom=heitbaum.com; arc=fail smtp.client-ip=52.101.150.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=heitbaum.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BxzJDXwoy2mOQWloZ8nC9ena9D0nr2V7ovuEu6L6yebOJzg5KEnoC77kivHdeL2l05h77hI65QD4rpX/ZVdcGfdcS/pSSG7VVT/Rr2EXNIlRcu0md3m2zkEGPeTfggiKhXpGXbouJpO0uEmYofYud8B4lLHpYoarE89jCPS/4OpkFxh8Qx7vzsVNOAxX6qR+OgzFfZKphwpOJjmUQZBHlzuNTjn+et7eb4Db8AGPD94ey7mw6925ESnstHNPZyNfqSM2bpps+9ZXe1HNb8i/7iJSBs7GLl9ZlCc3BVIIr+vkf5U4UWWo8a8i/TI1DGLevhg2xMEtqbqT4h0wuHPAAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G26ZVU+BExKSSTnsg3O7iG0H7cNY3/+3zbp8geVmPqo=;
- b=pUaObitbZ1Zx5oSjqwOtVZHlxXybrxMLuMJBrpHqNiTC4R53agmJMzukkLy7BSprTb6mgNXFd3pJx30O3d9dVpTXYSq5FvEEN/eBCije7d3O6cf734csl4++yxCORcPQXQ5IAt+jgfi59H+Aop874+ACOYLCj45SfMJ/NTO8/TO1q6rm2aC3nKRCuoemBrtFYTlIC90pXoG//hI2zDDBJAUBm4CustwddDtW1o2cKBaVOdTJduvv26q91+dRQlBTU8oQ/0dnBE01vFuaiIoGykpmJwl9qFX4sOg7vJnINgljHcQB1t+Pd6gkYaicOP/OcxVqBTdB5qsS1gaamZJzJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
- dkim=pass header.d=heitbaum.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=heitbaum.com;
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
- by SY7P282MB3978.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:1ed::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
- 2026 13:30:13 +0000
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd%4]) with mapi id 15.21.0292.022; Fri, 7 Aug 2026
- 13:30:12 +0000
-Date: Fri, 7 Aug 2026 13:29:50 +0000
-From: Rudi Heitbaum <rudi@heitbaum.com>
-To: imx@lists.linux.dev
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rudi@heitbaum.com
-Subject: [PATCH 0/5] arm64: dts: imx8mq-phanbell: Google Coral Dev Board
- enablement
-Message-ID: <cover.1786107925.git.rudi@heitbaum.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-ClientProxiedBy: MEWP282CA0188.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:220:1d6::16) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:279::22)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC1F47669C
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:30:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786109433; cv=none; b=lbWxbO3kEMpa1xQ8m9HDE1o4tZOIXFvEbWWrJDhRRZGUkNQeE2ftxy8a9hFjUfMMAZtJpGe7pdHgxEXop9UJBlWoOGelTPZlQ0NZ7fdt9EqpWxATeuHIOpFlxOp/nTb4FDpsLPfCbs2u3SnOZxe/g9+Qfpuic7cQrBESz6/BD/U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786109433; c=relaxed/simple;
+	bh=lNRMCMZWJrIGh1fhRbztqbQIc9J7TxN7ZrtNGrtgNXo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eAntADJtLi2rXETl2SzaWKCs0TW52s23tUbJCqY4Q0irbztVLXzCRio+3if//EGu30F7CHoN/ZKV8ayDBqyyDp6e1tupALc3Neq5iNH2c6fIu3TorMMlH3tRekgPP3K/dUTKKecWOMsYuAjDGlZdl3JpNTlBnPX8W56i4eKCYWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-51c167c58f2so25000411cf.0
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 06:30:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786109427; x=1786714227;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U/AAuSUTI9BlhHsMbAPbLkKHE3Mv88lOoxgJOEPTw6U=;
+        b=WKXDg2UMVpDRCjFaQab15PUUE1lim0EkAkKbhuXUt54bpALOiT1PFO5xq69M2hQRir
+         UPDDJnP3d6615rIhQOnGtzr+a/386cg+iP3+sc9O63knNvyZnuPHMzUt2GvqetpJRmeT
+         K9hQlwOuAiWRRiiFU7OPoIFuLNP1wNzqUu6prcWKqTL/qgrpCiPLbWqrxyiI6tQLp9ND
+         z/WqmEmngSlemb2RJG3mPJ4ndfcBNo4dfY9/PjiGHCEZnbeNsYUFB+q5nOpY8s7lwZLF
+         OMZK2CkBdS5Lw+PAIqNwNhv0c7N2yevDgUb0nzPcHdgcfrkJy7L30sZT+SX08LxU+/po
+         aDTg==
+X-Forwarded-Encrypted: i=1; AHgh+RpqvUpTxSbcHntRvhM/C+d/JSjRPA6gPtmyj2tAL9KRguULHFATC8hs6CZyGs/OLVO+il17Jar2GU6J@vger.kernel.org
+X-Gm-Message-State: AOJu0YxRZ/SQdayeEb9c4FP20rosoiDzYD516hFPz+Q/qypWBx5e6ixg
+	MQpCL2I9xLxpdi1mbX1MC/FCMTgLaBEL1lXWryo+V6mwDsrtGSavvCN8eJjdEKuc
+X-Gm-Gg: AR+sD117fVjipQo2brkWoaTskKucQ5/ZhHTXvKCYRwvUIphOjThuc67oraD3deFpkY3
+	j55hDEaeZSAwNO0Y0QVwxt5TNPPpsf4BLiRCiTuzgEt0o5GoYa6Jd8P7xF6KilFK3U+E5ye8hO+
+	9Bm2uA6YKX7fHQIIyXM/r4LfoYK1GW8+zdN9d6qkLyiu6yKptAlZuFaL8yo6YjqIwHH3Ojdo0BU
+	E7lLcRLz4PA8hHSEqqX4Am96AbphKIYy9wvfXDtpfWTRuLjJm2sv/uCbmmq9dGq8xV3zDF2uzOW
+	6KZHRzQn6aF3ukHUPaIVuzxQbeyH2ox7lQyoByVXtd/c2X2YmsWZyxMBogqRVq8PTEIvNnvMn4u
+	Kaz1mGoF5v7x40yjgRccaMVzinJ9sb4IjFuwqQ5PCY+MIRNkuJD3eTJqNBPm9pNl9WfrATShux4
+	/2KSkI6waMDHKa+jAuOshxMHkQNtnGSgGihUVcJNdUtTXz9tYfUi5UaTAuZPY4Eld1JYrwt1tJ8
+	9uyQZKbeiW7dW3CeZWpvxd0E+O5X3FeqWxjJw==
+X-Received: by 2002:a05:622a:1482:b0:51a:8696:cb38 with SMTP id d75a77b69052e-52ce5f616femr241573831cf.7.1786109426627;
+        Fri, 07 Aug 2026 06:30:26 -0700 (PDT)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com. [209.85.217.46])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d1662af31sm11758751cf.27.2026.08.07.06.30.22
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Aug 2026 06:30:24 -0700 (PDT)
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-74ab99038afso1804379137.3
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 06:30:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoIsqTXRF67twcEoxHI7lQ6i6JgmJnc9ZZqqy5ax/F2kCk+gCwWKzYgtJ+N4v+uAlXxpdEkfTrgSAgh@vger.kernel.org
+X-Received: by 2002:a05:6102:1491:b0:740:2d40:a234 with SMTP id
+ ada2fe7eead31-760e934083fmr7749766137.9.1786109422395; Fri, 07 Aug 2026
+ 06:30:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|SY7P282MB3978:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc11dc3e-6868-4ad2-bb14-08def488023c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|5023799004|10067099003|3023799007|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	lGQyu77BbvICmLDmzCrW2p9gvvWeMFgXX+o6jyY2kDUwn6WkT+PPf63XpMnH8a0UhEp3Q9AzRNSm24XgmRVzYb4lgd5oA19zR22DMTBujKNJPm1Q/Sxw6uWOj+7RPJ+pBMFIDRCNczC1fo6WqHxZfoTGsHiTi4rM+pT50n+InwqfRwJXGG/QQCIMHSya1JMuChvVG9U2pmkIiB5KV63RIo4IpKue0kyZGCmBAVzjx0Hoxj4I7Nhn1Fyu2if/Ocd/jk9dMsb5v09L4FqU7apJZTPhKlfiZ8wck9LaNiPIgi9HMyxOhn8seeP+fn0jpt/7avU8OILG9kO2wVNDhpzidayQGvYFwNEsJ7pt4Nt6WMkmTB0a6YtTcSohm0FiMh93D3ABRMUZr4L1ySQbIoIhF7KFcTwXzaH/QCXMb608Xzco5l/1hMI9wFL6i7K8EqKkEOTAJCZIkSYhhHqCLsTtQBxxLIDFoLZUfO5oOxV/PCBFQU9jFeFK28hffUHly7tHA9M+eaIryTL+gt2osFM4R4GAz9o5acxaqHXL/MbnJ0o/hoioEqY9NlroQcWY2drhOBawaGt3orM9+Jz+0kQrEFKgs/GwnmjKty/+0mH+rkl2otTa4Xz91CJSbzm9xlu5g05Tz+Cj0OU9T5Kr1+KXd4glKzV5b07xbA7jhCfJj+0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(5023799004)(10067099003)(3023799007)(56012099006)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NrQC8M2qTEM34WznL8MqTbH5a9BJciIrIfj2XMwigxXdNU6Ju6xj8iecg8Yw?=
- =?us-ascii?Q?oAN+gDh2d2eOMz/HXDqnnSjDumTa01fhI2K9eLCXn83mdjO9ssJ4NE8P1vcr?=
- =?us-ascii?Q?xSeHB48v4VoTaIAjIGBsyLnZHiOWZG22GHwDpmKcGp/9ll9PKwLX97NRduMf?=
- =?us-ascii?Q?p6pTzyApqcF+pl0YgrjrM2FVoj5PV1P3FjSS/E4GAgGgokcq2pwlqc2NFffZ?=
- =?us-ascii?Q?iBlhxTf/JdqTuf9QBO1V+N0gPUtAqYfDisGA1Hp8zcpgy0YA7nM+7VUWce8n?=
- =?us-ascii?Q?gTgCm69nXFF9dR+nn06wiILLMmDi5iX3oivJGZYJLcTSHOITL4KKDjmXr36o?=
- =?us-ascii?Q?6DyllQrNAvit/LPGKK9DsJ14x85+CmGZCI7ZFR8AAIG0jFtbPzujlhiFm8n4?=
- =?us-ascii?Q?ACtBO3UOyhECjLIJXrnK55qaXKhYNMoCRRzAm8/Lm8ublT7Ha0QgSAC54Rrf?=
- =?us-ascii?Q?b9uzPiNcsG4SzpuJZ+e2NMxkxo+gYUX0ab4LrV5vHHMsgGjd4D/cQRo4eaSt?=
- =?us-ascii?Q?7ldIn61oSqKcliLHvNMiA4Q+Wkg2NkvKdtT7lzvbpK8jm2vHNDfTGRTEQxXb?=
- =?us-ascii?Q?EAXnVQqOEN8KoNIf0nzp5huwuR7soryqpFjpfJUVSSpHXDGrpNi2JI3JWYB9?=
- =?us-ascii?Q?rLJ6L5A1cxKjooCh8hBrMsILlxEndqW9o77Tr+44xZCKkycTC+Hrw3IE+U/V?=
- =?us-ascii?Q?fuwkuIwbs6wjDFKa4rmWe01HkmKMN/mGFsa0qZBs5u9db87YTGRifNoKzJOl?=
- =?us-ascii?Q?R3JP3vvodEPAyEiiLdVhUFFOAJdc73pNdX5wpXVqCd9sl1o9J1vh1xRyGtNW?=
- =?us-ascii?Q?LBsjaTTwOUWQlQpzzApfxTbKsMVXN9aVGSdPtqEfh6GDYQvcMpXoGs9m6KEj?=
- =?us-ascii?Q?hWyReLMXBF8X33kMP7HygTqY/F4Q1KPY0JTs84p6Xpe34gM4liMMlnZJ67dO?=
- =?us-ascii?Q?R8CpicY1ZZ7T6+5+qwVmhxr90IUp6MV7jcAYHo7+qQJdHj3kQ2P9vHXtQEr/?=
- =?us-ascii?Q?NkaRxvppGK0FciExqBlNSY0A8Kan423ng0n6Q8JjMCsrwssQdGAySYKpDC0M?=
- =?us-ascii?Q?luva+aRKL9hK3wCQPO7YsVy+FH1Qs9JK6tDXny1v4fqpuaK5mb8wu4BA/ToA?=
- =?us-ascii?Q?9sG1lOuaXGYAktoe8nksnTWKt+op+VumTd+2Vk3CmruUSWBh8l846//27lL1?=
- =?us-ascii?Q?i2xXNVm8ptmfDlSGIojiH7kKYiqsFGYg0GPMFuDx67CSPIjV2QMvwyFqBDn2?=
- =?us-ascii?Q?9lhwxuLdLkfYwYFzPyA7TEk48xqRgSYK4O+5cO3ie35xl1PIILlNA7pYJtoh?=
- =?us-ascii?Q?vnqKTziC2Y7LG3cxghpqSTELQEzVpnxGyXod/j76AjJ7yIQRApADWV8Ve/kQ?=
- =?us-ascii?Q?wd4UVi9nw/kJJ2gUGyLd0obBNSecOWaEeyiDDEsxpUzKk4nhosK2WJd0LLvj?=
- =?us-ascii?Q?YvQ9aYcbAr0nsgNwonRrhzUzr+n371+Zo8XmWiIhmLTwq+8Y4PkP/3AkLY13?=
- =?us-ascii?Q?ezDrx5peon05/bSoc7T0Tlo7B4SK/cZee7v+T341HgNyVKQgfnnnK9FMzCdJ?=
- =?us-ascii?Q?8UoHHGD1laB/2kQf4bBhe02Qv5qD6aKGqzJ9/IVKRuZhHY4BhD8jDYGWe+hu?=
- =?us-ascii?Q?w3e8qPToY2h1irnIXlNkTa5XrCsHi+9Sr+i8m+5RJMhFdcALApZfKtlFbAq2?=
- =?us-ascii?Q?gfFiK1J8qnifVa+5N6daf7mhXC0OxjEKXIheTSUV91RkE+GC?=
-X-OriginatorOrg: heitbaum.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc11dc3e-6868-4ad2-bb14-08def488023c
-X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 13:30:12.4649
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yjzNcm0W79EC3lcHLlRu4yQv3RlJGndIlhvTL4AbANoo3mQzA455jLZGs+xwaqbpcSnb7o7SUQuzUaoYIW9m/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7P282MB3978
+References: <20260716123434.2576253-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260716123434.2576253-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260720-fractal-prodigious-spoonbill-86f534@quoll> <CA+V-a8tfCL58j2TvoO1VhhDAZf=8LB89R4O0SycLghYGf7Rr4w@mail.gmail.com>
+ <2323f9bd-0b1e-41be-8c8d-6906b66b625f@kernel.org> <CA+V-a8sHbc9WSqmzrONjWbLY1+SSEhK3kGOjL9zmVmhSttD31g@mail.gmail.com>
+In-Reply-To: <CA+V-a8sHbc9WSqmzrONjWbLY1+SSEhK3kGOjL9zmVmhSttD31g@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 7 Aug 2026 15:30:11 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUwPdPwKV++3GBvm_yEY0pqvT-KxBr==g8LQFRvZkBnjw@mail.gmail.com>
+X-Gm-Features: AUfX_mxDi0guSe9Khaez7xiSfow3Ijch9zm2XE5dr_dyKyhIvomQpIBNYO4wzk8
+Message-ID: <CAMuHMdUwPdPwKV++3GBvm_yEY0pqvT-KxBr==g8LQFRvZkBnjw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/8] dt-bindings: clock: renesas: Split out RZ/T2H CPG binding
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-imx8mq-phanbell.dts describes very little of the Google Coral Dev Board
-beyond the essentials. This series fixes two defects that affect the board
-as it stands today, then adds the i2c buses, the 32 kHz reference clock pad
-and the analog audio.
+Hi Prabhakar,
 
-Patches 1 and 2 are bug fixes and stand on their own:
+On Mon, 20 Jul 2026 at 13:14, Lad, Prabhakar <prabhakar.csengg@gmail.com> w=
+rote:
+> On Mon, Jul 20, 2026 at 11:53=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel=
+.org> wrote:
+> > On 20/07/2026 12:50, Lad, Prabhakar wrote:
+> > > On Mon, Jul 20, 2026 at 6:55=E2=80=AFAM Krzysztof Kozlowski <krzk@ker=
+nel.org> wrote:
+> > >> On Thu, Jul 16, 2026 at 01:34:27PM +0100, Prabhakar wrote:
+> > >>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> > >>>
+> > >>> Move the RZ/T2H and RZ/N2H clock controller bindings from the gener=
+ic
+> > >>> renesas,cpg-mssr.yaml schema into a dedicated binding.
+> > >>>
+> > >>> Unlike the traditional Renesas CPG/MSSR block, the RZ/T2H and RZ/N2=
+H
+> > >>> system controller integrates additional functionality beyond clock =
+and
+> > >>> module-stop control, including reset control, clock monitor support=
+,
+> > >>> write-protection registers and other system management features.
+> > >>
+> > >> Nothing of above differences got reflected in the code, so I do not
+> > >> understand this reasoning. Binding is exactly the same as the old on=
+e.
+> > >>
+> > > A syscon regmap is implemented [0] as part of the RZ/T2H CPG driver.
+> > > Since the RZ/T2H clock driver uses this syscon wrapper, a function
+> > > pointer is implemented to handle the RZ/T2H-specific configuration.
+> > >
+> > > Also, as the initial implementation used separate device tree nodes,
+> > > Geert suggested splitting this binding schema off into a dedicated
+> > > file [1].
+> > >
+> >
+> > I still miss the difference. Can you point me (can be short diff) to
+> > actual difference in this binding?
+> >
+> Fair enough! You're right that the schema text itself doesn't differ.
+> I'll drop this patch in v4 and leave the bindings in
+> renesas,cpg-mssr.yaml (unless Geert has a different opinion).
 
-  - BUCK3 feeds the GPU rail and is the only regulator on the board that is
-    neither always-on nor claimed by a consumer, so the regulator core
-    switches it off when it finishes initialising and the board dies about
-    thirty seconds into the boot.
+Given you no longer add a bunch of RZ/T2H-specific properties
+and subnodes, I no longer see a reason for the split.
 
-  - The cpu_alert1 cooling map hardcodes an upper state of 2, which does
-    not exist on a part whose speed grade provides only two operating
-    points. The bind is rejected with -EINVAL and the trip ends up with no
-    cooling device at all.
+Gr{oetje,eeting}s,
 
-Patches 3 to 5 are enablement. Patch 5 depends on SND_SOC_RT5645 becoming
-user selectable, which is "ASoC: rt5645: Make the Kconfig symbol user
-selectable", queued in broonie/sound (for-7.2) and not yet in mainline. The
-devicetree applies and builds without it; the codec simply cannot be
-enabled until that lands.
+                        Geert
 
-Producing sound from the analog card also needs "ASoC: rt5645: Perform the
-initial jack detect at probe", posted separately to ASoC. Nothing performs
-the initial jack detect for a card described with simple-audio-card, so a
-headphone already in the socket at boot is never noticed and the output is
-silent. That is a codec driver fix rather than a devicetree one, hence the
-separate posting.
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-Deliberately not included: pcie0 and pcie1 need the i.MX8MQ PCIe REF_CLK
-source selection to be made conditional, which is a separate series still
-in review, and the Bluetooth half of the QCA6174 depends on that in turn.
-
-Tested on a Coral Dev Board on 7.2-rc6: buck3 stays up and the board boots
-reliably, both thermal trips bind and throttling engages, the codec probes
-on i2c3, and the headphone jack plays 44.1 kHz and 48 kHz.
-
-Rudi Heitbaum (5):
-  arm64: dts: imx8mq-phanbell: Keep the GPU rail on
-  arm64: dts: imx8mq-phanbell: Do not hardcode a cooling state that may
-    not exist
-  arm64: dts: imx8mq-phanbell: Enable i2c2 and i2c3
-  arm64: dts: imx8mq-phanbell: Mux the 32 kHz reference clock pad
-  arm64: dts: imx8mq-phanbell: Enable the rt5645 analog audio
-
- .../boot/dts/freescale/imx8mq-phanbell.dts    | 124 +++++++++++++++++-
- 1 file changed, 123 insertions(+), 1 deletion(-)
-
-
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
--- 
-2.53.0
-
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
