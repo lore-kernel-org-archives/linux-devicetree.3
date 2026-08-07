@@ -1,148 +1,87 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9DF1F2B88
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B45AF3AD525;
+	Fri,  7 Aug 2026 08:37:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786091849; cv=none; b=Sl4k1NqI0yc+0H95xyBkr76caLenS+ksNE2FQJyJEvxVCDGb7Eg0VUmQJTXebDlhW1GcuwCictG/Z2p+9gxbFhXZ75MvzuAgkWojj+G+RmR7Qr4YHxhrirWFJvvYTmw/bvcFDtTqxzkjUqQMv6wFIR6zZ0lo+o6H1LJH0EFiD+g=
+	t=1786091852; cv=none; b=q59UufGH+5u0oBGVXv8v0TdfW8dr46wldlYwh+IZreFvx7DFtC//MuofHQ9lNRMYQR5ozJYvTsJAGPw/Ld/M2kGDhUmP/P+C31pwzSQPe6qal+zVRkY0gHTcyp/YGeE1J0/zNs4KfT5AxMZ6nbsC5eoOWcqb6L5firnas3A0vJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786091849; c=relaxed/simple;
-	bh=/UdSyTf9Swt5Ml5qDkK3fqt0U1o1wltMS/fTtppqJ+4=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=KVC+DQWUxz5LF3RjX0JUIsRyTGtheLm5Kbt7bfgFtQdiwPrW2cnx8m9qKU8/V05F1UEiQaww1X7sqan2a+wJd91kPRPGevKmwcTyYN28BlTBNBh5dEbjnDXwnVhFy9cD8tHk/hhP83lUmPJHITKYc5qt7kYPbfcxk677vyk7AwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=bjf9LTfe; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="bjf9LTfe"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4994c49f588so17723475e9.0
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 01:37:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=9elements.com; s=google; t=1786091840; x=1786696640; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qa/2IU2RbAAtb2QUYjZKVHQ104XeXVbZBNjUDvADO9U=;
-        b=bjf9LTfe3ZbLy0YUfOmjCm5sIjoRu7V7U+sgL5Tb2LKbPYRvWPUyPG4JIBeSuv6Opw
-         iruoVk/cHY1WFHqzyh+4wt6Ad298cW2c/5O61Vu0x5oS5+/vzy0jtr/+jW+bubbpoBre
-         2mmflEWdKGL7csSAvRWiPVskwSjr7yIRtXqyP/UqCmi1/s8XVTg/3Za4Ras+o8MPbuQb
-         9IsuJZH/iJN7ga1rwUmm2EyhUF9K+XeGGPlF//w6DHMLjNtOpMSWvoivQI/Rjhn0KqBZ
-         RV94Q7WfigLnD8jcdhrrTFJRb3FDqk6wFfTPnWcLTbQy4OY7mRYyVGtuLAOww+BQ/I1y
-         gPqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786091840; x=1786696640;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qa/2IU2RbAAtb2QUYjZKVHQ104XeXVbZBNjUDvADO9U=;
-        b=rD5lVB9YRtO1MEKT7BAG2u4XnE38P/cyPZgz8FTtXe8v6IVcsfiGXYDaGLZq9/+x3E
-         A5vA80PaIlrU9znt2F4luWxnVFHsMhJdXZC+a1AH1hMw9PxLJL/jUH3jbmaL9ekbQc9z
-         8hTTDT6jpoDebfvn9gJuJur5c1ouB6PdDeBpn3RFDiaRXf8/sjhKy2TqTVgPwh9OgG5w
-         KHxY1Ps0+QlcDkOdJokkAC0muhDtZCuxnKVMvakYQBAvm2vZaP35gwgQ7n3FUwJ0YXd/
-         aoHbnVLrHODEVTIjq3MQRFNhz1xR6BmTmjPQJkxYfY9KNQKSYXlL8z+kikk1ZF0gbDNO
-         P6qQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpU32PIso9+1DJumBn0VQYoPGKKY8qfkl+jSCDEHHEzg+7nFT1LDh2EyZxlLG8Q42dePaEjW6WVyuxh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDNfEkc2cpuW6s89V9S4sJvtOEQe3TLmoZZMZiTGwgcz5FYOeM
-	h2ZiF5EWoVn+z1ubDQOstwSdMW40jK7qb0PiT46BImuR310E7uboqigzcyiY4RCMGW8=
-X-Gm-Gg: AR+sD11o86iGFrxKwzH+3UjhSKvSLKKJAGw4Exp/33ggEuPmqK98vqWfXQl1IjE7Y0u
-	0SBTWJjPCr/PJdYCbZclep3PqgMUrST2vjArBrexDmZuDimXbB1pflfhYNpWHZr8fhtm72jJryF
-	cOHsbSJboBKTwiOW1Y6VyYChdeFKPEhQj21eAIc/IA25UP9Ye+aYk3Glg5Yh4eYIpu7l6RXLXYP
-	akFg2eNH7PVfhTV6fE5vLdKKQGuNIhmVSIrgCN3Cf30ZPjWYqH0/BcYlwEWhYCG7TNmpKBHR0Ae
-	ZXrX3VXhRU5mrHXvv8oSVwjQqsQa9sYD3c/KEq2hiHHIjlEf5IG8l98axPhdCPw0rmNqsYPtTxV
-	v9OhmbNR9yFGLMQ0AaZ81Uda2QjX2dCmDditVphv3nOdW2SUcTzim93FnYANVi4rpQoTYWgC/ke
-	bHAwrGCdOnJR6gftjE0F3pfJBcY2w7lyGi1KIm5tGmYdmaqlwmMvqVSnyVly5VuUmxvINHJ7Hi5
-	B9R058tEA==
-X-Received: by 2002:a05:600c:19c9:b0:499:5f80:83ac with SMTP id 5b1f17b1804b1-4995f8083c9mr1877075e9.7.1786091840306;
-        Fri, 07 Aug 2026 01:37:20 -0700 (PDT)
-Received: from [172.20.10.3] ([2a01:599:843:2744:7f5d:3df0:76c1:3705])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995e9e7171sm17795195e9.1.2026.08.07.01.37.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 01:37:20 -0700 (PDT)
+	s=arc-20240116; t=1786091852; c=relaxed/simple;
+	bh=2qxE1QyEZ8of/xwk9djmWJcN0kDpoxD7oFHhd4dCvaU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P4GDl+wjJ7alXkC54XnT3rREWby4CcTLaLLouIa6V30Y7TDNVHhjF37j9vxe+uLC/dJEI/v/nXd2Hg67yDPM2Fao8F0x/cKy/sxEXmNrPHWU1lo4cqmGFsw1cj/yzYH1WwkMyd5vicXJS+Ri+j6zEAYXF+U6f6Lq8GgBguz2X5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E4C251A0021;
+	Fri,  7 Aug 2026 10:29:27 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id AB63D1A001C;
+	Fri,  7 Aug 2026 10:29:27 +0200 (CEST)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 7081818000B1;
+	Fri,  7 Aug 2026 16:29:24 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	wim@linux-watchdog.org,
+	vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	lakshay.piplani@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH 0/4] rtc: pcf8525: Add NXP PCF8525 RTC driver
+Date: Fri,  7 Aug 2026 13:58:51 +0530
+Message-Id: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v5 6/6] ARM: dts: aspeed: g6: add aspeed,vuart-over-pci
- prop to vuart3 and 4
-From: Tan Siewert <tan.siewert@9elements.com>
-To: =?utf-8?q?Gr=C3=A9goire_Layet?= <gregoire.layet@9elements.com>
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
- devicetree@vger.kernel.org, gregkh@linuxfoundation.org, 
- jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, lee@kernel.org, andrew@lunn.ch, 
- jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, ninad@linux.ibm.com, 
- anirudhsriniv@gmail.com, tan.siewert@9elements.com, 
- linux-serial@vger.kernel.org, mfd@lists.linux.dev, 
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <8d24d424b3504105394055de268e0a11515635a9.1785932211.git.gregoire.layet@9elements.com>
-References: <cover.1785932211.git.gregoire.layet@9elements.com>
- <8d24d424b3504105394055de268e0a11515635a9.1785932211.git.gregoire.layet@9elements.com>
-Date: Fri, 07 Aug 2026 10:37:09 +0200
-Message-Id: <178609182924.193353.1528505361399129387.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786091831; l=2379;
- i=tan.siewert@9elements.com; s=20260527; h=from:subject:message-id;
- bh=/UdSyTf9Swt5Ml5qDkK3fqt0U1o1wltMS/fTtppqJ+4=;
- b=Td0FBVHZjwGzgXbgiKllL4oZyf/Dbkogo3BlU9t3xclOt5YoCOrEbt8mL9QHVk7XLfkFRJ7Wa
- 6EY3etRH2R9C3Q3YQKlDY8mjaPAEc28k3jIyzjAH3Oq3M2RB4ymHQFB
-X-Developer-Key: i=tan.siewert@9elements.com; a=ed25519;
- pk=ORQd/zQf+LsAvJGXP1CjQwVO6t6iEOGq/eGUsmRVTG4=
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-> The VUART 3 and 4 are VUART over PCI.
-> Set this flag to indicate this information.
-> Also set the syscon phandle.
-> 
-> Signed-off-by: Grégoire Layet <gregoire.layet@9elements.com>
->
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> index 7c02633f2bd6..fbd7ab6332a1 100644
-> --- a/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-g6.dtsi
-> @@ -722,7 +722,9 @@ vuart3: serial@1e787800 {
->  				reg-shift = <2>;
->  				interrupts = <GIC_SPI 180 IRQ_TYPE_LEVEL_HIGH>;
->  				clocks = <&syscon ASPEED_CLK_APB2>;
-> +				aspeed,scu-syscon = <&syscon>;
->  				no-loopback-test;
-> +				aspeed,vuart-over-pci;
->  				status = "disabled";
->  			};
+This series adds initial support for the NXP PCF8525 real-time clock.
 
-dt-style check fails with:
+The NXP PCF8525 is an I2C RTC with the following features:
+- Time/date keeping (seconds to years, BCD encoded)
+- Alarm with interrupt support on INTA
+- Two hardware timestamps (TS1/TS2) exposed via sysfs
+- Crystal aging offset correction via the RTC offset interface
+- Battery backup with configurable backup switch mode (BSM)
+- Optional watchdog timer on INTB
+- Optional temperature sensor via hwmon
 
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:723: [property-order] property 'interrupts' out of canonical order (should sort before 'reg-shift')
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:724: [property-order] property 'clocks' out of canonical order (should sort before 'interrupts')
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:726: [property-order] property 'no-loopback-test' out of canonical order (should sort before 'aspeed,scu-syscon')
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:728: [required-blank-lines] "status" must be preceded by a blank line
+Patch 1 adds the devicetree binding document (YAML schema).
+Patch 2 adds the core RTC driver with time, alarm, timestamp,
+        aging offset, and backup switch mode support.
+Patch 3 adds optional watchdog support via Watchdog Core on INTB.
+Patch 4 adds optional temperature sensor support via hwmon.
 
->  
-> @@ -742,7 +744,9 @@ vuart4: serial@1e788800 {
->  				reg-shift = <2>;
->  				interrupts = <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>;
->  				clocks = <&syscon ASPEED_CLK_APB2>;
-> +				aspeed,scu-syscon = <&syscon>;
->  				no-loopback-test;
-> +				aspeed,vuart-over-pci;
->  				status = "disabled";
->  			};
->  
+Shiv Prakash Gupta (4):
+  dt-bindings: rtc: Add NXP PCF8525 RTC
+  rtc: pcf8525: Add NXP PCF8525 RTC driver
+  rtc: pcf8525: Add watchdog support
+  rtc: pcf8525: Add temperature sensor support via hwmon
 
-Same here:
-
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:742: [line-length] line exceeds 80 columns (92)
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:745: [property-order] property 'interrupts' out of canonical order (should sort before 'reg-shift')
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:746: [property-order] property 'clocks' out of canonical order (should sort before 'interrupts')
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:748: [property-order] property 'no-loopback-test' out of canonical order (should sort before 'aspeed,scu-syscon')
-    arch/arm/boot/dts/aspeed/aspeed-g6.dtsi:750: [required-blank-lines] "status" must be preceded by a blank line
-
-Tan
+ .../devicetree/bindings/rtc/nxp,pcf8525.yaml  |   86 ++
+ drivers/rtc/Kconfig                           |   26 +
+ drivers/rtc/Makefile                          |    1 +
+ drivers/rtc/rtc-pcf8525.c                     | 1366 +++++++++++++++++
+ 4 files changed, 1479 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
+ create mode 100644 drivers/rtc/rtc-pcf8525.c
 
 -- 
-Tan Siewert <tan.siewert@9elements.com>
+2.34.1
+
