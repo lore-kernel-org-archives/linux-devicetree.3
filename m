@@ -1,174 +1,249 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B294B04AB
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63109392C4C
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786136114; cv=none; b=WHUVs2t/VlBrpJLTYWk+4dPGnoBiSZ3JdiTcYyibUbHEuExZ2mHd0LWXrA6zAmSkc/FmIfN3agioVWtv1rrDM7mTR/IW9C5sKX5mRVLYcqf/F8tjzIVLlH4I9wfPVy1m2r/ttvUx4GH16SAnZsczqWPwKxoyfFJDXYHmXsl+JGE=
+	t=1786136300; cv=none; b=I3OLBBDv8CfspTfi5QBJOpI4rS+3750Io/f0I8Ymn7i5lQADBXcutS39/WhLEZddPT1wC4hCc2vAMwaMvpTMHJZcIFmm7QuNG0qhblGRlGa192u6h7GY6+9ztQ5OLMMD201bmmtA21IP3S6RhYYB8PuGiOQELyYqSEyVk9MdaCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786136114; c=relaxed/simple;
-	bh=KfrkmwEYcp0t/yQ7DslMKdgDKxQI2Aw/QCNqab0oIkA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VjtZTBALjiJDArba1zX/MHvX+GUjyP7Qoi8aa39BenPyH0dqZ47cMoVZvrJMT4f79unG9nwaYgQm5Ams4pfi7bYqNJGDtlqixv7wG8cZwbQWpVBMmKhl62wT52yLlEWzqNzbRnyGTU1Wb0oqvmA9QsxvQCAmaQcoIuET+EDiLAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=IMJtL1e/; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1786136300; c=relaxed/simple;
+	bh=QD8HDsLorTOwKnowHDnWqEIpmV2BBsi6qi+p+7WJzwA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BEvy6X6ZwAp3eTbDxnXyR1/h+Mp8VC6ShfOJQ/BVmrCOu5cyjEdWG5IFxc0GiNeVXFidDcktsvIIZPZJsezY0JU/lUbNhw9O5m/6EF0yt6FDchsYj7n0E5Os0Pyp9Pf3hIX+riDS3Jzdv5q1x+xfLlIK0qVMgHFhxQS24a34VT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=JfA8ehcE; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="IMJtL1e/"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4954aff6088so38178925e9.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:55:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="JfA8ehcE"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-930f4e5eed1so238948085a.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:58:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786136111; x=1786740911; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=S9/O1JVdMIdtzlVv0nB5F/waAjRRKXc1DJxcx9UYBuE=;
-        b=IMJtL1e/08dm3olngAfIblkIKw93s2OZXSH2WY3OYtLEp+HrC/bVe10X28DjmvCYlP
-         OEduO8ONORsoGMLNwKB1n7nZFbVFhCZou5nlvBKBk4Ym4cj7yV1LXxIJ/7nz6Ssvfhm2
-         ecpi6DQGuaSUbMjRCEfiRiL5f1XGV9bNAQf+8ayKBgq9StQMgHaHrTvyWoGdkD8MTuEr
-         G/0co2HAxqehrNxqTcJMOG4XhfWBeU6qKR762GGEu28rJkDfZKy/k7/ZPiJbIKDhKmHY
-         nvvTiABcs6xjHEVqtKF60rEFymGcMi08MnZDUXF6n+YELTtQ4PANYIuzuUUg6tZW5CW4
-         3GPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786136111; x=1786740911;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786136297; x=1786741097; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=S9/O1JVdMIdtzlVv0nB5F/waAjRRKXc1DJxcx9UYBuE=;
-        b=NE42OeAHLZric0ZDcfYPcBcp7bP3kufoHsblczQJpyAEnoQsQgLq7jqfdOlmwXdVXc
-         OlWPas6mQF+TurWKSeRwwXLnQGiSFMquXbAR83WP8FnIe5qiJibO3XXMHiDckK+f8H/w
-         TE5fYv/39e3Jl8yppD731bhQcG3QUzbgbL/S1hG/C2RU9B0pq/NAttZ+/Bf56f6YemBD
-         8VYvstCCzcHWuVM1KhCYsge+/ATjG8CJiRGbxbul3nl3yPX91o6knwt7qKHaz9wrUQk3
-         /ZVvnd07sVwIC1y9tAbNgfKJ83nMfqcAJNndfcrNsLSKPKcYGKMiaK6MBITaYGWA/2my
-         n54g==
-X-Forwarded-Encrypted: i=1; AHgh+RpaOKiT4ScHV+fohDiS1tDs19rddIsKgWK1hWGDR9gMyn3MShCOcHGjZImM/AHXKZ38Z3ACnEkP235K@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+HiswgZDjYqE0hV/a6fNm8fcDGR053zcZ4gSz6AkkhDp/lKEM
-	WZlNS9+IG7TE1DHIVAEX6VVntImlhRlUlT++CGGMi8vMJfLpFS7c+U9isavzfslyTEY=
-X-Gm-Gg: AR+sD105lygHYDdQyDumM9PWgsmu9jPMo09VGl2JIwmA+7x0yAqD0yINQJiLM1J9sb0
-	+HyN+MfwXBaCozoNne+u0eDqAvWEgttned9Mk2gRFvkQoy+H8Ot7IYBJRKCyz96/LGFhXjTyODT
-	2f9f/H5cN+wqy08AohlxtLduqmu1fUZDSmGp3ETqqUy6QGNlt8ap25Cee96+KybMjh53M4yhgMx
-	CEUKwejGmwEYlKcvt6VTo2pdRzAJxQO4bnH24li9pHsimbZAd44ASKxENvVrBPRILwh8IC9JtSV
-	ywEW3tb2eU2XOuzRqn97ZRdylBBmhZHRAtgsdFPLUNY58iU7hPUlT7zLTLHF7nwD9K4B0FIi0K9
-	GjfuubtrNAL1PpMZRYNLkwEhpqj8LXUQMmcCZjkf0xYgxTCgHHz1zA/2IPZ09MCZm7r0c2R4Hf1
-	YzB84VDoGOmXcgACS+tumIOY8EReO1AIq4o6cC0yprdyDTrpbTn6iKz902+7Vm4G4rqIA=
-X-Received: by 2002:a05:600c:630c:b0:499:4d4a:4990 with SMTP id 5b1f17b1804b1-4994e74566bmr268092245e9.3.1786136110351;
-        Fri, 07 Aug 2026 13:55:10 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4995bb8b668sm68594735e9.0.2026.08.07.13.55.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 13:55:09 -0700 (PDT)
-Date: Fri, 7 Aug 2026 22:55:08 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: bmasney@redhat.com, sboyd@kernel.org, mturquette@baylibre.com, 
-	robh@kernel.org, krzk+dt@kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
-Subject: Re: [PATCH v7 2/3] clk: cs2600: Add Fractional-N clock driver
-Message-ID: <anZEtfI1tFz8Xc00@monoceros>
-References: <20260807155406.752721-1-rf@opensource.cirrus.com>
- <20260807155406.752721-3-rf@opensource.cirrus.com>
+        bh=pd1I5KUa8f+9TeyWUaIVVVrtIGXgdlxuJMrpjZwfZjM=;
+        b=JfA8ehcEwSsb0dYI8sUurakn1AqTAntPNwgfuzVABs3SxvLoJDg+nB70MvYyYGkbiy
+         uwrgNGIql4pqqbUVlLPpk/IMmeXkmdTJyaSfj4drr/N3rd8XPpb6N+MpUO7/tg0yO1IH
+         6Gdvor6UVDnb8mA5OoehjXlAW0HlPrnLHWtjkzp760/XD2kC+XAvmX189MPpxsP6E0pl
+         fGdRM9knf2NLbs/LuMfD4oEfAOpB8TIVbbLIyMILirpun82bTVPsqmB7veXzP4077NQ5
+         NG0LbTuX+jrUeABCVzLBrNJPaih/6cOaYJTV1TlExe/3scnircSHd+s3lwaQr804WF5i
+         82Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786136297; x=1786741097;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pd1I5KUa8f+9TeyWUaIVVVrtIGXgdlxuJMrpjZwfZjM=;
+        b=OdK9LBxIORxekvvy8sepOsjp8hx1WT8HEGmtF+M9eDDyDGjQ8QnGcL1AlnEm63WZXx
+         +dZCvVkQiaEC2VNqjR5ALri/bkMyIfHzABXG6P9dPbk9cnpz1nXeqarwCRNHuirryFc1
+         XSvcFiMoNxYnukceo11TQ+vWc5XgpVFYv96O0Ke4ExK2CBlh+cDVAqI50/4WT34Pa1Q1
+         0a2/MqyMpmDCL2k5PqALjw1jToh9/Xk0k/YsrMPKvMdPGQyVlTmw12epHefmsyi5w+nr
+         KfTvFe/0tSW1b2zynj0xyHOmwO73WFLJ4iwA5VHs84cTRiKWtxbVSO3c/PQ4qhn8O1AP
+         JS9Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpJGBwy+hg/7IMs2vhGw5arJhF2C35PEhx+yOqYhTO8wnkuwEitoHWwUaQedB9MoLeClSAqPhiYYEq7@vger.kernel.org
+X-Gm-Message-State: AOJu0YwH6p+Xq2M4tuiBBU9vUQ7Z5pFvg0WLAcsDUJMvPOs+mGDabo5D
+	NcxEDso7Yq+HfSkvqSJgGi9MloU8dM5ThjenqX41m3IQUy+WRaQH2FsF+4NG/HsGTH4=
+X-Gm-Gg: AR+sD13QSq8K8LGRMyIU7Aj0wnguJXrKHN3VseW/paVhDAa9fkyPrCTrdvsh6QyNkUX
+	m8ZBbKW4kCC+7I2cO5UbUA38Av8S2TFSvnZApWLoc/afZ94CTm0wciD9worvmUUh0dXDmUCdSiP
+	Ybwu0AqRC/ODjbGhBfibFrWzQNudzxWP/zlq+g4bAZFNGbG4gt5lc6/pgA8BhucEzNKORWCD/XS
+	/2L1199RIcBOl9M+/q5P+PS+TQ8t2Ara6vV0ccUSNymRpxe9xauFzcyzPetP7OF5W5nz7XIkuS2
+	0XThYaYKtHY0jL7KZaoCVqCPeS64G7FatFOBSaU616wwD8JMDvGKURWVl30tvS7cAG5HddJlNv9
+	anXYFqln+rYdaLAFfZsWaYmKJa4tGmHvXLzAVP7C+oFT5DFgcoiORM5xpY+bMmTCP+OmBcrZjB6
+	s6Yt1paRbBygOwm6Ko2YhmvciZrVCX52TSskItF+oRU9p0PAZBp6g1rWgVHzBgVDeB96rfFUI=
+X-Received: by 2002:a05:620a:12c3:b0:8cf:c106:faca with SMTP id af79cd13be357-93649267a91mr2416475185a.36.1786136297181;
+        Fri, 07 Aug 2026 13:58:17 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9366e09dc07sm233090185a.15.2026.08.07.13.58.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Aug 2026 13:58:16 -0700 (PDT)
+Message-ID: <a647bd56-7dc8-4fec-9d96-834622054cdf@riscstar.com>
+Date: Fri, 7 Aug 2026 15:58:15 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xk6npk4zzon3kkwe"
-Content-Disposition: inline
-In-Reply-To: <20260807155406.752721-3-rf@opensource.cirrus.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] PCI: of: drop the reg_num argument to
+ of_pci_set_address()
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org
+References: <20260807194100.455599-1-elder@riscstar.com>
+ <20260807194100.455599-2-elder@riscstar.com>
+ <20260807195451.C3BAC1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260807195451.C3BAC1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 8/7/26 2:54 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] Missing `of_node_put()` in `of_pci_prop_intr_map()` causes a memory leak of interrupt parent device nodes.
+> - [High] Missing NULL checks for `kasprintf()` returns in `of_pci_prop_compatible()` leads to a kernel crash via `strlen(NULL)`.
+> --
+> 
+> --- Patch [1]: [PATCH 1/4] PCI: of: drop the reg_num argument to of_pci_set_address() ---
+> commit 2224ebd8fd372dc1822f3ceaf7519520a5ca9bdf
+> Author: Alex Elder <elder@riscstar.com>
+> 
+> PCI: of: drop the reg_num argument to of_pci_set_address()
+> 
+> The reg_num argument passed to of_pci_set_address() is always zero,
+> so get rid of it.
+> 
+>> diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+>> index 75a358f73e694..505226b876c56 100644
+>> --- a/drivers/pci/of_property.c
+>> +++ b/drivers/pci/of_property.c
+> 
+> [ ... ]
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but while reviewing this file I
+> noticed a potential resource leak in of_pci_prop_intr_map().
+> 
+> Does this code leak the interrupt parent device nodes?
+
+There are two device nodes at play here.  The first is
+passed in as an argument, np, and although this is referring
+to the other one, I analyzed it anyway.
+
+The only place that pointer is used is in the three
+of_changeset_add_prop_u32*() calls at the end of the
+function.  No reference is taken or dropped to that
+node in this function, and presumably that is up to
+the caller to manage.
+
+The only caller is of_pci_add_properties(), which similarly
+gets the node pointer as an argument, and relies on its
+caller for managing its references.  This function's only
+caller is of_pci_make_dev_node(), whose purpose is literally
+to create a new device node for the purpose of attaching
+it to a PCI device node that has none.
+
+So I don't think there is any leak of the np variable passed
+in as an argument.
 
 
---xk6npk4zzon3kkwe
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v7 2/3] clk: cs2600: Add Fractional-N clock driver
-MIME-Version: 1.0
+The second device node is pnode, which comes either from
+pci_device_to_OF_node() or from pci_bus_to_OF_node().
+Neither of those functions takes a reference to the
+node pointer they return (assuming it's non-null).
 
-On Fri, Aug 07, 2026 at 04:54:05PM +0100, Richard Fitzgerald wrote:
-> +#include <dt-bindings/clock/cirrus,cs2600-clock.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/clk-provider.h>
-> +#include <linux/container_of.h>
-> +#include <linux/delay.h>
-> +#include <linux/i2c.h>
-> +#include <linux/math.h>
-> +#include <linux/math64.h>
-> +#include <linux/mod_devicetable.h>
+That pointer is assigned to each out_irq[x].np field
+before it's passed to of_irq_parse_raw().  The value
+returned from of_irq_parse_raw() will either be a null
+pointer or will be another device node *with a reference*.
 
-Please drop <linux/mod_devicetable.h>. You can rely on <linux/i2c.h> to
-provide struct i2c_device_id and of_device_id.
+We'll refer to this as *THE* reference.
 
-(Background of this request is that <linux/mod_devicetable.h> should go
-away soon.)
+If this branch is taken:
 
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regmap.h>
-> +#include <linux/string.h>
-> +
-> [...]
-> +static const struct of_device_id cs2600_of_match[] = {
-> +	{ .compatible = "cirrus,cs2600", },
+         if (out_irq->args_count != intsize)
+                 goto fail;
 
-No comma before a closing } in the same line please.
+The code at fail will properly drop the reference:
 
-> +	{}
+fail:
+         of_node_put(ipar);
 
-{ } is the most common way to write the terminator.
+         return rc;
 
-> +};
-> +MODULE_DEVICE_TABLE(of, cs2600_of_match);
-> +
-> +static const struct i2c_device_id cs2600_id[] = {
-> +	{ .name = "cs2600", },
-> +	{}
-> +};
+The next block of code gets *another* reference to ipar,
+then follows the OF parent pointers up, dropping the
+reference taken as each new parent is found.  Once
+that loop exits, we still seem to hold THE reference,
+though others seem to come and go properly.
 
-Here the same please.
+Next there is a "big while loop", and it looks to me
+like this return statement:
 
-> +MODULE_DEVICE_TABLE(i2c, cs2600_id);
-> +
-> +static struct i2c_driver cs2600_driver = {
-> +	.driver = {
-> +		.name = "cs2600",
-> +		.of_match_table = cs2600_of_match,
-> +	},
-> +	.probe		= cs2600_i2c_probe,
-> +	.id_table	= cs2600_id,
+                         pr_debug(" -> got it !\n");
+                         return 0;
 
-I'm not a fan of aligning `=`s as it gets inconsistent over time. Here
-it's wrong already from the start. Only 2 out of 3 members of the
-i2c_driver use alignment and .driver doesn't. If you ask me, just use a
-single space before each `=`.
+...does indeed leak a reference to ipar.
 
-> +};
-> +
-> +module_i2c_driver(cs2600_driver);
+There is more to study on this function to be sure this is
+right.  But based on this quick look, the Sashiko report
+seems right.
 
-No empty line before module_i2c_driver() please.
+==> Can anyone else confirm or refute this?
 
-> +
-> +MODULE_DESCRIPTION("CS2600 clock driver");
-> +MODULE_AUTHOR("Paul Handrigan <paulha@opensource.cirrus.com>");
-> +MODULE_LICENSE("GPL");
+If nobody tells me this is wrong, I will plan to submit
+a bug fix for this.
 
---xk6npk4zzon3kkwe
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+> drivers/pci/of_property.c:of_pci_prop_intr_map() {
+>      ...
+>      for (pin = 1; pin <= OF_PCI_MAX_INT_PIN;  pin++) {
+>          i = pin - 1;
+>          out_irq[i].np = pnode;
+>          out_irq[i].args_count = 1;
+>          out_irq[i].args[0] = pin;
+>          ret = of_irq_parse_raw(laddr, &out_irq[i]);
+>          if (ret) {
+>              out_irq[i].np = NULL;
+>              pci_dbg(pdev, "parse irq %d failed, ret %d", pin, ret);
+>              continue;
+>          }
+>          of_property_read_u32(out_irq[i].np, "#address-cells",
+>                               &addr_sz[i]);
+>      }
+>      ...
+>      return 0;
+> 
+> failed:
+>      kfree(int_map);
+>      return ret;
+> }
+> 
+> of_irq_parse_raw() populates out_irq[i].np with a device node that has an
+> incremented reference count.
+> 
+> Should there be a matching of_node_put() called on these successfully parsed
+> nodes before the function returns?
+> 
+> [Severity: High]
+> This is a pre-existing issue, but I also noticed a potential NULL pointer
+> dereference in of_pci_prop_compatible().
+> 
+> Can this crash the kernel if memory allocation fails?
 
------BEGIN PGP SIGNATURE-----
+Yes it can.  of_changeset_add_prop_string_array() blindly calls
+strlen() on each array string provided.
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp2RigACgkQj4D7WH0S
-/k58Dgf+MClFTxmS/qK0orwG1HB6xEl5A6Df4iMYUnOfblE7l7XB5JJJeO/A5XyB
-zCNvQ5obXXkYh7UnOTBCOCqCXMOAhRFkMWL/71plvOo/xogZC9cICDs8LjElucLA
-meOkRGqabSTG4YnkLr5mDOP3lFYEUxmAN0NIcMUCUTrOY833wpDDdbVqfioMqXb0
-V0bh3jEEoSqc5S0VtSzmTWsXUl5j9JNUZd/9+vaZdpsEYov2U2UXVyv2mBqglfEM
-zAdXsQoUF8qimawimqOhCcM/ll5LFxLwJwDUd5ccK1R3nocXeECwRPu9hh8PrHO+
-nniM1hBbVlJjPOHVZz47EU46oOUTvQ==
-=69FK
------END PGP SIGNATURE-----
+I will create a bug fix for this issue as well.
 
---xk6npk4zzon3kkwe--
+					-Alex
+
+> 
+> drivers/pci/of_property.c:of_pci_prop_compatible() {
+>      ...
+>      compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] =
+>          kasprintf(GFP_KERNEL, "pci%x,%x", pdev->vendor, pdev->device);
+>      compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] =
+>          kasprintf(GFP_KERNEL, "pciclass,%06x", pdev->class);
+>      compat_strs[PROP_COMPAT_PCICLASS_CCSS] =
+>          kasprintf(GFP_KERNEL, "pciclass,%04x", pdev->class >> 8);
+> 
+>      ret = of_changeset_add_prop_string_array(ocs, np, "compatible",
+>                                               compat_strs, PROP_COMPAT_NUM);
+>      ...
+> }
+> 
+> If kasprintf() returns NULL, the compat_strs array will contain NULL pointers.
+> 
+> When this unvalidated array is passed to
+> of_changeset_add_prop_string_array(), could it lead to a kernel crash when
+> the string array is processed and strlen() is called on a NULL element?
+> 
+
