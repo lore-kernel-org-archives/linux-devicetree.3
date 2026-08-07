@@ -1,405 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012066.outbound.protection.outlook.com [40.93.195.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC443815C3
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:42:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786110169; cv=none; b=uJfceWDKa44PM2LLtaPjEQq2qEpCd2AjfaKzPf0/8qF9VwP7UjCKaQIwnXzO9x8fHsNZX+nKW+hjbjD4E7up4YXd3+V7p7tq6T6tNSt0pj4WzyE5ifpLo56CIIzMBRgThibbZ3SG3ZOLDBxibvb7Y62THholF4z/V20TtHC53Zo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786110169; c=relaxed/simple;
-	bh=ug9gPNBT0dHwIRjViBXQX/awgDAQTKmQmA6Wqon1Sic=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XoYa5mWBvV7QgIbtuKVgIfjUH/Iqdpr+s7rTUo5m0zEmiIykE5uWQJnDMpmg3NnmesS4Oamdrh9zOL8EDJlUdleXjlJPCipKOCPimmtZgH6EkrLv0DzaXEwg+bepWcr4kKpTkuAlheL+gD1qJ1hy+UsedSYAOJC2bDd40UtDnKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iHaBXrTg; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1856047A0C3
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:44:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786110249; cv=fail; b=I6oQYuDBSc4Sq1kjjbt08AHvYGhIRzhXut2OU2XZN23U9QznWb5MoW/VIFMyO5sotfd/ogPucBhK0eW0xicGVMAJpzgV5attz87/DH7k4Jx3GlIMCbOiwBCpsMpCDaQZ+xVOK7zyFMdYA9wHdPgbU3Gg74JQYX9JR24B7MDlJGU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786110249; c=relaxed/simple;
+	bh=I4g2WADAptHnQB2ULgrVResrcaXa+gcxMRMd5UECbaQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=AW3RdA09PKtvKDT2KFde+EBTsMLG6X45v+Prd5rj7Bu6AU0Ty7y0GtEBBEvUp5hbtvOkYrNxleWAUv9jVfan8gHzRP3sqFbpK2PEiHfBqjMIyW/6htqw03HUWxt0/S9Y1Cyga2uMi5mRUr4LJMbMT3QXprZQWvqn6e4YaGbjG7s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=wstWCYOa; arc=fail smtp.client-ip=40.93.195.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iHaBXrTg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249BB1F000E9;
-	Fri,  7 Aug 2026 13:42:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786110157;
-	bh=Zp13FvG/6XChZ/3wErU+YhvaSD2ZUlkCkqwZ9g8mzEw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iHaBXrTgLGiN0F5OQN/nQVy/8WgHE/xP4WIcw5AQWU7YmBgHMpCMLIfNEuxSWGB41
-	 hXR85l4Few6XqEmch6Rd4fFzD0vO71xim8unhvuZZ3D+Cg0/FbmXihtZ4Ig/JzsZW6
-	 PLSbQ4gwBY8iUKm7J4fExTczpHz1X0WuQyBY2zfC6L8eDrHmwx2LHmRRRc+7e0lp+S
-	 FYH32Gj3XWquL0u6TImdR/uPY0iP99pRtV595MdMl9EQeW2OHQONJx/EuaTLNKxWlw
-	 SvB1ro/aNq46L/BW3CqKpw5gYgO/QNoIS4pHBGB8bcvaHZemDRzYxRF5TDovO+CV+K
-	 TgbVdc5+ERYxA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 14/22] media: i2c: add Maxim GMSL2/3 serializer
- framework
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-14-7212e9e5156a@analog.com>
-References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
- <20260807-gmsl2-3_serdes-v15-14-7212e9e5156a@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 13:42:36 +0000
-Message-Id: <20260807134237.249BB1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="wstWCYOa"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GZXJ5BEcyC+aU6o9EOfrhkS3qFmH2Gi+xV9I4mDN6Txe0OX3Sihl6t6M1U2Kvej6nGLvPEk8MOaRMxD7Q9xGAyQRb+gDrhYe8efyVL5mK2YeGg4R6TjzV46UOVBKQRrRU+6d3Y2yr0oE/gIZpWDz/3jUMBviDDFj+OSINESEgjN2KYEOgf3SyuvewIF7ov74++XD2+Ob6FvyXLM6r3ROiWKB4lMy8uWkN/0LtauletnGXQRiR/VctFpsjAu2p4fJbRZTW+UdmO+QR5yX9cje6GHoD69aCL7WBQN1TEq4CpWKK7Arxm4gikQvZzNGluUdkUHCjUjzeqhLrVN+RL/Bsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I4g2WADAptHnQB2ULgrVResrcaXa+gcxMRMd5UECbaQ=;
+ b=Usr9nACYGudk0gzDhfjUbVfmscCphpZVLoKRS7I+8VAVOelFZo9hu3SI1Ms/7tWwy4qibhDinfHF2y74F57JqYHNW1Cu0Mnmytp+KEJ1t40UNjF+oXR3MRp1mET4yFF+JIkLwbjKl37xUU4jlt5h++gVkcol1Jsb3N+jzcmn8yx+Bzsud7kfUmBREpkuorUVH2RlAOweX1z47JFlUD5aTO4j6E8UcI1wuei5RfBNADt238nUic5tzVfOTEHOXkK9gymqJsi36gbBF4DDt9YQEs1rmm34O6h2GJV5r8WNMAxN2Y2Onohd3gl7crSPHaE5OS7dUmxeZDvXN5ye9x4QJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microchip.com; dmarc=pass action=none
+ header.from=microchip.com; dkim=pass header.d=microchip.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microchip.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I4g2WADAptHnQB2ULgrVResrcaXa+gcxMRMd5UECbaQ=;
+ b=wstWCYOaT9dDcM9pfdqD8gmycyX6N9XV0h5hkHMC+meirvL3Hq+1GEUQFXAncMYhVGvfuOJXmw7snHx+nZswQ/mSPgWVwYgwPE7QeeudfKn+8F9pRHts3YUEJyyESbrnJLBRdF4E7BpjpsDz/d3cfoLBxbC+XNjaPG5cxZwto9z3R6A+QUHElWjZhh0U1rG4a2GdgVAANqs29pcgwKZ86PSgoQs01eYtDaVUBpYuLiZn6BWwQarvGzwuo0JzICDOAxV8rlzTIy0JnuSeXHIY5gekpwyZOqSnstteM7SOxSm9OLCAq0anSI5Xp5EqwKBNvrDjJ3sLNiUApd4YdEDxpA==
+Received: from BY5PR11MB3990.namprd11.prod.outlook.com (2603:10b6:a03:18d::31)
+ by DM4PR11MB8203.namprd11.prod.outlook.com (2603:10b6:8:187::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
+ 2026 13:44:01 +0000
+Received: from BY5PR11MB3990.namprd11.prod.outlook.com
+ ([fe80::2349:6631:bb47:77d3]) by BY5PR11MB3990.namprd11.prod.outlook.com
+ ([fe80::2349:6631:bb47:77d3%4]) with mapi id 15.21.0292.022; Fri, 7 Aug 2026
+ 13:44:01 +0000
+From: <JensEmil.SchulzOstergaard@microchip.com>
+To: <sashiko-reviews@lists.linux.dev>
+CC: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH net-next v11 5/9] net: dsa: lan9645x: add bridge support
+Thread-Topic: [PATCH net-next v11 5/9] net: dsa: lan9645x: add bridge support
+Thread-Index: AQHdJOgZAhqWNOEduE2GzIpZ++N6z7aRGLqAgAGDDoA=
+Date: Fri, 7 Aug 2026 13:44:01 +0000
+Message-ID: <55a7fa85aed544e9652fce746a6c57bd61791331.camel@microchip.com>
+References:
+ <20260805-dsa_lan9645x_switch_driver_base-v11-0-007ebc983a0a@microchip.com>
+	 <20260805-dsa_lan9645x_switch_driver_base-v11-5-007ebc983a0a@microchip.com>
+	 <20260806143840.00FCC1F00A3A@smtp.kernel.org>
+In-Reply-To: <20260806143840.00FCC1F00A3A@smtp.kernel.org>
+Accept-Language: en-DK, da-DK, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microchip.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY5PR11MB3990:EE_|DM4PR11MB8203:EE_
+x-ms-office365-filtering-correlation-id: f5a42646-ff65-4db4-e40a-08def489f037
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|38070700021|56012099006|11063799006|10067099003|4143699003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ 7fkwQSitOAW2YuT+ErVOPUD1T8zOl6FIhD00cPWPo+lFEt8MnIU26rMopqCIj7sgU+iKiYtMzEjHIAHdujYKZ1vicSjPvEr52EVSaZMZwwn92L5FyTo/KJTurWupihYJnP7tk2bLU1a4F8rBJSZFn8DORztovDq4taycJWNhgZ6b8rqJlRlO+7j0nQ6aqhbaBcrd++uDYs3hBuYl8+BP2uakdi5EJR6a0A+xnQn+LcAMPCR3UpSFiDUJk/llxtlytfN6z7KHsthA1AR/Bo4xBqJyLYuNj19VGBPrJKdwkT9Hak0ESA1V285v50FzT3unwc5jh+9tg9g3hx2Pnc8vDvRNOTSK1srr21ikVf6Jbj24QkGkeP+HxA8kbpbLxcPvYXWayHOdCRHyK0bFdE30MmFI501vhYxA597LGv3kNabIjTrr7fAfAXsvAVBNduCkQ5K98LyyLQs/BWliFuuEI4ixtleLo+iw/20K+SK7OSZiW05UVAflk+lNlRoLzk31+Xfq74MCt+vGK0okWcR7Y5u0MwrEEdiPvRS06qyIMmvxdDJtV+nGW/pOtrhEKWvKSdt8L5uz2Rb+OQx0eaXNS8/GOhIzNoto8zWYWlSJC3UOD1sBgw9gbR5ucIrUNvUiss+cjFlIz9gWSULyfMhkauWZiiInpRq2lX02+LfruCY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR11MB3990.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(56012099006)(11063799006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QlVvNGFjMm1Vb1Nqc2dJU2NIY090eTNiUFBVSmx3KzdyRUlKekNMYnlCUEtz?=
+ =?utf-8?B?VndxTFpUQjBrbGZnQ1NRMUNKa2NvNUw4Q2pOZlpoMjF0RG5ybnFxdDBPdTEw?=
+ =?utf-8?B?ck13bDRGT3o3YnRLT3RDNWFKcHUzaVQ0dzRMeW9VYm4zVVoxZklHUGt4K3pY?=
+ =?utf-8?B?dUtmbU5TQkJQbDI3MUdDN0VtOHAxRm44Lzl2YUt5cjFXSnc4OTBZamFJN3BE?=
+ =?utf-8?B?emFFMlJ1b2xLcVZUNjM4b0hxM1FiVFFsUUNHZEg1U09zWlBUSGZCUTZHeUov?=
+ =?utf-8?B?TnFqUVJ4S3daZFZxaWRHcHhKRGdqUExIajdrZi9hTTV5ckJjdzFuNlFqcG5F?=
+ =?utf-8?B?dDJodFZ1dVZxYUN2YUE4UUh2ZVpHcmMyVTdTRWxTSmR6ZlFNZUZVOWxJMUhn?=
+ =?utf-8?B?QmFkSXc3ekZIeTBHMCtabUkveis5RDI1TVRUZHBRb2RMblMyQWwwSXBRSnZ6?=
+ =?utf-8?B?UkRUVjlKT2VRdlRBTk85Q1lZdUFTbFVaU28xRWNuM1J0bkdGTi9xM0ZWb2VU?=
+ =?utf-8?B?M1N4a3ZaWUFmZEJOc05xZGRmem9FVFFuc3hKUTJXeEErQkdlaDl5Mk5HMjdx?=
+ =?utf-8?B?bHJ4cGxUeTVFN3l5WXVSUEFPVHRJYWNyRllHY3BiWkl6MGdIMHJ2NEhzRWRV?=
+ =?utf-8?B?RmVDZVhPYjNMaHNBZFdtUC9Zckh4WkRUY3FDK3VoN1MxR2FmWWViNmR5Ui9j?=
+ =?utf-8?B?dHlsUmtGampIb3NOZnYxamhpTHdFQk9NUDBDdi9oQk5YeUxsUEtCbVZSMTdv?=
+ =?utf-8?B?Q0lWTHllbUVKdXNOakZaaElJNjVtZ0Jpd1doNDVoYUE2bWVKMlFPeVdwS2dz?=
+ =?utf-8?B?T3VoTEdnMTVIdGhDdHM0ZnRRTkFNN0FwRWZMaENWbEtQMmJrcEk2eWN1T2dX?=
+ =?utf-8?B?WElVYjhYVm92YmFOcnUxR25FTEl6cXB5QVU5TnhkMnRIejJjOEFRNXNkUFoy?=
+ =?utf-8?B?OExPUDl2bVdlSTQ5RGUzakpaUTU5eEtEcERNa2M2czR4UUtTdGZJNVNsRXhv?=
+ =?utf-8?B?M05rZkhKWEdMak5rN1lsM2R3SWNXTFpIblJwUVBOM0IvcmgxVFVTbnZOcDBY?=
+ =?utf-8?B?dTI3NS9vUzhxK08rd1Nuc1BHVVAwdXdEa1dtOXhDeTdDaGtqMmpna2NuY2tB?=
+ =?utf-8?B?NlNBd3UvZzhNMFpGdVh1RFdCVjFjcFdhbDJ0TDBNV0RraEJGTkVHWG5YUEhN?=
+ =?utf-8?B?T2k1b0RRREkrRGdQY0tuVXlKVS9xRjZJRUFIb3hIV093YXN5Uk1NSzFXcVpW?=
+ =?utf-8?B?eVRGSnlLendhQ3d0UkcrcHpRT0E0SVJ0UHR6TFpMNVQxU2NKRlpZY25nR1RC?=
+ =?utf-8?B?T2ZhVUtQRHppM3RQbVNrSm9mZVJ6RzV1MjJkaWRlM3lyd0hDSHFaYTJrYWJm?=
+ =?utf-8?B?Z2lybFRxQWZGZ29rbWZneGhwMHV0QUZ3RGg3NnFqZjlYNlJpTlVOT1RQUjlq?=
+ =?utf-8?B?dHBYMGRYejlTdnRPRUdOamdGQzRMK09iM1ZpZVRjZmw1SC9YeWVpRDJXODVs?=
+ =?utf-8?B?ZmY4UU5HMzUvRUJTUk5jdDZDbS9EcEdxcW1OZFR2UUhyZTRyL3lvTUdjWGRN?=
+ =?utf-8?B?QUFnaFVHQTl1S3VzVUdtcXNuRjYwZHBESTJyVTNNR3NiamM5Z1BPU0Zrcmk5?=
+ =?utf-8?B?OW82d3N6UzRkZ2JSN0RQdGt4VGduZFVVdGwrUm5nYnZVU2JGeXZxUVVIYVEx?=
+ =?utf-8?B?NGVocUJZTk9UaUo1S3ZnK2cyMzdVMGl2TlpyUFNhV0hXS3U3aDYzY2grTStY?=
+ =?utf-8?B?VW9Qb3lZd2hubENNQS94YmtIeEZiWmYzczVUd3ViSzljUlo4V05QSndpWC9u?=
+ =?utf-8?B?bDRXY0ZKS0xoNnU1NkJjSVQ0Si9CRzlGYnBaN3gxU0MwTDVNZnZlZ0tYNnJG?=
+ =?utf-8?B?djNKZFV4VCtFZHFmSkxMaGQ0S2NqOEFiU2lGcFpGMVRrb3pBd2NPa1p0MUVU?=
+ =?utf-8?B?MmNEUmFpMStqYXVvSzM3ZnVvVmYvcG9tVkxXUHFzQWdib3Rya3hHKzlneUV2?=
+ =?utf-8?B?dmRFT3Y1R2U1b3hkclduUHl0d05zK2dkeVBZMTQ1ZFZ3U245aUtNMlNpN3Vi?=
+ =?utf-8?B?VXczd3FobXJEN0VDZXFSRUNvM0N2MEs5SERKSWwwL1lKVWJ6RVJyYmhIdFV0?=
+ =?utf-8?B?OWJuOGs2emJ0M0drUkF1d3JvTmtZYW9XSldPdFVYd1B2VjlINUUzMGdiWWJ2?=
+ =?utf-8?B?S3VLWHNHR0RmT3VWd2puRys3REdyV2N3VmtFRzlSS2kzUHJoMzlWcHNRZUF4?=
+ =?utf-8?B?TjJQYU13RHZITWdzMmdWMWhtU0J2Z1ZMT1FDV3psTHZCUjNLcTR3TmtER2Jl?=
+ =?utf-8?B?cWZPNlRHTFNzVFpnbEVudFplRmlHUTI3NDZJZWs2MEhHaUZSQ1RZNWtRYU9y?=
+ =?utf-8?Q?VQ4/4mcZDNwnJBPyb+cOrp3e9l8r6Rujwwlcg3A+03KxM?=
+x-ms-exchange-antispam-messagedata-1: bPIkopryajoSrg==
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A25CE1B00163C747902A496D6410C78D@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: microchip.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR11MB3990.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5a42646-ff65-4db4-e40a-08def489f037
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2026 13:44:01.0589
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cGLSYjifIbBB8e81NR4mLpfXUE/sONYLgGTYkcL+hqit/9cwpTjMxC+vY4wMMmdKQ8XaqqCjlYsjjQzJtB0aGpILzNRwZRcGYuNVWmV1pQ7wFnI2GRTUTLA/LMzNKgVU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8203
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [High] Stack buffer overflow in `max_ser_get_frame_desc_state` due to mis=
-sing bounds check on `fd->num_entries`.
-- [High] Writing unshifted 7-bit I2C client address into 8-bit hardware reg=
-isters in `max_ser_fix_tx_ids`.
-- [High] If `media_create_pad_link()` fails in `max_ser_notify_bound()`, `s=
-ource->sd` is left pointing to the subdev, creating a dangling pointer.
-- [High] Stack-allocated buffers are passed directly to `i2c_transfer()`, v=
-iolating I2C API requirements and causing panics on DMA-enabled systems.
-- [High] The global `ser->active` flag is incorrectly overwritten by the st=
-ate of a single pad, allowing format modifications while the hardware is ac=
-tively streaming.
-- [High] Concurrent I2C ATR attach/detach operations cause data races on th=
-e shared `i2c_xlates` array.
-- [High] TOCTOU race between async subdevice unbind and route processing le=
-ads to a use-after-free of the source subdevice.
-- [High] The return value of `i2c_transfer()` is checked incorrectly, leadi=
-ng to silent partial transfer failures and garbage reads.
-- [Medium] Improper use of devres APIs (`devm_kcalloc` and `devm_kfree`) in=
- the hot streaming path.
-- [Medium] Routing logic restricts all streams from a given PHY to a single=
- pipe, ignoring multiple pipes.
-- [Medium] Returning -EINVAL for unsupported formats in `set_fmt` and `set_=
-frame_interval` breaks V4L2 format negotiation.
-- [Low] Potential kernel panic due to division by zero if `num_phys` is 0.
-- [Low] `max_ser_log_status` prematurely aborts logging when encountering t=
-he first disabled I2C translation, missing active translations at higher in=
-dices.
---
-
---- Patch [14]: [PATCH v15 14/22] media: i2c: add Maxim GMSL2/3 serializer =
-framework ---
-commit 60c008b16504a2b4c009035ea0ab39d7dfbf93c1
-Author: Cosmin Tanislav <demonsingur@gmail.com>
-
-media: i2c: add Maxim GMSL2/3 serializer framework
-
-This patch adds a common framework for Maxim GMSL2/3 serializers supporting
-features like the Streams API, get_frame_desc(), I2C ATR, and automatic
-configurations.
-
-> diff --git a/drivers/media/i2c/maxim-serdes/max_ser.c b/drivers/media/i2c=
-/maxim-serdes/max_ser.c
-> index 0000000000000..2699c57c18404 100644
-> --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max_ser.c
-[ ... ]
-> @@ -109,6 +109,7 @@ static struct max_ser_pipe *
->  max_ser_find_phy_pipe(struct max_ser *ser, struct max_ser_phy *phy)
->  {
->  	unsigned int i;
-> =20
->  	for (i =3D 0; i < ser->ops->num_pipes; i++) {
->  		struct max_ser_pipe *pipe =3D &ser->pipes[i];
-> =20
->  		if (pipe->phy_id =3D=3D phy->index)
->  			return pipe;
-
-[Severity: Medium]
-Will this unconditionally return the first matching pipe for a PHY?
-If the hardware supports multiple pipes mapped to a single PHY, this
-appears to render the additional assigned pipes unreachable.
-
->  	}
-> =20
->  	return NULL;
->  }
-[ ... ]
-> @@ -219,6 +219,8 @@ static int max_ser_route_to_hw(struct max_ser_priv *p=
-riv,
-> =20
->  	hw->source =3D max_ser_get_phy_source(priv, phy);
->  	if (!hw->source->sd)
->  		return 0;
-
-[Severity: High]
-Does returning 0 unconditionally when the source subdevice is missing
-allow arbitrary userspace-defined routes to bypass validation and
-incorrectly increment the entry counter?
-
-Also, could a TOCTOU race occur here? If max_ser_notify_unbind() clears
-source->sd asynchronously without holding a lock, this might pass the NULL
-check but result in a use-after-free when v4l2_subdev_call dereferences it.
-
-> =20
->  	ret =3D v4l2_subdev_call(hw->source->sd, pad, get_frame_desc,
->  			       hw->source->pad, &fd);
-[ ... ]
-> @@ -239,6 +239,8 @@ static int max_ser_i2c_atr_attach_addr(struct i2c_atr=
- *atr, u32 chan_id,
->  	int ret;
-> =20
->  	for (i =3D 0; i < ser->ops->num_i2c_xlates; i++)
->  		if (!ser->i2c_xlates[i].en)
->  			break;
-
-[Severity: High]
-Are concurrent attach and detach operations serialized here?
-It looks like this finds a free slot and modifies the global translation ar=
-ray
-without locking. Since the ATR core locks are per-channel, concurrent hotpl=
-ugs
-on different channels could cause data races on i2c_xlates.
-
-> =20
->  	if (i =3D=3D ser->ops->num_i2c_xlates) {
-[ ... ]
-> @@ -262,6 +262,8 @@ static void max_ser_i2c_atr_detach_addr(struct i2c_at=
-r *atr, u32 chan_id, u16 ad
->  	unsigned int i;
-> =20
->  	/* Find index of matching I2C translation. */
->  	for (i =3D 0; i < ser->ops->num_i2c_xlates; i++)
->  		if (ser->i2c_xlates[i].dst =3D=3D addr)
->  			break;
-
-[Severity: High]
-Could clearing a slot in the global translation array race with other
-attach/detach operations?
-
-> =20
->  	if (WARN_ON(i =3D=3D ser->ops->num_i2c_xlates))
-[ ... ]
-> @@ -420,6 +420,8 @@ static int max_ser_set_tpg_fmt(struct v4l2_subdev *sd,
-> =20
->  	entry =3D max_ser_find_tpg_entry(ser, 0, fmt->width, fmt->height,
->  				       fmt->code, 0, 0);
->  	if (!entry)
->  		return -EINVAL;
-
-[Severity: Medium]
-Should this return -EINVAL if the exact format is not found?
-The V4L2 specification generally requires falling back to a supported format
-rather than returning an error during format negotiation.
-
-> =20
->  	in =3D v4l2_subdev_state_get_interval(state, format->pad, format->strea=
-m);
-[ ... ]
-> @@ -557,6 +557,7 @@ static int max_ser_log_status(struct v4l2_subdev *sd)
->  		v4l2_info(sd, "\ten: %u, src: 0x%02x dst: 0x%02x\n",
->  			  ser->i2c_xlates[i].en, ser->i2c_xlates[i].src,
->  			  ser->i2c_xlates[i].dst);
->  		if (!ser->i2c_xlates[i].en)
->  			break;
-
-[Severity: Low]
-Will the break statement prematurely abort logging?
-If an intermediate I2C translation was detached, this might mask later valid
-entries in the array.
-
->  	}
->  	v4l2_info(sd, "\n");
-[ ... ]
-> @@ -597,6 +597,8 @@ static int max_ser_set_frame_interval(struct v4l2_sub=
-dev *sd,
-> =20
->  	entry =3D max_ser_find_tpg_entry(ser, 0, fmt->width, fmt->height,
->  				       fmt->code, fi->interval.numerator,
->  				       fi->interval.denominator);
->  	if (!entry)
->  		return -EINVAL;
-
-[Severity: Medium]
-Is it intentional to return -EINVAL for unsupported frame intervals?
-V4L2 typically expects drivers to fall back to the closest supported interv=
-al.
-
-> =20
->  	in =3D v4l2_subdev_state_get_interval(state, fi->pad, fi->stream);
-[ ... ]
-> @@ -678,6 +678,7 @@ static int max_ser_get_frame_desc_state(struct v4l2_s=
-ubdev *sd,
->  		if (ret)
->  			return ret;
-> =20
->  		hw.entry.stream =3D route->source_stream;
-> =20
->  		fd->entry[fd->num_entries++] =3D hw.entry;
-
-[Severity: High]
-Can fd->num_entries exceed V4L2_FRAME_DESC_ENTRY_MAX here?
-If a userspace application configures more than 8 active routes, this could
-lead to a stack buffer overflow.
-
->  	}
-> =20
->  	return 0;
-[ ... ]
-> @@ -897,6 +897,8 @@ static int max_ser_update_pipe(struct max_ser_priv *p=
-riv,
-> =20
->  	if (!ser->ops->num_dts_per_pipe)
->  		return 0;
-> =20
->  	dts =3D devm_kcalloc(priv->dev, ser->ops->num_dts_per_pipe, sizeof(*dts=
-),
->  			   GFP_KERNEL);
->  	if (!dts)
-
-[Severity: Medium]
-Is it safe to use devm_kcalloc dynamically in a runtime path?
-Using devres APIs in the hot streaming path requires an O(N) list traversal
-under a spinlock for every free operation, which could lead to locking
-overhead and memory fragmentation.
-
->  		return -ENOMEM;
-[ ... ]
-> @@ -1098,6 +1098,7 @@ static int max_ser_update_streams(struct v4l2_subde=
-v *sd,
->  			goto err_revert_phys_update;
->  	}
-> =20
->  	devm_kfree(priv->dev, priv->streams_masks);
-
-[Severity: Medium]
-Similarly, is it appropriate to call devm_kfree dynamically here?
-
->  	priv->streams_masks =3D streams_masks;
->  	ser->active =3D !!streams_masks[pad];
-
-[Severity: High]
-Could overwriting the global ser->active flag with a single pad's state
-allow format modifications while the hardware is actively streaming?
-If Pad A is streaming and userspace disables Pad B, ser->active becomes 0,
-potentially allowing set_fmt on Pad A.
-
-> =20
->  	return 0;
-[ ... ]
-> @@ -1528,6 +1528,8 @@ static int max_ser_notify_bound(struct v4l2_async_n=
-otifier *nf,
->  		return ret;
->  	}
-> =20
->  	source->sd =3D subdev;
->  	source->pad =3D ret;
-> =20
->  	ret =3D media_create_pad_link(&source->sd->entity, source->pad,
-
-[Severity: High]
-If media_create_pad_link fails, will source->sd be left pointing to the sub=
-dev?
-This could create a dangling pointer and result in a use-after-free later if
-the async subdevice binding is aborted and freed.
-
->  				    &priv->sd.entity, pad,
-[ ... ]
-> @@ -1549,6 +1549,7 @@ static void max_ser_notify_unbind(struct v4l2_async=
-_notifier *nf,
->  	struct max_serdes_asc *asc =3D asc_to_max(base_asc);
->  	struct max_serdes_source *source =3D asc->source;
-> =20
->  	source->sd =3D NULL;
-
-[Severity: High]
-Could a TOCTOU race occur between this unbind and route processing?
-source->sd is cleared asynchronously without locks, which could race with
-max_ser_route_to_hw() as mentioned earlier.
-
->  }
-[ ... ]
-> @@ -1734,6 +1734,7 @@ static int max_ser_parse_dt(struct max_ser_priv *pr=
-iv)
->  	for (i =3D 0; i < ser->ops->num_pipes; i++) {
->  		pipe =3D &ser->pipes[i];
->  		pipe->index =3D i;
->  		pipe->phy_id =3D i % ser->ops->num_phys;
-
-[Severity: Low]
-Could ser->ops->num_phys be 0 here, leading to a division by zero panic?
-
->  		pipe->stream_id =3D i % MAX_SERDES_STREAMS_NUM;
->  	}
-[ ... ]
-> @@ -2137,6 +2137,8 @@ static int max_ser_read_reg(struct i2c_adapter *ada=
-pter, u8 addr,
->  			    u16 reg, u8 *val)
->  {
->  	u8 buf[2] =3D { reg >> 8, reg & 0xff };
->  	struct i2c_msg msg[2] =3D {
->  		{
-
-[Severity: High]
-Is it safe to pass the stack-allocated buf directly to i2c_transfer()?
-On systems with DMA-enabled I2C controllers and CONFIG_VMAP_STACK=3Dy, pass=
-ing
-a stack buffer can cause memory corruption or kernel panics.
-
->  			.addr =3D addr,
-[ ... ]
-> @@ -2153,6 +2153,8 @@ static int max_ser_read_reg(struct i2c_adapter *ada=
-pter, u8 addr,
->  	};
->  	int ret;
-> =20
->  	ret =3D i2c_transfer(adapter, msg, ARRAY_SIZE(msg));
->  	if (ret < 0)
->  		return ret;
-
-[Severity: High]
-Does this correctly check the return value of i2c_transfer()?
-If a partial transfer occurs (e.g. ret =3D=3D 1 due to a NAK on the second =
-msg),
-the driver might silently accept it and process uninitialized data from buf.
-
-> =20
->  	*val =3D buf[0];
-[ ... ]
-> @@ -2165,6 +2165,8 @@ static int max_ser_write_reg(struct i2c_adapter *ad=
-apter, u8 addr,
->  			     u16 reg, u8 val)
->  {
->  	u8 buf[3] =3D { reg >> 8, reg & 0xff, val };
->  	struct i2c_msg msg[1] =3D {
->  		{
-
-[Severity: High]
-Similarly, passing the stack-allocated buf to i2c_transfer() here could
-cause issues with DMA-enabled I2C controllers.
-
->  			.addr =3D addr,
-[ ... ]
-> @@ -2177,6 +2177,8 @@ static int max_ser_write_reg(struct i2c_adapter *ad=
-apter, u8 addr,
->  	};
->  	int ret;
-> =20
->  	ret =3D i2c_transfer(adapter, msg, ARRAY_SIZE(msg));
->  	if (ret < 0)
->  		return ret;
-
-[Severity: High]
-Does if (ret < 0) fail to catch partial transfers for writes as well?
-
-> =20
->  	return 0;
-[ ... ]
-> @@ -2236,6 +2236,7 @@ int max_ser_fix_tx_ids(struct i2c_adapter *adapter,=
- u8 addr)
->  	int ret;
-> =20
->  	for (i =3D 0; i < ARRAY_SIZE(addr_regs); i++) {
->  		ret =3D max_ser_write_reg(adapter, addr, addr_regs[i], addr);
-
-[Severity: High]
-Is the 7-bit I2C client address written directly without the required 1-bit
-left shift? In max_ser_change_address, FIELD_PREP is used correctly, but
-here the unshifted address is written to an 8-bit hardware register.
-
->  		if (ret)
->  			return ret;
->  	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-gmsl2-3_se=
-rdes-v15-0-7212e9e5156a@analog.com?part=3D14
+T24gVGh1LCAyMDI2LTA4LTA2IGF0IDE0OjM4ICswMDAwLCBzYXNoaWtvLWJvdEBrZXJuZWwub3Jn
+IHdyb3RlOg0KPiBFWFRFUk5BTCBFTUFJTDogRG8gbm90IGNsaWNrIGxpbmtzIG9yIG9wZW4gYXR0
+YWNobWVudHMgdW5sZXNzIHlvdSBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUNCj4gDQo+IFRoYW5r
+IHlvdSBmb3IgeW91ciBjb250cmlidXRpb24hIFNhc2hpa28gQUkgcmV2aWV3IGZvdW5kIDEgcG90
+ZW50aWFsIGlzc3VlKHMpIHRvIGNvbnNpZGVyOg0KPiAtIFtIaWdoXSBIYXJkd2FyZSBsZWFybmlu
+ZyBpcyBub3QgZGlzYWJsZWQgd2hlbiBhIHBvcnQgbGVhdmVzIGEgYnJpZGdlLCBjYXVzaW5nIGNy
+b3NzLXBvcnQgRkRCIHBvbGx1dGlvbiB0aGF0IGJyZWFrcyBzb2Z0d2FyZSBicmlkZ2luZy9yb3V0
+aW5nIGZvciBzdGFuZGFsb25lIHBvcnRzLg0KPiAtLQ0KPiANCj4gLS0tIFBhdGNoIFs1XTogW1BB
+VENIIG5ldC1uZXh0IHYxMSA1LzldIG5ldDogZHNhOiBsYW45NjQ1eDogYWRkIGJyaWRnZSBzdXBw
+b3J0IC0tLQ0KPiBjb21taXQgZjk1OTAwM2YwNjc5MDA4NDMyNDc5YTE1ZmY0YjI1NzQ3ZWRlMzgy
+Ng0KPiBBdXRob3I6IEplbnMgRW1pbCBTY2h1bHogw5hzdGVyZ2FhcmQgPGplbnNlbWlsLnNjaHVs
+em9zdGVyZ2FhcmRAbWljcm9jaGlwLmNvbT4NCj4gDQo+ICAgICBuZXQ6IGRzYTogbGFuOTY0NXg6
+IGFkZCBicmlkZ2Ugc3VwcG9ydA0KPiANCj4gQWRkIHN1cHBvcnQgZm9yIGhhcmR3YXJlIG9mZmxv
+YWRpbmcgb2YgdGhlIGJyaWRnZS4gV2Ugc3VwcG9ydCBhIHNpbmdsZQ0KPiBicmlkZ2UgZGV2aWNl
+Lg0KPiANCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZHNhL21pY3JvY2hpcC9sYW45NjQ1
+eC9sYW45NjQ1eF9tYWluLmMgYi9kcml2ZXJzL25ldC9kc2EvbWljcm9jaGlwL2xhbjk2NDV4L2xh
+bjk2NDV4X21haW4uYw0KPiA+IGluZGV4IGIyNTM4MTM1MThjMjAuLmMxNDVkMjhmZmJiOTkgMTAw
+NjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9uZXQvZHNhL21pY3JvY2hpcC9sYW45NjQ1eC9sYW45NjQ1
+eF9tYWluLmMNCj4gPiArKysgYi9kcml2ZXJzL25ldC9kc2EvbWljcm9jaGlwL2xhbjk2NDV4L2xh
+bjk2NDV4X21haW4uYw0KPiBbIC4uLiBdDQo+ID4gQEAgLTI4Miw2ICszMDUsMjgyIEBAIHN0YXRp
+YyB2b2lkIGxhbjk2NDV4X3BvcnRfcGh5bGlua19nZXRfY2FwcyhzdHJ1Y3QgZHNhX3N3aXRjaCAq
+ZHMsIGludCBwb3J0LA0KPiBbIC4uLiBdDQo+ID4gK3N0YXRpYyB2b2lkIGxhbjk2NDV4X3BvcnRf
+YnJpZGdlX2xlYXZlKHN0cnVjdCBkc2Ffc3dpdGNoICpkcywgaW50IHBvcnQsDQo+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkc2FfYnJpZGdlIGJyaWRnZSkN
+Cj4gPiArew0KPiA+ICsgICAgIHN0cnVjdCBsYW45NjQ1eCAqbGFuOTY0NXggPSBkcy0+cHJpdjsN
+Cj4gPiArICAgICBzdHJ1Y3QgbGFuOTY0NXhfcG9ydCAqcDsNCj4gPiArDQo+ID4gKyAgICAgcCA9
+IGxhbjk2NDV4X3RvX3BvcnQobGFuOTY0NXgsIHBvcnQpOw0KPiA+ICsNCj4gPiArICAgICBtdXRl
+eF9sb2NrKCZsYW45NjQ1eC0+ZndkX2RvbWFpbl9sb2NrKTsNCj4gPiArDQo+ID4gKyAgICAgbGFu
+OTY0NXgtPmJyaWRnZV9tYXNrICY9IH5CSVQocC0+Y2hpcF9wb3J0KTsNCj4gPiArDQo+ID4gKyAg
+ICAgLyogTGFzdCBwb3J0IGxlYXZpbmcgY2xlYXJzIGJyaWRnZSBkZXYgKi8NCj4gPiArICAgICBp
+ZiAoIWxhbjk2NDV4LT5icmlkZ2VfbWFzaykNCj4gPiArICAgICAgICAgICAgIGxhbjk2NDV4LT5i
+cmlkZ2UgPSBOVUxMOw0KPiA+ICsNCj4gPiArICAgICBfX2xhbjk2NDV4X3BvcnRfc2V0X2hvc3Rf
+Zmxvb2QobGFuOTY0NXgpOw0KPiA+ICsgICAgIGxhbjk2NDV4X3VwZGF0ZV9md2RfbWFzayhsYW45
+NjQ1eCk7DQo+ID4gKw0KPiA+ICsgICAgIG11dGV4X3VubG9jaygmbGFuOTY0NXgtPmZ3ZF9kb21h
+aW5fbG9jayk7DQo+ID4gK30NCj4gDQo+IFtTZXZlcml0eTogSGlnaF0NCj4gRG9lcyB0aGlzIGNv
+ZGUgbmVlZCB0byBjbGVhciBwLT5sZWFybl9lbmEgd2hlbiBhIHBvcnQgbGVhdmVzIHRoZSBicmlk
+Z2U/DQo+IA0KPiBXaGVuIGEgcG9ydCBpcyByZW1vdmVkIGZyb20gdGhlIGhhcmR3YXJlIGJyaWRn
+ZSwgaXRzIGxlYXJuaW5nIHN0YXRlIGluY29ycmVjdGx5DQo+IHJlbWFpbnMgZW5hYmxlZC4NCj4g
+DQoNCkl0IGRvZXMgbm90IHJlbWFpbiBlbmFibGVkLiBUaGUgRFNBIGNvcmUgcmVzZXRzIHRoZSBi
+cmlkZ2UgcG9ydCBmbGFncyBvbg0KYnJpZGdlIGxlYXZlLCBsZWFybmluZyBpbmNsdWRlZCwgYW5k
+IGl0IGRvZXMgc28gYmVmb3JlIGl0IHB1dHMgdGhlIHBvcnQNCmJhY2sgaW50byBCUl9TVEFURV9G
+T1JXQVJESU5HLg0KDQpkc2FfcG9ydF9icmlkZ2VfbGVhdmUoKSBlbmRzIGluIGRzYV9wb3J0X3N3
+aXRjaGRldl91bnN5bmNfYXR0cnMoKSwgd2hpY2gNCmNhbGxzIGRzYV9wb3J0X2NsZWFyX2JycG9y
+dF9mbGFncygpIGZpcnN0IGFuZCBkc2FfcG9ydF9zZXRfc3RhdGVfbm93KGRwLA0KQlJfU1RBVEVf
+Rk9SV0FSRElORywgdHJ1ZSkgc2Vjb25kLiBCUl9MRUFSTklORyBpcyBpbiB0aGF0IGhlbHBlcnMg
+bWFzaw0KYnV0IG5vdCBpbiBpdHMgdmFsLCBzbyB0aGUgZHJpdmVyIGlzIGNhbGxlZCB3aXRoIG1h
+c2sgPSBCUl9MRUFSTklORywNCnZhbCA9IDAsIGFuZCBsYW45NjQ1eF9wb3J0X3NldF9sZWFybmlu
+ZygpIGNsZWFycyBwLT5sZWFybl9lbmEgYW5kIHdyaXRlcw0KQU5BX1BPUlRfQ0ZHLkxFQVJOX0VO
+QSA9IDAgaW1tZWRpYXRlbHkuDQoNClNvIGJ5IHRoZSB0aW1lIGxhbjk2NDV4X3BvcnRfYnJpZGdl
+X3N0cF9zdGF0ZV9zZXQoKSBldmFsdWF0ZXMNCg0KICAgICAgKHN0YXRlID09IEJSX1NUQVRFX0xF
+QVJOSU5HIHx8IHN0YXRlID09IEJSX1NUQVRFX0ZPUldBUkRJTkcpICYmDQogICAgICBwLT5sZWFy
+bl9lbmENCg0KcC0+bGVhcm5fZW5hIGlzIGFscmVhZHkgZmFsc2UgYW5kIGhhcmR3YXJlIGxlYXJu
+aW5nIHN0YXlzIG9mZi4gQ2xlYXJpbmcNCml0IGluIGxhbjk2NDV4X3BvcnRfYnJpZGdlX2xlYXZl
+KCkgd291bGQgYmUgcmVkdW5kYW50Lg0KDQoNCg0KPiAgSWYgdGhpcyBwb3J0IGFuZCBhbm90aGVy
+IHBvcnQgYXJlIGxhdGVyIGFkZGVkIHRvIGEgc29mdHdhcmUNCj4gYnJpZGdlIChmb3IgZXhhbXBs
+ZSwgaWYgdGhlIGhhcmR3YXJlIG9ubHkgc3VwcG9ydHMgb25lIG9mZmxvYWRlZCBicmlkZ2UpLCB0
+aGUNCj4gRFNBIGNvcmUgdHJhbnNpdGlvbnMgdGhlIHN0YW5kYWxvbmUgcG9ydCB0byBCUl9TVEFU
+RV9GT1JXQVJESU5HLg0KPiANCj4gQmVjYXVzZSBwLT5sZWFybl9lbmEgd2FzIG5vdCBjbGVhcmVk
+IGR1cmluZyBicmlkZ2UgbGVhdmUsIHRoZSBjYWxsIHRvDQo+IGxhbjk2NDV4X3BvcnRfYnJpZGdl
+X3N0cF9zdGF0ZV9zZXQoKSB3aWxsIGluY29ycmVjdGx5IHJlLWVuYWJsZSBoYXJkd2FyZQ0KPiBs
+ZWFybmluZyBmb3IgdGhlIHN0YW5kYWxvbmUgcG9ydDoNCj4gDQo+ICAgICAgICAgbGVhcm5fZW5h
+ID0gKHN0YXRlID09IEJSX1NUQVRFX0xFQVJOSU5HIHx8DQo+ICAgICAgICAgICAgICAgICAgICAg
+IHN0YXRlID09IEJSX1NUQVRFX0ZPUldBUkRJTkcpICYmIHAtPmxlYXJuX2VuYTsNCj4gDQo+ICAg
+ICAgICAgbGFuX3JtdyhBTkFfUE9SVF9DRkdfTEVBUk5fRU5BX1NFVChsZWFybl9lbmEpLCAuLi4N
+Cj4gDQo+IFRoaXMgY2F1c2VzIHRoZSBwb3J0IHRvIGxlYXJuIE1BQyBhZGRyZXNzZXMgaW50byB0
+aGUgc2hhcmVkIEhPU1RfUFZJRCBGREIgdXNlZA0KPiBieSBzdGFuZGFsb25lIHBvcnRzLiBXaGVu
+IHRoZSBvdGhlciBzb2Z0d2FyZS1icmlkZ2VkIHBvcnQgKHdoaWNoIGV4cGVjdHMgdG8NCj4gc2Vu
+ZCB1bmtub3duIHVuaWNhc3QgdHJhZmZpYyB0byB0aGUgQ1BVKSByZWNlaXZlcyB0cmFmZmljIGZv
+ciBhIE1BQyBkeW5hbWljYWxseQ0KPiBsZWFybmVkIGJ5IHRoaXMgcG9ydCwgdGhlIGhhcmR3YXJl
+IHJlc29sdmVzIHRoZSBkZXN0aW5hdGlvbi4NCj4gDQo+IEhvd2V2ZXIsIHNpbmNlIFBHSURfU1JD
+IGZvciBzdGFuZGFsb25lIHBvcnRzIGlzIDAsIHRoZSBwYWNrZXQgaXMgc2lsZW50bHkNCj4gZHJv
+cHBlZCBpbiBoYXJkd2FyZSBpbnN0ZWFkIG9mIGJlaW5nIGZvcndhcmRlZCB0byB0aGUgQ1BVLCBi
+cmVha2luZyBuZXR3b3JrDQo+IGNvbm5lY3Rpdml0eSBmb3IgdGhlIGZhbGxiYWNrIHNvZnR3YXJl
+IGJyaWRnZS4NCj4gDQo+IC0tDQo+IFNhc2hpa28gQUkgcmV2aWV3IMK3IGh0dHBzOi8vc2FzaGlr
+by5kZXYvIy9wYXRjaHNldC8yMDI2MDgwNS1kc2FfbGFuOTY0NXhfc3dpdGNoX2RyaXZlcl9iYXNl
+LXYxMS0wLTAwN2ViYzk4M2EwYUBtaWNyb2NoaXAuY29tP3BhcnQ9NQ0KDQo=
