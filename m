@@ -1,125 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7B537A4B8
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:37:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC9837A822
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:37:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786127855; cv=none; b=l2ygGXmH/9I2LqgQ7JVEfNAlOy9CUY9I2SyIcAEQnOj0NJadt1YkBNCUiRdWR/5IG2Ivt/W99y91gWLq+pkU3RnsQ6y+GzYU4tosUcVehi4E+SEVs4DzsQP9//AVTiUVpiMw9MkTo+cCOsax3Z7+5g80F2H6dXfBzsigD8ASvkg=
+	t=1786127857; cv=none; b=YAW64oamjhoRw/V4TS/aJfZ3NRi2D4i91VTvAc3K7ZWFRp2fOxccaaZuMpTA/EQ2ecEUyqwpzHqAfkXhko3FuGyTROPZPIQPqcsWOSnU/t0GxJjc8n87ysvZV2eyngKGHu3EtLJZtotBSfpEFy9aUYx+uSg/VxyqdFSj7aRxRAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786127855; c=relaxed/simple;
-	bh=IbClSHn9aZpuXM+ascH2qq0OXmxbXPfvR5uGqXwLbYY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OGglg0UfdN9Zv2l/SDTdVkm5VzGDcItWyna+t3+LAlkIrcWf0o7IK5eLIiGh6wV4g5SE0RILgJgqrpIK/dK4ELCsKHze6H2e8wBNqVU3GSvM+Nvo/tWGXbyJGR96u81zhl7cgF2EIvFN38fbMtVkoMFFGUVU9FHhpfXwc1cLVy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQRVxtck; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786127857; c=relaxed/simple;
+	bh=I7aVny6LONMXD9rz0vLYhTLOZVpRI6HVJeqalXIj9N8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jTGTtZuYR2hdAQaHjGDly74ho3aPC5dTYiZSQ/3qqswlDt7esU0GXV9CRqlhPCuTu/6ulAS1jg17QMVtYqUcMRSnUpKh8Oyv4aQDkjFjV46lOn8Np88GJorIcOQNMpEsv0fuoUXJSW/amThA8kR+BjbEnjAiiwCHZ4zEyFJsH0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlnXJUSv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQRVxtck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6310E1F0155A
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:37:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlnXJUSv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FDC01F00A3D;
+	Fri,  7 Aug 2026 18:37:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786127850;
-	bh=q3xxa/UfKWm1lC1tilX+p+SRJDIy4wByBvzeQKGwW04=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KQRVxtckuLH/m7yt3Iktutu+xJ4K2kgbvJM3L3zEwZBuKeQfR092h5gGUV4/yo+t7
-	 mMSv02m9Rh9TJ0u6Jiv+3E2lS91YwCEdb7G6zaFDJiYsBflX2rmA56BEJE0VtB2XzV
-	 qw7AvWhoAhnk7DAAmD2wjT6bj7bBoO76YlbNqGBOzpnty5YmkL3U1goFdU52IrMqte
-	 EwHCgvOhpEuT3TrN9WL7+iSKogjZAm3f6UYYe0LeeviRnKzL+jJVt7wefejNzjMDeq
-	 NhR8qIgzeheJndiOXOYpLO5JUZLZPJI2voSC7/x5FtVBtiMOXqr6cOQwI+O5IhCVfm
-	 C7WzTRgcr4wPw==
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5aeb8c19017so4690421e87.0
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 11:37:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpoaD6WHGl8dO+Dcwoa4hoFGRP/EQlZcRbO7Fo1z6UII+Coe8PB+8RAiGCR0JzN8y1Aw/i1KED3z8z5@vger.kernel.org
-X-Gm-Message-State: AOJu0YwaysfOJsYvJxTwZhOatL78ZpD4thYvJUc6hNKhGTMAC6xX1e+G
-	3aCyNjHQjijZb4I58J33h8TSUkB2mLRgXylWdvKbqR0Md+ghxNqIpjn6+NFZEgswq7XRqc2tnKN
-	fgGKZYoL3OWBaheUsK4a3S0F4HgUqiNo=
-X-Received: by 2002:a05:6512:689:b0:5b0:129c:ed76 with SMTP id
- 2adb3069b0e04-5b2f4cc0f56mr3883853e87.29.1786127849010; Fri, 07 Aug 2026
- 11:37:29 -0700 (PDT)
+	bh=wEpLVx9G545MvfYyTMse3uO5fajmPs0fSoUMoqhuTCg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dlnXJUSv+g2wg/hOr8KYcqE8cvY4aR0u+lKDzQuNI81a26beLa9j/QNekDU5Q9fw8
+	 AMeE8sF6fyvU2ZSOPuwlWULNTobSVPTJ5iLfZ0UhLeRE89iqVDNmfKNDGtdJY5oIC6
+	 qdZQAwM5blUB2WqOw3aqUvRJmP8hxoqx0xPok08tQ+wa4PatYvAQhaLTrHmZyFqzVG
+	 nqKsOSPZXAHkaMWbiQvhAoXvAmlvRNiMARb8/sLHcbmXiKdcVE7SSsShNX9sYI029u
+	 ayy3/zrdMSKsM2GuktJ1OqqY8fC40EgSIUzaCn79d9Fbevfrstv88gjd4pufI3RN+Z
+	 aRPZjkBr4ikng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] wifi: mwifiex: ignore ROM regulatory hint on
+ WRT3200ACM/WRT32x
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Georgi Valkov" <gvalkov@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260807182124.41572-1-gvalkov@gmail.com>
+References: <anWWr80yAcOQaVVS@nxpwireless-Inspiron-14-Plus-7440>
+ <20260807182124.41572-1-gvalkov@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 18:37:29 +0000
+Message-Id: <20260807183730.4FDC01F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260806-longzhao-upstream-cv75-v2-v2-0-6b09707c5fe9@ambarella.com>
- <20260806-longzhao-upstream-cv75-v2-v2-8-6b09707c5fe9@ambarella.com>
-In-Reply-To: <20260806-longzhao-upstream-cv75-v2-v2-8-6b09707c5fe9@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 7 Aug 2026 20:37:16 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com>
-X-Gm-Features: AUfX_mzYw0ZkQMsDh4exCkqu18ubdjPO_uZyWXIwif8s9Ss1BlcTUbv5W-M2nk0
-Message-ID: <CAD++jLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com>
-Subject: Re: [PATCH v2 08/10] serial: ambarella: add Ambarella UART driver
-To: longzhao@ambarella.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, soc@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Long,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] A vendor/device-specific workaround property (`marvell,ignore-re=
+gulatory-hint`) is incorrectly read from the global root device tree node (=
+`of_root`) rather than the device's own OF node. Device Tree must correctly=
+ model hardware topology by placing device-specific properties in the node =
+representing that physical device. Placing a vendor-specific property in th=
+e root node applies it globally to the entire system. If a system contains =
+multiple Marvell Wi-Fi adapters (e.g., one built-in and one plugged in via =
+USB or PCIe) and only one requires the regulatory hint to be ignored, this =
+global flag will incorrectly apply the quirk to all of them. The driver sho=
+uld read this property from its own device node (e.g., `adapter->dev->of_no=
+de` or `adapter->dt_node`).
+--
 
-thanks for your patch!
+--- Patch [1]: [PATCH v3 1/2] wifi: mwifiex: ignore ROM regulatory hint on =
+WRT3200ACM/WRT32x ---
+commit 3a34f3fd7103c1109fdfbb027f11821961b37978
+Author: Georgi Valkov <gvalkov@gmail.com>
 
-I know this driver has a long history and has been refined inside
-Ambarella for many years. However this is clearly an 8250
-UART derivative:
+wifi: mwifiex: ignore ROM regulatory hint on WRT3200ACM/WRT32x
 
-On Thu, Aug 6, 2026 at 11:34=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+This commit introduces a device-tree flag to allow affected platforms to
+ignore incorrect regulatory hints hardcoded in the mwifiex ROM. This enables
+userspace to set the correct platform regulatory domain and prevents extreme
+restrictions on 5 GHz and DFS channels.
 
-> +#define UART_RB_OFFSET                 0x00
-> +#define UART_TH_OFFSET                 0x00
-> +#define UART_DLL_OFFSET                        0x00
+[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
+[2] https://github.com/openwrt/openwrt/issues/9956
 
-RB, TH, DLL sharing register 0x00.
+> diff --git a/drivers/net/wireless/marvell/mwifiex/cfg80211.c b/drivers/ne=
+t/wireless/marvell/mwifiex/cfg80211.c
+> --- a/drivers/net/wireless/marvell/mwifiex/cfg80211.c
+> +++ b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
+> @@ -4899,7 +4899,14 @@ int mwifiex_register_cfg80211(struct mwifiex_adapt=
+er *adapter)
+>  				country_code =3D
+>  					mwifiex_11d_code_2_region(
+>  						adapter->region_code);
+> +
+> +				/* Allow platforms to ignore an incorrect
+> +				 * regulatory hint from ROM, so userspace
+> +				 * can set the correct regulatory domain.
+> +				 */
+>  				if (country_code &&
+> +				    !of_property_read_bool(of_root,
+> +							   "marvell,ignore-regulatory-hint") &&
 
-> +#define UART_IE_OFFSET                 0x04
-> +#define UART_DLH_OFFSET                        0x04
+[Severity: Medium]
+Is it intentional to read the device-specific property from the global of_r=
+oot
+node rather than the adapter's own device node (e.g., adapter->dev->of_node
+or adapter->dt_node)?
 
-IE, DLH sharing register 0x04.
+If a system contains multiple Marvell Wi-Fi adapters and only one requires
+this workaround, reading from the root node will globally apply the quirk to
+all adapters in the system.
 
-> +#define UART_II_OFFSET                 0x08
-> +#define UART_FC_OFFSET                 0x08
+Would it be better to adhere to device tree architectural principles by
+placing and reading this property in the node representing the specific
+physical device?
 
-II, FC sharing register 0x08.
+>  				    regulatory_hint(wiphy, country_code))
+>  					mwifiex_dbg(priv->adapter, ERROR,
+>  						    "regulatory_hint() failed\n");
 
-Compare:
-
-include/uapi/linux/serial_reg.h
-
-#define UART_RX         0       /* In:  Receive buffer */
-#define UART_TX         0       /* Out: Transmit buffer */
-#define UART_DLL        0       /* Out: Divisor Latch Low */
-
-#define UART_IER        1       /* Out: Interrupt Enable Register */
-#define UART_DLM        1       /* Out: Divisor Latch High */
-
-#define UART_IIR        2       /* In:  Interrupt ID Register */
-#define UART_FCR        2       /* Out: FIFO Control Register */
-
-This hardware is clearly using the original 8250/16450/16550
-tricks to save address space.
-
-The only difference is that your registers are spaced out
-with a register shift of 2 so 1 becomes 0x04, 2 becomes 0x08
-etc.
-
-It's not even the first doing this, e.g. the DesignWare 8250
-driver does the same thing.
-
-This needs to be rewritten using the 8250 library in the kernel
-under drivers/tty/serial/8250/8250_ambarella.c
-or similar.
-
-Probably you will get much less code to maintain and a few
-features for free when you do this.
-
-Yours,
-Linus Walleij
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807182124.4157=
+2-1-gvalkov@gmail.com?part=3D1
