@@ -1,224 +1,228 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A7F448B8E
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 06:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9274B048E;
+	Fri,  7 Aug 2026 06:06:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786082667; cv=none; b=Per2hhHoOt2Ikx82N175g9hlzk61xFP1919hedgzh0heOOEumVCfm5995sezPcNR6ADfPgHVphXfDcyh7zIRojlY10okU09lPOCe0WLLmDkFWrMUpajLKPvRv6SeBTZKEo/MBxaAV9VrMpeVrTLZXpNlp+EvqUXZGOpmq+3AQrE=
+	t=1786082816; cv=none; b=JqA7As3fom3rCN5DlabzxusDrn0ACm9SMQ5x3IPvnR5ZyB3QZZmK/fpyJDI4Fvcwexildgp5s8uQDjj1dukTSvmY9SVgeK+L+p7F4uN+2FfK27aHTXYNTeuv5OgED1wiSxnz3xBg0A7aZhvJ5W2zAnkbtE0UPlCsGFTd8wT9Xrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786082667; c=relaxed/simple;
-	bh=0aK3nrisfIvMUC7hMzoMx1aGyZsFxW2jrw74ipuIpwY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=D+oI3R2tXuaukx91WoDsfjqW4eoM8xwBhqAGkeSk59IfkzPcUJI5p0oe9V4juMUsuHAvbNN0jiCtdzK9qSQK/CckY2gacPqwJFKqlsTI2vn6nkTOJMijzZRwC9z258sKmq+7Daw/Xqy3d2cwv3RC3k6EqP3lDVYew3MCboHq9do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NY9tFTWM; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786082816; c=relaxed/simple;
+	bh=qMG02EPIVXOMn/7ueSsbGJRAVfznGl3cvBs9YZBspcQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y473WulQfd8RlBfztgi4S5SRpEpQjFmhcxsc4GEFIuLVShDmSh3AoKZtUKbkMUmrq/BObAlvaJFXzTMklAPoIrdpyrkH5s23yviMEAGxHIthjfm8aiZTiqzBrElEKm6vjhbVtXxXtMN517yMPFViiqxPp6jpbJFxWgZDSziq8/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fL1GeBVz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NY9tFTWM"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cca0c5799eso29398695ad.0
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 23:04:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786082666; x=1786687466; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6y8Hcxg9MXxS8AWcFY2VAmn1cCgVHpq4caMsrXoFzEI=;
-        b=NY9tFTWMWonEkxo1QiTCSvKXI1nM3ykBDeY88wvgkSb9Z3sGFIUVpmppen/hCGMdVm
-         llHyxf5YQ0uqHXG0o+D3Re1hndnLNrcD0AeJg4PeyJhQvJx3rMw9+4TAmSQeOqlCTVed
-         Vu/VOsH6Gs+CCeVgAqGF2B0ck1gkVEstdn3+m9zD6VXhUvG9iu7UF0wF5ZdubS9aDmUg
-         bRaG5BgwLOZWLGyYrH8+93QZ3oGUleJMW8tTL7A15WDi8Ewzst4bRLMVBqX+4TQvZF1L
-         dAKYzppQjaeyAvL0Qu9jhYAvGiyH1k4SyCO8QIRPfV6wWAx/h1Gm7gzb3J/yrFWCtGTx
-         Uskw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786082666; x=1786687466;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6y8Hcxg9MXxS8AWcFY2VAmn1cCgVHpq4caMsrXoFzEI=;
-        b=p99fjCrnf8cz/0RNM6Huc5a5Wic1UFUGznOFXnWUrtxPB1/C9nWKN93CE8Z8DjA4kd
-         v8ESpfSZ8qEOgvMyAm+HByDx49B389P0Ng4cd6SSgf0w69tROz/8FJcJP5bQ8gH9I/nn
-         weAifBD/c3phbpKpiNfS4VN1HIxdDYRL8E5SsfXuMKHFgPy2c7QeXuz6gszWpaajpSV9
-         0WOa4VwhhTO8asRx94HVCgM6pfSqCuQ/dMnabJ7vN1RGe/zO7czucPQoVP+4yoG1qtyO
-         L1dyhKqgoD7H4IoEJ7bS4cDW1Ihn1XEyUVVj+c9XEu8jgMvG3wBly2dlHxOkmbGsAc5b
-         yBSw==
-X-Forwarded-Encrypted: i=1; AHgh+RqalttTdhYydnpx71kLHsfCkor/MgpU79p0YO6gDIAmwr4ZUofhXm91cS66eQsPaH0j2xRxI5uApP2N@vger.kernel.org
-X-Gm-Message-State: AOJu0YweE4raGTIyHhxTSopRDwarNVXV8CXQXis2sjbAtinWchsntwbR
-	/XfI8JH/Sl5unltKUVsLzDk1OW4RRWxzcQzIAi+3ZpOfiyQt3PF4kCP4
-X-Gm-Gg: AR+sD10wryFO+TkGhOEvrlQ00rfZJeB6I4lPAzvZf5VzSLxzg0iB3QrG2bV/Iq3n8IL
-	f9LgVcnlAiZIogWO7cT7l5wSgLT2hSlHILNRdppo/xTFGnVSOTrBmSergzA+CnweIJZ1eYwekIY
-	/NIn+8naswuJ0Xri8OU8N6p7dJDjrhbMT8aNSug+FifQ3BxTo0oS0+H26lpUemrKh7whQneM/HB
-	vypMKOu4MGiD66Zvn5OB6HC/zwruZ5XKdFBq/2ghRgdQa32yA0cc4euf9EaSESBgZcN58FNpqG4
-	oCooq+NcuXiAM0LsdrGWJ9DHSIRXw1/4K+sU02nSuY6JS4mKxktn84gVk++JQMSoWPMOTKnG36o
-	U1Vw9b4gmf2XzH+D3yTs9y17qZCHvkd4kbEm9oqg/ons9pdQhUFfZlKmD5PAXR7l+MSnzM4latr
-	37rECyKyuo+zkBYoKztWef9VWuRbshhfrrwQ89JUQj06kyaxP5j0XfufeoCZp7X1pOHZhgL9yWp
-	nir3J9KN0AAYOMud4OTSH93OTML35umjD5x8jxYyb47dy8=
-X-Received: by 2002:a17:90b:524c:b0:38e:5ac1:9517 with SMTP id 98e67ed59e1d1-3903c54b386mr19817734a91.3.1786082665738;
-        Thu, 06 Aug 2026 23:04:25 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085de9c0fsm3375588a91.5.2026.08.06.23.04.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 23:04:25 -0700 (PDT)
-From: Zi-Yu Chen <zychennvt@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Zi-Yu Chen <zychennvt@gmail.com>
-Subject: [PATCH v9 3/3] arm64: dts: nuvoton: Add I2C nodes for MA35D1 SoC
-Date: Fri,  7 Aug 2026 14:04:00 +0800
-Message-Id: <20260807060400.2047517-4-zychennvt@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260807060400.2047517-1-zychennvt@gmail.com>
-References: <20260807060400.2047517-1-zychennvt@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fL1GeBVz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0251F000E9;
+	Fri,  7 Aug 2026 06:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786082815;
+	bh=L9tU9pcxg+3S2Ft6tVACbmzA71Uk5jr59+MtaRvQsfQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fL1GeBVzFTDJO+OxlnCdamnGAWnSq9h+zuv8RDed3xjeGl9LzXoDcTmyqgOSA6CCJ
+	 dk5EwCirGTGyK1NCU/t1EAmcblh+EM4qd0uDl4Jh0auAZ3d7ezb7JWL/PacLHG+FE0
+	 IPIkYFjBnaHPVb768H0qV1JnxFKganZt4p1bIRFK9QuzPv1Rfo3d0HtANkO7f9TREY
+	 KXvEsQQ3EiLdlIbSzdzz7ZQxNsEwXBOG73tjKIkYom8KYJq7Nu7jYFoW/hxQOu5zcM
+	 ZPwj/KtHYdiN3asbO6tkQkKsIxRe6+W1IBEBub6apb7BiCFW9ZVtm8SydeFREguI4f
+	 hqEKO8qUfPosA==
+Date: Fri, 7 Aug 2026 08:06:50 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Long Zhao <longzhao@ambarella.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-serial@vger.kernel.org, soc@lists.linux.dev
+Subject: Re: [PATCH v2 04/10] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
+Message-ID: <20260807-slim-amusing-jaybird-0bd13a@quoll>
+References: <20260806-longzhao-upstream-cv75-v2-v2-0-6b09707c5fe9@ambarella.com>
+ <20260806-longzhao-upstream-cv75-v2-v2-4-6b09707c5fe9@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260806-longzhao-upstream-cv75-v2-v2-4-6b09707c5fe9@ambarella.com>
 
-Add I2C controller nodes to the MA35D1 SoC dtsi file.
-Also, enable the I2C2 interface on the MA35D1 SOM board and
-configure its pinctrl to allow communication with the onboard
-NAU8822 audio codec
+On Thu, Aug 06, 2026 at 05:34:12PM +0800, Long Zhao wrote:
+> Add the CV75 pin controller binding.
+> 
+> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> ---
+>  .../bindings/pinctrl/ambarella,cv75-pinctrl.yaml   | 175 +++++++++++++++++++++
+>  1 file changed, 175 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
+> new file mode 100644
+> index 000000000000..3fa30b275e51
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
+> @@ -0,0 +1,175 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/ambarella,cv75-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Ambarella CV75 Pin Controller
+> +
+> +maintainers:
+> +  - Long Zhao <longzhao@ambarella.com>
+> +
+> +description:
+> +  The Ambarella CV75 pin controller configures pin multiplexing, bias and
+> +  drive strength for the main GPIO banks. Pin groups and their mux settings
+> +  are defined by the pin controller driver and selected by function and group
+> +  names.
+> +
+> +allOf:
+> +  - $ref: pinctrl.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: ambarella,cv75-pinctrl
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: IOMUX registers
+> +
+> +  ambarella,drive-strength-syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: RCT syscon containing the drive-strength registers.
+> +
+> +  ambarella,pull-syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Secure scratchpad syscon containing the pull registers.
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges: true
+> +
+> +patternProperties:
+> +  "^gpio@[0-9a-f]+$":
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      interrupts:
+> +        maxItems: 1
+> +
+> +      gpio-controller: true
+> +
+> +      "#gpio-cells":
+> +        const: 2
+> +
+> +      gpio-ranges:
+> +        maxItems: 1
+> +
+> +      interrupt-controller: true
+> +
+> +      "#interrupt-cells":
+> +        const: 2
+> +
+> +    required:
+> +      - reg
+> +      - interrupts
+> +      - gpio-controller
+> +      - "#gpio-cells"
+> +      - gpio-ranges
+> +      - interrupt-controller
+> +      - "#interrupt-cells"
+> +
+> +  "^[a-z0-9-]+-pins$":
 
-Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
----
- .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 20 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 72 +++++++++++++++++++
- 2 files changed, 92 insertions(+)
+Mixing MMIO and non-MMIO nodes in a bus is discouraged. Sloppy code.
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index a029b660e8dc..422468dbc3bf 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -57,6 +57,18 @@ &clk {
- 			   "integer";
- };
- 
-+&i2c2 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_i2c2>;
-+
-+	nau8822: audio-codec@1a {
-+		compatible = "nuvoton,nau8822";
-+		reg = <0x1a> ;
-+		nuvoton,spk-btl;
-+	};
-+};
-+
- &pinctrl {
- 	uart-grp {
- 		pinctrl_uart0: uart0-pins {
-@@ -100,6 +112,14 @@ pinctrl_uart16: uart16-pins {
- 			power-source = <1>;
- 		};
- 	};
-+
-+	i2c-grp {
-+		pinctrl_i2c2: i2c2-pins {
-+			nuvoton,pins = <1 8 4>,
-+				       <1 9 4>;
-+			bias-disable;
-+		};
-+	};
- };
- 
- &uart0 {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..28488889f564 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -372,6 +372,78 @@ uart15: serial@407f0000 {
- 			status = "disabled";
- 		};
- 
-+		i2c0: i2c@40800000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40800000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C0_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C0>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c1: i2c@40810000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40810000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C1_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C1>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c2: i2c@40820000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40820000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C2_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C2>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c3: i2c@40830000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40830000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 98 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C3_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C3>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c4: i2c@40840000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40840000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C4_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C4>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c5: i2c@40850000 {
-+			compatible = "nuvoton,ma35d1-i2c";
-+			reg = <0x0 0x40850000 0x0 0x1000>;
-+			interrupts = <GIC_SPI 124 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&clk I2C5_GATE>;
-+			clock-frequency = <100000>;
-+			resets = <&sys MA35D1_RESET_I2C5>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
- 		uart16: serial@40880000 {
- 			compatible = "nuvoton,ma35d1-uart";
- 			reg = <0x0 0x40880000 0x0 0x100>;
--- 
-2.34.1
+Why the pins aren't per gpio-controller?
+
+> +    type: object
+> +    allOf:
+> +      - $ref: pinmux-node.yaml#
+> +      - $ref: pincfg-node.yaml#
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      function:
+> +        const: uart0
+
+If the function is fixed, then you do not need any of this.
+
+You must post COMPLETE bindings, see writing bindings doc.
+
+> +
+> +      groups:
+> +        $ref: /schemas/types.yaml#/definitions/string-array
+> +        items:
+> +          enum: [uart0tx, uart0rx]
+
+Same here, pointless/redunadnt.
+
+> +        minItems: 2
+> +        maxItems: 2
+> +        uniqueItems: true
+> +
+> +      bias-disable: true
+> +      bias-pull-down: true
+> +      bias-pull-up: true
+> +
+> +      drive-strength:
+> +        enum: [3, 4, 5, 6, 7, 8, 9, 12]
+> +
+> +    required:
+> +      - function
+> +      - groups
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - ambarella,drive-strength-syscon
+> +  - ambarella,pull-syscon
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    rct: rct {
+> +    };
+> +
+> +    scratchpad: scratchpad {
+> +    };
+
+Drop above, irrelevant. Do you see any other bindings doing this?
+
+> +
+> +    pinctrl: pinctrl@e4010000 {
+> +        compatible = "ambarella,cv75-pinctrl";
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+
+You need to follow DTS coding style.
+
+> +        reg = <0xe4010000 0x1000>;
+> +        ranges;
+> +        ambarella,drive-strength-syscon = <&rct>;
+> +        ambarella,pull-syscon = <&scratchpad>;
+
+Best regards,
+Krzysztof
 
