@@ -1,191 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22F51A6838
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:36:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4817472771
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786109809; cv=none; b=hNMTkkFn2/X5JZqgrij5sTvPGuRZ8VTKasjMvhWOjxtF3rKY9GQ/Q+u3fcaS4Voh+3iNWSGy/ujK6GJhUP1gV5VYmQymFSt86czETb/o2VanNIRt10eJgIwKJxsFvkXNZJNEk0QCIaYk/kYVN/Cd4hrIVmEAF770PFQfiWKqPms=
+	t=1786109896; cv=none; b=tkWJmaTys1AbNCM6kE9I89kyxu6upQUPskcwZ3fcHaTu1SZkYkYuWU3HxCVGSefgX2NtX0lSnoRzO/YL9GtqxdpGft2oDZuXMwuZuqfvEY8up9YiWjKMFQL3SI/0vyRqHK++d7Kuo7bfdOCYNKFbmybxmnpMS2YPwzziRijWsFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786109809; c=relaxed/simple;
-	bh=p+RDJU+yh/CVJ4A2K3iGgXugR5haaGYyyKmSpqQce1I=;
+	s=arc-20240116; t=1786109896; c=relaxed/simple;
+	bh=j5Asb2UkIaOJoyrfAwLUghKnxztFsh1ejS8m+siuLXA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tF0FzmBxJ/6r2z7Sa/HrbMHXCVAzx5uTDSDpo9E0hinWuXAaKbFKUG/qgmZ6aJGEoT6dwRMA7bk19qb6FWtS8JLm00NXaWaR8AzRJXc/IoPfdQt9LNjLpw6PQapDY4FxPvJvu2yMQm2hfaKkScCrfoukGTTpup2Z/5jijisxeU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OB6y8caU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qOEzZ//zFW71IQ0EZwXj9H9CQ1gmXL9UMTvvnMtmbKGCFP9urJYS+lzkMdibShTLw7gtbSHSprX/fqUhRSMpgyAtYUoT9I66txL9ajnzCsVGO8IANEreYhMv0VVwCRMRhQW54/8Czj1xVShJd7zFYkkUNuz5fzUL88dIk2KseQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lbrwZfbR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OB6y8caU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2302C1F000E9;
-	Fri,  7 Aug 2026 13:36:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lbrwZfbR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5877A1F000E9;
+	Fri,  7 Aug 2026 13:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786109804;
-	bh=bvix1E1CdGgdNz3GwXP1fpytVsucyaJmyX1gwoYGNKY=;
+	s=k20260515; t=1786109891;
+	bh=LvJvz1ZKlgzAwyDgOX6Vrpi8wJbkk1ey/OV8P4gQz/A=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OB6y8caU0bEY0icHOZkJ1VXy4Iqz4MYBOQskLNSI64zvxsBd6jhEcYPOxoTFWMBmq
-	 7P3WR5qQc4SsRX5lUSUJm8UGMjdr1MDE1zVqJPv0fioAXnzLjomneDQiLZO7Bs4sUN
-	 EDqa7J1zXm86859XzE5N9l9WtN00N5b1ogC8usYM50yYrk84D/XLc91ErVfrIBh7fR
-	 1JZcUKZ3cbmqeMrudSfgp4vMXiK8n5pysE8vQtyNrUCaQ9Fk3aj6wXOa6peJCkL5F5
-	 L0DwcteNr8W+XxjL8bcB4AtFEqjparc/YVGvP4ZnDt68mOL1KL6qWhc+88x9i37xvj
-	 61TjalXBp1+Gw==
+	b=lbrwZfbRQtOE96UbfBMMbFUiErfcgNAHW4P4kh7Ruw7Ff55eP0CTwXm0y2TY5vnvi
+	 zhlq5hWsk8Zsn9EylPu5YVu/VEXVFKEhIJXbmlpk3F/vuYXmTSxe3hRd/Vp/0mARd0
+	 25ftN6pV8tBoDVtyayoSCX+zTHjZNH3EEDDw1xJVkunh4N8Sy36uvJeFCdSaSCELrz
+	 mCtwNzzQZ4BS6rzAWPg5tm/kIIzFM9Urb21EDRK8OKJVcwaKJr6eXJi/jwWnKuo3A+
+	 VGvzEAelnvKm6gEjtOkNuzQL70O/xLB02d63n+WHeJWEijK9qRtqdOXYsDVT/FAap8
+	 LoFWXAfZzk0OQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 13/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer framework
+Subject: Re: [PATCH v15 12/22] dt-bindings: media: i2c: add MAX9296A,
+ MAX96716A, MAX96792A
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-13-7212e9e5156a@analog.com>
+Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807-gmsl2-3_serdes-v15-12-7212e9e5156a@analog.com>
 References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
- <20260807-gmsl2-3_serdes-v15-13-7212e9e5156a@analog.com>
+ <20260807-gmsl2-3_serdes-v15-12-7212e9e5156a@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 13:36:43 +0000
-Message-Id: <20260807133644.2302C1F000E9@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 13:38:10 +0000
+Message-Id: <20260807133811.5877A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Using devres allocation (`devm_kcalloc`) in a dynamically called h=
-elper function leads to an unbounded memory leak.
-- [Medium] max_serdes_get_tpg_timings() returns 0 (success) without initial=
-izing the timings output parameter if entry is NULL.
-- [Medium] The commit message claims the framework enables support for mult=
-iple features that are entirely absent from the code.
-- [Medium] Output parameter 'doubled_bpp' is left uninitialized on success =
-path in max_serdes_process_bpps.
-- [Low] Most of the framework functions lack EXPORT_SYMBOL_GPL, rendering t=
-hem unusable by external modules.
+- [Medium] The `i2c-alias-pool` property is artificially restricted to a ma=
+ximum of 2 items, breaking validation for standard dual-link camera configu=
+rations.
 --
 
---- Patch [13]: [PATCH v15 13/22] media: i2c: add Maxim GMSL2/3 serializer =
-and deserializer framework ---
-commit 318efe00d7eeba7a3e3cd45eca83e30dec1c313f
+--- Patch [12]: [PATCH v15 12/22] dt-bindings: media: i2c: add MAX9296A, MA=
+X96716A, MAX96792A ---
+commit e68b0ac7c49e56511d1d1a563e3454615bdf8543
 Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-media: i2c: add Maxim GMSL2/3 serializer and deserializer framework
+dt-bindings: media: i2c: add MAX9296A, MAX96716A, MAX96792A
 
-These drivers are meant to be used as a common framework for Maxim
-GMSL2/3 serializers and deserializers.
+This commit introduces device tree bindings for the Maxim MAX9296A, MAX9671=
+6A,
+and MAX96792A GMSL to CSI-2 deserializers. It defines constraints for the
+various supported properties, including ports, power supplies, and the I2C
+address translator layout.
 
-> This framework enables support for the following new features across
-> all the chips:
->  * Full Streams API support
->  * .get_frame_desc()
->  * .get_mbus_config()
->  * I2C ATR
->  * automatic GMSL link version negotiation
->  * automatic stream id selection
->  * automatic VC remapping
->  * automatic pixel mode / tunnel mode selection
->  * automatic double mode selection / data padding
->  * logging of internal state and chip status registers via .log_status()
->  * PHY modes
->  * serializer pinctrl
->  * TPG
-
-[Severity: Medium]
-The commit message explicitly claims that the framework enables support
-for .get_mbus_config(), automatic GMSL link version negotiation, VC remappi=
-ng,
-pinctrl, and other features.
-
-However, the submitted code only includes basic data structures and a few h=
-elper
-functions for streams and TPG. The logic for the claimed features appears t=
-o be
-missing.
-
-Could the commit message be updated to reflect only the features
-currently implemented in this patch?
-
-> diff --git a/drivers/media/i2c/maxim-serdes/max_serdes.c b/drivers/media/=
-i2c/maxim-serdes/max_serdes.c
+> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.y=
+aml b/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.yaml
 > new file mode 100644
-> index 0000000000000..7d013c4739d11
+> index 0000000000000..de6bfcec5dc63
 > --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max_serdes.c
-
+> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.yaml
 [ ... ]
-
-> +int max_serdes_process_bpps(struct device *dev, u32 bpps,
-> +			    u32 allowed_double_bpps, unsigned int *doubled_bpp)
-> +{
-> +	unsigned int min_bpp;
-> +	unsigned int max_bpp;
-> +	bool doubled =3D false;
+> +  port0-poc-supply:
+> +    description: Regulator providing Power over Coax for GMSL port 0
 > +
-> +	if (!bpps)
-> +		return 0;
+> +  port1-poc-supply:
+> +    description: Regulator providing Power over Coax for GMSL port 1
 > +
-> +	*doubled_bpp =3D 0;
+> +  i2c-alias-pool:
+> +    maxItems: 2
 
 [Severity: Medium]
-If a caller invokes max_serdes_process_bpps() with bpps =3D=3D 0, the funct=
-ion
-returns 0 (success) immediately before the *doubled_bpp =3D 0 assignment.=20
+Will this limit of 2 items break validation for standard dual-link camera
+configurations?
 
-Will this cause the caller to consume an uninitialized value for doubled_bp=
-p?
-Should *doubled_bpp =3D 0 be moved before the if (!bpps) check?
+A typical setup with two GMSL links often includes two serializers and two
+image sensors. Such a configuration would require at least 4 I2C aliases in
+the pool to translate all remote peripheral addresses.
 
-[ ... ]
+Does this constraint incorrectly map to the number of GMSL links rather than
+the expected number of remote I2C devices?
 
-> +int max_serdes_get_streams_masks(struct device *dev,
-> +				 const struct v4l2_subdev_state *state,
-> +				 u32 pad, u64 updated_streams_mask,
-> +				 u32 num_pads, u64 *old_streams_masks,
-> +				 u64 **new_streams_masks, bool enable)
-> +{
-> +	u64 *streams_masks;
-> +	unsigned int i;
 > +
-> +	streams_masks =3D devm_kcalloc(dev, num_pads, sizeof(*streams_masks), G=
-FP_KERNEL);
-
-[Severity: High]
-Does using devm_kcalloc() here lead to an unbounded memory leak?
-
-This helper function appears to be called dynamically during stream
-enable/disable operations. Because devm_kcalloc() ties the memory
-lifecycle to the device rather than the stream operation, won't repeated
-stream start/stop cycles continually leak memory until the device is unboun=
-d?
-
-[ ... ]
-
-> +int max_serdes_get_tpg_timings(const struct max_serdes_tpg_entry *entry,
-> +			       struct max_serdes_tpg_timings *timings)
-> +{
-> +	u32 fps;
-> +
-> +	if (!entry)
-> +		return 0;
-
-[Severity: Medium]
-When a caller invokes max_serdes_get_tpg_timings() with entry =3D=3D NULL, =
-this
-early return path yields 0 (success) without initializing the timings
-output parameter.=20
-
-Will callers relying on a success return code then consume uninitialized
-stack or heap data?
-
-[ ... ]
-
-> +	return -EINVAL;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(max_serdes_get_tpg_timings, "MAX_SERDES");
-
-[Severity: Low]
-Most of the framework functions in this file lack EXPORT_SYMBOL_GPL
-declarations.=20
-
-Since this framework is built as a module and intended to be consumed by
-external serializer drivers, will dependent modules fail to link against
-these unexported symbols?
+> +  i2c-atr:
+> +    type: object
+> +    additionalProperties: false
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-gmsl2-3_se=
-rdes-v15-0-7212e9e5156a@analog.com?part=3D13
+rdes-v15-0-7212e9e5156a@analog.com?part=3D12
