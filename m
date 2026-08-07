@@ -1,189 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2FD12B94
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:03:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1FC397E89
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786086196; cv=none; b=uyWEoNVt+wjx/CvK7eNS8tzvJyZSbmwS9JF2apwPxa4O2/AVxBW+6vjNT8rYw7gJtQsN8/lcTTVD0suHfGkFkff6/Vl3DRJqFD1wnLPcidmPkHhZYX/4T6nM1XnBw7e6qYG7o40YqmFWWbgKhWMhaeYUNjJijZc5Bbd7D9IncfQ=
+	t=1786086245; cv=none; b=KP3aLKHfBRJ1pSEXaMdowB1lf33Y1NcmYYfopRMEO46tnWNA1ogzVPIylom87oh0GRCDWAqSxrAQDaZnsRUoK4w7LNpRf7zjRiZbSBdxvaNFjghFQznudry+crJ3hsNgENbRCIuams1XoRtqjz4xAygYTrAhpsURwwzfKxpLW4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786086196; c=relaxed/simple;
-	bh=7VYSA6XFUbCEcI0D2x3sctayz0cAUQwxSNe1oNFi0yw=;
+	s=arc-20240116; t=1786086245; c=relaxed/simple;
+	bh=JRuZHTKtl4kNks2yZBX2KoidafBCZ9jolAcMnG/wrdk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PGn4DfTHmZLie20i47PpzGbY3AjoLhsovwZUTVckR0kcuvM8UMMiDdF93z5KegaVMLZtoexy2J1pviMCnsSBNc+DaGEv2FITTDet0RlgNwIjLyG4b6b8XFspYv4K6oHYtNOaRI4rXVvZ1KuB7raURyc0b4SKlp/vhEi9JSPdYZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hK57G289; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rTWysmmk1h+eawqsMUNB91kr5qpsFpe+mH27U4DxqdwcTEnURFEdXwMBiW5ko1TtDOoDj0pPZpFUH+6SjFI9rhbmA/evl1bL4JMR99DeZZ4N6E3Iqun53vT42xp6qAeyehhmOQtSZsyZB1II0QIRoZH0Pd6FdSjZ857jGtP6cLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RiBgSPuB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hK57G289"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4577B1F00A3A;
-	Fri,  7 Aug 2026 07:03:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RiBgSPuB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E711F1F00A3E;
+	Fri,  7 Aug 2026 07:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786086192;
-	bh=kAhMcj4VEYTZ3PkOhSonGDrzsrP7i5PoYK8R7panRMY=;
+	s=k20260515; t=1786086240;
+	bh=2z9pffxrfdJDA5NJRf+hp0GtrT9sgH5/rn4znYwxy7o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hK57G289yTvRhvGtHUBy554CKwENWMWiRbPybY/qrF5IGjqUpU0ctbexWrFVziqKu
-	 x/u/lw8kuHEivhrbW7LQwi1Vxe/lHrLN1UTN58+/UQZnc2PQUorT6fx3FDzTqOXFzo
-	 p0wDlmrKl9t2pxkjGNzeOP07LJRRM9U2WkyPbDBDZm3+q80zeCe+yWDxCJqkjXBn5Q
-	 ny0aDXaLyir/fx2o8iFiygUS9cV0iRhFDo+1c8RJPu3ZJ0EjPC1R7TdhVwFQXyHpNq
-	 dZv4m/W5I+9kQJEA9m6AataG53FMxF7ZNxozC2DL1+RS/BIROCiBQ0W/so9r1pu7G0
-	 WZLUekkA/1kmQ==
+	b=RiBgSPuBPLLICuj5AhLH6FhBI6//geeJ3Am39bQhRN4Rdbg05I1BFwAOORgaNxw6B
+	 nzjV1NTurmzok4GFsMEnB5o6j1soYaKHNp1hEgAYbwIwXCInw4Xq/Ti1dVu7W138PW
+	 KcPOuL/oCtaQN3eaypwCnp5OGdmCSGEK68ZhmXGNtzKAdqKQSBYo1qeiOu6Kewc/Bv
+	 uBVAVPjIfve0FO7T0qpF0pLJNa+pLRFFKu9nQQdoRhHQb7/2we433zh/Tbf+NiJ+Xn
+	 jG+nHscJjDAHYasVJTxrmQd5LlTMlalFS3x05xerBaizunf3oFho+QzmuVv48xrjtk
+	 lew8fQgezdVaQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/12] clk: qcom: ipq-cmn-pll: Add PON reference
- clock support
+Subject: Re: [PATCH v2 04/12] clk: qcom: clk-regmap-divider: Support
+ CLK_DIVIDER_* flags
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Luo Jie" <jie.luo@oss.qualcomm.com>
 Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-7-cce718b8ec17@oss.qualcomm.com>
+In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-4-cce718b8ec17@oss.qualcomm.com>
 References: <20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com>
- <20260806-qcom_ipq5210_cmnpll-v2-7-cce718b8ec17@oss.qualcomm.com>
+ <20260806-qcom_ipq5210_cmnpll-v2-4-cce718b8ec17@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 07:03:11 +0000
-Message-Id: <20260807070312.4577B1F00A3A@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 07:03:59 +0000
+Message-Id: <20260807070359.E711F1F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Integer Overflow / Division by Zero when requesting a specific lar=
-ge clock rate.
-- [Medium] Non-atomic update of the clock mode and divider creates an inval=
-id intermediate hardware state.
-- [Medium] Misuse of `WARN_ON_ONCE` for valid framework queries and uniniti=
-alized hardware states.
+- [Low] Type correctness regression: left shift of a signed integer without=
+ casting
 --
 
---- Patch [7]: [PATCH v2 07/12] clk: qcom: ipq-cmn-pll: Add PON reference c=
-lock support ---
-commit bc0bab1980249d4673b3cc332facefa3306c107a
+--- Patch [4]: [PATCH v2 04/12] clk: qcom: clk-regmap-divider: Support CLK_=
+DIVIDER_* flags ---
+commit 8da3393b838b4e4b6fe1ccda790022d6a599db23
 Author: Luo Jie <jie.luo@oss.qualcomm.com>
 
-clk: qcom: ipq-cmn-pll: Add PON reference clock support
+clk: qcom: clk-regmap-divider: Support CLK_DIVIDER_* flags
 
-This patch adds support for the PON reference clock in the CMN PLL driver.
-The clock is derived from the CMN PLL output divided by 2 and then by a
-configurable 8-bit divider. It supports both a fixed 31.25 MHz UNIPHY mode
-and a configurable PON mode.
+This commit adds a flags field to struct clk_regmap_div and passes it to
+clock divider functions to support CLK_DIVIDER_* behavior variants. It also
+updates div_set_rate() to handle negative error codes from divider_get_val()
+by changing the div variable from an unsigned to a signed integer.
 
-> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pl=
-l.c
-> index a24e57b33c6b3..356988c03a7ae 100644
-> --- a/drivers/clk/qcom/ipq-cmn-pll.c
-> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
+> diff --git a/drivers/clk/qcom/clk-regmap-divider.c b/drivers/clk/qcom/clk=
+-regmap-divider.c
+> index 672e82caf2050..fe4542b5bd580 100644
+> --- a/drivers/clk/qcom/clk-regmap-divider.c
+> +++ b/drivers/clk/qcom/clk-regmap-divider.c
+
 [ ... ]
-> +static unsigned long clk_pon_refclk_recalc_rate(struct clk_hw *hw,
-> +						unsigned long parent_rate)
-> +{
-> +	struct clk_cmn_pll *pon_clk =3D to_clk_cmn_pll(hw);
-> +	u32 val, div;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(pon_clk->regmap, CMN_PLL_PON_CONFIG, &val);
-> +	if (WARN_ON_ONCE(ret))
-> +		return 0;
-> +
-> +	/* Check if in UNIPHY mode (bit 9 =3D 0) - fixed 31.25 MHz */
-> +	if (!(val & CMN_PLL_PON_MODE_SEL))
-> +		return 31250000UL;
-> +
-> +	/* PON mode: calculate from divider */
-> +	div =3D FIELD_GET(CMN_PLL_PON_DIV_CTRL, val);
-> +	if (WARN_ON_ONCE(!div))
-> +		return 0;
 
-[Severity: Medium]
-Is it safe to use WARN_ON_ONCE() for this check?
+> @@ -43,10 +44,12 @@ static int div_set_rate(struct clk_hw *hw, unsigned l=
+ong rate,
+>  {
+>  	struct clk_regmap_div *divider =3D to_clk_regmap_div(hw);
+>  	struct clk_regmap *clkr =3D &divider->clkr;
+> -	u32 div;
+> +	int div;
+> =20
+>  	div =3D divider_get_val(rate, parent_rate, NULL, divider->width,
+> -			      CLK_DIVIDER_ROUND_CLOSEST);
+> +			      CLK_DIVIDER_ROUND_CLOSEST | divider->flags);
+> +	if (div < 0)
+> +		return div;
+> =20
+>  	return regmap_update_bits(clkr->regmap, divider->reg,
+>  				  (BIT(divider->width) - 1) << divider->shift,
+>  				  div << divider->shift);
 
-If the bootloader leaves the PON hardware uninitialized with a divider of 0,
-this will throw a stack trace during boot when the clock framework initially
-registers the clock.
+[Severity: Low]
+Since div was changed to a signed int to handle error codes, should it be c=
+ast
+to an unsigned type before being shifted here?=20
 
-Returning 0 without the warning might be safer.
-
-> +
-> +	return DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2ULL * div);
-> +}
-> +
-> +static int clk_pon_refclk_determine_rate(struct clk_hw *hw,
-> +					 struct clk_rate_request *req)
-> +{
-> +	unsigned long div, pon_rate, uniphy_rate =3D 31250000UL;
-> +
-> +	if (WARN_ON_ONCE(!req->rate))
-> +		return -EINVAL;
-
-[Severity: Medium]
-Will this throw a stack trace for legitimate clock framework queries?
-
-A user can write 0 to the clock's debugfs clk_rate file, or a consumer
-driver can call clk_round_rate(clk, 0) to discover the minimum rate, which
-are legal queries.
-
-> +
-> +	div =3D DIV64_U64_ROUND_CLOSEST((u64)req->best_parent_rate, 2ULL * req-=
->rate);
-
-[Severity: High]
-Can this multiplication overflow and cause a divide-by-zero regression?
-
-If req->rate is set to an exceptionally large value like 1ULL << 63 (which
-can be requested by writing to the clock framework's debugfs interface),
-the multiplication 2ULL * req->rate evaluates to 0 due to 64-bit unsigned
-integer wrapping.
-
-This 0 is then passed as the divisor to DIV64_U64_ROUND_CLOSEST.
-
-> +
-> +	/* Clamp to valid range (1-255) */
-> +	div =3D clamp_t(unsigned long, div, 1, 255);
-[ ... ]
-> +static int clk_pon_refclk_set_rate(struct clk_hw *hw, unsigned long rate,
-> +				   unsigned long parent_rate)
-> +{
-> +	struct clk_cmn_pll *pon_clk =3D to_clk_cmn_pll(hw);
-> +	unsigned long div;
-> +	int ret;
-> +
-> +	if (rate =3D=3D 0)
-> +		return -EINVAL;
-[ ... ]
-> +	div =3D DIV64_U64_ROUND_CLOSEST((u64)parent_rate, 2ULL * rate);
-
-[Severity: High]
-Might this also trigger a divide-by-zero regression for the same reason?
-
-If rate wraps when multiplied by 2, passing 0 as the divisor to
-DIV64_U64_ROUND_CLOSEST will result in a division by zero.
-
-> +	if (div =3D=3D 0 || div > 255)
-> +		return -EINVAL;
-> +
-> +	/* Switch to PON mode */
-> +	ret =3D regmap_set_bits(pon_clk->regmap, CMN_PLL_PON_CONFIG,
-> +			      CMN_PLL_PON_MODE_SEL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_update_bits(pon_clk->regmap, CMN_PLL_PON_CONFIG,
-> +				  CMN_PLL_PON_DIV_CTRL,
-> +				  FIELD_PREP(CMN_PLL_PON_DIV_CTRL, div));
-> +}
-
-[Severity: Medium]
-Does this non-atomic update create an invalid intermediate hardware state?
-
-When changing from UNIPHY mode to PON mode, the clock mode is switched
-before the new divider is programmed.
-
-If the old divider was zero or invalid, the hardware might momentarily
-output an out-of-spec frequency or lock up, especially since this clock
-lacks the CLK_SET_RATE_GATE flag and rate changes can happen while active.
-
-Could both fields be updated atomically in a single regmap_update_bits()
-call?
+Left-shifting a signed integer without casting can trigger static analysis
+warnings, or technically undefined behavior in standard C if the value
+overflows into the sign bit.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-qcom_ipq52=
-10_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com?part=3D7
+10_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com?part=3D4
