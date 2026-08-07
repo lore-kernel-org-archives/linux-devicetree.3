@@ -1,154 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F5B37F313;
-	Fri,  7 Aug 2026 23:04:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8A81A6814;
+	Fri,  7 Aug 2026 23:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786143847; cv=none; b=IPFj167a6ZFGE1KxXn9TyoxfWqjKJaBrDQKV00ZUd6IsO7ICXzhM+ZDq6rp/rXBfNZQMvTHGkd9CNk2dyPRYCSHSuTxcoOg7BSbybckKxMHSfYad00yNtZPJm5ymToafRCZ5kqDQXTo6qaobzeXtCtNhZK8JqW0R6O8llZpj7WA=
+	t=1786143913; cv=none; b=ArRCYRAx2XUlKZMbulgO+TuksE5s+r5rgOqt6UJHGF3iK+KBYzWh21JbgaUwLgowHMKDaRm3G0vtxNlpCZbBF3Q5jCka5oH+WI7lEZRwM1PNQVHAWmcDAed7fA5YNcTyZL+w420TB1dxIqQB0FGcIfz2ebzxzGJCZ7pJ/F6gtgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786143847; c=relaxed/simple;
-	bh=JSmYH8NUq9hzUQWk9dCp1q6Q2pn3+VvnBw14ktHgi/w=;
+	s=arc-20240116; t=1786143913; c=relaxed/simple;
+	bh=vxKXYQUoQkmNt6eRSpmBDHfBldMg5ayqRpmTliTKF+U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ryQdosO1/coSUWBRZSr3Pxf/Q/ZdG4iusIW+DaLe91W1uDzLUQpdLZGYqd5ph5smRKEjSp5pCIb0ZC6XGCtVttyT08mtUQNt+8mxuTK1B1tV8eikbX7LoSMoks9s2gUQbUUDBiW2dP0EJpleReXLTrT4ay4+vfOMRkywjKlv1ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VV/XUYcM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=clysTdS44Pn5r2r4GSMT7lu2xOYAS8jeE6nA7sauOw4iTLkfhXM3sIp5wZkDverDrAwt3TyhpUBZoelaIxwnJGF2lcUebYwETEzZb29LktQbQ+EG94kM3WobiL7gDfVRMQq01dwg+NfERR5FhpzK9wY5acn9l2fgpSjBFZHDMoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VwqO6m2q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VV/XUYcM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FBB81F000E9;
-	Fri,  7 Aug 2026 23:04:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VwqO6m2q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6FE1F000E9;
+	Fri,  7 Aug 2026 23:05:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786143845;
-	bh=kx1UpXBKBEnflfmlkyqXJx2dZdKyL+1i3Yt8CewuoiI=;
+	s=k20260515; t=1786143912;
+	bh=xbEIosNJCaP3EJaufvPQKfBBttV/sl6714LVS/JGpXw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VV/XUYcMh8D0sqYrzb6w4ag/Zg3apwKvX86mZCbG+yJ4BrEBzd6D/uVp6XAcfGVu9
-	 xK0K3U1X6w18XuHNER8n2eiovHx2ki/yt8i7e4rVnNMVLrSy45/NhT9manywxGtTq+
-	 OZpQGjBAa3EQOa05D0effL3x/zpXVwtZua2RfujaYDYnlAUiPoewfrtjKTwjxGbwhN
-	 /QeJxfZT28juQPDOxN1mkQjQ4ccmqdX5aYPAPzJfb53i6n9RqrBwGrOEp3VB8xm3XH
-	 80ccLuP5Q0vc1dAUkxDhwNkCnOjAuuInRU6AqpF9LSU3hKFCSwFnDBfzNJPOqrLHuZ
-	 HHSyV1z1pS3cw==
-Date: Fri, 7 Aug 2026 18:04:04 -0500
-From: Rob Herring <robh@kernel.org>
-To: Cody Kang <codykang.hk@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
+	b=VwqO6m2qcciWO1XY1NfZtb2rO4Wi2HD/3rxLNplnQVdVr3HULoSTBgYytJgf5tpGD
+	 X5+9/lTbvrH7wUmN9pt78eJdf7RF3RUjR86+eMhLHX8wm9MBpCflS6SP/QQnTLTMoe
+	 henAyXF+wrDipKLLFdUh9Gw9I4400uvMTF4jjS776z/aZqijGqosP7pEwnPxY91Icz
+	 PqI6qRYPq0hxtn0a4+LJOfrhxNLe5ciRIpaY7avuV8GP1tWRUc0K/g2KT0Wtk8NajX
+	 JDIK58eFHSKt7qhigffnatg36d31+05ct1btkP0/etqSlhPFbKyJeWe8PG/ryy6pm9
+	 wrkXOYIUUKnog==
+Date: Sat, 8 Aug 2026 00:05:06 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Haylen Chu <heylenay@4d2.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-clk@vger.kernel.org
-Subject: Re: [PATCH RESEND 03/17] dt-bindings: display: spacemit: add K3
- Innosilicon DP/eDP controller
-Message-ID: <20260807230404.GA2211679-robh@kernel.org>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-3-6de34d80e86c@gmail.com>
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Darren Ye <darren.ye@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	bui duc phuc <phucduc.bui@gmail.com>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v5 4/4] ASoC: airoha: Add AFE and machine driver for
+ Airoha AN7581
+Message-ID: <645bcbb1-978b-40b9-84d0-a199b3a508d0@sirena.org.uk>
+References: <20260807200936.201827-1-ansuelsmth@gmail.com>
+ <20260807200936.201827-5-ansuelsmth@gmail.com>
+ <8146f434-1e16-4ebd-80a4-b9c27bfa45af@sirena.org.uk>
+ <6a7662b8.6220df5f.3c6b34.4460@mx.google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+3mYRGFLj7ilQ38p"
+Content-Disposition: inline
+In-Reply-To: <6a7662b8.6220df5f.3c6b34.4460@mx.google.com>
+X-Cookie: 1 + 1 = 3, for large values of 1.
+
+
+--+3mYRGFLj7ilQ38p
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260725-k3-display-v1-3-6de34d80e86c@gmail.com>
 
-On Sat, Jul 25, 2026 at 12:51:12AM -0400, Cody Kang wrote:
-> Both K3 instances are the same IP and share one compatible; which one
-> behaves as eDP is decided by what its downstream port is wired to, not by
-> which register window it sits in, so the binding does not distinguish them.
-> 
-> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
-> ---
->  .../display/spacemit/spacemit,k3-inno-dp.yaml      | 140 +++++++++++++++++++++
->  1 file changed, 140 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/display/spacemit/spacemit,k3-inno-dp.yaml b/Documentation/devicetree/bindings/display/spacemit/spacemit,k3-inno-dp.yaml
-> new file mode 100644
-> index 000000000000..865ea310daaf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/spacemit/spacemit,k3-inno-dp.yaml
-> @@ -0,0 +1,140 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/display/spacemit/spacemit,k3-inno-dp.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: SpacemiT K3 Innosilicon DisplayPort / embedded DisplayPort Controller
-> +
-> +maintainers:
-> +  - Cody Kang <codykang.hk@gmail.com>
-> +
-> +description:
-> +  Innosilicon DisplayPort transmit controller integrated in the SpacemiT K3
-> +  SoC. The K3 has two instances of the same block sharing one compatible;
-> +  each acts as embedded or external DisplayPort depending on whether its
-> +  output port drives a panel or a connector.
-> +
-> +properties:
-> +  compatible:
-> +    const: spacemit,k3-inno-dp
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description: Link and hot-plug events.
-> +
-> +  clocks:
-> +    items:
-> +      - description: Pixel clock for the controller.
-> +      - description:
-> +          Pixel clock generated by the DP PHY PLL; the pixel clock above is
-> +          parented onto it in use.
-> +
-> +  clock-names:
-> +    items:
-> +      - const: pxclk
-> +      - const: pll
-> +
-> +  resets:
-> +    maxItems: 1
-> +    description: Controller-wide reset signal.
-> +
-> +  phys:
-> +    maxItems: 1
-> +    description: Phandle to the K3 Innosilicon DP PHY.
-> +
-> +  phy-names:
-> +    items:
-> +      - const: dp
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Video input from the DPU.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Output to the panel or to the DisplayPort connector.
-> +
-> +    required:
-> +      - port@0
+On Sat, Aug 08, 2026 at 12:56:53AM +0200, Christian Marangi wrote:
+> On Fri, Aug 07, 2026 at 11:52:58PM +0100, Mark Brown wrote:
 
-Shouldn't port@1 be required too?
+> > This should be more patches, the machine driver should be a separate
+> > patch at a minimum.  Possibly PCM and ETDM drivers too.
 
-Otherwise,
+> Sooo you are suggesting 3 patch? one for machine, one for basic pcm and one
+> for etdm?
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+At least, yes.  Basically one driver per patch.
 
-Rob
+--+3mYRGFLj7ilQ38p
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp2ZKEACgkQJNaLcl1U
+h9DMrgf7BHtogqj4DSHF9g99FPOtRVrxmKPlNjM902FlH/JmKVE5cT5AUlEdMIQ7
+tlb2+Cb8luOavgvtUzPhpSwp0lZGtxaZSrwYVDLQ/avH/L876i8ahADONr9XcJm9
+fw9kzXqpPQn90bAqLJ5XXStskqeTBGfslEzZalKqyOPKbo1a/YukkhNyang7uhbr
+UN6OQPbug8wEZ/xje38jzeeLDK9dsbnC+kp1npJ+hpjYSIc/hlOI7ya9nOQfOb5G
+P9E2uaj0AieQJaWMS/3LE8BASMxYhczoUY0YCHqrhwnQur/I2uXJZ9u+yYB9RFaO
+l9WJnfaItHWZy+vBcekpkTvFY4R/Xg==
+=8gHJ
+-----END PGP SIGNATURE-----
+
+--+3mYRGFLj7ilQ38p--
