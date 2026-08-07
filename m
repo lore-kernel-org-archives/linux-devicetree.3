@@ -1,300 +1,167 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A3D233933
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA299BA3D
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786125063; cv=pass; b=AE6dDAmGDQP8Nm8iGZQP5TwGeT6pLv8JW961kD1ebG+EIV6CHQha586ogZIL96XsEVHqWf6eRsoo2rHwaxRO4LX59NMvgs8CmdRB7lhEZvJOAC4ZIedjHOhNcCURLZSqnkFr4e/O0BMgw9J1+gF/Pj2KVJ1eX5gHtWUsNmYrrGY=
+	t=1786125545; cv=pass; b=Hb5uDJjbjc9eZRg80BdaO/ufw5cvNivtmXjan8gqwKqqj+Qty0riBvcI+Gw73nlkB+/vJvZrS30dM7P4aG/c8Vb8BKIhhQWUCtfG/1mtV+FP6/Ts7vt8dQmBbTm2x9aZNgox85K6bSlbomP0rUUt04cV7IxEnClAVhbpaEA1UiI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786125063; c=relaxed/simple;
-	bh=Y5Eon8RQ+CcJu2x/PUMS0016ahTcxgHY4XXYlHwteqk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LUxVkEbcwLcYeaWritXvkBTVDGXVORh/C1iamohxEB1fb65aMbsKc5CA7UkUIrOvK2h0R+ZbonN6FMBFBU2ge0YzYcBLf+OCt4tMSKUDL+he6eWbFbPMwaNIR/L0NiruZFv1wpccx5SZ85me+D19Fu9aadYmi58cuGQo2iEDQPw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZzSUqHmK; arc=pass smtp.client-ip=209.85.161.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786125545; c=relaxed/simple;
+	bh=KifaXFQu9tF6aWbmCs03ZjXqJQ4xMHpOYPZarNrPG7I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KtanDdHN7KifKnMTaj/LhmJkbiIv3+mtgYwvEYHVQ7+Ysbz/NOlu9q6CuDR0eygGIvY4ljS0LEWptyDkCxnie13XlwuRgHnvICS2xZ5bCjrXOM8z+4JhcsSR4eRpp5Uyr88MMsBC+6gyMIYlLfOTMWnw+7vcaIuMX4Eyp+qHSIs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=OqvPtaZm; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZzSUqHmK"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6aeaaef491cso1113474eaf.2
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 10:51:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786125061; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eQoS62Gl95ipvPuhEY12Bu0Ur5yZC6h+d8teSwrLTdissp48QN8wWKWomKCZdw6WZA
-         rNa1+UOdjGEyOVNToO0a4pXMj6z5YA2bbYt7AFWsLDnvau/QbyjbDLlvuHJoXd1RVDz9
-         jBmp3BKDmx48E1gC64L6hH186yvYzt3nFx0YdZU9KUJ2XOe8UUZHyMWNeVqy3YeSz1kL
-         8Qp0srw+ghPjW8hK/i3T0285PJcltELQdQ6YKs6AoTtFRZ2Nw0z/8sxyiIb2c0YuphvV
-         bSCLDJKDoAjROP9Sh1CsYr7xPxWfJi9iRf7eHj1NSEAItY+EkiBMEDLg+lUNQ8DQIyAP
-         GrNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
-        fh=KRfACPfO7ZNREt8541yII44h4k86MjkCVmwUQ3fxPhM=;
-        b=HbdBzPxvJDITX+CvmJ22eq0Hg2sLUX/k6GxdtnpzTNuUgcpjrHQnV+JUEybKoMB7sE
-         l/MvtJN170wcc8Cf0yYETpMTwNiiJAA9Iv3bdpljeN41PneEr+2i5kvnBbNLHb44L7pa
-         E+ZAFvYqvRScPEAHuKFCLVhBGe2GoLiyr5GCAZs9Mtsib5nPCG3RwpFMnwJONQ8OjpYp
-         xir5hT9iknAuFmSLquwvR4BteRLBugwzWlti3GNZ+qTwMTusFRaMoiMqMn5/+ugjHOls
-         3JARDzqUAcWcDKrQlrZnlkZUZGSo+Wzzc1DbfxTq7s1JgeYMpHWXUUrxi/q+s8MzHwsq
-         wqHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786125061; x=1786729861; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
-        b=ZzSUqHmKQ6sEQsyN9xlL1nxZho267zJrmmdM5+PGGpOCYwfR3Zgt58Gxnc8bh7S2Nr
-         sxDzDg2SaFGQ5rRSiF7iac8em6MH4hGbbTcXjL8AoRDv8Qrj23eWXSZcrKHFxK9v9LDk
-         HG82IiPn+Nl0Tala1Iy2Oz8pfRlGhgfpbbqKh3rz3chEeBYdBL0tYqV83tWKmz6WVgNo
-         CZnVDPD13T5Z9AYbOk29yhek6dLq0xPj4/ygHqzNXCPODZhckk7osvcaIv1qttM50POs
-         xwJ28mBS79XA7CZ3sSk5FqIF8GhkaEYkAEr2zx3b2LIvEpI84qvZ7P4P4Z3QN8ony1KH
-         Jj0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786125061; x=1786729861;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
-        b=QdFG2q+Ssr+z+YtJc5dn7vH1i3dKqL4oxy16QVwvC2g0cCHcCqglOLw7+Woi0XtV2v
-         9q02v01KStAYVhKM4kcHs+45ODsXm/+la8IIKP451bpst05TC2vENwTsU8a8525de53q
-         GN6zKPLinJ/5a7hL3nlzvS9K6vptrDxKtLFer4XEKLBpTbe80sNJ/deKsoaJ5BupqiaU
-         FJX+1Tkn8cUF1KXwWQcrFO0mnruJW4bdNcbU0LEatRoHERgHIGgZd3a4UWM8bkwdCCwm
-         fsCkiTHTYAVf7sEEWoMdAglBGt9eeJYrkCWsyO57oHzNfRJ/GjlPv6EfikEv2yujqCE6
-         GhOQ==
-X-Forwarded-Encrypted: i=1; AHgh+RooPor9wgAvqJPI+4qh0DtQd/2yrs7V0Vj21TNBBAaa+mhLyDjBsFt9YmEHKJ5QcE1s0dxrxTQ7lZPm@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvfExwpy9xIBxM4bM1m0/NxDMszLy77yKUbennKOa3nc0vAfSu
-	LWfYK7J4LGOmbYvfDmv93+IR+sKr6qNzsusGTF0feR2fI6lAT5v1QeGyW9UzLM+v+Kc2NMJRZXC
-	TGfjQdE6LpUadC+d3lhv6Vf4JjdfNVGs2XTXLdW0Miw==
-X-Gm-Gg: AR+sD139R0xLv5K8/wP75tQllEiPDBnGRf+9wKdE6PAgbm4qNGjdYCoCvq4SdG8s7ME
-	S67MIebLxv5Dzqouluz9nyctXEEiHQBWFqu3aqiXSUEwuaTAsAwvKCK5o0CSx12L4BoA1CKy2H2
-	xwhjMS4+Im2WikcQ7q4YValglI6R40qvJAauJYNVNU86Bzzly9wHURKi4pAfsnb3TU89QyRxEtg
-	VcD+aPXji6edL+xECYStJ4FMF+86d/tQx96Eng2WqQ6w51pru2NXYdVDO1hzg7NVckc2TgEEGKP
-	gm9phRtzxEfbm/eWO/aQMlkbxmEQdsBIsxX9v6MGg92mJANT3VbMGgludXN52Wfa0rPVYiqF5t0
-	rrA==
-X-Received: by 2002:a05:6820:811:b0:6b0:40d9:8ac6 with SMTP id
- 006d021491bc7-6b041f594b5mr991109eaf.9.1786125060721; Fri, 07 Aug 2026
- 10:51:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="OqvPtaZm"
+ARC-Seal: i=1; a=rsa-sha256; t=1786125530; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=QzJSbKGvx2PDYsGwY5DrXb4Mu5zyFa0nzmJ/Wq8DMJ1h4ZFn7ubt7DZqnidBwzz2EH3AuODm0AxnedWChB+KAhadpOrO1jeKje8pMzuhmoTN5BZFAGTSpOGHZWUbURN1st9pXqcpWcQ+ylBW/zx2HqS8rLvyx8fThC8hAGy357A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1786125530; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=5X66dM6QHHWxY6bBMRQTS1JmqGd1+5fST36EM3XypzI=; 
+	b=Tt/Ww/goqTmfvvPIWAwwx+SWH2heRAPbT4OWC0xgfdP4Gohyd51tUICycexLDBqLEm/g6ZmEU6eMr7LgRUdQJ+61Yv0vAn4RW1T4ez1fJzUQrjerDC3XGZuQCc1RwgCJwWT4xTeYw/ZaDaqBFUu2NgTqOVRfcvU3E8c82dKtLRc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786125530;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=5X66dM6QHHWxY6bBMRQTS1JmqGd1+5fST36EM3XypzI=;
+	b=OqvPtaZmlVYUECV2meelrS5ctdP+Kzaf9EUb7/3lHk+5hYJHMC1uZoq3dh69kfhQ
+	KIOhLQ6keuYnJFuW1ndRmRcvcilurdPqHur6ZDM9494YEcnEREcag7gKS96M0wfLtbY
+	htGARHm2QrMDSqN3EICpalkv51x2Xxy4U9o77Zmo=
+Received: by mx.zohomail.com with SMTPS id 1786125527192874.9730414852983;
+	Fri, 7 Aug 2026 10:58:47 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id E4007180895; Fri, 07 Aug 2026 19:58:43 +0200 (CEST)
+Date: Fri, 7 Aug 2026 19:58:43 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Rob Herring <robh@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, kernel@collabora.com
+Subject: Re: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix
+ sound DAI cells
+Message-ID: <anYanfuZQT4Pz6lC@venus>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-20-0d508505f383@collabora.com>
+ <20260806174000.668AB1F000E9@smtp.kernel.org>
+ <20260807155140.GA882294-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728091804.382753-1-wenst@chromium.org> <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com> <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
- <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com> <amswFn2qWkvypMH8@redhat.com>
- <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
-In-Reply-To: <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
-From: YoungJoon Lee <getfeus@gmail.com>
-Date: Sat, 8 Aug 2026 02:50:47 +0900
-X-Gm-Features: AUfX_mw5H1veunrAd0DWILURr17Bo7nhldWDJMLG41xotTB7eMODtkVZIaJFjgA
-Message-ID: <CA+m4KrDpcdJZBXT5wN+NHV+BtLLT-suhamCmzg+gUhamvbPR8Q@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: wens@kernel.org
-Cc: Brian Masney <bmasney@redhat.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xvnis4rjdghlkh7f"
+Content-Disposition: inline
+In-Reply-To: <20260807155140.GA882294-robh@kernel.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.110.97
+X-ZohoMailClient: External
+
+
+--xvnis4rjdghlkh7f
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix
+ sound DAI cells
+MIME-Version: 1.0
 
-Hi Chen-Yu,
+Hello Rob,
 
-A follow-up on the GX6250 issue.
+On Fri, Aug 07, 2026 at 10:51:40AM -0500, Rob Herring wrote:
+> On Thu, Aug 06, 2026 at 05:39:59PM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential is=
+sue(s) to consider:
+> > - [Medium] Device Tree schema validation breakage for existing `rockchi=
+p,rk3588-dp` configurations.
+> > --
+> >=20
+> > --- Patch [20]: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp=
+: Fix sound DAI cells ---
+> > commit 2c15bbfcf4dec184872abdf4c2e06063a52d1e2f
+> > Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+> >=20
+> > dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells
+> >=20
+> > The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+> > possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+> > to select the right interface.
+> >=20
+> > > diff --git a/Documentation/devicetree/bindings/display/rockchip/rockc=
+hip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchi=
+p,dw-dp.yaml
+> > > index 2b0d9e23e9432..c4f8959dd65da 100644
+> > > --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-=
+dp.yaml
+> > > +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-=
+dp.yaml
+> > [ ... ]
+> > > @@ -83,7 +83,8 @@ properties:
+> > >      maxItems: 1
+> > > =20
+> > >    "#sound-dai-cells":
+> > > -    const: 0
+> > > +    const: 1
+> > > +    description: 0 for I2S, 1 for S/PDIF
+> >=20
+> > [Severity: Medium]
+> > Will this strict constraint update cause make dtbs_check validation to
+> > fail for existing in-tree device trees?
+> >=20
+> > The mainline arch/arm64/boot/dts/rockchip/rk3588-base.dtsi still defines
+> > #sound-dai-cells =3D <0>; for DP nodes.
+> >=20
+> > While the commit message notes this breakage is intentional and will be
+> > fixed up separately, could changing the schema without the accompanying
+> > DTS updates cause automated CI validation failures and break bisectabil=
+ity?
+>=20
+> Yes, and I don't love the intermittent warnings introduced. As long as=20
+> the warnings are on a downward trajectory, I won't notice...
+>=20
+> Not saying you have to do something here, but this will get more=20
+> strict...
 
-I ran the diagnostic test I mentioned in my previous reply, and I now
-have a reproducible system hang along with HWRT/free-list lifetime
-traces.
+I don't like it either, but it's the best I came up with. If DT is
+updated first, there will be a warning for the DAI cells being 1
+instead of 0. To fully avoid the warning I see these options:
 
-I built a diagnostic kernel with temporary tracing around the PowerVR
-HWRT and free-list lifetime paths, and ran:
+1. update DT binding and DTS in a single patch
+2. allow 0 and 1 in the binding with 0 not really working
 
-PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 glmark2-es2-drm
+IMHO neither of those are great either, so I ended up with the
+series like this. Regarding the downward trajectory: RK3588 should
+be completley free of warnings in dtbs_check at the moment.
 
-The test was run from multi-user.target with no display manager running.
+Greetings,
 
-This time glmark2 progressed past the point where it had previously
-failed, but later the entire system became unresponsive during the
-desktop/blur part of the benchmark.
+-- Sebastian
 
-At that point:
+--xvnis4rjdghlkh7f
+Content-Type: application/pgp-signature; name="signature.asc"
 
-- SSH stopped responding
-- local keyboard and VT switching stopped responding
-- the system required a hard power cycle
+-----BEGIN PGP SIGNATURE-----
 
-The HWRT teardown trace immediately before the hang was interesting.
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp2HMwACgkQ2O7X88g7
++pp+Ig//YTasKYth8R0rZG54e32jecsEgJeOQXkU9uTt+XNoLMdVLNAOSz2O1Vz0
+T0JwqtSO2hVj6tXqBQ4ZQmtE8FuPpKuUymgJtnOy2w9xSZP2aZzxjbZ6keQw9OEn
+4bifhadn1iLTmRrYHoA9IwCn7rSqfgyS5oebPFENqNEKIJ+b9rr+UF6OpxPcPbk5
+Z9hYf+NCddXja9C7OWTOYzyVMxaZ30coVr6jDidgrpZcZogXC5SsO7banHrQ71LE
+0nQ85i59W1paV/cYNlK6hU5s2Iw+kAL2JyQqqmE6buK5T2ZPYLNpmoom7bI9U65m
+CWKFUiHCWJDFB5Sor02KfokvWB9dOVS1TnVj1wxMyBjkAIoIJSd+h0J9RCDnok/d
+Cnzd7x1pR7XTcux+w+AE+bJ4w/YQRxYka/E33ntZRXpKXQO8BRjO6p4m0/1a4KqY
+0ChKQGMlDatl/oNhAXLRth/tCOGanMjr6bNXVh/0MkgtjGpRb2sA+vWd0kHNF3DJ
+nHZwYR+1kntUZpvT5MdIaOpJrFQ83J0xEeQ+uUyFfOjzlSItwr0oUAgnQIdltEwc
+cQ+OdwGr8wZm6s/AaPlEtakR7xUiofEUxhQMshASWhwRHL0nljCVXf36/vX7Sn03
+JTKhNxI08uW0Fm4b2DNyAEa4dZMGDhP/rUl0SutKeYVeutCZi8A=
+=kX1F
+-----END PGP SIGNATURE-----
 
-Normal HWRT destruction repeatedly looked like this:
-
-dataset-release
--> HWRTDATA cleanup data=3D1, err=3D0
--> HWRTDATA cleanup data=3D0, err=3D0
--> free-list release slot=3D0
--> free-list release slot=3D1
-
-For the last HWRT visible before the machine stopped responding, the
-trace ended at:
-
-pvr-hwrt: dataset-release hwrt=3Dffff0000c0c62800 ...
-pvr-hwrt: cleanup hwrt=3Dffff0000c0c62800 data=3D1 err=3D0 ...
-pvr-hwrt: cleanup hwrt=3Dffff0000c0c62800 data=3D0 err=3D0 ...
-
-There was no further PowerVR trace before the system hung.
-
-Therefore, I do not think I can conclude that the free-list reference
-counting itself is the root cause.
-
-What I can say from this instrumentation is that both HWRTDATA cleanup
-calls returned successfully, and the trace stopped before
-hwrt_fini_kernel_structure() reached its first free-list release
-message.
-
-The tracing is intentionally verbose and may affect timing, so I do
-not want to over-interpret the exact failure point.
-
-I have the diagnostic patch, the full kernel log, the HWRT/free-list
-lifetime trace, and the glmark2 output available.
-
-Would it be useful for me to send these to the Imagination/DRM mailing
-lists now, or is there a particular person or list you would prefer me
-to report this to?
-
-If there are specific additional tracepoints you would like around
-hwrt_data_fini_fw_structure() or hwrt_fini_common_fw_structure(), I
-can build another diagnostic kernel and reproduce the issue again.
-
-Thanks again for taking a look.
-
-Best regards,
-YoungJoon Lee
-
-2026=E5=B9=B47=E6=9C=8830=E6=97=A5(=E6=9C=A8) 21:38 Chen-Yu Tsai <wens@kern=
-el.org>:
->
-> On Thu, Jul 30, 2026 at 7:06=E2=80=AFPM Brian Masney <bmasney@redhat.com>=
- wrote:
-> >
-> > Hi Angelo and Chen-Yu,
-> >
-> > On Thu, Jul 30, 2026 at 10:23:14AM +0200, AngeloGioacchino Del Regno wr=
-ote:
-> > > On 7/30/26 06:51, Chen-Yu Tsai wrote:
-> > > > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
-> > > > <angelogioacchino.delregno@collabora.com> wrote:
-> > > > >
-> > > > > On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> > > > > > On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@r=
-edhat.com> wrote:
-> > > > > > > On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> > > > > > > > Hi everyone,
-> > > > > > > >
-> > > > > > > > This is v4 of my MT8173 PowerVR GPU support series.
-> > > > > > > >
-> > > > > > > > This time around Mesa was ready for basic testing, using bo=
-th vulkanmark
-> > > > > > > > and glmark2-es2-drm (with Zink). Details below.
-> > > > > > > >
-> > > > > > > > Changes since v3 (all in the clk driver patch):
-> > > > > > > > - Changed pm_runtime_put() to pm_runtime_put_sync()
-> > > > > > > > - Added missing of_node_put() in remove function
-> > > > > > > >
-> > > > > > > > Changes since v2 (all in the clk driver patch):
-> > > > > > > > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> > > > > > > >     - Needed since the driver implements PM domains using t=
-he generic PM
-> > > > > > > >       domain library, which also depends on PM
-> > > > > > > >     - Fixes build breakage (kernel test robot)
-> > > > > > > > - Fixed "RST_DELAY_CNT" name (Brian)
-> > > > > > > > - Dropped unused mfg_desc (Brian)
-> > > > > > > > - Added check of clk_prepare_enable()'s return value in
-> > > > > > > >     clk_mt8173_mfgtop_power_on() (Brian)
-> > > > > > > > - Saved error value for return in IS_ERR(data->clk_26m) bra=
-nch
-> > > > > > > >     (Dan Carpenter / kernel test robot w/ smatch)
-> > > > > > > >
-> > > > > > > > Changes since v1:
-> > > > > > > > - Adapted to changed DT bindings
-> > > > > > > > - Dropped driver change
-> > > > > > > > - Use same power domain for "a" and "b" GPU power domains
-> > > > > > > >
-> > > > > > > >
-> > > > > > > > This series enables the PowerVR GPU found in the MT8173 SoC=
-, found in
-> > > > > > > > some Chromebooks.
-> > > > > > >
-> > > > > > > I'm making a pull for Stephen for the clk changes. Should pat=
-ches 1,2,4
-> > > > > > > go through the clk tree? Patches 3,5 go through the DRM tree?
-> > > > > >
-> > > > > > Only patches 1 and 2 should go through the clock tree.
-> > > > > >
-> > > > > > Patch 3, 4, 5 can all go through the soc tree if Angelo wants t=
-o pick up
-> > > > > > DT binding patches. Otherwise I can push patch 3 through drm-mi=
-sc.
-> > > > > >
-> > > > >
-> > > > > Not sure if I can really take the DRM bindings patch through soc.
-> > > > >
-> > > > > I will take the devicetree ones exactly right now, even though it=
-'s going to
-> > > > > give warnings.
-> > > >
-> > > > Apologies for missing this, but the first DT patch depends on the c=
-lk DT
-> > > > bindings patch for the clk ID macros. This is causing build errors =
-in
-> > > > linux-next right now.
-> > > >
-> > > > Not sure how we can fix this right now.
-> > > >
-> > > > Brian, would it be possible for you to split out that patch into a
-> > > > separate immutable branch for Angelo to merge?
-> >
-> > Yes, I can split things out and make an immutable branch this morning.
-> > But it sounds too late for that.
-> >
-> > > >
-> > > > Otherwise Angelo might need to drop the DT patches until the next c=
-ycle.
-> > >
-> > > Yeah, that's so bad.
-> > > I'd be happy to be able to resolve this, but it's too late on my side=
-.
-> > >
-> > > I should've checked the DT patches more carefully, my bad: I got a bi=
-t too excited
-> > > to finally see this PowerVR stuff working on MT8173 and going upstrea=
-m.
-> > >
-> > > Sadly, I have to drop the devicetree patches :-(
-> >
-> > Chen-Yu: Could Angelo add an Acked-by to the three patches, and then I =
-send
-> > Stephen an additional pull with just those patches? Do you think he'd
-> > pull that?
->
-> (replying from my @kernel.org address again because I don't feel like
->  pulling out my work laptop.)
->
-> I think the question is whether the soc & dt maintainers would be bothere=
-d
-> by it or not.
->
-> No need to sweat over it though. It's not like the GPU driver is producti=
-on
-> ready anyway. We can just merge the DT patches in the next cycle. :)
->
->
-> ChenYu
+--xvnis4rjdghlkh7f--
