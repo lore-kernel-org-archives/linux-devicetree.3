@@ -1,178 +1,189 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DB538757A;
-	Fri,  7 Aug 2026 07:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2FD12B94
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786086067; cv=none; b=KieG56X6bW1MYs115101h5gq8t4m3hN/i7gesalN3fQ5H2vHJm5A5nqBDbLocTf14qIscBkwedtp0z7jgwWzXdXlD7cV8lhfeO8CwKgvteggc9e2Dm//ytPdSkhYT+K6EW3mc/uWryqVeWr4izCA+yJyXb3UK7m//aFWle1ftgg=
+	t=1786086196; cv=none; b=uyWEoNVt+wjx/CvK7eNS8tzvJyZSbmwS9JF2apwPxa4O2/AVxBW+6vjNT8rYw7gJtQsN8/lcTTVD0suHfGkFkff6/Vl3DRJqFD1wnLPcidmPkHhZYX/4T6nM1XnBw7e6qYG7o40YqmFWWbgKhWMhaeYUNjJijZc5Bbd7D9IncfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786086067; c=relaxed/simple;
-	bh=DPt7Wbhkvslhx16ZR5jytlQCC2P1SaKxMzooIoqN/Ng=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=pZiKDEWP/E9dcYb/foZCE8ckWEcDMFrkrw5vBRSmrDkNUJTeFMuYNRvK9ppy12sB7M35XrGYkj1ZLPpZvJ+EY7pfdvFUWIDgeYh7ZrtUcFyJ5kDJcUJxif4+NE+q+P0FVsRnlEsXZaIMcwGC3Zx3FhBrLeqy1Zt4yDYAucizfYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Xd4zvIEc; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1786086196; c=relaxed/simple;
+	bh=7VYSA6XFUbCEcI0D2x3sctayz0cAUQwxSNe1oNFi0yw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PGn4DfTHmZLie20i47PpzGbY3AjoLhsovwZUTVckR0kcuvM8UMMiDdF93z5KegaVMLZtoexy2J1pviMCnsSBNc+DaGEv2FITTDet0RlgNwIjLyG4b6b8XFspYv4K6oHYtNOaRI4rXVvZ1KuB7raURyc0b4SKlp/vhEi9JSPdYZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hK57G289; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Xd4zvIEc"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:4f4:b619:ec54:a907:a006])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9B182741;
-	Fri,  7 Aug 2026 08:59:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786085991;
-	bh=DPt7Wbhkvslhx16ZR5jytlQCC2P1SaKxMzooIoqN/Ng=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=Xd4zvIEc+lya0wIQoGbfWOxP5j2kEaiE1gAXLfgH+oOxs6G1TxU+npe2cUSCE4DCL
-	 iyML0TkHa3QTgzcyqpLZSfEkr2TXbY8kB7H1fNyipvtvX2NrZveQK7HB3qoRY4R7Dr
-	 +OixNfzjiZHoWgKzIJtU1Xfesuaq9RHV1Iy3Kwjc=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hK57G289"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4577B1F00A3A;
+	Fri,  7 Aug 2026 07:03:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786086192;
+	bh=kAhMcj4VEYTZ3PkOhSonGDrzsrP7i5PoYK8R7panRMY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hK57G289yTvRhvGtHUBy554CKwENWMWiRbPybY/qrF5IGjqUpU0ctbexWrFVziqKu
+	 x/u/lw8kuHEivhrbW7LQwi1Vxe/lHrLN1UTN58+/UQZnc2PQUorT6fx3FDzTqOXFzo
+	 p0wDlmrKl9t2pxkjGNzeOP07LJRRM9U2WkyPbDBDZm3+q80zeCe+yWDxCJqkjXBn5Q
+	 ny0aDXaLyir/fx2o8iFiygUS9cV0iRhFDo+1c8RJPu3ZJ0EjPC1R7TdhVwFQXyHpNq
+	 dZv4m/W5I+9kQJEA9m6AataG53FMxF7ZNxozC2DL1+RS/BIROCiBQ0W/so9r1pu7G0
+	 WZLUekkA/1kmQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/12] clk: qcom: ipq-cmn-pll: Add PON reference
+ clock support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luo Jie" <jie.luo@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-7-cce718b8ec17@oss.qualcomm.com>
+References: <20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com>
+ <20260806-qcom_ipq5210_cmnpll-v2-7-cce718b8ec17@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 07:03:11 +0000
+Message-Id: <20260807070312.4577B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260806120216.24145-3-himanshu.bhavani@siliconsignals.io>
-References: <20260806120216.24145-1-himanshu.bhavani@siliconsignals.io> <20260806120216.24145-3-himanshu.bhavani@siliconsignals.io>
-Subject: Re: [PATCH v3 2/3] media: i2c: add imx576 image sensor driver
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Xiaolei Wang <xiaolei.wang@windriver.com>, Kate Hsuan <hpa@redhat.com>, Walter Werner Schneider <contact@schnwalter.eu>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-To: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, sakari.ailus@linux.intel.com
-Date: Fri, 07 Aug 2026 12:30:57 +0530
-Message-ID: <178608605778.4139729.11308202650136036897@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
 
-Hi Himanshu,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Integer Overflow / Division by Zero when requesting a specific lar=
+ge clock rate.
+- [Medium] Non-atomic update of the clock mode and divider creates an inval=
+id intermediate hardware state.
+- [Medium] Misuse of `WARN_ON_ONCE` for valid framework queries and uniniti=
+alized hardware states.
+--
 
-Thanks for the patch.
+--- Patch [7]: [PATCH v2 07/12] clk: qcom: ipq-cmn-pll: Add PON reference c=
+lock support ---
+commit bc0bab1980249d4673b3cc332facefa3306c107a
+Author: Luo Jie <jie.luo@oss.qualcomm.com>
 
-Not a full review, but just a few comments on the PLL programming.
+clk: qcom: ipq-cmn-pll: Add PON reference clock support
 
-Quoting Himanshu Bhavani (2026-08-06 17:32:08)
-> Add a v4l2 subdevice driver for the Sony imx576 sensor.
->=20
-> The Sony IMX576 image sensor with an active
-> array size of 5760 x 4312
->=20
-> The following features are supported:
-> - Manual exposure an gain control support
-> - vblank/hblank control support
-> - Supported resolution: 5760 x 4312 30fps (SRGGB10)
->=20
-> Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+This patch adds support for the PON reference clock in the CMN PLL driver.
+The clock is derived from the CMN PLL output divided by 2 and then by a
+configurable 8-bit divider. It supports both a fixed 31.25 MHz UNIPHY mode
+and a configurable PON mode.
 
-[...]
+> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pl=
+l.c
+> index a24e57b33c6b3..356988c03a7ae 100644
+> --- a/drivers/clk/qcom/ipq-cmn-pll.c
+> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
+[ ... ]
+> +static unsigned long clk_pon_refclk_recalc_rate(struct clk_hw *hw,
+> +						unsigned long parent_rate)
+> +{
+> +	struct clk_cmn_pll *pon_clk =3D to_clk_cmn_pll(hw);
+> +	u32 val, div;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(pon_clk->regmap, CMN_PLL_PON_CONFIG, &val);
+> +	if (WARN_ON_ONCE(ret))
+> +		return 0;
+> +
+> +	/* Check if in UNIPHY mode (bit 9 =3D 0) - fixed 31.25 MHz */
+> +	if (!(val & CMN_PLL_PON_MODE_SEL))
+> +		return 31250000UL;
+> +
+> +	/* PON mode: calculate from divider */
+> +	div =3D FIELD_GET(CMN_PLL_PON_DIV_CTRL, val);
+> +	if (WARN_ON_ONCE(!div))
+> +		return 0;
 
-> +#define IMX576_INCLK_RATE              (24 * HZ_PER_MHZ)
-> +
-> +#define IMX576_REG_CHIP_ID             CCI_REG16(0x0016)
-> +#define IMX576_CHIP_ID                 0x0576
-> +
-> +#define IMX576_REG_MODE_SELECT         CCI_REG8(0x0100)
-> +#define IMX576_MODE_STANDBY            0x00
-> +#define IMX576_MODE_STREAMING          0x01
-> +
-> +#define IMX576_REG_HOLD                        CCI_REG8(0x0104)
-> +
-> +#define IMX576_REG_EXPOSURE            CCI_REG16(0x0202)
-> +#define IMX576_EXPOSURE_MIN            8
-> +#define IMX576_EXPOSURE_OFFSET         22
-> +#define IMX576_EXPOSURE_STEP           1
-> +#define IMX576_EXPOSURE_DEFAULT                0x0648
-> +
-> +#define IMX576_REG_ANALOG_GAIN         CCI_REG16(0x0204)
-> +#define IMX576_ANA_GAIN_MIN            0
-> +#define IMX576_ANA_GAIN_MAX            978
-> +#define IMX576_ANA_GAIN_STEP           1
-> +#define IMX576_ANA_GAIN_DEFAULT                0
-> +
-> +#define IMX576_REG_IVT_PXCK_DIV                CCI_REG8(0x0301)
-> +#define IMX576_REG_IVT_SYCK_DIV                CCI_REG8(0x0303)
-> +#define IMX576_REG_IVT_PREPLLCK_DIV    CCI_REG8(0x0305)
-> +#define IMX576_REG_IVT_PLL_MPY         CCI_REG16(0x0306)
-> +#define IMX576_REG_IOP_SYCK_DIV                CCI_REG8(0x030b)
-> +#define IMX576_REG_IOP_PREPLLCK_DIV    CCI_REG8(0x030d)
-> +#define IMX576_REG_IOP_PLL_MPY         CCI_REG16(0x030e)
-> +#define IMX576_REG_PLL_MULT_DRIV       CCI_REG8(0x0310)
-> +
-> +#define IMX576_REG_FRM_LENGTH_LINES    CCI_REG16(0x0340)
-> +#define IMX576_REG_LINE_LENGTH_PCK     CCI_REG16(0x0342)
-> +#define IMX576_LINE_LENGTH             6144
-> +#define IMX576_VBLANK_DEF              4387
-> +
-> +/* FIXME: Exact VBLANK limit unknown (no datasheet). */
-> +#define IMX576_VBLANK_MAX              32420
-> +
-> +#define IMX576_REG_X_ADD_STA           CCI_REG16(0x0344)
-> +#define IMX576_REG_Y_ADD_STA           CCI_REG16(0x0346)
-> +#define IMX576_REG_X_ADD_END           CCI_REG16(0x0348)
-> +#define IMX576_REG_Y_ADD_END           CCI_REG16(0x034a)
-> +#define IMX576_REG_X_OUTPUT_SIZE       CCI_REG16(0x034c)
-> +#define IMX576_REG_Y_OUTPUT_SIZE       CCI_REG16(0x034e)
-> +
-> +#define IMX576_REG_DIG_CROP_X_OFFSET   CCI_REG16(0x0408)
-> +#define IMX576_REG_DIG_CROP_Y_OFFSET   CCI_REG16(0x040a)
-> +#define IMX576_REG_DIG_CROP_WIDTH      CCI_REG16(0x040c)
-> +#define IMX576_REG_DIG_CROP_HEIGHT     CCI_REG16(0x040e)
+[Severity: Medium]
+Is it safe to use WARN_ON_ONCE() for this check?
 
-This sensor's registers seem quite similar to the MIPI CCS specification.
+If the bootloader leaves the PON hardware uninitialized with a divider of 0,
+this will throw a stack trace during boot when the clock framework initially
+registers the clock.
 
-Please check if the sensor is CCS compatible. Even if it is not, I think
-the PLL programming is compatible, so you can use the helpers from
-ccs-pll.c.
+Returning 0 without the warning might be safer.
 
 > +
-> +#define IMX576_REG_BINNING_MODE                CCI_REG8(0x0900)
-> +#define IMX576_REG_BINNING_TYPE                CCI_REG8(0x0901)
-> +#define IMX576_REG_BINNING_WEIGHT      CCI_REG8(0x0902)
+> +	return DIV_ROUND_CLOSEST_ULL((u64)parent_rate, 2ULL * div);
+> +}
 > +
-> +#define IMX576_PIXEL_RATE              813600000
-> +#define IMX576_NUM_DATA_LANES          4
+> +static int clk_pon_refclk_determine_rate(struct clk_hw *hw,
+> +					 struct clk_rate_request *req)
+> +{
+> +	unsigned long div, pon_rate, uniphy_rate =3D 31250000UL;
 > +
-> +/* IMX576 native and active pixel array size */
-> +static const struct v4l2_rect imx576_native_area =3D {
-> +       .top =3D 0,
-> +       .left =3D 0,
-> +       .width =3D 5792,
-> +       .height =3D 4464,
-> +};
-> +
-> +static const struct v4l2_rect imx576_active_area =3D {
-> +       .top =3D 136,
-> +       .left =3D 16,
-> +       .width =3D 5760,
-> +       .height =3D 4312,
-> +};
-> +
-> +static const char * const imx576_supply_names[] =3D {
-> +       "vana",         /* Analog Power */
-> +       "vif",          /* Interface Power */
-> +       "vdig",         /* Digital Power */
-> +};
-> +
-> +static const struct cci_reg_sequence imx576_common_regs[] =3D {
+> +	if (WARN_ON_ONCE(!req->rate))
+> +		return -EINVAL;
 
-[...]
+[Severity: Medium]
+Will this throw a stack trace for legitimate clock framework queries?
 
-> +       { IMX576_REG_IVT_PXCK_DIV, 0x05 },
-> +       { IMX576_REG_IVT_SYCK_DIV, 0x02 },
-> +       { IMX576_REG_IVT_PREPLLCK_DIV, 0x04 },
-> +       { IMX576_REG_IVT_PLL_MPY, 0x0154 },
-> +       { IMX576_REG_IOP_SYCK_DIV, 0x01 },
-> +       { IMX576_REG_IOP_PREPLLCK_DIV, 0x04 },
-> +       { IMX576_REG_PLL_MULT_DRIV, 0x01 },
+A user can write 0 to the clock's debugfs clk_rate file, or a consumer
+driver can call clk_round_rate(clk, 0) to discover the minimum rate, which
+are legal queries.
 
-I think when Laurent asked to make the PLL configurable for different link
-frequencies, he meant deriving these and the OP_PLL_MPY value instead of
-hardcoding all of them and only supporting one link freq.
-
-> +       { CCI_REG8(0x0b06), 0x01 },
-> +       { CCI_REG8(0x3620), 0x01 },
-> +       { CCI_REG8(0x3f0c), 0x00 },
-> +};
 > +
+> +	div =3D DIV64_U64_ROUND_CLOSEST((u64)req->best_parent_rate, 2ULL * req-=
+>rate);
 
-Thanks,
-    Jai
+[Severity: High]
+Can this multiplication overflow and cause a divide-by-zero regression?
+
+If req->rate is set to an exceptionally large value like 1ULL << 63 (which
+can be requested by writing to the clock framework's debugfs interface),
+the multiplication 2ULL * req->rate evaluates to 0 due to 64-bit unsigned
+integer wrapping.
+
+This 0 is then passed as the divisor to DIV64_U64_ROUND_CLOSEST.
+
+> +
+> +	/* Clamp to valid range (1-255) */
+> +	div =3D clamp_t(unsigned long, div, 1, 255);
+[ ... ]
+> +static int clk_pon_refclk_set_rate(struct clk_hw *hw, unsigned long rate,
+> +				   unsigned long parent_rate)
+> +{
+> +	struct clk_cmn_pll *pon_clk =3D to_clk_cmn_pll(hw);
+> +	unsigned long div;
+> +	int ret;
+> +
+> +	if (rate =3D=3D 0)
+> +		return -EINVAL;
+[ ... ]
+> +	div =3D DIV64_U64_ROUND_CLOSEST((u64)parent_rate, 2ULL * rate);
+
+[Severity: High]
+Might this also trigger a divide-by-zero regression for the same reason?
+
+If rate wraps when multiplied by 2, passing 0 as the divisor to
+DIV64_U64_ROUND_CLOSEST will result in a division by zero.
+
+> +	if (div =3D=3D 0 || div > 255)
+> +		return -EINVAL;
+> +
+> +	/* Switch to PON mode */
+> +	ret =3D regmap_set_bits(pon_clk->regmap, CMN_PLL_PON_CONFIG,
+> +			      CMN_PLL_PON_MODE_SEL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_update_bits(pon_clk->regmap, CMN_PLL_PON_CONFIG,
+> +				  CMN_PLL_PON_DIV_CTRL,
+> +				  FIELD_PREP(CMN_PLL_PON_DIV_CTRL, div));
+> +}
+
+[Severity: Medium]
+Does this non-atomic update create an invalid intermediate hardware state?
+
+When changing from UNIPHY mode to PON mode, the clock mode is switched
+before the new divider is programmed.
+
+If the old divider was zero or invalid, the hardware might momentarily
+output an out-of-spec frequency or lock up, especially since this clock
+lacks the CLK_SET_RATE_GATE flag and rate changes can happen while active.
+
+Could both fields be updated atomically in a single regmap_update_bits()
+call?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-qcom_ipq52=
+10_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com?part=3D7
