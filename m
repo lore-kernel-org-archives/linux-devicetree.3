@@ -1,106 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2138.outbound.protection.partner.outlook.cn [139.219.146.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40BE4B04BD;
-	Fri,  7 Aug 2026 01:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786065953; cv=none; b=PAJ0bhqSnmZjRwWue40p0/R5KC95h5OCsk8SfFdnkafZxtvXjCtuYoQ5N3XYmPP5/0CKllCxxLjBxtpYgsON8o0P7UUACfsh6JEl5FmpDKZbFiwH6brE9hFOMkpC98dGZuKgF6TinLbJvpbZzd01lt3d5REpy2roGm7JhleQpZA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786065953; c=relaxed/simple;
-	bh=2a3FLIurZvzYK4vNySgYNPoJF1/8iHPebA3ct8o/+AQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=smTBqJnNRySfhJbHe0nm+oi7t3BENkvNxv1l9Bqoeck9fMDN3YJbucP+wZ7V6oxfxobRX1aP2lZCicDIdSFXEZMl0bcYX/CMdzglS+xBqX63vnABP5+zQnwqShyoFSKonL+qmCBsA8oBEZASR1eN+lrwZYIi5UlY9CmcfgKbIYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDKiU1w3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDKiU1w3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396BE1F000E9;
-	Fri,  7 Aug 2026 01:25:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786065952;
-	bh=XGbRnHrRZRT4vzD+R0HWrk/IOAGFOzA7Nk2d6v6RPqg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nDKiU1w3/o1ch8zOuhg98uETptQZ5oc1NRAZOw3tfEH2uxzBSfqxuvVKr2kcIRDFh
-	 xv0PLfjfjEkdpv1mBRhaT2nVgq+GHY6VXx7zaoEXdegnXU+bdxgPPc+hPE2dOTPyuu
-	 z6lVDLSWjM5lFdFdmQBZEV9nCVAU4eeL/Gdy60wtDZanmozm46oyZYgxjfjL6OVv0a
-	 fZc3Yqg2i+/N5xv+wysV87g8jXKeirQB3IZtElB9ZkzUHq2tq+47Mr7i2k2/PCxQno
-	 GVgQb0+HF/rhpTnFZaPP7PegKmJOWHkMey3RYe9G7nOU5J1IvCPmSqOp6LhdX3x0Xw
-	 xAmgyn0VdQIUA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 4/4] net: phy: add X-Powers AC200/AC300 EPHY
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260805-submit-acx00-of-dynamic-v1-v3-4-32c3210a6f25@gmail.com>
-References: <20260805-submit-acx00-of-dynamic-v1-v3-0-32c3210a6f25@gmail.com>
- <20260805-submit-acx00-of-dynamic-v1-v3-4-32c3210a6f25@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A62238DC6E;
+	Fri,  7 Aug 2026 01:35:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.138
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786066552; cv=fail; b=JYgmBjvRma2QlYwX7DfxeofbDVnOlRS/5Rjj8ayKVPR74Z1Tvz6zKfJmhL+0OxY5sSKB1fd8e3jItJslSFkPUWxBykKLo/2EcwLscAC+7K2DfxLNfmXsewhB0LPlygfhjnHmHHHW3NQl0S2GuaPNQxFc7BZZZxrJnTWfB0HJryQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786066552; c=relaxed/simple;
+	bh=onok5VGxHGJitS+rKtOMofARVkLNY7yOmPc1tFaKfno=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gf44A3qM/H2yFjVWCmLRhxVRVdvgHOAGgoEz3ifz1Y4r5Pe9DWi4aFGIJLkJy0KTcBLjBDfZdlGRshLiVgNs0PuS+B94S19l9FA69MIsIatNYUrKXuZJ248d9phDCRGhdjLIk8RUp6NybbAYkPHB4K6ij3TYoZJSvztHYAla5N8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jFaVp6NrXCVBmhFc3VRkwkYufC2eGkLOo/1Gh14g8L5T6CqF4UbKMABLxlKvwLYSeJ/iW7XnxPqHTJCPPssh3tFO4MLWF/bRjHByk6jtbUe6rmm838USTZ7pYOjejHoZb1taXZkAuQ7mOc9fc/uzuZ44aUVB3SYlPeGebfwRlOur8mRSSPZts6ghYh1/xULw2DJ4ZlgDTML3qzBvVkO1qOU0GkEOMNm42comVPTO3XuuMh5D98DUUJPKkEExcntSmjthUp6JsTabwX/mjXKroj7oFwX3exIlih1AWzAzSKy8WpLHnXIrrmm8XnOOEiAdYhPoklD00/LYYoP1d39XUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eRMF0BbWhUrNThEQ8uP57+Mtr679VKsd0P7E5QNSrcw=;
+ b=AgbfR7cFZgAkSk0UMPpiuLIcY+GUint3/+ETnS8N4I7ZfZfJVr4nju3LOmt9Ov/Osd8SkXTk5Ptgf0NnKf1BWAXn3hnDssBtkw1Jb/leQWErzTQJM2m+0/8qBjIkWYoCAXKHoDkWeol/ie+EnjI52L0u+s/77FxHbwtl5LymJayTFNxTq4HlaXBKpvM/yLCwPah8UWBPx5vbmAu4A4rynGQaaCnyBExK3Mfgr84NDyOqHJGxRuzhiSg5VOULZiplwJ9hfKN9GDe0XFlXB3I3vJKb9WI/Jfy+iWbq3O8HCfRPsjFxuQKv/+q/AorXMDd9QdVtxvKGpBB6g/J/rLXj6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1330.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:16::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Fri, 7 Aug
+ 2026 01:03:25 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0292.019; Fri, 7 Aug 2026 01:03:25 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>, Yixun Lan <dlan@kernel.org>, Joel
+ Stanley <jms@oss.tenstorrent.com>, Drew Fustini
+	<dfustini@oss.tenstorrent.com>, Darshan Prajapati
+	<darshan.prajapati@einfochips.com>, Guodong Xu <guodong@riscstar.com>, Michal
+ Simek <michal.simek@amd.com>, Junhui Liu <junhui.liu@pigmoral.tech>, Heinrich
+ Schuchardt <heinrich.schuchardt@canonical.com>, E Shattow <e@freeshell.de>,
+	Icenowy Zheng <uwu@icenowy.me>, Anup Patel <anup@brainfault.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH v3 5/5] riscv: dts: starfive: jhb100: Add JHB100 base DT
+Thread-Topic: [PATCH v3 5/5] riscv: dts: starfive: jhb100: Add JHB100 base DT
+Thread-Index: AQHdJZ7DZysAjEZsykGGi40Ax+Mjr7aRO+wAgACJ7tA=
+Date: Fri, 7 Aug 2026 01:03:25 +0000
+Message-ID:
+ <ZQ4PR01MB120236B6E1D64A057616E09BF2D12@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260806122553.182449-1-changhuang.liang@starfivetech.com>
+ <20260806122553.182449-6-changhuang.liang@starfivetech.com>
+ <20260806-staining-delay-2e2de73acf04@spud>
+In-Reply-To: <20260806-staining-delay-2e2de73acf04@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1330:EE_
+x-ms-office365-filtering-correlation-id: 56f2a70f-8aad-45ac-4325-08def41faf41
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|366016|7416014|23010399003|18002099003|22082099003|38070700021|4143699003|10067099003|56012099006;
+x-microsoft-antispam-message-info:
+ +ELcFa6VPBI4Q0cZYIkBvWuOU3fWYZtIcUfso4agU+2PTt45Sl3jSCDs3ZTklPQ4i/g9O/10lY+EggElaFnpEBKl2/zkK7IpcJpK5M39YqnWBAcOjS/qGf8JlAJU7e+R13QUjjew6OhXLDDAh/s3NGwE/el7oIsrrB6oOWlm1bLlkBAPy/8JXLWzJKg9HuVLD6NrziaWNG5K8CR8GDkQcL2wjSy12i2kP1Jkvo4mkIu5WVachobAzswI01GzC7ZUD8zW63GcTF3bPiX3OY6/2PkWrEMXBhVzO0de8sKwB1qquJFwFPJIEXk5QOh0P1MKTOWjs5p2kGiIPMrSvTpGiyM+T8/crKM3BR1m3PDpFViPN6gXWN+BweGy+9k7uSxK34Dm+fPXZtYgqJEZLf/ka9fvngcbjzzn6z17U0Cnf9t1S/dRaPp4LNrGT5bbniKC3rOw0pZEmIqU6g2UiYmHmNh1mul9TottbpmI8wwTqfAHLhnXBudh+qLQFDw2rtfaOvf0DUloKY0MgSdVdSJxR6DsGWAAWSNEcyF0nNJMiMPgoxlUIuGLbkZJ9P1kfM74
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7416014)(23010399003)(18002099003)(22082099003)(38070700021)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?C/0Sod4Uyufl+QRrE1b7/SkhYLKY7XydY8Ew0VHKw523EUchjv6+hca5Q/Kp?=
+ =?us-ascii?Q?Ai2oF9bBrlu7zyaiXTYfXDetiwUOVJDUJuid+G5FKeGVR47QMcA8j/61Mz5U?=
+ =?us-ascii?Q?gXxx4y3SfKMObnM9Q2hVScquJtfPM+O7ixzrvrRxP5MjRn3s1TNZBdPwqKW+?=
+ =?us-ascii?Q?0V59yWvBYl7uNr2H7D0Q/BwxtSa7h8RqVvpD7yWosqXYCdirL0IBOtYKHcNF?=
+ =?us-ascii?Q?xgm5//yt+U10f/AslODHsxZsnqvTrgzy5QKHHq63Zjc9HKogSx1zX52zrxY1?=
+ =?us-ascii?Q?GAd3cAlHoIlAwlS3rBmdbtqThjLapZQyILu+ItAfIYm/VuhDLZnJQBEMQjms?=
+ =?us-ascii?Q?Oy0eL8pyGCyYUKB/04WCZnoyl1PikXekfxL9RERP/Ahs9euKrshXP5/YqUjq?=
+ =?us-ascii?Q?8dzi0VKmeL36cPTmLRieiaaBL8mwOu4oDSGPZXPXZd0HBBJ6i/8SLHzmqnEg?=
+ =?us-ascii?Q?3S+tAJY3s2uxCG87gNKeOBYYV5JZGD+3lrhk+dAbUq43nyESMlM1YaZKEMde?=
+ =?us-ascii?Q?Qdb4uERi51mWu+QzhmrUfhopQK0IZFvgc8uXxxsxD3D6qmzHNl0iSgTqnPqy?=
+ =?us-ascii?Q?A2Ry8QQ5QADZnbIXcTQMuLDFzQHCpbFsHa86FbfNqWoDU9+H3ZnOHLeyLuxa?=
+ =?us-ascii?Q?2/zhimVdmjlfSeLY3xL2za2GTGsedGPrZ/jLnA9P0nt8do9ZgGEPUYTZ98hP?=
+ =?us-ascii?Q?0+DCBZaNevbRaRhWiHPAnbjJF5KdNphH7hczmcB98Ug04MqW4/DkdGey36bI?=
+ =?us-ascii?Q?+BK535PtJDg4Km1GkpaMSocPl7kW4Z2qY96bdhP+V9SSNvwpmA6BZYJf/jlL?=
+ =?us-ascii?Q?YMa4AY9QY4h/Qw0VxjbpbCnUWFwNv5BItY1X8SOFRF1cKvDW4nl6xAVax9cH?=
+ =?us-ascii?Q?FspcytEkHBwJ0wyd7QaFpIS2ibxhnAwT/mqpTHXs1oECJxEPTsQVXFnEDU3c?=
+ =?us-ascii?Q?X0CNQqWflE8YA8RXtoAoqSebNgi/ZQ6qtYhLsB+G/vZF5Vx3D9Y7at72K/8e?=
+ =?us-ascii?Q?3JQ/M6vl4WrVWY3aptQQ3MzY9x0kF9SI7G7qbfqf+UqG+V7In2ZfY5QP0s6z?=
+ =?us-ascii?Q?h7MiZ6O+rVWyOR17jOuehMG7ikYKrT2N/M4QXrz5+cB60ywaJLQHK6zIpHsD?=
+ =?us-ascii?Q?lbfWWz+H/BJUin1Htc9i7US7+B3FwB90NBgwDW62e95Yg0Y1tk9WPcXH/PlZ?=
+ =?us-ascii?Q?yFGA00Wf3FgmIcdzukhzcj11QlAEVv5eWrBdOqRS/BgMqNOufJFoJalGLygh?=
+ =?us-ascii?Q?7lEYqqx2MVUNoT2+ZV3r1lHe0Uw0OihbavKwRTM77bajIqsXQLZMUdzS0ApV?=
+ =?us-ascii?Q?+ME0vp+UMDQ74G8poezxYZj7ZHs1FjWltXyjQ7WOGNcvzt5BeepwMbZR6luu?=
+ =?us-ascii?Q?moJSkJeNGJalNPQ8RzoJ4mm+8Uxx0kN4eTWHzMIvp5SdKmV3HqM6hV9+tZjV?=
+ =?us-ascii?Q?T6VI1ZHHDJE5P4xLdTWUBAa/1Vw2aJlHCEXCjgBt5WeyJygLEgGGdDfG2Xnd?=
+ =?us-ascii?Q?J43zg7Cvv37s5gVGOJvyjh8aQssPgHgSlhdNCOZ0ATvNcXn32AyJlIiVt/tn?=
+ =?us-ascii?Q?7/LMhnLoFYhZMaANVkVSVY9wNFIRW7KboEm9j6IIzp0VGNYLlTPhqxJ+CK+N?=
+ =?us-ascii?Q?bEsMCuc7IaE6njv/V9+NNog+G412YmJpmLGS4LmYky/c/dXYzSNBkPnz+mEt?=
+ =?us-ascii?Q?Ndkr67AAccvzBgCpgwXjZkPHnDdNovLkjxC3YZlM/trvT++FYjc61/dpztwl?=
+ =?us-ascii?Q?vSPr+Mm5ZXdOJgyfz0cav46YtB0ZX+k=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 01:25:51 +0000
-Message-Id: <20260807012552.396BE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56f2a70f-8aad-45ac-4325-08def41faf41
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2026 01:03:25.4230
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yQHcRWXZFPfLTbmmBoNceFTe+UssISBHYiZEg+9HQEb9nOW9iuXxS+XxSj+6IPNPlTIjkiqAltbNlGyQDOk9W9Mz8OKJwNYZotOOgJnO76NkDBeMj6eMwV4faS0ewqL1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1330
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing `phy_restore_page()` on the error path of `phy_select_page=
-()` leaves the MDIO bus permanently locked.
---
+Hi, Conor
 
---- Patch [4]: [PATCH net-next v3 4/4] net: phy: add X-Powers AC200/AC300 E=
-PHY driver ---
-commit fc0883818634a8eab77474550b0a3aac9604dc17
-Author: James Hilliard <james.hilliard1@gmail.com>
+Thanks for the review.
 
-net: phy: add X-Powers AC200/AC300 EPHY driver
-   =20
-This commit introduces a new Ethernet PHY driver for the X-Powers AC200
-and AC300 companion ICs. It provides package-specific I2C or MDIO control
-initialization and implements the standard PHY driver callbacks.
+> On Thu, Aug 06, 2026 at 05:25:53AM -0700, Changhuang Liang wrote:
+> > +
+> > +	clk_uart: clock-uart {
+> > +		compatible =3D "fixed-clock"; /* Initial clock handler for UART */
+> > +		#clock-cells =3D <0>;
+> > +		clock-frequency =3D <25000000>;
+> > +	};
+>=20
+> I can pick this series up on a provisional basis for you to work on top o=
+f, but I
+> won't be sending a PR for anything that contains temporary fixed clocks.
 
-> diff --git a/drivers/net/phy/xpowers-acx00-main.c b/drivers/net/phy/xpowe=
-rs-acx00-main.c
-> new file mode 100644
-> index 0000000000000..2260ddea4b315
-> --- /dev/null
-> +++ b/drivers/net/phy/xpowers-acx00-main.c
-[ ... ]
-> @@ -0,0 +1,536 @@
-[ ... ]
-> +static int acx00_ephy_config_init(struct phy_device *phydev)
-> +{
-[ ... ]
-> +	if (priv->is_ac300 && priv->use_low_calibration_tuning) {
-> +		afe_eq_rx_detect =3D
-> +			ACX00_PAGE6_AFE_EQ_RX_DETECT_LOW_CAL_VALUE;
-> +		tx_level_value =3D ACX00_PAGE6_TX_LEVEL_LOW_CAL_VALUE;
-> +	}
-> +
-> +	oldpage =3D phy_select_page(phydev, ACX00_PAGE_1);
-> +	if (oldpage < 0)
-> +		return oldpage;
+That's great.
 
-[Severity: High]
-Does this error path leave the MDIO bus permanently locked?
+Once my other two series are also ready:
 
-Looking at phy_select_page(), it holds the MDIO bus lock even when returning
-a negative error code so that the caller can safely clean up. Since this pa=
-th
-returns directly instead of jumping to the out_restore_page label, could th=
-is
-result in an unrecoverable deadlock for any future accesses on the same bus?
+Add basic clocks and resets for JHB100 SoC
+Add StarFive JHB100 syscon modules
 
-> +
-> +	ret =3D __phy_write(phydev, ACX00_PAGE1_APS_CONTROL_REG,
-> +			  ACX00_PAGE1_APS_DISABLED_4S_VALUE);
-> +	if (ret)
-> +		goto out_restore_page;
-[ ... ]
+I can squash these three device tree into a single patch and send it out, s=
+o there won't be=20
+any temporarily used clk_uart and PLL nodes.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-submit-acx=
-00-of-dynamic-v1-v3-0-32c3210a6f25@gmail.com?part=3D4
+Best Regards,
+Changhuang
