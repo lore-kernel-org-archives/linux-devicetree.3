@@ -1,135 +1,182 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6310B377AAC
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786126505; cv=none; b=Kfv20txolRFAqeRYFNybld+RYOSjjkle9QOgkNd/SXi8le/rCH4Euw6QUIz3AdugWYJ+5EGSbXaAbiP7MIZnV/zOKK4Re1IgNgGtkVevaGkM0A4TEErZGS+GCpsyyhp6O6EZHa6ifZLhYumP/d4V/Rv1KQmpis0mA0ubFG2ELGw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786126505; c=relaxed/simple;
-	bh=s9tjNp6sYyYP4mCT3gXmsSd7L9AQpuVwD/wbCY/jEec=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k2yRhB72F4zQAEd5SAivlO+uiH0AGKySEmNBweUXzNJkcp8cFWdhN/dzisFY7zEvd0Z4g1xRkZi3gsB0rD0kdD5P3KZTHDSKxjW4yzU7sTTZVrLlXMpXch8NblfORgz/QaTL4A3kz/Ez/44oeofLoahC9EzTWUak+esr8zXZIvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=pYUZhPwS; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6032532939C
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:21:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786126907; cv=pass; b=DDA2qQPOoEtH0COqt3UmMgKdM5tw/QQaLy04h6tP6Zk0IGQZNVG2P9ivxtwmzJb71yrLYiHWjOsnttY55UhvJ0/hTrmzqFBoHO/T9YYSmdQFCv70q2KdIRRWEv7JAcUpBB7+GaeKBt9hf3Ej3v/NMyobBauxm2s/ECjX4aJzjlo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786126907; c=relaxed/simple;
+	bh=DFiX/7Q48wo6L4d7tIX2yPIwJYCBwS0h6wyv/X0iH4c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hTNqcQGBicqH0i28aPfI9T57aJr1UPczbfWhwoUMVX5rhp9+xJvMxZSwE/r3dLitNXizKtY5rOIOTMvvHAqmFmKg8q+iT9iOS6I9CGEmEp7ADEbYQp5X1lRe/UfikldPaJzSCV828p1VCE0Cqu2i3lpl8ICWmaLBuD4BdNK0NWs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mpsDPpKe; arc=pass smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="pYUZhPwS"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7ec3b429a3aso2643628a34.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 11:15:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mpsDPpKe"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-51c10ed63c0so29371cf.1
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 11:21:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786126904; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c269EtOQiVBcGt5qfJK1Qo2kFUiNC84Iubb3vh75csqdqD10eDs8cXkjjV78cC0tnb
+         gaWS/ULuSSTQMrxk9s7N0lEkXRVQQ1LB40+5QMF+QJ/CIVq9h2qgMmz1WQV0d6mYFZMe
+         Pl2YSZAVchXUMJWARSuOe1jLa8RVnD2gI8Dve9rslqUs97lDhomCSg4NFmKqiiXSoHn8
+         6POPZw64W8f9UXFRRJxxETuK6A9gDWinyu5kCgzmEP2cPIQEjsyhOggYy9Qv/Xr1SG45
+         ydaybpKK8hUmwQTrKU5Ng8O18iKMdIjLaLwDhUkBlwr+1HSo8N7VbwyQF+HJpThG9izt
+         IJXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DFiX/7Q48wo6L4d7tIX2yPIwJYCBwS0h6wyv/X0iH4c=;
+        fh=rEWcrRvHb/BGPv/6HwJd2xbIDErJ6dW9Yfd5CaFrghg=;
+        b=QUQ8zj4PA6L+Uk+VhaSnPg7rJS4dLYvtmIsYp9V0UL35hGsSQ9q9RpsFsYbofPusNv
+         x8j0VAg8FMIW5UTQGF7XXWpRVhGtMpKrWIJNPYa+Fy8CeEdPs0Pg4i/OxwLySluN7Scv
+         VEV8iipRovGUQ8/xcx+gVuyIhj1dAC/7cQgmNHqtgBvBIb0Y+4G7b76sFpE06GwUqDeB
+         A8jIoe37Ugdykd574OGetYKkiTEHUyTZ4LaCQhphf9p2Y8SMj7c+zNkGr2aOhGj1pA9y
+         HiyhklAyrOfF1U8mqzDa2uS/gVqY6f8o7+0kWyT2eTTMaHugrFw858yzmnjmUlpF/R3v
+         uFxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786126501; x=1786731301; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O7m1ciHkvtKCbvcubLILJiqP/goECKk0dZZNr4piEjQ=;
-        b=pYUZhPwSJxeO9WBfXuZFCy+XTWYeJFw2E4CTViQObxGkLsJFuvu2dPDqLak1ROGuz5
-         P38wMNPMXE2fPz1A5MjSSXe60c7iCLf8PaMyRmZ9p5wZhF7rYakZ92qa6LVEQ1ngj3Hm
-         VAWwkcmHrQKzaDSDRGO4fo26pC+UiHaPvt2TEgEYuVwI+5tIjf1CbyFvNkqHVcAR+8at
-         57EAPGGpG4CnGeP74WdGT8CZM4REzccVR5ZCrjvcYDDlom6nlCaw8twffqBYr63P+iAv
-         NSJ0En7H+0oKQi49EcP3Z/ukleylKQeHvEem6O3QZ4MnAl2snIkhhTYTXyfUiFwxLqK9
-         57Zg==
+        d=google.com; s=20251104; t=1786126904; x=1786731704; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DFiX/7Q48wo6L4d7tIX2yPIwJYCBwS0h6wyv/X0iH4c=;
+        b=mpsDPpKesH1FZzcVHwT0O9HMy9y82ulqtiHYCFDqdQp1e5+NjpenaHV2QbGSb1RQB4
+         G9BVX97AUCjMB+7GQllgVsPrYQ/2mWzGM74/cWDrptBn0PldkZ3W2kBjpooilgElu3YM
+         oxzRJHBR0gRjMVLC6c6J4++nU+8oBe4cByRd6qrrp7HqwogrBhIoDZg4oLeB9oExT/0D
+         cqSTboR1zecStPhk2BimdLXFou8UDWdb4mpJfULoVI40Gyd6SV+dogEwj8If9B44V+Vh
+         P842v3OBa5bL4sMyNw9Q7PbQYfMyk5V18OAdTQlR1Y1PrkJ9Jmu0sNqJaEiSDjq/x8xv
+         85nA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786126501; x=1786731301;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O7m1ciHkvtKCbvcubLILJiqP/goECKk0dZZNr4piEjQ=;
-        b=b+1dkjpx5hV1TmuZZCAEx0cPR9qgu1I38714zjPYQe3PeuJ6vq6t+PbTm5/KLzodQ7
-         1oul+5WXlLchG7qNJYYAymcQhBNxa+mhWB4JNTXGLW4tJlXhrI/Z4oNW3Ta4hs7M0hzS
-         MKRpZGClv968bT77E5tzDds4TWPR4fxYD9SgC50cZv0v6yiyo10FJeyL+SmgOXN7Ubm2
-         22ZFpd2LYW8/tZz6VgBke0zPwOvY5kYTNbCrB0tPPfUJdRmJfWd29Oqh0bdjgHGumhoQ
-         UKkzuycZfA5eQX92M3EHAAz/A1BCTHBX62tmczIIPvsmoD9InqmhdaErUfd1nwAaP8AL
-         fOOA==
-X-Forwarded-Encrypted: i=1; AHgh+RqbXlNCi+0FZPFPRFgQGv4QT2YBkTD7jgS0uQZ+8KIlK/bwbhEd+rlQjD8Idg3ZK7vU0FY+gMXpp20u@vger.kernel.org
-X-Gm-Message-State: AOJu0YygOHWCSKjk+SckVlM5mcBgzO7vSjR7RoeaZXtGiC+limswMQ3Y
-	YQ0ZtrnAiyuu6mPmKT9b37ak3RIQ8VsKV29R1ZkzEkgx1Ku0dtSi438Cq0Fodt59UCs=
-X-Gm-Gg: AR+sD11r07jHUcQ4pGJYLHvQCWVZTq+qSSBO1EIB+CvRYd3R0f+Joyamb7MOmYvvbdV
-	8WNssZqe9m5KBZm+bPBCKcl+IwAvzwPWcWBrO/x72oP1Dom5eqwwFgSaMvqCXvZPpE8Cu/npJ7R
-	G6dbTMI6OqnMFK1CL+7G3FwxzwTwYlXdzNfm6tkkjdZt90hPxP+Dk0fpp4VI6QWT2QSvqaF8IxX
-	3VHLwIiYwEMEHfOkjtRBP1Q6o1J7UJyo4vM+xVtC9YhNkbdsc5xFvmPvugvmP3ncKRrDB0s7+pi
-	YghVB8/l7MRfx3kqoQBj4VI7036IIXDC8kXPBD2LFGVTPMnL4Zzd3cZF31bnpBAIUFnl+ynLDeM
-	QvVJDfpQsQkjphZbxql2rg5lzBsFrwwF/hVBFasl7o4iZ5HbJAC7K7XdfjVdQNEFZ3hKtiDQLdJ
-	8BFb3BJa0pcxd7XhodtqCKd6mxjbIFEWNcMgZqG4lZ+dygpelJagUmOhvNnbHp2PXx4bKDzyXhn
-	fxkghpA3XXbxl6ONwZE51mLvqdDw9e1pa0qOGgnAEdF10G4
-X-Received: by 2002:a05:6830:6685:b0:7ec:2fe:1ec0 with SMTP id 46e09a7af769-7f1e5ce9482mr16883603a34.4.1786126500710;
-        Fri, 07 Aug 2026 11:15:00 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:b714:88c:313d:dee2? ([2600:8803:e7e4:500:b714:88c:313d:dee2])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f35b563978sm1826299a34.4.2026.08.07.11.14.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 11:15:00 -0700 (PDT)
-Message-ID: <53ded669-6dec-4472-840c-91052b1afcb3@baylibre.com>
-Date: Fri, 7 Aug 2026 13:14:59 -0500
+        d=1e100.net; s=20251104; t=1786126904; x=1786731704;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DFiX/7Q48wo6L4d7tIX2yPIwJYCBwS0h6wyv/X0iH4c=;
+        b=HqS6Id3ZB+ylavfHZSPasAbXVa0w6DK8DYmYIInwie9MQnd+cwi3ryZIVFbCkBdHJz
+         sHLY7+m06Sj8jInPpyo4CAtRjJhQWfkbV1GMWdczeCaz8jzkC3eQW6TB29oAMIFjBX7E
+         lrH+fQHO7zinuKDrnwW/IZZh8+E5EsZ0c9igyANAFdL0PoBnbMCVcskug8fkQrOLEqJc
+         rOC6+aGJ2KuYdnkEzdjp8VeoVsk3Iik8/Pr1j+YjJNqEAC6tNwe4RHqbJPc1Rkx/b5oZ
+         1VZmiQP/J2VOGiUHWKRl+105D9rmSigAipsqu++MyfZ28jpFvZDdmkwdxVnMdbaP3FW2
+         ctFA==
+X-Forwarded-Encrypted: i=1; AHgh+RrGuX4SmEBdepKKKZXhaJa1qIYjepRyWSMSwqMw+e+rTgXkTi6aRcSqsPIjuyw5cH1zlzhswldZrSmx@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEfW6IgSRocwcMrgq0NFP4MrxDuOFa/bsHQscv2Y0azoDcd83s
+	2V7o3AOSiL58WYlpDTTDZTS1pND57dmxzIESt5xxxlQ4Is1gS7dmxDDOk0/a78slOrJZ5y1Ku1k
+	Em153iclx0vLT68fTWRfgWglezzdbASvXCSmof0/t
+X-Gm-Gg: AR+sD10aS39bBB8hHpPbJ9J3EWBmTTAa8vh7l54CGsg15orWU9eKrPVgNS2lcXxHW/s
+	QKJFdMUlAPEbXgpb7KIDtVCWgeWMQByW68yjLfVvsLQSjHjpiQGoNDl4/XkcDoehst6MX1InPMm
+	Xze+FGz2BVutj0oDbr3p4zMry1ICjohP6YoMOyxGFdgbWcZhFWGosYD8MQL2UubuUx19F0exZo6
+	aNw782LqDPumJhhGrn7IYUHnjJTpnSiO2bsp0EbKLr1Jq45PPCErO5/w0PzEdkDEaBOsopLNzGb
+	78gZ8OFA6zA+ly4DIBHn8uupBMk5qaQyg2B9qkYLQA==
+X-Received: by 2002:a05:622a:1b90:b0:50f:b69a:f4a8 with SMTP id
+ d75a77b69052e-52d23e4c482mr1477201cf.7.1786126903631; Fri, 07 Aug 2026
+ 11:21:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] dt-bindings: iio: proximity: move LIDAR-Lite out of
- trivial-devices
-To: Rodrigo Gobbi <rodrigo.gobbi.7@gmail.com>, jic23@kernel.org,
- nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, mranostay@gmail.com
-Cc: ~lkcamp/patches@lists.sr.ht, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kernel-mentees@lists.linux.dev
-References: <20260714215433.41259-1-rodrigo.gobbi.7@gmail.com>
- <7b8973fd-385d-4532-8213-bb0a811081ae@baylibre.com>
- <0ca14770-bb0c-4be7-a9b0-6e07d521550d@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <0ca14770-bb0c-4be7-a9b0-6e07d521550d@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org>
+ <amYIuhYenP4-qHyV@willie-the-truck> <0b7c0272-5506-4aee-82b3-76a78f2b39dc@arm.com>
+ <CADrjBPqZFDvyLFpDy1YP9qrMNUCtZYtJhiaDd0iTnmB4ZYO8GQ@mail.gmail.com>
+In-Reply-To: <CADrjBPqZFDvyLFpDy1YP9qrMNUCtZYtJhiaDd0iTnmB4ZYO8GQ@mail.gmail.com>
+From: Daniel Mentz <danielmentz@google.com>
+Date: Fri, 7 Aug 2026 11:21:32 -0700
+X-Gm-Features: AUfX_mwDnipayqqhz_vuvH-F5cw1FS42rqk5A6i8RcOd5oIHDgvQ1fDjMyBedVI
+Message-ID: <CAE2F3rAHM2oTVM03ud0SQH2mjVXGU7Ns3gfc_YT4sTomNLjb_w@mail.gmail.com>
+Subject: Re: [PATCH 0/2] Add arm-smmu-v3 support for instcfg data override feature
+To: Peter Griffin <peter.griffin@linaro.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>, 
+	"Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pranjal Shrivastava <praan@google.com>, Mostafa Saleh <smostafa@google.com>, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@android.com, tudor.ambarus@linaro.org, andre.draszik@linaro.org, 
+	willmcvicker@google.com, jyescas@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/7/26 12:10 PM, Rodrigo Gobbi wrote:
-> On 7/14/26 19:44, David Lechner wrote:
->>
->> interrupts:
->>   description: 
->>     Mode control pin can be used as a status output to provide interrupt.
->>   maxItems: 1
->>
->> Mode control pin can also be clock output, so we could add:
->>
->> '#clock-cells':
->>   const: 0
->>
->> if:
->>   required:
->>     interrupts
->> then:
->>   '#clock-cells': false
->>
->> I only checked Lidar Lite v3 docs, so we should see if these are available
->> on v2 as well.
-> David, quick pushback on the #clock-cells suggestion:
-> 
-> The oscillator-output mode, per the Garmin datasheet, page 8 reg 0x4 from [1], isn't really
-> meant to supply a clock for another device's logic. As I understand it, it exists so the host
-> can measure it against its own reference and compute a compensation factor for the device's
-> own distance readings, since the on-chip oscillator is only rated to ~1% accuracy.
-> 
-> That seems like a different relationship than what #clock-cells models: a provider is
-> expected to report a rate that a consumer just uses to drive its own logic. Here it's the
-> opposite — the rate itself is what's untrustworthy and needs an external measurement, and
-> there's no consumer that would actually want to clock anything off of it.
-> 
-> Given that, maybe it's better to just describe this rather than model it as a clock property,
-> or leave it out of the binding entirely for now until there's an actual consumer for it? My
-> point is more about whether #clock-cells is the right semantics for potential consumers here.
+On Fri, Aug 7, 2026 at 8:25=E2=80=AFAM Peter Griffin <peter.griffin@linaro.=
+org> wrote:
+>
+> Hi Will & Robin,
+>
+> Thank you both for your review feedback.
+>
+> On Mon, 27 Jul 2026 at 11:53, Robin Murphy <robin.murphy@arm.com> wrote:
+> >
+> > On 26/07/2026 2:16 pm, Will Deacon wrote:
+> > > On Fri, Jul 24, 2026 at 01:39:41PM +0100, Peter Griffin wrote:
+> > >> These two patches add support for a new "arm,instdata-override" DT p=
+roperty
+> > >> that enables the override of the instruction/data attribute of incom=
+ing
+> > >> traffic to Data by setting the INSTCFG override bits.
+> > >>
+> > >> It is intended to be specified when the smmu can't guarantee that th=
+ese
+> > >> attributes are provided correctly from the client device.
+> > >
+> > > This is going to need an in-tree user and a much more detailed
+> > > description of what is being worked around before we consider this fo=
+r
+> > > inclusion.
+>
+> Regarding an in-tree user, I haven't sent the Device Tree (DT) patch
+> yet for Laguna SoC which adds the smmu nodes and this property because
+> 1) I want to land the initial SoC/board DT first
+> 2) I want agreement on the DT property name. Currently I used
+> "arm,instdata-override" which is what downstream used. However, since
+> this is intended to work around silicon errata something like
+> "google,lga-instcfg-data-override" might be more appropriate?
+>
+> For Laguna SoC the first in-tree user of this is the amb_smmu smmu
+> instance which is used by the Synopsis dwc3 IP. The Laguna dwc3 glue
+> driver is already upstream at drivers/usb/dwc3/dwc3-google.c
+>
+> > >
+> > > In particular, if a particular client is emitting data reads as
+> > > instructions, then a better work around would be to avoid mapping its
+> > > domains using IOMMU_NOEXEC. But I can't tell what's going on from the
+> > > limited description provided here.
+> >
+> > Unless it's also emitting the privileged bit and thus falling foul of
+> > the implicit Unpriv-W -> Priv-XN rule, but then we also have the means
+> > to deal with devices which actually do that themselves (hello pl330...)=
+,
+> > so that would seemingly only leave the case of some innocent piece of
+> > AMBA-interfaced IP which doesn't expect to need special attributes, but
+> > the system integrator has gone out of their way to tie the AxPROT bits
+> > to some wacky value, which I would put in "erratum workaround" territor=
+y.
+> >
+>
+> You're correct Robin. It is an erratum workaround for the Laguna SoC
+> due to some custom usage of the AxPROT bits which differs from the
+> standard ARM SMMU handling for Privileged/Unprivileged and
+> Instruction/Data transaction attributes. The effect is all
+> transactions appear to the SMMU as "Privileged Instruction" accesses.
+> The software workaround in this series enables the SMMU's INSTCFG
+> override feature to ignore the incoming value and treat all SMMU
+> transactions as "Data".
 
-Yes, this sounds like one of those cases where there isn't an obvious
-correct binding and we should leave it until there is an actual use
-case to make sure we get it right.
+Due to the specific integration of the MMU-700 in this system,
+AxPROT[2] is always 1 on all TBU subordinate interfaces, regardless of
+whether the transaction is an instruction or data transaction.
+Consequently, client devices have no control over AxPROT[2] on the
+input side of SMMU. AxPROT[0] (privileged vs. unprivileged) remains
+unaffected. As Robin suggested, the override is required to avoid
+inadvertently triggering F_PERMISSION faults due to the VMSAv8-64
+requirement that EL0-writable regions are treated as Privileged
+Execute-Never (PXN)
 
-> 
-> Tks and regards.
-> 
-> [1] https://static.garmin.com/pumac/LIDAR_Lite_v3_Operation_Manual_and_Technical_Specifications.pdf
-
+Drivers are already avoiding IOMMU_NOEXEC. I prefer handling this via
+the SMMU configuration rather than patching individual client drivers,
+as this is an integration issue, not a client device issue.
