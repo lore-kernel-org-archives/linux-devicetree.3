@@ -1,91 +1,94 @@
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C7B470102
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CF846D2A9
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786090267; cv=none; b=pAs3IbZYY0LNzNcpgDbISZosUeX0U6XlQILT91pAhPeXSQuwqs2qWfiwWcgTsELNWHULSIoMly8MqnL9uQbRp3mr/DyFKWsN7gWUQdtfRP5sA4FocfjhFRluWjtNFU+5wSVld6rOAlol8u0A0VvoK9YKLkZ786dWmD7iJ+YuYgY=
+	t=1786090855; cv=none; b=ugHtw2caSXvd+2N2/MIqBym85vV+uRcHqGxulDoC/0mU978If/DAj4/OETRAsefgvOL6QrCK06yDFD2cbLI/lYrKAQ3jJBlc05liiaYhVe86FBcHrDSLjaNX2WTwFPghTau/hxnMSZGKSTdbem8CxWSm3WMSF2MS5O/MAcyZspE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786090267; c=relaxed/simple;
-	bh=xHE/d0HYFsBG2ARy03z2OF2ujcxDA2oEvLrr0Z6o9Gc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Vp2/MskSnLLV08wlPIzvhBv5SPcCb8AV/JUcFA60Mbcqs4TbpbHuTqd14ucqHs+ldSVLyv9t4pMfGWpu5dQAkf5qjh2ICL9ZX5yLS6GytGdDGMlUPs7Foj6osHJwvNQHBfL1/1MNLs+KquUyh0iCCDwzpdkYUYxcvvEQYE/rn1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qdJLcQ2p; arc=none smtp.client-ip=95.215.58.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1786090855; c=relaxed/simple;
+	bh=aK7zHllXF1kREWQZ6hcNkPLnGotDBABqxzo3Wr5IKuA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D2W0Xmmzh+6s1ZxD3mruEY/zxcxEb+V2+VWMLlf6YK7FWvCEqgGbRSZ21h50mAAdkY2MFnPnvOYxGCzsPrp14OHX7GxKA8nXXu6M5eSgPNOUvBtwC0vuAAkdlasPp5DYzRgn1WQKdg9xRYnMoKn4sVr8kB/nwgBcoaCPj3BnIZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pix/gLR5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qdJLcQ2p"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786090259;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=skcFgrDrxZ6+DyRGwONJh0xEp2yNo2u6zqgzqw3g46I=;
-	b=qdJLcQ2pXzogTF+VR1RyTUzTCLAs7XYMlH2k5MGk9344bDSEaNI57LbwiNFIq0zmXEXHlG
-	zjSjGj8On+F8bGyVEVDtHHowtnQVfmTQRtVLg/6PZfasW7FutJHEyPqILPJSkJwVGIL2No
-	9hIxarCbnD6ejV2sjqlDPygNW7lf6+M=
-From: Atish Patra <atish.patra@linux.dev>
-Date: Fri, 07 Aug 2026 01:09:15 -0700
-Subject: [PATCH v9 20/20] tools/perf: Add RISC-V CounterIDMask event field
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pix/gLR5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFC061F00ADE
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:20:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786090853;
+	bh=aK7zHllXF1kREWQZ6hcNkPLnGotDBABqxzo3Wr5IKuA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Pix/gLR5VzRLCkyrSl4KB+e9mA7R6dmUVXAbd99MkUSXru2cRaG9rNGjXbmHvKa/p
+	 e7Bf0+jNJI+SW2IBwKgS1UK5+MGrTPk4aolzMfQngPMT+poegCTC74t2uQYkp6Nn/O
+	 R3mcZqJVjyFFHt3gfRdA3QVJmiMgkdXBCKvc5ksYx6aJH1y8YjxGBNFExkJ6dppOwO
+	 3MAYAvdKXyOAaFMCFAtOViDYXvbluadhz0tS059d2DOnE1771HXSl960lyCAKrs+98
+	 xewwMyIugsQM5c+cBrTQTNp8KB9E9klhJ5fX5RlUDe1ZA/CCbI0XGwPFkD7pzZfO95
+	 JNV3ayqccO/rQ==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b2aab18795so3481006e87.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 01:20:53 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqJn6P6Q+hi/S25kuwK/7Lf/Ii5TELbiYfkWVJvJRfjyO9FleL/WDhdMJ/2l4sTRgeOc95Ru+fb+ixs@vger.kernel.org
+X-Gm-Message-State: AOJu0YylFNgYeTw5Qmg7PktqxlF0hFngt8QUPD+ER6p0oIytCJ2ouLXq
+	k0kAkrDAFzV2OmrXQGw1WlcPNPi3d4oZyLpe7VsHBqsxubkgCMGDej8Vn04foDN0yCPvdF0n6dD
+	0llhNmjkLD8qDqshErxmcwL1R0rhuJqE=
+X-Received: by 2002:a05:6512:908:b0:5b1:543f:f5ca with SMTP id
+ 2adb3069b0e04-5b2f4cd0a73mr1978374e87.46.1786090852436; Fri, 07 Aug 2026
+ 01:20:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-counter_delegation-v9-20-58658104e487@meta.com>
-References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
-In-Reply-To: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
-To: Will Deacon <will@kernel.org>, Atish Patra <atish.patra@linux.dev>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Anup Patel <anup@brainfault.org>, Ian Rogers <irogers@google.com>, 
- Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- James Clark <james.clark@linaro.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Conor Dooley <conor@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org
-X-Migadu-Flow: FLOW_OUT
+References: <20260806140239.3518906-1-o.rempel@pengutronix.de>
+ <20260806140239.3518906-3-o.rempel@pengutronix.de> <9181f24b-cd5e-46c8-8e57-cbf309ac1a98@lunn.ch>
+ <anSj34TOZxYiG_ai@pengutronix.de> <f2260b02-621f-4b92-aade-85c403a8839d@lunn.ch>
+ <02a51eff-3782-4012-8475-1047a9be4dd3@pengutronix.de> <CAD++jLk-5-_2x2scn2hNQ-aWBx=EKGYzvcaUwv5fS7k5Bq=KGA@mail.gmail.com>
+ <anVedv6aV1hguF5x@pengutronix.de> <CAD++jLkkwuRYrW7aF4BrxoH=qVfNfbzsW8A+URig79dVMxgZ-g@mail.gmail.com>
+ <anWE2HD_Mrv9XlYV@pengutronix.de> <c9e3a4fb-40a1-40f6-b0e4-bf957195f1b8@pengutronix.de>
+In-Reply-To: <c9e3a4fb-40a1-40f6-b0e4-bf957195f1b8@pengutronix.de>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 7 Aug 2026 10:20:40 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmJCwALGLJt98BBhYAy_5UfUsJp6J7ah2+Pu51CMJeMPw@mail.gmail.com>
+X-Gm-Features: AUfX_my4v110hjvCCa_CQuVTR7llXzN2nu6lpNvuUqh_nbuMX3MkdNegAdj0D-U
+Message-ID: <CAD++jLmJCwALGLJt98BBhYAy_5UfUsJp6J7ah2+Pu51CMJeMPw@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 2/2] net: dsa: realtek: rtl83xx: add support
+ for enabling supplies
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>, Mark Brown <broonie@kernel.org>, 
+	Andrew Lunn <andrew@lunn.ch>, Conor Dooley <conor+dt@kernel.org>, 
+	Vladimir Oltean <olteanv@gmail.com>, Rob Herring <robh@kernel.org>, netdev@vger.kernel.org, 
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>, linux-kernel@vger.kernel.org, 
+	Liam Girdwood <lgirdwood@gmail.com>, Eric Dumazet <edumazet@google.com>, kernel@pengutronix.de, 
+	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alsi@bang-olufsen.dk>, 
+	Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+	"David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Atish Patra <atishp@rivosinc.com>
+On Fri, Aug 7, 2026 at 9:49=E2=80=AFAM Ahmad Fatoum <a.fatoum@pengutronix.d=
+e> wrote:
 
-Counter delegation lets supervisor mode choose the hpmcounter for an event,
-but the hardware may only allow a given event on a subset of counters. Add
-a RISC-V specific "CounterIDMask" json event field, handled like the other
-arch-specific entries in event_fields[], that carries the allowed-counter
-bitmask through to the driver's existing counterid_mask (config2:0-31)
-format.
+> >> (*) Reverse centaur =3D humans touted to please AI, as opposed
+> >> to AI helping humans, sarcastic term coined by author Cory Doctorow.
+> >
+> > Without context, I would fully agree with this statement. But as some
+> > one who need to adders new warnings on every kernel update for our
+> > customers, I see the point of sashiko - new unnecessary warning
+> > is extra unnecessary work for some one else =3D=3D regression.
+>
+> I also think we shouldn't dump 6 new warnings on other users if their
+> setup is working ok.
 
-The value is the bitmask directly so no counter-list to bitmask
-conversion is needed, and because the field is RISC-V specific it is a
-no-op for every other architecture's events (unlike the shared "Counter"
-field).
+If you think the regulator subsystem is too talkative that is one thing.
 
-Signed-off-by: Atish Patra <atishp@rivosinc.com>
-Reviewed-by: Ian Rogers <irogers@google.com>
----
- tools/perf/pmu-events/jevents.py | 1 +
- 1 file changed, 1 insertion(+)
+But there are millions of systems out there booting every day
+with dummy regulator prints that have been there since forever.
+New ones have been added over the years.
 
-diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index e9c6b7990880..e79143af6aa0 100755
---- a/tools/perf/pmu-events/jevents.py
-+++ b/tools/perf/pmu-events/jevents.py
-@@ -396,6 +396,7 @@ class JsonEvent:
-         ('EnAllSlices', 'enallslices='),
-         ('SliceId', 'sliceid='),
-         ('ThreadMask', 'threadmask='),
-+        ('CounterIDMask', 'counterid_mask='),
-     ]
-     for key, value in event_fields:
-       if key in jd and not is_zero(jd[key]):
+It doesn't mean dummy regulator prints are regressions.
 
--- 
-2.53.0-Meta
-
+Yours,
+Linus Walleij
