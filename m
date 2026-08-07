@@ -1,151 +1,314 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+Received: from apollo.alba.sh (apollo.alba.sh [35.181.159.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E055F47127D
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 11:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786102546; cv=pass; b=N9bAmEXUAyAEH/bre/0rC2a/8WHDHo7EizVh+H41Zht3yjp0chnqiOwSKfRDWSQKWC6fA+kas1ePGS1EVfXlKxMtNmTx9NewyVrSlTkEuYetTm4Gf8GnbiKV4J/Z49sj1Gz5NWwU2PSp73rbMP9e9EthJjSDWceuF7aaLOinjEo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786102546; c=relaxed/simple;
-	bh=KonotXRwXiSLQlw6vlTzZA1LY9JAAKMhrEBp5NWp/aw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fYAFlPtJkMVIncL2ZsSewFIGFbM/L9MqJLmaDmOyRdXsSKh0+SlXIRePOx0oyb/eDRJnrXc2j87u9C8eUppXRpzSJJWwjcpE1f5zFWua1MF8UYt1SIQZvSSQOLDBjZb8+tkxGRIkJmTr4LQRZvMRzJIKB0m22nvBdElBvBfp+bE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=gywRWkup; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693D242643C;
+	Fri,  7 Aug 2026 11:38:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.181.159.87
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786102711; cv=none; b=GccthFFyLEUNsb2gfWgCAbAtKzmBP+piqtTgTi6spSb7PxPekl+FpJEtAe3NVyDHkrBzTms4oVtu3DCrB/8Z0+LuAIt0RmaetfkHh8FpTm0W1pCF6xMMnNee0GlgP/R5qcYVqVGHb3Y18ZyVwBvJN7PVkhhzt6fiJLlEQLK/vhg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786102711; c=relaxed/simple;
+	bh=NSrUJquvrSccqXHAmgU+zqqV/ladD/Gwl5pBSrjfglg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MbvC5f1KagqILIr3n5doeyYZq4QIJ1eqeHE2ToF8C5CaeLE6TS7whcqBGgAtz/ReT6b8xLEADBEFyBgGF1vJXkb6sOzudV6YlKCfqZgiC4W1zN6ugy864AhNIGsg5jkH0XYHxM9hzbiYL/Nksbg5lb/VbRGSlOCPpZr3GMYy0lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alba.sh; spf=pass smtp.mailfrom=alba.sh; dkim=pass (1024-bit key) header.d=alba.sh header.i=@alba.sh header.b=oGHJ56yl; arc=none smtp.client-ip=35.181.159.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alba.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alba.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="gywRWkup"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-81ecf499af9so47993827b3.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 04:35:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786102544; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZLAMqmxvsFcRHyIrKYQ9IlK/t8x8tqOqinjyyvfeIij7MHk7U8RThI83INOrMhFSyZ
-         BbhyzMmdS4oXhcWXEhbUJVjVAlZN4C6A8mTi1DETqIvSqWgqvLwCuu3I1gI5QCZG1m5f
-         wVkOmYscdpZIjoJcYyKdNzx4ZhTXYntlydcR7sNm/gQA5cKqbaN+JczC/6NPMkaTwTJ8
-         v3q9TLWOci2pBd3iorp7r6x2fzaAQ6fGm0ztvhIh5wHKRX7LFwNUiVjqGvAEGejn85vX
-         b7j8Z4KZ0IF+00Ub30IHrknMP8qGBI9piHyZwI1yfQG+1YVUgO7/IqpTpe9RJS1mUnd3
-         gD4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=NFbpeccrBLnPNDngnsLUG5X8Bi2l3FjgVOiCpFS3kpA=;
-        fh=uiDwR7fqolbCxpB4S0DTBswCdCwapAG0L4EPbi5t22c=;
-        b=rLA1xYbkZ/+qT7WSxCg9Fe6Dg2+Z0K1KerMW6iFZpUqagCmsCL13alIO+FPVe1j3cg
-         jRExb+1cXlw7g8+5CG2i5IBAw8JHLlTBMdUkaJd1FAlbxOi3gdCUBij7cnPNh9G3yMaw
-         YbReN4NeV7LxjCMKGl94pnZt1dH7uOY6cZhSgPs8XsJgiaHaGt/hwI/ivuQhevrcgPuH
-         Z5y9B67Sb/Z2kJVJLgNe42WgCh4n7r7gcd241LFcJBjJ+Ia41Yb3uXYMbIHH4hABZ9OG
-         RtzvSeO3Mr/f/ko/gOnFuJHt63RvvNQpb2ew0UcwLnOUYNo2mJPGK40agEsYuZT0pLUh
-         L2DQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786102544; x=1786707344; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NFbpeccrBLnPNDngnsLUG5X8Bi2l3FjgVOiCpFS3kpA=;
-        b=gywRWkupYdQcwx1CAxh1NJRwVrJW56NntIg+rqr98QrAOpyb8Sl9qH/7GgAkJNczIF
-         ZqesRdYr5qrwH0RKrlknW/OgIQBDeZcA+0TSJWt0R41Fwu2j26OC4AW81eT6xGJ85gqH
-         Dhhx6WGz4rhe7nooO4yzXrTK1Zg/O1jCa3jmQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786102544; x=1786707344;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NFbpeccrBLnPNDngnsLUG5X8Bi2l3FjgVOiCpFS3kpA=;
-        b=Q6xwdIa48HtxOFRPfbfBULoe1FE2c6NmLyafZxwnC25WhHCLTL13wcjZ0Dt1YlXUbd
-         pwu7ixHgr2NJ5u9c8gagjd2ajpY9hnW7Rw1HhRPaGtTaqPLY3tg6E6J2FBO8QT/3MSw2
-         BwuUcOvG6LShWbXiPwR3OE4NHAvPhy0Ec4TWk3o5lL81Zz6WAABU3dEhEXHxVimVMJ+F
-         m+q/j00SVDO4RsR5s3t1tdd/X1hOyTEGQqAsJl5wFl5pqpGoh9JpsD0KmyL59wesP1HY
-         dGabE+Wl0XRmGl9Q8cOAJfCJA1JSNLj70PRg/b/AetY61AZ4Je+qmEjrrj8hPgSBxGOK
-         YlFA==
-X-Forwarded-Encrypted: i=1; AHgh+RpqMy2fB7WaeTZRQK2oWulxOzwzR+gFAs4gzfQzP5BKt55WFRwA6Pch+OZqOYYcHyF/r7tuLJIYS/F6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx7MpudWY1I7L+dJ5HOaWU48VObv1vjdIk+W4kjGLuCeVK5C9z/
-	76PxNE6hOAWFzY11fvDRGODmv3MUHCRQSdqp6lNY4EQ1sFh6hDkciICw1C20QcLIIfgxSwvEjc0
-	sNjlTf1HApzTX8oMeEl9AjUCyo24/JekdhTvKCLwh
-X-Gm-Gg: AR+sD120jUXgDlk8Rr2RdQb2OYuaUUTVo2FsQWyUPjhEhPfrZEk5IUT5FcfuOS8yJU/
-	kH0hK8m75lDMzVtXfZNFRqSQjgrfXdAn/l9+BUUAhD0tA+XM741B3PgR+Ir4OrmeSwZs8Qi/ZT2
-	n+OKO41COwDPVfRiT4IACJxCWOE4dLGbzeu++7tl+NbKofJdJpjCxT41sNjQX2T8/X2jfNUr/jv
-	fQlV4A7d0kVbys+FHJwJZPq6YxiaYE80fwV68zGA1ekqan1mocU1eEseJAmTVlvJYr8zOhahxEW
-	jrsC+031AXwO1UPQOT0w1OhqPFo43UdLpIvWNpoJdk0ujgIkNpUVBejJZFDx/Zww40j5cSqRHuW
-	GaEzRWnx6NQ==
-X-Received: by 2002:a05:690c:480b:b0:81c:872a:5152 with SMTP id
- 00721157ae682-82022510fcbmr127613327b3.30.1786102543795; Fri, 07 Aug 2026
- 04:35:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=alba.sh header.i=@alba.sh header.b="oGHJ56yl"
+Received: (Haraka outbound); Fri, 07 Aug 2026 11:37:09 +0000
+Authentication-Results: apollo.alba.sh;
+	auth=pass (cram-md5);
+	spf=fail smtp.mailfrom=alba.sh
+Received-SPF: Fail (apollo.alba.sh: domain of alba.sh does not designate 213.195.115.95 as permitted sender) receiver=apollo.alba.sh; identity=mailfrom; client-ip=213.195.115.95 helo=[192.168.1.141]; envelope-from=<me@alba.sh>
+Received: from [192.168.1.141] ([213.195.115.95])
+	by apollo.alba.sh (Haraka/2.8.28) with ESMTPSA id 3D6224CC-7F78-4701-A942-C0988D5AF2E0.1
+	envelope-from <me@alba.sh>
+	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
+	Fri, 07 Aug 2026 11:37:09 +0000
+Message-ID: <817d6072b868c25f0862dfac7851ca39aae3429b.camel@alba.sh>
+Subject: Re: [PATCH v4 4/6] spmi: apple: Implement remaining commands
+From: Alba Mendez <me@alba.sh>
+To: Janne Grunau <j@jannau.net>, Sasha Finkelstein <k@chaosmail.tech>
+Cc: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, Stephen Boyd	
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ asahi@lists.linux.dev, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, 	devicetree@vger.kernel.org
+Date: Fri, 07 Aug 2026 13:37:08 +0200
+In-Reply-To: <20260805121956.GD832571@robin.jannau.net>
+References: <20260805-t603x-spmi-v4-0-c15a12d9a7d1@chaosmail.tech>
+	 <20260805-t603x-spmi-v4-4-c15a12d9a7d1@chaosmail.tech>
+	 <20260805121956.GD832571@robin.jannau.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724084328.3943997-1-wenst@chromium.org>
-In-Reply-To: <20260724084328.3943997-1-wenst@chromium.org>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 7 Aug 2026 19:35:32 +0800
-X-Gm-Features: AUfX_mzUutrA5-Q9ACqE0pQ_D7Us70orWiV3KcyO1fjFDW5_he5R56G8cIzEovo
-Message-ID: <CAGXv+5ETE2WAA8jwnQKSe69aR=qrqKnALuiSM12X_ZwFouxdRA@mail.gmail.com>
-Subject: Re: [PATCH v7 00/16] arm64: mediatek: Add M.2 E-key slot on Chromebooks
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Wei Deng <wei.deng@oss.qualcomm.com>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Alan Stern <stern@rowland.harvard.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1;a=rsa-sha256;bh=NSrUJquvrSccqXHAmgU+zqqV/ladD/Gwl5pBSrjfglg=;c=relaxed/simple;d=alba.sh;h=from:subject:date:message-id:to:cc:mime-version;s=main;b=oGHJ56ylTZOsm1X+SNtngtwlAerXbxYM8H3FcRUcYuSexzAODUkh0h/srSikGBaW5ACGP9YBSjOQG8pjs3CV9qnX9gGAkbBt/we8Mp230FaKi+5iW2ouivDCluHFBks+6FCDU1Zd0UQMaTG5WSqXxfrr1FaWUQ7bWcFansy4U0o=
 
-Hi Mani,
+On Wed, 2026-08-05 at 14:19 +0200, Janne Grunau wrote:
+> On Wed, Aug 05, 2026 at 12:11:14PM +0200, Sasha Finkelstein wrote:
+> > From: Alba Mendez <me@alba.sh>
+> >=20
+> > Add support for zero write and power management commands
+>=20
+> missing dot at the end of the sentence.
+>=20
+> > Signed-off-by: Alba Mendez <me@alba.sh>
+> > Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+> > ---
+> > =C2=A0drivers/spmi/spmi-apple-controller.c | 114
+> > +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+> > +----------------------------------------------
+> > =C2=A01 file changed, 68 insertions(+), 46 deletions(-)
+> >=20
+> > diff --git a/drivers/spmi/spmi-apple-controller.c
+> > b/drivers/spmi/spmi-apple-controller.c
+> > index 7ebf899edf17..49827e51e93e 100644
+> > --- a/drivers/spmi/spmi-apple-controller.c
+> > +++ b/drivers/spmi/spmi-apple-controller.c
+> > @@ -46,9 +46,9 @@ struct apple_spmi {
+> > =C2=A0	readl_poll_timeout((spmi)->regs + (reg), (val), (cond), \
+> > =C2=A0			=C2=A0=C2=A0 REG_POLL_INTERVAL_US,
+> > REG_POLL_TIMEOUT_US)
+> > =C2=A0
+> > -static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 saddr,
+> > size_t len)
+> > +static inline u32 apple_spmi_pack_cmd(u8 opc, u8 sid, u16 param)
+> > =C2=A0{
+> > -	return opc | sid << 8 | saddr << 16 | (len - 1) | (1 <<
+> > 15);
+> > +	return opc | sid << 8 | (u32)param << 16 | (1 << 15);
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0/* Wait for Rx FIFO to have something */
+> > @@ -69,14 +69,14 @@ static int apple_spmi_wait_rx_not_empty(struct
+> > spmi_controller *ctrl)
+> > =C2=A0	return 0;
+> > =C2=A0}
+> > =C2=A0
+> > -static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8
+> > sid,
+> > -			 u16 saddr, u8 *buf, size_t len)
+> > +static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8
+> > sid,
+> > +			 u16 param, const u8 *buf, size_t len, u8
+> > *ibuf, size_t ilen)
+>=20
+> Instead of two sets of not very distinctive variable names
+> ("buf"/"len",
+> "ibuf"/ilen") please use just buf/len and a boolean to indicate
+> whether
+> the command is a read or write if you insists of routing all commands
+> through a single function. This can be simply added as first
+> condition
+> in the "while" iterating over the write/read buffers.
 
-On Fri, Jul 24, 2026 at 4:44=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> w=
-rote:
->
-> Hi everyone,
->
-> This is v7 of my attempt at integrating the power sequencing API into
-> the USB core to support the USB connection on M.2 E-key slots. M.2
-> E-key was enabled in v7.1-rc1 with just PCIe and UART supported [1].
-> Hopefully this is the last revision. However the pwrseq patches haven't
-> been reviewed yet, and the fwnode patches need a review from the fwnode
-> owners.
->
+Hmm, even if constness was not an issue, I would still prefer if
+buf/len and ibuf/ilen were kept separate... There are SPMI commands
+with both controller-sent and peripheral-sent data frames (like
+authentication) it just so happens that all the commands currently
+implemented don't need data bytes in both directions. But the format of
+the FIFO batches certainly seems prepared to acommodate those.
 
-[...]
-
-> Patch 12 adds matching pwrseq consumer by "port@" node to the M.2 slot
-> driver. This is only used for the USB target, but there is no attempt
-> to differentiate the connection type. The driver simply tries matching
-> the "port@" node first, then falling back to the port parent or device's
-> node.
->
-> Patch 13 reworks the power sequencing targets for the E-key connector in
-> the pcie-m2 driver to add targets for USB and SDIO. The former is used
-> later on in this series.
->
-> Patch 14 splits the Bluetooth power sequencing unit so that the USB and
-> serdev consumers can separately toggle the actual state of W_DISABLE#2.
-> This patch is purposefully not squashed into the previous one to provide
-> a clear target for discussions.
-
-[...]
-
->   power: sequencing: pcie-m2: support matching on remote "port" node
->   power: sequencing: pcie-m2: Add usb and sdio targets for E-key
->     connector
->   power: sequencing: pcie-m2: Split Bluetooth unit based on interface
-
-Could you take a look at the pcie-m2 patches? These are the only ones
-that haven't been reviewed.
-
-
-Thanks
-ChenYu
+>=20
+> > =C2=A0{
+> > =C2=A0	struct apple_spmi *spmi =3D
+> > spmi_controller_get_drvdata(ctrl);
+> > -	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, saddr, len);
+> > +	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, param);
+> > =C2=A0	u32 reply, rsp;
+> > =C2=A0	size_t len_read =3D 0;
+> > -	u8 i;
+> > +	size_t i =3D 0, j;
+> > =C2=A0	int ret;
+> > =C2=A0
+> > =C2=A0	if (spmi->prev_fail) {
+> > @@ -86,6 +86,14 @@ static int spmi_read_cmd(struct spmi_controller
+> > *ctrl, u8 opc, u8 sid,
+> > =C2=A0
+> > =C2=A0	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> > =C2=A0
+> > +	while (i < len) {
+> > +		j =3D min_t(size_t, sizeof(spmi_cmd), len - i);
+> > +		spmi_cmd =3D 0;
+> > +		memcpy(&spmi_cmd, buf + i, j);
+> > +		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> > +		i +=3D j;
+> > +	}
+> > +
+> > =C2=A0	ret =3D apple_spmi_wait_rx_not_empty(ctrl);
+> > =C2=A0	if (ret)
+> > =C2=A0		return ret;
+> > @@ -93,7 +101,7 @@ static int spmi_read_cmd(struct spmi_controller
+> > *ctrl, u8 opc, u8 sid,
+> > =C2=A0	reply =3D readl(spmi->regs + SPMI_RSP_REG);
+> > =C2=A0
+> > =C2=A0	/* Read SPMI data reply */
+> > -	while (len_read < len) {
+> > +	while (len_read < ilen) {
+> > =C2=A0		if (readl(spmi->regs + SPMI_STATUS_REG) &
+> > SPMI_RX_FIFO_EMPTY) {
+> > =C2=A0			spmi->prev_fail =3D true;
+> > =C2=A0			dev_err_ratelimited(&ctrl->dev,
+> > @@ -101,11 +109,9 @@ static int spmi_read_cmd(struct
+> > spmi_controller *ctrl, u8 opc, u8 sid,
+> > =C2=A0			return -EIO;
+> > =C2=A0		}
+> > =C2=A0		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
+> > -		i =3D 0;
+> > -		while ((len_read < len) && (i < 4)) {
+> > -			buf[len_read++] =3D ((0xff << (8 * i)) &
+> > rsp) >> (8 * i);
+> > -			i +=3D 1;
+> > -		}
+> > +		i =3D min_t(size_t, sizeof(spmi_cmd), ilen -
+> > len_read);
+> > +		memcpy(ibuf + len_read, &rsp, i);
+> > +		len_read +=3D i;
+> > =C2=A0	}
+> > =C2=A0
+> > =C2=A0	if (!(readl(spmi->regs + SPMI_STATUS_REG) &
+> > SPMI_RX_FIFO_EMPTY)) {
+> > @@ -113,54 +119,69 @@ static int spmi_read_cmd(struct
+> > spmi_controller *ctrl, u8 opc, u8 sid,
+> > =C2=A0		spmi->prev_fail =3D true;
+> > =C2=A0	}
+> > =C2=A0
+> > -	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) &
+> > ((1 << len) - 1)) {
+> > +	if (!ilen && !FIELD_GET(SPMI_REPLY_ACK, reply)) {
+> > +		dev_err(&ctrl->dev, "command not acknowledged\n");
+> > +		return -EIO;
+> > +	}
+> > +	if (~FIELD_GET(SPMI_REPLY_FRAME_PARITY_STATUS, reply) &
+> > ((1 << ilen) - 1)) {
+> > =C2=A0		dev_err(&ctrl->dev, "some frames failed parity
+> > check\n");
+> > =C2=A0		return -EIO;
+> > =C2=A0	}
+> > =C2=A0	return 0;
+> > =C2=A0}
+> > =C2=A0
+> > -static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8
+> > sid,
+> > -			=C2=A0 u16 saddr, const u8 *buf, size_t len)
+> > +/* Send a raw command with 1..16 input data frames */
+> > +static int spmi_raw_cmd_input(struct spmi_controller *ctrl, u8
+> > opc, u8 sid,
+> > +			 u16 param, u8 *buf, size_t len)
+> > =C2=A0{
+> > -	struct apple_spmi *spmi =3D
+> > spmi_controller_get_drvdata(ctrl);
+> > -	u32 spmi_cmd =3D apple_spmi_pack_cmd(opc, sid, saddr, len);
+> > -	u32 reply;
+> > -	size_t i =3D 0, j;
+> > -	int ret;
+> > -
+> > -	if (spmi->prev_fail) {
+> > -		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs +
+> > SPMI_RSP_REG);
+> > -		spmi->prev_fail =3D false;
+> > -	}
+> > -
+> > -	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> > +	return spmi_raw_cmd(ctrl, opc, sid, param, NULL, 0, buf,
+> > len);
+> > +}
+> > =C2=A0
+> > -	while (i < len) {
+> > -		j =3D 0;
+> > -		spmi_cmd =3D 0;
+> > -		while ((j < 4) & (i < len))
+> > -			spmi_cmd |=3D buf[i++] << (j++ * 8);
+> > +/* Send a raw command with (optional) body and an input ACK */
+> > +static int spmi_raw_cmd_ack(struct spmi_controller *ctrl, u8 opc,
+> > u8 sid,
+> > +			=C2=A0 u16 param, const u8 *buf, size_t len)
+> > +{
+> > +	return spmi_raw_cmd(ctrl, opc, sid, param, buf, len, NULL,
+> > 0);
+> > +}
+> > =C2=A0
+> > -		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> > +static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8
+> > sid,
+> > +			 u16 saddr, u8 *buf, size_t len)
+> > +{
+> > +	switch (opc) {
+> > +	case SPMI_CMD_EXT_READ:
+> > +	case SPMI_CMD_EXT_READL:
+> > +		return spmi_raw_cmd_input(ctrl, opc | (len - 1),
+> > sid, saddr, buf, len);
+> > +	case SPMI_CMD_READ:
+> > +		return spmi_raw_cmd_input(ctrl, opc | saddr, sid,
+> > saddr, buf, len);
+> > =C2=A0	}
+> > +	return -EINVAL;
+> > +}
+> > =C2=A0
+> > -	ret =3D apple_spmi_wait_rx_not_empty(ctrl);
+> > -	if (ret)
+> > -		return ret;
+> > -
+> > -	reply =3D readl(spmi->regs + SPMI_RSP_REG);
+> > -
+> > -	if (!(readl(spmi->regs + SPMI_STATUS_REG) &
+> > SPMI_RX_FIFO_EMPTY)) {
+> > -		dev_warn(&ctrl->dev, "FIFO has extra data\n");
+> > -		spmi->prev_fail =3D true;
+> > +static int spmi_write_cmd(struct spmi_controller *ctrl, u8 opc, u8
+> > sid,
+> > +			=C2=A0 u16 saddr, const u8 *buf, size_t len)
+> > +{
+> > +	switch (opc) {
+> > +	case SPMI_CMD_WRITE:
+> > +		return spmi_raw_cmd_ack(ctrl, opc | saddr, sid,
+> > buf[0] << 8 | saddr, NULL, 0);
+> > +	case SPMI_CMD_ZERO_WRITE:
+> > +		return spmi_raw_cmd_ack(ctrl, opc | buf[0], sid,
+> > buf[0] << 8 | saddr, NULL, 0);
+> > +	case SPMI_CMD_EXT_WRITE:
+> > +	case SPMI_CMD_EXT_WRITEL:
+> > +		return spmi_raw_cmd_ack(ctrl, opc | (len - 1),
+> > sid, saddr, buf, len);
+> > =C2=A0	}
+> > +	return -EINVAL;
+> > +}
+> > =C2=A0
+> > -	if (!FIELD_GET(SPMI_REPLY_ACK, reply)) {
+> > -		dev_err(&ctrl->dev, "command not acknowledged\n");
+> > -		return -EIO;
+> > +static int spmi_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid)
+> > +{
+> > +	switch (opc) {
+> > +	case SPMI_CMD_RESET:
+> > +	case SPMI_CMD_SLEEP:
+> > +	case SPMI_CMD_SHUTDOWN:
+> > +	case SPMI_CMD_WAKEUP:
+> > +		return spmi_raw_cmd_ack(ctrl, opc, sid, 0, NULL,
+> > 0);
+> > =C2=A0	}
+> > -	return 0;
+> > +	return -EINVAL;
+> > =C2=A0}
+> > =C2=A0
+> > =C2=A0static int apple_spmi_probe(struct platform_device *pdev)
+> > @@ -183,6 +204,7 @@ static int apple_spmi_probe(struct
+> > platform_device *pdev)
+> > =C2=A0
+> > =C2=A0	ctrl->read_cmd =3D spmi_read_cmd;
+> > =C2=A0	ctrl->write_cmd =3D spmi_write_cmd;
+> > +	ctrl->cmd =3D spmi_cmd;
+> > =C2=A0
+> > =C2=A0	ret =3D devm_spmi_controller_add(&pdev->dev, ctrl);
+> > =C2=A0	if (ret)
+>=20
+> looks good otherwise
+>=20
+> Janne
