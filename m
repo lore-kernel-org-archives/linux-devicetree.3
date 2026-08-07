@@ -1,111 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A76A3B841B
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B73A3C09E3;
+	Fri,  7 Aug 2026 07:23:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786087324; cv=none; b=t6+fS1XOQKfgE8y8ATe4IIYY3X/om/OKg7B8dvUnxu9kUeUzFIRXC/6xQkU04R/nG+WOUejQDE1PLb72OSgQ49KiOY+OY24TcVwYExoIZ6HFzNeBHWrfTV6xUIoaVbewM7kTovaeoYMx5q5Ke6zyrfbrnLvOPwLt8Pi3eN0foVg=
+	t=1786087421; cv=none; b=pNCGYjl/tOqEI5kbS1bBf1PJXYhy6PQWw2mqi5e4IsPW1iEFI/bK8yRFuilpws2kpgPkMuyJKDW7wY9EfELYESXwVAb8lfSK3upyPNfSGcrtpyM76LS/rLCCzKPDNKa6mdZJ9DLdURvwuDZcAl8AKCw2j4lzDFdDDEv3jnDK2SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786087324; c=relaxed/simple;
-	bh=smKVd21B24JWPd9FUvi/DZRQx6ZDhEUqbJzis2L6HMs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eiiC2+18xh3uwqhbjTK+sYgnL171ePsmXZcSVSbs3Ewmoh/d6kNM+BkufljjqqeqlzTWjg+tAOUIJfo4LWxtwfbFq+eyl0ZU0C3JU7B6RXNJOcVprqhTmIb1MIlSeTwnDx49y0vYlOM3NyCYnV+niLMZYyhZQIEaVtYYLL4WA+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLp5R03E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786087421; c=relaxed/simple;
+	bh=GwTvq7hM9tPYGLwJTjP2309Jx4K3X2GgzxZELjlSc5M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kuhZDzqQih5kA9ElrgSMQedbHDG2s8EWdfeuen09ECHTvrO3kI+Uef52zEWwWoO2yyZuduX2ADzqrtgFsm8T2Y57pqF9j9fpTCQQo5VqNM2JVmUawgvyZwXnQVDgNXaZmQuFSdjXHeYRa1ORnUz5wPB+zIfPzWpDp0VXYIz3b5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLij02BS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLp5R03E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E4121F000E9;
-	Fri,  7 Aug 2026 07:22:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLij02BS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EB01F000E9;
+	Fri,  7 Aug 2026 07:23:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786087322;
-	bh=dKZWg8pcqDfadUvloZRP1WOusXizy7jFbfywdL7y6es=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GLp5R03Ek2850SXKoP/kdzZbGGAEU/Pct5uItNfZ+PJsqktRTJB9sBNALoG4EPgY0
-	 5VDgG+JugaBv9QZqhN1bEWNaq/LWn82ND+NKX4Susioxy3Zmj6eCcpkxj5tTmXlJyT
-	 3puRhdwKoXahuLAYZELmABRZXC8eTjj5mrmQBhsKwzDIsA+Li1EgWzRCgu7J9MJh4D
-	 h/KY90n4AuhS+QOtKhv2HlIK7I1w6PklHSsXdWxkAt6J04D+ERUeP4VrAv5dewk2oa
-	 rYhnBPNDsOkS31Nh74Iw8qDAydiUfThs9zBtDIkQ42au5TBqsH4dbrdZWOmBruItjc
-	 fUvD2ZTGiOiLA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 12/12] arm64: dts: qcom: Update IPQ5210 xo_board to
- use fixed factor clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Jie" <jie.luo@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-12-cce718b8ec17@oss.qualcomm.com>
-References: <20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com>
- <20260806-qcom_ipq5210_cmnpll-v2-12-cce718b8ec17@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 07:22:01 +0000
-Message-Id: <20260807072202.4E4121F000E9@smtp.kernel.org>
+	s=k20260515; t=1786087419;
+	bh=AgQPRr6KO6f+5jgx8UafJjTGJrvaC3/Te3NzsCkfesU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CLij02BSdOzAHBhHBATYyrVi9hkxsqlYz4VIYJ+tLIwDOusBpIeEQ6nsvCbMmewrW
+	 HzOWWFbkb2ioc+QJoowwcc5Iy/emL5WdxemjWy7NTS9alinUOyAX1FV9XcGtj2+Fm4
+	 uOkegAHxaeY8ov8h3m6b5FkotOYK7ZyLC3bY8umE587jIWR07AkjBrEmbXDhUDnkwF
+	 phevrPP/W5uqtvfeumb61rtIwEX7Ln7z4IHP2tC4EpfiqEJLE4I664YL5lGDCcyCP+
+	 OvX56TuEiitZwE6pduxT7YInlF2VB3wmC8MRxs/FyjKtUjTYq7zjp35U029Rjv6n6f
+	 tU12iXfiDJFqw==
+Date: Fri, 7 Aug 2026 09:23:35 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: =?utf-8?B?R3LDqWdvaXJl?= Layet <gregoire.layet@9elements.com>
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, lkundrak@v3.sk, 
+	devicetree@vger.kernel.org, gregkh@linuxfoundation.org, jirislaby@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org, 
+	andrew@lunn.ch, jacky_chou@aspeedtech.com, yh_chung@aspeedtech.com, 
+	ninad@linux.ibm.com, anirudhsriniv@gmail.com, tan.siewert@9elements.com, 
+	linux-serial@vger.kernel.org, mfd@lists.linux.dev, linux-aspeed@lists.ozlabs.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/6] dt-bindings: serial: 8250: aspeed: add ast2600
+ and aspeed,vuart-over-pci
+Message-ID: <20260807-ginger-mushroom-of-reputation-bbb7c8@quoll>
+References: <cover.1785932211.git.gregoire.layet@9elements.com>
+ <52d5bce1cf8ec3ff0b27e7313655cf7ffa2236b5.1785932211.git.gregoire.layet@9elements.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <52d5bce1cf8ec3ff0b27e7313655cf7ffa2236b5.1785932211.git.gregoire.layet@9elements.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The DT topology incorrectly parents `xo_board` to the raw `xo_cl=
-k` crystal instead of the 48MHz WiFi output clock (`ref_48mhz_clk`).
---
+On Wed, Aug 05, 2026 at 02:19:48PM +0200, Gr=C3=A9goire Layet wrote:
+> The ASPEED AST2600 has 2 Virtual UARTs accessible over PCI.
+> The ASPEED AST2600 can be used as a PCI device.
+> 2 Virtual UART can be exposed to the host via this PCI device.
+> These are 8250-compatible register sets and can be used to have UART
+> communication between the PCI BMC and the host.
+>=20
+> This boolean can be set to specify if a VUART is used over PCI. A VUART
+> over PCI needs a syscon phandle. The syscon gives a regmap to the SCU,
+> which is used to set the enable bits of the PCI device.
+> On the aspeed's chips, the clocks phandle already points at the SCU node.
+> But deriving the regmap from the clock provider would misuse the clocks
+> binding. An explicit syscon phandle states the dependency directly.
+>=20
+> Signed-off-by: Gr=C3=A9goire Layet <gregoire.layet@9elements.com>
+> ---
+>  .../devicetree/bindings/serial/8250.yaml      | 42 ++++++++++++++++++-
+>  1 file changed, 40 insertions(+), 2 deletions(-)
 
---- Patch [12]: [PATCH v2 12/12] arm64: dts: qcom: Update IPQ5210 xo_board =
-to use fixed factor clock ---
-commit a2a14fe4e6a6b7af2b47f570d64cc8151c8401f4
-Author: Luo Jie <jie.luo@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-arm64: dts: qcom: Update IPQ5210 xo_board to use fixed factor clock
+Best regards,
+Krzysztof
 
-Update the xo_board clock definition to use a fixed factor clock divided
-by 2. The commit message indicates this is routed from the 48MHz WiFi
-output clock.
-
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5210.dtsi
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> @@ -26,7 +26,8 @@ sleep_clk: sleep-clk {
->  		};
-> =20
->  		xo_board: xo-board-clk {
-> -			compatible =3D "fixed-clock";
-> +			compatible =3D "fixed-factor-clock";
-> +			clocks =3D <&xo_clk>;
-
-[Severity: Medium]
-The commit message states that xo_board is routed from the WiFi output
-clock (ref_48mhz_clk). Should this be parented to <&ref_48mhz_clk>
-instead of <&xo_clk> to correctly reflect the hardware topology?
-
-> +			#clock-cells =3D <0>;
->  		};
-
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts b/arch/arm64/boo=
-t/dts/qcom/ipq5210-rdp504.dts
-> --- a/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts
-[ ... ]
-> +/*
-> + * The frequency of xo_board is fixed to 24 MHZ, which is routed
-> + * from WiFi output clock 48 MHZ divided by 2.
-> + */
->  &xo_board {
-> -	clock-frequency =3D <24000000>;
-> +	clock-div =3D <2>;
-> +	clock-mult =3D <1>;
->  };
-
-[Severity: Medium]
-Does this implicitly rely on xo_clk being exactly 48MHz?
-
-If a future board uses a different crystal frequency, this setup might force
-the board file to specify a compound divider instead of modeling the analog
-block's physical divide-by-2 from the WiFi output. If xo_board is parented
-to ref_48mhz_clk as described in the commit message, would this physical
-divide-by-2 relationship be more accurately preserved?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-qcom_ipq52=
-10_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com?part=3D12
