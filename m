@@ -1,184 +1,169 @@
-Received: from mail-m3279.qiye.163.com (mail-m3279.qiye.163.com [220.197.32.79])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6601D154458;
-	Fri,  7 Aug 2026 02:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.79
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786071364; cv=none; b=hvA5cKCvJUZqo4HHVcjNGzFQuSSfSSo6KkAGUnXD3AixASvPMzH9M5YGhycMeqd9FFGGxOaKDydw+SHRuZuP3zYFj33XVYStpagZhEsjlRvSkPAuvNkgjXJbZ9gyZSS3Bq0RC4PT1vHDthbUijm+X3N/emlMe0UGn3qAuWjAVp8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786071364; c=relaxed/simple;
-	bh=JST10iFSt1WHZDJONWchqm8dmTGfuJZCPYy/Gd23Y0Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O0jEAP6wK0bDLH9LWaT8iCe+0RCYhXAPbwRY+Oymt0DyQK7fualXAZNmSfLeH8EIi4SBRraRfKkXsYWLLl6ZyVTT4x71dU+ad1vK3YVcRLBzLyXPUeQN3uCxXdfTX79CFgYzN9zy2QcJ97sAoHEV/elCtGDUIVl81IP5UK+CgFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=IL8agv80; arc=none smtp.client-ip=220.197.32.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E389022579E
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 03:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786073063; cv=pass; b=fgfC3ESLJrebjbc1t6jFCEcEZyB49h5jZ10srQEVPfcLfddAJ9RoTA+xwFYQ6IspFlLK+2QZoGud/99af2LyVfoqcInoiveSMMavmQqwoUWeOT4lPyc/U0WZOo9h1z75gVrKQjHM9LZ48q5yPLSXPFO+LmTsm7zYcfAqdvaMbzU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786073063; c=relaxed/simple;
+	bh=DwhFItc7Uza+jOSDpnxs4kuIhVwWoyQzPZCblQUNSGg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lTlS8s5UQzGDcqhhGqeg0NCXK70KptgcdFyO4eD8KzCWrT92q1IPBj76awe+X3wOhGRKGOeLaa9SU2u19XNDhOljOL6fu9MCNPqVVdyrZLS0IXvJ1qvhIAL21Rtcm21V8rqSymyLOtK/B/VYETFnwhAMygoJvNbAgJ/8Q6/lr5E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RT9LSj0k; arc=pass smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="IL8agv80"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 491b644d0;
-	Fri, 7 Aug 2026 10:50:40 +0800 (GMT+08:00)
-Message-ID: <a9b77d07-89de-4b86-8227-2cdd419629c7@rock-chips.com>
-Date: Fri, 7 Aug 2026 10:50:25 +0800
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RT9LSj0k"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-7ff05e5d009so34586427b3.1
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 20:24:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786073061; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YNQFEWPr2xZ9mY+QT4sfmiemkdz1VKrfAV/mbeIGqrOSqsoyuhrsi6rSebUuKOEgA7
+         L/NJZ9cU6OFdqou+Es2DOBQTik5A/cTF4z/SUBBHYPN/gVQPY8npqxbEs6sMeqUnJfFp
+         Swe9HOAAz+dc2QWMLYPi9qefuVsHWYqKx+f08M2bqA4RoJPZO2suQVihfycBY8girATb
+         CIyAPk4/hqxDg7GUuPEKUQjRUJ193nvXeKQFenEoJGdq9/Wg/E2U/w78HjN19zSiqyqv
+         sbWB7SkwLrsHQr+Pv60xgAWXP+CnFh+nl/juRH0odIgbpi6A/gc9uvC9b7VeuXOavVp6
+         vjCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2Rxym6s8p5fdNkShVSkwaV8afJle+IJgpasiGsN9DyY=;
+        fh=KxUkGDy24v0AjueGwj4aIV+KPjAqjkgMVWiqmLK3gUU=;
+        b=g9Y451XDvoH5jOqAvU2rhJu0pGvvhbW9Pnxy6UoPcaMODeM0g1S4wUyEPBCTKbnzZP
+         pR9eQhZSX3cAUonOm1Vech8R8F2BrKdJnsrtqWe8IwpzaapKugoeqqPbBbsq2Ttlv9CX
+         EZVl0gFfHqV1DzHsD4Ez9Eh5prmSb4DQz5axx+5UFVicwbnlXt28vGIf/XQdMcW0EvOx
+         7t8Nlne5AKYygk6puQTxYfYoYxMW6WyumNybIJSKeO8RJEenhKM6ffSPLf+IfiQpcXvB
+         877rh6yvj9eLmRaIu9I3ggc0rNMwLh8LFtlqXYdX/ffzIaFdSQKJSziX4LYxUVpMi688
+         s3BQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1786073061; x=1786677861; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2Rxym6s8p5fdNkShVSkwaV8afJle+IJgpasiGsN9DyY=;
+        b=RT9LSj0khGrH/Q9IfIU54pWiJe2KWnNA6vNrqTexJD22Yn3k4e/Az8AVvYWBjbTnve
+         TtPhSE86a1mpfoMm1xdKRCTOpIs1OVaM5+EeTVkBmzKW3nKKvfUKj+UitccXqkGjL2KQ
+         xSUmsOVS8qU2mpoSasH/v6VhWLFysy5Z93jAQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786073061; x=1786677861;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2Rxym6s8p5fdNkShVSkwaV8afJle+IJgpasiGsN9DyY=;
+        b=L91uQSqKKw7qpyvtTHx1smF0NOCWBKjt0DubmQFO4GoVxm6ejaXFWQ5g9dQYkwwZA4
+         5y3W/WhM7IXod7YjFFXgUR23KZ7HUB/N4gNtoQbs+siYeBHwZWnY46Prdgwt9ZLu6JFt
+         eUgHQFsSSjsRlku6Ro5zwtEPNaSEVWxgxmce4FXpWSQjB3rvlK8NgT+wWt3YPGjrw+Mb
+         4LkWfv8ys4IaxNl1/fXfc1VD2wWur8WwLPrDgsfRGCQ3HMHxEq69MSxO5E994tSrgrn2
+         ZQTyyL9Ca8yaJp2P6rldmqVUaR0+qISYE6z1Mc75+iLycjE/Pvb3YJSw/jjTb+pIlGSS
+         J34Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqXNPGGV24VPB3SwkelfW97ftlKK8Kv+HZQAcS/saerQ/FU4kSCDTUS6VfSQbyLT7kDSn3JUBVIDwy2@vger.kernel.org
+X-Gm-Message-State: AOJu0YwmWJmf6Vy5ImXgcjAR5Zj1XeKI3cTy1XAkXmu0Gs7nF4bd5VYk
+	bz7tC5KV2F0Uq/fdN7br4lDCbM/YXSJ9GKP1XgnZwLFNtXQGKCrCJEKDWcNsZMsJWLP9173Q2qE
+	yseNrUGaMoPMy+2BnRSW/u58yxXOLhtDDiuy4z0AsN86xB2NnJVjCftdD
+X-Gm-Gg: AR+sD11jWKbvZBcz0gJd0TxF+4sm6MYWKcHZzX7INTbWa6X1qNddJBXCwi1MLywupfH
+	RseDAocXQw5xqXJViM2FjHqG28MHE+EYDVEej38HF7bDzh5N3Rf9L8SHGL9AqCtSvkgEi7WRr5V
+	3WrwNo5cPioumr/p3vQpGrfaKbg1zI5LiOzvEOILgIfblF/PLOwubagm9fUUY5wytftay+6pYhg
+	NqNQrDwqlrfIijNnsYCtKnZfQrwNMOoBr3UWojXo2mIRQq0RDu6k2rbbj8HZ9vuT/86q3rEJsSs
+	sUtTTNeftFURyhnZyfPaMzTJrH5vS7EVjDaU1wcXPi18vMhNbL72O114z2NCe2fUxK8jF43RT6G
+	53FU6Xy05iQ==
+X-Received: by 2002:a05:690c:3192:b0:821:1013:b420 with SMTP id
+ 00721157ae682-8211013b613mr61043287b3.2.1786073060720; Thu, 06 Aug 2026
+ 20:24:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 10/21] drm/bridge: synopsys: dw-dp: Add follow-up
- bridge support
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-10-0d508505f383@collabora.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-10-0d508505f383@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9fda21428903a7kunm17d9edf98123b
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS04dVhpOSkhJS0IeSk9JGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=IL8agv80TbgEJ/ektDWcbhjL7ehF9V68i2rOBuIUN5Z4FrUVZREaVYpGYHYTbM5jlfBZjC0Syh4ZgffUKg1ajhGjZJfXsxtthQ/aClyW6MWb9maeUbGyZPcRZjwJp5WOwGdULyJo+d7kkV9bqArSwfnYMdnYzkM/LKZaBu7lsOc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=slu4UXv1MBP6pJpI4M9su9mc+PRdIjhnDUo1lMf+9Cc=;
-	h=date:mime-version:subject:message-id:from;
+References: <20260806165334.7328-1-ansuelsmth@gmail.com>
+In-Reply-To: <20260806165334.7328-1-ansuelsmth@gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 7 Aug 2026 11:24:09 +0800
+X-Gm-Features: AUfX_mzUdOGgxWn32vBMs4t6vRLtbHLODUQScOwpqh6tGHGYlgOK1wG3cJKPIgA
+Message-ID: <CAGXv+5HrDw8GWb9zp1AaQU9UW+0FGcr7jOV2jt_zi_2KgfgBqA@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support + clock
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ryder Lee <ryder.lee@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/7/2026 1:02 AM, Sebastian Reichel wrote:
-> Add support to use USB-C connectors with the DP altmode helper code on
-> devicetree based platforms. To get this working there must be a DRM
-> bridge chain from the DisplayPort controller to the USB-C connector.
-> E.g. on Rockchip RK3576:
-> 
-> root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-> bridge[0]: dw_dp_bridge_funcs
->         refcount: 7
->         type: [10] DP
->         OF: /soc/dp@27e40000:rockchip,rk3576-dp
->         ops: [0x47] detect edid hpd
-> bridge[1]: drm_aux_bridge_funcs
->         refcount: 4
->         type: [0] Unknown
->         OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
->         ops: [0x0]
-> bridge[2]: drm_aux_hpd_bridge_funcs
->         refcount: 5
->         type: [10] DP
->         OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
->         ops: [0x4] hpd
-> 
-> It's fine to fatally error out when there is no follow-up bridge
-> as the Rockchip Designware Displayport controller is the only
-> user of the bridge helper and has the port marked as required
-> in its binding.
-> 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> ---
->  drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> index b9864a17c01d..a6099f7ddc87 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -330,6 +330,8 @@ struct dw_dp {
->  	struct dw_dp_plat_data plat_data;
->  	u8 pixel_mode;
->  
-> +	struct drm_bridge *next_bridge;
-> +
+On Fri, Aug 7, 2026 at 12:53=E2=80=AFAM Christian Marangi <ansuelsmth@gmail=
+.com> wrote:
+> This small series introduce support for 2-lanes mode for Airoha AN7581
 
-To be nitpicky, this field would be better placed before the u8.
-
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Just a nitpick, but I would probably name this something else, like
+"cross-controller lane-bonding mode" or "lane stealing"? PCIe already
+has 2x lanes as a standard feature, so this naming is a bit confusing.
+It's not like dual-LVDS display in which LVDS is only a single lane.
 
 
->  	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
->  };
->  
-> @@ -1894,7 +1896,22 @@ static int dw_dp_bridge_attach(struct drm_bridge *bridge,
->  
->  	enable_irq(dp->irq);
->  
-> +	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
-> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to attach next bridge: %d\n", ret);
-> +		goto err_disable_irq;
-> +	}
-> +
->  	return 0;
-> +
-> +err_disable_irq:
-> +	disable_irq(dp->irq);
-> +	cancel_work_sync(&dp->hpd_work);
-> +
-> +	drm_dp_aux_unregister(&dp->aux);
-> +
-> +	return ret;
->  }
->  
->  static void dw_dp_bridge_detach(struct drm_bridge *bridge)
-> @@ -2060,6 +2077,13 @@ void dw_dp_unbind(struct dw_dp *dp)
->  }
->  EXPORT_SYMBOL_GPL(dw_dp_unbind);
->  
-> +static void dw_dp_put_next_bridge(void *data)
-> +{
-> +	struct dw_dp *dp = data;
-> +
-> +	drm_bridge_put(dp->next_bridge);
-> +}
-> +
->  static void dw_dp_phy_exit(void *data)
->  {
->  	struct dw_dp *dp = data;
-> @@ -2157,6 +2181,16 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
->  		return ERR_PTR(ret);
->  	}
->  
-> +	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-> +	if (IS_ERR(dp->next_bridge)) {
-> +		dev_err_probe(dev, PTR_ERR(dp->next_bridge), "failed to get follow-up bridge\n");
-> +		return ERR_CAST(dp->next_bridge);
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, dw_dp_put_next_bridge, dp);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
->  	dw_dp_init_hw(dp);
->  
->  	ret = phy_init(dp->phy);
-> 
+ChenYu
 
-
-
--- 
-Best, 
-Chaoyi
+> SoC. This is needed for correctly functionality of Eagle WiFi Card
+> normally attached to this SoC that require a 2-line PCIe card to
+> correctly work (and give the proper performance)
+>
+> The first 2 patch address a limitation of the PCIe implementation
+> where the PERSTOUT reset were indirectly asserted and deasserted
+> all at the same time (for all the 3 PCIe card) with PCIe
+> enable and disable.
+> The 2 patch address this and introduce correct reset to control
+> reset line for the relevant PCIe line.
+>
+> The last 2 patch add additional logic and support to assert
+> and deassert the PERSTOUT and also apply the required configuration
+> for 2-lanes mode.
+>
+> 2-lanes mode is implemented in DT by adding the required property
+> and by defining the "num-lanes" to 2.
+>
+> Changes v5:
+> - Address formal comments from Bjorn
+> - Drop clk patch (handled in separate series)
+> - Add reference to clk changes
+> Changes v4:
+> - Improve DT split patch (drop unneeded property)
+> - Handle power_down PERSTOUT
+> Changes v3:
+> - Add Ack from Krzysztof
+> - Improve commit description of PCIe patch
+> - Use pcie->num_lanes instead of possible uninit variable num_lanes
+> Changes v2:
+> - Address typo regs -> reg in Documentation
+> - Address typo lan -> lane in Documentation
+> - Apply a suggested fix from Airoha for PCIe MUX configuration
+>   before PHY init
+> - Parse secondary reg in probe
+> - Add missing reset_status handling for inverted bits
+> - Move SCU to local handling in power_up
+> - Add check for max num-lanes for EN7581
+>
+> Christian Marangi (2):
+>   dt-bindings: PCI: mediatek-gen3: Split Airoha schema and document
+>     2-lanes
+>   PCI: mediatek-gen3: Add 2-lanes mode support for Airoha AN7581
+>
+>  .../bindings/pci/airoha,en7581-pcie.yaml      | 244 ++++++++++++++++++
+>  .../bindings/pci/mediatek-pcie-gen3.yaml      |  77 +-----
+>  drivers/pci/controller/pcie-mediatek-gen3.c   | 106 ++++++--
+>  3 files changed, 338 insertions(+), 89 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/pci/airoha,en7581-p=
+cie.yaml
+>
+> --
+> 2.53.0
+>
+>
