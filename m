@@ -1,105 +1,124 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C3B391E78;
-	Fri,  7 Aug 2026 15:33:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3803D3C81B4
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 15:33:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786116808; cv=none; b=MAFRbEv4r3iYQyFHIOkjH/sssTIHD3ARDoN7h7uGWY0vAVGJXIIbNJ9/4rq4ZLVpxYAEPpVkxRIV5SF40bmZYOl7mQbeX+++8uUC492EYuYw7mW0JR0JSjaCs5LgZ80LTto5nHCDMNOh9W9wuqiyKuImWlV7F7q6v0NGlm2K2Uo=
+	t=1786116819; cv=none; b=hBihOxiHNAbDV0LJIuxvkBvsX211hSliFgrT4BoengmoIzy72PY518f4qqfuw35yRmBIF680dfIPYn0pRgrmXTqMlrBZeDvuNUw22qQHbhMU+xRVsvvwjlkuwsB1RVjj6XobhIGJFftolJYDRYGWP0tDIpNnp/PBplT4XIZqvZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786116808; c=relaxed/simple;
-	bh=GIEiK05Nom+qEoO8rJtHY6/3b/aMljXPNpLDKfgWSGc=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=KCu8T8zaznVno9IvWJXO7Q+89ReowoRQSu5ZHcVOMgJSUCYgPhz5KQy0Z6p7272yt6CrMGdpTQwk3XmfV+zmfRNDJ6SJJlD613/ge+H6MpGriFfFG57nBFoHFV6R/STOz1rA9pnrfTbhWUg+CAES/b77guPX3NJDI1zrVoOYw18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B9g9wxOm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786116819; c=relaxed/simple;
+	bh=WdRrGOJhbtH52jZlcXhsZ8WKFaMDifo29EK6EYNVTY4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EzHD4aYDmhmbbCjIEx+CMI3gm+KCoHScgdKsBTSXzPnl+ez6F+6Annj31fnLzmrKpwXGmC+JDAJqZbm1Ga8TO1XgKXM14pDN4cC581W3wZITFwsSBgFZZ2ID2XF0lsNLG0DiESzBn70BkHHWn8PsDE9VRzmOSChtelSEwPgVHCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MvnisGky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B9g9wxOm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E6301F00A3A;
-	Fri,  7 Aug 2026 15:33:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MvnisGky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A3531F00A3A;
+	Fri,  7 Aug 2026 15:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786116806;
-	bh=uFaznGFZBtvYN/SwpFFQxtWNFdkN9SzRACt4UXCaOXA=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=B9g9wxOmv4wAy+FIpJz2GgAraoLPrHN+G/LHhzmL0A9Lsmm7N8d7/h66rVI+gd3iv
-	 dTssVOVYz0HdKTtUNwwKGTFI78qOMnM84zFUjLN8AiIiZ+o57wEb2EYu5/sPKxNKaS
-	 VPGD4WBUWxb2WZDgGy83UCrgSDeP+5UbFHqVLF6nBi4sBrq4q7wPN2cy7AxXnm892r
-	 anSIBGGDYL56BdgBKgYcreb7KSfDZSgLhCA5yJ+71R1p500m35YwXITZrPN79ZSk7+
-	 HsXG+GLRcvPXQ7HXuk8+nlHDtWVcfXD/n7S4rqjQo2NyJRWJMsZc8xN6vZAKJt479K
-	 lzqsIMEdy3uAA==
-Date: Fri, 07 Aug 2026 10:33:25 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1786116818;
+	bh=RJ2vqAFiIP9XhHV1D3VqnylVf1ElHI7vr+3UWaquvZU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MvnisGkyMFeyVEzDfoeF+xo7OtT2t0sQrjyocxlc5AHXHz0VPL3J26QLwLdsXOcGo
+	 72ilc4N7wV0ls0GUyU7gts5PqeeIzZQO7DWlHyz+VvrQeBBjd/yzyBApzlrV/ul7v7
+	 L9/9Fna7qPDK9zqh3SpWNyjzxXmk9VOxdZ6s94fjs+taeHpMYgOebvghwNatHOOp/Q
+	 r2KLe7GarTjR8Syeb5snNq8pm9r/I0Q6e4u40SPSNlp8lwW2PNBCz/VJU+MBcvlNGr
+	 8kAvLuPMenlIqL4Uha/xim+c0St73d4AkerUUlBGscYd3G4KoeltTHOYNMKY92xFso
+	 9xYaSghc/nIfg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/7] dt-bindings: clock: Introduce nexus nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-1-8785f9531cf0@bootlin.com>
+References: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com>
+ <20260807-schneider-v7-2-rc1-eip201-upstream-v5-1-8785f9531cf0@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 15:33:36 +0000
+Message-Id: <20260807153337.5A3531F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- Conor Dooley <conor+dt@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, 
- David Lechner <dlechner@baylibre.com>, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-In-Reply-To: <20260807-veml6031x00-v5-1-e60876fb3640@gmail.com>
-References: <20260807-veml6031x00-v5-0-e60876fb3640@gmail.com>
- <20260807-veml6031x00-v5-1-e60876fb3640@gmail.com>
-Message-Id: <178611680583.795603.2821287551440090670.robh@kernel.org>
-Subject: Re: [PATCH v5 1/4] dt-bindings: iio: light: veml6030: add
- veml6031x00 ALS series
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Fri, 07 Aug 2026 15:51:52 +0200, Javier Carrasco wrote:
-> These ambient light sensors share their properties with the ones
-> from the same manufacturer that are supported by this bindings.
-> 
-> Note that only two datasheets are provided as every one of them covers
-> two devices (veml6031x00/veml60311x00 and veml6031x01/veml60311x01).
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-> ---
->  .../devicetree/bindings/iio/light/vishay,veml6030.yaml      | 13 ++++++++++++-
->  MAINTAINERS                                                 |  5 +++++
->  2 files changed, 17 insertions(+), 1 deletion(-)
-> 
+New issues:
+- [Medium] The clock-nexus-node schema omits definitions for standard nexus=
+ node properties `clock-map-mask`, `clock-map-pass-thru`, and `#clock-cells=
+`, breaking schema validation.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Pre-existing issues:
+- [High] The Linux clock subsystem lacks support for nexus node parsing, re=
+ndering this device tree binding unusable for Linux drivers.
+--
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml:10:1: [error] syntax error: could not find expected ':' (syntax)
+--- Patch [1]: [PATCH v5 1/7] dt-bindings: clock: Introduce nexus nodes ---
+commit 0bad30dd59cfc8ff93ceabdefc7264eea3d9d045
+Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml: ignoring, error parsing file
-./Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml: error loading YAML: while scanning a simple key
-  in "./Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml", line 8, column 1
-could not find expected ':'
-  in "./Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml", line 10, column 1
-./Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml:10:1: could not find expected ':'
-make[2]: *** Deleting file 'Documentation/devicetree/bindings/iio/light/vishay,veml6030.example.dts'
-Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml:10:1: could not find expected ':'
-make[2]: *** [Documentation/devicetree/bindings/Makefile:26: Documentation/devicetree/bindings/iio/light/vishay,veml6030.example.dts] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1669: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+dt-bindings: clock: Introduce nexus nodes
 
-doc reference errors (make refcheckdocs):
+Hardware containers can just decouple external resources like clock
+without any more control. Nexus nodes already exist for PWM and GPIOs,
+add a binding to allow them for clocks as well.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260807-veml6031x00-v5-1-e60876fb3640@gmail.com
+> diff --git a/Documentation/devicetree/bindings/clock/clock-nexus-node.yam=
+l b/Documentation/devicetree/bindings/clock/clock-nexus-node.yaml
+> new file mode 100644
+> index 0000000000000..ff3283bd5fb11
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/clock-nexus-node.yaml
+[ ... ]
+> +select: true
+> +
+> +properties:
+> +  clock-map:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+[Severity: High]
+This isn't a bug introduced by this patch, but does the core clock framework
+actually support nexus node parsing yet?
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+Looking at drivers/clk/clk.c:of_parse_clkspec():
 
-pip3 install dtschema --upgrade
+	ret =3D of_parse_phandle_with_args(np, "clocks", "#clock-cells",
+					 index, out_args);
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+It appears the core clock framework uses of_parse_phandle_with_args() inste=
+ad
+of of_parse_phandle_with_args_map().
 
+If a device tree author configures a clock-map and a consumer driver attemp=
+ts
+to request the mapped clock, wouldn't the clock subsystem incorrectly return
+the nexus node itself as the provider instead of mapping to the underlying
+clock provider?
+
+> +
+> +dependentRequired:
+> +  clock-map: ['#clock-cells']
+
+[Severity: Medium]
+Are we missing definitions for standard nexus node properties here?
+
+The properties block omits clock-map-mask, clock-map-pass-thru, and
+#clock-cells. Since additionalProperties is true, any device tree nodes usi=
+ng
+clock-map-mask or clock-map-pass-thru will bypass type validation.
+
+Should #clock-cells be included and constrained in the properties block as
+dictated by subsystem guidelines for providers?
+
+> +
+> +additionalProperties: true
+> +
+> +# See the original pwm-nexus-node.yaml description for examples
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-schneider-=
+v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com?part=3D1
