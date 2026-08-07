@@ -1,269 +1,293 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3107944A418
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 06:18:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E7D3386C1E
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 06:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786083533; cv=none; b=qw6MrnUM6yOvJhwD/jfgrz6x+0YdndCqd/zVEvx8BoRFIMcf9CHeKAorHpRaXziFlON6BZJ8C7mWTGnRNNzd43bHiCrHldcON+5HdbmIHaVjcbasnYVnCu9Dg/LLcweKpc4WmzuRYp5SJOrkUKt8YGMfgXBaZsY+2dzKnLuX/AE=
+	t=1786083714; cv=none; b=jKExG3hlNuXL13Iv+FSMD4rMxd2s54b3J/rS4kpppmT8XynLgodkiWZXcSm3wvvQP2f0UwUHFeaILmEX4jYKjxKbJv1opNNf2xvQNYCqkR6U3Y5pSL0kp1GOAWk+u/dJjXE4BhqcaTXpk+eNX1Ihm/vSMzPw06Au94KnOp8kcHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786083533; c=relaxed/simple;
-	bh=ZX8N1/w+WcB4w9cU8B6Ums1TvVeOb35Gmu3P0TB50mo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BNWodeAbSrbPoaYBquQp4fjJTEmEPEknuM4/q76J+0SKyKDjwXeuYxQ+Ia2lzdxXm9qLCNMdOposHo7VGsmPxqG5ZDG6o/cf/UZvGk+ixIdrWVHOom/fwp4ZXf0CXhJtH+1cZ0Ut9YTglgjHaw8S+6yXFOfTXqcnVWC/zhGTGYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/WvdXj9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786083714; c=relaxed/simple;
+	bh=R6AK7dQHatN/EGJBdvgFmvrcbFS4f0sk4D7CoXsPDr0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=f7C0d/2ycy0xv3bZtJEOJRaOWBuTWR9aimtBpyMSCyErUnoGW6gG6Hi2VDNMufrlgpEUuADlj+TfSMZpG4VhSceXB0aCiOnGrWDKzkajwAjH7g3V/VQ51zeGvQMn0cwZ8M0tQ2TaaUE4Jo9IzJJHqSkheQYYT4dUEZJl7PrjGaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GqK2D3/E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bUIxXQnO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/WvdXj9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698081F000E9;
-	Fri,  7 Aug 2026 06:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786083531;
-	bh=xXGfUKmcFG3m4DwHpewtpFqRuOiq5I0d4UEAUQJ31iY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k/WvdXj9L1nmu65nKa2SHZJ2ss2pGrXaPxMNVkKG36y1fzwS8LXHDb6cYtEcuH4fx
-	 5H490TV/KhcnDmMbE2d9t4ihxZW9R5rdCB3jtoBdGTSMnNKU3I6ZP9P/Kd3q7EIYyD
-	 eUOZQyJ+SJZadF5xnLtFlOrNao4qRzTBoP6KO1D1zTDc09HviItO3Lhj9b2pVI5O2w
-	 8hsLWFqDXMSQNbm4F+22bwG8pHFMaYFWunELUmhMrHMQNjLDF+VORDIq5zPgUnCVZF
-	 eN8QiELBugrc1Tqs2+8JPs9z2t2ULbvvFHH7Jc9sjsuroqaOqbBNyL5Sk9bW20MJ0S
-	 AnHnDj0KHQn+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zi-Yu Chen" <zychennvt@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807060400.2047517-3-zychennvt@gmail.com>
-References: <20260807060400.2047517-1-zychennvt@gmail.com>
- <20260807060400.2047517-3-zychennvt@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 06:18:50 +0000
-Message-Id: <20260807061851.698081F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GqK2D3/E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bUIxXQnO"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6770Gj4p493024
+	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 06:21:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=MbjI3enVhu9e1mM/DRlJHe
+	uCjBiCSKcE83GyUKU52Xw=; b=GqK2D3/E4pM6QCKt56ja0Jp/wMOsL5plFYMmkx
+	XePDSbOz+PrOPTU2DoWWItdsR4IhpzNwmUXNPIexq0SLm/VMO6Wci1xRHfIIuSgQ
+	oRhRu7Qq0ocDmYdVPRCz6zcDLrREnAnJuC0AUq+/ezcg2zV34vKS6d/y39aKpSmi
+	CH0Q3ysmP3zfVyT6KDG+5OENJBxfAcMdw7/Ow91bExp0OGVFKgyVW+m+/xkGKqFB
+	nAgBQVix4b+1nGep8Edhc8N+am411ryTST0EO04fSS0lu02SlKyTUwCtFBOKHOxx
+	i6IsCIKUtH3NaUqjE/9MDotnmUFMqPDOQ3mqKzmlkkYXUVlg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6ragd7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 06:21:51 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cc640dfde3so35184665ad.1
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 23:21:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786083710; x=1786688510; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=MbjI3enVhu9e1mM/DRlJHeuCjBiCSKcE83GyUKU52Xw=;
+        b=bUIxXQnOnVEL9SyBQi0iKTtHLZVEOUfm0TR8DKUT6o36H0oR/gmSkdagtrxnr3mjoH
+         mYjywJ7V90Yf2y03jQcAmFb8xa0hRyaH3YuvlANRpqLtSSoQ7T3+uaKdqSpglkYN04eS
+         1yXTgz36OVmoRzyjwM4+ssUYzR9tbZciLVa+XPscu7oiKUtJaPkAj9pgnz1zQnNa0Ixy
+         X2c0XvG+sZCvEgLOA1gzsRcHE91oNJfX6i3CyGBlqR2phd9RJxS0sBcu7vTBftdSbkOb
+         0oc1a8u1c8pyJl1Fb38zeZKa/B5L7EwgfCGg2lfwwNLLh/kjtIusDI2/7AfKBbShr3Lr
+         525Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786083710; x=1786688510;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MbjI3enVhu9e1mM/DRlJHeuCjBiCSKcE83GyUKU52Xw=;
+        b=allcKQxxWET9fiRGlKWDZmUnT8dWpoxgHUhRTOfFZvyzWApebirFACWzlozma/h77s
+         OzwFhMtgcebRDQAWDW0tOWWQELgchSfPlmPSlEZRRkVGlyxI6aFLOSP+dFilTu0O4fF+
+         wueFRdCmXkWqdICoUf93x2G0NbeVYUMifckKNqd3ESb/GKUpEWGEMy15g8M0SjpCU/Mg
+         PRc0QdCPdSPDzBPXtYzQcaPvN4M1043dZEYdU7ajV7mKRfe3dTRhZ9v6XpkPYG7M0oWP
+         /f+MKyVyWtg7fwYwSQJo2BQCYLKelNZBds/hv45LeiHxnqATeLWh9I3VLY7vdLjm+FU+
+         9HwQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrwre0EEvtcVcDOhdEQ8E15IKCuVEet8iEYsuW0Qm/20CO7b4faCtr/5Ye++1NjjDVbDIu5Jsgxn5Er@vger.kernel.org
+X-Gm-Message-State: AOJu0YyTFacPzjYq5ibPCBoBPUu0MJxJVEbhcNlDz812lN7A3a18i+Sm
+	i6d6+/51KZ9Kr6dEzqNnDs/O04jHq+vstiOIGr6/+Jox1g9Ysk38xYz6WPzCP12LwbAnZbqi/U6
+	pccDNjghs9w7AW6ZLN08PGIQwTFbYPhkhq04EP/Vih1EkxS/7TmPBvlX6rK96TZN7
+X-Gm-Gg: AR+sD13frv8G62H+lUf/szJUguXeAFDK9j2Hpk7l9k+qcoLIhurSCXC3FC1F+v8SEAV
+	pSw7GmSdn1H1cUhLPIJavJsOdf55t6Vs4WjKeaD3LOyq3YRWxGwImonqfYOzQlvgR1aatMX6p86
+	2deOEmK8QJKy87xyJiJZmPFFXfR+lX3zIfxhvSslCVoQgETUJCzMzus/I4IEaIxbhVbUmDZO/n1
+	mCgS5enAlUKB75V8fGhQ25wDJV/9Gjp1djyPVlO5CfFsKED9OJns9rD50AkT323OTpMk7haPdpS
+	WUhi6NGsa10nekII7EQ6CoF6EwhkjwtO+Z3a0z08+/m1S/AYkzp97WqAKJBUgSvnSJ/Kt+xrd6S
+	Dfe9hKvh/fBfB2ZIvaI2nKsYo0FQoTDtWanggYuT1FBIpRxr1b77I
+X-Received: by 2002:a17:90a:d443:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-3903c594637mr23020161a91.10.1786083710379;
+        Thu, 06 Aug 2026 23:21:50 -0700 (PDT)
+X-Received: by 2002:a17:90a:d443:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-3903c594637mr23020105a91.10.1786083709823;
+        Thu, 06 Aug 2026 23:21:49 -0700 (PDT)
+Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925ff24552sm1047301a91.10.2026.08.06.23.21.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 23:21:49 -0700 (PDT)
+From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Subject: [PATCH v6 0/2] input: misc: Add an initial driver for haptics
+ inside Qcom PMIH010x PMIC
+Date: Thu, 06 Aug 2026 23:21:39 -0700
+Message-Id: <20260806-qcom-spmi-haptics-v6-0-19fcecd5204f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHN5dWoC/33PwW7DIAwG4FepOI8KbAphp73HtEMAZ0FamjR00
+ aYq7z6nl/ZAdrH0I/szvolCc6YiXg83MdOSSx7PHOzLQcS+PX+SzImzAAVWWW3lJY6DLNOQZd9
+ O1xyLxBi9IxcAgQTPTTN1+eduvn9w7nO5jvPvfcWit9f/tEVLJRMYMgCJbDBvYynHy3f7xa3Dk
+ YvY0AWeIDA1CBgKXuuGrOqQcAfCB+Q01iBkKHrUIbgYvOl2IPMMuRpkth+pjhQlVI3xO9DpATW
+ qetqJIec0NBRCSpAq0Lquf1kbbnPdAQAA
+X-Change-ID: 20260616-qcom-spmi-haptics-3cc97e7b232e
+To: linux-arm-msm@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: David Collins <david.collins@oss.qualcomm.com>,
+        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
+        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
+        linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Fenglin Wu <fenglin.wu@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-17187
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786083708; l=7359;
+ i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
+ bh=R6AK7dQHatN/EGJBdvgFmvrcbFS4f0sk4D7CoXsPDr0=;
+ b=gUmJKYT03Po1Z+pl1CGOOqldJApwik5FYtpUAVv3i4D+5LzHYQPfOxlfaVDDerUQva1DJ9WsN
+ nh8xtl4OdleANZjcEDp/VYhE3b2k5LpCuz3SP9GNFrNS5uOaVzQoG8J
+X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
+ pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA0NSBTYWx0ZWRfX/u/tejI0Aa+a
+ 8vM1j+AL699bavXNcFkTGOgLQzeVgQk4SGWGaJHixZu058vBlLRCpveHUfQH9gIUDWHkbeQwDGJ
+ he0Uthw6VfrZudzRbvdxEsYW6Nzt+FSxBNf6Y0Yboa7PE66keuJgUYsSKH7awyxPg0slQa89v+f
+ j6PeYrPKMs3ksZo8ryvl4DIWjfNJselrcV5DPlLQvtkN3fdcoUg8whFPZjaVvWSqkHIwy+iVp/n
+ FAdiYbwEUqI11i97bSn+DMfa1mrtXrpK59iFO8ev12Jnh5l9qT1TmGrVChaTK+5mgonLk8q7D1h
+ nikakHx2AcWpgqUCTeYlaMd6nl0fEDQPDGwrgow7R/q4nuLHPIg1LCHT14s+uBDuSzmRHURYj+O
+ 7bJ2k4pCiAgOnKmRwX2Sh8QcopCpiKi4BU2ps37kw29GNlQvYqCZXAQ82T5jsnYMRTsLfMHBjqx
+ opjSRjRzgBZ7PChFVIg==
+X-Authority-Analysis: v=2.4 cv=HPXz0Itv c=1 sm=1 tr=0 ts=6a75797f cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=wqtGLH9dRC1TDm73MfMA:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: uyOemCPXPjHudMJU-oOruXK-9ms7s7Wj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA0NSBTYWx0ZWRfX9MTiyxexW2wl
+ 83zra1DctdZ7DP7l8RAJhIYgNV1bKV8l12NLKmn3HKgUs14FfxmYL45SEcXDZWLUPjv36Br9pRs
+ 5JZqHDF9laM/fzk9KzP+fXR9rirjW0k=
+X-Proofpoint-GUID: uyOemCPXPjHudMJU-oOruXK-9ms7s7Wj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 adultscore=0 spamscore=0 malwarescore=0
+ bulkscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608070045
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] Unhandled `MA35_BUS_RELEASED` status causes spurious errors and ra=
-ndomly aborts ongoing I2C transfers.
-- [High] Missing NULL checks for `i2c->target` and race conditions during t=
-arget unregistration lead to a NULL pointer dereference in the ISR.
-- [High] Unprotected initialization of shared transfer state in `ma35d1_i2c=
-_doxfer` races with asynchronous I2C interrupts.
-- [Medium] Missing `pm_runtime_mark_last_busy()` defeats the autosuspend de=
-lay, causing immediate suspension.
-- [Medium] Missing reset assertion on driver remove or probe error leaves t=
-he hardware in a dirty state.
-- [Medium] Unconditional `disable_irq_wake()` during resume causes a kernel=
- warning if `enable_irq_wake()` failed.
---
+Qualcomm PMIH0108 PMIC has a haptics module inside and it could drive
+a LRA actuator with several play modes, including: DIRECT_PLAY, FIFO,
+PAT_MEM, SWR, etc. Add an initial driver to support two of the play
+modes using the input force-feedback framework:
 
---- Patch [2]: [PATCH v9 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver su=
-pport ---
-commit a1da9304aab06d4fdb61f6ee5807d7913cc199b8
-Author: Zi-Yu Chen <zychennvt@gmail.com>
-Subject: i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
+-- FF_CONSTANT effect for DIRECT_PLAY mode which drives sinusoidual
+  waveforms with fixed period and amplitude, which would generate
+  a constant vibration effect on the LRA actuator.
 
-This commit adds I2C controller driver support for the Nuvoton MA35D1 SoC.
-The driver provides both controller and target functionality across
-standard, fast, and fast-plus modes.
+-- FF_PERIODIC effect with FF_CUSTOM for FIFO streaming mode, which
+  can play an arbitrary waveform composed of a sequence of 8-bit
+  samples at a configurable play rate.
 
-> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma3=
-5d1.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-ma35d1.c
-[ ... ]
-> +static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
-> +					     unsigned long i2c_status)
-> +{
-> +	unsigned char byte =3D 0;
-> +
-> +	switch (i2c_status) {
-> +	case MA35_S_RECE_ARB_LOST:
-[ ... ]
-> +	case MA35_S_RECE_ADDR_ACK:
-> +		/* Own SLA+W has been receive; ACK has been return */
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
+Also, add the device node in the existing pmih0108 dtsi files, and enble
+the haptics device for several boards by updating the vmax and
+lra-period sttings according to the LRA components that mounted on each
+of them.
 
-[Severity: High]
-Can this result in a NULL pointer dereference if a target interrupt is
-pending during unregistration?
+Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+---
+Changes in v6:
+Drop patch [2/3] as it has been applied in
+  https://lore.kernel.org/linux-input/178602255123.2917765.7426706813083510078.b4-ty@b4/
 
-When ma35d1_unreg_target() calls synchronize_irq() and sets i2c->target
-to NULL, pending interrupts in the irqchip might still fire immediately
-after.=20
+Fixed Sashiko review comments:
+- Add FF_SINE waveform support since FF_RUMBLE would be converted to FF_PERIODIC
+  effect with FF_SINE waveform, and it is required to be supported. Also, clamp the
+  FIFO play length with replay.length, also document the limitation of supporting
+  replay.delay, u.periodic.magnitude and the envelope
+- Add a separate worker to handle timeout stop, which gives a clear
+  way to distinguish timeout stop requests from actual play stop requests.
+- Replace disable_delayed_work_sync() in close() to cancel_delayed_work_sync()
+  as it caused an issue that the work would be disabled permanently.
+- Move haptics_enable_module(h, false) into the reset action(). Calling it
+  in close() would desynchronize the runtime PM state and could cause issues
+  if a play is triggered after close() and before the auto suspend timer
+  expires.
+- Link to v5: https://patch.msgid.link/20260804-qcom-spmi-haptics-v5-0-77128ebbdd2d@oss.qualcomm.com
 
-If that happens, i2c_slave_event() will dereference i2c->target without
-a NULL check. Could a defensive check be added here, or could the teardown
-synchronization be adjusted?
+Changes in v5:
+Fixed review comments from Dmitry:
+- Change to use "err" for the "ret" which hold error code
+- Remove "haptics_queue_pending(...)" functtion and inline it into the
+  caller.
+- In haptics_fifo_empty_irq() when writing FIFO chunk failed, instead of
+  stop the plan immediately, just clear the FIFO threshold to mask the
+  interrupt.
+- Add "lockdep_assert_held(&h->play_lock)" for the helper functions
+  which require to be called when the lock is held.
+- Add "gain_work" to handle set_gain() immediately.
+- Set input device bus_type to "BUS_HOST".
+- Move the remove teardown to input device close()
+- Link to v4: https://patch.msgid.link/20260717-qcom-spmi-haptics-v4-0-b0fe0ed30849@oss.qualcomm.com
 
-> +		break;
-[ ... ]
-> +static irqreturn_t ma35d1_i2c_irq(int irqno, void *dev_id)
-> +{
-> +	struct ma35d1_i2c *i2c =3D dev_id;
-> +	unsigned long status;
-> +
-> +	status =3D readl(i2c->regs + MA35_STATUS0);
+Changes in v4:
+Fixed Sashiko AI review comments in the driver:
+- In haptics_start_fifo(), remove the goto and do the clear in the error
+  paths directly, also add a comment to explain that disabling the IRQ
+  synchronously won't cause a deadlock.
+- When data refilling failed in IRQ handler, stop the play and disable
+  the IRQ to avoid the potential IRQ storming issue
+- in play_work(), check if the effect_id in the request is the one which
+  under playing before stopping the play.
+- Link to v3: https://patch.msgid.link/20260713-qcom-spmi-haptics-v3-0-c931bb7cb94f@oss.qualcomm.com
 
-[Severity: High]
-Does this interrupt handler properly process the MA35_BUS_RELEASED (0xf8)
-status code?
+Also, add trailers in the binding changes.
 
-If a spurious interrupt occurs and the status is 0xf8, this falls through
-to the default cases in the transaction handlers, which log an error and
-call ma35d1_i2c_restore_idle().
+Changes in v3:
 
-This would unconditionally abort any active controller transfers via
-ma35d1_i2c_stop(i2c, -EIO). Could this be addressed by explicitly checking
-for 0xf8 and returning IRQ_NONE early?
+In the binding:
+- Removed the ref for qcom,vmax-microvolt as the property with standard
+  unit already has a ref in dtschema
+- Added 'qcom,pmih0108-haptics' as a device-specific compatible
 
-> +
-> +	if (status =3D=3D MA35_BUS_ERROR) {
-[ ... ]
-> +static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c, struct i2c_msg *msg=
-s,
-> +			     int num)
-> +{
-> +	unsigned long timeout;
-> +	unsigned int val;
-> +	int ret, err;
-> +
-> +	i2c->msg =3D msgs;
-> +	i2c->msg_num =3D num;
-> +	i2c->msg_ptr =3D 0;
-> +	i2c->msg_idx =3D 0;
-> +	i2c->err =3D 0;
+In the driver, fixed Sashiko AI review comments with below changes:
+- Added a list to queue and serialize all of the request, which helps to
+  avoid the races between playback(), which is protected by evdev's event_lock,
+  and play_work(), which is protected by play_lock.
+- Changed to use guard(mutex) or scoped_guard(mutex, ) for cleaner mutex logic
+  usages, and update protection section to prevent race conditions.
+- Added runtime pm control in haptics_stop() function, use it as an unified interface
+  under the guard of 'play_lock' in play_work()/erase()/remove()/suspend(),
+  to ensure the runtime pm control correctness in race conditions.
+- Removed unnecessary stop play sequence in fifo_empty_irq() as the HW would
+  automatically stop after the FIFO samples are played out.
+- Added a common interface haptics_clear_effect() to clear the FIFO data with gaurd
+  of 'fifo_lock', and use it before upload() and in erase() to prevent race
+  condition.
+- used __free() for safe memory cleanup
+- Checked play_rate against negative value when loading FF_PERIOD effect
+- Limited the custom_data length to 48K prevent potential OOM
 
-[Severity: High]
-Could this lockless initialization race with asynchronous I2C interrupts?
+- Link to v2: https://patch.msgid.link/20260624-qcom-spmi-haptics-v2-0-b9118e60f3e3@oss.qualcomm.com
 
-These transfer state variables are set in process context without holding
-i2c->lock or disabling interrupts. If a target mode event or spurious
-interrupt fires concurrently, the ISR could execute
-ma35d1_i2c_controller_complete() and clear the i2c->msg pointer.
+Changes in v2:
 
-When doxfer() then sends the START command, the controller might see a null
-message pointer and incorrectly abort the transfer. Does this section need
-lock protection?
+Dropped dtsi change and I will resend them after the driver and binding changes get accepted.
 
-> +
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA);
-[ ... ]
-> +static int ma35d1_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msg=
-s,
-> +			   int num)
-> +{
-> +	struct ma35d1_i2c *i2c =3D i2c_get_adapdata(adap);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(i2c->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ma35d1_i2c_doxfer(i2c, msgs, num);
-> +
-> +	if (i2c->target)
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-> +	pm_runtime_put_autosuspend(i2c->dev);
+Updated haptics binding and addressed review comments from Krzysztof and Konrad:
+- Extended the description to clarify the 'PAT_MEM' mode (not yet supported in the driver)
+  by comparing it with the 'FIFO' mode.
+- Updated the compatible string to 'qcom,spmi-haptics' to match the file name and removed
+  the PMIC wildcard.
+- Simplified register names to 'cfg' and 'ptn'.
+- Corrected the unit naming for the 'qcom,vmax-microvolt' property.
+- Added an additional clarification for the 'qcom,lra-period-us' property.
 
-[Severity: Medium]
-Does this bypass the autosuspend delay?
+Updated the driver to address review comments from Konrad and Julian:
+- In haptics_write_fifo_chunk(), separated variable declaration and assignment, and added
+  comments explaining the 4-byte and 1-byte FIFO writes.
+- Replaced manual 'x * n / d' calculations with mult_frac().
+- Switched to disable_irq() to prevent late IRQs after device removal.
+- Replaced property reads with device_property_read_u32().
+- Remove the 'INPUT' dependency in Kconfig
 
-Calling pm_runtime_put_autosuspend() without first updating the timestamp
-via pm_runtime_mark_last_busy() will cause the PM core to evaluate based
-on an outdated timestamp.
+Updated the driver to address feedback from Sashiko AI:
+- Guarded pm_runtime_resume()/suspend() with 'pm_ref_held' to prevent runtime PM reference leaks.
+- Replaced spinlock with a mutex to protect FIFO data during playback and avoid calling
+  sleepable regmap APIs under spinlock.
+- Adjusted suspend/remove() sequence to stop playback before canceling work, and freed
+  FIFO buffers to prevent potential memory leaks.
+- In FF_PERIODIC handling, allocated 'fifo_data' before assigning data to ensure its
+  consistency with 'data_len'.
+- Registered the input device after enabling runtime PM.
+- Unify to use 'h->dev' pointer in probe()
 
-This could result in the device suspending immediately rather than waiting
-for the 5000ms delay configured in the probe function.
+- Link to v1: https://patch.msgid.link/20260616-qcom-spmi-haptics-v1-0-d24e422de6b4@oss.qualcomm.com
 
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static int ma35d1_i2c_suspend(struct device *dev)
-> +{
-> +	struct ma35d1_i2c *i2c =3D dev_get_drvdata(dev);
-> +	unsigned int val;
-> +
-> +	/* Prepare for wake-up from I2C events if target mode is active */
-> +	if (i2c->target) {
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-> +
-> +		/* Setup wake-up control */
-> +		writel(0x1, i2c->regs + MA35_WKCTL);
-> +
-> +		/* Clear pending wake-up flags */
-> +		val =3D readl(i2c->regs + MA35_WKSTS);
-> +		writel(val, i2c->regs + MA35_WKSTS);
-> +
-> +		enable_irq_wake(i2c->irq);
-> +
-> +		return 0;
-> +	}
-> +	return pm_runtime_force_suspend(dev);
-> +}
-> +
-> +static int ma35d1_i2c_resume(struct device *dev)
-> +{
-> +	struct ma35d1_i2c *i2c =3D dev_get_drvdata(dev);
-> +	unsigned int val;
-> +
-> +	if (i2c->target) {
-> +		/* Disable wake-up */
-> +		writel(0x0, i2c->regs + MA35_WKCTL);
-> +
-> +		/* Clear pending wake-up flags */
-> +		val =3D readl(i2c->regs + MA35_WKSTS);
-> +		writel(val, i2c->regs + MA35_WKSTS);
-> +
-> +		disable_irq_wake(i2c->irq);
+---
+Fenglin Wu (2):
+      dt-bindings: input: Add Qualcomm SPMI PMIC haptics
+      input: misc: Add Qualcomm SPMI PMIC haptics driver
 
-[Severity: Medium]
-Can this cause a kernel warning if enable_irq_wake() fails during suspend?
+ .../bindings/input/qcom,spmi-haptics.yaml          |  136 +++
+ drivers/input/misc/Kconfig                         |   11 +
+ drivers/input/misc/Makefile                        |    1 +
+ drivers/input/misc/qcom-spmi-haptics.c             | 1252 ++++++++++++++++++++
+ 4 files changed, 1400 insertions(+)
+---
+base-commit: 66725039f7090afe14c31bd259e2059a68f04023
+change-id: 20260616-qcom-spmi-haptics-3cc97e7b232e
 
-The return value of enable_irq_wake() is ignored in ma35d1_i2c_suspend().
-If the irqchip does not support wakeup, the wake depth remains zero.
+Best regards,
+--  
+Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-Unconditionally calling disable_irq_wake() here will then trigger an
-"Unbalanced IRQ wake disable" warning. Should the driver record whether
-enabling wake succeeded before disabling it?
-
-> +		return 0;
-> +	}
-[ ... ]
-> +static int ma35d1_i2c_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	i2c->rst =3D devm_reset_control_get_exclusive(&pdev->dev, NULL);
-> +	if (IS_ERR(i2c->rst))
-> +		return dev_err_probe(dev, PTR_ERR(i2c->rst),
-> +				     "failed to get reset control\n");
-> +
-> +	ret =3D reset_control_deassert(i2c->rst);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to deassert reset line\n");
-
-[Severity: Medium]
-Is a cleanup action required to assert the reset line?
-
-The reset line is deasserted during initialization, but there appears to be
-no corresponding reset_control_assert() on the error path or driver
-unbind.
-
-If the module is unloaded and reloaded, the hardware could remain in a
-dirty state from the previous session, potentially causing unexpected
-behavior like spurious interrupts. Could a devm action be added to handle
-re-asserting the reset line?
-
-> +
-> +	/* Setup info block for the I2C core */
-> +	strscpy(i2c->adap.name, "ma35d1-i2c", sizeof(i2c->adap.name));
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807060400.2047=
-517-1-zychennvt@gmail.com?part=3D2
