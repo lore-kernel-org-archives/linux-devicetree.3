@@ -1,74 +1,44 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129E24369A;
-	Fri,  7 Aug 2026 00:02:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8929612CDBE;
+	Fri,  7 Aug 2026 00:02:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786060948; cv=none; b=MVZaK+0yrm+GuOuS39CWudjaTN/hLhC8qMNQCIXZi+RqpKb6VCztlfI4AdJH2lPRpb0ubwnuvzqrQTDLpIGEC+efR+hKC1B27BnPSJX9XveE0GsNptIWsX20XF0y0AKakiymHHpeZhrrinY4ZDUdxmB3jIGcJuqJ7mEGrYfRu4M=
+	t=1786060969; cv=none; b=KymaFfUygFcnVYMzZA5XB236EHNXFTfcDa+2O21OV7/2IpEGesFEqeOvBvQZxi77uUXG2ePMzg+0UWxDqGULSULrxzxV55MOOzspLlxfCzLmDcokpPeWi/w2Kanuf6CiHvWrNCREv6Bj/sl7WHEWGHOeSh2chS055gtSx36H+1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786060948; c=relaxed/simple;
-	bh=es/3Rp5Kv8CoLiBfOFFo/p1hSqvIEaneMfjF49har/o=;
+	s=arc-20240116; t=1786060969; c=relaxed/simple;
+	bh=4OW3l9cKGyzkV4CKtQgbnUWsn5DHoMfqWO7DxW5YLpA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dyj1JvtfmbBq3lGrQuJZhhg62V6RGufRa0AYgPFitFiHWfy2kani777rHVDyymqWktsxBXvYuRq5bgQJ+w9yIAHAeK4Em/1Ye2j31o3JUafD2a/GOnbUyafOKfbmB0ij1u1sfRTutLuhl3NMovt9QVQax56oSOrW9WAyGfVl534=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XQiZ55aO; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ar46EjVIvLzwrW1yviWPhbUkMUVrfQgo/HYOiEWgJSQnHD6KiK2HrLbkVv5HbBH/k+lXxFFNH9z+TJtCpnZa7Velt8CFyhr9wqB0AU1wCnhFhL3YUptvMKzvW2XqoqKGBD0uP5zmC6DyJSqRQTGd9Jjq6I1eBKrfN+z/w4D0Je4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mH3vzZxW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XQiZ55aO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786060946; x=1817596946;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=es/3Rp5Kv8CoLiBfOFFo/p1hSqvIEaneMfjF49har/o=;
-  b=XQiZ55aOxeoe5IqlpzoOvBLHSKHIdNYTv1fWSaZ0hsmqKezFvkLhOiVV
-   bXUvDziCa2AKk2kWCOnqvB9AVCm00Q+RLL5ZZpjToo1gvzLaFAeshmSdj
-   Ka4OpkNWXZIQorwTQTskRuobylyxhsDmaUv8JtO6JHt91zBhNImRThwDq
-   l4tdUm861MCkiwR/2msG9lLstVR+MaPG93lUTMl1Oov++hVggAc62B4W3
-   IutEGWu2/BDRG69AhPwclqCYLfh5YMVVf2vFzaflQ0YwyWE2zVtNOu4gj
-   46/JKHQNVc1BXs7ZxVd6R7OtJtZZ4yL0Ym0mHxgGhrj0LWIUtfJtZMpvu
-   A==;
-X-CSE-ConnectionGUID: PF+xRugWQw+XlEKtE2ltvA==
-X-CSE-MsgGUID: C0cbY1CzREynySHVQCtmaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="112217474"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
-   d="scan'208";a="112217474"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 17:02:23 -0700
-X-CSE-ConnectionGUID: 0Dh23k81SxC4uoCQNwRJ0w==
-X-CSE-MsgGUID: WuSWqERSTqC7KGQkPpxiuA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
-   d="scan'208";a="261730580"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.50])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 17:02:17 -0700
-Date: Fri, 7 Aug 2026 03:02:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v2 5/7] gpio: regmap: Add runtime PM and
- read_output_reg_set support
-Message-ID: <anUgh6qgESzpRJwa@ashevche-desk.local>
-References: <20260806-ad7768-driver-v2-0-027ac5e2a641@analog.com>
- <20260806-ad7768-driver-v2-5-027ac5e2a641@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mH3vzZxW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CE01F000E9;
+	Fri,  7 Aug 2026 00:02:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786060968;
+	bh=z+uE9oKn/qWIRG+x5jQxIvcpzfB0TrhegkqzxFdZEm8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mH3vzZxWp94MwY64bgsC/+29BPEypmxcJqV8wmo39s4JAIQeuTF0pLM34joI30bxx
+	 H3z2nFh9ldaK6XEb2Irzg+gQec+wVav+k7PS1bGta4d6TboYKH4sde3x2X+2qkOuAZ
+	 jy87fN8gZ+pfcmBzdOa5jzwd/akl9qipuMxwkUL+UbRATcs435CjqCTdfHjINWPSrO
+	 lItzS3Ong9fU9zL8JJm4nSxx5gLRufMZ28uk8+cXJTrUGhNJJLHunObD3DA/qu9UO/
+	 0H/hSnIn711QVd4MYASK6QBYqoXXSwny51ctfO4DUObR2vDm+8p1rWQPUKRuAmmKTl
+	 +YPggvXfN74sA==
+Date: Thu, 6 Aug 2026 19:02:44 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-rtc@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	Raj Aryan <raryan@qti.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: soc: qcom: qcom,pmic-glink: Document
+ RTC client properties
+Message-ID: <anUemwQJgHJP7iOS@baldur>
+References: <20260807-rtc-glink-cleanup-v1-0-7801e4d69c4f@oss.qualcomm.com>
+ <20260807-rtc-glink-cleanup-v1-1-7801e4d69c4f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -77,130 +47,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260806-ad7768-driver-v2-5-027ac5e2a641@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260807-rtc-glink-cleanup-v1-1-7801e4d69c4f@oss.qualcomm.com>
 
-On Thu, Aug 06, 2026 at 05:41:24PM +0200, Janani Sunil wrote:
-> The new pm_dev field in gpio_regmap_config allows a driver to supply a
-> device for runtime PM. All operations call pm_runtime_resume_and_get()
-> before accessing the regmap and pm_runtime_put_autosuspend() on return.
+On Fri, Aug 07, 2026 at 02:26:30AM +0530, Kamal Wadhwa wrote:
+> The pmic_glink driver can now register an RTC auxiliary device on
+> glymur, whose PMIC exposes an RTC over GLINK (see rtc-glink driver).
+> Document the allow-set-time flag it consumes from the parent
+> pmic-glink node.
+
+The driver functionality has no relevance to the DeviceTree binding.
+
+The binding defines the contract between the DeviceTree (DTB) and the
+implementation, such that the implementation knows what to expect from
+and how to interpret the DTB.
+
 > 
-> The new read_output_reg_set flag when set, gpio_regmap_get() checks the
-> pin direction first and reads from reg_set_base instead of reg_dat_base
-> for output pins. Requires both reg_dat_base and reg_set_base to be
-> configured.
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Raj Aryan <raryan@qti.qualcomm.com>
+> Signed-off-by: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
 
-...
+As with the driver, the author/s-o-b chain is wrong.
 
-> struct gpio_regmap {
-
->  	unsigned int reg_clr_base;
->  	unsigned int reg_dir_in_base;
->  	unsigned int reg_dir_out_base;
-> +	struct device *pm_dev;
-> +	bool read_output_reg_set;
->  	unsigned long *fixed_direction_mask;
->  	unsigned long *fixed_direction_output;
-
->  }
-
-Have you run `pahole`? Is it okay to put bool there and not after one of
-unsigned int:s (just from the given context, it might be even better location)?
-
-...
-
-> +static int gpio_regmap_runtime_get(struct gpio_regmap *gpio)
-> +{
-> +	if (!gpio->pm_dev)
-> +		return 0;
-> +
-> +	return pm_runtime_resume_and_get(gpio->pm_dev);
-> +}
-> +
-> +static void gpio_regmap_runtime_put(struct gpio_regmap *gpio)
-> +{
-
-> +	if (gpio->pm_dev)
-> +		pm_runtime_put_autosuspend(gpio->pm_dev);
-
-Same pattern as per above.
-
-> +}
-
-...
-
-> +static int gpio_regmap_get_direction(struct gpio_chip *chip,
-> +				     unsigned int offset);
-
-Can this be avoidable?
-
-...
-
->  	/* ensure we don't spoil any register cache with pin input values */
->  	if (gpio->reg_dat_base == gpio->reg_set_base)
->  		ret = regmap_read_bypassed(gpio->regmap, reg, &val);
->  	else
->  		ret = regmap_read(gpio->regmap, reg, &val);
-> -	if (ret)
-> -		return ret;
-> +	if (!ret)
-> +		ret = !!(val & mask);
+> ---
+>  Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> index 16ad4f5698fc..38db1ff473c0 100644
+> --- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> +++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+> @@ -79,6 +79,11 @@ properties:
+>        - const: charge_limit_end
+>        - const: charge_limit_delta
 >  
-> -	return !!(val & mask);
+> +  allow-set-time:
+> +    $ref: /schemas/types.yaml#/definitions/flag
+> +    description:
+> +      Indicates that the setting of RTC time is allowed by the host CPU.
 
-You want regmap_test_bits() in one case, and the regular pattern in the other.
+What property of the hardware/firmware that this describes would cause
+you to set or not set this?
 
-> +out_pm:
+Also, what would the expected outcome be if I declare that my Hamoa
+hardware has pmic-glink with allow-set-time?
 
-labels should be marked better to show what will be when goto them.
+Regards,
+Bjorn
 
-out_pm_put:
-
-> +	gpio_regmap_runtime_put(gpio);
-> +	return ret;
-
-...
-
-> +out_pm:
-> +	gpio_regmap_runtime_put(gpio);
->  	return ret;
-
-Ditto.
-
-...
-
->  	ret = regmap_read(gpio->regmap, reg, &val);
->  	if (ret)
-> -		return ret;
-> +		goto out_pm;
->  
->  	if (!!(val & mask) ^ invert)
-> -		return GPIO_LINE_DIRECTION_OUT;
-> +		ret = GPIO_LINE_DIRECTION_OUT;
->  	else
-> -		return GPIO_LINE_DIRECTION_IN;
-> +		ret = GPIO_LINE_DIRECTION_IN;
-
-Also can be transformed to use regmap_test_bits() (but in a separate change).
-
-...
-
-> struct gpio_regmap_config {
-
->  	unsigned int reg_clr_base;
->  	unsigned int reg_dir_in_base;
->  	unsigned int reg_dir_out_base;
-> +	struct device *pm_dev;
-> +	bool read_output_reg_set;
->  	int reg_stride;
->  	int ngpio_per_reg;
->  	struct irq_domain *irq_domain;
-
-`pahole`?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> +
+>  patternProperties:
+>    '^connector@\d$':
+>      $ref: /schemas/connector/usb-connector.yaml#
+> 
+> -- 
+> 2.43.0
+> 
