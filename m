@@ -1,218 +1,174 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA2135AC03
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B294B04AB
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:55:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786135749; cv=none; b=KMZRbZpvybAQVG6TCGXLSBiMjuLPyfbkFXEHmwg+oIAUC03OG0V3p9f40kZDl/mkJUgT76UrtHagwbl+qqmZgxD5xJmDu2N4cErU7AhLztdPykHAsDCKNVjE5xvEFpn0o2sWwZKtMKZixHBFml6AjWAD6kv5hCS9BSahifaDoMg=
+	t=1786136114; cv=none; b=WHUVs2t/VlBrpJLTYWk+4dPGnoBiSZ3JdiTcYyibUbHEuExZ2mHd0LWXrA6zAmSkc/FmIfN3agioVWtv1rrDM7mTR/IW9C5sKX5mRVLYcqf/F8tjzIVLlH4I9wfPVy1m2r/ttvUx4GH16SAnZsczqWPwKxoyfFJDXYHmXsl+JGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786135749; c=relaxed/simple;
-	bh=hPfLP0hNorT8EBMoNPQqNYVzZGRJ/RFzthEnahRhP5M=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kGh1cA1KQ8Ghs4tprSDGblOtoOSMlvrHMo2cp1oiPzYJpcfNkZYEvv/Gkm5meEeC/AOBixhldV6VEfj8HzZiD/cyb4CVkelLNVza0G0QciXKwnIl8NvswfzijIhPAaDcoeZWcsgqxwh8Sp1+CGfcgZ5ysCBz6ejut+9SofJoRGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQZ9SSUz; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786136114; c=relaxed/simple;
+	bh=KfrkmwEYcp0t/yQ7DslMKdgDKxQI2Aw/QCNqab0oIkA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VjtZTBALjiJDArba1zX/MHvX+GUjyP7Qoi8aa39BenPyH0dqZ47cMoVZvrJMT4f79unG9nwaYgQm5Ams4pfi7bYqNJGDtlqixv7wG8cZwbQWpVBMmKhl62wT52yLlEWzqNzbRnyGTU1Wb0oqvmA9QsxvQCAmaQcoIuET+EDiLAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=IMJtL1e/; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQZ9SSUz"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f84023916so3499311f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:49:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="IMJtL1e/"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4954aff6088so38178925e9.3
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:55:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786135746; x=1786740546; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1786136111; x=1786740911; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hMUCiIk8VKHfw+lDvF1xcsVZxv/BobscGATfjEcSu3g=;
-        b=sQZ9SSUz92YYydrsguNsMUdM9asNKlahxaWoS/C1CLFi+n+B+6axBRy0am452THdVh
-         QkjrY+Uu3OQkLIE4juPmncSCEzwXBUVAMUvSQEDUpjkCUGLr0mmoC4Dg6DNWs7u64Y8J
-         ZgTdrASJIeTVtzlpWKaHLZEoQ3uRkJNRdTZqOz6+CIVImdsyZgJbGWYeHyP/aeqs6vLe
-         0ocK3FMIcPcL54O/pm8nYvImYoEqA8sbuLBfj+vG4m4N5hC5I1RS5U/+IeY3JcaOTxk4
-         0cGEk6RIICsdJ4BAk9wGN4Kvec45WAb0B3ixvP1vfO8hSOO6xlmFI/zG6BA+TU9fOZIi
-         GmyA==
+        bh=S9/O1JVdMIdtzlVv0nB5F/waAjRRKXc1DJxcx9UYBuE=;
+        b=IMJtL1e/08dm3olngAfIblkIKw93s2OZXSH2WY3OYtLEp+HrC/bVe10X28DjmvCYlP
+         OEduO8ONORsoGMLNwKB1n7nZFbVFhCZou5nlvBKBk4Ym4cj7yV1LXxIJ/7nz6Ssvfhm2
+         ecpi6DQGuaSUbMjRCEfiRiL5f1XGV9bNAQf+8ayKBgq9StQMgHaHrTvyWoGdkD8MTuEr
+         G/0co2HAxqehrNxqTcJMOG4XhfWBeU6qKR762GGEu28rJkDfZKy/k7/ZPiJbIKDhKmHY
+         nvvTiABcs6xjHEVqtKF60rEFymGcMi08MnZDUXF6n+YELTtQ4PANYIuzuUUg6tZW5CW4
+         3GPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786135746; x=1786740546;
+        d=1e100.net; s=20251104; t=1786136111; x=1786740911;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hMUCiIk8VKHfw+lDvF1xcsVZxv/BobscGATfjEcSu3g=;
-        b=lYC6gsz32tHl8sTx3fsX3A+blHBlIadHNzWgXRMT6CKuOEuPfPGEP/yjy/K7scdNOI
-         mEq/ZGAJfHu0oUP8OTYBEGFsF7km4GOBuaSD73X8nNFRDGd+EO43Idhk3zSVJKWb6xBu
-         Ss7LCiJDl/zYqHAR8yHpTvZpwOqOUEzCq2Sw3VDqMs6GDZYKSLDTUq5v6RZyQagBWcCk
-         Nu04km8oC7zQJOeizHx7YlS+Fhzbjlnki8ht6txzbzu4CZNlBqlaOS8f1dAIINE/dT4G
-         hHW/BiV9Gwm48xlGx7PtR3XanGupElbq1K3jdQWXTEv36s03Navyol5SnGB8ZIeT2WA9
-         weDg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr2NqXEcDJ6FsLfAFAmWiPdM5nFChQtwHNHgL7cDD4hJ8Dmv3PWckLWM/+i7bHTyiQlveJGT/E16dGI@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLSOgHQXtV8Xxg2ZQdgfA+fzykeSIHWGovrki45zq9p4LSvwPz
-	OuAPT6pKzmouYOqZbLYc4W3ky3uUa90VmG9yIILwMl4nk6fuisScc32w
-X-Gm-Gg: AR+sD12827hG2yrc9/2L0q1GLR4Qy4arkntqYbcUg3xjqqX7fO8jk/X/Xd0p0tq5U9v
-	CiEGMEuE/LlmV0QutQ2BGSNK/NTAOx8jyGXGfnJOgfcWryk+yOp6Hv66ULoGt3MU8M3tC5GA0Iz
-	Dfe0gkCpM5vcobw//De8v46vsqXt6hf30w+VN/9D7/FGm8bj+Qa7M+yhLtSWirmsRh0M+y17ZeE
-	WeiX2SIyr4jVHcZcbYgIILbtozkWWZLkZ73zt6qdeVmVawsOigvguwKUpEl8EtXdJ00tCCfOae2
-	1xYn3rorNOOllW6415sUGvuzByr4VxzEWV24EtwpFC4cGwkpaVDefBiphqw7slFwjGsEPy9Axbq
-	NtEgALphAq+XL1SvNXuUpx2fETiIqPxRslodfH8WlfsClC1MCgBgqThOah4rbI8iW5fW/TasYP0
-	CsUuIDTGp0iY4jinrXr/4BEb0Sz8E6nc7xCAiFeXeW5/g/rKOJxaZivjiLdSrkNSteBcxcpTtMr
-	3Fi0Niy8nyQtuOT3lGsUZnYijZs47jp6TiD
-X-Received: by 2002:a05:6000:41fa:b0:47f:fa17:ae0e with SMTP id ffacd0b85a97d-47ffa17ae68mr22949317f8f.11.1786135745578;
-        Fri, 07 Aug 2026 13:49:05 -0700 (PDT)
-Received: from Ansuel-XPS. (host-87-19-255-168.retail.telecomitalia.it. [87.19.255.168])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021e8b09sm9756544f8f.23.2026.08.07.13.49.03
+        bh=S9/O1JVdMIdtzlVv0nB5F/waAjRRKXc1DJxcx9UYBuE=;
+        b=NE42OeAHLZric0ZDcfYPcBcp7bP3kufoHsblczQJpyAEnoQsQgLq7jqfdOlmwXdVXc
+         OlWPas6mQF+TurWKSeRwwXLnQGiSFMquXbAR83WP8FnIe5qiJibO3XXMHiDckK+f8H/w
+         TE5fYv/39e3Jl8yppD731bhQcG3QUzbgbL/S1hG/C2RU9B0pq/NAttZ+/Bf56f6YemBD
+         8VYvstCCzcHWuVM1KhCYsge+/ATjG8CJiRGbxbul3nl3yPX91o6knwt7qKHaz9wrUQk3
+         /ZVvnd07sVwIC1y9tAbNgfKJ83nMfqcAJNndfcrNsLSKPKcYGKMiaK6MBITaYGWA/2my
+         n54g==
+X-Forwarded-Encrypted: i=1; AHgh+RpaOKiT4ScHV+fohDiS1tDs19rddIsKgWK1hWGDR9gMyn3MShCOcHGjZImM/AHXKZ38Z3ACnEkP235K@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw+HiswgZDjYqE0hV/a6fNm8fcDGR053zcZ4gSz6AkkhDp/lKEM
+	WZlNS9+IG7TE1DHIVAEX6VVntImlhRlUlT++CGGMi8vMJfLpFS7c+U9isavzfslyTEY=
+X-Gm-Gg: AR+sD105lygHYDdQyDumM9PWgsmu9jPMo09VGl2JIwmA+7x0yAqD0yINQJiLM1J9sb0
+	+HyN+MfwXBaCozoNne+u0eDqAvWEgttned9Mk2gRFvkQoy+H8Ot7IYBJRKCyz96/LGFhXjTyODT
+	2f9f/H5cN+wqy08AohlxtLduqmu1fUZDSmGp3ETqqUy6QGNlt8ap25Cee96+KybMjh53M4yhgMx
+	CEUKwejGmwEYlKcvt6VTo2pdRzAJxQO4bnH24li9pHsimbZAd44ASKxENvVrBPRILwh8IC9JtSV
+	ywEW3tb2eU2XOuzRqn97ZRdylBBmhZHRAtgsdFPLUNY58iU7hPUlT7zLTLHF7nwD9K4B0FIi0K9
+	GjfuubtrNAL1PpMZRYNLkwEhpqj8LXUQMmcCZjkf0xYgxTCgHHz1zA/2IPZ09MCZm7r0c2R4Hf1
+	YzB84VDoGOmXcgACS+tumIOY8EReO1AIq4o6cC0yprdyDTrpbTn6iKz902+7Vm4G4rqIA=
+X-Received: by 2002:a05:600c:630c:b0:499:4d4a:4990 with SMTP id 5b1f17b1804b1-4994e74566bmr268092245e9.3.1786136110351;
+        Fri, 07 Aug 2026 13:55:10 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4995bb8b668sm68594735e9.0.2026.08.07.13.55.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 13:49:05 -0700 (PDT)
-Message-ID: <6a7644c1.df882948.3a7741.2280@mx.google.com>
-X-Google-Original-Message-ID: <anZEvaEjN5i9h5ww@Ansuel-XPS.>
-Date: Fri, 7 Aug 2026 22:49:01 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev,
-	Daniel Golle <daniel@makrotopia.org>
-Subject: Re: [PATCH net-next v11 03/12] net: pcs: implement Firmware node
- support for PCS driver
-References: <20260807131301.192060-1-ansuelsmth@gmail.com>
- <20260807131301.192060-4-ansuelsmth@gmail.com>
- <235c60e9-f19a-4336-a569-ddf5e5462fe5@infradead.org>
+        Fri, 07 Aug 2026 13:55:09 -0700 (PDT)
+Date: Fri, 7 Aug 2026 22:55:08 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
+Cc: bmasney@redhat.com, sboyd@kernel.org, mturquette@baylibre.com, 
+	robh@kernel.org, krzk+dt@kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, patches@opensource.cirrus.com
+Subject: Re: [PATCH v7 2/3] clk: cs2600: Add Fractional-N clock driver
+Message-ID: <anZEtfI1tFz8Xc00@monoceros>
+References: <20260807155406.752721-1-rf@opensource.cirrus.com>
+ <20260807155406.752721-3-rf@opensource.cirrus.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xk6npk4zzon3kkwe"
 Content-Disposition: inline
-In-Reply-To: <235c60e9-f19a-4336-a569-ddf5e5462fe5@infradead.org>
+In-Reply-To: <20260807155406.752721-3-rf@opensource.cirrus.com>
 
-On Fri, Aug 07, 2026 at 01:29:41PM -0700, Randy Dunlap wrote:
-> Hi--
-> 
-> On 8/7/26 6:12 AM, Christian Marangi wrote:
-> > Implement the foundation of Firmware node support for PCS driver.
-> > 
-> 
-> > 
-> > Co-developed-by: Daniel Golle <daniel@makrotopia.org>
-> > Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > ---
-> >  drivers/net/pcs/Kconfig          |   6 +
-> >  drivers/net/pcs/Makefile         |   1 +
-> >  drivers/net/pcs/pcs.c            | 240 +++++++++++++++++++++++++++++++
-> >  include/linux/pcs/pcs-provider.h |  65 +++++++++
-> >  include/linux/pcs/pcs.h          |  75 ++++++++++
-> >  5 files changed, 387 insertions(+)
-> >  create mode 100644 drivers/net/pcs/pcs.c
-> >  create mode 100644 include/linux/pcs/pcs-provider.h
-> >  create mode 100644 include/linux/pcs/pcs.h
-> > 
-> 
-> 
-> Please address these warnings:
-> 
-> WARNING: ../include/linux/pcs/pcs-provider.h:39 function parameter 'pp' not described in 'fwnode_pcs_del_provider'
-> WARNING: ../include/linux/pcs/pcs-provider.h:39 Excess function parameter 'fwnode' description in 'fwnode_pcs_del_provider'
-> WARNING: ../include/linux/pcs/pcs-provider.h:62 expecting prototype for fwnode_pcs_add_provider(). Prototype was for devm_fwnode_pcs_add_provider() instead
->
 
-Yep, they slipped in the rework. I already fixed these, just waiting the
-usual 24h.
- 
-> > diff --git a/include/linux/pcs/pcs-provider.h b/include/linux/pcs/pcs-provider.h
-> > new file mode 100644
-> > index 000000000000..5df48022bc6e
-> > --- /dev/null
-> > +++ b/include/linux/pcs/pcs-provider.h
-> > @@ -0,0 +1,65 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> > +#ifndef __LINUX_PCS_PROVIDER_H
-> > +#define __LINUX_PCS_PROVIDER_H
-> > +
-> > +struct fwnode_pcs_provider;
-> > +
-> > +/**
-> > + * fwnode_pcs_simple_get - Simple xlate function to retrieve PCS
-> > + * @pcsspec: reference arguments
-> > + * @data: Context data (assumed assigned to the single PCS)
-> > + *
-> > + * Returns: the PCS pointed by data.
-> > + */
-> > +struct phylink_pcs *fwnode_pcs_simple_get(struct fwnode_reference_args *pcsspec,
-> > +					  void *data);
-> > +
-> > +/**
-> > + * fwnode_pcs_add_provider - Registers a new PCS provider
-> > + * @fwnode: Firmware node
-> > + * @get: xlate function to retrieve the PCS
-> > + * @data: Context data
-> > + *
-> > + * Register and add a new PCS provider to the global providers list
-> > + * for the firmware node. The relevant PCS from the PCS provider
-> > + * is retrieved from the passed xlate function.
-> > + *
-> > + * Returns: A pointer to the registered PCS provider on success, or
-> > + * an ERR_PTR() encoded error code on failure.
-> > + */
-> > +struct fwnode_pcs_provider *
-> > +fwnode_pcs_add_provider(struct fwnode_handle *fwnode,
-> > +			struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-> > +						   void *data),
-> > +			void *data);
-> > +
-> > +/**
-> > + * fwnode_pcs_del_provider - Removes a PCS provider
-> > + * @fwnode: Firmware node
-> > + */
-> > +void fwnode_pcs_del_provider(struct fwnode_pcs_provider *pp);
-> > +
-> > +/**
-> > + * fwnode_pcs_add_provider - Registers a new PCS provider
-> > + * @dev: Device of the PCS provider
-> > + * @fwnode: Firmware node
-> > + * @get: xlate function to retrieve the PCS
-> > + * @data: Context data
-> > + *
-> > + * Register and add a new PCS provider to the global providers list
-> > + * for the firmware node. The relevant PCS from the PCS provider
-> > + * is retrieved from the passed xlate function. While at that, it
-> > + * also associates the device with the PCS provider using devres.
-> > + * On driver detach, release function is invoked on the devres data,
-> > + * then, devres data is freed.
-> > + *
-> > + * Returns: A pointer to the registered PCS provider on success, or
-> > + * an ERR_PTR() encoded error code on failure.
-> > + */
-> > +struct fwnode_pcs_provider *
-> > +devm_fwnode_pcs_add_provider(struct device *dev, struct fwnode_handle *fwnode,
-> > +			     struct phylink_pcs *(*get)(struct fwnode_reference_args *pcsspec,
-> > +							void *data),
-> > +			     void *data);
-> > +
-> > +#endif /* __LINUX_PCS_PROVIDER_H */
-> 
-> thanks.
-> 
-> -- 
-> ~Randy
-> 
+--xk6npk4zzon3kkwe
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v7 2/3] clk: cs2600: Add Fractional-N clock driver
+MIME-Version: 1.0
 
--- 
-	Ansuel
+On Fri, Aug 07, 2026 at 04:54:05PM +0100, Richard Fitzgerald wrote:
+> +#include <dt-bindings/clock/cirrus,cs2600-clock.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/clk.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/container_of.h>
+> +#include <linux/delay.h>
+> +#include <linux/i2c.h>
+> +#include <linux/math.h>
+> +#include <linux/math64.h>
+> +#include <linux/mod_devicetable.h>
+
+Please drop <linux/mod_devicetable.h>. You can rely on <linux/i2c.h> to
+provide struct i2c_device_id and of_device_id.
+
+(Background of this request is that <linux/mod_devicetable.h> should go
+away soon.)
+
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regmap.h>
+> +#include <linux/string.h>
+> +
+> [...]
+> +static const struct of_device_id cs2600_of_match[] = {
+> +	{ .compatible = "cirrus,cs2600", },
+
+No comma before a closing } in the same line please.
+
+> +	{}
+
+{ } is the most common way to write the terminator.
+
+> +};
+> +MODULE_DEVICE_TABLE(of, cs2600_of_match);
+> +
+> +static const struct i2c_device_id cs2600_id[] = {
+> +	{ .name = "cs2600", },
+> +	{}
+> +};
+
+Here the same please.
+
+> +MODULE_DEVICE_TABLE(i2c, cs2600_id);
+> +
+> +static struct i2c_driver cs2600_driver = {
+> +	.driver = {
+> +		.name = "cs2600",
+> +		.of_match_table = cs2600_of_match,
+> +	},
+> +	.probe		= cs2600_i2c_probe,
+> +	.id_table	= cs2600_id,
+
+I'm not a fan of aligning `=`s as it gets inconsistent over time. Here
+it's wrong already from the start. Only 2 out of 3 members of the
+i2c_driver use alignment and .driver doesn't. If you ask me, just use a
+single space before each `=`.
+
+> +};
+> +
+> +module_i2c_driver(cs2600_driver);
+
+No empty line before module_i2c_driver() please.
+
+> +
+> +MODULE_DESCRIPTION("CS2600 clock driver");
+> +MODULE_AUTHOR("Paul Handrigan <paulha@opensource.cirrus.com>");
+> +MODULE_LICENSE("GPL");
+
+--xk6npk4zzon3kkwe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp2RigACgkQj4D7WH0S
+/k58Dgf+MClFTxmS/qK0orwG1HB6xEl5A6Df4iMYUnOfblE7l7XB5JJJeO/A5XyB
+zCNvQ5obXXkYh7UnOTBCOCqCXMOAhRFkMWL/71plvOo/xogZC9cICDs8LjElucLA
+meOkRGqabSTG4YnkLr5mDOP3lFYEUxmAN0NIcMUCUTrOY833wpDDdbVqfioMqXb0
+V0bh3jEEoSqc5S0VtSzmTWsXUl5j9JNUZd/9+vaZdpsEYov2U2UXVyv2mBqglfEM
+zAdXsQoUF8qimawimqOhCcM/ll5LFxLwJwDUd5ccK1R3nocXeECwRPu9hh8PrHO+
+nniM1hBbVlJjPOHVZz47EU46oOUTvQ==
+=69FK
+-----END PGP SIGNATURE-----
+
+--xk6npk4zzon3kkwe--
