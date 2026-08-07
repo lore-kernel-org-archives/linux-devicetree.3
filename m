@@ -1,104 +1,186 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A47F343D63;
-	Fri,  7 Aug 2026 04:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BFA9394462
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 04:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786076797; cv=none; b=GZK/F7nh5wug4nfTd40TvwHtNS6OiShDkxB0Kj+pZyXQDhg8Z09MQW6QSZFRS6WazW2xkO4oUzUBi2MfU+yYZb7qXJ4T7LSz/c0rKUdyrD2molwLCfVjAg3BltOSfZRoMQYXK7Ep7mbAuhdth9yiGNnqpj7nbbqVCqXtVbhN8Rw=
+	t=1786078311; cv=none; b=D8Mo+YLbNKioBLNMWzX1WfIEk4XvKWwsynZdE2BssFuld6nuifRQv072ulY0mcxNG+0XsK46a4T8PeLR52n12j/CrkDBc/9fAx6qxXJEy70Ib+4pFYz0/qMxDwcN2LFUXRwd5Ug1sFyVbxVOeeK91zqdctCEyDlStTx6UGa1FZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786076797; c=relaxed/simple;
-	bh=yln42IKi00e1pvpPiNXQrNfS9kBjRe+eQK1DP9DNHpg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qhYrSKpyhIDg9qb1RuzQYF+GBQcgwD+ap68kLQcxzug0mST7LYd7fZUsQenK+Mj413lQ6NcJwRNuTnWRaIbW+GPIL7efCLYz/Ftlq6WkfZ+IDh2UAc7Hpq++bVfJn81fCfdB7fBGRPrAZjIM57ccGEPlCOGIiu4+SOPicyBKQJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 17164200C57;
-	Fri, 07 Aug 2026 06:26:31 +0200 (CEST)
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wsCAA-000CK7-3C;
-	Fri, 07 Aug 2026 06:26:31 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1wsCAA-00000000mz3-3beQ;
-	Fri, 07 Aug 2026 06:26:30 +0200
-Date: Fri, 7 Aug 2026 06:26:30 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>, Mark Brown <broonie@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>, Conor Dooley <conor+dt@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-	netdev@vger.kernel.org,
-	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
-	linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
-	Eric Dumazet <edumazet@google.com>, kernel@pengutronix.de,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-	"David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v1 2/2] net: dsa: realtek: rtl83xx: add support
- for enabling supplies
-Message-ID: <anVedv6aV1hguF5x@pengutronix.de>
-References: <20260806140239.3518906-1-o.rempel@pengutronix.de>
- <20260806140239.3518906-3-o.rempel@pengutronix.de>
- <9181f24b-cd5e-46c8-8e57-cbf309ac1a98@lunn.ch>
- <anSj34TOZxYiG_ai@pengutronix.de>
- <f2260b02-621f-4b92-aade-85c403a8839d@lunn.ch>
- <02a51eff-3782-4012-8475-1047a9be4dd3@pengutronix.de>
- <CAD++jLk-5-_2x2scn2hNQ-aWBx=EKGYzvcaUwv5fS7k5Bq=KGA@mail.gmail.com>
+	s=arc-20240116; t=1786078311; c=relaxed/simple;
+	bh=akgH7FdSu8hkxoqBxRW5GrRYagY+QZDl3N0wKNP3Em8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=rDfRbhe1sUQVsSmal1T8KG89+t1VAI76/YvOoFTPZo83/VeOQRRUOZfu2jm+jdK6/eZ2GjuDP88KdYo2LxDTA6LJHxeb2AP6MImIiE7D0LxGpqp0iN8NGA+G0q4SAxn8V1yiG2t3qbzvZl4beGFeq5BWg7km4i1t6DarRSsl3go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FVrsIXl6; arc=none smtp.client-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FVrsIXl6"
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6aec68b03e2so729071eaf.3
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 21:51:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786078299; x=1786683099; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+3lkDhLHoHy7Deukicju73PIuJo/3t9WiJOLY5QufbM=;
+        b=FVrsIXl6OE9cuNfhHiseBY+FKmPwv7vKVL1xDapMz18tzSQKKWaEJfIOJgj5pV8qFB
+         aM7MK092m7Gjy4UvnxKN0j6T7KwN/W6GFqN0prKcOV/j6AdcmXW5LZvDEAepzpOcsF4E
+         H1ycg9blekSm06NNQvIXR9U5IMBoA6Zx0e2xM3QIR4cJulyqkCJkpU03x3yuVWhrVphH
+         AKneDsx5xdNdyQHyKwjGtdEsw/9+ChzER2cH6tGaQPCP7hc+gT91AeW/dWzh711zuh5o
+         VFrkt58GSNNiFbEo0gWyEhaQ/OMuQA683aFsyHnkCmbl5I0yDOMemgjV+cC6V5PHdEhh
+         WEkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786078299; x=1786683099;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+3lkDhLHoHy7Deukicju73PIuJo/3t9WiJOLY5QufbM=;
+        b=eeMEYj/4zFAneflDlsDrkPuzn7oU2FJXrK3gZpQdph49KKB4MnbvAODz8KN2dtiF0q
+         qDTYGU5dbkcBiR+UItGzVT4dkXHlTSQQe6AGDOLxsbwI2IXX25PGMT6s+kCx/owvL4At
+         kDJA1nINh091sYG5CPQhF8gqolnS7QDlYcDTzzP8qRllSlhVNT9VHrqDGbz/t+P9Wy+g
+         cbCBxxBYU2O1WotzxBmh4j7Pbi/2VkiJv21uqPoiqb0Su3t3n+JPuA7yGffRR1X5ZOPA
+         cEXFR4v2+GQXmXiGFIBTi8DoSbRivxSv94Fx4RMcjs2eOXS2MDpzged6FNYdDbg6FQd8
+         yopw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqn2fwcVxOlvh+OV/oPviWSEjZrzF8XLnEbChe8rfGRKmxlUGRGhdQpCxfY4FBJQCL1K9pLVP3aLoEA@vger.kernel.org
+X-Gm-Message-State: AOJu0YwW61G1/uWFBs+gG5gPbao2TTrX4TaVxIVcyyuVNhTDcAMSiMPC
+	Scu6VozVS0EU9LcID4psQqYv8JcYJkDEq36ifM39w9FCvtcY8EzmjehQ
+X-Gm-Gg: AR+sD10t+Kve7Ib/e7FfAA1g5slzwFMvkxpaYFpA+WNwG/pbEwMNg4qAgJjrwuZFV0A
+	aRGvfMEGIrPXfseI75U284ZRtxDptx4uaGiZQMM8LtR0z3zNTfQLzPznhWIkmg+f7g1Q3GtBouP
+	ntQUJ1ApeW9xJPDPtqHNhM7g+0/dYifNQ6z9A2nNYtJJ8EvPHbTziD5QN8Z5sqQuCr3Ggmj21m1
+	tk/cHFDe31sr3a4rlxZMjEatXTNlIX23b43+IE9LtH8t0b3bRJ76/BvQ9SipdMKW0NuyJMQwsGY
+	Zu/Ph7RAbITOXd3UugzZx6dr6KBfwnukweFGfZNg9mfcOD7lnaGKLmf0TNydPeS84T5j9WuUhWG
+	jG2eGLkvpGjUmdic1R2G+K1c4hvN3Cs6C4N0AYKYWn0mhDA/IDmCpY4cnaHlE+Y3TXtVqYFvgtL
+	EGoo+BS7JF0LC13sGVVDvQkm7myjxE7b8rwEX4lT8iwiJd6yOXEKw6aX2pR4tDtiYkQb/BWVqX4
+	XZwOHTnB3GwapIWIlvc4L3rg3NB9M+49cNnoEQzLaGsDvB2vfA6abHBNeDlShkeU5l0y3wq8hLe
+	GshnQDKKcWibCQ17Nazkkcyki7QBbSLJuxyyZKzSJI3+xacajZWTF4DFXGBXRmcB5JepKDPBenI
+	T31JHl1fOPuvnJ+ftRA==
+X-Received: by 2002:a05:6820:1996:b0:6b0:1b86:fa8 with SMTP id 006d021491bc7-6b01b8625afmr4347810eaf.15.1786078298727;
+        Thu, 06 Aug 2026 21:51:38 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b02bbbf755sm1519726eaf.2.2026.08.06.21.51.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 21:51:38 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Thu, 06 Aug 2026 22:51:26 -0600
+Subject: [PATCH net-next v4 1/4] dt-bindings: mfd: x-powers: Add AC200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLk-5-_2x2scn2hNQ-aWBx=EKGYzvcaUwv5fS7k5Bq=KGA@mail.gmail.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260806-submit-acx00-of-dynamic-v1-v4-1-9bf2f7441632@gmail.com>
+References: <20260806-submit-acx00-of-dynamic-v1-v4-0-9bf2f7441632@gmail.com>
+In-Reply-To: <20260806-submit-acx00-of-dynamic-v1-v4-0-9bf2f7441632@gmail.com>
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On Thu, Aug 06, 2026 at 07:40:29PM +0200, Linus Walleij wrote:
-> On Thu, Aug 6, 2026 at 5:56 PM Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
-> 
-> [Andrew says]
-> > > static inline int __must_check clk_bulk_get_optional(struct device *dev,
-> > > static inline int __must_check devm_clk_bulk_get_optional(struct device *dev,
-> > > static inline int __must_check devm_clk_bulk_get_optional_enable(struct device *dev,
-> > >
-> > > If clk has them, maybe regulators should as well?
-> >
-> > clk and regulator have different interpretations of _optional
-> > when encountering a non-existent resource:
-> >
-> > clk_get                 return error
-> > clk_get_optional        return NULL
-> > regulator_get           return handle dummy regulator
-> > regulator_get_optional  return error code
-> >
-> > So devm_regulator_bulk_get() is already the "optional" variant, but it causes
-> > all existing users to get dummy supply warnings.
-> 
-> So is this a big problem? Does it cause any other issues than
-> dmesg noise?
+The AC200 is an I2C-controlled mixed-signal companion IC containing
+audio, video, RTC and Fast Ethernet PHY functions.
 
-As tested with local sashiko setup, new warnings for existing system
-without good reason will be reported as regression, so it will be
-blocker for net-next inclusion.
+Describe the parent device, its input clock and the four package
+supplies. The Ethernet PHY is represented by a PHY package on its MDIO
+bus, with a phandle back to this device for access to the package control
+registers, so it does not require an MFD child node.
+
+The input clock must run at 24 or 27 MHz when the Ethernet PHY is used,
+matching the rates encoded by its documented clock selector.
+
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 69 ++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml b/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
+new file mode 100644
+index 000000000000..b7e8d9bd5661
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/x-powers,ac200.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: X-Powers AC200 mixed-signal IC
++
++maintainers:
++  - James Hilliard <james.hilliard1@gmail.com>
++
++description:
++  The AC200 is a mixed-signal companion IC containing audio, video, RTC and
++  Fast Ethernet PHY functions. Its control registers are accessed over I2C.
++
++properties:
++  compatible:
++    const: x-powers,ac200
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description:
++      AC200 input clock. When using the Ethernet PHY, its configured rate must
++      be 24 or 27 MHz, matching the rates encoded by the documented EPHY clock
++      selector.
++
++  ac-ldoin-supply:
++    description: 3.3 V supply for the audio-codec LDO input
++
++  ephy-vcc-supply:
++    description: 3.3 V supply for the Ethernet PHY analog front end
++
++  rtc-vcc-supply:
++    description: 3.3 V supply for the RTC
++
++  tv-vcc-supply:
++    description: 3.3 V supply for the TV encoder DAC
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - ac-ldoin-supply
++  - ephy-vcc-supply
++  - rtc-vcc-supply
++  - tv-vcc-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        mixed-signal@10 {
++            compatible = "x-powers,ac200";
++            reg = <0x10>;
++            clocks = <&pwm 5>;
++            ac-ldoin-supply = <&reg_3v3>;
++            ephy-vcc-supply = <&reg_3v3>;
++            rtc-vcc-supply = <&reg_3v3>;
++            tv-vcc-supply = <&reg_3v3>;
++        };
++    };
++...
 
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.53.0
+
