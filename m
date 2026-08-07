@@ -1,90 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC9837A822
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E4B378D8B;
+	Fri,  7 Aug 2026 18:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786127857; cv=none; b=YAW64oamjhoRw/V4TS/aJfZ3NRi2D4i91VTvAc3K7ZWFRp2fOxccaaZuMpTA/EQ2ecEUyqwpzHqAfkXhko3FuGyTROPZPIQPqcsWOSnU/t0GxJjc8n87ysvZV2eyngKGHu3EtLJZtotBSfpEFy9aUYx+uSg/VxyqdFSj7aRxRAQ=
+	t=1786128004; cv=none; b=NWaxUkKstjGaP3CCqG7EXx7RUE42rtgO4UQuPeh5st0cRzrXE7bwBoOzF+kiMuTnbCm92hJTbA2+CArmrowgpz/2QHTgENqRkUGWkwG3Kl3eQH3mdo79Tb2a3eNBNCvgNKDZ9aYdNdTJtmdSJeF8IirwPKQ7U6rHgpwxr/vkY8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786127857; c=relaxed/simple;
-	bh=I7aVny6LONMXD9rz0vLYhTLOZVpRI6HVJeqalXIj9N8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jTGTtZuYR2hdAQaHjGDly74ho3aPC5dTYiZSQ/3qqswlDt7esU0GXV9CRqlhPCuTu/6ulAS1jg17QMVtYqUcMRSnUpKh8Oyv4aQDkjFjV46lOn8Np88GJorIcOQNMpEsv0fuoUXJSW/amThA8kR+BjbEnjAiiwCHZ4zEyFJsH0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlnXJUSv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786128004; c=relaxed/simple;
+	bh=1SEKdE0RgioBJ5zpkpaMdX+EPmtIBFWXGqn5hAStrlI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WlirsFqjQDRAFMuEFR148/YNltOpeSWAlA026qtYf1mb2c37Pf3gbyxrBgRWe4SRvDFEOvpPCbaMhtnB/KAQ4JK0dSKqJ1MxmPK7EnNIaHz95G8qk4+ljoXEik5Xdg/JXrerN1VSGeVnqLtBooMlofnNczG68dGLgREXbQv76ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=XuJ4tXkf; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlnXJUSv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FDC01F00A3D;
-	Fri,  7 Aug 2026 18:37:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786127850;
-	bh=wEpLVx9G545MvfYyTMse3uO5fajmPs0fSoUMoqhuTCg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dlnXJUSv+g2wg/hOr8KYcqE8cvY4aR0u+lKDzQuNI81a26beLa9j/QNekDU5Q9fw8
-	 AMeE8sF6fyvU2ZSOPuwlWULNTobSVPTJ5iLfZ0UhLeRE89iqVDNmfKNDGtdJY5oIC6
-	 qdZQAwM5blUB2WqOw3aqUvRJmP8hxoqx0xPok08tQ+wa4PatYvAQhaLTrHmZyFqzVG
-	 nqKsOSPZXAHkaMWbiQvhAoXvAmlvRNiMARb8/sLHcbmXiKdcVE7SSsShNX9sYI029u
-	 ayy3/zrdMSKsM2GuktJ1OqqY8fC40EgSIUzaCn79d9Fbevfrstv88gjd4pufI3RN+Z
-	 aRPZjkBr4ikng==
-From: sashiko-bot@kernel.org
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="XuJ4tXkf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=zxRYcCKMAB9BEGfCUUNSRJUQ8AWqDioy7n/wpVpm8LY=;
+	t=1786128000; x=1787337600; b=XuJ4tXkftHOvKJnDKsUln26C/pHiehO9T+q+kM/J013EZgo
+	DhqMF3nV5/Bxjxxz4yPzknX4FU6hUb2udvH+1tD+OoxBaNawIN+KveF/LE3vffs65Caa6xzz315rz
+	5xSZY7ctxuVFOsG7Hhv6P3k4Wvi3dX3PXPdUAqDCYly8GTlJCXMm8bBX589YDdZ/jbrvJNmIH02Dq
+	l9ExJnUyDKnmlCAwxdp67HDt5K1YEJuQ48NqvaunG07JGg6PixTXOYmU63cOp0eEUSKy0ff9hMNNd
+	WKjiki9f5Fng62a0c4gC+a6iUE9qCQcrRk92gpuT8NeYJya1VjtyafwduwiKgm6A==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1wsPTu-00000008ULg-2sZj;
+	Fri, 07 Aug 2026 20:39:46 +0200
+Message-ID: <9cf8e6ee9c4c655e685708bc5660429074b18326.camel@sipsolutions.net>
 Subject: Re: [PATCH v3 1/2] wifi: mwifiex: ignore ROM regulatory hint on
  WRT3200ACM/WRT32x
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Georgi Valkov" <gvalkov@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Georgi Valkov <gvalkov@gmail.com>, briannorris@chromium.org,
+ andrew@lunn.ch, 	chunfan.chen@gmail.com
+Cc: francesco@dolcini.it, kees@kernel.org,
+ miriam.rachel.korenblit@intel.com, 	wenst@chromium.org,
+ rafael.beims@toradex.com, avraham.stern@intel.com, 
+	peddolla.reddy@oss.qualcomm.com, error27@gmail.com,
+ s.kerkmann@pengutronix.de, 	gregory.clement@bootlin.com,
+ sebastian.hesselbarth@gmail.com, robh@kernel.org, 	krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 07 Aug 2026 20:39:44 +0200
 In-Reply-To: <20260807182124.41572-1-gvalkov@gmail.com>
 References: <anWWr80yAcOQaVVS@nxpwireless-Inspiron-14-Plus-7440>
- <20260807182124.41572-1-gvalkov@gmail.com>
-Content-Type: text/plain; charset=utf-8
+	 <20260807182124.41572-1-gvalkov@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 18:37:29 +0000
-Message-Id: <20260807183730.4FDC01F00A3D@smtp.kernel.org>
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-malware-bazaar: not-scanned
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] A vendor/device-specific workaround property (`marvell,ignore-re=
-gulatory-hint`) is incorrectly read from the global root device tree node (=
-`of_root`) rather than the device's own OF node. Device Tree must correctly=
- model hardware topology by placing device-specific properties in the node =
-representing that physical device. Placing a vendor-specific property in th=
-e root node applies it globally to the entire system. If a system contains =
-multiple Marvell Wi-Fi adapters (e.g., one built-in and one plugged in via =
-USB or PCIe) and only one requires the regulatory hint to be ignored, this =
-global flag will incorrectly apply the quirk to all of them. The driver sho=
-uld read this property from its own device node (e.g., `adapter->dev->of_no=
-de` or `adapter->dt_node`).
---
-
---- Patch [1]: [PATCH v3 1/2] wifi: mwifiex: ignore ROM regulatory hint on =
-WRT3200ACM/WRT32x ---
-commit 3a34f3fd7103c1109fdfbb027f11821961b37978
-Author: Georgi Valkov <gvalkov@gmail.com>
-
-wifi: mwifiex: ignore ROM regulatory hint on WRT3200ACM/WRT32x
-
-This commit introduces a device-tree flag to allow affected platforms to
-ignore incorrect regulatory hints hardcoded in the mwifiex ROM. This enables
-userspace to set the correct platform regulatory domain and prevents extreme
-restrictions on 5 GHz and DFS channels.
-
-[1] https://github.com/kaloz/mwlwifi/issues/173#issuecomment-307879699
-[2] https://github.com/openwrt/openwrt/issues/9956
-
-> diff --git a/drivers/net/wireless/marvell/mwifiex/cfg80211.c b/drivers/ne=
-t/wireless/marvell/mwifiex/cfg80211.c
-> --- a/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-> +++ b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-> @@ -4899,7 +4899,14 @@ int mwifiex_register_cfg80211(struct mwifiex_adapt=
-er *adapter)
->  				country_code =3D
->  					mwifiex_11d_code_2_region(
->  						adapter->region_code);
-> +
+On Fri, 2026-08-07 at 21:21 +0300, Georgi Valkov wrote:
+>=20
 > +				/* Allow platforms to ignore an incorrect
 > +				 * regulatory hint from ROM, so userspace
 > +				 * can set the correct regulatory domain.
@@ -92,25 +70,8 @@ er *adapter)
 >  				if (country_code &&
 > +				    !of_property_read_bool(of_root,
 > +							   "marvell,ignore-regulatory-hint") &&
-
-[Severity: Medium]
-Is it intentional to read the device-specific property from the global of_r=
-oot
-node rather than the adapter's own device node (e.g., adapter->dev->of_node
-or adapter->dt_node)?
-
-If a system contains multiple Marvell Wi-Fi adapters and only one requires
-this workaround, reading from the root node will globally apply the quirk to
-all adapters in the system.
-
-Would it be better to adhere to device tree architectural principles by
-placing and reading this property in the node representing the specific
-physical device?
-
 >  				    regulatory_hint(wiphy, country_code))
->  					mwifiex_dbg(priv->adapter, ERROR,
->  						    "regulatory_hint() failed\n");
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807182124.4157=
-2-1-gvalkov@gmail.com?part=3D1
+You're supposed to always update bindings first, no?
+
+johannes
