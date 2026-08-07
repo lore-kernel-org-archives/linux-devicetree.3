@@ -1,141 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E814A39BFED
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6EC43B3F9
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786133588; cv=none; b=ESBhc9p5QdSG8jbnM7Rrn4dE8c/X4XIuIsVJryO/Q3HzFleoRxAhP4XX59ONau5MW2/obbgbfJuWoFxdzQOiFnzWW4Eb8p+LyPCZNPS/zOYCcSa4dKIKLbRnVRsyJoEbzYaOk3HQxKxVAlI1XjoY+/4x4+bnI45Miyb/95s6mWQ=
+	t=1786133747; cv=none; b=AhnuuYPRlvnK15VFqj3PNsEd8BoX8qLmY3rM969cz3KVQZJaJwq1KXco/wbIDA789o/X6Vc7DMLW4/hOLMJmsTxO1RfPXcgA0GUdFVh/Lr2iJBTDuOXFY3ZQitYA0KQJHbbKuY/8AZmyE8/5cL4zkvmGR69G7N+iCvrdEmj88Vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786133588; c=relaxed/simple;
-	bh=g28zuEAj8HMzxNeTufbG9BGFaqf826esY8ybIyePxDg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Tsgy+fspJeOH/kGvQGUM3NEaxID0ws7QkSIL/ItFswIoNPJPM1FQ1aOq3ad01pVmRuUag60o6K6mBWXCEPNBl2gwJ1b/w9iRuHm/bbXcFQUl8gFuUDrS8Eg2RRKVuGJngjXY0Jh8HisCWqqooEG81Ncy+SZrOzlbKdvSVMZq/ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWsBVjQO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786133747; c=relaxed/simple;
+	bh=YSXzr2qDW6IB6pgbTnr7HMKxhYbfWr6lHnHoebLKAbg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FbHBG5O98/OO70apo4yECQlwfxDox6VZCKGdYPBs+Vpx7P9Pgfil94iJiOgn34KaFyO15XiL5mqeA58FvwOS2p14f4dc+XsZ2n6Vndm5G2z4COh+hV2iAcyEg+iaLqsXsW/me15X/aguRXP7O8xwm4zokWbQdQQOTkxswuwQcfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=LP2e9MyI; arc=none smtp.client-ip=209.85.210.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWsBVjQO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584FA1F000E9;
-	Fri,  7 Aug 2026 20:13:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786133586;
-	bh=2GHSzTqMi6iUKqwlzQOMSK32YoveGEr45PaTiD3Zl1s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BWsBVjQOQINr2TcHfyigfsbsU8skJ0BCBBfcJD2ixNldaUg+kp7D1kRZZa4XdL2S+
-	 Wi0lkHRkpGlcO/Zls7OdenMPMyobaYYwBMtIy/8LFGI3e0UwShIm4VS7uxuTZKWyzK
-	 6qOnLG5+C2e5uW45PYry/l7yh5D4dfAUHJM1kU67XuyQXpD/cGrBXRiM3tGuM4onNM
-	 iWH6YO65N0c55MTv/6hrnGg726yr/ELRm2HW6iop4B8BvGhCv5lG/ivLS5OqMWxN3a
-	 fDSXAsRknMuF8ywFyys7bDW57m0qPVbqL46cmgMjG979fdAhD/J76qbFuZqvfKisDR
-	 QhLHyqqr+l4xA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/3] mmc: core: Honor keep-power-in-suspend and
- reset-card-at-resume for (e)MMC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kamal Dasu" <kamal.dasu@broadcom.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260807200121.2590202-4-kamal.dasu@broadcom.com>
-References: <20260807200121.2590202-1-kamal.dasu@broadcom.com>
- <20260807200121.2590202-4-kamal.dasu@broadcom.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 20:13:05 +0000
-Message-Id: <20260807201306.584FA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="LP2e9MyI"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7e9d7464b71so1782130a34.0
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:15:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786133743; x=1786738543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dpeDkCyTn5YS50r2G03VKYqbjFd7CkwFCzk1kWY72VM=;
+        b=LP2e9MyIGG9nIRSUYbrHL05AL8B+ihkTQHqRYm4pSn/5HiQRi7vAnJUIi5FBQQ8NY5
+         dc1S95cB+q+V3BJI0v8FkFPUcyAYeLOLMRpyyqrTAvhOqi3WPtz38FH8IyfS07gHQEZX
+         /XmJLPDBYRr6UHERnJAve+nRV6e2l2eUt9nkJNjYDfo9QjVkpc0YHIGR/Y4fG1T8CPMl
+         PWul1Ux3wvHzEqDgxHpBIfAuTjkm3HnwtLefYB+L5ZnjMyCxTiCKHkVM+Pdq8z2oELhk
+         ydNvw+WUiwhh5UDmL0PFO8+bJs0O/XXuX7fo3XXxj6SDq15YV5d+t+xLoeDlLn+AtcSz
+         lrBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786133743; x=1786738543;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dpeDkCyTn5YS50r2G03VKYqbjFd7CkwFCzk1kWY72VM=;
+        b=AVbKx3zAhLtiCmopUs0YfOss6t4Nw7Q4mbjGn2jXYso29qOIDk/os6YImf7UFWnYyk
+         BLnwwG3ChLeLEl/3ZO7eDTcyziojslaDc/RaYqi2fDP7LFUMauIpylUjxSWK3/LleAFW
+         p4vf8mt2jpokRDYV3q3ynXX27oq2PZzZ/qw9ktrFbZNkVdfyGQA0Ia8JMVnR1IQotu8E
+         fanU/6pvDLA540J7at05c63rkpfFt4bMvPIyASXB5jlZF1GARChouy54Hn7VDVSB9SFt
+         x/VpBcgsZo2EJTbkoJy4YzIi5K7QpFzdi3TJ7a90HyoB1h6HdmBQbPkW0BsB2mEN1rhb
+         uZWQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqLhXibaSvah2E6kS1A9zofNLwJXFiOhmK/NFT74F310Z0br6I0xSRlctQtxFXSl/U+OQTBrTJcY2JZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxzhPyJPDwitlzIWf42pMazlx45Uo2pdPGNXQ9tv1Vk5ToTYYS4
+	+vLKPCWtqQwZ+va4qMD8O/+FQIDAZNyENr1OgSpfvTcCZC6XYCxzkmkQhkn63mJ1VdQ=
+X-Gm-Gg: AR+sD11skzEfHHrsn0/KRVF5NciauW5haHmExl+coKZsKJTPw0fG6GUxdoxRuwm76D0
+	OUq638vHYLtWo+kqbciWPvHojIEdnql669h92G2nmVg9jiOjbVhOKnVo8zIIqAeSA6QTWPq3wB+
+	lx1fPBP2C8E3dgdMC/HQUu7ootAEP9u6vBZbLjRddXwyyawKrLJH4X0ZjPb5F6w7MyjFc6dGhwl
+	e2tSLvNw/BwYg8+WlSgv3v02hAl2mkJjD4SDomuJ39o7MijMyWmjC+FGqoLynh0LluN7D2k8BxX
+	mFTWmqV2hauutxUY23/QZ7BWpJOVAM3Fr0+F3Ftr5k7KmuzazIJ0o8xk+MG/a7kFkWu2XyaRZFH
+	8LTSuakc9jXUBv6smWMRbWGCRQ3uew2tO0JPwojn3RFr0dcanPXWmNpXPQje9YnX+tKtTHUfUV3
+	eNdQ1Ji3pa5g0hvNWUJD8ByrDnlAyg8/rFbanb4FPBHtAph0VxjCn16cD+2vU1CU3+UfNAQ8PRX
+	oJyNq5w6ZiSNfodgctKQksbHkLmmwxnpe6F
+X-Received: by 2002:a05:6830:828e:b0:7dc:c4ae:a689 with SMTP id 46e09a7af769-7f1e5c13d47mr17747832a34.2.1786133743641;
+        Fri, 07 Aug 2026 13:15:43 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:b714:88c:313d:dee2? ([2600:8803:e7e4:500:b714:88c:313d:dee2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f35b76ff90sm1889573a34.17.2026.08.07.13.15.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Aug 2026 13:15:43 -0700 (PDT)
+Message-ID: <3b0e2254-7806-4828-876a-0faa6e9d7029@baylibre.com>
+Date: Fri, 7 Aug 2026 15:15:42 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: ti,ads112c04: Add binding
+ for ADS112C04
+To: "Rob Herring (Arm)" <robh@kernel.org>,
+ Kyle Hsieh <kylehsieh1995@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Mark Brown <broonie@kernel.org>,
+ Andy Shevchenko <andy@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org
+References: <20260805-ti-ads112c04-driver-v3-0-49f436829e01@gmail.com>
+ <20260805-ti-ads112c04-driver-v3-1-49f436829e01@gmail.com>
+ <178591106730.3177648.16689407752813401069.robh@kernel.org>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <178591106730.3177648.16689407752813401069.robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The shutdown/undervoltage fallback path in _mmc_suspend attempts t=
-o reselect a firmware-clobbered card without resetting the host controller,=
- guaranteeing a selection failure that silently skips the required power-of=
-f.
---
+On 8/5/26 1:24 AM, Rob Herring (Arm) wrote:
+> 
+> On Wed, 05 Aug 2026 13:38:20 +0800, Kyle Hsieh wrote:
+>> Add device tree binding documentation for Texas Instruments ADS112C04
+>> I2C Analog-to-Digital Converters.
+>>
+>> These devices provide 4-channel, 16-bit delta-sigma ADCs with an I2C
+>> interface, programmable gain amplifier (PGA), and data-ready (DRDY)
+>> interrupt output.
+>>
+>> The binding uses child nodes to dynamically define the connected
+>> single-ended or differential channels.
+>>
+>> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+>> ---
+>>  .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 146 +++++++++++++++++++++
+>>  1 file changed, 146 insertions(+)
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
+> 
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml: excitation-channels: missing type definition
 
---- Patch [3]: [PATCH v8 3/3] mmc: core: Honor keep-power-in-suspend and re=
-set-card-at-resume for (e)MMC ---
-commit 035aca0a123c885d88b4aa6c2a934f57e12bf03c
-Author: Kamal Dasu <kamal.dasu@broadcom.com>
+I think this is just because base-commit: in the cover letter is wrong.
+It is pointing to something shortly after v7.2-rc4.
 
-mmc: core: Honor keep-power-in-suspend and reset-card-at-resume for (e)MMC
+Make sure that it comes from a branch that includes the required
+prerequisites. So either iio/togreg or linux-next.
 
-This commit adds support for keep-power-in-suspend and reset-card-at-resume
-for (e)MMC devices. It keeps the card powered during suspend so firmware can
-access it, and resets the card when the kernel resumes. It also adjusts
-_mmc_suspend() to handle shutdown and undervoltage cases when the card is
-already in the keep-power suspended state.
+> 
+> doc reference errors (make refcheckdocs):
+> 
+> See https://patchwork.kernel.org/project/devicetree/patch/20260805-ti-ads112c04-driver-v3-1-49f436829e01@gmail.com
+> 
+> The base for the series is generally the latest rc1. A different dependency
+> should be noted in *this* patch.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your schema.
+> 
 
-Link: https://lore.kernel.org/r/20260413180551.3683969-1-florian.fainelli@b=
-roadcom.com/
-
-> diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-> index 05444ecf3909f..a081907bbcf53 100644
-> --- a/drivers/mmc/core/mmc.c
-> +++ b/drivers/mmc/core/mmc.c
-
-[ ... ]
-
-> @@ -2144,8 +2144,28 @@ static int _mmc_suspend(struct mmc_host *host, enu=
-m mmc_poweroff_type pm_type)
-> =20
->  	mmc_claim_host(host);
-> =20
-> -	if (mmc_card_suspended(host->card))
-> -		goto out;
-> +	if (mmc_card_suspended(host->card)) {
-> +		/*
-> +		 * Nothing to do for a redundant suspend call. Otherwise, the
-> +		 * card can only still be marked suspended here because the
-> +		 * keep-power fast path below left it powered and merely
-> +		 * deselected -- reselect it and continue into the normal
-> +		 * power-off sequence below, since shutdown, unbind and
-> +		 * undervoltage need mmc_power_off() regardless of how the
-> +		 * card got here.
-> +		 */
-> +		if (pm_type =3D=3D MMC_POWEROFF_SUSPEND ||
-> +		    !(host->pm_flags & MMC_PM_KEEP_POWER))
-> +			goto out;
-> +
-> +		if (!mmc_host_is_spi(host)) {
-> +			err =3D mmc_select_card(host->card);
-> +			if (err)
-> +				goto out;
-
-[Severity: High]
-Since the firmware might have modified the card state during suspend
-(which is why reset-card-at-resume is used), will mmc_select_card() fail
-here if we haven't reset the host and re-initialized the card first?
-
-If mmc_select_card() fails (e.g. CMD7 timeout), taking the goto out
-path will completely skip the mmc_power_off() sequence. Does this leave
-the card powered on during shutdown or undervoltage, defeating the
-purpose of this fallback path?
-
-> +		}
-> +		mmc_card_clr_suspended(host->card);
-> +		host->pm_flags &=3D ~MMC_PM_KEEP_POWER;
-> +	}
-> =20
->  	/*
->  	 * For the undervoltage case, we care more about device integrity.
-> @@ -2157,6 +2177,33 @@ static int _mmc_suspend(struct mmc_host *host, enu=
-m mmc_poweroff_type pm_type)
->  			goto out;
-
-[Severity: High]
-Just below this hunk in _mmc_suspend(), the cache is flushed:
-
-	if (pm_type !=3D MMC_POWEROFF_UNDERVOLTAGE) {
-		err =3D _mmc_flush_cache(host);
-		if (err)
-			goto out;
-	}
-
-Even if mmc_select_card() were to succeed or its error were ignored,
-would _mmc_flush_cache() also fail due to the clobbered card state and
-abort the power-off sequence?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807200121.2590=
-202-1-kamal.dasu@broadcom.com?part=3D3
