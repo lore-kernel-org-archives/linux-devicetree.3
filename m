@@ -1,145 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAF7332EA2
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 14:39:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D693AC0EC
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 14:39:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113584; cv=none; b=d0iUB9n5zxY+Zfu4QVlk9abEyZ2SYnb56TrNZTIlVHHqJQo1117l/CpqzVf84GvVPPp8X9ftrnsOLxKoVZ9A1quEa/cIFsf1Fa4SM+75dwIyG9dILxecrirl62PgKNgvc//XhsCloCy/AwPYTraujmrKCbO8EBeq16x2I87HXgE=
+	t=1786113587; cv=none; b=fe6Dmh8pLKUWPTwzurjuQg0SiKSWPl1I7Azoa+3pEBuw9xQuzMM4OyAx2l+nk95rRUkkyhGYZLExYRSCrqgMcNgIGqB5hThUdl7sthPtlVGeen6rfgR9APeaNpr//Ac34t50A37gbTDRfoLTZ6ErS2F7QbVqR+/rofZG0bsLt2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113584; c=relaxed/simple;
-	bh=4TwUaZW8FUKbrWjFTdGjMeQYdjBuT8ngkwReGbPh7Mg=;
+	s=arc-20240116; t=1786113587; c=relaxed/simple;
+	bh=qEtECZ/J0Ib3WNpJqOc1ZxTp0ykkSA0NER5U0OdRbno=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bz665jZRS80kUsJEKFH3A1X8m/8wgg0osbSS0CWUAHbslwf28sDomTgZUDFiCuc1t0va8iwmrEdv1tadFq6Ejg9OZpoKqTFtxVvf1dY6R0kSlrFXQSe+HVo2aQ3E/n4bx8dBtS1/HxEqvsXQ6xLU6nPn0zo6RygMxYhkKgcgcHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGDveTXl; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=q+ivAqmoQKNVGYajg2Djr8EAa8k8NBnpRmCuyd8fUrvgO/6Ob8f0d8JCIXtz22ZhE3Q5pVt3bkhqZBSi73cFUZMU9SmFjo2HZ3l53McVeqANAdMhZD8UhHI5gjqaRQ7pvZ0ZaVd+XaylJlr+A/AFbXJE+Fi6lB/hi+wdbL+/kDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxhctqJo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGDveTXl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EBF41F00A3D;
-	Fri,  7 Aug 2026 14:39:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxhctqJo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF591F00A3F;
+	Fri,  7 Aug 2026 14:39:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786113569;
-	bh=cBRI2TyiBI/oSithU2Vo6MmTt5p2qj08reDjknq6i3I=;
+	s=k20260515; t=1786113572;
+	bh=J7EJIZDT+QZjxS7+Tew48C1xnB7yJAi5RjVRz2pSBoI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oGDveTXlotZ6W4jZrCCzBdg9lyY4qAgJXXUnkZG1fP/8TVOptAkxmuGlv5lbXP+SB
-	 5/sLDExR/CTXtNtTcGmnE+rR0ufso6mJdFCayZva0RpQ2YUOOGoi4A8ZkdLrWMiB1/
-	 kx8PhYuF+SACuBkNzzOsJJLncA51ng3yWUZ87/RGIum4ySuZsfAY96WCRod8cfZBdI
-	 oYQa4hvwrlKDDREPaIlLrxttxbPkZ550lOCWCQlwllBHILD6W3V0bPVV4XxciWX6Yd
-	 1I8TWW8FUyIu8o2tJvQrS6hXc/S9AkgPgCUWRyhorkCLMvh4E/81AptI6H4F7GBT5k
-	 Ak4NONoiWo/QQ==
+	b=mxhctqJoPOrTw21ZRwnuvJXtikM2SQCCN6UMPp0lTYXsi/ycwo/peUztT/t3q12vY
+	 j352FQDC3jwa/1T4IOxyngpKpMhFXrspljUUZbiWJzL2i1pLBvZw6EaIlp0qIQd7/0
+	 wGk9WiZ15UKN3IUvMQQJgqvByRJp8jAtbSQUxZc+CW5T3KjrEDlRzgSm90rbHi3Y82
+	 5tNlIJQw/QruAL1fQ8i9BHXHWpX/yuWi2FWQxtnCLNHYGt7JCOu+QJC7iAIfXfhee5
+	 ghbaQToS4bAVDalIPm5S6Chxk3f6N0mKAlFSWpabIGdqOL/XRHSHZc69LYm1BAu2M/
+	 nOlrN/lUBBZZg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 06/10] block: implement NVMEM provider
+Subject: Re: [PATCH v10 04/10] nvmem: layouts: Support fixed-layout as the
+ nvmem device node itself
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260806-block-as-nvmem-v10-6-be598b2a5606@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260806-block-as-nvmem-v10-4-be598b2a5606@oss.qualcomm.com>
 References: <20260806-block-as-nvmem-v10-0-be598b2a5606@oss.qualcomm.com>
- <20260806-block-as-nvmem-v10-6-be598b2a5606@oss.qualcomm.com>
+ <20260806-block-as-nvmem-v10-4-be598b2a5606@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 14:39:29 +0000
-Message-Id: <20260807143929.8EBF41F00A3D@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 14:39:31 +0000
+Message-Id: <20260807143931.ECF591F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Registering an NVMEM device for a partition deadlocks on `disk->op=
-en_mutex` if the NVMEM layout driver reads data during probe.
-- [High] ABBA deadlock between `disk->open_mutex` and `kernfs` active refer=
-ence during NVMEM sysfs read and partition deletion.
-- [High] Using `fput()` instead of `bdev_fput()` defers yielding the block =
-device's exclusive claim, causing spurious `-EBUSY` errors.
+- [High] A device tree updated to explicitly mark a legacy NVMEM provider w=
+ith `compatible =3D "fixed-layout"` will cause duplicate cell registration =
+and fail the driver probe.
 --
 
---- Patch [6]: [PATCH v10 06/10] block: implement NVMEM provider ---
-commit d9c54a3ae2929addc2c718f29f9c8b9fa41ca7c3
+--- Patch [4]: [PATCH v10 04/10] nvmem: layouts: Support fixed-layout as th=
+e nvmem device node itself ---
+commit d0f87955eb48c0cfb8be42e6d6cfadf192c1f792
 Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-block: implement NVMEM provider
-   =20
-On embedded devices using an eMMC it is common that one or more partitions
-on the eMMC are used to store MAC addresses and Wi-Fi calibration EEPROM
-data. Allow referencing the partition in device tree for the kernel and
-Wi-Fi drivers accessing it via the NVMEM layer.
+nvmem: layouts: Support fixed-layout as the nvmem device node itself
 
-> diff --git a/block/blk-nvmem.c b/block/blk-nvmem.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/block/blk-nvmem.c
-[ ... ]
-> @@ -0,0 +1,112 @@
-> +static int blk_nvmem_reg_read(void *priv, unsigned int from,
-> +			      void *val, size_t bytes)
-> +{
-[ ... ]
-> +	if (file_bdev(bdev_file) !=3D bdev) {
-> +		fput(bdev_file);
-> +		return -ENODEV;
-> +	}
-> +
-> +	ret =3D kernel_read(bdev_file, val, bytes, &pos);
-> +	fput(bdev_file);
+The commit modifies of_nvmem_layout_get_container() to fall back to returni=
+ng
+the nvmem device node itself if it's compatible with "fixed-layout". This
+allows cell parsing for providers whose DT node is the fixed-layout contain=
+er
+directly.
 
-[Severity: High]
-Since this opens the block device with BLK_OPEN_EXCL, will using fput()
-instead of bdev_fput() defer yielding the exclusive claim?
-
-Calling fput() defers the file release callback to an asynchronous task_work
-or delayed_fput workqueue. Could this cause other system services like mount
-or blkid to spuriously fail with -EBUSY while waiting for the deferred
-release?
-
-> diff --git a/block/partitions/core.c b/block/partitions/core.c
-> index eee954df1ac6e..c83227710584a 100644
-> --- a/block/partitions/core.c
-> +++ b/block/partitions/core.c
-> @@ -289,6 +289,8 @@ void drop_partition(struct block_device *part)
->  	xa_erase(&part->bd_disk->part_tbl, bdev_partno(part));
->  	kobject_put(part->bd_holder_dir);
+> diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
+> index b90584e1b99ea..efa631ce7283b 100644
+> --- a/drivers/nvmem/layouts.c
+> +++ b/drivers/nvmem/layouts.c
+> @@ -167,7 +167,18 @@ static int nvmem_layout_bus_populate(struct nvmem_de=
+vice *nvmem,
 > =20
-> +	blk_nvmem_del(part);
-
-[Severity: High]
-Is there a potential ABBA deadlock here between disk->open_mutex and the
-kernfs active reference?
-
-If a user reads the NVMEM sysfs attribute, the read acquires a kernfs active
-reference and calls blk_nvmem_reg_read(), which then blocks waiting on
-disk->open_mutex.
-
-Concurrently, if the partition is being removed, the teardown path in
-__del_gendisk() holds disk->open_mutex and calls drop_partition(). This
-calls blk_nvmem_del() and unregisters the NVMEM device. Device
-unregistration removes sysfs attributes and invokes kernfs_drain(), which
-will wait indefinitely for the kernfs active reference held by the read.
-
->  	device_del(&part->bd_device);
->  	put_device(&part->bd_device);
->  }
-[ ... ]
-> @@ -406,6 +408,9 @@ static struct block_device *add_partition(struct gend=
-isk *disk, int partno,
->  	/* suppress uevent if the disk suppresses it */
->  	if (!dev_get_uevent_suppress(ddev))
->  		kobject_uevent(&pdev->kobj, KOBJ_ADD);
+>  struct device_node *of_nvmem_layout_get_container(struct nvmem_device *n=
+vmem)
+>  {
+> -	return of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
+> +	struct device_node *np;
 > +
-> +	blk_nvmem_add(bdev);
+> +	/* Search for nvmem-layout child */
+> +	np =3D of_get_child_by_name(nvmem->dev.of_node, "nvmem-layout");
+> +	if (np)
+> +		return np;
+> +
+> +	/* The nvmem of_node is itself a fixed-layout node */
+> +	if (of_device_is_compatible(nvmem->dev.of_node, "fixed-layout"))
+> +		return of_node_get(nvmem->dev.of_node);
 
 [Severity: High]
-Will this cause a recursive deadlock on disk->open_mutex if the NVMEM
-layout driver reads data during probe?
+Does this new logic allow a legacy provider's device node to be returned as=
+ a
+fixed-layout container and parsed a second time?
 
-The add_partition() function holds disk->open_mutex while executing. If the
-partition has an nvmem-layout, nvmem_register() will synchronously probe
-the layout driver.
+If a device tree author updates a legacy NVMEM provider node (where the dri=
+ver
+sets config->add_legacy_fixed_of_cells =3D true) to explicitly include the
+"fixed-layout" compatible property, nvmem_register() will parse it twice:
 
-If the layout driver reads the partition data via nvmem_device_read(), it
-triggers blk_nvmem_reg_read(). This function calls bdev_file_open_by_dev(),
-which attempts to acquire the exact same disk->open_mutex.
+drivers/nvmem/core.c:nvmem_register() {
+    ...
+	if (config->add_legacy_fixed_of_cells) {
+		rval =3D nvmem_add_cells_from_legacy_of(nvmem);
+		if (rval)
+			goto err_remove_cells;
+	}
+
+	rval =3D nvmem_add_cells_from_fixed_layout(nvmem);
+	if (rval)
+		goto err_remove_cells;
+    ...
+}
+
+Because nvmem_add_one_cell() does not check for duplicates, identical cells
+will be appended, causing nvmem_populate_sysfs_cells() to fail with -EEXIST
+and cleanly abort the driver probe.
+
+> +
+> +	return NULL;
+>  }
+>  EXPORT_SYMBOL_GPL(of_nvmem_layout_get_container);
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-block-as-n=
-vmem-v10-0-be598b2a5606@oss.qualcomm.com?part=3D6
+vmem-v10-0-be598b2a5606@oss.qualcomm.com?part=3D4
