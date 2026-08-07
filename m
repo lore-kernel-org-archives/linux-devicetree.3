@@ -1,130 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB7C41B8D5;
-	Fri,  7 Aug 2026 08:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F8546D0BC
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786091270; cv=none; b=RnVDHWN4oCw4YskZi7vQtMs0jUWwvFm45WQFRgLVcDqNflvtJqlllAkkbTAWXCddLQT+7kA5pC6WEEGlCOjsJxA3JR/URdZ0URmu9vQPbLEyKte7weigsj6zdU+pXRupGJ49ITswxmsjE2AoMNRPIqKpli84IUsGQuqcsAAUFI0=
+	t=1786091281; cv=none; b=tTsWBA37lntEdvpKOs41zY0ugLeqCqfjkQKi7pAslXIGD7orcp25RjOh3oI9CCsSl4c4DArDYcw+tRRdcVqqvnpyYCIL7Kc66EiBlG6GCXXRuw+nRvYOxyeylHYquix4qk1HmgYt8VcidDJwcv5BIzjQLIeT2Ml4Aus7++d8QZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786091270; c=relaxed/simple;
-	bh=VRqn+ZdGRPNIoqPKHs9GxWp57X6agcGfQuRuUMoRylE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H2iftP7a6uf1+VcHcgiY87dTXcavoi5Ga7kEwUcNoDY8+/2eTolaAkMK8CXpUXoJ9Nmnemsj+uLidx13Ox1NxaVlvNV4puWhLdcBUe1jeOgw9YWKNjCLX9XxGzJuOpkGIX1gKGyH0R4SE+iWeAGMr0Mw5r5x5Ggv/fM5Ecbev+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ftGQOECh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786091281; c=relaxed/simple;
+	bh=KqGUHd3qFik/3HYQ+hBPtHvoV8YV+aNNOJstuZvGbAo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nvwXMjZyanfAt1E7gnMT683s7L45k3RhIjO5Zuk5Xx9nbnuBUEoTECuL6jSa7q+y0Z71vuXZUDLrdyIxFLhxnFw9xvf4m6zWe9U4dVFZtBkFkzw6BSIR3WEoB7m+3SdLU5RC9txn+aNfWxdUWGJ9J4eXTg/VpeXAT0ayg7xenM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Z4AsWTVf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Wh0XZsL4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ftGQOECh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CB31F000E9;
-	Fri,  7 Aug 2026 08:27:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786091268;
-	bh=C1QM1qAo1sy8ykyFpPsdL5HzsG0iz1Roo9oXcGPvolw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ftGQOECh5taTCazX5uyeACLVYqXfe7HVh0N25jGINL1JyckJ2Wl6Hoh2/ee3we1+w
-	 Ep4HgPs2pzP9eC2aYI3l4AO13ULjAlvYatU54GOwzfDjTF+5YyY/QXBZRVk8MteIXO
-	 ykdOsMVELQf1fJM/D6uCxy4xiu//61v9kNQ4yC5ANCFU4RLZqjscL9Fm43TPULpSZr
-	 3kZf1yKUPbw9PcMO4cBIdtwhKi1MXMMYn1ZAHOR9U3ArGeaAhK4qnWs1Nvf9qj8E79
-	 RzCoXouEqYrX2j2IrQL8LHV9lv+uAgwDxDp/MsEJYZz1ajQqlLJc4CRSkKeDDe9OJe
-	 ywgXcJdUKfLKw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 05/20] RISC-V: Define indirect CSR access helpers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atish Patra" <atish.patra@linux.dev>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-perf-users@vger.kernel.org
-In-Reply-To: <20260807-counter_delegation-v9-5-58658104e487@meta.com>
-References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
- <20260807-counter_delegation-v9-5-58658104e487@meta.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 08:27:47 +0000
-Message-Id: <20260807082748.18CB31F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z4AsWTVf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Wh0XZsL4"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6777xHwp3564257
+	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 08:27:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yncoaJbBZ1/xcSu1pOWqjeOKdyOuKp868TeAmEloDjA=; b=Z4AsWTVfb3o1sp37
+	whOy3CFxOcJZRMxmsPuK24cTT00xXCt0KeABvVgl5++XcJvC4Ju8GL51nUZD74db
+	tjUMpGcGEdOppfMxFXDDidETkVc01ea/xodJaQEbN1J9Rr7LNplvyP9aJzjPeY96
+	KLDHlDUUWaWwORca4J83fYJg9XNHDk/79aAAbH+nrrRH0Jt3nfJyx7WQn5ks/NTa
+	CjpTh9k/2DuVhe433zKPHsSdVDvD/sMJm6DMVlNBl0dXevAU6SpMm6LlR8VlYMw4
+	2v4WJPfV+l+r2OvtnRnD1qLFndZExbNwJobs5r1u56z86zsqoHgcBfN0ONOmpOn7
+	apydAA==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6jtwq4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 08:27:58 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c856470fe9fso2469445a12.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 01:27:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786091278; x=1786696078; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yncoaJbBZ1/xcSu1pOWqjeOKdyOuKp868TeAmEloDjA=;
+        b=Wh0XZsL4HeyVaXoGA3VkDf3lHSnEdoV5wWhDvade4qHjJNuRQ0BgUgYVnfuTyR9Cxq
+         sEHyVafwMfr0EbazHRV8dKGgPHuaMOmjO4+zKZMKa777ptAaRdnjkwLMdgznEDD1F/bD
+         XN9od7zdXNHAI64Jy/v1uFs51umGhEt/N0HnSQBL1ZufjszYMQHdXr5RkOdU35Tt1x57
+         Z2Cadp0YvkoCmbKK+IbqWmMlK9MVtHzGgmdXQRyndoobWPEMUCUhproBdHkD/P3SeDBl
+         S7zYN7gZcFDZIPesib95k3qpWcKoSX1hHJ8Sjj8OtfjElZAhaHSIkNjlPg6jC6ps75m4
+         5pcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786091278; x=1786696078;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yncoaJbBZ1/xcSu1pOWqjeOKdyOuKp868TeAmEloDjA=;
+        b=Z71R4eA8aHcYCqffxH2q/hil3S5o9y63PHCS04FVRvZuqUgMTJ9FzdofCVTB9BbwDL
+         4WBFU6sfk0/3iADcizysaX3VP4+ls4JTbKTAkWDQns4sMK4qnmKtjlXwjVSmC0Rx4Ifw
+         Q0YuTI+9dhq5rErLqGMNuF9FXKPPduT89wKWMUcvkM6q7bs1RP8EaCuL/mXzHU1y+aUi
+         y20ugWpIAWPy9BLsCbCOpphEtaSV1bpKwodtsMQ1vBpRrOAY8HgO3jPAtKATJuyJvwvV
+         AlT/4NxuIqn7usTWXgQyBv1PLxOuL/VLMxobRd2JqwhE5e+wVePs7bOFqcZ/lbd+GG4x
+         Jgtw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp1U6tY+2h12UpSqsHySDg0PQyBGosJisRBzJ4v+Ds2xPWECQ2svfhzoE7vGppipZVCzxdgpNGx1B2T@vger.kernel.org
+X-Gm-Message-State: AOJu0YzdLsy9tmrrMFpvmo6wyq2DuYJ/r0NWr9ZN1N/MLjKI4ZXJF1lx
+	7X9hG/u2UovJDib3ZaLz4DWXPhpC1EHk61CxvhQWydc/Bg1ppYV4gAJ+0RJWr9P0wGmeVJmu0Q5
+	hhpEzuKgjZ/6bntTmvkKZkMIT57fwJ3srVNrHGi965hqyE9jPah9541TLfV06km0H
+X-Gm-Gg: AR+sD11iWUE53vKbwACf6yLsYPBWnHiUYo1cwOf6gs6xJl7Nnu+Fwrfec+BAxiJAgeE
+	xEirnJKzC5yEFXOefSugZYn2py8U27TYgZvox3+x4rQUpXTMaAmKkRmaSX8B7khRMi/m5wakhow
+	mWZyAhGz+4mWlidTr2RXeCG64NO1A8NRFsV0kitgcbY/jrF/4nklDH/ZSrNmOd4OxkNdeTogqzS
+	eMZiOjOFOt+BECOFn2R1EsOcjlDk8plsMcPC7QIQUpGOhOiZS7wxjji+HSFlXredTvJcitu9l4d
+	U7Gjiw914onww8u1y3q9sLjiMVm9S+nfU32rc+Vd9ps8CvxX8t09rbdiDLYnJRKCt/9IjwlDcLj
+	kwjnb83exbvz/uSAiQI/gVUWchy6O+SynsTA=
+X-Received: by 2002:a05:6372:a70f:b0:3cb:9594:91b8 with SMTP id adf61e73a8af0-3cb9594bf77mr18102315637.35.1786091278095;
+        Fri, 07 Aug 2026 01:27:58 -0700 (PDT)
+X-Received: by 2002:a05:6372:a70f:b0:3cb:9594:91b8 with SMTP id adf61e73a8af0-3cb9594bf77mr18102282637.35.1786091277699;
+        Fri, 07 Aug 2026 01:27:57 -0700 (PDT)
+Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bec2ec20sm5377977eec.28.2026.08.07.01.27.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 01:27:57 -0700 (PDT)
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Date: Fri, 07 Aug 2026 13:54:56 +0530
+Subject: [PATCH 12/22] arm64: dts: qcom: agatti: Reserve low IOVA range for
+ Venus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260807-iris_iova_600mb_fix-v1-12-3996f67e33f9@oss.qualcomm.com>
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+In-Reply-To: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Mansur Alisha Shaik <mansur@codeaurora.org>,
+        Andy Gross <andy.gross@linaro.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Stephen Boyd <sboyd@codeaurora.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Pierre-Hugues Husson <phhusson@freebox.fr>,
+        Marc Gonzalez <mgonzalez@freebox.fr>,
+        cros-qcom-dts-watchers@chromium.org,
+        Matthias Kaehlcke <mka@chromium.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Aniket Masule <amasule@codeaurora.org>,
+        Malathi Gottam <quic_mgottam@quicinc.com>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jonathan Marek <jonathan@marek.ca>,
+        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+        Renjiang Han <quic_renjiang@quicinc.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786091113; l=1926;
+ i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
+ bh=KqGUHd3qFik/3HYQ+hBPtHvoV8YV+aNNOJstuZvGbAo=;
+ b=d9t38wsrwD1u2MRMTYxZgoEWFvw3lBqcDUx6RtJ/7BILMhKRyt+TFWAaAYdBnWnDZuNEs3Kx9
+ alsZV1UVRyGDesW2laOnhPUL1eEi6W+OFMH84VGmzdnd1uOs27rWcvL
+X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
+ pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
+X-Authority-Analysis: v=2.4 cv=Rt/16imK c=1 sm=1 tr=0 ts=6a75970e cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=GHpYZHFKExNjpo6qA40A:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfXxGl+rLXmIHZ+
+ Epapxv9YtkzlkinkNwvlnXS5YPtmsVbKY8mKZhGpbJ4JZoYHM8Tag2r1d83Y6tM8z7KtmC/+6n/
+ K3oVFPXiHV/YH/uApwOB86Pw5InWoFNnfxPW00fcUqHHV6kyeuT29l7tTGzideUrvLkfaVL3PlJ
+ L5HF2XbQAP1eL7Pnm0IMSacYYMl6sBO6d9gGas0iKZiIOR1cp7WreamcG4U9ef/qMkrkHp+iAXz
+ tuVsk7eydMi1GRwqOyHmNgKMPLfRGjx0koFyjF7/+Izz1GFz2SwU8OURDSYkflgONFx6iwYT9Nu
+ 0htB0RBSio30kd5c84wWETYqAb1Rrjopohuiri3xIwimx+Gpi+gIOYE8+o15E7TgvltJ/8sScxU
+ 2uDtoHfv0/5k86qkgaQ7YujDQeHHC6TaFOJTLXuq1wHt7hrqmu1W/qikLx09Ff6YN34K118Uhc2
+ ywcciZOgJz0NTg48GMg==
+X-Proofpoint-GUID: 1WY_7wmVEKMF4KVrWRGLnzlP2xHODE3n
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfX/kX45UBqSBGJ
+ 9CMdKzRlYeH7vdao59tDISqCg5mi7LqDR7hoxb3VMu4sM+ilmcdfTp2++5xRg2mVmOJnWMrCH2w
+ 1mm5xm5nRPihiJsUYD9NxQ9MaU82QoA=
+X-Proofpoint-ORIG-GUID: 1WY_7wmVEKMF4KVrWRGLnzlP2xHODE3n
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 lowpriorityscore=0
+ malwarescore=0 spamscore=0 phishscore=0 clxscore=1015 adultscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608070062
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The indirect CSR access macros use generic local variable names =
-(`__flags`, `__value`, `__old_val`) which can silently shadow caller argume=
-nts, leading to logic corruption and unintended hardware writes.
---
+Venus VPU reserves IOVA addresses below 0x25800000 (600MB), primarily for
+secure non-pixel buffers. DMA into that range, from any other stream id
+would triggers unhandled SMMU page faults that cause spontaneous device
+reboots. This is readily reproduced with one or more browser tabs
+driving multiple concurrent video decode streams.
 
---- Patch [5]: [PATCH v9 05/20] RISC-V: Define indirect CSR access helpers =
+Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
+and reference it from the venus node so the IOMMU layer keeps DMA
+allocations above that boundary.
+
+Fixes: 7a37bf31e3a7 ("arm64: dts: qcom: qcm2290: Add Venus video node")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 ---
-commit abb666a0789f79a51327c355784dec21386f3bf0
-Author: Atish Patra <atishp@rivosinc.com>
+ arch/arm64/boot/dts/qcom/agatti.dtsi | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-RISC-V: Define indirect CSR access helpers
+diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
+index 590bd2432d85ba80891ed42df8afa317c869daa2..6ae66ef882363a2b5b529a23429dc1f2820b2086 100644
+--- a/arch/arm64/boot/dts/qcom/agatti.dtsi
++++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+@@ -381,6 +381,17 @@ rmtfs_mem: memory@89b01000 {
+ 			qcom,client-id = <1>;
+ 			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA QCOM_SCM_VMID_NAV>;
+ 		};
++
++		/*
++		 * The Venus VPU reserves IOVA below 0x25800000 (600MB),
++		 * primarily for non-pixel buffers using different Stream IDs.
++		 * DMA into that range triggers unhandled SMMU faults and
++		 * spontaneous reboots, so reserve it to keep IOMMU
++		 * allocations above this boundary.
++		 */
++		venus_iova: venus-iova {
++			iommu-addresses = <&venus 0x0 0x0 0x0 0x25800000>;
++		};
+ 	};
+ 
+ 	smp2p-adsp {
+@@ -2486,7 +2497,7 @@ venus: video-codec@5a00000 {
+ 				      "vcodec0_core",
+ 				      "vcodec0_bus";
+ 
+-			memory-region = <&pil_video_mem>;
++			memory-region = <&pil_video_mem>, <&venus_iova>;
+ 			iommus = <&apps_smmu 0x860 0x0>,
+ 				 <&apps_smmu 0x880 0x0>;
+ 
 
-The indirect CSR requires multiple instructions to read/write CSR. Add a few
-helper macros for ease of usage.
+-- 
+2.34.1
 
-Link: https://patch.msgid.link/20260701-counter_delegation-v8-5-7909f863a64=
-5@meta.com
-
-> diff --git a/arch/riscv/include/asm/csr_indirect.h b/arch/riscv/include/a=
-sm/csr_indirect.h
-> new file mode 100644
-> index 0000000000000..0f558fac8f5f7
-> --- /dev/null
-> +++ b/arch/riscv/include/asm/csr_indirect.h
-[ ... ]
-> +#define csr_indirect_read(iregcsr, iselbase, iseloff) ({		\
-> +	unsigned long __value =3D 0;				\
-> +	unsigned long __flags;					\
-
-[Severity: Medium]
-Could these generic local variable names silently shadow caller arguments?
-
-If a caller passes an expression using __flags or __value for iselbase or
-iseloff, the macro's local variables will shadow them, potentially causing
-the macro to use unintended values.
-
-> +	local_irq_save(__flags);				\
-> +	csr_write(CSR_ISELECT, (iselbase) + (iseloff));		\
-> +	__value =3D csr_read(iregcsr);				\
-> +	local_irq_restore(__flags);				\
-> +	__value;						\
-> +})
-> +
-> +#define csr_indirect_write(iregcsr, iselbase, iseloff, value) ({	\
-> +	unsigned long __flags;					\
-
-[Severity: Medium]
-Can this local __flags variable shadow the value argument if the caller
-passes a variable named __flags?
-
-If a caller executes csr_indirect_write(reg, base, off, __flags), the macro
-would evaluate (value) using its own __flags variable (which holds the saved
-IRQ state) instead of the caller's value. This would write the IRQ state to
-the hardware CSR, potentially corrupting the CPU state.
-
-> +	local_irq_save(__flags);				\
-> +	csr_write(CSR_ISELECT, (iselbase) + (iseloff));		\
-> +	csr_write(iregcsr, (value));				\
-> +	local_irq_restore(__flags);				\
-> +})
-> +
-> +#define csr_indirect_warl(iregcsr, iselbase, iseloff, warl_val) ({	\
-> +	unsigned long __old_val =3D 0, __value =3D 0;		\
-> +	unsigned long __flags;					\
-
-[Severity: Medium]
-Similar to the other macros, do these generic local variable names risk
-shadowing the warl_val, iselbase, or iseloff arguments?
-
-> +	local_irq_save(__flags);				\
-> +	csr_write(CSR_ISELECT, (iselbase) + (iseloff));		\
-> +	__old_val =3D csr_read(iregcsr);				\
-> +	csr_write(iregcsr, (warl_val));				\
-> +	__value =3D csr_read(iregcsr);				\
-> +	csr_write(iregcsr, __old_val);				\
-> +	local_irq_restore(__flags);				\
-> +	__value;						\
-> +})
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-counter_de=
-legation-v9-0-58658104e487@meta.com?part=3D5
