@@ -1,25 +1,25 @@
-Received: from out-93wp-a49.jellyfish.systems (out-93wp-a49.jellyfish.systems [104.207.68.49])
+Received: from out-93wp-a30.jellyfish.systems (out-93wp-a30.jellyfish.systems [104.207.68.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E36315D43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9392381B1C
 	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 02:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.207.68.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.207.68.30
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786069006; cv=none; b=hZCNDZlG/o7u0ChIl+sPi23rfUxrPONNwuIKLIzfYk4IgZyFH7YXWL3IFdOPveVDJJUhdggGD4H7IBvKFhe16iDMbv+fhCroySq59gZMrfMD+8itCAgFa6NJUA+PsnMQvBZR9aYt5ezg2yFepx8RZ6ciX2fUYqDGnEuAEmsvTss=
+	t=1786069007; cv=none; b=VzQU3PKDvRr86w+Y2pWAEItCS80z7stC/QfZIZx35Hq2AGP9GPV/+66isG/qkFlWeSL6p+3dgmyGq3gWc46OihHVlA0VOra2aoJwLL786PezHBK2uOfJBf0j8S10u5c1RDJQeu4QFr1kg0L0hX3sqZZ43nr0h/XHmf54+OBP9ys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786069006; c=relaxed/simple;
-	bh=iWXX5PxMaP04ryNNbWmVZPaipmdXKPbm4deuqIMkQaA=;
+	s=arc-20240116; t=1786069007; c=relaxed/simple;
+	bh=hpay0Z4iP5WI8jafOAYJU7/3eg/US0fygLBZi8IsOVI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d5r1mRD/gKO+UypsSuL8SL/VIw5WN/qHvXIlCoMCp0pyx4acjucf7xXKlt2fQZZ2vkfX4NbFXEaQyOkrCGCglBnHwa8pAtOqcwyUg0VAR/LqO0MryX73uEwcFNhaapVV3IRnMGksjTh9+i9RztSijU9VHHmilCSWFvOFut0DmDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=104.207.68.49
+	 MIME-Version; b=dZaOBa5rOC/LmX048YBsnYYEjhjHCo8R/yD3GyF8OmaqojMRvX7pdxio49rB+nKRL6HhRGqUFUkkooJsYbbZbLJ/V+pRwtKED0CYCkXoOa8g06+wnTzX9uZHHe1omSjhzuaMxzju+Guaw0+GRs5CyfzQfTOW42Yl70B8Ge2Pkm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=104.207.68.30
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
 Received: from mail.privateemail.com (unknown [87.215.145.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hGSLB1zxwz2x99;
-	Fri, 07 Aug 2026 02:10:58 +0000 (UTC)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hGSLS68Qtz2x9B;
+	Fri, 07 Aug 2026 02:11:12 +0000 (UTC)
 From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 To: David Heidelberg <david@ixit.cz>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
@@ -42,9 +42,9 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	netdev@vger.kernel.org,
 	oe-linux-nfc@lists.linux.dev,
 	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Subject: [PATCH v4 3/6] dt-bindings: net: nfc: samsung,s3fwrn5: add the S3NRN4V
-Date: Fri,  7 Aug 2026 04:09:58 +0200
-Message-ID: <20260807021001.239389-4-jorijnvdgraaf@catcrafts.net>
+Subject: [PATCH v4 6/6] arm64: dts: qcom: milos-fairphone-fp6: Add NFC
+Date: Fri,  7 Aug 2026 04:10:01 +0200
+Message-ID: <20260807021001.239389-7-jorijnvdgraaf@catcrafts.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
 References: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
@@ -57,80 +57,80 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-The S3NRN4V is a later part in the Samsung NCI NFC controller line
-this binding documents, found e.g. on the Fairphone 6 (SM7635). Its
-host interface is NCI over I2C like the S3FWRN5, but it is not
-compatible with any of the existing parts, so no fallback compatible
-applies: its bootloader reports a hardware version none of the
-existing parts use, and its RF configuration is loaded through a
-different proprietary command set.
+Add the Samsung S3NRN4V NCI NFC controller on i2c1. Its XI clock comes
+from the PMK7635 CLK7_LN buffer (RPMH_LN_BB_CLK2), and the reference is
+load-bearing: with no clocks reference at all the chip polls but never
+activates a tag, while a held rpmh clock vote lets it read (verified on
+hardware).
 
-Also document the PVDD supply, the externally switched rail powering
-the controller (boards feed it from a PMIC LDO). It is required for the
-new device; deployed DTs for the existing parts never described a
-supply, so for those it stays optional.
+PVDD is fed from PM7550 LDO20, the rail the downstream driver switches
+for this chip.
+
+The enable line is routed to the chip's power-down input. The driver
+drives its "en" descriptor to logical 1 to hold the chip powered down,
+and on this board the chip is off while the pin is physically high, so
+the line is GPIO_ACTIVE_HIGH. The pin is pulled up so the chip stays
+off while the line is not driven.
 
 Assisted-by: Claude:claude-opus-4-8
 Assisted-by: Claude:claude-fable-5
 Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 ---
-Conor's Acked-by, given on v2 and carried into v3, is dropped: this
-version removes clk-req-gpios (and its dependencies clause) and the
-S3NRN4V example. The compatible and pvdd-supply hunks are unchanged
-from the acked text.
+ .../boot/dts/qcom/milos-fairphone-fp6.dts     | 33 +++++++++++++++++--
+ 1 file changed, 31 insertions(+), 2 deletions(-)
 
- .../bindings/net/nfc/samsung,s3fwrn5.yaml     | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml b/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
-index 12baee45752c..40a69466802b 100644
---- a/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
-+++ b/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
-@@ -14,6 +14,7 @@ properties:
-     enum:
-       - samsung,s3fwrn5-i2c
-       - samsung,s3fwrn82
-+      - samsung,s3nrn4v
+diff --git a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+index ebdca0e2d2f3..bdba848275db 100644
+--- a/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
++++ b/arch/arm64/boot/dts/qcom/milos-fairphone-fp6.dts
+@@ -601,9 +601,22 @@ &gcc {
+ };
  
-   en-gpios:
-     maxItems: 1
-@@ -29,6 +30,9 @@ properties:
-   clocks:
-     maxItems: 1
- 
-+  pvdd-supply:
-+    description: PVDD power supply
+ &i2c1 {
+-	/* Samsung NFC @ 0x27 */
+-
+ 	status = "okay";
 +
-   wake-gpios:
-     maxItems: 1
-     description:
-@@ -58,12 +62,25 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: samsung,s3fwrn5-i2c
-+            enum:
-+              - samsung,s3fwrn5-i2c
-+              - samsung,s3nrn4v
-     then:
-       required:
-         - interrupts
-         - reg
- 
-+  # Deployed DTs for the older parts never described a supply, so PVDD is
-+  # only required for the new device.
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: samsung,s3nrn4v
-+    then:
-+      required:
-+        - pvdd-supply
++	nfc@27 {
++		compatible = "samsung,s3nrn4v";
++		reg = <0x27>;
 +
- examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
++		interrupts-extended = <&tlmm 31 IRQ_TYPE_EDGE_RISING>;
++		en-gpios = <&tlmm 56 GPIO_ACTIVE_HIGH>;
++		wake-gpios = <&tlmm 7 GPIO_ACTIVE_HIGH>;
++		clocks = <&rpmhcc RPMH_LN_BB_CLK2>;
++
++		pvdd-supply = <&vreg_l20b>;
++
++		pinctrl-0 = <&nfc_default>;
++		pinctrl-names = "default";
++	};
+ };
+ 
+ &i2c3 {
+@@ -825,6 +838,22 @@ &tlmm {
+ 			       <13 1>, /* NC */
+ 			       <63 2>; /* WLAN UART */
+ 
++	nfc_default: nfc-default-state {
++		irq-pins {
++			pins = "gpio31";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		pd-pins {
++			pins = "gpio56";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-pull-up;
++		};
++	};
++
+ 	sdc2_card_det_n: sdc2-card-det-state {
+ 		pins = "gpio65";
+ 		function = "gpio";
 -- 
 2.55.0
 
