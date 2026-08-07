@@ -1,167 +1,223 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010048.outbound.protection.outlook.com [52.101.229.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9CCB41D233
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 15:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35F846D57D;
+	Fri,  7 Aug 2026 15:27:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786116327; cv=pass; b=Rx9Bj7LtKPwsFZA+xr1HADbu7GI02VON+ljUAjbDNKeR0n83n/9X9gQu2i/f2zWA8J9eAiAVN0c5QL1ZD2W1uO8wyQSd/V+W0pi6djm/0EzfZHG/Y6YggHil2yY6q2pUxsgwMXThXK0gc+McezmVYceaC6ZuM61pGE8OdIr3wWc=
+	t=1786116464; cv=fail; b=KeArkcDJjBBiNAEqm2O8Rq1eKdgAScj7VhzdF5vjX5ELY49ZLH1B5NZY6JutL2v9p6PiIE6soMzBdgsVrbC7Xn2epiauOyWsisznjlWr4rni86yRy/iDGoKru/3ZZLUzfnI03sDLzMHOeKlR5RaOaOGJ1KFNLkfxNDd0Ihkk4CY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786116327; c=relaxed/simple;
-	bh=jFMOfL5Pv5EjomGzOk1gsjAPgr7PAL00YNzc4TmILmM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BUI3mk8gFwjMPraN+SdVBy9aN+CW4JtduzXt5eymWgy4qhCzZkPIdt0Pg7l+MLHA7hvSVsG6KtS22TF1QGfAh7S2OSyBWLNp4m4UKmjvjyz4bh3LWVf4yG9fasOD1QG7EQBT0/pnL64Rk+2ZCJwgyhI4TiFkpwultnHINjy2uFY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AyRNlueG; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1786116464; c=relaxed/simple;
+	bh=0PT2AfeL5aOGc8knUX28x8J5EN8sLoTgT2TsITIjLNI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=nbXJwoplShtJTIOSAYBC9l9PZEdP46XXT11uQ9TLaE7HtcISPrt/jxwHESZexeAgJFA+B2pzl9vR5cF2dse+GCYxiyOTfH1t4NbODO+oirW4vyzJ4rcvwo1Z78tjdVf5oHOlQEGdS5jSHb7EIi9TGW16xgol1KIoHW1oOdcirM8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=WbAjLde3; arc=fail smtp.client-ip=52.101.229.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AyRNlueG"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a18840e2abso4079772a12.0
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 08:25:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786116324; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EFFDWCLNm2DuyWXhTkjnsH7AJQi35nVKEZvzRU1034LF7IVhlRK0YmpmpCKEXPRTGj
-         ENn3AB/e1kr6mKYzQsicjweXuDQs5dWIBfKVgWkgecoz59ge84a0DDh/NfJY7kKhoBbP
-         fgBR1DZOXnvGuZpWZF39BemMXzkemREQNEBmm9TASbX6Ehf6dYplx3yOioDIPqazSHlQ
-         3D27Z7wiJ/rTj56Dtlp4Kmn1rvGIG6lomdvqV93BQzeFgkp9ruXBxsYG6h2NL3jU8+os
-         T7ZnZecmQdQaqvOuZ5MeiukVi53AdBspuougiJcP2JsQIrKJK+8jdvz/HhjY7QAFbIuM
-         +4jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jFMOfL5Pv5EjomGzOk1gsjAPgr7PAL00YNzc4TmILmM=;
-        fh=Wn6omZT7hZHtN8sSmcP8H07RLPB+VpbV79h+IvM47AE=;
-        b=rFtxbQksyubZ8eMFUJMr4lcBf3ARvSRhmPW1lcF6X0qEDLkn8KVYx0I82YTaF8KxZg
-         u4pcZO1CEISKzl+HA78XjHe/+1AKjUyzmMJ9XioSXqNMfPMboydaGEjsctBUOz6J1qiX
-         Y7RyO+TpxtQwYHeI/w0clat+9r0Tgbzkah7alSK4YXP+FFlFixHMmICZRVVbBvB9IkIF
-         8eHToWlFTkHrR8Wl/uRd62QTn06L/Aa1uuyaFDeFQzGO67VFYJkZh6RLDVIoLb5XvtL5
-         vYSzcANN5svdazD7QFTJnqqB582AdO/ZBYpl01v7zTrfWkyXlLUIKZjvgr0+T1D3ChLw
-         5Jbg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786116324; x=1786721124; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jFMOfL5Pv5EjomGzOk1gsjAPgr7PAL00YNzc4TmILmM=;
-        b=AyRNlueG591Va8mMFjIwkJN2x7RlyC6uRGHlDJpmZodDeAlXnA4rgmsvmF2oqpzMOB
-         /O34HGeFTlORMs+e2s0083ieEpfE1hPdJ2xFtT5byCkaNzFBWowt/ldGf9l076f1fOR0
-         QModcG/7WrCqEPSC0tLeOfUPKZiK9hzmVRGMiRbDhv9k/Hd5qj/B6L2A9BN+27v+u3cH
-         3mvqrpdD0Ku8+WPy3kJHi1LUeoO4Z2J4U8XMYfjfuoJCi//onrExV9h802ixn/uZk4Oq
-         mvGfunmwWycL6heQ1y+7qq3lxGnYCZn/hHqg3xCDsCGIO96/AQFNwJtGUOzJQhdwzdmy
-         P+7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786116324; x=1786721124;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jFMOfL5Pv5EjomGzOk1gsjAPgr7PAL00YNzc4TmILmM=;
-        b=WfPg3Vv4J+2svjXJJle5cHpbo04fax2U4VpcoGR0hkw1UgVZVN66gPmPVZy+iuvb4I
-         dj4yadAnpbN4jJtFv8RJyXUphsv0Yc0Kp2c95l6aDS19Pm7UoEi8xOV0daXLVnTqWgNj
-         +Oq8yhKSnaReG6scZtFQCYxCl4MxXnj64gdnK8HlK/Q5y/ioqtu1mjKctyCKYdy7uMTE
-         HJkIc9yuOq7wPc9wnieTERKJouhB+pr6jbBzRWQrhGwwzxN9qGztVLOMYCnH3EBJQet2
-         34iYu+fmBbBtNcKM8F8qAMtZRMg8EwwFai3oSzo7w3jsDV7i8B7jBBNrDuy23Extjh2s
-         SVlA==
-X-Forwarded-Encrypted: i=1; AHgh+Rom2NCMIOHb0H3dzzTfugbN5fu6yLy+hbTok018fUxew4GVjf1Q7PGjlyAa0jNSXHF927Uy3NYT7s9G@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWflYriAGNvrZCJWVRAsEDwqmEjMXE+I310FTkxws8XtZ7FqVP
-	asRZU/iEai0b6Sk9KaKKVgFvJTqTjn/M2b/ks1L3H943NQSCQNV72adFCriHhvRqjq9mgMjELe1
-	m6hJc11xDovrtXsaOaz/hy65dqpzNLdx68OXxzm2fsA==
-X-Gm-Gg: AR+sD13unvGBztmxNrTSxZNUi4mvV4hmPvCFBbkaTZXgZkZnIKVCUVRR5aPUPYynZFR
-	zB61ao+F0BNXzG8wPDHhImwhoIzOg2PxVt7SfDDYXiULlwsigm4T+wfJvTryf1TxTnzgoC1BanX
-	aR/JoNKJibwPAvb5HufE/STftwhPJIwcPxRkC/g55pLr6D38xC5V3pd8nswrRAeGYIXgbvCb7i4
-	h6JZTCNXy1KrAO1Me+HBWaUMyfyqE6Sl4ZFB++NWk3HwbWc0rJHrmPOu1etSPWdiyi75za8PYLs
-	pwpmjl1+ZS5OxQ1KYBuPgB80ZTNAwYB01ZI3m9As0V6hL0LAobQxjFxtRyzJD1LgCITMu7L3OFT
-	W/R8=
-X-Received: by 2002:a05:6402:1e8e:b0:6a0:8ac4:f055 with SMTP id
- 4fb4d7f45d1cf-6a14f07c8edmr11239086a12.4.1786116324014; Fri, 07 Aug 2026
- 08:25:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="WbAjLde3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cLVvgrEkr4IvGF1D4KMl1umFTtvr8BvUprgErX746KYPi5tl2J9uwzWs1FJFhy4hjYiW2NZ0RM1DGVyyOZkfybsnFT6vxa3Clwknzh+I9e/Nyln6j9XjpP6B5aEddOeZvCdQpEmU7WYI+SgmYOIYCCuXBcs734DiA7BX+gq8GoYXmDEubKzz1NeUJdruMSVAEDdvcljqD/0T4ovcU18xt/ZEFeccIpDJ7ja27kuTpjIjyO5NajJtZV9jTpCzHwEBoWnKkt7qui6/3Tgnu8i5duee6kqs0NdtGlooRbnER5405f6htMBfPNG7KpBPuD1XHMHFGVuoO7ACKWDcaVpqIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GYjl6V6ewpXl90783F0/5fqaAbS4biqexNAjHpTIoec=;
+ b=hDdx7yEW3xoFmXttvJtf/K4olSsr83qQLtc18edawUz28ck0fIOKHjY4Ltc/dFTp/BEkpB785i8RB6cx0zwwXMMcJi59J1fZf+uhFdFhEv4y+2GbYO83eSOfFKufWm7MVl35lQXRuIDuvZ4z51azJtbe4fbIOyLFzdZ7wOwB75yEtYjahinLqO/4zWBFJBQgKMZS0qCLqHaNwJhu0VdPIIi3z0fQoGolv47rs+zgMc1ao/wk2qh06rJXG026BsIBTIol8Z0+/5yK/9zcp1b0bYiiNvLgmvMsfHHeAFaxPWwIJUda1bsLnvjfisYZgx7se0LVed4IgYlZpAN3CC2Cew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GYjl6V6ewpXl90783F0/5fqaAbS4biqexNAjHpTIoec=;
+ b=WbAjLde3wk2duY5HZY5ZDw3kUBQjrW68yVK+McqdMV1D87JQnerRH9g8JErsRPIKR6FO2iempMau1+cn7pF4b0yKKod+Cn1ecK5EyzcHZZPGwhKhYp9TY1ahsYqt7N3a1yI8ZunAjIUuBDyGzzgQZlBAh8BgafCpAZ7dEC+bjXs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TY1PR01MB10672.jpnprd01.prod.outlook.com (2603:1096:400:320::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
+ 2026 15:27:39 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0292.022; Fri, 7 Aug 2026
+ 15:27:28 +0000
+Date: Fri, 7 Aug 2026 17:27:12 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: geert+renesas@glider.be, magnus.damm@gmail.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, biju.das.jz@bp.renesas.com,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] arm64: dts: renesas: r9a09g047: Switch GBETH TX
+ queue scheduling to WRR
+Message-ID: <anX5UAtB_PtITkxq@tom-desktop>
+References: <20260722085353.136986-1-ovidiu.panait.rb@renesas.com>
+ <20260722085353.136986-4-ovidiu.panait.rb@renesas.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722085353.136986-4-ovidiu.panait.rb@renesas.com>
+X-ClientProxiedBy: FR3P281CA0117.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::8) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org>
- <amYIuhYenP4-qHyV@willie-the-truck> <0b7c0272-5506-4aee-82b3-76a78f2b39dc@arm.com>
-In-Reply-To: <0b7c0272-5506-4aee-82b3-76a78f2b39dc@arm.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 7 Aug 2026 16:25:11 +0100
-X-Gm-Features: AUfX_mzVQ33goKUmAZD3cnZPYWgLmpoH7Rq86A-Q6fueTvaPphB8yY86QV4o3lA
-Message-ID: <CADrjBPqZFDvyLFpDy1YP9qrMNUCtZYtJhiaDd0iTnmB4ZYO8GQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Add arm-smmu-v3 support for instcfg data override feature
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Will Deacon <will@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Pranjal Shrivastava <praan@google.com>, Daniel Mentz <danielmentz@google.com>, 
-	Mostafa Saleh <smostafa@google.com>, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-team@android.com, 
-	tudor.ambarus@linaro.org, andre.draszik@linaro.org, willmcvicker@google.com, 
-	jyescas@google.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TY1PR01MB10672:EE_
+X-MS-Office365-Filtering-Correlation-Id: 050079e5-8af2-4af7-c8ec-08def49863a1
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|52116014|376014|10067099003|56012099006|11063799006|4143699003|6133799003|22082099003|18002099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	3nQxPabVUTSX3N4cMWvtdrCKO4t+HpCjaHqqzrq6C5GpIJ3Au6d5ynAqMSRhjDa13pPUlehgCraje56EECsgesfziHbEwyDXeGtv0Dn0acNPTUdwQWs+dNgqrVZC/CDR3CCHMXkvYFC1zPGQHiZSgA1bA2vJtvlyeveSx/SGXOaHRMMwvQoAGPI4UTmY/Y29PWEjArmUN17YWhlgFDwdEUH2yGuHp9tjcTfzGVAQnVLFjM5ITWFoj46sv5YJLZizFGeBoB3sqtubR8cKIsidVI2CihKlrf5t5LZ1UNpzwEVnRR8gPQlnAOb8bd1XEPy8TfmZMna3wul+BfIUHdMGAps4QRZIBlAVEW3XntDapna+IRR2fl2PCENgLikzC+QiDCj1unnbGlLkyqanKm7h7ScIuUxsIKO7OSZ1vPikze8L8Esdz42geLkav5azi5dENjuOrrwfvZ+enLWLQLVJdoYmMFWLr5Okwse7EG0mPzMwRiqFEcmWVzigzA2SZTBUT6AHCcey/yu7QD+4YF6agFGZ4c6AXiJBo1lg9lvq6VbY0kUCZ6EDARFT9Ye22tzg+5rdwOVM2pc4tuUMPyAMYywo7HCkZqvVpCXeWULRTrwx5tWc3c3gZ0aKrKoBQT74Rf8/+yN8Dmkdo7H11/8IUMvueChOwo4rr3BZMARdd2dXhqMeJ81fbBIXssb1WdifEu8umKGoXywvUDfjzg+U6qiwRW5I7Gl3YAiyunKjeM0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(52116014)(376014)(10067099003)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?moFDHvW+SfuqpkP0jtdwrrnpnR38XcHI1XT7gxWgo5F3Aa6WPvSvUa/edEo4?=
+ =?us-ascii?Q?xVrZjC86CQRIIcLbNU1IS9nhMBJX1nr8q6PXcvC0ySi0xy96X/o2uWK8XQoo?=
+ =?us-ascii?Q?9w5mOjxRMoTvTr5+MefWrz3JhQz4sh092TxyNtqvX/7kM7GkK3hcFCpOLaNS?=
+ =?us-ascii?Q?ASQLPupgrNQIZy6AaABvMv+qSsGcRw6oej7Xj4FOBouioWigvvVU/5lqExpI?=
+ =?us-ascii?Q?CGqr0VTlSD/arVI3gh3PT4htLsGmwOHp4fOTlnTb//P854Z0vgMwsUiedxOU?=
+ =?us-ascii?Q?vmQJvaobu4ea519VONe3c0pGmM/ytSkKWT3+8rDd3m7nL31VkHBRPwxjFW12?=
+ =?us-ascii?Q?YtUh6GIQl76SbMbCVsI7QXwNbdDX8nfLxzNPHdiGqyApPrxrNaZFTBNeTcKa?=
+ =?us-ascii?Q?PsGDz0+fVAM5AXNmv37HRiDe+7RMo6Bg0MlX7QsSHfaKtlzOPtWpyPOJhNyk?=
+ =?us-ascii?Q?maJ6+3K2Q1dqFXLdVQxx4b3daLbIfgIny4IfT3xer46GscLAfpTg3yOcQQio?=
+ =?us-ascii?Q?LKWBTT9PQMDH0um9B9nmp30KYyVrMUCAsM/J88FFXidsoKUpj862KpHJpRXR?=
+ =?us-ascii?Q?QKlCSdgZ4qLSqXCZtMZ+fYk2iuD5qIWMQU4Kki6eZFGbXmhPv3tDUgI9OXGN?=
+ =?us-ascii?Q?Ssn5SFom+U4QJAiR9ZsEu4vutedcNeHOlEp+QVTrFGHdyculaA1Aqv/zqy4I?=
+ =?us-ascii?Q?AxP9jwKxh0qQOppsdwY2XHo7tlALlQtvFYdJ1nr3XrLDijvbhoTISNBqyAmC?=
+ =?us-ascii?Q?fxyuckNZahRxsPD2G9Lb8+JsMeg1cEyjoIpoztla5BLKYtXW3BtYYIemaN9v?=
+ =?us-ascii?Q?l73/y3LBfSiz+NFfrL+O08/BdaZUELhWTnpZZEDZOUXst07sUSkVIjwvlQh6?=
+ =?us-ascii?Q?x08+R5wMtjGPjyvrHk8giPj7KCCYxrq+PEFv8652H+H2TiLMFE+Nk/7dBBqW?=
+ =?us-ascii?Q?HZi6CqOhPApTGHzFaOKlqeRxAR1kT3XCv+gEUHaFNrxgebb43GOyJPHR7iA9?=
+ =?us-ascii?Q?UehxApeM7JjQv7vWR4TtYRhCBkEhbS3MRvvBfzkccfUJYi8y+WdQhwSijDcr?=
+ =?us-ascii?Q?vM0v/SXc4gbAGKK2tjYFhUrEpIMDGInSS/PBHKzooBJBlQ4rdVrfuVT0Clmx?=
+ =?us-ascii?Q?0GC+Xl4+icwLGIIPx7RGKtK+FCESRxuH8fY+lRguG1q53dedyAuc+l92gxJq?=
+ =?us-ascii?Q?g/zfKE6mR890mpqIQfnrb+4P47AzkwsDyp7j7IdAa5rK6zMnKF1DN5ehwVvC?=
+ =?us-ascii?Q?BBRddJ6in2gBAhiK7F9H778sE7XYGLePku/V4uDsGr/EIxxTkavQ/+fojW2E?=
+ =?us-ascii?Q?9MZ8Sa1lP5yywEPrK1Sn/Dc9XTM34ejjPu16w1q7VcXqUuNoyiWskYQbFVjb?=
+ =?us-ascii?Q?zcfwpDVZPB4DzHPVa9vhd7di9yNKNotFcbi4QCQg83MdKdBHkD/TM6aMGRTe?=
+ =?us-ascii?Q?y0EA9evVcUDHxfTr/gZikJBoPUvwOC1IuNzlkwkgcPkIMTTbPWy1LeBX5Zk/?=
+ =?us-ascii?Q?FAHvxvpTqxZWQz9w+FzKYc7NeWPqBkLuVvz8VbRkAy2SLM/t6Zyt+HwDcAAJ?=
+ =?us-ascii?Q?oM85LTdR5NLV5kfPtOfKOrIE5QlPBycqBKCpeUDwdAi0jPUmUybPBJGVTQcL?=
+ =?us-ascii?Q?sj48v2SRCvMiBb7XU2VeF2Z9FWrNYXADG07luulT96y3W06DU8+baaIGDKg3?=
+ =?us-ascii?Q?IDXOXHWOsZtRQKgBouqx+i2d5mTpxhFx5/bY2/p2hir3lLOSXFrB2dO+dJU2?=
+ =?us-ascii?Q?lBCmLyL5v4jizJ8TtkZ/kp3Z6Xq3ruswnohzggWh2J/4KUZjaM9P?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 050079e5-8af2-4af7-c8ec-08def49863a1
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 15:27:28.0999
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y2euM1v0z2gAOHnWVo2KXk4PBNTDo7ifVnhtDRdH92gttUxkMFnQ5/Yrd8R42e2eXepJp65N6zRbdvwmwo5E7bnFTBK+Qh+fA7dfZKsRb8j7o8rymdr57eB6RfjFepaw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PR01MB10672
 
-Hi Will & Robin,
-
-Thank you both for your review feedback.
-
-On Mon, 27 Jul 2026 at 11:53, Robin Murphy <robin.murphy@arm.com> wrote:
+On Wed, Jul 22, 2026 at 08:53:51AM +0000, Ovidiu Panait wrote:
+> The GBETH ethernet nodes don't specify a TX scheduling policy, so stmmac
+> falls back to Strict Priority. In this configuration the queue with the
+> highest priority gets all the traffic, starving the others under load.
+> 
+> Under sustained UDP TX load with multiple data streams, this starvation
+> triggers spurious adapter resets due to TX queue timeouts:
+> 
+>   iperf3 -c <ip> -i0 -t60 --bind-dev end0 -u -b0 -P4
+>   end0: NETDEV WATCHDOG: CPU: 1: transmit queue 1 timed out 5228 ms
+>   end0: Reset adapter.
+> 
+> Investigation shows that only the highest priority queue is advancing
+> while the others stall for more than 5 seconds, causing a netdev watchdog
+> reset.
+> 
+> Switch the TX scheduling policy to Weighted-Round-Robin (WRR) so that
+> traffic is processed across all queues, eliminating the stalls.
 >
-> On 26/07/2026 2:16 pm, Will Deacon wrote:
-> > On Fri, Jul 24, 2026 at 01:39:41PM +0100, Peter Griffin wrote:
-> >> These two patches add support for a new "arm,instdata-override" DT property
-> >> that enables the override of the instruction/data attribute of incoming
-> >> traffic to Data by setting the INSTCFG override bits.
-> >>
-> >> It is intended to be specified when the smmu can't guarantee that these
-> >> attributes are provided correctly from the client device.
-> >
-> > This is going to need an in-tree user and a much more detailed
-> > description of what is being worked around before we consider this for
-> > inclusion.
 
-Regarding an in-tree user, I haven't sent the Device Tree (DT) patch
-yet for Laguna SoC which adds the smmu nodes and this property because
-1) I want to land the initial SoC/board DT first
-2) I want agreement on the DT property name. Currently I used
-"arm,instdata-override" which is what downstream used. However, since
-this is intended to work around silicon errata something like
-"google,lga-instcfg-data-override" might be more appropriate?
+Tested on RZ/G3E evk:
 
-For Laguna SoC the first in-tree user of this is the amb_smmu smmu
-instance which is used by the Synopsis dwc3 IP. The Laguna dwc3 glue
-driver is already upstream at drivers/usb/dwc3/dwc3-google.c
+Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-> >
-> > In particular, if a particular client is emitting data reads as
-> > instructions, then a better work around would be to avoid mapping its
-> > domains using IOMMU_NOEXEC. But I can't tell what's going on from the
-> > limited description provided here.
->
-> Unless it's also emitting the privileged bit and thus falling foul of
-> the implicit Unpriv-W -> Priv-XN rule, but then we also have the means
-> to deal with devices which actually do that themselves (hello pl330...),
-> so that would seemingly only leave the case of some innocent piece of
-> AMBA-interfaced IP which doesn't expect to need special attributes, but
-> the system integrator has gone out of their way to tie the AxPROT bits
-> to some wacky value, which I would put in "erratum workaround" territory.
->
+Kind Regards,
+Tommaso
 
-You're correct Robin. It is an erratum workaround for the Laguna SoC
-due to some custom usage of the AxPROT bits which differs from the
-standard ARM SMMU handling for Privileged/Unprivileged and
-Instruction/Data transaction attributes. The effect is all
-transactions appear to the SMMU as "Privileged Instruction" accesses.
-The software workaround in this series enables the SMMU's INSTCFG
-override feature to ignore the incoming value and treat all SMMU
-transactions as "Data".
-
-One small clarification: in the cover letter I incorrectly said this
-was set only for some SMMU IP instances, but that is incorrect. It is
-actually set on *all* arm-smmu-v3 IP instances in the Laguna SoC.
-
-Does the above provide the additional detail you need Will?
-
-Thanks,
-
-Peter
+> Fixes: 41ffbb1c42d3 ("arm64: dts: renesas: r9a09g047: Add GBETH nodes")
+> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+> ---
+>  arch/arm64/boot/dts/renesas/r9a09g047.dtsi | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> index 73757e8e2197..060405d4a2dd 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> @@ -1913,23 +1913,28 @@ queue3 {
+>  
+>  			mtl_tx_setup0: tx-queues-config {
+>  				snps,tx-queues-to-use = <4>;
+> +				snps,tx-sched-wrr;
+>  
+>  				queue0 {
+> +					snps,weight = <0x10>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x1>;
+>  				};
+>  
+>  				queue1 {
+> +					snps,weight = <0x12>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x2>;
+>  				};
+>  
+>  				queue2 {
+> +					snps,weight = <0x14>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x4>;
+>  				};
+>  
+>  				queue3 {
+> +					snps,weight = <0x18>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x8>;
+>  				};
+> @@ -2013,23 +2018,28 @@ queue3 {
+>  
+>  			mtl_tx_setup1: tx-queues-config {
+>  				snps,tx-queues-to-use = <4>;
+> +				snps,tx-sched-wrr;
+>  
+>  				queue0 {
+> +					snps,weight = <0x10>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x1>;
+>  				};
+>  
+>  				queue1 {
+> +					snps,weight = <0x12>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x2>;
+>  				};
+>  
+>  				queue2 {
+> +					snps,weight = <0x14>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x4>;
+>  				};
+>  
+>  				queue3 {
+> +					snps,weight = <0x18>;
+>  					snps,dcb-algorithm;
+>  					snps,priority = <0x8>;
+>  				};
+> -- 
+> 2.34.1
+> 
