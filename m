@@ -1,67 +1,68 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D149A3C3459
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792684B04AB
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:58:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786136301; cv=none; b=OjgVE8v9PXTZLeXsOunxf8SpRzMQZeCPr74P+KQtRXvDPDn/y3af8zINpvMJvTzUIQU+g/H4Gh32tr7fulCw6kbo6g927jn09U1VwXaqzwKHSSgmfgktDbLzt5TR7mZdBMh5WdFnNoRFgUklNZ6Ei0dx0rDxgOqyVRnh6NQLjJs=
+	t=1786136304; cv=none; b=FvaFKRkrTOYlJnQXFyOxSBT7AGd5y/A4sLdSBCyv81ARZKyv+yXniuv76I4avDiMppypIiisysjYggclIy9fFWWeiOdL95nmrJxQvyDE46tuGhmdSUfi1fcYYLy1t/04NVY/F61kRPCEEjQDHhB5gUBbkYZkIzyE4ctK9EAJfQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786136301; c=relaxed/simple;
-	bh=lAG1g6NCiRgJ72AI59x0RziGscPAlXlsBwHZP4rfx7A=;
+	s=arc-20240116; t=1786136304; c=relaxed/simple;
+	bh=2JoD3JO2pW5pi92+cVlcHhTmMg3nDMhKO466t82pHT4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A7TRJUJBWGFngE9PMWceB0QW2oh15igfBSALeVnI6wzjlSnwXv4mmmiHzQqKLyQPNyEnUm0FHSPjviTU8OXmIs5UsqVhnUcBCLSv5gvPCqwOhn5NeUC6GvSYsLLaQvm7vLc0iorACXe88mzIRwc78b+T9A8CEACyuzEdc+MpFsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=XgbwTxf4; arc=none smtp.client-ip=209.85.222.170
+	 In-Reply-To:Content-Type; b=u15Rcc1k2NO1H+fOi1eF6uiPREsBZlXTSEmF6ZQOtCTX4sof7g/mDL4bfw1+n+TleQdkhAPInOcqvIxKB4GLO+82hSqqkNpmWmA6+RPM9P8NzRBDHdV/enLyHAF5o0TZCVUK+WrlZrvJdaBlpYsBNN0e3IEOVj0xiGIOk7Z8F04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=lSzTW3oM; arc=none smtp.client-ip=209.85.222.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="XgbwTxf4"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9349ad9c857so308053285a.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:58:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="lSzTW3oM"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e67555e24so202678485a.3
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:58:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786136299; x=1786741099; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786136302; x=1786741102; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WJPO/O+fbYB5hoAWGFXpSodw1GgptFASJAHcUDxPHkY=;
-        b=XgbwTxf4DcfkkTbTTtYCXlt5kwcnCNkNj/6j64kZiwOhHACDYZw/bCk6ELDbulTgND
-         8qndkqCDFdkEaQkYQd8T7x9oUzE9XzoshIj+JQjb1KtZqEEfs+QKpoX5LAPnuKUV1KBO
-         ONvnX+3rUB8w97vS+EeDApxZ0fPEhZVMxBTCoDIxgY1zT3Uh3MXhsOn5rl0nYSkSpeP0
-         d1HhkyRrhWZTJ8UcWkKvgK8B6wm4WyWUTpFLOnILRZyQrByuPt2F8sgQrzhT/vbKCTTP
-         tMwVDB2rZhKHumR3XNde+XljMfCHp9ejpqRv1GFGd1jWN/Xy5ex6uWgC5NcFytg/Mxba
-         LkkQ==
+        bh=kj8kzkNEBS/XA58S5M4C363N701v5oQh8U+/4A1gICg=;
+        b=lSzTW3oMQbVr8DD6SWLhegR0IZaHXqUSZI8d4lxlLX1xn0qDnolTgZUz+1h0GQaKAA
+         XPdpF7F3HvZmrquN1/EiNPwml4dj82dcl0WDeMSBDKRPYp/XRNuLY35vP2SE+zq3bKx7
+         E3wL3/bHZ+55nrWaZmFdPR4XQRLmMMfWHd6YLNd6AOglPDwiYl7eMpEF6SRfGXFBrhBb
+         raw9P+F2EROwdzmfuCocm/mrz0l15tHA2ezqIhMY3RX/7uu3akkARi57tlZLsaT06n8Y
+         uDxD5YoYOV/cqi22bGvhXIffsJT+DmY2btj2KexlfaZaBjIjjsyvWsQyLuIksw90wsxr
+         xjgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786136299; x=1786741099;
+        d=1e100.net; s=20251104; t=1786136302; x=1786741102;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WJPO/O+fbYB5hoAWGFXpSodw1GgptFASJAHcUDxPHkY=;
-        b=AhuBvOxnU2akGuOGjLerz/u/TO59pANlJOiJpMNfWcJuC6xXUmhjDvW0pA+iPizoMF
-         5oTrvJa76YsK2D+bTU4r8DB4pt1v22FZjEoO5KJ8NN4hnsAFWpEaK2IUdvnpVXblRuvV
-         KFkXaT1ghgqeiwDkTiXd8bFDHOLW4NIjOMOWHbvcJBvShr4GwlSBx1SAdOO1TLVSReZX
-         hKJ1pajN6lAh+MfhoA7mny3Cwj8w24ywzX43BRMHB4OnBWvRKUZ89ntNKWtRmivsHE+d
-         +QYABoMFYHJyzOenwrW9Hcq73dj9DxkbaOJa/envzg1XGh6ERJp5EnSkRCn5gSKDX/Oh
-         c1xA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro7fPL/TfNtS3HLAwZuQc7nPKyNVLmYcziIj9wCjk22pqwZSGRgx7XcMVAylFw5nwJdgNb7G9QpFs6Q@vger.kernel.org
-X-Gm-Message-State: AOJu0YyFBYRtQCSBAolyep9aCMIOp9CDUVjttWvu7GdEWU8ingFGM+Ir
-	Cl/gjQKaCUxjBpcu7L/n4EYF6oKeWiEzUejfIq5k+daV89N5Pbl8ju2rz2O+PB5HnvM=
-X-Gm-Gg: AR+sD12MVymek7KiqijhgLWJUZC1PNdPkG5i5VXuqlDcJhUxGRqDghpW0x+FtWhioxB
-	jpPEtag6C11g6FzgJpUES2ZI2Vl66WxNeTeh99vxBXjTGvCZbVg9/TXFMsB7yo57VWu0L1efgi6
-	NS9tL8ofB5RGVLcsgmc8/NLhivvkoWamOPSBfhznPlpTQ33t0X5P5Kj/QBptEcEc839BWrspDSB
-	npKZo0umrhr+g4Is8ul+5NjXeCMCxsaJ/Fd8UT88wFSXmCvd8gga6kMrWU35Zsbaw/Kpr4OIZ5D
-	eNQhS9Da9Onf5iKZbQu6Oh4UgllRQMlqlUXyQJPaUMtWc7URd2dbmvHpr1Bp629N3XLOp7C+OSU
-	BbFdLhnVtY9X6r5TNpxBTOa8eAyD80uEmVoTsu+LzpwKmc8QEjWCHRie6z1FKbCOwl/SPTrgZ3Y
-	jJ+AhcrVW6AyKely7GIlcVrPiN42La7s7ItGlOa84qyY7sjs1+FwPm87yIDRGF
-X-Received: by 2002:a05:620a:1b98:b0:92e:8a8d:ec1f with SMTP id af79cd13be357-9366655b1aemr1521961885a.24.1786136298765;
-        Fri, 07 Aug 2026 13:58:18 -0700 (PDT)
+        bh=kj8kzkNEBS/XA58S5M4C363N701v5oQh8U+/4A1gICg=;
+        b=TCUMGEvjPiqSo+iDNtUCHCwURj0IXY8As2EabTXcvNUsSAuDw8sKy8riOtK1XPsZ4P
+         DXVgTlExmo2a9QFB/qBm50Rv6wO0z+c3lvFKyNRxwuyEOqSBnB3vXK1EWaN3ix4ycZiv
+         49s64Ze5ESUU13OHnDdHdoubY+IHVbNzmLKL9YQmpV23d8B5enVyXa2poQcRcmgajijP
+         F0I6CGSzhgy4ElwgO5DIkvYrs+wM/2SQPIlUTUGIBt/I/ClYr8AMdBFMUyhKUcgZI+h6
+         1UP7Qq3f34ozXU0vHdmC+3XjVUNLUBl/2o3vILWGWsTdE5qaPQUjVyoC2Web0DAIEL01
+         pDeA==
+X-Forwarded-Encrypted: i=1; AHgh+RoErpP2czIC1/R96z4Ccj364/DKnZ97eOmTgxd/H96dUBWwJNvvu9Xks4dpmWgnUSEksQq3PZOzkVix@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzc8l1L6r5twAMpeyEJmUStkQ/5qHhyUI3TYQ7yyYbcseu0DYLD
+	Xfs1iR82zn1JGZ4kHuJo/udJBH/nkik80pAUchqL4wR2blwzR4RRgxG5WxaH6bfhoUbylVv14qo
+	hdW6Dmz4=
+X-Gm-Gg: AR+sD10mxGLC84OSvKT2QwaMuMdHgm7olzD9BP3z7C7TgtM+cKUe+uSYItNcIxgK5sY
+	8XHOIlsRwfuW5ymXwAt5GDm29i9bCJTuKzAWNUG4Pngl7qXT8w26jVe5Qx7Z0djwJK7WFaiay2I
+	wG4q2UXca2hJHvgvOgm/0WQ+CORoOPo/qy4WHNLOdimACzzR09lHG4/hJsyagUCticSyCmaegDn
+	OEMIoRjjE2uLZf0NdwIFYqXipmJLJLxvgslYyj70pSYhiSXPQ319/7VKE4aqqN/Si6LNOgANqaL
+	jpfYs+U3yzu0pFmqH5SrrAasY3cb8/O8HlfSEe3Vqr/+xm0r3FaE+k39+T78neDmsgHFwvUiH9+
+	IL95Q70MwJeIgzYD331u8ShTE5AYcZLzvQbCNJ/C/16jQIxx/nhVhG6j3H82KH+juK2TiKEPr9o
+	+LbfUko1SHK2UG+/cv5eeg9k+jqO3VbtJS6z9TOLCnJ11YzGS2lkikadna/5rr
+X-Received: by 2002:a05:620a:4416:b0:930:9fdd:f4e0 with SMTP id af79cd13be357-9367984defdmr383213385a.26.1786136302464;
+        Fri, 07 Aug 2026 13:58:22 -0700 (PDT)
 Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9366e09dc07sm233090185a.15.2026.08.07.13.58.17
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9366e09dc07sm233090185a.15.2026.08.07.13.58.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 13:58:18 -0700 (PDT)
-Message-ID: <3d1d9c63-9be5-4f24-8133-2d93925ee0f4@riscstar.com>
-Date: Fri, 7 Aug 2026 15:58:17 -0500
+        Fri, 07 Aug 2026 13:58:22 -0700 (PDT)
+Message-ID: <929976b6-0960-4e90-a7cd-f163ecaeef3b@riscstar.com>
+Date: Fri, 7 Aug 2026 15:58:21 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,99 +70,68 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] PCI: of: don't zero flags in of_pci_get_addr_flags()
+Subject: Re: [PATCH 4/4] PCI: of: introduce of_pci_verify_node()
 To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- linux-pci@vger.kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org,
+ devicetree@vger.kernel.org
 References: <20260807194100.455599-1-elder@riscstar.com>
- <20260807194100.455599-3-elder@riscstar.com>
- <20260807195604.277C31F000E9@smtp.kernel.org>
+ <20260807194100.455599-5-elder@riscstar.com>
+ <20260807194944.DEE001F00A3A@smtp.kernel.org>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260807195604.277C31F000E9@smtp.kernel.org>
+In-Reply-To: <20260807194944.DEE001F00A3A@smtp.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 8/7/26 2:56 PM, sashiko-bot@kernel.org wrote:
+On 8/7/26 2:49 PM, sashiko-bot@kernel.org wrote:
 > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> 
-> Pre-existing issues:
-> - [High] The function `of_pci_is_range_resource()` incorrectly evaluates `IORESOURCE_MEM_64` using the `resource_type()` macro. The `resource_type(res)` macro applies the `IORESOURCE_TYPE_BITS` mask (`0x1f00`). Because `IORESOURCE_MEM_64` is defined as `0x00100000`, it falls completely outside this mask. Consequently, `resource_type(res) & IORESOURCE_MEM_64` evaluates to a constant 0.
-> 
-> As a result, the condition `!(resource_type(res) & IORESOURCE_MEM_64)` is unconditionally `true`. This simplifies the entire filter condition to `!(resource_type(res) & IORESOURCE_MEM)`. Any resource that does not have the `IORESOURCE_MEM` bit set—such as `IORESOURCE_IO` (`0x100`)—will cause the condition to evaluate to true, making the function return `false`.
-> 
-> This logic flaw inadvertently filters out `IORESOURCE_IO` resources entirely, which prevents PCI host bridges from exposing IO space mappings via the dynamically generated device tree `ranges` property. Furthermore, if a 64-bit memory resource were defined with `IORESOURCE_MEM_64` but without `IORESOURCE_MEM`, it would also be incorrectly rejected.
-> --
-> 
-> --- Patch [2]: [PATCH 2/4] PCI: of: don't zero flags in of_pci_get_addr_flags() ---
-> commit d6dba8ef5457a1efb23f2b68f270883ef856bbdb
-> Author: Alex Elder <elder@riscstar.com>
-> 
-> PCI: of: don't zero flags in of_pci_get_addr_flags()
-> 
-> The flags variable whose address is passed to of_pci_get_addr_flags()
-> is zeroed before assigning a value to it. Skip the zeroing and just
-> assign it instead.
-> 
->> diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
->> index 505226b876c56..22fea1905a080 100644
->> --- a/drivers/pci/of_property.c
->> +++ b/drivers/pci/of_property.c
-> 
-> [ ... ]
-> 
->> static bool of_pci_is_range_resource(const struct resource *res, u32 *flags)
->> {
-> [ ... ]
->> 	if (!(resource_type(res) & IORESOURCE_MEM) &&
->> 	    !(resource_type(res) & IORESOURCE_MEM_64))
->> 		return false;
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does this correctly evaluate
-> IORESOURCE_MEM_64?
+> - [Medium] The static DT node verification function `of_pci_verify_node()` is mistakenly placed under `#ifdef CONFIG_PCI_DYNAMIC_OF_NODES`, making it a silent no-op on systems that only use statically-defined nodes.
 
-It is incorrect to apply the IORESOURCE_MEM_64 flag mask
-to the result of resource_type().
+This is a good observation.  I think it's correct that
+this check is worth doing on static DT nodes even if
+CONFIG_PCI_DYNAMIC_OF_NODES is not enabled.
 
-> The resource_type() macro applies the IORESOURCE_TYPE_BITS mask (0x1f00).
-> Because IORESOURCE_MEM_64 is defined as 0x00100000, it falls outside this
-> mask, causing resource_type(res) & IORESOURCE_MEM_64 to evaluate to a
-> constant 0.
-> 
-> This makes the condition !(resource_type(res) & IORESOURCE_MEM_64)
-> unconditionally true. This simplifies the logic to reject any resource
-> that does not have the IORESOURCE_MEM bit set, such as IORESOURCE_IO.
-> 
-> Could this inadvertently filter out IORESOURCE_IO resources entirely when
-> called from of_pci_host_bridge_prop_ranges()?
-
-No, this is not an issue because the purpose of this test was
-to make the function only apply to memory resources (MEM or MEM64).
-It's *possible* it will skip MEM64 resources, though in some cases,
-IORESOURCE_MEM and IORESOURCE_MEM_64 are *both* set in the flags
-field (see decode_bar()).
-
-So I don't think there is an issue with skipping I/O resources,
-but as stated above, this bit of code is at least wrong, and
-it *could* be wrong in a way that affects correct behavior.
-
-This function is only called by of_pci_host_bridge_prop_ranges().
-I'll create a fix that at least fixes the bogus test, and in
-the process will try to confirm that the result is correct.
+I will plan to send v2 of this series with this
+suggestion implemented.
 
 					-Alex
-
-> drivers/pci/of_property.c:of_pci_host_bridge_prop_ranges() {
-> 	...
-> 	resource_list_for_each_entry(window, &bridge->windows) {
-> 		res = window->res;
-> 		if (!of_pci_is_range_resource(res, &flags))
-> 			continue;
-> 	...
-> }
+> --
 > 
-> If IO windows are wrongly skipped here, will dynamically created PCI host
-> bridge device tree nodes lack IO mappings in their ranges property?
+> --- Patch [4]: [PATCH 4/4] PCI: of: introduce of_pci_verify_node() ---
+> commit 29170ab92dd207c740eed74438cd2e09bad49131
+> Author: Alex Elder <elder@riscstar.com>
+> 
+> PCI: of: introduce of_pci_verify_node()
+> 
+> This commit introduces a runtime check to verify that statically-defined
+> (pre-existing) devicetree nodes for non-bridge PCI endpoints do not
+> incorrectly contain the device_type = "pci" property. It adds a call to
+> of_pci_verify_node() during PCI bus device addition to catch these errors.
+> 
+>> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+>> --- a/drivers/pci/pci.h
+>> +++ b/drivers/pci/pci.h
+>> @@ -1265,6 +1265,7 @@ static inline int of_pci_get_equalization_presets(struct device *dev,
+>>   struct of_changeset;
+>>   
+>>   #ifdef CONFIG_PCI_DYNAMIC_OF_NODES
+>> +void of_pci_verify_node(struct pci_dev *pdev);
+> 
+> [Severity: Medium]
+> Since the intent is to verify statically-defined devicetree nodes, will
+> placing this declaration inside the CONFIG_PCI_DYNAMIC_OF_NODES block
+> accidentally disable the check on platforms that only use static nodes?
+> 
+> If CONFIG_PCI_DYNAMIC_OF_NODES is disabled, this falls back to the empty
+> stub below, causing the verification to be silently skipped.
+> 
+>>   void of_pci_make_dev_node(struct pci_dev *pdev);
+>>   void of_pci_remove_node(struct pci_dev *pdev);
+> 
+> [ ... ]
+> 
+>>   #else
+>> +static inline void of_pci_verify_node(struct pci_dev *pdev) { }
+>>   static inline void of_pci_make_dev_node(struct pci_dev *pdev) { }
 > 
 
