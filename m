@@ -1,69 +1,120 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21FB468C20;
-	Fri,  7 Aug 2026 13:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914DA4746AD
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:26:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786109005; cv=none; b=pIq1739rOKoGY3k3GY3TT8uGh0rpO84ILeaNsDoMeI15ypE7/QMTc2Qnmz02a2gM8ATl5CMEccooxBldjqybnymeIY0+TFFiqRQoIf5nIoLngV49Kfv69stW5QxmbX/0X5b3IJqT28chvHdIreVux26+tIRk9h+N4zRiY0lLUqU=
+	t=1786109201; cv=none; b=kBaWbnS1knIoXaaP/ALOkGmMaAYQmT9/ODELRul/l3VNfMJ5u42BHchpYLMk+qf9xBNZz6LzZ4o/Xp82x722K2PLU2lnQWZI7O8f/yxLRU+qWph3z5C/dA9fP+gP9zuS+igaQp4bixXxkRWCRLePRUR5dBSzaCTeYeO3t030WOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786109005; c=relaxed/simple;
-	bh=8AzOmKPFHDxA8q+uSAZX9GWmAvClTspGZbGdrE9wVq0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LjW3hBLKfm9kkr9NmFo4+/cnDvhBzBeJU9LpiMNINHdCJhzCRzGBz3gx1tDo28Oe1xJzJHd7CFMEpO7+C3DcSyPi3bq0z5amGLjqWqt48/B6C3G21FEaCRCljzmkgc/MjVn4/qXkBy95gXx55yNLQavYm3zc+oZYiL8sj85bFpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ILCHpRWr; arc=none smtp.client-ip=185.70.43.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1786109201; c=relaxed/simple;
+	bh=JUPgL6R1jVVEeGgYN8KMu/Lfsk6Hb9Gr2t6Zu5etbwY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JN2TexCIYBqoG3eSXRHU/lrBFZ/cJPmP++ODXVVJNLKvWNY9PBfENq0hxQBVjCDHIgJqTeQwUDNNnWa2tvOroBDPmDA2fRUFi41P6B7b0fSE1DRR+El0BGqhOdG8qN8hW/PYqk+Z2J+pyiqQK0V7mDHsB7jq5JAE7udUNrLWqXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CyyK6Mqa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ILCHpRWr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1786108996; x=1786368196;
-	bh=8AzOmKPFHDxA8q+uSAZX9GWmAvClTspGZbGdrE9wVq0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ILCHpRWrT/i9iUVblxEpAgmMiXFzXSmX1cDffE/Z1bN7O5Rj7rGqtVrooO2CJCUJp
-	 zXkv0XSfc1QvYFghNAIstWEwVQwSy2WyT3v7/xN7HuIeLDDjR+5ar5Z0Lq5XtCH0Iz
-	 DBCfGdj3WlVIMD51rDjQlA29aDxVFqvqr0kEyvTSHSprjHZhZO1w29DceFxd43nerj
-	 t9swyi7ELYXGVgp+JmFRYIHYfZOizIMcPAUgFJ45e4/QqbActwuB6Lfy7VRCT53vnK
-	 3vPAcMYMHk6ZlLaiwDTT55r/v6E/WKU0PEgIA3zVaZrs952yabWOjzInMwTGQdbvV4
-	 XLW1ifKeE7ruw==
-Date: Fri, 07 Aug 2026 13:23:11 +0000
-To: Vinod Koul <vkoul@kernel.org>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] Initial PCIe0 PHY support for SM8475
-Message-ID: <a9c94d7e-f21e-4b14-8e8b-e744850730b9@proton.me>
-In-Reply-To: <anWNemb2WCYUwRJm@vaman>
-References: <20260715-sm8475-bup-pcie-v2-0-48bd91a19abf@proton.me> <f0c1eba8-c6d9-4831-a460-980bead03c4d@proton.me> <anWNemb2WCYUwRJm@vaman>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 7557f2a5859058bade0c65992c59e17045d99b5e
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CyyK6Mqa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5D11F000E9;
+	Fri,  7 Aug 2026 13:26:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786109197;
+	bh=36ayfx+aWwqBE5P3GRF9Oe04zLW5PXCzQFiO7lfu1qs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CyyK6Mqao7XhdLRG/hfFKeio+XopHMbNk0Z9eYW+vYBgd0IZQMD7aOTMHvvrJLmV0
+	 YM1kB6VEsAiQdBsygGca4J8+rsiwLIOXveCgl6jn8Ibfbw36jfScx7/7G20nAHS8Bv
+	 BaNALfWZqQsCERbH1XXxNEM0bJ1yiFA3ntD5xOL9b6S46eF52xTNR8KRYSXt/BtYdU
+	 Z9zQCf+6lKc6TL8wG1r0JSidIYFVhkvQbfjrU2JeEdPQpx7rotYY1U6vFQw44pgTxd
+	 Vsrt+qOl2cRH+x7Dx8yEFeLAI0tgmABiErNpG+gDnFlX4afg8WXHTfMvdvX0/3X6ro
+	 oBSiIEOdIY6dw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 11/22] dt-bindings: media: i2c: max96714: add
+ support for MAX96714R
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20260807-gmsl2-3_serdes-v15-11-7212e9e5156a@analog.com>
+References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+ <20260807-gmsl2-3_serdes-v15-11-7212e9e5156a@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 13:26:35 +0000
+Message-Id: <20260807132636.CD5D11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On 8/7/26 3:47 AM, Vinod Koul wrote:
-> On 07-08-26, 03:27, Esteban Urrutia wrote:
->> On 7/15/26 2:37 AM, Esteban Urrutia via B4 Relay wrote:
->>> This series adds support for the PCIe0 PHY found in the SM8475 SoC.
->>> The initialization sequence varies noticeably when compared to the one =
-used
->>> in the SM8450 SoC, hence the need to add support for this PHY.
->> Any chance on this series being picked up?
->> Kind of related (since both series belong to the same subsystem): I
->> resent USB SS support for SM8475 some days ago and this has been picked
->> up already.
->=20
-> Already picked up, should be pushed later today
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] Unchecked `v4l2_subdev_state_get_format` dereference in `max96714_=
+apply_patgen_timing` leading to NULL pointer dereference and kernel oops.
+--
 
-Thanks for the reply!
+--- Patch [11]: [PATCH v15 11/22] dt-bindings: media: i2c: max96714: add su=
+pport for MAX96714R ---
+commit c4bf3be89835d23de9ff33f00865d0fa24fed633
+Author: Cosmin Tanislav <demonsingur@gmail.com>
 
-Regards,
-Esteban
+dt-bindings: media: i2c: max96714: add support for MAX96714R
 
+This commit adds device tree binding support for the MAX96714R, a lower
+capability variant of the MAX96714. It operates at a fixed 3Gbps rate in
+the forward direction.
+
+> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96714.y=
+aml b/Documentation/devicetree/bindings/media/i2c/maxim,max96714.yaml
+> index 3ace50e11921b..ec6a91c4a51c0 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/maxim,max96714.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96714.yaml
+[ ... ]
+> @@ -31,6 +33,7 @@ properties:
+>        - items:
+>            - enum:
+>                - maxim,max96714
+> +              - maxim,max96714r
+>            - const: maxim,max96714f
+> =20
+>    reg:
+
+[Severity: High]
+This is a pre-existing issue, but while looking at the corresponding driver
+for this device, I noticed a potential NULL pointer dereference that could
+be triggered by userspace:
+
+drivers/media/i2c/max96714.c:max96714_enable_streams() {
+    ...
+	if (!priv->enabled_source_streams)
+		max96714_enable_tx_port(priv);
+
+	ret =3D max96714_apply_patgen(priv, state);
+    ...
+}
+
+If userspace sets a custom routing table via VIDIOC_SUBDEV_S_ROUTING with a
+source stream greater than 0 (and no stream 0), sets a test pattern via
+VIDIOC_SUBDEV_S_CTRL, and enables streams for that stream,
+max96714_apply_patgen() will be called unconditionally.
+
+This in turn invokes max96714_apply_patgen_timing(), which attempts to fetch
+the format for the source pad:
+
+drivers/media/i2c/max96714.c:max96714_apply_patgen_timing() {
+    ...
+	struct v4l2_mbus_framefmt *fmt =3D
+		v4l2_subdev_state_get_format(state, MAX96714_PAD_SOURCE);
+	const u32 h_active =3D fmt->width;
+    ...
+}
+
+Because v4l2_subdev_state_get_format() implicitly defaults to stream 0, cou=
+ld
+the lookup return NULL since stream 0 doesn't exist in the user-configured
+state in this scenario, resulting in a kernel oops when dereferencing
+fmt->width?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-gmsl2-3_se=
+rdes-v15-0-7212e9e5156a@analog.com?part=3D11
