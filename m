@@ -1,95 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071E328E0;
-	Fri,  7 Aug 2026 15:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E071C84D0;
+	Fri,  7 Aug 2026 15:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786116062; cv=none; b=ML/7HVOGOSODx6x/wvcYdsiCwJxjM6dHzSrT6+kHuHZrXitEQapOOoDvTm8El9gqf3sb9b5ENdEKfkl9OwsBw5sczC4HBkXqA3Z7asIb3y6C1zDx37IbarFpCgsCwwXChlmr0Sbu8jWnaydsTCdZE5s1Tbf6CiFWnDa41Rz7yQQ=
+	t=1786116262; cv=none; b=ErzHRIbMUZ+2Q1whQqwj/UQvw/zDCjG+oU5jcUh5TGuu68ZFzOboCWSzGLBmjbNWABx3phiY72hw83+pW1+eIEBb5BuEImrceuvmGpN5qmFIIJjSSE+jfwGETw/QDCAMgrtKJrjsCO/8hjcpibJVE1NdGFhSn5phjn7dSmKy0es=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786116062; c=relaxed/simple;
-	bh=PbNt4F/P/wppwX1+x/KePCIBTY2Raux48TqnbFQCG7k=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=NBAbfTdsow70dqoIoOKwucMY1yu4OJn5B+ILBx2xcV4jnBUxUazF+cW0GfZObG5nXofNv0ei9tAGloA5AaAeXrjCKPRyJD0waEOcxv8sJEqwCHeuL47bA4SGBlQIB3ABd9j0EFYoL2DLxkM+xgGkJYjFevpDmcauPUlq9r/pf8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9xIqInD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786116262; c=relaxed/simple;
+	bh=/YIMkYiiMnTbvDCILWTkQCZ7s+D6ywrIjdQ0XntujtI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gKzVC9LPYoLDB5Fyb8mhm4dv9qZq+aDEdV5dZlKIZM7h3jWmA1StCyzuy7IUgbTUtum0QZIQYb+M07Z23p2BlvftKnT7/mc6+D1e6YMdjUtmJrZAEbNvr7Gfr55nEWc/jKEnsLhbKBtUzXwMTP6d0j88585Wmi9rXp6rMEhaPgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=z7FLizxK; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9xIqInD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9306F1F00A3A;
-	Fri,  7 Aug 2026 15:21:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786116060;
-	bh=iG4zfB3mkX/9JfpqPZptcO7ZZiGhOcnJC3Whi+Knzc4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=F9xIqInDTiHDd/d8qIPuMoAMNRb5iBY71TAvq+QxygVPo9hlrdSmDykOOI5fL7COR
-	 XMJ6uE2TqHIUe+3as/KvudQnR7vISAqZwIouja74y8krfv/MwVOwvFYSaZKAAJjQjW
-	 HDDueZ+wGHviBXEfWMtMA3jkh4fXG74jJGz/FD1FVPnzyTf7qczyJYLZ2yX6QGZ1R7
-	 SYsmiN1aGKmSSwD01XgaHxh2r3sKkWm0xkzX52rL5GDETPOAfb1RZtn10uWVIMGKbd
-	 WYlW4bZeRrJ2fMJRYlXjo9Dz6c+o+a8sttqPE6WPAeteHnZ2+Q0De82rsr1surN7v8
-	 8uBZ1OdrsSuwg==
-Date: Fri, 7 Aug 2026 10:20:59 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support +
- clock
-Message-ID: <20260807152059.GA39821@bhelgaas>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="z7FLizxK"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9311E1A14B1;
+	Fri,  7 Aug 2026 15:24:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D5E9603F0;
+	Fri,  7 Aug 2026 15:24:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A5CF911C37ABC;
+	Fri,  7 Aug 2026 17:24:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786116257; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=iy2SF4T0jZmpRaS70n22aR4+O9IH+F6owy2QheVd4dw=;
+	b=z7FLizxK9zikxs9sg0JQi1JbD+J2VVQuEY/D7Bx35POpcVQq2OmJDa9AUdLhiTWX3djQqH
+	pFXOSzZFAe8UtZbg9kzmH6dx2Z98rJa7dHBjpu/PkGIq7/by/lGz56byB1e3h06omLjaKi
+	2tLGlXkmdrZJ6QDoJ6G/sxoXCxA+j3hXvIapYpKauTYWaPm5g78MNLPr7licz3gmigIzLI
+	N3jikVwTQCOkwDUQeyRm581gLCedw+PZbH2w26kTBz09OQAvuXcOf/Ft3/lWyj5QmMWgWn
+	6l/KxdldhMoypyB5kaHRUN2cDk0B2VcwS5xDBNawgX4pHcwV47Jp46I3CYwvhQ==
+From: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>
+Subject: [PATCH v5 0/7] clk: Add support for clock nexus
+Date: Fri, 07 Aug 2026 17:24:01 +0200
+Message-Id: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGXv+5HrDw8GWb9zp1AaQU9UW+0FGcr7jOV2jt_zi_2KgfgBqA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XQMQ7CMAwF0KugzBglaVIXJu6BGNrUUEu0qZISg
+ VDvTmACsZTJ+n94X/JDRApMUexWDxEocWQ/5GDXK+G6ejgTcJuz0FKXEpWE6LqBuKUACUFDcAq
+ IRy0VXMc4Bap7qA1KslQ3W92KDI2BTnx7jxyOOXccJx/u782kX+1ffNIgoTFlJbHCApH2jffTh
+ YeN8714DaTiEy0XoUVGt5WxhqoiH/eLmk8UF6Emo2iVNUiqzD/5Rud5fgKPdACZgAEAAA==
+X-Change-ID: 20260710-schneider-v7-2-rc1-eip201-upstream-a470e5eab92d
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
+ Rae Moar <raemoar63@gmail.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Pascal EBERHARD <pascal.eberhard@se.com>, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, 
+ Fran Li <Frank.li@oss.nxp.com>, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+ "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
+ Frank Li <Frank.Li@nxp.com>, Herve Codina <herve.codina@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Aug 07, 2026 at 11:24:09AM +0800, Chen-Yu Tsai wrote:
-> On Fri, Aug 7, 2026 at 12:53 AM Christian Marangi <ansuelsmth@gmail.com> wrote:
-> > This small series introduce support for 2-lanes mode for Airoha AN7581
-> 
-> Just a nitpick, but I would probably name this something else, like
-> "cross-controller lane-bonding mode" or "lane stealing"? PCIe already
-> has 2x lanes as a standard feature, so this naming is a bit confusing.
-> It's not like dual-LVDS display in which LVDS is only a single lane.
+Adding support for clock nexus had some prerequisites requested by
+Stephen, such as adding new selftests, the initial discussions come
+from:
 
-I suggested the "2-lane" and "x2" terminology because I assumed the
-result is what the PCIe spec would describe as a "x2 Link" consisting
-of two Lanes. 
+Link: https://lore.kernel.org/linux-clk/20260129201003.288605-1-miquel.raynal@bootlin.com/
 
-If that's not the case, maybe "cross-controller lane-bonding mode" or
-"lane stealing" would be more accurate, but I don't know what those
-mean, so if we use them I would also like to know what the result
-looks like in standard PCIe terms.
+Signed-off-by: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+---
+Changes in v5:
+- Collected tags.
+- Added the of_ prefix on the new kunit helper.
+- Reworded a commit message.
+- All remaining points raised by Sashiko do not seem relevant.
+- Link to v4: https://lore.kernel.org/r/20260717-schneider-v7-2-rc1-eip201-upstream-v4-0-751547e160e5@bootlin.com
 
-> > SoC. This is needed for correctly functionality of Eagle WiFi Card
-> > normally attached to this SoC that require a 2-line PCIe card to
-> > correctly work (and give the proper performance)
-> >
-> > The first 2 patch address a limitation of the PCIe implementation
-> > where the PERSTOUT reset were indirectly asserted and deasserted
-> > all at the same time (for all the 3 PCIe card) with PCIe
-> > enable and disable.
-> > The 2 patch address this and introduce correct reset to control
-> > reset line for the relevant PCIe line.
-> >
-> > The last 2 patch add additional logic and support to assert
-> > and deassert the PERSTOUT and also apply the required configuration
-> > for 2-lanes mode.
-> >
-> > 2-lanes mode is implemented in DT by adding the required property
-> > and by defining the "num-lanes" to 2.
+Changes in v4:
+- Fixed the kernel doc of of_find_node_by_name_kunit() which was lacking
+  the fact that it could return NULL upon lookup failure. Also improved
+  the commit message by mentioning the addition of that helper.
+- All other Sashiko reports have either been disregarded because they
+  were way too unrelated or just not relevant enough in my opinion.
+- Link to v3: https://lore.kernel.org/r/20260716-schneider-v7-2-rc1-eip201-upstream-v3-0-98454e83845c@bootlin.com
+
+Changes in v3:
+- Prevent out-of-bounds clock-ranges fallback in of_parse_clkspec()
+- tests: Check of_clk_add_hw_provider_kunit() return value and fix node
+  ref leaks
+- Link to v2: https://lore.kernel.org/r/20260710-schneider-v7-2-rc1-eip201-upstream-v2-0-b4680787377e@bootlin.com
+
+Changes in v2:
+- Collected tags.
+- Rebased on top of v7.2-rc1
+- Exported (test) clock symbols using the _IF_KUNIT() variant, and
+  imported the NS in the test file.
+- Fixed a leaking node reported by Brian in the tests. Also used
+  existing helpers to simplify the test implementation as he wisely
+  suggested.
+- Reworded the nexus node binding description as suggested by Stephen.
+- Dropped redundant and non restraining properties from the Nexus
+  node as suggested by Rob.
+- Assigned clock/clock-rate properties now traverse Nexus nodes.
+- Rename helpers following Stephen proposals.
+- Rework tests following Stephen hints.
+- Link to v1: https://lore.kernel.org/r/20260327-schneider-v7-0-rc1-crypto-v1-0-5e6ff7853994@bootlin.com
+
+---
+Miquel Raynal (Schneider Electric) (7):
+      dt-bindings: clock: Introduce nexus nodes
+      clk: tests: Add clk_parse_clkspec() Kunit testing
+      clk: tests: Add Kunit testing for of_clk_get_parent_name()
+      clk: Improve a couple of comments
+      clk: Use the generic OF phandle parsing in only one place
+      clk: Add support for clock nexus dt bindings
+      clk: tests: Add Kunit testing for nexus nodes
+
+ .../bindings/clock/clock-nexus-node.yaml           |  30 +++++
+ drivers/clk/Makefile                               |   1 +
+ drivers/clk/clk-conf.c                             |  12 +-
+ drivers/clk/clk.c                                  |  15 ++-
+ drivers/clk/clk_kunit_helpers.c                    |  31 +++++
+ drivers/clk/clk_test.c                             | 139 +++++++++++++++++++++
+ drivers/clk/kunit_clk_parse_clkspec.dtso           |  31 +++++
+ include/kunit/clk.h                                |   2 +
+ 8 files changed, 249 insertions(+), 12 deletions(-)
+---
+base-commit: 7f26e010764df304602f33912a0550dcf46e72c2
+change-id: 20260710-schneider-v7-2-rc1-eip201-upstream-a470e5eab92d
+
+Best regards,
+-- 
+Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
+
