@@ -1,117 +1,95 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE3D3D1716;
-	Fri,  7 Aug 2026 17:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BD6317164
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786122914; cv=none; b=DhT1bQb0zYZZdgdyeADOH62FEby4ZbbZxQ9379cJzxIR+wIl9elqHJUTJA4PkczQsfvlnS+UOPFae1MHpg4m9KGlujM9Sf55Bh/GAK4xUpwzTBJSbSfiitGb0dAWZTGAy5axbtcvs3q+ecLtjU/u778UCQVE7u5IXsKXCk9sKI4=
+	t=1786123231; cv=none; b=MnmlODo4sbI72FBnli4bahOGkwER4rtv3S+x/XGDXTkSSNxqnpLgo83pRAbC7lVmopghsZLiKxOmMEB7JUraNJn9PUX+fSzUSPqOxwnyjxDj4CitLHbhAQ000wt24u1a9Hmgn6aX7ofJQPiZSEz8GNubcifz9ry5/plQCXO2JbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786122914; c=relaxed/simple;
-	bh=I19tJ/JSrkDPX0WmA07k7+MSXhe7HUmwiQwQayH6c9E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t38Xsc+1k6sEJ+p2/UbukVvfu6hl/K2WGMt9T4npEfD+fUCDCK1M+HKPm1MI3CNLitn0iA0fRPOY8AfFSRkPUqAYxVhjVn3rqXqrlpfxFzrG+2AiHGMiTpyi9kMZcJOuW2gEk15ROeYvMSPoj/icJ2bue7iyWZRqU9MuaGF9+h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=1h803Cmd; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1786123231; c=relaxed/simple;
+	bh=z0RYy/nIJvTOLkU0NIZgUW/550l8f5zGxhkeKOF5248=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V5Ny2c8heeLgvl1kPkrQ/VAmP6Rmxn2gPEkl+p14SlJKH9zlRtREYhrokLtV21yrjY/i9qJC99CginB545go9Nr5EO+282m03JmFR7NrvtqOkXhltO9DTJMn/cPhIJGguNI1U/yuzk2Fv/euXj6XsyVaA+qRZjJyN/ikYrUSlk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GI849d+E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="1h803Cmd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=h6t3Ha3eE2oPKDIqEZftYYdDouJma79EyKI3RmbNrVY=; b=1h803CmdHMC77vNqU9mqVY67yc
-	cWTzcpoLL9QJer1naQgHAhe3nYLgHLDgS+IchXILRy78YFPXaJDWLJ2PkO48aN58Tf5RnkaRBYTWK
-	asAMFYjzDOif5RKdzHR8j08q9zKSiMzJ3Zg3yMqwoGlUQnVoM4PmakPXUcgdiDpkyu2E=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wsO9L-00GcXa-HT; Fri, 07 Aug 2026 19:14:27 +0200
-Date: Fri, 7 Aug 2026 19:14:27 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	Ciprian Regus <ciprian.regus@analog.com>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Mark Einon <mark.einon@gmail.com>,
-	Iyappan Subramanian <iyappan@os.amperecomputing.com>,
-	Keyur Chudgar <keyur@os.amperecomputing.com>,
-	Michael Chan <michael.chan@broadcom.com>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Doug Berger <opendmb@gmail.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Wei Fang <wei.fang@nxp.com>, Frank Li <frank.li@nxp.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Jian Shen <shenjian15@huawei.com>,
-	Bryan Whitehead <bryan.whitehead@microchip.com>,
-	UNGLinuxDriver@microchip.com, Vladimir Zapolskiy <vz@mleia.com>,
-	Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
-	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Timur Tabi <timur@kernel.org>, nic_swsd@realtek.com,
-	Byungho An <bh74.an@samsung.com>,
-	Steve Glendinning <steve.glendinning@shawell.net>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	FUJITA Tomonori <fujita.tomonori@gmail.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Jiawen Wu <jiawenwu@trustnetic.com>,
-	Mengyuan Lou <mengyuanlou@net-swift.com>,
-	Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	Sebastian Reichel <sre@kernel.org>, Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-omap@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH net-next v4 0/4] net: mdio: support dynamic OF device
- changes
-Message-ID: <4aeebecb-81fe-4f09-9dfe-a3be2f778bb8@lunn.ch>
-References: <20260806-submit-mdio-of-dynamic-v2-v4-0-4beb0c50d5ba@gmail.com>
- <b2e83ba0-2e9c-4105-b806-8a155e8b9aa5@lunn.ch>
- <CADvTj4rame1n8eQL2GUOaJHnOcR_cqNxzNYO+QeCLYDczEFeUA@mail.gmail.com>
- <ddce5cfa-8cf9-4f9e-ab0a-0b415706876a@lunn.ch>
- <CADvTj4qxGVw+PW2LeF-a3h1XfmirQZGfJA9-6Czt72XASbVLBQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GI849d+E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F2FC1F000E9
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786123230;
+	bh=Gg3oYVQYlXm6P2vtp12+vm5BasXw2QLtKk//NjWMotI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GI849d+ENPlRt+jEfPUbSYHpsLYzTq20IlsqybWARiiUfl6kGQNclXPXL7pYFBTaQ
+	 WYeu4cXuY2rPPYVA5qNLVQCiBs+sBy3ajsURnJkmYPe8RtanD+bIljsOL1hBDEsko+
+	 M+OPbNP1y3tU8euCPePmPVKnxU3x0HdJ4eauuuoKKccK2twfIthwHphxBXjWjI/7rY
+	 KT8wIHsOiTM0Mef1EvMzCeYqyInPdV76ZRmcJSw57iUDN3RrY/cS824MJwvKbLxpAK
+	 5zo3eSpgcWhxi7PYb/z15YJ4kGrcG0pKoDgzDn+iNXaQy6Xzv2rVdOeCXimx+hy/EH
+	 5SmNmM2vCJkXA==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b0117dda13so3150403e87.0
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 10:20:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqooZPmh3A3qEjRDFAR0k15px1QEvVQFTaQMOvxCwKkm2Xc1yZ5zir7xV7SjSZKhAI2NBHktpPHB5M/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTtoPGkjYH32hTDo1evgHTGb14/9wQpgio8OSI6zXFAlLsZNJ0
+	vDh6UVNFpki8RHPf0HKAckIL/lJbejVwvDIpiryeSwDQsuPp5WOFkId62Wq89t+n4bzhgiib4VE
+	qVr83zea/riA97F32WkiFWYXVg/JR12I=
+X-Received: by 2002:a05:6512:3784:10b0:5b0:12e1:486c with SMTP id
+ 2adb3069b0e04-5b30b740f96mr210413e87.24.1786123228943; Fri, 07 Aug 2026
+ 10:20:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CADvTj4qxGVw+PW2LeF-a3h1XfmirQZGfJA9-6Czt72XASbVLBQ@mail.gmail.com>
+References: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
+ <CAD++jLn8uL7NePnPK6SNcuKRjxm6c_98Piu4Y+urKko5eT-mhA@mail.gmail.com> <4c0f22af-6124-4118-8ebf-0725e8fc89bb@iopsys.eu>
+In-Reply-To: <4c0f22af-6124-4118-8ebf-0725e8fc89bb@iopsys.eu>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 7 Aug 2026 19:20:16 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=8Ki5cM9buRVRNNorC00Lug=Zxyvco8jx7fQi-cqT8wA@mail.gmail.com>
+X-Gm-Features: AUfX_mxQjz2qk4FtcquHlSD4s6HrtS5fu7UyLqTNePyQlrK7Tk9WIU-tS9v15jo
+Message-ID: <CAD++jL=8Ki5cM9buRVRNNorC00Lug=Zxyvco8jx7fQi-cqT8wA@mail.gmail.com>
+Subject: Re: [PATCH v11 00/37] pinctrl: airoha: split on shared and SoC
+ drivers, add more SoCs
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Christian Marangi <ansuelsmth@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Benjamin Larsson <benjamin.larsson@genexis.eu>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, Markus Gothe <markus.gothe@genexis.eu>, 
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>, Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> I guess it can also be used like this for live dt modification:
+On Fri, Aug 7, 2026 at 6:39=E2=80=AFPM Mikhail Kshevetskiy
+<mikhail.kshevetskiy@iopsys.eu> wrote:
 
-A guess is not good enough. Give us a concrete, in kernel use cases.
+> > This patch set began with 11 patches and is now 37 patches.
+> >
+> > Is this becayse Sashiko is touting you to just fix more and more issues=
+?
+> >
+> > I think at some point we have to draw a line and say "let's fix the res=
+t
+> > later".
+> >
+> > On the other hand I appreciate your efforts...
+>
+> following reasons:
+> * move binding changes to separate patches (8 patches)
+> * openwrt upstream changes (4 patches)
+> * issues found by sashiko (5 patches)
+> * new features (3 patches)
+> * code cleanups (4 patches)
+>
+> so growing from 11 to 37 patches looks reasonable
 
-> AFAIU the patches other than the last one are still relevant regardless
-> since they are fixing a bunch of generic mdio safety issues in code that
-> has users since MDIO maps already change at runtime through non-OF
-> paths(i.e. SFP insertion/removal).
+Fair enough :D
 
-Fixes are fine, but please word the commit message around real things
-that can happen in todays kernel. If it is a race condition, such bug
-reports often show the call stack of the two racing threads.
+Can I ignore the  new Sashiko moanings and just slam this all
+into my tree for linux-next now? I.e. are we happy?
 
-Do you have a board with an SFP cage? Can you test your change.
-
-   Andrew
+Yours,
+Linus Walleij
