@@ -1,726 +1,129 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011028.outbound.protection.outlook.com [52.101.52.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1E7F47668C
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 12:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786106096; cv=none; b=jEF2UJzMaKTxbT1DUsqDTtDXedj0s/C+NVaGZ0wlitPU6hn7ceTfA0SmwTq1BH30Iq1KcKq2HJwoQ4zsxeCdgO+p9ozSZzLR0n27Q5yz9ql+2KFkt6eKQ0uDPXXScs/I6L50xHFztkOtePt1pQbcPqCurNwzyvdPMdtur9KgZz8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786106096; c=relaxed/simple;
-	bh=y7qTaUqOuDmovjKbFqe/kBler1pzDLA/0TpRGZrsYhc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qTnhu/Hqmt2s+Aqky7MYaNi6gZUukaTejnl0egazuP75wbKz0F2J2aA9//PR9zEIAIXOXknkNLt4iPEl9HJSLSiCgMZ0sGhhLepQriWwpfSGBpTKsO8rIm2XHtRNDCToF7KKmaNK9eIZ+0iu3P8k++/dIIkjSG8qUjG46HZXEYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLhOfWyc; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 668F14756C2;
+	Fri,  7 Aug 2026 12:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786106137; cv=fail; b=X3NwZEZClptw0GJMw3czIRmJC0s3xQaXkltTvxbY82I5FtQqO5VLj0P475nktsj+SqtyZhnfjSZIhygIW4pEAnzFjCdcKOiSZ9ck1+i4/OruHgxV1XMqCOe2qtB3ilcaMnCMCZ6h4495gh1azr2vIsZ3E9EcOgRFA5Zpeyjhu7Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786106137; c=relaxed/simple;
+	bh=r82qo+d4vkXGikYkwEe/5VVmGRKzRiLCwmD/vnnLYe8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=P7mey+7gZJ7rPhWBQnrAXR/HAK+fhN0DzuK79ei1KtdLXmvksE9qZgkcR6ZqvSu3rFxo752CRBuryxsvWt/nOVGz0Yb3oaba5vNYQmHRgaLaL1s3mKL5LOjplHxQms67+45Etu7Bau/sAzv1cQcTKa64/UaU3j4H1FB7Gg4gjtw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Yf7Rwhn8; arc=fail smtp.client-ip=52.101.52.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLhOfWyc"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4954a2e73a9so20436435e9.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 05:34:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786106066; x=1786710866; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ovYk5oD81cOi3Vk9u8rJLzZKtEkaCEJKfLyOwquiyf8=;
-        b=NLhOfWyc7b6fsAob6+uLiu55tWQiLtlRhsHy+wuaco58G/T/a0KNcXTy2OGd+31R46
-         jPFdqYBrExJKmrqzuKVbo2a5/Z5sUD3ZYbf2nWBs8rv+uwRGZOG7L2JMiUnSy1kH0AVc
-         V7kw7aza//Zque+VGw8rLINT92NWtyQkmw2C0muVCTTcgj0uJfJccq46Bjvn2mBIeyvc
-         1qMZHCaz3648tJZ7ncur+qd+IGFUh/YjI+Y011w2e2K/W4lACwheYOBM5WqQAlc9qRDL
-         fZhJS5xZhiBXe1inYDphbjaepISD9rJGwH6BhibcWmR6oluH/lIou+Eq4XI3TAryIHvZ
-         zsFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786106066; x=1786710866;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ovYk5oD81cOi3Vk9u8rJLzZKtEkaCEJKfLyOwquiyf8=;
-        b=OXLgQzGcATeMgEnvODeZHfyVTXUuBNxTeLSwFvjjLsuyL4Z744YCf1Ofn+tkS9bZNZ
-         SUZ3t4N8LmPEKnwbUkTjHrWVcYf6SwBgNqck3ZzvJD0SMPHuQ7fi90qb575k+vowxN/i
-         /t6Uo/rlT9Kj13Ix7TU8ogL8RmoDo+yLBrOIyqeLTr9FI1mQC6owIqraPmTLICrlixr7
-         QvAyExQIu9AMFNyGuySdNhm/Ymob+20CHDcPIqkYppJE9qmnoNpEyJ3DVpOuVMZJlZYa
-         qKH/smfNchiG4zIOWoAHxAbYkzi95hhT45BwoytLwGzY6GzZegwUYtWdgeaLtRFhsQ0r
-         eoUQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+epiPDCYrbvXYUUYlPED/QSA4AAWy6PF+ale20EQT5AHHZrxo9rqvpnrS1TDvAzY3yoWezhNyNann@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPnsPxceIFg0pd9k24s1KjPxnOMx5WunkEwd+7VcFNg8mdkQul
-	/9fZ6pCZW/gv/5Rz+DOMp9ACBpvqensYT/WpicQNLpNepuVuFEGC29wx
-X-Gm-Gg: AR+sD126cLXk3F3vecVRWG0OoJUKsbOsc80kKUSCLh1T95Zww6Ja6Id/BeIdJ4EyRQl
-	GAQyyvEUI/WYDVGev03e2eehOJX3OKy+zFEGqSEUzON/3cLyQfiEENJArirT8A12SQfN2BKumTU
-	TD3pHgaPgFrK1xJ1JHDB8N49xzHJ4Nm/gb7W+pIMUfrgBnI8FVKX9tRzFumtYklRsRmAwxWgFHP
-	uO6H1htHCCHEgIAIoQUQLN5RtV8B5pw4ppfVvCj7Bp9907btRT406nfW0m7Ujd/wrY79FdrAEBD
-	BRkBt3Ud2oIHd1k6F0ecCcXEDtPfOxQZvMXyzV3wGgTJE0UHkfuUG5PwJ/0k/pwaSPr+/MnWI8Z
-	I6UMmU1+k6xbz71OKCTR7NJBHJnSXoyObxwIBiGSnxqquZhnuL7y9xmUZgaYcHLziJaSXTjuzos
-	tggCR7zLtAHKkzI4M1l2ZAW1PpKxprrcRYWhwx3L0xrywWW7R1YiEs60TabFYeBUNyEgOKbpP38
-	2uy
-X-Received: by 2002:a05:600c:1c19:b0:499:5220:db3d with SMTP id 5b1f17b1804b1-4995220db75mr238793785e9.16.1786106065669;
-        Fri, 07 Aug 2026 05:34:25 -0700 (PDT)
-Received: from [192.168.8.167] ([2a00:f502:270:d465:a26c:adcb:8da8:6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995bdca3ddsm49530495e9.1.2026.08.07.05.34.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 05:34:25 -0700 (PDT)
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Fri, 07 Aug 2026 15:33:32 +0300
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sm7125-samsung: add initial
- device tree
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Yf7Rwhn8"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LgT4dj2NU3bHKsCZSX2CQg7lMNF86cFeMhVNcDHC/0P9EsDDyGqV2wnPa5odZV6tOPRh6NLxc04VfPpryk/VIHosFEcJuIhnuQ2VKMmfh+k+fYEXRWkq7yakkiXHejnNPefCCZPksmHFUZqgIzcm3Z5apQgpHh5eR99/MN9zYdX4g1qkuc/JgL7QtouyF9e02y3Tmtlr4Il8PLS0Q2L1ZMGLOG+GMfY0FWAF9d59/9bwcScc4vasstKlKLhSXd8hRVL6IRW/r6eGfYVK1l9K539bSGdzm9II4Z+7FGTXEPq6aiArFXX5p0CT73L5xVGwU6qFutqRW3HyYQjYSkjZCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0YcD55WYvLtcyc31nPpJHqxWdE7MXd1gRFMzHWdGM0Y=;
+ b=YmbLAfNUl+CiupZAf9or5GQi8Ak2kNMBCPhK2YcBOCyLH6BSzinKHPIfpMdGHGEc8ipiTAsXrGd87FfKIjiO7h58+Gs2+YjJB0ib1Fs7i7Ro67E/tUfph//47/qHHGFWI2QjZFuPVZ5Y38wzFvMJQqiM6PlJyi+hVqvMEaJlslHcHuUy7IOt8270YTs442aVSYYBSkNpYsd11vv83iGBp0+0W7mlfSzaq9seZiiRZSN9GZ3jFh9pSpC7h78Rkh6r8AB9rhjgfsLzYHw8BM8aVoHRz88ZxphoqYisL8AIT14ceWlI5U0AcPmN90VHE93OZk9gWW+6HBrStjstON5gfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0YcD55WYvLtcyc31nPpJHqxWdE7MXd1gRFMzHWdGM0Y=;
+ b=Yf7Rwhn853hrz3ALGHZuZoAB2w1jN0ZYJpbn6xeY/slQgFolyC9OORCnIvTxy9OXdF4oWvA2lrU3X/SAWCPGZQnDBNrzOtuMnc6dL2izjPQ42XgFhoa+y0WsSfg9sM+XpwbFDQNi8KwrrcMdsxMghO4IIIowWsdXJi699d539SM=
+Received: from SA9P223CA0004.NAMP223.PROD.OUTLOOK.COM (2603:10b6:806:26::9) by
+ SJ1PR12MB6147.namprd12.prod.outlook.com (2603:10b6:a03:45a::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Fri, 7 Aug
+ 2026 12:35:16 +0000
+Received: from SN1PEPF00026368.namprd02.prod.outlook.com
+ (2603:10b6:806:26:cafe::a0) by SA9P223CA0004.outlook.office365.com
+ (2603:10b6:806:26::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.21 via Frontend Transport; Fri, 7
+ Aug 2026 12:35:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF00026368.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 12:35:16 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
+ 2026 07:35:16 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
+ 2026 07:35:16 -0500
+Received: from xhdlc250064.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 7 Aug 2026 07:35:12 -0500
+From: Sai Krishna Musham <sai.krishna.musham@amd.com>
+To: <bhelgaas@google.com>, <lpieralisi@kernel.org>, <kw@linux.com>,
+	<mani@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <cassel@kernel.org>
+CC: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <michal.simek@amd.com>,
+	<bharat.kumar.gogada@amd.com>, <thippeswamy.havalige@amd.com>,
+	<sai.krishna.musham@amd.com>
+Subject: [PATCH v8 0/2] Add support for PCIe RP PERST#
+Date: Fri, 7 Aug 2026 18:05:05 +0530
+Message-ID: <20260807123507.3418671-1-sai.krishna.musham@amd.com>
+X-Mailer: git-send-email 2.44.4
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-sm7125-samsung-v3-3-ac0139e5c612@gmail.com>
-References: <20260807-sm7125-samsung-v3-0-ac0139e5c612@gmail.com>
-In-Reply-To: <20260807-sm7125-samsung-v3-0-ac0139e5c612@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>, 
- ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, Erikas Bitovtas <xerikasxx@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026368:EE_|SJ1PR12MB6147:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5204defc-c7ed-45f9-5a43-08def48055f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|23010399003|376014|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	6hrDZWekTyOn/RBxS6kEwgmpB+W5dOzKaKrXzwnZAXNptcsduBKUcjxRW71QMPrVOprD5DiM+M4wyX4ZrlYiMJkqhrVJyg3k4OASeAMMLYnKCYrBwI+I9Rgthkqbre8shMXoyQxrzULf93btvApXrQFVYm3hQ7r4Ob1MboDWuW74eGsLW5vIugbob5kkpVNuO3xbS/G/0oExkwlAdIfWdKSMio0DY0XmeN2Ai41e+dd5c4Z9DhbKQRqIM0PTGirajl6PSWuWI/Rk4r7+7/Tm1roSULr0xEqEcOkhUmxPsrKg7bwdyv7AGtmm+Rt4nHDbTbR8MoT9UBF6YYDB1A7IoIA6ma/XLNcG9TzVzD7IPgbBwOkHAVob6Z2f4iCp61tW0fOmt43kKlW1yOTrwz3ZoyD/a7xL66Z0c/SEn/yr8/8D//ZAKtmy72qZNcDDqVc8YqCD5ijO9LOePoiIb8arUCjF3TZaKxsTrH9IGIxyXS4LREUJub//reGsIq9i159m9E6jNqjxzVziCaILeC/mMHx4S9YRsNMZAuGZCohNw5POCKD6X2l+69yEDphWOdiWWAZsw+JYuNXH51s1/i6JLsoUUmUJ7KDL4cnGAdR5nW/TXpx3dqbLm3wpqacld8xZkr4FDQWwbPjaJfgAhKsuCubuHoLRCnecb1gWOG4Ku9vvsYpCCd+ZP2B1kzBg+GO7JqUvX3Dwh2h7YKqW++8VCg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(23010399003)(376014)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1OOz+/g4uwQTN06DR5DnPdYxuA49Y0c351xSY1ffu9e/aGyZPGqJzBskWe55qnJXg52u81UIVNUi+OvZZPLi+5zy5zNGJ90ZcW0Lutys7JT9LKpv9YpB2um0DH4FGKz9NHg6BqlyI/wD014I5XW3tzfZrqH6AHIpbgANW5PwP/CNd3c65pP62+p2ob3irjCwKJoC6EDjPKT6CJjoto1CtD4EcCF4sFH0gg8Rd5Qa6j4gkWMQAOg/jy32mSbMaB/5jU427eLEzCa6iQZT29Jo8oEC0sWnzKMBXwa4DI2jbdYV/0UnQqIonzSZB5GCRx8r/LlHMBDRvR/tgoqLkaPMca2+s4911R/MHQVzp2zyY+6LSo8qpoLWkz2gpuqToiTnoIC7n8CERMhCMYVXsDAfqCYyWKJ914olzpnn/3Eg0LpanZbxY1w2jJn4GKC4hwnx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 12:35:16.7778
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5204defc-c7ed-45f9-5a43-08def48055f2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00026368.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6147
 
-Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
-in 2021. Add initial device tree for SM7125 Samsung platform with
-support for:
-- Framebuffer
-- GPIO keys
-- Hall sensor
-- Vibrator
-- Regulators
-- Reset input
-- Real-time clock
-- SD card
-- UFS
-- USB
+Add support for PCIe Root Port PERST# signal handling
+in the Xilinx CPM PCIe driver and update the corresponding
+Versal CPM device tree bindings to describe the reset and
+PERST# resources.
 
-Tested-by: Stefan Hansson <newbyte@postmarketos.org>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: David Heidelberg <david@ixit.cz>
-Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   2 +
- arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts   |  20 +
- arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts   |  20 +
- .../arm64/boot/dts/qcom/sm7125-samsung-common.dtsi | 536 +++++++++++++++++++++
- 4 files changed, 578 insertions(+)
+Sai Krishna Musham (2):
+  dt-bindings: PCI: xilinx-versal-cpm: Add PERST# and reset support
+  PCI: xilinx-cpm: Add support for PCIe RP PERST# signal
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c86e7e98f55..874db77c0e25 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -349,6 +349,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm6125-xiaomi-laurel-sprout.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6125-xiaomi-willow.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6350-sony-xperia-lena-pdx213.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6375-sony-xperia-murray-pdx225.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-samsung-a52q.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-samsung-a72q.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-xiaomi-curtana.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm7125-xiaomi-joyeuse.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm7225-fairphone-fp4.dtb
-diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
-new file mode 100644
-index 000000000000..ecba5be8164e
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
-@@ -0,0 +1,20 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * SM7125 Samsung Galaxy A52 (a52q) specific device tree source
-+ *
-+ * Copyright (c) 2026, Erikas Bitovtas. All rights reserved.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sm7125-samsung-common.dtsi"
-+
-+/ {
-+	model = "Samsung Galaxy A52";
-+	compatible = "samsung,a52q", "qcom,sm7125";
-+	qcom,board-id = <0x22 0x6>;
-+};
-+
-+&rmtfs_mem {
-+	reg = <0x0 0xf4f00000 0x0 0x202000>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts b/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts
-new file mode 100644
-index 000000000000..f18d03de1585
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts
-@@ -0,0 +1,20 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * SM7125 Samsung Galaxy A72 (a72q) specific device tree source
-+ *
-+ * Copyright (c) 2026, Erikas Bitovtas. All rights reserved.
-+ */
-+
-+/dts-v1/;
-+
-+#include "sm7125-samsung-common.dtsi"
-+
-+/ {
-+	model = "Samsung Galaxy A72";
-+	compatible = "samsung,a72q", "qcom,sm7125";
-+	qcom,board-id = <0x22 0x5>;
-+};
-+
-+&rmtfs_mem {
-+	reg = <0x0 0xf3700000 0x0 0x202000>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-new file mode 100644
-index 000000000000..b8863e111bc4
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-@@ -0,0 +1,536 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * SM7125 Samsung common device tree source
-+ *
-+ * Copyright (c) 2026, Erikas Bitovtas. All rights reserved.
-+ */
-+
-+#include <dt-bindings/arm/qcom,ids.h>
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-+#include "sm7125.dtsi"
-+#include "pm6150.dtsi"
-+#include "pm6150l.dtsi"
-+
-+/delete-node/ &rmtfs_mem;
-+/delete-node/ &ipa_fw_mem;
-+/delete-node/ &tz_mem;
-+
-+/ {
-+	chassis-type = "handset";
-+
-+	qcom,msm-id = <QCOM_ID_SM7125 0x0>;
-+
-+	chosen {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer@9c000000 {
-+			compatible = "simple-framebuffer";
-+			memory-region = <&cont_splash_mem>;
-+			width = <1080>;
-+			height = <2400>;
-+			stride = <(1080 * 4)>;
-+			format = "a8r8g8b8";
-+			clocks = <&gcc GCC_DISP_HF_AXI_CLK>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		pinctrl-0 = <&key_vol_up_default>, <&hall_sensor_default>;
-+		pinctrl-names = "default";
-+
-+		button-vol-up {
-+			label = "Volume Up";
-+			gpios = <&pm6150l_gpios 8 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEUP>;
-+			debounce-interval = <15>;
-+		};
-+
-+		event-hall-sensor {
-+			label = "Hall Effect Sensor";
-+			gpios = <&pm6150_gpios 10 GPIO_ACTIVE_LOW>;
-+			linux,input-type = <EV_SW>;
-+			linux,code = <SW_LID>;
-+			debounce-interval = <15>;
-+		};
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		tz_mem: memory@80b00000 {
-+			reg = <0x0 0x80b00000 0x0 0x7100000>;
-+			no-map;
-+		};
-+
-+		mpss_mem: memory@8b000000 {
-+			reg = <0x0 0x8b000000 0x0 0x8900000>;
-+			no-map;
-+		};
-+
-+		wlan_mem: memory@93900000 {
-+			reg = <0x0 0x93900000 0x0 0x200000>;
-+			no-map;
-+		};
-+
-+		ipa_fw_mem: memory@93b00000 {
-+			reg = <0x0 0x93b00000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		ipa_gsi_region: memory@93b10000 {
-+			reg = <0x0 0x93b10000 0x0 0x5000>;
-+			no-map;
-+		};
-+
-+		gpu_mem: memory@93b15000 {
-+			reg = <0x0 0x93b15000 0x0 0x2000>;
-+			no-map;
-+		};
-+
-+		adsp_mem: memory@93c00000 {
-+			reg = <0x0 0x93c00000 0x0 0x3e00000>;
-+			no-map;
-+		};
-+
-+		camera_region: memory@97a00000 {
-+			reg = <0x0 0x97a00000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		pil_npu_region: memory@97f00000 {
-+			reg = <0x0 0x97f00000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		venus_mem: memory@98400000 {
-+			reg = <0x0 0x98400000 0x0 0x500000>;
-+			no-map;
-+		};
-+
-+		cdsp_mem: memory@98900000 {
-+			reg = <0x0 0x98900000 0x0 0x1e00000>;
-+			no-map;
-+		};
-+
-+		cont_splash_mem: memory@9c000000 {
-+			reg = <0x0 0x9c000000 0x0 (1080 * 2400 * 4)>;
-+			no-map;
-+		};
-+
-+		qseecom_region: memory@9e000000 {
-+			reg = <0x0 0x9e000000 0x0 0x2000000>;
-+			no-map;
-+		};
-+
-+		pstore_mem: ramoops@b4600000 {
-+			compatible = "ramoops";
-+			reg = <0x0 0xb4600000 0x0 0x100000>;
-+			record-size = <0x40000>;
-+			console-size = <0x40000>;
-+			ftrace-size = <0x40000>;
-+			pmsg-size = <0x40000>;
-+		};
-+
-+		rmtfs_mem: memory {
-+			compatible = "qcom,rmtfs-mem";
-+			qcom,use-guard-pages;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
-+		};
-+	};
-+
-+	vibrator {
-+		compatible = "gpio-vibrator";
-+		enable-gpios = <&tlmm 57 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&apps_rsc {
-+	regulators-0 {
-+		compatible = "qcom,pm6150-rpmh-regulators";
-+		qcom,pmic-id = "a";
-+
-+		vreg_s1a_1p1: smps1 {
-+			regulator-min-microvolt = <1128000>;
-+			regulator-max-microvolt = <1128000>;
-+		};
-+
-+		vreg_s4a_1p0: smps4 {
-+			regulator-min-microvolt = <824000>;
-+			regulator-max-microvolt = <1120000>;
-+		};
-+
-+		vreg_s5a_2p0: smps5 {
-+			regulator-min-microvolt = <1744000>;
-+			regulator-max-microvolt = <2040000>;
-+		};
-+
-+		vreg_l1a_1p2: ldo1 {
-+			regulator-min-microvolt = <1178000>;
-+			regulator-max-microvolt = <1256000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2a_1p0: ldo2 {
-+			regulator-min-microvolt = <944000>;
-+			regulator-max-microvolt = <1056000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3a_1p0: ldo3 {
-+			regulator-min-microvolt = <968000>;
-+			regulator-max-microvolt = <1064000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l4a_0p9: ldo4 {
-+			regulator-min-microvolt = <824000>;
-+			regulator-max-microvolt = <928000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5a_2p7: ldo5 {
-+			regulator-min-microvolt = <3304000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6a_0p6: ldo6 {
-+			regulator-min-microvolt = <568000>;
-+			regulator-max-microvolt = <648000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vdd_cx_wlan:
-+		vreg_l9a_0p8: ldo9 {
-+			regulator-min-microvolt = <488000>;
-+			regulator-max-microvolt = <800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10a_1p8: ldo10 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1832000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l11a_1p8: ldo11 {
-+			regulator-min-microvolt = <1696000>;
-+			regulator-max-microvolt = <1904000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l12a_1p8: ldo12 {
-+			regulator-min-microvolt = <1696000>;
-+			regulator-max-microvolt = <1952000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l13a_1p8: ldo13 {
-+			regulator-min-microvolt = <1696000>;
-+			regulator-max-microvolt = <1904000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l14a_1p8: ldo14 {
-+			regulator-min-microvolt = <1728000>;
-+			regulator-max-microvolt = <1832000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l15a_1p8: ldo15 {
-+			regulator-min-microvolt = <1696000>;
-+			regulator-max-microvolt = <1904000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l16a_2p7: ldo16 {
-+			regulator-min-microvolt = <2496000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l17a_3p1: ldo17 {
-+			regulator-min-microvolt = <2920000>;
-+			regulator-max-microvolt = <3232000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l18a_3p0: ldo18 {
-+			regulator-min-microvolt = <2496000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l19a_2p85: ldo19 {
-+			regulator-min-microvolt = <2696000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+	};
-+
-+	regulators-1 {
-+		compatible = "qcom,pm6150l-rpmh-regulators";
-+		qcom,pmic-id = "c";
-+
-+		vreg_s8c_1p3: smps8 {
-+			regulator-min-microvolt = <1120000>;
-+			regulator-max-microvolt = <1408000>;
-+		};
-+
-+		vreg_l1c_1p8: ldo1 {
-+			regulator-min-microvolt = <1616000>;
-+			regulator-max-microvolt = <1984000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l2c_1p3: ldo2 {
-+			regulator-min-microvolt = <1168000>;
-+			regulator-max-microvolt = <1304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l3c_1p2: ldo3 {
-+			regulator-min-microvolt = <1144000>;
-+			regulator-max-microvolt = <1304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+			regulator-allow-set-load;
-+			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
-+						   RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+
-+		vreg_l4c_1p8: ldo4 {
-+			regulator-min-microvolt = <1648000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l5c_1p8: ldo5 {
-+			regulator-min-microvolt = <1648000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l6c_3p0: ldo6 {
-+			regulator-min-microvolt = <1648000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l7c_3p0: ldo7 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3000000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l8c_1p8: ldo8 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l9c_2p95: ldo9 {
-+			regulator-min-microvolt = <2952000>;
-+			regulator-max-microvolt = <3304000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l10c_3p3: ldo10 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3400000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_l11c_3p3: ldo11 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3400000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
-+		vreg_bob: bob {
-+			regulator-min-microvolt = <3008000>;
-+			regulator-max-microvolt = <3960000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
-+		};
-+	};
-+};
-+
-+&dispcc {
-+	/* HACK: disable until a panel driver is ready to retain simplefb */
-+	status = "disabled";
-+};
-+
-+&pm6150l_gpios {
-+	key_vol_up_default: key-vol-up-default-state {
-+		pins = "gpio8";
-+		function = "normal";
-+		input-enable;
-+		bias-pull-up;
-+		power-source = <0>;
-+	};
-+};
-+
-+&pm6150_gpios {
-+	hall_sensor_default: hall-sensor-default-state {
-+		pins = "gpio10";
-+		function = "normal";
-+		output-disable;
-+		bias-disable;
-+		power-source = <0>;
-+	};
-+};
-+
-+&pm6150_pon {
-+	/*
-+	 * LinuxLoader fastboot implementation has most of its commands removed
-+	 * by Samsung, making it useless. So reboot to Odin download mode instead.
-+	 */
-+	mode-bootloader = <0x15>;
-+};
-+
-+&pm6150_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&pm6150_rtc {
-+	status = "okay";
-+};
-+
-+&qfprom {
-+	vcc-supply = <&vreg_l11a_1p8>;
-+};
-+
-+&sdhc_2 {
-+	vmmc-supply = <&vreg_l9c_2p95>;
-+	vqmmc-supply = <&vreg_l6c_3p0>;
-+	cd-gpios = <&tlmm 69 GPIO_ACTIVE_LOW>;
-+	pinctrl-0 = <&sdc2_on>;
-+	pinctrl-1 = <&sdc2_off>;
-+	pinctrl-names = "default", "sleep";
-+
-+	status = "okay";
-+};
-+
-+&tlmm {
-+	gpio-reserved-ranges = <59 4>; /* Fingerprint sensor SPI */
-+
-+	sdc2_on: sdc2-on-state {
-+		clk-pins {
-+			pins = "sdc2_clk";
-+			bias-disable;
-+			drive-strength = <16>;
-+		};
-+
-+		cmd-pins {
-+			pins = "sdc2_cmd";
-+			bias-pull-up;
-+			drive-strength = <10>;
-+		};
-+
-+		data-pins {
-+			pins = "sdc2_data";
-+			bias-pull-up;
-+			drive-strength = <10>;
-+		};
-+
-+		sd-cd-pins {
-+			pins = "gpio69";
-+			function = "gpio";
-+			bias-pull-up;
-+			drive-strength = <2>;
-+		};
-+	};
-+
-+	sdc2_off: sdc2-off-state {
-+		clk-pins {
-+			pins = "sdc2_clk";
-+			bias-disable;
-+			drive-strength = <2>;
-+		};
-+
-+		cmd-pins {
-+			pins = "sdc2_cmd";
-+			bias-pull-up;
-+			drive-strength = <2>;
-+		};
-+
-+		data-pins {
-+			pins = "sdc2_data";
-+			bias-pull-up;
-+			drive-strength = <2>;
-+		};
-+
-+		sd-cd-pins {
-+			pins = "gpio69";
-+			function = "gpio";
-+			bias-pull-up;
-+			drive-strength = <2>;
-+		};
-+	};
-+};
-+
-+&ufs_mem_hc {
-+	vcc-supply = <&vreg_l19a_2p85>;
-+	vcc-max-microamp = <600000>;
-+	vccq2-supply = <&vreg_l12a_1p8>;
-+	vccq2-max-microamp = <600000>;
-+
-+	status = "okay";
-+};
-+
-+&ufs_mem_phy {
-+	vdda-phy-supply = <&vreg_l4a_0p9>;
-+	vdda-pll-supply = <&vreg_l3c_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1 {
-+	qcom,select-utmi-as-pipe-clk;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_dwc3 {
-+	dr_mode = "peripheral";
-+	maximum-speed = "high-speed";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&vreg_l4a_0p9>;
-+	vdda-pll-supply = <&vreg_l11a_1p8>;
-+	vdda-phy-dpdm-supply = <&vreg_l17a_3p1>;
-+
-+	status = "okay";
-+};
-+
-+&usb_1_qmpphy {
-+	vdda-phy-supply = <&vreg_l4a_0p9>;
-+	vdda-pll-supply = <&vreg_l3c_1p2>;
-+
-+	status = "okay";
-+};
+ .../bindings/pci/xilinx-versal-cpm.yaml       | 38 +++++++++
+ drivers/pci/controller/pcie-xilinx-cpm.c      | 78 ++++++++++++++++++-
+ drivers/pci/pci.h                             |  9 +++
+ 3 files changed, 124 insertions(+), 1 deletion(-)
 
+
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
 -- 
-2.55.0
+2.44.4
 
