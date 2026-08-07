@@ -1,273 +1,118 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4603F5BDA
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 09:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9C13FA5DD
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 10:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786096642; cv=none; b=AxKz0dBEd/jMC6hGB4y+4COrw2ALvnGKMf+XgkDNP6Oc0eDI9Fqej9tWGJNiEGWuGHt7v+K64SKt5F/AvcomTQZYmNLQRtksKA/BrhRbPQCgOcUCsDBW92R5FXuyzjv/fPKrblT32yB3tABaZqqRJ6Vx/khEkPeK0SzMLbzhryg=
+	t=1786096808; cv=none; b=RVURlhnkR7coJ3fq2NGCxa8afGcC3JIz7qmfsWtRcY3v+ei/A0ZD6hjl0Kw30vM1v5E69csgZt4SQsuifUiu/aaHTKgNvEKRTVtRbo1obNgd7+hg/fnJRFHRm8D+Jk1Tpges0ApHPFpJ5i+7FSugpFCCOXZZilGZPZvfes78d60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786096642; c=relaxed/simple;
-	bh=wFUyEBwydG9qId0K6HY8JSb9tKRnMQzKvHaoEgkKfM8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M5PbCF1Zy+xeuiqQyfOSazNPQveQFuSIGRGZGgJUzqJ/7oOJTOFjohZ/tm2rMFrdttPF22NsfXTDCNM62Ni09fw3b6Lum75NzS6yWO3hJKP1JGVT4lgavNPFVU3+ZeNgTDZTLQti402dKcpQNPFSxSWECXUnfI7JK6O1ldRFiTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BcoHgmbW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KqMJu7OS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786096808; c=relaxed/simple;
+	bh=4QClrz0ekg8jW+bU9CazFEcDDnAnRl9xhnNUsPm/80k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fLjcZ/mXjyWTDOzENn1T+526piyWIlBm8uPhGtTLd7hKjwLuzFEGkAQFdAZD5K6c8+4GLSmORfkWR1oyjQVip2U/O+l1paJckeFUnjzKuNtkrk5QRz2/oDfugmOj0kQLdzd0PSBMHqcGm14VYOvVRVae51T/NjvZ2MemTYPs1Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cGViLZSY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BcoHgmbW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KqMJu7OS"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6779WChl564654
-	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 09:57:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=14z5z91eG3xJmg4Pw6J1/sgK
-	CXaJLKsMSXte81Jepl8=; b=BcoHgmbWI2lYYRJK3S1JyMvL6MRmj7fWpu2xUQ+o
-	EI25LcgDehiQD1VfIBf2HJLbeQ9K8ebSP2RUtEhs/+SE5yTbiw1t4Dfo2B0LbBFo
-	4FpXWVFELciUBukeU23qyvrza9pmukWvSVUSpdIJhyTn7dJcoZd0oXkezNkWoEaR
-	lnwzOORfzr5OJQTiiN9d/HEArMx+8mV2w2USejH++tGJTXtmn7K37+H7cGiF5LIV
-	AoIj/55rMBR1HiW5rWN4bpcxd+r3AHu/EKyLQRy1aXe8ShDzikLTlRqau85oavCI
-	evc6fJ1Mn/pUhD9tvMkkM7jgNXwKXN+2nCSuC0CgZcgEgA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwctp82xm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 09:57:19 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8fc6b670b4bso26911866d6.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 02:57:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786096639; x=1786701439; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=14z5z91eG3xJmg4Pw6J1/sgKCXaJLKsMSXte81Jepl8=;
-        b=KqMJu7OS8D8Yzrzq0hkrq8uDtB5r6Djmv8dmWU+DUBxqUaMlKDRMWP39TjCQYLaxSM
-         qO+hTEs1Dn3DQX2BUQL9+xu480cE0aSdxG/v4Pe83Oi4ESt5osMK8usso9yZf/zaBGw3
-         Sjzj4HFBYzr22lSGonPl7H2XVGarfAufdaT/kIxqdgLKzokOMufGWzjOLLVAyOmlWVgn
-         /VrL+0U05yXNVynG+1D49EKbEyoHZTPxLsMivkXGaK+1NRmGOBCrQOz8+ViTiI5Ck06Q
-         pK8C9okPdEy/Rl+qpFC2dvLP8I2DzDR0yZTG80M5+dy1QDjvLGt+5VkWvYWKXz2OYjF9
-         TIdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786096639; x=1786701439;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=14z5z91eG3xJmg4Pw6J1/sgKCXaJLKsMSXte81Jepl8=;
-        b=NAoAz56zx9ZWIc6hFkhfP5N9mWMyPUevfqI1V3lmoJcbt7ecFup5pBt50NpNgQsHwY
-         IiLS7tL20VzNQq73vwojjwHp2q2HJuJD1qc/es4uywd7TU/HLU9hyxaPtUz9gIXDFQL6
-         GyeIw+6uyfuTCoxkVQy8vGh2ExKVcTrBz1893b4/XwOEfe3imwqzdL3VKTP2P+d18fJJ
-         xRXEL9GuwJkxDMOptZqF3oG+1urTos1/+3iXGLlo6TmlHicvl7RO82tzCZJ4NTMTlniN
-         vqEWLWIf4K82/JKO6Tu0fUuYBkWXPtI3JtpDDm2YDMCM/qzBLi9xkv4lef8J1ONSAQ6f
-         U/VQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr9qDfHmOHLQC+A+XxLswZDshaoHVyXJP0EKy+1rwfXccWTc+FDQ97SJpkclZIZ+ciavJgxG3O9dl12@vger.kernel.org
-X-Gm-Message-State: AOJu0YyuNNN9w+7/B8RFLyze61cNwlD2wWTTMtFczFanOky8nvEUJuCy
-	vhKloWw132jkeWH6qNeTOIWr/uLVGxU+8DIC8qzzvaJgJBqv7I4p1Dsnc04tuiuYX9zMHpVl2+/
-	6j5FIDD8MPxq/ZtpjIkGv3eHWq6ZqBkrpnzpTRhngwb7FmTL47qe5T4bUi6yV+eBe
-X-Gm-Gg: AR+sD10ez7WRcRS5AJW9XGu3VV18hSzIeh46KY717RLa8zgFStfMbPkPD17cmuaxyrH
-	JI4rT2XmDYRg+3m6/UT68VtV9V53UmaO0WFaxHs5xhoitKs6LO0VzXDl3vUhuTHI20rJ0t5ZJbG
-	nD+F5VE5krewz14EJmTVjPKO6a1qxuyPJsa7YPkW0LQWoLzDTobqAj6/L2dZQjyiDYxkMCbT+yw
-	QkplKu9yqlPhlringGK6SrCyEpaejo+Ja0HZtoyJRLUtcH8ntB9MVb+qbeJa3EoC/cRs3SYKOrx
-	Eiy0LYAHDtz5JR6/MOtIF5uyRXV/pYky75U3RrMNODKVMWFJ39hQgIqJtQrKvLKuzFO6oaC9Gqw
-	ShS3LnHWEe9LzhfegIn1UX820dDOEQQvLQGaS+I8yDPP2+VLHAkvF8c6ZiHlwt7olX8K4qmcLTi
-	U5kbMhhxnVHeQpPA==
-X-Received: by 2002:ad4:5ce1:0:b0:907:e7e6:9544 with SMTP id 6a1803df08f44-908a6fb7b54mr22407946d6.9.1786096638758;
-        Fri, 07 Aug 2026 02:57:18 -0700 (PDT)
-X-Received: by 2002:ad4:5ce1:0:b0:907:e7e6:9544 with SMTP id 6a1803df08f44-908a6fb7b54mr22407366d6.9.1786096638277;
-        Fri, 07 Aug 2026 02:57:18 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3050cfa65sm367128e87.20.2026.08.07.02.57.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 02:57:16 -0700 (PDT)
-Date: Fri, 7 Aug 2026 12:57:15 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rahul Samana <rahul.samana@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bartosz Golaszewski <brgl@bgdev.pl>, linux-arm-msm@vger.kernel.org,
-        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        linux-pm@vger.kernel.org, quic_mohamull@quicinc.com,
-        quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
-Subject: Re: [PATCH v2 1/6] dt-bindings: bluetooth: qca: add QCC2072
-Message-ID: <dduqm25cy2j3ab7gu65qjho76gifij3sgnvgsgqyvncjxa46x6@vg7egioz5vxx>
-References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
- <20260727-rb3-industrial-bt-uart-v2-1-2d100f30e202@oss.qualcomm.com>
- <20260731-first-righteous-bear-dd72ed@quoll>
- <712f8a14-d2a1-4a90-82f9-05cd694f2658@oss.qualcomm.com>
- <c1875dd6-fe3a-4a69-a6fd-b461c8fba6e4@kernel.org>
- <6d6465bb-47ac-464c-af4e-0ca72325705f@oss.qualcomm.com>
- <8a388310-d3cc-4d02-abb6-0eb98c24cfce@kernel.org>
- <4523441f-498a-4bbd-80f3-97a7a9206c00@oss.qualcomm.com>
- <6e0b9e79-ccd4-4689-9a6b-9b4fc556d5e4@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cGViLZSY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DABD31F000E9;
+	Fri,  7 Aug 2026 10:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786096807;
+	bh=uoFo+0qWOo7EjHVbum7BKJa8TYReTkAStSvX4qsSdmg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cGViLZSYvl5F1/PZ7EYZWzfJc9XOQbXL6XuUi2pShwnMwuV+NSF60XubSM7Hmh2sR
+	 OMwaECsATMgOmly//VKIgv7N0xZHTrNOF8YU/LfjNIOcrOYRWxv8k7mZ0B1C7ouwUn
+	 VpxpYQpw6T2zvRZa6c2tzfNfVTCDjdmNCcjyV3HAXxsD+0CHP+Y6H6rKP3CdB+EgDv
+	 DU3y07wiCCqF6Jnzi+hV9lJXgJtX11EYPwEtHNhFxarGcfA2d89q9JJrLExUJG8kiv
+	 TofJEQn6chKXgdRFDpxd1C4qFiW/r/K3YK7fHdMahgbH1WTd+W8MuKq1q8OSbCZlCV
+	 E5jCNVNU0t0VA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, linux-phy@lists.infradead.org
+In-Reply-To: <20260807-glymur_linkmode_0807-v9-2-dd1c7e236e29@oss.qualcomm.com>
+References: <20260807-glymur_linkmode_0807-v9-0-dd1c7e236e29@oss.qualcomm.com>
+ <20260807-glymur_linkmode_0807-v9-2-dd1c7e236e29@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 10:00:05 +0000
+Message-Id: <20260807100006.DABD31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6e0b9e79-ccd4-4689-9a6b-9b4fc556d5e4@kernel.org>
-X-Authority-Analysis: v=2.4 cv=Fp01OWrq c=1 sm=1 tr=0 ts=6a75abff cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=vuXs5oDAzq-yw9ntQScA:9 a=CjuIK1q_8ugA:10
- a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: Z13oqgjTqMU53erQVc3qWXI-OMyXULk-
-X-Proofpoint-ORIG-GUID: Z13oqgjTqMU53erQVc3qWXI-OMyXULk-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA3NSBTYWx0ZWRfX0M0B1yZ7heMi
- 0x8JxL6+M0HFD51dg23WeDI9fpLjusYum8umrw06zhKblYM2+3dOadtad8FHgkgPd6+q8Ze+aNA
- X2LkH8V8Ha3ABkiDbJcG0AcHhcsLxTqN/oAKm+8I8NMGHfsS5qKRj6MTezX24IlV2a+qUjqdlIT
- XVudL5JTHBPKgcufBOkst0mwCIDVtvw+gRHd2LDRnUeyLo7TMIomemd6rossjLaKm9TPw7F4R5T
- yn7i/08mxoLsEuN+d+BwUaMTEmtdsP7FIFm3Z4kv2aXCe8FnsU5NHy7tv6m4z1C2WHJ1RfHpGIW
- k4fojB8zm2wF+xY7ih0aUC4tXd1eGig7fHkjl2yw8ds1dgKUdhkDtOskqwy5MQ0v8u5i8ntODV1
- CQitdrpumDmLsYT4M5JnfkfMLx+fBWjaT8bjfz8yPt8X/JKrcxzwhM1aPkyndye0aG9wlI3OINj
- n9cotoYMfAL7Ivz7dDA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA3NSBTYWx0ZWRfX8fBvcPuJaaOS
- EWn1JxqO9AZpwNCMku9FjbfkQeK/gut76E5dW8+iGUmahJJQNFSlaFa58c1NoVu6p2Z/E6xqnRz
- 3yrl+csgQHAym+DlFypR2sMJB5kE0A8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 spamscore=0 clxscore=1015 adultscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070075
 
-On Sat, Aug 01, 2026 at 05:49:53PM +0200, Krzysztof Kozlowski wrote:
-> On 01/08/2026 17:31, Rahul Samana wrote:
-> > 
-> > 
-> > On 01-08-2026 20:18, Krzysztof Kozlowski wrote:
-> >> On 31/07/2026 17:51, Rahul Samana wrote:
-> >>>
-> >>>
-> >>> On 31-07-2026 20:34, Krzysztof Kozlowski wrote:
-> >>>> On 31/07/2026 16:45, Rahul Samana wrote:
-> >>>>>
-> >>>>>
-> >>>>> On 31-07-2026 15:16, Krzysztof Kozlowski wrote:
-> >>>>>> On Mon, Jul 27, 2026 at 09:15:01PM +0530, Rahul Samana wrote:
-> >>>>>>> QCC2072 can be used on M.2 E-key cards where the card power resources are
-> >>>>>>> described by the pcie-m2-e-connector node. In that setup, the M.2 power
-> >>>>>>> sequencing provider creates the Bluetooth serdev child after matching the
-> >>>>>>> QCC2072 PCI function.
-> >>>>>>>
-> >>>>>>> Integrated non-M.2 designs need board-specific power resources. Document
-> >>>>>>> only the compatible for now and leave those properties to be added with
-> >>>>>>> matching driver support.
-> >>>>>>>
-> >>>>>>> Document the qcom,qcc2072-bt compatible used for QCC2072 Bluetooth
-> >>>>>>> controllers connected over UART.
-> >>>>>>>
-> >>>>>>> Signed-off-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
-> >>>>>>
-> >>>>>> NAK, exactly same comments as before.
-> >>>>>>
-> >>>>>> Nothing got improved, although what is weird - original SoB is gone, so
-> >>>>>> this is legally dubious work.
-> >>>>>>
-> >>>>>> Best regards,
-> >>>>>> Krzysztof
-> >>>>>>
-> >>>>>
-> >>>>> Hi Krzysztof,
-> >>>>>
-> >>>>> Thanks for the review.
-> >>>>>
-> >>>>> For the binding contents, I tried to capture the current scope in the binding
-> >>>>> description itself. This series supports QCC2072 only as an M.2 E-key card,
-> >>>>> where the card power resources are described by the pcie-m2-e-connector node
-> >>>>> and the M.2 pwrseq provider creates the Bluetooth serdev child.
-> >>>>>
-> >>>>> The binding also says:
-> >>>>>
-> >>>>>   Integrated non-M.2 designs require board-specific power resources. Those
-> >>>>>   properties, together with a static devicetree example, should be added when
-> >>>>>   integrated non-M.2 support is added.
-> >>>>
-> >>>> Bindings must be complete and your driver support is irrelevant here.
-> >>>>
-> >>>> If you claim this is a PCI device thus you do not need any resources,
-> >>>> then the binding is not needed either. PCI devices are enumerable. And
-> >>>> to prove it: look at your DTS. Do you see qcom,qcc2072-bt being used? No.
-> >>>>
-> >>>>>
-> >>>>> We do not currently have an integrated non-M.2 QCC2072 design, so I do not
-> >>>>> have board-specific regulator supplies to document for that topology.
-> >>>>>
-> >>>>> Could you please suggest how you would prefer this binding to be handled for
-> >>>>> the current M.2-only use case? 
-> >>>>
-> >>>> Drop the binding, you do not need it.
-> >>>>
-> >>>> Anyway the problem is that more comments were ignored.
-> >>>>
-> >>>
-> >>> Hi Krzysztof,
-> >>>
-> >>> Just to clarify the reason for adding this binding in v2: 
-> >>> v1 did not add a binding because this series only targets the M.2 use case.
-> >>>
-> >>> I added the minimal binding in v2 because checkpatch reported
-> >>> qcom,qcc2072-bt as an undocumented compatible, and I interpreted the request
-> >>> to fix the checkpatch warnings as requiring this compatible to be documented.
-> >>> I also had the earlier feedback in mind, where the indirect
-> >>> qcom,qcc2072-bt compatible was pushed back because it was undocumented:
-> >>>
-> >>> https://lore.kernel.org/all/20260703-eliza_evk-v1-3-7624440bd76d@oss.qualcomm.com/
-> >>>
-> >>> Based on your clarification here, I will drop the binding patch in v3 and
-> >>> keep qcom,qcc2072-bt only as the pwrseq-created child compatible for this
-> >>> M.2 case.
-> >>
-> >> My previous statement is also valid, please read entire threads.
-> >>
-> >> You cannot have undocumented qcom,qcc2072-bt.
-> >>
-> >> I ask you to drop both, because they are not needed. But feel free to
-> >> prove me wrong, see my first paragraph in the previous reply.
-> >>
-> >>
-> > The PCIe M.2 power sequencing driver, pwrseq-pcie-m2.c, uses
-> > pwrseq_m2_pci_ids to translate the enumerated PCI function into the
-> > Bluetooth compatible used for the generated serdev child.
-> > 
-> > For example, WCN7850 maps PCI ID 17cb:1107 to qcom,wcn7850-bt, then hci_qca
-> > matches that compatible to select qca_soc_data_wcn7850.
-> > 
-> > For QCC2072, pwrseq-pcie-m2.c matches PCI ID 17cb:1112 and creates the
-> > generated Bluetooth serdev child with compatible "qcom,qcc2072-bt". The
-> > hci_qca driver then matches "qcom,qcc2072-bt" and uses qca_soc_data_qcc2072
-> > as the controller-specific data.
-> 
-> The purpose of Devicetree is not to describe Linux internal driver
-> matching. Do not use compatibles for that.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing error check for of_property_count_strings() leads to pas=
+sing a negative value as array size to devm_kcalloc().
+--
 
-So, if instead of M.2 module the WiFi chip gets soldered to the main
-board, the qcom,qcc2072-bt wll be a legitimate compat string?
+--- Patch [2]: [PATCH v9 2/6] phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY d=
+river ---
+commit 5143b0d54dc0134303885f90816364c6021fa993
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-Also, I understand your concerns about the DT bindings / usage, but
-speaking about the driver ;-)
-The BT is a serial driver attached to a serial bus. There only two
-options to bind a serial driver: OF and ACPI. But maybe we should add
-something like serial_device_id and let serials have internal IDs.
-It sounded strange in the beginning, but now I think it is a correct way
-to go.
+phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY driver
 
--- 
-With best wishes
-Dmitry
+This commit adds a dedicated driver for QMP PCIe PHY hardware blocks that
+support multiple link topologies (bifurcation). It reads the current link m=
+ode
+from a TCSR register, and dynamically instantiates the required sub-PHYs,
+clock providers, and #phy-cells to expose individual sub-PHYs by index.
+
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c b/drivers/=
+phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
+> new file mode 100644
+> index 0000000000000..e93cba4369fb1
+> --- /dev/null
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
+
+[ ... ]
+
+> +static int qmp_pcie_multiphy_register_clocks(struct device *dev,
+> +					     struct device_node *np,
+> +					     struct qmp_pcie_multiphy *qmp_data)
+> +{
+> +	int num_pipe_outputs;
+> +	int i, ret;
+> +
+> +	num_pipe_outputs =3D of_property_count_strings(np, "clock-output-names"=
+);
+> +
+> +	qmp_data->num_pipe_outputs =3D num_pipe_outputs;
+> +	qmp_data->pipe_out_clks =3D devm_kcalloc(dev, num_pipe_outputs,
+> +					       sizeof(*qmp_data->pipe_out_clks),
+> +					       GFP_KERNEL);
+
+[Severity: Medium]
+If the clock-output-names property is missing from the device tree,
+of_property_count_strings() will return a negative error code (such as
+-EINVAL).=20
+
+Will passing this negative value as the array size to devm_kcalloc() cause =
+it
+to implicitly cast to a massive size_t value? While the allocator will like=
+ly
+fail safely and return NULL, it seems this would cause the driver to return
+-ENOMEM instead of propagating the actual error code.
+
+Should we add a check to verify num_pipe_outputs > 0 before attempting the
+allocation?
+
+> +	if (!qmp_data->pipe_out_clks)
+> +		return -ENOMEM;
+> +
+> +	for (i =3D 0; i < num_pipe_outputs; i++) {
+> +		ret =3D __phy_pipe_clk_register(dev, np, i,
+> +					      &qmp_data->pipe_out_clks[i]);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-glymur_lin=
+kmode_0807-v9-0-dd1c7e236e29@oss.qualcomm.com?part=3D2
