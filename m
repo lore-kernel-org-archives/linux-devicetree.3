@@ -1,101 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B7238DC58
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:50:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5552F379C48;
+	Fri,  7 Aug 2026 07:50:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786089044; cv=none; b=QE52wDb7o2EknUWZYG7TVRz1zH7s1ae33rDUKCHBoqWtrpP+fCbwcFSVqnNx/oAbBdInS8jhhEbDkS8XhllWGKAkTS5ge6TNiWxPfLdWDLhwj6XbB9ufoV/lrJpKSIc20L5ABsojvGUFgTIdNaNtZUYx036rynczNEII+UQ+BdU=
+	t=1786089058; cv=none; b=ZX4iqoaeWgQ4aVd/LBJMPA+HvmCK/NSCPkYOFXYP1TEkuz6T8KCAcMjsLfVgLljg6Skh80NXlTqrq530Wq9WXsRPqSQJwA6WTSVpxh+3ZcA0z+Rm2DBA+TefBC75XHuerNvdy+a1EvrZMoAQ4EosO6iSeBK3vF0jtNW8DrhHx/A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786089044; c=relaxed/simple;
-	bh=w3RP9qJpdD8/S5x6VJ2cOGjdWMWMRVtD9zHYsTD2SAs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XgmbbztAu77o5lyMZCCe1a7LizO8ciy2TjYXmCQ1ebh10lP4Fwn6q5HFMcWDwuqmVmg6JjhvZAwwRuGqx16c3u45aaECR4or11tJVpAF7Epr5GrZTxg/o+RAJZIJssruLLmd9tQGhoc03L5/hc199tqaYFETyOpLNQ2Qh+ZQDNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SX72m3/P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786089058; c=relaxed/simple;
+	bh=Ea/OGBQ87x+sUBseDvhO3ALrt6UKHVsULHEfCHux7Lg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=am+IMfO1tCBn7lJF0px+7XcPnBW3+HUGJO5QEgaJM5n6ZtCuMorDK7mwyYiW3FFjRARD+9hOwLhTC18cE1ty5nK2dYmPPtxeX/az2stBm0DwE9DRCdIIzE1x+UF0xR0BmmpS5NfB7e21Ly500RC269grKfDaP4CG9eHegytosMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RkXrBrls; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SX72m3/P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C1F1F000E9;
-	Fri,  7 Aug 2026 07:50:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RkXrBrls"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EB981F000E9;
+	Fri,  7 Aug 2026 07:50:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786089042;
-	bh=TzzJhpiHHu1gvkDDpiRovATD9yfpN10lCvWuEhWmyHI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SX72m3/PiqM6R6f2zvyN+pDHNA68waG1wTO9xhUOG75C68TNCeZNEZCpgG9RjR4Dh
-	 fz1LUF+h9RW8dkd//VSBHA4Xthdx0LAF4OKrXf3XgV1Bz4IzCTO3mStooeHE/0TQ6i
-	 bIaAF7lWVz1Ks1VLgIYVBzGg9DcGoT9kgu4wl02kKoB1YoPfqfLYe4tAGBbV4SBY7j
-	 6CqiEW7VrCKa+w7M27pmbmgoATdIZlCCS7ovKP55XWCQjkNJNQiQJ0BeDKNxXxKF2+
-	 WM8wWbI8sfotdod5SNmfSHLHlv98z8fD5tnPslvMUq6INN3YnPH/CZPpaPk+egKPUl
-	 iQl4w7q8oNMgA==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 5/6] virt: bao: consolidate the IPC hypercall ID
- in include/linux/bao.h
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Sm/Do28gUGVpeG90bw==?= <jpeixoto@osyx.tech>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <db869ed90e16691ea1f0aee051e54daf89f42de8.1786010512.git.jpeixoto@osyx.tech>
-References: <cover.1786010512.git.jpeixoto@osyx.tech>
- <db869ed90e16691ea1f0aee051e54daf89f42de8.1786010512.git.jpeixoto@osyx.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 07:50:41 +0000
-Message-Id: <20260807075042.17C1F1F000E9@smtp.kernel.org>
+	s=k20260515; t=1786089056;
+	bh=F9Z+y9mwvwTE/vqgn10FR4pH6LkQapgkAfJrJp6N+o0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RkXrBrlsARtc2+B/RyGqAGrmllcUeLy/WCgkwA5eobUGMbF1vmSoSCLaDElxasA6L
+	 1nE+3Ue8uE+lDmiYKwQMozGpclUMd/R9yqzUAqvbkP1b94lkSWe2NChET5xzWRu8UX
+	 nC6HMIvPaF1o/nkPmTflob/gOHENUjR/uKwJAUHZM+gcrVtMP9NrLAOOG0juJlwsa8
+	 qT0zfl++dkDqx2lJAnCpmaAZ16xfE54tewWe4WhNWsL9kJ/XqschYcDnEcPEAq0Bfm
+	 5JYzBrrF5bk1Oq1EliolvCSLwK7x/ESwmxXa4e+2+AgDeBPG/6nEPm3aY+2E73zI2N
+	 rdwQkYSH8454g==
+Message-ID: <d2bd6eb7-6fed-4827-bbf0-0f1dfcdf6d21@kernel.org>
+Date: Fri, 7 Aug 2026 09:50:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: Add Bao IPC shared memory driver binding
+To: =?UTF-8?Q?Jo=C3=A3o_Peixoto?= <jpeixoto@osyx.tech>,
+ joaopeixoto@osyx.tech, linux-kernel@vger.kernel.org
+Cc: ajd@linux.ibm.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
+ bagasdotme@gmail.com, catalin.marinas@arm.com, conor+dt@kernel.org,
+ corbet@lwn.net, dan.j.williams@intel.com, davidmcerdeira@osyx.tech,
+ devicetree@vger.kernel.org, dev@kael-k.io, gregkh@linuxfoundation.org,
+ haren@linux.ibm.com, heiko@sntech.de, jose@osyx.tech,
+ kever.yang@rock-chips.com, krzk+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-riscv@lists.infradead.org, maddy@linux.ibm.com, mani@kernel.org,
+ nathan@kernel.org, neil.armstrong@linaro.org, palmer@dabbelt.com,
+ pjw@kernel.org, prabhakar.mahadev-lad.rj@bp.renesas.com, robh@kernel.org,
+ will@kernel.org
+References: <20251224135217.25350-1-joaopeixoto@osyx.tech>
+ <20260107162829.416885-1-joaopeixoto@osyx.tech>
+ <20260107162829.416885-2-joaopeixoto@osyx.tech>
+ <8a1a9ebf-a3ed-4077-aa07-48cc98e071f9@kernel.org>
+ <a42446a5-ec45-4323-b35c-34d882b86a74@osyx.tech>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <a42446a5-ec45-4323-b35c-34d882b86a74@osyx.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 07/08/2026 09:41, João Peixoto wrote:
+>>> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> index c7591b2aec2a..c047fbd6b91a 100644
+>>> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> @@ -223,6 +223,8 @@ patternProperties:
+>>>       description: Shenzhen AZW Technology Co., Ltd.
+>>>     "^baikal,.*":
+>>>       description: BAIKAL ELECTRONICS, JSC
+>>> +  "^bao,.*":
+>>> +    description: Bao Hypervisor
+>> Vendor prefixes are for companies. What is the company here? What is
+>> stock ticker or website?
+>>
+>>
+>>>     "^bananapi,.*":
+>>>       description: BIPAI KEJI LIMITED
+>>>     "^beacon,.*":
+> "bao" is the Bao Project, an open-source static-partitioning hypervisor
+> (https://github.com/bao-project), not a single company - analogous to the
+> existing "qemu" and "virtio" prefixes, which likewise name a software
+> interface rather than a vendor. I have updated the vendor-prefixes entry
+> accordingly. If you would rather namespace this under the maintaining 
 
-Pre-existing issues:
-- [High] Missing memory barrier (e.g., `wmb()`) before notifying the hyperv=
-isor of newly written data, potentially causing the hypervisor or the recei=
-ving VM to read stale memory.
---
+Software components do not get bindings, so entire binding is not
+applicable really.
 
---- Patch [5]: [RFC PATCH v3 5/6] virt: bao: consolidate the IPC hypercall =
-ID in include/linux/bao.h ---
-commit 392291f754c5a86346cd59911eed878c78654f9d
-Author: Jo=C3=A3o Peixoto <jpeixoto@osyx.tech>
+You control your hypervisor and driver so use fully SW communication
+channels instead of embedding SW into DT.
 
-virt: bao: consolidate the IPC hypercall ID in include/linux/bao.h
-
-This commit consolidates the IPC shared-memory hypercall ID into a common
-header. It also simplifies the architecture-specific bao_ipcshmem_hypercall=
-()
-helpers by dropping the hypercall_id parameter.
-
-> diff --git a/drivers/virt/bao/ipcshmem/ipcshmem.c b/drivers/virt/bao/ipcs=
-hmem/ipcshmem.c
-> index 0d46d89ee788b..5bf37c1c7933d 100644
-> --- a/drivers/virt/bao/ipcshmem/ipcshmem.c
-> +++ b/drivers/virt/bao/ipcshmem/ipcshmem.c
-[ ... ]
-> @@ -104,7 +101,7 @@ static ssize_t bao_ipcshmem_write(struct file *filp, =
-const char __user *buf,
->  	*ppos +=3D count;
-> =20
->  	/* Notify Bao hypervisor */
-> -	bao_ipcshmem_hypercall(BAO_IPCSHMEM_HYPERCALL_ID, bao->id);
-> +	bao_ipcshmem_hypercall(bao->id);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing memory
-barrier before notifying the hypervisor here in bao_ipcshmem_write()?
-
-Data is written to the shared memory via copy_from_user() just before this,
-but no memory barrier ensures global visibility of the write prior to the
-notification.
-
-The ARM SMCCC explicitly states that callers must ensure memory updates are
-visible before invoking SMC/HVC, meaning an explicit memory barrier (like
-wmb()) is architecturally required to prevent stale reads.
-
-Without it, could the hypervisor or the receiving VM read stale memory befo=
-re
-the stores from copy_from_user() become globally visible across PEs?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786010512.gi=
-t.jpeixoto@osyx.tech?part=3D5
+Best regards,
+Krzysztof
