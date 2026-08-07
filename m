@@ -1,228 +1,322 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A14D46D545
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7B046D562;
+	Fri,  7 Aug 2026 08:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786091381; cv=none; b=T61MNYlqRcMOoizfDax7kT6oEZ7J008tGdyOzC9sJD5PMIgDgjeBqARz5vZGRGCuVK5/v7e7JbOGMkUsIN4d2yzlkDbfBammGSGznzgH5ODJN24I7FWe9uEovI7w/B4PF0o8dRIonzOurapB+smbac+ZuMmYLB5v4P4yuk90iRE=
+	t=1786091383; cv=none; b=nUIBZZ52/yvD0WPgC9zmr4JPbuJd3nVXiKiDTetkqDpSKDsap4BbmqER5mSvx6RQgKxme28sBXkjMJchdjP7kW25mGiiMaAdfgp0LmDABxs0RfCwGc8+RyOxyrDXsZ+uybwu2cwR3Ac1o7gUpl5dkNmWn7lFtR7PoDfUsyaHtCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786091381; c=relaxed/simple;
-	bh=rjKNf1uzaDHv4GGBTB8pZrw/GU88SDfnkNhNQc1gHIc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dAw2rvz2J4dxCkGWRQ11ZY/oE/ADpgdpeqVJJpu0xyanw8dY6DX5ywHRIKGLHN7EKSU49KyV0Do+bY1+RWnZ5tzLRSKyP4QYw77tJ1PGX3DXwPRzfRNMUekffMD87QmOBmTByRpG4MW84ex6LcS+VajsRVTuXEvjDrnMhrRPEKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BUrKBif9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=S/Quhk3s; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BUrKBif9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="S/Quhk3s"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6778FWqn4063303
-	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 08:29:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Nfm27J04Y+o2o2lcWzDnwVQu7dQ+toG9EacdwIwvdH8=; b=BUrKBif91OnXo2gs
-	GYVYDCVdqfzfusCXaQ65eOc3Bok5kMlbb29PQ8N7n8UUWQgIHnRtw1L4/OfdMbVQ
-	/+cmWruUUDKG3d/okvVY54q+eyxIadkebJQ+9z1qSYh7rvdsTNOhWtZ9Bn3zP0e2
-	onox+pVBa5Blzl321Ip5310SbJdU9/5a8BXBL5gVJvyfViv+BxgmjjpUFVYafv7+
-	6/0Ch3L4IHyEV3yb6CSRXD23Ls9yGT9R/bQnQSXep6kDY23YMilrB9Nvs9f+lwct
-	TtpXht3H+63kJsxKFHHYOUlr5ticZ60Feo0ivP58FQ4XRQ7P5he+1iwkxC2mjveh
-	Ro07IQ==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6hax84-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 08:29:39 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cee1ec30f2so38891115ad.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 01:29:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786091379; x=1786696179; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nfm27J04Y+o2o2lcWzDnwVQu7dQ+toG9EacdwIwvdH8=;
-        b=S/Quhk3svTeXijt2WLFe8GIkDcjomIVb4EFX3nxpGNNl28DcpG1V/bSpPq9cEvsS0m
-         vLBLJJrHFmcamulP9yj15G7qQTYY7Rj6mB8IOR8Et4/bqr5kZDBrQLBk5vNrqL9b7OsN
-         Yuaqkque7azYSaHGZbXI4+G7NTeqaJuQdFdoocbi7s5RssP2P9F/BiTynzo4HizuqCU+
-         wKiBJQPWGDSB2DKAOL2kDtCEMU/wsMGcEzLNrvzogTvnJMVX4oomSEm3INM4xxHdrOfP
-         uPB3littQE6AMn2oRVsWvpWS1qN6mqw9io1WjbVEChw/ifKYnX3WKYY4SejN5oXO4z01
-         CP8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786091379; x=1786696179;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nfm27J04Y+o2o2lcWzDnwVQu7dQ+toG9EacdwIwvdH8=;
-        b=CcSE7lnTDJMyMmEuZA5H1aDbG3krgZYf49qbEoEwrvR4K/phohKY4Tjx4RlsFx9YRT
-         suzE1742Me7fZ6grjzGNTna91aOIl9A6rDqpAojZnK/mF3tjEwrI//yeDQlny15WGNCS
-         dz4Z4O1lUGQjHMw0AxG9nfTT3BGHsqy8EyBntvPkGpSO8sWHUL0qmSVCj+IzUsprMtEc
-         ykuamm2MSWP99jeagYuQ0BdtEnBQrmnXtEqKWI+gfCcFLerwFDZotcVqoA2WEpjmCLYU
-         42heszqqvx3lbe0JBR23pZLgt0VJJAoqlLcb5cF+Kk8B0SX7747zTz3C1p0ukwMD9y/9
-         WoGw==
-X-Forwarded-Encrypted: i=1; AHgh+RphWASVDg6HdyelfTblPgt4N/LRd8us+QHtJ++EmURJn8kFpZJZbtepqp1EiIZ8mGTO1zA1C9GtkgtK@vger.kernel.org
-X-Gm-Message-State: AOJu0YxqxcDP/J0VwwTaWAjdVemM4MrlhlFDk5Wnk43HldGSnTTg89Du
-	rxwrMpl+G5PCkbRF5UTeksbnUuq/dMhQhvuAi8KUUrUf3bJzfpOCWfU/B0tiTOLO6FwSQx+c85A
-	kP+nvCc50Xj+E4dg3A/MFLORK5DRxdVtT//cEVM4Hxu+wMX3BFIyzSiJp3BlaoIUM
-X-Gm-Gg: AR+sD10A55ds3vPpttcL63oXh+NnJUcuGTNaGxqgz2jDs1nr0XOcfBdkSKMmmhwZjnp
-	TbBmdjO80ny+nEUXk3KvLsC8L/Ev3R86MGPG8pYMQgKXCaojDxL5KsQ2tPKfIuA4/F9nAR+YcZa
-	OB6AdbLga4El2d/8FEytwqIX3/B83gddHmiAzrbjFeOcO6/a35J05zgOMI4CJWwpTPL2iIWIt22
-	5N+59y1ztuYz83XOVVGuDVUSc8FvzzMD6lnyw0jhKMmW/exZFvmrXPup+lTFl/tT1mzl/hfyHp7
-	dX1tTzVTXK45r5rAkXuf6jyLWpnpebypqWmaRT0AynrYxVTI/u+Ld/7tVuKMDKBlbG80+IoBcrr
-	wbTP5isjcOcKoN5WDQMOeZppQKaPOkkKFpaY=
-X-Received: by 2002:a05:6a21:7116:b0:3c0:b55a:80ff with SMTP id adf61e73a8af0-3cb85ecb5f7mr27820207637.24.1786091378787;
-        Fri, 07 Aug 2026 01:29:38 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7116:b0:3c0:b55a:80ff with SMTP id adf61e73a8af0-3cb85ecb5f7mr27820150637.24.1786091378348;
-        Fri, 07 Aug 2026 01:29:38 -0700 (PDT)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bec2ec20sm5377977eec.28.2026.08.07.01.29.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 01:29:37 -0700 (PDT)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Date: Fri, 07 Aug 2026 13:55:04 +0530
-Subject: [PATCH 20/22] arm64: dts: qcom: sm6115: Reserve low IOVA range for
- Venus
+	s=arc-20240116; t=1786091383; c=relaxed/simple;
+	bh=eWzubjd4RqtYsSF00PfCz/D9zaAio3gn5rvo28apD9A=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=m+f0a9ybtFra9B8WpVt60XU4bdqIMhlanBEz1uU2VrO96YRPZ+ZiZ3JBwhzS+vzEe24/ls/u+HDRJJbaKCLkhNY9Y7ITo6a/5Pmi1cCG2yZxafWsgoI6VIZrLQyeAcOKVHh8AOTzrPZoDL/1xoUkDZxMCTPItp/KhMPro7gCNjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B6CC41A0036;
+	Fri,  7 Aug 2026 10:29:39 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 7E5001A001C;
+	Fri,  7 Aug 2026 10:29:39 +0200 (CEST)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 4970C18000B0;
+	Fri,  7 Aug 2026 16:29:36 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	wim@linux-watchdog.org,
+	vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	lakshay.piplani@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH 4/4] rtc: pcf8525: Add temperature sensor support via hwmon
+Date: Fri,  7 Aug 2026 13:58:55 +0530
+Message-Id: <20260807082855.3762394-5-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
+References: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-iris_iova_600mb_fix-v1-20-3996f67e33f9@oss.qualcomm.com>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Andy Gross <andy.gross@linaro.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@codeaurora.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Pierre-Hugues Husson <phhusson@freebox.fr>,
-        Marc Gonzalez <mgonzalez@freebox.fr>,
-        cros-qcom-dts-watchers@chromium.org,
-        Matthias Kaehlcke <mka@chromium.org>,
-        Douglas Anderson <dianders@chromium.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Aniket Masule <amasule@codeaurora.org>,
-        Malathi Gottam <quic_mgottam@quicinc.com>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Jonathan Marek <jonathan@marek.ca>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        Renjiang Han <quic_renjiang@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786091113; l=1921;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=rjKNf1uzaDHv4GGBTB8pZrw/GU88SDfnkNhNQc1gHIc=;
- b=YzCJWuLZ7vaXO9Gymk3tIZ+lQIGcQkrOzeSWun/a27Cis2FBfb+/745+JNcTroZVUe5k64B0+
- Rl79iBcNbiGDo4QPVnqAIxC8qwq6D0m21YR1KnQ5mgmK67eEa9zpG8x
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Authority-Analysis: v=2.4 cv=G60s1dk5 c=1 sm=1 tr=0 ts=6a759773 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=v_iTCYMvPXNbf3EXzDAA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: uKZhlqzMVkmutYrRTsfqQctYH6jgIQJB
-X-Proofpoint-ORIG-GUID: uKZhlqzMVkmutYrRTsfqQctYH6jgIQJB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfX4EcDWal9aBP1
- 3iaANxXFpur7C78Vz/F+QNlnBQX01iNj+O69OePiFjBVoaKyOLsdvhSQxlX6jdusMQHron2h8Ez
- iHEdoWbCeku3/StdKUuhynv4VHSmT1g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfX2gJsPKPHiUhK
- DGqYptJepsYSOu8iO+AYCcBnocnumsaosgryI8y6BuRPiGXdpS6L0zBfFLPWkbYt/wo+oi0HxAn
- ZXaN+sMzjiSIr9D5kaTfq8xaMgw/h8qdf1ppt5aZk7l1+obussmoucDZ7MSMYVX7zNoazLnWw6W
- zyxklr8WvkTq6HzSK05zNlboYbJ6RWFpbFgnH9Smh/SW5u7eJuhb1R+X8XJqfuwikZXH3KGDkNL
- rXfJiqjcNHsPChAgYSsFzMu3K0KaPeSs6fvZAhTBSSSl34j2mo+6sdZYWICa53jYbaVN8AFpaPg
- ZRYORBol+sTsPsSdMBBShfkOlU66KnQkVMiho0vwsfY+DEx1v+PIiv1pr+r+dFmeSoVMU0hVenA
- dChMi6VQrzWlRg15zbS0xd0kcr5ID5C2brwu1kQuNoyPpB6BcL0rVItQNKoq+pMoZF3mAXGvEWo
- m+kXOX3yVvNtxSOzbAw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 adultscore=0
- spamscore=0 clxscore=1015 phishscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070062
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-Venus VPU reserves IOVA addresses below 0x25800000 (600MB), primarily for
-secure non-pixel buffers. DMA into that range, from any other stream id
-would triggers unhandled SMMU page faults that cause spontaneous device
-reboots. This is readily reproduced with one or more browser tabs
-driving multiple concurrent video decode streams.
+Register the PCF8525 internal temperature sensor through the hwmon
+interface when CONFIG_RTC_DRV_PCF8525_HWMON is enabled.
 
-Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
-and reference it from the venus node so the IOMMU layer keeps DMA
-allocations above that boundary.
+Exposes temp1_input (millidegrees Celsius, read-only) and
+update_interval (milliseconds, read/write).
 
-Fixes: e0511284f0c1 ("arm64: dts: qcom: sm6115: add venus device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
 ---
- arch/arm64/boot/dts/qcom/sm6115.dtsi | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/rtc/Kconfig       |  15 +++
+ drivers/rtc/rtc-pcf8525.c | 192 ++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 207 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6115.dtsi b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-index 3520802d1fed57fa722371424cb11a33b277de1a..93f4eb8d18a7161fdee2ab67cdc0b4e8f327e9ee 100644
---- a/arch/arm64/boot/dts/qcom/sm6115.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6115.dtsi
-@@ -532,6 +532,17 @@ rmtfs_mem: memory@89b01000 {
- 			qcom,client-id = <1>;
- 			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA QCOM_SCM_VMID_NAV>;
- 		};
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 6c1c7b3d27b6..b2f8537d602b 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -524,6 +524,21 @@ config RTC_DRV_PCF8525
+           This driver can also be built as a module. If so, the module
+           will be called rtc-pcf8525.
+ 
++config RTC_DRV_PCF8525_HWMON
++	bool "HWMON support for NXP PCF8525"
++	depends on RTC_DRV_PCF8525 && HWMON && \
++		   !(RTC_DRV_PCF8525=y && HWMON=m)
++	default y
++	help
++	  Say Y here to expose the PCF8525 internal temperature
++	  sensor through the HWMON interface.
 +
-+		/*
-+		 * The Venus VPU reserves IOVA below 0x25800000 (600MB),
-+		 * primarily for non-pixel buffers using different Stream IDs.
-+		 * DMA into that range triggers unhandled SMMU faults and
-+		 * spontaneous reboots, so reserve it to keep IOMMU
-+		 * allocations above this boundary.
-+		 */
-+		venus_iova: venus-iova {
-+			iommu-addresses = <&venus 0x0 0x0 0x0 0x25800000>;
-+		};
- 	};
++	  This option provides temperature input reporting and allows
++	  the temperature measurement update interval to be configured
++	  from userspace.
++
++	  The interface is registered only when HWMON support is enabled
++
+ config RTC_DRV_PCF85363
+ 	tristate "NXP PCF85363"
+ 	select REGMAP_I2C
+diff --git a/drivers/rtc/rtc-pcf8525.c b/drivers/rtc/rtc-pcf8525.c
+index 4ef648bdfc5b..92bab3231ce7 100644
+--- a/drivers/rtc/rtc-pcf8525.c
++++ b/drivers/rtc/rtc-pcf8525.c
+@@ -34,6 +34,7 @@
+  */
  
- 	smp2p-adsp {
-@@ -1880,7 +1891,7 @@ venus: video-codec@5a00000 {
- 				      "vcodec0_core",
- 				      "vcodec0_bus";
+ #include <linux/bcd.h>
++#include <linux/hwmon.h>
+ #include <linux/i2c.h>
+ #include <linux/interrupt.h>
+ #include <linux/device.h>
+@@ -165,6 +166,7 @@
+ #define PCF8525_WD_MIN_HW_HEARTBEAT_MS  4000
+ #define PCF8525_WD_VAL_STOP             0
+ #define PCF8525_WD_DEFAULT_TIMEOUT_S    60
++#define PCF8525_CLKOUT_TCR_MASK		GENMASK(7, 5)
  
--			memory-region = <&pil_video_mem>;
-+			memory-region = <&pil_video_mem>, <&venus_iova>;
- 			iommus = <&apps_smmu 0x860 0x0>,
- 				 <&apps_smmu 0x880 0x0>;
+ #define PCF8525_REG_AGING_OFFSET_HI	0x26
+ #define PCF8525_REG_AGING_OFFSET_LO	0x27
+@@ -570,6 +572,194 @@ static int pcf8525_rtc_set_offset(struct device *dev, long offset)
+ 	return pcf8525_write_aging_offset(pcf8525, (s16)raw);
+ }
  
-
++static int pcf8525_hwmon_read_temp(struct device *dev, long *temp)
++{
++	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
++	unsigned int regval;
++	int ret;
++
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_TEMP, &regval);
++	if (ret)
++		return ret;
++
++	/*
++	 * PCF8525: signed 8-bit, 1 degree C per LSB.
++	 * HWMON requires millidegree Celsius.
++	 */
++	*temp = (long)(s8)(u8)regval * 1000L;
++
++	return 0;
++}
++
++static int pcf8525_hwmon_read_update_interval(struct device *dev, long *val)
++{
++	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
++	unsigned int regval;
++	unsigned int tcr;
++	int ret;
++
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_CLKOUT, &regval);
++	if (ret)
++		return ret;
++
++	tcr = FIELD_GET(PCF8525_CLKOUT_TCR_MASK, regval);
++
++	switch (tcr) {
++	case 0:
++		*val = 32 * 60 * 1000L;
++		break;
++	case 1:
++		*val = 16 * 60 * 1000L;
++		break;
++	case 2:
++		*val = 8 * 60 * 1000L;
++		break;
++	case 3:
++		*val = 4 * 60 * 1000L;
++		break;
++	case 4:
++		*val = 2 * 60 * 1000L;
++		break;
++	default:
++		*val = 60 * 1000L;
++		break;
++	}
++
++	return 0;
++}
++
++static int pcf8525_hwmon_write_update_interval(struct device *dev, long val)
++{
++	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
++	unsigned int tcr;
++
++	switch (val) {
++	case 32 * 60 * 1000L:
++		tcr = 0;
++		break;
++	case 16 * 60 * 1000L:
++		tcr = 1;
++		break;
++	case 8 * 60 * 1000L:
++		tcr = 2;
++		break;
++	case 4 * 60 * 1000L:
++		tcr = 3;
++		break;
++	case 2 * 60 * 1000L:
++		tcr = 4;
++		break;
++	case 60 * 1000L:
++		tcr = 5;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	/* Update only TCR[2:0]; preserve OTPR, CLKOE and COF[2:0]. */
++	return regmap_update_bits(pcf8525->regmap, PCF8525_REG_CLKOUT,
++				  PCF8525_CLKOUT_TCR_MASK,
++				  FIELD_PREP(PCF8525_CLKOUT_TCR_MASK, tcr));
++}
++
++static umode_t pcf8525_hwmon_is_visible(const void *data,
++					enum hwmon_sensor_types type,
++					u32 attr, int channel)
++{
++	switch (type) {
++	case hwmon_chip:
++		if (attr == hwmon_chip_update_interval)
++			return 0644;
++		break;
++	case hwmon_temp:
++		if (attr == hwmon_temp_input && channel == 0)
++			return 0444;
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static int pcf8525_hwmon_read(struct device *dev,
++			      enum hwmon_sensor_types type,
++			      u32 attr, int channel, long *val)
++{
++	switch (type) {
++	case hwmon_chip:
++		if (attr == hwmon_chip_update_interval)
++			return pcf8525_hwmon_read_update_interval(dev, val);
++		break;
++	case hwmon_temp:
++		if (attr == hwmon_temp_input && channel == 0)
++			return pcf8525_hwmon_read_temp(dev, val);
++		break;
++	default:
++		break;
++	}
++
++	return -EOPNOTSUPP;
++}
++
++static int pcf8525_hwmon_write(struct device *dev,
++			       enum hwmon_sensor_types type,
++			       u32 attr, int channel, long val)
++{
++	if (type == hwmon_chip && attr == hwmon_chip_update_interval)
++		return pcf8525_hwmon_write_update_interval(dev, val);
++
++	return -EOPNOTSUPP;
++}
++
++static const struct hwmon_channel_info * const pcf8525_hwmon_info[] = {
++	HWMON_CHANNEL_INFO(chip, HWMON_C_UPDATE_INTERVAL),
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
++	NULL
++};
++
++static const struct hwmon_ops pcf8525_hwmon_ops = {
++	.is_visible = pcf8525_hwmon_is_visible,
++	.read = pcf8525_hwmon_read,
++	.write = pcf8525_hwmon_write,
++};
++
++static const struct hwmon_chip_info pcf8525_hwmon_chip_info = {
++	.ops = &pcf8525_hwmon_ops,
++	.info = pcf8525_hwmon_info,
++};
++
++/*
++ * Keep HWMON optional and non-fatal so RTC and watchdog registration remain
++ * usable even if the temperature interface cannot be registered.
++ */
++static void pcf8525_hwmon_register(struct device *dev,
++				   struct pcf8525 *pcf8525)
++{
++	struct device *hwmon_dev;
++	int ret;
++
++	if (!IS_ENABLED(CONFIG_RTC_DRV_PCF8525_HWMON))
++		return;
++
++	/* Enable only the digital readout; preserve TSIE, CL and XTL_TYP. */
++	ret = regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL5,
++				 PCF8525_CTRL5_TEMP_RD_EN,
++				 PCF8525_CTRL5_TEMP_RD_EN);
++	if (ret) {
++		dev_warn(dev, "failed to enable temperature readout: %d\n", ret);
++		return;
++	}
++
++	hwmon_dev = devm_hwmon_device_register_with_info(dev, "pcf8525",
++							 pcf8525,
++							 &pcf8525_hwmon_chip_info,
++							 NULL);
++	if (IS_ERR(hwmon_dev))
++		dev_warn(dev, "failed to register HWMON device: %ld\n",
++			 PTR_ERR(hwmon_dev));
++}
++
+ static int pcf8525_read_time(struct device *dev, struct rtc_time *tm)
+ {
+ 	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
+@@ -1143,6 +1333,8 @@ static int pcf8525_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
++	pcf8525_hwmon_register(dev, pcf8525);
++
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
