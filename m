@@ -1,122 +1,433 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F40F63F23DB
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 10:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F7B233943;
+	Fri,  7 Aug 2026 10:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786097784; cv=none; b=uZ+U0IvjlJBpwr6e8pBXJNUdAhBAQXC9KE8Dqlz6GRwF8clk/yuc2RayMYyrj08nM/70UxU7h6JgRC7q7tBCwhDtPqvREZSTPqIo1Ied9SLaeuMw8yk6iDll96uvzpMMop67SGLVAEFEYhHVkkggSPrtOl9lEcLy56m+piwP85s=
+	t=1786097836; cv=none; b=poZFfiXqzfIzIhJF5lLQ91BkX08rkc/CyRuywB47Gn2JBgRUufSzRccC1gX8hl7zFasK/vJ4FpKkVl0tbc7GcNVdfyzWE7Sb2k/mUBO0O43boIOPLlbzjujlMJHBGo17RCU5ni+st+DMjTRuxqJtwNJb1612lMmecvCNHQuSvMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786097784; c=relaxed/simple;
-	bh=tjuDIdXcHrXpHN+nqdQgulN8A1MZpSqxeFuirGPKwlw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z7PulXYRVOXqEDlnQlA+Bhzg6xZWIZzFdhFi3HohJCRIkq4DOkZQ4nVu5aXlDlAG9CsraUbNgY1gMwzVnj5DZPcc2lmIYQSxEtjHy8RbwPRkpHF018mXw41OJY7Ji6AeaPfTAhwiZomiUoMM4bab4BDpLaBGg7JazmuMZF7UP+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cl8Qti3l; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786097836; c=relaxed/simple;
+	bh=KT68VzCqaujpMp0/FJPdB6J6+GNFaMR+7oSnjbfZNVM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tl7o2eM9zbSYAJBWcREPWKv2QJYAXIXkOa20LshviTe8pAXSNGQaHdfIPPszcXH9/mLO7yWPZpuJ9ai5dtne65fdxlfVNWDj1qvtwb887gqit5tLFuJ+4p/wugxGZLAclcROYpKmm61njNhr/p9tfJE7HApXFYPLwnoJt7uwP10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFEb04/b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cl8Qti3l"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47fe89fb333so1956248f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 03:16:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786097781; x=1786702581; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WsgVrGgvLQa6QkQgWXXH0NidSFfpFOJBXHIkDvCSO8Q=;
-        b=cl8Qti3lkygYrfm7o36VS6AG0os0pF97e6vRLL++DyZ6KvODJubL6WBVTo0kESGhvY
-         xTOXbRUp8Oa1KCpN5b0WkxNzH6Qvx8G6jjSUXdgjo37U0hhpI7Ko+aNFQl5cEUf7Z+lm
-         i1iosLK3OxHb8xy6/gPqZ8BdfWfLdnxhsCB7J0AOesqhuRvaiG5s0jVnSEkpxvfCc2qY
-         SELuoWwSvHbYE0hKWzyDZO+qLgXplf/OQzp7FUp9T7JhowJjO4PLxWTD4XzZdKX5/0i5
-         +Nn8fCicJ62kwQ5vPb/Sd0qERryfgtc4JWQNu1AprLrcZPA2xHZxwpTbzg/nKOlzr744
-         LlCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786097781; x=1786702581;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WsgVrGgvLQa6QkQgWXXH0NidSFfpFOJBXHIkDvCSO8Q=;
-        b=RTquuGs1Rt+Gppg4vtF4rPlRQOISqaOf0rmOik9AgbMirDG15RSaarj8TU6C5eLHtf
-         JBx8CrlLNxJX/4SLG0fXEJPJa5h1Wl415afe/zr/uGY8M+6DyHIE6YMNxwFxi/StumwZ
-         TMxd9KRHtSLckE4gxYqMRnfiL5E78MARDC1XqB9Nb3m9Jp4IZomNXaUBTSp3eD8aSyBg
-         tYqEUaxMvEnR13ucd+Z3cAaKO1BEZsZkQkSIFBXPB7PUhLJfYEy6KAwU+eSFb5ycvW0w
-         FwHKx+GLWHvLq9HHlfwbB6aNyPb0Of/XEkjBtSI4PsTX1XaHYbWQyYkzEr20Hp2C+Bjk
-         n4vw==
-X-Forwarded-Encrypted: i=1; AHgh+RoiWTUY02jktdgslXltlk69Ym1cZXDLm2er4t5trobQENKhqC3BdajTFSD3fVrFVWKpICLUfFtuelCX@vger.kernel.org
-X-Gm-Message-State: AOJu0YzCiCT/MkjEdOW6CyP6/K30ddnYihxMwrrRfwR6ikqVCPKlE315
-	ob+4oSsgOpJ2bfKth7FPfQ4ibj3RYegIQA9QEaa/i5BWclEKqYcRSoya
-X-Gm-Gg: AR+sD10G6J3ZzOFGTog/bhVkSWGPv6NWHvYXKIvgc0uvhYMbb3niYohmPgl2L11nnUu
-	yBcJolMi0auFEyTKI96ITebCbYxO3C0SZBGZ30F6vCX65+PRiu4si+7zdqo7Ah7bsDCorTSJfFL
-	WVB2b+Ei1P0C7q5gK9Bwu1q8pZW7D+twThq2uGFCnI8egzlEOXVZ5Fao/dbbuSK2c2fMF6wKIv6
-	nFe3Lhcd0wt5OGZ2CAVfLiVmBfR/BNPwwYIp3aJXZYzgZBX5doQ/3JM1y8f56KMELqjJSb1hF2L
-	zHhXvMvYDkTnVDsl4SgLjfHobm1G9T72fgbgb12unxpeOCkSSMHojmrCrUnHOagHitRyymfj4O/
-	a00yAE390DF8wNwwVItg9PgrCTeR48+JBe9YeKeWnDkumI4vaVklviP4fGVdeIyTIlmvOLVu6J/
-	BgD2Qlpq4m928ja9YpJ6fbiXV+Ma5Mcetdo4u3jvLKPShGNbAkWucCLhJZELT+O4TONKy3ETILk
-	76mX4JyxxROkOwYTxqHAfaaatPwobW4DCaOIZm8j4CjWDdhFvSmcjEceCNBtlMA1ksetOat9Oyy
-	Pe8tnhj8j0dxepfIZHwTRkeFT1a3dKXjYkUGH82/SFnfcpcpsT8PRv5F88Qu3WX6TYlMUcOOP6n
-	uF4pQEVNZLCjMiAjU5hCzWBM0hS3fZwj83dK7WQGneN5/4PARGHmPl1TRy10D4phVyOPnt3C3uA
-	o9R34GaGQ91msgO5nbIA==
-X-Received: by 2002:a05:6000:1844:b0:47f:9c6f:8844 with SMTP id ffacd0b85a97d-47fec4f8017mr30356720f8f.9.1786097781292;
-        Fri, 07 Aug 2026 03:16:21 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021e8b09sm4852936f8f.23.2026.08.07.03.16.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 03:16:21 -0700 (PDT)
-Date: Fri, 7 Aug 2026 12:16:19 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "Henrik Grimler" <henrik.grimler@axis.com>,
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kernel@axis.com>
-Subject: Re: [PATCH 1/3] dt-bindings: Add InvenSense ICM-42370-p
- accelerometer
-Message-ID: <20260807121619.000078c9@gmail.com>
-In-Reply-To: <20260806-b4-inv_icm42370p-v1-1-670837f5842f@axis.com>
-References: <20260806-b4-inv_icm42370p-v1-0-670837f5842f@axis.com>
-	<20260806-b4-inv_icm42370p-v1-1-670837f5842f@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFEb04/b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 775DC1F000E9;
+	Fri,  7 Aug 2026 10:17:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786097834;
+	bh=hUHFsx+PJg3aBK5v0PAYLEFmVL5S7vEOMhoPgycQYzY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XFEb04/biKeSZU6PfRRDBCFDpF0swdthtXbgW/4JftxL/H65iwqY52zLgqhChQwt0
+	 2iagQY49RkbjCL12smw17Z/2TOYSu3UkKZYzFtQbqgJhlmWrFf61PWOM9aGXk4qG/j
+	 R5l+b/0Oc5LAJYjicsd9aadPkegn2ZBq2u88YH7OvrwXloK3r0EJukgg06wxHcWyVq
+	 E4WTi5nBZg5SVcmg74F5FZbvAdK2p3iJ4rZW9zvVvbLAjFFn/fqkdHpcJyrOexa+qC
+	 gXnVW2Tiis/K/h8i6d3T5W5UHk6fsYixXuAP6cPDMzZn848eUaY891mMU4DPIv7418
+	 lRP6kR16xv+KA==
+Date: Fri, 7 Aug 2026 12:17:03 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel@collabora.com
+Subject: Re: [PATCH v3 2/2] phy: mediatek: Add support for PCI-Express Gen4
+ S-PHY
+Message-ID: <l3rdxgnhhalstuxsytsofd45nxa6uiulficlvhfltqazcclonu@3l3idggohsd4>
+References: <20260720152654.92216-1-angelogioacchino.delregno@collabora.com>
+ <20260720152654.92216-3-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260720152654.92216-3-angelogioacchino.delregno@collabora.com>
 
-On Thu, 6 Aug 2026 14:46:27 +0200
-Kanak Shilledar <kanak.shilledar@axis.com> wrote:
+On Mon, Jul 20, 2026 at 05:26:54PM +0200, AngeloGioacchino Del Regno wrote:
+> Add support for the PCI-Express Gen4 S-PHY found in the latest
+> MediaTek SoCs, including MT8196, MT8894 and similar.
+> 
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  drivers/phy/mediatek/Kconfig             |   9 +
+>  drivers/phy/mediatek/Makefile            |   1 +
+>  drivers/phy/mediatek/phy-mtk-pcie-sphy.c | 556 +++++++++++++++++++++++
+>  3 files changed, 566 insertions(+)
+>  create mode 100644 drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+> 
+> diff --git a/drivers/phy/mediatek/Kconfig b/drivers/phy/mediatek/Kconfig
+> index ba6461350951..77236f3084c8 100644
+> --- a/drivers/phy/mediatek/Kconfig
+> +++ b/drivers/phy/mediatek/Kconfig
+> @@ -13,6 +13,15 @@ config PHY_MTK_PCIE
+>  	  callback for PCIe GEN3 port, it supports software efuse
+>  	  initialization.
+>  
+> +config PHY_MTK_PCIE_SPHY
+> +	tristate "MediaTek PCIe S-PHY Driver"
+> +	depends on ARCH_MEDIATEK || COMPILE_TEST
+> +	depends on OF
+> +	select GENERIC_PHY
+> +	help
+> +	  Say 'Y' here to add support for MediaTek PCIe S-PHY driver for
 
-> +  vdd-supply:
-> +    description: Regulator operating range between 1.71V to 3.6V.
+I think this part got cargo culted from existing help texts, but this should not
+mention 'Y' as this driver is a tristate.
+
+> +	  PCI-Express Gen4 controllers as found in MT6991, MT8196 and others.
+
+MT6991 is not mentioned in the patch description. So wondering if this is a
+mistake or not.
+
 > +
-> +  vddio-supply:
-> +    description: Regulator operating range between 1.71V to 3.6V.
+>  config PHY_MTK_XFI_TPHY
+>  	tristate "MediaTek 10GE SerDes XFI T-PHY driver"
+>  	depends on ARCH_MEDIATEK || COMPILE_TEST
+> diff --git a/drivers/phy/mediatek/Makefile b/drivers/phy/mediatek/Makefile
+> index ed0da708759b..7e984c7cfea3 100644
+> --- a/drivers/phy/mediatek/Makefile
+> +++ b/drivers/phy/mediatek/Makefile
+> @@ -5,6 +5,7 @@
+>  
+>  obj-$(CONFIG_PHY_MTK_DP)		+= phy-mtk-dp.o
+>  obj-$(CONFIG_PHY_MTK_PCIE)		+= phy-mtk-pcie.o
+> +obj-$(CONFIG_PHY_MTK_PCIE_SPHY)		+= phy-mtk-pcie-sphy.o
+>  obj-$(CONFIG_PHY_MTK_TPHY)		+= phy-mtk-tphy.o
+>  obj-$(CONFIG_PHY_MTK_UFS)		+= phy-mtk-ufs.o
+>  obj-$(CONFIG_PHY_MTK_XSPHY)		+= phy-mtk-xsphy.o
+> diff --git a/drivers/phy/mediatek/phy-mtk-pcie-sphy.c b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+> new file mode 100644
+> index 000000000000..853aafa18259
+> --- /dev/null
+> +++ b/drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+> @@ -0,0 +1,556 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2022 MediaTek Inc.
+> + * Copyright (c) 2026 Collabora Ltd.
+> + *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+nit: Odd indent and missing 'Author:'
+
+> + */
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
+> +#include <linux/bitfield.h>
+> +#include <linux/module.h>
+> +#include <linux/nvmem-consumer.h>
+> +#include <linux/of.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/slab.h>
+> +
+> +#include "phy-mtk-io.h"
+> +
+> +/* PHY System Interface (SIF) registers */
+> +#define PEXTP_DIG_GLB_TOP				0x20
+> +#  define RG_XTP_BYPASS_PIPE_RST_RC			BIT(17)
+> +#define PEXTP_DIG_GLB_CKBG0				0x30
+> +#  define RG_XTP_CKBG_XTAL_STABLE_TIME_SEL		GENMASK(25, 16)
+> +#define PEXTP_DIG_GLB_TPLL_CTL0				0x38
+> +#  define RG_XTP_TPLL_SET_STABLE_TIME_SEL		GENMASK(7, 2)
+> +#  define RG_XTP_TPLL_PWE_ON_STABLE_TIME_SEL		GENMASK(9, 8)
+> +#define PEXTP_DIG_GLB_CLKREQ_CTL			0x50
+> +#  define RG_XTP_CKM_EN_L1S0				BIT(13)
+> +#  define RG_XTP_CKM_EN_L1S1				BIT(14)
+> +#define PEXTP_DIG_GLB_TPLL_CTL2				0xf4
+> +#  define RG_XTP_TPLL_ISO_EN_STABLE_TIME_SEL		GENMASK(13, 12)
+> +
+> +/* PHY System Interface Digital registers */
+> +#define PEXTP_DIG_LN_TRX_PIPE_IF_17			0x30e8
+> +#  define RG_XTP_LN_RX_LF_CTLE_CSEL_GEN4		GENMASK(14, 12)
+> +#define PEXTP_DIG_LN_RX_F0				0x50f0
+> +#  define RG_XTP_LN_RX_GEN1_CTLE1_CSEL			GENMASK(3, 0)
+> +#  define RG_XTP_LN_RX_GEN2_CTLE1_CSEL			GENMASK(7, 4)
+> +#  define RG_XTP_LN_RX_GEN3_CTLE1_CSEL			GENMASK(11, 8)
+> +#  define RG_XTP_LN_RX_GEN4_CTLE1_CSEL			GENMASK(15, 12)
+> +#define PEXTP_DIG_LN_RX2_AEQ_EDGE_0			0x6004
+> +#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN3		GENMASK(21, 16)
+> +#  define RG_XTP_LN_RX_AEQ_EGEQ_RATIO_GEN4		GENMASK(29, 24)
+> +
+> +/* PHY System Interface Analog registers */
+> +#define PEXTP_ANA_GLB_TPLL1_RSVD			0x902c
+> +#  define RG_XTP_GLB_TPLL1_P_PATH_GAIN			GENMASK(2, 0)
+> +#define PEXTP_ANA_GLB_BIAS_0				0x9060
+> +#  define RG_XTP_GLB_BIAS_INTR_CTRL			GENMASK(5, 0)
+> +#define PEXTP_ANA_GLB_BIAS_1				0x90c0
+> +#  define RG_XTP_GLB_BIAS_V2V_VTRIM			GENMASK(9, 6)
+> +#define PEXTP_ANA_LN_TRX_0C				0xa00c
+> +#  define RG_XTP_LN_TX_RSWN_IMPSEL			GENMASK(20, 16)
+> +#define PEXTP_ANA_LN_TRX_34				0xa034
+> +#  define RG_XTP_LN_RX_FE				BIT(15)
+> +#define PEXTP_ANA_LN_TRX_6C				0xa06c
+> +#  define RG_XTP_LN_RX_AEQ_CTLE_ERR_TYPE		GENMASK(14, 13)
+> +#   define AEQ_CTLE_SEARCH_ERR_TYPE_H1P5		0
+> +#   define AEQ_CTLE_SEARCH_ERR_TYPE_H1P5_H2P5		1
+> +#   define AEQ_CTLE_SEARCH_ERR_TYPE_P1P5_H2P5_H3P5	2
+> +#define PEXTP_ANA_LN_TRX_A0				0xa0a0
+> +#  define RG_XTP_LN_TX_IMPSEL_PMOS			GENMASK(4, 0)
+> +#  define RG_XTP_LN_TX_IMPSEL_NMOS			GENMASK(11, 7)
+> +#  define RG_XTP_LN_RX_IMPSEL				GENMASK(15, 12)
+> +#define PEXTP_ANA_LN_TRX_A8				0xa0a8
+> +#  define RG_XTP_LN_RX_LEQ_RL_CTLE_CAL			GENMASK(6, 2)
+> +#  define RG_XTP_LN_RX_LEQ_RL_VGA_CAL			GENMASK(11, 7)
+> +#  define RG_XTP_LN_RX_LEQ_RL_DFE_CAL			GENMASK(23, 19)
+> +#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_4			0xb004
+> +#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_8			0xb008
+> +#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_C			0xb00c
+> +#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_10		0xb010
+> +#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_14		0xb014
+> +#define PEXTP_DIG_LN_TX_LC_TABLE_RSWN_18		0xb018
+> +#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_CM1		GENMASK(5, 0)
+> +#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_C0		GENMASK(13, 8)
+> +#  define RG_XTP_LN_TX_LC_PRESET_MGx_Px_CP1		GENMASK(21, 16)
+> +#define PEXTP_REG_LANE(x)				((x) * 0x100)
+> +
+> +/* PHY Clock Management (CKM) registers */
+> +#define XTP_CKM_FORCE_6					0x38
+> +#  define RG_CKM_BIAS_WAIT_PRD_US			GENMASK(21, 16)
+> +#define XTP_CKM_REG_SPLL_FBKDIV_5			0xd4
+> +#  define RG_CKM_CKTX_IMPSEL_PMOS			GENMASK(19, 16)
+> +#  define RG_CKM_CKTX_IMPSEL_NMOS			GENMASK(23, 20)
+> +#  define RG_CKM_CKTX_IMPSEL_SW				GENMASK(27, 24)
+> +
+> +/* Calibration data from eFuses */
+> +#define MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES	2
+> +#define MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER	4
+> +
+> +/**
+> + * struct mtk_pcie_sphy_imp_sel - Impedance Selection parameters
+> + * @pmos: Impedance selection for P-Channel MOSFET
+> + * @nmos: Impedance selection for N-Channel MOSFET
+> + */
+> +struct mtk_pcie_sphy_imp_sel {
+> +	u8 pmos;
+> +	u8 nmos;
+> +};
+> +
+> +/**
+> + * struct mtk_pcie_sphy_efuse - eFuse calibration data for S-PHY
+> + * @int_r_ctrl:     Internal resistor selection of TX Bias Current
+> + * @xtp_vtrim:      XTP Bias V2V voltage calibration
+> + * @cktx_impsel:    SPLL CKTX Impedance Selection (P and N MOSFET)
+> + * @cktx_r_mid:     SPLL CKTX Intermediate Transition Impedance (Rmid)
+> + * @rx_leq_rl_ctle: RX Front-End Return Loss Continuous Time Linear Equalization value
+> + * @rx_leq_rl_vga:  RX Front-End Return Loss Variable Gain Amplifier value
+> + * @rx_leq_rl_dfe:  RX Front-End Return Loss Decision Feedback Equalization value
+> + * @rx_impsel:      RX Impedance Selection
+> + * @tx_impsel:      TX Impedance Selection (P and N MOSFET)
+> + * @tx_rswn_impsel: TX RSWn (Switch Resistance) impedance selection
+> + * @supported:      eFuse calibration data is supported
+> + */
+> +struct mtk_pcie_sphy_efuse {
+> +	u8 int_r_ctrl;
+> +	u8 xtp_vtrim;
+> +	struct mtk_pcie_sphy_imp_sel cktx_impsel;
+> +	u8 cktx_r_mid;
+> +	u8 rx_leq_rl_ctle;
+> +	u8 rx_leq_rl_vga;
+> +	u8 rx_leq_rl_dfe;
+> +	u8 rx_impsel;
+> +	struct mtk_pcie_sphy_imp_sel tx_impsel;
+> +	u8 tx_rswn_impsel[MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES];
 
-vdd-supply and vddio-supply are definitely required.
+Nit: Unless really required, move the u8 members after all structs to avoid
+holes.
 
-...
+> +	bool supported;
+> +};
+> +
 
-> +INVENSENSE ICM-42370P ACCELEROMETER
-> +M:	Kanak Shilledar <kanak.shilledar@axis.com>
-> +M:	Henrik Grimler <henrik.grimler@axis.com>
-> +L:	linux-iio@vger.kernel.org
+[...]
 
-No need to add the IIO list as get_maintainer will automatically find
-it based on the file path. However I did notice that you have a
-company kernel mailing list, perhaps add that here?
+> +static int mtk_pcie_sphy_get_calibration_data(struct mtk_pcie_sphy *pcie_sphy)
+> +{
+> +	struct mtk_pcie_sphy_efuse *cal = &pcie_sphy->calibration;
+> +	struct device *dev = pcie_sphy->dev;
+> +	u8 version;
+> +	int ret;
+> +
+> +	if (pcie_sphy->num_lanes > MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES) {
+> +		dev_info(dev, "Skipping PHY calibration for more than %u lanes.\n",
+> +			 MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES);
+> +		ret = -EOPNOTSUPP;
+> +		goto end;
+> +	}
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "int-r",
+> +					     FIELD_MAX(RG_XTP_GLB_BIAS_INTR_CTRL));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->int_r_ctrl = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "xtp-vtrim",
+> +					     FIELD_MAX(RG_XTP_GLB_BIAS_V2V_VTRIM));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->xtp_vtrim = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-pmos",
+> +					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_PMOS));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->cktx_impsel.pmos = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-nmos",
+> +					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_NMOS));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->cktx_impsel.nmos = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-r-mid",
+> +					     FIELD_MAX(RG_CKM_CKTX_IMPSEL_SW));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->cktx_r_mid = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-ctle",
+> +					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_CTLE_CAL));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->rx_leq_rl_ctle = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-vga",
+> +					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_VGA_CAL));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->rx_leq_rl_vga = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-dfe",
+> +					     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_DFE_CAL));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->rx_leq_rl_dfe = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "rx-lanes-imp",
+> +					     FIELD_MAX(RG_XTP_LN_RX_IMPSEL));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->rx_impsel = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-pmos",
+> +					     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_PMOS));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->tx_impsel.pmos = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-nmos",
+> +					     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_NMOS));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->tx_impsel.nmos = ret;
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln0-rswn",
+> +					     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
+> +	if (ret < 0)
+> +		goto end;
+> +	cal->tx_rswn_impsel[0] = ret;
+> +
+> +	if (pcie_sphy->num_lanes == 2) {
+> +		ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln1-rswn",
+> +						     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
+> +		if (ret < 0)
+> +			goto end;
+> +		cal->tx_rswn_impsel[1] = ret;
+> +	}
+> +
+> +	ret = mtk_pcie_sphy_get_one_cal_para(dev, "cal-version", 15);
+> +	if (ret < 0)
+> +		goto end;
+> +	version = ret;
+> +
+> +	/* Quirk for eFuse calibration table versions 0 to 4 */
+> +	if ((version <= MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER) &&
+> +	    cal->rx_leq_rl_ctle == 10) {
+> +		cal->rx_leq_rl_vga = cal->rx_leq_rl_ctle;
+> +		cal->rx_leq_rl_dfe = cal->rx_leq_rl_ctle;
+> +	}
+> +
+> +end:
+> +	if (ret < 0) {
+> +		/*
+> +		 * If any of the calibration values is missing, or if there is
+> +		 * no calibration at all in the eFuses, this is not a problem,
+> +		 * as the PHY doesn't require one to actually work.
+> +		 */
+> +		if (ret == -ENOENT || ret == -EOPNOTSUPP) {
+> +			cal->supported = false;
+> +			return 0;
+
+If any of the above calibration values are missing, you are returning success
+here instead of trying next calibration. Is it because if one is missing, all
+others will also be missing? I don't think this assumption is correct.
+
+> +		}
+> +		return ret;
+> +	};
+> +	cal->supported = true;
+> +
+> +	return 0;
+> +}
+> +
+> +static int mtk_pcie_sphy_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct phy_provider *provider;
+> +	struct mtk_pcie_sphy *pcie_sphy;
+> +	u32 num_lanes;
+> +	int ret;
+> +
+> +	pcie_sphy = devm_kzalloc(dev, sizeof(*pcie_sphy), GFP_KERNEL);
+> +	if (!pcie_sphy)
+> +		return -ENOMEM;
+> +
+> +	pcie_sphy->sif_base = devm_platform_ioremap_resource_byname(pdev, "sif");
+> +	if (IS_ERR(pcie_sphy->sif_base))
+> +		return dev_err_probe(dev, PTR_ERR(pcie_sphy->sif_base),
+> +				     "Failed to map phy-sif base\n");
+> +
+> +	pcie_sphy->ckm_base = devm_platform_ioremap_resource_byname(pdev, "ckm");
+> +	if (IS_ERR(pcie_sphy->ckm_base))
+> +		return dev_err_probe(dev, PTR_ERR(pcie_sphy->ckm_base),
+> +				     "Failed to map phy-ckm base\n");
+> +
+> +	pcie_sphy->phy = devm_phy_create(dev, dev->of_node, &mtk_pcie_sphy_ops);
+> +	if (IS_ERR(pcie_sphy->phy))
+> +		return dev_err_probe(dev, PTR_ERR(pcie_sphy->phy),
+> +				     "Failed to create PCIe phy\n");
+> +
+> +	ret = of_property_read_u32(dev->of_node, "num-lanes", &num_lanes);
+> +	if (ret)
+> +		num_lanes = 1;
+> +	else if (num_lanes > 4)
+> +		return dev_err_probe(dev, -EINVAL, "Invalid number of lanes.\n");
+> +
+> +	pcie_sphy->num_lanes = num_lanes;
+> +	pcie_sphy->dev = dev;
+> +
+> +	ret = mtk_pcie_sphy_get_calibration_data(pcie_sphy);
+> +	if (ret)
+> +		return ret;
+> +
+> +	phy_set_drvdata(pcie_sphy->phy, pcie_sphy);
+> +
+
+Add pm_runtime_no_callbacks()
+
+> +	ret = devm_pm_runtime_enable(dev);
+
+Is the PHY already ON at this point? I don't see power_on() callback in this
+driver, so it should be ON? If so, you should do
+devm_pm_runtime_set_active_enabled() instead.
+
+- Mani
 
 -- 
-Kind regards,
-Joshua Crofts
+மணிவண்ணன் சதாசிவம்
