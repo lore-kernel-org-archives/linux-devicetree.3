@@ -1,94 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D4713B58C
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:32:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2CA348C5D;
+	Fri,  7 Aug 2026 08:34:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786091577; cv=none; b=kMAF/a/yzmh7rP/awSfGwhOgbsu03iWz9lc1dAyVBhHQq4bHmHU7dgvBSZy/4PEIUz+LZqXhqZnxj7R84hmgFG4yQaqm+kUOkKq1C7R3R4MYvNhzsH55FR32+x3Kb9LayKHVU0nm/KqqvXqpOTeIvDx37lbpy03vdjCi4zItRXc=
+	t=1786091645; cv=none; b=bPMh6FysMNr+7q8/lCXpNfPWzCb7grYCXbsaZYSvRERE+14sqiqhajfI6s7HU+G3HQns3UK+Tgg/uWwDWJf0131Tthx77F6p6iy06fQAU5xudPIxtv2k+hUfTjbSqzCD04zt1Ul3Pvc6bHlSb1lw7HsXPLUv39JWj1bVjcMZCAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786091577; c=relaxed/simple;
-	bh=SILCpGRIHC/W12qB/q/82Dndp+3a0ZpKRjjiDJT+tlU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t7kHpXjZIRuwBxgizZcbK5IuLfoD7Kx/eHZ81Prjl5QLONRDDLfKsgKiuLxO36xLH/ObPoEBHhJTsQGoazwh0cLvgVr7aFIcNhLN6JTKHcVOVGMqPURegTGvzgnM+OT8ig2ua4+FGqQe14PvcYUucdH54BW1RCYRCyBuSMbBmFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OzQ768da; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786091645; c=relaxed/simple;
+	bh=RuoitR6H60DSllYMhIs4DXZPn70NU4WQWcqp1ckTj1c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y+HklWVcsu5rRj3uasafXmLui1scb9Agti4F97k0CSEphXXgUmKYIPOfxmPS5oLTDfwYgHxA1UbGUyr1AdNwznZ/do6EDkSg6Xy++9y74Npa+FHlYJJT+TF4H9R0O9OpqiyW+OSu5nRrHDML7hdwckrVHlRjZhjUlUA+MHnVE/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=egpE/sHd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OzQ768da"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2691F00A3F
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:32:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="egpE/sHd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5833F1F000E9;
+	Fri,  7 Aug 2026 08:34:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786091571;
-	bh=7Mhz+OK85u/kn/NZ553pWOOZ48iX6HSDM4hQTwSgW5U=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OzQ768daElmWOlg3+21FIIs7TXjrmYfSMkt0+qXKW7braL6u5qH4U+lIeRnwLedsA
-	 9lzcvapEu53V3rCtf6zI+LJcleQ2ktnsoOYxN/enTofXHSNWI07KcgOKYa585HYHjt
-	 eafdH7vciRN4zoj87trERBF/dEurZewhGgI9pFe5akAJw/n8gt96S8WbqLjJIBoFnM
-	 Zg82kuzxR4hugsbOruiKMMZOeAIDKhZBAOstMew8ip2rlSrImxqukWE4uJwYHQ6qeb
-	 JOOe54RkgybpuG4NA+VoQ6mAqbz7PGDIX98PafYQwtR73U7Rwx/m0VvUVFJY7LEibw
-	 przxSaU32CiKA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aec6360133so2676506e87.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 01:32:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpLKowTNqK/8Rc8aXgnn4JKVCgvpcOOKMMH0TI131eU3jiS3ZRvZvk7W6HOJkVR9MFlMRR/FNYkd9+z@vger.kernel.org
-X-Gm-Message-State: AOJu0YzS1dLQY7EGA+hTA9ekrv7hwpKRzZ9eyJaU+2rjitkfEqdroC0Y
-	FW4yz9t/qawvovk/Nq3PSP9JqoT+H8GUCtqTsnyM+xOD6OLAFMNFe7dOtPZrgOHvEC/u8niBKFc
-	FKJoX5R5abOUJlT6UUciddyNnZGOCZvQ=
-X-Received: by 2002:a05:6512:304e:b0:5ae:bce4:b696 with SMTP id
- 2adb3069b0e04-5b2f4b8873cmr2728006e87.15.1786091570304; Fri, 07 Aug 2026
- 01:32:50 -0700 (PDT)
+	s=k20260515; t=1786091643;
+	bh=iXwDOCVwuABsSnsc7nuG5npLY75DePuZTBjYJTNdzSs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=egpE/sHdEx6c0T8pL5cFZNzJEdSjq+6qepeSas+5guwlK+Y8b9DD6aLPXUxAYE1vv
+	 oUq7JwSLoe4I4Sv1aqCN0lg56roU945SFs1Mv784GJQ7gtpk8/EaktIILv+XbwdOfj
+	 E6BdYqJrhSaxkbmjgOUeuUiiJvsjnSumgibCLwexyoDXE45W2LJdZpiwfG6Y9gRbBs
+	 qbYuGmiPv50VVVcUFiPoO/quT8tQzhAnzUcSn+HtpxfKNpkR31J8ZJzV5fjdidZcJu
+	 wtqxZqdqcfDAQiU6enAc82M9/eoSB1Xht7bnI23Wto7LxvkG5tGYKsbOO4KOWHSA3P
+	 /W8KOYT6NyZnQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 14/20] RISC-V: perf: Implement supervisor counter
+ delegation support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atish Patra" <atish.patra@linux.dev>
+Cc: linux-perf-users@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807-counter_delegation-v9-14-58658104e487@meta.com>
+References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
+ <20260807-counter_delegation-v9-14-58658104e487@meta.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 08:34:02 +0000
+Message-Id: <20260807083403.5833F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260804-mainline-send-v1-sending-v5-0-149dd4372ac8@alex-min.fr> <20260804-mainline-send-v1-sending-v5-2-149dd4372ac8@alex-min.fr>
-In-Reply-To: <20260804-mainline-send-v1-sending-v5-2-149dd4372ac8@alex-min.fr>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 7 Aug 2026 10:32:37 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmOD87COHe==Ftsww0axHeo2d_8w1x-gVq19a_0cdNQtQ@mail.gmail.com>
-X-Gm-Features: AUfX_myXxwli_66rS13h2JzbRiN0CX1UmYRC462OBlNBA-vZjZOZULR8cFde8WA
-Message-ID: <CAD++jLmOD87COHe==Ftsww0axHeo2d_8w1x-gVq19a_0cdNQtQ@mail.gmail.com>
-Subject: Re: [PATCH v5 2/6] pinctrl: qcom: Register functions before enabling pinctrl
-To: contact@alex-min.fr, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, Rob Clark <robin.clark@oss.qualcomm.com>, 
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Lee Jones <lee@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, phone-devel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 4, 2026 at 8:34=E2=80=AFAM Alexandre MINETTE via B4 Relay
-<devnull+contact.alex-min.fr@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Critical] Unconditionally setting the HPMEVENT_OF bit causes an unrecove=
+rable interrupt storm for non-sampling events.
+- [High] Bailing out of `rvpmu_deleg_ctr_enable_irq()` when `SIP_LCOFIP` is=
+ set causes newly started counters to falsely trigger spurious overflows.
+- [High] Calling `__ffs()` on a zero mask when all hardware PMU counters ar=
+e in use invokes undefined behavior and silently corrupts active perf event=
+s.
+--
 
+--- Patch [14]: [PATCH v9 14/20] RISC-V: perf: Implement supervisor counter=
+ delegation support ---
+commit c2b448f2df09243c89d8cc4f0c47edd59230b3d1
+Author: Atish Patra <atishp@rivosinc.com>
 
-> From: Alexandre MINETTE <contact@alex-min.fr>
->
-> pinctrl consumers can request states while the pinctrl core enables the
-> controller. On Qualcomm pinctrl drivers this can happen before the SoC
-> function list has been registered, which leaves the function table
-> incomplete during state lookup.
->
-> On APQ8064 this can fail while claiming pinctrl hogs:
->
->    apq8064-pinctrl 800000.pinctrl: invalid function ps_hold in map table
->    apq8064-pinctrl 800000.pinctrl: error claiming hogs: -22
->    apq8064-pinctrl 800000.pinctrl: could not claim hogs: -22
->
-> Register Qualcomm pinctrl with devm_pinctrl_register_and_init(), add the
-> SoC pin functions, and only then enable the pinctrl device.
->
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+RISC-V: perf: Implement supervisor counter delegation support
 
-This is for Bartosz to apply independently if he hasn't already.
+This commit adds runtime detection and support for RISC-V ISA extensions
+(ssccfg, sscsrind, smcntrpmf) to program hpmcounter/hpmevents directly from
+S-mode. It falls back to the SBI PMU extension if the new extensions are
+unavailable or for firmware counters.
 
-FWIW
-Acked-by: Linus Walleij <linusw@kernel.org>
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index 7afd79b0a29b8..fd4bf8804c9a6 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+[ ... ]
+> @@ -1038,55 +1187,75 @@ static inline void rvpmu_sbi_stop_hw_ctrs(struct =
+riscv_pmu *pmu)
+[ ... ]
+> +static void rvpmu_deleg_ctr_enable_irq(struct perf_event *event)
+> +{
+> +	unsigned long hpmevent_curr;
+> +	unsigned long of_mask;
+> +	struct hw_perf_event *hwc =3D &event->hw;
+> +	int counter_idx =3D hwc->idx;
+> +	unsigned long sip_val =3D csr_read(CSR_SIP);
+> +
+> +	if (!is_sampling_event(event) || (sip_val & SIP_LCOFIP))
+> +		return;
 
-Yours,
-Linus Walleij
+[Severity: Critical]
+write_deleg_hpmevent() unconditionally sets the HPMEVENT_OF flag on the
+counter. If this returns early for non-sampling events, the OF flag remains
+set. When the counter is uninhibited, won't the set OF flag immediately ass=
+ert
+an interrupt?
+
+And since rvpmu_ovf_handler() skips non-sampling events:
+
+	/* Skip if invalid event or user did not request a sampling */
+	if (!event || !is_sampling_event(event))
+		continue;
+
+Will this result in an unrecoverable interrupt storm that hangs the CPU?
+
+[Severity: High]
+If SIP_LCOFIP is set from another counter's pending overflow, returning ear=
+ly
+here means this new counter starts with its OF bit still set. When local
+interrupts are re-enabled, won't the overflow handler falsely detect this n=
+ew
+counter as having instantly overflowed, corrupting the event state?
+
+[ ... ]
+> @@ -1232,22 +1448,194 @@ static irqreturn_t rvpmu_ovf_handler(int irq, vo=
+id *dev)
+[ ... ]
+> +static int get_deleg_next_hpm_hw_idx(struct cpu_hw_events *cpuc, struct =
+perf_event *event)
+> +{
+> +	unsigned long hw_ctr_mask =3D 0;
+> +
+> +	/*
+> +	 * TODO: Treat every hpmcounter can monitor every event for now.
+> +	 * The event to counter mapping should come from the json file.
+> +	 * The mapping should also tell if sampling is supported or not.
+> +	 */
+> +
+> +	/* Select only hpmcounters */
+> +	hw_ctr_mask =3D cmask & (~0x7);
+> +	hw_ctr_mask &=3D ~(cpuc->used_hw_ctrs[0]);
+> +	return __ffs(hw_ctr_mask);
+> +}
+
+[Severity: High]
+If all eligible PMU counters are currently active, hw_ctr_mask will be 0.
+Calling __ffs(0) invokes undefined behavior, which on RV32 without the Zbb
+extension evaluates to 31.
+
+Then in rvpmu_deleg_ctr_get_idx():
+
+	idx =3D get_deleg_next_hpm_hw_idx(cpuc, event);
+	if (idx < 3 || idx > hw_ctr_max_id)
+		goto out_err;
+found_idx:
+	priv_filter =3D get_deleg_priv_filter_bits(event);
+	write_deleg_hpmevent(idx, hwc->config, priv_filter);
+skip_update:
+	if (!test_and_set_bit(idx, cpuc->used_hw_ctrs))
+		return idx;
+
+Won't this overwrite the configuration of the active counter (e.g. index 31)
+in write_deleg_hpmevent() before verifying its availability with
+test_and_set_bit(), silently corrupting the active counter's
+configuration?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-counter_de=
+legation-v9-0-58658104e487@meta.com?part=3D14
