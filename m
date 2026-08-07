@@ -1,93 +1,137 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 66E4D40926A;
-	Fri,  7 Aug 2026 12:56:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDEE471268;
+	Fri,  7 Aug 2026 12:56:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786107371; cv=none; b=EXJEKrP34rw/EqIyNOWMqg6+Kv6eI4UPMECs2HPCN/VjH28PP6AA9BkF20ChtMPcc1opVvZRcb+pXIfAYx1yeWhnuGlyc7bTf3ZbPUrO0gjZ5LKxc3DYU9hRGT6XRfwU86sEeda07SxICZ/HmKhaG0EfARbKW80yRogAgnx+8IA=
+	t=1786107375; cv=none; b=pmV3G6b1a2bHO8SZKf1mkCPzGfgM5Mr7it5p3vK+B6QCWaLN7SxDl5n1Z7LboRlf/U7n4eZYBF2vuvcKwBF88VDFxPG7gtAk/Hs6fB+MHCRyygUaBkJX9u8bgPrrY11Ryzy6nOXj6TE84vZKQQwLwgGSEHSKCXIZidEiPqeh5ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786107371; c=relaxed/simple;
-	bh=xfEgerLRPb7madfeMA7wFM70ghEiPOqFAV7kOwYDnuI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=keTHbgtBQ/AChU8v3gJ1q8Q9XfRmd5Y4VFLTbH2POu6oDj27kcUuwHv9RFwdjDcM8kHn3Whwc6gue8TZ13c0bIfeIfMX0u7itox8/BsubWYsszMzktli8Yy46wpW+fgpU8lUYVz3+aMZ1Ehz4qjEJS+SCd1IFZz7PdtBQeO4bYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=fzFGtKZv; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1786107375; c=relaxed/simple;
+	bh=e/nyA8ZuEuZ/5Fo0XgsWg8k93yqYev6K+aC9c7ggKY0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ru4bgnSrLUAnt+hNBdHmX0Nm0JZvgBNr0A4CxaQk3Y/vSXqqKs7NJYcrg2TjBkcrLmZ66QVNNYfs9c/fdC+yZl8NYMP+WPQdz6dMaBFllk2g+ONMd7SUff58nXmMgudiPHDnnybOsgRIOxu7A/BMIZ8Pau3hFiSJYLLLR+gjtu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=PAMYIJr4; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="fzFGtKZv"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 154911516;
-	Fri,  7 Aug 2026 05:55:54 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A5A23F9A2;
-	Fri,  7 Aug 2026 05:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1786107358; bh=xfEgerLRPb7madfeMA7wFM70ghEiPOqFAV7kOwYDnuI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fzFGtKZvoitFZaUTdqu0c54B3XFfBCnXIAu/DR2Mq58FOkjjok0wWgUeiV77bfx2i
-	 5q1rdjt9kOAEo6MqfhqtZKpEHpW1a4PCLERem8+pzB/f5B6iA0LCqEseD/LNCkk0CH
-	 gCGZKTgzam0wS2V+g0p36SPV6wRRpQ51dE0RYrRc=
-Message-ID: <fb94bd28-fdbf-4f99-a6ff-b5ab18c64345@arm.com>
-Date: Fri, 7 Aug 2026 13:55:53 +0100
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PAMYIJr4"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:4f4:b619:ec54:a907:a006])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5B78741;
+	Fri,  7 Aug 2026 14:54:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1786107294;
+	bh=e/nyA8ZuEuZ/5Fo0XgsWg8k93yqYev6K+aC9c7ggKY0=;
+	h=From:Subject:Date:To:Cc:From;
+	b=PAMYIJr4eaUbGlFbV5b3akaUNFOO0Kb0unUhdJ0XAmgc/mU0X2uTvxurxm945h7Ma
+	 HcZgQro6EeNsrOvg58wuacX6tyR1l1TvQvs3uN4uvlvzlozyhCihgc3WsthwBF0MGj
+	 H0iPZ9/jBHuKA6nS3P6kJHvANBCllBn6gmWBKXec=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v2 0/3] media: Add bindings and driver for Sony IMX708
+Date: Fri, 07 Aug 2026 18:25:17 +0530
+Message-Id: <20260807-imx708-v2-0-7d3d7b57779d@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v6 7/9] accel/rocket: add RK3576 NPU (RKNN) support
-To: Diederik de Haas <diederik@cknow-tech.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net, heiko@sntech.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
- will@kernel.org, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260806063413.350184-1-gahing@gahingwoo.com>
- <20260806063413.350184-8-gahing@gahingwoo.com>
- <DKIKXY8XZVPF.3RFR4ISK6Y4QX@cknow-tech.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <DKIKXY8XZVPF.3RFR4ISK6Y4QX@cknow-tech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNsQ7CIBRFf6V5sxjAlqKT/2E6ILzaNxQUalPT8
+ O9iHRwcz8nNuSskjIQJTtUKEWdKFHwBuavADsbfkJErDJJLxVvRMBqXlmt2VK1T2hpljYYyvkf
+ sadlCl+7LER/P0pt+cqA0hfjazmbxsX/dWTDORH9QfVOjqF19JocmBX8NJrq9DSN0Oec3FWKWt
+ LgAAAA=
+X-Change-ID: 20260715-imx708-967d68ca6ca8
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Naushir Patuck <naush@raspberrypi.com>, 
+ David Plowman <david.plowman@raspberrypi.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Nick Hollinghurst <nick.hollinghurst@raspberrypi.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2410;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=e/nyA8ZuEuZ/5Fo0XgsWg8k93yqYev6K+aC9c7ggKY0=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqddXRcknBkhLQvmKUHyT8ivBrsCIZ/ib4fOw0A
+ zOGpCSIqdKJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCanXV0QAKCRBD3pH5JJpx
+ RYKHD/4sU8pH/9g/ndZ1GmlxgsviJ0zvLXjfeYpMrOE44N/w0OmyET8+r1CfGWHv3EIvlkGHCHr
+ UZgoeF/NgaFpSMbQkJTvjgNzSnXcDbu19SFdJXxEIZwpUNIJzmfOhBn6/JiKYnqgRTNrKyRAiq6
+ FdwHX66v1kDn8JXInAR4b/W0D60tv95lX/O7kTUL9bwccMxQlsSMe1S+NyEZb5H/cIecd0HwUJ9
+ adjhH5ACAxejJdGag+gvKQQEb1+UT0I86GaNslfFtawigUWT8+2uYwHZMLEsOPXcaGXtPX3vPJg
+ pxWVWIySQi3y5LBnSrjN/wDkc2czMsIMY3s+9TLPdL6IerYbgBd6p3YQXmJ+ZKaNRa4ufPmyq26
+ uqVlZQOiNW7aQEhX4hm9kfMTEPu6qyH7DlnnlErWPpn1HPBo/0lt9lxegU4eS3s4b3SIOywpuBH
+ UK4gFuClbaEip50uXWXYiMvQRLPKaqacUebOwaeaH/8EoghVXCcx+WAGTClx5OyT7sEEZ825WBK
+ rRY/TPyU24dXqT+SVik0nnKf96Pe747nUOQBMHgEiisREf2Pql/VVpeLNCrlCwmFXNv7CVxjXTl
+ P4JwMkURFDNsNYE3ynVPo8qBnlx23PgKcjTBaY/l5i+QesrBzfzHWg/8vX1uQrQWn2h6ErFKfHC
+ h/YsRpDmfjRpClg==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-On 07/08/2026 9:48 am, Diederik de Haas wrote:
-> Hi Jiaxing,
-> 
-> On Thu Aug 6, 2026 at 8:34 AM CEST, Jiaxing Hu wrote:
->> The RK3576 has two cores of the same RKNN block and a few platform
->> differences:
->>
->>   - the CBUF (convolution buffer) has its own clock domain, so the core
->>     needs six clocks rather than four;
->>   - the BIU reset moved into the power domain, leaving one reset here;
->>   - the NPU spans two power domains, and a device with more than one is
->>     skipped by the driver-core single-domain auto-attach, so the list has
->>     to be attached explicitly;
->>   - the DPU completion interrupt is armed exactly as on RK3588 but never
->>     reaches the GIC. The completion is visible in INTERRUPT_RAW_STATUS,
-> 
-> I don't know if it's relevant, so just a data point:
-> - RK3588 has Cortex A-76 + A-55, which have an External GICv4
-> - RK3576 has Cortex A-72 + A-53, which have an External GICv3
+Hi,
 
-Nope, RK3588 has GIC-600, which is very much v3 still. I guess RK3576 
-probably has GIC-500 like RK3399 given the CPUs, but that shouldn't make 
-any meaningful difference here.
+This series adds dt-bindings and a basic V4L2 driver for Sony IMX708
+camera sensor, used in Raspberry Pi Camera Module 3 [1].
 
-If the interrupt never fires at all then possibly the signal depends on 
-some additional clock or power domain in order to propagate, or it's 
-just described incorrectly; or if other interrupt sources within the 
-NPU/IOMMU do still work then maybe there's some additional masking 
-control that's been overlooked, or perhaps it it just terminally broken.
+This basic driver is an adaptation of the one present in the downstream
+rpi-6.18.y tree (written by Nick Hollinghurst). Many features from the
+downstream driver (like HDR, binned and 720p crop modes, etc.) are not
+present here, and will be added on top using common raw sensor model in
+a later series.
 
-(And FWIW I'm also inclined to agree with the other comments that 
-refactoring existing code to make room for new stuff, then actually 
-adding the new stuff, should probably be two separate steps if it's not 
-completely trivial)
+This has been tested on a Raspberry Pi 5 with libcamera.
 
-Thanks,
-Robin.
+[1]: https://www.raspberrypi.com/products/camera-module-3/
+
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+---
+Changes in v2:
+PATCH 1/3:
+    - Drop the |- before the description
+    - Add Dave as M:, and move kernel-list@raspberrypi.com as R:
+    - Add Krzysztof's R-by tag
+PATCH 2/3:
+    - New in v2, to support reuse of CCS PLL helpers with IMX708.
+PATCH 3/3:
+    - Use the helpers from ccs-pll.h to calculate the VT and OP clock tree,
+      setting up the limits following the datasheet instead of the CCS limit
+      registers
+    - Keep the same VT Pixel Rate and OP Link Rate as before. The VT tree
+      runs much faster than the 2-Lane CSI link, and we don't have enough
+      details about the FIFO capacity to support freely-configurable rates
+      just yet.
+    - Drop macros of CCS registers, and include ccs-regs.h to use the
+      existing names
+    - Update Copyright and MODULE_AUTHOR entries
+
+- Link to v1: https://lore.kernel.org/r/20260715-imx708-v1-0-1f36f54e14d4@ideasonboard.com
+
+---
+Jai Luthra (3):
+      dt-bindings: media: i2c: Add imx708 image sensor
+      media: ccs-pll: Support optional input for VT pixel rate
+      media: i2c: Add a driver for Sony IMX708
+
+ .../devicetree/bindings/media/i2c/sony,imx708.yaml |  120 ++
+ MAINTAINERS                                        |    9 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/ccs-pll.c                        |   13 +-
+ drivers/media/i2c/ccs-pll.h                        |    4 +-
+ drivers/media/i2c/imx708.c                         | 1312 ++++++++++++++++++++
+ 7 files changed, 1468 insertions(+), 3 deletions(-)
+---
+base-commit: 8a6e017c06fbc1b96af618e82a4d35889d442964
+change-id: 20260715-imx708-967d68ca6ca8
+
+Best regards,
+-- 
+Jai Luthra <jai.luthra@ideasonboard.com>
+
