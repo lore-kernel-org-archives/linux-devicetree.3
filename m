@@ -1,137 +1,163 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792684B04AB
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07BE93C416B
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:58:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786136304; cv=none; b=FvaFKRkrTOYlJnQXFyOxSBT7AGd5y/A4sLdSBCyv81ARZKyv+yXniuv76I4avDiMppypIiisysjYggclIy9fFWWeiOdL95nmrJxQvyDE46tuGhmdSUfi1fcYYLy1t/04NVY/F61kRPCEEjQDHhB5gUBbkYZkIzyE4ctK9EAJfQE=
+	t=1786136309; cv=none; b=CxJ5PKbQI6PBQ9Zdus1tYjDL48pQm9enF0PWbQHts7MBoYzwdt+uH3acpw0oPcCrbZt3EFAyWpI0Uch7T0xobFYoJb4QH7wHpFgzev5iQomTkMKiScxMQmvwXHgGQvzUh1EYXEpGU0f9AnmWbzPT4cvpuiteadx2KQj2XzMuakI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786136304; c=relaxed/simple;
-	bh=2JoD3JO2pW5pi92+cVlcHhTmMg3nDMhKO466t82pHT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u15Rcc1k2NO1H+fOi1eF6uiPREsBZlXTSEmF6ZQOtCTX4sof7g/mDL4bfw1+n+TleQdkhAPInOcqvIxKB4GLO+82hSqqkNpmWmA6+RPM9P8NzRBDHdV/enLyHAF5o0TZCVUK+WrlZrvJdaBlpYsBNN0e3IEOVj0xiGIOk7Z8F04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=lSzTW3oM; arc=none smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1786136309; c=relaxed/simple;
+	bh=2J/UP/+6DMH2CHEER9PVAEvN6Vtdaca1g6fEmR+C3dU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e2upLyUeFC61ScVOa4gLq75qt1w082/PG7xEmYO4Gx6TYmHhsFLfR79COhkiabGzlRXgI/Fup+w/0CyhtOMQU7F9iGCblqPyivdbRW0axOYCocjOujrZN2FazlBc51mzR6YtqeLRALUlhiU3HvAcax+3gjI0UHYSDMjAg1mLJac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=lz1Rd8VC; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="lSzTW3oM"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e67555e24so202678485a.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:58:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="lz1Rd8VC"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4954f5e8020so20395035e9.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:58:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1786136302; x=1786741102; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kj8kzkNEBS/XA58S5M4C363N701v5oQh8U+/4A1gICg=;
-        b=lSzTW3oMQbVr8DD6SWLhegR0IZaHXqUSZI8d4lxlLX1xn0qDnolTgZUz+1h0GQaKAA
-         XPdpF7F3HvZmrquN1/EiNPwml4dj82dcl0WDeMSBDKRPYp/XRNuLY35vP2SE+zq3bKx7
-         E3wL3/bHZ+55nrWaZmFdPR4XQRLmMMfWHd6YLNd6AOglPDwiYl7eMpEF6SRfGXFBrhBb
-         raw9P+F2EROwdzmfuCocm/mrz0l15tHA2ezqIhMY3RX/7uu3akkARi57tlZLsaT06n8Y
-         uDxD5YoYOV/cqi22bGvhXIffsJT+DmY2btj2KexlfaZaBjIjjsyvWsQyLuIksw90wsxr
-         xjgQ==
+        d=baylibre.com; s=google; t=1786136305; x=1786741105; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ub+G0Ff6hsiwxt6UoJCvVXER5yXovtTMeMwmgc6K8J8=;
+        b=lz1Rd8VCvRx7qtS80RxVEavo94LfoBnLpZwb21SCH4j4bTt9UZb0KA+ydFxRIVt7FL
+         nxdSsWa74XLiyTQWKTUyAF2pAweLrVmrv+K/+4ntTWWRH7GF9eyT/65qdgEdmJUYMErW
+         KwADCpdTBl8zmlaAtd/gN9DP0VLYLq0XIdf00XZzaq32No1ICxgvWuKjx/Iu4Qb+ImGC
+         /47SKKrJC+AZf94OJnmycGyyEDOaOq12/Qhi4+GEmYC3Tt0Md/GATxtFUhb6BI+yU7o/
+         vN2JER+ycA7xIOPH+nP9nyza8XvzeaQboVHw8kER6MhsVksVDEskb+OoqLyD1Cpg9+Ot
+         cpoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786136302; x=1786741102;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kj8kzkNEBS/XA58S5M4C363N701v5oQh8U+/4A1gICg=;
-        b=TCUMGEvjPiqSo+iDNtUCHCwURj0IXY8As2EabTXcvNUsSAuDw8sKy8riOtK1XPsZ4P
-         DXVgTlExmo2a9QFB/qBm50Rv6wO0z+c3lvFKyNRxwuyEOqSBnB3vXK1EWaN3ix4ycZiv
-         49s64Ze5ESUU13OHnDdHdoubY+IHVbNzmLKL9YQmpV23d8B5enVyXa2poQcRcmgajijP
-         F0I6CGSzhgy4ElwgO5DIkvYrs+wM/2SQPIlUTUGIBt/I/ClYr8AMdBFMUyhKUcgZI+h6
-         1UP7Qq3f34ozXU0vHdmC+3XjVUNLUBl/2o3vILWGWsTdE5qaPQUjVyoC2Web0DAIEL01
-         pDeA==
-X-Forwarded-Encrypted: i=1; AHgh+RoErpP2czIC1/R96z4Ccj364/DKnZ97eOmTgxd/H96dUBWwJNvvu9Xks4dpmWgnUSEksQq3PZOzkVix@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzc8l1L6r5twAMpeyEJmUStkQ/5qHhyUI3TYQ7yyYbcseu0DYLD
-	Xfs1iR82zn1JGZ4kHuJo/udJBH/nkik80pAUchqL4wR2blwzR4RRgxG5WxaH6bfhoUbylVv14qo
-	hdW6Dmz4=
-X-Gm-Gg: AR+sD10mxGLC84OSvKT2QwaMuMdHgm7olzD9BP3z7C7TgtM+cKUe+uSYItNcIxgK5sY
-	8XHOIlsRwfuW5ymXwAt5GDm29i9bCJTuKzAWNUG4Pngl7qXT8w26jVe5Qx7Z0djwJK7WFaiay2I
-	wG4q2UXca2hJHvgvOgm/0WQ+CORoOPo/qy4WHNLOdimACzzR09lHG4/hJsyagUCticSyCmaegDn
-	OEMIoRjjE2uLZf0NdwIFYqXipmJLJLxvgslYyj70pSYhiSXPQ319/7VKE4aqqN/Si6LNOgANqaL
-	jpfYs+U3yzu0pFmqH5SrrAasY3cb8/O8HlfSEe3Vqr/+xm0r3FaE+k39+T78neDmsgHFwvUiH9+
-	IL95Q70MwJeIgzYD331u8ShTE5AYcZLzvQbCNJ/C/16jQIxx/nhVhG6j3H82KH+juK2TiKEPr9o
-	+LbfUko1SHK2UG+/cv5eeg9k+jqO3VbtJS6z9TOLCnJ11YzGS2lkikadna/5rr
-X-Received: by 2002:a05:620a:4416:b0:930:9fdd:f4e0 with SMTP id af79cd13be357-9367984defdmr383213385a.26.1786136302464;
-        Fri, 07 Aug 2026 13:58:22 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9366e09dc07sm233090185a.15.2026.08.07.13.58.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 13:58:22 -0700 (PDT)
-Message-ID: <929976b6-0960-4e90-a7cd-f163ecaeef3b@riscstar.com>
-Date: Fri, 7 Aug 2026 15:58:21 -0500
+        d=1e100.net; s=20251104; t=1786136305; x=1786741105;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ub+G0Ff6hsiwxt6UoJCvVXER5yXovtTMeMwmgc6K8J8=;
+        b=Am8to5J3kOU4O95sqOYTOjRmOmwFrFkkXamiyrd738zriBLP6LLDkYN6+oQUsb9jcr
+         Fx0Mok8o3YAjfuQH1xechmEtIkCs4xAcX5rVzFvmeMuuMWADVgb8fFBcAjMCVUMbESAt
+         u8p5h5HwdDDY2E/xYQWjAyzzA6jyaN2taVhW6RCvEILzUAaehrEo+FNti6/2P/4YQSOX
+         Q8GM7WadCNGbgE2+VFU30vjCJ4hfPXycLIJvNjIO88YLH9JM1kuFNg9fGCcjcsJ0tQTT
+         FcfyFYNm4yV1t+W+LqBbQzEqzy9nrbrH+dxzWpzLE3YSJ8wUND9aH8RqAzvn5hyLr8XF
+         24vw==
+X-Forwarded-Encrypted: i=1; AHgh+Rqy+tZdG+47xCB+BS6tWD1ZU/jGhasnNhvGmowaoBluqwn9EzbP4VqnLnP/mudyrT0vEJyDjWjfotmI@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAtoVTNEG5tbPsIfU+tLdg87nsfVV3QIMlI+oAQFLcgf5N7hdY
+	4eomVPdcmgEiyIBmthRWoImLyW7XuHDM/kS/whkfqyjc3hW2tLrHloSuIpR1UpL0WTA=
+X-Gm-Gg: AR+sD13SEjFkMmRiKMkLdhQMhbB0Ai6gtZbH/NEzmIrT557lClPX4N5Szqov8scbumO
+	pUoNi2y8brFzm+N5e1xqwbkMgw3cyLY7UvU5VLHxnjERFYF36BJcEqvHvqhzsX0t8+WZ78cZVfM
+	uyTehXB8C2621LQdxUiJlyp5VzTte1ZTxSgDzUHjM8M2ie2vHKyh1+1dV6DhKEfTxlwP5OfX4T6
+	mu5sPF3rYYiAmz1Bslsgy/fQcwtXeximRlyHSLXEEMnLlM6n+IQOKdtbmxkg5vHo7B2V/UmwiNi
+	zNcnr3i22X5BCbZ3s34+Mi88JMI0EJdgqF34Y5AgnPeBEVBiMRE5No4Gckr1Wc+rPbRM8m99YTw
+	0rJp1mTRjlEjExztAHSP3/HNJ98LgBmkajJ+hvDgJKaOFjqmET7OfM/Te2RRIEmruowfW1iRZ8h
+	+JYfwzX0jlPPps5oDhay7KVdyYS/sQtQAoKpgx47vzfYH3Mefrty4lTVi/QITyLKWlrQ==
+X-Received: by 2002:a05:600c:6612:b0:495:4811:7998 with SMTP id 5b1f17b1804b1-4995e0ebf84mr102518595e9.17.1786136305361;
+        Fri, 07 Aug 2026 13:58:25 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4800215078asm8418961f8f.12.2026.08.07.13.58.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 13:58:24 -0700 (PDT)
+Date: Fri, 7 Aug 2026 22:58:23 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Cc: Srinivas Neeli <srinivas.neeli@amd.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Michal Simek <michal.simek@amd.com>, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, git-dev@amd.com
+Subject: Re: [PATCH 02/20] net: xilinx: tsn: add TSN endpoint wrapper driver
+Message-ID: <anZGPKSopP9GLKJt@monoceros>
+References: <20260807104431.157230-1-nagadheeraj.rottela@amd.com>
+ <20260807104431.157230-3-nagadheeraj.rottela@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] PCI: of: introduce of_pci_verify_node()
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260807194100.455599-1-elder@riscstar.com>
- <20260807194100.455599-5-elder@riscstar.com>
- <20260807194944.DEE001F00A3A@smtp.kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260807194944.DEE001F00A3A@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yneap3wk5hqcchh7"
+Content-Disposition: inline
+In-Reply-To: <20260807104431.157230-3-nagadheeraj.rottela@amd.com>
 
-On 8/7/26 2:49 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] The static DT node verification function `of_pci_verify_node()` is mistakenly placed under `#ifdef CONFIG_PCI_DYNAMIC_OF_NODES`, making it a silent no-op on systems that only use statically-defined nodes.
 
-This is a good observation.  I think it's correct that
-this check is worth doing on static DT nodes even if
-CONFIG_PCI_DYNAMIC_OF_NODES is not enabled.
+--yneap3wk5hqcchh7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 02/20] net: xilinx: tsn: add TSN endpoint wrapper driver
+MIME-Version: 1.0
 
-I will plan to send v2 of this series with this
-suggestion implemented.
+Hello,
 
-					-Alex
-> --
-> 
-> --- Patch [4]: [PATCH 4/4] PCI: of: introduce of_pci_verify_node() ---
-> commit 29170ab92dd207c740eed74438cd2e09bad49131
-> Author: Alex Elder <elder@riscstar.com>
-> 
-> PCI: of: introduce of_pci_verify_node()
-> 
-> This commit introduces a runtime check to verify that statically-defined
-> (pre-existing) devicetree nodes for non-bridge PCI endpoints do not
-> incorrectly contain the device_type = "pci" property. It adds a call to
-> of_pci_verify_node() during PCI bus device addition to catch these errors.
-> 
->> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
->> --- a/drivers/pci/pci.h
->> +++ b/drivers/pci/pci.h
->> @@ -1265,6 +1265,7 @@ static inline int of_pci_get_equalization_presets(struct device *dev,
->>   struct of_changeset;
->>   
->>   #ifdef CONFIG_PCI_DYNAMIC_OF_NODES
->> +void of_pci_verify_node(struct pci_dev *pdev);
-> 
-> [Severity: Medium]
-> Since the intent is to verify statically-defined devicetree nodes, will
-> placing this declaration inside the CONFIG_PCI_DYNAMIC_OF_NODES block
-> accidentally disable the check on platforms that only use static nodes?
-> 
-> If CONFIG_PCI_DYNAMIC_OF_NODES is disabled, this falls back to the empty
-> stub below, causing the verification to be silently skipped.
-> 
->>   void of_pci_make_dev_node(struct pci_dev *pdev);
->>   void of_pci_remove_node(struct pci_dev *pdev);
-> 
-> [ ... ]
-> 
->>   #else
->> +static inline void of_pci_verify_node(struct pci_dev *pdev) { }
->>   static inline void of_pci_make_dev_node(struct pci_dev *pdev) { }
-> 
+On Fri, Aug 07, 2026 at 04:14:13PM +0530, Nagadheeraj Rottela wrote:
+> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c
+> new file mode 100644
+> index 000000000000..1ef1b0c2ee6e
+> --- /dev/null
+> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_main.c
+> @@ -0,0 +1,105 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +/*
+> + * Time Sensitive Networking (TSN) Ethernet MAC wrapper driver.
+> + *
+> + * Copyright (C) 2026 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/device.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/slab.h>
+> +#include <linux/types.h>
 
+Please drop <linux/mod_devicetable.h>. This header is planned to go away
+soon and you can rely on <linux/platform_device.h> to provide
+of_device_id.
+
+> [...]
+> +static struct platform_driver * const tsn_drivers[] = {
+> +	&tsn_driver,
+> +};
+> +
+> +static int __init xlnx_tsn_init(void)
+> +{
+> +	return platform_register_drivers(tsn_drivers, ARRAY_SIZE(tsn_drivers));
+> +}
+> +module_init(xlnx_tsn_init);
+> +
+> +static void __exit xlnx_tsn_exit(void)
+> +{
+> +	platform_unregister_drivers(tsn_drivers, ARRAY_SIZE(tsn_drivers));
+> +}
+> +module_exit(xlnx_tsn_exit);
+
+I assume you expect tsn_drivers[] to grow? If not, use
+module_platform_driver() to reduce boilerplate.
+
+--yneap3wk5hqcchh7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp2RusACgkQj4D7WH0S
+/k5magf9GDZifuMmMgVgWbOijgerh1NAUQiervav2kcbQ650bgaya6orUyAqUnnd
+eGe7DyhyOOdkl3qnsTwH9/e4Xn739LEnnjAwWIBrFn56ErYRhl/Dd+vuD/9U0LPd
+bGwI5ss9L6itgtlzGpZRsi4KhSiWG0asI7Ll3WFkUrhOdMd5a2+L22Vd47E3gXAo
+lVQ7ntvXRliL54xVe1tVbSbz/JrN89nHRR7sI/FWjUEknfpTbVVldBt95gevSOc9
+pVoI5wtCOSAMPQTzSAHFoj1qZcrOofeK49hvnUiasTy8OWa5oJiuCzHknYyPXcOS
+JWFSEfqueZ+Xqyq+Y71krOsj8b+cYw==
+=pHZr
+-----END PGP SIGNATURE-----
+
+--yneap3wk5hqcchh7--
