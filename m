@@ -1,124 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA5F37F31C
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:43:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E767F39B94F
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:45:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786128192; cv=none; b=qHW7DlsiB38a4HoZZNOzWB0UlvWOAFaT0sb8QIM5c5cbp2+Zx68sLyMIcWzfTgpbVgIVf4Y2B2RusreWM10eQkf/SmxEpottWuBApbUBXXhOOcYmT/4OtbEzz3LlCYIgtrh0ktQh5/936oJzGCgY/5JpIs9BMrU87uR0Z7cW9J4=
+	t=1786128353; cv=none; b=KUZIlBagBiUXtZzpTIOouZ65qzhuGS5eK9QS4elFqZTXpFe8k0jH6ww1qeQTd/OBwABvtYaTM3BOGL8VdISsD/4EdxKGD2D1hSn1wsyV6GfPchSFm/I6sQ93Umid+rr6vqTQe++gQwC/tu/i76kD3VpPjpI61Ixi6BngPOJBg3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786128192; c=relaxed/simple;
-	bh=6u4tXMEF8UbOHXRGMcRjchZI7C0cqbH5Z+H6YszNVT8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=srB9bh84q1nIQkyV+c3kF1+d4ALxHOTmdWqfWlwDfBVKXc+uD3JlbPiCzTapH83zJKpF3nPSZYUhN7uhd0aZZR76HrhNcC47RHUWnffzjCE5A7JJypcok8Yh4UYEE+IMGv/43FWQBU3CFvU7N8wUZSZM9up/A3qY7+fiGNUQjOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RlxYwQ5j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786128353; c=relaxed/simple;
+	bh=tgk+9L3MqsjcE1km43dPJUdUWwxGWxLSI6wk2iJ28f0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lvn4tbW8FPGlLFgXEnNPqWgpGph/VHHy9U/Ni6u4CS8wmEUIyc+bDjnvTH4oZN+iozj2R5dKKvSOZQs9/aa5e1Ygymc+5Yfk/OfiYv1VtY7Y0Uxyqm0euL04ztcPBxkIScHBVR+Hk0rsRICtTpZoB1LqE9wlamoTkhlCJvY5asA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eaHqZsGU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RlxYwQ5j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D491F00A3A;
-	Fri,  7 Aug 2026 18:43:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eaHqZsGU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 713991F00A3F
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 18:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786128191;
-	bh=e6bwOsRbH8Ua32DIJCYbW8YkPf79moxCITi7h+pBepE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RlxYwQ5jGC89Pjyt0afmd1GLIKxtbBuQNMe+SpdybTVsqEkcHdyBHEWKz0031Qqcb
-	 BmfN9UR6ZRHuQ/jJhdCUmpjfgCzElFp+8bIgVxoa3Cv3ZaLT7/mXDbsN1gbehfH1BB
-	 xC8kCGJLGIpSbAKXLR6acsYxW598aRWxnnbO67VyuZScipAsyHJdAULr+a2KS1kfxu
-	 ZhxVDzzQfpGCX21Toitv5R1z2QZRZK46G+meAkYK4j3Z5tRrQFgMhrhWJEtw1n43Hq
-	 TChgdjZ0ctI7aNz7rzO2OrBoD/9Zq64sHRFpiDhJ/r6dsJin6JvOas6yssmjyphWEf
-	 cEHL+F/dls1UQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] ARM: dts: armada: WRT3200ACM: add
- marvell,ignore-regulatory-hint
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Georgi Valkov" <gvalkov@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260807182124.41572-2-gvalkov@gmail.com>
-References: <anWWr80yAcOQaVVS@nxpwireless-Inspiron-14-Plus-7440>
- <20260807182124.41572-1-gvalkov@gmail.com>
- <20260807182124.41572-2-gvalkov@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 18:43:10 +0000
-Message-Id: <20260807184310.D1D491F00A3A@smtp.kernel.org>
+	s=k20260515; t=1786128351;
+	bh=iAAQGBdBoRkovVpJQHo5IAsY4ppMJrT4CJ2byK1QahQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eaHqZsGUnGMcADqx4BeggqvVTdls6zjBr4TBOnKeO1H6CHTJ1cDJ3PjB+SJwMuIAE
+	 ipZ67WAh1NWPvOngGBK4VkeYlzR0H35V1iRzA1tMZuwpvBbnETduGrX3am5ZBRpa8B
+	 hVS+WCc+Imo8qEdzTvXcQpE/hRKoEiqB+TbBRiGV07nVM5s/iJ43jaxJXwloSuYt1u
+	 tHj+yKClCoGcO55p3Qbc9AQL1UZNn3TSJYySEDqxT4xtHwyQMNeADJynNjSDhL0qnu
+	 F6iQTEblCKSPU+fWswpig6ImTO1Vi+BTmQvMy3NHSuLKiphz2Ur4oN3mTsSgXWBb++
+	 5Sf8QpHUjeNJQ==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aeb59d54b1so3856839e87.1
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 11:45:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Ro00BzJGeBM9RwtcQC9StF0Bx1kEEqxVMZr7NYYXSZHmTIzoP9TIjzq6fiCBWj/jzw5eas0x1UJguRa@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6iG4yhdOWojPSwYVTmTOJuM7TcMzYlPgEv2gTaZt7fVceyqw3
+	9pgMtpPtrLfybPTkdmjL4NpvEB/4XGtrrWJsHtcY8nTkQ5vnV9y9IwR6a7hksYPWbt4hQlph8RY
+	cbNvPZm2xTs4KtDe+tG1LvD1jsxdL8Bc=
+X-Received: by 2002:a05:6512:2911:b0:5ae:bfd6:173b with SMTP id
+ 2adb3069b0e04-5b30b73dcecmr333543e87.20.1786128350255; Fri, 07 Aug 2026
+ 11:45:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
+In-Reply-To: <20260806220615.4078303-1-mikhail.kshevetskiy@iopsys.eu>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 7 Aug 2026 20:45:37 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=2vt6qJcXdnyuCSEWMTAdZA0-=yhKtsXX9Qqzm9scjEA@mail.gmail.com>
+X-Gm-Features: AUfX_mwyyr_F-MwW0ZW6ZC4tI78PAU_OowRuALyPIokafW-F9bK_08tyDxfajbs
+Message-ID: <CAD++jL=2vt6qJcXdnyuCSEWMTAdZA0-=yhKtsXX9Qqzm9scjEA@mail.gmail.com>
+Subject: Re: [PATCH v11 00/37] pinctrl: airoha: split on shared and SoC
+ drivers, add more SoCs
+To: Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Christian Marangi <ansuelsmth@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Benjamin Larsson <benjamin.larsson@genexis.eu>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, Markus Gothe <markus.gothe@genexis.eu>, 
+	Matheus Sampaio Queiroga <srherobrine20@gmail.com>, Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The device-specific property `marvell,ignore-regulatory-hint` is i=
-ncorrectly placed in the global root node (`/`), lacking binding documentat=
-ion and causing the quirk to erroneously apply to all `mwifiex` devices.
-- [Medium] The `mwifiex` driver directly accesses the global `of_root` vari=
-able, which is undefined when `CONFIG_OF` is disabled, violating the driver=
- model and risking linker errors.
---
+On Fri, Aug 7, 2026 at 12:06=E2=80=AFAM Mikhail Kshevetskiy
+<mikhail.kshevetskiy@iopsys.eu> wrote:
 
---- Patch [2]: [PATCH v3 2/2] ARM: dts: armada: WRT3200ACM: add marvell,ign=
-ore-regulatory-hint ---
-commit 7033e1a77e69407f0088e5cd43fbc6b4fc03d549
-Author: Georgi Valkov <gvalkov@gmail.com>
+> This patchset
+>  * fixes more airoha pinctrl issues
+>  * split combined driver on common code and several SoC specific drivers
+>  * improves an7583 pinctrl support
+>  * adds support of en7523 SoC
+>  * adds support of an7563 SoC
+>
+> The driver split changes are based on Matheus Sampaio Queiroga work.
 
-ARM: dts: armada: WRT3200ACM: add marvell,ignore-regulatory-hint
+Patches applied!
 
-This patch adds the marvell,ignore-regulatory-hint flag to the WRT3200ACM
-device tree. It prevents the system from applying extreme restrictions due
-to conflicts between the user-selected region and the radios' hard-coded
-US region.
+I had to manually fixup one patch due to orthogonal changes,
+check the result!
 
-> diff --git a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts b/arc=
-h/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-> index 4ab45f294de22..6e283e223ca4c 100644
-> --- a/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-> +++ b/arch/arm/boot/dts/marvell/armada-385-linksys-rango.dts
-> @@ -14,6 +14,7 @@ / {
->  	model =3D "Linksys WRT3200ACM";
->  	compatible =3D "linksys,rango", "linksys,armada385", "marvell,armada385=
-",
->  		     "marvell,armada380";
-> +	marvell,ignore-regulatory-hint;
+Any remaining nags; let's do patches on top of this.
 
-[Severity: High]
-Does adding this device-specific property to the global root node (/) inste=
-ad
-of a dedicated device node cause a regression where it applies universally?
-
-Because the driver in drivers/net/wireless/marvell/mwifiex/cfg80211.c queri=
-es
-this property from the root node:
-
-mwifiex_register_cfg80211():
-                if (country_code &&
-                    !of_property_read_bool(of_root,
-                                           "marvell,ignore-regulatory-hint"=
-) &&
-                    regulatory_hint(wiphy, country_code))
-
-this board quirk will be broadcast globally across the system.
-
-If a user connects a generic USB mwifiex Wi-Fi adapter to this router, it
-appears the driver would incorrectly apply the board quirk to the external
-adapter, potentially causing a regression in regulatory compliance by ignor=
-ing
-its valid regulatory hint.
-
-Would it be safer to use of_machine_is_compatible() for this platform quirk?
-
-[Severity: Medium]
-Will querying of_root directly in the mwifiex driver cause a compilation
-regression when CONFIG_OF is disabled?
-
-Since of_root is only defined in drivers/of/base.c, and the mwifiex driver
-does not depend on CONFIG_OF, this relies entirely on the compiler's dead-c=
-ode
-elimination to drop the of_root symbol reference when of_property_read_bool=
-()
-expands to an inline dummy.
-
-Relying on dead code elimination for undefined symbols can be brittle.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807182124.4157=
-2-1-gvalkov@gmail.com?part=3D2
+Yours,
+Linus Walleij
