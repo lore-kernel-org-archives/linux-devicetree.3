@@ -1,36 +1,35 @@
-Received: from out-182.mta1.migadu.com (mta1.migadu.com [37.59.57.117])
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50C046D0B5
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.59.57.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A77237B41E
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786090177; cv=none; b=sJFl3CE2sFapekLC8+5rLP+Is2k5/KoxhFIkUuresGnbdKIVKWxyE/QqU+9eMhsgyA7xkiQOQH/W2m6CqPAR9dRaPVa6niJn7epE8zSX90vzoc1OvFReskGEucM8zJJMOe1jrc8PnW2neQ20bwdbHHZ6Eti+nTUBhrdNu/P3m6k=
+	t=1786090181; cv=none; b=YyJeFxVzDxBbYsKqpP1l1IJMJzLk4D/Vg1XIL26aK8FE+iq1/vr911MIltUk2UYt8NFQ7jvCUIdUqW8Ug9AGmP6Hauckqgw2p8bQhOzXmVfLOGwpWidVpdUqtcHDzsOJLF9ak8MDStDDp4U8/nskbJhfW6tHLC7f7VZhoPMYIlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786090177; c=relaxed/simple;
-	bh=Pt+cSGj51vZ5oKMHcsWZMX5IzSj4VgADqK2F0lg5tfA=;
+	s=arc-20240116; t=1786090181; c=relaxed/simple;
+	bh=pD7lUY+ZzddjHY50PUCWkDbTOMu3vOUSZtZ94DJrd0M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Mv4LjjdQSWmETEy7eOqJyhcCnPeX/Tru6l3sN4JF09DWX2eW4eC13Iv86mOax0rp+c4hRICkaW4MMRwJu9LPdr06FgNBEiBH0fnl1VDIOaszKCqgB22xJWRBnVOQJY/YN+R3h+eeM4TcpUOnNYFd62m2+7HS0GNx6lDF6w3h/bU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=V6dEFOUG; arc=none smtp.client-ip=37.59.57.117
+	 In-Reply-To:To:Cc; b=Pkei7L7+n8yA5TSpnw4nubY3XCKzmkPCGFFS9iR95ddGLBOB5CnG4IMKDHabiw2vr0KtKLRJab0WBRCHLl2+aYLddORvNasBIeDCMvClYHKBbjfmYCe8ZA0WJTjtcyHbuSZ2aPsFP4RZimIQSdazy5raVcuwkMFlqAXp1yc9Z8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PUHal4RD; arc=none smtp.client-ip=91.218.175.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="V6dEFOUG"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PUHal4RD"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786090169;
+	t=1786090173;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EnCL2oewL8fPMTSPu5C0Z8R5fjSg3NbeV9/zE9L/QkQ=;
-	b=V6dEFOUGWoiJWnKWr40BQ0nMO9QluHTu9nnp9MkwPSnAioY8YSmLsNq3rVZkQvFi2bdoBu
-	8lIIF+lmkuRVdR/IcovxARaTh6BxCxS1OI4fK4tyPZYyYdrC6XucNg47mxvHZ2lWCdlzEb
-	Q1MKrwdl2uwCVW3EwmMftpjvEJioU6U=
+	bh=Z/aatG9xeq1PJrzz8GhMwerq64hjkacWtLJ3rJGHBR0=;
+	b=PUHal4RD0h2MF1ycbehNZsMgPk5LWMXgH/wVZHIiTvG15dOtOrgXOFXMqFIoG9DNbkhe53
+	ZV3KAhrCCA5wyoPnJmf3OYMn3TefEP2fvqGUvBiu/sY6rj7oQss3Eda25f+S7LMI+hmGFU
+	53antfsmj1oHf+AjhymEY1+Ofs1MKBc=
 From: Atish Patra <atish.patra@linux.dev>
-Date: Fri, 07 Aug 2026 01:08:59 -0700
-Subject: [PATCH v9 04/20] dt-bindings: riscv: add Smcsrind and Sscsrind ISA
- extension descriptions
+Date: Fri, 07 Aug 2026 01:09:00 -0700
+Subject: [PATCH v9 05/20] RISC-V: Define indirect CSR access helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,7 +38,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-counter_delegation-v9-4-58658104e487@meta.com>
+Message-Id: <20260807-counter_delegation-v9-5-58658104e487@meta.com>
 References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
 In-Reply-To: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
 To: Will Deacon <will@kernel.org>, Atish Patra <atish.patra@linux.dev>, 
@@ -56,51 +55,87 @@ X-Migadu-Flow: FLOW_OUT
 
 From: Atish Patra <atishp@rivosinc.com>
 
-Add the S[m|s]csrind ISA extension description.
+The indirect CSR requires multiple instructions to read/write CSR.
+Add a few helper macros for ease of usage.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+These have to be macros rather than functions. csr_read()/csr_write()
+stringify their CSR argument into the inline asm template via
+__ASM_STR(), so the CSR number must be a literal token; passing it as a
+function parameter emits "csrr %0, iregcsr", which the assembler rejects
+with "unknown CSR `iregcsr'". The stringification happens in the
+preprocessor, before inlining or constant propagation, so it cannot be
+worked around by forcing inlining or by only ever passing constants -
+gcc 12, gcc 16 and clang 22 all reject it alike. Underneath, csrr/csrw
+encode the CSR as a 12-bit immediate and RISC-V has no register-indirect
+form, which is also why asm/csr.h keeps every one of its accessors as a
+macro.
+
 Signed-off-by: Atish Patra <atishp@rivosinc.com>
-Link: https://patch.msgid.link/20260701-counter_delegation-v8-4-7909f863a645@meta.com
-[pjw@kernel.org: use official extension names in the patch description]
+Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
+Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
+Link: https://patch.msgid.link/20260701-counter_delegation-v8-5-7909f863a645@meta.com
+[pjw@kernel.org: expand "ind" abbreviation]
 Signed-off-by: Paul Walmsley <pjw@kernel.org>
 ---
- Documentation/devicetree/bindings/riscv/extensions.yaml | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ arch/riscv/include/asm/csr_indirect.h | 50 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/riscv/extensions.yaml b/Documentation/devicetree/bindings/riscv/extensions.yaml
-index 5ffc40d599c0..ccff2be1224d 100644
---- a/Documentation/devicetree/bindings/riscv/extensions.yaml
-+++ b/Documentation/devicetree/bindings/riscv/extensions.yaml
-@@ -181,6 +181,14 @@ properties:
-             changes to interrupts as frozen at commit ccbddab ("Merge pull
-             request #42 from riscv/jhauser-2023-RC4") of riscv-aia.
- 
-+        - const: smcsrind
-+          description: |
-+            The standard Smcsrind machine-level extension extends the
-+            indirect CSR access mechanism defined by the Smaia extension. This
-+            extension allows other ISA extensions to use indirect CSR access
-+            mechanism in M-mode as ratified in the 20240326 version of the
-+            privileged ISA specification.
+diff --git a/arch/riscv/include/asm/csr_indirect.h b/arch/riscv/include/asm/csr_indirect.h
+new file mode 100644
+index 000000000000..0f558fac8f5f
+--- /dev/null
++++ b/arch/riscv/include/asm/csr_indirect.h
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
-         - const: smmpm
-           description: |
-             The standard Smmpm extension for M-mode pointer masking as
-@@ -226,6 +234,14 @@ properties:
-             Profiles Version 1.0, with commit b1d806605f87 ("Updated to
-             ratified state.")
- 
-+        - const: sscsrind
-+          description: |
-+            The standard Sscsrind supervisor-level extension extends the
-+            indirect CSR access mechanism defined by the Ssaia extension. This
-+            extension allows other ISA extensions to use indirect CSR access
-+            mechanism in S-mode as ratified in the 20240326 version of the
-+            privileged ISA specification.
++#ifndef _ASM_RISCV_CSR_INDIRECT_H
++#define _ASM_RISCV_CSR_INDIRECT_H
 +
-         - const: ssnpm
-           description: |
-             The standard Ssnpm extension for next-mode pointer masking as
++#include <linux/irqflags.h>
++
++#include <asm/csr.h>
++
++/*
++ * These have to be macros rather than functions: csr_read()/csr_write()
++ * stringify their CSR argument into the inline asm template via __ASM_STR(),
++ * so the CSR number must be a literal token at preprocessing time. Passing it
++ * as a function parameter emits "csrr %0, iregcsr", which no assembler can
++ * resolve. RISC-V has no register-indirect form of csrr/csrw - the CSR is a
++ * 12-bit immediate - so the sireg CSR selecting the indirect window cannot
++ * itself be a variable.
++ */
++#define csr_indirect_read(iregcsr, iselbase, iseloff) ({		\
++	unsigned long __value = 0;				\
++	unsigned long __flags;					\
++	local_irq_save(__flags);				\
++	csr_write(CSR_ISELECT, (iselbase) + (iseloff));		\
++	__value = csr_read(iregcsr);				\
++	local_irq_restore(__flags);				\
++	__value;						\
++})
++
++#define csr_indirect_write(iregcsr, iselbase, iseloff, value) ({	\
++	unsigned long __flags;					\
++	local_irq_save(__flags);				\
++	csr_write(CSR_ISELECT, (iselbase) + (iseloff));		\
++	csr_write(iregcsr, (value));				\
++	local_irq_restore(__flags);				\
++})
++
++#define csr_indirect_warl(iregcsr, iselbase, iseloff, warl_val) ({	\
++	unsigned long __old_val = 0, __value = 0;		\
++	unsigned long __flags;					\
++	local_irq_save(__flags);				\
++	csr_write(CSR_ISELECT, (iselbase) + (iseloff));		\
++	__old_val = csr_read(iregcsr);				\
++	csr_write(iregcsr, (warl_val));				\
++	__value = csr_read(iregcsr);				\
++	csr_write(iregcsr, __old_val);				\
++	local_irq_restore(__flags);				\
++	__value;						\
++})
++
++#endif
 
 -- 
 2.53.0-Meta
