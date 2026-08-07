@@ -1,113 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AE53A1E96
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA3F2F5A36;
+	Fri,  7 Aug 2026 07:10:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786086303; cv=none; b=jrfzY0kW+hs4S8awA+nKpDYn6Ov/AOaxS5l8WlOoaEAzSTSk1sQh7180sxWpq4LSrJx2Cr/+xaTUB7zml3lU0FwQj29I1VsJMciEnerJQ2tFyOTzlNwfVqyG5NfcmuIcFFbvzhioURMC4qECU6QS35jmFRwkcHSKX/Uk3NkWz30=
+	t=1786086622; cv=none; b=ANfthgdKpyJZNDqDieiroKVM9qXhfmDycoIGIO4G9ghKKRSGX/X4UJLBHxAK0cqrdrGLLKKCB0h/kxkCwAlZdsVuGg7aGcq8cxaHDCPNMROEPj6Ch7qKYw3rvgcaz6pJRVwkn1ba1omya3ERxRJ5mFZUcuaCzY+HV+orLtZlvkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786086303; c=relaxed/simple;
-	bh=7cMN8X4zEwvUmJMN+dThzpaa7nNZFArQh9IJY5Er6ck=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hZLdORLEJk4MKphYetbNDxb0fJpn8Pw59u1+o1WNzmRHwsnhh6yytrOtlnuwyJw/dw6v/UkS6b//plhuNMEOVbRMSyPqpgy797tLDQLN4gFNmVD5R2b8oqzcK3XxfRo8AENr/NNLSyxQqBWoknr6pqPGMQYcuHCdVUgaFmzktTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FyzG8uvy; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FyzG8uvy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846A81F00A3D;
-	Fri,  7 Aug 2026 07:04:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786086297;
-	bh=AcibIt5dN6uRTFioO91Mdah4B8qBbPIrM1uf4AZgorw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FyzG8uvyr6tUVlhMQGTZnFAQm3tX7kfAJPQX2VntOYiYpisFKh32eiImGDzR2quvj
-	 CLhGEizZO/2d0ittXGp4eZ5FFJirqIJsB2BiJzAQSIghbw9R0pLI0uVvRhiD7K4Ky+
-	 YA1RWjOkO0FbDSsgboKV8Zlm5l3GQn3HOZefPQAMsota8YJ7bbLG2a2/vYUCLuNY+L
-	 +BA6907qt7zWDFsb5/J2xfp+7wXPFmS5Cax2gAdiuaJFPaZWKzTc2OiWGPvkYhFvdX
-	 k8T4bFOfVQmL9Ff0cSLiuNF3AAEf/nDH1hc82czUjPNzgJqEmVSS3idOZ7wNYJ5o32
-	 Ixb6Vyu8pkauA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/12] clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Jie" <jie.luo@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-8-cce718b8ec17@oss.qualcomm.com>
-References: <20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com>
- <20260806-qcom_ipq5210_cmnpll-v2-8-cce718b8ec17@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 07:04:57 +0000
-Message-Id: <20260807070457.846A81F00A3D@smtp.kernel.org>
+	s=arc-20240116; t=1786086622; c=relaxed/simple;
+	bh=dpRKrf5/c/UrAyd7GX9AFayLjbeS+srrO3fK9U4KlYg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EQDd5hg15hNl7u2n2BZYc6+xx6Okv/CwWJHGTARQhaODqz+ogi+6m4J4/r8T6DIEGJZ6eMHHxM36YYbT90yavMkMTk0oP0IjSAYSqwOIEjmpMwl7AuABP12JtzWlNSzyZGJpFPRQ2nhIiFx7x3r9Ay5xsULz5AB50wANQEt/dBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C270D2018B6;
+	Fri, 07 Aug 2026 09:10:16 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wsEie-000Dao-2D;
+	Fri, 07 Aug 2026 09:10:16 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1wsEie-00000000p4J-2IOg;
+	Fri, 07 Aug 2026 09:10:16 +0200
+Date: Fri, 7 Aug 2026 09:10:16 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Ahmad Fatoum <a.fatoum@pengutronix.de>,
+	Rob Herring <robh@kernel.org>, netdev@vger.kernel.org,
+	Luiz Angelo Daros de Luca <luizluca@gmail.com>,
+	linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+	Eric Dumazet <edumazet@google.com>, kernel@pengutronix.de,
+	Alvin =?utf-8?Q?=C5=A0ipraga?= <alsi@bang-olufsen.dk>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alvin =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>,
+	"David S. Miller" <davem@davemloft.net>, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v1 2/2] net: dsa: realtek: rtl83xx: add support
+ for enabling supplies
+Message-ID: <anWE2HD_Mrv9XlYV@pengutronix.de>
+References: <20260806140239.3518906-1-o.rempel@pengutronix.de>
+ <20260806140239.3518906-3-o.rempel@pengutronix.de>
+ <9181f24b-cd5e-46c8-8e57-cbf309ac1a98@lunn.ch>
+ <anSj34TOZxYiG_ai@pengutronix.de>
+ <f2260b02-621f-4b92-aade-85c403a8839d@lunn.ch>
+ <02a51eff-3782-4012-8475-1047a9be4dd3@pengutronix.de>
+ <CAD++jLk-5-_2x2scn2hNQ-aWBx=EKGYzvcaUwv5fS7k5Bq=KGA@mail.gmail.com>
+ <anVedv6aV1hguF5x@pengutronix.de>
+ <CAD++jLkkwuRYrW7aF4BrxoH=qVfNfbzsW8A+URig79dVMxgZ-g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLkkwuRYrW7aF4BrxoH=qVfNfbzsW8A+URig79dVMxgZ-g@mail.gmail.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] clk_ephy_raw_determine_rate() fails to respect req->min_rate and=
- req->max_rate boundaries.
---
+On Fri, Aug 07, 2026 at 08:51:53AM +0200, Linus Walleij wrote:
+> On Fri, Aug 7, 2026 at 6:26 AM Oleksij Rempel <o.rempel@pengutronix.de> wrote:
+> > On Thu, Aug 06, 2026 at 07:40:29PM +0200, Linus Walleij wrote:
+> > > On Thu, Aug 6, 2026 at 5:56 PM Ahmad Fatoum <a.fatoum@pengutronix.de> wrote:
+> > >
+> > > [Andrew says]
+> > > > > static inline int __must_check clk_bulk_get_optional(struct device *dev,
+> > > > > static inline int __must_check devm_clk_bulk_get_optional(struct device *dev,
+> > > > > static inline int __must_check devm_clk_bulk_get_optional_enable(struct device *dev,
+> > > > >
+> > > > > If clk has them, maybe regulators should as well?
+> > > >
+> > > > clk and regulator have different interpretations of _optional
+> > > > when encountering a non-existent resource:
+> > > >
+> > > > clk_get                 return error
+> > > > clk_get_optional        return NULL
+> > > > regulator_get           return handle dummy regulator
+> > > > regulator_get_optional  return error code
+> > > >
+> > > > So devm_regulator_bulk_get() is already the "optional" variant, but it causes
+> > > > all existing users to get dummy supply warnings.
+> > >
+> > > So is this a big problem? Does it cause any other issues than
+> > > dmesg noise?
+> >
+> > As tested with local sashiko setup, new warnings for existing system
+> > without good reason will be reported as regression, so it will be
+> > blocker for net-next inclusion.
+> 
+> Strong reverse centaur (*) warning on this one.
+> 
+> I'm not sure this is how Mark want such "regressions" to be treated.
+> 
+> I think a few dummy supplies is just fine and it's rather that Sashiko
+> need to be taught not to treat that as bugs/regressions.
+> 
+> Yours,
+> Linus Walleij
+> 
+> (*) Reverse centaur = humans touted to please AI, as opposed
+> to AI helping humans, sarcastic term coined by author Cory Doctorow.
 
---- Patch [8]: [PATCH v2 08/12] clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock =
-support ---
-commit 49a391af3ca59aa96545f77e2d5dd595f1603325
-Author: Luo Jie <jie.luo@oss.qualcomm.com>
+Without context, I would fully agree with this statement. But as some
+one who need to adders new warnings on every kernel update for our
+customers, I see the point of sashiko - new unnecessary warning
+is extra unnecessary work for some one else == regression.
 
-clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock support
-
-This commit introduces EPHY-RAW clock support for the IPQ5210 from the CMN=
-=20
-PLL, providing the raw reference clock to the SoC-integrated Ethernet PHY. =
-It=20
-adds clock operations and register definitions to select the output frequen=
-cy=20
-between 125 MHz and 312.5 MHz based on the required link speed.
-
-> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pl=
-l.c
-> index 356988c03a7ae..586f9c620e7e1 100644
-> --- a/drivers/clk/qcom/ipq-cmn-pll.c
-> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
-
-[ ... ]
-
-> +static int clk_ephy_raw_determine_rate(struct clk_hw *hw,
-> +				       struct clk_rate_request *req)
-> +{
-> +	unsigned long rate_125m =3D 125000000UL, rate_312p5m =3D 312500000UL;
-> +
-> +	/* Pick whichever of the two supported rates is closer to the request */
-> +	req->rate =3D abs_diff(req->rate, rate_125m) < abs_diff(req->rate, rate=
-_312p5m) ?
-> +		    rate_125m : rate_312p5m;
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Does this rate selection logic need to check the req->min_rate and=20
-req->max_rate boundaries?
-
-It appears that the target frequency is selected unconditionally based sole=
-ly
-on the absolute difference from req->rate, ignoring bounds applied via QoS =
-or
-OPP constraints.=20
-
-If a clock consumer requests a rate with a strict upper boundary (for examp=
-le,
-req->max_rate is 250 MHz and req->rate is clamped to 250 MHz), the absolute
-difference to 312.5 MHz (62.5 MHz) is less than the difference to 125 MHz=20
-(125 MHz).=20
-
-Could this result in selecting a frequency outside the permissible bounds,=
-=20
-violating the Common Clock Framework determine_rate API contract and causing
-upstream rate-setting routines to fail?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-qcom_ipq52=
-10_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com?part=3D8
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
