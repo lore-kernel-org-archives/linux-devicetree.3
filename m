@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F1FC397E89
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:04:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AE53A1E96
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:05:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786086245; cv=none; b=KP3aLKHfBRJ1pSEXaMdowB1lf33Y1NcmYYfopRMEO46tnWNA1ogzVPIylom87oh0GRCDWAqSxrAQDaZnsRUoK4w7LNpRf7zjRiZbSBdxvaNFjghFQznudry+crJ3hsNgENbRCIuams1XoRtqjz4xAygYTrAhpsURwwzfKxpLW4U=
+	t=1786086303; cv=none; b=jrfzY0kW+hs4S8awA+nKpDYn6Ov/AOaxS5l8WlOoaEAzSTSk1sQh7180sxWpq4LSrJx2Cr/+xaTUB7zml3lU0FwQj29I1VsJMciEnerJQ2tFyOTzlNwfVqyG5NfcmuIcFFbvzhioURMC4qECU6QS35jmFRwkcHSKX/Uk3NkWz30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786086245; c=relaxed/simple;
-	bh=JRuZHTKtl4kNks2yZBX2KoidafBCZ9jolAcMnG/wrdk=;
+	s=arc-20240116; t=1786086303; c=relaxed/simple;
+	bh=7cMN8X4zEwvUmJMN+dThzpaa7nNZFArQh9IJY5Er6ck=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rTWysmmk1h+eawqsMUNB91kr5qpsFpe+mH27U4DxqdwcTEnURFEdXwMBiW5ko1TtDOoDj0pPZpFUH+6SjFI9rhbmA/evl1bL4JMR99DeZZ4N6E3Iqun53vT42xp6qAeyehhmOQtSZsyZB1II0QIRoZH0Pd6FdSjZ857jGtP6cLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RiBgSPuB; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hZLdORLEJk4MKphYetbNDxb0fJpn8Pw59u1+o1WNzmRHwsnhh6yytrOtlnuwyJw/dw6v/UkS6b//plhuNMEOVbRMSyPqpgy797tLDQLN4gFNmVD5R2b8oqzcK3XxfRo8AENr/NNLSyxQqBWoknr6pqPGMQYcuHCdVUgaFmzktTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FyzG8uvy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RiBgSPuB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E711F1F00A3E;
-	Fri,  7 Aug 2026 07:03:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FyzG8uvy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846A81F00A3D;
+	Fri,  7 Aug 2026 07:04:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786086240;
-	bh=2z9pffxrfdJDA5NJRf+hp0GtrT9sgH5/rn4znYwxy7o=;
+	s=k20260515; t=1786086297;
+	bh=AcibIt5dN6uRTFioO91Mdah4B8qBbPIrM1uf4AZgorw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RiBgSPuBPLLICuj5AhLH6FhBI6//geeJ3Am39bQhRN4Rdbg05I1BFwAOORgaNxw6B
-	 nzjV1NTurmzok4GFsMEnB5o6j1soYaKHNp1hEgAYbwIwXCInw4Xq/Ti1dVu7W138PW
-	 KcPOuL/oCtaQN3eaypwCnp5OGdmCSGEK68ZhmXGNtzKAdqKQSBYo1qeiOu6Kewc/Bv
-	 uBVAVPjIfve0FO7T0qpF0pLJNa+pLRFFKu9nQQdoRhHQb7/2we433zh/Tbf+NiJ+Xn
-	 jG+nHscJjDAHYasVJTxrmQd5LlTMlalFS3x05xerBaizunf3oFho+QzmuVv48xrjtk
-	 lew8fQgezdVaQ==
+	b=FyzG8uvyr6tUVlhMQGTZnFAQm3tX7kfAJPQX2VntOYiYpisFKh32eiImGDzR2quvj
+	 CLhGEizZO/2d0ittXGp4eZ5FFJirqIJsB2BiJzAQSIghbw9R0pLI0uVvRhiD7K4Ky+
+	 YA1RWjOkO0FbDSsgboKV8Zlm5l3GQn3HOZefPQAMsota8YJ7bbLG2a2/vYUCLuNY+L
+	 +BA6907qt7zWDFsb5/J2xfp+7wXPFmS5Cax2gAdiuaJFPaZWKzTc2OiWGPvkYhFvdX
+	 k8T4bFOfVQmL9Ff0cSLiuNF3AAEf/nDH1hc82czUjPNzgJqEmVSS3idOZ7wNYJ5o32
+	 Ixb6Vyu8pkauA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/12] clk: qcom: clk-regmap-divider: Support
- CLK_DIVIDER_* flags
+Subject: Re: [PATCH v2 08/12] clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Luo Jie" <jie.luo@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-4-cce718b8ec17@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260806-qcom_ipq5210_cmnpll-v2-8-cce718b8ec17@oss.qualcomm.com>
 References: <20260806-qcom_ipq5210_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com>
- <20260806-qcom_ipq5210_cmnpll-v2-4-cce718b8ec17@oss.qualcomm.com>
+ <20260806-qcom_ipq5210_cmnpll-v2-8-cce718b8ec17@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 07:03:59 +0000
-Message-Id: <20260807070359.E711F1F00A3E@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 07:04:57 +0000
+Message-Id: <20260807070457.846A81F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,57 +47,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Type correctness regression: left shift of a signed integer without=
- casting
+- [Medium] clk_ephy_raw_determine_rate() fails to respect req->min_rate and=
+ req->max_rate boundaries.
 --
 
---- Patch [4]: [PATCH v2 04/12] clk: qcom: clk-regmap-divider: Support CLK_=
-DIVIDER_* flags ---
-commit 8da3393b838b4e4b6fe1ccda790022d6a599db23
+--- Patch [8]: [PATCH v2 08/12] clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock =
+support ---
+commit 49a391af3ca59aa96545f77e2d5dd595f1603325
 Author: Luo Jie <jie.luo@oss.qualcomm.com>
 
-clk: qcom: clk-regmap-divider: Support CLK_DIVIDER_* flags
+clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock support
 
-This commit adds a flags field to struct clk_regmap_div and passes it to
-clock divider functions to support CLK_DIVIDER_* behavior variants. It also
-updates div_set_rate() to handle negative error codes from divider_get_val()
-by changing the div variable from an unsigned to a signed integer.
+This commit introduces EPHY-RAW clock support for the IPQ5210 from the CMN=
+=20
+PLL, providing the raw reference clock to the SoC-integrated Ethernet PHY. =
+It=20
+adds clock operations and register definitions to select the output frequen=
+cy=20
+between 125 MHz and 312.5 MHz based on the required link speed.
 
-> diff --git a/drivers/clk/qcom/clk-regmap-divider.c b/drivers/clk/qcom/clk=
--regmap-divider.c
-> index 672e82caf2050..fe4542b5bd580 100644
-> --- a/drivers/clk/qcom/clk-regmap-divider.c
-> +++ b/drivers/clk/qcom/clk-regmap-divider.c
+> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pl=
+l.c
+> index 356988c03a7ae..586f9c620e7e1 100644
+> --- a/drivers/clk/qcom/ipq-cmn-pll.c
+> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
 
 [ ... ]
 
-> @@ -43,10 +44,12 @@ static int div_set_rate(struct clk_hw *hw, unsigned l=
-ong rate,
->  {
->  	struct clk_regmap_div *divider =3D to_clk_regmap_div(hw);
->  	struct clk_regmap *clkr =3D &divider->clkr;
-> -	u32 div;
-> +	int div;
-> =20
->  	div =3D divider_get_val(rate, parent_rate, NULL, divider->width,
-> -			      CLK_DIVIDER_ROUND_CLOSEST);
-> +			      CLK_DIVIDER_ROUND_CLOSEST | divider->flags);
-> +	if (div < 0)
-> +		return div;
-> =20
->  	return regmap_update_bits(clkr->regmap, divider->reg,
->  				  (BIT(divider->width) - 1) << divider->shift,
->  				  div << divider->shift);
+> +static int clk_ephy_raw_determine_rate(struct clk_hw *hw,
+> +				       struct clk_rate_request *req)
+> +{
+> +	unsigned long rate_125m =3D 125000000UL, rate_312p5m =3D 312500000UL;
+> +
+> +	/* Pick whichever of the two supported rates is closer to the request */
+> +	req->rate =3D abs_diff(req->rate, rate_125m) < abs_diff(req->rate, rate=
+_312p5m) ?
+> +		    rate_125m : rate_312p5m;
+> +
+> +	return 0;
+> +}
 
-[Severity: Low]
-Since div was changed to a signed int to handle error codes, should it be c=
-ast
-to an unsigned type before being shifted here?=20
+[Severity: Medium]
+Does this rate selection logic need to check the req->min_rate and=20
+req->max_rate boundaries?
 
-Left-shifting a signed integer without casting can trigger static analysis
-warnings, or technically undefined behavior in standard C if the value
-overflows into the sign bit.
+It appears that the target frequency is selected unconditionally based sole=
+ly
+on the absolute difference from req->rate, ignoring bounds applied via QoS =
+or
+OPP constraints.=20
+
+If a clock consumer requests a rate with a strict upper boundary (for examp=
+le,
+req->max_rate is 250 MHz and req->rate is clamped to 250 MHz), the absolute
+difference to 312.5 MHz (62.5 MHz) is less than the difference to 125 MHz=20
+(125 MHz).=20
+
+Could this result in selecting a frequency outside the permissible bounds,=
+=20
+violating the Common Clock Framework determine_rate API contract and causing
+upstream rate-setting routines to fail?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-qcom_ipq52=
-10_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com?part=3D4
+10_cmnpll-v2-0-cce718b8ec17@oss.qualcomm.com?part=3D8
