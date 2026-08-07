@@ -1,137 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121043DAACF;
-	Fri,  7 Aug 2026 08:41:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B193CC9E9
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:42:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786092116; cv=none; b=EcAqzUfF8oYVC7FklQx1YtK07ocA80kNsilV7Jl0VXcRyVq4mezaKfHU2SAmeBz1K3Qq+36S2hn3VWTHGzpZzbWp7J6GOglcsZm5yI0NqzpTdPBnfx1uj+S4BKQfwbvETrcWInfO/A2Xr1kcYbflw5yeZGaTOqkqgKr/nfm6iaM=
+	t=1786092177; cv=none; b=qRePD/WBSUfbdz3d6wXYbpa2m1RQTYrpcH3G+RrYyazvnE3u/iq62BXo54SyS/V42VcSRR2g0VB4GONDAt3JNhKyncFHkzHgruJvwzTlZ86fb/dmXm4a60aFdUIOlFHsZPeZN0M0xnF+vX8bEDUa/MjyissV1bsH/5IMrcV0AbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786092116; c=relaxed/simple;
-	bh=yPuG8hb5Xf0buZ8efVD2j3dcMx++hGuVCdBXPkG9B70=;
+	s=arc-20240116; t=1786092177; c=relaxed/simple;
+	bh=9zMdCTDe3gpcg3f2momZDkpv+XykA1rN/uC/OSlUXvc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QO1c7PEfiqh141W76Vc3JDNNwovwr7Css+POG9T7/oh6l5hH9kOYzty+pWMPYmASeu/AyO5Ilg5G00NFkSsbeNQ4MUUhkgtdoCpoRMDS4ApVgpSUnnIfbLgwctlWNN1mZs6Sx1kC0ZkfOoTF/3TjPXvuUI1dFISbK2xNBb1KY7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=btAu8Nbg; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VUCwL1/VQ9osN9uFog2ppL+ugdNvomwKlffEOYBup+m+531eJXgIcYR4IaqD8piWE8NWCmI/VW9dde1iO0nwZphPV13tnRGC3aQDqegJq+Cael+53WGK3SJBkYKBFI+fWEIKYHA1VWcb20XCtkXAf2A+7bqnO5mI99hX1vhykY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PmsZX5zF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="btAu8Nbg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6F171F000E9;
-	Fri,  7 Aug 2026 08:41:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PmsZX5zF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE04A1F000E9;
+	Fri,  7 Aug 2026 08:42:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786092114;
-	bh=04FBecOjZYsrwkEvpI7rkPOAh2q9kTHhuekUpy/SjXM=;
+	s=k20260515; t=1786092176;
+	bh=1WYrDh5SmM4y8mWxr3hYDSWASmn+saUDcqF0qxGhRxw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=btAu8NbgP4SdsiVMIxe6gKeXvQMVcIqjr7DxfPi/Xpm+XILOYCclAUwJQHXfB3ngl
-	 IvFFRTToCskKfnMSf/zXeU4V3oh2RIxsS9eW9VXuqBHhhp/OZLQ96BcUbCyJmELwBv
-	 LtsFw+XvRCs/hyqxshZUnRWaXto4mnJ6Dy6bHpSS1moDM7FeaR46eQPNvroXd2o/kB
-	 C90V9m6hM34EVMIadNIZ5D8aKysD0+GAXLorroPJdZMBtBpfd/KYDVjP+D5kEg69xa
-	 SNPwRFNIqx8XSf4mcDGYAOHmb4fLRbe1NLkN9xU+5ELVe0Q0oNAhqqtYZ0CRc+o5An
-	 8IkLT2+BX5JEQ==
+	b=PmsZX5zFfKRCNOa9wM5jEiLIp6+lca8X2ThvxeQqziRKoCqDlGB+dV4C14XcZBaA6
+	 LL/3swA9F47vvUetg4+GYuZgEQvPgz2jXl7gtV+ceZKpRBi6vYY2/w4JrCWfJ6tWi8
+	 dJp4AE6M7XpsX8n3V7EYdOCgsAZmarmjDCftjbvrV1pz3FpB/+/siOdJruwuDacecO
+	 veZ+w0WbUcBqzqOO7CaK1M/d4a0zB24UkNg3jVLKiRbEs8qeuYxgKME3IOxKMIdyQc
+	 T+UhVmmkpiRAHyRsz9CDQv4f6OoLiT9EM0xgImjDI3Sppz4/A/aNyve/3wT0m4YdtM
+	 a2djW6asqswsw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 18/20] RISC-V: perf: Add Qemu virt machine events
+Subject: Re: [PATCH 10/22] arm64: dts: qcom: sm8650: Reserve low IOVA range
+ for Iris
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Atish Patra" <atish.patra@linux.dev>
-Cc: robh@kernel.org, linux-perf-users@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807-counter_delegation-v9-18-58658104e487@meta.com>
-References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
- <20260807-counter_delegation-v9-18-58658104e487@meta.com>
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807-iris_iova_600mb_fix-v1-10-3996f67e33f9@oss.qualcomm.com>
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-10-3996f67e33f9@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 08:41:53 +0000
-Message-Id: <20260807084153.E6F171F000E9@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 08:42:55 +0000
+Message-Id: <20260807084255.DE04A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The `counterid_mask` for `cycles` and `instructions` events in t=
-he QEMU PMU vendor events table incorrectly excludes fixed counters, unnece=
-ssarily consuming limited programmable counters.
+
+Pre-existing issues:
+- [High] Pre-existing parsing bug in `of_iommu_get_resv_regions()` causing =
+misalignment and incorrect parsing when encountering non-matching shared re=
+servations.
+- [High] Missing NULL check for the return value of `of_translate_dma_regio=
+n()` causes a kernel panic if address translation fails.
 --
 
---- Patch [18]: [PATCH v9 18/20] RISC-V: perf: Add Qemu virt machine events=
- ---
-commit c3b03b30f6d05637f0ec5ea8c549bff42e2bbc49
-Author: Atish Patra <atishp@rivosinc.com>
+--- Patch [10]: [PATCH 10/22] arm64: dts: qcom: sm8650: Reserve low IOVA ra=
+nge for Iris ---
+commit 0235003bbbcd1eb35cb1bdeb1f805b1bd98ddfd1
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-RISC-V: perf: Add Qemu virt machine events
+arm64: dts: qcom: sm8650: Reserve low IOVA range for Iris
 
-Qemu virt machine supports a very minimal set of legacy perf events.
-Add them to the vendor table so that users can use them when
-counter delegation is enabled.
+Iris VPU reserves IOVA addresses below 0x25800000, primarily for secure
+non-pixel buffers. This commit adds a reserved-memory IOVA reservation
+node covering [0, 0x25800000] and references it from the Iris node to keep
+DMA allocations above that boundary.
 
-> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-> index 5eb49db8bc7c1..9220c75651a5c 100644
-> --- a/drivers/perf/riscv_pmu_sbi.c
-> +++ b/drivers/perf/riscv_pmu_sbi.c
-
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/q=
+com/sm8650.dtsi
+> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
 [ ... ]
-
-> @@ -468,7 +469,45 @@ struct riscv_vendor_pmu_events {
->  	  .hw_event_map =3D _hw_event_map, .cache_event_map =3D _cache_event_ma=
-p, \
->  	  .attrs_events =3D _attrs },
+> @@ -5266,7 +5277,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONL=
+Y>,
+>  			interconnect-names =3D "cpu-cfg",
+>  					     "video-mem";
 > =20
-> +/* QEMU virt PMU events */
-> +static const struct riscv_pmu_event qemu_virt_hw_event_map[PERF_COUNT_HW=
-_MAX] =3D {
-> +	PERF_MAP_ALL_UNSUPPORTED,
-> +	[PERF_COUNT_HW_CPU_CYCLES]		=3D {0x01, 0xFFFFFFF8},
-> +	[PERF_COUNT_HW_INSTRUCTIONS]		=3D {0x02, 0xFFFFFFF8}
-> +};
+> -			memory-region =3D <&video_mem>;
+> +			memory-region =3D <&video_mem>, <&iris_iova>;
 
-[Severity: Medium]
-Does the counterid_mask of 0xFFFFFFF8 inadvertently exclude the fixed hardw=
-are
-counters for these events?
+[Severity: High]
+This isn't a bug introduced by this patch, but does adding multiple entries
+to a memory-region expose a parsing bug in of_iommu_get_resv_regions()?
 
-By clearing bits 0, 1, and 2, this mask prevents the driver from using the
-dedicated fixed counters (counter 0 for cycles, counter 2 for instructions).
+When processing a node with multiple entries, if an earlier phandle in the
+list does not match dev->of_node, the loop in drivers/iommu/of_iommu.c
+fails to advance the maps pointer over the address and size cells:
 
-When checking if a fixed counter is permitted, get_deleg_fixed_hw_idx()=20
-verifies event->attr.config2 against RISCV_PMU_CYCLE_FIXED_CTR_MASK (0x01)
-or RISCV_PMU_INSTRUCTION_FIXED_CTR_MASK (0x04). Because 0xFFFFFFF8 & 0x01 =
-=3D=3D 0
-and 0xFFFFFFF8 & 0x04 =3D=3D 0, the driver will bypass the fixed counters a=
-nd=20
-unnecessarily consume scarce programmable HPM counters instead.
+drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
+    phandle =3D be32_to_cpup(maps++);
+    np =3D of_find_node_by_phandle(phandle);
 
-Would it be better to include the respective fixed counter bits in the mask
-(e.g., 0xFFFFFFF9 for cycles and 0xFFFFFFFD for instructions), or perhaps
-use 0xFFFFFFFF?
+    if (np =3D=3D dev->of_node) {
+        ...
+        maps =3D of_translate_dma_region(np, maps, &iova, &length);
+        ...
+    }
+    /* Missing advancement of maps if np !=3D dev->of_node */
+}
 
-> +
-> +static const struct riscv_pmu_event qemu_virt_cache_event_map[PERF_COUNT=
-_HW_CACHE_MAX]
-> +						[PERF_COUNT_HW_CACHE_OP_MAX]
-> +						[PERF_COUNT_HW_CACHE_RESULT_MAX] =3D {
+Will the next iteration erroneously read the unparsed address or size cells
+as the next phandle, corrupting the device tree parsing?
 
-[ ... ]
+[Severity: High]
+This is another pre-existing issue in the same parsing area, but could
+address translation failures lead to a kernel panic here?
 
-> +	[C(ITLB)][C(OP_READ)][C(RESULT_MISS)]	=3D {0x10021, 0xFFFFFFF8},
-> +};
-> +
-> +RVPMU_EVENT_CMASK_ATTR(cycles, cycles, 0x01, 0xFFFFFFF8);
-> +RVPMU_EVENT_CMASK_ATTR(instructions, instructions, 0x02, 0xFFFFFFF8);
+If of_translate_dma_region() fails (for example, if the device lacks a DMA
+parent), it returns NULL. The return value is assigned directly to maps
+without checking:
 
-[Severity: Medium]
-Since this macro exposes the counterid_mask to userspace via sysfs aliases,=
-=20
-does providing 0xFFFFFFF8 here cause the perf tool to populate config2 with=
-=20
-0xFFFFFFF8?
+drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
+    ...
+    maps =3D of_translate_dma_region(np, maps, &iova, &length);
+    if (length =3D=3D 0) {
+    ...
+}
 
-If so, this will enforce the same fixed-counter bypass on the counter=20
-delegation path. Updating these masks to include the fixed counter bits
-would ensure they can be fully utilized.
+On the next loop iteration, the condition maps < end will be evaluated
+where NULL is less than the valid kernel pointer end, and
+be32_to_cpup(maps++) will dereference the NULL pointer.
 
-> +RVPMU_EVENT_CMASK_ATTR(dTLB-load-misses, dTLB_load_miss, 0x10019, 0xFFFF=
-FFF8);
-
-[ ... ]
+Could this trigger a crash on boot if an untranslatable DMA region is
+encountered?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-counter_de=
-legation-v9-0-58658104e487@meta.com?part=3D18
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-iris_iova_=
+600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com?part=3D10
