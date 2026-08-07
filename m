@@ -1,133 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D51143F4C2
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D84943F4C2
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786134211; cv=none; b=DqcVAw2OnvMfEbMvCf3TyZhYy22+2fOR85HMi5lUM89LLP8fXuwWA+sXxLlXYFYVV1Anunz+SG/FE2f0iFN3QXLmKr8vjwp3AMzQ+amdTL2pEiH0+DS9ZDfrmAI0iIMYZiQ6OgkiLyDaMlbxESLqUKZv5zpyBBsn41s4lQTsk1I=
+	t=1786134242; cv=none; b=RJkLK5V6EDZk/RY0ZyLITX46xMzRIT6e9kldN8H3NYUOjMuO+jc5oj2ihmLWEGV5TooG7bRojgkH7jCZfl4DEncvb5yIiX9pJjOvdA27vc0gt5jNMESl3jWSkP2JHgdWamOAz3/i7X2MfaKtFqgX5tVsNMLnC/1qAdu/Vc2a614=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786134211; c=relaxed/simple;
-	bh=jxcH8eZGKIgBbAGtXktUmTUcGx6/TN/TNRYvri5Tjq4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H448LKIik5KfSHbtWTvUq02QdnS6xh/Pjay77jHq43p6BftN7CJmdBs9tYOT+8dVqaCJkLj5T1jnwHeTKPFJT3yf9WapmtVNMr/MfIO52750MbuvVTUym216V2G7fJQZKjRwvIrqr3dRwXnAgUSf4G2mr3adpephzFLkLcvB7oY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NslAsB+M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786134242; c=relaxed/simple;
+	bh=n2eolYt5CCjeMz0TzIeeW8hw38gmzPboW1aYo9XSOT0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TJ4VY0UgpQRzML8OlqsJRBUMNe60zGP2rTvm/nVD3M6NB+JqYYRMyJXAHUKIBYNOxnQKooLyPrRJQ4b+c1/nVaultWbwnOH+dEeKEU8RW+sg2dRMaH9Kcah6NSNwM9z4SQvDebTJCmZ+S02GbBlYTfqglzHCMcEn2c/IppgR1+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=pb/paLRn; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NslAsB+M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB661F00A3F
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 20:23:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786134209;
-	bh=Jwrr4lVLGS11GjYrZqe6FfMEjh7fA/X3L7gVPhE5eMk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NslAsB+Mrwl2KkiMwrTMgAqT3D9wVbPHREEJpYouBUMU1eMEoLClWLnOo6O3Z3fkD
-	 gkPgKkaiS3IY+QK2VjNyyyY2npG9XtmPoNkWMTUxMwLi4aeCMQTi0dWDqR8wU/0i+Q
-	 GY6oWBCnD3WwyzH7BBV+wV1H1Jr2eo1DcLy10ckMQ4QPgbu8OpoXb6V1v/yL9DuVdZ
-	 1zjrGpurGBCemXpOnUoCg3v/s+wJIKnRd2nhZMpU/bWXBv4FQYQKXBQeOELpty/K4+
-	 dpp70baGOsAvUcFkU/2TOR63O5V+KzJxdiqX5Cor/1vpY3tYXQJyzwhhgCWYSOiVl7
-	 tICnmIvpgYe5Q==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aeb2bc82ccso4586574e87.2
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:23:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr+dZczsgEp2qH0dsToVK4TmQ/IBnxBtrt5Rh7A9Ur/d2AOBpbXGFKXjWh6VlFI6JqLN1y+P6V5DYFH@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywkyz7R4PUN0z7kZLG4XChLDMm74PHMbr515FdF+NT+P51bIvbN
-	WXl924niNOc5Kq9YkHzuqgmLQjqzehuN1nDDoFeDEQa+OacTaAakWzvIoiWYlHLlGrXWzSNEt9H
-	cowh25q3BmWZV9t7SAx7fUYRLLkZ+zBw=
-X-Received: by 2002:a05:6512:3d8e:b0:5ae:ba8f:f9fd with SMTP id
- 2adb3069b0e04-5b30b728f72mr381168e87.9.1786134208666; Fri, 07 Aug 2026
- 13:23:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="pb/paLRn"
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7ec1e9d3359so8395a34.0
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 13:23:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786134238; x=1786739038; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2J94HMnY+/NqeWFTSOyyflcz5JBZ7AWbftpPkiQyAxY=;
+        b=pb/paLRnuz+UmApw1/ltZT62on/uFe5B9KscFULelbeCccabD4SvNmoRpeiYiNUy8F
+         IsIGXW5Tsosbnw3nQBpUgm6UaMCe2TZHILrlncth/Go0ZcFmA2DjrWxcPJu87zbLzf22
+         IzfoImxQxLB3b/vgbYbgogmb37LbW674XD++X+39AgZtIEO/L518TRhOpu4AwT/IlhD7
+         mCxjCY4wF3nRr3YFkZcVijykDlALBY336Kozqjaj+oQYZCJSnsKgOjlrk6DJJYEnzYEv
+         Jq6UheqgvpdBq7jM+0MCoUoyxHa0CBgYKFzIrPqLUKuJd1an+2QDNHo+ANsWzDzc111N
+         JD7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786134238; x=1786739038;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2J94HMnY+/NqeWFTSOyyflcz5JBZ7AWbftpPkiQyAxY=;
+        b=M4Uv/MGaIpRVHMxp96zA1qe5yYFD3qv1hZSe1GwyjWsjlnXuy9Ct0dZhqvovMb+6Aq
+         1XKtiUGj/9KJjrg5HMYzgJTGufE4Wj+IKWObYKT7MxsZFaa5Rjqk18Pl95oUIZ+kxXVn
+         1R8gAFLazCu9y8ubDfGYpe/LpOHwpkXXoWLDKieDZQw6T4EkxoMsGvzT7bE/pWObdGFK
+         vAiCi11LxCQZ0jcucwRe2jUD90b19DmCk08w9zzbSkch0/RNe3QDOu9NYQwTIkLutTCn
+         E2s1+yBkwDs6qj5o+ZZSTjdV/uV7No7IefkPON6FqfIb3DoyPbnyjCbmXF0xNnCY04xJ
+         oqbA==
+X-Forwarded-Encrypted: i=1; AHgh+RqQJLQBjYyxUb1lX84cnz3yVVrF5eH4z9J0qpTOIU3Lk4FCfDtjdE+rn2pRDVydOlVCbNEkiR+9MUYn@vger.kernel.org
+X-Gm-Message-State: AOJu0YxXKb9MSSgyCQ0mqH84cUpxv13yLdG2ArFme9Jr+mt6G/H7L3VT
+	04mC9d8kqq+Vs+rkVC53eL1d+yOpIIto6a8Y2JtFp5ZrGkqs66bYZQjzOM4Htkbkt6c=
+X-Gm-Gg: AR+sD12Z4XLDyL5VEneii8S5c5UQiwVVl3Bc4vZ52P4SE5/+egjTYxbkLDM7YhpT8wy
+	A0Gx057uL/kVPLMSYtkubnNwkllt81gl++r8JWD0sVTduYSDMn52yC9ObQMsNcaw9rCEvdlzR6J
+	Mms2Qg7Sa3F31dLfhpG2tFORws9zuQV0uxw1tSYejYLO5MUiJVRmIVkaa2/dVORGUcvJO/A0pUs
+	8/dPoF6WlW77RyrvflhjYNhUJBEQK+TyBAv0afxN3VtvdlaHvs/UHuRxcUpZVA2k5N4O0myPjqd
+	drWYjB19futKJFWs+yFryKgqmwPpgSxH1pLE1V2pJ655LmUxM9Kyb3dS34XcHzMJ+nPOxs7Gz8B
+	nf1a3nUm7naqMh17Mxg1X53LW469R6DHeMYcNkKGvRFQP87kWH9tpbZi3rT+2XE7qW58yfMiTKY
+	rSsf3o3ExWwU/rnP65AhAk8YawwFJXEykCHQpG4ol+3FFFXMC7fZz3g/LXIOEpEiErbkvBMcjBt
+	L/atvhoo6oAyvCY54ypcTWKTMhzoyceBCrv8zjB4EAWLV4=
+X-Received: by 2002:a05:6830:8286:b0:7e6:ee6d:cb1f with SMTP id 46e09a7af769-7f1e59c5ab5mr17070316a34.0.1786134238198;
+        Fri, 07 Aug 2026 13:23:58 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:b714:88c:313d:dee2? ([2600:8803:e7e4:500:b714:88c:313d:dee2])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f35b76fe2fsm1910393a34.16.2026.08.07.13.23.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Aug 2026 13:23:57 -0700 (PDT)
+Message-ID: <34ff47a2-1a53-4d99-a864-5bf633e05d4f@baylibre.com>
+Date: Fri, 7 Aug 2026 15:23:56 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785838584.git.mazziesaccount@gmail.com> <838486b443af9188410d8b802a818dc0af20ea9d.1785838585.git.mazziesaccount@gmail.com>
-In-Reply-To: <838486b443af9188410d8b802a818dc0af20ea9d.1785838585.git.mazziesaccount@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 7 Aug 2026 22:23:15 +0200
-X-Gmail-Original-Message-ID: <CAD++jLky237PRXNmyURjNEOPPgFV00ox1HBeBev=qADxKM3nWQ@mail.gmail.com>
-X-Gm-Features: AUfX_my1uSeJQFZWOjjbDePuT4j3HCVXBhkgikPPCovD-qQ5-mA5ffWK5vqmoGE
-Message-ID: <CAD++jLky237PRXNmyURjNEOPPgFV00ox1HBeBev=qADxKM3nWQ@mail.gmail.com>
-Subject: Re: [PATCH v2 01/10] dt-bindings: mfd: common ROHM PMIC properties
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
-	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, mfd@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-rtc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: adc: ti,ads112c04: Add binding
+ for ADS112C04
+To: Kyle Hsieh <kylehsieh1995@gmail.com>, Jonathan Cameron
+ <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260805-ti-ads112c04-driver-v3-0-49f436829e01@gmail.com>
+ <20260805-ti-ads112c04-driver-v3-1-49f436829e01@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260805-ti-ads112c04-driver-v3-1-49f436829e01@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Matti,
-
-thanks for your patch (and the other comments in reply to the
-old review).
-
-On Tue, Aug 4, 2026 at 12:20=E2=80=AFPM Matti Vaittinen
-<matti.vaittinen@linux.dev> wrote:
-
-> Sometimes the existing properties aren't 100% what reviewers would
-> prefer. When issues are minor or just cosmetic, changing the existing
-> properties is not feasible. Reviewers can't be expected to know which
-> properties are new, and which are existing - and this can lead to
-> unnecessary review discussion wasting time and energy from everyone.
->
-> Adding a common file for re-used ROHM PMIC properties should make it
-> clearly visible that a property is re-used, when a new PMIC binding
-> refers to this file instead of (re-)describing all the existing
-> bindings. This will also help keeping the common properties identical
-> across the variants.
->
-> Add new file listing commonly used ROHM PMIC properties.
-
-I see the upside of this, the DT binding maintainers will decide
-on it. It has the upside you describe, but it has the downside that
-new components will always (ab-)use the old properties maybe
-even when there would be a good opportunity to modernize
-the syntax, and then the reviewers will not catch it.
-
-But well, maybe that is not a big deal in the universe.
-
-What about patching those old bindings:
-Documentation/devicetree/bindings/mfd/rohm,bd71815-pmic.yaml:
-rohm,clkout-open-drain:
-Documentation/devicetree/bindings/mfd/rohm,bd71828-pmic.yaml:
-rohm,clkout-open-drain:
-Documentation/devicetree/bindings/mfd/rohm,bd72720-pmic.yaml:
-rohm,clkout-open-drain:
-...to include this file as part of this patch, and delete the old defines f=
-rom
-those three files?
-
-Then it is clear what is going on.
-
-Maybe this happens in later patches, but anyway it should be part
-of this patch I think.
-
+On 8/5/26 12:38 AM, Kyle Hsieh wrote:
+> Add device tree binding documentation for Texas Instruments ADS112C04
+> I2C Analog-to-Digital Converters.
+> 
+> These devices provide 4-channel, 16-bit delta-sigma ADCs with an I2C
+> interface, programmable gain amplifier (PGA), and data-ready (DRDY)
+> interrupt output.
+> 
+> The binding uses child nodes to dynamically define the connected
+> single-ended or differential channels.
+> 
+> Signed-off-by: Kyle Hsieh <kylehsieh1995@gmail.com>
+> ---
+>  .../devicetree/bindings/iio/adc/ti,ads112c04.yaml  | 146 +++++++++++++++++++++
+>  1 file changed, 146 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> new file mode 100644
+> index 000000000000..ff079bb5b3dd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads112c04.yaml
+> @@ -0,0 +1,146 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ti,ads112c04.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Texas Instruments ADS112C04 ADC
+> +
+> +maintainers:
+> +  - Kyle Hsieh <kylehsieh1995@gmail.com>
+> +
+> +description:
+> +  The ADS112C04 (16-bit) are precision analog-to-digital converters (ADCs)
+> +  with an I2C interface. They feature a flexible input multiplexer, a
+> +  low-noise programmable gain amplifier (PGA), two programmable excitation
+> +  current sources, a voltage reference, and a precision temperature sensor.
+> +
 > +properties:
-> +  rohm,clkout-open-drain:
-> +    description: clk32kout mode. Set to 1 for "open-drain" or 0 for "cmo=
-s"
-> +      a.k.a "push-pull".
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    maximum: 1
+> +  compatible:
+> +    enum:
+> +      - ti,ads112c04
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: I2C address of the device.
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +    description: Data ready (DRDY) interrupt output.
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: GPIO connected to the RESET pin. Active low.
+> +
+> +  avdd-supply: true
+> +  dvdd-supply: true
+> +
+> +  refp-supply: true
+> +  refn-supply: true
+> +
+> +  ti,refp-refn-resistor-ohms:
+> +    description: Resistance of the external resistor between REFP and REFN.
+> +
+> +patternProperties:
+> +  "^channel@[0-9a-b]$":
+> +    $ref: adc.yaml
+> +    unevaluatedProperties: false
+> +    properties:
+> +      reg:
+> +        items:
+> +          - maximum: 11
+> +
+> +      single-channel:
+> +        maximum: 3
+> +
+> +      diff-channels:
+> +        items:
+> +          maximum: 3
+> +
+> +      excitation-channels:
+> +        maxItems: 2
+> +        items:
+> +          maximum: 3
 
-Yeah I see now that this is already in use in three other bindings...
+I{1,2}MUX can also be routed to the REFP and REFN pins, so we need to
+go up to 5 here and add a description that explains the mapping.
 
-Today we would for a new component use something like
-rohm,clkout-drive-mode =3D "drive-push-pull";
-rohm,clkout-drive-mode =3D "drive-open-drain";
-reflecting pin control.
+> +
+> +      excitation-current-nanoamp:
+> +        maxItems: 2
+> +        items:
+> +          enum: [10000, 50000, 100000, 250000, 500000, 1000000, 1500000]
+> +
 
-I do understand the idea to keep using the same bindings
-for all of Rohm MFDs. But when a completely new design
-arrives with many new properties etc, maybe we can think
-of something new?
+The current outputs are not independently configurable on this one
+so maxItems: 1 would be fine on this one.
 
-Yours,
-Linus Walleij
+Or I think this works too:
+
+      excitation-current-nanoamp:
+        items:
+          - enum: [10000, 50000, 100000, 250000, 500000, 1000000, 1500000]
+
+
+> +      burn-out-current-nanoamp:
+> +        items:
+> +          - enum: [10000]
+
+When there is only one possibility:
+
+             - const: 10000
+
+> +
+> +      reference-sources:
+> +        items:
+> +          - enum: [internal-2.048v, external, avdd]
+> +            default: internal-2.048v
+
+Since there is only one internal, we can just call it "internal".
+
+> +
+> +    dependencies:
+> +      excitation-channels: [ excitation-current-nanoamp ]
+> +      excitation-current-nanoamp: [ excitation-channels ]
+> +
+> +    oneOf:
+> +      - required: [ single-channel ]
+> +      - required: [ diff-channels ]
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - avdd-supply
+> +  - dvdd-supply
+> +
+> +dependencies:
+> +  refn-supply: [ refp-supply ]
+> +
+> +oneOf:
+> +  - required:
+> +      - refp-supply
+> +  - required:
+> +      - ti,refp-refn-resistor-ohms
+> +  - properties:
+> +      refp-supply: false
+> +      refn-supply: false
+> +      ti,refp-refn-resistor-ohms: false
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        adc@40 {
+> +            compatible = "ti,ads112c04";
+> +            reg = <0x40>;
+> +            interrupt-parent = <&gpio>;
+> +            interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
+> +
+> +            reset-gpios = <&gpio 13 GPIO_ACTIVE_LOW>;
+> +            avdd-supply = <&vdd_3v3_reg>;
+> +            dvdd-supply = <&vdd_3v3_reg>;
+> +            refp-supply = <&vref_reg>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            channel@0 {
+> +                reg = <0>;
+> +                diff-channels = <0>, <1>;
+> +            };
+> +
+> +            channel@1 {
+> +                reg = <1>;
+> +                single-channel = <2>;
+> +            };
+> +        };
+> +    };
+> 
+
