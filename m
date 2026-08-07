@@ -1,133 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E353A9851;
-	Fri,  7 Aug 2026 21:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A11376A1B
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 22:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786139448; cv=none; b=JiYagISlzY9xKx/M4a4DOJFBmZ+uS5I4eI0whHEOag6JTFxcinSpc9tCDiFFEMW3V8monOV47ejBGBQQNtaolbbfsP2FNVIpNlDCrxD2vobj0+anwtb8eCI835JbkRkgVvaA4ROTBwK9dH03wqCwoE24ndNgdpe3KKpmPEVke0g=
+	t=1786141257; cv=none; b=UnOz4CkaSOZ9jsIx9iq67U+t42baDLlGlOakWV+L6W27rU7rVycVgqo7E9dxfGEHs2K/ooCE4GHYmBaHqThCH9Scv1wBGoLAPi/+2SuUXkNqEL0YMz4aovumyg6xPhjQqqbYmykV/RL2357BgXvNMWEI2OypZNCbO6YohPp11Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786139448; c=relaxed/simple;
-	bh=KAO4mzSrvbVLiLzsEbKxy01n3MJZPt07iCtj5W7UiPU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r19ViHiyUHuUIcyy/ydWxzT6MnkXYF3dKD51JYXmOX6nkMd7fQEXJ8YB+bQWjj6kpdxtOMe/rTG/hxbOvcfq+o+JvqbyJ9TNybF1qy60yL7umcdDHsiBAPtZDHS9NCwzZEfX7sUpMFIvqeWkm0r15gb+0GJc5XNFjJoD9AZWPc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+Sh8CXq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786141257; c=relaxed/simple;
+	bh=toEIXewZudtNgMfxo/0KSIYSlX45bbmndQ9I2TohXB0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=EMv/990SSosLGJjlmW8w00uYkK22cw9RzpVms9x3YKVYS6T4ygLkN0aGNtiUoouXNJi55v7PibLzlaqfLUSCYR139Yog5FW9ME1HphCyBT4N91x5HLuOm30h7nfNcNftJoRVtWqowG0nyWe5qx7Hoaphrx4+qbxMMI7rzojUtD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fdh2jHll; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+Sh8CXq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4D451F000E9;
-	Fri,  7 Aug 2026 21:50:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786139447;
-	bh=TRWWokPRG/+EXHuXleH02rqZuTaX2jULOJRH0xT4mSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S+Sh8CXqKzPH3VqNZlKU22IBzIHRCItajs+sSyGAxmimzxma1s9+PL1ZQXxbIZ3Dc
-	 CZcjSs/yWy/gu85YYRs2CZ+9AOY2qhbToKK/uGybGvDt6ifsztvAQNroFTeFSe1npf
-	 62Kb4pAHrxFN8ngRwsnf42xZ3mF/c2VmcCl+/MP9cstpqIqatwNhqihUf9wuFsZY/a
-	 f6lPlUQY5lR+M09vAcH6BAKe7qyA9G1PkswkbslRpRvNwGxWcU2Z5jmvaNGc/PgGRc
-	 esr1BWlFBaM2mDajUy1y6tssesFB0oT2CnUDlmawqJl1DrTjCp40Qt0fXxychBfbem
-	 gvDW5vaFl/sBQ==
-Date: Fri, 7 Aug 2026 16:50:46 -0500
-From: Rob Herring <robh@kernel.org>
-To: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fdh2jHll"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-480001972b8so578256f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 15:20:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786141254; x=1786746054; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EhYdbrJNExqm2Adqxwy//2oFBKGBRGKCUdrpPI8D7eU=;
+        b=Fdh2jHll+HJL41eK3M6DB6La06V39Zsxd0BUBOId5BFBW0aVXxBITZ4a7yXaJnvEGn
+         naRoLbsdmdwf34IcIs3j0txesemeM+R96k7P73nzdgDteufhiIQsxPQli9E7C0K288Yf
+         3Y8jqJMpSnFHc3LmvktN1ZfTIhRqqXbaEhs+57fIlsWZRIZQ/2xbD9Y8tqsb3Yz92KDE
+         mocNuCATDWO6s3B/SvYVvw3nze9UD40wJ4cAUKhANOAxgVCRY10zkcZjHYTHZNtVptYv
+         x+nDhWkGRIIMCed7CM1JgvAedMLGRAorN+twAEMFXczDDAKvbltQcBmwa63reB4Sp7qr
+         Rxlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786141254; x=1786746054;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EhYdbrJNExqm2Adqxwy//2oFBKGBRGKCUdrpPI8D7eU=;
+        b=GYb6UwmC4RpOuNNq0vp29nYQZIEgtPb9MH7IqfvKvbbWZt7qK/gccDo8belRFh0xWm
+         k7p117VURMMOmKxO3ar1VxNLPBcnGIttURDBflRBRnjNTSY7Xl/CGJfqdJXTHh2pzPM+
+         tDw3PbB6ApIqlSrmGzMxrvHbym/ts2DNhIzrRZ5Lkv8hRKA+TFP8/6ObQhJrTrI1Mc88
+         ID3tp7TfQUG4sODadX80O/1wdhY1QuGfJ9ccKIy1s2mLK3g8ZaPWn4Fri1WhVZQECe9L
+         z45V8Brgn95VIPVwqITr5QTeLE/ukFDI/hnpcH6NANPrR0Rb7SvPf9kBGoyQWNn2gMHV
+         zF+A==
+X-Forwarded-Encrypted: i=1; AHgh+Rr6meICbd13EOyct+Wb8cPRNhysbwbg7SLxlmjRFKd1a81rZiEJ8qGdfN5HIujkgIJjBgKtyf8Hs24n@vger.kernel.org
+X-Gm-Message-State: AOJu0Yymn8GPq+eP7R1CPUB8M8aEXRFOgcz6AYJTu0LmaRQZvCqn57sw
+	gdtmtb9UWqVL1HbbfBHGBS6BlPWKkI4zycoNw80xC0b9B6Nfwxmt/CJz
+X-Gm-Gg: AR+sD12XtvcTM02KWljFcYhtsXpi3IC8S2mK7nDP4ljCaY+GXUl522CtkyB+8Lt5dp0
+	n4L/SQBoFcNBi0kOb1jWqmEHQEoslYQIMGLd8SL5JBIpu+ePUbUl0QZRiyMcikjvYwDmMP2BNQe
+	IbjLuwaBXUooK3n/OXFyKbQgig/fVMLe3K5d+Se8JkarryJRINPXCsfoOS371+YsJ/u7jEj35bq
+	QT3W0By3PNCbz/6cEE7NdmG7K2Rxj3umON8K5xl0BsmO+9P+jsohC1gAUHzIi7Ut/VdrHBW1mYy
+	d9j57KnV8/KzSoagve42THqqXuOF5v89LUE1bl9S0+aXhE+hnNQGa42Y5cNUgcdYnuajr7dNiC2
+	PbF2fkG1oaRVoqyppYbXWXa2rA4VBChOXanu+tDUNz4auMgpItv+0320EudP8Rt6vL0Eyo0dn88
+	whB6zouS4SWHn68z+74WgO/p2G2Gb1aWFflAC+I9s8vrxVRRtNpxoQU7h+dJB8hqzbuK5RXceyh
+	la8T+0XfF5OE30depR0dSwDx2Qg3QeCLV3xrqBBpi+q93qhK13auw==
+X-Received: by 2002:a05:6000:18a6:b0:47f:96f9:a99f with SMTP id ffacd0b85a97d-47fec50830fmr36006613f8f.13.1786141253964;
+        Fri, 07 Aug 2026 15:20:53 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-87-19-255-168.retail.telecomitalia.it. [87.19.255.168])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-480021f9182sm9581519f8f.28.2026.08.07.15.20.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 15:20:53 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: clock: qcom: Add Hawi camera clock
- controller
-Message-ID: <20260807215046.GA2074060-robh@kernel.org>
-References: <20260723-camcc-hawi-v1-0-7057658c5c47@oss.qualcomm.com>
- <20260723-camcc-hawi-v1-1-7057658c5c47@oss.qualcomm.com>
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Peng Zhang <zhangpeng.00@bytedance.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Rong Zhang <rongrong@oss.cipunited.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Gerhard Engleder <eg@keba.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Lubomir Rintel <lkundrak@v3.sk>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: [PATCH v3 0/2] serial: 8250: Add AN7581 UART support
+Date: Sat,  8 Aug 2026 00:20:38 +0200
+Message-ID: <20260807222044.208056-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723-camcc-hawi-v1-1-7057658c5c47@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 23, 2026 at 02:38:57PM -0700, Vivek Aknurwar wrote:
-> Update the compatible and bindings for camera clock controller (CAMCC)
-> support on the Qualcomm Hawi SoC.
+This is a new version of [1] to support UART driver for
+Airoha SoC.
 
-That's obvious from the diff. Explain how the block is the same or 
-different in Hawi.
+One additional function was needed serial8250_get_baud_rate()
+for the driver to work correctly for baud rate calculation.
 
-> 
-> Signed-off-by: Vivek Aknurwar <vivek.aknurwar@oss.qualcomm.com>
-> ---
->  .../bindings/clock/qcom,sm8450-camcc.yaml          |  36 +++--
->  include/dt-bindings/clock/qcom,hawi-camcc.h        | 165 +++++++++++++++++++++
->  2 files changed, 192 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> index b41247b257b1..cdc19418c064 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,sm8450-camcc.yaml
-> @@ -16,6 +16,7 @@ description: |
->    domains on SM8450.
->  
->    See also:
-> +    include/dt-bindings/clock/qcom,hawi-camcc.h
->      include/dt-bindings/clock/qcom,kaanapali-camcc.h
->      include/dt-bindings/clock/qcom,kaanapali-cambistmclkcc.h
->      include/dt-bindings/clock/qcom,sm8450-camcc.h
-> @@ -26,15 +27,21 @@ description: |
->  
->  properties:
->    compatible:
-> -    enum:
-> -      - qcom,kaanapali-cambistmclkcc
-> -      - qcom,kaanapali-camcc
-> -      - qcom,sm8450-camcc
-> -      - qcom,sm8475-camcc
-> -      - qcom,sm8550-camcc
-> -      - qcom,sm8650-camcc
-> -      - qcom,sm8750-cambistmclkcc
-> -      - qcom,sm8750-camcc
-> +    oneOf:
-> +      - enum:
-> +          - qcom,hawi-camcc
-> +          - qcom,kaanapali-cambistmclkcc
-> +          - qcom,kaanapali-camcc
-> +          - qcom,sm8450-camcc
-> +          - qcom,sm8475-camcc
-> +          - qcom,sm8550-camcc
-> +          - qcom,sm8650-camcc
-> +          - qcom,sm8750-cambistmclkcc
-> +          - qcom,sm8750-camcc
-> +      - items:
-> +          - enum:
-> +              - qcom,hawi-cambistmclkcc
-> +          - const: qcom,kaanapali-cambistmclkcc
->  
->    clocks:
->      items:
-> @@ -67,6 +74,17 @@ required:
->  
->  allOf:
->    - $ref: qcom,gcc.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              enum:
-> +                - qcom,kaanapali-cambistmclkcc
-> +                - qcom,sm8750-cambistmclkcc
-> +    then:
-> +      required:
-> +        - '#power-domain-cells'
+While at it also try to clarify a long standing issue with
+new UART driver when adding new ids for uart_config[].
 
-This makes #power-domain-cells required on existing platforms. That's a 
-separate patch and needs to be explained.
+[1] https://lore.kernel.org/all/20250209210241.2622309-1-benjamin.larsson@genexis.eu/
 
-Rob
+Changes v3:
+- Address review from ai bot
+- Add all missing kernel headers
+- Improve divisor calculation
+- Fix wrong uart config table
+- Simplify divisor table handling
+
+Changes v2:
+- Drop intermediate patch
+- Use .set_divisor OPs
+- Use div_u64 instead of / 40 for 32 bit overflow
+- Drop dedicated match table and use compatible for type
+
+Changes compared to [1]:
+- Fix all formal error
+- Use better compatible names
+- Drop unneeded header
+- Drop usage of irq (it's filled by the generic function)
+- General code cleanup and reorg
+- Split to patch and add the UAPI map patch
+
+Benjamin Larsson (1):
+  dt-bindings: serial: 8250: Add Airoha compatibles
+
+Christian Marangi (1):
+  serial: 8250: Add Airoha SoC UART and HSUART support
+
+ .../devicetree/bindings/serial/8250.yaml      |   5 +
+ drivers/tty/serial/8250/8250.h                |   6 +
+ drivers/tty/serial/8250/8250_airoha.c         | 186 ++++++++++++++++++
+ drivers/tty/serial/8250/8250_port.c           |  16 ++
+ drivers/tty/serial/8250/Kconfig               |  11 ++
+ drivers/tty/serial/8250/Makefile              |   1 +
+ 6 files changed, 225 insertions(+)
+ create mode 100644 drivers/tty/serial/8250/8250_airoha.c
+
+-- 
+2.53.0
+
