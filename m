@@ -1,125 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 975A7279903;
-	Fri,  7 Aug 2026 01:04:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B394B04BF;
+	Fri,  7 Aug 2026 01:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786064686; cv=none; b=oAYy/18aaGHhdc67vf8Kku5ab+tst2CRoQJcnhD/lELOAtHDgprDlbz6PRq4NNOofpV4suefKDwDF7AgPmdupZJKVsQzNPfufx2tLLGg3+C5Xn6e7HBNWdFc7mn7aZYs1KqehyPb0UFr+okUmbNqyKNIsOGaaU122e90M5ZuAO8=
+	t=1786065950; cv=none; b=skH0TDdNc/lBOM7mi04cEeGsPpgT8LzLG3dCokimFYcVmIcrggYwMpAyE+dn0tF9tzIr+p883wu5Hv/8j/4Wa8KHdNO6AVtBTdqxGdCff6XF9jot/kase6kJDXKbMKES691YXc0nZDrJQ8JFDtdKYCLnpcuTDnMqRI5Jq+MCzZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786064686; c=relaxed/simple;
-	bh=1TDGJ8xLMlQRc6WuVobqlf19ekTKvIbqQe4pL8uXtI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cw8BwSlsKXcOSWb20b0HJDBEzs6s8awc0gsZrB4H3hWv+fKrRC+NHWZ915bU1Mdlgm8CS8VBRTy11KOiqvhKkp0/k5Y1GklVCptzGyyo10KBOzsA2S3KFnBFhDk7KDn4Yz03zUv5TqbY4imRsoysTCaEftJ7+4sb+XUIr430HHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lfqNFeqX; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786065950; c=relaxed/simple;
+	bh=2kIKcmiEerdy0E5dlWHijdJoKCjYoDitZkBM7KZc2Xw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l0u2auYG4SI+jv5DzpgW2cFo/MZ90R0GznX1AbO+aBXNWPZ93YdIKzthS0KP7e8ZETvQAqsdWpJplSrpfABx4hHoea0RFzUc61xRG/zwivbLzpFwQmVUcsrvauLtx72L2nIsP+wYbK6rEwidSPzorEalSW34gkGcyvE5EuERXFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGjQK6E3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lfqNFeqX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786064683; x=1817600683;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1TDGJ8xLMlQRc6WuVobqlf19ekTKvIbqQe4pL8uXtI0=;
-  b=lfqNFeqXxJzB+X1oUbcFC/ouc3/v7i8AZncRz7iWGwTuX2tC9MZzakCK
-   FXm7fmapDayHDjGEQV7ZXTtBykKVB9hn9S2W78K+n3StayMVeTIVPoiut
-   L2Xn3DMKI8XRZjbQIeA0PQamr2u0a5QNYJTIusNZEDjZR3QpZr1CyljZB
-   tO63M354rUWgk/TVOzyfbNR0z1V6fkNk8hb+ofwyNiQjZ+mpFCLCBm1+M
-   CE2cv+xx6jgGKxsbjaUMI/x1f7T0gDuzM1aKe+26NEmdOpuaTLhKaPG5b
-   5Piid0hTC0Gg6OHl01fxQkj02Srzd01BqITAvisUxAs390wNwOYhmzg84
-   g==;
-X-CSE-ConnectionGUID: Cc7ti/9wSkCK8YpwNFmE6A==
-X-CSE-MsgGUID: j7btvPYiQnShpGdLCR9niQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86524139"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
-   d="scan'208";a="86524139"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 18:04:42 -0700
-X-CSE-ConnectionGUID: oqw5d/kFQ4Cx6+1qU/2lCw==
-X-CSE-MsgGUID: 1RzVVBy2R0S1ycLIoc+apQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; 
-   d="scan'208";a="286933851"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.50])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Aug 2026 18:04:37 -0700
-Date: Fri, 7 Aug 2026 04:04:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Varshini Rajendran <varshini.rajendran@microchip.com>
-Cc: ehristev@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev, srini@kernel.org,
-	marcelo.schmitt@analog.com, radu.sabau@analog.com,
-	Jonathan.Santos@analog.com, jorge.marques@analog.com,
-	joshua.crofts1@gmail.com, jishnu.prakash@oss.qualcomm.com,
-	antoniu.miclaus@analog.com, mazziesaccount@gmail.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 08/16] nvmem: microchip-otpc: nvmem: microchip-otpc:
- add tag-based packet lookup
-Message-ID: <anUvI309X_TVQbi1@ashevche-desk.local>
-References: <20260727122633.117435-1-varshini.rajendran@microchip.com>
- <20260727122633.117435-9-varshini.rajendran@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGjQK6E3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B9CA1F000E9;
+	Fri,  7 Aug 2026 01:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786065949;
+	bh=2kIKcmiEerdy0E5dlWHijdJoKCjYoDitZkBM7KZc2Xw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mGjQK6E3wz8gebuYZcIhYVnD4rbyXB9o+3wj3CKxxO5Ai/IvXe47SzQD8PbSO37G+
+	 oDDP9IopDd1RA5WdHLGyPlKw6Xs1YsN/8OuUqa1nWyNkF5ig9q1E5caOJM4wXIuoD6
+	 Xqy7xtbmQFz1KxKu6HUgWp+eg/NI702chu/A2AYueIny81Gmn8xRX+QOrroeCjua32
+	 ZedTih/7wUUTtmYnlrTTZke8mnoEyxpG05SzV0LHoxvZta0hAjJ06G4jj57HBhLUE5
+	 AIzfjCviRO8LBnekUdDa44HyovtNMD9e7dd6aRAy2xq8HkJhd7Dvktmn7311EiRgZG
+	 NAUDIRAuuTFjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 1/4] dt-bindings: mfd: x-powers: add AC200
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Hilliard" <james.hilliard1@gmail.com>
+Cc: conor+dt@kernel.org, mfd@lists.linux.dev, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260805-submit-acx00-of-dynamic-v1-v3-1-32c3210a6f25@gmail.com>
+References: <20260805-submit-acx00-of-dynamic-v1-v3-0-32c3210a6f25@gmail.com>
+ <20260805-submit-acx00-of-dynamic-v1-v3-1-32c3210a6f25@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 01:24:48 +0000
+Message-Id: <20260807012549.0B9CA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727122633.117435-9-varshini.rajendran@microchip.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Jul 27, 2026 at 05:56:25PM +0530, Varshini Rajendran wrote:
-> Add support for accessing OTP packets by their tag which is a FourCC
-> while preserving backward compatibility with the existing ID-based
-> lookup.
-> 
-> The OTP memory layout can vary across devices and may change over time,
-> making the packet ID approach unreliable when the memory map is not
-> known in advance. The packet tag provides a reliable way to identify
-> and access packets without prior knowledge of the OTP memory layout.
-> 
-> Two offset encodings are now supported:
->   1. Legacy ID-based: offset = OTP_PKT(id) = id * 4
->      Used in DT as: reg = <OTP_PKT(1) 76>;
->   2. TAG-based: offset = 4-byte ASCII packet tag (FourCC)
->      Used in DT as: reg = <0x41435354 0x4c>; (tag "ACST")
-> 
-> The driver resolves offsets matching valid legacy selectors (multiples
-> of 4 within the packet count) through ID lookup, falling back to tag
-> lookup for other valid values. This ensures existing device trees
-> continue to work while enabling new tag-based access. During probe,
-> packet meta data including the tag is read and cached.
-> 
-> The stride of the nvmem memory is set to 1 in order to support tag based
-> offsets, comment in the header file is updated accordingly.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The commit message description is not capitalized, violating strict=
+ MFD subsystem guidelines.
+--
 
-...
+--- Patch [1]: [PATCH net-next v3 1/4] dt-bindings: mfd: x-powers: add AC20=
+0 ---
+commit 03a0e69c8a2c3321e06aceddf905ac04dfd2a7a0
+Author: James Hilliard <james.hilliard1@gmail.com>
 
-> +static bool mchp_otpc_is_valid_fourcc(u32 tag)
-> +{
-> +	int i;
-> +	u8 c;
+dt-bindings: mfd: x-powers: add AC200
 
-> +	for (i = 0; i < 4; i++) {
+This commit adds device tree binding documentation for the X-Powers AC200
+mixed-signal companion IC. It details the required properties for the parent
+device, including power supplies and input clocks.
 
-	for (unsigned int i = 0; i < 4; i++) {
+> dt-bindings: mfd: x-powers: add AC200
 
-> +		c = (tag >> (i * 8)) & 0xff;
-> +		if (c < 0x20 || c > 0x7e)
-> +			return false;
-> +	}
-> +
-> +	return true;
-> +}
+[Severity: Low]
+This isn't a bug, but the description after the subsystem prefix isn't
+capitalized. The MFD subsystem guidelines request that the description
+always be capitalized. Could this be updated to "Add AC200"?
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-submit-acx=
+00-of-dynamic-v1-v3-0-32c3210a6f25@gmail.com?part=3D1
