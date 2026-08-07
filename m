@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CED478869
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 15:00:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A91AE3264D6
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 15:08:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114836; cv=none; b=daPpR/yhpfplhVHu/JKob4b3z78GqzdtSfRn8ezY0ws3Ad+45ef1cwJf6WlQLkmqrKmph6I5iaAFIKTuFpJafExdLIdD5DvjDgqCgyS3AzMTlLtO3Bz7ay6Qt/ObCXWjT27Zf16H28oUmnJ19cK2UhAd0azMtIItM7jxg/64UbM=
+	t=1786115305; cv=none; b=Mnl7rnFjUsYVzK17et5Q3bxdG7VqIZfBrS4WvVYm0mojtEZa9rcbH4xYi/GC9gTc3kGFh4IWweRjb6aDp2zx2E4FAfUay/Un9YO16ggn9a1OS00/dFosFjhWB424crj4D8AwQKh2oDtMrchCLQMNSoH6AB9JP7BBa3k/mRup1e4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114836; c=relaxed/simple;
-	bh=S39ZnEa3QM7csvKS38ktNMltaxIFTNGb1mmxJHFfb/c=;
+	s=arc-20240116; t=1786115305; c=relaxed/simple;
+	bh=08pXFGsaEZbOrAvcXtkbMX7nQZSZOnBU8xi8/f5L2U8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OYqlJU5GTbs0FuWHCp1TGFyMLMgys/hkeojQ7w+iBw03ZdEIdtq5UinUuLYexDldQxUpiXsuwewtDJ5eRPRD9ImVl/qq256lPZrUXyPnFMKJibv3bWhLOsKAfBA/eeivee4MDgySE7ft5KizYvxEVIHW6IixkOtQE5WZqfc87YQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMnN8kOs; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=gpqKj8epU6MaIbL0r3q/vAr4f6ExKrByWNIq+Wenl4O8EZjrLWUt115YkO9zALZO+9vGB5gaG74ITFEFahRc6cb6rvXNIJG5z6q7CL46r84Wvxu3Um4E5SCdzFRawCQmMVVZmgVaoNDnR4ouANdS0bLqcS0XpKw2yxQ3k1Rg3aE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ln6KmbB4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMnN8kOs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216CF1F00A3D;
-	Fri,  7 Aug 2026 15:00:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ln6KmbB4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A101F000E9;
+	Fri,  7 Aug 2026 15:08:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786114835;
-	bh=F+W3nvCgYt1F6U2tc0YVHnDANvPKOkmc52id0Zg9QUk=;
+	s=k20260515; t=1786115303;
+	bh=ykzsfHd/RZKLrgpFAAUjLE5awoUYFxcK0eN05e7oxPk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VMnN8kOsvByrf0hGv0UwhkDQv8qEsFPsjH2E5dzfOs6L1N1vDl+ReW8wg85CH9bAr
-	 5yhDEpowQjS2JC0uaZJucN5vsNbaPD5hfHWqTX3B24KbGYCD27WhyOYY+P7rtT11aL
-	 DJ3lKO7CuGLVrIeXYNd70E7aGRAZozgLWamoHABLMCDVeCsXrMSON18JB56OhX26+U
-	 t1xqrum5bPFKBPc5kr/tO7UqIqv4mu2L116ObgBI/wTKLM2l+8etApt7OjYU3VLABy
-	 wAo0v6OH17QBL9DeWIoa343QSh69IlORttqGCQWzLzQwKOC6JR0H1O4hi+o7GKELrG
-	 O2koW25yUMGwA==
+	b=Ln6KmbB4t9vHZA+IOwrxeS/jDLZG/rqs8fZGagUOp+NBJCEZyj27MFqm6xGRN7mmK
+	 wPifxRzFfW9wFL05hMLUYDeS/ggMI3dpvkk7hDTqMSisvwKTuAYiM9Q6MzyD9G0fxZ
+	 Cjx1Djhv6ERk1YMme5EqTJntGCyo+YAkMLqPlBxyeKHzNMyaH7CU7z4oUvSLv3wym4
+	 XppyyfXcpuei7y/W95tayT0pyM/MggznsJ7/AyVBcX+1mBDBCx7pNKTCcZ2HuKIry0
+	 mXEhlH3EZ5WJb4cncTS5GqwaitMMVTDT+HpMt4VMDy31SpwpmIAht578sPbGkbcCsa
+	 /JLJ03wUpJRQw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 3/3] w5100: detect carrier state using link
- status bit
+Subject: Re: [PATCH v5 4/4] iio: light: veml6031x00: add support for events
+ and trigger
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QXJ0aHVyIENyw6lwaW4gTGVibG9uZA==?= <arthur@marmottus.net>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260806-wiznet-link-gpio-v3-3-532d4a143805@marmottus.net>
-References: <20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net>
- <20260806-wiznet-link-gpio-v3-3-532d4a143805@marmottus.net>
+To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807-veml6031x00-v5-4-e60876fb3640@gmail.com>
+References: <20260807-veml6031x00-v5-0-e60876fb3640@gmail.com>
+ <20260807-veml6031x00-v5-4-e60876fb3640@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 15:00:34 +0000
-Message-Id: <20260807150035.216CF1F00A3D@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 15:08:22 +0000
+Message-Id: <20260807150823.49A101F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,260 +47,243 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Using `devm_request_threaded_irq` for the link interrupt causes a =
-use-after-free on module removal because the network device is manually fre=
-ed before devres cleanup.
-- [High] W5500 interface becomes permanently stuck with the carrier off if =
-the cable is plugged in late and no optional link GPIO is configured.
-- [High] Link detection is broken for W5100 and W5200 hardware when a link =
-GPIO is used, as the driver always incorrectly reports the link as 'up' on =
-every interrupt edge.
-- [Medium] `w5100_get_link()` does not handle negative error codes from `w5=
-100_read()`, causing SPI read failures to be misinterpreted as a valid link=
- state.
-
-Pre-existing issues:
-- [High] Early device registration in `w5100_probe()` exposes uninitialized=
- driver state and hardware to userspace.
-- [High] `unregister_netdev()` is called after destroying the workqueue and=
- freeing interrupts, allowing active network operations to use destroyed re=
-sources.
-- [High] The probe error path unregisters and frees the netdev without canc=
-eling pending asynchronous works, leading to a Use-After-Free.
+- [High] Unbalanced PM runtime usage counter causes an underflow on device =
+unbind or probe error.
+- [High] Uninitialized padding in the local `scan` buffer leaks kernel stac=
+k memory to userspace.
+- [High] Spurious interrupts cause I2C reads while the device is runtime su=
+spended.
+- [High] Initialization order and use-after-destroy race due to early IRQ/t=
+rigger registration.
+- [High] Triggered buffer is unconditionally registered on the no-IRQ path =
+with a malformed channels array.
+- [Medium] Missing timestamp acquisition for nested trigger handler.
+- [Medium] Trigger disable sequence violates hardware constraints by cleari=
+ng AF before AF_TRIG.
 --
 
---- Patch [3]: [PATCH net-next v3 3/3] w5100: detect carrier state using li=
-nk status bit ---
-commit 6726aad63717b1d64239168658010e6e77a6636c
-Author: Arthur Cr=C3=A9pin Leblond <arthur@marmottus.net>
+--- Patch [4]: [PATCH v5 4/4] iio: light: veml6031x00: add support for even=
+ts and trigger ---
+commit aeccd415dcc79cfa9463cf8b5eec2292ee46dfab
+Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
-w5100: detect carrier state using link status bit
+iio: light: veml6031x00: add support for events and trigger
 
-Detect the link status on the w5500 using the Link Status bit from the
-PHY Configuration register.
+The device provides a shared interrupt line for to notify events and
+data ready, which can be used as a trigger. The interrupt line is not a
+requirement for the device to work. Implement variants for the cases
+whether the interrupt line is provided or not.
 
-Also add an optional GPIO line that can be wired to the LINKLED pin of
-the w5500 as an interrupt to detect link status changes and read the
-register.
-
-On chip variants other than the w5500, which lack this register, the
-link is always reported as up.
-
-Commit dacf281771a9 ("w5100: remove unused gpio link detection")
-dropped the link_gpio/link_irq handling on the grounds that no
-devicetree user passed a "link" GPIO at the time and that it used the
-old gpio interface.
-
-This isn't a plain revert of that removal. It uses the new managed GPIO
-descriptors so that the resources are released automatically on driver
-removal or probe failure.
-
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/w=
-iznet/w5100.c
-> index 53d8dc642fbd6..6707a6f273954 100644
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
-
+> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031=
+x00.c
+> index 0cccd40d729eb..e193f87e6740f 100644
+> --- a/drivers/iio/light/veml6031x00.c
+> +++ b/drivers/iio/light/veml6031x00.c
 [ ... ]
-
-> @@ -414,6 +418,16 @@ static void w5100_get_drvinfo(struct net_device *nde=
-v,
->  		sizeof(info->bus_info));
->  }
-> =20
-> +static u32 w5100_get_link(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv =3D netdev_priv(ndev);
-> +
-> +	if (priv->ops->chip_id =3D=3D W5500)
-> +		return w5100_read(priv, W5500_PHYCFGR) & PHYCFGR_LNK;
-
-[Severity: Medium]
-Does this correctly handle negative error codes from w5100_read()?
-
-w5100_read() delegates to SPI read functions which can return negative error
-codes (e.g., -EIO or -ENOMEM) upon transfer failure. Because negative numbe=
-rs
-are represented in two's complement, an error code like -EIO (-5, which is
-0xFFFFFFFB) will have the lowest bit set.
-
-Could this cause the driver to incorrectly interpret an SPI read failure as=
- a
-valid "link up" state?
-
-> +
-> +	return 1;
-> +}
-> +
-
+> @@ -494,13 +686,205 @@ static int veml6031x00_write_raw_get_fmt(struct ii=
+o_dev *indio_dev,
 [ ... ]
-
-> @@ -616,6 +630,24 @@ static irqreturn_t w5100_interrupt(int irq, void *nd=
-ev_instance)
->  	return IRQ_HANDLED;
->  }
-> =20
-> +static irqreturn_t w5100_detect_link(int irq, void *ndev_instance)
+> +static irqreturn_t veml6031x00_interrupt(int irq, void *private)
 > +{
-> +	struct net_device *ndev =3D ndev_instance;
-> +	struct w5100_priv *priv =3D netdev_priv(ndev);
+> +	struct iio_dev *iio =3D private;
+> +	struct veml6031x00_data *data =3D iio_priv(iio);
+> +	s64 timestamp;
+> +	int regval, ret;
+> +	bool trigger_poll;
 > +
-> +	if (netif_running(ndev)) {
-> +		if (w5100_get_link(ndev)) {
+> +	scoped_guard(mutex, &data->irq_lock) {
+> +		ret =3D regmap_read(data->regmap, VEML6031X00_REG_INT, &regval);
 
 [Severity: High]
-For non-W5500 chips (like W5100 or W5200), w5100_get_link() unconditionally
-returns 1.
+If a spurious interrupt fires while both ev_en and trig_en are false,
+could this unconditionally read from the I2C bus while the device is
+runtime suspended?
 
-Since the new link GPIO interrupt is configured to trigger on both rising
-and falling edges, does this mean any link state change (even a cable unplu=
-g)
-will be incorrectly interpreted as "link is up" on older chips because the
-actual GPIO value is never read?
+It looks like this might hit a powered-off device since it doesn't
+use pm_runtime_get_if_active() or check software state before
+the register read.
 
-> +			netif_info(priv, link, ndev, "link is up\n");
-> +			netif_carrier_on(ndev);
-> +		} else {
-> +			netif_info(priv, link, ndev, "link is down\n");
-> +			netif_carrier_off(ndev);
+> +		if (ret) {
+> +			dev_dbg(regmap_get_device(data->regmap),
+> +				"Failed to read interrupt register %d\n", ret);
+> +			return IRQ_NONE;
+> +		}
+[ ... ]
+> @@ -535,11 +919,78 @@ static int veml6031x00_buffer_postdisable(struct ii=
+o_dev *iio)
+>  	return 0;
+>  }
+> =20
+> +static int veml6031x00_set_trigger_state(struct iio_trigger *trig, bool =
+state)
+> +{
+> +	struct iio_dev *iio =3D iio_trigger_get_drvdata(trig);
+> +	struct veml6031x00_data *data =3D iio_priv(iio);
+> +	int ret;
+> +
+> +	guard(mutex)(&data->irq_lock);
+> +
+> +	if (state =3D=3D data->trig_en)
+> +		return 0;
+> +
+> +	ret =3D veml6031x00_set_interrupt(data, state);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* The AF bit must be set before setting AF_TRIG */
+> +	ret =3D regmap_update_bits(data->regmap, VEML6031X00_REG_CONF0,
+> +				 VEML6031X00_CONF0_AF,
+> +				 FIELD_PREP(VEML6031X00_CONF0_AF, state));
+
+[Severity: Medium]
+Since the AF bit must be set before setting AF_TRIG, does the
+disable sequence need to happen in reverse order?
+
+When state is false, this clears the AF bit first, creating a window
+where AF_TRIG is still active but AF is disabled.
+
+> +	if (ret) {
+> +		veml6031x00_set_interrupt(data, !state);
+> +
+> +		return ret;
+> +	}
+> +
+> +	ret =3D regmap_update_bits(data->regmap, VEML6031X00_REG_CONF0,
+> +				 VEML6031X00_CONF0_AF_TRIG,
+> +				 FIELD_PREP(VEML6031X00_CONF0_AF_TRIG, state));
+[ ... ]
+> +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
+> +{
+> +	struct iio_poll_func *pf =3D p;
+> +	struct iio_dev *iio =3D pf->indio_dev;
+> +	struct veml6031x00_data *data =3D iio_priv(iio);
+> +	IIO_DECLARE_BUFFER_WITH_TS(__le16, scan, 2);
+
+[Severity: High]
+Could this leak uninitialized kernel stack memory to userspace?
+
+The IIO_DECLARE_BUFFER_WITH_TS macro allocates the buffer on the stack
+without zeroing the padding bytes between the channel data and the
+timestamp.
+
+> +	unsigned int i =3D 0;
+> +	int ch, ret;
+> +
+> +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
+> +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
+> +		ret =3D regmap_bulk_read(data->regmap,
+> +				       VEML6031X00_REG_ALS_L,
+> +				       scan,
+> +				       2 * sizeof(*scan));
+> +		if (ret)
+> +			goto done;
+> +	} else {
+> +		iio_for_each_active_channel(iio, ch) {
+> +			ret =3D regmap_bulk_read(data->regmap,
+> +					       iio->channels[ch].address,
+> +					       &scan[i++],
+> +					       sizeof(*scan));
+> +			if (ret)
+> +				goto done;
 > +		}
 > +	}
+> +
+> +	iio_push_to_buffers_with_ts(iio, scan, sizeof(scan), pf->timestamp);
+
+[Severity: Medium]
+Since this trigger handler is executed synchronously from the interrupt
+handler via iio_trigger_poll_nested() bypassing the top-half
+iio_pollfunc_store_time(), will pf->timestamp always be zero here?
+
+> +
+> +done:
+> +	iio_trigger_notify_done(iio->trig);
 > +
 > +	return IRQ_HANDLED;
 > +}
-> +
-
 [ ... ]
-
-> @@ -659,6 +691,12 @@ static int w5100_open(struct net_device *ndev)
->  	w5100_hw_start(priv);
->  	napi_enable(&priv->napi);
->  	netif_start_queue(ndev);
-> +
-> +	if (w5100_get_link(ndev))
-> +		netif_carrier_on(ndev);
-> +	else
-> +		netif_carrier_off(ndev);
+> @@ -636,15 +1142,29 @@ static int veml6031x00_probe(struct i2c_client *i2=
+c)
+>  				     "Failed to set regmap\n");
+> =20
+>  	iio->name =3D data->chip->name;
+> -	iio->channels =3D veml6031x00_channels;
+> -	iio->num_channels =3D ARRAY_SIZE(veml6031x00_channels);
+>  	iio->modes =3D INDIO_DIRECT_MODE;
+> -	iio->info =3D &veml6031x00_info;
+> +	if (i2c->irq) {
+> +		iio->channels =3D veml6031x00_channels_irq;
+> +		iio->num_channels =3D ARRAY_SIZE(veml6031x00_channels_irq);
+> +		ret =3D veml6031x00_setup_irq(i2c, iio);
 
 [Severity: High]
-If the cable is disconnected at open time, this explicitly turns the carrier
-off.
+Does registering the IRQ and trigger here expose a race condition?
 
-If a board does not define the optional link GPIO in its devicetree, the
-driver skips setting up the link IRQ. Since there is no fallback polling
-timer implemented when the interrupt is unavailable, is there any mechanism
-to detect when a cable is plugged in later, or does the interface remain
-permanently stuck with the carrier off?
+veml6031x00_setup_irq() requests the threaded IRQ before devm_mutex_init()
+allocates data->irq_lock and veml6031x00_regfield_init() allocates
+data->rf.int_en. If an interrupt fires immediately, the handler will try
+to lock an uninitialized mutex.
 
+Additionally, since devres cleans up in reverse order, won't the mutex
+be destroyed before the IRQ is unregistered during unbind?
+
+> +		if (ret)
+> +			return ret;
 > +
->  	return 0;
->  }
-> =20
+> +		iio->info =3D &veml6031x00_info;
+> +	} else {
+> +		iio->channels =3D veml6031x00_channels;
 
-[ ... ]
+[Severity: High]
+If the device does not provide an interrupt, it falls back to
+veml6031x00_channels which lacks scan_index and scan_type definitions.
 
-> @@ -751,6 +790,13 @@ int w5100_probe(struct device *dev, const struct w51=
-00_ops *ops,
->  	priv->ndev =3D ndev;
->  	priv->ops =3D ops;
->  	priv->irq =3D irq;
-> +	priv->link_gpio =3D devm_gpiod_get_optional(dev, "link", GPIOD_IN);
-> +	if (IS_ERR(priv->link_gpio)) {
-> +		err =3D dev_err_probe(dev, PTR_ERR(priv->link_gpio),
-> +				    "failed to get link GPIO\n");
-> +		priv->link_gpio =3D NULL;
-> +		goto err_register;
+Will setting up a triggered buffer unconditionally at the end of probe
+cause IIO core undefined behavior if a user attaches an external
+sysfs/hrtimer trigger, since both channels would default to a
+scan_index of 0 and 0 storage bits?
+
+> +		iio->num_channels =3D ARRAY_SIZE(veml6031x00_channels);
+> +		iio->info =3D &veml6031x00_info_no_irq;
 > +	}
-
-[Severity: High]
-This is a pre-existing issue, but does registering the netdev this early
-expose uninitialized state to userspace?
-
-Later in w5100_probe(), register_netdev() is called before critical
-initialization steps like allocating priv->xfer_wq, executing INIT_WORK(),
-and performing a hardware reset.=20
-
-If userspace attempts to use the device immediately after registration (e.g=
-.,
-via udev bringing the interface UP), could ndo_open() and transmit paths
-execute on uninitialized hardware or attempt to queue work to a NULL
-priv->xfer_wq?
-
-[ ... ]
-
-> @@ -803,8 +849,29 @@ int w5100_probe(struct device *dev, const struct w51=
-00_ops *ops,
->  	if (err)
->  		goto err_hw;
 > =20
-> +	if (priv->link_gpio) {
-> +		int link_irq =3D gpiod_to_irq(priv->link_gpio);
-> +
-> +		if (link_irq < 0) {
-> +			err =3D dev_err_probe(dev, link_irq,
-> +					    "No corresponding irq for link gpio\n");
-> +			goto err_gpio;
-> +		}
-> +
-> +		err =3D devm_request_threaded_irq(dev, link_irq, NULL,
-> +						w5100_detect_link,
-> +						IRQF_TRIGGER_RISING |
-> +						IRQF_TRIGGER_FALLING |
-> +						IRQF_ONESHOT,
-> +						"w5100-link", priv->ndev);
-
-[Severity: High]
-Can this devm-managed interrupt trigger a use-after-free on module removal?
-
-The devm cleanup runs after the driver's w5100_remove() callback returns.
-However, w5100_remove() calls free_netdev(ndev) to synchronously free the
-network device before returning.=20
-
-If a link change triggers the interrupt during this window, wouldn't the
-active threaded IRQ handler w5100_detect_link() execute and dereference the
-already-freed ndev pointer?
-
-> +		if (err < 0)
-> +			goto err_gpio;
-> +	}
-> +
->  	return 0;
+>  	ret =3D devm_mutex_init(&i2c->dev, &data->scale_lock);
+>  	if (ret)
+>  		return ret;
 > =20
-> +err_gpio:
-> +	free_irq(priv->irq, ndev);
->  err_hw:
->  	destroy_workqueue(priv->xfer_wq);
+> +	ret =3D devm_mutex_init(&i2c->dev, &data->irq_lock);
+> +	if (ret)
+> +		return ret;
+> +
+>  	ret =3D veml6031x00_regfield_init(data);
+>  	if (ret)
+>  		return dev_err_probe(&i2c->dev, ret, "Failed to init regfield\n");
+> @@ -672,6 +1192,12 @@ static int veml6031x00_probe(struct i2c_client *i2c)
+>  	if (ret)
+>  		return dev_err_probe(&i2c->dev, ret, "Failed to get runtime PM\n");
+> =20
 
 [Severity: High]
-This is a pre-existing issue, but is it safe to destroy the workqueue before
-unregistering the netdev?
+Could the devm_pm_runtime_get_noresume() call just above this hunk cause
+a usage counter underflow?
 
-By calling destroy_workqueue() before unregister_netdev(), the network
-device is still registered and active while its workqueue is being destroye=
-d.
-Could a concurrent packet transmission attempt to queue work to the destroy=
-ed
-workqueue?
+The devres action will eventually call pm_runtime_put_noidle() during
+driver unbind. However, the driver also manually calls
+pm_runtime_put_autosuspend() at the end of veml6031x00_probe() to drop
+the initial reference.
 
->  err_wq:
->  	unregister_netdev(ndev);
+This double-put could underflow the usage counter to -1 and corrupt
+device power management. If the driver manually manages the initial
+reference, should it use the non-devm pm_runtime_get_noresume() variant?
 
-[Severity: High]
-This is a pre-existing issue, but does this error path leak pending
-asynchronous work or cause a use-after-free?
-
-If an error occurs after register_netdev() succeeds, the error path
-unregisters and frees the netdev. Because the device was visible to userspa=
-ce,
-actions like ndo_set_rx_mode might have already scheduled priv->setrx_work
-onto the global system workqueue.
-
-Since cancel_work_sync() is never called for these global works before
-free_netdev() is invoked, could the pending work execute later and
-dereference freed memory?
+> +	ret =3D devm_add_action_or_reset(&i2c->dev,
+> +				       veml6031x00_disable_event_action, data);
+> +	if (ret)
+> +		return dev_err_probe(&i2c->dev, ret,
+> +				     "Failed to add event cleanup action\n");
+> +
+>  	ret =3D veml6031x00_validate_part_id(data);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-wiznet-lin=
-k-gpio-v3-0-532d4a143805@marmottus.net?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-veml6031x0=
+0-v5-0-e60876fb3640@gmail.com?part=3D4
