@@ -1,149 +1,300 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548E0233933
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786124725; cv=none; b=QlGBPgqCQ9XAuAb3kKWFxK7PYVKL9Mggdhtn6/578bMI51quWrDLGa98pqo1AHwuydVBoOBqYjTcyQlyJiPVGiij1IV4TGSNEy7byEnu4wkdX32eM9xGkMymHe89nEAAyKL8l+DHWRcvObVKHTvDJHhVrfqwNtbnuG9M5+vYxXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786124725; c=relaxed/simple;
-	bh=K9y7+qgOIUgusqqnv2A0lIuXRIzhe19SOiZ/1cedtZM=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0A3D233933
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786125063; cv=pass; b=AE6dDAmGDQP8Nm8iGZQP5TwGeT6pLv8JW961kD1ebG+EIV6CHQha586ogZIL96XsEVHqWf6eRsoo2rHwaxRO4LX59NMvgs8CmdRB7lhEZvJOAC4ZIedjHOhNcCURLZSqnkFr4e/O0BMgw9J1+gF/Pj2KVJ1eX5gHtWUsNmYrrGY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786125063; c=relaxed/simple;
+	bh=Y5Eon8RQ+CcJu2x/PUMS0016ahTcxgHY4XXYlHwteqk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F4P3zyfO5KaHLy9OQDvnZGke9j0QhaEPs9vrtJIDV3LeYsxWg9qKb02stEpshIaThZtQJfdXTve9av6oJFO89DMedZEvESfmEryUbC0VPXoEAJ0kRDOONvBaGTA1ZwuF7uWoKk0mf0r5GCpUL5MwqZsVDnQJrBVuN715h44zWDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f9mdM+J7; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=LUxVkEbcwLcYeaWritXvkBTVDGXVORh/C1iamohxEB1fb65aMbsKc5CA7UkUIrOvK2h0R+ZbonN6FMBFBU2ge0YzYcBLf+OCt4tMSKUDL+he6eWbFbPMwaNIR/L0NiruZFv1wpccx5SZ85me+D19Fu9aadYmi58cuGQo2iEDQPw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZzSUqHmK; arc=pass smtp.client-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f9mdM+J7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5821F00AC4
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 17:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786124724;
-	bh=OyhnxF+idjJakv4GGlOu6M8jr1I7wPOlS/SALR3zs0g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f9mdM+J7MWS3rxSYZmb8Ntb5HpemFgXBtzrgLvmiufo0fNS13aqkWAPZ/knkrIyXR
-	 VIny+XIoazS+Wtlhe/qDN6VtJgJROhVR4kWZM9DDwccMVdxHfWIuNctzbIvZIW5owQ
-	 ksjRvnBLj5RBVbW3Lxo5sPVNpuguMjCSupqMwORjLSoUzcdGMHFnlCk0W7rpY2B1IB
-	 s6YVhjxVhd+YSBeTJE+0ZYBwCHJhhM5OgfGi8tsnQGdwrcihn6zWLEwnqn0TqYP0JH
-	 3vc12AuTC3vdzXcFEKGtfsAaCxGcMlA0Yi03Tdfi1h/PLp3ezXgUtxq3Ryl+c40f77
-	 NyerY3Z8luhwA==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5aebd52488cso4160917e87.2
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 10:45:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rr4wgsKlL6Bi9oTm9iA2TDcbO4ANGNkI91BldXVTjpZR5lYd86VIGVsYeuYWZ4lvIt9zXl6IW4C+56L@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRnL3cjrZbbijrPe5vAVHlbDa3xHBUawpPNrxVmDHdKP3dmEaZ
-	f3BlIodyk74NFJe6RedT6f59tVAEBXejvkPFz/5U8+a1/t24NHMb0LfFyrFb1EXyApSGTw14LF2
-	IIfGhbztQWhOiDLHM23xlxx3xfoii/SE=
-X-Received: by 2002:ac2:515b:0:b0:5b2:a483:a367 with SMTP id
- 2adb3069b0e04-5b2f4cbfd35mr2719806e87.40.1786124722892; Fri, 07 Aug 2026
- 10:45:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZzSUqHmK"
+Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6aeaaef491cso1113474eaf.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 10:51:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786125061; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eQoS62Gl95ipvPuhEY12Bu0Ur5yZC6h+d8teSwrLTdissp48QN8wWKWomKCZdw6WZA
+         rNa1+UOdjGEyOVNToO0a4pXMj6z5YA2bbYt7AFWsLDnvau/QbyjbDLlvuHJoXd1RVDz9
+         jBmp3BKDmx48E1gC64L6hH186yvYzt3nFx0YdZU9KUJ2XOe8UUZHyMWNeVqy3YeSz1kL
+         8Qp0srw+ghPjW8hK/i3T0285PJcltELQdQ6YKs6AoTtFRZ2Nw0z/8sxyiIb2c0YuphvV
+         bSCLDJKDoAjROP9Sh1CsYr7xPxWfJi9iRf7eHj1NSEAItY+EkiBMEDLg+lUNQ8DQIyAP
+         GrNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
+        fh=KRfACPfO7ZNREt8541yII44h4k86MjkCVmwUQ3fxPhM=;
+        b=HbdBzPxvJDITX+CvmJ22eq0Hg2sLUX/k6GxdtnpzTNuUgcpjrHQnV+JUEybKoMB7sE
+         l/MvtJN170wcc8Cf0yYETpMTwNiiJAA9Iv3bdpljeN41PneEr+2i5kvnBbNLHb44L7pa
+         E+ZAFvYqvRScPEAHuKFCLVhBGe2GoLiyr5GCAZs9Mtsib5nPCG3RwpFMnwJONQ8OjpYp
+         xir5hT9iknAuFmSLquwvR4BteRLBugwzWlti3GNZ+qTwMTusFRaMoiMqMn5/+ugjHOls
+         3JARDzqUAcWcDKrQlrZnlkZUZGSo+Wzzc1DbfxTq7s1JgeYMpHWXUUrxi/q+s8MzHwsq
+         wqHA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786125061; x=1786729861; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
+        b=ZzSUqHmKQ6sEQsyN9xlL1nxZho267zJrmmdM5+PGGpOCYwfR3Zgt58Gxnc8bh7S2Nr
+         sxDzDg2SaFGQ5rRSiF7iac8em6MH4hGbbTcXjL8AoRDv8Qrj23eWXSZcrKHFxK9v9LDk
+         HG82IiPn+Nl0Tala1Iy2Oz8pfRlGhgfpbbqKh3rz3chEeBYdBL0tYqV83tWKmz6WVgNo
+         CZnVDPD13T5Z9AYbOk29yhek6dLq0xPj4/ygHqzNXCPODZhckk7osvcaIv1qttM50POs
+         xwJ28mBS79XA7CZ3sSk5FqIF8GhkaEYkAEr2zx3b2LIvEpI84qvZ7P4P4Z3QN8ony1KH
+         Jj0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786125061; x=1786729861;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
+        b=QdFG2q+Ssr+z+YtJc5dn7vH1i3dKqL4oxy16QVwvC2g0cCHcCqglOLw7+Woi0XtV2v
+         9q02v01KStAYVhKM4kcHs+45ODsXm/+la8IIKP451bpst05TC2vENwTsU8a8525de53q
+         GN6zKPLinJ/5a7hL3nlzvS9K6vptrDxKtLFer4XEKLBpTbe80sNJ/deKsoaJ5BupqiaU
+         FJX+1Tkn8cUF1KXwWQcrFO0mnruJW4bdNcbU0LEatRoHERgHIGgZd3a4UWM8bkwdCCwm
+         fsCkiTHTYAVf7sEEWoMdAglBGt9eeJYrkCWsyO57oHzNfRJ/GjlPv6EfikEv2yujqCE6
+         GhOQ==
+X-Forwarded-Encrypted: i=1; AHgh+RooPor9wgAvqJPI+4qh0DtQd/2yrs7V0Vj21TNBBAaa+mhLyDjBsFt9YmEHKJ5QcE1s0dxrxTQ7lZPm@vger.kernel.org
+X-Gm-Message-State: AOJu0YzvfExwpy9xIBxM4bM1m0/NxDMszLy77yKUbennKOa3nc0vAfSu
+	LWfYK7J4LGOmbYvfDmv93+IR+sKr6qNzsusGTF0feR2fI6lAT5v1QeGyW9UzLM+v+Kc2NMJRZXC
+	TGfjQdE6LpUadC+d3lhv6Vf4JjdfNVGs2XTXLdW0Miw==
+X-Gm-Gg: AR+sD139R0xLv5K8/wP75tQllEiPDBnGRf+9wKdE6PAgbm4qNGjdYCoCvq4SdG8s7ME
+	S67MIebLxv5Dzqouluz9nyctXEEiHQBWFqu3aqiXSUEwuaTAsAwvKCK5o0CSx12L4BoA1CKy2H2
+	xwhjMS4+Im2WikcQ7q4YValglI6R40qvJAauJYNVNU86Bzzly9wHURKi4pAfsnb3TU89QyRxEtg
+	VcD+aPXji6edL+xECYStJ4FMF+86d/tQx96Eng2WqQ6w51pru2NXYdVDO1hzg7NVckc2TgEEGKP
+	gm9phRtzxEfbm/eWO/aQMlkbxmEQdsBIsxX9v6MGg92mJANT3VbMGgludXN52Wfa0rPVYiqF5t0
+	rrA==
+X-Received: by 2002:a05:6820:811:b0:6b0:40d9:8ac6 with SMTP id
+ 006d021491bc7-6b041f594b5mr991109eaf.9.1786125060721; Fri, 07 Aug 2026
+ 10:51:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806-longzhao-upstream-cv75-v2-v2-0-6b09707c5fe9@ambarella.com>
- <20260806-longzhao-upstream-cv75-v2-v2-7-6b09707c5fe9@ambarella.com>
-In-Reply-To: <20260806-longzhao-upstream-cv75-v2-v2-7-6b09707c5fe9@ambarella.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 7 Aug 2026 19:45:10 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk0LoOJk=TXin42AL3_z_7eVVkvMnYr1S8090C6A_B+dQ@mail.gmail.com>
-X-Gm-Features: AUfX_mz4THtJsHukdTGhBJPWk-nL3TQtLhDW7VNIYAXq_FOwFa7WqkqY6sFI5Ns
-Message-ID: <CAD++jLk0LoOJk=TXin42AL3_z_7eVVkvMnYr1S8090C6A_B+dQ@mail.gmail.com>
-Subject: Re: [PATCH v2 07/10] pinctrl: ambarella: add Ambarella pin controller
-To: longzhao@ambarella.com, Bartosz Golaszewski <brgl@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jiri Slaby <jirislaby@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, soc@lists.linux.dev
+References: <20260728091804.382753-1-wenst@chromium.org> <amiqKRkFItYwD6oL@redhat.com>
+ <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
+ <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com> <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
+ <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com> <amswFn2qWkvypMH8@redhat.com>
+ <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
+In-Reply-To: <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
+From: YoungJoon Lee <getfeus@gmail.com>
+Date: Sat, 8 Aug 2026 02:50:47 +0900
+X-Gm-Features: AUfX_mw5H1veunrAd0DWILURr17Bo7nhldWDJMLG41xotTB7eMODtkVZIaJFjgA
+Message-ID: <CA+m4KrDpcdJZBXT5wN+NHV+BtLLT-suhamCmzg+gUhamvbPR8Q@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
+To: wens@kernel.org
+Cc: Brian Masney <bmasney@redhat.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Long,
+Hi Chen-Yu,
 
-thanks for your patch!
+A follow-up on the GX6250 issue.
 
-On Thu, Aug 6, 2026 at 11:34=E2=80=AFAM Long Zhao via B4 Relay
-<devnull+longzhao.ambarella.com@kernel.org> wrote:
+I ran the diagnostic test I mentioned in my previous reply, and I now
+have a reproducible system hang along with HWRT/free-list lifetime
+traces.
 
-> +#define GPIO_DATA_OFFSET               0x00
-> +#define GPIO_DIR_OFFSET                        0x04
-> +#define GPIO_IS_OFFSET                 0x08
-> +#define GPIO_IBE_OFFSET                        0x0c
-> +#define GPIO_IEV_OFFSET                        0x10
-> +#define GPIO_IE_OFFSET                 0x14
-> +#define GPIO_AFSEL_OFFSET              0x18
-> +#define GPIO_RIS_OFFSET                        0x1c
-> +#define GPIO_MIS_OFFSET                        0x20
-> +#define GPIO_IC_OFFSET                 0x24
-> +#define GPIO_MASK_OFFSET               0x28
-> +#define GPIO_ENABLE_OFFSET             0x2c
+I built a diagnostic kernel with temporary tracing around the PowerVR
+HWRT and free-list lifetime paths, and ran:
 
-As everyone can see from a mile away this is a modified ARM PL061
-primecell, see drivers/gpio/gpio-pl061.c.
+PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 glmark2-es2-drm
 
-I'm not very interested in having two drivers for pretty much the same
-hardware in the kernel. Odds are that there will be new quirks and fixed
-to one of the drivers that the other one doesn't get :/
-Also the PL061 driver is pretty complex and specialized as GPIO
-drivers go already. I certainly don't want to have a second copy
-of that.
+The test was run from multi-user.target with no display manager running.
 
-We need to find a way to re-use the PL061 driver with this pin
-controller.
+This time glmark2 progressed past the point where it had previously
+failed, but later the entire system became unresponsive during the
+desktop/blur part of the benchmark.
 
-1. Modify the existing PL061 driver to use a dynamic register
-  layout, i.e. make the different register locations part of some
-  per-variant data:
+At that point:
 
-struct vendor_data {
-    u32 data_offset;
-    u32 dir_offset;
-...
-};
+- SSH stopped responding
+- local keyboard and VT switching stopped responding
+- the system required a hard power cycle
 
-Add:
+The HWRT teardown trace immediately before the hang was interesting.
 
-struct pl061 {
-    struct vendor_data *variant;
-...
-};
+Normal HWRT destruction repeatedly looked like this:
 
-Add vendor data to the PL061 variant:
+dataset-release
+-> HWRTDATA cleanup data=3D1, err=3D0
+-> HWRTDATA cleanup data=3D0, err=3D0
+-> free-list release slot=3D0
+-> free-list release slot=3D1
 
-static struct vendor_data vendor_arm =3D {...};
+For the last HWRT visible before the machine stopped responding, the
+trace ended at:
 
-static struct vendor_data vendor_ambarella =3D {...};
+pvr-hwrt: dataset-release hwrt=3Dffff0000c0c62800 ...
+pvr-hwrt: cleanup hwrt=3Dffff0000c0c62800 data=3D1 err=3D0 ...
+pvr-hwrt: cleanup hwrt=3Dffff0000c0c62800 data=3D0 err=3D0 ...
 
-static const struct amba_id pl061_ids[] =3D {
-        {
-                .id     =3D 0x00041061,
-                .mask   =3D 0x000fffff,
-                . data =3D &vendor_arm;
-        },
-        {
-               .id =3D /* make something up, see include/linux/amba/bus.h *=
-/
-               .mask =3D ....
-               .data =3D &vendor_ambarella;
-        },
+There was no further PowerVR trace before the system hung.
 
+Therefore, I do not think I can conclude that the free-list reference
+counting itself is the root cause.
 
-Essentially follow the pattern from drivers/spi/spi-pl022.c.
+What I can say from this instrumentation is that both HWRTDATA cleanup
+calls returned successfully, and the trace stopped before
+hwrt_fini_kernel_structure() reached its first free-list release
+message.
 
-2. Contemplate if the GPIO should be a separate entity in the
- device tree or not. If not, Linux needs to spawn the new AMBA
- device with this pin control driver using e.g.
- amba_device_alloc() and amba_device_register() etc,
- see drivers/of/platform.c
+The tracing is intentionally verbose and may affect timing, so I do
+not want to over-interpret the exact failure point.
 
-3. select GPIO_PL061 in Kconfig for this pin controller...
+I have the diagnostic patch, the full kernel log, the HWRT/free-list
+lifetime trace, and the glmark2 output available.
 
-This is not a simple solution but it is the right one.
+Would it be useful for me to send these to the Imagination/DRM mailing
+lists now, or is there a particular person or list you would prefer me
+to report this to?
 
-Yours,
-Linus Walleij
+If there are specific additional tracepoints you would like around
+hwrt_data_fini_fw_structure() or hwrt_fini_common_fw_structure(), I
+can build another diagnostic kernel and reproduce the issue again.
+
+Thanks again for taking a look.
+
+Best regards,
+YoungJoon Lee
+
+2026=E5=B9=B47=E6=9C=8830=E6=97=A5(=E6=9C=A8) 21:38 Chen-Yu Tsai <wens@kern=
+el.org>:
+>
+> On Thu, Jul 30, 2026 at 7:06=E2=80=AFPM Brian Masney <bmasney@redhat.com>=
+ wrote:
+> >
+> > Hi Angelo and Chen-Yu,
+> >
+> > On Thu, Jul 30, 2026 at 10:23:14AM +0200, AngeloGioacchino Del Regno wr=
+ote:
+> > > On 7/30/26 06:51, Chen-Yu Tsai wrote:
+> > > > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
+> > > > <angelogioacchino.delregno@collabora.com> wrote:
+> > > > >
+> > > > > On 7/28/26 15:13, Chen-Yu Tsai wrote:
+> > > > > > On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@r=
+edhat.com> wrote:
+> > > > > > > On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
+> > > > > > > > Hi everyone,
+> > > > > > > >
+> > > > > > > > This is v4 of my MT8173 PowerVR GPU support series.
+> > > > > > > >
+> > > > > > > > This time around Mesa was ready for basic testing, using bo=
+th vulkanmark
+> > > > > > > > and glmark2-es2-drm (with Zink). Details below.
+> > > > > > > >
+> > > > > > > > Changes since v3 (all in the clk driver patch):
+> > > > > > > > - Changed pm_runtime_put() to pm_runtime_put_sync()
+> > > > > > > > - Added missing of_node_put() in remove function
+> > > > > > > >
+> > > > > > > > Changes since v2 (all in the clk driver patch):
+> > > > > > > > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
+> > > > > > > >     - Needed since the driver implements PM domains using t=
+he generic PM
+> > > > > > > >       domain library, which also depends on PM
+> > > > > > > >     - Fixes build breakage (kernel test robot)
+> > > > > > > > - Fixed "RST_DELAY_CNT" name (Brian)
+> > > > > > > > - Dropped unused mfg_desc (Brian)
+> > > > > > > > - Added check of clk_prepare_enable()'s return value in
+> > > > > > > >     clk_mt8173_mfgtop_power_on() (Brian)
+> > > > > > > > - Saved error value for return in IS_ERR(data->clk_26m) bra=
+nch
+> > > > > > > >     (Dan Carpenter / kernel test robot w/ smatch)
+> > > > > > > >
+> > > > > > > > Changes since v1:
+> > > > > > > > - Adapted to changed DT bindings
+> > > > > > > > - Dropped driver change
+> > > > > > > > - Use same power domain for "a" and "b" GPU power domains
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > This series enables the PowerVR GPU found in the MT8173 SoC=
+, found in
+> > > > > > > > some Chromebooks.
+> > > > > > >
+> > > > > > > I'm making a pull for Stephen for the clk changes. Should pat=
+ches 1,2,4
+> > > > > > > go through the clk tree? Patches 3,5 go through the DRM tree?
+> > > > > >
+> > > > > > Only patches 1 and 2 should go through the clock tree.
+> > > > > >
+> > > > > > Patch 3, 4, 5 can all go through the soc tree if Angelo wants t=
+o pick up
+> > > > > > DT binding patches. Otherwise I can push patch 3 through drm-mi=
+sc.
+> > > > > >
+> > > > >
+> > > > > Not sure if I can really take the DRM bindings patch through soc.
+> > > > >
+> > > > > I will take the devicetree ones exactly right now, even though it=
+'s going to
+> > > > > give warnings.
+> > > >
+> > > > Apologies for missing this, but the first DT patch depends on the c=
+lk DT
+> > > > bindings patch for the clk ID macros. This is causing build errors =
+in
+> > > > linux-next right now.
+> > > >
+> > > > Not sure how we can fix this right now.
+> > > >
+> > > > Brian, would it be possible for you to split out that patch into a
+> > > > separate immutable branch for Angelo to merge?
+> >
+> > Yes, I can split things out and make an immutable branch this morning.
+> > But it sounds too late for that.
+> >
+> > > >
+> > > > Otherwise Angelo might need to drop the DT patches until the next c=
+ycle.
+> > >
+> > > Yeah, that's so bad.
+> > > I'd be happy to be able to resolve this, but it's too late on my side=
+.
+> > >
+> > > I should've checked the DT patches more carefully, my bad: I got a bi=
+t too excited
+> > > to finally see this PowerVR stuff working on MT8173 and going upstrea=
+m.
+> > >
+> > > Sadly, I have to drop the devicetree patches :-(
+> >
+> > Chen-Yu: Could Angelo add an Acked-by to the three patches, and then I =
+send
+> > Stephen an additional pull with just those patches? Do you think he'd
+> > pull that?
+>
+> (replying from my @kernel.org address again because I don't feel like
+>  pulling out my work laptop.)
+>
+> I think the question is whether the soc & dt maintainers would be bothere=
+d
+> by it or not.
+>
+> No need to sweat over it though. It's not like the GPU driver is producti=
+on
+> ready anyway. We can just merge the DT patches in the next cycle. :)
+>
+>
+> ChenYu
