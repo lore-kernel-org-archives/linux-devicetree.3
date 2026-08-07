@@ -1,151 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FF4364058
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 09:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF5F3557F3
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 09:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786093691; cv=none; b=bwioElgHJaepUUAN0DvYWKwG89iY/E017EpaySx1tl+sOSZE/Bx+eHeo/bfUOEMcUybyNJoPObojtBmHGAcvJ40/fa3tmukYgB/noj1+G9fxOCs3gnkKh8NasAV2Q1m8U2hsp+Rml82T1JrlqeH/YkddoRXRwfK737AN++MeotM=
+	t=1786093768; cv=none; b=o2aQVuowlMOlcwVJ6xjVBtmklnGRsg7o2bihXg9eFqU7ImVGp89Ce+839mh/GwemXg7tIleP9639u2iza0hA7dy1f4kZSqeGhWLow4GbxMZzsQdhnJRtVCmreopqNZX8zU4XeQoFqfaonb79iMgY0aEcAyiJTtZYeDHCFMSpMfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786093691; c=relaxed/simple;
-	bh=xG5NSTKQYdZNyP/tbPfi0w6GC7uxaDyNNOJG8TJbJfI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p7n9IDciWQC6YS4XPBLPl5PnbYPA7RhjGqwbiYTcFtZosER1D5xeTuGFJ0R6jjO4WRNlhXu/JKmmG0wGslfD49ts7z/rByN/5E+0vTMK3/O2WSJ2ZUH2AqKj0LMALYqteMpzwpmUI5Hy+om+JczyJwgkHFFzwstCD1vG2tXVC5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijorFLjx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786093768; c=relaxed/simple;
+	bh=xDP4B7mw892dNXuydjebaSYfnUlxKAVOxXrrMcSSew8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JeBCIG5+Zli+nk17uWpEpviA1KgbL1qYctpZAuaLacok8Bs+RJvEUOjct3mdb3mdogAUdyUzkPQT/igdcb9eW/uTk7ObJI7NiybTRSbLEo+8DYtre7ytGMFVYBcFGIVjl0KsF8rw782iZsAqrCB9xHWo3QD3r5szX8ycRDbKZ6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=NKN0T13m; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijorFLjx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ED401F000E9;
-	Fri,  7 Aug 2026 09:08:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786093690;
-	bh=xixGNX9cIflU/edTX6VMmU5yKO+5da1d1Jn0xgio5LE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ijorFLjx6Qm57Nl+RWS+zvmyVvMOEr9HhqM3afwNFbMQ0XNbyigJv4EBcZzotfYRR
-	 SarpSJtoar4kFACSDS8bf6aEVHaQmp7Cm1lPjhbHOr1h6vhL/rwI8dqKO9yP7X04XX
-	 DN1HPR0mPFgzRKeZKqNGOPwYf/GNSfCgWCDi3Vli5ObKrf9WymUm5ngfNGCNgLNPFL
-	 aLc3JVbP4cNMvsR4iAI6+uqhQz0Oxz+5qtBPdpXZyox3HIHeUyNF5JONW9uaOUSkZg
-	 V5XiBu5XoIaKW/fPp3Isjc0adtb2fZ1khArvc0odLrYPguQXopvGKPqXs4W8NwHErg
-	 3RQae7XDUF6TA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 22/22] arm64: dts: qcom: talos: Reserve low IOVA range
- for Venus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-22-3996f67e33f9@oss.qualcomm.com>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-22-3996f67e33f9@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 09:08:08 +0000
-Message-Id: <20260807090809.0ED401F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="NKN0T13m"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49555a0e68bso15232715e9.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 02:09:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1786093765; x=1786698565; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jjSX3DSji4nKkqVPKbNZg/lqBAxi+8jNL2xKHv5aM18=;
+        b=NKN0T13mvBeL6SHKhh95L1vyzJONd4/yguQzbpAIQAhaMPvuAG88vzPNRlhKGNArjF
+         SWC7b+CF0GrS5wkap3vC5lrWacIIn4HNElxdfdi5r9uptV0t9JWK6pwIQOIDzXGzzkyM
+         qJZaeVCMm85VU+aHpSHXZ9OW8x8ixs26GWwxVIYESgHy+keIzFx0XxE49AXXKL4yHz+6
+         k3O64khCV525KKXMjf449cOISAdV1NFQ4dGO+eDP4UzqmjnF4Tb1MZ9GXXiWR+ya9vPS
+         uEUua3NE9YqoD3DPor8p5ClTVh376cD6xqn3Oa7gTvmHJcDgysvpilPoB7d7RP5RiPUN
+         +Dbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786093765; x=1786698565;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jjSX3DSji4nKkqVPKbNZg/lqBAxi+8jNL2xKHv5aM18=;
+        b=ZC+3z/jnBohp2u/T1+LkQF4gsZEtvQp8RRwN4ENRBBByLBRhSkonJOK7PITnL/KkuH
+         uAdc+jwpnOIcWZ1ovDmqfJWg4GIkwgw31Ize5Om0VuLzV3O8NfZT+CwQosCsngaeXpjC
+         nq/gHo2iOyM4NyJfhKwuFFQsVrCnK9S48unI3dTaEIYXz2Zjr8hVPyNeYoIEgABVuLnR
+         p3RrtVPfI1J05uIAULSIlewI6tcZiMxud3PX0DaZqt6cS+23aEND56x+8QlRehq9L4D9
+         afI+RdxaFO8MPCBzkA0pQzHCHzOgPoD5NZFsFf1dQrCQ4Yg87e37oGh2u2obnZW7541O
+         5ZrQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoFcJmCD5OrZkdPcSfqurT7CaQ5Z+DM4fgDYG1UUCcR/trzdkLoxBtsxDX+/gQMCnTLQNOLciq3pN2I@vger.kernel.org
+X-Gm-Message-State: AOJu0YyPvgL8RNB+kcHv6XmQUOjoEeAzsc/epsR+Mf3tOkRfz6FLQ1Qa
+	Kx/uDazbncteiAvm3be3b3ifwJs8/Ma9Ej88/TO9RFfv7W71gPqCWT1OZfckebQ7Eh0=
+X-Gm-Gg: AR+sD11SrkUYGHuaQ0DtmV9UKDDDaA/cjYle65cBeM4x6B/DvvmboK5vWkUgJ8NH9Sj
+	3xbI0JvwVd/HTbUdkjVmtcbwROy9epgKiYBKf6rHYCmuoa8oTA7NUbfsO8u11mKvQfZlKH6hygE
+	8yBvHdvrlCZJKGsC0CLrHIgS/tque+FeBdS3FVs10aGD1vwbVfgCPtmmugdzy8aWpSmon6hFOdF
+	5+vvkdnuIwtJqRRUeP8voFCRAhbfaOcY/NJ5NOphxEufM9ahCSk/7QDObyI9XxZYrhlrnAHLZgz
+	YOSjRzyYoKsjvkxmS/b4Di8wB5djEvUL+26gCUwspse1MwWbJkSHg6CnR60YV6QubjQqAv6Dajq
+	xqK8Rxu0Pz58H5Ke4Xv5W1262/OjsUGWBIfld2TOzLiJw8zmle5NM7jgiwLGinK0XDP8cZv8pz9
+	etQa3btu8h7xxXVasXSomzccYVEhEDm4pIb8Br8FH8FlSKxksWGmDK9/Y7k3c4JyV0PMmuRBr2
+X-Received: by 2002:a05:600c:4e87:b0:493:e365:ace9 with SMTP id 5b1f17b1804b1-4994e7c0356mr282890995e9.11.1786093765114;
+        Fri, 07 Aug 2026 02:09:25 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.30.205])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48002145966sm3871692f8f.5.2026.08.07.02.09.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Aug 2026 02:09:24 -0700 (PDT)
+Message-ID: <c3cbebcf-19f5-4944-9e20-04dbb442c4d9@linaro.org>
+Date: Fri, 7 Aug 2026 10:09:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] phy: rockchip-samsung-dcphy: factor MIPI D-PHY
+ power on/off into helpers
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: jason98166@gmail.com, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Guochun Huang <hero.huang@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
+ <Ji-6adk9LJbP87Y7X6SfOcAyVnGpO4dbHk0lBikX3NGAPz3dynWpvL8QjkVM3G3jEnwTrTV0p7nOqBxPRaH0MQ==@protonmail.internalid>
+ <20260726-dcphy-rx-v1-v2-2-cf9cc34a412a@gmail.com>
+ <43327fb2-0085-4d86-b408-8723d852c258@linaro.org> <anTgZiqnol4226Le@venus>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <anTgZiqnol4226Le@venus>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 06/08/2026 20:31, Sebastian Reichel wrote:
+>> This looks a bit funny.
+>>
+>> Do you have an int method() {} with a final path that returns no value ?
+>>
+>> Tooling/compilers will definitely and rightly complain about that.
+> int function() {
+>      ...
+> 
+>      switch(foo) {
+>      case 42:
+>          return 1;
+>      default:
+>          return 0;
+>      }
+>      /* cannot be reached */
+> }
+> 
+> Greetings,
+> 
+> -- Sebastian
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the parsing loop=
- in `of_iommu_get_resv_regions` fails to properly advance the `maps` pointe=
-r when a tuple's `phandle` does not match the target device, leading to cor=
-rupt parsing and potential out-of-bounds reads.
-- [High] This problem wasn't introduced by this patch, but an unchecked ret=
-urn value from `of_translate_dma_region()` in `of_iommu_get_resv_regions()`=
- leads to uninitialized stack variable usage and a NULL pointer dereference.
---
+Hmm.
 
---- Patch [22]: [PATCH 22/22] arm64: dts: qcom: talos: Reserve low IOVA ran=
-ge for Venus ---
-commit c79264714a3878505bc5105c9bc703dbf039cc23
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+The LLM tells me there is no compiler version that will generate a 
+warning for this.
 
-arm64: dts: qcom: talos: Reserve low IOVA range for Venus
+Entertaining overdone too
 
-This commit adds a reserved-memory IOVA reservation node for the Venus VPU
-and references it to keep DMA allocations above 0x25800000. This prevents
-unhandled SMMU page faults and spontaneous device reboots.
+"Across compilers that will ever see this code: yes, and I can now show 
+it rather than assert it — I installed the spread. gcc 12, 13, 14 and 
+clang 18, from -Wall -Wextra -Wpedantic upward: clean. Then the decisive 
+one: clang -Weverything — every diagnostic clang possesses, a strict 
+superset of any CI configuration that can exist — on Sebastian's exact 
+function: zero output."
 
-> diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qc=
-om/talos.dtsi
-> index eedfdce3c479e..8645b04e26643 100644
-> --- a/arch/arm64/boot/dts/qcom/talos.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-> @@ -687,6 +687,17 @@ adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
->  			alignment =3D <0x0 0x400000>;
->  			size =3D <0x0 0x800000>;
->  		};
-> +
-> +		/*
-> +		 * The Venus VPU reserves IOVA below 0x25800000 (600MB),
-> +		 * primarily for non-pixel buffers using different Stream IDs.
-> +		 * DMA into that range triggers unhandled SMMU faults and
-> +		 * spontaneous reboots, so reserve it to keep IOMMU
-> +		 * allocations above this boundary.
-> +		 */
-> +		venus_iova: venus-iova {
-> +			iommu-addresses =3D <&venus 0x0 0x0 0x0 0x25800000>;
+Meh
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does adding an
-iommu-addresses property expose an existing parsing issue in
-of_iommu_get_resv_regions()?
-
-When parsing the iommu-addresses property, if a tuple's phandle does not
-match dev->of_node, the loop skips the match block but fails to properly
-advance the maps pointer past the current tuple's address and size cells:
-
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-    while (maps < end) {
-        phandle =3D be32_to_cpup(maps++);
-        np =3D of_find_node_by_phandle(phandle);
-       =20
-        if (np =3D=3D dev->of_node) {
-            ...
-        }
-        /* maps is not advanced by address/size cells if np !=3D dev->of_no=
-de */
-    }
-    ...
-}
-
-Could this lead to the next iteration incorrectly treating part of the DMA
-address as the next phandle, resulting in out-of-bounds reads or corrupt
-parsing?
-
-[Severity: High]
-This is also a pre-existing issue, but could parsing this property lead to a
-NULL pointer dereference if of_translate_dma_region() fails?
-
-If of_translate_dma_region() returns NULL (e.g. due to missing dma-ranges
-or a malformed DT), the return value is assigned directly to maps without
-a NULL check:
-
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-    maps =3D of_translate_dma_region(np, maps, &iova, &length);
-    if (length =3D=3D 0) {
-    ...
-}
-
-Since length is evaluated without initialization if the translation fails,
-and maps becomes NULL, could the subsequent loop iteration dereference the
-NULL maps pointer when reading the next phandle?
-
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-    while (maps < end) {
-        phandle =3D be32_to_cpup(maps++);
-    ...
-}
-
-> +		};
->  	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-iris_iova_=
-600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com?part=3D22
+---
+bod
