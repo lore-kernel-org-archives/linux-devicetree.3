@@ -1,151 +1,357 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4A53AB26D
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 12:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786104685; cv=none; b=cOBJMipcjpru7PJMfuSyZhP4A0muJIekKe4bW/jdcjOuE+ZRAYp9O+HZvYdqPAiWBZkUpbcLaAUq6q1a5NBCbM1H7VDh262AJASPocmYWWb8s9J6aKZkx2ANq9N0LFSO2UNwwboAGahlGH76KhO/3/G+PxRrySPeIgRt4Mn+CgE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786104685; c=relaxed/simple;
-	bh=CYWwPcIDbgZJ89d3/zXRkb7tZq9j3PBAauv2vSVKr+0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GKHN6+G7k3DlKl/tVxtv67b/95ZPUDCXOsbgKCmz49sibKI3jUfA33aTIo/X559K7pRlEvoCBYHGUGYl+oyhXfNgyX++xbFHu4QM+tzzzNIA/B2FaEAfNpWNuNtImukjMmh8/802SPHOMDqFJ4g+yt1GMHTkZkFdchhobKMoYtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fcdIfSMu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gRtPPueM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DC3D41F5D9;
+	Fri,  7 Aug 2026 12:15:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786104930; cv=fail; b=q+l1wb0ohT8YCbHXyaLOVzmMnfaZG7oVYlHDSuE/bHUyxncOWf6dw6JizpxnXeF43O2H6do78H6/PVX9mLMyXdI6PLJjixDWiihvq9HBzWtn3q1K2/5u/98VhiSH4gwW3vImw/SpMVKMukU/e39+6yBWduTk2NcBeLYtTV8gqj8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786104930; c=relaxed/simple;
+	bh=XZDlE/B6azKqQ2XJxeQwZ5UOkPwCU/GHC9MqFegiaE0=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=RCdoq2j3hhSUmEvbj86JQtFNae2u7YTY+dQdJsq5rcvz/AToV9fAczLEp5VlsVxtNEm3LJlK3RzUyNm+tLIfWtRW7ydpsljdvdmiRQ6mQhXmprkDf0cCCdXZQWURl9jHt5Un2sASsh+u4iemaduTOK3raeN6LYyUqUcAhI3RX+w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SNfHf0YS; arc=fail smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fcdIfSMu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gRtPPueM"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6777gIrF3478244
-	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 12:11:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zjdnzx+QsVtgM2X6y1LWePg9rWQkquFUfDwdlQM/D0k=; b=fcdIfSMuj3HLJvrR
-	FVFOIUGxLVpO3A1PWuCnkR3uTVoeQDD/YnUUd17H9FNeggns0tluDyvT1asx9JrH
-	f8AEeVCEVlNSoGMahDbYKSHDa55cxKM5yc2LplKk4A04+mVj3/XLRA4bYUNm8PoJ
-	uJXzwOw3XaBaqpcoXGqLCQtlAIBHJ/LLehKXYkGpF4dDLcWowGphWBkhXUwJPr7t
-	QCF7T7fWn2dBQOqdrfZTAEmoTPrDBPIU2eMIcEMGRoEkyPKfeXTylw2AJdH2odfN
-	ZuRf0wUKftiQrppaYOWNWLE/ZtAPbkXUAP6vMD5l4RHrND5PW3N+OYsamJS64YxP
-	qzwL4w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6hbtgm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 12:11:07 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c07f25de2so26740631cf.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 05:11:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786104662; x=1786709462; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zjdnzx+QsVtgM2X6y1LWePg9rWQkquFUfDwdlQM/D0k=;
-        b=gRtPPueM3lSbQwyy1tVb02xHZB0qQXuAkgYkKfv7251VlfR7EBG+4n3SeBYjDSxYjR
-         +osj0mRKBb3tX4ujm+/Noaaz9KwSNoXmeJ1hLUvRsWUfo09BW/mNEHea6Nz9ofZgrOLo
-         HKeL39VVWZIifUBrGGjPmt2oIJFnjFAQfFdrb8v9+QmL+ZBYcoJonXK9OblRBvFH0V7T
-         JPJCXPdpVAuRQVQyKskcrnWnTVHX8jfKKgx3rGfhZar0IBdRH4y7RTawWYgcfWwqaxut
-         nGA0qCEVbO8Ow35XLcyx8ID/Twyz/f/QL8W4iyjXbac3lUxRLCFOmhDkLYGpZI+Jhg7t
-         grgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786104662; x=1786709462;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zjdnzx+QsVtgM2X6y1LWePg9rWQkquFUfDwdlQM/D0k=;
-        b=ZiYu5235YMvMC/o5NrVhektO5XxZXOM9P5o2/2OrV1oy27+hLO8M3lphelo56GSLxU
-         ZLvC85Qb9ZGKYdUfOUilI8OcaRyT1MgVoVmsuaV/o7c9WP+975ZnIAkFFulNfDe0zaaD
-         fF3SMUbAXOHCap+Qh0Dj4ZppHhIPmTeINkakJ3503kUoCY2x7E/zqyUBl8O8VWy9AMqT
-         VWD2M+L1fRJWfH84odoJYQCE7yhz1XAauIbfy/aEFeDvD+0k+dNcnr/TffcoJGlBo8DN
-         vP2sDeWHbaaxXv+uPAmaCPmLjSObtzvSZpP/PpiZ6yZ2dKPix9pZFpxgCnQwkWYcHBVf
-         ftxg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3M9Ldi3JzCxr4s6MorVgqEqA1qR74mxIiwg9zeobGsRiqK9WfZPXlVibfUKhOcJiunOmKgW+6oTDp@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnTBIMBIYDPppRmY45g7fWv8skeIOsVqKUs8vCyUwx1P77/9z1
-	ZHnCO7VGsuRkqeMKh8nhzEpTpC22WEFXlTYK73eYiQyU7wnEmKADSKKZ1irASwcoNo7GkZepJL3
-	DogrYb6SFo0+qHAxZodEG9XlyCrNh3wiupc8HsowYHJ1/bHYYB3fVrBwrwr6dcodE
-X-Gm-Gg: AR+sD10sJ4Vdyx0iuCP1RqfZKiYYv99PyO5WhvMPBwsGMGwlSWTGB6d9GnIU0lyV27L
-	oXSSqQXSDWkk6vYKvP0/oFAXooiNdBHz4l9rPh1W346ruiff/nH7kNqrOaYZXW8U9Lvx1e0J4e8
-	kERYaJjwmmgo/3h8KuG3eRr0BBjzY9rVolaqnqrH3Eve6SfO7Wftmn1VCvNrIgDedSuijlWhOQk
-	cEz2K4JQ7c6qTDP8d0nVfmJd4tX21hdVjuOkWVF3+VW9U2xRlTiRIMZNGCICo25po5Ptm8sEb1f
-	AuuVc/7Qv+dn55N52z6d+6Zej+00x5WOSLrCmvtAAzXWJypQrxe2/x+Jqu1eRUkCWd+Okxfs2Ny
-	oDNlU6iu4faJbYbxLAO8G+tInzjZy50pGkzGrSXzXBY7qCg==
-X-Received: by 2002:a05:622a:5a0c:b0:51b:f36d:1ae4 with SMTP id d75a77b69052e-52ce61fcb59mr247582711cf.43.1786104661730;
-        Fri, 07 Aug 2026 05:11:01 -0700 (PDT)
-X-Received: by 2002:a05:622a:5a0c:b0:51b:f36d:1ae4 with SMTP id d75a77b69052e-52ce61fcb59mr247579351cf.43.1786104659899;
-        Fri, 07 Aug 2026 05:10:59 -0700 (PDT)
-Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995ea27b29sm41957535e9.11.2026.08.07.05.10.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 05:10:59 -0700 (PDT)
-Message-ID: <14ea9fce-2bb1-469c-b751-32f7a2e28f48@oss.qualcomm.com>
-Date: Fri, 7 Aug 2026 14:10:50 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SNfHf0YS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786104910; x=1817640910;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=XZDlE/B6azKqQ2XJxeQwZ5UOkPwCU/GHC9MqFegiaE0=;
+  b=SNfHf0YSvRCfPaf4IMJcp2PXCRFeLwpZ7gDyTUgnlRSWDvktGoRRrUz4
+   o4e4FpgwI/PHVcMN7XfwlxXkExjYw//Jv8oLTYeQnyUcUqcMmfiYgpjKx
+   54XHIXhPOsD3dQ0f5z0cYb5GxC39oD6h5E9x/qpBytmz6jEfv9itZZ3um
+   boKyw6pO8RtU7K7QEl3/hRu8tS9UFSfAxJYolvD2+s9X3pkbiaPR9f2gS
+   0YUhXA1UD4vp4s6pgwFEQ7NbOqaQok96SkSy/PaZgxNV6UGrRqSV5u3uX
+   ATmmyr4UTW4PlbMZI9U9dPw+W5U6zxwqzsPbHh23xrP7bRv74PglnU8/E
+   A==;
+X-CSE-ConnectionGUID: /2iSUhe7RvGDQ5SkrM3fkw==
+X-CSE-MsgGUID: r1yQaBmtS/mREWhRogPkXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="112259141"
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="112259141"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:15:05 -0700
+X-CSE-ConnectionGUID: 6+Ir0K5yRVir7xpaRZo+jQ==
+X-CSE-MsgGUID: nuIPKRReTXSMM49rB/vkMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
+   d="scan'208";a="265853870"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:15:05 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 7 Aug 2026 05:15:04 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Fri, 7 Aug 2026 05:15:04 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.61) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 7 Aug 2026 05:15:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HkvF1vwid/iiMRcNXO+49SdX6T0KweE/ezhxHhrxkwCluNbbGui7cdsEzQCtA5OmNEhiEbnmMvvRcAqHQd+P9JiGoVpCEU6Y+bhrkMLBD1D+pKPwXkLVO6V/6bHUMcerKXgctZMzE9XCOzXkZ2sfXp0mT/pQgGDUhDHYOKmeKXZnEcwEANCwm+9tsPKMuWsD8XaBv0cza8DBkvXqj1gujFXxDklecRB11YPvKDirBOtcbZvLGh5DBc/UVTR/sdteT4tFgJtC4Vcfp0AbkcJSX5fwFIGP4W8cAbfNGq9RKCKWZDGQIEHq11GCM02m3UjSEUxPlrr2YvFUcRGRgXI9Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=93cenNaXe/8eaw9I6C5kooC0bo36pN6EONvNlmFNw90=;
+ b=HsHKJKU8dUZUUjlO+ZXm99uHS5XffZCDXY0eZ2GYJDQ1ZrRihjANuX+1NHggX5YXzwagWKl3GZjJ+uxhQbeOlEo03jIt/mAO4Xf4OqPaFRyvpgAxltYH56/nKXlxfQ+nG6zmWkJqCVyF9YTYcedWt6ZhdSPP8BNmM2ob029HgcfYzbN9SIJhOeZntn8fgQnYsRAbEDHxKxs6FSVNU386S9162sWp2AarHqbTQp4KtzVNHalbVYLovi5T4FPvDqiMslLB5m0Eq0wMQTXKwP1fnagh0SS+dvjNo4nrEGKOKPWwEiQyIj4DtTnrjg8GplbjuXYC8KfV4bExIzKgSAqVXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by DS3PR11MB9793.namprd11.prod.outlook.com (2603:10b6:8:363::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
+ 2026 12:15:01 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0292.022; Fri, 7 Aug 2026
+ 12:15:01 +0000
+Message-ID: <fc5d734a-c02e-4e4a-ad32-a4d75b417f70@intel.com>
+Date: Fri, 7 Aug 2026 15:14:36 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/8] mmc: sdhci-cadence: rename SD4HC symbols for SD6HC
+ groundwork
+To: Tanmay Kathpalia <tanmay.kathpalia@altera.com>,
+	<linux-mmc@vger.kernel.org>
+CC: <ulfh@kernel.org>, <krzk+dt@kernel.org>, <robh@kernel.org>,
+	<conor+dt@kernel.org>, <dinguyen@kernel.org>, <p.zabel@pengutronix.de>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260724145009.7456-1-tanmay.kathpalia@altera.com>
+ <20260724145009.7456-5-tanmay.kathpalia@altera.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <20260724145009.7456-5-tanmay.kathpalia@altera.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DU7P194CA0027.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:10:553::7) To DS0PR11MB7215.namprd11.prod.outlook.com
+ (2603:10b6:8:13a::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] lvts_thermal: Make reset optional for MT8196
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        rafael@kernel.org
-Cc: daniel.lezcano@kernel.org, rui.zhang@intel.com, lukasz.luba@arm.com,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        p.zabel@pengutronix.de, matthias.bgg@gmail.com,
-        laura.nao@collabora.com, fshao@chromium.org, wenst@chromium.org,
-        jiapeng.chong@linux.alibaba.com, frank-w@public-files.de,
-        bchihi@baylibre.com, linux-pm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org, kernel@collabora.com
-References: <20260721105230.101906-1-angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260721105230.101906-1-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: ldmx0wihjpAAPCiH1Lnu7C7LdukG6Mnc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA5NCBTYWx0ZWRfX1+yXH8gRENb1
- b5ZlNuDxoH6p896m64mUXQLRN6vcT7gPtsjKuoHw7IzCvz0aN8cEyOoXZepWAXMmoauUINDE2oe
- JHckItBk+kiMISJOAGE3DaiGheJ6V6XB1pByyuRS6u04+ZMrHIM1CnXd6FNx8hOU6qwkZwPmpoB
- mrcMzW4ZLGxRTblA9GhKtrl5wqEVlZtMs3GJQk2j01Na/L7F68oeqVgBtQp/CywdacYjRXfx90M
- G14vQ9pjqvVEN90vx0JANCs3EKgUJh4LS30+fBNz7OkApx3fVAD575nvZSFk0Vom77s52zb3vno
- KaqzcETov3i5REkKPOi9vDe9Fzgs5bGaEV8H6GWVk6t6NZJDRJDY9Gn1TcfKQoZCc2DpNewteP5
- gjtd+dJRqUe70dmdmhtvJaCi+ih8x3Jsnpi4WqnYvA1VuC/yjPkHNWTzjEBSPzO4KY7oIb973es
- lZBK443P+oBMAgji76A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA5NCBTYWx0ZWRfXw2Rc74BLRfiE
- GqJSfcEoncmEdOXo0xnDBEPwcgyBxzS8d1RUYsGlaZhhEiGYxn0+C7drWv5Kvwm/mkifS2j2heQ
- NCL6NgKevhtUA2jwsxMLqBUtrt4HYPU=
-X-Proofpoint-ORIG-GUID: ldmx0wihjpAAPCiH1Lnu7C7LdukG6Mnc
-X-Authority-Analysis: v=2.4 cv=MbpcfZ/f c=1 sm=1 tr=0 ts=6a75cb5b cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=rXlwX46IFeUSpfNkUDcA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
- bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070094
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|DS3PR11MB9793:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1f6b62f-8e8b-4df6-3055-08def47d7798
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|18002099003|22082099003|10067099003|56012099006|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info: MV1X7RjgwmPJi5nxqX+3V/uGVYVHHG3jfsPpUT9f7WXkTG3aG1aimLXpmN8TDNN7SXnGdsGZPXwVyXOwbXHXpiigLz9hd1js9LYiH58/72pNG3nl+3p0igDsvNaM+v6HTwI+1v/Ps15WOt5IklJBs6K4yCXhqarH5nHevbNJcqEIwupUvVyD6PWoRKaMzS2Pn2dr3bK00VWAvO+2rtB6BhhmBgPDBdHKj/KMXR8iRBonAaHE5/pXdwUULPDm/8BOwlSP82wzCag52T5lt0qqGPSGj4g2AdAedQ/Z8Z8MCa3IDgHmzpwh2BO0z6DGYCTAinYYBsJo+AOG78j4aoVJSb3gvTcJTrQHN73ZRAM6RkO0aQFmZj/thab5mN8WrVsAzpUj5fe9CQwy/xt7gxcitvVTLLkMLywazBYZUcs+pfwkmnt4SGRS4nq9/tg4W7N9g5LvJC3wVPQriCBntfco2j/IS/V9IOFDfJPDP4waOoJrS0XIUyONx4+Mk2lQnRLUrLDknO8Jl/a76fNgIQy3SokWrG/RaDMwbkrzy1Y9hdXK7cHFyK+9daIJygoWPHz5kWWOFiv+ncPgsvA73Lnrks4ZWGHxymoyI3cNhLIGipzxaHtPndptFe9odUcqSVUUHNbTVkQNxMY4fDvxJfsM/zbao11ER4KdV2sugd0R0O4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RTZEOUZWbmE0NE5SY1huUHA1dGY2QkRaYWVNZ0lBUUtmYXQwSnZCMHpoMkt1?=
+ =?utf-8?B?azBqejdhRmNLOVFOa2RkMnhwRGMyYWl3VS9mcDJHN0J0Ym82dkoxZUhMSUls?=
+ =?utf-8?B?N1lPbjg5MFlZSENVWURERkswSHNYRUY1N01Wbzd6NlB1OE55WkZCSjF6bldz?=
+ =?utf-8?B?ZFVXeHlDOW5ENXlUK2E2RFczRllOUmxGMjBWSGtNVEhuMHlVL2o0emtiaTdW?=
+ =?utf-8?B?WFBvRzhWZkZtUWVESmlTWFZvNWdPQ1ZxNkx6TjZST1FIVXlpRnJxelpDL3lW?=
+ =?utf-8?B?ZG5UWHJCQTlTa1FIeHFnK3FveXpLVjlQWFcwTkVSUDZPQkZTQSs4THd3NGV1?=
+ =?utf-8?B?d2F6SFo2YmlOVkVrdzZ2L25JTGIyQ3dCakFrblZnMkxaWWw0TU5ZOGwwd2tF?=
+ =?utf-8?B?MGM2SURZV2FYWWFMTmFGWHUzaFpBZzVOSlNyZ21NL2JqK3lSVFJHbW5WRldJ?=
+ =?utf-8?B?MnNLRlZkRmxvS3MxSnZPZjNCRWxQdERTci9TRTNoMmZhV1BCTFJNUEZ2RG0r?=
+ =?utf-8?B?ejJFV0hjbmdWaFBsRUZtcDFBTDBlS3dCektNdGR3SzNzR3pMbGszbDBSSjlW?=
+ =?utf-8?B?anlCOEhuaVVxdHV4OW1HaFhmUU13bGVOclpuZUZDTjZtVnNxZmVmZVhRRTNm?=
+ =?utf-8?B?ajVIM1B0MmMwUE5DL1pTUzBRdFdhQW9Vb2N5VkwzNE5PTUhLYmRTU245bmZQ?=
+ =?utf-8?B?a29mOHV1TXlIcGZlL0Zla1QrMDBVUVd1VERsMmU1SWNTdjZLYitja1RBbW1B?=
+ =?utf-8?B?R3hFb2dEQ1lsY1ZWMmZrK3FJeG5wZkl0K2NjRFhPcUs2WDUzY2x0c2tIcVdy?=
+ =?utf-8?B?UFF1NFoxWVpkTWFNbThiZEZpcUh3NFlOUUNCYXVreW1lMStRVEM0TjNGTDR3?=
+ =?utf-8?B?SkQ4TU1ZdXp3YmlqT24wN3VCSFJJZmU0d2ZJcEw5L0xyVmpCQmU0cmltMHRh?=
+ =?utf-8?B?STQ1ejEyQkRXaHZkNGx2a0xmZTJ6TVNWemN3dTBiL1c5bmd2cGc3UHB6MStY?=
+ =?utf-8?B?dDVWa2FQRXNXdUFMREs1U3ZuOE12WnpCdWd2Q1VkTElRa3FIR3drWDgvY1Rl?=
+ =?utf-8?B?M2dXOUF1U2F3QTljdU9PeW9TTXVKaXBWb0xTcHJMbEpYeXkvZmJIbkxZUm8w?=
+ =?utf-8?B?bTFHdXU3TlJaT0VJcHpySWFoMDVGeFliWEZSQnRUOVhmWGlNSm1XalZwbnJa?=
+ =?utf-8?B?eXEvMFdlbk5MYk11ckxiQW41SnVtNkFxekRzVmhIU3FSSkJzdGsxUTFyT2p2?=
+ =?utf-8?B?bjZQdklQa2tUS0tIWGVpTTB2T0JzQ1AvVTZmSUl0bksxR1VodW1XaSs1aTFh?=
+ =?utf-8?B?M3FNTVFBV2RTdHVHNGJHY2NYeFB1SzdPelN1SU9tK0t2RTcrdkZyT1dPY0tp?=
+ =?utf-8?B?ZW1qMlAzWWdsRHljNTNaV0kzWXFTWHo1NCtxdkU0UEo0a0RhR1lFYjVPNk5X?=
+ =?utf-8?B?MUpYVkZqazdCL0lQTThaNDRaMUNMZzk3TEFoVnhWbm1EaXpML0wyNnpMQ2x4?=
+ =?utf-8?B?dUx2WTNmcCtsd0dNYVZjd3I5Wkx0N0tNUHdUOGxsMUs2L0ZMRWpQaWpscWF6?=
+ =?utf-8?B?QjhuT25ySkc4NkFObUthWUJ2cEMxU3JWVGpnRGhkVXNhZkZxYXRlcEhpZWgr?=
+ =?utf-8?B?R1A4VXloanBzWGtEbW1OTnB1eWNrelV2a0dJNThkYzdOelZINFlJcmhycDlw?=
+ =?utf-8?B?TEFyMEtjaUhCNzQ4RkExYzRlaWNDSzl5NUpCbFlETmkyRjR3Y1BWK0l4R01a?=
+ =?utf-8?B?TWNLbEFQQy80M1UvYVNRN2djRUdxYWtoalBSMEpiQzJIMHlXT3R2Sll6cDcx?=
+ =?utf-8?B?QWRHaWFOMyt2NXRrR2E2VVhQMitTY0tpRFdKcFdNZ1VmQkx2QU1MR2FiNzhX?=
+ =?utf-8?B?RmZCQlY4aW4xMHJheGhFS1VmcFBNcklaUEdZdXk0THc2UkNobERza2toVHgz?=
+ =?utf-8?B?WFIwSlBLY2Q3elZ0M1d3L2dHTmx2VCtzRUdVSXJHYWNZd05TcXAxODhTaWVN?=
+ =?utf-8?B?TDJUUCtSV292bUFySmNrcGx6SGJhVXY1MStaVVZaQWRIOS9oYzZ3UWJGQk5v?=
+ =?utf-8?B?SHIyOVlITTJheFNGcVkxeHBIeTdFS2g4a1N4c0dUTkZYdGFEc0ZOMTR0ZzlW?=
+ =?utf-8?B?YjVmZUJleWk5cTVlTThKbHVxWkNqNTJTNkdKdEFmU1VoY2R4RTJvUWg3WW5t?=
+ =?utf-8?B?c0hiVmZZMHZ3YW9zMGI3REVPVXIwYURXTEhmb3N3dnlkMTF1LzlXUDR3NmNy?=
+ =?utf-8?B?UE5OeWxsdW96dDN3dmpqblg4ankxZ2g5OFJKTWw2MkVoYklXeE0xVndZYWtl?=
+ =?utf-8?B?a1E1YTZoY24wZjVwSFBMc2FJVkw2T3dBUTQ1eG0wWVlDbnBDeUVMNUF6UkNt?=
+ =?utf-8?Q?KROSwD2VEguE0MC0=3D?=
+X-Exchange-RoutingPolicyChecked: Zyh5prQA22sVmxxY10FSvEzUlTiQUVNSCEOm0HFdkRCLtoV4VNmuEbY/oEXAUNJV3xfod/35FJjmR1Kx7NRl4tzifeRN1H/4PTjvHq5tNaHtlCvEaBsrqiIeFY4KNtrONpKpXtz1do0ngGZqxw4MVbTkLRH2a2Ec1Et/NTNEfYgdtszkqV5d8cSmBoZnvxDW62V1HK9JtV6F/JjGbper/3TjzN+0cedMgdCXeIW1U3e/Blb05/GCFnLUFTB4gqN8vJXxjL7jxaiQXz0xXDLlXJowL4GaQxANwfSpVFLsxIYZ1Hs0ZbInLUtxlW5nOW8TeLSNODcOI2PHysGoHVsdsA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1f6b62f-8e8b-4df6-3055-08def47d7798
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7215.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 12:15:01.6181
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3Q7uqdgiDPtgkFYYiFwMgnjtP+vDBjXsuO5NkKTsJVGAIN69t5a+BcA3RmY4VtXJkCOzt4Ek5ozBbAefukPNpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR11MB9793
+X-OriginatorOrg: intel.com
 
-On 7/21/26 12:52, AngeloGioacchino Del Regno wrote:
-> Changes in v2:
->   - Added change in bindings to allow resets to be optional on MT8196
->   - Made the code change simpler and without paranoid nonsense checks
+On 24/07/2026 17:50, Tanmay Kathpalia wrote:
+> SD4HC PHY helpers and the default ops/drv_data are not marked as
+> version-specific, so it is unclear what is shared versus SD4HC-only
+> ahead of SD6HC support.
 > 
-> AngeloGioacchino Del Regno (2):
->    dt-bindings: thermal: mediatek: Make resets optional for MT8196
->    thermal/drivers/mediatek/lvts_thermal: Make reset optional for MT8196
+> Rename those symbols with a cdns4 prefix to separate the SD4HC paths
+> from the shared driver core and avoid clashes when SD6HC is added.
 > 
->   .../bindings/thermal/mediatek,lvts-thermal.yaml   | 13 ++++++++++++-
->   drivers/thermal/mediatek/lvts_thermal.c           | 15 ++++++++++++++-
->   2 files changed, 26 insertions(+), 2 deletions(-)
-> 
+> Signed-off-by: Tanmay Kathpalia <tanmay.kathpalia@altera.com>
 
-Applied, thanks
+Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+
+> ---
+>  drivers/mmc/host/sdhci-cadence.c | 55 +++++++++++++++-----------------
+>  1 file changed, 26 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/mmc/host/sdhci-cadence.c b/drivers/mmc/host/sdhci-cadence.c
+> index 435603c8c00b..8a6ef6d9d1dd 100644
+> --- a/drivers/mmc/host/sdhci-cadence.c
+> +++ b/drivers/mmc/host/sdhci-cadence.c
+> @@ -78,7 +78,7 @@
+>   */
+>  #define SDHCI_CDNS_MAX_TUNING_LOOP	40
+>  
+> -struct sdhci_cdns_phy_param {
+> +struct sdhci_cdns4_phy_param {
+>  	u8 addr;
+>  	u8 data;
+>  };
+> @@ -91,10 +91,10 @@ struct sdhci_cdns_priv {
+>  	void (*priv_writel)(struct sdhci_cdns_priv *priv, u32 val, void __iomem *reg);
+>  	struct reset_control *rst_hw;
+>  	unsigned int nr_phy_params;
+> -	struct sdhci_cdns_phy_param phy_params[];
+> +	struct sdhci_cdns4_phy_param phy_params[];
+>  };
+>  
+> -struct sdhci_cdns_phy_cfg {
+> +struct sdhci_cdns4_phy_cfg {
+>  	const char *property;
+>  	u8 addr;
+>  };
+> @@ -104,7 +104,7 @@ struct sdhci_cdns_drv_data {
+>  	const struct sdhci_pltfm_data pltfm_data;
+>  };
+>  
+> -static const struct sdhci_cdns_phy_cfg sdhci_cdns_phy_cfgs[] = {
+> +static const struct sdhci_cdns4_phy_cfg sdhci_cdns4_phy_cfgs[] = {
+>  	{ "cdns,phy-input-delay-sd-highspeed", SDHCI_CDNS_PHY_DLY_SD_HS, },
+>  	{ "cdns,phy-input-delay-legacy", SDHCI_CDNS_PHY_DLY_SD_DEFAULT, },
+>  	{ "cdns,phy-input-delay-sd-uhs-sdr12", SDHCI_CDNS_PHY_DLY_UHS_SDR12, },
+> @@ -124,8 +124,7 @@ static inline void cdns_writel(struct sdhci_cdns_priv *priv, u32 val,
+>  	writel(val, reg);
+>  }
+>  
+> -static int sdhci_cdns_write_phy_reg(struct sdhci_cdns_priv *priv,
+> -				    u8 addr, u8 data)
+> +static int sdhci_cdns4_write_phy_reg(struct sdhci_cdns_priv *priv, u8 addr, u8 data)
+>  {
+>  	void __iomem *reg = priv->hrs_addr + SDHCI_CDNS_HRS04;
+>  	u32 tmp;
+> @@ -156,44 +155,42 @@ static int sdhci_cdns_write_phy_reg(struct sdhci_cdns_priv *priv,
+>  	return ret;
+>  }
+>  
+> -static unsigned int sdhci_cdns_phy_param_count(struct device_node *np)
+> +static unsigned int sdhci_cdns4_phy_param_count(struct device_node *np)
+>  {
+>  	unsigned int count = 0;
+>  	int i;
+>  
+> -	for (i = 0; i < ARRAY_SIZE(sdhci_cdns_phy_cfgs); i++)
+> -		if (of_property_present(np, sdhci_cdns_phy_cfgs[i].property))
+> +	for (i = 0; i < ARRAY_SIZE(sdhci_cdns4_phy_cfgs); i++)
+> +		if (of_property_present(np, sdhci_cdns4_phy_cfgs[i].property))
+>  			count++;
+>  
+>  	return count;
+>  }
+>  
+> -static void sdhci_cdns_phy_param_parse(struct device_node *np,
+> -				       struct sdhci_cdns_priv *priv)
+> +static void sdhci_cdns4_phy_param_parse(struct device_node *np, struct sdhci_cdns_priv *priv)
+>  {
+> -	struct sdhci_cdns_phy_param *p = priv->phy_params;
+> +	struct sdhci_cdns4_phy_param *p = priv->phy_params;
+>  	u32 val;
+>  	int ret, i;
+>  
+> -	for (i = 0; i < ARRAY_SIZE(sdhci_cdns_phy_cfgs); i++) {
+> -		ret = of_property_read_u32(np, sdhci_cdns_phy_cfgs[i].property,
+> -					   &val);
+> +	for (i = 0; i < ARRAY_SIZE(sdhci_cdns4_phy_cfgs); i++) {
+> +		ret = of_property_read_u32(np, sdhci_cdns4_phy_cfgs[i].property, &val);
+>  		if (ret)
+>  			continue;
+>  
+> -		p->addr = sdhci_cdns_phy_cfgs[i].addr;
+> +		p->addr = sdhci_cdns4_phy_cfgs[i].addr;
+>  		p->data = val;
+>  		p++;
+>  	}
+>  }
+>  
+> -static int sdhci_cdns_phy_init(struct sdhci_cdns_priv *priv)
+> +static int sdhci_cdns4_phy_init(struct sdhci_cdns_priv *priv)
+>  {
+>  	int ret, i;
+>  
+>  	for (i = 0; i < priv->nr_phy_params; i++) {
+> -		ret = sdhci_cdns_write_phy_reg(priv, priv->phy_params[i].addr,
+> -					       priv->phy_params[i].data);
+> +		ret = sdhci_cdns4_write_phy_reg(priv, priv->phy_params[i].addr,
+> +						priv->phy_params[i].data);
+>  		if (ret)
+>  			return ret;
+>  	}
+> @@ -470,7 +467,7 @@ static int elba_drv_init(struct platform_device *pdev)
+>  	return 0;
+>  }
+>  
+> -static const struct sdhci_ops sdhci_cdns_ops = {
+> +static const struct sdhci_ops sdhci_cdns4_ops = {
+>  	.set_clock = sdhci_set_clock,
+>  	.get_timeout_clock = sdhci_cdns_get_timeout_clock,
+>  	.set_bus_width = sdhci_set_bus_width,
+> @@ -481,7 +478,7 @@ static const struct sdhci_ops sdhci_cdns_ops = {
+>  
+>  static const struct sdhci_cdns_drv_data sdhci_cdns_uniphier_drv_data = {
+>  	.pltfm_data = {
+> -		.ops = &sdhci_cdns_ops,
+> +		.ops = &sdhci_cdns4_ops,
+>  		.quirks2 = SDHCI_QUIRK2_PRESET_VALUE_BROKEN,
+>  	},
+>  };
+> @@ -495,14 +492,14 @@ static const struct sdhci_cdns_drv_data sdhci_elba_drv_data = {
+>  
+>  static const struct sdhci_cdns_drv_data sdhci_eyeq_drv_data = {
+>  	.pltfm_data = {
+> -		.ops = &sdhci_cdns_ops,
+> +		.ops = &sdhci_cdns4_ops,
+>  		.quirks2 = SDHCI_QUIRK2_PRESET_VALUE_BROKEN,
+>  	},
+>  };
+>  
+> -static const struct sdhci_cdns_drv_data sdhci_cdns_drv_data = {
+> +static const struct sdhci_cdns_drv_data sdhci_cdns4_drv_data = {
+>  	.pltfm_data = {
+> -		.ops = &sdhci_cdns_ops,
+> +		.ops = &sdhci_cdns4_ops,
+>  	},
+>  };
+>  
+> @@ -560,9 +557,9 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
+>  
+>  	data = of_device_get_match_data(dev);
+>  	if (!data)
+> -		data = &sdhci_cdns_drv_data;
+> +		data = &sdhci_cdns4_drv_data;
+>  
+> -	nr_phy_params = sdhci_cdns_phy_param_count(dev->of_node);
+> +	nr_phy_params = sdhci_cdns4_phy_param_count(dev->of_node);
+>  	host = sdhci_pltfm_init(pdev, &data->pltfm_data,
+>  				struct_size(priv, phy_params, nr_phy_params));
+>  	if (IS_ERR(host))
+> @@ -593,9 +590,9 @@ static int sdhci_cdns_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	sdhci_cdns_phy_param_parse(dev->of_node, priv);
+> +	sdhci_cdns4_phy_param_parse(dev->of_node, priv);
+>  
+> -	ret = sdhci_cdns_phy_init(priv);
+> +	ret = sdhci_cdns4_phy_init(priv);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -622,7 +619,7 @@ static int sdhci_cdns_resume(struct device *dev)
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = sdhci_cdns_phy_init(priv);
+> +	ret = sdhci_cdns4_phy_init(priv);
+>  	if (ret)
+>  		goto disable_clk;
+>  
+
