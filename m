@@ -1,228 +1,417 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4630945DF70
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:29:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90CC3AFB0C;
+	Fri,  7 Aug 2026 08:29:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786091369; cv=none; b=vDBbcP4G540ZFmi9GMvhAau1VASYD7ltRiYkNUkorfaPZkoPBlstgx9aebCPUs75xBaBGgQ9dAmfX/Uz7djLpCW9g/5O61NFxP7eC61DLF123zt0Y4Pv6nw9V3C1nRnvkv4QIKmohtqUVVz7FUnPqzdCocbI6M/Gn6917PTTEv0=
+	t=1786091381; cv=none; b=S3i79eOCCAEDgaRC2x08vYxU6ETeTgeTVl2bfLx9AoaA/6YaFCVIKDvok5FSNbDUjCTCrg7OYinQ/A/0XZ2fCXwJTqW5gGujIgRcIwPYm7+GMqPMBIxxUonuOAdN6kRrnssm7jKF4ce9qZKU9uoHk7KPSY4bCS1ejt5sCOVd1Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786091369; c=relaxed/simple;
-	bh=2Ta7SYii7UbdsaXt3oAKqMeVVnuG/pODzCp+tQz2+M4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CBTxSZ4m4Fe0IfeqxPypsgTQDQhCSqbxby+d9UWkXkgNY/NJAPXkV4ADpjVD0ew+0OVJ9ghmdGbc5mgLWdtifWVY+Tgh6HtISMfFXGSEzv0V8hnF5ImwRQqttmImcxr0BOztI1EU7VEcgeGjqkKYcESNws6HZVpf6198a8yNgDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=k+/AA6O1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Mpv9Xe0g; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="k+/AA6O1";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mpv9Xe0g"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6777VOMa3477121
-	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 08:29:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZenggdqjvqXCJDHAMgGpE+rdTYFCZrZH8wQwXj1QToo=; b=k+/AA6O1oCpFHoX4
-	/uPrkreD5OMCyRwpNAdkGY6z+T1GXaLpiuMNJ55NMnt8AY8w/TcLJZ3VFWbn7TBs
-	o2hMkNV53oB4D85QixC/sAwmRo6lot9afhbYfWdQpLzrsiVDIQpRJ9P4aBuKMh8j
-	+VCXCgJ4d9nd7isrfnIwfrBDKoHNJ28nxM+ApiNzHVxstJn2lBrKdvk6UjTs1G8s
-	+1EG5zD+K1AaerK2uc8oBR/Rulqaxq6/OJl5qaqVw6S+V7eg2vYhko4/OHbbAVa/
-	H+wlDn1BSictF3YUbTi1W5sR7I2noxDnWSp+U45O1z1ZphTmyRHHrCtzSCcOFWY1
-	DuXtDw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6hb1fa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 08:29:27 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cab041eced3so4617096a12.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 01:29:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786091366; x=1786696166; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZenggdqjvqXCJDHAMgGpE+rdTYFCZrZH8wQwXj1QToo=;
-        b=Mpv9Xe0g56z8aXp+LiYnHQFGi7Y9FKkKegAmfBXMC8Yo8fUGN9XI/WwQzrG2wven6l
-         jnweAgNGK1hKTj4NXDtTK9gD9XrVOoW0NAK0K69rt7/k5ybLg+FpKJUxcfXBexEuy8ff
-         DWKK0OUKTEma1eWhXN1gXwrIJDCILCx8iSogjgv2oNWkLxdpzCKt+KCMNIt9L1C5NU2x
-         1p828XMLCNN8spfHCg/2aAVhBQ9mqZ17oTrwJ7Mg2/feoTp856c7GHWclaCljZJQDU1z
-         /rkvcUFKfWFgoegFN4xy8YWePIoapQCkS0YvYn3bKaTHbPIm0SBBCiD313XjO7CPHrEZ
-         Wj4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786091366; x=1786696166;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZenggdqjvqXCJDHAMgGpE+rdTYFCZrZH8wQwXj1QToo=;
-        b=rPE9yvfBb0yzemtFqFZe/KrdpUHxX/HRJDf+gTdCm4IOSw83cjHCbhhy7Idp3qhyHD
-         MMgME8/f78AFfnhf2ShGxAoqrLv/OoRhoKFTzuNmHtqzP1zjcgK60nhTDGmg6PT5vvDl
-         7YQ/Qa6tqQM5EwRFNCh7dtWM8YU57UhM0G6Oz+i0YR+Mu3P1k9XJDo50GmHKvqSfy0f1
-         kpKpDJaTTNbm9ilWSkYwtQECLrGYn3loFz9Br+Z4Qgzg/9l4KsAVbuRE3yz52qT/DM5b
-         3CGdKyFJ2vQC5qwekKBkNWmQe6UJdAOA8jb85zqOGydl2dVcEWlGuMjiidA+HYboDajn
-         t/PQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoLS3h5tYbWv8erHwG7w4LFEpfEs4Zuqi/MMQYGP3YaXBYyTGZ1GJoioDfsSQ3zH+7k7k7ratKwKsaI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3yTHvRvAp/7FjPYeIRSs0LUV5FgDcH43DL6RCjGaCMHhoZwFK
-	HnOLXlbLiG1svIGy1bmJb6FHpS2C7diEFMYoeqhBVI5J+2RCyeVngalnM6vi318WHVbxAXTnsP6
-	YxDkO6VvbAc3UyxgJA7BkkUusivBAjWUPq0c/R4SYX3jAJVCKbW7gx0GOcwWFlJRl
-X-Gm-Gg: AR+sD134Tqo+S6MIYBUWcTOpbt5tmZLBOqNBa9fDSlQonVx7ai++/DbjM0m70UaT1+9
-	9tVGcujuPu7+PlIGb/3jEW2IHoadk1Bdq1dgnd/WUclsCyNvrnJY/5fChX9OPJ22lpbaTwZCtN8
-	diEhTMYmD+Qhy/61IvEu1gijm4cqpaplt3bKPDXUURoy/G2NxAUNf1SPO2l1jHP2qbS4IpJlAEy
-	URsfo1atV8bei5MEEb0I/x1D2gT+vGNWEYRx7YCWy5inw35AoOT7P0eVyvCIlFAJU1MalNhRVo3
-	FgtaPNYVlDp+sUxV1eNWj77loPh6Xl2Ghdw3Be4/lx6DJrKAf6CtO0J48EmcDwii3Ct85W9mfyO
-	kwpJwNri9f5kd/1ZUnzIG5kv7T92GMIQytcw=
-X-Received: by 2002:a05:6a20:7344:b0:3bf:6acf:2940 with SMTP id adf61e73a8af0-3cb85df0a1bmr23661510637.11.1786091366191;
-        Fri, 07 Aug 2026 01:29:26 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7344:b0:3bf:6acf:2940 with SMTP id adf61e73a8af0-3cb85df0a1bmr23661464637.11.1786091365791;
-        Fri, 07 Aug 2026 01:29:25 -0700 (PDT)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bec2ec20sm5377977eec.28.2026.08.07.01.29.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 01:29:25 -0700 (PDT)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Date: Fri, 07 Aug 2026 13:55:03 +0530
-Subject: [PATCH 19/22] arm64: dts: qcom: sdm845: Reserve low IOVA range for
- Venus
+	s=arc-20240116; t=1786091381; c=relaxed/simple;
+	bh=noGE6QGqkNK5BLekT03L2goLhgphH9QldjWjx2WnuwU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=S32TtQZywO+wRn8GEOYBE+JZ5XdcNRm610hb2VcYnpMzSQAwwIXnRnt4Gz1aSfmJy0UOxnMAlR0K5NWMo39hAcM1l+omxaFaNjQUdVh4LrkPwGkNwTtNrq/9BUI4Z80xOMzb/43BYUN2IojcYJOgSuWuYkF4TmsiVfMvdWVN8x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id CC95D1A003B;
+	Fri,  7 Aug 2026 10:29:36 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 946C91A0008;
+	Fri,  7 Aug 2026 10:29:36 +0200 (CEST)
+Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 5DF7718000B5;
+	Fri,  7 Aug 2026 16:29:33 +0800 (+08)
+From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+To: linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: alexandre.belloni@bootlin.com,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	linux@roeck-us.net,
+	wim@linux-watchdog.org,
+	vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	lakshay.piplani@nxp.com,
+	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: [PATCH 3/4] rtc: pcf8525: Add watchdog support
+Date: Fri,  7 Aug 2026 13:58:54 +0530
+Message-Id: <20260807082855.3762394-4-shivprakash.gupta@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
+References: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-iris_iova_600mb_fix-v1-19-3996f67e33f9@oss.qualcomm.com>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Andy Gross <andy.gross@linaro.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@codeaurora.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Pierre-Hugues Husson <phhusson@freebox.fr>,
-        Marc Gonzalez <mgonzalez@freebox.fr>,
-        cros-qcom-dts-watchers@chromium.org,
-        Matthias Kaehlcke <mka@chromium.org>,
-        Douglas Anderson <dianders@chromium.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Aniket Masule <amasule@codeaurora.org>,
-        Malathi Gottam <quic_mgottam@quicinc.com>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Jonathan Marek <jonathan@marek.ca>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        Renjiang Han <quic_renjiang@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786091113; l=2055;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=2Ta7SYii7UbdsaXt3oAKqMeVVnuG/pODzCp+tQz2+M4=;
- b=QCFhMWAchRgn4KgbwLEhf74mmibB2pU9J8LWoTUrTjSlA+eyldJ/UsdFbx/8SKYfxOhC0c6pS
- ZmG/rN+DD8vDIuK4lVM0py0fmC5WcfSfX1PbTLwDjzHf8F9hempd8fM
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Proofpoint-GUID: Nnvsd-IP-rJ8GNbOsORyf-2X1b5hd2cd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfX2nILx1izhX03
- Eo3c9IHkdUEOTUtU9c5lgqTfJHC13DpRMR9UpM6/pIIdvI6tHMpf1Y6pn2mNfFAYVm3cpXWw67e
- +OBJlSgfqK9rcWk87ZcfeDKydtIEy0T1AubdpKMFGCFdDo4WjmBC3ZmZSmix3LLWfBLRrHISC2U
- /fP/V2D1CQpi0kx8+lH/PcvaRrc+QToHbsvipy15w6/WEBQrfHnQTFML9q6jNTzW3RQtFZFg8oQ
- kjCtsBESsqLk676u/DiEyDyD9hd65b5Idk97vVsYEatkAYfjpCMgEgLDq87a5IoMPVR1uHBI4/T
- g/Jbvf0KSKVfgZEKlnW70UgJEDZ524u/PvEayN3rDRUC0ljXwwyv6w4fsTujTNYNxID4KkXwm/Z
- YBz+Lu4ixGCivVjdPG628xgF2lS30GaQpZqX34HlDCcWzGWj46pXjxPfuEtrsMAf6ndTWYqQqg6
- FmrCYP4JPvC2a0RLOBA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfX4DVL3sWnl4Uj
- J2RRCcMK56PGpfhIlc2Oql5NcIWxFhKSNCD1qo6Ak5BuKsWpGkFIeAszTGujbsad4jfnb0ehEkz
- JxL8g3pQ/hucb7JrUIClRUzUWp5NCIU=
-X-Proofpoint-ORIG-GUID: Nnvsd-IP-rJ8GNbOsORyf-2X1b5hd2cd
-X-Authority-Analysis: v=2.4 cv=MbpcfZ/f c=1 sm=1 tr=0 ts=6a759767 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=iB3bJDkhKBw2G02gjNQA:9
- a=Ul03GRaUMT3W8rxV:21 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
- bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070062
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-Venus VPU reserves IOVA addresses below 0x25800000 (600MB), primarily for
-secure non-pixel buffers. DMA into that range, from any other stream id
-would triggers unhandled SMMU page faults that cause spontaneous device
-reboots. This is readily reproduced with one or more browser tabs
-driving multiple concurrent video decode streams.
+Add watchdog support for NXP PCF8525 real time clock(RTC) device
 
-Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
-and reference it from the venus node so the IOMMU layer keeps DMA
-allocations above that boundary.
-
-Fixes: 36a80df44b6f ("arm64: dts: sdm845: Add video nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
 ---
- arch/arm64/boot/dts/qcom/sdm845.dtsi | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ drivers/rtc/Kconfig       |   1 +
+ drivers/rtc/rtc-pcf8525.c | 245 +++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 244 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index b1f6782a3ad9faf16e083d63cb8a6ea1507d4131..442834f394e6412386917b93f12f22069c4633f1 100644
---- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -898,6 +898,17 @@ fastrpc_mem: fastrpc {
- 			size = <0x0 0x1000000>;
- 			reusable;
- 		};
-+
-+		/*
-+		 * The Venus VPU reserves IOVA below 0x25800000 (600MB),
-+		 * primarily for non-pixel buffers using different Stream IDs.
-+		 * DMA into that range triggers unhandled SMMU faults and
-+		 * spontaneous reboots, so reserve it to keep IOMMU
-+		 * allocations above this boundary.
-+		 */
-+		venus_iova: venus-iova {
-+			iommu-addresses = <&venus 0x0 0x0 0x0 0x25800000>;
-+		};
- 	};
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 3c22c7253aae..6c1c7b3d27b6 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -516,6 +516,7 @@ config RTC_DRV_PCF8523
+ config RTC_DRV_PCF8525
+         tristate "NXP PCF8525"
+         select REGMAP_I2C
++	select WATCHDOG_CORE if WATCHDOG
+         help
+           If you say yes here you get support for the NXP PCF8525 RTC
+           chips.
+diff --git a/drivers/rtc/rtc-pcf8525.c b/drivers/rtc/rtc-pcf8525.c
+index 7dfb4f0f6404..4ef648bdfc5b 100644
+--- a/drivers/rtc/rtc-pcf8525.c
++++ b/drivers/rtc/rtc-pcf8525.c
+@@ -45,6 +45,8 @@
+ #include <linux/slab.h>
+ #include <linux/bitfield.h>
+ #include <linux/uaccess.h>
++#include <linux/kernel.h>
++#include <linux/watchdog.h>
  
- 	adsp_pas: remoteproc-adsp {
-@@ -4346,7 +4357,7 @@ venus: video-codec@aa00000 {
- 				      "vcodec1_core", "vcodec1_bus";
- 			iommus = <&apps_smmu 0x10a0 0x8>,
- 				 <&apps_smmu 0x10b0 0x0>;
--			memory-region = <&venus_mem>;
-+			memory-region = <&venus_mem>, <&venus_iova>;
- 			interconnects = <&mmss_noc MASTER_VIDEO_P0 0 &mem_noc SLAVE_EBI1 0>,
- 					<&gladiator_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_VENUS_CFG 0>;
- 			interconnect-names = "video-mem", "cpu-cfg";
-
+ /* Registers */
+ #define PCF8525_REG_CTRL1		0x00
+@@ -94,6 +96,8 @@
+ #define PCF8525_REG_INTB_MASK1		0x2A
+ #define PCF8525_REG_INTB_MASK2		0x2B
+ 
++#define PCF8525_REG_WD_CTL              0x2C
++#define PCF8525_REG_WD_VAL              0x2D
+ #define PCF8525_REG_TEMP		0x2E
+ 
+ /* CTRL1 */
+@@ -104,6 +108,7 @@
+ /* CTRL2 */
+ #define PCF8525_CTRL2_MSF		BIT(7)
+ #define PCF8525_CTRL2_TI_TP		BIT(6)
++#define PCF8525_CTRL2_WDTF              BIT(5)
+ #define PCF8525_CTRL2_AF		BIT(4)
+ #define PCF8525_CTRL2_OSFE_MASK		GENMASK(3, 2)
+ #define PCF8525_CTRL2_AIE		BIT(1)
+@@ -120,6 +125,9 @@
+ #define PCF8525_CTRL5_CL		BIT(1)
+ #define PCF8525_CTRL5_XTL_TYP		BIT(0)
+ 
++/* CLKOUT_ctl */
++#define PCF8525_CLKOUT_CLKOE            BIT(3)
++
+ /* Timestamp control */
+ #define PCF8525_TS_CTL1_TSM             BIT(7)
+ #define PCF8525_TS_CTL1_TSOFF           BIT(6)
+@@ -138,6 +146,7 @@
+ #define PCF8525_RESET_SR_CMD		0x2C /* software reset */
+ 
+ /* Interrupt masks (mask bit = 1 means masked/disabled) - INTA_MASK1 bits */
++#define PCF8525_MASK1_WD_CD            BIT(0)
+ #define PCF8525_MASK1_BIE		BIT(1)
+ #define PCF8525_MASK1_AIE		BIT(2)
+ #define PCF8525_MASK1_OSIE		BIT(3)
+@@ -148,6 +157,14 @@
+ 
+ #define PCF8525_ALM_AE_MONTH		BIT(7)
+ #define PCF8525_ALM_AE_YEAR		BIT(6)
++#define PCF8525_WD_CTL_WD_CD            BIT(7)
++#define PCF8525_WD_CTL_TF0              BIT(0)
++#define PCF8525_WD_CTL_TF1              BIT(1)
++
++#define PCF8525_WD_CLOCK_HZ_X1000       250 /* 1/4 Hz */
++#define PCF8525_WD_MIN_HW_HEARTBEAT_MS  4000
++#define PCF8525_WD_VAL_STOP             0
++#define PCF8525_WD_DEFAULT_TIMEOUT_S    60
+ 
+ #define PCF8525_REG_AGING_OFFSET_HI	0x26
+ #define PCF8525_REG_AGING_OFFSET_LO	0x27
+@@ -163,10 +180,13 @@
+ 
+ struct pcf8525 {
+ 	struct rtc_device *rtc;
++	struct watchdog_device wdd;
+ 	struct regmap *regmap;
+ 	bool irq_enabled;
+ 	time64_t ts[2];
+ 	bool ts_valid[2];
++	int irq_inta;
++	int irq_intb;
+ };
+ 
+ static const struct regmap_config pcf8525_regmap_cfg = {
+@@ -175,6 +195,218 @@ static const struct regmap_config pcf8525_regmap_cfg = {
+ 	.max_register = PCF8525_REG_TEMP,
+ };
+ 
++static unsigned int pcf8525_wdt_timeout_to_val(unsigned int timeout)
++{
++	unsigned int val;
++
++	val = DIV_ROUND_UP(timeout * PCF8525_WD_CLOCK_HZ_X1000, 1000) + 1;
++
++	if (val < 2)
++		return 2;
++	if (val > 255)
++		return 255;
++
++	return val;
++}
++
++static int pcf8525_wdt_ping(struct watchdog_device *wdd)
++{
++	struct pcf8525 *pcf8525 = watchdog_get_drvdata(wdd);
++	unsigned int wd_val;
++
++	wd_val = pcf8525_wdt_timeout_to_val(wdd->timeout);
++
++	return regmap_write(pcf8525->regmap, PCF8525_REG_WD_VAL, wd_val);
++}
++
++static int pcf8525_wdt_active_ping(struct watchdog_device *wdd)
++{
++	if (watchdog_active(wdd))
++		return pcf8525_wdt_ping(wdd);
++
++	return 0;
++}
++
++static int pcf8525_wdt_start(struct watchdog_device *wdd)
++{
++	return pcf8525_wdt_ping(wdd);
++}
++
++static int pcf8525_wdt_stop(struct watchdog_device *wdd)
++{
++	struct pcf8525 *pcf8525 = watchdog_get_drvdata(wdd);
++
++	return regmap_write(pcf8525->regmap, PCF8525_REG_WD_VAL,
++				    PCF8525_WD_VAL_STOP);
++}
++
++static int pcf8525_wdt_set_timeout(struct watchdog_device *wdd,
++				   unsigned int timeout)
++{
++	wdd->timeout = timeout;
++
++	return pcf8525_wdt_active_ping(wdd);
++}
++
++static const struct watchdog_info pcf8525_wdt_info = {
++	.identity = "NXP PCF8525 Watchdog",
++	.options = WDIOF_KEEPALIVEPING | WDIOF_SETTIMEOUT,
++};
++
++static const struct watchdog_ops pcf8525_watchdog_ops = {
++	.owner = THIS_MODULE,
++	.start = pcf8525_wdt_start,
++	.stop = pcf8525_wdt_stop,
++	.ping = pcf8525_wdt_ping,
++	.set_timeout = pcf8525_wdt_set_timeout,
++};
++
++static int pcf8525_watchdog_get_period(int n, int f1000)
++{
++	return (1000 * (n - 1)) / f1000;
++}
++
++static irqreturn_t pcf8525_wdt_irq(int irq, void *data)
++{
++	struct device *dev = data;
++	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
++	unsigned int ctrl2;
++	int ret;
++
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_CTRL2, &ctrl2);
++	if (ret)
++		return IRQ_NONE;
++
++	if (!(ctrl2 & PCF8525_CTRL2_WDTF))
++		return IRQ_NONE;
++
++	ret = regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL2,
++				 PCF8525_CTRL2_WDTF, 0);
++	if (ret)
++		return IRQ_NONE;
++
++	return IRQ_HANDLED;
++}
++
++static int pcf8525_watchdog_config(struct device *dev,
++				   struct pcf8525 *pcf8525)
++{
++	unsigned int m1, m2;
++	int ret;
++
++	/* Configure nINTB/CLKOUT as nINTB open-drain interrupt output. */
++	ret = regmap_update_bits(pcf8525->regmap, PCF8525_REG_CLKOUT,
++				 PCF8525_CLKOUT_CLKOE, 0);
++	if (ret)
++		return ret;
++
++	/* Enable watchdog interrupt and select 1/4 Hz source: TF[1:0] = 10. */
++	ret = regmap_update_bits(pcf8525->regmap, PCF8525_REG_WD_CTL,
++				 PCF8525_WD_CTL_WD_CD |
++				 PCF8525_WD_CTL_TF1 |
++				 PCF8525_WD_CTL_TF0,
++				 PCF8525_WD_CTL_WD_CD |
++				 PCF8525_WD_CTL_TF1);
++	if (ret)
++		return ret;
++
++	/* Keep watchdog masked on INTA. */
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_INTA_MASK1, &m1);
++	if (ret)
++		return ret;
++
++	m1 |= PCF8525_MASK1_WD_CD;
++	ret = regmap_write(pcf8525->regmap, PCF8525_REG_INTA_MASK1, m1);
++	if (ret)
++		return ret;
++
++	/* Route watchdog only to INTB, and keep RTC interrupts masked on INTB. */
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_INTB_MASK1, &m1);
++	if (ret)
++		return ret;
++
++	m1 |= PCF8525_MASK1_BIE |
++	      PCF8525_MASK1_AIE |
++	      PCF8525_MASK1_OSIE |
++	      PCF8525_MASK1_SI |
++	      PCF8525_MASK1_MI;
++	m1 &= ~PCF8525_MASK1_WD_CD;
++
++	ret = regmap_write(pcf8525->regmap, PCF8525_REG_INTB_MASK1, m1);
++	if (ret)
++		return ret;
++
++	ret = regmap_read(pcf8525->regmap, PCF8525_REG_INTB_MASK2, &m2);
++	if (ret)
++		return ret;
++
++	m2 |= PCF8525_MASK2_TSIE;
++
++	return regmap_write(pcf8525->regmap, PCF8525_REG_INTB_MASK2, m2);
++}
++
++static int pcf8525_watchdog_init(struct device *dev,
++				 struct pcf8525 *pcf8525)
++{
++	int ret;
++
++	if (!IS_ENABLED(CONFIG_WATCHDOG_CORE) ||
++	    !device_property_read_bool(dev, "reset-source"))
++		return 0;
++
++	if (pcf8525->irq_intb > 0) {
++		ret = devm_request_threaded_irq(dev, pcf8525->irq_intb,
++						NULL, pcf8525_wdt_irq,
++						IRQF_ONESHOT,
++						"pcf8525-wdt", dev);
++		if (ret)
++			return ret;
++	}
++
++	ret = pcf8525_watchdog_config(dev, pcf8525);
++	if (ret)
++		return ret;
++
++	pcf8525->wdd.parent = dev;
++	pcf8525->wdd.info = &pcf8525_wdt_info;
++	pcf8525->wdd.ops = &pcf8525_watchdog_ops;
++	pcf8525->wdd.min_timeout = pcf8525_watchdog_get_period(2,
++							       PCF8525_WD_CLOCK_HZ_X1000);
++	pcf8525->wdd.max_timeout = pcf8525_watchdog_get_period(255,
++							       PCF8525_WD_CLOCK_HZ_X1000);
++	pcf8525->wdd.timeout = PCF8525_WD_DEFAULT_TIMEOUT_S;
++	watchdog_init_timeout(&pcf8525->wdd, 0, dev);
++	pcf8525->wdd.min_hw_heartbeat_ms = PCF8525_WD_MIN_HW_HEARTBEAT_MS;
++	pcf8525->wdd.status = WATCHDOG_NOWAYOUT_INIT_STATUS;
++
++	watchdog_set_drvdata(&pcf8525->wdd, pcf8525);
++	watchdog_stop_on_reboot(&pcf8525->wdd);
++
++	return devm_watchdog_register_device(dev, &pcf8525->wdd);
++}
++
++static int pcf8525_get_irqs(struct i2c_client *client, struct pcf8525 *pcf8525)
++{
++	struct device *dev = &client->dev;
++	int irq;
++
++	irq = fwnode_irq_get_byname(dev_fwnode(dev), "inta");
++	if (irq == -ENOENT || irq == -EINVAL)
++		irq = client->irq;
++	else if (irq < 0)
++		return irq;
++	pcf8525->irq_inta = irq;
++
++	irq = fwnode_irq_get_byname(dev_fwnode(dev), "intb");
++	if (irq == -ENOENT || irq == -EINVAL)
++		irq = 0;
++	else if (irq < 0)
++		return irq;
++	pcf8525->irq_intb = irq;
++
++	return 0;
++}
++
+ /*
+  * Configure only the crystal fields explicitly provided by firmware.
+  * If a property is absent, preserve the current hardware setting.
+@@ -809,6 +1041,7 @@ static int pcf8525_unmask_irqs_intA(struct pcf8525 *pcf8525)
+ 	if (ret)
+ 		return ret;
+ 
++	m1 |= PCF8525_MASK1_WD_CD;
+ 	m1 &= ~PCF8525_MASK1_AIE;    /* unmask alarm interrupt on INTA */
+ 	m2 &= ~PCF8525_MASK2_TSIE;   /* unmask timestamp interrupt on INTA */
+ 
+@@ -836,6 +1069,10 @@ static int pcf8525_probe(struct i2c_client *client)
+ 
+ 	i2c_set_clientdata(client, pcf8525);
+ 
++	ret = pcf8525_get_irqs(client, pcf8525);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get IRQs\n");
++
+ 	pcf8525->rtc = devm_rtc_allocate_device(dev);
+ 	if (IS_ERR(pcf8525->rtc))
+ 		return dev_err_probe(dev, PTR_ERR(pcf8525->rtc),
+@@ -877,8 +1114,8 @@ static int pcf8525_probe(struct i2c_client *client)
+ 		return ret;
+ 
+ 	/* Optional IRQ */
+-	if (client->irq > 0) {
+-		ret = devm_request_threaded_irq(dev, client->irq,
++	if (pcf8525->irq_inta > 0) {
++		ret = devm_request_threaded_irq(dev, pcf8525->irq_inta,
+ 						NULL, pcf8525_irq,
+ 						IRQF_ONESHOT,
+ 						dev_name(dev), dev);
+@@ -902,6 +1139,10 @@ static int pcf8525_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = pcf8525_watchdog_init(dev, pcf8525);
++	if (ret)
++		return ret;
++
+ 	return 0;
+ }
+ 
 -- 
 2.34.1
 
