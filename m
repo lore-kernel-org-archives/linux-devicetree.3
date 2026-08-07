@@ -1,65 +1,65 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6308A383993
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 14:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DDC388E4F
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 14:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786112553; cv=none; b=mKpCXw5kYuF5Taltd/LTRbeEQYZNSIFV4uvwFm9UITMVdtEJ2sGYRg5KR1JnkWEk9ZjikqqMekDo/NYJXDe9QJj2mUoibp/HMOQDWZh4hZIE4c3QaVchBbJEQ+3nE3N0KuEIRHX/bLX2hDqJfl3sHDb7kW0O7CXaamwnBw1n9CY=
+	t=1786112560; cv=none; b=DVVZ0K+uI8bnT6tqFn/gy+PktXShgk54226bC/oIkwk62zpWftbRqctWtGL5wztmApgz4FQSWOggkWWME6KBCvEDSG2QWnlhzIWLcAmzBeRmHdy0UEAFKIilLC5zQDZnmGyDIMji2kn8oy/5gqpigsvKdPTBla2/br8Cui1TaLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786112553; c=relaxed/simple;
-	bh=J28xWWhBWqCfIpHOKlpEQuPok325qQi5nVSHUlh1SK4=;
+	s=arc-20240116; t=1786112560; c=relaxed/simple;
+	bh=kuNmZvxYvoejaE29OOFapBXFGT9aZ85MOCKDfUxgk70=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pehDcYvTxOkGRwXsbogI6+hEaHF9jPHA7IiGqXxH6UvZUH17QxPYH4ZoWTR+v/F4p2CPNb7fKpmOk2euDX+F6VWYMshktISRdUuhCHEjIy7wyFZAwczadEvLMQfCBXQTZh5Hkcl5MKu6xqtcE6AuUr4IxPgBdoDj1zu+X4KGRwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Iw5pfrql; arc=none smtp.client-ip=209.85.215.181
+	 MIME-Version:Content-Type; b=il9XmFCX7dNbUtCkG1EfWxVFOza8WjyCwt0ziVVZx6lvAyYQ1ObfBinU/82AZqrCIGY+YVNqAuM3H6hNSfk9z/j3YwERi0tCZWpk5NtsJYiBCKpux6zSJRX855YxHfwVw+ioiQU2zOGN/3dlu99Kiol7Ld809jEVlsRhtk3SIhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YROH6nCD; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iw5pfrql"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-ca12086c06eso2874556a12.0
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 07:22:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YROH6nCD"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2caed617615so47618445ad.3
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 07:22:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786112552; x=1786717352; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786112558; x=1786717358; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FXqORpQuFukFf4CtgnQuCcVwYnWDFuCVbv8LufyxBXY=;
-        b=Iw5pfrql2Yk6H0sPmLSSL/5+9VqiD3tZRY5IBoyuUNvuJB0f4WUAm5NXRiPPGlWN65
-         b6QlwtH3BfZuw8w85SQ2W8IZHnJ9KXZ17B59Rd79ZkgBxw2ITDgLzEUn8itHMXD0j+j7
-         W5Eo4t3H3kat71TLYdf4zpRF2ogC6ua22heY6aXANMptrM2nTnwCD/Dn73B0B7ZWia5L
-         Xz50UGJyqA616Ql7xbrLp2LTzdIH2OTPbW1H7UT9jJ0QlXeYaMmXFpS9oBY3NmUi0OI/
-         MwBV+KF3elOLYWvdG3yv2ZbC45S2l2l7KEv0SWiPlRT6E8DOmfwJbVrQgB05ynT4IyUI
-         6acg==
+        bh=xiuUi61ARSwzz1aZ04OlVUgIQTtBBwGlgu/FI/r02UA=;
+        b=YROH6nCDd0bXUzEmomA4xvC5qkZCZtntfA9CpALMqKYBAvTTCLUClK92R1DPC+cBRy
+         z16ICPc/nnkhh2tYKWANqOtAJkr5pukrvGQxe4xMfx/gGLoXfMzv6B5Jo1IVqg8+DL5J
+         hPHKd6fRYslesYXb17eb9dbnthKFwfZJgyk4h/3mokNhKLObthFVIVv3U45z1nKhQQHG
+         X4yOoGRbf/X0a4gQfEoJ8eM3ciNvGijRM907vqTpswN1D34V5WnTq6lmbkg89CRzojO6
+         +T9MEfIj/DXAbMJCn0N83oNJy+8QXZ8ak3ztx9NbXTG2qunWuB1pW7Zf7s3bcAtYLPnd
+         63+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786112552; x=1786717352;
+        d=1e100.net; s=20251104; t=1786112558; x=1786717358;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FXqORpQuFukFf4CtgnQuCcVwYnWDFuCVbv8LufyxBXY=;
-        b=EieeDjFglyPdNY6eAQZFHgvUucy/b/uSGA7T7Z6xwYXFku1nizZQsgspPTscP0IAV3
-         /S93cglRbHW8R2ji7l+HnAYj7e5Y8ImYex17xQ/3IaOgaAmKBBTGUYP2qnUIoKEgxy53
-         sR4O5cpmjBNglWqwdm8hKAcN303gVFEDaPnj/4vcGkfEFvlc4MwPXWVerpZIwvTHabJU
-         pZtE0TFdlwnZQFObvlNl286+DtDWQgGA7gE5vlRW0RWG58ql7CL6+ylWhaIArlTgwBia
-         6MDbHK0S55KZEXxtHt0jMH0vaORkqbdkoKoW/qVsQa7e3/Xnp58VJl9J6io0MA1XtPT5
-         HBbQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrZ1D7aqxS3M1sLHjd1vEj2AQWzOlu1NBe2dSKcnOLauz766zAHGpqdhVE5IqhgguxcYc9D4IJYrnd7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcsY+XV8FwVM/jNiNRsPZRugabT8+caF3bz1tG+zDONigSVr6p
-	JPRMQZj1NCXT4gOUJssmfLM5mG0VtQg36jB+n6s509udV+ql+NIEt2A=
-X-Gm-Gg: AR+sD10B00xzRCRYhwfE5Ex3DKPqCMPvQg0tt1hN3Rf+ZVfqUo9bvQVjM1nXQeuMv9a
-	ZKOPPZVjLkqaNwkHGqLMm9veNwdSQhDY+cwQxDdfmEno+DeWhDoqx28NiLq3Jl2jOpp5Fd4ZuEw
-	m5CJ17twUIUgurBDA/+GMi5h0SM982qFtqiS4IxlG1Gd+yIgshLxka2F6AUF+AZtB6nEr12Pw/p
-	hzwmRiLT7FwNuRip7/GObytgxG5TpdMpqQl0T/DwL8SHTX5j7P4ZbNX0IXobDH96CopiudzS86a
-	VV72jTLIOF+aVirrEzRaBnu9eyLweDk64X2M2Mn1uMXSyQp+NXA9ad+t+q3ImLKs0zML77XpLwB
-	CFbV+A9bWfw/yr/D1cyPTHSsQvWXP8qJHqmCOq84C3YOxpkVKuyOJzIlpD7bctOdrC9i69MiPO7
-	YcaYrDlBbRFHzPCp50YHMkn36qDPsw2oALYrv4sf60U7dSJDexf/ejcfjNuBRxpc82n0bo5IXV2
-	QhjepqsA1oP2HsSF1GqqEuw5MaQmQyhjE6bl3+X
-X-Received: by 2002:a05:6a20:1602:b0:3b1:cce5:9140 with SMTP id adf61e73a8af0-3cbce98a610mr966402637.33.1786112551619;
-        Fri, 07 Aug 2026 07:22:31 -0700 (PDT)
+        bh=xiuUi61ARSwzz1aZ04OlVUgIQTtBBwGlgu/FI/r02UA=;
+        b=au6iQuRt6NtfRM/nVf4KI+yFOBj5cjjoHY1D1ibD+gVippcJ0jdzPe0hcvcdreqceR
+         uFmcqRFz89zbmHLZSViqoLaW1t9QZXLebZtt3iRW6cXUMHo8GcsdzIuj+dQu80Pxq1+0
+         cgwEMUPa8IZWho5P7uS7Mxcf+Cdo18KjGzt2/aUFfCdiMoMFCjFamrP+9eCShEML5Yte
+         V6uiMHNmbf+81YeK8C4+iOXV2FsXaKEqykCp4AHveHPm9BStJ7n1KqOxfSPiyzChu6d+
+         Re+AGwG3ZQTwYD0HeYE/UNSw6M2QsksvaxKtKTaFj0niGTcYaSJOgSN/fM8eZi9dv3LS
+         srpA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7S/daKQikuBVlEFLoJEzHy7VT+fDDDK60zpIadwIcVvU9lJcqQqnwXDq/f7ATCwz22WZSGCL/zrYm@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywj+QBeeSQVeWnzO1sy/a03BudP/7D0flMVlWDmo/7dYzFwJuLs
+	7UtFQDhOdw0PBtMX04XL6oUUgrIVezh1J7MRvcYEKWrU/PTB9yZGNA8=
+X-Gm-Gg: AR+sD13D8DGFA3vP9GadVl9B/E2R8mePI9V6aa9/Qai8ib360AnXD9SJVY/qfpgcc+u
+	i17tvQ1NWohJ7eFTndomWVXmrPtSJPcKcop2qdqj7DppCHneOXqEPH0AiJYyE2D+BT37+KPMuI4
+	//DbAJiVV7ihSwbeZ8R8cD3OkgRjv6K/zBWhWSH9eNqwrwocttlObRM5nFEOHXaio5ubYwEm2BT
+	OIYTMTeygp67yeCuUn9m60aAwQorEh5VfDpImKgbzJsSj4g1TyAuanKEwdfZXBdCm2wUPLVbzbd
+	XDA607NmYz8emtMlCrgCTvO+4JyZry15rzjDKSgGozGII+GkRAAN3H+ryEL9Xl7HmouD+RUgXqi
+	QbDbZ6bOK9vdTX9IeDR8qyDT7skUoAeGAg2Y34Hp/EEtWWMBIP/UrdXYSWieHStx88hF8ORall/
+	B58Iido+iU47tGuRIsWHDkiIV5yOAae9Js3wczNtZVO/lLtqSjYDCnH81bnQp/vi5cj2Wq2JToa
+	aN1l+lZW6VuWQ6/tN4YNTZyehCVzug0foGAh2tjOQRwDU1anjQ=
+X-Received: by 2002:a05:6a20:6a1c:b0:3c4:3112:45 with SMTP id adf61e73a8af0-3cb85e9926fmr26441258637.1.1786112557526;
+        Fri, 07 Aug 2026 07:22:37 -0700 (PDT)
 Received: from localhost.localdomain ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315be8a7395sm8521868eec.9.2026.08.07.07.22.28
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315be8a7395sm8521868eec.9.2026.08.07.07.22.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 07:22:31 -0700 (PDT)
+        Fri, 07 Aug 2026 07:22:37 -0700 (PDT)
 From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -77,9 +77,9 @@ Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH 1/3] dt-bindings: display: add Chipwealth CH1115 OLED controller
-Date: Fri,  7 Aug 2026 11:19:50 -0300
-Message-ID: <cf9b02d618db4eca88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com>
+Subject: [PATCH 2/3] drm/ch1115: add support for Chipwealth CH1115 OLED controller
+Date: Fri,  7 Aug 2026 11:19:51 -0300
+Message-ID: <1d814b35f543d5aa19ca8cfab923af3b4403fcef.1786110720.git.nico.antinori.7@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1786110720.git.nico.antinori.7@gmail.com>
 References: <cover.1786110720.git.nico.antinori.7@gmail.com>
@@ -94,105 +94,909 @@ Content-Transfer-Encoding: 8bit
 
 Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
 
+Add DRM support for this chip using i2c bus.
+
 Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
- .../bindings/display/chipwealth,ch1115.yaml   | 73 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 75 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+ drivers/gpu/drm/Kconfig             |   1 +
+ drivers/gpu/drm/Makefile            |   1 +
+ drivers/gpu/drm/chipwealth/Kconfig  |  16 +
+ drivers/gpu/drm/chipwealth/Makefile |   3 +
+ drivers/gpu/drm/chipwealth/ch1115.c | 828 ++++++++++++++++++++++++++++
+ 5 files changed, 849 insertions(+)
+ create mode 100644 drivers/gpu/drm/chipwealth/Kconfig
+ create mode 100644 drivers/gpu/drm/chipwealth/Makefile
+ create mode 100644 drivers/gpu/drm/chipwealth/ch1115.c
 
-diff --git a/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+index ba242a8318a8..7aa3ca225434 100644
+--- a/drivers/gpu/drm/Kconfig
++++ b/drivers/gpu/drm/Kconfig
+@@ -307,6 +307,7 @@ source "drivers/gpu/drm/aspeed/Kconfig"
+ source "drivers/gpu/drm/ast/Kconfig"
+ source "drivers/gpu/drm/atmel-hlcdc/Kconfig"
+ source "drivers/gpu/drm/bridge/Kconfig"
++source "drivers/gpu/drm/chipwealth/Kconfig"
+ source "drivers/gpu/drm/etnaviv/Kconfig"
+ source "drivers/gpu/drm/exynos/Kconfig"
+ source "drivers/gpu/drm/fsl-dcu/Kconfig"
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index 58c8729ab5a9..9ef738f549ec 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -238,6 +238,7 @@ obj-$(CONFIG_DRM_SPRD) += sprd/
+ obj-$(CONFIG_DRM_LOONGSON) += loongson/
+ obj-$(CONFIG_DRM_POWERVR) += imagination/
+ obj-$(CONFIG_DRM_VERISILICON_DC) += verisilicon/
++obj-y			+= chipwealth/
+
+ # Ensure drm headers are self-contained and pass kernel-doc
+ hdrtest-files := \
+diff --git a/drivers/gpu/drm/chipwealth/Kconfig b/drivers/gpu/drm/chipwealth/Kconfig
 new file mode 100644
-index 000000000000..29d55da85d21
+index 000000000000..f94af7525c0b
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-@@ -0,0 +1,73 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/chipwealth,ch1115.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/gpu/drm/chipwealth/Kconfig
+@@ -0,0 +1,16 @@
++# SPDX-License-Identifier: GPL-2.0-only
++config DRM_CH1115
++	tristate "DRM support for Ch1115 OLED panels (I2C BUS)"
++	depends on DRM && I2C
++	select DRM_CLIENT_SELECTION
++	select DRM_GEM_SHMEM_HELPER
++	select DRM_KMS_HELPER
++	select REGMAP_I2C
++	select VIDEOMODE_HELPERS
++	help
++	  Chipwealth CH1115 is a controller for monochrome dot matrix OLED
++	  panels.
 +
-+title: Chipwealth CH1115 Display Controller
++	  DRM Driver for Ch1115 OLED panels connected via I2C.
 +
-+maintainers:
-+  - Nicolás Antinori <nico.antinori.7@gmail.com>
++	  If M is selected the module will be called ch1115.
+diff --git a/drivers/gpu/drm/chipwealth/Makefile b/drivers/gpu/drm/chipwealth/Makefile
+new file mode 100644
+index 000000000000..f9907dc494a1
+--- /dev/null
++++ b/drivers/gpu/drm/chipwealth/Makefile
+@@ -0,0 +1,3 @@
++# SPDX-License-Identifier: GPL-2.0-only
 +
-+description:
-+  Chipwealth CH1115 is a controller for monochrome dot matrix OLED
-+  panels.
++obj-$(CONFIG_DRM_CH1115)		+= ch1115.o
+diff --git a/drivers/gpu/drm/chipwealth/ch1115.c b/drivers/gpu/drm/chipwealth/ch1115.c
+new file mode 100644
+index 000000000000..0ff5d3d9a7cd
+--- /dev/null
++++ b/drivers/gpu/drm/chipwealth/ch1115.c
+@@ -0,0 +1,828 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * DRM driver for Ch1115 panels
++ *
++ * Copyright (C) 2026 Nicolás Antinori <nico.antinori.7@gmail.com>
++ *
++ * Datasheet: https://datasheet4u.com/download/1576606/CH1115.html
++ *
++ * Based on
++ *  - drivers/gpu/drm/sitronix/st7571-i2c.c
++ *  - drivers/gpu/drm/sitronix/st7571.c
++ * Copyright (C) 2025 Marcus Folkesson <marcus.folkesson@gmail.com>
++ */
 +
-+  https://datasheet4u.com/download/1576606/CH1115.html
++#include <linux/bitfield.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
 +
-+allOf:
-+  - $ref: panel/panel-common.yaml#
++#include <drm/clients/drm_client_setup.h>
++#include <drm/drm_atomic.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_helper.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_crtc_helper.h>
++#include <drm/drm_damage_helper.h>
++#include <drm/drm_drv.h>
++#include <drm/drm_encoder.h>
++#include <drm/drm_fbdev_shmem.h>
++#include <drm/drm_fourcc.h>
++#include <drm/drm_framebuffer.h>
++#include <drm/drm_gem_atomic_helper.h>
++#include <drm/drm_gem_framebuffer_helper.h>
++#include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_plane.h>
++#include <drm/drm_probe_helper.h>
 +
-+properties:
-+  compatible:
-+    const: chipwealth,ch1115
++#include <video/display_timing.h>
++#include <video/of_display_timing.h>
 +
-+  reg:
-+    maxItems: 1
++#define CH1115_VAL_CLOCK_DIVIDE_RATIO(c, d)		(FIELD_PREP(GENMASK(7, 4), (c)) | \
++							 FIELD_PREP(GENMASK(3, 0), (d)))
++#define CH1115_VAL_DC_DC_OFF				0x8a
++#define CH1115_VAL_DC_DC_ON				0x8b
++#define CH1115_VAL_PRE_CHARGE_PERIOD			0x22
++#define CH1115_VAL_CLOCK_OSC_FREQ			0x8
++#define CH1115_VAL_CLOCK_DIV_RATIO			0x0
++#define CH1115_VAL_VCOM_DESELECT_LVL			0x20
++#define CH1115_VAL_CONTRAST				0x7f
 +
-+  invert:
-+    type: boolean
-+    description:
-+      Display pixels are inverted, i.e. 0 is white and 1 is black.
++#define CH1115_PAGE_HEIGHT				8
++#define CH1115_MAX_WIDTH				128
++#define CH1115_MAX_HEIGHT				64
++#define CH1115_MAX_PAGES				8
++#define CH1115_MAX_CONTRAST				255
 +
-+  width-mm: true
-+  height-mm: true
-+  panel-timing: true
++#define CH1115_COMMAND_MODE				0x00
++#define CH1115_DATA_MODE				0x40
 +
-+required:
-+  - compatible
-+  - reg
-+  - width-mm
-+  - height-mm
-+  - panel-timing
-+  - first-page
++#define CH1115_CMD_START_LINE				0x40
++#define CH1115_CMD_CONTRAST				0x81
++#define CH1115_CMD_SEG_REMAP_FLIP			0xa1
++#define CH1115_CMD_FOLLOW_RAM				0xa4
++#define CH1115_CMD_ALL_ON				0xa5
++#define CH1115_CMD_NORMAL				0xa6
++#define CH1115_CMD_INVERTED				0xa7
++#define CH1115_CMD_MUX_RATIO				0xa8
++#define CH1115_CMD_DC_DC				0xad
++#define CH1115_CMD_OFF					0xae
++#define CH1115_CMD_ON					0xaf
++#define CH1115_CMD_COM_REMAP_FLIP			0xc8
++#define CH1115_CMD_OFFSET				0xd3
++#define CH1115_CMD_CLOCK_DIVIDE_RATIO			0xd5
++#define CH1115_CMD_PRECHARGE_PERIOD			0xd9
++#define CH1115_CMD_VCOM_DESELECT_LVL			0xdb
 +
-+additionalProperties: false
++#define CH1115_SET_COLUMN_LSB(c)			(0x00 | FIELD_PREP(GENMASK(3, 0), (c)))
++#define CH1115_SET_COLUMN_MSB(c)			(0x10 | FIELD_PREP(GENMASK(2, 0), (c) >> 4))
++#define CH1115_SET_PAGE(p)				(0xb0 | FIELD_PREP(GENMASK(3, 0), (p)))
 +
-+examples:
-+  - |
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+      status = "okay";
++#define DRIVER_NAME "ch1115"
++#define DRIVER_DESC "ch1115 DRM driver"
++#define DRIVER_MAJOR 1
++#define DRIVER_MINOR 0
 +
-+      display@3c {
-+        compatible = "chipwealth,ch1115";
-+        reg = <0x3c>;
-+        width-mm = <12>;
-+        height-mm = <8>;
-+        contrast = <127>;
-+        first-page = <1>;
-+        panel-timing {
-+          clock-frequency = <0>;
-+          hactive = <88>;
-+          vactive = <48>;
-+          hfront-porch = <0>;
-+          hback-porch = <0>;
-+          hsync-len = <0>;
-+          vsync-len = <0>;
-+          vfront-porch = <0>;
-+          vback-porch = <0>;
-+        };
-+      };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index d2ba67c4c8e0..1d158ac83ce9 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -325,6 +325,8 @@ patternProperties:
-     description: ChipOne
-   "^chipspark,.*":
-     description: ChipSPARK
-+  "^chipwealth,.*":
-+    description: Chip Wealth Technology, Ltd.
-   "^chongzhou,.*":
-     description: Shenzhen Chongzhou Electronic Technology Co., Ltd
-   "^chrontel,.*":
++struct ch1115_device {
++	struct drm_device dev;
++
++	struct drm_plane primary_plane;
++	struct drm_crtc crtc;
++	struct drm_encoder encoder;
++	struct drm_connector connector;
++
++	struct drm_display_mode mode;
++
++	struct i2c_client *client;
++	struct regmap *regmap;
++
++	bool inverted;
++	u8 contrast;
++
++	u8 pages;
++	u8 first_page;
++	u8 bytes_per_row;
++
++	u8 width;
++	u8 height;
++	u32 width_mm;
++	u32 height_mm;
++	u8 x_start_offset;
++
++	u8 *hwbuf;
++	u8 *row;
++};
++
++static inline int ch1115_send_command_list(struct ch1115_device *ch1115,
++					   const u8 *cmd_list, size_t len)
++{
++	return regmap_bulk_write(ch1115->regmap, CH1115_COMMAND_MODE, cmd_list, len);
++}
++
++static inline int ch1115_draw_screen(struct ch1115_device *ch1115,
++				     const u8 *data, size_t len)
++{
++	return regmap_bulk_write(ch1115->regmap, CH1115_DATA_MODE, data, len);
++}
++
++static inline struct ch1115_device *drm_to_ch1115(struct drm_device *dev)
++{
++	return container_of(dev, struct ch1115_device, dev);
++}
++
++static int ch1115_set_position(struct ch1115_device *ch1115, int x, int y)
++{
++	u8 cmd_list[] = {
++		CH1115_SET_PAGE(y / CH1115_PAGE_HEIGHT),
++		CH1115_SET_COLUMN_LSB(x),
++		CH1115_SET_COLUMN_MSB(x),
++	};
++
++	return ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
++}
++
++static void ch1115_shutdown(struct i2c_client *client)
++{
++	struct ch1115_device *ch1115 = i2c_get_clientdata(client);
++	struct drm_device *drm_dev = &ch1115->dev;
++
++	drm_atomic_helper_shutdown(drm_dev);
++}
++
++static int ch1115_clear_screen(struct ch1115_device *ch1115)
++{
++	int ret;
++	int y = 0;
++	char *row = ch1115->row;
++
++	for (int i = ch1115->x_start_offset; i < ch1115->width; i++)
++		row[i] = 0x00;
++
++	do {
++		ret = ch1115_set_position(ch1115, ch1115->x_start_offset, y);
++		if (ret < 0)
++			return ret;
++
++		ret = ch1115_draw_screen(ch1115, row + ch1115->x_start_offset, ch1115->width);
++		if (ret < 0)
++			return ret;
++
++		y += CH1115_PAGE_HEIGHT;
++	} while (y < ch1115->height);
++
++	return 0;
++}
++
++static int ch1115_oled_init(struct ch1115_device *ch1115)
++{
++	u8 commands[] = {
++		CH1115_CMD_OFF,
++
++		CH1115_CMD_CLOCK_DIVIDE_RATIO,
++		CH1115_VAL_CLOCK_DIVIDE_RATIO(CH1115_VAL_CLOCK_OSC_FREQ,
++					      CH1115_VAL_CLOCK_DIV_RATIO),
++
++		CH1115_CMD_MUX_RATIO,
++		ch1115->height - 1,
++
++		CH1115_CMD_OFFSET,
++		(u8)(ch1115->first_page * CH1115_PAGE_HEIGHT),
++
++		CH1115_CMD_START_LINE,
++
++		CH1115_CMD_DC_DC,
++		CH1115_VAL_DC_DC_ON,
++
++		CH1115_CMD_SEG_REMAP_FLIP,
++		CH1115_CMD_COM_REMAP_FLIP,
++
++		CH1115_CMD_CONTRAST,
++		ch1115->contrast,
++
++		CH1115_CMD_PRECHARGE_PERIOD,
++		CH1115_VAL_PRE_CHARGE_PERIOD,
++
++		CH1115_CMD_VCOM_DESELECT_LVL,
++		CH1115_VAL_VCOM_DESELECT_LVL,
++
++		CH1115_CMD_FOLLOW_RAM,
++
++		ch1115->inverted
++			? CH1115_CMD_INVERTED
++			: CH1115_CMD_NORMAL,
++	};
++
++	return ch1115_send_command_list(ch1115, commands, ARRAY_SIZE(commands));
++}
++
++static void ch1115_prepare_buffer(struct ch1115_device *ch1115,
++				  const struct iosys_map *vmap,
++				  struct drm_framebuffer *fb,
++				  struct drm_rect *rect,
++				  struct drm_format_conv_state *fmtcnv_state)
++{
++	unsigned int dst_pitch;
++	struct iosys_map dst;
++
++	dst_pitch = DIV_ROUND_UP(drm_rect_width(rect), 8);
++	iosys_map_set_vaddr(&dst, ch1115->hwbuf);
++
++	drm_fb_xrgb8888_to_mono(&dst, &dst_pitch, vmap, fb, rect, fmtcnv_state);
++}
++
++static inline u8 ch1115_transform_xy(const char *p, int x, int y, u8 bytes_per_row)
++{
++	int xrest = x % 8;
++	u8 result = 0;
++
++	/*
++	 * Transforms an (x, y) pixel coordinate into a vertical 8-bit
++	 * column from the framebuffer. It calculates the corresponding byte in the
++	 * framebuffer, extracts the bit at the given x position across 8 consecutive
++	 * rows, and packs those bits into a single byte.
++	 *
++	 * Return an 8-bit value representing a vertical column of pixels.
++	 */
++
++	x = x / 8;
++	y = (y / 8) * 8;
++
++	for (int i = 0; i < 8; i++) {
++		int row_idx = y + i;
++		u8 byte = p[row_idx * bytes_per_row + x];
++		u8 bit = (byte >> xrest) & 1;
++
++		result |= (bit << i);
++	}
++
++	return result;
++}
++
++static int ch1115_fb_update_rect(struct drm_framebuffer *fb, struct drm_rect *rect)
++{
++	struct ch1115_device *ch1115 = drm_to_ch1115(fb->dev);
++	char *row = ch1115->row;
++	int ret;
++
++	rect->y1 = round_down(rect->y1, CH1115_PAGE_HEIGHT);
++	rect->y2 = min_t(unsigned int, round_up(rect->y2, CH1115_PAGE_HEIGHT), ch1115->height);
++
++	for (int y = rect->y1; y < rect->y2; y += CH1115_PAGE_HEIGHT) {
++		for (int x = rect->x1; x < rect->x2; x++)
++			row[x] = ch1115_transform_xy(ch1115->hwbuf, x, y, ch1115->bytes_per_row);
++
++		ret = ch1115_set_position(ch1115, ch1115->x_start_offset + rect->x1, y);
++		if (ret < 0)
++			return ret;
++
++		ret = ch1115_draw_screen(ch1115, row + rect->x1, rect->x2 - rect->x1);
++		if (ret < 0)
++			return ret;
++	}
++
++	return 0;
++}
++
++/*
++ * DRM
++ */
++DEFINE_DRM_GEM_FOPS(ch1115_fops);
++static const struct drm_driver ch1115_driver = {
++	.driver_features = DRIVER_MODESET | DRIVER_GEM | DRIVER_ATOMIC,
++
++	.name		 = DRIVER_NAME,
++	.desc		 = DRIVER_DESC,
++	.major		 = DRIVER_MAJOR,
++	.minor		 = DRIVER_MINOR,
++
++	.fops		 = &ch1115_fops,
++	DRM_GEM_SHMEM_DRIVER_OPS,
++	DRM_FBDEV_SHMEM_DRIVER_OPS,
++};
++
++/*
++ * Modeset
++ */
++static struct drm_display_mode ch1115_mode(struct ch1115_device *ch1115)
++{
++	struct drm_display_mode mode = {
++		DRM_SIMPLE_MODE(ch1115->width, ch1115->height,
++				ch1115->width_mm, ch1115->height_mm),
++	};
++
++	return mode;
++}
++
++static const struct drm_mode_config_funcs ch1115_mode_config_funcs = {
++	.fb_create = drm_gem_fb_create_with_dirty,
++	.atomic_check = drm_atomic_helper_check,
++	.atomic_commit = drm_atomic_helper_commit,
++};
++
++static int ch1115_mode_config_init(struct ch1115_device *ch1115)
++{
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drmm_mode_config_init(dev);
++	if (ret)
++		return ret;
++
++	dev->mode_config.min_width = ch1115->width;
++	dev->mode_config.min_height = ch1115->height;
++	dev->mode_config.max_width = CH1115_MAX_WIDTH;
++	dev->mode_config.max_height = CH1115_MAX_HEIGHT;
++	dev->mode_config.preferred_depth = 24;
++	dev->mode_config.funcs = &ch1115_mode_config_funcs;
++
++	return 0;
++}
++
++/*
++ * Plane
++ */
++static const struct drm_plane_funcs ch1115_primary_plane_funcs = {
++	.update_plane = drm_atomic_helper_update_plane,
++	.disable_plane = drm_atomic_helper_disable_plane,
++	.destroy = drm_plane_cleanup,
++	DRM_GEM_SHADOW_PLANE_FUNCS,
++};
++
++static int ch1115_primary_plane_helper_atomic_check(struct drm_plane *plane,
++						    struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_crtc *new_crtc = new_plane_state->crtc;
++	struct drm_crtc_state *new_crtc_state = NULL;
++
++	if (new_crtc)
++		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
++
++	return drm_atomic_helper_check_plane_state(new_plane_state, new_crtc_state,
++						   DRM_PLANE_NO_SCALING,
++						   DRM_PLANE_NO_SCALING,
++						   false, false);
++}
++
++static void ch1115_primary_plane_helper_atomic_update(struct drm_plane *plane,
++						      struct drm_atomic_commit *state)
++{
++	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
++	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
++	struct drm_framebuffer *fb = plane_state->fb;
++	struct drm_atomic_helper_damage_iter iter;
++	struct drm_device *dev = plane->dev;
++	struct drm_rect damage;
++	struct ch1115_device *ch1115 = drm_to_ch1115(plane->dev);
++	int ret, idx;
++
++	if (!fb)
++		return;
++
++	ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
++	if (ret)
++		return;
++
++	if (!drm_dev_enter(dev, &idx))
++		goto out_drm_gem_fb_end_cpu_access;
++
++	drm_atomic_helper_damage_iter_init(&iter, old_plane_state, plane_state);
++	drm_atomic_for_each_plane_damage(&iter, &damage) {
++		ch1115_prepare_buffer(ch1115,
++				      &shadow_plane_state->data[0],
++				      fb, &damage,
++				      &shadow_plane_state->fmtcnv_state);
++
++		ch1115_fb_update_rect(fb, &damage);
++	}
++
++	drm_dev_exit(idx);
++
++out_drm_gem_fb_end_cpu_access:
++	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
++}
++
++static void ch1115_primary_plane_helper_atomic_disable(struct drm_plane *plane,
++						       struct drm_atomic_commit *state)
++{
++	struct drm_device *dev = plane->dev;
++	struct ch1115_device *ch1115 = drm_to_ch1115(plane->dev);
++	int idx;
++
++	if (!drm_dev_enter(dev, &idx))
++		return;
++
++	ch1115_clear_screen(ch1115);
++	drm_dev_exit(idx);
++}
++
++static const struct drm_plane_helper_funcs ch1115_primary_plane_helper_funcs = {
++	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
++	.atomic_check = ch1115_primary_plane_helper_atomic_check,
++	.atomic_update = ch1115_primary_plane_helper_atomic_update,
++	.atomic_disable = ch1115_primary_plane_helper_atomic_disable,
++};
++
++static const u64 ch1115_primary_plane_fmtmods[] = {
++	DRM_FORMAT_MOD_LINEAR,
++	DRM_FORMAT_MOD_INVALID
++};
++
++static const u32 ch1115_primary_plane_formats[] = {
++	DRM_FORMAT_XRGB8888,
++};
++
++static int ch1115_plane_init(struct ch1115_device *ch1115)
++{
++	struct drm_plane *plane = &ch1115->primary_plane;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_universal_plane_init(dev, plane, 0,
++				       &ch1115_primary_plane_funcs,
++				       ch1115_primary_plane_formats,
++				       ARRAY_SIZE(ch1115_primary_plane_formats),
++				       ch1115_primary_plane_fmtmods,
++				       DRM_PLANE_TYPE_PRIMARY, NULL);
++	if (ret)
++		return ret;
++
++	drm_plane_helper_add(plane, &ch1115_primary_plane_helper_funcs);
++	drm_plane_enable_fb_damage_clips(plane);
++
++	return 0;
++}
++
++/*
++ * CRTC
++ */
++static enum drm_mode_status ch1115_crtc_mode_valid(struct drm_crtc *crtc,
++						   const struct drm_display_mode *mode)
++{
++	struct ch1115_device *ch1115 = drm_to_ch1115(crtc->dev);
++
++	return drm_crtc_helper_mode_valid_fixed(crtc, mode, &ch1115->mode);
++}
++
++static const struct drm_crtc_helper_funcs ch1115_crtc_helper_funcs = {
++	.atomic_check = drm_crtc_helper_atomic_check,
++	.mode_valid = ch1115_crtc_mode_valid,
++};
++
++static const struct drm_crtc_funcs ch1115_crtc_funcs = {
++	.reset = drm_atomic_helper_crtc_reset,
++	.destroy = drm_crtc_cleanup,
++	.set_config = drm_atomic_helper_set_config,
++	.page_flip = drm_atomic_helper_page_flip,
++	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
++};
++
++static int ch1115_crtc_init(struct ch1115_device *ch1115)
++{
++	struct drm_plane *primary_plane = &ch1115->primary_plane;
++	struct drm_crtc *crtc = &ch1115->crtc;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_crtc_init_with_planes(dev, crtc, primary_plane, NULL,
++					&ch1115_crtc_funcs, NULL);
++	if (ret)
++		return ret;
++
++	drm_crtc_helper_add(crtc, &ch1115_crtc_helper_funcs);
++
++	return 0;
++}
++
++/*
++ * Encoder
++ */
++static void ch1115_encoder_atomic_enable(struct drm_encoder *encoder,
++					 struct drm_atomic_commit *state)
++{
++	struct drm_device *drm = encoder->dev;
++	struct ch1115_device *ch1115 = drm_to_ch1115(drm);
++
++	ch1115_oled_init(ch1115);
++
++	u8 command = CH1115_CMD_ON;
++
++	ch1115_send_command_list(ch1115, &command, 1);
++}
++
++static void ch1115_encoder_atomic_disable(struct drm_encoder *encoder,
++					  struct drm_atomic_commit *state)
++{
++	struct drm_device *drm = encoder->dev;
++	struct ch1115_device *ch1115 = drm_to_ch1115(drm);
++
++	u8 command = CH1115_CMD_OFF;
++
++	ch1115_send_command_list(ch1115, &command, 1);
++}
++
++static const struct drm_encoder_funcs ch1115_encoder_funcs = {
++	.destroy = drm_encoder_cleanup,
++
++};
++
++static const struct drm_encoder_helper_funcs ch1115_encoder_helper_funcs = {
++	.atomic_enable = ch1115_encoder_atomic_enable,
++	.atomic_disable = ch1115_encoder_atomic_disable,
++};
++
++static int ch1115_encoder_init(struct ch1115_device *ch1115)
++{
++	struct drm_encoder *encoder = &ch1115->encoder;
++	struct drm_crtc *crtc = &ch1115->crtc;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_encoder_init(dev, encoder, &ch1115_encoder_funcs, DRM_MODE_ENCODER_NONE, NULL);
++	if (ret)
++		return ret;
++
++	drm_encoder_helper_add(encoder, &ch1115_encoder_helper_funcs);
++
++	encoder->possible_crtcs = drm_crtc_mask(crtc);
++
++	return 0;
++}
++
++/*
++ * Connector
++ */
++static int ch1115_connector_get_modes(struct drm_connector *conn)
++{
++	struct ch1115_device *ch1115 = drm_to_ch1115(conn->dev);
++
++	return drm_connector_helper_get_modes_fixed(conn, &ch1115->mode);
++}
++
++static const struct drm_connector_helper_funcs ch1115_connector_helper_funcs = {
++	.get_modes = ch1115_connector_get_modes,
++};
++
++static const struct drm_connector_funcs ch1115_connector_funcs = {
++	.reset = drm_atomic_helper_connector_reset,
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++static int ch1115_connector_init(struct ch1115_device *ch1115)
++{
++	struct drm_connector *connector = &ch1115->connector;
++	struct drm_encoder *encoder = &ch1115->encoder;
++	struct drm_device *dev = &ch1115->dev;
++	int ret;
++
++	ret = drm_connector_init(dev, connector, &ch1115_connector_funcs,
++				 DRM_MODE_CONNECTOR_Unknown);
++
++	if (ret)
++		return ret;
++
++	drm_connector_helper_add(connector, &ch1115_connector_helper_funcs);
++
++	return drm_connector_attach_encoder(connector, encoder);
++}
++
++/* The ch1115 driver does not read registers but regmap expects a .read */
++static int ch1115_regmap_read(void *context, const void *reg_buf,
++			      size_t reg_size, void *val_buf, size_t val_size)
++{
++	return -EOPNOTSUPP;
++}
++
++static int ch1115_regmap_write(void *context, const void *data, size_t count)
++{
++	struct i2c_client *client = context;
++	struct ch1115_device *ch1115 = i2c_get_clientdata(client);
++	int ret;
++
++	struct i2c_msg msg = {
++		.addr = ch1115->client->addr,
++		.len = count,
++		.buf = (u8 *)data,
++	};
++
++	ret = i2c_transfer(ch1115->client->adapter, &msg, 1);
++
++	return ret;
++}
++
++static const struct regmap_bus ch1115_regmap_bus = {
++	.read = ch1115_regmap_read,
++	.write = ch1115_regmap_write,
++};
++
++static const struct regmap_config ch1115_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++};
++
++static int ch1115_parse_dt(struct ch1115_device *ch1115)
++{
++	struct device *dev = &ch1115->client->dev;
++	struct device_node *np = dev->of_node;
++	struct display_timing dt;
++	int ret;
++	u32 val;
++
++	ret = of_property_read_u32(np, "first-page", &val);
++	if (ret) {
++		dev_err(dev, "Failed to get first-page from DT\n");
++		return ret;
++	}
++	if (val > CH1115_MAX_PAGES) {
++		dev_err(dev, "first-page=%d must be [0-%d]\n", val, CH1115_MAX_PAGES);
++		return -EINVAL;
++	}
++	ch1115->first_page = (u8)val;
++
++	ret = of_property_read_u32(np, "width-mm", &ch1115->width_mm);
++	if (ret) {
++		dev_err(dev, "Failed to get width-mm from DT\n");
++		return ret;
++	}
++	if (ch1115->width_mm == 0) {
++		dev_err(dev, "Invalid width-mm 0\n");
++		return -EINVAL;
++	}
++
++	ret = of_property_read_u32(np, "height-mm", &ch1115->height_mm);
++	if (ret) {
++		dev_err(dev, "Failed to get height-mm from DT\n");
++		return ret;
++	}
++	if (ch1115->height_mm == 0) {
++		dev_err(dev, "Invalid height-mm 0\n");
++		return -EINVAL;
++	}
++
++	ret = of_property_read_u32(np, "contrast", &val);
++	if (ret) {
++		ch1115->contrast = CH1115_VAL_CONTRAST;
++	} else {
++		if (val > CH1115_MAX_CONTRAST) {
++			dev_err(dev, "contrast=%d must be [0-%d]\n", val, CH1115_MAX_CONTRAST);
++			return -EINVAL;
++		}
++		ch1115->contrast = (u8)val;
++	}
++
++	ret = of_get_display_timing(np, "panel-timing", &dt);
++	if (ret) {
++		dev_err(dev, "Failed to get display timing from DT\n");
++		return ret;
++	}
++	if (dt.hactive.typ > CH1115_MAX_WIDTH) {
++		dev_err(dev, "width=%d must be less than %d\n", dt.hactive.typ, CH1115_MAX_WIDTH);
++		return -EINVAL;
++	}
++	if (dt.vactive.typ > CH1115_MAX_HEIGHT) {
++		dev_err(dev, "height=%d must be less than %d\n", dt.vactive.typ, CH1115_MAX_HEIGHT);
++		return -EINVAL;
++	}
++
++	ch1115->width = dt.hactive.typ;
++	ch1115->height = dt.vactive.typ;
++
++	ch1115->inverted = of_property_read_bool(np, "inverted");
++
++	return 0;
++}
++
++static int ch1115_probe(struct i2c_client *client)
++{
++	struct ch1115_device *ch1115;
++	int ret;
++
++	ch1115 = devm_drm_dev_alloc(&client->dev, &ch1115_driver,
++				    struct ch1115_device, dev);
++	if (IS_ERR(ch1115))
++		return PTR_ERR(ch1115);
++
++	i2c_set_clientdata(client, ch1115);
++
++	ch1115->client = client;
++	ch1115->regmap = devm_regmap_init(&client->dev, &ch1115_regmap_bus,
++					  client, &ch1115_regmap_config);
++	if (IS_ERR(ch1115->regmap)) {
++		return dev_err_probe(&client->dev, PTR_ERR(ch1115->regmap),
++				     "Failed to initialize regmap\n");
++	}
++
++	ret = ch1115_parse_dt(ch1115);
++	if (ret) {
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to parse DT\n");
++	}
++
++	ch1115->pages = DIV_ROUND_UP(ch1115->height, CH1115_PAGE_HEIGHT);
++	ch1115->bytes_per_row = ch1115->width / 8;
++	ch1115->x_start_offset = CH1115_MAX_WIDTH - ch1115->width;
++	ch1115->mode = ch1115_mode(ch1115);
++
++	ch1115->hwbuf = devm_kzalloc(&client->dev,
++				     ch1115->pages * ch1115->width,
++				     GFP_KERNEL);
++	if (!ch1115->hwbuf)
++		return -ENOMEM;
++
++	ch1115->row = devm_kzalloc(&client->dev, ch1115->width, GFP_KERNEL);
++	if (!ch1115->row)
++		return -ENOMEM;
++
++	// DRM
++	ret = ch1115_mode_config_init(ch1115);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize mode config\n");
++
++	ret = ch1115_plane_init(ch1115);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize primary plane\n");
++
++	ret = ch1115_crtc_init(ch1115);
++	if (ret < 0)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize CRTC\n");
++
++	ret = ch1115_encoder_init(ch1115);
++	if (ret < 0)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize encoder\n");
++
++	ret = ch1115_connector_init(ch1115);
++	if (ret < 0)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to initialize connector\n");
++
++	drm_mode_config_reset(&ch1115->dev);
++
++	ret = drm_dev_register(&ch1115->dev, 0);
++	if (ret)
++		return dev_err_probe(&client->dev, ret,
++				     "Failed to register DRM device\n");
++
++	drm_client_setup(&ch1115->dev, NULL);
++
++	return 0;
++}
++
++static void ch1115_remove(struct i2c_client *client)
++{
++	struct ch1115_device *ch1115 = i2c_get_clientdata(client);
++	int ret;
++
++	u8 cmd_list[] = {
++		CH1115_CMD_OFF,
++
++		CH1115_CMD_ALL_ON,
++
++		CH1115_CMD_DC_DC,
++		CH1115_VAL_DC_DC_OFF,
++	};
++
++	ret = ch1115_send_command_list(ch1115, cmd_list, ARRAY_SIZE(cmd_list));
++	if (ret < 0)
++		dev_err(&client->dev, "There was an error executing the shutdown commands");
++
++	usleep_range(10000, 15000);
++
++	drm_dev_unplug(&ch1115->dev);
++}
++
++static const struct i2c_device_id ch1115_id[] = {
++	{ .name = "ch1115" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, ch1115_id);
++
++static const struct of_device_id ch1115_of_match[] = {
++	{ .compatible = "chipwealth,ch1115" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, ch1115_of_match);
++
++static struct i2c_driver ch1115_i2c_driver = {
++	.driver = {
++		.name	= DRIVER_NAME,
++		.of_match_table = ch1115_of_match,
++	},
++	.probe		= ch1115_probe,
++	.remove		= ch1115_remove,
++	.shutdown	= ch1115_shutdown,
++	.id_table	= ch1115_id,
++};
++module_i2c_driver(ch1115_i2c_driver);
++
++MODULE_DESCRIPTION(DRIVER_DESC);
++MODULE_AUTHOR("Nicolás Antinori <nico.antinori.7@gmail.com>");
++MODULE_LICENSE("GPL");
 --
 2.47.3
 
