@@ -1,261 +1,183 @@
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2z4y-a131.jellyfish.systems (out-2z4y-a131.jellyfish.systems [198.54.127.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0092912B94
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 02:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB27382393
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 02:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786068951; cv=none; b=geB56J2tkYkj+kp6jlZT9oT0/sxAW8yT9Eu/wvzP1fLve2XZEwcnirkk5gWkRTkxpVaPFh8EQcYdTR+MkQgbBdnelp5r7tfOkUUZnzcNhftFi8qeFJqB0cS/e/d6rDbkGh9wnFtLpZjoWfaAYDzmSFJjKUvUpsFG0FHzGmieDeY=
+	t=1786068963; cv=none; b=o8k41wtYrJf0Sg1r1imKKTxw9maxd9xLJ1ODW/YReitfGxpf+PjoiJuXr0pZqXO9nwN6p5I9yHXgYZRi3m+OsHObw0ygj5ANNpHdDk25JHJWHjK0D1ZwZMZKZZ3UXVuCCj47rl0RCrFSn6Lu7VGTlJUkNUgNcFO2ofkQoAJwQ7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786068951; c=relaxed/simple;
-	bh=zcuFMRMcf7Vm1UYev2UDSQX6fSUA6Wpr3DX12/H4w1A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=txH/cU301qZZOw7MG/f3a6K87q18W3jwKLpFWJCOCYY6pI43bQysfS+W7aJ5hh/FIaxYiuAyhMZrSxJDaWtCa36CtM59PQXgJJ09rhyDtnquiFkl23z0T0SKmnsLycwkk8j8YpDW75+l4jmBXJqJfnzRiMg9CxQKZw9cZzhazxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=ISC17R+9; arc=none smtp.client-ip=109.224.244.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="ISC17R+9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1786068933; x=1786328133;
-	bh=t/hSfTn2D5QANsI1yfumTIwdpMzz9D5cDp1+waF062I=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ISC17R+9SMWeuBI59R31KELlC4WbVakZhenlmgWVF4Kaw6lYn2RI8aHNv7I9ULXGh
-	 j36OiiY8kCk8Pw19ZIEdFkxuJwEeo/vj+n8aQZqHom5dsN6aXV/BRMUep6eIZeu3Um
-	 GVAIpFDSXP0bILTL/GeOndoO6yaqK24x++CpltrfZTp1z+8imj/iBUflIx0LkdHu3Z
-	 nV/zRaOWgruZHeRdZtCYlqlQnPJ9YzLTvFHxMVp2TF13236iaEJvc9kQdcvqU5YT8n
-	 7XLi/htDWHuhXoUu50j3lLQo738H/fRIOJe4BTKtasNREiuarVXcmNcqmgb+3VQz8Q
-	 rEyYxgqjUJwdw==
-Date: Fri, 07 Aug 2026 02:15:27 +0000
-To: Krzysztof Kozlowski <krzk@kernel.org>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: usb: Add Parade PS5169 redriver bindings
-Message-ID: <11214e90-7168-4180-af9c-b5922c146a71@proton.me>
-In-Reply-To: <20260730-enigmatic-coati-of-love-54ae0b@quoll>
-References: <20260729-ps5169-bup-v2-0-203b0a49881a@proton.me> <20260729-ps5169-bup-v2-1-203b0a49881a@proton.me> <20260730-enigmatic-coati-of-love-54ae0b@quoll>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 5bc3e928f222755b138c8f604f3d7bc29b6a611e
+	s=arc-20240116; t=1786068963; c=relaxed/simple;
+	bh=J6FogH5i499lOIL5Kq+DCw2l3mIPyXEqJA2ZRS9XqH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N9Ruv2yeKOqizcM0aclPca+jZyizgfLChVUxKAjZa9QnX9SiOGLWJEa4MZsZ4sKbjhocObGAhKuZAlhwd95Q+ClZUslUds0QMJWEnfDX1p7r4ZcRvoUqSAI6j1ul28afiFtx57T/WFTRMXY2KpSblvnf4F4g5SIMBJvORtrDIF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hGSKw3ZYmz2x99;
+	Fri, 07 Aug 2026 02:10:44 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: David Heidelberg <david@ixit.cz>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	oe-linux-nfc@lists.linux.dev,
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Subject: [PATCH v4 0/6] nfc: s3fwrn5: support the S3NRN4V variant
+Date: Fri,  7 Aug 2026 04:09:55 +0200
+Message-ID: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-On 7/30/26 3:15 AM, Krzysztof Kozlowski wrote:
-> On Wed, Jul 29, 2026 at 02:03:14AM -0400, Esteban Urrutia wrote:
->> Add bindings for the Parade PS5169 and PS5170 USB Type-C linear redriver=
-s.
->> The difference between PS5169 and PS5170 is that PS5170 features an
->> embedded AUX switch, while PS5169 does not.
->> Future-proof the binding by adding PS5170 as well.
->>
->> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
->> ---
->>  .../devicetree/bindings/usb/parade,ps5169.yaml     | 191 ++++++++++++++=
-+++++++
->>  1 file changed, 191 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/usb/parade,ps5169.yaml b/=
-Documentation/devicetree/bindings/usb/parade,ps5169.yaml
->> new file mode 100644
->> index 000000000000..86ea2351ee1e
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/usb/parade,ps5169.yaml
->> @@ -0,0 +1,191 @@
->> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/usb/parade,ps5169.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Parade PS5169 USB Type-C linear redriver
->> +
->> +maintainers:
->> +  - Esteban Urrutia <esteuwu@proton.me>
->> +
->> +properties:
->> +  compatible:
->> +    oneOf:
->> +      - items:
->> +          - const: parade,ps5170
->> +          - const: parade,ps5169
->> +      - const: parade,ps5169
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  vcc-supply:
->> +    description: 1.8V power supply
->> +
->> +  reset-gpios:
->> +    maxItems: 1
->> +
->> +  orientation-switch: true
->> +  retimer-switch: true
->> +
->> +  parade,dp-eq-level:
->=20
-> Use -db suffix instead.
-> See https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schema=
-s/property-units.yaml
+This adds support for the Samsung S3NRN4V, a later part in the Samsung
+NCI NFC controller line the s3fwrn5 driver covers, found e.g. on the
+Fairphone 6 (SM7635).
 
-Will do.
+The S3NRN4V differs from the already-supported parts in three ways:
+it ships with working firmware, and its bootloader reports a hardware
+version the driver has no flash base address for (so the firmware
+download step is skipped); it loads its RF calibration data through
+a different proprietary command (DUAL_OPTION); and its reference
+clock speed is set with the single-byte FW_CFG form the vendor HAL
+uses on this generation.
 
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description:
->> +      Equalization level for DisplayPort channels which is mapped to de=
-cibels.
->> +    # 0: 2    dB
->> +    # 1: 5.5  dB
->> +    # 2: 6.5  dB
->> +    # 3: 7.5  dB
->> +    # 4: 8    dB
->> +    # 5: 8.5  dB
->> +    # 6: 9.5  dB
->> +    # 7: 10   dB
->> +    enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
->> +
->> +  parade,usb-rx-eq-level:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description:
->> +      Equalization level for USB receive channels which is mapped to de=
-cibels.
->> +    # 0: 5.2  dB
->> +    # 1: 6    dB
->> +    # 2: 7    dB
->> +    # 3: 8    dB
->> +    # 4: 8.8  dB
->> +    # 5: 9.6  dB
->> +    # 6: 10.4 dB
->> +    # 7: 11.2 dB
->> +    enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
->> +
->> +  parade,usb-tx-eq-level:
->> +    $ref: /schemas/types.yaml#/definitions/uint32
->> +    description:
->> +      Equalization level for USB transmit channels which is mapped to d=
-ecibels.
->> +    # 0: 2    dB
->> +    # 1: 5.5  dB
->> +    # 2: 6.5  dB
->> +    # 3: 7.5  dB
->> +    # 4: 8    dB
->> +    # 5: 8.5  dB
->> +    # 6: 9.5  dB
->> +    # 7: 10   dB
->> +    enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
->> +
->> +  parade,aux-rx-data-reverse:
->> +    type: boolean
->> +    description:
->> +      Please check the driver before specifying this property.
->=20
-> References to driver make this dubious.
+Patches 1-2 are preparatory cleanups from the v2 review; patch 3 adds
+the compatible to the binding and documents the PVDD supply; patch 4
+makes the driver enable that supply; patch 5 implements the variant;
+patch 6 adds the Fairphone 6 board nodes -- included so the hardware
+can be tested, per David's v2 request; it depends on patch 3 and is
+expected to be picked up via the qcom tree (linux-arm-msm) once the
+binding has landed.
 
-Indeed. I haven't been able to put what this does into words, so I think
-I'll drop it and add it back later when I figure that out.
+Tested on a Fairphone 6 running a milos-mainline kernel: reader mode
+polls and reads ISO 14443-4 tags reliably, from a fresh boot and
+across driver reloads, with the calibration files present and also
+absent (the chip keeps its stored calibration and still reads).
+The v4 driver and board nodes were re-verified the same way. The
+test kernel is v7.1.2-based and predates this base's net/nfc/nci
+fixes: response/notification parse hardening (rsp.c, ntf.c) and a
+data-completion race fix (data.c), none changing behaviour for
+well-formed traffic; the rest of the delta (a conn-close leak fix
+for dynamic NCI connections this driver never creates, LLCP,
+nfc-digital, the UART transport) is off the NCI/I2C path this
+driver uses.
 
->> +      Usage of this property is design-specific.
->> +
->> +  parade,fine-tune-lfps-swing:
->> +    type: boolean
->> +    description:
->> +      If this property is specified a 50 ohm termination will be set on=
- the USB receive channels.
->=20
-> s/If this property is specified//
->=20
-> Just describe the hardware, not the syntax of DTS.
+Luca, you were right about the clock: the schematic net into the
+chip's XI is PMK_CLK7_LN_NFC. On your "always on anyways" half: not
+quite, but not simply our vote either -- v3 voted RPMH_RF_CLK2 and
+still read tags, and only with no clocks property at all does the
+chip stop activating tags. A clock vote is required; what keeps
+that buffer running when the vote names a different clock is not
+something we have identified. RPMH_LN_BB_CLK2 is independently
+sufficient on hardware. The two questions from the v2 thread
+(calibration-table variance, linux-firmware submission) are still
+open; nothing here depends on them.
 
-Will fix.
+David, the calibration scheme follows our v2 exchange: fixed
+chip-scoped paths, with a DT table selector deferred until a second
+table set exists. If you'd rather have the selector now
+(samsung,calibration-variant, or the generic firmware-name), say so
+and v5 will add it.
 
->> +      Usage of this property is design-specific.
->> +
->> +  parade,dp-set-gain:
->> +    type: boolean
->> +    description:
->> +      If this property is specified a gain of -0.9 dB will be applied o=
-n the DisplayPort channels.
->> +
->> +  parade,usb-rx-set-gain:
->> +    type: boolean
->> +    description:
->> +      If this property is specified a gain of -0.9 dB will be applied o=
-n the USB receive channels.
->> +
->> +  parade,usb-tx-set-gain:
->> +    type: boolean
->> +    description:
->> +      If this property is specified a gain of -0.9 dB will be applied o=
-n the USB transmit channels.
->> +
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +    properties:
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: Super Speed (SS) Output endpoint to the Type-C con=
-nector
->> +
->> +      port@1:
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
->=20
-> Why 'port-base' here but 'port' in port@0?
+The series is based on the nfc tree's for-next.
 
-'port' should be used instead of 'port-base' in port@1.
-Will fix.
+Changes in v4:
+ - Drop the clk-req-gpios property and the driver's clock-gating
+   machinery: on-device A/B testing showed the machinery has no
+   effect -- the chip reads tags with the clock gated on CLK_REQ,
+   with it left always-on, and with the CLK_REQ pad described in
+   pinctrl or left undescribed. The S3NRN4V uses the existing
+   always-on clock path.
+ - Drop Conor's Acked-by on the binding patch: clk-req-gpios, its
+   dependencies clause and the S3NRN4V example are gone (rationale in
+   that patch's notes).
+ - Reference the buffer the chip is wired to: RPMH_LN_BB_CLK2, not
+   RPMH_RF_CLK2 (Luca); verified on hardware that the reference is
+   load-bearing (no clocks reference -> no tag activation).
+ - New patch 4: enable the PVDD supply, before any pin or clock of
+   the chip is touched, so the property the binding requires is
+   actually consumed (flagged by the Sashiko AI review of v3).
+ - Send FW_CFG from the ->init hook, before CORE_RESET, matching the
+   vendor stack's ordering (v3 wrongly called ->setup the earliest
+   hook available); verified on hardware that the command is
+   required (without it the chip stops answering RF_DISCOVER and
+   never reads a tag).
+ - Allocate the merged calibration stream with kvmalloc(); reject an
+   empty blob pair up front. Abort the update session if a section
+   transfer fails, and version-gate the upload on DUAL_OPTION
+   GET_VER -- both as the vendor stack does.
+ - Declare the calibration blobs with MODULE_FIRMWARE(); log an
+   actual calibration update at dev_info, like the legacy path.
+ - Correct why the firmware download is skipped: the bootloader does
+   answer GET_BOOTINFO, but reports a hardware version the driver
+   has no flash base address for (v1-v3 said the bootloader protocol
+   was unimplemented; tested).
+ - State what the FW_CFG selector means: the vendor's own test tool
+   decodes 0x11 as the 19.2 MHz reference (v3 called the encoding
+   undocumented).
+ - Board DTS style (Konrad): interrupts-extended, grouped -gpios
+   properties, one nfc-default-state with per-function sub-nodes, and
+   the two node comments dropped -- their surviving substance is in
+   the commit message, the CLK_REQ half retired with the machinery
+   (also Luca).
 
->> +        description: Super Speed (SS) Input endpoint from the Super-Spe=
-ed PHY
->> +        unevaluatedProperties: false
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - vcc-supply
->> +  - reset-gpios
->> +  - orientation-switch
->> +  - retimer-switch
->> +
->> +allOf:
->> +  - $ref: usb-switch.yaml#
->> +  - $ref: usb-switch-ports.yaml#
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: parade,ps5170
->> +    then:
->> +      properties:
->> +        ports:
->> +          properties:
->> +            port@2:
->=20
-> You must define all properties in top-level block and you only disallow
-> them. See writing-bindings.
+Changes in v3 (full list in the lore thread):
+ - Calibration data handling reworked per David's review: chip-scoped
+   samsung/s3nrn4v/{hwreg,swreg}.bin paths, "RF calibration data"
+   naming, firmware_request_nowarn(), calibration-variant property
+   deferred until a device needs a second table set.
+ - New patches 1-2 (of_match_ptr drop, driver-name string literal),
+   new board DTS patch; rebased onto the nfc tree's for-next.
 
-Will fix.
+v3: https://lore.kernel.org/20260726222405.153008-1-jorijnvdgraaf@catcrafts.net
+v2: https://lore.kernel.org/20260705190621.128257-1-jorijnvdgraaf@catcrafts.net
+v1: https://lore.kernel.org/20260703202601.78563-1-jorijnvdgraaf@catcrafts.net
 
->> +              $ref: /schemas/graph.yaml#/properties/port
->> +              description:
->> +                Sideband Use (SBU) AUX lines endpoint to the Type-C con=
-nector for the purpose of
->> +                handling altmode muxing and orientation switching.
->> +    else:
->> +      properties:
->> +        ports:
->> +          properties:
->> +            port@2: false
->> +
->> +additionalProperties: false
-Thanks for the review.
+Jorijn van der Graaf (6):
+  nfc: s3fwrn5: drop of_match_ptr() from the I2C driver
+  nfc: s3fwrn5: use the "s3fwrn5_i2c" string literal directly
+  dt-bindings: net: nfc: samsung,s3fwrn5: add the S3NRN4V
+  nfc: s3fwrn5: enable the PVDD supply
+  nfc: s3fwrn5: support the S3NRN4V variant
+  arm64: dts: qcom: milos-fairphone-fp6: Add NFC
 
-Regards,
-Esteban
+ .../bindings/net/nfc/samsung,s3fwrn5.yaml     |  19 +-
+ .../boot/dts/qcom/milos-fairphone-fp6.dts     |  33 +++-
+ drivers/nfc/s3fwrn5/core.c                    |  34 +++-
+ drivers/nfc/s3fwrn5/i2c.c                     |  26 ++-
+ drivers/nfc/s3fwrn5/nci.c                     | 179 +++++++++++++++++-
+ drivers/nfc/s3fwrn5/nci.h                     |  23 ++-
+ drivers/nfc/s3fwrn5/s3fwrn5.h                 |  14 +-
+ drivers/nfc/s3fwrn5/uart.c                    |   2 +-
+ 8 files changed, 314 insertions(+), 16 deletions(-)
+
+
+base-commit: f0054d864e6e734add71e29961f5ae15211ad24d
+-- 
+2.55.0
 
