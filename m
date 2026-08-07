@@ -1,115 +1,256 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9432A137923
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AEF32B112;
+	Fri,  7 Aug 2026 08:49:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786092554; cv=none; b=O1YtAyw7UAQy1Jz/0cnppIsiH8+n5xdv56uuL2SNAyzzG+1HZrzALTN05pdltHcAPsJnyFEf6YaM2tDvEV4VCkhgIwa5WmzdPjCIkZ6+wN9sdW1TjzCcM+rOt6qBNb1tvEb9t6FmjTT83T9kdN45pHlkJoqNS98vAR9EVB3Yn4k=
+	t=1786092560; cv=none; b=gAhM5OiGzyn92RjFzCDY/OOsAN/6GZ2aqvcTaWFmVncD+TWUO44uQKBv9QYchx1VQHuYQa6j7Ygx98p34r1GKe8d71jiOLFYKl3l5pxEDIgI+OZvfqMRATd2zscjrWTZBmFmF0tn56izhzxq5uHIWR8Xn53q+kGqQk8srmbrfFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786092554; c=relaxed/simple;
-	bh=WhrTQY69L0GG9EupxbzCUHGICPLtkWKlF6Y14sZwp3M=;
+	s=arc-20240116; t=1786092560; c=relaxed/simple;
+	bh=RyZjzD+NcR7wVGrDrS4z+XaFA+UQOah81d0FG6LHGVs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k/LDOiaDWARbFwdczkt0yh0GVWTWAdz310+id9Z2jSjPoDDTW5F5q5bnFiv43B1EJVSgnzhfOvav8ajwo2p5ADYxUXbz1nNUD7QA9gMv2Xp6QFrGGAvGO5rtV19dyDrztwT+mXpyJ6W5D5G510tDuBXeRYzIEsbUqRIoXYt80RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLxVs0y4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Q/+bNAl50jXvCkKDUdwdjdH+8aQJhDRxpskoES3tpXqiXgp7MyBsTpdRw4+e/8fvORMFUgy9WP7zRnDbo7jqGC5sKA/XB5rZ1uu74FuvdA6ScHCsXAzCKmmLRa6dXhRp61n6GOIwTPyX/6osIWl2JXUHqixCZP6uCEI+xlgXKWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h5fqZ5eU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLxVs0y4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 384D81F00A3A;
-	Fri,  7 Aug 2026 08:49:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h5fqZ5eU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACBA1F000E9;
+	Fri,  7 Aug 2026 08:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786092553;
-	bh=SeqpxfBh35JRwuFvHb/bHYCKbZQRA1yECayZJdy7cu0=;
+	s=k20260515; t=1786092559;
+	bh=MhO8LfYtzsQC9Iw0QG2WWmZwg2fB4XF9MtdjEHyOu8k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OLxVs0y4XntDkflMD2KUdkH8HTXXwj0xY5I2F76Wk/WhWw3a5A+nHjAoPYodYG8g9
-	 2AoP8lrFhWeJxgWWx0+s7UQ99pON23Py9/BJMMBQ3mrOyN0WNf3mt7UzhBYh3JfwBg
-	 mc4B2T4mMpOwc7lh/3rc03fmq3NGcrPR4rzwPYLotXzeoulqWUC5+hppmtl2HFBVaO
-	 8oT44X9sClO7cpTPTYer/bGc12E00BAD99Sv32W5Tw0LSAzzViA3UwmvIm7LXDAB5C
-	 oosMHoM4tNQttHXohOrhmfix58Gj3sbPe+lKl12wXQDAm0stKwFXBQyMz+f/MNJU8f
-	 9NkUPk2CiEJtA==
+	b=h5fqZ5eUd/9bnsbvwJwcaZ0uWvV9ZCPUMqN7aVx1r1wrQQlLSNJPvJswtSni//nkL
+	 ejVITxFp3Rz977GudFxRAeTAAwQkMuJHLJgWbjg0Gwssax+2Foz4Xf2rRq7GydQwDW
+	 8DiZAXhGj70KG5TNFapyYcoXRshtarXbqtU9WgNOMvq6nWzdvAKSB00SaQDhRr0Vjw
+	 lvmCnkTMwGIuoE3VC2f6+7B+KR4mX3wkiPxCXVAcyRXUAQ+zL+wwY7uqyuQ84D3mqV
+	 ElyGY/Ufj3Q+g6zifFOfTg6ZTgBf/D2tgyVXV7PRDS3AQQtI7VdbC0E5DlgmZ5C21Z
+	 7uP1OcMs/cUsg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/22] dt-bindings: media: qcom,venus-common: Allow IOVA
- reservation memory-region
+Subject: Re: [PATCH 2/4] rtc: pcf8525: Add NXP PCF8525 RTC driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-1-3996f67e33f9@oss.qualcomm.com>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-1-3996f67e33f9@oss.qualcomm.com>
+To: "Shiv Prakash Gupta" <shivprakash.gupta@nxp.com>
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260807082855.3762394-3-shivprakash.gupta@nxp.com>
+References: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
+ <20260807082855.3762394-3-shivprakash.gupta@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 08:49:12 +0000
-Message-Id: <20260807084913.384D81F00A3A@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 08:49:18 +0000
+Message-Id: <20260807084918.DACBA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [Medium] The patch updates `qcom,venus-common.yaml` to permit a second `m=
-emory-region` phandle for an IOMMU IOVA reservation, but fails to remove a =
-stale `maxItems: 1` constraint from `qcom,sc7180-venus.yaml`. This prevents=
- SC7180 devices from successfully validating if they supply the newly permi=
-tted second region.
+- [High] Unsynchronized concurrent access to the shared timestamp state (`t=
+s` and `ts_valid`) between the threaded IRQ handler and sysfs callbacks.
+- [High] Read-modify-write on Write-0-to-Clear (W0C) interrupt flags drops =
+concurrent interrupts.
+- [High] Hardware timestamp engine freezes after the first event in IRQ mod=
+e due to missing CTS command.
+- [High] The alarm interrupt is not properly configured as a system wake so=
+urce, preventing the RTC alarm from waking the system from suspend.
+- [Low] The I2C device ID array uses positional initializers rather than na=
+med initializers.
 --
 
---- Patch [1]: [PATCH 01/22] dt-bindings: media: qcom,venus-common: Allow I=
-OVA reservation memory-region ---
-commit 44e20424e211e02ef9914abe4592c185ad0d75ac
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+--- Patch [2]: [PATCH 2/4] rtc: pcf8525: Add NXP PCF8525 RTC driver ---
+commit b181a191f404e5910be38077d8059abeffe4a95b
+Author: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
 
-dt-bindings: media: qcom,venus-common: Allow IOVA reservation memory-region
+rtc: pcf8525: Add NXP PCF8525 RTC driver
 
-Non-pixel stream IDs should not allocate IOVA space from the 0 to 600MB
-restricted region, as this region is reserved exclusively for secure
-non-pixel.
+Add support for time and date, alarms, timestamp capture, backup
+switch-over configuration, external crystal configuration and clock
+offset correction.
 
-In addition to the firmware-loaded codec carveout, platforms need to
-declare an IOMMU IOVA reservation (a reserved-memory node with
-iommu-addresses) to keep DMA away from restricted IOVA range.
+--- a/drivers/rtc/rtc-pcf8525.c
++++ b/drivers/rtc/rtc-pcf8525.c
+[ ... ]
+> +static ssize_t timestamp_show_common(struct device *dev, char *buf, int =
+id)
+> +{
+> +	struct pcf8525 *pcf8525 =3D dev_get_drvdata(dev->parent);
+> +	unsigned int ctrl4;
+> +	time64_t ts;
+> +	int ret;
+> +
+> +	if (id < 0 || id > 1)
+> +		return 0;
+> +
+> +	if (pcf8525->irq_enabled) {
+> +		if (!pcf8525->ts_valid[id])
+> +			return 0;
+> +		ts =3D pcf8525->ts[id];
+> +		return sysfs_emit(buf, "%llu\n", (unsigned long long)ts);
 
-Permit a second memory-region phandle for this purpose, and describe the
-meaning of each entry so the ordering is unambiguous.
+[Severity: High]
+Is it possible for the threaded IRQ handler to update the timestamp state
+concurrently with this sysfs read?
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.ya=
-ml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> index 59a3fde846d21..0be2f9119e782 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> @@ -37,7 +37,10 @@ properties:
->      maxItems: 20
-> =20
->    memory-region:
-> -    maxItems: 1
-> +    minItems: 1
-> +    items:
-> +      - description: Firmware-loaded codec carveout
-> +      - description: IOMMU IOVA reservation region
+If a user-space process reads the sysfs timestamp attribute at the same time
+an RTC timestamp interrupt is being processed in pcf8525_ts_snapshot(),
+this could result in a torn read on 32-bit platforms where time64_t requires
+two 32-bit memory accesses.
 
-[Severity: Medium]
-Since this patch expands the common schema to allow two memory-region items,
-should the local constraints in related variant schemas also be updated?
+Should a mutex or memory barrier be used to synchronize access to the
+timestamp state?
 
-For example, the local constraint in qcom,sc7180-venus.yaml restricts the
-items to 1:
+> +	}
+[ ... ]
+> +static ssize_t timestamp_store_common(struct device *dev, const char *bu=
+f,
+> +				      size_t count, int id)
+> +{
+> +	struct pcf8525 *pcf8525 =3D dev_get_drvdata(dev->parent);
+> +	int ret;
+> +
+> +	if (id < 0 || id > 1)
+> +		return -EINVAL;
+> +
+> +	if (pcf8525->irq_enabled) {
+> +		pcf8525->ts_valid[id] =3D false;
+> +		return count;
+> +	}
 
-Documentation/devicetree/bindings/media/qcom,sc7180-venus.yaml:properties.m=
-emory-region {
-    ...
-  memory-region:
-    maxItems: 1
-    ...
-}
+[Severity: High]
+When in IRQ mode, this function returns early without sending the Clear
+Timestamp (CTS) command to the hardware.
 
-Because dt-schema evaluates a logical AND between local constraints and
-the included $ref schemas, won't SC7180 device trees fail dt_binding_check
-validation if they declare the newly permitted IOVA reservation region?
+Since the hardware is configured in freeze mode (PCF8525_TS_CTL1_TSM), it
+will ignore new events until the CTS command is issued. The interrupt handl=
+er
+pcf8525_irq() only clears the TSF interrupt flag.
 
-> =20
->    power-domains:
->      minItems: 1
+Will this cause the timestamp engine to stop capturing events after the fir=
+st
+one in IRQ mode?
+
+> +
+> +	/*
+> +	 * Clear timestamp via RESET CTS command.
+[ ... ]
+> +static irqreturn_t pcf8525_irq(int irq, void *data)
+> +{
+> +	struct device *dev =3D data;
+> +	struct pcf8525 *pcf8525 =3D dev_get_drvdata(dev);
+> +	unsigned int ctrl2, ctrl4;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(pcf8525->regmap, PCF8525_REG_CTRL2, &ctrl2);
+> +	if (ret)
+> +		return IRQ_NONE;
+> +
+> +	ret =3D regmap_read(pcf8525->regmap, PCF8525_REG_CTRL4, &ctrl4);
+> +	if (ret)
+> +		return IRQ_NONE;
+> +
+> +	if (!(ctrl2 & (PCF8525_CTRL2_AF | PCF8525_CTRL2_MSF)) &&
+> +	    !(ctrl4 & PCF8525_CTRL4_TSF))
+> +		return IRQ_NONE;
+> +
+> +	/* Timestamp */
+> +	if (ctrl4 & PCF8525_CTRL4_TSF) {
+> +		pcf8525_ts_snapshot(dev);
+> +		/* Clear TSF */
+> +		regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL4, PCF8525_CTRL4_T=
+SF, 0);
+> +	}
+> +
+> +	/* Alarm */
+> +	if (ctrl2 & PCF8525_CTRL2_AF) {
+> +		rtc_update_irq(pcf8525->rtc, 1, RTC_IRQF | RTC_AF);
+> +		/* Clear AF */
+> +		regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL2, PCF8525_CTRL2_A=
+F, 0);
+
+[Severity: High]
+Does using regmap_update_bits() here risk dropping concurrent interrupts?
+
+This function performs a read-modify-write. If it writes 0 to clear AF or M=
+SF,
+it writes back 0 for any other Write-0-to-Clear flag that was 0 at the time
+of the read. If a new hardware event sets another W0C flag between the read
+and write, the write of 0 will inadvertently clear the new event before it =
+can
+be handled.
+
+> +	}
+> +
+> +	if (ctrl2 & PCF8525_CTRL2_MSF) {
+> +		ret =3D regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL2, PCF8525=
+_CTRL2_MSF, 0);
+> +		if (ret)
+> +			return IRQ_NONE;
+> +	}
+> +
+> +	return IRQ_HANDLED;
+> +}
+[ ... ]
+> +static int pcf8525_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	/* Optional IRQ */
+> +	if (client->irq > 0) {
+> +		ret =3D devm_request_threaded_irq(dev, client->irq,
+> +						NULL, pcf8525_irq,
+> +						IRQF_ONESHOT,
+> +						dev_name(dev), dev);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to request INTA IRQ\n");
+> +
+> +		pcf8525->irq_enabled =3D true;
+> +
+> +		/* Route/unmask alarm + timestamp to INTA by default */
+> +		ret =3D pcf8525_unmask_irqs_intA(pcf8525);
+> +		if (ret)
+> +			return ret;
+> +
+> +		device_init_wakeup(dev, true);
+> +		set_bit(RTC_FEATURE_ALARM, pcf8525->rtc->features);
+
+[Severity: High]
+This declares wakeup capability, but is the IRQ ever connected as a wake
+source?
+
+Without calling dev_pm_set_wake_irq() or implementing suspend/resume
+callbacks with enable_irq_wake(), the IRQ controller is never instructed to
+keep the interrupt armed during suspend.
+
+Could this prevent the RTC alarm from waking the system from suspend?
+
+> +	}
+> +
+> +	/* Register device */
+> +	ret =3D devm_rtc_register_device(pcf8525->rtc);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id pcf8525_of_match[] =3D {
+> +	{ .compatible =3D "nxp,pcf8525" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, pcf8525_of_match);
+> +
+> +static const struct i2c_device_id pcf8525_i2c_id[] =3D {
+> +	{ "pcf8525", 0 },
+> +	{ }
+> +};
+
+[Severity: Low]
+Could this use named initializers?
+
+The I2C subsystem guidelines require initialized arrays of type
+struct i2c_device_id to use named initializers.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-iris_iova_=
-600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807082855.3762=
+394-1-shivprakash.gupta@nxp.com?part=3D2
