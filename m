@@ -1,64 +1,64 @@
 Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9073BB693
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:13:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC483A7833
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:13:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786108403; cv=none; b=nL0CEGwKSNwcEMtlokdYkBz/VRGTgUnQ4LM2kQngJ2ooHKVLJDmplalcTw7px7w8//N2N4/FU6OXq+DRhtyS0+QE5uCVBrj8MBTn/M0QelZTyKp/5K6yzaNF7N5bphnWFaJPLptyiaeT5r/7RZUYfZI43/LUsALcaD+gKwUWmf8=
+	t=1786108406; cv=none; b=Ux7gVZ8+ATGx4O4hzIDWOu8K+2+6zuKntfxsr8iw7dC+q5s9hMnrk6MPevElG/8H/DT1kq85xt5HOIjJqc59RK7B9Dnv5FJ99AxWPK9sYLtxkJCF1S18ESfuNO8PaviW79306ojum1hdpgYtzFG8mTCm8kgx9XG0wg6hcrEDKLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786108403; c=relaxed/simple;
-	bh=NH+vbbaxZiG6Y0t+Ae1nwybjPC/wrZUjqEzfT2sfGrs=;
+	s=arc-20240116; t=1786108406; c=relaxed/simple;
+	bh=VnfVAvsikvnI36JW1RCujh8fk4U6gmLQvcX5HzMcNtw=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uRj++2jqwe6K3sp0tkYJDJn7lRnprUmC+9m0jcaeRUr0pMS6/Tq5FBD+Dc3vb6r/7z3O25TgoncvtXfY2BxB1O9mch3yKsu5Z48VkqXEDxhDmdDvqcQVnx+2wkuVZ6um8NTp8UbAmU1EMqN6q2D+E4UEv6z1oYpciybsEQu91Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IlmkawxR; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=nEVziWw1nNvrT4dUsP+LsaU3isviTMmj9gbUQgYMi737NdhTFQdo84bil/VqT071SH9498moJ474yMSQe9i0q+RwU5zCNIY43XzOZdZ2lpli6AO2TsCZVMt0AuqnTAW7vdGB5YCWqm4+n9jj/eBCjZACETBRUqhGiKoStUA0dSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R4/Q/4tz; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IlmkawxR"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49800c6a846so27499835e9.3
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 06:13:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R4/Q/4tz"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so35625795e9.2
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 06:13:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786108394; x=1786713194; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786108397; x=1786713197; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=tBl3GBctv61bQMyEd2S/uBaFdUwcRcdsqM3BfaYguhk=;
-        b=IlmkawxRsT62aobFbJ4plJeaOL3z5PJhXmki8EuAS2bL+/Q1hCJC4VJ8UKl/pH2EHZ
-         hCr+sorVfmZoc09ADNHqMufsitwgkaiEhMHI18verzjY5+vJRPogmKaPNUbLrY0oyXpR
-         /iQCrXyHX6DwGzTeCmZsq3WFH5GV/wcH/NsH4t/7oBY3hy+Uj/McjYtwKAwSvE9opqSA
-         d3on5MehzZQ1+dw9n8EoBun3OHP7KVfbpVmH6INCGbgYkamHTtLAvmRpmBk9REN5Q1Yh
-         9oj//QXRk71UbqyIMyViEvkmut1FRXN1sAgwTWSITzbMW6rnFkhdJ4epCBxbEqdTtYYC
-         IgtQ==
+        bh=aEv2KgBpFKFRHdmmz21rNvwI+42MDumPQwfGnEJMH20=;
+        b=R4/Q/4tz7imJtKYScfVZLTsrXxuh/EhO5K35UWiWknj5gLHbZIBiHnAPOKiPwZxI68
+         H13TyXZo8UVicjBwP8WL6qJeA69ei1tmgPH+ltGjEDbHe64mV5JNEvEoLZrCn5Yt1ZCX
+         0ZcdkjRtrHMKUjeeBssoB0fbf9KiC5K6tPn95IHp3Z7ZYIzhLPWnC6lQi7aoOsmQN3w2
+         ZwOedPL1mxsIbgWNURfbECHEYkMN6kJ9gqPme2AfQL21lFnoW7MIH2vFYBjgl8+ojV26
+         Atf4SMBLl5i/CUyEbPHs38AbEtQThERyhO34XzZp2kykWJXz7nYxs6oChDmxa/n5+DKR
+         bA2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786108394; x=1786713194;
+        d=1e100.net; s=20251104; t=1786108397; x=1786713197;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=tBl3GBctv61bQMyEd2S/uBaFdUwcRcdsqM3BfaYguhk=;
-        b=SRiA+MuX+/Fm9AUFy6OCh1guEdfcEpl1GiAMC3m2kf1CbBQKLW+EMc61n21ixV1Mn+
-         md+L9EYcvqVehXzA71yNlQOSMvwr92xjkzKURfKh7BjAwAVWP3yhRQaBq8XJF2S01N7Y
-         gVQ2X7RH7rqANomn0NgsWiUsTC0txkUCaPKwnJNQvdUTSY+JMXiir02Z7ahKuq9T0A3B
-         wjKu+BtcszBJKG9P9sWZS5vVeEUuGhwmNHidUeABPB92wOap8OxWmWqfOWdzBkeDfom4
-         EK66I0GLNWRdMB/dbFb9tXmpigZ2RLqgpoc3VBgo4jPf7IACL2Ym5UD9sspfhAX4Fg7T
-         rHSQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoRPhZXuftSgz8PtV+lrbCjX0KGAIEYywfzY+33+3VaWaw/tr/QhylIbq0ill3O25m9zewUyYQfUJwm@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUnJff3t/G8Xepj+yGdF+Y36hrmERYhQSqMBGxyyrNhF1WHO/B
-	4mESa2EVYxFRvcEc1atGSL4Px2zGE1fA9wVWuwFsc9vTrAXQPctTT6g2
-X-Gm-Gg: AR+sD13OAbL2ADNgm94PTDnNlpNtyGBPrHnafm6BJacvoXk0JbyWN/iaiZk8dGw7TGP
-	lQK+QYQ5dprycCGC5y99ybnoBt11OKVQJoKzhjM4QGRH2hThBkVtQFgsU5EgAfDrErZTTtlF5DZ
-	BhebJIbFQN2i7Fd/jM9zzw1KyHTUR5Eg0qakW3yMm2N8SRpp3l/JgY3Q8ks/pJ+RK6IMdDFuPO4
-	FdM1Z9A0Qf8E6BdYJp80NCrKhdaIbLEexj2krk1xpmILIkusr2JXC1Xj0MyVzmvou+3voo5jSEH
-	o9iiVdGPErj6gFHeL9aPu60QKZrgVaPwFmI5IdNe29H7nCciIvIxE2Q9yvVgxMlB4deoYK/PqmF
-	swCYUiu35jJRLvPRbA9qjSw0XRtqJrs2AN+PReuhAtFuxTfPw8IQ1DFogdv6qqSQ4ZqqB5YbYC9
-	IPfHlhTxS6uWP6RWY/EnAF3V5M5GkAU+qwmzDHFJVBrDYTgVIdc32ei61KSuKbl9BS3wktrlKwZ
-	AY8RQziPxHjylsuLVN5DMLZit/dodSykw+wz8V3f+Vm3uHltxSN7w==
-X-Received: by 2002:a7b:cc0b:0:b0:496:cb48:5eb8 with SMTP id 5b1f17b1804b1-49959e38ecamr104184045e9.15.1786108394327;
-        Fri, 07 Aug 2026 06:13:14 -0700 (PDT)
+        bh=aEv2KgBpFKFRHdmmz21rNvwI+42MDumPQwfGnEJMH20=;
+        b=hAt+2gj5q/8+u8B03+tdSh2AlVlwrrImcA0n9O2WPasFdWXCjkOTKj8/OuE9vb8Au3
+         qFHqVLrzkeuuhupYETgD8cn1mSv1J86+ED9o5SJ+6fuFGxiJSsJX7nXYlMHGPrmvMPTT
+         uymX/A2DlMhn7V3Te5UEtGryJI+CPMofjQTBRDxdTdR/Vgaf0VFfZt3imMlj9vYnw1Dm
+         nMbG/nTDJFGXlc++7knnQvGPG0SjF8Houq1yiZvGO72ojwKW2MqnVAVGQWfB1g6uUNq/
+         v9UCzGA5vlfbcqg9uV5mbVTjvHx+UKNnJ+mrCXYvHcORxU/pOBZZHqNMcOI7WXmveFZQ
+         6+kw==
+X-Forwarded-Encrypted: i=1; AHgh+Rql282jGBHo5UCb95umBtOC9y51nnkePx+nSqUdt4QrrFmWy/QPRWYwRbX9vGnkT/u6OUlgWozdAbN4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxZ5tzhnT7vDrIevKxvOXi1JiMB9kDWxMWIcL/W8/LMFtmJKsmv
+	gfQqRL3GdFTEyAPZVSrETb5jykkMZw1ur22mov21p2fJyeHCQsGAZSsh
+X-Gm-Gg: AR+sD12/1joqS6SN5d/T6z1H5UZ2934788XSsvpNO+JpT57kTeEL0aDQihJXkEin91P
+	vfLpdQOhKHjbmLLTC8pSzI7u6MXMXKN27Po+1I+tk/svduiZ1Eg7YLh9NDMXg9AO1siNI8MWGnl
+	HepQwaejSL/uM/uJASBUw+XmDhRQCBrLJ12/8ArSjDCFAci5N5ubeNlHffBkfJgATOTzcW7ZV99
+	nC6f1hvNb4OD+hOZyX6j03zInX9t7IkvECL6h0D7FqkNwo6XMgWMPB4jxjPZECBnab8h5AKSoSc
+	kJC7rBd0NHOtR/nO3Uh0x89SKRPFnOOQZIupbPw/jzLgOqGFRCALrgwVFJQ12yZqK+VR8MJevvd
+	8kz/orj9vhw43yVYnT867dilPAl69ePwny6L3Hhtg39dtHEsvqXy0dbKjVo38Mqpedb63S3FkQ4
+	qg7OhtfKqOsjWxCUztYJtK9knLtM7YI2S8DSqSyTm9SG7PnOf+yObGa6kfjKW/sAYDMpnGi7dB4
+	knHVTcHwVCdkvwTATN93iOxyzO+Xg7fOvB9gW6QP0oQYTl0AWoxGw==
+X-Received: by 2002:a05:600c:6a8a:b0:498:ee7:e407 with SMTP id 5b1f17b1804b1-4994e7d3f2fmr258844425e9.17.1786108396315;
+        Fri, 07 Aug 2026 06:13:16 -0700 (PDT)
 Received: from Ansuel-XPS24.localdomain (host-87-19-255-168.retail.telecomitalia.it. [87.19.255.168])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4995c7b2b68sm58827665e9.4.2026.08.07.06.13.12
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4995c7b2b68sm58827665e9.4.2026.08.07.06.13.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 06:13:13 -0700 (PDT)
+        Fri, 07 Aug 2026 06:13:15 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -88,9 +88,9 @@ To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	llvm@lists.linux.dev
-Subject: [PATCH net-next v11 01/12] net: phylink: keep and use MAC supported_interfaces in phylink struct
-Date: Fri,  7 Aug 2026 15:12:43 +0200
-Message-ID: <20260807131301.192060-2-ansuelsmth@gmail.com>
+Subject: [PATCH net-next v11 02/12] net: phylink: introduce internal phylink PCS handling
+Date: Fri,  7 Aug 2026 15:12:44 +0200
+Message-ID: <20260807131301.192060-3-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260807131301.192060-1-ansuelsmth@gmail.com>
 References: <20260807131301.192060-1-ansuelsmth@gmail.com>
@@ -102,107 +102,482 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add in phylink struct a copy of supported_interfaces from phylink_config
-and make use of that instead of relying on phylink_config value.
+Introduce internal handling of PCS for phylink. This is an alternative
+way to .mac_select_pcs that moves the selection logic of the PCS entirely
+to phylink with the usage of the supported_interface value in the PCS
+struct.
 
-This in preparation for support of PCS handling internally to phylink
-where a PCS can be removed or added after the phylink is created and we
-need both a reference of the supported_interfaces value from
-phylink_config and an internal value that can be updated with the new
-PCS info.
+MAC should now provide a callback to fill the available PCS in
+phylink_config in .fill_available_pcs and fill the .num_possible_pcs with
+the number of elements in the array. MAC should also define a new bitmap,
+pcs_interfaces, in phylink_config to define for what interface mode a
+dedicated PCS is required.
 
-Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+On phylink_create(), an array of PCS pointer is allocated of size
+.num_possible_pcs from phylink_config and .fill_available_pcs from
+phylink_config is called passing as args the just allocated array and
+the number of possible element in it.
+
+MAC will fill this passed array with all the available PCS.
+
+This array is then parsed and a linked list of PCS is created based on
+the allocated PCS array filled by MAC via .fill_available_pcs().
+
+Every PCS in phylink PCS list gets then linked to the phylink instance
+by setting the phylink value in phylink_pcs struct to the phylink instance.
+Also the supported_interface value in phylink struct is updated with
+the new supported_interface from the provided PCS.
+
+On phylink_destroy(), every PCS in phylink PCS list is unlinked from the
+phylink instance by setting the phylink value in phylink_pcs struct to NULL
+and removed from the PCS list.
+
+phylink_validate_mac_and_pcs(), phylink_major_config() and
+phylink_inband_caps() are updated to support this new implementation
+with the PCS list stored in phylink.
+
+They will make use of phylink_validate_pcs_interface() that will loop
+for every PCS in the phylink PCS available list and find one that supports
+the passed interface.
+
+phylink_validate_pcs_interface() applies the same logic of .mac_select_pcs
+where if a supported_interface value is not set for the PCS struct, then
+it's assumed every interface is supported.
+
+A MAC is required to implement either a .mac_select_pcs or make use of
+the PCS list implementation. Implementing both will result in a fail
+on phylink_create().
+
+A MAC defining .num_possible_pcs in phylink_config MUST also define a
+.fill_available_pcs or phylink_create() will fail with an negative error.
+
+phylink value in phylink_pcs struct with this implementation is used to
+track from PCS side when it's attached to a phylink instance. PCS driver
+will make use of this information to correctly detach from a phylink
+instance if needed.
+
+phylink_pcs_change() is also changed to verify that the PCS that triggered
+a link change is the one that is currently used by the phylink instance.
+
+The .mac_select_pcs implementation is not changed but it's expected that
+every MAC driver migrates to the new implementation to later deprecate
+and remove .mac_select_pcs.
+
 Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 ---
- drivers/net/phy/phylink.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
+ drivers/net/phy/phylink.c | 205 +++++++++++++++++++++++++++++++++-----
+ include/linux/phylink.h   |  16 +++
+ 2 files changed, 196 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index b241768edbcb..b7180ae76cc8 100644
+index b7180ae76cc8..9decd7333c70 100644
 --- a/drivers/net/phy/phylink.c
 +++ b/drivers/net/phy/phylink.c
-@@ -60,6 +60,11 @@ struct phylink {
+@@ -60,6 +60,9 @@ struct phylink {
  	/* The link configuration settings */
  	struct phylink_link_state link_config;
  
-+	/* What interface are supported by the current link.
-+	 * Can change on removal or addition of new PCS.
-+	 */
-+	DECLARE_PHY_INTERFACE_MASK(supported_interfaces);
++	/* List of available PCS */
++	struct list_head pcs_list;
 +
- 	/* The current settings */
- 	phy_interface_t cur_interface;
+ 	/* What interface are supported by the current link.
+ 	 * Can change on removal or addition of new PCS.
+ 	 */
+@@ -154,6 +157,8 @@ static const phy_interface_t phylink_sfp_interface_preference[] = {
  
-@@ -628,7 +633,7 @@ static int phylink_validate_mask(struct phylink *pl, struct phy_device *phy,
- static int phylink_validate(struct phylink *pl, unsigned long *supported,
- 			    struct phylink_link_state *state)
+ static DECLARE_PHY_INTERFACE_MASK(phylink_sfp_interfaces);
+ 
++static void phylink_run_resolve(struct phylink *pl);
++
+ /**
+  * phylink_set_port_modes() - set the port type modes in the ethtool mask
+  * @mask: ethtool link mode mask
+@@ -517,12 +522,29 @@ static void phylink_validate_mask_caps(unsigned long *supported,
+ 	linkmode_and(state->advertising, state->advertising, mask);
+ }
+ 
++static int phylink_validate_pcs_interface(struct phylink_pcs *pcs,
++					  phy_interface_t interface)
++{
++	/* If PCS define an empty supported_interfaces value, assume
++	 * all interface are supported.
++	 */
++	if (phy_interface_empty(pcs->supported_interfaces))
++		return 0;
++
++	/* Ensure that this PCS supports the interface mode */
++	if (!test_bit(interface, pcs->supported_interfaces))
++		return -EINVAL;
++
++	return 0;
++}
++
+ static int phylink_validate_mac_and_pcs(struct phylink *pl,
+ 					unsigned long *supported,
+ 					struct phylink_link_state *state)
  {
--	const unsigned long *interfaces = pl->config->supported_interfaces;
-+	const unsigned long *interfaces = pl->supported_interfaces;
+-	struct phylink_pcs *pcs = NULL;
+ 	unsigned long capabilities;
++	struct phylink_pcs *pcs;
++	bool pcs_found = false;
+ 	int ret;
  
- 	if (state->interface == PHY_INTERFACE_MODE_NA)
- 		return phylink_validate_mask(pl, NULL, supported, state,
-@@ -1878,6 +1883,9 @@ struct phylink *phylink_create(struct phylink_config *config,
+ 	/* Get the PCS for this interface mode */
+@@ -530,9 +552,24 @@ static int phylink_validate_mac_and_pcs(struct phylink *pl,
+ 		pcs = pl->mac_ops->mac_select_pcs(pl->config, state->interface);
+ 		if (IS_ERR(pcs))
+ 			return PTR_ERR(pcs);
++
++		pcs_found = !!pcs;
++	/*
++	 * Find a PCS in available PCS list for the requested interface.
++	 *
++	 * Skip searching if the MAC doesn't require a dedicated PCS for
++	 * the requested interface.
++	 */
++	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
++		list_for_each_entry(pcs, &pl->pcs_list, list) {
++			if (!phylink_validate_pcs_interface(pcs, state->interface)) {
++				pcs_found = true;
++				break;
++			}
++		}
+ 	}
+ 
+-	if (pcs) {
++	if (pcs_found) {
+ 		/* The PCS, if present, must be setup before phylink_create()
+ 		 * has been called. If the ops is not initialised, print an
+ 		 * error and backtrace rather than oopsing the kernel.
+@@ -544,13 +581,10 @@ static int phylink_validate_mac_and_pcs(struct phylink *pl,
+ 			return -EINVAL;
+ 		}
+ 
+-		/* Ensure that this PCS supports the interface which the MAC
+-		 * returned it for. It is an error for the MAC to return a PCS
+-		 * that does not support the interface mode.
+-		 */
+-		if (!phy_interface_empty(pcs->supported_interfaces) &&
+-		    !test_bit(state->interface, pcs->supported_interfaces)) {
+-			phylink_err(pl, "MAC returned PCS which does not support %s\n",
++		/* Recheck PCS to handle legacy way for .mac_select_pcs */
++		ret = phylink_validate_pcs_interface(pcs, state->interface);
++		if (ret) {
++			phylink_err(pl, "selected PCS does not support %s\n",
+ 				    phy_modes(state->interface));
+ 			return -EINVAL;
+ 		}
+@@ -964,12 +998,22 @@ static unsigned int phylink_inband_caps(struct phylink *pl,
+ 					 phy_interface_t interface)
+ {
+ 	struct phylink_pcs *pcs;
++	bool pcs_found = false;
+ 
+-	if (!pl->mac_ops->mac_select_pcs)
+-		return 0;
++	if (pl->mac_ops->mac_select_pcs) {
++		pcs = pl->mac_ops->mac_select_pcs(pl->config,
++						  interface);
++		pcs_found = !!pcs;
++	} else if (test_bit(interface, pl->config->pcs_interfaces)) {
++		list_for_each_entry(pcs, &pl->pcs_list, list) {
++			if (!phylink_validate_pcs_interface(pcs, interface)) {
++				pcs_found = true;
++				break;
++			}
++		}
++	}
+ 
+-	pcs = pl->mac_ops->mac_select_pcs(pl->config, interface);
+-	if (!pcs)
++	if (!pcs_found)
+ 		return 0;
+ 
+ 	return phylink_pcs_inband_caps(pcs, interface);
+@@ -1264,10 +1308,36 @@ static void phylink_major_config(struct phylink *pl, bool restart,
+ 			pl->major_config_failed = true;
+ 			return;
+ 		}
++	/* Find a PCS in available PCS list for the requested interface.
++	 * This doesn't overwrite the previous .mac_select_pcs as either
++	 * .mac_select_pcs or PCS list implementation are permitted.
++	 *
++	 * Skip searching if the MAC doesn't require a dedicated PCS for
++	 * the requested interface.
++	 */
++	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
++		bool pcs_found = false;
++
++		list_for_each_entry(pcs, &pl->pcs_list, list) {
++			if (!phylink_validate_pcs_interface(pcs,
++							    state->interface)) {
++				pcs_found = true;
++				break;
++			}
++		}
+ 
+-		pcs_changed = pl->pcs != pcs;
++		if (!pcs_found) {
++			phylink_err(pl,
++				    "couldn't find a PCS for %s\n",
++				    phy_modes(state->interface));
++
++			pl->major_config_failed = true;
++			return;
++		}
+ 	}
+ 
++	pcs_changed = pl->pcs != pcs;
++
+ 	phylink_pcs_neg_mode(pl, pcs, state->interface, state->advertising);
+ 
+ 	phylink_dbg(pl, "major config, active %s/%s/%s\n",
+@@ -1294,13 +1364,15 @@ static void phylink_major_config(struct phylink *pl, bool restart,
+ 	if (pcs_changed) {
+ 		phylink_pcs_disable(pl->pcs);
+ 
+-		if (pl->pcs)
+-			pl->pcs->phylink = NULL;
++		if (pl->mac_ops->mac_select_pcs) {
++			if (pl->pcs)
++				pl->pcs->phylink = NULL;
+ 
+-		if (pcs)
+-			pcs->phylink = pl;
++			if (pcs)
++				pcs->phylink = pl;
++		}
+ 
+-		pl->pcs = pcs;
++		WRITE_ONCE(pl->pcs, pcs);
+ 	}
+ 
+ 	if (pl->pcs)
+@@ -1833,6 +1905,44 @@ int phylink_set_fixed_link(struct phylink *pl,
+ }
+ EXPORT_SYMBOL_GPL(phylink_set_fixed_link);
+ 
++static int phylink_fill_available_pcs(struct phylink *pl,
++				      struct phylink_config *config)
++{
++	struct phylink_pcs **pcss;
++	int i, ret;
++
++	if (!config->num_possible_pcs)
++		return 0;
++
++	if (!config->fill_available_pcs) {
++		dev_err(config->dev,
++			"phylink: error: num_possible_pcs defined but no fill_available_pcs\n");
++		return -EINVAL;
++	}
++
++	pcss = kzalloc_objs(*pcss, config->num_possible_pcs);
++	if (!pcss)
++		return -ENOMEM;
++
++	ret = config->fill_available_pcs(config, pcss, config->num_possible_pcs);
++	if (ret < 0)
++		goto out;
++
++	for (i = 0; i < config->num_possible_pcs; i++) {
++		struct phylink_pcs *pcs = pcss[i];
++
++		if (!pcs)
++			continue;
++
++		list_add_tail(&pcs->list, &pl->pcs_list);
++	}
++
++out:
++	kfree(pcss);
++
++	return ret;
++}
++
+ /**
+  * phylink_create() - create a phylink instance
+  * @config: a pointer to the target &struct phylink_config
+@@ -1854,13 +1964,17 @@ struct phylink *phylink_create(struct phylink_config *config,
+ 			       phy_interface_t iface,
+ 			       const struct phylink_mac_ops *mac_ops)
+ {
++	struct phylink_pcs *tmp, *pcs;
+ 	struct phylink *pl;
+ 	int ret;
+ 
+-	/* Validate the supplied configuration */
+-	if (phy_interface_empty(config->supported_interfaces)) {
++	/*
++	 * Make sure either PCS internal validation or .mac_select_pcs
++	 * is used. Return error if both are defined.
++	 */
++	if (config->num_possible_pcs && mac_ops->mac_select_pcs) {
+ 		dev_err(config->dev,
+-			"phylink: error: empty supported_interfaces\n");
++			"phylink: error: either phylink_config .num_possible_pcs or .mac_select_pcs must be used\n");
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+@@ -1871,6 +1985,7 @@ struct phylink *phylink_create(struct phylink_config *config,
+ 	mutex_init(&pl->phydev_mutex);
+ 	mutex_init(&pl->state_mutex);
+ 	INIT_WORK(&pl->resolve, phylink_resolve);
++	INIT_LIST_HEAD(&pl->pcs_list);
+ 
+ 	pl->config = config;
+ 	if (config->type == PHYLINK_NETDEV) {
+@@ -1883,9 +1998,24 @@ struct phylink *phylink_create(struct phylink_config *config,
  		goto free_pl;
  	}
  
-+	phy_interface_copy(pl->supported_interfaces,
-+			   pl->config->supported_interfaces);
++	/* Fill the PCS list with available PCS from phylink config */
++	ret = phylink_fill_available_pcs(pl, config);
++	if (ret < 0)
++		goto free_pl;
++
++	/* Link available PCS to phylink */
++	list_for_each_entry(pcs, &pl->pcs_list, list)
++		pcs->phylink = pl;
++
+ 	phy_interface_copy(pl->supported_interfaces,
+ 			   pl->config->supported_interfaces);
+ 
++	/* Update supported interfaces */
++	list_for_each_entry(pcs, &pl->pcs_list, list)
++		phy_interface_or(pl->supported_interfaces,
++				 pl->supported_interfaces,
++				 pcs->supported_interfaces);
 +
  	pl->mac_supports_eee_ops = phylink_mac_implements_lpi(mac_ops);
  	pl->mac_supports_eee = pl->mac_supports_eee_ops &&
  			       pl->config->lpi_capabilities &&
-@@ -2024,7 +2032,7 @@ static int phylink_validate_phy(struct phylink *pl, struct phy_device *phy,
- 		 * those which the host supports.
- 		 */
- 		phy_interface_and(interfaces, phy->possible_interfaces,
--				  pl->config->supported_interfaces);
-+				  pl->supported_interfaces);
+@@ -1917,7 +2047,7 @@ struct phylink *phylink_create(struct phylink_config *config,
  
- 		if (phy_interface_empty(interfaces)) {
- 			phylink_err(pl, "PHY has no common interfaces\n");
-@@ -2824,12 +2832,12 @@ static phy_interface_t phylink_sfp_select_interface(struct phylink *pl,
- 		return interface;
- 	}
+ 	ret = phylink_parse_mode(pl, fwnode);
+ 	if (ret < 0)
+-		goto free_pl;
++		goto unlink_pcs_list;
  
--	if (!test_bit(interface, pl->config->supported_interfaces)) {
-+	if (!test_bit(interface, pl->supported_interfaces)) {
- 		phylink_err(pl,
- 			    "selection of interface failed, SFP selected %s (%u) but MAC supports %*pbl\n",
- 			    phy_modes(interface), interface,
- 			    (int)PHY_INTERFACE_MODE_MAX,
--			    pl->config->supported_interfaces);
-+			    pl->supported_interfaces);
- 		return PHY_INTERFACE_MODE_NA;
- 	}
+ 	if (pl->cfg_link_an_mode == MLO_AN_FIXED) {
+ 		ret = phylink_parse_fixedlink(pl, fwnode);
+@@ -1936,6 +2066,11 @@ struct phylink *phylink_create(struct phylink_config *config,
+ release_link_gpio:
+ 	if (pl->link_gpio)
+ 		gpiod_put(pl->link_gpio);
++unlink_pcs_list:
++	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
++		list_del(&pcs->list);
++		pcs->phylink = NULL;
++	}
+ free_pl:
+ 	kfree(pl);
+ 	return ERR_PTR(ret);
+@@ -1953,11 +2088,24 @@ EXPORT_SYMBOL_GPL(phylink_create);
+  */
+ void phylink_destroy(struct phylink *pl)
+ {
++	struct phylink_pcs *pcs, *tmp;
++
+ 	sfp_bus_del_upstream(pl->sfp_bus);
+ 	if (pl->link_gpio)
+ 		gpiod_put(pl->link_gpio);
  
-@@ -3757,14 +3765,14 @@ static int phylink_sfp_config_optical(struct phylink *pl)
+ 	cancel_work_sync(&pl->resolve);
++
++	mutex_lock(&pl->state_mutex);
++
++	/* Remove every PCS from phylink PCS list */
++	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
++		pcs->phylink = NULL;
++		list_del(&pcs->list);
++	}
++
++	mutex_unlock(&pl->state_mutex);
++
+ 	kfree(pl);
+ }
+ EXPORT_SYMBOL_GPL(phylink_destroy);
+@@ -2409,8 +2557,15 @@ void phylink_pcs_change(struct phylink_pcs *pcs, bool up)
+ {
+ 	struct phylink *pl = pcs->phylink;
  
- 	phylink_dbg(pl, "optical SFP: interfaces=[mac=%*pbl, sfp=%*pbl]\n",
- 		    (int)PHY_INTERFACE_MODE_MAX,
--		    pl->config->supported_interfaces,
-+		    pl->supported_interfaces,
- 		    (int)PHY_INTERFACE_MODE_MAX,
- 		    pl->sfp_interfaces);
+-	if (pl)
+-		phylink_link_changed(pl, up, "pcs");
++	/*
++	 * Ignore PCS link state change if the PCS is not
++	 * attached to a phylink instance or the phylink
++	 * instance is not currently using this PCS.
++	 */
++	if (!pl || READ_ONCE(pl->pcs) != pcs)
++		return;
++
++	phylink_link_changed(pl, up, "pcs");
+ }
+ EXPORT_SYMBOL_GPL(phylink_pcs_change);
  
- 	/* Find the union of the supported interfaces by the PCS/MAC and
- 	 * the SFP module.
- 	 */
--	phy_interface_and(pl->sfp_interfaces, pl->config->supported_interfaces,
-+	phy_interface_and(pl->sfp_interfaces, pl->supported_interfaces,
- 			  pl->sfp_interfaces);
- 	if (phy_interface_empty(pl->sfp_interfaces)) {
- 		phylink_err(pl, "unsupported SFP module: no common interface modes\n");
-@@ -3935,7 +3943,7 @@ static int phylink_sfp_connect_phy(void *upstream, struct phy_device *phy)
+diff --git a/include/linux/phylink.h b/include/linux/phylink.h
+index 2bc0db3d52ac..ca9dfc142388 100644
+--- a/include/linux/phylink.h
++++ b/include/linux/phylink.h
+@@ -12,6 +12,7 @@ struct ethtool_cmd;
+ struct fwnode_handle;
+ struct net_device;
+ struct phylink;
++struct phylink_pcs;
  
- 	/* Set the PHY's host supported interfaces */
- 	phy_interface_and(phy->host_interfaces, phylink_sfp_interfaces,
--			  pl->config->supported_interfaces);
-+			  pl->supported_interfaces);
+ enum {
+ 	MLO_PAUSE_NONE,
+@@ -151,6 +152,8 @@ enum phylink_op_type {
+  *		     if MAC link is at %MLO_AN_FIXED mode.
+  * @supported_interfaces: bitmap describing which PHY_INTERFACE_MODE_xxx
+  *                        are supported by the MAC/PCS.
++ * @pcs_interfaces: bitmap describing for which PHY_INTERFACE_MODE_xxx a
++ *		    dedicated PCS is required.
+  * @lpi_interfaces: bitmap describing which PHY interface modes can support
+  *		    LPI signalling.
+  * @mac_capabilities: MAC pause/speed/duplex capabilities.
+@@ -160,6 +163,10 @@ enum phylink_op_type {
+  * @wol_phy_legacy: Use Wake-on-Lan with PHY even if phy_can_wakeup() is false
+  * @wol_phy_speed_ctrl: Use phy speed control on suspend/resume
+  * @wol_mac_support: Bitmask of MAC supported %WAKE_* options
++ * @num_possible_pcs: num of possible phylink_pcs PCS
++ * @fill_available_pcs: callback to fill the available PCS in the passed
++ *			array struct of phylink_pcs PCS available_pcs up to
++ *			num_possible_pcs.
+  */
+ struct phylink_config {
+ 	struct device *dev;
+@@ -172,6 +179,7 @@ struct phylink_config {
+ 	void (*get_fixed_state)(struct phylink_config *config,
+ 				struct phylink_link_state *state);
+ 	DECLARE_PHY_INTERFACE_MASK(supported_interfaces);
++	DECLARE_PHY_INTERFACE_MASK(pcs_interfaces);
+ 	DECLARE_PHY_INTERFACE_MASK(lpi_interfaces);
+ 	unsigned long mac_capabilities;
+ 	unsigned long lpi_capabilities;
+@@ -182,6 +190,11 @@ struct phylink_config {
+ 	bool wol_phy_legacy;
+ 	bool wol_phy_speed_ctrl;
+ 	u32 wol_mac_support;
++
++	unsigned int num_possible_pcs;
++	int (*fill_available_pcs)(struct phylink_config *config,
++				  struct phylink_pcs **available_pcs,
++				  unsigned int num_possible_pcs);
+ };
  
- 	/* Do the initial configuration */
- 	return phylink_sfp_config_phy(pl, phy);
+ void phylink_limit_mac_speed(struct phylink_config *config, u32 max_speed);
+@@ -497,6 +510,9 @@ struct phylink_pcs {
+ 	struct phylink *phylink;
+ 	bool poll;
+ 	bool rxc_always_on;
++
++	/* private: */
++	struct list_head list;
+ };
+ 
+ /**
 -- 
 2.53.0
 
