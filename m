@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8B5364058
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:47:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1885838AC8C;
+	Fri,  7 Aug 2026 08:48:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786092430; cv=none; b=KXhplE+gOQZcYBWQxjxmJAn86kinF5Uc+7nLEMFsqUnQ1oToWou0ah6LUgVQDsIYOyRn7AAYogHeCqXYvB/E3lon9OBSw3DAtPXNckO1olP3/upxBBAla/N5pRJelHmAeJDuzvOkaFFYXGNpZ2aUcioSpk8FbtyAXNgiEpoAimY=
+	t=1786092481; cv=none; b=G1oAIyjiF44UIzbwUnAXka2b5gE07rDhhCCAYFX6wv2vCjPjodwV30f9j+1uYx6l2j6OrVwI/2HvDZmtNc1SzqrzVTV3YlE5TzqPBLOyA9M/53bIV5+/VDhMH+1jlefSqbky9tG+75z322KeW0a7bO6OgqS5S/jTzosTBs9uASI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786092430; c=relaxed/simple;
-	bh=crW9izSCfl6marcXNaQkrQtJH2uwy/moxJ80rZp55+0=;
+	s=arc-20240116; t=1786092481; c=relaxed/simple;
+	bh=1aofuFOg+HNUXsvxvrgyMkjAuMZnQ290T9nN65ZBqpU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ky82uFQPObDrCI5w2F7UyPHURWTh8kd1LGsPOHx7QPjeADy6hT+AGQ0KNoHZoE0TaMxqFqBByin3+LxXiIspZZAd82Q9l1TJ1mqlPA2JjaApuDTvv5hdAjqMFxxsU/SI7wXUJGEdEcT7DL4uhV1YuacbeBBsd3eGNugpoxNS8Iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9KjEuW/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=VIsuXxg0UFRoKxwoK7yotFf5F5hH0TXGGjPm41JrH+Z41hmkynP1Apa0owharRhSJp0ds47XafHtwDYwuhCPgpgfAJjkD7d/NoE7pAfSV8w4ooLwU6djTHEqCKzag//ITyRUq0HvDJ+bnH4Zqvrbv0m1hDNaoMwM04OH50tmMXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mGKz9FNj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9KjEuW/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E641F000E9;
-	Fri,  7 Aug 2026 08:47:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mGKz9FNj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50FE91F000E9;
+	Fri,  7 Aug 2026 08:47:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786092428;
-	bh=baaqtq+fUwKiH6FR2aWcNMk1PDstKAKp9LhfmswBt0E=;
+	s=k20260515; t=1786092479;
+	bh=gJCLb3it6lbOvQ3+VAMUOu6MRnWbKzY7QCyTJnfRuls=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L9KjEuW/XiRil3Cjkw71yboxdxb2Ckq6G6wsrf8vxnAB0+H9e55P+KPHyaCJ2oIxN
-	 8kstNfoNBsI7zTmYqVyUXEYSKw0T6Sh6Haya2sVHcnvKA3m40lPPaxzc//aJJaoxgX
-	 EpR5khAN7ARJoCbKv3L6fjy9w+3LtjwvrHEgakb2g9CsxoVSPhPt5zD7ri1PbqG7Ht
-	 P4ouc8MwrcFOu8DQPgwmmzH/AKHcpVSFJmZavdH6Nt8WYoplAhVhlu99CYZnMgaUaA
-	 EFQ2BRWpWu+BFwcUkWj5IOM/0nhVlEVYyxovJcOu0nvZTWl70nY7/3CGYFthz6B9pD
-	 oiZLVsIYrBjxg==
+	b=mGKz9FNj1xzNp4LaeFJbpJUp3xsQeW2f/pfYwUD8n+5xFbSTnnTuwwJhRuRsQ4MQb
+	 eLmgjeHtfI3LHIm/18877fRW89ofriVmvSfJIZBUvSNo5xnmr7ptIPIU8vzdpRCshs
+	 PUAze557+58gwZ+edPDdpzm2mzYA7d+RG87CeloR7qtUWxrzhGXWNyAcPzVGMdP9wK
+	 BBX/B0a94OzHTO4rI6YmdOKMJQ8/oWHlPuu2hS6pmQ6tfoY8KZ0iQZxBkZoFtRJjyJ
+	 locD0ZwIEzGlbxcsNjgHob+/BImHGVhTWSMHOSX3OtQtQPTk7ztuAkZVruk+14My2N
+	 reHBHYnA0dPTQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/22] arm64: dts: qcom: monaco: Reserve low IOVA range
- for Iris
+Subject: Re: [PATCH 1/4] dt-bindings: rtc: Add NXP PCF8525 RTC
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-6-3996f67e33f9@oss.qualcomm.com>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-6-3996f67e33f9@oss.qualcomm.com>
+To: "Shiv Prakash Gupta" <shivprakash.gupta@nxp.com>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, linux-watchdog@vger.kernel.org, linux-rtc@vger.kernel.org, robh@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org
+In-Reply-To: <20260807082855.3762394-2-shivprakash.gupta@nxp.com>
+References: <20260807082855.3762394-1-shivprakash.gupta@nxp.com>
+ <20260807082855.3762394-2-shivprakash.gupta@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 08:47:07 +0000
-Message-Id: <20260807084708.43E641F000E9@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 08:47:58 +0000
+Message-Id: <20260807084759.50FE91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,92 +47,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Pre-existing flaws in `of_iommu_get_resv_regions` cause a kernel p=
-anic on translation failure, break parsing for multiple device entries, and=
- leak device node references.
+- [Medium] The `interrupt-names` schema strictly requires the first interru=
+pt to be `inta`, incorrectly rejecting a configuration where only a single =
+`intb` interrupt is connected.
 --
 
---- Patch [6]: [PATCH 06/22] arm64: dts: qcom: monaco: Reserve low IOVA ran=
-ge for Iris ---
-commit 80dd45ef37e8a085b1612e1aef1e011d1e74726c
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+--- Patch [1]: [PATCH 1/4] dt-bindings: rtc: Add NXP PCF8525 RTC ---
+commit edd4cb5090a8c1765775edd3168f097a2f181903
+Author: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
 
-arm64: dts: qcom: monaco: Reserve low IOVA range for Iris
+dt-bindings: rtc: Add NXP PCF8525 RTC
 
-Iris VPU reserves IOVA addresses below 0x25800000 (600MB), primarily for
-secure non-pixel buffers. Add a reserved-memory IOVA reservation node
-covering [0, 0x25800000] and reference it from the Iris node.
+This commit adds a Devicetree binding for the NXP PCF8525 I2C RTC. It
+describes optional inta and intb interrupts alongside properties for
+external crystal load capacitance and temperature-compensation crystal
+models.
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
-com/monaco.dtsi
-> index cfe39f923224f..048b4490fcafd 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml b/Doc=
+umentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
+> new file mode 100644
+> index 0000000000000..bee71ec3da808
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
+
 [ ... ]
-> @@ -812,6 +812,17 @@ video_mem: video-region@9be82000 {
->  			reg =3D <0x0 0x9be82000 0x0 0x700000>;
->  			no-map;
->  		};
+
+> +  interrupts:
+> +    minItems: 1
+> +    maxItems: 2
+> +    description:
+> +      INTA, followed by INTB when both interrupt outputs are connected.
 > +
-> +		/*
-> +		 * The Iris VPU reserves IOVA below 0x25800000 (600MB),
-> +		 * primarily for non-pixel buffers using different Stream IDs.
-> +		 * DMA into that range triggers unhandled SMMU faults and
-> +		 * spontaneous reboots, so reserve it to keep IOMMU
-> +		 * allocations above this boundary.
-> +		 */
-> +		iris_iova: iris-iova {
-> +			iommu-addresses =3D <&iris 0x0 0x0 0x0 0x25800000>;
+> +  interrupt-names:
+> +    minItems: 1
+> +    items:
+> +      - const: inta
+> +      - const: intb
 
-[Severity: High]
-This is a pre-existing issue, but does using the iommu-addresses property
-expose flaws in the underlying parser in of_iommu_get_resv_regions()?
+[Severity: Medium]
+Will this strictly require the first interrupt to be inta, rejecting a
+configuration where only a single intb interrupt is connected?
 
-Looking at drivers/iommu/of_iommu.c:of_iommu_get_resv_regions():
-
-		while (maps < end) {
-			struct device_node *np;
-			u32 phandle;
-
-			phandle =3D be32_to_cpup(maps++);
-			np =3D of_find_node_by_phandle(phandle);
-
-			if (np =3D=3D dev->of_node) {
-				...
-				maps =3D of_translate_dma_region(np, maps, &iova, &length);
-
-If of_translate_dma_region() fails, it returns NULL. The maps pointer becom=
-es
-NULL, and the while loop condition (maps < end) continues evaluating to tru=
-e.
-The next iteration calls be32_to_cpup(maps++), which dereferences NULL and
-panics the kernel.
-
-Additionally, if the parsed phandle does not match dev->of_node, maps is not
-advanced past the skipped device's address and size cells. This causes the =
-next
-iteration to incorrectly read part of the DMA address as a phandle, which b=
-reaks
-parsing for any property with multiple entries.
-
-Finally, np is acquired via of_find_node_by_phandle() which increments the
-refcount, but of_node_put() is never called to release it. Does this leak t=
-he
-device node reference?
-
-While this patch adds only a single-entry array and might bypass the multi-=
-entry
-parsing failure, the parser itself appears vulnerable to panicking on malfo=
-rmed
-device trees.
-
-> +		};
->  	};
-> =20
->  	smp2p-adsp {
+If a board designer creates a device tree node with a single interrupt and
+sets interrupt-names to intb, the schema's items list imposes strict
+positional constraints requiring the first element to be inta. This would
+cause validation to fail for a valid hardware configuration where only the
+intb pin is connected.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-iris_iova_=
-600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807082855.3762=
+394-1-shivprakash.gupta@nxp.com?part=3D1
