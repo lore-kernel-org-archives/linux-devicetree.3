@@ -1,155 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE7547427A
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 15:41:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C75147604A;
+	Fri,  7 Aug 2026 15:48:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786117270; cv=none; b=Eb5bwTGCcwyOtM67rGqGahymM9khSafU2sDEqb72wxhkcuY5kdqmNZOQLpaaAezm4y6FRqw5kEzeC+9+L6ff93v/yy5VKTrYTNiKgr2h7kOjW4QuNYadu+NVVee9MAskf9fWVc8SgO/KQn44RGGbzERaEJI3Pgbw+uvCelaBxfs=
+	t=1786117714; cv=none; b=NJAYLnrqwcYEdt/bTsXY1Whp45gdv9l1YEwXsPhfAj9cB2oiTdB4EffkFxWSZt6aLxPb7id9mgtce/Czp05p/H+tCAkm2UeRUpidsk9EszrTfhcFDGYv9kO0dNUhiNEL7PMPIVFjNQV8q5Psj1QdERjT4cn5xFY0XGbHK01D6oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786117270; c=relaxed/simple;
-	bh=dN2qf//ZNJ8W2Ml3DQYeQuwAJ8F2n6n+BVDC7ivxEaw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ar4dK/VQXUtuvyUe2U6SMCqoJhhSwc0dp5nyA9iKRt2OZUdilBAG1kzgOw0PjUyoZu00We5CY/7jPAOg2c66ptPolojAt32ELjaMEG0C08a2RddSMratZFr5YQ/yVf9w2bcbrJExV44PuQN7WnaiqJ77AIbJOpmm3/n6DQMUHtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vr+yw2rE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786117714; c=relaxed/simple;
+	bh=EmFtctujFO/Er/la1Q6AwLLYoUmnhsn9rJJZC6zMEx4=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=Z96+PF6TuPkldQZf9Xr7dmO9d6s2O09BEHFzlu0G2/MskndOkZqulBN4PoqUUWP/99ZN8tOk0mPk9DScQKwqF3KICiM9fzyc+I9Jfuy62/ky0VhAYawUuvx8Jc98RC7dqzJ5CLev9noXa2nZIE0fH1qrhTvh2DrpwSsEnntC58Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alu2Y8UX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vr+yw2rE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435B91F00A3A;
-	Fri,  7 Aug 2026 15:41:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alu2Y8UX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BFE1F00A3A;
+	Fri,  7 Aug 2026 15:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786117268;
-	bh=BD+Y5Erzn/7HZ8DPz+pT9vb8YBEpizgBXCZUNdM06TU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vr+yw2rEbl8cfTnOdz5uOChr6we53AQPn8Hd6NYBSlJiMbxEB0jPiASiKoXbEKSrh
-	 uhNSWiGdzqlxkylOmSHUrz3pcXJ6o+Ss7AfhqZdbmvpCCqw3Jfg0Hy6Rf+cmvtxbYh
-	 3m2HgMlvUmoG8EtceMKaJSpcHxu1cu+5oKZSxEh0FRtzkcpqqGnmNJkipuwLFI72d8
-	 8N8IrgYmyIL4uXMIVOZOHN4WzdhlJn+kc/e+HMbOJHjhTssxSoZxP9Laxx9bhnJq4Z
-	 wAWnk0A2yHc8MlZW6YPWzuw1RMCFJ7G8UE1m44c9OvCFWJ1hSvggVviQvBGGQ/7J42
-	 FBYJTM42BqE1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/7] clk: Use the generic OF phandle parsing in only
- one place
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWlxdWVsIFJheW5hbCAoU2NobmVpZGVyIEVsZWN0cmljKQ==?= <miquel.raynal@bootlin.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-5-8785f9531cf0@bootlin.com>
-References: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com>
- <20260807-schneider-v7-2-rc1-eip201-upstream-v5-5-8785f9531cf0@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 15:41:07 +0000
-Message-Id: <20260807154108.435B91F00A3A@smtp.kernel.org>
+	s=k20260515; t=1786117712;
+	bh=H04/3ngqBE/+iJRmtpyMb1Ysksmf+cWa/9RDiP4M7Mk=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=alu2Y8UXGdBpSX+hvGcEkoA+ZSZqnRQa0CVlbP9IrD2TY/xpyU4gEEwFJ+eN1wBA9
+	 75HtxYfLaP/TUtV6g4oQztV6HYOy5f9+dOQTrzHGk5316YYDah7sr2m8NwrZ5uJz1w
+	 Fi84jtkHGP34sCvO3+ChvP0veVFIC0YAeBPlirmTIUT+JfBLwsVWBk8/lnQZo5zoWt
+	 KNeg6sjNU90F5TaDuCEpkSVYBkCG1I85ZXQhCdx3LDDBBN+WpLJLvdGynyJeEQ5Z9f
+	 M1s0LPPS2HmNRmCi9KHc0moleEVMN76k5N365Odm5AEIafx2mEL1/fb+xLZm8d+Smv
+	 YvyR7xobSX8wg==
+Date: Fri, 07 Aug 2026 10:48:32 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Jori Koolstra <jkoolstra@xs4all.nl>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Brigham Campbell <me@brighamcampbell.com>, 
+ linux-kernel-mentees@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Shuah Khan <skhan@linuxfoundation.org>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+In-Reply-To: <cf9b02d618db4eca88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com>
+References: <cover.1786110720.git.nico.antinori.7@gmail.com>
+ <cf9b02d618db4eca88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com>
+Message-Id: <178611771198.882916.15330377894023589629.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: display: add Chipwealth CH1115 OLED
+ controller
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [Medium] The switch to `of_parse_clkspec` in `of_clk_get_parent_name` int=
-roduces broken positional index lookups during `clock-ranges` fallback and =
-creates an API mismatch with `of_clk_get_parent_count`.
+On Fri, 07 Aug 2026 11:19:50 -0300, Nicolás Antinori wrote:
+> Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
+> 
+> Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+> ---
+>  .../bindings/display/chipwealth,ch1115.yaml   | 73 +++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>  2 files changed, 75 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+> 
 
-Pre-existing issues:
-- [High] Returning a pointer to the device node's name (`clkspec.np->name`)=
- after calling `of_node_put(clkspec.np)` causes a potential Use-After-Free.
---
+My bot found errors running 'make dt_binding_check' on your patch:
 
---- Patch [5]: [PATCH v5 5/7] clk: Use the generic OF phandle parsing in on=
-ly one place ---
-commit 83137fb481bf2605bb7ce30c009986e0de4d1253
-Author: Miquel Raynal (Schneider Electric) <miquel.raynal@bootlin.com>
-Subject: clk: Use the generic OF phandle parsing in only one place
+yamllint warnings/errors:
 
-This patch consolidates the device tree parsing logic by replacing
-of_parse_phandle_with_args() with of_parse_clkspec() inside
-of_clk_get_parent_name(). This change provides uniform handling and aims
-to support the clock-ranges property during parent clock resolution.
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: display@3c (chipwealth,ch1115): 'contrast', 'first-page' do not match any of the regexes: '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/display/chipwealth,ch1115.yaml
+Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: display@3c (chipwealth,ch1115): contrast: b'\x00\x00\x00\x7f' is not of type 'object', 'integer', 'array', 'boolean', 'null'
+	from schema $id: http://devicetree.org/schemas/dt-core.yaml
+Documentation/devicetree/bindings/display/chipwealth,ch1115.example.dtb: display@3c (chipwealth,ch1115): first-page: b'\x00\x00\x00\x01' is not of type 'object', 'integer', 'array', 'boolean', 'null'
+	from schema $id: http://devicetree.org/schemas/dt-core.yaml
 
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 7d63d81ebc096..45f5d7a4ccc17 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -5219,6 +5219,8 @@ static int of_parse_clkspec(const struct device_nod=
-e *np, int index,
->  		 * has a "clock-ranges" property, then we can try one of its
->  		 * clocks.
->  		 */
-> +		if (of_property_present(np, "clocks"))
-> +			break;
->  		np =3D np->parent;
->  		if (np && !of_property_present(np, "clock-ranges"))
->  			break;
+doc reference errors (make refcheckdocs):
 
-[Severity: Medium]
-When falling back to the parent node due to clock-ranges, does resetting
-the index to 0 break positional index lookups?
+See https://patchwork.kernel.org/project/devicetree/patch/cf9b02d618db4eca88e2d32b4bf779011fcd550d.1786110720.git.nico.antinori.7@gmail.com
 
-Right below this snippet in of_parse_clkspec(), the index is explicitly
-reset to 0 before the loop continues:
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-	np =3D np->parent;
-	if (np && !of_property_present(np, "clock-ranges"))
-		break;
-	index =3D 0;
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-If a driver calls of_clk_get_parent_name() with an index > 0 for a node
-that lacks a clocks property but whose parent has clock-ranges, this reset
-causes the parent's 0th clock to be returned repeatedly instead of the
-subsequently requested clocks.
+pip3 install dtschema --upgrade
 
-> @@ -5364,8 +5366,7 @@ const char *of_clk_get_parent_name(const struct dev=
-ice_node *np, int index)
->  	int count;
->  	struct clk *clk;
-> =20
-> -	rc =3D of_parse_phandle_with_args(np, "clocks", "#clock-cells", index,
-> -					&clkspec);
-> +	rc =3D of_parse_clkspec(np, index, NULL, &clkspec);
->  	if (rc)
->  		return NULL;
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-[Severity: Medium]
-Does this change create an API mismatch with of_clk_get_parent_count()?
-
-Currently, of_clk_get_parent_count() relies on of_count_phandle_with_args()
-which does not check for the clock-ranges fallback. Now that
-of_clk_get_parent_name() uses of_parse_clkspec() and supports clock-ranges,
-will drivers relying on of_clk_get_parent_count() receive a count of 0 and
-fail to initialize?
-
-> [ ... ]
-> 		clk =3D of_clk_get_from_provider(&clkspec);
-> 		if (IS_ERR(clk)) {
-> 			if (clkspec.args_count =3D=3D 0)
-> 				clk_name =3D clkspec.np->name;
-> 			else
-> 				clk_name =3D NULL;
-> 		} else {
-> 			clk_name =3D __clk_get_name(clk);
-> 			clk_put(clk);
-> 		}
-> 	}
->=20
->=20
-> 	of_node_put(clkspec.np);
-> 	return clk_name;
-
-[Severity: High]
-This is a pre-existing issue, but can this result in a use-after-free of the
-node's name?
-
-If the clock is unregistered and has a clock-cells value of 0, clk_name is
-assigned directly to clkspec.np->name. The node reference is then dropped
-immediately via of_node_put().=20
-
-If the node was dynamically allocated, such as through a device tree
-overlay, dropping the last reference here frees the node and its string
-properties, leaving clk_name pointing to freed memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-schneider-=
-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com?part=3D5
