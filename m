@@ -1,98 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6DB12F30;
-	Fri,  7 Aug 2026 22:47:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADD03D9DDF;
+	Fri,  7 Aug 2026 22:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786142867; cv=none; b=kTjDtwb8P3OoXWACDCdMejJSlll63h4rAjTxjncARBvcpcuoY+9a05DyNTZzP9IoO99b4Ae/jZfB6PO9F5Ex6halQ3lqXMIhuSXJ/JjTLO09XpGXIZ2ucGaFJeDDdZHm6/hlHvaCAzTHDKnIgszREaZZt9CKCc3NhiL5dJn13Hk=
+	t=1786143188; cv=none; b=Cz6EnI9BPEgNMl8ik6g8qwK7iB+UrISYrGBq0KHGPlsS/QzFPQUMa0tazqjkMSyD6fKOYbZrkjFK9j8kkNrYQp4lZ6eb+PLBgYc9Eq3cAHg0cm4LA8loOL8qwPZeofy4yZLG3D6sYT4t8UY8MJWZ3PQqFfjz+f0SOz4E3Oj8r7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786142867; c=relaxed/simple;
-	bh=m/t7YNqLN4lhCBPIGyQW4TrxhazrR3WzxP//FdWq1M4=;
+	s=arc-20240116; t=1786143188; c=relaxed/simple;
+	bh=4lNSm7HPsEj/fL0NUxM+0e1jgDk+Dlr1KvfqOH1neq8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PgGhGpjQYn2o3JX9Z3AYqNL8NUi18gILVOrqnpqGToHwur7f127bBBVXRj9TJhKyWGEubtFJQkM+yt/jv+3jB0jWrvJuCl6O9H/Vsy62JtefZYnwHus1YDuFWr3/fcM414kukmcwetZvt9c2lRf7Pi586ipZ2xA/5RFls3HBKr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G7n/Obi+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nC+7kPFSWdfJYGqzEU1mkDwKcFojaqA3N0FJgvWNuy4l3LBnjMgyH9UlwZxnRQgixZar7gAf7yswNEDNUZPRnDq8Cf/7CWFc55TK6SBkam0nDnMQpuer5AvV8Pvoc2z9ze6v+oX67mb+rOs7U7c67uydgMTcrEcCeAo5nzmw2m4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEjeYbm0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G7n/Obi+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 445701F000E9;
-	Fri,  7 Aug 2026 22:47:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEjeYbm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061471F000E9;
+	Fri,  7 Aug 2026 22:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786142866;
-	bh=gvBLabH+gYeCjXmeaZJWzRhHmO5itOeocUvJaUv2bxI=;
+	s=k20260515; t=1786143186;
+	bh=a08ege2A6PubBI8+f0PrNyavH3OH8v6KWoV1np/vCzI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G7n/Obi+qKguJL2eOLzNdgfLdfqf4Z5r6c3RtgIH/ZyzX6gq6OcpfnhKYa2BQseMf
-	 26y5CXyHWj0QoBuMofdXUvZ6YnWPFXGiHeE8aQoRFtSH/vdrHQhxXBl74YvD5W8LTs
-	 sTFZ06J4vMsbS6kZwWhtsSaHeLrOzweQ4SLfb5xsPUbNrKHCUWsh+kdjsHo/3fgt9s
-	 U1QabgrAF5nrwMkRWxt6lJBEAiuXauuzPWozhJUA6usmDuJ4yL4vn/pYLkU3nw8MmC
-	 XMsoNohyJVsdvyJcnHzBG8BpjyFuMBHS0GtY94w5ImpPGDtfA0ffmQyguR0vtw2hoo
-	 vEf+Ka74WBetA==
-Date: Fri, 7 Aug 2026 17:47:45 -0500
-From: Rob Herring <robh@kernel.org>
-To: Peter Griffin <peter.griffin@linaro.org>
-Cc: Robin Murphy <robin.murphy@arm.com>, Will Deacon <will@kernel.org>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	b=VEjeYbm0F0jk6hgaUvD7udZN9KLlRTlcmx6WiHpm78T8ZNvzuDgjhP1HjvQw2pyGf
+	 PbSJ24h9+tiX8tXdbaGCj5Jhw41++NsRISoVaEmhvd6b1GaqfiuP1Nu3o1tHuy//qj
+	 hiJrSNL/Jyc82J76wQCQBESN0X26C0RNcycsUeRbRyyEKWqWHXuNi4sYVEU+aQyx6I
+	 LZqeAGLuSw4mdbB0Ioa+26PULe/cZvpd7puAWSKXph5Ar2ZmZRxgJfk2cNXwisqhQx
+	 Z3U3Fuz/avDeDQnKJt4GxvwqkIBiob59bGfAhndOg9LkkaP6Jasb4iiHQajvbce9ES
+	 iquwEFePYuFJg==
+Date: Fri, 7 Aug 2026 23:52:58 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Daniel Mentz <danielmentz@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Darren Ye <darren.ye@mediatek.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	bui duc phuc <phucduc.bui@gmail.com>, linux-sound@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@android.com, tudor.ambarus@linaro.org,
-	andre.draszik@linaro.org, willmcvicker@google.com,
-	jyescas@google.com
-Subject: Re: [PATCH 0/2] Add arm-smmu-v3 support for instcfg data override
- feature
-Message-ID: <20260807224745.GA2180415-robh@kernel.org>
-References: <20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org>
- <amYIuhYenP4-qHyV@willie-the-truck>
- <0b7c0272-5506-4aee-82b3-76a78f2b39dc@arm.com>
- <CADrjBPqZFDvyLFpDy1YP9qrMNUCtZYtJhiaDd0iTnmB4ZYO8GQ@mail.gmail.com>
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v5 4/4] ASoC: airoha: Add AFE and machine driver for
+ Airoha AN7581
+Message-ID: <8146f434-1e16-4ebd-80a4-b9c27bfa45af@sirena.org.uk>
+References: <20260807200936.201827-1-ansuelsmth@gmail.com>
+ <20260807200936.201827-5-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="L/1rhFeghNUEqwsR"
+Content-Disposition: inline
+In-Reply-To: <20260807200936.201827-5-ansuelsmth@gmail.com>
+X-Cookie: 1 + 1 = 3, for large values of 1.
+
+
+--L/1rhFeghNUEqwsR
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CADrjBPqZFDvyLFpDy1YP9qrMNUCtZYtJhiaDd0iTnmB4ZYO8GQ@mail.gmail.com>
 
-On Fri, Aug 07, 2026 at 04:25:11PM +0100, Peter Griffin wrote:
-> Hi Will & Robin,
-> 
-> Thank you both for your review feedback.
-> 
-> On Mon, 27 Jul 2026 at 11:53, Robin Murphy <robin.murphy@arm.com> wrote:
-> >
-> > On 26/07/2026 2:16 pm, Will Deacon wrote:
-> > > On Fri, Jul 24, 2026 at 01:39:41PM +0100, Peter Griffin wrote:
-> > >> These two patches add support for a new "arm,instdata-override" DT property
-> > >> that enables the override of the instruction/data attribute of incoming
-> > >> traffic to Data by setting the INSTCFG override bits.
-> > >>
-> > >> It is intended to be specified when the smmu can't guarantee that these
-> > >> attributes are provided correctly from the client device.
-> > >
-> > > This is going to need an in-tree user and a much more detailed
-> > > description of what is being worked around before we consider this for
-> > > inclusion.
-> 
-> Regarding an in-tree user, I haven't sent the Device Tree (DT) patch
-> yet for Laguna SoC which adds the smmu nodes and this property because
-> 1) I want to land the initial SoC/board DT first
-> 2) I want agreement on the DT property name. Currently I used
-> "arm,instdata-override" which is what downstream used. However, since
-> this is intended to work around silicon errata something like
-> "google,lga-instcfg-data-override" might be more appropriate?
+On Fri, Aug 07, 2026 at 10:09:34PM +0200, Christian Marangi wrote:
+> Add support for the Sound system present on Airoha AN7581 SoC. This is
+> based on the mediatek AFE drivers.
 
-Shrug.
+> Also add the machine driver to create an actual sound card for the AFE.
 
-Really, this is why we want SoC specific compatibles so work-arounds can 
-be added without DT updates. But we've generally avoided doing that for 
-SMMU for whatever reasons. Just make the property clearly sound like a 
-mistake, not a feature you might want to use. I'd keep the arm prefix 
-just so the next vendor thinks they can't use 'google' and creates the 
-same property with their vendor prefix.
+This should be more patches, the machine driver should be a separate
+patch at a minimum.  Possibly PCM and ETDM drivers too.
 
-Rob
+> +static int an7581_afe_pcm_dev_probe(struct platform_device *pdev)
+> +{
+> +	struct an7581_afe_private *afe_priv;
+> +	struct reset_control *reset;
+> +	struct mtk_base_afe *afe;
+> +	struct device *dev;
+> +	int i, irq_id, ret;
+> +	void *base;
+> +
+> +	afe = devm_kzalloc(&pdev->dev, sizeof(*afe), GFP_KERNEL);
+> +	if (!afe)
+> +		return -ENOMEM;
+
+We allocate afe here with devm_kzalloc() so everything is zero...
+
+> +	afe->irqs = devm_kcalloc(dev, afe->irqs_size, sizeof(*afe->irqs),
+> +				 GFP_KERNEL);
+> +	if (!afe->irqs)
+> +		return -ENOMEM;
+
+...then we allocate an array using a size read from the struct which must
+therefore have zero elements.  We also didn't assign dev, either we
+should assign it and use it consistently or we should drop it and use
+&pdev->dev like the first allocation.
+
+> +	/* register component */
+> +	ret = devm_snd_soc_register_component(&pdev->dev,
+> +					      &mtk_afe_pcm_platform,
+> +					      NULL, 0);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Cannot register AFE component\n");
+> +
+> +	ret = devm_snd_soc_register_component(afe->dev,
+> +					      &an7581_afe_pcm_dai_component,
+> +					      afe->dai_drivers,
+> +					      afe->num_dai_drivers);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Cannot register PCM DAI component\n");
+> +
+> +	platform_set_drvdata(pdev, afe);
+
+The component registration might result in a card being instantiated so
+we need the driver data initialized before we try to register.
+
+--L/1rhFeghNUEqwsR
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmp2YcoACgkQJNaLcl1U
+h9ARiwf+LpDqvrfwUmAxX0QX50R8ii4KPIXyv5I0qvKJZcQ4j3ofe+outq7w/7zh
+nJsC2gzVvtmzP7LOx3TdiR4pj1w2uRSI9ymg2rKoU05VzD3CEIjNtm/YIqPbd8cR
+T4WQlImD5NQ9K7U0NgP1N+y7uX8r0QMikrRUMiw6k/D8CzaSsmZ6fCL8RQq0ge6O
+oUJqMGcsdRn5x4ppuwy4y8FIn/Z73xEoAHWTQrf6jtLPBM8f++3t66ULaDKhwf+L
++uflmWRcVPBtXHGwQaqYImTilXTk6wYVmMqj7OBEuLnKiHyYN5bA4Lm53gbqUBE4
+9Utlm+txNJsPR3uhLbGfxdFrZ3+lQw==
+=/wv4
+-----END PGP SIGNATURE-----
+
+--L/1rhFeghNUEqwsR--
