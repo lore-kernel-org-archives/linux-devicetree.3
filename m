@@ -1,519 +1,262 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A7FB3B27E3
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:54:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231E337DAA2
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 07:56:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786089255; cv=none; b=jpKA8ULliM9jyu1pXc0Zt0cB2m8ATbUWHPefuunaDwPszgBkpJ6RaPh1384BVaNxmB7IuFxkTyiJq+AehzjtdR32YHcM9fdCQFmTs/Y4W1OH3+zuitUSu/Dl4t1gUcwY1RQHDAVppEjpgR+Whj98OGxP5ddkUI+rsBsZ1yzISvE=
+	t=1786089409; cv=none; b=tXOY5TO3nAxhbm5Oy8/jV8kou03W9Alf/LR1DfHfJOES3uAHH7PzHmJKV8L+2VUgVFNSYbxBI+rxaHz+2dmcbsvyAatwpes+4pafgGD7Hk3VoFIPEAcvaI1P1sHsWhCUaODYF74uagplE2KTd404aYaQxNzwSr9Tt506sz6eUxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786089255; c=relaxed/simple;
-	bh=zfNE/AZIWJCP4hLR2qDgOmZj7elUIdZ06L88kgQNOfY=;
+	s=arc-20240116; t=1786089409; c=relaxed/simple;
+	bh=c0rFNYNU4xvJkBEpP+yTnzZYhYhqzB/db/PwLQ6eYko=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KvKtcIzLvpfTFz5Plg8pgjJNoUBdfPIF0IBpO4DqArZ3jcW2Dxw5WskNTVp5PkwpoPRmgZbe6NCnFhyOzK48/xgjGdKrzdQEuCl/74o68vQ5plI9yOJDExWVESXoqOLxbgDLHDXJT3z+cRN8Et9sZhR8wEjCHGcMxnkg62buAa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhSCQ9rR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DpkysQBQXlc9j266zGshUmUxP+2tXqZsEXHRnmSYOM34xJliVFXLAtdIPS3GtBUcXfzirF0d95l3FcLXg8QF6/li1SJkZTEhi3ijcZXwJl/L6HHBQrzrx5LvdWuPhMDoAwBFyzErbvCcRvFGFj0PxblHTx6FNogqBMI6l4pSrQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gBZ+h12Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhSCQ9rR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5D8D1F000E9;
-	Fri,  7 Aug 2026 07:54:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gBZ+h12Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E091F000E9;
+	Fri,  7 Aug 2026 07:56:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786089246;
-	bh=A6e7uXCs0+N8BlbgXrFfD/nULOTn3DIQOyqfzyRV5l4=;
+	s=k20260515; t=1786089404;
+	bh=Fxxf1kdt3W1wAX/s73JCnZx9awT3F47T1p/WDgZUcaU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hhSCQ9rRVL02fftysb4p9pqOTVjfhdm5w+apyKzgGr/KPIPH7CJkDURLMg+gpE02k
-	 6hM9IE7ikPcB/m7JisaEjLpbTWul+oJHrGoJCi0GuUaveCAY9U9n/JQ3Cd4jrWmV+x
-	 Zujb+hD/G18s0nkkhyEOG4QU+ZBClTJfGe1wRZSqevxSeXtt+XaAdhXPI9Kf++yTb7
-	 sZM2UR0AZb/oyf+PQTNRaTIA3mhfysZQC512dANMOpNDNgh83BukK5XF7AARwXTLeK
-	 RmHgM4bGvQTFb8dcJghpNBy7L9H3Z38CBJ9oeYjncGvba3bxCCztqESA7nLtpJ4kQe
-	 wvudPqFbwCd7A==
+	b=gBZ+h12YFjpDFy/7vOEmk3bj0IdbdNjhsDG1WrsjU1IaKmsIkOmCPCNcXMnnlXXvY
+	 6NlvyGd80jhef0IcWtQtIP99Qf7Ifq28sltaXn1SLSLG46ynMzAuSPkZmQXtBkFS8z
+	 yYrQY6338sVPJEGWVzuNfvlZRRsPaPWhEyq3tAdPx92cOKE7yh6AxFSTME/y0Xhcox
+	 2u4SNYCxumk/OCuZGlicRDNfSbqrM/EU8s2B06b/dnsZDKxogDXxbUm3HXrL9VF/CW
+	 XoCNpJ+sp/6dcLj4yHEUmGXNBBoIzSk194icLNXfg4QwHTHR2JCo0mjhzp80LwQA4V
+	 qy2Bwquqf4+ow==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 4/6] virt: bao: add I/O dispatcher driver
+Subject: Re: [RFC PATCH v3 2/6] virt: bao: add IPC shared-memory driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?Sm/Do28gUGVpeG90bw==?= <jpeixoto@osyx.tech>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <2190b6e083a2f2e0485b27e5e203647189bb1d1d.1786010512.git.jpeixoto@osyx.tech>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <33a72238392b1feb519d5721b5aacf693929e15c.1786010512.git.jpeixoto@osyx.tech>
 References: <cover.1786010512.git.jpeixoto@osyx.tech>
- <2190b6e083a2f2e0485b27e5e203647189bb1d1d.1786010512.git.jpeixoto@osyx.tech>
+ <33a72238392b1feb519d5721b5aacf693929e15c.1786010512.git.jpeixoto@osyx.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 07:54:05 +0000
-Message-Id: <20260807075405.D5D8D1F000E9@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 07:56:43 +0000
+Message-Id: <20260807075644.91E091F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 16 potential issue=
-(s) to consider:
-- [High] Userspace can spoof the `dm_id` in `BAO_IOCTL_IO_REQUEST_COMPLETE`=
-, allowing one device model instance to interfere with others.
-- [High] Unrecoverable self-deadlock in the I/O client kernel thread during=
- teardown.
-- [High] Global interrupt handler pointer breaks multi-DM support by starvi=
-ng active DMs of interrupts.
-- [High] TOCTOU Use-After-Free race in `bao_irqfd_assign()` when polling th=
-e eventfd.
-- [High] Missing workqueue cancellation during irqfd shutdown causes Use-Af=
-ter-Free on asynchronous POLLHUP.
-- [High] Device unbind frees `struct bao_dm` while userspace holds open fil=
-e descriptors.
-- [High] Calling `destroy_workqueue` before removing eventfd wait queues cr=
-eates a Use-After-Free on the irqfd workqueue.
-- [High] Passing a stack-allocated string as the 'name' argument to request=
-_irq() leads to a Use-After-Free.
-- [High] A missing return statement in `bao_ioeventfd_client_config` silent=
-ly breaks ioeventfd deassignment.
-- [High] The I/O dispatcher workqueue queues `bao_io_request` structures un=
-boundedly, allowing a malicious frontend VM to cause a kernel OOM.
-- [Medium] The `struct bao_dm_info` UAPI structure contains uninitialized i=
-mplicit padding holes, leaking kernel stack memory to userspace.
-- [Medium] Ioeventfd deassignment matches only by eventfd, breaking targete=
-d range deregistration.
-- [Medium] Signals are incorrectly handled in `bao_io_client_attach`, trans=
-lating normal signal interruptions into spurious `-EFAULT` errors in usersp=
-ace.
-- [Medium] The `bao_io_client_destroy` function fails to free pending I/O r=
-equests.
-- [Medium] Unused kernel memory mapping of backend shared memory wastes vma=
-lloc space.
-- [Medium] Silent discard of I/O requests when `copy_to_user` fails or memo=
-ry allocation fails.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] Unbinding the device while the misc character device is open cause=
+s a Use-After-Free of the driver context and unmapped memory access.
+- [High] Missing memory barrier before notifying the peer guest via hyperca=
+ll, causing potential data corruption due to stale memory observation.
+- [High] Missing write-protection enforcement allows userspace to mmap the =
+read region with write permissions, triggering a hypervisor stage-2 fault.
+- [Medium] The mmap offset calculation uses `unsigned long`, which overflow=
+s on 32-bit architectures, contradicting the author's intent to fix u32 ove=
+rflows.
+- [Medium] The mmap logic fails entirely for the write region if the read r=
+egion's size is not page-aligned.
+- [Medium] Missing `.llseek` operation prevents userspace from resetting th=
+e file position, allowing the device to be read or written only once per op=
+en.
+- [Low] The device label string buffer is too small to hold the maximum dev=
+ice ID, leading to truncation and potential naming collisions.
+- [Low] Missing architecture dependencies in Kconfig will cause build failu=
+res on unsupported architectures.
 --
 
---- Patch [4]: [RFC PATCH v3 4/6] virt: bao: add I/O dispatcher driver ---
-commit fc6ea3f8ec16168d50252a311b2bf53f0409c312
+--- Patch [2]: [RFC PATCH v3 2/6] virt: bao: add IPC shared-memory driver -=
+--
+commit 79e4d2a70a45b49aa525420ee0e59987417ec11f
 Author: Jo=C3=A3o Peixoto <jpeixoto@osyx.tech>
-Subject: virt: bao: add I/O dispatcher driver
+Subject: virt: bao: add IPC shared-memory driver
 
-Add the Bao I/O dispatcher, used by backend VMs to service I/O on behalf
-of frontend guests. It bridges Bao's Remote I/O mechanism to userspace
-VirtIO backend device models.
+Adds a driver for guests running on the Bao static-partitioning hypervisor
+to communicate through shared memory. Userspace accesses the regions through
+a misc character device using read(), write(), and mmap(), where a write()
+notifies the peer guest through an architecture-specific hypercall.
 
-> --- a/include/uapi/linux/bao.h
-> +++ b/include/uapi/linux/bao.h
-> @@ -68,6 +68,13 @@ struct bao_irqfd {
->  };
-> =20
-> +struct bao_dm_info {
-> +	__u32 id;
-> +	__u64 shmem_addr;
-> +	__u64 shmem_size;
-> +	__u32 irq;
+> diff --git a/drivers/virt/bao/ipcshmem/Kconfig b/drivers/virt/bao/ipcshme=
+m/Kconfig
+> --- /dev/null
+> +++ b/drivers/virt/bao/ipcshmem/Kconfig
+> @@ -0,0 +1,10 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +config BAO_SHMEM
+> +	tristate "Bao hypervisor shared memory support"
+
+[Severity: Low]
+Does this config need an architecture dependency?
+
+Building this on an unsupported architecture like x86 (e.g., via
+allmodconfig) might fail because it unconditionally includes <asm/bao.h>
+which only exists for ARM, ARM64, and RISC-V.
+
+[ ... ]
+> diff --git a/drivers/virt/bao/ipcshmem/ipcshmem.c b/drivers/virt/bao/ipcs=
+hmem/ipcshmem.c
+> --- /dev/null
+> +++ b/drivers/virt/bao/ipcshmem/ipcshmem.c
+[ ... ]
+> +static int bao_ipcshmem_mmap(struct file *filp, struct vm_area_struct *v=
+ma)
+> +{
+> +	struct bao_ipcshmem *bao =3D filp->private_data;
+> +	unsigned long vsize =3D vma->vm_end - vma->vm_start;
+> +	unsigned long offset =3D vma->vm_pgoff << PAGE_SHIFT;
+
+[Severity: Medium]
+Will this offset calculation overflow on 32-bit architectures?
+
+Since unsigned long is 32 bits there, an offset larger than 4GB might cause
+an overflow. This seems to contradict the commit message's goal to avoid u32
+overflows.
+
+> +	phys_addr_t region_phys;
+> +	size_t region_size;
+> +
+> +	if (!vsize)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * The read region is exposed at offset 0 and the write region right
+> +	 * after it. A single mapping cannot span both regions, since they are
+> +	 * not guaranteed to be physically contiguous.
+> +	 */
+> +	if (offset < bao->read_size) {
+> +		region_phys =3D bao->read_phys;
+> +		region_size =3D bao->read_size;
+
+[Severity: High]
+Can a user map the read region with write permissions here?
+
+If userspace opens the device O_RDWR and maps this region with PROT_WRITE,
+the kernel will create writable PTEs because vma->vm_page_prot is used
+directly during remap_pfn_range().
+
+If the hypervisor maps the read region as read-only at Stage-2, a subsequent
+write from userspace could trigger a Stage-2 permission fault and crash the
+guest VM. Does this need a check to enforce !(vma->vm_flags & VM_WRITE)?
+
+> +	} else if (offset < bao->read_size + bao->write_size) {
+> +		offset -=3D bao->read_size;
+
+[Severity: Medium]
+What happens if the device tree specifies a read_size that is not
+page-aligned?
+
+Subtracting an unaligned read_size from a page-aligned offset would result
+in an unaligned offset. This would then cause the PAGE_ALIGNED(region_phys)
+check below to fail unconditionally, preventing userspace from mapping the
+write region.
+
+> +		region_phys =3D bao->write_phys;
+> +		region_size =3D bao->write_size;
+> +	} else {
+> +		return -EINVAL;
+> +	}
+[ ... ]
+> +static ssize_t bao_ipcshmem_write(struct file *filp, const char __user *=
+buf,
+> +				  size_t count, loff_t *ppos)
+> +{
+[ ... ]
+> +	if (copy_from_user(bao->write_base + *ppos, buf, count))
+> +		return -EFAULT;
+> +
+> +	*ppos +=3D count;
+> +
+> +	/* Notify Bao hypervisor */
+> +	bao_ipcshmem_hypercall(BAO_IPCSHMEM_HYPERCALL_ID, bao->id);
+
+[Severity: High]
+Is a memory barrier needed here before notifying the peer guest?
+
+The hypercall provides a Context Synchronization Event, but it does not
+guarantee that prior memory stores to the MEMREMAP_WB (cacheable) memory are
+globally visible.
+
+Could the peer guest observe stale data if the local CPU's store buffer
+hasn't drained before the hypervisor wakes it up?
+
+> +	return count;
+> +}
+[ ... ]
+> +static const struct file_operations bao_ipcshmem_fops =3D {
+> +	.owner =3D THIS_MODULE,
+> +	.read =3D bao_ipcshmem_read,
+> +	.write =3D bao_ipcshmem_write,
+> +	.mmap =3D bao_ipcshmem_mmap,
+> +	.open =3D bao_ipcshmem_open,
+> +	.release =3D bao_ipcshmem_release,
 > +};
 
 [Severity: Medium]
-Does this UAPI structure leak kernel stack memory to userspace? The structu=
-re
-contains implicit padding holes after the 32-bit fields.
+Does this file operations structure need an .llseek callback (such as
+default_llseek)?
 
-When it is allocated on the stack in bao_io_dispatcher_driver_probe() and
-copied to userspace via bao_dm_ioctl() using copy_to_user(), the uninitiali=
-zed
-4-byte holes are leaked.
+Without it, the VFS will clear the FMODE_LSEEK flag during open(). Any
+subsequent lseek() calls will return -ESPIPE. Once a read() or write() hits
+the end of the shared memory region, userspace might be completely unable to
+rewind the offset without closing and reopening the character device.
 
-> --- a/drivers/virt/bao/io-dispatcher/dm.c
-> +++ b/drivers/virt/bao/io-dispatcher/dm.c
-> @@ -34,6 +34,107 @@ static int bao_dm_release(struct inode *inode, struct=
- file *filp)
-> +static long bao_dm_ioctl(struct file *filp, unsigned int cmd, unsigned l=
-ong arg)
+> +static int bao_ipcshmem_probe(struct platform_device *pdev)
 > +{
-> +	struct bao_dm *dm =3D filp->private_data;
-
 [ ... ]
-
-> +	case BAO_IOCTL_IO_CLIENT_ATTACH: {
-> +		struct bao_virtio_request *req;
+> +	bao =3D devm_kzalloc(dev, sizeof(*bao), GFP_KERNEL);
+> +	if (!bao)
+> +		return -ENOMEM;
 > +
-> +		req =3D memdup_user((void __user *)arg, sizeof(*req));
-> +		if (IS_ERR(req)) {
-> +			rc =3D PTR_ERR(req);
-> +			break;
-> +		}
-> +
-> +		if (!dm->control_client) {
-> +			rc =3D -ENOENT;
-> +			goto out_free;
-> +		}
-> +
-> +		rc =3D bao_io_client_attach(dm->control_client);
-> +		if (rc)
-> +			goto out_free;
-> +
-> +		rc =3D bao_io_client_request(dm->control_client, req);
-> +		if (rc)
-> +			goto out_free;
-> +
-> +		if (copy_to_user((void __user *)arg, req, sizeof(*req))) {
-> +			rc =3D -EFAULT;
-> +			goto out_free;
-> +		}
+> +	bao->read_base =3D devm_memremap(dev, read_res->start,
+> +				       resource_size(read_res), MEMREMAP_WB);
+> +	if (IS_ERR(bao->read_base))
+> +		return PTR_ERR(bao->read_base);
+[ ... ]
+> +	bao->id =3D id;
+> +	bao->read_phys =3D read_res->start;
+> +	bao->read_size =3D resource_size(read_res);
 
 [Severity: Medium]
-What happens to the I/O request if copy_to_user() fails here? The request
-is permanently popped from the queue in bao_io_client_request().
+Will resource_size() be truncated here on 32-bit systems with LPAE?
 
-If copying it to userspace fails, the request appears to be silently discar=
-ded,
-which would leave the frontend guest VM hanging indefinitely.
+The resource_size() helper returns a 64-bit resource_size_t, but read_size
+(and write_size) are defined as size_t in the bao_ipcshmem struct, which
+will be 32 bits on those platforms.
 
-> +	case BAO_IOCTL_IO_REQUEST_COMPLETE: {
-> +		struct bao_virtio_request *req;
-> +		struct bao_remio_hypercall_ctx ctx;
+> +	bao->write_phys =3D write_res->start;
+> +	bao->write_size =3D resource_size(write_res);
 > +
-> +		req =3D memdup_user((void __user *)arg, sizeof(*req));
-> +		if (IS_ERR(req)) {
-> +			rc =3D PTR_ERR(req);
-> +			break;
-> +		}
-> +
-> +		ctx.dm_id =3D req->dm_id;
-> +		ctx.addr =3D req->addr;
-> +		ctx.op =3D req->op;
-> +		ctx.value =3D req->value;
-> +		ctx.access_width =3D req->access_width;
-> +		ctx.request_id =3D req->request_id;
-> +
-> +		rc =3D bao_remio_hypercall(&ctx);
+> +	scnprintf(bao->label, BAO_IPCSHMEM_NAME_LEN, "baoipc%u", id);
 
-[Severity: High]
-Can userspace spoof the dm_id in this hypercall context? The request's dm_id
-is blindly copied from userspace instead of being validated against the dm
-associated with the file descriptor (dm->info.id).
+[Severity: Low]
+Can this label string be truncated?
 
-Could this allow an unprivileged frontend process to complete or corrupt
-requests belonging to other device models?
+If the bao,id from the device tree is a 10-digit number (e.g., 4294967295),
+the formatted string requires 17 bytes including the null terminator. Since
+BAO_IPCSHMEM_NAME_LEN is 16, the last digit could be truncated, potentially
+leading to naming collisions.
 
 [ ... ]
-
-> +struct bao_dm *bao_dm_create(struct bao_dm_info *info, struct device *de=
-v)
+> +static void bao_ipcshmem_remove(struct platform_device *pdev)
 > +{
-> +	struct bao_dm *dm;
-> +	int ret;
-
-[ ... ]
-
-> +	dm->shmem_base_addr =3D memremap(dm->info.shmem_addr, dm->info.shmem_si=
-ze,
-> +				       MEMREMAP_WB);
-
-[Severity: Medium]
-Is this kernel memory mapping necessary? The mapped physical memory pointer
-dm->shmem_base_addr is never dereferenced by the kernel for reading or writ=
-ing.
-
-Since userspace maps the memory directly via remap_pfn_range() using the
-physical address, does this just waste kernel virtual address space?
-
-[ ... ]
-
-> +void bao_dm_destroy(struct bao_dm *dm)
-> +{
-> +	if (WARN_ON_ONCE(!dm))
-> +		return;
+> +	struct bao_ipcshmem *bao =3D platform_get_drvdata(pdev);
 > +
-> +	misc_deregister(&dm->miscdev);
-> +
-> +	if (dm->shmem_base_addr)
-> +		memunmap(dm->shmem_base_addr);
-> +
-> +	bao_irqfd_server_destroy(dm);
-> +	bao_io_clients_destroy(dm);
-> +	bao_io_dispatcher_destroy(dm);
-> +
-> +	kfree(dm);
+> +	misc_deregister(&bao->miscdev);
 > +}
 
 [Severity: High]
-Is it safe to unconditionally free the dm structure here? This runs during =
-the
-driver's remove callback, but misc_deregister() does not revoke existing op=
-en
-file descriptors.
+Can this result in a use-after-free if the driver is unbound while the
+character device is still open?
 
-If userspace holds the device open and issues an ioctl() or mmap() after the
-driver unbinds, the VFS callbacks will dereference the freed dm pointer,
-leading to a use-after-free.
+While misc_deregister() removes the device, it does not revoke existing open
+file descriptors. When bao_ipcshmem_remove() returns, devres will
+automatically free the bao structure and unmap the MEMREMAP_WB regions.
 
-> --- a/drivers/virt/bao/io-dispatcher/intc.c
-> +++ b/drivers/virt/bao/io-dispatcher/intc.c
-> @@ -13,6 +13,52 @@
-> +/* Top-level handler registered by the Bao interrupt controller */
-> +static void (*bao_intc_handler)(struct bao_dm *dm);
-
-[Severity: High]
-Does this global function pointer break multi-DM support? When any single DM
-is paused or destroyed, bao_intc_remove_handler() sets this global pointer
-to NULL.
-
-This would silently disable I/O interrupt dispatching for all other active =
-DMs
-on the system.
-
-[ ... ]
-
-> +int bao_intc_init(struct bao_dm *dm)
-> +{
-> +	char name[BAO_NAME_MAX_LEN];
-> +
-> +	if (WARN_ON_ONCE(!dm))
-> +		return -EINVAL;
-> +
-> +	scnprintf(name, sizeof(name), "bao-iodintc%d", dm->info.id);
-> +
-> +	return request_irq(dm->info.irq, bao_interrupt_handler, 0, name, dm);
-> +}
-
-[Severity: High]
-Can this lead to a use-after-free when reading /proc/interrupts? The charac=
-ter
-array name is allocated on the stack and passed to request_irq().
-
-The IRQ subsystem stores this pointer directly without copying the string. =
-When
-this function returns and the stack frame is destroyed, any subsequent acce=
-ss
-to the interrupt name will dereference a stale stack pointer.
-
-> --- a/drivers/virt/bao/io-dispatcher/io_client.c
-> +++ b/drivers/virt/bao/io-dispatcher/io_client.c
-> @@ -45,6 +45,356 @@ static inline bool bao_io_client_is_destroying(struct=
- bao_io_client *client)
-> +bool bao_io_client_push_request(struct bao_io_client *client,
-> +				struct bao_virtio_request *req)
-> +{
-> +	struct bao_io_request *io_req;
-> +
-> +	if (WARN_ON_ONCE(!client || !req))
-> +		return false;
-> +
-> +	io_req =3D kzalloc_obj(*io_req, GFP_KERNEL);
-
-[Severity: High]
-Could this allow a malicious frontend VM to cause a host kernel OOM? The
-io_dispatcher workqueue continually pulls pending I/O requests from the
-hypervisor and pushes them here, which allocates memory with GFP_KERNEL.
-
-There doesn't appear to be any limit or backpressure mechanism if userspace
-processes requests slower than they are produced.
-
-[ ... ]
-
-> +static void bao_io_client_destroy(struct bao_io_client *client)
-> +{
-> +	struct bao_io_client *range;
-> +	struct bao_io_client *next;
-> +	struct bao_dm *dm;
-> +
-> +	if (WARN_ON_ONCE(!client))
-> +		return;
-> +
-> +	dm =3D client->dm;
-> +
-> +	bao_io_dispatcher_pause(dm);
-> +
-> +	set_bit(BAO_IO_CLIENT_DESTROYING, &client->flags);
-> +
-> +	if (client->is_control) {
-> +		wake_up_interruptible(&client->wq);
-> +	} else {
-> +		bao_ioeventfd_client_destroy(dm);
-> +		if (client->thread)
-> +			kthread_stop(client->thread);
-> +	}
-
-[Severity: High]
-Could this cause an unrecoverable self-deadlock? In bao_io_client_attach(),
-when kthread_should_stop() is true, the kthread recursively calls
-bao_io_client_destroy() on itself.
-
-Inside this call, it invokes kthread_stop() on its own thread context, which
-blocks waiting for the thread to exit.
-
-[ ... ]
-
-> +	down_write(&dm->io_clients_lock);
-> +	if (client->is_control)
-> +		dm->control_client =3D NULL;
-> +	else
-> +		dm->ioeventfd_client =3D NULL;
-> +
-> +	list_del(&client->list);
-> +	up_write(&dm->io_clients_lock);
-> +
-> +	bao_io_dispatcher_resume(dm);
-> +
-> +	kfree(client);
-> +}
-
-[Severity: Medium]
-Is there a memory leak here? When the client is destroyed, its range_list is
-cleaned up, but it does not iterate over the virtio_requests list to free
-pending struct bao_io_request items before calling kfree(client).
-
-> +int bao_io_client_attach(struct bao_io_client *client)
-> +{
-> +	if (WARN_ON_ONCE(!client))
-> +		return -EINVAL;
-> +
-> +	if (client->is_control) {
-> +		wait_event_interruptible(client->wq,
-> +					 bao_io_client_has_pending_requests(client) ||
-> +					 bao_io_client_is_destroying(client));
-> +		if (bao_io_client_is_destroying(client))
-> +			return -EPERM;
-
-[Severity: Medium]
-Does this mishandle signals? The wait_event_interruptible() macro returns
--ERESTARTSYS if interrupted by a signal, but this return value is ignored.
-
-As a result, normal signal interruptions cause bao_dm_ioctl() to attempt to
-pop an empty queue, failing and returning a spurious -EFAULT to userspace.
-
-> --- a/drivers/virt/bao/io-dispatcher/io_dispatcher.c
-> +++ b/drivers/virt/bao/io-dispatcher/io_dispatcher.c
-> @@ -25,6 +25,156 @@ struct bao_io_dispatcher_work {
-> +int bao_dispatch_io(struct bao_dm *dm)
-> +{
-> +	struct bao_io_client *client;
-> +	struct bao_remio_hypercall_ctx ctx;
-> +	struct bao_virtio_request req;
-
-[ ... ]
-
-> +	if (!bao_io_client_push_request(client, &req)) {
-> +		up_read(&dm->io_clients_lock);
-> +		return -EINVAL;
-> +	}
-
-[Severity: Medium]
-Are requests silently discarded here if bao_io_client_push_request() fails?
-If memory exhaustion prevents the allocation, the request fetched from the
-hypervisor is dropped, permanently hanging the frontend guest waiting for
-I/O completion.
-
-> --- a/drivers/virt/bao/io-dispatcher/ioeventfd.c
-> +++ b/drivers/virt/bao/io-dispatcher/ioeventfd.c
-> @@ -201,6 +201,122 @@ static int bao_ioeventfd_deassign(struct bao_dm *dm,
-> +	list_for_each_entry(p, &dm->ioeventfds, list) {
-> +		if (p->eventfd !=3D eventfd)
-> +			continue;
-> +
-> +		bao_io_client_range_del(dm->ioeventfd_client, p->addr,
-> +					p->addr + p->length - 1);
-> +
-> +		bao_ioeventfd_shutdown(dm, p);
-> +		break;
-> +	}
-
-[Severity: Medium]
-Does this deassignment loop match solely on the eventfd context and ignore
-the requested memory address range? If userspace registers multiple memory
-ranges to trigger the same eventfd, this will arbitrarily delete the first
-matching entry rather than the specific range requested by userspace.
-
-[ ... ]
-
-> +int bao_ioeventfd_client_config(struct bao_dm *dm, struct bao_ioeventfd =
-*config)
-> +{
-> +	if (WARN_ON_ONCE(!dm || !config))
-> +		return -EINVAL;
-> +
-> +	if (config->flags & BAO_IOEVENTFD_FLAG_DEASSIGN)
-> +		bao_ioeventfd_deassign(dm, config);
-> +
-> +	return bao_ioeventfd_assign(dm, config);
-> +}
-
-[Severity: High]
-Is a return statement missing here? Because there is no return after calling
-bao_ioeventfd_deassign(), execution falls through to bao_ioeventfd_assign(),
-immediately recreating the ioeventfd that was just destroyed.
-
-> --- a/drivers/virt/bao/io-dispatcher/irqfd.c
-> +++ b/drivers/virt/bao/io-dispatcher/irqfd.c
-> @@ -34,6 +34,280 @@ struct irqfd {
-> +static void bao_irqfd_shutdown(struct irqfd *irqfd)
-> +{
-> +	u64 cnt;
-> +
-> +	if (WARN_ON_ONCE(!irqfd || !irqfd->dm))
-> +		return;
-> +
-> +	lockdep_assert_held(&irqfd->dm->irqfds_lock);
-> +
-> +	list_del_init(&irqfd->list);
-> +
-> +	eventfd_ctx_remove_wait_queue(irqfd->eventfd, &irqfd->wait, &cnt);
-> +
-> +	eventfd_ctx_put(irqfd->eventfd);
-> +
-> +	kfree(irqfd);
-> +}
-
-[Severity: High]
-Is it safe to free the irqfd here without cancelling the asynchronous shutd=
-own
-work? If userspace closes the eventfd concurrently, a POLLHUP event queues
-the shutdown work.
-
-The irqfd is then freed, and when the workqueue executes irqfd_shutdown_wor=
-k(),
-it dereferences the freed memory to access irqfd->dm.
-
-[ ... ]
-
-> +static int bao_irqfd_assign(struct bao_dm *dm, struct bao_irqfd *args)
-> +{
-> +	struct eventfd_ctx *eventfd =3D NULL;
-> +	struct irqfd *irqfd;
-
-[ ... ]
-
-> +	list_add_tail(&irqfd->list, &dm->irqfds);
-> +	mutex_unlock(&dm->irqfds_lock);
-> +
-> +	events =3D vfs_poll(fd_file(f), &irqfd->pt);
-
-[Severity: High]
-Could this cause a use-after-free race? The newly created irqfd is published
-to the globally visible dm->irqfds list, and the lock is dropped before
-calling vfs_poll().
-
-A concurrent thread calling deassign can remove and free this irqfd while
-vfs_poll() proceeds to access the freed &irqfd->pt.
-
-[ ... ]
-
-> +void bao_irqfd_server_destroy(struct bao_dm *dm)
-> +{
-> +	struct irqfd *irqfd;
-> +	struct irqfd *next;
-> +
-> +	if (WARN_ON_ONCE(!dm))
-> +		return;
-> +
-> +	if (dm->irqfd_server)
-> +		destroy_workqueue(dm->irqfd_server);
-> +
-> +	mutex_lock(&dm->irqfds_lock);
-> +	list_for_each_entry_safe(irqfd, next, &dm->irqfds, list)
-> +		bao_irqfd_shutdown(irqfd);
-> +	mutex_unlock(&dm->irqfds_lock);
-> +}
-
-[Severity: High]
-Can this lead to a use-after-free on the irqfd workqueue? Calling
-destroy_workqueue() before shutting down the active eventfds leaves their
-wait queues active.
-
-If an eventfd receives an event in this window, bao_irqfd_wakeup() will exe=
-cute
-queue_work() on the destroyed and freed workqueue pointer.
+If a user process subsequently calls read, write, or mmap on the open file
+descriptor, could it dereference the freed bao structure and access unmapped
+memory?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1786010512.gi=
-t.jpeixoto@osyx.tech?part=3D4
+t.jpeixoto@osyx.tech?part=3D2
