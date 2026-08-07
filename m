@@ -1,228 +1,206 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8823305692
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570563D091A;
+	Fri,  7 Aug 2026 08:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786091408; cv=none; b=ufrRrmDs+OU46SyAYqSV/RaV5jpR4WzUWYzxn83FtVaFmzLkWW6KmxyoH7Q6e4PIs7D7PAXVDOChnt9iCcXiQninxZZC0qEN3WgOB8xogZT7PIl2tLzY2URlJyNjP4UvBSvILlKHgV2HtsRvaf8oW3I0Y5Xm2g4Ki4fbwtnoX+k=
+	t=1786091463; cv=none; b=LFDwx4EwCs/+EatvmPFKMEkH9BlOkUTbCRrW/UDndsIGOjTn3QG9TW92FLIy2i+c+Fi/gTx02ILH+9eYjzlDkT2kGDLViQ5cBiK9Oh66dC5EpEzA/rx67DgUxYA39fkgDk8fTfOGuabCZ/ZQqA37jy8wx595qGefS6XejDCrnKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786091408; c=relaxed/simple;
-	bh=u0RpEyfHVW5tsuPHKQ+xrD/oW/iPMmvDv47kBaoHopE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JnFAhr4tfqD8mp9O25rZNdR9rGUF8eKpjtb9q8ynbg7uVjsRDvtW5LrvqB9Z8vSQ0KlRpkyz+u7bVf0sCH/+mmKhjpPJ91NTMoZY6CfuukCAphWZvD6JY3BMJL27K3S7GCGDUCs5RfSsiypFajPvkH59iTDXAkBE8jub82VhVcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wi591JBw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EzoZ3wb4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786091463; c=relaxed/simple;
+	bh=5UbV3kI7Xcb2dYZ4vNjpHLGO4HOqCxlY13VqRSx17Vg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=COGFhIYGdflLGd5QVWA2iXhui63o3GoGkG7a8lipnfhNYCI4CKT+Z/gyI82eR0cMzsj9+xbr5O9Jh0ng4JC/ZUbZb7MXAxHzFmN+8e5CR5u6NGAwccXDRXIHW0o676Vc8VyneMKsFOX03mHQkI6mxMHMtaYFoYydg2WcJzvB6UI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OhZiPNS3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wi591JBw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EzoZ3wb4"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6777VQn33829439
-	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 08:30:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JyMjEMkI3uuqQoPDpxm8QvmVYH6/5lFYM2OZO9jAJv4=; b=Wi591JBwDUHXX+GK
-	netdBKR4T3RFKi/Br2IJQGtljLPjPJjnG0JMOHw4bLVVzaY2jGQOeyotQ/h0EcIt
-	PhsLtMDu414mxClPsjbGIB8dcO0qvnyRffiZ1l0Mk3uETH0xzQjmUDE/NnuHF0u3
-	ShU4M0tov6mIdjHvjrlIHaSd4FFHFwYXrG0Y10owWK1mX+mP1511ENtrRlynI33q
-	UjHg+b8ed/lAQmEtC+96LBYaTdyB6sn853xBY0X3AfBk4TIjI+xwLernDZwjf5pz
-	4LBXbK6o8Xd37qzzj6gk5pOgy9uMNcY5mJYlnBNbr5a8WxebNx7epdZy227P0vzp
-	xjcQQw==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6gu4dh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 08:30:05 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cca5e0a0c9so54935385ad.1
-        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 01:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786091404; x=1786696204; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JyMjEMkI3uuqQoPDpxm8QvmVYH6/5lFYM2OZO9jAJv4=;
-        b=EzoZ3wb4yY8G5N+MYJ53+IP00yl6sP63vi29ome65MMM0kVPvwVpRdokXco5sAqQCm
-         0povo/O/9IUIKhTWkHc5SJuns4MmD7T/e3Hh3CGhzAT8m8aPl10A910lkmv4glN1H968
-         ngegMsMHmjmpUcy+0dZ8hoIn7a9scAD5pdGAnCzdUek6YeS/3sm9rjewnxj9EicVjpPW
-         iiAxIRVWfjbZfgZVbyLlCZnt/Q8IRVo+gdIz0Q0uW2q3Np5qIjZ4xhXoXeRD2v52yxR9
-         LMArqtxvQ4m8k6y9YvB8Gt9YTjwOd7EGyh7DXf29cc3SPdASzXMmMRyzSP/wu9qfpvNQ
-         gVsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786091404; x=1786696204;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JyMjEMkI3uuqQoPDpxm8QvmVYH6/5lFYM2OZO9jAJv4=;
-        b=hrG+Y8g3aAITuihed6gCJt3pfuCQQPtcwHAwyY7Ndw0Zywl4v86dJZRAElSsuDV+Au
-         mx35S0H1oayCfTjOQi+5p8oDTosuyPbCWMWqSHAAcUX570qyN7Au5BVwIMsCEnDhto0h
-         ksPO850DNSKaS5z67YE0o5uZSrEtUubMPD0AOXAGyymZH3l9WDhd6pq4GWJZp3cKPrdW
-         dQGglTirCOoOlbqBcmh86keTkdvuW3Sm8HBmbGLvYHELOebiinDLEDu+j6qxljQHIIaO
-         DrmiEmTXvOJ0OMrCARRQUCfMOrb98zdANks/H2afTLvmEjAL/U9acnAoFW9i6R3M5wOy
-         5IpA==
-X-Forwarded-Encrypted: i=1; AHgh+RrVZQXeHBoa3n9mUKa17glOp9PZGDmDwf+3bdsrlpZ1DjhFCwqFqubcMHWmMPN1sKvtTQkzPE5Syvfl@vger.kernel.org
-X-Gm-Message-State: AOJu0YxGuxtMTlYd+ebX5wsYfJZ8Vp3U276FzeQc5Dvt0ZXrWK5wT+6V
-	gSErtZVF81Zy18HQOPdM1XCAnhhbQtqI916jCV5WODlIzM0/8vuM/+qFwhaZ2kEpq0RXqnMCwMW
-	NBSBmuWwEAkE1zcuwIhezulLqO0xKoi2CcMhz4vkF0vgTe6jubUtAoZQcnER8nbUF
-X-Gm-Gg: AR+sD13tpfn2J157ZblifIiHw5QUY1Q/b+iJ5ciW/DpT4Rfmr+u4T6bjjKWVFQQg0E9
-	ohWPPP1gWveCdIlDaEKTJQIregwSKBM0mi7priLmT46gxEmjAFECB61Y0IZH/lH/o3PjbXt8vmr
-	fW4913AsskyhtCIDPjCa9Qrrq18CyOwCtlOtm1kwL5b7bl0xwdnEbwrpuJNQg6HMRZFiODr7luk
-	8Hyc+NSbLGk7FTnu8yw8LCGnwog2rU1F1R1LnyzbvlS2DqCsx0PeGtNNYN4BWAQMdx+sqHmBROR
-	6l5LXTKwZe3llyGoTzD9QED8tv+ji9h7pZa19GM7AMy/dkLfcG0yQ8ENSa+B2tsI9Q+HJ60r8Qm
-	yI99KHRKwVEMlZzxdfGiU6ycBTOe4l0ZhSwY=
-X-Received: by 2002:a17:902:ec84:b0:2d1:134:b86e with SMTP id d9443c01a7336-2d10134bd38mr95005145ad.2.1786091404112;
-        Fri, 07 Aug 2026 01:30:04 -0700 (PDT)
-X-Received: by 2002:a17:902:ec84:b0:2d1:134:b86e with SMTP id d9443c01a7336-2d10134bd38mr95004455ad.2.1786091403646;
-        Fri, 07 Aug 2026 01:30:03 -0700 (PDT)
-Received: from hu-vgarodia-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bec2ec20sm5377977eec.28.2026.08.07.01.29.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 07 Aug 2026 01:30:03 -0700 (PDT)
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Date: Fri, 07 Aug 2026 13:55:06 +0530
-Subject: [PATCH 22/22] arm64: dts: qcom: talos: Reserve low IOVA range for
- Venus
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OhZiPNS3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3904B1F000E9;
+	Fri,  7 Aug 2026 08:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786091453;
+	bh=9FQ+3lzdV8n137IFhEDYXLA29I0hoT41o9tKvZqQ7uU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OhZiPNS3Gwenfpw+De9dkxmw0MBdpkZl0LvM23qUUJf4UXW4xsUG1yLMFotjHyPmE
+	 uKKrJutjj80XJegr4zabifhHCuajtllR+olAuMISzRp2d4ZFtNxwValTu43Tjp3q3q
+	 msgX1yO9XYEYypGoR4bzg33qxUHXnwwVIb5TfLdjnm9rkEa8VviwwujWEoUXSX7SvW
+	 Ox/hCOu5TT1Zv6fvzLwbCqPuIcaulPqXVl0MURismWM6DpN51QG0deTCbpKTJXKBPT
+	 CZvKrzVsvX+iwkRhXB4Z9ZQ+vV/5KZdZWsmETWG2cCb+/BkjpWtfqmQDC6A0v0fWVH
+	 rPi+dF4pImFQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 01/20] RISC-V: perf: fix resource cleanup on driver
+ probe failure
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Atish Patra" <atish.patra@linux.dev>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org
+In-Reply-To: <20260807-counter_delegation-v9-1-58658104e487@meta.com>
+References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
+ <20260807-counter_delegation-v9-1-58658104e487@meta.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 08:30:52 +0000
+Message-Id: <20260807083053.3904B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-iris_iova_600mb_fix-v1-22-3996f67e33f9@oss.qualcomm.com>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Andy Gross <andy.gross@linaro.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@codeaurora.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Pierre-Hugues Husson <phhusson@freebox.fr>,
-        Marc Gonzalez <mgonzalez@freebox.fr>,
-        cros-qcom-dts-watchers@chromium.org,
-        Matthias Kaehlcke <mka@chromium.org>,
-        Douglas Anderson <dianders@chromium.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Aniket Masule <amasule@codeaurora.org>,
-        Malathi Gottam <quic_mgottam@quicinc.com>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Jonathan Marek <jonathan@marek.ca>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        Renjiang Han <quic_renjiang@quicinc.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        stable@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786091113; l=1882;
- i=vikash.garodia@oss.qualcomm.com; s=20241104; h=from:subject:message-id;
- bh=u0RpEyfHVW5tsuPHKQ+xrD/oW/iPMmvDv47kBaoHopE=;
- b=q9PmABbezIizxr+Ju0so544IZepv/IZQYmBTS11vw1dzwObzZv3q58Kj59aFRAt5W0YyXu8Kj
- 27T0VA9X7XVCNHTqv7VpzmmWOQS1l74Oz7OnbeWAYYMgFPK991abwHq
-X-Developer-Key: i=vikash.garodia@oss.qualcomm.com; a=ed25519;
- pk=LY9Eqp4KiHWxzGNKGHbwRFEJOfRCSzG/rxQNmvZvaKE=
-X-Authority-Analysis: v=2.4 cv=frDsol4f c=1 sm=1 tr=0 ts=6a75978d cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=oZq95A5y7fdjfYKW3kQA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-GUID: VTL-ydU1i6jEy-VTyapeDlig182Y-PSL
-X-Proofpoint-ORIG-GUID: VTL-ydU1i6jEy-VTyapeDlig182Y-PSL
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfX7ktr6/ix11rb
- VqYwwCP946i3rdpC8zz6u/GQbIweh9+fsHzKYb4BdtHAhp9cBpa2gdmF2bP3jI0dHsYlllcS4y+
- vkUafz4waChAJ72jsqfBKQLDc5wGNfo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA2MiBTYWx0ZWRfXzSDv7RvtTk48
- D09oGYKxaTzngZZRqakgAHRCi89QNUEieNJkVEu4G40dy4bZh8+0SObWUgbBDSfvmTEj9qXpw5C
- kibJXnIyTaONCijMubiDv2ucaDET3KInNgeAqLh45GJEfKsGT60S8Cn6vuw+LuxGw8fxqprVYj5
- hvJksaQrDNP/Ln9HxWwMIMrPE3UyafGLqrwZ3hX2P7Rc9oW9y1CP6/2qA+kgmi/2zt4Qk6OY+yv
- jisItOEhFyvSgL9YZ9FnVnUOybg8bXTpCriWMeD4wniaONMsUg7wIUePIDGDSaNW79QCL27GzFW
- Kr10RgMN+mp0tPE5jg9hURKpcnV/7NHr7ubUgkLYXkIZJm+2ljQSg2r/1HpaY5VAC8kevOYrMne
- v/1dPy0FChNltbWxBYtzn88+r+Y0J3oFNc1OV1yR0a8+QtsHzsx3i4iemVEV3Io/896z6y5B8K+
- PBVuebaZPP4jGO2bFfg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 impostorscore=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070062
 
-Venus VPU reserves IOVA addresses below 0x25800000 (600MB), primarily for
-secure non-pixel buffers. DMA into that range, from any other stream id
-would triggers unhandled SMMU page faults that cause spontaneous device
-reboots. This is readily reproduced with one or more browser tabs
-driving multiple concurrent video decode streams.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
-and reference it from the venus node so the IOMMU layer keeps DMA
-allocations above that boundary.
+Pre-existing issues:
+- [Critical] Process migration during a probe failure leaves the SBI firmwa=
+re configured to write to a freed memory page (Firmware Use-After-Free).
+- [High] The `sbi_pmu_snapshot_available` static key is not disabled on the=
+ probe error path, leading to a potential NULL pointer dereference on subse=
+quent probe attempts.
+- [High] Race condition in the probe error path leads to Use-After-Free of =
+the `pmu` structure.
+- [Medium] Missing cleanup of the registered sysctl table on the probe erro=
+r path.
+- [Low] CPU hotplug state registered in init is not removed if subsequent i=
+nit steps fail.
+--
 
-Fixes: b83d3cc7a59c ("arm64: dts: qcom: sm6150: add venus node to devicetree")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/talos.dtsi | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+--- Patch [1]: [PATCH v9 01/20] RISC-V: perf: fix resource cleanup on drive=
+r probe failure ---
+commit e501d85892f2097d5cb521e3b393610d4683e0a4
+Author: Atish Patra <atishp@meta.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/talos.dtsi b/arch/arm64/boot/dts/qcom/talos.dtsi
-index eedfdce3c479e704537fb8df7345452fe063d9c3..8645b04e266438857647600f4cf129dec9951c53 100644
---- a/arch/arm64/boot/dts/qcom/talos.dtsi
-+++ b/arch/arm64/boot/dts/qcom/talos.dtsi
-@@ -687,6 +687,17 @@ adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
- 			alignment = <0x0 0x400000>;
- 			size = <0x0 0x800000>;
- 		};
-+
-+		/*
-+		 * The Venus VPU reserves IOVA below 0x25800000 (600MB),
-+		 * primarily for non-pixel buffers using different Stream IDs.
-+		 * DMA into that range triggers unhandled SMMU faults and
-+		 * spontaneous reboots, so reserve it to keep IOMMU
-+		 * allocations above this boundary.
-+		 */
-+		venus_iova: venus-iova {
-+			iommu-addresses = <&venus 0x0 0x0 0x0 0x25800000>;
-+		};
- 	};
- 
- 	soc: soc@0 {
-@@ -4116,7 +4127,7 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
- 
- 			iommus = <&apps_smmu 0xe60 0x20>;
- 
--			memory-region = <&pil_video_mem>;
-+			memory-region = <&pil_video_mem>, <&venus_iova>;
- 
- 			status = "disabled";
- 
+RISC-V: perf: fix resource cleanup on driver probe failure
 
--- 
-2.34.1
+This patch fixes various UAF and memory leak issues around
+pmu_sbi_device_probe() error paths. It ensures that registered PMUs,
+per-cpu IRQs, and other data structures are correctly freed on failure.
 
+Link: https://patch.msgid.link/20260701-counter_delegation-v8-1-7909f863a64=
+5@meta.com
+
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index dfc886dee5ad0..50220f7b46d9b 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+
+[ ... ]
+
+> @@ -1301,7 +1308,8 @@ static void riscv_pmu_destroy(struct riscv_pmu *pmu)
+>  		}
+>  	}
+>  	riscv_pm_pmu_unregister(pmu);
+> -	cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
+> +	if (!hlist_unhashed(&pmu->node))
+> +		cpuhp_state_remove_instance(CPUHP_AP_PERF_RISCV_STARTING, &pmu->node);
+>  }
+
+[Severity: Critical]
+This is a pre-existing issue, but does riscv_pmu_destroy() safely disable t=
+he
+snapshot?
+
+In pmu_sbi_device_probe(), pmu_sbi_snapshot_setup() is called within a
+get_cpu()/put_cpu() block, configuring the SBI firmware for that specific C=
+PU.
+
+However, if probe fails and riscv_pmu_destroy() is called,
+pmu_sbi_snapshot_disable() is executed without CPU pinning.
+
+Could the thread migrate to a different CPU before disabling the snapshot,
+leaving the original CPU's firmware configured to write to the snapshot
+memory which is then freed by pmu_sbi_snapshot_free()?
+
+[ ... ]
+
+> @@ -1469,11 +1479,11 @@ static int pmu_sbi_device_probe(struct platform_d=
+evice *pdev)
+> =20
+>  	ret =3D riscv_pm_pmu_register(pmu);
+>  	if (ret)
+> -		goto out_unregister;
+> +		goto out_destroy;
+> =20
+>  	ret =3D perf_pmu_register(&pmu->pmu, "cpu", PERF_TYPE_RAW);
+>  	if (ret)
+> -		goto out_unregister;
+> +		goto out_destroy;
+
+[Severity: High]
+This is a pre-existing issue, but does this expose the PMU to userspace bef=
+ore
+fallible setups are complete?
+
+Since perf_pmu_register() makes the PMU accessible, if userspace opens a pe=
+rf
+event before a subsequent initialization step fails (such as allocating
+snapshot memory), the driver jumps to out_unregister and eventually calls
+kfree(pmu).
+
+Will this leave the perf core holding a pointer to a freed pmu structure?
+
+[ ... ]
+
+> @@ -1514,9 +1524,20 @@ static int pmu_sbi_device_probe(struct platform_de=
+vice *pdev)
+>  	return 0;
+> =20
+>  out_unregister:
+> +	perf_pmu_unregister(&pmu->pmu);
+> +
+> +out_destroy:
+
+[Severity: Medium]
+This is a pre-existing issue, but is the sysctl table leaked on this error
+path?
+
+Before the return 0, pmu_sbi_device_probe() calls:
+
+    register_sysctl("kernel", sbi_pmu_sysctl_table);
+
+If the subsequent cpuhp_state_add_instance() call fails, the error path ski=
+ps
+unregistering this sysctl table. Will repeated probe failures leak
+ctl_table_header structures?
+
+>  	riscv_pmu_destroy(pmu);
+
+[Severity: High]
+This is a pre-existing issue, but does the error path fail to disable the
+sbi_pmu_snapshot_available static key?
+
+If the probe fails after static_branch_enable(&sbi_pmu_snapshot_available),
+the error path frees the snapshot memory in riscv_pmu_destroy() but never
+disables the static key.
+
+On a subsequent probe attempt or an interrupt, could code paths like
+pmu_sbi_ovf_handler() execute assuming the snapshot memory is active, leadi=
+ng
+to a NULL pointer dereference when accessing sdata->ctr_overflow_mask?
+
+> +	if (irq_requested) {
+> +		free_percpu_irq(riscv_pmu_irq, pmu->hw_events);
+> +		irq_dispose_mapping(riscv_pmu_irq);
+> +		riscv_pmu_irq =3D 0;
+> +	}
+> =20
+>  out_free:
+> +	free_percpu(pmu->hw_events);
+> +	kfree(pmu_ctr_list);
+> +	pmu_ctr_list =3D NULL;
+>  	kfree(pmu);
+>  	return ret;
+>  }
+
+[Severity: Low]
+This is a pre-existing issue, but is there a CPU hotplug state leak in
+pmu_sbi_devinit() if platform registration fails?
+
+pmu_sbi_devinit() registers a multi-state CPU hotplug hook:
+
+    ret =3D cpuhp_setup_state_multi(CPUHP_AP_PERF_RISCV_STARTING, ...);
+
+If platform_driver_register() or platform_device_register_simple() fails
+afterward, the function returns directly without calling
+cpuhp_remove_multi_state(), leaving the hotplug state registered.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-counter_de=
+legation-v9-0-58658104e487@meta.com?part=3D1
