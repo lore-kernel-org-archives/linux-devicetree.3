@@ -1,62 +1,351 @@
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED1B2EEE90
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 03:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DFD36657B
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 03:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786073283; cv=none; b=gtTvrUCi69wWi92Qo+8WLtk5nsO7fl028ZjgqxcSY8HwiSdY2iGF7IKCDTcteDarfoKY+JmGkigodg9zkBb72wsizayd5TIuKLDYyMlXmVCC5WUvcMDAc6+5FC1Y48eIJG5oZem1OK8nRwVGbV5ZTGWwSEpeXIG2k30HfdC5cQI=
+	t=1786074888; cv=none; b=Nw43OuU1CZUoIcuC43P7JnktTggCh8SgwKGahZvJYPNeNO4CAsf0FgEqk5qeA9rAmajF1TqRujfM3ixPIpt0Xw1SJ9J1xXCRUDFaesuaAfH85L84ZNuk7bScslAGCJb5BNBMdeu1uV3/A0TH3KiDO/oZgPcI9kqvFuef/DujXE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786073283; c=relaxed/simple;
-	bh=TPJtm4SJOctddJ8jFpftgRdBDxhtifxnOZSBD+9CcyI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GOPpGkz6SedFr7QvdIQLvPAICiUWbTYdAdtXnBE8nPZrsqKN1OKdCZvuvOpgJ1cvjxp1ynj44tlVKIKWHzjXmce7ohajR3RJm8q/5n8p67MSb25fq4KX16Dh+bypHcNKJgJ8A4ML8ssEt0w9K/Eymz3AFXCNuWzT6JXt4WT5mTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=LeJ6BGzT; arc=none smtp.client-ip=185.70.43.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1786074888; c=relaxed/simple;
+	bh=0sH4sURiae0LHASZoJFMCPq/NTJJVHw/k0CxfIhRpZo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=aipKFbm8DiEe/NQ0dDtBlaEiDKyLQ0X/OwCbU6QVy07mrwStI8JcwbqYkNnujbwn+xmzY2/NQ++WIaLGy97gh0/HTV+H3uEfnMSwLKz9in30zA2UnAFT2gO1df05j6iUCo+9mkJTa4FPezvO5pjpjGm7PX1MnD4ioKlIBzoKalc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a8/AoMmR; arc=none smtp.client-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="LeJ6BGzT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1786073268; x=1786332468;
-	bh=TPJtm4SJOctddJ8jFpftgRdBDxhtifxnOZSBD+9CcyI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=LeJ6BGzTkCayTRhy9IWoe43gl4oezsgpVwiH/rXvd7queZ26Agx3BLkad/EH/HNiq
-	 crnhtjcS+Qly+VA01EyGJuqlF6Oq3EXnZnU5yQSyTUbZFRKEIHHHvMVzSxQovNHU7A
-	 Ym/IovqrTmaKqAMX/kpJAbC1mDVRxOqVZq9zzB8x0Dh4Ffqgs7oxkXsw0hFrknGSnh
-	 aJs4YZQU2JGYua6IIq86B/cahTT6MTcHDYuEH3wRE93+zb6vI9c0EdFdeb6q+kkB1d
-	 OmE97kdfQN8659SKSxgxrMp0JuVqxG56DYCyCmLqaMH7+nkvHYUSGacWm1E4IoYl8Q
-	 am39RxytMfkwA==
-Date: Fri, 07 Aug 2026 03:27:42 +0000
-To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] Initial PCIe0 PHY support for SM8475
-Message-ID: <f0c1eba8-c6d9-4831-a460-980bead03c4d@proton.me>
-In-Reply-To: <20260715-sm8475-bup-pcie-v2-0-48bd91a19abf@proton.me>
-References: <20260715-sm8475-bup-pcie-v2-0-48bd91a19abf@proton.me>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: 67781fc1a0af1802f91f0ba9b76081dad5b9c44b
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a8/AoMmR"
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-4472500e25fso1146185fac.1
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 20:54:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786074882; x=1786679682; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=t14qXgKevhPrX1GfuAl+ko962gn6h1nlXvsALSBC/vw=;
+        b=a8/AoMmRtD3twye/cfBzEQp/YTjDwz0k/OQylAiszi6ndWoupfg17V84QjA1FeTI87
+         YOlV7105+DW/TIluWjuVUu4XCmRk1Mm5onx3ehU0xlmOnBh79BJWBcz7LOatXZ/yr5VF
+         Gvr4EBVzBhOFLlbyZd8XlcWMnvtnSxqhqmu4R+iMnIAUP1Vdb0e0jZeH6HyIFdubd+fJ
+         f4oPAu3xu4Y3GBCLtaZXW9pEABlesTyktyoFshGsWpeGaLLNGe00n46H4Qon8Aly1LIH
+         p0pPEfldU3a8lDPSIrShOSkx9cXaMEQgvL8XPfIxfRD6BKlfEpjJKD8JtYzW7/fCBL9d
+         wIUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786074882; x=1786679682;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=t14qXgKevhPrX1GfuAl+ko962gn6h1nlXvsALSBC/vw=;
+        b=MZSxeFll+qYD2mBVeyZTS8qqxdg85zkj7vtCuzf3WQzGfKvXaZ0HvuDN705n86RnSh
+         OUkClKodzxinmTamFn/4qiuLgO9D/G4I+i4MvP0m7XrweFJglJXWZqhWLvGbXlSe13HS
+         21gzmPzF4dZpzpDNVSY4YT2HeJ9fUyVAsGx0HyyPPEqafhlTEWytxyh9/YvolGzyJZOv
+         PGukhWzh55uuKBy1mCS+e9MMsVXrWc1terAsSu1FBxyDZwIkh53AMMkk3AxBpjJpYtkd
+         L4IgEuWERHIDMEuCkCPFKtC63ex4acwSlGyyb7t1nZzM40+/wU+VNHLzyVZG9lfgjuYf
+         OlyA==
+X-Forwarded-Encrypted: i=1; AHgh+RqlCWeQmv/K4zS6FluShkud+O1ti1+EtSFqoBNwMJVRGBmGUom8H7DvRaTxLAD87jU9cHgSjFOqBdm9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyc1zdcQTctTSyPSYeSgmC6bXdM/VG2T/kpBlcjMAaKeL0ncQ1z
+	MDZqhtDUroOhZ1/rmCVamllayBzRcA9nQbB/AFM9TM6zm+/3EbrNqON2
+X-Gm-Gg: AR+sD13NO+wK0w66GVu4pVlwfJ3TLqRfy5h4n4JM/eyI7K3Xt8wPh6ewart3oUjafCv
+	68dVGUvx2UCPvf3XtWpj81zMjfBeUv21b3g69i4XYAY0q3HHlgq41EDamYXAI5upcYhIx0fXLOv
+	kE0EgyRGWcajEKypWyOet+zNh6S/9taKFhQruNGe3GyXcGNmcJ5Q045jYyCmTT5Pgp38vVKGC3G
+	1D3AVU51E/QyTsh+EHCvqIlYyUvCMTkKPBZZeuHYIrWWyZVv77xHc5pDS5LB8StVHZs665kJJD2
+	bYyfGuvNOXlEEGL0gGljhdG2UMNCShvXBfWTHqOQb2YK55veEJlm2vt15O1tPkjjRJ5nfdVX41J
+	22ExaidSiS/EqC/1LrSQLkJyHEnClbg8N++bUI5F1faM7Wgp4X2C04SUXwr3RcK6hhkHPNcs0NJ
+	IGY1YcxZjykpiP9gieQgIU/LuJrCy33KCkz+dbT6nfk9VcrQqNKhRXu4Sb94dTpOXYDFsPT2Q7F
+	nSlvXPO5Jy6k/ecvHUxg7V0tdXoomsA+W8np/zgLJjR2KPxAM8QuMc2FU0Kqh7BWHDD3cqhzIqR
+	R0aI4uGS4ewurqx7IoKgTivf4sPVFKvc4ixypN7j4Lvk1x0FvAKWysdUAZQ26HpEbj6ExP9fE6s
+	koS15q/5pH1TnOgFn
+X-Received: by 2002:a05:6820:8590:20b0:6ae:a950:9faa with SMTP id 006d021491bc7-6aea950a10fmr5010366eaf.10.1786074881652;
+        Thu, 06 Aug 2026 20:54:41 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-154-59.hlrn.qwest.net. [184.96.154.59])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b02bbc41bbsm1329339eaf.3.2026.08.06.20.54.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 20:54:41 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net-next v4 0/4] net: mdio: support dynamic OF device
+ changes
+Date: Thu, 06 Aug 2026 21:54:19 -0600
+Message-Id: <20260806-submit-mdio-of-dynamic-v2-v4-0-4beb0c50d5ba@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OwQ6CMAwG4FcxO1szNkDw5HsYDzA6qHGbYZNAC
+ O/uwAsnY9JL0/5fOzOPPaFnl8PMehzIk7OxSY8HprrKtgjUxJ4JLnJecAn+XRsKYBpy4DQ0k60
+ MKRgElDzLuaqSrKxLFvOvHjWNm31jFgNYHAO7fyeReaAKK73uduSD66ftjUFsiT8uxuKgiyJNt
+ ExE2pyvranoeVLObHcGuZeyX5KMUpJrqVRRyprjXlqW5QPvBs4UKAEAAA==
+X-Change-ID: 20260803-submit-mdio-of-dynamic-v2-90560ca159b9
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Florian Fainelli <f.fainelli@gmail.com>, 
+ Richard Cochran <richardcochran@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Saravana Kannan <saravanak@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Jonas Gorski <jonas.gorski@gmail.com>, Vladimir Oltean <olteanv@gmail.com>, 
+ Ciprian Regus <ciprian.regus@analog.com>, 
+ Andreas Larsson <andreas@gaisler.com>, Mark Einon <mark.einon@gmail.com>, 
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>, 
+ Keyur Chudgar <keyur@os.amperecomputing.com>, 
+ Michael Chan <michael.chan@broadcom.com>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Doug Berger <opendmb@gmail.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, Wei Fang <wei.fang@nxp.com>, 
+ Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
+ Jijie Shao <shaojijie@huawei.com>, Jian Shen <shenjian15@huawei.com>, 
+ Bryan Whitehead <bryan.whitehead@microchip.com>, 
+ UNGLinuxDriver@microchip.com, Vladimir Zapolskiy <vz@mleia.com>, 
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Timur Tabi <timur@kernel.org>, nic_swsd@realtek.com, 
+ Byungho An <bh74.an@samsung.com>, 
+ Steve Glendinning <steve.glendinning@shawell.net>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Siddharth Vadapalli <s-vadapalli@ti.com>, Roger Quadros <rogerq@kernel.org>, 
+ Jiawen Wu <jiawenwu@trustnetic.com>, 
+ Mengyuan Lou <mengyuanlou@net-swift.com>, 
+ Thangaraj Samynathan <Thangaraj.S@microchip.com>, 
+ Sebastian Reichel <sre@kernel.org>, Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-pm@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On 7/15/26 2:37 AM, Esteban Urrutia via B4 Relay wrote:
-> This series adds support for the PCIe0 PHY found in the SM8475 SoC.
-> The initialization sequence varies noticeably when compared to the one us=
-ed
-> in the SM8450 SoC, hence the need to add support for this PHY.
-Any chance on this series being picked up?
-Kind of related (since both series belong to the same subsystem): I
-resent USB SS support for SM8475 some days ago and this has been picked
-up already.
+MDIO buses enumerate firmware children only when the bus is registered. A
+later devicetree overlay or status transition is ignored, unlike on I2C and
+SPI buses. Supporting live reconfiguration also means that population and
+removal can race address scanning, PHY attachment and bus teardown.
 
-Regards,
-Esteban
+This is generic OF_DYNAMIC support for MDIO buses. It contains no
+Allwinner H616 or X-Powers AC200/AC300-specific behavior and does not
+depend on either platform; H616 hardware was used only as the runtime
+test platform.
+
+Patch 1 fixes an existing lifetime bug exposed while auditing those races:
+PHY attach and detach paths cache the MDIO bus but read its owner after
+dropping their PHY device reference. Cache the owner before that lifetime
+boundary.
+
+Patch 2 factors fixed-address child registration and legacy PHY scanning
+into helpers shared by initial and dynamic population.
+
+Patch 3 serializes MDIO device-map changes, reserves addresses while
+registration is in progress, publishes devices only after registration
+completes, and coordinates scans, attachment, removal and bus teardown.
+Firmware removal is exclusive with registration, scanning and other
+firmware changes. Map readers use RCU to acquire device references;
+mdiobus_get_phy() and the PHY iterators now return referenced PHYs, and all
+in-tree callers release or retain those references explicitly. Removed PHY
+generations can therefore be reclaimed when their actual users finish,
+without removing dynamic PHY deletion or accumulating retired objects until
+bus teardown. Attachment waits for another task's pending publication and
+defers same-task recursive attachment.
+
+Patch 4 adds the OF reconfiguration notifier. It supports fixed-address
+PHYs and generic MDIO devices, scanned PHY addresses, and Ethernet PHY
+packages. It preflights overlay removal before firmware nodes disappear
+and refuses removal of attached or in-flight PHYs, including while another
+MDIO map operation is still completing.
+
+Strict checkpatch reports only its expected MAINTAINERS warning for the two
+required lookup-ownership updates in the obsolete AX88796 driver. Changed
+objects were build-tested with W=1 using x86_64 allmodconfig under GCC,
+arm64 defconfig under LLVM, native MIPS and SPARC configurations for
+architecture-specific callers, and minimal arm64 configurations covering
+CONFIG_OF_DYNAMIC=n and CONFIG_OF_DYNAMIC=y with CONFIG_OF_OVERLAY=n. No
+new compiler warning was emitted.
+
+Runtime testing used an Allwinner H616 board with AC300, booted from SD. A
+forced-ID test PHY completed 700 notifier-driven add/remove/re-add cycles.
+Every cycle raced standalone attachment against the interval between
+device_add() visibility and MDIO-map publication, held a referenced lookup
+across removal, verified that no core reference remained, released the last
+reference and re-added the same address. A generic MDIO device completed 150
+add/remove cycles. Removal of the attached AC300 PHY was rejected while its
+driver, carrier and traffic remained active. Testing also covered rejection
+of an out-of-range fixed address, removal of an unrelated non-MDIO overlay,
+20 complete MAC/MDIO teardown and recreation cycles, another PHY and generic
+MDIO stress run after bus recreation, and bidirectional link traffic. No
+refcount, RCU, use-after-free or lock warning occurred.
+
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v4:
+- make PHY map lookups reference-counted and RCU-protected
+- update every in-tree mdiobus_get_phy() and PHY iterator caller for the
+  referenced lookup contract
+- reclaim dynamically removed PHY generations after their users release
+  them instead of retaining every generation until bus teardown
+- wait for concurrent map publication before attaching a PHY and defer
+  same-task recursive attachment
+- handle a missing VSC8584 base PHY without dereferencing NULL
+- use RCU-safe map access while checking a dynamic removal scope
+- Link to v3: https://patch.msgid.link/20260805-submit-mdio-of-dynamic-v2-v3-0-16f3cc893b0e@gmail.com
+
+Changes in v3:
+- add a preparatory fix for MDIO bus-owner lifetime handling
+- make teardown take a device reference and honor removal ownership
+- use one checked callback for normal and dynamic internal removal
+- publish map entries only after device registration completes
+- route the remaining direct map reader through mdiobus_get_phy()
+- retire only PHY devices which have a borrowed-pointer lookup API
+- make firmware removal exclusive with registration, scanning and other
+  firmware changes
+- preserve existing error handling while propagating package population
+  conflicts
+- allow global overlay removal to ignore unrelated nodes and absent MDIO
+  buses
+- annotate the recursive notifier lock owner accesses for KCSAN
+- avoid an OF/MDIO lock inversion during overlay preflight
+- refuse overlay removal while another MDIO map change is active
+- propagate removal-transaction conflicts from the OF notifier
+- do not treat malformed fixed addresses as addressless PHYs
+- rebase onto current net-next
+- Link to v2: https://patch.msgid.link/20260803-submit-mdio-of-dynamic-v2-v2-0-f8841f3124d7@gmail.com
+
+Changes in v2:
+- split the generic MDIO work from the ACx00 series
+- rebase onto current net-next
+- move touched declarations to function scope for netdev style
+- Link to v1: https://patch.msgid.link/20260802-submit-acx00-of-dynamic-v1-v1-0-0a53cd9e21cc@gmail.com
+
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Florian Fainelli <f.fainelli@gmail.com>
+To: Richard Cochran <richardcochran@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Saravana Kannan <saravanak@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+To: Jonas Gorski <jonas.gorski@gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>
+To: Ciprian Regus <ciprian.regus@analog.com>
+To: Andreas Larsson <andreas@gaisler.com>
+To: Mark Einon <mark.einon@gmail.com>
+To: Iyappan Subramanian <iyappan@os.amperecomputing.com>
+To: Keyur Chudgar <keyur@os.amperecomputing.com>
+To: Michael Chan <michael.chan@broadcom.com>
+To: Rafał Miłecki <rafal@milecki.pl>
+To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+To: Doug Berger <opendmb@gmail.com>
+To: Pavan Chebbi <pavan.chebbi@broadcom.com>
+To: Théo Lebrun <theo.lebrun@bootlin.com>
+To: Conor Dooley <conor.dooley@microchip.com>
+To: Wei Fang <wei.fang@nxp.com>
+To: Frank Li <frank.li@nxp.com>
+To: Shenwei Wang <shenwei.wang@nxp.com>
+To: Jijie Shao <shaojijie@huawei.com>
+To: Jian Shen <shenjian15@huawei.com>
+To: Bryan Whitehead <bryan.whitehead@microchip.com>
+To: UNGLinuxDriver@microchip.com
+To: Vladimir Zapolskiy <vz@mleia.com>
+To: Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+To: Timur Tabi <timur@kernel.org>
+To: nic_swsd@realtek.com
+To: Byungho An <bh74.an@samsung.com>
+To: Steve Glendinning <steve.glendinning@shawell.net>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>
+To: FUJITA Tomonori <fujita.tomonori@gmail.com>
+To: Siddharth Vadapalli <s-vadapalli@ti.com>
+To: Roger Quadros <rogerq@kernel.org>
+To: Jiawen Wu <jiawenwu@trustnetic.com>
+To: Mengyuan Lou <mengyuanlou@net-swift.com>
+To: Thangaraj Samynathan <Thangaraj.S@microchip.com>
+To: Sebastian Reichel <sre@kernel.org>
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-omap@vger.kernel.org
+Cc: linux-usb@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+
+---
+James Hilliard (4):
+      net: phy: cache MDIO bus owner before dropping PHY reference
+      net: mdio: factor out OF child registration helpers
+      net: mdio: make device map changes hotplug-safe
+      net: mdio: support dynamic OF device changes
+
+ drivers/net/dsa/b53/b53_common.c                   |   9 +-
+ drivers/net/ethernet/8390/ax88796.c                |   2 +
+ drivers/net/ethernet/adi/adin1140.c                |   6 +-
+ drivers/net/ethernet/aeroflex/greth.c              |   2 +
+ drivers/net/ethernet/agere/et131x.c                |  10 +-
+ drivers/net/ethernet/amd/au1000_eth.c              |  27 +-
+ drivers/net/ethernet/apm/xgene-v2/mdio.c           |   8 +-
+ drivers/net/ethernet/broadcom/b44.c                |   6 +
+ drivers/net/ethernet/broadcom/bgmac-bcma.c         |   1 +
+ drivers/net/ethernet/broadcom/genet/bcmmii.c       |   4 +
+ drivers/net/ethernet/broadcom/sb1250-mac.c         |   8 +-
+ drivers/net/ethernet/broadcom/tg3.c                |  32 +-
+ drivers/net/ethernet/broadcom/tg3.h                |   1 +
+ drivers/net/ethernet/cadence/macb_main.c           |   1 +
+ drivers/net/ethernet/engleder/tsnep_main.c         |   4 +
+ drivers/net/ethernet/ethoc.c                       |  14 +-
+ drivers/net/ethernet/faraday/ftgmac100.c           |   8 +-
+ drivers/net/ethernet/freescale/fec_main.c          |  14 +-
+ drivers/net/ethernet/hisilicon/hibmcge/hbg_mdio.c  |   8 +
+ .../ethernet/hisilicon/hns3/hns3pf/hclge_main.c    |  10 +-
+ drivers/net/ethernet/lantiq_etop.c                 |   8 +-
+ .../ethernet/mellanox/mlxbf_gige/mlxbf_gige_main.c |   2 +
+ drivers/net/ethernet/microchip/lan743x_main.c      |   1 +
+ drivers/net/ethernet/nxp/lpc_eth.c                 |  10 +-
+ drivers/net/ethernet/oa_tc6.c                      |   3 +
+ drivers/net/ethernet/qualcomm/emac/emac-phy.c      |   7 -
+ drivers/net/ethernet/rdc/r6040.c                   |  10 +-
+ drivers/net/ethernet/realtek/r8169_main.c          |  15 +-
+ drivers/net/ethernet/samsung/sxgbe/sxgbe_mdio.c    |   1 +
+ drivers/net/ethernet/smsc/smsc911x.c               |   6 +-
+ drivers/net/ethernet/smsc/smsc9420.c               |  10 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |   1 +
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c  |   2 +
+ drivers/net/ethernet/tehuti/tn40_phy.c             |   5 +-
+ drivers/net/ethernet/ti/davinci_emac.c             |  20 +-
+ drivers/net/ethernet/toshiba/tc35815.c             |   8 +-
+ drivers/net/ethernet/wangxun/ngbe/ngbe_mdio.c      |   8 +
+ drivers/net/ethernet/wangxun/txgbe/txgbe_phy.c     |   8 +
+ drivers/net/mdio/of_mdio.c                         | 514 +++++++++++++++++++--
+ drivers/net/phy/mdio_bus.c                         |  46 +-
+ drivers/net/phy/mdio_bus_provider.c                | 141 ++++--
+ drivers/net/phy/mdio_device.c                      | 238 +++++++++-
+ drivers/net/phy/mscc/mscc_ptp.c                    |  50 +-
+ drivers/net/phy/phy_device.c                       | 151 ++++--
+ drivers/net/phy/phylib-internal.h                  |   4 +-
+ drivers/net/usb/asix_devices.c                     |   4 +
+ drivers/net/usb/lan78xx.c                          |   7 +-
+ drivers/net/usb/smsc95xx.c                         |   2 +
+ drivers/power/reset/linkstation-poweroff.c         |   1 +
+ include/linux/mdio.h                               |   4 +-
+ include/linux/phy.h                                |  34 +-
+ net/dsa/user.c                                     |  12 +-
+ 52 files changed, 1239 insertions(+), 269 deletions(-)
+---
+base-commit: a23b36233d4103def55dc8cf65698106d0bd1e62
+change-id: 20260803-submit-mdio-of-dynamic-v2-90560ca159b9
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
