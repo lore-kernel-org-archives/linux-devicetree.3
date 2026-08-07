@@ -1,239 +1,264 @@
-Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com [95.215.58.188])
+Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com [95.215.58.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A752046EC98
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1B141930C
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:10:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786090236; cv=none; b=jCUjsMKmpflClxgrGL3GiMEwCk12kUrvYIm8OiEVH6dFDq9Fieq4TWUxlueWxOddMeeu0sMSTkmHgLz7EzSh0BBcffCaL4CqFuEtI5B8LZHBlqIEDQu+nbWU2vq5twB/OoKLFhi+WhACrf7AbkNp463jCPbiujtdgIg21LUkwK8=
+	t=1786090236; cv=none; b=iRMo6z4XF7ukcl1kzdUTphCC9JqeVO6l1KuDd+dFhzAmQfs7/TrCqUhn/GXMbklRWACKnSLZlv8obrZDsJCf4zqxyEt+MLrm4u626vnqu80yMvcaCkcFFV552ZtnwqbIOxaVixxjzWb7Ng70g7Dc2TiEN4xnq7hmJ0TywYwrPbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786090236; c=relaxed/simple;
-	bh=Wilwbq6qss95jBv6QjjHhJ0rElpiE+LIq2SKIKMGaRk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QnAcf9RVtIA8CxdaVtw7rTuInaN9bGGi4FUOapycjwHgxZzLDnNHvbgaYbkLZZY4mp1HPE6zQ3eiIHbulOtr9lSPRbV1e6fCPF7Ay2+TjjQr2dSN0NEp/daQuRnvyvBgOS0RegQHipXrFNLsbimkcO/ezLKWT2dzdRDLZQ4kkQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=aLCs3n2N; arc=none smtp.client-ip=95.215.58.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	bh=v08XL07bPIl7hm+SCJMDuaulN5JO0F9Nl5eJ4cMmKK4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=iIQhp5tUZbRvZEYV8TwCWy0y67gXqU9Wh6T6C30ctCoRNAiLVhNR77ukY8RzFzq5mjqpxJxucF0zkgMe5CgEN8Cz68cKAIm6xM2e2BTTq4U31L4bZG53YuyscfJncZI0wYN7Og5euck61fMNn9XL1kg9UyCjHa1fsJIT7/GU4IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=ebXw3sGv; arc=none smtp.client-ip=95.215.58.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="aLCs3n2N"
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786090227;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PEmQtgL1Jg9eS21ZoU2L12+hHWs75lQjzuzUo6aM1mc=;
-	b=aLCs3n2NejlRTfLETAKXw7OmbjOXKceBHkS6DLJBKv11BFbmrahQRfrXqvdf/hgP4jmg4H
-	5CCxw3MyVB1qJz5M4ubUYUbNOcUUWNdr+SN35KRpUcFc4VThbpauqUV1bvRo/9qDGAe/fE
-	1OMaaTxwB4YyfYwMRnEbo5OkXG75ZWs=
-From: Atish Patra <atish.patra@linux.dev>
-Date: Fri, 07 Aug 2026 01:09:11 -0700
-Subject: [PATCH v9 16/20] RISC-V: perf: Use config2/vendor table for event
- to counter mapping
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="ebXw3sGv"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-counter_delegation-v9-16-58658104e487@meta.com>
-References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
-In-Reply-To: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
-To: Will Deacon <will@kernel.org>, Atish Patra <atish.patra@linux.dev>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Anup Patel <anup@brainfault.org>, Ian Rogers <irogers@google.com>, 
- Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- James Clark <james.clark@linaro.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Conor Dooley <conor@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+	s=key1; t=1786090227;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=myxhS2a8E7aAq3z2l/Oupz4nK0+6QMT2wFctmDznMP4=;
+	b=ebXw3sGvz+JoVvAk2f5cLlPmCLtklqiquZ6SRIOKvuDAm7og00AMWvjQlMvicxCkd9cU6m
+	dQklT4aNT4kz4uf/Bi54wlZkE3jWAOfUxQ4OzH9W0cMJUZRFWapie/1ER1oSmwl+XyAvYR
+	Gc9sBN10/D0LIXz3dv9OisQUHGAo5oFhlErTQtSt1b73iw4K8bBLmSABn8VueSVNXyvs+4
+	0Fqi8aerCyp4BwsCmqHdqslkHMwchI3VKh6OcDsEFuy3k76wdxv+qGgbVsq9GWuMWUNzsc
+	Vr3w2gRdQwKlo/c1qaOKmYIgwAwiCoAvatNF+DPNNmPyN/6BuHIrkQqecMkqTg==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 07 Aug 2026 10:10:08 +0200
+Message-Id: <DKIK4YHEVYA5.Y03RHE1E8FGQ@cknow-tech.com>
+Cc: <royalnet026@gmail.com>, <alchark@flipper.net>,
+ <chaoyi.chen@rock-chips.com>, <diederik@cknow-tech.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
+ <iommu@lists.linux.dev>, <linux-pm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH v6 6/9] accel/rocket: select the per-core clock and
+ reset counts from match data
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Jiaxing Hu" <gahing@gahingwoo.com>, <tomeu@tomeuvizoso.net>,
+ <heiko@sntech.de>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <joro@8bytes.org>, <will@kernel.org>,
+ <robin.murphy@arm.com>, <ulfh@kernel.org>, <p.zabel@pengutronix.de>,
+ <ogabbay@kernel.org>, <zhangqing@rock-chips.com>
+References: <20260806063413.350184-1-gahing@gahingwoo.com>
+ <20260806063413.350184-7-gahing@gahingwoo.com>
+In-Reply-To: <20260806063413.350184-7-gahing@gahingwoo.com>
 X-Migadu-Flow: FLOW_OUT
 
-From: Atish Patra <atishp@rivosinc.com>
+Hi Jiaxing,
 
-The counter restriction specified in the json file is passed to
-the drivers via config2 paarameter in perf attributes. This allows
-any platform vendor to define their custom mapping between event and
-hpmcounters without any rules defined in the ISA.
+On Thu Aug 6, 2026 at 8:34 AM CEST, Jiaxing Hu wrote:
+> The RK3576 carries the same RKNN block with a different set of clocks and
 
-For legacy events, the platform vendor may define the mapping in
-the driver in the vendor event table.
-The fixed cycle and instruction counters are fixed (0 and 2
-respectively) by the ISA and maps to the legacy events. The platform
-vendor must specify this in the driver if intended to be used while
-profiling. Otherwise, they can just specify the alternate hpmcounters
-that may monitor and/or sample the cycle/instruction counts.
+nit: same RKNN block as what? And if it has a different set of clocks/reset=
+s,
+is it still the same (HW) block?
 
-Signed-off-by: Atish Patra <atishp@rivosinc.com>
-Reviewed-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
-Tested-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
----
- drivers/perf/riscv_pmu_sbi.c   | 94 +++++++++++++++++++++++++++++++++++-------
- include/linux/perf/riscv_pmu.h |  2 +
- 2 files changed, 80 insertions(+), 16 deletions(-)
+> resets, so the counts cannot stay compile-time constants. Add a soc_data
+> struct to the of_device_id match data and take the bulk counts from it.
+> RK3588 keeps four clocks and two resets, so nothing changes for it.
+>
+> rocket_core_reset() is switched over as well. It is the same array, and
+> leaving it on ARRAY_SIZE() would walk entries that were never acquired
+> once a SoC asks for fewer.
 
-diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
-index f0b8b6eff2ea..ee0c07785927 100644
---- a/drivers/perf/riscv_pmu_sbi.c
-+++ b/drivers/perf/riscv_pmu_sbi.c
-@@ -76,6 +76,7 @@ static ssize_t __maybe_unused rvpmu_format_show(struct device *dev, struct devic
- 	RVPMU_ATTR_ENTRY(_name, rvpmu_format_show, (char *)_config)
- 
- PMU_FORMAT_ATTR(firmware, "config:62-63");
-+PMU_FORMAT_ATTR(counterid_mask, "config2:0-31");
- 
- static bool sbi_v2_available;
- static bool sbi_v3_available;
-@@ -120,6 +121,7 @@ static const struct attribute_group *riscv_sbi_pmu_attr_groups[] = {
- static struct attribute *riscv_cdeleg_pmu_formats_attr[] = {
- 	RVPMU_FORMAT_ATTR_ENTRY(event, RVPMU_CDELEG_PMU_FORMAT_ATTR),
- 	&format_attr_firmware.attr,
-+	&format_attr_counterid_mask.attr,
- 	NULL,
- };
- 
-@@ -1522,24 +1524,85 @@ static int rvpmu_deleg_find_ctrs(void)
- 	return num_hw_ctr;
- }
- 
-+/*
-+ * The json file must correctly specify counter 0 or counter 2 is available
-+ * in the counter lists for cycle/instret events. Otherwise, the drivers have
-+ * no way to figure out if a fixed counter must be used and pick a programmable
-+ * counter if available.
-+ */
- static int get_deleg_fixed_hw_idx(struct cpu_hw_events *cpuc, struct perf_event *event)
- {
--	return -EINVAL;
-+	bool guest_events = event->attr.config1 & RISCV_PMU_CONFIG1_GUEST_EVENTS;
-+	int idx;
-+
-+	/* event_base is 0 on the delegation path; match via the original perf attrs. */
-+	if (guest_events) {
-+		if (event->attr.type != PERF_TYPE_HARDWARE)
-+			return -EINVAL;
-+		if (event->attr.config == PERF_COUNT_HW_CPU_CYCLES)
-+			idx = 0; /* CY counter */
-+		else if (event->attr.config == PERF_COUNT_HW_INSTRUCTIONS)
-+			idx = 2; /* IR counter */
-+		else
-+			return -EINVAL;
-+	} else if (event->attr.config2 & RISCV_PMU_CYCLE_FIXED_CTR_MASK) {
-+		idx = 0; /* CY counter */
-+	} else if (event->attr.config2 & RISCV_PMU_INSTRUCTION_FIXED_CTR_MASK) {
-+		idx = 2; /* IR counter */
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+	/* Take the fixed counter only if delegated and free, else fall back. */
-+	if (!(cmask & BIT(idx)) || test_bit(idx, cpuc->used_hw_ctrs))
-+		return -EINVAL;
-+
-+	return idx;
- }
- 
- static int get_deleg_next_hpm_hw_idx(struct cpu_hw_events *cpuc, struct perf_event *event)
- {
--	unsigned long hw_ctr_mask = 0;
-+	u32 hw_ctr_mask = 0, temp_mask = 0;
-+	u32 type = event->attr.type;
-+	u64 config = event->attr.config;
-+	int ret;
- 
--	/*
--	 * TODO: Treat every hpmcounter can monitor every event for now.
--	 * The event to counter mapping should come from the json file.
--	 * The mapping should also tell if sampling is supported or not.
--	 */
-+	/* Select only available hpmcounters */
-+	hw_ctr_mask = cmask & (~0x7) & ~(cpuc->used_hw_ctrs[0]);
-+
-+	switch (type) {
-+	case PERF_TYPE_HARDWARE:
-+		temp_mask = current_pmu_hw_event_map[config].counterid_mask;
-+		break;
-+	case PERF_TYPE_HW_CACHE:
-+		ret = cdeleg_pmu_event_find_cache(config, NULL, &temp_mask);
-+		if (ret)
-+			return ret;
-+		break;
-+	case PERF_TYPE_RAW:
-+		/*
-+		 * Mask off the counters that can't monitor this event (specified via json)
-+		 * The counter mask for this event is set in config2 via the property 'Counter'
-+		 * in the json file or manual configuration of config2. If the config2 is not set,
-+		 * it is assumed all the available hpmcounters can monitor this event.
-+		 * Note: This assumption may fail for virtualization use case where they hypervisor
-+		 * (e.g. KVM) virtualizes the counter. Any event to counter mapping provided by the
-+		 * guest is meaningless from a hypervisor perspective. Thus, the hypervisor doesn't
-+		 * set config2 when creating kernel counter and relies default host mapping.
-+		 */
-+		if (event->attr.config2)
-+			temp_mask = event->attr.config2;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	if (temp_mask)
-+		hw_ctr_mask &= temp_mask;
-+
-+	if (!hw_ctr_mask)
-+		return -EINVAL;
- 
--	/* Select only hpmcounters */
--	hw_ctr_mask = cmask & (~0x7);
--	hw_ctr_mask &= ~(cpuc->used_hw_ctrs[0]);
- 	return __ffs(hw_ctr_mask);
- }
- 
-@@ -1579,10 +1642,6 @@ static int rvpmu_deleg_ctr_get_idx(struct perf_event *event)
- 	u64 priv_filter;
- 	int idx;
- 
--	/*
--	 * TODO: We should not rely on SBI Perf encoding to check if the event
--	 * is a fixed one or not.
--	 */
- 	if (!is_sampling_event(event)) {
- 		idx = get_deleg_fixed_hw_idx(cpuc, event);
- 		if (idx == 0 || idx == 2) {
-@@ -1602,10 +1661,13 @@ static int rvpmu_deleg_ctr_get_idx(struct perf_event *event)
- 		goto out_err;
- found_idx:
- 	priv_filter = get_deleg_priv_filter_bits(event);
-+	if (test_and_set_bit(idx, cpuc->used_hw_ctrs))
-+		goto out_err;
- 	write_deleg_hpmevent(idx, hwc->config, priv_filter);
-+	return idx;
- skip_update:
--	if (!test_and_set_bit(idx, cpuc->used_hw_ctrs))
--		return idx;
-+	set_bit(idx, cpuc->used_hw_ctrs);
-+	return idx;
- out_err:
- 	return -ENOENT;
- }
-diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pmu.h
-index 3c64151cb038..b23b71cb4e66 100644
---- a/include/linux/perf/riscv_pmu.h
-+++ b/include/linux/perf/riscv_pmu.h
-@@ -30,6 +30,8 @@
- #define RISCV_PMU_CONFIG1_GUEST_EVENTS 0x1
- 
- #define RISCV_PMU_DELEG_RAW_EVENT_MASK GENMASK_ULL(55, 0)
-+#define RISCV_PMU_CYCLE_FIXED_CTR_MASK 0x01
-+#define RISCV_PMU_INSTRUCTION_FIXED_CTR_MASK 0x04
- 
- struct cpu_hw_events {
- 	/* currently enabled events */
+but now comes the point I actually want to make:
 
--- 
-2.53.0-Meta
+> While moving through this path, take the two register writes in
+> rocket_job_handle_irq() under job_lock. rocket_job_hw_submit() writes
+> OPERATION_ENABLE from inside the lock, so a completion handled outside it
+> can write the zero after that one and stop a task that has just started.
+
+This should be its own separate commit (with a Fixes tag) ... which
+probably doesn't have/should be part of this (RFC) series?
+
+>
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+> ---
+>  drivers/accel/rocket/rocket_core.c |  8 ++++----
+>  drivers/accel/rocket/rocket_core.h |  9 ++++++++-
+>  drivers/accel/rocket/rocket_drv.c  | 12 +++++++++---
+>  drivers/accel/rocket/rocket_job.c  | 12 +++++++++---
+>  4 files changed, 30 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index 5dd260bac..b202d1581 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
+> =20
+>  	core->resets[0].id =3D "srst_a";
+>  	core->resets[1].id =3D "srst_h";
+> -	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(co=
+re->resets),
+> +	err =3D devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->nu=
+m_resets,
+>  						    core->resets);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", c=
+ore->index);
+> @@ -32,7 +32,7 @@ int rocket_core_init(struct rocket_core *core)
+>  	core->clks[1].id =3D "hclk";
+>  	core->clks[2].id =3D "npu";
+>  	core->clks[3].id =3D "pclk";
+> -	err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+> +	err =3D devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", c=
+ore->index);
+> =20
+> @@ -109,9 +109,9 @@ void rocket_core_fini(struct rocket_core *core)
+> =20
+>  void rocket_core_reset(struct rocket_core *core)
+>  {
+> -	reset_control_bulk_assert(ARRAY_SIZE(core->resets), core->resets);
+> +	reset_control_bulk_assert(core->soc->num_resets, core->resets);
+> =20
+>  	udelay(10);
+> =20
+> -	reset_control_bulk_deassert(ARRAY_SIZE(core->resets), core->resets);
+> +	reset_control_bulk_deassert(core->soc->num_resets, core->resets);
+>  }
+> diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/ro=
+cket_core.h
+> index f6d738285..0f424bb86 100644
+> --- a/drivers/accel/rocket/rocket_core.h
+> +++ b/drivers/accel/rocket/rocket_core.h
+> @@ -27,16 +27,23 @@
+>  #define rocket_core_writel(core, reg, value) \
+>  	writel(value, (core)->core_iomem + (REG_CORE_##reg) - REG_CORE_S_STATUS=
+)
+> =20
+> +/* Per-SoC differences, selected by the of_device_id match data. */
+> +struct rocket_soc_data {
+> +	unsigned int num_clks;		/* clk_bulk count */
+> +	unsigned int num_resets;	/* reset_bulk count */
+> +};
+> +
+>  struct rocket_core {
+>  	struct device *dev;
+>  	struct rocket_device *rdev;
+> +	const struct rocket_soc_data *soc;
+>  	unsigned int index;
+> =20
+>  	int irq;
+>  	void __iomem *pc_iomem;
+>  	void __iomem *cna_iomem;
+>  	void __iomem *core_iomem;
+> -	struct clk_bulk_data clks[4];
+> +	struct clk_bulk_data clks[6];
+>  	struct reset_control_bulk_data resets[2];
+> =20
+>  	struct iommu_group *iommu_group;
+> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
+ket_drv.c
+> index 8bbbce594..6e7dc91c5 100644
+> --- a/drivers/accel/rocket/rocket_drv.c
+> +++ b/drivers/accel/rocket/rocket_drv.c
+> @@ -176,6 +176,7 @@ static int rocket_probe(struct platform_device *pdev)
+> =20
+>  	rdev->cores[core].rdev =3D rdev;
+>  	rdev->cores[core].dev =3D &pdev->dev;
+> +	rdev->cores[core].soc =3D of_device_get_match_data(&pdev->dev);
+>  	rdev->cores[core].index =3D core;
+> =20
+>  	rdev->num_cores++;
+> @@ -213,8 +214,13 @@ static void rocket_remove(struct platform_device *pd=
+ev)
+>  	}
+>  }
+> =20
+> +static const struct rocket_soc_data rk3588_soc_data =3D {
+> +	.num_clks =3D 4,
+> +	.num_resets =3D 2,
+> +};
+> +
+>  static const struct of_device_id dt_match[] =3D {
+> -	{ .compatible =3D "rockchip,rk3588-rknn-core" },
+> +	{ .compatible =3D "rockchip,rk3588-rknn-core", .data =3D &rk3588_soc_da=
+ta },
+
+While it technically fits on 1 line, putting the ``.data =3D `` part on its
+own line is easier to read and likely more future proof.=20
+
+Cheers,
+  Diederik
+
+>  	{}
+>  };
+>  MODULE_DEVICE_TABLE(of, dt_match);
+> @@ -240,7 +246,7 @@ static int rocket_device_runtime_resume(struct device=
+ *dev)
+>  	if (core < 0)
+>  		return -ENODEV;
+> =20
+> -	err =3D clk_bulk_prepare_enable(ARRAY_SIZE(rdev->cores[core].clks), rde=
+v->cores[core].clks);
+> +	err =3D clk_bulk_prepare_enable(rdev->cores[core].soc->num_clks, rdev->=
+cores[core].clks);
+>  	if (err) {
+>  		dev_err(dev, "failed to enable (%d) clocks for core %d\n", err, core);
+>  		return err;
+> @@ -260,7 +266,7 @@ static int rocket_device_runtime_suspend(struct devic=
+e *dev)
+>  	if (!rocket_job_is_idle(&rdev->cores[core]))
+>  		return -EBUSY;
+> =20
+> -	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->co=
+res[core].clks);
+> +	clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev->cores=
+[core].clks);
+> =20
+>  	return 0;
+>  }
+> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
+ket_job.c
+> index bb77b6bf0..aa26e2977 100644
+> --- a/drivers/accel/rocket/rocket_job.c
+> +++ b/drivers/accel/rocket/rocket_job.c
+> @@ -345,10 +345,15 @@ static void rocket_job_handle_irq(struct rocket_cor=
+e *core)
+>  {
+>  	pm_runtime_mark_last_busy(core->dev);
+> =20
+> -	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+> -	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+> +	scoped_guard(mutex, &core->job_lock) {
+> +		/*
+> +		 * Stopping the block belongs under the lock. hw_submit() writes
+> +		 * OPERATION_ENABLE too, and outside the lock this zero can land
+> +		 * after that one and kill a task that has only just started.
+> +		 */
+> +		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+> +		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+> =20
+> -	scoped_guard(mutex, &core->job_lock)
+>  		if (core->in_flight_job) {
+>  			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_co=
+unt) {
+>  				rocket_job_hw_submit(core, core->in_flight_job);
+> @@ -360,6 +365,7 @@ static void rocket_job_handle_irq(struct rocket_core =
+*core)
+>  			pm_runtime_put_autosuspend(core->dev);
+>  			core->in_flight_job =3D NULL;
+>  		}
+> +	}
+>  }
+> =20
+>  static void
+
 
