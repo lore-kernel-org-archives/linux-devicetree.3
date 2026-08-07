@@ -1,141 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6983F8ED3
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 13:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B5643031B;
+	Fri,  7 Aug 2026 13:02:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786107677; cv=none; b=FitJI28imviVIYkMpPWH1UDdDVtarFoP2yBMK24X1AqjaSz1Vqtf0KeKmmAKbTus7hMTYno5RKGKaFrjn35SqWQRM1v+Mslm7mCRK3XTLNNJkUtVE2Cr7a5Dwk5VYpkxnEZDvZNoJQ75MaqjB8YJ4LVQO8kSuPVytqPixsUOpyg=
+	t=1786107762; cv=none; b=MEz7fOZTG7+VNXIx6bU0z2ha4kDt9kvG1eJ3QWII3zSU1QzwntxGUbjyKDeGbpwm2/OEz6ZjYMUJVnc8qXLosZMPgQzZxhA+gILoaw7eOzQG1H5ukXNmg57V0g38zyPucPB1CJwjCg/PD7FzVjw+RlYeBTfLyR0r9kg7nccxni0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786107677; c=relaxed/simple;
-	bh=PZ1sy0ttnQ6+03SqLRcVEn9x2iuUu+2g/bsno9SVfrQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MAQQaEXwG+Z33BwcuVBJ0XZYPYgPOFyy7dUWG+c0SN8j7U8LEPyikb0uOuIMZxive3Dw0ymFenYKHMTGEamPCFaLqQ8Y+OSayRrSp7ePp013W0V1c/BwlVoMkDUCQQfg7InctZVG55j26o2uPRgMnUtv5uau7NETIHtkK4Y5lX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QU6HcPbE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786107762; c=relaxed/simple;
+	bh=FdWE3jLBu1qUiJGqtka5XAGDIfCU188cWO+v/9kTolg=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=tjuH2lQhNbOH2cHmsxu2iPdKziUF+1iMmvGGTYTyxPd16lXD9YiDxOAVEJ0CuaOQy2gyJRqR0KD2IGc6MlzGBo8mh+f9UyxulB2WoGD2sTLUhKCEC1CzM0kfRwef9drD0fr5UTWEPbWr2UbLnCQtywBsSfPRV6/O2Jfp72o3MEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OecVw22t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QU6HcPbE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E6D1F00A3A;
-	Fri,  7 Aug 2026 13:01:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OecVw22t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864B01F000E9;
+	Fri,  7 Aug 2026 13:02:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786107663;
-	bh=HgIz1YJ5c7U9cYZWb8x4HnIBIX6b0E3pgK+Ug04iM7A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QU6HcPbEDXUkG+lXdETnzCtLb0vL21Y1ekLBNmb2th6mZOsHgdU6jSd/5Wg55qHkK
-	 AUI2+CqX3IX3m5GTg+666OpRW0U3oEzXAxQt/OiqOGVFs2Lf5LZKfbzjoW0XECqqW8
-	 I8h1mZzh8G7m/cWNPX7eeX/JV0SYE52W/RDRLHEdyqiq7t3iIZgg+9obInynbBpgvZ
-	 5cfYGBkTAxev2Koc7WS6DvMwo1pa/KxP2jC62CtWULcAT8csb6KEBRniMGytOMPKz3
-	 W3Wda2nsGn8apnWBxLuh5MOXfVoExjo6isCVfX5oBXSNl44Ssjr0tnsEYyVfBhaTd+
-	 oYwACCDCV7nTA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm7125-samsung: add initial
- device tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Erikas Bitovtas" <xerikasxx@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260807-sm7125-samsung-v3-3-ac0139e5c612@gmail.com>
-References: <20260807-sm7125-samsung-v3-0-ac0139e5c612@gmail.com>
- <20260807-sm7125-samsung-v3-3-ac0139e5c612@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 13:01:02 +0000
-Message-Id: <20260807130103.58E6D1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1786107752;
+	bh=1ojP9lXDTsgxo+kBprRZYnvCdgavnn52UswOqgtr3nc=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=OecVw22taBzl2gw5knEc7KAsRSOu+xy7WrSl5VJa24e6O4sz1Y6duJxpWBx4xAj00
+	 SxwiVPTLg9TcQZjSpGqD7plpJalJalll0HQP8DDfJWoEbueZPFIiPg4ulIVvdPBonw
+	 K1X8wRNrppJpXuxm0HfMG+kJevTJtd/JyRuwnp5mxcbvJgg93Nuadmj++VtZ+0AbFd
+	 jmRTVO3RY2Se7UzN4HgipbbPMpcjR4guz+7xvEZF6yXh45P7R89orLAyBaV2ATDDij
+	 QVFc4Hma0dAnVVIb//MUH7uVMc8W7eEeLmrohv/eczvy/UyaQI/lMoQYDnxe5b/yuL
+	 2puGqJ6IXaEjw==
+Date: Fri, 07 Aug 2026 08:02:31 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Hal Feng <hal.feng@starfivetech.com>, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ Palmer Dabbelt <palmer@dabbelt.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-hardening@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>, 
+ linux-clk@vger.kernel.org, Emil Renner Berthing <kernel@esmil.dk>, 
+ Stephen Boyd <sboyd@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, Kees Cook <kees@kernel.org>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ "Gustavo A . R . Silva" <gustavoars@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+In-Reply-To: <20260807112923.191627-16-changhuang.liang@starfivetech.com>
+References: <20260807112923.191627-1-changhuang.liang@starfivetech.com>
+ <20260807112923.191627-16-changhuang.liang@starfivetech.com>
+Message-Id: <178610775180.4069377.7068076405963189133.robh@kernel.org>
+Subject: Re: [PATCH v3 15/22] dt-bindings: clock: Add StarFive JHB100
+ Peripheral-1 clock and reset generator
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The QMP (SuperSpeed) USB PHY is unnecessarily enabled while the =
-USB controller is restricted to high-speed mode without an SSPHY.
-- [Low] The `rmtfs_mem` node lacks a unit address in the common dtsi but ha=
-s a `reg` property appended in the board files, causing a DTC warning.
---
 
---- Patch [3]: [PATCH v3 3/3] arm64: dts: qcom: sm7125-samsung: add initial=
- device tree ---
-commit 7ad14e43b9cfd884317a8c3a0d039dc250371474
-Author: Erikas Bitovtas <xerikasxx@gmail.com>
+On Fri, 07 Aug 2026 04:29:16 -0700, Changhuang Liang wrote:
+> Add bindings for the Peripheral-1 clock and reset generator (PER1CRG)
+> on the JHB100 RISC-V SoC by StarFive Ltd.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../clock/starfive,jhb100-per1crg.yaml        | 70 +++++++++++++++++++
+>  .../dt-bindings/clock/starfive,jhb100-crg.h   | 60 ++++++++++++++++
+>  .../dt-bindings/reset/starfive,jhb100-crg.h   | 19 +++++
+>  3 files changed, 149 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/clock/starfive,jhb100-per1crg.yaml
+> 
 
-arm64: dts: qcom: sm7125-samsung: add initial device tree
-   =20
-Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
-in 2021. Add initial device tree for SM7125 Samsung platform with
-support for:
-- Framebuffer
-- GPIO keys
-- Hall sensor
-- Vibrator
-- Regulators
-- Reset input
-- Real-time clock
-- SD card
-- UFS
-- USB
+My bot found errors running 'make dt_binding_check' on your patch:
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts b/arch/arm6=
-4/boot/dts/qcom/sm7125-samsung-a52q.dts
-> new file mode 100644
-> index 0000000000000..ecba5be8164ea
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
+yamllint warnings/errors:
 
-[ ... ]
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-tdshp.example.dtb: tdshp@321e0000 (mediatek,mt8196-disp-tdshp): 'clock-names' is a required property
+	from schema $id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-tdshp.yaml
+Documentation/devicetree/bindings/display/imx/fsl,imx-lcdc.example.dtb: display0: fsl,pcr: b'\xf0\xc8\x80\x80' is not of type 'object', 'integer', 'array', 'boolean', 'null'
+	from schema $id: http://devicetree.org/schemas/dt-core.yaml
 
-> +&rmtfs_mem {
-> +	reg =3D <0x0 0xf4f00000 0x0 0x202000>;
-> +};
+doc reference errors (make refcheckdocs):
 
-[Severity: Low]
-Does this trigger a unit_address_vs_reg warning in the Device Tree compiler=
-?=20
+See https://patchwork.kernel.org/project/devicetree/patch/20260807112923.191627-16-changhuang.liang@starfivetech.com
 
-The rmtfs_mem base node is defined without a unit address in the common dts=
-i,=20
-but a reg property is appended here in the board file.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/a=
-rm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-> new file mode 100644
-> index 0000000000000..b8863e111bc4f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
 
-[ ... ]
+pip3 install dtschema --upgrade
 
-> +&usb_1 {
-> +	qcom,select-utmi-as-pipe-clk;
-> +
-> +	status =3D "okay";
-> +};
-> +
-> +&usb_1_dwc3 {
-> +	dr_mode =3D "peripheral";
-> +	maximum-speed =3D "high-speed";
-> +
-> +	status =3D "okay";
-> +};
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
-[ ... ]
-
-> +&usb_1_qmpphy {
-> +	vdda-phy-supply =3D <&vreg_l4a_0p9>;
-> +	vdda-pll-supply =3D <&vreg_l3c_1p2>;
-> +
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Is it necessary to enable the SuperSpeed QMP PHY here?
-
-The USB controller is restricted to high-speed mode and configured to ignor=
-e=20
-the pipe clock from the SuperSpeed PHY via qcom,select-utmi-as-pipe-clk.
-
-Leaving the QMP PHY enabled might unnecessarily waste power and regulator=20
-resources.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-sm7125-sam=
-sung-v3-0-ac0139e5c612@gmail.com?part=3D3
