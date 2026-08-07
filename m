@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E8A3D8103
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:54:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81DBD38B148
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:57:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786092859; cv=none; b=F48zK24MvswJK+cRsjqDR/FPj/tjGUZdy28CpriLqxAv94viR5e6XtVjZWldK3gm4SO7YouB+WQzZnhJXMo+Mts5WZhJZfTCNfVlLfH0V2EJ/ptb/22CK0X9A+q8JliixiXunohxR5qdBhwagIL5qe8pUBp7mlyavCmTV5BFc/c=
+	t=1786093052; cv=none; b=PzmnjKaabq6HNG//9/f09aL31TMQ/zeT15s2E2/vTfg4QHcjEzNdYlD6jNF0n0aX8KxccjkxHPiN0kdL/otGTDXxX/VYEQSKyPp4QKBMhgkXQeEdhA7LFd6Ua+NMfK+fQOK6GZ08Lknn3Si3B5psjg2Cq0K1Ebacxm8eVm+g8zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786092859; c=relaxed/simple;
-	bh=gWnLVZ5kLZflgh3wWyG8MgarIho/9eT4e1qBlekYKSY=;
+	s=arc-20240116; t=1786093052; c=relaxed/simple;
+	bh=jxuSqHsB7kRkoM1aELfaTjxtRrj3RIPyCQmqPVGCcNg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bMo4JhTx45DvxOkHjp4uDGRTYD+IjY5oQsA6j2Ej6cf0lm/rswzglgC6WBqB3xMzahxiC/TNVSti/lXmk1dbkdU+rq2inOkWuyOLRYEEQhsUIG5LZ/5unh6Vl2Lhb1c0Ye55B7DQCl0zwv83sQMOILZ1E7gP8AZOYaK7ep83S2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZjw+WlI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MMYKoqNYQRERQ4aIH3EwiWHL1nsD+7lT3IKvmKxk0m/0nR8xSOGkHo8pJJWxKW/k72jIJ6omysG5LlTQ2XAeoED5iQJgxKQNpmgxiX5/Tvc0c4v1toIKuqNOTCv8R+NLJ+OpuIG1AOV0WENLS2SkgcHqxAfYZrYOYj6q8pIHgAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXzuUMvn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZjw+WlI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F221F000E9;
-	Fri,  7 Aug 2026 08:54:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXzuUMvn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 953011F000E9;
+	Fri,  7 Aug 2026 08:57:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786092858;
-	bh=sYrGG5VW4pYrwj/jc3G+ehM19E6XZQLQ9aT1BVeJrjQ=;
+	s=k20260515; t=1786093051;
+	bh=pdpOXKxIlAbjTuFTyPvKQFZVQw6cblIntbDgvoq3hNw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BZjw+WlIiZFhfsTDU0+I1Pg8bs/zmG190Hk2/joS9e43P/RzaS7ygvbzy0T4aeDf3
-	 SlFuJLuPl4q3mOlJZxxQ2GMLkU3UV8O0j9UcZA7ffage8WoeKbBJgnMC5rQaoVPQx3
-	 oyQZ0f5l432thbZvRJlnHr/vID+4VPwQXyYkYyBzBcKzg9JJzP9HiD/dn8cBCxbgVs
-	 +UaNx84BAzwvfib5SFxsmw8uI/04nEWZ9XBMBVX9lcZXr3LC824Fymo1uB+IbEqwIt
-	 7UaiY7U6B2flFQuyrH5rttdUgy8aYoUWZKZ6DExI9WPH6zfwSkPKvsDXdBJDbtkXTS
-	 3l7xDACFrbaSg==
+	b=oXzuUMvnoDXqxXVCI71XHEC0E8RRggmk8aJrt0tndI49YJE6UcbSmO2G5kgnchhZ6
+	 Rzl4vTFD40pf1w6wWZlf5vQdvq3bIgiS/GaO+M93IqBrwmFIMRITUlvsF+H2DX2VSM
+	 eTqIVqUnYjW8vCv3AQNrWLYtEVLfumPzJiEtP4qUP5RYRhYDIMTs7CPAyyfZ9TSmDK
+	 beRhObMCrRLzvihRVFV75JOX/Tir8DZeMty3qXbDpD/zeYhIqsQrcpOWrVb05/h7fd
+	 jOWNNlq0IfZ3qjOL4iRL8/PV+TXrQqztKB2jYbqdHw5FqOIOiUkFiYv1B4+dsJrGeB
+	 6kXxalXMoPsUA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/22] arm64: dts: qcom: kodiak: Reserve low IOVA range
+Subject: Re: [PATCH 12/22] arm64: dts: qcom: agatti: Reserve low IOVA range
  for Venus
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-13-3996f67e33f9@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
+In-Reply-To: <20260807-iris_iova_600mb_fix-v1-12-3996f67e33f9@oss.qualcomm.com>
 References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-13-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-12-3996f67e33f9@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 08:54:17 +0000
-Message-Id: <20260807085417.72F221F000E9@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 08:57:29 +0000
+Message-Id: <20260807085730.953011F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,29 +49,33 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Fatal parsing bug and NULL pointer dereference in `of_iommu_get_re=
-sv_regions` when parsing `iommu-addresses`.
+- [High] Multiple parsing vulnerabilities in `of_iommu_get_resv_regions` wh=
+en processing `iommu-addresses`.
 --
 
---- Patch [13]: [PATCH 13/22] arm64: dts: qcom: kodiak: Reserve low IOVA ra=
+--- Patch [12]: [PATCH 12/22] arm64: dts: qcom: agatti: Reserve low IOVA ra=
 nge for Venus ---
-commit c5c55dfe3f391bbec75ef2147bce3c7b4d05e83b
+commit ce9067cc6b514ef4e9f906bcee46fa8222f6c18b
 Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Subject: arm64: dts: qcom: kodiak: Reserve low IOVA range for Venus
 
-This commit reserves IOVA addresses below 0x25800000 for the Venus VPU to
-prevent SMMU page faults and spontaneous reboots caused by unhandled DMA.
-It adds a reserved-memory IOVA reservation node and references it from the
-venus node to keep IOMMU allocations above this boundary.
+arm64: dts: qcom: agatti: Reserve low IOVA range for Venus
 
-> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
-com/kodiak.dtsi
-> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+This commit reserves IOVA addresses below 0x25800000 for the Venus VPU.
+This prevents unhandled SMMU page faults and spontaneous reboots when
+other stream IDs DMA into that range.
+
+Fixes: 7a37bf31e3a7 ("arm64: dts: qcom: qcm2290: Add Venus video node")
+Cc: stable@vger.kernel.org
+
+> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
+com/agatti.dtsi
+> index 590bd2432d85b..6ae66ef882363 100644
+> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
 [ ... ]
-> @@ -198,6 +198,17 @@ adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
->  			alignment =3D <0x0 0x400000>;
->  			size =3D <0x0 0x800000>;
+> @@ -381,6 +381,17 @@ rmtfs_mem: memory@89b01000 {
+>  			qcom,client-id =3D <1>;
+>  			qcom,vmid =3D <QCOM_SCM_VMID_MSS_MSA QCOM_SCM_VMID_NAV>;
 >  		};
 > +
 > +		/*
@@ -83,49 +87,53 @@ com/kodiak.dtsi
 > +		 */
 > +		venus_iova: venus-iova {
 > +			iommu-addresses =3D <&venus 0x0 0x0 0x0 0x25800000>;
-
+> +		};
 [Severity: High]
-This isn't a bug introduced by this patch, but adding this iommu-addresses
-property exposes a fatal parsing flaw in the IOMMU core layer that can panic
-the kernel.
+This isn't a bug introduced by this patch, but using the iommu-addresses
+property here exposes multiple parsing vulnerabilities in
+of_iommu_get_resv_regions() in drivers/iommu/of_iommu.c.
 
-In drivers/iommu/of_iommu.c:of_iommu_get_resv_regions(), the loop parsing
-the iommu-addresses property assigns the map pointer without validation:
+First, if a memory-region specifies iommu-addresses with entries for
+multiple devices, the loop reads the first phandle. If it doesn't match
+dev->of_node, it continues without advancing the maps pointer by the
+required address and size cells (na + ns):
+
+drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
+    ...
+    phandle =3D be32_to_cpup(maps++);
+    np =3D of_find_node_by_phandle(phandle);
+
+    if (np =3D=3D dev->of_node) {
+        ...
+}
+
+Does this cause the next iteration to incorrectly interpret the remaining
+address and size cells as a phandle?
+
+Second, if of_translate_dma_region() fails because there is no DMA parent,
+it returns null. The stack variable length remains uninitialized. If length
+is not zero, the loop proceeds.
 
 drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
     ...
     maps =3D of_translate_dma_region(np, maps, &iova, &length);
+    if (length =3D=3D 0)
+        continue;
     ...
 }
 
-If of_translate_dma_region() fails, it returns NULL. The code does not
-check for this, meaning maps becomes NULL. The loop condition (maps < end)
-then evaluates to true, and the next iteration will directly dereference
-NULL.
+Since maps is null, will this trigger a fatal null pointer dereference on
+the next maps++ ?
 
-Additionally, if the parsed phandle does not match dev->of_node:
+Finally, there appears to be no bounds check before of_translate_dma_region=
+()
+reads na + ns cells from the maps pointer.
 
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-    if (np =3D=3D dev->of_node) {
-        // ...
-    }
-    ...
-}
+Should these parser issues in of_iommu_get_resv_regions() be fixed before
+or alongside introducing this iommu-addresses usage?
 
-The code falls through without advancing the maps pointer to skip the
-current device's address and size cells. This causes the next iteration to
-incorrectly read address cells as phandles, entirely corrupting the DT
-parsing structure.
-
-Is there any risk that this new configuration could trigger a translation
-failure or phandle mismatch during device probe and hit these bugs?
-
-> +		};
->  	};
-> =20
->  	cpus {
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-iris_iova_=
-600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com?part=3D13
+600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com?part=3D12
