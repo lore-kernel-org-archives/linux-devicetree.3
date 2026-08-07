@@ -1,160 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC8631F985
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 08:40:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E69377A8B;
+	Fri,  7 Aug 2026 08:40:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786092020; cv=none; b=IciyguJH+bu4FFPh6iEnQjksRCnVUxIF5uFpfrCotllC2grXjOHPIp9bzcJ4OtjzA5lYL2G0Odlw3ec5v427OcimEKitW3pItFZkMyyKRpEEtUEp9xv1wMYyZ2MMcNndGB4ZTRTGcUw1gwdgIQanq11LJwUYN4kRjQ+pQ90EsMs=
+	t=1786092042; cv=none; b=HmZAs5KGuOwC1rvXdBNPAuGyDVmkwyZWl4kH84EyCbvbF+aNGB1tuKVUVHr6cawCeDtxOFyh8MXk38g35bGeNe57ANAVKRcBvX7SkEEOOG8dgorHeIEOwPjDQEnPF+RlpbhLO4JF3sSOXrRPhDvAnC1DicHzh3UpP0AOjDdOhVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786092020; c=relaxed/simple;
-	bh=r1I8HXKaZtoOtakF47WYbejx+jMHZRsBPn7UkMtGl8E=;
+	s=arc-20240116; t=1786092042; c=relaxed/simple;
+	bh=TFWsWmC6S0ELcX/pKjn5KVV0ehnE4DSx2r15Bh1KXGY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Oue+TlPEKkBqWJDAyLlRGeZd503MwWVe+8Pl/BCD5bnBsy/gF+OGhAt9qIYxb9Jyby8+18GqwUS7s7rvh3+BOS+BhgxPkI41Rdm5j4bK0vXAOonBaqYGqOg8ed8CZKQvqKr0qomhw9O6AlWqWEJWIoAl5WRw23JLmGSfX3OoxGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAlPFIiZ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UfQZ45lxHbl9nhMS7gJFKTjjA2t7Jv25hANNyqm+yMX2okzJx/rsy4Wlyxqcq3CtzA15p+Ya0hprvL6ptGAvpJWqCjg0kQ2ctpHcHB/8Dx8aQ0GkySffIlZcIx3M8N30Cwk6FYOxXLAjQuhLH6xnYH0VMQaUurfOf5T4hjB5ShQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ax5Rv+qR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAlPFIiZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444A81F000E9;
-	Fri,  7 Aug 2026 08:40:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ax5Rv+qR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31611F000E9;
+	Fri,  7 Aug 2026 08:40:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786092018;
-	bh=KlxISodueXNdqCoTgwEGgLbCoJNhlQCSiSZbutmaoIQ=;
+	s=k20260515; t=1786092040;
+	bh=7gjkdY6ykusx8RAwsMX8ncBMDZblhZlor1iCPDT8ans=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EAlPFIiZpc3vzobMSH0CHOHkYFtOwJlmKqbIXofbRSVEOI4TGsZocSkDnrJIcziUh
-	 Gj/Ax5NPpR/uGPiUlMz6uTH1RwJ4+cqBT2gDzBD7yQL2jZj9kdITcVDilRITS+mBHP
-	 0SbLWYW2pl4uSbbQxXPjSf1FgN0E9qL0awR+nEd88hDVivE/JzuemkEp8V/kOa+pmr
-	 jlNXcss9qVrH9pkAaIaAsgjx/wdYZx8JWcNAYG/LeXEWl9fV//IiSNXHpGlZ2jX3c9
-	 i+vSbpIZndN9ry8QPoH8a4bm+AoEtXTOH/sRooGoVzWsiYJ/n+Taxbw1FzEZcz4Cbl
-	 hAikWacy7XAqA==
+	b=Ax5Rv+qRCc6w1sDFhZBEc77I0Tfh4AqRvTd6caDl54kxmIO/O3sGhGNIuE70lWI62
+	 z/hLb2T99W13BWV4zsyPpVfsq9+xcTwOL07HfjnXWFWA78kjTRFziKnOKV8wH6rVl3
+	 e2lODP79QP46Cg3fRTUF5fryVu6fB/S2qCp/eOBvpMUxfheT834SaPryfPVvHswDt9
+	 F+doNxAr8eq6tVOdb25Rwcv1N/UlIDWmndbb6TmACjNnKc7FDuhivwyB4sWROXeH+Y
+	 jPou6Ra+wE3gQQj+UEaAYaqnnkLt6+8nVw3FdBTHLEswGZFeYEf+cCS0XqiiSfJCnu
+	 yjvf+WeNYyyEw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/22] dt-bindings: media: qcom,sm8550-iris: Allow IOVA
- reservation memory-region
+Subject: Re: [PATCH v9 17/20] RISC-V: perf: Add legacy event encodings via
+ sysfs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org
-In-Reply-To: <20260807-iris_iova_600mb_fix-v1-2-3996f67e33f9@oss.qualcomm.com>
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-2-3996f67e33f9@oss.qualcomm.com>
+To: "Atish Patra" <atish.patra@linux.dev>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org
+In-Reply-To: <20260807-counter_delegation-v9-17-58658104e487@meta.com>
+References: <20260807-counter_delegation-v9-0-58658104e487@meta.com>
+ <20260807-counter_delegation-v9-17-58658104e487@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 08:40:17 +0000
-Message-Id: <20260807084018.444A81F000E9@smtp.kernel.org>
+Date: Fri, 07 Aug 2026 08:40:38 +0000
+Message-Id: <20260807084039.C31611F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] NULL pointer dereference when `of_translate_dma_region()` fails.
-- [High] Parsing desynchronization when `iommu-addresses` contains entries =
-for different devices.
+- [Medium] The macro RVPMU_EVENT_ATTR_RESOLVE performs single-level stringi=
+fication, preventing macro expansion of event configuration values.
 --
 
---- Patch [2]: [PATCH 02/22] dt-bindings: media: qcom,sm8550-iris: Allow IO=
-VA reservation memory-region ---
-commit 75d07dc0e88c8eab8911e5e4c741c2ddba6cf12f
-Author: Daniel J Blueman <daniel@quora.org>
+--- Patch [17]: [PATCH v9 17/20] RISC-V: perf: Add legacy event encodings v=
+ia sysfs ---
+commit b1ff3421691bcc5997cb4d931f9fdffb9eef0d1c
+Author: Atish Patra <atishp@rivosinc.com>
 
-dt-bindings: media: qcom,sm8550-iris: Allow IOVA reservation memory-region
+RISC-V: perf: Add legacy event encodings via sysfs
 
-Non-pixel stream IDs should not allocate IOVA space from the restricted reg=
-ion,
-as this region is reserved exclusively for secure non-pixel. Iris platforms
-must declare an IOMMU IOVA reservation to keep DMA away from this range. Th=
-is
-patch permits a second memory-region phandle for this purpose and describes
-each entry.
+This commit defines sysfs entries for legacy events to expose event
+encoding and counter maps to tools like perf.
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yam=
-l b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 0400ca1bff05d..7dff7293fd5c8 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> @@ -84,7 +84,10 @@ properties:
->    dma-coherent: true
+> diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+> index ee0c077859273..5eb49db8bc7c1 100644
+> --- a/drivers/perf/riscv_pmu_sbi.c
+> +++ b/drivers/perf/riscv_pmu_sbi.c
+> @@ -130,7 +130,20 @@ static struct attribute_group riscv_cdeleg_pmu_forma=
+t_group =3D {
+>  	.attrs =3D riscv_cdeleg_pmu_formats_attr,
+>  };
 > =20
->    memory-region:
-> -    maxItems: 1
-> +    minItems: 1
-> +    items:
-> +      - description: Firmware-loaded codec carveout
-> +      - description: IOMMU IOVA reservation region
+> +#define RVPMU_EVENT_ATTR_RESOLVE(m) #m
 
-[Severity: High]
-This isn't a bug introduced by this patch, but introducing memory-region no=
-des
-utilizing iommu-addresses exposes a pre-existing NULL pointer dereference in
-the boot/probe path.
+[Severity: Medium]
+Does this single-level stringification handle macro arguments correctly?
 
-When the iommu-addresses property is parsed in of_iommu_get_resv_regions(),=
- if
-of_translate_dma_region() fails (e.g. due to a missing parent bus or malfor=
-med
-address), it returns NULL, which is directly assigned to the maps pointer:
+If a platform driver defines event mappings and passes standard kernel macr=
+os
+for the config or mask arguments to RVPMU_EVENT_CMASK_ATTR, this definition
+will stringify them verbatim without evaluation.
 
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-		if (np =3D=3D dev->of_node) {
-            ...
-			maps =3D of_translate_dma_region(np, maps, &iova, &length);
-    ...
-}
+For example, passing a macro like RISCV_PMU_CYCLE_FIXED_CTR_MASK would emit
+the literal string "event=3DRISCV_PMU_CYCLE_FIXED_CTR_MASK" instead of its
+numeric value. This breaks the perf tool's ability to parse the event
+encoding, rendering the PMU events unusable.
 
-Will this cause a kernel panic on the next iteration?
+Would it be better to use __stringify() from linux/stringify.h so that both
+literal numbers and macros evaluate correctly?
 
-The check maps < end would evaluate to true (since end is a valid, non-zero
-pointer), and the code then executes be32_to_cpup(maps++), which dereferenc=
-es
-the NULL pointer. Additionally, the length variable remains uninitialized on
-this failure path:
+> +#define RVPMU_EVENT_CMASK_ATTR(_name, _var, config, mask) \
+> +	PMU_EVENT_ATTR_STRING(_name, rvpmu_event_attr_##_var, \
+> +			      "event=3D" RVPMU_EVENT_ATTR_RESOLVE(config) \
+> +			      ",counterid_mask=3D" RVPMU_EVENT_ATTR_RESOLVE(mask))
+> +
 
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-	while (maps < end) {
-		struct device_node *np;
-		u32 phandle;
-
-		phandle =3D be32_to_cpup(maps++);
-    ...
-}
-
-[Severity: High]
-This is a pre-existing issue, but utilizing iommu-addresses exposes a parsi=
-ng
-desynchronization when the iommu-addresses property contains entries for
-different devices.
-
-If the parser reads an entry where the phandle does not match dev->of_node,=
- it
-skips processing but fails to advance the maps pointer past the address and
-size cells:
-
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-    ...
-	while (maps < end) {
-        ...
-		phandle =3D be32_to_cpup(maps++);
-		np =3D of_find_node_by_phandle(phandle);
-
-		if (np =3D=3D dev->of_node) {
-            ...
-			maps =3D of_translate_dma_region(np, maps, &iova, &length);
-            ...
-		}
-	}
-    ...
-}
-
-Does this completely desynchronize the parser?
-
-On the next iteration, it seems the parser would read the first address cell
-of the skipped entry as the next phandle, making it impossible to correctly
-parse a shared memory-region node containing multiple devices.
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-iris_iova_=
-600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-counter_de=
+legation-v9-0-58658104e487@meta.com?part=3D17
