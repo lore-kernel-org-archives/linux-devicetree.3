@@ -1,550 +1,171 @@
-Received: from out-93wp-a40.jellyfish.systems (out-93wp-a40.jellyfish.systems [104.207.68.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143524B04B7
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 02:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.207.68.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6198127A916
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 02:34:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786069449; cv=none; b=nTxmsuWtIbfIi0HzaXMjLcruA4EGosM9u/Gc+MmwMAHV0aE9BMvIc1lpiyVmBmYA146h19vbo+p81fdnTYksWgHJXw+/ByyIMD/54izpzal40rTWMFDdfGmpZSmITuyINCZfdUC/TkKF0hrYDnqxhRPwWYTnYokiskzECbW7x7w=
+	t=1786070068; cv=none; b=EeN8jxbMwfv7g6Up+NGlc88J8Am5KxiqLqNV3xErOwrnCDp9iFepQsAdmDshd3rzxMswRjMLl59rB/b+CMv3JTunrU4yHHNqYR9jprxYOC248niCWu0vk+csXPr+Wy9zeAUATLIkEpFVK2NGYbIN1tMJWJ4mJxr5wA4tFKYuCsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786069449; c=relaxed/simple;
-	bh=rG3ZRRX+6OT0u6Cx10VJ/T4eHjeIUIVqSTjsotynN/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s/mzCRyuG40ucBV9ileGFnhWlBKa2IMgEZfn249VQyU5ORdMMO4tELLH+MWRAEsbp9U3WZw7ziecoD+dvDxjHxlKsyJUo42bSbNF1g2iyVlFfl3UgUz9emeTFAbel96C0N9LaBkdTjAtLoxUk+TQRGHx//KLpHh/u+spskIBN+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=104.207.68.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hGSLM73cLz2x99;
-	Fri, 07 Aug 2026 02:11:07 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: David Heidelberg <david@ixit.cz>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Subject: [PATCH v4 5/6] nfc: s3fwrn5: support the S3NRN4V variant
-Date: Fri,  7 Aug 2026 04:10:00 +0200
-Message-ID: <20260807021001.239389-6-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
-References: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
+	s=arc-20240116; t=1786070068; c=relaxed/simple;
+	bh=F3sahIc5F9H37XPLmF3ypq3puhEsMkLGGOfvBF+VKNM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yxc1brOZXHCXWpz2RmL+VE1tfM/Dvrjc4dHHMBUW1sXrXU8fBf0WjvNxECycXVsYA7Yo24fg2oayekEAWfjTsJx10eCZh93FVKfhzu1bdwE26OtsH6R4G6ZIS5RwonwwiXJ5L1j19MQQQRl9u7vQagOc2xB+KKz/bx9+xPjhA64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AoVUPr/K; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FRubIIj2; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AoVUPr/K";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FRubIIj2"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6770Gjcd3477083
+	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 02:34:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ndFmLvtglCbgUdpFBjfySPC0n0eZtwY946Lp1MLj3Lo=; b=AoVUPr/KMBCJWVge
+	qjJSDEs1VQYikwckSmo7dfD9rW9exsurvTREmlIY/goqwA3EpvD6QjXkEEbNFLf+
+	IVCkf62Zcl6gCQGgLwbivuGOQ6g+tUElaqeAt9H3ihgavJ8m1eu5eguyJTOyGBPC
+	RIE7H2c8mDtuceV+a/Bqv26NgznSEsxSmsC5ngZwBZ92keCGplQfZwvXsL6k1ZBd
+	gQ7KnvSjvFetFxuB7ulCTyFVfvFX8x/wyTgzT0J8zer/hWV3+VRxSmQM9RuuU1M9
+	mSBWDF6Rjq9NsadiuAtO61EjskxftmFLDPBict7DeqZJb3OGRuwd2RTvPAXw2lkx
+	hQILAg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6h9vd2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 02:34:25 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51bf321d786so31721081cf.1
+        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 19:34:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786070065; x=1786674865; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ndFmLvtglCbgUdpFBjfySPC0n0eZtwY946Lp1MLj3Lo=;
+        b=FRubIIj2YCRh24dc8EZtVpZzO+ga2QY6daaHrOKy2HHHqJTVjA63QC18M3QPy0GVUj
+         ZGq1CKc6o9Zc+Lzrdf3rmYVN7ojlgZTD71M6Mpj/LkkIldtEBHaYJWhyc5yIfMPpFZR+
+         GRpnaxD7ZcrrGz3CKdGipSzgQV4mcWJv4HchLPfJUB5xGoqDnr1cCvYJi/i4e8AsK6ML
+         bLnLTKw+SGboGl2tb4lZIeJLWA6Zv+eilpY47lBudGwadlUtIzUDoEhUtU0dAb/H2MX+
+         I2r7vWRYIH9H5SU4bssEadrF1c+mqD9yRQFQ2Tnw1PBaXA92O0uQE0MreyhCBOvBapyb
+         PHaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786070065; x=1786674865;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ndFmLvtglCbgUdpFBjfySPC0n0eZtwY946Lp1MLj3Lo=;
+        b=PBUHqeqv79lyNyoYROWcz11ZwNdOyQI/sJCj7VfEH+lo3KX5ufL63U1sXnCSca0ck8
+         wyacNFhXcQvxflofgajxjfxHWGhZJB5j/GAc9R1ZSTwysaNzpZprM7aTMLuGZLNYja20
+         14QwDG8PljGPYR0QfjH6uTUmYyM4HZLSM/jyhRT/btRM13Kz6LlYHy1jTGQcs6tW8e+5
+         WG3DOK+cCCtpxruuIH8cXzH/rwZmPYpxqHAiRzqDulxOwLD0IlO6wQUTMHUrtcz5+Ppz
+         YzOZD4UH+N8v7HMC04HT3AHMMinkDme/WzNXVISw6oFhfpKK2wBawkhElc9MuO/8y6//
+         Iu4g==
+X-Forwarded-Encrypted: i=1; AHgh+Rqopo6jy7uMjaObv3VmWOcfztzpCfZQ/5RLy1+RZna14bABlV6FMGpP80gT1LCEno+cs3VkkfLcTOeV@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlLr5+2CTeHksv82dvoXMWOQBNfVYUe0uz1xDvqsKFuUmyV/CR
+	UJywJ/R1UWmyudPjTo62xPcvL7vwNAP0VhwRfx7D6X4IBwt+XHGx12kXHmrTV+TidjHWppkj+8a
+	n8scmpRjjoDxVOX0vtBZe2rrYXwbze/Hzi8d8XkYlxXXMjWBJKMxiW9NarAP6cyXO
+X-Gm-Gg: AR+sD112HIaTeDCmzsZRjLYaVBqg9kTzy3mcTfV0YDrnoeXaGvvpZPHp0mrTfsbchQ6
+	UE5EEXXpNakdbmZ2ZfgAssSiY0ORtkq16z7+j5ZmOi8XlE79G+1TCfWlT5fe+3NODzEV+t16XLI
+	wEW/ys4BXWXVRnujPjiugXUTSX5DaMGc+71g8aiLRQ/AJYn9P7I/RUHehQfx9gDHYETQa9yE7dY
+	l3niCJKW5bOTdxQ0jW4rKzDm0UdT0c3XVo2iVikBKOlSeRYsCrCvaAtw/OG4/c/Vw8QSnhpSzZ7
+	pZZ78T+XWWN/+Gd1yLcuI+V2nEhFnh/wmM2VO3Ply3ZHcQxRmKC9ua0CiK8lss+nT06ixPBSzq5
+	kVfOZz4bpr9DecfBOXkI5X9+suVAgvoCdMjyb5Bnsydhciw==
+X-Received: by 2002:ac8:5c8b:0:b0:51c:1f97:e860 with SMTP id d75a77b69052e-52d18e1a675mr1913741cf.3.1786070064620;
+        Thu, 06 Aug 2026 19:34:24 -0700 (PDT)
+X-Received: by 2002:ac8:5c8b:0:b0:51c:1f97:e860 with SMTP id d75a77b69052e-52d18e1a675mr1913241cf.3.1786070064134;
+        Thu, 06 Aug 2026 19:34:24 -0700 (PDT)
+Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995427a4dcsm113421675e9.11.2026.08.06.19.34.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 19:34:21 -0700 (PDT)
+Message-ID: <64e146aa-4907-495d-b394-7cecb1727816@oss.qualcomm.com>
+Date: Fri, 7 Aug 2026 04:34:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 4/6] thermal: khadas-mcu-fan: Add fan config from
+ platform data Add regulator support
+To: linux-kernel-dev@aliel.fr, Neil Armstrong <neil.armstrong@linaro.org>,
+        Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Kevin Hilman <khilman@baylibre.com>,
+        Jerome Brunet <jbrunet@baylibre.com>,
+        Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+        Beniamino Galvani <b.galvani@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+        mfd@lists.linux.dev
+References: <20260805-add-mcu-fan-khadas-vim4-v9-0-75df78710b9e@aliel.fr>
+ <20260805-add-mcu-fan-khadas-vim4-v9-4-75df78710b9e@aliel.fr>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20260805-add-mcu-fan-khadas-vim4-v9-4-75df78710b9e@aliel.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: DtINX2XRDcvrGwAkAdlHpEbc4-h4c5mX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDAxNSBTYWx0ZWRfXy7GS7BbI/Kwh
+ X5Bzequ5aKsEynOhHGl2RygBipbifylr1bZyYuvvofaHOUMXDVJR4/o7DXdmsv56FGQeiLdS6LL
+ L7hgOYtM3tLvcqaQyfnbF7SpsHrSjNr58NXFhdgFTj7u6laJSs7TXfG1kwux7eso8/HcrVAIGnv
+ jCkQmpbr8tFs5nEbs1itonEfO518n2HmFXYcpoZ5zpPV0rm22mfi7DzgYZki8pD7tj+TPA02u8Z
+ C1X9fk9yR0KaqcUdfvAwyYV+RUZ0Oi3p0jxnpr1D0crM5Ctp3YpZQGt3jgEIzLOSspxm7wA+l5n
+ qKQmc4+K/Jo816Dp+o2QD7SqEwDkzmCBvM40FfRnsV5iI6KimBiscNhxTsOy/Nnw6CtB/IU6SyH
+ FKuDhgunOCvHPmPlfZx1yLLnYVBy4H1kgKsYJecLacHNt1fGVhSZtf0PObWMhDJQaam5H2+SKqc
+ mfVGAbX1/IsLo9chPGA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDAxNSBTYWx0ZWRfX247FdA6SsXFU
+ figBNMHflRBUDSiVMBcpMU+4zDbkcsXxSUO6qEuq7oLk84C+F/hpjkMg3BUnLFT3pz9qpLcwWDL
+ gvVe7iKpTWu+dzw3ds43DpeL1lH9vDU=
+X-Proofpoint-ORIG-GUID: DtINX2XRDcvrGwAkAdlHpEbc4-h4c5mX
+X-Authority-Analysis: v=2.4 cv=MbpcfZ/f c=1 sm=1 tr=0 ts=6a754431 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=KKAkSRfTAAAA:8 a=YaFGZCiNkOP6CsGDcAoA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 adultscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
+ bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070015
 
-The S3NRN4V (e.g. on the Fairphone 6, SM7635) is a later part in the
-Samsung NFC controller line this driver covers. It needs different
-bring-up, selected with a new samsung,s3nrn4v compatible:
+On 8/5/26 10:06, Ronald Claveau via B4 Relay wrote:
+> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> 
+> Replace the hardcoded MAX_LEVEL constant and fan register
+> with values read from platform_data (fan_reg, levels[] and nlevels),
+> as new MCUs need different values.
+> 
+> The cooling device's state is stored as an index into levels[],
+> and khadas_mcu_fan_set_level() writes levels[state] to fan_reg,
+> rather than writing the raw state value as before.
+> 
+> Optionally acquire and enable a "fan" regulator supply
+> at probe time and on resume,
+> so boards that gate fan power through a regulator are handled.
+> 
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+> ---
 
- - It ships with working firmware, and its bootloader reports a
-   hardware version this driver has no flash base address for, so the
-   firmware download step is skipped. Its RF calibration data is
-   loaded with the proprietary DUAL_OPTION command (the HW and SW
-   blobs merged into a single stream) instead of the
-   START/SET/STOP_RFREG sequence. The upload is version-gated on
-   DUAL_OPTION GET_VER, matching the vendor stack: GET_VER reports
-   the chip's current calibration versions, and the push is skipped
-   when both match the blobs (each blob carries its version in its
-   last 16 bytes). post_setup runs on every device-up, so the
-   gate is what keeps the chip's calibration store from being rewritten
-   each time NFC is enabled.
+  * Through which tree this patch should go ? (assuming there is a 
+dependency on other patches)
 
- - Its reference clock speed is configured with the single-byte FW_CFG
-   form, sent from the ->init hook, before CORE_RESET, in the same
-   order the vendor stack sends it. The vendor HAL uses the
-   single-byte form for this generation, and its vendor configuration
-   sets the selector to 0x11, which selects the 19.2 MHz reference.
-   Without this command the chip completes NCI initialization but
-   goes silent on RF_DISCOVER -- the command times out unanswered and
-   polling never starts (verified on hardware).
-
-The calibration data is requested from a chip-scoped directory,
-samsung/s3nrn4v/hwreg.bin and samsung/s3nrn4v/swreg.bin, rather than
-the flat sec_s3fwrn5_rfreg.bin name the older parts use.
-
-The variant is carried as match data by both the OF and the I2C device
-id tables so the two match paths agree.
-
-Existing S3FWRN5 / S3FWRN82 setups keep the firmware-download path and
-the legacy rfreg sequence, unchanged.
-
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Claude:claude-fable-5
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
----
-The upload deliberately does not share a helper with
-s3fwrn5_nci_rf_configure(): the framing differs (sub-OID prefix
-byte, one merged stream vs per-file sections) and the error policy
-differs (abort STOP on a failed section), so a common helper would
-carry more branches than it saves.
-
-FW_CFG is sent from ->init rather than from within
-s3fwrn5_nci_rf_configure_dual() so the clock configuration still runs
-when the calibration files are absent (the upload path returns early
-there; the reference clock must not depend on it).
-
- drivers/nfc/s3fwrn5/core.c    |  34 ++++++-
- drivers/nfc/s3fwrn5/i2c.c     |  12 ++-
- drivers/nfc/s3fwrn5/nci.c     | 179 +++++++++++++++++++++++++++++++++-
- drivers/nfc/s3fwrn5/nci.h     |  23 ++++-
- drivers/nfc/s3fwrn5/s3fwrn5.h |  14 ++-
- drivers/nfc/s3fwrn5/uart.c    |   2 +-
- 6 files changed, 256 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/nfc/s3fwrn5/core.c b/drivers/nfc/s3fwrn5/core.c
-index af0fa8bd970b..563470cb928d 100644
---- a/drivers/nfc/s3fwrn5/core.c
-+++ b/drivers/nfc/s3fwrn5/core.c
-@@ -20,6 +20,9 @@
- 				NFC_PROTO_ISO14443_B_MASK | \
- 				NFC_PROTO_ISO15693_MASK)
- 
-+#define S3NRN4V_HWREG_NAME	"samsung/s3nrn4v/hwreg.bin"
-+#define S3NRN4V_SWREG_NAME	"samsung/s3nrn4v/swreg.bin"
-+
- static int s3fwrn5_firmware_init(struct s3fwrn5_info *info)
- {
- 	struct s3fwrn5_fw_info *fw_info = &info->fw_info;
-@@ -74,6 +77,22 @@ static int s3fwrn5_firmware_update(struct s3fwrn5_info *info)
- 	return ret;
- }
- 
-+static int s3fwrn5_nci_init(struct nci_dev *ndev)
-+{
-+	struct s3fwrn5_info *info = nci_get_drvdata(ndev);
-+	int ret = 0;
-+
-+	if (info->variant == S3FWRN5_VARIANT_S3NRN4V) {
-+		ret = s3fwrn5_nci_clk_cfg(info);
-+		if (ret < 0)
-+			dev_err(&ndev->nfc_dev->dev,
-+				"failed to configure the reference clock: %d\n",
-+				ret);
-+	}
-+
-+	return ret;
-+}
-+
- static int s3fwrn5_nci_open(struct nci_dev *ndev)
- {
- 	struct s3fwrn5_info *info = nci_get_drvdata(ndev);
-@@ -127,6 +146,15 @@ static int s3fwrn5_nci_post_setup(struct nci_dev *ndev)
- 	struct s3fwrn5_info *info = nci_get_drvdata(ndev);
- 	int ret;
- 
-+	if (info->variant == S3FWRN5_VARIANT_S3NRN4V) {
-+		ret = s3fwrn5_nci_rf_configure_dual(info, S3NRN4V_HWREG_NAME,
-+						    S3NRN4V_SWREG_NAME);
-+		if (ret < 0)
-+			dev_warn(&ndev->nfc_dev->dev,
-+				 "RF calibration data update failed: %d\n", ret);
-+		return 0;
-+	}
-+
- 	if (s3fwrn5_firmware_init(info)) {
- 		//skip bootloader mode
- 		return 0;
-@@ -149,6 +177,7 @@ static int s3fwrn5_nci_post_setup(struct nci_dev *ndev)
- }
- 
- static const struct nci_ops s3fwrn5_nci_ops = {
-+	.init = s3fwrn5_nci_init,
- 	.open = s3fwrn5_nci_open,
- 	.close = s3fwrn5_nci_close,
- 	.send = s3fwrn5_nci_send,
-@@ -158,7 +187,7 @@ static const struct nci_ops s3fwrn5_nci_ops = {
- };
- 
- int s3fwrn5_probe(struct nci_dev **ndev, void *phy_id, struct device *pdev,
--	const struct s3fwrn5_phy_ops *phy_ops)
-+	const struct s3fwrn5_phy_ops *phy_ops, enum s3fwrn5_variant variant)
- {
- 	struct s3fwrn5_info *info;
- 	int ret;
-@@ -170,6 +199,7 @@ int s3fwrn5_probe(struct nci_dev **ndev, void *phy_id, struct device *pdev,
- 	info->phy_id = phy_id;
- 	info->pdev = pdev;
- 	info->phy_ops = phy_ops;
-+	info->variant = variant;
- 	mutex_init(&info->mutex);
- 
- 	s3fwrn5_set_mode(info, S3FWRN5_MODE_COLD);
-@@ -225,3 +255,5 @@ EXPORT_SYMBOL(s3fwrn5_recv_frame);
- MODULE_LICENSE("GPL");
- MODULE_DESCRIPTION("Samsung S3FWRN5 NFC driver");
- MODULE_AUTHOR("Robert Baldyga <r.baldyga@samsung.com>");
-+MODULE_FIRMWARE(S3NRN4V_HWREG_NAME);
-+MODULE_FIRMWARE(S3NRN4V_SWREG_NAME);
-diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
-index f93d8b47b65e..884420ac83b5 100644
---- a/drivers/nfc/s3fwrn5/i2c.c
-+++ b/drivers/nfc/s3fwrn5/i2c.c
-@@ -145,6 +145,7 @@ static irqreturn_t s3fwrn5_i2c_irq_thread_fn(int irq, void *phy_id)
- 
- static int s3fwrn5_i2c_probe(struct i2c_client *client)
- {
-+	enum s3fwrn5_variant variant;
- 	struct s3fwrn5_i2c_phy *phy;
- 	int ret;
- 
-@@ -183,8 +184,9 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client)
- 		return dev_err_probe(&client->dev, PTR_ERR(phy->clk),
- 				     "failed to get clock\n");
- 
-+	variant = (uintptr_t)i2c_get_match_data(client);
- 	ret = s3fwrn5_probe(&phy->common.ndev, phy, &phy->i2c_dev->dev,
--			    &i2c_phy_ops);
-+			    &i2c_phy_ops, variant);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -209,13 +211,17 @@ static void s3fwrn5_i2c_remove(struct i2c_client *client)
- }
- 
- static const struct i2c_device_id s3fwrn5_i2c_id_table[] = {
--	{ .name = "s3fwrn5_i2c" },
-+	{ .name = "s3fwrn5_i2c", .driver_data = S3FWRN5_VARIANT_FWDL },
-+	{ .name = "s3nrn4v", .driver_data = S3FWRN5_VARIANT_S3NRN4V },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, s3fwrn5_i2c_id_table);
- 
- static const struct of_device_id of_s3fwrn5_i2c_match[] = {
--	{ .compatible = "samsung,s3fwrn5-i2c" },
-+	{ .compatible = "samsung,s3fwrn5-i2c",
-+	  .data = (void *)S3FWRN5_VARIANT_FWDL },
-+	{ .compatible = "samsung,s3nrn4v",
-+	  .data = (void *)S3FWRN5_VARIANT_S3NRN4V },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, of_s3fwrn5_i2c_match);
-diff --git a/drivers/nfc/s3fwrn5/nci.c b/drivers/nfc/s3fwrn5/nci.c
-index 5a9de11bbece..f1877797d136 100644
---- a/drivers/nfc/s3fwrn5/nci.c
-+++ b/drivers/nfc/s3fwrn5/nci.c
-@@ -8,6 +8,9 @@
- 
- #include <linux/completion.h>
- #include <linux/firmware.h>
-+#include <linux/minmax.h>
-+#include <linux/slab.h>
-+#include <linux/unaligned.h>
- 
- #include "s3fwrn5.h"
- #include "nci.h"
-@@ -20,7 +23,24 @@ static int s3fwrn5_nci_prop_rsp(struct nci_dev *ndev, struct sk_buff *skb)
- 	return 0;
- }
- 
--const struct nci_driver_ops s3fwrn5_nci_prop_ops[4] = {
-+/*
-+ * DUAL_OPTION responses are not uniform: GET_VER answers with the chip's
-+ * calibration versions instead of a status byte, so stash the payload for
-+ * the caller before completing the request.
-+ */
-+static int s3fwrn5_nci_dual_rsp(struct nci_dev *ndev, struct sk_buff *skb)
-+{
-+	struct s3fwrn5_info *info = nci_get_drvdata(ndev);
-+
-+	info->dual_rsp_len = min_t(unsigned int, skb->len,
-+				   sizeof(info->dual_rsp));
-+	memcpy(info->dual_rsp, skb->data, info->dual_rsp_len);
-+
-+	nci_req_complete(ndev, skb->data[0]);
-+	return 0;
-+}
-+
-+const struct nci_driver_ops s3fwrn5_nci_prop_ops[5] = {
- 	{
- 		.opcode = nci_opcode_pack(NCI_GID_PROPRIETARY,
- 				NCI_PROP_SET_RFREG),
-@@ -41,6 +61,11 @@ const struct nci_driver_ops s3fwrn5_nci_prop_ops[4] = {
- 				NCI_PROP_FW_CFG),
- 		.rsp = s3fwrn5_nci_prop_rsp,
- 	},
-+	{
-+		.opcode = nci_opcode_pack(NCI_GID_PROPRIETARY,
-+				NCI_PROP_DUAL_OPTION),
-+		.rsp = s3fwrn5_nci_dual_rsp,
-+	},
- };
- 
- #define S3FWRN5_RFREG_SECTION_SIZE 252
-@@ -117,3 +142,155 @@ int s3fwrn5_nci_rf_configure(struct s3fwrn5_info *info, const char *fw_name)
- 	release_firmware(fw);
- 	return ret;
- }
-+
-+/*
-+ * The S3NRN4V expects the single-byte FW_CFG form (just the clock-speed
-+ * selector).
-+ */
-+int s3fwrn5_nci_clk_cfg(struct s3fwrn5_info *info)
-+{
-+	u8 clk_speed = NCI_PROP_FW_CFG_CLK_SPEED;
-+
-+	return nci_prop_cmd(info->ndev, NCI_PROP_FW_CFG, 1, &clk_speed);
-+}
-+
-+/*
-+ * An 8-byte calibration version: 5 bytes of date stamp and a 3-byte CSC
-+ * code, at fixed offsets both in a blob's 16-byte tail and in each half of
-+ * the GET_VER response (HW at offset 0, SW at offset 15).
-+ */
-+static bool s3fwrn5_nci_dual_version_eq(const u8 *a, const u8 *b)
-+{
-+	return !memcmp(a + 5, b + 5, 5) && !memcmp(a + 12, b + 12, 3);
-+}
-+
-+static bool s3fwrn5_nci_dual_cal_current(struct s3fwrn5_info *info,
-+					 const struct firmware *hw_fw,
-+					 const struct firmware *sw_fw)
-+{
-+	if (info->dual_rsp_len < 30)
-+		return false;
-+	if (hw_fw->size < 16 || sw_fw->size < 16)
-+		return false;
-+
-+	return s3fwrn5_nci_dual_version_eq(info->dual_rsp,
-+					   hw_fw->data + hw_fw->size - 16) &&
-+	       s3fwrn5_nci_dual_version_eq(info->dual_rsp + 15,
-+					   sw_fw->data + sw_fw->size - 16);
-+}
-+
-+/*
-+ * S3NRN4V RF calibration data update: the HW and SW blobs merged into one
-+ * stream (HW first), pushed as START_UPDATE, one SET_OPTION per 252-byte
-+ * section, then STOP_UPDATE carrying a 16-bit checksum (running sum of the
-+ * merged stream as 32-bit words).
-+ */
-+int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
-+				  const char *hw_name, const char *sw_name)
-+{
-+	struct nci_prop_dual_set_option_cmd set_option;
-+	struct device *dev = &info->ndev->nfc_dev->dev;
-+	const struct firmware *hw_fw, *sw_fw;
-+	size_t merged_size, i, len;
-+	u8 *merged = NULL;
-+	u8 stop_cmd[3];
-+	u32 checksum;
-+	u8 sub_oid;
-+	int ret;
-+
-+	ret = firmware_request_nowarn(&hw_fw, hw_name, dev);
-+	if (ret < 0)
-+		return ret;
-+	ret = firmware_request_nowarn(&sw_fw, sw_name, dev);
-+	if (ret < 0)
-+		goto out_hw;
-+
-+	merged_size = hw_fw->size + sw_fw->size;
-+
-+	/*
-+	 * The stream is checksummed as 32-bit words and pushed in at most 256
-+	 * sections (the section index is a single byte); reject blobs that
-+	 * would silently break either.
-+	 */
-+	if (!merged_size || merged_size % 4 ||
-+	    merged_size > 256 * NCI_PROP_DUAL_SECTION_SIZE) {
-+		dev_err(dev, "invalid calibration data size: %zu\n", merged_size);
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	/*
-+	 * Ask the chip for its current calibration versions and skip the
-+	 * upload when both already match the blobs; a mismatch or an
-+	 * unparseable answer means the upload proceeds. GET_VER answers with
-+	 * versions, not a status byte, so nci_prop_cmd()'s return carries no
-+	 * meaning here.
-+	 */
-+	sub_oid = NCI_PROP_DUAL_SUB_GET_VER;
-+	info->dual_rsp_len = 0;
-+	nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
-+	if (s3fwrn5_nci_dual_cal_current(info, hw_fw, sw_fw)) {
-+		dev_dbg(dev, "calibration data already current\n");
-+		ret = 0;
-+		goto out;
-+	}
-+
-+	merged = kvmalloc(merged_size, GFP_KERNEL);
-+	if (!merged) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
-+	memcpy(merged, hw_fw->data, hw_fw->size);
-+	memcpy(merged + hw_fw->size, sw_fw->data, sw_fw->size);
-+
-+	checksum = 0;
-+	for (i = 0; i + 4 <= merged_size; i += 4)
-+		checksum += get_unaligned_le32(merged + i);
-+
-+	dev_info(dev, "calibration data update: %s + %s\n", hw_name, sw_name);
-+
-+	/* START_UPDATE */
-+	sub_oid = NCI_PROP_DUAL_SUB_START_UPDATE;
-+	ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
-+	if (ret < 0) {
-+		dev_err(dev, "Unable to start calibration data update\n");
-+		goto out;
-+	}
-+
-+	/* SET_OPTION per section */
-+	set_option.sub_oid = NCI_PROP_DUAL_SUB_SET_OPTION;
-+	set_option.index = 0;
-+	for (i = 0; i < merged_size; i += NCI_PROP_DUAL_SECTION_SIZE) {
-+		len = min_t(size_t, merged_size - i, NCI_PROP_DUAL_SECTION_SIZE);
-+		memcpy(set_option.data, merged + i, len);
-+		ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION,
-+				   len + 2, (__u8 *)&set_option);
-+		if (ret < 0) {
-+			dev_err(dev, "calibration data update error: %d\n",
-+				ret);
-+			/* Abort form: STOP_UPDATE with the sub-OID alone. */
-+			sub_oid = NCI_PROP_DUAL_SUB_STOP_UPDATE;
-+			nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1,
-+				     &sub_oid);
-+			goto out;
-+		}
-+		set_option.index++;
-+	}
-+
-+	/* STOP_UPDATE with checksum */
-+	stop_cmd[0] = NCI_PROP_DUAL_SUB_STOP_UPDATE;
-+	put_unaligned_le16(checksum, &stop_cmd[1]);
-+	ret = nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 3, stop_cmd);
-+	if (ret < 0) {
-+		dev_err(dev, "Unable to stop calibration data update\n");
-+		goto out;
-+	}
-+
-+	dev_info(dev, "calibration data update: success\n");
-+out:
-+	kvfree(merged);
-+	release_firmware(sw_fw);
-+out_hw:
-+	release_firmware(hw_fw);
-+	return ret;
-+}
-diff --git a/drivers/nfc/s3fwrn5/nci.h b/drivers/nfc/s3fwrn5/nci.h
-index bc4bce2bbc4d..453a1c9d65eb 100644
---- a/drivers/nfc/s3fwrn5/nci.h
-+++ b/drivers/nfc/s3fwrn5/nci.h
-@@ -40,6 +40,9 @@ struct nci_prop_stop_rfreg_rsp {
- 
- #define NCI_PROP_FW_CFG		0x28
- 
-+/* S3NRN4V single-byte FW_CFG payload; 0x11 selects the 19.2 MHz reference. */
-+#define NCI_PROP_FW_CFG_CLK_SPEED	0x11
-+
- struct nci_prop_fw_cfg_cmd {
- 	__u8 clk_type;
- 	__u8 clk_speed;
-@@ -50,7 +53,25 @@ struct nci_prop_fw_cfg_rsp {
- 	__u8 status;
- };
- 
--extern const struct nci_driver_ops s3fwrn5_nci_prop_ops[4];
-+#define NCI_PROP_DUAL_OPTION		0x2a
-+
-+#define NCI_PROP_DUAL_SUB_GET_VER	0x00
-+#define NCI_PROP_DUAL_SUB_START_UPDATE	0x01
-+#define NCI_PROP_DUAL_SUB_SET_OPTION	0x02
-+#define NCI_PROP_DUAL_SUB_STOP_UPDATE	0x03
-+
-+#define NCI_PROP_DUAL_SECTION_SIZE	252
-+
-+struct nci_prop_dual_set_option_cmd {
-+	__u8 sub_oid;
-+	__u8 index;
-+	__u8 data[NCI_PROP_DUAL_SECTION_SIZE];
-+};
-+
-+extern const struct nci_driver_ops s3fwrn5_nci_prop_ops[5];
- int s3fwrn5_nci_rf_configure(struct s3fwrn5_info *info, const char *fw_name);
-+int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
-+				  const char *hw_name, const char *sw_name);
-+int s3fwrn5_nci_clk_cfg(struct s3fwrn5_info *info);
- 
- #endif /* __LOCAL_S3FWRN5_NCI_H_ */
-diff --git a/drivers/nfc/s3fwrn5/s3fwrn5.h b/drivers/nfc/s3fwrn5/s3fwrn5.h
-index 2b492236090b..63f679f17166 100644
---- a/drivers/nfc/s3fwrn5/s3fwrn5.h
-+++ b/drivers/nfc/s3fwrn5/s3fwrn5.h
-@@ -21,6 +21,13 @@ enum s3fwrn5_mode {
- 	S3FWRN5_MODE_FW,
- };
- 
-+enum s3fwrn5_variant {
-+	/* S3FWRN5 / S3FWRN82: firmware is downloaded by this driver */
-+	S3FWRN5_VARIANT_FWDL,
-+	/* S3NRN4V: no firmware download; FW_CFG + DUAL_OPTION bring-up */
-+	S3FWRN5_VARIANT_S3NRN4V,
-+};
-+
- struct s3fwrn5_phy_ops {
- 	void (*set_wake)(void *id, bool sleep);
- 	void (*set_mode)(void *id, enum s3fwrn5_mode);
-@@ -36,6 +43,11 @@ struct s3fwrn5_info {
- 	const struct s3fwrn5_phy_ops *phy_ops;
- 
- 	struct s3fwrn5_fw_info fw_info;
-+	enum s3fwrn5_variant variant;
-+
-+	/* Last DUAL_OPTION response payload (GET_VER carries versions). */
-+	u8 dual_rsp[32];
-+	u8 dual_rsp_len;
- 
- 	struct mutex mutex;
- };
-@@ -78,7 +90,7 @@ static inline int s3fwrn5_write(struct s3fwrn5_info *info, struct sk_buff *skb)
- }
- 
- int s3fwrn5_probe(struct nci_dev **ndev, void *phy_id, struct device *pdev,
--	const struct s3fwrn5_phy_ops *phy_ops);
-+	const struct s3fwrn5_phy_ops *phy_ops, enum s3fwrn5_variant variant);
- void s3fwrn5_remove(struct nci_dev *ndev);
- 
- int s3fwrn5_recv_frame(struct nci_dev *ndev, struct sk_buff *skb,
-diff --git a/drivers/nfc/s3fwrn5/uart.c b/drivers/nfc/s3fwrn5/uart.c
-index 8f142a255101..75397c3dbc58 100644
---- a/drivers/nfc/s3fwrn5/uart.c
-+++ b/drivers/nfc/s3fwrn5/uart.c
-@@ -136,7 +136,7 @@ static int s3fwrn82_uart_probe(struct serdev_device *serdev)
- 	}
- 
- 	ret = s3fwrn5_probe(&phy->common.ndev, phy, &phy->ser_dev->dev,
--			    &uart_phy_ops);
-+			    &uart_phy_ops, S3FWRN5_VARIANT_FWDL);
- 	if (ret < 0)
- 		goto err_serdev;
- 
--- 
-2.55.0
-
+  * How this will behave with 100 levels with the step wise governor ? 
+For a 100ms passive delay and 100 states, it will take 10s before 
+reaching the full speed
