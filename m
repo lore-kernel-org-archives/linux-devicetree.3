@@ -1,185 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9E038E121
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 14:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A3D3382C5
+	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 14:53:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786114164; cv=none; b=USKpyXYXdNoctHGBL5Lh8XhxgA/216USTzT5PM1upIF2c4Z6FjHseMyK/OC+pack+rW7uX8zFUTb9056jJx9xVI7wcpBqI8BKJ9a2Zpz1Ao7h5Wv6bR6BWcZ4PIcl0vpob8UWmionUQcfyjw5seAptTtfERrkQl0GMqgVnP6Oe0=
+	t=1786114423; cv=none; b=lo0cMZOMxk/cIDgrNEwOoVgEi1FM1B3fMk+ihv9BPcWOpDuM3+qamcozzBvvTI6gHNUbGilAy8ZUzK4kcSJ02ctDy6R0NGlLPKo5vLzxUVQqRVMDD2JSc5Ol37bQ9NZKwdZAPS2ECQptehhFDx6btIRmVoOrPSa4nkn0613YAdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786114164; c=relaxed/simple;
-	bh=aOFGpao+oMlsUcvG70piCQc71d0Pb0UdcMZtq4GvTVw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HsyIoooWYshv9whmvCy8b8WJ9NqPVS0WjZALnTRkYclZCITA2JXFimV+lET197A+phBb80qzsmLtHXIJhemEkJxf5uU3kS3y3WxcIXRZhJYPVYPjo9BbFjgLJCwJrX6a4CJD1RWdX3GJC8rWcV0QA/cPVfoh1vDEGzIns3VEn8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e0q2lYUP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786114423; c=relaxed/simple;
+	bh=GefV3NNh0mC4k/+YNxtqLjBzqGJePo4P6USI1SfGzdQ=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=VShyMEUND8xskUVoU5VI3YkmWCpowqvdYYKdfPdJQ3zqpn+qA1bsenu0FL2XHTbfii7qLDgbypjMucX9Xyd/pkkHddzzTyCnQJXVxsiwSMremE65E+m0JPP9lvLMngU8XLXwyyEhewyBpA95HwvMNWr4haB4AsywARtZGQWVPv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PTicRmq1; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e0q2lYUP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D11A81F00A3A;
-	Fri,  7 Aug 2026 14:49:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786114163;
-	bh=U4FxX4GSHxtCB5vZbM4mLbyOZEF4VEBqGGj9qzq4vh0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e0q2lYUP6n35TKnTXyZggv2//sHGcQ/Ix8wJ8PyguXz7UTPserbW8pH68+IuQQKMh
-	 kC05APlV8Mj/P3Z3ntvypwkeoKBEqjSo+1hg6aO9EKhuwWO7QxdTv/G8G20pwFIukQ
-	 2sjrlf9BAfSFbgkNH0gpX4G7eXG4CzjcsRnNio1kNQn9qgPlA0rHjSFu4H6EVr5rvA
-	 GiSG+ovUqMo4MOHWptPhYgnxCKla2fK60cYauw5faZaGCvCclahxSOXdJkvHHVyNBt
-	 t1Xtb1OCN2Ubgh6fVP1sHBIxYsMj7Uc7zgnCgNgXJQPm/Mq09KPa97nQxRZo94wmyA
-	 ltPHgt7poX6gA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/4] iio: light: veml6031x00: add support for
- triggered buffers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260807-veml6031x00-v5-3-e60876fb3640@gmail.com>
-References: <20260807-veml6031x00-v5-0-e60876fb3640@gmail.com>
- <20260807-veml6031x00-v5-3-e60876fb3640@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 14:49:21 +0000
-Message-Id: <20260807144922.D11A81F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PTicRmq1"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49800c6a846so28504985e9.3
+        for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 07:53:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786114418; x=1786719218; darn=vger.kernel.org;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=s1TYQovX813QrlY8K8QJWO05PjbpBhzIRd4Xwek58sc=;
+        b=PTicRmq1qASlyGMA6q4Q+UuWHMh5ebvVixZAnT7hw4INtZHDzHLM1YqTA4gRcAm+ae
+         QzPIbW1gD6K9Am5nf5OS7r6hMPc+E2g3EM/7NawYs99SD3RmoSI1V67Uf+YT0FOmlIW7
+         7xOFI5VAF94HMVp63grhJ1oEcprD4ZtpN42GlbWAV1omnFDjQGWtXDUXF+E8J5xGemrR
+         tT6ZXlSGe8Rx4DgvU0jpn+WhaQ2SJyfTGCSiOLCJaAl9NZ/7MT6SSiwP+TFSvYN7iX2v
+         bHb1rk1RM2hustsaW4LRxvjGVj6QH5jBxmMcHv803Lu/QdKPPFMj7GODNkVid+kPTHjF
+         Gj1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786114418; x=1786719218;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s1TYQovX813QrlY8K8QJWO05PjbpBhzIRd4Xwek58sc=;
+        b=aVNnQqUSqCU4/PWywbZNns8ImhjJmocxxNvOEzdntG2z8FJVRRMxQ+dNIG7qhMQ7ZC
+         nta7SN8Ui5QKepwuwHb0Nrw3tjpDW9JDL3NCsuuXy1JZpD0uBIvAeIca/tk+cEeRpP2K
+         tUxe3L7Urfu8y68p14RPiyYf4x3HySD1B0sDFxaD6HNy0ApIX/qK8wLEBdbhHyLaczmv
+         wT2NLifZKQMXHFDuNcS2U+puOpJkewaKCoVOgLK7A9ZsEcC5kBjWQIhtJbF+/vCLtLqC
+         +q0cXa646zZIBocdD8Wq8IuY+NoLoi5juDgt1A6aq2hUhO9arOPC/oCls7OI/ssVXKIX
+         OuQw==
+X-Gm-Message-State: AOJu0YzYUHYVAwaif+jy/M2H6a66fCcMB63h7mSCuvs8Y77pKXqPDBvk
+	81n8PF1aR2HETCVKE+9FZjf2qx6Ek5D8XYGaaxoocJDnitLCd1h/OKXn
+X-Gm-Gg: AR+sD13GibV90vnSKKlCyJqZkmMqxXvUoJhoglOXxRZkDPNXlkzCD7ABKkSmkJv2LkH
+	Rd3vaq8l3WkF+DWrj54RAMYdjfS3Sbml0GiVqPK8J+6RwGA2qlXOE9H5yPVkLOk3R1yCkwf7OMb
+	g0N8f2DWtiDTcJMuCBrGBZ33oeRxJWiR9494B13/ETWmIOsjuvKiO98jVkFRgeWqhNGUU3qTC3b
+	47xIEQ+p+Sz6RztQMUWywo/Gu3mNMwUbKAjrr8tYgpMQtythm+QXnzwx9g7TProQsbwkRpN2DBr
+	s3ctImoDmp6OGvAr4m6SZE7WEQ25FUt6rVq/co6QMGXyR8v62yBHRvOkI5KhQtKLsdnZW0BK7gw
+	IjFlCG0fdpdtmHmkGk1DYcCQfOBj8JuEbg9OKQV/ulQabmzSHUilazchoddRvUhz0lzwmJlTfeP
+	bBT/RUo9UTQV7Sn8E5p8Vry/pBRgR6Sgb9ihuDTue+7tUzkx2wW2B4yfIuA93ogSX/h9ozba7g0
+	do=
+X-Received: by 2002:a7b:c7d3:0:b0:496:c977:3b6d with SMTP id 5b1f17b1804b1-49959e2f01bmr121071505e9.12.1786114418064;
+        Fri, 07 Aug 2026 07:53:38 -0700 (PDT)
+Received: from localhost ([2001:4bb8:13c:7c2e:a29b:6e3a:d099:a4c8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995c7b2b68sm65199965e9.4.2026.08.07.07.53.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 07 Aug 2026 07:53:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 07 Aug 2026 16:53:35 +0200
+Message-Id: <DKISPV4GH699.G6SFCPJJMS10@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Subject: Re: [PATCH v5 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: <devicetree@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
+To: <sashiko-reviews@lists.linux.dev>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260807-veml6031x00-v5-0-e60876fb3640@gmail.com>
+ <20260807-veml6031x00-v5-2-e60876fb3640@gmail.com>
+ <20260807141922.EADFE1F000E9@smtp.kernel.org>
+In-Reply-To: <20260807141922.EADFE1F000E9@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] AB-BA deadlock between scale_lock and IIO direct mode lock
-- [High] Missing IIO buffer channel configuration causes probe failure
-- [High] Uninitialized kernel stack data leaked to userspace in IIO trigger=
-ed buffer
-- [High] Unbalanced pm_runtime put leads to negative usage count
---
+On Fri Aug 7, 2026 at 4:19 PM CEST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] Mixing `devm_pm_runtime_get_noresume()` with a manual `pm_runtim=
+e_put_autosuspend()` in `probe` causes a PM usage counter underflow on devi=
+ce unbind or probe failure.
+> - [High] An unprotected read-modify-write in `veml6031x00_set_power_state=
+()` races with sysfs configuration changes, causing lost user configuration=
+, and a lock inversion prevents a simple fix.
+> --
+>
+> --- Patch [2]: [PATCH v5 2/4] iio: light: add support for veml6031x00 ALS=
+ series ---
+> commit 2cb7c39d884f4873be61de5deba3865dbd24f394
+> Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+>
+> iio: light: add support for veml6031x00 ALS series
+>
+> These sensors provide two light channels (ALS and IR), I2C communication
+> and a multiplexed interrupt line to signal data ready and configurable
+> threshold alarms.
+>
+>> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml603=
+1x00.c
+>> new file mode 100644
+>> index 0000000000000..30cccda51ca08
+>> --- /dev/null
+>> +++ b/drivers/iio/light/veml6031x00.c
+>
+> [ ... ]
+>
+>> +static int veml6031x00_set_power_state(struct veml6031x00_data *data, b=
+ool on)
+>> +{
+>> +	u8 conf[2];
+>> +	int ret;
+>> +
+>> +	ret =3D regmap_bulk_read(data->regmap, VEML6031X00_REG_CONF0,
+>> +			       conf, sizeof(conf));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (on) {
+>> +		conf[0] &=3D ~VEML6031X00_CONF0_SD;
+>> +		conf[1] &=3D ~VEML6031X00_CONF1_IR_SD;
+>> +	} else {
+>> +		conf[0] |=3D VEML6031X00_CONF0_SD;
+>> +		conf[1] |=3D VEML6031X00_CONF1_IR_SD;
+>> +	}
+>> +
+>> +	return regmap_bulk_write(data->regmap, VEML6031X00_REG_CONF0,
+>> +				 conf, sizeof(conf));
+>> +}
+>
+> [Severity: High]
+> Does this unprotected read-modify-write race with concurrent sysfs config=
+uration
+> updates?
+>
+> Because CONF0 and CONF1 are in the volatile ranges, regmap does not prote=
+ct
+> them with its cache lock. Concurrent regmap_field_write() calls triggered=
+ by
+> veml6031x00_write_raw() could change the gain or integration time between=
+ the
+> bulk_read and bulk_write here, causing the user configuration to be silen=
+tly
+> overwritten and lost.
+>
+> Additionally, could acquiring the scale_lock here to fix the race cause a
+> deadlock?
+>
+> Looking at veml6031x00_single_read(), it holds the scale_lock before acqu=
+iring
+> the PM runtime reference:
+>
+> veml6031x00_single_read()
+>     guard(mutex)(&data->scale_lock);
+>     ...
+>     PM_RUNTIME_ACQUIRE_AUTOSUSPEND(...)
+>
+> If the autosuspend acquisition triggers veml6031x00_runtime_resume() whic=
+h
+> then calls veml6031x00_set_power_state(), attempting to take scale_lock a=
+gain
+> would deadlock.
+>
+> [ ... ]
+>
 
---- Patch [3]: [PATCH v5 3/4] iio: light: veml6031x00: add support for trig=
-gered buffers ---
-commit a5266734ac0d8d96ec4ee20e5c8d6088863dee05
-Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+This issue can be avoided by using regmap_update_bits() instead, which
+actually was used in previous versions. I modified it to test the
+difference after I get confirmation from the manufacturer that the
+registers must be updated one after the other, not at the same time.
+I will get back to regmap_update_bits().
 
-iio: light: veml6031x00: add support for triggered buffers
+>> +static int veml6031x00_probe(struct i2c_client *i2c)
+>> +{
+>
+> [ ... ]
+>
+>> +	ret =3D devm_pm_runtime_set_active_enabled(&i2c->dev);
+>> +	if (ret)
+>> +		return dev_err_probe(&i2c->dev, ret, "Failed to enable runtime PM\n")=
+;
+>> +
+>> +	ret =3D devm_pm_runtime_get_noresume(&i2c->dev);
+>> +	if (ret)
+>> +		return dev_err_probe(&i2c->dev, ret, "Failed to get runtime PM\n");
+>> +
+>> +	ret =3D veml6031x00_validate_part_id(data);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret =3D veml6031x00_hw_init(iio);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	pm_runtime_put_autosuspend(&i2c->dev);
+>
+> [Severity: High]
+> Will mixing devm_pm_runtime_get_noresume() with a manual
+> pm_runtime_put_autosuspend() here cause a PM usage counter underflow?
+>
+> The devm_pm_runtime_get_noresume() call increments the usage counter and
+> registers a devres action to decrement it on unbind or probe failure.
+>
+> However, the manual pm_runtime_put_autosuspend() here drops the counter b=
+ack
+> to zero.
+>
+> When the driver is subsequently unbound, the devres action will execute a=
+nd
+> decrement the counter again to -1, which could corrupt the runtime PM sta=
+te
+> machine and prevent the device or its parent from suspending.
+>
 
-Add triggered buffer functionality for the two channels the device
-provides (ambient light sensor and IR).
+This was discussed in V4, and it is not a real issue because this
+configuration can never reach to decrement the counter to -1 (long story
+short: atomic_add_unless(&dev->power.usage_count, -1, 0)). It was also
+validated by loading and unloading the driver under different
+circumstances.
 
-> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031=
-x00.c
-> index 30cccda51ca08..0cccd40d729eb 100644
-> --- a/drivers/iio/light/veml6031x00.c
-> +++ b/drivers/iio/light/veml6031x00.c
-[ ... ]
-> @@ -392,6 +401,10 @@ static int veml6031x00_single_read(struct iio_dev *i=
-io, enum iio_chan_type type,
-> =20
->  	guard(mutex)(&data->scale_lock);
-> =20
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
 
-[Severity: High]
-Does this establish a lock order of scale_lock followed by the IIO direct
-mode lock?
-
-[ ... ]
-> @@ -453,6 +466,10 @@ static int veml6031x00_write_raw(struct iio_dev *iio,
->  				 struct iio_chan_spec const *chan,
->  				 int val, int val2, long mask)
->  {
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-
-[Severity: High]
-Can this cause a deadlock?
-
-In veml6031x00_single_read(), data->scale_lock is acquired before the IIO
-direct mode lock.
-
-However, here the IIO direct mode lock is acquired first. If this then calls
-veml6031x00_set_it(), which acquires data->scale_lock:
-
-veml6031x00_write_raw()
-    IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim)
-    veml6031x00_set_it()
-        guard(mutex)(&data->scale_lock)
-
-Could concurrent sysfs access to raw data read and integration time write
-lead to a deadlock?
-
->  	switch (mask) {
->  	case IIO_CHAN_INFO_INT_TIME:
->  		return veml6031x00_set_it(iio, val, val2);
-[ ... ]
-> @@ -484,6 +501,81 @@ static const struct iio_info veml6031x00_info =3D {
-[ ... ]
-> +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf =3D p;
-> +	struct iio_dev *iio =3D pf->indio_dev;
-> +	struct veml6031x00_data *data =3D iio_priv(iio);
-> +	IIO_DECLARE_BUFFER_WITH_TS(__le16, scan, 2);
-
-[Severity: High]
-Does this leak uninitialized stack memory to userspace?
-
-The scan buffer is declared without zero-initialization.
-
-When reading only a single active channel (e.g., just the ambient light
-sensor), the driver only writes 2 bytes into the array, leaving the
-unpopulated channel slots and structure padding uninitialized.
-
-Will iio_push_to_buffers_with_ts() push this uninitialized kernel stack
-memory to the ring buffer? Should the scan structure be zero-initialized?
-
-> +	unsigned int i =3D 0;
-> +	int ch, ret;
-[ ... ]
-> @@ -588,6 +680,14 @@ static int veml6031x00_probe(struct i2c_client *i2c)
-[ ... ]
-> +	ret =3D devm_iio_triggered_buffer_setup(regmap_get_device(data->regmap)=
-, iio,
-> +					      iio_pollfunc_store_time,
-> +					      veml6031x00_trig_handler,
-> +					      &veml6031x00_buffer_setup_ops);
-> +	if (ret)
-> +		return dev_err_probe(&i2c->dev, ret,
-> +				     "Failed to register triggered buffer\n");
-> +
-
-[Severity: High]
-Will this probe fail with -EINVAL?
-
-The triggered buffer is registered here, but it appears the driver's
-channels array (veml6031x00_channels) was not updated with .scan_index,
-.scan_type, or a timestamp channel.
-
-Without .scan_index, the IIO core defaults both channels to index 0.
-
-Does iio_device_register() abort with -EINVAL during probe when
-iio_check_unique_scan_index() detects the duplicate scan index 0?
-
->  	pm_runtime_put_autosuspend(&i2c->dev);
-
-[Severity: High]
-Is this pm_runtime_put_autosuspend() call unbalanced?
-
-The probe function appears to use devm_pm_runtime_get_noresume() which
-automatically queues a put on unbind.
-
-If we explicitly decrement the usage counter here, will the devres action
-firing on unbind drop the counter below zero and trigger a warning?
-
-Should this use the non-devm pm_runtime_get_noresume() instead if the
-driver intends to manually drop the reference later?
-
-> =20
->  	ret =3D devm_iio_device_register(&i2c->dev, iio);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-veml6031x0=
-0-v5-0-e60876fb3640@gmail.com?part=3D3
+Best regards,
+Javier
