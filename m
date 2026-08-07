@@ -1,193 +1,222 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9369385515
-	for <devicetree@vger.kernel.org>; Fri,  7 Aug 2026 05:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A870B3CC323;
+	Fri,  7 Aug 2026 05:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786081874; cv=none; b=qZSw3HGn1CP2G0XQFuoV5IoJBmkJ46X8ZCxlu+CCqIgChm2kD/8T34q1idaM90VSvApe25EdjhnitDFi7UtIrK3volwCXPYrWkcRAs6yNf0pxXqm4ewkTNECq+ZVHfIwuCsq2XBUyuBt9co1lDQpqBLcdHpGzO0mEMCTVyqYKao=
+	t=1786082174; cv=none; b=q29L17T58RejRLnRDTvZQz4eBdoY/uuEERrOMXpGc6SlDhuONb78iTHN7WwFRgOGnfVCcPa/hQpKM9lq4o2h2toKI0sDDlwyWRXfjumZ4MuxWj9r22fiySIPYYNY/KyAKrHK7iqcfITJeIvwVVhnLd4n5PNdhGh7YuQw0wnTOm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786081874; c=relaxed/simple;
-	bh=v/zTiUNCxB4Ng7mmLXqr5PO4bNjNHxLDHwbVMZQQMUc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YiLdEpUGtPzYe5Lf41LEpt+Da4x8imThxoAwiumQbBKFDWtleoWWEguF83PsxolxN+eAMML4FG+qnGHp/GCrU1uSbUdF3VFRRD0Kb2ZssC/Md0156Umo3mpwHw43L9uhyJrgoAWdxJ8Usk+FPu8nesV76BGTUg93rJFoASRkVAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Hn4v8D/8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jm6AdP4a; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786082174; c=relaxed/simple;
+	bh=LLO0AdZ0ovztFCnz+ZwHKqX8dG3RKuq2WBfgZXurLnw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LTA7cC+oTxJDbt2JXVFkMuVVC1jgIfp3ackh43dRlyHgteMyBl+Q/um5+VKycxj9VOJhRXdHono2bctwC3tPsn/7wkIBNFyke9/wYJK+1UAxQ2aWuWcrE8F5vI7S0S5WKQkIJIUbvsaCPks7QJmYZsrvlgPMlqGyPr11cxzImtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cAGjj7rN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Hn4v8D/8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jm6AdP4a"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6770GwIB3477289
-	for <devicetree@vger.kernel.org>; Fri, 7 Aug 2026 05:51:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=UVKpc/MMmcoTzFiiMBAxOc
-	9ZT5E/QMoAN6p0lflpkvg=; b=Hn4v8D/8+kF5wPvLHQCY9kn109XMrFjn1lpedn
-	Wk6wmxHPr05YwVXZH958VMeOd8PfEOQZHpwYwURdtIp6fRahvm0MWhtlAV78YPON
-	b7EAViHX4KU6Dar7hqWbBe0f9vrsU2nm8Fld/YzjmwVrZpphsuClW3kmqTwollDQ
-	nMD7kH8Bg+Mz7S2eMxBPpWO8wrsHJ5rs13nVHlD1LqchZWIfnbpgoTXqLVSytJtC
-	lId3xw57WgonSn40dG5fHnaVA/gewGHE7KLj8xMEx3FJkBbelgyJ1Bre3Bk9TZrq
-	WJ2qo+Avh63a9BSZhobidq3Rk1fx6KyeXElUvkGF+NpbywbQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6haey8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 07 Aug 2026 05:51:11 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc640dfde3so34864915ad.1
-        for <devicetree@vger.kernel.org>; Thu, 06 Aug 2026 22:51:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786081871; x=1786686671; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UVKpc/MMmcoTzFiiMBAxOc9ZT5E/QMoAN6p0lflpkvg=;
-        b=jm6AdP4ajN9t2vQJPYlS28BiOtwpDf2nGiOHqWNjKcIkcvjxCrpn+tZu5ZmX607a6a
-         kbA3VMK2uirIyXgdKi1Kba4emYzzUBuWB0vESLown36deQQtZyGO9Hr3x9XOEFzknRkD
-         nqHOf2cIvZccY0JZShgfbNAzYl6rapiE96QXsdPSsNp+Fn7ffRhC8hpTANUEwKf/lvsO
-         QSovYbf4QrcTAw3NwkTMn7p5pSjgh7CtSeI2jQbdxk5FfUZfPCPk0aiKis/rkFqYpg1t
-         +5C6qc2GqK8E9HhEoyGUo7B7sYZ797IjfjInl83l4qmmAuPXf7s2yCe9C1DRWd72FFN/
-         gomw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786081871; x=1786686671;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=UVKpc/MMmcoTzFiiMBAxOc9ZT5E/QMoAN6p0lflpkvg=;
-        b=lGJib3z0E1mT9SmuGOsG2bgx7YuzJeDOOiUHst07SOvwVNj7iXaoeINNfyC6kbDbeM
-         zBJMejKNwCnvlnjwe8J5O4ireBf1waf7YVQcEfZbHw2CQNMZLuyJthVxcHan/rTej4dk
-         zXz69pjvk9gZUQkBFZOAcj3mTrQpnoaxiyL8oQ1/EoNWnHqJTcTrQX/d+WTar1eM7Si6
-         rsg8+i0DYNM3dIhEjjQYUQv6pYqGeO06l8SXXuiGrCs3ZkkkVd4qf+Sm7/u3e9t5IVHQ
-         FL0uHKR1WRf7DT7f1QQ6aP0NGC09tvQcWgeQs9P/HSihdXyo1p5Due5I03aCR2rRkgOo
-         HbUw==
-X-Forwarded-Encrypted: i=1; AHgh+RqNJv0YW4n06bVFWAmUZJ5duCUekh16KpR0p13Nh8zTpzuMxE2l9DcTZPO/boiMiNKd9SQBKa/pNzJv@vger.kernel.org
-X-Gm-Message-State: AOJu0YzYTJLR5Cqr8WSSUcMNsHsJEe+KLdJUOItEyDsBeNB6BD40kAYU
-	2tkHkJ+x3bPxHkGlx97My6AH1YpkcXuOAVujt0ZukXZIcHf8G5T8N8qgHg53EWjC3LZ8kKo6M28
-	OJPLT59eo933TX0sPsrf7tUpkl/Iu1RElh6qfGvFiaCvIUokwHB+SnbmMU3CKvyO1AXTJagbS
-X-Gm-Gg: AR+sD10cJVmXlUMl3X3erSfc/nRBeuRR28cQYfyyhxUD0Tn0yUbhXRNSF4XJxfGTVLg
-	+/h63nuJImo+gdeaXHprdqy73yepUsOB3XDLYMsKGpqGZm+CXhxRTTMYd15VtGZjDn8SQgEeVTq
-	JRRYln01zW+UEpvpfhBEWEAqF8rK8gKXyML8MQIHQq2f/GDpQI4Kv7EgUjyiKCIqObUuM/CDZCZ
-	fU1vOAYGDYcJi5P5ocoPgR1uCuTgWoWLvQcAYFHx3mloIuX+gCh4ynjt46+zxZJ5wLfXw/ce95r
-	//8tTRIT1QtnZ/xqHyvGq2pLSGsO7BYWRjbSdo4keunHlH4PcupxEcM52XRXhREGA1bI6mc8DiI
-	uQtcFNAqKdsO3952HnBxiSqjmpl041D7ypA==
-X-Received: by 2002:a17:902:f60c:b0:2cc:aa36:c04c with SMTP id d9443c01a7336-2d0ca7afcabmr239335935ad.1.1786081870704;
-        Thu, 06 Aug 2026 22:51:10 -0700 (PDT)
-X-Received: by 2002:a17:902:f60c:b0:2cc:aa36:c04c with SMTP id d9443c01a7336-2d0ca7afcabmr239335445ad.1.1786081870314;
-        Thu, 06 Aug 2026 22:51:10 -0700 (PDT)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d16c4e957esm3431895ad.75.2026.08.06.22.51.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 06 Aug 2026 22:51:09 -0700 (PDT)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Fri, 07 Aug 2026 11:20:56 +0530
-Subject: [PATCH v2] arm64: dts: qcom: agatti: Add memory-region for audio
- PD
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cAGjj7rN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 837C91F000E9;
+	Fri,  7 Aug 2026 05:56:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786082173;
+	bh=k19OFrvyg5UiLtCz3AyfZzGuAB3TGsOXj5atTGRDZXI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cAGjj7rNvdbhhYF0sp2/zr7I3abQgSpUvKNmUsGJp95xVU0pl3vk3Qk7InrpNPqQt
+	 0uJFRIncQjD+zcI2IiUziJHktPMPRI81+USIyrj6mO+76YiU9MAWbJbiPxYkmxg9xl
+	 Rw4PV5DEheykOcXVqX3eus7d9o5gAR+Tb+2MRHb3sWGkMSm/e3Z1CgSprT+xUUuJsR
+	 vSUBoVxhy+9AjQ6E1V22gOxHsNKPWooN3ybRIk94k8agHiCm0EDENA0McpQ3skuEzN
+	 8pj9equcwwAG93r8umm+lOFwhVYUQGknEoLj6IWlzk8Op2YoVu3Z5sBjCOrupvauc+
+	 8/O+bYJdUaMng==
+Message-ID: <56cff854-425e-401f-93a8-e700e8c1cfdf@kernel.org>
+Date: Fri, 7 Aug 2026 07:56:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ARM: dts: qcom: add Nokia Lumia 920
+To: SuperHacker UEFI <zhuoshizhang@hotmail.com>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Cc: "andersson@kernel.org" <andersson@kernel.org>,
+ "konrad.dybcio@linaro.org" <konrad.dybcio@linaro.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "krzysztof.kozlowski+dt@linaro.org" <krzysztof.kozlowski+dt@linaro.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>
+References: <OS7P301MB178480466383761525E3887CCFD32@OS7P301MB1784.JPNP301.PROD.OUTLOOK.COM>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <OS7P301MB178480466383761525E3887CCFD32@OS7P301MB1784.JPNP301.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-agatti-audio-v2-1-3959b1ab8059@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAD9ydWoC/3WMwQ7CIBAFf6XZszSACtaT/2F6oAu2m9hSgTaah
- n8Xe/fyknnJzAbRBXIRrtUGwa0UyU8F5KECHMzUO0a2MEguFb9wxUxvUiJmFkueHc+6Q6tPxjU
- IRZmDe9B7z93bwgPF5MNnr6/i9/4JrYIJhlZppRAbxO7mY6xfi3miH8e6DLQ55y93osg3rwAAA
- A==
-X-Change-ID: 20260806-agatti-audio-357bcd74ae9c
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786081866; l=1572;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=v/zTiUNCxB4Ng7mmLXqr5PO4bNjNHxLDHwbVMZQQMUc=;
- b=jmnf1vZpwUOFZet0Nov3erMBPpRMxcLCqjXFnJ/1cq2lf0Jm5ijyZW/g1ZkVa/5H8ovN38m2r
- 8aw8Fn9vETDDdwQP8KgL3FkxPFz3uSdMjW0/uE5+f8VTf6txYAgKKnV
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-GUID: Rc4EjvZE8S9ghZRiRIUp4j5PpFSqF4q5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA0MCBTYWx0ZWRfX1ehZ4cV2KxuF
- vxHuOq0sr5GcNtj20Mq3KnSQg2wpr+iC1Z65S0ThqQu3pInUUquN5VIr000QA5QcFlRFEOW0mAa
- UDSmtJ8DVT2dUuDh+egzOy0pQn34NviXp75J38QbTES6wnAXulcrmgA7GTXGWaex31LIrrmPKnZ
- A4qiC7m1/2akoajO0NESzNP2KtHxHbTj4D9qtgry8HEipsQQAwT2e0wKrkzWyNinthb6y8D6mBM
- UI/ODcEYAmpM66jdI6DenuDFLTLtLX8YFVEogcR8/08Lxv59wiye2mh/1IJJRas9UTjq/St3WUP
- 2sUn1jAw4nUMtLXYIiRe7wo9Hum2hS3rcSMkyHOGIfV1luViuhS5w72uNNCNTKiBsKh362XSkqq
- Pc7tKX5SpHJMKmsi3lRFDJaymuoNP31eUg5PFTrUiHPgUu34c+I7fXu24b5qrkey5Y+99ecMwQV
- sT8o9a4M0FwTYIntjVg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA0MCBTYWx0ZWRfX7exeIGcAEskv
- bp2VOaRV8KCn4MKR/ZR3EN1vuhDZ4+gN1RbvAfagqngBP75AoqZcHBgq5rh67FH8a3v5S5zeB9r
- OgLqRAbmqpdd7kPouVbEqPxtbbcXrFw=
-X-Proofpoint-ORIG-GUID: Rc4EjvZE8S9ghZRiRIUp4j5PpFSqF4q5
-X-Authority-Analysis: v=2.4 cv=MbpcfZ/f c=1 sm=1 tr=0 ts=6a75724f cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=xTAV2kzwEx0x-571GnoA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 clxscore=1015 malwarescore=0
- bulkscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070040
 
-Reserve memory region for audio PD dynamic loading and remote heap
-requirements. Add the required VMID list for memory ownership
-transfers.
+On 05/08/2026 14:50, SuperHacker UEFI wrote:
+> From 7580a1d391863c24750dab4900249dcfb9fc1626 Mon Sep 17 00:00:00 2001
+> From: UEFI-code <zhuoshizhang@hotmail.com>
+> Date: Wed, 5 Aug 2026 20:32:40 +0900
+> Subject: [PATCH] ARM: dts: qcom: add Nokia Lumia 920
+> 
+> Add basic Device Tree support for the Nokia Lumia 920.
+> 
+> Currently tested:
+> - eMMC
+> - EFI GOP framebuffer
+> - initramfs boot
+> 
+> USB has partial functionality and other peripherals
+> remain untested.
+> 
+> Signed-off-by: UEFI-code <zhuoshizhang@hotmail.com>
 
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
----
-Changes in v2:
-- Fixed VMID list alignment.
-- Link to v1: https://lore.kernel.org/r/20260806-agatti-audio-v1-1-cd6766cc9ccb@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/agatti.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Please read submitting patches, we do not take anonymous code.
 
-diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
-index 590bd2432d85..2064eed01327 100644
---- a/arch/arm64/boot/dts/qcom/agatti.dtsi
-+++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
-@@ -381,6 +381,14 @@ rmtfs_mem: memory@89b01000 {
- 			qcom,client-id = <1>;
- 			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA QCOM_SCM_VMID_NAV>;
- 		};
-+
-+		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0x0 0x80000000 0x0 0x80000000>;
-+			reusable;
-+			alignment = <0x0 0x400000>;
-+			size = <0x0 0x800000>;
-+		};
- 	};
- 
- 	smp2p-adsp {
-@@ -2348,6 +2356,9 @@ fastrpc {
- 					compatible = "qcom,fastrpc";
- 					qcom,glink-channels = "fastrpcglink-apps-dsp";
- 					label = "adsp";
-+					memory-region = <&adsp_rpc_remote_heap_mem>;
-+					qcom,vmids = <QCOM_SCM_VMID_LPASS
-+						      QCOM_SCM_VMID_ADSP_HEAP>;
- 
- 					qcom,non-secure-domain;
- 
+> ---
+>  .../devicetree/bindings/arm/qcom.yaml         |   1 +
+>  arch/arm/boot/dts/qcom/Makefile               |   1 +
+>  .../boot/dts/qcom/qcom-msm8960-lumia-920.dts  | 361 ++++++++++++++++++
 
----
-base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
-change-id: 20260806-agatti-audio-357bcd74ae9c
+
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
+>  3 files changed, 363 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/qcom/qcom-msm8960-lumia-920.dts
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+> index adbfaea32..31532fbbe 100644
+> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+> @@ -204,6 +204,7 @@ properties:
+>            - enum:
+>                - qcom,msm8960-cdp
+>                - samsung,expressatt
+> +              - lumia,920
+>            - const: qcom,msm8960
+>  
+>        - items:
+> diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
+> index 3dfb1c8ce..9a7fa44a8 100644
+> --- a/arch/arm/boot/dts/qcom/Makefile
+> +++ b/arch/arm/boot/dts/qcom/Makefile
+> @@ -31,6 +31,7 @@ dtb-$(CONFIG_ARCH_QCOM) += \
+>  	qcom-msm8916-samsung-serranove.dtb \
+>  	qcom-msm8960-cdp.dtb \
+>  	qcom-msm8960-samsung-expressatt.dtb \
+> +	qcom-msm8960-lumia-920.dtb \
+>  	qcom-msm8974-lge-nexus5-hammerhead.dtb \
+>  	qcom-msm8974-sony-xperia-rhine-amami.dtb \
+>  	qcom-msm8974-sony-xperia-rhine-honami.dtb \
+> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960-lumia-920.dts b/arch/arm/boot/dts/qcom/qcom-msm8960-lumia-920.dts
+> new file mode 100644
+> index 000000000..a5c8d1a5f
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/qcom/qcom-msm8960-lumia-920.dts
+> @@ -0,0 +1,361 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <dt-bindings/input/input.h>
+> +
+> +#include "qcom-msm8960.dtsi"
+> +
+> +/ {
+> +	model = "Nokia Lumia 920";
+> +	compatible = "nokia,lumia920", "qcom,msm8960";
+> +};
+> +
+> +&soc {
+> +    qfprom: qfprom@700000 {
+> +        compatible = "qcom,msm8960-qfprom", "qcom,qfprom";
+> +        reg = <0x00700000 0x1000>;
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges;
+> +
+> +        tsens_calib: calib@404 {
+> +            reg = <0x404 0x10>;
+> +        };
+> +
+> +        tsens_backup: backup_calib@414 {
+> +            reg = <0x414 0x10>;
+> +        };
+> +    };
+> +};
+> +
+> +&gcc {
+> +    compatible = "qcom,gcc-msm8960", "syscon";
+
+Why are you overriding SoC nodes in a board DTS?
+
+...
+
+
+> +
+> +/* eMMC */
+> +&sdcc1 {
+> +	status = "okay";
+> +};
+> +
+> +// usb1
+
+Useless comment, but anyway decide about style of comments.
+
+> +&usb1 {
+> +    status = "okay";
+> +};
+> +
+> +&usb_hs1_phy {
+> +	v3p3-supply = <&pm8921_l3>;
+> +	v1p8-supply = <&pm8921_l4>;
+> +};
+> \ No newline at end of file
+
+You have clearly visible patch warnings.
 
 Best regards,
--- 
-Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-
+Krzysztof
