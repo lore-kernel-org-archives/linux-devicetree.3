@@ -1,366 +1,122 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B8A356755
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 16:05:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226B435838A
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 17:12:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786205132; cv=none; b=Hl/gA8qUcMH9GfATgJJ9/ztFvfJ1EETjIOmWYYsjeBAhFDlkkzDd1sodR3sA+fvIhz5BOR4scGRBXOS4ohJ/VkEJ5SIGpN3h9hO9gyjZNBM0yanQFyD3WtVY7BDuNhkq/WJRWRNO7igl179TjplAP/DTIzDOxweKDVu2tkYr76s=
+	t=1786209148; cv=none; b=MzkvibeD3CGbU/T70C2g7RUnVHxrXiOK5pacPtyX919m2OTVRL8HUcD5NFZywgTguMs2a3bsyjBoE39HhLaeztnLI6FFTsWtJoNi591xy3PGua5zuPnPLSSUX6q2rdnPgHdXqOw+XsZC+BVrrKgdHAmZp8Taze09CYD4epg8oBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786205132; c=relaxed/simple;
-	bh=Vma49lOJkwNkx341JK8I2l5pWCzqRw60m+NyfIaqwBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZQzoro2nOHlPxA0+2QPjO2lFKHUMOni0LvcwofnkUbTA/qEEXFSTJNubNcUyFwJDqcf99O361YqE4yenRoHXhFtOOvFFQEbB9HvGSwBO7l1bBs+mVl9qrbMf85Pq9XqycHgCht1VmOoUMXzUdQUQlhzzaa306hY29mJ++lI6IYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pbNFLrfQ; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786209148; c=relaxed/simple;
+	bh=zML4BOWJQGi+07klmTjibL0grEK3aTVzq0oFCv1aV8k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=S8nkfdFsNGlJX81xroCdQ8NKMtHYIjRjDtyjXnDJH2Fg03P3YB6UrSyKF6vw1qV/qO05EeS4fLINxTn2t/eBacKZV1uFnma8B/c2A1TylotrxKHxoe/rXRBvIkPVDCTptwPuCzlW1BjOVXS5rfpcICL37sh25SmzjheTspmBHIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSxQfgQI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pbNFLrfQ"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cee9b74ee1so4582735ad.3
-        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 09:05:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786205128; x=1786809928; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RyQWTEDWBKQ0JEqAKoM+DsN3z0w6nQEztY/u5k8ioBM=;
-        b=pbNFLrfQWs8QYj9cJwedtH5LJmApbRvrsEVs+1thZjrPlh7GtHkK802ox1PLq2VJkO
-         4BQxl1bjonTSQdP1kJZasLu8lSIJYHDbOvvZYWNtFwICGoYtBY0ohO+Y1KkTeZvV2eWq
-         VNth8/PpPsbVCCiVxVLDHZcQ37ulGjO+usBYhzmoAJm+PG7ZjoSDZ9lXOKUSOeePsWqF
-         5abKBIJwVXLGVDOL6rRXY+LdXQSI4+E9c5XT8y0vEX/6ROUn325Oas/ABcqyilaM/VPs
-         oFVUVVBy0PWRP5bPE7aRfnEawM5Ew5tR2cH8w+P1izBtYtyb1NIFDYNgFrR46SknJ+45
-         FevA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786205128; x=1786809928;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RyQWTEDWBKQ0JEqAKoM+DsN3z0w6nQEztY/u5k8ioBM=;
-        b=BKSHJDRTCsIike4N4zPZGVVIC1Q5ZLIYRxOcPzkFERWpKd/wgjilFo9hErMXMMpltO
-         AyRK6bwsCrgsRcHBxRkO7nB7xcERcc1zr1d7EP6cqV5G+d9hzDtZDr6WMxaODDUtT7uI
-         F4tg3/ATJIIwc/bOwUBkd384muKLPGwEpBHyPB7C5vfW2r1PwjLRKGVIrd7JYhftYGUS
-         Qebfi5zFQ8M5gy/5GuM3cLEDBPkETEpLzoEGKRqljI/7bhutf4+D2h71pzZFWcJh3Vmi
-         pzgbxv/bJIyM1NYgt6xH5rRM7Wxpqk5HoN1e9IQwltlpfVXw6wX6xDbBw8gt/3JNJNvR
-         iB0g==
-X-Forwarded-Encrypted: i=1; AHgh+RoxU/8ZjF1fsD0UdrV3AlVUdJ4C7Zsit/lWzBjai6gZ2/KXoTfdrr7Xt4HhH8Jn8pObVthssG4OUsjm@vger.kernel.org
-X-Gm-Message-State: AOJu0YxTcQtctCZdLXfj9CMO38Sk/Z/HtmkIv3xqUqIoCM2FLRsxmHe0
-	sZyNvyv0PIbs8i6ElPZgv8G4mh48FJmRpsyrEtyFPS20qcZ1Z/yTECsw
-X-Gm-Gg: AR+sD13NIk9ZIGbHErRhcsx0w/XdvQUtk8O7Oto3MaYVqLXg465qhKfw3qkNiZSpaxA
-	szPMXZozH3+CPvi/5i21TZj44q7VCNYy1VKbLADbF3+4hjT0Asx1LbWyeefJAa90YxRfxzqnYjI
-	a0HNdHhpkgQubyFlNx4mY6Y9Nn5JwMTli8edu88Y9dUofDbD6NEmNZ8jWSfucW64BD6u6YcEw6O
-	kZuoth/7Y1Go3rrjvjooeRX6xsPfrpEN+Qtzf2jMw/CmBWzWEp/stw4e1ZiiZY8iYIkU7PWI1tW
-	dLYgV2Z21Saojgfl69F/wtqCBUHD84hgH4XxiyjTf9d4hSQvUfskBxdlvIO5CVTk1TABoH0TSfs
-	gFELVeh8rqpp1T5a0dqM4Euo7L6/9mO6QhtWt3/mucyZMDsK/0sNoLniT+FP7Y4uHt/nva8AByH
-	pV/3SSZSuCPDVn0HWusE136j2IZR+L2QQE5Iawb3XFT05w+mhKEH+Fo3/iUkxA96kjRzuqMQ==
-X-Received: by 2002:a17:90b:5484:b0:37f:c69d:ce69 with SMTP id 98e67ed59e1d1-3903c581f08mr32015152a91.10.1786205128063;
-        Sat, 08 Aug 2026 09:05:28 -0700 (PDT)
-Received: from localhost ([2804:30c:4018:dc00:8be4:f5b8:4af1:4728])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14101a5ee91sm17495850c88.11.2026.08.08.09.05.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 09:05:26 -0700 (PDT)
-Date: Sat, 8 Aug 2026 13:06:02 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Henrik Grimler <henrik.grimler@axis.com>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@axis.com
-Subject: Re: [PATCH 2/3] iio: accel: Add support for ICM42370P
-Message-ID: <andT6r0ZIR1DuZWg@debian-BULLSEYE-live-builder-AMD64>
-References: <20260806-b4-inv_icm42370p-v1-0-670837f5842f@axis.com>
- <20260806-b4-inv_icm42370p-v1-2-670837f5842f@axis.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSxQfgQI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288471F000E9;
+	Sat,  8 Aug 2026 17:12:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786209146;
+	bh=ihDaghTM0ywzt3EFMpHtXRgdQVUQIHSaxPRovbXr5Ws=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iSxQfgQInyDBcFjEk3uyC3GTHe0CPuFp50ICvAyPsfmI7JSk8tbq9JQAuGB+NL1mZ
+	 0DubrjJITflHoBCib2RnTk+d9S9Q2ckWuxwTKLdsX8FCzwmdp7o9Ux6nTwjNlYrGF1
+	 +4+0wVzGOcnjfMiuPBeKe6GtejFwgRPY9y6iNQQfm6+/zjBpRdrE7VZ3QzObg6HarI
+	 RLiWvKfH8XxH780TxWTvvnZW4Lr04yYGYHR2j3mvc2IF6KCbddearT572d8K9m4QrF
+	 K6TtOqCe7Oigfx+Eqexwd2r8UQ44qdG+MaXUrY3V6kAQGTX9h50No7a1lajz/EqcCW
+	 /z7AkREtGGWbQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v13 04/11] net: mdio: realtek-rtl9300: suppress
+ sysfs bind/unbind attributes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Stockhausen" <markus.stockhausen@gmx.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260807171058.522833-5-markus.stockhausen@gmx.de>
+References: <20260807171058.522833-1-markus.stockhausen@gmx.de>
+ <20260807171058.522833-5-markus.stockhausen@gmx.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 08 Aug 2026 17:12:25 +0000
+Message-Id: <20260808171226.288471F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-b4-inv_icm42370p-v1-2-670837f5842f@axis.com>
 
-Hello Kanak,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Some additional comments (which may intersect with other reviews).
+Pre-existing issues:
+- [High] Incomplete mitigation for a use-after-free vulnerability: `suppres=
+s_bind_attrs =3D true` does not prevent UAF during probe failures or parent=
+ device removal.
+--
 
-On 08/06, Kanak Shilledar wrote:
-> Add support for the Invensense ICM42370P MEMS MotionTracking 3-axis
-> accelerometer with a built-in temperature sensor. Compared to other
-> sensors from the same vendor ICM42370 uses a different way of handling
-> register banks. Although the device supports I2C, SPI, and I3C,
-> implement only I2C support.  Provide basic support for raw sensor
-> reads and a sysfs interface for setting the calibration bias. Keep the
-> embedded temperature sensor enabled because the device design does not
-> allow it to be turned off.
-> 
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-> ---
-...
-> diff --git a/drivers/iio/accel/inv_icm42370.h b/drivers/iio/accel/inv_icm42370.h
-> new file mode 100644
-> index 0000000000000..9866a5e970dcd
-> --- /dev/null
-> +++ b/drivers/iio/accel/inv_icm42370.h
-> @@ -0,0 +1,365 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (C) 2020 Invensense, Inc.
-> + * Copyright (C) 2026 Axis Communications AB
-> + */
-> +
-> +#ifndef INV_ICM42370_H_
-> +#define INV_ICM42370_H_
-> +
-> +#include <linux/bits.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/regmap.h>
-> +#include <linux/mutex.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/common/inv_sensors_timestamp.h>
+--- Patch [4]: [PATCH net-next v13 04/11] net: mdio: realtek-rtl9300: suppr=
+ess sysfs bind/unbind attributes ---
+commit 5daa031cbe196a78cb58053e9b33430ed4fb2104
+Author: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: net: mdio: realtek-rtl9300: suppress sysfs bind/unbind attributes
 
-I think somebody already mentioned it (maybe Joshua), but devs have been
-standardizing to have alphabetically sorted includes with IIO subsystem
-ones highlighted at the end of the include list. E.g.
+This commit aims to mitigate a use-after-free issue by setting
+suppress_bind_attrs to true, preventing sysfs unbinds on this specific driv=
+er
+instance. It notes that a corrupt devicetree might produce a load failure a=
+nd
+a cleanup too, and that the mdiobus may outlive the devm-allocated controll=
+er
+structure.
 
-#include <linux/bits.h>
-#include <linux/bitfield.h>
-...
-#include <linux/units.h>
+> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/m=
+dio-realtek-rtl9300.c
+> index 73ac5fdcd2674..1873928b362dd 100644
+> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
+> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+> @@ -830,6 +830,7 @@ static struct platform_driver otto_emdio_driver =3D {
+>  	.driver =3D {
+>  		.name =3D "mdio-rtl9300",
+>  		.of_match_table =3D otto_emdio_ids,
+> +		.suppress_bind_attrs =3D true,
 
+[Severity: High]
+This isn't a bug introduced by this patch, but does this mitigation fully
+address the use-after-free vulnerability?
 
-#include <linux/iio/common/inv_sensors_timestamp.h>
-#include <linux/iio/iio.h>
+The commit message correctly notes that a corrupt devicetree can produce a
+load failure. If otto_emdio_probe() successfully registers the first bus but
+fails on a subsequent child node, the driver will unwind its devres
+allocations:
 
-Note the blank line between the main include list and the includes from IIO.
-Also, I'd suggest trying iwyu (https://include-what-you-use.org/) to get a
-proper list of includes. Jonathan once shared a mapping file to help with
-that https://lore.kernel.org/linux-iio/20250629194336.34a03946@jic23-huawei/.
-Bonus, one post that might be helpful to get the tool running https://hackerbikepacker.com/iwyu.
+drivers/net/mdio/mdio-realtek-rtl9300.c:otto_emdio_probe() {
+    ...
+	device_for_each_child_node_scoped(dev, child) {
+		err =3D otto_emdio_probe_one(dev, priv, child);
+		if (err)
+			return err;
+	}
+    ...
+}
 
-> +
-> +enum inv_icm42370_chip {
-> +	INV_CHIP_INVALID,
-> +	INV_CHIP_ICM42370,
-> +	INV_CHIP_NB,
-> +};
-> +
-> +/* sensor configuration struct */
-> +struct inv_icm42370_conf {
-> +	int mode;
-> +	int fs;
-> +	int odr;
-> +	int filter;
-> +};
-> +
-> +/**
-> + * struct inv_icm42370_data - driver state variables
-> + * @lock:		lock for serializing multiple register access.
-> + * @name:		chip name.
-> + * @map:		regmap pointer.
-> + * @vdd_supply:		VDD voltage regulator for the chip.
-> + * @vddio_supply:	I/O voltage regulator for the chip.
-> + * @indio_accel:	accelerometer IIO device.
-> + * @sensor_state:	per-sensor state tracking (e.g. power, ODR).
-> + * @buffer:		buffer for reading data registers, aligned for DMA.
-> + * @accel_calibbias:	accelerometer calibration bias for X, Y, and Z axes.
-> + * @fifo:		FIFO state and configuration.
-> + * @timestamp:		interrupt timestamp.
-> + * @chip:		chip identifier.
-> + * @conf:		chip sensors configurations.
-> + */
-> +struct inv_icm42370_data {
-There is another 'state' struct declared below which leaves us with two types of
-state structs for icm42370? Would it make sense to have them merged?
+If this happens, the central priv structure (allocated via devm_kzalloc) is
+freed by devres. A concurrently probing MAC driver could have already acqui=
+red
+a reference to a PHY on the successfully registered first bus, which will k=
+eep
+the mii_bus alive.
 
-> +	struct mutex lock;
-> +	const char *name;
-> +	struct regmap *map;
-> +	struct regulator *vdd_supply;
-> +	struct regulator *vddio_supply;
-I'm not seeing the regulators being used after probe. For these power supplies,
-devm_regulator_get_enable() is usually enough to get them running. If that
-applies to icm42370, then there will be no need for vdd fields in the state struct.
+When the MAC driver subsequently accesses the PHY, could it trigger a
+use-after-free by attempting to access the freed priv pointer?
 
-> +	struct iio_dev *indio_accel;
-> +	struct inv_icm42370_sensor_state *sensor_state;
-> +	u8 buffer[2] __aligned(IIO_DMA_MINALIGN);
-The __aligned() pragma forces cache line alignment on the field it annotates.
-IIO device drivers often have annotations like that to make data buffers use
-separate cache lines and thus avoid data mishandling when doing DMA.
-Though, if the alignment is forced closer to the beginning of the struct, we
-may end up with holes in memory. This is not a subject I specialize in, though,
-you may find this LWN article better than my poor explanation.
-https://lwn.net/Articles/335942/
+Setting suppress_bind_attrs to true only prevents manual sysfs unbinds on t=
+his
+specific child driver instance. Will this leave the probe-failure and parent
+device removal use-after-free paths exposed?
 
-Besides avoiding holes in data structures, running pahole may also help you
-better understand the alignment issue.
+>  	},
+>  };
 
-> +	s16 accel_calibbias[3];
-> +	struct inv_icm42370_fifo fifo;
-> +	s64 timestamp;
-> +	enum inv_icm42370_chip chip;
-> +	struct inv_icm42370_conf conf;
-> +};
-> +
-...
-> +
-> +/* IIO format int + micro */
-> +static const int inv_icm42370_accel_odr[] = {
-> +	/* 1.5625Hz */
-> +	1, 562500,
-> +	/* 3.125Hz */
-> +	3, 125000,
-> +	/* 6.25Hz */
-> +	6, 250000,
-> +	/* 12.5Hz */
-> +	12, 500000,
-> +	/* 25Hz */
-> +	25, 0,
-> +	/* 50Hz */
-> +	50, 0,
-> +	/* 100Hz */
-> +	100, 0,
-> +	/* 200Hz */
-> +	200, 0,
-> +	/* 400Hz */
-> +	400, 0,
-> +	/* 800Hz */
-> +	800, 0,
-> +	/* 1.6kHz */
-> +	1600, 0,
-IMHO, one line for constant and one for comment is too expansive,
-Since these are very short lines, I'd just do
-	1600, 0, /* 1.6kHz */
-
-> +};
-> +
-> +#define INV_ICM42370_SENSOR_CONF_INIT { -1, -1, -1, -1 }
-> +
-> +/* Registers in USER BANK 1 */
-> +#define INV_ICM42370_REG_MCLK_RDY 0x0
-> +#define INV_ICM42370_REG_DEVICE_CONFIG 0x01
-> +#define INV_ICM42370_REG_SIGNAL_PATH_RESET 0x02
-...
-> +
-> +#define INV_ICM42370_MCLK_RDY_BIT BIT(3)
-> +#define INV_ICM42370_SOFT_RESET_BIT BIT(4)
-> +#define INV_ICM42370_ACCEL_MODE_LN 0x03
-> +
-> +#define INV_ICM42370_DATA_INVALID -32768
-> +#define INV_ICM42370_ACCEL_STARTUP_TIME_MS 10
-
-Defines and macros are parsed and expanded early by the C preprocessor.
-Usually, enums, structs, and other declarations rely on register definitions and
-macros, not the opposite. So, as general piece of advice, I'd suggest to move
-the defines up, right after the include section.
-
-> +
-> +typedef int (*inv_icm42370_bus_setup)(struct inv_icm42370_data *);
-> +extern const struct regmap_config inv_icm42370_regmap_config;
-> +
-> +int inv_icm42370_core_probe(struct regmap *regmap, int chip, int irq,
-> +			    inv_icm42370_bus_setup bus_setup);
-> +u32 inv_icm42370_odr_to_period(enum inv_icm42370_odr odr);
-> +
-> +int inv_icm42370_core_probe(struct regmap *regmap, int chip, int irq,
-> +			    inv_icm42370_bus_setup bus_setup);
-> +
-> +struct iio_dev *inv_icm42370_accel_init(struct iio_dev *indio_dev,
-> +					struct inv_icm42370_data *data);
-> +
-> +int inv_icm42370_set_accel_conf(struct inv_icm42370_data *dev_data,
-> +				struct inv_icm42370_conf *conf,
-> +				unsigned int *sleep_ms);
-> +
-> +int inv_icm42370_accel_parse_fifo(struct iio_dev *indio_dev);
-> +
-> +#endif
-> diff --git a/drivers/iio/accel/inv_icm42370_core.c b/drivers/iio/accel/inv_icm42370_core.c
-> new file mode 100644
-> index 0000000000000..9f6c302e6f331
-> --- /dev/null
-> +++ b/drivers/iio/accel/inv_icm42370_core.c
-> @@ -0,0 +1,1251 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2020 Invensense, Inc.
-> + * Copyright (C) 2026 Axis Communications AB
-> + */
-> +
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/i2c.h>
-> +#include <linux/irq.h>
-> +#include <linux/slab.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +
-> +#include <linux/iio/common/inv_sensors_timestamp.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/sysfs.h>
-This include section looks okay. Nevertheless, check out iwyu to figure out
-extra or missing includes.
-
-> +
-> +#include "inv_icm42370.h"
-> +
-> +const struct regmap_config inv_icm42370_regmap_config = {
-> +	.name = "inv_icm42370",
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = 0x7E,
-> +};
-> +EXPORT_SYMBOL_NS_GPL(inv_icm42370_regmap_config, "IIO_ICM42370");
-> +
-...
-> +	static u32 odr_periods[INV_ICM42370_ODR_NB] = {
-> +		/* reserved values */
-> +		0,
-> +		0,
-> +		0,
-> +		0,
-> +		0,
-> +		/* 1.6kHz */
-> +		625000,
-> +		/* 800Hz */
-> +		1250000,
-> +		/* 400Hz */
-> +		2500000,
-> +		/* 200Hz */
-> +		5000000,
-> +		/* 100Hz */
-> +		10000000,
-> +		/* 50Hz */
-> +		20000000,
-> +		/* 25Hz */
-> +		40000000,
-> +		/* 12.5Hz */
-> +		80000000,
-> +		/* 6.25Hz */
-> +		160000000,
-> +		/* 3.125Hz */
-> +		320000000,
-> +		/* 1.5625Hz */
-> +		640000000,
-Same suggestion to do constants and comment on same line here.
-
-> +	};
-> +
-> +	return odr_periods[odr];
-> +}
-
-Need to go AFK. Hope I can come back to it latter. If not, may catch up in v2.
-
-With best regards,
-Marcelo
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807171058.5228=
+33-1-markus.stockhausen@gmx.de?part=3D4
