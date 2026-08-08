@@ -1,331 +1,215 @@
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572F223E325
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 09:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B755375F95;
+	Sat,  8 Aug 2026 09:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786182516; cv=none; b=A9wsrnRHKxJzh5b6QPgcRhKnWIGge3Fj1ibfDCEXf1M/Ktt2WrVzFR0tPArPNqaUSkH3+r7ElQ4nRC2pLXzV5S5iWV+BlEaFU8vqVGhLgLxwF+QfmUsPLsHzWqS+HBN9+/5zpn1+vlA6MBFSCm8XIerOL76gE90k5xMjlMuBl7g=
+	t=1786182918; cv=none; b=MIil0r5rYc4B/tRyqcKo1INsdIKnIzegXzjGRT6rMfUMUdtgukw5X0fznsF7oNVDfbdgMSjnIWcgr4KMGC8SUMSu/njfScOG3kO+CRr26nH4Dyz+4+GMp5w6vVikhIKnJCRRTfdFqXRoii1WVihYjcQh7Puy28uhoLcTqbVsFcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786182516; c=relaxed/simple;
-	bh=1WlIKANitIt6BxCAY90/+DfpQY23q0YzpILseKP9rPA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=URXomTwLhufhm2Xab5lrXOC8R0fsYRI7jrCZiNUJB0O5KrnOfHgnV5ir3a/41JYIOQ7iurxZGCmm8U6uc2pM43iIAa4GvNrbj2nEVD1YOpjbnJEyMhltYpui15rjlLIDVQU6dZLQ7BBm2H69hWA4o69scMkL0i3l70a4A48O6Us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EKp9kl6f; arc=none smtp.client-ip=74.125.227.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786182918; c=relaxed/simple;
+	bh=bl06rtKxALbcf+vOGUrYIerzUwYhvBEpiLzDSxNvzgo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VmTQX5Bebs1kV6eLChN9Gnv1CTL7J5ICv8VkePJgDoMMQP1+D0LuwbMkR5hN3WYjrwEtOxzHSqCZoiCRPOzMMUCNP9COp2k5zCVf+0A0t2uTON5Q/Mq1tYpfTmyxeUXd7iySXbhjXMnefaL0WqkRdOxGEdqedcRN8uhvi7O1CkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=db4a1lIy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EKp9kl6f"
-Received: by mail-pj2-f2.google.com with SMTP id 98e67ed59e1d1-37fb1883fbfso123590a91.0
-        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 02:48:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786182514; x=1786787314; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HuX8DvPqFSCV/Qm9OlvDCFJ10OiDMwD+oDVvHWCPJn0=;
-        b=EKp9kl6fIOwf6z6itMtfQn13PQaD6D0PabxOHJb2MHNchv7Eox7QQc81VBnNKbN/hE
-         6KQhAyBe1IjrKmC1WWFxplCahuosuBxJO1N9CPbYQzjdkg10EKNvdbjApd1wbG84Ar0e
-         +fJoWxDJDZ6FOQQHbV0qy1r8qUcmT3wERvY1/XgFFa79C/n8q2O3+pI8I0QWCEprnBxW
-         nqMPurMosDYvZViW7R3AVBbyvtyENvnmsQLCSO5xKoaOAiRnL5MJdyxY2ZrCSLBpRMih
-         QaR/jm1J9zEgotGqe1+ZpgUhWXstzC1lwqVJdq/gIa/Mhnz2eUzpyEgcUycQLsmcP5Ws
-         8W6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786182514; x=1786787314;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HuX8DvPqFSCV/Qm9OlvDCFJ10OiDMwD+oDVvHWCPJn0=;
-        b=ShTkncla5/pIXXrnNuKc7eZYRKqb/gQ0NhUyCYSZefTOioZRFubqYFeN7GK6hZszKQ
-         qrKH6GW5UYbbLK3NoNWIJSso7YDr1pRaOFG66UuAT8zzh+yC0FNs1Ye+hGfyMjJtF83N
-         kceusDoEBpAoSHZomKSLKihcJ63NcrcfmuUB7N0RISMpGtHLUC9x2BLASmFzChYoFD4G
-         2ijnALF03jhVHTXy3TTihqgcu7sA1OUnkFUpuFRkRYFL7W3J/u8Co6qFJa32et7JCLpv
-         2uu8iensdQUCjvcaNCRjsDZIjSRGAY9li1xE0JGjsov4XRJ+A5BjXkUbq52LvHH/Wjjl
-         tpGQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1BS2a7Lx1RCqhxeUpApsNOY5w9gCn4WPJpOR0LtDobpiagRH8RO7hS7MAlyZ7OrGdGK8+GPvkmAg5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4C/6DeSa2Q39G89lnzDrepEUc8Yh08DM0I3eiiq3aDoBZ9GFl
-	LoFYRI8fLpHEA0sliHzO4Wu60Jd4ifITlqD97873msnfi+Sqo6sPu5T4
-X-Gm-Gg: AR+sD12WgUiHDbMB3QozJFUKN7bz/WG+KwxLJzjlxfKPJF9nbbhR8YQAnnqaCHdewlI
-	IFvqYwZUzIZWsrJZyFfaKFv9d9fkCnCtckhLUa3plRJSRs7W29757zTU1vj3+nVddEJRTGx1L2c
-	FiL2K8cxErqNJPsuUiTl4P30r5edwS2ccjWmA/wjKihpbSp7z9wOGmS5ljAd0A0XfizD0LTGv4X
-	zG8pzdU1/J9zyQSnheOW1tb9ZD+/ocx/2itinmMUl3qmWfDElnAhMFFR//94hG3YvNiFtApXYUv
-	+oI9PJlEE0zoQRXsgBLoJfx1T3/D92cLpmkIWx3auLj3BjOLv3q/ne6u9XIxMXvkhEz7ybkMwny
-	05xt+oiYdIFK3OjmsRYQBBrZs2Oha5VgY7Ntelm9zWT/6bfAFIwFsJcofnuI9ATWYStX2b1xWlj
-	X008QZOpNBCZ0sjqq1gfcMLqvXW6mLVhJTTAMxJm54XL1O9bRyVA==
-X-Received: by 2002:a17:90b:4b91:b0:38d:ddc2:7ccb with SMTP id 98e67ed59e1d1-3909d7a4839mr13994758a91.1.1786182513598;
-        Sat, 08 Aug 2026 02:48:33 -0700 (PDT)
-Received: from localhost ([2403:2c80:17:1e::20db])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-390b13b0c74sm2266456a91.0.2026.08.08.02.48.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 02:48:33 -0700 (PDT)
-Date: Sat, 8 Aug 2026 17:48:28 +0800
-From: Cody Kang <codykang.hk@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, vkoul@kernel.org, 
-	linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org, 
-	devicetree@vger.kernel.org, olteanv@gmail.com, conor+dt@kernel.org
-Subject: Re: [PATCH RESEND 05/17] phy: spacemit: add Innosilicon DP TX PHY
- driver
-Message-ID: <gsv53gzsbs4selyf5ws3f77ff7odhf6xsbf62qb6tcftns7ibc@dpop7iwzwvzb>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-5-6de34d80e86c@gmail.com>
- <20260725050254.9F7091F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="db4a1lIy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742D81F000E9;
+	Sat,  8 Aug 2026 09:55:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786182915;
+	bh=Ils5uLa957bCmy1VHewYvtg8uRsOXkPrMd404dlAez0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=db4a1lIy+MVSayrqQuNlxANJOADGLdSNGTxkDKOY5KBwa7wNpjVm8Ml9bEdmoYKNg
+	 R74eJPPNvWDYmmsfHtk3Zm38Js9lbUWgFldw8o359QQpwSfL2EDXvNJMMcejhKatLL
+	 0VqZhec5S2zx+RZFn8u4RvMSGLkuNaLknTVdJ9Sqfrspvyrwhoy15LC2CnVbPMieVL
+	 4910vWyf2/IEnVpxfiUPCRcLDcFdoQnOymH8TRCL48+WF9vXjMOetYY+0fFnMsq3ju
+	 AkyVCaNo7WK3ZN6E8vf6h6FnTAnOqA0zdfAxi7gkHQFMQlSkUIzOc2i6g2gCk77cqL
+	 3oyAjhwD81SDQ==
+Message-ID: <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
+Date: Sat, 8 Aug 2026 10:55:05 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260725050254.9F7091F000E9@smtp.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan+linaro@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+ Mansur Alisha Shaik <mansur@codeaurora.org>,
+ Andy Gross <andy.gross@linaro.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
+ Yassine Oudjana <y.oudjana@protonmail.com>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Aniket Masule <amasule@codeaurora.org>,
+ Malathi Gottam <quic_mgottam@quicinc.com>,
+ Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
+ <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+ Renjiang Han <quic_renjiang@quicinc.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
+ <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
+ <20260807162405.GA896590-robh@kernel.org>
+ <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
+ <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Jul 25, 2026 at 05:02:54AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] PHY provider is registered before probe finishes, exposing it to early concurrent access and potential Use-After-Free (UAF) on probe failure.
-> - [High] Lack of driver-level synchronization between CCF and PHY frameworks leads to concurrent hardware state corruption.
-> - [Medium] The MPLL (main link PLL) is powered on during PHY initialization but is never powered off in the power down sequence.
-> - [Medium] Missing hardware state cleanup on error paths in `k3_inno_dp_phy_power_on` leaves the PHY powered on.
-> - [Medium] Rate configuration functions unconditionally power on the PLLs, overriding the logical PHY power state.
-> - [Medium] PLL programming functions do not poll for hardware lock before proceeding.
-> --
+On 08/08/2026 05:37, Vishnu Reddy wrote:
 > 
-> --- Patch [5]: [PATCH RESEND 05/17] phy: spacemit: add Innosilicon DP TX PHY driver ---
-> commit 31db74eae7dc59ddc61373dbe3e2c6c1e6966ccd
-> Author: Cody Kang <codykang.hk@gmail.com>
-> Subject: phy: spacemit: add Innosilicon DP TX PHY driver
+> On 8/7/2026 9:54 PM, Rob Herring wrote:
+>> On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
+>>> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
+>>>> From: Daniel J Blueman <daniel@quora.org>
+>>>>
+>>>> On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
+>>>> below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
+>>>> into that range, from any other stream id would triggers unhandled SMMU
+>>>> page faults that cause spontaneous device reboots. This is readily
+>>>> reproduced with one or more browser tabs driving multiple concurrent
+>>>> video decode streams.
+>>>>
+>>>> Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
+>>>> and reference it from the Iris node so the IOMMU layer keeps DMA
+>>>> allocations above that boundary.
+>>>>
+>>>> Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+>>>> Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>>> ---
+>>>>   arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
+>>>>   1 file changed, 12 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+>>>> index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
+>>>> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+>>>> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+>>>> @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
+>>>>   			hwlocks = <&tcsr_mutex 3>;
+>>>>   			no-map;
+>>>>   		};
+>>>> +
+>>>> +		/*
+>>>> +		 * The Iris VPU reserves IOVA below 0x25800000 (600MB),
+>>>> +		 * primarily for non-pixel buffers using different Stream IDs.
+>>>> +		 * DMA into that range triggers unhandled SMMU faults and
+>>>> +		 * spontaneous reboots, so reserve it to keep IOMMU
+>>>> +		 * allocations above this boundary.
+>>>> +		 */
+>>>> +		iris_iova: iris-iova {
+>>>> +			iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
+>>>> +		};
+>>>>   	};
+>>>>
+>>>>   	qup_opp_table_100mhz: opp-table-qup100mhz {
+>>>> @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+>>>>   			interconnect-names = "cpu-cfg",
+>>>>   					     "video-mem";
+>>>>
+>>>> -			memory-region = <&video_mem>;
+>>>> +			memory-region = <&video_mem>, <&iris_iova>;
+>>> I don't like the idea of this series, because it _again_ doesn't tell us
+>>> the truth about the hardware. This typicall ends up with bigger problems
+>>> later on, when it starts to affect other bits and pieces.
+>>>
+>>> I don't want to NAK it, but I'd strongly ask to reconsider it.
+>> I think this is an abuse of /reserved-memory. reserved-memory is
+>> reserved *physical* memory. Reserved IOVA is a property on top of that.
+>> I'm surprised this passes validation. If it does, I may go fix that.
 > 
-> This commit introduces the SpacemiT K3 Innosilicon DisplayPort PHY driver.
-> It integrates the PHY as a child of the DP controller, registering a PHY
-> provider and exposing the pixel PLL as a clock provider.
-> 
-> > diff --git a/drivers/phy/spacemit/phy-k3-inno-dp.c b/drivers/phy/spacemit/phy-k3-inno-dp.c
-> > new file mode 100644
-> > index 0000000000000..9dd62edb7a5af
-> > --- /dev/null
-> > +++ b/drivers/phy/spacemit/phy-k3-inno-dp.c
-> > @@ -0,0 +1,948 @@
-> 
-> [ ... ]
-> 
-> > +static int k3_inno_dp_phy_power_on(struct phy *phy)
-> > +{
-> > +	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
-> > +	u32 lane_en;
-> > +	u32 val;
-> > +	int ret;
-> 
-> [ ... ]
-> 
-> > +	ret = regmap_read_poll_timeout(p->regmap, DPTX_ANA_MPLL, val,
-> > +				       val & DPTX_ANA_MPLL_LOCKED,
-> > +				       2000, 10 * 1000);
-> > +	if (ret) {
-> > +		dev_err(p->dev, "DP PHY core PLL lock timed out\n");
-> > +		return ret;
-> > +	}
-> 
-> [Severity: Medium]
-> If the MPLL or PREPLL fails to lock within 10ms, this immediately returns an
-> error without restoring the power down bits or XMIT_EN.
-> 
-> Since the generic PHY framework does not automatically call phy_power_off()
-> when phy_power_on() fails, could this leave the hardware running in an
-> inconsistent state and leak power?
+> As per the reserved-memory.yaml schema document, the iommu-addresses
+> property for IOVA reservation into /reserved-memory is allowed — it's
+> documented for IOVA carveout reservations:
+> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/reserved-memory/reserved-memory.yaml#L56
+I think that is an entirely reasonable reading of the text
 
-Real; will fix in v2: the lock-timeout paths will park the lanes
-and the pixel PLL, the same set power_off parks.
+Quote:
 
-> 
-> > +
-> > +	ret = regmap_read_poll_timeout(p->regmap, DPTX_ANA_PREPLL, val,
-> > +				       val & DPTX_ANA_PREPLL_LOCKED,
-> > +				       2000, 10 * 1000);
-> > +	if (ret)
-> > +		dev_err(p->dev, "DP PHY pixel PLL lock timed out\n");
-> > +
-> > +	return ret;
-> > +}
-> > +
-> > +static int k3_inno_dp_phy_power_off(struct phy *phy)
-> > +{
-> > +	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
-> > +
-> > +	regmap_write_bits(p->regmap, DPTX_PHY_CTRL, DPTX_PHY_CTRL_XMIT_EN, 0);
-> > +	usleep_range(2000, 4000);
-> > +
-> > +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-> > +			  DPTX_ANA_PREPLL_PD);
-> > +	usleep_range(2000, 4000);
-> > +
-> > +	return 0;
-> > +}
-> 
-> [Severity: Medium]
-> Does this power down sequence omit the MPLL?
-> 
-> The k3_inno_dp_phy_power_on() function powers up the MPLL by clearing
-> DPTX_ANA_MPLL_PD, but this power_off function does not appear to re-assert
-> it. Could this leave the main link PLL running indefinitely when the DP
-> controller is suspended or torn down?
+"If no "reg" property is specified, the "iommu-addresses" property
+  defines carveout regions in the IOVA space for the given device. This
+  can be useful if a certain memory region should not be mapped through
+  the IOMMU."
 
-Intentional, and it took a board round to prove it: the MPLL also
-feeds the 16 MHz AUX reference, and the controller parks the PHY
-through power_off on every link drop while AUX still has to serve
-EDID, DPCD and panel detection. Parking the MPLL here kills AUX
-from bind onward. Will add a comment in v2 saying so.
+Which is exactly what this series does. Excludes a specific IOVA range 
+from being allocated for this device.
 
-> 
-> [ ... ]
-> 
-> > +static void k3_inno_dp_phy_program_mpll(struct k3_inno_dp_phy *p,
-> > +					const struct k3_inno_dp_mpll_cfg *cfg)
-> > +{
-> > +	struct regmap *rm = p->regmap;
-> 
-> [ ... ]
-> 
-> > +	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_LOCK_BYPEN,
-> > +		FIELD_PREP(DPTX_ANA_PREPLL_LOCK_BYPEN, 1));
-> > +
-> > +	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD,
-> > +		FIELD_PREP(DPTX_ANA_MPLL_PD, 0));
-> 
-> [Severity: Medium]
-> Does unconditionally writing 0 to DPTX_ANA_MPLL_PD override the logical
-> power state of the PHY?
-> 
-> If a DRM driver configures the link rate (calling phy_configure()) while the
-> PHY is logically powered off, this will force the PLL to run and
-> desynchronize the hardware from the PHY framework's power state.
-
-Not reachable: the PHY has a single consumer, the parent DP
-controller, and it only configures rates from the enable path,
-never while the PHY is logically off.
-
-> 
-> > +	usleep_range(2000, 4000);
-> > +}
-> 
-> [Severity: Medium]
-> Is it safe to rely on a fixed 2-4ms sleep here instead of polling
-> DPTX_ANA_MPLL_LOCKED?
-> 
-> The power_on() function polls the locked bit for up to 10ms. A fixed delay
-> here might proceed with an unstable clock if the hardware takes longer to
-> lock, potentially causing display failures or link training issues.
-
-power_on polls both PLL lock bits after programming; that is the
-lock gate for the whole bring-up sequence.
-
-> 
-> [ ... ]
-> 
-> > +static void k3_inno_dp_program_prepll(struct k3_inno_dp_phy *p,
-> > +				      const struct k3_inno_dp_prepll_cfg *cfg)
-> > +{
-> > +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-> > +		FIELD_PREP(DPTX_ANA_PREPLL_PD, 1));
-> > +	usleep_range(2000, 4000);
-> 
-> [Severity: High]
-> Is a driver-level lock needed to synchronize access to the PHY registers
-> between the CCF and PHY frameworks?
-> 
-> Since this driver exposes both a clock (via CCF) and a PHY that share the
-> same hardware registers, concurrent calls to clk_set_rate() and
-> phy_power_on() can interleave.
-> 
-> If clk_set_rate() begins this multi-step programming sequence, a concurrent
-> phy_power_on() could clear the PD bit while the clock is still being
-> configured, corrupting the hardware state.
-
-No concurrent callers exist: the single consumer serializes all
-clk_set_rate() and phy_power_on/off() calls through its own
-modeset path.
-
-> 
-> [ ... ]
-> 
-> > +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
-> > +		DPTX_ANA_PREPLL_PCLK_NORMAL,
-> > +		FIELD_PREP(DPTX_ANA_PREPLL_PCLK_NORMAL, 1));
-> > +	usleep_range(2000, 4000);
-> > +
-> > +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-> > +		FIELD_PREP(DPTX_ANA_PREPLL_PD, 0));
-> 
-> [Severity: Medium]
-> Similar to the MPLL configuration, does unconditionally clearing
-> DPTX_ANA_PREPLL_PD here override the PHY power state if the clock rate is
-> set while the PHY is logically off?
-
-Same as the MPLL case above: rates are only set from the enable
-path.
-
-> 
-> > +	usleep_range(2000, 4000);
-> > +}
-> 
-> [Severity: Medium]
-> Is it safe to rely on a fixed delay here instead of polling the
-> DPTX_ANA_PREPLL_LOCKED bit, which could lead to proceeding with an unstable
-> pixel clock?
-
-Same: power_on polls DPTX_ANA_PREPLL_LOCKED before the sequence
-completes.
-
-> 
-> [ ... ]
-> 
-> > +static int k3_inno_dp_phy_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device *dev = &pdev->dev;
-> > +	struct k3_inno_dp_phy *p;
-> > +	struct phy_provider *provider;
-> > +	struct clk_init_data init = {};
-> > +	int ret;
-> 
-> [ ... ]
-> 
-> > +	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-> > +	if (IS_ERR(provider))
-> > +		return dev_err_probe(dev, PTR_ERR(provider),
-> > +				     "failed to register PHY provider\n");
-> > +
-> > +	/* PHY takes a 24 MHz reference clock */
-> > +	p->ref_clk_khz = 24000;
-> > +
-> > +	/* The APMU pixel-clock mux references this clock by name. */
-> > +	of_property_read_string(dev->of_node, "clock-output-names", &init.name);
-> > +	if (!init.name)
-> > +		init.name = dev_name(dev);
-> > +	init.ops = &k3_inno_dp_pxclk_ops;
-> > +	init.parent_names = NULL;
-> > +	init.num_parents = 0;
-> > +	init.flags = 0;
-> > +	p->pxclk_hw.init = &init;
-> > +
-> > +	ret = devm_clk_hw_register(dev, &p->pxclk_hw);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret,
-> > +				     "failed to register pixel clock\n");
-> 
-> [Severity: High]
-> Can the PHY provider be accessed by consumers before probe completes
-> successfully?
-> 
-> The PHY provider is registered via devm_of_phy_provider_register() before
-> the pixel clock is registered. If devm_clk_hw_register() fails, probe will
-> return an error and devres will free the driver context struct.
-> 
-> If a consumer driver acquires a reference to the PHY during this race
-> window, it could retain the reference after probe fails, leading to a
-> use-after-free when it attempts PHY operations on the freed pointer.
-
-Taken: will register the PHY and clock providers last in probe
-in v2.
-
-Cody
-
+---
+bod
