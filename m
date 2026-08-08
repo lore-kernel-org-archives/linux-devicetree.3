@@ -1,216 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDA539B4A3;
-	Sat,  8 Aug 2026 17:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890EA2EB5A6;
+	Sat,  8 Aug 2026 18:10:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786210676; cv=none; b=YicbWe5SVgi1Puz/m9NxWxyj8LrwMpDSt7e/9QRc/5fMLUMNSM1Deq5DpKWIuM97JqdQQrsd1e73QrHRGFU61bivWsmoZx3sNGv/K93LaEmyzQNvcU/3XXeuGeeiYD8S4r8zYUztgTT9ULARdrTC54lsIoMPFSdXyNw3DIsejE0=
+	t=1786212630; cv=none; b=N7O8keEW2vjCjKV6I04ExLbjZhEkFoW6yxQ9hCmXqdwOF1x1r7AeGgBubDfN872MXlWEHoKHIrVrd+TK+jmaxTmhHKTBAwJ8OPeKmlVQyrDUNhO8ct9wi4Qgj0Eyd+VRn6glSUGTvMIufsN4r0p07EbEkzljhq3dr1iEOZGuTe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786210676; c=relaxed/simple;
-	bh=q8q6eq9fkFGGNJNam2raW6IeQdr9Crp3DwkUq3+09KA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FqxfnFHHBfdNkTlw0UwJMtIFPyjFe7SABg4FkMgvkaRt7gBYtWlqSnFXHoxXazNS++iFjzUyPSBQLIVtRLWoqxYI5tIin63FRUYQRrIRwIMJBwl9mK22jijC/Fs/4SCFZomAnSuMUR9u2Y31+l5Df714C4hnPhL9mBaVMfgR3k8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pIXTHlvC; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786212630; c=relaxed/simple;
+	bh=Gi1mm92Gjw0M1OFlah9/JVPSuvSP4JCcxQCKi1FId8A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i/VmDUp7MODYrSczkjlSah5SPr9MUViDmDiQGXjvG014d0Qa9yFNxUiuLy47G7/24X2HTssOeAPY+opUpSfR6bVg7kuvGQ1jVFdmmUkAyj/p9MlJuBmQXNPrJ/JVRAahauTnsQZQXgyC0jVi20eUmdP/QUuVSYlFNdvZA0AlmY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ch/GQbkr; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pIXTHlvC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9EAF3C2BD04;
-	Sat,  8 Aug 2026 17:37:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786210676;
-	bh=q8q6eq9fkFGGNJNam2raW6IeQdr9Crp3DwkUq3+09KA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=pIXTHlvCDoGuzezWVY4vSyKhOuydgmt4BdzmEh8jewrK4mqBem2tsYrvnIxCLAObw
-	 aOYLPo30u1U6BMlYcKUb3Koy8mM9A7cfsQRalhCSrjQLc192mBlZSVzLa7gANqs1TZ
-	 2xeLKWaKBGUIzmIYEQzuPfYjwN5qlE4WTZADSKU2Qk7HrBtKhTXb9aCZNwVVeKGAjA
-	 HX/APlX7Y7mqDYsF9ShbYYVOm+jVlGZ/jzC4db+SxR+esvwkwDFPyZkX3M1k4xuWYq
-	 UTm57yx2u8MrEHbzcuzJioTb1AcIlO96ET9hpNn0UJr3o0sJhRSdU9qlLTMii59oVl
-	 fGcjIHxWjV4zg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D42CC5AD58;
-	Sat,  8 Aug 2026 17:37:56 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Sat, 08 Aug 2026 12:37:58 -0500
-Subject: [PATCH 4/4] arm64: dts: qcom: Add Retroid Pocket Nova
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ch/GQbkr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786212628; x=1817748628;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Gi1mm92Gjw0M1OFlah9/JVPSuvSP4JCcxQCKi1FId8A=;
+  b=ch/GQbkrpRJ6hE4Zq/mF1BT0O5LK4j4VdQZvMFqxwHPxxH7jocgQ+f1y
+   tr/I/XJzYB05/ZCW2fuJlIzIbLVQNTeikyCpSTvwPMH5JhPkda05slAKZ
+   jUYPLmIIU9tRunpanQUQY3KvgsL3OFaz6ulBA4gJW7aFvUGJ6jinwKrzd
+   JxEhrN4pr5LXGhs/vY0iTocRMs4D3m+yazgdE2P7RwvZNecByKOJvTtfx
+   uWHhUG8lf/6iJgK2GMGAbyLwqjENP2twhDmLVfmboW/1y4EzlXlUqFVSe
+   UZbHZMDWLg7ZsPkhxYu3VOSUmezfEMJIiwTlQLBsws/7SjMI3JZH/mYW8
+   Q==;
+X-CSE-ConnectionGUID: 7uWI61vUTciXkKoZmpF06Q==
+X-CSE-MsgGUID: aAkzu82XS0qzoDHuAm6Q8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11869"; a="98303005"
+X-IronPort-AV: E=Sophos;i="6.25,212,1779174000"; 
+   d="scan'208";a="98303005"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 11:10:27 -0700
+X-CSE-ConnectionGUID: LS/3dPUwRHGgDlcUUDROkg==
+X-CSE-MsgGUID: 1qc3dcN0S8yLYIGOG0HZbQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,212,1779174000"; 
+   d="scan'208";a="286059691"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 11:10:22 -0700
+Date: Sat, 8 Aug 2026 21:10:20 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	John Ogness <john.ogness@linutronix.de>,
+	Peng Zhang <zhangpeng.00@bytedance.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Rong Zhang <rongrong@oss.cipunited.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Gerhard Engleder <eg@keba.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] serial: 8250: Add Airoha SoC UART and HSUART
+ support
+Message-ID: <andxDI4Xc-h5cJbd@ashevche-desk.local>
+References: <20260807222044.208056-1-ansuelsmth@gmail.com>
+ <20260807222044.208056-3-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260808-rp-qcs8550-v1-4-a5a365ba3dc5@gmail.com>
-References: <20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com>
-In-Reply-To: <20260808-rp-qcs8550-v1-0-a5a365ba3dc5@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786210675; l=4219;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=q8UjHGMmPoHP2wbEWgxjDK43X6smTKfy9XHYcl89fh0=;
- b=bPCHsL+BiZMKMzeKUdkGmFjp2ssPTnZntEweXL5loquuniRrMJ01qVfymL5qTo8V1+CfzO5cA
- QsVmQsVDg2SDuB0No5F7I0GqR8r1POpprzOX+rwe/ZmGD9+oJspVZ3N
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
-Reply-To: webgeek1234@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807222044.208056-3-ansuelsmth@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Aaron Kling <webgeek1234@gmail.com>
+On Sat, Aug 08, 2026 at 12:20:40AM +0200, Christian Marangi wrote:
+> Add support for Airoha AN7523 UART and AN7581 HSUART.
+> 
+> These implement a standard 16550 UART with only some custom logic
+> for baud rate handling.
 
-The Retroid Pocket Nova is a high-performance Android-based handheld
-gaming console powered by the Qualcomm Snapdragon 8 Gen 2 processor
-featuring a 4.5-inch 4:3 AMOLED touchscreen.
+Some cosmetic issues below.
+With that being addressed,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |   1 +
- .../boot/dts/qcom/qcs8550-retroidpocket-nova.dts   | 118 +++++++++++++++++++++
- 2 files changed, 119 insertions(+)
+...
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 09b3c5b2d9dab..582805e89f4cb 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -196,6 +196,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-aim300-aiot.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2mini.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-odin2portal.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-ayntec-thor.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-nova.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-retroidpocket-rp6.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs8550-rb5gen2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs9100-ride.dtb
-diff --git a/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-new file mode 100644
-index 0000000000000..10dabb1d51f5a
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs8550-retroidpocket-nova.dts
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "qcs8550-ayntec-common.dtsi"
-+
-+&{/} {
-+	model = "Retroid Pocket Nova";
-+	compatible = "retroidpocket,nova", "qcom,qcs8550", "qcom,sm8550";
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pwms = <&pmk8550_pwm 0 860000>;
-+		brightness-levels = <1023 0>;
-+		num-interpolated-steps = <1023>;
-+		default-brightness-level = <600>;
-+		power-supply = <&vph_pwr>;
-+		enable-gpios = <&pmk8550_gpios 5 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pwm_backlight_default>;
-+
-+		status = "okay";
-+	};
-+
-+	vdd_disp_1v8: vdd-disp-1v8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_disp_1v8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	vdd_disp_2v8: vdd-disp-2v8-regulator {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_disp_2v8";
-+
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+
-+		gpio = <&tlmm 142 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	ts_avdd_3v0: regulator-ts-avdd-3v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ts_avdd_3v0";
-+
-+		regulator-min-microvolt = <3000000>;
-+		regulator-max-microvolt = <3000000>;
-+
-+		gpio = <&tlmm 144 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	ts_vddio_1v8: regulator-ts-vddio-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ts_vddio_1v8";
-+
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 102 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&mdss_dsi1 {
-+	status = "disabled";
-+};
-+
-+&i2c_hub_3 {
-+	clock-frequency = <100000>;
-+
-+	status = "okay";
-+
-+	touchscreen@38 {
-+		compatible = "focaltech,ft5426";
-+		reg = <0x38>;
-+
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&tlmm 14 GPIO_ACTIVE_LOW>;
-+
-+		vcc-supply = <&ts_avdd_3v0>;
-+		iovcc-supply = <&ts_vddio_1v8>;
-+
-+		pinctrl-0 = <&ts_p_rst_default &ts_p_int_default>;
-+		pinctrl-1 = <&ts_p_rst_sleep &ts_p_int_sleep>;
-+		pinctrl-names = "default", "sleep";
-+
-+		touchscreen-size-x = <1280>;
-+		touchscreen-size-y = <960>;
-+	};
-+};
-+
-+&pmk8550_pwm {
-+	status = "okay";
-+};
-+
-+&remoteproc_adsp {
-+	firmware-name = "qcom/sm8550/retroidpocket/nova/adsp.mbn",
-+			"qcom/sm8550/retroidpocket/nova/adsp_dtb.mbn";
-+
-+	status = "okay";
-+};
-+
-+&spk_amp_l {
-+	firmware-name = "qcom/sm8550/retroidpocket/nova/aw883xx_acf.bin";
-+};
-+
-+&spk_amp_r {
-+	firmware-name = "qcom/sm8550/retroidpocket/nova/aw883xx_acf.bin";
-+};
+
+> +++ b/drivers/tty/serial/8250/8250_airoha.c
+
+
+> + * Author: Benjamin Larsson <benjamin.larsson@genexis.eu>
+> + *	   Christian Marangi <ansuelsmth@gmail.com>
+
+Authors:
+
+...
+
+> +#include <linux/array_size.h>
+> +#include <linux/bits.h>
+> +#include <linux/bitfield.h>
+
++ errno.h
+
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/property.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/serial_8250.h>
+
+> +#include <linux/serial_core.h>
+> +#include <linux/serial_reg.h>
+
+These two are kinda guaranteed by serial_8250.h. At least IIRC some other 8250
+drivers rely on this and it sounds logical.
+
++ types.h // uXX
+
+> +#include <linux/units.h>
+
+...
+
+> +#define UART_BRD_20M		0x1
+
+Perhaps 0x0001 to show that this is 16-bit value?
+
+...
+
+> +static unsigned int airoha_get_divisor(struct uart_port *port,
+> +				       unsigned int baud,
+> +				       unsigned int *frac)
+> +{
+> +	/* Hardware always uses BRDIV = 1. */
+> +	*frac = 0;
+> +
+> +	return 1;
+
+Shouldn't this be the same as UART_BRD_20M? I mean return a defined constant.
+
+> +}
+
+...
+
+> +static void airoha_set_divisor(struct uart_port *port, unsigned int baud,
+> +			       unsigned int quot, unsigned int quot_frac)
+> +{
+> +	struct uart_8250_port *up = up_to_u8250p(port);
+> +	u32 xindiv_clk;
+> +	u64 xyd_x, nom;
+> +	int div_bit;
+> +
+> +	/* Set baud rate calculation defaults (BRDIV ([BRDH,BRDL]) to 1) */
+
+Inner parentheses are not needed.
+
+> +	serial8250_do_set_divisor(port, baud, UART_BRD_20M);
+> +
+> +	/*
+> +	 * Calculate XYD_x and XINCLKDR register by searching
+> +	 * through a table of crystal_clock divisors.
+> +	 */
+> +	nom = (u64)baud * XYD_Y;
+
+> +	for (div_bit = ARRAY_SIZE(airoha_clk_divs) - 1;
+> +	     div_bit >= 0; div_bit--) {
+
+It's okay to place these on a single line.
+
+> +		unsigned int div = airoha_clk_divs[div_bit];
+> +
+> +		xindiv_clk = XINDIV_CLOCK / div;
+> +		xyd_x = div_u64(nom * 16, xindiv_clk);
+> +
+> +		/* For the HSUART xyd_x needs to be scaled by a factor of 2 */
+> +		if (port->type == UART_PORT_AIROHA_HS)
+> +			xyd_x /= 2;
+> +
+> +		if (xyd_x < XYD_Y)
+> +			break;
+> +	}
+> +
+> +	/* Couldn't find a valid xyd_x */
+> +	if (div_bit < 0) {
+> +		dev_err(port->dev, "failed to find suitable clock divisor for baud %u\n",
+> +			baud);
+> +		return;
+> +	}
+> +
+> +	serial_port_out(port, UART_AIROHA_XINCLKDR, BIT(div_bit));
+> +	serial_port_out(port, UART_AIROHA_XYD,
+> +			FIELD_PREP(UART_AIROHA_XYD_X, xyd_x) |
+> +			FIELD_PREP(UART_AIROHA_XYD_Y, XYD_Y));
+> +
+> +	/* Restore normal register access. */
+> +	serial_port_out(port, UART_LCR, up->lcr);
+> +}
 
 -- 
-2.54.0
+With Best Regards,
+Andy Shevchenko
 
 
