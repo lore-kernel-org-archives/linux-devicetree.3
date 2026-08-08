@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CAE40B6F4
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 13:13:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05048401A00
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 13:13:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786194837; cv=none; b=I9Fh6lTcr0A701g/01VQmSLqLKZu3CLOn1aF7UxRXoWa5ZvSWlZv5VfLM1IHwA4PUU1HumErjccj7qM6Qz++ODhp56wbxMyO9dCUcx8nWZTcdKxh2+D7gLYek467ktuf4LgFbqj49qcDddeFT++4aiQHEk+pgmbnI9mrajcV1zo=
+	t=1786194838; cv=none; b=J00GtgahML3viuIQ19z2J1wWeMN7VMj0GvKn7LIVMflOSkBizxgNwj7irIeRzeF5hSEVPOlOyPEgDu1MmLZJlQAGwL0yIntRyzF3qUd/iBAVzR5e4T935z5wYYMnIjVg8HYN189qmjJJ6hAqdZ3xxT6RdPVdzrkcbY03zO2M5A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786194837; c=relaxed/simple;
-	bh=A/nw84XrEB+kt1Pth0sZbFSKvFfvl6moQvIMEZAEAt8=;
+	s=arc-20240116; t=1786194838; c=relaxed/simple;
+	bh=sqiVqbYR0e/x/fSWn+Hxv9I+Nfpokrcwam/zk8YeGS0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JL+9VmAo/icvvG/zhWsB1RcyLXdYZyY3ibDurf6u6dEFP29GRo6i4YcsSVmqqQeDrfTcUVOkpWp51ABbew6mI7Nwdz6X9Rtz4mDX9Uqlh8MDpm1m+uH1bwh22sZsjd3/R/0NoUXHqYEOiu/i/a62mSmdMBdQ2kBWtuhRQnbWifw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCrc5A2o; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OTfHDZ6tzm9rtPsbDjxZ6WXvyoShlIC0HHnK32muryB2Kyk3JcLoSSwzryCR/JIn+3OdvVT9IVAOLf7hjhAHC8BkRHs6pL4NO15neMlfYn+RZsNNsi2++NSA7kGyORaC8EHMNMY22UybtK7SzL97T8sr2vfJh47Q6GMAEmAI//Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FZu+zIRL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCrc5A2o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7D921F00A3A;
-	Sat,  8 Aug 2026 13:13:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FZu+zIRL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC3A1F000E9;
+	Sat,  8 Aug 2026 13:13:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1786194836;
-	bh=Ef78N7pzYTIlQBwkquXUwdHccWO6TSVg8et4D39Yi9k=;
+	bh=MAEKvzwy87oLPquqbFRK6i/JBvQiN56pujcuEi34qCA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MCrc5A2oCCk3z9cN/PA/0rxu37MDyvDnG9w0JzODjm6G8qR55GcBpur5nfF2k30jR
-	 eb/FheLaTr/TZBcs/UFVyDU3n2rINaFXjus5+c3nDDveLg+rECLPSTcoOtxby9f74m
-	 92Y/NF7Y1eISKQ2xhah04lTvGM38cpU7t58uFAdP9Pw/y6ZR5mbukc8QelnejosGnp
-	 OyL3BACtG/ewDnw4NFqjFmP9gff6PeNyTqPFPzH46eiHLg+EZ4k4wlezUbnOt6ZPu7
-	 FMuBwj5eaQMbhtKrVRJXyic2Lrd65Lfm32PPD7IU39oJHYeQbUV8BlPTl7zk99A4Wy
-	 V4oWPPM/txBLQ==
+	b=FZu+zIRLrLn0WqBlXdKWJq0/xGHGVOcTUB/W1txEIx+paGVwCBLZm2RfknyGvcppN
+	 bDFoNqySGVtA7B6N+lJmcsYaQs8Gu4djZVw75B8haGVdGWMRYcvQ6fZhCOOgt76rRh
+	 etDo/n10zi+rwr7FmDFfEUtqK9uRxy52vzYZyIhvyu58Ad5ZWhBYY+TEwzZLuygUtR
+	 L0tK/CnEWVsI1PAq0mZRK2OP20xNwlWrSRG1GwQ9SdWcJ4hXPp8B5fHbhmla3Ue0uW
+	 UXfpfrW2m/dQLYG3f5FPKDU8jNGpgqiA23gDnGq5nepJrt/kK+iKqz8knpU7unaZrV
+	 Kk/JRJAmfSd6A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 09/12] net: phylink: add .pcs_link_down PCS
- OP
+Subject: Re: [PATCH net-next v11 10/12] dt-bindings: net: pcs: Document
+ support for Airoha Ethernet PCS
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807131301.192060-10-ansuelsmth@gmail.com>
+In-Reply-To: <20260807131301.192060-11-ansuelsmth@gmail.com>
 References: <20260807131301.192060-1-ansuelsmth@gmail.com>
- <20260807131301.192060-10-ansuelsmth@gmail.com>
+ <20260807131301.192060-11-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 13:13:55 +0000
-Message-Id: <20260808131355.D7D921F00A3A@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 13:13:56 +0000
+Message-Id: <20260808131356.9DC3A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,63 +47,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Lockless traversal of `pl->pcs_list` and unprotected modification =
-of `pl->pcs` in `phylink_start()` and `phylink_resume()`.
+- [Medium] Missing `minItems` and `maxItems` constraints in `if-then` block=
+s for `reg` and `reg-names` allow incomplete device tree nodes to silently =
+pass validation.
 --
 
---- Patch [9]: [PATCH net-next v11 09/12] net: phylink: add .pcs_link_down =
-PCS OP ---
-commit 7a2f38b91902153c2c82a86f0b98d881f66246ff
+--- Patch [10]: [PATCH net-next v11 10/12] dt-bindings: net: pcs: Document =
+support for Airoha Ethernet PCS ---
+commit d59fd3ae8fb2709a26756c96f02e5d3905143b5a
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: phylink: add .pcs_link_down PCS OP
+dt-bindings: net: pcs: Document support for Airoha Ethernet PCS
 
-This commit adds a .pcs_link_down operation to permit a PCS driver to define
-specific actions to tear down the link between the MAC and the PCS. It hooks
-into phylink_link_down() to call this new operation when tearing down the l=
-ink.
+This patch documents support for Airoha Ethernet PCS for AN7581 SoC.
+It adds a new physical coding sublayer provider binding for the various
+Serdes ports (10BASE-R, USXGMII, 2500BASE-X, 1000BASE-X, SGMII).
 
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 69d4f6675db0f..2e8d11573e3ad 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
+> diff --git a/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml b/=
+Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/pcs/airoha,pcs.yaml
 [ ... ]
-> @@ -1683,6 +1689,9 @@ static void phylink_link_down(struct phylink *pl)
-> =20
->  	pl->mac_ops->mac_link_down(pl->config, pl->act_link_an_mode,
->  				   pl->cur_interface);
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - airoha,an7581-pcs-eth
+> +              - airoha,an7581-pcs-pon
 > +
-> +	phylink_pcs_link_down(pl->pcs);
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: PCS MAC reg
+> +            - description: HSGMII AN reg
+> +            - description: HSGMII PCS reg
+> +            - description: MULTI SGMII reg
+> +            - description: USXGMII reg
+> +            - description: HSGMII rate adaption reg
+> +            - description: PCS Analog register
+> +            - description: PCS PMA (Physical Medium Attachment) register
+
+[Severity: Medium]
+Should this allOf conditional block for eth/pon also specify minItems: 8 and
+maxItems: 8 for the reg and reg-names arrays?
+
+Because the top-level schema defines minItems: 6 and maxItems: 15, defining
+an items list here without explicit length constraints means a device tree
+providing only 6 registers will silently pass validation for this variant.
+
+[ ... ]
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: airoha,an7581-pcs-pcie
 > +
->  	phylink_info(pl, "Link is Down\n");
->  }
+> +    then:
+> +      properties:
+> +        reg:
+> +          items:
+> +            - description: PCS MAC 0 reg
+> +            - description: HSGMII AN 0 reg
+> +            - description: HSGMII PCS 0 reg
+> +            - description: MULTI SGMII 0 reg
+> +            - description: USXGMII 0 reg
+> +            - description: HSGMII rate adaption 0 reg
+> +            - description: PCS MAC 1 reg
+> +            - description: HSGMII AN 1 reg
+> +            - description: HSGMII PCS 1 reg
+> +            - description: MULTI SGMII 1 reg
+> +            - description: USXGMII 1 reg
+> +            - description: HSGMII rate adaption 1 reg
+> +            - description: PCS Analog register
+> +            - description: PCS PMA (Physical Medium Attachment) 0 regist=
+er
+> +            - description: PCS PMA (Physical Medium Attachment) 1 regist=
+er
 
-[Severity: High]
-Does this sequence permit concurrent list traversal and modification of
-pl->pcs_list?
+[Severity: Medium]
+Similarly, does this pcie allOf conditional block need a minItems: 15
+constraint to ensure all required registers are present?
 
-Looking at phylink_start(), it initiates the configuration path without
-acquiring pl->state_mutex:
-
-phylink_start()
-  phylink_mac_initial_config(pl, true)
-    phylink_major_config()
-      list_for_each_entry(pcs, &pl->pcs_list, list) {
-        ...
-      }
-
-Concurrently, pcs_provider_notify() modifies the list under pl->state_mutex
-but without rtnl_lock:
-
-pcs_provider_notify()
-  mutex_lock(&pl->state_mutex);
-  ...
-  phylink_add_pcs(pl, pcs);
-    list_add_tail(&pcs->list, &pl->pcs_list);
-
-Can this lead to list corruption if a PCS provider probe races with
-a network interface startup?
+Without minItems constraints on reg and reg-names, any array length between
+the top-level 6 and 15 will pass validation, allowing incomplete device tree
+nodes to be accepted.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807131301.1920=
-60-1-ansuelsmth@gmail.com?part=3D9
+60-1-ansuelsmth@gmail.com?part=3D10
