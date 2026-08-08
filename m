@@ -1,213 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AE618B0F
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 10:46:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF67F3D76
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 10:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786186008; cv=none; b=iIn9V9m0ncx1jAHZHIBlQFhY1sJmBzEsuuMbI/YbptbMud9tpFycJcMszz0rltOz0GWAlKRart32+vDyFzS2OUqtSkjAWP0wg4275ngcVnsEfgEgTO01q62JMI1zU+e1LJWkqCguBkMl4sma5cEaA2VgQIK7e6/itYVOt0MrLNw=
+	t=1786186009; cv=none; b=A0mR+VSxhrx7Eho1RPtsx0tGVgFIXIcq37DDV8GpNmaqKsKnXXsLtG18tGZHfoHT5dsCrqec7/2+kao1btDk9YgrW5kSm2GIwFjGOtqeJi8t+pdsY95SPVyA+Fs6CVYg7pjjdRDgySfRXY+Kbg/bEE0GoVfOJRzV5TRgOYnrfyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786186008; c=relaxed/simple;
-	bh=yOSJ/6KdZmitj2U4nCIxA/8z+7csabMQzBNyYUnqEHM=;
+	s=arc-20240116; t=1786186009; c=relaxed/simple;
+	bh=PdUAbK224tyR+ApKMjfQ4Kc5tpCSEKiGD/FjdYIJ4Mc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B8nNpyIf/MEupjuqsnPJNKZdscnehxaJtbZJsEaEFxouhfyQevtf86WiJe9k8VSJw5Oc/biQSjdX2uUGGvd1FLRg4FhH1XYc8Dj4TaUYYRRyDveVgs7805oVqwM36EUiVIgGm3TXvcAnTe7WcjNlomkll6xpKNq7jgmtCwFOBKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CCs/1Gnx; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QFjbwknvAfE/ULa2tV+m9ilwswXck70gzf+X/dFBPE9ax3m9umIG1sLBgagAcF62+sHDlBqulREmrvLNertIPWSzVMdptB0QWY82NBh3nz22tyGn1tsl41Jh00IaWLtLyuY+uILwdAgZCRECS/5QQwu6UCWHYTjPoXPgfM9XLcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcn70Z2q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CCs/1Gnx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40BE91F00A3A;
-	Sat,  8 Aug 2026 10:46:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcn70Z2q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6CF1F00A3D;
+	Sat,  8 Aug 2026 10:46:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786186007;
-	bh=sETPbr7EdJh+k1CEL9qVrQgqivEKi6Vbwwab+NxFfkY=;
+	s=k20260515; t=1786186008;
+	bh=+PxPdnibjczNLCGav49ocX9zWDcoNzLmUU4V15GzUTU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CCs/1GnxaQ96smjD5l6iHO/V7+OsjeUEJu0jH9JEXzopqdJReMoh3D5ycm/x6nRi5
-	 xu3/ijfw0ay892rKU3TxPx3UpcV4gTQDqX4CEPje+S/Duuk4gmr6xsuSmq/CVBPQta
-	 zZa7gH7lzY083cGmcLBLnrVlzueithXLiBM7ql1esBj9uTss5JUYljzh3/6dFrk2KW
-	 kvVpc2vrIp7GGezvxzpD9g8E0EJZp3buBh5sC0ABXydbnjyYWsmAsxlyN0iqHYOrA6
-	 ppzWPgQeBSVzMMLttNWmPp3iVlfo6pBcwjHPUtWNpH4+PKljgk07INOamuqDNcIx1D
-	 ZD3VovCKNgWbQ==
+	b=fcn70Z2qxgs9cK2YMqzHWrI9up+hva7GNZrkn6VPixxKvbvCSKUyfzX+g4V+D0dRw
+	 vPsRe/aPaPhr09WixT4Kw2NNreEBdrhee8mfPFIhr8/ztx2BXTDiUD2xtpPVFGWdsu
+	 SoWjRCZUToY9a1OeR5NcLoE89zrxOEIy1s+zOA7bsKpCRqmElvsLDEac0NHjK22lne
+	 BTm9h2eAu+FR8VlRx7j+gdjueVbSc3LRQb4Tr1LZkTlDG0knnuPle/aqSL4I1ed3V/
+	 MRZysdLxXcdZfdRr7oUOGTKCisCoyzBW+vYcOpWqtSlrGI9RRl/2+5ZS9LSYNXp69o
+	 SAjGayJZ1h24w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 07/20] net: xilinx: tsn: add the endpoint TX data path
+Subject: Re: [PATCH 08/20] net: xilinx: tsn: deliver endpoint RX frames to
+ DSA user ports
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Nagadheeraj Rottela" <nagadheeraj.rottela@amd.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260807104431.157230-8-nagadheeraj.rottela@amd.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260807104431.157230-9-nagadheeraj.rottela@amd.com>
 References: <20260807104431.157230-1-nagadheeraj.rottela@amd.com>
- <20260807104431.157230-8-nagadheeraj.rottela@amd.com>
+ <20260807104431.157230-9-nagadheeraj.rottela@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 10:46:46 +0000
-Message-Id: <20260808104647.40BE91F00A3A@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 10:46:47 +0000
+Message-Id: <20260808104648.4D6CF1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] Time-of-check to time-of-use (TOCTOU) race condition during TX=
- ring slot allocation allows concurrent transmissions to overwrite the same=
- descriptor slot.
-- [Critical] Un-serialized submission to the DMA engine allows thread preem=
-ption to invert submission order, leading to premature DMA unmapping (Use-A=
-fter-Free).
-- [High] The TX completion callback wakes only the specific logical queue o=
-f the completed packet, permanently starving other logical queues mapped to=
- the same physical channel.
-- [High] Pending TX and posted RX SKBs are not freed when the interface is =
-stopped, causing a memory leak.
+- [High] Use-After-Free due to unconditionally freeing a shared metadata ds=
+t that can be refcounted by the network stack.
+- [Medium] API Violation: Queuing an SKB with a `noref` dst asynchronously =
+via `__netif_rx()` allows it to escape the RCU read-side critical section.
 --
 
---- Patch [7]: [PATCH 07/20] net: xilinx: tsn: add the endpoint TX data pat=
-h ---
-commit 74572301861a89d8c7ecbf1624d4c45457a33266
-Author: Srinivas Neeli <srinivas.neeli@amd.com>
+--- Patch [8]: [PATCH 08/20] net: xilinx: tsn: deliver endpoint RX frames t=
+o DSA user ports ---
+commit 0c90a3d99f1bcc8cd94ff937c6565b0da39afbe4
+Author: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Date:   Fri Aug 7 10:44:19 2026 +0000
 
-net: xilinx: tsn: add the endpoint TX data path
-
-Add the transmit path so the endpoint can send frames. Look up the physical
-DMA channel for the frame's queue through the map built at probe, map the
-frame and submit it to that channel. Stop the queue when the ring runs out
-of space, and wake it from the completion callback once a slot frees up.
+    net: xilinx: tsn: deliver endpoint RX frames to DSA user ports
+   =20
+    The DSA core routes an RX frame to a user port from the port metadata
+    attached to the skb. Without that metadata, frames from the two MACs
+    cannot reach their swpN netdevs.
+   =20
+    Allocate a METADATA_HW_PORT_MUX entry per MAC port at probe and attach
+    the matching entry to each RX frame by its TUSER port_id. Frames from
+    MAC1 and MAC2 now reach the correct user netdev, which completes the
+    conduit data path.
 
 > diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/ne=
 t/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> index 207ca3242a123..7615d27f3b360 100644
+> index 7615d27f3b360..051285b47ddbd 100644
 > --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
 > +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
 
 [ ... ]
 
-> @@ -268,8 +273,145 @@ static void ep_dma_rx_cb(void *data, const struct d=
-maengine_result *result)
->  	dma_async_issue_pending(xchan->chan);
->  }
+> @@ -254,6 +262,7 @@ static void ep_dma_rx_cb(void *data, const struct dma=
+engine_result *result)
+>  	}
 > =20
-> +static void ep_dma_tx_cb(void *data, const struct dmaengine_result *resu=
-lt)
-> +{
-
-[ ... ]
-
-> +	ndev =3D skb->dev;
-> +	txq =3D netdev_get_tx_queue(ndev, skb_get_queue_mapping(skb));
-> +	len =3D skb->len;
-> +
-> +	if (unlikely(result->result !=3D DMA_TRANS_NOERROR)) {
-> +		DEV_STATS_INC(ndev, tx_errors);
-> +	} else {
-> +		DEV_STATS_INC(ndev, tx_packets);
-> +		DEV_STATS_ADD(ndev, tx_bytes, len);
-> +	}
-> +
-> +	dev_consume_skb_any(skb);
-> +	netif_txq_completed_wake(txq, 1, len,
-> +				 CIRC_SPACE(READ_ONCE(xchan->ring_head),
-> +					    READ_ONCE(xchan->ring_tail),
-> +					    TX_BD_NUM_DEFAULT), 2);
-> +}
+>  	skb_put(skb, rx_len);
+> +	skb_dst_set_noref(skb, &ep->port_md[port_id]->dst);
+>  	skb->dev =3D ndev;
+>  	skb->protocol =3D eth_type_trans(skb, ndev);
+>  	skb->ip_summed =3D CHECKSUM_NONE;
 
 [Severity: High]
-Since multiple logical queues can share the same physical DMA channel,
-will waking only the logical queue associated with this specific SKB
-cause other stopped queues mapped to the same channel to starve?
+Can this cause a use-after-free if DSA is not configured?
 
-If space frees up in the shared channel, it seems like all stopped
-logical queues mapped to this channel would need to be awakened to
-prevent transmission stalls.
+The metadata dst is attached unconditionally to every packet here. Because =
+there
+is no check for netdev_uses_dsa(), non-DSA packets carry this dst into the =
+IP
+stack, exposing it to skb_dst_force().
 
-> +static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device =
-*ndev)
-> +{
+If the packet is bridged or queued to userspace (e.g., NF_QUEUE), the stack
+will call skb_dst_force() to upgrade the noref dst to a refcounted one. If =
+the
+driver is unloaded and frees the metadata dst unconditionally, any packet s=
+till
+in flight will trigger a use-after-free when dst_release() is called.
 
-[ ... ]
+Should this check netdev_uses_dsa() before attaching the dst?
 
-> +	spin_lock_bh(&ep->tx_lock);
-> +	if (CIRC_SPACE(xchan->ring_head, READ_ONCE(xchan->ring_tail),
-> +		       TX_BD_NUM_DEFAULT) <=3D 1) {
-> +		netif_txq_try_stop(txq,
-> +				   CIRC_SPACE(xchan->ring_head,
-> +					      READ_ONCE(xchan->ring_tail),
-> +					      TX_BD_NUM_DEFAULT),
-> +				   2);
-> +		spin_unlock_bh(&ep->tx_lock);
-> +		if (net_ratelimit())
-> +			netdev_warn(ndev, "TSN TX ring full\n");
-> +
-> +		return NETDEV_TX_BUSY;
-> +	}
-> +
-> +	skbuf_dma =3D ep_get_desc(xchan, xchan->ring_head & (TX_BD_NUM_DEFAULT =
-- 1));
-> +	if (!skbuf_dma) {
-> +		spin_unlock_bh(&ep->tx_lock);
-> +		goto err_drop_skb;
-> +	}
-> +	spin_unlock_bh(&ep->tx_lock);
+[Severity: Medium]
+Does this violate the RCU and skb_dst_set_noref() API contract?
 
-[Severity: Critical]
-Does dropping ep->tx_lock before incrementing xchan->ring_head allow
-concurrent calls to ep_start_xmit() on different queues to allocate the
-same ring slot?
+This code combines skb_dst_set_noref() with asynchronous queuing via
+__netif_rx() (called just below this hunk).
 
-Since the descriptor slot is reserved by ring_head, another thread could
-enter and overwrite the same skbuf_dma slot before ring_head is
-incremented, potentially causing data corruption and leaks.
+__netif_rx() places the packet on the per-CPU backlog and defers processing=
+ to
+a future softirq. This means the packet inherently escapes the driver's cur=
+rent
+RCU read-side critical section without being upgraded via skb_dst_force().
+
+Other DSA-aware drivers avoid this by using napi_gro_receive(), which proce=
+sses
+the packet synchronously within the NAPI poll loop's RCU critical section.
 
 [ ... ]
 
-> +	spin_lock_bh(&ep->tx_lock);
-> +	xchan->ring_head++;
-> +	netdev_tx_sent_queue(txq, skb->len);
-> +	netif_txq_maybe_stop(txq,
-> +			     CIRC_SPACE(xchan->ring_head,
-> +					READ_ONCE(xchan->ring_tail),
-> +					TX_BD_NUM_DEFAULT),
-> +			     2, 2);
-> +	spin_unlock_bh(&ep->tx_lock);
-> +
-> +	dmaengine_submit(dma_tx_desc);
-> +	dma_async_issue_pending(xchan->chan);
-> +
-> +	return NETDEV_TX_OK;
-
-[Severity: Critical]
-Because dmaengine_submit() is called after dropping ep->tx_lock, could
-thread preemption cause the DMA engine to receive submissions out of
-order compared to the logical ring_head order?
-
-Since ep_dma_tx_cb() unmaps and frees descriptors strictly based on
-xchan->ring_tail order, an out-of-order execution by the hardware could
-cause ep_dma_tx_cb() to unmap a slot that is still actively being
-transmitted, leading to a use-after-free.
-
-[ ... ]
-
-> @@ -304,10 +446,13 @@ static int ep_open(struct net_device *ndev)
->  static int ep_stop(struct net_device *ndev)
->  {
->  	struct xlnx_tsn_ep *ep =3D netdev_priv(ndev);
-> +	unsigned int i;
-> =20
->  	netif_tx_disable(ndev);
->  	WRITE_ONCE(ep->closing, true);
->  	ep_exit_dmaengine(ep);
-> +	for (i =3D 0; i < ndev->num_tx_queues; i++)
-> +		netdev_tx_reset_subqueue(ndev, i);
-> =20
+> @@ -771,6 +780,37 @@ static int ep_count_dma_queues(struct device *dev, u=
+32 *out_tx, u32 *out_rx)
 >  	return 0;
 >  }
+> =20
+> +static void ep_free_port_md(struct xlnx_tsn_ep *ep)
+> +{
+> +	int i;
+> +
+> +	for (i =3D 0; i < XLNX_TSN_EP_PORT_MD_SLOTS; i++) {
+> +		if (ep->port_md[i]) {
+> +			metadata_dst_free(ep->port_md[i]);
 
 [Severity: High]
-Does stopping the DMA engine here leak any SKBs that are currently pending
-in the TX or RX rings?
+Is it safe to unconditionally free the memory here?
 
-ep_exit_dmaengine() cancels pending transactions without executing their
-completion callbacks, but there doesn't appear to be a cleanup loop here
-to iterate over the rings and unmap/free the left-over skbuf_dma->skb
-pointers.
+Since the metadata dst was attached to packets that could have been upgraded
+to refcounted references in the network stack, calling metadata_dst_free()
+(which calls kfree directly) bypasses the reference counting.
+
+Should this drop the initial reference via dst_release() instead?
+
+> +			ep->port_md[i] =3D NULL;
+> +		}
+> +	}
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807104431.1572=
-30-1-nagadheeraj.rottela@amd.com?part=3D7
+30-1-nagadheeraj.rottela@amd.com?part=3D8
