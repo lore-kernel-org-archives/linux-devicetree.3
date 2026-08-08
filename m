@@ -1,112 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B091F4611
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 02:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E1631AABC;
+	Sat,  8 Aug 2026 02:57:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786155864; cv=none; b=H6bP7QnyCRpBsONJnNjnBgWKLqgw9/WMxUqlognqpbaaTlYxzVWcPa8ncYlZn2AJqwGVeP4EBJzf8YMtIQW4dhT5MFOjpkDKKfjtgphqFFtmOXj78V9iCB1ygb6Fng8GPG58rECH2xAyYZxnL+nmi1+oI6KPANGLpQHM24tgolE=
+	t=1786157860; cv=none; b=NWqFTNwevObqfMKttjASrIwL6EabeR7j5aDA258JRBUoHz6ru4tA7eJ6wWNqHyp1KGvXNcqm6MXu32pI1ez2yUydyeBfxPC5tn/49WfJ8mFUkGXnmtOlxN2zwaqzubLebWkycHkZhbnexIaKgNrcpYREBY4Mlz5OZ7k8I/BVsC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786155864; c=relaxed/simple;
-	bh=cmw8q86aN3502a+ZmWeB+j5eEhZo93qllRPcehDRI38=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IW9fZEcLt+gW3LImbXnKqJ5dKVppilU2u7T9TOZQsGOFhzCmWQkWpvWnwOhvFnqXIP05WYYvpHJBju2IlI+1jTrQ6g/Xca2GaRI7RsT3LJ8+05yZmCcwWUkjvSZ62AkibmnIxSiqIKTGzUlnCJFpd+Envnzk4nXRKmZnCuhGgpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIymSU/5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786157860; c=relaxed/simple;
+	bh=ZSIFPah6lX0neruRHtz6Nbuco6K5S0hD8v3Jbd3mIJQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qULy7cIMgS8oBz6M25tHwqT19kljYCVBqqwGiI3XSEwUDcxtuCXM+T23ZQzT/VpjO9eLEjl7WwcFZ0YM+ci6Igrap0vYjFpDF51w9tFizUmNhzz43IOf3hjOnqIRhJAHiwJFscS9PYMyJaCSdtgJkmf/S8YTyGzE5XJ9OJDLPdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=kq7zeBkF; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jTusmNic; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIymSU/5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F8471F000E9;
-	Sat,  8 Aug 2026 02:24:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786155863;
-	bh=XFtRS05FcXBEC94RpAu5iCeFfmq5bYLSUc+TKJ0VlYs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MIymSU/52g7osxd8rEkx1Li+CrV3ASfQMgQ3hCbyNAFqiI+XrMJJPOn/ekVWdFHBA
-	 v1qt+Tlxy1/PptjcpMRTudBLyw12T9BppCgc8L2HA8NxOT3Xp2SxBmpR93VlM1J1fE
-	 dUlotlSWPHs0eMoPaTMTjX7VdnGyNNdI+n2Yavy8oRIOVDOd8/y0V/raaC6LeFsqxm
-	 YEm+XeFdIQsFILrAth9UY22d+jeCMFthIGtjapfT+1+SB3scf5t+p3vpCNtkFLO6vU
-	 WXfhljvGhuIJYnkSVufH1r9yTcTySm9u3mb/j60UJJC2q5B45kjtVgKzaFuNd9pkrw
-	 75RwxXgM3DwEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/6] nfc: s3fwrn5: use the "s3fwrn5_i2c" string
- literal directly
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260807021001.239389-3-jorijnvdgraaf@catcrafts.net>
-References: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
- <20260807021001.239389-3-jorijnvdgraaf@catcrafts.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 02:24:22 +0000
-Message-Id: <20260808022423.2F8471F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="kq7zeBkF";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jTusmNic"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hH5KP6LMLzMlMd;
+	Sat, 08 Aug 2026 04:57:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786157849;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=atX795aL/TJ6cQJtNkIm5vjFqkHXTb1PQaU66zosmfo=;
+	b=kq7zeBkFudiaduXx0PVIZv5D2XvaCOj8hKQKCOphSXohF3za6rteU/UkRX6uFats53b6PQ
+	j5SzKy04XcLourIpzgkXIZzK4MwyQMAUG9gYNKp6JwVxtHlDEFEmNn8xQRsU2tMRF9Wd4A
+	ppqCq0S3qohmAA7bUng2ukpFUUiC+c0Ybvuo40ILN3PDdiJ1CsWwsqeMnEgXj5nIUuFaQ8
+	UZKkLNgBXUD+mKWao6E+aGOvMzlmQ1Cg+79fCZ/C98n6+a4ctj+navMSZx2sgyfutGEtqg
+	V4PdFkEeXwq4uO0RNxpMBaSCQwFCYnzXmpYMySrHPoo0M3U0UJwnTUtFSWfA2g==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786157848;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=atX795aL/TJ6cQJtNkIm5vjFqkHXTb1PQaU66zosmfo=;
+	b=jTusmNicxCCbs6hUNTlYmKLo+8zayvf2ayPJXVLV2OpkZVaKPBjkI6wvcZ7RJtoKHSOQIa
+	+QEs98EdrI3QhtfA2M81RIrApKgEFN3S68n8zYPNZMpQH2YPiQ3/X1ROUKaUDPKPbezmnb
+	nhLcCIeDsbqUGhh7F9Usd4+Q1AeUb1YVRnG3POS/VlMxe6utP+BGkV755uE9ZWdpIzvzWe
+	J4L6S+RMTlwXAY4wp42m2oPatxaWcRRy3/kZrlxp228bKcsLMcL+bjc3y4PRIBXoryrYv6
+	zyyyX9wYgwIFC3+mh69IhYMxL0iE9bCYRFA4rU5AKBdbSTXdCMB0X3WoCHjXKw==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for WaveShare 2CH CANFD HAT
+Date: Sat,  8 Aug 2026 04:56:26 +0200
+Message-ID: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 22b3c6dc9ab511f3b62
+X-MBO-RS-META: rx1gzjworxkf96rrsc5frsf1nkiumigj
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Add a DT overlay to bind the WaveShare 2-Channel Isolated CAN FD
+Expansion HAT on the Retronix R-Car V4H Sparrow Hawk board.
 
-Pre-existing issues:
-- [High] Missing endianness conversions when parsing firmware headers and o=
-ffsets, leading to failures on Big Endian architectures.
---
+Current device link is at https://www.waveshare.com/2-ch-can-fd-hat.htm
 
---- Patch [2]: [PATCH v4 2/6] nfc: s3fwrn5: use the "s3fwrn5_i2c" string li=
-teral directly ---
-commit 9d4d91e92081c012d8837ad241bfc3be79ee322a
-Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ arch/arm64/boot/dts/renesas/Makefile          |   3 +
+ .../r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso   | 130 ++++++++++++++++++
+ 2 files changed, 133 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
 
-nfc: s3fwrn5: use the "s3fwrn5_i2c" string literal directly
+diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
+index 8bf155badd111..69c1405a6fd01 100644
+--- a/arch/arm64/boot/dts/renesas/Makefile
++++ b/arch/arm64/boot/dts/renesas/Makefile
+@@ -124,6 +124,9 @@ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-5in.dtb
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-7in.dtbo
+ r8a779g3-sparrow-hawk-rpi-display-2-7in-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-rpi-display-2-7in.dtbo
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-7in.dtb
++dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-2ch-canfd.dtbo
++r8a779g3-sparrow-hawk-ws-2ch-canfd-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-ws-2ch-canfd.dtbo
++dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-2ch-canfd.dtb
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-display-13in.dtbo
+ r8a779g3-sparrow-hawk-ws-display-13in-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-ws-display-13in.dtbo
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-display-13in.dtb
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
+new file mode 100644
+index 0000000000000..de72680efa7c6
+--- /dev/null
++++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
+@@ -0,0 +1,130 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++/*
++ * Device Tree Overlay for the Waveshare 2-Channel Isolated CAN FD HAT
++ * on connector CN7 on R-Car V4H ES3.0 Sparrow Hawk board
++ *
++ * Copyright (C) 2026 Marek Vasut <marek.vasut+renesas@mailbox.org>
++ *
++ * Example usage:
++ * - Connect HAT signals to Sparrow Hawk board CAN BUS connector CONN2:
++ *   HAT CAN_0 H -- CONN2 pin 6
++ *   HAT CAN_0 L -- CONN2 pin 2
++ *   HAT CAN_1 H -- CONN2 pin 5
++ *   HAT CAN_1 L -- CONN2 pin 1
++ *
++ * - Determine which interface is which:
++ *   $ ip -d link show
++ *   2: can0: <NOARP,ECHO> ...
++ *      ...
++ *        clock 40000000 ... e6660000.can <------ Native Renesas CANFD
++ *   3: can1: <NOARP,ECHO> ...
++ *      ...
++ *   4: can2: <NOARP,ECHO> ...
++ *      ...
++ *        clock 40000000 ... spi1.0 <------------ SPI CANFD on this HAT
++ *   5: can3: <NOARP,ECHO> ...
++ *      ...
++ *
++ * - Bring connected interfaces up:
++ *   # CAN_0 link
++ *   $ ip link set can0 up type can bitrate 125000 dbitrate 250000 fd on
++ *   $ ip link set can3 up type can bitrate 125000 dbitrate 250000 fd on
++ *
++ *   # CAN_1 link
++ *   $ ip link set can1 up type can bitrate 125000 dbitrate 250000 fd on
++ *   $ ip link set can2 up type can bitrate 125000 dbitrate 250000 fd on
++ *
++ * - Perform CAN test, run each of the pair commands in separate terminals:
++ *   # CAN_0 link
++ *   $ canfdtest -v can0
++ *   $ canfdtest -g -v can3
++ *
++ *   # CAN_1 link
++ *   $ canfdtest -v can1
++ *   $ canfdtest -g -v can2
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++&{/} {
++	/* Fixed clock dedicated to SPI CAN on 2-CH CAN FD HAT */
++	clk_can0: clk-ws-2ch-canfd0 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <40000000>;
++	};
++
++	clk_can1: clk-ws-2ch-canfd1 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <40000000>;
++	};
++
++	/*
++	 * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
++	 * muxed on the pins allocated for SPI_1 on this CANFD HAT.
++	 */
++	spi-ws-2ch-canfd {	/* SPI_1 */
++		#address-cells = <1>;
++		#size-cells = <0>;
++		compatible = "spi-gpio";
++		sck-gpios = <&gpio0 10 0>;		/* CN7 pin 40 */
++		miso-gpios = <&gpio0 9 0>;		/* CN7 pin 35 */
++		mosi-gpios = <&gpio0 12 0>;		/* CN7 pin 38 */
++		cs-gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;	/* CN7 pin 12 */
++		num-chipselects = <1>;
++
++		can@0 {
++			compatible = "microchip,mcp2518fd";
++			clocks = <&clk_can1>;
++			/* CN7 pin 18 */
++			interrupts-extended = <&gpio1 25 IRQ_TYPE_EDGE_FALLING>;
++			reg = <0>;
++			spi-max-frequency = <20000000>;
++		};
++	};
++};
++
++&msiof0 {	/* SPI_0 */
++	#address-cells = <1>;
++	#size-cells = <0>;
++	pinctrl-0 = <&msiof0_pins>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	/*
++	 * Native MSIOF chipselect does not work with MCP2518FD
++	 * because MCP251xFD driver needs to keep the chipselect
++	 * line asserted between transfers. This requirement is
++	 * fulfilled only by using GPIO chipselect.
++	 */
++	cs-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
++
++	can@0 {
++		compatible = "microchip,mcp2518fd";
++		clocks = <&clk_can0>;
++		interrupts-extended = <&gpio1 26 IRQ_TYPE_EDGE_FALLING>;
++		reg = <0>;
++		spi-max-frequency = <20000000>;
++	};
++};
++
++&pfc {
++	msiof0_pins: spi-ws-2ch-canfd0 {	/* SPI_0 */
++		groups = "msiof0_clk", "msiof0_txd", "msiof0_rxd";
++		function = "msiof0";
++	};
++};
++
++/*
++ * PWM1 uses PWM1_B pin configuration for pin GP2_13. This conflicts
++ * with SPI_1 CE_1 signal which is also on pin GP2_13. Disable PWM1
++ * in case this hat is in use.
++ */
++&pwm1 {
++	status = "disabled";
++};
+-- 
+2.53.0
 
-This commit replaces the S3FWRN5_I2C_DRIVER_NAME define with the string
-literal "s3fwrn5_i2c" directly in the driver. The define was an indirection
-for a fixed ABI name and was only used locally within this file.
-
-> diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
-> index cb73993446e09..c528c085b43ef 100644
-> --- a/drivers/nfc/s3fwrn5/i2c.c
-> +++ b/drivers/nfc/s3fwrn5/i2c.c
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but can this code cause failures on Big Endian
-architectures due to missing endianness conversions?
-
-In s3fwrn5_i2c_read(), the 16-bit length field is read directly in native
-byte order:
-
-drivers/nfc/s3fwrn5/i2c.c:s3fwrn5_i2c_read() {
-    ...
-    data_len =3D (phy->common.mode =3D=3D S3FWRN5_MODE_NCI) ?
-            ((struct nci_ctrl_hdr *)hdr)->plen :
-            ((struct s3fwrn5_fw_header *)hdr)->len;
-    ...
-}
-
-Could this improperly byte-swap on Big Endian systems, leading to oversized
-allocations in alloc_skb() and invalid I2C reads?
-
-Additionally, in s3fwrn5_fw_request_firmware(), 32-bit offsets are copied
-directly from the little-endian firmware payload into native u32 variables
-without using le32_to_cpu():
-
-drivers/nfc/s3fwrn5/firmware.c:s3fwrn5_fw_request_firmware() {
-    ...
-    memcpy(&sig_off, fw->fw->data + 0x14, 4);
-    fw->sig =3D fw->fw->data + sig_off;
-    ...
-}
-
-Since sig_off is byte-swapped to a massive value on Big Endian systems, does
-this result in an out-of-bounds pointer calculation?
-
-When s3fwrn5_fw_enter_update_mode() later calls s3fwrn5_fw_prep_msg(), could
-copying from this fw->sig pointer trigger an unmapped memory read and
-kernel panic?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807021001.2393=
-89-1-jorijnvdgraaf@catcrafts.net?part=3D2
