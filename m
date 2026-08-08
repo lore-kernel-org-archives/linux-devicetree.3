@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4B11F4611
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 02:24:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD2E274FDF
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 02:24:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786155862; cv=none; b=AINJEdbum5YOaITQM93H8V9b9PqYCtXvhnJ7xcDqejfzxqjANQVMx8VGwpilUVfROqqbficR2ZQV3AS5wgjI2SqDjJrfq9VFSei3K+O2xYbJEj2Y56eMfF05eN2DnxkZwMdio9CB5oxU8F5oqb3QOzsZzlCKQJMLk+JjR+gyInE=
+	t=1786155864; cv=none; b=D1JDfEnn7/HH6wOPJes4U/wmeqdo17g1ahgRq8kvcNxxFbZC8YqqRqBrLGTTF8fsTw6ghpz9qYa7bSE1y7+RPpgnB5m1A2oe5wtPOZR61iV1Ug65sGsR+FWqGUqbH2U47O7XeI8IzNMNkzlOwR6lNHiOhMx+32UKI7hE4yUM6Do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786155862; c=relaxed/simple;
-	bh=ckTNoaXwBh2mfZgQp8onl3cmEMdZD/2QnKNTxAyR/RY=;
+	s=arc-20240116; t=1786155864; c=relaxed/simple;
+	bh=Pbes4Jsi3s1vudrABK55amtOXu7gsmn17uYDpzJz2p8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FlLY8H8K7Tw49fQ5Jmp5rq9dLRMswiF4zQbNd9kyB3psLE5jcZKpIlvfqo7OB8VhESmKpkl4n9Ai4tFIaF9KJpVxnOi/CqUXALdoGU+JCgMaijRcPT81Y7f+Dd+zbI9KU4YtOvDvxbaYIUg3SXYANCBR/cGs/3xvqC1ETFRUfYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uc/nSYOE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UHzOWHOH4O+E1M5Sn3VcXcM4jjVPKyWOodUVMRI6VPvPwgdOg31Mvenhp4lJoCdRQoICXORYWdD2Mb1OYXIs20Nb6K2uQWdXdDIEeLhZ7LcaUbtsHb4NSrLL8Bsx3WFPtiZdxmYOyL1dS8dPkUSF5p2VFwUxwt8dPsB2OM/2EYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frWOhCwl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uc/nSYOE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 896231F00A3A;
-	Sat,  8 Aug 2026 02:24:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frWOhCwl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B401F00A3D;
+	Sat,  8 Aug 2026 02:24:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786155861;
-	bh=xxSscEfz/hFvohk5vcJI+zugiodKV+NxzQfDw5h2NfA=;
+	s=k20260515; t=1786155862;
+	bh=DEWvD/KJPoA5sxNRzBBBHJqdtxK5YR/KDPa0VZty7L8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Uc/nSYOEf21DjlpVxfH0prsxOIe0/uDVHyD+6c0r1GishyLq0n+UNgzD/Zq0nxCeH
-	 d3Sv/gDs1BV4n1I7+7xmx7uq0OKCZyJlx+P5nexyLP0cqgMo5MVHeiQUWXGAGoqFnc
-	 5AS1fo74Pt84l5clrhhtfV32uk71iUEJHfU3XjsQleQi4Ls2REgbjmFC2FiMnX8pOM
-	 Bb/fC0jxu03ZCowYF2oxxVyGvk7WZh9TCcxlHDWvbledGT2OiadVnOH7h2DGo6ssiX
-	 d1kmbFWDXuIP5CGsrnPJncosmbADpG9lAuPbUF9UkgvLKKMpWR3CjBmQQVWONYpXT2
-	 fuYEZd45oi6uA==
+	b=frWOhCwlnCbd8Ag5SrWzhyyptgolhgAremRgviag8Ei+6BHPCaKgFjSj/OQEB5tKT
+	 wzI5igi/AswteGgVrvcq4LF0HNkJEsCxXOrqjmbXVP+umxBQfuIgo73dB61h1dAq69
+	 +x1eKG6J/LIo3XNZQOnFpk795MzqCLCn68QQ56NznIbmWCcURLkPqbe2xSX5fTlEMu
+	 xGNxmNWBWRhML0NoC8E+2V65ujFFHZatLVj203yU8ir6YCk2rsxYP1DnwmZzyG2Uwj
+	 i3vWJJ7zDePBEBbqZ4n0UwG/wLzJ0pWOP9WzIaBMEWVatZiTCPJOy9yO8IklMC+2Jx
+	 LCWj51o6OTBxg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] nfc: s3fwrn5: enable the PVDD supply
+Subject: Re: [PATCH v4 5/6] nfc: s3fwrn5: support the S3NRN4V variant
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260807021001.239389-5-jorijnvdgraaf@catcrafts.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807021001.239389-6-jorijnvdgraaf@catcrafts.net>
 References: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
- <20260807021001.239389-5-jorijnvdgraaf@catcrafts.net>
+ <20260807021001.239389-6-jorijnvdgraaf@catcrafts.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Sat, 08 Aug 2026 02:24:21 +0000
-Message-Id: <20260808022421.896231F00A3A@smtp.kernel.org>
+Message-Id: <20260808022422.62B401F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,60 +46,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The NCI device is registered and exposed to userspace before its I=
-RQ handler is requested, creating a race condition.
+- [High] Unprotected data race and state machine desynchronization due to i=
+gnored NCI command timeout.
 --
 
---- Patch [4]: [PATCH v4 4/6] nfc: s3fwrn5: enable the PVDD supply ---
-commit 3e46e47e27236d4ca640efa94f0c2940f401ccd7
+--- Patch [5]: [PATCH v4 5/6] nfc: s3fwrn5: support the S3NRN4V variant ---
+commit b57146ef7e5e76c557b5b6a3455b96f7592b3c94
 Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-nfc: s3fwrn5: enable the PVDD supply
+nfc: s3fwrn5: support the S3NRN4V variant
 
-This commit retrieves and enables the PVDD supply in the I2C PHY probe
-function. This ensures the controller is powered before any of its pins
-are driven or its clock is started.
+This commit adds support for the S3NRN4V Samsung NFC controller variant.
+It introduces a new initialization sequence and calibration data upload
+path using the DUAL_OPTION proprietary command.
 
-> diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
-> index c528c085b43ef..f93d8b47b65e3 100644
-> --- a/drivers/nfc/s3fwrn5/i2c.c
-> +++ b/drivers/nfc/s3fwrn5/i2c.c
-
+> diff --git a/drivers/nfc/s3fwrn5/nci.c b/drivers/nfc/s3fwrn5/nci.c
+> index 5a9de11bbecea..f1877797d1365 100644
+> --- a/drivers/nfc/s3fwrn5/nci.c
+> +++ b/drivers/nfc/s3fwrn5/nci.c
 [ ... ]
-
-> @@ -158,6 +159,11 @@ static int s3fwrn5_i2c_probe(struct i2c_client *clie=
-nt)
->  	phy->i2c_dev =3D client;
->  	i2c_set_clientdata(client, phy);
-> =20
-> +	ret =3D devm_regulator_get_enable(&client->dev, "pvdd");
-> +	if (ret)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "failed to enable pvdd\n");
-> +
+> @@ -117,3 +142,155 @@ int s3fwrn5_nci_rf_configure(struct s3fwrn5_info *i=
+nfo, const char *fw_name)
+[ ... ]
+> +int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
+> +				  const char *hw_name, const char *sw_name)
+> +{
+[ ... ]
+> +	/*
+> +	 * Ask the chip for its current calibration versions and skip the
+> +	 * upload when both already match the blobs; a mismatch or an
+> +	 * unparseable answer means the upload proceeds. GET_VER answers with
+> +	 * versions, not a status byte, so nci_prop_cmd()'s return carries no
+> +	 * meaning here.
+> +	 */
+> +	sub_oid =3D NCI_PROP_DUAL_SUB_GET_VER;
+> +	info->dual_rsp_len =3D 0;
+> +	nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
+> +	if (s3fwrn5_nci_dual_cal_current(info, hw_fw, sw_fw)) {
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this function expose
-the device to userspace before the IRQ handler is set up?
+Could ignoring the return value of nci_prop_cmd() here cause a data race?
 
-Looking further down in s3fwrn5_i2c_probe():
+If the controller is slow or unresponsive, nci_prop_cmd() will return
+-ETIMEDOUT. Because the error is ignored, the code immediately calls
+s3fwrn5_nci_dual_cal_current() which reads info->dual_rsp_len and
+info->dual_rsp.
 
-	ret =3D s3fwrn5_probe(&phy->common.ndev, phy, &phy->i2c_dev->dev,
-			    &i2c_phy_ops, variant);
-	if (ret < 0)
-		return ret;
+Concurrently, if a late response arrives, the RX workqueue will execute
+s3fwrn5_nci_dual_rsp():
 
-	ret =3D devm_request_threaded_irq(&client->dev, phy->i2c_dev->irq, NULL,
-		s3fwrn5_i2c_irq_thread_fn, IRQF_ONESHOT,
-		"s3fwrn5_i2c", phy);
+s3fwrn5_nci_dual_rsp() {
+	...
+	info->dual_rsp_len =3D min_t(unsigned int, skb->len,
+				   sizeof(info->dual_rsp));
+	memcpy(info->dual_rsp, skb->data, info->dual_rsp_len);
+	...
+}
 
-If userspace (like udev or neard) immediately opens the NCI device and
-starts sending commands after s3fwrn5_probe() returns, can the hardware
-generate an interrupt that is missed because devm_request_threaded_irq()
-has not been called yet?
+This locklessly overwrites the buffer while it is being read, potentially
+leading to a torn read of the calibration version data.
+
+Additionally, would a late response to this timed-out command erroneously
+fulfill the subsequent START_UPDATE command, shifting the response stream by
+one and breaking synchronization with the hardware?
+
+> +		dev_dbg(dev, "calibration data already current\n");
+> +		ret =3D 0;
+> +		goto out;
+> +	}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807021001.2393=
-89-1-jorijnvdgraaf@catcrafts.net?part=3D4
+89-1-jorijnvdgraaf@catcrafts.net?part=3D5
