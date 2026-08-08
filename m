@@ -1,68 +1,68 @@
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D482F38910F
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 18:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BBE3A0E85
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 18:40:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786214403; cv=none; b=JB9NAceV/ntaepcCqL2yehqMMMvbtkAJLyK7vtn2wx5RxHLMc8kL3RGhBu97sjDKD6O3/1CK1vSxA/8imcITXvNV4YlZ0+AEG49tnTQTGmEjlO3jXuSBkonYqzI6087Rwa4ZGOKMHZiEsF7DzQ1ptOhg+1/4cVoSoYYH6JKmEEw=
+	t=1786214428; cv=none; b=nrtFFRqYAjESvvS+Uy2HOVj3o37cG+iDONp8g9Ii1t/SZGKJrfosaN4Qj9qL0yuxFOn9WumDFD+KHRBX1FMM2VDTb/VUvuzCf6gcyHXxcnJEE5ebF3/ZNgPMn8ylIQZojDYuo66A8L5br/EchOW6VTekFPiilG7wrUu8lJE0eBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786214403; c=relaxed/simple;
-	bh=YaxF8qJo4fAqWyqBjcCVVgMqXcCWsBGS/GAEte/tGac=;
+	s=arc-20240116; t=1786214428; c=relaxed/simple;
+	bh=IIFe7bFRq+4UKCl3vboqsbuiZv4yCbFW4Bvz2uR8Qqo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZzswEHK35/Y/zNP478QxrUDIq+qAAl2AXoCU6PLzLOl2Z2mKBW6u+1rnyDoRn1YN4UHzTx33Yx/xmnjzrOVS8nu2zEp/shcJCfgCpatEZwVjZEYm8MY+zPgJZB1Z7u6mqwvYrlBdRBkhlu7l3/hNoAcyOYqDs2sMQIaKIJsY7Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=C5oR3mJK; arc=none smtp.client-ip=209.85.161.48
+	 In-Reply-To:Content-Type; b=ZVbpaq9UuWMg8cGVUVx4GFHOK/cnG7HmQul9+OwHI2kD8cQ5BfIjnzSo1gF6gUi+I1hYLJFvKGWI7dtft3YRgUemWLpggLrEeqRB79tjub81MtkqeZ2jf1B26dNdWQqgE76zbwsQPR+lVxJmqbHa7DD1ve/jhWnGQ7K8T1WYiEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=dJG9mc4B; arc=none smtp.client-ip=209.85.161.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="C5oR3mJK"
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6aae36ea5c4so385520eaf.1
-        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 11:40:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="dJG9mc4B"
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b01562adbdso300914eaf.2
+        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 11:40:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786214401; x=1786819201; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1786214425; x=1786819225; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r2kXLDnz6kpR8QNsVc1zaowwgblsmhTDwtZ568dODZI=;
-        b=C5oR3mJKjeO0HIKXeju5AyOYQe03mL5dIxQH+/qnHQk6zGPHb3fExhosC/ULaB3eiO
-         TUD3ho0XTXWOb2tyesbY5PUVggJ+/kRsfwHR1nNgq6sHzmn4OyEuUM+ygk8WxA7j4Vni
-         ZKzucbkxEokjSwaS82ITyDmiOyENDoJT4k8HWALqdIt1OvDsrJ5gRVT6SdpqS9/MXcvW
-         /CnpGNdgFglcJ8iE/70+zDKSN1XeZuKVXIevuzgo7kddiatoqCOv7il9dSuzku570gl4
-         EekrsynwIb+jUnOWkDH5u+rcThh9ckCdrOY0swJ17dTwyRlPhJr98Exbn8HEuPpNKu7G
-         KJKg==
+        bh=Wh+ES5WjVdfgnexRKrd9UDx4ZM3APQo1mhLySAOnnf4=;
+        b=dJG9mc4BDCIdgVdeDYGqpLAhc1bAYUY4tO+UsXIulo99db2T27EIfxr23l1WFUVO9h
+         micmA0raFkhq64Zy+cAMw+BNGw8z5n1CJGdqOKSMYmDYO+Vm5xaUPu2HjOWnVCZ+T+zb
+         rbyv09CGANntA+8Xk7YJ5J9nRgiwI/JgANf65zOphSCcn1wggv/pazQRaZ95el85dC70
+         ueO1w+QcV9FB8MJKnE8EihA2eJl2SliYCJrfqNCtvJwSW1AfvWadrIMiEBeqZZfv9DNn
+         9+e1b4/DwA1b1NqdCU3JlQdNqbQ/XuzIsWugs9zHs4ua45qXadgkC51eq7RfA1L+R52S
+         QAFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786214401; x=1786819201;
+        d=1e100.net; s=20251104; t=1786214425; x=1786819225;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r2kXLDnz6kpR8QNsVc1zaowwgblsmhTDwtZ568dODZI=;
-        b=inXxpUE6ce/fAlIytf8+No+AZfUhngwKSfnty2d3yeF9x6ABB5BNFiln3KIH8xkPTT
-         JCeELHyuN8d2TTSx8KyG+JbnnMlF/S5EY714LK7WsOf3YDeGm3zImdb34H3SOLMuJNeB
-         sy4PWRKbequgNBx8dxU+p45PB3npHePVp3t5yQkjmbtW6uVmwxm65sM4iVhJFFQfJN5f
-         n/EDB0raDrdV/s+gQg8f5qisYtEBCP8W54eqj3kAOr+PJlFZUAD5UNJFzkgtCz39r+sv
-         CR+wRIWrFMKGl7WfBygoYLuLIfV3HtQaJiAu/J9kNXJxbhfLqNY5CZ+QEc3H+5G8dqGt
-         nOWA==
-X-Forwarded-Encrypted: i=1; AHgh+RrQHhOjZHhEokg/8tw7FweDEpONVizspEZDzjGBkOwn4dRuKd6+Hcg9StVgUzyCEW3lIm+dO+yCIDl6@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmhwGAGSf++UoZVcb/ttB+WJ8h5mkP5htWk3k5OwVjjkKPXIWd
-	yRqRZkksKKYRJMSIUsMazb+LJbxKvfK9ZJJzrxjPMMCWIjMgYSGwJ61idnnuA/2miEY=
-X-Gm-Gg: AR+sD12R8Z9gSU0RMV8/bFkhqZTSIZ3eXlzinv9CAGwVld4HWxkIwn2Xe2N8FnNL7F0
-	43QreLsmlG/SGzTiUmYFGZj3rcvOlzu0o2NUP9Hj9zDM0Vy6Kqr8bqbP3+Z+5/NjI40228tgpjU
-	hYcTtDYUT1Zezkzs1TN0IHJxi0p4OoClnKnlGxwMiRVedcQ6qYFQDC6L11t1xxxXDr8s6YRNLq3
-	baNUOEJRXG6CVQ/V4cr8ZrkIoevAbh7ObdYd5psCzetgphcWYCfLKzITuSUfEofVwzhf2CuZHS3
-	5BpzhgmhZhEjigl1bqK86kbLMm9GvtdZi4fOV/4phUl7MpwdUaadhVtG3A4yMyf7husSXlNmpc6
-	c7F+daSxUbt94F6wuf/7BwlsuxUdL+l7BPb0FGLH1+JM4I6kGRM79uWusA/EQrpUM3GFRaOf0UR
-	xxCS11zZtAJcNUkq6ANS2FYGuWLrpOVOrtWPgoTjraiHD/6rH53Id/aYm4HYkNXojfbzzd7VeWJ
-	Bq/xP4/Rvz3Nks3GDxF2O2xcZgOKUb9hy1/2MY=
-X-Received: by 2002:a4a:ee0a:0:b0:6aa:f810:f579 with SMTP id 006d021491bc7-6ae96c10190mr17949909eaf.4.1786214400682;
-        Sat, 08 Aug 2026 11:40:00 -0700 (PDT)
+        bh=Wh+ES5WjVdfgnexRKrd9UDx4ZM3APQo1mhLySAOnnf4=;
+        b=rYxplGb2CMHfU8WD7AOaAJ+tU8wciizhUUrfdZXdrB2MCMLc1Bod3QOZMKHHtt5x+b
+         HZkkhf6ZAOCoR2ia6vTKcPw/s9esWJAZf8XxF5CMLYLhqliLhrizOJInEHFCEVu58fEt
+         HoLvBDW0hAM0VKMfV0xat/VW8MdU1rsgkqDD83/OYd42NRQ37N2elb3GQJgUTjr5Gq9K
+         37dc3TqFtpua16yGlfp7/OiKYBuF0ytGYlouOh9zryFJ00/tb+TVPiqbHfojITU+AaOk
+         6fG5lE7FdikyraAlKnTFUPzae9jnUgYb9ouVfI6AfdHPSCLc5U08x3iT/GDvTuV1zEm/
+         qjtQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqtcz3syMgajX2aIsSz8B7ts31ayfnluUmc/Fo9ymVR/Tbua3vSGuF9IlB7JiSxAvcHGcDAqfy17sM6@vger.kernel.org
+X-Gm-Message-State: AOJu0YzoIM3BzWx/lcbpBr/z5V903piDq9wg6UcuRRXvLCXku3itK+ja
+	kQ8Fd17F9OE7qPsfO59G9VFKHekCpuzU6aF6+zr6FFNKYfOyqgWjvVkvT68P+b9K5vA=
+X-Gm-Gg: AR+sD12k+oaLIFYA7IDqwmD/PUt/ha6PYjULASSznTtc10xxsOJ9LyW95GSwr/qqbQA
+	9CK5qMYIFBM+DmrAN7ig3R2wzwW9cIlsWHxosZrMMJJ895atP881hBqYcfQm+q5FA2BfvpJ5h9B
+	+fYj9TkUUKUZ3a85uRAp51diq11sDP9yK8jlgXhQxnEDyaw+O1jRTP7YEb1I6jh3KmZPVoau0m+
+	YL2adN+kubTZoKIgVZR5lcHyXCMn3vXvVs/+ZppGoZqIuEPvKNmxMeS1iHLOvIYTLX70t2cjmqQ
+	f7S6laNIJfY3E2acCDkGhEZT5r1gOHCJsbPujqwlAHRuuoFtjNiwVKgvDOGYl25d5/4geOGi9Kq
+	s0ECTFLnrYs+ltTScpLTmCzcINUvgcsSSrEAdq4urFMRSUyKsv02N0JKGQgKYh78m8Qv+rVwV11
+	gb+hmygvM6Xw1hPfLcY68lo4Zn6B2wm/Kg+5Epd07PkNQNSGZoXKyjDbnjV+j4shC0fDKHgSqRu
+	TIIDEAq0Xqo2UsgqCV8J4OR7eHGMB+BVhDzegA=
+X-Received: by 2002:a05:6820:16a9:b0:6a6:8f31:5a50 with SMTP id 006d021491bc7-6ae96c3c3dfmr14712000eaf.5.1786214425664;
+        Sat, 08 Aug 2026 11:40:25 -0700 (PDT)
 Received: from ?IPV6:2600:8803:e7e4:500:99c2:f16e:201c:3bb5? ([2600:8803:e7e4:500:99c2:f16e:201c:3bb5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b056cad736sm989361eaf.0.2026.08.08.11.39.58
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b02be47604sm4955355eaf.10.2026.08.08.11.40.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 08 Aug 2026 11:40:00 -0700 (PDT)
-Message-ID: <1b6b6981-1a08-42a2-a03a-4366b980da13@baylibre.com>
-Date: Sat, 8 Aug 2026 13:39:58 -0500
+        Sat, 08 Aug 2026 11:40:24 -0700 (PDT)
+Message-ID: <9f0779e5-3139-4c49-96b7-330f70b523a9@baylibre.com>
+Date: Sat, 8 Aug 2026 13:40:23 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,8 +70,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
- sampling
+Subject: Re: [PATCH v3 8/9] iio: adc: ti-ads1262: support REFOUT and VBIAS
+ regulators
 To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
@@ -81,391 +81,168 @@ Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org
 References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
- <20260807-ads126x-v3-7-f89925d72792@gmail.com>
+ <20260807-ads126x-v3-8-f89925d72792@gmail.com>
 Content-Language: en-US
 From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260807-ads126x-v3-7-f89925d72792@gmail.com>
+In-Reply-To: <20260807-ads126x-v3-8-f89925d72792@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 8/7/26 10:58 PM, Kurt Borja wrote:
-> Add triggered buffer support and a data-ready (DRDY) hardware trigger.
+> Register the "refout" and "vbias" regulators to be able to use them as
+> common mode supplies.
 > 
 > Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 > ---
->  drivers/iio/adc/Kconfig      |   2 +
->  drivers/iio/adc/ti-ads1262.c | 264 +++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 266 insertions(+)
+>  drivers/iio/adc/Kconfig      |  1 +
+>  drivers/iio/adc/ti-ads1262.c | 90 ++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 91 insertions(+)
 > 
 > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> index dbf76427912b..b9b561be8347 100644
+> index b9b561be8347..e5206438ac90 100644
 > --- a/drivers/iio/adc/Kconfig
 > +++ b/drivers/iio/adc/Kconfig
-> @@ -1845,6 +1845,8 @@ config TI_ADS1262
+> @@ -1845,6 +1845,7 @@ config TI_ADS1262
 >  	tristate "Texas Instruments ADS1262"
 >  	depends on SPI
 >  	select REGMAP
-> +	select IIO_BUFFER
-> +	select IIO_TRIGGERED_BUFFER
+> +	select REGULATOR
+>  	select IIO_BUFFER
+>  	select IIO_TRIGGERED_BUFFER
 >  	help
->  	  If you say yes here you get support for Texas Instruments ADS1262 and
->  	  ADS1263 ADC chips.
 > diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-> index d5464b4f2bfb..24a7ecb9fbd4 100644
+> index 24a7ecb9fbd4..533574169b04 100644
 > --- a/drivers/iio/adc/ti-ads1262.c
 > +++ b/drivers/iio/adc/ti-ads1262.c
-> @@ -34,6 +34,9 @@
->  #include <asm/byteorder.h>
+> @@ -26,6 +26,7 @@
+>  #include <linux/property.h>
+>  #include <linux/regmap.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/regulator/driver.h>
+>  #include <linux/spi/spi.h>
+>  #include <linux/string.h>
+>  #include <linux/types.h>
+> @@ -961,6 +962,91 @@ static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
+>  	return IRQ_HANDLED;
+>  }
 >  
->  #include <linux/iio/iio.h>
-> +#include <linux/iio/trigger.h>
-> +#include <linux/iio/trigger_consumer.h>
-> +#include <linux/iio/triggered_buffer.h>
->  
->  #define ADS1262_OPCODE_NOP			0x00
->  #define ADS1262_OPCODE_RESET			0x06
-> @@ -225,6 +228,7 @@ struct ads1262_channel {
->  struct ads1262 {
->  	struct spi_device *spi;
->  	struct regmap *regmap;
-> +	struct iio_trigger *trig;
->  	struct gpio_desc *reset_gpiod;
->  	struct gpio_desc *start_gpiod;
->  	unsigned long clk_rate;
-> @@ -241,8 +245,16 @@ struct ads1262 {
->  	bool need_avss_uV;
->  	bool bipolar_supply;
->  
-> +	IIO_DECLARE_BUFFER_WITH_TS(__be32, scan_buffer,
-> +				   ADS1262_MAX_CHANNEL_COUNT);
-> +
->  	/* Protects transfer buffers and concurrent SPI transfers */
->  	struct mutex xfer_lock;
-> +	struct spi_message msg;
-> +	struct spi_transfer xfer;
-> +
-
-Where does the 11 come from?
-
-> +	u8 tx[11] __aligned(IIO_DMA_MINALIGN);
-> +	u8 rx[11] __aligned(IIO_DMA_MINALIGN);
-
-don't need second one to be aligned, they aren't indepedant.
-
->  };
->  
->  static const u32 ads1262_data_rate_div[] = {
-> @@ -708,10 +720,242 @@ static const struct iio_info ads1262_iio_info = {
->  	.debugfs_reg_access = ads1262_debugfs_reg_access,
->  };
->  
-> +static int ads1262_buffer_preenable(struct iio_dev *indio_dev)
+> +static int ads1262_regulator_enable(struct regulator_dev *rdev)
 > +{
-> +	struct ads1262 *st = iio_priv(indio_dev);
-> +	unsigned int weight;
-> +	unsigned long i;
+> +	struct ads1262 *st = rdev_get_drvdata(rdev);
+> +
+> +	guard(mutex)(&st->xfer_lock);
+> +
+> +	return regmap_set_bits(st->regmap, ADS1262_POWER_REG,
+> +			       ADS1262_POWER_VBIAS_MASK);
+> +}
+> +
+> +static int ads1262_regulator_disable(struct regulator_dev *rdev)
+> +{
+> +	struct ads1262 *st = rdev_get_drvdata(rdev);
+> +
+> +	guard(mutex)(&st->xfer_lock);
+> +
+> +	return regmap_clear_bits(st->regmap, ADS1262_POWER_REG,
+> +				 ADS1262_POWER_VBIAS_MASK);
+> +}
+> +
+> +static int ads1262_regulator_is_enabled(struct regulator_dev *rdev)
+> +{
+> +	struct ads1262 *st = rdev_get_drvdata(rdev);
+> +	unsigned int val;
 > +	int ret;
 > +
-> +	weight = bitmap_weight(indio_dev->active_scan_mask,
-> +			       iio_get_masklength(indio_dev));
+> +	guard(mutex)(&st->xfer_lock);
 > +
-> +	if (weight > 1) {
-> +		/*
-> +		 * Multiple channels use software sequencing: a single
-> +		 * contiguous transfer rewrites the per-channel configuration
-> +		 * registers in two (non-contiguous) groups.
-> +		 *
-> +		 * Group 1: write protocol (2 bytes) + MODE0, MODE1, MODE2,
-> +		 * INPMUX (4 registers).
-> +		 *
-> +		 * Group 2: write protocol (2 bytes) + IDACMUX, IDACMAG,
-> +		 * REFMUX (3 registers).
-> +		 *
-> +		 * Total: 11 bytes
-> +		 */
-> +		st->xfer.len = 11;
-> +	} else {
-> +		/*
-> +		 * A single channel is read by command (RDATA1), so the transfer
-> +		 * holds the command byte plus the 4 conversion bytes.
-> +		 *
-> +		 * Total: 5 bytes
-> +		 */
-> +		st->xfer.len = 5;
-> +
-> +		/*
-> +		 * When only one channel is enabled, we can't really avoid SPI
-> +		 * activity from happening when the auxiliary ADC is in use,
-> +		 * thus we have to read from the data-holding register (command
-> +		 * mode).
-> +		 */
-> +		memset(st->tx, 0, st->xfer.len);
-> +		st->tx[0] = ADS1262_OPCODE_RDATA1;
-> +
-> +		i = find_first_bit(indio_dev->active_scan_mask,
-> +				   iio_get_masklength(indio_dev));
-> +		ret = ads1262_channel_enable(st, &indio_dev->channels[i]);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret = ads1262_set_runmode(st, ADS1262_RUNMODE_CONTINUOUS);
+> +	ret = regmap_read(st->regmap, ADS1262_POWER_REG, &val);
+
+Can be a bit simpler with regmap_test_bits().
+
 > +	if (ret)
 > +		return ret;
 > +
-> +	ret = spi_optimize_message(st->spi, &st->msg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ads1262_dev_start(st);
-
-Start really should be in buffer postenable as the trigger poll function
-hasn't been set up yet. It is fine to move all of this to postenable.
-
-> +	if (ret) {
-> +		spi_unoptimize_message(&st->msg);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
+> +	return field_get(ADS1262_POWER_VBIAS_MASK, val);
 > +}
 > +
-> +static int ads1262_buffer_postdisable(struct iio_dev *indio_dev)
+> +static const struct regulator_ops ads1262_vbias_regulator_ops = {
+> +	.enable = ads1262_regulator_enable,
+> +	.disable = ads1262_regulator_disable,
+> +	.is_enabled = ads1262_regulator_is_enabled,
 
-Likewise, this needs to be predisable so that it stops triggering
-the interrupt before we remove the trigger poll function.
+This should also have a get_voltage() op that returns
+(VAVDD + VAVSS) / 2. Otherwise it won't be usable as a
+common mode voltage.
 
-> +{
-> +	struct ads1262 *st = iio_priv(indio_dev);
-> +	unsigned int weight;
-> +
-> +	ads1262_dev_stop(st);
-> +	spi_unoptimize_message(&st->msg);
-> +
-> +	weight = bitmap_weight(indio_dev->active_scan_mask,
-> +			       iio_get_masklength(indio_dev));
-> +	if (weight > 1) {
-> +		regcache_drop_region(st->regmap, ADS1262_MODE0_REG,
-> +				     ADS1262_INPMUX_REG);
-> +		regcache_drop_region(st->regmap, ADS1262_IDACMUX_REG,
-> +				     ADS1262_REFMUX_REG);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct iio_buffer_setup_ops ads1262_buffer_ops = {
-> +	.preenable = ads1262_buffer_preenable,
-> +	.postdisable = ads1262_buffer_postdisable,
 > +};
 > +
-> +static int ads1262_enable_and_read_last(struct ads1262 *st,
-> +					const struct iio_chan_spec *spec,
-> +					__be32 *val)
+> +static const struct regulator_ops ads1262_refout_regulator_ops = { };
+> +
+> +static const struct regulator_desc ads1262_vbias_regulator_desc = {
+> +	.name = "vbias",
+> +	.of_match = "vbias",
+> +	.regulators_node = "regulators",
+> +	.supply_name = "avdd",
+
+What does supply_name do? Make "avdd-supply" the parent supply?
+
+> +	.ops = &ads1262_vbias_regulator_ops,
+> +	.type = REGULATOR_VOLTAGE,
+> +	.owner = THIS_MODULE,
+> +};
+> +
+> +static const struct regulator_desc ads1262_refout_regulator_desc = {
+> +	.name = "refout",
+> +	.of_match = "refout",
+> +	.regulators_node = "regulators",
+> +	.supply_name = "avdd",
+> +	.n_voltages = 1,
+> +	.fixed_uV = 2500000,
+> +	.ops = &ads1262_refout_regulator_ops,
+> +	.type = REGULATOR_VOLTAGE,
+> +	.owner = THIS_MODULE,
+> +};
+> +
+> +static int ads1262_register_regulators(struct ads1262 *st)
 > +{
-> +	struct ads1262_channel *chan;
-> +	int ret;
-> +
-> +	lockdep_assert_held(&st->xfer_lock);
+> +	struct device *dev = &st->spi->dev;
+> +	struct regulator_config config = {
+> +		.dev = dev,
+> +		.driver_data = st,
+> +	};
+> +	struct regulator_dev *rdev;
 
-What happens if something else (e.g. gpio in the future) decides to do a
-register write here. If it wins the race, will it unintentially read the
-data? So do we also need to read the stored data via command here too?
+Should we do...
+
+	if (!device_property_present(dev, "regulators"))
+		return 0;
+
+here since regulators is not a required property?
 
 > +
-> +	if (spec) {
-> +		guard(mutex)(&st->chan_lock);
+> +	rdev = devm_regulator_register(dev, &ads1262_refout_regulator_desc,
+> +				       &config);
+> +	if (IS_ERR(rdev))
+> +		return PTR_ERR(rdev);
 > +
-> +		chan = &st->channels[spec->scan_index];
+> +	rdev = devm_regulator_register(dev, &ads1262_vbias_regulator_desc,
+> +				       &config);
 > +
-> +		/* Group 1: MODE0, MODE1, MODE2, INPMUX */
-> +		st->tx[0] = ADS1262_MODE0_REG | ADS1262_OPCODE_WREG;
-> +		st->tx[1] = ADS1262_INPMUX_REG - ADS1262_MODE0_REG;
-> +		st->tx[2] = FIELD_PREP(ADS1262_MODE0_INPUT_CHOP_MASK, chan->input_chop) |
-> +			    FIELD_PREP(ADS1262_MODE0_IDAC_CHOP_MASK, chan->idac_chop) |
-> +			    FIELD_PREP(ADS1262_MODE0_RUNMODE_MASK, ADS1262_RUNMODE_CONTINUOUS) |
-> +			    FIELD_PREP(ADS1262_MODE0_REFREV_MASK, chan->ref_reversal);
-> +		st->tx[3] = FIELD_PREP(ADS1262_MODE1_FILTER_MASK, ADS1262_FILTER_FIR);
-> +		st->tx[4] = FIELD_PREP(ADS1262_MODE2_DR_MASK, chan->data_rate) |
-> +			    FIELD_PREP(ADS1262_MODE2_GAIN_MASK, chan->gain);
-> +		st->tx[5] = FIELD_PREP(ADS1262_INPMUX_MUXP_MASK, spec->channel) |
-> +			    FIELD_PREP(ADS1262_INPMUX_MUXN_MASK, spec->channel2);
-> +
-> +		/* Group 2: IDACMUX, IDACMAG, REFMUX */
-> +		st->tx[6] = ADS1262_IDACMUX_REG | ADS1262_OPCODE_WREG;
-> +		st->tx[7] = ADS1262_REFMUX_REG - ADS1262_IDACMUX_REG;
-> +		st->tx[8] = FIELD_PREP(ADS1262_IDACMUX_MUX1_MASK, chan->idac_mux[0]) |
-> +			    FIELD_PREP(ADS1262_IDACMUX_MUX2_MASK, chan->idac_mux[1]);
-> +		st->tx[9] = FIELD_PREP(ADS1262_IDACMAG_MAG1_MASK, chan->idac_mag[0]) |
-> +			    FIELD_PREP(ADS1262_IDACMAG_MAG2_MASK, chan->idac_mag[1]);
-> +		st->tx[10] = FIELD_PREP(ADS1262_REFMUX_RMUXP_MASK, chan->ref_p) |
-> +			     FIELD_PREP(ADS1262_REFMUX_RMUXN_MASK, chan->ref_n);
-> +	} else {
-> +		memset(st->tx, 0, sizeof(st->tx));
-> +	}
-> +
-> +	ret = spi_sync(st->spi, &st->msg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	memcpy(val, st->rx, sizeof(*val));
-> +
-> +	return 0;
+> +	return PTR_ERR_OR_ZERO(rdev);
 > +}
 > +
-> +static int ads1262_fill_buffer_mult(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1262 *st = iio_priv(indio_dev);
-> +	unsigned int chan;
-> +	__be32 val;
-> +	int i = -1;
-> +	int ret;
-> +
-> +	/*
-> +	 * This routine enables and reads channels in a full-duplex fashion.
-> +	 *
-> +	 * When a channel is enabled, the previous conversion is clocked out of
-> +	 * the shift data register on the same transfer (Section 9.4.7.1). This
-> +	 * allows for low latency software sequencing but forbids any
-> +	 * communication with the chip in-between or data corruption may occur,
-> +	 * hence the need to take the xfer_lock for the whole operation.
-> +	 */
-> +	guard(mutex)(&st->xfer_lock);
-> +
-> +	iio_for_each_active_channel(indio_dev, chan) {
-> +		ret = ads1262_enable_and_read_last(st, &indio_dev->channels[chan],
-> +						   &val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/*
-> +		 * After writing to the channel configuration registers, the
-> +		 * conversion-cycle is restarted and the data registers are
-> +		 * cleared. This means we have to reinit the completion after
-> +		 * enabling to avoid reading stale data.
-> +		 */
-> +		reinit_completion(&st->drdy);
-
-This seems racy still as DRDY could have been triggered already, in which case
-we would time out waiting for the interrupt. Or does the DRDY toggle again
-even if we don't read the data to trigger another conversion?
-
-Would it be possible to make one big SPI messsage that contains all enabled
-channels and just run that instead? Insted of waiting for drdy, it would have
-to add a delay at the end of the sequence of xfers for setting up each channel
-that was long enough to ensure that the conversion will be done when we read
-it.
-
-Or we could just do similar to the start_one() function and don't leave
-it in continuous conversion mode. Using the delay option of spi xfers, we
-could just tack on two more commands to start and stop the conversion after
-after writing all of the mode stuff so that it still all happens in one SPI
-message.
-
-> +
-> +		if (i > -1)
-> +			st->scan_buffer[i] = val;
-> +		i++;
-> +
-> +		ret = ads1262_wait_for_conversion(st);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return ads1262_enable_and_read_last(st, NULL, &st->scan_buffer[i]);
-> +}
-> +
-> +static int ads1262_fill_buffer_one(struct iio_dev *indio_dev)
-> +{
-> +	struct ads1262 *st = iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	guard(mutex)(&st->xfer_lock);
-> +
-> +	ret = spi_sync(st->spi, &st->msg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* In command mode the conversion data is found at offset 1 */
-> +	memcpy(st->scan_buffer, &st->rx[1], sizeof(*st->scan_buffer));
-> +
-> +	return 0;
-> +}
-> +
-> +static irqreturn_t ads1262_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf = p;
-> +	struct iio_dev *indio_dev = pf->indio_dev;
-> +	struct ads1262 *st = iio_priv(indio_dev);
-> +	s64 ts = pf->timestamp;
-> +	unsigned int weight;
-> +	int ret;
-> +
-> +	weight = bitmap_weight(indio_dev->active_scan_mask,
-> +			       iio_get_masklength(indio_dev));
-> +
-> +	if (weight == 1)
-
-Could make this:
-
-	if (io_validate_scan_mask_onehot(indio_dev))
-
-> +		ret = ads1262_fill_buffer_one(indio_dev);
-> +	else
-> +		ret = ads1262_fill_buffer_mult(indio_dev);
-> +	if (ret)
-> +		goto out_notify_done;
-> +
-> +	iio_push_to_buffers_with_ts(indio_dev, st->scan_buffer,
-> +				    sizeof(st->scan_buffer), ts);
-> +
-> +out_notify_done:
-> +	iio_trigger_notify_done(indio_dev->trig);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
->  static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
+>  static int ads1262_dev_configure(struct ads1262 *st)
 >  {
->  	struct ads1262 *st = dev_id;
->  
-> +	iio_trigger_poll(st->trig);
->  	complete(&st->drdy);
->  
->  	return IRQ_HANDLED;
-> @@ -1414,6 +1658,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
->  	st->spi = spi;
->  	init_completion(&st->drdy);
->  
-> +	st->xfer.tx_buf = st->tx;
-> +	st->xfer.rx_buf = st->rx;
-> +	spi_message_init_with_transfers(&st->msg, &st->xfer, 1);
-> +
->  	ret = devm_mutex_init(dev, &st->chan_lock);
->  	if (ret)
->  		return ret;
-> @@ -1459,6 +1707,22 @@ static int ads1262_spi_probe(struct spi_device *spi)
+>  	struct device *dev = &st->spi->dev;
+> @@ -1707,6 +1793,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
 >  	if (ret)
 >  		return dev_err_probe(dev, ret, "failed to configure device\n");
 >  
-> +	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
-> +					      iio_pollfunc_store_time,
-> +					      ads1262_trigger_handler,
-> +					      &ads1262_buffer_ops);
+> +	ret = ads1262_register_regulators(st);
 > +	if (ret)
 > +		return ret;
 > +
-> +	st->trig = devm_iio_trigger_alloc(dev, "%s-dev%d-drdy", info->name,
-> +					  iio_device_id(indio_dev));
-> +	if (!st->trig)
-> +		return -ENOMEM;
-> +	iio_trigger_set_drvdata(st->trig, st);
-> +	ret = devm_iio_trigger_register(dev, st->trig);
-> +	if (ret)
-> +		return ret;
-> +
->  	/*
->  	 * REVISIT: This chip has software polling capabilities, which could be
->  	 * used to stop depending on the 'drdy' IRQ.
+>  	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
+>  					      iio_pollfunc_store_time,
+>  					      ads1262_trigger_handler,
 > 
 
