@@ -1,111 +1,204 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08AF155C97;
-	Sat,  8 Aug 2026 20:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786220353; cv=none; b=GQHOfODWNaA+b43dvW6xte40XsGFIoxgPpJ031CxP8MTZV9rjXCR/m2ihYxhhdr7+w6Bp4ZJAcEM3SjAjdzfPdZBIlIiPrp+mlukDeeF8H4EsRTw9TOv50NkjESSAcd4TcLp4sqiXmz+wwgs5sCT7yHpbpk75gC6EUdmNWBSRxE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786220353; c=relaxed/simple;
-	bh=9nz7IOusqEHgstHGnKEeX2Jy1TVSdKmxQ5tYWtxTVj0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A3B1DDC38;
+	Sat,  8 Aug 2026 20:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786220459; cv=pass; b=HF2kIHUdb8gB+ceNjM2UZLJH4r05eubNDfoivVlCCy0eQeXs357xkGFHT8kcal4ldHfMKZWjs63AKo4MWm0PNRh6sIQaFiTxggs0ZK1oeKuui51ZNDefVdix913/tCnEZPvlhjc+2qZIQiYectQ5whMr/fxyHQYHhPhn5QeN2l0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786220459; c=relaxed/simple;
+	bh=aeFhONdvdFN3w1rr0B3dP3sgea3s7c4tP+l3tOI7F2I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eXv4VBFu81tNDVC4XR2yrIBxjbjlyUshguhque5PveavKSe7YQMujL39ouuQgNIzl7lJ1Cz9adfH18jEX6iaU2ZtUYxGE3Kv3mPmeRPaiiRWnXahXKB+MnISE2YV6JgdVeKGRgupZX+uD3sLnhZiHccNxx5OWYRTDGagMH2ExAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BClHq0hL; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=VuBmP6U04R4m1z+jGiHZbzDuvLZiDWF9s12DQXlwUzdZP+Q8+GHYhNMk0vjiCQJcfisOs1awiT36lYrWQsg3usR4IGUsRv8a4ZHbSUXcQvmap4U5H+8nIqsDjBnHDvl2xx7tXF52lobKCNK7lWw4W5BZgLM35rawHuhZ8YnRHU0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=cE3SLerB; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BClHq0hL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786220352; x=1817756352;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9nz7IOusqEHgstHGnKEeX2Jy1TVSdKmxQ5tYWtxTVj0=;
-  b=BClHq0hLJviCeTnU8fAuG+SZFt4+QN4OOhBkqrRHnSO9GV3QfJ4mLANC
-   79jJ35n3cRYeAHGRPeBGyqoNKTh6EZPlo9nYsnePOtCxemaCre3eDSKAA
-   tQLIb5FqFR1e0Pm6SBWmM9DvOi7A2x5ouCX4AJSnxtqusa6R9UeeQerFh
-   GJZhzjR1Wfy8rVJPlMUqtOk4xIAJ7Kq/V3dzXgZmSEFVEMn7JaIduciXj
-   WR4NROlSaYGqJjChmBvRM4kCDWr9CUPGmlJVCJ7B4IHNdJfxjZpsA5V4V
-   GgCdMO77uFUJjMgeDG3HU9aU3kGg6nGpRjB1XT6+H2gCZzvpl3wUYH1Mk
-   w==;
-X-CSE-ConnectionGUID: Q7neAhXeSiuFsuudJGatBw==
-X-CSE-MsgGUID: BipdgJZaRPeKyCoHQj0gbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11869"; a="112340851"
-X-IronPort-AV: E=Sophos;i="6.25,212,1779174000"; 
-   d="scan'208";a="112340851"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 13:19:11 -0700
-X-CSE-ConnectionGUID: UdLkuQCyROGcgzqBYFhGUg==
-X-CSE-MsgGUID: qw/wz0LvRiG1iNvfBEn9pw==
-X-ExtLoop1: 1
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 13:19:07 -0700
-Date: Sat, 8 Aug 2026 23:19:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikita@trvn.ru>,
-	Maslov Dmitry <maslovdmitry@seeed.cc>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/6] iio: light: ltr501: Add ltr329 driver support
-Message-ID: <anePOQh3F2cWds1o@ashevche-desk.local>
-References: <20260804-liteon-ltr329-v3-0-c6b768c7c745@geanix.com>
- <20260804-liteon-ltr329-v3-5-c6b768c7c745@geanix.com>
- <GosXsaKWx6E9mVl9UgD6Bm-yOPFZHzktTL8zxE7yEucs3KmgSRhnP5q1undPbc8-rr0hYUCiTQBFM36MfhR8sQ==@protonmail.internalid>
- <anT-9vI9jD8V0Q0_@ashevche-desk.local>
- <87ik5mxt7c.fsf@geanix.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="cE3SLerB"
+ARC-Seal: i=1; a=rsa-sha256; t=1786220392; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nQD+fGqxB6UkDIh6ab8llSRtZtAVdtmjXM55X4ftMoqQV0GLZJCSWlhUNX6ngEyMXI7AmhJJLZW2nwP4sJKkYsn4UcOU+zuKgzKUWGr7XypA/uq+lcwUmoKYbV0L4HSjTsGaUZLnOnuFLVydVQQC25s2SDvzFog7AAmsnZ/c38s=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1786220392; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=dTyEmAFMXg2QOXmlZRaJiP5I5NyDAILJNF6EwnDocl8=; 
+	b=CE/G2sMo9Mw9AKCz4lFbfyR9wVUahgjz1b0uCkNXEnB6JByCLVOJp5sQgGViBzusDJJf3I6TDNQjtPOAa7lIWThGkSnhIFgjlaHWW3KFKXlgyeB8PBs+hwQT4Tjx5WhEI9Eb422NQ6N+wft3ZjX0PeoYtFOyNUtuwieIFV2Xa6k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786220391;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=dTyEmAFMXg2QOXmlZRaJiP5I5NyDAILJNF6EwnDocl8=;
+	b=cE3SLerBAaQutJ7S37S5guKr19nYqY+YMpqOXCgt069b/O0KhnZYMHocj/VbZ0pi
+	NlT3B4uUFl26JqZKRKL370SK/gjkCYtADtPFm3UpqjShqjaQaaQ3JOx0FwcXzJ9bMkE
+	QvXJ6u/3NNnm7FJ1BpzX96szDMbhcQtXH3NeNAdg=
+Received: by mx.zohomail.com with SMTPS id 1786220389882229.9479842488364;
+	Sat, 8 Aug 2026 13:19:49 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 8F47B180679; Sat, 08 Aug 2026 22:19:42 +0200 (CEST)
+Date: Sat, 8 Aug 2026 22:19:42 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, 
+	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+	Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v11 00/21] Synopsys DisplayPort Controller improvements
+ for Rockchip platforms
+Message-ID: <aneNCDU12OzG99UX@venus>
+References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+ <20260808094138.7205-1-royalnet026@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hivxea73q5gk46gz"
 Content-Disposition: inline
-In-Reply-To: <87ik5mxt7c.fsf@geanix.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Fri, Aug 07, 2026 at 09:53:11AM +0200, Esben Haabendal wrote:
-> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
-> > On Tue, Aug 04, 2026 at 07:02:16PM +0200, Esben Haabendal wrote:
-
-...
-
-> >>  	if (client->irq > 0) {
-> >> +		if (!ltr501_has_irq_support(data->chip_info)) {
-> >> +			dev_err(&client->dev, "chip does not support irq\n");
-> >> +			ret = -EINVAL;
-> >
-> > Can this be
-> >
-> > 			ret = dev_err_probe(-EINVAL);
-> 
-> Sure can, if that is the preferred style. But it will probably still be
-> two lines due to line width considerations.
-
-Even older kernels' checkpatch won't complain on that long line (as ending by
-a sting literal). But it's up to you.
-
-> And personally, as it would not take advantage of the -EPROBE_DEFER
-> logic of dev_err_probe(), I find the dev_err() style more clear.
-
-The point is to use the unified template for the probe error messages (that's
-why you may find a patch against dev_err_probe() documentation that allows this
-kind of use).
-
-> >> +			goto powerdown_on_error;
-> >> +		}
-
--- 
-With Best Regards,
-Andy Shevchenko
+In-Reply-To: <20260808094138.7205-1-royalnet026@gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.208.17
+X-ZohoMailClient: External
 
 
+--hivxea73q5gk46gz
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v11 00/21] Synopsys DisplayPort Controller improvements
+ for Rockchip platforms
+MIME-Version: 1.0
+
+Hi,
+
+On Sat, Aug 08, 2026 at 11:41:32AM +0200, Igor Paunovic wrote:
+> The Tested-by tag is at the bottom.  Short version: v11 works here on
+> an Orange Pi 5 Plus over USB-C DP AltMode.  It needs your usbdp v13
+> series underneath to probe at all, and above 2560x1440@144 it needs a
+> VOP2 ACLK change that has nothing to do with your patches.
+>=20
+> One caveat first, so that the next paragraph is not misread: dp0 is
+> disabled in the mainline RK3588 DTS, so none of this is reachable on
+> an untouched tree.  I enable it with a local board DT patch.
+>=20
+> With dp0 enabled but without usbdp v13, dw-dp never finishes probing.
+> It stops at "failed to get follow-up bridge" (dw-dp.c), because
+> mainline phy-rockchip-usbdp has no drm_aux_bridge_register() at all;
+> that call arrives with usbdp v13 patch 16/35 ("phy: rockchip: usbdp:
+> Register DP aux bridge"). The component bind then never completes, so
+> both HDMI outputs stay dark as well - the symptom is much wider than
+> the cause, which cost me a boot to work out.
+
+Correct, that's why I mentioned the explicit dependency in earlier
+versions. But without the usbdp series you should not have DP0
+connected to the USBDP in the first place, because the USBDP DT
+binding does not yet have 'ports' described in its binding.
+
+> Hardware: Samsung Odyssey G70B behind a USB-C to HDMI 2.1 protocol
+> converter.  DPCD extended revision 1.4, the link trains at HBR2 x4,
+> VSC SDP colorimetry is supported.  The converter ships a malformed
+> EDID, so a boot script feeds a corrected one through the debugfs
+> edid_override and kicks fusb302 once; without that the 4K modes are
+> dropped and AUX stays dead.  Both are adapter problems, not driver
+> ones.
+>=20
+> What I saw:
+>=20
+>   - DP-1 comes up connected, the EDID reads through the converter,
+>     the link trains, and KWin drives the output.
+>   - At the stock VOP2 ACLK rate, modes up to 2560x1440@144 are clean.
+>     I left the machine at 2560x1440@143.99 for more than eight hours
+>     with no DRM or VOP2 errors.
+>   - 3840x2160@120 comes up, but the picture is unusable until the
+>     VOP2 ACLK is raised.  With it raised the picture is correct
+>     immediately.
+>=20
+> That last point is a platform issue rather than a dw-dp one, so I have
+> sent it as its own thread to dri-devel and linux-rockchip with you on
+> Cc: "drm/rockchip: vop2: ACLK_VOP pinned at 500 MHz starves DP 4K120
+> on RK3588".
+>=20
+> Two small things I noticed while I was in there:
+>=20
+> Kconfig: ROCKCHIP_DW_DP selects nothing, and DRM_DW_DP does not select
+> DRM_BRIDGE_CONNECTOR either, while ROCKCHIP_ANALOGIX_DP,
+> ROCKCHIP_CDN_DP, ROCKCHIP_DW_HDMI_QP, ROCKCHIP_LVDS and ROCKCHIP_RGB
+> all do.  Since dw_dp-rockchip.c calls drm_bridge_connector_init(), a
+> configuration with only ROCKCHIP_DW_DP enabled fails to link.  This
+> predates your series; I am happy to send the one-liner if you agree it
+> is worth fixing.
+
+Makes sense to handle this independently.
+
+> sound-dai-cells: the dt-bindings patch in this series ("dt-bindings:
+> display: rockchip: dw-dp: Fix sound DAI cells") notes that the
+> mainline rk3588 DTS still sets 0 and will be fixed up separately.  Is
+> that DTS patch already queued somewhere?  I would rather not duplicate
+> it.
+
+You can see it in the Collabora rockchip-devel branch; I did not yet
+send it because it needs the DT binding patch. See the discussion
+with Rob on the binding patch.=20
+
+> DP audio: it does work here, but on my rockchip-devel based daily
+> kernel, which carries the v9 generation of the audio patch - a
+> simple-audio-card with cpu &spdif_tx2 and codec <&dp0 1>, picked up by
+> PipeWire unaided, playing over the same cable as the video.  I have
+> not retested audio on the v11 tree, so the tag below covers video
+> only.
+
+Great (barely anything audio related changed between those versions)
+:)
+
+> Tested on drm-misc-next of 2026-08-07 (dc2f9f7fed1a) with this series,
+> usbdp v13, two local board DT patches (enable DP AltMode on the USB-C
+> connector; pin DCLK_VOP2 to V0PLL), and a one-line local change to
+> clk.c so that I could set clock rates from debugfs.
+>=20
+> Thanks for the series.
+>=20
+> Tested-by: Igor Paunovic <royalnet026@gmail.com>
+
+Thanks. Hopefully the USB-C DP AltMode work makes it into 7.4 :)
+
+Greetings,
+
+-- Sebastian
+
+--hivxea73q5gk46gz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp3j1sACgkQ2O7X88g7
++ppntQ/9E94S+hS6IHgfueAiTitlAsEJW+1Wvoxat8JqDtfqDFq1EWK++yaHk9z1
+xSKhCo5CMNXumO5yMRrtHpzNrW4+8aOAefc3e9V5hhoqvaXPpZrkU8AMfFWFm8zE
+DG++XGGua7rwXFPXNbwnQHwreZnMG4ssDQoudECym8raNn9u7/usjw99TzopfLJQ
+bHJf6kE+Su3VHXWVDlOryRAIFj+YyfzPspsBt97fUGOPRZZcfT9eDCkGbQt5Tf5O
+jLvklZlvTXWOQS4PKrt32qApDHr4NYGTkloaM9bQIh/QkAP3lcLZ5U33fBen0ftv
+Ku+KCOswZqdpcs9FbxAhS9ko2kRNrIuAiA7L6h9XActtP2J9StTxG4RMiMtgcbVN
+f9Yd5eL438Dqav1Qym6DmL5IGsLT291+31IYGrt8Wnq3yLMaFHdVJPwZGXdTiLhd
+3ylaEeabjZ2X9CAbZc6jcAvIWyfS5coAC8f1KEn+Kdf4So/He6mW5IR6deOYJ34s
+PcKvNVyYTU6qBEED5tNNwhwO/9/YMBHHGgrfxcASGNroLkTMluQvT6R50lP/GYEi
+oaL4BK8ZtjMlfUa/MexMSD/W3DvpI7P6kZZ0GUBGNxovWV7101Odq+XejVoDNzVs
+kANFNXa6KS6Z7mrPGJDXbb5xm7pRCXQ3c5pohdKEMcOmLWXGJx4=
+=492A
+-----END PGP SIGNATURE-----
+
+--hivxea73q5gk46gz--
