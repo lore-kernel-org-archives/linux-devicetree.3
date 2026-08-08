@@ -1,87 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563773F54C5
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 13:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC8F3CE49E
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 13:22:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786194840; cv=none; b=DPzzpTHyVPFlJNNIb45X00dN7ahVUYoy0l55tQrYct2g69hST/ai7KjYT/B0Q8A10RG/ARVJ9Hz2lgtQ3ENzjMvxeW/Gv8hhsVGqdW24KHHLLFKSsVNR3ars/UB5X1vIPyKJPcYZIIeuc9ugsMEapGwrUoVRr4G4gBXYXUHwBSs=
+	t=1786195323; cv=none; b=UMbP7hQmK/y7ragY6meLZVO5R7PwgesPdILXAnchjTGJg21mEFlvMAwQQSTeP5n+7ZiSEnQGKjgIJ2spgdxdIVnwRz1zukBcm1wzSjdsc8mNlxUlkEiQRWB9juktL/Ynpn17vy6LFefvpEvlh/9NHnXg/Rwp5tkN2BoQUQaoHfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786194840; c=relaxed/simple;
-	bh=5zj5cVny3HN6fWRY81qPYH+gMaDunYylU1xaHHlRBWs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cgMuHAOB8csjorM9eO8mw8Fmv5Kmlsdiw6t767sur9RH2du3R6xzdRIIsOEs9tRoiKyi9BRpsOl2vhmNnXw6L5HgFnQW39ntyHhJD9EtbNcJS2uh7B2baK4BhkfgOLA9nA9Bk9m+qbI+rWnrBJLTzn+z+5NHsg/J05vL7HkTSXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zlju881Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786195323; c=relaxed/simple;
+	bh=3bY6g03Im9fvI5gkQ67473PMLqfsCYi0JF6q2NRnWt0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k8rixrp7AFIXyt5Iwq3JIjSYtRnqn9D4PTtoUxzg2Hk60O1cJ6CiXz4rz7SVu+ZJHkBJoGkhOC7jsbQokmjkHOAePUPH48b2b/B9sS22cseQvAah5q3trDcR41Q2kNLwOCVpLqIyvBxdD30peiu+d13szXxLBPhHGXO+CAKfg94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IwhnAhzQ; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zlju881Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192E51F000E9;
-	Sat,  8 Aug 2026 13:13:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786194839;
-	bh=bL+zCfpMIb0g6lu/T6HgnlbrfMnERSA1fpAQRfGxc7U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Zlju881ZsmSkjGI6YUVZ6CKiPUupM5D/cqN8r7SmLCyUakfgrqckMHV8QWp5iKsqh
-	 xxTsepyfAJaX3hwdZcWcd3Y4EU6afKdnqlR90xOA3IartJtGiIXIQgvrDWc37HmCCt
-	 2UOH7v57iFdobMdG5Bsm3tdoFBzu2ZiRqsaTkSuZEAvHgJ1yCOLraVUZSWJ9pp6AR+
-	 SNMFJYuR+EqCtKLRvJpUgNPBrOnSeLYPzJq57ijUmC3iPq+TQQtMp3Sw65FOfKcYOr
-	 3V43m/u0h3kswzE1Aen25n0vw4CD24KY1QqBhuwq81PQApg9dDVP93CTSdoPdnGY3T
-	 Kp6gVX8+5KzCA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 12/12] net: airoha: add phylink support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260807131301.192060-13-ansuelsmth@gmail.com>
-References: <20260807131301.192060-1-ansuelsmth@gmail.com>
- <20260807131301.192060-13-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 13:13:58 +0000
-Message-Id: <20260808131359.192E51F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IwhnAhzQ"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-38dc4f9462cso263049a91.0
+        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 06:22:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786195322; x=1786800122; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=li/c4+/312t4GgA151ifIixBtg8Isry/It3D3W9Em4A=;
+        b=IwhnAhzQmWKWCa4lG7p+R6zLNuYaAW+iMQv/pmakSeB67DiAy+qJjdxNRAALX0kCXz
+         aYUXVoWcoy4+zK5et7nQg4fvX6Cv1hV08471xD5//WhD61bxv7BpHZrb/ZvZETfFmUCq
+         xweSxeDS6wx44ul4wZFIP/n4UW8+8wYLxgvXOxXyAqbZf2WP6vn1T+KuqeF+ap4xQkUS
+         wIsq+WcTI1GDmJiAvr3fq3ujGohSGKFg2Z5HpM8RdXx3EYqZysqEY10MQ/YUtyx8RsU0
+         iIognk7D55UDDXthiXgTw6q3jWzqMssfGHrSidDUB55nZ/dyo93KnbSZHn+luK1PZkf7
+         j86g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786195322; x=1786800122;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=li/c4+/312t4GgA151ifIixBtg8Isry/It3D3W9Em4A=;
+        b=dN3BphBlmuvL11JYUgc6nloDzCGAwP8UGjjsPOuv/W3uPa4G54ayetIwCcLbxVB4Cm
+         iMB3bMUoNI1FFrDKqdynFRUH98NGov+jc0q9bgKb2Ueb3Cej3cLWEl0t1n3dXz6t+j1h
+         axh6yXey4OjKS3QM2Nu/WDQ86rJNPf657eaWsgDXV4Cpx7RVimCHVammw7yqfpe7+eyv
+         9Lsm/hzRM/hnu+PMA20D98c0kBQ3qIjBZMpYhoxPd0lvEHXb3tnmuUwsNDWR7tfXbkUr
+         wuHdbrrRlPjBs4BFeXEl0OSYLLfOArxsbRBzMaCcJKzL+Ev6h2y97tcKNRVZloVLRINz
+         ko0A==
+X-Forwarded-Encrypted: i=1; AHgh+RrxwM2Ny2/UxMXxnVSYEgZa7EsGMs6XS0H92WFW7+gR0fMPaERNn0BqnzbPUJpU6Ik5WsKewqIzrXPt@vger.kernel.org
+X-Gm-Message-State: AOJu0YyewqcuriulW0NZtz1/VgZgVNPEaBkkhJ6G+Qjsu7sSr8/Okuda
+	5m1kkNmC33lOME5U1Y79Jz3NeQXtahCOlZRqcyNDfWEA4+v6d+cv3hC+
+X-Gm-Gg: AR+sD10XWYBppP72ozia7V9Os4Ws5Y401RDTlpEvgS24T86nl6hB91hrBtmQ0/gGMiC
+	7ViYkVCLyE2RSEqT+OfnnHtBPSzBnsbhvEM4Oz6B5ZHZ+rOvPRJvrPy/ySEeRpmy7xFL+bW/Ze1
+	8zNYofrKlPL5D0+n/5wZ/Xhl/2msqLgLVhYmNZ2w/pCif/AbqmYfIYELJruGPOo6TeLbJgDonVB
+	YgRLfxw4FHFTVrEIBgd0aResOObM0oSRMB9kOH+Xr8J4DK0joFrp7mAIV8rC9Rjtk/cgRjQlH7l
+	9jhTfSBdNEf3UUaVbMWRDBpGjelWgzWmIQAM929asygfJWq1uJTEeCPn9Z/M27UNrRVvcx1G2Ex
+	aTwHDocSd5GAmxujdE7umtDvrTC4MEM8FTg87b+U+u4rWsp9z9G0HBATM0X8XgSIWLjMLKPnwpi
+	nDeLnY7LTDmGgRy/Jex6tUL5itk+Hth2wFbgFa23I=
+X-Received: by 2002:a17:90b:17c5:b0:37c:607b:2cd9 with SMTP id 98e67ed59e1d1-3903b9f3ee3mr28104214a91.0.1786195321821;
+        Sat, 08 Aug 2026 06:22:01 -0700 (PDT)
+Received: from localhost ([2403:2c80:17:1e::20db])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-390b343e662sm2307387a91.2.2026.08.08.06.22.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 06:22:01 -0700 (PDT)
+Date: Sat, 08 Aug 2026 21:21:57 +0800
+Message-ID: <c73cc405df108dd7c3c5da95a1f8cddc.codykang.hk@gmail.com>
+From: Cody Kang <codykang.hk@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-clk@vger.kernel.org
+Subject: Re: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipeline
+In-Reply-To: <084a860a77f18aaafcda4b223eec4fdcd96e75c9.camel@pengutronix.de>
+References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
+ <084a860a77f18aaafcda4b223eec4fdcd96e75c9.camel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] NET_AIROHA unconditionally selects PCS_AIROHA, which leads to an=
- unmet dependency warning on COMPILE_TEST when ACPI and OF are disabled.
---
+Hi Philipp,
 
---- Patch [12]: [PATCH net-next v11 12/12] net: airoha: add phylink support=
- ---
-commit 60178eed84d4f34367e6ce74cdedc61c17f52abb
-Author: Christian Marangi <ansuelsmth@gmail.com>
+On Mon, 27 Jul 2026 09:35:38 +0200, Philipp Zabel wrote:
+> On Sa, 2026-07-25 at 00:51 -0400, Cody Kang via B4 Relay wrote:
+> > From: Cody Kang <codykang.hk@gmail.com>
+> >
+> > Add the atomic KMS implementation on top of the hardware backend: one
+> > CRTC and one primary plane per DPU instance. atomic_check validates
+> > the plane rectangle 1:1 against the mode and sizes the per-channel FBC
+> > line buffer; atomic commit builds the cmdlist batches, maps the
+> > framebuffer through the DMMU and arms the cfg-ready handshake, with
+> > vblank events driven from the DPU interrupt.
+> >
+> > Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+> > ---
+> >  drivers/gpu/drm/spacemit/spacemit_crtc.c   | 815 +++++++++++++++++++++++++++++
+> >  drivers/gpu/drm/spacemit/spacemit_planes.c | 376 +++++++++++++
+> >  2 files changed, 1191 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.c b/drivers/gpu/drm/spacemit/spacemit_crtc.c
+> > new file mode 100644
+> > index 000000000000..b75ff6320501
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/spacemit/spacemit_crtc.c
+> > @@ -0,0 +1,815 @@
+> [...]
+> > +/*
+> > + * The assert and deassert orders are not mirror images: the hardware wants
+> > + * these.
+> > + */
+> > +static void dpu_reset_assert(struct device *dev, const char *name,
+> > +			     struct reset_control *rstc)
+> > +{
+> > +	int ret = reset_control_assert(rstc);
+> > +
+> > +	if (ret)
+> > +		dev_warn(dev, "failed to assert %s reset: %d\n", name, ret);
+> > +}
+> > +
+> > +static void dpu_reset_deassert(struct device *dev, const char *name,
+> > +			       struct reset_control *rstc)
+> > +{
+> > +	int ret = reset_control_deassert(rstc);
+> > +
+> > +	if (ret)
+> > +		dev_warn(dev, "failed to deassert %s reset: %d\n", name, ret);
+> > +}
+> > +
+> > +static int dpu_pm_suspend(struct device *dev)
+> > +{
+> > +	struct spacemit_drm_private *priv = dev_get_drvdata(dev);
+> > +	struct spacemit_crtc *a_crtc = priv->a_crtc;
+> > +
+> > +	/*
+> > +	 * Assert before gating: a reset asserted into an already-gated block
+> > +	 * has no clock edges to propagate on and leaves the register file
+> > +	 * untouched.
+> > +	 */
+> > +	dpu_reset_assert(dev, "lcd", a_crtc->lcd_reset);
+> > +	dpu_reset_assert(dev, "esc", a_crtc->esc_reset);
+> > +	dpu_reset_assert(dev, "mclk", a_crtc->mclk_reset);
+>
+> It looks like these three are mirrored, and could be handled by
+> reset_control_bulk_assert/deassert().
 
-net: airoha: add phylink support
+Thanks for the review. Indeed, reset_control_bulk_deassert()
+walking the array in reverse gives exactly the mirrored order the
+hardware wants. Will fix in v2.
 
-This commit adds phylink support for GDM ports in the Airoha ethernet
-driver, configuring GDM1 for internal interface mode and GDM2/3/4 for
-external PHY or SFP cage operation via PCS. It also updates ethtool link
-ksettings to use phylink.
-
-> diff --git a/drivers/net/ethernet/airoha/Kconfig b/drivers/net/ethernet/a=
-iroha/Kconfig
-> index 1f6640a15fc94..5c54a07d2a768 100644
-> --- a/drivers/net/ethernet/airoha/Kconfig
-> +++ b/drivers/net/ethernet/airoha/Kconfig
-> @@ -20,6 +20,8 @@ config NET_AIROHA
->  	depends on NET_DSA || !NET_DSA
->  	select NET_AIROHA_NPU
->  	select PAGE_POOL
-> +	select PCS_AIROHA
-
-[Severity: Medium]
-Does selecting PCS_AIROHA here create an unmet dependency warning under
-COMPILE_TEST? PCS_AIROHA selects FWNODE_PCS, which depends on ACPI || OF.
-Since NET_AIROHA unconditionally selects PCS_AIROHA without inheriting the
-ACPI || OF dependency, can this cause a Kconfig warning and potential
-build failures when both are disabled?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807131301.1920=
-60-1-ansuelsmth@gmail.com?part=3D12
+Cody
