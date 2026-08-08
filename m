@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF67F3D76
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 10:46:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 085B837B00E
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 10:46:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786186009; cv=none; b=A0mR+VSxhrx7Eho1RPtsx0tGVgFIXIcq37DDV8GpNmaqKsKnXXsLtG18tGZHfoHT5dsCrqec7/2+kao1btDk9YgrW5kSm2GIwFjGOtqeJi8t+pdsY95SPVyA+Fs6CVYg7pjjdRDgySfRXY+Kbg/bEE0GoVfOJRzV5TRgOYnrfyY=
+	t=1786186011; cv=none; b=udpBxDH3y7TVVkYMwyJSvutksOCBbMxJLx7nethfCNUIK6mZpb7VGdLYtPto27kEoXoN+0VflL1aGi4TxyUYY5AFMnPN9qQKjY+ObUPQIf+spzBHDPVa5/w5JndBvZfpnjlEnspKGsMu5PEegP7xg5SA0J07oU+Th3t3PUlUYb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786186009; c=relaxed/simple;
-	bh=PdUAbK224tyR+ApKMjfQ4Kc5tpCSEKiGD/FjdYIJ4Mc=;
+	s=arc-20240116; t=1786186011; c=relaxed/simple;
+	bh=NRURPLcjMNVQbuP5zm0/yQ4rdENaeKdpYKqfEQMl158=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QFjbwknvAfE/ULa2tV+m9ilwswXck70gzf+X/dFBPE9ax3m9umIG1sLBgagAcF62+sHDlBqulREmrvLNertIPWSzVMdptB0QWY82NBh3nz22tyGn1tsl41Jh00IaWLtLyuY+uILwdAgZCRECS/5QQwu6UCWHYTjPoXPgfM9XLcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fcn70Z2q; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=owH9P/g7hCXIgz99d/zFKdrkxvV9RYC2f3DKKe7zuCX8/27EBpb8TSDN5K9LRZavr4A7JZxY6/dvwidh1lg6oE+bCsi9sQyeh/R60ZRIJxvEWImO6yrgxB9Pr3Us8CCW7aQsvckjVG8c9MIv7GzlMVNXUzffa5wyn4zsnCCMVFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7r1qh8j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fcn70Z2q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6CF1F00A3D;
-	Sat,  8 Aug 2026 10:46:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7r1qh8j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A1311F000E9;
+	Sat,  8 Aug 2026 10:46:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786186008;
-	bh=+PxPdnibjczNLCGav49ocX9zWDcoNzLmUU4V15GzUTU=;
+	s=k20260515; t=1786186009;
+	bh=jdk8+Uekx8rvyACrpvUm+E1yl8yb0LYvr/MiaknNM1c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fcn70Z2qxgs9cK2YMqzHWrI9up+hva7GNZrkn6VPixxKvbvCSKUyfzX+g4V+D0dRw
-	 vPsRe/aPaPhr09WixT4Kw2NNreEBdrhee8mfPFIhr8/ztx2BXTDiUD2xtpPVFGWdsu
-	 SoWjRCZUToY9a1OeR5NcLoE89zrxOEIy1s+zOA7bsKpCRqmElvsLDEac0NHjK22lne
-	 BTm9h2eAu+FR8VlRx7j+gdjueVbSc3LRQb4Tr1LZkTlDG0knnuPle/aqSL4I1ed3V/
-	 MRZysdLxXcdZfdRr7oUOGTKCisCoyzBW+vYcOpWqtSlrGI9RRl/2+5ZS9LSYNXp69o
-	 SAjGayJZ1h24w==
+	b=W7r1qh8jpDlQVo4Y5ERBP7GrahADChmpKVYUeqfE789j2SWrT2Ws3/c50cSmkxaAV
+	 oNYb5AmhFe/mKwp4UGbks892aPjE7sptUQY9hvKKZP5TcnYAWS1iIj9uVNfHLWiPU8
+	 dEAbMPSP9mHUR9ncWQvFcTMOX4e4IoeZ/VdrwBx96zkMbjk9thZ/FMlLNj5cQZaSgg
+	 y9sKeoWPN+OZbKOHdNFy9Bc7ZN4/NcmwWHbo93aXMSAL4gxdK9wtFBAFREoSLy7BRo
+	 Ac1TU0lqVi3fCFQ/IapuozgMrbkFUOU2Q3XNkDT4OdjjMLeP11TV4b7jIpyFr1i/j/
+	 AYzUKTtlgLp1Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 08/20] net: xilinx: tsn: deliver endpoint RX frames to
- DSA user ports
+Subject: Re: [PATCH 01/20] dt-bindings: net: add Xilinx TSN Endpoint
+ Ethernet MAC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Nagadheeraj Rottela" <nagadheeraj.rottela@amd.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807104431.157230-9-nagadheeraj.rottela@amd.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807104431.157230-2-nagadheeraj.rottela@amd.com>
 References: <20260807104431.157230-1-nagadheeraj.rottela@amd.com>
- <20260807104431.157230-9-nagadheeraj.rottela@amd.com>
+ <20260807104431.157230-2-nagadheeraj.rottela@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 10:46:47 +0000
-Message-Id: <20260808104648.4D6CF1F00A3D@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 10:46:48 +0000
+Message-Id: <20260808104649.3A1311F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,110 +47,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Use-After-Free due to unconditionally freeing a shared metadata ds=
-t that can be refcounted by the network stack.
-- [Medium] API Violation: Queuing an SKB with a `noref` dst asynchronously =
-via `__netif_rx()` allows it to escape the RCU read-side critical section.
+- [Low] The explicitly named child nodes `mdio-mac1` and `mdio-mac2` violat=
+e the `$nodename` regular expression constraint enforced by the included `m=
+dio.yaml` schema, causing `dt_binding_check` validation failures.
+- [Low] The child node pattern `^ep-mac@` is incompatible with the referenc=
+ed `ethernet-controller.yaml` schema, causing `dt_binding_check` to predict=
+ably fail.
 --
 
---- Patch [8]: [PATCH 08/20] net: xilinx: tsn: deliver endpoint RX frames t=
-o DSA user ports ---
-commit 0c90a3d99f1bcc8cd94ff937c6565b0da39afbe4
-Author: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-Date:   Fri Aug 7 10:44:19 2026 +0000
+--- Patch [1]: [PATCH 01/20] dt-bindings: net: add Xilinx TSN Endpoint Ethe=
+rnet MAC ---
+commit dd8b781a7775352bc408179a32dbb5d414517669
+Author: Srinivas Neeli <srinivas.neeli@amd.com>
 
-    net: xilinx: tsn: deliver endpoint RX frames to DSA user ports
-   =20
-    The DSA core routes an RX frame to a user port from the port metadata
-    attached to the skb. Without that metadata, frames from the two MACs
-    cannot reach their swpN netdevs.
-   =20
-    Allocate a METADATA_HW_PORT_MUX entry per MAC port at probe and attach
-    the matching entry to each RX frame by its TUSER port_id. Frames from
-    MAC1 and MAC2 now reach the correct user netdev, which completes the
-    conduit data path.
+dt-bindings: net: add Xilinx TSN Endpoint Ethernet MAC
 
-> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/ne=
-t/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> index 7615d27f3b360..051285b47ddbd 100644
-> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+Add a binding for the Xilinx TSN Endpoint Ethernet MAC IP. The
+top-level node describes the IP wrapper, which has two children:
+xlnx,tsn-ep-mac and xlnx,tsn-switch.
+
+> diff --git a/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethe=
+rnet-mac.yaml b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-eth=
+ernet-mac.yaml
+> new file mode 100644
+> index 0000000000000..00f52b7b623c0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/xlnx,tsn-endpoint-ethernet-ma=
+c.yaml
 
 [ ... ]
 
-> @@ -254,6 +262,7 @@ static void ep_dma_rx_cb(void *data, const struct dma=
-engine_result *result)
->  	}
-> =20
->  	skb_put(skb, rx_len);
-> +	skb_dst_set_noref(skb, &ep->port_md[port_id]->dst);
->  	skb->dev =3D ndev;
->  	skb->protocol =3D eth_type_trans(skb, ndev);
->  	skb->ip_summed =3D CHECKSUM_NONE;
+> +patternProperties:
+> +  "^ep-mac@":
+> +    type: object
+> +    $ref: /schemas/net/ethernet-controller.yaml#
 
-[Severity: High]
-Can this cause a use-after-free if DSA is not configured?
+[Severity: Low]
+Will this node pattern fail dt_binding_check validation?
 
-The metadata dst is attached unconditionally to every packet here. Because =
-there
-is no check for netdev_uses_dsa(), non-DSA packets carry this dst into the =
-IP
-stack, exposing it to skb_dst_force().
-
-If the packet is bridged or queued to userspace (e.g., NF_QUEUE), the stack
-will call skb_dst_force() to upgrade the noref dst to a refcounted one. If =
-the
-driver is unloaded and frees the metadata dst unconditionally, any packet s=
-till
-in flight will trigger a use-after-free when dst_release() is called.
-
-Should this check netdev_uses_dsa() before attaching the dst?
-
-[Severity: Medium]
-Does this violate the RCU and skb_dst_set_noref() API contract?
-
-This code combines skb_dst_set_noref() with asynchronous queuing via
-__netif_rx() (called just below this hunk).
-
-__netif_rx() places the packet on the per-CPU backlog and defers processing=
- to
-a future softirq. This means the packet inherently escapes the driver's cur=
-rent
-RCU read-side critical section without being upgraded via skb_dst_force().
-
-Other DSA-aware drivers avoid this by using napi_gro_receive(), which proce=
-sses
-the packet synchronously within the NAPI poll loop's RCU critical section.
+The ethernet-controller.yaml schema enforces that node names must match the
+regular expression ^ethernet(@.*)?$. The ^ep-mac@ pattern here appears to
+contradict that requirement.
 
 [ ... ]
 
-> @@ -771,6 +780,37 @@ static int ep_count_dma_queues(struct device *dev, u=
-32 *out_tx, u32 *out_rx)
->  	return 0;
->  }
-> =20
-> +static void ep_free_port_md(struct xlnx_tsn_ep *ep)
-> +{
-> +	int i;
+> +  "^switch@":
+> +    type: object
+> +    $ref: /schemas/net/dsa/dsa.yaml#/$defs/ethernet-ports
+
+[ ... ]
+
+> +      mdio-mac1:
+> +        $ref: /schemas/net/mdio.yaml#
+
+[Severity: Low]
+Does the mdio-mac1 object key violate the $nodename constraint in the
+included mdio.yaml schema?
+
+The mdio.yaml schema restricts node names via the regex
+^mdio(-(bus|external))?(@.+|-([0-9]+))?$, which doesn't seem to permit
+the -mac1 suffix used here.
+
+> +        description:
+> +          MDIO bus controller for MAC1. Registers reside inside the mac1
+> +          reg-names window.
+> +        unevaluatedProperties: false
 > +
-> +	for (i =3D 0; i < XLNX_TSN_EP_PORT_MD_SLOTS; i++) {
-> +		if (ep->port_md[i]) {
-> +			metadata_dst_free(ep->port_md[i]);
+> +      mdio-mac2:
+> +        $ref: /schemas/net/mdio.yaml#
 
-[Severity: High]
-Is it safe to unconditionally free the memory here?
+[Severity: Low]
+Similarly, does the mdio-mac2 object key also violate the mdio.yaml
+$nodename constraint?
 
-Since the metadata dst was attached to packets that could have been upgraded
-to refcounted references in the network stack, calling metadata_dst_free()
-(which calls kfree directly) bypasses the reference counting.
+[ ... ]
 
-Should this drop the initial reference via dst_release() instead?
+> +examples:
+> +  - |
+> +    tsn_ip: tsn@80040000 {
 
-> +			ep->port_md[i] =3D NULL;
-> +		}
-> +	}
-> +}
+[ ... ]
+
+> +        ep_mac: ep-mac@16000 {
+> +            compatible =3D "xlnx,tsn-ep-mac";
+> +            reg =3D <0x16000 0xa000>;
+
+[Severity: Low]
+Will this example node fail dt_binding_check validation due to the
+^ethernet(@.*)?$ constraint from ethernet-controller.yaml mentioned above?
+
+[ ... ]
+
+> +            mdio-mac1 {
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +                phy0: ethernet-phy@0 {
+> +                    reg =3D <0>;
+> +                };
+> +            };
+> +
+> +            mdio-mac2 {
+> +                #address-cells =3D <1>;
+> +                #size-cells =3D <0>;
+> +                phy1: ethernet-phy@1 {
+> +                    reg =3D <1>;
+> +                };
+> +            };
+
+[Severity: Low]
+Will these mdio-mac1 and mdio-mac2 example nodes fail dt_binding_check
+validation because they do not match the regex from mdio.yaml?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807104431.1572=
-30-1-nagadheeraj.rottela@amd.com?part=3D8
+30-1-nagadheeraj.rottela@amd.com?part=3D1
