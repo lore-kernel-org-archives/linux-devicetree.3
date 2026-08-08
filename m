@@ -1,93 +1,77 @@
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDAF3BB48
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 07:33:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39147199D8;
+	Sat,  8 Aug 2026 08:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786174392; cv=none; b=pHbxPt8WWHMom1BQsYqF7t64RmqJdA+xvSCNvxEnwsnkOcMtFw/4xVnLxQTEwVL2NI3YZ/I6ohc1stY78w0wVyNxZcXXfusbX7Fmp7VYsgxlIzgjICCszjViF4cEi+c5LGgoqQBo8Nq1JMXWP47Pw0adSJa6jr/ZxFRpnPD3gKU=
+	t=1786176042; cv=none; b=M/HI9vV1F6J/t5PjBt3r8uJnnIlYjb0PNk2sMIrHhvhVRZBfwFfcY1WAcRmgr4R3e0qwMf/dDak8uXxsfbjR9VU4zkZUXv0XA8BgihDvsn9YDWroQ5WIjXUMZRRGv7+jTtNzwKYtqLW5otmTVHcpRR1sSPNrEcKq1pn9wylS0nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786174392; c=relaxed/simple;
-	bh=HChMSOzLztJXRYp5Rm23S0LWQB5UFl5/gH3kY079diQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IQ2aWmBsuwbeobubfVmLOJ36PagVJSHpz1hrgCyAxQUNCNFRSwerx8nfsZoRUhcJR1wxGBT0vXltI7tAQuTjPqaBeDcaXdB5DBTCVhXLoM/uI+kF8YLtO/InUdjrqbioJdUFYvzGx7XM2nMjVXV0ChwDpc3o1p/S7Z8HNOLETCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=iovclzJp; arc=none smtp.client-ip=91.218.175.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="iovclzJp"
-Message-ID: <f29e9ffc-80bd-4bd0-91a5-22feb081ac60@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1786174378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rCzgX6JVLx9Ko3n6wKYEJsdgvY6Ca+XBEhJnvXYRW5o=;
-	b=iovclzJpjR+LMVlQGMDC1PXGZcwCK7PEsPVXonLV3I6GYXXstpcVN2tQErwnvJQubWeZkW
-	SeShr/mMhxwjUHw1ENdLhSGDivCiBRGJQ/ejL80ujQs1mOQN9teOlOUsNYf1YkdNDn/vij
-	ctovi6HgvbyGlh6y6/v+IOE/V1+36d8=
-Date: Sat, 8 Aug 2026 00:32:49 -0700
+	s=arc-20240116; t=1786176042; c=relaxed/simple;
+	bh=35ZKdjPmgK6cusKiwBXaavfDUH/4iE78oP3DaRArWqc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lv7kwhXnlBQF5Oj8KQ7kMcUZtt8B7X2Wm7FmglrNGNOaw1BewNvDUXJ16T4UoftxV2pZj3Z4RfhR32o/IBMBqMDGoZVUUkvnmDV+KpZslIB8OtfoVvgZYIVZSa2LLiJY9nezopwLipXdMbetXjgVWfbZYwBfCG2S+GXhfrio+5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.127])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 494038e86;
+	Sat, 8 Aug 2026 16:00:27 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/2] arm64: dts: rockchip: Add Radxa E54C
+Date: Sat,  8 Aug 2026 16:00:16 +0800
+Message-Id: <20260808080018.1492239-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v8 05/22] RISC-V: Define indirect CSR access helpers
-To: Paul Walmsley <pjw@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Rob Herring <robh@kernel.org>, Anup Patel <anup@brainfault.org>,
- Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Ian Rogers <irogers@google.com>,
- Will Deacon <will@kernel.org>, James Clark <james.clark@linaro.org>,
- linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Conor Dooley <conor@kernel.org>
-References: <20260701-counter_delegation-v8-0-7909f863a645@meta.com>
- <20260701-counter_delegation-v8-5-7909f863a645@meta.com>
- <1b20aa77-0f0f-08c7-9439-972983adf709@kernel.org>
- <920aee80-5297-4d70-a1ea-616976db7f70@linux.dev>
- <09a1260b-aa91-f993-e81e-0c636cfd7942@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Atish Patra <atish.patra@linux.dev>
-In-Reply-To: <09a1260b-aa91-f993-e81e-0c636cfd7942@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fe0633abc03a2kunm975b5a9f61259
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHktJVk0aTExKHktDTB1JGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktIS0
+	pMS1VKS0tVS1kG
 
+This series requires the following commit in Linux v7.2 to make the
+switch work: https://github.com/torvalds/linux/commit/9da2c8672f77
 
-On 8/7/26 6:04 PM, Paul Walmsley wrote:
-> On Wed, 5 Aug 2026, Atish Patra wrote:
->
->> On 8/4/26 5:39 PM, Paul Walmsley wrote:
->>> On Wed, 1 Jul 2026, Atish Patra wrote:
->>>
->>>> From: Atish Patra <atishp@rivosinc.com>
->>>>
->>>> The indirect CSR requires multiple instructions to read/write CSR.
->>>> Add a few helper functions for ease of usage.
->>>>
->>>> Signed-off-by: Atish Patra <atishp@rivosinc.com>
->>> Thanks.  These macros seem better implemented as static inline functions.
->>> That also nicely aligns the code with what you write in the patch
->>> description.
->> I don't think inlining these macros in the following way will work because of
->> the following reason. It won't build once anything calls it.
->>
->> csr_read()/csr_write() stringify the CSR argument straight into the inline asm
->> template:
-> Yes, you're right; I should have caught that.  Too bad, there are multiple
-> keyhole CSR index registers in use, otherwise it would have been a
-> reasonable thing to do.
->
-> What's up with the subsequent followup message?  Looks like a
-> cut-and-paste from an LLM.
-Oops. Ha ha. LLM agent was parsing the lore and preparing a draft response.
-It produced so much garbage that I replied manually. I have no idea what 
-prompted
-it to send it after I sent the response! Sorry for the spam.
->
-> - Paul
+There was a conflict between eMMC and SPI Flash, so the unmounted
+eMMC was disabled. The schematic can be found below:
+https://dl.radxa.com/e/e54c/hw/radxa_e54c_v1.2_schematic.pdf
+
+The following functions were tested:
+- Boot from SD card using generic-rk3588 u-boot
+- USB Type-C connection to RTL8153 network card
+- USB Type-C connection to USB 3.0 drive
+- 2x USB 2.0 and 1x USB 3.0 Type-A HOST
+- RTL8367RB 4-Port Gigabit Switch
+- HDMI 1080P Output
+- Button and LED
+- PCIe NVMe SSD
+
+Chukun Pan (2):
+  dt-bindings: arm: rockchip: Add Radxa E54C
+  arm64: dts: rockchip: Add Radxa E54C
+
+ .../devicetree/bindings/arm/rockchip.yaml     |    6 +-
+ arch/arm64/boot/dts/rockchip/Makefile         |    1 +
+ .../boot/dts/rockchip/rk3582-radxa-e54c.dts   | 1182 +++++++++++++++++
+ 3 files changed, 1187 insertions(+), 2 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3582-radxa-e54c.dts
+
+-- 
+2.34.1
+
