@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD2E274FDF
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 02:24:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B091F4611
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 02:24:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786155864; cv=none; b=D1JDfEnn7/HH6wOPJes4U/wmeqdo17g1ahgRq8kvcNxxFbZC8YqqRqBrLGTTF8fsTw6ghpz9qYa7bSE1y7+RPpgnB5m1A2oe5wtPOZR61iV1Ug65sGsR+FWqGUqbH2U47O7XeI8IzNMNkzlOwR6lNHiOhMx+32UKI7hE4yUM6Do=
+	t=1786155864; cv=none; b=H6bP7QnyCRpBsONJnNjnBgWKLqgw9/WMxUqlognqpbaaTlYxzVWcPa8ncYlZn2AJqwGVeP4EBJzf8YMtIQW4dhT5MFOjpkDKKfjtgphqFFtmOXj78V9iCB1ygb6Fng8GPG58rECH2xAyYZxnL+nmi1+oI6KPANGLpQHM24tgolE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786155864; c=relaxed/simple;
-	bh=Pbes4Jsi3s1vudrABK55amtOXu7gsmn17uYDpzJz2p8=;
+	bh=cmw8q86aN3502a+ZmWeB+j5eEhZo93qllRPcehDRI38=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UHzOWHOH4O+E1M5Sn3VcXcM4jjVPKyWOodUVMRI6VPvPwgdOg31Mvenhp4lJoCdRQoICXORYWdD2Mb1OYXIs20Nb6K2uQWdXdDIEeLhZ7LcaUbtsHb4NSrLL8Bsx3WFPtiZdxmYOyL1dS8dPkUSF5p2VFwUxwt8dPsB2OM/2EYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frWOhCwl; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=IW9fZEcLt+gW3LImbXnKqJ5dKVppilU2u7T9TOZQsGOFhzCmWQkWpvWnwOhvFnqXIP05WYYvpHJBju2IlI+1jTrQ6g/Xca2GaRI7RsT3LJ8+05yZmCcwWUkjvSZ62AkibmnIxSiqIKTGzUlnCJFpd+Envnzk4nXRKmZnCuhGgpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIymSU/5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frWOhCwl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B401F00A3D;
-	Sat,  8 Aug 2026 02:24:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIymSU/5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F8471F000E9;
+	Sat,  8 Aug 2026 02:24:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786155862;
-	bh=DEWvD/KJPoA5sxNRzBBBHJqdtxK5YR/KDPa0VZty7L8=;
+	s=k20260515; t=1786155863;
+	bh=XFtRS05FcXBEC94RpAu5iCeFfmq5bYLSUc+TKJ0VlYs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=frWOhCwlnCbd8Ag5SrWzhyyptgolhgAremRgviag8Ei+6BHPCaKgFjSj/OQEB5tKT
-	 wzI5igi/AswteGgVrvcq4LF0HNkJEsCxXOrqjmbXVP+umxBQfuIgo73dB61h1dAq69
-	 +x1eKG6J/LIo3XNZQOnFpk795MzqCLCn68QQ56NznIbmWCcURLkPqbe2xSX5fTlEMu
-	 xGNxmNWBWRhML0NoC8E+2V65ujFFHZatLVj203yU8ir6YCk2rsxYP1DnwmZzyG2Uwj
-	 i3vWJJ7zDePBEBbqZ4n0UwG/wLzJ0pWOP9WzIaBMEWVatZiTCPJOy9yO8IklMC+2Jx
-	 LCWj51o6OTBxg==
+	b=MIymSU/52g7osxd8rEkx1Li+CrV3ASfQMgQ3hCbyNAFqiI+XrMJJPOn/ekVWdFHBA
+	 v1qt+Tlxy1/PptjcpMRTudBLyw12T9BppCgc8L2HA8NxOT3Xp2SxBmpR93VlM1J1fE
+	 dUlotlSWPHs0eMoPaTMTjX7VdnGyNNdI+n2Yavy8oRIOVDOd8/y0V/raaC6LeFsqxm
+	 YEm+XeFdIQsFILrAth9UY22d+jeCMFthIGtjapfT+1+SB3scf5t+p3vpCNtkFLO6vU
+	 WXfhljvGhuIJYnkSVufH1r9yTcTySm9u3mb/j60UJJC2q5B45kjtVgKzaFuNd9pkrw
+	 75RwxXgM3DwEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/6] nfc: s3fwrn5: support the S3NRN4V variant
+Subject: Re: [PATCH v4 2/6] nfc: s3fwrn5: use the "s3fwrn5_i2c" string
+ literal directly
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jorijn van der Graaf" <jorijnvdgraaf@catcrafts.net>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260807021001.239389-6-jorijnvdgraaf@catcrafts.net>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807021001.239389-3-jorijnvdgraaf@catcrafts.net>
 References: <20260807021001.239389-1-jorijnvdgraaf@catcrafts.net>
- <20260807021001.239389-6-jorijnvdgraaf@catcrafts.net>
+ <20260807021001.239389-3-jorijnvdgraaf@catcrafts.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 02:24:21 +0000
-Message-Id: <20260808022422.62B401F00A3D@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 02:24:22 +0000
+Message-Id: <20260808022423.2F8471F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,76 +47,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Unprotected data race and state machine desynchronization due to i=
-gnored NCI command timeout.
+
+Pre-existing issues:
+- [High] Missing endianness conversions when parsing firmware headers and o=
+ffsets, leading to failures on Big Endian architectures.
 --
 
---- Patch [5]: [PATCH v4 5/6] nfc: s3fwrn5: support the S3NRN4V variant ---
-commit b57146ef7e5e76c557b5b6a3455b96f7592b3c94
+--- Patch [2]: [PATCH v4 2/6] nfc: s3fwrn5: use the "s3fwrn5_i2c" string li=
+teral directly ---
+commit 9d4d91e92081c012d8837ad241bfc3be79ee322a
 Author: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
 
-nfc: s3fwrn5: support the S3NRN4V variant
+nfc: s3fwrn5: use the "s3fwrn5_i2c" string literal directly
 
-This commit adds support for the S3NRN4V Samsung NFC controller variant.
-It introduces a new initialization sequence and calibration data upload
-path using the DUAL_OPTION proprietary command.
+This commit replaces the S3FWRN5_I2C_DRIVER_NAME define with the string
+literal "s3fwrn5_i2c" directly in the driver. The define was an indirection
+for a fixed ABI name and was only used locally within this file.
 
-> diff --git a/drivers/nfc/s3fwrn5/nci.c b/drivers/nfc/s3fwrn5/nci.c
-> index 5a9de11bbecea..f1877797d1365 100644
-> --- a/drivers/nfc/s3fwrn5/nci.c
-> +++ b/drivers/nfc/s3fwrn5/nci.c
+> diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
+> index cb73993446e09..c528c085b43ef 100644
+> --- a/drivers/nfc/s3fwrn5/i2c.c
+> +++ b/drivers/nfc/s3fwrn5/i2c.c
+
 [ ... ]
-> @@ -117,3 +142,155 @@ int s3fwrn5_nci_rf_configure(struct s3fwrn5_info *i=
-nfo, const char *fw_name)
-[ ... ]
-> +int s3fwrn5_nci_rf_configure_dual(struct s3fwrn5_info *info,
-> +				  const char *hw_name, const char *sw_name)
-> +{
-[ ... ]
-> +	/*
-> +	 * Ask the chip for its current calibration versions and skip the
-> +	 * upload when both already match the blobs; a mismatch or an
-> +	 * unparseable answer means the upload proceeds. GET_VER answers with
-> +	 * versions, not a status byte, so nci_prop_cmd()'s return carries no
-> +	 * meaning here.
-> +	 */
-> +	sub_oid =3D NCI_PROP_DUAL_SUB_GET_VER;
-> +	info->dual_rsp_len =3D 0;
-> +	nci_prop_cmd(info->ndev, NCI_PROP_DUAL_OPTION, 1, &sub_oid);
-> +	if (s3fwrn5_nci_dual_cal_current(info, hw_fw, sw_fw)) {
 
 [Severity: High]
-Could ignoring the return value of nci_prop_cmd() here cause a data race?
+This is a pre-existing issue, but can this code cause failures on Big Endian
+architectures due to missing endianness conversions?
 
-If the controller is slow or unresponsive, nci_prop_cmd() will return
--ETIMEDOUT. Because the error is ignored, the code immediately calls
-s3fwrn5_nci_dual_cal_current() which reads info->dual_rsp_len and
-info->dual_rsp.
+In s3fwrn5_i2c_read(), the 16-bit length field is read directly in native
+byte order:
 
-Concurrently, if a late response arrives, the RX workqueue will execute
-s3fwrn5_nci_dual_rsp():
-
-s3fwrn5_nci_dual_rsp() {
-	...
-	info->dual_rsp_len =3D min_t(unsigned int, skb->len,
-				   sizeof(info->dual_rsp));
-	memcpy(info->dual_rsp, skb->data, info->dual_rsp_len);
-	...
+drivers/nfc/s3fwrn5/i2c.c:s3fwrn5_i2c_read() {
+    ...
+    data_len =3D (phy->common.mode =3D=3D S3FWRN5_MODE_NCI) ?
+            ((struct nci_ctrl_hdr *)hdr)->plen :
+            ((struct s3fwrn5_fw_header *)hdr)->len;
+    ...
 }
 
-This locklessly overwrites the buffer while it is being read, potentially
-leading to a torn read of the calibration version data.
+Could this improperly byte-swap on Big Endian systems, leading to oversized
+allocations in alloc_skb() and invalid I2C reads?
 
-Additionally, would a late response to this timed-out command erroneously
-fulfill the subsequent START_UPDATE command, shifting the response stream by
-one and breaking synchronization with the hardware?
+Additionally, in s3fwrn5_fw_request_firmware(), 32-bit offsets are copied
+directly from the little-endian firmware payload into native u32 variables
+without using le32_to_cpu():
 
-> +		dev_dbg(dev, "calibration data already current\n");
-> +		ret =3D 0;
-> +		goto out;
-> +	}
-[ ... ]
+drivers/nfc/s3fwrn5/firmware.c:s3fwrn5_fw_request_firmware() {
+    ...
+    memcpy(&sig_off, fw->fw->data + 0x14, 4);
+    fw->sig =3D fw->fw->data + sig_off;
+    ...
+}
+
+Since sig_off is byte-swapped to a massive value on Big Endian systems, does
+this result in an out-of-bounds pointer calculation?
+
+When s3fwrn5_fw_enter_update_mode() later calls s3fwrn5_fw_prep_msg(), could
+copying from this fw->sig pointer trigger an unmapped memory read and
+kernel panic?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807021001.2393=
-89-1-jorijnvdgraaf@catcrafts.net?part=3D5
+89-1-jorijnvdgraaf@catcrafts.net?part=3D2
