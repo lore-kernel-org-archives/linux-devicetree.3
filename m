@@ -1,181 +1,147 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A80C39D6F2;
-	Sat,  8 Aug 2026 18:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4402388E46
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 18:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786213225; cv=none; b=nwOHSoFRRtBei0kLMJ8A99IbfmTR8u6DtZj2WW7t7ItYzC9QzeBUZ+bD4BeE7iQMdJ5XAvHAKJSY8AphqpRcj81wjvQpGwOtVpjNzYNPHH3svk7Ok+NDFMkMnqoGCC1qE9hYV9YsAWtpLl0w2WJhO3gY15U75gBTT/lsKD2ed7o=
+	t=1786214277; cv=none; b=aTTjpvVHz6yMCk+uSjuLb/QE3cZIQy1YoIZNyz1hd4XxYx1maJMx9Bgk8c6ujher1ZB8yhWk25YjHWaSe8TSNDHHsvXjekv+7jaCQu8tfxAEeOOGGZu4Srt6JHCOsRP56ouro9VnUvKIzDN1EktXsbxfunWxOaO0x9585HSAH3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786213225; c=relaxed/simple;
-	bh=orgqcrdT+1EdwlXhpoeFuH64cXFCpomuXXvTMzwE1i0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Ua58DDx5JOn087FQyn9WDJk7Dtt/Xz0K8q5/aeOWmuqbrWK597HB/953FFDfj0QozbaqPJnjK33JPi4vFVUDlA6Ss99DE1DdF0L/pDsQ7JaEY+0wfOL2KkIyYO858gyOMCXQdiMTMfxbPEoRyLy9DsAWDiJYjB4iWTxkC1EReKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YpFzAcX1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1786214277; c=relaxed/simple;
+	bh=dzrdC/V9hfKSduqXaxnSIK04OaPh9Ms/hShv+g+bUtk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V+leIdVsUuJsX92mHcQg40Q3eKjX4Ez5CI8/o86Xkxri/ANlEwG2P1bJ5pbxoheo0NXiqQb77oNRrv103ttu/fmXN5v7fqV7llW5eyjWQYQZIGPB9fT8AHmuzSpNjcVITkkVeRlUItjrqh6d2hW2JzGMhUTsUtzvGWZql0hmOYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DxxesmrU; arc=none smtp.client-ip=209.85.167.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YpFzAcX1"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 678Gn1H1350017;
-	Sat, 8 Aug 2026 18:19:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=JSJlRvgpauk
-	igs3Lp4WVk0Lefxy09nbLs/0/hv72SKU=; b=YpFzAcX1hp6a1fKbb1hh5pK3ZKs
-	NnI5MpaJV1zmUkFv5KhCKBdy6RM39X82Hvtq5wOPxE1QCsW5SDGQKuoTp4qH7WF9
-	wIuTiQIwIOZ6c6LE1nlD4+FHK322keaKBFAcX8gh3XBCpifzsHjRmPhaFYHzMbKP
-	lkP/U+9EaZ+uQ8mXtdU2RtfRX90udV3V3mqt3ydrGMj5mX68cnZAWjVPmoNZXqin
-	OxMAUvGoUBa4LP7yv2jzsmvaQtc/DlA445thDVjRWFHyQ1dmYJhrDhSH4spxiFQW
-	MFHtD6nOaMerHs8u5X2sDaVC4hMycX2Uzdw6L5pjfPodBdTi4rS1LBH29LA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwvhv9eg0-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 08 Aug 2026 18:19:57 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 678IJrJh009399;
-	Sat, 8 Aug 2026 18:19:53 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fwwhhhg1j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 08 Aug 2026 18:19:53 +0000 (GMT)
-Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 678IJrFA009393;
-	Sat, 8 Aug 2026 18:19:53 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 678IJrwB009392
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sat, 08 Aug 2026 18:19:53 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
-	id 3F4D3C0C; Sat,  8 Aug 2026 23:49:51 +0530 (+0530)
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v1 5/5] ASoC: qcom: sc8280xp: Fix TDM hw_params error handling
-Date: Sat,  8 Aug 2026 23:49:48 +0530
-Message-Id: <20260808181948.2489187-6-prasad.kumpatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
-References: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DxxesmrU"
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4af173320f9so341903b6e.2
+        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 11:37:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786214275; x=1786819075; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oc0GfmclcP67zAT/ARwTrf4zGQv32puYST7E+4xbpn8=;
+        b=DxxesmrUaut/NiFBEF1oWMWI1sbb9mj7QnWp8nXTx9fuQcSOMG6gnbbDFKxawSNO4S
+         455+nPuVc89VEwnD5oBM0vlEF/wbmv+eqJFP9WAhpy7XTujVIdOo/9w8AgMssX2S6gYz
+         1AAw5/v28Y+N5itp2GpYegE2k37YnIJWkiLL2uI5E7KwQhhvLRlnQTUFcOMXzFjAYot/
+         hzgA1wD1wQZdmHMwX785r88C++TXnSdd/DEpdrw4dfjvmuq1klw0uPU1F67ZZj8c/vPP
+         vpgSwXeGRzw/Nyi73eH3ipDiEU+yUH9XSxQuNssEF2OhbeHI/TrgIPuTcqHtnbEvwhK5
+         gsgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786214275; x=1786819075;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oc0GfmclcP67zAT/ARwTrf4zGQv32puYST7E+4xbpn8=;
+        b=GiMGWG2fR5aIRtBhT+MrXeGVdXTwc4wJKVz3T0b7QW4OycTqRwp6OcFHhq+8cpSNA0
+         Ntq2J8j9CL3tR4GZFI7YmEOe/WcqheViNZj5XsQFzEHjG47mw3xWx96G+fdp3breasOT
+         NxwvtwcEj8JNOUW0axsHflRbCZ8M6Q7p8D90+AYZptd3KGA5Aj2IBYcnqUw+7Vz4sfse
+         XkxlYJlg4kFK7JnOETcuZrMi1QfxxcJ26I/uKZ8MmbnCLRhfAySt2q94tD+I66JsAeGS
+         PnJ6QoA70K4f3DIuTz49ey1PhZMEx/G4Psp281z0v44Ggan/H5ioAiAo9en3E7hQlW5O
+         350w==
+X-Forwarded-Encrypted: i=1; AHgh+RpKXbZmns34/D+OBiOWqPTuB+Sx9w5ZHz8Knxxe/e/LvehRi9Mh8lzylEHqRu/NQOkwfoaUH9OpIjcl@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrtFelrnyhzhc96+lKLU6sAeFqMAICCYf6qpbDcNIHH7Gl2hB9
+	Q+j1MJbn4M21raVtz874U5PIGK8eRfkjdI9d+ZnTQlbcceWFo9d8cv7pp+QuH+XFy3U=
+X-Gm-Gg: AR+sD13MvePTRFoVw5Z62fXX7ISIEsLSmiD3j54qlSdEZM3eQ6EQqV49TeaMrrLoI3y
+	DGro6OU6A3WGi71zEFwg4PyA/CLyLspy4HVn5CzSvBcEFeEpDnl3Z1Lobhbrq55QGfJl5SRFIP2
+	bS6dZw2FyydwTwKwI0tgk5Gzy7QjxacwAR4hkmxmdvsGpPJ8RqHp5X5AiTSbjbNG85C6dOsqIft
+	uFzFFNvDtSuY5FZoPKyyUOmy3BI+B9Adwxtdrw1KGUE2i++RY0uXB2850pqJCTtdLootjJAjNHf
+	6wy/LYi6QfCB8W3AwJXxFDMfhkN0HxD62WINTpmbfoOz3W8drzYOhQghWJfLtyZ1qUL59KW7iDe
+	HSAI2AWjRzg4j0G45fU5alL4yWGBkBDvpkD+P4uKfShQubV0aQnDPho0tap/4zELVhVRZgaZ6rB
+	3gdN+4f16rSsvuflw4LI7hVxFCBxkSmeKB3Vu2sFIO4W4LgNxgtKqrfMbhKXjnuArjxdOjnKjHM
+	Il0qCX5ePb+HNQtM22v7gD7zlle3VlZ1bZHmqVVM9yekGZ0z5E=
+X-Received: by 2002:a05:6808:14d3:b0:4a3:3108:8653 with SMTP id 5614622812f47-4b13326e600mr9343974b6e.9.1786214274819;
+        Sat, 08 Aug 2026 11:37:54 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:99c2:f16e:201c:3bb5? ([2600:8803:e7e4:500:99c2:f16e:201c:3bb5])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1af5e7b77sm2718840b6e.10.2026.08.08.11.37.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 08 Aug 2026 11:37:54 -0700 (PDT)
+Message-ID: <9c2e2c46-32de-4e8a-88c3-bfc2cfe8157c@baylibre.com>
+Date: Sat, 8 Aug 2026 13:37:52 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=eqbvCIpX c=1 sm=1 tr=0 ts=6a77734d cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
- a=__KbwfSMYZr-9KUfyosA:9 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: KkaTFHn6ffjXbseBI-lQOil2yjYdIh3M
-X-Proofpoint-GUID: KkaTFHn6ffjXbseBI-lQOil2yjYdIh3M
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA4MDE1NyBTYWx0ZWRfX7A4QBE+Y+m/n
- 8mDwmIKy2U6zoyFfXHMAligzclDF7Pd2WYp+xOymqooAl1hbpMjQhg4k0FiTtzAl/X2bUIVGQgV
- SgqIViWt6XNpt0sjzxmTk4ePz0pZBiEvPqXF0CoICy7unLK1N7JdZ+EvOxk4Do9V14170yYuQUg
- aKHIU1vVRtd53clGDMmSjQGOFWHgGK+1Lm7NDk2hd8XktoNkijiBPF0DU0UIzm6rzGhxjkdub/5
- GucCnMKi1SOiRUzRKFdlLo3ZrsHvGsxqo0BLE/jvJGVLL0CYaFk5LmylxpFPCVU7eMPCIkfOx0r
- sQbJRE+5rPdqwtkTcKHq7qmWuqXfleDCJOrRyxjthIB8+hERk8HoMjTW1A/jVGalwumPru9/jWr
- HPhx588x/iLQfcyrwHiSO+JhiIjMdOcbhMQzswC6+kZcduuoy3geBrmYc51MRERD1/or1ZZDSe1
- IUrU+3cjD8XJQYi+02Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA4MDE1NyBTYWx0ZWRfXzPXSpWrAEkR8
- 2H0SJWBr4pD0SbiUd2F1h2ED74iHnaI8fTrVYztLUOUECVGM3xw/udaXdTxhfUAJb3h83TE56uc
- enzT89cQa6QvUGbcVyxTFen1P/IXivY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-08_06,2026-08-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 spamscore=0 clxscore=1011 adultscore=0
- bulkscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608080157
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/9] iio: adc: Add TI ADS126X ADC family support
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Treat -ENOENT from TDM slot parsing as the optional "configuration not
-present" case and continue to propagate real configuration errors.
+On 8/7/26 10:58 PM, Kurt Borja wrote:
 
-Also ignore -ENOTSUPP from optional DAI format and codec sysclk
-callbacks, apply codec_dai_fmt to codec DAIs on TDM links, and use a
-signed bclk_freq variable so errors from snd_soc_tdm_params_to_bclk()
-are handled correctly.
+...
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com
-Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
----
- sound/soc/qcom/sc8280xp.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+>   - @David: I added support for the monitor channels, but I prefer to
+>     parse them from DT instead of making them static (similar to the
+>     ad4170-4 approach too :p).
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 597c0d887d2f..0120443da418 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -115,33 +115,42 @@ static int sc8280xp_tdm_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_dai *codec_dai;
- 	struct qcom_snd_tdm_slot_cfg cpu_cfg;
- 	struct qcom_snd_tdm_slot_cfg codec_cfg;
--	unsigned int bclk_freq;
-+	int bclk_freq;
- 	int ret;
- 	int i;
- 
- 	ret = qcom_snd_get_dai_tdm_slots(rtd, &cpu_cfg, &codec_cfg);
- 	if (ret)
--		return ret == -EINVAL ? 0 : ret;
-+		return ret == -ENOENT ? 0 : ret;
- 
- 	if (!cpu_cfg.slots)
- 		return 0;
- 
- 	ret = snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_BP_FP);
--	if (ret)
-+	if (ret && ret != -ENOTSUPP)
- 		return ret;
- 
-+	if (data->priv->codec_dai_fmt) {
-+		for_each_rtd_codec_dais(rtd, i, codec_dai) {
-+			ret = snd_soc_dai_set_fmt(codec_dai,
-+						  data->priv->codec_dai_fmt);
-+			if (ret && ret != -ENOTSUPP)
-+				return ret;
-+		}
-+	}
-+
- 	ret = qcom_snd_apply_dai_tdm_slots_cfg(rtd, &cpu_cfg, &codec_cfg);
- 	if (ret)
- 		return ret;
- 
- 	bclk_freq = snd_soc_tdm_params_to_bclk(params, cpu_cfg.slot_width, cpu_cfg.slots, 1);
--	if (!bclk_freq)
-+	if (bclk_freq <= 0)
- 		return -EINVAL;
- 
- 	if (data->priv->mi2s_bclk_enable) {
- 		ret = snd_soc_dai_set_sysclk(cpu_dai, LPAIF_MI2S_BCLK, bclk_freq,
- 					     SND_SOC_CLOCK_IN);
--		if (ret) {
-+		if (ret && ret != -ENOTSUPP) {
- 			dev_err(rtd->dev, "%s: failed to set cpu sysclk: %d\n",
- 				__func__, ret);
- 			return ret;
-@@ -152,7 +161,7 @@ static int sc8280xp_tdm_hw_params(struct snd_pcm_substream *substream,
- 		for_each_rtd_codec_dais(rtd, i, codec_dai) {
- 			ret = snd_soc_dai_set_sysclk(codec_dai, 0, bclk_freq,
- 						     SND_SOC_CLOCK_IN);
--			if (ret) {
-+			if (ret && ret != -ENOTSUPP) {
- 				dev_err(rtd->dev, "%s: failed to set codec sysclk on %s: %d\n",
- 					__func__, codec_dai->name, ret);
- 				return ret;
--- 
-2.34.1
+Why? Unless there really is some property that depends on how the
+system is wired up, it seems like this is just making unnecessary
+work for users to be able to use the monitor channels. And if someone
+decided later that they do in fact want to use the monitoring channel
+and it wasn't in the devicetree, sometimes it can be very difficult
+to actually change the devicetree.
+
+The monitor inputs also have many restrictions compared to a
+normal input that it would be really hard to describe correctly
+in the bindings without allowing things that should not actually
+be allowed. (can't have excitation current or burnout, temperature
+channel requires internal reference, most should be single-channel,
+etc.)
+
+> 
+>   - @David: About filters... As I mentioned in the previous version, the
+>     data_rate configuration takes precedence over the filter selection.
+>     If an incompatible filter (given a data rate) is selected, the chip
+>     resorts to a sane compatible one when doing conversions (either
+>     SINC1 or plain SINC5).
+> 
+>     Now, I don't know how to expose this in userspace. Should I limit
+>     the sampling_frequency_available attribute (given a filter)? Or
+>     should it be the other way around, limit the filter_type_available
+>     attribute (given a data rate)?.
+ I figured that the filter type selection would be more important than
+the rate so when I implemented it for ADS112C14, I made it so that
+one has to pick the filter first and everything else flows from that.
+(I didn't expose sampling frequency until the same time as filter type.)
+
+The thinking behind this is that if you do care about filtering, then
+you are picking filter type and sampling rate to get certain notches
+and/or frequency response of the filter rather than trying to get a
+faster or slower sample rate.
+
+And the driver also allows using an hrtimer trigger to do single-shot
+samples for cases where one doesn't want to sample as fast as possible
+in continuous mode. This would be more useful to someone who just cares
+about sample rate and not about filtering.
+
+Just posted the series yesterday:
+https://lore.kernel.org/linux-iio/20260807-iio-adc-ti-ads112c14-filter-support-v1-0-4d3ba00caf18@baylibre.com/T/#t
+
+ADS126X seems a little less complicated in this regard though
+as the same sampling rates are available for all filters with
+the exception of the FIR filter having a limited subset. So I
+would go with the option to limit sampling rate based on filter
+type, not the other way around. If a higher rate is selected
+when changing to the FIR filter type, just have it go to the
+max (20 SPS).
+
