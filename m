@@ -1,232 +1,245 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91622375F9E
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 10:46:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC4633D4E4
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 10:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786186020; cv=none; b=XheutnOyTzCvDgv9FEPTmcpJto2x5bUaWH0409BGBH5Q9J2cLJ7NOjHAPkWTG/zHTA0DVIbXx+dx1W0xe1tNvPtZh0HwmYhQT5ThqrbT0EZnvCbpUjCXIJCEm33Hq3WyYtO//mg4TFkl4XMQrQ0MoZpLFFCXZgd60h6OwVHCMFY=
+	t=1786186021; cv=none; b=K8xSyzEqTtTcNqJdclGl8P6RX0U7cMES773u76iPsUx+4LkTh/q62hHSJcJjrHCMqofBCQbrBAJhlWddg5sSz5PmmmKTnCsNbp6/eystFMnUSAEp1rS0Jmrymmaa1EJyB2QFXK+En6H0r3g5PKQX7Zn9eUM4gfbHUivt9fQvOTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786186020; c=relaxed/simple;
-	bh=Zdl01dmMyJmu0nRUAztvOnCy/q66OZ3sVN8ZhxW+ggQ=;
+	s=arc-20240116; t=1786186021; c=relaxed/simple;
+	bh=0qXsUNtaVlooP4Fgi9Se42eIAUou4EiIKQYNzv4BPxg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Gigr19+2bO4kfQFy71ntsEy+8Vdj5Xt/CBCLJfYnej3l0N57OZ59QDrY/tDr4hhx7bZWhRELAQ8Vpz6AG1NmB/KvFEOPSGte/eTWl1VaCdC+fwNS6UwegS8ij7nyKVDotyhFouQRgSf8ZAZr9rG6OyGukmKbQGQzv4GLmTwRTQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bCqAHErF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=W2hTySQmyogagbF4UU/eG+8IDIYx2YJNVGBlFVD0/X8VzMLGNDycWU1GyfKA+O08aTVAyajNCcdX/TXuqXuo6scw4UvF5djVM8EPXKvQ8ELsG37pdQXohRfcvm0xvctDn5kxgMQQb8nHPC3FTBfENTtNtPvDcz3YWl91YteZDP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJq3dGTt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bCqAHErF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3E51F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJq3dGTt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 040681F00A3D;
 	Sat,  8 Aug 2026 10:46:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786186019;
-	bh=7FJd69ckeic60C2UO2XHl5n+cJLe8VRck+qgdR/YugY=;
+	s=k20260515; t=1786186020;
+	bh=78aUraiAIqydceknWE6P5VGtq8DSAbF4HUPpuabM2PU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bCqAHErFYnWAC/f3iY7SdodyQ6CLZxbk7Ie6HPchUPirDCGYnjE5sLnRO6V1Y41mz
-	 yLv8T8jW/8XfWhAi7g/nfXUp2/2ro/ecsl8KKd6wg7cKE7ceVtY+sYbgQKYtVoOUIt
-	 1rXKmfwgrlTvKzT/WK1/0DTZHuE47vyTXgHU8t7IhHqJI7GjEwgnwcjWfaS8t/HAc1
-	 4IF3S9D1hwkpdlgoz6Siyy79KEwf9IN+3kJpo7Qp8yCKS4C7gSF8p+ekkEklFvPISD
-	 XIpXqiZa5JQx9/iYNQ5beX52iPsiPgt6w6djOKvIzRNSnGTNDznuNrEdK7l+Mk/mqr
-	 VII6/hD8JQsww==
+	b=eJq3dGTttaVRaSQnYugVMuLpHhYgzSJnKz9k3fryjdZD7HNjBp2fSTSUFd8/Ss9py
+	 0Iz8RK320KQ7WJO8DIE+jic6fFi0hdw0tiIjln3KzwiB5gy5Q006H9hh941toCeExZ
+	 uPO4vNq83qfT2il0FWg5FqXcGFY3kb1SZC7sjrZ1zTYcTZE7rYgF7HDB6v/g/9kFne
+	 ic4RTlMweiWto/nbj3O45D5hjSNtR5+PL9qXqNHh9wpCdLs4sdfoQw77JuLKyDy+7i
+	 ykSRYIMDsMnSsE+hGGTGaAid+XoIrgm82GaL72aoyihc9YCLq7+LNugu7k7Jfyz0Uy
+	 paq9wVI1mhXDA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 18/20] net: dsa: xilinx: offload the bridge FDB to the
- switch CAM
+Subject: Re: [PATCH 19/20] net: dsa: xilinx: offload bridge VLAN filtering
+ to the switch
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Nagadheeraj Rottela" <nagadheeraj.rottela@amd.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807104431.157230-19-nagadheeraj.rottela@amd.com>
+In-Reply-To: <20260807104431.157230-20-nagadheeraj.rottela@amd.com>
 References: <20260807104431.157230-1-nagadheeraj.rottela@amd.com>
- <20260807104431.157230-19-nagadheeraj.rottela@amd.com>
+ <20260807104431.157230-20-nagadheeraj.rottela@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 10:46:58 +0000
-Message-Id: <20260808104659.3A3E51F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 10:46:59 +0000
+Message-Id: <20260808104700.040681F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Missing port forwarding matrix configuration breaks standalone por=
-t isolation when hardware bridging is enabled.
-- [Medium] port_fdb_dump fails to verify port lists, causing missing or inc=
-orrectly attributed FDB entries.
-- [Medium] Moving a static unicast FDB entry causes traffic duplication and=
- information leak due to bitwise-ORing the port list.
+- [High] Leaking internal default VLAN tags to wire ports when VLAN filteri=
+ng is disabled.
+- [Medium] Mixing goto-based error handling with scope-based cleanup helper=
+s (`guard()`, `scoped_guard()`) in the same function.
+- [Medium] Missing rollback of driver software state and hardware registers=
+ on error paths in VLAN configuration.
+- [Medium] Silent egress tagging policy violation when replacing a port's P=
+VID.
 --
 
---- Patch [18]: [PATCH 18/20] net: dsa: xilinx: offload the bridge FDB to t=
-he switch CAM ---
-commit f82d05023d1b6a6153d5fd4fda5ef042b99bb5ce
+--- Patch [19]: [PATCH 19/20] net: dsa: xilinx: offload bridge VLAN filteri=
+ng to the switch ---
+commit ce3068da25a97ee2632521887db3b91540fc81d6
 Author: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
 
-net: dsa: xilinx: offload the bridge FDB to the switch CAM
+net: dsa: xilinx: offload bridge VLAN filtering to the switch
 
-This commit adds support for offloading the bridge forwarding database (FDB)
-to the switch's stream-destination lookup CAM. It enables MAC address learn=
-ing
-globally when ports join a bridge, implements hardware-level FDB management
-functions, and serializes indirect CAM register accesses.
+The switch always keys the L2 forwarding lookup on {DMAC, VID}. A
+per-VID port-membership table controls which ports each VLAN spans.
+The ingress parser assigns untagged frames the native VID of the
+receiving port before lookup, so tagged and untagged traffic share
+the same {DMAC, VID} key throughout.
+
+Wire bridge VLAN filtering to the port-membership table and
+native-VID registers so bridge VLAN commands take effect in
+hardware. Program the native-VID register on PVID changes so
+untagged ingress lands in the right VLAN.
+
+Filtering is switch-wide, so declare it global. The per-MAC
+VLAN-enable bit adjusts the MAC's maximum frame length to
+account for the 4-byte tag.
 
 > diff --git a/drivers/net/dsa/xilinx/xilinx_tsn.c b/drivers/net/dsa/xilinx=
 /xilinx_tsn.c
-> index 9a4d4a2fb8925..57558b0e2613b 100644
+> index 57558b0e2613b..7e5cf77cfa66a 100644
 > --- a/drivers/net/dsa/xilinx/xilinx_tsn.c
 > +++ b/drivers/net/dsa/xilinx/xilinx_tsn.c
 
 [ ... ]
 
-> @@ -539,6 +603,217 @@ static void xlnx_tsn_port_stp_state_set(struct dsa_=
-switch *ds, int port,
-> +static int xlnx_tsn_port_fdb_add(struct dsa_switch *ds, int port,
-> +				 const unsigned char *addr, u16 vid,
-> +				 struct dsa_db db)
+> +/* Write a port's native VID and egress-untag setting to hardware.
+> + * While VLAN filtering is off, every port uses the reset-default
+> + * native VID and stays tagged, so committed VLANs have no effect
+> + * until the bridge goes VLAN-aware. Caller holds indirect_lock.
+> + */
+> +static void xlnx_tsn_apply_pvid(struct xlnx_tsn *sw, int port)
 > +{
-> +	struct xlnx_tsn *sw =3D ds->priv;
-> +	u8 portlist;
-> +	int ret;
-> +
-> +	if (!vid)
-> +		vid =3D TSN_SW_DEFAULT_VID;
-> +
-> +	guard(mutex)(&sw->indirect_lock);
-> +	ret =3D xlnx_tsn_cam_read_portlist(sw, addr, vid, &portlist);
-> +	if (!ret) {
-> +		portlist |=3D TSN_PORT_BIT(port);
-> +		ret =3D xlnx_tsn_cam_write(sw, addr, vid, portlist, true);
-> +	}
+> +	u16 vid =3D sw->vlan_aware ? sw->pvid[port] : TSN_SW_DEFAULT_VID;
+> +	bool untag =3D sw->vlan_aware && sw->pvid_untagged[port];
 
-[Severity: Medium]
-Will this bitwise-OR cause traffic duplication when a static unicast FDB en=
-try
-is moved?
+[Severity: High]
+Does this leak the internal default VLAN tag to the wire when VLAN filtering
+is disabled?
 
-When an entry moves to a new port (such as during roaming or a bridge fdb
-replace), the bridge can send a SWITCHDEV_FDB_ADD_TO_DEVICE event for the n=
-ew
-port before sending a delete for the old port.
-
-By bitwise-ORing the new port into the mask here, the entry will forward
-unicast traffic to both the old and new ports simultaneously, instead of
-replacing the old port.
+When the bridge operates in the default VLAN-unaware mode, the untag boolean
+evaluates to false because of the sw->vlan_aware check. This causes egress
+untagging to be disabled. Since ingress frames are assigned VID 1, would
+they egress with the internal tag and break L2 connectivity for standard
+untagged hosts?
 
 > +
-> +	return ret;
+> +	xlnx_tsn_set_native_vid(sw, port, vid);
+> +	xlnx_tsn_set_native_untag(sw, port, untag);
 > +}
 
 [ ... ]
 
-> +static int xlnx_tsn_port_fdb_dump(struct dsa_switch *ds, int port,
-> +				  dsa_fdb_dump_cb_t *cb, void *data)
+> +static int xlnx_tsn_port_vlan_filtering(struct dsa_switch *ds, int port,
+> +					bool vlan_filtering,
+> +					struct netlink_ext_ack *extack)
 > +{
 > +	struct xlnx_tsn *sw =3D ds->priv;
-> +	unsigned char addr[ETH_ALEN];
-> +	u32 base, ctrl, key1, key2;
-> +	int ret =3D 0;
-> +	u16 vid;
-> +	u32 i;
-> +
-> +	/* Learnt entries live in a per-MAC-port read-key region. The CPU
-> +	 * port has no such region.
-> +	 */
-> +	if (port =3D=3D XLNX_TSN_CPU_PORT)
-> +		return 0;
+> +	struct dsa_port *dp;
+> +	unsigned long bit;
+> +	u32 reg, data;
+> +	int ret;
 > +
 > +	guard(mutex)(&sw->indirect_lock);
 > +
-> +	if (port =3D=3D XLNX_TSN_PORT_MAC2)
-> +		base =3D TSN_CAM_MAC2_READ_KEY_BASE;
-> +	else
-> +		base =3D 0;
-> +
-> +	/* Learnt entries occupy non-consecutive slots, so scan the whole
-> +	 * region and report each slot marked found.
+> +	/* Flip Port-List-Valid on every configured VID: set it to enforce
+> +	 * membership, clear it so VLANs added while filtering was off stay
+> +	 * inert.
 > +	 */
-> +	for (i =3D 0; i < TSN_CAM_READ_KEY_COUNT; i++) {
-> +		ret =3D xlnx_tsn_cam_wait_ready(sw);
+> +	for_each_set_bit(bit, sw->cfg_vids, VLAN_N_VID) {
+> +		ret =3D xlnx_tsn_vlan_read(sw, bit, &data);
 > +		if (ret)
 > +			return ret;
 > +
-> +		sw_iow(sw, TSN_CAM_CTRL_OFFSET,
-> +		       FIELD_PREP(TSN_CAM_READ_KEY_ADDR, base + i) |
-> +		       FIELD_PREP(TSN_CAM_OP_MASK, TSN_CAM_OP_READ_KEY) |
-> +		       TSN_CAM_OP_ENABLE);
+> +		if (vlan_filtering)
+> +			data |=3D TSN_VLAN_PORT_LIST_VALID;
+> +		else
+> +			data &=3D ~TSN_VLAN_PORT_LIST_VALID;
 > +
-> +		ret =3D xlnx_tsn_cam_wait_done(sw);
+> +		ret =3D xlnx_tsn_vlan_write(sw, bit, data);
 > +		if (ret)
 > +			return ret;
-> +
-> +		ctrl =3D sw_ior(sw, TSN_CAM_CTRL_OFFSET);
-> +		if (!(ctrl & TSN_CAM_FOUND))
-> +			continue;
-> +
-> +		key1 =3D sw_ior(sw, TSN_CAM_KEY1_OFFSET);
-> +		key2 =3D sw_ior(sw, TSN_CAM_KEY2_OFFSET);
 
 [Severity: Medium]
-Does this FDB dump implementation report FDB entries incorrectly if their
-port list has been modified?
+If xlnx_tsn_vlan_write() fails here, does this return early without
+rolling back the VLAN entries that were already modified in earlier
+iterations of this loop?
 
-The dump loop checks if a slot is physically occupied but doesn't read the
-TSN_CAM_PORT_ACT_OFFSET register to verify if the queried port is actually
-present in the entry's port list.
+This could leave the switch hardware and driver state permanently
+desynchronized from the Linux bridge core's view if hardware communication
+fails partway through.
 
-If an entry's port list was later modified via xlnx_tsn_port_fdb_add() or
-xlnx_tsn_port_fdb_del() to point to a different port without changing its
-physical slot, xlnx_tsn_port_fdb_dump() will still report the entry as
-belonging to the original port.
-
-> +		addr[0] =3D key1 >> 24;
-> +		addr[1] =3D key1 >> 16;
-> +		addr[2] =3D key1 >> 8;
-> +		addr[3] =3D key1;
-> +		addr[4] =3D key2 >> 8;
-> +		addr[5] =3D key2;
+> +	}
+> +
+> +	sw->vlan_aware =3D vlan_filtering;
 
 [ ... ]
 
-> @@ -643,7 +918,7 @@ static int xlnx_tsn_setup(struct dsa_switch *ds)
->  	struct dsa_port *cpu_dp =3D dsa_to_port(ds, XLNX_TSN_CPU_PORT);
->  	struct xlnx_tsn *sw =3D ds->priv;
->  	struct dsa_port *dp;
-> -	u32 mgmt;
-> +	u32 mgmt, reg;
->  	int ret;
-> =20
->  	if (!dsa_is_user_port(ds, XLNX_TSN_PORT_MAC1) ||
-> @@ -656,6 +931,22 @@ static int xlnx_tsn_setup(struct dsa_switch *ds)
-> =20
->  	sw->conduit =3D cpu_dp->conduit;
-> =20
-> +	/* Pre-arm the learning sub-qualifiers for when a port joins a bridge:
-> +	 * learn untagged frames under their ingress native VID, and allow
-> +	 * learning on VIDs with no membership entry while the bridge is
-> +	 * VLAN-unaware. Both bits are inert while global learning is disabled.
-> +	 */
-> +	reg =3D sw_ior(sw, TSN_SW_ADDR_LEARN_OFFSET);
-> +	reg |=3D TSN_SW_ADDR_LEARN_DISABLE | TSN_SW_ADDR_LEARN_UNTAGGED_EN |
-> +	       TSN_SW_ADDR_LEARN_NO_VLAN_EN;
-> +	sw_iow(sw, TSN_SW_ADDR_LEARN_OFFSET, reg);
+> +static int xlnx_tsn_port_vlan_add(struct dsa_switch *ds, int port,
+> +				  const struct switchdev_obj_port_vlan *vlan,
+> +				  struct netlink_ext_ack *extack)
+> +{
+> +	bool untagged =3D vlan->flags & BRIDGE_VLAN_INFO_UNTAGGED;
+> +	bool pvid =3D vlan->flags & BRIDGE_VLAN_INFO_PVID;
+> +	struct xlnx_tsn *sw =3D ds->priv;
+> +	u32 data;
+> +	int ret;
 > +
-> +	/* On a CAM miss flood unknown tagged unicast frames to all ports. */
-> +	reg =3D sw_ior(sw, TSN_SW_CTRL_OFFSET);
-> +	reg &=3D ~TSN_SW_CTRL_UCAST_MISS_MASK;
-> +	reg |=3D FIELD_PREP(TSN_SW_CTRL_UCAST_MISS_MASK, TSN_SW_CTRL_UCAST_MISS=
+> +	guard(mutex)(&sw->indirect_lock);
+> +
+> +	/* The hardware strips the tag on egress only for a wire port's native
+> +	 * VLAN. Reject an untagged request for any other VID. The CPU port is
+> +	 * exempt as it always trunks tagged toward the host.
+> +	 */
+> +	if (port !=3D XLNX_TSN_CPU_PORT && untagged && !pvid &&
+> +	    vlan->vid !=3D sw->pvid[port]) {
+> +		NL_SET_ERR_MSG_MOD(extack,
+> +				   "untagged egress is only supported for the port PVID");
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Does this logic allow a silent egress tagging policy violation when an
+administrator replaces a port's PVID?
+
+If a port already has a VLAN configured as untagged, and a new untagged
+PVID is added, the condition (untagged && !pvid) allows this replacement.
+However, because the hardware only untags the active PVID, the old VLAN
+will silently lose its untagging capability and begin egressing as tagged
+instead of rejecting the configuration.
+
+> +
+> +	ret =3D xlnx_tsn_vlan_read(sw, vlan->vid, &data);
+
+[ ... ]
+
+> @@ -941,12 +1232,26 @@ static int xlnx_tsn_setup(struct dsa_switch *ds)
+>  	       TSN_SW_ADDR_LEARN_NO_VLAN_EN;
+>  	sw_iow(sw, TSN_SW_ADDR_LEARN_OFFSET, reg);
+> =20
+> -	/* On a CAM miss flood unknown tagged unicast frames to all ports. */
+> +	/* On a CAM miss flood unknown tagged unicast frames to all ports.
+> +	 * Also drop tagged frames whose ingress port is not in the VLAN
+> +	 * member list. The membership check only bites once VLANs exist.
+> +	 */
+>  	reg =3D sw_ior(sw, TSN_SW_CTRL_OFFSET);
+> -	reg &=3D ~TSN_SW_CTRL_UCAST_MISS_MASK;
+> -	reg |=3D FIELD_PREP(TSN_SW_CTRL_UCAST_MISS_MASK, TSN_SW_CTRL_UCAST_MISS=
 _FLOOD);
-> +	sw_iow(sw, TSN_SW_CTRL_OFFSET, reg);
+> +	reg &=3D ~(TSN_SW_CTRL_UCAST_MISS_MASK | TSN_SW_CTRL_MEMBER_VIOL_MASK);
+> +	reg |=3D FIELD_PREP(TSN_SW_CTRL_UCAST_MISS_MASK, TSN_SW_CTRL_UCAST_MISS=
+_FLOOD) |
+> +	       FIELD_PREP(TSN_SW_CTRL_MEMBER_VIOL_MASK, TSN_SW_CTRL_MEMBER_VIOL=
+_DISCARD);
+>  	sw_iow(sw, TSN_SW_CTRL_OFFSET, reg);
+> =20
+> +	/* Every port uses the default native VID until VLAN filtering is
+> +	 * enabled. Seed the PVID shadow and program the native VID
+> +	 * registers to match.
+> +	 */
+> +	scoped_guard(mutex, &sw->indirect_lock)
+> +		for (port =3D XLNX_TSN_CPU_PORT; port < XLNX_TSN_NUM_PORTS; port++) {
+> +			sw->pvid[port] =3D TSN_SW_DEFAULT_VID;
+> +			xlnx_tsn_apply_pvid(sw, port);
+> +		}
 
-[Severity: High]
-Does this global flooding configuration break network isolation between
-standalone ports?
+[Severity: Medium]
+Since xlnx_tsn_setup() uses goto-based error handling on failure paths
+(such as goto err_traps, err_mdio, etc. lower in the function), is it safe
+to use scoped_guard() here?
 
-Since standalone ports share the same default PVID and have VLAN filtering
-disabled by default, enabling TSN_SW_CTRL_UCAST_MISS_FLOOD globally here
-(and similarly in xlnx_tsn_port_vlan_filtering()) without configuring a port
-forwarding matrix means an unknown unicast frame entering one standalone po=
-rt
-could be flooded directly to all other standalone ports, bypassing the CPU
-network stack entirely.
+The Cleanup and Guard Subsystem guidelines explicitly forbid mixing
+goto-based error handling and scope-based cleanup in the same function to
+prevent confusing ownership semantics and possible leaks.
+
+> +
+>  	/* Route CPU-originated bridge-group control frames (STP, LLDP) to
+>  	 * the single wire port whose MAC-nibble field matches the frame's
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807104431.1572=
-30-1-nagadheeraj.rottela@amd.com?part=3D18
+30-1-nagadheeraj.rottela@amd.com?part=3D19
