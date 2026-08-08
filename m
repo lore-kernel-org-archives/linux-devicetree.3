@@ -1,90 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6083A59A8
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 19:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BD223A3822;
+	Sat,  8 Aug 2026 19:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786216019; cv=none; b=TqMxL9H7T13aAKyqX4dAu8GLbBnMdmOFil0Esrq+3v9s9RIHQSH63hO30eYFOBvq15b0FhchcEOsXHhVi3TeTBnk+UpQLL7Nm95jWISoEKqhGeN6UzK7hRZAV0QS8mFlwQiJfi3XhDt9SxQBR4KJTWkF0Xjl4YS+tVA5CTNt26Q=
+	t=1786216020; cv=none; b=fVAqgozvEhqZ6OkYyDxR8EsyHrdI3qljCvULwSHXIiXxaWHkwyOlH2ASPaxW0BuNsmdAlZriULf+SSPxHDUHfHO16/Lg7Bf2pojFF6lysyu91gd9dRwXD1jtlxxcEt/ju0mAQA+EIWRjvZMCUMqwT5YR9iilc+RNi4yNi9lSar4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786216019; c=relaxed/simple;
-	bh=ErhJwoafrwLkeei9/IvJlpupJojH2F2xnU7hf8WR17k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gQxWZrZXJJWwxPQECFhFL2o+NffsdJ/vIhn5wSTx7Zc+6p68rgH6Q1qCd8oi7Gsp4hDKs4RnK7H70PfM8HnePLSUuOYlQ3isq25hMAIErLqknGVQ3k4X3XkTJZhSAXa4RWwbTbInCdg3mKp8xES9KyY6xX+XpkU5osvUiRplbpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N1yKt2Je; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786216020; c=relaxed/simple;
+	bh=9vZoBgzFE2THNFE8s+a0rg1bPJg4MV54NAwQFcIi1xY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PIbAoBDmbfIuTYUiuOVO254TRAzV979zKVm6wb2UbAlBwUrGHSDnYBZcln8usgl+RG20yI2mGKx4wSmkTM3eBuynzyWb8cI7k6rgGhpKyBDFa6Jv3z4eDlvwc+4KAqpDEvgGko4cC+kE7S3cwgvYIf/RLK74opY7agmlV/8VoOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=j3+q04Lk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N1yKt2Je"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1911F000E9;
-	Sat,  8 Aug 2026 19:06:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786216018;
-	bh=TP5PC3Fnz00RrBL1TKDcW5utjWZomDFwgs70A2DAmEE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N1yKt2JejwlLEj3uoI4wukhufiW0f0zDYwTl3ayJX8d1xRsIFHiWqv3pkU+toMEn3
-	 XR3cswc0kIE7gA6epxZ8tftSe8AUbP3JAXdvna1vCIiPYFri/qmlZG55uTj67xUAKP
-	 p5xRseV9N/Sg3oyitLiNvGNILh0gABofaBsFH5KzxWf5gEv+Ge2Owr4pzq4/G/vpnb
-	 h4L5vQejXG1LFE/8yFYHGcEkuk73ymBt+Tm7x46NC8fSlnHP4lxnz59/wJhOdIq3G5
-	 U2iqbGzKZ84bPo7QCoVDubQHFlmqq06FHdSLHVVPQhxrSpPrSKbyqBGjV8lYp2AUGO
-	 VyMvQFdqWS8hA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7836A
- OLED driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808-ili7836a-v1-1-07a7becc5636@gmail.com>
-References: <20260808-ili7836a-v1-0-07a7becc5636@gmail.com>
- <20260808-ili7836a-v1-1-07a7becc5636@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 19:06:57 +0000
-Message-Id: <20260808190657.ED1911F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="j3+q04Lk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAEE11570;
+	Sat,  8 Aug 2026 12:06:53 -0700 (PDT)
+Received: from pluto.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 265DD3F86F;
+	Sat,  8 Aug 2026 12:06:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1786216017; bh=9vZoBgzFE2THNFE8s+a0rg1bPJg4MV54NAwQFcIi1xY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=j3+q04LkKdAbLOlhL7/yx0dtjYOkLwgPl/oIMe3G353NJBPqZYEf13fmej7kG99MM
+	 BXGnhibvd+3geFro6DnUUHgTGPV0eZ/1CfMAY7NvoqWKb+0u5uhz32yDKo1+ENfS4u
+	 ptbJOqXq2jZ7qnRBu+AfCfWyE03mBDmpjirGgaM4=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jic23@kernel.org,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH v8 04/23] dt-bindings: firmware: arm,scmi: Add support for telemetry protocol
+Date: Sat,  8 Aug 2026 20:05:35 +0100
+Message-ID: <20260808190554.387949-5-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260808190554.387949-1-cristian.marussi@arm.com>
+References: <20260808190554.387949-1-cristian.marussi@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The vendor prefix `retroidpocket` used in the new compatible string=
- is not documented in `vendor-prefixes.yaml`.
---
+Add new SCMI v4.0 Telemetry protocol bindings definitions.
 
---- Patch [1]: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7836A=
- OLED driver ---
-commit aacb89a0d4e50af14a474c3071ac0dce394b199e
-Author: Aaron Kling <webgeek1234@gmail.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v3 --> v4
+ - changed protocol number to lowercase 1b
+ - fixed misplaced block for protocol 0x1b
 
-dt-bindings: display: panel: add Ilitek ILI7836A OLED driver
-   =20
-This commit introduces a new device tree binding for the Ilitek ILI7836A
-OLED driver. It documents the properties and compatible strings required=20
-for the MIPI-DSI display used on the Retroid Pocket Nova.
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org
+---
+ Documentation/devicetree/bindings/firmware/arm,scmi.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili78=
-36a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7836a.=
-yaml
-> new file mode 100644
-> index 0000000000000..962cf257ed8d3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7836a.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: retroidpocket,nova-panel
+diff --git a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+index d06cca9273c4..be733f8d60a0 100644
+--- a/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
++++ b/Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+@@ -324,6 +324,14 @@ properties:
+     required:
+       - reg
+ 
++  protocol@1b:
++    $ref: '#/$defs/protocol-node'
++    unevaluatedProperties: false
++
++    properties:
++      reg:
++        const: 0x1b
++
+ unevaluatedProperties: false
+ 
+ $defs:
+-- 
+2.54.0
 
-[Severity: Low]
-Is the retroidpocket vendor prefix documented in vendor-prefixes.yaml?
-Adding a compatible string with an undocumented vendor prefix will cause a
-build warning when running make dt_binding_check.
-
-> +      - const: ilitek,ili7836a
-> +
-> +  reg:
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808-ili7836a-v=
-1-0-07a7becc5636@gmail.com?part=3D1
