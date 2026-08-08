@@ -1,208 +1,142 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890EA2EB5A6;
-	Sat,  8 Aug 2026 18:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3486260565;
+	Sat,  8 Aug 2026 18:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786212630; cv=none; b=N7O8keEW2vjCjKV6I04ExLbjZhEkFoW6yxQ9hCmXqdwOF1x1r7AeGgBubDfN872MXlWEHoKHIrVrd+TK+jmaxTmhHKTBAwJ8OPeKmlVQyrDUNhO8ct9wi4Qgj0Eyd+VRn6glSUGTvMIufsN4r0p07EbEkzljhq3dr1iEOZGuTe4=
+	t=1786213210; cv=none; b=dQabxQnnTFeDXYBAWqDHzpZiLnH1WwQ5mXOPxgv1eCkCTsoZobtnnYRv/2FipU9ZraFZjjq4ZMP7razsB+DjuWg9LXtmUvBwDhpIKjhLC369t8EbUUaxiNaeHRVj8L1jpqRhKWyeXYi13ziVAr6mQj/jyhMG42HldoYAO5Yd89Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786212630; c=relaxed/simple;
-	bh=Gi1mm92Gjw0M1OFlah9/JVPSuvSP4JCcxQCKi1FId8A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i/VmDUp7MODYrSczkjlSah5SPr9MUViDmDiQGXjvG014d0Qa9yFNxUiuLy47G7/24X2HTssOeAPY+opUpSfR6bVg7kuvGQ1jVFdmmUkAyj/p9MlJuBmQXNPrJ/JVRAahauTnsQZQXgyC0jVi20eUmdP/QUuVSYlFNdvZA0AlmY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ch/GQbkr; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786213210; c=relaxed/simple;
+	bh=5+4qkVUVX99D4IodkKHZh7L2gA4EaeDSSRUnUo3tKco=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iv6d283rXs0M75VgngLwXiwFnYIB+KMpKSvM7LlTp3kmsm+oTGJbUi1hSNGwpTOeF85LSk6iggJXbue96Mq+CM/a/033PWtxjtpRHmhoH4R6XfEYalmieLVgb/cv3w7E1xYD5Tri/m+pkWGwi4xCPkQLeYwhpogUwG4r5xDc+Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mv2sF97f; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ch/GQbkr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786212628; x=1817748628;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Gi1mm92Gjw0M1OFlah9/JVPSuvSP4JCcxQCKi1FId8A=;
-  b=ch/GQbkrpRJ6hE4Zq/mF1BT0O5LK4j4VdQZvMFqxwHPxxH7jocgQ+f1y
-   tr/I/XJzYB05/ZCW2fuJlIzIbLVQNTeikyCpSTvwPMH5JhPkda05slAKZ
-   jUYPLmIIU9tRunpanQUQY3KvgsL3OFaz6ulBA4gJW7aFvUGJ6jinwKrzd
-   JxEhrN4pr5LXGhs/vY0iTocRMs4D3m+yazgdE2P7RwvZNecByKOJvTtfx
-   uWHhUG8lf/6iJgK2GMGAbyLwqjENP2twhDmLVfmboW/1y4EzlXlUqFVSe
-   UZbHZMDWLg7ZsPkhxYu3VOSUmezfEMJIiwTlQLBsws/7SjMI3JZH/mYW8
-   Q==;
-X-CSE-ConnectionGUID: 7uWI61vUTciXkKoZmpF06Q==
-X-CSE-MsgGUID: aAkzu82XS0qzoDHuAm6Q8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11869"; a="98303005"
-X-IronPort-AV: E=Sophos;i="6.25,212,1779174000"; 
-   d="scan'208";a="98303005"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 11:10:27 -0700
-X-CSE-ConnectionGUID: LS/3dPUwRHGgDlcUUDROkg==
-X-CSE-MsgGUID: 1qc3dcN0S8yLYIGOG0HZbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,212,1779174000"; 
-   d="scan'208";a="286059691"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 11:10:22 -0700
-Date: Sat, 8 Aug 2026 21:10:20 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	John Ogness <john.ogness@linutronix.de>,
-	Peng Zhang <zhangpeng.00@bytedance.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Gerhard Engleder <eg@keba.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] serial: 8250: Add Airoha SoC UART and HSUART
- support
-Message-ID: <andxDI4Xc-h5cJbd@ashevche-desk.local>
-References: <20260807222044.208056-1-ansuelsmth@gmail.com>
- <20260807222044.208056-3-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mv2sF97f"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 678Gl8WD404469;
+	Sat, 8 Aug 2026 18:19:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=/W8uncRPERZtmZOrtfm72+GzKhJirP98rNy
+	mlhCkyXY=; b=mv2sF97fhAaE4DS2j/CUOBMc5V5EPkhl0mJRymBg7n0K+meyVOl
+	4aQ2wRNKG1wmDinLDnqM2J5Lq+fPLcKG9B+VHKbOZXHXsyQH6FzW4wlhXX99XilS
+	RolkQxu8kUIui4X+lCEnWLiNugJVN8Km+LSUaoS5F9eh2SFx6tygGLYfvkTF07s0
+	fw0hgsqznysX4QYqyHFzwdKDqvvn/4Zt71d0QEYFNHMXhfES1JymZ7pS+A0eRJ2M
+	ymAY/caOV9gkd/wVXr148qQ4CM4vrzfWV52v1erwoRMg2XpNhXstQamGsU8KSqfb
+	llmUDSaGqBzkAPZfHUVw2ldcaOs+J+M1Vdw==
+Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwvp1hf51-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 08 Aug 2026 18:19:55 +0000 (GMT)
+Received: from pps.filterd (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 678IJqVP009364;
+	Sat, 8 Aug 2026 18:19:52 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 4fwwhhhg14-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 08 Aug 2026 18:19:52 +0000 (GMT)
+Received: from APBLRPPMTA02.qualcomm.com (APBLRPPMTA02.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 678IJqiu009338;
+	Sat, 8 Aug 2026 18:19:52 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-pkumpatl-hyd.qualcomm.com [10.147.245.204])
+	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 678IJq0T009328
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Sat, 08 Aug 2026 18:19:52 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 3914174)
+	id 2B1B163A; Sat,  8 Aug 2026 23:49:51 +0530 (+0530)
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+Subject: [PATCH v1 0/5] ASoC: qcom: Fix AudioReach TDM review findings
+Date: Sat,  8 Aug 2026 23:49:43 +0530
+Message-Id: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807222044.208056-3-ansuelsmth@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA4MDE1NyBTYWx0ZWRfXzV7KyKM0F0C9
+ zz+S3nI/rTawL/t4yNcBNnvRnrClt5GY+vGjBulydwHcDeW+3pKTT8H+lyJO2UuOinbpujsZ2Uy
+ trBPvyNJ541PvQOAFQZWTEuZcOXBkZNw4DL3/pW7+L/mM5ApZcjzaHEdl3uBPmXPj8cZ9zyooEW
+ rGdWkFJPKatVF0KHKhIALs42E908Cbmh0J+EYN/TNGxVTq0El6q0sqsTHmbRwtKczZO6uKqQDXt
+ 6vxrVFIkQFmixwhQQRt7qd0mUYdSyYo65q2SBlyPNeXL8rhjPZ/ArgxXzzoNJ/CiBwqQUy7d5JI
+ RDG6q0e46skFySxocqv0N1iaMT3bDNZ1J38aHHYcrnNpjj7UVRPVHgZ8EfhLSPtqKw5dtmNnSSn
+ yhYrrYED6lo/BIMiKAL/kecYSz/bMpI+oglMzr1Lw/Go1wOMWijImaZDxI6kl53aj7tQnCJDObS
+ TBhPerqw1ueKlp0fZzA==
+X-Proofpoint-GUID: 4xq2G1yDCVPS5TC-whLuldFanqvuP9ig
+X-Proofpoint-ORIG-GUID: 4xq2G1yDCVPS5TC-whLuldFanqvuP9ig
+X-Authority-Analysis: v=2.4 cv=ebgNubEH c=1 sm=1 tr=0 ts=6a77734c cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8
+ a=ZGhvr3efECkBx1CP94EA:9 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA4MDE1NyBTYWx0ZWRfX7TA5W3E/Kq+H
+ 9pOzOFHN4tkl76kYeDOo4tbomblLc3hg6LkjGf/LyMLF0cfqL2zK5FkSHLxZVGjFQZ18tC/BS/7
+ sCPUp+lefBwnwzU5l9llQmDaQQkAEbI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-08_06,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608080157
 
-On Sat, Aug 08, 2026 at 12:20:40AM +0200, Christian Marangi wrote:
-> Add support for Airoha AN7523 UART and AN7581 HSUART.
-> 
-> These implement a standard 16550 UART with only some custom logic
-> for baud rate handling.
+Address review findings for the recently merged AudioReach TDM backend
+support.
 
-Some cosmetic issues below.
-With that being addressed,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+The first 2 patch fixes typo in the newly added QAIF clock ID names by
+renaming the LAPSS-prefixed identifiers to LPASS and updating the q6prm
+users accordingly.
 
-...
+The remaining patches address issues identified in the AudioReach TDM
+configuration and machine-driver paths:
 
+  - Zero-initialize AudioReach module configuration structures so
+    unspecified slot parameters correctly fall back to topology defaults.
 
-> +++ b/drivers/tty/serial/8250/8250_airoha.c
+  - Distinguish between missing TDM configuration and malformed TDM slot
+    properties by using separate return codes, preventing valid DT
+    configuration errors from being silently ignored.
 
+  - Align sc8280xp TDM hw_params error handling with the existing MI2S
+    implementation, including proper handling of optional callbacks and
+    error propagation.
 
-> + * Author: Benjamin Larsson <benjamin.larsson@genexis.eu>
-> + *	   Christian Marangi <ansuelsmth@gmail.com>
+All these Issues are reported by sashiko. 
+Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com
 
-Authors:
+Prasad Kumpatla (5):
+  dt-bindings: sound: qcom,q6dsp-lpass-ports: Rename QAIF clock IDs
+  ASoC: qcom: q6prm: Fix QAIF clock ID typo
+  ASoC: qcom: qdsp6: Zero-initialize AudioReach module config
+  ASoC: qcom: common: Distinguish missing and invalid TDM slot
+    configuration
+  ASoC: qcom: sc8280xp: Fix TDM hw_params error handling
 
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/bitfield.h>
-
-+ errno.h
-
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/property.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/serial_8250.h>
-
-> +#include <linux/serial_core.h>
-> +#include <linux/serial_reg.h>
-
-These two are kinda guaranteed by serial_8250.h. At least IIRC some other 8250
-drivers rely on this and it sounds logical.
-
-+ types.h // uXX
-
-> +#include <linux/units.h>
-
-...
-
-> +#define UART_BRD_20M		0x1
-
-Perhaps 0x0001 to show that this is 16-bit value?
-
-...
-
-> +static unsigned int airoha_get_divisor(struct uart_port *port,
-> +				       unsigned int baud,
-> +				       unsigned int *frac)
-> +{
-> +	/* Hardware always uses BRDIV = 1. */
-> +	*frac = 0;
-> +
-> +	return 1;
-
-Shouldn't this be the same as UART_BRD_20M? I mean return a defined constant.
-
-> +}
-
-...
-
-> +static void airoha_set_divisor(struct uart_port *port, unsigned int baud,
-> +			       unsigned int quot, unsigned int quot_frac)
-> +{
-> +	struct uart_8250_port *up = up_to_u8250p(port);
-> +	u32 xindiv_clk;
-> +	u64 xyd_x, nom;
-> +	int div_bit;
-> +
-> +	/* Set baud rate calculation defaults (BRDIV ([BRDH,BRDL]) to 1) */
-
-Inner parentheses are not needed.
-
-> +	serial8250_do_set_divisor(port, baud, UART_BRD_20M);
-> +
-> +	/*
-> +	 * Calculate XYD_x and XINCLKDR register by searching
-> +	 * through a table of crystal_clock divisors.
-> +	 */
-> +	nom = (u64)baud * XYD_Y;
-
-> +	for (div_bit = ARRAY_SIZE(airoha_clk_divs) - 1;
-> +	     div_bit >= 0; div_bit--) {
-
-It's okay to place these on a single line.
-
-> +		unsigned int div = airoha_clk_divs[div_bit];
-> +
-> +		xindiv_clk = XINDIV_CLOCK / div;
-> +		xyd_x = div_u64(nom * 16, xindiv_clk);
-> +
-> +		/* For the HSUART xyd_x needs to be scaled by a factor of 2 */
-> +		if (port->type == UART_PORT_AIROHA_HS)
-> +			xyd_x /= 2;
-> +
-> +		if (xyd_x < XYD_Y)
-> +			break;
-> +	}
-> +
-> +	/* Couldn't find a valid xyd_x */
-> +	if (div_bit < 0) {
-> +		dev_err(port->dev, "failed to find suitable clock divisor for baud %u\n",
-> +			baud);
-> +		return;
-> +	}
-> +
-> +	serial_port_out(port, UART_AIROHA_XINCLKDR, BIT(div_bit));
-> +	serial_port_out(port, UART_AIROHA_XYD,
-> +			FIELD_PREP(UART_AIROHA_XYD_X, xyd_x) |
-> +			FIELD_PREP(UART_AIROHA_XYD_Y, XYD_Y));
-> +
-> +	/* Restore normal register access. */
-> +	serial_port_out(port, UART_LCR, up->lcr);
-> +}
+ .../sound/qcom,q6dsp-lpass-ports.h            | 56 +++++++++----------
+ sound/soc/qcom/common.c                       |  6 +-
+ sound/soc/qcom/qdsp6/q6apm-dai.c              |  4 +-
+ sound/soc/qcom/qdsp6/q6prm-clocks.c           | 56 +++++++++----------
+ sound/soc/qcom/qdsp6/q6prm.h                  | 56 +++++++++----------
+ sound/soc/qcom/sc8280xp.c                     | 21 +++++--
+ 6 files changed, 104 insertions(+), 95 deletions(-)
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
