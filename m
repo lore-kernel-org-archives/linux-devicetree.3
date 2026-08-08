@@ -1,321 +1,178 @@
-Received: from SY2PR01CU004.outbound.protection.outlook.com (mail-australiaeastazon11021092.outbound.protection.outlook.com [40.107.39.92])
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960B83BE62B;
-	Sat,  8 Aug 2026 10:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.39.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786184087; cv=fail; b=OpZpEMxRZ8qdEIa1wzcg/v8KaEvGo765BOqnpmvRdsYfFQ5srFEY0GR1L6uNbUqN46t2IKVUIFu/kzmb6SL7ruL4yLtlkddzQiTC0h06/380u8ss4OlnRXreVu8PE6Ri1TNxZvy7DZaEGd0/e6/gSgA852pkBKYtKChtOufEBFE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786184087; c=relaxed/simple;
-	bh=/nrplkqSKvDU5zAe9nhDSXUEZ+Jb/cPvVRBzm9FJMUY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=WNpuBUePmfzpEPZrIkjtwBBLhwdT8lLdpKvfbsxaQGGbiQaxx+YXODrCrqXupgtQ2+eGnTp5Z3RL5cbFUszIGZgE2B+hfAXnqTp+SUiHnIAS3IUP3vzUVIzfksoGth3FPIgllXxfX1GCcoZCFpl6T0HEGP8SRSdcisqgAKLxqxk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com; spf=pass smtp.mailfrom=heitbaum.com; dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b=rCQFZe/b; arc=fail smtp.client-ip=40.107.39.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=heitbaum.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B1A3C9EE8;
+	Sat,  8 Aug 2026 10:37:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=157.90.20.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786185434; cv=none; b=aIS6K79KxtQuFZr9H6nh5Uenimq5HDb7uuZmEb4D139S0op977mgkLfjL6pR9PCvGjF4ZnSE1bVkR5MIGjujC7fpRiVYItwDWMuvg8Xh7dsW2PjLS9OZ2t9Gp9iKpDfaGMJNolrU+tgcjkkHZp8Ch8tcQF5lRecgXxbOoFgHg4E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786185434; c=relaxed/simple;
+	bh=s/I0xdOx+n7VnNTPht8TffgnXTNOSrOv20s7+rZj9U0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B2IrDbuC3eeaTGuEENfDvbDBNXoJcp2ZZNdRUhg8e/LH2LHf34CQHzsxj+AoNW3j7KXQRpFv6I7f2bzkB/XRsKc41nPoL6GHKyYYKhwMOdw921gVBuo2M65LaHp4dacAEwXlWiGuQ0ChLoq41l5uamKSbKw+lDN4lEKQrRGqeSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io; spf=pass smtp.mailfrom=dewith.io; dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b=gnSL7tzt; arc=none smtp.client-ip=157.90.20.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=dewith.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dewith.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b="rCQFZe/b"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k/+wBzk9A0lmpNsYvHw56B9jr8OAQdFhTp5ntQOoAqM3jpiCHv3CIT3pyq/XKYFEcc5T0hi8Cicb9mpsvgKN0NNG9HaJZln5HuT+E17hhTD/NtfJ8CpqLClfiGlVDFaA9+zBFMidYVt1nd/YuRGmnKshRVIJLuUQsaOaGSYvEajXda6wdDZEEx4A4PKLt3CcugYwt0hR63U6ZILwuf8LF2B6Ro+/IbuRznCeLnlGIaWW5OhYAsN8yu59OfvVOQK/ghByik5lsvUS99lghR+pE2ATht8gWb+l6i2z41xf7VxDOd5uTtEvswq+Jyoqq5H9mmSwvpHvKbjmJAC37fc8Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=es+8Kv+YIotAohjSsiZ85UgPuPmS3W1il9OTYJoC8ss=;
- b=gvGnqfDh9v1MbROfUZvJrEPYee0uBtuU6Q0Yg/OIik229LL1iCIN/lj1VJwCuKkmXwX3RRZuV2Aaqy8qCvl7FvOyn5AmEHpl3x6nWhP8i677q+h5gsTMGQp3G/bdSOltJPss47Yx7kDYIw96/7X0YdDxnB10pBbWMpxl62Upn9kwI3thsTUzQo1o4f/oRqYeVQDPcG+KVN+sNBgTHpTCoP/ulY8dk1j5NzvwE3kaPpNMbw/wclg/OVrvNlKtvXl8dFb+qsL/M1+J6JYt6lvpcY+DqHOwZzUsX+VAsFNYLPRDaHrBQd5k5j/xdBNzeol467nNCAoOuNL1TtWFArAIEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
- dkim=pass header.d=heitbaum.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=heitbaum.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=es+8Kv+YIotAohjSsiZ85UgPuPmS3W1il9OTYJoC8ss=;
- b=rCQFZe/beVeimMYfkhY6eyukxvOz215WJp6DhRiDmi4soczxB6kJofm7IEgdtROXZP+0Y1zILmy1PmbHpHQOEecQD8Jb/WwrwenQ/U5VoVH5jb3niTiYF2FETAfv7UNmcns5xm0PmnQ6Z/Whw5zcmKju55knwEEdTT2wHWKvT688Ao7cXLFuUrq8I2RwnSG3HZ+kTdgd8bS/xJhbxXV27bEueUkBLR0b3nAQ7VqFfgllzwlqLtkIQcySsqqaWOpm531VUd3jHzD9WKK06rDX3BgjXQ2NKrPqtYeiy5FO5QiTTHsCm1pySeslDVvsDKrz30BIfjBEdcJorgMf2x7VcA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=heitbaum.com;
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
- by SYBP282MB4053.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:1a4::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Sat, 8 Aug
- 2026 10:14:41 +0000
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd%4]) with mapi id 15.21.0292.024; Sat, 8 Aug 2026
- 10:14:41 +0000
-Date: Sat, 8 Aug 2026 10:14:27 +0000
-From: Rudi Heitbaum <rudi@heitbaum.com>
-To: imx@lists.linux.dev
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rudi@heitbaum.com
-Subject: [PATCH v2 5/5] arm64: dts: imx8mq-phanbell: Enable the rt5645 analog
- audio
-Message-ID: <7b0c26c6741c64291e03f668ce961c47cbcb0772.1786177290.git.rudi@heitbaum.com>
-References: <cover.1786177290.git.rudi@heitbaum.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1786177290.git.rudi@heitbaum.com>
-X-ClientProxiedBy: ME3PR01CA0045.ausprd01.prod.outlook.com
- (2603:10c6:220:f7::13) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:279::22)
+	dkim=pass (1024-bit key) header.d=dewith.io header.i=@dewith.io header.b="gnSL7tzt"
+Received: from localhost (37-74-132-17.biz.kpn.net [37.74.132.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by meve.dewith.io (Postfix) with ESMTPSA id DBE5A20157;
+	Sat,  8 Aug 2026 10:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default;
+	t=1786185424;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YMBaPAYHToijBVahmID/bRSHm7hl1KFROWZe+Ee2lu8=;
+	b=gnSL7tztfhUSFv4oQ1kEHZvH5rbDhNeMvYW6eGeittWdRtE7jhARpF/TBJixsqlWe/aZdx
+	C5bUlSlk7nhWLGw3DwhFiJMczvTsHO+dk6+w3OkRAgby6vD3YkIlPf1TJY0zdtYBJr6FKq
+	hbZ0UrsItw7iW/+e8yIu1agKYQSu92U=
+Date: Sat, 8 Aug 2026 12:28:16 +0200
+From: Wim de With <wf@dewith.io>
+To: sashiko-reviews@lists.linux.dev
+Cc: lee@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH 2/2] backlight: Add support for Orient Chip OCP8178
+Message-ID: <A02AA15C-FF70-41E1-B2F7-1DC157CCB544@dewith.io>
+References: <20260806201541.101304-1-wf@dewith.io>
+ <20260806201541.101304-3-wf@dewith.io>
+ <20260806203654.542301F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|SYBP282MB4053:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5b494f3-0ef0-4ac1-b814-08def535dc4f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|18002099003|22082099003|10067099003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	UwEkAwSDu/2KoMQxduqaagGvlg8kLkwnsMCf6vHfgMK+1N76S8F88QN7s134W9a+D/8MYktVepSatdGdxAbsEOLBkhDQnDZBMPBO62sIVqgJOVXzWmj5CjZcGb5vziz9+FqKg3FzI1C74qZf9wqlrvaA1pxbMSEOKSTcJGYnsRR2SuPC1/P6tYr8kilWDdMiUENAmvoQOezRfM2Ve/ycFMd3NcfuhNt8JPSTWdMtX5BB73KMlWITxurRve1Hea9RWOxp46p0bSj/WVyg7HXoZGhnowStJbx2HwJH4a2kMM2S+yBPMqx4DuOx9oYdcTmbuPYjeSsnexQTf9jmZReBbl1FFyz7gbFKJdrVhD5g9G34bKi0YhIBndFSNjTqjIRpYZn1pDkftvs1AV0idaFFUkhsixKEOAjgODTdbRJlLNryHvvC5M5UGP9RGNY+aWe3C8oCUc6/fxBOTbiaEjvdK+yAlt96aG9Nq6GJ9/j5L3eHMSyFljwH4ncFOneob3EJqm24cDEmGan18JMAXDhcpfmrZmAuc9Rhq369x7AkeaYM1ZHNbCKh8DRO3IDSIroUIQa42vfpP0hhq1MRh1zTPwS1oft22GrMWud2bch0E0Ndfu+4idccFuh8E080eM1XzT0JcquXKsODkh9VLFm+5Sh9jHRsQopUThcqn9Ig7zg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xZXa67TbxDlE/w643FAtEXnWpiXNmMaJRDthUgf/6taC/X1XI/APGEZLbwsG?=
- =?us-ascii?Q?1nYGsOihf4AbEJRsOm7HbBiWCCK3liP8WwWnkVKOUJJXeQjpgAGVSB3Bxlio?=
- =?us-ascii?Q?k2rKTY9bDveGyXIqUkrKmV2LFbvy0b+XvLltDGoWJGrrvEZgO4W5x6KaWxvY?=
- =?us-ascii?Q?CF/KJYsqheWEjXY84Bxck+5iiq1xlkf6M0dVqonzdRvE9g+1AvTBMDFmCrKh?=
- =?us-ascii?Q?LUyjcSoenwwK/NeT32f71M7n3AqmB9un20jPUY/PNFPVkAusTmxbgvgBxixK?=
- =?us-ascii?Q?U52KRhuwknwSsiELpCN1EszrkAqyq2J/tPKWCKcUZmUqMg/Wvg3T/DtjpkV5?=
- =?us-ascii?Q?wcOBOaXoSx46ws1YYmfSu7fF94qkm2WQtui6qLJWT4wL9Zb7sCb+PLRHUzqK?=
- =?us-ascii?Q?zN7mV1gaLxEAOxrvXBXXRJTuAQ+Iqqx0Rjr8AB5qgCvMXG5MNAslsOB/n/X8?=
- =?us-ascii?Q?3TyBrRKzAjEJph3sA1hemyfIqNdhl9k1DVXoEyChKJIW3a+fN9mnKRpR6RWr?=
- =?us-ascii?Q?/3EHJtQ4swLQeu8ylh1lTTbIRFYEnOxwVpeTtIe+0G9ytk3ekEU+o0+GwQpC?=
- =?us-ascii?Q?dSfEwr0QOVwhnhQnjA3xnyPXRPSq/quzsS/FupuT/A1SA9dIQvPIHSGmMknw?=
- =?us-ascii?Q?jO2Uxd8VCZT9rjwVnPg1mBXS7afnTpozvjU6ujEDlF1AXJraSzNysORZSNwv?=
- =?us-ascii?Q?gDnmKI9zl2MtFVaqHO5vgI6eltCWfb5hcijF7PbD/gBqVt36gEcesV39YBen?=
- =?us-ascii?Q?p2h7JvOSRLcK+R4Lu6dhse4bs13w9UMn3aMFErlFPg+EnHBfdQmaclet+Usp?=
- =?us-ascii?Q?qv2IVqCtKB1j1UMCZt4nn1Dm3dOV7sgVPuPQEV7tu0mmCpU9mUQI4NI2pNhx?=
- =?us-ascii?Q?YRnZw2u12rgJ98zWO8KxWzOe22Dh48pGBvc8DiB8SaLe1U53lDh9JTqOr9wT?=
- =?us-ascii?Q?Eo9FzahVimT7g2x/UU1rtCOVGbbjWiUY9pbbyCIyI3Bsai0UuzCq7LDB1tHw?=
- =?us-ascii?Q?j76OLkGDooIMjhPYLEmeUFvsQ5DGU7ZbUbZ5ipUkfbgQOLtorDzoH5a3g4D3?=
- =?us-ascii?Q?x3Oj4e5u1k0vSus/+500xeVSjTVXNUQ916/lM8Hx2OoAGS9FBEGZOG3GbqEP?=
- =?us-ascii?Q?zKPH/rvQrCg+Wq/cVZTPIu8BLVU6+YzMXNRxeSAiliti47FPPMddlKnEctfF?=
- =?us-ascii?Q?50pBUWPozlG6IVc4CbhQm+pgtDXQGaAnwf3Id9xTOVWX9EbUZnxqbsbM9oxG?=
- =?us-ascii?Q?URyElviZ8Ry2Hk/+cUd9eyvkWbbgLtM2Su+rq+vhSUXPr9CSfs6Cb6EyR6Yv?=
- =?us-ascii?Q?CKU7Bn9j1eG8Nkpc/e9mCWu6eDg1APNn/BQm+VtvGLf+IOC9iBH35lTapoa3?=
- =?us-ascii?Q?LM0FxY+TdC+KJR2KwDuI9FXw7AVT7uY5aCkWARJjqbOvf07op6mdpn/669Yl?=
- =?us-ascii?Q?CagKlXwRue8PxX6HcSW2dyNnRfcEvqESg/ofXrQn3ZaWAqMMiumDuAYozD7n?=
- =?us-ascii?Q?/5L/KgzLSEGzGAQMXZ41FnpfLUIjPisjvNUom0NhPj5sH/g9J9hNxeVLjHWD?=
- =?us-ascii?Q?bxXK9eGAuhWQ8p5TJ4ZbqHSeikqOZsFKAT2y6dXKc5NJQ+r7lwKwPfIxoN3d?=
- =?us-ascii?Q?qMEPle2mgTCbHd6WBxALL104RWVSJd2xuHAEdLiAWAX+wusq4uQa0a6VCs0/?=
- =?us-ascii?Q?nGjdeFgLlXMiXyH3bsvttluVdfHxb2y4m8jZLnop7JhORnAs0y7Medtw2AQ7?=
- =?us-ascii?Q?L6e7yu7f5A=3D=3D?=
-X-OriginatorOrg: heitbaum.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5b494f3-0ef0-4ac1-b814-08def535dc4f
-X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2026 10:14:41.2201
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aXBapAyC48fc2vzQ/8PvvCB85X1Xf6faZlnBUoQa6alIn+V6FG91uwR+8TZZLwuxaMQQcybi5LmiAJDXf2PEWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SYBP282MB4053
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806203654.542301F000E9@smtp.kernel.org>
+User-Agent: K-9 Mail for Android
+X-K9mail-Identity: !l=5700&o=27&fo=27&pl=4796&po=0&qs=PREFIX&f=HTML&m=%2
+ 3%3AMTRjYmVhM2ItMTllMS00ZTVmLTlkNGUtYTgwNWZmMmI3MTBj%3AMTk%3D%3AMjI%3D&
+ p=4124&q=NONE
+X-TUID: LDDKbQpo27r7
 
-The board has an rt5645 on i2c3 driving the 3.5 mm headphone jack, its
-microphone and two on-board DMICs, fed by sai2. The vendor kernel drives it
-from a machine driver of its own, so its devicetree carries no widgets or
-routing and the graph is rebuilt here for simple-audio-card. micbias1 is a
-supply, so it is the source of its route rather than the sink.
+On Thu, Aug 06, 2026 at 08:36:53PM +0000, sashiko-bot@kernel.org wrote:
+> > +static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
+> > +{
+> > + unsigned long flags;
+> > +
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> > + udelay(OCP8178_1W_T_START_US);
+> > +
+> > + local_irq_save(flags);
+> > +
+> > + for (int i = 7; i >= 0; i--) {
+> > + if ((value >> i) & 1) {
+> > + gpiod_set_value(ocp8178->gpiod, 0);
+> 
+> [Severity: High]
+> Could this trigger a scheduling while atomic bug if the GPIO controller is
+> behind an I2C or SPI expander?
+> 
+> Since this bit-banging occurs inside a local_irq_save() block where hardware
+> interrupts are disabled, any GPIO accesses must not sleep. If the driver
+> is instantiated via Device Tree with a sleepable GPIO, gpiod_set_value()
+> will attempt to sleep in an atomic context.
 
-GPIO5_IO4 carries headphone detect and has to be muxed away from its reset
-function, or both hp-detect-gpios and the codec interrupt point at a pad
-that is still SPDIF_RX. Leaving realtek,jd-mode unset selects the mode in
-which the driver takes jack state from hp-detect-gpios.
+> Should probe() explicitly reject sleepable GPIOs by checking
+> gpiod_cansleep()?
 
-Pin the slot width at 32 bits. With none set fsl_sai_hw_params() derives it
-from the sample width, and a 24 bit open then asks for a 2.304 MHz bit
-clock, which is not an even divider of 24.576 MHz, so hw_params returns
--EINVAL. 32 bit slots give a ratio of 8 and still carry 16 and 24 bit data:
-rt5645_hw_params() only writes a BCLK-to-frame ratio for AIF2, so on AIF1
-the codec ignores the padding bits.
+I didn't realize that the spinlock safety is a property of the GPIO
+itself. Applying this suggestion means that we don't need to use
+gpiod_set_value_cansleep() at all in this driver.
 
-Declare both audio PLL families and system-clock-direction-out, which
-44.1 kHz needs. fsl_sai only reparents its mclk between the 8 kHz and
-11.025 kHz families if the node names them pll8k and pll11k, and
-fsl_sai_set_dai_sysclk() returns immediately unless the direction is out.
-Without either, 44100 stays on the advertised rate list while the mclk
-cannot produce it, and hw_params fails.
+I took inspiration from the ktd253 driver, which also has tight timing
+requirements on GPIO bit-banging. This driver does not check
+gpiod_cansleep() either and mixes gpiod_set_value() and
+gpiod_set_value_cansleep(), which is incorrect.
 
-AVDD and CPVDD are required by the binding. Both come from ANALOG_1v8,
-which a baseboard DC-DC supplies rather than the PMIC on the SOM, so a
-fixed always-on regulator is the only description available.
+> > + udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> > + udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
+> > + } else {
+> > + gpiod_set_value(ocp8178->gpiod, 0);
+> > + udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> > + udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
+> > + }
+> > + }
+> > +
+> > + gpiod_set_value(ocp8178->gpiod, 0);
+> > +
+> > + local_irq_restore(flags);
+> > +
+> > + udelay(OCP8178_1W_T_EOS_US);
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> 
+> [Severity: High]
+> Is there a risk that the end-of-sequence pulse gets extended arbitrarily here?
+> 
+> By calling local_irq_restore() while the GPIO is driven low, any pending
+> interrupts will run immediately. If system interrupt processing or softirqs
+> delay execution by more than 2.5ms (OCP8178_T_OFF_MS), the hardware will
+> interpret this extended low pulse as a command to disable the onewire mode.
+> 
+> This could cause the controller to unexpectedly power off and revert to PWM
+> mode, breaking backlight control.
+> 
+> Would it be safer to restore interrupts after the final gpiod_set_value()
+> call?
 
-Route "Headphone Mic" to IN1P, the pin the jack's sleeve reaches. Without
-it only the micbias supply route exists and the microphone input is not
-connected to anything.
+This is indeed a problem and I'll fix it in v2. The datasheet states
+that T_EOS must be between 2 and 360 us. Interrupt handling may
+exceed this value.
 
-Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
----
-v2:
- - add avdd-supply/cpvdd-supply and the fixed regulator they need; the
-   binding requires them, so dtbs_check failed and the driver fell back to
-   dummy regulators
- - route "Headphone Mic" to IN1P
- - no clocks property on the cpu dai, deliberately. The fallback in
-   simple_util_parse_clk() picks the DAI node's IPG clock and
-   simple_init_dai() sets it as the system clock once at card init, which
-   is meaningless for the SAI but harmless - hw_params replaces it with
-   rate * mclk-fs before any stream starts. Naming a clock instead makes
-   simple_util_hw_params() call clk_set_rate() on it directly, bypassing
-   fsl_sai_set_mclk_rate() and the PLL reparent, and 44.1 kHz then fails
-   in hw_params. Tested both ways.
+> > +static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
+> > +{
+> > + u8 data = 0;
+> > +
+> > + dev_dbg(ocp8178->dev, "setting brightness to %u\n", brightness);
+> > +
+> > + data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
+> > + data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
+> > +
+> > + ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
+> > + ocp8178_bl_write_u8(ocp8178, data);
+> 
+> [Severity: Medium]
+> Does the controller require strict timing between the address and data bytes?
+> 
+> Since ocp8178_bl_write_u8() only disables interrupts for the duration of a
+> single byte, an interrupt could fire between these two calls. If the 1-wire
+> hardware state machine has a maximum idle time, arbitrary interrupt latency
+> in the inter-byte gap might cause the controller to reset and drop the
+> brightness update.
 
- .../boot/dts/freescale/imx8mq-phanbell.dts    | 95 +++++++++++++++++++
- 1 file changed, 95 insertions(+)
+For sending a single byte, we need to disable interrupts for about 58
+us. The datasheet doesn't put a maximum on T_START (which is the start
+of sequence period) so I would need to test the practical limitation.
+Regardless though, disabling interrupts for both writes would take 118
+us and I'm not sure if that is preferable over failing a brightness
+update in rare situations.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts b/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts
-index 2d134eefb765..af4b9d266451 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-phanbell.dts
-@@ -37,6 +37,14 @@ reg_usdhc2_vmmc: regulator-usdhc2-vmmc {
- 		enable-active-high;
- 	};
- 
-+	reg_audio_1v8: regulator-audio-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "BB_1V8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		regulator-always-on;
-+	};
-+
- 	fan: gpio-fan {
- 		compatible = "gpio-fan";
- 		gpio-fan,speed-map = <0 0>, <8600 1>;
-@@ -46,6 +54,42 @@ fan: gpio-fan {
- 		pinctrl-0 = <&pinctrl_gpio_fan>;
- 		status = "okay";
- 	};
-+
-+	sound-analog {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,name = "Coral Analog";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&sound_analog_cpu>;
-+		simple-audio-card,frame-master = <&sound_analog_cpu>;
-+		simple-audio-card,mclk-fs = <256>;
-+
-+		simple-audio-card,widgets = "Headphone", "Headphone Jack",
-+					    "Microphone", "Headphone Mic",
-+					    "Microphone", "Internal Mic";
-+
-+		simple-audio-card,routing = "Headphone Jack", "HPOL",
-+					    "Headphone Jack", "HPOR",
-+					    "Headphone Mic", "micbias1",
-+					    "IN1P", "Headphone Mic",
-+					    "DMIC L1", "Internal Mic",
-+					    "DMIC R1", "Internal Mic";
-+
-+		/*
-+		 * 32 bit slots regardless of the sample width. sai2 divides its
-+		 * 24.576 MHz root by an even integer only, so a 24 bit frame at
-+		 * 48 kHz would ask for 2.304 MHz, a ratio of 10.67.
-+		 */
-+		sound_analog_cpu: simple-audio-card,cpu {
-+			sound-dai = <&sai2>;
-+			system-clock-direction-out;
-+			dai-tdm-slot-num = <2>;
-+			dai-tdm-slot-width = <32>;
-+		};
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&rt5645>;
-+		};
-+	};
- };
- 
- &A53_0 {
-@@ -272,6 +316,20 @@ &i2c3 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_i2c3>;
- 	status = "okay";
-+
-+	rt5645: audio-codec@1a {
-+		compatible = "realtek,rt5645";
-+		reg = <0x1a>;
-+		avdd-supply = <&reg_audio_1v8>;
-+		cpvdd-supply = <&reg_audio_1v8>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_hp_det>;
-+		#sound-dai-cells = <0>;
-+		interrupt-parent = <&gpio5>;
-+		interrupts = <4 IRQ_TYPE_EDGE_BOTH>;
-+		hp-detect-gpios = <&gpio5 4 GPIO_ACTIVE_HIGH>;
-+		realtek,dmic1-data-pin = <2>;
-+	};
- };
- 
- &fec1 {
-@@ -295,6 +353,27 @@ ethphy0: ethernet-phy@0 {
- 	};
- };
- 
-+&sai2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_sai2>;
-+	/*
-+	 * pll8k and pll11k let fsl_sai move the mclk between the two
-+	 * audio PLL families, so 44.1 kHz rates work as well as 48 kHz.
-+	 */
-+	clocks = <&clk IMX8MQ_CLK_SAI2_IPG>,
-+		 <&clk IMX8MQ_CLK_SAI2_ROOT>,
-+		 <&clk IMX8MQ_CLK_DUMMY>, <&clk IMX8MQ_CLK_DUMMY>,
-+		 <&clk IMX8MQ_AUDIO_PLL1_OUT>,
-+		 <&clk IMX8MQ_AUDIO_PLL2_OUT>;
-+	clock-names = "bus", "mclk1", "mclk2", "mclk3",
-+		      "pll8k", "pll11k";
-+	assigned-clocks = <&clk IMX8MQ_CLK_SAI2>;
-+	assigned-clock-parents = <&clk IMX8MQ_AUDIO_PLL1_OUT>;
-+	assigned-clock-rates = <24576000>;
-+	fsl,sai-mclk-direction-output;
-+	status = "okay";
-+};
-+
- &uart1 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_uart1>;
-@@ -383,6 +462,12 @@ MX8MQ_IOMUXC_GPIO1_IO00_ANAMIX_REF_CLK_32K	0x05
- 		>;
- 	};
- 
-+	pinctrl_hp_det: hpdetgrp {
-+		fsl,pins = <
-+			MX8MQ_IOMUXC_SPDIF_RX_GPIO5_IO4			0xd6
-+		>;
-+	};
-+
- 	pinctrl_i2c1: i2c1grp {
- 		fsl,pins = <
- 			MX8MQ_IOMUXC_I2C1_SCL_I2C1_SCL			0x4000007f
-@@ -410,6 +495,16 @@ MX8MQ_IOMUXC_GPIO1_IO03_GPIO1_IO3	0x41
- 		>;
- 	};
- 
-+	pinctrl_sai2: sai2grp {
-+		fsl,pins = <
-+			MX8MQ_IOMUXC_SAI2_MCLK_SAI2_MCLK		0xd6
-+			MX8MQ_IOMUXC_SAI2_TXFS_SAI2_TX_SYNC		0xd6
-+			MX8MQ_IOMUXC_SAI2_TXC_SAI2_TX_BCLK		0xd6
-+			MX8MQ_IOMUXC_SAI2_TXD0_SAI2_TX_DATA0		0xd6
-+			MX8MQ_IOMUXC_SAI2_RXD0_SAI2_RX_DATA0		0xd6
-+		>;
-+	};
-+
- 	pinctrl_uart1: uart1grp {
- 		fsl,pins = <
- 			MX8MQ_IOMUXC_UART1_RXD_UART1_DCE_RX		0x49
--- 
-2.53.0
+> > +static const struct backlight_ops ocp8178_bl_ops = {
+> > + .options = BL_CORE_SUSPENDRESUME,
+> > + .update_status = ocp8178_bl_update_status,
+> > +};
+> 
+> [Severity: Medium]
+> Is BL_CORE_SUSPENDRESUME sufficient for restoring this hardware after suspend?
+> 
+> If the platform cuts power to the backlight controller during system suspend,
+> the hardware will wake up in its default PWM mode. The backlight core will
+> simply call update_status() on resume to restore brightness, but the onewire
+> brightness commands will be ignored because the onewire mode hasn't been
+> re-enabled.
+> 
+> Should the platform driver provide pm operations to re-execute
+> ocp8178_bl_enable_onewire() on system resume?
 
+I'm not sure if this is just LLM-hallucination or actually relevant.
+Should I account for the power cutting to the controller if the driver
+itself doesn't implement the power cutting?
