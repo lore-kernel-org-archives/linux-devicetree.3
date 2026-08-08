@@ -1,244 +1,167 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E1631AABC;
-	Sat,  8 Aug 2026 02:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A90165F1A
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 03:08:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786157860; cv=none; b=NWqFTNwevObqfMKttjASrIwL6EabeR7j5aDA258JRBUoHz6ru4tA7eJ6wWNqHyp1KGvXNcqm6MXu32pI1ez2yUydyeBfxPC5tn/49WfJ8mFUkGXnmtOlxN2zwaqzubLebWkycHkZhbnexIaKgNrcpYREBY4Mlz5OZ7k8I/BVsC8=
+	t=1786158493; cv=none; b=LiLTeuXMZrnI7mE7UHuBHy+gtC/jE0lPyLH+wbXv1yJCKKYAZWiUvSaVwHu4rd7CxzMwsplgftIXNqy6wbkInnTk/ofDOgOvjvCEWUAUgsZVJi0FJwBHsOSelSsq7VKSYRQO6ugeYsSIF/vd7aydfC/Xl4YQtJPc0lTjhSHI4s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786157860; c=relaxed/simple;
-	bh=ZSIFPah6lX0neruRHtz6Nbuco6K5S0hD8v3Jbd3mIJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qULy7cIMgS8oBz6M25tHwqT19kljYCVBqqwGiI3XSEwUDcxtuCXM+T23ZQzT/VpjO9eLEjl7WwcFZ0YM+ci6Igrap0vYjFpDF51w9tFizUmNhzz43IOf3hjOnqIRhJAHiwJFscS9PYMyJaCSdtgJkmf/S8YTyGzE5XJ9OJDLPdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=kq7zeBkF; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=jTusmNic; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1786158493; c=relaxed/simple;
+	bh=5TYrsDRRH5fIfnRiTlF0WtlEaH4kFDmEfqEYBvkNla8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sV6zgbxcvxhUM2tzQxhZRKbIXddgBk40iWY33uWgopPtbWniZCFcBXt/d424xlydTZrgc9tmL2w0vTwj4fMRoX+uQ6srKdvoOIXqFIHLplhxB16c+TzPdC6byl0ACcxgRhAc1iSl4Mr2IrO06UElAXkI6Y58BXaxrtBq28/Nqvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QzFMqiop; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="kq7zeBkF";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="jTusmNic"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hH5KP6LMLzMlMd;
-	Sat, 08 Aug 2026 04:57:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1786157849;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=atX795aL/TJ6cQJtNkIm5vjFqkHXTb1PQaU66zosmfo=;
-	b=kq7zeBkFudiaduXx0PVIZv5D2XvaCOj8hKQKCOphSXohF3za6rteU/UkRX6uFats53b6PQ
-	j5SzKy04XcLourIpzgkXIZzK4MwyQMAUG9gYNKp6JwVxtHlDEFEmNn8xQRsU2tMRF9Wd4A
-	ppqCq0S3qohmAA7bUng2ukpFUUiC+c0Ybvuo40ILN3PDdiJ1CsWwsqeMnEgXj5nIUuFaQ8
-	UZKkLNgBXUD+mKWao6E+aGOvMzlmQ1Cg+79fCZ/C98n6+a4ctj+navMSZx2sgyfutGEtqg
-	V4PdFkEeXwq4uO0RNxpMBaSCQwFCYnzXmpYMySrHPoo0M3U0UJwnTUtFSWfA2g==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1786157848;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=atX795aL/TJ6cQJtNkIm5vjFqkHXTb1PQaU66zosmfo=;
-	b=jTusmNicxCCbs6hUNTlYmKLo+8zayvf2ayPJXVLV2OpkZVaKPBjkI6wvcZ7RJtoKHSOQIa
-	+QEs98EdrI3QhtfA2M81RIrApKgEFN3S68n8zYPNZMpQH2YPiQ3/X1ROUKaUDPKPbezmnb
-	nhLcCIeDsbqUGhh7F9Usd4+Q1AeUb1YVRnG3POS/VlMxe6utP+BGkV755uE9ZWdpIzvzWe
-	J4L6S+RMTlwXAY4wp42m2oPatxaWcRRy3/kZrlxp228bKcsLMcL+bjc3y4PRIBXoryrYv6
-	zyyyX9wYgwIFC3+mh69IhYMxL0iE9bCYRFA4rU5AKBdbSTXdCMB0X3WoCHjXKw==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for WaveShare 2CH CANFD HAT
-Date: Sat,  8 Aug 2026 04:56:26 +0200
-Message-ID: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QzFMqiop"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0FB1F000E9;
+	Sat,  8 Aug 2026 03:08:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786158492;
+	bh=Ii5yahzEDBYjBlHt3QoNEtQ+5bx9b2tqB0hgGA5f9kE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QzFMqiopylRWqPnhDCQOGEynekKLP9ns3rN+j0RZpvw5O4U4lxlp7zwCxlxvrkQTn
+	 PzTfUwIhIAaIH9ySnDwfsqVRPDJYoW7O8WyoStxdi/+to4WkgyVic2g+eliK8bLK+h
+	 6f16kzBCDYr81VB0wggfYeSdtYd0jfABhW7BBuGK9kfWynRhHpR/zt3Xnw8bVYLpHB
+	 Wrecj/sS9TDoPXZaQgO8TAsk9K5T2NxiJ1+1mMv5mu8+Xz2w6Ng7/jmnJb6d3K/e+V
+	 XiCbhekWtDQ5aLCt3dPEuJiwlzx4fSN361827/1/9ZGv/AJgh6MRJo1PA9G68375PV
+	 c63dfsLzZZ9Iw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for
+ WaveShare 2CH CANFD HAT
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
+References: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 08 Aug 2026 03:08:11 +0000
+Message-Id: <20260808030812.0B0FB1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 22b3c6dc9ab511f3b62
-X-MBO-RS-META: rx1gzjworxkf96rrsc5frsf1nkiumigj
 
-Add a DT overlay to bind the WaveShare 2-Channel Isolated CAN FD
-Expansion HAT on the Retronix R-Car V4H Sparrow Hawk board.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Potential CAN controller freeze due to edge-triggered interrupt co=
+nfiguration for active-low level-sensitive INT pin.
+- [Low] Devicetree schema violation with non-standard node names for clock =
+and SPI nodes.
+--
 
-Current device link is at https://www.waveshare.com/2-ch-can-fd-hat.htm
+--- Patch [1]: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for W=
+aveShare 2CH CANFD HAT ---
+commit b5cd8b12c94510c91e67da4257339818760852d2
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- arch/arm64/boot/dts/renesas/Makefile          |   3 +
- .../r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso   | 130 ++++++++++++++++++
- 2 files changed, 133 insertions(+)
- create mode 100644 arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
+arm64: dts: renesas: sparrow-hawk: Add overlay for WaveShare 2CH CANFD HAT
 
-diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
-index 8bf155badd111..69c1405a6fd01 100644
---- a/arch/arm64/boot/dts/renesas/Makefile
-+++ b/arch/arm64/boot/dts/renesas/Makefile
-@@ -124,6 +124,9 @@ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-5in.dtb
- dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-7in.dtbo
- r8a779g3-sparrow-hawk-rpi-display-2-7in-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-rpi-display-2-7in.dtbo
- dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-7in.dtb
-+dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-2ch-canfd.dtbo
-+r8a779g3-sparrow-hawk-ws-2ch-canfd-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-ws-2ch-canfd.dtbo
-+dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-2ch-canfd.dtb
- dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-display-13in.dtbo
- r8a779g3-sparrow-hawk-ws-display-13in-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-ws-display-13in.dtbo
- dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-display-13in.dtb
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
-new file mode 100644
-index 0000000000000..de72680efa7c6
---- /dev/null
-+++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
-@@ -0,0 +1,130 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/*
-+ * Device Tree Overlay for the Waveshare 2-Channel Isolated CAN FD HAT
-+ * on connector CN7 on R-Car V4H ES3.0 Sparrow Hawk board
-+ *
-+ * Copyright (C) 2026 Marek Vasut <marek.vasut+renesas@mailbox.org>
-+ *
-+ * Example usage:
-+ * - Connect HAT signals to Sparrow Hawk board CAN BUS connector CONN2:
-+ *   HAT CAN_0 H -- CONN2 pin 6
-+ *   HAT CAN_0 L -- CONN2 pin 2
-+ *   HAT CAN_1 H -- CONN2 pin 5
-+ *   HAT CAN_1 L -- CONN2 pin 1
-+ *
-+ * - Determine which interface is which:
-+ *   $ ip -d link show
-+ *   2: can0: <NOARP,ECHO> ...
-+ *      ...
-+ *        clock 40000000 ... e6660000.can <------ Native Renesas CANFD
-+ *   3: can1: <NOARP,ECHO> ...
-+ *      ...
-+ *   4: can2: <NOARP,ECHO> ...
-+ *      ...
-+ *        clock 40000000 ... spi1.0 <------------ SPI CANFD on this HAT
-+ *   5: can3: <NOARP,ECHO> ...
-+ *      ...
-+ *
-+ * - Bring connected interfaces up:
-+ *   # CAN_0 link
-+ *   $ ip link set can0 up type can bitrate 125000 dbitrate 250000 fd on
-+ *   $ ip link set can3 up type can bitrate 125000 dbitrate 250000 fd on
-+ *
-+ *   # CAN_1 link
-+ *   $ ip link set can1 up type can bitrate 125000 dbitrate 250000 fd on
-+ *   $ ip link set can2 up type can bitrate 125000 dbitrate 250000 fd on
-+ *
-+ * - Perform CAN test, run each of the pair commands in separate terminals:
-+ *   # CAN_0 link
-+ *   $ canfdtest -v can0
-+ *   $ canfdtest -g -v can3
-+ *
-+ *   # CAN_1 link
-+ *   $ canfdtest -v can1
-+ *   $ canfdtest -g -v can2
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+&{/} {
-+	/* Fixed clock dedicated to SPI CAN on 2-CH CAN FD HAT */
-+	clk_can0: clk-ws-2ch-canfd0 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <40000000>;
-+	};
-+
-+	clk_can1: clk-ws-2ch-canfd1 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <40000000>;
-+	};
-+
-+	/*
-+	 * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
-+	 * muxed on the pins allocated for SPI_1 on this CANFD HAT.
-+	 */
-+	spi-ws-2ch-canfd {	/* SPI_1 */
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		compatible = "spi-gpio";
-+		sck-gpios = <&gpio0 10 0>;		/* CN7 pin 40 */
-+		miso-gpios = <&gpio0 9 0>;		/* CN7 pin 35 */
-+		mosi-gpios = <&gpio0 12 0>;		/* CN7 pin 38 */
-+		cs-gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;	/* CN7 pin 12 */
-+		num-chipselects = <1>;
-+
-+		can@0 {
-+			compatible = "microchip,mcp2518fd";
-+			clocks = <&clk_can1>;
-+			/* CN7 pin 18 */
-+			interrupts-extended = <&gpio1 25 IRQ_TYPE_EDGE_FALLING>;
-+			reg = <0>;
-+			spi-max-frequency = <20000000>;
-+		};
-+	};
-+};
-+
-+&msiof0 {	/* SPI_0 */
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	pinctrl-0 = <&msiof0_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	/*
-+	 * Native MSIOF chipselect does not work with MCP2518FD
-+	 * because MCP251xFD driver needs to keep the chipselect
-+	 * line asserted between transfers. This requirement is
-+	 * fulfilled only by using GPIO chipselect.
-+	 */
-+	cs-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
-+
-+	can@0 {
-+		compatible = "microchip,mcp2518fd";
-+		clocks = <&clk_can0>;
-+		interrupts-extended = <&gpio1 26 IRQ_TYPE_EDGE_FALLING>;
-+		reg = <0>;
-+		spi-max-frequency = <20000000>;
-+	};
-+};
-+
-+&pfc {
-+	msiof0_pins: spi-ws-2ch-canfd0 {	/* SPI_0 */
-+		groups = "msiof0_clk", "msiof0_txd", "msiof0_rxd";
-+		function = "msiof0";
-+	};
-+};
-+
-+/*
-+ * PWM1 uses PWM1_B pin configuration for pin GP2_13. This conflicts
-+ * with SPI_1 CE_1 signal which is also on pin GP2_13. Disable PWM1
-+ * in case this hat is in use.
-+ */
-+&pwm1 {
-+	status = "disabled";
-+};
--- 
-2.53.0
+Add a DT overlay to bind the WaveShare 2-Channel Isolated CAN FD Expansion
+HAT on the Retronix R-Car V4H Sparrow Hawk board.
 
+> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-can=
+fd.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dt=
+so
+> new file mode 100644
+> index 0000000000000..de72680efa7c6
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
+[ ... ]
+> +&{/} {
+> +	/* Fixed clock dedicated to SPI CAN on 2-CH CAN FD HAT */
+> +	clk_can0: clk-ws-2ch-canfd0 {
+
+[Severity: Low]
+Does this node name violate the fixed-clock devicetree bindings schema?
+The schema typically mandates node names matching the pattern clock-* to pa=
+ss
+dtbs_check validation.
+
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <40000000>;
+> +	};
+> +
+> +	clk_can1: clk-ws-2ch-canfd1 {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <40000000>;
+> +	};
+> +
+> +	/*
+> +	 * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
+> +	 * muxed on the pins allocated for SPI_1 on this CANFD HAT.
+> +	 */
+> +	spi-ws-2ch-canfd {	/* SPI_1 */
+
+[Severity: Low]
+Is this non-generic node name likely to trigger devicetree validation
+warnings? Standard devicetree practices recommend using the generic spi node
+name rather than spi-ws-2ch-canfd.
+
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		compatible =3D "spi-gpio";
+> +		sck-gpios =3D <&gpio0 10 0>;		/* CN7 pin 40 */
+> +		miso-gpios =3D <&gpio0 9 0>;		/* CN7 pin 35 */
+> +		mosi-gpios =3D <&gpio0 12 0>;		/* CN7 pin 38 */
+> +		cs-gpios =3D <&gpio2 13 GPIO_ACTIVE_LOW>;	/* CN7 pin 12 */
+> +		num-chipselects =3D <1>;
+> +
+> +		can@0 {
+> +			compatible =3D "microchip,mcp2518fd";
+> +			clocks =3D <&clk_can1>;
+> +			/* CN7 pin 18 */
+> +			interrupts-extended =3D <&gpio1 25 IRQ_TYPE_EDGE_FALLING>;
+
+[Severity: High]
+Can configuring this interrupt as IRQ_TYPE_EDGE_FALLING cause the CAN
+controller to freeze?
+
+The MCP2518FD INT pin is active-low and level-sensitive. If a new interrupt
+condition occurs while the INT pin is already asserted low, a new falling
+edge might not be generated, causing the new interrupt to be permanently
+missed. Should this use IRQ_TYPE_LEVEL_LOW instead?
+
+> +			reg =3D <0>;
+> +			spi-max-frequency =3D <20000000>;
+> +		};
+> +	};
+> +};
+> +
+> +&msiof0 {	/* SPI_0 */
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	pinctrl-0 =3D <&msiof0_pins>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +
+> +	/*
+> +	 * Native MSIOF chipselect does not work with MCP2518FD
+> +	 * because MCP251xFD driver needs to keep the chipselect
+> +	 * line asserted between transfers. This requirement is
+> +	 * fulfilled only by using GPIO chipselect.
+> +	 */
+> +	cs-gpios =3D <&gpio1 8 GPIO_ACTIVE_LOW>;
+> +
+> +	can@0 {
+> +		compatible =3D "microchip,mcp2518fd";
+> +		clocks =3D <&clk_can0>;
+> +		interrupts-extended =3D <&gpio1 26 IRQ_TYPE_EDGE_FALLING>;
+
+[Severity: High]
+Similarly, can this edge-triggered configuration for the native MSIOF CAN
+controller lead to missed interrupts if the active-low level-sensitive INT
+pin is already asserted when a new interrupt arrives?
+
+> +		reg =3D <0>;
+> +		spi-max-frequency =3D <20000000>;
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808025724.1319=
+43-1-marek.vasut+renesas@mailbox.org?part=3D1
