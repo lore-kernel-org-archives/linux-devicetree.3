@@ -1,188 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E5F40B6F4
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 13:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5C3413231
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 13:13:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786194835; cv=none; b=XxI0iXwdIis2QcWd4Jk0rfaXTVtMUuuIFN3dmYfPM/AlcvFNSDlefLsqrbeDZODk3+P00UA0xHnoYIMnAq5QVWBQnyD3bs+q1skqDZ719K5ZdDgnWRRh6za1pdtjld31vqXmL4n8yYZ6nvSYI2vyjOzecBQNF2lEW1ADWAODkJQ=
+	t=1786194836; cv=none; b=AsOTmxOBqXU/+ObrN8vWRvukYByZail9JML2lrZrOv6Pv5oJUbsiChcceZWBeOi1I2I1qqeYuuhUlfD9hsDjmS96qGJsRRFA8m8fk30ALnZcRWYqmckk2qDivqorSGD5+CunexESAl+Oqi5Idi3yww5lCwXeK6YB2e1f1035zzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786194835; c=relaxed/simple;
-	bh=PBFE/PHdHO2myD67NzWHwdIOykuIWR7TtCC1z+SF3zk=;
+	s=arc-20240116; t=1786194836; c=relaxed/simple;
+	bh=U8qaJrFXVBCnQvFPqF7CE6f0mfcD20QYoD1CShox2Qk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NBUMVX+jDSvGIRaK9ZhzIY4+G0TYDqYGViy2bbGAfQr3jBMx10FF4FKg/tkz/0UaCw8r4iXKBZ/YlbfcrDe46C8CTc/oWLfx2xAl+fVdMvoDih4cyru2GWrjlX64Y9GcTtdW+wXiKwROUBRFI/VE3SIcxwgXiL26WIaWn3X8yOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VqPLUKR0; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sw6WZffeoerqTaPX3eM5IGobWrobLXV+aPc3Y+xHMbb3GJgOdFls3atcBeL2xKrV3TeDFWT/0ljGCabjYXylehA7j7+JOgjVeJqZzrD2AdXwu/KnKDOKaJUx7JfPTG29YX3eU/f22lX7X3DCvm1HL9mQ0fGxQCrDWl5nYONloD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PW2AxBoJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VqPLUKR0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1311F00A3A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PW2AxBoJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09E031F000E9;
 	Sat,  8 Aug 2026 13:13:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786194834;
-	bh=2W/CeBBlW5Vy8L4jXS3tUysbzxe8fYDl/XD4ibvzd+A=;
+	s=k20260515; t=1786194835;
+	bh=iJyu6mXSeJwTj7K1RvsXKe/Q4K7AuQzwOuGS2vEX3U8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VqPLUKR0E2LNXuJo+cd5ANOgBKbSHrnoHLeXbs0hwQOJ9Hs382r3/rKlMOtuADyNo
-	 BungRIWwpwdiIpYmIEBCcobw2s1x6PRlfuSovxbPDC6dv1fpZygVMh/Wh9FlmP0yI5
-	 pX+9Xg5QPYmiFB/89xuwMbmrlP6FfyBK/mg8D5qmez7jZojbxCj6wpaIKjaP6rksVI
-	 m4gZbllkY44m5c41r+F9XQo9Ij+L/yejNjCjS/0x9DkTAWYjovKqBIqiAULAHeCphZ
-	 1hg4c8IH5N1EJDL/O+IcmGIqUj3do62Zy+8rZvsZKMbUBVtXzUkoDS3VyURIIfObqa
-	 Vfwwfl64S1zTg==
+	b=PW2AxBoJi7EZ3FXNB4VYx1TI2wmpeHO7vIGeog0hc5SOQb7VzigQavt74PFn9Jgsi
+	 RwmlTYNnRLWbOknzEx4JHg0J/vjULbTJwJAuTme4+M1amSDwM4bhQP44Xj26q5Vk10
+	 vuOpdvbxlR/XzCY8zLI9iGQChDZiF4++mYvH/dAhaph/sS7kQmqjVJAAm8m4rnuNCp
+	 3JzMlmjyKMfdiTcvprZyXaRA5GwnlxBCZ3zv3YYMyCg+Ouik0DNLAgROcZWjCcsejh
+	 fnFAovNPTRbKzuQOLKhQlmo7h9IisooqKm6gRpFJOtk3dANk9QLlDOI4VWItL6Qnbk
+	 TJDmCP7fEot8w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 06/12] net: phylink: support late PCS
- provider attach
+Subject: Re: [PATCH net-next v11 07/12] net: Document PCS subsystem
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260807131301.192060-7-ansuelsmth@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260807131301.192060-8-ansuelsmth@gmail.com>
 References: <20260807131301.192060-1-ansuelsmth@gmail.com>
- <20260807131301.192060-7-ansuelsmth@gmail.com>
+ <20260807131301.192060-8-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 13:13:53 +0000
-Message-Id: <20260808131354.3C1311F00A3A@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 13:13:54 +0000
+Message-Id: <20260808131355.09E031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] Self-deadlock in fwnode_pcs_del_provider via FWNODE_PCS_PROVID=
-ER_DEL notification.
-- [High] Error paths in phylink_create skip necessary cleanup, leading to U=
-se-After-Free of the phylink instance and dangling PCS pointers.
-- [High] phylink_del_pcs unconditionally calls list_del, crashing on PCS st=
-ructures not tracked in the phylink list.
-- [High] Missing reference counting on struct phylink_pcs pointers allows a=
- TOCTOU Use-After-Free during asynchronous provider removal.
+- [High] Mutex deadlock during fwnode_pcs_del_provider() due to notifier ca=
+llback re-acquiring fwnode_pcs_mutex.
+- [High] Concurrent list modification in phylink_create() error path due to=
+ missing mutex and incorrect cleanup ordering.
 --
 
---- Patch [6]: [PATCH net-next v11 06/12] net: phylink: support late PCS pr=
-ovider attach ---
-commit d404b5bc48ec98384e8bad4f7b0b1af967121eee
+--- Patch [7]: [PATCH net-next v11 07/12] net: Document PCS subsystem ---
+commit 0d23601c1b08a3129af4d3f510928e8e13e5be2d
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: phylink: support late PCS provider attach
+    net: Document PCS subsystem
+   =20
+    Add extensive documentation of the new PCS subsystem and the fwnode
+    implementation with producer/consumer API.
+   =20
+    Also update the sfp-phylink migration guide.
 
-This patch adds support for attaching a PCS provider to a phylink instance
-after the instance has been created and started. It introduces
-FWNODE_PCS_PROVIDER_ADD to notify phylink when a new PCS provider becomes
-available, linking it and triggering a resolve step to recover links.
+> diff --git a/drivers/net/pcs/pcs.c b/drivers/net/pcs/pcs.c
+> new file mode 100644
+> index 0000000000000..79fa596c2900d
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs.c
+> @@ -0,0 +1,294 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
 
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 548e783ae2aaa..69d4f6675db0f 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
 [ ... ]
-> @@ -1939,7 +1960,7 @@ static int phylink_fill_available_pcs(struct phylin=
-k *pl,
->  		if (!pcs)
->  			continue;
-> =20
-> -		list_add_tail(&pcs->list, &pl->pcs_list);
-> +		phylink_add_pcs(pl, pcs);
+
+> +void fwnode_pcs_del_provider(struct fwnode_pcs_provider *pp)
+> +{
+> +	if (IS_ERR_OR_NULL(pp))
+> +		return;
+> +
+> +	mutex_lock(&fwnode_pcs_mutex);
+> +
+> +	/* Signal phylink to release any PCS from this provider */
+> +	blocking_notifier_call_chain(&fwnode_pcs_notify_list,
+> +				     FWNODE_PCS_PROVIDER_DEL,
+> +				     pp->fwnode);
 
 [Severity: High]
-Could the lack of reference counting on the returned phylink_pcs pointers
-lead to a use-after-free here?
+Does this code cause a mutex deadlock?
 
-fwnode_pcs_get() and its underlying provider callbacks return a pointer
-without taking a reference. If a concurrent provider unbind occurs right
-before pl->state_mutex is acquired, the provider could be removed and the
-memory freed.
+When fwnode_pcs_del_provider() is called, it acquires fwnode_pcs_mutex to
+protect the providers list before triggering the blocking notifier.
 
-When the lock is finally acquired in phylink_fill_available_pcs(), could
-this add a freed pointer to the list?
-
->  	}
-> =20
->  	mutex_unlock(&pl->state_mutex);
-> @@ -1991,7 +2012,19 @@ static int pcs_provider_notify(struct notifier_blo=
-ck *self,
-> =20
->  	mutex_lock(&pl->state_mutex);
-> =20
-> -	phylink_del_pcs(pl, pcs);
-> +	switch (val) {
-> +	case FWNODE_PCS_PROVIDER_ADD:
-> +		phylink_add_pcs(pl, pcs);
-> +
-> +		/* Force an interface reconfig if major config fail */
-> +		if (pl->major_config_failed)
-> +			pl->force_major_config =3D true;
-> +
-> +		break;
-> +	case FWNODE_PCS_PROVIDER_DEL:
-> +		phylink_del_pcs(pl, pcs);
-
-[Severity: High]
-Will this cause a crash if the PCS being removed was never actually added to
-the list?
-
-When handling a provider removal, phylink_del_pcs() is called
-unconditionally based purely on its presence in the device tree. If the
-driver's fill_available_pcs() omitted it, or if phylink_create() failed
-before it could be added, the pcs->list remains uninitialized.
-
-Would this lead to list_del(&pcs->list) dereferencing a NULL pointer?
-
-[Severity: Critical]
-Could this notifier chain lead to a self-deadlock when removing a provider?
-
-When fwnode_pcs_del_provider() is called, it acquires fwnode_pcs_mutex and
-fires the FWNODE_PCS_PROVIDER_DEL notification.
-
-This notifier callback, pcs_provider_notify(), responds by calling
-fwnode_phylink_pcs_get_from_fwnode():
+The registered notifier pcs_provider_notify() runs in the same thread conte=
+xt.
+It handles the event by calling fwnode_phylink_pcs_get_from_fwnode(), which
+cascades down to fwnode_pcs_get_from_pcsspec():
 
 pcs_provider_notify()
-   pcs =3D fwnode_phylink_pcs_get_from_fwnode(pl_fwnode, pcs_fwnode);
+  fwnode_phylink_pcs_get_from_fwnode()
+    fwnode_pcs_get()
+      __fwnode_pcs_get()
+        fwnode_pcs_get_from_pcsspec()
+          mutex_lock(&fwnode_pcs_mutex);
 
-This subsequently calls fwnode_pcs_get_from_pcsspec(), which attempts to
-acquire the exact same fwnode_pcs_mutex lock.
+Since fwnode_pcs_mutex is a standard (non-recursive) mutex, attempting to l=
+ock
+it twice would result in a deterministic deadlock during normal teardown pa=
+ths.
 
-Since the lock is not recursive, will this result in a deadlock on the
-thread removing the provider?
+> +
+> +	list_del(&pp->link);
+> +	fwnode_dev_initialized(pp->fwnode, false);
+> +	fwnode_handle_put(pp->fwnode);
+> +	kfree(pp);
+> +
+> +	mutex_unlock(&fwnode_pcs_mutex);
+> +}
+> +EXPORT_SYMBOL_GPL(fwnode_pcs_del_provider);
 
-> +		break;
-> +	}
-> =20
->  	/* Refresh supported interfaces */
->  	phy_interface_copy(pl->supported_interfaces,
-> @@ -2077,10 +2110,6 @@ struct phylink *phylink_create(struct phylink_conf=
+[ ... ]
+
+> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+> index b241768edbcba..69d4f6675db0f 100644
+> --- a/drivers/net/phy/phylink.c
+> +++ b/drivers/net/phy/phylink.c
+
+[ ... ]
+
+> @@ -1928,6 +2171,13 @@ struct phylink *phylink_create(struct phylink_conf=
 ig *config,
-> =20
->  	mutex_lock(&pl->state_mutex);
-> =20
-> -	/* Link available PCS to phylink */
-> -	list_for_each_entry(pcs, &pl->pcs_list, list)
-> -		pcs->phylink =3D pl;
-> -
+>  release_link_gpio:
+>  	if (pl->link_gpio)
+>  		gpiod_put(pl->link_gpio);
+> +unlink_pcs_list:
+> +	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
+> +		list_del(&pcs->list);
+> +		pcs->phylink =3D NULL;
+> +	}
+> +unregister_pcs_notify:
+> +	unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
 
 [Severity: High]
-Does the error handling in phylink_create() leak dangling pointers and use
-freed memory if a failure occurs after the notifier is registered?
+Can this error path lead to concurrent list modification?
 
-The PCS notifier is registered early in phylink_create(). If an asynchronous
-FWNODE_PCS_PROVIDER_ADD event fires concurrently, pcs_provider_notify()
-can queue the pl->resolve work item.
+In this error path, pl->pcs_list is manipulated without holding
+pl->state_mutex, and this occurs before the PCS notifier (pl->fwnode_pcs_nb)
+is unregistered.
 
-If phylink_create() subsequently fails (for example, in
-phylink_fill_available_pcs()), the error path jumps to unregister_pcs_notify
-and frees the phylink structure:
+If a provider addition or deletion event fires concurrently,
+pcs_provider_notify() will be invoked. The notifier safely acquires
+pl->state_mutex to modify pl->pcs_list, but because this teardown path does
+not hold the mutex while executing list_del(&pcs->list), it creates an unsa=
+fe
+data race.
 
-unregister_pcs_notify:
-    unregister_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
-free_pl:
-    kfree(pl);
+To safely fix this, could the teardown unregister the notifier first and th=
+en
+hold pl->state_mutex while iterating the list, similar to how it is handled=
+ in
+phylink_destroy()?
 
-This path does not call cancel_work_sync(&pl->resolve), leaving the queued
-work to execute on freed memory.
-
-Additionally, because the error path skips unlinking the PCS list, any PCS
-dynamically added by the notifier will be left with a dangling pcs->phylink
-pointer.
+>  free_pl:
+>  	kfree(pl);
+>  	return ERR_PTR(ret);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807131301.1920=
-60-1-ansuelsmth@gmail.com?part=3D6
+60-1-ansuelsmth@gmail.com?part=3D7
