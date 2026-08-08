@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D17D2E737E
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 11:41:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C482D2488
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 11:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786189263; cv=none; b=CWuxIAfOfbuTyRwAW6oiqsvI2vFt2Ggpi0BiKqZQ0cngoHSdT+TRdajYdYRVfENMHOBEQSG27bL5yd2X4bxagfpTswVHYaVf2SKxAoKjY1hxhNP2aKP5m4ZEyYi/dAhHgvO1M46kqmw7vUWkYc7VZpk9y4oSZRBBFsvrtqUAiyc=
+	t=1786189304; cv=none; b=qP+N0M/2qhTm+anUKnztWaw2UXs+XT52MmNTStl2Nby8ADRoGixsa6fFBEqbpYgG3yl2nWjds60Rzbd8OG7TFnD8zwSjKIYJmAXIQI89QMU3LSs1n/dcEp+nFu1ZoRo6AYl8nFf45vGmMFhRXvj08Y/I4i7gTCp3OHc5HygiZkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786189263; c=relaxed/simple;
-	bh=0G+QGixXi2wkDojQPOBV/fWkVTWMF0sxDfrDoIzNhmc=;
+	s=arc-20240116; t=1786189304; c=relaxed/simple;
+	bh=l7R+Ky5y2zS9XLBqGSFiA89WNfXiy3IxYWsROQYuvfg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=k8BpQCOSV3E9OTsv+dpwiil6YES53oWBlbmToUSNVD8iF8E1901XYHpmwHUbw72n96VJX1rjHeKpTWx/ET22Qjt+gQGkdqevkD7CvqnizWiF39a9TOVJx145IUAOQ5+6Y1rF73CR8oE4andMNEw1ZfYG/B93I3SA68r32s34BII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjVee15k; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LLSiE2IoVqQSW2kmhswYHl2xFlOk8JEkOA7C1RNZndnFW//ofWEmN4TrNBv/ovr4nz8My3hyK22GZPAbrE9azzJwHFHguENSz+6JmdsqgzimQ2ehwmUL6XsCsuXdA79Chl35n9pvTLb6NCZZgDIaaEbKPJrrfylmRTEDcSPNVJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/IOmKbh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjVee15k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59E231F000E9;
-	Sat,  8 Aug 2026 11:41:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/IOmKbh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC541F000E9;
+	Sat,  8 Aug 2026 11:41:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786189261;
-	bh=KDEaeE2cWt4SGDmp39qqmOCp3ZPEEnpVANrOA2dw44w=;
+	s=k20260515; t=1786189303;
+	bh=pakleQQz7/aTqFxH16Fl4w4LdW4pNo+BhCiwC8nEk9o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fjVee15kCFU1XZw20ZmJdedQz4QHn+Sd6La9dEIF3p7VVOmCe7uWHpz1SyZ0vARTt
-	 UiUtQQ1PvIjV3lnVHtT5BQiAkCQ9k3GUhyy3ujpab40oCRGsnL5KoM+XSFoYB7EwMw
-	 dVOjQdqSfQfWtz/mLVkHY970dypD/xnDrfle+YB3jQsZu1yj5jBWLIcTld3foU+9rn
-	 eqKA8BoycU92Rd3WyxBbRQttNMj1N9MSba+wqieQ7CqrfBUeEAPyf4ZbZgn4SnHeHf
-	 5lX3GvCZaWk1erK3l2ZXnYo43Wqqhl0nGjk3KAx/sAz+0TJwwSYNn3nB3zJfKbseJ7
-	 jozbaJNJu9D1w==
+	b=g/IOmKbhWQKGz8yu3Uo84ELSf2JN0r5dEw1npGEtAoS8IeVzzxnWnt6GzLFKyy25z
+	 LWmMjylO0Zd3DXLiZNKKHoAYJC93RFw4sOo4pozzgi1hkcAslaVU4yNkrm4utygj+T
+	 q5F95mThgUmytWol/0LolgUmS8RLNftRHs3pChcsdBIVfy+0JBHm2C2VNZm2de62zN
+	 zpEOjegFYnLFhgoyNaj6a/WsXoYZHB3VZANeSjn473/Zq1yAEhjVWBowEni3gBUgKi
+	 t3wU81XT9BO2l13AR/Zua9gv2eTd7vneOiiS0cpbC9UsTziT4BHac26dAmu9z3bpyD
+	 BIipTI46JRZOw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/6] spmi: apple: lock around FIFOs
+Subject: Re: [PATCH v5 4/6] spmi: apple: Implement remaining commands
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260808-t603x-spmi-v5-5-553c5ac2f137@chaosmail.tech>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260808-t603x-spmi-v5-4-553c5ac2f137@chaosmail.tech>
 References: <20260808-t603x-spmi-v5-0-553c5ac2f137@chaosmail.tech>
- <20260808-t603x-spmi-v5-5-553c5ac2f137@chaosmail.tech>
+ <20260808-t603x-spmi-v5-4-553c5ac2f137@chaosmail.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 11:41:00 +0000
-Message-Id: <20260808114101.59E231F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 11:41:42 +0000
+Message-Id: <20260808114142.DFC541F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,74 +46,75 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The driver uses register I/O accessors (`writel()` and `readl()`) =
-with `memcpy()` to stream payload bytes to/from the SPMI FIFOs instead of u=
-sing stream accessors (`writesl()` and `readsl()`), which causes endianness=
- portability bugs on big-endian architectures.
+- [High] Using `memcpy()` to pack/unpack byte streams into a 32-bit integer=
+ variable combined with `writel()`/`readl()` causes byte-swapping data corr=
+uption on big-endian architectures.
 --
 
---- Patch [5]: [PATCH v5 5/6] spmi: apple: lock around FIFOs ---
-commit 79f5d9aebdc66fbf9df1c1b4f401429d674f9b42
+--- Patch [4]: [PATCH v5 4/6] spmi: apple: Implement remaining commands ---
+commit 133f8b2358af9160fedbf5fcf84ef152c33022e4
 Author: Alba Mendez <me@alba.sh>
-
-spmi: apple: lock around FIFOs
-
-This commit adds a mutex to protect FIFO register interactions in the Apple
-SPMI controller driver, preventing concurrent access issues.
+   =20
+spmi: apple: Implement remaining commands
+   =20
+This patch adds support for zero write and power management commands to the
+Apple SPMI controller driver. It achieves this by introducing a unified
+spmi_raw_cmd function for executing SPMI transactions.
 
 > diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-app=
 le-controller.c
-> index 9843dc871d6c7..fabccd25aa0da 100644
 > --- a/drivers/spmi/spmi-apple-controller.c
 > +++ b/drivers/spmi/spmi-apple-controller.c
-
 [ ... ]
-
-> @@ -78,6 +80,8 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl, u=
-8 opc, u8 sid, u16 param,
->  	size_t i =3D 0, j;
->  	int ret;
-> =20
-> +	guard(mutex)(&spmi->fifo_lock);
-> +
+> -static int spmi_read_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid,
+> -			 u16 saddr, u8 *buf, size_t len)
+> +static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u1=
+6 param,
+> +			const u8 *buf_wr, size_t len_wr, u8 *buf_rd, size_t len_rd)
+>  {
+[ ... ]
+> +	while (i < len_wr) {
+> +		j =3D min_t(size_t, sizeof(spmi_cmd), len_wr - i);
+> +		spmi_cmd =3D 0;
+> +		memcpy(&spmi_cmd, buf_wr + i, j);
+> +		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> +		i +=3D j;
+> +	}
 
 [Severity: High]
-This is a pre-existing issue, but does using writel() and readl() to transf=
-er
-byte buffers to the FIFO cause endianness portability bugs on big-endian
+Will this sequence cause byte-swapping data corruption on big-endian
 architectures?
 
-Further down in spmi_raw_cmd(), the driver streams payload bytes to the
-hardware FIFO using writel() with memcpy():
+When len_wr is greater than zero, memcpy copies the byte stream into the
+u32 spmi_cmd. On big-endian systems, memcpy places the first byte in the
+most-significant byte position.
 
-	while (i < len_wr) {
-		j =3D min_t(size_t, sizeof(spmi_cmd), len_wr - i);
-		spmi_cmd =3D 0;
-		memcpy(&spmi_cmd, buf_wr + i, j);
-		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
-		i +=3D j;
-	}
-
-And similarly for reads:
-
-		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
-		j =3D min_t(size_t, sizeof(spmi_cmd), len_rd - i);
-		memcpy(buf_rd + i, &rsp, j);
-
-Using writel() and readl() instead of stream accessors like writesl() and
-readsl() performs an implicit CPU-to-LE conversion.
-
-Could this cause the data to be unexpectedly byte-swapped on big-endian
-systems, corrupting the payload sent to the device on the bus?
-
->  	if (spmi->prev_fail) {
->  		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
->  		spmi->prev_fail =3D false;
+writel then performs CPU-to-LE conversion (byte-swapping), which causes
+the hardware to receive the bytes in reverse order.
 
 [ ... ]
+>  		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
+> -		i =3D 0;
+> -		while ((len_read < len) && (i < 4)) {
+> -			buf[len_read++] =3D ((0xff << (8 * i)) & rsp) >> (8 * i);
+> -			i +=3D 1;
+> -		}
+> +		j =3D min_t(size_t, sizeof(spmi_cmd), len_rd - i);
+> +		memcpy(buf_rd + i, &rsp, j);
+> +		i +=3D j;
+>  	}
+
+[Severity: High]
+Does the read path in spmi_raw_cmd suffer from the exact inverse problem?
+
+readl will byte-swap the incoming data on big-endian hosts, and memcpy
+will then save it into buf_rd in reverse order.
+
+While Apple SoCs are primarily little-endian, Linux drivers are expected to
+be endian-portable. Would it be better to use stream accessors like writesl
+and readsl, or manually pack the bytes using shifts (as the original read
+code did) to ensure consistent behavior across architectures?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808-t603x-spmi=
--v5-0-553c5ac2f137@chaosmail.tech?part=3D5
+-v5-0-553c5ac2f137@chaosmail.tech?part=3D4
