@@ -1,174 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DCD14B04B4
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 19:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91994B04AF;
+	Sat,  8 Aug 2026 19:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786216583; cv=none; b=i/EhgUEMIA0C4kTnsnfnvrT0EiTMmrSn1ivfeVtIZ65FyY9kPE0cBBAyG7aVuFfzJA81BRvApqIji9uhDf7ZTxGhZdX2B8HGIQxk6DrE/TZYpqafpjypzc8robHHSh1eg+L8QCEFvfd4n6ZJViSJ47rZXCrPM80Bg85bqnn3IzY=
+	t=1786218370; cv=none; b=RweD5i0j9XAh1ahEpl413vxi0+WVimw3UNTmZDJ3a4mhT0u5vBItSZZJVC6CxwJa/8PtafNU/yFVW3btbD/HOYw1Ema9Fk5F1tx7OmCQmJ9Gb4p45+UxXl2yRlSpm7hz1U6A/gRncfZ9qBYM7LySHABQieNxmJjGvbc/MRm+iqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786216583; c=relaxed/simple;
-	bh=4/K9XMDmWzsaYCZILWTSI32zNd1b5AWS0saCgkQls+k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GFw6avm3rUs+kIAPEc05Q6QY5gpuF0UhiIzjTNskL+/gpk/QYZ+WnyHSXTRrspHp8uk4fgwV7dF5SpLN0/72sH9NB4EDwsD6indY1h8cBnI87p8qKVkPJetXvwghWjdo551TI2RuF4t+Yp8lYlDYg67rvIi462aPJs0Iy7KbQrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SkANJnE3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786218370; c=relaxed/simple;
+	bh=Py3ynxzgRFWw7QOYBBpF6AqGMSLoCjmxpVivzVfaRSw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z7KLFGcKXahx9bJJn12DQGYPRxPc0N40IsjU8Zf/lx+r5r4+3DHzPvmlaC02vspKioBKxBph/YwC0sA0az6y4rAQerTRcc3otIMe3qfnOlJgkp/HsgsxJO9jYLBM8l6gL2assnYwhrkIusJYsw1Caplqyt0hzJmUl3jb2BQDaF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dzfovSth; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SkANJnE3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A811F000E9;
-	Sat,  8 Aug 2026 19:16:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786216581;
-	bh=1LmS4K9yHEjXMug7q5I5LoqiYrVPNZDYbVB2Zbvt+5o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SkANJnE36StCiQJPd2TAkuighZah7D78RyrY/0Fgam2fWD/wI8OJIrLJCi9xX1c1r
-	 Bohz/FlnGMgcrfif8+WZYQOyWZq4WZwj8ADMNkUAkk9QeRQYOw1mk+TRLKKIuSGpwY
-	 Y6Ee+tkXiU+ktpWUoEARQ53qA5QnAG7t+aBCgwpPSK62gtaRsnUNucCC3SWVfigh6r
-	 uL8gbCiQmucSbpDuHDc8vEyDfTHBaQoNRYSxu1d0tQ6Fsx4jEUWiljXlPWeMLCVPZu
-	 eXDRd03mazNlDSvx0vNyA9Yi1X1LUJ6qFhmU2LNUhMMTIRwBlh4xiRP1/CduQ/LTCi
-	 OiGQ4HZuvtvJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: add Ilitek ILI7836A panel driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260808-ili7836a-v1-2-07a7becc5636@gmail.com>
-References: <20260808-ili7836a-v1-0-07a7becc5636@gmail.com>
- <20260808-ili7836a-v1-2-07a7becc5636@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 19:16:20 +0000
-Message-Id: <20260808191621.71A811F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dzfovSth"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786218368; x=1817754368;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Py3ynxzgRFWw7QOYBBpF6AqGMSLoCjmxpVivzVfaRSw=;
+  b=dzfovSth1dgk2iNUbyL4qWakMwgx+SfMStHG5KmK0v6PueQvbJ/0hTNW
+   8rPj08faVLx44XNGI7JFn0GiYyoD0tpi3fg+/AmCUcWQsRW2qKL8bnQyM
+   xx40PHPbvGpeyuJHmnq4AGikgI+l/JY9eA69WAxWvfWwMIhgf4fS8scr1
+   4QJzeohwhipa0GC7tu1w/XyOC9FmkkZrfH+GDTPCAby5Yvn0dobIjE6ll
+   W38aaJqctjMZb8DqeEKGxCtfr/fVswrrN4XBfzp4MtgWBoYV+H0UxzImj
+   f3mFZIbJY1WSkidmeLirs6vzqD8tLnZ1YSJipquJVNB+h4BFkTL0l8TA2
+   w==;
+X-CSE-ConnectionGUID: r3G39UcPT+Gr1DCYV2JrEw==
+X-CSE-MsgGUID: CBgnACdLQiu9u5unm1xnLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11869"; a="87006362"
+X-IronPort-AV: E=Sophos;i="6.25,212,1779174000"; 
+   d="scan'208";a="87006362"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 12:46:08 -0700
+X-CSE-ConnectionGUID: QklgTQwLTTSAZNzCTlTrxw==
+X-CSE-MsgGUID: f9nqorTFTeqj+79nwfLRqg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,212,1779174000"; 
+   d="scan'208";a="256456715"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Aug 2026 12:46:03 -0700
+Date: Sat, 8 Aug 2026 22:46:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Benjamin Larsson <benjamin.larsson@genexis.eu>,
+	John Ogness <john.ogness@linutronix.de>,
+	Peng Zhang <zhangpeng.00@bytedance.com>,
+	Jacques Nilo <jnilo@free.fr>,
+	Rong Zhang <rongrong@oss.cipunited.com>,
+	Gerhard Engleder <eg@keba.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] serial: 8250: Add Airoha SoC UART and HSUART
+ support
+Message-ID: <aneHeSVtezYtQCSa@ashevche-desk.local>
+References: <20260724183007.188172-1-ansuelsmth@gmail.com>
+ <20260724183007.188172-3-ansuelsmth@gmail.com>
+ <anUQhbuHSDRs04bq@ashevche-desk.local>
+ <e0704a22-6a21-4f8f-b1a7-ae200bdbcfae@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e0704a22-6a21-4f8f-b1a7-ae200bdbcfae@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Unbalanced panel operations due to missing .enable callback
-- [High] Unsafe backlight DSI transmissions without panel power state valid=
-ation
-- [High] Data race on `dsi->mode_flags` between backlight updates and panel=
- state changes
-- [Medium] Early return in backlight update callback leaks DSI mode state
-- [Medium] The get_modes callback ignores descriptor physical attributes an=
-d multiple modes
---
+On Fri, Aug 07, 2026 at 06:55:11AM +0200, Jiri Slaby wrote:
+> On 07. 08. 26, 0:53, Andy Shevchenko wrote:
+> > On Fri, Jul 24, 2026 at 08:30:06PM +0200, Christian Marangi wrote:
 
---- Patch [2]: [PATCH 2/2] drm/panel: add Ilitek ILI7836A panel driver ---
-commit 1ef963af27698ad0874d830a6b469bf1d540bc0b
-Author: Aaron Kling <webgeek1234@gmail.com>
-Subject: drm/panel: add Ilitek ILI7836A panel driver
+...
 
-This commit introduces a new DRM panel driver for the Ilitek ILI7836A DDIC,
-initially supporting the Retroid Pocket Nova panel.
+> > > +	for (i = 0 ; i < ARRAY_SIZE(airoha_clk_div_info) ; i++) {
+> > > +		clk_div_info = &airoha_clk_div_info[i];
+> > > +		xindiv_clk = XINDIV_CLOCK / clk_div_info->div;
+> > 
+> > 	for (unsigned int i = ARRAY_SIZE(airoha_clk_div_info) - 1; i >= 0; i--) {
+> 
+> Due to unsignedness, isn't this a lopp for ever?
 
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7836a.c b/drivers/gpu/=
-drm/panel/panel-ilitek-ili7836a.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7836a.c
-[ ... ]
-> +static int ili7836a_get_modes(struct drm_panel *panel,
-> +					struct drm_connector *connector)
-> +{
-> +	struct ili7836a_panel *ctx =3D to_ili7836a_panel(panel);
-> +
-> +	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->modes=
-);
-> +}
+Oh, true! In the v3 it seems using correct type (signed one).
 
-[Severity: Medium]
-Does this ignore the physical dimensions and color depth defined in nova_de=
-sc?
+> > 		xindiv_clk = XINDIV_CLOCK / BIT(i);
+> > 
+> > Also variant (but may be a little bit confusing)
+> 
+> But a little bit more correct :).
+> 
+> > 	for (unsigned int i = ARRAY_SIZE(airoha_clk_div_info); i; i--) {
+> > 		xindiv_clk = XINDIV_CLOCK / BIT(i - 1);
 
-The descriptor explicitly defines width_mm, height_mm, and bpc, but
-drm_connector_helper_get_modes_fixed() only extracts a single fixed mode wi=
-thout
-populating the connector's physical size or color format information.
-Additionally, the num_modes property in the descriptor appears to be ignore=
-d.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +static enum drm_panel_orientation ili7836a_get_orientation(struct drm_pa=
-nel *panel)
-> +{
-> +	struct ili7836a_panel *ctx =3D to_ili7836a_panel(panel);
-> +
-> +	return ctx->orientation;
-> +}
-> +
-> +static const struct drm_panel_funcs ili7836a_panel_funcs =3D {
-> +	.prepare =3D ili7836a_prepare,
-> +	.unprepare =3D ili7836a_unprepare,
-> +	.disable =3D ili7836a_disable,
-> +	.get_modes =3D ili7836a_get_modes,
-> +	.get_orientation =3D ili7836a_get_orientation,
-> +};
 
-[Severity: High]
-Will this leave the panel permanently black after certain display power
-management transitions?
-
-The driver implements the .disable callback which sends DCS sleep commands,
-but it omits the corresponding .enable callback. Since drm_panel_enable()
-will be a no-op, the panel may remain in sleep mode without a full power
-cycle.
-
-> +
-> +static int ili7836a_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-
-[Severity: High]
-Can this cause DSI host transmission timeouts if called while the panel is
-powered down?
-
-The backlight device is accessible via sysfs independently of the panel's D=
-RM
-state. Writing to the brightness attribute while the panel regulators are
-disabled would execute DCS writes on an unpowered DSI bus.
-
-[Severity: High]
-Is there a data race on dsi->mode_flags here?
-
-Backlight updates can execute concurrently via sysfs while the DRM subsystem
-invokes panel enable/disable operations. Since the mode_flags bitmask is
-modified using non-atomic bitwise operations, a read-modify-write race
-could occur between this function and the DRM ioctl paths:
-
-ili7836a_on() {
-    ...
-    ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-}
-
-ili7836a_disable() {
-    ...
-    ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-}
-
-> +	if (ret < 0)
-> +		return ret;
-
-[Severity: Medium]
-If mipi_dsi_dcs_set_display_brightness_large() fails, does this early return
-permanently clear the MIPI_DSI_MODE_LPM bit?
-
-The error path exits before restoring the mode_flags, which might disrupt
-subsequent DSI communication.
-
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808-ili7836a-v=
-1-0-07a7becc5636@gmail.com?part=3D2
