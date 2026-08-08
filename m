@@ -1,167 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A90165F1A
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 03:08:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DEC22E401;
+	Sat,  8 Aug 2026 03:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786158493; cv=none; b=LiLTeuXMZrnI7mE7UHuBHy+gtC/jE0lPyLH+wbXv1yJCKKYAZWiUvSaVwHu4rd7CxzMwsplgftIXNqy6wbkInnTk/ofDOgOvjvCEWUAUgsZVJi0FJwBHsOSelSsq7VKSYRQO6ugeYsSIF/vd7aydfC/Xl4YQtJPc0lTjhSHI4s8=
+	t=1786161300; cv=none; b=Ph7LqH/5PI5UyFH1cih9zMXKOaTczzvRYGCC/fOBArz+T7l2H/pHPeZYvmmhlEJZio0d9wooKjyLYhm0dJ3VXf7dDghDkp8Glb4l0pf+IiWaAoS38xB38EFoHIernmls1JkxqRusMaukQoonRGd8CgMjGFq3hk/3i35qGrnbkic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786158493; c=relaxed/simple;
-	bh=5TYrsDRRH5fIfnRiTlF0WtlEaH4kFDmEfqEYBvkNla8=;
+	s=arc-20240116; t=1786161300; c=relaxed/simple;
+	bh=Y5Tb4VjOhPaU8iO7YoIz9k5SwPn/b86ZTQJA0cIONOQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sV6zgbxcvxhUM2tzQxhZRKbIXddgBk40iWY33uWgopPtbWniZCFcBXt/d424xlydTZrgc9tmL2w0vTwj4fMRoX+uQ6srKdvoOIXqFIHLplhxB16c+TzPdC6byl0ACcxgRhAc1iSl4Mr2IrO06UElAXkI6Y58BXaxrtBq28/Nqvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QzFMqiop; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=aEYArIEvQhC6rMSa4lw/45f1CImyZyqFlvnatZ1pV+uyXbKpbQb/gCREEQgGPIECcuOpZhMw4R2KLoSetVSAGexTaRJ2M8FRACGZJU0njb5dOjG1rGelxFb6ZLxpXIxaj9YOmNKmaq8nF3i+68d9FlgGM5zuejWJaxypuYMtXSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GYaC1ly+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QzFMqiop"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0FB1F000E9;
-	Sat,  8 Aug 2026 03:08:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GYaC1ly+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46D571F000E9;
+	Sat,  8 Aug 2026 03:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786158492;
-	bh=Ii5yahzEDBYjBlHt3QoNEtQ+5bx9b2tqB0hgGA5f9kE=;
+	s=k20260515; t=1786161298;
+	bh=Y5Tb4VjOhPaU8iO7YoIz9k5SwPn/b86ZTQJA0cIONOQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QzFMqiopylRWqPnhDCQOGEynekKLP9ns3rN+j0RZpvw5O4U4lxlp7zwCxlxvrkQTn
-	 PzTfUwIhIAaIH9ySnDwfsqVRPDJYoW7O8WyoStxdi/+to4WkgyVic2g+eliK8bLK+h
-	 6f16kzBCDYr81VB0wggfYeSdtYd0jfABhW7BBuGK9kfWynRhHpR/zt3Xnw8bVYLpHB
-	 Wrecj/sS9TDoPXZaQgO8TAsk9K5T2NxiJ1+1mMv5mu8+Xz2w6Ng7/jmnJb6d3K/e+V
-	 XiCbhekWtDQ5aLCt3dPEuJiwlzx4fSN361827/1/9ZGv/AJgh6MRJo1PA9G68375PV
-	 c63dfsLzZZ9Iw==
+	b=GYaC1ly+OBBxZI5/PfssAwdxk/r2lFnWU0WPOSYp5M3g8NL4ugWctr6fqPuKqEgYj
+	 h/ptnP4/WMmZKikAy8dHpZo7PVIfb12ClrEQvS/pDGu8qQH4LrW+BbMGHJu47vVtNB
+	 WT0ptRGH7VEHmEkRSweMBu72hCnM+8Y9K05CwX0zylvXVkQmnTipZUuOs8UV3WPjZt
+	 ZAmx9z+F+C0JWU0A9GfTTRGXQZR7TysO5klpdvqREX9ZR1+DbYTT8fWGUzEOk8T7ut
+	 reiYBqe1JGpFUB4dDY7Mbjwrxkp3oyPk8TVbuxLUFLLK4z5LQrnGjTSdRkP/1R60kb
+	 ksK3Ktc5pitxQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for
- WaveShare 2CH CANFD HAT
+Subject: Re: [PATCH net-next v4 3/4] net: mdio: make device map changes
+ hotplug-safe
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
-References: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
+To: "James Hilliard" <james.hilliard1@gmail.com>
+Cc: Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260806-submit-mdio-of-dynamic-v2-v4-3-4beb0c50d5ba@gmail.com>
+References: <20260806-submit-mdio-of-dynamic-v2-v4-0-4beb0c50d5ba@gmail.com>
+ <20260806-submit-mdio-of-dynamic-v2-v4-3-4beb0c50d5ba@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 03:08:11 +0000
-Message-Id: <20260808030812.0B0FB1F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 03:54:57 +0000
+Message-Id: <20260808035458.46D571F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Potential CAN controller freeze due to edge-triggered interrupt co=
-nfiguration for active-low level-sensitive INT pin.
-- [Low] Devicetree schema violation with non-standard node names for clock =
-and SPI nodes.
+- [Medium] The 'dynamic' removal flag is hardcoded to false across all API =
+boundaries, rendering the dynamic firmware-node reference dropping and excl=
+usive firmware removal transactions unreachable dead code.
 --
 
---- Patch [1]: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for W=
-aveShare 2CH CANFD HAT ---
-commit b5cd8b12c94510c91e67da4257339818760852d2
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+--- Patch [3]: [PATCH net-next v4 3/4] net: mdio: make device map changes h=
+otplug-safe ---
+Note: The format of this review has been altered to use a free-form summary
+rather than inline patch quoting due to automated recitation restrictions.
 
-arm64: dts: renesas: sparrow-hawk: Add overlay for WaveShare 2CH CANFD HAT
+commit ea45b70c0d34732ca4b03fdec7b5cb7a401e48fb
+Author: James Hilliard <james.hilliard1@gmail.com>
+Subject: net: mdio: make device map changes hotplug-safe
 
-Add a DT overlay to bind the WaveShare 2-Channel Isolated CAN FD Expansion
-HAT on the Retronix R-Car V4H Sparrow Hawk board.
+This patch serializes device-map state and reserves addresses while
+registration is in progress to make MDIO device map changes hotplug-safe.
+It also adds logic to handle dynamic removals and overlay node cleanup.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-can=
-fd.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dt=
-so
-> new file mode 100644
-> index 0000000000000..de72680efa7c6
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
-[ ... ]
-> +&{/} {
-> +	/* Fixed clock dedicated to SPI CAN on 2-CH CAN FD HAT */
-> +	clk_can0: clk-ws-2ch-canfd0 {
+[Severity: Medium]
+The commit message states that the patch will "Drop a dynamically removed
+device's firmware-node reference after device_del() so it does not keep an
+overlay node alive."
 
-[Severity: Low]
-Does this node name violate the fixed-clock devicetree bindings schema?
-The schema typically mandates node names matching the pattern clock-* to pa=
-ss
-dtbs_check validation.
+However, looking at the implementations of phy_device_remove() and
+mdio_device_remove(), both functions unconditionally pass false to the inte=
+rnal
+__phy_device_remove() and __mdio_device_remove() functions for the dynamic
+parameter. Similarly, bus teardown in mdiobus_remove_devices() also passes
+false.
 
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <40000000>;
-> +	};
-> +
-> +	clk_can1: clk-ws-2ch-canfd1 {
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <40000000>;
-> +	};
-> +
-> +	/*
-> +	 * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
-> +	 * muxed on the pins allocated for SPI_1 on this CANFD HAT.
-> +	 */
-> +	spi-ws-2ch-canfd {	/* SPI_1 */
+Because this dynamic flag is always false across all public API boundaries,
+the dynamic cleanup branch inside mdiobus_finish_remove() appears to be
+unreachable dead code.
 
-[Severity: Low]
-Is this non-generic node name likely to trigger devicetree validation
-warnings? Standard devicetree practices recommend using the generic spi node
-name rather than spi-ws-2ch-canfd.
+Is this intentional, or were there plans to export a specific dynamic remov=
+al
+API that callers could use to trigger this logic?=20
 
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		compatible =3D "spi-gpio";
-> +		sck-gpios =3D <&gpio0 10 0>;		/* CN7 pin 40 */
-> +		miso-gpios =3D <&gpio0 9 0>;		/* CN7 pin 35 */
-> +		mosi-gpios =3D <&gpio0 12 0>;		/* CN7 pin 38 */
-> +		cs-gpios =3D <&gpio2 13 GPIO_ACTIVE_LOW>;	/* CN7 pin 12 */
-> +		num-chipselects =3D <1>;
-> +
-> +		can@0 {
-> +			compatible =3D "microchip,mcp2518fd";
-> +			clocks =3D <&clk_can1>;
-> +			/* CN7 pin 18 */
-> +			interrupts-extended =3D <&gpio1 25 IRQ_TYPE_EDGE_FALLING>;
-
-[Severity: High]
-Can configuring this interrupt as IRQ_TYPE_EDGE_FALLING cause the CAN
-controller to freeze?
-
-The MCP2518FD INT pin is active-low and level-sensitive. If a new interrupt
-condition occurs while the INT pin is already asserted low, a new falling
-edge might not be generated, causing the new interrupt to be permanently
-missed. Should this use IRQ_TYPE_LEVEL_LOW instead?
-
-> +			reg =3D <0>;
-> +			spi-max-frequency =3D <20000000>;
-> +		};
-> +	};
-> +};
-> +
-> +&msiof0 {	/* SPI_0 */
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +	pinctrl-0 =3D <&msiof0_pins>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +
-> +	/*
-> +	 * Native MSIOF chipselect does not work with MCP2518FD
-> +	 * because MCP251xFD driver needs to keep the chipselect
-> +	 * line asserted between transfers. This requirement is
-> +	 * fulfilled only by using GPIO chipselect.
-> +	 */
-> +	cs-gpios =3D <&gpio1 8 GPIO_ACTIVE_LOW>;
-> +
-> +	can@0 {
-> +		compatible =3D "microchip,mcp2518fd";
-> +		clocks =3D <&clk_can0>;
-> +		interrupts-extended =3D <&gpio1 26 IRQ_TYPE_EDGE_FALLING>;
-
-[Severity: High]
-Similarly, can this edge-triggered configuration for the native MSIOF CAN
-controller lead to missed interrupts if the active-low level-sensitive INT
-pin is already asserted when a new interrupt arrives?
-
-> +		reg =3D <0>;
-> +		spi-max-frequency =3D <20000000>;
-> +	};
-> +};
+Additionally, since phy_device_remove() and mdio_device_remove() return
+void, if the dynamic flag were ever set to true and the internal remove
+function returned an error like -EBUSY (for instance, if the PHY is still
+attached), wouldn't that error be silently ignored by the void wrapper,
+potentially leaving the device in the bus map while the caller assumes it
+was successfully freed?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808025724.1319=
-43-1-marek.vasut+renesas@mailbox.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-submit-mdi=
+o-of-dynamic-v2-v4-0-4beb0c50d5ba@gmail.com?part=3D3
