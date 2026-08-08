@@ -1,150 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A3735292A
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 04:08:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE258374198
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 04:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786162098; cv=none; b=ooAIrfjRqUyDatn2hJJfWOQse6ZKkSWrsn0eM5fDHGI49yk09apvv86WrwnJ7nW5gj78WGICuHttZ68g2YaHWx5CRxrqjLQC0s0K55AXgLoXECK9ZcsakuhjJ5h5RRuX8cJoRTleTiMiqy98eV4t+yieHFF/y2E8azsyZ+AEfP0=
+	t=1786162159; cv=none; b=Qlo1SiKKlrNx+7ihDaKVa8EczP8fubi8SqsrMLt3qzoM6zfslWGrmjuR9FBbzK5T+vl6cPJAXB1vUkTo6bw0R1wwbe6F8cWSoNPBFSNjwArLSr1itdfN+Eom15qycVtynUsdQStD100UPZPHfCZPovdo4dJg75VXjrCTwLogbpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786162098; c=relaxed/simple;
-	bh=wEgnz5a+TYgooOn43l9iTd0SBRKHKSpm/FYMntEQL8w=;
+	s=arc-20240116; t=1786162159; c=relaxed/simple;
+	bh=UV6ac/N4G43q4aXvzQSkuX1RmGAA+EgnxhSZte/ii8o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AubiMKH558bo5ACz7oRFAJpYHBEwwTdox1H5Xhr2RPMppApD8ybCSV3pSbYAPMV3j5Jao3ZMm8KEj7JVfGDdACmZgpMJLqEyuRTLoqXb3A/sAl/cfzFmOw0c9jqKhF9135/gWrlZ4h9zhBUnntUfD4EUlGtEnEM+LWGhhuRbtzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f6et17Jn; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Jk+ZpSiJWSI0BPlrAv97ck4mnZ6tMnzi1SrQzVT+7Sb1PDlRYd1ujqpXxVj3WGYE5W9Q/gE+erJ+u1i+FvjsZBIe8K8HE5apnZpe/kB3to26LOv1evaIdY6jLuVwbDERYw8Ky4IS7Hhf/lwT5Rm0Qxpa7znQIJlrg6f661t7Q1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cX4wQQc4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f6et17Jn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D08CC1F000E9;
-	Sat,  8 Aug 2026 04:08:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cX4wQQc4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE861F000E9;
+	Sat,  8 Aug 2026 04:09:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786162097;
-	bh=W0lFoviJd1cKIzBEQnuKBpJE9u0oEZDg+MuD1qQlHLI=;
+	s=k20260515; t=1786162158;
+	bh=zLNLHfTyFHGAcQUafNJi/OBV429/jVkLq95StXe+RbQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f6et17JnuwNOOscNsvEQrQUDjVgmsoF5FyflphSQkR4Yttrp4K9PZlrO+lixZIkdN
-	 2J8KFat2ubWTDTbJydItlob0hUT4BuV35Jnw3XQHEIPSmmUSWY0ryg5CpPa1Q8Cxr/
-	 j86uTGe7Pk+cs1im4To3H0TQ1pythHZAZjn7r9DmH4LrZ846DSRHaZ1v8vuXweoRbP
-	 DM+iof1q++0vtGYl62uYsNdMHo3dbrqrFqL4Q4X0WMZDUPFPUpjV4N4+T1iDEuXgpu
-	 ye7ggZBKj7QMWK4UyENgY7H2Md+/UYp4i+9TRD6KthoZ1HRLISOIjJlFhQGYIDFMFR
-	 Qj4tPN7OC0/fw==
+	b=cX4wQQc49m68lXfG7xQGQ6/WF+goSniXpPdmm6CsrEUmAC4saRkI2/MhE8v9xDsqg
+	 F6gQXYd5/Fiud2VeypchT/o6WSHEs5FnPdrUgscZUZ6+0Ii5F+CbJfPYo+5sgNKJze
+	 yrxCrAEwSo24SY+VQQKDv6BEMxi+UT+Rq3aZc7MVPSeHnnn0ScnJ3oiko4aSCoIySm
+	 T1utq8B7lFIwjNxoaTh/FVcIuWoHbWXKArydMqS4DMgTcaJ9wXqevDGpqbPzZLiFkJ
+	 jq7l3aYAlymYAGfrAc7tQNnXx8fPaor8yaTkq7uC+5XSermuN6x8nBfK8rjH36jaXi
+	 FKDiGevCIRX/A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/9] dt-bindings: iio: adc: support the TI ADS126x
- ADC family
+Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
+ sampling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kurt Borja" <kuurtb@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260807-ads126x-v3-1-f89925d72792@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260807-ads126x-v3-7-f89925d72792@gmail.com>
 References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
- <20260807-ads126x-v3-1-f89925d72792@gmail.com>
+ <20260807-ads126x-v3-7-f89925d72792@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 04:08:16 +0000
-Message-Id: <20260808040816.D08CC1F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 04:09:17 +0000
+Message-Id: <20260808040918.2EE861F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `interrupt-names` constraint incorrectly uses `enum` directly =
-instead of `items: enum:`, causing schema validation failures.
-- [Medium] The `interrupt-names` property is semantically abused to configu=
-re hardware routing instead of naming interrupts.
-- [Medium] The compatible string `ti,ads1263` lists `ti,ads1262` as a fallb=
-ack, but they have incompatible IIO provider interfaces due to differing `#=
-io-channel-cells` requirements.
+- [High] Race condition between the hardware DRDY interrupt and `reinit_com=
+pletion()` causes missed conversions and timeouts.
 --
 
---- Patch [1]: [PATCH v3 1/9] dt-bindings: iio: adc: support the TI ADS126x=
- ADC family ---
-commit b073c29433e55e8e8b4d7125bae2d50b6eaba149
+--- Patch [7]: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffe=
+r sampling ---
+commit a9e8c114122dfc9b8eb2cdf234373c01ea35d2cf
 Author: Kurt Borja <kuurtb@gmail.com>
 
-dt-bindings: iio: adc: support the TI ADS126x ADC family
+iio: adc: ti-ads1262: support triggered buffer sampling
 
-The commit adds devicetree bindings for the TI ADS1262 and ADS1263 ADCs.
-It defines the required and optional properties, including regulators, input
-channels, excitation currents, and interrupts.
+This commit adds triggered buffer support and a data-ready (DRDY)=20
+hardware trigger for the Texas Instruments ADS1262 and ADS1263 ADCs.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml b/=
-Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> new file mode 100644
-> index 0000000000000..c43ba7abb3916
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1262.yaml
-> @@ -0,0 +1,379 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/ti,ads1262.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI ADS1262/ADS1263 analog to digital converter
-> +
-> +maintainers:
-> +  - Kurt Borja <kuurtb@gmail.com>
-> +
-> +description: |
-> +  The ADS1262 and ADS1263 are 38.4-kSPS, delta-sigma (=CE=94=CE=A3) ADCs=
- with an
-> +  integrated PGA, reference, and internal fault monitors. The ADS1263 in=
-tegrates
-> +  an auxiliary, 24-bit, =CE=94=CE=A3 ADC intended for background measure=
-ments.
-> +
-> +  Datasheets:
-> +    - ADS126x: https://www.ti.com/lit/ds/symlink/ads1262.pdf
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,ads1262
-> +      - items:
-> +          - const: ti,ads1263
-> +          - const: ti,ads1262
-
-[Severity: Medium]
-Since ti,ads1263 dictates #io-channel-cells: const: 2 (lower down in the
-binding) and ti,ads1262 dictates const: 1, are they truly ABI compatible?
-
-If an older OS driver only knows ti,ads1262, it will expect 1 cell. When
-the IIO subsystem attempts to translate a consumer phandle with 2 cells via
-of_xlate, it will reject it due to an invalid argument count, breaking all
-IIO consumers.
-
-Should ti,ads1263 just be a standalone compatible string rather than using
-ti,ads1262 as a fallback?
+> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
+> index d5464b4f2bfb2..24a7ecb9fbd40 100644
+> --- a/drivers/iio/adc/ti-ads1262.c
+> +++ b/drivers/iio/adc/ti-ads1262.c
 
 [ ... ]
 
-> +  interrupt-names:
-> +    description:
-> +      Specify which pin should be configured as Data Ready interrupt.
-> +    enum: [drdy, dout-drdy]
+> +static int ads1262_fill_buffer_mult(struct iio_dev *indio_dev)
+> +{
+> +	struct ads1262 *st =3D iio_priv(indio_dev);
+> +	unsigned int chan;
+> +	__be32 val;
+> +	int i =3D -1;
+> +	int ret;
+> +
+> +	/*
+> +	 * This routine enables and reads channels in a full-duplex fashion.
+> +	 *
+> +	 * When a channel is enabled, the previous conversion is clocked out of
+> +	 * the shift data register on the same transfer (Section 9.4.7.1). This
+> +	 * allows for low latency software sequencing but forbids any
+> +	 * communication with the chip in-between or data corruption may occur,
+> +	 * hence the need to take the xfer_lock for the whole operation.
+> +	 */
+> +	guard(mutex)(&st->xfer_lock);
+> +
+> +	iio_for_each_active_channel(indio_dev, chan) {
+> +		ret =3D ads1262_enable_and_read_last(st, &indio_dev->channels[chan],
+> +						   &val);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/*
+> +		 * After writing to the channel configuration registers, the
+> +		 * conversion-cycle is restarted and the data registers are
+> +		 * cleared. This means we have to reinit the completion after
+> +		 * enabling to avoid reading stale data.
+> +		 */
+> +		reinit_completion(&st->drdy);
 
 [Severity: High]
-Does this schema validation fail for device trees using interrupt-names?
+Can a fast conversion cause a race condition here that leads to a timeout?
 
-In JSON schema, DT -names properties are implicitly parsed as arrays of
-strings (via the core interrupts.yaml meta-schema). By using enum
-directly on the array property instead of items: enum:, the schema checks
-if the entire array instance (e.g., ["drdy"]) perfectly matches one of the
-scalar string values in the enum list. Since an array is never equal to a
-string, this will always evaluate to false, breaking schema validation.
+If the sample rate is high (e.g., 38400 SPS, ~26=C2=B5s latency), is it pos=
+sible
+for the hardware DRDY interrupt to fire immediately after the SPI transfer
+in ads1262_enable_and_read_last() finishes, but before reinit_completion()
+executes?
 
-[Severity: Medium]
-Is interrupt-names being used here to configure hardware routing rather
-than identifying interrupts to the OS driver?
+If the interrupt handler executes first and calls complete(&st->drdy),
+would this reinit_completion() locklessly reset the state back to 0,
+wiping out the completion signal?
 
-The devicetree specification dictates that interrupt-names is strictly used
-to map human-readable names to indices in the interrupts array. It must not
-be used as a configuration property to tell the driver which physical pin on
-the ADC to route a signal to.
+If so, would the subsequent ads1262_wait_for_conversion() then wait
+for an event that was already cleared, eventually returning -ETIMEDOUT?
 
-Could a custom property (e.g., ti,drdy-pin) be used for hardware routing
-configuration instead?
+> +
+> +		if (i > -1)
+> +			st->scan_buffer[i] =3D val;
+> +		i++;
+> +
+> +		ret =3D ads1262_wait_for_conversion(st);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-ads126x-v3=
--0-f89925d72792@gmail.com?part=3D1
+-0-f89925d72792@gmail.com?part=3D7
