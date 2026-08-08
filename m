@@ -1,227 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011014.outbound.protection.outlook.com [40.93.194.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BF1375F9E
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 10:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786186022; cv=none; b=B+7B70tN666r0HmMh9gacYC645EFOJ9YqHaEc0EJ3vO+0soKHG085UaBokuAzwtyJbBq1AX0D2PtlNqTLqtZui+gZD6riQQbjoVcv4SWS5Jwe7gd84HHRl/z1AFVz+GNruThlLM0fnMyd7ObC7PKqhl4LyGNrja7MASgxUdSz5o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786186022; c=relaxed/simple;
-	bh=Danti0zRb9dUtN5JQa95MWWZRVvk/BEMzfpGzHptY2A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IQv0FvaNl4BEku8+O5ljOa/uIFPQ7UGn6/zfv0QwCOACH5aHoslMC4fPOOwI4fxA8rGiG6ajLunEbOf56By5NndVLqk2aYmExxD6QxdgVlUNiU2/RUhJtc/ElC48TWjtsubf3PiX3K5p41bZr33Ts92cO1py+3ekTP20r2U/NSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VdBBLqHj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C6A375F9E;
+	Sat,  8 Aug 2026 10:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786186391; cv=fail; b=f3hTOSEWu60xA8I4v+lI+sYUbxpOG7AlzH479yChtuh5UVWV31bVjCveZI0AiZsUL0dhi6jNl/yK+KKoTWrNR9lWor6Hm8T/fLnz9nXKStRC4mT3lFko8egAC/fgtoA7Sh9F2xGAgFCTqlIiL1Kd/yCV/0QngyQ7QlV9nTWso0A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786186391; c=relaxed/simple;
+	bh=9l+I5dfMBjRNtyCEC3JqDdyq512Vgaj4/0Gk6jtY7M8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ncSq7seb6liB3SMDVC4Nc4R89PEi+NMufoazrAg+N9aGtKuEb4O93rFI4/GGxIZOPcmxnLNdUgfkEsnPECB4ofZEKM9ODPaaphS2KK+u/EhUMCphXTtzNQxlfETGm0oCej8O8X2Svf9dO6kUl8CS6Q4EjO36a2neqOOmM+LbUCw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dpByO5Gi; arc=fail smtp.client-ip=40.93.194.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VdBBLqHj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4FD51F00A3A;
-	Sat,  8 Aug 2026 10:47:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786186021;
-	bh=4V99Tp98G1E9gb5OPhumbxA1HSvJ///eXLpzikAS2GU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VdBBLqHjvw+OPd+YvTE1QwPpebPLWrYlp8Gb8j1iQBLFF/lZMKhJ4rQ30YkbNlq+o
-	 F2nVYqUMMDyCs7/LdQsURMRwTlFguVyIXnvu2L4KHGq89dOhxpsAfJUUglFR0Zuw7t
-	 ojBVQZk4Y9ok543Wp3p2BFkVDShWFEnYKVQ0oKQ3vHSj80VD9rLJ+MopSy0P2rnsPC
-	 xTMKWuLxzQUZlIDU1pSawsCvlFeJVmBbKH3McqLQUNZCDMzQs+IQ76eMnFdebbfdSZ
-	 ufHE+bpojtmWmIem4ftSWZLbkTCzN0zq7vsxqkC6+NwJ4A/hViHox7FmVRxazY1SiA
-	 RQd4ngd6xKLdw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 20/20] net: dsa: xilinx: trap link-local control frames
- to the CPU port
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nagadheeraj Rottela" <nagadheeraj.rottela@amd.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260807104431.157230-21-nagadheeraj.rottela@amd.com>
-References: <20260807104431.157230-1-nagadheeraj.rottela@amd.com>
- <20260807104431.157230-21-nagadheeraj.rottela@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 10:47:00 +0000
-Message-Id: <20260808104700.E4FD51F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dpByO5Gi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fZt4g+RKjUcyqmTvjK1JnJS2RUC0k8k0Oqn8DrLGyi+5jNSPVIwOcQQpfiNvm2te5xmvp6+3Vb7I8Z2hnc0HYlUYrp8BRziXQjTuyE0SPwGqhfcQDUAuCjs3kAgRzg0da4iZyr5ljji9nYIxE0XFx6xmah1YBm4Wk8jlQOUGPElCTTrpWYQKEQnXXSmhubL9e5/291zxnAZj0x3r4pgBDXiZqdhBvLeVrUKGwFNqBOoi7aNG6S5DLh5qg/ws6OYYmG8iwhkCKtK74Gnwc4Q+FT/6xTwlp3S4SXo2hIRWJHntDM/E32d8Me4oz/IeBFWWqDdkvuq2eE30hgv1Qu45vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PhmkiUoQjd1hRztXCoi+o/qJeTzBHgqKPDhCVxww7W4=;
+ b=TMjpjzLd0Z6JpKlnFTW1rBxGdYK/ToaTNjL/Mt5ouFtVhDZS7eUP+Oo6rW7s51ZsDco4YC0BjJ2CMjk5KLxbpwytAdXhI1btBzJRubx/2JB+u6uKRPIg7pYeh3R5m0nPqYia3arM9UHhQOJS9wKECcbPF9NPAs671E38GjFgThjJyq+VI3Aat4ERxUCded4JhEV2IztunD0b5TkGUnFPbqpZFx8WcG3R1EAfjfdSKV/00CPS52w51GNoHq+lJ11uMjcjJ4UMcwDdb1JLwUbM/OmBnsluLpALPcb30Kd/FLb2j0gNOFK9PkCrEBwnTQO3Jo2YtSrbZkRGcYocYmDrqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PhmkiUoQjd1hRztXCoi+o/qJeTzBHgqKPDhCVxww7W4=;
+ b=dpByO5GisoBPvcJCmRE9zlrELfW5c97/d0AgiWiMB5uslm18q5zzDwY16CSboFiYPgS7zs8hcgWl6u5Wcc7/ifVlxHEPEuJyOhV5M3MGIdocQmPepXfhNEFwIx2YxyhaG0tgHquxWgFTyqFeaoc+edQQqG8zuF8ktKJLDUoUN7g=
+Received: from BN0PR04CA0152.namprd04.prod.outlook.com (2603:10b6:408:eb::7)
+ by CH3PR12MB8711.namprd12.prod.outlook.com (2603:10b6:610:176::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Sat, 8 Aug
+ 2026 10:53:05 +0000
+Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
+ (2603:10b6:408:eb:cafe::8) by BN0PR04CA0152.outlook.office365.com
+ (2603:10b6:408:eb::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Sat, 8
+ Aug 2026 10:53:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Sat, 8 Aug 2026 10:53:05 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sat, 8 Aug
+ 2026 05:53:05 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sat, 8 Aug
+ 2026 05:53:04 -0500
+Received: from xhdlc250058.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Sat, 8 Aug 2026 05:53:00 -0500
+From: Sai Krishna Musham <sai.krishna.musham@amd.com>
+To: <bhelgaas@google.com>, <lpieralisi@kernel.org>, <kw@linux.com>,
+	<mani@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <cassel@kernel.org>
+CC: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <michal.simek@amd.com>,
+	<bharat.kumar.gogada@amd.com>, <thippeswamy.havalige@amd.com>,
+	<sai.krishna.musham@amd.com>, <pranav.sanwal@amd.com>
+Subject: [PATCH v4 0/2] pci: AMD: Add Versal2 CPM6 PCIe host controller support
+Date: Sat, 8 Aug 2026 16:22:54 +0530
+Message-ID: <20260808105256.3705889-1-sai.krishna.musham@amd.com>
+X-Mailer: git-send-email 2.44.4
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|CH3PR12MB8711:EE_
+X-MS-Office365-Filtering-Correlation-Id: b610f3e2-0de5-4436-51a6-08def53b39c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|1800799024|82310400026|23010399003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	ucLAbyZZ2/1+Y/3FVgJT9JMK7V0q5lfr+CLmq8NYKpvYVXERdEuZp+zuvRx7TiVrYXR7dpfAOV9F7yB6ebLgGodSs5JPlAgbyzIIjf9iu7kpV+10QwDve2V/U1vj0uCXKwxQA6n+CTDrHjLo81MSwq7gRKrCcJM2YatGOp3eAktLWhc3iwbvxHMqB0ZfNcXwZiPKbceterrNWEKO6E2dFYnOOihZyLBveFtmnvru3VzPN2/mYcZHj9gxPkvS2M70vvlmtAPDqvZQluHyS78lTLm23JAvJjuFhxu+OyD/E+9W7IZOmsD6GrpfEVYFXcHD5UfVclVRhopoA+tVrAvC2kcE0FrsdiCmME713xyy8MkdDlxeYRV/AOMSLQF8sIbIVfI3ka7y+Zlgaib21dGHwHbXty3mQ14ACZLTJ94+/2xXM39L/gp3O7U2UTACJr8Hh0Voyld0B6e1878/MeU0pisj+o/zAZuH/TFyYC682gBNBP1jhy3qlBEnJaajjpvDW5562G9IKPnLrJd4eFhUS/5H3OmfXhsmWVgsNyECfLPYxPQeACp3EzwcGgIPV9SkEiX9iuZUg+dC3iUBz35qouVTIiKj/cR22zbr+nRB6JaTVeLurU/jb1nz8rH9YjoQrIeZVTo4dgRj6S/rT3kIdnfWbl6JWu1eJQiqxojd3Hnp8vo+AWohq55k1w1XXPDwIkIgQKN8UHnIZpSYLb4JdQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(1800799024)(82310400026)(23010399003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	R04rzJLV0Cn/ActS3wi3/3YP+YfXwf9mUGpcOrGNGawuCBmQY1e4uOa2iapprfQT37n/kkL9MqDKEN6hbY4+KevPO4gvTxRNkDZi+yRwRoSJ+4q/MSrMaYXufz09ovjHyyNkXVwQWpkikxvmkemH3vlcB904WvvXhrpYnxQqBw152SYjyngUVNgOUepzsZJG549xbqjyPiITngda8lAyx964wGPRE6Kdtc1H4Qa95L5s17yOZo3YeYcmQvK7ZFPZ5FO2CYUxIh3B3HBkloszoshYHER7zqWvnBlBkA0DmQFEHblkBTEgG854oAlU1XbwTqLDVv5Volh630d3f2NQ7tq01OFeyuafJ9rtXtDIcFW6HeCSJwJ5wDvSwFKsVODwwSnxST/BhGLb2FsbmztvxNuoK9kvnvrI9mmxMqJbmxkrRiURtLssaF1uAYM+VCwW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Aug 2026 10:53:05.4168
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b610f3e2-0de5-4436-51a6-08def53b39c9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8711
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] Mixing goto-based error handling with scoped guard cleanups in t=
-he same function.
-- [Medium] Incomplete hardware state rollback on error in VLAN configuratio=
-n functions.
-- [Medium] Error path in xlnx_tsn_setup bypasses trap removal, leaking hard=
-ware state.
-- [Medium] FDB additions and deletions for control MACs are silently ignore=
-d, deceiving the software bridge.
---
+Add support for the AMD Versal2 CPM6 PCIe host controller to the
+AMD MDB PCIe driver.
 
---- Patch [20]: [PATCH 20/20] net: dsa: xilinx: trap link-local control fra=
-mes to the CPU port ---
-commit 56b303f76151a63e86634cce7c4b44f8de4578a9
-Author: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Sai Krishna Musham (2):
+  dt-bindings: PCI: amd-mdb: Add CPM6 support
+  PCI: amd-mdb: Add CPM6 host controller support
 
-net: dsa: xilinx: trap link-local control frames to the CPU port
+ .../bindings/pci/amd,versal2-mdb-host.yaml    |  45 +-
+ .../devicetree/bindings/pci/snps,dw-pcie.yaml |   2 +
+ drivers/pci/controller/dwc/pcie-amd-mdb.c     | 424 +++++++++++++++---
+ 3 files changed, 405 insertions(+), 66 deletions(-)
 
-This commit installs CAM entries to trap link-local control frames (STP and
-LLDP) to the CPU port. It keeps these traps in sync with native VIDs during
-VLAN configuration changes and updates FDB operations to handle these
-control MACs.
 
-> diff --git a/drivers/net/dsa/xilinx/xilinx_tsn.c b/drivers/net/dsa/xilinx=
-/xilinx_tsn.c
-> index 7e5cf77cfa66a..e35dbcdfcbda2 100644
-> --- a/drivers/net/dsa/xilinx/xilinx_tsn.c
-> +++ b/drivers/net/dsa/xilinx/xilinx_tsn.c
-[ ... ]
-> @@ -712,6 +742,9 @@ static int xlnx_tsn_port_fdb_add(struct dsa_switch *d=
-s, int port,
->  	u8 portlist;
->  	int ret;
-> =20
-> +	if (xlnx_tsn_addr_is_ctrl_trap(addr))
-> +		return 0;
-> +
->  	if (!vid)
->  		vid =3D TSN_SW_DEFAULT_VID;
+base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
+-- 
+2.44.4
 
-[Severity: Medium]
-If the hardware cannot apply the requested FDB offloads for control MACs,
-should this return an error like -EOPNOTSUPP instead of 0?
-
-Returning 0 here could deceive the software bridge and userspace into
-believing the rules were successfully applied to the hardware when they
-were actually ignored.
-
-> @@ -733,6 +766,9 @@ static int xlnx_tsn_port_fdb_del(struct dsa_switch *d=
-s, int port,
->  	u8 portlist;
->  	int ret;
-> =20
-> +	if (xlnx_tsn_addr_is_ctrl_trap(addr))
-> +		return 0;
-> +
->  	if (!vid)
->  		vid =3D TSN_SW_DEFAULT_VID;
-
-[Severity: Medium]
-Similarly, should xlnx_tsn_port_fdb_del() return an error instead of 0 to=20
-accurately reflect that the hardware FDB wasn't modified?
-
-[ ... ]
-> @@ -1004,15 +1123,23 @@ static int xlnx_tsn_port_vlan_filtering(struct ds=
-a_switch *ds, int port,
->  		ret =3D xlnx_tsn_port_state_cycle(sw, dp->index,
->  						TSN_PORT_STATE_BLOCKING);
->  		if (ret)
-> -			return ret;
-> +			goto restore;
-> =20
->  		ret =3D xlnx_tsn_port_state_cycle(sw, dp->index,
->  						TSN_PORT_STATE_FLUSH);
->  		if (ret)
-> -			return ret;
-> +			goto restore;
->  	}
-> =20
-> +	ret =3D xlnx_tsn_sync_ctrl_traps(sw);
-> +	if (ret)
-> +		goto restore;
-> +
->  	return 0;
-> +
-> +restore:
-> +	sw->vlan_aware =3D old_vlan_aware;
-> +	return ret;
->  }
-
-[Severity: Medium]
-Does xlnx_tsn_port_vlan_filtering() now mix goto-based error handling with=
-=20
-guard() declarations?
-
-The function begins with:
-
-	guard(mutex)(&sw->indirect_lock);
-
-According to include/linux/cleanup.h, functions should either use scope-bas=
-ed=20
-cleanup for all resources or convert none of them. Mixing goto labels and=20
-guard() in the same function can lead to complex ownership issues.
-
-Additionally, if we hit the goto restore path, are the previously executed=
-=20
-hardware register changes (like PVID, learning control, or CAM entries) lef=
-t=20
-unreverted? This seems like it could leave the hardware and software views=
-=20
-desynchronized on error.
-
-> @@ -1061,6 +1188,7 @@ static int xlnx_tsn_port_vlan_add(struct dsa_switch=
- *ds, int port,
->  		sw->pvid[port] =3D vlan->vid;
->  		sw->pvid_untagged[port] =3D untagged;
->  		xlnx_tsn_apply_pvid(sw, port);
-> +		return xlnx_tsn_sync_ctrl_traps(sw);
->  	}
-
-[Severity: Medium]
-If xlnx_tsn_sync_ctrl_traps() fails, will the hardware and internal PVID st=
-ate=20
-be left out of sync with the bridge's view?=20
-
-The error is returned directly to the caller, but the hardware changes just=
-=20
-made by xlnx_tsn_apply_pvid() are not rolled back.
-
-> @@ -1101,6 +1229,7 @@ static int xlnx_tsn_port_vlan_del(struct dsa_switch=
- *ds, int port,
->  		sw->pvid[port] =3D TSN_SW_DEFAULT_VID;
->  		sw->pvid_untagged[port] =3D false;
->  		xlnx_tsn_apply_pvid(sw, port);
-> +		return xlnx_tsn_sync_ctrl_traps(sw);
->  	}
-> =20
->  	return 0;
-
-[Severity: Medium]
-Similar to the addition path, if xlnx_tsn_sync_ctrl_traps() fails here, is =
-the=20
-removed PVID state left unreverted while an error is returned?
-
-[ ... ]
-> @@ -1276,9 +1420,19 @@ static int xlnx_tsn_setup(struct dsa_switch *ds)
->  			return ret;
->  	}
-> =20
-> +	/* Trap link-local control frames (STP, LLDP) to the CPU port.
-> +	 * Without this, a frame arriving on one wire port would be
-> +	 * flooded out the other instead of reaching the host bridge.
-> +	 */
-> +	scoped_guard(mutex, &sw->indirect_lock) {
-> +		ret =3D xlnx_tsn_sync_ctrl_traps(sw);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	ret =3D xlnx_tsn_mdio_register_all(sw);
->  	if (ret)
-> -		return ret;
-> +		goto err_traps;
-
-[Severity: Medium]
-Does the failure path inside the scoped_guard bypass the cleanup block?
-
-If xlnx_tsn_sync_ctrl_traps() fails after partially installing traps,=20
-returning directly skips the xlnx_tsn_remove_ctrl_traps() cleanup that=20
-happens at the err_traps label below. Could this leak hardware CAM entries?
-
-Also, just like in xlnx_tsn_port_vlan_filtering(), this function mixes=20
-scoped_guard() with goto labels (err_traps, err_mdio, etc.), which the clea=
-nup=20
-subsystem guidelines advise against.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807104431.1572=
-30-1-nagadheeraj.rottela@amd.com?part=3D20
