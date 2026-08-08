@@ -1,148 +1,115 @@
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08FF3A7F46
-	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 18:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D522EB0F
+	for <devicetree@vger.kernel.org>; Sat,  8 Aug 2026 18:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786214448; cv=none; b=QSVAHX6yW1ZIo9W4psPilapAPsTwKopSuRkiHjrxZd1vu0lFOd0DolFCsqXm7o4d7vriLuRMCrs3G4YZzxFrzqK3Z+Y7jbkjpNFvOX3rbdhH+NTPrV65GQQRsECpXF4zG6DJBenvSNiJpwvtdjAgk1S1pMh8Wl4eFXxbhoi7HlQ=
+	t=1786214735; cv=none; b=tA8092pDC6XPI2MUQQE56N2cyDoBpF63aVchzpKCtskapQXMnN7HhoQfAYYoi/uTRJ52hbJcY1gJwVXKM4/8aL/Q4mi9hXyYFVmN2fC5rZAyHaLJnJ4KBBV9tv2ZVa1u8wyTeJ0VTuvk2izvsSEElJMijuBI5qsNggToHVx8NJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786214448; c=relaxed/simple;
-	bh=FoVSqAX9Cubv9+S4g1XZ9guo+pxeW6BoILi4tAxvEN4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nNHhNQeJT2nYVKkYk4l+x0Xp6yNBPcq6zQ6YhmIsm06eQ/atpVR07OUpJwkovXizK8dX1sNmLfVN0BixeHJNzOkSeVGXKrCqHpDrPEQu9pJ/ojY6JSd07ogQwHlHnFTA1y80gJc6aXvSGGAr8b37/3yW2QTt4aOscZzlBEhInvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=BOmOJtfW; arc=none smtp.client-ip=209.85.161.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1786214735; c=relaxed/simple;
+	bh=t93sa+0FgbOdA2OvAWLFH6EN4P0G7kVfvWdDPlMilLw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CaaRNaOMO4USrITvzbHfnEzKX/5ukSHubIDMj4mOu7SqhLfuxBNFPP3bvY/2/KiT8bnNWFnEzUTOiuex6QgImjQufnH7Wz4P9RH56UKbjCdYBhhltFBQdVh4OK9/zBo2vW3EvGbrxM9brZ8fNyyM0mbfxCgZWbRqnUEbYQLH5Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kAbskEHZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="BOmOJtfW"
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6acc2a10023so176348eaf.0
-        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 11:40:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786214446; x=1786819246; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=55sctIR2HSJQXFMzWfmfJXeh2M58cCZiDe00f0EVIXw=;
-        b=BOmOJtfW9Iegj5XVZLiC+C0xTbSG+FQnQv8iVBlNmOUTPceXTfKmfyi8p7fTz7qdkg
-         GzdEhZZxrMQmB9+NPwX8EsHNilV0JLOiUAXx+n+LTN4ZdxOurefwYSDOIVc+HH2B9U3c
-         lemCJ1PUc8xI2AC7QzCudWJyyJweXK7rFpFfUYfva976wgibKn2+7LTOpihtk6WX4P1D
-         IjQ1sBXr7CESg5SELqr1V7fcyFp4nLilaKHX9SruTs1/iCoPztvXkcfwgGoFOqMYsZ9E
-         sS39ZNrw6T16gi738aiUkVmnXj2vbbQCytLL6kFykTN2OueNtbP4BXsIs0TLui2sZP9a
-         ng7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786214446; x=1786819246;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=55sctIR2HSJQXFMzWfmfJXeh2M58cCZiDe00f0EVIXw=;
-        b=gnHew+QaEAWpxJhDe1dNqacyBgHJx4+nsUmMgEm5La72Lf9pxK8PZJm3gpLNjxSIkg
-         zBfX4jfdKEcdGs9bzAHt1wVZWxCgyHfh63H9Cmpuk0+CUCT2zJiQbEaaR7eTgaVl8DNt
-         Ljun3mcPb/ktoGPHkdhgWhXm2S+D8y2QsWhfW/M/9Gjtf2jmKZ8+wZvjUTqE49C01ORX
-         l5pqN9dnLq48OtRLQnjdKD8G28MbKLDYiuht/y+tD9hUboNcBx97jb9IheI6manfi4Uy
-         dULVyx63z/wlGLIjbwaDK23ijB8Y1zkFXbxe61BvCcCrFSBQf41Ta4KBQ+UneZa/ncDr
-         sS2g==
-X-Forwarded-Encrypted: i=1; AHgh+Rop8PUepV6U/UPM+pZFQMGWDi31YauqxPZ6tUOo+SZoVYxLWpb03WbzC2LrC5sjv8r80pySOONxDWTC@vger.kernel.org
-X-Gm-Message-State: AOJu0YxS9b4+D8o2UdOwolYQaTrfM5cDrPIbdmAYxXZh/jHma2tBShsJ
-	NIHL3+8QrIncnpobz2V1vyPTsi9bXla/HjBRDZ/YwlZIdnITgyX6UWh9m9s5VH5h4gE=
-X-Gm-Gg: AR+sD11I/L2R2/aTmmGQf8nh0as114WdJ9LIZP+a8usRdh2wCWplweSKlKzK27nP78/
-	bMf9orWYL31BShRy243UJgw5+GWgA0vBlQbzFG/XnWD1ReDpIlyr3dVHasJIK9qYXbHgRcqYPHr
-	UYgB8xUElVgYkgUmCROeW1N/0X0sVVL2aDjGy5mIiES8Rtle2K0SNxV1yr1osRH9kBW7rPYi1qO
-	wkSpXUvAcnZA3N0yiA627Y+/0vh8pj3FlySDKTr02XinSrLwQC7lC/4fykxHKmvh1EhvF2RTBeU
-	18lMD/ESdEdR/BeEde0+PPNL2meBZoj9+nEOqahRK5W1+KQwnNuZP2JkCz2fXa1BphkgeiNiYFc
-	NhujQlA9p8m0S58wp/Dt0YkUcTAIIE6lmSX7ojdpR85lbOlzXpeoPP9D69GwYQQms+/NOLdOwCZ
-	2qMCK/jdCM2jrQxBQQUOcCLS4hS0lJ/VbfnHR/NcqNT3HDbr5Wp683oTNMBizIweLejwHiSUa5v
-	afZpCr3wKQouVbyu9WTmQ+Nk6NmkBTGRbhGMR4=
-X-Received: by 2002:a05:6820:81d0:b0:6aa:fac5:a3af with SMTP id 006d021491bc7-6ae96d12cfbmr16069294eaf.16.1786214445838;
-        Sat, 08 Aug 2026 11:40:45 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:99c2:f16e:201c:3bb5? ([2600:8803:e7e4:500:99c2:f16e:201c:3bb5])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b02bc2e840sm5607169eaf.6.2026.08.08.11.40.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 08 Aug 2026 11:40:45 -0700 (PDT)
-Message-ID: <b760633d-a9af-4dc1-be6d-496b7a19e847@baylibre.com>
-Date: Sat, 8 Aug 2026 13:40:44 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAbskEHZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C37B1F000E9;
+	Sat,  8 Aug 2026 18:45:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786214733;
+	bh=N2OVBN3HnKWCq0ailY/NDgfQRbJz3qDjl7k8OikNk8g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kAbskEHZM7NZFPd7W3LsNSRGQ8dXfi4pAH3QNbR+z0uKiAoyDuwlxXmPFaZ/VLukJ
+	 7bFQ9czoDtCBkCPOMWAOPO2nhX8c1+9kukOULg78roN2SiLmNJPIkVDz0t/JCw9OCi
+	 w87Ohcrg+mK68/ahRdguG5cTaGWLOan9ewe2zJHw9XB/gysVb1hJbIvqYNV6p/Zo8C
+	 6y0MT506YsECEoc8BZIP5509BQhuITfRYuWLPiVyLYEWRPcWuZ0g2PUCWuJpvjaNPw
+	 D8liMZq56nuxDzWAOJqA1ubD2se0AMZFdJiJmqcHTMP3KqnSNVR8s/IjxnHNqxtdEP
+	 pQxlbQiKi0Qhw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/5] dt-bindings: sound: qcom,q6dsp-lpass-ports:
+ Rename QAIF clock IDs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Prasad Kumpatla" <prasad.kumpatla@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260808181948.2489187-2-prasad.kumpatla@oss.qualcomm.com>
+References: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
+ <20260808181948.2489187-2-prasad.kumpatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 08 Aug 2026 18:45:32 +0000
+Message-Id: <20260808184533.5C37B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 9/9] iio: adc: ti-ads1262: support common mode supplies
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org
-References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
- <20260807-ads126x-v3-9-f89925d72792@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260807-ads126x-v3-9-f89925d72792@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 8/7/26 10:58 PM, Kurt Borja wrote:
-> Enable common mode regulators. The usual configuration is to have our
-> own 'vbias' regulator connected internally as common mode voltage on the
-> AINCOM pin.
-> 
-> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
-> ---
->  drivers/iio/adc/ti-ads1262.c | 25 +++++++++++++++++++++++++
->  1 file changed, 25 insertions(+)
-> 
-> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-> index 533574169b04..238d803abc50 100644
-> --- a/drivers/iio/adc/ti-ads1262.c
-> +++ b/drivers/iio/adc/ti-ads1262.c
-> @@ -962,6 +962,27 @@ static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
->  	return IRQ_HANDLED;
->  }
->  
-> +static int ads1262_common_mode_setup(struct ads1262 *st)
-> +{
-> +	struct device *dev = &st->spi->dev;
-> +	char name[sizeof("aincom")];
-> +	int ret;
-> +
-> +	for (unsigned int i = 0; i <= ADS1262_INPMUX_AINCOM; i++) {
-> +		if (i < ADS1262_INPMUX_AINCOM)
-> +			scnprintf(name, sizeof(name), "ain%u", i);
-> +		else
-> +			scnprintf(name, sizeof(name), "aincom");
-> +
-> +		ret = devm_regulator_get_enable_optional(dev, name);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Renaming macro definitions in the dt-bindings header without updati=
+ng corresponding driver usages breaks the kernel build.
+--
 
-We need to get the voltage which is then used to provide an offset
-(IIO_CHAN_INFO_OFFSET) for the channel.
+--- Patch [1]: [PATCH v1 1/5] dt-bindings: sound: qcom,q6dsp-lpass-ports: R=
+ename QAIF clock IDs ---
+commit 24389528fddee532f4b72dd537118240033f4a3e
+Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
 
-> +		if (ret < 0 && ret != -ENODEV)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to get common mode supply: %s\n", name);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->  static int ads1262_regulator_enable(struct regulator_dev *rdev)
->  {
->  	struct ads1262 *st = rdev_get_drvdata(rdev);
-> @@ -1797,6 +1818,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
->  	if (ret)
->  		return ret;
->  
-> +	ret = ads1262_common_mode_setup(st);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
->  					      iio_pollfunc_store_time,
->  					      ads1262_trigger_handler,
-> 
+dt-bindings: sound: qcom,q6dsp-lpass-ports: Rename QAIF clock IDs
 
+The patch renames the LAPSS_CLK_ID_QAIF_* macros to LPASS_CLK_ID_QAIF_*
+in the dt-bindings header to fix a spelling typo in the prefix.
+
+Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatl=
+a@oss.qualcomm.com
+
+> diff --git a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h b/include=
+/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> index 2e879a3c09aef..3a99703dbc4a0 100644
+> --- a/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+> +++ b/include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h
+
+[ ... ]
+
+> -#define LAPSS_CLK_ID_QAIF_IF0_IBIT		71
+> -#define LAPSS_CLK_ID_QAIF_IF0_EBIT		72
+> -#define LAPSS_CLK_ID_QAIF_IF1_IBIT		73
+> -#define LAPSS_CLK_ID_QAIF_IF1_EBIT		74
+[ ... ]
+> -#define LAPSS_CLK_ID_VA_QAIF_IF0_IBIT	97
+> -#define LAPSS_CLK_ID_VA_QAIF_IF0_EBIT	98
+> +#define LPASS_CLK_ID_QAIF_IF0_IBIT		71
+> +#define LPASS_CLK_ID_QAIF_IF0_EBIT		72
+> +#define LPASS_CLK_ID_QAIF_IF1_IBIT		73
+> +#define LPASS_CLK_ID_QAIF_IF1_EBIT		74
+
+[Severity: Low]
+Does renaming these macros here without updating the dependent driver files
+break the build?
+
+Looking at q6prm_clks in sound/soc/qcom/qdsp6/q6prm-clocks.c, it appears
+to still reference the old macro names:
+
+sound/soc/qcom/qdsp6/q6prm-clocks.c:q6prm_clks() {
+    ...
+    Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF0_IBIT),
+    Q6PRM_CLK(LAPSS_CLK_ID_QAIF_IF0_EBIT),
+    ...
+}
+
+Because Q6PRM_CLK(id) concatenates Q6PRM_##id, the corresponding target mac=
+ros
+in sound/soc/qcom/qdsp6/q6prm.h also still use the LAPSS spelling:
+
+sound/soc/qcom/qdsp6/q6prm.h:
+#define Q6PRM_LAPSS_CLK_ID_QAIF_IF0_IBIT        0x500
+#define Q6PRM_LAPSS_CLK_ID_QAIF_IF0_EBIT        0x501
+
+Do these C headers and source files need to be updated in this same commit =
+to
+prevent undeclared identifier errors during compilation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808181948.2489=
+187-1-prasad.kumpatla@oss.qualcomm.com?part=3D1
