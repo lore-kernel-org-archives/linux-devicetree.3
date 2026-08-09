@@ -1,160 +1,174 @@
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B87930ACE6
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 19:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786304017; cv=pass; b=piyoydUXqQM0PUIu8zdBT/3SMv1VORR2ycqwUz4g8AOU5lfK9mF10rEKX8pimcXcaktZUFjMnXlGos157bEoGCoZvAq2q7ao1fuIbeXepOVfmBXdxz4UFoI6Gkas55uSDfwqb1NAcN3UezbSilAkkMODLHUTO1iOPQyjTqwVE84=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786304017; c=relaxed/simple;
-	bh=RPr4HbeOYBx0UUfRs5eyQeh6mneGGhSTFXdVw6+j5y4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LpbYMfetxU7evIOu39VX2+DwuORGvA8x9h+y5pFAUkR+W9Y/AaIFOs9LCTPR4Bo9Pe8ggHh09y6zakzodMnYFjpKCM7FP5BWXpFYOQpZ+D8aaf7E1yq7YwqAoNWfmTxjkkWpMLuqpYh+5QZvnug+ACzSEMp6R3Mzcky028Nc0mM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dGchOm0l; arc=pass smtp.client-ip=209.85.222.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D03931F9A4;
+	Sun,  9 Aug 2026 20:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786305696; cv=none; b=BOF0XD92qeOnwokeHfFqIQaIIdWZwhbGrmAwMvVMTSfpsUyfPY8MqZYPM+1MWNQaGvm968XvM2Q3CN7BThIpoVTXUcotd4/CJ+3ONV853zYAttIqL/iuRfxFGsPVUQzaNGZvDgP2xSv0lAENwFRl1DqQ86WNphqQWBYOnmmo3f4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786305696; c=relaxed/simple;
+	bh=hPqlDroh8esNBvwJ+JBWNfGBo7NjASRvt5TDRLF0N2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=agQgeIXAe1mj7/8mMh71CCUhRQpc5Psg5Hlv81S5wLELsCWP5vW1rTaCgfdFjaGYQMCjMM8KAmWFs5K4fXs5IS36fZo56wn2QDuih/QX+1KIg1PXHhWc9Ulz8D3I5zwA1cGqDXpARpEUDaIYWKTPGD153MNAyCONAbX0OW8IODI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FH6fVflX; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bLKWRklc; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dGchOm0l"
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-979dc8b391eso537752241.1
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 12:33:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786304015; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DQS+yrDfaRZsdppXZ2kSAWTT6pG2/93GT/SOJ+wQmbDOwd2/msIyS4uJvst289Mg+J
-         fLSA8myHcwcKRvmaynhA6Pe5CqL7WR8bciouAuibj8JjDq55EbBZYoS7hxE5nP3CL8f1
-         dorJEOlT6iMJLV+2f29uQp4OgcqlfedAt+s9N9n8lCJ+f2wFDN44wobsc6z5nUF9Vwt6
-         d75Zq3FKz4BF2b/U7Mz7iA6zQUTGDkYxzcpuCxYkvFsYN8rp0PzdnzA24PlbPu/WwZzX
-         Pu816LU5mMB8n5c00thUO+g0VeCy3923Il/vA0tA9W3OTG0LY8EcpAdmH+u6PJLBfQpf
-         ggqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TGS68oaa5am41wZZT817t30c1pv9fxqQGsu7xsnoMpU=;
-        fh=9DXE+CaiyNUye9HhTsew6dnTAw6Wx16cGNYYACd5YUk=;
-        b=HYr4vmydTMj0cAt6rXLGjP49jFl7L5cvlxMhkEduGthVGiGuHVE10t3uUF7CtspGOX
-         RBQBexYr3U+Bb6wjwpOUnZ578YSZ4F/vJYj08X8JwMg1RREexmTYCJwZynBIWu5WKPK3
-         BFZlhuVI99yrzvPqkTBu2xO9RALDRhuOja9EStNdPCXp97v7QEh+cClGpDGEIyL5bxKB
-         ireN1Kxn8R3PbR+ZxAHmppsl654VIC1BYeNhPJagUSszwjWaoQ4qeu0PWEXHELfqr0QL
-         tRR+dvUNqa6bqsgDHpcDQepFsBSI8MN/LiyyJJpvWJDcDucqXP5fI7bMXGscbheacWOA
-         Bm4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786304015; x=1786908815; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TGS68oaa5am41wZZT817t30c1pv9fxqQGsu7xsnoMpU=;
-        b=dGchOm0lZ3GI5CKC/QppD8tK1h1Sl5Phx79Rn0lUGlvzBYd84feRbiN7LBtjwbsNpb
-         FBGYdCpCXdONGzxn197nWUsLvIsel2ulXVGAJ2tkxvOm8PK9X25kPux1TusxX/j+eFu/
-         rTBJ9xekAU9zfzkzKmjwXWiR9MPr3gcjv7EygW6At4KrS95V0AgF6VVXZF9CsNo45bj/
-         D1xL+l8hQ0DG9dlz/GcjCAayKhx6Vx9jnFsmBbRarPUet0uyNnY1mkXxzZb0DruLq9fl
-         A/JnJ2EYoiGltuT8FCWIEYv+QQOIOHgIY/D1Hq74InEU34txdJ2LgPQZcVNV7P+098rJ
-         6rdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786304015; x=1786908815;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TGS68oaa5am41wZZT817t30c1pv9fxqQGsu7xsnoMpU=;
-        b=AFYocGPzFgrXWyHtFF9cn2k4IJ0IOHyhqNiqK1BdLwv7dnykekv84WDXCd74fQstQ1
-         MlL94DgURlB21Mu+f0bu9ABXTId/fXLsdnAQDOP42B/c7Rs3VQY65aYPVj0sYUhO3z8f
-         eLbD2P07QG0kzb1koZCC3deSKpYpdkT+XsODxJKQpPDXa15fjFjYJQgjVOKur9hQW1mG
-         iyD6NlWZrw2Z+G8UlM/IXms8MhG0PsJPu6YaEr6x8rD4eyHpDB2TDCADesiUVjvKtxYx
-         gJf2EuWBFMKmccDd4wpLkkAjBT+k+dl8aU/lREvV0MI7kJpX79vXSh/g51HNERhxPJM1
-         zudg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+bPr/ABP4uYrw4zw7Po7BqjjrAJPddaDAgazlmQaEsT9OPBI4uSUlXeeMb/HdtTSEb5QQzH2lWoBn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9F6ct2jH/CEOjb2agkr30pUx1XQfMdwT5RBeFmJ8BQk3j1EeI
-	jpaCD4EIO9uvFrL7r6OZ44m3WPYr4ChOCTqvb6un+UBWW6Zzz5h+3UsbK+bIHnpc12qlbpanIAz
-	cLOICvwVv9EKn5KKW3Hl7zPhS0bcX9xQ=
-X-Gm-Gg: AR+sD10aE/6ovHPbM+l8sYHa5auMscufre+kDHP89ygHPoi10B0HP+S/DwS5cqJROnI
-	boiCEXoVEtiepCOk/XwnEpXN0kJabpFz9naGi+ILrsrF6+LTyyBKsCByDUgVkejPEPhYbbFaXYc
-	ketjyBC1gHvtai5pmJvEkGL5FdW7Rl6SVTOIoEkM4YmI4FQ6SxGTw8GAY2AwZd2hfUnY7SikFYd
-	EJTaj4vXI/iLzFHpL9lDNO58MvUxmX5ZIycT7kC+LgjQO9Xx35J+9HCSKOU68qwL0oWpcleWalB
-	MB10hgfNQi5qFahbB5QSQ6bIGXhHThjsstC2WIUAlMCOQreLTcWro1li3af4A1b/R7LWAUzqoVg
-	UU0XxQUEza1oKpJRkg8xmFIEPBLidV40oEKCCq/JW7AUtrJmhXSCCvWdgl/7dcodn4sOliTIm9W
-	KgCtSXvAdicCPOY0IRjofQDiA8m9uOEt9/0tWlMIsDY8xnrWQ=
-X-Received: by 2002:a05:6102:801b:b0:744:dd70:a364 with SMTP id
- ada2fe7eead31-7634d10f5c8mr7573848137.9.1786304015056; Sun, 09 Aug 2026
- 12:33:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FH6fVflX";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bLKWRklc"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hJ80P08sHzMlLw;
+	Sun, 09 Aug 2026 22:01:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786305685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3/aJNXd5iDqqUVOKcqvYAIw9gUc8jDzB8J6Vs26BoSk=;
+	b=FH6fVflXoiKVMDU3Wd/7cH/DhvOhZ3xvNIC3c98Ag9ZCZ0KZ6ZspUYuGWFnKSYis0jTG+G
+	sRabeijQSMmkWNSfWUDBQdWzUilncHoZ1XIzC7PymXIqr9HRBEkZTf+uSjd0kelbnMC/qV
+	6iyZ3eF9BsDeYGT05o62XxHfUomiT/g1D8AnSmxH1Gw4YK4yYxxpX/61V/mivmKBpMMT1H
+	cJgs1WbdFq0OBKh1M7XfgOQWjYPxzm6ajZQQHBh3F61UrWDaj3rkMfNKbRw/HnN1EigLoN
+	ZqSxP+ldJl7dB0LqfUNG1HKA5HPIcoVynLCVWc3RSwaYoo2xST7rm8IY5RQJ8w==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786305682;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=3/aJNXd5iDqqUVOKcqvYAIw9gUc8jDzB8J6Vs26BoSk=;
+	b=bLKWRklclBd8qGNWZnRG7ysp/AXyzosTxeEYQUDpwQGXFqkqHgzoDU0NFP4scYRvS6N6Pw
+	J46t/CU9EVktvCKL4aVk0L5s0JdMkOF4tgM9uAXB+pc2Ldk7/GVtf7HExNka2GujRtHM+V
+	kLLtgHk6GrwrDdjsFw818yyouusEdM8OOyCFaFbDAo+rzoJ88sT/Xh62sPcp2bSd2zhyD0
+	K4bbeyiCVwMM6rQpkpT4VnOQ1WDJxhDOGTuJqRIXk3EdQUbDnfOLNBMe9VVwngRGak0iHO
+	kIrQv/eW67QwRNO93C8KuiThyueRddxsuBZ78aRXSSvi2wRZ9sgHkQw5SzEzQA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	David Airlie <airlied@gmail.com>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Simona Vetter <simona@ffwll.ch>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH 1/4] dt-bindings: display: panel: Document 10" Raspberry Pi Touch Display 2
+Date: Sun,  9 Aug 2026 21:58:50 +0200
+Message-ID: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806-submit-acx00-of-dynamic-v1-v4-0-9bf2f7441632@gmail.com>
- <20260806-submit-acx00-of-dynamic-v1-v4-1-9bf2f7441632@gmail.com> <0cdd9998-51e7-40eb-8c01-54684f6944dc@lunn.ch>
-In-Reply-To: <0cdd9998-51e7-40eb-8c01-54684f6944dc@lunn.ch>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 9 Aug 2026 13:33:22 -0600
-X-Gm-Features: AUfX_mzOq97FjaI0PSkDYysmL-_ryYIJwwwtqJFoOnJ9tJbRQVWAa9v1yb6KcCE
-Message-ID: <CADvTj4oa=G0WYAG1Hw9se3dCXxer24X-L0Oe2X-D14m7FpLOFg@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 1/4] dt-bindings: mfd: x-powers: Add AC200
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, mfd@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: bcdshhh6iepxtnuym8nqaznyoitcnpj4
+X-MBO-RS-ID: e4fbaba2bfd9eafd12a
 
-On Sun, Aug 9, 2026 at 9:34=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> > +description:
-> > +  The AC200 is a mixed-signal companion IC containing audio, video, RT=
-C and
-> > +  Fast Ethernet PHY functions. Its control registers are accessed over=
- I2C.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: x-powers,ac200
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +    description:
-> > +      AC200 input clock. When using the Ethernet PHY, its configured r=
-ate must
-> > +      be 24 or 27 MHz, matching the rates encoded by the documented EP=
-HY clock
-> > +      selector.
->
-> What is the scope of this clock. Is the PHY the only consumer?
+Document the 10" Raspberry Pi Touch Display 2 MIPI-DSI TFT LCD panel.
+The panel is based on the Ilitek ILI79600A controller.
 
-No. This is the AC200's external CKI system-clock input, not an
-EPHY-local clock. SYS_CLK_CTL selects that input as the source of the
-chip-wide SYS_CLK, and the audio, EPHY and TVE blocks have separate
-downstream clock gates. The audio clock tree also uses the 24 MHz
-system clock.
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: devicetree@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ .../display/panel/ilitek,ili79600a.yaml       | 65 +++++++++++++++++++
+ 1 file changed, 65 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml
 
-The AC200 core therefore owns and enables this shared input. The EPHY
-driver only checks its rate in order to program the EPHY-specific
-CLK_SEL bit.
+diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml
+new file mode 100644
+index 0000000000000..0a3baffef293e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili79600a.yaml
+@@ -0,0 +1,65 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/ilitek,ili79600a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ilitek ILI79600A based MIPI-DSI panels
++
++maintainers:
++  - Dave Stevenson <dave.stevenson@raspberrypi.com>
++  - Marek Vasut <marek.vasut+renesas@mailbox.org>
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - raspberrypi,dsi-10inch
++      - const: ilitek,ili79600a
++
++  reg:
++    maxItems: 1
++    description: DSI virtual channel used by the panel
++
++  enable-gpios:
++    maxItems: 1
++    description: GPIO specifier for the enable pin
++
++  avdd-supply:
++    description: Positive analog voltage supply (AVDD)
++
++  avee-supply:
++    description: Negative analog voltage supply (AVEE)
++
++  pp1800-supply:
++    description: 1.8V logic voltage supply
++
++  pp3300-supply:
++    description: 3.3V logic voltage supply
++
++  backlight: true
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "raspberrypi,dsi-10inch", "ilitek,ili79600a";
++            reg = <0>;
++            avdd-supply = <&reg_display>;
++            backlight = <&pwm_bl>;
++        };
++    };
+-- 
+2.53.0
 
-> > +  ephy-vcc-supply:
-> > +    description: 3.3 V supply for the Ethernet PHY analog front end
->
-> This sounds to be specific to the PHY, so the PHY driver should be the
-> consumer, not the MFD as a whole. That then would allow the PHY to
-> perform power management, turn the regulator off when the link is
-> admin down, so suspended.
-
-EPHY_VCC is specific to the Ethernet PHY, even when a board connects it
-to the same physical 3.3 V regulator as other AC200 supply pins. The
-regulator core will retain the shared rail while any other consumer
-still has it enabled.
-
-For v5 I have removed ephy-vcc-supply from the AC200 MFD node and moved
-the supply to the Ethernet PHY package. Both variants now use a common
-vcc-supply property, connected to EPHY_VCC on AC200 and VCC1 on AC300.
-
->
->         Andrew
