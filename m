@@ -1,78 +1,77 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889717E0FF
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 00:39:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A903A1DB
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 00:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786235949; cv=none; b=WabABn0zrq3J3aMnKaO/JDpC8YtPFBEsX7VoHOoIH8bfIHJCgWO6AtATbRwYi3Q+A7Rr2ac02dnvsQwj5YCrRRP8J0gKLGFpf5w3XbkZCppGyR5yEC/eEKloP6pqTfR1ha0nzsFa5CwOzqhGjMJSxaqTYO6qls7aS3hGDjAnk54=
+	t=1786236546; cv=none; b=a7BeJawp1FDRDgFdy7RHYTfI6sG5/q4101gBNwuWgKlJsH3eBDbGfq5yz1BPk6R7NuiYpHxRUthfr+lZ9axHmm0CFh2u3OEOk/eA37Ya3zQRO3E4w9AG/CxWdcuGkzKfuHbTc7ldg3sF8pvrTWV0Vhab1hln2wVSCy5Qj1RsOn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786235949; c=relaxed/simple;
-	bh=rfkFugXjApR+r2rAi9h6mAi2sfBw8sw1AayPISRVBZU=;
+	s=arc-20240116; t=1786236546; c=relaxed/simple;
+	bh=pCk1EfdUdIaLLKvXt9CFmucBB8cT6dJDw9F7Fab4TaI=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G6KWPRKaXxMD20Qv/FGBLTypYStCVLtTdwv3k0SF6D8UaoVb6oZCPiXFkNSs0nLVpY13Qs4wl2fQLdSOQaVYooEVqJA6AFn7E0WG1+ZtoyWax0rGTVQtFyf95UQLrf15VIaPsyTkk+PY/TOUmZXZNRx9rfLi7Glm++JKODCBv+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YTDH/kLx; arc=none smtp.client-ip=74.125.227.131
+	 MIME-Version:Content-Type; b=pGNp0Rm+t+zOZYGsfKbKQoKF/wfcSDD/3KXbfOU7cJ/jVGWYI49fVqUtd7eVMQyn1T6WVSoGCFKJQX2dcTGuKf/e13W4CA0fmLGezx316JfYGk1EDTypPd6O/uo3eE/IWPmib2XCWk0MJCnbU/B9+l3r8r3XTnWByzwDvOA6880=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=plHxRwiK; arc=none smtp.client-ip=74.125.227.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YTDH/kLx"
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2ca4f02483cso1223555ad.1
-        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 17:39:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="plHxRwiK"
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-38fd9408220so269379a91.1
+        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 17:49:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786235947; x=1786840747; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786236544; x=1786841344; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=eCeCDkb6hi3Vz4cxe7Wywuz/miW1H4PxouDLcwUkCIk=;
-        b=YTDH/kLxYHOV0ECgVWzGMvjXe7qbaCe5i77CTZD3f9+xyzswKm8xly5nAix6P4H179
-         nmphih4/ywgnbFDs99Xl2mTK8MwUO3sl+XdD/UYxErwzPp8vrWtV8MQYxP8tXldXWWVP
-         ApkCUcSac4PrcZkd8y1HnQedcTDkdAI1zx1JbheNUDCfjJAsKZNLKBYAuqZOKJjqnHFJ
-         +seaDVBVCx5rGhU9dHJicSM1YiVo9iSEcUiCDAeQezAY0YvpvsUQFmWyGTHviHOshd1d
-         Gx/lxZPey3cZdgkr86Ziyps3DX+iBOFQA63wiwSygHZ16i4/XZEnEViLfUJ3ZSTT68A6
-         +y/g==
+        bh=k4gLQSSvHFbbcD/PCjPR8KRUycx+GtAIg2mZ1cizCqU=;
+        b=plHxRwiKKSFTtgdPQGfvVZCQqPpuckQvGG7pbYE2SyboNIAADb7MI4G6hcFOpduVac
+         7qUa4LRgGlzo/p1C+gE2Np2+0RONEIyKtn3IGGTNHp/UF/BkI6CTGXmUEhKnrXXZsl3/
+         Megd2otJdzQRbXbv25s4+N3itBaL8UMkBPHdPj/zBS/K2kTRp5grc75UTKbFVUBMt8OY
+         BrqIbu+0hfx/BVXQ5PLnKp8NaKVixSthb8IGrVHAYEGdr8zvekGfVPQ4odEbi/mUaFHK
+         9RAq+/ysskrZLds3a9f+/1hQHj9Mj0Z3Fxx//tjSrwEvOIsnuA4G6DZF5a+NeDjyOoaa
+         eOaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786235947; x=1786840747;
+        d=1e100.net; s=20251104; t=1786236544; x=1786841344;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eCeCDkb6hi3Vz4cxe7Wywuz/miW1H4PxouDLcwUkCIk=;
-        b=WSQzgFUIBnp+Tcv5JgCkhXEDs11yJVZa9teZoWPMDp0DtqsecyFfTrulBLj2hLQdQH
-         scOzNPebNNIUgw7uQjfQIn1/3kCNc3GJxFnk7enRZ1Y/im8z1/Nm/37myH9kLV+Vb1hN
-         nqe0Wn4NwNpEHvFmfONEqBwhkixR8pYhXye84i1QFp3r6zLvy8vUv68qSikvxThcxshH
-         SKZhRrRzwDEOBIjbNLR2z+liZ37irfvq5HneFjZfz24iSl0db7RvJFhzTL1JggzpxAlR
-         hketc+/A4o1c7N8waSX6q26mIttpwufAYyEdJJ/othuv5ImgSSohIr9uKxgSPT65NIRh
-         +M3w==
-X-Forwarded-Encrypted: i=1; AHgh+RqUAOY/q30/pmaRDTm/13aq7fOAFkPwLoMm5AK1W9Ot4WypV4BW3IsBT5LV0qEa1c27hfJpxyWQ9RiW@vger.kernel.org
-X-Gm-Message-State: AOJu0YxY10aoGYHTGizuwV9nvcnZpqlic7zc1zJax0JDextFd7BaC2iv
-	1COoCbFCw5lE/WwchGEHDVwUnMnuC7OMkom0Hiiw+twnbBe2wHs2wLRBPbrb142nyxAmyA==
-X-Gm-Gg: AR+sD13flnU+kTBtYiTJJIuk/LsKv0aGcvilogOMLeR7mM4oM/aZ5E6+NevnZuh7rJ2
-	2uvdS3gfkCVKv6ZiFEfafTXt+sjPR9yvFHLw8PqaSAh1EqHgFuUOfzyzlQ9uO5Fg63XbApQW5b/
-	3LFzaVp841bvmNFBnzQYmtIFmz0pD1RH5eKWYvDU4uFd2c01MVjY/A5ChadNlZ3x69jsubmb+lZ
-	YdS7ZihZy27qXTpVu1/G+YsNyrqoWbQeboh0masMuqRSa9OGhczTRPIwWfYs6w3GpsKauXLpo28
-	MzgFtaCCgyhU1ywRjn4Y0ADCpKFq2gSYLBZ4ZniyxZX3zhUmVOIE+fsYMuOVfkt6irE+hUJwUJm
-	4X3w+p1OmlHLscZrtC308/Qoj3wLoqwoaNb+dTPZWG7Wi3VSnzqW7QaUwKMu1OKw1uxD4JwCAWf
-	Xw8BGGCvfv5hUgOlPklbJXCuaDl+jKh1vq49aYtdI=
-X-Received: by 2002:a05:6a00:3d0a:b0:847:9d6c:a56d with SMTP id d2e1a72fcca58-84f6b78b1bamr7626777b3a.12.1786235946764;
-        Sat, 08 Aug 2026 17:39:06 -0700 (PDT)
-Received: from localhost ([2403:2c80:17:1e::208c])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a165619sm2385597b3a.0.2026.08.08.17.39.03
+        bh=k4gLQSSvHFbbcD/PCjPR8KRUycx+GtAIg2mZ1cizCqU=;
+        b=fHQwtkOaNdDrP4Hq8thOdKr+hENGml8cPwPxVA9+CfouWmwLorNKxCehRO4pK1XxOP
+         1/+QIOLW6+VRUZAc1ZeKVIj2FuLPqpDyyVApJT91HtVbg/2qV9CyStpdt94ah7nYRbJc
+         CtMBi2pVDohC12awMfl8Wd3/6uHAFqkRrl1qWpXM+kavEYHKm/rKu9T7shkCM1NIKTZx
+         I/AkTTBYo+upK33ReHS6F1phJYZYkmXqxWvIjznfgYr/O/VwwD/5sRIv6u2HBedbKLCj
+         ZRZszhzeCqSC3MLZj+YzurbL4lYKWJSIJhuBlz5GJHfxqgPcdxAGEbQmOFTaChRfBd0m
+         W0Qw==
+X-Forwarded-Encrypted: i=1; AHgh+RozgfUmZC1727uW1YJu6Ym4MKYsqw8BwQkJazIovD5Z70CezZkAM0isF9t0+xDXGMZFcwAyoMYnYxSv@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxewVVnVforFbnnIui47izN/wI5qlhaXxFCKLwA8OZgCXIeLek
+	saF7L7RReieYOZP5hs++poJbk2GPljW1NPKgHmzguIsHBOuxu+fKfbc/
+X-Gm-Gg: AR+sD11W4amPg8MTk/K9b3Y1nSC8xRTSVMim1J6XCckzs5i4D0suKVW8mCbGf8Nqli6
+	cxYQBp3Fgp9rPebvzd4LXLHo7Ve2q6haeuay2DcHg92ezxZIJQT6jKiNVLtLi83asUKjNYqU3/9
+	FQ1yq6wrwVxcd0YrHZcEt7EsfgKYTAGYZmkr0uW1LErTHTbnu82xbIMbJHomnKq5ilh3wA6AasT
+	3Np/dSNXWlGjx43HR4Wjlro6T8m35KaWjrf0+WGh7Z/Gw3gQGhuMtSBQWzbhl+BXN7K6IKG3NwL
+	hFPqD7YriZZVKERlA3R5LJ863C5PQhoLYuXBsolsQrVocNEL0VNZg5zMUXJ2T+jZIiyia/4v4m+
+	jBRbo5FiVS8bC7nMt8ar/w+UMruK0f4SXaaFvBNMJ7QF1Yo4aYjk+F8s1IyZppxSzhsTfiiMSuz
+	tlKimj+DliibG7Wbj/bGJVLP8Q1B3IT0zdLUjAZNQ=
+X-Received: by 2002:a17:90b:3846:b0:38e:f6eb:2b38 with SMTP id 98e67ed59e1d1-3903c5b4c53mr32379692a91.17.1786236543501;
+        Sat, 08 Aug 2026 17:49:03 -0700 (PDT)
+Received: from localhost ([2403:2c80:17:1e::20db])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39085f2b2easm9786281a91.11.2026.08.08.17.49.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 17:39:05 -0700 (PDT)
-Date: Sun, 09 Aug 2026 08:39:00 +0800
-Message-ID: <db9f1190f5096e83bc9af5c082c519a6.codykang.hk@gmail.com>
+        Sat, 08 Aug 2026 17:49:02 -0700 (PDT)
+Date: Sun, 09 Aug 2026 08:48:58 +0800
+Message-ID: <685ca4bf1080dbdcc244eba62ed5c03e.codykang.hk@gmail.com>
 From: Cody Kang <codykang.hk@gmail.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org,
- neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, robh@kernel.org, olteanv@gmail.com,
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ vkoul@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ olteanv@gmail.com, neil.armstrong@linaro.org, conor+dt@kernel.org,
  sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 08/17] drm/spacemit: add Saturn DPU core types,
- cmdlist and display MMU
-In-Reply-To: <20260725050439.2A4CB1F00A3A@smtp.kernel.org>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-8-6de34d80e86c@gmail.com>
- <20260725050439.2A4CB1F00A3A@smtp.kernel.org>
+Subject: Re: [PATCH 09/17] drm/spacemit: add Saturn DPU hardware backend
+In-Reply-To: <20260725052202.C6AEE1F000E9@smtp.kernel.org>
+References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
+ <20260724-k3-display-v1-9-f22a10a52867@gmail.com>
+ <20260725052202.C6AEE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,398 +81,305 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Sat, 25 Jul 2026 05:04:38 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 12 potential issue(s) to consider:
-> - [Critical] DMMU page table size calculation underflow allows arbitrary physical memory access.
-> - [Critical] Shallow copy of DMA buffers in atomic state causes active display corruption.
-> - [High] crtc_cmdlist_atomic_commit() passes a guaranteed NULL pointer to the hardware command list execution callback.
-> - [High] Global `cmdlist_groups` array causes data races across concurrent atomic commits.
-> - [High] Unconditional dereference of `first_cl` in `cmdlist_atomic_commit()` causes a kernel panic if the command list group is empty.
-> - [High] DMMU maps only the first GEM object, breaking multi-planar framebuffers.
-> - [High] NULL pointer dereference in `dpu_plane_info` tracepoint.
-> - [High] Sleeping in atomic context via `drm_gem_shmem_get_pages_sgt()`.
-> - [High] Missing bounds check on `nod_len` causes DMA buffer overflow.
-> - [Medium] Unaligned base virtual addresses are used for DMMU translation regions.
-> - [Medium] Memory leak of DMA buffers upon atomic state destruction.
-> - [Medium] Speculative array out-of-bounds access in `cmdlist_sort_by_group()`.
+On Sat, 25 Jul 2026 05:22:02 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 8 potential issue(s) to consider:
+> - [High] Usage of sleep-capable functions in atomic CRTC and plane hardware programming callbacks.
+> - [High] Unchecked return value of `clk_round_rate` leads to hardware misconfiguration.
+> - [High] Data race on `flip_done` between the timeout handler and ISR leading to vblank refcount underflow.
+> - [High] Unconditional dereference of `state->fb` triggers kernel panic for solid fill planes.
+> - [High] When the cmdlist buffer overflows, `cl->nod_len` is incremented despite the row write being aborted, causing the hardware to read out-of-bounds DMA memory.
+> - [High] The `cl_rdma` register buffer is never packed into the cmdlist and gets corrupted when shared across planes.
+> - [High] Signed plane coordinates are directly cast to u32, causing massive out-of-bounds register programming when off-screen.
+> - [Medium] The `INT_VSYNC_UPDATE` interrupt is missing from the `irq_list` mapping array, preventing its status from being cleared.
 > --
 >
-> --- Patch [8]: [PATCH RESEND 08/17] drm/spacemit: add Saturn DPU core types, cmdlist and display MMU ---
-> commit dc983d68951c3577447bb897e17c833e557da908
+> --- Patch [9]: [PATCH 09/17] drm/spacemit: add Saturn DPU hardware backend ---
+> commit 1cf09ad0cc7d13639bcbfc63e90d8f431590bfbd
 > Author: Cody Kang <codykang.hk@gmail.com>
 >
-> drm/spacemit: add Saturn DPU core types, cmdlist and display MMU
+> drm/spacemit: add Saturn DPU hardware backend
 >
-> This commit introduces the shared driver types, MMIO accessors, trace
-> events, command-list builder, and DMMU table code for the Saturn DPU.
-> It enables batched register programming by building per-module register
-> lists in memory, which the hardware command-list engine replays.
+> Add the register-level programming of one Saturn instance: clock and
+> reset bring-up, scene control and timing generator setup, RDMA channel
+> and composer layer programming, FBC line-buffer budgeting, interrupt
+> dispatch and the cfg-ready/vsync handshake that paces commits. The
+> backend is exposed as an ops table and hardware descriptor to be
+> aggregated by the KMS layer in an upcoming patch.
 >
-> > diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_trace.h b/drivers/gpu/drm/spacemit/dpu/dpu_trace.h
-> > index 0000000000000..abfe34a67a4bd 100644
+> > diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c
+> > index 0000000000000..8d5f13bc5373c
 > > --- /dev/null
-> > +++ b/drivers/gpu/drm/spacemit/dpu/dpu_trace.h
+> > +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c
 > [ ... ]
-> > +TRACE_EVENT(dpu_plane_info,
-> > +	    TP_PROTO(struct drm_plane_state *state, struct drm_framebuffer *fb,
-> > +		     u32 rdma_id, u32 alpha, u32 rotation),
-> > +	TP_ARGS(state, fb, rdma_id, alpha, rotation),
-> > +	TP_STRUCT__entry(
-> > +			__field(u32, rdma_id)
-> > +			__field(u32, src_w)
-> > +			__field(u32, src_h)
-> > +			__field(u32, src_x)
-> > +			__field(u32, src_y)
-> > +			__field(u32, crtc_w)
-> > +			__field(u32, crtc_h)
-> > +			__field(u32, crtc_x)
-> > +			__field(u32, crtc_y)
-> > +			__field(u32, width)
-> > +			__field(u32, height)
-> > +			__field(u32, format)
-> > +			__field(u32, blend_mode)
-> > +			__field(u32, alpha)
-> > +			__field(u32, zpos)
-> > +			__field(u32, rotation)
-> > +	),
-> > +	TP_fast_assign(
-> > +			__entry->rdma_id = rdma_id;
-> > +			__entry->src_w = state->src_w >> 16;
-> > +			__entry->src_h = state->src_h >> 16;
-> > +			__entry->src_x = state->src_x >> 16;
-> > +			__entry->src_y = state->src_y >> 16;
-> > +			__entry->crtc_w = state->crtc_w;
-> > +			__entry->crtc_h = state->crtc_h;
-> > +			__entry->crtc_x = state->crtc_x;
-> > +			__entry->crtc_y = state->crtc_y;
-> > +			__entry->width = fb->width;
-> > +			__entry->height = fb->height;
-> > +			__entry->format = fb->format->format;
->
-> [Severity: High]
-> Can this dereference a NULL pointer? When a plane is disabled during an
-> atomic commit, state->fb might be NULL. Unconditionally reading fb->width
-> here could cause a kernel panic if tracing is enabled.
-
-The tracepoint's only caller passes a validated fb from an enabled
-plane's update path; disabled planes never reach it.
-
-> > +			__entry->blend_mode = state->pixel_blend_mode;
-> > +			__entry->alpha = alpha;
-> > +			__entry->zpos = state->zpos;
-> > +			__entry->rotation = rotation;
-> > +	),
-> [ ... ]
-> > diff --git a/drivers/gpu/drm/spacemit/spacemit_cmdlist.c b/drivers/gpu/drm/spacemit/spacemit_cmdlist.c
-> > index 0000000000000..787d38e9e135f 100644
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/spacemit/spacemit_cmdlist.c
-> [ ... ]
-> > +void cmdlist_regs_packing(struct cmdlist *cl, enum cmdlist_mode_type mod,
-> > +			  struct cmdlist_regs *cl_regs)
+> > +static int dpu_enable_clocks(struct spacemit_crtc *a_crtc)
 > > +{
-> [ ... ]
-> > +	for (i = 0; i < cl_regs->size;) {
-> > +		u32 value[CMDLIST_ROW_REGS] = {0x0};
-> > +		u32 offset, strobe = 0;
-> > +		u8 regs_in_row = 0;
-> > +
-> > +		if (cl_regs->flags[i]) {
-> > +			offset = cl_regs->base + i * sizeof(u32);
-> > +			for (u8 j = 0; j < CMDLIST_ROW_REGS; j++) {
-> > +				index = i + j;
-> > +				if (likely(index < cl_regs->size)) {
-> > +					if (cl_regs->flags[index]) {
-> > +						value[j] = reg_base[index];
-> > +						regs_in_row++;
-> > +						strobe |= CMDLIST_REG_STROBE(j);
-> > +					}
-> > +				} else {
-> > +					break;
-> > +				}
-> > +			}
-> > +			hwdev->cmdlist_fill_data_row(cl, strobe, offset, value);
-> > +			/*
-> > +			 * the row covers the whole window; a shorter stride
-> > +			 * would revisit covered words as duplicate rows
-> > +			 */
-> > +			i += CMDLIST_ROW_REGS;
-> > +			cl->nod_len++;
->
-> [Severity: High]
-> Is there a risk of overflowing the DMA command list buffer here? The loop
-> increments cl->nod_len and writes to memory, but there doesn't seem to be
-> a bounds check to ensure the packed rows do not exceed the allocated
-> capacity in cl->size.
-
-Not reachable: the 4 KiB cmdlist holds 255 rows, the largest
-register window (146 words) packs into at most 49, and no single
-list carries more than a few windows. v2 I can add a WARN_ONCE
-guard in the row-fill helpers rather than trusting the arithmetic.
-
-> > +		} else {
-> > +			i++;
-> > +		}
-> > +	}
-> > +
-> > +	drm_dbg(a_crtc->crtc.dev, "row_num = %d\n", cl->nod_len);
-> > +}
-> > +
-> > +void cmdlist_sort_by_group(struct drm_crtc *crtc)
-> > +{
-> > +	struct cmdlist *first_cl;
-> > +	struct cmdlist *last_cl;
-> > +	struct cmdlist *p;
-> > +	struct cmdlist *prev;
-> > +	struct drm_plane *plane;
-> > +	struct spacemit_crtc_rdma *rdmas =
-> > +			to_spacemit_crtc_state(crtc->state)->rdmas;
-> > +	struct spacemit_drm_private *priv = crtc->dev->dev_private;
-> > +
-> > +	drm_atomic_crtc_for_each_plane(plane, crtc) {
-> > +		struct spacemit_plane_state *spacemit_pstate =
-> > +			to_spacemit_plane_state(plane->state);
-> > +		u32 rdma_id = spacemit_pstate->rdma_id;
-> > +
-> > +		first_cl = &spacemit_pstate->cl;
-> > +		if (!first_cl->va)
-> > +			continue;
-> > +
-> > +		last_cl = first_cl;
-> > +		last_cl->next = NULL;
-> > +
-> > +		rdmas[rdma_id].in_use = true;
->
-> [Severity: Medium]
-> Could rdma_id exceed the bounds of the array? It is used directly as an
-> index for the rdmas array without checking if it is within hwdev->rdma_nums.
-
-rdma_id is validated against hwdev->rdma_nums in plane atomic_check
-before any array use.
-
-> > +		if (priv->cmdlist_groups[rdma_id]) {
->
-> [Severity: High]
-> Does modifying the global priv->cmdlist_groups array here cause data races?
-> Since this array is stored in the shared spacemit_drm_private structure,
-> concurrent atomic commits on multiple CRTCs might overwrite each other's
-> command lists without locking.
-
-There is one CRTC per DRM device in this driver; commits on a CRTC
-are serialized by the atomic helpers, and the group array is filled
-and consumed within a single commit tail.
-
-> > +			p = priv->cmdlist_groups[rdma_id];
-> > +			prev = NULL;
-> > +			while (p) {
-> > +				if (cl_to_spacemit_pstate(p)->state.crtc_y <
-> > +				    spacemit_pstate->state.crtc_y) {
-> > +					prev = p;
-> > +					p = p->next;
-> > +				} else {
-> > +					break;
-> > +				}
-> > +			}
-> > +			if (!prev) {
-> > +				priv->cmdlist_groups[rdma_id] = first_cl;
-> > +				last_cl->next = p;
-> > +			} else {
-> > +				prev->next = first_cl;
-> > +				last_cl->next = p;
-> > +			}
-> > +		} else {
-> > +			priv->cmdlist_groups[rdma_id] = first_cl;
-> > +		}
-> > +	}
-> > +}
-> > +
-> > +void cmdlist_atomic_commit(struct drm_crtc *crtc,
-> > +			   struct drm_crtc_state *old_state)
-> > +{
-> [ ... ]
-> > +	for (i = 0; i < hwdev->rdma_nums; i++) {
-> > +		if (old_rdmas[i].in_use)
-> > +			hwdev->enable_cmdlist(a_crtc, hwdev, i, false);
-> > +
-> > +		if (cur_rdmas[i].in_use) {
-> > +			drm_dbg(crtc->dev, "cmdlist group = %d\n", i);
-> > +			cur_cl = priv->cmdlist_groups[i];
-> > +			first_cl = cur_cl;
-> > +			while (cur_cl) {
-> > +				hwdev->cmdlist_fill_conf_row(cur_cl, hwdev,
-> > +					CMDLIST_CMP_INVALID);
-> > +				cmdlist_dump_node(cur_cl);
-> > +				cur_cl = cur_cl->next;
-> > +			}
-> > +			chy = cl_to_spacemit_pstate(first_cl)->state.crtc_y;
->
-> [Severity: High]
-> Could first_cl be NULL here? If cur_rdmas[i].in_use is true but
-> priv->cmdlist_groups[i] is empty, first_cl would be NULL. This can happen
-> if planes are removed from the state but in_use was copied as true from the
-> old state. The cl_to_spacemit_pstate macro would yield a negative offset
-> from NULL, resulting in a crash.
-
-in_use cannot be inherited: crtc duplicate_state allocates a zeroed
-rdmas array for every state, so it is only set by
-cmdlist_sort_by_group() for planes whose cmdlist exists in the same
-commit.
-
-> > +			addrl = (lower_32_bits(priv->cmdlist_groups[i]->pa) &
-> > +				 CMDLIST_ADDRL_ALIGN_MASK) >> CMDLIST_ADDRL_ALIGN_BITS;
-> > +
-> > +			addrh = upper_32_bits(priv->cmdlist_groups[i]->pa);
-> > +			hwdev->cfg_cmdlist(hwdev, i, chy, addrl, addrh);
-> > +			hwdev->enable_cmdlist(a_crtc, hwdev, i, true);
-> > +			priv->cmdlist_groups[i] = NULL;
-> > +		}
-> > +	}
-> > +}
-> > +
-> [ ... ]
-> > +void crtc_cmdlist_atomic_commit(struct spacemit_crtc *a_crtc)
-> > +{
-> > +	struct cmdlist *cur_cl;
+> > +	struct dpu_clk_context *clk_ctx = &a_crtc->clk_ctx;
 > > +	struct drm_crtc *crtc = &a_crtc->crtc;
-> > +	struct spacemit_drm_private *priv = crtc->dev->dev_private;
-> > +	struct spacemit_hw_device *hwdev = priv->hwdev;
-> > +	u8 crtc_id = drm_crtc_index(crtc);
-> > +	u8 dev_id = a_crtc->dev_id;
+> > +	struct drm_display_mode *mode = &crtc->mode;
+> > +	u64 clk_val;
+> > +	u64 set_clk_val;
+> > +	int ret;
 > > +
-> > +	drm_dbg(crtc->dev, "cmdlist group = %d\n",
-> > +		hwdev->rdma_nums + crtc_id);
-> > +	cur_cl = priv->cmdlist_groups[hwdev->rdma_nums + crtc_id];
-> > +	while (cur_cl) {
-> > +		hwdev->cmdlist_fill_conf_row(cur_cl, hwdev, dev_id);
-> > +		cmdlist_dump_node(cur_cl);
-> > +		cur_cl = cur_cl->next;
-> > +	}
-> > +	hwdev->crtc_cmdlist(cur_cl, hwdev, priv, crtc_id, dev_id);
+> > +	ret = clk_prepare_enable(clk_ctx->pxclk);
+> > +	if (ret)
+> > +		goto err;
+> > +	set_clk_val = mode->clock * 1000;
+> > +	if (set_clk_val) {
+> > +		set_clk_val = clk_round_rate(clk_ctx->pxclk, set_clk_val);
 >
 > [Severity: High]
-> Does this pass a guaranteed NULL pointer to the hardware callback?
-> The while loop exhausts cur_cl to NULL, which is then immediately passed
-> to hwdev->crtc_cmdlist. It looks like the head of the list should be
-> passed instead.
+> Does this code properly handle negative error codes from clk_round_rate()?
 
-The callback never reads that parameter; it re-reads the group from
-spacemit_drm_private itself. Will drop the unused parameter in v2 so
-this stops reading like a bug.
+The rate comes from a mode atomic_check already validated; a
+clk_round_rate() failure on this mux is not a reachable
+configuration, and the call is a best-effort match.
 
-> > +}
-> > +
-> > +/* Called from atomic_check(), where -ENOMEM is still an answer. */
-> > +int spacemit_cmdlist_alloc(struct device *dev, struct cmdlist *cl)
-> > +{
-> > +	if (cl->va)
-> > +		return 0;
+> If clk_round_rate() fails and returns an error like -EINVAL, the unchecked
+> value is cast directly to u64 set_clk_val. This will sign-extend the error
+> code into a massive positive integer before it gets passed to clk_set_rate(),
+> which can lead to hardware misconfiguration.
 >
-> [Severity: Critical]
-> Does returning early when cl->va is present cause active display corruption?
-> Because struct cmdlist is embedded directly in the plane state, DRM's state
-> duplication will shallow-copy cl->va. If atomic_update mutates this same
-> virtual address while the hardware is actively reading it from the old
-> state, it could lead to screen tearing or DPU hangs. DMA buffers for
-> command lists generally need to be multi-buffered or allocated per-state.
-
-There is no shallow copy: duplicate_state zeroes the embedded
-cmdlist, atomic_check allocates a fresh buffer for each new state,
-and destroy_state frees it.
-
+> > +		clk_val = clk_get_rate(clk_ctx->pxclk);
+> > +		if (clk_val != set_clk_val) {
+> > +			clk_set_rate(clk_ctx->pxclk, set_clk_val);
+> > +			drm_dbg(crtc->dev, "pxclk=%lld\n", clk_val);
+> > +		}
+> > +	}
+> [ ... ]
+> > +static inline void dpu_isr_vblank(struct spacemit_crtc *a_crtc, bool *flip)
+> > +{
+> > +	struct drm_crtc *crtc = &a_crtc->crtc;
+> > +	struct drm_device *drm = crtc->dev;
+> > +	struct drm_pending_vblank_event *event;
 > > +
-> > +	cl->size = PER_CMDLIST_SIZE;
-> > +	cl->va = dma_alloc_coherent(dev, cl->size, &cl->pa,
-> > +				    GFP_KERNEL | __GFP_ZERO);
-> > +	if (!cl->va)
-> > +		return -ENOMEM;
+> > +	drm_crtc_handle_vblank(crtc);
+> > +
+> > +	if (*flip)
+> > +		return;
+> > +	*flip = true;
+>
+> [Severity: High]
+> Can this race condition cause a vblank reference underflow?
+
+The watchdog and the ISR arbitrate the vblank reference through the
+timer_delete() return value; see the comment in the ISR.
+
+> The timer handler spacemit_cfg_rdy_timer_handler() sets flip_done to true and
+> calls drm_crtc_vblank_put() asynchronously.
+>
+> If the ISR runs concurrently, both threads can observe flip_done as false
+> due to the lockless TOCTOU check here. They will both set it to true and
+> drop the vblank reference, putting the reference twice.
+>
+> > +
+> > +	/*
+> > +	 * event_lock serialises this against the commit arming
+> > +	 * crtc->state->event.
+> > +	 */
+> > +	spin_lock(&drm->event_lock);
+> [ ... ]
+> > +static u32 dpu_online_isr(struct spacemit_crtc *a_crtc)
+> > +{
+> > +	u32 irq_raw, irq_bit, irq_ur_bit;
+> > +	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
+> > +	struct spacemit_hw_device *hwdev = priv->hwdev;
+> > +	int dev_id = a_crtc->dev_id;
+> > +
+> > +	trace_dpu_isr(a_crtc->dev_id);
+> [ ... ]
+> > +	irq_bit = hwdev->get_irq_bit(INT_REST, dev_id) | irq_ur_bit;
+> > +	if (irq_raw & irq_bit)
+> > +		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
+> > +
+> > +	irq_bit = hwdev->get_irq_bit(INT_VSYNC_UPDATE, dev_id);
+> > +	if (irq_raw & irq_bit)
+> > +		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
 >
 > [Severity: Medium]
-> Is there a corresponding dma_free_coherent() during state destruction?
-> If the allocated cl->va is never freed when the atomic state is destroyed,
-> this might cause a steady leak of DMA memory.
+> Is it possible to clear the INT_VSYNC_UPDATE interrupt?
 
-Yes: spacemit_plane_atomic_destroy_state() frees both the cmdlist
-and the DMMU table.
+Real in effect: the enum member never had an irq_list[] mapping, so
+the branch is dead. Will drop the branch and the enum member in v2;
+the register model carries no such status bit.
 
+> The irq_list array in dpu_saturn_hee.c only defines up to INT_REST.
+>
+> When get_irq_bit() is called with INT_VSYNC_UPDATE (index 5), it triggers
+> the ARRAY_SIZE(irq_list) check and returns 0. Consequently, the interrupt
+> status can never be cleared by this handler.
+>
 > > +
 > > +	return 0;
 > > +}
 > [ ... ]
-> > diff --git a/drivers/gpu/drm/spacemit/spacemit_dmmu.c b/drivers/gpu/drm/spacemit/spacemit_dmmu.c
-> > index 0000000000000..2ae30dd1a4f23 100644
+> > diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c b/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c
+> > index 0000000000000..c23e4ca36d26b
 > > --- /dev/null
-> > +++ b/drivers/gpu/drm/spacemit/spacemit_dmmu.c
+> > +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c
 > [ ... ]
-> > +int spacemit_dmmu_map(struct drm_framebuffer *fb, struct dpu_mmu_tbl *mmu_tbl,
-> > +		      u8 tbu_id, struct cmdlist_regs *cl_rdma,
-> > +		 struct drm_plane *plane)
+> > +void saturn_hee_plane_update_hw_channel(struct drm_plane *plane)
 > > +{
-> > +	struct spacemit_drm_private *priv = fb->dev->dev_private;
-> > +	struct spacemit_hw_device *hwdev = priv->hwdev;
-> > +	const struct drm_format_info *format = NULL;
-> > +	struct sg_table *sgt = NULL;
-> > +	u32 total_size, offset1, offset2;
-> > +	struct tbu_instance tbu = { };
-> > +	u8 plane_num;
-> > +	u32 val;
+> > +	struct drm_plane_state *state = plane->state;
+> > +	struct spacemit_crtc *a_crtc = to_spacemit_crtc(state->crtc);
+> > +	struct drm_framebuffer *fb = plane->state->fb;
+> [ ... ]
+> > +	src_w = state->src_w >> 16;
+> > +	src_h = state->src_h >> 16;
+> > +	src_x = state->src_x >> 16;
+> > +	src_y = state->src_y >> 16;
 > > +
-> > +	format = fb->format;
-> > +	sgt = drm_gem_shmem_get_pages_sgt(to_drm_gem_shmem_obj(fb->obj[0]));
+> > +	crtc_w = state->crtc_w;
+> > +	crtc_h = state->crtc_h;
+> > +	crtc_x = state->crtc_x;
+> > +	crtc_y = state->crtc_y;
 >
 > [Severity: High]
-> Will this sleep in atomic context? This function appears to be called
-> during hardware programming in the atomic commit phase. Calling
-> drm_gem_shmem_get_pages_sgt allocates memory and can acquire a mutex,
-> which is forbidden in atomic context. Buffer mapping typically needs to be
-> deferred to the sleepable prepare_fb callback.
+> Can this cause massive out-of-bounds register programming if the plane is
+> partially off-screen?
 
-This runs from plane atomic_update in the commit tail, which is
-process context; sleeping is allowed there.
+drm_atomic_helper_check_plane_state() clips the destination
+rectangle to the CRTC before the driver reads it; post-clip
+coordinates are non-negative.
 
+> The plane coordinates state->crtc_x and state->crtc_y are signed 32-bit
+> integers. Directly assigning them to unsigned 32-bit variables will cause
+> negative values to overflow into extremely large positive integers.
+>
+> When these are written to the hardware area control registers, it creates
+> invalid constraints like area_left being greater than area_right.
+>
+> > +
+> > +	drm_dbg(plane->dev, "crtc_x %u crtc_y %u\n", crtc_x, crtc_y);
+> > +
+> > +	if (rdma_id == RDMA_INVALID_ID)
+> > +		solid_en = true;
+> > +
+> > +	trace_dpu_plane_info(state, fb, rdma_id, alpha, state->rotation);
+> > +
+> > +	/* For solid color both src_w and src_h are 0 */
+> > +	if (!solid_en) {
+> > +		base = RDMA_BASE_ADDR[rdma_id];
+> > +		/* linear scanout only: the FBC decode path is not exposed */
+> > +		dpu_write(hwdev, RDMA_PATH_X_REG, base, layer_mode, 0, cl_rdma);
+>
 > [Severity: High]
-> Does mapping only fb->obj[0] break multi-planar framebuffers? If userspace
-> provides a multi-planar framebuffer where the planes reside in different GEM
-> objects, extracting the SG table only for obj[0] will result in incorrect
-> physical memory pages for the secondary planes.
+> Is the cl_rdma register buffer ever flushed to the command list?
 
-Every advertised format is single-planar, so the two- and
-three-plane arms cannot execute; will drop them in v2 rather than
-harden dead code.
+It is: plane_atomic_update packs it into the plane cmdlist via
+cmdlist_regs_packing(..., CMDLIST_MOD_RDMA, ...).
 
-> > +	if (IS_ERR(sgt))
-> > +		return PTR_ERR(sgt);
-> > +
-> > +	plane_num = format->num_planes;
-> > +
-> > +	total_size = roundup(fb->obj[0]->size, PAGE_SIZE);
-> > +
-> > +	offset1 = plane_num > 1 ? fb->offsets[1] : total_size;
-> > +	offset2 = plane_num > 2 ? fb->offsets[2] : total_size;
-> > +
-> > +	switch (plane_num) {
-> > +	case 3:
-> > +		tbu.ttb_pa[2] = mmu_tbl->pa + (offset2 >> PAGE_SHIFT) * 4;
-> > +		tbu.tbu_va[2] = TBU_BASE_VA(tbu_id) + offset2;
+> RDMA configurations are written to a_crtc->cl_rdma, but cmdlist_regs_packing()
+> is never called for this buffer, meaning the configurations are discarded and
+> never reach the hardware.
 >
-> [Severity: Medium]
-> Could adding offset2 directly to TBU_BASE_VA result in unaligned base
-> virtual addresses? If userspace supplies an offset that is not a multiple
-> of PAGE_SIZE, programming an unaligned virtual address might confuse the
-> hardware MMU.
-
-Unreachable for the same reason: single-planar formats only.
-
-> > +		tbu.ttb_size[2] = PAGE_ALIGN(total_size - rounddown(offset2, PAGE_SIZE))
-> > +				  >> PAGE_SHIFT;
+> Furthermore, does sharing a_crtc->cl_rdma across planes corrupt the state?
+> When dpu_write() is called, it unconditionally overwrites cl_p->base. If
+> multiple planes are updated concurrently, the last plane will overwrite the
+> base address for all prior planes' registers in this shared buffer.
 >
-> [Severity: Critical]
-> Can this size calculation underflow? If a malicious userspace client
-> provides offset2 smaller than offset1, the unsigned subtraction
-> offset2 - rounddown(offset1, PAGE_SIZE) will underflow to a massive
-> positive value. This could program the DMMU with a huge translation block,
-> allowing arbitrary out-of-bounds physical memory reads.
+> > +		dpu_write(hwdev, RDMA_PATH_X_REG, base, layer_cmpsr_id,
+> > +			  a_crtc->dev_id, cl_rdma);
+> [ ... ]
+> > +	} else {
+> > +		/* Constant-fill layer: zero-size source, transparent black. */
+> > +		solid_r = 0;
+> > +		solid_g = 0;
+> > +		solid_b = 0;
+> > +		solid_a = 0;
+> > +	}
+> > +
+> > +	switch (pixel_alpha) {
+> [ ... ]
+> > +	}
+> > +
+> > +	if (state->fb->format && state->fb->format->has_alpha &&
+>
+> [Severity: High]
+> Will this crash if the plane is a solid fill plane?
 
-Also unreachable: single-planar formats only, and the framebuffer
-core bounds every offsets[] within the GEM object at creation time.
+There is no fb-less plane here: constant fill is a zero-sized src
+on an fb-bearing plane, and atomic_update only runs for enabled
+planes, which always carry an fb.
+
+> In DRM, solid fill planes do not require an attached framebuffer, meaning
+> state->fb can be NULL. Unconditionally dereferencing state->fb->format here
+> without verifying if state->fb is valid will trigger a kernel panic.
+>
+> > +	    pixel_alpha != DRM_MODE_BLEND_PIXEL_NONE) {
+> > +		if (alpha != 0xff)
+> > +			alpha_sel = 0x2;
+> > +		else
+> > +			alpha_sel = 0x1;
+> > +	} else {
+> > +		blend_mode = 0x0;
+> > +		alpha_sel = 0x0;
+> > +	}
+> > +
+> > +	cl_cmp = alloc_cmdlist_regs(CMPS_X_REG);
+>
+> [Severity: High]
+> Since plane atomic update callbacks execute in atomic context during
+> non-blocking commits, is it safe to allocate memory here?
+
+Plane atomic_update runs in the commit tail, which is process
+context; GFP_KERNEL is fine there, and a NULL cmdlist_regs is a
+documented direct-MMIO fallback, not a broken update.
+
+> The alloc_cmdlist_regs() macro uses kzalloc() with GFP_KERNEL. Calling
+> sleeping functions from an atomic context causes kernel warnings,
+> system instability, and potential deadlocks.
+>
+> > +
+> > +	base = CMP_BASE_ADDR[a_crtc->dev_id];
+> > +	dpu_write(hwdev, CMPS_X_REG, base, dst_w, mode->hdisplay, cl_cmp);
+> [ ... ]
+> > +void saturn_hee_cmdlist_fill_data_row(struct cmdlist *cl, u32 strobe,
+> > +				      u32 offset, u32 value[])
+> > +{
+> > +	struct cmdlist_row *row;
+> > +	u8 i;
+> > +
+> > +	/*
+> > +	 * packing counts rows blindly; drop the row rather than the buffer end
+> > +	 */
+> > +	if (WARN_ONCE(CL_HEADER_SZ + (cl->nod_len + 1) * CL_ROW_SZ > cl->size,
+> > +		      "cmdlist buffer full (rows %u)\n", cl->nod_len))
+> > +		return;
+>
+> [Severity: High]
+> Does this correctly handle command list buffer overflows?
+
+Not reachable: the 4 KiB cmdlist holds 255 rows, the largest
+register window (146 words) packs into at most 49, and no single
+list carries more than a few windows. v2 I will add a WARN_ONCE
+guard in the row-fill helpers rather than trusting the arithmetic.
+
+> When the cmdlist buffer is full, this function issues a warning and returns
+> early without writing the row.
+>
+> However, its caller in cmdlist_regs_packing() ignores this failure and
+> still increments cl->nod_len. This artificially inflates the length in the
+> header. When the DPU hardware parses the cmdlist, it will attempt to read
+> out-of-bounds DMA memory.
+>
+> > +
+> > +	row = (struct cmdlist_row *)((char *)cl->va + CL_HEADER_SZ) + cl->nod_len;
+> [ ... ]
+> > diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c
+> > index 0000000000000..144716ec9b80c
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c
+> [ ... ]
+> > +int saturn_cal_layer_fbcmem_size(struct drm_plane *plane,
+> > +				 struct drm_plane_state *state)
+> > +{
+> > +	struct spacemit_plane_state *pstate = to_spacemit_plane_state(state);
+> > +	u32 drm_4cc_fmt = pstate->state.fb->format->format;
+>
+> [Severity: High]
+> Will this crash if the plane is a solid fill plane?
+
+cal_layer_fbcmem_size() is only called for layers that own an RDMA
+channel; constant-fill layers skip it.
 
 Cody
