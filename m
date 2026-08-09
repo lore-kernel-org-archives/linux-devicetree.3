@@ -1,130 +1,152 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 993F2282F0E;
-	Sun,  9 Aug 2026 15:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7442874E6
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 16:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786290668; cv=none; b=Oo0bgBRG2FH82lMKPYNRqxIrxySg553vid07ik4RgYlYRcOyjBqQdLKdF1JIKijiJScLdK312Z1swsfu/87rpEiNge2YYbFpbYt+XNsQrkyHCzv1TgV+uU4xPL6O5+I706F0CGcgVYRJfshFQdjArQ72EC37c38pp6nj9q/SnG4=
+	t=1786291626; cv=none; b=HShA2BTSMP31RbUDHdnWU3dzLo1zX6vIf3l5GO/LyYeXANJ5Wkr0M0kwbOzVivzSIhSOoKEDZs1mDGE/hQfNqlYkndhu0IuULCFspgt7cdHFwprsgjq/SrIYnTpyWiRcsv+DSMNYf2hj0sRq35Jnf3qG/TztNRKaswd9NsxVw2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786290668; c=relaxed/simple;
-	bh=w+Itt6ZD1Vs4N2aUI7pQaqQBvvL8sDAcH0olZuIcjvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NqERPKjdkNrpLVKSvBJoF+bC8LiUf0YznpujqPyAw7TGMQGlmI7//iCzWx0YkF0iLh+SntWgfKybAkLEIk6gfzkqhLGe491KLJmXF1kug+5zylB5zQi8EYV4wQpA/S4MKk0J/4ZdVLNzKc/tr9YjVIHci4kGe5S9LQzWdwTHSP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=VlWXoG0d; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1786291626; c=relaxed/simple;
+	bh=YS+2AWHELoIZmaH1G2cjnMm/mdbwgvu6PbnYQhPEibg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O8OS8w5sLL7neqfo63Oj8Dm9yNcLrjAMDcXRTIicRpBBibWSPfr9z2omS+Eem7AYdnVUi2N7HlnLz0MUF9Zq/JLAf59wEWJByrUNUvTJbov9CqoD7M76rKfGQFPvRMyNU3FZlAiM6yN8v53O5J4yrtySMS5nWWLJxeTx5EJGH84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J8cmXfmE; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="VlWXoG0d"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=FgNLfj3pfkm7LDmMsixDlk5BWQLGphalBVmSeIOSmRU=; b=VlWXoG0doB9riYD5Hmpl5/zZwi
-	+IG8ajM40E3Mz2kKc1lZxfmmnDhZlu0QphOlr1F4PNfkem6mgCRZQfV9Dm4jE6St6PTf8wWSg3iGc
-	Ho13wYhuVzyXUKaY2BWFQrfQFLimWeAN4I+AxquKGPRmHV+LL9PdWHZ2UMzopQ6jipls=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wt5nd-00GpEc-5p; Sun, 09 Aug 2026 17:50:57 +0200
-Date: Sun, 9 Aug 2026 17:50:57 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J8cmXfmE"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48000c5d6d3so404943f8f.1
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 09:07:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786291623; x=1786896423; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gNSsiXJWRtJEnKo3j2+KbnfQcpFMSwgfHd0NV7zL7z0=;
+        b=J8cmXfmESgmZf+BGQMoDxsehuBaICaNRoF/DmIU42u1M9zo5OHhVmvzRJWo8kuGvw7
+         YFJqisRSddEcf77LXTXF1d6lptD4U+UVLuRgNByqyQeA0K17hxZEtHcJO+8DSW6azXkj
+         G6MnLcRTiemO+GB4tRuewVlfScmrWujJIW4rsXCZzHd55idHgfni/YEr7F0os9oUSQ9w
+         n/Mb6wG0rqXqAgmV2dWyROqWgf25PsH33OVTTRk/vjBX/LIvhZc648YKRuBXYiLIU8JV
+         ZiG+1h5eq3XDV4K070RnBiVM/Keroi1WIRnCVhaS7UchdsjQ8UHMXsWSOOK2zvvVf7Vp
+         3IFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786291623; x=1786896423;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gNSsiXJWRtJEnKo3j2+KbnfQcpFMSwgfHd0NV7zL7z0=;
+        b=sPelystnU7/lQqgryd+ED0nObLbUAP6OFcfojjlkJ1AbcD2ksTJskTBO2pVg9kjtrS
+         yyM6Mf/7/8Kz7xxkEeO2Bs2NkUf5G7naYF5g2cRN4G48uEwTsqAxwENqjB3WJklzWnBs
+         QJUHeA3Vu+yfD7YYgikF5sts8wps/Zwwdzscn7Jz3ze2MqSb9tGK7YYiPE1nM9phOC0w
+         Q14nRz7ny8DEeWTyPyc58/CxQsN6W5wK/zrmMebG/52AEmn0XlPNmmWNZgDHW/IIt961
+         8ZMbQnsrNKkEARSM+WjzFwvWyq3tusXsr1VH/T/M4NLvtj3IZjv1p6sk2Hk2NUkpibZz
+         cjYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoyN3UE15Mrz/NwzR0Fcl9kdTEI2BwUr3Klo9iz6qn3PnkvAClxmaHGEGoI18SDtuH00+yb2KbhxVXf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+EJ79GkRsDCIIeQJ7DhPlIKXRino493rGMKjSTA8eiU7cBmpf
+	poJ+BRduaRxYMPkdfupXoQgiCBVpGkW7PUqd2Dmshnz6Fr3lsENG4dY5
+X-Gm-Gg: AR+sD139mxcxfuAgtBuU0qZbqk+RUKUQmbe8LZCZ3RRTUXTTe4a5anfM8RHDGzmsy5l
+	imb00iUhfTcrRu+67HpAR7wB/yGopl0LW4/zg4sIxEW1Cof6kWx6wsVR8DYoCPDX36aYahjn4aD
+	KBqt06cTXlAV0IFDdhi/4HC6WMPi6IiKI2q4DJvfprHRMedgdSONMr5Uk93WpQ4oZk9qf4FeJ7r
+	dLWfIzulD4gW4s4YMgO3L1iqX9AFBCVB91sDzbgPsQWhLABGxrka3dBUqa+fDd5+90qCUzFXOAx
+	M2mp0sgAq0GuJR6xDpipedj6npSKeefktjL5wdhbvehVh0n1XF4IYHBdiDs1XBDJ304bPHrB8oT
+	HaezWGOvX5zx0BIsTp7JuESZsWIvyyh4g/yWE+sIRSvdb2BHKRS2cggpclQSNu1E8vTe1sY0JCE
+	uVlaHrtoQPCY/p5c3pUBOPQ6J+pVv0KZdZJkbxkz2sgNhA8NlGhV/zcA==
+X-Received: by 2002:a05:600c:4fcb:b0:495:5890:8f6c with SMTP id 5b1f17b1804b1-4995e084875mr196750445e9.7.1786291622542;
+        Sun, 09 Aug 2026 09:07:02 -0700 (PDT)
+Received: from luca-vm.. ([81.56.18.151])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995c7b2b68sm209832495e9.4.2026.08.09.09.07.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Aug 2026 09:07:02 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH net-next v4 4/4] net: phy: add X-Powers AC200/AC300 EPHY
- driver
-Message-ID: <c78c2c35-52e7-4393-9714-06039d8a3f28@lunn.ch>
-References: <20260806-submit-acx00-of-dynamic-v1-v4-0-9bf2f7441632@gmail.com>
- <20260806-submit-acx00-of-dynamic-v1-v4-4-9bf2f7441632@gmail.com>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-watchdog@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v3 0/8] Properly describe mt6589 and mt8167 toprgu resets
+Date: Sun,  9 Aug 2026 18:03:24 +0200
+Message-ID: <20260809160643.33991-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-submit-acx00-of-dynamic-v1-v4-4-9bf2f7441632@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Aug 06, 2026 at 10:51:29PM -0600, James Hilliard wrote:
-> The AC200 and AC300 contain compatible Fast Ethernet link PHYs, but the
-> link endpoint is inaccessible until package-specific control registers
-> have powered and configured it.
-> 
-> Add one PHY driver which binds the link child and joins its parent
-> Ethernet PHY package. Fixed package compatibles select the corresponding
-> backend. The generic ACx00 compatible reads one packed configuration field
-> and selects the backend before touching backend-specific resources. The
-> AC300 path therefore does not resolve or enable the candidate AC200 I2C
-> device.
-> 
-> AC200 obtains the regmap of the referenced I2C MFD and keeps it bound
-> with a device link. If CONFIG_OF_DYNAMIC is available
+Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
+which in turn falls back on mt6589-wdt, which does not support toprgu
+resets yet. This series adds support for mt6589 toprgu resets with bit
+definitions obtained from Android stock sources.
 
-Please drop all the CONFIG_OF_DYNAMIC code.
+However, according to its data sheet, mt8167 has 15 sw resets instead of
+12, and its reset bits point to different subsystems than the mt6589 ones.
+If the number of resets varies between SoCs, the watchdog driver becomes
+incompatible.
 
->  drivers/net/phy/Kconfig               |  11 +
->  drivers/net/phy/Makefile              |   3 +
->  drivers/net/phy/xpowers-acx00-ac200.c | 388 ++++++++++++++++++++++++
->  drivers/net/phy/xpowers-acx00-ac300.c | 404 +++++++++++++++++++++++++
->  drivers/net/phy/xpowers-acx00-main.c  | 536 ++++++++++++++++++++++++++++++++++
->  drivers/net/phy/xpowers-acx00.h       |  28 ++
+Therefore in the first three patches we improve the description of the,
+resets for mt6589 using the definitions obtained from Android sources.
 
-Since there are 4 files, i would suggest a subdirectory.
+Then we introduce a dedicated mediatek,mt8167-wdt compatible for the
+watchdog driver that describes correctly this SoC's resets. Also while
+we're touching the bindings reset header, we add constants for the MMSYS
+resets.
 
-> +struct ac200_ephy_ctl {
-> +	struct acx00_ephy_control control;
-> +	struct regmap *regmap;
-> +	struct device *dev;
-> +	struct mutex lock; /* Serializes power sequencing and state. */
-> +	u16 ephy_ctl;
+In the 7th patch we add a node for the mt8167 watchdog referring to the
+new compatible in the SoC dtsi.
 
-What is this locking against?
+In the last patch, we define the mmsys reset table for the SoC. According
+to the datasheet, there are 28 mmsys reset bits divided across two
+adjacent registers.
 
-> +	client = of_find_i2c_device_by_node(ac200_node);
-> +	of_node_put(ac200_node);
-> +	if (!client) {
-> +		ret = IS_ENABLED(CONFIG_I2C) ? -EPROBE_DEFER : -ENODEV;
-> +		return ERR_PTR(dev_err_probe(dev, ret,
-> +					     "AC200 device is not registered\n"));
-> +	}
-> +
-> +	if (!device_link_add(dev, &client->dev,
-> +			     DL_FLAG_AUTOREMOVE_CONSUMER)) {
-> +		ret = dev_err_probe(dev, -EINVAL,
-> +				    "failed to link AC200 device\n");
-> +		goto out_put_client;
-> +	}
-> +
-> +	if (!device_trylock(&client->dev)) {
-> +		ret = dev_err_probe(dev, -EPROBE_DEFER,
-> +				    "AC200 driver is not ready\n");
-> +		goto out_put_client;
-> +	}
-> +
-> +	if (device_is_bound(&client->dev))
-> +		priv->regmap = dev_get_regmap(&client->dev, NULL);
-> +	device_unlock(&client->dev);
-> +	if (!priv->regmap) {
-> +		ret = dev_err_probe(dev, -EPROBE_DEFER,
-> +				    "AC200 driver is not ready\n");
-> +		goto out_error;
-> +	}
+Changes in v3 [3]:
+- Improved explanations in the commit messages;
+- Added the #reset-cells property to mt6589 watchdog node;
+- Included the mediatek,mt6589-resets.h file in mt6589.dtsi;
+- Included the mediatek,mt8167-resets.h file in mt8167.dtsi;
+- Moved the mmsys reset table from the mt8167-mmsys.h header file to
+  the mmsys driver implementation.
 
-Please take a look at syscon, and syscon_regmap_lookup_by_phandle().
-I think it will make this code a lot simpler.
+Changes in v2 [2]:
+- Sashiko pointed out correctly a missing entry in the mmsys reset table
+  in the last patch.
 
-    Andrew
+Initial version: [1]
 
----
-pw-bot: cr
+[1] https://lore.kernel.org/linux-mediatek/20260717151134.678839-1-l.scorcia@gmail.com/
+[2] https://lore.kernel.org/linux-mediatek/20260717163959.714561-1-l.scorcia@gmail.com/
+
+Luca Leonardo Scorcia (8):
+  dt-bindings: reset: Add mt6589 toprgu reset IDs
+  watchdog: mediatek: Add wdt/toprgu resets for MT6589
+  arm: dts: mediatek: mt6589: Enable toprgu reset controller
+  dt-bindings: watchdog: Add compatible for MediaTek mt8167
+  dt-bindings: reset: Add reset controller constants for mt8167
+  watchdog: mediatek: Add support for mt8167 TOPRGU/WDT
+  arm64: dts: mt8167: Properly describe the SoC watchdog
+  soc: mediatek: mtk-mmsys: Add resets for mt8167
+
+ .../bindings/watchdog/mediatek,mtk-wdt.yaml   |  1 +
+ arch/arm/boot/dts/mediatek/mt6589.dtsi        |  2 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      |  8 +++
+ drivers/soc/mediatek/mt8167-mmsys.h           |  3 ++
+ drivers/soc/mediatek/mtk-mmsys.c              | 38 +++++++++++++
+ drivers/watchdog/mtk_wdt.c                    | 13 ++++-
+ .../reset/mediatek,mt6589-resets.h            | 24 +++++++++
+ .../reset/mediatek,mt8167-resets.h            | 53 +++++++++++++++++++
+ 8 files changed, 141 insertions(+), 1 deletion(-)
+ create mode 100644 include/dt-bindings/reset/mediatek,mt6589-resets.h
+ create mode 100644 include/dt-bindings/reset/mediatek,mt8167-resets.h
+
+-- 
+2.43.0
+
