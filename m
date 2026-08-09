@@ -1,130 +1,155 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F683CF670
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:15:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EE535CB8C;
+	Sun,  9 Aug 2026 12:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786277713; cv=none; b=hfEsLaLKbl5hVF1JiBu4u1t21TAe5LRSG73X5/K2XfohBVCuFJeNwr67OmEhp5wyqL6Fo0JjZAgwq8cH2vvS9jQbMx5LX4l+01cZMJSSgdM1L8C2ZMsdLN7i3VWzITiwCcTX6HoY2Rr/R+Xcgi53ksoBL3Nt3GlLuRo9PfTATKY=
+	t=1786277772; cv=none; b=QqwiyuHDkCXyW4GsL6/m8gPNIoXM/XTc90q208NVJmPYOnXj9oZYNO/Ul4DR5MLnRYyBAOJMzqau158A6iJtlMyq4CE8jtiTMyJlSxFKArDi6JT00+MbzTAx3vjr2zmGWfhvGUcDLMqiVN65bJNWU8HIW+JTnSaIwCzlSG1lMDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786277713; c=relaxed/simple;
-	bh=VT2WkLbrVHZk/VBbTj+r4ElGw6wpo4atU2roVry+mzA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZqY9hr+V+YlLosSE4Plty6HgRxcJYrgs1xr4qug85NCru5kHfxYG1sm3ZFrToITVKNgPsvzfNxc72FOIVZQkfiSbPBksg67N4X9SdVufcKcO/pXI5+q1Ro7gvype50ptmCNTnZVyMZfmRIOKOkAH3zXIGtKB0QHOSp+8XGTZq14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YV5gi6dY; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786277772; c=relaxed/simple;
+	bh=NH6TxVvsxwG75iXqtfI7vYJQq5MjARznwzgt/dgex4E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JsBcLeLsIzFlWf9t47HwGzUNzUTVkcF/5KyYbZV70wWfBMbiKPdL8hH0nuRBWUSOfmKe/+HuJ+6bm7Z4XhWJgpAjSbMu9oOc28H/HM+1TnVhNU39FXCgLACuWEP/3xcrqNz/qL52e6wbMP2wOvLkwhG3SnEb6blP3YEuYHqLsBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UR/gQdOa; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YV5gi6dY"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4954df200ddso6324505e9.0
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 05:15:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786277705; x=1786882505; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XHSgNIqpIGMGCDb/vwfax9xQeZ/i97RAydBRvL1DXus=;
-        b=YV5gi6dYipeW2cJLZRhHhOiqjTw80r5E03ZeONgFeSMNb5cjUpvKAdjGfWZkuF6JbA
-         HGfG8yb5CMSztLGLx/wKv8i7M8KslM2Vc+B+C+MClZZMActHDvgFDCPvdHSGsy1DyqhI
-         DYWw/oWkPT53Rj1StwODOcsOnEi65v23AisRNk67hRLk3GbIhinLqCS7sIIO94fcKSl6
-         edOeATs/LaY/Y0V4MPdWoXCupowCebo3D/HZEuCiU35SFNLylmwE6+4lrLfioH9hDzaT
-         dtcswbIlrgUhVStw8t99l04kPQ9auDJw8mmdL1kMzC/FM7lKzKFmXPIdhJai31Mg5J77
-         92Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786277705; x=1786882505;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XHSgNIqpIGMGCDb/vwfax9xQeZ/i97RAydBRvL1DXus=;
-        b=P3Qh9m9/UUxZcbp0+lrCKufTK90W9H3VvQU2iDgLsSGignZ5Yvzo5LlCf+2C1z39vy
-         6+A0g+w3wZ1lNOyXX9lDuKapq3piAlkAQjg4Uvi41qX00PQR8m1Q86bxv4fKRcjZArw9
-         I04m2VjLw5Z8lvYAM73MtxKgehvWmyJ/I1lKWnErQEC2Bm+gZchcNH1LsP9ZXS3zsoeU
-         qk6dpD5nWyqrW7L+vkkT1kQw2Dh8IXCqahg3UB+0Jgv7w+YqSVpbx5RQfUvfYJoRes0e
-         4yHc7BzsaybNkUuHBIdBA8k1Zw0dl3GHOdr6PnxqHtCFQv34IANpo/FcdLsbtdTXmGTE
-         wybw==
-X-Forwarded-Encrypted: i=1; AHgh+RoAp8gix2fmsPQEtYvA/QEoE2KgVQ/epgwcM+Tvhuk12iEk/y1bLghoOfMgsw27ZNvcDsp8yt3seuOh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyKCCoS7VvjAc+QnwJlb6gts7SmpfXLjgBxI+/iP35k/gPWXuA+
-	DNpHzZ/SzSUZK4wv52gjPO3Qm8lAHtDPHEOvWbFbZt9LLIYNwyca151w
-X-Gm-Gg: AR+sD10bAMZZEmFQL5LtJVKVPSayfrOhg8JsUQcXH3DPeK2vLjcvjbtCW5vGO9c3Mys
-	LapHuUByWX8WiHRul6lbKkuvlTaD4Ht/uDbuyiWmnm83lfTppWjAi/PbTw/5/GJkoWrRR6WwjIv
-	4Y4k+nxPVBQQao1QCVTdCN46EDcjGuUulPBDVShnu6WRdI5DlCBY3HWPDRHIILhX1o3PkrlAP7y
-	R+Pcy9ruwlyZOqJJaUHiEPV+N+gSEgADVAz07eBbCcVoIVeMtZs8bsdEF8fsPKc2Pn7AIKP2di8
-	DVynmyVbRmPCFICT7DIuhRJo0+RHBJ2XssF+Dfakx2qWs508bSDMAECwaXHy/FNdLfdm18RKhXv
-	kAxFV/XE8REqfW3+tCRQvA8Qayyf3cPCgchOorOFI1mii/S6/dh99YKJpzNdqt942kruQsFStqA
-	Y2/Ox3of6WYLrm3A7ltg+R3EgEuF9pbl9tzmFf+jZpk+Q+xOcesrDN71pl0uCBGdwAtYkdmKWgi
-	M92qXATCswE0WZ/Ssl7KkAz9nROco8J6FV9gHi83qCqssqnvGsJjyqaGnQU
-X-Received: by 2002:a05:600c:a20b:b0:495:737a:7afe with SMTP id 5b1f17b1804b1-4994e7d5b82mr349705485e9.15.1786277705032;
-        Sun, 09 Aug 2026 05:15:05 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4995ea3361esm194506475e9.15.2026.08.09.05.15.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 05:15:04 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	John Ogness <john.ogness@linutronix.de>,
-	Manuel Lauss <manuel.lauss@gmail.com>,
-	Jacques Nilo <jnilo@free.fr>,
-	Rong Zhang <rongrong@oss.cipunited.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Gerhard Engleder <eg@keba.com>,
-	Binbin Zhou <zhoubinbin@loongson.cn>,
-	Lubomir Rintel <lkundrak@v3.sk>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Cc: Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v4 1/2] dt-bindings: serial: 8250: Add Airoha compatibles
-Date: Sun,  9 Aug 2026 14:14:46 +0200
-Message-ID: <20260809121449.574277-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260809121449.574277-1-ansuelsmth@gmail.com>
-References: <20260809121449.574277-1-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UR/gQdOa"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2C11DC2BCFC;
+	Sun,  9 Aug 2026 12:16:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786277772;
+	bh=NH6TxVvsxwG75iXqtfI7vYJQq5MjARznwzgt/dgex4E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=UR/gQdOa7V8TG64IpmTk2d/SYouAcmvTBK+GMXwALxN3eKQ0Ljk3mszS2kaDJe/kc
+	 VMATVNfUdMjbm25xxuUR/2Tx24tC3ZV97tt2dl0X//2sahbKG67fDpTPmtt49rGkv4
+	 dyxvF4BS6S2WG0rmd+JeTg0EpwzdKEso3btyw1wC5pzI5cy3itoHRHmL5c44bIOWjP
+	 BFRKKwD0f14CvqcdNqPwaBojJAeZSZhUtsFEfJttmfx3tsB1ZdyVFaibSjpltkt+nP
+	 k5rBFI6UHFKEsQ0mltOzyLU7Bn6ZqTfDLRy2iCh1NRVMKnAMPna/HaovsHSXTsH4CO
+	 K3xbf8t52t55w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15292C5AD6A;
+	Sun,  9 Aug 2026 12:16:12 +0000 (UTC)
+From: Sven Peter <sven@kernel.org>
+Date: Sun, 09 Aug 2026 14:16:04 +0200
+Subject: [PATCH 3/3] arm64: dts: apple: Add CIO reset controllers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260809-b4-cio-reset-v1-3-4f33777d9b4b@kernel.org>
+References: <20260809-b4-cio-reset-v1-0-4f33777d9b4b@kernel.org>
+In-Reply-To: <20260809-b4-cio-reset-v1-0-4f33777d9b4b@kernel.org>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3435; i=sven@kernel.org;
+ h=from:subject:message-id;
+ bh=NH6TxVvsxwG75iXqtfI7vYJQq5MjARznwzgt/dgex4E=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ1ZFfuf8M/GOXStUPf7xTJV6Xv1L2Gz2hkttvBvPHQnUl
+ kr2Pnmqo5SFQYyLQVZMkWX7fnvTJw/fCC7ddOk9zBxWJpAhDFycAjARzpkM/93P+8R8St/2oIRF
+ dMK7N96qfXsv6NWf1Hc1b1GUj7vI9pWR4eeFe8zFPYmqt5ecE42PkP12sHxFTVXIKe6enNl3VSe
+ osgMA
+X-Developer-Key: i=sven@kernel.org; a=openpgp;
+ fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
+X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
+ auth_id=407
 
-From: Benjamin Larsson <benjamin.larsson@genexis.eu>
+Add the reset controllers used to start the CIO (USB4/Thunderbolt)
+blocks on t8103 and t600x. On t8103 each port comes with a dedicated
+register page represented as a standalone node. On t600x a single
+register shared by all ports of a die is located in the middle of the
+PMGR MMIO region and represented as a sub-node of its syscon.
 
-The Airoha SoC family have a mostly 16550-compatible UART
-and High-Speed UART hardware with the exception of custom
-baud rate settings register.
-
-Signed-off-by: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Sven Peter <sven@kernel.org>
 ---
- Documentation/devicetree/bindings/serial/8250.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm64/boot/dts/apple/t600x-dieX.dtsi | 8 +++++++-
+ arch/arm64/boot/dts/apple/t602x-dieX.dtsi | 8 +++++++-
+ arch/arm64/boot/dts/apple/t8103.dtsi      | 6 ++++++
+ arch/arm64/boot/dts/apple/t8112.dtsi      | 6 ++++++
+ 4 files changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index bb7b9c87a807..b6f7e093d8d7 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -110,6 +110,11 @@ properties:
-       - const: mrvl,pxa-uart
-       - const: nuvoton,wpcm450-uart
-       - const: nuvoton,npcm750-uart
-+      - const: airoha,en7523-uart
-+      - items:
-+          - const: airoha,an7581-uart
-+          - const: airoha,en7523-uart
-+      - const: airoha,an7581-hsuart
-       - const: nvidia,tegra20-uart
-       - const: nxp,lpc3220-uart
-       - items:
+diff --git a/arch/arm64/boot/dts/apple/t600x-dieX.dtsi b/arch/arm64/boot/dts/apple/t600x-dieX.dtsi
+index 9676d5127039..5e163d756a7f 100644
+--- a/arch/arm64/boot/dts/apple/t600x-dieX.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-dieX.dtsi
+@@ -28,7 +28,13 @@ DIE_NODE(pmgr): power-management@28e080000 {
+ 		compatible = "apple,t6000-pmgr", "apple,pmgr", "syscon", "simple-mfd";
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+-		reg = <0x2 0x8e080000 0 0x4000>;
++		reg = <0x2 0x8e080000 0 0x1c000>;
++
++		DIE_NODE(cio_reset): reset-controller@1a034 {
++			compatible = "apple,t6000-cio-reset";
++			reg = <0x1a034 0x4>;
++			#reset-cells = <1>;
++		};
+ 	};
+ 
+ 	DIE_NODE(pmgr_east): power-management@28e580000 {
+diff --git a/arch/arm64/boot/dts/apple/t602x-dieX.dtsi b/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
+index ae3d535c5acb..fd4d572a04e7 100644
+--- a/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
++++ b/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
+@@ -27,7 +27,13 @@ DIE_NODE(pmgr): power-management@28e080000 {
+ 		compatible = "apple,t6020-pmgr", "apple,t8103-pmgr", "syscon", "simple-mfd";
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+-		reg = <0x2 0x8e080000 0 0x8000>;
++		reg = <0x2 0x8e080000 0 0xc000>;
++
++		DIE_NODE(cio_reset): reset-controller@a02c {
++			compatible = "apple,t6020-cio-reset", "apple,t6000-cio-reset";
++			reg = <0xa02c 0x4>;
++			#reset-cells = <1>;
++		};
+ 	};
+ 
+ 	DIE_NODE(pmgr_south): power-management@28e680000 {
+diff --git a/arch/arm64/boot/dts/apple/t8103.dtsi b/arch/arm64/boot/dts/apple/t8103.dtsi
+index da774096b667..83f6f1003424 100644
+--- a/arch/arm64/boot/dts/apple/t8103.dtsi
++++ b/arch/arm64/boot/dts/apple/t8103.dtsi
+@@ -730,6 +730,12 @@ pmgr: power-management@23b700000 {
+ 			reg = <0x2 0x3b700000 0 0x14000>;
+ 		};
+ 
++		cio_reset: reset-controller@23b784000 {
++			compatible = "apple,t8103-cio-reset";
++			reg = <0x2 0x3b784000 0x0 0x8000>;
++			#reset-cells = <1>;
++		};
++
+ 		pinctrl_ap: pinctrl@23c100000 {
+ 			compatible = "apple,t8103-pinctrl", "apple,pinctrl";
+ 			reg = <0x2 0x3c100000 0x0 0x100000>;
+diff --git a/arch/arm64/boot/dts/apple/t8112.dtsi b/arch/arm64/boot/dts/apple/t8112.dtsi
+index 85c47422d4e8..d0637c0384b2 100644
+--- a/arch/arm64/boot/dts/apple/t8112.dtsi
++++ b/arch/arm64/boot/dts/apple/t8112.dtsi
+@@ -737,6 +737,12 @@ pmgr: power-management@23b700000 {
+ 			/* child nodes are added in t8103-pmgr.dtsi */
+ 		};
+ 
++		cio_reset: reset-controller@23b784000 {
++			compatible = "apple,t8112-cio-reset", "apple,t8103-cio-reset";
++			reg = <0x2 0x3b784000 0x0 0x8000>;
++			#reset-cells = <1>;
++		};
++
+ 		pinctrl_ap: pinctrl@23c100000 {
+ 			compatible = "apple,t8112-pinctrl", "apple,pinctrl";
+ 			reg = <0x2 0x3c100000 0x0 0x100000>;
+
 -- 
-2.53.0
+2.55.0
+
 
