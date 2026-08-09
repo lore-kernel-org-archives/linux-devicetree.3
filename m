@@ -1,68 +1,86 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D645A3793A8
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 21:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F573793D5
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 21:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786310966; cv=none; b=Warsrhc1R/FmxWZCFEnjXTOJD54g21Rv1gNLOzsQlveGevVsG6QK2/nHOEM7L377kPavpYU1mnVV1M1OSOK9SjKbdSN5zCgIsG7KfsOBGXwHACfdprMsLMGufmTY0mNmjMY3ow28AmVLixlIN0r59o6G5Pv5ZwVpF5gZnNFblUc=
+	t=1786310969; cv=none; b=Mtm6KkojARlcHT/lcJJOxL2tpG/pB0PqKiDPFUUQ1O7Wj5w0ccNdH7P8ZqSqAgbvEYxGRLZjfZyJadA8rI7klj7Cogp2vZh7DtUXFeS1X3J2v5isG/dSXbcKhW6f5ZBvYsDtjckAdFwtqQZ5Z1UZpN6Bl/p6+ROS8eGEBT82vNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786310966; c=relaxed/simple;
-	bh=ZNxJpzwsBO3OBV6aHCCiuyx42Ef/rjHbiRWZumnp96k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Zqd5XAz6Iz26QJ8klL1UiYvZwfYmh3oDEd/P7+CuVPqYSUjebh8O4oB85gzGEF30+YvXtRXAaS6V5PaeiV760OfKDhfhVPaqHvEIsIlrUgrYAwTMBL0t0Jhe9jTc0Xx5B9ndweaFB7pO9yYc3wUF7bkcbhOmpCWxxx9mtLK6H1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jxcrsIoe; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786310969; c=relaxed/simple;
+	bh=uk998/66ZhJEP8npAHhETVS/AoVjpt5dHoWqpClPnjE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nCnIlkfsewFMtHtBgDsY90dySioDP7s0KcKoSDVYO88hksTfkgRZ/RXfLSUCSnepuLTl42eTDP/2icw/r5Bdw6ODPQUkPS6WT1l7S4/JmwQHDydKzF1uV/aRiZlxcL/SyRND5pf1zxJsSzfy99KUFTQZRpJTxRGVPQhCdREcXZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M4TdSWkM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dj/IVERE; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jxcrsIoe"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so6888525e9.1
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 14:29:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M4TdSWkM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dj/IVERE"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 679L7BLS141144
+	for <devicetree@vger.kernel.org>; Sun, 9 Aug 2026 21:29:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=f+n4Rcg+Pp/LYqaRT7CKmn
+	gjyiocpVFdAjf5CZAA7cw=; b=M4TdSWkMV3zrQE2WIpws/CitxwV055aH5RTLSe
+	+BjPR1B6GmbtKXBYRAKWizBvg5FduyXQfXtUUfhqkBvwJMjA+Z30dFsZbHs6yU6O
+	t0WfM7RMUDR/dXNLAE6xOpPaVM2C5VgeXSeGW6iDoB1dF0X+JtaRgHFIGNB00NaJ
+	bXDW4ZK6N5NWG69yU2Pj6WU3zuzrRq31c7ZQGWkaZ94QJvk96aVXxMQpzojY7AYx
+	0t7l9DDCO7V2IbnklqNOHQqpDhKRs+NbMNRDCBVLCJiRfkfIU6sl94v7HOeF0Ov6
+	l9IQEDr2OXBrluIH6KT9NCTBKNQ75E1erbvtcTrdmb+d8X0Q==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwudqknnj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 21:29:26 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-82112a1fe2fso44004397b3.0
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 14:29:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786310961; x=1786915761; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DQDk0f/CX/nJddxBbewiApCN1TYaT4l9+ANcNSyara4=;
-        b=jxcrsIoeTngOsIIl8p16MADOeiQQPmjaEfayOa4i/ht9XkA95ZZNbYKMlpwAz6/v6l
-         sqtW5Wv71v3INSMPDSuZbZ+wbcB9J9dTpMh3ljiSx6rfOOV0HN3vSlNdWm11dvmz2M05
-         nBHxwC5Gq2tEQRlP/ELlXFFI+Unyb5EgoNvttJ8XjX5hsPRSS3Xn0rTgzKFNOXuV6wj0
-         qOSh8ny5MaxW5l7doeTX4dHMCiucyrHN5BMPXFcyeC8HiboLTIUciTSaxJaBKbhtSCn0
-         ajp7J9Hvvbm/AVMKnrkgQCqf8QAAmHbYIOmG6tp+yozxyJRJC+pki68zYFv/LlBucXi1
-         U4Bw==
+        d=oss.qualcomm.com; s=google; t=1786310966; x=1786915766; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=f+n4Rcg+Pp/LYqaRT7CKmngjyiocpVFdAjf5CZAA7cw=;
+        b=Dj/IVEREz8sIThWHSJWPPZTWR660Aq6k8kpXB+/UYc/Rl/bgvFRENhOzhskk/wJOdO
+         dyInYwLos1YRFTHMT9Q58I2oLave1zOCA0lQXojK9lI4dVpgNDOm+wfrdPmKg5K6aTMK
+         48NxMbe4ux/l1HdzBknhSRVokdoG0hqIOCgBOxVeqkCr/Hh8sAYPuiYrD7J7d3Pt+3nq
+         JtvszpIkKoBPBMEGPwWm0Riiiacmr3cjIjjYFjdyuETGd/ox4vhF46vVjG5UmZWYikph
+         F/O3ppFyp3bJ/R0EkIHk23gRW4Yzg0SUshgQkaKzOaH8Wcw1gFhemA6fQ3g+nSmf0B1b
+         jnnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786310961; x=1786915761;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DQDk0f/CX/nJddxBbewiApCN1TYaT4l9+ANcNSyara4=;
-        b=BhwxbC6L5/nP2axd8xaX2w9xZSRUWl1nD0ZcbnaJfdki5nenpl8k1s5Yepu/4vYl+O
-         znfeZgp8aDlvfJBwhkOSx7/AvPnZyp8nAmTKvnfT59oPm04tW8Fs3TPRTAb7w1JX/kgE
-         /iiCxXa6kg4ZfN6JsXnVYksJnzSjOKoPmf4pECJbAKe+f3nn8jKhtSHYz8is+uQKzOUO
-         DfKTnLzIlj3qsgecEuksBX0pGaFnHrKMRuk5dePTsnkqMDPYrB2WM0ly5xoJD0k/q3TJ
-         Iqoyo1wMkzRLVVjDT8UJSBSOVTOLfXjy6IPGPT5ZQLqj1xXzhI9leCa3lsDc+9y7CGEH
-         M/rQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoXxnspfAmBU/BTLtNY91vQsDIvBWBBs5eL5C3dXqEsuzhkcUTtqjTOLOn2sLMPNMzWclzmg/fJoXiA@vger.kernel.org
-X-Gm-Message-State: AOJu0YxRScCaONw3spNDXb/6ZIKDOUdV8+UbGNQGjrHZnQHfBci8iHAj
-	FW1lzsPGfg8Lc+6y8RIVUXpDFYlgo+Eh250Zmo2OSZam/uxdgNHX4hxG
-X-Gm-Gg: AR+sD10cCPNOihARL/LNEQvpFUzs0vAWX7OkJfSzzXFT6DIkqtBGzGxYNKdJPDLAjcb
-	WvADoqcqRKVIwY1/LP4cqMIdVqcUt6C9I8S/2y6AwVaangOx91i0JyEzuJ7JM/TOo/Q2HeLb50Q
-	XAMXfLfD8cEeWoFdcvJ+RBsuNGNrQgkdG4ul9D1knY1P01eml5a+Y99E8itrKDUkCEKoXPrOQP9
-	V8S8vTjXxSADug51mh8xMuEvB/AUGK9hciu4lGKld1/SL1P+0K/DOhdWBjDOPsIaGG8rW4BoZAo
-	oV9VT3jctasPP2z6E5AgSszp6B14XRMwF1OpoBamSxlscYESl7+Cy9qr2lXZ1cX9WPOgYLEJfH8
-	bOhds39TviT1BfcVYuM2OykiKG1O6DMe1Q0QfeSFRBL9NPXW6V0D71wHwEUX+SToL3KaN9O/0aa
-	4WImOlv/UZmlW7XKO5eKiLep5sTu/Cp0QvSBXX5BJXueEIoEl6Y2Htro8VLvo75P0bvrbh5ZFBD
-	Y/sE2ejqA==
-X-Received: by 2002:a05:600c:3b93:b0:493:a966:d5b5 with SMTP id 5b1f17b1804b1-4996193de3fmr201180815e9.2.1786310960960;
-        Sun, 09 Aug 2026 14:29:20 -0700 (PDT)
-Received: from [192.168.0.2] ([197.250.226.68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-480021e8c5asm28987451f8f.18.2026.08.09.14.29.16
+        d=1e100.net; s=20251104; t=1786310966; x=1786915766;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=f+n4Rcg+Pp/LYqaRT7CKmngjyiocpVFdAjf5CZAA7cw=;
+        b=Dda6rNoetZXcljgdn0jGWObY7/Kz/dWqezSF5zQik5wJH2TdkCfDcFXqZ5I5AZIemV
+         es2GE+2G2OexbZsCeg45m4LDUWnTR8t7FiSThM0i6ylfdJuIc91XyO1FEjXlNeISSn4J
+         IQWBRO7XCkNoakQ/QuXVmxf7ZtcG7sMncgHF84RakotvBx5vdS2XeZiDsHmN5OMyTWGV
+         dR0FM9ov+cbZ+pmyUJruzd9ii/fEkIQ0B74maMkQsezfXsdw6Gc7CnMw1OqqqQPcLHq4
+         n2wqVySBVg3YVXBcWP3ZP853zfyfmJxZrzP8L8FoklSwKTsrpWP8VwcHEZVONeuaexwi
+         nyNQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+pEe/kXyoUHmuxpaGvlMsdnvULbhaoVNt/orVAsFXUpIhRlNkqQhOVVkkb630j4nAkG+qeTl4spYe@vger.kernel.org
+X-Gm-Message-State: AOJu0Yydzrunpi8yqqP/BT/X4pSGeyLwC7jg0aZYf6pZb9aEJWD6jotU
+	FEnZd+NXxkVFHVbFOAYQKCDVYB5QlGfv3qFgpQKkcpTyiNRgClCjqnNuzhLT8DkPM3cN1gKPFNX
+	VkQxEqUJDH5FpbZvqz+FkAqYtrhSUmfu0x2DE2qcJGUDqmgXhC8ByUAmdbPYsQ6tWEzP0pTnv
+X-Gm-Gg: AR+sD10K3hiDIirCfa71mbhazYQptKhj3nPj/6aU5oFcn0RcIWXBtu30q1reU1xrVkV
+	Gj9FpTUuvhvSNtDwUYm8J6uhMqs8tgKsdu4T5ppnaXY/3GeujVCWOeG1R5M1J03ahCd//heLwHN
+	aNb0tBdAH4ZzO/JcLiikBi6/0mgjfgQ9zryZJRAdqaRJbGPvd9sx5qKvq9hw44CPOQpDrhZyaL9
+	xMKShP0i1gEbWtc9d7fAkauZYpOaEmxgttRNwv044utT0NkuVpnUbEglQyJeBL19G8jhQDdEWqc
+	yMbSroSWaizj0I1fEIULpf+Q6g+92TmfBgR7d4cfHiHWshdlN2WZWkbnIr5mI4vt82UD6i94Ita
+	KpPtDR2xVioHSsHfCIoNkKrhtDs+BMR78+vrZhcKcS1O8Da6IA8DocKxpIz1rLggcamBiTIC8a/
+	V1ahLuSF54HZi0FuWHfpZT5xgMokS4IP3LgDTIlQB4rQ+0
+X-Received: by 2002:a05:690c:4a05:b0:809:9422:8c47 with SMTP id 00721157ae682-82576533cf6mr89277817b3.22.1786310965839;
+        Sun, 09 Aug 2026 14:29:25 -0700 (PDT)
+X-Received: by 2002:a05:690c:4a05:b0:809:9422:8c47 with SMTP id 00721157ae682-82576533cf6mr89277547b3.22.1786310965444;
+        Sun, 09 Aug 2026 14:29:25 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2600:1700:b450:a0df:3150:772c:4c26:ea11])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-823f75c1c17sm45248167b3.47.2026.08.09.14.29.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 14:29:20 -0700 (PDT)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Mon, 10 Aug 2026 00:28:25 +0300
-Subject: [PATCH v10 06/12] clk: zte: Add regmap-based clocks
+        Sun, 09 Aug 2026 14:29:24 -0700 (PDT)
+From: Jason Pettit <jason.pettit@oss.qualcomm.com>
+Subject: [PATCH v3 0/3] X2 Elite HP EliteBook X G2q support
+Date: Sun, 09 Aug 2026 14:29:20 -0700
+Message-Id: <20260809-glymur-send-v3-0-2d1ed10e3a89@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,316 +88,130 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260810-zx29clk-v10-6-63846490712c@gmail.com>
-References: <20260810-zx29clk-v10-0-63846490712c@gmail.com>
-In-Reply-To: <20260810-zx29clk-v10-0-63846490712c@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7927;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=ZNxJpzwsBO3OBV6aHCCiuyx42Ef/rjHbiRWZumnp96k=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqePEObWXRtKfarCx01D6fhXjDV487TIvwmkZzF
- Coi2W0vEheJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCanjxDhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKNmQ/+MrhQUGhu5/mlbTjDgGqPO48LTQMNRnR
- Y/8GxNsJE9/yZUfV0bQGelbfJzwRK7mFYdc3RfEMdlRwPUqtjxGnCYRn84PJYM0NSDVOHVxiXoe
- aTiXCPO3S8JzKPbJUBq9MyKW7iS5GY/obxR+yjOar7sZasaaetNJyZCWpgbafk2E0tKTSVha7R+
- b4Tn+luIyBUWxbKg9sy2zWQhkaddYxD+qCtYflpTx3RewUlTLqeEdxvpTUlnRdVXDuHeoycbuR2
- XfM6dNZxZtxGfpWd9acSz5YtylbT05s+D72bOm8Vd3pXQVYPAhK/tmgZoqj6zpR1cq271kSNUdn
- 8T4LSMpBtkCDf2HtL/8ONtrYgOmADnX21y9ASeiNohISjB8vNXUPW0i6jYgJfWLPV/NPQDGMa7X
- 3nQWXVCsryf23iAToCg0q5J57tpzBUO3vUZ8xoFys9ia7vSCVqdM2XRRe4b9ItR3PC5Q7L7pTZ1
- 0ZJnGNqj19GVTAv1VkKtpkXjU7VFbMFTZ5GeMZrlHRV3xECDpSPg2ddn/fnLuEyvYBVrn7cMwtU
- QDJDzAo+yNipcg/shjeYH3Ab9cfCUvOBjkTR78o+JnbU6L6oWD7dSCY625bTw0XjgJL+FWd8LPr
- q1Z5ZeRCW1MAXCXZL585VXQ+CrUZXNzOHHPsMOK1Bzu6LzPOTvxI=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADDxeGoC/22Py26DMBBFfwV53YnG5hVQVPU/qi6MGQdXwSQ2o
+ KCIf68xrdSo3Yx0R+NzfB/MkzPkWZ08mKPZeDPYENKXhKlO2jOBaUNmAkWBBa/gfFn6yYEn2wL
+ nadGKLJVcIAsvro60uUfa+8ee/dR8kho3xPeFo9sUNON+xnryXkZNnZyipRT8x3LtFlCD1TBz4
+ FCqY4VVnguV09vg/eE2yYsa+v4QxuuGb6Qn2DZmrBNL9xEi8Ygl2/7TGT8ObollZx71ey+BT72
+ CDUGrTAqlW46l+mOLuFn8RuTPCBEQiBXmqci0bvQ/iHVdvwDMk52/gAEAAA==
+X-Change-ID: 20260619-glymur-send-1136d243a120
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>,
+        Ananthu C V <ananthu.cv@oss.qualcomm.com>,
+        Jason Pettit <jason.pettit@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDE5NSBTYWx0ZWRfXwb9o7nD5U9rp
+ W066ZE/qG58WqKIJ3/aWKksTH+DvlQZLacs1cEpaY76X2eHHmjuich7B80ECv6h59hWZh8YfKvb
+ jZEK75vDFuekWld9XYyMUtHYTrnIOPs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDE5NSBTYWx0ZWRfX4wByStcjp5ZN
+ QiyJg0k7J4MUgmMuQFg6mnxqMYNqv2kAB2Om8K4ZxOCQ0us0+dpGyCbxzcWlCeDMhOvhzdRoQOV
+ /hHYOLwMXV95qO9QnnwzLd0CnEiTNWivsescgflHFEsFVuZ0O6oWT9fHoCptQrpGoo0extZj02j
+ Ugsv4VWFf5Htpb7syF1DiIJH6VArd29X93AqJjMdR9jqd7MXabkWp6HcrHCGPW/x6zcx/Pj7cCa
+ BdKYonyAdGEN85VkyztIbPC/1AMG0LabiaBI4XNwpiJiUA6Z4drPp7xlFCTyfI5c6ZwzlUreq8N
+ 9EFi7A4sZYWgM6NHgHVOR5KF2KQlsKkPCN2CRuINL6gDn9o/TAFHXYoeQbYzkiaEJOW5yKyUcMA
+ A8P41Ztl57rVJ9XlWBDyw7shv9cwcGFHMZHGXR3+oWvIMCopVbP67z0OTX0GdQJgDVBgFHx/KGI
+ owjCae6th0qfp4p4lrQ==
+X-Authority-Analysis: v=2.4 cv=BNCDalQG c=1 sm=1 tr=0 ts=6a78f136 cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=e0PlQuoavrcFzCkabjgA:9 a=QEXdDO2ut3YA:10
+ a=kLokIza1BN8a-hAJ3hfR:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: z_NOpliA_dt41ZbIKZWakyR7GtGTyd4U
+X-Proofpoint-GUID: z_NOpliA_dt41ZbIKZWakyR7GtGTyd4U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-09_07,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608090195
 
-This is based on meson/clk-regmap.c, although slightly simplified. I
-have kept the copyright lines at the top of the file to indicate its
-origin.
+This series adds initial device-tree support for the HP EliteBook X G2q
+14" Next Gen AI PC (product SKU C4JG0AV, board 8E91), a Snapdragon X2
+Elite (Glymur) laptop.
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+The board was brought up and validated on real hardware. The electrical
+description (PMIC rails, PHY supplies, the HDMI bridge wiring) was
+verified against the live unit rather than copied from a Glymur CRD.
+
+Working on this laptop with this series applied:
+
+  - Internal eDP panel (samsung,atna33xc20)
+  - 2x USB Type-C with DisplayPort alt-mode and USB
+  - Chassis HDMI output
+  - Chassis USB-A host port
+  - Fingerprint reader
+  - NVMe SSD on PCIe5
+  - Wi-Fi, Bluetooth
+  - Keyboard, touchpad, touchscreen, lid switch
+  - Adreno GPU and GMU (Freedreno GL on Mesa)
+  - Audio playback and capture
+  - Real-time clock
+  - Compute DSP (cDSP)
+
+This patch series builds upon the recent work of Qualcomm engineers to
+enable another Glymur-based laptop.
+
+Like its peer submissions, the camera support is missing today.
+
+The audio, GPU and SoCCP series this board previously depended on have
+since merged. The one remaining dependency is the Glymur combo-PHY
+configuration patch (prerequisite message-id below). Until it lands, the
+board patch trips the expected "Label or path ... not found" dtc error on
+the DP PHY node.
+
+SCMI on this configuration needs CONFIG_QCOM_CPUCP_MBOX built in (=y).
+
+The bindings patch is independent and can be reviewed/applied on its own.
+
+Signed-off-by: Jason Pettit <jason.pettit@oss.qualcomm.com>
 ---
+Changes in v3:
+- Rebased onto next-20260807; the audio, GPU and SoCCP prerequisites have
+  merged, leaving only the combo-PHY configuration patch.
+- Added the TCSR reference-generator supplies (vdda-qref*/vdda-refgen*) and
+  the vreg_l1f_e1_0p88 LDO they reference.
+- Set dr_mode = "host" on usb_hs; glymur.dtsi dropped it from that node.
+- Reworded the usb_2 and smb2370_l override comments.
+- Link to v2: https://patch.msgid.link/20260625-glymur-send-v2-0-00905324ffbf@oss.qualcomm.com
 
-I see that numerous clock drivers have their own incarnation of regmap-
-based mux/div/gate clocks. If there is any version of it that is likely
-to be elevated to shared code like clk-gate.c I'll copy that and try to
-use it as unmodified as possible.
+Changes in v2:
+- Enable the PMIC RTC (qcom,no-alarm + qcom,uefi-rtc-info)
+- Add the SMB2370 eUSB2 repeaters on usb_0/usb_1
+- Enable the compute DSP (remoteproc_cdsp / fastrpc)
+- Addressed comments from reviewers on v1
+- Link to v1: https://lore.kernel.org/linux-arm-msm/20260620-glymur-send-v1-0-fc4a2cfd107c@oss.qualcomm.com
 
-Version 9:
-Register single clocks per function invocation, remove
-ZX297520V3_CLK_NO_EXPORT again
-
-Version 8: Use ZX297520V3_CLK_NO_EXPORT instead of 0 for unexported clocks.
-
-Version 6: Remove stray regmap (Sashiko)
-
-Version 5: Use regmap_test_bits in zte_clk_regmap_gate_is_enabled
 ---
- drivers/clk/zte/clk-regmap.c | 219 +++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 212 insertions(+), 7 deletions(-)
+Jason Pettit (3):
+      dt-bindings: arm: qcom: Add HP EliteBook X G2q 14 AI
+      arm64: dts: qcom: Add HP EliteBook X G2q 14 AI
+      firmware: qcom: scm: Allow QSEECOM on HP EliteBook X G2q 14 AI
 
-diff --git a/drivers/clk/zte/clk-regmap.c b/drivers/clk/zte/clk-regmap.c
-index 80332dba97f6..022b2be7bb3d 100644
---- a/drivers/clk/zte/clk-regmap.c
-+++ b/drivers/clk/zte/clk-regmap.c
-@@ -1,32 +1,237 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-+ * Copyright (c) 2018 BayLibre, SAS.
-  * Copyright (c) 2026 Stefan Dösinger
-  */
- 
-+#include <linux/bits.h>
- #include <linux/clk-provider.h>
-+#include <linux/container_of.h>
- #include <linux/device.h>
-+#include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/regmap.h>
-+#include <linux/types.h>
- 
- #include "clk-zx.h"
- 
-+struct zte_clk_regmap {
-+	struct clk_hw	hw;
-+	struct regmap	*map;
-+	u16		reg;
-+	u8		shift;
-+	u8		size;
-+};
-+
-+static inline struct zte_clk_regmap *to_zte_clk_regmap(struct clk_hw *hw)
-+{
-+	return container_of(hw, struct zte_clk_regmap, hw);
-+}
-+
-+static int zte_clk_regmap_gate_enable(struct clk_hw *hw)
-+{
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+
-+	return regmap_set_bits(clk->map, clk->reg, BIT(clk->shift));
-+}
-+
-+static void zte_clk_regmap_gate_disable(struct clk_hw *hw)
-+{
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+
-+	regmap_clear_bits(clk->map, clk->reg, BIT(clk->shift));
-+}
-+
-+static int zte_clk_regmap_gate_is_enabled(struct clk_hw *hw)
-+{
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+
-+	return regmap_test_bits(clk->map, clk->reg, BIT(clk->shift));
-+}
-+
-+static const struct clk_ops zte_clk_regmap_gate_ops = {
-+	.enable		= zte_clk_regmap_gate_enable,
-+	.disable	= zte_clk_regmap_gate_disable,
-+	.is_enabled	= zte_clk_regmap_gate_is_enabled,
-+};
-+
- struct clk_hw *zx_clk_register_gate(struct device *dev, struct regmap *regmap,
--				    const struct zx_gate_desc *desc,
--				    struct clk_hw * const *clocks)
-+				    const struct zx_gate_desc *desc, struct clk_hw * const *clocks)
-+{
-+	struct clk_parent_data parent = zx_get_parent(&desc->parent, clocks);
-+	struct clk_init_data init = {};
-+	struct zte_clk_regmap *clk;
-+	int res;
-+
-+	clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-+	if (!clk)
-+		return ERR_PTR(-ENOMEM);
-+
-+	init.name = desc->name;
-+	init.ops = &zte_clk_regmap_gate_ops;
-+	init.parent_data = &parent;
-+	init.num_parents = 1;
-+	init.flags = CLK_SET_RATE_PARENT | desc->flags;
-+	clk->hw.init = &init;
-+	clk->map = regmap;
-+	clk->reg = desc->reg;
-+	clk->shift = desc->shift;
-+	clk->size = 1;
-+
-+	res = devm_clk_hw_register(dev, &clk->hw);
-+	if (res)
-+		return ERR_PTR(res);
-+
-+	return &clk->hw;
-+}
-+
-+static unsigned long zte_clk_regmap_div_recalc_rate(struct clk_hw *hw,
-+						    unsigned long prate)
-+{
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(clk->map, clk->reg, &val);
-+	if (ret)
-+		return 0; /* Gives a hint that something is wrong */
-+
-+	val >>= clk->shift;
-+	val &= clk_div_mask(clk->size);
-+
-+	return divider_recalc_rate(hw, prate, val, NULL, 0, clk->size);
-+}
-+
-+static int zte_clk_regmap_div_determine_rate(struct clk_hw *hw,
-+					     struct clk_rate_request *req)
-+{
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+
-+	return divider_determine_rate(hw, req, NULL, clk->size, 0);
-+}
-+
-+static int zte_clk_regmap_div_set_rate(struct clk_hw *hw, unsigned long rate,
-+				       unsigned long parent_rate)
- {
--	return ERR_PTR(-ENODEV);
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = divider_get_val(rate, parent_rate, NULL, clk->size, 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	val = (unsigned int)ret << clk->shift;
-+
-+	return regmap_update_bits(clk->map, clk->reg, clk_div_mask(clk->size) << clk->shift, val);
- }
- 
-+static const struct clk_ops zte_clk_regmap_divider_ops = {
-+	.recalc_rate = zte_clk_regmap_div_recalc_rate,
-+	.determine_rate = zte_clk_regmap_div_determine_rate,
-+	.set_rate = zte_clk_regmap_div_set_rate,
-+};
-+
- struct clk_hw *zx_clk_register_divider(struct device *dev, struct regmap *regmap,
- 				       const struct zx_div_desc *desc,
- 				       struct clk_hw * const *clocks)
- {
--	return ERR_PTR(-ENODEV);
-+	struct clk_parent_data parent = zx_get_parent(&desc->parent, clocks);
-+	struct clk_init_data init = {};
-+	struct zte_clk_regmap *clk;
-+	int res;
-+
-+	clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-+	if (!clk)
-+		return ERR_PTR(-ENOMEM);
-+
-+	init.name = desc->name;
-+	init.ops = &zte_clk_regmap_divider_ops;
-+	init.parent_data = &parent;
-+	init.num_parents = 1;
-+	init.flags = CLK_SET_RATE_PARENT;
-+	clk->hw.init = &init;
-+	clk->map = regmap;
-+	clk->reg = desc->reg;
-+	clk->shift = desc->shift;
-+	clk->size = desc->size;
-+
-+	res = devm_clk_hw_register(dev, &clk->hw);
-+	if (res)
-+		return ERR_PTR(res);
-+
-+	return &clk->hw;
- }
- 
-+static u8 zte_clk_regmap_mux_get_parent(struct clk_hw *hw)
-+{
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(clk->map, clk->reg, &val);
-+	if (ret)
-+		return 0xff;
-+
-+	val >>= clk->shift;
-+	val &= GENMASK(clk->size - 1, 0);
-+
-+	return clk_mux_val_to_index(hw, NULL, 0, val);
-+}
-+
-+static int zte_clk_regmap_mux_set_parent(struct clk_hw *hw, u8 index)
-+{
-+	struct zte_clk_regmap *clk = to_zte_clk_regmap(hw);
-+	unsigned int val = clk_mux_index_to_val(NULL, 0, index);
-+
-+	return regmap_update_bits(clk->map, clk->reg,
-+				  GENMASK(clk->size - 1, 0) << clk->shift,
-+				  val << clk->shift);
-+}
-+
-+static int zte_clk_regmap_mux_determine_rate(struct clk_hw *hw, struct clk_rate_request *req)
-+{
-+	return clk_mux_determine_rate_flags(hw, req, 0);
-+}
-+
-+static const struct clk_ops zte_clk_regmap_mux_ops = {
-+	.get_parent = zte_clk_regmap_mux_get_parent,
-+	.set_parent = zte_clk_regmap_mux_set_parent,
-+	.determine_rate = zte_clk_regmap_mux_determine_rate,
-+};
-+
- struct clk_hw *zx_clk_register_mux(struct device *dev, struct regmap *regmap,
--				   const struct zx_mux_desc *desc,
--				   struct clk_hw * const *clocks)
-+			  const struct zx_mux_desc *desc, struct clk_hw * const *clocks)
- {
--	return ERR_PTR(-ENODEV);
-+	struct clk_parent_data parents[CLK_ZX_MAX_PARENTS];
-+	struct clk_init_data init = {};
-+	struct zte_clk_regmap *clk;
-+	unsigned int i;
-+	int res;
-+
-+	if (WARN_ON(desc->num_parents > ARRAY_SIZE(parents)))
-+		return ERR_PTR(-EINVAL);
-+
-+	for (i = 0; i < desc->num_parents; ++i)
-+		parents[i] = zx_get_parent(&desc->parents[i], clocks);
-+
-+	clk = devm_kzalloc(dev, sizeof(*clk), GFP_KERNEL);
-+	if (!clk)
-+		return ERR_PTR(-ENOMEM);
-+
-+	init.name = desc->name;
-+	init.ops = &zte_clk_regmap_mux_ops;
-+	init.parent_data = parents;
-+	init.num_parents = desc->num_parents;
-+	clk->hw.init = &init;
-+	clk->map = regmap;
-+	clk->reg = desc->reg;
-+	clk->shift = desc->shift;
-+	clk->size = desc->size;
-+
-+	res = devm_clk_hw_register(dev, &clk->hw);
-+	if (res)
-+		return ERR_PTR(res);
-+
-+	return &clk->hw;
- }
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../boot/dts/qcom/glymur-hp-elitebook-x-g2q.dts    | 1039 ++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c                   |    1 +
+ 4 files changed, 1042 insertions(+)
+---
+base-commit: 115cd2ef86146afa47f363fedf97890575abcca4
+change-id: 20260619-glymur-send-1136d243a120
+prerequisite-message-id: <20260721-glymur-phy-conf-v1-1-7c8909552c5e@oss.qualcomm.com>
+prerequisite-patch-id: eb10b682f1419fa6bbb45943afca62a8250cb68b
 
--- 
-2.54.0
+Best regards,
+--  
+Jason Pettit <jason.pettit@oss.qualcomm.com>
 
