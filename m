@@ -1,143 +1,163 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359AA388369
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 18:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786301765; cv=pass; b=FX0tI2yhk4fMbF0eZRADCd4gsXR5yJQG6kBqgxtSkF1rbsEBBXROJEZjCyo+Fvt/GFyHJ9+QMXug7Tzzd14HKr7UYO70oFR2D4dbTRqdGrlIQqbDOzHTn+xWGV/EfXrYq9FOZlvbxskW5gXgQ9XCx0bBlBeQnD8gtYF7FzRNGeY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786301765; c=relaxed/simple;
-	bh=IdyFU4nUNYjMMnXZPL+V9LxnoFaNd6/XEOxFvE07zBo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KKt6ErVXzgA7eUSRhjUihV5c0gSadof9fbo3Jomz75KjmR/2D+C5qW/CphlO3H/CwuOp1btW56pt66TYHPh+Yw1mdNLuTk9jMi92oYlIUdkj0uSEEi2txdIf7nQnaLjlgRjOzZYKxsMAZPtNJrsJdTVnyEZdpUk5fyqFNySkgVQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=igKEKwhh; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD101EE7C6
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 19:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786302547; cv=none; b=DID7AkOle97yu1fXzepiky1eA+Y6uhhR50vr1XLWMls4PocmttbnhrJUHNkLHLYkQOkbQsDjrOM2wIyxTULhLsnoe9pdVDb4o6lD9GltwPisYVFmk4rcoQQaAI8OR2mTWuLxXkUkYm9aDkI3L9hltsV1IhYZS9MUrQNIMH0DWQI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786302547; c=relaxed/simple;
+	bh=aq1BSjxXtT48RESqWRLyQJsVDOpgM7cZqj3oSg4pgJc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MoqUntTDyNnaRpOf1DR9ESbrty63qOFqOaDRsaT6IKrAM+KJsvA2D9lhj4mqshhHx60T+8GmKo8AJmYvg49KmaFDbjlcGngge9NU0/LIhxkyZGA8M3dzzeBtearJrjtz4JxWJopGc3WR0IOLJFRUoy6DtfnyA1rcuUdNulGpAg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0d/ysnC; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="igKEKwhh"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c20755e8295so217143366b.0
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 11:56:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786301762; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HhbFIzDRtpKNwBIYeNpU2fYM6JUUBK71h7Xx4dZtKP4vpsxzTWDg1zLOPM1xyMGTzJ
-         d741MARJSv0XS0uZJkmyBFWUPzoQfzwkD1BKmKPU2MVUzhBfy8/DtO+Uhk1CF8o8BfxY
-         PAnqOud9Ru9X4kzibDE8Mp679+M3dn5gAFMKm0E+qeLrO9e0n8xwu+PkYZ1YOgOBJSE6
-         sjI6ihwBHTeYXGAEO5viQkqzUNGDyCRKuaVLitgmjTE5X11TUkUeewkdupz5er34Ks9u
-         JThtEY3PzXOsnl+5NiqdZ0VH+nTw6VfKSVrUoTNXcM0K5Ws06Zymhh3qpNHdGDJnVie3
-         gTxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fKfWVbm9KpeTwL3/mVwrfju84PrObkxu9nWfkWUyNGM=;
-        fh=xQWbA/Kph090g0mMt+1s5vpu3xxPOcytDLq3tkCzKa8=;
-        b=ngHguQvFQXqH0terToAlbDu7OpdHDbrZAoFff01GuqqZn4GKN9t8m78ZDuamPshlYw
-         pYxlfZP1DyDWG1IjTP0lU1XBpAz18VCX9eRaZuRkiqISiTJ5u7wgkUlCakQSj/+sn7/i
-         kdgPdd1Jjz4xJCmJbXE8MsoRifb1mG1/sLxsLMpgIkEs6UplX9wAkQL9rDkG5EAUiRqN
-         v0yDwIK15s/R1XCYUJAN1z6gyy+iJPjLoIiBqhATpbqZ+hbEFj5kl9zq9ixa2or9EJcf
-         UoSOKnKYJErDwoTexxQfhW08KTIDQPPC2UNQrM8wgjoi9zqPzv1ds8sUU6AHzvg5PZ3s
-         B7eg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0d/ysnC"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d004f135b1so13639965ad.3
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 12:09:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786301762; x=1786906562; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1786302545; x=1786907345; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fKfWVbm9KpeTwL3/mVwrfju84PrObkxu9nWfkWUyNGM=;
-        b=igKEKwhhpKdo8JzARV0rrzII7QLKfrtD8d4H/fxhSxIhn3R/LUhblqvJE//sxEbqly
-         n8LkDJhXwqnvcR2Plw0vwBtjEBFnG2WXGJk/Z7jvNNultSKm2ZzFa2SYfHpaIC/wqMYh
-         +bGjTQoPMAL2m6ioYWVxYijEjesCe5G+S1VkkWH7JplrkjFcHhCeprwQkHZYBxVBNCer
-         MSRXDo1NuhiO6wstx0AGfFbB3sGPu4CtSt98VNuUtsIBhdu3KZ5t+5om42dqS5sdH9fx
-         vIPC2vi8T/QSzM1FI1ZSPDeUIcZnlQgVy8qF/k5JdEHTN3YJp/wWFe79vWvFgwYhMdcW
-         X/uw==
+        bh=6vZGi+iuh+YDljvOzn1g8dcCjbMnjc8Erlh5ur5ioA8=;
+        b=B0d/ysnCxhAFoBWRPZshkQwJbKkrbtkTJgolNvt1OujSr41YLC+IHL+kxZdp69lNLM
+         xK/3jEuP6iuhiKe1GBEnER3jHyuNGYq1jnDM+9vaZP1iE2IVefooYsjuJOG1s12gjM/R
+         rcVtbORPRvR6zF+fU4HQ5G9DCHXYf6hFf3ahxz8TKwiByYgFzdetI7nmEIbjSPpBtXPb
+         Q5rUybulkXVErlHXe84MD5fJGGthpUsLs5cnlmAJxEor+Sv3xixG8D5fGoPOLMTmR8sq
+         mmvGqAlpEJyKMEJ88lleWeqThxwQtsfJIZ0die3bSMK9iGOcM7igdkgfycS1QJag86LA
+         Db/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786301762; x=1786906562;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1786302545; x=1786907345;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=fKfWVbm9KpeTwL3/mVwrfju84PrObkxu9nWfkWUyNGM=;
-        b=MvKEqlj6scnLSxzbj6/NA+bwmWh9wtPP2GdzI2JJN8NMKCiT2dFJJmSo0yghOoULF3
-         +Qm88KUeqqHy1HNSjBbhM3CDmDoKj9nkopZCCF0fPDyVCLJMhERWIQ49oseqCfRyDuyw
-         Omg0pFC37dcgn3GcdiaiyeKB7fYiIF/UwD7OYGG9cJiQSt1HAUEWEuh9UjDIclRCeSMj
-         VVlLLB9aWZaSxy1XXKdCVIiVvFhquWL6mKZmqLPex8bJZENq7LMwuMoVWYI4se/C+EQt
-         4l/z0vG3+P9dAKtEZjIcXbQWLo4gDroh3UsTirHYPLDdHgZRznFiUwGBce8Lt0RbXUhP
-         HSlw==
-X-Forwarded-Encrypted: i=1; AHgh+RoFuXJkyLpTjr7pRZ6f+q3TrxJg26avg85ncuWw6yWJ2YJRVJXn/wD/U7VjZvpPgM0mQuPzd9jQEPKi@vger.kernel.org
-X-Gm-Message-State: AOJu0YzM+kxg3PQMnqjcc2LfSJxVYirBKJqy5SP9VhaWMQn608roNGBm
-	AgPN0TGAG3yK+dhVdZStoB/L543SgvkQ6lazL2hapOTLYmLLC+dfRlB70NFOyaNstFkO1EC372z
-	esndX27HMXvO/yvPkbpZBcJf6vfqw7T4=
-X-Gm-Gg: AR+sD137I3lGw0XoxlYTO6HwCL7oFxZleQfVAMWpj+7w2OriwDlH4lTu1z/tAL0GEOF
-	bsOT8d6ueNynCRrlj1b6Vjrx6wi/7uWwcPgw26NQ0z5EYl+9v3QcSwE7AN/Y+9mAwlWIlsLSiIs
-	sQtnWKwYjmKz6/1PS0H7eOhg0w5L8W4vWUrDIJnT/J72lSrioQ/sjxQx9uM9lWl6bEWf2TNXHYR
-	TwKyuu2NvXaIxei9FPgZxzB9rs31SQTSpJR+SE2IY+XUjEsiNpx6fP19nearcWVyOnbi1Um491R
-	S25ww4h5USvFPDKMKw5ynoudzV6HJNYVEw3tjxqXOxhW5iMArAQYVgLF0E1bFJzy3W1VI1qjPdu
-	zHYfjxVh/Hg==
-X-Received: by 2002:a17:907:962a:b0:c12:b58c:fd7a with SMTP id
- a640c23a62f3a-c208d4b5c1bmr643267266b.9.1786301762159; Sun, 09 Aug 2026
- 11:56:02 -0700 (PDT)
+        bh=6vZGi+iuh+YDljvOzn1g8dcCjbMnjc8Erlh5ur5ioA8=;
+        b=DpXvrdFIy5PZDb1CAievRlVqKCHJfilF7i3uzqX+th02WIHAu64QD396aMizQydtL7
+         LjxGFC0Gi6U7VIYU8ppaWTZokRn+3VOgCt17qDPMHtuaAEyl4ZqyVtAbyYfZ/oesDkYD
+         v3assyurzkRfOsPB2eq+JEsLNj+kM6rbKdnkx/MNWQzMKXqoW7Bbtbx/YSXnV3HoMLGX
+         miNy4nOH2b1f2n5xzDod25kHDngIvG+inY+BbpRihTx3G4EGaFmIal1YrtTseKZHH8VS
+         Ug5subNfs+inUmAPSp/A2ezJIwO4m4YUIBziwQmmr5LbWAWO0RTVhIeNGr68FEAa3Qks
+         ZVHg==
+X-Forwarded-Encrypted: i=1; AHgh+RoJzQbcoSCPOm/Dx1CvaeXfSxU+M5RwD2CWkGLrOla/XizexsV0JQsWoNvegN5ZWc0YboJdKhYoOx/r@vger.kernel.org
+X-Gm-Message-State: AOJu0YzzltOKNcVDLvXDVveMAzqeUmj37np3GX7GtgXW/fql8rEiJ3bV
+	XM+bw/11P5umBcmUuGgRnh3aWf66nw22nZ/NbZBYit2oAiCcChh8XAStGdD8Jg==
+X-Gm-Gg: AR+sD10WBz8qiLAC8Q07whRdbQuG+mBv6qdInp3XRgjctfw5cteXFSdDk7fpiDpqLLL
+	266ZFEOCCpwndbqDqwJAUTgjjTdXFbgjiGIm017AkmcX3u2EUPaBx0Bsz+/LCegxZhx3l0Qqd9u
+	QstNHdYKt8wPr4ngLL/8p/koDmhzo8GmiLNyb7FyonqEXNlQuM9FhICa+zMX61CDnEB1YlIn1dt
+	Wwdz/P99UDP69CWTpuRGa6s45YUTPxV2MtCgzi3kDu1WUTugu8miIYm0DfZVhuDQ+EjB0jsEVaL
+	avpdzOzK4iXtpuwrPO8gAY/iFFj8fBoaNY/Qh5FjOJScYKAPOvV9NS0dVlENReqlTcrq8M0KCpN
+	UQN5Zbjlg1R9tXvI9Ztvjr6IHLUaCQ+8mv3G5EIFA+2ZQzIBtwpKgkcje5VNIMh3UzhrJSSjieD
+	DYTsWoIcYjcqEjPff+fXOSD3HD4dwoSBZ/U3N38dkjMCl7/ot121efv2XB7T/stm9Va43yjIRIB
+	5ZIUQmeyEDdIlBT39uVBR4S9tHRcSNkXjGG7g==
+X-Received: by 2002:a17:902:da87:b0:2cf:4c0f:5129 with SMTP id d9443c01a7336-2d0caa03fcfmr385767855ad.17.1786302545136;
+        Sun, 09 Aug 2026 12:09:05 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bec5aac2sm36971156eec.30.2026.08.09.12.09.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 Aug 2026 12:09:04 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <ff780a8d-c164-49df-b68d-203966a16442@roeck-us.net>
+Date: Sun, 9 Aug 2026 12:09:02 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260809160643.33991-1-l.scorcia@gmail.com> <20260809160643.33991-4-l.scorcia@gmail.com>
- <aniv5B4jz07mI70D@buffalo-ssd> <0e4dfe8b-af67-4dcf-92fc-cd564d7c3744@roeck-us.net>
-In-Reply-To: <0e4dfe8b-af67-4dcf-92fc-cd564d7c3744@roeck-us.net>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Sun, 9 Aug 2026 20:55:51 +0200
-X-Gm-Features: AUfX_mw2G_pgmXXoJxjvv-8va564k6KXHRWKZyjeue4zkg_p1JWDElM0hRbQ6kQ
-Message-ID: <CAORyz2+op80Tj1Ax1PD8wN9fAT5QfAev+vEPBgihvM0O-tWXPA@mail.gmail.com>
-Subject: Re: [PATCH v3 3/8] arm: dts: mediatek: mt6589: Enable toprgu reset controller
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Akari Tsuyukusa <akkun11.open@gmail.com>, linux-mediatek@lists.infradead.org, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/8] arm: dts: mediatek: mt6589: Enable toprgu reset
+ controller
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: Akari Tsuyukusa <akkun11.open@gmail.com>,
+ linux-mediatek@lists.infradead.org, Wim Van Sebroeck
+ <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260809160643.33991-1-l.scorcia@gmail.com>
+ <20260809160643.33991-4-l.scorcia@gmail.com> <aniv5B4jz07mI70D@buffalo-ssd>
+ <0e4dfe8b-af67-4dcf-92fc-cd564d7c3744@roeck-us.net>
+ <CAORyz2+op80Tj1Ax1PD8wN9fAT5QfAev+vEPBgihvM0O-tWXPA@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CAORyz2+op80Tj1Ax1PD8wN9fAT5QfAev+vEPBgihvM0O-tWXPA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
-I added his Signed-off tag as he provided basically this same patch in
-a separate series [1] slightly before this submission and I wanted to
-acknowledge his work. As far as I understand, this attribution is
-within the guidelines.
+On 8/9/26 11:55, Luca Leonardo Scorcia wrote:
+> Hi,
+> I added his Signed-off tag as he provided basically this same patch in
+> a separate series [1] slightly before this submission and I wanted to
+> acknowledge his work. As far as I understand, this attribution is
+> within the guidelines.
+> 
 
-[1] https://lore.kernel.org/linux-mediatek/20260716161923.266315-8-akkun11.open@gmail.com/
+ From Documentation/process/submitting-patches.rst:
 
-Il giorno dom 9 ago 2026 alle ore 19:49 Guenter Roeck
-<linux@roeck-us.net> ha scritto:
->
-> On 8/9/26 10:04, Akari Tsuyukusa wrote:
-> > On Sun, Aug 09, 2026 at 06:03:27PM +0200, Luca Leonardo Scorcia wrote:
-> >> Enable the toprgu reset controller feature for the mt6589 SoC. This
-> >> allows generating reset signals for the 12 subsystems managed by its
-> >> top reset generation unit.
-> >>
-> >> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
-> >> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> >> ---
-> >>   arch/arm/boot/dts/mediatek/mt6589.dtsi | 2 ++
-> >>   1 file changed, 2 insertions(+)
-> >
-> > I provided "Acked-by", not "Signed-off-by"...
-> > https://lore.kernel.org/linux-mediatek/amEBgRmQktZ44jc1@buffalo-ssd/
-> >
-> > PS: I am also fine with this patch carrying my Signed-off-by.
-> > Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
-> >
->
-> That is completely inappropriate and unacceptable. You are not in the
-> Sign-off chain.
->
-> Guenter
->
+   Any further SoBs (Signed-off-by:'s) following the author's SoB are from
+   people handling and transporting the patch, but were not involved in its
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   development. SoB chains should reflect the **real** route a patch took
+   ^^^^^^^^^^^
+   as it was propagated to the maintainers and ultimately to Linus, with
+   the first SoB entry signalling primary authorship of a single author.
 
+I won't apply this patch anyway, so it is for others to decide if
+"this attribution is within the guidelines". I stand by earlier
+statement.
 
--- 
-Luca Leonardo Scorcia
-l.scorcia@gmail.com
+Thanks,
+Guenter
+
