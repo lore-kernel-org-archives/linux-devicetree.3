@@ -1,123 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA0039DBF7
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 20:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF0F3630BE
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 20:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786307313; cv=none; b=Q3pfdMkeAmc/wqsxAnofZ8aofZ6xOE9KdSAVZ44xlnZUWBTJ0fXIfrPwRKhW1X7A9SL7SnfvDTAMrzgGxgvigouba9RC/OD+sCNZJml9+pW0IDIeHPIltBxIfkF/EciCIQzzDhBG/8vxPq0CvGYRYqVx6BcsQBcjfAT+pXyyzBA=
+	t=1786307319; cv=none; b=cBSdRXLedU/sB0H0pWehqXQnSbKNxD1GbWUK/9N2DAEgztiMropQPaT/ISu6gajSObM42uRD8ZLkpIHkuF8dtF0wwH7f11BPKZSReBdJyd/5DrwqLQwjO9DBzly2PuYpN2zqF4XUiqXGFcETNXb/ffGJHgVw5lWwGV/hKStTcTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786307313; c=relaxed/simple;
-	bh=0iRMUIppQQQkilqJwCsvDcx9/ZUSBs8z8ye4eqeLCeI=;
+	s=arc-20240116; t=1786307319; c=relaxed/simple;
+	bh=2OMazCRPOwCAEdoeHi9CfSu65NVFhsAAnHphbLeHCIM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bjdMipmSg/NsHl4fDIzDvi0UIaDSX+OVCHoNFUMVE8kmE1Y1Fcah7R3bHWranE8u4ODvjek71eFWX+TaXcm+BU61JldSjUwN4TdPaZrn+go1PrnQsg6nESG/VGHcEU0eIKXFzit3kfjz9CWfO2+Kzu9s6KBKHhsiopFKUwa4LEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CiD2GpDK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=qoKEgqCMvsfos7+npmB+V6On4Th3JPjoxOA8w5zsDQEUsebrYck3/OKGpIRiTymUVQZP+S7T/3yEJZyCzqxGWgrq++viv9GsyPf9mM2AtgOPk8egjYgFd3LhInUzMK62kSMx9mvo83WAnWyBRBaw5ZD81najut5LtpBcVqsmGjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjctIR+X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CiD2GpDK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 140031F00A3A;
-	Sun,  9 Aug 2026 20:28:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjctIR+X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 346161F000E9;
+	Sun,  9 Aug 2026 20:28:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786307312;
-	bh=PMHcunN2PELlLd22jIo3s3Zq/9lfxZiPoMmP3bHyy7M=;
+	s=k20260515; t=1786307318;
+	bh=oqEgCajFDACssAnwquRWwzzchAgKyOWjMVWSNHfbO5Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CiD2GpDK+VqVAhbJZjNaqBqcaD/sU0qbdk1DWgJhV3grm9rsHN+3Z5CxI6pcpFwR2
-	 uxa4HDVseCh2TUgWg9kcdnaJDKkLN87WWzNjyN4g3Djs9aNqx7m57yJIpOS+qdxoSU
-	 dEPClCWDYoR0vKm+swX+HiRLHLnn6dHnzNT6O4j8ZnGqFa/9DV4HsHbdB4yJ2+Anez
-	 khv50kpjRB1S3HZuPn/k0sw3FKNCj+rnK+OD8wlXsB9TB8jitg7gMEm6M8whL3dUr8
-	 dtRApbt8V/6eCCVy4agfmVNw5frqODXboBHJm0OG6pO8J9gf81TqJ3jNgILGmpTVu9
-	 gx4zMXL0Gf3aA==
+	b=JjctIR+XD1waedvIiPvjO5JXPoF8eK7lakjhZcfXNtjuCsU8JOIdY9ODyOpAeB6PM
+	 6RoFzYirmqK5KsdeSeSeckqhvy03gz3c+icTOj/DWHM3I6QLb58g40NWo2eYwnYLO7
+	 fXNMOLmOG9R6URC5GGKqzyFk0NC562AMGIS02k2D3f6XF2NVhs13geeYfprbikjfiZ
+	 7rwWSysNMfiPdsDbpXUhOLLSLOv+MrnOskahvzketaPSrSLE0/KH2gwaMsiRR3cXN8
+	 CodpbGmaWB16FChX82gGXAD3G7+HlohQG7RAW7Wa9dwC0qwEhrGWZYYdoN8WFUG/+u
+	 XzsHWa4yQEimw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/12] dt-bindings: iommu: qcom,iommu: document the
- MSM8974 IOMMUs
+Subject: Re: [PATCH 10/12] iommu: qcom_iommu: program BFP (prefetch)
+ settings
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260809-msm8974-iommu-upstream-v1-1-87f5cd492560@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260809-msm8974-iommu-upstream-v1-10-87f5cd492560@oss.qualcomm.com>
 References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
- <20260809-msm8974-iommu-upstream-v1-1-87f5cd492560@oss.qualcomm.com>
+ <20260809-msm8974-iommu-upstream-v1-10-87f5cd492560@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 20:28:31 +0000
-Message-Id: <20260809202832.140031F00A3A@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 20:28:37 +0000
+Message-Id: <20260809202838.346161F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing top-level 'interrupts' property and incorrect unconditio=
-nal requirements for new direct-mapped instances.
-- [Low] The schema fails to conditionally require the `reg` property for th=
-e newly added MSM8974 per-instance compatibles.
+- [Medium] Missing clock disable/unprepare on error paths in qcom_iommu_res=
+ume() leading to reference leaks.
 --
 
---- Patch [1]: [PATCH 01/12] dt-bindings: iommu: qcom,iommu: document the M=
-SM8974 IOMMUs ---
-commit b29444ad6a6fa61aa71980a7c581393333c88d6a
+--- Patch [10]: [PATCH 10/12] iommu: qcom_iommu: program BFP (prefetch) set=
+tings ---
+commit 7f97a52dc093659d163957e201f4e9c73067ebaf
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-dt-bindings: iommu: qcom,iommu: document the MSM8974 IOMMUs
+iommu: qcom_iommu: program BFP (prefetch) settings
 
-This patch adds per-instance compatibles for the display, Venus and GPU
-MSM8974 IOMMU instances based on the ARM SMMU v1 spec. It allows the driver
-to carry per-instance prefetch tuning tables and stream ID maps, and updates
-property documentation for direct-mapped instances.
+MSM8974 QSMMU instances require additional programming of the prefetch
+settings in the instance-specific space, with the tables being specific
+to a particular instance. Implement support for programming BFB tables.
 
-> diff --git a/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml b/Do=
-cumentation/devicetree/bindings/iommu/qcom,iommu.yaml
-> index 93a4890253170..43dffe41e3b8f 100644
-> --- a/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/qcom,iommu.yaml
-> @@ -30,6 +30,10 @@ properties:
->                - qcom,msm8953-iommu
->                - qcom,msm8976-iommu
->            - const: qcom,msm-iommu-v2
-> +      - enum:
-> +          - qcom,msm8974-gpu-iommu
-> +          - qcom,msm8974-mdp-iommu
-> +          - qcom,msm8974-venus-iommu
-
-[Severity: Medium]
-Will valid configurations for these direct-mapped instances fail schema
-validation when qcom,iommu-secure-id is missing?
-
-If the OS programs the global register space directly, statically assigned
-iommu-ctx@ child nodes aren't used, requiring interrupts to be defined at t=
-he
-top level. Because interrupts is not defined at the top level and child node
-properties are unconditionally required, adding a node for these compatibles
-without qcom,iommu-secure-id appears to fail dt_binding_check.
-
-Could the global schema constraints be adjusted to allow top-level interrup=
-ts
-and conditionally relax child-node requirements for these new non-secured
-instances?
+> diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/=
+arm-smmu/qcom_iommu.c
+> index 2b2cf665c39db..9523ae95fa125 100644
+> --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
 
 [ ... ]
 
-> @@ -50,13 +54,23 @@ properties:
+> @@ -1131,6 +1157,8 @@ static int __maybe_unused qcom_iommu_resume(struct =
+device *dev)
+>  			return ret;
+
+[Severity: Medium]
+Does this code leak the clock reference?
+
+If qcom_iommu_reset_ns() or qcom_scm_restore_sec_cfg() fails during device
+resume, this error path returns directly without calling
+clk_bulk_disable_unprepare() to clean up the clocks that were enabled
+earlier in qcom_iommu_resume() via clk_bulk_prepare_enable().
+
+>  	}
 > =20
->    reg:
->      maxItems: 1
-> +    description:
-> +      For instances using the qcom,msm-iommu-v1/-v2 fallbacks, the
-> +      optional "SMMU local" register region used for interrupt routing
-> +      configuration. For instances with per-instance compatibles, the
-> +      SMMU global register space, used for stream mapping configuration
-> +      on non-secured instances and for the implementation-defined
-> +      prefetch registers on all instances.
-
-[Severity: Low]
-Is a conditional allOf block missing to enforce the presence of the reg
-property for the new MSM8974 per-instance compatibles?
-
-The description states that reg is used for the implementation-defined
-prefetch registers on all instances with per-instance compatibles. Without
-requiring it conditionally, incomplete device tree nodes missing the reg
-property will silently pass validation.
+> +	qcom_iommu_bfb_setup(qcom_iommu);
+> +
+>  	if (qcom_iommu->cfg && qcom_iommu->cfg->ctx_restore) {
+>  		/* Restore context banks lost over power collapse */
+>  		for (i =3D 0; i <=3D qcom_iommu->max_asid; i++) {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-msm8974-io=
-mmu-upstream-v1-0-87f5cd492560@oss.qualcomm.com?part=3D1
+mmu-upstream-v1-0-87f5cd492560@oss.qualcomm.com?part=3D10
