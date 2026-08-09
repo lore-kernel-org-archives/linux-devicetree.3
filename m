@@ -1,229 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315F8342539
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 20:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CF1360EDE;
+	Sun,  9 Aug 2026 20:43:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786307996; cv=none; b=pu6i6Q1jUZkTT69WwheJijA3Rzl/IXlA1jVKi2jEGMvv7rMlB2nuZHVFyU5SYvIgZM4gNiY+864MlHAy992mXjrsB/EBBzAf11/EvjEUvwbfQXeWYZJydPStxE0fIkSidmgpX0AaZ+3PV9Xz3rEsTQ4Fqm3Cs6s+eeOg/7g9kkE=
+	t=1786308227; cv=none; b=lVo5qqz6E+KPPzAiTqGf+JOfla75rr+MyJiFtFXv4BLKeB92s5hjgHYIS9RwOhDoYElV2TXd53P3OUNhpvbqUJLrnRFPuxfp1viElCnAZi2ge+QrOCjRKScTeGLgDBUmrTEGEFxUxweDAxmDfHzaXj80IStVtn6/7gmpjNHpXLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786307996; c=relaxed/simple;
-	bh=k4t813JB2/SqLCbanQ5nev7Sian9D5yTwTcXLrP3lg8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rWHDMOaWTw+TteEkzlBGVz2PRPzlZQrIWThHO7t3SZFaMDBHasQYngQyjie1GR9DVLR38V0NF8PM8Z6sDweYMVpJU49X/sZs1Prs+orzQ6DADg1RI0ekGCKVZ0l7JIxdQmAaPUtZ9j7tYcPilA4KeyEKfEJkj/s0s0Ee80DjH20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THZHpQey; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786308227; c=relaxed/simple;
+	bh=NN4fmwr30I2d3j/4sXosL/rzXBe/r2eQxSij+UsIgaw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pjgDa2ewmKb9tGgvhHIML4rnfywqs03rQN4s/1Ig4j4zJwWZYgdpGQh0RGhgt/+3JCoS+Ebbx5RsAPBndiA0YQS32j1K63hOpLQ4ZbUG4YIrIYPTSmQj0SeO2ya3OaOi1cuCXs3flvxNHtWiEiKT8K58G95Fkk0OBHFpWrGuuvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=UIgSVgZn; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THZHpQey"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F341F000E9;
-	Sun,  9 Aug 2026 20:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786307994;
-	bh=/8p62zjD2nL5A3drPJHXEwvJiib697T6kcqVGpxLP/Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=THZHpQeyCrkudGlQg+FLQPD8pnMBpAx1RHxVKzTFGAiTpS9WGrG/uwMUuoPsDnUkE
-	 QpwQo1e4m17fqFECgNcd4CBNikcaARq9Gei6YEsRL/Gkjufh8N+dTE10FIXbMvcPAa
-	 oC17qfqbu+7sgjMPxAlA5lVF8m5oSRyfr/yWOpAzBGweorqKOe2ss27GMG3GFR+qQm
-	 RrZ5nVaaOgFoCnyrmtJVyq2v9MZjB6nP+u/+b5SZ1eEYQnwo9SPrncIBUWPUYyOwWk
-	 bDCMNtsdpmRnf7pjfJzKDPuKz12MR2b64copgfRmaFkWVxD+VSgazJOhGTDDjVNu0/
-	 PkVu8AkHb8A1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 06/12] iommu: qcom_iommu: support non-TZ-managed
- instances
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260809-msm8974-iommu-upstream-v1-6-87f5cd492560@oss.qualcomm.com>
-References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
- <20260809-msm8974-iommu-upstream-v1-6-87f5cd492560@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 20:39:53 +0000
-Message-Id: <20260809203954.71F341F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="UIgSVgZn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=8CwAOv7AuOU3VUGki+Bi2QHHT2yAfq3OZkA/qLdvJjM=; b=UIgSVgZnmz+5WlFSwJJZKiT824
+	DTiu0zX3/mLBpv7/M4Fkbq45gPPjyiHRXTm8asKXEmk7uxC7vQm/8rhOCKd40QleKyr5XUiHF5buE
+	wQHcnC6j6UjP7/D6iGx6E6NoQJvPr9lQ3QLMxVVuwslBI+UX7/YKdezQ5cihWe6CLaH0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wtAMh-00Gqw3-H1; Sun, 09 Aug 2026 22:43:27 +0200
+Date: Sun, 9 Aug 2026 22:43:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [PATCH net-next v11 00/12] net: pcs: Introduce support for
+ fwnode PCS
+Message-ID: <f9151481-7dcf-4c9e-9507-7eb0c217851d@lunn.ch>
+References: <20260807131301.192060-1-ansuelsmth@gmail.com>
+ <4c595c15-17d9-4c23-bb44-344c48d36e9a@lunn.ch>
+ <6a78bdc6.89544747.3fcae.b8e0@mx.google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6a78bdc6.89544747.3fcae.b8e0@mx.google.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+> I think the most annoying one will be stmmac with the 3 different PCS
+> implementation but we already handled that in a upcoming ipq50xx driver
+> currently present in OpenWrt mainline.
 
-New issues:
-- [High] Missing configuration data in `qcom_iommu_of_match` makes the non-=
-secure code path unreachable.
-- [High] Context bank registers are not restored during runtime resume for =
-non-secure IOMMU instances.
+stmmac is always annoying :-(
 
-Pre-existing issues:
-- [High] Dangling pointer and potential UAF when `qcom_iommu_init_domain()`=
- fails halfway through context bank initialization.
-- [High] The shared interrupt handler `qcom_iommu_fault` can be invoked whi=
-le the device is suspended or before a domain is attached, leading to unclo=
-cked register accesses and a NULL pointer dereference.
-- [High] `qcom_iommu_unmap` calls `pm_runtime_get_sync`, which sleeps, but =
-IOMMU unmap operations can be invoked from atomic context.
---
+If this can make it more uniform, make internal and external PCS look
+the same, that would be great.
 
---- Patch [6]: [PATCH 06/12] iommu: qcom_iommu: support non-TZ-managed inst=
-ances ---
-commit e923920b01d0c5363e8c876cd9db3360e29f7e5a
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-iommu: qcom_iommu: support non-TZ-managed instances
 
-This patch adds non-secure programming mode support for MSM8974 GPU IOMMU
-instances that are not managed by TZ. It configures the global space at
-runtime resume, clears global faults, and sets up stream mapping instead of
-relying on secure calls.
+> @@ -6808,7 +6792,10 @@ static void mvpp2_acpi_start(struct mvpp2_port *port)
+>         };
+>         struct phylink_pcs *pcs;
+> 
+> -       pcs = mvpp2_select_pcs(&port->phylink_config, port->phy_interface);
+> +       if (mvpp2_is_xlg(port->phy_interface))
+> +               pcs = &port->pcs_xlg;
+> +       else
+> +               pcs = &port->pcs_gmac;
 
-> diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/=
-arm-smmu/qcom_iommu.c
-> index 428b18697244c..3b07c4cf23fe1 100644
-> --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
-> +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
-[ ... ]
-> @@ -327,7 +411,7 @@ static int qcom_iommu_init_domain(struct iommu_domain=
- *domain,
->  	for (i =3D 0; i < fwspec->num_ids; i++) {
->  		struct qcom_iommu_ctx *ctx =3D to_ctx(qcom_domain, fwspec->ids[i]);
-> =20
-> -		if (!ctx->secure_init) {
-> +		if (!qcom_iommu->non_secure && !ctx->secure_init) {
+I thought the point of new API was that phylink picked the PCS. Why
+this if? Why not register both and let phylink pick?
 
-[Severity: High]
-This is a pre-existing issue, but is there a dangling pointer and potential
-use-after-free when qcom_iommu_init_domain() fails halfway through context
-bank initialization?
+> +static int mvpp2_port_fill_pcs(struct phylink_config *config,
+> +                              struct phylink_pcs **available_pcs,
+> +                              unsigned int num_possible_pcs)
+> +{
+> +       struct mvpp2_port *port = mvpp2_phylink_to_port(config);
+> +
+> +       available_pcs[0] = &port->pcs_gmac;
+> +
+> +       if (mvpp2_port_supports_xlg(port)) {
+> +               if (num_possible_pcs < 2)
+> +                       return -EINVAL;
 
-If context bank initialization fails (for example, qcom_scm_restore_sec_cfg=
-()
-fails on a subsequent iteration), the function returns an error without
-clearing ctx->domain for the already processed context banks. The IOMMU core
-then frees the domain memory.
+This seems like defensive programming. If we said there was two, we
+should assume available_pcs has room for two. I would not even pass
+int num_possible_pcs as a parameter.
 
-If a hardware fault interrupt fires, will qcom_iommu_fault() dereference the
-freed ctx->domain?
-
->  			ret =3D qcom_scm_restore_sec_cfg(qcom_iommu->sec_id, ctx->asid);
->  			if (ret) {
->  				dev_err(qcom_iommu->dev, "secure init failed: %d\n", ret);
-[ ... ]
-> @@ -907,8 +991,12 @@ static int qcom_iommu_device_probe(struct platform_d=
-evice *pdev)
-> =20
->  	if (of_property_read_u32(dev->of_node, "qcom,iommu-secure-id",
->  				 &qcom_iommu->sec_id)) {
-> -		dev_err(dev, "missing qcom,iommu-secure-id property\n");
-> -		return -ENODEV;
-> +		if (!qcom_iommu->cfg) {
-> +			dev_err(dev, "missing qcom,iommu-secure-id property\n");
-> +			return -ENODEV;
-> +		}
-
-[Severity: High]
-Does the missing configuration data in qcom_iommu_of_match make this
-non-secure code path unreachable?
-
-During device probe, of_device_get_match_data() returns NULL because the ne=
-wly
-introduced compatibles (like qcom,msm8974-gpu-iommu) and their struct
-qcom_iommu_cfg data were not added to the qcom_iommu_of_match array in this
-patch.
-
-This causes qcom_iommu->cfg to evaluate to NULL, unconditionally failing
-with -ENODEV here when probing a non-secure instance.
-
-> +		/* The secure world does not manage this instance at all */
-> +		qcom_iommu->non_secure =3D true;
->  	}
-> =20
->  	if (qcom_iommu_has_secure_context(qcom_iommu)) {
-[ ... ]
-> @@ -981,8 +1069,15 @@ static int __maybe_unused qcom_iommu_resume(struct =
-device *dev)
->  	if (ret < 0)
->  		return ret;
-> =20
-> -	if (dev->pm_domain)
-> -		return qcom_scm_restore_sec_cfg(qcom_iommu->sec_id, 0);
-> +	if (qcom_iommu->non_secure) {
-> +		ret =3D qcom_iommu_reset_ns(qcom_iommu);
-> +		if (ret)
-> +			return ret;
-
-[Severity: High]
-Are context bank registers restored during runtime resume for non-secure
-IOMMU instances?
-
-When the non-secure IOMMU is runtime resumed (e.g., after GDSC power
-collapse), qcom_iommu_resume() restores the global registers via
-qcom_iommu_reset_ns(), but it seems to completely omit iterating over and
-reprogramming the attached context banks.
-
-Since the context bank child devices lack PM operations, do they remain
-disabled (SCTLR =3D 0) after resume, causing translation faults for all
-non-secure instances?
-
-> +	} else if (dev->pm_domain) {
-> +		ret =3D qcom_scm_restore_sec_cfg(qcom_iommu->sec_id, 0);
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
->  	return ret;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but can the shared interrupt handler
-qcom_iommu_fault() be invoked while the device is suspended or before a
-domain is attached, leading to unclocked register accesses and a NULL
-pointer dereference?
-
-In qcom_iommu_ctx_probe(), a shared IRQ is requested before a domain is
-attached:
-
-drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_ctx_probe() {
-    ...
-	ret =3D devm_request_irq(dev, irq,
-			       qcom_iommu_fault,
-			       IRQF_SHARED,
-    ...
-}
-
-If another device sharing the IRQ fires, qcom_iommu_fault() executes and
-accesses ARM_SMMU_CB_FSR. If the device is unclocked, this crashes the bus.
-
-If clocked and a bootloader fault is pending, it dereferences a NULL
-ctx->domain. The target patch seems to explicitly bypass clearing pending
-bootloader faults for non-secure instances when qcom_iommu->cfg is present:
-
-drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_ctx_probe() {
-    ...
-	if (!ctx->secured_ctx && !qcom_iommu->cfg) {
-		ret =3D pm_runtime_resume_and_get(dev->parent);
-    ...
-}
-
-Will this ensure the crash triggers immediately upon shared IRQ firing?
-
-[Severity: High]
-This is a pre-existing issue, but does qcom_iommu_unmap() call
-pm_runtime_get_sync() which sleeps, even though IOMMU unmap operations can
-be invoked from atomic context?
-
-The DMA API invokes the IOMMU unmap operation from an atomic context
-(e.g., interrupt handlers):
-
-drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_unmap() {
-    ...
-	pm_runtime_get_sync(qcom_domain->iommu->dev);
-	spin_lock_irqsave(&qcom_domain->pgtbl_lock, flags);
-    ...
-}
-
-Because the device is not marked with pm_runtime_irq_safe(),
-pm_runtime_get_sync() acquires a mutex and sleeps. Can this lead to a "BUG:
-sleeping function called from invalid context" panic?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-msm8974-io=
-mmu-upstream-v1-0-87f5cd492560@oss.qualcomm.com?part=3D6
+    Andrew
