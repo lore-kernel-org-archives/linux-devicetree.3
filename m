@@ -1,315 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1DE2D8767
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 13:36:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C83D23AE87
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 13:41:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786282566; cv=none; b=NTKshvROn1cC1+EpEWEAoOknGL1A490atTiHoHIjYtIadMEbO6eX1XgQw1fuhvvGVqdPVB70Gpaed7RH21tvRF7A1vSOH1Nj5kaZSb/Fw7J5rqz88eEwo3DyotOSGhDAsiuEzJjj8/JoGi2SfrGPZTOjUI2dtEmCSXl7s3398YM=
+	t=1786282864; cv=none; b=fDd7eUOyctzVhqsHDx68efWITjxftfGyXQ6c6SwccSVF3hc3C6x1TpRG/QvqUhz3QrPdXF+weckfROb1DjTLk0VAF8m0GA+b7XxjT2rtsvlgkUv93Z+Eg/T99xC9kyhk8yN19wD92VPrJtVuHxGnRu9M8kbelP31fvxdHVS4pwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786282566; c=relaxed/simple;
-	bh=ay+LbK8ip4ICHx9qKHWiViuOzF67q9tMYeTlaaXqRXg=;
+	s=arc-20240116; t=1786282864; c=relaxed/simple;
+	bh=0DbZlom1yrVaTEKNy7MZgUVcyI/zgYns9ZkCzeLxDG0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZOc9iIZUPBDCBHGW82tuh0v7X1NYuLujCDGqgOPyhHLtyynJyu6Fo0KJDWgEgsATDmnVPOScMsNftL9JYRqMfUd7VYXtEP5Y4Ga8H3wGDBES4F6HLnUeM0RU89L95dL7CKJlT67u/WHB98M/lPAL8G5AiKFel05KCz+fEeovQfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cGJtBLTi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SiSIoVmUqs/ZFOVtUrqIfHNGP5X1QKL1A9FFwFYtRll/0Ez1U9o3suKWNihBelMwh1QaU6A6Un9Y8CQ9sJqtC5sx0G8g/XxhnT4nrkv2JH45zA9mERN0N4Jkj36Ag9yJzi0Ss7ruMcNTSge/hisN+22w8YF+XDcFVkMafBy2znk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9PBQ2P4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cGJtBLTi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A711F000E9;
-	Sun,  9 Aug 2026 13:36:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9PBQ2P4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7462F1F000E9;
+	Sun,  9 Aug 2026 13:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786282565;
-	bh=P5Bg/oaykp14rin3RjiNprNpcavQbQmhK7o7+wKpbOM=;
+	s=k20260515; t=1786282862;
+	bh=N4+pr40uvXvX9gG+n03S/KvJLYb+6Xf/8JnR0rtxWo0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cGJtBLTis3iW0UOkE02bKdNuR5JXUvkvsJtMJwIQ5nn3ETvBsKFcEL+UJC5IpwiLn
-	 QDoYKl/525z3GRLfIVtzw+3bzL8VljPyHEM6SKbuiv6ryahKYPdsodG2157nmmP8ns
-	 sbbC9azdV9zpm04YDOHDSUDD+X/N6ZkqrqLnPkneBfgUTU166bQx7m8MqdciPBAkHX
-	 Ws76Mkad+J1wX4JubxVBtZqjpwDbDHZEuDJfwIeJ4Gu6HYypkXgKJI6NFcI0ky/epJ
-	 ZEqaHXbx+k1KioR0gF+KIgGu5ENXLokf/nYwrsNWvLg2Km04V2ihagWu/rdEkuS2DP
-	 z29R7hnGdqv0w==
+	b=i9PBQ2P46FQMmrXuGsnkoraO5oixoDE+ja1OAjHviih4yx8cZPa0sp62VLl7R+qAw
+	 WSHfHTYxWLBhDz6dF10EGIdDpNLUrrglNzooifaTkOmDEUIzi9JEkH4BQAChBlyztb
+	 jBhmjJXKZkf1JugyTRqAURUABSjzpBim5aJ4wqP7Q1jTJo+C6YHs/XYJiXpbRld6Ws
+	 MESIumhUs8hl9eVZlClqJ6f6H90HbGSfxQkH/me3RZn522IkZnoBqDDeqhtu75QIlx
+	 eS83NsjwzYgvikox4G4XyjhIv1remxAZTPzFNJSScwNIEYPWuY57rq4Y0lYtGUqR+w
+	 Gl0pEhR3qFG0w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 12/17] drm/spacemit: add Innosilicon DP/eDP
- controller bridge driver
+Subject: Re: [PATCH v4 1/3] dt-bindings: platform: introduce EC for Dell XPS
+ 13 9345
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: neil.armstrong@linaro.org, robh@kernel.org, dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org
-In-Reply-To: <20260809-k3-display-v2-12-327d7910bf71@gmail.com>
-References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-12-327d7910bf71@gmail.com>
+To: "Aleksandrs Vinarskis" <alex@vinarskis.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260809-dell-xps-9345-ec-v4-1-88306dbbc7aa@vinarskis.com>
+References: <20260809-dell-xps-9345-ec-v4-0-88306dbbc7aa@vinarskis.com>
+ <20260809-dell-xps-9345-ec-v4-1-88306dbbc7aa@vinarskis.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 13:36:03 +0000
-Message-Id: <20260809133604.45A711F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 13:41:01 +0000
+Message-Id: <20260809134102.7462F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Premature bridge and component registration before eDP panel probe=
- completion breaks `drm_bridge_connector`.
-- [High] Incorrect lock acquired before calling `drm_connector_set_link_sta=
-tus_property`.
-- [High] Infinite modeset loop caused by partial clearing of link capabilit=
-ies on training failure.
-- [Medium] Data race on DPCD and link capabilities during `mode_valid` and =
-`atomic_check`.
-- [Medium] AUX hardware reset during modesets races with concurrent AUX tra=
-nsfers.
-- [Medium] Stale AUX interrupt status causes false completions on subsequen=
-t transfers.
+- [Low] The device tree binding example includes a non-existent header `<ar=
+m64/qcom/qcom-adc5-gen3.h>` and uses invalid macro syntax `ADC5_GEN3_AMUX3_=
+GPIO_100K_PU(1)`.
 --
 
---- Patch [12]: [PATCH v2 12/17] drm/spacemit: add Innosilicon DP/eDP contr=
-oller bridge driver ---
-commit 67f4fc821826b59800af024c1981f9d4c8be1a74
-Author: Cody Kang <codykang.hk@gmail.com>
-Subject: drm/spacemit: add Innosilicon DP/eDP controller bridge driver
+--- Patch [1]: [PATCH v4 1/3] dt-bindings: platform: introduce EC for Dell =
+XPS 13 9345 ---
+commit 7f91f574545d4b995c0bfefa74700011122fb8e1
+Author: Aleksandrs Vinarskis <alex@vinarskis.com>
 
-This commit introduces the DisplayPort/embedded DisplayPort controller
-bridge driver for the SpacemiT Saturn DPU. It leverages the generic PHY
-framework and provides hotplug detection alongside link training mechanisms.
+dt-bindings: platform: introduce EC for Dell XPS 13 9345
 
+Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
+codename 'tributo'). It may be partially or fully compatible with EC
+found in Snapdragon-based Dell Latitude, Inspiron ('thena').
+
+> diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,x=
+ps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/d=
+ell,xps13-9345-ec.yaml
+> new file mode 100644
+> index 0000000000000..3485117b505cc
 > --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
-[ ... ]
-> +static void spacemit_dp_modeset_retry_work(struct work_struct *work)
-> +{
-> +	struct spacemit_dp_dev *dp =3D container_of(work, struct spacemit_dp_de=
-v,
-> +						  modeset_retry_work);
-> +	struct drm_connector *connector =3D dp->connector;
-> +
-> +	if (!connector)
-> +		return;
-> +
-> +	mutex_lock(&connector->dev->mode_config.mutex);
-> +	drm_connector_set_link_status_property(connector,
-> +					       DRM_MODE_LINK_STATUS_BAD);
-> +	mutex_unlock(&connector->dev->mode_config.mutex);
-
-[Severity: High]
-Does this acquire the correct lock? The DRM core requires the caller to hold
-mode_config.connection_mutex (a drm_modeset_lock) to protect connection
-state. Calling drm_connector_set_link_status_property with just the
-standard mode_config.mutex triggers a lockdep warning and leaves the state
-unprotected against concurrent atomic commits.
+> +++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-93=
+45-ec.yaml
 
 [ ... ]
-> +static ssize_t spacemit_dp_aux_transfer(struct drm_dp_aux *aux,
-> +					struct drm_dp_aux_msg *msg)
-> +{
-[ ... ]
-> +	regmap_write_bits(dp->regs, DP_AUX_START_REG, DP_AUX_START,
-> +			  FIELD_PREP(DP_AUX_START, 0));
-> +	regmap_write_bits(dp->regs, DP_AUX_START_REG, DP_AUX_START,
-> +			  FIELD_PREP(DP_AUX_START, 1));
+
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <arm64/qcom/qcom-adc5-gen3.h>
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
 > +
-> +	timeout =3D jiffies + msecs_to_jiffies(200);
-> +	ret =3D -ETIMEDOUT;
+> +        embedded-controller@3b {
+> +            compatible =3D "dell,xps13-9345-ec";
+> +            reg =3D <0x3b>;
+> +            interrupts-extended =3D <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
 > +
-> +	while (1) {
-> +		regmap_read(dp->regs, DP_GENERAL_INTERRUPT, &val);
-> +		val =3D FIELD_GET(DP_AUX_REPLY_EVENT_INT_STA, val);
-> +		if (val) {
-> +			ret =3D 0;
-> +			break;
-> +		}
-> +		if (time_after(jiffies, timeout))
-> +			break;
-> +		usleep_range(100, 110);
-> +	}
-> +
-> +	if (ret) {
-> +		if (retries < SPACEMIT_DP_AUX_MAX_RETRIES) {
-> +			retries++;
-> +			spacemit_dp_aux_hw_reset(dp);
-> +			dev_dbg(dp->dev,
-> +				"AUX timeout, cmd=3D0x%x addr=3D0x%x size=3D%zu retry %d/%d\n",
-> +				cmd, msg->address, msg->size, retries, SPACEMIT_DP_AUX_MAX_RETRIES);
-> +			goto retry_eio;
-> +		}
-> +
-> +		dev_err(dp->dev,
-> +			"AUX transfer timeout, req: 0x%x, cmd: 0x%x, addr: 0x%x, size %zu\n",
-> +			msg->request, cmd, msg->address, msg->size);
-> +		return ret;
+> +            io-channels =3D <&pmk8550_vadc ADC5_GEN3_AMUX3_GPIO_100K_PU(=
+1)>,
 
-[Severity: Medium]
-If a transfer times out and this returns -ETIMEDOUT, is the
-DP_AUX_REPLY_EVENT_INT_STA interrupt bit left uncleared?
+[Severity: Low]
+Will this example cause make dt_binding_check to fail with a C preprocessor
+error?
 
-If the hardware completes the transaction shortly after the timeout expires,
-this bit will be set. Since the next AUX transfer does not clear this bit
-before starting, its polling loop will instantly see the stale event bit and
-incorrectly assume the new transfer has completed.
+The included file <arm64/qcom/qcom-adc5-gen3.h> does not seem to exist in t=
+he
+kernel source tree.
 
-Could this lead to reading garbage data and corrupting DPCD or EDID reads?
-
-[ ... ]
-> +static int spacemit_dp_hw_read_sink_caps(struct spacemit_dp_dev *dp)
-> +{
-> +	ssize_t ret;
-> +	u8 max_bw;
-> +	int retry;
-> +
-> +	for (retry =3D 0; retry < SPACEMIT_DP_SINK_READY_RETRIES; retry++) {
-> +		if (retry) {
-> +			spacemit_dp_aux_hw_reset(dp);
-
-[Severity: Medium]
-Can this reset disrupt concurrent AUX transfers initiated by userspace?
-
-The driver issues a hardware reset to the AUX controller here and in
-spacemit_dp_link_disable() without holding dp->aux.hw_mutex. If a concurrent
-AUX transfer is initiated (e.g., via /dev/drm_dp_auxN) while a modeset or
-detect operation is occurring, the hardware reset could corrupt or abort the
-in-flight transfer.
-
-[ ... ]
-> +static enum drm_mode_status
-> +spacemit_dp_bridge_mode_valid(struct drm_bridge *bridge,
-> +			      const struct drm_display_info *info,
-> +			 const struct drm_display_mode *mode)
-> +{
-> +	struct spacemit_dp_dev *dp =3D container_of(bridge,
-> +						  struct spacemit_dp_dev,
-> +						  bridge);
-> +	unsigned int max_link_rate, max_lanes;
-> +	u64 max_bw, req_bw;
-> +	const unsigned int bpp =3D 24;
-> +
-> +	/*
-> +	 * drm_dp_max_link_rate() is in 10 kHz units; clamp to what the PHY can
-> +	 * do.
-> +	 */
-> +	max_link_rate =3D min_t(unsigned int, drm_dp_max_link_rate(dp->dpcd),
-> +			      SPACEMIT_DP_SOURCE_MAX_RATE / 10);
-
-[Severity: Medium]
-Is it safe to read dp->dpcd here without holding dp->mode_lock?
-
-These hardware capability properties are updated in
-spacemit_dp_hw_read_sink_caps(), which runs from the hotplug threaded IRQ
-handler while holding dp->mode_lock. Reading them here without the lock
-could expose a data race where concurrent hotplug events result in torn
-reads of the capabilities array.
-
-[ ... ]
-> +static void spacemit_dp_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					     struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	if (!trained) {
-> +		dev_err(dp->dev,
-> +			"no usable link config; leaving video disabled (%u kHz x%u lanes)\n",
-> +			dp->link.max_rate, dp->link.max_num_lanes);
-> +		/*
-> +		 * The caps may be from a sink that has since been swapped out.
-> +		 */
-> +		dp->link.max_rate =3D 0;
-> +		dp->link.max_num_lanes =3D 0;
-> +
-> +		/*
-> +		 * Deferred: we are inside the commit and hold the modeset
-> +		 * locks.
-> +		 */
-> +		schedule_work(&dp->modeset_retry_work);
-> +		return;
-> +	}
-
-[Severity: High]
-Does clearing dp->link.max_rate but not the raw dp->dpcd array cause an
-infinite modeset loop on training failure?
-
-When link training fails, the driver sets max_rate to 0 and schedules a link
-status retry but leaves the raw dp->dpcd array untouched. When the hotplug
-event prompts userspace to request a new modeset:
-
-spacemit_dp_bridge_mode_valid() will accept the failing mode because it
-reads from the unchanged dp->dpcd.
-
-spacemit_dp_bridge_atomic_check() will accept it because max_rate is 0,
-causing it to unconditionally return success.
-
-spacemit_dp_bridge_atomic_enable() then attempts to train the link again,
-fails again, and repeats the cycle indefinitely, wedging the display server.
-
-[ ... ]
-> +static int spacemit_dp_bridge_atomic_check(struct drm_bridge *bridge,
-> +					   struct drm_bridge_state *bridge_state,
-> +				      struct drm_crtc_state *crtc_state,
-> +				      struct drm_connector_state *conn_state)
-> +{
-[ ... ]
-> +	/* No caps yet: leave idx unset and let ->atomic_enable() retry. */
-> +	if (!dp->link.max_rate || !dp->link.max_num_lanes) {
-> +		st->link_cfg_idx =3D -1;
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Similar to the read in spacemit_dp_bridge_mode_valid(), is it safe to read
-the dp->link properties without holding dp->mode_lock here?
-
-[ ... ]
-> +static int inno_dp_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	/*
-> +	 * eDP hands panel power, enable-GPIO and backlight to panel-edp over
-> +	 * the AUX bus. A DP instance has no aux-bus child and takes the
-> +	 * -ENODEV path.
-> +	 */
-> +	if (dp->edp_mode) {
-> +		ret =3D devm_of_dp_aux_populate_bus(&dp->aux,
-> +						  spacemit_dp_edp_link_panel);
-> +		if (ret) {
-> +			dev_err_probe(dev, ret,
-> +				"eDP: failed to populate aux-bus panel\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	/*
-> +	 * drm_bridge_attach() expects the bridge to already be on the global
-> +	 * list.
-> +	 */
-> +	ret =3D devm_drm_bridge_add(dev, &dp->bridge);
-> +	if (ret) {
-> +		dev_err(dev, "failed to register DP bridge: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	platform_set_drvdata(pdev, dp);
-> +
-> +	/*
-> +	 * The handler needs bind-created state, so keep the line disabled until
-> +	 * bind.
-> +	 */
-> +	ret =3D devm_request_threaded_irq(dev, dp->irq, spacemit_dp_irq_handler,
-> +					spacemit_dp_hotplug_event_handler,
-> +					IRQF_NO_AUTOEN, dev_name(dev), dp);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D component_add(dev, &spacemit_dp_ops);
-
-[Severity: High]
-Does registering the component here before the eDP panel finishes probing
-break drm_bridge_connector?
-
-The driver calls devm_drm_bridge_add() and component_add() right after
-asking the AUX bus to asynchronously probe the eDP panel. This signals to
-the DRM master that this component is ready, prompting it to bind and build
-the connector immediately.
-
-Since drm_bridge_connector_init() captures the capabilities of the bridge
-chain statically, the late attachment of the panel bridge in
-spacemit_dp_edp_link_panel() goes unnoticed by the connector. This results
-in the eDP panel missing its modes and panel-specific properties.
+Additionally, the constant macro ADC5_GEN3_AMUX3_GPIO_100K_PU typically does
+not take arguments, making the (1) syntax invalid.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-k3-display=
--v2-0-327d7910bf71@gmail.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-dell-xps-9=
+345-ec-v4-0-88306dbbc7aa@vinarskis.com?part=3D1
