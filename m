@@ -1,182 +1,157 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 013EA3043DE
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 14:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786284890; cv=pass; b=Wdo3K1bHwLydJdhy0a4JMWvR5oKoO4hj8XOoa1wulcYSUxolJoHhm1IX40Sz52xZcXbrPbr5L/yMhMW3BtQP/1VpcK3qFGFx3vf+nDuPS38Esjw+mvHwiqJdqEQwatsHu1471dKD/PtMIoZR+vEiSVuCpGOzc8ttKd6SNktYqqA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786284890; c=relaxed/simple;
-	bh=rlbS8rmt2cYpD1ter3Cf3FlZcyNn+LlDqDW3OC/XsAU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q4SpCRN4va/+n9Tg0H4IFkY41hzA6+V6HGZOJNIKHrX+SJjVmXsplBTuDoVFz7chSrRjMSSjcQ4kcZqj3pcfz2WNKLPGDg2+aJwSPA+F6IIQyQLCkv/YPf3NdwBkFCJGJTlX9Y9MqKpCzYBbs0WJ5GcTxZ9fLv/Z/eCy4bs3tF0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n/5l6BmV; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F090217BEBF
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 14:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786285869; cv=none; b=pCh+fX7ekR8CvSoAqD5po2oCgyDaCUSKSPG9DV218dcINKCeKH3nIwVmHqhlSymcUQHqqlr1ZyEu+/5wKcLfy7xnihPOe4JhNiERWKX2K2Vf2T7+zwxEDrqooVLVwnUIGAxEqFx41RzFbK48gcKk6Gv0BRzk0VMiIAGY8mUFttg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786285869; c=relaxed/simple;
+	bh=hpkdnaKNFHBwuw0Q71KEfjOzckx55NGQYX0XgHyeCPs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=nwl8VspWNQrGBAQDbwgpQjoCZFjJ+tp437039o9i6v3LUaAzmMqOXt5fQJfQ6oY7zlG2u6ct4A7EAYc7R0vlR7Yx6iGUckrnBT9Paj7Xm4+sDEA0t+VdXRlaTc52xeyRwP6NsdeRFG7NRlA5Zjf0bcE/63hPWNd/iw60/elDa+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=maN5hljm; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n/5l6BmV"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-529a1ee0e62so7488201cf.2
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 07:14:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786284888; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oTDgwvdiOvuKyiXobshYCQjQOHNmOUAbLxrCzhRSXOQJLUadDZlSEHk1gHHUWIGX4x
-         I3agMC/6YWxPknyuXo9R/NQn6TpbiaLFKvgprFF5PE5pZV7FyxXwvtAyxw6eq9JMPvcA
-         eNWjlLhlnI+rWdEHBu+5hWuw3Ll5GJyuZTH+cgu073AU0wECKaoj36bmtn8toH3mNgZE
-         ZbpoiuhNC0IMKr7nuM7RxHr/3uXaSNdrJohRiyPLRqMnjzTl4FHu5HSj8KdoTiau29nr
-         fran/bcukyJJHeF8JD/iHZNixGYWT/pfL1X0d8fmpPDHTHl4G+3grEftrgKd9lejvjTH
-         aTcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rlbS8rmt2cYpD1ter3Cf3FlZcyNn+LlDqDW3OC/XsAU=;
-        fh=nC3JmIURelxRG6PdgLLrJ1w/TSTIlVKpRvZIGNabl9Q=;
-        b=AKHcH8hMQmOThaPdi8PdqkX/ecKVfl8QyvH3GeiX1/ZEFyGlxid1OYoUM+02BM4uaQ
-         uPJUdZZ3nvhZ3drm8/qkBH5eAr1HSq3QOkxqx7SDh7XHdmBHzWeJkXDjxA3V6bdiMKRZ
-         LIK/t4SfCnK7TZ5ZBhKbZyWQHXW6km56LgVSgSERkVxeGGUpkzymObZJ5z2+jnJtm4DE
-         a/qT5SKAF2r1P5/A0gOyFSf8P9DmgTEvLzPdbEu4V5d1TVpN0ESJEX8OoxS1mkLRm58X
-         vK2h2SLduMRU2NVZqoIHED2heftLuv0H5if0N9uEdB4sYT8lVGh4/QqIm78i+7D1R+Cf
-         FKHA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786284888; x=1786889688; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rlbS8rmt2cYpD1ter3Cf3FlZcyNn+LlDqDW3OC/XsAU=;
-        b=n/5l6BmVWlKn9JYBAzaLg9Ra5UJZ55D82ajE4AAjTaORkP/M0hk7dqs8/aTvvkfG5y
-         HdTraXRqF6YSHV7ZDzItsI0ssyK8gbdTxn9FWGtcIq9mm8HskMdmcLwW35UKI2sAxSh7
-         HDwk0J2gLl4IBnQpJzC8ICTkDK7l30eBoT1FmjoyqXqT/qs03NIDMlBodmJwLJLhswDg
-         0AMyZOuUQDvaC0ju4F22pQBQNGmDgwegsGOeS5Qpxjw8sYa4B2V6tHWMYyFhkxe9pg0M
-         LpCjgRhcoe7S+wK3LmD12KscuahrZ23OhQ7/bXUENtDRhk1GDs4ZEvnebbL7QP8BMsC8
-         onxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786284888; x=1786889688;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rlbS8rmt2cYpD1ter3Cf3FlZcyNn+LlDqDW3OC/XsAU=;
-        b=rPUPeXOv0nps4vJtkCBK8HeZ8jV8JyvxaiqI3hcyTQGClRrQQI55UFGUBVd+5HZp5S
-         gA7RmMjV7vakAL3I680WfB+XZeQPiybDfEIAhZdcWV15COn6QyUaR+dSY70v0c7LcWtX
-         DA369sB4ELBr2X7F0vmEl+35SIp+SUrriqxCyujtOoSkN7t3Td1OoZyzWGxyjlOX66NJ
-         bjLvxwNaeEoZdFhoVc8aUPDsDL7pbDzEQufawOuyamvE6yhPI3rPCgXJPHI+0bA/18Jf
-         ZZI+3hmGBW6qJcwoajq0dh6zLDrdEZg7RwN/BlgV8VDOr8a1ukvgY3u30y/ZDushHzxe
-         ORCA==
-X-Forwarded-Encrypted: i=1; AHgh+RrUm/WDW7bk0cAHog09VE0veHID0KSnQ+whdC41Z5mWaWUnHwL9JRumd8M0SWZ5v6rhxVKTTzJV8Hqq@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVidvLWtDIte5/3Z5lNdlIPyEtDE+fiFGmuU70tR1toGFwp4Ik
-	QvRTM2uMXamt5n0MotEn20JFeC0J7h4www2wEtWnS3GjtQRUHz6kSE0+ty/y1Nq/gWRzVD3aFb6
-	4P9lTeiMuXhRwyVYH3a2B2JkkaFVJcOI=
-X-Gm-Gg: AR+sD12B2JMkpqblQDMr9zw+z4MSF2aEFb8QOOiSqGMFey00KeW8tWPxaLvGauvZ4c5
-	j+VmwbqV4551ILL+nJIMXRva59hcCmdq4QQhCw4opIxyAaX4FQFzGixrjJIpTvIxCp8xC5aaXkj
-	s9izmAiUdZXRAMX5rlmz1YB0918uhXG63z8SPSJHEKOA3fcqnqk3k6gu6UbYbort27gHnHguaik
-	SkR/fuxtEKsfF/qHu1Dhsq62nV+/BnGpUu7pv9Ldk+Ai6cBxQmC+lJCRMyteBTktFzV85U597Ww
-	RB5yI3rCZVIIQHrOL+3rM/2x1k3deHqLhf4sDWeerA==
-X-Received: by 2002:ac8:5cc8:0:b0:51c:6e:ef23 with SMTP id d75a77b69052e-52ce61b5defmr411182591cf.32.1786284887884;
- Sun, 09 Aug 2026 07:14:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="maN5hljm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
+ Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1786285861;
+ bh=FikuqY3b2pZlaNCLUbHPKWMhWQP0Tun7aZ9UkowPV+8=;
+ b=maN5hljmqBA/eWL3Cr9d5vh9X/mZqFD5GqYivB2m/kdpHR27URBfWJNipLQukzq8VRLnlaOoK
+ kqJeK91L7BxUiL/3EzkXG6V1BUwPafQjRVLX01m6FNLuyGikALWMOVR+H7C/mZ7Q5UP3C7kZyjP
+ 18L7rvfgRqCOizdyD/ohrGUqqjDzlumHdsIO/ygBc9TWpVomrNtp3VRjKTzNdtGWwRNSx0nuglF
+ Afe+oODD/juC6YYvWapCJSHKbh0hxywuzD4pL7Acfe4F1eXOM+8gCzKnLWslEfDrMZFy5F34eDv
+ Z1O0G15zRBHC0Hx+0cQKrT7QMmoljyS+2jco9hI99fgA==
+X-Forward-Email-ID: 6a788f1b2fa0fb6ccea01ae2
+X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.13.10
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CAGXv+5HrDw8GWb9zp1AaQU9UW+0FGcr7jOV2jt_zi_2KgfgBqA@mail.gmail.com>
- <20260807152059.GA39821@bhelgaas> <CA+_ehUxQfWRRec4q2ZvC12nYAeV2VGm1xCFrTWeN6sEL+qkXBw@mail.gmail.com>
- <e41835ae-b575-4364-855f-6708b15b4db0@genexis.eu>
-In-Reply-To: <e41835ae-b575-4364-855f-6708b15b4db0@genexis.eu>
-From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Date: Sun, 9 Aug 2026 16:14:36 +0200
-X-Gm-Features: AUfX_mwchdsWKWBSl5_tblgDoEXHgnY_TIC1M0M_ze9LfMJB60Ic6Q5YNmA7c28
-Message-ID: <CA+_ehUy6bAq564+1c6KMV+egnXO8S2GGaLrRq1aDik9gWrrKyg@mail.gmail.com>
-Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support + clock
-To: Benjamin Larsson <benjamin.larsson@genexis.eu>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ryder Lee <ryder.lee@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8; format=Flowed
+Date: Sun, 09 Aug 2026 10:30:49 -0400
+Message-Id: <DKKHHITWR3F4.390HXQFLQR8X5@ubuntu.com>
+Cc: <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] reset: Add Apple SoC CIO reset driver
+From: "Joshua Peisach" <jpeisach@ubuntu.com>
+To: "Sven Peter" <sven@kernel.org>, "Janne Grunau" <j@jannau.net>, "Neal
+ Gompa" <neal@gompa.dev>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>
+X-Mailer: aerc 0.21.0
+References: <20260809-b4-cio-reset-v1-0-4f33777d9b4b@kernel.org>
+ <20260809-b4-cio-reset-v1-2-4f33777d9b4b@kernel.org>
+In-Reply-To: <20260809-b4-cio-reset-v1-2-4f33777d9b4b@kernel.org>
 
-Il giorno dom 9 ago 2026 alle ore 16:08 Benjamin Larsson
-<benjamin.larsson@genexis.eu> ha scritto:
+On Sun Aug 9, 2026 at 8:16 AM EDT, Sven Peter wrote:
+> Add a driver for the reset of the CIO (USB4/Thunderbolt) blocks on
+> Apple Silicon SoCs which has to be deasserted before their
+> co-processor can be booted. On t8103 each port comes with a dedicated
+> register page while t600x uses a single register with one request bit
+> per port shared by all ports of a die inside the PMGR MMIO region.
 >
-> On 09/08/2026 14:12, Christian Marangi (Ansuel) wrote:
-> > Il giorno ven 7 ago 2026 alle ore 17:21 Bjorn Helgaas
-> > <helgaas@kernel.org> ha scritto:
-> >>
-> >> On Fri, Aug 07, 2026 at 11:24:09AM +0800, Chen-Yu Tsai wrote:
-> >>> On Fri, Aug 7, 2026 at 12:53=E2=80=AFAM Christian Marangi <ansuelsmth=
-@gmail.com> wrote:
-> >>>> This small series introduce support for 2-lanes mode for Airoha AN75=
-81
-> >>>
-> >>> Just a nitpick, but I would probably name this something else, like
-> >>> "cross-controller lane-bonding mode" or "lane stealing"? PCIe already
-> >>> has 2x lanes as a standard feature, so this naming is a bit confusing=
-.
-> >>> It's not like dual-LVDS display in which LVDS is only a single lane.
-> >>
-> >> I suggested the "2-lane" and "x2" terminology because I assumed the
-> >> result is what the PCIe spec would describe as a "x2 Link" consisting
-> >> of two Lanes.
-> >>
-> >> If that's not the case, maybe "cross-controller lane-bonding mode" or
-> >> "lane stealing" would be more accurate, but I don't know what those
-> >> mean, so if we use them I would also like to know what the result
-> >> looks like in standard PCIe terms.
-> >>
-> >
-> > Mhhh I don't really like the term lane stealing. Also cross-controller
-> > lane-bonding
-> > might be a first. Even if correct it would complicate identification
-> > of the feature
-> > that at the end of the day configures the HW to provide a 2 lanes PCIe.
-> >
-> > Consider that in such mode, the other PCIe controller gets disabled (th=
-is is
-> > handled in DT) so it's effectively enabling the standard PCIe 2x lanes
-> > and apply the HW configuration for it.
-> >
-> >>>> SoC. This is needed for correctly functionality of Eagle WiFi Card
-> >>>> normally attached to this SoC that require a 2-line PCIe card to
-> >>>> correctly work (and give the proper performance)
-> >>>>
-> >>>> The first 2 patch address a limitation of the PCIe implementation
-> >>>> where the PERSTOUT reset were indirectly asserted and deasserted
-> >>>> all at the same time (for all the 3 PCIe card) with PCIe
-> >>>> enable and disable.
-> >>>> The 2 patch address this and introduce correct reset to control
-> >>>> reset line for the relevant PCIe line.
-> >>>>
-> >>>> The last 2 patch add additional logic and support to assert
-> >>>> and deassert the PERSTOUT and also apply the required configuration
-> >>>> for 2-lanes mode.
-> >>>>
-> >>>> 2-lanes mode is implemented in DT by adding the required property
-> >>>> and by defining the "num-lanes" to 2.
-> >
->
-> Hi. Isnt this just pcie bifurcation?
->
-> Logically bifurcation would need to be disabled when using 2 lanes in
-> one slot and enabled when 2 lanes are split between 2 pcie slots.
->
-> But I'm not really sure what value a bifurcation property would add.
-> Isnt the current schema enough?
->
-> The mt7987 will need the same logic as it can also bifurcate one pcie slo=
-t.
->
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+>  MAINTAINERS                     |   1 +
+>  drivers/reset/Kconfig           |  10 +++
+>  drivers/reset/Makefile          |   1 +
+>  drivers/reset/reset-apple-cio.c | 182 ++++++++++++++++++++++++++++++++++=
+++++++
+>  4 files changed, 194 insertions(+)
 
-The documentation is not so kind on these kind of details... and no registe=
-r
-for bifurcation... maybe it's the mux one? But the mux settings comes from
-reverse as in documentation that SCU register is a good 7:0 bits of
-data value...
+> +
+> +static int apple_cio_reset_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct apple_cio_reset *priv;
+> +	int ret;
+> +
+> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->variant =3D of_device_get_match_data(dev);
+
+Might be a dumb question, but does priv->variant also need to be
+checked? Because later priv->variant->pmgr_child is and I *think*
+it could return NULL.
+
+(Or is this not necessary since in theory the device should only run
+this if detected... so this should never be an issue?)
+
+> +
+> +	ret =3D devm_mutex_init(dev, &priv->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (priv->variant->pmgr_child) {
+> +		priv->regmap =3D syscon_node_to_regmap(dev->of_node->parent);
+> +		if (IS_ERR(priv->regmap))
+> +			return dev_err_probe(dev, PTR_ERR(priv->regmap),
+> +					     "Failed to get parent regmap");
+> +
+> +		ret =3D of_property_read_u32(dev->of_node, "reg", &priv->offset);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Failed to read reg offset");
+> +	} else {
+> +		void __iomem *base;
+> +
+> +		base =3D devm_platform_ioremap_resource(pdev, 0);
+> +		if (IS_ERR(base))
+> +			return PTR_ERR(base);
+> +
+> +		priv->regmap =3D devm_regmap_init_mmio(dev, base,
+> +						     &apple_cio_reset_regmap_config);
+> +		if (IS_ERR(priv->regmap))
+> +			return dev_err_probe(dev, PTR_ERR(priv->regmap),
+> +					     "Failed to init MMIO regmap");
+> +	}
+> +
+> +	priv->rcdev.owner =3D THIS_MODULE;
+> +	priv->rcdev.ops =3D &apple_cio_reset_ops;
+> +	priv->rcdev.of_node =3D dev->of_node;
+> +	priv->rcdev.nr_resets =3D priv->variant->nr_resets;
+> +
+> +	return devm_reset_controller_register(dev, &priv->rcdev);
+> +}
+> +
+> +static const struct of_device_id apple_cio_reset_match[] =3D {
+> +	{
+> +		.compatible =3D "apple,t8103-cio-reset",
+> +		.data =3D &apple_t8103_cio_reset,
+> +	},
+> +	{
+> +		.compatible =3D "apple,t6000-cio-reset",
+> +		.data =3D &apple_t6000_cio_reset,
+> +	},
+> +	{},
+> +};
+> +MODULE_DEVICE_TABLE(of, apple_cio_reset_match);
+> +
+> +static struct platform_driver apple_cio_reset_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "apple-cio-reset",
+> +		.of_match_table =3D apple_cio_reset_match,
+> +	},
+> +	.probe =3D apple_cio_reset_probe,
+> +};
+> +module_platform_driver(apple_cio_reset_driver);
+> +
+> +MODULE_AUTHOR("Sven Peter <sven@kernel.org>");
+> +MODULE_DESCRIPTION("Apple SoC CIO block reset driver");
+> +MODULE_LICENSE("Dual MIT/GPL");
+
