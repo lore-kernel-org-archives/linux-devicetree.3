@@ -1,150 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69253371889
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 10:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1FD3C5DA6;
+	Sun,  9 Aug 2026 10:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786270983; cv=none; b=Iclq3rICTiI559qJMWCCtu25WyVjDov4jIYUuwNMHKloN6bOl0BFtl+VqMG3VkCqxShBQPQFYSs/LASjI7+n8DmEdgWhINO9tSqd86GbkwCMiSb5SXumhxlEEvSCdrvrI4NCzLH3zHHb2oS4A7ZITJTI4fZ87wHrezb6L67JWWk=
+	t=1786271867; cv=none; b=e7y4AsUJBYwMiNsO4jgh7+uFjT1NnYgKQH+KZhramb/G2whLRdv2IMhRvmKM6MVNMjWE7k1Rm0/34hGQ0ZRBOhLQUYmuiMcyHCqF15XbwTFpr9KIQIpNU5M0IKZjsaORvsTnJU8yyN3bbb3z5QrsEdMapYMGFuiPjA7gFIYnKok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786270983; c=relaxed/simple;
-	bh=2w3Nd1zNdgMkm1/2IBkgvm8E9AVorGf23sHpWLdJRNE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=L1eZqq37nlX1TN8zgSRMEg+sIH1if4B++rrmqIemCU93j70hTQA27DOPqUc+fdnTvWxre+Z0LnxsFjCuVqFdt0D0B2AljFTJv7+xebznE8NF6sO76tch+uTohaYxhzW/Kisw0ANLgY34S1CvBuE1j9DeUTA75KHX1tlF5TdKJuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCc0bzAA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786271867; c=relaxed/simple;
+	bh=/8f/Alges9Ms2yc2fIsm5bhogqPCHPQpn6lmC4ygk28=;
+	h=From:To:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=qwLG/2MY3AZS954wYCCdCpWbHtKztb1uXS11Kt4mYgxCVaOUgV4lqIJHmhln4q7NRLVlsiZOZW49f5zLzQzPRfO0Rttq9NqTbsaQlzHkKxNOg8xIp/a5g9tH7M++qYAVdYKSri8IJ5dKBOtl0/XBZbZ0MSGluPIiTSBBBlw+Gec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LHXOE+S5; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCc0bzAA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954B01F000E9;
-	Sun,  9 Aug 2026 10:23:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786270982;
-	bh=LwI1GuEhqCDTDx/FM00PI+3yU/tQnI9sJCfVzcWdqtk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fCc0bzAAIkwR2pJcjEuVr1oJOoFM+f1VlS+K84D2ma49FDD/HgjNA2efgYqVYtkjg
-	 ZMLI2ZL0onbKbhLYEOSZstGmMuqt0V2tP7vLwlZ0SSvRQzuVqA4iXgzqKiW3Fsitc+
-	 V34qgMufvMO0FT5fSzVZz4TVDF3qVrhcvuaXx2gUWLkpeVGGsAoIUT+08tI8k9eOCF
-	 yW32FhMzpIqqM/hcVg69q6US9/KCULBUnoq7sl27XOi2CKtRUUINf0Tr7Dr7n0kGPs
-	 Ay+cMgNuXIVdPsI2rnW0eF8bDyjj1X41RStmmqyVsO1V/62So8cs/do9ZOtWv2UIMy
-	 SgeJqVaO+QLoA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 8/9] ARM: dts: stm32: add Ruiside ART-Pi2 board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liu Changjie" <liucj1228@outlook.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <PH7PR19MB6088189B91180CD218008160ACDF2@PH7PR19MB6088.namprd19.prod.outlook.com>
-References: <MN0PR19MB6091DB524E7A07E16D108F52ACDF2@MN0PR19MB6091.namprd19.prod.outlook.com>
- <PH7PR19MB6088189B91180CD218008160ACDF2@PH7PR19MB6088.namprd19.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 10:23:01 +0000
-Message-Id: <20260809102301.954B01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LHXOE+S5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8D6074E4117C;
+	Sun,  9 Aug 2026 10:37:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 598306033B;
+	Sun,  9 Aug 2026 10:37:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 40F7611C489DF;
+	Sun,  9 Aug 2026 12:37:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1786271856; h=from:subject:date:message-id:to:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=/8f/Alges9Ms2yc2fIsm5bhogqPCHPQpn6lmC4ygk28=;
+	b=LHXOE+S5RDeFN4aC1XC7GsR20GQXpdRq3qVD5AvSC+Zwq0XzQS6SvKbNH7loK/DbkJbMTK
+	2C13xz0GgyUsCLsHQkzx7sCwN9SlCg5zZONIblEN4FLtqW+F0uBzJlQKA+2j4jjaw7n8VA
+	BpRlx3X/qQDJsBZrwS074tpSZy25xc62A5d0ucxa/966uxWxwD3qxqkLs3Tp4P+K9IEeD8
+	Hmx9CnsrrF1tO1ZwdEv27b1BHWXOJ1XadOiihnQcpvDsI9xJVGXco2u2t+uiOa6RxAZ3MK
+	TROYjxa6dSivN5n+JkJc+gcMWkdvUuYCBavYjathUsCZ9eVJDnsEiNA1/DiUUQ==
+From: Gregory CLEMENT <gregory.clement@bootlin.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>, Andrew Lunn <andrew@lunn.ch>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] ARM: dts: marvell: kirkwood: Correct indentation
+In-Reply-To: <d539bef3-ee1d-43b8-8b43-6704979703ec@kernel.org>
+References: <20260706180333.648401-4-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260706180333.648401-5-krzysztof.kozlowski@oss.qualcomm.com>
+ <874ii27uqb.fsf@BLaptop.bootlin.com>
+ <d539bef3-ee1d-43b8-8b43-6704979703ec@kernel.org>
+Date: Sun, 09 Aug 2026 12:37:25 +0200
+Message-ID: <878q6fmvfe.fsf@BLaptop.bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Inconsistent Alternate Function (AF) mapping for SDMMC1_D2 pin
-- [High] Missing alignment constraint for no-map DMA pool causes MPU region=
- exhaustion
---
+Krzysztof Kozlowski <krzk@kernel.org> writes:
 
---- Patch [8]: [PATCH v2 8/9] ARM: dts: stm32: add Ruiside ART-Pi2 board ---
-commit 7778d903d666ebc7aafa183daaea78a638999301
-Author: Liu Changjie <liucj1228@outlook.com>
+> On 13/07/2026 17:52, Gregory CLEMENT wrote:
+>> Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> writes:
+>>=20
+>>> Correct spaces or mix of tabs+spaces into proper tab-indented lines.
+>>> No functional impact (same DTB).
+>>>
+>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.co=
+m>
+>>>
+>>=20
+>> Applied on mvebu/dt
+>>=20
+>> Thanks,
+>>=20
+>> Gregory
+>
+> All this was applied two weeks ago but it is still not in linux-next.
+> Maybe you missed to push the patches to the for-next branch?
 
-ARM: dts: stm32: add Ruiside ART-Pi2 board
+Argh indeed I forgot to push the for-next branch!
 
-Adds the ART-Pi2 board based on the STM32H7R7 SoC. Includes configuration
-for external HyperRAM, UART4, user LEDs, button, and the microSD slot
-with a coherent DMA pool.
 
-[ ... ]
-> diff --git a/arch/arm/boot/dts/st/stm32h7r7l8-art-pi2.dts b/arch/arm/boot=
-/dts/st/stm32h7r7l8-art-pi2.dts
-> new file mode 100644
-> index 0000000000000..ead1418178af7
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/st/stm32h7r7l8-art-pi2.dts
-[ ... ]
-> +	reserved-memory {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +		ranges;
-> +
-> +		dma_pool: dma-pool {
-> +			compatible =3D "shared-dma-pool";
-> +			no-map;
-> +			size =3D <0x00200000>;
-> +			linux,dma-default;
-> +		};
+Gregory
 
-[Severity: High]
-Does this no-map memory region require an alignment constraint to prevent M=
-PU
-region exhaustion?
-
-Without an alignment property, memblock may allocate this 2MiB hole at a
-default alignment. On ARM Cortex-M7 (PMSAv7), MPU regions require power-of-2
-sizes and aligned base addresses. An unaligned hole can force the MPU to use
-many small regions to cover the remaining RAM, quickly exhausting the
-typical 8-region limit and silently truncating system memory.
-
-Could we add an alignment =3D <0x00200000> property here?
-
-> +	};
-[ ... ]
-> diff --git a/arch/arm/boot/dts/st/stm32h7rs-pinctrl.dtsi b/arch/arm/boot/=
-dts/st/stm32h7rs-pinctrl.dtsi
-> new file mode 100644
-> index 0000000000000..08f09f5621964
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/st/stm32h7rs-pinctrl.dtsi
-[ ... ]
-> +&pinctrl {
-> +	sdmmc1_b4_pins_a: sdmmc1-b4-0 {
-> +		pins {
-> +			pinmux =3D <STM32_PINMUX('C', 8, AF11)>, /* SDMMC1_D0 */
-> +				 <STM32_PINMUX('C', 9, AF11)>, /* SDMMC1_D1 */
-> +				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
-
-[Severity: High]
-Is it intentional that SDMMC1_D2 uses AF12 while the surrounding SDMMC1 pins
-in this group use AF11?
-
-If this is an oversight, the D2 data line will not be routed to the SDMMC1
-controller when initialized in 4-bit mode, leading to communication failure
-with the SD card.
-
-> +				 <STM32_PINMUX('C', 11, AF11)>, /* SDMMC1_D3 */
-> +				 <STM32_PINMUX('C', 12, AF11)>, /* SDMMC1_CK */
-> +				 <STM32_PINMUX('D', 2, AF11)>; /* SDMMC1_CMD */
-> +			slew-rate =3D <3>;
-> +			drive-push-pull;
-> +			bias-disable;
-> +		};
-> +	};
-> +
-> +	sdmmc1_b4_od_pins_a: sdmmc1-b4-od-0 {
-> +		pins1 {
-> +			pinmux =3D <STM32_PINMUX('C', 8, AF11)>, /* SDMMC1_D0 */
-> +				 <STM32_PINMUX('C', 9, AF11)>, /* SDMMC1_D1 */
-> +				 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
-
-[Severity: High]
-The same AF12 mapping appears here for SDMMC1_D2 in the open-drain
-configuration group. Should this also be AF11?
-
-> +				 <STM32_PINMUX('C', 11, AF11)>, /* SDMMC1_D3 */
-> +				 <STM32_PINMUX('C', 12, AF11)>; /* SDMMC1_CK */
-> +			slew-rate =3D <3>;
-> +			drive-push-pull;
-> +			bias-disable;
-> +		};
-[ ... ]
+>
+> Best regards,
+> Krzysztof
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/MN0PR19MB6091DB524E=
-7A07E16D108F52ACDF2@MN0PR19MB6091.namprd19.prod.outlook.com?part=3D8
+Gr=C3=A9gory CLEMENT, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
