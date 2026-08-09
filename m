@@ -1,136 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319C417BEBF
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 14:36:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EA628641E;
+	Sun,  9 Aug 2026 15:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786286166; cv=none; b=WNmmZvmeq6dPYh2/m3ujzy3SpJsCCf440RFPZc52PyyX2hnhphodquVNj3EHoFNq2NaelRtMYMJdBf8Ka6/LGXPS5uzC7q5qrTLgwbqwfUG36Kh2whIzuCuGleCZG/+SAld0YIvBUzM28a7Hc00tBsaXVjmkRCKsjv8mrH5i2Xg=
+	t=1786288808; cv=none; b=Gamc5J0Pm5IEFqKnZSkKIZkHa1oHXj5GUgimhcj9ZUBuiZSNI5uvCtepHu13RTNI7SBHT/hjkXIO3Lx5bbo0P0Ehh3tVp5xbYOHzTYnqabSAaUEwKjPZhHlhIDnNCGeTI6pn86NL65zKsqR9I4ay2hLZ39VmBpm5NAAlp5cNO0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786286166; c=relaxed/simple;
-	bh=asSmC/zu8pqx5RMe5oJ6Byp28vt1ckIwrENwxywQUJg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DPdzCpHFuOkqAtxQRnXdK0sGdJICjC8PgalB03R/j0d06YGQGu/FWRe6BgnixsOc0v6aA+/hczahnr6QAlwp4WMoYL2hChiFE4EqvUlWrOFaQRqSqne0Vzz4rlAG2wGBwwzG+Z+hXLhpS0cu6mnUE0RmBmMWADqnbfdPRgXoK8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HMRTAXos; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786288808; c=relaxed/simple;
+	bh=1Y4+yN+7jjQeWokiWwENeIWiEk8ip3UAnTDcNk45//8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uHvEBbOAg/2j3to2aqCSFMjRZceMfyJRAAQ5we3u5+Puv0E2NemL2vh1jK22soy4H2UFy/WFO3LtSA+mwBqUBW8bXLLy1LCH2wFTAkd1oTKFT65cWTjziZ5HK98oVr1fFudehAWsZwakCvUnL523+dnqDsiyp0KvlnzkKlAjg2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5+PUNx1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HMRTAXos"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 636C61F000E9;
-	Sun,  9 Aug 2026 14:36:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5+PUNx1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF1E1F000E9;
+	Sun,  9 Aug 2026 15:20:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786286164;
-	bh=ampX3rpVKR5yO67K8UzCZeK6eap9gcHyn1w2vVunx6g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HMRTAXosddLifbiNs9ajrI3PI+zHA8qNYbtRi4TCZVEZsovNu2eqSkKJG9zEzF31Y
-	 I+Fnkx6fiAu5OonePo0GJB470fkMiK4egXGksAGT+1GtU6GgdsQPwmZ91CLhnDIvpq
-	 i17OFbLXMnp67iCAzXHvRv6nCpOV6vohJlnsJvVM/Uw2uaPv1w2KPCGgVMMs42nXvI
-	 FrppLRE4bwdkZg+z66E7aQQO/Os4nC5kQCo6zA0+cUcThLxBpNNrAl8KOwPEEqNZej
-	 wgE9/2HCzTa64xZe8bQUra3ZRr67XKs9556A7GWYWx0jzFwRgqTV0EnN5eyurPdk1u
-	 8ud5TeIfGq9dQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/4] arm64: dts: qcom: Add PMIC thermal support for
- Shikra IQ2390S SoM platform
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260809-shikra_adc_support-v5-4-bf6882d18bad@oss.qualcomm.com>
-References: <20260809-shikra_adc_support-v5-0-bf6882d18bad@oss.qualcomm.com>
- <20260809-shikra_adc_support-v5-4-bf6882d18bad@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 14:36:03 +0000
-Message-Id: <20260809143604.636C61F000E9@smtp.kernel.org>
+	s=k20260515; t=1786288806;
+	bh=ARwVcPLvnx7EkBM0oPgr55fHOYd6QKrvM3EwPl17m8k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T5+PUNx1uB/QZ7ynQ1OX2My7q3Mg/COzWAg/qjZitiPRL4X48qX5QoB+r3v9On6KQ
+	 ryv5GhMQf0PwrX6i0Zv38z9DHFbHo3i4AjCn52JYnzfdLnMIKfrMZfsQmK42Veefuj
+	 bDiRNrUWylkAS11Af6u1eYsRLSEVfvP9kcMiS0C+Ho1nHP/gY+CaHBYMoJUPm72jxA
+	 N3ox/ksDvb8C4g+2Zeq8tHya2rOw0vQvzdhGPM/ybnV7nNRulePqLfw2+2EA6hjvzI
+	 yvCf685ZDeIftkztcUUZmg+Zt1iYMRsQ+pRM8DFm8XH4ibLSGa0akYRTaWvyuBygpu
+	 o9rOC9C5W+niA==
+Message-ID: <7a170485-b349-4502-adb1-3ce6217bc435@kernel.org>
+Date: Sun, 9 Aug 2026 17:20:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] reset: Add Apple SoC CIO reset driver
+To: Joshua Peisach <jpeisach@ubuntu.com>
+Cc: asahi@lists.linux.dev, Philipp Zabel <p.zabel@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Neal Gompa <neal@gompa.dev>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Janne Grunau <j@jannau.net>, Krzysztof Kozlowski <krzk+dt@kernel.org>
+References: <20260809-b4-cio-reset-v1-0-4f33777d9b4b@kernel.org>
+ <20260809-b4-cio-reset-v1-2-4f33777d9b4b@kernel.org>
+ <DKKHHITWR3F4.390HXQFLQR8X5@ubuntu.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <DKKHHITWR3F4.390HXQFLQR8X5@ubuntu.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The pinctrl configuration incorrectly targets PM8150 GPIO2 and GPI=
-O3 instead of the actual GPIOs (GPIO1 and GPIO4) used for the thermistor AD=
-C channels.
---
+On 09.08.26 16:30, Joshua Peisach wrote:
+> On Sun Aug 9, 2026 at 8:16 AM EDT, Sven Peter wrote:
+>> Add a driver for the reset of the CIO (USB4/Thunderbolt) blocks on
+>> Apple Silicon SoCs which has to be deasserted before their
+>> co-processor can be booted. On t8103 each port comes with a dedicated
+>> register page while t600x uses a single register with one request bit
+>> per port shared by all ports of a die inside the PMGR MMIO region.
+>>
+>> Signed-off-by: Sven Peter <sven@kernel.org>
+>> ---
+>>  MAINTAINERS                     |   1 +
+>>  drivers/reset/Kconfig           |  10 +++
+>>  drivers/reset/Makefile          |   1 +
+>>  drivers/reset/reset-apple-cio.c | 182 +++++++++++++++++++++++++++++++ 
+>> +++++++++
+>>  4 files changed, 194 insertions(+)
+> 
+>> +
+>> +static int apple_cio_reset_probe(struct platform_device *pdev)
+>> +{
+>> +    struct device *dev = &pdev->dev;
+>> +    struct apple_cio_reset *priv;
+>> +    int ret;
+>> +
+>> +    priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>> +    if (!priv)
+>> +        return -ENOMEM;
+>> +
+>> +    priv->variant = of_device_get_match_data(dev);
+> 
+> Might be a dumb question, but does priv->variant also need to be
+> checked? Because later priv->variant->pmgr_child is and I *think*
+> it could return NULL.
+> 
+> (Or is this not necessary since in theory the device should only run
+> this if detected... so this should never be an issue?)
 
---- Patch [4]: [PATCH v5 4/4] arm64: dts: qcom: Add PMIC thermal support fo=
-r Shikra IQ2390S SoM platform ---
-commit 8dee766ba238404c7e2305d90f5d025e6c4cba41
-Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+You might be able to get this driver to probe without a device tree node 
+by manually forcing it with sysfs but well... play stupid games, win 
+stupid prizes.
+Adding the check is just two lines and doesn't hurt though.
 
-arm64: dts: qcom: Add PMIC thermal support for Shikra IQ2390S SoM platform
 
-This commit adds ADC channels for system thermistors used for thermal
-mitigation on the Shikra IQ2390S SoM platform. It also adds ADC_TM nodes
-for the pa, quiet, and msm thermistors along with their thermal zones.
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-iqs-som.dtsi
-> index 4ff97945274dd..ede34d82de76e 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
+Best,
 
-[ ... ]
 
-> @@ -76,7 +115,81 @@ vreg_pmu_ch1: ldo4 {
->  	};
->  };
-> =20
-> +&pm8150_adc {
-> +	pinctrl-0 =3D <&pm8150_adc_gpio2_default>, <&pm8150_adc_gpio3_default>;
+Sven
 
-[Severity: High]
-Does this pinctrl configuration specify the correct GPIOs?
 
-The pinctrl nodes target gpio2 and gpio3, but the gnss_therm and pa_therm A=
-DC
-channels defined below use ADC5_GPIO1_100K_PU (GPIO1) and ADC5_GPIO4_100K_PU
-(GPIO4). Leaving GPIO1 and GPIO4 unconfigured as high-impedance inputs may
-corrupt the analog measurements and lead to incorrect thermal throttling.
-
-> +	pinctrl-names =3D "default";
-> +
-> +	channel@4d {
-> +		reg =3D <ADC5_AMUX_THM1_100K_PU>;
-> +		label =3D "msm_therm";
-> +		qcom,ratiometric;
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-
-[ ... ]
-
-> +	channel@52 {
-> +		reg =3D <ADC5_GPIO1_100K_PU>;
-> +		label =3D "gnss_therm";
-> +		qcom,ratiometric;
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +
-> +	channel@55 {
-> +		reg =3D <ADC5_GPIO4_100K_PU>;
-> +		label =3D "pa_therm";
-> +		qcom,ratiometric;
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +};
-
-[ ... ]
-
-> +&pm8150_gpios {
-> +	pm8150_adc_gpio2_default: pm8150-adc-gpio2-state {
-> +		pins =3D "gpio2";
-> +		function =3D PMIC_GPIO_FUNC_NORMAL;
-> +		bias-high-impedance;
-> +	};
-> +
-> +	pm8150_adc_gpio3_default: pm8150-adc-gpio3-state {
-> +		pins =3D "gpio3";
-> +		function =3D PMIC_GPIO_FUNC_NORMAL;
-> +		bias-high-impedance;
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-shikra_adc=
-_support-v5-0-bf6882d18bad@oss.qualcomm.com?part=3D4
