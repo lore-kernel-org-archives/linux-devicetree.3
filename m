@@ -1,122 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F95D3D0908;
-	Sun,  9 Aug 2026 16:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F624287510
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 16:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786292630; cv=none; b=ZD3ex0hgw6MNZQqqK1+es3wm7m2qQVGWMhOlTKxcf54H918o7rqrZ4vosdvqloructls7Ef1do98gtKCsDhsi/n8tR4WU3bdANQfwx+P+Mtq6rDss/PveU150d4okbWgz/Iihqy/kMN96z/Db+t3qdsuTmdjihjvQSl201H7IxA=
+	t=1786292655; cv=none; b=iPPqBFtBQnzOJJ2n6kOixJZzuEaE7FlMO0MCLm5t+m7kFMbhoFmrkKPWPZPWEJi6LR8R7g+LjMzVRJEhetfmO61sXaTgfjCix7ZLtukrOofwBPUogxO0vHGnWVeVlwbAOtTDjasENV8azb/vV0damqP7Qs/7Mxk80MuSX+13CB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786292630; c=relaxed/simple;
-	bh=jUN7pyikgpDUZ944ueA5wjg3N3viF9p1/FLQgOrjumM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H5Dnd2Sq8p9S/dJp5yF7f7/M8ewpiqqgVdHj+2tomEEX2c4y0o+15e/knCaP2OXuNGvLPJJPbqIt1RpblwuYrTuUMaRYgd17xN6lpStXf3AV2QL9BzpFw+VAgolKltCGX2YyCtWUD47t7JHmEx4Lg21YXOKWzzmStCcDcdmtkzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YJnNU9HY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786292655; c=relaxed/simple;
+	bh=L8jVhzcEx/1Ri/TiJ6hXDYJPVTTnzDVvCCZJTFtQQNw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=hW4ItO5hkEXEIGVqOnJYh5UgE2MejHDVHtVy7QQ8HTLmfEt8TxOUItd1MJiW/nLc3BcoZEOMkzAkXiJ+EQHE9LVRXBPrNcFd5iXqDBRrvcvoy8bkNut0GSuaWNOI4D67m6a0Nv1kX30C5NY/x0Hnv/XOboZ6CBK49yK64C5pKF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R00Blv2j; arc=none smtp.client-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YJnNU9HY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADC541F000E9;
-	Sun,  9 Aug 2026 16:23:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786292628;
-	bh=IJn5y6tqfdkDxU/BvwNCruCd/dB9AFJCBJLVDufiDDs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YJnNU9HY0f5F3UjDyeQ1TdxheJj6jG+X3ZETM+NOldyTQPKmFqFpNH6AGes1TBtfa
-	 Rn1CL5yrl4FA/EKN2gJ/MJg1CrCV1UYsT5KQpelwWD1i7mId6U/YiGafR5GJ8GGL8o
-	 DSyLKYCkc71JZ//vCxboSgLPlALawgEzJwEQLKqYXL5TlVxfLa3BbiThD8ZtiXrqVW
-	 OL9M+ZayjdOQqMr/NYox9Yc2H+pDh9CzXwkJr0MbHT/c+Co8Ep0zK8EW8iw6XDmizm
-	 6+7JpQclYq5a4DDcEAospHHZnePmCcYUc//wMvRzGxFnoU4sm6oiUr591rp8TeYHYT
-	 7m/M7uxZEyylg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/8] dt-bindings: watchdog: Add compatible for
- MediaTek mt8167
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org
-In-Reply-To: <20260809160643.33991-5-l.scorcia@gmail.com>
-References: <20260809160643.33991-1-l.scorcia@gmail.com>
- <20260809160643.33991-5-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 16:23:47 +0000
-Message-Id: <20260809162347.ADC541F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R00Blv2j"
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5bfa99f8ef8so2544575e0c.0
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 09:24:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786292653; x=1786897453; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=L8jVhzcEx/1Ri/TiJ6hXDYJPVTTnzDVvCCZJTFtQQNw=;
+        b=R00Blv2jCyJ1JHvOuRWxIirbnXSieJQnaFuU2qIecCIGssL2OXmby9NhkIpXoGkRHv
+         V4nUCAP/zl9IUOas4zwgcMDvP73s5uLLWL6rdtod7P/3TKnxcEkEAG7HVcy9ycyioDOt
+         gAApCeEgS8qZ81mk1iFxSACvDPGQ/eTM2qtA3l/Wz8iTnzo18Vi6Dwz7XCWdC9g+j7QV
+         ClZVK+56rnmJ8HyMwTURBkICw4WGXy6U7u8Jk9R3iaTg5JmtLFu2HoxT/TM0XfDHTz8R
+         TuBoUkQrcEsJYQUH2Sn9miCwmkUGudqDOELVw1UaQk+hJZKMZdilOMaZH7EChD+xLJ5J
+         5KGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786292653; x=1786897453;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L8jVhzcEx/1Ri/TiJ6hXDYJPVTTnzDVvCCZJTFtQQNw=;
+        b=aFtiH8+gVWFCOCZtLt5aS6yF/bA5r4B9Fmq14m3fAgwNginUg9UqquxKCz3xgdaOO+
+         yYeiVGGdK727GCPZSaRhakhfKnpQjzGP3yk/vd36AQBGjOFmjSloMDTiBh4gmTYDvyuV
+         0BPn0zhjesDSJQSEPWH6P1eg+FkPIPmUjggPehF3FhS+A0nA7hczJmFRQTKHc/iu4QzC
+         pyaGmyDc0f3kjtZLQbDGpXWimOr/rhCUfDFYELbzYrlpNig5srMs9Dpd2KsLm4WvWzDr
+         69lbKPmqmksC2z+E8BMrTtROP9W0nCTyAUD3Q5LWQKkCW898ztJL3z9x1fJgF0TsAvgW
+         Drcg==
+X-Forwarded-Encrypted: i=1; AHgh+RpHnWUKYZxZp3vqgv5Q/BjfPnQeqfD+rM5X7Ai+6zcHLGf7rvA68ca4xQEZe/qDSxwofZ0tPSOMWlUQ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxwcRXpCUDFmUEuycF3mcJLHpQRgpXTvM2dXpkRSLm6E4e3pZLj
+	VL7HiS9eVwwa/Z12IshbjZVN5E4SR81tr8u5RCcsbUg98Xu5Ex+4slRe3TlldQ==
+X-Gm-Gg: AR+sD10VcmB97CeIiBFBABsClZkFCxaup3xfEWsQd8XSFEN+FXpZGh+odE48lL/wKva
+	4Lu4XEPyUDVMenYi9syrQqxBI6qHBLZJJ1u7WDw9HmD/x+MQ8w+K5b3JrS4b2A0PhjWCdbcqhDF
+	U5FcguveMCWcCKSyk8RlUEW+PdiFefh9NApbfIx3DhONSu9Q8k1N9GkTzPZBtH3LMB3O12tSX08
+	1XnMhw8odN+FQNokGRYAcSKZRq1fpSr5K2UZjLlefttVrSx0xwXsM+ZQxEb5ujLCxZXHfs3n2rh
+	dwN++gbUQT2JZdyVIaKfHAI11u6stMi9MuXEBsewEInhlEWs1v/L9ggIzQAX3iq1tT1L7wGst6X
+	oJOAHeQVafwlzHGVdHCnF7h9Mw6ymkdFJJz25VFT20VNYJZIENbARY4rKPEbeG+4x6Al1RWUBIB
+	DJbktslz1O1BMcsLBikQQlGRi0DSi9vt3jPSTNXZKGrPct8b0OxO0=
+X-Received: by 2002:a05:6122:2385:b0:5c2:c79c:c093 with SMTP id 71dfb90a1353d-5c4152d5cf1mr1326569e0c.5.1786292652899;
+        Sun, 09 Aug 2026 09:24:12 -0700 (PDT)
+Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c4133821e5sm2592233e0c.18.2026.08.09.09.24.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 Aug 2026 09:24:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 09 Aug 2026 11:24:05 -0500
+Message-Id: <DKKJW8KLSTON.18355X0IQHY5C@gmail.com>
+From: "Kurt Borja" <kuurtb@gmail.com>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, "Kurt
+ Borja" <kuurtb@gmail.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>, "Bartosz
+ Golaszewski" <brgl@kernel.org>, "David Lechner" <dlechner@baylibre.com>,
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH v3 2/9] iio: adc: add the ti-ads1262 driver
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+ <20260807-ads126x-v3-2-f89925d72792@gmail.com> <anetMEd_kLs1YXwu@monoceros>
+In-Reply-To: <anetMEd_kLs1YXwu@monoceros>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `mediatek,mt8167-wdt` compatible string is introduced as a s=
-tandalone compatible in the bindings but is not added to the watchdog drive=
-r's match table.
-- [Medium] The commit message claims the reset bit constants are different =
-for mt8167, but the corresponding dt-bindings header file is missing.
---
+On Sat Aug 8, 2026 at 5:28 PM -05, Uwe Kleine-K=C3=B6nig wrote:
+> Hello,
+>
+> On Fri, Aug 07, 2026 at 10:58:24PM -0500, Kurt Borja wrote:
+>> +#include <linux/mod_devicetable.h>
+>> [...]
+>> +#include <linux/spi/spi.h>
+>
+> Please rely on <linux/spi/spi.h> to provide the structs of_device_id and
+> spi_device_id and drop <linux/mod_devicetable.h>.
+> <linux/mod_devicetable.h> is planned to go away soon.
 
---- Patch [4]: [PATCH v3 4/8] dt-bindings: watchdog: Add compatible for Med=
-iaTek mt8167 ---
-commit 801a3249de93e217207cdaff898bd46c2e41daba
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-
-dt-bindings: watchdog: Add compatible for MediaTek mt8167
-
-This commit adds a standalone compatible string mediatek,mt8167-wdt to the
-MediaTek watchdog binding. The commit message notes that mt8167 has differe=
-nt
-reset lines compared to the mt6589 fallback.
-
->     Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
->     which in turn falls back on mt6589-wdt. However according to the data
->     sheet mt8167 has 15 sw resets instead of 12, and the systems to which
->     each reset bit corresponds are different from mt6589, so the reset bit
->     constants are different too.
-
-[Severity: Medium]
-The commit message mentions that the reset bit constants are different, but
-this commit does not seem to include the corresponding dt-bindings header f=
-ile
-(e.g., include/dt-bindings/reset/mt8167-resets.h). Are these constants defi=
-ned
-in another patch in this series, or were they inadvertently omitted, leaving
-device tree authors unable to utilize the MT8167 reset controller?
-
-> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
-yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> index 953629cb9558b..f514be8a5851d 100644
-> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> @@ -26,6 +26,7 @@ properties:
->            - mediatek,mt6795-wdt
->            - mediatek,mt7986-wdt
->            - mediatek,mt7988-wdt
-> +          - mediatek,mt8167-wdt
-
-[Severity: Medium]
-Does adding this as a standalone compatible string without a fallback cause=
- a
-regression in probe behavior?=20
-
-Looking at drivers/watchdog/mtk_wdt.c, the mtk_wdt_dt_ids match table does
-not appear to have an entry for mediatek,mt8167-wdt:
-
-drivers/watchdog/mtk_wdt.c:mtk_wdt_dt_ids[] {
-    { .compatible =3D "mediatek,mt2712-wdt", .data =3D &mt2712_data },
-    ...
-};
-
-If a device tree is updated to use this new compatible string as specified =
-by
-this binding, will the kernel driver fail to probe, breaking watchdog and r=
-eset
-functionality? Is a corresponding driver patch missing, or should this bind=
-ing
-retain a fallback compatible?
-
->            - mediatek,mt8183-wdt
->            - mediatek,mt8186-wdt
->            - mediatek,mt8188-wdt
+Thanks for the heads up!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809160643.3399=
-1-1-l.scorcia@gmail.com?part=3D4
+Thanks,
+ ~ Kurt
