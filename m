@@ -1,183 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2104E2C11F3
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 13:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEAA199E89
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 13:30:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786281996; cv=none; b=P6jifM9lUxwKf+60WsXcuTarYE6QULsPincHYJZtAKP1OQI5KlQJMSDzd2WtoAY8wbFeyiZUQRxWyroraWrItHcw1LsOnuRhFVoyIHZK8PVT7/qKDTzuShua4osFkyaFq91Y7r3fF/1d/qnJJNj30cMGwLNKvkPyHnRdH4+S7sc=
+	t=1786282253; cv=none; b=Djf+jNOr4s1dw/j2nkoYKfoeLvfAe71OhBEK+JhP5Z61yMU5SB338LQCok7mfZ/M7tp3YSUbguZIPRFHxNRW7dU/zySljutI6wiVW5+07octWQApjdHbEnXdJpIlCvZDRV0vjgL6ldMYELWrALpXNxKM6HjYFVWlms6Ko7o0vWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786281996; c=relaxed/simple;
-	bh=Kdmuvy5yMF4bPuOfat653tvQ93M63dUKohE2qjvI02o=;
+	s=arc-20240116; t=1786282253; c=relaxed/simple;
+	bh=ewcnqsKXFAAf0y5Mcz0DO8N2p6c+Bw2Fi1dtsSgbM/A=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p7SzrwWce0nKVZdeTOyQYgzOLebolJZSJMaRrdtOnscOROx8o5lPZJvKPnA/gELGgMcYmcjW1BlAlNE9aE5vRjO9cXIBryEpFw+d0sCnAnFAL3GUAm1pgXVawszAexhlFH9j0uja2eLIzw34UJdWRg6iT9Mw3oo3ZfvKNMO+UD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QgVayx4w; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sVClXN+iG7wdQax22FWjvdAAiMaOOA/T9jO0NK+uRQg13g9xLwzMfj/MKIstG85cavOCMcP0V6wAVzY5/Nz7ZcigyeuRsaPKpUC89WoAWveskjpGtEsYcB+Zcj9ieItSfmCcSkhpz+JCbJLYK0J5Xi765ixa3BEumMVl6hVw2Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c47ZoYqw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QgVayx4w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BD991F000E9;
-	Sun,  9 Aug 2026 13:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c47ZoYqw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA231F000E9;
+	Sun,  9 Aug 2026 13:30:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786281994;
-	bh=W8v9Vft2nj3t9nJeFUwjD7z2Fj0Z3XZuJvbz7Qx8SDw=;
+	s=k20260515; t=1786282252;
+	bh=YOIZYT1JUWE6dmJnBVuVCrZihRjIkZn2PProRU6Gvwg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QgVayx4wE9G03Vok+nuOm7ehYh2Dv86uqDQQnWmZb6q6hrLbevF0dSjgnkxka4yhB
-	 pp12UzHA+oXk9sTVBOHqV2TcrY/TRkKukrNt50g8JCSeygeYXVJt1YdrMsON8RtOyx
-	 HshFuqDRaKukf5LURxPVSF/8LKa1+9ObBAPQ8fogwSi9xfIw8P1df9ZgvSK0LDtYq0
-	 h559qLI9EktjtS0djiA0YbZMNqfkTvx3rkoDFrW0ujXVI8LHz0X4drvqOI76R2p1BM
-	 nrFZo/nuCf2hnTq1o44pES64rwt3spolEGfU9P7FzBmNHyzOJbRG5IZVHuR/5K8vtu
-	 QFE+RlJQVkJDw==
+	b=c47ZoYqwx5Rfc89PGY+LxIUiWlyv6XrR5lwtwp4l713cFGVFLSzzf0eHssMIm1rSn
+	 bLIgGn/IDqU5xTwSS6YwEyMShO97uhunVr07nKhZNpocuBf2Mczw7vpl74w7tyvYE9
+	 MsWKaRpNmqjyLW+QWRVaSbAB309zaaFkg0B8ylOs07gv3HpsukP3jBLe0W029cfmu/
+	 OkxYuw7Ob8LLGSgzWkvsXRyBo8SeAF4anTrpToBATuNrZGHd7Hcf1n8T3R8u4hB/0s
+	 atlSUvzikW+7SWbg4APV1l9fY20OH0mFbDIsoZu3hBSvwAWnITMh236bxwEXMDYm5C
+	 cEi/XMcfS40ZA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 05/17] phy: spacemit: add Innosilicon DP TX PHY
- driver
+Subject: Re: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
+ DisplayPort output
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260809-k3-display-v2-5-327d7910bf71@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, olteanv@gmail.com
+In-Reply-To: <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
 References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-5-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-15-327d7910bf71@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 13:26:33 +0000
-Message-Id: <20260809132634.4BD991F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 13:30:51 +0000
+Message-Id: <20260809133051.EEA231F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Missing driver-level lock between concurrent clock and PHY operati=
-ons creates a race condition on PREPLL state.
-- [Medium] Failure to handle `XMIT_EN` regmap write error leaks the `PREPLL=
-` power state during `k3_inno_dp_phy_power_on`.
-- [Medium] `k3_inno_dp_pxclk_set_rate` unconditionally powers up the PREPLL=
-, undermining PHY power management.
+- [Low] Missing `dp-connector` node and `remote-endpoint` link for the exte=
+rnal DisplayPort output, leaving the `dp1_out` graph endpoint disconnected.
 --
 
---- Patch [5]: [PATCH v2 05/17] phy: spacemit: add Innosilicon DP TX PHY dr=
-iver ---
-commit 29f359dc5de12bf07a1c791d1b6d5ab3f658ed91
+--- Patch [15]: [PATCH v2 15/17] riscv: dts: spacemit: k3-pico-itx: enable =
+the DisplayPort output ---
+commit 524eda119bdbf5fa2382226e4f89b196aad432d5
 Author: Cody Kang <codykang.hk@gmail.com>
 
-phy: spacemit: add Innosilicon DP TX PHY driver
+riscv: dts: spacemit: k3-pico-itx: enable the DisplayPort output
 
-Adds support for the Innosilicon DisplayPort transmit PHY integrated in the
-SpacemiT K3 SoC. The PHY shares its MMIO window with its parent DP/eDP
-controller and registers its pixel PLL as a clock provider.
+This commit enables the second DPU and the associated DisplayPort controller
+to provide output to the external DisplayPort connector on the Pico-ITX boa=
+rd.
 
-> diff --git a/drivers/phy/spacemit/phy-k3-inno-dp.c b/drivers/phy/spacemit=
-/phy-k3-inno-dp.c
-> new file mode 100644
-> index 0000000000000..42ebfc347b84b
-> --- /dev/null
-> +++ b/drivers/phy/spacemit/phy-k3-inno-dp.c
-
-[ ... ]
-
-> +static int k3_inno_dp_phy_power_on(struct phy *phy)
-> +{
-> +	struct k3_inno_dp_phy *p =3D phy_get_drvdata(phy);
-> +	u32 lane_en;
-> +	u32 val;
-> +	int ret;
-> +
-> +	switch (p->lanes) {
-> +	case 1:
-> +		lane_en =3D 0x1;
-> +		break;
-> +	case 2:
-> +		lane_en =3D 0x3;
-> +		break;
-> +	case 4:
-> +	default:
-> +		lane_en =3D 0xf;
-> +		break;
-> +	}
-> +
-> +	ret =3D regmap_write_bits(p->regmap, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD, 0=
-);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
-> +				DPTX_ANA_PREPLL_PD, 0);
-
-[Severity: High]
-Is a driver-level lock needed to prevent races between the PHY and clock
-frameworks?
-
-The clock framework serializes clk_set_rate() (which calls
-k3_inno_dp_program_prepll() below), and the PHY framework serializes
-phy_power_on(), but they don't synchronize with each other.
-
-A clock rate change can race with this PHY power-on, allowing the PHY to
-clear the PD bit here while the clock framework is midway through
-reprogramming the PLL dividers.
-
-> +	if (ret)
-> +		return ret;
-> +	usleep_range(2000, 4000);
-> +
-> +	ret =3D regmap_write_bits(p->regmap, DPTX_PHY_CTRL,
-> +				DPTX_PHY_CTRL_XMIT_EN,
-> +				FIELD_PREP(DPTX_PHY_CTRL_XMIT_EN, lane_en));
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Does this skip the required DPTX_ANA_PREPLL_PD rollback?
-
-If this regmap write fails, returning directly bypasses the err_power_down
-cleanup label. This would leave the pixel PLL powered up indefinitely.
-
-> +	usleep_range(2000, 4000);
-> +
-> +	ret =3D regmap_read_poll_timeout(p->regmap, DPTX_ANA_MPLL, val,
-> +				       val & DPTX_ANA_MPLL_LOCKED,
-> +				       2000, 10 * 1000);
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/bo=
+ot/dts/spacemit/k3-pico-itx.dts
+> index b89c1521e6649..6c31460990a75 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
 
 [ ... ]
 
-> +static void k3_inno_dp_program_prepll(struct k3_inno_dp_phy *p,
-> +				      const struct k3_inno_dp_prepll_cfg *cfg)
-> +{
-> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-> +		FIELD_PREP(DPTX_ANA_PREPLL_PD, 1));
-> +	usleep_range(2000, 4000);
+> @@ -221,3 +222,13 @@ hub@1 {
+>  &usb2_phy {
+>  	status =3D "okay";
+>  };
 > +
-> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PREDIV,
-> +		FIELD_PREP(DPTX_ANA_PREPLL_PREDIV, cfg->prediv));
-
-[ ... ]
-
-> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_CTRL,
-> +		DPTX_ANA_PREPLL_PCLKDIV5_EN,
-> +		FIELD_PREP(DPTX_ANA_PREPLL_PCLKDIV5_EN, cfg->div5_en));
-> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_CTRL,
-> +		DPTX_ANA_PREPLL_PCLK_DIVAUX,
-> +		FIELD_PREP(DPTX_ANA_PREPLL_PCLK_DIVAUX, cfg->divp));
+> +&dpu1_crtc0 {
+> +	status =3D "okay";
+> +};
 > +
-> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
-> +		DPTX_ANA_PREPLL_PCLK_NORMAL,
-> +		FIELD_PREP(DPTX_ANA_PREPLL_PCLK_NORMAL, 1));
-> +	usleep_range(2000, 4000);
-> +
-> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
-> +		FIELD_PREP(DPTX_ANA_PREPLL_PD, 0));
+> +&dp1 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&dp1_1_cfg>;
+> +	status =3D "okay";
+> +};
 
-[Severity: Medium]
-Does this unconditionally power up the PREPLL, even if the PHY is currently
-turned off?
+[Severity: Low]
+Does this device tree need a dp-connector node and a remote-endpoint link=20
+for the external DisplayPort output?
 
-The clock framework can call set_rate() when the display pipeline is
-disabled (for example, via assigned-clock-rates during boot). Since the
-clock provider doesn't implement a .disable callback, this appears to force
-the PLL to turn on and stay powered up until a subsequent phy_power_off()
-cycle occurs.
+Since dp1 is enabled here without describing the physical downstream connec=
+tor=20
+or linking it to the output port, it appears to leave the dp1_out graph=20
+endpoint disconnected.
 
-> +	usleep_range(2000, 4000);
-> +}
+Even though the display driver might handle this missing topology gracefull=
+y=20
+by falling back to an internal connector initialization, could this omissio=
+n=20
+trigger dtbs_check graph warnings for the dangling endpoint?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-k3-display=
--v2-0-327d7910bf71@gmail.com?part=3D5
+-v2-0-327d7910bf71@gmail.com?part=3D15
