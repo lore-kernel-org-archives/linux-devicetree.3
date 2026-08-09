@@ -1,144 +1,309 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F15F2853F3
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373D93C818D
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:30:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786278539; cv=none; b=X5BBcrzX9JZxHDHZe4WkDLPiqcxf8DydiFxA4j/JFcN6Qo0fQkATF765tkh3Zayp2E0mcgDufP58HQbpbEoiyg10/CAP6ErFX2CmpocDwSjf+3lXVA3zIVwoYrS1fmR9/HtkNN8mEUJKA9uIodyqzb4BXcALJXQuiQmnyNasxrI=
+	t=1786278612; cv=none; b=Ut+22ksSdFpiobhv1xH1jbADRh5X11qyQMs/Nh4PL1Qbvn5so6bmTqn4s3Pm0mzM8MAFbmKsOCKhzVl1f78bkdwv0pOEnVgrmMem0KdS+0j/td+I7L1VvEJeauxPwbNosApRv3QebnL9LZZEgpO8oq3alhtiwOtc6hRNXI4DPVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786278539; c=relaxed/simple;
-	bh=V6bbj130oQlutGuyq12ItMdXRLHCfnb0ZpDM2wz7c+g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ac/A3qaCGz/ItGDXVd3lyeJOH7kZglZyBQiN7bd3dFSq7csxg5U+phC2UIq8AFEyPUzKotk+BzuTdQPQscSobwpwbvgTteCBDXfU7sd8oEEleTcUqMFhqFVz3qWx3Kd5zKdaUGS6eM7HiLVuxTFVWN3MJ71Fc3tJ3Y7bh8Kb9Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjvvaHIA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786278612; c=relaxed/simple;
+	bh=hzPQLN63RPYnyfObu7brSbD/mhgt2WOI5UXVe/9Briw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kbBKw069tWAkfW7kdRM4NMlqgcxKnM5KnYncIDtiOUIGVt5RV61wzTJkYC/G3+zaz1T+s1YHO4oJIIUhF40LQqzQn1asDeik3+FZhP13getOq+k8N6nZ1CPUo8cVBK1sFvMclX2TV+bSA1nkxS17eVrriowiMLf4lGddshr4huI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BeK5uPSZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ATtWQzrL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjvvaHIA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571311F000E9;
-	Sun,  9 Aug 2026 12:28:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786278537;
-	bh=ZsFgZreYUzm2ZJAW77XVXRfwUcwLBXjg1jqqD4hRe70=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LjvvaHIAMSuDDXOqwNCvVBmjbc65FaurQ3cuK15IAWCiK3hncGi6wV7FulNXkzdLd
-	 SShgXuqTJBrfi9Lbe4mM8Ew6y8pHSZdhrI0KxHbODVhOZpEZ+JLraeb9sGj28Ck+bU
-	 rl5C+fmawph4y2Nu/f8mQMR3UuuXasvP+W95v96Lei/O5908cjEXpfCU11IYnbM70z
-	 nSiYkCrGL4Tv54LUpryH3wDgI5Ytv4z9Uk29MDpBt0dPAMAS+mpk98ToYQh09VxGrI
-	 FpmWriOhAFyjowOYz9VBVhMbojMOOfnjc7riyyJ163ujeFNr31NIy4Bm3fpuRmp+yG
-	 fPxByruWbgQEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] reset: Add Apple SoC CIO reset driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sven Peter" <sven@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260809-b4-cio-reset-v1-2-4f33777d9b4b@kernel.org>
-References: <20260809-b4-cio-reset-v1-0-4f33777d9b4b@kernel.org>
- <20260809-b4-cio-reset-v1-2-4f33777d9b4b@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 12:28:56 +0000
-Message-Id: <20260809122857.571311F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BeK5uPSZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ATtWQzrL"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 679C2ZFU2625443
+	for <devicetree@vger.kernel.org>; Sun, 9 Aug 2026 12:30:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=2uXTcBY6RMD7wk2WeucsBK
+	SRnENcqgsHAYonN0T9jMg=; b=BeK5uPSZJSN/9j6juLcwLKOXXcHtst2O7tQp/Y
+	sqLvC0a5+GAB3li2xC6wO/ePVQUwSJ0w2BM3+4yJpDgCO8UvjNgj7BFgGgb7Sbag
+	R3qJ4MrW8fy1msT5CmZBfCyMEIDempMqO4XWkUEqyLMw0ifdGsMtIMntz3HUC92X
+	5s7378vP4UQk5Zz3EeVeFhMLDPDH77JHo7qlj0uJerXDHJc5LLk8mA5Z7WyUvkw+
+	OZoitmdENQiDPhmMdKL3Lm05w6P7ToLLQWvbMYejwI7EL5spkI0MUUbuswAnwq0Q
+	FPdghbfA2Lh1yl8KNfxJDMbtuUpM8h4++0SOJxWdpOqdXqMA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwush2w7x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 12:30:06 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e1118e4abso1804270a91.0
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 05:30:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786278606; x=1786883406; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2uXTcBY6RMD7wk2WeucsBKSRnENcqgsHAYonN0T9jMg=;
+        b=ATtWQzrL3XIbbmqSDwjh5P/bZEPuz6fja6kwo7shaZzsxe9lXR1G5pLTro7m5DMRQS
+         KPm2cfm+r5GmmLfI+JsYLRQm3emnCO0mP1e6T7QNiYT41zjaBxXT1koDRcEU3sSq48Nc
+         qFrH7OOcpMEH3pB0/2Kc3kXUz67O3PLrJ+kPZZ+IfLAY01Lppa5w89ZNDliwaZ5uN46K
+         Hh21IKCRfJkGROtCHPcX68SgDYcOvVQChrD52DczrE6pNVYGjTPF0el4KxJo8pkUhwZW
+         V2Trjj3aOvYKIYJjFu5rYlsY+vg3zi7uwGHWeA1OzwVykIBjCsr6U3R/YeUcr0v3qlvT
+         WXlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786278606; x=1786883406;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2uXTcBY6RMD7wk2WeucsBKSRnENcqgsHAYonN0T9jMg=;
+        b=f0KwCLlIRo427+eLq9ZkzsQuMj+/Zmyz6cLt075KzQtUDRt8SmjSv5BvXjWiLXwPcZ
+         XN/tI+hzvBvAORPSwP/zRNBcMayWm1SnIH2re1/I1elW/R55O5wCVZpcEPgTiq4bOF73
+         8YRfcYITibYCNgIAO2z8iMfIzEOKC+uqJmwsTm+RFaOp78msF6lIWmj9TrI5W0/OT26P
+         XX1yiMYuFNHEJUOypwzT2YymhkAUj6nVMzq0wna4Q+TD/FFLyqvA3fqqUkvh1hRZ2SY+
+         kiJIt537pZK15HsToJTL3t1XDu64MmBdq2xrLuIMgUfFYuR1ArCVEkDvbbWBO2EliDH8
+         d5cA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9QQWkT45YYnHY3fJseMFAJSDp/B/f45/SMUs4bf12KMhBWwZq80m5Pf2uOdCpYqPIbEuy0XUXPhhP@vger.kernel.org
+X-Gm-Message-State: AOJu0YzTbQGvD8t0puchSKtPXchLX3PpdBIAGTL0pTO4kXbZq0+RkvkM
+	tfE2q98d3ocpfD7PvMkB7I2ZvvBb8uUyjdLGRfNDLzmoF+zNXKO97j3jdImNnXZjkbrh3HQdeG/
+	H2/aPWm2sB1qWUOMh15VFS0bU2dQlYmyr32fcetI9BHABARx9gNBCB/dlev06CGrU
+X-Gm-Gg: AR+sD11eUrAW9sLw2k06UrKvNnZRHgpMvx6ahQabRE8rVjWP6M6vLiI9blOfZ5RfIVG
+	+piIQld3VgNsUBipvmZOAxi60c5Tu8HWatyna05oEZKHO4vIbMzEcIeNDk58a7cBAjgIt4SOEoR
+	BMs2ZBVYHVv/3kFRKAne8l0QocqeF0Z1lyHO5CZcut9DBhs0cpJ3rgROcNpuSkl54tbdn/kD5xZ
+	WzQ8dJ5t9lxZz13QiwGLMl5iJGcfIPj2xJZb6k+c/7yraWPd+rXH6a4ePobH6tAkMygO6O1P1gG
+	xynPHtRwhP7ENQUsQnpFUPffGQM3MH9HKXB+igTQdR0rsMRcskcnz7wFt3PYpDdZgf2bw3DQYDq
+	6wUaxIBf0nBuUGZP65KrCjBQxUXivRg==
+X-Received: by 2002:a17:90b:3b89:b0:37f:c22a:c188 with SMTP id 98e67ed59e1d1-392822bf798mr11202218a91.4.1786278605725;
+        Sun, 09 Aug 2026 05:30:05 -0700 (PDT)
+X-Received: by 2002:a17:90b:3b89:b0:37f:c22a:c188 with SMTP id 98e67ed59e1d1-392822bf798mr11202149a91.4.1786278605157;
+        Sun, 09 Aug 2026 05:30:05 -0700 (PDT)
+Received: from hu-gkohli-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb88413sm51842997eec.18.2026.08.09.05.29.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Aug 2026 05:30:04 -0700 (PDT)
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Subject: [PATCH v8 0/9] Add support for Qualcomm remoteproc subsystem
+ cooling
+Date: Sun, 09 Aug 2026 17:58:56 +0530
+Message-Id: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIhyeGoC/3XP3wqCMBQG8FeJXTfZzv7aVe8RXajbapCZzkYhv
+ ntTIhTy5sB34Pz4zoCC7bwN6LAbUGejD765p6D3O1Rdi/vFYm9SRkBAEkUFLjlua4/72mADzGr
+ jaAkaUDp4dNb514ydzilffeib7j3bkU/bL0PYz4gcE8y0BqrzijrNjk0IWfssblVT11kaaKKiW
+ JwDXbaIIgl5LoFYopwgYkOQS0GtBDkJilWGFQCycBuCWghs3UFNX5TWGc45YeZfh3EcP4CbPxN
+ uAQAA
+X-Change-ID: 20260715-b4-qmi-tmd-d23e8df1b282
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
+        manaf.pallikunhi@oss.qualcomm.com,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Casey Connolly <casey.connolly@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Dipa Ramesh Mantre <dipa.mantre@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786278595; l=7336;
+ i=gaurav.kohli@oss.qualcomm.com; s=20260302; h=from:subject:message-id;
+ bh=hzPQLN63RPYnyfObu7brSbD/mhgt2WOI5UXVe/9Briw=;
+ b=ii605iPjxbrIBcD4pby6KYd3D8u9H0d8UT9iH9sCiFVjdioFPUVroMe7OqRb7ad8FLmgxQaUh
+ NSDZlTYqiarCCfyAx3EKLsEvomFT1dTJ2/r8QQdUqq3in5K1aK/9joY
+X-Developer-Key: i=gaurav.kohli@oss.qualcomm.com; a=ed25519;
+ pk=IdNsqe8rWsF6dbpGHfwPEH9zM0nbOdRH72HxUT9qPak=
+X-Proofpoint-GUID: PNbiILdS_bUlXDIkSaUZj9gUJdC7uO3W
+X-Authority-Analysis: v=2.4 cv=GvpyPE1C c=1 sm=1 tr=0 ts=6a7872ce cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=uM_Z6P9mi9P6D6jF0MIA:9
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: PNbiILdS_bUlXDIkSaUZj9gUJdC7uO3W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDExMCBTYWx0ZWRfX5wtf9LEct7Tx
+ nzZe/vyQST65e5rZrbIg/JwjDWAry4wmgZxn7fCInnf2Rmq+d3PjxILHQ70egMCep3zOFTbKN4O
+ 6iaWLyK0/CRCAarwNNYTPjYzHoB7EdphzpOjLaqNDfhgqhLpKxYVxETyE93yJKO5aVdvF0pwM7D
+ NDKuZcyBjChDakSxtzunY0rWw0JJuyNFtGzATmUPD6N/xsB8Ji+4GPkSDKqSuT6lqvNV/oKtA7R
+ BOLL3iyREby00v37Ux47JA/vAo32o+LBEMuUdxf3sHskuSPYhn7hJdspGcCfTQgfonsfWmYDRVf
+ Gu+pSOrtDdz2nvQ5FLl2aam6yZrAH5sd+8JfW7m7RCYmPll6tRqBhITPyRI7906MfvnyfjN8xrT
+ bJmHxbUSkSWwhzzG8TNR8z9elOJcluPald3UohHybnEtiaRCLIGDdekO7Jz0nS3/l3DwkBLctQi
+ UQV+YM3rp7YMD8TFUfA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDExMCBTYWx0ZWRfXxQmGRiVszbTF
+ /EQLp+yqk9cuDELphyiXSPdf5Ioe+wijP0p6stUfslHljdg72AmkC/5b6U2C+JRe6/KQBaa42Zp
+ iS89rMoJ+4mnbjW+KAnjrDhZqfcHv9A=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-09_04,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 priorityscore=1501 phishscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608090110
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Race condition in `t6000_cio_deassert()` polling logic allows prem=
-ature success before hardware busy assertion.
-- [Medium] Unchecked return value of `of_device_get_match_data()` leads to =
-NULL pointer dereference on manual sysfs bind.
-- [Medium] Shared register overwrite in `t6000_cio_deassert()` via `regmap_=
-write()`.
---
+This series introduces Qualcomm Messaging Interface based Thermal
+Mitigation Device (QMI TMD) support to control thermal mitigation
+on remote subsystems such as the Modem and CDSP.
 
---- Patch [2]: [PATCH 2/3] reset: Add Apple SoC CIO reset driver ---
-commit b460799e8ebb76e6526aa8a4370ed4331dbda4b0
-Author: Sven Peter <sven@kernel.org>
+The QMI TMD is an interface that instructs a remote subsystem to adjust
+the performance level of the devices it manages, reducing power consumption
+in response to critically low battery charge, overcurrent alerts, or
+overheating conditions.
 
-reset: Add Apple SoC CIO reset driver
+The series is organized as follows:
 
-Adds a driver for the reset of the CIO (USB4/Thunderbolt) blocks on
-Apple Silicon SoCs which has to be deasserted before their co-processor
-can be booted.
+ - Add a shared dt-bindings header mapping TMD device indices for use
+   in DT cooling-maps, ensuring a consistent binding between the thermal
+   zone and the QMI TMD driver.
 
-> --- /dev/null
-> +++ b/drivers/reset/reset-apple-cio.c
+ - Extend the remoteproc PAS binding with the optional #cooling-cells
+   property to allow remoteproc nodes to be referenced as cooling devices.
 
-[ ... ]
+ - Add QMI TMD support in the remoteproc PAS framework, hooking into
+   the probe/unregister lifecycle to register and unregister cooling
+   devices with the thermal framework.
 
-> +static int t6000_cio_deassert(struct apple_cio_reset *priv, unsigned lon=
-g id)
-> +{
-> +	u32 val;
-> +	int ret;
-> +
-> +	guard(mutex)(&priv->lock);
-> +
-> +	ret =3D regmap_write(priv->regmap, priv->offset, T6000_CIO_CTRL_INIT_RE=
-Q(id));
+ - Enable CDSP and Modem cooling on kodiak, lemans, talos, monaco and
+   hamoa platforms using the new binding.
 
-[Severity: Medium]
-Will this regmap_write() overwrite the state bits of all sibling ports?
+Not all TMD endpoints advertised by the firmware are wired into kernel
+thermal zones. Endpoints such as BCL (battery current limiting) and cold
+temperature protection are handled from userspace via qmi and do not
+require kernel thermal zone bindings.
 
-Because the t600x variant uses a single shared register for all ports,=20
-writing the entire 32-bit register might write 0 to the INIT_REQ bits
-of previously initialized ports. Should this use regmap_update_bits()=20
-instead to preserve active state?
+The constants defined in this series cover only the endpoints actively
+used for thermal mitigation in the kernel thermal framework on the
+currently posted targets: cdsp_sw (CDSP software thermal limit), pa
+(modem power amplifier), and modem.
 
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_read_poll_timeout(priv->regmap, priv->offset, val,
-> +					!(val & T6000_CIO_CTRL_INIT_BUSY(id)),
-> +					APPLE_CIO_RESET_POLL_US,
-> +					APPLE_CIO_RESET_TIMEOUT_US);
-> +}
+This work revives the earlier QMI cooling series by Casey Connolly [1],
+with the following key differences:
+ - Uses an id based API for cooling-device binding
+ - Integrates QMI TMD directly into the remoteproc PAS framework and
+   hooks into the probe/unregister lifecycle.
+ - Removes unused code and cleans up macro names
 
-[Severity: High]
-Could this polling loop exit prematurely before the hardware begins=20
-initialization?
+This series depends on cooling device id support from Daniel Lezcano [2].
 
-Since regmap_read_poll_timeout() (without sleep_before_read) performs=20
-its first read instantly, any hardware synchronization delay might cause=20
-the first read to see the INIT_BUSY bit as 0 (its pre-assertion state).=20
+[1] https://lore.kernel.org/linux-devicetree/20230905-caleb-qmi_cooling-v1-0-5aa39d4164a7@linaro.org/
+[2] https://lore.kernel.org/all/20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com/
 
-This would cause the driver to report success before the hardware actually=
-=20
-starts the reset process. Is it possible to ensure the BUSY bit is=20
-asserted first, or add a preliminary read delay?
+---
+Changes in v8:
+- Added Reviewed-by tags from Abel and Krzysztof.
+- Return -ENOTCONN when QMI TMD is disconnected.
+- Use label references for Hamoa IoT NSP trip overrides. (Stephan)
+- Link to v7: https://lore.kernel.org/r/20260731-b4-qmi-tmd-v7-0-3befd44403d5@oss.qualcomm.com
 
-[ ... ]
+Changes in v7:
+- Added Daniel's Acked-by/Reviewed-by tags.
+- Serialized cur_state update with QMI state request. (Sashiko)
+- Link to v6: https://lore.kernel.org/r/20260727-b4-qmi-tmd-v6-0-973cd3a226af@oss.qualcomm.com
 
-> +static int apple_cio_reset_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct apple_cio_reset *priv;
-> +	int ret;
-> +
-> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->variant =3D of_device_get_match_data(dev);
-> +
-> +	ret =3D devm_mutex_init(dev, &priv->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (priv->variant->pmgr_child) {
+Changes in v6:
+- Added Reviewed-by tags from Dmitry.
+- Kodiak: delete MPSS cooling maps by label on non-modem boards. (Dmitry)
+- Renamed qcom,qmi-tmd.h to qcom,pas.h. (Krzysztof)
+- Made QCOM_QMI_TMD tristate to fix unmet dependency issue. (Sashiko)
+- Removed redundant negative TMD id check in qcom_pas_setup_tmd(). (Dmitry)
+- Fixed QMI_DATA_LEN type issue by using u32. (Sashiko)
+- Link to v5: https://lore.kernel.org/r/20260721-b4-qmi-tmd-v5-0-99620e07f505@oss.qualcomm.com
 
-[Severity: Medium]
-Can priv->variant be NULL here if the driver is bound manually via sysfs?
+Changes in v5:
+- Added Reviewed-by tag (Daniel Lezcano)
+- Squashed dt-bindings header patch into the yaml binding patch.(Krzysztof)
+- Renamed constants: QCOM_CDSP_TMD_CDSP_SW -> QCOM_TMD_CDSP_SW,
+  QCOM_MODEM_TMD_PA -> QCOM_TMD_PA, QCOM_MODEM_TMD_MODEM ->
+  QCOM_TMD_MODEM.(Krzysztof)
+- Replaced dev_err() with dev_err_probe() in qmi_tmd_init() (Krzysztof)
+- Fixed qmi_tmd_exit() teardown order to prevent cancel_work_sync()
+  re-queue race.(Krzysztof)
+- Removed only MPSS maps instead of entire cooling-maps node.(Dmitry)
+- Added cover letter note clarifying TMD endpoint selection rationale.(Dmitry)
+- Added NET dependency in Kconfig.(Julian)
+- Link to v4: https://lore.kernel.org/r/20260703-qmi-tmd-v4-0-3882189c1f83@oss.qualcomm.com
 
-If a user writes "apple-cio-reset" to the driver's bind file without an
-associated Device Tree node, of_device_get_match_data() will return NULL.=20
-The probe function then immediately dereferences it for pmgr_child, causing=
-=20
-a kernel oops. Should we add a check for !priv->variant before continuing?
+Changes in v4:
+- Drop the tmd-names DT property.
+- Move TMD instance id and tmd device name into PAS platform data.
+- Add a shared dt-bindings header to define numeric constant for TMD id. 
+- Add mutex documentation comments for get/set state callbacks.
+- Link to v3: https://lore.kernel.org/r/20260609-qmi-tmd-v3-0-291a2ff4c634@oss.qualcomm.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-b4-cio-res=
-et-v1-0-4f33777d9b4b@kernel.org?part=3D2
+Changes in v3:
+- Removed the remoteproc-cooling abstraction approach.
+- Integerated QMI TMD with remoteproc core framework.
+- Cleaned the macro names and removed unused code.
+- Switched to index-based thermal_of_cooling_device_register() api.
+- Link to v2: https://lore.kernel.org/linux-devicetree/20260127155722.2797783-1-gaurav.kohli@oss.qualcomm.com/
+
+Changes in v2:
+- Update Remoreproc thermal config to tristate and removed unnecessary NULL checks.
+- Fixed dt binding file format and added generic name support for cdsp.
+- Fixed memory leak and cleaned up qmi-cooling driver file.
+- Corrected DT formatting errors and commit descriptions for all targets.
+- Link to v1: https://lore.kernel.org/linux-devicetree/20251223123227.1317244-1-gaurav.kohli@oss.qualcomm.com/
+---
+
+---
+Casey Connolly (1):
+      soc: qcom: Add QMI TMD support for remote thermal mitigation
+
+Dipa Ramesh Mantre (1):
+      arm64: dts: qcom: hamoa: Enable CDSP cooling
+
+Gaurav Kohli (7):
+      dt-bindings: remoteproc: qcom,pas: add #cooling-cells property
+      remoteproc: qcom: pas: add support for TMD thermal cooling devices
+      remoteproc: qcom_q6v5_pas: enable QMI TMD cooling support
+      arm64: dts: qcom: kodiak: Enable CDSP & Modem cooling
+      arm64: dts: qcom: lemans: Enable CDSP cooling
+      arm64: dts: qcom: talos: Enable CDSP cooling
+      arm64: dts: qcom: monaco: Enable CDSP cooling
+
+ .../bindings/remoteproc/qcom,pas-common.yaml       |   9 +
+ MAINTAINERS                                        |   8 +
+ arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts         |  16 +
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |  63 +++
+ arch/arm64/boot/dts/qcom/kodiak.dtsi               | 125 +++++
+ arch/arm64/boot/dts/qcom/lemans.dtsi               | 125 ++++-
+ arch/arm64/boot/dts/qcom/monaco.dtsi               |  99 ++++
+ .../boot/dts/qcom/qcs6490-radxa-dragon-q6a.dts     |   8 +
+ .../dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts  |   8 +
+ .../boot/dts/qcom/qcs6490-thundercomm-rubikpi3.dts |   8 +
+ .../boot/dts/qcom/qcs6490-vicharak-axon-mini.dts   |   8 +
+ .../boot/dts/qcom/sc7280-herobrine-lte-sku.dtsi    |  10 +
+ .../boot/dts/qcom/sc7280-herobrine-wifi-sku.dtsi   |   9 +
+ arch/arm64/boot/dts/qcom/talos.dtsi                |  19 +
+ drivers/remoteproc/Kconfig                         |   1 +
+ drivers/remoteproc/qcom_q6v5_pas.c                 | 117 +++-
+ drivers/soc/qcom/Kconfig                           |  12 +
+ drivers/soc/qcom/Makefile                          |   1 +
+ drivers/soc/qcom/qmi_tmd.c                         | 595 +++++++++++++++++++++
+ include/dt-bindings/thermal/qcom,pas.h             |  20 +
+ include/linux/soc/qcom/qmi.h                       |   1 +
+ include/linux/soc/qcom/qmi_tmd.h                   |  36 ++
+ 22 files changed, 1285 insertions(+), 13 deletions(-)
+---
+base-commit: 49362394dad7df66c274c867a271394c10ca2bb8
+change-id: 20260715-b4-qmi-tmd-d23e8df1b282
+
+Best regards,
+-- 
+Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+
