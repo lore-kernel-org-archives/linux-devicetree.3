@@ -1,139 +1,130 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3863290A5
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 08:29:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB973A05FC
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 08:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786264145; cv=none; b=kM8vKPZHTsFLqYdxidmxrN3T1uL0aKIHSotS84yYu1l92DxljsmyqriWwxVVI+x/EEWpac2dyqEuA1y+2ZRKXMiEGdRjugJYvWg2wQgMyY5ROt7geH9HU6WXZAu0fsABM9Ze+JYasdXXRd6SLeA+6+XHV4ag+NhEKs1moRZowT0=
+	t=1786264171; cv=none; b=F3RuTQ4+ZVNV+6eXkZzXAbLGd8rMRrQ+W8Lo7PdDac0yItrWn8F5hRvaOc5qzt6y60gZHpx3i2E7KZeB6o7JR90LyhOS3WZeDg7A7W44cGPMvf+UI4WbCEyUIbwUL8ozFU/VXM70ZClqv+GFcQBp64gFX9LB8St6SiCOcy7TUao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786264145; c=relaxed/simple;
-	bh=DjBhbqW14d9nmpPCYYk6v+xFyikmQDSHMu3Aajds3Lg=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 References:In-Reply-To; b=Mtu522CDhfpWcvs2r/1yt5Cz0Zn8OnkfMGWJRIZTm7+2RsH2pDEvoMAx5uPb5duY0ITExMW+Oe2sRlk55LCk73t4dQ8qUYchq9UThA0Nwyzk97PFmXcNL6RQ8Kuk4fzqNkZtyUA9Y6J5H7aEclDZueaWycWM+Nzj4lWAHyf0gzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FzovIO6f; arc=none smtp.client-ip=209.85.221.172
+	s=arc-20240116; t=1786264171; c=relaxed/simple;
+	bh=EBuidInqLSxAdzSs+bLYDtRsXG0JLW7LAHbGM2gja1s=;
+	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:Mime-Version:
+	 References:In-Reply-To; b=UxlCyD6FEY/gp/0d8F+z8IhSXnzSb8dTyJv8ejdWCNuesF6LdC49RoJCAk6PrdRfMZ/hkA3+VV/JB51MDDefFFsT3BQvD1tZ0EgjYjaciOpf8CfmqBgHFA8b5DLstVMDvP+9rq6Gm2O0rCBSETWN1QBsiWpsX1jVnvhPB8uZ4PQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mGX/JI32; arc=none smtp.client-ip=209.85.221.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FzovIO6f"
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5bf9466412fso853099e0c.1
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 01:29:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mGX/JI32"
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5c27e38ee18so490077e0c.1
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 01:29:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786264143; x=1786868943; darn=vger.kernel.org;
-        h=in-reply-to:references:mime-version:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1786264168; x=1786868968; darn=vger.kernel.org;
+        h=in-reply-to:references:content-transfer-encoding:mime-version
+         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=rqHnH3bazfPo8L9yN8K7qxpi9gCCvgA/6bCTLUUeJSw=;
-        b=FzovIO6fwwTaNTJKTj37e3TwV5BuW0iQUg6l0854Vs5HEsKCCWWWf+M0KB0Wmi3xcG
-         CQTAuxwWYxDdqx6urzDylQ5vQjti48MHkE1D2bWIjSjuJW80uHKjYTsvcSv6Jjm9AY1q
-         nNCCBFwTPfBUjaVr4fbduGGy/zUVo9PH58K1kefbxDvUS+oH3Tc+uoAH8WbS4Gpu0MqD
-         8QK/HxvOmP7WsdxDprU0bUy2q2kF4w6KjI6o2IbhvpI5jLXPcuurapSBWfWW3MihFkAi
-         uzffmWwO/o+eJGfQIJUWZx93nrpROhJo6P6tOjpUrRqqYxgWmEVG5t5TwNR6v/CGXAe5
-         LqDg==
+        bh=2d9hycM5USzc32zfTtkd5yElWmTjF3/U684OFwwThv4=;
+        b=mGX/JI32tx5o9SLZcsgEX6nBCQZ2ZVJCaw3hwQOk3d8PrW7Wfj7zsFqNGg6Zs0TpV2
+         f3tIdFup3Ows24tBcKqizbkPZ9R6BNonaTyt/V+PJYxTgKWacUPatSlr0bCb3FUlWPjY
+         D5oBuhQXFV9mA5JigJttqKrIXbB2LaLG2Kd+FqgL0fU2qKuN8QSojX+9P4nAmH+rg0V3
+         hl75q23rjbGIXORMSgnk9KuloZ8E7xEeaAdK5NTih0Ta6DwWu2gHVoUKo3HlAU8vpLBQ
+         vrab7JPStAGpyc5QEeGNuz/JLekY52HoZihMxJKavZFvfDnETQwki9Ati8L218VfO7Rr
+         Schg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786264143; x=1786868943;
-        h=in-reply-to:references:mime-version:content-transfer-encoding:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20251104; t=1786264168; x=1786868968;
+        h=in-reply-to:references:content-transfer-encoding:mime-version
+         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=rqHnH3bazfPo8L9yN8K7qxpi9gCCvgA/6bCTLUUeJSw=;
-        b=B0pHgrLInP4yA0YbwGXqG/87V8GBmKYg0RKDNsCh7hnFNPiDPNGgI71XG1L5dhmuGk
-         QMG/gxYyscsi56hdOCumWc5lHOrIUEH4s/jj0XwyjGhT307VoD2IjnCB1nSyC1t0u69H
-         aSV8UFohIdAivHCay7p6Tpgj5BcDyBSVNjjLV8qu8NzM6rNgm0bR6u8oHDodu8GPK9OC
-         zMkrsykAm+ofXFIwY+5lTqvO+9yNv2txQ69vaZGov00tk0SP81GoX1YGfbSVmSf1+8nr
-         EmQ//IBEtL+j9viTenecVctiHh5uSA9N3QouSNB3lqzIFvI6Ofq/jv3G4SdIjugfIJoQ
-         qVDA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq9CZRAx7XiMTvc9AHG0EgT0QLCHUVajcH7Ss/rAJAvSnKdmeQQ0HoGLoNjuNzuZN0JzvRe3/7JxK6q@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz4v1rPawmf9ozrcwqKOc8ESaFJIuXQ3AX0FCRPwYSv8aN5/0IY
-	cikMuVPBoB+geMDUtOeYrDAamphSakB6mkWwLbG2GEaOwPHWfAq1Wa7y
-X-Gm-Gg: AR+sD12tE6LLUIQ/+hfYsRBSyi2Gf5rkO76odnDmGZIC9fUoy65BEhXO+PXPdfFkBt+
-	PKKJ1lEY1rT10tn/9ZxRYMDnsCnWiLtzpaEWrKejmtmqzTh4vY08yw9HpyrP2CRIA1ayG+EYlOw
-	6uq8o0u+5sORj7oj+ESW6ybSTlNveFBuCQYxKHiSLdGYLy3aKboxgqtq7AlWPxOWHF4P1iKS0rM
-	b0Qa7sR1FZ3nVCafI3fWQ9jKCbsZ34jpWORtuGk5NCuaBukMcCb4VSxVNeI1CZb5Ad7ULbfzBs4
-	loHDr6iYvZ6GSyNJ7PP0785HROKyg5w4DicV8Nqa5/lKodsL2TGZMQLuLn6JeCfpdHqFkCfrXDd
-	U6/1jPU5HS6CMkdkYaDhNOqF5UsBuyL9TeHnkG1mz1l8SWFTp4pgZJWAEeaYrlKNpw5BMBA3U/s
-	ASuj5/jNvHxG2U0HiYLrzrDIpk8+y/E6K5uJeoh6w3be9lOPSWJDGrVaL456eWr/E=
-X-Received: by 2002:a05:6122:ca2:b0:55b:d85:5073 with SMTP id 71dfb90a1353d-5c411331e5amr1700380e0c.4.1786264142723;
-        Sun, 09 Aug 2026 01:29:02 -0700 (PDT)
+        bh=2d9hycM5USzc32zfTtkd5yElWmTjF3/U684OFwwThv4=;
+        b=I90dQVM8+69pBWjZolPOuViuFKrvpnGwnRIqBkCAExT+eDDot3cfYEpv1RWX+eoplm
+         cxtP/HVCxz3rcMTz7kVrPVVVSUxwa47w1wFg62KId7nkbvI/r5vjeVk4qAwx1/XO2gXk
+         hkK0ofRGG4rZk1JMZdG3pY6Romt17EQywxCKagPmlECeS41sqeixVH4/8x288Ehqoiws
+         hU2dlsXK463Uk2lwCTTN11GJT5l9umUs+1V4IzABy7rR0+nvbOn1IWRi7CGlUUiUwrnG
+         LVT2nfVVEcCVE/fX9VVKvfAEWFZHBv2sN1f170vK9UA4dIBoK05BXOatdTHbo8H6tyWd
+         c1cg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr9QKdnCl9OZhZb1V6WAj78FXwEOi6Ty5RvxyzlmJnMK74CzxJx+VltNscqC3AIlAZ8dBozdlNgs3BU@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8JPnq2j12QP0poxvHeXYeZBTo3142RbFU9HDUhcFquNTqRUHw
+	sNRJvjorxEOoc2ucKFXsaTKm/O414UiD4/QiN2I47/OozYbZRUVGSpmg
+X-Gm-Gg: AR+sD112aXIQXhcDWyUiYu1lOz2gblVOk+ohBJ3VsbhgzhTR6c10r83F8/9wZy2gmzN
+	poeLGm25IgQI7m+JRyQpXWBUkUeT61fS3jod+dBCdkTRQX3yCff8cLg+DFhJyetnbW9H8I4TX6h
+	dwv7cc6cwvt/cQeZhPl3YKHfsNoz9P3ENKmXuvKxXNBo+AXmDtwghrbinh9JK10l1FnjtM8wCsr
+	nJOBnifKTj3M+mdybyXxJp80OQONrNPOw/IqsrPMq2bGfuNeG9QjaH9jNyOlp4kgkFfcxK32P1Q
+	kcM4OO6uDk2oJIAPAJ0zI1MZhU3SOTqg/CQOvUqn1uGNvW7CC4yLfTNrs+lAxymvN5/5wVulJ3h
+	rHgXJV2Q+5leuSKB04U8zl9OCxc6ozMWeeH0QyywBJ3yU5hXXMZefGNPRS2ve51VXchPvp6AHad
+	PaBy1rQ8wkCwG45nJaDZ6XPRorQ6XGgjYL/Ajdi8VefJ8dctmSdxk=
+X-Received: by 2002:a05:6122:4884:b0:5c1:31ed:157 with SMTP id 71dfb90a1353d-5c3d9259f67mr5068345e0c.13.1786264168276;
+        Sun, 09 Aug 2026 01:29:28 -0700 (PDT)
 Received: from localhost ([2800:bf0:82:11a2:7ac4:1f2:947b:2b6])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c4130b358csm2114122e0c.14.2026.08.09.01.29.01
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c40ae6a78esm2856941e0c.4.2026.08.09.01.29.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 Aug 2026 01:29:02 -0700 (PDT)
+        Sun, 09 Aug 2026 01:29:27 -0700 (PDT)
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 09 Aug 2026 03:28:55 -0500
-Message-Id: <DKK9SFCQK0Y8.3Q7SZMMPRYE9Q@gmail.com>
-Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-gpio@vger.kernel.org>
-Subject: Re: [PATCH v3 8/9] iio: adc: ti-ads1262: support REFOUT and VBIAS
- regulators
+Date: Sun, 09 Aug 2026 03:29:20 -0500
+Message-Id: <DKK9SR2E6KW6.2BS7C3ZY2MBC1@gmail.com>
 From: "Kurt Borja" <kuurtb@gmail.com>
 To: "David Lechner" <dlechner@baylibre.com>, "Kurt Borja"
  <kuurtb@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>, "Rob Herring"
  <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
  Dooley" <conor+dt@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
  "Bartosz Golaszewski" <brgl@kernel.org>
-Content-Transfer-Encoding: quoted-printable
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
+ <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH v3 9/9] iio: adc: ti-ads1262: support common mode
+ supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 X-Mailer: aerc 0.21.0-0-g5549850facc2
 References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
- <20260807-ads126x-v3-8-f89925d72792@gmail.com>
- <9f0779e5-3139-4c49-96b7-330f70b523a9@baylibre.com>
-In-Reply-To: <9f0779e5-3139-4c49-96b7-330f70b523a9@baylibre.com>
+ <20260807-ads126x-v3-9-f89925d72792@gmail.com>
+ <b760633d-a9af-4dc1-be6d-496b7a19e847@baylibre.com>
+In-Reply-To: <b760633d-a9af-4dc1-be6d-496b7a19e847@baylibre.com>
 
 On Sat Aug 8, 2026 at 1:40 PM -05, David Lechner wrote:
 > On 8/7/26 10:58 PM, Kurt Borja wrote:
->> Register the "refout" and "vbias" regulators to be able to use them as
->> common mode supplies.
+>> Enable common mode regulators. The usual configuration is to have our
+>> own 'vbias' regulator connected internally as common mode voltage on the
+>> AINCOM pin.
 >>=20
 >> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 >> ---
->>  drivers/iio/adc/Kconfig      |  1 +
->>  drivers/iio/adc/ti-ads1262.c | 90 +++++++++++++++++++++++++++++++++++++=
-+++++++
->>  2 files changed, 91 insertions(+)
-
-[...]
-
+>>  drivers/iio/adc/ti-ads1262.c | 25 +++++++++++++++++++++++++
+>>  1 file changed, 25 insertions(+)
+>>=20
 >> diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
->> index 24a7ecb9fbd4..533574169b04 100644
+>> index 533574169b04..238d803abc50 100644
 >> --- a/drivers/iio/adc/ti-ads1262.c
 >> +++ b/drivers/iio/adc/ti-ads1262.c
-
-[...]
-
->> +static const struct regulator_ops ads1262_vbias_regulator_ops =3D {
->> +	.enable =3D ads1262_regulator_enable,
->> +	.disable =3D ads1262_regulator_disable,
->> +	.is_enabled =3D ads1262_regulator_is_enabled,
->
-> This should also have a get_voltage() op that returns
-> (VAVDD + VAVSS) / 2. Otherwise it won't be usable as a
-> common mode voltage.
-
-I'll add this.
-
->
->> +};
+>> @@ -962,6 +962,27 @@ static irqreturn_t ads1262_irq_handler(int irq, voi=
+d *dev_id)
+>>  	return IRQ_HANDLED;
+>>  }
+>> =20
+>> +static int ads1262_common_mode_setup(struct ads1262 *st)
+>> +{
+>> +	struct device *dev =3D &st->spi->dev;
+>> +	char name[sizeof("aincom")];
+>> +	int ret;
 >> +
->> +static const struct regulator_ops ads1262_refout_regulator_ops =3D { };
+>> +	for (unsigned int i =3D 0; i <=3D ADS1262_INPMUX_AINCOM; i++) {
+>> +		if (i < ADS1262_INPMUX_AINCOM)
+>> +			scnprintf(name, sizeof(name), "ain%u", i);
+>> +		else
+>> +			scnprintf(name, sizeof(name), "aincom");
 >> +
->> +static const struct regulator_desc ads1262_vbias_regulator_desc =3D {
->> +	.name =3D "vbias",
->> +	.of_match =3D "vbias",
->> +	.regulators_node =3D "regulators",
->> +	.supply_name =3D "avdd",
+>> +		ret =3D devm_regulator_get_enable_optional(dev, name);
 >
-> What does supply_name do? Make "avdd-supply" the parent supply?
+> We need to get the voltage which is then used to provide an offset
+> (IIO_CHAN_INFO_OFFSET) for the channel.
 
-I haven't looked at the code, but it seems like it (sysfs verfies it).
-I'll check how is supply_name handled before the next version.
+Sure! I didn't think it was necessary but I can definitely add it.
 
 --=20
 Thanks,
