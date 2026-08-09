@@ -1,89 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018C23D6CB8
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 20:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08BCE3D6CAA
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 20:16:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786306563; cv=none; b=mLD9CCwbRMzxLWey/4ZA3TKRmqAQYWlHIJfs2ldaIAPam4dSlZSFlaIl8EjFj7ArALliA8BESSDJDbDpr31u0YGosB0kxr7gdX0byiw+eh7Eeox7q/9UmcVsa7JGZxpRuagHlIS3Uo85ZI91t4ZTdUwRoLMNxt3e7XeQ766Ictc=
+	t=1786306565; cv=none; b=P8ypCSlhiN3VU3cRmpR/ulAqkML9p1FJYqt7GfEj1rjOddhokJZ+0CPkpH0Pf8P5K5vQbfpjcMdy2kJ5pfI3DBVjF/WtFs8difzn3EiKCwYEtV1Tu2ESmwXGp9BMULcsyGk7F0dlQOsv1Q1bz94D1gUAcpiCJxxO6J6tUfAU+Pg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786306563; c=relaxed/simple;
-	bh=+sGtB20DBa8qqNqIVi9KLViUpBY6FE9rYJuuV2Wv9ck=;
+	s=arc-20240116; t=1786306565; c=relaxed/simple;
+	bh=GXiPIZglCzQ57hkuCOyXRgoYx4cKxjmC6a7IKdJwtLo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=vCsQq1wyi9q/lO68CF8oWT/Kf0Qqo0qxvNUO2Q9IRmjbya8RXcyaXItl6qzm2zlTx06gWMgLbHCL7LCmrgHyvbA9KovuGi417Tvo3Fkk0qCCNOSziUePXnZlh0zXE3g1mS2ZMDK35OuTvNWO8BBVm85I/sEG5qk6+kjizCVtpKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j/JeoyK6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ROxevJyv; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=cViRgqPOTEVhycDNtJJl6OSiYFnNvYD2OTD2FKH3k52nHsYpuY/8mnj0xPS5GEI3pmcKS6mZYx/FTHdZ05Gbs6m5FHXBMF0QP2oZLI69TXLg7LmU+yaZJ65kFz4IFHLpktenCjHsiu7C2yV5F87/hq1kUkZmsEM6+gXnWsOjN9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f6ifMYWn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ctOoAnSG; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j/JeoyK6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ROxevJyv"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 679JgaQ83263362
-	for <devicetree@vger.kernel.org>; Sun, 9 Aug 2026 20:16:01 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f6ifMYWn";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ctOoAnSG"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 679I9T1S3477347
+	for <devicetree@vger.kernel.org>; Sun, 9 Aug 2026 20:16:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	mK+aHqMyUy9njtJyec2hF8DLwos0hr+XP1bl216r8YQ=; b=j/JeoyK6QvGzfGHB
-	ZJM7uNlRFk7P9Goo9zIO0UiL/WOWQDMnkUrs9Sud3lDk0pNCVx6pLp8ubUyQPRlz
-	MCP+3FgMudL0UoWNPwQf63/Bag/i284Y778eGXKlZTK2V4wMK5u975aJfkNPM5/o
-	JSQRKeLO0UXpBHXV1JT30UK7qq0jnJhIMIwikGfEt1gAefTv3YQpo1jEZvEH9mPH
-	jtCck0F8Hi8c1B710uwX4xod+wapDUScDH21k+A3LELc3ybfgHjy5FfMbhuLQwJo
-	CuXEyosTJ0vV9PsGtbI/2xZ1uXQxrKoRqJjrYsxcUTQYhzGpU63zCQLfS87DbB0R
-	t2PXeA==
+	Rry4GguH7Meqgz11UcFuJ1AWrZzOU1PZecUYu+VWlPA=; b=f6ifMYWnVZIcKQF8
+	TCEfTy166WQUM5RlhwY7s/HwgiDZb2UQjHtwn4kYzBKiDtK4kBjd4dpqEl4trbQk
+	oBeJb6y+jkUFGu6PnNIbIGEFLxfN0FUV2mFaLk++Uedvxz7mHtH90fm6xYuOHbMD
+	4FflWeAZWFkDQDj33GtU94N55zr+azKXaz1Ztr42jfvpph2nwTINTvNVIKN9sMni
+	8us5SwYrw6DV6IZ5X+tlS6QvLnraNlPhAj7X3Nm+3R4+xk47V7DtKqoVndDZI1vk
+	gPay5Sr1+BUCCDwMc7UhYJQtciKOyjDQWIxwT+p2ZRlq+TL+gZ9gyKD5jzW44X2+
+	uJYhDA==
 Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwwr9kbpb-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwvp1kdpn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 20:16:01 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5174a23afcbso14352781cf.3
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 13:16:01 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 20:16:03 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52ce3c7cb2eso22461631cf.3
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 13:16:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786306560; x=1786911360; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1786306562; x=1786911362; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mK+aHqMyUy9njtJyec2hF8DLwos0hr+XP1bl216r8YQ=;
-        b=ROxevJyv4EiUriS6q8vuuG5TpbZHUE0uX4P4/g1vM3novZ+nMdKxEINdBv2QZoU14Z
-         eYsGUD1UeomcGvLs1nOyvZWCdELfaNAtDEZ00KH4JdUXM61RZlfqQH8Gat8wFbOMM9tX
-         y/zdeObmAvAShI2aA8BYcsP53YRiZV1wM22jYeTin01kqNQ2i8+hrw8ojf4On1UQ8X9b
-         Y/7AGCuRDddpIRPn2QfAP8RZEDKHNKZlPTzW8prfGVHyU9tpKau7VxztKAA9VEHyfYUS
-         9ZlCxraRK/tyV/4+VUowx92hLT194ATpsPnj/gAZ3kh1Z39MettX2OFw2qE3N/5Gg6hh
-         8iTg==
+        bh=Rry4GguH7Meqgz11UcFuJ1AWrZzOU1PZecUYu+VWlPA=;
+        b=ctOoAnSGTrrPD2yxrwzZAmaXmI/HjKfTtvVPoaso4mfxR2jr6/mtUzI6mWMrFD4uTD
+         7LMErEVU1nVSjDcjpftzeftn4a+JGrpS2T/UkUnecq7SN//pFIe+v4Yf7EoLV+wpdn/a
+         fHFW9bTpxwRVueUS62he6cOeanvqlTL5sI9o50N4olXFmJijUMJngao/9/O21fwymcbN
+         TPsk6hpqD7FvMIYZzaZE1vBntvcDKeRAFilwOUdUAu9MqInfnrOdyrAG7qzdtFF+49sn
+         VCMEl4sZtiwYU6p/ESmCj6dH8Pkff3telw5rpTIJOkmu8ectAJXTMmrzxSZrTyrE3kgL
+         7jRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786306560; x=1786911360;
+        d=1e100.net; s=20251104; t=1786306562; x=1786911362;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mK+aHqMyUy9njtJyec2hF8DLwos0hr+XP1bl216r8YQ=;
-        b=P+K4yRgpQfBZUHKxDrVYmWNk2RDtHfKhFvgTGCpIFwRwd2eN1wQVM/KJM9A2h6NhHi
-         q9/H6BD8VhuB/eeD7t1mwD9F2GousFIrBbtZGSwOvIAdFCTXzGi4Bh6S9xCg0Dvx04Dg
-         lDHqATWbCl5JQJ51gc/hmecv4PLvX9Z3h4Eqdf5+xV0irLUZpZQjaVnzLmXaCMqavsNr
-         Izj27Ap+Ua3IcPcnUlqBvI+1kt9GYIdYdLj+6xpV66SZ8L9g4kweJge1cfKIWsQczwWh
-         ZSucrXTUXLjPZtIi7Nk8FyfjrBREn30YUS0pdzoOG5Yk04eDE66Cr+5LA4Nrgm8QVvp/
-         BCgQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrai4GQ51sE487nlxiJnl62JaELe8I7cOzXAcHZU2XcA5739MtjhEqBBoM/voI77Vj5dk40+vvH1ZFH@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6oGf5Et0NM2vvKjUlOIcdfDwzl+5rEK6C7oe5NORL4jALw+0e
-	ksKO+Y/aU7IboKNznCLe3gYg0es6h5VPQ8gHmT8xMLJmuaPwRgsSPbOmoGfggB8BalbLixD78Ui
-	AUfm7NLrFSYC8HsVkq/rruoER/0kfZXksP8h0tbWG0SDgwKwIjy8oCXge5yicB7Sh
-X-Gm-Gg: AR+sD11lYmzp7U8MFHcRZ3hnPbcKzg+xl1k9rEvCAp/69ZWp+FchWGH1bKo06v5mXbL
-	8ZxzSBduX7ZImPd1iQgxujR85YPfOV3LBA6aIka72EVfXY68VJ7JE+ugdLTT99zZKyqzhXh7PdP
-	+z2ANthAEIpyw66qjztXKxcwywh6wL8+FWtMYCQtL3+mUnwnn3dw8j0AHZWBgnGQl7jMvh6O8AI
-	uVqXKPjWcq2TKqUS1XwnvUudlWRSYRll1OIpUyNwsyvBylPl2OCVYrPH8+cUoOpST0KDk+hp9gQ
-	wTY0/qcOnPb7reGJzoP7evX/2ubxOwWbXBccmZ7qteHXwr+dvxZACoJg/beLFbeoQpfJN+HDB1+
-	UXMK9zAq1q4xUQEIclcn9ARKqgbQIqYlzTP+4fai5+RxmPSOD2L83Z1CX2CFFG5MyuXQ3WioRXb
-	SKU1fXrKiZzmMFXw==
-X-Received: by 2002:a05:622a:2592:b0:51c:17cd:1fe8 with SMTP id d75a77b69052e-52d1904b11dmr207282351cf.33.1786306560336;
-        Sun, 09 Aug 2026 13:16:00 -0700 (PDT)
-X-Received: by 2002:a05:622a:2592:b0:51c:17cd:1fe8 with SMTP id d75a77b69052e-52d1904b11dmr207281981cf.33.1786306559841;
-        Sun, 09 Aug 2026 13:15:59 -0700 (PDT)
+        bh=Rry4GguH7Meqgz11UcFuJ1AWrZzOU1PZecUYu+VWlPA=;
+        b=g/rOr1cbmUBbD0twqsjIHhKU3v6URLGwQKCjlWor9UatTEqRUHOGoAccDcsOaApH7T
+         vStJTX+LZL5VESpTCJ+m7u2W3FkfG672wmZdMrdhitS9K0NfR8131iPwHbLaRDAziQtN
+         eYaL1PR92ScyUuw/HwxESOYdt7ndzZE9XBfhdGP0XKdlDzFiQxKncXlaCJg1/9anCpWY
+         oikpYdnMKAiB09tOU8zJuLf/vTI/SiJ6MCqHs9NNCFF1dmqCvCgOFDhvK1hV7ADybU2T
+         myWexj6UT9zYibi+Sh1mYXCAeypON27yqJsKLyohJC7lbZYizFckqJMWep+ZcKDCqfAN
+         g3bQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqXbky1ZfuU1nYCfmWPGaiauFNh+ov9UdTfShGUDeIdgHygLSSulFpDneD12WcxWGkLxZqtAOTydOia@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvYFxkbppcnzbWwDqWFt8eAVI9F5DnpnjzklWKwZgFWqEBV8mG
+	LvbdR/UgLyMc9q1PQj+TXtF+G8DFaDaUOcYhhsaSKUn1Z9u6i4EqTHgwibWamumaehM0FO8idD0
+	6g8vEWkai0+up30xVyqz3Hmkq4A5aYliLmP7HXXR+rUqdGbpgd+44Wwdir0xQ95UZ
+X-Gm-Gg: AR+sD1127ei4ePlWGXwUCF8mtKwigA7FTtl8xJXFYJso0vbFpXI7k56dQ8Mxnn2juvW
+	fFLV3ML+Ks0zGqdQtnk9P0Zrn0E5B5UzbrAoB5+gWZf/y4oQzvy5Y50cSV+yCWxPs20iyBbO/lt
+	LJabNA+mWjLc1UFYv7l7D8RqfgTD9cjUdLfKbGxF7zw/WV23PKWsR7/Inmx3GWjZkmQ9RkXkekJ
+	w7nYvm/aysypU+0MFTET1dzVsGtlhjAoD8ws+D6TWoOUrN0c89HPsnuGBGFp8ZUco/jSId3w7IF
+	39JjN6L8u6mW+q/beNjS1Otnj/6YpJ7z3BKwxZ0O6X1SdlTnANMn9I1EseJkd/fmDpLZh0nU8tb
+	d8JQG+H/yI5IEUCDqBT31jeDs/xYQyni8TAHf0hhIaqMOVnQ84L/ICP1h/l4ArB3rsPlWJSMnhF
+	jv5snmIgTicHWElg==
+X-Received: by 2002:a05:622a:295:b0:51a:8b64:69e0 with SMTP id d75a77b69052e-52d0b04c1d4mr255757951cf.11.1786306562261;
+        Sun, 09 Aug 2026 13:16:02 -0700 (PDT)
+X-Received: by 2002:a05:622a:295:b0:51a:8b64:69e0 with SMTP id d75a77b69052e-52d0b04c1d4mr255757591cf.11.1786306561854;
+        Sun, 09 Aug 2026 13:16:01 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3055f3cfasm1589259e87.70.2026.08.09.13.15.56
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3055f3cfasm1589259e87.70.2026.08.09.13.16.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 13:15:58 -0700 (PDT)
+        Sun, 09 Aug 2026 13:16:00 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Sun, 09 Aug 2026 23:15:44 +0300
-Subject: [PATCH 05/12] iommu: qcom_iommu: handle the SMMU global register
- space
+Date: Sun, 09 Aug 2026 23:15:45 +0300
+Subject: [PATCH 06/12] iommu: qcom_iommu: support non-TZ-managed instances
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260809-msm8974-iommu-upstream-v1-5-87f5cd492560@oss.qualcomm.com>
+Message-Id: <20260809-msm8974-iommu-upstream-v1-6-87f5cd492560@oss.qualcomm.com>
 References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
 In-Reply-To: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
 To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
@@ -107,168 +106,249 @@ Cc: linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-arm-kernel@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5119;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8021;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=+sGtB20DBa8qqNqIVi9KLViUpBY6FE9rYJuuV2Wv9ck=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqeN/uzq2IIlj4vq4UZMQqBWgBuq+dTL6lcATnd
- c3oAVUOahGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCanjf7gAKCRCLPIo+Aiko
- 1bVqB/9eOKxGGydYLpvk9Ll8KLUoK8OR1oxKAUEbO6UsA81v/vRkXO63K1qpBCDgCEm5PKDUWRU
- uifVOkGaX72mkIcVut/2vzGPPy13y7IPlJgrbCqLRtABm8rc3bkXJ7GWPz4UAr8GlhseKxRlKSU
- 0JLgzEPhnCZHojnfzZh/SSQbzL2Ko9pn27JCzCqPchnz93OJRPWLQCRatWoYh7k5cRzvdhGZhaO
- wxVEwgFPXz2U6zS8QQBYkkpTgS9WAuE02UwaOk7ez89Hd3c91uE3hXi26dG1UpcwC/l1AhzCpN4
- tx6nesPf/snfpK6qeo9u56hJqx/dxq0J6oEeQXdUpg948oVe
+ bh=GXiPIZglCzQ57hkuCOyXRgoYx4cKxjmC6a7IKdJwtLo=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqeN/uChgqZG3WWQT+NkfhYIemGVi4SeH4M9Loa
+ b8wCfB3QRaJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCanjf7gAKCRCLPIo+Aiko
+ 1SyUB/kBncagbuWWJlhIctG68KKAARV2R4j44ig3zbUgnJR6HMbSoX8P+5TMSGfD8t6XEfy0T+m
+ zibX2U1bMqIdkRQzFrWkNnP1llgcnJc5oVlOASoDx4IlX0+gKGv9XSV1SYA7jByQ5w5qLfq135P
+ 9oyqfKrb6Tqt4+xaf9IbfK/JfOEaK94ICzEXk6oVkXuzGpJgcAG6Dpjm6pQsNq09KrWatRYMcL5
+ pNJdula8C+b4jevA0ysfoRW4zBLLjgPFs2ENqkSTrGozUe9fk+/8TsP+X4qU6HYaeneGA1xBO4x
+ Uq/xKbOECYLsTR4bYWNDuVH+SBlkeoAwGua1HW0i+yq7DHGv
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=d73FDxjE c=1 sm=1 tr=0 ts=6a78e001 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDE4MyBTYWx0ZWRfXxHN7aPm7JWww
+ MV93y4rdAmH2pjQDelOYdous05uStkMsLyzYz5F1lCVOKQIKvcD7SOey2Sx6TRXHW0X5D50ysia
+ JuMuvi9VpskvQsMXrGosKbDrWu+DbhMZt02NqdN+TKJB60z5lxkLlPuecLotNhCK6ejyX+Fen1T
+ ru5JjRBLiOF/eR+ef0NBJdGZWqZNGTGaMAE9dXhkXPVAc76OaSiLAmPqLa+aIvnO3z3yWJwIlv9
+ eMwsCKmaAaNlP1Gamf7hRafoc1eK5kX5UUch6fQNFAz2JaJI74rK9iJRZVlYrBQCTLDstEABf4x
+ hb0ls1Sk07O5NbNhtu5lMCTYTW6Y0UByAmRdNx835TPIHe5qE26dbGAjVmUhHm/SZ4ytWVpWeUa
+ 7/yrG7Ps6rAYhrBieNfFee+HP8zRqOz7+6lWPcXoZs3uYGlIfEZzYkQTet8nXIF7e6NX6o+B1fT
+ 1F+76zPHKy5aXviOmEA==
+X-Proofpoint-GUID: 9Dc9DojdIy_4FS9_tMHkz194_sdH9B9W
+X-Proofpoint-ORIG-GUID: 9Dc9DojdIy_4FS9_tMHkz194_sdH9B9W
+X-Authority-Analysis: v=2.4 cv=ebgNubEH c=1 sm=1 tr=0 ts=6a78e003 cx=c_pps
  a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=2qLXTtW6F1X4e_bQErwA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: CdvnzBV1VKQf2KotC-aAK1AVY7m5lZGq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDE4MyBTYWx0ZWRfX4cdvDQUIPnd2
- lPF+XC0baVlGnb+1mCDbjpey4HILOFVBzqi9EICCTIMogRP3FnvV4/242MofYHgj0jkPK9SNYqF
- h1jreHUXGb33zzOJkSLdiAeKiBM82NdJT9fOPwxddGuIDvkdfU2J2PM/9sHbgupblJ7xlnUKBI7
- cgu1n3/efEJv75UbpFeOII621qeS75oWskIQuMejuiACHx6ksrTtZo9wrDoAcgJWHDQXzGiidI9
- gbQCcSOo7mn5JtZUTuHyOqry9H+WY8Qv7KhZTeOwRlFnuF/UFgd12KT14T4X7z+5wwSChf9Akf9
- fbjBEOdZGB79JGKa52XnttinvxCdBJzXgUKYN145SfmP1giSpdZsNAdXON1VIB95a6ZSeuWJ/c8
- AjQdphXrFSQa3zvquD6c1CRmlSTKofrgHFxBY4E8sigYZDb+5ILJgJfjAkWReRbUdK/KOUPg96l
- 8F22VTTT3xKM+e9xOzQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDE4MyBTYWx0ZWRfXwBM4D97AHUuD
- JpDfL0toJSwkvLNZU2lcY9PftH2db6FFt/B9aPrH6YbvwReAjgpltNZLgCwWDEZlWIMsoRkhYbZ
- Nc22plgQ62KJ0qsPfarcnhHCV4fepPo=
-X-Proofpoint-GUID: CdvnzBV1VKQf2KotC-aAK1AVY7m5lZGq
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=9TCwowKhpjj2XBowZ20A:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDE4MyBTYWx0ZWRfX3sRvCwFpLF3N
+ JOzuWMDm8vltIYf+jZw6A2Oj8IXKopqXLYAWhq8Gs+Rq7kJaFNWv0InvuuDd8/LwH5tZDFjwPv8
+ 2elfg+YQrTv5lEnr7LkzmxyYRhXN648=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-09_06,2026-08-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 phishscore=0 adultscore=0 malwarescore=0
- spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608090183
 
-On msm8974 the OS has to access the SMMU global register space: the
-non-secured instances need it fully programmed and even the TZ-managed
-ones expose OS-writable implementation-defined registers in it. The
-driver only knows about the msm8916-style "SMMU local" region in
-resource 0, and has no accessors for the global space.
+The GPU on MSM8974 has never been usable upstream because its IOMMU
+cannot be driven: unlike the MSM8916-style instances this driver
+supports, where the secure world owns the SMMU global register space
+and the OS programs just the context banks after a restore_sec_cfg SCM
+call, the MSM8974 GPU IOMMU is not managed by TZ at all. Nobody sets
+up its stream mapping, so attaching a domain leaves every transaction
+unmatched and the GPU faults on its first memory access. Verified on
+the APQ8074 dragonboard: restore_sec_cfg is only accepted for the
+secured instances, while the GPU instance exposes its ID registers to
+the OS (IDR0 0x78034404 / IDR1 0x10000003).
 
-For instances with a per-instance configuration, treat resource 0 as
-the global register space and require it. Never perform the
-SMMU_INTR_SEL_NS write on such instances - offset 0x2000 from the global
-base is the implementation-defined MICRO_MMU_CTRL halt request register
-on this IP, not the interrupt select of the separate msm8916-style local
-region. Provide gr0/gr1 accessors for the following changes.
-
-Do not clear the FSR of the context banks at probe time on such
-instances either: they sit in MMSS power domains which may well be off
-at that point, and an access to an unpowered register block stalls the
-bus. Skipping the clear is safe and preferable to powering the domain
-up for it. Safe, because a collapsed context bank has no active logic:
-it can neither latch a fault nor assert its interrupt, so the window
-the probe-time clear protects against on msm8916 does not exist while
-the domain is off, and the first runtime resume fully reprograms the
-context bank - including the FSR - before translation is enabled, so
-any fault state the bootloader left behind is wiped before it could
-matter. Preferable, because taking a runtime PM reference just for the
-clear would be a power cycle with no lasting effect (the cleared state
-is lost again when the domain collapses after the put), and the
-get/put pair is actively harmful for the MDP instance: at IOMMU probe
-time the display is still scanning out from bootloader-configured
-state with no kernel driver holding the MDSS GDSC, so the final put
-would power the scanout domain off mid-boot. The same treatment
-already exists for the TZ-secured contexts, which skip the clear for
-banks the OS cannot reach.
+Add a non-secure programming mode, derived from the downstream
+msm_iommu-v1.c driver. When qcom,iommu-secure-id is absent, reset and
+program the global space at runtime resume instead of calling into TZ:
+clear sACR/sCR2 and the global fault state, invalidate the TLB and all
+SMRs, install the per-instance stream mapping (SMR/S2CR/CBAR, with the
+downstream MEMATTR/NSCFG/VMID/IRPTNDX values) and enable the SMMU with
+fault reporting enabled and stalling disabled (sCR0.STALLD, matching
+the downstream terminate model). The stream ID map is per-instance
+configuration data since it is not discoverable from the hardware; the
+SMR index allocation keeps ASID == context bank index, which this
+hardware requires (downstream msm-3.10 commit 4d92ea10aac3 ("iommu:
+msm: Use CB index as ASID")). Also set CB_ACTLR to redirect cacheable
+requests to the L2 slave port, as the downstream driver does for every
+context on this IP generation - on MSM8916 TZ owns CB_ACTLR, so the
+driver never needed to touch it before.
 
 Assisted-by: Claude:claude-fable-5
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/iommu/arm/arm-smmu/qcom_iommu.c | 44 +++++++++++++++++++++++++++++----
- 1 file changed, 39 insertions(+), 5 deletions(-)
+ drivers/iommu/arm/arm-smmu/qcom_iommu.c | 107 ++++++++++++++++++++++++++++++--
+ 1 file changed, 101 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
-index 77c01f217d7e..428b18697244 100644
+index 428b18697244..3b07c4cf23fe 100644
 --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
 +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
-@@ -34,6 +34,9 @@
+@@ -37,6 +37,9 @@
+ /* GR1 sits one 4K page above GR0 on the msm8974 QSMMU */
+ #define QCOM_IOMMU_GR1			0x1000
  
- #define SMMU_INTR_SEL_NS     0x2000
- 
-+/* GR1 sits one 4K page above GR0 on the msm8974 QSMMU */
-+#define QCOM_IOMMU_GR1			0x1000
++/* Redirect all cacheable requests to the L2 slave port */
++#define QCOM_IOMMU_ACTLR_BPRC		(BIT(28) | BIT(29) | BIT(30))
 +
  enum qcom_iommu_clk {
  	CLK_IFACE,
  	CLK_BUS,
-@@ -57,6 +60,7 @@ struct qcom_iommu_dev {
- 	const struct qcom_iommu_cfg *cfg;
- 	struct clk_bulk_data clks[CLK_NUM];
+@@ -46,11 +49,23 @@ enum qcom_iommu_clk {
+ 
+ struct qcom_iommu_ctx;
+ 
+-/* Per-instance configuration, absent on msm8916-style instances */
++struct qcom_iommu_sid {
++	u8			 cbndx;
++	u8			 sid;
++};
++
++/*
++ * Per-instance configuration for instances whose global register space
++ * is at least partially OS-managed (reg points at the global space and
++ * SMMU_INTR_SEL_NS must not be written). The stream ID map is only used
++ * on non-secured instances.
++ */
+ struct qcom_iommu_cfg {
+ 	enum io_pgtable_fmt		 fmt;
+ 	/* the walker faults on the AF bit despite it being set */
+ 	bool				 no_afe;
++	const struct qcom_iommu_sid	*sids;	/* one SMR slot per entry */
++	unsigned int			 num_sids;
+ };
+ 
+ struct qcom_iommu_dev {
+@@ -62,6 +77,7 @@ struct qcom_iommu_dev {
  	void __iomem		*local_base;
-+	void __iomem		*global_base;
+ 	void __iomem		*global_base;
  	u32			 sec_id;
++	bool			 non_secure;
  	u8			 max_asid;
  	struct qcom_iommu_ctx	*ctxs[];   /* indexed by asid */
-@@ -130,6 +134,26 @@ iommu_readq(struct qcom_iommu_ctx *ctx, unsigned reg)
- 	return readq_relaxed(ctx->base + reg);
+ };
+@@ -256,6 +272,71 @@ static irqreturn_t qcom_iommu_fault(int irq, void *dev)
+ 	return IRQ_HANDLED;
  }
  
-+static inline void
-+qcom_iommu_gr0_write(struct qcom_iommu_dev *qcom_iommu, unsigned int reg,
-+		      u32 val)
++/*
++ * Reset and configure the global register space of an instance the
++ * secure world does not manage: global fault state, TLB, stream
++ * mapping (SMR/S2CR/CBAR) and the global configuration register.
++ */
++static int qcom_iommu_reset_ns(struct qcom_iommu_dev *qcom_iommu)
 +{
-+	writel_relaxed(val, qcom_iommu->global_base + reg);
++	const struct qcom_iommu_cfg *cfg = qcom_iommu->cfg;
++	unsigned int i, num_smr;
++	u32 reg;
++	int ret;
++
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_sACR, 0);
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_sCR2, 0);
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_sGFAR, 0);
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_sGFAR + 4, 0);
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_sGFSRRESTORE, 0);
++
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_TLBIALLNSNH, 0);
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_sTLBGSYNC, 0);
++	ret = read_poll_timeout(qcom_iommu_gr0_read, reg,
++				!(reg & ARM_SMMU_sTLBGSTATUS_GSACTIVE),
++				0, 5000000, false,
++				qcom_iommu, ARM_SMMU_GR0_sTLBGSTATUS);
++	if (ret) {
++		dev_err(qcom_iommu->dev,
++			"timeout waiting for global TLB SYNC\n");
++		return ret;
++	}
++
++	num_smr = FIELD_GET(ARM_SMMU_ID0_NUMSMRG,
++			    qcom_iommu_gr0_read(qcom_iommu, ARM_SMMU_GR0_ID0));
++	for (i = 0; i < num_smr; i++)
++		qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_SMR(i), 0);
++
++	for (i = 0; i < cfg->num_sids; i++) {
++		const struct qcom_iommu_sid *sid = &cfg->sids[i];
++
++		qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_SMR(i),
++				      ARM_SMMU_SMR_VALID |
++				      FIELD_PREP(ARM_SMMU_SMR_ID, sid->sid));
++		qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_S2CR(i),
++				      FIELD_PREP(ARM_SMMU_S2CR_TYPE, S2CR_TYPE_TRANS) |
++				      FIELD_PREP(ARM_SMMU_S2CR_CBNDX, sid->cbndx) |
++				      FIELD_PREP(ARM_SMMU_S2CR_MEMATTR, 0xa) |
++				      FIELD_PREP(ARM_SMMU_S2CR_NSCFG, 3));
++		qcom_iommu_gr1_write(qcom_iommu,
++				      ARM_SMMU_GR1_CBAR(sid->cbndx),
++				      FIELD_PREP(ARM_SMMU_CBAR_TYPE,
++						 CBAR_TYPE_S1_TRANS_S2_BYPASS) |
++				      FIELD_PREP(ARM_SMMU_CBAR_IRPTNDX, 1) |
++				      FIELD_PREP(ARM_SMMU_CBAR_VMID, 3) |
++				      FIELD_PREP(ARM_SMMU_CBAR_S1_BPSHCFG, 2) |
++				      FIELD_PREP(ARM_SMMU_CBAR_S1_MEMATTR, 0xa));
++	}
++
++	qcom_iommu_gr0_write(qcom_iommu, ARM_SMMU_GR0_sCR0,
++			      ARM_SMMU_sCR0_SMCFCFG | ARM_SMMU_sCR0_USFCFG |
++			      ARM_SMMU_sCR0_STALLD | ARM_SMMU_sCR0_GCFGFIE |
++			      ARM_SMMU_sCR0_GCFGFRE | ARM_SMMU_sCR0_GFIE |
++			      ARM_SMMU_sCR0_GFRE);
++
++	return 0;
 +}
 +
-+static inline u32
-+qcom_iommu_gr0_read(struct qcom_iommu_dev *qcom_iommu, unsigned int reg)
-+{
-+	return readl_relaxed(qcom_iommu->global_base + reg);
-+}
-+
-+static inline void
-+qcom_iommu_gr1_write(struct qcom_iommu_dev *qcom_iommu, unsigned int reg,
-+		      u32 val)
-+{
-+	writel_relaxed(val, qcom_iommu->global_base + QCOM_IOMMU_GR1 + reg);
-+}
-+
- static void qcom_iommu_tlb_sync(void *cookie)
+ static void qcom_iommu_program_ctx(struct qcom_iommu_dev *qcom_iommu,
+ 				   struct qcom_iommu_ctx *ctx)
  {
- 	struct qcom_iommu_domain *qcom_domain = cookie;
-@@ -749,9 +773,10 @@ static int qcom_iommu_ctx_probe(struct platform_device *pdev)
- 		ctx->secured_ctx = true;
+@@ -266,6 +347,9 @@ static void qcom_iommu_program_ctx(struct qcom_iommu_dev *qcom_iommu,
+ 	iommu_writel(ctx, ARM_SMMU_CB_FAR, 0);
+ 	iommu_writel(ctx, ARM_SMMU_CB_FSR, ARM_SMMU_CB_FSR_FAULT);
  
- 	/* clear IRQs before registering fault handler, just in case the
--	 * boot-loader left us a surprise:
-+	 * boot-loader left us a surprise.  Instances with a power domain
-+	 * may not be accessible yet; they are reset at first resume.
- 	 */
--	if (!ctx->secured_ctx) {
-+	if (!ctx->secured_ctx && !qcom_iommu->cfg) {
- 		ret = pm_runtime_resume_and_get(dev->parent);
- 		if (ret)
- 			return ret;
-@@ -845,9 +870,18 @@ static int qcom_iommu_device_probe(struct platform_device *pdev)
++	if (qcom_iommu->cfg)
++		iommu_writel(ctx, ARM_SMMU_CB_ACTLR, QCOM_IOMMU_ACTLR_BPRC);
++
+ 	/* TTBRs */
+ 	iommu_writeq(ctx, ARM_SMMU_CB_TTBR0, ctx->ttbr0);
+ 	iommu_writeq(ctx, ARM_SMMU_CB_TTBR1, 0);
+@@ -327,7 +411,7 @@ static int qcom_iommu_init_domain(struct iommu_domain *domain,
+ 	for (i = 0; i < fwspec->num_ids; i++) {
+ 		struct qcom_iommu_ctx *ctx = to_ctx(qcom_domain, fwspec->ids[i]);
  
- 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	if (res) {
--		qcom_iommu->local_base = devm_ioremap_resource(dev, res);
--		if (IS_ERR(qcom_iommu->local_base))
--			return PTR_ERR(qcom_iommu->local_base);
-+		if (qcom_iommu->cfg) {
-+			qcom_iommu->global_base = devm_ioremap_resource(dev, res);
-+			if (IS_ERR(qcom_iommu->global_base))
-+				return PTR_ERR(qcom_iommu->global_base);
-+		} else {
-+			qcom_iommu->local_base = devm_ioremap_resource(dev, res);
-+			if (IS_ERR(qcom_iommu->local_base))
-+				return PTR_ERR(qcom_iommu->local_base);
+-		if (!ctx->secure_init) {
++		if (!qcom_iommu->non_secure && !ctx->secure_init) {
+ 			ret = qcom_scm_restore_sec_cfg(qcom_iommu->sec_id, ctx->asid);
+ 			if (ret) {
+ 				dev_err(qcom_iommu->dev, "secure init failed: %d\n", ret);
+@@ -907,8 +991,12 @@ static int qcom_iommu_device_probe(struct platform_device *pdev)
+ 
+ 	if (of_property_read_u32(dev->of_node, "qcom,iommu-secure-id",
+ 				 &qcom_iommu->sec_id)) {
+-		dev_err(dev, "missing qcom,iommu-secure-id property\n");
+-		return -ENODEV;
++		if (!qcom_iommu->cfg) {
++			dev_err(dev, "missing qcom,iommu-secure-id property\n");
++			return -ENODEV;
 +		}
-+	} else if (qcom_iommu->cfg) {
-+		return dev_err_probe(dev, -EINVAL,
-+				     "missing global register space\n");
++		/* The secure world does not manage this instance at all */
++		qcom_iommu->non_secure = true;
  	}
  
- 	clk = devm_clk_get(dev, "iface");
+ 	if (qcom_iommu_has_secure_context(qcom_iommu)) {
+@@ -981,8 +1069,15 @@ static int __maybe_unused qcom_iommu_resume(struct device *dev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	if (dev->pm_domain)
+-		return qcom_scm_restore_sec_cfg(qcom_iommu->sec_id, 0);
++	if (qcom_iommu->non_secure) {
++		ret = qcom_iommu_reset_ns(qcom_iommu);
++		if (ret)
++			return ret;
++	} else if (dev->pm_domain) {
++		ret = qcom_scm_restore_sec_cfg(qcom_iommu->sec_id, 0);
++		if (ret)
++			return ret;
++	}
+ 
+ 	return ret;
+ }
 
 -- 
 2.47.3
