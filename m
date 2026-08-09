@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051BB22A4E1
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E603E346ADA
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786278377; cv=none; b=ZxN4r97N+Hp+ZvmeTxrwyq9cus3F+Dl+J5P5cFvXW7IvK143Ld2Ap1WUB9xRmKHgzbp+tys5Fky2xKXS4QsyEapX15ug1np8zy0XKfbpoIXTxAujDhhll5j/YEVuCZYrPPDL5jVHAKUG4rwDWWlmlVRQpBMiJgjTF1Y2qVPLLx4=
+	t=1786278418; cv=none; b=LcHROcC5qRAl1wvmgTami7qDJIZ14b+m1aZrQ/hS88Wa3ANviC7peSV5U8PrUfAFCixpjQ57ufwMNwsMl5JcKPxS50Ma/O+P/+YOBxRAsysjkrTIYrg7cNkFs7x1UnOgh39JhV48OyP5JLqdN0mCQ9Vd7Q0vabSJqgSSLQNuQBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786278377; c=relaxed/simple;
-	bh=Njvam0GHbBQZzMx1o3AC0+7x3gFT+OzNUYyzp4QxyLk=;
+	s=arc-20240116; t=1786278418; c=relaxed/simple;
+	bh=Q9jCwvdcYINQrzyQEZB/kJwFTRk8BFtZbg4+F1brm04=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JT1n4KqT14yPoLV26SdFHxwoJ8c3T0PaWYS8K/RcWF6B9f39+QWn66L1UYDdy4PfhvymUC9U6GoAeoPFu4I3V0kALxFMsk1+iwnZ+uzQrXfQvAPNVYbouXdF1x6hB7AepUlNswwr39HjrV8CfxcIydoVsADueGQIs4/W5GFo4qY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gyH5oEID; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=SlTwK3DWQpSya7y9PjKPo6VC34yZ3GN3z2C1iqdJgmsLWOPbxQbGZ08p9xQk26VKVh/2O1AWBK/gnEGiykDCJnnVg/O3LLK1CoSHxLiHCKPrHuPsQmF9vFRC0UGcGwAoGuN/WmP2LRG9vwx163cFT9p6e8rrKabuinMcyLMdqb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5IRlcDP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gyH5oEID"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489CB1F000E9;
-	Sun,  9 Aug 2026 12:26:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5IRlcDP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CE191F000E9;
+	Sun,  9 Aug 2026 12:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786278375;
-	bh=EsimSTY4prTTB4ruLLLECXinjDNJjLTYeaJ6kzqMSb4=;
+	s=k20260515; t=1786278416;
+	bh=RUVCeSmRxE46J+OlS7AkhvwfPcpKzAqzPp1jUmWgb78=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gyH5oEIDVuRvcMOen22PCrEkD40xs3EkTDY7FOObyllL0qYaJFdZ+nQ6bmyBlGXYu
-	 gqLKvEEC3RxTb3MgU8fQf6Uo+tsCDaQh8JuYJOR+AUoqcocN1+lZiQ/MZCIxAxuM0t
-	 JRuBKhLKvo5ulup7Uty+vAWJy4JpWCXtBt2NeUybaRpwHG3Fg6IZBSAa+qXRD6GBcm
-	 GdLUxXrOnk0NUgZkppqvvOapOlEfJfxBRXXRBPNwek1huNHjY22dC0moap3RWp1wDl
-	 SGIWFDjdbHtXoy/PDC9uQd2AU61ZeK2AD7GB1lnDvKw1zEiLFKHyUiZeUruKluioFE
-	 Vqcr8/EatTvDw==
+	b=H5IRlcDPNHt9h53bR6iXVNCDCZZkSVIz2kjtWNKBigmaSqMzZYV3eYEdqy/TTEPZ4
+	 xGIGp/64wILOm5C2UYO7vtSH7Nj/jJjkiTLN1qBol7bRkEi6UdZ/lgFG/FwBVn8WIg
+	 wMBssdOSy1Rs6gbTWb7SUFeaXCFkFSBC0+hySCq2yYgr1/kPbDJB77rq1M9tNkodcp
+	 onglB5WLvjKIVwR1Oew5wYzHsHvn/gAA0hXWQohyMdw+pYdmI8uppyNdrsUXRWb3Ug
+	 QsMJ9ST60CF/FxJbtx0y2b25ojeTzas1B9lCLLjDtNhDutckHQgWR526sIx6ZR2gKp
+	 Sf/ZoI0j3PeZw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: serial: 8250: Add Airoha
- compatibles
+Subject: Re: [PATCH 1/3] dt-bindings: reset: Add Apple SoC CIO reset
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
+To: "Sven Peter" <sven@kernel.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260809121449.574277-2-ansuelsmth@gmail.com>
-References: <20260809121449.574277-1-ansuelsmth@gmail.com>
- <20260809121449.574277-2-ansuelsmth@gmail.com>
+In-Reply-To: <20260809-b4-cio-reset-v1-1-4f33777d9b4b@kernel.org>
+References: <20260809-b4-cio-reset-v1-0-4f33777d9b4b@kernel.org>
+ <20260809-b4-cio-reset-v1-1-4f33777d9b4b@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 12:26:14 +0000
-Message-Id: <20260809122615.489CB1F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 12:26:55 +0000
+Message-Id: <20260809122656.4CE191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,51 +46,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Alphabetical sorting and schema structure violation in the compatib=
-le list.
+- [Low] Unit address and reg mismatch in the dt-schema example causes `dt_b=
+inding_check` to fail.
 --
 
---- Patch [1]: [PATCH v4 1/2] dt-bindings: serial: 8250: Add Airoha compati=
-bles ---
-commit 27d01f216d527b904216459304a02e2d8c5f87e2
-Author: Benjamin Larsson <benjamin.larsson@genexis.eu>
+--- Patch [1]: [PATCH 1/3] dt-bindings: reset: Add Apple SoC CIO reset ---
+commit 97bcf50ad89703c7219aea4998995a3a045920b5
+Author: Sven Peter <sven@kernel.org>
 
-dt-bindings: serial: 8250: Add Airoha compatibles
+dt-bindings: reset: Add Apple SoC CIO reset
 
-This commit adds compatibles for the Airoha SoC family's 16550-compatible
-UART and High-Speed UART hardware. The hardware features a custom baud rate
-settings register.
+This commit introduces device tree bindings for the CIO (USB4/Thunderbolt)
+reset controller on Apple Silicon SoCs. It defines both a standalone node
+representation for t8103 and a syscon sub-node representation for t600x.
 
-> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
-tation/devicetree/bindings/serial/8250.yaml
-> index bb7b9c87a8072..b6f7e093d8d7a 100644
-> --- a/Documentation/devicetree/bindings/serial/8250.yaml
-> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-> @@ -110,6 +110,11 @@ properties:
->        - const: mrvl,pxa-uart
->        - const: nuvoton,wpcm450-uart
->        - const: nuvoton,npcm750-uart
-> +      - const: airoha,en7523-uart
-> +      - items:
-> +          - const: airoha,an7581-uart
-> +          - const: airoha,en7523-uart
-> +      - const: airoha,an7581-hsuart
+> diff --git a/Documentation/devicetree/bindings/reset/apple,t8103-cio-rese=
+t.yaml b/Documentation/devicetree/bindings/reset/apple,t8103-cio-reset.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/reset/apple,t8103-cio-reset.yaml
+
+[ ... ]
+
+> +examples:
+> +  - |
+
+[ ... ]
+
+> +  - |
+> +    power-management@28e080000 {
+> +        compatible =3D "apple,t6000-pmgr", "apple,pmgr", "syscon", "simp=
+le-mfd";
+> +        reg =3D <0x8e080000 0x1c000>;
 
 [Severity: Low]
-This isn't a bug, but are the airoha entries inserted out of alphabetical
-order here? The existing const compatibles appear to be grouped together
-and sorted alphabetically by vendor prefix, meaning airoha should likely
-appear earlier in the list.
+Does this unit address mismatch the reg property base address? The node's
+unit address is @28e080000, but the reg property uses 0x8e080000. This
+typically causes make dt_binding_check to fail due to a unit_address_vs_reg
+warning from dtc.
 
-Additionally, should the items block for the multi-string compatible be
-moved? It seems to break the structural convention of the file by inserting
-an items block into the middle of the standalone const block, whereas other
-items blocks are typically grouped together after the const entries.
-
->        - const: nvidia,tegra20-uart
->        - const: nxp,lpc3220-uart
->        - items:
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +
+> +        reset-controller@1a034 {
+> +            compatible =3D "apple,t6000-cio-reset";
+> +            reg =3D <0x1a034 0x4>;
+> +            #reset-cells =3D <1>;
+> +        };
+> +    };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809121449.5742=
-77-1-ansuelsmth@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-b4-cio-res=
+et-v1-0-4f33777d9b4b@kernel.org?part=3D1
