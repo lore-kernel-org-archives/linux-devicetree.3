@@ -1,361 +1,143 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526E937E5EE
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 17:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786297803; cv=none; b=D+0Xi7rOpxvrQW9m611XNVXUf60xwDwyvsBBHHQIQshN76Y4VqBdIyu/uPW6Y/xSVOnyWwSOk5NHndnI9qn9Sumc2y0WDQMNr0Di0xnGaix61SiosWRbf6KQeItVFqtxLQ/rkAI8cL0lHxcJhygy4AXmtSBxZoA1hMdOQgA7KOc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786297803; c=relaxed/simple;
-	bh=ihEhCpdOiQJ7RiLVFIbBDlHDMYkCQhxi8LGrQZaYQO8=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GFyrHlPt39p6c5wr/wSN+kBE202ab5LGT8/kuh5ad8ikkhN6GT7UX1hJ6VR0aNgfIlkffVStX/dHG6+NCiFy4pzGL4OUMBHcSqY7B/6548Jwm0vWd3Ndn+hHev16X+Hr25FUdVuV62aD59/FCUAS8caAs/H1bw3nT4wQ+7jx42A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LxGVtrKT; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359AA388369
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 18:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786301765; cv=pass; b=FX0tI2yhk4fMbF0eZRADCd4gsXR5yJQG6kBqgxtSkF1rbsEBBXROJEZjCyo+Fvt/GFyHJ9+QMXug7Tzzd14HKr7UYO70oFR2D4dbTRqdGrlIQqbDOzHTn+xWGV/EfXrYq9FOZlvbxskW5gXgQ9XCx0bBlBeQnD8gtYF7FzRNGeY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786301765; c=relaxed/simple;
+	bh=IdyFU4nUNYjMMnXZPL+V9LxnoFaNd6/XEOxFvE07zBo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KKt6ErVXzgA7eUSRhjUihV5c0gSadof9fbo3Jomz75KjmR/2D+C5qW/CphlO3H/CwuOp1btW56pt66TYHPh+Yw1mdNLuTk9jMi92oYlIUdkj0uSEEi2txdIf7nQnaLjlgRjOzZYKxsMAZPtNJrsJdTVnyEZdpUk5fyqFNySkgVQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=igKEKwhh; arc=pass smtp.client-ip=209.85.218.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LxGVtrKT"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495635a85d2so10444455e9.0
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 10:50:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="igKEKwhh"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c20755e8295so217143366b.0
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 11:56:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786301762; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HhbFIzDRtpKNwBIYeNpU2fYM6JUUBK71h7Xx4dZtKP4vpsxzTWDg1zLOPM1xyMGTzJ
+         d741MARJSv0XS0uZJkmyBFWUPzoQfzwkD1BKmKPU2MVUzhBfy8/DtO+Uhk1CF8o8BfxY
+         PAnqOud9Ru9X4kzibDE8Mp679+M3dn5gAFMKm0E+qeLrO9e0n8xwu+PkYZ1YOgOBJSE6
+         sjI6ihwBHTeYXGAEO5viQkqzUNGDyCRKuaVLitgmjTE5X11TUkUeewkdupz5er34Ks9u
+         JThtEY3PzXOsnl+5NiqdZ0VH+nTw6VfKSVrUoTNXcM0K5Ws06Zymhh3qpNHdGDJnVie3
+         gTxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=fKfWVbm9KpeTwL3/mVwrfju84PrObkxu9nWfkWUyNGM=;
+        fh=xQWbA/Kph090g0mMt+1s5vpu3xxPOcytDLq3tkCzKa8=;
+        b=ngHguQvFQXqH0terToAlbDu7OpdHDbrZAoFff01GuqqZn4GKN9t8m78ZDuamPshlYw
+         pYxlfZP1DyDWG1IjTP0lU1XBpAz18VCX9eRaZuRkiqISiTJ5u7wgkUlCakQSj/+sn7/i
+         kdgPdd1Jjz4xJCmJbXE8MsoRifb1mG1/sLxsLMpgIkEs6UplX9wAkQL9rDkG5EAUiRqN
+         v0yDwIK15s/R1XCYUJAN1z6gyy+iJPjLoIiBqhATpbqZ+hbEFj5kl9zq9ixa2or9EJcf
+         UoSOKnKYJErDwoTexxQfhW08KTIDQPPC2UNQrM8wgjoi9zqPzv1ds8sUU6AHzvg5PZ3s
+         B7eg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786297799; x=1786902599; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XCnEd7tGfLsvqQ9t4dLxlXhkU3vDq79dR6i/bF6oDRI=;
-        b=LxGVtrKTVKTZ3gLIsflWNx+JaeCprkBnpbXUh0ytcUWI/eq779xH7Cb8TvB2sf58D9
-         YlreMHyB209yDGsds9GPbXLvjGBvtabpftNmo+hzOagsndzMnRzXKkDtBAwGBPn67RbW
-         4+J30Tu4URJaw6PdjQY6aqcfU/6fyFyBK1FwatkWzU4lkZMt8JSk2xEDm8K7fzh1CXcD
-         qqrEyrXdFiNYMNaPtRsKwaXy5yk1GS3dne1cgOy8daje/UvhLOALRm6Skb/osKWdGNY6
-         F4sup/ixyIuZfYkCYvXgKsDZodDWkXcuQSDIeJrhBLb9HlN6fV0ctUQWugauX9uNoiY7
-         IhEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786297799; x=1786902599;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1786301762; x=1786906562; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XCnEd7tGfLsvqQ9t4dLxlXhkU3vDq79dR6i/bF6oDRI=;
-        b=DSK+Wjj9YjiShjH8Y3a7WK5fy0P6HY49zmMrrBwRroAghcjFC7CTYlyAfphT4jjWwQ
-         EyKtsEndDWok2a2sQ1PlN3wgDebOLmaqd2baYYQxEKvy39M4q3qLu5mCZS2P/6rs1Hn0
-         OknuHxeeLFGnO6KYyQY8p7wuwJ4WpNNuG6awFGmooMpZgkFWqe66GAgEZdwIj5T9p9DV
-         GbimDgtRJqgNz/AC4AJCnsn05Cd8cNw1OT+hHJK1EjjhfQ7eaTlACFUwK9Z3MHK7eQ/X
-         76YZ59aJAK8iaDK9HqrA5vZaPbCcm2klNLl3hWkVIpaPAe5aBuUjuP+1ewnkU9/rgE5k
-         cCZA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6MsmP/x0ln6+I13pRdsbhOKmJ1lcSiJz5YhdcS5XQoANflw69aGlOxGWL3xijtYWho6cK/EOgxDS2@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxs069v65NTKTZzPhUYh5jh9+f59sbxhXqJvQkM/uuHeWVPscDZ
-	Yqn0MkOdUTyXEUgIqxHQ/L63WwBAUieWJrAK8VW1TAckFw5K4RxgRdSw
-X-Gm-Gg: AR+sD11sImQ1Era//h/DYVOpINUg0ls5bIX6n9NhlHsoegEQo+X130JKirYxFiI9haK
-	X67vdDaEPqXh6ZpC9coq6+9V7zycVqfdXSvLJEi6Mx6DNap5/JmsI9KTaXh5DmS5z7ezPpDPv59
-	zuNpaKqVlmumMKXatGR7Vq1Sx/oL4beFTbCrRri8Kb0m+F/fbH37FnamsRLtrUhNRil1UReyeXz
-	6tXv3ZijKrbbFqBhxuIjrxBEG/acCbZ86ngTp5Br646Vnv5OOMMGgrxwYkPBnWR2Ru/u2mQPm0x
-	UevfRPoPlWnaJgNjzTXbUXkCCdFr+tNuZysePQrOEk/kYgNosz+6dOdBJvTpBj5Rkd94es2WuJe
-	GgSLe7ANr95Rgm4ahjBPuUXvRs/NjZ3cbGlId/uKV7YrmI2H/FlnTURYxzYJDdW04LMnP5SbDjS
-	35PpeutRj/FaJkwC0KFo5BY85SQEVZYD8bXtIdq4FcK1ub5jGaOq71gBPC6ha8YpDGcZ2ryWWiq
-	UH/D3CoZgUu5VOIV4rqef9mB754gMCzenW3KKmuwFM=
-X-Received: by 2002:a05:600c:630c:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-4994e71c87bmr402295485e9.7.1786297799337;
-        Sun, 09 Aug 2026 10:49:59 -0700 (PDT)
-Received: from Ansuel-XPS. (host-87-20-3-207.retail.telecomitalia.it. [87.20.3.207])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995421934asm340945865e9.5.2026.08.09.10.49.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 10:49:58 -0700 (PDT)
-Message-ID: <6a78bdc6.89544747.3fcae.b8e0@mx.google.com>
-X-Google-Original-Message-ID: <ani9wg-GiHuUV9ab@Ansuel-XPS.>
-Date: Sun, 9 Aug 2026 19:49:54 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net-next v11 00/12] net: pcs: Introduce support for
- fwnode PCS
-References: <20260807131301.192060-1-ansuelsmth@gmail.com>
- <4c595c15-17d9-4c23-bb44-344c48d36e9a@lunn.ch>
+        bh=fKfWVbm9KpeTwL3/mVwrfju84PrObkxu9nWfkWUyNGM=;
+        b=igKEKwhhpKdo8JzARV0rrzII7QLKfrtD8d4H/fxhSxIhn3R/LUhblqvJE//sxEbqly
+         n8LkDJhXwqnvcR2Plw0vwBtjEBFnG2WXGJk/Z7jvNNultSKm2ZzFa2SYfHpaIC/wqMYh
+         +bGjTQoPMAL2m6ioYWVxYijEjesCe5G+S1VkkWH7JplrkjFcHhCeprwQkHZYBxVBNCer
+         MSRXDo1NuhiO6wstx0AGfFbB3sGPu4CtSt98VNuUtsIBhdu3KZ5t+5om42dqS5sdH9fx
+         vIPC2vi8T/QSzM1FI1ZSPDeUIcZnlQgVy8qF/k5JdEHTN3YJp/wWFe79vWvFgwYhMdcW
+         X/uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786301762; x=1786906562;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fKfWVbm9KpeTwL3/mVwrfju84PrObkxu9nWfkWUyNGM=;
+        b=MvKEqlj6scnLSxzbj6/NA+bwmWh9wtPP2GdzI2JJN8NMKCiT2dFJJmSo0yghOoULF3
+         +Qm88KUeqqHy1HNSjBbhM3CDmDoKj9nkopZCCF0fPDyVCLJMhERWIQ49oseqCfRyDuyw
+         Omg0pFC37dcgn3GcdiaiyeKB7fYiIF/UwD7OYGG9cJiQSt1HAUEWEuh9UjDIclRCeSMj
+         VVlLLB9aWZaSxy1XXKdCVIiVvFhquWL6mKZmqLPex8bJZENq7LMwuMoVWYI4se/C+EQt
+         4l/z0vG3+P9dAKtEZjIcXbQWLo4gDroh3UsTirHYPLDdHgZRznFiUwGBce8Lt0RbXUhP
+         HSlw==
+X-Forwarded-Encrypted: i=1; AHgh+RoFuXJkyLpTjr7pRZ6f+q3TrxJg26avg85ncuWw6yWJ2YJRVJXn/wD/U7VjZvpPgM0mQuPzd9jQEPKi@vger.kernel.org
+X-Gm-Message-State: AOJu0YzM+kxg3PQMnqjcc2LfSJxVYirBKJqy5SP9VhaWMQn608roNGBm
+	AgPN0TGAG3yK+dhVdZStoB/L543SgvkQ6lazL2hapOTLYmLLC+dfRlB70NFOyaNstFkO1EC372z
+	esndX27HMXvO/yvPkbpZBcJf6vfqw7T4=
+X-Gm-Gg: AR+sD137I3lGw0XoxlYTO6HwCL7oFxZleQfVAMWpj+7w2OriwDlH4lTu1z/tAL0GEOF
+	bsOT8d6ueNynCRrlj1b6Vjrx6wi/7uWwcPgw26NQ0z5EYl+9v3QcSwE7AN/Y+9mAwlWIlsLSiIs
+	sQtnWKwYjmKz6/1PS0H7eOhg0w5L8W4vWUrDIJnT/J72lSrioQ/sjxQx9uM9lWl6bEWf2TNXHYR
+	TwKyuu2NvXaIxei9FPgZxzB9rs31SQTSpJR+SE2IY+XUjEsiNpx6fP19nearcWVyOnbi1Um491R
+	S25ww4h5USvFPDKMKw5ynoudzV6HJNYVEw3tjxqXOxhW5iMArAQYVgLF0E1bFJzy3W1VI1qjPdu
+	zHYfjxVh/Hg==
+X-Received: by 2002:a17:907:962a:b0:c12:b58c:fd7a with SMTP id
+ a640c23a62f3a-c208d4b5c1bmr643267266b.9.1786301762159; Sun, 09 Aug 2026
+ 11:56:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4c595c15-17d9-4c23-bb44-344c48d36e9a@lunn.ch>
+References: <20260809160643.33991-1-l.scorcia@gmail.com> <20260809160643.33991-4-l.scorcia@gmail.com>
+ <aniv5B4jz07mI70D@buffalo-ssd> <0e4dfe8b-af67-4dcf-92fc-cd564d7c3744@roeck-us.net>
+In-Reply-To: <0e4dfe8b-af67-4dcf-92fc-cd564d7c3744@roeck-us.net>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Sun, 9 Aug 2026 20:55:51 +0200
+X-Gm-Features: AUfX_mw2G_pgmXXoJxjvv-8va564k6KXHRWKZyjeue4zkg_p1JWDElM0hRbQ6kQ
+Message-ID: <CAORyz2+op80Tj1Ax1PD8wN9fAT5QfAev+vEPBgihvM0O-tWXPA@mail.gmail.com>
+Subject: Re: [PATCH v3 3/8] arm: dts: mediatek: mt6589: Enable toprgu reset controller
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Akari Tsuyukusa <akkun11.open@gmail.com>, linux-mediatek@lists.infradead.org, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Aug 09, 2026 at 07:44:55PM +0200, Andrew Lunn wrote:
-> On Fri, Aug 07, 2026 at 03:12:42PM +0200, Christian Marangi wrote:
-> > This series introduce a most awaited feature that is correctly
-> > provide PCS with fwnode without having to use specific export symbol
-> > and additional handling of PCS in phylink.
-> 
-> One of Russells complaints was the phylink has too many bits of code
-> for ideas which did not work out and were replaced by new ways of
-> doing things.
-> 
-> We want .mac_select_pcs to go away, this framework should replace it.
-> Please could you convert one of the exist users of .mac_select_pcs, so
-> we get an idea of what that involved. If that conversion is pretty
-> mechanical, i think we should have a second patchset which converts
-> all the current users, and then remove support for .mac_select_pcs.
-> 
-> Overall i think the direction of this patchset is good.
+Hi,
+I added his Signed-off tag as he provided basically this same patch in
+a separate series [1] slightly before this submission and I wanted to
+acknowledge his work. As far as I understand, this attribution is
+within the guidelines.
+
+[1] https://lore.kernel.org/linux-mediatek/20260716161923.266315-8-akkun11.open@gmail.com/
+
+Il giorno dom 9 ago 2026 alle ore 19:49 Guenter Roeck
+<linux@roeck-us.net> ha scritto:
 >
-
-Thanks for the initial check.
-
-Maxime converted one device with this and the patch delta was small... let
-me copy those patch here. (it was referenced in v9)
-
-I think the most annoying one will be stmmac with the 3 different PCS
-implementation but we already handled that in a upcoming ipq50xx driver
-currently present in OpenWrt mainline.
-
-Maybe if Maxime is O.K. I can include his patch in this series.
-
-From 38ad94b1e62bf3523097983dfb515f59b1634477 Mon Sep 17 00:00:00 2001
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Date: Tue, 21 Jul 2026 13:52:57 +0200
-Subject: [PATCH] net: marvell: mvpp2: Convert to the new PCS API
-
-Following the introduction of the PCS framework, port mvpp2 to the new
-PCS API.
-
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- .../net/ethernet/marvell/mvpp2/mvpp2_main.c   | 161 +++++++++++-------
- 1 file changed, 95 insertions(+), 66 deletions(-)
-
-diff --git a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-index ccc24a1301f2..8d9663c7a023 100644
---- a/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-+++ b/drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c
-@@ -6499,21 +6499,6 @@ static void mvpp2_gmac_config(struct mvpp2_port *port, unsigned int mode,
-                writel(ctrl4, port->base + MVPP22_GMAC_CTRL_4_REG);
- }
-
--static struct phylink_pcs *mvpp2_select_pcs(struct phylink_config *config,
--                                           phy_interface_t interface)
--{
--       struct mvpp2_port *port = mvpp2_phylink_to_port(config);
--
--       /* Select the appropriate PCS operations depending on the
--        * configured interface mode. We will only switch to a mode
--        * that the validate() checks have already passed.
--        */
--       if (mvpp2_is_xlg(interface))
--               return &port->pcs_xlg;
--       else
--               return &port->pcs_gmac;
--}
--
- static int mvpp2_mac_prepare(struct phylink_config *config, unsigned int mode,
-                             phy_interface_t interface)
- {
-@@ -6786,7 +6771,6 @@ static int mvpp2_mac_enable_tx_lpi(struct phylink_config *config, u32 timer,
- }
-
- static const struct phylink_mac_ops mvpp2_phylink_ops = {
--       .mac_select_pcs = mvpp2_select_pcs,
-        .mac_prepare = mvpp2_mac_prepare,
-        .mac_config = mvpp2_mac_config,
-        .mac_finish = mvpp2_mac_finish,
-@@ -6808,7 +6792,10 @@ static void mvpp2_acpi_start(struct mvpp2_port *port)
-        };
-        struct phylink_pcs *pcs;
-
--       pcs = mvpp2_select_pcs(&port->phylink_config, port->phy_interface);
-+       if (mvpp2_is_xlg(port->phy_interface))
-+               pcs = &port->pcs_xlg;
-+       else
-+               pcs = &port->pcs_gmac;
-
-        mvpp2_mac_prepare(&port->phylink_config, MLO_AN_INBAND,
-                          port->phy_interface);
-@@ -6823,6 +6810,78 @@ static void mvpp2_acpi_start(struct mvpp2_port *port)
-                          SPEED_UNKNOWN, DUPLEX_UNKNOWN, false, false);
- }
-
-+static int mvpp2_port_fill_pcs(struct phylink_config *config,
-+                              struct phylink_pcs **available_pcs,
-+                              unsigned int num_possible_pcs)
-+{
-+       struct mvpp2_port *port = mvpp2_phylink_to_port(config);
-+
-+       available_pcs[0] = &port->pcs_gmac;
-+
-+       if (mvpp2_port_supports_xlg(port)) {
-+               if (num_possible_pcs < 2)
-+                       return -EINVAL;
-+
-+               available_pcs[1] = &port->pcs_xlg;
-+       }
-+
-+       return 0;
-+}
-+
-+static void mvpp2_port_init_pcs_xlg(struct phylink_pcs *pcs, bool has_comphy,
-+                                   phy_interface_t phy_mode)
-+{
-+       if (has_comphy) {
-+               __set_bit(PHY_INTERFACE_MODE_5GBASER,
-+                         pcs->supported_interfaces);
-+               __set_bit(PHY_INTERFACE_MODE_10GBASER,
-+                         pcs->supported_interfaces);
-+               __set_bit(PHY_INTERFACE_MODE_XAUI,
-+                         pcs->supported_interfaces);
-+       } else if (phy_mode == PHY_INTERFACE_MODE_5GBASER) {
-+               __set_bit(PHY_INTERFACE_MODE_5GBASER,
-+                         pcs->supported_interfaces);
-+       } else if (phy_mode == PHY_INTERFACE_MODE_10GBASER) {
-+               __set_bit(PHY_INTERFACE_MODE_10GBASER,
-+                         pcs->supported_interfaces);
-+       } else if (phy_mode == PHY_INTERFACE_MODE_XAUI) {
-+               __set_bit(PHY_INTERFACE_MODE_XAUI,
-+                         pcs->supported_interfaces);
-+       }
-+}
-+
-+static void mvpp2_port_init_pcs_gmac(struct phylink_pcs *pcs, bool has_comphy,
-+                                    phy_interface_t phy_mode)
-+{
-+       if (has_comphy) {
-+               /* If a COMPHY is present, we can support any of the
-+                * serdes modes and switch between them.
-+                */
-+               __set_bit(PHY_INTERFACE_MODE_SGMII,
-+                         pcs->supported_interfaces);
-+               __set_bit(PHY_INTERFACE_MODE_1000BASEX,
-+                         pcs->supported_interfaces);
-+               __set_bit(PHY_INTERFACE_MODE_2500BASEX,
-+                         pcs->supported_interfaces);
-+       } else if (phy_mode == PHY_INTERFACE_MODE_2500BASEX) {
-+               /* No COMPHY, with only 2500BASE-X mode supported */
-+               __set_bit(PHY_INTERFACE_MODE_2500BASEX,
-+                         pcs->supported_interfaces);
-+       } else if (phy_mode == PHY_INTERFACE_MODE_1000BASEX ||
-+                  phy_mode == PHY_INTERFACE_MODE_SGMII) {
-+               /* No COMPHY, we can switch between 1000BASE-X and SGMII
-+                */
-+               __set_bit(PHY_INTERFACE_MODE_1000BASEX,
-+                         pcs->supported_interfaces);
-+               __set_bit(PHY_INTERFACE_MODE_SGMII,
-+                         pcs->supported_interfaces);
-+       }
-+
-+       /* RGMII and MII are still routed through the gmac PCS */
-+       phy_interface_set_rgmii(pcs->supported_interfaces);
-+       __set_bit(PHY_INTERFACE_MODE_MII, pcs->supported_interfaces);
-+}
-+
- /* In order to ensure backward compatibility for ACPI, check if the port
-  * firmware node comprises the necessary description allowing to use phylink.
-  */
-@@ -7082,28 +7141,17 @@ static int mvpp2_port_probe(struct platform_device *pdev,
-                        port->phylink_config.mac_capabilities |=
-                                MAC_SYM_PAUSE | MAC_ASYM_PAUSE;
-
--               if (mvpp2_port_supports_xlg(port)) {
--                       /* If a COMPHY is present, we can support any of
--                        * the serdes modes and switch between them.
--                        */
--                       if (comphy) {
--                               __set_bit(PHY_INTERFACE_MODE_5GBASER,
--                                         port->phylink_config.supported_interfaces);
--                               __set_bit(PHY_INTERFACE_MODE_10GBASER,
--                                         port->phylink_config.supported_interfaces);
--                               __set_bit(PHY_INTERFACE_MODE_XAUI,
--                                         port->phylink_config.supported_interfaces);
--                       } else if (phy_mode == PHY_INTERFACE_MODE_5GBASER) {
--                               __set_bit(PHY_INTERFACE_MODE_5GBASER,
--                                         port->phylink_config.supported_interfaces);
--                       } else if (phy_mode == PHY_INTERFACE_MODE_10GBASER) {
--                               __set_bit(PHY_INTERFACE_MODE_10GBASER,
--                                         port->phylink_config.supported_interfaces);
--                       } else if (phy_mode == PHY_INTERFACE_MODE_XAUI) {
--                               __set_bit(PHY_INTERFACE_MODE_XAUI,
--                                         port->phylink_config.supported_interfaces);
--                       }
-+               if (!mvpp2_port_supports_xlg(port))
-+                       port->phylink_config.num_possible_pcs = 1;
-+               else
-+                       port->phylink_config.num_possible_pcs = 2;
-+
-+               port->phylink_config.fill_available_pcs = mvpp2_port_fill_pcs;
-
-+               mvpp2_port_init_pcs_xlg(&port->pcs_xlg, comphy, phy_mode);
-+               mvpp2_port_init_pcs_gmac(&port->pcs_gmac, comphy, phy_mode);
-+
-+               if (mvpp2_port_supports_xlg(port)) {
-                        if (comphy)
-                                port->phylink_config.mac_capabilities |=
-                                        MAC_10000FD | MAC_5000FD;
-@@ -7115,35 +7163,16 @@ static int mvpp2_port_probe(struct platform_device *pdev,
-                                        MAC_10000FD;
-                }
-
--               if (mvpp2_port_supports_rgmii(port)) {
--                       phy_interface_set_rgmii(port->phylink_config.supported_interfaces);
--                       __set_bit(PHY_INTERFACE_MODE_MII,
--                                 port->phylink_config.supported_interfaces);
--               }
-+               phy_interface_copy(port->phylink_config.pcs_interfaces,
-+                                  port->pcs_gmac.supported_interfaces);
-
--               if (comphy) {
--                       /* If a COMPHY is present, we can support any of the
--                        * serdes modes and switch between them.
--                        */
--                       __set_bit(PHY_INTERFACE_MODE_SGMII,
--                                 port->phylink_config.supported_interfaces);
--                       __set_bit(PHY_INTERFACE_MODE_1000BASEX,
--                                 port->phylink_config.supported_interfaces);
--                       __set_bit(PHY_INTERFACE_MODE_2500BASEX,
--                                 port->phylink_config.supported_interfaces);
--               } else if (phy_mode == PHY_INTERFACE_MODE_2500BASEX) {
--                       /* No COMPHY, with only 2500BASE-X mode supported */
--                       __set_bit(PHY_INTERFACE_MODE_2500BASEX,
--                                 port->phylink_config.supported_interfaces);
--               } else if (phy_mode == PHY_INTERFACE_MODE_1000BASEX ||
--                          phy_mode == PHY_INTERFACE_MODE_SGMII) {
--                       /* No COMPHY, we can switch between 1000BASE-X and SGMII
--                        */
--                       __set_bit(PHY_INTERFACE_MODE_1000BASEX,
--                                 port->phylink_config.supported_interfaces);
--                       __set_bit(PHY_INTERFACE_MODE_SGMII,
--                                 port->phylink_config.supported_interfaces);
--               }
-+               if (mvpp2_port_supports_xlg(port))
-+                       phy_interface_or(port->phylink_config.pcs_interfaces,
-+                                        port->phylink_config.pcs_interfaces,
-+                                        port->pcs_xlg.supported_interfaces);
-+
-+               phy_interface_copy(port->phylink_config.supported_interfaces,
-+                                  port->phylink_config.pcs_interfaces);
-
-                phylink = phylink_create(&port->phylink_config, port_fwnode,
-                                         phy_mode, &mvpp2_phylink_ops);
---
-2.55.0
-
+> On 8/9/26 10:04, Akari Tsuyukusa wrote:
+> > On Sun, Aug 09, 2026 at 06:03:27PM +0200, Luca Leonardo Scorcia wrote:
+> >> Enable the toprgu reset controller feature for the mt6589 SoC. This
+> >> allows generating reset signals for the 12 subsystems managed by its
+> >> top reset generation unit.
+> >>
+> >> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+> >> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> >> ---
+> >>   arch/arm/boot/dts/mediatek/mt6589.dtsi | 2 ++
+> >>   1 file changed, 2 insertions(+)
+> >
+> > I provided "Acked-by", not "Signed-off-by"...
+> > https://lore.kernel.org/linux-mediatek/amEBgRmQktZ44jc1@buffalo-ssd/
+> >
+> > PS: I am also fine with this patch carrying my Signed-off-by.
+> > Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+> >
+>
+> That is completely inappropriate and unacceptable. You are not in the
+> Sign-off chain.
+>
+> Guenter
+>
 
 
 -- 
-	Ansuel
+Luca Leonardo Scorcia
+l.scorcia@gmail.com
