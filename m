@@ -1,127 +1,158 @@
-Received: from m101-out-mua-6.websupport.se (m101-out-mua-6.websupport.se [109.235.175.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D39D2853F3;
-	Sun,  9 Aug 2026 11:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.235.175.106
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786275995; cv=none; b=FfAplGMxVghs4tKCpid9C2CokJ7MWWaH8tWHuWkHn9aOn+ULKVpA55CyM0I3X0oxHqTD9608d9JK71LQ4ebROy7eripaEb6U11fAsXF/xdMl1/Fxlmso3o6a9+Yqp8X5ug1n4g4n3/oNRFbt8hyO/lsKe8xqlo/PtTR2ST8hzjs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786275995; c=relaxed/simple;
-	bh=jZ/WieJvBgGTLDA53hrBTiwwMZpkQl/Y9Fr8ZYtB0L0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=V79Ly1S70sneamA3Dl8Xo4oePFfmNzUbuBSinvmukX3ZGsKUp1nUPpxEPaXwRwNirFXGIcrqAEKgXxrrW480QxVJnB8kBDvN52qLLKj0GKwo2p0H2ox56B5c8nrFPZjbzMD4dL2W40XtRDFolfV64h+cadaRt9i781fnEM2vS4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=palvencia.se; spf=pass smtp.mailfrom=palvencia.se; dkim=pass (2048-bit key) header.d=palvencia.se header.i=@palvencia.se header.b=jtEcCMM8; arc=none smtp.client-ip=109.235.175.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=palvencia.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=palvencia.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C32B326923
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:12:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786277549; cv=pass; b=hLEuC3E4Vc1XIeKyw5bZthpH5hpaeFbE6VkRwxDvvq3aDek8tex7E+DulYarvVRSYjn97dp4Rnj7fzTOBnTo0gTXCEM0scLhQujzBv/HeX5tj9+4IBjQK3lCDQZL2BH5D7O7U/k/1yocAEZqdpwJ78ZVqopcYDVN5brHn2V5EhI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786277549; c=relaxed/simple;
+	bh=1F/+cfZIAkAn2MH5HWhnU43a68MUjIzWX0xwmyWQRGo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q4w1/SNFAiD8SXZZcDnZHXD/2X/HvqtUYOI8SujFOQohOM8e8es54qUHE1Ohqimarukf6heJtEUC4cjWS2Ad2b0qVav61TCIJcjBRLYPmQcCxbSemUtLSjvz1wq2dlWokYC11S0+hVgyUQG8ycE2mNFBUwk9Mt7+1q6dv2YXCjQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pr6N6SqC; arc=pass smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=palvencia.se header.i=@palvencia.se header.b="jtEcCMM8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=palvencia.se;
-	s=mail; t=1786275984;
-	bh=Cko3zHK3AZ44CP9iv+bawq/dcdWlNtCNj2kBh7j6SUc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=jtEcCMM8dze1O2lHaItcxTfsrT3zJ50rtcdIQPjgCHN0yx10+VdlMvSuZayxbOTUq
-	 bFebBddWlbbVp6MERktEFtiU6L2muwqRqLEa0feAg5mWdxlq3ovorobf6/SJqAjvsw
-	 h4ZFP3blh8gHCV6+CM2jcRj5xvLUqgK12KZ4/7upyXtpWaorMMlN0fKjWdrws+2seL
-	 pwl+pOJrbZKcOBoVrpF0ri5o1U6CjO2J3LB0ecnTorxJCywxho3BtsX9g71rmIDOYk
-	 aON7B4BljLnfPWGXe3W/xJs/VG34WS1yZDnm4Ubv6WxJxBxVhWjAXzBvmu8sSRZMY9
-	 naxwCBxkD9R/g==
-Received: from m101-u6-ing.websupport.se (unknown [10.30.6.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits))
-	(No client certificate requested)
-	by m101-out-mua-6.websupport.se (Postfix) with ESMTPS id 4hHx1D4s79z1pGK;
-	Sun,  9 Aug 2026 13:46:24 +0200 (CEST)
-X-Authenticated-Sender: per@palvencia.se
-Authentication-Results: m101-u6-ing.websupport.se;
-	auth=pass smtp.auth=per@palvencia.se smtp.mailfrom=per@palvencia.se
-Received: from rpi (unknown [193.180.91.180])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: per@palvencia.se)
-	by m101-u6-ing.websupport.se (Postfix) with ESMTPSA id 4hHx182yG3z39Jw;
-	Sun,  9 Aug 2026 13:46:20 +0200 (CEST)
-Date: Sun, 9 Aug 2026 13:46:07 +0200
-From: Per Larsson <per@palvencia.se>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Heiner
- Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, Liu
- Changjie <liucj1228@outlook.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 6/6] arm64: dts: allwinner: a523: x96qpro+: enable
- Ethernet support
-Message-ID: <20260809134607.65d66069@rpi>
-In-Reply-To: <20260803101452.2993721-7-andre.przywara@arm.com>
-References: <20260803101452.2993721-1-andre.przywara@arm.com>
-	<20260803101452.2993721-7-andre.przywara@arm.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pr6N6SqC"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-8f23e851626so5627626d6.3
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 05:12:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786277547; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iLAY+/D7etlMu48vfFx2rQNZYY3rnZt0f/uZN179EAOXoVKVYkb3IFWzzrGYmFKVpQ
+         DHkKeutXqz/IZ8cGPDMM3Ys7Jid0jKAr7HMABCj/k8q4g4J2sPvUKwqZDQBEvYebXx+R
+         BOO503GpbtqT+ZxlZ2/Zu4wXeeNPi9dn3zteRXhY2kJIGFQ9vR2KXPRDuhy8xrXCJDER
+         8UYBQ13PQbkrPwVRkpt7VqvkEaVsmsDrYX/NRRvO+cdw1Ol+O5W2yn5HXGcQ4gpRbYjB
+         gJGZx9l0eqBkC9hMibS2L01JPhc/MvTIxZID7ZSt6RS/K0t7bN7K1qohSxKARzHJF402
+         h43Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1F/+cfZIAkAn2MH5HWhnU43a68MUjIzWX0xwmyWQRGo=;
+        fh=mktbTZN1iXOdZWz72Snuw4dBf1fsYHegJe1Rt/QIJHk=;
+        b=rtjqy7LcYHDCThK4f583/AV3ihZjW0AHTs7Ork4y84hxSyCkzPmFiPFQU8oslquqPv
+         qM+wEBWqNeLE1GPAmoA9HIYu1Hu5GtYF86BPwTVH6xblS/VUJKvuU8znBR330pcZFUcL
+         hKYwJcjPNmmsGYB6VSJstNZHbmuu+MxA8s+CIxuyG7Ld8md3y5WftpKQnMMCZispmYen
+         QmwgLUTcWmAx9Qf70SuL/NI3SrT1MSX6upwygiQNR/+HpKXqVKjsJCz4/msZv4kRlUO5
+         0KYgnj19Wd8GWnKqlfnty/fh9a6vlo0cJxf8bq7sjzItIrYBPZa8wH/yxpZBaPx3HGdI
+         oHXw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786277547; x=1786882347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1F/+cfZIAkAn2MH5HWhnU43a68MUjIzWX0xwmyWQRGo=;
+        b=Pr6N6SqCnPt0Ukn7cEcHuU5f/Qj/whCfNbOHWK+ADF1u3tXVWY3XsBNoUwRWmUfYBS
+         UBXhJ5JNfmId/5OdXsOA4Xka3Hv20dCU1EZJJAWvED37ETqSL1CdI+ktThiziUGDMqbR
+         QEpK0okVy3Ho9MOhmTa59wrsvbR/IlU+YBneE+NvtNWAHpaRLe9OirRLsW36mippWe2b
+         KD/omqSMWulxwVm+foKVbuy1Vw5xwS7ecblRr4sb7MlcEziS/W9VQ57lj2p6+5uMhXDm
+         SaUnnpAR6jvvHu6SBHbzbo7AI+a3fBViVCn13gD14qYJX9oLnApWNSBxJ3tcqUmOzhZp
+         Fyqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786277547; x=1786882347;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1F/+cfZIAkAn2MH5HWhnU43a68MUjIzWX0xwmyWQRGo=;
+        b=nNNq7mMDSk1jqGxoZbt7ypTH7LWG92pStSgQBGAwOKR3OxbjqU3EOXB7GkjpWsKHre
+         jyolMhZ3JB8UIddYUED1AyroGs27XGSD4rFTcIj7Rk3G2RtClvi7+9xwLdlQcD33uTyX
+         YkAGMR4HE21xXFwKWZETBaBGmSuu+Q2GoGsbwCabFQrwdVsNzKUr1fxuGTkLHAevyO+C
+         Hh0tMt3M9DEXSjACUGK7hdPEFBEjBOtoERQjLDzz9tNEzG5/1pryaxxXsAkzRyNtuUav
+         pzvVTVb1Afr52hpakpNL/wtZw0YufmAVj2pfzpeVm4o5DQAM0HHaDR7pNtBAnHkwsSHR
+         XcDQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp+YzphtHC/nyHhaE5fh5rgLiz/5zZN5+pCtqMgqx2mA4QjashN6oJC3XbUYxE0+7ckJ0BUk9hT/vQG@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7Ml2au+njqkaAxJXdcmgOFAovy/WPMfVF/19GFljIQtxQJ3r8
+	BEJJQlMNGrIu/mFhvKyFK8XYAJmpuiKX4Ohi2cPioiMHHN/p6DLQW6jfJbRKVOUCWKLoi6YTfIT
+	GaWzlaEFz2BUruLBU8g1rc+qRs08kmbw=
+X-Gm-Gg: AR+sD13jYxJv9y4HOHiwFoC15TWuIoang7RTOC8/2cshh2kdoL4to71wwh/E5QeeKuo
+	Jg8tbXYNyIS4gU+KTA4VzBTcRAQVfmx5bT6SPt7Dul6qmDMWfwQUgesUBLeeKIx+WgIX1Dgonz2
+	ArhPbQhTOD1xBqHMkasOzytJi3E+eRCkAp5omxVy6xyVggfSWF+utxI1ni8HEIQ97dscvGzv0YR
+	CEoQrZBts6sTxbEXiUEsbebayluT3dFILVx61/h6sqwNLHBxcAl0XfblYgnP4xBRxWjAiAijWmI
+	M29LAJHU4xH3zZOSIruGUH8jM5nLyq92UItV2bmMNA==
+X-Received: by 2002:a05:6214:5346:b0:8ed:1887:426e with SMTP id
+ 6a1803df08f44-9088126d7cemr445146386d6.24.1786277547104; Sun, 09 Aug 2026
+ 05:12:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Action: no action
-X-Out-Spamd-Result: default: False [1.90 / 1000.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com];
-	TAGGED_RCPT(0.00)[netdev,dt];
-	RCVD_COUNT_ZERO(0.00)[0];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ASN(0.00)[asn:35790, ipnet:193.180.91.0/24, country:SE];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	BAYES_HAM(0.00)[50.10%];
-	HAS_X_AS(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	LOCAL_OUTBOUND(0.00)[];
-	FREEMAIL_CC(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,sholland.org,armlinux.org.uk,outlook.com,vger.kernel.org,lists.linux.dev,lists.infradead.org]
-X-Out-Rspamd-Queue-Id: 4hHx182yG3z39Jw
-X-Out-Rspamd-Server: m101-rspamd-out-5
-X-purgate-type: clean
-X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-purgate-size: 613
-X-purgate-ID: 155908::1786275984-BC6051C6-6F571976/0/0
+References: <CAGXv+5HrDw8GWb9zp1AaQU9UW+0FGcr7jOV2jt_zi_2KgfgBqA@mail.gmail.com>
+ <20260807152059.GA39821@bhelgaas>
+In-Reply-To: <20260807152059.GA39821@bhelgaas>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Sun, 9 Aug 2026 14:12:12 +0200
+X-Gm-Features: AUfX_myzAmsvVlb0T_3tOngECWxC2UoI-Iw4nvKe7r1djj_0kecpEPp7cncj8nM
+Message-ID: <CA+_ehUxQfWRRec4q2ZvC12nYAeV2VGm1xCFrTWeN6sEL+qkXBw@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] PCI: mediatek-gen3: Add 2-lanes mode support + clock
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ryder Lee <ryder.lee@mediatek.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Jianjun Wang <jianjun.wang@mediatek.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon,  3 Aug 2026 12:14:52 +0200
-Andre Przywara <andre.przywara@arm.com> wrote:
+Il giorno ven 7 ago 2026 alle ore 17:21 Bjorn Helgaas
+<helgaas@kernel.org> ha scritto:
+>
+> On Fri, Aug 07, 2026 at 11:24:09AM +0800, Chen-Yu Tsai wrote:
+> > On Fri, Aug 7, 2026 at 12:53=E2=80=AFAM Christian Marangi <ansuelsmth@g=
+mail.com> wrote:
+> > > This small series introduce support for 2-lanes mode for Airoha AN758=
+1
+> >
+> > Just a nitpick, but I would probably name this something else, like
+> > "cross-controller lane-bonding mode" or "lane stealing"? PCIe already
+> > has 2x lanes as a standard feature, so this naming is a bit confusing.
+> > It's not like dual-LVDS display in which LVDS is only a single lane.
+>
+> I suggested the "2-lane" and "x2" terminology because I assumed the
+> result is what the PCIe spec would describe as a "x2 Link" consisting
+> of two Lanes.
+>
+> If that's not the case, maybe "cross-controller lane-bonding mode" or
+> "lane stealing" would be more accurate, but I don't know what those
+> mean, so if we use them I would also like to know what the result
+> looks like in standard PCIe terms.
+>
 
->  
-> +&mdio1 {
-> +	ext_rgmii_phy: ethernet-phy@1 {
-> +		compatible = "ethernet-phy-id7b74.4411";
-> +		reg = <1>;
-> +		clocks = <&ccu CLK_EMAC1_25M>;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&ephy_25m_pin>;
+Mhhh I don't really like the term lane stealing. Also cross-controller
+lane-bonding
+might be a first. Even if correct it would complicate identification
+of the feature
+that at the end of the day configures the HW to provide a 2 lanes PCIe.
 
-This should be &ephy1_25m_pin, right?
+Consider that in such mode, the other PCIe controller gets disabled (this i=
+s
+handled in DT) so it's effectively enabling the standard PCIe 2x lanes
+and apply the HW configuration for it.
 
-> +		reset-gpios = <&pio 9 16 GPIO_ACTIVE_LOW>;
-> +		reset-assert-us = <10000>;
-> +		reset-deassert-us = <150000>;
-> +	};
-> +};
-> +
->  &mmc0 {
->  	vmmc-supply = <&reg_vcc3v3>;
->  	cd-gpios = <&pio 5 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; /*
-> PF6 */
-
+> > > SoC. This is needed for correctly functionality of Eagle WiFi Card
+> > > normally attached to this SoC that require a 2-line PCIe card to
+> > > correctly work (and give the proper performance)
+> > >
+> > > The first 2 patch address a limitation of the PCIe implementation
+> > > where the PERSTOUT reset were indirectly asserted and deasserted
+> > > all at the same time (for all the 3 PCIe card) with PCIe
+> > > enable and disable.
+> > > The 2 patch address this and introduce correct reset to control
+> > > reset line for the relevant PCIe line.
+> > >
+> > > The last 2 patch add additional logic and support to assert
+> > > and deassert the PERSTOUT and also apply the required configuration
+> > > for 2-lanes mode.
+> > >
+> > > 2-lanes mode is implemented in DT by adding the required property
+> > > and by defining the "num-lanes" to 2.
