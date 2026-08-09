@@ -1,149 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D601237FF70
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 20:28:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3382036683B
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 20:29:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786307327; cv=none; b=NL3+mqmCQP42qHqJQyeV1lzyVv/tCCg8vJZV+CjiTXv4xTRFc3GWY3EOn/Qb7VNGAe89dDcFBsZsxD+K//TlMJXdRcFZYRTpjCdHhGR9CP13Mh7+PjqKbLuuJr/WJoFwm1KE4+7ciB2fAHBm49999cwDDsjTEDZkEsXAdWxRyG4=
+	t=1786307343; cv=none; b=ZaTK3k7+F0I+UrX/e4DVMGOk4ugeg7F7ohtSDvLrOO/dRVcziKZFPEKIyigA+CwVH0D8pMWNp82UjqzVv74RCSCOJ0kTKNk5N38pxnlK5ZmV6jcHX6jpTZzzTcciUubbvBuRvsrH64GchAV0UhZzAqKNL2PvIXznlkTrF/8GO+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786307327; c=relaxed/simple;
-	bh=dZ1WYMr5sZerJ3NH/9WMMIv3ZzCZFVzzvdQO/LiZk9w=;
+	s=arc-20240116; t=1786307343; c=relaxed/simple;
+	bh=cUJSlbzdEiUs9kcwT3YxzKFbfjKWE1LiCA+aGup6QXc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u12yyuAYcX0MO6SYoDnXtAhslKqrHJ6Szpn6sFpq3pRv/qm56wDTSq0Vj1aF3ZjY088ryK8C4/f1eDIHpZldt253FR3S4KHXvI8ac2Q2SYkf+ZWWaIftU7nwpwSKNwVH9dxvb5tKShUZMa8eVxMVj3XeAAyKv9mxbyIaSDIklHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W1YMEy91; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RQxjgmmf0XfFNvSVZLCI6YIMehw8OX1bdmuJUiNosV1q6QdDa6EHtg56+27xMlUDPEjeYTH+R3W23HZIecyCrgRiNhkQ/zhVWQJDcPtPBMfqDA4EU3NvldiJFsG4M8p26g9nBGS9dFv/1354UvsyM7LSBssR+oCX+geQdCTKOmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PkG2NBSc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W1YMEy91"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4141F000E9;
-	Sun,  9 Aug 2026 20:28:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PkG2NBSc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871E61F000E9;
+	Sun,  9 Aug 2026 20:29:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786307325;
-	bh=gV3D5z+nkrUkR6XfyHcwF+lj2t4dVzyN3Ecp1l7d7js=;
+	s=k20260515; t=1786307341;
+	bh=ZxFiLVFtPHZAEtrvX7PgHJgtGMZO/Toy9rG4trE7jIY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W1YMEy916MHT+SC3Q7sgOrxsSHdQFovUQ5ymjb5Cd4HahXrxTcD6Zxxf7emhpMJJ3
-	 o9PhfpvzmOjpEG7BHUkRDuu5I9CtDgQF2adasMQlXdDjZB/Eeuj4+5LMERy3O+muoz
-	 2OgqGLd0QIi8JGtbCh6M4qBZ1oVhqIqUNuGR4EbVDmblatsss7B4lITFrmigMSyGdy
-	 RYYR6su3u6FTxX+ZD/fNVVoSEPjrb/ietD86bvlqQvyOEhyiecHML1ZVyexQYllqSO
-	 BayDmGsgEHHKQOU0BEqnO9/ap9yJYmYFHuFz25rFB3H6uRQEhC4Nzrp2Wb4rSN8Oy9
-	 1eBQo3B30ZU4A==
+	b=PkG2NBSctBmg7h3EPo6JoZzZdOZDhRJ+27K97auqDPtmuzZAL+Dvduf+Orhg6ZBi3
+	 XIBh+67pTJr9je8onF+lIp6o+eN5EPm78ZcoOTCqrFAZ7DhH1GC9Glk5Nls/jA5oUw
+	 eGPoYy8/R2j/7Sp3+BluZlwHR7dg8tUUUzqqELfj9v2j2RxLMZnPdxsKzdjL5mJHo+
+	 7FNZas1JgzRqTdEQqO8fDw5GbkNB/KMy2kjQSJfcd7gLAsQh8sV1JxhrMnsIQ8Q8nv
+	 EnWpKzPCV8wRtPiniKaepFWaNdP31lYU6TFhl+Pg0/V1MPiwxJPZycDdpMfzCRAXsd
+	 96qGt7w6CJG/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/12] iommu: qcom_iommu: add the MSM8974 instances
+Subject: Re: [PATCH 05/12] iommu: qcom_iommu: handle the SMMU global
+ register space
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260809-msm8974-iommu-upstream-v1-11-87f5cd492560@oss.qualcomm.com>
+In-Reply-To: <20260809-msm8974-iommu-upstream-v1-5-87f5cd492560@oss.qualcomm.com>
 References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
- <20260809-msm8974-iommu-upstream-v1-11-87f5cd492560@oss.qualcomm.com>
+ <20260809-msm8974-iommu-upstream-v1-5-87f5cd492560@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 20:28:44 +0000
-Message-Id: <20260809202845.3E4141F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 20:29:00 +0000
+Message-Id: <20260809202901.871E61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 New issues:
-- [Medium] The commit message claims to add per-instance configurations for=
- five MSM8974 IOMMUs (explicitly mentioning camera blocks), but only three =
-are provided.
-- [Low] The Venus IOMMU is configured to halt the micro-MMU, but the commit=
- message only justifies this behavior for the display (MDP) IOMMU.
+- [High] Context bank state is not reprogrammed upon runtime resume, leadin=
+g to translation failures for instances in power domains.
+- [High] Skipping the FSR clear at probe time allows a pending bootloader f=
+ault to trigger an interrupt before `ctx->domain` is set, causing a NULL po=
+inter dereference.
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the qcom_iommu_f=
-ault interrupt handler accesses device hardware registers directly without =
-checking the device's PM state.
+- [High] The shared IRQ handler accesses hardware registers without checkin=
+g if the device is active, and there is no IRQ synchronization in the suspe=
+nd path.
+- [High] Unbinding the parent IOMMU device causes a NULL pointer dereferenc=
+e in the child context device's remove callback.
 --
 
---- Patch [11]: [PATCH 11/12] iommu: qcom_iommu: add the MSM8974 instances =
----
-commit bfa29c5d93fde62303c2c0ea8deeb5f5b59f6431
+--- Patch [5]: [PATCH 05/12] iommu: qcom_iommu: handle the SMMU global regi=
+ster space ---
+commit bf26052ef6d0329129f71ba618d88c9f30a2725a
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-iommu: qcom_iommu: add the MSM8974 instances
+iommu: qcom_iommu: handle the SMMU global register space
 
-This commit adds per-instance configurations for MSM8974 IOMMUs. It configu=
-res
-them to terminate faulting transactions rather than stalling.
-
-> Add the per-instance configurations for the five MSM8974 IOMMUs. MDP and
-> Venus are TZ-secured (SCM secure IDs 1 and 0), so only their context
-> banks are programmed, like on MSM8916. GPU is fully OS-managed. The
-> stream ID maps come from the downstream MSM8974-v2 DT. All instances use
-> the short-descriptor pagetable format with the AFE quirk.
-
-[Severity: Medium]
-The commit message claims to add per-instance configurations for five
-MSM8974 IOMMUs, but only three are provided in this patch. Are the other
-instances missing from the patch, or does the commit message need updating?
-
-> All instances terminate faulting transactions rather than stalling them,
-> as downstream does. The display IOMMU also halts the micro-MMU while its
-> context banks are programmed: a hung GPU cannot drain, so halting it
-> during GPU recovery resets the SoC.
-
-[Severity: Low]
-Does the Venus IOMMU also need to halt the micro-MMU? The commit message
-only justifies this behavior for the display (MDP) IOMMU, but the Venus
-configuration in msm8974_venus_cfg sets halt =3D true. Could the commit
-message be expanded to document this?
+On msm8974 the OS has to access the SMMU global register space: the
+non-secured instances need it fully programmed and even the TZ-managed
+ones expose OS-writable implementation-defined registers in it. The
+driver only knows about the msm8916-style "SMMU local" region in
+resource 0, and has no accessors for the global space.
 
 > diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/=
 arm-smmu/qcom_iommu.c
-> index 9523ae95fa125..bc7d692a20436 100644
+> index 77c01f217d7ea..428b18697244c 100644
 > --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
 > +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
 
 [ ... ]
 
-> +static const struct qcom_iommu_cfg msm8974_venus_cfg =3D {
-> +	.halt =3D true,
-> +	.no_stall =3D true,
-> +	.fmt =3D ARM_V7S,
-> +	.no_afe =3D true,
-> +	.ctx_restore =3D true,
-> +	.bfb =3D msm8974_venus_bfb,
-> +	.num_bfb =3D ARRAY_SIZE(msm8974_venus_bfb),
-> +};
+> @@ -213,6 +256,35 @@ static irqreturn_t qcom_iommu_fault(int irq, void *d=
+ev)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but shouldn't the shared IRQ handler check if
+the device is active before accessing hardware registers?
+
+The interrupt line is registered with IRQF_SHARED. If another device sharing
+the line asserts an interrupt while the IOMMU's power domain is suspended,
+qcom_iommu_fault() executes and accesses ARM_SMMU_CB_FSR without waking the
+device via pm_runtime_get_if_active(). Accessing unpowered MMIO registers
+can trigger an asynchronous external abort or bus stall.
+
+Also, qcom_iommu_suspend() disables clocks without calling
+synchronize_irq(), allowing race conditions if the shared handler is running
+mid-flight.
+
+> +static void qcom_iommu_program_ctx(struct qcom_iommu_dev *qcom_iommu,
+> +				   struct qcom_iommu_ctx *ctx)
+> +{
+> +	/* Disable context bank before programming */
+> +	iommu_writel(ctx, ARM_SMMU_CB_SCTLR, 0);
+
+[Severity: High]
+Is it necessary to reprogram this cached state during runtime resume?
+
+When the PM domain collapses and subsequently resumes, the non-secure conte=
+xt
+banks remain unconfigured, breaking any further DMA translations.
+
+Looking at qcom_iommu_resume(), it restores secure configurations but
+doesn't restore the OS-managed (non-secure) context banks by looping over
+them and calling qcom_iommu_program_ctx().
 
 [ ... ]
 
->  static const struct of_device_id qcom_iommu_of_match[] =3D {
->  	{ .compatible =3D "qcom,msm-iommu-v1" },
->  	{ .compatible =3D "qcom,msm-iommu-v2" },
-> +	{ .compatible =3D "qcom,msm8974-gpu-iommu", .data =3D &msm8974_gpu_cfg =
-},
-> +	{ .compatible =3D "qcom,msm8974-mdp-iommu", .data =3D &msm8974_mdp_cfg =
-},
-> +	{ .compatible =3D "qcom,msm8974-venus-iommu", .data =3D &msm8974_venus_=
-cfg },
->  	{ /* sentinel */ }
->  };
+> @@ -749,9 +773,10 @@ static int qcom_iommu_ctx_probe(struct platform_devi=
+ce *pdev)
+>  		ctx->secured_ctx =3D true;
+> =20
+>  	/* clear IRQs before registering fault handler, just in case the
+> -	 * boot-loader left us a surprise:
+> +	 * boot-loader left us a surprise.  Instances with a power domain
+> +	 * may not be accessible yet; they are reset at first resume.
+>  	 */
+> -	if (!ctx->secured_ctx) {
+> +	if (!ctx->secured_ctx && !qcom_iommu->cfg) {
 
 [Severity: High]
-This is a pre-existing issue, but the qcom_iommu_fault interrupt handler
-accesses hardware registers directly without checking the device PM state:
+If a bootloader fault is pending and we bypass clearing the Fault Status
+Register (FSR) here, could it trigger an interrupt before ctx->domain is se=
+t?
 
-drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_fault() {
+When devm_request_irq() enables the shared IRQ line a few lines later, the
+pending interrupt could fire immediately. The handler qcom_iommu_fault()
+executes and calls report_iommu_fault(ctx->domain, ...).
+
+Because ctx->domain is only assigned later during device attachment
+(qcom_iommu_init_domain), it is currently NULL, which report_iommu_fault()
+will dereference.
+
+>  		ret =3D pm_runtime_resume_and_get(dev->parent);
+>  		if (ret)
+>  			return ret;
+
+[ ... ]
+
+[Severity: High]
+This is a pre-existing issue, but can unbinding the parent IOMMU device cau=
+se
+a NULL pointer dereference in the child context device's remove callback?
+
+When the parent driver is unbound, qcom_iommu_device_remove() sets its priv=
+ate
+data to NULL via platform_set_drvdata(pdev, NULL). Subsequently, devres tea=
+rs
+down the child devices, invoking qcom_iommu_ctx_remove().
+
+This child callback calls dev_get_drvdata(pdev->dev.parent) to retrieve the
+parent's data, which is now NULL, and immediately dereferences it:
+
+drivers/iommu/arm/arm-smmu/qcom_iommu.c:qcom_iommu_ctx_remove() {
     ...
-	fsr =3D iommu_readl(ctx, ARM_SMMU_CB_FSR);
-
-	if (!(fsr & ARM_SMMU_CB_FSR_FAULT))
-		return IRQ_NONE;
+    struct qcom_iommu_dev *qcom_iommu =3D dev_get_drvdata(pdev->dev.parent);
+    ...
+    qcom_iommu->ctxs[ctx->asid] =3D NULL;
     ...
 }
 
-Because the interrupt is shared (IRQF_SHARED), an interrupt from another
-device on the same line could trigger this handler while the IOMMU is in a
-suspended PM state. Can reading from the unpowered hardware register
-ARM_SMMU_CB_FSR cause a bus stall or return 0xffffffff? Should the handler
-use pm_runtime_get_if_active before accessing the registers?
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-msm8974-io=
-mmu-upstream-v1-0-87f5cd492560@oss.qualcomm.com?part=3D11
+mmu-upstream-v1-0-87f5cd492560@oss.qualcomm.com?part=3D5
