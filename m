@@ -1,77 +1,77 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
+Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8F281732
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 00:59:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA16DF6C
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 01:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786237182; cv=none; b=Fk1T7XHlK0Tp8EDkI7odmhERBOJK2EP7QcuJv39SDoAngmaGNCYtBV+cxNPVybiIFkjBvnzmgm6Uak5gnDdv3LJOh2BrZW0EEwA919e5WP5J5zZfOGX50WietjUsS1/v0PcxsxA/Zl/p5+1+qZYY51SqvySrHir3FgLZ4yUQDT8=
+	t=1786237297; cv=none; b=JSU7CQUHkSfkC+2ufrYph0sUrzHyKzPFvEOBjSKKs5zNXkehZZZRFUqfFYpk8+tMSAmlLN/nVSIG6YoGK+f/tjzoWX12hf2h97B0AuREVyZH0RFn2/y0JrR+8mRqoAybYNEVfjR2/CFY1J0nyW4iW+pIDTLgE0/Xwxbufk0VEos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786237182; c=relaxed/simple;
-	bh=RRFKYPy28DdpugK6N9Va1Wd7P/CQdAXt8e1gsC8A87c=;
+	s=arc-20240116; t=1786237297; c=relaxed/simple;
+	bh=PQq+lKTeK7k4HPNl1hyqWFlesD4mUjpD9Z0LOKkkekQ=;
 	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=riijg+PPYUV3DyY1tvj+ytk/bYUK7aZ/nSPFbnZfKkaFbMcOvAzx9Tmt0tH5r0bCWK/M8pipVVgNmzuXkY0xnGeLV8zOdxYgxLpOjZvgRpm2p50JDVPQppjzrjNWFkVjauta2GGJv3BTt4YtBR7Ib9CxBwWIsKMh2wT7KYMr6IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Np6rt1vp; arc=none smtp.client-ip=74.125.227.133
+	 MIME-Version:Content-Type; b=FD2/NCyIWUmKNYCEZBzXCGlrOTpbDSVoKClDG7SEP5umU8g1AfIW5JyZu1MJdsQuAcP50s8vq/f2BzZzbIpwAySu/9z86GcND7aasbKxhS1CJzV/7Mo8rgEFjYl5rTeEyXWd60gT7Au2W+xEdD6VUxMoTcT9iy4MwhEVHBvbrjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VLT/Ot+X; arc=none smtp.client-ip=74.125.228.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Np6rt1vp"
-Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2d0344e1ce9so3838445ad.1
-        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 17:59:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VLT/Ot+X"
+Received: by mail-pz2-f1.google.com with SMTP id 41be03b00d2f7-c9fcd903839so467998a12.1
+        for <devicetree@vger.kernel.org>; Sat, 08 Aug 2026 18:01:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786237180; x=1786841980; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786237295; x=1786842095; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=CSGZDRV/MDgKNpbTE7r5kq+GmjODNqDTFUKIisa3q98=;
-        b=Np6rt1vp57LmN7Nb+6HMvaZmrRtyacm9NcnR+uQDyXopVDAxaO6T95MT7GdbiaYNpw
-         iDNkD31zbh0HsGkk7uarEqilq4a3hM5RwhIV+lNSd/S9Lr0ylMVvfU5OMRQVCIRBRSEF
-         peVq0pL+Nq5lmd7J9YW5oqkrqwndPU8eo5GJoIo2yYR7olJJDb0e8FH4pkSk+vcNrOFA
-         PaWOf5Lqasr3wSFYNg3hex/IKyEm+kKbqY/k2PEgYLSiyIpr9qrlXCDDpQ3lZCZJi8sm
-         isKNnvGBzHCidrB7I1rcR+PP9f3BzPySa8/wgkIDWy7xRQIhHtO7WSFW9P600EzdJw5g
-         SgxA==
+        bh=bTU4eIZnw4U9ZhD6oNkBxDN+wvA8F1rOyrlQvDjEprA=;
+        b=VLT/Ot+XrkN8rrYRRU2TcgF6uhYh2sgj6rnLw2spKxPCNS69K/+yTLEQsX2mCuwJZn
+         +qyFEtxecKSN2nDKZHJF4b0evQ2Vce7aMQZoFKUMBYh/JvPClCDXXkUsxczU/0YmIUSi
+         JjytOrJ928LNc/1BFFJuE6wjDW4x9mvAIoUNSKdEDA6CWzDUJX+0A/U9aOw+wzeBX2Ld
+         smzuDrF4AY+e9lc9kgLZMX5F+rHm9zkierlZUSVxR6s5UJNVZPHwxUhFZBYQxxRDDL1C
+         BaRsTnr6sbK1FnRe16efTF+bVjFdW4Os+klQyv5lTsB/wwn+Hkvp/4TYNHHi3ZWOOHcE
+         /2MQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786237180; x=1786841980;
+        d=1e100.net; s=20251104; t=1786237295; x=1786842095;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CSGZDRV/MDgKNpbTE7r5kq+GmjODNqDTFUKIisa3q98=;
-        b=XJkLj3jz2mO4yRLP8wxHgUGvoInXfb/X4a2XxDbBySmg1KzMNhor4OeL7/JVznZczX
-         zar9EexbMbg8RoShsE3W4RfeY/N4e9ea5zlqQ7BKwnWRD/eWIiE7L6p8P4oyWxgTE63O
-         HLW6SsF101RoLaDmDkdNtboAKcg7zrbIEoC0EzQJ9MreXp/F083EbSlE+Ibv/R77Byme
-         M2/HbI3mkduFkdexDysBIO/5WupWYrniTPGKqWNrJd1RpZ7lyfixy0O4n3NHqZUNth34
-         XHuK4CdIYxBc3RU23oQ4tC3PLdrCXSMG+iUjDQTfzC66pAEXfvoM1m3mK2UX5L1ZdzX+
-         CIxQ==
-X-Forwarded-Encrypted: i=1; AHgh+RriESufMuKo8ps1yLncD+0fRFs6Ftn7BcZ1Fw4AvcieQh/80dRsO93n3w967DXQvHUT/YNqoOuMVVfi@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLZxvpYFhOh79fBlgeeOxKgHyZX7eypPbSuHzwmMKEZA2UsRMt
-	s1E1dLuscu4GyCz/3XLMEkEnv7Za1NzmBRYo6hpE7McRbOYVnyrFcqFk
-X-Gm-Gg: AR+sD119y79WlWushq2pIo5kWdsgmfglRQt29b37bHHXm6z06AfP8Y0Kt+R3qRIRM/g
-	pVE7RWyT58Lgu6mwK+MALi/l8fT+Hv6rb7/JzXYUsYIdUxxs0Ip7E0IFzQ/CLxHYoMIEAylWzng
-	/BKoANkJpApNRna1SaVgNc8j9vjYImZUyf0uYZgrwLuwJA2gf5uriKhMrT1EjrdEMr51NGPRX1c
-	u5ExZgSQdG8LUQ+s5QroyGd+8YgFbtNXDbkc6FN36t4Vvu6UunEhFElvXq97PzOSzSW/o3OEDcD
-	DeoAWOK1YJbhuIytg+UzmULAiLiGJI6nEW+kJH89zvXf6zKBnByNU6tpCUwL3YzRwX51TSjuo0r
-	cDObeAsZ2gvqYKI/pN3iYtD75IcgW5PN8stmwG04oE1tYFEnuC4zBZ+sk2Uk7ZSBh9mYFVsmZaY
-	97F7EpZ+Wrq5dSwcjTXZimGP6UIeaDkwR+xLan6LE=
-X-Received: by 2002:a17:902:e5c1:b0:2d1:134:b86e with SMTP id d9443c01a7336-2d2a845758amr103103385ad.2.1786237180433;
-        Sat, 08 Aug 2026 17:59:40 -0700 (PDT)
+        bh=bTU4eIZnw4U9ZhD6oNkBxDN+wvA8F1rOyrlQvDjEprA=;
+        b=GO0QXZYswjrOb0JPULkqu8BYyRgH5sV6KUp8TH938U6TE9CLpXSxxzdtF9llG69wwQ
+         E26YUEjhMkn1uinct2TGKDBE3Ugn+A49icWw7fNpu8JU6pHeE3/GvV1pE7n5xsUeMpEj
+         q8JvgtqizWydnR7fSW1Q/6W0+PvE+h3a63RdnNzWAyCw54a2FEG6BHlhDUovUXTDnM3i
+         h4sC+EBVShSHYC1M008ScPZKTP+LNarAgNjvPmuztiK63EVkELFBpFw0dIcEPNnKmx9H
+         I4cknrCDasWdGc7CeYfcQmqzQKSIMcIvf7GmWRFNKeKe5HGhz/o9s6kBVg3bw/1NWdH6
+         GP2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpZmUmUsRcOsQPm1FtppWXjKpot01CwcnZwlq5xj3brygRhVyr6KdL+CeJ1QlETfAuwmHO8sMsjRePk@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyu/IPgnkDG4hgrbkTg6pkrphsC8ezG0AUZBab44PPf3qhF76lh
+	S3Jp0Fjkxh9ilOQI2Tz8B5AUHkQ09KiAMaZSY+szRQ29ON2VtIu8PgdF
+X-Gm-Gg: AR+sD10RgYSxj9h1GbYWIaCLNGxitRt7yvN1eZefmDmqQZjC2eMaMK8F88/xmL+bS7F
+	QDwChhi6c8F3p2oJo5404h8bF2wRzmVkp8Oo2wriBNM4W8VyiYYU+aRsVRLx1NVjWCoInVUe6bq
+	w4/z1GHL3SroJCVqT25oxg+P2W8xJfHJWtZXK01iwoxsNd50aKXF5RO1vDgycZ+D+7Bz3G/ZKjt
+	SiS6+JNadmD3BBFm6haLO91VN66Icp5QEq340de8orY46D/X7gQKmgGMrwZcBHQY032JXXbz48m
+	zA7OnWRS+O5nOiGgcEIKvHj5sQjMpQ8xFUIIxl+tWvbqI8j1InbOpvhjX81rKuWBh/IhaoSxzrf
+	DOaEZf9YYFC47FHEVUSnRQLgI4RoyUjxZ9t3Z7k8RyqxjstEgdwXIRBo3KKCQi1KSr8Tz9TRpIG
+	fR4mxBvy/6jaY/BUoV59YGrbAgxK5h9bDCL2QVE2g=
+X-Received: by 2002:a05:6a00:2a0e:b0:848:6c37:cd74 with SMTP id d2e1a72fcca58-84f696a0369mr12238522b3a.22.1786237295147;
+        Sat, 08 Aug 2026 18:01:35 -0700 (PDT)
 Received: from localhost ([2403:2c80:17:1e::20db])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14d959132sm21199675ad.34.2026.08.08.17.59.38
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a55f304sm2378524b3a.49.2026.08.08.18.01.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 17:59:40 -0700 (PDT)
-Date: Sun, 09 Aug 2026 08:59:34 +0800
-Message-ID: <242adca6fe63a63e0f637da9603cde06.codykang.hk@gmail.com>
+        Sat, 08 Aug 2026 18:01:33 -0700 (PDT)
+Date: Sun, 09 Aug 2026 09:01:28 +0800
+Message-ID: <4da43aa690649fda8565941ee576338b.codykang.hk@gmail.com>
 From: Cody Kang <codykang.hk@gmail.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org,
- olteanv@gmail.com, conor+dt@kernel.org, vkoul@kernel.org,
- neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org,
- sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipeline
-In-Reply-To: <20260725050427.33AE91F000E9@smtp.kernel.org>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
- <20260725050427.33AE91F000E9@smtp.kernel.org>
+Cc: vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, olteanv@gmail.com,
+ linux-phy@lists.infradead.org, neil.armstrong@linaro.org,
+ devicetree@vger.kernel.org, sashiko-bot@kernel.org
+Subject: Re: [PATCH 11/17] drm/spacemit: add Saturn DPU DRM device driver
+In-Reply-To: <20260725051713.B60E61F000E9@smtp.kernel.org>
+References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
+ <20260724-k3-display-v1-11-f22a10a52867@gmail.com>
+ <20260725051713.B60E61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,272 +81,109 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Sat, 25 Jul 2026 05:04:26 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 10 potential issue(s) to consider:
-> - [High] Sleeping functions are called from CRTC atomic enable and disable callbacks, which execute in atomic context.
-> - [High] TOCTOU race when updating the `clocks_on` flag and gating hardware clocks leads to MMIO stalls.
-> - [High] Calling `devm_drm_dev_alloc` inside a component `bind` callback leaks the DRM device on rebinds.
-> - [High] Enabling the DPU interrupt before hardware is initialized leads to an unhandled IRQ storm.
-> - [High] `spacemit_plane_reset` bypasses the custom state destructor, leaking DMA coherent memory.
-> - [High] `disable_irq()` is called before `drm_atomic_helper_shutdown()` during driver unbind, causing shutdown to hang.
-> - [High] `spacemit_plane_atomic_check()` assigns RDMA channels based on unvalidated `zpos`, leading to channel collisions.
-> - [High] Unconditional `spin_unlock_irq` used in atomic context improperly re-enables interrupts.
-> - [Medium] Leaking DRM property blob references in `spacemit_crtc_duplicate_state` on error.
-> - [Medium] Missing NULL check on `plane->state` in `spacemit_plane_atomic_duplicate_state` causes a crash if the state is missing.
+On Sat, 25 Jul 2026 05:17:13 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Missing IS_ERR() check for 'match' causes an ERR_PTR dereference inside component_master_add_with_match().
+> - [Medium] The atomic commit tail stalls the commit pipeline by waiting for flip completion before signaling hardware done.
 > --
 >
-> --- Patch [10]: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipeline ---
-> commit cf6665928c2c5fcf07a88c5cd2141feb18245e17
+> --- Patch [11]: [PATCH 11/17] drm/spacemit: add Saturn DPU DRM device driver ---
+> commit e12174b9614adeccb5a06f03b5944837004e96f4
 > Author: Cody Kang <codykang.hk@gmail.com>
-> Subject: drm/spacemit: add Saturn DPU KMS pipeline
 >
-> Add the atomic KMS implementation on top of the hardware backend: one
-> CRTC and one primary plane per DPU instance. atomic_check validates
-> the plane rectangle 1:1 against the mode and sizes the per-channel FBC
-> line buffer.
+> drm/spacemit: add Saturn DPU DRM device driver
 >
-> > diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.c b/drivers/gpu/drm/spacemit/spacemit_crtc.c
+> This commit adds the DRM device for the SpacemiT K3 Saturn display processing
+> unit. The SoC has two DPU instances, each driving one CRTC that scans out a
+> single primary plane in linear RGB, feeding a downstream DP/eDP controller
+> over an OF-graph endpoint.
+>
+> > diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c b/drivers/gpu/drm/spacemit/spacemit_drm.c
 > > new file mode 100644
-> > index 0000000000000..b75ff63205011
 > > --- /dev/null
-> > +++ b/drivers/gpu/drm/spacemit/spacemit_crtc.c
+> > +++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
+> > @@ -0,0 +1,132 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> > + *
+> > + */
 >
 > [ ... ]
 >
-> > @@ -91,7 +91,7 @@ static void spacemit_crtc_atomic_enable(struct drm_crtc *crtc,
-> >  		dpu_reset_assert(a_crtc->dev, "lcd", a_crtc->lcd_reset);
-> >  		dpu_reset_assert(a_crtc->dev, "esc", a_crtc->esc_reset);
-> >  		dpu_reset_assert(a_crtc->dev, "mclk", a_crtc->mclk_reset);
-> >  		dpu_reset_assert(a_crtc->dev, "aclk", a_crtc->aclk_reset);
-> >  		dpu_reset_assert(a_crtc->dev, "dsc", a_crtc->dsc_reset);
-> >  		usleep_range(10000, 20000);
->
-> [Severity: High]
-> Does this sleep in an atomic context? The spacemit_crtc_atomic_enable
-> callback is executed during a non-blocking DRM atomic commit, which runs
-> in an atomic context. Calling usleep_range() here might violate atomic
-> context rules and lead to scheduling-while-atomic warnings.
-
-atomic_enable runs from the commit tail worker, which is process
-context; sleeping is allowed.
-
-> [ ... ]
->
-> > @@ -145,13 +145,13 @@ static void spacemit_crtc_atomic_disable(struct drm_crtc *crtc,
-> >  	 * must finish its status reads before dpu_pm_suspend() gates the
-> >  	 * clocks.
-> >  	 */
-> >  	if (a_crtc->irq_online > 0)
-> >  		synchronize_irq(a_crtc->irq_online);
->
-> [Severity: High]
-> Can synchronize_irq() safely execute here? This callback runs in an atomic
-> context, but synchronize_irq() blocks waiting for executing handlers.
-
-atomic_disable also runs in the commit tail (process context);
-synchronize_irq() is legal there.
-
-> [Severity: High]
-> Does this code leave a race window before the flags are updated? An interrupt
-> could fire immediately after synchronize_irq() returns but before clocks_on
-> is toggled to false, leading the ISR to access MMIO while dpu_pm_suspend()
-> is shutting down the clocks.
-
-The DPU cannot raise its interrupt while its own clocks are off, so
-the window is not exploitable; still, will move the flag update
-after dpu_pm_resume() in v2.
-
-> >
-> >  	/*
-> >  	 * Nothing else cancels the watchdog; it would fire against freed state.
-> >  	 */
-> >  	timer_delete_sync(&a_crtc->cfg_rdy_timer);
-> >
-> >  	/* Close the ISR's MMIO gate before the clocks actually stop. */
-> >  	a_crtc->clocks_on = false;
-> >  	dpu_pm_suspend(a_crtc->dev);
->
-> [Severity: High]
-> Does dpu_pm_suspend() sleep in this atomic context? It calls usleep_range()
-> which could trigger kernel warnings and deadlocks when reached via
-> spacemit_crtc_atomic_disable().
-
-Process context, as above.
-
-> >
-> >  	spin_lock_irq(&drm->event_lock);
-> >  	if (crtc->state->event) {
-> >  		drm_crtc_send_vblank_event(crtc, crtc->state->event);
-> >  		crtc->state->event = NULL;
-> >  	}
-> >  	spin_unlock_irq(&drm->event_lock);
->
-> [Severity: High]
-> Is it safe to use unconditional spin_unlock_irq() here? Since this callback
-> executes in an atomic context (e.g. from drm_atomic_helper_commit_tail),
-> unconditionally re-enabling interrupts breaks the caller's atomic assumptions.
-> Should this use spin_lock_irqsave() and spin_unlock_irqrestore() instead?
-
-The callback is not entered with interrupts disabled (commit tail);
-the event_lock pattern here matches the drm helpers' own usage.
-
-> [ ... ]
->
-> > @@ -231,6 +231,5 @@ static struct drm_crtc_state *
-> >  	__drm_atomic_helper_crtc_duplicate_state(crtc, &state->base);
-> >
-> >  	n_rdma = hwdev->rdma_nums;
-> >  	state->rdmas = kzalloc_objs(*state->rdmas, n_rdma);
-> >  	if (!state->rdmas) {
-> >  		kfree(state);
-> >  		return NULL;
-> >  	}
+> > +static void spacemit_drm_atomic_commit_tail(struct drm_atomic_commit *old_state)
+> > +{
+> > +	struct drm_device *dev = old_state->dev;
+> > +
+> > +	drm_atomic_helper_commit_modeset_disables(dev, old_state);
+> > +
+> > +	drm_atomic_helper_commit_modeset_enables(dev, old_state);
+> > +
+> > +	drm_atomic_helper_commit_planes(dev, old_state,
+> > +					DRM_PLANE_COMMIT_ACTIVE_ONLY);
+> > +
+> > +	drm_atomic_helper_wait_for_flip_done(dev, old_state);
+> > +
+> > +	drm_atomic_helper_commit_hw_done(old_state);
 >
 > [Severity: Medium]
-> Does this error path leak DRM property blob references?
-> __drm_atomic_helper_crtc_duplicate_state() increments references on blobs
-> like mode_blob, ctm, and gamma_lut. Returning NULL here without releasing
-> them could leak those references.
+> Does calling drm_atomic_helper_wait_for_flip_done() before
+> drm_atomic_helper_commit_hw_done() stall the commit pipeline?
 
-Real; will fix in v2 with __drm_atomic_helper_crtc_destroy_state()
-on that error path.
+Deliberate: the cmdlist engine reads the old state's DMA buffers
+until the frame boundary, so the next commit must not start
+programming (nor the old buffers be freed) before the flip
+completes. Will add a comment in v2 saying so.
 
+> By waiting for the flip completion before signaling hardware done, the CPU work
+> for the next frame (such as state preparation and buffer pinning) is blocked
+> until the hardware flip completes.
+>
+> Should commit_hw_done() be called before wait_for_flip_done() to avoid
+> degrading atomic commit performance?
+>
+> > +
+> > +	drm_atomic_helper_cleanup_planes(dev, old_state);
+> > +}
+>
 > [ ... ]
 >
-> > @@ -418,6 +418,5 @@ static irqreturn_t spacemit_dpu_isr(int irq, void *data)
-> >  	/* Reading a clock-gated DPU's status registers stalls the bus. */
-> >  	if (unlikely(!a_crtc->clocks_on)) {
-> >  		drm_dev_exit(idx);
-> >  		return IRQ_NONE;
-> >  	}
+> > +int spacemit_drm_of_component_probe(struct device *dev)
+> > +{
+> > +	struct device_node *ports, *port, *ep;
+> > +	struct device_node *remote;
+> > +	struct component_match *match = NULL;
+>
+> [ ... ]
+>
+> > +	for_each_child_of_node(ports, port) {
+> > +		if (!of_node_name_eq(port, "port"))
+> > +			continue;
+> > +		for_each_child_of_node(port, ep) {
+> > +			if (!of_node_name_eq(ep, "endpoint"))
+> > +				continue;
+> > +			remote = of_graph_get_remote_port_parent(ep);
+> > +			if (!remote)
+> > +				continue;
+> > +			if (of_device_is_available(remote))
+> > +				drm_of_component_match_add(dev, &match,
+> > +							   compare_of, remote);
+> > +			of_node_put(remote);
+> > +		}
+> > +	}
+> > +	of_node_put(ports);
+> > +
+> > +	if (!match) {
+> > +		dev_err(dev, "no downstream component available\n");
+> > +		return -ENODEV;
+> > +	}
+> > +
+> > +	return component_master_add_with_match(dev, &spacemit_drm_master_ops,
+> > +					       match);
 >
 > [Severity: High]
-> Does this code cause an IRQ storm? By returning IRQ_NONE without clearing
-> the hardware interrupt status when clocks_on is false, the interrupt
-> controller might continuously re-trigger the ISR if the bootloader left the
-> interrupt asserted.
+> Can match be an ERR_PTR here instead of just NULL?
 
-Only reachable in the unbind window where the line is being torn
-down; otherwise the ISR acks all status it observes.
-
-> [ ... ]
->
-> > @@ -496,6 +496,5 @@ static int spacemit_drm_master_bind(struct device *dev)
-> >  	}
-> >
-> >  	kms = devm_drm_dev_alloc(dev, &spacemit_drm_drv,
-> >  				 struct spacemit_kms, drm);
-> >  	if (IS_ERR(kms))
->
-> [Severity: High]
-> Will this leak the DRM device on rebind? devm_drm_dev_alloc ties the
-> allocation lifetime to the platform device's probe/remove cycle. If the
-> component unbinds and rebinds, new DRM devices are allocated but the old
-> ones are never freed.
-
-A known trade-off of devm on the component master: the device is
-unregistered at unbind and the memory is bounded by the platform
-device lifetime.
-
-> [ ... ]
->
-> > @@ -573,6 +573,5 @@ static int spacemit_drm_master_bind(struct device *dev)
-> >  	drm_mode_config_reset(drm);
-> >  	drmm_kms_helper_poll_init(drm);
-> >  	drm_helper_hpd_irq_event(drm);
-> >
-> >  	enable_irq(priv->irq_online);
->
-> [Severity: High]
-> Is it safe to enable the IRQ before the hardware state is fully initialized?
-> If the bootloader left the display hardware active, the ISR might fire
-> immediately while a_crtc->clocks_on is still false, leading to the IRQ storm
-> mentioned above.
-
-The ISR is gated on clocks_on and drm_dev_enter, and every board
-cycle boots through this path; no storm has been observed.
-
-> [ ... ]
->
-> > @@ -594,6 +594,5 @@ static void spacemit_drm_master_unbind(struct device *dev)
-> >
-> >  	disable_irq(priv->irq_online);
-> >
-> >  	drm_dev_unregister(drm);
-> >  	drm_atomic_helper_shutdown(drm);
-> >  	component_unbind_all(dev, drm);
->
-> [Severity: High]
-> Will calling drm_atomic_helper_shutdown() hang if the IRQ is already
-> disabled? The shutdown helper flushes pending atomic commits and disables
-> CRTCs, which requires the hardware vblank interrupt to signal completion.
-> Without it, the commit wait could time out.
-
-Confirmed on hardware: the fbdev-restore commit arms the CFG_RDY
-handshake after the line is dead, and every unload rode two watchdog
-timeouts. Will reorder in v2: unregister and shutdown before
-disable_irq().
-
-> > diff --git a/drivers/gpu/drm/spacemit/spacemit_planes.c b/drivers/gpu/drm/spacemit/spacemit_planes.c
-> > new file mode 100644
-> > index 0000000000000..3442013b0c37f
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/spacemit/spacemit_planes.c
->
-> [ ... ]
->
-> > @@ -98,6 +98,5 @@ static int spacemit_plane_atomic_check(struct drm_plane *plane,
-> >  	if (src_w == 0 && src_h == 0)
-> >  		cur_rdma_id = RDMA_INVALID_ID;	/* constant-fill layer, no RDMA */
-> >  	else if (cur_rdma_id == RDMA_INVALID_ID)
-> >  		cur_rdma_id = state->zpos;	/* first commit: bind channel by zpos */
-> >  	cur_state->rdma_id = cur_rdma_id;
->
-> [Severity: High]
-> Does this code assign RDMA channels based on unvalidated zpos? Userspace
-> could submit a configuration with duplicate zpos values across multiple
-> planes, resulting in channel collisions where planes overwrite each other's
-> hardware registers during spacemit_plane_atomic_update().
-
-There is a single primary plane per CRTC, so no collision is
-possible; rdma_id is also bounds-checked in atomic_check.
-
-> [ ... ]
->
-> > @@ -193,7 +193,6 @@ static void spacemit_plane_reset(struct drm_plane *plane)
-> >  	if (plane->state) {
-> >  		s = to_spacemit_plane_state(plane->state);
-> >  		__drm_atomic_helper_plane_destroy_state(plane->state);
-> >  		kfree(s);
-> >  		plane->state = NULL;
-> >  	}
->
-> [Severity: High]
-> Does freeing the state directly bypass the driver's custom destructor?
-> Calling kfree(s) directly in spacemit_plane_reset() skips
-> spacemit_plane_atomic_destroy_state(), which means the DMA coherent buffers
-> for mmu_tbl.va and cl.va could be permanently leaked when a plane is reset.
-
-Real; will route .reset through the custom destroy in v2, the same
-way the CRTC side already does.
-
-> [ ... ]
->
-> > @@ -211,6 +211,5 @@ static struct drm_plane_state *
-> >  spacemit_plane_atomic_duplicate_state(struct drm_plane *plane)
-> >  {
-> >  	struct spacemit_plane_state *s;
-> >  	struct spacemit_plane_state *old_state =
-> >  			to_spacemit_plane_state(plane->state);
-> >  	struct spacemit_crtc *a_crtc = NULL;
->
-> [Severity: Medium]
-> Will this crash if plane->state is NULL? The to_spacemit_plane_state()
-> macro uses container_of, which will produce a negative pointer if
-> plane->state is NULL. Dereferencing old_state->rdma_id later would trigger
-> a fault.
-
-The core only calls duplicate_state with an existing state; this is
-the same contract the helpers themselves rely on.
+Real; will add the IS_ERR() check in v2.
 
 Cody
