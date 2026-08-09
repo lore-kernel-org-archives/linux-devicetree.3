@@ -1,85 +1,160 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E06383C95;
-	Sun,  9 Aug 2026 17:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89693AFCEA
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 17:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786297507; cv=none; b=f5v4K12R1dQU3vwTjTXOOnjtazbdPwI4Ue7q6M44/O0RJ3zJpR5JK8R7gTtXpJipsQNp0FYxB9mccuIqwiUiJcQfwum8EGePubde/MHIRdE9GODzsPQC6DuPsD51xdcDGuEcaDsxGJQuWQHrKwkpZLcg+2121b9Pt0ZYaeDbFmg=
+	t=1786297756; cv=none; b=fXWAoDJ7xTcuYp7omRKVEEuwkEsTJZpdI3EmlA/D/s48H4G2x+n2SMPVJ+y/q1JOchKjyfbwbYJ6DrzuLWJRANHda/Cf9Xiv76lCS5vIQkTqCASVuD499FCri9D3O8ClvBi+JUT9EI0CC0RCa3B02NEtb1Ol2ixlk3xGg/iLlHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786297507; c=relaxed/simple;
-	bh=1ZDTtViuZZo9p3Px3qbbEDk5yZ19M7yzr95nTJZTqG8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hYzFT1P8+Y1sf3qKL2jSI1r8p4eV23X2jFCrF3qiAV1lYsql++h2y16vySp6ThM9RFr1yFXBMa6Grer2WSM8oR/u0ztvEYcJDUODtSy4FSWACcjrBo92LRVbpSUAJxV1097stldYjY1uYlU8YKJfSkCC2L0/+dxFxMl2oFXM3h0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=C3nZo2n6; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1786297756; c=relaxed/simple;
+	bh=7w0MFFt84NmGn5F/FgWQ8MrDCIUeFBBGwRpERkkx5xk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MNTdI1iV12r8p8WIKVFellzbfZ/H7lTs3zlWvrAB35/d8gxpSNw6/zpW8aGha73pKiPDWi6gAciBSxY0sr3eRg2dvzItz1NlpTYQhB2O1HWWfeduw1UOyIK9NWhapdvsWGElGNpUXnhXRkdKoDE0zsvg/r6Jp4hcm3gZaCWHY2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWX6wohs; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="C3nZo2n6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=eg7DRK6dMUJej+ht+LW9yIFJ4JaBecaPx8FR8PWTaeA=; b=C3nZo2n62+uKCCnCUZs/k/kw1Q
-	/sKvWP5860UuBFknFOYWHzw0S8560ib2H1PAO/rV+/icA9W6bfCBdg+GBsdBvZ7/qUUr1//nnO5D3
-	XJJXKG4aCO4sAfaMjs+jZR/v9dvTUDAoXvevblCehV4mZjObRmrKqIn1YQyKrxZNnJlc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1wt7Zv-00Gq0k-SA; Sun, 09 Aug 2026 19:44:55 +0200
-Date: Sun, 9 Aug 2026 19:44:55 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net-next v11 00/12] net: pcs: Introduce support for
- fwnode PCS
-Message-ID: <4c595c15-17d9-4c23-bb44-344c48d36e9a@lunn.ch>
-References: <20260807131301.192060-1-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWX6wohs"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-381c51fde6bso1300595a91.2
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 10:49:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786297754; x=1786902554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RIKS9VjKOlpGWAuKOmHa0uAoIuM+Lm6GbejliVNCX/c=;
+        b=BWX6wohs6c1VGRvwnnJWGldaxT9y4vRw6/Ay+PnEsGdQvHy7p64BAAeelp1SMJpShK
+         IQdAKsmkdzV5S3OZ9yxVr2BmKO77u/KJuavBfE62za8zLKF3dIGc0k0E0SSRhlLXpPcW
+         VByIQyklM2TmN6ubwDNwZiY/vnOTDFy8fqVq8XwPBbUZXxW9DJMfEiPBKpymCYmPDiVx
+         haLKU5B/1+CU7bzfO8DrsgwAP9jskwD8OeELmtuJuQjGqSWntjw2D7XikLAF4kPf0psN
+         vV4SXZ5DmjiXz5v9IfoxE4TSQYVwN6GGl5nMM6W6gfHI3RyVn9a2Q4cIO8iXkLKb+oJr
+         lFtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786297754; x=1786902554;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RIKS9VjKOlpGWAuKOmHa0uAoIuM+Lm6GbejliVNCX/c=;
+        b=ksDtPwiO0X94bekABt6KdTGH5jZLvptAmX7mOq+mPzbvj1oHwygr/YfZNULPlbjKEr
+         b5J5m6hzCJLAPaQqG3qS9StPuwA+DPPW74+l5TWa/PKYuUbKEUx37xHQg1ZrO2sA6f5Q
+         VcDGuLatJCBshgnslO+g+833wQ3D2jqUjNn4bUbp27Vc8SXvpwVhmgEnXUuedvcauyV8
+         6U11eon9d632Jj0cYDTTCRa55h+9NZdUdFXu9OHwQHqmi1Iic91o8FueG+qGwvKh86Mm
+         Z2f1JnADgEWDkdzFUDqkMsozR1V/+aaWIp3RxmC4KQhBOVhzuWLbLs8FdxWoblwSgWfG
+         9gPQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rpo3YJxBdKfX8fPPDpSUx9Z5G+/qHM8XnMbcNYQTS0XF3owo8Oimd9ABPBvouBxLF91DZls2lAgSxLC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz9RibTcFBx2knaFBy3RlBGgM8tLzxRoQmLSGlvkqqnCPsfGHvW
+	tKyqYD3BTUsYAOuN3dL1kFv6s3fG1tUd/fboSPwrjjDjj/NbAQOAeHNv
+X-Gm-Gg: AR+sD11mO9F3BSFqWY3BCaHO19MzNiIBpyovha54AjcyFdsgs9aw8NJU7W4RwazxFgR
+	gRNPpuoF5uTt07JYT8yFswE/CaavGT/oibdrFU3wv+uYqEmneKF2/oCl2Jr+g9fRg6FkRuvs14F
+	YUvRmq+i3YaYB9BLcOX4rjRzbPHli2Sf2SLYAZDxTlEJISJcn4k5vNacGf+FKdGOUpYDIMNcAEk
+	PAU3LXARWBsMYZf27gcU9IdjDi6Q7Yss7lk1hPAE5WhlfxH7FIJ89Vvsk+NhwkooWd4OPuHqHKU
+	a4CYnleF50wJGRixL8nVpC5fgcytm7gRUq2J7t+TKMSsXqOD5pxdFSEwF0YTw3BI5LA0/r7NZ5e
+	fTytAPDk4u4CqyrYDRubjX95ZTiPe3A2o2WhaI0E3SADX1QXmDPBcTDMONv78LzHR1m8HSUv3ml
+	ohL9BbZzU78XXlAXUCxAgmwAXrdDwXaLolmwxUBsU1++n/t7CCJLGtBfy8dC9Qp844P7u3dDo3B
+	8ts0oxOsyjcLay+hTdtyrs0+ov/hCJCHs9bxGvr06h466Oy
+X-Received: by 2002:a17:90b:2585:b0:38f:57f3:4dc6 with SMTP id 98e67ed59e1d1-39282579c06mr14693252a91.21.1786297753881;
+        Sun, 09 Aug 2026 10:49:13 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-390b136c67bsm4534781a91.0.2026.08.09.10.49.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 09 Aug 2026 10:49:13 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <0e4dfe8b-af67-4dcf-92fc-cd564d7c3744@roeck-us.net>
+Date: Sun, 9 Aug 2026 10:49:11 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807131301.192060-1-ansuelsmth@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/8] arm: dts: mediatek: mt6589: Enable toprgu reset
+ controller
+To: Akari Tsuyukusa <akkun11.open@gmail.com>,
+ Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260809160643.33991-1-l.scorcia@gmail.com>
+ <20260809160643.33991-4-l.scorcia@gmail.com> <aniv5B4jz07mI70D@buffalo-ssd>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <aniv5B4jz07mI70D@buffalo-ssd>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Aug 07, 2026 at 03:12:42PM +0200, Christian Marangi wrote:
-> This series introduce a most awaited feature that is correctly
-> provide PCS with fwnode without having to use specific export symbol
-> and additional handling of PCS in phylink.
+On 8/9/26 10:04, Akari Tsuyukusa wrote:
+> On Sun, Aug 09, 2026 at 06:03:27PM +0200, Luca Leonardo Scorcia wrote:
+>> Enable the toprgu reset controller feature for the mt6589 SoC. This
+>> allows generating reset signals for the 12 subsystems managed by its
+>> top reset generation unit.
+>>
+>> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+>> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+>> ---
+>>   arch/arm/boot/dts/mediatek/mt6589.dtsi | 2 ++
+>>   1 file changed, 2 insertions(+)
+> 
+> I provided "Acked-by", not "Signed-off-by"...
+> https://lore.kernel.org/linux-mediatek/amEBgRmQktZ44jc1@buffalo-ssd/
+> 
+> PS: I am also fine with this patch carrying my Signed-off-by.
+> Signed-off-by: Akari Tsuyukusa <akkun11.open@gmail.com>
+> 
 
-One of Russells complaints was the phylink has too many bits of code
-for ideas which did not work out and were replaced by new ways of
-doing things.
+That is completely inappropriate and unacceptable. You are not in the
+Sign-off chain.
 
-We want .mac_select_pcs to go away, this framework should replace it.
-Please could you convert one of the exist users of .mac_select_pcs, so
-we get an idea of what that involved. If that conversion is pretty
-mechanical, i think we should have a second patchset which converts
-all the current users, and then remove support for .mac_select_pcs.
+Guenter
 
-Overall i think the direction of this patchset is good.
-
-   Andrew
