@@ -1,253 +1,249 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B2F17C203
-	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:30:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A01D531
+	for <devicetree@vger.kernel.org>; Sun,  9 Aug 2026 12:30:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786278615; cv=none; b=nRk6I4uQJzUbqSUjK5FR8+uBMMvateTg4mYlPO9VYIfWy1CK1hPG832n+XM/wuSLd6FNSEW7iVTIm32pgsVuk08BYrYILKWqncU4V3jcCIleg+7oN7082IAByTIG3vziIhxYtnUvIbcpHda8mWruTdSXHsrgUllAPEzYHSK2L3E=
+	t=1786278618; cv=none; b=F+swqsvghhOEBnqMKXaB8EsBM2if9dZ9iWcWr109c5CTZBi1pXoj//D4XVPmy3L1u12Q6uyNuen5NpOHerNPMMgoKmoZESC5zYw1roYkm3E884FrrqJEG1s6WgcfzrqBGmm82if48UMFzfCB5D9lq4raX/1VVLsr+8V1DjxhRgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786278615; c=relaxed/simple;
-	bh=fparAUPVgY15koQbrbOK3QvDtxDS/6ljbMVpkxL61aI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hWQ7OIxxSu1XLN2r63tx3mcuNDCef0j/HUvlILL0pyj9Iqzkv48n+ew2bkOUsI+df2lFbPUP8MNUdunge10nSCYhCpEAto2gO+hdVvWzKV6dTBQRLf2ood0IiPZJoQkuqE54xSAx83bLxMmHRTTSjw7HHCkgSET4Q/+es859Ioc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FXwxC4BY; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gInPwgVd; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1786278618; c=relaxed/simple;
+	bh=8e68S3J41m5lUfAd9CmgbUyj3eqYXTOESXQP5hoz9rA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XCHIIdxIPnVoUs5eYAPcMYhVJ7+uOrISzsS3X96z+M1vUFvAQ9GqxCgaqAp2LqcLP6HszOGB6GSk5FSbf7NHjwjAOeWwhRtDiQl4vHxHDlyHRlVhPL10eTq+HPEnVqEoyBOdcgWab7V/4eEhrMCc2uRGO8Q0Kpew701tpwQNvFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ddV6mCSH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YTFZl8+D; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FXwxC4BY";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gInPwgVd"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 679C1nQP2675730
-	for <devicetree@vger.kernel.org>; Sun, 9 Aug 2026 12:30:11 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ddV6mCSH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YTFZl8+D"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 679C1mk42687329
+	for <devicetree@vger.kernel.org>; Sun, 9 Aug 2026 12:30:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2TmHvT4/YjSs5WfHLh5rtkoe8HudFYI8hschW+/Yne8=; b=FXwxC4BYLb7qIUnR
-	wnSlNhFlxc2eVCTFwt8KCMGDApw2x97PAnH0poGn3uQbYH94ZX1r8ZR6K+NWSozO
-	Fw5BDpknOkLc4X0pK8AWS1Do7zeCRF//b29BgiqvFmiacpYeB6LknyiF09YQcXyJ
-	4SlP6akXT7iU6T9dHW/vR/zJXB0J7opeKl/ncJopf9BhcuyRoVm6dt2JAjzC7hYj
-	ajPUV08dgxRoUdKifilHohgXdafZQ20NlMk+SEi4zMl6ID9zNK583cuGS1KxC+TP
-	1jQxnorxeZ5VwKJwAg+NL/LFvNbr+RXb3ZIECh8nAQNktSOC1OtwzzUJr/fBGmUa
-	Z9VmOQ==
+	M96SxvkGRMZ7Xi+w8uZL4LF/+V8cVooMvtAQ+Mr6Kmc=; b=ddV6mCSHSOcffW6T
+	m5Ed7YDpGFWNnJy99+8Jpr0kB7y8ALNHQGh6K/pib36Hu7tNvXh7xL1/2218mJDW
+	KCEr6Axox9jOvKVVovRtvhviMXsUSlrx5Xthe4L6IJgey9WoLL5dfpuzvCvcitT3
+	AdAuEpGItMKspv/SSsbUWIR59InHHdgZSFLeED0mK669rNmR0hIx2oGF6l3gtUlF
+	koWCD3wJZJZBQncrDgN6kSZn2UQqciQS9+c7Ih8knpGFsJWzEaD+XHcDP94gLgOp
+	wxgfVBu5vXOK/rKCbVih6qEH/NQ8MjeNLd+cis6uRCYya1gxahYgFcbPXGLCSUeH
+	/Q0EZg==
 Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwvhvatvb-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fwstp34rn-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 12:30:11 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-caf5fa127d4so1933086a12.0
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 05:30:11 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 12:30:15 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb5cc1e139bso708112a12.3
+        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 05:30:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786278611; x=1786883411; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2TmHvT4/YjSs5WfHLh5rtkoe8HudFYI8hschW+/Yne8=;
-        b=gInPwgVd1oX5DrCYemhX+1Wl4LqB+19xk3MNzn3a7ZpN/PGAkDFhQ799sRsFGCf+Ka
-         W2gSAw9HzcGgyCMALQYk93jQQQP1TTPzDPdPTnmQ/jIN1rvji9ewtGETY46A/SYrGUQP
-         LazX8e6+MIDNE8kX2CHPq3ycmoLRoP4O8gETBIJgTonYNTKzoL6gCC51ttXSSYNAd+jD
-         Pc1phP4VCAMctIy6EVaIrUTm+3IovzdMPkLAn3w+oGW0mzjI4MjGDEBLo8/huPp4Lv1P
-         D43yEGv5WDcK1FaATbz7D1HZ06mMNX9VNd7yg9pCwgVq1hICdugm9leQ98REAF+D7w4p
-         OYFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786278611; x=1786883411;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1786278615; x=1786883415; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2TmHvT4/YjSs5WfHLh5rtkoe8HudFYI8hschW+/Yne8=;
-        b=niur4mlpsmgiNt1xidl32oZav/HgbmUiLTFsSEFkPxZdU/7z0iZb88GcV3SFZMBShe
-         f4OrCVXkz7u0790LUlGL32HZrTiMPokHuk2WlMrYOfGL+Z6h2PGTxpJniuIM4or06XMc
-         Akgf58m9fU6wz+PytVS5oP9gFUdRWZ3D+t1vDQ+NV2rPljPIFhpqoP8hoEn2tECEI9MR
-         HCgwVSwp+NEW7UZb3eERTz40QJ31vcGD/IMs/v7n5V79LyQoaWnOUof/4pSKKCGZQLMZ
-         Q10HIw/X8McnILttK4COdq2pzv/srhkJhhMdZi+3YSIydF6BpvYEIKGdJH4QBAGq8Dkm
-         aVmA==
-X-Forwarded-Encrypted: i=1; AHgh+RrNbD+yM3ZnFmB6GllgW+qO2uf0nrS+ZlHtlcx3ojNaIxtjE/7/Rtp5I3RXmHZ/wrq8E8sEYMXTRa3K@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeCX/MZBd7buUawT2ajOr+zsXYamUaiUdAA1u2StoXXrt3o3iZ
-	nT54pZ7SDca5l9KVjaTcpWVRZHpo1nLaoazRvqucNOiknqtfgKaShWSdEmfqJaExVreNBGkbgxS
-	TH4TLz5xYysYapBLhZvgEIKnFhdBtZhTB/YcUBQieM+XI3QHzp0vNRkQ9rs4IwS0G
-X-Gm-Gg: AR+sD13bGcuYmsdp4DN9wCG2ssTi/qpbAPZ3Nwyu6k3O4qa3NzV11Xoxu6TvdxJF/Dm
-	/84qn82Xrv5Qw3YsotLIPJ0HaWIoFWIYSt6hbRR9kEyr6HYPRMyunUD19O0+VWI8DRN5w2m0vDP
-	RjRUunS6VkMP7amR1yn6mt2SscinuY4LR9YxwTKmGIT4J+aqUmBb0AUlmYA+4lqWdVHreTA88RW
-	TnN2O2N198L4vFiZUbL5vzplxyvhzqOMBNjEKhDfZSuEXkBAoRyfHik6RAuvbIeOrv78dylXh5H
-	oSeYLhsNKm7XRjBPBHCmXymg3O2OYI/MiY1lgkN/ADd7PCQAkfvPGEVdY1glz1qYyDOmMNoEMcw
-	9xUv3HDfEFPLwiYT9m3JRhSfPYbLbh30vu94=
-X-Received: by 2002:a05:6a21:d82:b0:3c8:e10b:7a9b with SMTP id adf61e73a8af0-3cbc01f98bdmr19711493637.16.1786278610620;
-        Sun, 09 Aug 2026 05:30:10 -0700 (PDT)
-X-Received: by 2002:a05:6a21:d82:b0:3c8:e10b:7a9b with SMTP id adf61e73a8af0-3cbc01f98bdmr19711427637.16.1786278610085;
-        Sun, 09 Aug 2026 05:30:10 -0700 (PDT)
-Received: from [192.168.0.100] ([49.204.17.188])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb88413sm51846913eec.18.2026.08.09.05.30.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 09 Aug 2026 05:30:09 -0700 (PDT)
-Message-ID: <6701348b-e748-4730-97b4-5de68b73e806@oss.qualcomm.com>
-Date: Sun, 9 Aug 2026 18:00:06 +0530
+        bh=M96SxvkGRMZ7Xi+w8uZL4LF/+V8cVooMvtAQ+Mr6Kmc=;
+        b=YTFZl8+DzX23w/FHd5ndchWe1HC/gxJDOzMPA3uCr8xCWef06Lt2gMpx3VL0YyeOwR
+         ZkpQ6w2Lil+dU6/S8kZsYzN/xg4U+A/O0RnEPegZHw6+zJnZRQYRQXCJXOOr/bhdg5z4
+         7d2DVbNLKB09Ocq7vo578qgvLcsQFxxf/LiijV3zJjp2+9GQIxvPLu1UhiMN7hA8Nh1h
+         7eZLaCFneZTdiDM6Z3LEKgXpm4DA2qOlcKecA6F76mp9kbGFGaHlb1g9fN/yGwbxWxRF
+         DKlO1/fPo8x18ku/EKjUHBe4d5wd52DjRgg4Un4tdgOBjrmKFshWYbiDRsXt5hai2rfR
+         CSEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786278615; x=1786883415;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M96SxvkGRMZ7Xi+w8uZL4LF/+V8cVooMvtAQ+Mr6Kmc=;
+        b=DEB0Y9XK9h/WiWtnnoPGmIHa7voBDSgOFCWDnkDNGnp0Bl9p5sCBvGCpxV9cCiom9J
+         DxXwi/xTNCQ7T9WeuU2OTLHspoEmSKI3KS/ZiUmiMTAsWldJZSaaV5OrP1JBiOQbZ1zt
+         T/tG9Gonw8KUzgOYzsc57TCxROk6w6TNzuj+j9reN/iJhkPZKQ00imEYSVlGn5fYQZQm
+         Rg8VRwnz09XX/XaY5e7X9yWYscj9lA8qWyMi8driKmb5x/xhPtdtg6KX74qwb5UW5uM1
+         zUthDL+X8nFKEJhgrVwcg5wrvxvvOOH/OjsJHjeZfw2Za2xZOZ4/ThPYwfhfbgTzHdpd
+         3tXw==
+X-Forwarded-Encrypted: i=1; AHgh+RpO/kT7ucYVtTEI8LKscjoFtWFUmBgS+Lcj9nXkm9Fx9Ab3Qyjif1zTtipZU6hXA/4zCJ81PK6l629X@vger.kernel.org
+X-Gm-Message-State: AOJu0YzyWhiZA3E1MQ3RXeydcPoAICw16KY7uJ+v762LnHIJH4ss6Hjg
+	YPad5x96lo4F/Qp+R0nUEMxkplmWbUhq6caoThfKUoeUg1FKVAnvXVGcsctuWEzbRr+A36gsB5R
+	Zuy6V5yKxAu96qj7odn6XHd/YLAHoZtm9+qQwvhwugm6OiL3NP+VvbU5oref1CVeo
+X-Gm-Gg: AR+sD10Ban1/T/OrZY8OUhc/ZlyXdjTIPxEB33AASjuOOLACESHfW7k8i0Ny+z7e8FU
+	jNdT4r4C96ekMaKwaazLFgaUuuyEtKN0aahv00/WcNbr7H0CNkmXP5RSCPy9CyrMG+4fFgowPg+
+	sNmdY9byYweyTITfflxs8yG+3qqz3KqO4AVBSxRxihN2vBYE/UAQB9XU21/B/EWSL/zqfsw9KV6
+	rWJo3VCdzUhV5O6TKWdGmQEj4fvehi8VaDx2e/tqJM71LNWHmYPePKwoutuCja0X87z3P6gVaAS
+	MAhVxboJjIrfX4oOkaqWMmKyR8Brbomv/Iu/de3h5P6XhqjLv27ubMMrXIeLCNY5XVbBFhl+bEK
+	nSvez65jTsTVwCuZP+SJZH87zvR2yHg==
+X-Received: by 2002:a05:6a20:9e0e:b0:3c3:66c5:68cc with SMTP id adf61e73a8af0-3cb85efa4f9mr45271766637.21.1786278614296;
+        Sun, 09 Aug 2026 05:30:14 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9e0e:b0:3c3:66c5:68cc with SMTP id adf61e73a8af0-3cb85efa4f9mr45271684637.21.1786278613859;
+        Sun, 09 Aug 2026 05:30:13 -0700 (PDT)
+Received: from hu-gkohli-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb88413sm51842997eec.18.2026.08.09.05.30.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 09 Aug 2026 05:30:12 -0700 (PDT)
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Date: Sun, 09 Aug 2026 17:58:57 +0530
+Subject: [PATCH v8 1/9] dt-bindings: remoteproc: qcom,pas: add
+ #cooling-cells property
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/5] ASoC: qcom: qdsp6: Zero-initialize AudioReach
- module config
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260808181948.2489187-1-prasad.kumpatla@oss.qualcomm.com>
- <20260808181948.2489187-4-prasad.kumpatla@oss.qualcomm.com>
- <20260808184625.43C691F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-In-Reply-To: <20260808184625.43C691F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=eqbvCIpX c=1 sm=1 tr=0 ts=6a7872d3 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=/JTPBhwEQko7YaD0RKblyA==:17
+Message-Id: <20260809-b4-qmi-tmd-v8-1-b15d47adc379@oss.qualcomm.com>
+References: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
+In-Reply-To: <20260809-b4-qmi-tmd-v8-0-b15d47adc379@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        cros-qcom-dts-watchers@chromium.org
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-hardening@vger.kernel.org,
+        manaf.pallikunhi@oss.qualcomm.com,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786278595; l=3411;
+ i=gaurav.kohli@oss.qualcomm.com; s=20260302; h=from:subject:message-id;
+ bh=8e68S3J41m5lUfAd9CmgbUyj3eqYXTOESXQP5hoz9rA=;
+ b=7ENeHZnytfRhz2nzQ7wQQKxQzC3cPs/ryrZ7ncdohs90F7bW6YN4n9MrFdXGLi79cGzVH6lK+
+ C/vTxRW/XkgAY1ctKHjymoKsUfYbTxh4isTo8gEutZNSIzBwqvE83Hw
+X-Developer-Key: i=gaurav.kohli@oss.qualcomm.com; a=ed25519;
+ pk=IdNsqe8rWsF6dbpGHfwPEH9zM0nbOdRH72HxUT9qPak=
+X-Proofpoint-GUID: n0y3-yHLUKUfDY8PO2qwQaXZxCyVtrrS
+X-Proofpoint-ORIG-GUID: n0y3-yHLUKUfDY8PO2qwQaXZxCyVtrrS
+X-Authority-Analysis: v=2.4 cv=CMEamxrD c=1 sm=1 tr=0 ts=6a7872d7 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=bRJxzNKN9j24h2xmGekA:9
- a=QEXdDO2ut3YA:10 a=_Vgx9l1VpLgwpw_dHYaR:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: nWmOl4ehnhvb7MXsrQY-PUHVlQqqS73D
-X-Proofpoint-GUID: nWmOl4ehnhvb7MXsrQY-PUHVlQqqS73D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDExMCBTYWx0ZWRfX3j97IecZ9w3o
- Q6EmnvN5wMpOkprVUu4A+3jUbXL1lQYEcvitB69/E3/228BnjwINpGNq0LEvKypj35PqYJsr6Wh
- VQ9Jw6c3bhrpeDoqQJW/yVSImR53RRKEBssBE4pDv+FRh2apZ6TSm5nBzel6soE/8fd2uqGBXNz
- U3ihvk5RaDBYqUvfkKGTPsjdCsSZa9q8SdslLVQTq4OaymxZ4deAWrWXQwOFFaRezCAag+3zq8z
- EF6wiX6sK3Cf+KnEU2bg9p18Y/3QHsMfp82oxyFGhCQrqYrRfyn3yiB3yBKlf8FZkrIMlfsRojG
- lSJ0ASeMANoXPg2Us3HC4jwxMEoCaeKb6Ljue+QyHMBNu0yi/dJI1uPdNFPkuP1/sy1Avs6KUcf
- U1ynYsUN0I1BeHYNLjDe1o31elHI7xWDDZx6+DxkmAcKaBSuutlr4gMlZN8Wr7GeYeGobtBPomG
- K/VcD2V1G9duQRmPmng==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDExMCBTYWx0ZWRfXyGyaLf5u/2FR
- xX8FGSN8ZD5xzI7c5jlqqmpB3/E/dI7E8FupuqhtC1KSKYSe+1faUyEvx7Yonqwr7u8p9mdATJ7
- Spno6lors4PCKpKxalcZJHK1YGX1UrY=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=T6nhelsJTOTiISQcNXMA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDExMCBTYWx0ZWRfX2bUhrLWvr6S4
+ DaFj9XA8p8BFn1AdWnyvaBCwxTiBvwWnHgxkmZxEwO23J+wIlI3RgDeM0XxoWFezLZ9zLYuAC0R
+ HbdNk3X9FB+qK09kcpgGyEssyEm7boQWziGzR4/DBJTAyAlLTKf42Q27dW1/AKIBLfvNBZ4Rsp1
+ PLGdpBEREqrRsypnio0qT2qHt3+7N30VOeSDaGUamNbSvxL0lsnl3AFX6cEgZXwu5buxxQGt/46
+ fs0ESw/W77/i30U5JmNgSs/SpWGVAPOohamgL9Y3HwdQ/3JHBgXznn2v73uUzmTeMRsEQIhPcyV
+ UHwZfocvUD+agDx68G8LW2335Sq6nnZwr2ohC3mLlUxV7ZXTvWgpDBjR4UguNxYClS1F3m0UBEW
+ PPqb/tLiBazz1pXk3rljNN7IXE093N73q7mlL3Lg3EWgAECVgWU2aP+4V/rbjCveEokIzNFJIRt
+ spEZsk3zSEoxAQ9VnvA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDExMCBTYWx0ZWRfX/bxKA6nOH1Rm
+ 8iJ43lb5LexpX6D22+u0g+Ihza+hF1SfQu0QiRIdsDKDNqSIm4//at2UKY5E5ePCfTgd5BsUszg
+ npLjZq8TWIftmhhe7OrFCIoSiqSSlO4=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-09_04,2026-08-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 spamscore=0 clxscore=1015 adultscore=0
- bulkscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608090110
+ phishscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 suspectscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608090110
 
+Document the optional #cooling-cells property for Qualcomm PAS
+remoteproc nodes so they can be used as thermal cooling devices via
+the QMI Thermal Mitigation Device (TMD) interface.
 
-On 8/9/2026 12:16 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> Pre-existing issues:
-> - [High] Memory leak of audio_buffer array when q6apm_dai_prepare fails.
-> - [High] Concurrent Use-After-Free in gpr_do_rx_callback() due to lack of synchronization with port teardown.
-> --
->
-> --- Patch [3]: [PATCH v1 3/5] ASoC: qcom: qdsp6: Zero-initialize AudioReach module config ---
-> commit f7d8f4b6351377745201f54e092ff89f2f6f845e
-> Author: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
->
-> ASoC: qcom: qdsp6: Zero-initialize AudioReach module config
->      
-> This commit updates q6apm_dai_prepare() and q6apm_dai_compr_set_params() to
-> zero-initialize the AudioReach module config structure. This ensures that
-> uninitialized stack data doesn't override topology defaults sent to the DSP.
->
-> Link: https://sashiko.dev/#/patchset/20260804070307.117119-1-prasad.kumpatla@oss.qualcomm.com
->
->> diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
->> index bf1f872a09f45..033197bdd8705 100644
->> --- a/sound/soc/qcom/qdsp6/q6apm-dai.c
->> +++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
->> @@ -216,7 +216,7 @@ static int q6apm_dai_prepare(struct snd_soc_component *component,
->>   {
->>   	struct snd_pcm_runtime *runtime = substream->runtime;
->>   	struct q6apm_dai_rtd *prtd = runtime->private_data;
->> -	struct audioreach_module_config cfg;
->> +	struct audioreach_module_config cfg = {};
-> [Severity: High]
-> This isn't a bug introduced by this patch, but while reviewing the changes
-> in q6apm_dai_prepare(), I noticed a potential memory leak on the error path.
->
-> If q6apm_alloc_fragments() succeeds, but a subsequent command like
-> q6apm_graph_media_format_pcm() fails:
->
-> sound/soc/qcom/qdsp6/q6apm-dai.c:q6apm_dai_prepare() {
->      ...
->      ret = q6apm_alloc_fragments(...);
->      if (ret < 0) {
->          ...
->      }
->
->      ret = q6apm_graph_media_format_pcm(prtd->graph, &cfg);
->      if (ret < 0) {
->          dev_err(dev, "%s: CMD Format block failed\n", __func__);
->          return ret;
->      }
->      ...
->      prtd->state = Q6APM_STREAM_RUNNING;
-> }
->
-> The function will return without setting prtd->state to Q6APM_STREAM_RUNNING.
-> Later, when the stream is closed, q6apm_dai_close() skips freeing the
-> fragments because prtd->state was never set:
->
-> sound/soc/qcom/qdsp6/q6apm-dai.c:q6apm_dai_close() {
->      ...
->      if (prtd->state) {
->          q6apm_graph_stop(prtd->graph);
->          q6apm_free_fragments(prtd->graph, substream->stream);
->      }
->
->      q6apm_graph_close(prtd->graph);
-> }
->
-> Does this leave the allocated audio buffer arrays permanently leaked?
->
-> [Severity: High]
-> This is another pre-existing issue I noticed related to closing the stream.
-> Can an unprivileged local user trigger a use-after-free by repeatedly
-> opening and closing a stream while the DSP generates events?
+Qualcomm remote processors expose TMD endpoints that support thermal
+throttling through firmware. The cooling-device specifier uses 3 cells:
 
-Hi Sashiko,
+  <&phandle device_id min_state max_state>
 
-Thanks for Reviewing.
+where device_id selects the TMD endpoint (for example PA, modem, or
+CDSP software mitigation), with constants defined in:
+include/dt-bindings/thermal/qcom,pas.h
 
-These issues are pre-existing and not introduced by this change,
-which only fixes the initialization of audioreach_module_config.
-I'd prefer to keep this patch focused and handle the error-path
-and teardown concerns separately.
+Example usage in a thermal zone:
 
-Thanks,
-Prasad
->
-> When userspace closes the stream, q6apm_graph_close() eventually invokes
-> gpr_free_port(), which frees the port immediately:
->
-> drivers/soc/qcom/apr.c:gpr_free_port() {
->      spin_lock_irqsave(&gpr->svcs_lock, flags);
->      idr_remove(&gpr->svcs_idr, port->id);
->      spin_unlock_irqrestore(&gpr->svcs_lock, flags);
->
->      kfree(port);
-> }
->
-> However, gpr_do_rx_callback() processes DSP IPC messages in a workqueue,
-> dropping the lock before dereferencing the callback:
->
-> drivers/soc/qcom/apr.c:gpr_do_rx_callback() {
->      ...
->      spin_lock_irqsave(&gpr->svcs_lock, flags);
->      svc = idr_find(&gpr->svcs_idr, hdr->dest_port);
->      spin_unlock_irqrestore(&gpr->svcs_lock, flags);
->
->      if (!svc) { ... }
->
->      if (svc->callback)
->          svc->callback(&resp, svc->priv, 0);
-> }
->
-> If the workqueue is executing concurrently, could it dereference the
-> already-freed port memory to invoke the callback since the workqueue
-> isn't flushed prior to freeing the port?
->
->>   	struct device *dev = component->dev;
->>   	struct q6apm_dai_data *pdata;
->>   	int ret;
-> [ ... ]
->
+  cooling-maps {
+      map0 {
+          trip = <&cpu_alert>;
+          cooling-device = <&remoteproc_cdsp
+                           QCOM_TMD_CDSP_SW
+                           0 THERMAL_NO_LIMIT>;
+      };
+  };
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+---
+ .../bindings/remoteproc/qcom,pas-common.yaml         |  9 +++++++++
+ MAINTAINERS                                          |  1 +
+ include/dt-bindings/thermal/qcom,pas.h               | 20 ++++++++++++++++++++
+ 3 files changed, 30 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+index 11faf655f530..f75cab6b4ed9 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,pas-common.yaml
+@@ -77,6 +77,15 @@ properties:
+       channels and devices related to the ADSP.
+     unevaluatedProperties: false
+ 
++  '#cooling-cells':
++    description: |
++      Cooling device with three cells:
++        Cell 0: Cooling device id as defined in
++                include/dt-bindings/thermal/qcom,pas.h
++        Cell 1: Minimum cooling state
++        Cell 2: Maximum cooling state
++    const: 3
++
+   glink-edge:
+     $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+     description:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index dcffe9fc54f6..3f1e2bbf7099 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3423,6 +3423,7 @@ F:	drivers/watchdog/gunyah_wdt.c
+ F:	include/dt-bindings/arm/qcom,ids.h
+ F:	include/dt-bindings/firmware/qcom,scm.h
+ F:	include/dt-bindings/soc/qcom*
++F:	include/dt-bindings/thermal/qcom,pas.h
+ F:	include/linux/firmware/qcom
+ F:	include/linux/soc/qcom/
+ F:	include/soc/qcom/
+diff --git a/include/dt-bindings/thermal/qcom,pas.h b/include/dt-bindings/thermal/qcom,pas.h
+new file mode 100644
+index 000000000000..f603bddef9a8
+--- /dev/null
++++ b/include/dt-bindings/thermal/qcom,pas.h
+@@ -0,0 +1,20 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
++/*
++ * Qualcomm PAS remoteproc cooling device indices
++ *
++ * These indices are used in device tree cooling-maps to reference
++ * specific TMD devices provided by PAS-managed remote processors via QMI.
++ *
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++#ifndef _DT_BINDINGS_THERMAL_QCOM_PAS_H
++#define _DT_BINDINGS_THERMAL_QCOM_PAS_H
++
++/* CDSP thermal mitigation device id */
++#define QCOM_TMD_CDSP_SW	0
++
++/* Modem thermal mitigation device id */
++#define QCOM_TMD_PA	0
++#define QCOM_TMD_MODEM	1
++
++#endif /* _DT_BINDINGS_THERMAL_QCOM_PAS_H */
+
+-- 
+2.34.1
+
