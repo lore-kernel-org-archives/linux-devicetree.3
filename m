@@ -1,183 +1,306 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6D936194F;
-	Mon, 10 Aug 2026 16:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528373603EE;
+	Mon, 10 Aug 2026 16:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786377882; cv=none; b=MSEGN91hpt3WGyTrg9/piYJHf/u/6C6mUqQ3jZQPZGdjla7KRGQTMuDXuzK6gU19n8xpVW+e2fOToNxOxAQmCj77zPaqAL1srWXGsqRW8LsUNh/RCcTx+xJUZHbTryf4NKNZagj7wznc7s1NEgA2Dqb29vC0B/ffsiQXAdaOp+A=
+	t=1786377908; cv=none; b=IqTEviGNxKr+Ru2t5CGnktJpWHkDssc2iJuWl4Y7R7rGQFw6OWnGumaL/dttaQ+y80poPZ7vQ3B6EzjtB+qF1O38gbYD2up/C0sxbY552PlpLSpy+pNSw+4s4UJFOXGZYM1tayExI6hyfDprKvOFPzNO1WkHWtCQ744jNef48k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786377882; c=relaxed/simple;
-	bh=8jLAUP4jz+dgc7lU8O+gk1WGdzJhOquk63hh6x9abPs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CGfO5Lvo4MD09xIWttqPTSClwd/3y7ed9FQkn7gZU+C97oD1UFJ4SNooL5IN11O+iXgWl+SeEx9UFJWWgIG5Jgtjmgj7e21k0Zw2C1Ityqa8RziBQlbDr9w9rFiMV1edeKLvK4DQqXhPFdzsPZVUpVpWE2mKPy1wUyPikWWcOZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=S4uo8qSK; arc=none smtp.client-ip=212.227.15.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1786377908; c=relaxed/simple;
+	bh=PfEHcdpAPF8cm/Vt14RaR/mhzp660oLbTPEnojaWRSE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EN9iQWEIFADWc15f6LX57SQgi2Ng8eLH0+nzbu27MUDjsKZFrlAcO4BbLOiUwMddoTjgwN+NdwnBcDpSinw1hNsabVJRwokMWw3C5/3cNjhRqJRHry9YZwsllzXyXNGS+zUJRqiPisfbXk1xROoFXLEpOjlV/K6LK3bojPxav3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KlT8GMCa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="S4uo8qSK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1786377877; x=1786982677; i=wahrenst@gmx.net;
-	bh=8jLAUP4jz+dgc7lU8O+gk1WGdzJhOquk63hh6x9abPs=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=S4uo8qSKMSReDdVtgnY/hlu+tkeCA9Oy7EW1AoWGCqkivvNf3LRdX+QJkF0iuRsG
-	 jUdR6KiyB3/Qohb5HYMTkuEeXVjqdDrnZ8gQFngKBpwD5OFXA9YAdQmFxIBmsM/cs
-	 IofGtdue/PIxgOwLm3der3RHOJIGXFvijOLqYDBCuK46aTiNtzxUbM+ULxUHiUwlI
-	 hsz9sutVM+f+g3c2e9HtazA1G03EC0dk17yzXdGfW6ZA2hwWQIoBwwxv0z+J2f6mW
-	 qRoDXjh+0WvMOEbmuD3PvMm5YNegZIt9Ti0oagodZpU+axt5KxDErvFB/LZhcXguF
-	 1yC/DWNuLT4WqcrQuQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MYeQr-1wOoYY191P-00Tk7t; Mon, 10
- Aug 2026 18:04:37 +0200
-Message-ID: <a406e17e-cd64-4167-a130-c39c7efa345f@gmx.net>
-Date: Mon, 10 Aug 2026 18:04:35 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KlT8GMCa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036CB1F000E9;
+	Mon, 10 Aug 2026 16:05:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786377907;
+	bh=aZliVbVvGETr0QEqkNRL1i42gj38xTn+l5ropz04LAk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KlT8GMCabzHf5JBAPWuurFXxmwDLGnZ+BBl2/GhGPVjWpchX36CtJI+6hYbABn7vk
+	 OoiCyW4qtNLBBtLaikWtB8jzEr8cv5Gz5o4j3HwOEXnVR59ZphEQ5lOzTwpxTi4ooc
+	 WpZtyxdMjSc4OUPaomynH5ULLd2DmZvOjUgpSobuHmbhRw0Larwa/6KzOC5X+aBGta
+	 AbD5lKLXOOl1nRk80R7WfbaCMQLhLmrCMdHbQu0RWsKNo7tXQaNjr9PoBOBSFyyewN
+	 aQm5wdNzZNZjYHhUssgRD7LSGBeCYs1KxkMTV/aLKzkny0+Cl4nL8WiFmbOhM6Q/lS
+	 36sM+uBQtL2aA==
+Date: Mon, 10 Aug 2026 17:05:01 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Chen Wang <unicorn_wang@outlook.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Keguang Zhang <keguang.zhang@gmail.com>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v4 7/8] soc: starfive: Add socinfo driver for JHB100 SoC
+Message-ID: <20260810-caress-rack-45615c8d9747@spud>
+References: <20260809015054.210577-1-changhuang.liang@starfivetech.com>
+ <20260809015054.210577-8-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
- compatible
-To: Gregor Herburger <gregor.herburger@linutronix.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260810-bcm2712-d-stepping-compatible-v4-0-73f74479539c@linutronix.de>
- <20260810-bcm2712-d-stepping-compatible-v4-2-73f74479539c@linutronix.de>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <20260810-bcm2712-d-stepping-compatible-v4-2-73f74479539c@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:crks0hCYR6L9GMilOHyN8vBM2/dFO/JlSJqHPi1fWDK/fp0nTZC
- p5DReBvyikMfg9Sz/T1xEgKFJ0PYtoNdKHc12GQzen9VMTUHmO1hU0/9MWWLQsa7C0CCKT5
- zVAt51w2or9+zKjyO/cy3Pfdfnos7v+hYe4FmI02NF7BrmLxgYUJIToouQQZj3vWagmlOCA
- n5BI10tmfZhmR7Km1SHmA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:iqhBw4SeHeA=;oeCYXrozEh3HPxGyLrPFdY18Ga3
- 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
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IY6Lbzd1L/jArdrp"
+Content-Disposition: inline
+In-Reply-To: <20260809015054.210577-8-changhuang.liang@starfivetech.com>
 
-Am 10.08.26 um 13:46 schrieb Gregor Herburger:
-> The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
-> and in a c Stepping. There are two separate dts files. The
-> bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
-> the d Stepping. The d stepping does not set its own compatible/model
-> string but uses "raspberrypi,5-model-b" through its include.
->
-> These two steppings are not compatible. Booting with the wrong dtb file
-> causes a crash at boot.
->
-> Add a compatibles string "raspberrypi,5-model-b-d0" together with a
-> "bcm2712-d0" string to allow us to distinguish between those two
-> steppings.
->
-> Fixes: 44839e2ac8ec ("arm64: dts: broadcom: Add DT for D-step version of BCM2712")
-> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+--IY6Lbzd1L/jArdrp
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, Aug 08, 2026 at 06:50:53PM -0700, Changhuang Liang wrote:
+> Add socinfo driver for JHB100 SoC. Currently available for distinguishing
+> between the two reversions, A0 and A1.
+>=20
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 > ---
-Reviewed-by: Stefan Wahren <wahrenst@gmx.net>
+>  MAINTAINERS                                   |  6 ++
+>  drivers/soc/Kconfig                           |  1 +
+>  drivers/soc/Makefile                          |  1 +
+>  drivers/soc/starfive/Kconfig                  |  6 ++
+>  drivers/soc/starfive/Makefile                 |  2 +
+>  drivers/soc/starfive/socinfo/Kconfig          | 11 +++
+>  drivers/soc/starfive/socinfo/Makefile         |  2 +
+>  drivers/soc/starfive/socinfo/jhb100-socinfo.c | 90 +++++++++++++++++++
+>  8 files changed, 119 insertions(+)
+>  create mode 100644 drivers/soc/starfive/Kconfig
+>  create mode 100644 drivers/soc/starfive/Makefile
+>  create mode 100644 drivers/soc/starfive/socinfo/Kconfig
+>  create mode 100644 drivers/soc/starfive/socinfo/Makefile
+>  create mode 100644 drivers/soc/starfive/socinfo/jhb100-socinfo.c
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index cecb4f279160..90919c672d4d 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -26040,6 +26040,7 @@ M:	Conor Dooley <conor@kernel.org>
+>  S:	Maintained
+>  T:	git https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/
+>  F:	Documentation/devicetree/bindings/soc/starfive/
+> +F:	drivers/soc/starfive/
+> =20
+>  STARFIVE STARLINK PMU DRIVER
+>  M:	Ji Sheng Teoh <jisheng.teoh@starfivetech.com>
+> @@ -26094,6 +26095,11 @@ S:	Maintained
+>  F:	drivers/reset/starfive/reset-starfive-jhb1*
+>  F:	include/dt-bindings/reset/starfive,jhb1*.h
+> =20
+> +STARFIVE JHB100 SOCINFO DRIVER
+> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +S:	Maintained
+> +F:	drivers/soc/starfive/socinfo/jhb100-socinfo.c
+> +
+>  STARFIVE JHB100 SYSCON
+>  M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+>  S:	Maintained
+> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+> index a2d65adffb80..b3b01fc38139 100644
+> --- a/drivers/soc/Kconfig
+> +++ b/drivers/soc/Kconfig
+> @@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
+>  source "drivers/soc/rockchip/Kconfig"
+>  source "drivers/soc/samsung/Kconfig"
+>  source "drivers/soc/sophgo/Kconfig"
+> +source "drivers/soc/starfive/Kconfig"
+>  source "drivers/soc/sunxi/Kconfig"
+>  source "drivers/soc/tegra/Kconfig"
+>  source "drivers/soc/ti/Kconfig"
+> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+> index c9e689080ceb..009f85ff891a 100644
+> --- a/drivers/soc/Makefile
+> +++ b/drivers/soc/Makefile
+> @@ -30,6 +30,7 @@ obj-y				+=3D renesas/
+>  obj-y				+=3D rockchip/
+>  obj-$(CONFIG_SOC_SAMSUNG)	+=3D samsung/
+>  obj-y				+=3D sophgo/
+> +obj-y				+=3D starfive/
+>  obj-y				+=3D sunxi/
+>  obj-$(CONFIG_ARCH_TEGRA)	+=3D tegra/
+>  obj-y				+=3D ti/
+> diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
+> new file mode 100644
+> index 000000000000..04b020083d3e
+> --- /dev/null
+> +++ b/drivers/soc/starfive/Kconfig
+> @@ -0,0 +1,6 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +menu "StarFive SoC (System On Chip) specific Drivers"
+> +
+> +source "drivers/soc/starfive/socinfo/Kconfig"
+> +
+> +endmenu
+> diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
+> new file mode 100644
+> index 000000000000..ca1e609b8104
+> --- /dev/null
+> +++ b/drivers/soc/starfive/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-y +=3D socinfo/
+> diff --git a/drivers/soc/starfive/socinfo/Kconfig b/drivers/soc/starfive/=
+socinfo/Kconfig
+> new file mode 100644
+> index 000000000000..92bbab62895b
+> --- /dev/null
+> +++ b/drivers/soc/starfive/socinfo/Kconfig
+> @@ -0,0 +1,11 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +config STARFIVE_JHB100_SOCINFO
+> +	bool "StarFive JHB100 SoC Information"
+> +	depends on ARCH_STARFIVE || COMPILE_TEST
+> +	select SOC_BUS
+> +	default y
+> +	help
+> +	  Include support for the SoC bus socinfo for the StarFive JHB100 SoC
+> +	  platforms to provide information about the SoC family and variant
+> +	  to user space.
+> diff --git a/drivers/soc/starfive/socinfo/Makefile b/drivers/soc/starfive=
+/socinfo/Makefile
+> new file mode 100644
+> index 000000000000..26c2bdf1de3b
+> --- /dev/null
+> +++ b/drivers/soc/starfive/socinfo/Makefile
+> @@ -0,0 +1,2 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +obj-$(CONFIG_STARFIVE_JHB100_SOCINFO)	+=3D jhb100-socinfo.o
+> diff --git a/drivers/soc/starfive/socinfo/jhb100-socinfo.c b/drivers/soc/=
+starfive/socinfo/jhb100-socinfo.c
+> new file mode 100644
+> index 000000000000..638f81ef174c
+> --- /dev/null
+> +++ b/drivers/soc/starfive/socinfo/jhb100-socinfo.c
+> @@ -0,0 +1,90 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2025 StarFive Technology Co., Ltd.
+> + *
+> + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> + */
+> +
+> +#define pr_fmt(fmt) "jhb100-socinfo: " fmt
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/init.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/of.h>
+> +#include <linux/regmap.h>
+> +#include <linux/slab.h>
+> +#include <linux/string.h>
+> +#include <linux/sys_soc.h>
+> +
+> +#define JHB100_REV_ID			0x38
+> +#define JHB100_REV_ID_CHAR		GENMASK(3, 2)
+> +#define JHB100_REV_ID_NUM		GENMASK(1, 0)
+> +
+> +static int __init starfive_socinfo_init(void)
+> +{
+> +	struct soc_device_attribute *attrs;
+> +	struct soc_device *soc_dev;
+> +	const char *machine =3D NULL;
+> +	struct device_node *np;
+> +	struct regmap *regmap;
+> +	char rev_char;
+> +	u32 rev_id;
+> +	int ret;
+> +
+> +	np =3D of_find_compatible_node(NULL, NULL, "starfive,jhb100-sys0-syscon=
+");
+
+Remind me again why this is not just probed as an mfd cell from the syscon
+driver?
+
+(Hint: please put this info in the commit message).
+
+Cheers
+Conor.
+
+> +	if (!of_device_is_available(np)) {
+> +		of_node_put(np);
+> +		return -ENODEV;
+> +	}
+> +
+> +	regmap =3D syscon_node_to_regmap(np);
+> +	if (IS_ERR(regmap)) {
+> +		of_node_put(np);
+> +		return PTR_ERR(regmap);
+> +	}
+> +
+> +	ret =3D regmap_read(regmap, JHB100_REV_ID, &rev_id);
+> +	if (ret) {
+> +		of_node_put(np);
+> +		return ret;
+> +	}
+> +
+> +	of_node_put(np);
+> +
+> +	rev_char =3D (char)FIELD_GET(JHB100_REV_ID_CHAR, rev_id) + 'A';
+> +	rev_id =3D (u32)FIELD_GET(JHB100_REV_ID_NUM, rev_id);
+> +
+> +	attrs =3D kzalloc_obj(*attrs);
+> +	if (!attrs)
+> +		return -ENOMEM;
+> +
+> +	np =3D of_find_node_by_path("/");
+> +	of_property_read_string(np, "model", &machine);
+> +	if (machine)
+> +		attrs->machine =3D kstrdup(machine, GFP_KERNEL);
+> +	of_node_put(np);
+> +
+> +	attrs->revision =3D kasprintf(GFP_KERNEL, "%c%u", rev_char, rev_id);
+> +	if (!attrs->revision) {
+> +		kfree(attrs->machine);
+> +		kfree(attrs);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	attrs->family =3D "JH";
+> +	attrs->soc_id =3D "JHB100";
+> +
+> +	soc_dev =3D soc_device_register(attrs);
+> +	if (IS_ERR(soc_dev)) {
+> +		kfree(attrs->revision);
+> +		kfree(attrs->machine);
+> +		kfree(attrs);
+> +		return PTR_ERR(soc_dev);
+> +	}
+> +
+> +	pr_info("StarFive %s SoC rev(%s)\n", attrs->soc_id, attrs->revision);
+> +
+> +	return 0;
+> +}
+> +
+> +subsys_initcall(starfive_socinfo_init);
+> --=20
+> 2.25.1
+>=20
+
+--IY6Lbzd1L/jArdrp
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCann2rAAKCRB4tDGHoIJi
+0ohHAQDdhAr1kJrXXf8gDwzmNcWcdZswvT6sxS4RoDwPoASqtQD9Gdx69wWho21S
+1KaFgDL9u9uMGKVOJPZ+baxhqEpe/ws=
+=maJS
+-----END PGP SIGNATURE-----
+
+--IY6Lbzd1L/jArdrp--
