@@ -1,85 +1,164 @@
-Received: from out-2uec-a123.jellyfish.systems (out-2uec-a123.jellyfish.systems [63.250.43.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A753B8BD9
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03AC356744
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786360627; cv=none; b=p5LyvcyBMFVr5qDwBdWonr6MBzTsRV4LjHIV2gt6GfS6NE61H8iVkwIp2qYu8rVtC5CHUcG4RZ510Mn3+wPkEQ9QvU/G+N2nI2pKq/d/KnP7COZuBTxO+Rj3e5BZ0Lo7GW271hZJcHu1WakDJPYisVz1S7qOTkJYnP0FTelBOZs=
+	t=1786360638; cv=none; b=lLkhY9rQfZYyQpAOvmIzbiFDUHZtZ2cL5Uh0bL7l3gBsfm8sQZV/qn5bxwSc17HIgKRFm3X4HQ/GexWeeUtO5Xc4yS/0oDDaEFFR9FSY73tHmvfWKYFj30Dbl7M0dcGiqbmK0UFvhG/crOvMP8rhy9z/ACAJe3qpiDB99501TJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786360627; c=relaxed/simple;
-	bh=xEotutBdJQYLpzZm2hh3OQS6aWtWKdQIZQbIhB8QHVg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=omJmTfkr+T/TZ48VXj9W0Ub7RZ4KqLNOcpSxdY+2MUyV7mHeVU9x/mMd/tcUYFRwvFcw5CToQVtg911NOFYIkPppnlt9APma8BvvGGkZEzO2BCZ0ApSuoVHcpSQOlbvjv2S8Y97bw4DXGy9MDjORCIBzUDHYd5Ss74zP8hwbaOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=63.250.43.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hJX2W3b0Hz8sWP;
-	Mon, 10 Aug 2026 11:04:35 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Subject: [PATCH 0/3] iio: light: stk3310: per-chip match data and STK36C61 support
-Date: Mon, 10 Aug 2026 13:04:20 +0200
-Message-ID: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1786360638; c=relaxed/simple;
+	bh=kJNCL1LLifMin2bc7uH4kjGNGknslNwkjX4WuIVTPM4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GudQ7PUkkFIuurANbC9hHk0hZmgpZEITRNzpSs0fI9VPY+J8jMLq8l+AE66Hz+dvLMKBO0sXma4hgal05/goHfEzzMW4qNfGmFeDTHz59JKONfiXm2D6R0E2GoJq9YEYqYJxshud4mItQWHgymIYwG/tPwByOuIttWTvJh4R4mA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F+VyP//K; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F+VyP//K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 525031F000E9;
+	Mon, 10 Aug 2026 11:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786360636;
+	bh=oIVGABIDxeFCAPtYczO0HwPJcema9lIcZyJApwdqTJg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=F+VyP//KZ4cO04uJd8W0qjxXgOGW2QqBWyXg8gO/yJ7Kk9q4vmsxam+gIjy6sUU3/
+	 DpG5zxUcE9H/b5/mFvibWKMF4R8ZjMpEbQPq0zwk6mRXsheCWs4CGLqIo8DtsrtaTD
+	 akd12wxxAdoxQj4w/sTkyhdIGoYlN7fTTPKWaICweXzAovz7rIyFdMuY1LvHjv55rj
+	 4hd1IxyiEp7CqXJoGzslf9KxFcMRrbAb5qQcat5Lf+vmbvYxx2dm/GW965/4LfebZr
+	 reyzkn9M9BBvhZV/fyJ3KwWEGyLOQc0FvhR6DwE1dL/Wz4OiiC4h0iY4+HuadWzhKl
+	 C45+nwMC59dkw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_pas: add HPASS ADSP cluster
+ boot-order and SSR coupling
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260810110726.775084-3-shengchao.guo@oss.qualcomm.com>
+References: <20260810110726.775084-1-shengchao.guo@oss.qualcomm.com>
+ <20260810110726.775084-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 11:17:15 +0000
+Message-Id: <20260810111716.525031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
-colour sensor whose register interface is compatible with the stk3310
-across the ALS and proximity data, threshold, gain and
-integration-time registers this driver uses. The part name comes from
-the Fairphone 6 manual, which lists the component as "3IN1 ALPS/RGB
-sensor/STK36C61". There is no public datasheet; the layout was probed
-on the device: chip ID 0x95, the stk3310 STATE/FLAG bit layout, data
-and threshold registers, gain steps that scale the ALS reading
-accordingly, and an RGBC data block directly after the ALS data.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unprotected iteration over `cluster->members` in `qcom_pas_cluster=
+_stop()` leads to list corruption and use-after-free.
+- [High] Premature clearing of `restart_pending` by the root instance cause=
+s an infinite cascade of crashes during recovery.
+--
 
-Tested on a Fairphone 6 running a 7.1.2-based tree carrying these
-patches, adapted only to that base's older style for the bulk-read
-size argument and the i2c device-ID table initialisers. The stk3310.c
-delta between that base and this one (chiefly the PS-interrupt
-suspend/resume rework) does not alter behaviour on the paths this
-series touches. A board DTS node using the new compatible follows
-separately via linux-arm-msm.
+--- Patch [1]: [PATCH] remoteproc: qcom_q6v5_pas: add HPASS ADSP cluster bo=
+ot-order and SSR coupling ---
+commit 644aec14bb718175878ea77cb26cb7732aee67b2
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+remoteproc: qcom_q6v5_pas: add HPASS ADSP cluster boot-order and SSR coupli=
+ng
 
-Jorijn van der Graaf (3):
-  dt-bindings: iio: light: stk33xx: document the Sensortek STK36C61
-  iio: light: stk3310: add per-chip match data
-  iio: light: stk3310: support the Sensortek STK36C61
+This commit introduces a boot-ordering and coupled-SSR (Subsystem Restart)
+mechanism for Qualcomm SoCs with multiple PAS instances grouped into a clus=
+ter.
+It uses a shared qcom_pas_cluster object to serialize boot so that the root
+instance boots first, and ensures that a crash or stop on one member brings
+down and restarts the entire cluster together.
 
- .../bindings/iio/light/stk33xx.yaml           |   9 +-
- drivers/iio/light/stk3310.c                   | 151 +++++++++++++-----
- 2 files changed, 115 insertions(+), 45 deletions(-)
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index ca8e61254c449..61e8dc64e2ad9 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+[ ... ]
+> @@ -433,6 +433,18 @@ static void qcom_pas_cluster_mark_booted(struct qcom=
+_pas *pas)
+>  {
+>  	struct qcom_pas_cluster *cluster =3D pas->cluster;
+> =20
+>  	if (cluster->root_node !=3D pas->dev->of_node)
+>  		return;
+> =20
+>  	mutex_lock(&cluster->lock);
+>  	cluster->booted =3D true;
+>  	cluster->restart_pending =3D false;
+>  	mutex_unlock(&cluster->lock);
 
+[Severity: High]
+If a member crashes, qcom_pas_cluster_stop() sets restart_pending =3D true =
+and
+initiates recovery on all members.
 
-base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
--- 
-2.55.0
+If the root member completes its recovery (rproc_stop, coredump, rproc_star=
+t)
+and calls qcom_pas_cluster_mark_booted() before another member enters
+qcom_pas_cluster_stop(), won't the root clear restart_pending prematurely?
 
+When the slower member finally executes qcom_pas_cluster_stop(), it could
+observe restart_pending =3D=3D false, assume it's a new crash, set it to tr=
+ue
+again, and trigger another round of crashes.
+
+Could this regression lead to an infinite cascade of crashes?
+
+> =20
+>  	wake_up_interruptible(&cluster->wq);
+>  }
+[ ... ]
+> @@ -1036,6 +1036,36 @@ static void qcom_pas_cluster_stop(struct rproc_sub=
+dev *subdev, bool crashed)
+>  {
+>  	struct qcom_pas *pas =3D container_of(subdev, struct qcom_pas, cluster_=
+subdev);
+>  	struct qcom_pas_cluster *cluster =3D pas->cluster;
+>  	struct qcom_pas *member;
+> =20
+>  	mutex_lock(&cluster->lock);
+>  	if (cluster->restart_pending) {
+>  		mutex_unlock(&cluster->lock);
+>  		return;
+>  	}
+>  	cluster->restart_pending =3D true;
+>  	cluster->booted =3D false;
+>  	mutex_unlock(&cluster->lock);
+> =20
+>  	list_for_each_entry(member, &cluster->members, cluster_node) {
+
+[Severity: High]
+Can this iterate over cluster->members concurrently with list modifications?
+
+Since the iteration occurs entirely outside of cluster->lock, it seems to o=
+pen a
+race window if a user unbinds a PAS driver while the cluster is stopping.
+
+qcom_pas_remove() takes cluster->lock, removes the node, and frees the obje=
+ct:
+
+drivers/remoteproc/qcom_q6v5_pas.c:qcom_pas_remove() {
+    ...
+    mutex_lock(&pas->cluster->lock);
+    list_del(&pas->cluster_node);
+    mutex_unlock(&pas->cluster->lock);
+    ...
+}
+
+Would it be possible for this regression to cause the unprotected
+list_for_each_entry() to hit a poisoned list pointer or call
+rproc_report_crash() / schedule_work() on a freed member?
+
+>  		if (member =3D=3D pas)
+>  			continue;
+> =20
+>  		if (crashed)
+>  			rproc_report_crash(member->rproc, RPROC_FATAL_ERROR);
+>  		else
+>  			schedule_work(&member->cluster_stop_work);
+>  	}
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810110726.7750=
+84-3-shengchao.guo@oss.qualcomm.com?part=3D1
