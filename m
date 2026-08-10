@@ -1,309 +1,114 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0922B3F6619
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:20:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3BF3F4DDB
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:21:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786371657; cv=none; b=d2KGG7ig5VPku6YvzCCwwKH+m38LG9qxptGAdpEFjVUqAUISyfklIUPBQYJm5BUp7qYfb56rvSoF66NEaC768thtpLeHD2YpGAGY8E9ZByW8YzwRj2tWfvp8IW426hIKFuzsXqUtguwmUN8gconB9g6dW7XiOG9ZSiS7ROfMa9E=
+	t=1786371692; cv=none; b=H1FdL0rDquMk2q3/ZlwMwRHsMKfkYnyACQYjj8Ee/b0Te+ET/7cEBY69UBAIbHoU9CsNhocOJN1gr3vmhVcLjhz4mZ2AneS2gnAMOm83uxUHeSPRDhoTycZEDWKBbtnWT327+MAnO7DEr1PTH+7/g3P7CrXAYfHaadhPV71iiu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786371657; c=relaxed/simple;
-	bh=XDDiz/yiOtFtArn41FvfVWo2uGNLrJxECtnaVDV1qIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oNzOUF8uK6GyH5bLfV/4cS1aH/iRyECp8zZgqQAAQbGoenlZeJkcAjBJVwf0UAPJ00zgvW+CQNuIPFt7nosBMlDKAcslb8ky06mBuDgyGlIatrtcbAuDyYFJTXJdmj20EiAo/7l61Jk1V52pCDItLZrBHrwLIAdRmEoP8qi1vzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j8M0TYqc; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1786371692; c=relaxed/simple;
+	bh=SpxVR6pxx9Ul7PjbKZTHV8Hv8h63JXbsETU+DAVrbVM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=NWclUqMam3e7YWHycAgCCzdkxhvcas53WO5c9xK9n6H8VoVOkXVk8E3WfhmvitA/ZLM8SQrEGg54ICGeGBCwJPCzbU9L5H+6ZwrAxXUCHnvrMV625kgbL3z7iLYZ583U+RAGx+7WefkB9odt9cBym9YRBKuqTDPqDnn5QbGNwgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j8M0TYqc"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so17427485e9.2
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:20:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786371653; x=1786976453; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w2RxGy/HDr+ZHJEDxF0FWSRtIXjBooh011FJ3fxMxJo=;
-        b=j8M0TYqct1K5H97dbnbKzLTeCtXKFa7i8wzjssVbJtIZKGQWB3sMu5EFTqlfd7rhPN
-         OOrc6CnrGbF4g3JKVn/2uxuBR13S3AP/3/KjccT++Y2cDjmT9XgjsZJAXpnkzXCKV+ED
-         eRkws6sOPXrmPc1dDTa26Aj/diII0M+MhpyGDR3iYNdz23GHXi7af6qI5PKy3CfxAeTT
-         qt6U147cXqDKDHh9aKPoG8IcPCyGDX0SeHWo5rpGBAYI/z3W+BMcyDn78tp4zgURkG6L
-         73zeA3LGC/wTTBAfp+PZhcYPY9qIMRNA81LKATdgdQ0IsDGDY/WSuBEv7jqh2dvL4DVJ
-         ICEQ==
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-74ab6c88052so543444137.2
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:21:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786371653; x=1786976453;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w2RxGy/HDr+ZHJEDxF0FWSRtIXjBooh011FJ3fxMxJo=;
-        b=gy1zYZr37vx7UM2ShD+zVy4IYvb4OwbNXwu/l0OaxP9v85+gImrTYfPCVpDWTSvApj
-         jgEAlLGl6WYN8ms3hXDrE8uW6AxQ7PbzFOfbqzLuEZ6YEqKKH7goIaLpfSPP5Dg5Gch5
-         WISo71pkhzW+yXFlvvw9myr5u1JA5WDKZHCwVhLQqTgp/ucwaJRACrs3CjGsofo9lgmS
-         UR54A5R9LDA/lTJTMYzMFXHareteNx+kT9yNM2eJONQEh9LthNBOsWcSPWZK7t4GoPFz
-         LdNieyN1b0TlukL4i7RmPYntAceQ5AdIYyaW7YInhnE0USZPqYcFwSYP1vY50/oARvnS
-         +Gcg==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0+lv8oQmNhtVRTwwZFnJsj7zWuyGiPSvCcs8tSIgsh7ZRNNZF4vV9yk8OoS0yLdjgrARxPGujn8ke@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywd4nu2TivMhsf5X+U6JtrXr62k4PCO3SCjMjmCh5PZjFC11Oj7
-	tRiOQaoQX4q4SbNYH5du2vnPBp1dFEa7orcxNLRwa0M6XHaIRXZOLn7P
-X-Gm-Gg: AR+sD11knriiz78KpmBfqGHVighUgXMsonbml3RPtVlIqqzY3kyCD616NH8RS+PGuOD
-	6fbkDpc31GS9o1klcht+wS5x8F3ASt0RiJ6lcbW6N5oIJhqjcnVgao1wg1sWmTzHk2wnu8gFvLE
-	BUw15bx0It2FOldJfx5lRTUEJIAfjBnlWMAa1RrnaIk3WZsvMoIViK8A8XRAOHiinXuT47H9RHQ
-	eLDzyno2Ye/Nt1xHXoosF7rLO/5wmpq3Fk1+VocE/SOOfAsgjYw8YAV+2RMmlsdFk9ikhLKkphL
-	Psdah/gZsjaB3hjd2P2Emd2fX5ODd0+07lywQSKu0kvf10C1/t/g13v2915imk/bMRkgBktJr8j
-	+DXJyyBu4wzSluHNPUAorYlCy4OhC1C2lhWel+AZvQ8Jjykn/jdPOgOhwZx4eMyONi0qBit2HI/
-	Bh/sSadB9kzYKJ6hJ3XuZwZQdwH/NLZhXI7T8u41jDa8xT12WufDoiAHR1aBI7kwdcTpAqTbLvT
-	7otNQ==
-X-Received: by 2002:a05:600c:3b04:b0:490:c6c2:52 with SMTP id 5b1f17b1804b1-49959e016f2mr400732305e9.3.1786371652873;
-        Mon, 10 Aug 2026 07:20:52 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995919df87sm354413055e9.6.2026.08.10.07.20.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 07:20:52 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Stefan Agner <stefan@agner.ch>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] ARM: dts: vf: add Iris carrier board support for Colibri VF50 and VF61
-Date: Mon, 10 Aug 2026 16:20:47 +0200
-Message-ID: <20260810142047.2811230-5-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260810142047.2811230-1-mehmet.fide@gmail.com>
-References: <20260810140053.2793495-1-mehmet.fide@gmail.com>
- <20260810142047.2811230-1-mehmet.fide@gmail.com>
+        d=1e100.net; s=20251104; t=1786371679; x=1786976479;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3qt0obc65zslhsJe5ID8EDkS8LtWy0Gpp/1LJUID83I=;
+        b=R28QoZlSqMyjTylSrMIJaXcNQJtlcywl0HDdQTCb80cETXZPjY+FuIOMekOX8rEaW5
+         EnvrBfPI8sviCy6tlVx8GCFuBzG4n+ipeWJsQVMXOjMWf8DSqJ1vsm+PlOr9sbTmyc0Y
+         W790OgFKwo2vr323b9OIKjT/NERYR/X0zyco6ozBhMmsJuxTNwAHyaJatcsAwlfBbTdY
+         A2XvhZQNf7FGWh822q9MLHlN/AE+0RGog5L9HiQXUWVAQNJOltGe2QUovGTh+K6QEtmB
+         +YNMlWpbRU7ripEbWQGSTqPUfIwzVVY0m95O0xQ0Zp+5AUBCWLeU7HQOJaqOyuqB5Bm/
+         noaA==
+X-Forwarded-Encrypted: i=1; AHgh+Rp7lyi05LoYyaPBcWMpj1su9nsQ2Qog9eoMxma5GAxW9Zhux7GnamSFyggiaXmLvGewBJuzz7728urz@vger.kernel.org
+X-Gm-Message-State: AOJu0YymYGCt4e5kYW85xfIpJ8PyWhuYWMrGrw8PaMmQuzLOZCG5bK7z
+	u2MD+jBdikqseihlLOk5BN9Q+zyixSG5jca7zWAzw4d6VYuffTnGwVO2Hzz14mfI
+X-Gm-Gg: AR+sD11zNWruaI1tPsRqNMqYRJMnvDTfAz9Bf7noO/BWL1hidvNliT9ciLoa14gOr0w
+	yFQ5C+ftp+8M/fF8jJkhRgnLeOiMUXukZyKoK/MW2Om+T24lHuRqnCcTXLLa3OW87/yQ5At6FVg
+	SdQLV2IUCfcD4jJZgrTp60d2hY24qV/OKkijb448R2qSNKz7oMuRbFoTGU7pPVTyJD6nnui8yNo
+	msaxY7YSWH05jOEVQyJLZAAvn35UQvFZ3VnCHKj0wu+M46o809k13GmALa6fAGFtR/mNIevnA9V
+	KN0S5K3CJesUkM0UGnUEWHFQZWYiH5EjqeoNQejvgdSkdjOoEUrnj7XNlGFLEauHOolIBwTRn2f
+	13uTlUsi0k3WYxlxFCFPb616P67+Mpj0vH8I0/s54lfl7+edQJYaPI3yXFsfw7VtMj3IwG5wEyH
+	paCLs4z9/UGBooJ6U/u/xbAI59nmxOcOmULwdZv7xFwcVbTASQZYQBv+7wFTNBAmQ7ZK59eIWKL
+	vlpJK5OtMQttVSa5D7FfKrvK+A=
+X-Received: by 2002:a05:6102:3ec4:b0:737:783d:1916 with SMTP id ada2fe7eead31-7642f8bd6d4mr4883272137.11.1786371679364;
+        Mon, 10 Aug 2026 07:21:19 -0700 (PDT)
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-763fe4da46dsm4684098137.3.2026.08.10.07.21.18
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 07:21:18 -0700 (PDT)
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7466771f1caso575562137.0
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:21:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rp5arbse3J9iU2lWDWTCaFT99pfNNijAdxAe/a51rdKVqf0KVDrb2k7gK7uxszxi7p+PdmPLnP+20xB@vger.kernel.org
+X-Received: by 2002:a05:6102:50a6:b0:728:f34d:f410 with SMTP id
+ ada2fe7eead31-7642e3908d2mr4413691137.7.1786371678544; Mon, 10 Aug 2026
+ 07:21:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260714130429.11214-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260714130429.11214-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 10 Aug 2026 16:21:07 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXv8rqGGdFjXqBw4RbzHdoy=CAWY0WdRfsvjSccm=kvxA@mail.gmail.com>
+X-Gm-Features: AUfX_mzTCV5NDV8QSZzevbAyZcff566ZTll72oycYTZVrDtUDH1idu1vYH_kZ9k
+Message-ID: <CAMuHMdXv8rqGGdFjXqBw4RbzHdoy=CAWY0WdRfsvjSccm=kvxA@mail.gmail.com>
+Subject: Re: [PATCH 1/9] arm: dts: renesas: lager: Specify ethernet PHY reset timings
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Hi Marek,
 
-Mainline carries Iris device trees for every i.MX Colibri but none for the
-Vybrid ones, so a VF50 or VF61 on that carrier has nothing to boot with
-except the eval board tree, which describes different hardware.
+On Tue, 14 Jul 2026 at 15:04, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> The KSZ8041RNL reference manual [1] DS00002245C page 47 TABLE 7-10:
+> POWER-UP/RESET TIMING PARAMETERS does not indicate how long should
+> the system wait after deassertion of the PHY reset and before start
+> of communication with the PHY via MDIO. Opt for the same value as
+> used for KSZ9031RNX, which is 300 us.
+>
+> The KSZ8041RNL reference manual [1] DS00002245C page 47 TABLE 7-10:
+> POWER-UP/RESET TIMING PARAMETERS row tSR Stable supply voltages to
+> reset high is at minimum 10 ms. Set the DT property reset-assert-us
+> to 10ms because the KSZ8041RNL RM does not explicitly spell out how
+> long the reset has to be asserted, but this at least covers the worst
+> case scenario.
 
-Add the carrier, following the layout of the i.MX Iris trees: a common
-dtsi and one dts per module. It enables the microSD slot, the three UARTs,
-SPI, Ethernet, USB and the M41T0 clock on the carrier, switches USB host
-VBUS through a regulator on SODIMM 129, and hogs the two GPIOs that turn
-the RS232 transceivers on, SODIMM 102 and 104. The touchscreen is an
-add-on rather than part of the board, so it is left out.
+Thanks for your patch!
 
-This describes an Iris V1.1. A V2.0 carries the same signals on the same
-pins; what it adds, and what this does not describe, is the regulator on
-SODIMM 100 that can cut power to the uSD slot.
+> [1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/00002841D.pdf
 
-Tested on a Colibri VF50 on an Iris V1.1 running 6.18: Ethernet at
-100Mbps/Full, a USB dongle enumerating once the VBUS regulator is in
-place, the RTC read back over i2c0, all three UARTs, the SPI controller
-registering, the microSD slot, and both hogs holding their pins.
+That's the URL for KSZ9131RNX. The correct URL is:
+https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/KSZ8041NL-RNL-Data-Sheet-DS00002245.pdf
 
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- arch/arm/boot/dts/nxp/vf/Makefile             |   2 +
- arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi | 125 ++++++++++++++++++
- .../boot/dts/nxp/vf/vf500-colibri-iris.dts    |  14 ++
- .../boot/dts/nxp/vf/vf610-colibri-iris.dts    |  13 ++
- 4 files changed, 154 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-diff --git a/arch/arm/boot/dts/nxp/vf/Makefile b/arch/arm/boot/dts/nxp/vf/Makefile
-index 0a4a7f9..47be8bc 100644
---- a/arch/arm/boot/dts/nxp/vf/Makefile
-+++ b/arch/arm/boot/dts/nxp/vf/Makefile
-@@ -1,8 +1,10 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_SOC_VF610) += \
- 	vf500-colibri-eval-v3.dtb \
-+	vf500-colibri-iris.dtb \
- 	vf610-bk4.dtb \
- 	vf610-colibri-eval-v3.dtb \
-+	vf610-colibri-iris.dtb \
- 	vf610m4-colibri.dtb \
- 	vf610-cosmic.dtb \
- 	vf610m4-cosmic.dtb \
-diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi b/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
-new file mode 100644
-index 0000000..d0fa107
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
-@@ -0,0 +1,125 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright 2026 Mehmet Fide
-+ *
-+ * Toradex Iris carrier board V1.1, common part for Colibri VF50 and VF61.
-+ *
-+ * The Colibri modules are pin compatible, so the carrier signals sit on the
-+ * same SODIMM pins as they do for the i.MX modules, whose Iris device trees
-+ * are already upstream. The two SODIMM pins below are taken from the Colibri
-+ * VFxx datasheet (102 -> PTA12 -> PORT0[5], 104 -> PTD28 -> PORT2[2]).
-+ *
-+ * An Iris V2.0 carries the same signals on the same pins, so everything here
-+ * works on it as well. What it adds is a regulator on SODIMM 100 that can cut
-+ * power to the uSD slot, which this file does not describe.
-+ */
-+
-+/ {
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	reg_5v0: regulator-5v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	reg_usbh_vbus: regulator-usbh-vbus {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_usbh1_reg>;
-+		regulator-name = "VCC_USB[1-4]";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* SODIMM 129, USBH_PEN */
-+		vin-supply = <&reg_5v0>;
-+	};
-+};
-+
-+&gpio0 {
-+	/*
-+	 * The RS232 transceivers on the carrier are switched on by these two
-+	 * lines. Delete the hog to turn a transceiver off from userspace.
-+	 * The pin group belongs to the gpio controller rather than to iomuxc,
-+	 * which would depend on its own child and log a dependency cycle.
-+	 */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_iris_uart1_tx_on>;
-+
-+	uart1-tx-on-hog {
-+		gpio-hog;
-+		gpios = <5 GPIO_ACTIVE_HIGH>;	/* SODIMM 102 */
-+		output-high;
-+	};
-+};
-+
-+&gpio2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_iris_uart25_tx_on>;
-+
-+	uart25-tx-on-hog {
-+		gpio-hog;
-+		gpios = <2 GPIO_ACTIVE_HIGH>;	/* SODIMM 104 */
-+		output-high;
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_iris_uart1_tx_on: irisuart1txongrp {
-+		fsl,pins = <
-+			VF610_PAD_PTA12__GPIO_5		0x22ef
-+		>;
-+	};
-+
-+	pinctrl_iris_uart25_tx_on: irisuart25txongrp {
-+		fsl,pins = <
-+			VF610_PAD_PTD28__GPIO_66	0x22ef
-+		>;
-+	};
-+};
-+
-+/* Colibri SSP, on the extension connector */
-+&dspi1 {
-+	status = "okay";
-+};
-+
-+&esdhc1 {
-+	status = "okay";
-+};
-+
-+&fec1 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	/* M41T0M6 real time clock on the carrier */
-+	rtc@68 {
-+		compatible = "st,m41t0";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	status = "okay";
-+};
-+
-+&usbdev0 {
-+	status = "okay";
-+};
-+
-+&usbh1 {
-+	vbus-supply = <&reg_usbh_vbus>;
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts b/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
-new file mode 100644
-index 0000000..53dd252
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright 2026 Mehmet Fide
-+ */
-+
-+/dts-v1/;
-+#include "vf500-colibri.dtsi"
-+#include "vf-colibri-iris.dtsi"
-+
-+/ {
-+	model = "Toradex Colibri VF50 on Iris Carrier Board";
-+	compatible = "toradex,vf500-colibri_vf50-on-iris", "toradex,vf500-colibri_vf50", "fsl,vf500";
-+};
-+
-diff --git a/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts b/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
-new file mode 100644
-index 0000000..2882c87
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
-@@ -0,0 +1,13 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright 2026 Mehmet Fide
-+ */
-+
-+/dts-v1/;
-+#include "vf610-colibri.dtsi"
-+#include "vf-colibri-iris.dtsi"
-+
-+/ {
-+	model = "Toradex Colibri VF61 on Iris Carrier Board";
-+	compatible = "toradex,vf610-colibri_vf61-on-iris", "toradex,vf610-colibri_vf61", "fsl,vf610";
-+};
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4, with the URL corrected.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.54.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
