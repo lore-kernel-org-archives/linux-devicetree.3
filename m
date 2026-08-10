@@ -1,161 +1,98 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A6039CD03
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD183B1031
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:50:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786355132; cv=none; b=lLAuhzdGz6ZXFg7hm1V/6XVziaGsB4a3ddZm1N00tZavKJc7P3YNfEuFRQC8ga1uK0uU+7XPdVzmZ2ieHLrubT2bh8OdwZvTZalLP/poVNroHEW43xhJf9wMIAJq6HOqDMXS9PLp0zeb+BOFsamNxFmYszOOKo34FkgpoSwnJWM=
+	t=1786355449; cv=none; b=B2pvul5gxekh6EK27ZcoEwE2uXoqYMrlDtksgy6gEQSvBFdGHMFwg1WQK/urtGFfexqOr7ARUP/WDxxjFNqPIY/Sg7BP85xdFzOdmRwk4tySFRfphEKzBXuxuaFFXU0YtJ/8VDBy5MXPJ/MlVxlyomNoY97GVlCb2TQc53Ci13k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786355132; c=relaxed/simple;
-	bh=gxcas0bqgHomtZULAw4OXEt+7h8gY3FlT9ou+7GepIA=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=DkICMDYLhqIaO6k+guana6eu0tDVIlSCGpfDdImHldy54xXXYTfV2auhUqhgNSvC8KYkXiC20XKFM7B2hvxZYFaG4P1tKVRtoI21TSlvatJ4aZ4+z+mZzrJl78CbAd3UIKxy82VPDLSUS+pEKg8maY/lodtU154wBTi0WaTifD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k0mdxM8G; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1786355449; c=relaxed/simple;
+	bh=eKKA2wVfs3fRtZhBV9VXaMEroXhSxr8gOQihnyN6MEI=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nVKAsgEkoLChGWZHA/yS8vz1s2IU4reKhJ2aqDzMnGS/zbqNMFu5DtZuaLxD7CtpAz2ymQKE0yAZRWM11g4XtCAwG2VzldpGHdgXd99nlpEkiUnHvwW32TJpSnW5MoKxYZe0q3ey+OEtP+TwOk79NtZiOIP7xFRnDMXfLp8st1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WR4bzl1C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k0mdxM8G"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so1176785f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 02:45:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786355129; x=1786959929; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EyEgdVp7O6CUMToSIq4Pkng5Jk2xx180zJ29o453drU=;
-        b=k0mdxM8GpN8v9aEsBACesPx9Gf+cxCH0avXSUFeBDLV5SX0QO3RF302wMhTs/WYpz9
-         R5/o5ZogOHaIru5TnieFytH0qZGF7YMMeO56iMsTUTgmFYC4AiNhWMjYEC9suS7JMvJ4
-         U6xXFFrptbOlmg82OMUrWo+uRX7+BYtJPJJeoQw2Di2Mad5Fz83ceQIVS6rSD6oJ0G9J
-         m6wDbCqcxKmsFA2ouxbdj0+HUeVon626/5XdEIatRYUWBsZQ3bWdQiDTsu9WXh8BVtwv
-         ZEEMwYNreK9GJKHFvvEhUSfz/iCEEd/49BwVmY/9/qGP2ARqitUVYLfsUb2UeVqSm8Hc
-         W05Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786355129; x=1786959929;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EyEgdVp7O6CUMToSIq4Pkng5Jk2xx180zJ29o453drU=;
-        b=pBWYbAQmr3Ra/VYfhg2cWsZ9A4MWL8USHd66mvqXqAYuSGiZzbEYGKSFzV0TypfT1A
-         kJqAqjy3Yr1lhqJmTAImvnWwITJC8WSJ/0uXfFfhD3ZxNnHAhjxFaJd2kgHsTk89NKoX
-         dx/jeHFrV8TKxKsBRAlaEJvpbWuAT4+vAx4GyAmyEpsvCPaQk8isSQ/Dfw6lvWlMlqvQ
-         KKM0N3A2AumwyMvARdjFI6yjTTm8MtYliTQO4SvTo28DYL6yHsH+HirGO8kqohuiRBRD
-         QTq0PDnMY/SOst1sbeQ0oza7TttbAlc48bz0kkiMFrGW5n4acmLBIUaKI+tThj9c0842
-         dJZA==
-X-Forwarded-Encrypted: i=1; AHgh+RqaVf5uZHsRog1lc5hwSguXuJNKjYOjM5Cd6DV82y+ugf8etBJ13vaBd4+IieFiNqk1BZKH9LC1T9H+@vger.kernel.org
-X-Gm-Message-State: AOJu0YwJB+bcuTn10F+C6PdOP3BMg2J7hVUwO4CeFpRHaQyplisIONKG
-	e0f1lcAnyuxtGA9YCbLuRitoQKE6tumEvf40kiwXnY1kox6pe92yZbycZvrOSkmj5gE=
-X-Gm-Gg: AR+sD11gz2HxCA8EyfLktgYq1vF/SwyDGXEKXAgc1J2whGxofaE6ccxWBneKc+iF8Fb
-	63aYg4IU+iB8TKQw0I3MFENGH7PhAd1/IdQmUp5/HDnhKI2lDAvoodS8zOCp4upF/mOxnnoZByl
-	KiR1cIvwq0233VvimZiex8mhqy4XPDW+rRExqQkX/kiwcvjzj1nEllHok57kOqN6ft/EoZBZiwZ
-	2lZyv/24Zqijmhp3RUssNlJOi5q4Yef6IMoQ3MtzNZo6N9EFm4bsMrI+OKcTfVoNOfsiozSBai5
-	XPehU+Gx63o6XIasWh894jtt1WYeWFpZXSA7h28hqGYFlUdO30IbO76UHzr285mQacAwC83tJXq
-	LNMD6StKMGbpzZH7emzmdSkpdQ+zoai6izvvXVZTUXhUAgr6SWr8Pq2JowgJJLndtkUXgFFZ9nL
-	PS6iNsLyXePxvB8nB22Sa9YprC0m54DXAIqxI1sAM6TL99OyirPEyk/uK6nnOmmWIRAHQs4iDgk
-	AzOuKIqBQxiKwD0bAf95cDWwazl8EWjC4cYQ3zBm8HusbzJLjCs
-X-Received: by 2002:a05:6000:4305:b0:47f:4fa9:ae42 with SMTP id ffacd0b85a97d-481455f8844mr733292f8f.11.1786355129252;
-        Mon, 10 Aug 2026 02:45:29 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:eb7f:37e4:e8c9:f32? ([2a01:e0a:106d:1080:eb7f:37e4:e8c9:f32])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4800215078asm32050521f8f.12.2026.08.10.02.45.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 02:45:28 -0700 (PDT)
-Message-ID: <d0c1f707-4d44-4d0c-a45b-5a78c94f286a@linaro.org>
-Date: Mon, 10 Aug 2026 11:45:28 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WR4bzl1C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C8CA1F00ADE
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786355448;
+	bh=sX5BJdsbPs6K3GAF7gpY60L1LFPFfMvdnCsZbzPTZA0=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=WR4bzl1CYvRCP/4gARnJYBb7GZw83C4jwYxqjbsHETeQDNkNElXbhwOXU0d/3Jw9w
+	 G+FxADOwTcUdQBQgRPNOg7vIZ36MUUNgOcZzLSn4rcrvVC0xauo+MUS7RNAtfmMj5+
+	 ABd5lTKcCtoumgeca48ygeu0qeHjsYtyBiQzkkE95KWkz0Vm96hMjQuvaJHbAY05Xk
+	 UWFfMJt+2vEoaBYOUXwq6uw1SNfI1S1uTePgzCuCH+eG5WgVsthl/0CONDfu2WRD94
+	 9h06xp34Y+mGbCwR6YDwR22puI1MDNRQ8/oV3EWNDIleail8MkAkMDvO+k87vOiR5P
+	 xhLOHlXBVaurQ==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5aec201b582so1671817e87.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 02:50:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rr/m01kQ23oHizuVw324SQ3fjyB9wDWWc6y2KVjJSrTeyDneRhL1wKOLqoNfBjUIUFrW04fHmg6GP7D@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7+ZyYZtkEeBvUVWWVZVmu4fyQ8wDK1+0g14ZaH23SjJHGXH3w
+	oTfh0qhnOZE+9mwkZl/cvr6B0Bm891mNJ3srA2P2Sl755MushYfsuIc/5niu9rWgzaO2hk1obA0
+	yi8sDoZ4n7zPFmx5I3eJLbHLEswIjq3XPdQr8cwdE6A==
+X-Received: by 2002:a05:6512:3b85:b0:5b2:f426:9c67 with SMTP id
+ 2adb3069b0e04-5b3181a76c4mr75248e87.19.1786355447012; Mon, 10 Aug 2026
+ 02:50:47 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 10 Aug 2026 04:50:45 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 10 Aug 2026 04:50:44 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260809-kuno-soc-support-v1-13-5e0ede4a0c72@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 3/4] drm/panel: ilitek-ili9882t: Set prepare_prev_first
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- linux-arm-kernel@lists.infradead.org
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
- <20260809200107.842945-3-marek.vasut+renesas@mailbox.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260809200107.842945-3-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com> <20260809-kuno-soc-support-v1-13-5e0ede4a0c72@oss.qualcomm.com>
+Date: Mon, 10 Aug 2026 04:50:44 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Md2_8VNJFvuteutFN1gpzScCnqqT7xozkz4eWw+dzdkSA@mail.gmail.com>
+X-Gm-Features: AUfX_my0AaRg9hbEneJhdebl-8K9qSTK5y9JJLbzogutLOHMgM93bP3H64RlhRg
+Message-ID: <CAMRc=Md2_8VNJFvuteutFN1gpzScCnqqT7xozkz4eWw+dzdkSA@mail.gmail.com>
+Subject: Re: [PATCH 13/15] dt-bindings: firmware: qcom,scm: Document SCM on
+ Kuno SoC
+To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Taniya Das <quic_tdas@quicinc.com>, 
+	Georgi Djakov <djakov@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/9/26 21:58, Marek Vasut wrote:
-> Sending DSI commands from the prepare() callback requires DSI link to be
-> up at that point. For DSI hosts is guaranteed only if the panel driver
-> sets the .prepare_prev_first flag. Set it to let these panels work with
-> the DSI hosts which don't power on the link in their .mode_set callback.
-> 
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Sun, 9 Aug 2026 09:27:12 +0200, Hardeep Sharma
+<hardeep.sharma@oss.qualcomm.com> said:
+> Document the SCM firmware interface found on the Qualcomm Kuno SoC.
+>
+> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 > ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Jessica Zhang <jesszhan0024@gmail.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: devicetree@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->   drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> index 219d048cb883f..24e72ad0d29a1 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-> @@ -808,6 +808,7 @@ static int ili9882t_add(struct ili9882t *ili)
->   
->   	ili->base.funcs = &ili9882t_funcs;
->   	ili->base.dev = &ili->dsi->dev;
-> +	ili->base.prepare_prev_first = true;
->   
->   	drm_panel_add(&ili->base);
->   
+>  Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+> index 037d4ad8f718..ecee5aef65a7 100644
+> --- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+> +++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+> @@ -37,6 +37,7 @@ properties:
+>            - qcom,scm-ipq9574
+>            - qcom,scm-ipq9650
+>            - qcom,scm-kaanapali
+> +          - qcom,scm-kuno
+>            - qcom,scm-maili
+>            - qcom,scm-mdm9607
+>            - qcom,scm-milos
+>
+> --
+> 2.43.0
+>
+>
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-
-Thanks,
-Neil
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
