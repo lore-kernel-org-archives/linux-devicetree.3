@@ -1,127 +1,88 @@
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5AD3E3159
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 13:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A023E29BD9A
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 13:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786368458; cv=none; b=lZ+CsZ4PXQ2cTvx/oN32XxrccoBX94ixjvBvBF7AvcBYn9v9XTerMf67NW+1QkjFQYVGg2kzoU9uJzmSbEWK5Y9K2qdTqge0G3xZ4MQuCuCGk42U3tRMqnLYTgouraD2d3wcZBGMkI0PW9OYLNY5rJF7BDfynOmMm/iLDQBLN1I=
+	t=1786368737; cv=none; b=UXnbHmZybYmkG/csux3Osc6Gqvk2dFX2rpkOFRa935Y+r/O0VAkluxjuDbrQ15WHcHk1Cp89GDf4dMRSx42iKW7P70i53YyoscpgF4fk1ounBN40riQqGYuVNLqtnuilzjt6fSjVC5t3z/V2FstILuqKaRvpKyPe98xD5acbznE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786368458; c=relaxed/simple;
-	bh=Gnbgl5mVqU8mPNjloFHOEKfL1fuKrUPNCeupq4lYc2g=;
+	s=arc-20240116; t=1786368737; c=relaxed/simple;
+	bh=Aep+teDJlwbf0Y5ec1cKht5bwgrOwhUqVAOQe+YdTw4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tNOD8YwGOxgda9K2b/Ng7K8CRKM8zJ6Vf1Y0wuQKREqpBCJD0Y4X6rHKrstNOxxJL9A2VzJXKoYY0pncdwNZwvaSyL708+nfRCinhONiK64KdgPMZnrpyaEKtn2x36IUg9V9Wgameb2Jbh8nV6nwgYxqtrnbIfvwOGtnKO+NCmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.53
+	 To:Cc:Content-Type; b=drdqbJWZr1Mqk3Q9/k2R/tdOS5vt9hEZK+h51ktROWdDn9/o19eIW5Tgowo9mrlPPejzlZRysvtALCAH0NAJd6+F87i+xJNMP/R4BJzPDhnVQSt4mYWvkCo3ZFfRhtBNo9BGmeatJD0HRR08v65bPijc6PCRXR2jEow6jzB+BWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-76535268562so326531137.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:27:37 -0700 (PDT)
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-979ec61bb02so389654241.0
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:32:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786368456; x=1786973256;
+        d=1e100.net; s=20251104; t=1786368735; x=1786973535;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=0ZsTm0/auSNz1xVWhqZv/iaOuFzdnIG6fJxjzkxEKlg=;
-        b=fr7WePsgJowZbNXTRyBOmB+DC3nmT0JxOR1ftBMhFHL/N/KuEQAhvYdrLrBMzQwJA4
-         bacnfyr3klg+9idq7feG3Iyv7w5uTYUamKU6VXmVi4ZLxzscSlNwlZuH9/A6tkaZLjzS
-         J7z4Nd9+OxZoAdcKF7clILWdrUmbc/q/g3ptsS8z3G9xEnmxHSUeBiDXFcqXo+mIvxC2
-         lXGwX4ToESOUZxUs/NE3fJa2udGSrj9GxdFOlOvwQSIoEifMFfBL0EfjVYJgkmsKC51G
-         JJYiS1ojM3Y0tNYgeaniMPjurAyTkJ80B0jWRbgU7j7T/yLsqWOaw9e8WowbGFhg0aGj
-         ZFJw==
-X-Forwarded-Encrypted: i=1; AHgh+RrX28GhFQXiUZostHGnaVshbC+9/6lgmoLHNFhS65rB7XBK65w0cjw5VcPqY+dl82o6a8tvVY90AVQS@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxf9EWO5jFUY8Y9WROQC/bN4U26aaMOXbWuvuMJ1uUxXpgL1VZz
-	8CW+3ArEaiN6yVq0ksFQIuE4URTshe6EIb3GgeA0rNnNHI3ltoAHwAuFmAWnHJhH
-X-Gm-Gg: AR+sD12rBHAnCso5ag7Vq32pMlZb64MvZCwtU0Glr1nMtJCTTSaKBg82uW3KlPNLruf
-	rMLje2eZBLYv4PyTe6TPGXWZ/RQzPQ/5rXmtq97vb0Lcy6mJxDDiev6rMpwFhwCzqJ8xdA4/z3S
-	ooLMP/fXJ0u68F+gsvcvPz4vv3vevHVGdcNQJa5w7KAIBXNttbIr5P9B62BrKBN8jAZpPrp0D9/
-	KZiWMbP/EL5GmkCjnq3DCyJVEKorWrehgQdH4WmZPTphDEUW/alCBW2NUvhJjaRS52mtGR8tMX4
-	++KNWRswhIM16kYhYK8nAgWnh6/sGw/jWmJNT60hKX6UyE3/xTYkOw9uC6sBDVZNA0ypCn7b96d
-	EacM5XD96ZIhEJj9jY//duAGfER3mdksDsL08JtWwNJ9HVlW1P0ujauvjJHPbVpAU5nvNcvV30m
-	SZRIZHb5M7VgrbDzco0hgublf/R/gsdEuTHN0tW6PCms3SrGEtJbPvrYuyV9oY7viGQc4KhuTVJ
-	kQknFK/uWT1RrmM8AjpHAFHCQ==
-X-Received: by 2002:a05:6102:4490:b0:73e:605c:405c with SMTP id ada2fe7eead31-768e8849024mr273098137.12.1786368456160;
-        Mon, 10 Aug 2026 06:27:36 -0700 (PDT)
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-979f2e53fb5sm3511438241.1.2026.08.10.06.27.35
+        bh=FAYkmwu6egPfLeSsRRfY8GI/sUgVMT8KKlBPc0rkkQ4=;
+        b=N/q820xAW3800yYePgYrwwMZ+4Pc75/3xrd5EQshjjd2Jf2ifu1VwmeplmtItTUqdb
+         0n0G9W45pShc3hF/YZJjnqO6pSYatPY2qu6SssOkpiJmDFu79abQfnqcs7/HBg4vQtPg
+         rmsiFPaRpmjnvoq70MYUKH2D0tQLpTV3P9+GYiQpnYp/Mga8i0qE0DmyZsocMwIOoG/y
+         nySTcydZ4KeX5kqZ7kveWNDjjol9vnvCwHYId9AZzJqzqLR+g2JClZAXUxOGw2/GintM
+         Ur7Giz3sUxvDG2lnOmRLDISnok92yhqdui1Q1lAj/q7ZNQ9pjCADbdvGR/I9m7l468LV
+         zOzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RriuwjiAltkw/2hreDZN6migILh2hxaONIgKeF4sR41uZTxtsQLPcwZHNGOUwrX2tlbFjLiR0eZhx4j@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+ljrT1BileQg+gHxmxpU6eaa96wutISfppMXgEOkX5oD8XkvL
+	crsnzyIJJZpN5jGf5MsVsPmq8x22E+Aar33u7pZd4EZaGi6oxAEGE4k4wRqvIiMP
+X-Gm-Gg: AR+sD13/GTM5wlUWo1B+6bjy0qRTD752mTXQH+jTgDDuUx1cnDQ9Rxt8s6Eu03KUYg9
+	5nGfX9GNBmoRXqL7Kih8MMw3QsogjZjyUV7tq7+neGhHFHpaGTX7o8XBJaQiOJcYpmXV/UweZ2p
+	46wD1vNb+Pq9B5WAFqZHt9rAzPVbPCX8qN9/c44unoGjdDsTgct/s5wLAPeiRee6hnx/7+iN2cC
+	WH4+J5aRkpBrHmxUk+NIdcQnyFKxJ7TATUXFWTT1StP+zAnKdanjDnxl4YVwrgNuPUCF9dp1z2D
+	NHGNwSp0NBbVWPv14fGqrIbgel9UFXz33vNjwV8COv+R9qIlOivScnlGAD5P96hmYIfVfG55sZj
+	4Wyk7BOdl13myR2Ved6qNoNLrE4we/R0up9QXkbazIaAgiUIRDaMwyXx3pnTajykn/QMn7bIpot
+	7JpmswMdEjjkno7g6XrHTO2/pAuRuOWzo4DxMVH/2ikhTi0aTwrvfKSaFHCkvQbOWPGdIgo9u+A
+	Al3i41VP5IpXX7U56rg2xj+IQ==
+X-Received: by 2002:a05:6102:32c7:b0:74a:b5e3:e96f with SMTP id ada2fe7eead31-764e5537febmr4435627137.7.1786368735568;
+        Mon, 10 Aug 2026 06:32:15 -0700 (PDT)
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com. [209.85.222.41])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-764013f3489sm4741971137.12.2026.08.10.06.32.15
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 06:27:35 -0700 (PDT)
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-977cf5cae50so286684241.0
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:27:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rp74XxhPLTdo+xDgVo+RhfJJIxoxfKOdfYBlWUh+r984Vym4xsnmgeSq5AjmG8W5R77wt1So+PNuduq@vger.kernel.org
-X-Received: by 2002:a05:6102:54a9:b0:726:cd42:d023 with SMTP id
- ada2fe7eead31-768e8119d22mr300436137.11.1786368455456; Mon, 10 Aug 2026
- 06:27:35 -0700 (PDT)
+        Mon, 10 Aug 2026 06:32:15 -0700 (PDT)
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-96723c7151eso455896241.2
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:32:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rqp+/e7qfvYBoFzDDHsI/ZbI1IRhq0961mVnY5TgJiCjfoM9KcSnieN+ZPSaR4NcXQqMBxtrM7B/0/C@vger.kernel.org
+X-Received: by 2002:a05:6102:5129:b0:745:31e9:f3d9 with SMTP id
+ ada2fe7eead31-764e42f6f3bmr4278378137.1.1786368734822; Mon, 10 Aug 2026
+ 06:32:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260716095935.13329-4-wsa+renesas@sang-engineering.com> <20260716095935.13329-6-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260716095935.13329-6-wsa+renesas@sang-engineering.com>
+References: <20260801210321.383773-3-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260801210321.383773-3-krzysztof.kozlowski@oss.qualcomm.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 10 Aug 2026 15:27:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWCWvfFqBAQ40E+czhYHSG_ZuCqMobku6B2iEA8ezF5Cg@mail.gmail.com>
-X-Gm-Features: AUfX_mwFov1LfQMLFyyS19GgkrQ9UqEK9GUp4WPrAZqURgAWlGHiGBnolK35VVM
-Message-ID: <CAMuHMdWCWvfFqBAQ40E+czhYHSG_ZuCqMobku6B2iEA8ezF5Cg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] ARM: dts: renesas: r9a06g032-rzn1d400-eb: enable
- GPIOs on CN12
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org
+Date: Mon, 10 Aug 2026 15:32:00 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVURU+FEKk+6veDCm=hyO+G+5=nRrY-7gO=9WHdCWgNdA@mail.gmail.com>
+X-Gm-Features: AUfX_mzYGDDJkWYPMaKDK6-tLiUYUuFIuNBGVT1WGjCUgRjPIFMG82sWBjDm4aY
+Message-ID: <CAMuHMdVURU+FEKk+6veDCm=hyO+G+5=nRrY-7gO=9WHdCWgNdA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ARM: dts: renesas: Correct white-space style
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Wolfram,
-
-On Thu, 16 Jul 2026 at 11:59, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> CN12 offers some GPIOs independently of switch settings. Add the nodes.
+On Sat, 1 Aug 2026 at 23:03, Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+> Correct a few white-space issues, like using tab after ':' character or
+> spurious space before '{', which will be flagged by dt-check-style
+> ("redundant-whitespace" warning).  No functional changes.
 >
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Thanks for your patch!
-
-> --- a/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
-> +++ b/arch/arm/boot/dts/renesas/r9a06g032-rzn1d400-eb.dts
-> @@ -53,6 +53,11 @@ led@1 {
->         };
->  };
->
-> +&gpio2b {
-> +       pinctrl-0 = <&pins_gpio2b>;
-> +       pinctrl-names = "default";
-> +};
-> +
->  &i2c2 {
->         /* Sensors are different across revisions. All are LM75B compatible */
->         sensor@49 {
-> @@ -132,6 +137,17 @@ pins_eth2: pins-eth2 {
->                 bias-disable;
->         };
->
-> +       pins_gpio2b: pins-gpio2b {
-
-pins-cn12?
-
-> +               pinmux = <RZN1_PINMUX(164, RZN1_FUNC_GPIO)>,
-> +                        <RZN1_PINMUX(165, RZN1_FUNC_GPIO)>,
-> +                        <RZN1_PINMUX(166, RZN1_FUNC_GPIO)>,
-> +                        <RZN1_PINMUX(167, RZN1_FUNC_GPIO)>,
-> +                        <RZN1_PINMUX(168, RZN1_FUNC_GPIO)>,
-> +                        <RZN1_PINMUX(169, RZN1_FUNC_GPIO)>;
-> +               drive-strength = <6>;
-> +               bias-disable;
-
-These pins don't have any external pull-ups, so disabling bias will
-make them pick-up random EM noise when left unconnected.
-
-> +       };
-> +
->         pins_mdio0: pins-mdio0 {
->                 pinmux = <RZN1_PINMUX(150, RZN1_FUNC_MDIO0_GMAC0)>,
->                          <RZN1_PINMUX(151, RZN1_FUNC_MDIO0_GMAC0)>;
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
 Gr{oetje,eeting}s,
 
