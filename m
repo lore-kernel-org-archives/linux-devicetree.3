@@ -1,91 +1,149 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C07C30D413;
-	Mon, 10 Aug 2026 17:30:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCB53385B6;
+	Mon, 10 Aug 2026 17:35:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786383042; cv=none; b=LAekUAR7tqCn5hvXzkmlGCkIqd+6SjHNIP/MEkJ4X8U9ATXK++nK6yKDvv/vIoKcRacleON/cyWMBQz5Wv0UjC7OdavhjCBLH+bbYGwU1cltev7GbxL/k8jCuaeyVwYRAcA1sIrFdGI6ekG/5E2Q6VpG03VUyxNupW5lF36+6gI=
+	t=1786383310; cv=none; b=fBzG2nczPGhfX+D1lFBtgu4RM9hkGgSj/FiVXwmSLvPDkS06dg3GJGtRc6Y1iSTY8LODbaw78Bgmmb7pAgq5npBa1+8uJgXD9DeZmUbePSc7vKM1Jklcs2HAjT8yCWFrlR8dIvZwkOc3rwNud3lA3kEsEYSeqkv+FkAgxcJE6/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786383042; c=relaxed/simple;
-	bh=CX85OGSIx/mQNsVqxE3uCXwcmOD0xZ0JfnA0tGXqN/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fwhhuWScFAm0vvU15C8w9aUQTU4ei+Xe6FvPaSkBg+6XjrngVf3wb3o9IaIIF8jfTME4YtRO19ZtpVg5b0s1AhEQnEbk7x5fKgGVT84gBLy3yHA8bzuBIwu8Fak7BaW9j4g/9dIR3vLU3mXPCjAg9IMmWYMQNijvySrpUlp/Z+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LwGEPLYb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786383310; c=relaxed/simple;
+	bh=YdqrW7bcMeq92CD/NAspTlEg4QSpyTisWyhqs2CCmL4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qcpWZeXekg03pEb6yuf0ueGKr3m+taNQ8qQyJBPDMqC+479gVPoLcZhOMVw6CuahLCvGcyJWmHjKP37OX/RNE8os2ZlzhXA6J5p+ZNeEmsujMQU/FRWyBGhgVo0Mx6GLiGdLxTPz2QPbsKAt03iwQTxCr9oxGOvesePTRgWM6N4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q0GBFMBa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LwGEPLYb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B54961F000E9;
-	Mon, 10 Aug 2026 17:30:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q0GBFMBa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D691F000E9;
+	Mon, 10 Aug 2026 17:35:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786383040;
-	bh=KIVSOjcRfV0FZnsIbdZR9Ns/3ujkvRp97l2ydDdlwmk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LwGEPLYbB3aFmKFprWh+LYbo36vAqQlhy2Z6yj2/6kPALIUKYpv8joVZRMzTlHB0f
-	 JSVJ0giJxGqc+ScdKjdYfnV1n9aXV01TBVv/Lsg67qO2JCG7/BHov+Fs9bJ2gt1uAc
-	 Hp+jKU9xNjb5ff9Plwo5rmiPOieB7JpOfZuf1iXp59rgDKmPADqN5rgVvvkk5jY28s
-	 mOISlZKQgk5aaU+eAZLkIHo5ukdegomqVjz6eSSHe3AzmoLz9vmeYV2RupG3zez1w6
-	 e52b9wg+01cOBGLhZ8zznoCBSTlI/Ta2vURj4dfiFTIvPxaUmeHqzxSYBXN+WmN1GW
-	 f66K72xnq+AKw==
-Date: Mon, 10 Aug 2026 12:30:40 -0500
-From: Rob Herring <robh@kernel.org>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: net: wireless: brcm,bcm4329-fmac: add
- nvmem-consumer reference
-Message-ID: <20260810173040.GA2218158-robh@kernel.org>
-References: <20260727225311.266596-1-rosenp@gmail.com>
- <20260802083905.3819981-7-arend.vanspriel@broadcom.com>
+	s=k20260515; t=1786383308;
+	bh=lOaigcCRV0HRRLoN3lTVaMyuUhsSq3Xq2fGoekEU3lw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Q0GBFMBaRZj38Ef0RlH2aFQVXD3sVP5qzqHwSdIOiJFBjnJBwxc0+APKYQxyl85SG
+	 8JXna1d9z2Fs274m21CLTv6yNgaXAlEZ3N94STghcthZEv0JvmUrts/E+UWTvpSmYv
+	 KfZiBzaqHBJwD3PUbrkg+nMA/ULdQGVRKmrsTxUJbUe3RjLh1ZQX0lbYvyzdfTEXsD
+	 4Fk+DaaOo2dwesjlx8hRHdx5t9Ioqav19j51VHVcnPtanzlh292kgQJYVe1v+3nwFH
+	 IDGVujEiMTVRv6pV0t7m8TfrWZfCTqa7EcCgJPYomQj12FNM4fb2CVAWZ6O2tx7iCR
+	 Vnsi8KIfLH5xw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 19/19] dmaengine: ti: k3-udma: Validate resource ID
+ and fix logging in reservation
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260810151423.1948224-20-s-adivi@ti.com>
+References: <20260810151423.1948224-1-s-adivi@ti.com>
+ <20260810151423.1948224-20-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 17:35:08 +0000
+Message-Id: <20260810173508.86D691F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260802083905.3819981-7-arend.vanspriel@broadcom.com>
 
-On Sun, Aug 02, 2026 at 10:39:04AM +0200, Arend van Spriel wrote:
-> On Mon, 27 Jul 2026 15:53:11 -0700, Rosen Penev <rosenp@gmail.com> wrote:
-> > The brcm,bcm4329-fmac binding has unevaluatedProperties set to false
-> > but does not allow nvmem-cells or nvmem-cell-names, which are used by
-> > DTS files (e.g. bcm4709-linksys-ea9200.dts) to supply MAC addresses.
-> >
-> > The driver already supports nvmem-based MAC address retrieval via
-> > of_get_mac_address(), so add the nvmem-consumer schema reference to
-> > document and allow these properties.
-> > ---
-> >  .../devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml | 1 +
-> 
-> The problem is real but I think the fix belongs in network-class.yaml rather
-> than the brcmfmac binding specifically. ethernet-controller.yaml already
-> defines nvmem-cells and nvmem-cell-names for wired NICs, but the wireless
-> binding hierarchy (wireless-controller.yaml -> network-class.yaml) is missing
-> them. Fixing it in network-class.yaml would cover all network nodes at once
-> instead of requiring each wireless driver to add the same reference
-> individually.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-It is wrong because nvmem-consumer.yaml does not define how many entries 
-and what they are. IOW, the valid names in nvmem-cell-names must be 
-defined.
+Pre-existing issues:
+- [High] The K3 UDMA resource allocation APIs perform unprotected, non-atom=
+ic test-and-set sequences on resource bitmaps, leading to concurrent alloca=
+tions of the same hardware DMA channel.
+- [High] Missing bounds check on `tflow_id` when allocating a transmit flow=
+ in `udma_get_tchan()`, leading to potential out-of-bounds bitmap access an=
+d incorrect error return.
+--
 
-However, expecting all network class devices to use the same 
-nvmem-cells/nvmem-cell-names will probably not work long term. Some 
-device may use it, but not use "mac-address" entry. Unfortunately, 
-there's not a way to override a default in json-schema. So we'll 
-probably have to just define this in every user rather than centrally. 
+--- Patch [19]: [PATCH v8 19/19] dmaengine: ti: k3-udma: Validate resource =
+ID and fix logging in reservation ---
+commit 491caa42a0fc50724787a5febd8ecf1dd0d46ac0
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+dmaengine: ti: k3-udma: Validate resource ID and fix logging in reservation
 
-So this should just add the definitions to the brcm,bcm4329-fmac 
-binding:
+The __udma_reserve_##res macro currently lacks a bounds check for
+the provided id. If a caller passes an ID exceeding the resource
+count (ud->res##_cnt), test_bit() performs an out-of-bounds
+memory access on the bitmap.
 
-nvmem-cells:
-  maxItems: 1
+Additionally, the macro returns -ENOENT when a resource is already
+in use, which is semantically incorrect.
 
-nvmem-cell-names:
-  const: mac-address
+Update the macro to validate the id, return -EBUSY instead of -ENOENT
+for reserved resources, and properly print the resource name.
 
-Rob
+> diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-com=
+mon.c
+> index d5d7158a37f8f..381e1a30c0be7 100644
+> --- a/drivers/dma/ti/k3-udma-common.c
+> +++ b/drivers/dma/ti/k3-udma-common.c
+> @@ -2016,9 +2016,14 @@ struct udma_##res *__udma_reserve_##res(struct udm=
+a_dev *ud,	\
+>  					       int id)			\
+>  {									\
+>  	if (id >=3D 0) {							\
+> +		if (id >=3D ud->res##_cnt) {				\
+> +			dev_err(ud->dev,				\
+> +				#res " id %d is out of bounds.\n", id);	\
+> +			return ERR_PTR(-EINVAL);			\
+> +		}							\
+>  		if (test_bit(id, ud->res##_map)) {			\
+> -			dev_err(ud->dev, "res##%d is in use\n", id);	\
+> -			return ERR_PTR(-ENOENT);			\
+> +			dev_err(ud->dev, #res "%d is in use\n", id);	\
+> +			return ERR_PTR(-EBUSY);			\
+>  		}							\
+
+[Severity: High]
+This is a pre-existing issue, but does this unprotected non-atomic
+test-and-set sequence on the resource bitmap allow concurrent allocations of
+the same hardware DMA channel?
+
+If multiple client drivers request resources during parallel asynchronous
+probe without external synchronization:
+
+Driver 1 checks test_bit():
+	if (test_bit(id, ud->res##_map)) { ... }
+
+Driver 2 checks test_bit() concurrently:
+	if (test_bit(id, ud->res##_map)) { ... }
+
+Both drivers then proceed to set the same bit at the end of the macro:
+	set_bit(id, ud->res##_map);
+
+Could they both receive the same DMA channel?
+
+This same unprotected pattern appears in __udma_get_rflow() and
+__udma_alloc_gp_rflow_range().
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while adding bounds checks
+here, should we also add them to udma_get_tchan() in the same file?
+
+In udma_get_tchan(), tflow_id is used in test_bit() and set_bit() on
+ud->tflow_map without being validated against ud->tflow_cnt:
+
+	if (test_bit(tflow_id, ud->tflow_map)) {
+		dev_err(ud->dev, "tflow%d is in use\n", tflow_id);
+		clear_bit(uc->tchan->id, ud->tchan_map);
+		uc->tchan =3D NULL;
+		return -ENOENT;
+	}
+
+	uc->tchan->tflow_id =3D tflow_id;
+	set_bit(tflow_id, ud->tflow_map);
+
+Can this write beyond the bounds of the bitmap if an invalid default_flow_id
+is supplied from the Device Tree, or if tchan_cnt > tflow_cnt?
+
+Additionally, it looks like this function still returns -ENOENT instead of
+-EBUSY when a resource is already in use.
+
+>  	} else {							\
+>  		int start;						\
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
+224-1-s-adivi@ti.com?part=3D19
