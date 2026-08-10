@@ -1,89 +1,89 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4A6417D97
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D2C418377
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786376544; cv=none; b=K0KHgyQdmPS+tIstGRXva/GBtNUUA6RbfQhl1EuH6mGtgZqVggAJjabwOCAMeLt7/CiLk7moL+pa4aD4EVDiRA/2773jYXzmJ0y+sZm5MyHdE1b4q8ZSzYQejecROqVkkaY/J48nvdh0bRoqSdyOOWeqgmQNkRr44bgJTcDU6hY=
+	t=1786376545; cv=none; b=uL2PWXnUsC0j4slV8zyBZgoPOfRcjHpCqcFjPtIfedX6HUb8o17uddc2bXlM8ehA2Zt28QJ+xvJa2XvA4U7PLjQfTG6RpN7t6ovlS4DTyZBI4lTcdLxXgFAkBbp+m2pg0LFX2z+GTnh37qf4HWIURanxB9gQZVT3f63KFBiHIi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786376544; c=relaxed/simple;
-	bh=0CI3mvu26e7yA8lXB+SGW6FHaZ290+w5/6/G0cJEMAA=;
+	s=arc-20240116; t=1786376545; c=relaxed/simple;
+	bh=TkrMMSM5qDrBbFDzv/+VaChi5RjS9zkmjtBE4vr35Do=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bl3taQ8t5wOMB32qmBtuJa11lrRZlHM38+k2Mvd+k0V2mqm4frUXY0ZKSWOe1rnXsYcH4I85nTRxu90Cnjfhr+8DLq65YV0taOqs3DnWGo6WDtVBrlAAaDK7xPhY4FWambV5kSyZMU3tuN/h7oZ5jMy/q0t5v8aWc8tbLdbe8pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZcV9Mp7S; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g2139EzV; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=SZ1WVnlcVbOgkRK8cHuhipP/V9peTWrhMW/ulQAiO+5tAPbtJoACXZSOW1KmqGksvjiuiDJ/waaugVRZRpyqelDyLnr/2hg/c0/brDQHa3as3Q00gS6iWLXa/lkowlSgvhBYhZLX7iMteU9kN+qJ+VntupjkflPQyEomPjYvFCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AeS01/Ct; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OIpjQuXD; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZcV9Mp7S";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g2139EzV"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AFWOct789112
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:20 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AeS01/Ct";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OIpjQuXD"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67AFWefY2058175
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Wb7qvpUp/pGm2ninxxAE+oyyMl7XsWm9X5sYC8bZaf8=; b=ZcV9Mp7SANLg3D5T
-	PWLMytl00vS/dew4AbD067kvdt36FpqHJ6AjCy7ZFwOHr9kt137MO3GgFXgScuoW
-	nM3pAZXnEDUjIaql7nTSuDyMD7/PjTIx2pOpxGUcMl4NEU8sOqWls+XAEr65C7Y8
-	XaQJpLZpa+y35XROU+5SZCpYp/mEx9h415znrRBtb3YGcnixmxYVnlKoDf7Hvo1v
-	GsXXJ8+sqkS2oE+CYGn8J916dKe0t3XNL3mPJ8WxOhG4CTJFc9H13jIL4qiJhGA0
-	lv/LSw1yCmWc/n5gEODXbb7NEUvjXCDJhtqXZ71Ur1F3xXNnKBI/CSBOvmjQUuMP
-	eG3k2Q==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fycgese2j-1
+	/Ol8WpcEjj06q3ha1b2ZdRY+l9xpEFrE+uyJaWfhLJI=; b=AeS01/Ct5gaVVxuL
+	BGhfFfceoK4d/rRNfiK6ZSBPbIpCmCzbID+VKl8ITCe0wUSneI9auDdnRDDCCxnL
+	qWwlYHDL5E9bwviIOlH0k/YWs17jIxRilWjf7FFiABa5ps70gB3DNSl6kqjyICT0
+	42xgyUXtCx19u+YkHhjfC/+SiHf6UQJmCQ2yGgwUuCsrQ2ACF1pxLEna9abtBIMC
+	fWV/IyyDRRiI5M0aZgOb0HaYD/J7lIK2aha2Dik8zf3jWDjf27XBW0bmDFH3mMmP
+	r4la1VhTPJ53QWl8P6mgI+hRNBfeM02sX5PPWpygAtInFV94rLSqqAgBHRHhryZ/
+	UaF/PQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy8v2acs2-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:19 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c0199faafso24298221cf.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:42:19 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:42:21 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52d28f8737eso39542821cf.2
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:42:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786376539; x=1786981339; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1786376541; x=1786981341; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Wb7qvpUp/pGm2ninxxAE+oyyMl7XsWm9X5sYC8bZaf8=;
-        b=g2139EzVk4c+Dh9HKQTF78EbgMDgEkt3njcuBnUnLR0kKjxLAMrS9QCNvbrSeybY5n
-         moJKNJ84f63g+g203h8CT4ArS+WhlmRhBtQ2a9qVdVOjapRUzQr3wSPNoXdUgC2VX9bM
-         woIzDLt+/WAHdpS066nUEfmFsmAn8XLetZScA9rf9WskgFDdvMHL68yLahpVh/1M8Mp1
-         I5tyiPagsqEkCQaA1wMs/ZnNrJh6hIrJzHMdxRh58fxW8i6D5zeLSmv1nV0ExiPUgBfb
-         b6X0q2IVKE9SYWPi6iUJX4N8AcKw5ZbGuU36sg2kigrbQRE2yVvcqv4PU1tmeZNEi8YW
-         zuvw==
+        bh=/Ol8WpcEjj06q3ha1b2ZdRY+l9xpEFrE+uyJaWfhLJI=;
+        b=OIpjQuXD2oVjibNDNjZb5aFeg7LEYm5UJY3rdPzMLNIBDQoHv51y4up3cQkw3q3NDF
+         fhbciJ6c8jV9HzU79dHaVu1Bw1dTEvEEGTR5guvkCGNaI4bsvhrGd8qF93NNHkWbImzj
+         uMFHpOwncS10JOSCHywRct5zAhNL/PZpQpa6WEKcDdWjOcuo9bLfO6wc0yxnFjqfqUVP
+         ODrVgzl5pxrNkPFireImN8JgArLlUviIHGTIjYH5tR9WBvDOh4AV2ihrjvvAX5aYV1oP
+         vPGctcfbkQe5CcoE0gqUbyRKMayq2QE93tZtCnZmRUBEfLOYPAKGD6iPwchyu2mnbAXw
+         l7Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786376539; x=1786981339;
+        d=1e100.net; s=20251104; t=1786376541; x=1786981341;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wb7qvpUp/pGm2ninxxAE+oyyMl7XsWm9X5sYC8bZaf8=;
-        b=XD8n+65kgrsSOjVXxFKMwuKO6R/2e5Yd+h4qN2VDCGgoTx6E4RA2ug13A0EYLnq07i
-         Jxt68p8WxuDXMae0tCRA6HlEFfzNCm7/IZlXyW3UICdmJojoD49LMXSeyy7J5qN4MVcR
-         O6uq4mrxWmQ06xao9qCxM9N5/CcHjvG5AQAdS4ai+pzRSIkTmmsQypLY+ZlE9Gor1Dh5
-         aJ76N3rOQSUctbJjEiNyfgc5DSSKSEooMf2SAKT/847Xuc8UDbdC4WcnESkiZkpcWKoa
-         utlbOQwpujOzqxnWQ2VN9LPpSPs642bsuOSUUsMIY9L9bNY8cbDH/bqj5WeBUxcN6j5J
-         W61A==
-X-Forwarded-Encrypted: i=1; AHgh+Rr4nonxwnPmHNeOfvwNdAxYxndC8wmcySXj1h6/PjY54degR0IYQuz+YwroMR5zN9DHq4XhDK/Rau+0@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCUtA2FKkYuk5+lKAkaUOXojR88en/+vKtWBDCWH7HvSBfL0tV
-	xbGco3/Kl1KQnQh2lp6cufVRxMRQCviKqWMaY+esUcw49FoHfF0YA0lh0IJOtTklyEn4wZzF97S
-	lclYSRtti6zQkQyA/GgcfdzIzk+AMiK5X8w/E+MG+xYL7mP4fuNIZ7l1YRD198qzE
-X-Gm-Gg: AR+sD12CijA9QhiNLm4e6r8he99izKHKf5HZ8ZDa5qxZ50R8zMRpCglZB9W/zVYErs0
-	5maYL2yalkwPodzAm9xJdhRGCStCrQmskv+H1Q8JipFzSAEGH/MvtzdEf8UqHm3dl6DGRdlzLzb
-	DjWXoZK099YvELxK5SjxkC+6R9LdXVIfkAO/3yAhCw3tm26GqmLwUmtlx4k7n426sO2euvo3sHQ
-	qv6mI5yQ7c/V3xnxzxFQWtfFZ1bf9uQKIeulXATQMap+W9Q0ZSdQmS7UjYfZ0x+DVo+xydsSP1V
-	qZLJrEvLcxmZr6J8ZItNDNrHtqjNzGjvd1ejDqaElF2h3NsNaryPn4HWo4AutAdU/HUhhnJhelv
-	JYBKVT/WgVvB5HzSLGkvSCLlVWDllCi+2H2cpIf4r6dw/qDl8DNOo/rsdvyDBNDdoVAAXmMpIwb
-	gJGwbzz0l1+II5/w==
-X-Received: by 2002:a05:622a:c8c:b0:51c:19af:6341 with SMTP id d75a77b69052e-52ce61d2d25mr497522951cf.36.1786376538896;
-        Mon, 10 Aug 2026 08:42:18 -0700 (PDT)
-X-Received: by 2002:a05:622a:c8c:b0:51c:19af:6341 with SMTP id d75a77b69052e-52ce61d2d25mr497521651cf.36.1786376538133;
-        Mon, 10 Aug 2026 08:42:18 -0700 (PDT)
+        bh=/Ol8WpcEjj06q3ha1b2ZdRY+l9xpEFrE+uyJaWfhLJI=;
+        b=smi8uAxPdV0PuGcD+8ccLTBE57dloD710abEkk5Uddd4E0QkrYc2xYmrmWeiadqNcM
+         9EFqqt6k4079Y9fKZZ9NBHvlcnGm2WoZ6gKyCVbHVM8mJ1zuZUjKE9SBMxWe9usPpZhW
+         RARlcARXtNc8ucjspNs/dukIY0feV05kIwsQY+C1PCJnQg4IiAFmS9SDF7j+5WsazS7+
+         G8NzPpL0KRsHLW+q8OeiPdGLZBb1+bbWLXbaYommyDI/TaYgUYP1/ar7+ZAe/ZUF7tHu
+         lgHT/clt6JH+c7A4aFta2f57g+6AlW+dBxdMR2qQ3hxHQ0rxZeEDHTrHbkcaXHiOaoHe
+         s6Ig==
+X-Forwarded-Encrypted: i=1; AHgh+RqrOshnGkUNFX69TM1kzzO5KhCav8qwDKRPXnNi1BPkEqjk8O9aM6R2n6osyKrUNz9csyUZXwa0B5O6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwwXS5oIq1SKXNshx1XHsTC8sMlfqpDAZc8qy4SU4S0sZduQ6yp
+	h0suILMArrybENsLmhal1c034Iz4DmnEnCkxkmVtM5TWIHjfzkZ37RvjwAbfaMcmD3YbbC9GFQ4
+	/mkUPF7LKIH9hGup6PYLXqGLeXr/g5Yj8mbCTdNvA3ZyVszbxDavhkP9HPHOUoBCM
+X-Gm-Gg: AR+sD13bLObxdZGoCsGO12bdYQHg1pwBmVjo34SklDctP2lB/leb/fZ/wD9z3+U6yk1
+	pkdJyvckKzQ8v0NR2EeGKkg4VtGRbuEFkPpuPB7tNh3jxRMNhq87xxM9MsOXAle+hw0Zv5+fePN
+	/acRS2+FrtELmF3oHRpy6cbxcJz1PBXJwTQaCagiSulsjDnZ+Pf2aen3bE77XkVyTWHWxjt90IM
+	0YNy7qLi42uExS07E2gJKv8InCmQ2NJ+tsHyrC8H3pYPXL7pQjjYySLlh89VY+57R2c4/u0plpy
+	DqtRN7SPCAMuf8xg0fKVWzs3ebPnbvFmCqJ4r+AdN+iQjK82p8KwCpAgGvH6QVZSV1TnpY7EPTv
+	9GqTwFecwokDVUfT0gZum6BQb337/WAt7fMra+6qz35q9TqA+fuVc+3MC3TYHLqsJRARk2SOwIZ
+	yE5838YWTA8Zj2eg==
+X-Received: by 2002:a05:622a:1f1a:b0:528:3142:d466 with SMTP id d75a77b69052e-52d20a920d3mr252033551cf.41.1786376540717;
+        Mon, 10 Aug 2026 08:42:20 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f1a:b0:528:3142:d466 with SMTP id d75a77b69052e-52d20a920d3mr252032531cf.41.1786376540166;
+        Mon, 10 Aug 2026 08:42:20 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3056f1bbdsm2071673e87.82.2026.08.10.08.42.16
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3056f1bbdsm2071673e87.82.2026.08.10.08.42.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 08:42:16 -0700 (PDT)
+        Mon, 10 Aug 2026 08:42:18 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Mon, 10 Aug 2026 18:42:07 +0300
-Subject: [PATCH 03/10] phy: qcom-usb-hsic: do not run the sleep calibration
- clock
+Date: Mon, 10 Aug 2026 18:42:08 +0300
+Subject: [PATCH 04/10] phy: qcom-usb-hsic: engage HSIC mode from
+ phy_calibrate()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260810-msm8974-usb-hsic-v1-3-e5f93ea76ffa@oss.qualcomm.com>
+Message-Id: <20260810-msm8974-usb-hsic-v1-4-e5f93ea76ffa@oss.qualcomm.com>
 References: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
 In-Reply-To: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
 To: Bartosz Golaszewski <brgl@kernel.org>,
@@ -114,122 +114,122 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
         linux-phy@lists.infradead.org, Greg Kroah-Hartman <gregkh@suse.de>,
         Peter Chen <peter.chen@nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3001;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2853;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=0CI3mvu26e7yA8lXB+SGW6FHaZ290+w5/6/G0cJEMAA=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqefFQE6VzvzxQPylH9ol+I79Tpmlw5MGkv8b25
- 1iWSPmFw6CJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCannxUAAKCRCLPIo+Aiko
- 1XrJB/4k7QGxbIKLgD8fuU+VZfJP2y/wpC+a0n4C6NJVVqJBicGgCy3AQ8RQPMNajILbjcTmnxs
- 42Um3fhKY+5SXieGB3CFYJEOjlA79/KNfLs3M9M8Tqy/OVFOG3m1xDW7BCK7urRoWIVBu7kSbYn
- 4QlCcu4hYZ4rVVDHGgBhXtsV3Ke4vXH0fpEWTn3rvqTf7hU5BbwX4Wu7MMhp5R70vbXirrZcjXv
- nI3gVSk18M6Zo27KaVZOf8A19KNnRvRSq++A9OuCeo6MhNWEK7/46RwMvafaMZdu1utqdf24XCk
- XI0jmDgzo5lFr620llmYyMLV77/QUORAmmowPAq9SCJ394y0
+ bh=TkrMMSM5qDrBbFDzv/+VaChi5RjS9zkmjtBE4vr35Do=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqefFQhLz1oU44aOjR1xi5aFB9HrDQMTdOWypAd
+ O9oOzFRa32JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCannxUAAKCRCLPIo+Aiko
+ 1WzIB/wPUZAdSQaPXXJvH1bFmntgi2oxFK1T9jsaAfhtC18IWwtDkzXwfNlhfk3AR0XZmGY5UiP
+ jjQmoXwuwt/VtjrilmmUZx+u6hDAXj0Zr9EXcb9Fo3CzLGNTgRNxoXu6V3Z+7f95saFMXWBPRS1
+ iFeT+5aDaRKCydJtyiI83UIVsC5DaW4p12w/1A8f3yxDD3KZayrQ57H5az4GkXml707CRQxLm4W
+ pJ2Wp+9PXIMGEA9EuoqvAdtxrvhMdgmAz7JqCU2sd/YbFJO0ls1bXVkQOmqcuno1MxGNGc6qfXa
+ nyCZ/v/i0ylhMp2Z/RBbFkaPoFNGFX930//CM7CRhxNKITVX
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-ORIG-GUID: OyE7tO7EumWzjBUAxovcXm6fWbdy96Al
-X-Authority-Analysis: v=2.4 cv=R4cz39RX c=1 sm=1 tr=0 ts=6a79f15b cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Authority-Analysis: v=2.4 cv=S9PpBosP c=1 sm=1 tr=0 ts=6a79f15d cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=h5QO6Q66eTtlMCYmI04A:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: OyE7tO7EumWzjBUAxovcXm6fWbdy96Al
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEzNSBTYWx0ZWRfX4Ej2yBRV7fMK
- JNTMs6zjl2EiCa2tYQucm2/pUTlFk5smcM9E/TQISGv6un6V7s+wckbNavKuRKjp996nLrsbx5J
- bYeR0Qe0XiNZhMngVb5gfeoLuAgCB4g=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEzNSBTYWx0ZWRfX92T1fZ/FeLaA
- F5yYxc+0PuyTTmCM0Mvfq6gx/JFiiDm+JagwHNc6D+RIu90bDS3tm513EpooN3vryDmNbZVcF4m
- YSZ0c3ikbsmUiDIfd3rcFvqwDowAqc1piITzbxt3rZt9xmvFpBEB7lB2dfe7pM5UhC/wjePqPxD
- 7RcECFKFDxQAXDtlOQ3c1cF1D+lFWLDuLRydTxGvr4QHAjrAwWeJzE1az+vsGrgve2uUBKRGxZ5
- retlUkrlBV4fwvs2g0G1vPvXQJQOXVC8SsiaPaPFK31F8cRswQbBYHziSP+SKYtPwEVNPLm1Q+8
- xm32eVPg0VddzxSBwejYFh89cTjjsUXwbmvhVQ0mOyclsJqATUdAe5I8Tr7G1+TVbQoTMT2fUGs
- ThLHvaiLutvk9C82gE3iSQkpOQJwATONM4aF4ryTg1D0u4oScZFgOkHONUbbgoyLyxqKURpPNmJ
- sVG4MSp98kFh5d6zpfw==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=0xrA-bSJ-g1zX4FYa4YA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: bNFgi4GxUKPV1kEgVXB_f_x0m0ekL0EL
+X-Proofpoint-GUID: bNFgi4GxUKPV1kEgVXB_f_x0m0ekL0EL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEzNSBTYWx0ZWRfX+w6GrFMMt7jz
+ z8Ef0EVbn2OjgExYVD79VTyILjZD7sr4E8J7fFHH+0u/5MFfhppEq12tByK9aDmiLUJDDB6pOvN
+ xyhynhHRwBo5KMBqdGSoiQ+wqURZEkMzSPxXwW+JYJFPGgxg9d0av/VqEG99L2CfZlTaeZG3Fn0
+ V9jGA9dHY0BPDly8uqo4TcXbVYvyz7WRaRmKUaCy9fBQZ6XQaZyctA0qmxwS3UfhlCfRk6Up5o8
+ SiJxjLQ2/wps0wkgeE12Uceb+DNS45gyGibS4TnrQcMUUuOwbIfKjX9YTLvX31SRXvExVxh7IqL
+ UfrfPdDGMljE8XmsnUisiGAJ7wyAs5IunKm6ghQoqOIyz0CaA4vwo4jlfuHV2eXQnU6vV57k0z4
+ 77d0QcpHYy2lC3Tqyp82Bi5yUESjGAz5QSuFvab6w2opjhNcI4O1r9ST3JtZyXHbfOsQsrqrNkF
+ vWAsWbFwAnQzRtizuFQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEzNSBTYWx0ZWRfX0zs/tvUvXzr0
+ ed3MrbPlc/TR6cKk5EFa23dicmSd57cjoDhLXgWRuM4APslt4d+RWp1l8BgTEvZqoWJanmrqRnG
+ i9CxFW1sCXc4HxGP33DSxeSzkSvWJJA=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-10_03,2026-08-10_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 malwarescore=0 priorityscore=1501 bulkscore=0
- suspectscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 phishscore=0
+ phishscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ priorityscore=1501 clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100135
 
-With the cal_sleep (32 kHz IO calibration sleep) clock running, the
-HSIC PHY engages its sleep calibration: the strobe/data pad
-calibration converges to different values than with the active
-calibration alone, HSIC_CFG reports the sleep calibration state, and
-the port no longer detects a device connect - an onboard HSIC hub
-signalling its attach after reset is never seen (observed on the
-APQ8074 Dragonboard against its USB4604 hub, by comparing the ULPI
-register state against the vendor kernel, which never enables this
-clock: with cal_sleep enabled ULPI HSIC_CFG reads 0xab and the pad
-registers 0x0f/0x0d, without it 0xa9 and 0x10/0x10, matching the
-working vendor configuration).
+The PHY power-on sequence ends by engaging HSIC mode. With chipidea,
+power-on runs before the host is started, and the HSIC connect of an
+already-present device is latched at the moment HSIC mode is engaged:
+performed before the host runs (and before an onboard hub is taken out
+of reset), the connect is lost and the device is never seen. This is
+why the APQ8074 dragonboard USB4604 hub never enumerated on mainline
+while the vendor kernel - which performs the whole PHY sequence after
+usb_add_hcd() - sees it on every boot.
 
-Stop requesting and enabling the cal_sleep clock.
+Keep the calibration setup and the pad mux in power-on, and move the
+HSIC mode enable (and the auto-resume disable) into the calibrate op,
+which the chipidea host now invokes after the host is up and the
+onboard device reset has been released.
 
 Assisted-by: Claude:claude-fable-5
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-usb-hsic.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+ drivers/phy/qualcomm/phy-qcom-usb-hsic.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-usb-hsic.c b/drivers/phy/qualcomm/phy-qcom-usb-hsic.c
-index 20f6dd37c7c1..b670ec364a2d 100644
+index b670ec364a2d..e0637522eb82 100644
 --- a/drivers/phy/qualcomm/phy-qcom-usb-hsic.c
 +++ b/drivers/phy/qualcomm/phy-qcom-usb-hsic.c
-@@ -20,7 +20,6 @@ struct qcom_usb_hsic_phy {
- 	struct pinctrl *pctl;
- 	struct clk *phy_clk;
- 	struct clk *cal_clk;
--	struct clk *cal_sleep_clk;
- };
+@@ -63,17 +63,6 @@ static int qcom_usb_hsic_phy_power_on(struct phy *phy)
+ 	}
  
- static int qcom_usb_hsic_phy_power_on(struct phy *phy)
-@@ -38,9 +37,13 @@ static int qcom_usb_hsic_phy_power_on(struct phy *phy)
- 	if (ret)
- 		goto err_cal;
- 
--	ret = clk_prepare_enable(uphy->cal_sleep_clk);
+ 	ret = pinctrl_select_state(uphy->pctl, pins_default);
 -	if (ret)
--		goto err_sleep;
-+	/*
-+	 * The sleep calibration clock must not run: with it enabled the PHY
-+	 * engages sleep calibration (the strobe/data pad calibration
-+	 * converges to different values and HSIC_CFG reports the sleep
-+	 * calibration state), and the port does not detect a device connect.
-+	 * The vendor driver never enables this clock.
-+	 */
+-		goto err_ulpi;
+-
+-	 /* Enable HSIC mode in HSIC_CFG register */
+-	ret = ulpi_write(ulpi, ULPI_SET(ULPI_HSIC_CFG), 0x01);
+-	if (ret)
+-		goto err_ulpi;
+-
+-	/* Disable auto-resume */
+-	ret = ulpi_write(ulpi, ULPI_CLR(ULPI_IFC_CTRL),
+-			 ULPI_IFC_CTRL_AUTORESUME);
+ 	if (ret)
+ 		goto err_ulpi;
  
- 	/* Set periodic calibration interval to ~2.048sec in HSIC_IO_CAL_REG */
- 	ret = ulpi_write(ulpi, ULPI_HSIC_IO_CAL, 0xff);
-@@ -76,8 +79,6 @@ static int qcom_usb_hsic_phy_power_on(struct phy *phy)
- 
+@@ -85,6 +74,26 @@ static int qcom_usb_hsic_phy_power_on(struct phy *phy)
  	return ret;
- err_ulpi:
--	clk_disable_unprepare(uphy->cal_sleep_clk);
--err_sleep:
- 	clk_disable_unprepare(uphy->cal_clk);
- err_cal:
- 	clk_disable_unprepare(uphy->phy_clk);
-@@ -88,7 +89,6 @@ static int qcom_usb_hsic_phy_power_off(struct phy *phy)
+ }
+ 
++static int qcom_usb_hsic_phy_calibrate(struct phy *phy)
++{
++	struct qcom_usb_hsic_phy *uphy = phy_get_drvdata(phy);
++	struct ulpi *ulpi = uphy->ulpi;
++	int ret;
++
++	/*
++	 * Engage HSIC mode only now, with the host running and the
++	 * downstream device out of reset: the connect is latched at this
++	 * point, and a hub that has already booted asserts it right away.
++	 */
++	ret = ulpi_write(ulpi, ULPI_SET(ULPI_HSIC_CFG), 0x01);
++	if (ret)
++		return ret;
++
++	/* Disable auto-resume */
++	return ulpi_write(ulpi, ULPI_CLR(ULPI_IFC_CTRL),
++			  ULPI_IFC_CTRL_AUTORESUME);
++}
++
+ static int qcom_usb_hsic_phy_power_off(struct phy *phy)
  {
  	struct qcom_usb_hsic_phy *uphy = phy_get_drvdata(phy);
+@@ -97,6 +106,7 @@ static int qcom_usb_hsic_phy_power_off(struct phy *phy)
  
--	clk_disable_unprepare(uphy->cal_sleep_clk);
- 	clk_disable_unprepare(uphy->cal_clk);
- 	clk_disable_unprepare(uphy->phy_clk);
- 
-@@ -125,10 +125,6 @@ static int qcom_usb_hsic_phy_probe(struct ulpi *ulpi)
- 	if (IS_ERR(clk))
- 		return PTR_ERR(clk);
- 
--	uphy->cal_sleep_clk = clk = devm_clk_get(&ulpi->dev, "cal_sleep");
--	if (IS_ERR(clk))
--		return PTR_ERR(clk);
--
- 	uphy->phy = devm_phy_create(&ulpi->dev, ulpi->dev.of_node,
- 				    &qcom_usb_hsic_phy_ops);
- 	if (IS_ERR(uphy->phy))
+ static const struct phy_ops qcom_usb_hsic_phy_ops = {
+ 	.power_on = qcom_usb_hsic_phy_power_on,
++	.calibrate = qcom_usb_hsic_phy_calibrate,
+ 	.power_off = qcom_usb_hsic_phy_power_off,
+ 	.owner = THIS_MODULE,
+ };
 
 -- 
 2.47.3
