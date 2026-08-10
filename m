@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A553340E8FC
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:23:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFB3417BDB
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:23:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786375409; cv=none; b=VsHDvnEaMv6mbq/z9LXAm9Daf76wG3dsfKiE9oReOXk086Ctg8UFVAIduYC463EP9ethw0N+/HUx8V4EENw5IxAWC6f4n2AJk9zTIgrHll3kHV9XyBl4Xne08zaBribSwOfkO/q29VTVDC4pZ2OE05tJ6hg9DjLzki5ZaF73ny0=
+	t=1786375416; cv=none; b=Agc7n1RXyXYqpytJzSdjxrMIsm+wt7w6Y5ThaE2pt/wkHG6mty4ptO3lQlbSolSxPUEE9g6tbzAbux9lnf5cmZd9eHO4Bw3xWp9Dbrn/P9nFg6MIIAmDDzxMop0D4pYGGc6OPAfxWDvw4Sf/dUBAVuaqnBjqIIfmC/it+hIbdhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786375409; c=relaxed/simple;
-	bh=n+I17YK5f06RgvQsaK7MYZjdinXk4SMckrjXbihEjU0=;
+	s=arc-20240116; t=1786375416; c=relaxed/simple;
+	bh=taM84vFCSDxU9T4PpLRoFiDqoqkeHiWHwB/RuWcTBsE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cFayUk3JghIO/yOvNqv0ZwC3ak13L4b+gjAd7+l99mZ4qIOKzSVUn04SQZMRi+Oo9xUVg/rC2g+U5ZsCDi694RoC1grvBl7yi3CoGuY0JcI8ga32cPKvjaELap5komkqKYKX0d5qp3mebIYJNC0hZiFmGL1S/U6sdL3+OL3CYuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I3EUiGVT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GfmLOFDh; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=fQSLyVyYJpWmYFz+djJd8v/SdEPQZV9tz09f+01PblRu2vGcdFkxXU87Wbalo+ZwL7DC0grcpNl3otKzehLN+WU6XL+zRLKY8BrJ21tSW/cPWc75uExywzktNqZOSGbpF6juPthbDm7Tner6N8UjPIle88RRiVqwuZoxerT5g5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XpD0Ag9l; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iQIfk9Dq; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I3EUiGVT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GfmLOFDh"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67ACj0pc1671296
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:23:26 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XpD0Ag9l";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iQIfk9Dq"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67ACjHJw1959759
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:23:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=bTTnPEh7D4i
-	h9EvnotZPDDWz9xg7ucFp62s5u7zxdfs=; b=I3EUiGVTjoZlzdilQFcBjiC1s98
-	+c9VOYO+ROVucg3kmVai8bhdI4qxUXN/roEKO+TMlaOWHv8UVm6qnTq3VElXpXPE
-	XVmdVuLcvZc2+MqEHshGiyFtYasVs4oOnaBZLe3oUSfUCIbNbI6FXO3ofOyKfm+6
-	CP+7t5JDGFhUJuXlDMmYv8Q62WCJp+Uc2cZMmiGk4iIU6W0sLBoGxSYeJ+7kfqC+
-	Sd0TsBBBoxAaGc3gobx5GMSIz/XvzJGDETCZyiuO4y6SAdvbocZL5LEO80OR+awD
-	oABJOd9PxxcTLHdqoaju4yD+Y/0bGdobynvX7j3+JfVCXJS5DNEy9sz7irg==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=z+dM5DDsiVw
+	nL9fNxml86eFgdNNsx+UOg0u0nQ6709c=; b=XpD0Ag9lMXWg1tJ+HQGfO578BtG
+	vYik51BVA6uBtVVqaw+BKsfCx5jJxKLQAcEgebBAwcLLc6AAG+cBk1rw/LTupbAG
+	jTN20Y9Zs60msmOyC7NYbTh6gEYlpGst2uus75k7CSeaZT1rIF1jdMjBHa6nSvww
+	TgpKQFooIQjbP1zLCh1d+6uCftidYLJNqRNxOGD5a8GTzTnORWyQi7G8vQStz+VE
+	9mS5U4xMBW136VN0eb8KHAFqeHEFbjgb+Pt6rbnWQhxCntuePI4qkVKKzXfLp7Nz
+	x3xJk2aBgxHM7BU689WMLg5dxvtWSmoMYNku5SZYZlOGY1pTyCZoGugyzAg==
 Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy8v2aa37-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy18xu9cb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:23:26 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84e1da97175so2930655b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:23:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:23:33 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8486ffba174so4951470b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:23:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786375405; x=1786980205; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1786375412; x=1786980212; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bTTnPEh7D4ih9EvnotZPDDWz9xg7ucFp62s5u7zxdfs=;
-        b=GfmLOFDhRvF5izUpmHYFdce/RJMzc8n63VWIF0vrDT6yF1WJz2jFaB64qFIbURbFJO
-         bMq+83u3hrIyOlJAg/3HMi3xFgvRpLMAL1cffAu7OiXUeFWGzmKiaDmjW8CVwZpdJWCP
-         M5UrgOTpNXKdL/tbkCQ+Z3xJXmX36jkVR00hiFse7WHanF+IocUmfs1ZHLDomiAv/2fu
-         gQPN69vzhYcsNd9AHazhtn43H0mx0EyLLZr7gnNrpYFlS57+J/F6pav+KhSagb1tJGCI
-         vJVwo7uJvzs4Ob2VROxqPucgn94Ghq0RdYpr6GHhm9CDvq+F9WqUtCLig3+YdmWlduxr
-         usOQ==
+        bh=z+dM5DDsiVwnL9fNxml86eFgdNNsx+UOg0u0nQ6709c=;
+        b=iQIfk9DqGWMnfGoTvxz/wVaf0X5mUdsrN89VWFRskuhNPOOGDp2E8z8UsPpp7xSg9V
+         HiuCVM3hnblJIqd5/3X1k2tUZ81/4CmStXdROsxFqptHzS6ymbZpxPIF70E5YYB2W8ba
+         xZ/buFq0fjMAfn8/KCI9ZsmEu51SIrThv0NxkQD6qn+Xz3DZHNxXH/P6L5vC+s54d6dF
+         fu5DIvIZqhYbC8OMbPBoDI6sQYkjkzF4hy2BlsS9IZOcVrf8BAq6EuKQTOTDNbkxpWo5
+         asOZL0H+zXiUEjbQkNrTimVd6CEY2Dzo7VZiZn65U8GZRZcYHWHgHX0rvNKvXyt4re9x
+         10mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786375405; x=1786980205;
+        d=1e100.net; s=20251104; t=1786375412; x=1786980212;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bTTnPEh7D4ih9EvnotZPDDWz9xg7ucFp62s5u7zxdfs=;
-        b=mhgGnsZ967qzW7rH6b8GFGd6hlXJ3WxedqAF5j+Ln+mH8tNETmHG4Y5gUDg/8dwHl/
-         7/9PC6VLTTWbkOcj0u+sJxDAQkz0gFJ7E6sYpNqT/BrX1CeRYfuBb7XVqI4/A7UA3vjK
-         nVlNU0qJNowxXRlcbN9BF83IfZC6m/X/6fV0gXxs7MXfcgIvUYZSD0MUMN/osKGljDkK
-         iHPWc21hqAvHrRaIVL5ea3FDtvhnfrklvQ7CGszV1mNi3ZwZ2Em5uG/vpy484ABkzkVP
-         vvGVMZSjlRwEhnklGLHtf8L9qhjNNdCBqJIcAHHBepfwcWeE1PpCAVFaoki2JH/gxpkj
-         +6gA==
-X-Forwarded-Encrypted: i=1; AHgh+RomnrA9uVF8JBkKrdtMxGlzFB76Ys5ppMfMMio13Ho83vm4cLQyC8Ixt/1+UaVB6iSQ8rSgInea7UJT@vger.kernel.org
-X-Gm-Message-State: AOJu0YwR98s/tC+m0+TAJoML9WlEcqevDk2sTecGucIZiUD6LGEWmq23
-	qXArBXBa0GCa0mE2ktR0WI146a6yzPiZnLEhjRKkOYfVKgeQAV8pLZTTC3P3LKF9q6Ty+YZTcQ4
-	p3tsRfQIWlqTovCQomJ8ouEgxaXqFJREqyFzV1z+crA0KesiALxcBYeOF7fw00eb/
-X-Gm-Gg: AR+sD11bsa8bnEb1UEKH9SEMxygK4k72Wc/tYn2KC3Vu8iEnBG9FdmuS/TYZCkLVsAa
-	HMMHfmp6nVYN1g9JNb4UeWlPCLA0im760NYiGYWYKTJ5sPT2Pu9TNvAzqex7CHf+fKOUsjmPQ9e
-	jerhENYjG7+sUdzQwc4f+ygEExaBWQmeJDSIio3zzgjjMLj909BkugFuFG8cWXgkA2HMzozIw78
-	fxoNOuJnR2rbgGugzLZpE64Ihp+WriN1GJrvBAxqk4AR/0OmTG+Y9ZoRfPMsms5KRBN5rGX7Vr/
-	W3CYxAoPdyB7a6V/g/nVpWYvBpqeZCEsXQXsf2B2cvKdxHuZMdM/JkYFMt7nR9HpAoSD8pJDFTy
-	RqAGrT1T7Y/p/hk5ZPfGHXZ+HL4AzARMMS8AT2+t9QZZR1CaUSROT8PrM7qtfqJxZw+03Q25J1b
-	PtaZDX+VRU5ZNu+g/CCroN4OOq1w==
-X-Received: by 2002:a05:6a00:4c1a:b0:848:2b8f:c9d7 with SMTP id d2e1a72fcca58-84f9c965a9dmr2684699b3a.18.1786375404680;
-        Mon, 10 Aug 2026 08:23:24 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4c1a:b0:848:2b8f:c9d7 with SMTP id d2e1a72fcca58-84f9c965a9dmr2684605b3a.18.1786375403955;
-        Mon, 10 Aug 2026 08:23:23 -0700 (PDT)
+        bh=z+dM5DDsiVwnL9fNxml86eFgdNNsx+UOg0u0nQ6709c=;
+        b=TkqVWP/ufKdRD5mBDZ4nd7IIRudRyixcARzGBE6TCzbOrm8mH7Tp6y/Z/AtxQB3NLR
+         u1/mALgF52UGRsX1zUxiPSNNxy8K/XEIJhHAcOurMjroEZD7H1okqNtfPDDnms2X7Kp0
+         tM9XyQaMgjzHCCAk8PnUtG9TC8dmKITVGmaJLLGTfCIy7m8UQ6r+CV5WkBCXIuuChnuE
+         +w38T7KU1HqKK3MtY22isP+tct+f/UJJHUQ8GfIvLxhBSl91pJMdtFYLfKX59nuYkNv9
+         MBm5czhMCCmmuEKqB69FdMjAigqUN9+8jBX1MscX8bHXPA1E+W1rO7M17L/0kg2tGYIM
+         smQw==
+X-Forwarded-Encrypted: i=1; AHgh+RrPlcJUBYyFjvWJcD9COYhKoLV6KtOfXIcjtXfeoC6qgzJKT1ZWleDj/Nj5UtoArmNGVA+ljIrOts3D@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz/nZO066vpvARE0MzAXf6gQ65S/sgeUo+8R5S6OWIZ7dX4+KFv
+	KLyN51kU6c7favzV7MFB/AOWbSHpbOsh87ZWsoqqCp02dsNL4xeNeHHr7ucxmlO9EDF8x4Rzwca
+	0EI/9iyBrWLSeqsv5M1y/1q4IAMyA6+NGw1OaSE05bPNj84kKRaVF5rMx5eb5DMK4
+X-Gm-Gg: AR+sD12Grh41Wx/Jq19+jt8oHSrejnUxXGCNnPuBiY8IpmhOlfhCsxYmuP5M+pMONo2
+	7C94fhMn66cNG/mkBcRO0JyrmqzkKlIGAxaJnxnjw4ervkQjPjxWiDshaZ0Hdra/PFTKSfmEvb5
+	QFcJkdb5l4Ga6svuX3LcGmptNJ4PpE4lUeDHcMS1N+Z/h7vz7nEfTTBzWEPP5KwSBm2pS0kO/6E
+	23yNrClevmDeyO35/OowrMn2QAy8AlYl1UWn8xHlXzGVhb0u7tTDIwLGeumH9xJkVbaDw/N0f03
+	wpifN1LrC4XdxM7e0ZoA4opumPN1wKpkp7izb9Id3dAOnLekX8QXbfbf178xlGUED7bQhUHWOft
+	Y8vEjCYT99GZOqV85pP5RDe1mn7nfGgtGTc7Dln/WqG/yyEdGElswhFXmYQAcrq+kozoK4/PIdG
+	0XcSBoERmTou6AbwEsriBe23jxOg==
+X-Received: by 2002:a05:6a00:2999:b0:848:67ca:bfd with SMTP id d2e1a72fcca58-84f2dff1913mr51002062b3a.16.1786375412194;
+        Mon, 10 Aug 2026 08:23:32 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2999:b0:848:67ca:bfd with SMTP id d2e1a72fcca58-84f2dff1913mr51001953b3a.16.1786375411535;
+        Mon, 10 Aug 2026 08:23:31 -0700 (PDT)
 Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-cbe8f1af985sm4282634a12.11.2026.08.10.08.23.16
+        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-cbe8f1af985sm4282634a12.11.2026.08.10.08.23.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 08:23:23 -0700 (PDT)
+        Mon, 10 Aug 2026 08:23:31 -0700 (PDT)
 From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -96,9 +96,9 @@ Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti <alex@ghiti.fr>,
         Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-Subject: [PATCH v5 02/14] hwtracing: gtrace: Initial implementation of gtrace framework
-Date: Mon, 10 Aug 2026 20:52:04 +0530
-Message-ID: <20260810152223.3946743-3-mayuresh.chitale@oss.qualcomm.com>
+Subject: [PATCH v5 03/14] gtrace: Add RISC-V platform driver for the gtrace framework
+Date: Mon, 10 Aug 2026 20:52:05 +0530
+Message-ID: <20260810152223.3946743-4-mayuresh.chitale@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
 References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
@@ -109,830 +109,509 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=S9PpBosP c=1 sm=1 tr=0 ts=6a79ecee cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEzMiBTYWx0ZWRfX82tJ4MHHe++S
+ 4yLSeO3Y0bEWXmhbiTruQeCXxitr5C09qW2RuTI0u42JiKHVf4ejxzUddaxUQOrE0fapHJzBfNU
+ h0M5d9rGHahtziL0z+TdMty/9LiGB60=
+X-Proofpoint-ORIG-GUID: GXvDlHfyVnPcANW0uRyOELQX1MUtd5Wh
+X-Proofpoint-GUID: GXvDlHfyVnPcANW0uRyOELQX1MUtd5Wh
+X-Authority-Analysis: v=2.4 cv=bfZbluPB c=1 sm=1 tr=0 ts=6a79ecf5 cx=c_pps
  a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=gM5wKXem3R3DcKQ8I4kA:9 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-ORIG-GUID: 1y7yhJCr4RzH4V2xGdstH0Qf3Mpe8a5S
-X-Proofpoint-GUID: 1y7yhJCr4RzH4V2xGdstH0Qf3Mpe8a5S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEzMiBTYWx0ZWRfX5zw0fHV74GG8
- fOqYRR3lw1TRKz5qsrei3LZrSRSLKAhVfdy4803t1/3WVvY/DfbTnmy2qk04XlJsRUO22vQKkJV
- 0vl/hVMEnfp74WMqqyH5q21KmnYEbVcHJskdRw6G7pGsUb986tjDqOBg74i/6rXkOT0mJEsIrPw
- 5Fil1RwoXcd9Hf3DfcIAMfWowdtodKrMSpZdi//dhcWP/2XRZ9lk2jbttFaYtwWbk0ZegmXuYU5
- 1cY9Y591Q+S++Ta0z0LUwodyObaBXXZr5cDLAEMk04wH1O31iRNYAT7sr4IxHF1oqNKicbu3e8N
- nVf2H3/LfrlZCacE6LpsI0hcLT3cEGjvk8pxx4FjPrHnc3/Ws/37nwK2fVH20qPe4+68X1ybNha
- StdK4VQBCwqXIXadgFDMilksyO04WgEjcSVW4RKiVLOJTcqd0PkdQ2DhgL0ZgmlX99fJ54NxO1a
- KnrdnggqrgJjSse10AA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEzMiBTYWx0ZWRfX0wgCBiKRCEdF
- 5xd+eFj2m5fctJAuzjRgR6YSTRFy+CHP1rksuTBsypOB6C5WwZsF+iCvmkj2GtbhCfHIWzoJXIe
- oLn6uv2AaLLgtFv7bO8aJG2E2f15npU=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=t0Z0ZKfJV8hCQccVx-oA:9 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEzMiBTYWx0ZWRfX+wJHPocMLgBT
+ msiSfwKfs316I2tjUYd95XYnQtw9rl5VOTHhOSkxc0yjT7GeNMaJj1lwVMGcSmAwd7u5Or+Z3SV
+ yZGx8Rw274eJOGu22yqXT+WjrzSuo5Ikxjlb6K+tbFUpyaX9utIqYvk9jzTYE8oRtExW+9aA0jN
+ bMbHgPOO9NJuNAoHV4IRPqsSQebvWYmSFZcygrnv6lIPpldU5TW5nH3an3uFJrJhOob4JleyDFI
+ K5R0tZce2lnl/eKwlNGdyClfvAb9N3pClK2uqqmmq7L0xlrJLSoKPU/RvBgfsdqlw3vqMuMT8Ay
+ EzayV3isdtz8hsO8AJrBpSdaBg/pqq6Y0GohI3bkNjZeA62j0xMHPy2ETzYhanUsZZH1e6CF7Oj
+ /gYqmB3NBNBeIkQlWabyYpK1xe1bka5gKalX/okrRsM+shSRVKfu7LVazlrx4z9ABwYqfez43Su
+ mOM29xeaWpwPt6CXF+w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-10_03,2026-08-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100132
 
 From: Anup Patel <anup.patel@oss.qualcomm.com>
 
-Implement a generic and architecture neutral trace framework (gtrace)
-in which trace components are organized in a graph-like topology. The
-framework provides a bus for the trace components along with helpers to
-register components, build the topology and access the hardware registers.
+The RISC-V trace components defined by the RISC-V Trace Control Interface
+Specification are memory mapped devices which are organized in a
+graph-like topology and described in the device tree.
+
+Add the RISC-V platform driver for the gtrace framework. The driver
+parses the RISC-V component topology from the device tree, discovers the
+type and version of each component from its IMPL register, provides the
+RISC-V register level control ops and registers each component with the
+gtrace core.
 
 Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
 ---
- drivers/Makefile                       |   1 +
- drivers/hwtracing/Kconfig              |   2 +
- drivers/hwtracing/gtrace/Kconfig       |  15 +
- drivers/hwtracing/gtrace/Makefile      |   4 +
- drivers/hwtracing/gtrace/gtrace-core.c | 442 +++++++++++++++++++++++++
- include/linux/gtrace.h                 | 266 +++++++++++++++
- 6 files changed, 730 insertions(+)
- create mode 100644 drivers/hwtracing/gtrace/Kconfig
- create mode 100644 drivers/hwtracing/gtrace/Makefile
- create mode 100644 drivers/hwtracing/gtrace/gtrace-core.c
- create mode 100644 include/linux/gtrace.h
+ drivers/hwtracing/gtrace/Kconfig            |  15 +
+ drivers/hwtracing/gtrace/Makefile           |   2 +
+ drivers/hwtracing/gtrace/rvtrace-platform.c | 286 ++++++++++++++++++++
+ drivers/hwtracing/gtrace/rvtrace.h          | 121 +++++++++
+ 4 files changed, 424 insertions(+)
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace-platform.c
+ create mode 100644 drivers/hwtracing/gtrace/rvtrace.h
 
-diff --git a/drivers/Makefile b/drivers/Makefile
-index 0841ea851847..e018cc915f62 100644
---- a/drivers/Makefile
-+++ b/drivers/Makefile
-@@ -178,6 +178,7 @@ obj-$(CONFIG_CORESIGHT)		+= hwtracing/coresight/
- obj-y				+= hwtracing/intel_th/
- obj-$(CONFIG_STM)		+= hwtracing/stm/
- obj-$(CONFIG_HISI_PTT)		+= hwtracing/ptt/
-+obj-$(CONFIG_GTRACE)		+= hwtracing/gtrace/
- obj-y				+= android/
- obj-$(CONFIG_NVMEM)		+= nvmem/
- obj-$(CONFIG_FPGA)		+= fpga/
-diff --git a/drivers/hwtracing/Kconfig b/drivers/hwtracing/Kconfig
-index 911ee977103c..ef53f5c8429f 100644
---- a/drivers/hwtracing/Kconfig
-+++ b/drivers/hwtracing/Kconfig
-@@ -7,4 +7,6 @@ source "drivers/hwtracing/intel_th/Kconfig"
- 
- source "drivers/hwtracing/ptt/Kconfig"
- 
-+source "drivers/hwtracing/gtrace/Kconfig"
-+
- endmenu
 diff --git a/drivers/hwtracing/gtrace/Kconfig b/drivers/hwtracing/gtrace/Kconfig
-new file mode 100644
-index 000000000000..bcc3b4169a76
---- /dev/null
+index bcc3b4169a76..04986f216549 100644
+--- a/drivers/hwtracing/gtrace/Kconfig
 +++ b/drivers/hwtracing/gtrace/Kconfig
-@@ -0,0 +1,15 @@
-+# SPDX-License-Identifier: GPL-2.0-only
+@@ -13,3 +13,18 @@ menuconfig GTRACE
+ 
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called gtrace.
 +
-+menuconfig GTRACE
-+	tristate "Generic Hardware Trace Support"
++config RVTRACE
++	tristate "RISC-V Trace Support"
++	depends on RISCV
 +	depends on OF
++	depends on GTRACE
++	default RISCV
 +	help
-+	  This framework provides an architecture-neutral kernel interface
-+	  for hardware trace drivers. It builds a topological view of the
-+	  trace components and configures the correct series of components
-+	  when trace is enabled. It is intended to be shared across RISC-V
-+	  and ARM trace components so that a single trace path may span
-+	  components of different architectures.
++	  This provides the RISC-V backend for the generic hardware trace
++	  (gtrace) framework. It parses the RISC-V trace component topology,
++	  provides the RISC-V register-level control ops and registers each
++	  component with the gtrace core.
 +
 +	  To compile this driver as a module, choose M here: the module
-+	  will be called gtrace.
++	  will be called rvtrace.
 diff --git a/drivers/hwtracing/gtrace/Makefile b/drivers/hwtracing/gtrace/Makefile
-new file mode 100644
-index 000000000000..3f90fb99c514
---- /dev/null
+index 3f90fb99c514..cf02316c1bbf 100644
+--- a/drivers/hwtracing/gtrace/Makefile
 +++ b/drivers/hwtracing/gtrace/Makefile
-@@ -0,0 +1,4 @@
-+# SPDX-License-Identifier: GPL-2.0
+@@ -2,3 +2,5 @@
+ 
+ obj-$(CONFIG_GTRACE) += gtrace.o
+ gtrace-y := gtrace-core.o
 +
-+obj-$(CONFIG_GTRACE) += gtrace.o
-+gtrace-y := gtrace-core.o
-diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/gtrace/gtrace-core.c
++obj-$(CONFIG_RVTRACE) += rvtrace-platform.o
+diff --git a/drivers/hwtracing/gtrace/rvtrace-platform.c b/drivers/hwtracing/gtrace/rvtrace-platform.c
 new file mode 100644
-index 000000000000..97398f2b7cbb
+index 000000000000..f34de9183d9a
 --- /dev/null
-+++ b/drivers/hwtracing/gtrace/gtrace-core.c
-@@ -0,0 +1,442 @@
++++ b/drivers/hwtracing/gtrace/rvtrace-platform.c
+@@ -0,0 +1,286 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (c) 2026 Qualcomm Technologies, Inc.
-+ *
 + */
-+
-+#include <linux/cpumask.h>
-+#include <linux/delay.h>
-+#include <linux/export.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/percpu.h>
-+#include <linux/xarray.h>
-+#include <linux/gtrace.h>
-+
-+/* Mutex to serialize component registration/unregistration */
-+static DEFINE_MUTEX(gtrace_mutex);
-+
-+/* Per-CPU source instances */
-+static DEFINE_PER_CPU(struct gtrace_component *, gtrace_cpu_source_comp);
-+
-+/* Component type based id generator */
-+struct gtrace_type_idx {
-+	/* Lock to protect the type ID generator */
-+	struct mutex lock;
-+	struct xarray xa;
-+};
-+
-+/* Array of component type based id generator */
-+static struct gtrace_type_idx gtrace_type_idx_array[GTRACE_COMPONENT_TYPE_MAX];
-+
-+static int gtrace_alloc_type_idx(struct gtrace_component *comp)
-+{
-+	struct gtrace_type_idx *gidx;
-+	u32 idx;
-+	int ret;
-+
-+	if (comp->id.type >= GTRACE_COMPONENT_TYPE_MAX)
-+		return -EINVAL;
-+
-+	gidx = &gtrace_type_idx_array[comp->id.type];
-+	mutex_lock(&gidx->lock);
-+	ret = xa_alloc(&gidx->xa, &idx, comp, xa_limit_32b, GFP_KERNEL);
-+	mutex_unlock(&gidx->lock);
-+	if (ret)
-+		return ret;
-+
-+	comp->type_idx = idx;
-+	return 0;
-+}
-+
-+static void gtrace_free_type_idx(struct gtrace_component *comp)
-+{
-+	struct gtrace_type_idx *gidx;
-+
-+	if (comp->id.type >= GTRACE_COMPONENT_TYPE_MAX)
-+		return;
-+
-+	gidx = &gtrace_type_idx_array[comp->id.type];
-+	mutex_lock(&gidx->lock);
-+	xa_erase(&gidx->xa, comp->type_idx);
-+	mutex_unlock(&gidx->lock);
-+}
-+
-+static void __init gtrace_init_type_idx(void)
-+{
-+	struct gtrace_type_idx *gidx;
-+	int i;
-+
-+	for (i = 0; i < GTRACE_COMPONENT_TYPE_MAX; i++) {
-+		gidx = &gtrace_type_idx_array[i];
-+		mutex_init(&gidx->lock);
-+		xa_init_flags(&gidx->xa, XA_FLAGS_ALLOC);
-+	}
-+}
-+
-+const struct gtrace_component_id *gtrace_match_id(struct gtrace_component *comp,
-+						  const struct gtrace_component_id *ids)
-+{
-+	const struct gtrace_component_id *id;
-+
-+	for (id = ids; id->version; id++) {
-+		if (comp->id.type != id->type)
-+			continue;
-+
-+		return id;
-+	}
-+
-+	return NULL;
-+}
-+EXPORT_SYMBOL_GPL(gtrace_match_id);
-+
-+static int gtrace_match_device(struct device *dev, const struct device_driver *drv)
-+{
-+	const struct gtrace_driver *gtdrv = to_gtrace_driver(drv);
-+	struct gtrace_component *comp = to_gtrace_component(dev);
-+
-+	return gtrace_match_id(comp, gtdrv->id_table) ? 1 : 0;
-+}
-+
-+static int gtrace_probe(struct device *dev)
-+{
-+	const struct gtrace_driver *gtdrv = to_gtrace_driver(dev->driver);
-+	struct gtrace_component *comp = to_gtrace_component(dev);
-+	int ret = 0;
-+
-+	if (gtdrv->probe)
-+		ret = gtdrv->probe(comp);
-+
-+	if (!ret)
-+		comp->ready = true;
-+
-+	return ret;
-+}
-+
-+static void gtrace_remove(struct device *dev)
-+{
-+	const struct gtrace_driver *gtdrv = to_gtrace_driver(dev->driver);
-+	struct gtrace_component *comp = to_gtrace_component(dev);
-+
-+	comp->ready = false;
-+	if (gtdrv->remove)
-+		gtdrv->remove(comp);
-+}
-+
-+static const struct bus_type gtrace_bustype = {
-+	.name	= "gtrace",
-+	.match	= gtrace_match_device,
-+	.probe	= gtrace_probe,
-+	.remove	= gtrace_remove,
-+};
-+
-+struct gtrace_fwnode_match_data {
-+	struct fwnode_handle *fwnode;
-+	struct gtrace_component *match;
-+};
-+
-+static int gtrace_match_fwnode(struct device *dev, void *data)
-+{
-+	struct gtrace_component *comp = to_gtrace_component(dev);
-+	struct gtrace_fwnode_match_data *d = data;
-+
-+	if (device_match_fwnode(&comp->dev, d->fwnode)) {
-+		d->match = comp;
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+
-+struct gtrace_component *gtrace_find_by_fwnode(struct fwnode_handle *fwnode)
-+{
-+	struct gtrace_fwnode_match_data d = { .fwnode = fwnode, .match = NULL };
-+	int ret;
-+
-+	ret = bus_for_each_dev(&gtrace_bustype, NULL, &d, gtrace_match_fwnode);
-+	if (ret < 0)
-+		return ERR_PTR(ret);
-+
-+	return d.match;
-+}
-+EXPORT_SYMBOL_GPL(gtrace_find_by_fwnode);
-+
-+int gtrace_poll_bit(struct gtrace_platform_data *pdata, int offset,
-+		    int bit, int bitval, int timeout)
-+{
-+	u32 val;
-+
-+	while (timeout--) {
-+		val = gtrace_read32(pdata, offset);
-+		if (((val >> bit) & 0x1) == bitval)
-+			break;
-+		udelay(1);
-+	}
-+
-+	return (timeout < 0) ? -ETIMEDOUT : 0;
-+}
-+EXPORT_SYMBOL_GPL(gtrace_poll_bit);
-+
-+int gtrace_enable_component(struct gtrace_component *comp)
-+{
-+	const struct gtrace_hw_ops *ops = comp->pdata->hw_ops;
-+
-+	if (!ops || !ops->enable)
-+		return -EOPNOTSUPP;
-+
-+	return ops->enable(comp->pdata);
-+}
-+EXPORT_SYMBOL_GPL(gtrace_enable_component);
-+
-+int gtrace_disable_component(struct gtrace_component *comp)
-+{
-+	const struct gtrace_hw_ops *ops = comp->pdata->hw_ops;
-+
-+	if (!ops || !ops->disable)
-+		return -EOPNOTSUPP;
-+
-+	return ops->disable(comp->pdata);
-+}
-+EXPORT_SYMBOL_GPL(gtrace_disable_component);
-+
-+int gtrace_reset_component(struct gtrace_component *comp)
-+{
-+	const struct gtrace_hw_ops *ops = comp->pdata->hw_ops;
-+
-+	if (!ops || !ops->reset)
-+		return -EOPNOTSUPP;
-+
-+	return ops->reset(comp->pdata);
-+}
-+EXPORT_SYMBOL_GPL(gtrace_reset_component);
-+
-+struct gtrace_component *gtrace_cpu_source(unsigned int cpu)
-+{
-+	if (!cpu_present(cpu))
-+		return NULL;
-+
-+	return per_cpu(gtrace_cpu_source_comp, cpu);
-+}
-+EXPORT_SYMBOL_GPL(gtrace_cpu_source);
-+
-+static int gtrace_cleanup_inconn(struct device *dev, void *data)
-+{
-+	struct gtrace_component *comp = to_gtrace_component(dev);
-+	struct gtrace_platform_data *pdata = comp->pdata;
-+	struct gtrace_connection *conn = data;
-+	int i;
-+
-+	if (device_match_fwnode(&comp->dev, conn->dest_fwnode)) {
-+		for (i = 0; i < pdata->nr_inconns; i++) {
-+			if (pdata->inconns[i] != conn)
-+				continue;
-+			pdata->inconns[i] = NULL;
-+			return 1;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void gtrace_cleanup_inconns_from_outconns(struct gtrace_component *comp)
-+{
-+	struct gtrace_platform_data *pdata = comp->pdata;
-+	struct gtrace_connection *conn;
-+	int i;
-+
-+	lockdep_assert_held(&gtrace_mutex);
-+
-+	for (i = 0; i < pdata->nr_outconns; i++) {
-+		conn = pdata->outconns[i];
-+		bus_for_each_dev(&gtrace_bustype, NULL, conn, gtrace_cleanup_inconn);
-+	}
-+}
-+
-+static int gtrace_setup_inconn(struct device *dev, void *data)
-+{
-+	struct gtrace_component *comp = to_gtrace_component(dev);
-+	struct gtrace_platform_data *pdata = comp->pdata;
-+	struct gtrace_connection *conn = data;
-+	int i;
-+
-+	if (device_match_fwnode(&comp->dev, conn->dest_fwnode)) {
-+		for (i = 0; i < pdata->nr_inconns; i++) {
-+			if (pdata->inconns[i])
-+				continue;
-+			pdata->inconns[i] = conn;
-+			return 1;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int gtrace_setup_inconns_from_outconns(struct gtrace_component *comp)
-+{
-+	struct gtrace_platform_data *pdata = comp->pdata;
-+	struct gtrace_connection *conn;
-+	int i, ret;
-+
-+	lockdep_assert_held(&gtrace_mutex);
-+
-+	for (i = 0; i < pdata->nr_outconns; i++) {
-+		conn = pdata->outconns[i];
-+		ret = bus_for_each_dev(&gtrace_bustype, NULL, conn, gtrace_setup_inconn);
-+		if (ret < 0) {
-+			gtrace_cleanup_inconns_from_outconns(comp);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void gtrace_component_release(struct device *dev)
-+{
-+	struct gtrace_component *comp = to_gtrace_component(dev);
-+
-+	fwnode_handle_put(comp->dev.fwnode);
-+	gtrace_free_type_idx(comp);
-+	kfree(comp);
-+}
-+
-+struct gtrace_component *gtrace_register_component(struct gtrace_component_id *id,
-+						   const char *name,
-+						   struct gtrace_platform_data *pdata)
-+{
-+	struct gtrace_connection *conn;
-+	struct gtrace_component *comp;
-+	int i, ret = 0;
-+
-+	if (!id || id->type >= GTRACE_COMPONENT_TYPE_MAX) {
-+		ret = -EINVAL;
-+		goto err_out;
-+	}
-+
-+	if (!pdata || !pdata->dev) {
-+		ret = -EINVAL;
-+		goto err_out;
-+	}
-+
-+	for (i = 0; i < pdata->nr_inconns; i++) {
-+		if (pdata->inconns[i]) {
-+			ret = -EINVAL;
-+			goto err_out;
-+		}
-+	}
-+
-+	for (i = 0; i < pdata->nr_outconns; i++) {
-+		conn = pdata->outconns[i];
-+		if (!conn || conn->src_port < 0 || conn->src_comp ||
-+		    !device_match_fwnode(pdata->dev, conn->src_fwnode) ||
-+		    conn->dest_port < 0 || !conn->dest_fwnode || !conn->dest_comp) {
-+			ret = -EINVAL;
-+			goto err_out;
-+		}
-+	}
-+
-+	if (pdata->bound_cpu >= 0 && !cpu_present(pdata->bound_cpu)) {
-+		ret = -EINVAL;
-+		goto err_out;
-+	}
-+
-+	comp = kzalloc(sizeof(*comp), GFP_KERNEL);
-+	if (!comp) {
-+		ret = -ENOMEM;
-+		goto err_out;
-+	}
-+	comp->pdata = pdata;
-+	comp->id = *id;
-+	ret = gtrace_alloc_type_idx(comp);
-+	if (ret) {
-+		kfree(comp);
-+		goto err_out;
-+	}
-+
-+	comp->dev.parent = pdata->dev;
-+	comp->dev.coherent_dma_mask = pdata->dev->coherent_dma_mask;
-+	comp->dev.release = gtrace_component_release;
-+	comp->dev.bus = &gtrace_bustype;
-+	comp->dev.fwnode = fwnode_handle_get(dev_fwnode(pdata->dev));
-+	dev_set_name(&comp->dev, "%s-%u", name ? name : "comp", comp->type_idx);
-+
-+	mutex_lock(&gtrace_mutex);
-+
-+	ret = device_register(&comp->dev);
-+	if (ret) {
-+		put_device(&comp->dev);
-+		goto err_out_unlock;
-+	}
-+
-+	for (i = 0; i < pdata->nr_outconns; i++) {
-+		conn = pdata->outconns[i];
-+		conn->src_comp = comp;
-+	}
-+
-+	ret = gtrace_setup_inconns_from_outconns(comp);
-+	if (ret < 0) {
-+		device_unregister(&comp->dev);
-+		goto err_out_unlock;
-+	}
-+
-+	if (comp->pdata->bound_cpu >= 0) {
-+		gtrace_get_component(comp);
-+		per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu) = comp;
-+	}
-+
-+	mutex_unlock(&gtrace_mutex);
-+
-+	return comp;
-+
-+err_out_unlock:
-+	mutex_unlock(&gtrace_mutex);
-+err_out:
-+	return ERR_PTR(ret);
-+}
-+EXPORT_SYMBOL_GPL(gtrace_register_component);
-+
-+void gtrace_unregister_component(struct gtrace_component *comp)
-+{
-+	struct gtrace_component *c;
-+
-+	mutex_lock(&gtrace_mutex);
-+
-+	if (comp->pdata->bound_cpu >= 0) {
-+		c = per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu);
-+		per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu) = NULL;
-+		gtrace_put_component(c);
-+	}
-+
-+	gtrace_cleanup_inconns_from_outconns(comp);
-+	device_unregister(&comp->dev);
-+
-+	mutex_unlock(&gtrace_mutex);
-+}
-+EXPORT_SYMBOL_GPL(gtrace_unregister_component);
-+
-+int __gtrace_register_driver(struct module *owner, struct gtrace_driver *gtdrv)
-+{
-+	gtdrv->driver.owner = owner;
-+	gtdrv->driver.bus = &gtrace_bustype;
-+
-+	return driver_register(&gtdrv->driver);
-+}
-+EXPORT_SYMBOL_GPL(__gtrace_register_driver);
-+
-+static int __init gtrace_init(void)
-+{
-+	gtrace_init_type_idx();
-+
-+	return bus_register(&gtrace_bustype);
-+}
-+
-+static void __exit gtrace_exit(void)
-+{
-+	bus_unregister(&gtrace_bustype);
-+}
-+
-+subsys_initcall(gtrace_init);
-+module_exit(gtrace_exit);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Generic hardware trace (gtrace) framework core");
-diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
-new file mode 100644
-index 000000000000..e8ca2bd46e67
---- /dev/null
-+++ b/include/linux/gtrace.h
-@@ -0,0 +1,266 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) 2026 Qualcomm Technologies, Inc.
-+ */
-+
-+#ifndef __LINUX_GTRACE_H__
-+#define __LINUX_GTRACE_H__
 +
 +#include <linux/device.h>
++#include <linux/gtrace.h>
 +#include <linux/io.h>
-+#include <linux/limits.h>
-+#include <linux/list.h>
++#include <linux/of.h>
++#include <linux/of_graph.h>
 +#include <linux/platform_device.h>
 +#include <linux/property.h>
 +#include <linux/types.h>
++#include "rvtrace.h"
++
++static int rvtrace_hw_enable(struct gtrace_platform_data *pdata)
++{
++	u32 val;
++
++	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
++	val |= BIT(RVTRACE_COMPONENT_CTRL_ENABLE_SHIFT);
++	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
++	return gtrace_poll_bit(pdata, RVTRACE_COMPONENT_CTRL_OFFSET,
++			       RVTRACE_COMPONENT_CTRL_ENABLE_SHIFT, 1,
++			       pdata->control_poll_timeout_usecs);
++}
++
++static int rvtrace_hw_disable(struct gtrace_platform_data *pdata)
++{
++	u32 val;
++
++	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
++	val &= ~BIT(RVTRACE_COMPONENT_CTRL_ENABLE_SHIFT);
++	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
++	return gtrace_poll_bit(pdata, RVTRACE_COMPONENT_CTRL_OFFSET,
++			       RVTRACE_COMPONENT_CTRL_ENABLE_SHIFT, 0,
++			       pdata->control_poll_timeout_usecs);
++}
++
++static int rvtrace_hw_reset(struct gtrace_platform_data *pdata)
++{
++	int ret;
++
++	gtrace_write32(pdata, 0, RVTRACE_COMPONENT_CTRL_OFFSET);
++	ret = gtrace_poll_bit(pdata, RVTRACE_COMPONENT_CTRL_OFFSET,
++			      RVTRACE_COMPONENT_CTRL_ACTIVE_SHIFT, 0,
++			      pdata->control_poll_timeout_usecs);
++	if (ret)
++		return ret;
++
++	gtrace_write32(pdata, RVTRACE_COMPONENT_CTRL_ACTIVE_MASK,
++		       RVTRACE_COMPONENT_CTRL_OFFSET);
++	return gtrace_poll_bit(pdata, RVTRACE_COMPONENT_CTRL_OFFSET,
++			       RVTRACE_COMPONENT_CTRL_ACTIVE_SHIFT, 1,
++			       pdata->control_poll_timeout_usecs);
++}
++
++const struct gtrace_hw_ops rvtrace_hw_ops = {
++	.enable		= rvtrace_hw_enable,
++	.disable	= rvtrace_hw_disable,
++	.reset		= rvtrace_hw_reset,
++};
++
++static int rvtrace_of_parse_outconns(struct gtrace_platform_data *pdata)
++{
++	struct device_node *parent, *ep_node, *rep_node, *rdev_node;
++	struct gtrace_connection *conn;
++	struct of_endpoint ep, rep;
++	int ret = 0, i = 0;
++
++	parent = of_get_child_by_name(dev_of_node(pdata->dev), "out-ports");
++	if (!parent)
++		return 0;
++
++	pdata->nr_outconns = of_graph_get_endpoint_count(parent);
++	pdata->outconns = devm_kcalloc(pdata->dev, pdata->nr_outconns,
++				       sizeof(*pdata->outconns), GFP_KERNEL);
++	if (!pdata->outconns) {
++		ret = -ENOMEM;
++		goto done;
++	}
++
++	for_each_endpoint_of_node(parent, ep_node) {
++		conn = devm_kzalloc(pdata->dev, sizeof(*conn), GFP_KERNEL);
++		if (!conn) {
++			of_node_put(ep_node);
++			ret = -ENOMEM;
++			break;
++		}
++
++		ret = of_graph_parse_endpoint(ep_node, &ep);
++		if (ret) {
++			of_node_put(ep_node);
++			break;
++		}
++
++		rep_node = of_graph_get_remote_endpoint(ep_node);
++		if (!rep_node) {
++			ret = -ENODEV;
++			of_node_put(ep_node);
++			break;
++		}
++		rdev_node = of_graph_get_port_parent(rep_node);
++
++		ret = of_graph_parse_endpoint(rep_node, &rep);
++		if (ret) {
++			of_node_put(ep_node);
++			of_node_put(rep_node);
++			of_node_put(rdev_node);
++			break;
++		}
++
++		conn->src_port = ep.port;
++		conn->src_fwnode = dev_fwnode(pdata->dev);
++		/* The 'src_comp' is set by gtrace_register_component() */
++		conn->src_comp = NULL;
++		conn->dest_port = rep.port;
++		conn->dest_fwnode = of_fwnode_handle(rdev_node);
++		fwnode_handle_get(conn->dest_fwnode);
++		conn->dest_comp = gtrace_find_by_fwnode(conn->dest_fwnode);
++		if (!conn->dest_comp) {
++			ret = -EPROBE_DEFER;
++			of_node_put(ep_node);
++			of_node_put(rep_node);
++			of_node_put(rdev_node);
++			break;
++		}
++
++		pdata->outconns[i] = conn;
++		i++;
++	}
++
++done:
++	if (ret) {
++		for (i = 0; i < pdata->nr_outconns && pdata->outconns; i++) {
++			conn = pdata->outconns[i];
++			if (conn && conn->dest_fwnode)
++				fwnode_handle_put(conn->dest_fwnode);
++		}
++	}
++	of_node_put(parent);
++	return ret;
++}
++
++static int rvtrace_of_parse_inconns(struct gtrace_platform_data *pdata)
++{
++	struct device_node *parent;
++	int ret = 0;
++
++	parent = of_get_child_by_name(dev_of_node(pdata->dev), "in-ports");
++	if (!parent)
++		return 0;
++
++	pdata->nr_inconns = of_graph_get_endpoint_count(parent);
++	pdata->inconns = devm_kcalloc(pdata->dev, pdata->nr_inconns,
++				      sizeof(*pdata->inconns), GFP_KERNEL);
++	if (!pdata->inconns)
++		ret = -ENOMEM;
++
++	of_node_put(parent);
++	return ret;
++}
++
++static int rvtrace_platform_probe(struct platform_device *pdev)
++{
++	struct gtrace_platform_data *pdata;
++	struct device *dev = &pdev->dev;
++	struct gtrace_component_id id;
++	struct gtrace_component *comp;
++	u32 impl, type, major, minor;
++	struct device_node *node;
++	struct resource *res;
++	int gtype;
++	int ret;
++
++	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
++	if (!pdata)
++		return -ENOMEM;
++	pdata->dev = dev;
++	pdata->impid = RVTRACE_COMPONENT_IMPID_UNKNOWN;
++	pdata->hw_ops = &rvtrace_hw_ops;
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!res)
++		return -EINVAL;
++
++	pdata->io_mem = true;
++	pdata->base = devm_ioremap(&pdev->dev, res->start, resource_size(res));
++	if (!pdata->base)
++		return dev_err_probe(dev, -ENOMEM, "failed to ioremap %pR\n", res);
++
++	pdata->bound_cpu = -1;
++	node = of_parse_phandle(dev_of_node(dev), "cpus", 0);
++	if (node) {
++		ret = of_cpu_node_to_id(node);
++		of_node_put(node);
++		if (ret < 0)
++			return dev_err_probe(dev, ret, "failed to get CPU id for %pOF\n", node);
++		pdata->bound_cpu = ret;
++	}
++
++	/* Default control poll timeout */
++	pdata->control_poll_timeout_usecs = 10;
++
++	ret = rvtrace_of_parse_outconns(pdata);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to parse output connections\n");
++
++	ret = rvtrace_of_parse_inconns(pdata);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to parse input connections\n");
++
++	/* Reset the component before it is registered with the gtrace core. */
++	ret = rvtrace_hw_reset(pdata);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to reset component\n");
++
++	impl = gtrace_read32(pdata, RVTRACE_COMPONENT_IMPL_OFFSET);
++	type = (impl >> RVTRACE_COMPONENT_IMPL_TYPE_SHIFT) &
++		RVTRACE_COMPONENT_IMPL_TYPE_MASK;
++	major = (impl >> RVTRACE_COMPONENT_IMPL_VERMAJOR_SHIFT) &
++		RVTRACE_COMPONENT_IMPL_VERMAJOR_MASK;
++	minor = (impl >> RVTRACE_COMPONENT_IMPL_VERMINOR_SHIFT) &
++		RVTRACE_COMPONENT_IMPL_VERMINOR_MASK;
++
++	gtype = rvtrace_type_to_gtrace(type);
++	if (gtype < 0)
++		return dev_err_probe(dev, -ENODEV, "unsupported component type %u\n", type);
++
++	id.type = gtype;
++	id.version = rvtrace_component_mkversion(major, minor);
++
++	comp = gtrace_register_component(&id, rvtrace_type_name(gtype), pdata);
++	if (IS_ERR(comp))
++		return PTR_ERR(comp);
++
++	platform_set_drvdata(pdev, comp);
++	return 0;
++}
++
++static void rvtrace_platform_remove(struct platform_device *pdev)
++{
++	struct gtrace_component *comp = platform_get_drvdata(pdev);
++	struct gtrace_platform_data *pdata = comp->pdata;
++	struct gtrace_connection *conn;
++	int i;
++
++	for (i = 0; i < pdata->nr_outconns; i++) {
++		conn = pdata->outconns[i];
++		if (conn && conn->dest_fwnode)
++			fwnode_handle_put(conn->dest_fwnode);
++	}
++
++	gtrace_unregister_component(comp);
++}
++
++static const struct of_device_id rvtrace_platform_match[] = {
++	{ .compatible = "riscv,trace-component" },
++	{}
++};
++
++static struct platform_driver rvtrace_platform_driver = {
++	.driver = {
++		.name		= "rvtrace",
++		.of_match_table	= rvtrace_platform_match,
++	},
++	.probe = rvtrace_platform_probe,
++	.remove = rvtrace_platform_remove,
++};
++
++static int __init rvtrace_platform_init(void)
++{
++	return platform_driver_register(&rvtrace_platform_driver);
++}
++
++static void __exit rvtrace_platform_exit(void)
++{
++	platform_driver_unregister(&rvtrace_platform_driver);
++}
++
++module_init(rvtrace_platform_init);
++module_exit(rvtrace_platform_exit);
++
++MODULE_AUTHOR("Anup Patel");
++MODULE_DESCRIPTION("RISC-V backend for the generic trace framework");
++MODULE_LICENSE("GPL");
+diff --git a/drivers/hwtracing/gtrace/rvtrace.h b/drivers/hwtracing/gtrace/rvtrace.h
+new file mode 100644
+index 000000000000..e6be1ce303cc
+--- /dev/null
++++ b/drivers/hwtracing/gtrace/rvtrace.h
+@@ -0,0 +1,121 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) 2026 Qualcomm Technologies, Inc.
++ *
++ * RISC-V trace component register layout and helpers for the RISC-V backend
++ * of the generic trace (gtrace) framework. These definitions are specific to
++ * the RISC-V Trace Control Interface and must not be used by the generic core.
++ */
++
++#ifndef __LINUX_RVTRACE_H__
++#define __LINUX_RVTRACE_H__
++
++#include <linux/gtrace.h>
++#include <linux/types.h>
++
++/* Control register common across all RISC-V trace components */
++#define RVTRACE_COMPONENT_CTRL_OFFSET		0x000
++#define RVTRACE_COMPONENT_CTRL_ACTIVE_MASK	0x1
++#define RVTRACE_COMPONENT_CTRL_ACTIVE_SHIFT	0
++#define RVTRACE_COMPONENT_CTRL_ENABLE_MASK	0x1
++#define RVTRACE_COMPONENT_CTRL_ENABLE_SHIFT	1
++#define RVTRACE_COMPONENT_CTRL_EMPTY_SHIFT	3
++
++/* Implementation register common across all RISC-V trace components */
++#define RVTRACE_COMPONENT_IMPL_OFFSET		0x004
++#define RVTRACE_COMPONENT_IMPL_VERMAJOR_MASK	0xf
++#define RVTRACE_COMPONENT_IMPL_VERMAJOR_SHIFT	0
++#define RVTRACE_COMPONENT_IMPL_VERMINOR_MASK	0xf
++#define RVTRACE_COMPONENT_IMPL_VERMINOR_SHIFT	4
++#define RVTRACE_COMPONENT_IMPL_TYPE_MASK	0xf
++#define RVTRACE_COMPONENT_IMPL_TYPE_SHIFT	8
++
++/* Component types defined by the RISC-V Trace Control Interface */
++enum rvtrace_component_type {
++	RVTRACE_COMPONENT_TYPE_RESV0,
++	RVTRACE_COMPONENT_TYPE_ENCODER, /* 0x1 */
++	RVTRACE_COMPONENT_TYPE_RESV2,
++	RVTRACE_COMPONENT_TYPE_RESV3,
++	RVTRACE_COMPONENT_TYPE_RESV4,
++	RVTRACE_COMPONENT_TYPE_RESV5,
++	RVTRACE_COMPONENT_TYPE_RESV6,
++	RVTRACE_COMPONENT_TYPE_RESV7,
++	RVTRACE_COMPONENT_TYPE_FUNNEL, /* 0x8 */
++	RVTRACE_COMPONENT_TYPE_RAMSINK, /* 0x9 */
++	RVTRACE_COMPONENT_TYPE_PIBSINK, /* 0xA */
++	RVTRACE_COMPONENT_TYPE_RESV11,
++	RVTRACE_COMPONENT_TYPE_RESV12,
++	RVTRACE_COMPONENT_TYPE_RESV13,
++	RVTRACE_COMPONENT_TYPE_ATBBRIDGE, /* 0xE */
++	RVTRACE_COMPONENT_TYPE_RESV15,
++	RVTRACE_COMPONENT_TYPE_MAX
++};
 +
 +/*
-+ * Global list of trace component types across all architectures. Each backend
-+ * uses the entries relevant to it.
-+ */
-+enum gtrace_component_type {
-+	GTRACE_RVTRACE_ENCODER,
-+	GTRACE_RVTRACE_FUNNEL,
-+	GTRACE_RVTRACE_RAMSINK,
-+	GTRACE_RVTRACE_PIBSINK,
-+	GTRACE_RVTRACE_ATBBRIDGE,
-+	GTRACE_COMPONENT_TYPE_MAX
-+};
-+
-+/* Supported usage modes for trace components */
-+enum gtrace_component_mode {
-+	GTRACE_COMPONENT_MODE_PERF,
-+	GTRACE_COMPONENT_MODE_MAX
-+};
-+
-+/**
-+ * struct gtrace_connection - Physical connection between two trace components.
-+ * @src_port:    A connection's source port number.
-+ * @src_fwnode:  Source component's fwnode handle.
-+ * @src_comp:    Source component's pointer.
-+ * @dest_port:   A connection's destination port number.
-+ * @dest_fwnode: Destination component's fwnode handle.
-+ * @dest_comp:   Destination component's pointer.
-+ */
-+struct gtrace_connection {
-+	int src_port;
-+	struct fwnode_handle *src_fwnode;
-+	int dest_port;
-+	struct fwnode_handle *dest_fwnode;
-+	struct gtrace_component *src_comp;
-+	struct gtrace_component *dest_comp;
-+};
-+
-+struct gtrace_platform_data;
-+
-+/**
-+ * struct gtrace_hw_ops - Architecture-specific low level control of a component.
-+ * @enable:  Enable the component's hardware block.
-+ * @disable: Disable the component's hardware block.
-+ * @reset:   Reset the component's hardware block.
++ * Possible component implementation IDs discovered from DT or ACPI
++ * shared across the RISC-V trace drivers to infer trace parameters,
++ * quirks, and work-arounds. These component implementation IDs are
++ * internal to Linux and must not be exposed to user-space.
 + *
-+ * These operate on the component's platform data rather than a full
-+ * gtrace_component so that they can be invoked before the component is
-+ * registered with the gtrace core (e.g. to reset the hardware during probe).
-+ *
-+ * These abstract the register-level programming that differs between
-+ * architectures (RISC-V Trace Control registers vs ARM CoreSight, etc.). The
-+ * core never touches component registers directly; it invokes these ops.
++ * The component implementation ID should be named as follows:
++ *    RVTRACE_COMPONENT_IMPID_<vendor>_<part>
 + */
-+struct gtrace_hw_ops {
-+	int (*enable)(struct gtrace_platform_data *pdata);
-+	int (*disable)(struct gtrace_platform_data *pdata);
-+	int (*reset)(struct gtrace_platform_data *pdata);
++enum rvtrace_component_impid {
++	RVTRACE_COMPONENT_IMPID_UNKNOWN,
++	RVTRACE_COMPONENT_IMPID_MAX
 +};
 +
-+/**
-+ * struct gtrace_platform_data - Platform-level data for a trace component
-+ * discovered from DT or ACPI.
-+ * @dev:         Parent device.
-+ * @impid:       Opaque, architecture-specific implementation ID.
-+ * @hw_ops:      Architecture-specific low level control ops.
-+ * @io_mem:      Flag showing whether component registers are memory mapped.
-+ * @base:        If io_mem == true then base address of the mapped registers.
-+ * @read:        If io_mem == false then read register from the given offset.
-+ * @write:       If io_mem == false then write register to the given offset.
-+ * @bound_cpu:   CPU to which the component is bound, or -1 if unbound. For a
-+ *               source component bound to a CPU this must not be -1.
-+ * @control_poll_timeout_usecs: Delay in usecs when polling control bits.
-+ * @nr_inconns:  Number of input connections.
-+ * @inconns:     Array of pointers to input connections.
-+ * @nr_outconns: Number of output connections.
-+ * @outconns:    Array of pointers to output connections.
-+ */
-+struct gtrace_platform_data {
-+	struct device *dev;
++#define rvtrace_component_version_major(__version)	\
++	(((__version) >> 16) & 0xffff)
++#define rvtrace_component_version_minor(__version)	\
++	((__version) & 0xffff)
++#define rvtrace_component_mkversion(__major, __minor)	\
++	((((__major) & 0xffff) << 16) | ((__minor) & 0xffff))
 +
-+	u32 impid;
-+
-+	const struct gtrace_hw_ops *hw_ops;
-+
-+	bool io_mem;
-+	union {
-+		void __iomem *base;
-+		struct {
-+			u32 (*read)(struct gtrace_platform_data *pdata,
-+				    u32 offset, bool relaxed);
-+			void (*write)(struct gtrace_platform_data *pdata,
-+				      u32 val, u32 offset, bool relaxed);
-+		};
-+	};
-+
-+	int bound_cpu;
-+
-+	/* Delay in microseconds when polling control register bits */
-+	int control_poll_timeout_usecs;
-+
-+	/*
-+	 * Platform driver must only populate empty pointer array without
-+	 * any actual input connections.
-+	 */
-+	unsigned int nr_inconns;
-+	struct gtrace_connection **inconns;
-+
-+	/*
-+	 * Platform driver must fully populate pointer array with individual
-+	 * array elements pointing to actual output connections. The src_comp
-+	 * of each output connection is automatically updated at the time of
-+	 * registering component.
-+	 */
-+	unsigned int nr_outconns;
-+	struct gtrace_connection **outconns;
-+};
-+
-+static inline u32 gtrace_read32(struct gtrace_platform_data *pdata, u32 offset)
++/* Map a RISC-V hardware component type to the global gtrace type */
++static inline int rvtrace_type_to_gtrace(enum rvtrace_component_type type)
 +{
-+	if (likely(pdata->io_mem))
-+		return readl(pdata->base + offset);
-+
-+	return pdata->read(pdata, offset, false);
++	switch (type) {
++	case RVTRACE_COMPONENT_TYPE_ENCODER:
++		return GTRACE_RVTRACE_ENCODER;
++	case RVTRACE_COMPONENT_TYPE_FUNNEL:
++		return GTRACE_RVTRACE_FUNNEL;
++	case RVTRACE_COMPONENT_TYPE_RAMSINK:
++		return GTRACE_RVTRACE_RAMSINK;
++	case RVTRACE_COMPONENT_TYPE_PIBSINK:
++		return GTRACE_RVTRACE_PIBSINK;
++	case RVTRACE_COMPONENT_TYPE_ATBBRIDGE:
++		return GTRACE_RVTRACE_ATBBRIDGE;
++	default:
++		return -EINVAL;
++	}
 +}
 +
-+static inline u32 gtrace_relaxed_read32(struct gtrace_platform_data *pdata, u32 offset)
++static inline const char *rvtrace_type_name(enum gtrace_component_type type)
 +{
-+	if (likely(pdata->io_mem))
-+		return readl_relaxed(pdata->base + offset);
-+
-+	return pdata->read(pdata, offset, true);
++	switch (type) {
++	case GTRACE_RVTRACE_ENCODER:
++		return "encoder";
++	case GTRACE_RVTRACE_FUNNEL:
++		return "funnel";
++	case GTRACE_RVTRACE_RAMSINK:
++		return "ramsink";
++	case GTRACE_RVTRACE_PIBSINK:
++		return "pibsink";
++	case GTRACE_RVTRACE_ATBBRIDGE:
++		return "atbbridge";
++	default:
++		return NULL;
++	}
 +}
 +
-+static inline void gtrace_write32(struct gtrace_platform_data *pdata, u32 val, u32 offset)
++static inline int rvtrace_comp_poll_empty(struct gtrace_component *comp)
 +{
-+	if (likely(pdata->io_mem))
-+		writel(val, pdata->base + offset);
-+	else
-+		pdata->write(pdata, val, offset, false);
++	return gtrace_poll_bit(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET,
++			       RVTRACE_COMPONENT_CTRL_EMPTY_SHIFT, 1,
++			       comp->pdata->control_poll_timeout_usecs);
 +}
 +
-+static inline void gtrace_relaxed_write32(struct gtrace_platform_data *pdata,
-+					  u32 val, u32 offset)
-+{
-+	if (likely(pdata->io_mem))
-+		writel_relaxed(val, pdata->base + offset);
-+	else
-+		pdata->write(pdata, val, offset, true);
-+}
++extern const struct gtrace_hw_ops rvtrace_hw_ops;
 +
-+static inline bool gtrace_is_source(struct gtrace_platform_data *pdata)
-+{
-+	return !pdata->nr_inconns ? true : false;
-+}
-+
-+static inline bool gtrace_is_sink(struct gtrace_platform_data *pdata)
-+{
-+	return !pdata->nr_outconns ? true : false;
-+}
-+
-+/**
-+ * struct gtrace_component_id - Details to identify or match a trace component.
-+ * @type:    Component type from the global gtrace_component_type list.
-+ * @version: Architecture-specific version (opaque to the core).
-+ * @data:    Data pointer for driver use.
-+ */
-+struct gtrace_component_id {
-+	enum gtrace_component_type type;
-+	u32 version;
-+	void *data;
-+};
-+
-+/**
-+ * struct gtrace_component - Representation of a trace component.
-+ * @pdata:    Pointer to underlying platform data.
-+ * @id:       Details to match the component.
-+ * @type_idx: Unique number based on component type.
-+ * @dev:      Device instance.
-+ * @ready:    Flag showing whether the driver was probed successfully.
-+ */
-+struct gtrace_component {
-+	struct gtrace_platform_data *pdata;
-+	struct gtrace_component_id id;
-+	u32 type_idx;
-+	struct device dev;
-+	bool ready;
-+};
-+
-+#define to_gtrace_component(__dev)	container_of_const(__dev, struct gtrace_component, dev)
-+
-+static inline void gtrace_get_component(struct gtrace_component *comp)
-+{
-+	get_device(&comp->dev);
-+}
-+
-+static inline void gtrace_put_component(struct gtrace_component *comp)
-+{
-+	put_device(&comp->dev);
-+}
-+
-+const struct gtrace_component_id *gtrace_match_id(struct gtrace_component *comp,
-+						  const struct gtrace_component_id *ids);
-+struct gtrace_component *gtrace_find_by_fwnode(struct fwnode_handle *fwnode);
-+
-+int gtrace_poll_bit(struct gtrace_platform_data *pdata, int offset,
-+		    int bit, int bitval, int timeout);
-+int gtrace_enable_component(struct gtrace_component *comp);
-+int gtrace_disable_component(struct gtrace_component *comp);
-+int gtrace_reset_component(struct gtrace_component *comp);
-+
-+struct gtrace_component *gtrace_cpu_source(unsigned int cpu);
-+
-+struct gtrace_component *gtrace_register_component(struct gtrace_component_id *id,
-+						   const char *name,
-+						   struct gtrace_platform_data *pdata);
-+void gtrace_unregister_component(struct gtrace_component *comp);
-+
-+/**
-+ * struct gtrace_driver - Representation of a trace driver.
-+ * @id_table:      Table to match components handled by the driver.
-+ * @probe:         Driver probe() function.
-+ * @remove:        Driver remove() function.
-+ * @get_trace_id:  Get/allocate a trace ID.
-+ * @put_trace_id:  Put/free a trace ID.
-+ * @driver:        Device driver instance.
-+ */
-+struct gtrace_driver {
-+	const struct gtrace_component_id *id_table;
-+	int			(*probe)(struct gtrace_component *comp);
-+	void			(*remove)(struct gtrace_component *comp);
-+	int			(*get_trace_id)(struct gtrace_component *comp,
-+						enum gtrace_component_mode mode);
-+	void			(*put_trace_id)(struct gtrace_component *comp,
-+						enum gtrace_component_mode mode,
-+						u32 trace_id);
-+	struct device_driver	driver;
-+};
-+
-+#define to_gtrace_driver(__drv)   \
-+	((__drv) ? container_of_const((__drv), struct gtrace_driver, driver) : NULL)
-+
-+int __gtrace_register_driver(struct module *owner, struct gtrace_driver *gtdrv);
-+#define gtrace_register_driver(driver) __gtrace_register_driver(THIS_MODULE, driver)
-+static inline void gtrace_unregister_driver(struct gtrace_driver *gtdrv)
-+{
-+	if (gtdrv)
-+		driver_unregister(&gtdrv->driver);
-+}
-+
-+#endif /* __LINUX_GTRACE_H__ */
++#endif /* __LINUX_RVTRACE_H__ */
 -- 
 2.43.0
 
