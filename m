@@ -1,308 +1,152 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918CC3E763B
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:01:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6269E3F077C;
+	Mon, 10 Aug 2026 14:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786370462; cv=none; b=J+xgdnddytMtjdeqcVKNrt/RXduL8p75NW248BGROipCOe83WxnEx+yqvFl0eFNlXHGyFLPjnjhM0NMZ9VDJ3ukb0dOlHFRU1rwjSmbYLN14APrkfFq2akIlhn95Uq24p+yYOjgKv5/ko9fwjwRdZ+mlJgq1qgspnLG6WyT8yK8=
+	t=1786371262; cv=none; b=dg5ZBKT0zxQbXqW/ZpLaASHrv7GuWoewBmf/p8ofuVp4ZZ4/30wZIGl51ies6TsQ79aw+m0MSh38PRrRjHuTa/bSJQYG9TKDf+0x0yp5vLbqyAQ3QSnTe2JW8sTTaN33e1I9dGkd/Ejigh7eG0ZY2AxqztDxeVPAgrhX1YQLnt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786370462; c=relaxed/simple;
-	bh=XDDiz/yiOtFtArn41FvfVWo2uGNLrJxECtnaVDV1qIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ExS/Aihct6W0aOBFxocwzSwYNGrSHxPDRJXqIvYup882t2GbKjyVT3opNjCkUS5d5gLCoeMs36dAOR7UKCQLmWFP55sSrJFd6lrppbkB5OWWekVNhlX/BK7OYwxar0hMVGdBKW2peTUfEBei0LsFfx5qsicCe07nA0GenmHeAJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mHqao8s4; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786371262; c=relaxed/simple;
+	bh=2VRexDWzd/FwjKhqx0ta8n+OzYjSyu4UQt7QBvUx/nQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nwcKmugqFRJISoJRratrdXlbxip10Io+cksb5r8oYzTgDUJ3fHor9ca5CTCK4zErzwL+85R6unLC3el11r9gj3DwphUFqQWB92duhgoD3z1m2DrA7j/JhKGmNIQMkqyE5jY7Ais1A2nyy7TS++7O4yIvzxy6YpAtLhdo9D95VS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mX+kc7VL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mHqao8s4"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-495635a85d2so17244475e9.0
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:01:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786370459; x=1786975259; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w2RxGy/HDr+ZHJEDxF0FWSRtIXjBooh011FJ3fxMxJo=;
-        b=mHqao8s4oODJ6g3XaJ2kgNM3SrYx4VAc9mld4v+ZhlIK16OnCql0eZUopGAi0TD28Y
-         aRCS1p2dx/UAtieBCDT7jKpzI8Hoqg2Gp5N7gaoKxsZoPqxDVEjjB3qSS6wbMHyFwdr6
-         Jdz5kg0gRiszt2dN7JZhzBi6QfVnPuNqQrhso21Qzeyhi9tVt8GhtTrQAU5WIIopvdcS
-         1AJkwBH7kTxPv6KbN9iGGRDH45u2Yz+Vpp3c4g+XzuKJkHIL2wrYeF9ZYC5PXbrgZSKu
-         MHuSrR4ijavaE4gKCRLfUyjEUNC1ENQClCC3abVYyJhx9e73jklTQ4ei84T5/MQ1VTAc
-         gtng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786370459; x=1786975259;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w2RxGy/HDr+ZHJEDxF0FWSRtIXjBooh011FJ3fxMxJo=;
-        b=Wr3lylqFRJR0vWU226SmTNAenTZur2cx3kQCL0kD9RQR1jlNwhe5UihMW1TEwPLfK3
-         aNmpfv4LPWRWlVW8gDNsRf0HCsgdbyLTMvvFY0fbwFQ+fjayXQCVAIA8xRkN1bDujMxI
-         yFSzdRfe+/K/D0iknfx+8jYzNj+x8YNzZwA2GGjrJimfXJakeQoYcAFZ7EcsaAoD1PaE
-         tYVErZPbK0Xqv/ouOPpyK+akAsssd2Jk7BJbBrbNJWNBRAZQdxablztzounmvQLSnM5F
-         LYIQmwVTfUje15MPJs1N7WLZnU3DOkCaKfwxQPkQYOpxe3m8yCELLOIr5+TyNIl0Fzax
-         s3kA==
-X-Forwarded-Encrypted: i=1; AHgh+RpJBrnhS/EUpIgaTYF+YOR+7/Vwmt3Dn4WtDC5wbMr4ekS++KdChnsZPVK02Vegoo1U+/L1jFjCemhH@vger.kernel.org
-X-Gm-Message-State: AOJu0YyRcHVNO9C+UptuEDeuFaAFYOYfH1pSQwopom2LwlUW2p8mIFAt
-	wkiagt8yUoa0l8MqCJkX0yP400qixQrzcSEUQI02BjbffpI10hHCqUzh
-X-Gm-Gg: AR+sD12S6vwm//50hmhJpfv6bn3z9Am6D1FSiQ2xRarfFO+zi2TpTaW5NlayP8kezWv
-	AHZyGltfc38ZJ7SQX8mA0aFiGDci8vCf8zyEHB8gMlvauohVvBsgtZu+RYeh1Pp9E8Rthld/sZi
-	zhfmBVAzjeS98Sd1FW52Qtfz3HwE3XmYwQjXQembaqhwBBSbOQEcIsf+2iQFyg1iHl2H8E7Jl7/
-	HzUG3ovz70pmKy7SeS7zqez9MUqDhPhx1KSctksAuIumF563gOgYeBkxDnulCprsgwAsCo/JrD9
-	8qQ5bvhsJhgoRwjM5NhTScVcyHIb8KUeUPf0zTcFJYGc4EiE0IYRVaeo7lq2NClHUQJ/guaEm6+
-	CbtpHS3VZYvE1nmI2W8IVEaB5sIz2sd00rXLLRse638g7YW3ClAnewZ1GIkhygS1azHvoycLNRq
-	+4ibJNMqi7ns+EkmN8T9ApUwnx8Us8PeRIQowWfqM8c9kqofOgrExbJ2Xr5JAhM9joj1c=
-X-Received: by 2002:a05:600c:4692:b0:498:162a:dbda with SMTP id 5b1f17b1804b1-4994e714b73mr549213325e9.5.1786370458470;
-        Mon, 10 Aug 2026 07:00:58 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4995c7b2b68sm291661565e9.4.2026.08.10.07.00.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 07:00:58 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Stefan Agner <stefan@agner.ch>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Marcel Ziswiler <marcel.ziswiler@toradex.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] ARM: dts: vf: add Iris carrier board support for Colibri VF50 and VF61
-Date: Mon, 10 Aug 2026 16:00:53 +0200
-Message-ID: <20260810140053.2793495-4-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260810140053.2793495-1-mehmet.fide@gmail.com>
-References: <20260810140053.2793495-1-mehmet.fide@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mX+kc7VL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8787D1F000E9;
+	Mon, 10 Aug 2026 14:14:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786371257;
+	bh=iehNUi3egKfQHvYDNGbbdbgLVRR5Q5cJOqpp5C8Holw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mX+kc7VLJtEYOvp9eGzSbishYvLpCPkZLR4wXwvjM+wgYETFgrk9xkyfZ1a24vtri
+	 65ciAVNY1eJFvAX2bAMV2BZRvoU1yHEY3Y5nwK/h/z/S1K9fmc0HFeLTnzJNwxwnvh
+	 MXmQ+Y4/Bgx5CaRyf2mpgo3ANRET883pr2yUAom2B3bjyyNBj49w7EFFmeZL3mS8BP
+	 m4IThuwjn0FbSzKS4XQf+8c0tVREC4KvHbtmEs74Xg4d0IuRzNhYY1qCKMiEZe4k3A
+	 jB3YgCtck/dVYN0wDiM5ADDw6SKS0cdM8N9+keC869RIEF1LTOnz8KBopzUo7OUunB
+	 bdNexLqovZBcQ==
+Date: Mon, 10 Aug 2026 16:14:14 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>, 
+	Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v4 05/10] mm/cma: Allow dynamically creating CMA areas
+Message-ID: <annbzvLojXK33Sav@orome>
+References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
+ <20260807-tegra-vpr-v4-5-5510d16af89e@nvidia.com>
+ <3b458c02-e836-4b24-a712-57fa8dd59e45@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i7x3s4iklpcr3dcx"
+Content-Disposition: inline
+In-Reply-To: <3b458c02-e836-4b24-a712-57fa8dd59e45@kernel.org>
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-Mainline carries Iris device trees for every i.MX Colibri but none for the
-Vybrid ones, so a VF50 or VF61 on that carrier has nothing to boot with
-except the eval board tree, which describes different hardware.
+--i7x3s4iklpcr3dcx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 05/10] mm/cma: Allow dynamically creating CMA areas
+MIME-Version: 1.0
 
-Add the carrier, following the layout of the i.MX Iris trees: a common
-dtsi and one dts per module. It enables the microSD slot, the three UARTs,
-SPI, Ethernet, USB and the M41T0 clock on the carrier, switches USB host
-VBUS through a regulator on SODIMM 129, and hogs the two GPIOs that turn
-the RS232 transceivers on, SODIMM 102 and 104. The touchscreen is an
-add-on rather than part of the board, so it is left out.
+On Fri, Aug 07, 2026 at 06:16:06PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/7/26 17:54, Thierry Reding wrote:
+> > From: Thierry Reding <treding@nvidia.com>
+> >=20
+> > There is no technical reason why there should be a limited number of CMA
+> > regions, so extract some code into helpers and use them to create extra
+> > functions (cma_create() and cma_free()) that allow creating and freeing,
+> > respectively, CMA regions dynamically at runtime.
+> >=20
+> > The static array of CMA areas cannot be replaced by dynamically created
+> > areas because for many of them, allocation must not fail and some cases
+> > may need to initialize them before the slab allocator is even available.
+> > To account for this, keep these "early" areas in a separate list and
+> > track the dynamic areas in a separate list.
+> >=20
+> > Signed-off-by: Thierry Reding <treding@nvidia.com>
+> > ---
+>=20
+> Sorry that I didn't get to reply earlier to
+>=20
+> 	https://lore.kernel.org/all/anS0nxAwCXGWZRl9@orome/
+>=20
+> But I am still not convinced why we shouldn't just have a single array th=
+at
+> grows dynamically.
+>=20
+> "
+> After replying to T.J. I think this static array is actually a nice
+> feature in a way. It allows us to more easily make a distinction between
+> the regular CMA regions created from reserved-memory regions that
+> represent classic carveouts, and the more versatile CMA areas that could
+> be used for any purpose.
+>=20
+> Telling the two types apart could obviously also be solved using some
+> kind of flag stored with the CMA area, but at this point I don't really
+> see a reason why the two lists would need to be unified.
+> "
+>=20
+> Really, cma_for_each_early_area() + cma_for_each_area() is just nasty.
+>=20
+> I'd strongly vote to unify unless there is a very good reason to do it
+> separately.
 
-This describes an Iris V1.1. A V2.0 carries the same signals on the same
-pins; what it adds, and what this does not describe, is the regulator on
-SODIMM 100 that can cut power to the uSD slot.
+Marek had an interesting suggestion to extend CMA with fixed address or
+range allocations, in which case we would only need a single CMA area.
+If that works and is acceptable, there's not much need any longer for
+cma_create()/cma_free().
 
-Tested on a Colibri VF50 on an Iris V1.1 running 6.18: Ethernet at
-100Mbps/Full, a USB dongle enumerating once the VBUS regulator is in
-place, the RTC read back over i2c0, all three UARTs, the SPI controller
-registering, the microSD slot, and both hogs holding their pins.
+Thierry
 
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- arch/arm/boot/dts/nxp/vf/Makefile             |   2 +
- arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi | 125 ++++++++++++++++++
- .../boot/dts/nxp/vf/vf500-colibri-iris.dts    |  14 ++
- .../boot/dts/nxp/vf/vf610-colibri-iris.dts    |  13 ++
- 4 files changed, 154 insertions(+)
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
- create mode 100644 arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
+--i7x3s4iklpcr3dcx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/arch/arm/boot/dts/nxp/vf/Makefile b/arch/arm/boot/dts/nxp/vf/Makefile
-index 0a4a7f9..47be8bc 100644
---- a/arch/arm/boot/dts/nxp/vf/Makefile
-+++ b/arch/arm/boot/dts/nxp/vf/Makefile
-@@ -1,8 +1,10 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_SOC_VF610) += \
- 	vf500-colibri-eval-v3.dtb \
-+	vf500-colibri-iris.dtb \
- 	vf610-bk4.dtb \
- 	vf610-colibri-eval-v3.dtb \
-+	vf610-colibri-iris.dtb \
- 	vf610m4-colibri.dtb \
- 	vf610-cosmic.dtb \
- 	vf610m4-cosmic.dtb \
-diff --git a/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi b/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
-new file mode 100644
-index 0000000..d0fa107
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/vf/vf-colibri-iris.dtsi
-@@ -0,0 +1,125 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright 2026 Mehmet Fide
-+ *
-+ * Toradex Iris carrier board V1.1, common part for Colibri VF50 and VF61.
-+ *
-+ * The Colibri modules are pin compatible, so the carrier signals sit on the
-+ * same SODIMM pins as they do for the i.MX modules, whose Iris device trees
-+ * are already upstream. The two SODIMM pins below are taken from the Colibri
-+ * VFxx datasheet (102 -> PTA12 -> PORT0[5], 104 -> PTD28 -> PORT2[2]).
-+ *
-+ * An Iris V2.0 carries the same signals on the same pins, so everything here
-+ * works on it as well. What it adds is a regulator on SODIMM 100 that can cut
-+ * power to the uSD slot, which this file does not describe.
-+ */
-+
-+/ {
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	reg_5v0: regulator-5v0 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	reg_usbh_vbus: regulator-usbh-vbus {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_usbh1_reg>;
-+		regulator-name = "VCC_USB[1-4]";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio2 19 GPIO_ACTIVE_LOW>;	/* SODIMM 129, USBH_PEN */
-+		vin-supply = <&reg_5v0>;
-+	};
-+};
-+
-+&gpio0 {
-+	/*
-+	 * The RS232 transceivers on the carrier are switched on by these two
-+	 * lines. Delete the hog to turn a transceiver off from userspace.
-+	 * The pin group belongs to the gpio controller rather than to iomuxc,
-+	 * which would depend on its own child and log a dependency cycle.
-+	 */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_iris_uart1_tx_on>;
-+
-+	uart1-tx-on-hog {
-+		gpio-hog;
-+		gpios = <5 GPIO_ACTIVE_HIGH>;	/* SODIMM 102 */
-+		output-high;
-+	};
-+};
-+
-+&gpio2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_iris_uart25_tx_on>;
-+
-+	uart25-tx-on-hog {
-+		gpio-hog;
-+		gpios = <2 GPIO_ACTIVE_HIGH>;	/* SODIMM 104 */
-+		output-high;
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_iris_uart1_tx_on: irisuart1txongrp {
-+		fsl,pins = <
-+			VF610_PAD_PTA12__GPIO_5		0x22ef
-+		>;
-+	};
-+
-+	pinctrl_iris_uart25_tx_on: irisuart25txongrp {
-+		fsl,pins = <
-+			VF610_PAD_PTD28__GPIO_66	0x22ef
-+		>;
-+	};
-+};
-+
-+/* Colibri SSP, on the extension connector */
-+&dspi1 {
-+	status = "okay";
-+};
-+
-+&esdhc1 {
-+	status = "okay";
-+};
-+
-+&fec1 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	/* M41T0M6 real time clock on the carrier */
-+	rtc@68 {
-+		compatible = "st,m41t0";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	status = "okay";
-+};
-+
-+&usbdev0 {
-+	status = "okay";
-+};
-+
-+&usbh1 {
-+	vbus-supply = <&reg_usbh_vbus>;
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts b/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
-new file mode 100644
-index 0000000..53dd252
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/vf/vf500-colibri-iris.dts
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright 2026 Mehmet Fide
-+ */
-+
-+/dts-v1/;
-+#include "vf500-colibri.dtsi"
-+#include "vf-colibri-iris.dtsi"
-+
-+/ {
-+	model = "Toradex Colibri VF50 on Iris Carrier Board";
-+	compatible = "toradex,vf500-colibri_vf50-on-iris", "toradex,vf500-colibri_vf50", "fsl,vf500";
-+};
-+
-diff --git a/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts b/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
-new file mode 100644
-index 0000000..2882c87
---- /dev/null
-+++ b/arch/arm/boot/dts/nxp/vf/vf610-colibri-iris.dts
-@@ -0,0 +1,13 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright 2026 Mehmet Fide
-+ */
-+
-+/dts-v1/;
-+#include "vf610-colibri.dtsi"
-+#include "vf-colibri-iris.dtsi"
-+
-+/ {
-+	model = "Toradex Colibri VF61 on Iris Carrier Board";
-+	compatible = "toradex,vf610-colibri_vf61-on-iris", "toradex,vf610-colibri_vf61", "fsl,vf610";
-+};
--- 
-2.54.0
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp53LYACgkQ3SOs138+
+s6F2pA//agw5g+ad2JaahbYD22vSCRqW3CiqP6DioCJAxsagk9tg5EhZHpBTyXgx
+NeLeY+2kE3x6TL2VgqHJ4y8hoBb9s8kMQ/Y1mzKbX42KBaSncC7KOHxHC4oAYZ/Y
+GIzavTlTlWZlGrD9qC/3YmmWdG7aHRr/UXALcH8VhYqn65ABqGIkmVmAcFBkZCC6
+QAsB0WWbU1GVW7adArp/XjeywXwzYbuDjrhYMccXmfBexX5iA7dqyEBLybPiAhiw
+/dN0PzpxaKReMS62gTC8Vl7nRW9mMC5NJpnDfMXzQtz5LBxYQkgUM07SFF4Z1cpH
+ndEI0GkQyLkesWA8HJWysBbKHuO053/jjcE1+3JW61POx8TSmHPIW0Y52kE5O7h+
+639yzEAlbLtPXsq9zQz6xpstENU5reyLz+IBhH3XC+f0RawuNb2YOnP29ayByUkS
+o5Eg0kYjFGZP82xhBRlmveTPfBrTe/Un1wfJjnPMNttHrJaK7n3nlOrI6O7YAFau
+Ou3/c15vyAOs1JrqdxCnPk4GOQFfYCwiK9cogcw/k2q6tgoSTjxuZsxqmmzOTAZx
+Xj0mKBiV6RR5VCygyH+6tbdoPERl3Y8LHEP/cc642K9ldPi2Xjdqiylwt/4v7hkV
+VM2qHuSnW8bwLF8N3ee2tCKpCmsx+rjwPK2tyQgPc8ts1VvqSyI=
+=OEKA
+-----END PGP SIGNATURE-----
+
+--i7x3s4iklpcr3dcx--
