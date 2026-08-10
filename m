@@ -1,172 +1,117 @@
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD154252D2
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:31:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682F43264F1;
+	Mon, 10 Aug 2026 16:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786379486; cv=none; b=r88UQ+2qcVvEQGJnY7EJdCNpCgJDlMV1MfX4moVey17h82JMs1Qc/BdSJFGskur3PqQG3GEGCtOY+ICvGHBbn9htK9J+JJFJsrp+30oebx7Tc3h4m2noWNl/bKghDunPCOdI8SwTuonuelJM9A2y5wK677mybUQdsvo5XGWVtqI=
+	t=1786379893; cv=none; b=JaBypU2X0/MykF1x4bkxsPxatek1Qph48IHUuOA1/qt3PBRxgv4wlIqxhz7YYizQ9U5VZKohN335rBFBbVRA4QEq8ay7srwAG2V0jN2yAUtJ6CnRfy0XQ0+NMp7+J0zq0cu/fMM16G+sai2qw22h1ddgAq++jfGwEGHdrwqMJt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786379486; c=relaxed/simple;
-	bh=m3C7XInPLOUD6JvFRKXJX7cSBpYecZrWd2US7RhDPtA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QOjSZ9ZY62qCqmVh4fLf4tJIPJTfx0LXCGWeI0CtXRQCUPUL3OemEQbkQQxSiURUFVYpDv/sqbHaeVi7VeSYNg0oH5sf+eLQoOTEqmKEaS+WZXLPcIFXvXmm1E6pbRD5MybXNmyjYueIkk30XQTbY4rCWREezeu2StdpDCFqfyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fDMrOHHk; arc=none smtp.client-ip=209.85.161.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1786379893; c=relaxed/simple;
+	bh=wLQrxmYswGRtd7Df117hNkm4qRvwp5DSkbl/br5ceuI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nRXSiPH1MjrhnQqlTb5qigO7RRJ92uXdHeT1rvR7yQLo8SIyCgA9fnOLGHO1UNjqXMFzxXfcjCW6Dvm11JXcZtrT4ncq+4cEGD+HYkjW2VbAtAoK5Kp6POQ/tVvioLk6dV21kut1tHGk2xAemG/t3zrphE4TIyN/lmEXvbMxT/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCQz6Ytq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fDMrOHHk"
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6ae88f4e4f4so711866eaf.0
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:31:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1786379483; x=1786984283; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mYGxVmCUHr4pstwMWmIdi+L9AxMi3Q4nuvjSCNXWKtA=;
-        b=fDMrOHHkKtzgBqZ/tqifO6bvf/NgSP/XkUf4XTieKAiikCM6AP2qj7kk8bY5ZyXtkI
-         0dRbag4Xhdei3VmxmukOIuJVsd8tl/5v8Sn2j2PeHs7uFimkkrKt2DswDqXZfCmvMBbx
-         D9wEBgNHTs9tLST4LLAHXiGiuxNKE2qMDYGzqYEaYVf+Ld9XisXCiT0v9aXrNR+8p1hY
-         SDMc7BGfH3ywv5hR1I2a2ox5wjPCfZqkks40h7EmeBNPsgfQscRFLFHBUJc2NC7KhehP
-         adPeWd/xJzXw8OpeLwhfv6GGxchCsU0QUpUYS1l7LTlCko8AowDIjNMC/LFKU5fZe8K7
-         9PRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786379483; x=1786984283;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mYGxVmCUHr4pstwMWmIdi+L9AxMi3Q4nuvjSCNXWKtA=;
-        b=BQrWRwqA40R8nSa/M+LwpbvHlLCRz41X0hIOIoDnh4tylhadQodo/1UOAXI7+pqrf7
-         CljKzV8L5KqKH7V8G/43TJLpslwBG5bCIUh/nH3+iJvPWjv13afcomnYAxXAxWnXLaif
-         7RAvND8cpax9ZO5ydGyuIqHBJO/jgBDNpb8JhyWc/ZGEbL1x/vn3qK6LwDhWncibCaN1
-         1FFHTMYVEpgK8+iiyY1D852JsntveJBrANwdf7Uh58f8ahOHa5LHQpSiKIfIvg/HCmzb
-         4PkoV/ddaYC6rJGXRdU5xfF6PHU+QVL9pOuPzR6t+IYGDugM5Aoupp1OVME/GCq/difw
-         CS6Q==
-X-Forwarded-Encrypted: i=1; AHgh+RrG56I2BgtDHf4xTkSr2/lr0H9hdacqrLnTjXBjPRn2tu1nuYyQQ3FGVDHu/Mp5FqJcpmwMYfTrNLTh@vger.kernel.org
-X-Gm-Message-State: AOJu0YyjD7u1F9r6NhlAnhW9iCDKXj8LQMBXZcARlUO4WJKJFvE8bgm8
-	12QB7TedHSMzVL26xI6SnkExX7JBRjd3qw6OSMm2CaOUeUHBwZn3zoBN1oB5WX79svg=
-X-Gm-Gg: AR+sD12eagpNYcDA6Ewp8aRPviM8EWJ20KO4nAUTWDFNlwt/QuSD+sG9+rNOIiQECbS
-	BpPN+PxtZYihCjzVgQPYfzJC6KlNJSAUZkNJSy4n+1SrCS6EWQh6AbGB/QpuTFZLWo2WFDKvDN6
-	irESU9RlLfYn+uIX2StvYIp2mBtdVv4lvvAIv6qk9uTWE5332eyNt+kNghcxs86xTMXv2Nmt3LP
-	3gAgA29xSAWt5owf9fVcz0YwejLhQ6EoAx6jcWqrubENGl1TMQiMNAMG2JljjIZCieAyfLcR/P2
-	hsYr6c/RsA2FmE57e7YHLy2uEokLAJvADdHxKB2Kd1rhkIf3B9L5jjwc4L/RRKRQy1qMExbnocO
-	Rus2Ahh2P9LXUuF7FXxJ04oYiXlZBbFOeO4tk9IfTBOyzPWlvy3AdXMylXbC8yFmTCruJNDzNzr
-	8O0Hhpm/3+ZECZioUKPIY16NiDppY94orad+VNLm+KSUd2FRpPuFFMMAf8h+wuWiIDt5TQ2ika5
-	AA8oFzg7z5K3Ymx2joz73a2RvB2DmtI3sS7UYA=
-X-Received: by 2002:a05:6820:80c8:b0:6ae:46cd:e908 with SMTP id 006d021491bc7-6b09078b3ccmr1499580eaf.17.1786379482614;
-        Mon, 10 Aug 2026 09:31:22 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:e05b:7923:cf50:e4cf? ([2600:8803:e7e4:500:e05b:7923:cf50:e4cf])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b056cad736sm5390430eaf.0.2026.08.10.09.31.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 09:31:22 -0700 (PDT)
-Message-ID: <f3ea3859-aff1-4c15-9302-095119faec78@baylibre.com>
-Date: Mon, 10 Aug 2026 11:31:21 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCQz6Ytq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856221F000E9;
+	Mon, 10 Aug 2026 16:38:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786379891;
+	bh=WfdMv/8ZXyGsLoEO4C/zcVHY34hVkspoQFa93Xc1SGI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YCQz6Ytq7UKe21rTVTefNwCVnXwCWDgM5hCP2ZKJVzESsZaU949rEogHH5QTbjCqy
+	 jEfb3cBEjJtC8AKFPJxZlY6Qtni9thg6ZvOyGdAhUmQXpDmdMq/N7SGNtRkkMs9aJ6
+	 FRAljLkFXdj4Do+65YKd38WEMk00+gNgjBUDjR/II7i2UEfMQE/h+QMWvkYP0DV7OV
+	 X1sST9QghB0RO4WL7PY+biKcHoC3ZPveP1k7jIMttqjlpG0+urCQ3XcjPL2/Lw+Q3K
+	 NQSrEAGm35QDsDuNrmTqfl7mVvOolvB/JAYmFDJIGVX/BSF7RwKTbAR1tWa865TD6C
+	 5H/1dvN3+SbDw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 12/19] drivers: soc: ti: k3-ringacc: handle absence
+ of tisci
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
+In-Reply-To: <20260810151423.1948224-13-s-adivi@ti.com>
+References: <20260810151423.1948224-1-s-adivi@ti.com>
+ <20260810151423.1948224-13-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 16:38:09 +0000
+Message-Id: <20260810163810.856221F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/9] iio: adc: ti-ads1262: support triggered buffer
- sampling
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org
-References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
- <20260807-ads126x-v3-7-f89925d72792@gmail.com>
- <1b6b6981-1a08-42a2-a03a-4366b980da13@baylibre.com>
- <DKK9S36LB543.2T124NE3TNETN@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DKK9S36LB543.2T124NE3TNETN@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 8/9/26 3:28 AM, Kurt Borja wrote:
-> On Sat Aug 8, 2026 at 1:39 PM -05, David Lechner wrote:
->> On 8/7/26 10:58 PM, Kurt Borja wrote:
->>> Add triggered buffer support and a data-ready (DRDY) hardware trigger.
->>>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The direct register fallback in `k3_ringacc_ring_reconfig_qmode_=
+sci` uses zero-initialized fields to destructively clear the ring's base ad=
+dress and size.
+--
 
-...
+--- Patch [12]: [PATCH v8 12/19] drivers: soc: ti: k3-ringacc: handle absen=
+ce of tisci ---
+commit 19dd5943c68e7ce05e29d608e96d6376a6ce8fed
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
->>
->>> +	u8 tx[11] __aligned(IIO_DMA_MINALIGN);
->>> +	u8 rx[11] __aligned(IIO_DMA_MINALIGN);
->>
->> don't need second one to be aligned, they aren't independent.
-> 
-> Ah, I forgot this observation in the last version. These are used in a
-> full-duplex transfer, wouldn't that require for both to be on its own
-> cache line? I just started learning about DMA.
+drivers: soc: ti: k3-ringacc: handle absence of tisci
 
-No. In this case, it works roughly like this...
+This commit adds direct register writes to handle platforms like AM62L that=
+=20
+do not have tisci firmware. It modifies the reset, free, configuration,=20
+and reconfiguration paths to write directly to ring configuration registers=
+=20
+when tisci is absent.
 
-- We fill the TX buffer before the transfer. (CPU access to memory may
-  just live in the cache at this point and not actually be sent to RAM)
-- We request to start the SPI transfer.
-- The core SPI code flushes (or maybe I should say invalidates) the cache
-  on the TX buffer. This ensures that what we wrote with the CPU available
-  to DMA.
-- The actual SPI transfer happens that uses DMA to access both TX and
-  RX buffers. (Again, could just live in a cache and not be sent to RAM)
-- The SPI core code flushes the cache on the RX buffer. This ensures
-  that when the CPU reads the memory, it will see what the DMA just
-  wrote.
+> diff --git a/drivers/soc/ti/k3-ringacc.c b/drivers/soc/ti/k3-ringacc.c
+> --- a/drivers/soc/ti/k3-ringacc.c
+> +++ b/drivers/soc/ti/k3-ringacc.c
+[ ... ]
+> @@ -501,10 +568,25 @@ static void k3_ringacc_ring_reconfig_qmode_sci(stru=
+ct k3_ring *ring,
+>  	ring_cfg.valid_params =3D TI_SCI_MSG_VALUE_RM_RING_MODE_VALID;
+>  	ring_cfg.mode =3D mode;
+> =20
+> -	ret =3D ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
+> -	if (ret)
+> -		dev_err(ringacc->dev, "TISCI reconf qmode fail (%d) ring_idx %d\n",
+> -			ret, ring->ring_id);
+> +	if (!ringacc->tisci) {
+> +		u32 reg;
+> +
+> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
+> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
+> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
+> +				&ring->cfg->ba_hi);
+> +
+> +		reg =3D readl(&ring->cfg->size);
+> +		reg &=3D ~K3_DMARING_CFG_SIZE_MASK;
+> +		reg |=3D ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
+> +
+> +		writel(reg, &ring->cfg->size);
 
-Since there isn't a time when CPU and DMA both write to the cache line
-at the same time before a flush, there is never a time we could have
-an issue with stale data replacing data that had not been flushed.
+[Severity: Medium]
+Does this code accidentally clear the ring's base address and size instead =
+of
+just reconfiguring the mode?
 
-It does mean that we can't update the tx buffer for the next message
-until after this message is done, but we have to do that anyway.
+Because ring_cfg is zero-initialized at the start of the function:
 
-What does cause problems is if we just had a regular unrelated variable
-after this in the cache line and the driver updated it during a SPI
-transfer. If this new value was just living in the CPU cache, then
-when the RX flush happened, it would write over that new value with
-stale data from the DMA's version of the cache.
+struct ti_sci_msg_rm_ring_cfg ring_cfg =3D { 0 };
 
+The addr_lo, addr_hi, asel, and count fields are never populated in
+k3_ringacc_ring_reconfig_qmode_sci() before being used here. Will this write
+zeros to ba_lo, ba_hi, and size, corrupting the live memory mapping?
 
-> 
-> [...]
-> 
->>> +static int ads1262_enable_and_read_last(struct ads1262 *st,
->>> +					const struct iio_chan_spec *spec,
->>> +					__be32 *val)
->>> +{
->>> +	struct ads1262_channel *chan;
->>> +	int ret;
->>> +
->>> +	lockdep_assert_held(&st->xfer_lock);
->>
->> What happens if something else (e.g. gpio in the future) decides to do a
->> register write here. If it wins the race, will it unintentionally read the
->> data? So do we also need to read the stored data via command here too?
-> 
-> On each trigger, we are holding the lock before we enable the first
-> channel, until after we read the final conversion. So we don't really
-> care if there's concurrent activity in-between triggers. Am I missing
-> something?
-> 
-The datasheet doesn't seem clear on it, so I don't know if you are
-missing something or not, that is why I asked. :-)
+Even if this path is currently unreachable because platforms like AM62L do =
+not
+enable the dma_ring_reset_quirk, this might still cause hardware misconfigu=
+ration
+if the quirk is used on future platforms without TISCI.
 
-It looks to me like the way this is working is that that when data
-is ready, on the very next SPI transfer, the data is placed in the
-RX buffer no matter what is in the TX buffer. So I was imagining that
-if we got a DRDY interrupt, but someone happened to set a gpio output
-at the same time and the gpio request won the race for the lock, then
-when the gpio request was made, it would receive the RX data and trigger
-the next conversion while setting the gpio output, then then what was
-supposed to be receiving the data would receive I don't know what.
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
+224-1-s-adivi@ti.com?part=3D12
