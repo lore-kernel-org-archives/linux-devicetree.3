@@ -1,116 +1,110 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627AA3C3438;
-	Mon, 10 Aug 2026 11:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E604931DDBB
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:49:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786362402; cv=none; b=bJwHTaexojsk9KkdSYn+xiLQSWo48uWsTGClspqQR+f25n/DLmy+d80pv9cdZZ0m3zaJH/4jJOGefIeq/UlzfL0VSgTMjWTqmRRozuycE6P5Pxc4dG+lEqkPcwpFhG5dz/nXjscuStg/beYW+KCDGV5rscBtcqAR5uU3Vv5RVU0=
+	t=1786362591; cv=none; b=YQb/n5XjdIt31UCTMcul1Ivh38Vbf7K6I9tym+37a4GmeFrD9ciA8KNW34AKSRfF+IVE8xhs0icVWkR3ekoeqI3bZc0+XvgJByyD7PQlouxrVizkGAkQBeY6+MpcOlAe+hVfICqPN4RViHrI26quXSyO3waWmLBMR0gbBUEcbFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786362402; c=relaxed/simple;
-	bh=kmLavogkIYMEuO8Njyz9QMRsfJVwk4khrRu3BW2LFkM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Wnryn3ai+0n7t+CunSzG1NZa1iI7pBlpmm9VF+a/Tl7PEazRqkHe2yGk4UcvtU6jAN7bkXHEr3H86Ic5BqE+3bsLqWhVwUBYmA8OILkZTWHID8sGw2ugeD7mhcXqoqtJ2fWiXto+PA1L0a7IIKozHX6c0rlgON0nWwy2O0pT8wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4Kmf2TPs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qqNMBG5w; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1786362591; c=relaxed/simple;
+	bh=UOfrjb+FEIdB2ixtYgyKdlzrKKVec7EiQJCYYcW9qHg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jAt/s+1VP+Ae9uJQh2f46Oq5Ci70X7KhWVNKXny8WvVYRbVUiQtuiUTiID7j8rK3Hksamf/Li4bwh9eiLdYvNws5xXfAsDzUCmVuKEsa+nE8+9OP7mU//dUUzVcdBW4mRpDBJeQZruzFc4CJ77l5ymrHAImuQhVnqa5zp5XrrMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bg0A/QRw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4Kmf2TPs";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qqNMBG5w"
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1786362397;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TDihv81nwZosO0Lvm/brs/h5gJzUSpTRLlPXHbBrogE=;
-	b=4Kmf2TPsPIkMYvEgctWI9UQnq4jCr7TmgH/lZZ6yUn+8Axh0FI7T1S9GlbICk9AlERxi+7
-	RF/OTnuLqbygBAHB8mG5JbetTOny/RK4WNijiOK2qt63LDPBKHvH/wDQlDO2ABuNw5tggR
-	TKMmbzu4AnZFzoE1mXkKlk+3W2xgcTlBC8CHWqptOKumFay/edsOKL9vpNAhqAp6ZHSIX1
-	nvtKuPK80rcuNvNo3lT7nVFcSmzjw/5xOwxm3/Oo6xx9UqB7watqc1/cCrhNTsp6IYLxLM
-	34YuMhd/Deef8+1k/DYEvkpgTsnExRiOlb5KArKKTD+2PqdnkrwotQVrfEL1hw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1786362397;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=TDihv81nwZosO0Lvm/brs/h5gJzUSpTRLlPXHbBrogE=;
-	b=qqNMBG5wrnQb+m+JTZDAoxzzirTAuCwjUpMkpN23LntKLOUiRNsraetWNcnjUcrpjjhT+3
-	oaATtS2+q2s+ipBA==
-Subject: [PATCH v4 0/2] arm64: dts: broadcom: bcm2712-d-rpi-5-b: add
- compatible
-Date: Mon, 10 Aug 2026 13:46:32 +0200
-Message-Id: <20260810-bcm2712-d-stepping-compatible-v4-0-73f74479539c@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bg0A/QRw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE5F1F000E9;
+	Mon, 10 Aug 2026 11:49:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786362589;
+	bh=jlalvyiyDmb2SBE4WzGkySfWGm/AjNpIU++rR7WIYuY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bg0A/QRwHamFcdKLmlQEaZjemUvFP/dbca3XFNqP6/hXHlrZ61u8o22zGa2EmEZBx
+	 WwP3IbC9pGbAv4HxkqnBtYcYdQptXCHkh0TgQfY893+DL1KQQYlqY+1Nkkzsxf0GE0
+	 NH+bZUdAEIaWmynFUciSnG3x2pPzNbuMP4FiKAHevfYPxKZuoLV4vHpLUVCsVWtVqL
+	 VWKxqb/QNZ66m2WUsBEqg19lFB+Ibt0RGbJShWpw4YUoaXz35zGCdstI5p9jhyRKmg
+	 EVcIE5UTlo/pebAOg+z5PqeKCI3pr+nrCInWpq70LVv9GURWOI9IbzQXtrHpXkQWdG
+	 Tcnqas0Fphl+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 07/10] phy: qcom-ipq806x-usb: parse the tx-deamp-3_5db
+ property as documented
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, vkoul@kernel.org, robh@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org
+In-Reply-To: <20260810-msm8974-usb3-v1-7-1a47e1185524@oss.qualcomm.com>
+References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
+ <20260810-msm8974-usb3-v1-7-1a47e1185524@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 11:49:47 +0000
+Message-Id: <20260810114948.5EE5F1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABi6eWoC/5XOwYoCMRAE0F+RnDdLJ2knoyf/QzwkmVZ70cyQx
- EGR+ffN6EVkQfZYULyqu8iUmLJYL+4i0ciZ+1gDfi1EOLp4IMldzUKDbsAaJX04a6u07GQuNAw
- cDzL058EV9ieS6BH2ENB3bimqMSTa8/Xhb3fPnC/+h0KZ0blx5Fz6dHscGNXce261YD5sjUqCR
- FArg2ZpHeLmxPFSUh/5+t2RmPdG/S9RV7HWQFlC76z7SzSvIn4STRVV2wCsENuG/Ls4TdMvchL
- yLoQBAAA=
-X-Change-ID: 20260731-bcm2712-d-stepping-compatible-4b40f0c4bda5
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786362397; l=1560;
- i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=kmLavogkIYMEuO8Njyz9QMRsfJVwk4khrRu3BW2LFkM=;
- b=V1zsineNCGPoq+W2/C2YG0oFWJ7rqF0TseK3Q8CUnOPr9ZX8El4Z58whZG7F/Z6SlB7hQxKRy
- zQ3u7Yx1hY5DBkPAReVYIXAevNAjarBXDN4dO+k3g3pD1gaMqQTYAJ/
-X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
- pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-The bcm2712 found on the Raspberry Pi 5 is available in the d Stepping
-and in a c Stepping. There are two separate dts files. The
-bcm2712-rpi-5-b.dts for the c Stepping and the bcm2712-d-rpi-5-b.dts for
-the d Stepping. The d stepping does not set its own compatible/model
-string but uses "raspberrypi,5-model-b".
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] The patch breaks backward compatibility with existing device t=
+rees by replacing the `qcom,tx-deamp_3_5db` property with `qcom,tx-deamp-3_=
+5db` without providing a fallback. The commit message incorrectly claims th=
+at no in-tree device tree uses either spelling, but `arch/arm/boot/dts/qcom=
+/qcom-ipq8064-v2.0.dtsi` actively sets `qcom,tx-deamp_3_5db =3D <32>;`. Con=
+sequently, the driver will silently fail to read this property from existin=
+g deployed DTBs and fall back to the default value, leading to an unintende=
+d hardware configuration change.
+--
 
-These two steppings are not compatible. Booting with the wrong dtb file
-causes a crash at boot.
+--- Patch [7]: [PATCH 07/10] phy: qcom-ipq806x-usb: parse the tx-deamp-3_5d=
+b property as documented ---
+commit 0d730340df80865649e4381722ca35e1603f1cad
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Add compatible strings "raspberrypi,5-model-b-d0" and "brcm2712-d0" to
-allow us to distinguish between those two steppings.
+phy: qcom-ipq806x-usb: parse the tx-deamp-3_5db property as documented
 
----
-Changes in v4:
-- Add Fixes Tag
-- Add SoC compatible string
-- Link to v3: https://patch.msgid.link/20260804-bcm2712-d-stepping-compatible-v3-0-1860094486eb@linutronix.de
+This commit updates the driver to parse the "qcom,tx-deamp-3_5db" property,
+matching the device tree binding documentation. It replaces the old
+"qcom,tx-deamp_3_5db" spelling.
 
-Changes in v3:
-- Remove fallback compatible
-- Link to v2: https://patch.msgid.link/20260803-bcm2712-d-stepping-compatible-v2-0-803017e4ba7a@linutronix.de
+> The driver reads the transmit de-emphasis override from
+> qcom,tx-deamp_3_5db while the binding documents qcom,tx-deamp-3_5db,
+> so a device tree following the binding is silently ignored and the
+> default is used instead. No in-tree device tree uses either spelling.
 
-Changes in v2:
-- Removed the wrong oneOf
-- Link to v1: https://patch.msgid.link/20260803-bcm2712-d-stepping-compatible-v1-0-401934357a44@linutronix.de
+Is the statement about in-tree device trees accurate? Looking at the source,
+arch/arm/boot/dts/qcom/qcom-ipq8064-v2.0.dtsi actively sets
+"qcom,tx-deamp_3_5db =3D <32>;".
 
----
-Gregor Herburger (2):
-      dt-bindings: arm: bcm2835: Add 2712-d0 Stepping
-      arm64: dts: broadcom: bcm2712-d-rpi-5-b: add compatible
+> diff --git a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c b/drivers/phy/qu=
+alcomm/phy-qcom-ipq806x-usb.c
+> index 3d3e9d6da298c..86e8e869a743f 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
+> @@ -561,7 +561,7 @@ static int qcom_ipq806x_usb_phy_probe(struct platform=
+_device *pdev)
+>  				     &phy_dwc3->rx_eq))
+>  		phy_dwc3->rx_eq =3D SSPHY_RX_EQ_VALUE;
+> =20
+> -	if (device_property_read_u32(&pdev->dev, "qcom,tx-deamp_3_5db",
+> +	if (device_property_read_u32(&pdev->dev, "qcom,tx-deamp-3_5db",
 
- Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml | 6 ++++++
- arch/arm64/boot/dts/broadcom/bcm2712-d-rpi-5-b.dts     | 5 +++++
- 2 files changed, 11 insertions(+)
----
-base-commit: 8ba098e6b6ff0db8edf28528d1552be261af30d4
-change-id: 20260731-bcm2712-d-stepping-compatible-4b40f0c4bda5
+[Severity: Critical]
+Does replacing this property without a fallback introduce a regression for
+backward compatibility with existing device trees?
 
-Best regards,
---  
-Gregor Herburger <gregor.herburger@linutronix.de>
+Since device tree bindings are a stable kernel ABI, systems booting with an
+older DTB (or the current in-tree DTB) might silently fail to read this
+property and fall back to the default value instead of the configured value.
 
+Should qcom_ipq806x_usb_phy_probe() maintain support for the legacy
+underscore property as a fallback?
+
+>  				     &phy_dwc3->tx_deamp_3_5db))
+>  		phy_dwc3->tx_deamp_3_5db =3D SSPHY_TX_DEEMPH_3_5DB;
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-msm8974-us=
+b3-v1-0-1a47e1185524@oss.qualcomm.com?part=3D7
