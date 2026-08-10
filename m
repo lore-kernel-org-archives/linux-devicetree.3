@@ -1,202 +1,121 @@
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [81.169.146.169])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0C13644CA;
-	Mon, 10 Aug 2026 20:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786395504; cv=pass; b=ZLUuMggZoXVqnhCxz6F2lP91Elm0VAVL9BqAU69QrFtcdHHv2ejDJ48aZhdXnMuo0U3ZuPgQdZPK3vITJvD06XVWj69WKewKsz/h9aXBo6TzHjF3haES2aFS0JtnSnOzxuOmc+vO9pv7wlpFxyGiUda1EnUzA3ixSDdzT0AA+rs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786395504; c=relaxed/simple;
-	bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=MF89f/CQqsJCvL4xNkEZydCPdRRH/eD5nEee10JVBOIVpprFCO6vd3m4FuLWSO5g5vRzFfDzAfXCf2bTQaGCuV50j4af02G458V++Hzcsj39zsJKsoYsdKXlcF9FXm4w187gGR4ZAgnlxRPrMLkm0bvr0TYQccvO4qnKPl7An4Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com; spf=pass smtp.mailfrom=goldelico.com; dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=PsP/bxV0; dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b=ol9sAKua; arc=pass smtp.client-ip=81.169.146.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E213F65EB
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 21:30:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786397405; cv=none; b=lGuHzdkUEpbqwVpd2bYOUHpEn9nUQSGHaOEvyAEo8SYS1xMqhyRCq+eDvUNXTkHhfNiSpTg/E12vB7PT4ydg4s1Z7/XYzo//If0NloUwpD646EFXNEm1IIydXY/Yk8hWeDj8Mh/n4LW8dm2TW5K5mImJe1CDnnL0CFKq74ki4EA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786397405; c=relaxed/simple;
+	bh=KlsRE1nvgMWbUCCfsCqLaBkqTAG5KPcziTSTxm4TAZ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bWgx/NCIb99xa6NFfjF/fIVEOgjFJG1hSTZf8jn9VXQShhTWBLz7ur6dCX+ezCQctY8Y2EFeRLbWNDYugrwLHgTY5gQpVEpOvtj3Z3l3AzwazeuWLyhExZsVjKg9r/r5NMHMxtxEsbvV7TKUw+yIPaGXNPDs5TuaLWBDa6UeUV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DeHVfWDx; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UQanWlCq; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="PsP/bxV0";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="ol9sAKua"
-ARC-Seal: i=1; a=rsa-sha256; t=1786395414; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=t2BQl9Z8KeurTNXDux1Cx0A8Bjn5K0igXQw7bigsJM3q6Fu18PGX6fQ8shpduQ2qp9
-    kojVa+x45LQPfZEA7f21vmALVD24IAPFWurY/6pZjrRMtWvkYIWYRxp6gKPf+fLOGsSl
-    kVsyrHPDywUYKyqNnyR9GXUPh19Yz1q6Gqukf+lmS9AnuahB/U1XVVZKSS0hLRmaqCkE
-    0N9c9YRybc2rxxFMk31QEfKmbi869/LgVytFIpDjRQnEkDQaa6uBwwiQom/I2JaRLoEo
-    HKsxaYV0a401CR32Zo4qSYOLi1oTrRJyJBpWn4BiGW6G0SOuZGtogL9eW4MayGFUM5NT
-    LR7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786395414;
-    s=strato-dkim-0002; d=strato.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
-    b=Dwyj4QBN67/T9pzAOzwI1/AJhjzygobZHUmTcKODeVjNNEWKSV73ese/v4lua+h54C
-    IoGUXYfXo1dcUm6YCznSLE5tI2CwV5ca4KM+zS4VK4uVDykY+/5TW/lSMxDCkmTFd329
-    aHnbS5D6ENGua0gnvcq6s96Tp3XMeRV4H2ichflsdisgRE01IPVSdqL79XlpTDEAXg12
-    efmtlwOw9200KHv86Zp3TLhuxI8zUdS8mnTPzmwM1Sec0g8zCfBsTIZ3vG7RmmcHcxvK
-    tPTphRF5vVjbqPstelrDB1lv/Csoj//SX/yYxh/qQf23AX4v4YY7pFx7k5BuQfC3DPzy
-    7OXQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786395414;
-    s=strato-dkim-0002; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
-    b=PsP/bxV0DkARdQeMAEKbfJPJg42HksHI8mlHtlKGDLalnkZ7cIXtbWwJ8LdE7DB99M
-    IIfb2bPHCNo1n8eCFg3PDJO55f0wEdVCy4Hlj8e9VrqLUhmh+LPpel1ZHgOBjIfR2WXF
-    5DV01vxRyuEGon6/1hhSINkJRmXOOTeKgrhyjj5VVzKXcz4fRAUawT+xQLdsxJxX+1K9
-    qHY3mrD4msgpzTNz6d8JL36TJcOrnyYROQ2y6rtb6lYNmnmlSe7AtpWh31Og8Do3WDBX
-    pMTRi48cpor8XLotO1HUL59BLznYwONrDYakOLuV9NNlZRVJDj1yyMUzFkSLgHvFK6G0
-    OJIg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786395414;
-    s=strato-dkim-0003; d=goldelico.com;
-    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=M2b0s5sV+UlmrYlU5mF5+QdMgIVz6hWvd8/C7SfZBcE=;
-    b=ol9sAKuaZNHWsPcZa7fLcth6fUGMED5C+eqhENktvwwMT/CtFPT0K86CugHMLpZSaJ
-    zfejHdUcnNxS2MSRKNAQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrTipoGmsiNZ9v/oGyp26o/Wi+pVFrZX1Db5b3z"
-Received: from smtpclient.apple
-    by smtp.strato.de (RZmta 55.5.6 AUTH)
-    with ESMTPSA id Q58eac27AKuqiaO
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
-	(Client did not present a certificate);
-    Mon, 10 Aug 2026 22:56:52 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DeHVfWDx";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UQanWlCq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1786397403;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zsKi5A5SAA7rPP1PbUs4CoGffjmVgKp5PFlyNfYqwL0=;
+	b=DeHVfWDx3OharkaALPRQ+/TourWXKxPvx74vnZn0nfC3LrVHfoCS4haVIRGgW8SecJmECa
+	WlKuxavmEbaXDNpIF3mkHXC5LwZZK+RUIy4xMVYAiFtk24c0F4FcIGrDLn/nhW/+dE18yX
+	zZZp5mJOASVvtcOsWT4vdz6/M1tFVuw=
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-220-UswqcjiLO7uRhon-xOlqgA-1; Mon, 10 Aug 2026 17:30:02 -0400
+X-MC-Unique: UswqcjiLO7uRhon-xOlqgA-1
+X-Mimecast-MFC-AGG-ID: UswqcjiLO7uRhon-xOlqgA_1786397401
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-668a55b1809so7063181d50.3
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:30:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1786397401; x=1787002201; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=zsKi5A5SAA7rPP1PbUs4CoGffjmVgKp5PFlyNfYqwL0=;
+        b=UQanWlCqhbJCR87lggr5Dnbt7TKuNcLseOKyL9jeNkOvxVLWzUrpeLKz9OjGAznjSg
+         J1IWlP5IAXh76bxP+LbeZWAxUsVqNKe9HB83o2Xa4g4OTPCmBn7pbBXUubJXAi5x+wuL
+         xwph0BNjX1Q6hu2MNn5b8qrHM0f1Yk04q0X6XKz9pH1YKa65hXC6IiLzNh6Xx/ppsE/m
+         dSZW0H5dKKlo2ZMWaWrW81S+fwjpYPrf/GF0nOujLFsK9hxwTZyXs5/BJPyESkihhSmd
+         6aa+DwhYDQdFd9PJfcZ2+v5jpjL/h8RQY8Sut80omz0fv+dGMbx8hfnUw0jshZec1bz7
+         0I/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786397401; x=1787002201;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zsKi5A5SAA7rPP1PbUs4CoGffjmVgKp5PFlyNfYqwL0=;
+        b=rmnth67dqjO682JDTiyq0sKVmCB2lI+jDS+buCQEHYIK0cMcim+92v8hDD9fJQfJMT
+         /P5RBvDeR4PhVFb0vag9VPaHYLeLTvfBh4OqaMniU7+1zdJBaGqg92QU8UjoDKkvbCUF
+         RjSr1IOQnwoqJfQDYpRNtWW5TS5QHx4tvQnXQD+ARjZJeBIEqNYl0Ff2MEADhQQY4s+i
+         hbnjBpEVcFmGBkdfXlqqFd0cuX3YMjUUVRT3rXVlq4+S6WuLUfPo26ohcfx5GO9Keiv1
+         nGAazDOcyo6Wra9QGlrmucmRgg9GFmguUXVUM4xqeuzZgie4hKdE9m8h9jM9XNhkZcY2
+         X1YA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3x5XGyxTG7e/Lowgg5TAepN6YgxaJccAWUlVrUAlSdKBEFyhXUAjAmW3I3XyY84q9B1b4IzgESNFs@vger.kernel.org
+X-Gm-Message-State: AOJu0YxQtRBOPxRyz5CN8f8Jaz6sTkgUXZ5oGSApG33JI1B1b5U79oPQ
+	SmyNJt8/dVkWfwzjcx2d1p/QU0HEoFgxNvTtgeBrLFQ2Q1DEtSWhaUCp79Lm0MjTPmH/zLHvRDI
+	8oRJ0KG8Y0RPnnxkcqc+BUbfMdgnKTYcKr8+ZH+ssLH002Az+8ywujCYho9YjPrU=
+X-Gm-Gg: AR+sD11nkFZsKMxKlSLrCk2xH4Im5wir2r+WxwENsKdgzS4pauFcLY23uitOx0m8kFJ
+	b5nvza/ydPvu+M/JQ45yHPuQ1FCrj4y/tnsnl8+077vM95J5ZDA6xL7kz8WqVD6RaPvrSyCstvs
+	9Z+HiKEWnljTyHkYrSCESCWTNet87li+sJ03PIX/Z5SWKtm0uvfxCSopUnQfVTYZVubmKF/F3nG
+	gR7pYoozYxOEk39UWHNw4MMAEIyERqGAj8uFxueDQYd5okO7/sYwb0F+3dolxdj9/2pq3A35OdA
+	NvdxlrMkJ6Coobhoy1btB3/RjT/D2pfx55oYuopNuzVs6Xl/i1AOszbiXJzXRbF0u37GlG87hta
+	QpbcujYEZCcZ1IG2kTM3x8Nc7zGCfH65FexY=
+X-Received: by 2002:a05:690e:1341:b0:66a:faa6:b5ae with SMTP id 956f58d0204a3-66afaa6b713mr7196137d50.19.1786397401494;
+        Mon, 10 Aug 2026 14:30:01 -0700 (PDT)
+X-Received: by 2002:a05:690e:1341:b0:66a:faa6:b5ae with SMTP id 956f58d0204a3-66afaa6b713mr7196081d50.19.1786397400986;
+        Mon, 10 Aug 2026 14:30:00 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66acad2ade5sm7178798d50.7.2026.08.10.14.29.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 14:30:00 -0700 (PDT)
+Date: Mon, 10 Aug 2026 17:29:57 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, p.zabel@pengutronix.de,
+	cylee12@realtek.com, jyanchou@realtek.com, afaerber@suse.com,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-realtek-soc@lists.infradead.org, james.tai@realtek.com,
+	cy.huang@realtek.com, stanley_chang@realtek.com
+Subject: Re: [PATCH v12 08/11] clk: realtek: Add support for MMC-tuned PLL
+ clocks
+Message-ID: <anpC1eRq5ajN01En@redhat.com>
+References: <20260804163807.1285869-1-eleanor.lin@realtek.com>
+ <20260804163807.1285869-9-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [Letux-kernel] [PATCH 15/16] backlight: remove pandora_bl
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20260810223413.01af9a6d@kemnade.info>
-Date: Mon, 10 Aug 2026 22:56:41 +0200
-Cc: linux-fbdev@vger.kernel.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Tony Lindgren <tony@atomide.com>,
- dri-devel@lists.freedesktop.org,
- Niranjan H Y <niranjan.hy@ti.com>,
- Sen Wang <sen@ti.com>,
- Rob Herring <robh@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>,
- Kevin Hilman <khilman@baylibre.com>,
- Helge Deller <deller@gmx.de>,
- Lee Jones <lee@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- linux-omap@vger.kernel.org,
- Daniel Thompson <danielt@kernel.org>,
- Grazvydas Ignotas <notasas@gmail.com>,
- devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- mfd@lists.linux.dev,
- linux-sound@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- linux-arm-kernel@lists.infradead.org,
- Roger Quadros <rogerq@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>,
- Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org,
- kernel@pyra-handheld.com,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <38ED9D73-7BF3-4005-8E1C-4F7125906A20@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
- <f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
- <anmpiADsvzW39DNx@aspen.lan>
- <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
- <20260810143914.64d29a5c@kemnade.info>
- <2C9844A3-3C4C-48E6-863D-BF8328CEE540@goldelico.com>
- <92FE1162-8C61-4186-B073-6AB4B2BDA640@goldelico.com>
- <20260810223413.01af9a6d@kemnade.info>
-To: Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260804163807.1285869-9-eleanor.lin@realtek.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
+On Wed, Aug 05, 2026 at 12:38:04AM +0800, Yu-Chun Lin wrote:
+> From: Cheng-Yu Lee <cylee12@realtek.com>
+> 
+> Add clk_pll_mmc_ops for enable/disable, prepare, rate control, and status
+> operations on MMC PLL clocks.
+> 
+> Also add clk_pll_mmc_phase_ops to support phase get/set operations.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Jyan Chou <jyanchou@realtek.com>
+> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
 
-
-> Am 10.08.2026 um 22:34 schrieb Andreas Kemnade <andreas@kemnade.info>:
->=20
-> On Mon, 10 Aug 2026 20:30:13 +0200
-> "H. Nikolaus Schaller" <hns@goldelico.com> wrote:
->=20
->>>=20
->>> Yes that is what I mean. It needs to be ported somewhere. If it can =
-be ported to
->>> some compatible =3D "pwm_bl_for_tps61161" or what fits best it will =
-be fine. Or it
->>> could be in some compatible =3D "pandora_bl" driver.
->>>=20
->>> Has to be worked out when the development machines are not blocked =
-by 3 or 4 other
->>> projects already running in parallel :) =20
->>=20
->> Nevertheless I did a quick look into the pandora_bl driver structure.
->>=20
->> Here are my findings:
->> - the code fragment is part of pandora_backlight_update_status()
->> - priv->old_state remembers if brighness was set to 0 or not
->> - so this code triggers on any change from bright =3D 0 to bright > 0
->> - the pandora_bl driver is the only one to use TWL_MODULE_PWM besides =
-twl-pwm
->>=20
->> So the most natural way of transplanting this appears to me:
->> - add this logic to the twl-pwm driver
->=20
-> That chip could be connected to any pwm driver, so
-> it does not make sense to have that in a pwm driver.
-
-Well, the chip does not need a driver, at all - at least in PWM case.
-The missing piece is just about doing proper startup into PWM mode.
-
-> So it belongs into a backlight driver.
-
-Interesting how contrary requirements can be judged :) Especially
-for such simple things that apparently even work without any driver.
-
-> And since it shared so much
-> code with the pwm_bl, it could be extended.
-
-But how do you give the chip driver access to twl4030 registers?
-Or make it universal so that it works on any PWM generator? Any ideas?
-
-> The compatible should have pwm in the name to be able to also add
-> a w1 driver later.
-
-Ok, that is an argument to be considered.
-
-But: for multi-protocol chips (think of SPI and I2C) there are
-usually two drivers (or glue code for a core driver) for each
-protocol. So we can have one driver when connected to PWM and
-another being an EasyScale (which is not the standard one-wire
-protocol) driver.
-
-BTW: I am still not convinced that the chip needs an EasyScale
-client driver at all. The protocol is similar to an UART with
-fixed bit format. So this rather needs a generic host driver. Not a
-client driver. Something like baclkight levels -> easy-scale.
-Then you can connect any compatible chip.
-
-But even in this case the hardware connection requires you to
-patch or piggy-back that into the twl4030 pwm driver because that
-is the connection given by the Pandora hardware.
-
-So why not generating the simple startup sequence in the PWM driver?
-KISS...
-
-BR,
-Nikolaus
+Reviewed-by: Brian Masney <bmasney@redhat.com>
 
