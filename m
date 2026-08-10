@@ -1,258 +1,152 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693373BBFCB;
-	Mon, 10 Aug 2026 11:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216153C1F57
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:51:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786362600; cv=none; b=C4QcF6Ztst2JP6K/NY7qeeQ0Tc4WS47jHzeNIRyiwTUDtNStFSO/ibOCnKD/Cb59+xc3n0pJQCyEMsUCtzqvyx/1MW1AOd7//w4FXL21ajJ6oJSWQ0VeJUycIpnq1Ng0ZyBLY5UzGp3gL0wTLLrEMzROg3qLSopwC1kUrnTsAFU=
+	t=1786362698; cv=none; b=B/L6rGx8UnMwzjYrubKSmrpbNvFohfpGEJRvc4rHa9n8G8l/16ba5wBEaWiPwp3taVX2lE7lNDIQTRfGRnxtFOBR0JFE9HgyE4R7S1jF9Wa8SG5Vmdy5/ycNrDrpohEvz/H0kkFQbfe2cjMzcBjXXuOOpr8NYDQAWpO/QSuY0Zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786362600; c=relaxed/simple;
-	bh=a1vAUQ0oZCfDv+F/ZsykLBoNNtP/kUxc5PYwf7YQeDU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CrzQgDNADX2epmpPPd/qfzPK8KrliqAqys3DFDOKSUU2J6Qe2G6cKHstzTvifprzdCSAMItcq2z7zP926QN5NLlQuIuN7SJIMCNi38vJajshrf5GkroA55N5yEIlPlygoFeBAsXbg3wZrQtaALoLNLAGiJ+vl4/mlnBTz8AWMnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=VlgLFv1H; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1786362698; c=relaxed/simple;
+	bh=4T1DXHbfeQ7bmybR5+Gx6Ys4TpTOSLyTO7sftci72qk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PvsM+kl2xBG2p3XS6zNPH7F5Lg9BOgslBfbLbys9klsdNLj0xZAha+E5dKZNTFRhV2CnEvyPeL3NNMHQ7C8Y+SsWu94t7PpSVyWFMVn83T52SsAf47MbjK5C4Fs94LNXWWtZhD48z/pJELvU2sFkfcd1FgAMDEOolHiF3SvYyfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RMNMlshp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="VlgLFv1H"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=hLx85hewkyxE/kVi+opsqCCSjOrk34BsgxZUq/J+Tec=; b=VlgLFv1HJy9KpUpxtx8HVTdDQh
-	EzLNQ5HB1410XGH7tieiL7/zobeis5a3IW2J/s8nIbc6cjM+lsArleju+u4udEJifH1z6Q36fvMhq
-	QijgSXgKg08oNOnUD+XFLMCqeHfYrlfoHENbhglgTwK8u4v+Dym2hHUl2P0V4j2411odIODAlAj7A
-	f4CdduXpzfdrXZXT9YlhQU8XVBBS7eun6VNc6sfu1/ql1qjzjkrO92O0hbB8Cv/wz3p54MXDuRjVo
-	eu9wqFGx8ktUEsDB/BS1CxgpAmN51sordisHJRU+0EPLr8KPIF+dkGmAvMgFuX/zW7X1fvDjDiUn2
-	3DTxeT2A==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Sashiko <sashiko-bot@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject:
- Re: [PATCH v11 00/21] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Date: Mon, 10 Aug 2026 13:48:58 +0200
-Message-ID: <20767137.geO5KgaWL5@diego>
-In-Reply-To:
- <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
-References:
- <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RMNMlshp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCF11F000E9;
+	Mon, 10 Aug 2026 11:51:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786362696;
+	bh=pcAc4IfEBzKPxTFDRduZGPESMIijrLsaySSE0kBOc58=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RMNMlshpKLo0c3L7P9xrg8fWuJQeG7iQjEf1JGQpNynEypYIqFTxQgulAqb3b7uCg
+	 CgThMWJMPF1dxr37zClvyoFV1G4AkOJsLBCHZO9LxNdsHt2NA+bdT0AgfjkvtRS55w
+	 oVhYXTdbeoFKgibVu6UkARLDiozOG+kk/kOAydylv9svL/2udAMKZcssUa4/GWjW+P
+	 iNcBRzzbGkpO4zEknm68bCTFtjUScmpZOylx+j+HycKxmuO7rYACOzD+/TJerUdIIi
+	 U/neOLBL+tj1HuKWe2UujQdPEj1Gght+UO0eUZ++peOd3I6N+Fwxhac8mHpE+1Tva5
+	 +/Azuq/PK5ndw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 04/10] phy: qcom-ipq806x-usb: add MSM8974 HS PHY support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: robh@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, conor+dt@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260810-msm8974-usb3-v1-4-1a47e1185524@oss.qualcomm.com>
+References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
+ <20260810-msm8974-usb3-v1-4-1a47e1185524@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 11:51:35 +0000
+Message-Id: <20260810115136.4DCF11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Hi Sebastian,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The MSM8974 initialization sequence reuses the shared IPQ806x sequ=
+ence instead of providing its own, directly contradicting the commit messag=
+e and unconditionally overwriting the PHY_CTRL register.
+- [High] Setting the active-low HSUSB_CLAMP_MPM_DPSE_DMSE_EN_N bit disables=
+ the DP/DM MPM clamps, contradicting the commit message.
+- [Low] Duplicate and redundant macro definitions for BIT(26) in the PHY_CT=
+RL register.
+--
 
-Am Donnerstag, 6. August 2026, 19:02:06 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Sebastian Reichel:
-> This patch series updates the Synopsys Designware DisplayPort bridge
-> together with the only existing user: The Rockchip RK3576/RK3588:
->=20
->  1. Follow-up bridges (PHY, USB-C connector)
->     This is needed to get USB-C DP AltMode working; I've followed
->     the Qualcomm driver as reference
->=20
->  2. Runtime PM
->     The initial driver has been upstreamed without RPM; add it to
->     avoid wasting power when nothing is plugged
->=20
->  3. Audio
->     The initial driver has been upstreamed without audio support;
->     this adds all missing bits for audio with single stream transport
->=20
-> To properly make use of the bridge code the following USBDP PHY series
-> is also needed:
->=20
-> https://lore.kernel.org/all/20260714-rockchip-usbdp-cleanup-v13-0-6cb3e76=
-9d4c5@collabora.com/
+--- Patch [4]: [PATCH 04/10] phy: qcom-ipq806x-usb: add MSM8974 HS PHY supp=
+ort ---
+commit 90246a8322244753151c5fb6777bd8d442742a72
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-I've now had time to test both series (dw-dp + usbdp) :-)
+phy: qcom-ipq806x-usb: add MSM8974 HS PHY support
 
-=2D On my 1080p display I get nice output
-=2D On my 4K display I get "some" output after increasing the ACLK_VOP to
-  750MHz - although the output itself is garbled. Before there was no
-  output at all
-=2D hotplug works correctly, typec-display altmode gets correctly set up
-  and the drm driver enables output [0]
-=2D cable being plugged in on boot does not work completely. The usb-side
-  gets detected correctly, but the drm-side stays at disconnected
-  The usb+typec-related kernel messages look the same though. [1]
-  Unplugging and replugging then produces display output.
+This commit adds support for the MSM8974 DWC3 wrapper by introducing a new
+compatible string and driver data. It claims to implement a dedicated init
+sequence for MSM8974 to preserve reference frequency selection straps.
 
+> Add the qcom,msm8974-usb-phy-hs compatible with its own init
+> sequence: unlike the IPQ806x one, it must not overwrite the whole
+> PHY_CTRL register, as the power-on values of the reference frequency
+> selection straps have to be preserved. Only enable the UTMI clock and
+> the DP/DM MPM clamps, signal VBUS valid towards the link, and disable
+> retention.
 
-Heiko
+> diff --git a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c b/drivers/phy/qu=
+alcomm/phy-qcom-ipq806x-usb.c
+> --- a/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c
+> @@ -17,6 +17,7 @@
+>  #define HSUSB_PHY_CTRL_REG		(0x10)
+> =20
+>  /* PHY_CTRL_REG */
+> +#define HSUSB_CLAMP_MPM_DPSE_DMSE_EN_N	BIT(26)
+>  #define HSUSB_CTRL_DMSEHV_CLAMP		BIT(24)
+>  #define HSUSB_CTRL_USB2_SUSPEND		BIT(23)
+>  #define HSUSB_CTRL_UTMI_CLK_EN		BIT(21)
+[ ... ]
+> @@ -27,9 +28,13 @@
+>  #define HSUSB_CTRL_ID_HV_CLAMP		BIT(9)
+>  #define HSUSB_CTRL_OTGSESSVLD_CLAMP	BIT(8)
+>  #define HSUSB_CTRL_CLAMP_EN		BIT(7)
+> +#define HSUSB_CTRL_CLAMP_MPM_DPSE_DMSE	BIT(26)
 
+[Severity: Low]
+This isn't a bug, but does this bit need to be defined twice? It was just
+defined as HSUSB_CLAMP_MPM_DPSE_DMSE_EN_N a few lines above.
 
-[0]
-[  221.536599] platform xhci-hcd.4.auto: bus: 'platform': __driver_probe_de=
-vice: matched device with driver xhci-hcd
-[  221.548102] platform xhci-hcd.4.auto: bus: 'platform': really_probe: pro=
-bing driver xhci-hcd with device
-[  221.558836] xhci-hcd xhci-hcd.4.auto: xHCI Host Controller
-[  221.564990] xhci-hcd xhci-hcd.4.auto: new USB bus registered, assigned b=
-us number 5
-[  221.573652] xhci-hcd xhci-hcd.4.auto: hcc params 0x0220fe64 hci version =
-0x110 quirks 0x0000808002000010
-[  221.584184] xhci-hcd xhci-hcd.4.auto: irq 108, io mem 0xfc000000
-[  221.591002] xhci-hcd xhci-hcd.4.auto: xHCI Host Controller
-[  221.597149] xhci-hcd xhci-hcd.4.auto: new USB bus registered, assigned b=
-us number 6
-[  221.605724] xhci-hcd xhci-hcd.4.auto: Host supports USB 3.0 SuperSpeed
-[  221.613368] usb usb5: bus: 'usb': __driver_probe_device: matched device =
-with driver usb
-[  221.622335] usb usb5: bus: 'usb': really_probe: probing driver usb with =
-device
-[  221.630503] usb 5-0:1.0: bus: 'usb': __driver_probe_device: matched devi=
-ce with driver hub
-[  221.639776] usb 5-0:1.0: bus: 'usb': really_probe: probing driver hub wi=
-th device
-[  221.648171] hub 5-0:1.0: USB hub found
-[  221.652396] hub 5-0:1.0: 1 port detected
-[  221.656891] hub 5-0:1.0: driver: 'hub': driver_bound: bound to device
-[  221.664125] hub 5-0:1.0: bus: 'usb': really_probe: bound device to drive=
-r hub
-[  221.672155] usb usb5: driver: 'usb': driver_bound: bound to device
-[  221.679099] usb usb5: bus: 'usb': really_probe: bound device to driver u=
-sb
-[  221.686864] usb usb6: We don't know the algorithms for LPM for this host=
-, disabling LPM.
-[  221.696175] usb usb6: bus: 'usb': __driver_probe_device: matched device =
-with driver usb
-[  221.705143] usb usb6: bus: 'usb': really_probe: probing driver usb with =
-device
-[  221.713323] usb 6-0:1.0: bus: 'usb': __driver_probe_device: matched devi=
-ce with driver hub
-[  221.722578] usb 6-0:1.0: bus: 'usb': really_probe: probing driver hub wi=
-th device
-[  221.730961] hub 6-0:1.0: USB hub found
-[  221.735170] hub 6-0:1.0: 1 port detected
-[  221.739647] hub 6-0:1.0: driver: 'hub': driver_bound: bound to device
-[  221.746889] hub 6-0:1.0: bus: 'usb': really_probe: bound device to drive=
-r hub
-[  221.754920] usb usb6: driver: 'usb': driver_bound: bound to device
-[  221.761867] usb usb6: bus: 'usb': really_probe: bound device to driver u=
-sb
-[  221.769602] xhci-hcd xhci-hcd.4.auto: driver: 'xhci-hcd': driver_bound: =
-bound to device
-[  221.778585] xhci-hcd xhci-hcd.4.auto: bus: 'platform': really_probe: bou=
-nd device to driver xhci-hcd
-[  222.032051] typec port0-partner.0: bus: 'typec': __driver_probe_device: =
-matched device with driver typec_displayport
-[  222.043845] typec port0-partner.0: bus: 'typec': really_probe: probing d=
-river typec_displayport with device
-[  222.054819] typec_displayport port0-partner.0: driver: 'typec_displaypor=
-t': driver_bound: bound to device
-[  222.065547] typec_displayport port0-partner.0: bus: 'typec': really_prob=
-e: bound device to driver typec_displayport
-[  222.336513] usb 5-1: new full-speed USB device number 2 using xhci-hcd
-[  222.493299] usb 5-1: not running at top speed; connect to a high speed h=
-ub
-[  222.512188] usb 5-1: bus: 'usb': __driver_probe_device: matched device w=
-ith driver usb
-[  222.521057] usb 5-1: bus: 'usb': really_probe: probing driver usb with d=
-evice
-[  222.535340] usb 5-1: driver: 'usb': driver_bound: bound to device
-[  222.542185] usb 5-1: bus: 'usb': really_probe: bound device to driver usb
-[  224.327221] Console: switching to colour frame buffer device 240x67
-[  224.353443] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb fra=
-me buffer device
+[ ... ]
+> @@ -273,7 +283,8 @@ static int qcom_ipq806x_usb_hs_phy_init(struct phy *p=
+hy)
+>  		HSUSB_CTRL_RETENABLEN  | HSUSB_CTRL_COMMONONN |
+>  		HSUSB_CTRL_OTGSESSVLD_CLAMP | HSUSB_CTRL_ID_HV_CLAMP |
+>  		HSUSB_CTRL_UTMI_OTG_VBUS_VALID | HSUSB_CTRL_UTMI_CLK_EN |
+> -		HSUSB_CTRL_CLAMP_EN | 0x70;
+> +		HSUSB_CTRL_CLAMP_EN | HSUSB_CLAMP_MPM_DPSE_DMSE_EN_N |
 
-[1] -----------
-[   23.452524] platform xhci-hcd.4.auto: bus: 'platform': __driver_probe_de=
-vice: matched device with driver xhci-hcd
-[   23.464004] platform xhci-hcd.4.auto: bus: 'platform': really_probe: pro=
-bing driver xhci-hcd with device
-[   23.474654] xhci-hcd xhci-hcd.4.auto: xHCI Host Controller
-[   23.480783] xhci-hcd xhci-hcd.4.auto: new USB bus registered, assigned b=
-us number 5
-[   23.489401] xhci-hcd xhci-hcd.4.auto: hcc params 0x0220fe64 hci version =
-0x110 quirks 0x0000808002000010
-[   23.499910] xhci-hcd xhci-hcd.4.auto: irq 108, io mem 0xfc000000
-[   23.506671] xhci-hcd xhci-hcd.4.auto: xHCI Host Controller
-[   23.512790] xhci-hcd xhci-hcd.4.auto: new USB bus registered, assigned b=
-us number 6
-[   23.521346] xhci-hcd xhci-hcd.4.auto: Host supports USB 3.0 SuperSpeed
-[   23.528805] usb usb5: bus: 'usb': __driver_probe_device: matched device =
-with driver usb
-[   23.537771] usb usb5: bus: 'usb': really_probe: probing driver usb with =
-device
-[   23.545879] usb 5-0:1.0: bus: 'usb': __driver_probe_device: matched devi=
-ce with driver hub
-[   23.555120] usb 5-0:1.0: bus: 'usb': really_probe: probing driver hub wi=
-th device
-[   23.563486] hub 5-0:1.0: USB hub found
-[   23.567675] hub 5-0:1.0: 1 port detected
-[   23.572138] hub 5-0:1.0: driver: 'hub': driver_bound: bound to device
-[   23.579343] hub 5-0:1.0: bus: 'usb': really_probe: bound device to drive=
-r hub
-[   23.587327] usb usb5: driver: 'usb': driver_bound: bound to device
-[   23.594240] usb usb5: bus: 'usb': really_probe: bound device to driver u=
-sb
-[   23.601942] usb usb6: We don't know the algorithms for LPM for this host=
-, disabling LPM.
-[   23.618552] usb usb6: bus: 'usb': __driver_probe_device: matched device =
-with driver usb
-[   23.627501] usb usb6: bus: 'usb': really_probe: probing driver usb with =
-device
-[   23.635604] usb 6-0:1.0: bus: 'usb': __driver_probe_device: matched devi=
-ce with driver hub
-[   23.644841] usb 6-0:1.0: bus: 'usb': really_probe: probing driver hub wi=
-th device
-[   23.653203] hub 6-0:1.0: USB hub found
-[   23.657389] hub 6-0:1.0: 1 port detected
-[   23.661798] hub 6-0:1.0: driver: 'hub': driver_bound: bound to device
-[   23.668998] hub 6-0:1.0: bus: 'usb': really_probe: bound device to drive=
-r hub
-[   23.676979] usb usb6: driver: 'usb': driver_bound: bound to device
-[   23.683886] usb usb6: bus: 'usb': really_probe: bound device to driver u=
-sb
-[   23.691574] xhci-hcd xhci-hcd.4.auto: driver: 'xhci-hcd': driver_bound: =
-bound to device
-[   23.700524] xhci-hcd xhci-hcd.4.auto: bus: 'platform': really_probe: bou=
-nd device to driver xhci-hcd
-[   23.951857] typec port0-partner.0: bus: 'typec': __driver_probe_device: =
-matched device with driver typec_displayport
-[   23.963628] typec port0-partner.0: bus: 'typec': really_probe: probing d=
-river typec_displayport with device
-[   23.974547] typec_displayport port0-partner.0: driver: 'typec_displaypor=
-t': driver_bound: bound to device
-[   23.985243] typec_displayport port0-partner.0: bus: 'typec': really_prob=
-e: bound device to driver typec_displayport
-[   24.252358] usb 5-1: new full-speed USB device number 2 using xhci-hcd
-[   24.408085] usb 5-1: not running at top speed; connect to a high speed h=
-ub
-[   24.427935] usb 5-1: bus: 'usb': __driver_probe_device: matched device w=
-ith driver usb
-[   24.441732] usb 5-1: bus: 'usb': really_probe: probing driver usb with d=
-evice
-[   24.462931] usb 5-1: driver: 'usb': driver_bound: bound to device
-[   24.475569] usb 5-1: bus: 'usb': really_probe: bound device to driver usb
+[Severity: High]
+The commit message mentions we should "enable the DP/DM MPM clamps". Since
+this bit has an _EN_N suffix, standardly indicating it is active-low, does
+setting it to 1 here actually disable the clamps instead of enabling them?
 
+> +		phy_dwc3->drvdata->fsel;
+> =20
+>  	/* use core clock if external reference is not present */
+>  	if (!phy_dwc3->xo_clk)
+> @@ -282,9 +293,14 @@ static int qcom_ipq806x_usb_hs_phy_init(struct phy *=
+phy)
+>  	writel(val, phy_dwc3->base + HSUSB_PHY_CTRL_REG);
 
+[Severity: High]
+The commit message states that the MSM8974 init sequence "must not
+overwrite the whole PHY_CTRL register". Does unconditionally writing to
+this register with writel() break the preservation of the power-on values
+for the reference frequency selection straps?
 
+[ ... ]
+> @@ -458,6 +474,18 @@ static const struct phy_drvdata qcom_ipq806x_usb_hs_=
+drvdata =3D {
+>  		.owner		=3D THIS_MODULE,
+>  	},
+>  	.clk_rate =3D 60000000,
+> +	.fsel =3D 0x70,
+> +};
+> +
+> +static const struct phy_drvdata qcom_msm8974_usb_hs_drvdata =3D {
+> +	.ops =3D {
+> +		.init		=3D qcom_ipq806x_usb_hs_phy_init,
+
+[Severity: High]
+The commit message indicates that MSM8974 was intended to have "its own init
+sequence", but here it is assigned the shared qcom_ipq806x_usb_hs_phy_init
+function. Should this point to a dedicated initialization function for
+MSM8974 to avoid the writel() register overwrite mentioned above?
+
+> +		.exit		=3D qcom_ipq806x_usb_hs_phy_exit,
+> +		.owner		=3D THIS_MODULE,
+> +	},
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-msm8974-us=
+b3-v1-0-1a47e1185524@oss.qualcomm.com?part=3D4
