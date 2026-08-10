@@ -1,176 +1,209 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DE2C3CF21A
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:08:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786363738; cv=pass; b=LSjgvEZz5PX5rgsVRnnsCEnZMwEDhX9LJOWqUvJ2lvmgs7lx1pzpkt75KqSHx8++H/XA8Xaff9UbRPInrjtnYoLz5ySzOwGUfVWaAHL+iuiDgfRWmoV5iT/T2KDrL+tgFV/i2xXv8rmM3HcyZp43OQ9CYcVreVRB+gVhI4vxi+s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786363738; c=relaxed/simple;
-	bh=4x7/mdtXQLT59Q70dDWfuaazR5LzKPv7RIwA1ytZYnc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tk/r/WEI819QDfavwjkjP6TQT2x8us9jRPkqqBCO79beeY4GJ939LsgRWCgwJkNph6IYLw0OALh6AznJ6JU0uedBCkWZ0XmO6WREtUkZDlFProTmeEkpR1Er9QgLntUkzvM6UTkDGwPiKzUlD1CF1OjZzd3cZ8GNsy5bqcbZhtw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=WAPDdWoU; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EB43C417E;
+	Mon, 10 Aug 2026 12:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786363810; cv=none; b=VcfrIyjHCmzMWVDBv++3TQqEdTIGtfqZ2cUsX1UcuR3Ip/7FpNoZyhKyYX5ZA6u0iDbxFsyUq4yWX9Ep0XYRaIyVwHLqjKDdjDjVQ+yJuIGI1xroqYvmouJB35lJ8RFYoPMaecyno3WJFqNROVRj+8MwUjO+oC+X5jJ0cBHf3ko=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786363810; c=relaxed/simple;
+	bh=nevNfidY6tsvxmk+AdwfOzkmhff8+MRU0pDkI+4ZBuc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=JNDSot7dwDXZtUA3ard5rbYB1jI5mCY62XGEPNE2iVNRTwmcVjuxKNbtHY8JyP6riI++hkZ8UqruH4PDnOmZoqSj27k3gTZqnFOfDgWeaf+lXirjrGHbTV66HEkhiznIFyh7c7MOJrDmlJmNX7QyShKDf9eo5OjnreKmQRXEAho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYl4BBtB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="WAPDdWoU"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a0a4a17f91so2760635a12.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 05:08:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786363735; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aw3MWSgPtPqU804/KqhGJz7LFr+uu7pH4XEBEK+wlPoAA13d20Kygy9QjFLi/CnPB8
-         Y88AaswKYhLbYcIYxtmT0xU9Ikq5wItZq4XIARoDq0WvRTZC2ZahuVtlBdndLXvSJDM9
-         t+MdurlqiLbvj41iKmLKZ6THU7rbTq4cmp5yhREqoj4NQJFaaw10eCkJvE27q90nSWeS
-         WxpThxnMhI0n5O+yHo01nIaei2J78UxHkmhNMSZyO3AjL+D/Dob+JOkRXa0sqR/1SSXz
-         oacUzU3K+Rt0LUnP81mSDEAdpNasMz744GkbK9GOHg7Nv6sdUsfpS7PykqEA1nsOZuHP
-         yIXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qQpWbJttwi61w+33UaX9aual3LIjiZRDlQt6M32wCuQ=;
-        fh=n2mTGVB3q9SfL9tsilV2uL6aerI/wuHhSqCTjAhi2Cw=;
-        b=n4vnlCtfBBeLvtxipCPXHxdrFAl0wTmMMA2qFlJko/iLtC6fL3zs1RtF1QXZ02Ru3w
-         77TGPVdD680R1vFiUo4Ne6dka2SKeUbsJMaKwdQsOE/+PtUxmqPLxgSRWhqYWY4kzsay
-         a5X9i+2pE5S7ZYXrE9G9GJs453sSZW6fu+BtrYrrIEM8oDfsObQn8sPGUTjP6aeI/mBo
-         eocZybU8SKereW0VfboyahSiYj0WSDa7GWmjCZd4PkZliIUq8mlDPEuYRQcjxHB0FFwp
-         K2mb6FqbaYzHOgjAa24lhwAMJ/BFixxU7Ho4hgQz87uF16B/ejDLRAzhKbJhjO9KxbQJ
-         9StQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1786363735; x=1786968535; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qQpWbJttwi61w+33UaX9aual3LIjiZRDlQt6M32wCuQ=;
-        b=WAPDdWoUox/uC1Y87Pp3z4l48HUzt0ZfzQ9UnpKIa4de/DJ5pqVO7OfST4tTG0Dvca
-         SdKP3z/3FdsTGQ7XD0A6jSXZEnm6O71pO0MnK2UrkJM1Atgu8+LZk0zL7oOCv8mBkvit
-         DVIQQcCh0O+hw9IwJlwfI0soJ5UR1tGMSBrwzcBFIL9kZ2fAhVjGowHeZK4KPRuGMQ9Y
-         1QkxPFTD26tmty1EcO7NY5SUCiqXF72xLPD8ZRhMO4NeSIbb1rv6UpvRvxRtDK9oeQCg
-         u7ig7optyUT+iIRPAVrL7sj/qN6sL7a3ygmHso6QhUmDlVEWB8w6DPbFJ+hfXk7IZi+4
-         jKhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786363735; x=1786968535;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qQpWbJttwi61w+33UaX9aual3LIjiZRDlQt6M32wCuQ=;
-        b=Xxy11SXjOxcx8BJb0eFh8sKkVP8D19JpcsgqmSbhaBh/k66Wmi8d4DV826XPl3wIwk
-         3+c8e/rjAxv+aT+Q2aBWupl0c8e9tbLI05KKHYpG3DHysj7KsRrtsX8IDcxBQSvxCNw4
-         eWt0jOWfE6al0tlo82GmtaDKe/XkftD3KwoDgD4yfJ84Qfi60x8f7YI7hznclkNaKgZA
-         hblePAUkTchnq8ifasCcjjlOzc/PsKqTWRObt9ipqzcWhyT1yC5ztTkv5O5OdQsF8zH/
-         z456jACCrOrj35foydtev9asSp7f17lFPvAPUMizI5fraFETw7zrL50QfRPN46dZf3Yg
-         9xLg==
-X-Forwarded-Encrypted: i=1; AHgh+RrxBKSJNyIRRk5TCRwbJAyA/xhfprtH4WGDb3oWJbwZndhlhnoW3pWUSLC5eF4g0sJ4PXayG0C7XfIQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwyuKvphwsu2KFgpGBYm1Ay0mODC0thWrpXZLpaG3JUa3nQbnuB
-	k68xp2Oy1wHRdNGn+3O7s79aRfiC0IleUx8P/ml7OMysDyguq7oWxgkr2pp52WFXOwHX21zJ6T8
-	LUaWbcIykynlGJEw5GWeY5pCWKzIv1F3HN4AnDVQPUg==
-X-Gm-Gg: AR+sD13kHTtucZgOuELvulJHFtN/styYqieAYOajrdvtNargWXJoyGxrBFvB9I/lUuR
-	maipxFdLiTK/a2PWt1ebaZP7HYvBxgXy2C+OQn/AgOmzWNTnEweXrhtksdlH4VraXkioYaIfBhG
-	lCThA0esuyf2uKjt+r8tIoTQ38te/rkr+af+UKuFTBsfIPWvF6FcWISJ2dUPf+FUYe0+nempJkk
-	L9wvdOgqg/fPVqqsjPrWK1tzhnss3ufplSXwTIa+QBX7JkI08VHzCsL00wWyiAAQ3z1JWZEYeMV
-	apwc3fOo4xrd5x4Vjamj/UeUMnnzRuyr94ukybpE/D5HxrGGKtKYkafP2jgkOxyFGcVOvY/eIV4
-	y
-X-Received: by 2002:a17:907:728b:b0:c1c:4858:251a with SMTP id
- a640c23a62f3a-c20c6782f60mr50310366b.8.1786363735166; Mon, 10 Aug 2026
- 05:08:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYl4BBtB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E158FC19425;
+	Mon, 10 Aug 2026 12:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786363810;
+	bh=nevNfidY6tsvxmk+AdwfOzkmhff8+MRU0pDkI+4ZBuc=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=nYl4BBtBvI02MLUIkgLYvGFYZpulR/wtMpThiNhoUlr+rNH7BprPJuGGC/WaQEiEq
+	 ULeRkRb7I1f2FiQvdPqMJWjSH6JNjhF2QK/bdEJO3vJ1/Eu410vWnzCr2xRMD8ThFM
+	 A3S51FLs6FETx3WOGwoedqGZKEgBQcWRDRfqowZNs4ZHwCu0sfsKK3Yk6R+uRZUV51
+	 yzQUZU5WppO22ocCmflhLvYBWjbdEa4kY+MOMeiZx6QIvdn88LpprSOKbbCpUAUoHt
+	 9xsusXNDhVRSmnaYg6aHsOXZN2ocnzjAbj8+Xcu4uObCghf4OG18DY8YB84wWfOBx1
+	 QEXrxEjT9YVEA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BAB05C5AD7B;
+	Mon, 10 Aug 2026 12:10:09 +0000 (UTC)
+From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
+Subject: [PATCH v3 0/5] phy: rockchip-samsung-dcphy: add the MIPI D-PHY
+ receiver
+Date: Mon, 10 Aug 2026 20:10:08 +0800
+Message-Id: <20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20767137.geO5KgaWL5@diego>
-In-Reply-To: <20767137.geO5KgaWL5@diego>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 10 Aug 2026 16:08:36 +0400
-X-Gm-Features: AUfX_mzk8t-Db9KtlR_l-8Y27DWWGagvh3frNOmzayIZmNSq8DatjvUHckrxFLI
-Message-ID: <CAKTNdwFPhVrjb4iVpN19f0Nw+MA_BxXLOLs4V50fuyf+_rbEPg@mail.gmail.com>
-Subject: Re: [PATCH v11 00/21] Synopsys DisplayPort Controller improvements
- for Rockchip platforms
-To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>
-Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, Damon Ding <damon.ding@rock-chips.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, kernel@collabora.com, 
-	linux-arm-kernel@lists.infradead.org, Sashiko <sashiko-bot@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKC/eWoC/22MywqDMBBFf0Vm3ZQ8rDau+h+lizBJdKA+SEpQx
+ H9vdGWhcDfnwjkrRBfIRWiKFYJLFGkcMqhLAdiZoXWMbGaQXFa8loJZnLqFhZklwbTxt9orZ73
+ VkI0pOE/zUXu+MncUP2NYjngS+/u/k8dZ6fGukCMa1I+2N/S+4tjD3kny7Fa/rswueo2oSlMKa
+ c7utm1fvkplLeIAAAA=
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Guochun Huang <hero.huang@rock-chips.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Michael Riesch <michael.riesch@collabora.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Jason Yang <jason98166@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786363808; l=7032;
+ i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
+ bh=nevNfidY6tsvxmk+AdwfOzkmhff8+MRU0pDkI+4ZBuc=;
+ b=7A0CDyykn+qWFWEvsExBDgO5yZ4y3sY4YrblPB3GkuOxw0ASQiqla71xDMe2K/z2SfWnYHi/D
+ JQJc+wCU2pxA/pq20URUwnbW5B4f4taOxaSqFvNT9cRcj/9gOkHWUGJ
+X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
+ pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
+X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
+ auth_id=887
+X-Original-From: Jason Yang <jason98166@gmail.com>
+Reply-To: jason98166@gmail.com
 
-Hi Heiko,
+The Samsung MIPI D-/C-PHY block on RK3588 drives a MIPI DSI transmitter
+and, on the same PHY, can receive from a MIPI CSI camera. Mainline
+currently models the block as a single struct phy, so the two cannot be
+brought up independently: the PHY core reference-counts power_on() per
+struct phy, and the devicetree has no way to say which of the two a
+consumer is attaching to.
 
-On Mon, Aug 10, 2026 at 3:49=E2=80=AFPM Heiko St=C3=BCbner <heiko@sntech.de=
-> wrote:
->
-> Hi Sebastian,
->
-> Am Donnerstag, 6. August 2026, 19:02:06 Mitteleurop=C3=A4ische Sommerzeit=
- schrieb Sebastian Reichel:
-> > This patch series updates the Synopsys Designware DisplayPort bridge
-> > together with the only existing user: The Rockchip RK3576/RK3588:
-> >
-> >  1. Follow-up bridges (PHY, USB-C connector)
-> >     This is needed to get USB-C DP AltMode working; I've followed
-> >     the Qualcomm driver as reference
-> >
-> >  2. Runtime PM
-> >     The initial driver has been upstreamed without RPM; add it to
-> >     avoid wasting power when nothing is plugged
-> >
-> >  3. Audio
-> >     The initial driver has been upstreamed without audio support;
-> >     this adds all missing bits for audio with single stream transport
-> >
-> > To properly make use of the bridge code the following USBDP PHY series
-> > is also needed:
-> >
-> > https://lore.kernel.org/all/20260714-rockchip-usbdp-cleanup-v13-0-6cb3e=
-769d4c5@collabora.com/
->
-> I've now had time to test both series (dw-dp + usbdp) :-)
->
-> - On my 1080p display I get nice output
-> - On my 4K display I get "some" output after increasing the ACLK_VOP to
->   750MHz - although the output itself is garbled. Before there was no
->   output at all
+This series registers one struct phy each for the transmitter and the
+receiver, adds generic PHY_TYPE_DSI/PHY_TYPE_CSI constants so the
+devicetree can name them, and implements the receiver side.
 
-One more thing likely to go wrong on an otherwise unpatched kernel is
-dclk. Could you please check what pixel clock your 4K display mode
-wants? I bet it's not the 1188 MHz the default PLL configuration
-provides.
+  1/5  adds PHY_TYPE_DSI and PHY_TYPE_CSI to the generic header
+  2/5  lets this binding's existing single cell take them
+  3/5  factors the transmitter power on/off into helpers (no functional
+       change; the object code is unchanged)
+  4/5  registers the two PHYs and use-counts the shared common block
+  5/5  implements the receiver bring-up
 
-When my colleagues and I tested a previous iteration of these on over
-half a dozen Type-C monitors we could get our hands on, I had to patch
-a whole bunch of PLL rates [1] into the table, and reparent the video
-port clock driving the DP output to an otherwise unused system PLL
-with fractional capability (VPLL in case of RK3576). I'm not yet
-trying to upstream those rate changes though, because our prototype
-board, which we were testing those on, had signal integrity issues on
-two out of four DP pairs, so they need additional testing.
+Note on the constant values: 1/5 takes 14 and 15, and 14 is also claimed
+by "dt-bindings: phy: Add PHY_TYPE_EUSB2 definition" [1], which is still
+under discussion. Whichever series lands first, I am happy to respin on
+whatever values you prefer - please just say which.
 
-In my experience, any dclk more than 0.1% off the rate required by the
-display mode is very likely to produce a blank screen on DP.
+[1] https://lore.kernel.org/all/20260723-eusb2-int-handling-v5-v5-1-f32ea6c1a318@oss.qualcomm.com/
 
-Garbled output sounds more like an artifact of an overclocked VOP2 though.
+The in-tree devicetrees and the rockchip,rk3588-mipi-dsi2.yaml example
+keep using PHY_TYPE_DPHY on purpose: for the transmitter the two
+spellings are equivalent, and converting them would make new DTBs
+require a new kernel for no functional gain.
 
-[1] https://github.com/flipperdevices/flipper-linux-kernel/commit/a4c8ce773=
-b069672f0dd4ecb79711bc7d3319b38
+D-PHY versus C-PHY selection is unchanged by this series: the
+PHY_TYPE_CPHY cell still selects a C-PHY transmitter, and the driver
+still returns -EOPNOTSUPP for it. The receiver support added here is
+D-PHY only.
+
+Testing
+=======
+
+Tested on an RK3588 board: DCPHY0 drives a DSI panel from its
+transmitter while an IMX219 camera feeds its receiver, using the new
+PHY_TYPE_DSI and PHY_TYPE_CSI cells; DCPHY1 drives a second DSI panel
+through an unchanged PHY_TYPE_DPHY cell.
+
+  - transmitter-first: panels light from boot, the camera joins and
+    streams (30-frame byte-exact captures)
+  - receiver-first: with the DCPHY0 transmitter disabled, the camera
+    brings the block up as the first user through the use-counted
+    reset path; the transmitter then joins mid-stream and its panel
+    lights without disturbing the capture
+  - transmitter leaving mid-stream: 150 consecutive frames captured
+    byte-exact across a panel disable
+  - repeated camera start/stop and panel enable/disable cycles on
+    both PHYs, with no PHY warnings or use-count underflows logged
+  - the D-PHY settle registers, including the SETTLE_CLK_SEL bit the
+    TRM marks read-only, read back as programmed while streaming
+  - receiver-first bring-up and the mid-stream transmitter join were
+    also verified with an OV5640
+
+The 3- and 4-lane receiver paths share the same table-driven
+programming but are untested here.
+
+As in v2, driving the DSI panels needs a local dw-mipi-dsi2 timing
+workaround. That has since been root-caused: the bootloader can leave
+the SPLL at the 351 MHz bootrom default while the devicetree describes
+it as a 702 MHz fixed clock, halving the rate of both DSI hosts. A fix
+is already on the U-Boot list [3]. None of this affects the receiver
+path, which the camera captures exercise independently.
+
+[3] https://lore.kernel.org/u-boot/20260804002643.2308515-3-jonas@kwiboo.se/
+
+Changes since v2 [2]
+====================
+
+- Add generic PHY_TYPE_DSI/PHY_TYPE_CSI and select the PHY by the
+  protocol the consumer speaks (the constants were suggested by Michael
+  Riesch, and Vinod Koul agreed they are reasonable). With the protocol
+  named in the first cell there is nothing left for a second cell to
+  carry, so the Rockchip-specific header and the enum: [1, 2] are both
+  gone.
+- Because 1/4 of v2 was rewritten around the new constants, Bryan
+  O'Donoghue's Reviewed-by on it has not been carried over.
+- Turn the type switch into an early guard and drop the unreachable
+  trailing return (Bryan O'Donoghue; the object code is unchanged either
+  way).
+- Rework the shared-block handling as Michael Riesch suggested: one
+  struct samsung_mipi_phy per PHY, a use count in the parent taken and
+  dropped inside the power helpers, lockdep_assert_held() in the shared
+  helper rather than taking the mutex there, and no "first" flags.
+- The APB reset is now issued on the same use-counted path for both
+  PHYs, so a receiver-first power-on gets it too.
+- On the open question from the v2 thread: the BIAS registers have no
+  enable bit - they hold only static analog settings, per TRM section
+  22.4.3 - so the release side only drops the use count. Michael has
+  since confirmed the block is shared per the TRM and had no objection
+  to renaming; get()/put() is used rather than a one-shot
+  configure()/bool because the APB reset folded into the same path
+  must be allowed to run again once every user is gone, which a flag
+  that is never cleared cannot express.
+- In the receiver patch itself: reject a zero lane count at power-on,
+  correct the clock-lane comment (the register spacing is regular; the
+  field layout is what differs), document the vendor settle-table
+  quirks (the 1490 Mbps boundary and the read-only-marked SETTLE_CLK_SEL
+  bit) and the per-lane tuning provenance, annotate the teardown delay,
+  and use unsigned loop counters throughout.
+- The driver still does not touch the GRF M/S_CPHY_MODE selects that
+  Michael pointed at: both PHYs here run D-PHY, which is the GRF
+  reset default. Explicit mode programming belongs to C-PHY support,
+  pending the Rockchip clarification he is chasing. The first-user
+  BIAS programming also stays correct once C-PHY lands: the only
+  mode-dependent BIAS field is BIAS_CON4.I_MUX_SEL, and TRM section
+  22.1 states that "The TX and RX only support operate in the same
+  PHY mode", so the two PHYs cannot disagree about it. With the
+  driver D-PHY only for now, that combination cannot be exercised
+  yet.
+
+[2] https://lore.kernel.org/all/20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com/
+
+---
+Jason Yang (5):
+      dt-bindings: phy: Add PHY_TYPE_DSI and PHY_TYPE_CSI definitions
+      dt-bindings: phy: rockchip,rk3588-mipi-dcphy: allow DSI and CSI consumers
+      phy: rockchip-samsung-dcphy: factor MIPI D-PHY power on/off into helpers
+      phy: rockchip-samsung-dcphy: model TX and RX as separate PHYs
+      phy: rockchip-samsung-dcphy: add MIPI D-PHY receiver support
+
+ .../bindings/phy/rockchip,rk3588-mipi-dcphy.yaml   |  11 +-
+ drivers/phy/rockchip/phy-rockchip-samsung-dcphy.c  | 555 +++++++++++++++++++--
+ include/dt-bindings/phy/phy.h                      |   2 +
+ 3 files changed, 517 insertions(+), 51 deletions(-)
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260721-dcphy-rx-v1-9af57f3edfd9
 
 Best regards,
-Alexey
+-- 
+Jason Yang <jason98166@gmail.com>
+
+
