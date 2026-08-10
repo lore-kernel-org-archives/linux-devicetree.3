@@ -1,80 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AF6435516
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:06:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB43E38CFED;
+	Mon, 10 Aug 2026 18:11:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786385200; cv=none; b=ixPALfsgB+QD1DIs+Ksxjl47wqj9ENBoWPaAt5MOqmeFDkQWBpDHILLjhtDHvXEQ8Z7Nk3/SVBLVUOItYU6Ah08GM9QU4FcKJXePyviH/s2VD7Jq6Xv4A+zBanzaeu56NQZPJLMmICPH9na5eTslmo7uLv+w+p8z0pRCEBi+OwQ=
+	t=1786385493; cv=none; b=hYrRli+viT+iqYSgdRy3jAjmwXOPzQEOeeD3EciMigLcHCEqMiiFSHUn/0zVMemyfXGM9e63r9xwnSwHpc69pu5cLoie3i3poFc7bxRSeU3nKI+8PQaCu2sbguHOdGiTr9NAbgbxc+vohcw6wHMfgVctMyzkzyq6iYSQtZkYLAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786385200; c=relaxed/simple;
-	bh=hgcymRn06CEzZYivG2OYevh3C3pdHTxTa6lD6AY+ufg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iN1wmZHrR4T4Es6kDPohKmEYotDtAWCI3WgHA/Aq6yMbZvXqBIZBjcpkZoWAQEYIWhfjj8PwMAaGUtcZhB6bJbJ9FNLMmKQ9gr/VO45dCclY0D5aDwY3OpjLdJ+T8isZ/wqTbgsWdBnC2Usk5wAzZhydOntoHkqcsObaq/fpDfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kh5VROtZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786385493; c=relaxed/simple;
+	bh=heCtpCzkANyhlU5fizbsCab1SmgkihIwmwisItapitk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GFH/KnXoStrjMUyy1SCL/krEPrHPrddit1byA0sRmihUgAmu5zkwzahbptD+Hp42LHyas9zwmyPw9AyTuiBmxdhr9Vfu/aNNjyTieprOOw3tUR/xkLXKIkaBkTW24GXsKXdkjS+bbnXEry/pDw4OxbNRiFvPcFXCJjcukHgMYY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUBvcIA1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kh5VROtZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22F5F1F00ADB
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:06:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUBvcIA1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A691F000E9;
+	Mon, 10 Aug 2026 18:11:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786385199;
-	bh=hgcymRn06CEzZYivG2OYevh3C3pdHTxTa6lD6AY+ufg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kh5VROtZSFG4V4setKEx58r+aXrbRhkM81FNJEhyhDuJ/kqBlm2afkySKxEryEAjI
-	 kjgF9+Rzmf5899CrwmI6A6BinooXbmJ8xOLd9j5nNWR8EJGqVS7CIYJ65g3JccUAhK
-	 YSmjSLQ6tdF2Y+sk8wXbvIY3/urHkouBnvsSMyt8ImL79tDL9CVLuRuUTvRzGEJe4b
-	 GVn6NHwdDrRcbH48z1LRvff7doLUQD+emJgzW7U8p93t1gHIChWUJWPOGYztkhp7Qq
-	 zPpEsDdJX8prSupqD4Jhu/aXxeLWDPU8oTBtvhBCbxYXte6I3F09YVBQlzRk6BCsFo
-	 sHjiQQvHJfAkQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b159850b16so1959328e87.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:06:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpNtJ/dyhSnu/TIB2hgtUVImH+80hHoI/0vPkl9jVIjFWeEamIwhWNbVPH0JPPeDffAVckqvEAV5/dq@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBP2KxBE6qRZHopU5LZX6Ywek6qOOVtcToVmVIfJgTRvEnU7o3
-	gddSjI1atjZSikmdtkfaoxcMn5MC+dV8Uqt7eP4WF+YukonRJQ9gWK4EK1rO3XgblQG8qCdneZN
-	jtE8vbVCkxTuHJ0TpsijWClEXUpd99qo=
-X-Received: by 2002:a05:6512:baa:b0:5b2:f437:2a88 with SMTP id
- 2adb3069b0e04-5b2f4cc7be5mr5978880e87.36.1786385197772; Mon, 10 Aug 2026
- 11:06:37 -0700 (PDT)
+	s=k20260515; t=1786385491;
+	bh=D6TX/9LyL1eS+5/jXDkAhG9bK+yYQ6SySzT1s0P1K9M=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IUBvcIA13ucoJ91F1HZFQPyXNn3zm67cpxKfFkuqwc1M5DTKYgRMKm6+p0RbP9M5W
+	 ORI/Z+TG78HBYuQCrY4HvXRZt+2NJsShXVlgSnb+hx5AuYHEzl20F/dxeEBZ8feOmC
+	 ej9ydT3jDg0ur3UWsckLVSBLhI7OzmBuxl2VSvUcr4rstdiEglpICIsdUltyZ6tDFo
+	 N7iUCINaBARl2c9VOML6K9eLxcis0HzFhzqOnxPQW7Ij3RGiowzpHrVDIhpez4Hglz
+	 VuDfLJuvvtNwCJiaqYxI4yzErgPzIHQeimvAS9bwciiDPKGrLGH3/HBOTvPOtAz4Xe
+	 ztoEvTmkUYhKw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 7/7] ARM: dts: nxp: imx6qdl-wandboard: Replace
+ clock-frequency in camera sensor node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>
+Cc: imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260810180604.3034255-8-laurent.pinchart@ideasonboard.com>
+References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
+ <20260810180604.3034255-8-laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 18:11:30 +0000
+Message-Id: <20260810181131.29A691F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
-In-Reply-To: <20260809-kuno-soc-support-v1-0-5e0ede4a0c72@oss.qualcomm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 10 Aug 2026 20:06:24 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=kW+K6noeaO9=zktgveVbYmbZsWUWo3r-V0S7V90FDLw@mail.gmail.com>
-X-Gm-Features: AUfX_mymdEhf6vtyoDczgdrTd_h0sSGCYBoPOdLs8lQcTMbtLbfi04PfIu1dDG4
-Message-ID: <CAD++jL=kW+K6noeaO9=zktgveVbYmbZsWUWo3r-V0S7V90FDLw@mail.gmail.com>
-Subject: Re: [PATCH 00/15] Add initial support for Qualcomm Kuno SoC
-To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Taniya Das <quic_tdas@quicinc.com>, 
-	Georgi Djakov <djakov@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>, 
-	Guru Das Srinagesh <linux@gurudas.dev>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, Aug 9, 2026 at 9:27=E2=80=AFAM Hardeep Sharma
-<hardeep.sharma@oss.qualcomm.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch introduces a blank line in the device tree node, directly=
+ contradicting the "Changes since v1" section of the commit message which s=
+tates "- Drop added blank line".
+--
 
-> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
-> IDP reference board.
->
-> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. This series brings up
-> the essential SoC infrastructure required to boot to a serial console:
+--- Patch [7]: [PATCH v3 7/7] ARM: dts: nxp: imx6qdl-wandboard: Replace clo=
+ck-frequency in camera sensor node ---
+commit c2dd0680ebe87860961c5447228271fe2e5bfa7b
+Author: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-Is there some special reason why you are not posting this patch series
-to the most relevant mailing list i.e. linux-arm-kernel?
+ARM: dts: nxp: imx6qdl-wandboard: Replace clock-frequency in camera sensor =
+node
 
-Yours,
-Linus Walleij
+This commit replaces the deprecated clock-frequency property with
+assigned-clocks and assigned-clock-rates for the camera sensor node
+in the device tree.
+
+> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi b/arch/arm/=
+boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
+> index 26489eccd5fbe..f3aaca039953b 100644
+> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
+> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-wandboard.dtsi
+> @@ -137,7 +137,9 @@ camera@3c {
+>  		pinctrl-0 =3D <&pinctrl_ov5645>;
+>  		reg =3D <0x3c>;
+>  		clocks =3D <&clks IMX6QDL_CLK_CKO2>;
+> -		clock-frequency =3D <24000000>;
+> +		assigned-clocks =3D <&clks IMX6QDL_CLK_CKO2>;
+> +		assigned-clock-rates =3D <24000000>;
+> +
+
+[Severity: Low]
+This isn't a bug, but the "Changes since v1" section of the commit message
+states "- Drop added blank line". It looks like the blank line was still
+accidentally included here in the camera@3c node. Should this line be remov=
+ed
+to match the changelog?
+
+>  		vdddo-supply =3D <&reg_1p8v>;
+>  		vdda-supply =3D <&reg_2p8v>;
+>  		vddd-supply =3D <&reg_1p5v>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810180604.3034=
+255-1-laurent.pinchart@ideasonboard.com?part=3D7
