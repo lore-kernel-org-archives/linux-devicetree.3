@@ -1,189 +1,157 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011004.outbound.protection.outlook.com [52.101.65.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C80D39792F
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA1E3932E9;
+	Mon, 10 Aug 2026 08:44:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786351405; cv=pass; b=PaKVSJh0KdPFvG5G1Qye9JE/87EsBGmAFvV7mo9Wzn6P25Nmjo4EJZB0fwOS1z44n3ailI4tKAH+raktXBEVKqZm6VTfHCbno/EZoiQrzkw9dECanMRmY/4uPI+8Ylw/YtrtRSfjG9k5YCkcsUG+CVgsAT/ZGwKleUrcrfG8TZI=
+	t=1786351457; cv=fail; b=lF9auwId92Y4G6gVHlozP+5Jz3xdT2hwC7mgFUylreCLYaKPDiCd2XKARTIcNSy/b+RFw4JWTZlncroeI0Oz1DVWFFO4s67w5/S33D2WmtLR5SRfC2Nez6XssPf47ObAAi+3fjWxq0MnXG2hvEWE51f5/jVGdMzlTYyq5v+HBvM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786351405; c=relaxed/simple;
-	bh=vsOKCOkyS6rUiXdWk0fb9QExEqjNoSQv6E1PbSa1uqQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qeWgMLK4F4MdShI7vRLAK9ZyTo5Rf2a2sGwOO/Wc2+OLUABc/iLcF4F6UHGXZwAZN/8b+v0WYhb2HVxDj+TYmODf9c66j+nFA/IJLbVJurWWQw8vutHKl5lKbxYpvEhwamie3CGrx/oNYeEMeI/geooPPHpHtqYhmpCpiy7xSkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VcZA2NLs; arc=pass smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786351457; c=relaxed/simple;
+	bh=UzjUJkrgbU32cpVUsIH//D5lMW/FcKPiasGWW4xOPGI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=TXTs25NYuRju7ueKe3WlxwJ9zqlnvo2Rf3arlkLd0yyX60tMfT5IkQOfDqpMVWR+RLO5vm8fYj8Di2fQQ7jCkCeRyN4IIqdUvfvSKi2eNRH8pIhDMvGBLcT+tmeAGjbdpi4Tmr7HQnHj9o7NQjFKVjp0KEtedRNCj0rkRe1lODc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=n2zJAXY4; arc=fail smtp.client-ip=52.101.65.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VcZA2NLs"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a17211b9ecso2141893a12.2
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 01:43:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786351401; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jqeVurJCuyKsJYTt7w2EBnIsMq2h75ivvIfHxP5JjL+INNypIxNEHQrkVy5V7/l+2r
-         hsnu0D3lit+MnX+N2Qj5Dt+GskBlGAOHqZp5MhiXfLd2ErKeYPHeZIxluGZ0qdHSQvfq
-         ZQ/f2SwFp95T64y3TAIieYtX3kJO3u2OPMzLbW1gTNRVCDM9KUl9izEtUpFJuTnd3+iB
-         2WEjJfGfKBvA1TszdSsbjpTyog6BRc8bTJxD0MzvBHfrHDa/qvG/qQiLY82N7paLoz1a
-         iXbS8Q0G/MrhTtterLeMLUeptB/BCqsMxf8mqWdwXeIkZXo6VlEGPh9KK55D4bvVegXj
-         uUVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ibzUgXOGiUGkOiEFkYb/0y6YpV4m0bbnGovRuTHx8eY=;
-        fh=GxxP3XmwaWISnt1pt+uC7Ts3v3O9OaBGjD1XNS46iwU=;
-        b=S/xUYNWqYYz+LMK9t82pGVkynlqZpB/OC+Cu2F5Gfe3jdzZ/VOtymjeBIVWQiTF7LV
-         lI1kGrrd7LUnOsDvBvbGHxEiOlh3pLpP767ATHRcLHgUsTTdgFbTIdAKDjUlyqWr4i4m
-         +IRUZGSKnNTtV/3o54x9xRUli2Nds9x+fK44FuktD7l8qw28htQ54spEg3z3SO+O6TWr
-         54vrz9uBIvmYd7s0vY5shDFTVw53OZ6h4ja2sanc1yUNq10W6F5wyiicEgq6VhUpzpSO
-         2QqWdx/dsdiRN+3pBjLnKterMFpC5LdeSutwcxp4MQJNxgkCYnIVevlcRraJ5U7oQg7O
-         cgxg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786351401; x=1786956201; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ibzUgXOGiUGkOiEFkYb/0y6YpV4m0bbnGovRuTHx8eY=;
-        b=VcZA2NLsyiTQouAX14A2J65XkRwxoSmQiCLtlwTFSQvrgaTdJ/qylKQLV1y8tSQzJB
-         5mehG+oa/T23UNpLGZePUGaMz96VgirE4R1OHKjxKxDqGJtaSeOIrDccCNZQYcO45yhm
-         Gz3vVErdhoFXitXE0mx7YMFZ+K9Zuyha4fYnzjGS4c0p48x+chiayHjlNMn3YdHXP2sU
-         Ziy14RSA9JhPEoj3EsifZYshIceH/pBJglm709CwyYT0InqhLENt8TroaR7/5lueHJYM
-         SK0bhXUkMvOJwHfEv9Tikv5YjUjV+1xNTRKmnmzdD7EZIMFLf4Uo1BcdTF7RSooq8vGw
-         4YvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786351401; x=1786956201;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ibzUgXOGiUGkOiEFkYb/0y6YpV4m0bbnGovRuTHx8eY=;
-        b=rpbdIhedy9+TmAn/jf9U3q1ng5CGhcsfFSXt/fRck779ZCWprW/Us2XdxPeItkfCTV
-         5A/mNizPOjaAo8kqzijjm8tMb63PaeWn6s5t/LNmTGaa0KWY5NUd0pyfjvpr9H7mGS/L
-         QY/sLvSwbaYYbEopCVSw0tcFrY2PQH9hp5QLGz5DK2Xs8s3dVPvP6VBZie/Rxib1VDVZ
-         ThYPKrDfl6hUu4+gtJOie0JCZkij3dqOIxCLDVjBsONCFDM0vqX+zcRczn6gJXy1n4y2
-         prZWhsWLyt9xp8U5wtVRGrSqFg72v3YrxdGPa45Mxpu9km3Zb0irmaMtoBGW/WIkm8xZ
-         TpUQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rrw+PNG7fU6Z7H8u/2xmzKYzDK36aWqtKukpij5JnG7MiuxlPJjPbFUtfzhLlF+ICFMsOACn2COqNCu@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEKPWKIl7aG9/1dtP6FEP9cTGnbvViYls/M9YS78P2PsFEwRCQ
-	DUVNEyFKwXB2/xResvHBoqLFXIklO1mNU6RI1nBJIY7WOcludvyqJXYYWpcgNa08eFaks0KS5xK
-	DCnFaFOJRTUNZbwIX+5v8AKF9YcQy2TQ=
-X-Gm-Gg: AR+sD10DDfEJ5kzJ0ikH8QklRwGcr0XCrFWhi7ol4EZZDy7CPdz3xjE2rKTS0jvlyyK
-	j1/F7zWiO0jz4qBNbBlLK6yvGoP53Sq50gjI1L0yGuWjjK9G07wVq2KAIlwYWz3GMk7Pl+ejwpH
-	w+wstJ/Sq3RSEJl6FZAx9coJlyNuuycG3GJOUJJMTv8SPxyihxevM+dghiYKE7rg7IZV1gzhGCL
-	vohCT540Jft7/9pfdJZq5cTKcQSnqRX4VD4u7v/GJiy/bkYjCgd93OtWhxmGU1w2S+Ejco142SK
-	dvXb2blF+zO6p3OfDkSgVFqLCokeeNJES2v62CLzluPv3O+Msr8PgyPbuI8=
-X-Received: by 2002:a05:6402:a0cf:b0:6a0:a4f5:f4eb with SMTP id
- 4fb4d7f45d1cf-6a355d66d8bmr212253a12.4.1786351401282; Mon, 10 Aug 2026
- 01:43:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="n2zJAXY4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C+vC3de0QxkoideqmI8u4j0SphNh6pDULX7QH3R0jwxv/8uPJbD9Ke+nlcYsTkig41Sz1k1/InXfm70dEEc1qW+aAPX0xhGXuIaLKbOiKKq5dYO8N7kIg8am6E16b+q5ucuoETDamJ+koyeknkzVOd1GnZC2amQXCUpLO/7aXJIOhWvWwrlqwv8MhPM14RLudVTHjDksI0ZiLQWwe0Y0WDKbbl4O3wo69w0icA2vsqJnJvNjcGQEnOV2x8kDR+NsKJnr8EtnNAcYgxzo0WvHslR5Gsu0TAgA3hhraopsMsdofRwXGJSxy2OPHk4NUwuWmM4K8T/H+b9OzgurRTLgwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=chHdjN/r2caqZs+B2ulSg/L4viYE46RZQ5FvjmRt05U=;
+ b=iXVJ4Vy9kzrorRHnvfqPna1XlonJl27hHBkNbnQRWS1hQZy91vOibBhVa8PBAYe85RO2hgih2PJjPokeJMbvQnsyo/2Di87GWsq9aPWPL/g8Cuuvs2p2SiarWYBenDNUMTDVzHOdc3x2GDTmOTa38rDo3phhIyqdFPS041w9Ly0SkJ+opMwbSDTOEjmN1/uVlUKrUZAvjVh+mrrG1lrUx29rVhCxir/GD1cwZcKjKwQ82OohhJU2XvV8Hq8fUUwciKiAV3KZEABXt6wx/DrbxuQAkeeJnTOo2Zwu/wfavB7kDHZUn70EiaTPww0EyvzDmY7O/nROyW3K4+b4wd4CwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=pengutronix.de smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=chHdjN/r2caqZs+B2ulSg/L4viYE46RZQ5FvjmRt05U=;
+ b=n2zJAXY4gRenY4wquqh2RD9eJKVm6upGaTD8YSSE2ZuCiv5zqyd6FO0WcV3tDAswtRWdhbx8/UD/52ZhX2Sw90XcTty+VahwtNI8AWGl2pWFQr0DZJVj8lKRJ6yAhecjpT4bUDbBAoIH3IDn3TvuUrEc4d78Oz5168YIBvufp6wTEAHFuluYgq/qKXu3EIf5L+TTay7OpJP6h4r8z4a4CDUQ1Qa/7dp5WKu6YJ601WFN1NLEWgyvRwCz9xbfkEpicFC9UpvUXUsdonmo0v5N2gjlTyjrsmIsQYhQq05AT6YMt7IqwGut/gnohyQYViH37VvBHrf8lnKKOHpphZE0nA==
+Received: from AS8P250CA0013.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:330::18)
+ by VI1PR10MB7634.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:1c4::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 08:44:10 +0000
+Received: from AM1PEPF000252DE.eurprd07.prod.outlook.com
+ (2603:10a6:20b:330:cafe::9c) by AS8P250CA0013.outlook.office365.com
+ (2603:10a6:20b:330::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
+ 10 Aug 2026 08:44:10 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AM1PEPF000252DE.mail.protection.outlook.com (10.167.16.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 08:44:09 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 10 Aug
+ 2026 10:49:38 +0200
+Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 10 Aug
+ 2026 10:44:08 +0200
+Message-ID: <9d7defb8-a05d-4fd5-906a-1c2b623ad087@foss.st.com>
+Date: Mon, 10 Aug 2026 10:44:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260604095647.108654-3-biju.das.jz@bp.renesas.com>
- <20260604100619.75EC51F00893@smtp.kernel.org> <aliM3iVA1LY7tW38@monoceros>
-In-Reply-To: <aliM3iVA1LY7tW38@monoceros>
-From: Biju Das <biju.das.au@gmail.com>
-Date: Mon, 10 Aug 2026 09:43:09 +0100
-X-Gm-Features: AUfX_mxbp2F6C1EJALTGqqu13oGNxfjr3ICGyNcoGi9RkqGNZfVYjkhbDxxzl_o
-Message-ID: <CADT+UeB-gV8QnuwpTUrHV-GvYPwebYg=RE68PcApZkACO4ENDw@mail.gmail.com>
-Subject: Re: [PATCH v6 02/11] dt-bindings: pwm: rzg2l-gpt: Document
- renesas,poegs property
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, 
-	wsa+renesas@sang-engineering.com, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] ARM: dts: stm32: lxa: change stdout-path baud rate
+ from 9600 to 115200
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	=?UTF-8?Q?Leonard_G=C3=B6hrs?= <l.goehrs@pengutronix.de>, Marc Kleine-Budde
+	<mkl@pengutronix.de>
+CC: Alexandre Torgue <alexandre.torgue@st.com>, <devicetree@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<kernel@pengutronix.de>
+References: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20260611-lxa-stdout-path-baudrate-v1-0-59b60a5069ff@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000252DE:EE_|VI1PR10MB7634:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00a8c519-da14-48dc-7c6b-08def6bb8bee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|18002099003|22082099003|56012099006|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	MW3IHkzP7R8ZWUvcyGmy3TjvgS6euXf6qADd+NxfQUs8EzRsFDaKhl0BYFFEcyZVQD+Q62OHmVcFm3ZrRpQYVZrRTzIYCA3gFMa2SRkpIFy/4WThR+EyuqTyuQJlLnhN+h1tR2jifq46fHVlZYerLySroek4lvGWLfsIr8tFSxWkZBIsy2UcF/jjWIb5TLmS2rYIKLz2kfv1Q+d2dx15imhC7h+iKeYxiylf+eRDh1ktqbDYvfENbO61YKODIY6WgjGcLrmj8Jpplb1JdtIsJq5qWZoIQFexcobnvr1KY01a0hREJ/VncVscWMgotSKSHWwLI7uKVfhJHg7cwgJDKIBMeD0i+g6a2RLrn9OhVqCxSwjM5HtVY0rLw3tvM9jfe9snDpfxb30XlKHoM69Fj7JJJmhiIK3CYDpOg4Wt/EjucXdKvD8kXnQ5EWt1nn/+GSZ3ujyu/f2wyYeqFBuUrP6nlGr2t5Fya2JICjqb4rotPLWqOOnMgJzSeOrMp6RHk9WttCR3t7lt96gE+sHk4GufHYoZNIbIc897HPco0ASOHCZevmXIWDSHskrD6MGzLQi8HU5aYszUjADGI1fdujYCT3VqBlJUTh20zMfxy4YJ7yVM9GffgKUBw5HQK2ZJxXEznaulaUq5e+SPWVZ+pmM04n8AL/WcyM8xWQb3/yLIIQckaBj08IIxdxMUWhlejo/8J0HNnbKlSzxCP5rXcQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	U4IY5pUf8v/b+jUcNxubVlWaLpZjknd5ZNr2oVSaOkogdA/y344uJgKdG6uA65Cbr18Ll2XGe2iLSbNkmjjrChIFFfrHbR75zxigNOVd+IbaYfwPx5IV32xbKYNqepG9tpnhqYhhruTeXoxG2xqEhZTyvmx5A4yAe48aHpdaSauE2y/h5RXAKBGzFwB1RRcas7QeO2JV2CTchZYnoBmGaHj7SDTo7izQ2lVb+Y+It46/k2IhpzpZH9cbC/KlR0wPHQHk5l+rBdlBoSIFcP41mpxZ5Huc2OU6Qp08ujTqACFwpJBfG9VQXdUGZY4xu8ZG03rFokRIKDS0yR9CgJWjzos8zV2A+9OxG1SaTCvhWKOzk4nIYQk3nR92IcruQGTSRkHFeziET1WayshPhSxvqjmWIQr0jNpSHNh75XIaFlcUvF1wfdlE5wig7GCgTLvm
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 08:44:09.9277
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00a8c519-da14-48dc-7c6b-08def6bb8bee
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM1PEPF000252DE.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB7634
 
-Hi Uwe,
+Hi Ahmad
 
-I have clarified the use case with Rob on [1], and he acked on [2] .
-See the details below
+On 6/11/26 20:12, Ahmad Fatoum wrote:
+> The LXA boards are the only STM32 boards that set stdout-path = &uart*
+> instead of explicitly specifying a baud rate.
+> 
+> This would mean the default of 9600 is used, but it goes unnoticed when
+> booting normally as barebox fixes up a console= line that includes a
+> baud rate.
+> 
+> When EFI booting GRUB however, GRUB will not pass along the console=
+> line and thus the board ends up with a 9600 baud Linux console,
+> confusing users.
+> 
+> This series fixes this. As the device trees were added at different
+> times, they are fixed each in a separate commit with its own Fixes: tag.
+> 
+> ---
+> Ahmad Fatoum (3):
+>        ARM: dts: stm32: lxa-mc1: change stdout-path baud rate from 9600 to 115200
+>        ARM: dts: stm32: lxa-tac: change stdout-path baud rate from 9600 to 115200
+>        ARM: dts: stm32: fairytux2: change stdout-path baud rate from 9600 to 115200
+> 
+>   arch/arm/boot/dts/st/stm32mp153c-lxa-fairytux2.dtsi | 2 +-
+>   arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts        | 2 +-
+>   arch/arm/boot/dts/st/stm32mp15xc-lxa-tac.dtsi       | 2 +-
+>   3 files changed, 3 insertions(+), 3 deletions(-)
+> ---
+> base-commit: 4549871118cf616eecdd2d939f78e3b9e1dddc48
+> change-id: 20260611-lxa-stdout-path-baudrate-7cf454cdae07
+> 
+> Best regards,
+> --
+> Ahmad Fatoum <a.fatoum@pengutronix.de>
+> 
 
-[1] https://lore.kernel.org/all/OS0PR01MB5922756F1836AAABFF62C04786049@OS0P=
-R01MB5922.jpnprd01.prod.outlook.com/
-[2] https://lore.kernel.org/all/20221215205843.4074504-3-biju.das.jz@bp.ren=
-esas.com/
+Series applied on stm32-next.
 
-Cheers,
-Biju
-
-On Thu, Jul 16, 2026 at 8:50=E2=80=AFAM Uwe Kleine-K=C3=B6nig
-<u.kleine-koenig@baylibre.com> wrote:
->
-> Hello Rob,
->
-> On Thu, Jun 04, 2026 at 10:06:19AM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Medium] The `renesas,poegs` property improperly encodes the consumer=
-'s channel index as a phandle specifier, which is a Devicetree anti-pattern=
- and breaks standard phandle-array parsing semantics.
-> > --
-> >
-> > commit 9d7f9847d3f320fb715022b6159c9c7e869aeedd
-> > Author: Biju Das <biju.das.jz@bp.renesas.com>
-> >
-> > dt-bindings: pwm: rzg2l-gpt: Document renesas,poegs property
-> >
-> > RZ/G2L GPT IP supports output pin disable function by dead time
-> > error and detecting short-circuits between output pins.
-> > Add documentation for the optional property renesas,poegs to
-> > link a pair of GPT IOs with POEG.
-> >
-> > > diff --git a/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.=
-yaml b/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
-> > > --- a/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
-> > > +++ b/Documentation/devicetree/bindings/pwm/renesas,rzg2l-gpt.yaml
-> >
-> > [ ... ]
-> >
-> > > @@ -245,6 +245,28 @@ properties:
-> > >    resets:
-> > >      maxItems: 1
-> > >
-> > > +  renesas,poegs:
-> > > +    minItems: 1
-> > > +    maxItems: 8
-> > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > > +    items:
-> > > +      items:
-> > > +        - description: phandle to POEG instance that serves the outp=
-ut disable
-> > > +        - enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-> > > +          description: |
-> > > +            An index identifying pair of GPT channels.
-> >
-> > [Severity: Medium]
-> > Does this property correctly follow standard Devicetree phandle semanti=
-cs?
-> >
-> > By Devicetree specification, phandle arguments in a phandle-array are
-> > defined and interpreted by the target provider node, with their length
-> > dictated by a cell-count property on the provider.
-> >
-> > This definition appears to invert that model by using the specifier to =
-encode
-> > the consumer's (GPT) own channel index rather than a provider argument.
-> >
-> > Additionally, standard OS-agnostic DT parsers might fail to resolve thi=
-s
-> > because the referenced provider binding (renesas,rzg2l-poeg.yaml) enfor=
-ces
-> > additionalProperties: false and natively lacks a #poeg-cells property t=
-o
-> > dictate the specifier length.
-> >
-> > Is it possible to redesign this binding so it doesn't encode the consum=
-er's
-> > index into the provider's phandle argument, or at least ensure the POEG
-> > provider specifies a #poeg-cells property?
->
-> You acked the patch. Is that review concern by Sashiko valid?
->
-> Best regards
-> Uwe
+regards
+Alex
