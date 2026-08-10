@@ -1,133 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8C73CAA38
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0253CC7CD
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:07:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786363461; cv=none; b=rIfpXd9l8fuvCI9HHXxpiPffkoiBF4FGXnfArokFZj5TFUlJi5E9651IAyWj/bK+gyGaQIVzd12cG2n3uQCcj9Cy4jtSZvDeDK4am30knTfwljwnsKFzgf75SjE44VSmFWYdz9UEyB8Ml8s2amniFDlHa+SiEM++CltHf6f9yOQ=
+	t=1786363640; cv=none; b=cl+uzQNtlsquBT5zAT9kz1X4pDAJ2Fomvf/KZmeP5Rzp21A5iXKywXLZvd0RriUSvzx3KAmArsvtX3c3MqEf+yb+Pl3rxxmPjfseoTzA3uIs63JBrVCMbVD//AmPEQ8j1+wglAqUiH4kdmN/YJPLyJR6M1e3ir7zOeHNaUBrye4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786363461; c=relaxed/simple;
-	bh=DFqfHE90r7gM7BUWt4i0HbP1CBrRaMQmK9+/1x/Pgis=;
+	s=arc-20240116; t=1786363640; c=relaxed/simple;
+	bh=iYlzfa+JJZguDfn5xK1/k+uRZV6TGUwEuRvb8RZMyOE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fDw3tZklHEuX66ZKtVPpn5z0tWyELilwJc7KGqZJRjW5ZGPHQzONXag3NmdPX+ZiwD67KND1yBHvU8z4nFgnf3CtwL4eUdmFVqpjkD14CnN5RoQo1w/iiNGoMl4iQTzBqKul1PoJAz/jG2sozo0Dilm9NaxRZ7rsOaNQJ96CiHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QWrQSfXf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=JH2a8QpzKip58917qCkwTZ5LwCJ7Y9WC8MYNI5IR/WfmfwfX4qoslFCPq+yg2hD36ESztLy3qN3k6nup72Pk8jeSsOy8WyKlSAG9Uu63EqP98ERotfzKlnlpVMMyn3gJYbUEYP5vAO3cLz39ITsfNVjY912bGZLwY/KCv2otHp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7Skn+yo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QWrQSfXf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401251F00A3A;
-	Mon, 10 Aug 2026 12:04:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7Skn+yo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD161F00A3A;
+	Mon, 10 Aug 2026 12:07:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786363459;
-	bh=qxsIEl1rwFqOGlrp/qdX3U5VONn9ZrHAnlXGv8Tfqro=;
+	s=k20260515; t=1786363639;
+	bh=YRHPFMgdaA0yiUbbK8fEIq4YxUNO4dVldMnmHB8GPGU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QWrQSfXf76nvYGzoZLkQRTIPa3pvpW6wTEKAXd9dOMhu/zFOpbZfW6faq65yqubXd
-	 fjZlyEhiwOZKgm8w+p/09XgyagFJtsftTTVJIjpfgTTsvEd44M/b0bmz9TZ4w2lotV
-	 ht5fvKNqBjH3kUq92t5TWqsFJT4OZl9OT8oyI4M4OAbDRa7LTMrnx4+AaXFLYZkQRY
-	 TAW+/sEv5rotflS3YoeSa0qhHb4cGfbXlf8Lc1uwXiSy90PRPesxvlEbCpFZ9gd5Ok
-	 KTVcZiCRXnfgSt5u4vl9/Ed33LmQtpstHVhKhei9/W5rhuy7SeKJnQXRzt/kxECJKo
-	 YMrACA9QMto7A==
+	b=V7Skn+yotrckp+a0sTthvv3EhH3kYOIhz7IjmBJQ3qQnWkxmOyq+j9p7/P5Ugmad6
+	 tqiZjC7vyyrGBMgot7ExPA7aAcrG0RW33BoukRJAO9PZs6wzeFL32tPmFyIrMm+QN7
+	 7rq71ozSCPVG2lL4fuEx8D+KyNnGrlozBOpiHuGqWJK9PaMs/tCSV3yVbtpRKyk7M/
+	 9GrV98LcLEgP6ipRQMuEoTwV7Zc9PmgiAzAc9UJk7o4rimUGFKVXpIjSEIKgNxFnke
+	 br29Xc8j5fRmKNnaRzLzZ/vUJAHUgUPjciKnqH/8x7PyZhPluFJvsfNEgmjkHj+Fay
+	 RkHIeAK+Yhx5Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/10] ARM: dts: qcom: msm8974: add the USB3 controller
- and its PHYs
+Subject: Re: [PATCH 10/10] ARM: dts: qcom: apq8074-dragonboard: enable the
+ USB3 host
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: olteanv@gmail.com, conor+dt@kernel.org, neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260810-msm8974-usb3-v1-9-1a47e1185524@oss.qualcomm.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260810-msm8974-usb3-v1-10-1a47e1185524@oss.qualcomm.com>
 References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
- <20260810-msm8974-usb3-v1-9-1a47e1185524@oss.qualcomm.com>
+ <20260810-msm8974-usb3-v1-10-1a47e1185524@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 12:04:18 +0000
-Message-Id: <20260810120419.401251F00A3A@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 12:07:17 +0000
+Message-Id: <20260810120718.3AD161F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] DT Schema violation: the `compatible` property for `usb3_ss_phy` us=
-es an array of two strings instead of a single string.
-
-Pre-existing issues:
-- [High] Data race on physical PHY control register between two uncoordinat=
-ed drivers.
+- [High] The `reset-gpios` and `vdd-supply` properties for the USB hubs and=
+ peripherals will be completely ignored because their compatible strings ar=
+e not supported by the kernel's onboard USB dev driver.
+- [High] `qcom_ipq806x_usb_hs_phy_init()` overwrites the entire `HSUSB_PHY_=
+CTRL_REG`, destroying bootloader-configured frequency straps for MSM8974.
+- [High] SuperSpeed USB devices (AX88179 and PL2775) are incorrectly nested=
+ under the HighSpeed hub (`hub_2_0`) instead of the SuperSpeed hub (`hub_3_=
+0`).
+- [High] The SuperSpeed hub (`hub_3_0`) is assigned an invalid port address=
+ (`reg =3D <2>`), breaking DT node mapping for both root hubs.
 --
 
---- Patch [9]: [PATCH 09/10] ARM: dts: qcom: msm8974: add the USB3 controll=
-er and its PHYs ---
-commit 688cb2c7a84a066e54c52b8eab7f37e81311d8fb
+--- Patch [10]: [PATCH 10/10] ARM: dts: qcom: apq8074-dragonboard: enable t=
+he USB3 host ---
+commit 316b8b1bbfd2cabe66fe0293f9ed61e3a48ec197
 Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-ARM: dts: qcom: msm8974: add the USB3 controller and its PHYs
+ARM: dts: qcom: apq8074-dragonboard: enable the USB3 host
 
-This commit describes the primary USB3 controller (DWC3) and its High-Speed
-and SuperSpeed PHYs for the MSM8974 SoC. It initializes both PHYs to ensure
-proper upstream enumeration.
+The USB3 port of the dragonboard drives the onboard TUSB8040A hub with
+the AX88179 GbE controller and the PL2775 USB-SATA bridge behind it.
+This commit enables the DWC3 controller in host mode along with its PHYs
+and describes the onboard chain as device nodes under the controller.
 
-> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi b/arch/arm/boot/dts=
-/qcom/qcom-msm8974.dtsi
-> index 06c0af0aa3176..bac3c8772e0a2 100644
-> --- a/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
-> +++ b/arch/arm/boot/dts/qcom/qcom-msm8974.dtsi
+> diff --git a/arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts b/arch/a=
+rm/boot/dts/qcom/qcom-apq8074-dragonboard.dts
+> --- a/arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts
+> +++ b/arch/arm/boot/dts/qcom/qcom-apq8074-dragonboard.dts
 
 [ ... ]
 
-> @@ -713,6 +713,53 @@ blsp2_i2c6: i2c@f9968000 {
->  			#size-cells =3D <0>;
->  		};
-> =20
-> +		usb3: usb@f9200000 {
-> +			compatible =3D "qcom,msm8974-dwc3", "qcom,snps-dwc3";
-> +			reg =3D <0xf9200000 0xfc000>;
+> +	/* TI TUSB8040A four port hub */
+> +	hub_2_0: hub@1 {
+> +		compatible =3D "usb451,8043";
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does mapping this region
-expose a data race on the physical PHY control register?
+Will the reset-gpios and vdd-supply properties be ignored here?
 
-The dwc3-qcom wrapper driver maps this region, calculating qscratch_base
-as 0xf92f8800, and performs read-modify-write operations on offset 0x30
-(physical 0xf92f8830) during role switches or gadget start/stop.
+The new compatible strings (usb451,8043, usb451,8041, usb67b,2775,
+usbb95,1790) do not appear to be supported by the onboard_usb_dev driver's
+onboard_dev_match array. The generic USB core parses these nodes but does
+not natively handle reset-gpios.
 
-Simultaneously, the newly bound phy-qcom-ipq806x-usb driver maps the
-exact same physical address bypassing exclusivity in the usb3_ss_phy
-node below.
+Could this cause the reset lines to float and power sequencing to be
+unmanaged, preventing proper enumeration?
 
-[ ... ]
-
-> +		usb3_ss_phy: phy@f92f8830 {
-> +			compatible =3D "qcom,msm8974-usb-phy-ss",
-> +				     "qcom,ipq806x-usb-phy-ss";
-
-[Severity: Low]
-Will this compatible array cause make dtbs_check validation to fail?
-
-The DT binding schema qcom,ipq806x-usb-phy-ss.yaml strictly defines the
-compatible property as either "qcom,ipq806x-usb-phy-ss" or
-"qcom,msm8974-usb-phy-ss".=20
-
-Providing a string array of both violates this definition.
-
-> +			reg =3D <0xf92f8830 0x30>;
+> +		reg =3D <1>;
+> +		peer-hub =3D <&hub_3_0>;
+> +		reset-gpios =3D <&pm8941_gpios 6 GPIO_ACTIVE_LOW>;
+> +		vdd-supply =3D <&pwr_c_3p3>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +
+> +		/* Prolific PL2775 USB-SATA bridge on the DN0 port */
+> +		device@1 {
+> +			compatible =3D "usb67b,2775";
 
 [Severity: High]
-This is a pre-existing issue, but returning to the mapping overlap, the
-SuperSpeed PHY driver explicitly maps the exact same physical address
-(0xf92f8830) here and modifies its offset 0x00 without coordination.
+Are the SuperSpeed USB devices (AX88179 and PL2775) nested under the
+incorrect hub here?
 
-Since both drivers perform uncoordinated read-modify-write operations
-(sometimes with large delays like msleep(30) mid-RMW in the PHY driver),
-can concurrent operations clobber the physical register state?
+Since these are SuperSpeed capable devices, they will enumerate on the
+SuperSpeed bus. By placing them under the HighSpeed hub (hub_2_0) instead
+of the SuperSpeed hub (hub_3_0), the USB core won't be able to match the
+enumerated device to a DT child.
 
-This could lose bits like SSUSB_CTRL_SS_PHY_EN or LANE0_PWR_PRESENT,
-corrupting the power state and breaking USB enumeration during concurrent
-plug/unplug events and runtime PM transitions.
+Will this cause device-specific DT properties like reset-gpios to be
+silently ignored during USB enumeration?
 
-[ ... ]
+> +			reg =3D <1>;
+> +			reset-gpios =3D <&pm8941_gpios 10 GPIO_ACTIVE_LOW>;
+> +			vdd-supply =3D <&pwr_c_3p3>;
+> +		};
+> +
+> +		/* ASIX AX88179 USB-GbE controller on the DN2 port */
+> +		ethernet@3 {
+> +			compatible =3D "usbb95,1790";
+> +			reg =3D <3>;
+> +			reset-gpios =3D <&pm8941_gpios 9 GPIO_ACTIVE_LOW>;
+> +			vdd-supply =3D <&pwr_c_3p3>;
+> +		};
+> +	};
+> +
+> +	hub_3_0: hub@2 {
+> +		compatible =3D "usb451,8041";
+> +		reg =3D <2>;
+
+[Severity: High]
+Is this port address valid for the SuperSpeed hub?
+
+The APQ8074 DWC3 controller has a single physical port, meaning both root h=
+ubs
+should expose exactly one port (port 1). Because this uses reg =3D <2>, the
+USB 3.0 root hub will look for port 1 and instead find hub_2_0 (which has
+reg =3D <1>).
+
+Does this leave hub_3_0 orphaned and break DT node mapping?
+
+> +		peer-hub =3D <&hub_2_0>;
+> +		reset-gpios =3D <&pm8941_gpios 6 GPIO_ACTIVE_LOW>;
+> +		vdd-supply =3D <&pwr_c_3p3>;
+> +	};
+> +};
+
+A related issue appears to exist in the PHY initialization sequence for this
+hardware:
+
+drivers/phy/qualcomm/phy-qcom-ipq806x-usb.c:qcom_ipq806x_usb_hs_phy_init() {
+    ...
+    writel(val, phy_dwc3->base + HSUSB_PHY_CTRL_REG);
+    ...
+}
+
+[Severity: High]
+Does qcom_ipq806x_usb_hs_phy_init() overwrite the entire HSUSB_PHY_CTRL_REG?
+
+If the MSM8974 HS PHY probe reuses this function, calling writel() without a
+prior readl() will destroy the bootloader-configured reference frequency
+straps. This seems to contradict the requirement to preserve these strap
+bits.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-msm8974-us=
-b3-v1-0-1a47e1185524@oss.qualcomm.com?part=3D9
+b3-v1-0-1a47e1185524@oss.qualcomm.com?part=3D10
