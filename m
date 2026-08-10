@@ -1,45 +1,53 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 13.mo582.mail-out.ovh.net (13.mo582.mail-out.ovh.net [188.165.56.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E8A42980B;
-	Mon, 10 Aug 2026 16:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCC1369D7D
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.56.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786380003; cv=none; b=PKllhC6oP1tb+1wuRvHRKaenXlcFlBudmEgTNkad7tZ154CSlboh2FMtcCTIFjw0uQ7YfrRk6YvVGKIR+CZQn5mHGfr0uBBMAW0KWrbkBZnqPuByMJUoqX5S+M0mO1ykctG6NUkUpW2S+osSc7WBAUZ/eXtQSleFIspkyAOd6/I=
+	t=1786380073; cv=none; b=E6FEelQ3vtLpdhFSsETWa6dgjinwAt8GDFVzDj3u7MDQvbVvT80KUmFp8CYOyV2123PMCgsixRGid3hMFk1J9YsZ721wedQ29GTEKtBSL+e3h5Kb1mqtU+MW/HfefXT7jAMf7qrwI/E+9Ue/9Ax/Chi7AFj3VS6fPuQPsTCjFh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786380003; c=relaxed/simple;
-	bh=J2EKFbV5uPIeRjVB49gScK0JmOQ6riQ8asVv4Qn72lk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sdnUfKsigyZeVmnK5V5f6N3a3ub4cs0bovA/kM6wxt7Tgg7a1PHWUcNzr2kMaMSrtSo98lX3BObK6Avhx/ioPQqv9oEuVx16F5JzdSQ2o7fWIE8TekuRPB8qOL0yyxA4Lw+76hIjm+GxFPDOrC/bIjQHoL6fumT5TEPvs40A/m0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/+UQYtC; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/+UQYtC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A4B1F00A3D;
-	Mon, 10 Aug 2026 16:40:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786380001;
-	bh=GIrix2w80bnR4i2Fv3Ik405K/J95zlZuy0rTalvQ8DA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=X/+UQYtC/GxZTIiXOzhRVZrH0H336Ofs7uJXfWjbhJ1nzecpb8Zv3/LLV3wj9jqOZ
-	 lVRQ3J9OdYE+laDsszVaKAlQttCrMSs6amc75jqf/1KtCROaY736c+grFFmi42QGHu
-	 bokjKJgenfti19rTQpzUgAO0uvFsIpdHyevDfLnRZfqgzsUmIhtZPKEtSGmVpU83L7
-	 A9gqLiTVLgPtdLg7cyklv8YFPzirIfXdEGqvf+ws6LoMNQMmZOAMeryKZxlLS5Kk+G
-	 1GjzkEzaO4evfDWk6gOfGWKMWWfHzrA07tbjYJYT4rtILwAb+NW/hYxAIIZyPqPLwf
-	 3++dTmmonpiFg==
-Date: Mon, 10 Aug 2026 11:40:00 -0500
-From: Rob Herring <robh@kernel.org>
-To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
+	s=arc-20240116; t=1786380073; c=relaxed/simple;
+	bh=khtKjUjkFdnLjRe7hqxidH1JU3UV/vwbLf2gEb0XDxg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Zxblbg5QFYK1i0wn4PV0ZCGN8uvSH+Y/B3wLAJaid2jsYncTWatntB6RW1mIt2EqLFgHGF8JGHw97NcGFMMFnBKKWdAr+gV5HMhsBpkBQbAGpNgafqy2oKY0IOWBUjZurrisljK3Hq4Hf2PYq7EkNaz2n7FBPXFPg181U5MQFTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=188.165.56.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
+Received: from director6.ghost.mail-out.ovh.net (unknown [10.110.58.117])
+	by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4hJcHN5VrFz5vSB
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:16:00 +0000 (UTC)
+Received: from ghost-submission-7d8d68f679-nv62s (unknown [10.111.182.119])
+	by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id BCA8080474;
+	Mon, 10 Aug 2026 14:15:56 +0000 (UTC)
+Received: from m-works.net ([37.59.142.108])
+	by ghost-submission-7d8d68f679-nv62s with ESMTPSA
+	id PxmDHhzdeWoT+wUA+y4jow
+	(envelope-from <maciej.andrzejewski@m-works.net>); Mon, 10 Aug 2026 14:15:56 +0000
+Authentication-Results:garm.ovh; auth=pass (GARM-108S002b9938c9b-5063-437c-b380-4c4edae5ac1d,
+                    ED6AA3D647CD945153C5C800EF75597CE9F2D384) smtp.auth=maciej.andrzejewski@m-works.net
+X-OVh-ClientIp:144.125.48.245
+Date: Mon, 10 Aug 2026 16:15:55 +0200
+From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	broonie@kernel.org, linux-spi@vger.kernel.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	linux-mtd@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, maciej.andrzejewski@m-works.net
+Cc: linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	linux-spi@vger.kernel.org,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	Vyacheslav Yurkov <uvv.mail@gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
-Message-ID: <20260810164000.GA1846263-robh@kernel.org>
-References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
- <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
+Subject: [PATCH 0/2] gpiolib: of: Scope the legacy SPI CS quirk to SPI
+Message-ID: <20260810141555.70575-1-maciej.andrzejewski@m-works.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,72 +56,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
+X-Mailer: git-send-email 2.43.0
+x-ovh-tracer-id: 15933735482169893667
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTE4EN55RJhVq6HnQXjLgYEkeokzgdDSeWKywccT583QP2uOgrZ2gP0CI5iy25N4cv/oYhS23lcgNgG/WpLPLlz0xfCtuePGgIcZaM2AF/AktLbtaoN9SMhP3bGY0+JYJNBLx2r/r4ROrmDKZpcKTi6lq/Ajus7xRAGJr4X44p+mREyo1U6yK1gic3C2Z03zWD64G23zs1YhY56Kao4x3SGOXPMQaCqoKF9ZbvOu/z8SUkQ9Cf0CDeOMmanTBj4cj9+tK2yzq3eU08yGABdWaFFaw6vcPYHKbTt5K+b0sZMUQoXM1hCIxsG7E1PJQFfmFmN/zZW531uDTTQKnkCIahF0qXwg+xSpvlHY8wG+cOqM96Tfga7SJ5I4Jl5UO+cN84D25NxYt5TzB9UtPWC8O6eCa4KI7AjZauT4zU6ykpfPKn+RneEFxdB/EPQBOexcD041tY0NEDFZOxbjOgqlOqFatDbYuHtvDfsIInPKyXRxGmmNBdAAeP9tGR8fZ2gEnZGnmAWWxSAPeiO7lm/Z5ES7b3xoOW1bFYyQuhEgeZ/TefOlvxdPNyrmnWzGQmGxLHcO2JIAKChbWJYBOiHvnzaFkRXKg2+Cj3MER+vOwHof9IOnOoqTsIMz4aHud45hya/ETQuivCqzlQNK+jSvAfJHRnv1ZT5AGZUJHUBQ8EA+1Q
 
-On Sun, Jul 26, 2026 at 05:40:24PM +0000, Vyacheslav Yurkov wrote:
-> Some hardware designs provide fixed-frequency clocks generated outside
-> software control, such as by FPGA-resident PLLs. While the clock rate is
-> fixed, a separate GPIO signal indicates whether the clock source is
-> locked and producing a valid output.
-> 
-> Describe a GPIO-locked fixed clock provider that exposes a fixed-rate
-> clock whose availability depends on one or more GPIO lock-status
-> signals.
-> 
-> Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+of_gpio_flags_quirks() decides whether to apply SPI chip-select polarity
+semantics purely from the property name "cs-gpios". Nothing about that
+name is SPI specific. nand-controller.yaml documents it for NAND
+controllers too, and rawnand_dt_parse_gpio_cs() asks for those lines
+with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios". The
+result is that a NAND chip node whose first reg cell happens to equal a
+GPIO index gets flipped to active low, and since the NAND core requests
+the descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, the
+die is never selected.
 
-I think you can drop this. Just update your author email.
+We hit this on an Arasan controller with a GPIO CS1 and worked around it
+downstream by putting spi-cs-high on the NAND chip node, which is
+plainly the wrong property to need. These two patches narrow the quirk
+instead, so that it only fires on an SPI bus.
 
-> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> ---
->  .../bindings/clock/gpio-locked-fixed-clock.yaml    | 59 ++++++++++++++++++++++
->  1 file changed, 59 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
-> new file mode 100644
-> index 000000000000..4d17889c51ad
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
-> @@ -0,0 +1,59 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/gpio-locked-fixed-clock.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: GPIO Locked Fixed Clock
-> +
-> +maintainers:
-> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: gpio-locked-fixed-clock
-> +
-> +  "#clock-cells":
-> +    const: 0
-> +
-> +  clocks:
-> +    description: Input clocks whose validity is monitored by this provider.
-> +
-> +  clock-output-names:
-> +    description: Names of the clock provided by this controller.
-> +    maxItems: 1
-> +
-> +  locked-gpios:
-> +    description: |
+Device tree has no bus type marker, so the series uses two tests, one
+per patch, and applies the quirk if either matches:
 
-Don't need '|' if no formatting.
+  1. the matched child has a property namespaced with "spi-"
+  2. the controller nodename has the "spi" prefix that
+     spi-controller.yaml requires
 
-> +      GPIOs to check the lock state.
-> +    minItems: 1
-> +    maxItems: 32
+Testing
+-------
 
-Please explain better how multiple GPIOs work? Why would you ever have 
-more than 1 lock signal per clock? And you can only have 1 clock given 
-#clock-cells==0.
+Both tests were scored against every board device tree in the kernel.
+Each .dts under arch/*/boot/dts was expanded with the same cpp and
+scripts/dtc pipeline the build uses; all 3620 expand. 503 of them hold
+at least one GPIO chip select that can reach the quirk, 765 in total.
+761 match both tests, 1 needs only the property scan, 3 need only the
+nodename, and none match neither, so no in-tree board changes behaviour.
+Patch 2 names the four exceptions individually.
 
-Do you have an immediate need for more than 1? If not, I'd drop 
-support for it for now.
+The collision with NAND is in-tree but latent: 36 board trees, all
+Atmel/Microchip at91, give their nand@3 controller a cs-gpios line and
+escape only because the sole child of those nodes is a partitions
+container with no reg for the quirk to match against.
 
-Rob
+drivers/gpio/gpiolib-of.o builds warning-free at W=1 with CONFIG_SPI=y
+and with CONFIG_SPI=n.
+
+Note on bisect
+--------------
+
+The two tests are complementary rather than layered, so patch 1 on its
+own would stop applying the quirk to the three peripherals that carry no
+"spi-" property (a panel, an mcp251xfd and one ecspi child, all named in
+patch 2). Only the pair is behaviour-preserving. They are split because
+the property scan and the nodename test are separate arguments and I
+expect the second to attract more discussion. Happy to squash them into
+one commit if you would rather not have that window.
+
+Maciej Andrzejewski ICEYE (2):
+  gpiolib: of: Only apply the SPI CS quirk to SPI peripherals
+  gpiolib: of: Identify SPI controllers by nodename
+
+ drivers/gpio/gpiolib-of.c | 40 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 38 insertions(+), 2 deletions(-)
+
+
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+-- 
+2.50.1
+
