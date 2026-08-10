@@ -1,39 +1,33 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF653AE6E5;
-	Mon, 10 Aug 2026 10:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6632B3B27E7;
+	Mon, 10 Aug 2026 10:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786357508; cv=none; b=ex0Qj+vrI7IzUa14p5TtuJb5LiNg94ss+vFlzVTUV4aybEtFoq1oHIGoWpkWQTQ8MLKn8x06isr5G6y07yuUsbClfFKqIJAsBjHTlgB2VBZGskptBZ+lteJiXu7oU1vKMes8skGdct7g0wz/26VKwnPbhrwnP/Hrls0pPtZSKNM=
+	t=1786357644; cv=none; b=mYs3oSE/2OL7nQ7lE1jwZclmtNOwBGV/ohokQJqA8uPzNnBYeiVsTSMjIFY3RmWd/2/Y8Hx5P8J8fsFqga5D1QO4x+k8c8LFkSGlwHJFewe6Rasg3EX0YFeUyQecGhNVsvAuFAPaLqTtuHZloP8xJa7llPa7cZy2xTyShkCnvRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786357508; c=relaxed/simple;
-	bh=3dsY8FIX9DzqEbT1NZad7IU9g0NMFzgWcKRnXmkmE5U=;
+	s=arc-20240116; t=1786357644; c=relaxed/simple;
+	bh=eMo7RiFxf486lOJsy0lJdVppqNImmgiXhVLqpPYRKxo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GCsNcXe//vw2GX/mHQ+H9bEvxhxjdmVJIS1F+NtA90M/Pr6OXi+biAYpqgAmoxlLw8/+H4+18ULkb64p76drZdkYBBiSYPvdiZ7tom1cdFx19RjgUu+lp5GejVj8tJ6egXZA5Z2EVQV0zahNfOOUBu9rjbEs5hytbRDQcupfvvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CuhxUz4k; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=GBiPO8ymMneHHqyNeK3Z1kfuyuKMX+zazmgh+8bQnzrVjpv3cCIPIx/9FobeWYV9gF+BF/Qn8N0ge/ddDgEmiLgQ9o0wG+oLnGPEvPkoxKPH8Chd5TDZ2V16siEvKD+H7QbhpSH1klv+oSGu/t/RpO6YqMVlH8TJNd4EQSAm5WY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7jzu2pt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CuhxUz4k"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 0E11553407E8;
-	Mon, 10 Aug 2026 12:24:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1786357499;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lZUtrJm2QH00/3zx50/d35ViLWwmpOYtZnYNMg+wTUE=;
-	b=CuhxUz4kcoXZqLfJc8QyhSQQTkIuiZbkDf1QP7cUWK4v40wsk69Nm12RnjKPs0DCb4zhC9
-	ZcHPnu/Xr6mvtlupJubiDxqQT7x1dGw9WPN+w7siXIGFjxX9u3MlykLzuejblQQZZDTS6g
-	I4/kziwOGdXfLT5VUMxjO46puhquK9c=
-Message-ID: <de220aa4-2bf1-4cf3-8d59-904fefa7e815@ixit.cz>
-Date: Mon, 10 Aug 2026 12:24:58 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7jzu2pt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9CB61F000E9;
+	Mon, 10 Aug 2026 10:27:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786357643;
+	bh=dXt/1L/uHFM3OLFJe78YGdrRxxWdzR6Xr8tdcZbXvnc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=K7jzu2ptlkM364QmUboSzRgav59W+7lFiSK5EyjU/sDCNrbPA7HHbaJnXOKyEw2d3
+	 wLM70UY8XCrQcE5JlmoS2psn0NBAt4BeMQFM1UFJ6OY1ik0BzFszrNEcPM9/nOMc+Y
+	 xb0AVjre8gwilijbDP3GTjVfbS+2Udes2dOXgqOvGILmtym40kRYEBBynMF8Z6Icx7
+	 HWutXkJXB4CaNXG5rr8qlHaMqc8cv2y8+lm7WqeHiVwVPlYG7+7vknob1/bEdhy/ap
+	 m1BNituEWxd1unN9rKnd4PrTFpMMoz4XdEHUobAPdjHeXuM3hS5EJ8Y9yCLCQ01wgY
+	 /9QdkhOSg5ZZw==
+Message-ID: <7ba2ec58-8717-4fea-8c79-c4923741aaac@kernel.org>
+Date: Mon, 10 Aug 2026 12:27:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,155 +35,208 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: dongwoon,dw9714: Document
- DW9714A and V variant
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Alexander Martinz <amartinz@shiftphones.com>,
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, phone-devel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz>
- <20260803-dw9714v-v3-1-8e10278dcd0d@ixit.cz>
- <anmcEvEwld-ZV9WE@kekkonen.localdomain>
+Subject: Re: [PATCH v2 1/6] dt-bindings: bluetooth: qca: add QCC2072
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rahul Samana <rahul.samana@oss.qualcomm.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann
+ <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+ Rocky Liao <quic_rjliao@quicinc.com>, Manivannan Sadhasivam
+ <mani@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+ linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+ quic_mohamull@quicinc.com, quic_hbandi@quicinc.com, quic_anubhavg@quicinc.com
+References: <20260727-rb3-industrial-bt-uart-v2-0-2d100f30e202@oss.qualcomm.com>
+ <20260727-rb3-industrial-bt-uart-v2-1-2d100f30e202@oss.qualcomm.com>
+ <20260731-first-righteous-bear-dd72ed@quoll>
+ <712f8a14-d2a1-4a90-82f9-05cd694f2658@oss.qualcomm.com>
+ <c1875dd6-fe3a-4a69-a6fd-b461c8fba6e4@kernel.org>
+ <6d6465bb-47ac-464c-af4e-0ca72325705f@oss.qualcomm.com>
+ <8a388310-d3cc-4d02-abb6-0eb98c24cfce@kernel.org>
+ <4523441f-498a-4bbd-80f3-97a7a9206c00@oss.qualcomm.com>
+ <6e0b9e79-ccd4-4689-9a6b-9b4fc556d5e4@kernel.org>
+ <dduqm25cy2j3ab7gu65qjho76gifij3sgnvgsgqyvncjxa46x6@vg7egioz5vxx>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <anmcEvEwld-ZV9WE@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <dduqm25cy2j3ab7gu65qjho76gifij3sgnvgsgqyvncjxa46x6@vg7egioz5vxx>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/08/2026 11:38, Sakari Ailus wrote:
-> Hi David,
+On 07/08/2026 11:57, Dmitry Baryshkov wrote:
+> On Sat, Aug 01, 2026 at 05:49:53PM +0200, Krzysztof Kozlowski wrote:
+>> On 01/08/2026 17:31, Rahul Samana wrote:
+>>>
+>>>
+>>> On 01-08-2026 20:18, Krzysztof Kozlowski wrote:
+>>>> On 31/07/2026 17:51, Rahul Samana wrote:
+>>>>>
+>>>>>
+>>>>> On 31-07-2026 20:34, Krzysztof Kozlowski wrote:
+>>>>>> On 31/07/2026 16:45, Rahul Samana wrote:
+>>>>>>>
+>>>>>>>
+>>>>>>> On 31-07-2026 15:16, Krzysztof Kozlowski wrote:
+>>>>>>>> On Mon, Jul 27, 2026 at 09:15:01PM +0530, Rahul Samana wrote:
+>>>>>>>>> QCC2072 can be used on M.2 E-key cards where the card power resources are
+>>>>>>>>> described by the pcie-m2-e-connector node. In that setup, the M.2 power
+>>>>>>>>> sequencing provider creates the Bluetooth serdev child after matching the
+>>>>>>>>> QCC2072 PCI function.
+>>>>>>>>>
+>>>>>>>>> Integrated non-M.2 designs need board-specific power resources. Document
+>>>>>>>>> only the compatible for now and leave those properties to be added with
+>>>>>>>>> matching driver support.
+>>>>>>>>>
+>>>>>>>>> Document the qcom,qcc2072-bt compatible used for QCC2072 Bluetooth
+>>>>>>>>> controllers connected over UART.
+>>>>>>>>>
+>>>>>>>>> Signed-off-by: Rahul Samana <rahul.samana@oss.qualcomm.com>
+>>>>>>>>
+>>>>>>>> NAK, exactly same comments as before.
+>>>>>>>>
+>>>>>>>> Nothing got improved, although what is weird - original SoB is gone, so
+>>>>>>>> this is legally dubious work.
+>>>>>>>>
+>>>>>>>> Best regards,
+>>>>>>>> Krzysztof
+>>>>>>>>
+>>>>>>>
+>>>>>>> Hi Krzysztof,
+>>>>>>>
+>>>>>>> Thanks for the review.
+>>>>>>>
+>>>>>>> For the binding contents, I tried to capture the current scope in the binding
+>>>>>>> description itself. This series supports QCC2072 only as an M.2 E-key card,
+>>>>>>> where the card power resources are described by the pcie-m2-e-connector node
+>>>>>>> and the M.2 pwrseq provider creates the Bluetooth serdev child.
+>>>>>>>
+>>>>>>> The binding also says:
+>>>>>>>
+>>>>>>>   Integrated non-M.2 designs require board-specific power resources. Those
+>>>>>>>   properties, together with a static devicetree example, should be added when
+>>>>>>>   integrated non-M.2 support is added.
+>>>>>>
+>>>>>> Bindings must be complete and your driver support is irrelevant here.
+>>>>>>
+>>>>>> If you claim this is a PCI device thus you do not need any resources,
+>>>>>> then the binding is not needed either. PCI devices are enumerable. And
+>>>>>> to prove it: look at your DTS. Do you see qcom,qcc2072-bt being used? No.
+>>>>>>
+>>>>>>>
+>>>>>>> We do not currently have an integrated non-M.2 QCC2072 design, so I do not
+>>>>>>> have board-specific regulator supplies to document for that topology.
+>>>>>>>
+>>>>>>> Could you please suggest how you would prefer this binding to be handled for
+>>>>>>> the current M.2-only use case? 
+>>>>>>
+>>>>>> Drop the binding, you do not need it.
+>>>>>>
+>>>>>> Anyway the problem is that more comments were ignored.
+>>>>>>
+>>>>>
+>>>>> Hi Krzysztof,
+>>>>>
+>>>>> Just to clarify the reason for adding this binding in v2: 
+>>>>> v1 did not add a binding because this series only targets the M.2 use case.
+>>>>>
+>>>>> I added the minimal binding in v2 because checkpatch reported
+>>>>> qcom,qcc2072-bt as an undocumented compatible, and I interpreted the request
+>>>>> to fix the checkpatch warnings as requiring this compatible to be documented.
+>>>>> I also had the earlier feedback in mind, where the indirect
+>>>>> qcom,qcc2072-bt compatible was pushed back because it was undocumented:
+>>>>>
+>>>>> https://lore.kernel.org/all/20260703-eliza_evk-v1-3-7624440bd76d@oss.qualcomm.com/
+>>>>>
+>>>>> Based on your clarification here, I will drop the binding patch in v3 and
+>>>>> keep qcom,qcc2072-bt only as the pwrseq-created child compatible for this
+>>>>> M.2 case.
+>>>>
+>>>> My previous statement is also valid, please read entire threads.
+>>>>
+>>>> You cannot have undocumented qcom,qcc2072-bt.
+>>>>
+>>>> I ask you to drop both, because they are not needed. But feel free to
+>>>> prove me wrong, see my first paragraph in the previous reply.
+>>>>
+>>>>
+>>> The PCIe M.2 power sequencing driver, pwrseq-pcie-m2.c, uses
+>>> pwrseq_m2_pci_ids to translate the enumerated PCI function into the
+>>> Bluetooth compatible used for the generated serdev child.
+>>>
+>>> For example, WCN7850 maps PCI ID 17cb:1107 to qcom,wcn7850-bt, then hci_qca
+>>> matches that compatible to select qca_soc_data_wcn7850.
+>>>
+>>> For QCC2072, pwrseq-pcie-m2.c matches PCI ID 17cb:1112 and creates the
+>>> generated Bluetooth serdev child with compatible "qcom,qcc2072-bt". The
+>>> hci_qca driver then matches "qcom,qcc2072-bt" and uses qca_soc_data_qcc2072
+>>> as the controller-specific data.
+>>
+>> The purpose of Devicetree is not to describe Linux internal driver
+>> matching. Do not use compatibles for that.
 > 
-> On Mon, Aug 03, 2026 at 11:50:25AM +0200, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> DW9714A is successor of DW9714 and DW9714V is successor of the DW9714A.
->>
->> All actuators are backward compatible, but they do introduce new features,
->> such as Smart Actuator Control (SAC) mode which can minimize the
->> mechanical vibration and achieve very fast mechanical settling time.
->> Support for SAC can be implemented in the future.
-> 
-> What kind of configuration does SAC require? Such things generally aren't
-> configured from the userspace, compare e.g. with the dw9719 bindings
-> discussion.
+> So, if instead of M.2 module the WiFi chip gets soldered to the main
+> board, the qcom,qcc2072-bt wll be a legitimate compat string?
 
-I don't have extra deep insight (except basic how the sensor works).
-
-By default all dw9714* sensors starts in the default "legacy" mode.
-
-The clanker after looking at datasheets and kernel struct produced, if it make 
-sense:
-
-the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
-the mechanical tVIB of the actuator and lens assembly of the given camera
-module, the same way dongwoon,aac-mode/aac-timing/clock-presc do for
-dongwoon,dw9768 and dongwoon,sac-mode/vcm-prescale for dongwoon,dw9719.
-Those properties are left out until there is driver support and measured
-values; note the DW9714V mode set differs from DW9719's, so its enum cannot
-be reused as is.
-
-David
+Yes, just like the rest of compatibles in the power sequencing driver
+(and bindings).
 
 > 
->>
->> Nit: fix typo in description by removing duplicate information.
->>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml     | 14 +++++++++++---
->>   1 file changed, 11 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
->> index 66229a3dc05d6..7c2769e6c4880 100644
->> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
->> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
->> @@ -5,22 +5,30 @@ $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9714.yaml#
->>   $schema: http://devicetree.org/meta-schemas/core.yaml#
->>   
->>   title: Dongwoon Anatech DW9714 camera voice coil lens driver
->>   
->>   maintainers:
->>     - Krzysztof Kozlowski <krzk@kernel.org>
->>   
->>   description:
->> -  DW9174 is a 10-bit DAC with current sink capability. It is intended for
->> -  driving voice coil lenses in camera modules.
->> +  10-bit DAC with current sink capability. It is intended for driving
->> +  voice coil lenses in camera modules.
->>   
->>   properties:
->>     compatible:
->> -    const: dongwoon,dw9714
->> +    oneOf:
->> +      - items:
->> +          - const: dongwoon,dw9714v
->> +          - const: dongwoon,dw9714a
->> +          - const: dongwoon,dw9714
->> +      - items:
->> +          - const: dongwoon,dw9714a
->> +          - const: dongwoon,dw9714
->> +      - const: dongwoon,dw9714
->>   
->>     reg:
->>       maxItems: 1
->>   
->>     powerdown-gpios:
->>       description:
->>         XSD pin for shutdown (active low)
->>   
->>
-> 
+> Also, I understand your concerns about the DT bindings / usage, but
+> speaking about the driver ;-)
+> The BT is a serial driver attached to a serial bus. There only two
+> options to bind a serial driver: OF and ACPI. But maybe we should add
+> something like serial_device_id and let serials have internal IDs.
+> It sounded strange in the beginning, but now I think it is a correct way
+> to go.
 
--- 
-David Heidelberg
+Driver get away with that limitation, because we had DTS for the
+existing entries. This is the first one without DTS.
 
+Best regards,
+Krzysztof
