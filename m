@@ -1,167 +1,217 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013061.outbound.protection.outlook.com [40.107.162.61])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30391381AFB;
-	Mon, 10 Aug 2026 17:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786381467; cv=fail; b=EZCyVc7Ni66gLHEZVG3MzZGXZMrv1kd6anxQV7TBr8CnMteGZ+9rvAt8FrYbKhlsoX/elSKWXdCEkFAk2E0YgJwA7FN5209sieaUG2Dspkc85TnfzscXJTqqpBD16OTGkawGcGd5B5g6j8d+KVKKNLktLpM+5jmzlycWLPxz3kM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786381467; c=relaxed/simple;
-	bh=zvl7TvyB5aVvBYpuMehVjQyStPe4nPRaKL+sqCh+pdk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=cjamPVWS00FOj9bGj8G/wy8o6SoAzOKg9Uw/ZALCZibRI+BfABYbzGEVDed9V2uuBcxI2xQ5urbPsPMIiREx1ZAl6qjWo/rQ1P1NVx2NHwRHH3K2ih/5RE8OJMXl7/N8pacvA7xZPFWMjKZb84ilIwj5A8dyJBCUC1ZrEMCD0a8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Zp3sC22k; arc=fail smtp.client-ip=40.107.162.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07BD42EEA1;
+	Mon, 10 Aug 2026 17:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786381791; cv=none; b=O+N1MSt7ajY4QrX0YswZdoTtm9Ft9OwAGtg4pQ0V8ljirR46hNi+8RWFJhqykSOSLc2+39RH4LDbMVmum2TjcQCSqIgI+wU55Rw+O8lNInz6K+yW8DPK4JgcZOeDsMbbaBUIanCShDm6Ck2KAUhGVxNBgjLDQuBGIgBwc3fLM8o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786381791; c=relaxed/simple;
+	bh=teYVyBJnfnzdbrTSCFofSpTx6o+AD1GJwCsfGSZnVfg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ETaccq9xCC2IlXxYns073orB0PampxYiGMK3L5yBoTkSiqMzlkVEUB9CfFdJgSYj4b2iDLpLgYXg36i1lPXVGXoZy9SujhfXiCULhIipdw+VlAjnC5pNR5wFGaGjYKL0JmOwghxU4q5153S5AWvy65vuX26Gjfh8syxX6MVxOzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnPA5+L/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Zp3sC22k"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ck840dL2av7kEncH53qOG6OqojO2meGFrL6j9NGscTGSl5YNQ1URCVS92AejBJabac8XKLHDR0GOjAeXLcKgGFGcvFEEriZ9eV9tx+UbLTcu5lb7a4rX5g+4gwdzVZX6P1ZGwvnbKwrHi+tGqMaklZlnVnmNG7vjrQ9Q48YE2M+/B5+Cl43N7YHtuyMKC+/3CbinNMlxFXPHlelvo66jTj+DZdPRUhc3+wLmpqOjid70lEuRnbLn8r9obcHQzavLoSAe4/B3MBPKMcb+89aaNgDz3PD+oH7U7AETlAL9QFuqv6Z2SwOucn3vGUBMrVw1e9NSiwJDO9+0Z/5jftbcbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6LZmjn0+XIP8nPeTF0UaBehxust62ipTzSeJByLiShc=;
- b=WsQKyuckvANg6VvVK8dwgxyG+ngFYMy0hgwqUvbbd79tDLTDXL1EZgtWxfnmY087mSPtaMKc7WuMK3honAFiusA2QpJUtJsRbj3AKdYegEwKTThUzRmN0w1IYzvVayv/Y/0doC0+uf8pHQCyo8DmUVL5J38Dd75bdcJCrZP9oGv+QvFNYHMCjQouhd+jKzyiP6a3LxZXdwkpGW7PryCWHJ89ZL51x1mVgoVObwc1GzOyIEDdkQv7hGw/YF5NSx9nHxrV2ukGvbMno3n5DhWZmeRfQRtg6KozZUb3eyfzwbt8QIfM5E5FaGlOyz34B7f2WxwtKIsLsrOClsZqxHgzQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6LZmjn0+XIP8nPeTF0UaBehxust62ipTzSeJByLiShc=;
- b=Zp3sC22kqbnWegUzmvtm5uxZIQithMfSP9/9WnxEy6E+3qlPAhN0J5Y5HD2zEMuHKqofiB+pz9rt/uDoSh1gCKvBnJ4GYfl4HlyQG42Swe1CwfoJ8Koyk+Elxv2DDb7zzeG3cvKU+leNDCgesXgu3cDPV8R4SbuQFiLgI0CF0ukjE9DWLfC/BmvX7aAhohyn0CuDyljsG6PteasjHRCcFpBn26IpJWfkjcxf34L6rIodUInvL52A1ccqMFVPHUwZmTIF5BcsDjjXNRwQHUSRvdBfzaLT9MtkZjgX0/wpi27mW0/TNvT/R1BFa/N3vXNGW4blB82C6UFqf2Ae/SCy7Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA1PR04MB10295.eurprd04.prod.outlook.com (2603:10a6:102:447::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 17:04:22 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 17:04:22 +0000
-Date: Mon, 10 Aug 2026 12:04:13 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/3] ARM: dts: imx7d-colibri-emmc: Add Toradex
- Displays 7" Parallel
-Message-ID: <anoEjfZ_0RIfU83u@SMW015318>
-References: <20260723105225.194366-1-francesco@dolcini.it>
- <178604616242.431490.2877142775301570674.b4-ty@b4>
- <20260810145346.GB81453@francesco-nb>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810145346.GB81453@francesco-nb>
-X-ClientProxiedBy: SA9PR13CA0016.namprd13.prod.outlook.com
- (2603:10b6:806:21::21) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnPA5+L/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B801F000E9;
+	Mon, 10 Aug 2026 17:09:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786381785;
+	bh=Q7BcbJgjrwpc1DZNrLjMd6TZ2vR2qVz0sDtkmaFk5a4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CnPA5+L/spRE6JrMl0Oe8hPGCeJ21i5ym/DSd1qLNjocJ/evJAWrwbsvetOH2zVHY
+	 kc7pIPSYU6FbyJj1Fg+oMNYEpkj2d+ODIsl0rPZ5LzzfdgDrbEX9ya3EuabGR6qkgh
+	 gLC2V5PnziwRAIjx6ro5hP/zKZo/CIBx893+3ZQ68NAgYoWU6b7dfpoN7okIV21Gmm
+	 RtOxDXfPr/y32vCSELTol7J3dNXSv8pcgop718B6uZImybAKYGz5BmCXXNCqM1ncE3
+	 qcbjhJjSrdIPupy0U3Or0BM5dFTiWf6dvJNC3rQxtEB76WaMWXBdNSaFh4mAXKQAcj
+	 Bfh+MJBR9JG/w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 17/19] dmaengine: ti: k3-udma-v2: Add support for
+ PKTDMA V2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: conor+dt@kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260810151423.1948224-18-s-adivi@ti.com>
+References: <20260810151423.1948224-1-s-adivi@ti.com>
+ <20260810151423.1948224-18-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 17:09:43 +0000
+Message-Id: <20260810170944.77B801F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10295:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fc3043c-f976-4448-d3a2-08def7016c72
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|7416014|23010399003|18002099003|22082099003|10067099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	29Zmo2Cl5j2F0CS/ZbX2OHIP+WzGHniWvavmq9zWwMxVOkmHbP83xA26YpMK+bQhTTVShOIvjVhaR/v5BpAit9w7pggamO+GLcMA/eohQoK9L5/CgslsP14WIsaOdVbTuyrj4/zOpAe7tEwIRtNriKC5s35YsT/OjNII4U7yxmxyu2wMS0BNIXxygUsjVrWFIxCyFJrztq7lpk8gBBIk+qXkGMNDU4lvEXs5htQLNlsjMi9GnaYCkvzN4FuoxpbY0w0Kl+36F/feHXhPmXDVGd+xmAXV8485R3UV/VO331duI/gQFMKILGCuKoP/t1NIiax18KXA5eUWZUpPFygps8omikoTamz9OBBlNTW5fKlC3fIwkl5qX7k7pGkrbnH+eLjQ/hv9eE0NrbjsW+A5IJlIMqAtAqN11buFAuvoPuoJOxPm5yQ//EnGahcAploQOwOeqCeDZdNrmrcna5+avHj7XylGN9EeQs2rleUuUVqA6xeH0JPJccjN98j5sR7GqEFfeEXDKx1XLLrS8GRMaLeuLvgE9uV2lFlyIVZqdYnEcBbfYTqz0mGDkfVux72HsXF35fDgTUUiCgiX3Ft85yBFNb0q2BTA0L3hUxytoKX0YoDBfAOVND2dSeBZ7c/AX7903tsh+LpixxpZ0BLUPTV0JdoNDTupuAWNh/zFXao=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(7416014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?EvNaECHV0HsAV36zp1Rp4oczlZNphBLqjlPIFmoFM5PvrrxSBRh8ZAbV8jWm?=
- =?us-ascii?Q?vMKQ3R0BTwJYHJxNbdHJGVlRUCvY6KAWj95tuZfc1rwiw560rqwxtNyuuR9C?=
- =?us-ascii?Q?Un7vDUAvTUqCjL/PmFzsSNqgWThPAEIeakXzg7L4c87UXYtKbwFsBU301grP?=
- =?us-ascii?Q?D89SlXeqUnrliqE1SJJ0GN7tChNUe/WqG0Nciwh6/7gUxOm+PvkzakiZi0/G?=
- =?us-ascii?Q?keyP1KZz52Pis7hcERYFAndOXHclIDLj+wbPEhpzKNX7C6h7e7t7J9ZVyrtY?=
- =?us-ascii?Q?VTG4MlLUm1c7oprJNI3iLiw1fQ5X3Q32YqER8T0I1fg1KdnAn7wdMRKj5nxd?=
- =?us-ascii?Q?OMlK5aKYvhNbxZ2PrcgsH4yzR0M0otKv3y2RPGbcujMUJMOSj7yGJjD920qx?=
- =?us-ascii?Q?NEt0ezar8rogNxdX4iV88mTyJ0kNBUhv1Ph7wyFqF1MA/GR8xAAoJ9/EuDzt?=
- =?us-ascii?Q?Y7odzfD4TYVQwpAodqwQzqgsrqzd3bqqXjXKlbkKXSlNMJmePd6ly6it4pI5?=
- =?us-ascii?Q?HjFcYl3IsJhFPzN6OA7OPRPv4xeZ8vRFZU/H8Q+HBaGjqI35+4B/otpkR84r?=
- =?us-ascii?Q?YaTJGQdGLUc+V9JSFtdYPQrJo7ArY9ToOpfW1Jochre/r/n6tuEXEDb1rDoV?=
- =?us-ascii?Q?Hsj5yS9Ug6TmbnwWYQSi6MqldRzr6yq2Y8JHXnXgg5dUAQ9sxwlwNN3q8PCA?=
- =?us-ascii?Q?C/zs9k/7sORI7ASuKrhsfwbhlBgwaJ2pMf19o3DYdU3l29CyvOLfO2JIlntK?=
- =?us-ascii?Q?LHGxZEGIjUTzbMvbtRp1F0o3G2XKgEKwtbqmeu5Q/T0FYvGRx8rKuuFCGM5L?=
- =?us-ascii?Q?Pmxk5XRinCEpezz7G8haIeuibTtT6ZMRPvpNW+DUYkCLW051zWqTzTWDPPUe?=
- =?us-ascii?Q?kURzOy2op+RkTGxAMmhGGJxIzZ0Shx0cgg1kMJ+L7bJWoDJN9h/EwrnUiaaA?=
- =?us-ascii?Q?PIz9zpoBmnqnC6QYCEFhbErRSIjebkJyQOfxa9qpZ5TNjZJ7bheMHX6v1igh?=
- =?us-ascii?Q?en1Tn5i8crmnmEPA7kyXQlmCSZKht4z5JFMirhtMIa7hG/G2lJS/cSEr8COk?=
- =?us-ascii?Q?M173OAV8nkoc4lwAyRUi+kgcv7PfR8H/js0rHHSwBYrLqUBkjJNMKHFE27x7?=
- =?us-ascii?Q?m031N8iXl36kqw39vHol99UBMFZZXpXam0UuhvN6UQg3jg43xlQ0ohyaFHe9?=
- =?us-ascii?Q?LWJlhgGhDSiaESEfwrzFA94VYXJvnPJz6c62oBDpffRIKVjhvDB4EmFMbN4I?=
- =?us-ascii?Q?TI22E7S4qZlqgMTVtE2gY89wciAu1rwvDTo1tYTy8vZvEmjSc7SFYu+HfLnn?=
- =?us-ascii?Q?eEtBfbZ9UM6eT8htCLxgCFPe2XJ36Cn6C95PQ0Ow30V0aJPnRf3VyT+z0l8L?=
- =?us-ascii?Q?gtn5FaXMw9VYk1Z0p+tLSshK0XHUo4eU7Sdou9j5ihGusy7GeG1BTkMlsPb4?=
- =?us-ascii?Q?XTO4Hh40xXQ3UYbMkfco2jr1cUjfy8KydG6c3Dxzo2cQ0BPm69OV6OyeZJnE?=
- =?us-ascii?Q?hSb0n7TA+mtn95BLTqXPLsVKsdo0p14t9++7pV636sVRvnkV3P414hBcXqON?=
- =?us-ascii?Q?PDlKWd9P8CytDr/rG8Dr9CaYdRfAGXuwykr2woo9MJoacYSOH2WiNiKvLDbB?=
- =?us-ascii?Q?efG7Qk+KgFnkRJHgpYaNYX+OfahbJveGUYwu+qaZJmvQUSbw38rE4yagYJta?=
- =?us-ascii?Q?jf6pkRaGjegW6Mmj2nPBE0wT9hAApr6bv6yetyNzgaWbyAkhAPaxLjncZVLG?=
- =?us-ascii?Q?e7KT9+AlMbj3fqp04IHNextFk+U9Ncqi6xu3Rj7Bohajf7tcacTq?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fc3043c-f976-4448-d3a2-08def7016c72
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 17:04:22.2770
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zgnCBvhPPSjwTOfKfhBrJUl/IUK0gTybuNEbPwwrZJxAzIIIpWwdeUVatysHXXJQDH44WtoOzbdJ6+kqAPsmhAk1Z7DSb3oHXezIVRkdALHLW/eiaWPhpWwK1B96f3KB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10295
 
-On Mon, Aug 10, 2026 at 04:53:46PM +0200, Francesco Dolcini wrote:
-> Hello Frank,
->
-> On Thu, Aug 06, 2026 at 03:56:41PM -0400, Frank.Li@oss.nxp.com wrote:
-> > From: Frank Li <Frank.Li@nxp.com>
-> >
-> >
-> > On Thu, 23 Jul 2026 12:52:16 +0200, Francesco Dolcini wrote:
-> > > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > >
-> > > This series adds device tree overlays to support the Toradex 7" DPI displays to
-> > > the Toradex Colibri iMX7 SoM (eMMC variant).
-> > >
-> > > Francesco Dolcini (3):
-> > >   ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 7"
-> > >     Parallel
-> > >   ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 7"
-> > >     Parallel with Touch Adapter
-> > >   ARM: dts: imx7d-colibri-emmc: Add Toradex Resistive Touch Display 7"
-> > >     Parallel
-> > >
-> > > [...]
-> >
-> > Applied to imx/dt-indend, thanks!
->
-> What's the status of this? I do not see them in linux-next.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-I already sent out pull request for 7.3.  It will be for next version 7.4
+New issues:
+- [Critical] Unconditional replacement of MSI interrupt fetching breaks exi=
+sting V1 PKTDMA devices.
+- [High] Unconditional dma_pool_destroy in error path causes a double-free =
+of a dangling pointer.
+- [High] udma_v2_stop writes to PEER registers on PKTDMA V2, violating hard=
+ware spec.
+- [Low] Uninitialized static platform_driver used in DMA filter function.
 
-I doesn't plan put it into linux-next until 7.3-rc1. It keeps continue
-development during merge windows. I hope this ways to improve overall
-efficiency.
+Pre-existing issues:
+- [High] DMA Use-After-Free if channel refuses to stop during allocation.
+--
 
-Frank`
+--- Patch [17]: [PATCH v8 17/19] dmaengine: ti: k3-udma-v2: Add support for=
+ PKTDMA V2 ---
+commit 97b7da552f385a68cda5edae3dfd22d57863e91d
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
->
-> Francesco
->
+dmaengine: ti: k3-udma-v2: Add support for PKTDMA V2
+   =20
+The PKTDMA V2 is different than the existing PKTDMA supported by the
+k3-udma driver.
+
+The changes in PKTDMA V2 are:
+[ ... ]
+> - Direct IRQs: There is no INT-A and interrupt lines from DMA are
+>   directly connected to GIC.
+> - Remote side configuration handled by DMA. So no need to write to
+>   PEER registers to START / STOP / PAUSE / TEARDOWN.
+
+[Severity: High]
+Does the implementation match this description? udma_v2_stop() is used by
+PKTDMA V2 through the udma_v2_probe() assignment, but it unconditionally
+writes to UDMA_CHAN_RT_PEER_REG for all non-MEM_TO_MEM transfers.=20
+
+Will writing to these PEER registers on PKTDMA V2 hardware cause any
+unexpected hardware exceptions?
+
+> diff --git a/drivers/dma/ti/k3-udma-private.c b/drivers/dma/ti/k3-udma-pr=
+ivate.c
+> index 44c097fff5ee6..92d44ef9593d1 100644
+> --- a/drivers/dma/ti/k3-udma-private.c
+> +++ b/drivers/dma/ti/k3-udma-private.c
+> @@ -174,16 +174,20 @@ EXPORT_SYMBOL(xudma_is_pktdma);
+> =20
+>  int xudma_pktdma_tflow_get_irq(struct udma_dev *ud, int udma_tflow_id)
+>  {
+> -	const struct udma_oes_offsets *oes =3D &ud->soc_data->oes;
+> +	struct platform_device *pdev =3D to_platform_device(ud->dev);
+> +	char irq_name[10];
+> =20
+> -	return msi_get_virq(ud->dev, udma_tflow_id + oes->pktdma_tchan_flow);
+> +	snprintf(irq_name, sizeof(irq_name), "tx-%u", udma_tflow_id);
+> +	return platform_get_irq_byname(pdev, irq_name);
+>  }
+
+[Severity: Critical]
+Does this unconditional replacement break existing V1 PKTDMA devices?
+
+Client drivers for V1 devices that share this exported function will now ca=
+ll
+platform_get_irq_byname() instead of msi_get_virq().
+
+Since V1 device tree nodes do not define named "tx-%u" interrupts, will this
+cause backward compatibility breakage and failures for V1 hardware?
+
+>  EXPORT_SYMBOL(xudma_pktdma_tflow_get_irq);
+> =20
+>  int xudma_pktdma_rflow_get_irq(struct udma_dev *ud, int udma_rflow_id)
+>  {
+> -	const struct udma_oes_offsets *oes =3D &ud->soc_data->oes;
+> +	struct platform_device *pdev =3D to_platform_device(ud->dev);
+> +	char irq_name[10];
+> =20
+> -	return msi_get_virq(ud->dev, udma_rflow_id + oes->pktdma_rchan_flow);
+> +	snprintf(irq_name, sizeof(irq_name), "rx-%u", udma_rflow_id);
+> +	return platform_get_irq_byname(pdev, irq_name);
+>  }
+
+[Severity: Critical]
+Similarly, does this break the RX flow interrupt fetching for V1 devices
+that rely on the older MSI approach?
+
+> diff --git a/drivers/dma/ti/k3-udma-v2.c b/drivers/dma/ti/k3-udma-v2.c
+> index b9ce58d1934a9..c46341e768cdc 100644
+> --- a/drivers/dma/ti/k3-udma-v2.c
+> +++ b/drivers/dma/ti/k3-udma-v2.c
+> @@ -764,6 +764,146 @@ static int bcdma_v2_alloc_chan_resources(struct dma=
+_chan *chan)
+>  	return ret;
+>  }
+> =20
+> +static int pktdma_v2_alloc_chan_resources(struct dma_chan *chan)
+> +{
+[ ... ]
+> +	if (udma_is_chan_running(uc)) {
+> +		dev_warn(ud->dev, "chan%d: is running!\n", uc->id);
+> +		ud->reset_chan(uc, false);
+> +		if (udma_is_chan_running(uc)) {
+> +			dev_err(ud->dev, "chan%d: won't stop!\n", uc->id);
+> +			ret =3D -EBUSY;
+> +			goto err_res_free;
+> +		}
+> +	}
+
+[Severity: High]
+This is a pre-existing issue, but can this lead to a DMA use-after-free
+if the channel refuses to stop?=20
+
+The error path frees the newly allocated DMA rings, but the hardware ring
+was already configured to point to this memory earlier in the function via
+udma_v2_alloc_tx_resources() or udma_v2_alloc_rx_resources().=20
+
+If the hardware is still running, could it continue writing to the freed
+memory?
+
+[ ... ]
+> +err_res_free:
+> +	udma_free_tx_resources(uc);
+> +	udma_free_rx_resources(uc);
+> +
+> +	udma_reset_uchan(uc);
+> +
+> +	dma_pool_destroy(uc->hdesc_pool);
+> +	uc->use_dma_pool =3D false;
+> +
+> +	return ret;
+> +}
+
+[Severity: High]
+Can this cause a double-free of a dangling pointer?=20
+
+Unlike the BCDMA equivalent, the dma_pool_destroy() call here is
+unconditional. If the error path is taken early (e.g., from the
+udma_is_chan_running() check above) before a new pool is allocated,
+uc->hdesc_pool might still point to an already destroyed pool.
+
+Should this be guarded with a check for uc->use_dma_pool?
+
+> @@ -864,6 +1004,7 @@ static int udma_v2_resume(struct dma_chan *chan)
+>  }
+> =20
+>  static struct platform_driver bcdma_v2_driver;
+> +static struct platform_driver pktdma_v2_driver;
+> =20
+>  static bool udma_v2_dma_filter_fn(struct dma_chan *chan, void *param)
+>  {
+> @@ -873,7 +1014,8 @@ static bool udma_v2_dma_filter_fn(struct dma_chan *c=
+han, void *param)
+>  	struct udma_chan *uc;
+>  	struct udma_dev *ud;
+> =20
+> -	if (chan->device->dev->driver !=3D &bcdma_v2_driver.driver)
+> +	if (chan->device->dev->driver !=3D &bcdma_v2_driver.driver &&
+> +	    chan->device->dev->driver !=3D &pktdma_v2_driver.driver)
+>  		return false;
+
+[Severity: Low]
+Is pktdma_v2_driver intentionally left uninitialized here?
+
+It is declared as a static struct platform_driver, but doesn't appear to be
+defined anywhere in this patch, making this pointer comparison potentially
+meaningless.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
+224-1-s-adivi@ti.com?part=3D17
