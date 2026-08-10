@@ -1,160 +1,291 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315AE42EEA1;
-	Mon, 10 Aug 2026 16:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAAE431A3E;
+	Mon, 10 Aug 2026 16:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786381097; cv=none; b=q8D6k0FNZEKWxyByfm6ymV33O3Viu2jZ99RYhXAF5WCQu8rKmMMFvQUr3/xGbngp56WpW+slbRQJI2MGAOt+0MqDI/kfKQ2H37DZk7Pz2qUwb/BWlqBeYhYanxiPmEw3D+KstX4jyhm1I9me4MG5g+SbMjTmRooP/exVL9eA8EQ=
+	t=1786381111; cv=none; b=lLOnXNgDneKImmqKHVqhYKfGPYADKDA6mVgdwmV75LY321YSloailV2iB8O8WLlqHJIMVa+RCIJqTOjDRfhd0DRAH5jpONcNGC60Fo0lWAJDahGimsW1WbCt6AENr+ftpreE7Q3NOhAtaf9fMO/H7Et+4PG5+EPqv7ZGUfVKOgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786381097; c=relaxed/simple;
-	bh=os10B0j0fEnW1cAjNJNAUeD/HJks7zKuDjBm+O5A0PA=;
+	s=arc-20240116; t=1786381111; c=relaxed/simple;
+	bh=EdmODO+K8FY1/Ukkl4ewZeDwc8sjwFVCQZUjor0bOQU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H7YFjoDedUFwZYcBIHLqeXjZ17JzFiImTqnt7NGMcke8WreIOC2469s7DpBj/UkJquQBzPbVWIl6bRm3562DYO6byx1DApTZ8h80Rg5EQlH1LD5fEoW7MXo6rv/sc5ENzI0SfpAfoLonpLnManAJ/iPYOqoO+KfX3gCgKOHbCg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ogso5/mF; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=W4gOfjCVhDH8uCDydAc2JBHSAhKFuvdAx+UIANhvXUJRfAbIG+Z+qAIJ+sZYKDbqQHibBJuLw178JdTWasGg9+pXvCD1QnfxGwdZZ7wDimTn3ojLyXKlUsqwynxSCwd78+wBrV0U1PQFVcDjpBmYqZazj8bXXOf/WK+HSzOTPxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FXZR3S4i; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ogso5/mF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACBF41F000E9;
-	Mon, 10 Aug 2026 16:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786381095;
-	bh=4paVSVu+1jxeXrclBzVnfhMw+qSR6xaaFSimx/GK6nw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ogso5/mF6b35f3sP2e5TkzI1zTPApgws23zs9X6z4MeY1PtFL6wi0dKOnxVtGPRNH
-	 VVa0+VGDPYbVCzVK56ZbIVMRxa+YHTY9DGQURti+B/5SfnUgKZYpDrK2GAcPa/viiP
-	 g2Sh90FMZtE3Hzpf7ZXlsa0yLoTYfdJfgxHqEPgzumTj0m8z+pArv9sQUSycwczsaB
-	 pzv6UbnjvDgug8DSVg9kvnqXB46SFQSvP+p17KXIKC+OaYQsDEkRS9jEYz4qX56wgw
-	 H3QKI++xNn/4N6haVKmTxpofqLBJaUc4cGwdpQiYm5VeeLDPtkuphGwzJEW3tD4SnB
-	 5/EdAO3gGSLrQ==
-Date: Mon, 10 Aug 2026 17:58:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FXZR3S4i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786381110; x=1817917110;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EdmODO+K8FY1/Ukkl4ewZeDwc8sjwFVCQZUjor0bOQU=;
+  b=FXZR3S4i13xbqqiTyqrYOQ1+JZLkufTVVSch1lOl7NywOZUJ8xff8PXK
+   w7l1cQYVo/dFX3rdCIpXJ0nONJ2RS8RfZlH9pThNXj9k34RbUy0Z0hYrm
+   HAlTdNKVX0O1vs5aVKwfhu+El73Y6fB68AlM+fMiDncggFXyONway/HdC
+   WeRBhbW97S1HsHr5aIGV/0DIHp0Viv7vj/NQ2XMM5VWnLeBMxiVtSjzNl
+   +TapVqv8suucC7k297uLRvPqnSyPWvr51BUmAphHG89HbrTE/eTNvNLul
+   KMw9E9a7R67Qpm3JVt5JtqpBs+3H+3jhdkb19JZcKt2n82L/CxXIcwSuF
+   w==;
+X-CSE-ConnectionGUID: 5Sq9GzGBRu2PUEeqjBpNIA==
+X-CSE-MsgGUID: N7EEE/S3T1SYn34JAWtmJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104294094"
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
+   d="scan'208";a="104294094"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 09:58:26 -0700
+X-CSE-ConnectionGUID: V8VOidKtSz+yDdfOwNZuGw==
+X-CSE-MsgGUID: 9+1VXaZXSC21N3EzgfuuGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
+   d="scan'208";a="301324218"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.99])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 09:58:22 -0700
+Date: Mon, 10 Aug 2026 19:58:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	Vyacheslav Yurkov <uvv.mail@gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
-Message-ID: <20260810-smilingly-kung-1fddc5e18df6@spud>
-References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
- <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
- <20260810164000.GA1846263-robh@kernel.org>
- <20260810165403.GA2145873-robh@kernel.org>
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] iio: proximity: add driver for Sharp GP2AP070S
+ proximity sensor
+Message-ID: <anoDKzl84lO58GbQ@ashevche-desk.local>
+References: <20260807-gp2ap070s-v4-0-74f6a67b6272@disroot.org>
+ <20260807-gp2ap070s-v4-2-74f6a67b6272@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n3vGzFEWqR3y7Ezm"
-Content-Disposition: inline
-In-Reply-To: <20260810165403.GA2145873-robh@kernel.org>
-
---n3vGzFEWqR3y7Ezm
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260807-gp2ap070s-v4-2-74f6a67b6272@disroot.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Aug 10, 2026 at 11:54:03AM -0500, Rob Herring wrote:
-> On Mon, Aug 10, 2026 at 11:40:00AM -0500, Rob Herring wrote:
-> > On Sun, Jul 26, 2026 at 05:40:24PM +0000, Vyacheslav Yurkov wrote:
-> > > Some hardware designs provide fixed-frequency clocks generated outside
-> > > software control, such as by FPGA-resident PLLs. While the clock rate=
- is
-> > > fixed, a separate GPIO signal indicates whether the clock source is
-> > > locked and producing a valid output.
-> > >=20
-> > > Describe a GPIO-locked fixed clock provider that exposes a fixed-rate
-> > > clock whose availability depends on one or more GPIO lock-status
-> > > signals.
-> > >=20
-> > > Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
-> >=20
-> > I think you can drop this. Just update your author email.
-> >=20
-> > > Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> > > ---
-> > >  .../bindings/clock/gpio-locked-fixed-clock.yaml    | 59 ++++++++++++=
-++++++++++
-> > >  1 file changed, 59 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/clock/gpio-locked-fixe=
-d-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-cl=
-ock.yaml
-> > > new file mode 100644
-> > > index 000000000000..4d17889c51ad
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock=
-=2Eyaml
-> > > @@ -0,0 +1,59 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/clock/gpio-locked-fixed-clock.yam=
-l#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: GPIO Locked Fixed Clock
-> > > +
-> > > +maintainers:
-> > > +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    const: gpio-locked-fixed-clock
-> > > +
-> > > +  "#clock-cells":
-> > > +    const: 0
-> > > +
-> > > +  clocks:
-> > > +    description: Input clocks whose validity is monitored by this pr=
-ovider.
-> > > +
-> > > +  clock-output-names:
-> > > +    description: Names of the clock provided by this controller.
-> > > +    maxItems: 1
-> > > +
-> > > +  locked-gpios:
-> > > +    description: |
-> >=20
-> > Don't need '|' if no formatting.
-> >=20
-> > > +      GPIOs to check the lock state.
-> > > +    minItems: 1
-> > > +    maxItems: 32
-> >=20
-> > Please explain better how multiple GPIOs work? Why would you ever have=
-=20
-> > more than 1 lock signal per clock? And you can only have 1 clock given=
-=20
-> > #clock-cells=3D=3D0.
-> >=20
-> > Do you have an immediate need for more than 1? If not, I'd drop=20
-> > support for it for now.
->=20
-> I missed that this is N input clocks and 1 output clock. But that leads=
-=20
-> to other questions. You've implemented a clock mux then? I still don't=20
-> understand for what h/w that makes sense. Which input clock is selected?=
-=20
-> The locked one?
+On Fri, Aug 07, 2026 at 01:18:42AM +0530, Kaustabh Chakraborty wrote:
+> The GP2AP070S is a proximity sensor designed and manufactured by Sharp
+> Corporation. This sensor is used in mobile devices, including, but not
+> limited to - the Samsung Galaxy J6.
+> 
+> The driver has been adopted from Samsung's downstream kernel
+> implementation [1]. Due to the lack of public documentation about the
+> schematics of this device. The downstream driver acts as the secondary
+> source of information. Driver clarity has also been improved with the
+> help of the GP2AP* drivers in iio/light.
 
-Yeah, I thought this was n inputs and n outputs, with each gpio
-signalling that an individual PLL had locked.
+...
 
---n3vGzFEWqR3y7Ezm
-Content-Type: application/pgp-signature; name=signature.asc
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
 
------BEGIN PGP SIGNATURE-----
++ bits.h // BIT() et alia
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCanoDIwAKCRB4tDGHoIJi
-0iqyAQDqTpkjpqLHaGBVRrPhynZcPy0jB2pmjJzbzesV0W8eKgD/T9G7ABJSJdeM
-ZdMYY41A1P3pItRNAU2si+VjHb38NA4=
-=huv5
------END PGP SIGNATURE-----
+> +#include <linux/delay.h>
 
---n3vGzFEWqR3y7Ezm--
++ dev_printk.h
++ device/devres.h
+
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+
++ sysfs.h // sysfs_emit()
+
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+
++ asm/byteorder.h // le16_to_cpu()
+
+> +#include <linux/iio/events.h>
+> +#include <linux/iio/iio.h>
+
+> +#include <linux/iio/types.h>
+
+I believe there is an agreement that iio.h implies types.h in iio/.
+
+...
+
+> +#define GP2AP070S_REG_PS_THD_LO_LE16	0x88
+> +#define GP2AP070S_REG_PS_THD_HI_LE16	0x8a
+> +#define GP2AP070S_REG_D0_LE16		0x90
+
+All those _LE16 do not add any value, we see that from the use of them.
+
+> +#define GP2AP070S_REG_MAX		(GP2AP070S_REG_D0_LE16 + 1)
+
+...
+
+> +struct gp2ap070s_drvdata {
+> +	struct regmap *regmap;
+> +	struct mutex mutex;
+
+Lock should have a comment explaining the data it protects.
+
+> +	u32 near_level;
+> +};
+
+...
+
+> +static const struct regmap_config gp2ap070s_regmap_config = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.volatile_reg = gp2ap070s_regmap_volatile,
+> +	.max_register = GP2AP070S_REG_MAX,
+> +	.cache_type = REGCACHE_FLAT,
+
+Oh, registers are from 0x80 to 0x91, why FLAT and not MAPLE?
+
+> +};
+
+...
+
+> +static int gp2ap070s_iio_read_raw(struct iio_dev *indio_dev,
+> +				  struct iio_chan_spec const *chan, int *val,
+> +				  int *val2, long mask)
+
+Split logically here and everywhere else.
+
+static int gp2ap070s_iio_read_raw(struct iio_dev *indio_dev,
+				  struct iio_chan_spec const *chan,
+				  int *val, int *val2, long mask)
+
+...
+
+> +static int gp2ap070s_iio_read_event_value(struct iio_dev *indio_dev,
+> +					  const struct iio_chan_spec *chan,
+> +					  enum iio_event_type type,
+> +					  enum iio_event_direction dir,
+> +					  enum iio_event_info info, int *val,
+> +					  int *val2)
+
+Ditto.
+
+> +{
+> +	struct gp2ap070s_drvdata *drvdata = iio_priv(indio_dev);
+> +	__le16 value;
+> +	int ret;
+> +
+> +	if (type != IIO_EV_TYPE_THRESH || info != IIO_EV_INFO_VALUE)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&drvdata->mutex);
+> +
+> +	switch (dir) {
+> +	case IIO_EV_DIR_RISING:
+> +		ret = regmap_bulk_read(drvdata->regmap,
+> +				       GP2AP070S_REG_PS_THD_HI_LE16, &value,
+> +				       sizeof(value));
+
+Ditto.
+
+(With above comment about LE16 this will become
+
+		ret = regmap_bulk_read(drvdata->regmap, GP2AP070S_REG_PS_THD_HI,
+				       &value, sizeof(value));
+
+which is one line shorter.)
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = le16_to_cpu(value);
+> +		return IIO_VAL_INT;
+> +	case IIO_EV_DIR_FALLING:
+> +		ret = regmap_bulk_read(drvdata->regmap,
+> +				       GP2AP070S_REG_PS_THD_LO_LE16, &value,
+> +				       sizeof(value));
+
+Ditto.
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		*val = le16_to_cpu(value);
+> +		return IIO_VAL_INT;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +static int gp2ap070s_iio_write_event_value(struct iio_dev *indio_dev,
+> +					   const struct iio_chan_spec *chan,
+> +					   enum iio_event_type type,
+> +					   enum iio_event_direction dir,
+> +					   enum iio_event_info info, int val,
+> +					   int val2)
+
+Same as per above function.
+
+...
+
+> +		/* Ensure hi_threshold > lo_threshold */
+> +		threshold_other = le16_to_cpu(value);
+> +		if (threshold_other <= val)
+> +			return -EINVAL;
+> +
+> +		value = cpu_to_le16(val);
+> +		ret = regmap_bulk_write(drvdata->regmap,
+> +					GP2AP070S_REG_PS_THD_LO_LE16, &value,
+> +					sizeof(value));
+> +		if (ret)
+> +			return ret;
+> +
+> +		return 0;
+
+		return regmap_bulk_write(...);
+
+...
+
+> +	ret = regmap_write_bits(drvdata->regmap, GP2AP070S_REG_PS2,
+> +				GP2AP070S_PS2_IOUT | GP2AP070S_PS2_SUM32,
+> +				FIELD_PREP_CONST(GP2AP070S_PS2_IOUT,
+> +						 GP2AP070S_PS2_IOUT_89mA) |
+
+> +				GP2AP070S_PS2_SUM32);
+
+What's the point to have dup constant to be ORed?
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set current output\n");
+
+...
+
+> +	fsleep(10 * (MICRO / MILLI));
+
+What's is this multiplier for? I think you wanted USEC_PER_MSEC from time.h.
+Also add a comment with the reference to the datasheet (or other means) of why
+this value has been chosen.
+
+...
+
+> +	if (device_property_present(dev, "proximity-near-level")) {
+> +		ret = device_property_read_u32(dev, "proximity-near-level",
+> +					       &drvdata->near_level);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to get value for proximity-near-level\n");
+> +	}
+
+Any default to be applied?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
