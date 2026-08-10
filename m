@@ -1,125 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A0D43F8B9;
-	Mon, 10 Aug 2026 19:21:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8235343F4CF
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 19:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786389719; cv=none; b=rURuyUiTJuqyDY2MRs/tfKc29xLYim5wQuG4RmhbapWBXfv8dbwpKCJ3AfTqqm4/RW238cnjP88lKx5hMuFRvuaG025U1ZWmYU5VZA51V8kQNFkid+AIKumIm6224gZEPE1QRyXAy1q/QgsmE6I46aOtEcziPTH/1Wm7zVgj40U=
+	t=1786389722; cv=none; b=IRo4OMsc2OO3xdjW18Dfw1kwrB+b5kuAd0pTtw3DBwRg8nYnGnqPT6gzKarQhPWaeTEchwH76THKcGUvrDBRKvcg0AHQBNYrn4DuuBswrSfZQgO4ws4x0hJNhwAgxEGKDd2nJNX5TXD4enRallGXf2uMmU6u9uFTVWJj6YK6GPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786389719; c=relaxed/simple;
-	bh=EzwiOlEjLtHuJ5abMtEfyYDiUpYulexAeWtCmtJMcy4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TQbLhehtU+oMJcju/3GL4RZFUDnR4ByrCA0exvaes4KsNkFZUm0/FNUakHT0b7mu6iiWZus+NCWy8LGVCE+LneseUq6cdAKvJd+NtPI8PaoUKmuSD/nJmwJxafWpn+I0yTa84UeHQtcaaD5KlvTw2ADhnqYJW8kYABa235XpMGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A+OZMxWQ; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786389722; c=relaxed/simple;
+	bh=byp/DGoBmK0QSy7inRGYoZ+tVgEDH9/VqoouG77P4Yw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VtWAglWunpg4jmYOWXFr+usysdFMUUehLrQvV7f0wnXFb7UKuhiQaLes2fpXEZTtZR/HxkC6+qV9IKZHm47CNdJQ2ep+Ilwl1EPQj2SyJgmVHOtyw5TgYNr/mgCakGTZZlTDEgZfsYBBQtUTuxbwYXx3lqy96EFJt8/JADsYHJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=bq0JnlIt; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A+OZMxWQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786389716; x=1817925716;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EzwiOlEjLtHuJ5abMtEfyYDiUpYulexAeWtCmtJMcy4=;
-  b=A+OZMxWQ5zh9EhDRjR8jSt9welOdwzCO6Z7pAw7+33GXfbnl7oa+jiCm
-   Yaojg/HWfJuExuRYhO8XPNRpn4Dq89rSvbovxYrpOFlvcFaqjO7gqsIp3
-   dHciQ5vtxVbM1IRUxvnMGDv56H5LHeap9AmYFpJeLL+us1bBX3EoBiz7Y
-   gJHcJmTXgUs65L0cFL4xZ2fyZaj9CkKSlimvhPlk1XXekwNFHVeeHICgA
-   VdK1pkRAW6OYHXTpL2HYCn9yVSTBQn0UgsFYODLTucLFmSgRAtC/xmA+d
-   5jF6N/ujHT578i1MJTRGFWAQSsQ9BNHXd320XbF6dG/KmahOxBeBmPqal
-   g==;
-X-CSE-ConnectionGUID: XraQQI74QqSqSB7p75e+zw==
-X-CSE-MsgGUID: kkPEFvcVTMSkPBv6jXISUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="90593627"
-X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
-   d="scan'208";a="90593627"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 12:21:55 -0700
-X-CSE-ConnectionGUID: k06InC7XT4Wnhm3kgXBFvQ==
-X-CSE-MsgGUID: PR5Iro5rQw6a/Rz1+5vL0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,216,1779174000"; 
-   d="scan'208";a="266616753"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.99])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 12:21:51 -0700
-Date: Mon, 10 Aug 2026 22:21:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Stefan Popa <stefan.popa@analog.com>
-Cc: linux-iio@vger.kernel.org, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jic23@kernel.org, andy@kernel.org, nuno.sa@analog.com,
-	linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, dlechner@baylibre.com,
-	ciprian.hegbeli@analog.com, siratul.islam@linux.dev,
-	u.kleine-koenig@baylibre.com, joshua.crofts1@gmail.com
-Subject: Re: [PATCH v6 2/2] iio: adc: add MAX40080 current-sense amplifier
- driver
-Message-ID: <anokze3oDzq3oibL@ashevche-desk.local>
-References: <20260730131738.822405-1-stefan.popa@analog.com>
- <20260730131738.822405-3-stefan.popa@analog.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="bq0JnlIt"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2151033a91.2
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:22:00 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786389720; x=1786994520;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6dsTj9bVR22kgCOopy9QSe5LsU/US12529STCamM+18=;
+        b=sIxoCX7wJ8GBP+DghKXNM0/Do86noSoHDhiELff0CZhMZSS1PJXAJYkgiivYczet1d
+         dvKGVjNRQBOt4oalrHyk8Lk6vqBAuJ5zO7BuJdv7oPUy86fEX4mSy0e0IjlP1sP7wMAx
+         Bh0h0161fuH3PX6y6LJ5PRmoBigU5QozxYQXXhk/ZxKGHyLB+dwhfBNMcVbTmE3bL4W5
+         kdorjpRrERhjyOzwher1pL+qeXb/uEv7f4axIY/SxZT1vn0xt357VXNyYngZElvQSRkh
+         C+eunsV0ibhgJvd4ApoaHThd4feKiPJUgTl1krDQH+SNkVGzRy/kNOSryU/bYrmPmxol
+         q5Bw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr4iGYjEkFMMw74X9x/PCXiSde2LPEQOPcW+q2u7YDh/MH+Sw6yQMiwe2s6BbzG+xJJQ8VkKhLvsMFy@vger.kernel.org
+X-Gm-Message-State: AOJu0YwepWPLCW9bKNStqACgeSlO1t+4DXuX993onlRLyDCASglmKaA4
+	PRcqmVXkoDsq124rzyX7djuLnGc0bka6yzfFN0EM6VvV1aU7tATmCOHotaIfuaCUWtEPzl+BOdS
+	c+i2PrTUtV7ZvkHEBaKudj/kT/uwfcuCP6sEV7MH8hUQWSONt2Dnf6fippNvK8myndkGIVJ0xFm
+	hMoU2CBOic6S6gdtnqdNoswQUb93MCWeT5CrgCZvUbf9EotPygcHT5EDZOER14dGB3yADg61rPa
+	OkwReph3jzjaQPbwGRu
+X-Gm-Gg: AR+sD13dZ79kIr0tq4pShRD36QeIsvO7k4OPiLVkvKBkTVRAoPDd8WCUWqSJmF/lKh9
+	q9ANMeYcGd4TEYfewe/sRH+/FvzbZ+07HT/9www4Yaz+lmGc1icEGmkNJhAwEF1JmEqvgFmVdXW
+	fvkwcoRkxCJ01CCLqZIUWQ8vZuEzuXulU3WpAFy++adjugFXlGIAZrU+jnvvxwTCJzpCJk0nrcP
+	+K8Bz0axm2DQbOa1Xoss97bVunP23C0e7PaG3ZWCHGmek6EYe7ka/xLczofqJpJWyeVnaqhfpdj
+	0vK/qS0VTICcDzexMU2mvAfovYKY2yRE1VfxnGe2j1sqCcwt8dz+TCMr123Trov4XqhsDDuV+3h
+	nOh/VvP/68v/hrgsEnYbXhtmuqQuqEyc0S1smglEnbN8nCzkvetknRjydHxlLugUMwTxk+IJF0+
+	l1F9rS5JyTMX74YPJmZWoyi95bhY3u8oRrplkN0tS0iA==
+X-Received: by 2002:a17:90b:4a51:b0:37f:e1af:df22 with SMTP id 98e67ed59e1d1-392cca91c03mr3501001a91.17.1786389719699;
+        Mon, 10 Aug 2026 12:21:59 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-392d47ff5ebsm249897a91.3.2026.08.10.12.21.59
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 10 Aug 2026 12:21:59 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c19493ac2so25400741cf.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:21:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1786389718; x=1786994518; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6dsTj9bVR22kgCOopy9QSe5LsU/US12529STCamM+18=;
+        b=bq0JnlIt0S3HmE9MjcRDZNLHAOGz9EUChaV/k/4cprgeuAjLtZeSxxit2GF7i0vQ7r
+         B6YtqKe5mz45ItUIxswo1jXZzV9HVKIksuaEbc0jlT/oU//ZSse9vk+0GE7jYr0b2onA
+         4us/y4o+Z2nI6Dduk0XH0nRVMS8vWIpbzDOfo=
+X-Forwarded-Encrypted: i=1; AHgh+RpHrUO2DBPQ6WGb6KqvEE/Z43+lFePDCLzMaTXdEtIL16j28d2zfQAnjon18UnWj14BfvVVfPQtElpp@vger.kernel.org
+X-Received: by 2002:ac8:7f41:0:b0:519:ef86:127d with SMTP id d75a77b69052e-52d4bb91b9fmr47670291cf.18.1786389718324;
+        Mon, 10 Aug 2026 12:21:58 -0700 (PDT)
+X-Received: by 2002:ac8:7f41:0:b0:519:ef86:127d with SMTP id d75a77b69052e-52d4bb91b9fmr47669641cf.18.1786389717837;
+        Mon, 10 Aug 2026 12:21:57 -0700 (PDT)
+Received: from [192.168.178.26] (f215227.upc-f.chello.nl. [80.56.215.227])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d1659c1d8sm79841321cf.16.2026.08.10.12.21.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 12:21:57 -0700 (PDT)
+Message-ID: <d8a54746-b8ba-438f-ac45-5d30492e85ba@broadcom.com>
+Date: Mon, 10 Aug 2026 21:21:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730131738.822405-3-stefan.popa@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: net: wireless: brcm,bcm4329-fmac: add
+ nvmem-consumer reference
+To: Rob Herring <robh@kernel.org>
+Cc: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260727225311.266596-1-rosenp@gmail.com>
+ <20260802083905.3819981-7-arend.vanspriel@broadcom.com>
+ <20260810173040.GA2218158-robh@kernel.org>
+Content-Language: en-US
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+In-Reply-To: <20260810173040.GA2218158-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Thu, Jul 30, 2026 at 04:17:38PM +0300, Stefan Popa wrote:
-> The MAX40080 is a bidirectional current-sense amplifier with an
-> integrated 12-bit ADC and an I2C/SMBus interface. It measures the
-> voltage across an external shunt resistor and the input bus voltage,
-> storing the results in an internal FIFO.
+On 10/08/2026 19:30, Rob Herring wrote:
+> On Sun, Aug 02, 2026 at 10:39:04AM +0200, Arend van Spriel wrote:
+>> On Mon, 27 Jul 2026 15:53:11 -0700, Rosen Penev <rosenp@gmail.com> wrote:
+>>> The brcm,bcm4329-fmac binding has unevaluatedProperties set to false
+>>> but does not allow nvmem-cells or nvmem-cell-names, which are used by
+>>> DTS files (e.g. bcm4709-linksys-ea9200.dts) to supply MAC addresses.
+>>>
+>>> The driver already supports nvmem-based MAC address retrieval via
+>>> of_get_mac_address(), so add the nvmem-consumer schema reference to
+>>> document and allow these properties.
+>>> ---
+>>>   .../devicetree/bindings/net/wireless/brcm,bcm4329-fmac.yaml | 1 +
+>>
+>> The problem is real but I think the fix belongs in network-class.yaml rather
+>> than the brcmfmac binding specifically. ethernet-controller.yaml already
+>> defines nvmem-cells and nvmem-cell-names for wired NICs, but the wireless
+>> binding hierarchy (wireless-controller.yaml -> network-class.yaml) is missing
+>> them. Fixing it in network-class.yaml would cover all network nodes at once
+>> instead of requiring each wireless driver to add the same reference
+>> individually.
 > 
-> Add a direct-mode IIO driver exposing the current and voltage channels
-> with raw, scale and hardware-gain attributes, a configurable
-> oversampling (digital averaging) ratio, and PEC-protected register
-> access. The current scale is derived from the shunt resistor value
-> described in the device tree.
+> It is wrong because nvmem-consumer.yaml does not define how many entries
+> and what they are. IOW, the valid names in nvmem-cell-names must be
+> defined.
 > 
-> The driver operates in single-measurement mode: each raw read triggers
-> an on-demand conversion via SMBus Quick Command and returns a matched
-> current/voltage pair. This avoids the latency and complexity of the
-> continuous FIFO mode while ensuring each read reflects the current
-> state. The two selectable current-sense ranges are exposed through
-> scale/scale_available.
+> However, expecting all network class devices to use the same
+> nvmem-cells/nvmem-cell-names will probably not work long term. Some
+> device may use it, but not use "mac-address" entry. Unfortunately,
+> there's not a way to override a default in json-schema. So we'll
+> probably have to just define this in every user rather than centrally.
 > 
-> Continuous FIFO buffering, threshold events and the alert interrupt are
-> intentionally left out of this initial submission and may be added
-> later.
+> So this should just add the definitions to the brcm,bcm4329-fmac
+> binding:
+> 
+> nvmem-cells:
+>    maxItems: 1
+> 
+> nvmem-cell-names:
+>    const: mac-address
+Hi, Rob
 
-...
+I try to stay away from devicetree bindings so I am not well-aware of 
+the limitations to express things. Just applying my aim-for-reuse mantra ;-)
 
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/i2c.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/math64.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/property.h>
+Thanks for your guidance.
 
-+ types.h // uXX
-
-> +#include <linux/unaligned.h>
-> +#include <linux/units.h>
-
-...
-
-In general it _feels_ like some of the comments given in the previous rounds
-were dropped or ignored. Is this true? Could it be that you mistakenly sent
-one of the previous (early) versions?
-
-That's why I stopped here.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Regards,
+Arend
