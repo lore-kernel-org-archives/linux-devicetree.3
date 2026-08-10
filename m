@@ -1,152 +1,411 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012057.outbound.protection.outlook.com [52.101.48.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7533328C037;
-	Mon, 10 Aug 2026 15:46:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786376770; cv=fail; b=tK4UvGyduAftgxCuni/VjPtVm0ibjf0GJC5M5n3A+CjrBH3XbABZqD4rAO+7WMQyFU47+4gijwv/wZqSi3kJIQq+5++AqCWVLRgvt0ZCpuvGIGHZztucaODB0IWk9lBp4mXT+97CNYY/WzZXaYmVVF9H17WC5ekkWhU7V0/k7WM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786376770; c=relaxed/simple;
-	bh=4k0wTJCsF9alb04plCMrW+A5YX+JJfwZqUua3RoSv3k=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EvQLo8oLzJk05wIYO4gfO6OcESh/xc5r8zRRQaIO/4JJZpczbhCpxCAJDIyutIwGqKxHMZ7/jzNhfpHFeK9vwopR7VAWKXPjIrqRH2GztatalOHTfRun+2eG6mVhI2YOX/6cVpzcG2SG1o9W3xf81iK/vjzG82iw1s9rtfWcvpI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oyYBw7B6; arc=fail smtp.client-ip=52.101.48.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457FC23815B
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:47:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786376854; cv=none; b=WlO77WpWu5ZY1STu1aUh7M8rERMEFjiiyYpg517xrhv46m+cvDY5fTMr1v5kS/GAiK+OzQa1THz90uldmIu2+n/R/xi9rjepW/FCMWQVGmZ1qn8HJ6hehR3Y43IfDk7vnaTkrznKDLfzpU1H3GlNV5GTm5cjtqg2t6he3Kddfic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786376854; c=relaxed/simple;
+	bh=0dVPCAuhSGHbUFd+C4ng0IhUzomJz20RkE+bf7YKyTo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Dvk1kr60Gpbeg+Uzpa0B/YtaWTqclqOlx+bRMdqt8uAQ8gWjMa+gQZ4TmnEDcUXqpbZYimZsmUlTzKoXNYMYClpx2AAmxQHZdeH2OCOP3Fhw7OA/z/M8RMQK4rpXmbsF7gjnDesRwMKHHVt22QikPMav9W8xSdKZ0Ou5x0d2eRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sm8V3ZsA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oyYBw7B6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GCaqNCRkMvx0AitpJIGoUW1wnUp2W7LxD/b+feVdI82lg7+tF7TFxlNwz67EfOtdvAlkdrBAfKnFW1h1ng9FzSziL9eEvaSMe8PSDzp75DbkoD8bcaMHyM9ASjGpTlbv+XeF6FKofC/BmTUlt1WU5UfS78m8ruh2knf39opa1sM1Rdm/MBZr770SzFRgsEzycJYmr90+OSE47d9t7/4ivIrrqKTksXNXATQKk+XODKOrLKH3gIVM2k/oIswuRPTXradj35Aw9eLNydE+vT0w8oRgbtLaULojtO+5UHL1VZMc8YtJZZaEvWFavdmDZM96KiGn/tYXSB4hrlK8+SrQwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MBCpWTAT+/WY9l5Gqw00y64hFH2fWZ208mCkjY34bm8=;
- b=D7H3VMVWt42MlCPRxi6xICtzRLWAEwRKm3YUxR98MHdvhWFmhvZEcAzqHAS43bDA8SeKy2a8kx5PQKnSbQvZuIRWQZCPKnWIO6eSPDpc2yBBonSzt6ZmCe1/bqqcGkpWumTyikyst9XYip/hYbH1aG7tToOcTPDCTRFq60Scyo+eDcoMfQJoN2Ykb5caDnKRha4MLjvzykVedh6VlClcXcGFm2vcCe2SP3HlQbfXS02U3SSN+m5y45+6bTNmTalMnqSXKOuQFanDBwDX5g1v0iEVGd+PWOc27ElONAW20sAq96r7RYHd+c/hhBghAc8Dp7kOOnVCvxgFGyBkKB0IEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MBCpWTAT+/WY9l5Gqw00y64hFH2fWZ208mCkjY34bm8=;
- b=oyYBw7B6jd88a8nSWCVmHlgIx48ITDb8BuWScS+x4+J9CCfCjKiEgFSynvNk3KfuYjlHQ56+lcpSXzySWqdNcPoLBusiMtnaUHOfvpiiB3dml3wGHX+rSv52HlFAak2651A/8WFSeUgIUD8r33fS8EtyLQkL7Bgr5I6YJY0MQy0=
-Received: from CH5PR04CA0012.namprd04.prod.outlook.com (2603:10b6:610:1f4::28)
- by DS2PR12MB9639.namprd12.prod.outlook.com (2603:10b6:8:27a::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 15:46:03 +0000
-Received: from CH2PEPF0000009B.namprd02.prod.outlook.com
- (2603:10b6:610:1f4:cafe::a7) by CH5PR04CA0012.outlook.office365.com
- (2603:10b6:610:1f4::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
- 10 Aug 2026 15:46:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000009B.mail.protection.outlook.com (10.167.244.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 15:46:00 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
- 2026 10:45:59 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
- 2026 10:45:58 -0500
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 10 Aug 2026 10:45:56 -0500
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-To: <gregkh@linuxfoundation.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>
-CC: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <git@amd.com>, Radhey Shyam Pandey
-	<radhey.shyam.pandey@amd.com>
-Subject: [PATCH] dt-bindings: usb: xlnx,usb2: Make clocks required
-Date: Mon, 10 Aug 2026 21:15:48 +0530
-Message-ID: <20260810154548.2133565-1-radhey.shyam.pandey@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sm8V3ZsA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0C771F000E9;
+	Mon, 10 Aug 2026 15:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786376853;
+	bh=Ec6QoLmmWKnvbpQI1giFwtBve4SfOuB5jqHuea3Sac8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Sm8V3ZsACs2KA+v8aGhoKEhGNx11tZOFnyJBPSlrvYSjYgyleVeoPvo3Bz7FRGf0d
+	 RqlJqU8V66gTymYES1KJ7f1hpve/7VvNllPCFm0S7tpNl2Zlq4LwlfsydWNX1qQz3i
+	 SBd8DroKf9CsSHAIdgejgkMCzzm6KorZQX0Fw0vn1GHVn6KPMWMjSGDJ4S9qIVH+nE
+	 5yqqijeo36d/fb2HLN8AaHj1sbxUXe12L6hlzhuV7ObVgemlEV6gZs+cDZQvRneyAR
+	 iUYnsQPYD0+nk/PI39VuzW9n0XBKopRDOtG6nvXD2xNQVLOxRShWaBVFJiUAJxtDZQ
+	 ryB4O2qkTV/+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 15:47:32 +0000
+Message-Id: <20260810154732.E0C771F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000009B:EE_|DS2PR12MB9639:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5bc8700-2642-4800-4711-08def6f67a07
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|23010399003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Y0qihZ8+s4aH9oWzl8QuHFnBjrTivnPezN7zneUXjWDf1QgrhCBsApixYYK5VisDUJ+8I/+WPgYODjDtukTpDsUGt9Gt6+v888XW9b74HudP0RyLK1DivgAq585Tdcc10SXCBc7bc1zOzAY7yyanV1ljAetcdH0voiP0woRbOO0Y0IkPHermys7WGln2kmPB4bEP8eUziWmjXb8l934GjfNsgO19rktQ/fV06d49jnYbZT9gbTfyy35LMNBrqq+qbkVTnvrtZTcDfy+5caWaeoXRaoa3nkRYCJx+uuWvMXX0eExsh1p8e3BXR7OT4c1dVN4L6XU8qPZ7GGIckDS9DkfbitmPvOAtNe1Zsldy0O7a0RtFVGNOkDZSAowXruCdX05wdmyeePjKrqD7vtBEUO+j1E4Ptv3G/Q1vYCXdHt2EydZjGqZvdJDXRFvA5k/jAlCMkd+c8XLSsJlyv2ecKK3DcSFtty/7P7ncr9en60da2UFDI5Roap3bcvquRQODy3gsf9wzMoxNNIXpC2ig/aN4npvNRFgkefHJN2bgnGSk6C/wdkF28ANlYT7GrMWG13J3JpTQWVulP3tb2edIvHw0OgGuiihXx0CdAF8bxL8r26b4MvxA3WeSW0C5QSjIbRxabluJaLK+d66h28E8F+ibUpkno/rySdVySV67pLDQJB7YVPHuA5oIWpX/M4egv+0wg22FFwpzkAxqvqRrFw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(23010399003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	cd1KM+aXsUa7fSl8+GrdmRIAJehYiDLF2RGyzsAcFM5Pe7zUyKq+zoucBamgHiQcDqPpotq2RYvDKVueOT9HiJ5kt9x2VNDwQUQeffHVLL5/ulxL5j5Tv37NQwepTnBXK54R1qi9YCTc4vLTkc28E74BcerpFVfAhxyvhW0+NToNF15Eww4mGoTsuk/XDXDnT0pUJrdmfFSZ1sV23u0+nkjwe7LHJrTiDB2iYbfSVwFPlwqgubowXeuBYGA3FvclW6ReEXIcVwfZ1Y9N2osaGg1J0AgfQpEUqHBOzrQiXoJ5B/YEXmcP5Nkz2YKOBia1awtxGOekEVc+m1djCdTBuDTnVzqaE8UYuEURNblErQRg9VO7HdnrvrlVJwC7q2YQuiGE0VWFCGFHl8P5wO3NijMKbTNZ2gO12vO991ulHf0TtPLIKdWh3pdWr/unFzMe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 15:46:00.2309
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5bc8700-2642-4800-4711-08def6f67a07
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000009B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9639
 
-Add s_axi_aclk AXI4 clock support as a required property. Traditionally
-this IP was used on MicroBlaze platforms which had fixed clocks enabled
-all the time. But since it is a PL IP, it can also be used on SoC
-platforms like Zynq UltraScale+ MPSoC which combines processing system
-(PS) and user programmable logic (PL) into the same device. On these
-platforms instead of fixed enabled clocks it is mandatory to explicitly
-enable IP clocks for proper functionality.
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
+- [High] Modifying DMA pointers and size after allocation causes a DMA API =
+violation upon freeing and out-of-bounds memory accesses.
+- [High] Missing bounds check on the hardware write pointer (`wp`) allows a=
+rbitrary out-of-bounds kernel memory reads.
+- [High] Trusting hardware limit registers unconditionally overwrites `priv=
+->size`, allowing hardware to inflate buffer bounds.
+- [High] Trusting hardware limit registers can result in a zero-sized buffe=
+r, triggering a division-by-zero panic.
+- [High] Using signed `int` for lengths in `tbuf_to_pbuf_copy` causes an in=
+teger overflow when bounds exceed 2GB.
+- [Medium] Bitwise OR operations update configuration fields without cleari=
+ng previous bit values, leaving old configurations active.
+- [Medium] The driver does not export its component ID table, preventing au=
+tomatic module loading.
+- [Medium] Buffer truncation logic error when hardware clamps the limit add=
+ress.
+- [Medium] Missing synchronization protecting shared ramsink state in `copy=
+to_auxbuf`.
+- [Low] Format String Type Mismatch using `%pad` for `u64` variables.
+--
 
-So make clocks and clock-names required properties.
+--- Patch [9]: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver ---
+commit 07a5e011c3c5f12851ee9400f1bd383cb0538970
+Author: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
----
-Similiar changes were done for emaclite YAML in commit
-60dbdc6e08d6 dt-bindings: net: emaclite: Add clock support
----
- Documentation/devicetree/bindings/usb/xlnx,usb2.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+gtrace: Add RISC-V Trace ramsink driver
 
-diff --git a/Documentation/devicetree/bindings/usb/xlnx,usb2.yaml b/Documentation/devicetree/bindings/usb/xlnx,usb2.yaml
-index f295aa9d9ee7..156d3676f9f9 100644
---- a/Documentation/devicetree/bindings/usb/xlnx,usb2.yaml
-+++ b/Documentation/devicetree/bindings/usb/xlnx,usb2.yaml
-@@ -34,6 +34,8 @@ required:
-   - compatible
-   - reg
-   - interrupts
-+  - clocks
-+  - clock-names
- 
- additionalProperties: false
- 
-@@ -43,5 +45,7 @@ examples:
-         compatible = "xlnx,usb2-device-4.00.a";
-         interrupts = <0x0 0x39 0x1>;
-         reg = <0xee000000 0xc00>;
-+        clocks = <&dummy>;
-+        clock-names = "s_axi_aclk";
-         xlnx,has-builtin-dma;
-     };
+This patch adds the initial implementation of the RISC-V E-Trace ramsink
+driver. The ramsink stores trace data into a system memory buffer for perf
+AUX buffer usage.
 
-base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
--- 
-2.43.0
+> diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtraci=
+ng/gtrace/rvtrace-ramsink.c
+> new file mode 100644
+> index 0000000000000..7ed25cf364a71
+> --- /dev/null
+> +++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
+[ ... ]
+> +static void tbuf_to_pbuf_copy(struct trace_buf *src, struct trace_buf *d=
+st, size_t size)
+> +{
+> +	int bytes_dst, bytes_src, bytes;
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+[Severity: High]
+Does this code risk integer overflow if the lengths exceed 2GB?
+
+The variables bytes, bytes_dst, and bytes_src are declared as signed int,
+while the lengths they represent (like dst->len and src->len) are size_t
+and can legally exceed 2GB. If dst->len - dst->cur exceeds 2GB, the
+subtraction overflows the 32-bit int into a negative number.
+
+Could this negative number pass the bytes_dst < bytes_src check and be
+supplied to memcpy(), which implicitly casts it to a huge size_t value
+causing a fatal out-of-bounds copy?
+
+> +	void *dst_addr, *src_addr;
+> +
+> +	/* If destination cannot hold entire source buffer then write only the =
+latest data. */
+> +	if (dst->len < size) {
+> +		src->cur =3D (src->cur + size - dst->len) % src->len;
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Could this result in a division-by-zero panic?
+
+If the hardware limit register readback exactly equals priv->start,
+rvtrace_ramsink_setup_buf() will update priv->end =3D priv->start, making
+priv->size =3D 0.
+
+Upon the next perf AUX buffer read, rvtrace_ramsink_copyto_auxbuf() will pa=
+ss
+priv->size (0) as src.len to tbuf_to_pbuf_copy(). This would cause the modu=
+lo
+operation here to divide by zero.
+
+> +		size =3D dst->len;
+> +	}
+> +
+> +	while (size) {
+[ ... ]
+> +		if (src->len - src->cur < size)
+> +			bytes_src =3D src->len - src->cur;
+> +		else
+> +			bytes_src =3D size;
+> +		bytes =3D bytes_dst < bytes_src ? bytes_dst : bytes_src;
+> +		memcpy(dst_addr, src_addr, bytes);
+> +		dst->cur =3D (dst->cur + bytes) % dst->len;
+> +		src->cur =3D (src->cur + bytes) % src->len;
+> +		size -=3D bytes;
+> +	}
+> +}
+> +
+> +static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *com=
+p,
+> +					    struct gtrace_perf_auxbuf *buf,
+> +					    u64 *format)
+> +{
+> +	struct rvtrace_ramsink_priv *priv =3D dev_get_drvdata(&comp->dev);
+> +	struct trace_buf src, dst;
+> +	u32 wp_low, wp_high;
+> +	size_t bytes =3D 0;
+> +	bool wrap;
+> +	u64 wp;
+> +
+> +	dst.base =3D buf->base;
+> +	dst.len =3D buf->length;
+> +	dst.cur =3D buf->pos;
+> +	src.base =3D priv->va;
+> +	src.len =3D priv->size;
+> +	wp_low =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPLOW_OFF);
+> +	wp_high =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_WPHIGH_OFF);
+> +	wp =3D (u64)(wp_high) << 32 | wp_low;
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Does this implicitly trust the hardware read value without bounds validatio=
+n?
+
+If a faulty hardware component returns a value outside the physical buffer
+bounds, or if concurrent accesses cause a race, the calculations like
+bytes =3D wp - priv->prev_wp could underflow or overflow.
+
+This would allow tbuf_to_pbuf_copy() to copy arbitrary out-of-bounds kernel
+memory directly into the perf AUX buffer, leaking kernel memory to userspac=
+e.
+
+> +	wrap =3D wp & RVTRACE_RAMSINK_WPLOW_WRAP;
+> +	wp &=3D ~RVTRACE_RAMSINK_WPLOW_WRAP;
+> +	if (wrap) {
+[ ... ]
+> +	} else {
+> +		src.cur =3D  priv->prev_wp - priv->start;
+> +		bytes =3D wp - priv->prev_wp;
+> +		priv->prev_wp =3D wp;
+                ^^^^^^^^^^^^^^^^^^^
+
+[Severity: Medium]
+Is there missing synchronization protecting this shared ramsink state?
+
+If rvtrace_ramsink_copyto_auxbuf() is executed concurrently, data races
+on priv->prev_wp could result in length underflows and corrupted hardware
+write pointers. Is a spinlock necessary to protect this component's
+shared state?
+
+> +	}
+> +
+> +	tbuf_to_pbuf_copy(&src, &dst, bytes);
+> +	dev_dbg(&comp->dev, "Copied %zu bytes\n", bytes);
+> +	*format =3D PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
+> +	return bytes;
+> +}
+> +
+> +static int rvtrace_ramsink_setup_buf(struct gtrace_component *comp,
+> +				     struct rvtrace_ramsink_priv *priv)
+> +{
+> +	struct device *pdev =3D comp->pdata->dev;
+> +	u64 start_min, limit_max, end;
+> +	u32 low, high;
+> +	int ret;
+[ ... ]
+> +	priv->va =3D dma_alloc_coherent(pdev, priv->size, &priv->start, GFP_KER=
+NEL);
+> +	if (!priv->va)
+> +		return -ENOMEM;
+> +
+> +	priv->end =3D priv->start + priv->size;
+> +	priv->prev_wp =3D priv->start;
+> +	if (priv->end <=3D start_min || priv->start >=3D limit_max) {
+> +		dma_free_coherent(pdev, priv->size, priv->va, priv->start);
+> +		dev_err(&comp->dev, "DMA memory not addressable by device\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/* Setup ram sink start addresses */
+> +	if (priv->start < start_min) {
+> +		dev_warn(&comp->dev, "Ramsink start address updated from %pad to %pad\=
+n",
+> +			 &priv->start, &start_min);
+                                       ^^^^^^^^^^
+
+[Severity: Low]
+Does this code use an incorrect format string for start_min?
+
+start_min is of type u64, but %pad requires a pointer to dma_addr_t or
+phys_addr_t. On 32-bit architectures where dma_addr_t is 32-bit, printk
+will dereference the pointer as a 32-bit type, reading only half of the
+u64 variable, resulting in incorrect log output.
+
+> +		priv->va +=3D start_min - priv->start;
+> +		priv->start =3D start_min;
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Can modifying these DMA pointers cause a DMA API violation later?
+
+When rvtrace_ramsink_cleanup() later passes these modified pointers to
+dma_free_coherent(), it violates the DMA API, which strictly requires the
+exact virtual and physical addresses originally returned by
+dma_alloc_coherent().
+
+This can lead to a kernel panic on driver unbind. Also, because priv->size
+is not reduced, operations accessing priv->start + priv->size will overflow
+the allocated DMA buffer bounds.
+
+> +	}
+> +
+> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK=
+_STARTLOW_OFF);
+> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK=
+_STARTHIGH_OFF);
+> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK=
+_WPLOW_OFF);
+> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK=
+_WPHIGH_OFF);
+> +	/* Setup ram sink limit addresses */
+> +	if (priv->end > limit_max) {
+> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\=
+n",
+> +			 &priv->end, &limit_max);
+> +		priv->end =3D limit_max;
+> +		priv->size =3D priv->end - priv->start;
+> +	}
+> +
+> +	/* Limit address needs to be set to end - mem_access_width to avoid ove=
+rflow */
+> +	end =3D priv->end - priv->mem_acc_width;
+> +	gtrace_write32(comp->pdata, lower_32_bits(end), RVTRACE_RAMSINK_LIMITLO=
+W_OFF);
+> +	gtrace_write32(comp->pdata, upper_32_bits(end), RVTRACE_RAMSINK_LIMITHI=
+GH_OFF);
+> +	low =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
+> +	high =3D gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF);
+> +	end =3D (u64)(high) << 32 | low;
+> +	if (end !=3D (priv->end - 4)) {
+> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\=
+n",
+> +			 &priv->end, &end);
+                                     ^^^^
+
+[Severity: Low]
+Does this code use an incorrect format string for end?
+
+end is of type u64, but %pad requires a pointer to dma_addr_t or
+phys_addr_t.
+
+> +		priv->end =3D end;
+> +		priv->size =3D priv->end - priv->start;
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+Does this trust the hardware limit registers to unconditionally overwrite
+priv->size?
+
+If the hardware returns a value much larger than the original 1MB DMA
+allocation, the software size limits are inflated. Subsequent trace data
+copies will read past the 1MB physical buffer, leaking surrounding kernel
+memory into the user perf stream.
+
+[Severity: Medium]
+Additionally, does this introduce a buffer truncation logic error?
+
+The driver subtracted 4 (priv->mem_acc_width) to avoid hardware wrap
+overflow. If the hardware clamps this limit and returns a different value,
+shrinking priv->end to the raw hardware return value recalculates
+priv->size without adding those 4 bytes back.
+
+This can cause the software ring buffer math to wrap before reading the
+final 4 bytes of trace data written by the hardware, leading to data loss.
+
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int rvtrace_ramsink_setup(struct gtrace_component *comp)
+> +{
+> +	struct rvtrace_ramsink_priv *priv;
+> +	u32 trram_ctrl;
+> +	int ret;
+[ ... ]
+> +	trram_ctrl =3D gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET=
+);
+> +	trram_ctrl |=3D priv->mode << RVTRACE_RAMSINK_CTRL_MODE_SHIFT;
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: Medium]
+Should the existing bits be cleared before ORing the new values?
+
+Because the driver doesn't clear the existing bits, a previously set bit
+might remain set even if the new mode evaluates to 0, leaving the hardware
+improperly configured.
+
+> +	gtrace_write32(comp->pdata, trram_ctrl, RVTRACE_COMPONENT_CTRL_OFFSET);
+> +	trram_ctrl =3D gtrace_read32(comp->pdata, RVTRACE_COMPONENT_CTRL_OFFSET=
+);
+> +	dev_dbg(&comp->dev, "mode: %s\n", (trram_ctrl >> RVTRACE_RAMSINK_CTRL_M=
+ODE_SHIFT) & 0x1 ?
+> +		 "SMEM" : "SRAM");
+> +
+> +	trram_ctrl |=3D priv->stop_on_wrap << RVTRACE_RAMSINK_CTRL_STP_WRAP_SHI=
+FT;
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
+^^^^^
+
+[Severity: Medium]
+Similarly, does the stop-on-wrap bitfield need to be cleared before
+being updated?
+
+> +	gtrace_write32(comp->pdata, trram_ctrl, RVTRACE_COMPONENT_CTRL_OFFSET);
+> +
+> +	ret =3D rvtrace_ramsink_setup_buf(comp, priv);
+> +	if (!ret)
+> +		dev_set_drvdata(&comp->dev, priv);
+> +
+> +	return ret;
+> +}
+> +
+> +static void rvtrace_ramsink_cleanup(struct gtrace_component *comp)
+> +{
+> +	struct rvtrace_ramsink_priv *priv =3D dev_get_drvdata(&comp->dev);
+> +
+> +	dma_free_coherent(comp->pdata->dev, priv->size, priv->va, priv->start);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
+^^^^
+
+[Severity: High]
+As mentioned earlier, if priv->va, priv->start, or priv->size were modified
+in rvtrace_ramsink_setup_buf(), won't this pass illegally shifted pointers
+to the DMA API and cause a kernel panic?
+
+> +}
+[ ... ]
+> +static const struct gtrace_component_id rvtrace_ramsink_ids[] =3D {
+> +	{ .type =3D GTRACE_RVTRACE_RAMSINK,
+> +	  .version =3D rvtrace_component_mkversion(1, 0), },
+> +	{},
+> +};
+        ^^
+
+[Severity: Medium]
+Should this ID table be exported?
+
+Without a MODULE_DEVICE_TABLE declaration, the driver will not be
+autoloaded when compatible hardware is present on the system.
+
+> +
+> +static struct gtrace_driver rvtrace_ramsink_driver =3D {
+> +	.id_table =3D rvtrace_ramsink_ids,
+> +	.copyto_auxbuf =3D rvtrace_ramsink_copyto_auxbuf,
+> +	.stop =3D rvtrace_ramsink_stop,
+> +	.start =3D rvtrace_ramsink_start,
+> +	.probe =3D rvtrace_ramsink_probe,
+> +	.remove =3D rvtrace_ramsink_remove,
+> +	.driver =3D {
+> +		.name =3D "rvtrace-ramsink",
+> +	},
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810152223.3946=
+743-1-mayuresh.chitale@oss.qualcomm.com?part=3D9
