@@ -1,159 +1,131 @@
-Received: from 15.mo550.mail-out.ovh.net (15.mo550.mail-out.ovh.net [188.165.38.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EFE42A158
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.38.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D4E42B316;
+	Mon, 10 Aug 2026 16:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786380307; cv=none; b=jX9tULhfZyg/Lb3m1BUSVYA+2hFe0U52sOrzeHFTvVvZ+fqe4TQxvM6oj3HdX7Is912P3ik7Nfumc4Zn++DayJlaGdANw0ExBlqlIR8HjsacVeMjJvzA/hQ+JwRyooCuPRSvvn58G1vIEU8aQPJW1eb6CKoRqzbSDAlYhXU18WQ=
+	t=1786380328; cv=none; b=TSojYQQbDQ9IJNJc3fAxR4SMxB+TzT3tWIESTt38mWuGIYJCBOHMLEnVgRqm2V4Xu4rjsFQ1m7os09QuwYp04+tn/MnYOGnMVlhQaXgMZI7o/e3cjj/F6oO1FHGpENagFnxp4f7sJjmU11LZ+04MlFNgFQBR4g1bD7f32duUBVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786380307; c=relaxed/simple;
-	bh=e4kQFCjB5LtFdJIis48BWU7f1G9ZFWIOb2b/rcrqG2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lr/Pf0vFAdELK7MJl6gGRWcoSZIrmSN8K9oyyS5twxvG+ja6o0ybX2ys+Y+9XTZ933IKGxg/Btmy9quXVxyOHgvXiGH9rINYVq7OrMVcxBkXvAlL/OVcxKRsJ8OgZQleTytKPVvK252sc2cOPRhlMz7mhBMIls75E9FN6eklacY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=188.165.38.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
-Received: from director7.ghost.mail-out.ovh.net (unknown [10.109.249.48])
-	by mo550.mail-out.ovh.net (Postfix) with ESMTP id 4hJcJT34B6z5yxJ
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:16:57 +0000 (UTC)
-Received: from ghost-submission-7d8d68f679-7df7p (unknown [10.108.54.148])
-	by director7.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5AC5EC0198;
-	Mon, 10 Aug 2026 14:16:53 +0000 (UTC)
-Received: from m-works.net ([37.59.142.101])
-	by ghost-submission-7d8d68f679-7df7p with ESMTPSA
-	id I14hO1TdeWq3KC0Alk6qAw
-	(envelope-from <maciej.andrzejewski@m-works.net>); Mon, 10 Aug 2026 14:16:53 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-101G004796ca3e8-0880-49c0-a3d2-70d64670ab19,
-                    ED6AA3D647CD945153C5C800EF75597CE9F2D384) smtp.auth=maciej.andrzejewski@m-works.net
-X-OVh-ClientIp:144.125.48.245
-Date: Mon, 10 Aug 2026 16:16:52 +0200
-From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	broonie@kernel.org, linux-spi@vger.kernel.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	linux-mtd@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, maciej.andrzejewski@m-works.net
-Cc: linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-Subject: [PATCH 1/2] gpiolib: of: Only apply the SPI CS quirk to SPI
- peripherals
-Message-ID: <20260810141629.81650-2-maciej.andrzejewski@m-works.net>
-References: <20260810141629.81650-1-maciej.andrzejewski@m-works.net>
+	s=arc-20240116; t=1786380328; c=relaxed/simple;
+	bh=LnZV7pNxPoU49IV3NFreZDbOpa6kDXDHFdKdcPs17f0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eHV43CGQAioDZ9DNjhpQiCkZboZ1H69d1m0luFP6gm43m8PK75gqgARoDYx4ypxqur3psExVPb2UuA0x87suS1CExNXGHjG2N0j2lw+Zab9+TQn1+e2hF0xtY2W7JgjI0O6oWdI9HxtRjpbJuvs1ruUSIm+eQxLo9s3sRbxfAxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqtWemoD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqtWemoD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B331F000E9;
+	Mon, 10 Aug 2026 16:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786380327;
+	bh=x69Az/UT7cTjMVgUeiTZh+wDpEQur6+hILmknmBHs4Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fqtWemoDpFhNA1EKAbPbmn+Ycicj0RLRH0U1nHce66O6NvCwaEU4yWMSrMKJXFeTV
+	 agp0/iX3Wo/nORt4Ub1nzi6k6ztU8OYUWyCyJLZ9Xm7jmX2njnjA26ar2SCiMyyvXQ
+	 k69hkkyGS32C0RWLPhUPYdqrsR38AdKxjIx9Z9oByj+XnpPjmDoq4YuGnMEi9CiD24
+	 ipf+qhcw2hfbaGYPyTOXfotAwzdPY/Xy2kyQJtqVvUxP0Tm2R5BiCN6d7rlfYEC5G8
+	 bgm7cInC0GLDjrkI1RwIEp3kiQLVqk7RjSokmF0HF+jGrA/BrLLdNWP6ysxrTYaKBO
+	 dCw3VWpPdqw6g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 15/19] dmaengine: ti: k3-psil-am62l: Add AM62Lx PSIL
+ and PDMA data
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, vkoul@kernel.org, dmaengine@vger.kernel.org
+In-Reply-To: <20260810151423.1948224-16-s-adivi@ti.com>
+References: <20260810151423.1948224-1-s-adivi@ti.com>
+ <20260810151423.1948224-16-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 16:45:26 +0000
+Message-Id: <20260810164526.C3B331F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810141629.81650-1-maciej.andrzejewski@m-works.net>
-X-Mailer: git-send-email 2.43.0
-x-ovh-tracer-id: 15949779557479752483
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFkKUw8dTwvfjd4/KP70uzwoCMB5S1Nh1xoCtlKl9zTFZzwWOg+RBpw5P0civI9C611B1wrLGnfL3FNYmECOnjsVZKgynKuLG6Jhd3Uc8cbYV256q4EDW1EJopIsVe6nfKjRwsKIAKDeHxGys67ywGuGjynKrr0p4f+W1tRSR6L8yRsQUchqkYbufFkmr7AL7eeCcTKmnSxggk9Am6xY3yqfHbxzDDXnNa07eo3ri956RbXgeCfNKnKA1gany5tMxKjWt3sHbxNpzbfY66hukbKbQQTBIAx2rECu5ovgOzajdg1Fxma7zv7UmoNQovbLAGQzJu4D89RflMM5EwN9mbnXQO1PIZSSz+mH+89VlipQVQuKq9y6wwEXObgn5hzs3j6JFv2rspzGR756EHJjBJ7aPEwfeL8Mkf8A9dSquTVYm0ds+SZ3xH+RFubmhuBnz//6RD+L0MixxJ5swI1DfEAvt5P9LAv8u92eCHtXubchW+Mlk3EUtRXOI6IfCm46evGXiEFGYCI34xCRzdDWx1mBPiw5afGCjVGQQ8Y+naX8xKoJ1YUa5xfbeolpDp0Mf4T+E31NAztX6Abv4itdyod/Arm5jpqWTIJbopCZcsxZ58645nwWufO3RaWxqgHYNeLVYTZQ72lZLwzU9LzfHd3f28geBxG/BFJVGOPMnbJwA
 
-The legacy SPI chip-select polarity quirk in of_gpio_flags_quirks() is
-keyed on nothing but the property name "cs-gpios". That name is not
-exclusive to SPI: nand-controller.yaml documents the very same property
-for NAND controllers, and rawnand_dt_parse_gpio_cs() requests those
-lines with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios".
-A NAND controller therefore has SPI chip-select semantics forced onto
-its chip selects, and any chip node whose first reg cell matches a GPIO
-index is silently flipped to active low. The NAND core requests the
-descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, so the
-inversion leaves the die permanently deselected.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] psil_set_new_ep_config() uses the incorrect dma-cells index for BC=
+DMA channel ID lookup.
+- [Medium] Misleading error message on lookup failure in psil_set_new_ep_co=
+nfig() logs '0x0000'.
+--
 
-The example in nand-controller.yaml is itself affected: it pairs a
-native chip select with a GPIO one and gives the second chip a reg of 1,
-which trips the quirk whenever CONFIG_SPI_MASTER is enabled. In-tree the
-collision is real but latent. 36 board trees, all Atmel/Microchip at91,
-give their nand@3 controller a cs-gpios line, and they escape only
-because the sole child of those nodes is a partitions container with no
-reg for the quirk to match against.
+--- Patch [15]: [PATCH v8 15/19] dmaengine: ti: k3-psil-am62l: Add AM62Lx P=
+SIL and PDMA data ---
+commit 341f27f741b8359a8b0d9ea36665be0d14b7d6b0
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-Device tree carries no bus type marker, so identify the bus from what
-the peripheral advertises about itself. Properties of an SPI peripheral
-are namespaced with "spi-" (spi-max-frequency, spi-cpol, spi-cs-high and
-the rest of spi-peripheral-props.yaml), whereas a NAND chip node carries
-only reg, nand-* and its partition table. Skip the quirk when the
-matched child has no "spi-" prefixed property.
+dmaengine: ti: k3-psil-am62l: Add AM62Lx PSIL and PDMA data
 
-This is a convention rather than a guarantee: compatible and reg are the
-only properties spi-controller.yaml makes mandatory for a peripheral, so
-a minimal one may carry no "spi-" property at all. The next patch covers
-those by looking at the controller instead.
+This commit adds PSIL and PDMA data for the AM62Lx SoC. It also introduces a
+new PSIL_EP_PDMA_XYMF type for channels that have multiple selectable fifos
+and adds a fifo_id field to the psil_endpoint_config structure.
 
-Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
----
- drivers/gpio/gpiolib-of.c | 28 ++++++++++++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+> diff --git a/drivers/dma/ti/k3-psil.c b/drivers/dma/ti/k3-psil.c
+> index c4b6f0df46861..3a9b43e179d1e 100644
+> --- a/drivers/dma/ti/k3-psil.c
+> +++ b/drivers/dma/ti/k3-psil.c
 
-diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-index 940b566946ce..bd9a623f2ae1 100644
---- a/drivers/gpio/gpiolib-of.c
-+++ b/drivers/gpio/gpiolib-of.c
-@@ -340,6 +340,25 @@ static void of_gpio_set_polarity_by_property(const struct device_node *np,
- 	}
- }
- 
-+/*
-+ * The legacy SPI chip select binding below is keyed on a property name that
-+ * other subsystems reuse for the same purpose, notably NAND controllers (see
-+ * Documentation/devicetree/bindings/mtd/nand-controller.yaml), whose chip
-+ * selects carry no SPI polarity semantics. Device tree has no bus type
-+ * marker, so go by what the peripheral advertises about itself: properties
-+ * of an SPI peripheral are namespaced with "spi-".
-+ */
-+static bool of_gpio_child_is_spi_peripheral(const struct device_node *child)
-+{
-+	struct property *pp;
-+
-+	for_each_property_of_node(child, pp)
-+		if (str_has_prefix(pp->name, "spi-"))
-+			return true;
-+
-+	return false;
-+}
-+
- static void of_gpio_flags_quirks(const struct device_node *np,
- 				 const char *propname,
- 				 enum of_gpio_flags *flags,
-@@ -374,6 +393,11 @@ static void of_gpio_flags_quirks(const struct device_node *np,
- 			if (ret)
- 				continue;
- 			if (cs == index) {
-+				bool active_high;
-+
-+				if (!of_gpio_child_is_spi_peripheral(child))
-+					break;
-+
- 				/*
- 				 * SPI children have active low chip selects
- 				 * by default. This can be specified negatively
-@@ -386,8 +410,8 @@ static void of_gpio_flags_quirks(const struct device_node *np,
- 				 * conflict and the "spi-cs-high" flag will
- 				 * take precedence.
- 				 */
--				bool active_high = of_property_read_bool(child,
--								"spi-cs-high");
-+				active_high = of_property_read_bool(child,
-+								    "spi-cs-high");
- 				of_gpio_quirk_polarity(child, active_high,
- 						       flags);
- 				break;
--- 
-2.50.1
+[ ... ]
 
+> @@ -90,9 +147,22 @@ int psil_set_new_ep_config(struct device *dev, const =
+char *name,
+>  				       index, &dma_spec))
+>  		return -ENOENT;
+> =20
+> -	thread_id =3D dma_spec.args[0];
+> -
+> -	dst_ep_config =3D psil_get_ep_config(thread_id);
+> +	if (of_device_is_compatible(dma_spec.np, "ti,am62l-dmss-pktdma")) {
+> +		bool dev_to_mem;
+> +
+> +		dst_ep_config =3D psil_get_ep_config_by_id(dma_spec.args[0],
+> +							  true,
+> +							  &thread_id, &dev_to_mem);
+> +	} else if (of_device_is_compatible(dma_spec.np, "ti,am62l-dmss-bcdma"))=
+ {
+> +		bool dev_to_mem;
+> +
+> +		dst_ep_config =3D psil_get_ep_config_by_id(dma_spec.args[0],
+> +							  false,
+> +							  &thread_id, &dev_to_mem);
+
+[Severity: High]
+For devices matching ti,am62l-dmss-bcdma, does this code pass the trigger t=
+ype
+instead of the mapped channel ID to psil_get_ep_config_by_id?
+
+If dma_spec.args[0] is the trigger type for a BCDMA node (which has 4 cells=
+),
+this lookup might consistently fail with -ENOENT since it will not match a
+valid mapped channel ID. Would passing dma_spec.args[2] be the intended
+approach here?
+
+> +	} else {
+> +		thread_id =3D dma_spec.args[0];
+> +		dst_ep_config =3D psil_get_ep_config(thread_id);
+> +	}
+>  	if (IS_ERR(dst_ep_config)) {
+>  		pr_err("PSIL: thread ID 0x%04x not defined in map\n",
+>  		       thread_id);
+
+[Severity: Medium]
+When psil_get_ep_config_by_id fails to find the endpoint, it returns
+ERR_PTR(-ENOENT) without updating the thread_id out-parameter.
+
+Since thread_id is initialized to 0 at the start of psil_set_new_ep_config,
+would this error path print an uninitialized thread ID (0x0000) upon a look=
+up
+failure? This might hide the actual failing channel or thread ID and make
+debugging difficult.
+
+>  		of_node_put(dma_spec.np);
+>  		return PTR_ERR(dst_ep_config);
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
+224-1-s-adivi@ti.com?part=3D15
