@@ -1,111 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0F538E8D0;
-	Mon, 10 Aug 2026 10:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F223AE187;
+	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786357212; cv=none; b=IwYs4wn82EM+UUYCd6o4zBlDifeW4bDRL3hw6tBTHl8WNnzRV9tgJs7gubno3E7XBnjt6VKHTGR+OuwLfSxCxdzRJ20o+8q5HnaKjvuk09nXBnobjrZ5Hw/5KIbn+NIkhvdFXsbnsmzmp7F1WlB3+VbADradTuWetVYPjkXZQKI=
+	t=1786357348; cv=none; b=ZjzqUm/R0+4amnwnpARBs61NcvoGYxH8sw4jlCXeeim5RzznFR1g/mMsCSIgdpAoyPkB3oYH7kRJZhHZUAOM2/KXb5bRs+OqnKxpBIj1AQukSlwJz6HXixUXbwPdnBwGwXJFHFsv0gCqudTeKz41ZERrABE7pDIcWwU7sn0vXL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786357212; c=relaxed/simple;
-	bh=XKssdbTQCH1FzQYx0lXeAWxT4Pqf0FSdbfBQNtGeqD8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uIE+bh1BS7EDLysa/xVPHtDAR/8B82kOcNK9/LNlQ2ahCJNkuIWcAn1I/pXDYe/LM6oRBOZCmCwaa1ptc8HSm6rsARgzMFKV2yF0/lAgvByyDGpQqkMeueb4rchn5dxYWlF8ugNI6cqgX+8gLZfhZcDXO3Y+ihBNI4sc/YKFYxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oH8OSHDj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786357348; c=relaxed/simple;
+	bh=TrdLOVS+kkSe+xLM9w5zf9ng53kF2srwRIVlxkVKxM0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=USJ1+9Gkx96jvkhJbkEhnDKGDqxEYycoUZWI8SLnASTk+/4qxmuqvT5OK0r7qjBZjGQn82NxD8uer8OCPwtcp2HWU89tSeV4P2+8cotiQyjg/gX2T04sJSApUcGKEln8LUWAXsQ5fbvlhAkzPshG11+O91B8CDLJw9HcDWOwpJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U+/RWk2T; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oH8OSHDj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215D71F00A3A;
-	Mon, 10 Aug 2026 10:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786357210;
-	bh=oGnV1xvyBeDkFbNjgwX9YtXHJBlnX1o1IQ5gyH1pjMg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oH8OSHDjy1FqjUOIAIb2PVoK5mHbE8qUhUS007QGMERuJ0ta97itrbV49c3SnAmZN
-	 xnUmizW+0gLA817GzbhIWjr7yGOxiLUU0/VcQQFaUl+Z4bGM1W9aAc8y0W8m3aEylJ
-	 fhmWSFzOzY0GUyEApPsRR6nOKTd9XQpAHgw9JJOvJQ7rdb20zCvW1Ym4a0L7A1yGWj
-	 SIhp9SBeybTBem/NE/s6bZfqRE02yrauApMZrD6P7WeIt83jkqyrZXr9FHht0Et+8N
-	 jgGI0CjKWp7ZAtqEMZMBafOfA5f+4n+qTH+Hq6plJAAv5MVRj0iC/uPy3VUlOoVzgu
-	 B0c1PCn+XmHsA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V3 4/6] dt-bindings: dma: xlnx,zynqmp-dma: Add Versal
- Net compatible support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Golla Nagendra" <nagendra.golla@amd.com>
-Cc: conor+dt@kernel.org, dmaengine@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260810100452.426320-5-nagendra.golla@amd.com>
-References: <20260810100452.426320-1-nagendra.golla@amd.com>
- <20260810100452.426320-5-nagendra.golla@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 10:20:09 +0000
-Message-Id: <20260810102010.215D71F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U+/RWk2T"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7D977C2BCFA;
+	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786357348;
+	bh=TrdLOVS+kkSe+xLM9w5zf9ng53kF2srwRIVlxkVKxM0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=U+/RWk2TGPoDBQOCaZqDrWlMSivrjaPP9p9bza8f3nNeLIVCsDC/pH7EZecUrqKZj
+	 Hq2cdwxrWpSt4QiAFj+cdLAA+q/0A9oBLtU21+m43B8LUNjJ69uxa3L89urRAPPhYd
+	 KClPwAkLUM0VyQaoGHLxOazW/kdxKqekqwH1jSrn+mSviFTgeOBo3UV94V2KhzJhmU
+	 oFzZvEfR5lLShLyfEnpeFvQ0KbPLPNvz0xY8TrkKVNn9GzDwML5QOxy4Fho1eqwX2G
+	 pmRDDUz1NJt+prelCzN0aziNaN5fbDbmjXZnyCPmCvEHSoP+s8iNK6UwcIkZiWjlLy
+	 gW6aI3mtpnfFQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B03DC5AC82;
+	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 10 Aug 2026 12:22:23 +0200
+Subject: [PATCH v4 1/2] dt-bindings: media: i2c: dongwoon,dw9714: Document
+ DW9714A and V variant
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260810-dw9714v-v4-1-a227cb1d29bd@ixit.cz>
+References: <20260810-dw9714v-v4-0-a227cb1d29bd@ixit.cz>
+In-Reply-To: <20260810-dw9714v-v4-0-a227cb1d29bd@ixit.cz>
+To: Alexander Martinz <amartinz@shiftphones.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2393; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=MctnB/YBUlKBkfY6HkmVWzrj67EeGRulizfUpQ/8RY4=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqeaZiY2wzpx14SQkqY7LkwyJr/qFiF0WFREa+N
+ bXeuGxzqwGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCanmmYgAKCRBgAj/E00kg
+ chY6EACMnaTvgqtjk+E0ak15UnUP0edb3ducN4jJSU/4iSSp8OpafdurfkvV4tT6Bapr8anetMd
+ XNsy5p2RaOGLa/FWnAOXk2qY1SvkYq7oHZQXEDAtWoljxBMNtxNDlEqi2V19uHH0dxlqA4NpuXI
+ 0fFaloefl8CeT50CWIgoUpRNzCeaV0CflVRLFfoEj4QsD70j2BOmEr0uFLgFuH3A7Wk4BtfFrId
+ FwSdbh0bPjV4ULGT4GuAM+is5UQKiawq4Uji+3KULk6oXn8emrei7fUJoMqOzXm01sav4uFtU/u
+ 7nMquHij2/bDdlVrDArAhpLKTBjRC6QjbBP3JKx7P2f/r12xLyzxDcu6w8KuuVISEAMmp/w/2Pj
+ mAlWJxN9Vlobx+mjEkul8whjbmjGUpkXSHOcjwYw1uzFl3Sf6QtvunHOU1vZst5xwT8nha08qIR
+ pdWniUwG+In4NvbTKJ9GeeU6R33JGKDW8ZnWOGLZVmr4QkhUs6QiLhssXhqqGzsgbR9OGELjX2p
+ lyQqOdKh/6tgd7XuCnW9e6cZz7wyhuVlmqI2grODdScXerruertJLsSpbscmRKH3F3UWUnFlFNu
+ H6U01ODdK6BlOMjD0SEAkg0DsjNLk88Dwku7gcnkVP8MS6O566iD2CMyGVBSNd4LUYxv8iA2axn
+ sV4Ek/IqJJPgRZA==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Invalid fallback compatible string `xlnx,zynqmp-dma-1.0` for `am=
-d,versal-net-dma-1.0`.
---
+From: David Heidelberg <david@ixit.cz>
 
---- Patch [4]: [PATCH V3 4/6] dt-bindings: dma: xlnx,zynqmp-dma: Add Versal=
- Net compatible support ---
-commit c94f71cbb3b4d274afbe8968d6bb108158803292
-Author: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
+DW9714A is a successor of DW9714 and DW9714V is a successor of DW9714A.
 
-dt-bindings: dma: xlnx,zynqmp-dma: Add Versal Net compatible support
+All three are compatible in their normal mode: a 10-bit DAC with the same
+Direct/LSC/DLC slew rate control. DW9714V additionally has an "advanced
+mode", which exposes Smart Actuator Control (SAC2/SAC3/SAC3.5/SLSC) and
+soft start/landing. Out of reset the DW9714V comes up in normal mode
+with ringing control disabled, i.e. behaving as a plain DW9714,
+so nothing has to be configured for it to work today.
 
-This commit introduces the amd,versal-net-dma-1.0 compatible string with a
-fallback to xlnx,zynqmp-dma-1.0. It also adds a required per-channel reset
-property for Versal Gen2 and Versal Net because the DMA channel must be
-reset to clear the state left by firmware.
+Should SAC support be added later, it is board data rather than a userspace
+knob: the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
+the mechanical tVIB of the actuator and lens assembly of the given camera
+module. Those properties are left out until there is driver support and
+measured values.
 
-> diff --git a/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma=
--1.0.yaml b/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.=
-0.yaml
-> index 2da86037ad79e..87c65aef5c7d3 100644
-> --- a/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.ya=
-ml
-> +++ b/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.ya=
-ml
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml     | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-[ ... ]
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+index 66229a3dc05d6..7c2769e6c4880 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+@@ -5,22 +5,30 @@ $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9714.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: Dongwoon Anatech DW9714 camera voice coil lens driver
+ 
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
+ 
+ description:
+-  DW9174 is a 10-bit DAC with current sink capability. It is intended for
+-  driving voice coil lenses in camera modules.
++  10-bit DAC with current sink capability. It is intended for driving
++  voice coil lenses in camera modules.
+ 
+ properties:
+   compatible:
+-    const: dongwoon,dw9714
++    oneOf:
++      - items:
++          - const: dongwoon,dw9714v
++          - const: dongwoon,dw9714a
++          - const: dongwoon,dw9714
++      - items:
++          - const: dongwoon,dw9714a
++          - const: dongwoon,dw9714
++      - const: dongwoon,dw9714
+ 
+   reg:
+     maxItems: 1
+ 
+   powerdown-gpios:
+     description:
+       XSD pin for shutdown (active low)
+ 
 
-> @@ -18,15 +18,31 @@ maintainers:
->  properties:
->    "#dma-cells":
->      const: 1
-> =20
->    compatible:
-> -    enum:
-> -      - amd,versal2-dma-1.0
-> -      - xlnx,zynqmp-dma-1.0
-> +    oneOf:
-> +      - const: amd,versal2-dma-1.0
-> +      - const: xlnx,zynqmp-dma-1.0
-> +      - items:
-> +          - const: amd,versal-net-dma-1.0
-> +          - const: xlnx,zynqmp-dma-1.0
+-- 
+2.55.0
 
-[Severity: Medium]
-Is this fallback compatible string appropriate here?
 
-The commit message explicitly states that a DMA channel reset is essential
-because the device is left in a bad state by firmware, and DMA functionality
-fails without it.=20
-
-If a device tree is parsed by an older OS using the fallback
-xlnx,zynqmp-dma-1.0 driver, it will attempt to operate the hardware without
-knowing about the new resets property. Since the older driver cannot perform
-the required channel reset, won't the DMA functionality fail just as
-described?
-
-Should the fallback be removed if the older driver cannot reliably operate
-the device?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810100452.4263=
-20-1-nagendra.golla@amd.com?part=3D4
