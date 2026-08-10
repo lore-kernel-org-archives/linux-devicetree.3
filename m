@@ -1,106 +1,74 @@
-Received: from out-2z4y-a154.jellyfish.systems (out-2z4y-a154.jellyfish.systems [198.54.127.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13903F926D
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 21:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080DE388E49;
+	Mon, 10 Aug 2026 21:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786398752; cv=none; b=DAIKu8erJat8sjmnpKV7qW9/1/ajN8hP6V5GA2Gm1+zT0vLAdK9RWxTmM5uz7EyvMuu7EoOdmr9b4JI7iGvNojxRLwBXD1s35rTREhHORl7MsU2RSxBZJF0rOaNgzb+SSzPcS631jEYc9LWPhWsA76MwLrpUoPnxqGpA2cc3ee4=
+	t=1786398879; cv=none; b=dre32SR/ZtJE35RvR4rZFIYgzrkRF/2ms0pVtkiM+zH57L0FKsJR7V9TC4kaLillRNfkoeH8ODvE5mI3rTlY0pibTdd86dIL0wOj/Mwx2LWMBlYUb03dJUJULvHKolXM0T87sgJE3nat++6/JynhrGMJNeiqUrYJln+ERuaiidY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786398752; c=relaxed/simple;
-	bh=9MOqCZ1dfc/gkJyWImO0IXYe1FISFO4YF5zo8qm9SuI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HpkW/EVpzVUhN+TI2A7Ps85Fx+h9ji81OrXrG8QOIe/ueapuvrOQkPxbEVg5RbXRJdYMILoQjHGTpSO3uSxv9RoxTx/J5zIToK6U6pu/0M8E8/O5OcYWCLzyD6TEwcYUxkhxvlPkKldfwxftzboe63iA4/2Dnox3SxIga3/WkJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hJpPc4f3WzyNS;
-	Mon, 10 Aug 2026 21:52:04 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>
-Subject: Re: [PATCH 2/3] iio: light: stk3310: add per-chip match data
-Date: Mon, 10 Aug 2026 23:51:57 +0200
-Message-ID: <20260810215157.154384-1-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <anoZwgq6ZO_VY064@ashevche-desk.local>
-References: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net> <20260810110423.41697-3-jorijnvdgraaf@catcrafts.net> <anoZwgq6ZO_VY064@ashevche-desk.local>
+	s=arc-20240116; t=1786398879; c=relaxed/simple;
+	bh=SCBzgrxKtqazB9yEyvdjBsjeh/HSMd/mJ5u/NXQxFEg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iUOhKSkqvwRv3tQBHCxHfeKGcUDeXeGtTV9X/NuTz19Y/pSMoAntoNyGmMAJtINm9Vp5llGdnp1F9bkdBjZKedp1ohQk/y0UARSCAWSDzxD4KBKPB0CIpAhI0VDYeb6Jsf1W9XVlxdlkrH/1zdZ5UTrnO0BPm1rHwuRm/UlNPhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=K/GW74Ru; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="K/GW74Ru"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 33E7B118B78;
+	Mon, 10 Aug 2026 23:54:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1786398871;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=s2aXjqlZJY2XwQyr2ijzNBco1TPxhbOhA17EK33gL+8=;
+	b=K/GW74Ru5ot9a3m/bT05DxW85NNDE0yfURz2sZc0MKygnSX81Ci0BzePTxVcRO7ASJGtNU
+	gdunC+TNEmo2SYi2/HBp0XDdaAq1B+yLSosDTcFCKtiQGb/PY/cBFm6O6z80dyny0zaRId
+	w7ibNbzQqOLRmwKg4ixkeWnmmYNOkfL4BdimDjZ3l3w7VstBmCfLGx5LElVNBqIWy6Mg/6
+	wVx/+Sv0bZBAjGAM/UWGO+iIGfk5m+YkZsPZq4U/n5Gg6cp8/6aH7snmFlN4JedH0SObxe
+	mNqIa0+QP6zmTw7qhkq96QjdHAghr5+cuca2H07y/h/vooh631qhsCDxld5aWg==
+Message-ID: <c5bcaa73-97d2-465c-b6cf-aea3e339d7f3@nabladev.com>
+Date: Mon, 10 Aug 2026 23:54:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: Select HAVE_SHARED_GPIOS for ARCH_MXC
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Conor Dooley
+ <conor+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ Fedor Ross <fedor.ross@ifm.com>, Frank Li <Frank.Li@nxp.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Linus Walleij <linus.walleij@linaro.org>, Mark Rutland
+ <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>,
+ Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260810213456.1268831-1-marex@nabladev.com>
+ <anpGRPJwQbt6UMZx@SMW015318>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <anpGRPJwQbt6UMZx@SMW015318>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Aug 10, 2026 at 09:34:42PM +0300, Andy Shevchenko wrote:
-> > +	chip_info = i2c_get_match_data(client);
-> > +	if (!chip_info) {
-> > +		/*
-> > +		 * Clients instantiated through the sysfs new_device
-> > +		 * interface under the lowercase compatible-derived name
-> > +		 * have no firmware node and do not match the uppercase
-> > +		 * id table entries.
-> > +		 */
-> > +		chip_info = &stk3310_chip_info;
->
-> This is an interesting comment and approach.
->
-> > +	}
->
-> - Where does this lowercase come from? Is it Linux forced conversion?
-
-No conversion - the client name is whatever is echoed into the sysfs
-new_device file, and the lowercase spelling is the one that binds via
-the OF table: for a client with no firmware node,
-i2c_of_match_device() falls through to i2c_of_match_device_sysfs(),
-which matches the client name against each compatible and its part
-after the vendor prefix, so "stk3310" binds through
-"sensortek,stk3310" - the same lowercase name a DT client gets from
-of_alias_from_compatible(). The id table lookup stays case-sensitive,
-which is why i2c_get_match_data() comes back NULL for such a client:
-device_get_match_data() needs the firmware node it does not have, and
-i2c_match_id() only knows the historic uppercase names.
-
-> - What's wrong with simply failing the probe?
-
-It would break a path that works before this patch: probe consumed no
-match data, so "echo stk3310 0x48 > new_device" bound and probed fine
-(we used exactly that during bring-up, before the DT node existed).
-Failing it would be a userspace-visible regression in a patch that
-claims no functional change.
-
-> As far as I understand the problem is preexisted. Or was there any default
-> taken? How do we know that the chosen default is a good one?
-
-The path preexists; only this patch makes probe care about match
-data. Before it the driver had no per-chip data at all - every client
-got the same two channels and the hardcoded "stk3310" name however it
-matched. The fallback selects stk3310_chip_info, which is exactly
-that, so a client that probed before this patch behaves identically
-after it. What the default cannot give is the new part's extra
-channels: an STK36C61 instantiated under the lowercase name gets the
-reduced legacy profile, and the id table spelling "STK36C61" selects
-the full one.
-
-Thanks,
-Jorijn
+On 8/10/26 11:44 PM, Frank Li wrote:
+> On Mon, Aug 10, 2026 at 11:34:38PM +0200, Marek Vasut wrote:
+>> Some NXP i.MX platforms use shared GPIOs. Enable support for them by
+>> selecting the Kconfig switch provided by GPIOLIB.
+>>
+>> Signed-off-by: Marek Vasut <marex@nabladev.com>
+>> ---
+> 
+> Haibo have similar patch
+> https://lore.kernel.org/imx/20260730-can-share-silent-v1-2-63fd603f943d@nxp.com/
+> 
+> But I hope the SoC maintainer provide review/ack-by tags
+This patch keeps the list of select-ed Kconfig symbols sorted, the one 
+from Haibo does not. But with that fixed, the patches are equivalent.
