@@ -1,87 +1,68 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141CC3B1016
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A6039CD03
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:45:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786354754; cv=none; b=KdEVT8n6fAjTa4XZYdii2d4ovZgedekYJr2tcHk+XqJVOYxGebHGm09qPwy4Sv00lOfFx1xRYZJt13/MNm87tlkhncCKXF0tGJXsLk4bcFkxaHv79kUM+obkHEWnq3EqsFA7Qs2ktxEoIqmW0K30lAFtt1jUnU/PzyZjfyywdYA=
+	t=1786355132; cv=none; b=lLAuhzdGz6ZXFg7hm1V/6XVziaGsB4a3ddZm1N00tZavKJc7P3YNfEuFRQC8ga1uK0uU+7XPdVzmZ2ieHLrubT2bh8OdwZvTZalLP/poVNroHEW43xhJf9wMIAJq6HOqDMXS9PLp0zeb+BOFsamNxFmYszOOKo34FkgpoSwnJWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786354754; c=relaxed/simple;
-	bh=eqFMadOm4jit2zzncliqC9YEpRpOfDr+e9OrdRWC3w8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FhgKxz0EGlNny/ixw+B5/T9Bq+J1BjukFfH5a4D3BT5ieiNNXE9OdIVTbfHXpBQTv0oqZ2tNasZjU2w81s6sNKyp8cJawuSKGcUyTmn2mmDyeNclSfRAD7kV7IkChNfyXSE4t4tRA4oWwVZFdGtf7NGqacb6ehB5Q575eKy/4yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Onygm/E8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kWJdJA8B; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786355132; c=relaxed/simple;
+	bh=gxcas0bqgHomtZULAw4OXEt+7h8gY3FlT9ou+7GepIA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=DkICMDYLhqIaO6k+guana6eu0tDVIlSCGpfDdImHldy54xXXYTfV2auhUqhgNSvC8KYkXiC20XKFM7B2hvxZYFaG4P1tKVRtoI21TSlvatJ4aZ4+z+mZzrJl78CbAd3UIKxy82VPDLSUS+pEKg8maY/lodtU154wBTi0WaTifD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k0mdxM8G; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Onygm/E8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kWJdJA8B"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67A9RsBq1231788
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:39:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	id0YzdGW9hCG7H5gqzV2c3+mCG6eyUQG6YtgwUVj7gA=; b=Onygm/E8/11kz1M9
-	QBKITympRL5WBAL62BvV7JGI9xhwj3ctQ/0HbVoyrfdXdisa3LjG3cTc+FEuEKLo
-	wQydJs9wdq1JGuyaNCTd3J37JK0lMX8MRn/P65/do33xqykktbKXaFOYbbo71z31
-	t3/RmQj9DmPAOU0LheGXjv9xbtSwflG1XdicL2Ismh62FGdScIc4eECGndwcT1Xf
-	Y7PmfcTs9gnkJUrMHU38tUgNBK6whc8gSo2fOc9N+4JgghSYa3ZzjQULjbdgR0lQ
-	cOiLFhURpzHpu2MIa7OxcfkK0iinUNihgevLmos8jK9V/vjLNjiNtU7+H/Sr07JC
-	/rhftA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fybh5862w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:39:11 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d004f13426so27005335ad.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 02:39:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k0mdxM8G"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47c2b362ee2so1176785f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 02:45:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786354751; x=1786959551; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=id0YzdGW9hCG7H5gqzV2c3+mCG6eyUQG6YtgwUVj7gA=;
-        b=kWJdJA8BLAy4xWhDgPd1SIn+QNu2u8KC2F6s4q0P/1EUNUcyKVnFenZ0fR9V303giZ
-         /IySo0KVoQK2nqtNcQ6JkK5OL9RHI8hkmuj0hfFVuPlk2ieH9b4L57ARAIgI+yNYSZEX
-         336u8a90Q/PcRP12pATMlOHiKNLptykp+yzeQDr4Z3VvxOG2Mj7Cs1J/DH+Cf845ohYz
-         5tZ+4Oef4m+QIDOp5Zt6s+A32aQLnzrpe4u7LW8Z5xWPgniREn2txhvW0oqGcjmlLtrF
-         Dif5TV+W5tTHpOBUljVPoHSbp+WVWrRILNWFc7sysgmmwY93BukG5ERq5RF0GSDoSmI6
-         sxhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786354751; x=1786959551;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1786355129; x=1786959929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=id0YzdGW9hCG7H5gqzV2c3+mCG6eyUQG6YtgwUVj7gA=;
-        b=Z4JwDsqbsKZ1I3NHZLZ79J25ygSuMYDFx8W5L3gfCsecyY5fO0Ihx3N+mJOwQWqSD1
-         33HONS2XtVAeYSMYJ8VXqHeE9SpizIWZSCzTjwM+xgACe1MkN682oKSf5giCM2vmsil+
-         HXb2HWxSaEUYlHF5dVUob2aq0jKCNgRjIC1PcAh8ExX6+uA79TywHT+Uz4J86hCoZwDZ
-         ttVYfYBQ7WWUNktNO+WEmyKkVllOP/W2CS/M2kavAw/yM2gLR74eVLvRL0qlpLocfKGN
-         EJh9r0tWIygSCTFGMqFZHGb8MmeR1vFu5N4NJbofBtAT1Vw9NklTZYVjkLW7uMp4ZHJ7
-         rsoA==
-X-Forwarded-Encrypted: i=1; AHgh+RqedxU0hy+XYzotdtrR8J9KGca5geMlKntwLFTobwLiVHNT1C7GW+bg/dqqVoB9FcZPekFJpM8EHSs9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/g98dzvSwVLQyo6hAP1YNGCQoFty09lOUdsoXYmUZMjdCIEOX
-	v9ZJVdlsC/GXOVNyvUsIlxYh2uptXUgDnuTT48qthfGLt4M3l7rHyjzasjAbEATy/a8ooj8TsAG
-	E6HZqPYd3u+DUIl7PtkhjzsxpgaSWML9R2PQ07iVUOPSf0jf14y9YHNlwRFpyWMhDp5YjHaT4
-X-Gm-Gg: AR+sD13eEFDW/0hGHCw51Xu29aWaHC4bL1eAPc8/tb1HyKwSy+couiXxpIxlJfXIo7a
-	r0GsYJzF+Yyi4MB7qdav82p8o6pIWrZJKWe36SU/2nrP/6T/6b2fsMkfsEvdvGr90TL58Yru3KO
-	H9K/WQ9z5tTHLalXlnjs6Dlf/66GUREKHidYcx0hMHJGESIbzetY6O5IFWEE5PzEBqd8GrBNXL8
-	5NyCIhPwWGYBnaNZzvC8t3Qzw/dtKY4AwjedqfAn4rnZsp5D8pr9BRPH9kamFGFejzBV8Fu+aDu
-	wOeM3/B3P+LmOKugTl/2Wrjve7lSWioNgB60fhZAGDHlOisLKDC80Cw1+dPJ41r2T0MNKClu7UQ
-	R8yvJ5dv9jz2EjEUTcOFYsh9C
-X-Received: by 2002:a17:903:1ae3:b0:2ca:481:de45 with SMTP id d9443c01a7336-2d2fffd70damr314095ad.6.1786354750630;
-        Mon, 10 Aug 2026 02:39:10 -0700 (PDT)
-X-Received: by 2002:a17:903:1ae3:b0:2ca:481:de45 with SMTP id d9443c01a7336-2d2fffd70damr313665ad.6.1786354750206;
-        Mon, 10 Aug 2026 02:39:10 -0700 (PDT)
-Received: from [10.64.68.239] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14ccad58asm32963465ad.5.2026.08.10.02.39.06
+        bh=EyEgdVp7O6CUMToSIq4Pkng5Jk2xx180zJ29o453drU=;
+        b=k0mdxM8GpN8v9aEsBACesPx9Gf+cxCH0avXSUFeBDLV5SX0QO3RF302wMhTs/WYpz9
+         R5/o5ZogOHaIru5TnieFytH0qZGF7YMMeO56iMsTUTgmFYC4AiNhWMjYEC9suS7JMvJ4
+         U6xXFFrptbOlmg82OMUrWo+uRX7+BYtJPJJeoQw2Di2Mad5Fz83ceQIVS6rSD6oJ0G9J
+         m6wDbCqcxKmsFA2ouxbdj0+HUeVon626/5XdEIatRYUWBsZQ3bWdQiDTsu9WXh8BVtwv
+         ZEEMwYNreK9GJKHFvvEhUSfz/iCEEd/49BwVmY/9/qGP2ARqitUVYLfsUb2UeVqSm8Hc
+         W05Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786355129; x=1786959929;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EyEgdVp7O6CUMToSIq4Pkng5Jk2xx180zJ29o453drU=;
+        b=pBWYbAQmr3Ra/VYfhg2cWsZ9A4MWL8USHd66mvqXqAYuSGiZzbEYGKSFzV0TypfT1A
+         kJqAqjy3Yr1lhqJmTAImvnWwITJC8WSJ/0uXfFfhD3ZxNnHAhjxFaJd2kgHsTk89NKoX
+         dx/jeHFrV8TKxKsBRAlaEJvpbWuAT4+vAx4GyAmyEpsvCPaQk8isSQ/Dfw6lvWlMlqvQ
+         KKM0N3A2AumwyMvARdjFI6yjTTm8MtYliTQO4SvTo28DYL6yHsH+HirGO8kqohuiRBRD
+         QTq0PDnMY/SOst1sbeQ0oza7TttbAlc48bz0kkiMFrGW5n4acmLBIUaKI+tThj9c0842
+         dJZA==
+X-Forwarded-Encrypted: i=1; AHgh+RqaVf5uZHsRog1lc5hwSguXuJNKjYOjM5Cd6DV82y+ugf8etBJ13vaBd4+IieFiNqk1BZKH9LC1T9H+@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJB+bcuTn10F+C6PdOP3BMg2J7hVUwO4CeFpRHaQyplisIONKG
+	e0f1lcAnyuxtGA9YCbLuRitoQKE6tumEvf40kiwXnY1kox6pe92yZbycZvrOSkmj5gE=
+X-Gm-Gg: AR+sD11gz2HxCA8EyfLktgYq1vF/SwyDGXEKXAgc1J2whGxofaE6ccxWBneKc+iF8Fb
+	63aYg4IU+iB8TKQw0I3MFENGH7PhAd1/IdQmUp5/HDnhKI2lDAvoodS8zOCp4upF/mOxnnoZByl
+	KiR1cIvwq0233VvimZiex8mhqy4XPDW+rRExqQkX/kiwcvjzj1nEllHok57kOqN6ft/EoZBZiwZ
+	2lZyv/24Zqijmhp3RUssNlJOi5q4Yef6IMoQ3MtzNZo6N9EFm4bsMrI+OKcTfVoNOfsiozSBai5
+	XPehU+Gx63o6XIasWh894jtt1WYeWFpZXSA7h28hqGYFlUdO30IbO76UHzr285mQacAwC83tJXq
+	LNMD6StKMGbpzZH7emzmdSkpdQ+zoai6izvvXVZTUXhUAgr6SWr8Pq2JowgJJLndtkUXgFFZ9nL
+	PS6iNsLyXePxvB8nB22Sa9YprC0m54DXAIqxI1sAM6TL99OyirPEyk/uK6nnOmmWIRAHQs4iDgk
+	AzOuKIqBQxiKwD0bAf95cDWwazl8EWjC4cYQ3zBm8HusbzJLjCs
+X-Received: by 2002:a05:6000:4305:b0:47f:4fa9:ae42 with SMTP id ffacd0b85a97d-481455f8844mr733292f8f.11.1786355129252;
+        Mon, 10 Aug 2026 02:45:29 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:eb7f:37e4:e8c9:f32? ([2a01:e0a:106d:1080:eb7f:37e4:e8c9:f32])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4800215078asm32050521f8f.12.2026.08.10.02.45.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 02:39:09 -0700 (PDT)
-Message-ID: <34d3cf04-95ea-41ce-a8b6-2169eab2457c@oss.qualcomm.com>
-Date: Mon, 10 Aug 2026 17:39:04 +0800
+        Mon, 10 Aug 2026 02:45:28 -0700 (PDT)
+Message-ID: <d0c1f707-4d44-4d0c-a45b-5a78c94f286a@linaro.org>
+Date: Mon, 10 Aug 2026 11:45:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,90 +70,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: spmi: glymur-spmi-pmic-arb: Add compatible
- for Qualcomm Maili SoC
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, kernel@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260609-maili-spmi-binding-v1-1-80fc4b6bb80f@oss.qualcomm.com>
-Content-Language: en-US
-From: Yijie Yang <yijie.yang@oss.qualcomm.com>
-In-Reply-To: <20260609-maili-spmi-binding-v1-1-80fc4b6bb80f@oss.qualcomm.com>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 3/4] drm/panel: ilitek-ili9882t: Set prepare_prev_first
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
+ <20260809200107.842945-3-marek.vasut+renesas@mailbox.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260809200107.842945-3-marek.vasut+renesas@mailbox.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=O4YJeh9W c=1 sm=1 tr=0 ts=6a799c3f cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=KNmlJ2AI_NRoUSMOKEIA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: LZgEl_JSumSZWFc6VvuiqQVZ1FXc_nE2
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDA4MyBTYWx0ZWRfX2IY6nnaMJ5Rd
- RafL6TEuHnEDhOIuGeXq4l4v4cv43XIGrOCVB7AnMTweUGzcr4RefIYupw96Jf8Q35qlh0GNmCg
- CrLWepKtd8bmlW5BW9oCxgncCiSf818=
-X-Proofpoint-GUID: LZgEl_JSumSZWFc6VvuiqQVZ1FXc_nE2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDA4MyBTYWx0ZWRfX2rkTHOiSEmRz
- c6Jpm0/UzngVmB36E25CukB3/5VSfLcusOYRU4pYxXgFrd5d6taI/kyoDItKf1jyJFo92Aurek5
- nNjhA6O9UmpHU/gSRjBjL5hWjt1/R3Kf9lPWoyqPk4v8ez0xMEKpqn50KPebhrNCciO1Gg0oZZM
- yVPFjb6D5K/KlwzeJ/b4ZhvSBqXUmK8Pazsz0H9f0ObfM6SJ3hdN3uXNTXbYVlLZunP65MIz6f3
- rQaaT7u0Ze4i3CW0WTbn/2bPtrYUYzbUR7jOR3EbnVDPnvrGhkcLtr3PnI9y6twbfYCM80Ebw+r
- IA7BRT6qcMqIvstPcVlQKj/Coc3yz69Ti+A97mWmeQfCLuHQuyLCZjiSfJ6FaYkADbZJR1L9iRZ
- S25lI4C891cOFcLb8ArqXjKQeetcsYJDqrXxSzrYu85GZlnqbW+btaUjjS15kYDKwvcCCK8yxgF
- 6gGTsW8I5Px4g9roLoA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_02,2026-08-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 adultscore=0 clxscore=1015 malwarescore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100083
 
-
-
-On 6/10/2026 2:29 PM, Fenglin Wu wrote:
-> The PMIC arbiter in the Qualcomm Maili SoC is version v8.5, which
-> is the same with Hawi and compatible with Glymur. Hence, add a string
-> for "qcom,maili-spmi-pmic-arb" as a compatible entry for
-> "qcom,glymur-spmi-pmic-arb".
+On 8/9/26 21:58, Marek Vasut wrote:
+> Sending DSI commands from the prepare() callback requires DSI link to be
+> up at that point. For DSI hosts is guaranteed only if the panel driver
+> sets the .prepare_prev_first flag. Set it to let these panels work with
+> the DSI hosts which don't power on the link in their .mode_set callback.
 > 
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > ---
->   Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml | 1 +
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Jessica Zhang <jesszhan0024@gmail.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: devicetree@vger.kernel.org
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>   drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 1 +
 >   1 file changed, 1 insertion(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml b/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml
-> index 1593a1183a36..44c864fd5fc7 100644
-> --- a/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml
-> +++ b/Documentation/devicetree/bindings/spmi/qcom,glymur-spmi-pmic-arb.yaml
-> @@ -27,6 +27,7 @@ properties:
->             - enum:
->                 - qcom,hawi-spmi-pmic-arb
->                 - qcom,kaanapali-spmi-pmic-arb
-> +              - qcom,maili-spmi-pmic-arb
->             - const: qcom,glymur-spmi-pmic-arb
->         - enum:
->             - qcom,glymur-spmi-pmic-arb
-> 
-> ---
-> base-commit: 3443eec9c55d128064c83225a9111f1a1a37277a
-> change-id: 20260609-maili-spmi-binding-dbecf60b498e
-> 
-> Best regards,
-> --
-> Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> 
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
+> index 219d048cb883f..24e72ad0d29a1 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
+> @@ -808,6 +808,7 @@ static int ili9882t_add(struct ili9882t *ili)
+>   
+>   	ili->base.funcs = &ili9882t_funcs;
+>   	ili->base.dev = &ili->dsi->dev;
+> +	ili->base.prepare_prev_first = true;
+>   
+>   	drm_panel_add(&ili->base);
+>   
 
-This change can still be applied without conflict.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Reviewed-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
-
--- 
-Best Regards,
-Yijie
-
+Thanks,
+Neil
