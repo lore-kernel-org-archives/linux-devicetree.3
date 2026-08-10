@@ -1,81 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232884052A4;
-	Mon, 10 Aug 2026 14:55:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126383DA5CD
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:57:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786373702; cv=none; b=OmlyV9qXlGd1aWw0sX6moPFp01TVlHB6pjMOk0ShXfYwArpTRqrA0NPI5UMezZHYsOk9bM6QPi/GNlA3jfRMHEyyr3FH8XHGaovX1Zl9zBuoiQmH4kfRd5DZY53klhWxjLLxN3HR/Bc4opt8HwV+a5xC0shPheorXUpVuDXoI/8=
+	t=1786373857; cv=none; b=JWB9guDWHjVQqsNVXfzy3ezzYbYM+b6nmGQpBttmRwDDJjywgWQyQb1xrKt+jgg5+qpRhRJ2gflGAtngooOeSjbcz+CmBHkDzqNQTM8TloUSALMSTdXhnzAMViMrzMl7MbwM8AnWn7KVqgLTjydxEXmqIfgYldAK5K9LxU7B/Yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786373702; c=relaxed/simple;
-	bh=HhTFujIplQ+QkXrasiGzjfFn7Cxe+llMwgzuECPk/o4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GURsQ2T4ZY8Nh2WtVEz3ub5goxg3afUrMwpfgYGmLaJYBlt5i87Kzx0nZWuNB+Ij4TPDP/G2GSiXuNegC0MClORuB7mRoq4cq3CmslCb4YOOb4LQQbX7BkjMfa5k4yum9Yiiw4cOh+5bZVtSYD7s70e1fX13qTrASstmdiSMjT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cA4fOepS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786373857; c=relaxed/simple;
+	bh=zIPH8/H9AStJJGlRTtV7zh9GtQETyOYe5UASaKotWZg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VA3Ug0hwN432AErL7PZZ3gsYR/EEfrASnQT3mvNeyIlPbPh4fh1UNe3LQHBk7t/N48i3zO+7bkwziTzjJINNrPzJsUzAedpZ5wro8cBI7rpdh1zL4Lmz+XLlOC9CLPNpInXE4X9HWmy8Xa1MPFfMizJFYURIesRxRphmYBmzhZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TSMuIqlp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cA4fOepS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F0E1F000E9;
-	Mon, 10 Aug 2026 14:55:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TSMuIqlp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5276E1F000E9;
+	Mon, 10 Aug 2026 14:57:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786373700;
-	bh=IePcMhimiO4bG8MZLgXj0Mzb3WEI4wgOXRrJsnP050U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cA4fOepSlxC6CBDbTfrdfIWZcYuymLzs3oq03p5izsC9edhhWk1TOkW+brDxdSeC8
-	 Fc0GojCmB6dWCQqdRzy1uTe+OmrLVob2S8+uk6OMtyfUjtpAxT+NUZkfGWHbWeDG1u
-	 3uowUO9PQqRAhAcQMp4goIo5Exs43zaC0enbSeJpIbNS1VPzxmN1j2UYQGtJx4H83+
-	 Iakuh76SACNBUx/TReGc2PIerNLZuih0tWGkfzh0b7ZKh2OqOEvvUcGw8rqNiEOGXc
-	 2iPB9L/fxvo9ohNbMDziIToltTYtJQm44NJOuoafDOMv9En2mI40wk3KrBlXlOxf5Z
-	 qUBuCtVOjp1Tw==
-Date: Mon, 10 Aug 2026 09:54:59 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Emil Renner Berthing <kernel@esmil.dk>,
-	Michal Simek <michal.simek@amd.com>,
-	Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>,
-	Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, devicetree@vger.kernel.org,
-	E Shattow <e@freeshell.de>, Joel Stanley <jms@oss.tenstorrent.com>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	Guodong Xu <guodong@riscstar.com>, Icenowy Zheng <uwu@icenowy.me>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org,
-	Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Anup Patel <anup@brainfault.org>,
-	Junhui Liu <junhui.liu@pigmoral.tech>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>
-Subject: Re: [PATCH v3 2/5] dt-bindings: interrupt-controller: Add StarFive
- JHB100 plic
-Message-ID: <178637369862.1615335.12680863675336505769.robh@kernel.org>
-References: <20260806122553.182449-1-changhuang.liang@starfivetech.com>
- <20260806122553.182449-3-changhuang.liang@starfivetech.com>
+	s=k20260515; t=1786373854;
+	bh=WyOLzU/bme+WKBvI9cI1IWD0TQ8JmMrPBozVSU3K9Tk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TSMuIqlpcV8SNSa+p+clZvul7DDYK7ZYtMAcNebwdGxbzQEwBoguMbMUXIJgfu7JL
+	 2NRK7+QpKqsb9+coXxpMUpvCNurRl6i/xeA3ulMJjMbn/+CcqsSyRIZvVOevpOjr+r
+	 1ULDjp196A3j26KP2ETaTPmdlxmrgyJuiorkpRKgqBzuL1KgU9+C7ZDGrUGOYOvZLI
+	 tNA6Xh6P626v0j2Jh8H2r6T50r036qagXBXIT3YaSunKjRvC1LOmyLlV207ANaAD0J
+	 ek7xaLzgWpngWwH3xYzpEe0gAzzYcXwtzTyJRmuWcKuiDo08bZvrQvHfgSlJMlAtZ3
+	 RP5LRBJLJN8dQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] PM / devfreq: add Airoha SoC devfreq driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260810143057.651478-2-ansuelsmth@gmail.com>
+References: <20260810143057.651478-1-ansuelsmth@gmail.com>
+ <20260810143057.651478-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 14:57:33 +0000
+Message-Id: <20260810145734.5276E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806122553.182449-3-changhuang.liang@starfivetech.com>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] The driver is missing the `MODULE_DEVICE_TABLE(of, ...)` macro f=
+or its OF match table, preventing automatic module loading.
+- [Medium] The `airoha_devfreq_target` callback fails to resolve the reques=
+ted frequency to a valid OPP and does not update `*freq` with the actual ap=
+plied frequency.
+- [Low] Multiple function definitions end with an illegal trailing semicolo=
+n.
+--
 
-On Thu, 06 Aug 2026 05:25:50 -0700, Changhuang Liang wrote:
-> From: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-> 
-> Add compatible string for StarFive JHB100 plic.
-> 
-> Signed-off-by: Ley Foon Tan <leyfoon.tan@starfivetech.com>
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Reviewed-by: Hal Feng <hal.feng@starfivetech.com>
-> ---
->  .../bindings/interrupt-controller/sifive,plic-1.0.0.yaml         | 1 +
->  1 file changed, 1 insertion(+)
-> 
+--- Patch [2]: [PATCH 2/2] PM / devfreq: add Airoha SoC devfreq driver ---
+commit 541990b8210ffb6d5026b9bcd5630443b99f63ec
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-Applied, thanks!
+PM / devfreq: add Airoha SoC devfreq driver
 
+This commit adds a simple Airoha SoC devfreq driver. It registers a
+passive governor to scale various internal peripheral clocks based on
+the CPU frequency requirements.
+
+> diff --git a/drivers/devfreq/airoha-devfreq.c b/drivers/devfreq/airoha-de=
+vfreq.c
+> new file mode 100644
+> index 0000000000000..cb6d8b49e4a40
+> --- /dev/null
+> +++ b/drivers/devfreq/airoha-devfreq.c
+
+[ ... ]
+
+> +static int airoha_devfreq_get_cur_freq(struct device *dev, unsigned long=
+ *freq)
+> +{
+> +	struct airoha_devfreq_data *data =3D dev_get_drvdata(dev);
+> +
+> +	*freq =3D clk_get_rate(data->clk);
+> +
+> +	return 0;
+> +};
+
+[Severity: Low]
+This isn't a bug, but should this function definition end with a semicolon?
+
+> +
+> +static int airoha_devfreq_target(struct device *dev, unsigned long *freq,
+> +				 u32 flags)
+> +{
+> +	struct airoha_devfreq_data *data =3D dev_get_drvdata(dev);
+> +
+> +	return clk_set_rate(data->clk, *freq);
+> +};
+
+[Severity: Medium]
+Does this function need to resolve the requested frequency to a valid OPP
+and update the freq pointer with the actual applied frequency?
+
+If the governor or PM QoS requests a frequency that doesn't exactly match
+an OPP, applying it directly without resolving (e.g., using
+devfreq_recommended_opp) leaves the unrounded frequency in the freq pointer.
+
+The devfreq core tracks frequency statistics using exact matches against
+its freq_table.
+
+Won't this cause devfreq_get_freq_level() lookups to fail
+in devfreq_update_status(), resulting in spamming the kernel log with
+'Couldn't update frequency transition information' warnings?
+
+Also, similar to airoha_devfreq_get_cur_freq(), this function definition
+has a trailing semicolon that can probably be removed.
+
+[ ... ]
+
+> +static int airoha_devfreq_probe(struct platform_device *pdev)
+> +{
+
+[ ... ]
+
+> +	return PTR_ERR_OR_ZERO(devfreq);
+> +};
+> +
+> +static const struct of_device_id airoha_devfreq_match_table[] =3D {
+> +	{ .compatible =3D "airoha,devfreq" },
+> +	{}
+> +};
+
+[Severity: Medium]
+Is this missing a MODULE_DEVICE_TABLE(of, airoha_devfreq_match_table)
+declaration?
+
+Without it, the modpost tool won't extract the compatible strings to
+modules.alias.
+
+Will user-space module loaders be able to automatically load this driver
+when the hardware node is detected during boot or hotplug?
+
+> +
+> +static struct platform_driver airoha_devfreq_driver =3D {
+> +	.probe		=3D airoha_devfreq_probe,
+> +	.driver		=3D {
+> +		.name   =3D "airoha-devfreq",
+> +		.of_match_table =3D airoha_devfreq_match_table,
+> +	},
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810143057.6514=
+78-1-ansuelsmth@gmail.com?part=3D2
