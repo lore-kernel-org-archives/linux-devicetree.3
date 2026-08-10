@@ -1,157 +1,114 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6953803D7
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 06:26:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380D437CD5A;
+	Mon, 10 Aug 2026 06:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786343215; cv=none; b=Peunu3nuejBuWISGrVHBBP8aAn8rpwNy0Xkm/QybYwYdBLsnn9WE52qNfDhZJgsevZk9Rh2HzUTGYPPn5NgJ7JsBpA0a12fKTlRyJqGELcQS854XfuoQy1LF91EPnu4uOTUz5E3rneA3xmojNjoSUvLWlHOYqetODvqPbCdOjWc=
+	t=1786343388; cv=none; b=tjEvqucPE9PAPAYHYHMyY83/NIhiYurAXPjj5JPdxDqFmy3dxMciMzsnidzgSNBYpBD+B2YXhzotddyE3LKVOg6GMRBN9V0BpfinFwWzYhsqEiNnZkwydrJfHSOw4I1SfmrEOwrxsWh0U+yev4plC9VACWkxJqDWhI+Y9NqseoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786343215; c=relaxed/simple;
-	bh=kRrtrrpvePVbIOrdQv/XCZUG1O7W4sPdKWhYuBPfgDA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EVtfk7xuOVi7AIHFzowebPyrGfCf/4B0KDXYSp+CulF2T/qsIOH+2dIygIpETOWsWldAkGYIHHPRUbmysnf3FgOZD43YPOdDRO3i6XRbV3JAJvzuQ6HvTxg64ovku+UAsJugHoEigImp+mlHwzlQRh2S8hieCf0DTl2x0fmPA4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HwtJ8JoL; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786343388; c=relaxed/simple;
+	bh=hFXsvQQZ50EWEFVp9BJAK2NW8E86PED7jTPVzx9QXtE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UWb2637xDSx/JnYglNV7dsRyPE+HMWFiBpDMraPLFlsyUuhN00ad/IlM9C5DWXLHBQT433ROXgMic4vFciX5CyaCh0w9NpcKZUPq96wbhmbwiY+m45O1x1p0ABvCZBVdpALIy1TJYtVZl4NUMwtZ+TrcxO9ulkIpbr0xxPsZPfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NcLjMB7g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HwtJ8JoL"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso1464903a91.3
-        for <devicetree@vger.kernel.org>; Sun, 09 Aug 2026 23:26:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786343213; x=1786948013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7XW7zVNksQuGLw3m1ipcozoM64brr/gJX+tqNumdacU=;
-        b=HwtJ8JoLyynZH7K3lmtYpM68O9lFG0bgZnsC9sFdMlYMSLE0BBofyB96MJsT+bVKal
-         Zy3KAMJdkKWEPiaDsK0peKUh5c8vpteB3IxKBLf/Bvt8L0uSHYeehtY/IJthMOv1+eWk
-         zNudrnzc20JZPJ9qUW7HE8snTNtQGlSF3fH8oxtfLnics9Ksh5wZYp5RXQI/tSYtL95H
-         V3WtUDo46KCDOXhVbkKAYomc2J2x8egUYTygqp6Y3B2XxCFhfbHhxNoa4wEr+u/LD/x8
-         6SIo8Kq2Br92uTekGcrYP2t8TrDv2ySHNsDls0CHWltfRw8mtIiLYMIpnMQyyyPTaRBb
-         ALHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786343213; x=1786948013;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7XW7zVNksQuGLw3m1ipcozoM64brr/gJX+tqNumdacU=;
-        b=YPX29mXfzU7ViBcrA2ftFLFPmUZHV5HpKWnnC5RVU+JbnCx3gV04H00+bLyx4p+ioB
-         CY8VrbEYf5qeTHpVWl+wL8hHm4rC5pVQQjZ0g4oRpONY0QwiwSyzE+7WdpQQeJKbW8q9
-         GRau/fxRav6FUB+zchdLaUMGcqJYiL8hHuqocxCAwtNTIudxaRqUBihb+5NkQavUFCIY
-         cj8BI2ZWo53OqcnUWroDQgAKeCg6+8lWftT/aMHf3SsIA0WXhjPwC9lnlp2hBG5aREzk
-         XY7t+qTj29Dde2fjuENzq7Ky1uWaHXt0kYaW/rlGAlBcm6inbLPu6iVVih+pnthkc+3m
-         2E/w==
-X-Forwarded-Encrypted: i=1; AHgh+RpN3eUDf3dqq+D1aTErb4JzlQpUThGOU1GYZ9t7aAHoUnx15MNANrjf9RGvkBFhbaXJCmCn/51YCDJY@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZYK/kcCVkGaAKvVJUVNnrkPkeKkxW3j/tdiiII1w70H3ISO2n
-	Ys7kPt5gvTfgvi2loRZWV7RDQzNp2Ysxr68ZRlINesO08wvJI7txZz0y
-X-Gm-Gg: AR+sD10/ya29unbMLdATE2ZostnhwaqSjDRjozC/aAxaDJu4Yk0NgrDt9f1c9ylv6sx
-	jRwbcaczJbwS0vBXYLs1FC9LPPUUXFrQt6wcTP/Py5DFBoA5cy02eCpIKl+FbwvFgCqIZ/Ma2C+
-	2Zs+nv6Yrd33ynEj4+j9Wnd5IMy+PSVJXd4ovaTRo7x0wAVh2sTHRN85aymThZncppZkJmzrmGK
-	hgFPmUmF1lh04kg6kKb2DRkmnW0f1k3HvNmPCGmVxpvfUM62IvfbdKcaJBydJd98DRb2Pmn3vkl
-	eGILZ8LhPUn8cGOQkorXgeLTg7N0pequTuKJT1bTVQtiHBuJkkRjbZ2N45KN526oM0SH0fLxHV1
-	qWuMusOZhlZjn/N0NCbTiHq6aIit3LF8EC90+JTnPMW+u2GG3siXtqlkFAjrOjqr2bMsv2AUrjH
-	Py5FnR8FqgGTssraQ6NFrIyf/NRFvcLBmRmiIp7oLSBU4ltSP8YcYEg6LnFdTi
-X-Received: by 2002:a17:90b:1808:b0:38d:e658:5959 with SMTP id 98e67ed59e1d1-3903c545edamr36471872a91.5.1786343213083;
-        Sun, 09 Aug 2026 23:26:53 -0700 (PDT)
-Received: from thefoxflat ([2404:c0:7028:5cc2:3516:bc05:bd3c:bdb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3925fa4fc7fsm11138390a91.0.2026.08.09.23.26.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 09 Aug 2026 23:26:52 -0700 (PDT)
-From: kyufie <imkyufie@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kyufie <imkyufie@gmail.com>
-Subject: [PATCH] arm64: dts: qcom: Add notification LED, vibrator, and UART support for Xiaomi Redmi 5A (riva)
-Date: Mon, 10 Aug 2026 13:26:12 +0700
-Message-ID: <20260810062611.735673-2-imkyufie@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NcLjMB7g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 326781F000E9;
+	Mon, 10 Aug 2026 06:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786343386;
+	bh=oQ1A4LzXuctT5gSCR9p+ED0WLIbI0m8a/EWhJeb+/iA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NcLjMB7gUSPrs62jIQ+KYMzKgJH2Kk5isRAhY2T21Ugt4t/uMVxQ8JWJHXZqulB0r
+	 IqxSicwNJBCgbJLDaldsW34wYflTTyEXs52z4JEaOB5aDa0jHSUEic5iHyu26GnCEA
+	 q8OpgDArXa+2Rt2lMo2ImkqEWWltIXw9qZGc88gWDBNZRxUFVy4uYVbBR9/jq2cGU5
+	 +Y8XOJl6kwhSAH9nEglmQa2CmnrWnW4L0yGy8uE6fu0q7vVSIbzzaMeaCPBNrTFZtH
+	 mo+2bD6nyVyzContlGdVgxvB6tAwHt5rNNe2DExRvTmAwj9MYZAbmGM1LeuT8Rkpb4
+	 xkHF/TUDRj2iA==
+Message-ID: <b10bcbba-a012-45ce-998d-3929b10f3741@kernel.org>
+Date: Mon, 10 Aug 2026 08:29:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: Add notification LED, vibrator, and
+ UART support for Xiaomi Redmi 5A (riva)
+To: kyufie <imkyufie@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260810062611.735673-2-imkyufie@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260810062611.735673-2-imkyufie@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This patch adds support for:
-- Controlling the notification LED.
-- Controlling the haptic vibrator.
-- Communicating through serial port exposed as test points at the front and
-  rear side of the phone's PCB.
+On 10/08/2026 08:26, kyufie wrote:
+> This patch adds support for:
 
-Signed-off-by: kyufie <imkyufie@gmail.com>
----
- .../boot/dts/qcom/msm8917-xiaomi-riva.dts     | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-index 4ea4fbdb5..e74433f89 100644
---- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-@@ -5,6 +5,7 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/leds/common.h>
- #include "msm8917-xiaomi-wingtech.dtsi"
- 
- / {
-@@ -13,6 +14,10 @@ / {
- 
- 	qcom,board-id = <0x1000b 1>, <0x1000b 2>;
- 
-+	chosen {
-+		stdout-path = &blsp1_uart2;
-+	};
-+
- 	battery: battery {
- 		compatible = "simple-battery";
- 		charge-full-design-microamp-hours = <3000000>;
-@@ -23,6 +28,37 @@ battery: battery {
- 		charge-term-current-microamp = <60000>;
- 		voltage-min-design-microvolt = <3400000>;
- 	};
-+
-+	vibrator {
-+		compatible = "gpio-vibrator";
-+		enable-gpios = <&tlmm 97 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&blsp1_i2c2 {
-+	status = "okay";
-+
-+	led-controller@45 {
-+		compatible = "awinic,aw2013";
-+		reg = <0x45>;
-+		vcc-supply = <&pm8937_l10>;
-+		vio-supply = <&pm8937_l5>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		status = "okay";
-+
-+		led@0 {
-+			reg = <0>;
-+			led-max-microamp = <5000>;
-+			function = LED_FUNCTION_INDICATOR;
-+			color = <LED_COLOR_ID_WHITE>;
-+		};
-+	};
-+};
-+
-+&blsp1_uart2 {
-+	status = "okay";
- };
- 
- &blsp2_i2c1 {
+> - Controlling the notification LED.
+> - Controlling the haptic vibrator.
+> - Communicating through serial port exposed as test points at the front and
+>   rear side of the phone's PCB.
+> 
+> Signed-off-by: kyufie <imkyufie@gmail.com>
 
-base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
--- 
-2.55.0
+Please read the entire submitting patches document, including how to
+organize your changes and how to properly sign off your contributions.
+We do not take anonymous contributions.
 
+Best regards,
+Krzysztof
