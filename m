@@ -1,54 +1,46 @@
-Received: from 1.mo575.mail-out.ovh.net (1.mo575.mail-out.ovh.net [46.105.41.146])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14567409129
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:46:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.41.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44043361963;
+	Mon, 10 Aug 2026 16:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786380400; cv=none; b=InV/HAGpDSpU2BM/ZkVqf2MJX4lhqAE4oaiYO9IFEA9TybbZCQ5BIOpLb6GNBiAOuhi0SnW1XclQZOxlxhPEvugZfFNHCNonPEtrEbE4TNj99iMXpyoGYNrIMdKEUp+s7Anv9bJ1E7P7NTeT/XulPdVF//nCAJDXkURarLVIzWM=
+	t=1786380845; cv=none; b=tkEsKd8naqxMxOXDEiLbxfCLDR4ucIgCD/XMOa+LVx3XJZwOC9R14SAqs0e8l8Vex0Zcnq7zWTT1lF14osHI0PnBMJDORvan327K4HzKEc7WAR87EHp15pZh4eiRJ8v3JTbhqIP1gB1bQQ6HndLyb+h0rA9tYsI8kaSHlVbx3bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786380400; c=relaxed/simple;
-	bh=h8JMm3lG2PkZasKfNow2aML+HILdmmApWdsNUKU/K0I=;
+	s=arc-20240116; t=1786380845; c=relaxed/simple;
+	bh=RGuMXteJ+0S886Hhj5jqmAUd0iH3k40JJ5/CGL+peXk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PVFErpxk0opE5g4yD63pYwuW2HwJhGcRC+QGzJhkdNkFPn/6qlyQZJhOkMGh2ZZ6FFHk9xoWvqdYbX3Of5gu96BQ+noFNL+UWlMGHXdgdL7jIwpNntYVnz03P+3hWI+BzIdSi820i5Q7umDonuX2ZE2gEkpeXWlySZ0VnBzzsho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=46.105.41.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
-Received: from director9.ghost.mail-out.ovh.net (unknown [10.110.43.238])
-	by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4hJcJZ5Lf6z5xYR
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:17:02 +0000 (UTC)
-Received: from ghost-submission-7d8d68f679-5z4sg (unknown [10.110.168.82])
-	by director9.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 44E7F80F5E;
-	Mon, 10 Aug 2026 14:17:00 +0000 (UTC)
-Received: from m-works.net ([37.59.142.108])
-	by ghost-submission-7d8d68f679-5z4sg with ESMTPSA
-	id 4EegBlzdeWqH/wUAQ8H/aw
-	(envelope-from <maciej.andrzejewski@m-works.net>); Mon, 10 Aug 2026 14:17:00 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-108S002f1246bdd-25f1-4367-ad77-4adbbe4a8bb8,
-                    ED6AA3D647CD945153C5C800EF75597CE9F2D384) smtp.auth=maciej.andrzejewski@m-works.net
-X-OVh-ClientIp:144.125.48.245
-Date: Mon, 10 Aug 2026 16:16:59 +0200
-From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	broonie@kernel.org, linux-spi@vger.kernel.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	linux-mtd@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, maciej.andrzejewski@m-works.net
-Cc: linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org, Rob Herring <robh@kernel.org>,
+	 Content-Type:Content-Disposition:In-Reply-To; b=LR5EDSDFDbJfLojryLWNX8ct3M+H6m6LL3zE6b4JQeCWhSPGOzDzJdCecbDey2mToTb9S5hVkF0AQGUdCSnxLvgKke7JjDgOKXEp1pZamy8MJ9WcFnOqVUM8GD4pP06OE934sRfLXjiodg2Z3RkGI6B1X/3PnJcQplcqvzQymQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A91WYc6k; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A91WYc6k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECD591F000E9;
+	Mon, 10 Aug 2026 16:54:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786380844;
+	bh=edFOAhRzrYrPLPA3IaE3fo5UzDqS2qZA6yseavDYBD4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A91WYc6kMPaAly4SOSefNxtfsrOjRcqmCfPmShNnGOQ0jjfUDkCPhrtT43HvWAURA
+	 bfNYOz7qQ2rosgEIA/DMbFt2RSxmSDpagEM8tj/iE7b0mPNT6bkbeuNvmY4qJE+5Xz
+	 UQmJCtGB1Oz2UejsVvzme+9AHLswrAxRbhFwM5d6i/xWWoFB5GFuqcBskfOXYq6JFB
+	 YQ4M1lJMceAGgCY+Wyxp68C8sVCU6Iguzm/vWUQBemX7ZFxtBh93rm/Kb1iD/yLNv2
+	 m1UI76mYZuB2wBSnenGXS5WO79DQkxhy6VOO9SUVZ7utknfZa6dOG7CtQmf8SlD98Y
+	 0Hd8f9k/fXMuA==
+Date: Mon, 10 Aug 2026 11:54:03 -0500
+From: Rob Herring <robh@kernel.org>
+To: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-Subject: [PATCH 2/2] gpiolib: of: Identify SPI controllers by nodename
-Message-ID: <20260810141629.81650-3-maciej.andrzejewski@m-works.net>
-References: <20260810141629.81650-1-maciej.andrzejewski@m-works.net>
+	Conor Dooley <conor+dt@kernel.org>,
+	Brian Masney <bmasney@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+	Vyacheslav Yurkov <uvv.mail@gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: Add GPIO-locked fixed clock
+Message-ID: <20260810165403.GA2145873-robh@kernel.org>
+References: <20260726-feature-clock-guard-v4-0-e9c8b372b71c@bruker.com>
+ <20260726-feature-clock-guard-v4-1-e9c8b372b71c@bruker.com>
+ <20260810164000.GA1846263-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,82 +49,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260810141629.81650-1-maciej.andrzejewski@m-works.net>
-X-Mailer: git-send-email 2.43.0
-x-ovh-tracer-id: 15951186934430573347
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEFIaKoSFRHDjlvEiufjoWcD4cmBUs4G1gkwG+emCAn12twDtQ828LrUUBIp6+oc63Pl1IZhTbYYnD9+OcBLoKPOl05sT6lJvvFsfhsoFtEoWhmZjwf0mt1qHt+i7I0F3iSUlydsnJ+BBo+IBleI0Ojd0VNHdKBk6xRoSCjFwoNNNQLnaZ9w1zKAwYl2KhtJHHKmgtMroyXBzf6h8SKyW/0ADno3WUXP2hhaHAogAUdhe+9CBROLDVJASqsWAaN5y2QiG3UsVHAXkCpGwHOHWCu7oQkAHTR9AD4a6kc3GT/DH8buSkzgyHjzYk8tW+uQSdd7AG6INqyqJsgUmqO12ybepu/VeGlUxDzRiqGLnu+UyFGuk4Ki7dD572PnidasnAvEW+dmEDt8OXX8vWhgDEudBjGYFEgyO1k6vFjhJ+H4POqYBJ6+DUjYajtlt+11vSVhBn75SQcGEWgrf5nbCE22PwA2dMJY3oKFwbAznk5YbAv6LVeXX/ZWAi219+LUPUfagAHldfW61S2XSKZ0Bfhwsx8Iy5AaljZiLobl8l+x3pgV+A4wrSYdFoCu90HsBUMH294Ni1jvYnDGlWri4SQ5t7AWOtsxDE6Mv98AVyGxgk0+NnRHgBJQEghIjo6vq+fPuOg6zDZKilsrUuloHTKu1eVr8ZgR/PI0oQrYlup+A
+In-Reply-To: <20260810164000.GA1846263-robh@kernel.org>
 
-The "spi-" property scan added by the previous patch misses SPI
-peripherals that declare nothing beyond compatible and reg, which are
-the only two properties spi-controller.yaml makes mandatory for a child
-node. Let the controller settle those cases: spi-controller.yaml
-constrains the controller nodename to ^spi(@.*|-[0-9]+)?$, so the name
-is the one bus marker every conforming SPI controller has to carry, and
-of_node_name_prefix() is the existing helper for testing it.
+On Mon, Aug 10, 2026 at 11:40:00AM -0500, Rob Herring wrote:
+> On Sun, Jul 26, 2026 at 05:40:24PM +0000, Vyacheslav Yurkov wrote:
+> > Some hardware designs provide fixed-frequency clocks generated outside
+> > software control, such as by FPGA-resident PLLs. While the clock rate is
+> > fixed, a separate GPIO signal indicates whether the clock source is
+> > locked and producing a valid output.
+> > 
+> > Describe a GPIO-locked fixed clock provider that exposes a fixed-rate
+> > clock whose availability depends on one or more GPIO lock-status
+> > signals.
+> > 
+> > Signed-off-by: Vyacheslav Yurkov <uvv.mail@gmail.com>
+> 
+> I think you can drop this. Just update your author email.
+> 
+> > Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> > ---
+> >  .../bindings/clock/gpio-locked-fixed-clock.yaml    | 59 ++++++++++++++++++++++
+> >  1 file changed, 59 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> > new file mode 100644
+> > index 000000000000..4d17889c51ad
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/clock/gpio-locked-fixed-clock.yaml
+> > @@ -0,0 +1,59 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/clock/gpio-locked-fixed-clock.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: GPIO Locked Fixed Clock
+> > +
+> > +maintainers:
+> > +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: gpio-locked-fixed-clock
+> > +
+> > +  "#clock-cells":
+> > +    const: 0
+> > +
+> > +  clocks:
+> > +    description: Input clocks whose validity is monitored by this provider.
+> > +
+> > +  clock-output-names:
+> > +    description: Names of the clock provided by this controller.
+> > +    maxItems: 1
+> > +
+> > +  locked-gpios:
+> > +    description: |
+> 
+> Don't need '|' if no formatting.
+> 
+> > +      GPIOs to check the lock state.
+> > +    minItems: 1
+> > +    maxItems: 32
+> 
+> Please explain better how multiple GPIOs work? Why would you ever have 
+> more than 1 lock signal per clock? And you can only have 1 clock given 
+> #clock-cells==0.
+> 
+> Do you have an immediate need for more than 1? If not, I'd drop 
+> support for it for now.
 
-Both tests were scored over every board device tree in the kernel,
-expanded with the same cpp and scripts/dtc pipeline the build uses, at
-v7.2-rc7. All 3620 trees under arch/*/boot/dts expand; 503 of them hold
-at least one GPIO chip select that can reach the quirk, 765 such chip
-selects in total. 761 are matched by both tests, and none are matched by
-neither, so no in-tree board changes behaviour.
+I missed that this is N input clocks and 1 output clock. But that leads 
+to other questions. You've implemented a clock mux then? I still don't 
+understand for what h/w that makes sense. Which input clock is selected? 
+The locked one?
 
-One needs the property scan on its own: psc@11400 on ac14xx, a
-fsl,mpc5121-psc-spi named after the hardware block rather than the bus,
-whose m25p128@0 child carries spi-max-frequency.
-
-Three need the nodename on its own, all peripherals with no "spi-"
-property of any kind:
-
-  - panel@0 under the spi-gpio controller on rk3566-anbernic-rg503
-  - can@0, an mcp251xfd, under ecspi3 on imx8mn-vhip4-evalboard-v1
-  - spi@1 under ecspi1 on imx53-ppd
-
-of_gpio_spi_cs_get_count() in this file identifies SPI controllers with
-of_device_is_compatible() instead, but it only has to name three legacy
-controllers whose bindings are closed. An allow-list here would have to
-name every SPI controller binding in the tree, 71 distinct compatible
-strings among the candidates alone, and grow with every new one.
-
-Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
----
- drivers/gpio/gpiolib-of.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-index bd9a623f2ae1..959b32b3bea0 100644
---- a/drivers/gpio/gpiolib-of.c
-+++ b/drivers/gpio/gpiolib-of.c
-@@ -359,6 +359,17 @@ static bool of_gpio_child_is_spi_peripheral(const struct device_node *child)
- 	return false;
- }
- 
-+/*
-+ * A minimal SPI peripheral may carry no "spi-" property at all, so also let
-+ * the controller identify the bus. spi-controller.yaml constrains the
-+ * controller nodename to ^spi(@.*|-[0-9]+)?$, which makes the name the one
-+ * bus marker a controller is required to have.
-+ */
-+static bool of_gpio_node_is_spi_controller(const struct device_node *np)
-+{
-+	return of_node_name_prefix(np, "spi");
-+}
-+
- static void of_gpio_flags_quirks(const struct device_node *np,
- 				 const char *propname,
- 				 enum of_gpio_flags *flags,
-@@ -395,7 +406,8 @@ static void of_gpio_flags_quirks(const struct device_node *np,
- 			if (cs == index) {
- 				bool active_high;
- 
--				if (!of_gpio_child_is_spi_peripheral(child))
-+				if (!of_gpio_child_is_spi_peripheral(child) &&
-+				    !of_gpio_node_is_spi_controller(np))
- 					break;
- 
- 				/*
--- 
-2.50.1
-
+Rob
