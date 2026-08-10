@@ -1,94 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3964838BF72;
-	Mon, 10 Aug 2026 18:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55D5434E5C;
+	Mon, 10 Aug 2026 18:06:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786385007; cv=none; b=BjlvUuCN76kYvQIMylwOw+KclS4zz1Tq+HzlmVKDn768J+agKD15BypL2tDuYEXAaeTOp5az1NrttjOdSAYJURsXlFVCABo+uTsj/jxNCeGik6xywNR8hb20cg8albRPBufGUs+7Gx3T1nUWbpTZ3amgU+3xYZ/qLdfJLYDL+gw=
+	t=1786385171; cv=none; b=I8BUy4HzftGMUA17gnyzzJAIHGzBpfQ7M3Nie/dVi8VJ02svW1qAsqkTkhJXcuUjE3dEAW9MztHDPc+ihGq1Pz1Dgevq5/xv1eHAYea/yIo/qMLvzICPHd8xq0w9bYFHiIWVXruagNjlAyhpUEm0CqPHufBHEZoeavjdw+eS1xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786385007; c=relaxed/simple;
-	bh=MPk28tW9IaFNravdfW+vVd7/hzQhHKSQLveQ5Z7BM+g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ON78by7uae+6GZKc4Lf8hZliKBFGqg792YCONewCBickI/s7zst3PA85zlpjkroUc2QzEo+pFa/Wi/ATfDmBmOrdwlm7ovGUrfbawNLRwtzuHJUdcJWkt7Khsat6cQ1Vd0Y2sy816S62MRWYB9pKzKLP3n/bv3aj4MgIEijVxb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E5SrZ72V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786385171; c=relaxed/simple;
+	bh=G8H9Dl1uK5ID4BHhxZYuXgHaGIHDSo8WXQAFFX/Job4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kzafOdewgYxJtyIZdGisjY/LOSHEU/BABGcJo8IgdurxlCKd3E64lKr3DUtzbFdDk2DRXUq+bgVdbeU6nir2gAKBHg62DQmumwdrzlHconeOrcR1cvW6haApgMc6HqMk88tXRxBskavrR9dat33ngAWuJ9kUX/yGm7hCjFs8B+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bWpHhFi9; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E5SrZ72V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08F21F000E9;
-	Mon, 10 Aug 2026 18:03:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786385005;
-	bh=+47nB+ymVQpumJdoiL7i0y+0QEYSSwSbPBEdZ3OfrBg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E5SrZ72VDXJbAtd0U9iOidzNeHCawXN+u5dsLBP7qBo2pJzTegMWiPiO/SjD33Dl0
-	 0s7LAwspsNl+NzMXa2B+Seg1OtoD/Hc0tN3twuQ/GTBUjfV8v8N6PnY3lKuTXpYQPf
-	 HfS9exE/RtVdAcJW8p30pJpDeQN88wOINYcwDqZR4jhKNTRShG/aYTsGrqptP909RK
-	 2yXqp0EHNeyHRkyOMJfP5FlGajUUj/AFHG3l5XnWP8/Mdlvn4c5MObzjufaSxi6uv/
-	 M5ojLqlXtohKQzlRWmJlxd1HHLiXIP18Ituk5+RVZ7VjHFWDnBGekuLRko6lnDMHo7
-	 d2qz0ZNuIsIyQ==
-Date: Mon, 10 Aug 2026 13:03:24 -0500
-From: Rob Herring <robh@kernel.org>
-To: Manikandan Muralidharan <manikandan.m@microchip.com>
-Cc: pratyush@kernel.org, mwalle@kernel.org, takahiro.kuwano@infineon.com,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev, linux@armlinux.org.uk,
-	richardcochran@gmail.com, arnd@arndb.de, linusw@kernel.org,
-	michael@walle.cc, linux-mtd@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org
-Subject: Re: [PATCH v6 1/7] dt-bindings: mtd: jedec,spi-nor: allow the SFDP
- to be exposed via NVMEM
-Message-ID: <20260810180324.GA2352629-robh@kernel.org>
-References: <20260729043026.1811147-1-manikandan.m@microchip.com>
- <20260729043026.1811147-2-manikandan.m@microchip.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bWpHhFi9"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 359267CA;
+	Mon, 10 Aug 2026 20:04:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1786385093;
+	bh=G8H9Dl1uK5ID4BHhxZYuXgHaGIHDSo8WXQAFFX/Job4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=bWpHhFi9IW6tX+2d6jrozjEpeuALY4v6CTcnoxv4SvW2lv8W+Cvd7gBKSVGClnv6S
+	 CkSMZeeQRjfKyFBHil9NjnRxOIDdBPSk6S+UJcTRmYwg7Bbc9CevPYzY8Nzf/xKu20
+	 xMT/o7MOkBmT/mAzF4qigI0+V0jFpSET2v8XQlGU=
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: devicetree@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@iki.fi>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	linux-samsung-soc@vger.kernel.org
+Subject: [PATCH v3 1/7] ARM: dts: samsung: exynos4210-i9100: Replace clock-frequency in camera sensor node
+Date: Mon, 10 Aug 2026 21:05:58 +0300
+Message-ID: <20260810180604.3034255-2-laurent.pinchart@ideasonboard.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
+References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729043026.1811147-2-manikandan.m@microchip.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 10:00:20AM +0530, Manikandan Muralidharan wrote:
-> Add an optional "sfdp" child node (compatible "jedec,sfdp") that
-> describes the SFDP as a read-only NVMEM provider via nvmem.yaml, so its
-> contents (e.g. a vendor EUI-48/EUI-64) can be read through NVMEM cells.
-> 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
-> ---
->  .../devicetree/bindings/mtd/jedec,spi-nor.yaml | 18 ++++++++++++++++++
->  1 file changed, 18 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/mtd/jedec,spi-nor.yaml b/Documentation/devicetree/bindings/mtd/jedec,spi-nor.yaml
-> index 587af4968255..98fd954598ab 100644
-> --- a/Documentation/devicetree/bindings/mtd/jedec,spi-nor.yaml
-> +++ b/Documentation/devicetree/bindings/mtd/jedec,spi-nor.yaml
-> @@ -103,6 +103,20 @@ properties:
->    spi-cpol: true
->    spi-cpha: true
->  
-> +  sfdp:
-> +    $ref: /schemas/nvmem/nvmem.yaml#
-> +    unevaluatedProperties: false
-> +    description:
-> +      The Serial Flash Discoverable Parameters (SFDP) tables exposed as a
-> +      read-only NVMEM device. This allows standard or vendor-specific SFDP
-> +      data (for example a factory-programmed EUI-48/EUI-64 identifier) to be
-> +      consumed through NVMEM cells.
+The clock-frequency for camera sensors has been deprecated in favour of
+the assigned-clocks and assigned-clock-rates properties. Replace it in
+the device tree.
 
-blank line
+Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+---
+ arch/arm/boot/dts/samsung/exynos4210-i9100.dts | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> +    properties:
-> +      compatible:
-> +        const: jedec,sfdp
+diff --git a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+index 8a635bee59fa..067a3264edf3 100644
+--- a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
++++ b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
+@@ -169,11 +169,14 @@ image-sensor@2d {
+ 			vdda-supply = <&cam_io_en_reg>;
+ 			vddreg-supply = <&vt_core_15v_reg>;
+ 			vddio-supply = <&vtcam_reg>;
++
+ 			clocks = <&camera 0>;
+ 			clock-names = "mclk";
++			assigned-clocks = <&camera 0>;
++			assigned-clock-rates = <24000000>;
++
+ 			stbyn-gpios = <&gpl2 0 GPIO_ACTIVE_LOW>;
+ 			rstn-gpios = <&gpl2 1 GPIO_ACTIVE_LOW>;
+-			clock-frequency = <24000000>;
+ 
+ 			port {
+ 				s5k5bafx_ep: endpoint {
+-- 
+Regards,
 
-blank line
+Laurent Pinchart
 
-With that,
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
