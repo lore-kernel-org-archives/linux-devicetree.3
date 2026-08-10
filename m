@@ -1,128 +1,129 @@
-Received: from 13.mo582.mail-out.ovh.net (13.mo582.mail-out.ovh.net [188.165.56.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCC1369D7D
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.165.56.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B627E369D63
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 16:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786380073; cv=none; b=E6FEelQ3vtLpdhFSsETWa6dgjinwAt8GDFVzDj3u7MDQvbVvT80KUmFp8CYOyV2123PMCgsixRGid3hMFk1J9YsZ721wedQ29GTEKtBSL+e3h5Kb1mqtU+MW/HfefXT7jAMf7qrwI/E+9Ue/9Ax/Chi7AFj3VS6fPuQPsTCjFh8=
+	t=1786380141; cv=none; b=HVjiX63zvX3FPTAgu/nZhIFGU4hUvxFi4S2p7gHwzqQfSy1HSN8lrXJQpUFv+ib93c6HEXjiX016CJkDZWYpg9ucuBeqVt/eoWTpUnmDyKl/h4vrQp/REYob0XRNYVoaYp/YLgaO2cizS8iupnfgzmmyGsuSsDsogc0Jpkw3F/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786380073; c=relaxed/simple;
-	bh=khtKjUjkFdnLjRe7hqxidH1JU3UV/vwbLf2gEb0XDxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Zxblbg5QFYK1i0wn4PV0ZCGN8uvSH+Y/B3wLAJaid2jsYncTWatntB6RW1mIt2EqLFgHGF8JGHw97NcGFMMFnBKKWdAr+gV5HMhsBpkBQbAGpNgafqy2oKY0IOWBUjZurrisljK3Hq4Hf2PYq7EkNaz2n7FBPXFPg181U5MQFTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net; spf=pass smtp.mailfrom=m-works.net; arc=none smtp.client-ip=188.165.56.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=m-works.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=m-works.net
-Received: from director6.ghost.mail-out.ovh.net (unknown [10.110.58.117])
-	by mo582.mail-out.ovh.net (Postfix) with ESMTP id 4hJcHN5VrFz5vSB
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:16:00 +0000 (UTC)
-Received: from ghost-submission-7d8d68f679-nv62s (unknown [10.111.182.119])
-	by director6.ghost.mail-out.ovh.net (Postfix) with ESMTPS id BCA8080474;
-	Mon, 10 Aug 2026 14:15:56 +0000 (UTC)
-Received: from m-works.net ([37.59.142.108])
-	by ghost-submission-7d8d68f679-nv62s with ESMTPSA
-	id PxmDHhzdeWoT+wUA+y4jow
-	(envelope-from <maciej.andrzejewski@m-works.net>); Mon, 10 Aug 2026 14:15:56 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-108S002b9938c9b-5063-437c-b380-4c4edae5ac1d,
-                    ED6AA3D647CD945153C5C800EF75597CE9F2D384) smtp.auth=maciej.andrzejewski@m-works.net
-X-OVh-ClientIp:144.125.48.245
-Date: Mon, 10 Aug 2026 16:15:55 +0200
-From: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	broonie@kernel.org, linux-spi@vger.kernel.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	linux-mtd@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, maciej.andrzejewski@m-works.net
-Cc: linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>
-Subject: [PATCH 0/2] gpiolib: of: Scope the legacy SPI CS quirk to SPI
-Message-ID: <20260810141555.70575-1-maciej.andrzejewski@m-works.net>
+	s=arc-20240116; t=1786380141; c=relaxed/simple;
+	bh=UraNGmZFA5REm5mXU8cijvRUoAo6cvI2W9iHwqUD45g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NqhpvxRpTRoFLjo4BxKbJALeOjdeSYdSn0Q6GrklSopcL0e2dckerbdDksCfLHMpvmruZyXHJSDHd5Ih6sHY2tm8tSQBCVtbXr2MvjYvwpczgV8Iflbq+GF2HxZp+vMPWT7Ro3BnI0C1TOtI6L/tSUPUe7hzyBpgjyRxNKm30RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QVL7N2Lf; arc=none smtp.client-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QVL7N2Lf"
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4a483a552efso527350b6e.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 09:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1786380138; x=1786984938; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4CrwjdneBCLq2MjyKhUL/tcV1sygNbjbpu5GnTQQd44=;
+        b=QVL7N2Lfjlmjxiv1+cn9tFernccaVe8QfmO14LEc7AmROiH+NYCEh6jeiR1MoPpx5K
+         4x9iToehymnSIgSfIOaQPvsrVZvz6458O+0ndqjnnPl+wzQi2pgg5UalsmxKnli8vd59
+         qL8bLs0Hktu6xc2Ge8a+CZp6rWMKjXd15t1oKdmGxlZTCG1Kd+vDRpucDRwXmGvAB2Q3
+         I4l1tLKh3WO7mnh7GLpOEIFnfFq2Vsx03JLEA7Lk3R89Ygcli+QlT2/n40A7UNJJR80v
+         AJ3sVHvEUC/q0+nOCjK2MMzSiWtMQH8MjvUhAO7BmgVMZ6MnVT2tLB4WFkMkruT3pYv5
+         IwLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786380138; x=1786984938;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4CrwjdneBCLq2MjyKhUL/tcV1sygNbjbpu5GnTQQd44=;
+        b=P/t7nvHjJ45puRjGwyeHpSawWeipxoSflXiTi4CW4c/g2PllZgXApSruN9OnLQVqaX
+         mA9pNgg3zQ2BY6jEo8EQAcZKfa6OjhlciH+p1trHqmHFBqZc7DalT+KUgNwevtBX9pq8
+         OQhC+vkDm8SheJd/Nn/+EBjQdN3mTaTrKWnths54W51nRbvEODE0e8FlWAHko/jUd+UN
+         kf2qsLXdBe8gDijxcB9uRiw7nZjciJ7MjMLosT8ZFj4RSNsoYfzbRsMfhlF4L0LAJZI9
+         92Lv8FAMOCGShJdHBabxaYpk4+vi/jwtzda/QJztLHMIyA0x5dFTvoXfZ8C8RA4cg7xG
+         bZYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrCPa3lOr3jXU1FqzWIxIPAg5CqW8/bpM+cLDo/5ktbhAoK1s21ngTUhtPLUJnyHpjMQh0YLjfwgZJA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxSLf3VnW6wmbeF1VSlmUvDr2++3LdflcGZjTH7Dl6eB0AbOOcn
+	6A6TLd4x+Pf7HT82MTevj97IhzJoNZhF5b9vhnBV4w7VxambQ9t03gV9RxGb5ZWgVuU=
+X-Gm-Gg: AR+sD12WWZ8XpsNrStb/nVCJSU/zLyKRFbeAknbg3OlwQI7NC8XtYeSOHE+lgGCwG0B
+	i03AkvajpuZhLUBEkA6fbpZthNwDTki3PXCGpky+x9D8Rv94f8t4bmtoXuNMWmSzuUa855KYlmV
+	expLSk1Cjh6VhOrfzDrVDQOFzGF7c6oerJXtWQfeCGcMrfSeIGnEEKSVC++aFYG1HK54dUTxxQL
+	yJUooctkU+POO50Xxya+1kmaraRcHTij+Gglq+5TTaCQrhrIyXfn81RrB4SFGsPdgyeP0Yqdin2
+	wbumdLg9UfwVjCz4e4a1z9m3nhIb7wo4esXENuz7tttwIhvVExmfmAfqZffAyaWRkqlLN0Yj21W
+	kxTOQjAT0pd0RmIrRanAHy0nhEFqc2189iu06KUMw62Q4gn6+3vbCKn4BP3kiJR8SnDLhyQDiJM
+	MeWZ9lR+DktdlvADhdPwgNThdFcivq2H8ZSgQABbFUIy2vNPdJ5ziOHPnUkopKMwz9c9nKhh0HW
+	3KL1BEfOLXu+DDupJ5phdAJzLPbfk7PTLl89rc=
+X-Received: by 2002:a05:6808:bc8:b0:4a4:c12:49d9 with SMTP id 5614622812f47-4b1e770811cmr1551304b6e.3.1786380138504;
+        Mon, 10 Aug 2026 09:42:18 -0700 (PDT)
+Received: from ?IPV6:2600:8803:e7e4:500:e05b:7923:cf50:e4cf? ([2600:8803:e7e4:500:e05b:7923:cf50:e4cf])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b1af06d90dsm7404797b6e.3.2026.08.10.09.42.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 09:42:18 -0700 (PDT)
+Message-ID: <4de0742d-c17f-4d0a-aab1-35870eee053a@baylibre.com>
+Date: Mon, 10 Aug 2026 11:42:17 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailer: git-send-email 2.43.0
-x-ovh-tracer-id: 15933735482169893667
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTE4EN55RJhVq6HnQXjLgYEkeokzgdDSeWKywccT583QP2uOgrZ2gP0CI5iy25N4cv/oYhS23lcgNgG/WpLPLlz0xfCtuePGgIcZaM2AF/AktLbtaoN9SMhP3bGY0+JYJNBLx2r/r4ROrmDKZpcKTi6lq/Ajus7xRAGJr4X44p+mREyo1U6yK1gic3C2Z03zWD64G23zs1YhY56Kao4x3SGOXPMQaCqoKF9ZbvOu/z8SUkQ9Cf0CDeOMmanTBj4cj9+tK2yzq3eU08yGABdWaFFaw6vcPYHKbTt5K+b0sZMUQoXM1hCIxsG7E1PJQFfmFmN/zZW531uDTTQKnkCIahF0qXwg+xSpvlHY8wG+cOqM96Tfga7SJ5I4Jl5UO+cN84D25NxYt5TzB9UtPWC8O6eCa4KI7AjZauT4zU6ykpfPKn+RneEFxdB/EPQBOexcD041tY0NEDFZOxbjOgqlOqFatDbYuHtvDfsIInPKyXRxGmmNBdAAeP9tGR8fZ2gEnZGnmAWWxSAPeiO7lm/Z5ES7b3xoOW1bFYyQuhEgeZ/TefOlvxdPNyrmnWzGQmGxLHcO2JIAKChbWJYBOiHvnzaFkRXKg2+Cj3MER+vOwHof9IOnOoqTsIMz4aHud45hya/ETQuivCqzlQNK+jSvAfJHRnv1ZT5AGZUJHUBQ8EA+1Q
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/9] iio: adc: Add TI ADS126X ADC family support
+To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org
+References: <20260807-ads126x-v3-0-f89925d72792@gmail.com>
+ <9c2e2c46-32de-4e8a-88c3-bfc2cfe8157c@baylibre.com>
+ <DKK9T3XRZJEV.R83PII0D35H@gmail.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <DKK9T3XRZJEV.R83PII0D35H@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-of_gpio_flags_quirks() decides whether to apply SPI chip-select polarity
-semantics purely from the property name "cs-gpios". Nothing about that
-name is SPI specific. nand-controller.yaml documents it for NAND
-controllers too, and rawnand_dt_parse_gpio_cs() asks for those lines
-with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios". The
-result is that a NAND chip node whose first reg cell happens to equal a
-GPIO index gets flipped to active low, and since the NAND core requests
-the descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, the
-die is never selected.
+On 8/9/26 3:29 AM, Kurt Borja wrote:
+> On Sat Aug 8, 2026 at 1:37 PM -05, David Lechner wrote:
+>> On 8/7/26 10:58 PM, Kurt Borja wrote:
+>>
 
-We hit this on an Arasan controller with a GPIO CS1 and worked around it
-downstream by putting spi-cs-high on the NAND chip node, which is
-plainly the wrong property to need. These two patches narrow the quirk
-instead, so that it only fires on an SPI bus.
+...
 
-Device tree has no bus type marker, so the series uses two tests, one
-per patch, and applies the quirk if either matches:
+>>
+>> And the driver also allows using an hrtimer trigger to do single-shot
+>> samples for cases where one doesn't want to sample as fast as possible
+>> in continuous mode. This would be more useful to someone who just cares
+>> about sample rate and not about filtering.
+> 
+> Why did you go for this instead of just leaving the continuous mode
+> running and reading on each trigger?
 
-  1. the matched child has a property namespaced with "spi-"
-  2. the controller nodename has the "spi" prefix that
-     spi-controller.yaml requires
+The hrtimer trigger allows more than one channel to be enabled, so we
+have to do all of the channel setup for the next channel before we
+can send the start command to trigger the next conversion. Doing it
+this way eliminates the possibility of not being able to update all
+of the settings in between the DRDY interrupts.
 
-Testing
--------
+For cases where we only want to read one channel, then we can use
+the DRDY trigger instead of an hrtimer trigger. Since we don't have
+to change channel config in that case, if we miss a DRDY interrupt
+because we took to long to start the I2C transfer, it isn't a big
+deal, we just drop a sample.
 
-Both tests were scored against every board device tree in the kernel.
-Each .dts under arch/*/boot/dts was expanded with the same cpp and
-scripts/dtc pipeline the build uses; all 3620 expand. 503 of them hold
-at least one GPIO chip select that can reach the quirk, 765 in total.
-761 match both tests, 1 needs only the property scan, 3 need only the
-nodename, and none match neither, so no in-tree board changes behaviour.
-Patch 2 names the four exceptions individually.
+> 
+>>
+>> Just posted the series yesterday:
+>> https://lore.kernel.org/linux-iio/20260807-iio-adc-ti-ads112c14-filter-support-v1-0-4d3ba00caf18@baylibre.com/T/#t
+> 
+> Can you Cc me this series too? The settlingtime stuff is something I'll
+> implement too.
 
-The collision with NAND is in-tree but latent: 36 board trees, all
-Atmel/Microchip at91, give their nand@3 controller a cs-gpios line and
-escape only because the sole child of those nodes is a partitions
-container with no reg for the quirk to match against.
-
-drivers/gpio/gpiolib-of.o builds warning-free at W=1 with CONFIG_SPI=y
-and with CONFIG_SPI=n.
-
-Note on bisect
---------------
-
-The two tests are complementary rather than layered, so patch 1 on its
-own would stop applying the quirk to the three peripherals that carry no
-"spi-" property (a panel, an mcp251xfd and one ecspi child, all named in
-patch 2). Only the pair is behaviour-preserving. They are split because
-the property scan and the nodename test are separate arguments and I
-expect the second to attract more discussion. Happy to squash them into
-one commit if you would rather not have that window.
-
-Maciej Andrzejewski ICEYE (2):
-  gpiolib: of: Only apply the SPI CS quirk to SPI peripherals
-  gpiolib: of: Identify SPI controllers by nodename
-
- drivers/gpio/gpiolib-of.c | 40 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 38 insertions(+), 2 deletions(-)
-
-
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
--- 
-2.50.1
+Yes, I meant to. It was late on a Friday when I sent it and I didn't
+the best job checking all of the details like that.
 
