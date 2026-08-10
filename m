@@ -1,124 +1,123 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EEF3D669B;
-	Mon, 10 Aug 2026 12:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786365603; cv=none; b=NCqwUB1SkFZ9VRxz4VwvT/hFHiLSExeLdP3DkhidunE3LIgWJD+p0ILPZPz41sA1zMsqbvOJWXbab1pTHrVf5vZvcA4pI73q/xmL3dCHLcg1BPTPjuzbHfVYFHnfVI5nWsjyrXldTkMymsGlDpyHYFzBXW0NJsJ9y/6tuBobBAI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786365603; c=relaxed/simple;
-	bh=idY+TMDwbQ5ONQBtcS1ma7Z6izl5WGX4G7umMEjIKZM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pZawqWhxXFufGgXYaaXnt4gfnm5dY8J47+AXVsff9yd9cDbJ9/yLR9M7DtkqijbVgNt07AlusjFXOOGUOhTwUn+xmDv97Dm5JzRqFo2LIZa2gV8YOCTDKi/+pzOuoQZT7WlyZ4d7/NQfIIsePPLEwix7mnOdLKZbc2gBWZeFN0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=8ARx8TI3; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B453D9DC7
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 12:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786365608; cv=pass; b=dDwpNke14AF3IekVBOz3HpniuNIu1GorgQw11FzntipbGin4D3iVQ/WYejkiSFBFbzOOPNkUxHqSUA4iNQsVQJVAdIvLdwMvEEvY2cDabfzxwYR9K6te/0U9UTqWcMq9iiT9/fbC8vgXqJWDisCGLU8HDgGo+k4+0P7A14lRHrU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786365608; c=relaxed/simple;
+	bh=HzTjFhFkoXBLwd3NrSqY+4yLtTn3dkc2guIu8OqfuBY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fC6dScKhM9TvEnO3TG7yzhjSP/3/50CA0NMWH9IZjLBKnVXLX7A25jPiiCt++SclDEiAhU/LgaXD37C1/f5NflaDsLy54pwfg4QXs4HlYIpaG5FynQLHyiF8GTZaGEcOLx7rbg4m5xUlq72L3/xhssApovmkqspbPPluvtHUce8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k+bu9765; arc=pass smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="8ARx8TI3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=RY/1wmCxCIFM0LLRBnTLXmBpxbfVg0FeVcj6W7X9LH0=; t=1786365602; x=1787575202; 
-	b=8ARx8TI3PDgp8yyRWt3GU3iy1krWHsiSrXbJLxz137kmerIXl1MTsYcTX+3MEYDQAWVu7BWtxx6
-	fjKpt1JyJ2o9wsWOdHzz0RVHnTsSCeWOui0hZuCThrlz2ZOjeOrtd5eBM5Y6QlJbwU4qeAxcy25NK
-	MM+Q6pxd0wzaqp43mVR0IEbNtCvw2kD5gSNusU4/5Tn03UzR5EsPuzUdo5D4ZVybKVmqXSwqWtvw5
-	EgMI1qv1mFxCSflFP6TRTOgUe3DhTzkUdqp9dABBRYEi9KJLBhK/XxsHIe4SkduSStZVPIWoj4d2I
-	izBRT4VKgRrOju3JBGlRwBoxK3eaBpQu+o8g==;
-Date: Mon, 10 Aug 2026 14:39:14 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>
-Cc: Daniel Thompson <danielt@kernel.org>, Grond <grond66@riseup.net>, Stefan
- Leichter <sle85276@gmx.de>, Grazvydas Ignotas <notasas@gmail.com>, Tony
- Lindgren <tony@atomide.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Lee Jones <lee@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Brown
- <broonie@kernel.org>, Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
- <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Russell King
- <linux@armlinux.org.uk>, Jingoo Han <jingoohan1@gmail.com>, Helge Deller
- <deller@gmx.de>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
- <tiwai@suse.com>, Sen Wang <sen@ti.com>, Richard Fitzgerald
- <rf@opensource.cirrus.com>, Arnd Bergmann <arnd@arndb.de>, Srinivas
- Kandagatla <srinivas.kandagatla@oss.qualcomm.com>, Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>, Charles Keepax
- <ckeepax@opensource.cirrus.com>, Niranjan H Y <niranjan.hy@ti.com>,
- letux-kernel@openphoenux.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- kernel@pyra-handheld.com, mfd@lists.linux.dev
-Subject: Re: [PATCH 15/16] backlight: remove pandora_bl
-Message-ID: <20260810143914.64d29a5c@kemnade.info>
-In-Reply-To: <DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
-References: <cover.1783749722.git.hns@goldelico.com>
-	<f897f695c0e1e128d7ebb41be8dfdce4d634f552.1783749722.git.hns@goldelico.com>
-	<anmpiADsvzW39DNx@aspen.lan>
-	<DA9588C6-0238-4713-B1A1-CB2123F02028@goldelico.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k+bu9765"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69f4acf7047so267107a12.3
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 05:40:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786365605; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CbgUYJq2qI+/sw967DRtPIgNUhwihpG7nSS1AbhqowTxGrjqdFLG+a1f6dpG7n4W8g
+         B1Tip76u8F4ws9aNSCioX6Jfmk7+/MzgbQsCO9LtQnTK37oT/zTlxZrIVF+fpHSILTYY
+         EtajcuYpADrKpFLM2LqbAq6PUh/mVGRvfHMfsW5/S6Yq4tMzDQfAkzdHjNtezVKYHJUw
+         RGfzFIL0C3UlNtcGI7l3P5Ze0EquVFBJDx5fkxWe1PwF9g26IxencfRnlGIuSKJy040k
+         iTjjzVUYM/QIqaNPac0PpWDcEEViLEvFmUQ0C6O9KSiKo00lD2qMknpf3DmQyemWFnTM
+         d43g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HzTjFhFkoXBLwd3NrSqY+4yLtTn3dkc2guIu8OqfuBY=;
+        fh=6b/6ReXjDxpU2CheEaVTRx2jkXj3Xpr88Te96Juc9EI=;
+        b=UGZl20Srv3UrjvXwRXECfqZo1hDYgsBRM3WA/B/LNVApvqJqaG0r7az+CnX3we26oQ
+         QWegyFFkPf6+zHVFFC9DEWkRPvf2Np8wKMoqMky9NDE7sx6SpYhmPV3OoDBFeaX/EDfS
+         3+fslT2njxa3757ja4M/1crZHrNvcIiRoPw1PhvSIEX6gRh6YAuh773CSjDaqWtlMWr3
+         8vjW8CvbBGC61tciin557lJNQsWZ8L8pL0/loIFjGn7XN+5xX8AKaI3M04snobCyvqb8
+         9wG7pYGDtKrl6VVnnDiyuDIinqGWtRDOSsM+i58WbhtIIlQEiavdc8CUk8MwQS/VBVee
+         2/JQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786365605; x=1786970405; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HzTjFhFkoXBLwd3NrSqY+4yLtTn3dkc2guIu8OqfuBY=;
+        b=k+bu9765oVFkSjPN1HOpEjxdqYbtTERBNeGp8mFGHl6HPhlrsSulAnH/pCdYHaD/Iq
+         l+Fca83G3Ui+FxQn82ZxEtl8029Nh7cps09Le6tbFN4xeRq2nI2jigt2bxKWcjscKXRX
+         rPXmHbVv4OwrBRVp7bydLq8CKHSXwT//njxIcY1yYqqD6TP7vX9O27U2nHe/HR1+f4mM
+         E71gXzXmFN3OiPG8sDZRlu3riIP8X14rJc+QZIp2PlhBEYdmtSCUJXp16oOHDPETeqiR
+         UjE9wUrlAtpGUM3+xHvpnrmfs79rspH1Ur2Na9MKFRraWEjhPUtABHZ+r/l7lPLivfmC
+         VVTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786365605; x=1786970405;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HzTjFhFkoXBLwd3NrSqY+4yLtTn3dkc2guIu8OqfuBY=;
+        b=N11c3sUZFmVhZIdQHDibjrA2DL2N5P+pU2W2e6KMa2B1oDZMoZRT2BmPTFW6hmRROY
+         WLkxIIJ56GlE31wb9963dEKCJ9G+hkRO68XzqIETsSeuRCz9kGS3vr4qTliyKVo5TDQ5
+         6n+RC1FwBCsn8AluWzk9arfhKBMG1BdKcfvItKE1SanIWiFE8aC5yhX9f2vcciHJb/zY
+         jenofP9HXd8yEffLPlMY/gZpJ4SnJeKXLbMO/uHe2JofUSXvuUJnoKg7FQxaQFQ8Pv7Q
+         NHCsPTrwfYdk+s9PTs6HF8Ry4kHiZAkAbNScjnK7GCQaszvTuyUG0Bf8uhPK1ooGbvrZ
+         t2lg==
+X-Forwarded-Encrypted: i=1; AHgh+RqRfpXBgQI3lW6+jKfGqoM0adobOHNCVt8VmyGcMpqeawTTxbD09lQjx+96MyBPP/2wtZXAFvq5Trg2@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzh5AKDjbgdDn3Dbq7P4klee42wMX2xtfspha13UdFIfOLiVRUE
+	obd+ND3RKWqR4GTfhqKrPPcu8UK/+pOxJOA5o9uFgsGeRvKPv+MeQMz7oV2JPZMzGeCklyhpMMn
+	mWW0iy6TWUysHkaPctu5+KwAGFyOnGkE=
+X-Gm-Gg: AR+sD11cdePAQMK/U0LWn1tNwfFKqdBplbBbw+eU84aecBluoRKRJn8Uhgc3ZSd6BTi
+	m3NNZfopZ/+hiwHPsEOPnp/ejrv6DTavtqH729oV6PMy4kBAcXHL8pTBQtuS70GhwKTTlp46Q0X
+	rl2KFEctca86ms/VPIoe+XOMlQ4QORS1dMOt4+x7aDXXqkLnHfPbIDYcXi3H2PyHOc4Ra6yTNH5
+	GTEckmVrgdkRVO82dBGXyqG5bFtcNkeGkxUS6nBqXhenbAOq7dLM8BYkVvcsbHh4UiKK2R/ydIX
+	XWiiFYrDWZjiraUwGv7eKuEUC+oHkeo+yY4A8a2Hc79ExR1lu/yDrHsqc6oWBF8Lq3TpjwS/OSU
+	PAg==
+X-Received: by 2002:a05:6402:2351:b0:6a1:fd14:8829 with SMTP id
+ 4fb4d7f45d1cf-6a1fd1489dfmr3529309a12.4.1786365602791; Mon, 10 Aug 2026
+ 05:40:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260726-dcphy-rx-v1-v2-0-cf9cc34a412a@gmail.com>
+ <20260726-dcphy-rx-v1-v2-3-cf9cc34a412a@gmail.com> <7e55b8bc-d11d-4b25-99ee-d5d181be158f@collabora.com>
+ <CAPwA33Jnp6N7a=2tcrgEzFxXRpbxEO25ktrRDiea--9Uy5upNQ@mail.gmail.com> <00d6ee9d-0ef1-41d4-8cd7-affb320b84f4@collabora.com>
+In-Reply-To: <00d6ee9d-0ef1-41d4-8cd7-affb320b84f4@collabora.com>
+From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Date: Mon, 10 Aug 2026 20:39:50 +0800
+X-Gm-Features: AUfX_mwg7RyitAzo5nWhArTwTiYbA1EMZOXHMkTdNy0X60zc4wq-eQxbT6UdjPw
+Message-ID: <CAPwA33KHoH6AM7HLMQSBMwy2-TS2A_J=QyLwcg-S=t2yQ+_78w@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] phy: rockchip-samsung-dcphy: model TX and RX as
+ separate PHYs
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Guochun Huang <hero.huang@rock-chips.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 10 Aug 2026 12:45:16 +0200
-"H. Nikolaus Schaller" <hns@goldelico.com> wrote:
+Michael Riesch <michael.riesch@collabora.com>=E6=96=BC 2026=E5=B9=B48=E6=9C=
+=888=E6=97=A5=E9=80=B1=E5=85=AD=EF=BC=8C07:00=E5=AF=AB=E9=81=93=EF=BC=9A
+> [...]
+> OK, makes sense. Looking forward to v3!
 
-> Hi Daniel,
-> 
-> > Am 10.08.2026 um 12:35 schrieb Daniel Thompson <danielt@kernel.org>:
-> > 
-> > On Sat, Jul 11, 2026 at 08:02:02AM +0200, H. Nikolaus Schaller wrote:  
-> >> Retire the platform specific pandora backlight driver since
-> >> it can now be replaced by twl_pm and device tree.
-> >> 
-> >> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>  
-> > 
-> > Yay!
-> > 
-> > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>  
-> 
-> Well, there were some good comments by Sahiko to the prerequisites of this patch,
-> because it has one speciality the PWM BL driver does not handle (avoid
-> interpretation of PWM signals as W1 protocol).
-> 
-> I haven't found time to work on this, so we can't remove this yet.
-> 
-> In the end it may either remain a pandora_bl driver (converted to DT)
-> or become a patch for something else.
-> 
-But then it is a TPS61161 on top of PWM, not a pandora driver.
-And then there might be just a quirk for that chip in the pwm_bl using
-triggered by a compatible. I guess the quirk is this:
+Thanks for confirming the shared block and for chasing the GRF
+question with Rockchip - much appreciated.
 
+v3 is out:
+https://lore.kernel.org/r/20260810-dcphy-rx-v1-v3-0-a2d25c29adfc@gmail.com
 
-if (priv->old_state == PANDORABL_WAS_OFF) {
--		/*
--		 * set PWM duty cycle to max. TPS61161 seems to use this
--		 * to calibrate it's PWM sensitivity when it starts.
--		 */
--		twl_i2c_write_u8(TWL_MODULE_PWM, MAX_VALUE, TWL_PWM0_OFF);
--
--		/* first enable clock, then PWM0 out */
--		twl_i2c_read_u8(TWL4030_MODULE_INTBR, &r, TWL_INTBR_GPBR1);
--		r &= ~PWM0_ENABLE;
--		r |= PWM0_CLK_ENABLE;
--		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
--		r |= PWM0_ENABLE;
--		twl_i2c_write_u8(TWL4030_MODULE_INTBR, r, TWL_INTBR_GPBR1);
--
--		/*
--		 * TI made it very easy to enable digital control, so easy that
--		 * it often triggers unintentionally and disabes PWM control,
--		 * so wait until 1 wire mode detection window ends.
--		 */
--		usleep_range(2000, 10000);
--	}
+The shared-block handling follows your suggestion - one struct phy
+per PHY with a use-counted common block; the changelog there covers
+the details, including why the helpers ended up as get()/put() and
+why the GRF mode selects stay untouched for now.
 
-Regards,
-Andreas
+Thanks,
+Jason
