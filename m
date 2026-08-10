@@ -1,135 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21AE13BD63B
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:39:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648E2199EAD
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786372762; cv=none; b=c/hqf/8Mp5RmxG4Ws8c2trvnvHalZro1NJsB5siXppUUOJ2HRmBa1g1ULlvK3x5rrNpZuBTU+jQBYEIDts4C4A+KjQ+htXdLC9xhZRWMO4EHym1cxYKjH6SdEMLsmKzzbMsu2+cSaQu0f0sFDrRr2195k318uAisajOO7BSgqls=
+	t=1786372812; cv=none; b=VBgBzDlIHqGsCGzx5JzzFIwG1RsqKj0DPQQmPQksfNfsheEV3/qQIlL6G5NET2tBMfwZGxRn6uhDdyahrBARG0jWbJbaAIViInCVBT7Ns5ldBAsPcq5MMkFW8S5kvKan+0nYarOP1NnWpIHkR4o9Ymk15t1WmQmaxG0rT6KYSnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786372762; c=relaxed/simple;
-	bh=+MLM+65Gz+a9CgKuMoKgY+3lxh7e9Rzfkj7HidHEJt8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Yr0KWCS2E/UAmUv3qV9qi8oD6IWMMnxdONpK/SAOaZg2XMd5g0HkcQ+kUtfe75XaaJ9jQrIbGhN2WtX7k3yS+5U7ryaPCzhAVUkuVKOV1FJY98vyfcHWXm4Y64/VqLbSIVMMdLp4pJ4gGjIkANmQ4MRo69596A+fPzvEenblvXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNG+Tl4c; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNG+Tl4c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0D41F000E9;
-	Mon, 10 Aug 2026 14:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786372761;
-	bh=IjvRqYzCj0ge6oeW5rgR9qhqlWgpLMJAXLwA/2S/gb4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mNG+Tl4c1S/CyuUFkiIw9nPQ1BQjb073yJ+L1S6GPoNDuBZbN8Wc9h4aFjABFMA3f
-	 9bi2UDmPSpQTcsDJoVyZFbMK9SppiccmE8I33zfqlFGI3JfP+9F/PNH7e7W6oRhQ6y
-	 xWjXEbefHvHUlC3NovNLS05LjL/DAAP1nUm+r8j5KDxvfRQV5Pl4c3pEwCz+2mVpKo
-	 UeCHDWzSBGFXumTaTl8g/pwNdLEIrgo2ZVHJf8vjP2XdzPxcmOv0SSDdXN9CuUe2GO
-	 W8a+5uwfN19P0bWntbLJkSew5nxDsBqFXLOLWBozSpbWTPka1RKQLNMVPvOW2RWF7M
-	 upPQkLGVWqz0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: devfreq: Document support for Airoha
- Subsystem devfreq
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260810143057.651478-1-ansuelsmth@gmail.com>
-References: <20260810143057.651478-1-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 14:39:20 +0000
-Message-Id: <20260810143920.9D0D41F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1786372812; c=relaxed/simple;
+	bh=uB/V/Xhwg31kLJGNDAMpcVbvCMFk1PoC6Tb+YOPqJRs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nmoLUDXmugDT2cPWFpsExTqGHC0lp+01Kn1Pm9nuIoT6fesH1dH39k88gnRHwj3oQkFEucj9fhFgWkxLZbQVpaS7PLyUDLhQXO0qSf0Lu+3J/uaOTEhHbWaq0liVg7rHM22yT8Q9CtQURNvyvn/LLWUHxlERgDxt3MaUlODnj9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-9770e900464so1560389241.0
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:40:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786372810; x=1786977610;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kzNCXQCO04CqdRN4JU2RpTNoOwr4IYw/G6qWE0jJmAY=;
+        b=X7ApeLYLcjPegUQthf339OndZE6FyDUj9nG33/8ZFcfv9ewrRmJVEQW1fZoR5QXVPq
+         6OYwDPY0ax5a4Vo6TosotWS27lS1ujm4z9rrM5DoHa11yRyHNmujX1skRB7XhuwJKZ2T
+         DgPQL157H0U5wre3Na3iimJv9yjmArXkhB7AAVRm82jwAzsaN2bzwI8x4G0QUtPrezIP
+         aOxf74R6q/ImSf9mTidL596AMynkjK3zswANCBSSyklJbTyVOFUdqXztLnrptwrsUnCh
+         7z2jna0knNBaLDUcC3YFRvl7FgEKymIfRx2SH2uPe8R4ZVxoWckgRxL7//igsqXHg792
+         FhaQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpaqgEZwWCLSFENZ1CrQ1hKOMwTfvdG6vOGD4+Ie1zspD+b1geVHpqFc7azsUYK7VnfHCuahGWTUlq/@vger.kernel.org
+X-Gm-Message-State: AOJu0YxljbBg1xpAYhXbVis3KyWGoz8Ms+IDzSCrd7ciLw6BB2NwxwNj
+	vdtNglkZD8lQE0yRv/HG/LhjVQJRP1jsYYGylh/y4R0nX3/Gyixm5Mp4sBXCGfyc
+X-Gm-Gg: AR+sD11Y7Bbefvjhbufjo2JHwIiIErF8RncKDhfi/bagaP+tKhvqcEVKsQrhHBFMm7A
+	ZxrkmQcGfYPLh//td2lnyXVI0ycmjIJobqDAWK4Bm2lBeJi+rSe1A+OqnXRUT66GuEOresKxfP1
+	/f/HcBLbMuUa5LjDaHT5Fp36fZfTq0+veyAnD03klW4qP65Ul7vFdLaEkcH9EbGIDTiapk+0teV
+	Ws36C+IKLyIkKPM7uDlnuiPa6HoncIQ18zj7Wet0oZCii0NuNJIY+iphyautjiXJXT+YC2NxFoC
+	iuX4WoaBAzstsNN14hjFik6rSVn7Aw7aM1DJLcL+rT734cTc/nweo7Ho4mUIwLxa+dYh1fqGgKA
+	ZNJUbw4tPAFRGQ2F1nCOppITnS/mj1nGrADawcrfSsqZfQUihsEdUv2jrAeOd3ZOUSqC6iaYtGm
+	ia/snMc28ZGVXb7eUEpHlgKovCT+3A94rj27h+somBlGmJp3uQ8o3ulBgTGS6ADeFx8jJLaAOnt
+	fdoVH9twXYkZMsj2D36SExryA==
+X-Received: by 2002:a05:6102:292b:b0:73e:e4ab:1c84 with SMTP id ada2fe7eead31-76520bb1851mr2120558137.5.1786372810221;
+        Mon, 10 Aug 2026 07:40:10 -0700 (PDT)
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com. [209.85.217.44])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-763fe4daa5csm4712330137.1.2026.08.10.07.40.09
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 07:40:09 -0700 (PDT)
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7564b7a9490so3085276137.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:40:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq5a9cJB4qRD7Bt//3PjQStw7IGadbjM8kPdnRpv+BDlIvSJEi2GfbRzfY9Gw8HdMNqLjfLN4+sEHKx@vger.kernel.org
+X-Received: by 2002:a05:6102:a157:b0:744:e49e:df75 with SMTP id
+ ada2fe7eead31-76522a3542bmr1213203137.21.1786372809208; Mon, 10 Aug 2026
+ 07:40:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260714130429.11214-1-marek.vasut+renesas@mailbox.org> <20260714130429.11214-9-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260714130429.11214-9-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 10 Aug 2026 16:39:58 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWKVWFutMzBUVd=sQjRUzbRdJ_mGc0-x+o7WsOjo+-ZzQ@mail.gmail.com>
+X-Gm-Features: AUfX_mwN7lvLitZDlPNYWEclA-T-vCWyRoc3tq1Uu1GaHP9xVqafEpWVwj9VsLg
+Message-ID: <CAMuHMdWKVWFutMzBUVd=sQjRUzbRdJ_mGc0-x+o7WsOjo+-ZzQ@mail.gmail.com>
+Subject: Re: [PATCH 9/9] arm: dts: renesas: sk-rzg1e: Specify ethernet PHY
+ reset timings
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The compatible string `airoha,devfreq` is overly generic and lac=
-ks an SoC-specific identifier.
-- [Medium] The binding introduces purely virtual nodes with OS-specific nam=
-es (`*-devfreq`) instead of describing the actual hardware topology.
-- [Low] Typos and grammatical errors in the binding description.
---
+On Tue, 14 Jul 2026 at 15:04, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> The KSZ8041RNL reference manual [1] DS00002245C page 47 TABLE 7-10:
+> POWER-UP/RESET TIMING PARAMETERS does not indicate how long should
+> the system wait after deassertion of the PHY reset and before start
+> of communication with the PHY via MDIO. Opt for the same value as
+> used for KSZ9031RNX, which is 300 us.
+>
+> The KSZ8041RNL reference manual [1] DS00002245C page 47 TABLE 7-10:
+> POWER-UP/RESET TIMING PARAMETERS row tSR Stable supply voltages to
+> reset high is at minimum 10 ms. Set the DT property reset-assert-us
+> to 10ms because the KSZ8041RNL RM does not explicitly spell out how
+> long the reset has to be asserted, but this at least covers the worst
+> case scenario.
+>
+> [1] https://ww1.microchip.com/downloads/aemDocuments/documents/UNG/ProductDocuments/DataSheets/00002841D.pdf
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
---- Patch [1]: [PATCH 1/2] dt-bindings: devfreq: Document support for Airoh=
-a Subsystem devfreq ---
-commit 372abcdd0c5df2cbcf3b1b6f064f1949fb955f9d
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4, with the URL corrected.
 
-dt-bindings: devfreq: Document support for Airoha Subsystem devfreq
+Gr{oetje,eeting}s,
 
-This commit documents the devicetree bindings for Airoha SoC subsystems
-that scale to specific operating performance points (OPP) based on CPU
-clock reference.
+                        Geert
 
-> diff --git a/Documentation/devicetree/bindings/devfreq/airoha,devfreq.yam=
-l b/Documentation/devicetree/bindings/devfreq/airoha,devfreq.yaml
-> new file mode 100644
-> index 0000000000000..2f84486cb2096
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/devfreq/airoha,devfreq.yaml
-> @@ -0,0 +1,114 @@
-[ ... ]
-> +description:
-> +  Airoha SoC contains multiple subsystem that are scaled to a
-> +  specific OPP taking the CPU clock as reference. Such sybsystem
-> +  can enter idle or performance state based on the system load
-> +  and power consumption conditions.
-> +
-> +  Example of such subsystem are GSW (Gigabit Switch), NPU (Custom
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[Severity: Low]
-This isn't a bug, but there are a few typos in this description. Should
-"multiple subsystem" and "Example of such subsystem" be plural? Also,
-"sybsystem" appears to be misspelled.
-
-> +  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
-> +
-> +properties:
-> +  compatible:
-> +    const: airoha,devfreq
-
-[Severity: Medium]
-Will using a generic module string like airoha,devfreq prevent the OS from
-distinguishing between hardware variants on future Airoha SoCs? Devicetree
-best practices typically mandate SoC-specific compatible strings, such as
-airoha,en7523-devfreq, to cleanly handle future hardware variations or quir=
-ks
-without breaking the DT ABI.
-
-[ ... ]
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/en7523-clk.h>
-[ ... ]
-> +    npu-devfreq {
-> +        compatible =3D "airoha,devfreq";
-> +        operating-points-v2 =3D <&npu_opp_table>;
-> +        clocks =3D <&scuclk EN7523_CLK_NPU>;
-> +    };
-> +
-> +    emi-devfreq {
-> +        compatible =3D "airoha,devfreq";
-> +        operating-points-v2 =3D <&emi_opp_table>;
-> +        clocks =3D <&scuclk EN7523_CLK_EMI>;
-> +    };
-
-[Severity: Medium]
-Do these example nodes describe Linux driver frameworks rather than the act=
-ual
-hardware topology?=20
-
-Since devicetree is meant to describe hardware, it appears these virtual no=
-des
-lack hardware resources like reg properties and use Linux subsystem termino=
-logy
-(devfreq) in their names purely to bind a Linux driver. Should the clocks a=
-nd
-OPP tables be defined directly within the hardware device nodes they scale,
-such as the NPU, EMI, or GSW nodes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810143057.6514=
-78-1-ansuelsmth@gmail.com?part=3D1
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
