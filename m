@@ -1,156 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E7132939C;
-	Mon, 10 Aug 2026 15:52:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B973A329E7E
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 15:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786377161; cv=none; b=AIiwD21X1cedYt2RfaHfyyqRti1a3Y8Av8AlcAZYa3TuPd+GVtcjrH88Ddwnv2ACcwVpJkR4t2E4iy//2rmebPjrIEM6VufFqCQpqXPBeBdmdAHPaKQCRGedSte66zvD/eE6IpT76ufIfp5/mxC/wUjB2Ux953fZdRVv2FemGpk=
+	t=1786377303; cv=none; b=pNgo5avaaJlljDqHJ7TJvsK0Qplhk49vjWhEJ8KA4BK2hdAAg29eC5xlHvnf9FBcao5v9dFYLXnL+s8jjYRKMTchuftO47ZaSwED18KFjUoUxVCIOTAP7eE2Y0vpSCyD46GC/lavMAA2Chn70Te5MCZP5Y+Z4VZfelRVqeWNzj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786377161; c=relaxed/simple;
-	bh=K77OqxHEjCDC8nEXItsQHCEkDsImdzOZ/aMjHnpbUBM=;
+	s=arc-20240116; t=1786377303; c=relaxed/simple;
+	bh=2JiDPcxhXJ+iFYw2hYYGQaT67uUTGPO34PsJexCMh2k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Zcy/rE+fgqn9W4BlPuOzlGa5/1Qvrjr6C2ff2FaaGr/P3jZXcjFmFgRyNfPWyNpEA0GIfOvcJt2qXK6VHvz+xoza8MiG1ggIhJP+jySXJLQTVs91faNxCsgERn+c5N6jSuf2Y9+GlnS8QIuSwbZphRGSCieEAENXZhTVXJBpeCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yn+ZuJdQ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eQnvzMdN3HWBK/6j02TqeLyBtDO+VNYCIHi/51oOQY6V8CyxonEDnHzYoNTrtppZLnhF9TT4x1OpOq5Oo6ATD+dxJrTd9dlpSIdt6MtWTbGn6aPzf2ZUnX2kELQRiWMLtmlggCoTz4/xzTTBqCVWKTEyyKARMi0T//nRitCnNX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEUoixDB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yn+ZuJdQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380471F00A3A;
-	Mon, 10 Aug 2026 15:52:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEUoixDB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5B71F00A3A;
+	Mon, 10 Aug 2026 15:55:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786377159;
-	bh=qJTi4Gw0D51cr8rSLY7R6I3QTOFMloO0mAGPZqpaEnQ=;
+	s=k20260515; t=1786377302;
+	bh=jHgB9KcLwbFlrFnHbJx3/DoFOTkJvh/ws5voQ8FIVYE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yn+ZuJdQ8KdQLQni0beS9dTLRhQxZjQKFE2ysI9SajQr9/lNuOU0GOTvZOcWIKXcc
-	 9ZI7huyD9MYCo0PE21mn0ztsZpVlimIU2jjw54BQP6tYzCMoKP1Lu6fRQ+BcloAJhi
-	 rD0TzLUMtZCjmVr40gySwzz7rwHGhipsA+Cw7RYLYgVoUPp9CshVc7SvShLiz6s6E6
-	 SGUsJGwzA1LU3QX/BCUp9BgIxnOXNzpi2Bfd36C4E32TxXlt7Af9RC6W+h6YSANjkb
-	 268GlybI+DRu+/hWNRNigeyxSYosf5nXH979higfPREURIp2uiD6kC9xfcp8Yngifk
-	 TlEZlZg1d+l0g==
+	b=BEUoixDBT87ceX2G/yesS/FEu6oxmOdxqUgfOm+zSd2lMBIiKkdZepjfsFXFHIrwt
+	 2p8COvMS5ibxCGjdxI6IDFnvQLj4E1Mhyuk1mSVbU+HmYtbbzBHTZwq2AXB2EwIgo7
+	 /Y7a/FcXWgVdp/EfHdoyjUP1OTC15mSbqVrBol/zm7Y74XJuYJVWs202UjXXCnQf9Z
+	 r/GccYytMlqegiHQNdAMkdNeE99q/IDzX6KFKKbWrHpPbwm27JRSrkFgu9EGtaiAk9
+	 fSSTmNVH7NDXLiQcW0n42cAtIyuPoPxRQ1xIGarN+igsWxzwa8N08oXwkzweB7Q3Oe
+	 Yt3hcZ6WcAdnw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 06/19] dmaengine: ti: k3-udma: move ring management
- functions to k3-udma-common.c
+Subject: Re: [PATCH v5 12/14] perf tools: Add RISC-V trace PMU record
+ capabilities
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: robh@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, dmaengine@vger.kernel.org
-In-Reply-To: <20260810151423.1948224-7-s-adivi@ti.com>
-References: <20260810151423.1948224-1-s-adivi@ti.com>
- <20260810151423.1948224-7-s-adivi@ti.com>
+To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260810152223.3946743-13-mayuresh.chitale@oss.qualcomm.com>
+References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
+ <20260810152223.3946743-13-mayuresh.chitale@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 15:52:38 +0000
-Message-Id: <20260810155239.380471F00A3A@smtp.kernel.org>
+Date: Mon, 10 Aug 2026 15:55:01 +0000
+Message-Id: <20260810155502.5B5B71F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Lockless check and free of `uc->terminated_desc` in `udma_reset_ri=
-ngs` races with the ring IRQ handler, leading to a double free and memory c=
-orruption.
+- [Low] Missing explicit header inclusions for POSIX libc functions (`free(=
+)`) and constants (`UINT_MAX`), violating musl libc build compatibility gui=
+delines.
+- [Low] The newly added header `gtrace.h` is completely unused, its macro i=
+s re-defined locally, and it is structurally broken due to missing type dep=
+endencies.
+- [Low] The function `parse_event()` is used without including its correspo=
+nding header file.
 --
 
---- Patch [6]: [PATCH v8 06/19] dmaengine: ti: k3-udma: move ring managemen=
-t functions to k3-udma-common.c ---
-commit 0d8096a9286d7cd074f83a1328af2729690e353f
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
+--- Patch [12]: [PATCH v5 12/14] perf tools: Add RISC-V trace PMU record ca=
+pabilities ---
+commit dc36885ec60bdf3420446c3aec420428e7cdc32a
+Author: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 
-dmaengine: ti: k3-udma: move ring management functions to k3-udma-common.c
-   =20
-Relocate the ring management functions such as push, pop, and reset
-from k3-udma.c to k3-udma-common.c file. These operations are
-common across multiple K3 UDMA variants and will be reused by
-future implementations like K3 UDMA v2. No functional changes intended.
+perf tools: Add RISC-V trace PMU record capabilities
 
-> diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-com=
-mon.c
-> index 3130805a8ec40..3ec5cc932280c 100644
-> --- a/drivers/dma/ti/k3-udma-common.c
-> +++ b/drivers/dma/ti/k3-udma-common.c
+Introduce the required auxiliary API functions allowing the perf core
+to interact with gtrace perf driver. On RISC-V systems the gtrace
+PMU uses the RISC-V E-Trace components and optionally an ATB Bridge
+component for connecting to ARM-side sinks, if it is present on the SoC.
 
+> diff --git a/tools/perf/arch/riscv/util/auxtrace.c b/tools/perf/arch/risc=
+v/util/auxtrace.c
+> new file mode 100644
+> index 0000000000000..39c31be9f8966
+> --- /dev/null
+> +++ b/tools/perf/arch/riscv/util/auxtrace.c
+> @@ -0,0 +1,217 @@
 [ ... ]
+> +#include <internal/lib.h>
+> +#include "../../../util/auxtrace.h"
+> +#include "../../../util/cpumap.h"
+> +#include "../../../util/debug.h"
+> +#include "../../../util/event.h"
+> +#include "../../../util/evlist.h"
+> +#include "../../../util/evsel.h"
+> +#include "../../../util/pmu.h"
+> +#include "../../../util/record.h"
+> +#include "../../../util/session.h"
+> +
+> +
+> +#define GTRACE_PMU_NAME	"gtrace"
+> +#define GTRACE_AUXTRACE_PRIV_SIZE	sizeof(u64)
 
-> @@ -1239,5 +1239,108 @@ void udma_desc_pre_callback(struct virt_dma_chan =
-*vc,
+[Severity: Low]
+Is this macro definition duplicating the one provided in the newly added
+tools/perf/util/gtrace.h? It looks like that header might have been intended
+to be included here instead of redefining the macro locally.
 
+> +#define KiB(x)	((x) * 1024)
+> +#define MiB(x)	((x) * 1024 * 1024)
 [ ... ]
-
-> +void udma_reset_rings(struct udma_chan *uc)
+> +static int rvtrace_set_auxtrace_mmap_page(struct record_opts *opts)
 > +{
-> +	struct k3_ring *ring1 =3D NULL;
-> +	struct k3_ring *ring2 =3D NULL;
+> +	bool privileged =3D perf_event_paranoid_check(-1);
 > +
-> +	switch (uc->config.dir) {
-> +	case DMA_DEV_TO_MEM:
-> +		if (uc->rchan) {
-> +			ring1 =3D uc->rflow->fd_ring;
-> +			ring2 =3D uc->rflow->r_ring;
+> +	if (!opts->full_auxtrace)
+> +		return 0;
+> +
+> +	if (opts->full_auxtrace && !opts->auxtrace_mmap_pages) {
+> +		if (privileged) {
+> +			opts->auxtrace_mmap_pages =3D MiB(16) / page_size;
+> +		} else {
+> +			opts->auxtrace_mmap_pages =3D KiB(128) / page_size;
+> +			if (opts->mmap_pages =3D=3D UINT_MAX)
+
+[Severity: Low]
+Does this code rely on implicit header inclusion for UINT_MAX? Including
+limits.h directly might be required to ensure musl libc compatibility.
+
+> +				opts->mmap_pages =3D KiB(256) / page_size;
 > +		}
-> +		break;
-> +	case DMA_MEM_TO_DEV:
-> +	case DMA_MEM_TO_MEM:
-> +		if (uc->tchan) {
-> +			ring1 =3D uc->tchan->t_ring;
-> +			ring2 =3D uc->tchan->tc_ring;
-> +		}
-> +		break;
-> +	default:
-> +		break;
 > +	}
+[ ... ]
+> +static int rvtrace_recording_options(struct auxtrace_record *itr, struct=
+ evlist *evlist,
+> +				     struct record_opts *opts)
+> +{
+[ ... ]
+> +	/* Add dummy event to keep tracking */
+> +	err =3D parse_event(evlist, "dummy:u");
+
+[Severity: Low]
+Could this trigger an implicit function declaration warning? It seems
+util/parse-events.h is missing from the includes at the top of the file.
+
+> +	if (err)
+> +		return err;
+[ ... ]
+> +static void rvtrace_recording_free(struct auxtrace_record *itr)
+> +{
+> +	struct rvtrace_recording *ptr =3D container_of(itr, struct rvtrace_reco=
+rding, itr);
 > +
-> +	if (ring1)
-> +		k3_ringacc_ring_reset_dma(ring1,
-> +					  k3_ringacc_ring_get_occ(ring1));
-> +	if (ring2)
-> +		k3_ringacc_ring_reset(ring2);
-> +
-> +	/* make sure we are not leaking memory by stalled descriptor */
-> +	if (uc->terminated_desc) {
-> +		udma_desc_free(&uc->terminated_desc->vd);
-> +		uc->terminated_desc =3D NULL;
-> +	}
+> +	free(ptr);
+
+[Severity: Low]
+Does this code rely on implicit header inclusion for free()? Explicitly
+including stdlib.h is usually necessary for musl compatibility.
+
 > +}
+[ ... ]
+> diff --git a/tools/perf/util/gtrace.h b/tools/perf/util/gtrace.h
+> new file mode 100644
+> index 0000000000000..4b87bdaf55c69
+> --- /dev/null
+> +++ b/tools/perf/util/gtrace.h
+> @@ -0,0 +1,12 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) 2026 Qualcomm Technologies, Inc.
+> + */
+> +
+> +#ifndef INCLUDE__UTIL_PERF_GTRACE_H__
+> +#define INCLUDE__UTIL_PERF_GTRACE_H__
+> +
+> +#define GTRACE_AUXTRACE_PRIV_SIZE      sizeof(u64)
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this lockless check and
-free of uc->terminated_desc race with the ring irq handler?
+[Severity: Low]
+Is this header file completely unused, given that GTRACE_AUXTRACE_PRIV_SIZE
+was redefined locally in tools/perf/arch/riscv/util/auxtrace.c?
 
-When tearing down a channel, udma_free_chan_resources() calls
-udma_terminate_all(), which initiates hardware teardown and drops uc->vc.lo=
-ck.
+Additionally, does this macro need linux/types.h to be included so that u64
+is defined when this header is used?
 
-When teardown finishes, a hardware interrupt can fire on another cpu:
-
-drivers/dma/ti/k3-udma.c:udma_ring_irq_handler() {
-    ...
-    complete_all(&uc->teardown_completed);
-
-    if (uc->terminated_desc) {
-        udma_desc_free(&uc->terminated_desc->vd);
-        uc->terminated_desc =3D NULL;
-    }
-}
-
-Meanwhile, the first cpu can concurrently proceed to call udma_reset_rings()
-locklessly:
-
-drivers/dma/ti/k3-udma.c:udma_free_chan_resources() {
-    udma_terminate_all(chan);
-    if (uc->terminated_desc) {
-        udma_reset_chan(uc, false);
-        udma_reset_rings(uc);
-    }
-}
-
-Since udma_reset_rings() also evaluates and frees uc->terminated_desc witho=
-ut
-holding a lock, can both threads evaluate it as true and trigger a double
-free before either sets the pointer to NULL?
+> +
+> +#endif
+> +
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810151423.1948=
-224-1-s-adivi@ti.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810152223.3946=
+743-1-mayuresh.chitale@oss.qualcomm.com?part=3D12
