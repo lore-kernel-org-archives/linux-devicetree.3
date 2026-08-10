@@ -1,51 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871FBCA6F;
-	Mon, 10 Aug 2026 18:46:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7274398E0;
+	Mon, 10 Aug 2026 18:46:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786387568; cv=none; b=pSoGlSgqCYH8N/wvQfer+8bLDEERhsodjVPthL/XeI3gY9ZBAZFS1FQyaiM7Ewt8Wa4lHf+/QOszCNJ7yLpBO80v/WNgEnCMsuqof9VxjQKD3bza1LjagGAZ3kjkCVF8SnYa0dL9FYT6uwKRu+45h1eUpm40MnQ6g0f9AtcZObw=
+	t=1786387571; cv=none; b=k0tXgI2Qi3mPwtbUG2xUmddJ0gzh8+M2qppgWSJQQgQtdWkcoDWYe4FqWzZLewCtWjuKkDleik6fsmxWrf+xbM1iiszcnsdnC4qwT4NKoFtoox24Ksl1v/CXJTsSMDHEkTWFrw0H9wTwdbu7BrXiDXrjqiJ2kLwBLA9ZOqM9a9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786387568; c=relaxed/simple;
-	bh=Ewb69KXlhKlpRhtemVLFNt/6wn+xM665oAuGGOZfOEA=;
+	s=arc-20240116; t=1786387571; c=relaxed/simple;
+	bh=m70IAlpke0Jgx0QboMarG9CRcuoVRJeyEqFmPTr0B6I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CkwJtwZc/8oWzdme9idQUYBkMH8XjfQq8pQmLgPRhXTGbuN6r+CagIIKnRwO/qIrcLfY/Xw3FOEevzReV1Sw8K29fTIgzeBUnbt8lUZHYJEi5sAyvibZ7gwG+LxscKfUez/9m1cciJkhSmf1nV6gWYmNXfxoGE2kkN3CWDPFMWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUQ3AEm8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=mwu3EZfzJ2ELNBRUlMRxtD7q1LxJhUVwhhSxSKrniyKCdeURZlaGd8Rp61g9q15yUpq7L/XtCA20zMdTFayoAb7tAvCCYjDorYFWqZMZ1PsKkAHTm9jIS6zeQ0bzm5GDSgpl8ZQwFwCyzvkmoBN/CWnEcQuppQsxqaCRRytlg+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBFmaO4O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUQ3AEm8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410541F000E9;
-	Mon, 10 Aug 2026 18:46:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBFmaO4O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8171F00A3F;
+	Mon, 10 Aug 2026 18:46:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786387567;
-	bh=UIt/rIF33wagRLQ8ALnt7TFY+g5oumKP3oybShPaJ/I=;
+	s=k20260515; t=1786387569;
+	bh=WFqxySnYvpiot/1T8W6/v7Q0KB5blhTw02nBKJtflvg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XUQ3AEm8sYEqJAKxZF6vIX0niwfcKQsWvrlzjdBtV1Xe5kErzMYX2O180888hz2vJ
-	 x9rRfRf9urI347H6X2mhmY3V8o/y1Lpets6DpLgytQ4E3yS4Ouia3aitUxM/6JHIe1
-	 ZXfSLZg9Ih37+Ahibisi3/sB5SxKyyATfT+ry8yEKRnSqtHKc8B4evQ2iGW+5Jbe4b
-	 f+7odhqJmJbBjzWTy65yUyOo4Q0SpzYqyvUOpWVJ+AggXY9TEWJsmRWtb6WxJju8ln
-	 N/AgUNXP8sYxmc/xbew/KUQRvmArav3SeoLfs0543rxJRKRK8nvT3UXZrV/93s+PTU
-	 epJCUVw7Zn/RA==
+	b=EBFmaO4OPh60+0r2JoF7V43cA6wvySoFHZO5NIP2jGqGig3aF4pqXE/mamExgin4M
+	 Nb8ok0fJdGMadZO9thUuEVVcRw1PdeEjjTY0J4Bv2mCpV6/tMTy8F0tmZT7FLPlQV7
+	 1F3O5cmiUlb0CqqKTB+FHaa05v8V7I1HZHEv88nZ+xOUZvtZiZ/pMWJj82Z9qh2W0N
+	 KLhpDjJupgEmBOwvmUJkV5jWA/X0CwYj+iGaTnWB66iGuymDN+37EyW0aHDp8Gms5u
+	 F0jj8DiE68j/SO/o2UIDMwnSPXB2GA83QDWpwqhX10ckClCj91plObTYS7IY7JKPtB
+	 i4ephuf/HhiUA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: mturquette@baylibre.com,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	sboyd@kernel.org,
-	krzk+dt@kernel.org,
-	Dongfang Zhao <dongfang.zhao@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org,
-	konrad.dybcio@oss.qualcomm.com,
+To: Bryan O'Donoghue <bod@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	=?UTF-8?q?Andr=C3=A9=20Apitzsch?= <git@apitzsch.eu>
+Cc: Erikas Bitovtas <xerikasxx@gmail.com>,
 	linux-arm-msm@vger.kernel.org,
+	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	linux-clk@vger.kernel.org,
-	taniya.das@oss.qualcomm.com,
-	bmasney@redhat.com
-Subject: Re: [PATCH v2 0/2] clk: qcom: Add GPUCC and GXCLK support for Hawi
-Date: Mon, 10 Aug 2026 13:45:53 -0500
-Message-ID: <178638756029.656675.18342202737822518982.b4-ty@kernel.org>
+	~postmarketos/upstreaming@lists.sr.ht,
+	phone-devel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: (subset) [PATCH v10 0/4] media: qcom: venus: add MSM8939 support
+Date: Mon, 10 Aug 2026 13:45:55 -0500
+Message-ID: <178638756045.656675.3286329293875125953.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730-gpucc-hawi-v2-0-7bf618ab8a34@oss.qualcomm.com>
-References: <20260730-gpucc-hawi-v2-0-7bf618ab8a34@oss.qualcomm.com>
+In-Reply-To: <20260731-msm8939-venus-rfc-v10-0-9ac503250fc7@apitzsch.eu>
+References: <20260731-msm8939-venus-rfc-v10-0-9ac503250fc7@apitzsch.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,25 +64,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 30 Jul 2026 22:53:47 -0700, Dongfang Zhao wrote:
-> Add GPU clock controller (GPUCC) and GX clock controller (GXCLKCTL)
-> support for the Qualcomm Hawi SoC.
+On Fri, 31 Jul 2026 22:08:19 +0200, André Apitzsch wrote:
+> This patch series adds support for Venus on MSM8939. It is mostly
+> similar to MSM8916 Venus, except it needs two additional cores to be
+> powered on before it can start decoding.
 > 
-> The GPUCC provides clocks, resets and power domains for the GPU
-> subsystem. The GXCLKCTL manages only the GX GDSC; remaining resources
-> are handled by firmware. Hawi's GX clock controller reuses the existing
-> gxclkctl-kaanapali driver via a fallback compatible
-> ("qcom,hawi-gxclkctl", "qcom,kaanapali-gxclkctl"), so no driver change
-> is needed unless Hawi-specific behaviour is required later.
+> As per Dmitry's request, I am attaching Fluster results and
+> v4l2-compliance output. Fluster results were very inconsistent and
+> caused power collapse fails.
+> H.264: https://pastebin.com/C15qeq5W
+> H.265 (HEVC): https://pastebin.com/WDsnxvuk
+> VP8: https://pastebin.com/egAgEm15
+> v4l2-compliance: https://pastebin.com/VpBhEFc1
+> Power collapse fail log: https://pastebin.com/rTivMcpK
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] dt-bindings: clock: qcom: Add Hawi GPU clock controllers
-      commit: bfe412a7a3ffc01abe84549f7851c32c81574340
-[2/2] clk: qcom: Add support for Hawi GPUCC
-      commit: 21e33a757766223ceb82648ac41c00c29939aa53
+[1/4] clk: qcom: gcc-msm8939: mark Venus core GDSCs as hardware controlled
+      commit: 04352db59676ec384fae25ecf1e982a0afa62139
 
 Best regards,
 -- 
