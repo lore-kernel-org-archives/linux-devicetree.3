@@ -1,79 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4956239D6F2;
-	Mon, 10 Aug 2026 07:20:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1397B370AD4
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:23:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786346435; cv=none; b=ez5jaB4im8YZar1rw7jPsvPoul5IyZyAsQdXc83Izewf8FwLFJcWYo5nSrnEk2cAPB826da7alM1YeGsSm7TO91TLVd3skb0S7ks9vTq6aOnB8su7XgIVpz95fpPQTr/1KDz2PaOEy0oJF/iis2kJGtRqpHK54l0EGRSiFd95p8=
+	t=1786346600; cv=none; b=ZvKkAlFMYgmKV8rejw1WQsXvjtsJplwwUzEPkotm/MUOiLU4i2N1qkbN2yArU6rL1hIr+N8RAmrqILgjfTKE92DXUVJl0n8tl02Moa11QE+Iw6lUG6Qi00YAkns6qDOeC1hE7L8rmGVE5ewZHGPEdK71/y1zcRNhMCeZByMoKQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786346435; c=relaxed/simple;
-	bh=pUcNPmFhKpcTJzRUpkZ0MPNQqb0PC5o/FkH1MMuCrEA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gzo5u+bRfy2c/SGK1oQiXMUyfbbs/C72WBC/uMhDivFkc55gatUPkw11GlK9B2nH7+vy2Q26msspO9AbiMs2WoyeLRpqat04alZRkY05KUY2ZhdQhDtcsSxnCzCFDeBcH5As8YesBKOAOxIiyQLjOibSYDx0rp5dgM3Lj94pCk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQeirTPy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786346600; c=relaxed/simple;
+	bh=lJXk6uX4vQofVrcWKhe83XCw1UFhmYxz7eoIBvtlcLY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bRmDw+TjLYWmcgSJjne4oPMdwCan3j3o6xOlkdPJ66uFDOSRS7DxfjqP4Sh9WThbig+LoiTZpmmzNxwsNuUYFz+3BBdqbLstPHl/VTXh+LP77GfzfpE7cAOUdzzxLwyZTja9VMQcI+Vkpkepk8p+QQQGkSx4yS2foF7VVV1ELpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sxa3cZRI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQeirTPy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AABBD1F000E9;
-	Mon, 10 Aug 2026 07:20:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sxa3cZRI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E14B1F000E9;
+	Mon, 10 Aug 2026 07:23:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786346433;
-	bh=6TZM7Xx2MMl0vR7A+YnyV65FTuUl7J9XDdtRZ4q0zac=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KQeirTPybiY5lkIgbLbTq0nTN0/UqMT1UObUALy8s0hOc5zCq4FNHvaQeWIOETJwN
-	 vtA59HeF2ZhJtwEK/n3lQ6W+5mcHaeIqViITkp9Qv4ElfROHGYpXvt53nnFcdcQ8p/
-	 ok2jjrwGReDcVhefAC/BdcHs4HxiTQ0bd31Ggr3NhbG2UhRBAhxbq4rvaOhg4CiuMQ
-	 WEsoc1QiQoz7Se5/I3vrd9rlQ0cHnH95hDZe1U2khfqqo476ekyAF+IgwxfYzbv4lg
-	 j8RK32pusfr4DXkF9Hy9XbdgjqIisEUOmmFjzELWiEKguPQegW7UqCcloUQv6gu6nk
-	 7QK5TeyyRPhMw==
-Date: Mon, 10 Aug 2026 09:20:29 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: arm: bcm2835: Add Raspberry Pi 5 d0
- Stepping
-Message-ID: <20260810-versatile-hissing-koel-7fd6e8@quoll>
-References: <20260804-bcm2712-d-stepping-compatible-v3-0-1860094486eb@linutronix.de>
- <20260804-bcm2712-d-stepping-compatible-v3-1-1860094486eb@linutronix.de>
+	s=k20260515; t=1786346598;
+	bh=S3OblhMAqiiyDBQ66277WOQb2hW85CZJuW43Kqoy7Fc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Sxa3cZRIHXsdspGBvNUnxL1Boadyuom9c6+dhr26W/z7+mdpt8mgTKA37BrRlf+Ia
+	 MlXp/KxiFW8iF1vBtFJ9RFOvmi9/YdYZNofmzFyW/e9DYZvii242qjmTIE0S/qn5At
+	 O5OlkeoBcznsa4j6YfS/LQffaC7EzzE190VadRYrESCH7GYM44Qp6NxN/oWcTklInZ
+	 7xvRd5tsVpB9Ejai8BpqRMBDZFvUI1Aw+Dvx/c0p38RyuqU1/sK1KmOXcWwqss55/G
+	 1cpDRrZMnGahCLx5CNVb4soe3XaTnVu7eN4QzHjx+kuAnw0V5XzVPvfhkawK3O+Dh8
+	 Hld1uHOEFJsgA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/7] iio: light: ltr501: Power down chip if request
+ irq fails
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Esben Haabendal" <esben@geanix.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260810-liteon-ltr329-v4-4-8bd3dfd15280@geanix.com>
+References: <20260810-liteon-ltr329-v4-0-8bd3dfd15280@geanix.com>
+ <20260810-liteon-ltr329-v4-4-8bd3dfd15280@geanix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 07:23:17 +0000
+Message-Id: <20260810072318.6E14B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260804-bcm2712-d-stepping-compatible-v3-1-1860094486eb@linutronix.de>
 
-On Tue, Aug 04, 2026 at 03:13:48PM +0200, Gregor Herburger wrote:
-> Add the Raspberry Pi 5 d0 Stepping to the schema.
-> 
-> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> ---
->  Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml b/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml
-> index 2729a542c4f35..e2b32905c6a8f 100644
-> --- a/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml
-> +++ b/Documentation/devicetree/bindings/arm/bcm/bcm2835.yaml
-> @@ -26,6 +26,7 @@ properties:
->        - description: BCM2712 based Boards
->          items:
->            - enum:
-> +              - raspberrypi,5-model-b-d0
->                - raspberrypi,5-model-b
->            - const: brcm,bcm2712
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-As pointed out in other email - this is not bcm2712 but bcm2712-d0 which
-supposedly is a different soc with different pins etc.
+Pre-existing issues:
+- [High] Race condition leading to a Use-After-Free in the IRQ handler if `=
+iio_device_register()` fails during probe.
+- [High] Incorrect integer sizes passed to `regmap_bulk_read` and `regmap_b=
+ulk_write` cause uninitialized memory reads and incorrect hardware writes o=
+n big-endian architectures.
+- [Medium] If `ltr501_init()` fails partially while writing the control reg=
+isters, the ALS sensor is left powered on when probe fails.
+--
 
-Best regards,
-Krzysztof
+--- Patch [4]: [PATCH v4 4/7] iio: light: ltr501: Power down chip if reques=
+t irq fails ---
+commit a19bda31a7e1d7988ac494947d945670f4024b2a
+Author: Esben Haabendal <esben@geanix.com>
 
+iio: light: ltr501: Power down chip if request irq fails
+
+In case devm_request_threaded_irq() failed, we were leaving the chip
+powered instead of powering it down again. Power down the chip switching
+ALS and PS modes to standby.
+
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 7d045be78c6df..7746d374688fa 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+> @@ -1540,7 +1540,7 @@ static int ltr501_probe(struct i2c_client *client)
+
+[Severity: Medium]
+This is a pre-existing issue, but does ltr501_probe() leak power if
+ltr501_init() fails partially?
+
+If the first I2C write in ltr501_init()->ltr501_write_contr() succeeds but
+the second fails, ltr501_init() returns an error with the ALS sensor
+powered on:
+
+drivers/iio/light/ltr501.c:ltr501_probe() {
+	...
+	ret =3D ltr501_init(data);
+	if (ret < 0)
+		return ret;
+	...
+}
+
+This returns directly instead of taking the powerdown_on_error path,
+leaving the ALS sensor active.
+
+[Severity: High]
+This is also a pre-existing issue, but does using
+devm_request_threaded_irq() here create a race condition if
+iio_device_register() fails later in probe?
+
+Since the IRQ is managed by devres, it remains active until ltr501_probe()
+returns and devres cleans it up.
+
+If iio_device_register() fails, its error path calls
+iio_device_unregister_eventset(), which frees the event interface:
+
+drivers/iio/industrialio-event.c:iio_device_unregister_eventset() {
+	...
+	kfree(ev_int);
+	iio_dev_opaque->event_interface =3D NULL;
+	...
+}
+
+If a concurrent hardware interrupt fires before devres disables the IRQ,
+ltr501_interrupt_handler() will call iio_push_event(), which dereferences
+the freed pointer:
+
+drivers/iio/industrialio-event.c:iio_push_event() {
+	struct iio_event_interface *ev_int =3D iio_dev_opaque->event_interface;
+
+	if (!ev_int)
+		return 0;
+	...
+}
+
+>  		if (ret) {
+>  			dev_err(&client->dev, "request irq (%d) failed\n",
+>  				client->irq);
+> -			return ret;
+> +			goto powerdown_on_error;
+>  		}
+>  	} else {
+>  		indio_dev->info =3D data->chip_info->info_no_irq;
+
+[Severity: High]
+This is another pre-existing issue, but do the regmap_bulk_read() and
+regmap_bulk_write() calls in this driver handle endianness correctly?
+
+In functions like ltr501_read_thresh(), ltr501_trigger_handler(), and
+ltr501_write_thresh(), 32-bit integer variables are passed by reference
+with a 2-byte length:
+
+drivers/iio/light/ltr501.c:ltr501_read_thresh() {
+	...
+	int thresh_data;
+	...
+			ret =3D regmap_bulk_read(data->regmap,
+					       LTR501_ALS_THRESH_UP,
+					       &thresh_data, 2);
+	...
+}
+
+On big-endian architectures, this targets the most significant bytes,
+leaving the lower bytes uninitialized.
+
+When masked and returned, it yields stack garbage.
+
+During writes, the upper bytes (which are 0) are sent to the sensor,
+meaning 0x0000 is always written.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810-liteon-ltr=
+329-v4-0-8bd3dfd15280@geanix.com?part=3D4
