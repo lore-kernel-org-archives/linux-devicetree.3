@@ -1,177 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net [217.70.183.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D573612E0
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 08:02:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131F8331EC0;
+	Mon, 10 Aug 2026 08:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786348951; cv=none; b=KwcGnqrHmkeEmAFw63bVaUihGwPXP6ujDvscYJvBUFsgY8SI997CnWIEaeXV43cfRig6+1N/qLDjhA6x/cSEvyfnwjvgU01I1EjEbnMpVgVcnqz3dMnKMsEo2ZY3k6PmLLdJeyRo6v/QFldnhVFlT7izxrj9McQmRMTsBMgpJ+c=
+	t=1786349537; cv=none; b=pv71N6VsTqstNEjzkLiK3DWfe1FWRTlL+3PHk9MD8FiP9ZbBKg8uRqJgucWjrKq/Jm+b2QbTxVqN/Uj4fGUoPgGIQJC5GpNTUxiZxWVhiZwDjc9pg68BTOAp3/1kzl9DtezEYTMNe8fc4cVRDUDLDdKDVHaF50W+pkLs5W5g2+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786348951; c=relaxed/simple;
-	bh=Y79Rrj1iCs2DymD/rM7kX5tBfXxIyMiwr9IPvzbgLJU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Qp4htKnc99ZzdGw0axrw9rsZeG7qOVPS1PuMVq1IID0aIxJ/YL3pNOA+Qlh4BGCv+s0rVbNRYTTE2wSOeK/99UUzzYly7cS935UU47KX6odAYL1BQ67yPuqE5CGM3o7h/RtK9J/NO8xnz/E8HvK0dQezEVGpgzH6u4ykMNwRAGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YZOEP3Vb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786349537; c=relaxed/simple;
+	bh=7JIMFAz5G4K06JMHrQKTddhQ9cceZsFjkNIp3OFFeiE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AkK86rpFKosK11izm3EiwoNyJmTTp3ZX1PSd/vcT5d2E+ErNrc6+PS0wadk8kmOsDHZga4XsFerkRkai4TQRscxEvDgpM3oLMP1OLksoOG+8XS/dGVoslDqrMB7cyFy++JVMkqxCC3Yv7epLJ4GNera2IWSolH+EaobyiokbOGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=M1wXZJ6D; arc=none smtp.client-ip=217.70.183.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YZOEP3Vb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8221F000E9;
-	Mon, 10 Aug 2026 08:02:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786348950;
-	bh=19flgh5gQLk+Tbh3Ul6AGZCiN9CfiZ2IKmsZvMVUex8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YZOEP3Vbh0p5cdaB9DLQGKEkEpaulm/pRnbBK8osn4Nr6HbX4A8WPNuexn7QXY6bW
-	 +4vq7epaVbRiCKVF6+jKY0bmMkabtu45BZftePZ2r7I8Df/oTE/4kBAIudKeWFdMnm
-	 6ipSiMshtUoQlqmscJFHo7kgfbcR6D1scDrAusopdjshB+4qCNpOgN9++cvVBxml2N
-	 oNRYa2coCWv+9sf3CrKaoWDDAWLvr0PXaooJe5dNPH9TEoPQWUyYqT9PfOeyL5ztYd
-	 y38UG42kP2HsCCWLkCgo+lQu45SYRNYWNsxhum/59m2Wrk+pBhttZ/zcCofC3bgIP1
-	 3rJjGChqKM1rA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] i2c: ls2x: Add clocks property parsing and
- adjust bus speed
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongliang Wang" <wanghongliang@loongson.cn>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260810074927.25284-3-wanghongliang@loongson.cn>
-References: <20260810074927.25284-1-wanghongliang@loongson.cn>
- <20260810074927.25284-3-wanghongliang@loongson.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 10 Aug 2026 08:02:29 +0000
-Message-Id: <20260810080230.4C8221F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="M1wXZJ6D"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id C67F01F6B5;
+	Mon, 10 Aug 2026 08:12:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1786349526;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+vFz3+D4XJViTRjZy52bDeSuEFMncn+BYlQG2XjGXrE=;
+	b=M1wXZJ6DasWcUAhQMMKoFlAP3c7Mly7o23mHl4w0rlL/H4AolroCsPTYsgS7rk4CI9+Jhm
+	R4/CZTUHU/6W9R43pg4AAh5K2TGvX8wvVV7zRpSWDkpQvzhME29MDs5CscTtOW/1awxb5z
+	xdUO0HJFSGOjhMJx30MNsmnm0aVe8/ImlrAtvAiAQMGNQBWvMfDzl8cNrUzq4xQt5OAj8q
+	hrt00ekv3lFJaQ1f0EGzArYGFCfI8dTGi5bpfHRG1HHea25UfzMLZ3RmNv+og3jz9Isixz
+	6iEqNrhQVbqom30bDEM7ORZ8s//OCabd1m7zlmHlPilQizXWiR2EMQ7xXoKIyQ==
+Date: Mon, 10 Aug 2026 10:12:00 +0200
+From: Arthur =?utf-8?Q?Cr=C3=A9pin?= Leblond <arthur@marmottus.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Netdev <netdev@vger.kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 2/3] dt-bindings: net: wiznet,w5100: add
+ link-gpios
+Message-ID: <anmH0NR42wC4EwG-@pc-du-fromage>
+References: <20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net>
+ <20260806-wiznet-link-gpio-v3-2-532d4a143805@marmottus.net>
+ <20260810-arrogant-anteater-of-economy-ef2078@quoll>
+ <9e8fb566-e372-4519-ac0b-b8ca6de275e3@app.fastmail.com>
+ <105fcc5b-e1d9-4bd8-a697-2d68e185aa38@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <105fcc5b-e1d9-4bd8-a697-2d68e185aa38@kernel.org>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Score: -100
+X-GND-Cause: dmFkZTF1eFA26jUND3JewQV6q3aeJ5oZlj9FE6mpvZSNm2BdaZaBZbFDXWWDP5Ud80ur+CvicwMByhgQ5Y1AC8LK0xhgj3LdcvtTm90AM038SECyaNBCwg7BBc67MP6dNbu6JW62MAcQYo0VPb8qRI3+9ThtWbLY3EtBq5JyEmB8euwbOv6fyhaOqW+OWobOmzzq5nE0gcOt/FKDxwSJfN6c5wR5mOmYeKPeI/hMqZ8oZCPApME2tzqDqn2ImrgCXN8uq57mq9ofAmzTyd3MuSCpWIFv0Efhc7AZ3kEVDYVlde47B+sIN1QRN2d0isdYsSkGBYLNMHU/Hql+RogkHgAPiypzdKL2GSjQxbWggSN0pEqatRqE5iKsuyBORZ0nC1iyaKz2agpRWIlWDfKtZe5D9UHtN0NQYiu7ols1jaWnujAa9N2sq04HtLTTbe+0JqycEQZnpnaR6PnvPyGAAEOA3y5O/a4PgvfInzBPUmCHZuFi18gWJqIooPMi7Dv7EGgRoHW37ljh53C7sABYP2le/NV6ibTC0bDceQDqrYSr9pHhoWIIaijInFGTMgAulutZ69D5sZUBetf4qoJcIDqYCDCqZdtqyGpLM6Js802Tz/4uTLPpEHyBpauUU1Qb9bwcEatC9OZhz2bxUn5p70gb4pEygNvgLwc0chrmJI7BGJuMkQ
+X-GND-State: clean
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Mon, Aug 10, 2026 at 09:59:18AM +0200, Krzysztof Kozlowski wrote:
+>On 10/08/2026 09:53, Arnd Bergmann wrote:
+>> On Mon, Aug 10, 2026, at 09:43, Krzysztof Kozlowski wrote:
+>>> On Thu, Aug 06, 2026 at 05:00:01PM +0200, Arthur Crépin Leblond wrote:
+>>>>
+>>>> +  link-gpios:
+>>>> +    description:
+>>>> +      An optional GPIO line that can be wired to the LINKLED pin of the w5500
+>>>> +      as an interrupt to detect link status changes.
+>>>
+>>> The message is confusing. If you describe it from the host (system point
+>>> of view), then interrupts are not GPIOs but "interrupts".
+>>>
+>>> But maybe this is OUT GPIO from the system to the device?
+>>
+>> From the device point of view, it's an LED output, but from the
+>> system side we should describe it as an IRQ_TYPE_EDGE_BOTH
+>> "interrupts" property rather than a gpio line.
+>
+>Then probably we should list all four other pins as well (speed, duplex
+>and active).
+>
+>Best regards,
+>Krzysztof
 
-New issues:
-- [High] 64-bit integer division using the '/' operator causes a linker err=
-or on 32-bit architectures.
-- [Medium] The ACPI fallback path reads the generic 'clocks' property as a =
-single 32-bit integer frequency, violating standard property semantics.
+We use this line to detect a link change but don't read its value in
+the interrupt handler, we read the i2c PHYCFGR register to get the
+link status.
 
-Pre-existing issues:
-- [High] Hardware interrupts are enabled before the IRQ handler is register=
-ed.
-- [High] The driver lacks a remove function, failing to disable hardware in=
-terrupts during driver unbind.
---
-
---- Patch [2]: [PATCH v9 2/2] i2c: ls2x: Add clocks property parsing and ad=
-just bus speed ---
-commit d881529f1ceaa7d91f234c648749c3641859d689
-Author: Hongliang Wang <wanghongliang@loongson.cn>
-
-i2c: ls2x: Add clocks property parsing and adjust bus speed
-
-This commit improves I2C bus speed calculation across platforms by parsing
-the real I2C bus reference clock (PCLK) and div from DTS or ACPI, instead
-of using fixed values.
-
-> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-> index b475dd27b7af9..65451fc9145b7 100644
-> --- a/drivers/i2c/busses/i2c-ls2x.c
-> +++ b/drivers/i2c/busses/i2c-ls2x.c
-> @@ -107,12 +116,13 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i=
-2c_priv *priv)
->  	else
->  		t->bus_freq_hz =3D LS2X_I2C_FREQ_STD;
-> =20
-> +	val =3D ((u64)priv->pclk * 10) / ((u64)priv->div * t->bus_freq_hz) - 1;
-
-[Severity: High]
-Will this 64-bit integer division using the direct '/' operator cause a
-linker error on 32-bit architectures?
-
-Since CONFIG_COMPILE_TEST=3Dy is possible, compiling this driver on 32-bit
-architectures emits a call to __udivdi3, which is intentionally omitted in
-the kernel.=20
-
-Could we use div64_u64() or do_div() from <linux/math64.h> here instead?
-
-> +
->  	/*
->  	 * According to the chip manual, we can only access the registers as by=
-tes,
->  	 * otherwise the high bits will be truncated.
-
-[ ... ]
-
-> @@ -304,6 +315,32 @@ static int ls2x_i2c_probe(struct platform_device *pd=
-ev)
->  	if (irq < 0)
->  		return irq;
-> =20
-> +	if (dev_of_node(dev)) {
-
-[ ... ]
-
-> +	} else {
-> +		/* clocks and clock-div properties are used only in ACPI path. */
-> +		ret =3D device_property_read_u32(dev, "clocks", &priv->pclk);
-
-[Severity: Medium]
-Does reading the ACPI "clocks" property as a single 32-bit integer frequency
-violate standard property semantics?
-
-The driver expects ACPI tables to provide the input clock frequency as an
-integer under the "clocks" property.=20
-
-However, "clocks" is standardly defined as an array of references (phandles)
-to clock providers.=20
-
-Should a standard property like "clock-frequency" be used instead to pass a
-scalar integer?
-
-> +		if (ret || !priv->pclk)
-> +			priv->pclk =3D LS2X_I2C_PCLK_FREQ;
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but does initializing the hardware in
-ls2x_i2c_probe() enable interrupts before the IRQ handler is registered?
-
-drivers/i2c/busses/i2c-ls2x.c:ls2x_i2c_probe() {
-    ...
-    ls2x_i2c_init(priv);
-   =20
-    ret =3D devm_request_irq(dev, irq, ls2x_i2c_isr, IRQF_SHARED, "ls2x-i2c=
-",
-                           priv);
-    ...
-}
-
-In ls2x_i2c_init(), the CTR_READY_MASK (which includes the interrupt enable
-bit LS2X_CTR_IEN) is written to the control register before the handler is
-registered by devm_request_irq().
-
-If a hardware interrupt is asserted in this window, could it lead to an
-unhandled interrupt storm and permanently disable the shared IRQ line?
-
-[Severity: High]
-This is a pre-existing issue, but is the driver missing a remove function
-to disable hardware interrupts during driver unbind?
-
-drivers/i2c/busses/i2c-ls2x.c:
-static struct platform_driver ls2x_i2c_driver =3D {
-    .probe      =3D ls2x_i2c_probe,
-    .driver     =3D {
-        ...
-    },
-};
-
-Because the driver relies on devres for cleanup and lacks a .remove
-callback in ls2x_i2c_driver, devres will free the IRQ handler on unbind
-while the hardware is never quiesced.=20
-
-If an interrupt asserts after the handler is freed, would this cause an
-unhandled interrupt?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810074927.2528=
-4-1-wanghongliang@loongson.cn?part=3D2
+Arthur
