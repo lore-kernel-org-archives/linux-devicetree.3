@@ -1,215 +1,174 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2094.outbound.protection.partner.outlook.cn [139.219.146.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957A63644CA;
-	Mon, 10 Aug 2026 06:32:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786343532; cv=none; b=ekpSo659CIoKSEKuWOXzRamVvAdiKhdnjili9sQp8JViceDq4TTSARs46LC+fofK6dAOGAgy+8MA1+KLzfLJcw6MxWDk/HEYCa5r0qJoQXIEJUfx6jwhPEECn2UJ9gANARS2MhvT9PdHr7dxnVB4dFB/pmGld89kkVarKGLlgxU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786343532; c=relaxed/simple;
-	bh=5TmcLvq5kwnCAZWLdEZJKeXFr3bcxiys5cTX46fLtvQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VoV6cajiR6Ow8zMSqRK1WLrWFCbnHgTFTTDJBd4l9okTtgVoBEESh3XscZVN9QSztZJj4JhUSozSB/exl3x8LaAWtvx2wgMVHxwyjK1pdqSpXkZjOVxBAop68Ah0tUZrCQHViuRaS9tO3fu8nG5MaaSBuqFzOC1rxI2r1UsFePo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mkLuhHX7; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mkLuhHX7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F9411F000E9;
-	Mon, 10 Aug 2026 06:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786343531;
-	bh=wSS8AMze12K8iYUpSLQ8N+VPReKhCV7W3aisDuH/XNE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mkLuhHX79ou9XHJbxTJ98kdoT8fDDdVnRuroQdgmSosn/5uc2X/qwWSTmFdiu8xsB
-	 26M/ABbjiyWFJRBA6WZxbjRIvNIEcuaiPve1bpOhgD9v6G/8CisfTGFn5lqBHcV6vN
-	 nZt+bCbxIf1oRidhGmXvruzw7GV8V2JH78zx3ZNWpXRD12zmpOhk4PabMKVzUt2PoA
-	 GpaUqrqiNFsWawQq91RNST7ukaBdoYx16z/HeHWPyKjE0qq+cE9PgI3qQM77NFU4Ih
-	 q+EwKPMz7oU4Srpl18wlJoJguSaSN1qnc6iKPE/LZuOnX5PqW0v8IpB/+79MuffqA1
-	 HV8jCCmKv93wQ==
-Message-ID: <8d924236-5a1f-4cd6-a7a6-d12b1bed5615@kernel.org>
-Date: Mon, 10 Aug 2026 08:31:56 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0ED8391828;
+	Mon, 10 Aug 2026 06:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786343836; cv=fail; b=Ybf3wvRVOpNuv+qKjYI4fNu7nsyLJXY7TjVJVq2l0PxhVnjb0CkFp542+kORRD0qNu0bjMqTX4J7ZVq/Nka6nwFAkN6QmYy8hJh44wQedr1u8hgSGC1+j3feHt56+cOKwV1jE5TLfZ1dw9+gP03eXYVhJnvJZTzxA/Wyv9sgu+k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786343836; c=relaxed/simple;
+	bh=t28L1oUTsZ9XD6sIT2YdGl+zE3QrFsAYrzOna7rTNqs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UnCRyGWYk2j/pMuqaacpudWZIH+jmULfN6OLDJ6ZKnStf9vH4utkJf1bRidVjHZNA4W4oRNYXoYkkuABFcn6yL2RcZc5EyJpxqmkAbDpl55Mm0Wl0YwQb4qymqrQbIz5yF1nyuwEFeIbvqmSCgKEPprxw0XL6dUDMQUFhbxE1W4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NkuROVkpM+Pe2EzwRRnKLjSxtuldC4ELIMBhLxvz2nd4iWNOVlU2cPZA5n20T7K3eLmpSC62FSegh0gaxYsfMsAZfmp/x90IZRwXW9O4XOSU139uW3Lxk8ELgapPP6xLry/dYVlXBmWIiqLqv0jwpWvKbsWhO2blPBDX6B0gm7xn9/k2On6aVt6WuAEXcmuZYkqXu3jTN8kaPWgrYZzgCh9FQbBcgizMTMEfZyjpE3LUUuiYfff8AjW57iJEql1Nusth6bNj3vNq7OJJwW6hOIGIXWgY/x1QydMTavy2oiQaZCIBS96wJfJ3tlYv8otd2IfQheo5LqvZQaDRr9JY8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KtsTRBD5By9lnAKnAtnF+WiK4mH+R20oalbMwPvliys=;
+ b=iPjtyYt11U3N1U1xs0HRl4dTUhecnt9PRkXP1CoTo5BsAe36UBEbhafV5khXNBmEz3OQVTSHEP5334ZNkVvdjQJMVP5g0HmjkmtKXfnteIQobULuWz5gwmJjVYZGVQmS75pgSMNg7UxgPDYujVin6xEelF0X0peBFNHRPty5nznklHmnd6TiwrsGknzxcsObC0FE2CDx8BL8LftTdh14LW5L95anbjpffY9I1whqq/ZZGgVvBGb32B+v7VVyRtI2Ag0hV5clf6nWz9j0H1zue9hRUnWXjWWwM5OO7/3Xbca9J04r/MB7w5+/ZVVPCam8YBwiOOBz/PIt8ouKW7v+KQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1315.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:15::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 06:36:59 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0292.024; Mon, 10 Aug 2026 06:36:59 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v5 01/21] dt-bindings: pincfg-node: Add property 'input-debounce-ns'
+Date: Sun,  9 Aug 2026 23:36:30 -0700
+Message-Id: <20260810063650.239303-2-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260810063650.239303-1-changhuang.liang@starfivetech.com>
+References: <20260810063650.239303-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0019.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::31) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 08/14] dt-bindings: media: mediatek: vcodec: add
- decoder dt-bindings for mt8196
-To: =?UTF-8?B?S3lyaWUgV3UgKOWQtOaZlyk=?= <Kyrie.Wu@mediatek.com>
-Cc: "fshao@chromium.org" <fshao@chromium.org>,
- =?UTF-8?B?WXVuZmVpIERvbmcgKOiRo+S6kemjnik=?= <Yunfei.Dong@mediatek.com>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "fanwu01@zju.edu.cn" <fanwu01@zju.edu.cn>,
- "jacopo.mondi@ideasonboard.com" <jacopo.mondi@ideasonboard.com>,
- "haoxiang_li2024@163.com" <haoxiang_li2024@163.com>,
- "rongqianfeng@vivo.com" <rongqianfeng@vivo.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- =?UTF-8?B?QW5kcmV3LUNUIENoZW4gKOmZs+aZuui/qik=?=
- <Andrew-CT.Chen@mediatek.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "ribalda@chromium.org" <ribalda@chromium.org>,
- "wenst@chromium.org" <wenst@chromium.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kees@kernel.org" <kees@kernel.org>,
- "benjamin.gaignard@collabora.com" <benjamin.gaignard@collabora.com>,
- =?UTF-8?B?SXJ1aSBXYW5nICjnjovnkZ4p?= <Irui.Wang@mediatek.com>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
- "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
- =?UTF-8?B?VGlmZmFueSBMaW4gKOael+aFp+ePiik=?= <tiffany.lin@mediatek.com>,
- "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "tfiga@chromium.org" <tfiga@chromium.org>,
- "mchehab@kernel.org" <mchehab@kernel.org>,
- "sebastian.fricke@collabora.com" <sebastian.fricke@collabora.com>,
- "robh@kernel.org" <robh@kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "nicolas.dufresne@collabora.com" <nicolas.dufresne@collabora.com>,
- "laurent.pinchart+renesas@ideasonboard.com"
- <laurent.pinchart+renesas@ideasonboard.com>,
- "hverkuil+cisco@kernel.org" <hverkuil+cisco@kernel.org>
-References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
- <20260720012056.1026551-9-kyrie.wu@mediatek.com>
- <20260720-gregarious-satisfied-shrew-f71cba@quoll>
- <f499f2c3-f31d-4c2c-84fb-d1d9d95fc868@kernel.org>
- <a9123dce5ae7ef184f5640b12e3e9427084ec542.camel@mediatek.com>
- <8558035b-d825-4e56-bfd2-551cff51f73f@kernel.org>
- <2b567b39434d7d125dcdca75e198a1442e4c2f22.camel@mediatek.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <2b567b39434d7d125dcdca75e198a1442e4c2f22.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1315:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c0329e8-8ae9-4e4a-27b8-08def6a9c7b6
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|52116014|366016|7416014|56012099006|10067099003|6133799003|3023799007|18002099003|22082099003|38350700014|921020;
+X-Microsoft-Antispam-Message-Info:
+	t2v39563yadcQCn5BWebfsZVonCf31i8uzwjrpsgJ/lWcDEwRudtycJ2coKyvhacJyt5n/4apygw1eelHoGuba+AfuyImoVegaxDfedBy3AuQiB16UmJga5fs4N4UzQJKA1BgKQ+jYhsBvAKZMlqFnFWD/A/4YGxeYP4qXVup/RlqWkYQ9yutzt08fC9YIKAuuT2r/c7IAQv2gDuIcGh8h/A2D6juyp6gkPRnR6zZhJViYCidzwRBVgXXMaoR9Lbpf4fNb0IsxKfdQpMFdjT1+IDe9bmRFDD9PKF8wrV/4n65+mwTw5figT4fFgwCMIoiJi9V80tP+7ekO03A93u1gJi7hygTRDF48/IzVIVxlJGNF0zsP7ZPGPM98gmORoc+j/tzfjVoArAXcO+cL+Cb8C8YLFzp+WYXrCeLD+wbVnmXki56EYw0LJOufoPE1PoZOXCup7X+38gd4G1k/leCX3GImqhETPsvaimPL+CtbCz0oUonmgq2nVAQRrb0Fl9EbgYcQC7DeoXCfl0Cuw2O5i9G10Y+fH4P846/QkCI65Xb+SffoQlpZ+U5NI88bAVbC3tOpttlLTV4/L59UA1vQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(52116014)(366016)(7416014)(56012099006)(10067099003)(6133799003)(3023799007)(18002099003)(22082099003)(38350700014)(921020);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XMsx7hBXdImuxW82JlEUfRA6MOZvtCYPWHVKBFwlHQMfmmetyLUsG5ECcZ0v?=
+ =?us-ascii?Q?ZEp1d/tL96NACIF9WwGXFSlakZVA7kiGQp195G0Pe8EWD4ObRJuCA0GykvTc?=
+ =?us-ascii?Q?nolYcnpmlkupAuNghQczf0/we9ZLSX5fpYZgkamwlB4OOG+2uMbRyCi10qqv?=
+ =?us-ascii?Q?f3NLnh3GEtARbRkU/4C75fulh7jp3RihOij8cGmi/L11BKMikJkjrSvuQJ8L?=
+ =?us-ascii?Q?Sbr4ppkHh6gyudcG1DJeNYxDFxSVxAsxsVWJb/+Y91/zCyWCOVv7UdyD+o2Z?=
+ =?us-ascii?Q?MO82yeFYKmJwTAdywn7hjYVEF5jCxmjTJNjUHa9fcnvkiUdev7jFc5fvqD17?=
+ =?us-ascii?Q?TP7jWulgsSWSx1VMnWCcjanQgfM15j9Yg3fo3rV0KsI2X5rJQCxbmM6B+wJ0?=
+ =?us-ascii?Q?JOp/V3UNN6tVhhLQNpbWFbcEZsj8N7R4PRb8VQI5cAoCb5mSknJEUiF+6YeK?=
+ =?us-ascii?Q?NxG6YPSm7NgsC7moT6D9vJFkvMtJ/i3NUj/5UFjGoiVpM4nBSomZ+HZq05Gp?=
+ =?us-ascii?Q?4ktIJRcN0vjhgiLwZnGGZPYoih9M44gop+90a4XmwnUe8zmcIuEZV4AkEef6?=
+ =?us-ascii?Q?utbMQJvLE5F5nxUEDXJMCbjdfTqf2RhLoAd/dXraLD3KQj9oTQtlzaIc7Y8S?=
+ =?us-ascii?Q?k1gi4MhIvjqUGe7tE4ZdPaxEAIeePWNwRri6icq/vcDkPhroDJUlsshqkqba?=
+ =?us-ascii?Q?Ho+lzHKceTzITCrxYsmdbhQhe9fzHJxhr0UfvPFMKm0Qqgxum3aWKxHLuUZw?=
+ =?us-ascii?Q?PE7ylpE8f7JYZYAHIqlCUmDLT9ovI1ww6p+if02yTT2rOFHdiZIEPIfeKZiw?=
+ =?us-ascii?Q?nhKCPsVpYTnrH88v9ZTYiHRmwA8Rq9ka/ZaMicKR+MI5IusB6s6evuNUptd5?=
+ =?us-ascii?Q?KAoJCuWMl/DZNWOj+linUfXhto68/Xl6/0Wc/nXU5lAWhvZXo+BpXiC6rUJo?=
+ =?us-ascii?Q?bejWBx/6oAVWzo8cW0m9sHEVqrhrKtSQvbGb641g+M+CgJwysoJX3VOZdth1?=
+ =?us-ascii?Q?Ynlri0wecN0Pl6Xojb6Cu6JjKh2MU8rs7Q6GsED4ePW8hf4Pfs6FfzxNJjoU?=
+ =?us-ascii?Q?vOmaGjATRUCEu2MmZsPnqMPtFMPqIXWt6ExU5Nzypoy3cjPs7GcKsOCxeUp4?=
+ =?us-ascii?Q?KPMuHMyuAjLriG00qOvbaXeLSmk6IAdyxIOWCv6Y11X/7sjK6K0Sz3wnRzw5?=
+ =?us-ascii?Q?asD6BD81oRXe2uIAOdnIBV5LbkCX7cO5k8YtBHeEy9RjGVZ4OQzlf2BmsSMV?=
+ =?us-ascii?Q?Ss0WQaWtdzU1RYPXFDJvUaVmYpr0WKh5A5CIf/dVC3K/EgicipU42zH6O7Du?=
+ =?us-ascii?Q?eI6sloWdvksoeodp608JyjzlkGTe7Rh4qs70ga6MeedNqQ2CESecJgh23/Xe?=
+ =?us-ascii?Q?B1c99wvdgRXgrJn+CdxlliTVsOXtNbrdwWZAlUEG71MEeD4pb+4C9imfRDsF?=
+ =?us-ascii?Q?Gvt99+8wB4OJdrOgNc8f46Wb7VukTkiYxbQubX3YK3YCKZd2yWmwdQdvUnsC?=
+ =?us-ascii?Q?eXqkJkdGSWyeU+xo9sjB/BGOks/RjxBoU1+wmPipNE9+ZzkLDWbpqhSIvThE?=
+ =?us-ascii?Q?ncWQDxxZEtegzB8DU68DVVSclQBD3nYVA/dsYeNGFqVMd5lTc7SU35Kygf8c?=
+ =?us-ascii?Q?qo4kxgoVGzwFLLRO3UGGdBlRGhfSrWLtgIEvGh+BaAdddCmEYB4rbBr9XBaC?=
+ =?us-ascii?Q?nbwjJtQ5ejU52exSPrbvgykuzlcjQBK5S2snjGZfmatlMdBg7OHmzPohxUvk?=
+ =?us-ascii?Q?HJpdvNbrDLlrl7sze+nBw/OtxD/45F3857Nzrf/wp6DV8zzpw39G?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c0329e8-8ae9-4e4a-27b8-08def6a9c7b6
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 06:36:59.5154
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RVk1CgdmO9LckkmRKEVYC4kwUwCXB066oNYxs5mHgie+tPRnXit0sS0DC5YGO9PejQTd+rXC85uWbM42SBXzsG3ZKWxtGzho2CoEkhf+DFG8jb/QYp/0PSNL5y181Ka5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1315
 
-On 10/08/2026 05:09, Kyrie Wu (吴晗) wrote:
-> On Mon, 2026-07-20 at 12:19 +0200, Krzysztof Kozlowski wrote:
->> On 20/07/2026 08:26, Kyrie Wu (吴晗) wrote:
->>> On Mon, 2026-07-20 at 07:49 +0200, Krzysztof Kozlowski wrote:
->>>> On 20/07/2026 07:46, Krzysztof Kozlowski wrote:
->>>>> On Mon, Jul 20, 2026 at 09:20:50AM +0800, Kyrie Wu wrote:
->>>>>> Add the MT8196 compatible string to the MediaTek vcodec
->>>>>> subdev
->>>>>> decoder binding.
->>>>>>
->>>>>> Compared to previous ICs, the MT8196 supports a 10-bit
->>>>>> decoder
->>>>>> and has a decoding capability of 4K@120fps. It also supports
->>>>>> 36-bit DRAM IOVA address and Video Power Control to optimize
->>>>>> bandwidth and voltage usage.
->>>>>
->>>>> Please wrap commit message according to Linux coding style /
->>>>> submission
->>>>> process (neither too early nor over the limit):
->>>>> https://urldefense.com/v3/__https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst*L597__;Iw!!CTRNKA9wMg0ARbw!gDjbq0EZNkhLTzuJM_w5PopnDFej1mG4qnkRFgyoiU7Dvhm7tj3MeG5eZYNGA0L0G_61j-cmdIxORA$
->>>>>  
->>>>>
->>>>>>
->>>>>> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
->>>>>> Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
->>>>>> ---
->>>>>>  .../bindings/media/mediatek,vcodec-subdev-
->>>>>> decoder.yaml          
->>>>>>> 1 +
->>>>>>  1 file changed, 1 insertion(+)
->>>>>
->>>>> Acked-by: Krzysztof Kozlowski
->>>>> <krzysztof.kozlowski@oss.qualcomm.com>
->>>>
->>>> Actually no. I checked previous comments and you received
->>>> feedback
->>>> which
->>>> you basically ignored, so explain why this model has flexible
->>>> number
->>>> of
->>>> clocks
->>>>
->>>> Best regards,
->>>> Krzysztof
->>>
->>> Dear Krzysztof,
->>>
->>> As mentioned in the previous version of the communication, the
->>> information regarding clk was incorrect, and I have corrected it in
->>> this version. 
->>>
->>> Thank you for your attention and reminder.
->>
->> Read my message carefully instead of responding whatever necessary to
->> make me go away.
->>
->> NAK
->>
->> Where did you explain that device has flexible number of clocks?
->>
->> Best regards,
->> Krzysztof
-> 
-> Hi Krzysztof,
-> 
-> You are right, my previous reply was not sufficient. Sorry about that.
-> 
-> MT8196 has a fixed set of clock inputs: 9 clocks for the decoder
-> hardware
-> and 3 clocks for the VCP interface. By "flexible number of clocks",
-> I meant that clock control can be split between the kernel driver
-> and VCP firmware. This is a software implementation detail,
-> not a hardware or DT binding property. My wording was incorrect.
-> 
-> The binding should not imply that the number of clocks is flexible.
-> I have updated the commit message to clarify this.
+The StarFive JHB100 SoC hardware supports debounce time configuration
+with nanosecond granularity. The existing 'input-debounce' property
+uses microseconds, which is insufficient to accurately represent the
+hardware's finer timing steps.
 
-SW detail so not relevant to the bindings? Then my NAK stays.
+Add the property 'input-debounce-ns' to specify debounce time in
+nanoseconds as an alternative to the existing 'input-debounce' which
+uses microseconds. Make the new property unavailable when the existing
+property 'input-debounce' is selected to prevent conflicting definitions.
 
-Drop my tag and fix the patch. If you do not intend to fix the patch - I
-really could not get from above whether you agree with previous feedback
-or not - then this should not be applied.
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../devicetree/bindings/pinctrl/pincfg-node.yaml      | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml b/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+index 97dbce8a261f..17a6270dce31 100644
+--- a/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
+@@ -104,6 +104,10 @@ properties:
+     description: Takes the debounce time in usec as argument or 0 to disable
+       debouncing
+ 
++  input-debounce-ns:
++    description: Takes the debounce time in nsec as argument or 0 to disable
++      debouncing
++
+   power-source:
+     $ref: /schemas/types.yaml#/definitions/uint32
+     description: select between different power supplies
+@@ -214,6 +218,13 @@ allOf:
+         input-schmitt-enable: false
+         input-schmitt-microvolt: false
+ 
++  - if:
++      required:
++        - input-debounce
++    then:
++      properties:
++        input-debounce-ns: false
++
+   - if:
+       required:
+         - drive-strength
+-- 
+2.25.1
+
