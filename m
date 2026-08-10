@@ -1,107 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2uec-a123.jellyfish.systems (out-2uec-a123.jellyfish.systems [63.250.43.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE523C0630
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A753B8BD9
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786360567; cv=none; b=NYgcsqTx0vm0qeIn2LWxg3Q4OCcQv8fTbZaUWROnwuQnfCI/OI1CLdSjGZe6gan+oxNjtb94Zynn+nsKih74a8Q+OAu04pKeV/VAZDTnjhXbQBE/mpckUCYPWPyE/dWXhT23aCv/xNCDVOEVyVdOrOHnoqaxnR3OHvsBfMRKBNI=
+	t=1786360627; cv=none; b=p5LyvcyBMFVr5qDwBdWonr6MBzTsRV4LjHIV2gt6GfS6NE61H8iVkwIp2qYu8rVtC5CHUcG4RZ510Mn3+wPkEQ9QvU/G+N2nI2pKq/d/KnP7COZuBTxO+Rj3e5BZ0Lo7GW271hZJcHu1WakDJPYisVz1S7qOTkJYnP0FTelBOZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786360567; c=relaxed/simple;
-	bh=P/IEswyLeXqjgrL8ZRHDu6AS4WKKbd2sMTKf9/HtXA8=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lGimLF+NCLDmwknZQZLy89BJCkDuy8rYLs2WO1IGW+HjGThqmGtocuBgRmXdWCtqg6UHeHMvpsVAb/nUHKGjDDyD7RfaRYGijv0o1IgeIugyvbJCyrOo27NoeSgVIFPSz02CTAL2YXgARtWP4YTvS80tyADNXFGoWT/bogaQEp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mREg9nz3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mREg9nz3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74441F00AC4
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786360563;
-	bh=KqqXjK5wKyje470GpH3zQbrt/NfiaPoZDgrm3GDppTI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=mREg9nz3r8yXiZ3cn0P6ocvo/JVbB8mqbQvjL7/P1HymKkdAbjfs0Q+ylF11Xb8aN
-	 Khj86WXmKiCrXATFwUGqmVsdfcnm+7LpB8XelP6GNs/IE4LyZ59vEThtDEHzcZ8mJI
-	 WmyeJhgkwdDQ82+bP/t3xoBuDwnGcJ99FBXSESdI+K6aRLIrrCpdvQx0fDizqGQkfo
-	 lBgpsUv5Otf9KCniNreoiIufyajjrnxpYYJgSIh8aFW545AyspSbU3RBTOivgj/taA
-	 /vvLzLZ4F9CGXXFl41QZ2qtpVaI3/k9BOlrfsdELf/J2pnsjCH8OhaxvILIlhgHg1e
-	 FjHJnyc8IG2Kg==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b0117d49dcso1407198e87.3
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 04:16:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RpzDhuAm2pHwceYPzeCX0t7C3r6hvU3TYNFKsj/TDAIyv6L90xISrWNGmcyKLWErXyNYjYoAPZVnp1H@vger.kernel.org
-X-Gm-Message-State: AOJu0YzyUtCUaBK/xUEo6xMbeY7qWDtF7geo0kEDH3IOI9a0sxagpY8d
-	jW7RXcamfej0x00hzJKIKXvNn7JxFIRgdfNgDycAjUsfPOgtZBOLNNEVCqgFJXGi3/1dMnUQ1GW
-	+fdO8+aWvJPBY4cDIqIDwlc6XGOMJNymjlZ1U/RMANA==
-X-Received: by 2002:ac2:5b47:0:b0:5b0:1708:afa6 with SMTP id
- 2adb3069b0e04-5b3181cec8fmr107659e87.43.1786360562682; Mon, 10 Aug 2026
- 04:16:02 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 10 Aug 2026 06:16:01 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 10 Aug 2026 06:16:01 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260804-b4-sgmiieth_serdes_regulator-v2-6-c4bc688177dd@oss.qualcomm.com>
+	s=arc-20240116; t=1786360627; c=relaxed/simple;
+	bh=xEotutBdJQYLpzZm2hh3OQS6aWtWKdQIZQbIhB8QHVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=omJmTfkr+T/TZ48VXj9W0Ub7RZ4KqLNOcpSxdY+2MUyV7mHeVU9x/mMd/tcUYFRwvFcw5CToQVtg911NOFYIkPppnlt9APma8BvvGGkZEzO2BCZ0ApSuoVHcpSQOlbvjv2S8Y97bw4DXGy9MDjORCIBzUDHYd5Ss74zP8hwbaOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=63.250.43.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hJX2W3b0Hz8sWP;
+	Mon, 10 Aug 2026 11:04:35 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+Subject: [PATCH 0/3] iio: light: stk3310: per-chip match data and STK36C61 support
+Date: Mon, 10 Aug 2026 13:04:20 +0200
+Message-ID: <20260810110423.41697-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260804-b4-sgmiieth_serdes_regulator-v2-0-c4bc688177dd@oss.qualcomm.com>
- <20260804-b4-sgmiieth_serdes_regulator-v2-6-c4bc688177dd@oss.qualcomm.com>
-Date: Mon, 10 Aug 2026 06:16:01 -0500
-X-Gmail-Original-Message-ID: <CAMRc=McVMyM8vRq2JR8aCVvNKCutV9D+J4R8zizUG2kf7ra1xg@mail.gmail.com>
-X-Gm-Features: AUfX_mxh8nhhV7PpY5aNGc_B2bOST12W9YV58LCffhOyHw53XBZ3qAYQYNo6m1U
-Message-ID: <CAMRc=McVMyM8vRq2JR8aCVvNKCutV9D+J4R8zizUG2kf7ra1xg@mail.gmail.com>
-Subject: Re: [PATCH v2 6/6] arm64: dts: qcom: qcs8300-ride: fix SerDes PHY
- regulator supplies
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Wasim Nazir <wasim.nazir@oss.qualcomm.com>, 
-	Mohd Ayaan Anwar <quic_mohdayaa@quicinc.com>, Umang Chheda <umang.chheda@oss.qualcomm.com>, 
-	Yijie Yang <quic_yijiyang@quicinc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-On Mon, 3 Aug 2026 21:28:02 +0200, Mohd Ayaan Anwar
-<mohd.anwar@oss.qualcomm.com> said:
-> The SerDes PHY node was configured with 'phy-supply = <&vreg_l5a>',
-> which only covered the 1.2V rail. The 0.9V rail (vreg_l4a) was missing
-> entirely.
->
-> Replace phy-supply with the two named properties vdda-0p9-supply
-> (vreg_l4a) and vdda-1p2-supply (vreg_l5a).
->
-> Fixes: 787cb3b4c434 ("arm64: dts: qcom: qcs8300-ride: enable ethernet0")
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/qcs8300-ride.dts | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-> index 1ff39530ea3deebe454416d70a289e44c2d89e3f..76c34215dbdf07e520fe96d350f52da8c4485c97 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs8300-ride.dts
-> @@ -702,7 +702,9 @@ &remoteproc_gpdsp {
->  };
->
->  &serdes0 {
-> -	phy-supply = <&vreg_l5a>;
-> +	vdda-0p9-supply = <&vreg_l4a>;
-> +	vdda-1p2-supply = <&vreg_l5a>;
-> +
->  	status = "okay";
->  };
->
->
-> --
-> 2.34.1
->
->
+The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
+colour sensor whose register interface is compatible with the stk3310
+across the ALS and proximity data, threshold, gain and
+integration-time registers this driver uses. The part name comes from
+the Fairphone 6 manual, which lists the component as "3IN1 ALPS/RGB
+sensor/STK36C61". There is no public datasheet; the layout was probed
+on the device: chip ID 0x95, the stk3310 STATE/FLAG bit layout, data
+and threshold registers, gain steps that scale the ALS reading
+accordingly, and an RGBC data block directly after the ALS data.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Tested on a Fairphone 6 running a 7.1.2-based tree carrying these
+patches, adapted only to that base's older style for the bulk-read
+size argument and the i2c device-ID table initialisers. The stk3310.c
+delta between that base and this one (chiefly the PS-interrupt
+suspend/resume rework) does not alter behaviour on the paths this
+series touches. A board DTS node using the new compatible follows
+separately via linux-arm-msm.
+
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+
+Jorijn van der Graaf (3):
+  dt-bindings: iio: light: stk33xx: document the Sensortek STK36C61
+  iio: light: stk3310: add per-chip match data
+  iio: light: stk3310: support the Sensortek STK36C61
+
+ .../bindings/iio/light/stk33xx.yaml           |   9 +-
+ drivers/iio/light/stk3310.c                   | 151 +++++++++++++-----
+ 2 files changed, 115 insertions(+), 45 deletions(-)
+
+
+base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+-- 
+2.55.0
+
