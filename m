@@ -1,188 +1,198 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AA2435EFD;
-	Mon, 10 Aug 2026 18:30:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54A3437130
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 18:30:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786386603; cv=none; b=d1afZVWDh6MdnicL6/q6j32yNfQ3Ed+94BO2sb3Yq4SZHND8y/wRKUlgEMWUXgNqH0TRiEjeizoBxdw+T7lI21fAE9EMfSsgo3iGG1lEm/M/wdf1J9YkbMBSjKkojMQv4Wbzgxh2Kr+CU3A3hzGF673SWLcLfUoM/wAsGgmAhcU=
+	t=1786386613; cv=none; b=STLfUCVlG6PVGpnfojJ8hg70B7KqwKTna2YX445/jE1q5TQtB0qj4V8N1XBO38eGQpwQUwxc2ZqnpM7RN0Zx6zZr9QYHm0lIftT1WujMCXedczC5as08O/XJ86kIXZdLDlFEDk557/yBUcd5V9w8Z/bIVbl1yjhQDGYFVYkyFb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786386603; c=relaxed/simple;
-	bh=dbLPTmaKaVPAG0iyT1YtRrYiPbvWsHqqxYEcp/tSD6I=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XeMsgU54KB21Fe87WOK+O9cjHRClkFdZW8D8K/Qgozwh+wDMZ/ucwyTc0xgDQVcX9qt+ixJByprplEjdiRCPN9sWW8b32TRS7DAJqltsW1R7yCTOQYPSt9wPeUmu+GLohRfNok9T1gW2FjT01W5bb1Qz/6j5D9sS3TigyqnIpec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=VDCq0+KW; arc=none smtp.client-ip=212.227.15.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1786386613; c=relaxed/simple;
+	bh=4CaHWiIprzpnJxK29/NUSlS9mmzQLzQBiOk8ENpXpUg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gD8cWg3HtgpiSJ3PkZWNA7a4CDTur0WRjjRvbFx6EWd+Fvnv2h+YF4GL70AK0pTEwWAaK5rBtoWvIebICwddk5+sk/T4QLpoKSIx6VeQVGnnsLndbuddB0rjhChQLG4sZDsMbepQAWE2qlCOwL9CjonflJnU8otOUboUFF08iyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AvHKGgFP; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="VDCq0+KW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1786386580; x=1786991380;
-	i=markus.stockhausen@gmx.de;
-	bh=i39fTiuvDyCIer/APFJzGPJhvFr01+cci1KuTbnoV9M=;
-	h=X-UI-Sender-Class:From:To:Cc:References:In-Reply-To:Subject:Date:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=VDCq0+KW+I235ODCNoIK3hzin9aMcNQ2nVsdQa4gp2WQMQcS0tImqTuN7ylOlTI6
-	 bidUruHfsfhrc6Vu4vjwWWHFTwpVZM3TYPbenikZpJKJfrKuHMDMvWhsCZJ7CS+sp
-	 6r6uVHJBLibtB4rUJznEQWA2T1HKjeaEGcWViLPMUdlDJNEWXC7KGQTVhUBG4hgT6
-	 xFjhY5TN2w49qK2H6HyhFH1f0QuynV3lz85w8ouXXVoI2st+urizXWZ9FjUUDuViz
-	 uTVB6Ic+FiRlLbXDxAhjSTnpD4ivVCZYJPkKp2Ef8XFcziH3qQScALppsuS+74KOx
-	 ehpqqMiL5R4/hYDM9w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MXp9i-1wNgAC0E5E-00SOxx; Mon, 10
- Aug 2026 20:29:40 +0200
-From: "Markus Stockhausen" <markus.stockhausen@gmx.de>
-To: "'Andrew Lunn'" <andrew@lunn.ch>
-Cc: <hkallweit1@gmail.com>,
-	<linux@armlinux.org.uk>,
-	<davem@davemloft.net>,
-	<edumazet@google.com>,
-	<kuba@kernel.org>,
-	<pabeni@redhat.com>,
-	<netdev@vger.kernel.org>,
-	<chris.packham@alliedtelesis.co.nz>,
-	<daniel@makrotopia.org>,
-	<robh@kernel.org>,
-	<krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>,
-	<devicetree@vger.kernel.org>
-References: <20260807171058.522833-1-markus.stockhausen@gmx.de> <20260807171058.522833-4-markus.stockhausen@gmx.de> <c3f81245-90fd-4660-83f9-1b09f9da6279@lunn.ch>
-In-Reply-To: <c3f81245-90fd-4660-83f9-1b09f9da6279@lunn.ch>
-Subject: AW: [PATCH net-next v13 03/11] net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
-Date: Mon, 10 Aug 2026 20:29:34 +0200
-Message-ID: <07bb01dd28f6$34955290$9dbff7b0$@gmx.de>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AvHKGgFP"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-caf45fc5202so1850010a12.1
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 11:30:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1786386611; x=1786991411; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cixrKiaGYKoE51uWaNmYqYzgYbXZIR4e3E/JR6pSpcI=;
+        b=AvHKGgFPYnVwEQ7e2dfUZyQ9vxRQ1X5NJpVT2yVPzoYjxVkcO1cA0HoEDHst1LUWFo
+         nBpOXrJEKK/ExGO2ujl0uU6Obp423MeIUkEp93kG30vA86mOfpATn/OvZgZR/TD6WT2t
+         il5WfB/y1U9ZV2x0PY3ghASuwypTCNbbSNjvM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786386611; x=1786991411;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cixrKiaGYKoE51uWaNmYqYzgYbXZIR4e3E/JR6pSpcI=;
+        b=dYhnd4OPjH5Wj8ng/tIYEJ/i3xMO2W4cISyx53wuLf9s/RIA96YfsxBXgH7DP0ia4u
+         Oqw/QGtXVSXVIySbxpaj9hoaSlUYWuPeeS+dcTfM6SvogfJz68FHCGtNdfTR9WdL7WfN
+         Jxa/WIzycyg8TEYtCGBZlPUmxyWCb9vT3dAw1hfZj12RYp+QYJOPFVQM5rUPncKGWzi1
+         xiMoGe0rlgUMY6dHi+R6QAAgzerUbX7NC964cpHLJT1+8vZ60NkO4iANDGOkcPKAPJny
+         8aPbtq4DW4wIqaRqRy7y03/0yP5cY4aO2kLa8EIYQgi3jnScwqzboFIeQBSrrAzTkiF6
+         yEbQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoRHvX/pc3AhVj6b+fYzs4DKJjyM/K4IBXBeXvABqPsp7BxEVgNxYoQ4ciCCG6thBrc14Y8EMpHRyYe@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy48nS4eLX2cqohHpty8prFUgxt4G3TWYg2/vtAXKASCNq2rqDV
+	QGBdDfrLU9BxukLkIca/uhMUnTkf0Y7uKYaE2Y7u5+/h5rWP6cGr3MxGiPBBCwhWmw==
+X-Gm-Gg: AR+sD10OEZlYh95jeywpP/RzKWQUPfRB/7s4ixiA3o+65fF10a8dL1fw/jh6A5Fw0nG
+	B+kYPUT9b0b7Lqw2ZakCgWJ0DVAICyUu0BI3f3olpkEVnSh99ROJOxsUO4B2br1nUAeyl7TD06W
+	f7AmDa7hihaY4E9Lm/3LpnvPGsWdhsbcxfyi4jrQ31hNHyIi2lexd1sBqjYQ1d4Iqppn6sWxaLG
+	n6krUpKAI3bpnI7StB5xLr6pboNZkPgRkms6abyR8EDG0eEg0cNB+KFPLVQmvvdZeapMwufrTq+
+	Js9LYNGPG7CGiSY5FLOROjI/GuihYLFrQpwOF0vbbL+xaAXjOc5HYzLzbRDExKMJJBnTqi2q9QC
+	+RE6JijEzoOkz0jD48hSlHt3Q3+S48niYNsqoGQpQcRG2raTnsMrOut2pfTmFwQVNtIFsmClv3W
+	2KgvBSFqmcrdZqJi6p53y7/OcGoOqPj+jYXbm7Csz/EHS9ttOijk87ry3oPhZ2Wc4ONIQTKLqxy
+	gopFcGD4nHAgCTqwshwWyn8gr8=
+X-Received: by 2002:a05:6a21:6e92:b0:3c6:61c6:8970 with SMTP id adf61e73a8af0-3cb85df2778mr59898448637.14.1786386611035;
+        Mon, 10 Aug 2026 11:30:11 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:5c18:61df:6569:108b])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-14101b7ad29sm36583642c88.13.2026.08.10.11.30.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 10 Aug 2026 11:30:10 -0700 (PDT)
+Date: Mon, 10 Aug 2026 11:30:07 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: George Valkov <gvalkov@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>, sashiko-bot@kernel.org,
+	andrew@lunn.ch, chunfan.chen@gmail.com, francesco@dolcini.it,
+	kees@kernel.org, miriam.rachel.korenblit@intel.com,
+	wenst@chromium.org, rafael.beims@toradex.com,
+	avraham.stern@intel.com, peddolla.reddy@oss.qualcomm.com,
+	error27@gmail.com, s.kerkmann@pengutronix.de,
+	gregory.clement@bootlin.com, sebastian.hesselbarth@gmail.com,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] wifi: mwifiex: ignore ROM regulatory hint on
+ WRT3200ACM/WRT32x
+Message-ID: <anoYr9H4KojJv-aZ@google.com>
+References: <anWWr80yAcOQaVVS@nxpwireless-Inspiron-14-Plus-7440>
+ <20260807182124.41572-1-gvalkov@gmail.com>
+ <9cf8e6ee9c4c655e685708bc5660429074b18326.camel@sipsolutions.net>
+ <CADOrJmbhdWhqRj_TSKYEgb_TrbJUpkQeYTGDb_93WSDdeaJPpQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQE9q73+nhZZ9fqTTfCC0DE79JhyFgHitQ+vAXuwUIu3u6DmcA==
-Content-Language: de
-X-Provags-ID: V03:K1:pJDvCFG0Lbu6XkY6tr4cs1O2KisPV3IME40SOn18jMHFmTPrE6u
- EYMdmWpDltQUNqdKEprwxORhnPawSHDac/LR1YAMEKb1oSwwlDyxxpc3vHHt0oYfkeoPVK4
- tw01nDP1C4iAC8nMlpgHNfAD1Rb+bnze2Evi9i2gp4VPS+1793HxuPvSPXD2Lpa/hKZlF2T
- hw+Fo13xnylIMHY953+EA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Sez8ymYjRHc=;8p/qAZfRSusKS/G6i5KBAiSSkOJ
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CADOrJmbhdWhqRj_TSKYEgb_TrbJUpkQeYTGDb_93WSDdeaJPpQ@mail.gmail.com>
 
-Hi Andrew,
+On Fri, Aug 07, 2026 at 10:49:40PM +0300, George Valkov wrote:
+> Hello Johannes, and thank you for your quick reply!
+> 
+> > You're supposed to always update bindings first, no?
+> To me the logical order is to implement the feature in the driver and
+> then enable it in each board which needs it. For Linux just WRT3200ACM.
+> A separate patch for WRT32x should be sent to OpenWrt.
+> 
+> Please let me know if I should reverse the order.
 
-> Von: Andrew Lunn <andrew@lunn.ch>=20
-> Gesendet: Sonntag, 9. August 2026 23:44
-> An: Markus Stockhausen <markus.stockhausen@gmx.de>
-> Betreff: Re: [PATCH net-next v13 03/11] net: phy: add
-(*notify_phy_attach/detach)() hooks to struct mii_bus
->
-> > Worth to notice: As of now phy_detach() is not 100% LIFO symmetric
-> > to phy_attach_direct(). E.g. sysfs links are torn down before
-> > suspend while being created before resume. Without reordering of the
-> > detach function the above mentioned notifier placement is the best
-> > possible symmetric implementation. For this
-> >=20
-> > - Relocate code from phy_detach() into phy_detach_internal(). This
-> >   naming was selected to avoid confusion with "unlocked" helper that
-> >   usually start with two underscores.
->
-> Please could you make this code move a patch of its one. No changes,
-> just a move.
->
-> That makes it easier to review the actual change of calling the
-> notifier.
->
-> We might want to consider the LIFO issue, and add further patches to
-> sort this out, if it helps with what you are doing here.
+Johannes is asking about the binding documentation (.txt or .yaml), not
+the .c (driver) or .dts/.dtsi files. You haven't included
+"marvell,ignore-regulatory-hint" in any valid binding document, so it's
+not a valid property to use in this driver.
 
-Thanks for your feedback on this series. I will do as advised and
-respond to your other reviews if I have questions.
+See Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml
+for the correct binding file relevant to this driver.
 
-Markus=20
+> Hello Sashiko AI,
+> Yes, I intentionally implemented the flag as a root node.
+> This way the new device-tree property can be reused for the
+> other radios, which use mwlwifi, and also require this fix.
+> 
+> It would be inefficient and impractical to define a separate
+> device-tree property for each radio, where it is actually the
+> board that is affected, so it should be a per-board setting.
 
+I'm not sure what you're saying here. Device Tree Blobs are inherently a
+per-board object. The question here is simply where within the Device
+Tree we want to add a property.
+
+I believe that you're describing problems with the radio, and so you
+should add DT properties to the node for the radio(s) in question, not
+the root node.
+
+> Also my attempts to use per device nodes or the parent always
+> return false so they are not usable.
+
+That seems like something you need to figure out. Just because you found
+it difficult doesn't mean we should accept the wrong approach.
+
+IIUC, you're using a PCIe-based WiFi card, and that's enabled in
+arch/arm/boot/dts/marvell/armada-385-linksys.dtsi:
+
+&pcie1 {
+        /* Marvell 88W8864, 5GHz-only */
+        status = "okay";
+};
+
+&pcie2 {
+        /* Marvell 88W8864, 2GHz-only */
+        status = "okay";
+};
+
+I think those are the "port" nodes, and there currently is no node that
+actually represents the PCIe endpoint device (i.e., your wifi cards).
+You need to add those as children, like:
+
+&pcie1 {
+...
+	wifi@0 {
+		compatible = "pciXXXX,YYYY"; /* figure out the appropriate IDs here */
+		marvell,ignore-regulatory-hint;
+		...
+	};
+};
+...
+
+> I do not understand the part about dependence on CONFIG_OF.
+> of_property_read_bool() returns false when the flag is not
+> defined. This preserves the original behaviour as if it is
+> set to false, so the feature is disabled.
+> External radios which do not implement support for this flag
+> are not affected.
+
+I think if you stop using 'of_root', you'll dodge this problem. And you
+should not be looking at of_root.
+
+> v2 of this PR used of_machine_is_compatible, but there was an
+> objection that this adds platform code to the driver.
+> 
+> How can I add binding documentation and where?
+
+Documentation/devicetree/bindings/net/wireless/marvell,sd8787.yaml. See
+the other hints above too.
+
+Side question: did you consider Jeff's suggestion from v2, to try the
+'reg_alpha2' module param? It might already do what you need, and it
+only requires you configure your OpenWrt builds properly, I think.
+
+Brian
+
+> On Fri, 7 Aug 2026 at 21:39, Johannes Berg <johannes@sipsolutions.net> wrote:
+> >
+> > On Fri, 2026-08-07 at 21:21 +0300, Georgi Valkov wrote:
+> > >
+> > > +                             /* Allow platforms to ignore an incorrect
+> > > +                              * regulatory hint from ROM, so userspace
+> > > +                              * can set the correct regulatory domain.
+> > > +                              */
+> > >                               if (country_code &&
+> > > +                                 !of_property_read_bool(of_root,
+> > > +                                                        "marvell,ignore-regulatory-hint") &&
+> > >                                   regulatory_hint(wiphy, country_code))
+> >
+> > You're supposed to always update bindings first, no?
+> >
+> > johannes
