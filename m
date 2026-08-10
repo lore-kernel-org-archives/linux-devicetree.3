@@ -1,125 +1,186 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB1F443E3F
-	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 21:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786399191; cv=none; b=f0DK28nYu6pQLfuYFnCZg36qFgXAOrW+GGCTLb6UkuPAG0GHkYDtnjpf5uxYSHq0mF6K9iFJ3W+zYCkFaZIHdEeJ/7aNCyWsRjHEgudaL4ijfp50YdAwYq6eTgiiF3UO90pJTNF2SZ+ua3WsopmGKUsQHeRoOwlECF4ZogZ1sDo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786399191; c=relaxed/simple;
-	bh=WGRaFchSac3g+d7dCJ6oKbRm7IjQJlD16qXgPvpuuT8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/nQKYGf5A8m+rE+Z3p6hcwAko/gHWxIXWLuM2dk3to8SIW+Loc4/z3/jS++2E76dTWFwK72n9LorqUDlXJP+oqa70SfgpCRYfG7QNXYEJsTtB1OvkHbyVllyn4IYRpF3Wya8d6nuBG+Jum50EjVRM0/yMJKDE8wuxEb8fmEAJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QkyawYpC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=PJtPjCD8; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4991C1EE7C6;
+	Mon, 10 Aug 2026 22:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786400155; cv=fail; b=RwO9JKe3tqCCMNyl6T42XrlUJGNEaDVnz/8LzZO4ftRrtM0AjPv6BtRUUcNXO5PoJijsrQa+yDTzdQLK1mQ6/y/GRYwuRdIRrdtHR9BDNmmv7uwfoRSUiXk1eGlfcd+8VtmYkT6kuByaIcqkLQiKWNiNMhJAyuLx0ERkL+4ldnI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786400155; c=relaxed/simple;
+	bh=SbTlypHMJDXWEpq7Eedve/a2FAnJkX9sdysB4icTmYw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Y4KwbiY8a1Jq7hiZrX39a6og86hbcZTwND6IPwXFwm9ZvBeqjvufZZumAHdlXyb8wNPYHpAiwMghz/Ml2FNYrGuQ3jt5vB4qAPZZlVgIJpkFtjJWkxMGvsJDVCIk8JuEIoIPkYZAicKiAMKlO9GpPlQBg1ZO3SW8muliBe7FpBw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=gnQMiYZn; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=fxfykTAD; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QkyawYpC";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="PJtPjCD8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786399188;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HM0jDu4T7yH1UL3y9Xop+wHBl7p45KQE498sSn5/W1w=;
-	b=QkyawYpC7SWdDey1vZaWhuhpXR+jxF2NhwH9F1Il3s8kDdi8cHfbEbjRJxHtdddQOFsdYs
-	yzQDPCN23+jHb/G0hKYwxWYn1AoX34IN9vV53KaK3JrQxYKlRJM2Zt0kwP7y3FsqLOHtac
-	QbewHhvxRCZ+2xoN8Q0zpBp6t3EBCiI=
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-628-UFgubdv3MT6lOLjpHkiV2A-1; Mon, 10 Aug 2026 17:59:40 -0400
-X-MC-Unique: UFgubdv3MT6lOLjpHkiV2A-1
-X-Mimecast-MFC-AGG-ID: UFgubdv3MT6lOLjpHkiV2A_1786399180
-Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-80ee3cb097eso82055997b3.1
-        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 14:59:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786399180; x=1787003980; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HM0jDu4T7yH1UL3y9Xop+wHBl7p45KQE498sSn5/W1w=;
-        b=PJtPjCD8zXEHxfYR141w5awgbodb/o7B5Ser56S2lZTz9ZS9njekyVyJPp6/AFX6rn
-         mOJCwRmwvprLAzvVr+BLcDuOJPy5yX7cdENjEZrMZgIXxD/cCDQq9oRxPSFgxlhU6IFS
-         vHXyYqGVG/h3K9YYSi6AXlK+rIOV5Jtuxghyk7T5qGR8UHVV4wfSh3G1ccK0/FMNtPlM
-         5yx42ccpBNwLgqrKfTk6H5Hgp+JyUaQpcNfXlcyZejiC00diAk9kNZ8VsV0RNyCiBn7x
-         4YM2gRQ9EoeFYfhDdhxmXttk60HPLUws/88BteNHE1MMNp+skS7QQrcbt6JAu88ByYx+
-         tGiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786399180; x=1787003980;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:content-type:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HM0jDu4T7yH1UL3y9Xop+wHBl7p45KQE498sSn5/W1w=;
-        b=BKDhAJGI0PD+qdGPjXWcI2xt41ptd539CM973HEqDB1p4Ke7/tjt5c8V0beKqE0+l8
-         E5PaDfA+Clsb1q8W66LK4jAsk5sM7jyaVDQ02bdG3SKqCGZV0pfoDEnQpnqrBvXtp3zP
-         OQ7SxZmfgU1m19qyjVa8b2tJLje9ZIPttNE78nMNAgAg+93Q1NXXXPv7tjI9GxRRaqP2
-         kMTuQGmHzDdY7Q7rjfXVDUNz38Eh9+lSvt4sxnY8qqWOglWGRWAftFTVdqnNXINW1lM3
-         v7BabJOLqEvgsYCOyCm9aYmPe/GZ9V+oV05WvCm23qJucIBMqVpxAM0F7lKRwX5CgXd9
-         UaLA==
-X-Forwarded-Encrypted: i=1; AHgh+Rro9Z9kVZB6t6RKWeCj8LLKJdbRvjQsGhkzWjPkrFLDOKmgqkF11WNB6xp9sZp9tCbc9dbhdYUKN3bf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxjUXohuInUVWXGOLboAuBashEnECmxdWLIDZ2imdNpXOt0zWOL
-	/Tp9NHPP80zQ4QwadylS65rMQGNgMN9B8zBOfvtoW07iTlv7CAS9ta021fUm7A2ia0sUMOOLIVk
-	pKSTBj/oXe1THBnVUH4aQnpMjueFlVhoXcyeWzjCtTB3mTL8jV8HxOnu6G7kbK34=
-X-Gm-Gg: AR+sD10aaXxoEXHxy0OTd2XqQXHK1ctlr4lM9n4sJUvRBuadP+JjuIC7p+73Yq8Z3MC
-	CePvIW6IYHyXzU+ObMYsJnHcJUjnzYnJgSxoDuwXpBS/bkJg814oCNhWhU67w2xjImsZO1GKYKU
-	TB9W9u07loS9yqz2hKzkVagMSuSFlTL/4lO6VSe+QwxL9jbQPOl8i5ahHtp3JlGBWOQG8Ns0RwE
-	yuLhiYARn0Uy8aMH6i1jCYfnF4V8RVYvSW98qmom7owVz0Q6lB+yDO67jY2tPKV3SMQ4gf6o9wz
-	yKiS0iIFu/8NmtNZJg2iG35PmIQKONp8ZJjfzB3zaaFq+QdvGUifd2N8d/dOCtpUloSnC37TowD
-	h4qukUnACsUwBHjA3r6kDvTKI+KmPs+UcfNA=
-X-Received: by 2002:a05:690c:2506:b0:81e:eb11:6e5f with SMTP id 00721157ae682-820229c195cmr279357057b3.34.1786399180121;
-        Mon, 10 Aug 2026 14:59:40 -0700 (PDT)
-X-Received: by 2002:a05:690c:2506:b0:81e:eb11:6e5f with SMTP id 00721157ae682-820229c195cmr279356737b3.34.1786399179584;
-        Mon, 10 Aug 2026 14:59:39 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-823efbf208esm64134367b3.10.2026.08.10.14.59.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 14:59:38 -0700 (PDT)
-Date: Mon, 10 Aug 2026 17:59:36 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Stefan =?iso-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org, mfd@lists.linux.dev
-Subject: Re: [PATCH v10 10/12] clk: zte: Introduce a driver for zx297520v3
- LSP clocks
-Message-ID: <anpJyOYpFBe6ah0I@redhat.com>
-References: <20260810-zx29clk-v10-0-63846490712c@gmail.com>
- <20260810-zx29clk-v10-10-63846490712c@gmail.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="gnQMiYZn";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="fxfykTAD"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 67ALc22d244299;
+	Mon, 10 Aug 2026 17:15:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=EhS0MRs51450ucjry/4WIsoP8EL3uODMTsHEAaHFd
+	Z4=; b=gnQMiYZnDg4GimRTfvCxFX02U4SnRJJqmG99BStiKO8QPermqqG3r31Xz
+	Wd/P/O0M1QvdvXdQ9eRYSuYN4QJO6fCtfcxF0t96QHOzDShAx0Gv3Mmz5BZXvjNA
+	ZUPk+r04tkEDvz4KGZKwKcLr2VgegpjljcmJiMS3r0w4zsDOJBthy9HP6KbLvOzB
+	i2X2vwwPcnAq8nN/smSvh/vIJ4PBRN+SMukQ1iwxVwaqyJVEqDDCrPisiTvBBULy
+	aWnnHhJCRpVCys3Oilg4A4MGJwGhfGkXNGskoKPT1EPrHhGYDirzBhMeeXt1hd8w
+	h1phD7so2MpgIQigkz4E8tfVxDOBA==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011050.outbound.protection.outlook.com [40.93.194.50])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4fydt7cf4b-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 10 Aug 2026 17:15:46 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hH33Lzshr/rkp7NeGfoazE0NBYFeCS3CwCQZ0u+PuOdHfQV6vizPk6uVSpN65k7bvVWtJpC0Tcfttd14ze7+tGJ+cp5WYY+jymcQPaI1BqyV3M9vpdGnLaXooRv2KTqrXV91pvYCKzAGFuRX36lxGODW9WqOSSdEJBC4izum1GCrcpkPsiyRId1FHRnzX3+HnQtz7cIFa4/5yx2/RizBPG77Gy424uO3VG7qyUfLNrTQZHTEpyDBpQC2MU6xByNxlRaat1I7yytWGS/CCwGPeK0S/cMrittCWe2ZcP/IXjahCsr/CZ9A7/QXbu4u/UFGvdd3LHrnHQUJq4zi+kKucg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EhS0MRs51450ucjry/4WIsoP8EL3uODMTsHEAaHFdZ4=;
+ b=pPyIhaYjIyqPnVAJwbE/5eHZ/rR3OFqxYNPsq2hxkInviAYw1Y1hzyb7txVS4BY1Z/tuTJm5tYAT/mWahcRuj2bd+T1YcA3PzoF4VW1FegR4lTTBdNlVBUQGdOIoIz38WwmKZ1Sd7hHPcag8ZmXEyweV04fYOmmINTmJXy3ZWO2t1TsAQ5frxQiTjUBkup7YbIscV0L95yVHaZfMdtQAyeZ5S66/mRE6SZD4ww76Ymhu2bfROS3uHArpFvm6vAlh41+Rzonft4gIHTBYImB42JeBT0rlGcAt+6vBx4n/pdPc0ysKGm9M4oAaTvL90jeeoBWj8HGPr5iYD+NLW9Ohtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EhS0MRs51450ucjry/4WIsoP8EL3uODMTsHEAaHFdZ4=;
+ b=fxfykTADKDFlKgSAjaYta8uca5T4yNKIyZSSdpHMnyjWUs71tO5/9L6d6uwaL35IUxsqBQQebHXbd+lK8rQxFzEFwrsWn30qyZAop0Y7B0B5y/MeuU/3jrLOXSH6E2ARzG5GEHdLsrwvjr6bvqBcG2Th4gDgljLoPViC3zvt5qw=
+Received: from DS3P221CA0009.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:45e::14) by
+ DS0PR10MB7151.namprd10.prod.outlook.com (2603:10b6:8:dd::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.25; Mon, 10 Aug 2026 22:15:42 +0000
+Received: from DS2PEPF00003447.namprd04.prod.outlook.com
+ (2603:10b6:8:45e:cafe::93) by DS3P221CA0009.outlook.office365.com
+ (2603:10b6:8:45e::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
+ 10 Aug 2026 22:15:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 22:15:41 +0000
+Received: from DFLE207.ent.ti.com (10.64.6.65) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 10 Aug
+ 2026 17:15:35 -0500
+Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE207.ent.ti.com
+ (10.64.6.65) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 10 Aug
+ 2026 17:15:35 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE209.ent.ti.com
+ (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 10 Aug 2026 17:15:35 -0500
+Received: from [128.247.81.217] (ltpf5gwk6l.dhcp.ti.com [128.247.81.217])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 67AMFZ853973134;
+	Mon, 10 Aug 2026 17:15:35 -0500
+Message-ID: <b6f486c3-9e99-4a2d-a016-f6d45d9e33e5@ti.com>
+Date: Mon, 10 Aug 2026 17:15:35 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260810-zx29clk-v10-10-63846490712c@gmail.com>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] arm64: dts: ti: k3-j722s-evm: Switch audio codec
+ clock from audio_refclk1 to external clock
+To: Jared McArthur <j-mcarthur@ti.com>, Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>, "Tero Kristo" <kristo@kernel.org>,
+        Vignesh Raghavendra <vigneshr@ti.com>, "Nishanth Menon" <nm@ti.com>
+CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, Moteen Shah <m-shah@ti.com>
+References: <20260804210558.1455777-1-j-mcarthur@ti.com>
+Content-Language: en-US
+From: "Wang, Sen" <sen@ti.com>
+In-Reply-To: <20260804210558.1455777-1-j-mcarthur@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|DS0PR10MB7151:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3db33f2a-730f-4793-d73c-08def72cea2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|13003099007|18002099003|22082099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	34gUkU8sSaM8Zm3En0KgruYgPPe14D+EJ1Zcm5cDX3QGPSz7qJQUitPPy4gWG1jIUn5d8pyjHztXc6xXAJwmGPLRCAr2llf4y2LfkxopElSoqS3IN6wjG9ytKw6bR5bnfII6MFQcicjtAPQH1zOVELmJaPfwdJUOmlgme2NrwiKWUIHyRlm5Dq3p/ua2PXOJ91M01y8ibopimEgauFVyDtJA85iF46EdT47dGtcrl3Pk25s38IpztEJM5qXkzf8DqvGY/L8V5ztQgPKXGnilmdihFJsTzYQruQSwqo2emnIdVd0njgWv1gUmZBWizEdCY2/1VWJC7VEMAjo4w0TtPTsUZJCImf/JKKeskX5TG+CBfBoSXs2oR7UCRhkZW8B7c/h5sewwMYkreCvKbrs6vP1ROQ6NXqc/u2s4AWv1ZLclPJi7hjeaENilluQODHwJ5X+Y9nDMZ4IfhjnLJDJY+dfusBlKCQB/gil5AZ7X2q9OpQs/zCAmk34eQYoSe3WYMbFTX4oRotJdOEhGpnxu/sc51TtolD5X0F1vvd/fFgRq+grvgNLEFaCiydf+Lrx6DRHthjggGizc9f4koNxjtV+A9s7uWF2WY11N3oCsFE9Dwdxf4JPTNFf8zRJcSpyiqg1/BdmIvTkIgrkTSqTNNVZmLki+v0a2f/+7kvwWmSZ0Yj+T47BQxDydcfEr58iMH0+yPag7qXNT84RgRAjGcQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(13003099007)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pviZD6vDy0pB78TwYcxzVx/OH2PrPIiNXlzuwtCbZxZmp5VS9gNNUb78xK1Qtpaq0Sq5hQBSArYE1J5T92GV8ShgUiYZQD4Cy+P1j32qublan64kpV58l+aUnL3vnVO4RP+AXZofH7uIo5wAwY8v1qHc77zISN0n3O1CFpADWsDZmY9Ew9TOVOU9oIzraU2kqLahWCNSWcwTKT5N6Gbu5YjwKo3FXiTitVDGwlIaljIJrOv9f+GTIHrCHg2L08TPKpghwttajfMkC1a2l9FHEKBxe290RikiG9tZh5dU0+FiyqrgtxC3NpoX2YtzrLCpDWi4CviXPe2G3pjbINROEcgq83IeT9N7p66T30EmTWVKMeeUzzmkEpSmifq94sW/U+xjkiUKACFikkqPPENi5TEtfsXd7dtE7NS3uc+sARPhOa8bWuEx2IEbit80lgwZ
+X-Exchange-RoutingPolicyChecked:
+	cZk5f6Dxqesgm8N/vTeDuPIxjou34Ssg1i98vtSg+1z318G7C+CHaJkY/KaqumCvGJAsQh3Yu6RdXkWl6iLKUWOei91mzK6j9/wsrd6LBTM2RSOwIRvQ7iH5OCPIXZwjH58yUMsmG7y3m4DNfRtSfkzhyIfAA7kXszYY/RvHmMk7v5IrmTHXsPPaDellbTRh/dXhHDxo2Clf2DCy/+vEW0+UHlxk13d1c/eD/GZMTkob87sBEwRCjzQcJq76mJqfvVO6O0cSfgrqMoZ0J0/xSrNcIccDLAFMakBJ+BgQaZk5pacLrB+9V0Go0uSL2B+rEcTBfShYNwsnmUM1TWrlvA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 22:15:41.1530
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3db33f2a-730f-4793-d73c-08def72cea2a
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003447.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7151
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDE4OCBTYWx0ZWRfX1jGpf2X6KZ7d
+ BD00nuH//nLxc6YfnD0rUvXgAgvH6Upi3csDmVMwYdg1EKFFx/mWcGar5yZrmJC5HnXV1TMzEfz
+ QAGkzef+ZsS+S16f1ToC003wZGV6zqrsmEubEh/FY21fQA82VG/zIHdXL2uijT/DG7tzgFOpmtK
+ O4e/kAQAU8fsaTC9LyzS16F3HEFNxtWahivuYQIKwfytfJS2woP9Sz/FUlputLCb+wEMUiisl9r
+ baitEhWwFGYdb6qf0TbLOc8GYsmvYzWt3J5swOJtsJiadtgdvWsIAKkLYzOZ+w6UWm0hvmAMzpS
+ q5zW81ZlcITiNSHrYPbU+ecxg80Td29t5uZMGMUA1RKXw/VyJCuBS9ZQFxrtpIobhKntRdQ9DdG
+ bFkOCiFL5ND87Uh/tSlTBQkq1tUVu968aIssMskYpC1EqEPZ7JoBHO34kj/C0a9AYOry4zVNT6q
+ DGPhXZQka1fLb1/G1fw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDE4OCBTYWx0ZWRfXwH7GwugnYIAj
+ UFXV9sE7RBqwdDfkOAdsSiTb8rsOqTXCIWNwwHu/LUj5bIbLq+9d5EkJTU/PS0wgHDV6+d6aOrN
+ FnXfQEHQCZITjFmaXW4bJxG6c/gpDzE=
+X-Proofpoint-GUID: JPxkAbR3Tk3G1GAjuO7R7zCoKv-1vli7
+X-Proofpoint-ORIG-GUID: JPxkAbR3Tk3G1GAjuO7R7zCoKv-1vli7
+X-Authority-Analysis: v=2.4 cv=F85nsKhN c=1 sm=1 tr=0 ts=6a7a4d92 cx=c_pps
+ a=UNZgSj2+zgRPHH//f1mBVA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=iRONcHeMQSG4BGV_9HcA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_05,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 adultscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100188
 
-On Mon, Aug 10, 2026 at 12:28:29AM +0300, Stefan Dösinger wrote:
-> "LSP" is ZTE's term for this part of the SoC, I suspect it stands for
-> "low speed peripherals". The main UART is here, together with the flash
-> controller and more surplus proprietary timers.
+On 8/4/2026 4:05 PM, Jared McArthur wrote:
+> In revision PROC170E1 of the J722SXH01EVM [0], the audio codec's
+> (TLV320AIC3106IRGZT [1]) MCLK was provided by the AUDIO_EXT_REFCLK1
+> (96MHz). Revisions PROC170E2 and later switched the MCLK's source
+> to an external LMK6CE012288CDLFT [2] oscillator (12.288MHz). The
+> PROC170E1 revision of the board is not publicly available.
 > 
-> It also has one more I2C controller that supposedly connects to a
-> battery charger, SPI for displays and I2S for analog telephones. The
-> boards I have don't have any of these components though.
+> Fix the audio codec's clock by creating a new fixed clock node with
+> a frequency of 12.288MHz, and switch the audio codec's clock from
+> the audio_refclk1 to the new fixed clock. Remove pinmuxing and clock
+> muxing for the audio_refclk1.
 > 
-> Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+> [0] https://www.ti.com/lit/zip/SPRR495
+> [1] https://www.ti.com/lit/gpn/TLV320AIC3106
+> [2] https://www.ti.com/lit/gpn/lmk6c
+> 
+> Signed-off-by: Jared McArthur <j-mcarthur@ti.com>
+> Tested-by: Moteen Shah <m-shah@ti.com>
+Hi Jared, thanks for the patch
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
-
+Tested-by: Sen Wang <sen@ti.com>
