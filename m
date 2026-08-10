@@ -1,38 +1,37 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763E6408624;
-	Mon, 10 Aug 2026 15:21:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038023101D4;
+	Mon, 10 Aug 2026 15:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786375264; cv=none; b=NdoCqN51ILGfSFVl8nieL4MsQ3NB0ubbGfnNY2LD9Jj1FMgWAL4erJ82Hn8gOCD2C+32imm7+Mu1JDFJcERINxcumRVsu2W/4xlAaemkwxX5dwNYffXHjm9ApjL/lHMDolRzGo3Njj8oijXbSsEb7UsiHgq/c0ZQA2aGHxfJWTE=
+	t=1786375312; cv=none; b=VgZl7FPGyxDa5EpsQBskowqMepW42qXKW+Os6DmrbPujpa03GHPzrHYUMxmYN1WTVIhv8sbGG34QYxFPMN2EB/gm2AqHg0hLPH2SZsBXpEBfCUHiBTRZYiDgSxdG8PSyYvL8SXYhcUbly0baBxc4tRTHZWGNhD/LzrmE0cpY6sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786375264; c=relaxed/simple;
-	bh=V+GqNE7yeE3KTWaYB4L+6XBPhQ0Hp5GVdPnA6vcmdzQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=W/LT7JnkRCquPRquccRRjei/+19wzuqMMQ2iZGo40Jyv3ul+ALqiKDnYtnY0aueOvLXv1Yc1VwLoF8UaSHEamq8GfCGRCnQZndq1cGLLqYd15uIAWfWE/c8e+Ka6l1UQ5iMajoq0XseMAjnL9FM++aWtNAt+coP4Il0oBWDsdTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bqet2n2e; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1786375312; c=relaxed/simple;
+	bh=iYMWF/J+YvooBs3s5WRm/I45yY/IbX0QrmbEUfp4nac=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uh7xgGun9nnoj0dM4J5XLy1tDi6yCZthF3hJZ7mYILb3cyV3eJGeEY1bA5ZoMMv9rkQ90dHmLwAj10GRQQScFJGywXbydyPlSNX+hNGqRfOZYHanNCUqgKAmU4mff1+VzrIRzVhZvPEGI7A714WIBrACFkAwcp7zGF8a7QDo07c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JPKtGAjn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bqet2n2e"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B93E91A1533;
-	Mon, 10 Aug 2026 15:21:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7AC1E6033B;
-	Mon, 10 Aug 2026 15:21:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4959311C4AA3F;
-	Mon, 10 Aug 2026 17:20:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1786375255; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=WC6fCeHzO2YFdlPk15Xu0GzHqS0QytKrnHjk+4uw7Os=;
-	b=bqet2n2eP01Bmi288gkUVzylwxbpg3ZQrw9Kq0FnLM7kTlLh+c2GNi9QYK6sN8b/A2VwPs
-	x+xyJBOhN3RRqw8kJO9SlYlu8pnvdEGDWbsazcVNG1AwUqm9iqOAdrGsgsAcySocVEaOdX
-	aSktSJweJ0ag281Q5sMXmAMxWhbdrq26pVL96m+VonY1iNSIEARdhlMdvvY7yCMEViXZ4w
-	Vy474LqWOjj6OPv5it9IyLI7tWIu0qtvfmiscXVWrOVbNJxUE21AB2cFcvgeJj9L0DY1Xz
-	SA8vTV3K5Pfn0Zn3phovy+e2J76TxVbKpHwlGqqDj1bNrnFRS00tR8iO8IPbDA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JPKtGAjn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CC6AC19425;
+	Mon, 10 Aug 2026 15:21:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786375311;
+	bh=iYMWF/J+YvooBs3s5WRm/I45yY/IbX0QrmbEUfp4nac=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=JPKtGAjnot0uaddai73bDTuB+12IuI1ptW29E+Vhml1jGDbJWBGWSRtPEHrkkQu/o
+	 LXpb5TXUIWFU7zYaN4jJam112pMA3Ag+TZuJkCCjmuCKkWqdQK4ZsTvsKtylSEtdl/
+	 7xZsePz+ZTHjy2khFLy3+vEKg6XfT+G7eLPy2LtBhnGg4RE0UOCd7FqQoNuqO/exiK
+	 qmzA1hY7eBUPGapez9PDOwcIOc+NP2SPm0+y9QcCr8JL17xHS903W/bUVctdmV7zvf
+	 MfuOUef0KyZ1TvxNq8PwlpM4ncBwpGf6mcYqDiFAZ/vz0ZcfZOjHxyV0shsq6KW0zy
+	 Nuua5iD1yAWZw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 75291C5B56A;
+	Mon, 10 Aug 2026 15:21:51 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v5 0/3] Input: support for STM FTS5
+Date: Mon, 10 Aug 2026 17:21:39 +0200
+Message-Id: <20260810-stmfts5-v5-0-0c737d929976@ixit.cz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,44 +40,128 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 4/5] drm/bridge: analogix_dp: Add validation for
- samsung,lane-count property
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13MSw6CMBSF4a2Qjq1pb1/gyH0YB/QlHQiGEoIS9
+ m7BxKLD097vn1F0fXARnYoZ9W4MMXRtGuJQINPU7c3hYNNGQEASoBzH4e6HKLDmilHqtVUMULp
+ +9M6HaStdrmk3IQ5d/9zCI11fPw1G6LcxUkwwgOGi1FVtZHkOUxiO5oXWwgg7RUVWkJQi2pTMu
+ UpU9FexrDhhWbGkhK2VLI23QP4U36sqK56U5N7J9KWsFlkty/IGitIdUz4BAAA=
+X-Change-ID: 20260214-stmfts5-b47311fbd732
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260707040613.1992841-5-damon.ding@rock-chips.com>
-References: <20260707040613.1992841-1-damon.ding@rock-chips.com>
- <20260707040613.1992841-5-damon.ding@rock-chips.com>
-Date: Mon, 10 Aug 2026 17:20:31 +0200
-Message-Id: <178637523124.64950.4597468269792391025.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3611; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=iYMWF/J+YvooBs3s5WRm/I45yY/IbX0QrmbEUfp4nac=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqeeyNn0JVtxp4V6UivWU56+kfUvLGZXX0LdUJ1
+ oUZrgfKzC6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCannsjQAKCRBgAj/E00kg
+ chjjEACs+WX8zHWsSWUJn3XSYLpe9ViXMTQJS1UzHOStQU3Z0HVKy2f1Wcljt435qihhY24NC09
+ +adKMr3R953WfqiauCqs3o4QERWo6JagGXgwkcSRcpuuslDMW5BlUahygEdyO0D+leerbtVI/io
+ SCgN9jyG1Dvo39KXzNj9aec6ODAy4ZnPdsHL171/4DN5vk42cesLSVmvfLCAhogDpROp4J/w6QJ
+ c8ljH56wjIQAROPjikliyjRxXjJui4QkoREu6fbc9WORQWgaKjwoaQnUmgPUV1saYfIB7OudD3I
+ eEtjJMNko9Mzch+ofnA2UslIx9HwVIpAzVnm0MaNyOKfRudxlUpu0KO/oihC/3j5x+uCIDzCoP6
+ igtfc2jMYN3yZgOAkOxRJslp/HVHBddS1Iqot2jO2G0XfnACaf5XyBzEVzcYUFJM+RPCtx7yVth
+ irx/tYyI9sScIOTK41ZK33WfdEPab4RWS3ucw2F7pB9TdSEqPXiiGfU47PDBLyHbn3SoNO3y57X
+ 8c0ZljpconkjFWvFUG2M1PHU+2kLQf8ySvN71EdVmP7WabjUslF4wSf1LJop2JKwVfihh72norh
+ 3Cz5BGbkBOnj6Sw4apz9D3t2cG7DBynS7Sq7OATGmS0IrPPHpZDgHzwF8R9b1piZAq6fWlla5k6
+ k5eI9vs3dBHk1ug==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Tue, 07 Jul 2026 12:06:12 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
-> Add validity check for samsung,lane-count to ensure DT-provided
-> lane count values are specification-compliant.
+Used on various phones. Minimal viable driver.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Includes device-tree enabling touchscreen on Pixel 3.
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+What is missing:
+ - switching between AP and SLPI mode (to be able to wake up phone by touch)
+ - firmware loading
+ - anything above basic touch
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v5:
+- 3.3V is analog, 1.8V is digital supply. Fix that.
+- Name the error variables "err" (Dmitry)
+- Use scoped_guard() for ->running, and only set it once the scan
+  mode has actually been enabled. (Dmitry)
+- Use i2c_master_send() instead of open-coding a single-message
+  i2c_transfer(). (Dmitry)
+- Drivers may report coordinates outside the declared min/max, so
+  remove the clamping. (Dmitry)
+- BTN_TOUCH and INPUT_PROP_DIRECT are already set up by
+  input_mt_init_slots(..., INPUT_MT_DIRECT). (Dmitry)
+- Let the input core track contacts: drop the touch_id/stylus_id
+  bitmaps and the hand-rolled BTN_TOUCH reporting, and sync the frame
+  once per interrupt with input_mt_sync_frame() instead of calling
+  input_sync() per contact event. The controller pushes contacts one
+  by one into the event FIFO and only resends the ones that changed,
+  so INPUT_MT_DROP_UNUSED is wrong here and is dropped as well. (Dmitry)
+- Restore the FTS4 interrupts accidentally dropped by introduction of
+  FTS5.
+- mode-switch-gpios isn't required with stmfts5. Some designs, such as
+  Xiaomi Mi 8, has no such GPIO connected and is limited to AP mode.
+- Nit: updated example to use interrupts-extended.
+- Nit: (maximum x/y coordinate reported + 1), corrected example.
+- Link to v4: https://lore.kernel.org/r/20260409-stmfts5-v4-0-64fe62027db5@ixit.cz
+
+Changes in v4:
+- Wrap everything below enabling the supplies into stmfts_configure()
+  to avoid bunch of gotos to power off on error (Dmitry T.)
+- Finished chip specific ops and removed is_fts5. (Dmitry T.)
+- Link to v3: https://lore.kernel.org/r/20260403-stmfts5-v3-0-5da768cfd201@ixit.cz
+
+Changes in v3:
+- s/touchscreen_pins/touchscreen_irq_n. (Konrad)
+- Use interrupts-extended. (Konrad)
+- Fixed rebase conflict against 8665ceb926ec ("Input: stmfts - use guard notation when acquiring mutex")
+- Rename switch-gpios to mode-switch-gpios.
+- Do not define properties in if:then: branches. (Krzysztof)
+- Link to v2: https://lore.kernel.org/r/20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz
+
+Changes in v2:
+- Fix typo in the binding s/switch-gpio/switch-gpios/.
+- Deduplacate allOf. (Rob yamllint)
+- Add missing S-off-by. (Dmitry B.)
+- Dropped irq-gpios as it's not needed. (Konrad)
+- Correct x and y touchscreen area size. (Konrad)
+- Correct reset introduction commit description. (Krzysztof)
+- Partially implemented chip specific ops. (Dmitry T.)
+- Separeted license naming cleanup into separate commit (Dmitry T.)
+- Link to v1: https://lore.kernel.org/r/20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz
+
+---
+David Heidelberg (2):
+      dt-bindings: input: touchscreen: st,stmfts: Introduce STM FTS5
+      Input: stmfts - support FTS5
+
+Petr Hodina (1):
+      arm64: dts: qcom: sdm845-google: Add STM FTS touchscreen support
+
+ .../bindings/input/touchscreen/st,stmfts.yaml      |  29 +-
+ .../arm64/boot/dts/qcom/sdm845-google-blueline.dts |  19 +-
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi |   2 +-
+ drivers/input/touchscreen/stmfts.c                 | 430 +++++++++++++++++++--
+ 4 files changed, 436 insertions(+), 44 deletions(-)
+---
+base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
+change-id: 20260214-stmfts5-b47311fbd732
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
