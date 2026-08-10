@@ -1,65 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D94353A60;
-	Mon, 10 Aug 2026 07:32:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B6D37204E
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:36:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786347165; cv=none; b=mMcwC0NOUmQqJEOdY+2OksRjxmP5m5RS0yqBl6Y9hDCESGwutS1aMVBHutLkYVvh+oICVdkeGxL1/+GFHdKvOSgYoEH5Cq5JpPPW8mOn/+6hwPju5M0EZCGA46pgzAdRR0AxqH6s1+GAuGN7m5GKCIo53l4muzDahX3Paxp3oNY=
+	t=1786347361; cv=none; b=WnBoXMLY9xrMWdqnjaFW9NJ2lUc1GfX+9rVybynRvPCU3rK0wPnyQeu8XOEv8dKnFmdKTD+NTFnI/4v9LbQW4RXHm0kjx/2zmshHm+AbTg1bM6yWU8nEmjBKvArjBoQlkm3CyA7v1LBtqD78P+ulznKOwfqb1+68C7bvzMA7SW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786347165; c=relaxed/simple;
-	bh=3TGFlPgAJB1XJ2S22zKpSve6oasatRD0oXn0iV6g3Io=;
+	s=arc-20240116; t=1786347361; c=relaxed/simple;
+	bh=/SXCCv8ETCF4P7OFRxa5o5VZwr4nXiUWimzoLomt9Es=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IkyLavtcCIAyP3YPBsZW9M2XyF7eUF3GmYcZgjJf2fVmSU1tYXu34gHbrGCY24e5xVKKO33/J4nkFUHbVGEggs+Fs4qW1AH0HxEi0BdBFbvFoafRT+ms2A1udXzc1PCur1leJ80rblzNuT9/PC1fGQhhHrEO24JwjFyVqUjWhis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KFbrS3hG; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NhpTHfOm4+bDjZKJm1zEFh4HvuBALjjDKku95vHmBkC7An/FjMY6TzFYXNS/odFkMaPiZQjoqAhq9tq+8f+ekekadXKU4Y0eOjHHwIwZaiFW+f/n9eMGdxfBkjGpFc/un62X70PD0/Bpd307J9HsYs4eLmkOyeiqy+csHtx1cKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WisU5sEm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VnCJL6ag; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KFbrS3hG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786347164; x=1817883164;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3TGFlPgAJB1XJ2S22zKpSve6oasatRD0oXn0iV6g3Io=;
-  b=KFbrS3hGZEb7J0fhW/lzpE8yaWfdWiFDob4u1bIzAByMgtvx07jHFsTl
-   Zj+iwJvj7t3lCgZOtwU6UsNKqOrWrSZO1oDN4mwJxmKxOz0XlNAq+3uSa
-   knk3VNxieSJHcgPLxrnrOTm1D62QMOCnyx7zrW0AsNbvLJOlu1tO9Kogi
-   YC8TTYAQ8x/w0PbI2/5M+f16gHzCCNmCrAKfFRG6Oks/6f3XloBiAVM1Y
-   Ur3m5Z/Lg7TOH4auLn59EIoD2zS3zQUz/WFqMAewwAvXF/Q8Oc1Y2B2Ta
-   3H35ylTm00rvC5OwsSdNuurMU+OqJFVsMD1zle2lzRsfK7yyGMzLD4Znu
-   A==;
-X-CSE-ConnectionGUID: LonsxN+ySmSdZNZHJogV7Q==
-X-CSE-MsgGUID: 4GtsimJJQ2arSJHVst/6aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="90738858"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; 
-   d="scan'208";a="90738858"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 00:32:08 -0700
-X-CSE-ConnectionGUID: qBB2uY2ORJCTa/sU/SP/CQ==
-X-CSE-MsgGUID: 3y0qq3kGR1OUDo6Spn0cwg==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.99])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 00:32:03 -0700
-Date: Mon, 10 Aug 2026 10:32:01 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>,
-	Prasad Bolisetty <pbolisetty@axiado.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: adc: add Axiado SARADC driver
-Message-ID: <anl-cYX-wUQr_Pvb@ashevche-desk.local>
-References: <20260716-axiado-ax3000-ax3005-saradc-v4-0-810527a9d27f@axiado.com>
- <20260716-axiado-ax3000-ax3005-saradc-v4-2-810527a9d27f@axiado.com>
- <alnpMFK6_ZkdWlLi@ashevche-desk.local>
- <de947dc3-6d02-43de-a9e5-7f1e950231b9@axiado.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WisU5sEm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VnCJL6ag"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67A5pN3m1014386
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:35:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=+obSGFNX6eqQuHU6KiwLi2BJ
+	tep59/nfGys145Wr4Ik=; b=WisU5sEmXnJbrTl03jWDV24G/jszu51jQ3TKdbO0
+	piBaY3clLBSblOtpOoI17X/EBxBBby7GOgE2I/WiwHQfxdfavjx+eG69xidcyyuM
+	guh7NHe4YNVueqaXo+9Rh1lF9nk+KUabemryaWLCUQpSnkY7SafqhD7jDpxUhzlB
+	mGC6O9qH6SvpDyHIZg6lxYvL4AQ3s4tMUeAyF3gb1514C5BlQ18xtqNuBDG5EmQT
+	EpGvBUSCot/WkRM8xXGSbjasN0+GTye7t3nxBqmnHc38n5IVqNNtEuVO0i6ddZja
+	y316GZk7NJ1y4YN8IcfXH0jspBmI6YzuT/Lo+FvF0K73GQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy8v4gak3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 07:35:59 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84e3d575d6eso3339091b3a.3
+        for <devicetree@vger.kernel.org>; Mon, 10 Aug 2026 00:35:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786347358; x=1786952158; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+obSGFNX6eqQuHU6KiwLi2BJtep59/nfGys145Wr4Ik=;
+        b=VnCJL6agPlEaAFgblqfVG1zvv7j7OlZrFoCgBboYhB4gWKfB6HgIjNEgPPTvVThj5e
+         MYcKpzmAkxhBTm09RwpC2wT/IBKOrau/qnyj4EllfxvTLrEzQ9E+g+07D6EmCXvEVBtc
+         oTYlje/pDffpbxs7zhCUxh8LwiI9NBQeKlbrZOXz7L2OGSUBJhhGtCxR9zRB5lj8khnM
+         RErXRF8f/lHTYL0+IDN9KPdyHBqdafrmQ9pVSRN1Zk49GwekFewiERzcU4Id2pWHavlP
+         j82AzFiqJIeNB5zTiTEO5bcw1vt40dGHwV3wv19TCtYjoohzlgLMBEf6gA665WRCl8wB
+         dDUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786347358; x=1786952158;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+obSGFNX6eqQuHU6KiwLi2BJtep59/nfGys145Wr4Ik=;
+        b=cXe5iX2Puc6r59kLQssRa5M344Yz+anQf0CQ/qEJkl9KGCnpBJEafuHP0Nvx4zg5TK
+         NVr9spq2NyIt7oVvIw4A0MAvHcfEI1GJDh/1aVFFzWUydXobr63GMubduvzFuQv9MmOr
+         Vx62njxqNrwFd3Akd9vxDup1BQKKjisg+75xXoMDyUrD93mZ88JqBjfI/M7PcgXoz6z/
+         1XGGqWOuzAb8bKhGDQKFmzoNzUwhZxLZXbV2xLTabcc+nkw14O3zDa8xrfqWJC/hUBG/
+         5GGh0a70K1gzLyimQYm71CZ9DKQENzelVKrmO2p6CYDdloE9O3B0mJ/sQGMVbpUnYLLm
+         TBhQ==
+X-Forwarded-Encrypted: i=1; AHgh+Ro/GErU8tGiL6J+TWWApK6PmD1Fe1z5QcX7n5oz6dt3U7cwxMABkQqSoVjoxEosoN1oQU1OevCfVwxe@vger.kernel.org
+X-Gm-Message-State: AOJu0YwG6ubUVKHydwZL3Q709xkBErTV7iAGGcOwb9Tj8KcRw4SptOFg
+	/Po2pr6B7iUHsv55uigX238HcMawq79lcc2DAPwBIHc/BYw7hnkxwwtUF3jPrsx9t5/VUqWJTLU
+	S7GVCqWdQHE/BHt00E/jooE5R3MjJEpRabZQf2Yu/aVpLP1ZZMOgPwFaJsHBNqMXM
+X-Gm-Gg: AR+sD13M9KddLGdSnI64YSmvtllfNZlSLD/uWahtlj+kfZbZSejciBr3TK5mEOSuUH9
+	HNHtb+npwgSr4ryHeZDZW8vHskW8VaPIImep0v5ooUs9SXd21DqUg9hUBMrlpQIRKh0LBXD2WGU
+	j1gI31CtRStLTSCgNTlWjBffAntnP1MWHlW0NIZuV2c+HlJ8nIpS6Sk+UUHg7TcuklBmJXBU7eS
+	Y2EFymumPEE0q/s3QUB2bGmXkmjFa25VnI7fQbkNCHCP0zMY7zEVPjsqKKKc5NGdQjexOoTj3om
+	f4M6vIEUHHJ4g48ugwG11f3YkoR6SjsD60WRmgLMaOVmYkyU2Evku4NmPorI0dmh6+zOutp7cdC
+	WIPw+nuW8kuCXPgGVi4FDz8hQFnOfkR8s/gqIUgjCv/M=
+X-Received: by 2002:a05:6a00:4c96:b0:848:4424:2b8e with SMTP id d2e1a72fcca58-84f5df36a39mr26856781b3a.3.1786347358230;
+        Mon, 10 Aug 2026 00:35:58 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4c96:b0:848:4424:2b8e with SMTP id d2e1a72fcca58-84f5df36a39mr26856738b3a.3.1786347357831;
+        Mon, 10 Aug 2026 00:35:57 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f5a51f429sm3376724b3a.34.2026.08.10.00.35.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 00:35:57 -0700 (PDT)
+Date: Mon, 10 Aug 2026 15:35:50 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Yadu M G <yadu.mg@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v9 3/6] arm64: dts: qcom: Add device tree for Nord
+ Embedded variant
+Message-ID: <anl_Vr5a62y5TMZv@QCOM-aGQu4IUr3Y>
+References: <20260806081554.448531-1-shengchao.guo@oss.qualcomm.com>
+ <20260806081554.448531-4-shengchao.guo@oss.qualcomm.com>
+ <85e9f275-a16e-4dea-b158-3d6005a7366c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,30 +106,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <de947dc3-6d02-43de-a9e5-7f1e950231b9@axiado.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <85e9f275-a16e-4dea-b158-3d6005a7366c@oss.qualcomm.com>
+X-Proofpoint-GUID: YwfBCvSMzm5t1GpB3gBkhjmRc13jtyDc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDA2MyBTYWx0ZWRfXy/CH8+eFsP+w
+ 4BwNAyPzxx1+eRVvVxSeO5AGSMr1wpYR1MvidP5Y7Qf04rMozNSME05v/qsG5PlHCbK1fCU5D/5
+ PbkUBRokwFOSDaFkumbfN+tNOsd1wyh7xvrQiPqDeR457enJZcuX3l5TohfTpjz9Q6WiITYuhv+
+ 1gj2EZNxBdFY3GRz66OTc+0ikPKG3kKIZz7yyGNWJiT9kRG/nQX3dypHjT/28Zd4alAyspS3CNl
+ kwZ5rrUeB849JCMfOVav2B98YH8fYm82SHkPLMJGQF8q/bHx2mizNnpFY0Cv+plVRxLfGcAnwH+
+ exVsOg7l7W+d2bwArtZm9UxjYOQQtaFdYOTu9qG2AATKJzG5gJ2iGkKWtCj/ES9LVO78Hw4n+aP
+ MXthKNqgddgBZO0/h7KIAvPhr1bNaS5wsvXCu4u10ZDFTqQvsvci9/z44qiBVptMa1J6i2t7wc3
+ l+H+Rrcj52ugVGp+X0w==
+X-Proofpoint-ORIG-GUID: YwfBCvSMzm5t1GpB3gBkhjmRc13jtyDc
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDA2MyBTYWx0ZWRfX1SKNIreiLxoG
+ qQXp+jF04O2uTG/Ayfvbr46N/9IgqARVRC+5xt725OZN/lf3lIF8J/xBtUPqn5HYSJHLNdHRSey
+ Mqr87BcMdvEo2yLm6TeMSvRem3aEbpI=
+X-Authority-Analysis: v=2.4 cv=W8AIkxWk c=1 sm=1 tr=0 ts=6a797f5f cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Sqg8vRiKHwi1C2vNMTsA:9 a=CjuIK1q_8ugA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_01,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
+ suspectscore=0 priorityscore=1501 adultscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100063
 
-On Tue, Jul 28, 2026 at 08:58:10AM +0200, Petar Stepanovic wrote:
-> On 7/17/2026 10:34 AM, Andy Shevchenko wrote:
-
-...
-
-> >> +static const struct regmap_config axiado_saradc_regmap_config = {
-> >> +     .reg_bits = 32,
-> >> +     .val_bits = 32,
-> >> +     .reg_stride = 4,
-> >> +     .max_register = AX_SARADC_DOUT_REG,
-> > No cache?
+On Mon, Aug 10, 2026 at 10:43:44AM +0530, Kuldeep Singh wrote:
+> > +	ice: crypto@1d48000 {
+> > +		compatible = "qcom,nord-inline-crypto-engine",
+> > +			     "qcom,inline-crypto-engine";
+> > +		reg = <0x0 0x01d48000 0x0 0x10000>;
 > 
-> No cache is intentional. The registers represent transient control, status,
-> and conversion data, so accesses should always go directly to the hardware.
-> Since REGCACHE_NONE is the default, it is not specified explicitly.
+> The size as per hardware guide is 0x18000.
 
-Perhaps add a short comment here to summarise the above?
+Indeed! Thanks for spotting it, Kuldeep! I will fix it with v10.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Shawn
 
-
+> I've fixed kodiak etc. target reg size recently.
+> 
+> https://lore.kernel.org/linux-arm-msm/20260402-ice_dt_reg_fix-v1-0-74e4c2129238@oss.qualcomm.com/
